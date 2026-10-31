@@ -49009,7 +49009,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x005AEA3E,238,code,,displaced,-,N=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessenger.cpp W=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerOnline.cpp,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessenger.cpp
 0x005AEB2C,167,code,Code/GameEngine/Source/Common/AptMessengerOnline.cpp,approved,C,C=0x005AE7C6..0x005AED3C provisional,Code/GameEngine/Source/Common/Rva005AEB2CVectorFill.cpp
 0x005AEBD3,361,code,,displaced,-,N=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessenger.cpp,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerFriendMenu.cpp
-0x005AED3C,474,code,Code/GameEngine/Source/Common/AptMessengerOnline.cpp,approved,U,N=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerOnline.cpp W=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerOnline.cpp provisional,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerOnline.cpp
+0x005AED3C,474,code,Code/GameEngine/Source/Common/AptMessengerOnline.cpp,approved,U,N=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerOnline.cpp W=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerOnline.cpp provisional,Code/GameEngine/Source/Common/AptMessengerOnline.cpp
 0x005AEF16,28,code,,displaced,-,N=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessenger.cpp,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerCallbacks.cpp
 0x005AEF32,57,code,,displaced,-,N=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessenger.cpp,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerCallbacks.cpp
 0x005AEF6B,428,code,Code/GameEngine/Source/Common/AptMessengerOnline.cpp,approved,N,N=Code/GameEngine/Source/Common/AptMessengerOnline.cpp W=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerOnline.cpp provisional,Code/GameEngine/Source/Common/AptMessengerOnline.cpp
@@ -87764,9 +87764,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0079EC92,8,code,Code/GameEngine/Source/Common/AptMessengerOnline.cpp,proposed,P,P=0x005AEBD3@FuncInfo0x009555E0,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerFriendMenu.cpp
 0x0079EC9A,8,code,Code/GameEngine/Source/Common/AptMessengerOnline.cpp,proposed,P,P=0x005AEBD3@FuncInfo0x009555E0,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerFriendMenu.cpp
 0x0079ECA2,10,code,Code/GameEngine/Source/Common/AptMessengerOnline.cpp,proposed,P,P=0x005AEBD3@FuncInfo0x009555E0,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerFriendMenu.cpp
-0x0079ECAC,8,code,Code/GameEngine/Source/Common/AptMessengerOnline.cpp,approved,P,P=0x005AED3C@FuncInfo0x0095560C provisional,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerOnline.cpp
-0x0079ECB4,8,code,Code/GameEngine/Source/Common/AptMessengerOnline.cpp,approved,P,P=0x005AED3C@FuncInfo0x0095560C provisional,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerOnline.cpp
-0x0079ECBC,10,code,Code/GameEngine/Source/Common/AptMessengerOnline.cpp,approved,P,P=0x005AED3C@FuncInfo0x0095560C provisional,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerOnline.cpp
+0x0079ECAC,8,code,Code/GameEngine/Source/Common/AptMessengerOnline.cpp,approved,P,P=0x005AED3C@FuncInfo0x0095560C provisional,Code/GameEngine/Source/Common/AptMessengerOnline.cpp
+0x0079ECB4,8,code,Code/GameEngine/Source/Common/AptMessengerOnline.cpp,approved,P,P=0x005AED3C@FuncInfo0x0095560C provisional,Code/GameEngine/Source/Common/AptMessengerOnline.cpp
+0x0079ECBC,10,code,Code/GameEngine/Source/Common/AptMessengerOnline.cpp,approved,P,P=0x005AED3C@FuncInfo0x0095560C provisional,Code/GameEngine/Source/Common/AptMessengerOnline.cpp
 0x0079ECC6,8,code,Code/GameEngine/Source/Common/AptMessengerOnline.cpp,approved,P,P=0x005AEF6B@FuncInfo0x00955660 provisional,Code/GameEngine/Source/Common/AptMessengerOnline.cpp
 0x0079ECCE,8,code,Code/GameEngine/Source/Common/AptMessengerOnline.cpp,approved,P,P=0x005AEF6B@FuncInfo0x00955660 provisional,Code/GameEngine/Source/Common/AptMessengerOnline.cpp
 0x0079ECD6,8,code,Code/GameEngine/Source/Common/AptMessengerOnline.cpp,approved,P,P=0x005AEF6B@FuncInfo0x00955660 provisional,Code/GameEngine/Source/Common/AptMessengerOnline.cpp

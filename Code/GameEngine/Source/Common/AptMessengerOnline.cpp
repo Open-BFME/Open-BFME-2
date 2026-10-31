@@ -214,6 +214,62 @@ struct Rva005AE6F8Slot;
 
 void *__cdecl rva005AE6F8(Rva005AE6F8Slot *a, Rva005AE6F8Slot *b, int c, void *z);
 
+void Rva00030830FreeAllocation(void *);
+
+struct BfmeE8 {void *p;unsigned char flag;char pad[3];};
+
+namespace _STL {
+template<> __declspec(dllimport) __forceinline void allocator<int>::deallocate(int *p,size_t) const {if(p)::Rva00030830FreeAllocation(p);}
+template<> __declspec(dllimport) __forceinline void _STLP_alloc_proxy<int *, int, allocator<int> >::deallocate(int *p, size_t n) {static_cast<const allocator<int> &>(*this).deallocate(p, n);}
+}
+
+class PlayerInfo {public: bool isIgnored();};
+
+class GameSpyInfoInterface {public:
+ virtual void _M_slot_00();
+ virtual void _M_slot_04();
+ virtual void _M_slot_08();
+ virtual void _M_slot_0c();
+ virtual void _M_slot_10();
+ virtual void _M_slot_14();
+ virtual void _M_slot_18();
+ virtual void _M_slot_1c();
+ virtual void _M_slot_20();
+ virtual void _M_slot_24();
+ virtual void _M_slot_28();
+ virtual void _M_slot_2c();
+ virtual void _M_slot_30();
+ virtual void _M_slot_34();
+ virtual void _M_slot_38();
+ virtual void _M_slot_3c();
+ virtual void _M_slot_40();
+ virtual void _M_slot_44();
+ virtual void _M_slot_48();
+ virtual void _M_slot_4c();
+ virtual void _M_slot_50();
+ virtual void _M_slot_54();
+ virtual void _M_slot_58();
+ virtual PlayerInfo *rva00382D0A(int profile);
+ virtual void _M_slot_60();
+ virtual void _M_slot_64();
+ virtual void _M_slot_68();
+ virtual void _M_slot_6c();
+ virtual void _M_slot_70();
+ virtual void _M_slot_74();
+ virtual void _M_slot_78();
+ virtual int getLocalProfileID();
+
+};
+
+extern GameSpyInfoInterface *TheGameSpyInfo;
+
+class Rva005AEB2C
+{
+public:
+    Rva005AEB2C();
+    _STL::vector<BfmeE8> m_vec;
+};
+
 struct Rva005AE7A5Class
 {
 	int m_0;
@@ -222,6 +278,10 @@ struct Rva005AE7A5Class
 	int rva005AE7A5(int a1);
 };
 
+extern int g_Va00E046BC;
+
+// ---- from Code/GameEngine/Source/Common/AptMessengerOnline.cpp
+
 // ---- from Code/GameEngine/Source/Common/AptMessengerOnline.cpp
 
 AptMessengerOnline::~AptMessengerOnline()
@@ -229,10 +289,6 @@ AptMessengerOnline::~AptMessengerOnline()
 	if (g_00E0644C == this)
 		g_00E0644C = 0;
 }
-
-// tu-skeleton: 0x005AE68F 96B ?CreateChatWindow@AptMessengerOnline@@UAEPAXH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/AptMessengerCreateChatWindows.cpp (not merged yet)
-
-// tu-skeleton: 0x005AE6EF 9B ?get@Rva005AE6EFSarAvgField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8SarAvgDwordGetters.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva005AE6F8Find.cpp
 
@@ -322,8 +378,6 @@ AptMessengerOnline::AptMessengerOnline(void *context)
 	}
 }
 
-// tu-skeleton: 0x005AE76E 28B ??_GAptMessengerOnline@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB14.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva005AE78AChain.cpp
 
  // rowed 0x005AE6F8
@@ -347,11 +401,90 @@ int Rva005AE7A5Class::rva005AE7A5(int a1)
 	return d ? r : 0;
 }
 
+// tu-skeleton: 0x005AE68F 96B ?CreateChatWindow@AptMessengerOnline@@UAEPAXH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/AptMessengerCreateChatWindows.cpp (not merged yet)
+
+// tu-skeleton: 0x005AE6EF 9B ?get@Rva005AE6EFSarAvgField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8SarAvgDwordGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x005AE76E 28B ??_GAptMessengerOnline@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB14.cpp (not merged yet)
+
 // tu-skeleton: 0x005AE7C6 192B ?OnBttnInvite@AptMessengerOnline@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessenger.cpp (not merged yet)
 
 // tu-skeleton: 0x005AEB2C 167B ??0Rva005AEB2C@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva005AEB2CVectorFill.cpp (not merged yet)
 
-// tu-skeleton: 0x005AED3C 474B ?UpdatePlayerTabButtons@AptMessengerOnline@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerOnline.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerOnline.cpp
+
+// ?UpdatePlayerTabButtons@AptMessengerOnline@@QAEXXZ
+// Retail 0x005AED3C..0x005AEF16, 474 bytes, thiscall RET0.
+// Identity: WB 0x01515B40 names UpdatePlayerTabButtons in AptMessengerOnline.cpp;
+// four identical APT labels and the selection/buddy/profile call graph agree.
+// Target evidence: the menu is a vector of eight-byte label/enabled entries at
+// +0x28C; the pending-friend flag is +0x2A0. Existing GetSelectedPlayers,
+// MyBuddyList_ snapshot and profile-query providers establish the local ABI.
+// Opaque provider names and unused interface slots remain address-derived.
+// The WB early returns preserve both vector cleanup paths. String assignment
+// and vector indexing produce the retail stack iterator and retained zero.
+// Recovered from the October 8 bank using retail and WorldBuilder evidence.
+
+void AptMessengerOnline::UpdatePlayerTabButtons()
+{
+    if (!TheGameSpyInfo)
+        return;
+    m_28C[0].text = "APT:AddFriend";
+    m_28C[1].text = "APT:Ignore";
+    m_28C[0].enabled = false;
+    m_28C[1].enabled = false;
+    m_2A0 = false;
+    _STL::vector<int> selected;
+    GetSelectedPlayers(g_Va00E046BC, (int)&selected, 0);
+    if (selected.size() != 1)
+        return;
+    int ignored, notIgnored, notBuddy, pendingBuddy;
+    int *it;
+    ignored = 0;
+    notIgnored = 0;
+    notBuddy = 0;
+    pendingBuddy = 0;
+    int local = TheGameSpyInfo->getLocalProfileID();
+    Rva005AEB2C buddies;
+    for (it = selected.begin(); it != selected.end(); ++it)
+    {
+        int profile = *it;
+        if (profile == local)
+            return;
+        BfmeE8 *buddy = (BfmeE8 *)((Rva005AE7A5Class *)&buddies)->rva005AE7A5(profile);
+        if (buddy)
+        {
+            if (!buddy->flag)
+                return;
+            ++pendingBuddy;
+        }
+        else
+            ++notBuddy;
+        PlayerInfo *player = TheGameSpyInfo->rva00382D0A(profile);
+        if (player)
+        {
+            if (player->isIgnored())
+                ++ignored;
+            else
+                ++notIgnored;
+        }
+    }
+    if (notBuddy)
+        m_28C[0].enabled = (pendingBuddy == 0);
+    else if (pendingBuddy)
+    {
+        m_28C[0].text = "APT:AcceptFriend";
+        m_28C[0].enabled = true;
+        m_2A0 = true;
+    }
+    if (notIgnored)
+        m_28C[1].enabled = (ignored == 0);
+    else if (ignored)
+    {
+        m_28C[1].enabled = true;
+        m_28C[1].text = "APT:RemoveIgnore";
+    }
+}
 
 // tu-skeleton: 0x005AF12F 2240B ?ProcessGameSpyResponse@AptMessengerOnline@@SA_NPAX@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerOnlineResponse.cpp (not merged yet)
 
@@ -370,12 +503,6 @@ int Rva005AE7A5Class::rva005AE7A5(int a1)
 // tu-skeleton: 0x0079EC80 8B Unwind@00b9ec80 -- matched in Code/GameEngine/Source/Common/Rva005AEB2CVectorFill.cpp (not merged yet)
 
 // tu-skeleton: 0x0079EC88 10B __ehhandler$??0Rva005AEB2C@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva005AEB2CVectorFill.cpp (not merged yet)
-
-// tu-skeleton: 0x0079ECAC 8B Unwind@00b9ecac -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerOnline.cpp (not merged yet)
-
-// tu-skeleton: 0x0079ECB4 8B $L5925 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerOnline.cpp (not merged yet)
-
-// tu-skeleton: 0x0079ECBC 10B __ehhandler$?UpdatePlayerTabButtons@AptMessengerOnline@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerOnline.cpp (not merged yet)
 
 // tu-skeleton: 0x0079ED08 11B Unwind@00b9ed08 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerOnlineResponse.cpp (not merged yet)
 
