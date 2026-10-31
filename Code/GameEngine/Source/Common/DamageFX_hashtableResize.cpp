@@ -40,6 +40,8 @@ namespace _STL { template <> void __advance<unsigned int const *,int>(unsigned i
 // Suppress this TU's non-retail copy of ?allocate@?$__malloc_alloc@$0A@@_STL@@SAPAXI@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL { template <> void *__malloc_alloc<0>::allocate(size_t); }
+namespace _STL { template <> __declspec(dllimport) __forceinline void **allocator<void *>::allocate(size_t __n, const void *)
+{ return __n != 0 ? (void **)__sgi_alloc::allocate(__n * sizeof(void *)) : 0; } }
 
 enum NameKeyType
 {
