@@ -1630,10 +1630,6 @@ class Rva005BA621 : public Rva005BA440
 public:
 	void rva005BA621();
 };
-void Rva005BA621::rva005BA621()
-{
-	rva005BA440();
-}
 
 class Rva005F963A
 {
