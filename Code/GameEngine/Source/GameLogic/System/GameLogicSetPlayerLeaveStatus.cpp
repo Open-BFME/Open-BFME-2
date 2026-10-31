@@ -33,7 +33,7 @@ public:
 	void rva0023D201(int slotIndex, int status);
 private:
 	unsigned char m_unknown00[0x40];
-	int m_frame40;
+	int m_frame;
 	unsigned char m_unknown44[0x1C4 - 0x44];
 	PlayerLeaveStatus m_playerLeaveStatus[8];
 };
@@ -72,5 +72,5 @@ void GameLogic::rva0023D201(int slotIndex, int status)
 	if (slotIndex < 0 || slotIndex >= 8)
 		return;
 	m_playerLeaveStatus[slotIndex].m_status = status;
-	m_playerLeaveStatus[slotIndex].m_quitFrame = m_frame40;
+	m_playerLeaveStatus[slotIndex].m_quitFrame = m_frame;
 }

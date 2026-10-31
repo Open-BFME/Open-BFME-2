@@ -12,9 +12,13 @@
 // template by side, kind and name filters; create a 10x10 grid of it (trees
 // go to TerrainLogic) and look at it.
 #include "ascii_string.h"
-#include "Coord3D.h"
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
 #include "GameLogicObjectLookupView.h"
+// windows.h must not declare stdio.h's sprintf: GameLogic.cpp's sprintf calls reach the import.
+#define NOMINMAX
+#define _INC_STDIO
 #include <windows.h>
+#undef _INC_STDIO
 #include <string.h>
 
 enum ObjectStatusTypes
@@ -38,8 +42,7 @@ struct UnitTimingModelState
 
 struct CreateMask
 {
-	CreateMask() { memset(this, 0, sizeof(*this)); }
-	unsigned char m_bits[0x10];
+	char m_data[0x10];
 };
 
 class ModuleData
@@ -65,35 +68,31 @@ public:
 // A volatile read preserves that load; this local constant is a codegen
 // stand-in for the observed pool value, not an original global identity.
 static const volatile float IdentityDiagonal=1.0f;
-class Matrix3D
+#include "../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
+static __forceinline void makeIdentityAndTakeScale(Matrix3D &mtx, float &scale, const float &factor)
 {
-public:
-	__declspec(dllimport) __forceinline Matrix3D() {}
-	__forceinline void Make_Identity(float &scale, const float &factor)
-	{
-		float one = IdentityDiagonal;
-		Row[0][1] = 0.0f;
-		Row[0][2] = 0.0f;
-		Row[0][3] = 0.0f;
-		Row[1][0] = 0.0f;
-		Row[1][2] = 0.0f;
-		Row[1][3] = 0.0f;
-		Row[2][0] = 0.0f;
-		Row[2][1] = 0.0f;
-		Row[2][3] = 0.0f;
-		scale = factor;
-		Row[0][0] = one;
-		Row[1][1] = one;
-		Row[2][2] = one;
-	}
-	float Row[3][4];
-};
+	float one = IdentityDiagonal;
+	mtx.Row[0].Y = 0.0f;
+	mtx.Row[0].Z = 0.0f;
+	mtx.Row[0].W = 0.0f;
+	mtx.Row[1].X = 0.0f;
+	mtx.Row[1].Z = 0.0f;
+	mtx.Row[1].W = 0.0f;
+	mtx.Row[2].X = 0.0f;
+	mtx.Row[2].Y = 0.0f;
+	mtx.Row[2].W = 0.0f;
+	scale = factor;
+	mtx.Row[0].X = one;
+	mtx.Row[1].Y = one;
+	mtx.Row[2].Z = one;
+}
 
 class ThingTemplate
 {
 public:
 	const AsciiString &getName() const { return m_name; }
 	__forceinline const ModuleInfo &drawModules() const { return m_drawModuleInfo; }
+	__forceinline unsigned int kindOfWord(int word) const { return ((const unsigned int *)m_kindOf)[word]; }
 	const ThingTemplate *friend_getNextTemplate() const { return m_nextTemplate; }
 
 	unsigned char m_pad00[0x64];
@@ -101,10 +100,8 @@ public:
 	unsigned char m_pad68[0x6C - 0x68];
 	AsciiString m_side;              // +0x6C
 	unsigned char m_pad70[0x108 - 0x70];
-	unsigned int m_kindOf;           // +0x108
-	unsigned char m_pad10C[0x110 - 0x10C];
-	unsigned int m_treeFlags;        // +0x110
-	unsigned char m_pad114[0x2F0 - 0x114];
+	unsigned char m_kindOf[0x20];    // +0x108
+	unsigned char m_pad128[0x2F0 - 0x128];
 	ModuleInfo m_drawModuleInfo;     // +0x2F0
 	unsigned char m_pad2F8[0x484 - 0x2F8];
 	const ThingTemplate *m_nextTemplate; // +0x484
@@ -145,10 +142,10 @@ public:
 class Player
 {
 public:
-	Team *getDefaultTeam() const { return m_defaultTeam; }
+	Team *getDefaultTeam() const { return m_team; }
 
 	unsigned char m_pad00[0x2EC];
-	Team *m_defaultTeam; // +0x2EC
+	Team *m_team; // +0x2EC
 };
 
 class PlayerList
@@ -167,19 +164,21 @@ public:
 	const ThingTemplate *m_firstTemplate; // +0x0C
 };
 
+class LocomotorSet;
 class Pathfinder
 {
 public:
-	void AddObjectToPathfindMap(Object *obj);
+	void AddObjectToPathfindMap(Object*);
+	bool AdjustDestination(Object *obj, const LocomotorSet &set, Coord3D *dst, const Coord3D *group);
 };
 
 class AI
 {
 public:
-	Pathfinder *pathfinder() { return m_pathfinder; }
+	Pathfinder *pathfinder() { return m_pf; }
 
 	unsigned char m_pad00[0x10];
-	Pathfinder *m_pathfinder; // +0x10
+	Pathfinder *m_pf; // +0x10
 };
 
 class TerrainLogic
@@ -562,48 +561,48 @@ void Rva002431CB::rva002431CB()
 					continue;
 				if (m_unitTypes == 0)
 				{
-					if (!(btt->m_kindOf & 0x100))
+					if (!(btt->kindOfWord(0) & 0x100))
 						continue;
-					if (btt->m_kindOf & 0x800)
+					if (btt->kindOfWord(0) & 0x800)
 						continue;
-					if (btt->m_kindOf & 0x80)
+					if (btt->kindOfWord(0) & 0x80)
 						continue;
 				}
 				else if (m_unitTypes == 1)
 				{
-					if (!(btt->m_kindOf & 0x800))
+					if (!(btt->kindOfWord(0) & 0x800))
 						continue;
-					if (btt->m_kindOf & 0x400)
+					if (btt->kindOfWord(0) & 0x400)
 						continue;
-					if (btt->m_kindOf & 0x80)
+					if (btt->kindOfWord(0) & 0x80)
 						continue;
 				}
 				else if (m_unitTypes == 2)
 				{
-					if (!(btt->m_kindOf & 0x200))
+					if (!(btt->kindOfWord(0) & 0x200))
 						continue;
-					if (btt->m_kindOf & 0xC00)
+					if (btt->kindOfWord(0) & 0xC00)
 						continue;
-					if (btt->m_kindOf & 0x80)
+					if (btt->kindOfWord(0) & 0x80)
 						continue;
 				}
 				else if (m_unitTypes == 3)
 				{
-					if (!(btt->m_kindOf & 0x400))
+					if (!(btt->kindOfWord(0) & 0x400))
 						continue;
-					if (btt->m_kindOf & 0x80)
+					if (btt->kindOfWord(0) & 0x80)
 						continue;
 				}
 				else if (m_unitTypes == 4)
 				{
-					if (!(btt->m_kindOf & 0x80))
+					if (!(btt->kindOfWord(0) & 0x80))
 						continue;
 				}
 				else
 				{
-					if (btt->m_kindOf & 0xF00)
+					if (btt->kindOfWord(0) & 0xF00)
 						continue;
-					if (btt->m_kindOf & 0x80)
+					if (btt->kindOfWord(0) & 0x80)
 						continue;
 				}
 			}
@@ -634,6 +633,7 @@ void Rva002431CB::rva002431CB()
 					{
 						Team *team = ThePlayerList->getNthPlayer(1)->getDefaultTeam();
 						CreateMask mask;
+						memset(&mask, 0, 0x10);
 						Object *newObj = TheThingFactory->newObject(btt, team, &mask, (ObjectID)0);
 						if (newObj == 0)
 							break;
@@ -647,10 +647,10 @@ void Rva002431CB::rva002431CB()
 					else
 					{
 						float scale;
-						mtx.Make_Identity(scale,btt->m_treeScale);
-						if (btt->m_treeFlags & 0x40000000)
+						makeIdentityAndTakeScale(mtx, scale, btt->m_treeScale);
+						if (btt->kindOfWord(2) & 0x40000000)
 							TheTerrainLogic->addTree(btt, &pos, &mtx, scale);
-						else if (btt->m_treeFlags & 0x80000000)
+						else if (btt->kindOfWord(2) & 0x80000000)
 							TheTerrainLogic->rva00280176(btt, &pos, &mtx, scale);
 						else
 							TheTerrainLogic->rva0027D3D9(btt, &pos, &mtx, scale);

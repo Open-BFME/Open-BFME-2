@@ -8,7 +8,11 @@
 // 8 DWORDs ending at +0x150 matches GameLogicSetGamePaused timeouts layout;
 // TheNetwork global 0x009FEA28 with virtual at +0xB4 returning peer count;
 // timeGetTime IAT winmm call; caller 0x0043ADA5.
+// windows.h must not declare stdio.h's sprintf: GameLogic.cpp's sprintf calls reach the import.
+#define NOMINMAX
+#define _INC_STDIO
 #include <windows.h>
+#undef _INC_STDIO
 
 class NetworkInterface
 {
@@ -70,7 +74,7 @@ public:
 
 private:
 	char m_pad[0x130];
-	unsigned long m_times[8];
+	unsigned long m_progressCompleteTimeout[8];
 };
 
 void GameLogic::rva0023CF8B()
@@ -81,7 +85,7 @@ void GameLogic::rva0023CF8B()
 	int count = TheNetwork->getCount();
 	if (count <= 0)
 		return;
-	unsigned long *dst = m_times;
+	unsigned long *dst = m_progressCompleteTimeout;
 	do {
 		*dst = timeGetTime();
 		++i;

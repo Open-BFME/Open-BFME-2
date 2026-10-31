@@ -26,7 +26,7 @@ public:
 	bool rva00246F8E(const AsciiString &setName, int slot, const CommandButton **button);
 private:
 	unsigned char m_pad00[0x24];
-	_STL::map<TreeKey00242F5E, TreeOpaqueMapped242F5E, _STL::less<TreeKey00242F5E>, _STL::allocator<_STL::pair<const TreeKey00242F5E, TreeOpaqueMapped242F5E> > > m_map24;
+	_STL::map<TreeKey00242F5E, TreeOpaqueMapped242F5E, _STL::less<TreeKey00242F5E>, _STL::allocator<_STL::pair<const TreeKey00242F5E, TreeOpaqueMapped242F5E> > > m_controlBarOverrides;
 };
 bool operator<(const TreeKey00242F5E &a, const TreeKey00242F5E &b);
 bool GameLogic::rva00246F8E(const AsciiString &setName, int slot, const CommandButton **button)
@@ -34,9 +34,9 @@ bool GameLogic::rva00246F8E(const AsciiString &setName, int slot, const CommandB
 	char buf[8];
 	Out00524477 *out = (Out00524477 *)buf;
 	int r = Rva0023FC23(out, &slot, (int)&setName);
-	_STL::map<TreeKey00242F5E, TreeOpaqueMapped242F5E, _STL::less<TreeKey00242F5E>, _STL::allocator<_STL::pair<const TreeKey00242F5E, TreeOpaqueMapped242F5E> > >::iterator it = m_map24.find(*(const TreeKey00242F5E *)r);
+	_STL::map<TreeKey00242F5E, TreeOpaqueMapped242F5E, _STL::less<TreeKey00242F5E>, _STL::allocator<_STL::pair<const TreeKey00242F5E, TreeOpaqueMapped242F5E> > >::iterator it = m_controlBarOverrides.find(*(const TreeKey00242F5E *)r);
 	((AsciiString *)(buf + 4))->~AsciiString();
-	if (it != m_map24.end()) {
+	if (it != m_controlBarOverrides.end()) {
 		*button = (const CommandButton *)it->second.m_bits;
 		return true;
 	}

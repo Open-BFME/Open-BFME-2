@@ -29,13 +29,16 @@ private:
 	char m_pad125; // +0x125
 	bool m_inputEnabledMemory; // +0x126
 	bool m_mouseVisibleMemory; // +0x127
-	unsigned char m_128[8]; // +0x128
-	int m_timeout[8]; // +0x130, eight target-checked timer values
+	unsigned char m_heardFlags[8]; // +0x128
+	unsigned long m_progressCompleteTimeout[8]; // +0x130, eight target-checked timer values
 	bool m_150; // +0x150
 };
 extern GameLogic *TheGameLogic;
+// windows.h must not declare stdio.h's sprintf: GameLogic.cpp's sprintf calls reach the import.
 #define NOMINMAX
+#define _INC_STDIO
 #include <windows.h>
+#undef _INC_STDIO
 
 class NetworkInterface;
 extern NetworkInterface *TheNetwork;
@@ -110,8 +113,6 @@ public:
 	virtual void resumeAudio(unsigned int which, int a, int b);
 };
 
-#define TheAudio (*(BfmeAudio **)&TheAudio)
-
 void GameLogic::rva0023CD9E(bool paused, int pauseMode, bool affectMouse)
 {
 	if (paused == m_gamePaused)
@@ -140,8 +141,8 @@ void GameLogic::rva0023CD9E(bool paused, int pauseMode, bool affectMouse)
 			TheInGameUI->setEngineInputEnabled(false);
 		if (pauseMode != 2)
 		{
-			TheAudio->pauseAudio(audToAffect, 3, 0);
-			TheAudio->pauseAudio(audToAffect, 4, 1);
+			(*(BfmeAudio **)&TheAudio)->pauseAudio(audToAffect, 3, 0);
+			(*(BfmeAudio **)&TheAudio)->pauseAudio(audToAffect, 4, 1);
 		}
 	}
 	else
@@ -152,8 +153,8 @@ void GameLogic::rva0023CD9E(bool paused, int pauseMode, bool affectMouse)
 			TheInGameUI->setEngineInputEnabled(true);
 		if (pauseMode != 2)
 		{
-			TheAudio->resumeAudio(audToAffect, 3, 0);
-			TheAudio->resumeAudio(audToAffect, 4, 1);
+			(*(BfmeAudio **)&TheAudio)->resumeAudio(audToAffect, 3, 0);
+			(*(BfmeAudio **)&TheAudio)->resumeAudio(audToAffect, 4, 1);
 		}
 	}
 }
@@ -168,7 +169,7 @@ bool GameLogic::rva0023CEE5()
 		return true;
 	for (int i = 0; i < 8; i++)
 	{
-		if (m_128[i] == 0)
+		if (m_heardFlags[i] == 0)
 			return false;
 	}
 	return true;
@@ -185,7 +186,7 @@ void GameLogic::rva0023CF3F()
 	int now = (int)timeGetTime();
 	for (int i = 0; i < 8; ++i)
 	{
-		if (m_128[i] == 0 && m_timeout[i] + 0x15F90 > now)
+		if (m_heardFlags[i] == 0 && (int)m_progressCompleteTimeout[i] + 0x15F90 > now)
 			return;
 	}
 	m_150 = true;
@@ -196,6 +197,10 @@ class GameMessage
 public:
 	void appendIntegerArgument(int arg);
 	void appendBooleanArgument(bool arg);
+private:
+	void *m_argumentList; // +0x00
+public:
+	GameMessage *m_next; // +0x04
 };
 
 // MessageStreamSubsystem (0x00A00950); appendMessage is vslot 18.

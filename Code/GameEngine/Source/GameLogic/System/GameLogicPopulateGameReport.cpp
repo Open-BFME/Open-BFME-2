@@ -1,4 +1,5 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /Ireference/shims/bfmelist /I. /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/shims/moduledata /ICode/Libraries/Include/Lib /ICode/GameEngine/Source/Common /Ireference/shims/stlp_nodealloc /ICode/GameEngine/Include
+// stlport
 //
 // GameLogic::bfmePopulateGameReport, retail 0x00247378, 1463 bytes.
 // Derived from GameLogic.cpp, Copyright 2025 Electronic Arts Inc., GPL-3.0-or-later.
@@ -16,37 +17,26 @@
 // ready flag +0x6C; GameSlot start position +0x10, template +0x18, team +0x1C.
 #include "ascii_string.h"
 #include "unicode_string.h"
+#include <vector>
 
 typedef int Int;
 typedef bool Bool;
 
-namespace _STL
-{
-	template <class T> class allocator {};
-	template <class T, class A = allocator<T> > class vector
-	{
-	public:
-		int size() const { return (int)(_M_finish - _M_start); }
-		void push_back(const T &value);
-		T *_M_start;
-		T *_M_finish;
-		T *_M_end_of_storage;
-	};
-}
+namespace _STL { template <> void vector<AsciiString, allocator<AsciiString> >::push_back(const AsciiString &); }
 
 class GameSlot
 {
 public:
 	Bool isHuman() const;
 	Bool isAI() const;
-	Int getStartPos() const { return m_startPos; }
+	Int getStartPos() const { return startPos; }
 	Int getPlayerTemplate() const { return m_playerTemplate; }
 	Int getTeamNumber() const { return m_teamNumber; }
 	const UnicodeString &getName() const { return m_name; }
 
 private:
 	char m_unrecovered00[0x10];
-	Int m_startPos;
+	Int startPos;
 	char m_unrecovered14[4];
 	Int m_playerTemplate;
 	Int m_teamNumber;
@@ -65,7 +55,7 @@ public:
 	virtual void slot38(); virtual void slot3C(); virtual void slot40(); virtual void slot44();
 	virtual Bool isSkirmish();
 	virtual Bool isMultiplayer();
-	virtual Bool isSandBox();
+	virtual Bool isSandbox();
 
 	GameSlot *getSlot(Int slot);
 	Int getSlotNum(AsciiString userName) const;
@@ -78,6 +68,8 @@ class PlayerTemplate
 public:
 	UnicodeString getDisplayName() const;
 	AsciiString getName() const;
+	char pad[0x44]; // +0x00
+	AsciiString startingBuilding; // +0x44
 };
 
 class PlayerTemplateStore
@@ -187,7 +179,7 @@ void GameLogic::bfmePopulateGameReport(GameInfo *game, Int *localSlot)
 	report.format("  Session Game #%d\n    Map Name: %s\n", m_gameReportDetails.size() + 1, game->getMap().str());
 
 	line.format("    GameMode: isSkirmish:%d, isMultiplayer:%d, isSandBox:%d\n    Player List:\n",
-		TheGameInfo->isSkirmish(), TheGameInfo->isMultiplayer(), TheGameInfo->isSandBox());
+		TheGameInfo->isSkirmish(), TheGameInfo->isMultiplayer(), TheGameInfo->isSandbox());
 	report.concat(line);
 
 	*localSlot = 0;

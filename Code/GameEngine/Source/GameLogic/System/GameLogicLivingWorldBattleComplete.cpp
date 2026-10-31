@@ -31,6 +31,7 @@ class Object;
 class ArmySummarySystem
 {
 public:
+	void rva0040D280(Object*,int);
 	void Save(Object *objects);
 };
 
@@ -38,14 +39,14 @@ class Player
 {
 public:
 	void accumulateRTSBattleStatsIntoLivingWorldScoreKeeper();
-	int getArmyID() const { return m_armyID; }
-	void *getScoreKeeperBlock() { return m_scoreBlock; }
+	int getArmyID() const { return livingId; }
+	void *getScoreKeeperBlock() { return m_track; }
 
 private:
 	unsigned char m_pad00[0x3AC];
-	int m_armyID;
+	int livingId;
 	unsigned char m_pad3B0[0x3BC - 0x3B0];
-	unsigned char m_scoreBlock[4];
+	char m_track[0x14]; // +0x3BC
 };
 
 class PlayerList
@@ -64,14 +65,14 @@ struct Rva003F468DParticipant
 class LivingWorldBattle
 {
 public:
+	void *rva003F4FBD(void*);
 	int rva003F4752(void *player);
 	int rva003F4FAA(int side, void *player);
 	void rva003F470E(int side, int slot, void *block);
 	void SetWinningSide(int side) { m_winningSide = side; }
-
+	char m_pad00[0x38];
 private:
-	unsigned char m_pad00[0x38];
-	int m_winningSide;
+	int m_winningSide; // +0x38
 };
 
 class Rva003F468D;
@@ -89,11 +90,11 @@ class Rva002BA8F1Logic
 public:
 	Rva002E2903Player *find(int id, unsigned int *outIndex);
 	bool rva002B3669();
-	Rva0020E6B7RegionManager *getRegionManager() const { return m_regionManager; }
+	Rva0020E6B7RegionManager *getRegionManager() const { return regions; }
 
 private:
 	unsigned char m_pad00[0xB0];
-	Rva0020E6B7RegionManager *m_regionManager;
+	Rva0020E6B7RegionManager *regions; // +0xB0
 };
 
 class Rva00DFE1C8Host
@@ -141,7 +142,7 @@ public:
 
 private:
 	unsigned char m_pad00[0xAC];
-	Object *m_objList;
+	Object *m_firstObject;
 	unsigned char m_padB0[0x184 - 0xB0];
 	ArmySummarySystem m_armySummarySystem;
 	unsigned char m_pad188[0x1B0 - 0x188];
@@ -151,7 +152,7 @@ extern GameLogic *TheGameLogic;
 
 void GameLogic::LivingWorldTacticalBattleComplete()
 {
-	m_armySummarySystem.Save(m_objList);
+	m_armySummarySystem.Save(m_firstObject);
 	LivingWorldBattle *battle = (LivingWorldBattle *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->getRegionManager()->rva0020E6B7();
 	int mask = 0xFFFFF;
 	while (mask) {

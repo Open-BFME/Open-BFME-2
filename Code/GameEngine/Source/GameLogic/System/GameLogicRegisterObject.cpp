@@ -1,4 +1,5 @@
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /Ireference/shims/bfmelist /I. /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/shims/moduledata /ICode/Libraries/Include/Lib /ICode/GameEngine/Source/Common /Ireference/shims/stlp_nodealloc /ICode/GameEngine/Include
+// stlport
 // GameLogic::registerObject (retail 0x00242AE9, 203B), Zero Hour
 // GameEngine/Source/GameLogic/System/GameLogic.cpp.
 // Target facts: links the object with BFME's head/tail Object::appendToList
@@ -16,6 +17,7 @@
 
 #include "../../../Include/Common/ObjectModule.h"
 #include "../../../Include/GameLogic/Module/BehaviorModule.h"
+#include <vector>
 
 typedef int Int;
 typedef unsigned int UnsignedInt;
@@ -23,23 +25,7 @@ typedef unsigned int UnsignedInt;
 class ModuleData;
 class Object;
 
-namespace _STL {
-template <class T> class allocator {};
-
-template <class T, class Alloc = allocator<T> >
-class vector
-{
-public:
-	typedef unsigned int size_type;
-	size_type size() const { return size_type(m_finish - m_start); }
-	void push_back(const T &value);
-
-private:
-	T *m_start;
-	T *m_finish;
-	T *m_endOfStorage;
-};
-}
+namespace _STL { template <> void vector<const ModuleData *, allocator<const ModuleData *> >::push_back(const ModuleData *const &); }
 
 enum UpdateSleepTime
 {
@@ -72,7 +58,7 @@ public:
 
 	UnsignedInt m_nextCallFrame; // +0x14
 	Int m_indexInLogic; // +0x18
-	Int m_phase; // +0x1C
+	Int m_phaseInLogic; // +0x1C
 };
 typedef UpdateModule *UpdateModulePtr;
 
@@ -101,7 +87,7 @@ private:
 	unsigned char m_unmodelled00[0x40];
 	UnsignedInt m_frame; // +0x40
 	unsigned char m_unmodelled44[0xAC - 0x44];
-	Object *m_objList; // +0xAC
+	Object *m_firstObject; // +0xAC
 	Object *m_objListTail; // +0xB0
 	unsigned char m_unmodelledB4[0xC8 - 0xB4];
 	UpdateModuleVector m_phaseUpdates[4]; // +0xC8
@@ -116,7 +102,7 @@ void GameLogic::registerObject( Object *obj )
 {
 
 	// add to the master list
-	obj->appendToList( &m_objList, &m_objListTail );
+	obj->appendToList( &m_firstObject, &m_objListTail );
 
 	// add object to lookup table
 	addObjectToLookupTable( obj );
@@ -141,7 +127,7 @@ void GameLogic::registerObject( Object *obj )
 		{
 			list = &m_sleepingUpdates;
 			Int index = list->size();
-			u->m_phase = -1;
+			u->m_phaseInLogic = -1;
 			u->m_indexInLogic = index;
 		}
 		else
@@ -150,7 +136,7 @@ void GameLogic::registerObject( Object *obj )
 			list = &m_phaseUpdates[ phase ];
 			Int index = list->size();
 			u->m_indexInLogic = index;
-			u->m_phase = phase;
+			u->m_phaseInLogic = phase;
 		}
 		list->push_back( entry );
 	}

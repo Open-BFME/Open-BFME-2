@@ -13,27 +13,25 @@
 
 class Drawable;
 
-class ObjectTemplate
+class ThingTemplate
 {
 public:
-	char m_pad[0x10A];
-	unsigned char m_flagsAt10A;
-	char m_pad10B[0xC];
-	unsigned char m_flagsAt117;
+	char m_pad[0x108];
+	unsigned char m_kindOf[0x20]; // +0x108
 };
 
 class Player
 {
 public:
 	char m_pad[0x54];
-	int m_indexAt54;
+	int m_playerIndex; // +0x54
 };
 
 class Object
 {
 public:
 	char m_pad00[4];
-	ObjectTemplate *m_template;
+	const ThingTemplate *m_template;
 	char m_pad08[0x84];
 	Object *m_next;
 
@@ -56,12 +54,13 @@ public:
 
 private:
 	char m_pad00[0xAC];
-	Object *m_objectHead;
+	Object *m_firstObject;
 };
 
 class Drawable
 {
 public:
+	void friend_bindToObject( Object *obj );
 	void rva00270FAC(bool value);
 };
 
@@ -69,9 +68,9 @@ extern GameLogic *TheGameLogic;
 
 void GameLogic::rva0023D68E(bool value)
 {
-	Object *object = m_objectHead;
+	Object *object = m_firstObject;
 	while (object != 0) {
-		if (value || (object->m_template->m_flagsAt117 & 1) == 0) {
+		if (value || (object->m_template->m_kindOf[0x117 - 0x108] & 1) == 0) {
 			Drawable *drawable = object->getDrawable();
 			if (drawable != 0) {
 				drawable->rva00270FAC(value);
@@ -84,9 +83,9 @@ void GameLogic::rva0023D68E(bool value)
 
 int rva0023D6FA(Object *object)
 {
-	if (object != 0 && (object->m_template->m_flagsAt10A & 2) != 0) {
+	if (object != 0 && (object->m_template->m_kindOf[0x10A - 0x108] & 2) != 0) {
 		Player *player = object->getControllingPlayer();
-		unsigned int playerMask = 1 << player->m_indexAt54;
+		unsigned int playerMask = 1 << player->m_playerIndex;
 		TheGameLogic->selectObject(object, true, playerMask, object->isLocallyControlled());
 		return 0;
 	}
