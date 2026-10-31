@@ -60,13 +60,6 @@ public:
 	}
 };
 
-void Member0C00739C70::clear()
-{
-	TextureBaseClass *tex = m_obj->GetTexture();
-	if ( tex )
-		Log_DX8_ErrorCode( (unsigned int)tex );
-}
-
 class Rva00739C70
 {
 public:

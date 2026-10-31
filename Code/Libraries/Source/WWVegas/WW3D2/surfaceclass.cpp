@@ -82,6 +82,98 @@ int __stdcall bfmeAskDG(BfmeThingDG *thing);
 
 int __stdcall bfmeAlsoDG(BfmeThingDG *thing);
 
+// 23-byte and 32-byte cleanup routines, 62-byte reset, 109-byte update, and 81-byte destructor
+// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/texture.h
+class TextureBaseClass
+{
+public:
+	void Release_Ref();
+};
+
+struct TexturePtr
+{
+	TextureBaseClass *m_ptr;
+	~TexturePtr()
+	{
+		if ( m_ptr )
+			m_ptr->Release_Ref();
+	}
+	TextureBaseClass *operator->() { return m_ptr; }
+	operator bool() { return m_ptr != 0; }
+	TexturePtr& operator=( int val ) { m_ptr = (TextureBaseClass*)val; return *this; }
+};
+
+class VirtualReleaser00739E00
+{
+public:
+	virtual void v0();
+	virtual void v1();
+	virtual unsigned long __stdcall Release();
+	virtual void v3();
+	virtual void v4();
+	virtual void v5();
+	virtual void v6();
+	virtual void v7();
+	virtual void v8();
+	virtual void v9();
+	virtual void v10();
+	virtual void v11();
+	virtual void v12();
+	virtual void v13();
+	// Slot 14 (0x38): returns a texture pointer that clear() null-checks and
+	// reports to Log_DX8_ErrorCode. Name is opaque; only the slot matters.
+	virtual TextureBaseClass *__stdcall GetTexture();
+};
+
+void Log_DX8_ErrorCode( unsigned int code );
+
+class Member0C00739C70
+{
+public:
+	VirtualReleaser00739E00 *m_obj;
+
+	~Member0C00739C70();
+	__declspec(noinline) void clear();
+	void reset()
+	{
+		if ( m_obj )
+		{
+			m_obj->Release();
+			m_obj = 0;
+		}
+	}
+};
+
+class Rva00739C70
+{
+public:
+	~Rva00739C70();
+	void cleanup();
+	void reset();
+	// Retail identity is not recovered; the synthetic name records its exact
+	// address while keeping this small predicate attached to the proven object.
+	bool rva_00739E50();
+
+	int               m_int0;
+	int               m_int4;
+	TexturePtr        m_ptr08;
+	Member0C00739C70  m_member0c;
+	int               m_flags;
+};
+
+class Owner00739C90
+{
+public:
+	void cleanup();
+
+	char         m_pad0[ 0x28 ];
+	bool         m_dirty28;
+	char         m_pad29[ 0x1B ];
+	Rva00739C70 *m_subObject;
+};
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/surfaceclass.cpp
+
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/surfaceclass_constructor.cpp
 
 SurfaceClass::SurfaceClass(unsigned width, unsigned height, WW3DFormat format, D3DPOOL pool)
@@ -112,7 +204,14 @@ BfmeThingDC::BfmeThingDC(BfmeItemDC *item)
 
 // tu-skeleton: 0x001166E0 120B ?rva001166E0@Rva001166E0@@QAEPAXPAHHHHH@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/SurfaceByteSize.cpp (not merged yet)
 
-// tu-skeleton: 0x00116760 20B ?clear@Member0C00739C70@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Bfme/Rva00739C70Cleanup.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Bfme/Rva00739C70Cleanup.cpp
+
+void Member0C00739C70::clear()
+{
+	TextureBaseClass *tex = m_obj->GetTexture();
+	if ( tex )
+		Log_DX8_ErrorCode( (unsigned int)tex );
+}
 
 // tu-skeleton: 0x00116780 396B ?clear@W3DRadarResetSurface@@QAEX_N@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/SurfaceByteSize.cpp (not merged yet)
 
