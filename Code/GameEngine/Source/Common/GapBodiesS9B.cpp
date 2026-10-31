@@ -69,11 +69,6 @@ public:
 	void rva004CC08D();
 };
 
-void Rva004CC08D::rva004CC08D()
-{
-	((Rva004CBF9A *)((char *)this - 0xC))->clear();
-}
-
 // --- 0x0039851D (8B): the FoundationAIUpdate sub-object at +0x20.
 class Rva0039851D
 {
