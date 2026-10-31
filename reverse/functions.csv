@@ -7897,7 +7897,7 @@ _GetProcessorFlags,,0x001C4390,169,Code/Libraries/Source/VP6/GetProcessorFlags.c
 ?enable@Rva00203BE1ByteOneSetter@@QAEXXZ,,0x00203BE1,8,Code/GameEngine/Source/Common/DispByteOneSetters.cpp,matched,Disp32 byte one-setter
 ?enable@Rva00222479ByteOneSetter@@QAEXXZ,,0x00222479,8,Code/GameEngine/Source/Common/DispByteOneSetters.cpp,matched,Disp32 byte one-setter
 ?enable@Rva00238D7BByteOneSetter@@QAEXXZ,,0x00238D7B,8,Code/GameEngine/Source/Common/DispByteOneSetters.cpp,matched,Disp32 byte one-setter
-?enable@Rva0023CF83ByteOneSetter@@QAEXXZ,,0x0023CF83,8,Code/GameEngine/Source/Common/DispByteOneSetters.cpp,matched,Disp32 byte one-setter
+?enable@Rva0023CF83ByteOneSetter@@QAEXXZ,,0x0023CF83,8,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,matched,Disp32 byte one-setter
 ?enable@Rva0025C0F7ByteOneSetter@@QAEXXZ,,0x0025C0F7,8,Code/GameEngine/Source/Common/DispByteOneSetters.cpp,matched,Disp32 byte one-setter
 ?enable@Rva002A87F1ByteOneSetter@@QAEXXZ,,0x002A87F1,8,Code/GameEngine/Source/Common/DispByteOneSetters.cpp,matched,Disp32 byte one-setter
 ?enable@Rva00406D5FByteOneSetter@@QAEXXZ,,0x00406D5F,8,Code/GameEngine/Source/Common/DispByteOneSetters.cpp,matched,Disp32 byte one-setter
