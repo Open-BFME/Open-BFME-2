@@ -92,6 +92,19 @@ class Coord3DBase;
 class Snapshot;
 class Thing;
 #include "../../../../Include/Common/ObjectModule.h"
+// Declaration-only: retail keeps one copy of this STLport member (rowed elsewhere); this unit calls it
+// rather than emitting its own.
+namespace _STL {
+template <> void _List_base<int, allocator<int> >::clear();
+}
+// Declaration-only: retail keeps one copy of this STLport member (rowed elsewhere); this unit calls it
+// rather than emitting its own.
+namespace _STL {
+template <> _List_base<int, allocator<int> >::~_List_base();
+}
+class Xfer;
+#pragma comment(linker, "/alternatename:?unused@BehaviorModuleOther@@EAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
+#pragma comment(linker, "/alternatename:?unused@BehaviorModuleOther@@EAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
 
 class Xfer::Version
 {
@@ -139,6 +152,7 @@ public:
 class PassiveAreaEffectBehavior;
 
 class UpgradeTemplate;
+
 enum ObjectStatusTypes { status2 = 2 };
 
 class Object
@@ -402,6 +416,25 @@ private:
 
 class BehaviorModuleInterface { public: virtual void behaviorSlot(); };
 
+// Slot 0 of each module's primary vftable is its deleting destructor
+// (0x00484C3C in 0x00C4A448), so the base's first virtual is the destructor.
+struct AreaData;
+
+class UpgradeCenter {public:const UpgradeTemplate *findUpgrade(const AsciiString&)const;};
+
+extern UpgradeCenter *TheUpgradeCenter;
+
+class BodyModule;
+
+class AttributeModifierPoolUpdate;
+
+// Existing Object::testStatus uses the enum spelling below.
+class Rva00484B6BCheckInterface {public:
+ virtual void s00();virtual void s04();virtual void s08();virtual void s0C();virtual void s10();virtual void s14();virtual void s18();virtual void s1C();virtual void s20();virtual void s24();virtual void s28();virtual bool s2C();
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehavior.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehaviorPulse.cpp
 
 //
@@ -493,12 +526,6 @@ void PassiveAreaEffectBehavior::rva00484A08(Object *obj)
 	}
 }
 
-// tu-skeleton: 0x0048490E 17B ?buildFieldParse@PassiveAreaEffectBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
-
-// tu-skeleton: 0x00484A67 112B ??0PassiveAreaEffectBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehaviorCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00484AD7 6B ?Rva00484AD7Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehaviorPoolKey.cpp
 
 // ?getModuleNameKey@PassiveAreaEffectBehavior@@UBE?AW4NameKeyType@@XZ
@@ -508,12 +535,6 @@ NameKeyType PassiveAreaEffectBehavior::getModuleNameKey() const
 		TheNameKeyGenerator->nameToKey("PassiveAreaEffectBehavior");
 	return ThePassiveAreaEffectBehaviorPoolKey;
 }
-
-// tu-skeleton: 0x00484B22 73B ??1PassiveAreaEffectBehavior@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehaviorDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00484B6B 209B ?update@PassiveAreaEffectBehavior@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehaviorUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x00484C3C 28B ??_GPassiveAreaEffectBehavior@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehaviorDtor.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehaviorXfer.cpp
 
@@ -603,17 +624,98 @@ PassiveAreaEffectBehaviorModuleData::PassiveAreaEffectBehaviorModuleData()
 	memset(&m_antiCategories, 0, 4);
 }
 
+// tu-skeleton: 0x0048490E 17B ?buildFieldParse@PassiveAreaEffectBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehaviorCtor.cpp
+
+//
+// ??0PassiveAreaEffectBehavior@@QAE@PAVThing@@PBVModuleData@@@Z, retail
+// 0x00484A67, 110 bytes. Behavior-side ctor in the PassiveAreaEffect
+// file-unit: the rowed UpdateModule base ctor (0x253390, thing plus data)
+// runs first, then the +0x20 word zeroes (RMW-and hoists to the front),
+// the list setup hoists above the compiler-emitted MI vptr re-stores at
+// +0/+0x0C/+0x10 (values are TU-local vtables, DIR32-masked), and the
+// +0x24 list-base row (0x4EC36C) runs last of init. The body clears the
+// list through the rowed clear (0x23DAA5, second EH state) then keeps
+// itself awake with setWakeFrame(obj, 1) through the pin at 0x44DF71.
+// Hierarchy mirrors the rowed UpdateModuleCtor TU (MI with three vptrs);
+// the derived override re-stores all three vptrs, which is the identity
+// proof alongside the rowed pool key at 0x484ADD (begins where this ctor
+// ends). The ModuleData proc 0x48490E, ModuleData ctor 0x484DF4, ModuleData
+// factory 0x24C724 and instance factory 0x24C6EC complete the unit.
+
+// ??0PassiveAreaEffectBehavior@@QAE@PAVThing@@PBVModuleData@@@Z @0x484A67
+PassiveAreaEffectBehavior::PassiveAreaEffectBehavior(Thing *thing, const ModuleData *moduleData)
+	: UpdateModule(thing, moduleData)
+	, m_20(0)
+{
+	m_trackedIds.clear();
+	setWakeFrame(m_object, UPDATE_SLEEP_NONE);
+}
+
+// Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
+// each one has the same function in that slot (vftable addresses from matched vptr
+// stores). Bind them to the rows at those functions.
+
+// tu-skeleton: 0x00484AD7 6B ?Rva00484AD7Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehaviorDtor.cpp
+
+//
+// ??1PassiveAreaEffectBehavior@@UAE@XZ, retail 0x00484B22,
+// 73 bytes. Behavior-side dtor restoring the three MI vptrs (+0 0xC4A448
+// plus +0x0C 0x7EFF90 plus +0x10 0xC4A438) then destroying the +0x24
+// tracked-ids list through the rowed 0x4EC395 List_base dtor and calling
+// the UpdateModule base dtor through the pinned 0x24A797. Layout follows
+// the ctor TU 0x484A67 (UpdateModule base size 0x20 plus m_20 plus list)
+// over the rowed UpdateModuleCtor TU. Identity is the own vtable 0xC4A448
+// plus slot 0 deleting dtor 0x484C3C calling this body plus poolkey
+// 0x484ADD. BFME1 donor PassiveAreaEffectBehaviorDestructors.cpp proves
+// virtual public UAE spelling plus list at +0x24.
+
+// ??1PassiveAreaEffectBehavior@@UAE@XZ @0x00484B22
+PassiveAreaEffectBehavior::~PassiveAreaEffectBehavior()
+{
+}
+
+// Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
+// each one has the same function in that slot (vftable addresses from matched vptr
+// stores). Bind them to the rows at those functions.
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehaviorUpdate.cpp
+
+// Native484B6B..484C3C RET0. Constructor484A67 installs secondary
+// update table84A438 at complete+10. The preceding owned destructor ends
+// at484B6B and the next deleting destructor starts at484C3C, proving extent.
+// BF1 clean PassiveAreaEffectBehavior_update.cpp at575ba2b04 is the guide;
+// target adds upgrade gating and returns nonzero module delay instead of1.
+
+UpdateSleepTime PassiveAreaEffectBehavior::update()
+{
+ const AreaData *data=m_moduleData;
+ Object *owner=m_object;
+ unsigned delay=data->m_pingDelay;
+ if(!delay)delay=1;
+ if(!data->m_upgradeRequired.isEmpty()){
+  const UpgradeTemplate *upgrade=TheUpgradeCenter->findUpgrade(data->m_upgradeRequired);
+  if(!upgrade||!owner->hasUpgrade(upgrade))return (UpdateSleepTime)delay;
+ }
+ Rva00484B6BCheckInterface *iface=(Rva00484B6BCheckInterface*)owner->rva0028BD17();
+ if(iface){if(iface->s2C())return (UpdateSleepTime)delay;}else if(owner->testStatus(status2))return (UpdateSleepTime)delay;
+ if(owner->m_438&1)return UPDATE_SLEEP_FOREVER;
+ unsigned frame=TheGameLogic->getFrame();
+ if(frame-m_20>=data->m_pingDelay){
+  rva00484C8B();
+  m_20=frame;
+ }
+ for(_STL::list<int>::iterator it=m_trackedIds.begin();it!=m_trackedIds.end();++it){
+  Object *affected=TheGameLogic->findObjectByID((ObjectID)*it);
+  if(affected)rva004848E6(affected);
+ }
+ return (UpdateSleepTime)delay;
+}
+
 // tu-skeleton: 0x00484EA9 75B ??1PassiveAreaEffectBehaviorModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehaviorModuleDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078BE2B 8B Unwind@00b8be2b -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehaviorCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078BE33 11B uw_0078be33 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehaviorCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078BE3E 10B __ehhandler$??0PassiveAreaEffectBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehaviorCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078BE5F 8B Unwind@00b8be5f -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehaviorDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078BE67 10B __ehhandler$??1PassiveAreaEffectBehavior@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehaviorDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0078BED6 8B Unwind@00b8bed6 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehaviorModuleDataDtor.cpp (not merged yet)
 
