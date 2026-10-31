@@ -23,8 +23,23 @@ struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 //#pragma optimize("", off)
 //#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
 
+
 #endif
 #include "PreRTS.h"
+#define GAP_VTABLE_PAIR_CTOR(NAME) \
+	class NAME \
+	{ \
+	public: \
+		NAME(const GapPair &pair); \
+		virtual ~NAME() {} \
+	private: \
+		int m_04; \
+		int m_08; \
+		int m_0C; \
+	}; \
+	NAME::NAME(const GapPair &pair) : m_04(0), m_08(pair.a), m_0C(pair.b) \
+	{ \
+	}
 
 /// The singleton message stream for messages going to TheGameLogic
 MessageStream *TheMessageStream = NULL;
@@ -173,6 +188,103 @@ class GameMessageArgument;
 extern const int g_emptyFieldParseTable[4];
 
 typedef unsigned char UnsignedByte;
+
+// Small GameEngine bodies from .text gaps no Ghidra function covers
+// (fifteenth batch; see GapBodiesGE01.cpp). Retail bytes establish every
+// shape; owning classes are not recovered, so each keeps an address-derived
+// name and a view of only the members it touches. Callees use the ledger's
+// existing spellings.
+
+struct GapPair
+{
+	int a;
+	int b;
+};
+
+// --- 0x002E7334 (26B): a word and a pair; 0x002E734E (58B): cell callback.
+struct Rva002E734ECell { int m_pad00[3]; unsigned int m_flags; };
+
+struct Rva002E7334
+{
+	Rva002E7334(int value, const GapPair &pair);
+	int rva002E734E(Rva002E734ECell *from, Rva002E734ECell *to, int cellColumn, int cellRow);
+	int m_00;
+	int m_04;
+	int m_08;
+};
+
+// --- 0x004E4E05 (37B): copy five settings from another record;
+// 0x004E4E2A (48B): the +0x08 value clamped to [0, 1].
+class Rva004E4E05
+{
+public:
+	void rva004E4E05(const Rva004E4E05 *that);
+	void rva004E4E2A(float value);
+private:
+	char m_pad[8];
+	float m_08;
+	char m_pad0C[0x18 - 0x0C];
+	int m_18;
+	char m_pad1C[0x24 - 0x1C];
+	int m_24;
+	int m_28;
+	int m_2C;
+	int m_30;
+};
+
+// --- 0x0030F642 (55B): unlink a node (+0x04 previous, +0x08 next) from the
+// list with tail +0x0C and head +0x10, clearing its +0x0C; 0x0030F679 (30B):
+// whether a node from the tail back carries the id (+0x10).
+struct Rva0030F642Node
+{
+	int m_00;
+	Rva0030F642Node *m_prev;								// +0x04
+	Rva0030F642Node *m_next;								// +0x08
+	int m_0C;
+	int m_id;												// +0x10
+};
+
+class Rva0030F642
+{
+public:
+	void rva0030F642(Rva0030F642Node *node);
+	bool rva0030F679(int id) const;
+private:
+	char m_pad[0x0C];
+	Rva0030F642Node *m_tail;								// +0x0C
+	Rva0030F642Node *m_head;								// +0x10
+};
+
+struct Out0052A36A;
+
+class Rva0052A36A
+{
+public:
+	void rva0052A36A(Out0052A36A *out);						// 0x0052A36A
+	void rva0052A387(int value);							// 0x0052A387
+};
+
+class Rva0052A621
+{
+public:
+	Out0052A36A *rva0052A621(Out0052A36A *out);
+	void rva0052A652(int value);
+private:
+	char m_pad[8];
+	Rva0052A36A m_08;
+};
+
+// --- 0x005DBB4D (45B): the 8x8 short table at +0x838, 0 out of range.
+class Rva005DBB4D
+{
+public:
+	short rva005DBB4D(unsigned short row, unsigned short column) const;
+private:
+	char m_pad[0x838];
+	short m_table[8][8];
+};
+
+// ---- from Code/GameEngine/Source/Common/MessageStream.cpp
 
 // ---- from Code/GameEngine/Source/Common/GameMessage.cpp
 
@@ -586,40 +698,6 @@ void buildRegion( const ICoord2D *anchor, const ICoord2D *dest, IRegion2D *regio
 
 #pragma optimize("", on)
 
-// tu-skeleton: 0x0030F53C 9B ??0BfmeNetGameMessageArgument@@QAE@XZ -- matched in Code/GameEngine/Source/GameNetwork/NetCommandMsg.cpp (not merged yet)
-
-// tu-skeleton: 0x0030F545 29B ??_GBfmeNetGameMessageArgument@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameNetwork/NetCommandMsg.cpp (not merged yet)
-
-// tu-skeleton: 0x0030F562 26B ??0GameMessageList@@QAE@XZ -- matched in Code/GameEngine/Source/Common/MessageStreamListCtors.cpp (not merged yet)
-
-// tu-skeleton: 0x0030F57C 86B ??1GameMessageList@@UAE@XZ -- matched in Code/GameEngine/Source/Common/MessageStreamListCtors.cpp (not merged yet)
-
-// tu-skeleton: 0x0030F5D2 50B ?appendMessage@GameMessageList@@UAEXPAVGameMessage@@@Z -- matched in Code/GameEngine/Source/Common/MessageStreamListCtors.cpp (not merged yet)
-
-// tu-skeleton: 0x0030F604 62B ?insertMessage@GameMessageList@@UAEXPAVGameMessage@@0@Z -- matched in Code/GameEngine/Source/Common/MessageStreamListCtors.cpp (not merged yet)
-
-// tu-skeleton: 0x0030F642 55B ?rva0030F642@Rva0030F642@@QAEXPAURva0030F642Node@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE15.cpp (not merged yet)
-
-// tu-skeleton: 0x0030F679 30B ?rva0030F679@Rva0030F642@@QBE_NH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE15.cpp (not merged yet)
-
-// tu-skeleton: 0x0030F697 33B ??0MessageStream@@QAE@XZ -- matched in Code/GameEngine/Source/Common/MessageStreamListCtors.cpp (not merged yet)
-
-// tu-skeleton: 0x0030F6B8 28B ??_GTranslatorData@MessageStream@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/MessageStreamListCtors.cpp (not merged yet)
-
-// tu-skeleton: 0x0030F738 159B ?attachTranslator@MessageStream@@QAEIPAVGameMessageTranslator@@I@Z -- matched in Code/GameEngine/Source/Common/MessageStreamListCtors.cpp (not merged yet)
-
-// tu-skeleton: 0x0030F7D7 28B ?findTranslator@MessageStream@@QAEPAVGameMessageTranslator@@I@Z -- matched in Code/GameEngine/Source/Common/MessageStreamListCtors.cpp (not merged yet)
-
-// tu-skeleton: 0x0030F7F3 79B ?removeTranslator@MessageStream@@QAEXI@Z -- matched in Code/GameEngine/Source/Common/MessageStreamListCtors.cpp (not merged yet)
-
-// tu-skeleton: 0x0030F842 18B ??0CommandList@@QAE@XZ -- matched in Code/GameEngine/Source/Common/MessageStreamListCtors.cpp (not merged yet)
-
-// tu-skeleton: 0x0030F854 44B ?destroyAllMessages@CommandList@@QAEXXZ -- matched in Code/GameEngine/Source/Common/MessageStreamListCtors.cpp (not merged yet)
-
-// tu-skeleton: 0x0030F880 34B ?appendMessageList@CommandList@@QAEXPAVGameMessage@@@Z -- matched in Code/GameEngine/Source/Common/CommandList_appendMessageList.cpp (not merged yet)
-
-// tu-skeleton: 0x0030F8FF 55B ?allocArg@GameMessage@@AAEPAVGameMessageArgument@@XZ -- matched in Code/GameEngine/Source/Common/GameMessageAllocArg.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/GameMessageIntWideArgs.cpp
 
 //
@@ -649,6 +727,63 @@ void GameMessage::appendWideCharArgument(const unsigned short &arg)
 	gameMessageArgument->m_type = ARGUMENTDATATYPE_WIDECHAR;
 }
 
+// tu-skeleton: 0x0030F53C 9B ??0BfmeNetGameMessageArgument@@QAE@XZ -- matched in Code/GameEngine/Source/GameNetwork/NetCommandMsg.cpp (not merged yet)
+
+// tu-skeleton: 0x0030F545 29B ??_GBfmeNetGameMessageArgument@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameNetwork/NetCommandMsg.cpp (not merged yet)
+
+// tu-skeleton: 0x0030F562 26B ??0GameMessageList@@QAE@XZ -- matched in Code/GameEngine/Source/Common/MessageStreamListCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x0030F57C 86B ??1GameMessageList@@UAE@XZ -- matched in Code/GameEngine/Source/Common/MessageStreamListCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x0030F5D2 50B ?appendMessage@GameMessageList@@UAEXPAVGameMessage@@@Z -- matched in Code/GameEngine/Source/Common/MessageStreamListCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x0030F604 62B ?insertMessage@GameMessageList@@UAEXPAVGameMessage@@0@Z -- matched in Code/GameEngine/Source/Common/MessageStreamListCtors.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/GapBodiesGE15.cpp
+
+void Rva0030F642::rva0030F642(Rva0030F642Node *node)
+{
+	if (node->m_prev)
+		node->m_prev->m_next = node->m_next;
+	else
+		m_head = node->m_next;
+	if (node->m_next)
+		node->m_next->m_prev = node->m_prev;
+	else
+		m_tail = node->m_prev;
+	node->m_0C = 0;
+}
+
+bool Rva0030F642::rva0030F679(int id) const
+{
+	for (Rva0030F642Node *node = m_tail; node; node = node->m_prev)
+		if (node->m_id == id)
+			return true;
+	return false;
+}
+
+// --- 0x0052A603 / 0x0052A634 (30B each): vtables 0x00C684AC / 0x00C684B4
+// over a cleared word and a pair; 0x0052A621 (19B) / 0x0052A652 (8B): the
+// +0x08 member's rowed 0x0052A36A / 0x0052A387.
+
+// tu-skeleton: 0x0030F697 33B ??0MessageStream@@QAE@XZ -- matched in Code/GameEngine/Source/Common/MessageStreamListCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x0030F6B8 28B ??_GTranslatorData@MessageStream@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/MessageStreamListCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x0030F738 159B ?attachTranslator@MessageStream@@QAEIPAVGameMessageTranslator@@I@Z -- matched in Code/GameEngine/Source/Common/MessageStreamListCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x0030F7D7 28B ?findTranslator@MessageStream@@QAEPAVGameMessageTranslator@@I@Z -- matched in Code/GameEngine/Source/Common/MessageStreamListCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x0030F7F3 79B ?removeTranslator@MessageStream@@QAEXI@Z -- matched in Code/GameEngine/Source/Common/MessageStreamListCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x0030F842 18B ??0CommandList@@QAE@XZ -- matched in Code/GameEngine/Source/Common/MessageStreamListCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x0030F854 44B ?destroyAllMessages@CommandList@@QAEXXZ -- matched in Code/GameEngine/Source/Common/MessageStreamListCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x0030F880 34B ?appendMessageList@CommandList@@QAEXPAVGameMessage@@@Z -- matched in Code/GameEngine/Source/Common/CommandList_appendMessageList.cpp (not merged yet)
+
+// tu-skeleton: 0x0030F8FF 55B ?allocArg@GameMessage@@AAEPAVGameMessageArgument@@XZ -- matched in Code/GameEngine/Source/Common/GameMessageAllocArg.cpp (not merged yet)
+
 // tu-skeleton: 0x0030F9BB 29B ?appendLocationArgument@GameMessage@@QAEXABUCoord3D@@@Z -- matched in Code/GameEngine/Source/Common/GameMessageStructArgs.cpp (not merged yet)
 
 // tu-skeleton: 0x0030F9F6 30B ?appendPixelRegionArgument@GameMessage@@QAEXABUIRegion2D@@@Z -- matched in Code/GameEngine/Source/Common/GameMessageStructArgs.cpp (not merged yet)
@@ -673,7 +808,7 @@ void GameMessage::appendWideCharArgument(const unsigned short &arg)
 
 // tu-skeleton: 0x0077A435 10B __ehhandler$??1GameMessageList@@UAE@XZ -- matched in Code/GameEngine/Source/Common/MessageStreamListCtors.cpp (not merged yet)
 
-// tu-skeleton: 0x0077A43F 8B uw_0077a43f -- matched in Code/gen_small/uw_gen_002.cpp (not merged yet)
+// tu-skeleton: 0x0077A43F 8B $L1776 -- matched in Code/GameEngine/Source/Common/System/MessageStreamCommandName.cpp (not merged yet)
 
 // tu-skeleton: 0x0077A447 25B uw_0077a447 -- matched in Code/GameEngine/Source/Common/System/MessageStreamCommandName.cpp (not merged yet)
 

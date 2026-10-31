@@ -95,27 +95,6 @@ private:
 	Rva0030F642Node *m_head;								// +0x10
 };
 
-void Rva0030F642::rva0030F642(Rva0030F642Node *node)
-{
-	if (node->m_prev)
-		node->m_prev->m_next = node->m_next;
-	else
-		m_head = node->m_next;
-	if (node->m_next)
-		node->m_next->m_prev = node->m_prev;
-	else
-		m_tail = node->m_prev;
-	node->m_0C = 0;
-}
-
-bool Rva0030F642::rva0030F679(int id) const
-{
-	for (Rva0030F642Node *node = m_tail; node; node = node->m_prev)
-		if (node->m_id == id)
-			return true;
-	return false;
-}
-
 // --- 0x0052A603 / 0x0052A634 (30B each): vtables 0x00C684AC / 0x00C684B4
 // over a cleared word and a pair; 0x0052A621 (19B) / 0x0052A652 (8B): the
 // +0x08 member's rowed 0x0052A36A / 0x0052A387.
