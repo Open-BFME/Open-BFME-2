@@ -19834,3 +19834,10 @@ Code/GameEngine/Source/GameClient/FXParticleSystemLineDraw.cpp|function|0x0055CD
 Code/GameEngine/Source/Common/Rva007E3C20Vp6StreamDtor.cpp|function|0x000909B7|rva000909B7,bf2e861e88b9a799bdd17056,drz-k3,n29g2-k3,w-077d7aeb666b,2026-10-31
 Code/GameEngine/Source/Common/Rva00625840Init.cpp|member|Rva00625840Owner|m_120,474b7258f8357a1ac19507d0,drz-k3,n29g2-k3,w-077d7aeb666b,2026-10-31
 Code/GameEngine/Source/Common/Rva005C7636.cpp|function|0x005C7636|rva005C7636,4edc51feee87e56efea8f947,drz-k3,n29g2-k3,w-077d7aeb666b,2026-10-31
+Code/GameEngine/Source/Common/Rva00506A0CCheck.cpp|function|0x00506A0C|rva00506A0C,01a85fd793f3858177b7c7bb,drz-k9,n29h2-k9,w-4d4d8f8584bc,2026-10-31
+Code/GameEngine/Source/Common/Rva0046AC52.cpp|function|0x0046AC52|rva0046AC52,f65d81627e42996d6d0ef04a,drz-k9,n29h2-k9,w-4d4d8f8584bc,2026-10-31
+Code/GameEngine/Source/Common/Rva0046AC52.cpp|function|0x0046E563|rva0046E563,9c419eb48000d3214cc6ff47,drz-k9,n29h2-k9,w-4d4d8f8584bc,2026-10-31
+Code/GameEngine/Source/Common/Rva003833BBErase.cpp|class||Rva003833BBNode,fc4e5fc40764d73b16081faa,drz-k9,n29h2-k9,w-4d4d8f8584bc,2026-10-31
+Code/GameEngine/Source/Common/Rva003833BBErase.cpp|class||Rva00383380,085388fe34065d5de7ef9327,drz-k9,n29h2-k9,w-4d4d8f8584bc,2026-10-31
+Code/GameEngine/Source/Common/Rva002D2DF6Init.cpp|function|0x002D2DF6|rva002D2DF6,48970b434fa1fd356cbbadea,drz-k9,n29h2-k9,w-4d4d8f8584bc,2026-10-31
+Code/GameEngine/Source/Common/Rva002B2757.cpp|member|Rva002B2757|m_b0,72021707d77978108536899a,drz-k9,n29h2-k9,w-4d4d8f8584bc,2026-10-31
