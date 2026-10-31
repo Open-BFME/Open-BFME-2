@@ -168,6 +168,7 @@ public:
 	Rva0024C7B3Member();
 	void zeroData() { memset(m_data, 0, sizeof(m_data)); }
 	void xfer(Xfer *xfer) { ((BitFlags<218> *)this)->xfer(xfer); }
+	bool test(int bit) const { return ((m_data[0] >> bit) & 1) != 0; }
 private:
 	unsigned int m_data[7];
 };
@@ -202,9 +203,16 @@ public:
 class TerrainLogic : public TerrainLogicSlots<TerrainLogicHead, 34>
 {
 public:
+	void LoadAmbientLightmap(const AsciiString &name);
+	void rva0027D1A4(const Coord3D *pos, float radius, int arg);
+	void rva0027F28E(const Coord3D *pos, float radius, int arg);
 	virtual Waypoint *getWaypointByID(UnsignedInt id); // +0x8C
 
-	unsigned char m_pad[0x56c - 0x04];
+	unsigned char m_pad04[0x24 - 0x04];
+	unsigned char *pixels; // +0x24
+	unsigned width; // +0x28
+	unsigned height; // +0x2C
+	unsigned char m_pad30[0x56C - 0x30];
 	Rva0027F4CB m_tree; // +0x56C
 };
 
@@ -295,7 +303,10 @@ public:
 class Rva00281A33Listener
 {
 public:
-	virtual void notify(void *, int);
+    virtual void notify(void *, int);
+    virtual void insert(void *, int);
+    virtual void afterRemove(void *, int);
+    virtual void beforeRemove(void *, int);
 };
 
 struct Rva0027F519Call
@@ -336,12 +347,15 @@ class Rva00281A15List
 public:
 	void forEach(void (Rva00281A15Listener::*notify)(void *), void *arg);
 	void apply(const Rva00280B1ACall &call);
-
-private:
-	Rva00281A15Listener **m_begin;		// +0x00
-	Rva00281A15Listener **m_end;		// +0x04
-	Rva00281A15Listener **m_capacity;	// +0x08
-	unsigned int m_index;	// +0x0C
+	~Rva00281A15List()
+	{
+	    if (m_begin)
+	        free(m_begin);
+	}
+	Rva00281A15Listener **m_begin; // +0x00
+	Rva00281A15Listener **m_end; // +0x04
+	Rva00281A15Listener **m_capacity; // +0x08
+	unsigned int m_index; // +0x0C
 };
 
 struct TargetRef00217D4C { virtual void *destroy(unsigned int flags); int references; };
@@ -399,8 +413,10 @@ public:
 class AI
 {
 public:
-	unsigned char _pad[0x10];
-	Pathfinder *m_10;
+    Pathfinder *pathfinder() { return m_pathfinder; }
+    Pathfinder *pathfinder() const { return m_pathfinder; }
+    unsigned char m_pad00[0x10];
+    Pathfinder *m_pathfinder; // +0x10
 };
 
 extern class AI *TheAI;
@@ -489,10 +505,19 @@ struct Rva004DFCB0Element
 	bool operator==(const Rva004DFCB0Element &) const;
 };
 
+class Rva00281A76;
+typedef void *(__cdecl *Rva00282B26Callback)(void *key);
+
 class Rva00283114
 {
 public:
 	void rva00283114(void *value);
+	virtual float padding() = 0;
+	char m_pad04[0xC];
+private:
+	_STL::vector<Rva00281A76 *> m_groups; // +0x10
+	int m_1C; // +0x1C
+	Rva00282B26Callback m_callback; // +0x20
 };
 
 class Rva002834E6Owner
@@ -651,9 +676,9 @@ class Rva0027D378
 {
 public:
 	int rva0027D378(void *p, int amount);
-private:
 	char m_pad00[0x1910];
-	int m_1910;
+private:
+	int m_1910; // +0x1910
 };
 
 // ?getWaterHandleByID@Rva0027F4F8@@QAEPAXH@Z @0x0027F4F8 33B. Linear search of
@@ -1135,11 +1160,11 @@ void Rva0027D244::rva0027D276(Rva0027D244 *lhs, Rva0027D244 *rhs)
 	float d2 = dx * dx + dy * dy;
 	if (m_0C != 0 && d2 >= m_10)
 		return;
-	Pathfinder *pf = TheAI->m_10;
+	Pathfinder *pf = TheAI->m_pathfinder;
 	Object *obj = (Object *)m_18;
 	if (!pf->QuickDoesPathExist(obj, &obj->m_38, (const Coord3D *)lhs, 0))
 		return;
-	pf = TheAI->m_10;
+	pf = TheAI->m_pathfinder;
 	obj = (Object *)m_18;
 	if (!pf->IsGroundLineOnly(&obj->m_38, (const Coord3D *)lhs))
 		return;

@@ -6,6 +6,9 @@ class Rva0027D378
 {
 public:
 	int rva0027D378(void *p, int amount);
+	char m_pad00[0x1910];
+private:
+	int m_1910; // +0x1910
 };
 
 struct Rva0027F09FTarget

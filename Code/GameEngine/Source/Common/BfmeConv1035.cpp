@@ -7,11 +7,11 @@
 // omitted -- bfmeGo1035G is recovered in its own TU.
 class BfmeX1035;
 
-struct BfmeT1035
+class BfmeT1035
 {
+public:
 	void bfmeUse1035(BfmeX1035 *p, int b);
-
-	int m_bfmeV;
+	int m_bfmeV; // +0x00
 };
 
 void __stdcall bfmeGo1035C(BfmeX1035 *p, int b)
