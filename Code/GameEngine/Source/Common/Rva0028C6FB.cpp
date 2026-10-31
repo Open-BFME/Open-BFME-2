@@ -72,7 +72,7 @@ void *Rva002AA2CF::rva002AA2CF(unsigned int idx)
 	return (m_bits[idx >> 5] & (1u << (idx & 31))) ? (void *)TheKindOfBitNames[idx] : 0;
 }
 
-extern const char *CommandSetNames[];
+
 
 class Rva0031852F
 {
@@ -82,11 +82,6 @@ public:
 private:
 	unsigned int m_bits[8];
 };
-
-void *Rva0031852F::rva0031852F(unsigned int idx)
-{
-	return (m_bits[idx >> 5] & (1u << (idx & 31))) ? (void *)CommandSetNames[idx] : 0;
-}
 
 extern const char *VeterancyLevelNames[];
 

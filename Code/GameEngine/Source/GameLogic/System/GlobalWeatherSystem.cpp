@@ -104,6 +104,77 @@ private:
 	Rva003184B8Entry m_entries30[5];
 };
 
+// ?rva0028C6FB@Rva0028C6FB@@QAEPAXI@Z @0x0028C6FB 42B
+// Bit-present table lookup: if bit (idx&31) of word (idx>>5) at +0 is set return table[idx] else 0.
+// Evidence: test [this+word*4] mask plus mov eax [idx*4+VA 0x00DC828C]; sole caller 0x00292414;
+// neighbours V3PolyCopyCtors and ConstIntGetters5 give TU and flags.
+// DisabilityTypeNames: the retail string table at VA 0x00DC828C (defined in
+// Code/GameEngine/Source/GameLogic/Object/Update/Rva0049D67F.cpp).
+ ///< retail [0x00DC828C]
+
+class Rva0028C6FB
+{
+public:
+	void *rva0028C6FB(unsigned int idx);
+
+private:
+	unsigned int m_bits[8];
+};
+
+// Five more copies of this lookup, each over a named BitFlags name table (the
+// operand the load reads), otherwise the same 42 bytes. Owners keep addresses.
+
+
+
+class Rva000454F3
+{
+public:
+	void *rva000454F3(unsigned int idx);
+
+private:
+	unsigned int m_bits[8];
+};
+
+class Rva0028C783
+{
+public:
+	void *rva0028C783(unsigned int idx);
+
+private:
+	unsigned int m_bits[8];
+};
+
+class Rva002AA2CF
+{
+public:
+	void *rva002AA2CF(unsigned int idx);
+
+private:
+	unsigned int m_bits[8];
+};
+
+extern const char *CommandSetNames[];
+
+class Rva0031852F
+{
+public:
+	void *rva0031852F(unsigned int idx);
+
+private:
+	unsigned int m_bits[8];
+};
+
+class Rva004BE0C7
+{
+public:
+	void *rva004BE0C7(unsigned int idx);
+
+private:
+	unsigned int m_bits[8];
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/System/GlobalWeatherSystem.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/System/GlobalWeatherSystem.cpp
 
 //
@@ -164,7 +235,12 @@ void Rva003184B8::rva003184B8()
 	}
 }
 
-// tu-skeleton: 0x0031852F 42B ?rva0031852F@Rva0031852F@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0028C6FB.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva0028C6FB.cpp
+
+void *Rva0031852F::rva0031852F(unsigned int idx)
+{
+	return (m_bits[idx >> 5] & (1u << (idx & 31))) ? (void *)CommandSetNames[idx] : 0;
+}
 
 // tu-skeleton: 0x00318559 47B ?setBitByName@?$BitFlags@$0P@@@QAE_NPBD@Z -- matched in Code/GameEngine/Source/Common/BitFlags304SetBitByName.cpp (not merged yet)
 
