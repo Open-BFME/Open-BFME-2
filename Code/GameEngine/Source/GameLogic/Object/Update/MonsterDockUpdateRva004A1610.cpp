@@ -62,8 +62,9 @@ class BehaviorModule
 public:
 	virtual ~BehaviorModule();
 protected:
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
+	virtual void loadPostProcess();
+	const ModuleData *m_moduleData; // +0x04 +0x04
+	Object *m_object; // +0x08 +0x08
 };
 class BehaviorModuleInterface
 {
@@ -99,6 +100,7 @@ class Drawable
 {
 public:
 	void rva00272A02(bool on);
+	void setDrawableHidden(bool);
 };
 class MonsterDockUpdate : public DockUpdate
 {

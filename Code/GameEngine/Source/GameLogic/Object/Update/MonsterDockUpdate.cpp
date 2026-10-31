@@ -71,7 +71,7 @@ class Drawable
 {
 public:
 	void rva00272A02(bool on);
- void setDrawableHidden(bool);
+	void setDrawableHidden(bool);
 };
 #include "../../../Common/GameLogicObjectLookupView.h"
 
@@ -85,8 +85,8 @@ public:
 	virtual ~BehaviorModule();
 protected:
 	virtual void loadPostProcess();
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
+	const ModuleData *m_moduleData; // +0x04 +0x04
+	Object *m_object; // +0x08 +0x08
 };
 
 class BehaviorModuleInterface
