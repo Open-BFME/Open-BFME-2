@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_CRTIMP= /Ireference/shims/bfmealloc
+// cl: /DNDEBUG /MD /GX /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_STLP_USE_MALLOC /D_CRTIMP= /Ireference/shims/bfmealloc /ICode/GameEngine/Source/Common /ICode/GameEngine/Include/GameLogic /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /Ireference/shims/subsystem_bfme2
 // stlport
 //
 // ?update@MineshaftPortalNetworkManager@@UAEXXZ @0x003734FD (670B).
@@ -49,7 +49,8 @@ static __forceinline void eraseFirst(LocalTree *tree) throw()
 {
     ((SetIntTree *)tree)->erase(SetIntTree::iterator((SetIntTree::_Link_type)((_STL::_Rb_tree_node_base *)tree->header)->_M_left));
 }
-class Rva00373373Portal {
+class Rva00373373Portal
+{
 public:
     virtual void *destroy(unsigned int flags);
     unsigned int id;
@@ -57,9 +58,37 @@ public:
     float x, y, z;
 };
 class Rva002E6ECA { public: int get() const; };
-class Rva00372CA8 { public: bool rva00372CEC(int value); };
-class Waypoint { public: void addLink(Waypoint *other); };
-class Rva002E9042 { public: void AddPortal(void *portal); };
+class Rva00372CA8
+{
+public:
+	void rva00372CA8(int value);
+	bool rva00372CEC(int value);
+};
+class AsciiString;
+struct Coord3D;
+class Waypoint
+{
+public:
+	Waypoint(unsigned int id, AsciiString name, const Coord3D *pLoc, AsciiString label1, AsciiString label2, AsciiString label3, bool biDirectional, int bfmeType, AsciiString bfmeName);
+	__forceinline int getID() const { return id; }
+	void addLink(Waypoint *other);
+	char m_pad00[0x4];
+	int id; // +0x04
+	char m_pad08[0x40];
+	unsigned char m_48; // +0x48
+	char m_pad49[0x5F];
+	unsigned char m_A8; // +0xA8
+	unsigned char m_A9; // +0xA9
+	char m_padAA[0x6];
+	int m_B0; // +0xB0
+	char m_padB4[0xC];
+};
+class Rva002E9042
+{
+public:
+	void rva002E9042(void *portal);
+	void AddPortal(void *portal);
+};
 class AI { public: char pad[0x10]; Rva002E9042 *pathfinder; };
 extern AI *TheAI;
 class TerrainLogic {
@@ -82,20 +111,25 @@ struct NetNode : _STL::_Rb_tree_node_base { int key; NetGroup *group; };
 struct TreeNode : _STL::_Rb_tree_node_base { float key; ObjectID id; };
 
 class Rva0037381CMap { public: void *header; unsigned int count; };
-class Rva003732BFSubsystem { public: virtual ~Rva003732BFSubsystem(); char pad04[8]; };
-class Rva003732BFSnapshot { protected: virtual void crc(void *xfer); virtual void xfer(void *xfer) = 0; virtual void loadPostProcess(); };
-class MineshaftPortalNetworkManager : public Rva003732BFSubsystem, public Rva003732BFSnapshot
+class Player;
+#include "../../../../../Libraries/Source/subsystem/SubsystemInterface.h"
+#include "Common/Snapshot.h"
+class MineshaftPortalNetworkManager : public SubsystemInterface, public Snapshot
 {
 public:
-    virtual void xfer(void *xfer);
+    MineshaftPortalNetworkManager();
+    virtual ~MineshaftPortalNetworkManager();
+    virtual void xfer(Xfer *xfer);
+    virtual void reset();
     virtual void update();
     void rva00373158(Rva00373373Portal *portal, int key);
-    Rva0037381CMap map;
+    void rva003731CB(Rva00373373Portal *portal, Player *player);
+    _STL::map<int, void *> m_map;
 };
 
 void MineshaftPortalNetworkManager::update()
 {
-    _STL::_Rb_tree_node_base *mapHeader = (_STL::_Rb_tree_node_base *)map.header;
+    _STL::_Rb_tree_node_base *mapHeader = (_STL::_Rb_tree_node_base *)((Rva0037381CMap *)&m_map)->header;
     for (NetNode *node = (NetNode *)mapHeader->_M_left; node != (NetNode *)mapHeader;
          node = (NetNode *)_STL::_Rb_global<bool>::_M_increment(node)) {
         if (!node->group->changed)

@@ -9,16 +9,24 @@
 // for each value pointer at [node+0x14] call rowed rva00373357 0x00373357
 // then rowed operator delete 0x0002FD60, tail-jmp rowed clear 0x00372F2D.
 // Caller dtor 0x0037381C destroys map at +0x10 right after. Flags from prev.
+#include <vector>
 #include <map>
 
 struct TreeOpaqueMapped00372FF4 { unsigned int m_bits; };
 typedef _STL::pair<const float, TreeOpaqueMapped00372FF4> TreeValue00372FF4;
 typedef _STL::_Rb_tree<float, TreeValue00372FF4, _STL::_Select1st<TreeValue00372FF4>, _STL::less<float>, _STL::allocator<TreeValue00372FF4> > Tree00372FF4;
 
+enum ScienceType
+{
+	SCIENCE_Dummy0
+};
 class Rva00373357
 {
 public:
 	void rva00373357();
+	void *rva0037341F(bool b);
+private:
+	_STL::vector<ScienceType> m_vec; // +0x00
 };
 
 struct RvaNodeBase
