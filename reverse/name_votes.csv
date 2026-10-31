@@ -19521,3 +19521,4 @@ Code/GameEngine/Source/Common/GapBodiesGE09.cpp|function|0x003BD52F|Rva003BD52F,
 Code/GameEngine/Source/Common/VslotSmallBodiesP.cpp|member|Rva006E0440|m_4C,4b11f1cbba71988d02f41464,drz-k9,n27b2-k9,w-4d4d8f8584bc,2026-10-31
 Code/GameEngine/Source/Common/VslotSmallBodiesP.cpp|function|0x00709BF0|rva00709BF0,f30bc56d2e2f950dca01ed5c,drz-k9,n27b2-k9,w-4d4d8f8584bc,2026-10-31
 Code/GameEngine/Source/Common/VslotSmallBodiesI.cpp|member|Rva0057A83C|m_08,fc14f0fde1b981b1ddf22f37,drz-k9,n27b2-k9,w-4d4d8f8584bc,2026-10-31
+Code/GameEngine/Source/Common/Rva005B01D3Lerp.cpp|function|0x005B01D3|rva005B01D3,7183d8852e488bae1e32359f,drz-k3,n27c2-k3,w-077d7aeb666b,2026-10-31
