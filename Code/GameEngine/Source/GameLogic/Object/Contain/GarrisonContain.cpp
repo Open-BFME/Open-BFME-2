@@ -184,7 +184,10 @@ class Snapshot;
 #pragma comment(linker, "/alternatename:?b5@B5@@UAEXXZ=?onDie@OpenContain@@UAEXPBVDamageInfo@@@Z")
 #pragma comment(linker, "/alternatename:?b7@B7@@UAEXXZ=?IsCRC@Xfer@@UBE_NXZ")
 #pragma comment(linker, "/alternatename:?b8@B8@@UAEXXZ=??1Region2D@@QAE@XZ")
+#include "../../../../Include/GameLogic/Weapon.h"
+
 struct Rva004786F8LogicView { char m_lead[0x40]; unsigned int m_frame; };
+
 class DamageInfo {
 public:
     DamageInfo();
@@ -195,6 +198,7 @@ public:
     float m_amount;
     char m_tail[0x7c-0x24];
 };
+
 class Rva00263895Member {
 public:
     Rva00263895Member();
@@ -205,6 +209,7 @@ public:
     float m_amount;
     char m_tail[0x7c-0x24];
 };
+
 class Rva004786F8Body {
 public:
     virtual void slot00();
@@ -215,10 +220,12 @@ public:
     virtual void slot14();
     virtual float getMaxHealth() const;
 };
+
 struct Rva004786F8TemplateView {
     char m_lead[0x111];
     unsigned char m_kindof111;
 };
+
 struct Rva004786F8ObjectView {
     char m_lead00[4];
     const Rva004786F8TemplateView* m_template;
@@ -329,6 +336,7 @@ enum BodyDamageType
 };
 
 class DamageInfo;
+
 class Weapon;
 
 class ModuleData;
@@ -815,6 +823,8 @@ public:
 class Team;
 
 class Thing;
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContain.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContain.cpp
 
@@ -1543,10 +1553,6 @@ int GarrisonContain::findClosestFreeGarrisonPointIndex(int conditionIndex, const
     return closestIndex;
 }
 
-// tu-skeleton: 0x00477F06 278B ??0GarrisonContain@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00478061 6B ?name@GarrisonContain@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainDtor.cpp
 
 //
@@ -1577,11 +1583,8 @@ GarrisonContain::~GarrisonContain()
 // holds a rowed function; the vftable's address is proven by the vptr stores in
 // the matched destructors, so bind the placeholder to that row's name.
 
-// tu-skeleton: 0x004785A2 107B ?putObjectAtBestGarrisonPoint@GarrisonContain@@IAEXPAVObject@@0PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainFirePoints.cpp (not merged yet)
 
-// tu-skeleton: 0x00478629 112B ?rva00478629@GarrisonContain@@QAE_NPAVObject@@_N1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainIface20.cpp (not merged yet)
 
-// tu-skeleton: 0x00478699 95B ?isValidContainerFor@GarrisonContain@@UAE_NPAVObject@@_N1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainIface20.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainHealSingleObject.cpp
 
@@ -1607,11 +1610,93 @@ void GarrisonContain::onBodyDamageStateChange(const DamageInfo*, BodyDamageType,
     }
 }
 
+// tu-skeleton: 0x00477F06 278B ??0GarrisonContain@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00478061 6B ?name@GarrisonContain@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainFirePoints.cpp
+
+// ZH GeneralsMD GarrisonContain.cpp putObjectAtBestGarrisonPoint and the two
+// attemptBestFirePointPosition overloads, reviewed through BFME1 reference
+// revision 1399ad37d42ea52a63829e417c46a1ba9ed2cd20 (BFME1 donor
+// GarrisonContain_putObjectAtBestGarrisonPoint.cpp).
+//
+// Target facts: putObjectAtBestGarrisonPoint 0x004785A2 (107 bytes, ret 0xC)
+// reads the target's position at Object +0x38 and ID at +0x74, asks the
+// full-object vtable slot +0x6C for the occupant's point index, then calls
+// findConditionIndex 0x00477E50, findClosestFreeGarrisonPointIndex 0x00478445
+// and putObjectAtGarrisonPoint 0x00477DA1. The Object-victim overload
+// 0x00478850 and the position overload 0x004788CE (126 bytes each) are entered
+// through the Contain interface at +0x20 (vtable 0x00846080 slots 78 and 77),
+// remove the source from its point (0x00477E82), place it with the helper
+// above and test Weapon::isWithinAttackRange 0x002CB933 / 0x002CB902 with
+// 0.0f and 1. Carried from the donor: the method names and the order of the
+// sanity tests. The base views follow the sibling GarrisonContain TUs.
+
+void GarrisonContain::putObjectAtBestGarrisonPoint(Object *obj, Object *target, const Coord3D *targetPos)
+{
+    if (obj == 0 || (target == 0 && targetPos == 0))
+        return;
+
+    if (target != 0)
+        targetPos = target->getPosition();
+
+    if (getObjectGarrisonPointIndex(obj->getID()) != -1)
+        return;
+
+    int conditionIndex = findConditionIndex();
+    int pointIndex = findClosestFreeGarrisonPointIndex(conditionIndex, targetPos);
+    if (pointIndex == -1)
+        return;
+
+    putObjectAtGarrisonPoint(obj, target != 0 ? target->getID() : INVALID_ID, conditionIndex, pointIndex);
+}
+
+bool GarrisonContain::attemptBestFirePointPosition(Object *source, Weapon *weapon, Object *victim)
+{
+    if (!source || !victim || !weapon)
+        return false;
+
+    int existingIndex = getObjectGarrisonPointIndex(source->getID());
+    if (existingIndex != -1)
+        removeObjectFromGarrisonPoint(source, existingIndex);
+
+    putObjectAtBestGarrisonPoint(source, victim, 0);
+
+    if (weapon->isWithinAttackRange((const Object *)source, victim, 0.0f, 1))
+        return true;
+
+    existingIndex = getObjectGarrisonPointIndex(source->getID());
+    if (existingIndex != -1)
+        removeObjectFromGarrisonPoint(source, existingIndex);
+    return false;
+}
+
+bool GarrisonContain::attemptBestFirePointPosition(Object *source, Weapon *weapon, const Coord3D *targetPos)
+{
+    if (!source || !targetPos || !weapon)
+        return false;
+
+    int existingIndex = getObjectGarrisonPointIndex(source->getID());
+    if (existingIndex != -1)
+        removeObjectFromGarrisonPoint(source, existingIndex);
+
+    putObjectAtBestGarrisonPoint(source, 0, targetPos);
+
+    if (weapon->isWithinAttackRange(source, (void *)targetPos, 0.0f, 1))
+        return true;
+
+    existingIndex = getObjectGarrisonPointIndex(source->getID());
+    if (existingIndex != -1)
+        removeObjectFromGarrisonPoint(source, existingIndex);
+    return false;
+}
+
+// tu-skeleton: 0x00478629 112B ?rva00478629@GarrisonContain@@QAE_NPAVObject@@_N1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainIface20.cpp (not merged yet)
+
+// tu-skeleton: 0x00478699 95B ?isValidContainerFor@GarrisonContain@@UAE_NPAVObject@@_N1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainIface20.cpp (not merged yet)
+
 // tu-skeleton: 0x004787B0 160B ?rva004787B0@GarrisonContain@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainRva004787B0.cpp (not merged yet)
-
-// tu-skeleton: 0x00478850 126B ?attemptBestFirePointPosition@GarrisonContain@@UAE_NPAVObject@@PAVWeapon@@0@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainFirePoints.cpp (not merged yet)
-
-// tu-skeleton: 0x004788CE 126B ?attemptBestFirePointPosition@GarrisonContain@@UAE_NPAVObject@@PAVWeapon@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainFirePoints.cpp (not merged yet)
 
 // tu-skeleton: 0x0047894C 399B ?addValidObjectsToGarrisonPoints@GarrisonContain@@IAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainAddValidObjects.cpp (not merged yet)
 
