@@ -1135,29 +1135,6 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-// Retail VA 0x00C57D38: 10 fields and the zero sentinel.
-// The matched registration proves the class relationship; retail supplies
-// every token, offset and callback. Global spelling is descriptive.
-extern const FieldParse BfmeSubObjectsUpgradeFields[] = {
-	{ "ShowSubObjects", &INI::parseAsciiStringVectorAppend, 0, 0x118 },
-	{ "HideSubObjects", &INI::parseAsciiStringVectorAppend, 0, 0x124 },
-	{ "UpgradeTexture", &rva004B5293, 0, 0x13C },
-	{ "FadeTimeInSeconds", &INI::parseReal, 0, 0x148 },
-	{ "WaitBeforeFadeInSeconds", &INI::parseReal, 0, 0x14C },
-	{ "RecolorHouse", &INI::parseBool, 0, 0x150 },
-	{ "ExcludeSubobjects", &INI::parseAsciiStringVectorAppend, 0, 0x130 },
-	{ "SkipFadeOnCreate", &INI::parseBool, 0, 0x151 },
-	{ "HideSubObjectsOnRemove", &INI::parseBool, 0, 0x152 },
-	{ "UnHideSubObjectsOnRemove", &INI::parseBool, 0, 0x153 },
-	{ 0, 0, 0, 0 }
-};
-
-void SubObjectsUpgradeModuleData::buildFieldParse(MultiIniFieldParse &parse)
-{
-	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE29DGet()), 8);
-	parse.add(BfmeSubObjectsUpgradeFields, 0);
-}
-
 int Rva0033A495Get(void);
 void Rva0033DC9CParse(INI *, void *, void *, const void *);
 

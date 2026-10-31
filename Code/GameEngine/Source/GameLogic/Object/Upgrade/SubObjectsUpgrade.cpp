@@ -56,42 +56,20 @@ class RGBAColorReal;
 class RGBAColorInt;
 class Snapshot;
 #include "../../../../Include/Common/BfmeXfer.h"
-
 class Drawable;
-
 class DrawModule;
-
 class ObjectDrawInterface;
-
 class Object;
-
 class ModuleData;
-
 struct Rva00B6CF1
 {
 	~Rva00B6CF1();
 	AsciiString m_source;
 	AsciiString m_replacement;
 };
-
-class SubObjectsUpgradeModuleData : public Snapshot
-{
-public:
-	virtual ~SubObjectsUpgradeModuleData();
-	unsigned char m_pad[0x118 - 4];
-	_STL::vector<AsciiString> m_showSubObjects;
-	_STL::vector<AsciiString> m_hideSubObjects;
-	_STL::vector<AsciiString> m_excludeSubobjects;
-	_STL::vector<Rva00B6CF1> m_textureSwaps;
-	float m_fadeTime;
-	float m_waitBeforeFade;
-	unsigned char m_flag150;
-	unsigned char m_flag151;
-	unsigned char m_flag152;
-	unsigned char m_flag153;
-};
-
 #include "../../../Common/Thing/thing.h"
+#pragma inline_depth(0)
+#pragma inline_depth()
 
 class Object : public Thing
 {
@@ -211,12 +189,6 @@ namespace _STL {
 template <> void vector<BfmeStringRecord000B94D2>::resize(unsigned int);
 }
 
-class INI
-{
-public:
-	const char *getNextTokenOrNull(const char *seps);
-};
-
 extern GameLogic *TheGameLogic;
 
 class UpgradeModule : public ObjectModuleBase,
@@ -328,6 +300,622 @@ template <> vector<Rva00B6CF1, allocator<Rva00B6CF1> >::~vector();
 template <> _Vector_base<Rva00B6CF1, allocator<Rva00B6CF1> >::~_Vector_base();
 template <> Rva00B6CF1 *vector<Rva00B6CF1, allocator<Rva00B6CF1> >::erase(Rva00B6CF1 *first, Rva00B6CF1 *last);
 }
+
+//
+// Chained ModuleData::buildFieldParse procs: each calls its base-class
+// buildFieldParse, then registers its own FieldParse table with
+// MultiIniFieldParse::add (pinned at 0x2BC6E). Bodies:
+// ?buildFieldParse@SpecialAbilityUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z, retail
+// 0x0044ED95, 11 bytes (field SpecialPowerTemplate; base shared by the
+// SpecialAbility family below; attached to the already-pinned SpecialAbilityUpdateModuleData
+// entity, no new class invented);
+// ?buildFieldParse@DockUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z
+// retail 0x005896C1, 11 bytes (field NumberApproachPositions; adjacent to
+// the ledger-named DockUpdateModuleData ctor pin at 0x5896B0);
+// ?buildFieldParse@TeleportToCasterSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z
+// retail 0x004CD389, 27 bytes (field Radius);
+// ?buildFieldParse@StoreObjectsSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z
+// retail 0x004CD918, 27 bytes (field Radius);
+// ?buildFieldParse@CurseSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z
+// retail 0x004CCD64, 27 bytes (field TriggerFX);
+// ?buildFieldParse@SupplyWarehouseDockUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z
+// retail 0x004A7D3A, 27 bytes (field StartingBoxes; follows a jump-table
+// pad, address-taken by its factory at 0x24F02F).
+// ?buildFieldParse@DelayedDeathBodyModuleData@@SAXAAVMultiIniFieldParse@@@Z
+// retail 0x004C159E, 27 bytes (chained on the pinned RespawnUpdate base proc
+// at 0x4C12D0, then table (unsigned int)&g_00C5BAE8 holding DelayedDeathTime at +0x6C plus
+// ImmortalUntilDeathTime at +0x70 plus InvulnerableFX at +0x74 plus
+// DoHealthCheck at +0x78 plus DelayedDeathPrerequisiteUpgrade at +0x7C,
+// matching the ctor stores; factory at 0x251622 pushes this proc).
+// ?buildFieldParse@DominateEnemySpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z
+// retail 0x004CC96D, 27 bytes (chained on the rowed SpecialAbilityUpdateModuleData base proc at
+// 0x44ED95, then table 0x00C5F638 holding DominateRadius at +0xC8 plus
+// TriggerFX at +0xCC plus DominatedFX at +0xD0 plus PermanentlyConvert at
+// +0xD4 plus AttributeModifierAffects at +0xD8, matching the ctor stores;
+// factory at 0x252EE5 pushes this proc; pool key at 0x4CC9DF names the class).
+// ?buildFieldParse@GiveUpgradeUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// retail 0x0049C391, 27 bytes (chained on the rowed SpecialAbilityUpdateModuleData base proc at
+// 0x44ED95, then table 0x00C511A0 holding GiveUpgradeEffect at +0xD4 plus
+// SpawnOutFX at +0xD8 plus FadeOutSpeed at +0xDC plus DeliverUpgrade at +0xE0;
+// factory at 0x24E800 pushes this proc; pool key at 0x49C471 names the class).
+// Provenance: the ZH MAKE_STANDARD_MODULE_DATA_MACRO_ABC macro passes
+// clsmd::buildFieldParse to INI::initFromINIMultiProc, and each landed
+// friend_newModuleData factory pushes its class proc immediate.
+
+class MultiIniFieldParse;
+
+class INI;
+
+typedef void (*INIFieldParseProc)(INI *, void *, void *, const void *);
+
+struct FieldParse
+{
+	const char *token;
+	INIFieldParseProc parse;
+	const void *userData;
+	int offset;
+};
+
+class INI
+{
+public:
+	const char *getNextTokenOrNull(const char *seps);
+public:
+	static void parseAudioEventRTS(INI *ini, void *instance, void *store, const void *userData);
+public:
+	static void parseAsciiString(INI *, void *, void *, const void *);
+public:
+	static void parseBool(INI *, void *, void *, const void *);
+public:
+	static void parseFXList(INI *, void *, void *, const void *);
+public:
+	static void parseInt(INI *, void *, void *, const void *);
+public:
+	static void parseReal(INI *, void *, void *, const void *);
+public:
+	static void parsePercentToReal(INI *, void *, void *, const void *);
+public:
+	static void parseDurationUnsignedInt(INI *, void *, void *, const void *);
+public:
+	static void parseWeaponTemplate(INI *, void *, void *, const void *);
+public:
+	static void parseCoord3D(INI *, void *, void *, const void *);
+public:
+	static void parseAsciiStringVectorAppend(INI *, void *, void *, const void *);
+public:
+	static void parseSpecialPowerTemplate(INI *, void *, void *, const void *);
+public:
+	static void parseDamageTypeFlags(INI *, void *, void *, const void *);
+public:
+	static void parseUnsignedInt(INI *, void *, void *, const void *);
+public:
+	static void parseObjectCreationList(INI *, void *, void *, const void *);
+public:
+	static void parseAsciiStringVector(INI *, void *, void *, const void *);
+public:
+	static void Rva004B2B64_ParseReplaceObject(INI *, void *, void *, const void *);
+public:
+	static void iniParseAnim(INI *, void *, void *, const void *);
+public:
+	static void parseDurationReal(INI *, void *, void *, const void *);
+public:
+	static void parseUpgradeTemplate(INI *, void *, void *, const void *);
+public:
+	static void iniParseAnimAndDuration(INI *, void *, void *, const void *);
+public:
+	static void dup_002F02F(INI *, void *, void *, const void *);
+public:
+	static void parseBitString32(INI *, void *, void *, const void *);
+public:
+	static void parseIndexList(INI *, void *, void *, const void *);
+public:
+	static void parseParticleSystemTemplate(INI *, void *, void *, const void *);
+public:
+	static void parseScience(INI *, void *, void *, const void *);
+};
+
+class Rva003B1017
+{
+public:
+	static void parseFromINI(INI *, void *, void *, const void *);
+};
+
+class Rva004B65E4
+{
+public:
+	static void rva004B65E4(INI *, void *, void *, const void *);
+};
+
+void Rva000B9468Parse(INI *, void *, void *, const void *);
+
+void Rva002567EAParse(INI *, void *, void *, const void *);
+
+void Rva002C8C06Parse(INI *, void *, void *, const void *);
+
+void Rva00464081ParseMask(INI *, void *, void *, const void *);
+
+void Rva00464574Parse(INI *, void *, void *, const void *);
+
+void iniParseObjectFilter(INI *, void *, void *, const void *);
+
+void rva004649A1(INI *, void *, void *, const void *);
+
+void rva004B5293(INI *, void *, void *, const void *);
+
+class Rva0049B8A0
+{
+public:
+	static void parseFromINI(INI *, void *, void *, const void *);
+};
+
+void Rva0049B51EParse(INI *, void *, void *, const void *);
+
+class MultiIniFieldParse
+{
+public:
+	void add(const FieldParse *parse, unsigned int extraOffset);
+};
+
+class SpecialAbilityUpdateModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class DockUpdateModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class TeleportToCasterSpecialPowerModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class StoreObjectsSpecialPowerModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class CurseSpecialPowerModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class SupplyWarehouseDockUpdateModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class RespawnBodyModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class DelayedDeathBodyModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class FreeLifeBodyModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class GloriousChargeUpdateModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class GiveOrRestoreUpgradeSpecialPowerModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+int Rva004CE29DGet(void);
+
+class ReplaceSelfUpgradeModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class UnpauseSpecialPowerUpgradeModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class AutoHealBehaviorModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class AttributeModifierAuraUpdateModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class LevelGrantSpecialPowerModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class LevelUpUpgradeModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class MaxHealthUpgradeModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class TooltipUpgradeModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class ExperienceScalarUpgradeModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+int Rva004CE52EGet(void);
+
+class UpgradeDieModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class CrushDieModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class KeepObjectDieModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class RefundDieModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class SpecialPowerCompletionDieModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class RebuildHoleExposeDieModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class DamageFilteredCreateObjectDieModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class SupplyCenterDockUpdateModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class CommandPointsUpgradeModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class BaseUpgradeModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class AudioLoopUpgradeModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class GarrisonContainModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+	static void parseInitialRoster(INI *, void *, void *, const void *);
+};
+
+class HordeGarrisonContainModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class FireWeaponUpdateModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class OilSpillUpdateModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class WeaponFireSpecialAbilityUpdateModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class ReplenishUnitsBehaviorModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class DominateEnemySpecialPowerModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class RousingSpeechUpdateModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class GeometryUpgradeModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class RadiateFearUpdateModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class ModelConditionUpgradeModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class BezierProjectileBehaviorModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class MissileUpdateModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class SpawnBehaviorModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class RubbleRiseUpdateModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+	static void parseFXList(INI *, void *, void *, const void *);
+	static void parseOCL(INI *, void *, void *, const void *);
+};
+
+class SubObjectsUpgradeModuleData : public Snapshot
+{
+public:
+	virtual ~SubObjectsUpgradeModuleData();
+public:
+	unsigned char m_pad[0x118 - 4];
+public:
+	_STL::vector<AsciiString> m_showSubObjects;
+public:
+	_STL::vector<AsciiString> m_hideSubObjects;
+public:
+	_STL::vector<AsciiString> m_excludeSubobjects;
+public:
+	_STL::vector<Rva00B6CF1> m_textureSwaps;
+public:
+	float m_fadeTime;
+public:
+	float m_waitBeforeFade;
+public:
+	unsigned char m_flag150;
+public:
+	unsigned char m_flag151;
+public:
+	unsigned char m_flag152;
+public:
+	unsigned char m_flag153;
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+// Retail VA 0x00C57D38: 10 fields and the zero sentinel.
+// The matched registration proves the class relationship; retail supplies
+// every token, offset and callback. Global spelling is descriptive.
+extern const FieldParse BfmeSubObjectsUpgradeFields[] = {
+	{ "ShowSubObjects", &INI::parseAsciiStringVectorAppend, 0, 0x118 },
+	{ "HideSubObjects", &INI::parseAsciiStringVectorAppend, 0, 0x124 },
+	{ "UpgradeTexture", &rva004B5293, 0, 0x13C },
+	{ "FadeTimeInSeconds", &INI::parseReal, 0, 0x148 },
+	{ "WaitBeforeFadeInSeconds", &INI::parseReal, 0, 0x14C },
+	{ "RecolorHouse", &INI::parseBool, 0, 0x150 },
+	{ "ExcludeSubobjects", &INI::parseAsciiStringVectorAppend, 0, 0x130 },
+	{ "SkipFadeOnCreate", &INI::parseBool, 0, 0x151 },
+	{ "HideSubObjectsOnRemove", &INI::parseBool, 0, 0x152 },
+	{ "UnHideSubObjectsOnRemove", &INI::parseBool, 0, 0x153 },
+	{ 0, 0, 0, 0 }
+};
+
+int Rva0033A495Get(void);
+
+void Rva0033DC9CParse(INI *, void *, void *, const void *);
+
+class RandomSoundSelectorClientBehaviorModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+	static void parseVoicePriority(INI *, void *, void *, const void *);
+};
+
+class GiveUpgradeUpdateModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class OpenContainModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class CreateObjectDieModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class CaveContainModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+// ?buildFieldParse@WeaponSetUpgradeModuleData@@SAXAAVMultiIniFieldParse@@@Z
+// retail 0x004B56F6 (34 bytes): double-add on the rowed ModuleData getter
+// table 0x4CE29D with extraOffset 8 then own table 0x00C58020 holding
+// WeaponCondition at +0x118 (ReplaceSelf/Unpause precedent). Identity:
+// ModuleFactory registers factory 0x00250252 -- which calls ctor 0x4B57AA
+// (already rowed WeaponSetUpgradeModuleData) and pushes this proc's VA --
+// under "WeaponSetUpgrade"; formerly misnamed HealContainModuleData on the
+// theory that the WeaponSetUpgrade pool key ending at this address was
+// packing coincidence. HealContain is a real, separate module (data factory
+// 0x24B80D, ctor 0x466D37).
+class WeaponSetUpgradeModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class RemoveUpgradeUpgradeModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class ReplaceObjectUpdateModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class MonsterDockUpdateModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class FireWeaponWhenDeadBehaviorModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class FireWeaponWhenDamagedBehaviorModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class ArrowStormUpdateModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class ModelConditionSpecialAbilityUpdateModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class HeroModeSpecialAbilityUpdateModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class WeaponSetSpecialAbilityUpdateModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class TeleportSpecialAbilityUpdateModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class ToggleMountedSpecialAbilityUpdateModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class SpecialDisguiseUpdateModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class FellBeastSwoopPowerModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/SubObjectsUpgrade.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/SubObjectsUpgrade.cpp
 
@@ -564,10 +1152,6 @@ void __cdecl rva004B5293(INI *ini, void *instance, void *store, const void *user
 		record->m_second.set(token);
 }
 
-// tu-skeleton: 0x004B4DA3 28B ??_GRva004B4CDF@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp (not merged yet)
-
-// tu-skeleton: 0x004B4E56 109B ?rva004B4E56@Rva004B4E56@@QAEEXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/Rva004B4E56Check.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/Rva004B4CDFXfer.cpp
 
 void Rva004B4CDF::xfer(Xfer *xfer)
@@ -596,4 +1180,21 @@ SubObjectsUpgradeModuleData::~SubObjectsUpgradeModuleData()
 	m_textureSwaps.clear();
 }
 
-// tu-skeleton: 0x004B52EB 34B ?buildFieldParse@SubObjectsUpgradeModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp (not merged yet)
+// tu-skeleton: 0x004B4DA3 28B ??_GRva004B4CDF@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp (not merged yet)
+
+// tu-skeleton: 0x004B4E56 109B ?rva004B4E56@Rva004B4E56@@QAEEXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/Rva004B4E56Check.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp
+
+void SubObjectsUpgradeModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE29DGet()), 8);
+	parse.add(BfmeSubObjectsUpgradeFields, 0);
+}
+
+// Callers elsewhere reach bodies in this unit through other spellings; retail's
+// call sites in their matched rows land on these addresses (same ABI). Bind them.
+
+// These functions are header inlines; their ordinary owner definitions
+// collided with select-any copies. The anchor keeps this unit's row copies;
+// it is not retail code.
