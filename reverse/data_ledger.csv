@@ -3971,7 +3971,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x007EEA7C,48,.rdata,vtable,??_7PrimaryP@@6BRva0049B47C@@@,,literal,??_7BehaviorModule@@6BObjectModule@@@;??_7PrimaryP24A797@@6BRva0049B47C@@@;??_7PrimaryP4B8CDE@@6BRva0049B47C@@@;??_7PrimaryP@@6BRva0049B47C@@@;??_7Rva004607E1@@6BRva0049B47C@@@;??_7UpgradeBehaviorBaseView@@6BRva0049B47C@@@,0,14
 0x007EEAAC,1532,.rdata,string,??_C@_0P@EGIIBEMF@BehaviorModule?$AA@,,literal,,0,4
 0x007EF0A8,168,.rdata,global,?g_00BEF0A8WeaponFireSpecialAbilityFieldParse@@3QBUFieldParse@@B,Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp,owned,,1,1
-0x007EF150,100,.rdata,global,?g_00BEF150TeleportSpecialAbilityFieldParse@@3QBUFieldParse@@B,Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp,owned,,1,1
+0x007EF150,100,.rdata,global,?g_00BEF150TeleportSpecialAbilityFieldParse@@3QBUFieldParse@@B,Code/GameEngine/Source/GameLogic/Object/Update/TeleportSpecialAbilityUpdate.cpp,owned,,1,1
 0x007EF1B4,88,.rdata,global,?g_00BEF1B4@@3QBUFieldParse@@B,Code/GameEngine/Source/GameLogic/Object/Update/ScaleWallSpecialAbilityUpdateModuleDataCtor.cpp,owned,,1,1
 0x007EF20C,48,.rdata,global,?g_00BEF20C@@3QBUFieldParse@@B,Code/GameEngine/Source/GameLogic/Object/Update/FlingPassengerSpecialAbilityUpdateModuleDataCtor.cpp,owned,,1,1
 0x007EF23C,12,.rdata,vtable,??_7GateProxyBehavior@@6BProxyBaseD@@@,,literal,,0,1

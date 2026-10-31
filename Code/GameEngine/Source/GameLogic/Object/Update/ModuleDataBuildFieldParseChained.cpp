@@ -204,19 +204,6 @@ extern const FieldParse g_00BEF0A8WeaponFireSpecialAbilityFieldParse[] = {
 	{ 0, 0, 0, 0 }
 };
 
-// Retail VA 0x00BEF150 is the TeleportSpecialAbilityUpdateModuleData
-// FieldParse table: BusyForDuration/parseDurationUnsignedInt at +0xC8,
-// DestinationWeaponName and SourceWeaponName/parseAsciiString at +0xCC/+0xD0,
-// MaxDistance/parseReal at +0xD4, then a zero sentinel. The matched caller
-// is independently tied to the TeleportSpecialAbilityUpdate factory.
-extern const FieldParse g_00BEF150TeleportSpecialAbilityFieldParse[] = {
-	{ "BusyForDuration", &INI::parseDurationUnsignedInt, 0, 0xC8 },
-	{ "DestinationWeaponName", &INI::parseAsciiString, 0, 0xCC },
-	{ "SourceWeaponName", &INI::parseAsciiString, 0, 0xD0 },
-	{ "MaxDistance", &INI::parseReal, 0, 0xD4 },
-	{ 0, 0, 0, 0 }
-};
-
 class MultiIniFieldParse
 {
 public:
@@ -1562,17 +1549,6 @@ class TeleportSpecialAbilityUpdateModuleData
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
-
-// ?buildFieldParse@TeleportSpecialAbilityUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z
-// retail 0x0024DBAA (27 bytes): chained on the rowed SpecialAbilityUpdateModuleData base proc at
-// 0x44ED95, then table 0x00BEF150. The owning factory pushes this proc VA
-// (unique image-wide); ModuleFactory registers it under
-// "TeleportSpecialAbilityUpdate".
-void TeleportSpecialAbilityUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
-{
-	SpecialAbilityUpdateModuleData::buildFieldParse(parse);
-	parse.add(g_00BEF150TeleportSpecialAbilityFieldParse, 0);
-}
 
 // Retail VA 0x00BEF770: 5 fields and the zero sentinel.
 // Class identity comes from this unit's matched registration function;
