@@ -384,15 +384,70 @@ public:
 	bool rva0049B750(const char *token, bool *foundNormal, bool *foundAddOrSub);
 };
 
+BFME_DISP8_BYTECHASE_BEFORE_GETTER(Rva0049B657ByteChase32Field, 0x1C, 0x134)
+
+BFME_DISP8_BYTECHASE_BEFORE_GETTER(Rva0049B661ByteChase32Field, 0x1C, 0x135)
+
+// INI field-parse forwarders: Zero Hour's BitFlags<N>::parseFromINI shape,
+//   static void parseFromINI(INI *ini, void *, void *store, const void *)
+//   { ((BitFlags *)store)->parse(ini, NULL); }
+// for seven parse targets the ledger already rows under address-derived
+// classes. Each forwarder is a FieldParse entry's parser (token, parser,
+// userData, offset) in retail .data; the token names are in each comment.
+// The forwarders stay static members of their target's class.
+class INI;
+
+class AsciiString;
+
+class Rva0021B7B6
+{
+public:
+	void rva0021B7B6(INI *ini, void *str);
+	static void parseFromINI(INI *ini, void *instance, void *store, const void *userData);
+};
+
+class Rva0033AFBB
+{
+public:
+	void rva0033B84E(INI *ini, AsciiString *str);
+	static void parseFromINI(INI *ini, void *instance, void *store, const void *userData);
+};
+
+class Rva003B1017
+{
+public:
+	void rva003B1017(INI *ini, void *str);
+	static void parseFromINI(INI *ini, void *instance, void *store, const void *userData);
+};
+
+class Rva003FB508
+{
+public:
+	void rva003FB508(INI *ini, void *str);
+	static void parseFromINI(INI *ini, void *instance, void *store, const void *userData);
+};
+
+class Rva00417DFB
+{
+public:
+	void rva00417DFB(INI *ini, void *str);
+	static void parseFromINI(INI *ini, void *instance, void *store, const void *userData);
+};
+
 class Rva0049B8A0 : public Rva0049B750
 {
 public:
 	void parse(INI *ini, void *extra);
+public:
+	static void parseFromINI(INI *ini, void *instance, void *store, const void *userData);
 };
 
-BFME_DISP8_BYTECHASE_BEFORE_GETTER(Rva0049B657ByteChase32Field, 0x1C, 0x134)
-
-BFME_DISP8_BYTECHASE_BEFORE_GETTER(Rva0049B661ByteChase32Field, 0x1C, 0x135)
+class Rva0049DD83
+{
+public:
+	void rva0049DD83(INI *ini, void *str);
+	static void parseFromINI(INI *ini, void *instance, void *store, const void *userData);
+};
 
 // tu-skeleton: 0x0049B560 118B ??0AttributeModifierAuraUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierAuraUpdateCtor.cpp (not merged yet)
 
@@ -403,6 +458,8 @@ BFME_DISP8_BYTECHASE_BEFORE_GETTER(Rva0049B661ByteChase32Field, 0x1C, 0x135)
 // tu-skeleton: 0x0049B621 39B ?getUpgradeActivationMasks@AttributeModifierAuraUpdate@@MBEXAAUUpgradeMaskType@@0@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxSlotOverrides.cpp (not merged yet)
 
 // tu-skeleton: 0x0049B648 15B ?performUpgradeFX@AttributeModifierAuraUpdate@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxSlotOverrides.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierAuraUpdate.cpp
 
 // ---- from Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp
 
@@ -422,7 +479,6 @@ BFME_DISP8_BYTECHASE_BEFORE_GETTER(Rva0049B661ByteChase32Field, 0x1C, 0x135)
 // backward cast, which MSVC folds to `mov eax,[ecx-BACK]`; same shape and
 // reading as BFME1's ChainedFieldGetters.
 
-// tu-skeleton: 0x0049B66B 67B ?xfer@AttributeModifierAuraUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierAuraUpdateXfer.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierAuraUpdate.cpp
 
@@ -657,13 +713,21 @@ void Rva0049B8A0::parse(INI *ini, void *extra)
 	}
 }
 
+// tu-skeleton: 0x0049B66B 67B ?xfer@AttributeModifierAuraUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierAuraUpdateXfer.cpp (not merged yet)
+
 // tu-skeleton: 0x0049B6DD 115B ??1AttributeModifierAuraUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierAuraUpdateDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0049B750 308B ?rva0049B750@Rva0049B750@@QAE_NPBDPA_N1@Z -- matched in Code/GameEngine/Source/Common/System/INI_VeterancyLevelToken.cpp (not merged yet)
 
 // tu-skeleton: 0x0049B884 28B ??_GAttributeModifierAuraUpdate@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierAuraUpdateDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0049BBA3 16B ?parseFromINI@Rva0049B8A0@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/Common/System/INIParseFromINIForwarders.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/System/INIParseFromINIForwarders.cpp
+
+// @0x0049BBA3 16B
+void Rva0049B8A0::parseFromINI(INI *ini, void * /*instance*/, void *store, const void * /*userData*/)
+{
+	((Rva0049B8A0 *)store)->parse(ini, 0);
+}
 
 // tu-skeleton: 0x0049BBB3 34B ?buildFieldParse@AttributeModifierAuraUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp (not merged yet)
 
