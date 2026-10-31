@@ -8743,7 +8743,7 @@ _VP6_UpdateQ,,0x001B71C0,45,Code/Libraries/Source/VP6/QuantIndex.cpp,matched,Cle
 ??$?0U?$pair@VAsciiString@@V1@@_STL@@UScriptFlag@@@?$pair@$$CBU?$pair@VAsciiString@@V1@@_STL@@UScriptFlag@@@_STL@@QAE@ABU?$pair@U?$pair@VAsciiString@@V1@@_STL@@UScriptFlag@@@1@@Z,,0x00204B33,27,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0020881A.cpp,matched,ScriptEngine native map helper; lookup and parent establish key/value layout; whole-body and relocation chain verified; retires opaque set/value guess
 ?bfmeResetSH@BfmeThingSH@@QAEXXZ,,0x000FE290,19,Code/GameEngine/Source/Common/BfmeThreeHundredThirtySix.cpp,matched,BFME1 byte-identical donor b1 0x007AB150; single pick over bare thunk
 ??0Rva003B7160@@QAE@XZ,,0x004E14CD,20,Code/GameEngine/Source/Common/R2ZeroingConstructors.cpp,matched,BFME1 byte-identical donor; b1 0x003B7160
-??0Rva007E3430@@QAE@XZ,,0x00106A19,20,Code/GameEngine/Source/Common/R2ZeroingConstructors.cpp,matched,BFME1 byte-identical donor; b1 0x007E3430
+??0Rva007E3430@@QAE@XZ,,0x00106A19,20,Code/GameEngine/Source/Common/BfmeB996Range.cpp,matched,BFME1 byte-identical donor; b1 0x007E3430
 ??0Rva0029BC80@@QAE@XZ,,0x0049CB72,16,Code/GameEngine/Source/Common/R2ZeroingConstructors.cpp,matched,BFME1 byte-identical donor; b1 0x0029BC80
 ??0Rva000EC1E0@@QAE@XZ,,0x004E188E,20,Code/GameEngine/Source/Common/R2ZeroingConstructors.cpp,matched,BFME1 byte-identical donor; b1 0x000EC1E0; ICF-folded in BFME1 so the name is this sweep single pick among its twins
 ??2Gen007F0130@@SAPAXI@Z,,0x0065D010,20,Code/GameEngine/Source/Common/S3AllocatorOperatorNewDelete.cpp,matched,BFME1 byte-identical donor; b1 0x007F0130; ICF-folded so single pick among new twins

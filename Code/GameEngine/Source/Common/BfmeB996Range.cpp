@@ -203,6 +203,70 @@ private:
 	int m_size;
 };
 
+// BFME1 byte-identical donor: reference/open-bfme-1/Code/GameEngine/Source/Common/R2ZeroingConstructors.cpp
+// Trimmed to the bodies that reproduce game.dat bytes. The donor holds a large
+// family of tiny zeroing constructors; only the claimed ones below are carried.
+// The R2Data externs are address-derived placeholders (DIR32 sites the patcher
+// fills from retail) and carry no type information, per the donor's own notes.
+
+
+
+
+
+class Rva003B85D0
+{
+public:
+	void * m_at00;
+	int m_at04;
+	int m_at08;
+	int m_at0C;
+	char m_at10;
+	Rva003B85D0();
+};
+
+class Rva003B7160
+{
+public:
+	void * m_at00;
+	int m_at04;
+	char m_at08;
+	char m_pad09[ 0x3 ];
+	int m_at0C;
+	Rva003B7160();
+};
+
+class Rva007E3430
+{
+public:
+	int m_at00;
+	int m_at04;
+	int m_at08;
+	int m_at0C;
+	Rva007E3430();
+};
+
+class Rva0029BC80
+{
+public:
+	int m_at00;
+	int m_at04;
+	int m_at08;
+	char m_at0C;
+	Rva0029BC80();
+};
+
+class Rva000EC1E0
+{
+public:
+	void * m_at00;
+	int m_at04;
+	int m_at08;
+	char m_at0C;
+	Rva000EC1E0();
+};
+
+// ---- from Code/GameEngine/Source/Common/BfmeB996Range.cpp
+
 // ---- from Code/GameEngine/Source/Common/BfmeB996Range.cpp
 
 // ---- from Code/GameEngine/Source/Common/BfmeConv996RangeCheck.cpp
@@ -450,12 +514,6 @@ char BfmeB996Range::rva00106A5C()
 	return 1;
 }
 
-// tu-skeleton: 0x001068A7 42B ?sendIfState7@BfmeB996@@QAE_NPAVBfmePkt996@@@Z -- matched in Code/GameEngine/Source/Common/Rva007E3190BfmeSendIfState7.cpp (not merged yet)
-
-// tu-skeleton: 0x00106A06 19B ?invokeForMode@Rva007E3410Object@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva007E3410VirtualCall.cpp (not merged yet)
-
-// tu-skeleton: 0x00106A19 20B ??0Rva007E3430@@QAE@XZ -- matched in Code/GameEngine/Source/Common/R2ZeroingConstructors.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva00106AC9Loader.cpp
 
 // ?rva00106AC9@Rva00106AC9@@QAE_NPBDH_N@Z
@@ -519,4 +577,18 @@ Rva00106AC9::Rva00106AC9(const char *path, int mode, bool flag)
     : m_path(path, 1), m_file(0), m_mode(4), m_size(0)
 {
     rva00106AC9(path, mode, flag);
+}
+
+// tu-skeleton: 0x001068A7 42B ?sendIfState7@BfmeB996@@QAE_NPAVBfmePkt996@@@Z -- matched in Code/GameEngine/Source/Common/Rva007E3190BfmeSendIfState7.cpp (not merged yet)
+
+// tu-skeleton: 0x00106A06 19B ?invokeForMode@Rva007E3410Object@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva007E3410VirtualCall.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/R2ZeroingConstructors.cpp
+
+Rva007E3430::Rva007E3430()
+{
+	m_at00 = 0;
+	m_at04 = 0;
+	m_at08 = 4;
+	m_at0C = 0;
 }
