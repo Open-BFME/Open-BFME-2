@@ -913,10 +913,6 @@ class Rva00483CEF : public Rva00497805
 public:
 	void rva00483CEF();
 };
-void Rva00483CEF::rva00483CEF()
-{
-	Rva00497805::loadPostProcess();
-}
 
 // 0x0048F46D: tail jump to Rva002645FF::rva002645FF.
 class Rva0048F46D : public Rva002645FF
