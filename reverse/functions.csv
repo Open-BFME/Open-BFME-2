@@ -7661,8 +7661,8 @@ _GetProcessorFlags,,0x001C4390,169,Code/Libraries/Source/VP6/GetProcessorFlags.c
 ?Rva00131062GetByte@@YAEXZ,,0x00131062,6,Code/GameEngine/Source/Common/GlobalByteGetters.cpp,matched,Global byte getter reading 0x00DB5F98
 ?Rva00131068GetByte@@YAEXZ,,0x00131068,6,Code/GameEngine/Source/Common/GlobalByteGetters.cpp,matched,Global byte getter reading 0x00DEDA04
 ?Rva0006E19BGetByte@@YAEXZ,,0x0006E19B,6,Code/GameEngine/Source/Common/GlobalByteGetters.cpp,matched,Global byte getter reading 0x00DB5FCD
-?get@Rva00656C70DwordField@@QBEHXZ,,0x00656C70,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
-?get@Rva00656F20DwordField@@QBEHXZ,,0x00656F20,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
+?get@Rva00656C70DwordField@@QBEHXZ,,0x00656C70,7,Code/GameEngine/Source/Common/BfmeThingRE.cpp,matched,Disp32 dword getter
+?get@Rva00656F20DwordField@@QBEHXZ,,0x00656F20,7,Code/GameEngine/Source/Common/BfmeThingRE.cpp,matched,Disp32 dword getter
 ?set@Rva003BA59CByteSlot@@QAEXE@Z,,0x003BA59C,13,Code/GameEngine/Source/Common/DispByteFieldSetters.cpp,matched,Disp32 byte setter
 ?Rva0006E1A1GetByte@@YAEXZ,,0x0006E1A1,6,Code/GameEngine/Source/Common/GlobalByteGetters.cpp,matched,Global byte getter reading 0x00DEDA05
 ?Rva00110094GetByte@@YAEXZ,,0x00110094,6,Code/GameEngine/Source/Common/GlobalByteGetters.cpp,matched,Global byte getter reading 0x00DEC3D7
@@ -8012,8 +8012,8 @@ _GetProcessorFlags,,0x001C4390,169,Code/Libraries/Source/VP6/GetProcessorFlags.c
 ?get@Rva0046AA11AsciiField@@QBE?AVAsciiString@@XZ,,0x0046AA11,30,Code/GameEngine/Source/Common/System/AsciiStringRvoGetters.cpp,matched,RVO AsciiString out-getter; member +0x308 via StringBase copy 0x365F0; caller at 0x46CFBF
 ?get@Rva004CFB6DAsciiField@@QBE?AVAsciiString@@XZ,,0x004CFB6D,30,Code/GameEngine/Source/Common/System/AsciiStringRvoGetters.cpp,matched,RVO AsciiString out-getter; member +0x1D8 via StringBase copy 0x365F0; 3 callers
 ?get@Rva004DC902AsciiField@@QBE?AVAsciiString@@XZ,,0x004DC902,30,Code/GameEngine/Source/Common/System/AsciiStringRvoGetters.cpp,matched,RVO AsciiString out-getter; member +0x188 via StringBase copy 0x365F0; 2 callers
-?get@Rva00656F30DwordField@@QBEHXZ,,0x00656F30,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
-?get@Rva00656F40DwordField@@QBEHXZ,,0x00656F40,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
+?get@Rva00656F30DwordField@@QBEHXZ,,0x00656F30,7,Code/GameEngine/Source/Common/BfmeThingRE.cpp,matched,Disp32 dword getter
+?get@Rva00656F40DwordField@@QBEHXZ,,0x00656F40,7,Code/GameEngine/Source/Common/BfmeThingRE.cpp,matched,Disp32 dword getter
 ?get@Rva00661B70DwordField@@QBEHXZ,,0x00661B70,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
 ?get@Rva00661B80DwordField@@QBEHXZ,,0x00661B80,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
 ?get@Rva0066CAB0DwordField@@QBEHXZ,,0x0066CAB0,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter

@@ -44,6 +44,18 @@
 	}
 #include <string.h>
 #pragma comment(linker, "/alternatename:?bfmeRunRE@BfmeThingRE@@QAEXPAX@Z=?bfmeRunRE@BfmeThingRE@@QAEXXZ")
+#define BFME_DISP_DWORD_GETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		int get() const; \
+		char m_lead[DISP]; \
+		int m_value; \
+	}; \
+	int NAME::get() const \
+	{ \
+		return m_value; \
+	}
 
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 
@@ -496,6 +508,48 @@ public:
 	BfmeHolderRE *m_bfmeHolder;
 };
 
+class MilesAudioManager
+{
+public:
+    virtual int rva0005189D() const;
+    char m_lead[0x678 - sizeof(void *)];
+    int m_value;
+};
+
+// ?rva00524F35@Rva00524F35@@QAEAAV1@H@Z @0x00524F35 37B
+class Rva00524F35
+{
+public:
+	int m_00;
+	int m_04;
+	int m_08;
+	int m_0c;
+	int m_10;
+	unsigned char m_14;
+	unsigned char m_15;
+	unsigned char m_16;
+	Rva00524F35& rva00524F35(int v);
+};
+
+BFME_DISP_DWORD_GETTER(Rva00656C70DwordField, 0x6A8)
+
+BFME_DISP_DWORD_GETTER(Rva00656F20DwordField, 0x254)
+
+BFME_DISP_DWORD_GETTER(Rva00656F30DwordField, 0x26C)
+
+BFME_DISP_DWORD_GETTER(Rva00656F40DwordField, 0x288)
+
+// Callers elsewhere reach bodies in this unit through other spellings; retail's
+// call sites in their matched rows land on these addresses (same ABI). Bind them.
+
+// BF1 9cbfb551fe Common/Bfme/Rva001BD660_setFlags.cpp is the clean semantic guide.
+// Complete native 0023C4CE..0023C4DB RET leaf proves: OR stack dword into receiver114; RET4.
+// Original owner and complete bounds unresolved; independent address-owned view.
+class Rva0023C4CEFields {
+public: void setFlags(unsigned int value);
+private: unsigned char unknown[0x114]; unsigned int flags;
+};
+
 // tu-skeleton: 0x006560F0 36B ?bfmeGoRE@BfmeThingRE@@QAEDPAVBfmeOtherRE@@@Z -- matched in Code/GameEngine/Source/Common/BfmeConv908.cpp (not merged yet)
 
 // tu-skeleton: 0x00656120 104B ?get@Rva007E90C0Names@@QAE_NPADH@Z -- matched in Code/GameEngine/Source/GameNetwork/Rva007E90C0Names.cpp (not merged yet)
@@ -509,6 +563,8 @@ public:
 // tu-skeleton: 0x006562B0 36B ??_GRva006560E0@@UAEPAXI@Z -- matched in Code/Libraries/Source/DirtySock/Rva006560E0Deleter.cpp (not merged yet)
 
 // tu-skeleton: 0x006562E0 32B ??0Rva007E9B40Object@@QAE@PAX@Z -- matched in Code/GameEngine/Source/Common/Q3MakeDerivedFamily.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/BfmeThingRE.cpp
 
 // ---- from Code/GameEngine/Source/GameNetwork/Rva007E9310AccountWriter.cpp
 
@@ -532,16 +588,6 @@ void Rva007E9310AccountWriter::write(Rva007E8810Message *message,
     identifier = m_identifier.get();
     ((BfmeThingCIC *)message)->bfmeGoCIC((void *)"macAddr", (void *)(identifier + 0x1E3));
 }
-
-// tu-skeleton: 0x006563B0 223B ?Rva007E93C0@@YGXPAVRva007E8810Message@@PBD11HHH11_N2@Z -- matched in Code/GameEngine/Source/GameNetwork/Rva007E93C0Acct.cpp (not merged yet)
-
-// tu-skeleton: 0x00656490 61B ?bfmeSetupPair_00656490@@YGXPAUBfmeSetupRecord@@H@Z -- matched in Code/GameEngine/Source/Common/Bfme5SetupPairs.cpp (not merged yet)
-
-// tu-skeleton: 0x006564D0 61B ?bfmeSetupPair_006564D0@@YGXPAUBfmeSetupRecord@@H@Z -- matched in Code/GameEngine/Source/Common/Bfme5SetupPairs.cpp (not merged yet)
-
-// tu-skeleton: 0x00656510 61B ?bfmeSetupPair_00656510@@YGXPAUBfmeSetupRecord@@H@Z -- matched in Code/GameEngine/Source/Common/Bfme5SetupPairs.cpp (not merged yet)
-
-// tu-skeleton: 0x00656550 61B ?bfmeSetupPair_00656550@@YGXPAUBfmeSetupRecord@@H@Z -- matched in Code/GameEngine/Source/Common/Bfme5SetupPairs.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva00656590Cluster.cpp
 
@@ -637,30 +683,6 @@ void __stdcall bfmeGoVJB(BfmeMsgVJA *m, void *name, void **kw, int n, int max)
 	m->bfmeSet3VJA("keywords.[]", n);
 }
 
-// tu-skeleton: 0x00656750 173B ?bfmeGoVIV@@YGXPAVFeslMessage@@PAD11111@Z -- matched in Code/GameEngine/Source/Common/BfmeConv1378.cpp (not merged yet)
-
-// tu-skeleton: 0x00656800 78B ?bfmeGoVIT@@YGXPAVFeslMessage@@PAX1@Z -- matched in Code/GameEngine/Source/Common/BfmeConv1378.cpp (not merged yet)
-
-// tu-skeleton: 0x00656850 61B ?bfmeSetupPair_007E9860@@YGXPAUBfmeSetupRecord@@H@Z -- matched in Code/GameEngine/Source/Common/Bfme5SetupPairs.cpp (not merged yet)
-
-// tu-skeleton: 0x006568F0 129B ?bfmeGoVIX@@YGXPAVBfmeMsgVIX@@PAX1111@Z -- matched in Code/GameEngine/Source/Common/BfmeConv1380.cpp (not merged yet)
-
-// tu-skeleton: 0x006569E0 78B ?bfmeGoEVIW@@YGXPAVBfmeMsgVIW@@PAX1@Z -- matched in Code/GameEngine/Source/Common/BfmeConv1379.cpp (not merged yet)
-
-// tu-skeleton: 0x00656A30 15B ?rva00656A30@Rva00656A30@@QAEHXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAH.cpp (not merged yet)
-
-// tu-skeleton: 0x00656A40 179B ?lookup@Rva007E9A50@@QAEPAURva007E9A50Entry@@PAVRva007E8810Message@@@Z -- matched in Code/GameEngine/Source/Common/Rva007E9A50Lookups.cpp (not merged yet)
-
-// tu-skeleton: 0x00656B00 38B ??_GGen007E9B10@@UAEPAXI@Z -- matched in Code/Libraries/Source/DirtySock/Y2ScalarDeleters.cpp (not merged yet)
-
-// tu-skeleton: 0x00656B30 45B ?Rva007E9B40@@YAPAVRva007E9B40Object@@PAX@Z -- matched in Code/GameEngine/Source/Common/Q3MakeDerivedFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x00656B60 6B ?Rva00656B60Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00656B70 33B ??0Rva00CE12FCMutex@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00CE12FCMutex.cpp (not merged yet)
-
-// tu-skeleton: 0x00656BA0 6B ?sleep@Rva00CE12FCMutex@@UAEXK@Z -- matched in Code/GameEngine/Source/Common/Rva00CE12FCMutex.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/BfmeConv1037.cpp
 
 // platformsdk
@@ -693,14 +715,6 @@ void BfmeD1038::bfmeGo1038D(void)
 		((BfmeLog1038 *)Rva007EB810Get())->bfmeSay1038((char *)"Error leaving critical section\n");
 }
 
-// tu-skeleton: 0x00656C10 31B ??1Rva00CE12FCMutex@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00CE12FCMutex.cpp (not merged yet)
-
-// tu-skeleton: 0x00656C30 52B ?bfmeDelTVA@BfmeThingTVA@@QAEPAXE@Z -- matched in Code/GameEngine/Source/Common/BfmeConv1324.cpp (not merged yet)
-
-// tu-skeleton: 0x00656C70 7B ?get@Rva00656C70DwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00656C80 9B ??0Rva00657670@@QAE@XZ -- matched in Code/GameEngine/Source/Common/InlineDtorDeletingDtors2.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Q3LazyCachedAccessor.cpp
 
 // Eight copies of a lazily-filled cached pointer, reached one indirection deep.
@@ -731,9 +745,7 @@ void BfmeD1038::bfmeGo1038D(void)
 // dword at offset 0 of the receiver -- never read here -- is a vftable, a
 // pointer, or anything else.
 
-// tu-skeleton: 0x00656CD0 27B ?get@Rva007E9D20Owner@@QAEPAXXZ -- matched in Code/GameEngine/Source/GameNetwork/Rva007E9D20CachedAccessor.cpp (not merged yet)
 
-// tu-skeleton: 0x00656CF0 33B ?getText@Rva007E9D40Owner@@QAEPADXZ -- matched in Code/GameEngine/Source/GameNetwork/Rva007E9D40TextFallback.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/BfmeConv556.cpp
 
@@ -751,20 +763,12 @@ void BfmeThingBCE::bfmeGoBCE()
 	m_bfmeWhat = (void *)bfme5MakeObj18();
 }
 
-// tu-skeleton: 0x00656F20 7B ?get@Rva00656F20DwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00656F30 7B ?get@Rva00656F30DwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00656F40 7B ?get@Rva00656F40DwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameNetwork/Rva007E9FA0NestedDispatch.cpp
 
 void Rva007E9FA0Owner::dispatch()
 {
     m_nested->m_inner->slot2();
 }
-
-// tu-skeleton: 0x00656F70 221B ?begin@Rva007E9FC0Owner@@QAEXHPAX@Z -- matched in Code/GameEngine/Source/GameNetwork/Rva007E9FC0Begin.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameNetwork/Rva007EA0A0Notify.cpp
 
@@ -914,10 +918,6 @@ void Rva007EA3E0Owner::setPrefix(const char *value)
     strncpy(m_nested->m_prefix, value, sizeof(m_nested->m_prefix));
 }
 
-// tu-skeleton: 0x006573B0 99B ?set@Rva006573B0Holder@@QAEXPBD00@Z -- matched in Code/GameEngine/Source/GameNetwork/Y2FeslSafeStrCopy.cpp (not merged yet)
-
-// tu-skeleton: 0x00657420 28B ?set@Rva00657420Holder@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameNetwork/Y2FeslSafeStrCopy.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameNetwork/Rva007EA490SetFields.cpp
 
 void Rva007EA490Owner::set(int first, int second, int third)
@@ -926,10 +926,6 @@ void Rva007EA490Owner::set(int first, int second, int third)
     m_inner->m_second = second;
     m_inner->m_third = third;
 }
-
-// tu-skeleton: 0x00657470 16B ?set@Rva00657470Holder@@QAEXE@Z -- matched in Code/GameEngine/Source/GameNetwork/Y2FeslSafeStrCopy.cpp (not merged yet)
-
-// tu-skeleton: 0x00657480 28B ?set@Rva00657480Holder@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameNetwork/Y2FeslSafeStrCopy.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/BfmeThreeHundredTwelve.cpp
 
@@ -943,3 +939,74 @@ void BfmeThingRE::bfmeRunRE()
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
+
+// tu-skeleton: 0x006563B0 223B ?Rva007E93C0@@YGXPAVRva007E8810Message@@PBD11HHH11_N2@Z -- matched in Code/GameEngine/Source/GameNetwork/Rva007E93C0Acct.cpp (not merged yet)
+
+// tu-skeleton: 0x00656490 61B ?bfmeSetupPair_00656490@@YGXPAUBfmeSetupRecord@@H@Z -- matched in Code/GameEngine/Source/Common/Bfme5SetupPairs.cpp (not merged yet)
+
+// tu-skeleton: 0x006564D0 61B ?bfmeSetupPair_006564D0@@YGXPAUBfmeSetupRecord@@H@Z -- matched in Code/GameEngine/Source/Common/Bfme5SetupPairs.cpp (not merged yet)
+
+// tu-skeleton: 0x00656510 61B ?bfmeSetupPair_00656510@@YGXPAUBfmeSetupRecord@@H@Z -- matched in Code/GameEngine/Source/Common/Bfme5SetupPairs.cpp (not merged yet)
+
+// tu-skeleton: 0x00656550 61B ?bfmeSetupPair_00656550@@YGXPAUBfmeSetupRecord@@H@Z -- matched in Code/GameEngine/Source/Common/Bfme5SetupPairs.cpp (not merged yet)
+
+// tu-skeleton: 0x00656750 173B ?bfmeGoVIV@@YGXPAVFeslMessage@@PAD11111@Z -- matched in Code/GameEngine/Source/Common/BfmeConv1378.cpp (not merged yet)
+
+// tu-skeleton: 0x00656800 78B ?bfmeGoVIT@@YGXPAVFeslMessage@@PAX1@Z -- matched in Code/GameEngine/Source/Common/BfmeConv1378.cpp (not merged yet)
+
+// tu-skeleton: 0x00656850 61B ?bfmeSetupPair_007E9860@@YGXPAUBfmeSetupRecord@@H@Z -- matched in Code/GameEngine/Source/Common/Bfme5SetupPairs.cpp (not merged yet)
+
+// tu-skeleton: 0x006568F0 129B ?bfmeGoVIX@@YGXPAVBfmeMsgVIX@@PAX1111@Z -- matched in Code/GameEngine/Source/Common/BfmeConv1380.cpp (not merged yet)
+
+// tu-skeleton: 0x006569E0 78B ?bfmeGoEVIW@@YGXPAVBfmeMsgVIW@@PAX1@Z -- matched in Code/GameEngine/Source/Common/BfmeConv1379.cpp (not merged yet)
+
+// tu-skeleton: 0x00656A30 15B ?rva00656A30@Rva00656A30@@QAEHXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAH.cpp (not merged yet)
+
+// tu-skeleton: 0x00656A40 179B ?lookup@Rva007E9A50@@QAEPAURva007E9A50Entry@@PAVRva007E8810Message@@@Z -- matched in Code/GameEngine/Source/Common/Rva007E9A50Lookups.cpp (not merged yet)
+
+// tu-skeleton: 0x00656B00 38B ??_GGen007E9B10@@UAEPAXI@Z -- matched in Code/Libraries/Source/DirtySock/Y2ScalarDeleters.cpp (not merged yet)
+
+// tu-skeleton: 0x00656B30 45B ?Rva007E9B40@@YAPAVRva007E9B40Object@@PAX@Z -- matched in Code/GameEngine/Source/Common/Q3MakeDerivedFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x00656B60 6B ?Rva00656B60Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00656B70 33B ??0Rva00CE12FCMutex@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00CE12FCMutex.cpp (not merged yet)
+
+// tu-skeleton: 0x00656BA0 6B ?sleep@Rva00CE12FCMutex@@UAEXK@Z -- matched in Code/GameEngine/Source/Common/Rva00CE12FCMutex.cpp (not merged yet)
+
+// tu-skeleton: 0x00656C10 31B ??1Rva00CE12FCMutex@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00CE12FCMutex.cpp (not merged yet)
+
+// tu-skeleton: 0x00656C30 52B ?bfmeDelTVA@BfmeThingTVA@@QAEPAXE@Z -- matched in Code/GameEngine/Source/Common/BfmeConv1324.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp
+
+// Disp32 dword getters: seven-byte __thiscall members with one shape:
+//
+//     mov eax,[ecx+<DISP>] / ret
+//
+// One dword is read at a fixed displacement from `this` and returned. Every
+// displacement here is a multiple of four, so the accessed member is spelled
+// as an `int` right after the lead array. The bytes cannot distinguish `int`
+// from `unsigned int`, a pointer, or anything else four bytes wide moved
+// with a plain load. Members before the accessed one are spelled as a lead
+// array because their types are not witnessed here, only their total size.
+// Identity is not recovered: every name is derived from its address (BFME1
+// pioneered the same family in
+// reference/open-bfme-1/Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp).
+// No // cl: line (defaults match the frameless 7-byte shape).
+
+// tu-skeleton: 0x00656C80 9B ??0Rva00657670@@QAE@XZ -- matched in Code/GameEngine/Source/Common/InlineDtorDeletingDtors2.cpp (not merged yet)
+
+// tu-skeleton: 0x00656CD0 27B ?get@Rva007E9D20Owner@@QAEPAXXZ -- matched in Code/GameEngine/Source/GameNetwork/Rva007E9D20CachedAccessor.cpp (not merged yet)
+
+// tu-skeleton: 0x00656CF0 33B ?getText@Rva007E9D40Owner@@QAEPADXZ -- matched in Code/GameEngine/Source/GameNetwork/Rva007E9D40TextFallback.cpp (not merged yet)
+
+// tu-skeleton: 0x00656F70 221B ?begin@Rva007E9FC0Owner@@QAEXHPAX@Z -- matched in Code/GameEngine/Source/GameNetwork/Rva007E9FC0Begin.cpp (not merged yet)
+
+// tu-skeleton: 0x006573B0 99B ?set@Rva006573B0Holder@@QAEXPBD00@Z -- matched in Code/GameEngine/Source/GameNetwork/Y2FeslSafeStrCopy.cpp (not merged yet)
+
+// tu-skeleton: 0x00657420 28B ?set@Rva00657420Holder@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameNetwork/Y2FeslSafeStrCopy.cpp (not merged yet)
+
+// tu-skeleton: 0x00657470 16B ?set@Rva00657470Holder@@QAEXE@Z -- matched in Code/GameEngine/Source/GameNetwork/Y2FeslSafeStrCopy.cpp (not merged yet)
+
+// tu-skeleton: 0x00657480 28B ?set@Rva00657480Holder@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameNetwork/Y2FeslSafeStrCopy.cpp (not merged yet)
