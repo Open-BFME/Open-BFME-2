@@ -36265,7 +36265,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x004626AF,27,code,Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainActionIface.cpp,proposed,N,N=Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainActionIface.cpp noncontiguous,Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainRva00464EE7.cpp
 0x004626CA,107,code,Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp N=Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp,Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainRva004626CA.cpp
 0x00462735,16,code,,,-,,Code/GameEngine/Source/Common/VslotSmallBodiesC.cpp
-0x00462745,7,code,,,-,,Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp
+0x00462745,7,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp
 0x0046274C,57,code,Code/GameEngine/Source/GameLogic/Object/Contain/SlaughterHordeContain.cpp,proposed,N,N=Code/GameEngine/Source/GameLogic/Object/Contain/SlaughterHordeContain.cpp noncontiguous,Code/GameEngine/Source/GameLogic/Object/Contain/SlaughterHordeContainRva0046274C.cpp
 0x00462785,23,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp
 0x0046279C,143,code,Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp S=Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp N=Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp,Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainSounds.cpp

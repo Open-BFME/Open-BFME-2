@@ -67,6 +67,7 @@ template unsigned int vector<Coord3D, allocator<Coord3D> >::capacity() const;
 
 
 
+
 #endif
 #include <deque>
 #include <string.h>
@@ -89,6 +90,40 @@ struct BfmePod96 { int a[24]; };
 #define SLOT08(a,b,c,d,e,f,g,h) virtual void a(); virtual void b(); virtual void c(); virtual void d(); virtual void e(); virtual void f(); virtual void g(); virtual void h();
 #define SLOT16(a) SLOT08(a##0,a##1,a##2,a##3,a##4,a##5,a##6,a##7) SLOT08(a##8,a##9,a##A,a##B,a##C,a##D,a##E,a##F)
 #include <stl/_alloc.h>
+#define BFME_DISP8_PTRCHASE_DWORD_GETTER(NAME, DISP1, DISP2) \
+	class NAME \
+	{ \
+	public: \
+		int get() const; \
+		char m_lead[DISP1]; \
+		void *m_ptr; \
+	}; \
+	int NAME::get() const \
+	{ \
+		return *(int *)((char *)m_ptr + DISP2); \
+	}
+#define BFME_DISP8_PTRCHASE_BEFORE_DWORD_GETTER(NAME, BACK, INNER) \
+	class Inner##NAME \
+	{ \
+	public: \
+		char m_lead[INNER]; \
+		int m_value; \
+	}; \
+	class Sub##NAME \
+	{ \
+	public: \
+		Inner##NAME *m_holder; \
+	}; \
+	class NAME \
+	{ \
+	public: \
+		int get() const; \
+	}; \
+	int NAME::get() const \
+	{ \
+		return ((const Sub##NAME *)((const char *)this - (BACK)))->m_holder->m_value; \
+	}
+
 namespace _STL { template <> void __malloc_alloc<0>::deallocate(void *, size_t); }
 
 // map<unsigned> internals otherwise instantiate the less<unsigned>::operator()
@@ -740,6 +775,92 @@ template void Rva00462D08Tree::_M_erase(Rva00462D08Tree::_Link_type);
 // just clear (plus _M_erase above).
 template void Rva00462D08Tree::clear();
 
+BFME_DISP8_PTRCHASE_BEFORE_DWORD_GETTER(Rva00462745PtrChaseField, 0x1C, 0x70)
+
+// Address-named indexed pointer-chase getter at retail 0x005F6B12.
+class Rva005F6B12
+{
+public:
+	int rva005F6B12(int index) const;
+private:
+	char m_pad00[4];
+	int *m_values;
+};
+
+// Byte bit-7 getters: ptr-chase byte read plus shr to LSB (bool from high bit).
+// Retail 0x005FC73B is mov eax,[ecx+0x18] / mov al,[eax+0x34] / shr al,7 / ret.
+struct Rva005FC73BPtrChaseInner
+{
+	char m_pad[0x34];
+	unsigned char m_byte;
+};
+
+class Rva005FC73BPtrChaseField
+{
+public:
+	bool get() const;
+	char m_lead[0x18];
+	Rva005FC73BPtrChaseInner *m_ptr;
+};
+
+// Virtual-fallback ptr-chase getter: if bit 3 of the chased byte is set,
+// tail-jump to virtual slot 1; else return the chased pointer.
+// Retail 0x005FC745 is mov eax,[ecx+0x18] / test byte [eax+0x34],8 /
+// je ret / mov eax,[ecx] / jmp [eax+4] / ret.
+struct Rva005FC745PtrChaseInner
+{
+	char m_pad[0x34];
+	unsigned char m_flag;
+};
+
+class Rva005FC745PtrChaseField
+{
+	virtual ~Rva005FC745PtrChaseField() {}
+	virtual void *fetch() const = 0;
+	char m_lead[0x18 - 4];
+public:
+	void *get() const;
+	Rva005FC745PtrChaseInner *m_ptr;
+};
+
+// Clean BFME1 9cbfb551 donor structural leads; native instructions independently
+// establish complete RET boundaries and each raw field operation and ABI.
+// Address-owned carriers retain unknown original receiver identity and bounds.
+
+// ?clear@Rva002D2CDCFields@@QAEPAU1@XZ
+struct Rva002D2CDCFields { unsigned char byte0; Rva002D2CDCFields *clear(); };
+
+// Current BF1 9cbfb551fe20dae985f91f2319d8997287b6a705 ambiguous-min5 leads.
+// Rva00537850IndirectGet.cpp suggests the first operation; list iterator
+// dereference in Rva006CCCA0LoadSchemeVariant.cpp suggests the second.
+// Several donor names share each shape, so no donor owner/type is asserted.
+// Each native entry follows INT3 padding and ends its own RET: 1CD70..1CD76
+// and6F6830..6F6836. They read raw words through independently proved offsets.
+class Rva0001CD70Word
+{
+public:
+ unsigned int get() const;
+ char m_pad00[4];
+ unsigned int *m_ptr;
+};
+
+// 0x0001CDA0 is the same shape with the pointer at receiver offset 8 (1CDA0..1CDA5,
+// INT3 padding before, no reference in the image).
+class Rva0001CDA0Word
+{
+public:
+ unsigned int get() const;
+ char m_pad00[8];
+ unsigned int *m_ptr;
+};
+
+class Rva006F6830Word
+{
+public:
+ unsigned int get() const;
+ unsigned int *m_ptr;
+};
+
 // tu-skeleton: 0x004624E3 8B ?containReactToTransformChange@OpenContain@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainReactToTransformChange.cpp (not merged yet)
 
 // tu-skeleton: 0x004624EB 25B ?rva004624EB@Rva004624EB@@UAE?AURva00462465@@XZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE22.cpp (not merged yet)
@@ -747,6 +868,8 @@ template void Rva00462D08Tree::clear();
 // tu-skeleton: 0x0046262D 29B ??0Rva0046262D@@QAE@PAXABVWeaponTemplateSetHead@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/Rva0046262DCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0046264A 20B ?deallocate@?$allocator@D@_STL@@QAEXPADI@Z -- matched in Code/GameEngine/Source/Common/NarrowStringRecordCopyBFME2.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pod96_allocator.cpp
 
@@ -757,16 +880,6 @@ Rva0046267A::Rva0046267A(const Rva0046267A &that)
 {
 }
 
-// tu-skeleton: 0x00462697 15B ?rva00462697@Rva00462697@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE22.cpp (not merged yet)
-
-// tu-skeleton: 0x004626A6 9B ??0Rva004626A6@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
-
-// tu-skeleton: 0x004626CA 107B ?rva004626CA@OpenContain@@UAEPBUCoord3D@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainRva004626CA.cpp (not merged yet)
-
-// tu-skeleton: 0x00462735 16B ?rva00462735@Rva00462735@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesC.cpp (not merged yet)
-
-// tu-skeleton: 0x00462745 7B ?get@Rva00462745PtrChaseField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/Rva00462785.cpp
 
 int Rva00462785::rva00462785()
@@ -776,12 +889,6 @@ int Rva00462785::rva00462785()
 		r = 1;
 	return r;
 }
-
-// tu-skeleton: 0x0046279C 143B ?doLoadSound@OpenContain@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainSounds.cpp (not merged yet)
-
-// tu-skeleton: 0x0046282B 128B ?doUnloadSound@OpenContain@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainSounds.cpp (not merged yet)
-
-// tu-skeleton: 0x00462977 467B ?isValidContainerFor@OpenContain@@UAE_NPAVObject@@_N1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainIsValidContainerFor.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/Rva00462B4AFlagsPredicate.cpp
 
@@ -806,20 +913,6 @@ bool Rva00462B4A::rva00462B4A()
 	return true;
 }
 
-// tu-skeleton: 0x00462C72 97B ?monitorConditionChanges@OpenContain@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain_monitorConditionChanges.cpp (not merged yet)
-
-// tu-skeleton: 0x00462F34 65B ?rva00462F34@OpenContain@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainRva00462F75.cpp (not merged yet)
-
-// tu-skeleton: 0x00462F75 62B ?removeFromContainList@OpenContain@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainRva00462F75.cpp (not merged yet)
-
-// tu-skeleton: 0x00462FB3 228B ?privateRemoveFromContain@OpenContain@@QAEXPAVObject@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainPrivateRemoveFromContain.cpp (not merged yet)
-
-// tu-skeleton: 0x00463097 161B ?onContaining@OpenContain@@UAEXPAVObject@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain_onContaining.cpp (not merged yet)
-
-// tu-skeleton: 0x004632E0 91B ?getClosestRider@OpenContain@@UAEPAVObject@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainRva004638F1.cpp (not merged yet)
-
-// tu-skeleton: 0x0046333B 152B ?rva0046333B@Rva0046333B@@QAE_NPAH00000@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/Rva0046333BCounts.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_tree_erase_00462D08.cpp
 
 // ?_M_erase@?$_Rb_tree@HU?$pair@$$CBHURva00462D08Mapped@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva00462D08Mapped@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva00462D08Mapped@@@_STL@@@2@@_STL@@AAEXPAU?$_Rb_tree_node@U?$pair@$$CBHURva00462D08Mapped@@@_STL@@@2@@Z @ 0x00462D08 (45B).
@@ -830,9 +923,7 @@ bool Rva00462B4A::rva00462B4A()
 // 0x00603A7F. True key/value unknown; opaque trivial 4-byte placeholder,
 // erase bytes independent of trivial type, identity via call chain.
 
-// tu-skeleton: 0x004633FC 41B ?clear@?$_Rb_tree@HU?$pair@$$CBHURva00462D35Mapped@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva00462D35Mapped@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva00462D35Mapped@@@_STL@@@2@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_tree_erase_00462D35.cpp (not merged yet)
 
-// tu-skeleton: 0x00463425 68B ?dup_00463425@@YAXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_o1.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp
 
@@ -1248,6 +1339,55 @@ unsigned int Rva004643C9::rva004643C9(const Rva00463D9BElement &key)
 {
     return erase(key);
 }
+
+// tu-skeleton: 0x00462697 15B ?rva00462697@Rva00462697@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE22.cpp (not merged yet)
+
+// tu-skeleton: 0x004626A6 9B ??0Rva004626A6@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x004626CA 107B ?rva004626CA@OpenContain@@UAEPBUCoord3D@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainRva004626CA.cpp (not merged yet)
+
+// tu-skeleton: 0x00462735 16B ?rva00462735@Rva00462735@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesC.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp
+
+// Disp8 pointer-chase dword getters: seven-byte __thiscall members with one shape:
+//
+//     mov eax,[ecx+<DISP1>] / mov eax,[eax+<DISP2>] / ret
+//
+// A pointer is read at a fixed displacement from `this`, then a dword is read
+// at a second displacement from that pointer and returned. MSVC 7.1 emits the
+// disp8 loads `8B 41 XX` + `8B 40 XX`, plus `ret`, for seven bytes total.
+// Identity is not recovered: every name is derived from its address.
+// No // cl: line (defaults match the frameless seven-byte shape).
+
+// Backward variant: the holder sits at a NEGATIVE displacement from `this`
+// (a sub-object `this` pointing into a larger object). Spelled as an explicit
+// backward cast, which MSVC folds to `mov eax,[ecx-BACK]`; same shape and
+// reading as BFME1's ChainedFieldGetters.
+
+// tu-skeleton: 0x0046279C 143B ?doLoadSound@OpenContain@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainSounds.cpp (not merged yet)
+
+// tu-skeleton: 0x0046282B 128B ?doUnloadSound@OpenContain@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainSounds.cpp (not merged yet)
+
+// tu-skeleton: 0x00462977 467B ?isValidContainerFor@OpenContain@@UAE_NPAVObject@@_N1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainIsValidContainerFor.cpp (not merged yet)
+
+// tu-skeleton: 0x00462C72 97B ?monitorConditionChanges@OpenContain@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain_monitorConditionChanges.cpp (not merged yet)
+
+// tu-skeleton: 0x00462F34 65B ?rva00462F34@OpenContain@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainRva00462F75.cpp (not merged yet)
+
+// tu-skeleton: 0x00462F75 62B ?removeFromContainList@OpenContain@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainRva00462F75.cpp (not merged yet)
+
+// tu-skeleton: 0x00462FB3 228B ?privateRemoveFromContain@OpenContain@@QAEXPAVObject@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainPrivateRemoveFromContain.cpp (not merged yet)
+
+// tu-skeleton: 0x00463097 161B ?onContaining@OpenContain@@UAEXPAVObject@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain_onContaining.cpp (not merged yet)
+
+// tu-skeleton: 0x004632E0 91B ?getClosestRider@OpenContain@@UAEPAVObject@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainRva004638F1.cpp (not merged yet)
+
+// tu-skeleton: 0x0046333B 152B ?rva0046333B@Rva0046333B@@QAE_NPAH00000@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/Rva0046333BCounts.cpp (not merged yet)
+
+// tu-skeleton: 0x004633FC 41B ?clear@?$_Rb_tree@HU?$pair@$$CBHURva00462D35Mapped@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva00462D35Mapped@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva00462D35Mapped@@@_STL@@@2@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_tree_erase_00462D35.cpp (not merged yet)
+
+// tu-skeleton: 0x00463425 68B ?dup_00463425@@YAXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_o1.cpp (not merged yet)
 
 // tu-skeleton: 0x0046348D 45B ??$_Construct@UBfmeContainerRecord00462D62@@U1@@_STL@@YAXPAUBfmeContainerRecord00462D62@@ABU1@@Z -- matched in Code/GameEngine/Source/Common/StringContainerRecordCopyBFME2.cpp (not merged yet)
 
