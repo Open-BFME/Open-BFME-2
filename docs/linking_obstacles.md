@@ -15255,6 +15255,8 @@ PlayerIsLocalPlayer.cpp no longer privately redefines PlayerList: it retains the
 Current verification at5d43d4fe40: strict donor receipt and actual-byte proof pass; the donor plus GameClientDrawableTOC and GameLogicInit retain3/3LINKS and36,832 preview bytes against d249ce458a. Fifteen current same-body getter providers remain, with no raw runtime incoming references. The selected whole-object SHA differs from the index and ten peers are stale, so complete post-index consumer closure is unverified; carry the cohort into the next scheduled census. No headline gain is claimed.
 
 
+Publication follow-up (34caf16ef8, first attempt): the required batch audit is INCONCLUSIVE / linking UNVERIFIED because indexd249ce458a predates outgoing basee4e79fd4ba and affected consumer `Common/AICowerState_onEnter.cpp` lacks a current receipt. Carry that consumer, this donor and the retained getter providers into the next scheduled census. No complete consumer closure is established.
+
 ### Player legacy AI wrapper handoff (2026-10-31, codex root)
 
 Two unused legacy wrappers have byte/data/runtime-preserving removal evidence from da4ce080d1 but remain pending: current class:Object scope is held by another worker and covers Player.cpp. Current Code/ and all debt registers are unchanged. The interrupted consolidation run left no verdict; no source move is approved. Reacquire and refresh evidence before retiring either wrapper. [Pending patch and scope](../reverse/attempt_support/player-unused-ai-wrappers-20261030/readme.md).

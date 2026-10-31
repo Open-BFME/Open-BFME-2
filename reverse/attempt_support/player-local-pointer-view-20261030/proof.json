@@ -93,5 +93,17 @@
       "mnemonic": "cmp",
       "operands": "ecx, dword ptr [edx + 0x10]"
     }
-  ]
+  ],
+  "publication_audit": {
+    "published_repair": "34caf16ef8",
+    "published_handoff": "59c60a40b3",
+    "outgoing_base": "e4e79fd4badd4b5e145bf53dc76e100e887d5d66",
+    "index": "d249ce458a",
+    "status": "INCONCLUSIVE / linking UNVERIFIED",
+    "reasons": [
+      "Published index predates outgoing base",
+      "Affected consumer lacks current receipt: Code/GameEngine/Source/Common/AICowerState_onEnter.cpp"
+    ],
+    "followup": "Carry PlayerIsLocalPlayer, retained getter providers and AICowerState_onEnter into next scheduled census; no full-image or consumer closure is claimed."
+  }
 }
