@@ -174,12 +174,6 @@ private:
 	SizedForwarderSlots *m_inner;
 };
 
-// vtable 0x00BCBC40#60 (??_7Rva000CA119@@6BRva000C79C9@@@): (+0x4)->slot30()
-void Rva00078AC6Forwarder::rva00078AC6()
-{
-	m_inner->slot30();
-}
-
 class Rva0008605ALead
 {
 public:
