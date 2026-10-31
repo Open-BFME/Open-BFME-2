@@ -12628,7 +12628,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x001D9AAC,45,code,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,approved,C,C=0x001D99E7..0x001D9AD9,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp
 0x001D9AD9,45,code,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,approved,C,C=0x001D99E7..0x001D9B06,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_e8_allocate_copy.cpp
 0x001D9B06,9,code,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,approved,C,C=0x001D99E7..0x001D9B0F,Code/GameEngine/Source/Common/DestroyInstances.cpp
-0x001D9B0F,45,code,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,approved,C,C=0x001D99E7..0x001D9B3C,Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp
+0x001D9B0F,45,code,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,approved,C,C=0x001D99E7..0x001D9B3C,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp
 0x001D9B3C,38,code,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,approved,C,C=0x001D99E7..0x001D9B62,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp
 0x001D9B62,37,code,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,approved,C,C=0x001D99E7..0x001D9B87,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp
 0x001D9B87,29,code,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,approved,C,C=0x001D99E7..0x001D9BA4,Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp
@@ -66242,8 +66242,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00769660,11,code,Code/GameEngine/Source/GameLogic/Object/Armor.cpp,approved,P,P=0x001D9670@FuncInfo0x0090E634 p-group,Code/gen_small/uw_gen_010.cpp
 0x0076966B,11,code,Code/GameEngine/Source/GameLogic/Object/Armor.cpp,approved,P,P=0x001D9670@FuncInfo0x0090E634 p-group,Code/gen_small/uw_gen_010.cpp
 0x00769676,10,code,Code/GameEngine/Source/GameLogic/Object/Armor.cpp,approved,P,P=0x001D9670@FuncInfo0x0090E634 p-group,Code/GameEngine/Source/Common/GameEngineInit.cpp
-0x00769680,14,code,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,approved,P,P=0x001D9B0F@FuncInfo0x0090E658,Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp
-0x0076968E,10,code,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,approved,P,P=0x001D9B0F@FuncInfo0x0090E658,Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp
+0x00769680,14,code,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,approved,P,P=0x001D9B0F@FuncInfo0x0090E658,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp
+0x0076968E,10,code,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,approved,P,P=0x001D9B0F@FuncInfo0x0090E658,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp
 0x00769698,8,code,,,-,,Code/gen_small/uw_gen_010.cpp
 0x007696A0,10,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorChains.cpp
 0x007696AA,8,code,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,approved,P,P=0x001DA2D5@FuncInfo0x0090E6D8,Code/Libraries/Source/WWVegas/WWLib/Rva001DA2D5Finish.cpp
