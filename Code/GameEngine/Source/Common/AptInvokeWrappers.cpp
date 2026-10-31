@@ -30,24 +30,7 @@ extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 AsciiString __cdecl Rva0022288EGet(unsigned int value);
 AsciiString __cdecl Rva002228E8Get(float value);
 
-int __cdecl Rva002162CFInvoke(Rva00222A8BTarget *target, void *owner, const char *name, const unsigned int &arg)
-{
-	return target->invoke(owner, name, 1, Rva002162CFStr(Rva0022288EGet(arg)), 0, 0, 0, 0);
-}
-
-int __cdecl Rva0021642FInvoke(Rva00222A8BTarget *target, void *owner, const char *name, const float &arg)
-{
-	return target->invoke(owner, name, 1, Rva002162CFStr(Rva002228E8Get(arg)), 0, 0, 0, 0);
-}
-
 AsciiString __cdecl Rva00222834Get(int value);
-
-// ?Rva00216496Invoke@@YAHPAVRva00222A8BTarget@@PAXPBDABIABVAsciiString@@4@Z @0x00216496 129B
-// three arguments, an unsigned then two strings.
-int __cdecl Rva00216496Invoke(Rva00222A8BTarget *target, void *owner, const char *name, const unsigned int &a, const AsciiString &asciiString, const AsciiString &c)
-{
-	return target->invoke(owner, name, 3, Rva002162CFStr(Rva0022288EGet(a)), (void *)Rva002162CFStr(asciiString), (void *)Rva002162CFStr(c), 0, 0);
-}
 
 // ?Rva002D4531Invoke@@YAHPAVRva00222A8BTarget@@PAXPBDABH@Z @0x002D4531 99B
 // one int argument through the rowed Rva00222834Get.

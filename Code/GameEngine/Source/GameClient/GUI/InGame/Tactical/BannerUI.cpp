@@ -559,6 +559,44 @@ AsciiString Rva002228E8Get(float val);
 
 AsciiString Rva0022288EGet(unsigned int val);
 
+AsciiString __cdecl Rva0022288EGet(unsigned int value);
+
+AsciiString __cdecl Rva002228E8Get(float value);
+
+AsciiString __cdecl Rva00222834Get(int value);
+
+// ?rva00522A91@AptSkirmish@@QAEXXZ @0x00522A91 107B: close the profile popup.
+// In state 2 (unless the flag at +0x6C2 is set) and in state 4 it sends
+// CloseProfilePopup to the panel's Apt owner (+0x274). It then calls the
+// state's follow-up, 0x00521B56 or 0x005229D3 (both pinned), with 0.
+class AptSkirmish
+{
+public:
+	void rva00522A91();
+	void rva00521841();
+	int rva00523178(int msg, unsigned int key, unsigned int state);
+	// Follow-ups on the same panel, rowed in AptSkirmishCallbacks.cpp:
+	// 0x00521770, 0x00521B56, 0x005229D3.
+	void OnProfilePopupCancel(const char *unused);
+	void OnAddProfileAccept(const char *unused);
+	void OnChangeProfile(const char *unused);
+private:
+	char m_pad000[0x274];
+	void *m_owner;				// +0x274
+	char m_pad278[0x440];
+	int m_state;				// +0x6B8
+	char m_pad6BC[6];
+	bool m_busy;				// +0x6C2
+};
+
+// ?rva00521841@AptSkirmish@@QAEXXZ @0x00521841 110B: the same panel's back
+// action. States 2-4 close the profile popup and run 0x00521770 (pinned)
+// with 0, and states 8-9 send CloseStats. Any other state tail-calls the
+// rowed Rva00521643Enable.
+void __cdecl Rva00521643Enable();
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
+
 // ---- from Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
@@ -858,8 +896,6 @@ int __cdecl Rva00216517Fire(Rva00222A8BTarget *target, void *owner, const char *
 	return target->invoke(owner, name, 2, GetStr00216517(Rva0022288EGet(*pInt)), (void *)GetStr00216517(Rva002228E8Get(*pFloat)), 0, 0, 0);
 }
 
-// tu-skeleton: 0x00216094 48B ??1Rva00216094@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00216094Dtor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/BfmeThreeStringCopyWH.cpp
 
 // BFME1 donor BfmeThreeStringCopyWH.cpp reviewed at
@@ -878,6 +914,8 @@ Gen_003A8BE0::Gen_003A8BE0(const Gen_003A8BE0 &other)
 {
 }
 
+// tu-skeleton: 0x00216094 48B ??1Rva00216094@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00216094Dtor.cpp (not merged yet)
+
 // tu-skeleton: 0x0021618A 27B ?Rva0021618AFind@@YAPAUBfmePod28@@PAU1@0H@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0021618A.cpp (not merged yet)
 
 // tu-skeleton: 0x002161A5 29B ??$__copy_ptrs@PAURva00215FEFElement@@PAU1@@_STL@@YAPAURva00215FEFElement@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00215FEF.cpp (not merged yet)
@@ -892,15 +930,45 @@ Gen_003A8BE0::Gen_003A8BE0(const Gen_003A8BE0 &other)
 
 // tu-skeleton: 0x00216296 57B ??0?$pair@$$CBVAsciiString@@VGen_003A8BE0@@@_STL@@QAE@ABVAsciiString@@ABVGen_003A8BE0@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pair_asciistring_twins.cpp (not merged yet)
 
-// tu-skeleton: 0x002162CF 99B ?Rva002162CFInvoke@@YAHPAVRva00222A8BTarget@@PAXPBDABI@Z -- matched in Code/GameEngine/Source/Common/AptInvokeWrappers.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/AptInvokeWrappers.cpp
+
+// Typed Apt callback wrappers: convert the argument to an AsciiString with
+// the rowed formatters (Rva0022288EGet for unsigned, Rva002228E8Get for float)
+// and return the rowed Rva00222A8BTarget::invoke result for a one-argument
+// call. They are template-style siblings over one shape; names are
+// address-derived.
+//
+// ?Rva002162CFInvoke@@YAHPAVRva00222A8BTarget@@PAXPBDABI@Z @0x002162CF 99B  unsigned
+// ?Rva0021642FInvoke@@YAHPAVRva00222A8BTarget@@PAXPBDABM@Z @0x0021642F 103B float
+// and two siblings below (int; unsigned+two strings). The unsigned+int
+// wrapper is owned by BannerUIUpdate.cpp, whose caller needs its body visible.
+
+// StringBase<char>::str() (TheNullChr for an empty string) of a temporary.
+static inline const char *Rva002162CFStr(const AsciiString &asciiString)
+{
+	return ((const StringBase<char> *)&asciiString)->str();
+}
+
+int __cdecl Rva002162CFInvoke(Rva00222A8BTarget *target, void *owner, const char *name, const unsigned int &arg)
+{
+	return target->invoke(owner, name, 1, Rva002162CFStr(Rva0022288EGet(arg)), 0, 0, 0, 0);
+}
+
+int __cdecl Rva0021642FInvoke(Rva00222A8BTarget *target, void *owner, const char *name, const float &arg)
+{
+	return target->invoke(owner, name, 1, Rva002162CFStr(Rva002228E8Get(arg)), 0, 0, 0, 0);
+}
+
+// ?Rva00216496Invoke@@YAHPAVRva00222A8BTarget@@PAXPBDABIABVAsciiString@@4@Z @0x00216496 129B
+// three arguments, an unsigned then two strings.
+int __cdecl Rva00216496Invoke(Rva00222A8BTarget *target, void *owner, const char *name, const unsigned int &a, const AsciiString &asciiString, const AsciiString &c)
+{
+	return target->invoke(owner, name, 3, Rva002162CFStr(Rva0022288EGet(a)), (void *)Rva002162CFStr(asciiString), (void *)Rva002162CFStr(c), 0, 0);
+}
 
 // tu-skeleton: 0x00216332 104B ?Rva00216332Call@@YAHPAX0PBDPBIPBQAX@Z -- matched in Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUIUpdate.cpp (not merged yet)
 
 // tu-skeleton: 0x0021639A 149B ?Rva0021639AInvoke@@YAHPAVRva00222A8BTarget@@PAXPBDABIABH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUIUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x0021642F 103B ?Rva0021642FInvoke@@YAHPAVRva00222A8BTarget@@PAXPBDABM@Z -- matched in Code/GameEngine/Source/Common/AptInvokeWrappers.cpp (not merged yet)
-
-// tu-skeleton: 0x00216496 129B ?Rva00216496Invoke@@YAHPAVRva00222A8BTarget@@PAXPBDABIABVAsciiString@@4@Z -- matched in Code/GameEngine/Source/Common/AptInvokeWrappers.cpp (not merged yet)
 
 // tu-skeleton: 0x002165B0 59B ?rva002165B0@Rva002165B0@@QAEAAV1@PBUDelegateDesc@@@Z -- matched in Code/GameEngine/Source/Common/Rva00579E47Delegate.cpp (not merged yet)
 
