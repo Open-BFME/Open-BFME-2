@@ -48,6 +48,11 @@ class Rva002DFC30;
 class ProductionPrerequisite;
 struct BfmeStringRecord002CF4C6;
 struct BfmeStringRecord002CF550;
+// The four module-info members (+0x2e4..+0x308): ModuleInfo holds the
+// record vector. Its destructor is the 5-byte thunk 0x0033CF2F
+// (ThingTemplateCleanupForwards.cpp) that the unwind funclets jump to; the
+// normal path expands it into the vector destructor call 0x0033CD02.
+struct ModuleInfo { _STL::vector<BfmeStringRecord002CF4C6> records; };
 struct NoCaseTreeValue4;
 struct BfmeStringNoCaseLess;
 typedef _STL::pair<const AsciiString, NoCaseTreeValue4> NoCasePair4;
@@ -208,10 +213,10 @@ private:
 	Rva0033C3F3 m_cFC; // +0xfc
 	char m_pad104[0x124 - 0x104];
 	Rva00254B72 m_e124; // +0x124, 56 records of 8 bytes
-	_STL::vector<BfmeStringRecord002CF4C6> m_v2e4; // +0x2e4
-	_STL::vector<BfmeStringRecord002CF4C6> m_v2f0; // +0x2f0
-	_STL::vector<BfmeStringRecord002CF4C6> m_v2fc; // +0x2fc
-	_STL::vector<BfmeStringRecord002CF4C6> m_v308; // +0x308
+	ModuleInfo m_v2e4; // +0x2e4
+	ModuleInfo m_v2f0; // +0x2f0
+	ModuleInfo m_v2fc; // +0x2fc
+	ModuleInfo m_v308; // +0x308
 	char m_pad314[0x324 - 0x314];
 	_STL::vector<ProductionPrerequisite> m_v324; // +0x324
 	RvaVecAscii m_a330; // +0x330
