@@ -1034,7 +1034,6 @@ address_global	Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp	g_Va00DBD4B8	3
 address_global	Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp	g_Va00DBD4C8	5
 address_global	Code/GameEngine/Source/GameLogic/AI/GroupOrderCopyCtor.cpp	g_Va00E05F74	4
 address_global	Code/GameEngine/Source/GameLogic/AI/GroupOrderHolderCtor.cpp	g_Va00E05F74	3
-address_global	Code/GameEngine/Source/GameLogic/AI/Rva00355770GroupOrderMaps.cpp	g_Va00E05F74	2
 address_global	Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioKeyMapBfmeAddKey.cpp	g_Va00DFEC74	2
 address_global	Code/GameEngine/Source/GameLogic/Map/OldPolygonTrigger.cpp	g_Va00DBD0F4	2
 address_global	Code/GameEngine/Source/GameLogic/Map/PolygonTrigger.cpp	g_Va00DBD0F4	9
@@ -1086,6 +1085,7 @@ address_global	Code/GameEngine/Source/GameLogic/SkirmishAI/AIBaseBuilder/AIBase_
 address_global	Code/GameEngine/Source/GameLogic/SkirmishAI/AIDifficulty.cpp	g_Va00BBB8D8	1
 address_global	Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpellBookPowers/AISpellBookArmyBreaker.cpp	g_Va00E06670	2
 address_global	Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpellBookPowers/AISpellBookAssistBattle.cpp	g_Va00E06654	2
+address_global	Code/GameEngine/Source/GameLogic/System/AiOrdersManager.cpp	g_Va00E05F74	2
 address_global	Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp	g_Va00DFECC8	5
 address_global	Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp	g_Va00DFECC9	4
 address_global	Code/GameEngine/Source/GameLogic/System/GameLogic.cpp	g_Rva00A00958	3
