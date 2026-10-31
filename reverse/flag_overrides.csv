@@ -432,11 +432,11 @@ Code/Libraries/Source/Apt/AptAnimation.cpp,-O2,1,1,region default loses rows
 Code/Libraries/Source/Apt/AptArray.cpp,-O2,1,1,region default loses rows
 Code/Libraries/Source/Apt/AptCIH.cpp,-O2,25,1,region default loses rows
 Code/Libraries/Source/Apt/AptCIHRender.cpp,-O2 -G6,1,1,region default loses rows
+Code/Libraries/Source/Apt/AptCharacter.cpp,-O2,1,1,region default loses rows
 Code/Libraries/Source/Apt/AptCharacterApplyTextFormat.cpp,-O2,1,1,region default loses rows
 Code/Libraries/Source/Apt/AptCharacterByteCounts.cpp,-O2,2,2,region default loses rows
 Code/Libraries/Source/Apt/AptCharacterCreateTextField.cpp,-O2 -G6,1,1,region default loses rows
 Code/Libraries/Source/Apt/AptCharacterObjectMemberLookup.cpp,-O2,1,1,region default loses rows
-Code/Libraries/Source/Apt/AptCharacterSetMember.cpp,-O2,1,1,region default loses rows
 Code/Libraries/Source/Apt/AptDateConstructor.cpp,-O2 -G6,1,1,region default loses rows
 Code/Libraries/Source/Apt/AptInput.cpp,-O2,3,3,region default loses rows
 Code/Libraries/Source/Apt/AptInputSuffixAdvance.cpp,-O2 -G6,4,2,region default loses rows

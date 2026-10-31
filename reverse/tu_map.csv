@@ -58948,15 +58948,15 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x006EBD30,148,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,F,F=Code/Libraries/Source/Apt/AptCharacter.cpp W=Code/Libraries/Source/Apt/AptCharacter.cpp,Code/Libraries/Source/Apt/AptCharacter.cpp
 0x006EBDD0,125,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,F,F=Code/Libraries/Source/Apt/AptCharacter.cpp W=Code/Libraries/Source/Apt/AptCharacter.cpp,Code/Libraries/Source/Apt/AptCharacter.cpp
 0x006EBE50,8,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,C,C=0x006EBDD0..0x006EBE60,Code/GameEngine/Source/Common/VslotSmallBodiesAH.cpp
-0x006EBE60,386,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,C,C=0x006EBDD0..0x006EBFF0,Code/Libraries/Source/Apt/AptCharacterTextBinding.cpp
-0x006EBFF0,377,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,F,F=Code/Libraries/Source/Apt/AptCharacter.cpp W=Code/Libraries/Source/Apt/AptCharacter.cpp,Code/Libraries/Source/Apt/AptCharacterTextBinding.cpp
+0x006EBE60,386,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,C,C=0x006EBDD0..0x006EBFF0,Code/Libraries/Source/Apt/AptCharacter.cpp
+0x006EBFF0,377,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,F,F=Code/Libraries/Source/Apt/AptCharacter.cpp W=Code/Libraries/Source/Apt/AptCharacter.cpp,Code/Libraries/Source/Apt/AptCharacter.cpp
 0x006EC170,35,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,C,C=0x006EBFF0..0x006EC1A0,Code/GameEngine/Source/Common/Rva006CBF40Deferred.cpp
 0x006EC1A0,572,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,C,C=0x006EBFF0..0x006EC3E0,Code/Libraries/Source/Apt/AptCharacter.cpp
-0x006EC3E0,419,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,C,C=0x006EBFF0..0x006EC590,Code/Libraries/Source/Apt/AptCharacterMovieLoad.cpp
-0x006EC590,218,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,C,C=0x006EBFF0..0x006EC670,Code/Libraries/Source/Apt/AptCharacterMovieLoad.cpp
-0x006EC670,116,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,C,C=0x006EBFF0..0x006EC6F0,Code/GameEngine/Source/Common/Rva006EC670Cluster.cpp
+0x006EC3E0,419,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,C,C=0x006EBFF0..0x006EC590,Code/Libraries/Source/Apt/AptCharacter.cpp
+0x006EC590,218,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,C,C=0x006EBFF0..0x006EC670,Code/Libraries/Source/Apt/AptCharacter.cpp
+0x006EC670,116,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,C,C=0x006EBFF0..0x006EC6F0,Code/Libraries/Source/Apt/AptCharacter.cpp
 0x006EC6F0,59,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,C,C=0x006EBFF0..0x006EC730,Code/Libraries/Source/Apt/AptCharacterByteCounts.cpp
-0x006EC730,450,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,C,C=0x006EBFF0..0x006EC900,Code/Libraries/Source/Apt/Rva006EC730GetBounds.cpp
+0x006EC730,450,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,C,C=0x006EBFF0..0x006EC900,Code/Libraries/Source/Apt/AptCharacter.cpp
 0x006EC900,356,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,C,C=0x006EBFF0..0x006ECA70,Code/Libraries/Source/Apt/AptCharacterByteCounts.cpp
 0x006ECA70,431,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,F,F=Code/Libraries/Source/Apt/AptCharacter.cpp W=Code/Libraries/Source/Apt/AptCharacter.cpp,Code/Libraries/Source/Apt/AptCharacterByteCounts.cpp
 0x006ECC20,133,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,C,C=0x006ECA70..0x006ECCB0,Code/Libraries/Source/Apt/AptCharacterByteCounts.cpp
@@ -58973,21 +58973,21 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x006ED390,186,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,C,C=0x006ECA70..0x006ED450,Code/Libraries/Source/Apt/AptCharacter.cpp
 0x006ED450,21,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,C,C=0x006ECA70..0x006ED470,Code/Libraries/Source/Apt/AptCharacter.cpp
 0x006ED470,21,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,C,C=0x006ECA70..0x006ED490,Code/Libraries/Source/Apt/AptCharacter.cpp
-0x006ED490,231,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,C,C=0x006ECA70..0x006ED580,Code/Libraries/Source/Apt/Rva006ED490Walk.cpp
-0x006ED580,490,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,C,C=0x006ECA70..0x006ED770,Code/Libraries/Source/Apt/attachMovie.cpp
+0x006ED490,231,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,C,C=0x006ECA70..0x006ED580,Code/Libraries/Source/Apt/AptCharacter.cpp
+0x006ED580,490,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,C,C=0x006ECA70..0x006ED770,Code/Libraries/Source/Apt/AptCharacter.cpp
 0x006ED770,148,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,C,C=0x006ECA70..0x006ED810,Code/Libraries/Source/Apt/AptCharacterByteCounts.cpp
 0x006ED810,953,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,C,C=0x006ECA70..0x006ED845,Code/Libraries/Source/Apt/AptCharacterCreateTextField.cpp
 0x006ED845,900,code-unledgered,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,F,F=Code/Libraries/Source/Apt/AptCharacter.cpp W=Code/Libraries/Source/Apt/AptCharacter.cpp,
-0x006EDBD0,833,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,C,C=0x006ED845..0x006EDF20,Code/Libraries/Source/Apt/AptCharacterSwapDepths.cpp
+0x006EDBD0,833,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,C,C=0x006ED845..0x006EDF20,Code/Libraries/Source/Apt/AptCharacter.cpp
 0x006EDF20,203,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,C,C=0x006ED845..0x006EDFF0,Code/Libraries/Source/Apt/AptCharacterByteCounts.cpp
-0x006EDFF0,434,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,C,C=0x006ED845..0x006EE1B0,Code/Libraries/Source/Apt/Rva006EDFF0CreateEmptyMovieClip.cpp
-0x006EE1B0,95,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,C,C=0x006ED845..0x006EE210,Code/Libraries/Source/EA/Apt/Rva006EE1B0Cluster.cpp
-0x006EE210,95,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,C,C=0x006ED845..0x006EE270,Code/Libraries/Source/EA/Apt/Rva006EE1B0Cluster.cpp
-0x006EE270,154,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,C,C=0x006ED845..0x006EE310,Code/Libraries/Source/EA/Apt/Rva006EE1B0Cluster.cpp
-0x006EE310,154,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,C,C=0x006ED845..0x006EE3B0,Code/Libraries/Source/EA/Apt/Rva006EE1B0Cluster.cpp
+0x006EDFF0,434,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,C,C=0x006ED845..0x006EE1B0,Code/Libraries/Source/Apt/AptCharacter.cpp
+0x006EE1B0,95,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,C,C=0x006ED845..0x006EE210,Code/Libraries/Source/Apt/AptCharacter.cpp
+0x006EE210,95,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,C,C=0x006ED845..0x006EE270,Code/Libraries/Source/Apt/AptCharacter.cpp
+0x006EE270,154,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,C,C=0x006ED845..0x006EE310,Code/Libraries/Source/Apt/AptCharacter.cpp
+0x006EE310,154,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,C,C=0x006ED845..0x006EE3B0,Code/Libraries/Source/Apt/AptCharacter.cpp
 0x006EE3B0,393,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,F,F=Code/Libraries/Source/Apt/AptCharacter.cpp W=Code/Libraries/Source/Apt/AptCharacter.cpp,Code/Libraries/Source/Apt/AptCharacterByteCounts.cpp
 0x006EE540,373,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,F,F=Code/Libraries/Source/Apt/AptCharacter.cpp,Code/Libraries/Source/Apt/AptCharacterByteCounts.cpp
-0x006EE6C0,3749,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,F,F=Code/Libraries/Source/Apt/AptCharacter.cpp W=Code/Libraries/Source/Apt/AptCharacter.cpp,Code/Libraries/Source/Apt/AptCharacterSetMember.cpp
+0x006EE6C0,3749,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,F,F=Code/Libraries/Source/Apt/AptCharacter.cpp W=Code/Libraries/Source/Apt/AptCharacter.cpp,Code/Libraries/Source/Apt/AptCharacter.cpp
 0x006EF570,349,code,Code/Libraries/Source/Apt/AptCharacter.cpp,proposed,C,C=0x006EE6C0..0x006EF6D0,Code/Libraries/Source/Apt/AptCharacterApplyTextFormat.cpp
 0x006EF6D0,592,code,Code/Libraries/Source/Apt/AptCharacter.cpp,proposed,C,C=0x006EE6C0..0x006EF920,Code/Libraries/Source/Apt/Rva006EF6D0TextFormat.cpp
 0x006EF920,590,code,Code/Libraries/Source/Apt/AptCharacter.cpp,proposed,C,C=0x006EE6C0..0x006EF951,Code/Libraries/Source/Apt/Rva006EF920TextFormat.cpp
@@ -91903,20 +91903,20 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007A9620,8,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,P,P=0x006EB4B0@FuncInfo0x00962F48 p-group,Code/Libraries/Source/Apt/AptCharacterByteCounts.cpp
 0x007A9628,8,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,P,P=0x006EB4B0@FuncInfo0x00962F48 p-group,Code/Libraries/Source/Apt/AptCharacterByteCounts.cpp
 0x007A9630,10,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,P,P=0x006EB4B0@FuncInfo0x00962F48 p-group,Code/Libraries/Source/Apt/AptCharacterByteCounts.cpp
-0x007A9640,8,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,P,P=0x006EBE60@FuncInfo0x00962F74,Code/Libraries/Source/Apt/AptCharacterTextBinding.cpp
-0x007A9648,8,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,P,P=0x006EBE60@FuncInfo0x00962F74,Code/Libraries/Source/Apt/AptCharacterTextBinding.cpp
-0x007A9650,10,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,P,P=0x006EBE60@FuncInfo0x00962F74,Code/Libraries/Source/Apt/AptCharacterTextBinding.cpp
-0x007A9660,8,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,P,P=0x006EBFF0@FuncInfo0x00962FA8,Code/Libraries/Source/Apt/AptCharacterTextBinding.cpp
-0x007A9668,8,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,P,P=0x006EBFF0@FuncInfo0x00962FA8,Code/Libraries/Source/Apt/AptCharacterTextBinding.cpp
-0x007A9670,8,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,P,P=0x006EBFF0@FuncInfo0x00962FA8,Code/Libraries/Source/Apt/AptCharacterTextBinding.cpp
-0x007A9678,10,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,P,P=0x006EBFF0@FuncInfo0x00962FA8,Code/Libraries/Source/Apt/AptCharacterTextBinding.cpp
-0x007A9690,8,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,P,P=0x006EC590@FuncInfo0x00962FE4,Code/Libraries/Source/Apt/AptCharacterMovieLoad.cpp
-0x007A9698,8,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,P,P=0x006EC590@FuncInfo0x00962FE4,Code/Libraries/Source/Apt/AptCharacterMovieLoad.cpp
-0x007A96A0,8,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,P,P=0x006EC590@FuncInfo0x00962FE4,Code/Libraries/Source/Apt/AptCharacterMovieLoad.cpp
-0x007A96A8,10,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,P,P=0x006EC590@FuncInfo0x00962FE4,Code/Libraries/Source/Apt/AptCharacterMovieLoad.cpp
-0x007A96C0,15,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,P,P=0x006EC730@FuncInfo0x00963010,Code/Libraries/Source/Apt/Rva006EC730GetBounds.cpp
-0x007A96CF,8,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,P,P=0x006EC730@FuncInfo0x00963010,Code/Libraries/Source/Apt/Rva006EC730GetBounds.cpp
-0x007A96D7,10,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,P,P=0x006EC730@FuncInfo0x00963010,Code/Libraries/Source/Apt/Rva006EC730GetBounds.cpp
+0x007A9640,8,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,P,P=0x006EBE60@FuncInfo0x00962F74,Code/Libraries/Source/Apt/AptCharacter.cpp
+0x007A9648,8,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,P,P=0x006EBE60@FuncInfo0x00962F74,Code/Libraries/Source/Apt/AptCharacter.cpp
+0x007A9650,10,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,P,P=0x006EBE60@FuncInfo0x00962F74,Code/Libraries/Source/Apt/AptCharacter.cpp
+0x007A9660,8,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,P,P=0x006EBFF0@FuncInfo0x00962FA8,Code/Libraries/Source/Apt/AptCharacter.cpp
+0x007A9668,8,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,P,P=0x006EBFF0@FuncInfo0x00962FA8,Code/Libraries/Source/Apt/AptCharacter.cpp
+0x007A9670,8,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,P,P=0x006EBFF0@FuncInfo0x00962FA8,Code/Libraries/Source/Apt/AptCharacter.cpp
+0x007A9678,10,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,P,P=0x006EBFF0@FuncInfo0x00962FA8,Code/Libraries/Source/Apt/AptCharacter.cpp
+0x007A9690,8,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,P,P=0x006EC590@FuncInfo0x00962FE4,Code/Libraries/Source/Apt/AptCharacter.cpp
+0x007A9698,8,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,P,P=0x006EC590@FuncInfo0x00962FE4,Code/Libraries/Source/Apt/AptCharacter.cpp
+0x007A96A0,8,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,P,P=0x006EC590@FuncInfo0x00962FE4,Code/Libraries/Source/Apt/AptCharacter.cpp
+0x007A96A8,10,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,P,P=0x006EC590@FuncInfo0x00962FE4,Code/Libraries/Source/Apt/AptCharacter.cpp
+0x007A96C0,15,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,P,P=0x006EC730@FuncInfo0x00963010,Code/Libraries/Source/Apt/AptCharacter.cpp
+0x007A96CF,8,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,P,P=0x006EC730@FuncInfo0x00963010,Code/Libraries/Source/Apt/AptCharacter.cpp
+0x007A96D7,10,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,P,P=0x006EC730@FuncInfo0x00963010,Code/Libraries/Source/Apt/AptCharacter.cpp
 0x007A96F0,8,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,P,P=0x006ECCB0@FuncInfo0x0096303C,Code/Libraries/Source/Apt/AptCharacterByteCounts.cpp
 0x007A96F8,8,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,P,P=0x006ECCB0@FuncInfo0x0096303C,Code/Libraries/Source/Apt/AptCharacterByteCounts.cpp
 0x007A9700,10,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,P,P=0x006ECCB0@FuncInfo0x0096303C,Code/Libraries/Source/Apt/AptCharacterByteCounts.cpp
@@ -91942,19 +91942,19 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007A97F8,11,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,P,P=0x006ED2A0@FuncInfo0x00963178,Code/GameEngine/Source/Common/Rva006ED2A0Dtor.cpp
 0x007A9803,11,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,P,P=0x006ED2A0@FuncInfo0x00963178,Code/GameEngine/Source/Common/Rva006ED2A0Dtor.cpp
 0x007A980E,10,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,P,P=0x006ED2A0@FuncInfo0x00963178,Code/GameEngine/Source/Common/Rva006ED2A0Dtor.cpp
-0x007A9820,8,code,,,-,,Code/Libraries/Source/Apt/AptCharacterMovieLoad.cpp
-0x007A9828,8,code,,,-,,Code/Libraries/Source/Apt/AptCharacterMovieLoad.cpp
-0x007A9830,10,code,,,-,,Code/Libraries/Source/Apt/AptCharacterMovieLoad.cpp
-0x007A9840,8,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,P,P=0x006EDBD0@FuncInfo0x009631C8,Code/Libraries/Source/Apt/AptCharacterSwapDepths.cpp
-0x007A9848,10,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,P,P=0x006EDBD0@FuncInfo0x009631C8,Code/Libraries/Source/Apt/AptCharacterSwapDepths.cpp
+0x007A9820,8,code,,,-,,Code/Libraries/Source/Apt/AptCharacter.cpp
+0x007A9828,8,code,,,-,,Code/Libraries/Source/Apt/AptCharacter.cpp
+0x007A9830,10,code,,,-,,Code/Libraries/Source/Apt/AptCharacter.cpp
+0x007A9840,8,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,P,P=0x006EDBD0@FuncInfo0x009631C8,Code/Libraries/Source/Apt/AptCharacter.cpp
+0x007A9848,10,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,P,P=0x006EDBD0@FuncInfo0x009631C8,Code/Libraries/Source/Apt/AptCharacter.cpp
 0x007A9860,8,code,,,-,,Code/Libraries/Source/Apt/AptCharacterByteCounts.cpp
 0x007A9868,10,code,,,-,,Code/Libraries/Source/Apt/AptCharacterByteCounts.cpp
 0x007A9880,8,code,,,-,,Code/Libraries/Source/Apt/AptCharacterByteCounts.cpp
 0x007A9888,10,code,,,-,,Code/Libraries/Source/Apt/AptCharacterByteCounts.cpp
-0x007A98A0,8,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,P,P=0x006EE6C0@FuncInfo0x00963244,Code/Libraries/Source/Apt/AptCharacterSetMember.cpp
-0x007A98A8,8,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,P,P=0x006EE6C0@FuncInfo0x00963244,Code/Libraries/Source/Apt/AptCharacterSetMember.cpp
-0x007A98B0,8,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,P,P=0x006EE6C0@FuncInfo0x00963244,Code/Libraries/Source/Apt/AptCharacterSetMember.cpp
-0x007A98B8,10,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,P,P=0x006EE6C0@FuncInfo0x00963244,Code/Libraries/Source/Apt/AptCharacterSetMember.cpp
+0x007A98A0,8,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,P,P=0x006EE6C0@FuncInfo0x00963244,Code/Libraries/Source/Apt/AptCharacter.cpp
+0x007A98A8,8,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,P,P=0x006EE6C0@FuncInfo0x00963244,Code/Libraries/Source/Apt/AptCharacter.cpp
+0x007A98B0,8,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,P,P=0x006EE6C0@FuncInfo0x00963244,Code/Libraries/Source/Apt/AptCharacter.cpp
+0x007A98B8,10,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,P,P=0x006EE6C0@FuncInfo0x00963244,Code/Libraries/Source/Apt/AptCharacter.cpp
 0x007A98D0,15,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,P,P=0x006EF570@FuncInfo0x00963268 p-group,Code/Libraries/Source/Apt/AptCharacterApplyTextFormat.cpp
 0x007A98DF,10,code,Code/Libraries/Source/Apt/AptCharacter.cpp,approved,P,P=0x006EF570@FuncInfo0x00963268 p-group,Code/Libraries/Source/Apt/AptCharacterApplyTextFormat.cpp
 0x007A98F0,15,code,,,-,,Code/Libraries/Source/Apt/Rva006EF920TextFormat.cpp
