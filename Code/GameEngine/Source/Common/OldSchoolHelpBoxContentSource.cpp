@@ -30,8 +30,7 @@ class Rva00405A45
 public:
 	Rva00405A45();
 	Rva00405A45(int dummy);
-private:
-	const void *m_vtable;
+	const void *m_vtable; // +0x00
 };
 
 //
@@ -78,6 +77,7 @@ class RadarWindowOverrideSource
 {
 public:
 	void ShowHelpBox(const TreeHintRef00217D4C &hint);
+	void rva002D370A();
 };
 
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
@@ -160,10 +160,15 @@ public:
 	Player *getControllingPlayer() const;
 };
 
-class OldSchoolHelpBoxContentSource
+class OldSchoolHelpBoxContentSource : public Rva00405A45
 {
 public:
 	bool allRequiredUpgradesComplete(Object *obj, UpgradeRange *range, bool flag);
+	OldSchoolHelpBoxContentSource(const OldSchoolHelpBoxContentSource &other);
+private:
+	int m_4; // +0x04
+	int m_8; // +0x08
+	int m_c; // +0x0C
 };
 
 // tu-skeleton: 0x004059BE 17B ?get@OldSchoolHelpBoxContentSource@@UAEHXZ -- matched in Code/GameEngine/Source/Common/R2GuardedFieldGetters.cpp (not merged yet)

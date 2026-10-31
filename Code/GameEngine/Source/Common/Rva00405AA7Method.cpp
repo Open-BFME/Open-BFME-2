@@ -12,9 +12,11 @@ public:
 	void clear();
 };
 
+struct TreeHintRef00217D4C;
 class RadarWindowOverrideSource
 {
 public:
+	void ShowHelpBox(const TreeHintRef00217D4C &hint);
 	void rva002D370A();
 };
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;

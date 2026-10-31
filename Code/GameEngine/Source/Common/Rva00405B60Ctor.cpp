@@ -10,19 +10,22 @@ extern "C" const void *const __identifier("??_7OldSchoolHelpBoxContentSource@@6B
 class Rva00405A45
 {
 public:
+	Rva00405A45();
 	Rva00405A45(int dummy);
-protected:
-	const void *m_vtable;
+	const void *m_vtable; // +0x00
 };
 
+class Object;
+struct UpgradeRange;
 class OldSchoolHelpBoxContentSource : public Rva00405A45
 {
 public:
+	bool allRequiredUpgradesComplete(Object *obj, UpgradeRange *range, bool flag);
 	OldSchoolHelpBoxContentSource(const OldSchoolHelpBoxContentSource &other);
 private:
-	int m_4;
-	int m_8;
-	int m_c;
+	int m_4; // +0x04
+	int m_8; // +0x08
+	int m_c; // +0x0C
 };
 
 OldSchoolHelpBoxContentSource::OldSchoolHelpBoxContentSource(const OldSchoolHelpBoxContentSource &other) : Rva00405A45((int)&other)
