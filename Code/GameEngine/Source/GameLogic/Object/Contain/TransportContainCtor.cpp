@@ -39,7 +39,15 @@ template <> void vector<AsciiString, allocator<AsciiString> >::push_back(const A
 template <> void vector<AsciiString, allocator<AsciiString> >::_M_insert_overflow(AsciiString*, const AsciiString&, const __false_type&, size_t, bool);
 }
 
-class B0 { public: virtual void b0(); virtual void onCapture(int a1, int a2) = 0; protected: const ModuleData *m_moduleData; Object *m_object; };
+class B0
+{
+public:
+	virtual void b0();
+	virtual void onCapture(int a1, int a2) = 0;
+protected:
+	const ModuleData *m_moduleData; // +0x04
+	Object *m_object; // +0x08
+};
 class B1 { public: virtual void b1(); };
 class B2 { public: virtual void b2(); private: unsigned char m_pad[12]; };
 class B3 { public: virtual void b3(); virtual void onCapture(int a1, int a2) = 0; };

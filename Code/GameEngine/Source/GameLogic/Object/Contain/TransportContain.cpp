@@ -1204,18 +1204,13 @@ class OpenContainModuleData
 {
 public:
 	OpenContainModuleData();
-public:
-	virtual ~OpenContainModuleData();
-protected:
-	unsigned char m_pad04[0x40 - 4];
-protected:
-	Rva003623E5Member m_filter40;
-protected:
-	Rva003623E5Filter m_filter44;
-protected:
-	unsigned char m_pad48[0x98 - 0x48];
-public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
+	virtual ~OpenContainModuleData();
+	char m_pad04[0x3C];
+protected:
+	Rva003623E5Member m_filter40; // +0x40
+	Rva003623E5Filter m_filter44; // +0x44
+	char m_pad48[0x50];
 };
 
 struct ThrowOutVelocity
@@ -1355,6 +1350,7 @@ public:
 	const char *getNextToken(const char *seps = 0);
 	const char *getNextTokenOrNull(const char *seps = 0);
 	int scanInt(const char *token);
+	static void parseUnsignedInt(INI *ini, void *instance, void *store, const void *userData);
 };
 
 struct Rva00467DE6Payload

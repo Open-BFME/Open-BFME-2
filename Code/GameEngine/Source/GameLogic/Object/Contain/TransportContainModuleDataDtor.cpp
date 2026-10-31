@@ -82,17 +82,18 @@ private:
 	int m_x;
 };
 
+class MultiIniFieldParse;
 class OpenContainModuleData
 {
 public:
 	OpenContainModuleData();
+	static void buildFieldParse(MultiIniFieldParse &parse);
 	virtual ~OpenContainModuleData();
-
+	char m_pad04[0x3C];
 protected:
-	unsigned char m_pad04[0x40 - 4];
-	Rva003623E5Member m_filter40;
-	Rva003623E5Filter m_filter44;
-	unsigned char m_pad48[0x98 - 0x48];
+	Rva003623E5Member m_filter40; // +0x40
+	Rva003623E5Filter m_filter44; // +0x44
+	char m_pad48[0x50];
 };
 
 struct ThrowOutVelocity
