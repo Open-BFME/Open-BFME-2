@@ -1575,6 +1575,7 @@ alternatename	Code/GameEngine/Source/Common/Bfme5ThirtyFour.cpp	?unlink@Partitio
 alternatename	Code/GameEngine/Source/Common/Bfme5ThirtyTwo.cpp	?rva007F76D0@Rva00801670Host@@QAEPAHPAVBfmeVecCZ@@H@Z	1
 alternatename	Code/GameEngine/Source/Common/Bfme5ThirtyTwo.cpp	?rva007F76D0@Rva00802550Host@@QAEPAHPAVBfmeVecCZ@@H@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeAllocRva.cpp	?bfmeSmallAllocPS@@YAPAXI@Z	1
+alternatename	Code/GameEngine/Source/Common/BfmeB1137.cpp	?ScreenTextureStageStateChanges@@3IA	1
 alternatename	Code/GameEngine/Source/Common/BfmeBigNewDeleteForwarders.cpp	_bfmeMalloc1149	1
 alternatename	Code/GameEngine/Source/Common/BfmeBigNewDeleteForwarders.cpp	_bfmeMalloc1150	1
 alternatename	Code/GameEngine/Source/Common/BfmeC986.cpp	?bfmePrep986C@BfmeC986@@QAEXXZ	1
@@ -1590,7 +1591,6 @@ alternatename	Code/GameEngine/Source/Common/BfmeConv1034_bfmeGo1034A_YGXHH_Z.cpp
 alternatename	Code/GameEngine/Source/Common/BfmeConv1036.cpp	?bfmeStepTWA@BfmeThingTWA@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv1037_bfmeGo1037F_YGXHHH_Z.cpp	?bfmeDo1037@BfmeG1037@@QAEXH_N@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv1037_bfmeGo1037F_YGXHHH_Z.cpp	?bfmeFind1037F@@YGPAVBfmeG1037@@H@Z	1
-alternatename	Code/GameEngine/Source/Common/BfmeConv1137Uninstall.cpp	?ScreenTextureStageStateChanges@@3IA	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv1187.cpp	?bfmeCtorECMa@BfmeThingECMa@@QAEPAV1@XZ	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv1208.cpp	?bfmeCallDXH@@YAXPAVBfmeSubDXH@@PAX0@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv1303.cpp	?bfmeFwdSWA@BfmeThingSWA@@QAEXH@Z	1
@@ -10439,11 +10439,11 @@ pragma_optimize	Code/GameEngine/Source/Common/Bfme/Rva0080EE80Query.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Bfme5SmallTests.cpp	"",on	9
 pragma_optimize	Code/GameEngine/Source/Common/Bfme5SmallTests.cpp	"s",on	8
 pragma_optimize	Code/GameEngine/Source/Common/Bfme5SmallTests.cpp	"t",on	1
+pragma_optimize	Code/GameEngine/Source/Common/BfmeB1137.cpp	"",on	1
+pragma_optimize	Code/GameEngine/Source/Common/BfmeB1137.cpp	"s",on	1
+pragma_optimize	Code/GameEngine/Source/Common/BfmeB1137.cpp	"t",off	1
 pragma_optimize	Code/GameEngine/Source/Common/BfmeB996Range.cpp	"y",off	1
 pragma_optimize	Code/GameEngine/Source/Common/BfmeB996Range.cpp	"y",on	1
-pragma_optimize	Code/GameEngine/Source/Common/BfmeConv1137Uninstall.cpp	"",on	1
-pragma_optimize	Code/GameEngine/Source/Common/BfmeConv1137Uninstall.cpp	"s",on	1
-pragma_optimize	Code/GameEngine/Source/Common/BfmeConv1137Uninstall.cpp	"t",off	1
 pragma_optimize	Code/GameEngine/Source/Common/BfmeConv1187.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/Common/BfmeConv1187.cpp	"gsy",on	1
 pragma_optimize	Code/GameEngine/Source/Common/BfmeSmallAllocPR.cpp	"",on	1
