@@ -301,8 +301,8 @@ public:
 	Rva003EFDDBHolder *m_holder;		// +0x24
 };
 
-struct NAT;
 class LivingWorldBattle;
+
 class GameSpyGameSlot;
 
 class GameSpyStagingRoom : public GameInfo
@@ -773,6 +773,48 @@ typedef struct BfmePod20 {
 	unsigned short RemotePort;
 } ConnInfoStruct;
 
+class ImageCollection
+{
+public:
+	const Image *findImageByName(const AsciiString &name);
+};
+
+extern ImageCollection *TheMappedImageCollection;
+
+class GameSlot;
+
+class AsciiString;
+
+extern "C" void __cdecl FreeGame(void *p);
+
+class Rva004FDA42Owner
+{
+public:
+	void rva004FDA42();
+
+private:
+	char m_pad[0x101C];	// +0x00..0x101B
+	void *m_101C;		// +0x101C freed pointer
+};
+
+class Rva004FDB57 {
+	char m_pad[0x1000];
+	AsciiString m_name1000;
+	int m_id1004;
+public:
+	void rva004FDB57(AsciiString arg);
+};
+
+class Rva004FDB04 {
+	char m_pad[0x1B8];
+	AsciiString m_name1B8;
+	int m_id1BC;
+public:
+	void rva004FDB04(AsciiString arg);
+};
+
+// ---- from Code/GameEngine/Source/GameNetwork/GameSpy/StagingRoomGameInfo.cpp
+
 // ---- from Code/GameEngine/Source/GameNetwork/GameSpy/GameSpyStagingRoomSlotInit.cpp
 
 //
@@ -1100,38 +1142,6 @@ AsciiString GameSpyStagingRoom::generateGameSpyGameResultsPacket(Bool sawCRCMism
 
 	return results;
 }
-
-// tu-skeleton: 0x004FDA3D 5B ?getGameSpySlot@GameSpyStagingRoom@@QAEPAVGameSpyGameSlot@@H@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/StagingRoomGameInfoSlots.cpp (not merged yet)
-
-// tu-skeleton: 0x004FDA42 32B ?rva004FDA42@Rva004FDA42Owner@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva004FDA42Clear.cpp (not merged yet)
-
-// tu-skeleton: 0x004FDA62 16B ?resetAccepted@GameSpyStagingRoom@@UAEXXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/StagingRoomGameInfoSlots.cpp (not merged yet)
-
-// tu-skeleton: 0x004FDAC7 39B ?xfer@GameSpyStagingRoom@@UAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/GameSpyStagingRoomXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x004FDAEE 22B ??$_Construct@UBfmePod20@@U1@@_STL@@YAXPAUBfmePod20@@ABU1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp (not merged yet)
-
-// tu-skeleton: 0x004FDB04 83B ?rva004FDB04@Rva004FDB04@@QAEXVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/Rva004FDB57Assign.cpp (not merged yet)
-
-// tu-skeleton: 0x004FDB57 83B ?rva004FDB57@Rva004FDB57@@QAEXVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/Rva004FDB57Assign.cpp (not merged yet)
-
-// tu-skeleton: 0x004FDBAA 75B ?amIHost@GameSpyStagingRoom@@UBE_NXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/StagingRoomGameInfoSlots.cpp (not merged yet)
-
-// tu-skeleton: 0x004FDBF5 126B ?getLocalSlotNum@GameSpyStagingRoom@@UBEHXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/StagingRoomGameInfoSlots.cpp (not merged yet)
-
-// tu-skeleton: 0x004FDC78 105B ?rva00401015@GameSpyStagingRoom@@UAEPBVImage@@H@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/StagingRoomGameInfoSlots.cpp (not merged yet)
-
-// tu-skeleton: 0x004FDCE1 30B ?get@Rva004FDCE1AsciiField@@QBE?AVAsciiString@@XZ -- matched in Code/GameEngine/Source/Common/System/AsciiStringRvoGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x004FDCFF 55B ?setGameSpyName@Rva004FDCE1AsciiField@@QAEXVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/System/AsciiStringRvoGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x004FDD36 55B ?setClan@Rva004FDD36AsciiField@@QAEXVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/System/AsciiStringRvoGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x004FDD6D 30B ?get@Rva004FDD6DAsciiField@@QBE?AVAsciiString@@XZ -- matched in Code/GameEngine/Source/Common/System/AsciiStringRvoGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x004FDD8B 194B ??0Rva00382398@@QAE@XZ -- matched in Code/GameEngine/Source/Common/System/SaveGame/Rva00382398Ctor.cpp (not merged yet)
-
-// tu-skeleton: 0x004FDE4D 178B ??0GameSpyStagingRoom@@QAE@XZ -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/GameSpyStagingRoomCtor.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameNetwork/GameSpy/GameSpyStagingRoomSlotInit_LaunchGame.cpp
 
@@ -1757,36 +1767,187 @@ void GameSpyStagingRoom::startGame(Int gameID)
 		launchGame();
 }
 
-// tu-skeleton: 0x007938F8 8B $L1682 -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/StagingRoomGameInfoSlots.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameNetwork/GameSpy/StagingRoomGameInfoSlots.cpp
 
-// tu-skeleton: 0x00793900 10B __ehhandler$?amIHost@GameSpyStagingRoom@@UBE_NXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/StagingRoomGameInfoSlots.cpp (not merged yet)
+// GameSpyStagingRoom::getGameSpySlot, retail 0x004FDA3D (5 bytes): Zero Hour's
+// body (its DEBUG_ASSERTCRASH compiles out), a tail jump to the rowed
+// GameInfo::getSlot 0x003FF29F. Callers reach it as a direct call.
+GameSpyGameSlot * GameSpyStagingRoom::getGameSpySlot( Int index )
+{
+	GameSlot *slot = getSlot(index);
+	return (GameSpyGameSlot *)slot;
+}
 
-// tu-skeleton: 0x0079391C 8B Unwind@00b9391c -- matched in Code/GameEngine/Source/Common/System/SaveGame/Rva00382398Ctor.cpp (not merged yet)
+Bool GameSpyStagingRoom::amIHost( void ) const
+{
+	if (!m_inGame)
+		return false;
 
-// tu-skeleton: 0x00793924 14B Unwind@00b93924 -- matched in Code/GameEngine/Source/Common/System/SaveGame/Rva00382398Ctor.cpp (not merged yet)
+	return getConstSlot(0)->isPlayer(m_localName);
+}
 
-// tu-skeleton: 0x00793932 14B Unwind@00b93932 -- matched in Code/GameEngine/Source/Common/System/SaveGame/Rva00382398Ctor.cpp (not merged yet)
+Int GameSpyStagingRoom::getLocalSlotNum( void ) const
+{
+	if (!m_inGame)
+		return -1;
 
-// tu-skeleton: 0x00793940 14B Unwind@00b93940 -- matched in Code/GameEngine/Source/Common/System/SaveGame/Rva00382398Ctor.cpp (not merged yet)
+	AsciiString localName = TheGameSpyInfo->getLocalName();
 
-// tu-skeleton: 0x0079394E 14B Unwind@00b9394e -- matched in Code/GameEngine/Source/Common/System/SaveGame/Rva00382398Ctor.cpp (not merged yet)
+	for (Int i=0; i<MAX_SLOTS; ++i)
+	{
+		const GameSlot *slot = getConstSlot(i);
+		if (slot == NULL) {
+			continue;
+		}
+		if (slot->isPlayer(localName))
+			return i;
+	}
+	return -1;
+}
 
-// tu-skeleton: 0x0079395C 14B Unwind@00b9395c -- matched in Code/GameEngine/Source/Common/System/SaveGame/Rva00382398Ctor.cpp (not merged yet)
+void GameSpyStagingRoom::resetAccepted( void )
+{
+	GameInfo::resetAccepted();
 
-// tu-skeleton: 0x0079396A 10B __ehhandler$??0Rva00382398@@QAE@XZ -- matched in Code/GameEngine/Source/Common/System/SaveGame/Rva00382398Ctor.cpp (not merged yet)
+	if (amIHost())
+	{
+		/*
+		peerStateChanged(TheGameSpyChat->getPeer());
+		m_hasBeenQueried = false;
+		DEBUG_LOG(("resetAccepted() called peerStateChange()\n"));
+		*/
+	}
+}
 
-// tu-skeleton: 0x00793974 8B Unwind@00b93974 -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/GameSpyStagingRoomCtor.cpp (not merged yet)
+const Image *GameSpyStagingRoom::rva00401015( Int column )
+{
+	switch (column)
+	{
+		case 2:
+			if (getBfmeFEC())
+				return TheMappedImageCollection->findImageByName(AsciiString("AptLock"));
+			return NULL;
+	}
+	return GameInfo::rva00401015(column);
+}
 
-// tu-skeleton: 0x0079397C 27B uw_0079397c -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/GameSpyStagingRoomCtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva004FDA42Clear.cpp
 
-// tu-skeleton: 0x00793997 14B Unwind@00b93997 -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/GameSpyStagingRoomCtor.cpp (not merged yet)
+void Rva004FDA42Owner::rva004FDA42()
+{
+	((GameInfo *)this)->init();
+	void *allocation = m_101C;
+	if (allocation)
+		FreeGame(allocation);
+	m_101C = 0;
+}
 
-// tu-skeleton: 0x007939A5 14B Unwind@00b939a5 -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/GameSpyStagingRoomCtor.cpp (not merged yet)
+// tu-skeleton: 0x004FDAC7 39B ?xfer@GameSpyStagingRoom@@UAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/GameSpyStagingRoomXfer.cpp (not merged yet)
 
-// tu-skeleton: 0x007939B3 14B Unwind@00b939b3 -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/GameSpyStagingRoomCtor.cpp (not merged yet)
+// tu-skeleton: 0x004FDAEE 22B ??$_Construct@UBfmePod20@@U1@@_STL@@YAXPAUBfmePod20@@ABU1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp (not merged yet)
 
-// tu-skeleton: 0x007939C1 14B Unwind@00b939c1 -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/GameSpyStagingRoomCtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva004FDB57Assign.cpp
 
-// tu-skeleton: 0x007939CF 10B __ehhandler$??0GameSpyStagingRoom@@QAE@XZ -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/GameSpyStagingRoomCtor.cpp (not merged yet)
+// ?rva004FDB57@Rva004FDB57@@QAEXVAsciiString@@@Z, retail 0x004FDB57, 83 bytes.
+// Assigns the by-value AsciiString arg into the member at +0x1000 via the
+// pinned AsciiString::operator= at 0x000366F0, resolves an int through the
+// GameSpy global at 0x00A02320 slot 0x120 (same object as the rowed
+// getLocalProfileID slot 0x7C caller), stores it at +0x1004, then releases
+// the by-value arg via the rowed StringBase releaseBuffer at 0x00036410.
+// Evidence: EH-prolog + state 0/-1 shape; caller 0x005AF5BF; AsciiString is
+// 4 bytes here (single-word StringBase) so the arg fits ret 4.
 
-// tu-skeleton: 0x00793B03 8B uw_00793b03 -- matched in Code/gen_small/uw_gen_000.cpp (not merged yet)
+void Rva004FDB57::rva004FDB57(AsciiString arg)
+{
+	AsciiString &slot = m_name1000;
+	slot = arg;
+	m_id1004 = TheGameSpyInfo->_M_slot_120(arg);
+}
+
+void Rva004FDB04::rva004FDB04(AsciiString arg)
+{
+	AsciiString &slot = m_name1B8;
+	slot = arg;
+	m_id1BC = TheGameSpyInfo->_M_slot_120(arg);
+}
+
+// tu-skeleton: 0x004FDCE1 30B ?get@Rva004FDCE1AsciiField@@QBE?AVAsciiString@@XZ -- matched in Code/GameEngine/Source/Common/System/AsciiStringRvoGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x004FDCFF 55B ?setGameSpyName@Rva004FDCE1AsciiField@@QAEXVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/System/AsciiStringRvoGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x004FDD36 55B ?setClan@Rva004FDD36AsciiField@@QAEXVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/System/AsciiStringRvoGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x004FDD6D 30B ?get@Rva004FDD6DAsciiField@@QBE?AVAsciiString@@XZ -- matched in Code/GameEngine/Source/Common/System/AsciiStringRvoGetters.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/System/SaveGame/Rva00382398Ctor.cpp
+
+//
+// ??0Rva00382398@@QAE@XZ retail 0x004FDD8B 194 bytes.
+// Default ctor over GameSlot base (0x1AC) with int at +0x1AC,
+// three AsciiStrings at +0x1B0/+0x1B4/+0x1B8, seven ints +0x1BC..+0x1D4,
+// two AsciiStrings at +0x1D8/+0x1DC. Identity from vtable 0x00819424
+// shared with copy 0x003830EA and dtor 0x00382398 of the same class.
+
+Rva00382398::Rva00382398()
+	: GameSlot()
+	, m_1B0()
+	, m_1B4()
+	, m_1B8()
+	, m_1D8()
+	, m_1DC()
+{
+	{
+		GameSlot tmp;
+	}
+	m_1B0.clear();
+	m_1B4.clear();
+	m_1C0 = 0;
+	m_1C4 = 0;
+	m_1C8 = 0;
+	m_1CC = 0;
+	m_1BC = 0;
+	m_1AC = 0;
+	m_1B8.clear();
+	m_1D4 = -1;
+	m_1D0 = -1;
+}
+
+// ---- from Code/GameEngine/Source/GameNetwork/GameSpy/GameSpyStagingRoomCtor.cpp
+
+//
+// GameSpyStagingRoom::GameSpyStagingRoom, retail 0x004FDE4D (178 bytes): the
+// default constructor addStagingRoom 0x003857EB runs after operator new(0x1020)
+// (pinned there). It runs the rowed GameInfo constructor 0x00400A07, installs
+// the vtable 0x00C19440 (slot 2's name getter returns "GameSpyStagingRoom"),
+// builds the 8 x 0x1E0 slots at +0xDC through the EH vector constructor with
+// the rowed Rva00382398 constructor 0x004FDD8B and destructor 0x00382398, and
+// constructs the AsciiStrings at +0xFDC/+0xFE8/+0xFFC/+0x1000 (the destructor
+// 0x00382C4A tears down the same four).
+//
+// Body: Zero Hour's (GameSpy/StagingRoomGameInfo.cpp in the GeneralsMD tree
+// vendored under reference/open-bfme-1/inputs/reference) and BFME 1's port
+// (reference/open-bfme-1/game/.../GameSpyStagingRoom_ctor.cpp). Retail calls
+// cleanUpSlotPointers (0x004FDA17) out of line, has no setLocalIP(0) store,
+// sets m_localName through StringBase<char>::set(const char *) and clears
+// +0xFFC; of BFME 1's trailing stores it keeps +0x1008 (word), +0x1018, +0xFF4
+// (byte), +0xFF8 and +0x101C in that order and has no CRC/version stores.
+// m_id, m_transport and m_localName follow Zero Hour's member order (amIHost
+// reads m_localName at +0xFE8, addStagingRoom keys rooms by m_id at +0xFE0);
+// the other names are BFME 1's, carried by offset and store order, not
+// established from BFME 2 uses.
+
+GameSpyStagingRoom::GameSpyStagingRoom()
+{
+	cleanUpSlotPointers();
+
+	m_transport = NULL;
+
+	m_localName = "localhost";
+
+	m_ladderIP.clear();
+	m_ladderPort = 0;
+	m_reportedMaxPlayers = 0;
+	m_isQM = false;
+	m_qmLadderType = 0;
+	m_reportedNumObservers = 0;
+}
