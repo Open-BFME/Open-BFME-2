@@ -36,6 +36,7 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 //#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
 
 
+
 #endif
 #define SC_DETAIL ( SHADE_CNST(ShaderClass::PASS_LEQUAL, ShaderClass::DEPTH_WRITE_ENABLE, ShaderClass::COLOR_WRITE_ENABLE, ShaderClass::SRCBLEND_ONE, \
 	ShaderClass::DSTBLEND_ZERO, ShaderClass::FOG_DISABLE, ShaderClass::GRADIENT_MODULATE, ShaderClass::SECONDARY_GRADIENT_DISABLE, ShaderClass::TEXTURING_ENABLE, \
@@ -119,8 +120,6 @@ public:
 private: int refs;
 };
 
-class Rva00111F0E {public: void rva00111F0E();};
-
 class Rva00112291TerrainOwner {
 public: ~Rva00112291TerrainOwner();
 private:
@@ -174,9 +173,44 @@ struct Rva0011216CSlotQuartet
 	void rva00112197(void);
 };
 
+//
+// Target facts from retail 0x00112259: the 56-byte Ghidra interval begins
+// with the MSVC EH prolog call, locks through 0x0011F520, calls the rowed
+// clear helper at 0x00111F0E on the same this pointer, stores 1 at this+0x62,
+// and releases through 0x00120F50. The body ends with leave/ret at 0x00112290;
+// the next Ghidra start is 0x00112291. The preceding 41-byte neighbor ends at
+// 0x00112258.
+//
+// The lock object's scope is a structural inference from the EH state and
+// lock/release sequence. The owning class and method purpose remain unknown;
+// names and the +0x62 field label are address-derived.
+void __cdecl BFME_DX8_Thread_Lock();
+
+bool __cdecl BFME_DX8_Thread_Assert();
+
+struct Rva00112259DeviceLock
+{
+	Rva00112259DeviceLock() { BFME_DX8_Thread_Lock(); }
+	~Rva00112259DeviceLock() { BFME_DX8_Thread_Assert(); }
+};
+
+class Rva00111F0E {public: void rva00111F0E();};
+
+class Rva00112259
+{
+public:
+	void rva00112259();
+
+private:
+	char m_pad00[0x62];
+	bool m_62;
+};
+
 // tu-skeleton: 0x00111FCF 124B ?rva00111FCF@W3DTerrainBackground@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundMarkTileGrid.cpp (not merged yet)
 
 // tu-skeleton: 0x0011204B 264B ?isEdgeAligned@W3DTerrainBackground@@QAE_NHHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundIsEdgeAligned.cpp (not merged yet)
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackground.cpp
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackground.cpp
 
@@ -744,7 +778,14 @@ void Rva0011216CSlotQuartet::rva00112197(void)
 
 // tu-skeleton: 0x00112230 41B ?rva00112230@Rva00112230CameraGroup@@QBE?AV?$RefCountPtr@VCameraClass@@@@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundUpdateCenter.cpp (not merged yet)
 
-// tu-skeleton: 0x00112259 56B ?rva00112259@Rva00112259@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00112259.cpp (not merged yet)
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00112259.cpp
+
+void Rva00112259::rva00112259()
+{
+	Rva00112259DeviceLock lock;
+	((Rva00111F0E *)this)->rva00111F0E();
+	m_62 = true;
+}
 
 // tu-skeleton: 0x0011234C 626B ?updateCenter@W3DTerrainBackground@@QAEXABVRva00112230CameraGroup@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundUpdateCenter.cpp (not merged yet)
 
@@ -793,10 +834,6 @@ void Rva0011216CSlotQuartet::rva00112197(void)
 // tu-skeleton: 0x00115A5B 844B ?calcBlendHeight@W3DTerrainBackground@@QAEXMHPAM@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva001159F1.cpp (not merged yet)
 
 // tu-skeleton: 0x00115DD2 22B ?rva00115DD2@W3DTerrainBackground@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundRva00115DD2.cpp (not merged yet)
-
-// tu-skeleton: 0x00764A37 8B $L323 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00112259.cpp (not merged yet)
-
-// tu-skeleton: 0x00764A3F 10B __ehhandler$?rva00112259@Rva00112259@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00112259.cpp (not merged yet)
 
 // tu-skeleton: 0x00764A7F 8B $L768 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundUpdateCenter.cpp (not merged yet)
 
