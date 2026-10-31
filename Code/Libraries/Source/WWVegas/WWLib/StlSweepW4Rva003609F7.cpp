@@ -29,7 +29,10 @@ namespace _STL {
 template <> bool less<unsigned>::operator()(const unsigned &a, const unsigned &b) const;
 }
 
-struct Rva003609F7Element { char bytes[1]; bool operator<(const Rva003609F7Element&)const; bool operator==(const Rva003609F7Element&)const; };
+// Native node creation at 0x00360939 allocates 0x788 bytes: next/key plus
+// the 0x780-byte mapped value also copied by the rowed DamageFX subscript.
+// Keep its internal fields opaque; the old one-byte view allocated 0x0C.
+struct Rva003609F7Element { char bytes[0x780]; bool operator<(const Rva003609F7Element&)const; bool operator==(const Rva003609F7Element&)const; };
 namespace _STL {template<> struct hash<Rva003609F7Element> { unsigned operator()(const Rva003609F7Element&) const; };}
 
 // Instantiate the recovered operation and its required template dependencies.

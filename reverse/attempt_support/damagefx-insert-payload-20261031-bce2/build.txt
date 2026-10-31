@@ -1,0 +1,6 @@
+Source claims: OK (1 sources, scoped byte-verified)
+Functions: OK 1/1 matched
+  ?_M_insert@?$hashtable@U?$pair@$$CBHURva003609F7Element@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva003609F7Element@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva003609F7Element@@@_STL@@@2@@_STL@@QAEAAU?$pair@$$CBHURva003609F7Element@@@2@ABU32@@Z (Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva003609F7.cpp)
+String-ref verify: OK (0 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (0 compiler literals verified)
+Import-ref verify: OK (0 named imports verified)

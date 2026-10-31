@@ -1,0 +1,7 @@
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva003609F7.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-31 23:18 at 12902e9e1b; file's own bytes 73)
+  comdat      ?_M_new_node@?$hashtable@U?$pair@$$CBHURva003609F7Element@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva003609F7Element@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva003609F7Element@@@_STL@@@2@@_STL@@AAEPAU?$_Hashtable_node@U?$pair@$$CBHURva003609F7Element@@@_STL@@@2@ABU?$pair@$$CBHURva003609F7Element@@@2@@Z  (retail: not retail's body)
+  comdat      ?resize@?$hashtable@U?$pair@$$CBHURva003609F7Element@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva003609F7Element@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva003609F7Element@@@_STL@@@2@@_STL@@QAEXI@Z  (retail: not retail's body)
+  selected    ?_M_new_node@?$hashtable@U?$pair@$$CBHURva003609F7Element@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva003609F7Element@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva003609F7Element@@@_STL@@@2@@_STL@@AAEPAU?$_Hashtable_node@U?$pair@$$CBHURva003609F7Element@@@_STL@@@2@ABU?$pair@$$CBHURva003609F7Element@@@2@@Z  (the definition the link keeps is not retail's)
+  selected    ?resize@?$hashtable@U?$pair@$$CBHURva003609F7Element@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva003609F7Element@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva003609F7Element@@@_STL@@@2@@_STL@@QAEXI@Z  (the definition the link keeps is not retail's)
+link_check: 0 of 1 link cleanly; LINKED 0 -> 0 bytes (5.1s)
