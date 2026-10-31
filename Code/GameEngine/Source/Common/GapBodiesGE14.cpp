@@ -141,17 +141,6 @@ private:
 	int m_18;
 };
 
-Rva004D9A3C::Rva004D9A3C()
-{
-	m_00 = 0.0f;
-	m_04 = 0.0f;
-	m_08 = 0.0f;
-	m_0C = 0.0f;
-	m_name.clear();
-	m_18 = -1;
-	m_10 = false;
-}
-
 // --- 0x00406D95 (14B): the rowed ControlBar lookup with 1.
 class CommandSet;
 
