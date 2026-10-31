@@ -331,6 +331,42 @@ struct BfmeCopyElementA;
 	{ \
 		m_value = value; \
 	}
+#define _CRTIMP
+#include <stddef.h>
+#include <stdlib.h>
+#undef _CRTIMP
+enum AICommandType
+{
+	AICMD_53 = 0x53
+};
+enum CommandSourceType { CMD_FROM_PLAYER, CMD_FROM_SCRIPT, CMD_FROM_AI };
+//
+// ?Rva004BFD83Parse@@YAXPAVINI@@PAX1PBX@Z, retail 0x004BFD83 (115B): the
+// DamageCreationList FieldParse proc (row 0x00C5B2F8). Reads an
+// ObjectCreationList (rowed INI::parseObjectCreationList) and two optional
+// index tokens (names at 0x00DCD7EC and 0x00DCD7FC, 0 when absent) into a
+// 12-byte entry appended to the vector at instance + 0x58 (12-byte POD
+// push_back fold 0x002DF89B). Name address-derived.
+
+class INI
+{
+public:
+	const char *getNextTokenOrNull(const char *seps = 0);
+	int scanIndexList(const char *token, const char *const *names);
+	static void parseObjectCreationList(INI *ini, void *instance, void *store, const void *userData);
+};
+class ObjectCreationList;
+struct Rva004BFD83Entry
+{
+	const ObjectCreationList *m_ocl;
+	int m_damageType;
+	int m_deathType;
+};
+// The retail table at RVA 0x009CD7EC: 4 string pointers.
+extern const char *theRockNames[4] = { "NONE", "CATAPULT_ROCK", "TREBUCHET_ROCK", 0 };
+// The retail table at RVA 0x009CD7FC: 6 string pointers.
+extern const char *theDamageSideNames[6] = { "NONE", "FRONT_DESTROYED", "RIGHT_DESTROYED", "BACK_DESTROYED", "LEFT_DESTROYED", 0 };
+struct PrereqUnitRec;
 
 class BodyModuleInterface;
 
@@ -345,8 +381,6 @@ public:
 template <> class VSlots<0>
 {
 };
-
-enum CommandSourceType { CMD_FROM_PLAYER, CMD_FROM_SCRIPT, CMD_FROM_AI };
 
 enum DisabledType { DISABLED_8 = 8 };
 
@@ -1328,6 +1362,61 @@ class Rva0010855FArray {
 public: void setValue(unsigned int index, unsigned int value);
 private: unsigned char unknown[0x68]; unsigned int values[1];
 };
+
+struct RvaCoords
+{
+	Coord3D *m_start;
+	Coord3D *m_finish;
+	Coord3D *m_end;
+
+	~RvaCoords()
+	{
+		if (m_start)
+			free(m_start);
+	}
+};
+
+struct AICommandParms
+{
+	AICommandParms(AICommandType cmd, CommandSourceType cmdSource);
+
+	AICommandType m_cmd;
+	CommandSourceType m_cmdSource;
+	Coord3D m_pos;
+	void *m_obj;
+	void *m_otherObj;
+	const void *m_team;
+	RvaCoords m_coords;
+	char m_tail[0xC0 - 0x2C];
+};
+
+namespace _STL
+{
+template <class T, class A> class vector;
+template <> class vector<Rva004BFD83Entry, allocator<Rva004BFD83Entry> >
+{
+public:
+	void push_back(const Rva004BFD83Entry &x);
+private:
+	Rva004BFD83Entry *m_start;
+	Rva004BFD83Entry *m_finish;
+	Rva004BFD83Entry *m_endOfStorage;
+};
+// LINK: the push_back fold 0x002DF89B is rowed for vector<PrereqUnitRec>, the same element size.
+template <> class vector<PrereqUnitRec, allocator<PrereqUnitRec> >
+{
+public:
+	void push_back(const PrereqUnitRec &x);
+};
+}
+
+struct Rva004BFD83Owner
+{
+	unsigned char m_unreconstructed_00[0x58];
+	_STL::vector<Rva004BFD83Entry, _STL::allocator<Rva004BFD83Entry> > m_entries;	// +0x58
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp
 
@@ -2558,6 +2647,40 @@ NameKeyType ActiveBody::getModuleNameKey() const
 // Spelled as an explicit backward cast, which MSVC folds to
 // `mov eax,[ecx-BACK]`; same reading as the dword/byte chase families.
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---- from Code/GameEngine/Source/Common/DispByteFieldSetters.cpp
+
+// Disp32 byte setters: thirteen-byte __thiscall members with one shape:
+//
+//     mov al,[esp+4] / mov [ecx+<DISP>],al / ret 4
+//
+// One byte is taken from the stack argument slot and stored at a fixed
+// displacement from `this`. Ported from Open-BFME-1
+// (Code/GameEngine/Source/Common/DispByteFieldSetters.cpp): the
+// BFME_DISP_BYTE_SETTER macro is verbatim (unsigned char set over a lead
+// array), only the class names follow this tree's Disp* convention
+// (address-derived Rva<addr>ByteSlot, identity unrecoverable from 13 bytes).
+// Every displacement here is a disp32 (MSVC 7.1 uses disp8 whenever the
+// offset fits, so every offset is at least 0x80).
+// No // cl: line (defaults match the frameless 13-byte shape).
+
 // tu-skeleton: 0x004BDB85 126B ?setMaxHealth@ActiveBody@@UAEXMW4MaxHealthChangeType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Body/ActiveBodySetMaxHealth.cpp (not merged yet)
 
 // tu-skeleton: 0x004BDC1C 9B ??0Rva004BDC1C@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
@@ -2594,22 +2717,6 @@ NameKeyType ActiveBody::getModuleNameKey() const
 
 // tu-skeleton: 0x004BF8AC 11B ?rva004BF8AC@Rva004BF8AC@@QAEHXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAA.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/DispByteFieldSetters.cpp
-
-// Disp32 byte setters: thirteen-byte __thiscall members with one shape:
-//
-//     mov al,[esp+4] / mov [ecx+<DISP>],al / ret 4
-//
-// One byte is taken from the stack argument slot and stored at a fixed
-// displacement from `this`. Ported from Open-BFME-1
-// (Code/GameEngine/Source/Common/DispByteFieldSetters.cpp): the
-// BFME_DISP_BYTE_SETTER macro is verbatim (unsigned char set over a lead
-// array), only the class names follow this tree's Disp* convention
-// (address-derived Rva<addr>ByteSlot, identity unrecoverable from 13 bytes).
-// Every displacement here is a disp32 (MSVC 7.1 uses disp8 whenever the
-// offset fits, so every offset is at least 0x80).
-// No // cl: line (defaults match the frameless 13-byte shape).
-
 // tu-skeleton: 0x004BF8D8 7B ?get@Rva004BF8D8ByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp32ByteGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x004BF8DF 14B ?rva004BF8DF@Rva004BF8DF@@QBEHXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp (not merged yet)
@@ -2622,9 +2729,48 @@ NameKeyType ActiveBody::getModuleNameKey() const
 
 // tu-skeleton: 0x004BF9ED 303B ?rva004BF9ED@ActiveBody@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Body/ActiveBodySlot22.cpp (not merged yet)
 
-// tu-skeleton: 0x004BFD27 92B ?rva004BFD27@Rva004BFD27@@QAEXW4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Body/Rva004BFD27Command.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Body/Rva004BFD27Command.cpp
 
-// tu-skeleton: 0x004BFD83 115B ?Rva004BFD83Parse@@YAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Die/DamageCreationListParse.cpp (not merged yet)
+// ?rva004BFD27@Rva004BFD27@@QAEXW4CommandSourceType@@@Z @0x004BFD27 92B
+// Stack AICommandParms 0xC0 via rowed ctor 0x00351BD0 with 0x53 and src,
+// virtual slot 0 call, then inlined coords-free via rowed free 0x00030830.
+// Recipe from landed precedent Rva00352ECAAICommand.cpp (101B, same 0x01/src
+// shape): RvaCoords member at +0x20 carries the conditional free in its
+// inline dtor, which arms the EH prolog like retail. Evidence: sole caller
+// at 0x004C0602 in 0x004BFE07; immediates 0x53 0x00351BD0 0x00030830.
+
+// Retail calls free directly (the game allocator), not through the CRT
+// import: read <stdlib.h> without dllimport, and <stddef.h> with it so
+// their _errno declarations agree.
+
+void Rva004BFD27::rva004BFD27(CommandSourceType src)
+{
+	AICommandParms parms((AICommandType)0x53, src);
+	rvaVirtual(&parms);
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Die/DamageCreationListParse.cpp
+
+// ?Rva004BFD83Parse@@YAXPAVINI@@PAX1PBX@Z
+void Rva004BFD83Parse(INI *ini, void *instance, void *, const void *)
+{
+	Rva004BFD83Entry entry;
+	INI::parseObjectCreationList(ini, instance, &entry.m_ocl, 0);
+
+	const char *token = ini->getNextTokenOrNull();
+	if (token)
+		entry.m_damageType = ini->scanIndexList(token, theRockNames);
+	else
+		entry.m_damageType = 0;
+
+	token = ini->getNextTokenOrNull();
+	if (token)
+		entry.m_deathType = ini->scanIndexList(token, theDamageSideNames);
+	else
+		entry.m_deathType = 0;
+
+	((_STL::vector<PrereqUnitRec, _STL::allocator<PrereqUnitRec> > *)&((Rva004BFD83Owner *)instance)->m_entries)->push_back(*(const PrereqUnitRec *)&entry);
+}
 
 // tu-skeleton: 0x004BFDF6 17B ?buildFieldParse@ActiveBodyModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
 
@@ -2679,7 +2825,3 @@ NameKeyType ActiveBody::getModuleNameKey() const
 // tu-skeleton: 0x0078FA99 8B uw_0078fa99 -- matched in Code/GameEngine/Source/GameLogic/Object/Body/ActiveBodySlot22.cpp (not merged yet)
 
 // tu-skeleton: 0x0078FAA1 10B __ehhandler$?rva004BF9ED@ActiveBody@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Body/ActiveBodySlot22.cpp (not merged yet)
-
-// tu-skeleton: 0x0078FABD 11B Unwind@00b8fabd -- matched in Code/GameEngine/Source/GameLogic/Object/Body/Rva004BFD27Command.cpp (not merged yet)
-
-// tu-skeleton: 0x0078FAC8 10B __ehhandler$?rva004BFD27@Rva004BFD27@@QAEXW4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Body/Rva004BFD27Command.cpp (not merged yet)
