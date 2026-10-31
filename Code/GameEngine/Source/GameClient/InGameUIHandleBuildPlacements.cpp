@@ -197,7 +197,7 @@ class ResourceEntryCollector
 {
 public:
     void rva004E551E();
-    void rva004E5559(const Coord3D*, float, int);
+    void addEntry(const Coord3D*, float, int);
 };
 class Rva004E54B8
 {
@@ -716,7 +716,7 @@ void InGameUI::handleBuildPlacements()
                                 for (_STL::vector<Coord3D>::iterator it = positions.begin();
                                     it != positions.end(); ++it)
                                     ((ResourceEntryCollector*)&BfmeUiResourceEntryCollectorState)
-                                        ->rva004E5559(&*it, radius, color);
+                                        ->addEntry(&*it, radius, color);
                                 ((Rva004E54B8*)&BfmeUiResourceEntryCollectorState)->rva004E54B8();
                             }
                         }
@@ -962,7 +962,7 @@ void InGameUI::handleBuildPlacements()
                 for (_STL::vector<Coord3D>::iterator it = positions.begin(); it != positions.end();
                     ++it)
                     ((ResourceEntryCollector*)&BfmeUiResourceEntryCollectorState)
-                        ->rva004E5559(&*it, radius, color);
+                        ->addEntry(&*it, radius, color);
                 ((Rva004E54B8*)&BfmeUiResourceEntryCollectorState)->rva004E54B8();
             }
         }

@@ -84,20 +84,20 @@ public:
 struct Rva00534BAFHolder
 {
 	char m_pad[0xA8];
-	Coord3DList m_listA8;
+	Coord3DList m_supplyPositions;
 };
 struct Rva00534BDCHolder
 {
 	char m_pad[0xAC];
 	Coord3DList m_listAC;
 };
-void Rva00534BAFParse(INI *ini, void *instance, void *, const void *)
+void parseSupplyPositionCoord3D(INI *ini, void *instance, void *, const void *)
 {
 	Coord3D pos;
 	INI::parseCoord3D(ini, 0, &pos, 0);
-	((Rva00534BAFHolder *)instance)->m_listA8.push_front(pos);
+	((Rva00534BAFHolder *)instance)->m_supplyPositions.push_front(pos);
 }
-void Rva00534BDCParse(INI *ini, void *instance, void *, const void *)
+void parseTechPositionCoord3D(INI *ini, void *instance, void *, const void *)
 {
 	Coord3D pos;
 	INI::parseCoord3D(ini, 0, &pos, 0);

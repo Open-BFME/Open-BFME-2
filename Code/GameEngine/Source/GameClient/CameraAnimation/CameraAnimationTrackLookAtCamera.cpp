@@ -169,7 +169,7 @@ template Rva00540D94 CameraAnimationTrack<Rva00540D94>::getFrameData(float frame
 template Rva00540E9D CameraAnimationTrack<Rva00540E9D>::getFrameData(float frameNum);
 template Rva0053FDE6 CameraAnimationTrack<Rva0053FDE6>::getFrameData(float frameNum);
 
-// ?rva00541F72@Rva00541F72@@QAEXABMPAURva00540888Transform@@@Z retail
+// ?rva00541F72@LookAtCameraAnimation@@QAEXABMPAURva00540888Transform@@@Z retail
 // 0x00541F72 (90 bytes, ret 8): the look-at camera animation's transform
 // slot (table 0x00C69510, beside the free-camera sibling 0x00540888 of the
 // same signature). It samples the camera track (+0x24) and the target track
@@ -188,7 +188,7 @@ struct Rva00540888Transform
 	Matrix3D m_transform;	// +0x00
 	float m_fov;	// +0x30
 };
-class Rva00541F72
+class LookAtCameraAnimation
 {
 public:
 	void rva00541F72(const float &time, Rva00540888Transform *out);
@@ -198,7 +198,7 @@ private:
 	CameraAnimationTrack<Rva00540E9D> m_targetTrack;	// +0x44
 };
 
-void Rva00541F72::rva00541F72(const float &time, Rva00540888Transform *out)
+void LookAtCameraAnimation::rva00541F72(const float &time, Rva00540888Transform *out)
 {
 	Rva00540D94 camera = m_cameraTrack.getFrameData(time);
 	Rva00540E9D target = m_targetTrack.getFrameData(time);

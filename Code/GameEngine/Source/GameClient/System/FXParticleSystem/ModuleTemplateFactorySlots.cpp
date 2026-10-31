@@ -49,10 +49,10 @@ private:
 class Rva003AD71BTemplate
 {
 public:
-	Rva003ACDA0Module *rva003AD71B(void *owner);		// vtable 0x00C1BE40#2
+	Rva003ACDA0Module *CreateModule(void *owner);		// vtable 0x00C1BE40#2
 };
 
-Rva003ACDA0Module *Rva003AD71BTemplate::rva003AD71B(void *owner)
+Rva003ACDA0Module *Rva003AD71BTemplate::CreateModule(void *owner)
 {
 	return new Rva003ACDA0Module(owner, this);
 }

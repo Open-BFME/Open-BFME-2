@@ -149,32 +149,32 @@ void Rva005FB83E::rva005FB83E(const Image *image)
     return m_member->rva005FB666(image);
 }
 
-// ?rva005FB846@Rva005FB846@@QAEXXZ @0x005FB846 8B unlock tail-jmp forwarder to rowed 0x005FB6E2
+// ?showEliminated@Rva005FB846@@QAEXXZ @0x005FB846 8B unlock tail-jmp forwarder to rowed 0x005FB6E2
 // Evidence: mov ecx,[ecx+4] plus jmp callee; same shape as Rva005FBB68 forwarders above.
 class Rva005FB846
 {
 public:
-    void rva005FB846();
+    void showEliminated();
 private:
     char m_pad[4];
     StrategicHUD::DynamicAutoResolvePlayerPanelMovieClip::Impl *m_member;
 };
-void Rva005FB846::rva005FB846()
+void Rva005FB846::showEliminated()
 {
     return m_member->ShowEliminated();
 }
 
-// ?rva005FB84E@Rva005FB84E@@QAEXXZ @0x005FB84E 8B unlock tail-jmp forwarder to rowed 0x005FB729
+// ?showSurvived@Rva005FB84E@@QAEXXZ @0x005FB84E 8B unlock tail-jmp forwarder to rowed 0x005FB729
 // Evidence: mov ecx,[ecx+4] plus jmp callee; same shape as Rva005FBB68 forwarders above.
 class Rva005FB84E
 {
 public:
-    void rva005FB84E();
+    void showSurvived();
 private:
     char m_pad[4];
     StrategicHUD::DynamicAutoResolvePlayerPanelMovieClip::Impl *m_member;
 };
-void Rva005FB84E::rva005FB84E()
+void Rva005FB84E::showSurvived()
 {
     return m_member->ShowSurvived();
 }

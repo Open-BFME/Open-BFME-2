@@ -481,7 +481,7 @@ extern GameLogic *TheGameLogic;
 class ResourceEntryCollector
 {
 public:
-	void rva004E5559(const Coord3D *pos, float value, int color);	// 0x004E5559
+	void addEntry(const Coord3D *pos, float value, int color);	// 0x004E5559
 	virtual void rva004E55B9(ObjectID id, float value, bool show);
 };
 
@@ -489,7 +489,7 @@ void ResourceEntryCollector::rva004E55B9(ObjectID id, float value, bool show)
 {
 	Object *obj = TheGameLogic->findObjectByID(id);
 	if (obj && show)
-		rva004E5559((const Coord3D *)obj->m_position, value, obj->getIndicatorColor());
+		addEntry((const Coord3D *)obj->m_position, value, obj->getIndicatorColor());
 }
 
 // --- 0x004E6882 (22B): 1 when +0x40 is set, or +0x44 is set while the +0x08

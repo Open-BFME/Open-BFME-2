@@ -20,8 +20,8 @@ public:
     static void ClipStackPushUnit();
     static void ClipStackInit(unsigned int);
     static void ClipStackMakeUnit();
-    static ClipTransform_t *rva006DFE50();
-    static bool rva006CBD60();
+    static ClipTransform_t *ClipStackTop();
+    static bool ClipStackIsEmpty();
 private:
     friend void *__cdecl rva006F73A0(void *, void *, int);
     static ClipTransform_t *m_pStackBase;
@@ -227,12 +227,12 @@ void *__cdecl rva006F73A0(void *argument1, void *argument2, int argument3)
     return AptMath::ClipStackPop();
 }
 
-// ?rva006DFE50@AptMath@@SAPAUClipTransform_t@1@XZ, retail 0x006DFE50 (68B).
+// ?ClipStackTop@AptMath@@SAPAUClipTransform_t@1@XZ, retail 0x006DFE50 (68B).
 // Ghidra-unlisted gap body between ClipStackPush and ClipStackMakeUnit: asserts
 // the count is below capacity (AptMath.h line 96, retail strings) and returns
 // the current top entry without moving it. Address name: the donor spelling of
 // this peek accessor is not recovered.
-AptMath::ClipTransform_t *AptMath::rva006DFE50()
+AptMath::ClipTransform_t *AptMath::ClipStackTop()
 {
     if (!(m_nStackCount < m_nStackCapacity)) {
         g_bfmeAptAssertAtE17734("m_nStackCount < m_nStackCapacity", "..\\..\\include\\apt\\AptStd/AptMath.h",96);
@@ -241,10 +241,10 @@ AptMath::ClipTransform_t *AptMath::rva006DFE50()
     return &m_pStackBase[m_nStackCount];
 }
 
-// ?rva006CBD60@AptMath@@SA_NXZ, retail 0x006CBD60 (59B). Gap body after
+// ?ClipStackIsEmpty@AptMath@@SA_NXZ, retail 0x006CBD60 (59B). Gap body after
 // ClipStackPop: same assert (AptMath.h line 101), then whether the stack
 // count is zero. Address name.
-bool AptMath::rva006CBD60()
+bool AptMath::ClipStackIsEmpty()
 {
     if (!(m_nStackCount < m_nStackCapacity)) {
         g_bfmeAptAssertAtE17734("m_nStackCount < m_nStackCapacity", "..\\..\\include\\apt\\AptStd/AptMath.h",101);

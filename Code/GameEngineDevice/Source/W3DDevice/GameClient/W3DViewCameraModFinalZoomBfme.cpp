@@ -177,7 +177,7 @@ struct WaypointXY
 
 // View's +0x30 float setter (View vftable slot after getPitch); retail 0x004583AF
 // is one ICF fold of every 'store float at +0x30' body, rowed as a dup_ alias.
-class View { public: void rva004583AF(Real value); };
+class View { public: void setPitch(Real value); };
 
 class Rva0030E7D0 { public: Real rva0030E67C(Real x,Real y); };
 
@@ -803,7 +803,7 @@ void W3DView::setZoom(Real z)
 // W3DView vftable slot 81 (0x7C7674): the setter after setPitch/getPitch.
 void W3DView::rva0008D218(Real value)
 {
-	reinterpret_cast<View *>(this)->rva004583AF(value);
+	reinterpret_cast<View *>(this)->setPitch(value);
 	m_doingRotateCamera = false;
 	m_doingPitchCamera = false;
 	m_doingScriptedCameraLock = false;

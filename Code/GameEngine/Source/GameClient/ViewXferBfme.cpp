@@ -149,7 +149,7 @@ public:
 
 	// +0x30 setter (see below); non-virtual base half of W3DView's
 	// vftable slot-81 override.
-	void rva004583AF(float value);
+	void setPitch(float value);
 
 	unsigned char m_padding04[0x14];
 	int m_bfme18;
@@ -292,7 +292,7 @@ void View::xfer(Xfer *xfer)
 // getter is vftable slot 82 (0x0008BB23). The body is one ICF fold of every
 // 'store float at +0x30' setter (also LineGroupClass::Set_Line_Size); this
 // definition is that byte-and-relocation twin. Original name unknown.
-void View::rva004583AF(float value)
+void View::setPitch(float value)
 {
 	m_bfme30 = value;
 }

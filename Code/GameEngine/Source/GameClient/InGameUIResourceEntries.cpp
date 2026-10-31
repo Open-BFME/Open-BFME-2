@@ -150,7 +150,7 @@ class ResourceEntryCollector
 {
 public:
     __declspec(noinline) void rva004E551E();
-    void rva004E5559(const Coord3D *pos, float value, int index);
+    void addEntry(const Coord3D *pos, float value, int index);
 private:
     char unknown00[4];
     ResourceOwnedEntryList entries;
@@ -165,7 +165,7 @@ void ResourceEntryCollector::rva004E551E()
 // Retail 4E5559/96B RET C builds an entry at a position with a value and
 // an index and pushes it on the front of the +4 list (rowed push_front
 // 0x004E5526); the local dies through the rowed destructor 0x004E5086.
-void ResourceEntryCollector::rva004E5559(const Coord3D *pos, float value, int index)
+void ResourceEntryCollector::addEntry(const Coord3D *pos, float value, int index)
 {
     ResourceEntryLocal entry;
     entry.pos = *pos;
@@ -218,7 +218,7 @@ class ResourceEntryOwner
 {
 public:
     __declspec(noinline) void rva004E7CBA(const AsciiString &value);
-    __declspec(noinline) void rva004E7CEF();
+    __declspec(noinline) void release();
 private:
     char unknown00[4];
     int users;
@@ -243,7 +243,7 @@ void ResourceEntryOwner::rva004E7CBA(const AsciiString &value)
 }
 
 // Retail 4E7CEF/39B decrements +4 and clears all three stores at <=0.
-void ResourceEntryOwner::rva004E7CEF()
+void ResourceEntryOwner::release()
 {
     --users;
     if (users <= 0)
@@ -272,7 +272,7 @@ void Rva004E7B0CHolder::rva004E7D16(const AsciiString &value)
 // TheInGameUI+0x58C is a pointer holder; retail forwards through its +0.
 void Rva004E7B0CHolder::rva004E7D1D()
 {
-    owner->rva004E7CEF();
+    owner->release();
 }
 
 // Retail 0x004E5654/72B is the +0x1C member dtor of the 0x004E7DC8 owner.

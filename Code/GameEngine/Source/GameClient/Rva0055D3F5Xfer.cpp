@@ -47,7 +47,7 @@ public:
 	void debugDraw(Coord3D pos);
 private:
 	char m_pad[0x1C];
-	bool m_20;
+	bool m_isHollow;
 	char m_pad2[3];
 	float m_radius;
 };
@@ -55,7 +55,7 @@ private:
 void Rva0055D3F5::rva0055D3F5(Xfer *xfer)
 {
 	xfer->Version1();
-	*xfer == m_20;
+	*xfer == m_isHollow;
 	*xfer == m_radius;
 }
 

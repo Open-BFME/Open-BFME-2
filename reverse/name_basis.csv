@@ -6112,3 +6112,18 @@ class,Rva0047A895Rank,HordeRank,inferred,agree:nl-84ac5be2eee0,Code/GameEngine/S
 class,Rva003F4FD4Adjacent,AdjacentRegion,inferred,agree:nl-0d651e58046b,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattleGetResolutionOptions.cpp,
 class,Rva0059DA34Region,RegionInfo,inferred,agree:nl-09d25cee72fb,Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva0059DA34.cpp,
 carry,Rva0059DA34Region::m_armies,RegionInfo::m_armies,inferred,scope renamed by Rename Rva0059DA34Region to RegionInfo (inferred),Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva0059DA34.cpp,
+member,Rva00534BAFHolder::m_listA8,Rva00534BAFHolder::m_supplyPositions,inferred,agree:nl-be1f8ccc80db,Code/GameEngine/Source/GameClient/MapMetaDataCopy.cpp,
+member,Rva00085947::m_24C8,Rva00085947::m_cameraSettings,inferred,agree:nl-65ddbf82b225,Code/GameEngine/Source/GameClient/Rva00085947Method.cpp,
+member,Rva0055D3F5::m_20,Rva0055D3F5::m_isHollow,inferred,agree:nl-dbbb4aa25eb1,Code/GameEngine/Source/GameClient/Rva0055D3F5Xfer.cpp,
+function,?rva005FB846@Rva005FB846@@QAEXXZ,?showEliminated@Rva005FB846@@QAEXXZ,inferred,agree:nl-e0f8c69a60ea,Code/GameEngine/Source/GameClient/GUI/AptPlayerNameSet.cpp,0x005FB846
+function,?rva005FB84E@Rva005FB84E@@QAEXXZ,?showSurvived@Rva005FB84E@@QAEXXZ,inferred,agree:nl-d6def5caff16,Code/GameEngine/Source/GameClient/GUI/AptPlayerNameSet.cpp,0x005FB84E
+function,?rva004E5559@ResourceEntryCollector@@QAEXPBUCoord3D@@MH@Z,?addEntry@ResourceEntryCollector@@QAEXPBUCoord3D@@MH@Z,inferred,agree:nl-2d8608ac9129,Code/GameEngine/Source/GameClient/InGameUIResourceEntries.cpp,0x004E5559
+function,?rva004E7CEF@ResourceEntryOwner@@QAEXXZ,?release@ResourceEntryOwner@@QAEXXZ,inferred,agree:nl-05837a42e57a,Code/GameEngine/Source/GameClient/InGameUIResourceEntries.cpp,0x004E7CEF
+function,?Rva00534BAFParse@@YAXPAVINI@@PAX1PBX@Z,?parseSupplyPositionCoord3D@@YAXPAVINI@@PAX1PBX@Z,inferred,agree:nl-d7d90f75cac7,Code/GameEngine/Source/GameClient/MapMetaDataCopy.cpp,0x00534BAF
+function,?Rva00534BDCParse@@YAXPAVINI@@PAX1PBX@Z,?parseTechPositionCoord3D@@YAXPAVINI@@PAX1PBX@Z,inferred,agree:nl-6227618f3faa,Code/GameEngine/Source/GameClient/MapMetaDataCopy.cpp,0x00534BDC
+function,?rva00213DFD@Rva00213DFD@@QAE?AUInsertRet00212A5A@@PBX@Z,?insert@Rva00213DFD@@QAE?AUInsertRet00212A5A@@PBX@Z,inferred,agree:nl-fcbe4468e068,Code/GameEngine/Source/GameClient/Rva00213925Insert.cpp,0x00213DFD
+function,?rva003AD71B@Rva003AD71BTemplate@@QAEPAVRva003ACDA0Module@@PAX@Z,?CreateModule@Rva003AD71BTemplate@@QAEPAVRva003ACDA0Module@@PAX@Z,inferred,agree:nl-c706b2d78457,Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleTemplateFactorySlots.cpp,0x003AD71B
+function,?rva004583AF@View@@QAEXM@Z,?setPitch@View@@QAEXM@Z,inferred,agree:nl-54fdb01cfcd5,Code/GameEngine/Source/GameClient/ViewXferBfme.cpp,0x004583AF
+function,?rva006CBD60@AptMath@@SA_NXZ,?ClipStackIsEmpty@AptMath@@SA_NXZ,inferred,agree:nl-c28c3dc746af,Code/Libraries/Source/Apt/AptMathClipStack.cpp,0x006CBD60
+function,?rva006DFE50@AptMath@@SAPAUClipTransform_t@1@XZ,?ClipStackTop@AptMath@@SAPAUClipTransform_t@1@XZ,inferred,agree:nl-731221c5bedc,Code/Libraries/Source/Apt/AptMathClipStack.cpp,0x006DFE50
+class,Rva00541F72,LookAtCameraAnimation,inferred,agree:nl-10a5ab8b9555,Code/GameEngine/Source/GameClient/CameraAnimation/CameraAnimationTrackLookAtCamera.cpp,

@@ -41,7 +41,7 @@ struct Rva005EAEAFMaps
 class Rva005FB846
 {
 public:
-	void rva005FB846();
+	void showEliminated();
 };
 
 struct Rva005EAEAFElem
@@ -120,7 +120,7 @@ void Rva005EAEAF::rva005EAEAF(int side, int index)
 			if (map->values.lower_bound(side) != map->values.end())
 				goto completed;
 		}
-		((Rva005FB846 *)((char *)element->m_ptr + 8))->rva005FB846();
+		((Rva005FB846 *)((char *)element->m_ptr + 8))->showEliminated();
 	}
 completed:
 	if (--m_remaining <= 0)

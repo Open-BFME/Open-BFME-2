@@ -93,9 +93,9 @@ class INI {public:const char*getNextToken(const char*);void initFromINI(void*,co
 
 // Native C68AE8 is exactly24 entries plus sentinel. Offsets below are
 // read from target data rather than inferred from the reference table.
-void Rva00534BAFParse(INI*,void*,void*,const void*);
+void parseSupplyPositionCoord3D(INI*,void*,void*,const void*);
 
-void Rva00534BDCParse(INI*,void*,void*,const void*);
+void parseTechPositionCoord3D(INI*,void*,void*,const void*);
 
 void parsePlayerPosition(INI*,void*,void*,const void*);
 
@@ -112,8 +112,8 @@ const FieldParse Rva00534E13::fieldTable[]={
  {"timestampHi",INI::parseInt,0,0x30},
  {"displayName",INI::parseAsciiString,0,0x20},
  {"description",INI::parseAsciiString,0,0x24},
- {"supplyPosition",Rva00534BAFParse,0,0},
- {"techPosition",Rva00534BDCParse,0,0},
+ {"supplyPosition",parseSupplyPositionCoord3D,0,0},
+ {"techPosition",parseTechPositionCoord3D,0,0},
  {"Player_1_Start",INI::parseCoord3D,0,0x3C},
  {"Player_2_Start",INI::parseCoord3D,0,0x48},
  {"Player_3_Start",INI::parseCoord3D,0,0x54},

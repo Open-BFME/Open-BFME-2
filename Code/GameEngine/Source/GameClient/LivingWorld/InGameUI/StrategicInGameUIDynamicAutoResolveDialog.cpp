@@ -181,7 +181,7 @@ struct Rva005EAEAFBattlePlayers
 class Rva005FB846
 {
 public:
-	void rva005FB846();
+	void showEliminated();
 };
 
 struct Rva005EAEAFIcon
@@ -217,7 +217,7 @@ public:
 class Rva005FB84E
 {
 public:
-	void rva005FB84E();
+	void showSurvived();
 };
 
 // The dialog's +0x34 object: its rowed 0x005FC19E flag setter and the
@@ -394,7 +394,7 @@ void StrategicInGameUI::DynamicAutoResolveDialog::Impl::ShowBattleStepStateHandl
 	{
 		Rva005EAEAFBattlePlayers *players = owner->m_10;
 		if (!players || !HoldsKey(players->m_start[entry->m_battlePlayer].m_map, owner->m_key))
-			entry->m_icon->m_slot.rva005FB846();
+			entry->m_icon->m_slot.showEliminated();
 	}
 	if (--m_08 <= 0)
 		Done();
@@ -541,9 +541,9 @@ void StrategicInGameUI::DynamicAutoResolveDialog::Impl::ClosingStateHandler::Sta
 		{
 			((Rva005FBB68 *)&unit->m_icon->m_slot)->rva005FBB55(unit->m_finalStrength / m_owner->m_totalStrength * 100.0f);
 			if (unit->m_finalStrength > 0.0f)
-				((Rva005FB84E *)&unit->m_icon->m_slot)->rva005FB84E();
+				((Rva005FB84E *)&unit->m_icon->m_slot)->showSurvived();
 			else
-				unit->m_icon->m_slot.rva005FB846();
+				unit->m_icon->m_slot.showEliminated();
 		}
 	}
 	m_owner->m_34->rva005FC19E(m_owner->m_44 == 0);

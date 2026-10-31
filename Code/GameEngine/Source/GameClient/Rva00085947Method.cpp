@@ -358,7 +358,7 @@ private:
 	int m_24BC;
 	int m_pad24C0;
 	int m_24C4;
-	Rva00BCF670CameraSettings m_24C8;
+	Rva00BCF670CameraSettings m_cameraSettings;
 };
 
 // ?rva000879A9@Rva00085947@@QAE_NH@Z @0x000879A9 61B: slot 158 of vtable 0xBC7514.
@@ -369,7 +369,7 @@ void Rva00085947::rva00085947()
 	((BfmeThingBFG *)this)->rva0025F3F3();
 	m_24BC = 0;
 	vslot56(1);
-	m_24C8.camSlot17();
+	m_cameraSettings.camSlot17();
 	vslot50(0, 0, 0.0f, 0.0f);
 	vslot47(9);
 	RvaFloatPair p;
@@ -381,7 +381,7 @@ void Rva00085947::rva00085947()
 	m_2408 = 10.0f;
 	((Rva0030E8DF *)((unsigned char *)this + 0x2458))->rva0030E8DF();
 	m_241C = 0;
-	m_24C8.reset();
+	m_cameraSettings.reset();
 }
 
 // ?rva000879A9@Rva00085947@@QAE_NH@Z @0x000879A9 61B: slot 158 of vtable 0xBC7514.
@@ -391,7 +391,7 @@ bool Rva00085947::rva000879A9(int v)
 {
 	RvaLoc12 loc;
 	vslot070(&loc);
-	bool ok = m_24C8.camSlot19(v, &loc);
+	bool ok = m_cameraSettings.camSlot19(v, &loc);
 	if (ok)
 		m_00C = loc;
 	return ok;
@@ -424,7 +424,7 @@ extern "C" void rva00BB6C15Cleanup() {}
 void Rva00085947::rva0008D253()
 {
 	((Rva0025EB36 *)this)->rva0025EB36();
-	m_24C8.camSlot18(0, &m_028);
+	m_cameraSettings.camSlot18(0, &m_028);
 	m_23E8 *= m_0A0;
 	m_23EC *= m_0A0;
 	m_070 = 1.0f;

@@ -43,12 +43,12 @@ InsertRet00212A5A Rva000427195::rva00213925(const void *key)
 class Rva00213DFD
 {
 public:
-	InsertRet00212A5A rva00213DFD(const void *key);
+	InsertRet00212A5A insert(const void *key);
 private:
 	Rva000427195 m_table;
 };
 
-InsertRet00212A5A Rva00213DFD::rva00213DFD(const void *key)
+InsertRet00212A5A Rva00213DFD::insert(const void *key)
 {
 	return m_table.rva00213925(key);
 }
