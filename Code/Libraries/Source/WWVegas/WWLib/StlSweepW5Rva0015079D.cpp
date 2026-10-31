@@ -1,6 +1,9 @@
 // STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
-// Element identity and unconstrained fields remain address-derived structural inference.
-// cl: /O1 /arch:SSE /G7 /Ob0 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// Native copy 0x0014F4A1 and vtable 0x007D385C establish an eight-byte
+// polymorphic record with its index at +4 and virtual cleanup at slot zero.
+// Preserve the existing placeholder spelling until the native type's views are unified.
+// Full copy/algorithm/cleanup bodies are verified; this is not an original class declaration.
+// cl: /O1 /arch:SSE /G7 /Ob1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
 // overload takes the call instead, so this TU emits no external max COMDAT.
@@ -13,7 +16,59 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include <vector>
 #include <memory>
 
-struct Rva0015079DElement { unsigned words[2];Rva0015079DElement();Rva0015079DElement(const Rva0015079DElement&b){words[0]=b.words[0];words[1]=b.words[1];}bool operator<(const Rva0015079DElement&)const;bool operator==(const Rva0015079DElement&)const; };
 
+extern "C" const void* const __identifier("??_7SourceNamespace_DirectionalLight@FXShaderParameterSourceNamespaceSAS@@6B@")[ ];
+class __declspec(novtable) Rva0014F401 {
+public:
+  Rva0014F401(const Rva0014F401&);
+  virtual ~Rva0014F401() {}
+};
+struct __declspec(novtable) Rva0015079DElement : Rva0014F401 {
+  __declspec(noinline) Rva0015079DElement(const Rva0015079DElement& other):Rva0014F401(other) {
+    *(const void**)this=__identifier("??_7SourceNamespace_DirectionalLight@FXShaderParameterSourceNamespaceSAS@@6B@");
+    index=other.index;
+  }
+  virtual ~Rva0015079DElement() {}
+  int index;
+};
+
+
+namespace _STL { static __forceinline void _Construct(Rva0015079DElement* dest,const Rva0015079DElement& source){ if(dest) dest->Rva0015079DElement::Rva0015079DElement(source); } }
+namespace _STL {
+template<> __declspec(noinline) Rva0015079DElement* __copy_backward_ptrs<Rva0015079DElement*,Rva0015079DElement*>(Rva0015079DElement* first,Rva0015079DElement* last,Rva0015079DElement* result,const __false_type&) {
+  return __copy_backward(first,last,result,random_access_iterator_tag(),(int*)0);
+}
+template<> __declspec(noinline) Rva0015079DElement* uninitialized_fill_n<Rva0015079DElement*,unsigned,Rva0015079DElement>(Rva0015079DElement* first,unsigned count,const Rva0015079DElement& value) {
+  return __uninitialized_fill_n(first,count,value,__false_type());
+}
+}
+// STLport 4.5.3 insertion, retaining the native finish value across the copy.
+// The native base copy only writes the new element's vptr; it cannot modify
+// this vector. Keep its existing out-of-line owner instead of emitting a duplicate.
+template<> void _STL::vector<Rva0015079DElement,_STL::allocator<Rva0015079DElement> >::_M_fill_insert(iterator __position,size_type __n,const Rva0015079DElement& __x) {
+  if (__n != 0) {
+    if (size_type(this->_M_end_of_storage._M_data - this->_M_finish) >= __n) {
+      const pointer __finish = this->_M_finish;
+      Rva0015079DElement __x_copy = __x;
+      const size_type __elems_after = __finish - __position;
+      pointer __old_finish = this->_M_finish;
+      if (__elems_after > __n) {
+        __uninitialized_copy(this->_M_finish - __n, this->_M_finish, this->_M_finish, _IsPODType());
+        this->_M_finish += __n;
+        __copy_backward_ptrs(__position, __old_finish - __n, __old_finish, _TrivialAss());
+        _STLP_STD::fill(__position, __position + __n, __x_copy);
+      }
+      else {
+        uninitialized_fill_n(this->_M_finish, __n - __elems_after, __x_copy);
+        this->_M_finish += __n - __elems_after;
+        __uninitialized_copy(__position, __old_finish, this->_M_finish, _IsPODType());
+        this->_M_finish += __elems_after;
+        _STLP_STD::fill(__position, __old_finish, __x_copy);
+      }
+    }
+    else 
+      _M_insert_overflow(__position, __x, _IsPODType(), __n);
+  }
+}
 // Instantiate the recovered operation and its required template dependencies.
 template void _STL::vector<Rva0015079DElement, _STL::allocator<Rva0015079DElement> >::_M_fill_insert(Rva0015079DElement *, unsigned int, Rva0015079DElement const &);

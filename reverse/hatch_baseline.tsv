@@ -1991,7 +1991,6 @@ alternatename	Code/GameEngine/Source/Common/Rva001040D5Ctor.cpp	??1Rva001040D5@@
 alternatename	Code/GameEngine/Source/Common/Rva00135E35Ctor.cpp	??1Rva00135E35@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/Rva0013A820Reset.cpp	?clear@Rva0036CA00Str@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva0014FDerivedCopies.cpp	?dummy@Rva0014F480@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/Common/Rva0014FDerivedCopies.cpp	?dummy@Rva0014F4A1@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva0014FDerivedCopies.cpp	?dummy@Rva0014F4C2@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva001505CDDtor.cpp	?s0@Gen_uw_000e14bd@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva001514B2Chain.cpp	?rva0015326D@Rva0015326D@@QAEPAXHH@Z	1
@@ -8611,7 +8610,7 @@ pin	reverse/symbols.csv	0x0052163E	1
 pin	reverse/symbols.csv	0x00521CBA	1
 pin	reverse/symbols.csv	0x00521EC2	1
 pin	reverse/symbols.csv	0x0052274D	1
-pin	reverse/symbols.csv	0x00523D6C	46
+pin	reverse/symbols.csv	0x00523D6C	47	allow=0d62048edc945af748caafbdbcf65d90ce5a9a93
 pin	reverse/symbols.csv	0x00523DB7	1
 pin	reverse/symbols.csv	0x00523F8C	1
 pin	reverse/symbols.csv	0x0052413E	2

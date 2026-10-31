@@ -7367,12 +7367,6 @@ rva009C7380WeightPairs,0x009B84E0
 ??$fill@PAURva001506BFElement@@U1@@_STL@@YAXPAURva001506BFElement@@0ABU1@@Z,0x0014F9B2,
 ??$uninitialized_fill_n@PAURva001506BFElement@@IU1@@_STL@@YAPAURva001506BFElement@@PAU1@IABU1@@Z,0x0014F90D,
 ?_M_insert_overflow@?$vector@URva001506BFElement@@V?$allocator@URva001506BFElement@@@_STL@@@_STL@@IAEXPAURva001506BFElement@@ABU3@ABU__false_type@2@I_N@Z,0x00150282,
-??0Rva0015079DElement@@QAE@ABU0@@Z,0x0014F4A1,
-??$__uninitialized_copy@PAURva0015079DElement@@PAU1@@_STL@@YAPAURva0015079DElement@@PAU1@00ABU__false_type@0@@Z,0x0014F928,
-??$__copy_backward_ptrs@PAURva0015079DElement@@PAU1@@_STL@@YAPAURva0015079DElement@@PAU1@00ABU__false_type@0@@Z,0x0014F995,
-??$fill@PAURva0015079DElement@@U1@@_STL@@YAXPAURva0015079DElement@@0ABU1@@Z,0x0014F9B2,
-??$uninitialized_fill_n@PAURva0015079DElement@@IU1@@_STL@@YAPAURva0015079DElement@@PAU1@IABU1@@Z,0x0014F951,
-?_M_insert_overflow@?$vector@URva0015079DElement@@V?$allocator@URva0015079DElement@@@_STL@@@_STL@@IAEXPAURva0015079DElement@@ABU3@ABU__false_type@2@I_N@Z,0x00150337,
 ??0Rva0015087BElement@@QAE@ABU0@@Z,0x0014F4C2,
 ??$__uninitialized_copy@PAURva0015087BElement@@PAU1@@_STL@@YAPAURva0015087BElement@@PAU1@00ABU__false_type@0@@Z,0x0014F96C,
 ??$__copy_backward_ptrs@PAURva0015087BElement@@PAU1@@_STL@@YAPAURva0015087BElement@@PAU1@00ABU__false_type@0@@Z,0x0014F995,
@@ -9360,3 +9354,10 @@ _atan2f,0x000422A0,math.h x86 inline atan2f (float)atan2((double)y(double)x): 0x
 ?erase@?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVGameWindow@@U?$_Nonconst_traits@PAVGameWindow@@@_STL@@@2@U32@0@Z,0x00548267,Native free-based GUI list range erase; complete body and all owner relocation twins; fold-proof=Code/GameEngine/Source/GameClient/GUI/GameWindowManager_registerTabList.cpp
 ??$insert@U?$_List_iterator@PAVGameWindow@@U?$_Const_traits@PAVGameWindow@@@_STL@@@_STL@@@?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAEXU?$_List_iterator@PAVGameWindow@@U?$_Nonconst_traits@PAVGameWindow@@@_STL@@@1@U?$_List_iterator@PAVGameWindow@@U?$_Const_traits@PAVGameWindow@@@_STL@@@1@1@Z,0x000BB975,Native free-based GUI list range insert; complete body and all owner relocation twins; fold-proof=Code/GameEngine/Source/GameClient/GUI/GameWindowManager_registerTabList.cpp
 ??$insert@U?$_List_iterator@PAVObject@@U?$_Const_traits@PAVObject@@@_STL@@@_STL@@@?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@QAEXU?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@1@U?$_List_iterator@PAVObject@@U?$_Const_traits@PAVObject@@@_STL@@@1@1@Z,0x00423890,Existing pooled Object-list helper; complete native body and relocation proof; fold-proof=Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp
+?allocate@?$allocator@URva0015079DElement@@@_STL@@QBEPAURva0015079DElement@@IPBX@Z,0x00523D6C,Native polymorphic index record; complete body and relocation proof; fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0015079D.cpp
+??0Rva0015079DElement@@QAE@ABU0@@Z,0x0014F4A1,Native polymorphic index record; complete body and relocation proof; fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0015079D.cpp
+??$__uninitialized_copy@PAURva0015079DElement@@PAU1@@_STL@@YAPAURva0015079DElement@@PAU1@00ABU__false_type@0@@Z,0x0014F928,Native polymorphic index record; complete body and relocation proof; fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0015079D.cpp
+??$__copy_backward_ptrs@PAURva0015079DElement@@PAU1@@_STL@@YAPAURva0015079DElement@@PAU1@00ABU__false_type@0@@Z,0x0014F995,Native polymorphic index record; complete body and relocation proof; fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0015079D.cpp
+??$fill@PAURva0015079DElement@@U1@@_STL@@YAXPAURva0015079DElement@@0ABU1@@Z,0x0014F9B2,Native polymorphic index record; complete body and relocation proof; fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0015079D.cpp
+??$uninitialized_fill_n@PAURva0015079DElement@@IU1@@_STL@@YAPAURva0015079DElement@@PAU1@IABU1@@Z,0x0014F951,Native polymorphic index record; complete body and relocation proof; fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0015079D.cpp
+?_M_insert_overflow@?$vector@URva0015079DElement@@V?$allocator@URva0015079DElement@@@_STL@@@_STL@@IAEXPAURva0015079DElement@@ABU3@ABU__false_type@2@I_N@Z,0x00150337,Native polymorphic index record; complete body and relocation proof; fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0015079D.cpp
