@@ -35412,15 +35412,15 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x004480BE,57,code,,,-,,Code/GameEngine/Source/Common/Rva00448089Ctor.cpp
 0x004480F7,28,code,,,-,,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-04-448089.cpp
 0x00448113,61,code,Code/GameEngine/Source/Common/BfmeStringRecord00448113.cpp,proposed,N,N=Code/GameEngine/Source/Common/BfmeStringRecord00448113.cpp,Code/GameEngine/Source/Common/StringRecordInlineCopyBFME2.cpp
-0x00448150,59,code,Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp S=Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp N=Code/GameEngine/Source/GameNetwork/LANGameSlot.cpp,Code/GameEngine/Source/GameNetwork/LANGameInfoCtor.cpp
+0x00448150,59,code,Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp S=Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp N=Code/GameEngine/Source/GameNetwork/LANGameSlot.cpp,Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp
 0x0044818B,28,code,,displaced,-,N=Code/GameEngine/Source/Common/LANGameSlot.cpp,Code/GameEngine/Source/Common/LANGameSlot.cpp
 0x004481A7,45,code,Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp,approved,C,C=0x00448150..0x004481D4,Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp
-0x004481D4,162,code,Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp S=Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp N=Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp,Code/GameEngine/Source/GameNetwork/LANGameInfoCtor.cpp
+0x004481D4,162,code,Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp S=Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp N=Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp,Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp
 0x00448276,6,code,Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp,approved,C,C=0x004481D4..0x00448280,Code/GameEngine/Source/Common/ModuleNameGetters.cpp
 0x0044827C,4,code,,displaced,-,N=Code/Libraries/Source/ATL/ATL.cpp,Code/Libraries/Source/ATL/atlconv.cpp
-0x00448280,30,code,Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp,approved,C,C=0x004481D4..0x0044829E,Code/GameEngine/Source/Common/Rva004482B7Finish.cpp
-0x0044829E,25,code,Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp,approved,C,C=0x004481D4..0x004482B7,Code/GameEngine/Source/Common/Rva004482B7Finish.cpp
-0x004482B7,40,code,Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp,approved,C,C=0x004481D4..0x004482DF,Code/GameEngine/Source/Common/Rva004482B7Finish.cpp
+0x00448280,30,code,Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp,approved,C,C=0x004481D4..0x0044829E,Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp
+0x0044829E,25,code,Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp,approved,C,C=0x004481D4..0x004482B7,Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp
+0x004482B7,40,code,Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp,approved,C,C=0x004481D4..0x004482DF,Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp
 0x004482DF,28,code,Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp,approved,N,N=Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp,Code/GameEngine/Source/GameNetwork/LANGameInfoDeleter.cpp
 0x004482FB,87,code,Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp,approved,S,S=Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp N=Code/GameEngine/Source/Common/LANGameInfo.cpp,Code/GameEngine/Source/Common/Rva004482FBDtor.cpp
 0x00448352,106,code,Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp S=Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp N=Code/GameEngine/Source/Common/LANGameInfo.cpp W=Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp,Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp
@@ -78935,10 +78935,10 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007892C6,10,code,Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp,approved,P,P=0x00447CA9@FuncInfo0x009373B8,Code/GameEngine/Source/GameNetwork/GenerateGameOptionsString.cpp
 0x007892D0,8,code,,,-,,Code/GameEngine/Source/Common/StringRecordInlineCopyBFME2.cpp
 0x007892D8,10,code,,,-,,Code/GameEngine/Source/Common/StringRecordInlineCopyBFME2.cpp
-0x007892E2,8,code,Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp,approved,P,P=0x004481D4@FuncInfo0x00937410,Code/GameEngine/Source/GameNetwork/LANGameInfoCtor.cpp
-0x007892EA,27,code,Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp,approved,P,P=0x004481D4@FuncInfo0x00937410,Code/GameEngine/Source/GameNetwork/LANGameInfoCtor.cpp
-0x00789305,14,code,Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp,approved,P,P=0x004481D4@FuncInfo0x00937410,Code/GameEngine/Source/GameNetwork/LANGameInfoCtor.cpp
-0x00789313,10,code,Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp,approved,P,P=0x004481D4@FuncInfo0x00937410,Code/GameEngine/Source/GameNetwork/LANGameInfoCtor.cpp
+0x007892E2,8,code,Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp,approved,P,P=0x004481D4@FuncInfo0x00937410,Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp
+0x007892EA,27,code,Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp,approved,P,P=0x004481D4@FuncInfo0x00937410,Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp
+0x00789305,14,code,Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp,approved,P,P=0x004481D4@FuncInfo0x00937410,Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp
+0x00789313,10,code,Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp,approved,P,P=0x004481D4@FuncInfo0x00937410,Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp
 0x0078931D,8,code,Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp,approved,P,P=0x004482FB@FuncInfo0x0093743C,Code/GameEngine/Source/Common/Rva004482FBDtor.cpp
 0x00789325,27,code,Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp,approved,P,P=0x004482FB@FuncInfo0x0093743C,Code/GameEngine/Source/Common/Rva004482FBDtor.cpp
 0x00789340,10,code,Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp,approved,P,P=0x004482FB@FuncInfo0x0093743C,Code/GameEngine/Source/Common/Rva004482FBDtor.cpp

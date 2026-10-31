@@ -27,39 +27,9 @@ enum
 };
 #include "../../../../reference/shims/bfme2_ascii/unicode_string.h"
 #include "unicode_string.h"
-
-class GameInfo
-{
-public:
-    virtual ~GameInfo();
-    char m_pad[0xDC - 4];
-};
-
-class GameSlot
-{
-public:
-	virtual ~GameSlot();
-public:
-	void setAccept() { m_isAccepted = true; }
-public:
-	void setMapAvailability(bool hasMap);
-private:
-	int m_state;
-private:
-	bool m_isAccepted;
-private:
-	char m_rest[0x1AC - 9];
-public:
-	Bool isPlayer(UnicodeString userName) const;
-};
-
-class LANGameSlot : public GameSlot
-{
-public:
-    virtual ~LANGameSlot();
-private:
-    char m_rest[0x1D0 - 0x1AC];
-};
+typedef unsigned int UnsignedInt;
+typedef unsigned short UnsignedShort;
+#include "ascii_string.h"
 
 // LANGameSlot's copy assignment, rowed under its address name (0x00447B58).
 struct Rva00447B0E
@@ -70,18 +40,6 @@ struct Rva00447B0E
 enum
 {
     MAX_SLOTS = 8
-};
-
-class LANGameInfo : public GameInfo
-{
-public:
-    void setSlot(int slotNum, LANGameSlot slotInfo);
-private:
-    LANGameSlot m_LANSlot[MAX_SLOTS];   // +0xDC
-    LANGameInfo *m_next;                // +0xF5C
-    unsigned int m_lastHeard;           // +0xF60
-    UnicodeString m_gameName;           // +0xF64
-    bool m_isDirectConnect;             // +0xF68
 };
 
 // ?getSlotNum@Rva004482FB@@QAEHVUnicodeString@@@Z @0x004483BC (103B):
@@ -120,9 +78,145 @@ protected:
 	UnicodeString m_name;
 };
 
+template <int N> class VSlots : public VSlots<N - 1>
+{
+public:
+	virtual void gap( char (*)[N] ) = 0;
+};
+
+template <> class VSlots<0>
+{
+};
+
+struct BfmeNetAddress
+{
+	UnsignedInt m_ip;
+	UnsignedInt m_port;
+};
+
+class LANAPI : public VSlots<64>
+{
+public:
+	virtual BfmeNetAddress *getLocalAddress( void ) = 0;
+};
+
+extern LANAPI *TheLAN;
+
+class GameSlot
+{
+public:
+	virtual ~GameSlot();
+public:
+	void setAccept() { m_isAccepted = true; }
+public:
+	void setMapAvailability(bool hasMap);
+private:
+	int m_state;
+private:
+	bool m_isAccepted;
+private:
+	char m_rest[0x1AC - 9];
+public:
+	Bool isPlayer(UnicodeString userName) const;
+public:
+	GameSlot( void );
+};
+
+class LANPlayer
+{
+public:
+	LANPlayer( void ) : m_lastHeard( 0 ), m_next( 0 ), m_IP( 0 ), m_port( 0 ) {}
+	~LANPlayer( void );
+
+private:
+	UnicodeString m_name;				// +0x00
+	UnicodeString m_login;				// +0x04
+	UnicodeString m_host;				// +0x08
+	UnsignedInt m_lastHeard;			// +0x0C
+	LANPlayer *m_next;				// +0x10
+	UnsignedInt m_IP;				// +0x14
+	UnsignedShort m_port;				// +0x18
+};
+
+class LANGameSlot : public GameSlot
+{
+public:
+	LANGameSlot( void );
+	virtual ~LANGameSlot( void );
+
+private:
+	LANPlayer m_user;				// +0x1AC
+	AsciiString m_serial;				// +0x1C8
+	UnsignedInt m_lastHeard;			// +0x1CC
+};
+
+class GameInfo
+{
+public:
+	GameInfo( void );
+	virtual ~GameInfo( void );
+	void setSlotPointer( Int index, GameSlot *slot );
+
+protected:
+	unsigned char m_pre38[0x38 - 4];
+	BfmeNetAddress m_localIP;			// +0x38
+	unsigned char m_padDC[0xDC - 0x40];
+};
+
+class LANGameInfo : public GameInfo
+{
+public:
+	LANGameInfo( void );
+public:
+	virtual ~LANGameInfo( void );
+private:
+	LANGameSlot m_LANSlot[MAX_SLOTS];
+private:
+	LANGameInfo *m_next;
+private:
+	UnsignedInt m_lastHeard;
+private:
+	UnicodeString m_gameName;
+private:
+	Bool m_isDirectConnect;
+public:
+	void setSlot(int slotNum, LANGameSlot slotInfo);
+};
+
+struct Rva004482B7Elem
+{
+	UnicodeString m_name;
+	char m_rest[0x1CC];
+};
+
+class Rva004482B7
+{
+	char m_pad[0x10C];
+	Rva004482B7Elem m_items[8];
+
+public:
+	UnicodeString rva004482B7(int index);
+	UnicodeString rva0044829E();
+};
+
+// ?rva00448280@Rva00448280@@QAE?AVUnicodeString@@XZ @0x00448280 (30B):
+// Sibling by-value accessor copying m_wide at +0xF64 (Rva004482FB layout:
+// base 0xDC plus 8x0x1D0 plus gap 8) through rowed copy ctor 0x37050.
+// Evidence: prev/next neighbours; same frame as rva004482B7.
+class Rva00448280
+{
+	char m_pad[0xF64];
+
+public:
+	UnicodeString rva00448280();
+
+private:
+	UnicodeString m_wide;
+};
+
 // tu-skeleton: 0x0044770F 100B ?isLocalPlayer@LANGameSlot@@QBE_NXZ -- matched in Code/GameEngine/Source/GameNetwork/LANGameSlotIsLocalPlayer.cpp (not merged yet)
 
-// tu-skeleton: 0x00447773 33B ?rva00447773@Rva00447773@@QAEPAXH@Z -- matched in Code/GameEngine/Source/Common/Rva00447773Indexer.cpp (not merged yet)
+// tu-skeleton: 0x00447773 33B ?getLANSlot@Rva00447773@@QAEPAXH@Z -- matched in Code/GameEngine/Source/Common/Rva00447773Indexer.cpp (not merged yet)
 
 // tu-skeleton: 0x00447794 51B ?getLocalSlotNum@LANGameInfo@@UBEHXZ -- matched in Code/GameEngine/Source/GameNetwork/LANGameInfoSlots.cpp (not merged yet)
 
@@ -140,7 +234,22 @@ protected:
 
 // tu-skeleton: 0x00447CA9 812B ?GameInfoToByteBuffer@@YAXPAVLANGameInfo@@PADH@Z -- matched in Code/GameEngine/Source/GameNetwork/GenerateGameOptionsString.cpp (not merged yet)
 
-// tu-skeleton: 0x00448150 59B ??0LANGameSlot@@QAE@XZ -- matched in Code/GameEngine/Source/GameNetwork/LANGameInfoCtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameNetwork/LANGameInfoCtor.cpp
+
+LANGameSlot::LANGameSlot( void )
+{
+	m_lastHeard = 0;
+}
+
+LANGameInfo::LANGameInfo( void ) : m_next( 0 ), m_lastHeard( 0 ), m_isDirectConnect( false )
+{
+	for( UnsignedInt i = 0; i < MAX_SLOTS; ++i )
+		setSlotPointer( i, &m_LANSlot[i] );
+
+	m_localIP = *TheLAN->getLocalAddress();
+}
+
+// ---- from Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp
 
 // ---- from Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp
 
@@ -157,18 +266,6 @@ Bool Rva004481A7::isPlayer(UnicodeString userName) const
 
 	return result;
 }
-
-// tu-skeleton: 0x004481D4 162B ??0LANGameInfo@@QAE@XZ -- matched in Code/GameEngine/Source/GameNetwork/LANGameInfoCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00448276 6B ?name@Rva00448276Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00448280 30B ?rva00448280@Rva00448280@@QAE?AVUnicodeString@@XZ -- matched in Code/GameEngine/Source/Common/Rva004482B7Finish.cpp (not merged yet)
-
-// tu-skeleton: 0x0044829E 25B ?rva0044829E@Rva004482B7@@QAE?AVUnicodeString@@XZ -- matched in Code/GameEngine/Source/Common/Rva004482B7Finish.cpp (not merged yet)
-
-// tu-skeleton: 0x004482B7 40B ?rva004482B7@Rva004482B7@@QAE?AVUnicodeString@@H@Z -- matched in Code/GameEngine/Source/Common/Rva004482B7Finish.cpp (not merged yet)
-
-// tu-skeleton: 0x004482DF 28B ??_GLANGameInfo@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameNetwork/LANGameInfoDeleter.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva004482FBDtor.cpp
 
@@ -197,6 +294,51 @@ void LANGameInfo::setSlot(int slotNum, LANGameSlot slotInfo)
     m_LANSlot[0].setMapAvailability(true);
 }
 
+// tu-skeleton: 0x00448276 6B ?name@Rva00448276Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva004482B7Finish.cpp
+
+// ?rva004482B7@Rva004482B7@@QAE?AVUnicodeString@@H@Z retail 0x004482B7 40B
+// By-value accessor: copy-construct a UnicodeString from m_items[index].m_name
+// (0x1D0-wide records at +0x10C) through the rowed StringBase<unsigned short>
+// copy ctor 0x00037050 and return it through the hidden return buffer.
+// Target evidence: callers 0x004482AB 0x0044AF50 0x0044B076 0x0044B0CE read
+// the returned m_data; sibling accessor 0x00448280 copies this+0xF64 the same
+// way; the non-trivial destructor is what makes retail keep the /EHsc frame
+// and its `and dword ptr [ebp-4],0` state slot.
+// Return type UnicodeString (not a bare StringBase<unsigned short>): donor
+// evidence, Zero Hour's inline LANGameInfo::getPlayerName(int) and Open-BFME-1's
+// out-of-line copy (0x004C8800, 38B) return UnicodeString from
+// m_LANSlot[who].getName(), and LANAPI::update (0x0044AAED, the 0x0044AF50/
+// 0x0044B076/0x0044B0CE callers) destroys the temporary as Zero Hour's
+// m_currentGame->getPlayerName(p).str() does. Structural inference: the
+// records at +0xDC stride 0x1D0 are the eight LAN slots (name at slot +0x30)
+// and +0xF64 is the game name; identity names stay address-keyed until the
+// LANGameInfo layout is reconciled.
+
+UnicodeString Rva004482B7::rva004482B7(int index)
+{
+	return m_items[index].m_name;
+}
+
+// ?rva0044829E@Rva004482B7@@QAE?AVUnicodeString@@XZ @0x0044829E (25B):
+// Zero-index wrapper over rva004482B7: by-value return through the hidden
+// buffer with fixed index 0. Evidence: calls rowed 0x4482B7 with push 0;
+// same /O1 /EHsc /MD frame with `and [ebp-4],0`.
+UnicodeString Rva004482B7::rva0044829E()
+{
+	return rva004482B7(0);
+}
+
+UnicodeString Rva00448280::rva00448280()
+{
+	return m_wide;
+}
+
+// tu-skeleton: 0x004482DF 28B ??_GLANGameInfo@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameNetwork/LANGameInfoDeleter.cpp (not merged yet)
+
+// tu-skeleton: 0x004482FB 87B ??1LANGameInfo@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva004482FBDtor.cpp (not merged yet)
+
 // tu-skeleton: 0x0078927C 8B Unwind@00b8927c -- matched in Code/GameEngine/Source/Common/Rva00447B0EDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00789284 14B Unwind@00b89284 -- matched in Code/GameEngine/Source/Common/Rva00447B0EDtor.cpp (not merged yet)
@@ -211,13 +353,11 @@ void LANGameInfo::setSlot(int slotNum, LANGameSlot slotInfo)
 
 // tu-skeleton: 0x007892C6 10B __ehhandler$?GameInfoToByteBuffer@@YAXPAVLANGameInfo@@PADH@Z -- matched in Code/GameEngine/Source/GameNetwork/GenerateGameOptionsString.cpp (not merged yet)
 
-// tu-skeleton: 0x007892E2 8B Unwind@00b892e2 -- matched in Code/GameEngine/Source/GameNetwork/LANGameInfoCtor.cpp (not merged yet)
+// tu-skeleton: 0x0078931D 8B $L881 -- matched in Code/GameEngine/Source/Common/Rva004482FBDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x007892EA 27B ?rva007892ea@@YAXXZ -- matched in Code/GameEngine/Source/GameNetwork/LANGameInfoCtor.cpp (not merged yet)
+// tu-skeleton: 0x00789325 27B $L882 -- matched in Code/GameEngine/Source/Common/Rva004482FBDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x00789305 14B Unwind@00b89305 -- matched in Code/GameEngine/Source/GameNetwork/LANGameInfoCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00789313 10B __ehhandler$??0LANGameInfo@@QAE@XZ -- matched in Code/GameEngine/Source/GameNetwork/LANGameInfoCtor.cpp (not merged yet)
+// tu-skeleton: 0x00789340 10B __ehhandler$??1LANGameInfo@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva004482FBDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0078936E 8B Unwind@00b8936e -- matched in Code/GameEngine/Source/GameNetwork/GenerateGameOptionsString.cpp (not merged yet)
 
