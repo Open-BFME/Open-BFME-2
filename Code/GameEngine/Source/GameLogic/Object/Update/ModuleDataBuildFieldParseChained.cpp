@@ -1229,28 +1229,11 @@ extern const FieldParse BfmeOpenContainFields[] = {
 	{ 0, 0, 0, 0 }
 };
 
-// Retail VA 0x00C4A928: 3 fields and the zero sentinel.
-// Class identity comes from this unit's matched registration function;
-// tokens, callbacks and offsets are read from that retail table.
-// The global name below is descriptive; its original spelling is unknown.
-extern const FieldParse BfmeCreateObjectDieFields[] = {
-	{ "CreationList", &INI::parseObjectCreationList, 0, 0x38 },
-	{ "DebrisPortionOfSelf", &INI::parseAsciiString, 0, 0x3C },
-	{ "UpgradeRequired", &INI::parseAsciiStringVector, 0, 0x40 },
-	{ 0, 0, 0, 0 }
-};
-
 class CreateObjectDieModuleData
 {
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
-
-void CreateObjectDieModuleData::buildFieldParse(MultiIniFieldParse &parse)
-{
-	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE52EGet()), 8);
-	parse.add(BfmeCreateObjectDieFields, 0);
-}
 
 // Retail VA 0x00BEEAC8: 1 fields and the zero sentinel.
 // Class identity comes from this unit's matched registration function;
