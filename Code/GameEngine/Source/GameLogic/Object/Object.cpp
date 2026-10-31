@@ -214,6 +214,8 @@ typedef float Real;
 	{ \
 		m_value = value; \
 	}
+typedef unsigned short WideChar;
+#include <windows.h>
 
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
 namespace _STL {
@@ -1646,6 +1648,199 @@ struct Rva00563E5FFields
 // ?set@Rva002DAC16Fields@@QAEXM@Z
 struct Rva002DAC16Fields { char pad[0x144]; float value144; void set(float value); };
 
+class Rva00274DB6AsciiField
+{
+public:
+	AsciiString get() const;
+
+private:
+	char m_pad[0x79C];
+	AsciiString m_value; // +0x79C
+};
+
+class Rva00291775AsciiField
+{
+public:
+	AsciiString get() const;
+
+private:
+	char m_pad[0x318];
+	AsciiString m_value; // +0x318
+};
+
+class Rva003821B9AsciiField
+{
+public:
+	AsciiString get() const;
+
+private:
+	char m_pad[0x1A8];
+	AsciiString m_value; // +0x1A8
+};
+
+class Rva00382216AsciiField
+{
+public:
+	AsciiString get() const;
+
+private:
+	char m_pad[0x1B8];
+	AsciiString m_value; // +0x1B8
+};
+
+class Rva00095224AsciiField
+{
+public:
+	AsciiString get() const;
+
+private:
+	char m_pad[0xAC];
+	AsciiString m_value; // +0xAC
+};
+
+class Rva0046AA11AsciiField
+{
+public:
+	AsciiString get() const;
+
+private:
+	char m_pad[0x308];
+	AsciiString m_value; // +0x308
+};
+
+class Rva004CFB6DAsciiField
+{
+public:
+	AsciiString get() const;
+	void rva004CFB8B(AsciiString value);
+
+private:
+	char m_pad[0x1D8];
+	AsciiString m_value; // +0x1D8
+};
+
+class Rva004DC902AsciiField
+{
+public:
+	AsciiString get() const;
+
+private:
+	char m_pad[0x188];
+	AsciiString m_value; // +0x188
+};
+
+class Rva004FDCE1AsciiField
+{
+public:
+	AsciiString get() const;
+	void setGameSpyName(AsciiString value);
+
+private:
+	char m_pad[0x1B0];
+	AsciiString m_value; // +0x1B0
+};
+
+class Rva004FDD36AsciiField
+{
+public:
+	void setClan(AsciiString value);
+
+private:
+	char m_pad[0x1B4];
+	AsciiString m_value; // +0x1B4
+};
+
+class Rva004FDD6DAsciiField
+{
+public:
+	AsciiString get() const;
+
+private:
+	char m_pad[0x1DC];
+	AsciiString m_value; // +0x1DC
+};
+
+class Rva0056D653AsciiField
+{
+public:
+	AsciiString get() const;
+
+private:
+	char m_pad[0x258];
+	AsciiString m_value; // +0x258
+};
+
+class Rva00581777AsciiField
+{
+public:
+	AsciiString get() const;
+	void setSerial(AsciiString value);
+
+private:
+	char m_pad[0x1C8];
+	AsciiString m_value; // +0x1C8
+};
+
+class Rva0059F322AsciiField
+{
+public:
+	AsciiString get() const;
+
+private:
+	char m_pad[0xFFC];
+	AsciiString m_value; // +0xFFC
+};
+
+class Rva0059F340AsciiField
+{
+public:
+	AsciiString get() const;
+
+private:
+	char m_pad[0xFDC];
+	AsciiString m_value; // +0xFDC
+};
+
+class Rva002D9BC1AsciiField
+{
+public:
+	AsciiString get() const;
+
+private:
+	char m_pad[0x20];
+	AsciiString m_value; // +0x20
+};
+
+class Rva004DC8E7AsciiField
+{
+public:
+	AsciiString get() const;
+
+private:
+	char m_pad[0x3c];
+	AsciiString m_value; // +0x3c
+};
+
+class Rva0029173EAsciiField
+{
+public:
+	void setName(AsciiString value);
+
+private:
+	char m_pad[0x308];
+	AsciiString m_value; // +0x308
+};
+
+class Rva004CFBC2AsciiField
+{
+public:
+	void rva004CFBC2(AsciiString value);
+
+private:
+	char m_pad[0x1DC];
+	AsciiString m_value; // +0x1DC
+};
+
 // tu-skeleton: 0x0028A670 20B ?setWeaponBonusCondition@Object@@QAEXW4WeaponBonusConditionType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/WeaponBonusUpgradeUpgradeImplementation.cpp (not merged yet)
 
 // tu-skeleton: 0x0028A684 22B ?clearWeaponBonusCondition@Object@@QAEXW4WeaponBonusConditionType@@@Z -- matched in Code/GameEngine/Source/Common/RTS/PlayerBattlePlanBonuses.cpp (not merged yet)
@@ -1735,6 +1930,8 @@ struct Rva002DAC16Fields { char pad[0x144]; float value144; void set(float value
 // tu-skeleton: 0x0028AF2B 31B ?getAbleToUseWeaponAgainstTarget@Object@@QBE?AW4CanAttackResult@@W4AbleToAttackType@@PBV1@PBUCoord3D@@W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectGetAbleToUseWeaponAgainstTarget.cpp (not merged yet)
 
 // tu-skeleton: 0x0028AF4A 27B ?chooseBestWeaponForTarget@Object@@QAE_NPBV1@W4WeaponChoiceCriteria@@W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectGetAbleToUseWeaponAgainstTarget.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Object.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Object.cpp
 
@@ -3551,6 +3748,22 @@ int Rva00299CA8DwordSlot::get() const
     return ((const int *)this)[-4];
 }
 
+// ---- from Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp
+
+// Disp32 dword setters: thirteen-byte __thiscall members with one shape:
+//
+//     mov eax,[esp+4] / mov [ecx+<DISP>],eax / ret 4
+//
+// One dword is taken from the stack argument slot and stored at a fixed
+// displacement from `this`. Ported from Open-BFME-1
+// (Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp): the
+// BFME_DISP_DWORD_SETTER macro is verbatim (void set over a lead array),
+// only the class names follow this tree's Disp* convention
+// (address-derived Rva<addr>DwordSlot, identity unrecoverable from 13 bytes).
+// Every displacement here is a disp32 (MSVC 7.1 uses disp8 whenever the
+// offset fits, so every offset is at least 0x80).
+// No // cl: line (defaults match the frameless 13-byte shape).
+
 // tu-skeleton: 0x0028AF76 16B ?rva0028AF76@Object@@QBEHXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x0028AF86 17B ?getLastVictimID@Object@@QBEHXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
@@ -3610,22 +3823,6 @@ int Rva00299CA8DwordSlot::get() const
 // tu-skeleton: 0x0028B4CE 67B ?setLayer@Object@@QAEXW4PathfindLayerEnum@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectIsInList.cpp (not merged yet)
 
 // tu-skeleton: 0x0028B511 20B ?rva0028B511@Object@@QBEHXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp
-
-// Disp32 dword setters: thirteen-byte __thiscall members with one shape:
-//
-//     mov eax,[esp+4] / mov [ecx+<DISP>],eax / ret 4
-//
-// One dword is taken from the stack argument slot and stored at a fixed
-// displacement from `this`. Ported from Open-BFME-1
-// (Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp): the
-// BFME_DISP_DWORD_SETTER macro is verbatim (void set over a lead array),
-// only the class names follow this tree's Disp* convention
-// (address-derived Rva<addr>DwordSlot, identity unrecoverable from 13 bytes).
-// Every displacement here is a disp32 (MSVC 7.1 uses disp8 whenever the
-// offset fits, so every offset is at least 0x80).
-// No // cl: line (defaults match the frameless 13-byte shape).
 
 // tu-skeleton: 0x0028B532 55B ?setID@Object@@IAEXW4ObjectID@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Object_setID.cpp (not merged yet)
 
@@ -4107,9 +4304,26 @@ int Rva00299CA8DwordSlot::get() const
 
 // tu-skeleton: 0x00291608 18B ??$_Construct@VRva00263895Member@@V1@@_STL@@YAXPAVRva00263895Member@@ABV1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_throw_spec.cpp (not merged yet)
 
-// tu-skeleton: 0x0029173E 55B ?setName@Rva0029173EAsciiField@@QAEXVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/System/AsciiStringRvoGetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/System/AsciiStringRvoGetters.cpp
 
-// tu-skeleton: 0x00291775 30B ?get@Rva00291775AsciiField@@QBE?AVAsciiString@@XZ -- matched in Code/GameEngine/Source/Common/System/AsciiStringRvoGetters.cpp (not merged yet)
+// ?get@Rva00291775AsciiField@@QBE?AVAsciiString@@XZ
+AsciiString Rva00291775AsciiField::get() const
+{
+	return m_value;
+}
+
+// ?setName@Rva0029173EAsciiField@@QAEXVAsciiString@@@Z, retail 0x0029173E, 55 bytes.
+// Setter for +0x308 member: abuts prev 0x002916DA+100 and next getter
+// 0x00291775 (0x29173E+55=0x291775). Same 55B shape as rva004FDCFF with
+// member at +0x308 (lea eax,[ebp+8]; add ecx,0x308; push eax) via rowed
+// operator= then rowed releaseBuffer with EH unwind. New address-derived
+// class since no same-file getter shares +0x308 (Rva0046AA11 shares the
+// offset in another region).
+void Rva0029173EAsciiField::setName(AsciiString value)
+{
+	AsciiString &slot = m_value;
+	slot = value;
+}
 
 // tu-skeleton: 0x002917E8 79B ?rva002917E8@Rva002917E8@@QAE_NXZ -- matched in Code/GameEngine/Source/Common/Rva002917E8Check.cpp (not merged yet)
 
