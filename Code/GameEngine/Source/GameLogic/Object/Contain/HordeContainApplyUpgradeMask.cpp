@@ -15,8 +15,6 @@ class AsciiString;
 class UpgradeTemplate;
 class Object {public:bool affectedByUpgrade(const UpgradeTemplate *) const;void rva00293077(const void *);};
 #include "../../../Common/GameLogicObjectLookupView.h"
-// Declaration-only: retail keeps one _STL::max<unsigned int> (17-byte jae
-// shape); this TU's flags would emit a private copy.
 namespace _STL {
 // Keep the inlined node comparisons local instead of emitting competing
 // out-of-line base-iterator definitions with this unit's /G7 settings.
@@ -30,7 +28,9 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
                               const _Rb_tree_iterator<T, RightTraits>& b) {
     return a._M_node != b._M_node;
 }
-template <> const unsigned int &max<unsigned int>(const unsigned int &, const unsigned int &);
+// Retail's vector growth (_M_insert_overflow, 0x002DFCF6) expands max<unsigned
+// int>; dllimport + __forceinline expands it here too and emits no copy.
+template <> __declspec(dllimport) __forceinline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b) { return a < b ? b : a; }
 }
 extern GameLogic *TheGameLogic;
 class UpgradeCenter {public:const UpgradeTemplate *rva0026EEA0(int)const;};
