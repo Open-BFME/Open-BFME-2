@@ -220,4 +220,4 @@ Bool StandingWaveAreasDataChunkParser::parse(DataChunkInput &file, DataChunkInfo
 // carries as ?rva005CB283@Rva005CB283@@QAEXXZ. Bind the donor spelling to that rowed owner so one
 // address keeps one definition and the unit links.
 
-// tu-skeleton: 0x0077A282 8B uw_0077a282 -- matched in Code/gen_small/uw_gen_006.cpp (not merged yet)
+// Native FuncInfo 0x00922BB4 binds the wave reference cleanup to 0x0077A282.

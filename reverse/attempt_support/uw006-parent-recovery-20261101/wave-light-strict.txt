@@ -1,0 +1,16 @@
+link_check: preparing 5 explicit safe provider(s), no extra sources
+Compile: 1 of 5 TU(s) (deps-cache: 4 current)
+Source claims: OK (5 sources, scoped byte-verified)
+Data rows: OK (1 row(s) byte-verified)
+Compile: 0 of 5 TU(s) (deps-cache: 5 current)
+Funclet pins: 23 row(s) verified past a renumbered $L label
+    $L1926 (Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGameHeroSelectInterfaceCtor.cpp): $L1926 was renumbered; verified parent EH data places $L1948 at 0x00796949
+    $L1927 (Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGameHeroSelectInterfaceCtor.cpp): $L1927 was renumbered; verified parent EH data places $L1949 at 0x00796954
+    $L1928 (Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGameHeroSelectInterfaceCtor.cpp): $L1928 was renumbered; verified parent EH data places $L1950 at 0x0079695F
+    uw_0077a278 (Code/GameEngine/Source/GameLogic/Map/StandingWaveAreasDataChunkParser.cpp): $L1521 was renumbered; verified parent EH data places $L1533 at 0x0077A278
+    uw_007870c0 (Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp): $L7418 was renumbered; verified parent EH data places $L13837 at 0x007870C0
+Functions: OK 48/48 matched across 5 source file(s)
+String-ref verify: OK (7 literals + 3 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (4 compiler literals verified)
+Import-ref verify: OK (0 named imports verified)
+link_check: 5 explicit providers byte-verified with strict reusable receipts; census/index/status unchanged, LINK closure not yet checked

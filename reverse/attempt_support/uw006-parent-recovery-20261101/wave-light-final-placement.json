@@ -1,0 +1,48 @@
+[
+  {
+    "old_name": "uw_0077a282",
+    "rva": "0x0077A282",
+    "size": 8,
+    "source": "Code/GameEngine/Source/GameLogic/Map/StandingWaveAreasDataChunkParser.cpp",
+    "parent_name": "?parse@StandingWaveAreasDataChunkParser@@UAE_NAAVDataChunkInput@@PAUDataChunkInfo@@@Z",
+    "parent_rva": "0x0030CEED",
+    "label": "$L1534",
+    "current_route": {
+      "by": "P",
+      "confidence": "approved",
+      "evidence": "P=0x0030CEED@FuncInfo0x00922BB4 p-group provisional",
+      "kind": "code",
+      "rva": "0x0077A282",
+      "size": "8",
+      "source": "Code/gen_small/uw_gen_006.cpp",
+      "tu": "Code/GameEngine/Source/GameLogic/Map/StandingWaveAreasDataChunkParser.cpp"
+    },
+    "eligible_current_route": true,
+    "eh": "EXACT",
+    "dtor": "??1StandingWaveAreaRef@@QAE@XZ",
+    "owner_rva": "0x5f8f96"
+  },
+  {
+    "old_name": "uw_00787107",
+    "rva": "0x00787107",
+    "size": 8,
+    "source": "Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp",
+    "parent_name": "?rva00424E77@FormationAssistant@@QAEPAVFormation@@HPAVRva001EB130Holder@@PBUCoord3D@@@Z",
+    "parent_rva": "0x00424E77",
+    "label": "$L13327",
+    "current_route": {
+      "by": "P",
+      "confidence": "approved",
+      "evidence": "P=0x00424E77@FuncInfo0x0093460C p-group provisional",
+      "kind": "code",
+      "rva": "0x00787107",
+      "size": "8",
+      "source": "Code/gen_small/uw_gen_006.cpp",
+      "tu": "Code/Libraries/Source/WWVegas/WWLib/FormationAssistant.cpp"
+    },
+    "eligible_current_route": false,
+    "eh": "EXACT",
+    "dtor": "??1FormationObjectList@@QAE@XZ",
+    "owner_rva": "0x1eb940"
+  }
+]
