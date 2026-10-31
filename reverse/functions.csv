@@ -8077,7 +8077,7 @@ _GetProcessorFlags,,0x001C4390,169,Code/Libraries/Source/VP6/GetProcessorFlags.c
 ?get@Rva0015DF50FloatField@@QBEMXZ,,0x0015DF50,4,Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp,matched,
 ?get@Rva00178FB0FloatField@@QBEMXZ,,0x00178FB0,4,Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp,matched,
 ?get@Rva0018D340FloatField@@QBEMXZ,,0x0018D340,4,Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp,matched,
-?get@Rva0018F180FloatField@@QBEMXZ,,0x0018F180,4,Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp,matched,
+?get@Rva0018F180FloatField@@QBEMXZ,,0x0018F180,4,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp,matched,
 ?get@Rva006C03E0FloatField@@QBEMXZ,,0x006C03E0,4,Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp,matched,
 ?get@Rva00723490FloatField@@QBEMXZ,,0x00723490,4,Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp,matched,
 ?get@Rva0073A1C0FloatField@@QBEMXZ,,0x0073A1C0,4,Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp,matched,
