@@ -3,6 +3,21 @@
 #pragma comment(linker, "/alternatename:?bfmeExpandEAN@BfmeLexEAN@@QAEDPAD@Z=?rva005426DB@Rva005426DB@@QAE_NPAE@Z")
 #include <string.h>
 #pragma function(memset)
+#define BFME_TWO_DWORD_SETTER( NAME, LEAD )                                   \
+	class NAME                                                                \
+	{                                                                         \
+	public:                                                                   \
+		void set( int first, int second );                                    \
+                                                                              \
+		char m_lead[ LEAD ];                                                  \
+		int  m_first;                                                         \
+		int  m_second;                                                        \
+	};                                                                        \
+	void NAME::set( int first, int second )                                   \
+	{                                                                         \
+		m_first = first;                                                      \
+		m_second = second;                                                    \
+	}
 
 // Donor1281192f68 BfmeConv2008.cpp /O1 supplies this complete107B body.
 // Target Ghidra542459 and rowed scanner542791 establish the same lexer;
@@ -120,6 +135,10 @@ public:
 	void rva0054288B();
 };
 
+BFME_TWO_DWORD_SETTER( Rva0035EE30PairSlot, 0x14 )
+
+// ---- from Code/GameEngine/Source/Common/BfmeLexEAN.cpp
+
 // ---- from Code/GameEngine/Source/Common/BfmeConv2008.cpp
 
 // The scanner's expansion call targets the independently matched five-entity
@@ -195,8 +214,6 @@ int BfmeLexEAN::bfmeFailEAN(int code)
 	self->m_bfmeLineEAN = 0;
 	return code;
 }
-
-// tu-skeleton: 0x005424C4 535B ?rva005424C4@XmlNameSlotList@@QAEHXZ -- matched in Code/GameEngine/Source/Common/Rva00542425Skip.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva005426DBDecode.cpp
 
@@ -340,11 +357,43 @@ Rva00542806 *Rva00542806::rva00542806(char *a1, int a2, int a3)
 	return this;
 }
 
-// tu-skeleton: 0x0054287A 17B ?set@Rva0035EE30PairSlot@@QAEXHH@Z -- matched in Code/GameEngine/Source/Common/SmallLeafBodies2_PairSlotSetters.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva0054288BThunk.cpp
 
 void Rva0054288B::rva0054288B()
 {
 	((Rva005427F1 *)this)->rva005427F1();
 }
+
+// tu-skeleton: 0x005424C4 535B ?rva005424C4@XmlNameSlotList@@QAEHXZ -- matched in Code/GameEngine/Source/Common/Rva00542425Skip.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/SmallLeafBodies2_PairSlotSetters.cpp
+
+// Three two-dword setters recovered from the Open-BFME-1 donor
+// game/GameEngine/Source/Common/SmallLeafBodies2.cpp (reference/open-bfme-1),
+// recompiled /Os. Each is byte-identical to retail once relocations are masked,
+// at a unique masked placement on unclaimed .text:
+//
+//   ?set@Rva002997C0PairSlot@@QAEXHH@Z  0x0040CB00  17 B  lead 0x58
+//   ?set@Rva0035EE30PairSlot@@QAEXHH@Z  0x0054287A  17 B  lead 0x14
+//   ?set@Rva004784D0PairSlot@@QAEXHH@Z  0x00313D28  23 B  lead 0x1AC
+//
+// Only these three instantiations are kept here; the donor's other sixty-eight
+// definitions are omitted.
+//
+// IDENTITY IS NOT RECOVERED for any of them: nothing in the image names the
+// type these are members of, so the names are address-derived and disclaim
+// identity.  What the bytes do settle is the shape, and it is the same shape for
+// all three:
+//
+//   mov eax,[esp+4] / mov edx,[esp+8] / mov [ecx+<D>],eax
+//   / mov [ecx+<D>+4],edx / ret 8
+//
+// `ret 8` is the stdcall cleanup of two dword arguments pushed by the caller,
+// and ecx is the `this` of a non-static member -- so this is a two-dword value
+// setter, and the two words are adjacent members.  <D> differs per type, which
+// is what the LEAD parameter carries.
+//
+// The 0x1AC instance is four bytes longer than its two siblings because that
+// displacement does not fit a signed byte: the two stores widen from disp8 to
+// disp32, which is the whole of the size difference and is not a code-shape
+// difference.
