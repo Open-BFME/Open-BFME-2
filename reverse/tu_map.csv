@@ -7461,7 +7461,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x000E6005,304,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorBuffer.cpp,approved,N,N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorBuffer.cpp W=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorBuffer.cpp provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorBuffer.cpp
 0x000E6135,81,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorBuffer.cpp,approved,C,C=0x000E6005..0x000E6186 provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorBuffer.cpp
 0x000E6186,458,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorBuffer.cpp,approved,N,N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorBuffer.cpp W=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorBuffer.cpp provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorBuffer.cpp
-0x000E6350,55,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVegetationBufferBase.cpp,approved,U,N=Code/GameEngine/Source/Common/VegetationFXShaderParameterSourceNamespace.cpp,Code/GameEngine/Source/Common/Rva000E6350Ctor.cpp
+0x000E6350,55,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVegetationBufferBase.cpp,approved,U,N=Code/GameEngine/Source/Common/VegetationFXShaderParameterSourceNamespace.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVegetationBufferBase.cpp
 0x000E6387,57,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVegetationBufferBase.cpp,approved,U,N=Code/GameEngine/Source/Common/VegetationFXShaderParameterSourceNamespace.cpp,Code/GameEngine/Source/Common/Rva000E6387VegetationBinderDtor.cpp
 0x000E63C0,28,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVegetationBufferBase.cpp,approved,U,N=Code/GameEngine/Source/Common/VegetationFXShaderParameterSourceNamespace.cpp,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB01.cpp
 0x000E63DC,42,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVegetationBufferBase.cpp,approved,C,C=0x000E63C0..0x000E6406,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVegetationBufferBase.cpp
@@ -64048,8 +64048,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00763454,10,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorBuffer.cpp,approved,P,P=0x000E6005@FuncInfo0x0090701C provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorBuffer.cpp
 0x0076345E,11,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorBuffer.cpp,approved,P,P=0x000E6186@FuncInfo0x00907040 provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorBuffer.cpp
 0x00763469,10,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorBuffer.cpp,approved,P,P=0x000E6186@FuncInfo0x00907040 provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorBuffer.cpp
-0x00763473,8,code,,,-,,Code/GameEngine/Source/Common/Rva000E6350Ctor.cpp
-0x0076347B,10,code,,,-,,Code/GameEngine/Source/Common/Rva000E6350Ctor.cpp
+0x00763473,8,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVegetationBufferBase.cpp
+0x0076347B,10,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVegetationBufferBase.cpp
 0x00763485,8,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVegetationBufferBase.cpp,approved,P,P=0x000E65B1@FuncInfo0x00907088,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVegetationBufferBase.cpp
 0x0076348D,10,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVegetationBufferBase.cpp,approved,P,P=0x000E65B1@FuncInfo0x00907088,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVegetationBufferBase.cpp
 0x00763497,8,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVegetationBufferBase.cpp,approved,P,P=0x000E663B@FuncInfo0x009070AC,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVegetationBufferBase.cpp
