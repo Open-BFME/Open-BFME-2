@@ -488,28 +488,6 @@ struct FloorShroudView
 
 struct FloorPlayerListView { char pad[0x10]; FloorPlayerView *local; };
 
-class W3DFloorBuffer
-{
-public:
-	void rva000E473F();
-	void allocateFloorBuffers();
-	void rva000E598B();
-	void DoXfer(Xfer *xfer);
-	Gen_uw_000e5033 *addFloor(int id, AsciiString *name, AsciiString *second, bool front, bool flag);
-	void drawFloors(RenderInfoClass &rinfo, RefCountPtr<FXShader::RenderingMethod> method);
-
-private:
-	char m_pad00[4];
-	BfmeDynamicNativeVB *m_vb;
-	DX8IndexBufferClass *m_ib;
-	int m_0C;
-	int m_10;
-	CursorTextureSlot m_slot;
-	_STL::list<Gen_uw_000e5033 *> m_floors;
-	int m_numFloors;
-	bool m_ready20, m_flag21, m_ready22;
-};
-
 //
 // ?rva000E488F@Rva000E488F@@QAE_NPAX@Z, retail 0x000E488F, 45 bytes.
 // Array-all predicate: iterates pointers from [this] to [this+4], calling
@@ -947,6 +925,92 @@ private:
 	char m_pad[0x18];
 	Rva000E5EE5Node *m_head;
 };
+
+// Declaration-only: retail keeps one copy of this STLport member (rowed elsewhere); this unit calls it
+// rather than emitting its own.
+namespace _STL {
+template <> void _List_base<int, allocator<int> >::clear();
+}
+
+// Declaration-only: retail keeps one copy of this STLport member (rowed elsewhere); this unit calls it
+// rather than emitting its own.
+namespace _STL {
+template <> _List_base<int, allocator<int> >::~_List_base();
+}
+
+// list<int> destruction otherwise instantiates per-TU deallocate
+// COMDATs (one byte shape per TU flags); explicit dllimport+forceinline
+// specializations take those calls inline so this TU emits no external copy.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+void allocator<_List_node<int> >::deallocate(_List_node<int>* __p, size_t __n) const {
+  _STLP_ASSERT( (__p == 0) == (__n == 0) )
+    if (__p != 0) __sgi_alloc::deallocate((void*)__p, __n * sizeof(value_type));
+}
+template <> __declspec(dllimport) __forceinline
+void _STLP_alloc_proxy<_List_node<int> *, _List_node<int>, allocator<_List_node<int> > >::deallocate(_List_node<int> *__p, size_t __n) {
+  allocator<_List_node<int> >().deallocate(__p, __n);
+}
+}
+
+class W3DFloorBuffer
+{
+public:
+	void rva000E473F();
+	void allocateFloorBuffers();
+	void rva000E598B();
+	void DoXfer(Xfer *xfer);
+	Gen_uw_000e5033 *addFloor(int id, AsciiString *name, AsciiString *second, bool front, bool flag);
+	void drawFloors(RenderInfoClass &rinfo, RefCountPtr<FXShader::RenderingMethod> method);
+
+private:
+	char m_pad00[4];
+	BfmeDynamicNativeVB *m_vb;
+	DX8IndexBufferClass *m_ib;
+	int m_0C;
+	int m_10;
+	CursorTextureSlot m_slot;
+	_STL::list<Gen_uw_000e5033 *> m_floors;
+	int m_numFloors;
+	bool m_ready20, m_flag21, m_ready22;
+};
+
+class __declspec(novtable) Rva000E59D3Base
+{
+public:
+    Rva000E59D3Base() {}
+    virtual ~Rva000E59D3Base();
+};
+
+// Same one-word owning texture handle as the paired native destructor.
+class Rva000E59D3Holder14
+{
+public:
+    Rva000E59D3Holder14(int v) : m_ptr((void *)v) {}
+    ~Rva000E59D3Holder14() { if (m_ptr) ((TextureClass *)m_ptr)->Release_Ref(); }
+private:
+    void *m_ptr;
+};
+
+class Rva000E59D3 : public Rva000E59D3Base
+{
+public:
+    Rva000E59D3();
+    virtual ~Rva000E59D3();
+private:
+    int m04;
+    int m08;
+    int m0c;
+    int m10;
+    Rva000E59D3Holder14 m14;
+    _STL::list<int> m18;
+    int m1c;
+    unsigned char m20;
+    char m_pad21;
+    unsigned char m22;
+};
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorBuffer.cpp
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorBuffer.cpp
 
@@ -1457,17 +1521,11 @@ void Rva000E6135::rva000E6135(const Rva0055A88BDwordField *idSrc, const StringBa
 // reference behind a C3 predecessor; verify_string_refs re-reads the string.
 // No // cl: line (defaults match the frameless 6-byte shape).
 
-// tu-skeleton: 0x000E4886 9B ?rva000E4886@Rva000E4886@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VtableSlotBodiesR3.cpp (not merged yet)
 
-// tu-skeleton: 0x000E48BC 252B ?rva000E48BC@Rva000E48BC@@QAE_NPAVRva000E488F@@@Z -- matched in Code/GameEngine/Source/Common/Rva000E48BC.cpp (not merged yet)
 
-// tu-skeleton: 0x000E49B8 541B ?rva000E49B8@Rva000E48BC@@QAEHH@Z -- matched in Code/GameEngine/Source/Common/Rva000E48BC.cpp (not merged yet)
 
-// tu-skeleton: 0x000E4F20 275B ??0Gen_uw_000e5033@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorElementDestructor.cpp (not merged yet)
 
-// tu-skeleton: 0x000E5033 104B ??1Gen_uw_000e5033@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorElementDestructor.cpp (not merged yet)
 
-// tu-skeleton: 0x000E509B 875B ?load@Gen_uw_000e5033@@QAE_NXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorElementDestructor.cpp (not merged yet)
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva006F8700.cpp
 
@@ -1521,16 +1579,6 @@ int Rva006F8700Owner::rva006F83F0(FloorVertex *floorVertex,int b,const Matrix3D 
  return count;
 }
 
-// tu-skeleton: 0x000E583E 28B ??_GRva000E5033@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB01.cpp (not merged yet)
-
-// tu-skeleton: 0x000E585A 5B ?rva000E585A@Rva000E585A@@QAEXPAVRva000E488F@@@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB01.cpp (not merged yet)
-
-// tu-skeleton: 0x000E59D3 82B ??1Rva000E59D3@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva000E59D3Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x000E5A2B 28B ??_GRva000E59D3@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva000E59D3Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x000E5A47 102B ??0Rva000E59D3@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva000E59D3Ctor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva000E5EC1.cpp
 
 // ?rva000E5EC1@Rva000E5EC1@@QBE_NHABV?$StringBase@D@@@Z @0x000E5EC1 36B
@@ -1579,6 +1627,58 @@ void Rva000E5EE5::rva000E5EE5(const Rva0055A88BDwordField *idSrc, StringBase<cha
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 
+// tu-skeleton: 0x000E4886 9B ?rva000E4886@Rva000E4886@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VtableSlotBodiesR3.cpp (not merged yet)
+
+// tu-skeleton: 0x000E48BC 252B ?rva000E48BC@Rva000E48BC@@QAE_NPAVRva000E488F@@@Z -- matched in Code/GameEngine/Source/Common/Rva000E48BC.cpp (not merged yet)
+
+// tu-skeleton: 0x000E49B8 541B ?rva000E49B8@Rva000E48BC@@QAEHH@Z -- matched in Code/GameEngine/Source/Common/Rva000E48BC.cpp (not merged yet)
+
+// tu-skeleton: 0x000E4F20 275B ??0Gen_uw_000e5033@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorElementDestructor.cpp (not merged yet)
+
+// tu-skeleton: 0x000E5033 104B ??1Gen_uw_000e5033@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorElementDestructor.cpp (not merged yet)
+
+// tu-skeleton: 0x000E509B 875B ?load@Gen_uw_000e5033@@QAE_NXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorElementDestructor.cpp (not merged yet)
+
+// tu-skeleton: 0x000E583E 28B ??_GRva000E5033@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB01.cpp (not merged yet)
+
+// tu-skeleton: 0x000E585A 5B ?rva000E585A@Rva000E585A@@QAEXPAVRva000E488F@@@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB01.cpp (not merged yet)
+
+// tu-skeleton: 0x000E59D3 82B ??1Rva000E59D3@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva000E59D3Dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x000E5A2B 28B ??_GRva000E59D3@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva000E59D3Dtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva000E59D3Ctor.cpp
+
+// ??0Rva000E59D3@@QAE@XZ @0x000E5A47 102B
+// Ctor of Rva000E59D3 (pairs with the rowed dtor 0x000E59D3 in
+// Rva000E59D3Dtor.cpp). Stores vtable 0x007CE9E0, clears the texture handle at
+// +0x14, default-constructs the list<int> at +0x18 (rowed _List_base ctor
+// 0x004EC36C), clears +0x20/+0x04/+0x08/+0x0C/+0x10/+0x1C, runs the rowed
+// W3DFloorBuffer::allocateFloorBuffers 0x000E479C on this, sets +0x20/+0x22.
+// The member is the full list<int>, not a bare _List_base: list's inline ctor
+// evaluates the allocator temporary and this before the push (lea eax / lea
+// ecx / push eax), which a direct _List_base member reorders to lea/push/lea.
+// Unwind funclets: base dtor this+0 (the base owns the vptr, as the dtor TU
+// models it), handle this+0x14, list this+0x18.
+// Evidence: vtable store, rowed callees, caller 0x0006CC5D. Names address-derived.
+
+Rva000E59D3::Rva000E59D3() : Rva000E59D3Base(), m14(0)
+{
+    m20 = 0;
+    m04 = 0;
+    m08 = 0;
+    m0c = 0;
+    m10 = 0;
+    m1c = 0;
+    ((W3DFloorBuffer *)this)->allocateFloorBuffers();
+    m20 = 1;
+    m22 = 1;
+}
+
+// Native763401: complete11B list<int> member+18 constructor unwind.
+// Whole102B parent and native EH graph bind this action; the same object
+// emits the whole5B list destructor200667 forwarding to native list-base4EC395.
+
 // tu-skeleton: 0x0076330E 11B $L5271 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorElementDestructor.cpp (not merged yet)
 
 // tu-skeleton: 0x00763319 11B $L5272 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorElementDestructor.cpp (not merged yet)
@@ -1616,11 +1716,3 @@ void Rva000E5EE5::rva000E5EE5(const Rva0055A88BDwordField *idSrc, StringBase<cha
 // tu-skeleton: 0x007633D9 11B uw_007633d9 -- matched in Code/GameEngine/Source/Common/Rva000E59D3Dtor.cpp (not merged yet)
 
 // tu-skeleton: 0x007633E4 10B __ehhandler$??1Rva000E59D3@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva000E59D3Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x007633EE 8B $L3802 -- matched in Code/GameEngine/Source/Common/Rva000E59D3Ctor.cpp (not merged yet)
-
-// tu-skeleton: 0x007633F6 11B $L3803 -- matched in Code/GameEngine/Source/Common/Rva000E59D3Ctor.cpp (not merged yet)
-
-// tu-skeleton: 0x00763401 11B $L3791 -- matched in Code/GameEngine/Source/Common/Rva000E59D3Ctor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076340C 10B __ehhandler$??0Rva000E59D3@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva000E59D3Ctor.cpp (not merged yet)
