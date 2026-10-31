@@ -14,11 +14,14 @@
     "native_secondary_proof": 0,
     "native_primary_proof": 0,
     "preview_17_links": 0,
-    "hatch_update": 0
+    "hatch_update": 0,
+    "outgoing_batch_audit": 2,
+    "header_dependents": 0
   },
   "unique_matched_byte_gain": 0,
   "measured_census_linked_byte_gain": 0,
   "constructor_preview_byte_gain": 209,
   "unrelated_preview_growth": 32,
-  "remaining": "Opaque destructor secondary view retains one slot; two further slots, TU recovery and full census/consumer closure remain open."
+  "remaining": "Opaque destructor secondary view retains one slot; two further slots, TU recovery and full census/consumer closure remain open.",
+  "outgoing_audit_base": "22d24b8a3831c4f2eb0dff6bd622418267a54464"
 }

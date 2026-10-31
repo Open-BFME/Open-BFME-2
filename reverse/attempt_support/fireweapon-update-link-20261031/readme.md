@@ -59,3 +59,16 @@ evidence, not measured census credit. No unique matched byte gain is claimed.
 The next required checks are normal commit/push hooks and the outgoing-batch
 consumer audit, followed by scheduled census confirmation. The destructor's
 remaining secondary slots and approved-TU consolidation stay open.
+
+
+## Outgoing batch audit after rebase
+
+At outgoing base `22d24b8a3831`, neither the seventeen direct sources nor the
+core build inputs changed since the verified repair base. The complete audit
+of the three changed sources exits 2: its baseline is the older 7300bffea9
+index and AIBuildable.cpp lacks a current local receipt. This remains an
+**INCONCLUSIVE** wider consumer verdict, despite the full direct native and
+link-preview proofs. No broader loss-free closure or census gain is asserted.
+Carry this provider scope and that consumer into the next scheduled census.
+Header-dependency classification exits 0. AGENTS.md was reread after its update;
+the account's normal publisher and hooks remain the publication path.
