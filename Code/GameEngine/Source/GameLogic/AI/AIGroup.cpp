@@ -536,7 +536,7 @@ public:
 	const SpecialPowerTemplate *findSpecialPowerTemplateByID(UnsignedInt id);	// ILT 0x000034B8
 };
 
-template<int N>
+template<unsigned int N>
 class BitFlags
 {
 public:
@@ -668,7 +668,7 @@ public:
 	virtual Rva0036D6B4Ret *slot7C();
 };
 
-template<int N> class BitFlags;
+template<unsigned int N> class BitFlags;
 
 class AIUpdateInterface;
 

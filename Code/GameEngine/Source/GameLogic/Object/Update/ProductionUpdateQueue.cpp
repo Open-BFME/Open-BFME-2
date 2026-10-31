@@ -205,7 +205,7 @@ public:
 extern AudioManager *TheAudio;
 
 // ModelConditionFlags-sized bit set (0x4C bytes) with the rowed member xfer.
-template<int NUMBITS> class BitFlags
+template<unsigned int NUMBITS> class BitFlags
 {
 public:
 	void xfer(Xfer *xfer);

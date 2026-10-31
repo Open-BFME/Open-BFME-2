@@ -303,7 +303,7 @@ struct Rva00045411BitSet {Rva00045411BitSet(int,int) throw();unsigned bits[7];};
 class Rva0004584D:public Rva000421C8 {public:Rva0004584D(const BfmeFixedStorage0004543D&,const BfmeFixedStorage0004543D&) throw();virtual bool allow(Object*);BfmeFixedStorage0004543D a,b;};
 // Existing provider ThingIsAnyKindOf.cpp owns this seven-word zero mask.
 // The template argument retains its established target ABI spelling.
-template<int N>class BitFlags {public:unsigned m_bits[7];};
+template<unsigned int N>class BitFlags {public:unsigned m_bits[7];};
 extern BitFlags<116> KINDOFMASK_NONE;
 extern PartitionManager *ThePartitionManager;
 class GlobalData {public:char pad00[0xB54];float m_selectionFlashSaturation;};extern GlobalData *TheWritableGlobalData;

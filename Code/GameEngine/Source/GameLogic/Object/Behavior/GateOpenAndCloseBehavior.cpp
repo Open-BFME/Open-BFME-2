@@ -574,7 +574,7 @@ struct Rva0006EE7A
 	Rva0006EE7A(int unused, int b1, int b2, int b3, int b4) throw();
 };
 
-template <int N> class BitFlags;
+template <unsigned int N> class BitFlags;
 
 extern BitFlags<116> KINDOFMASK_NONE;
 

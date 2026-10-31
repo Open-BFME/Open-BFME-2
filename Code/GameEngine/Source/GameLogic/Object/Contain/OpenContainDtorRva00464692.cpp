@@ -72,7 +72,7 @@ public:
 };
 
 enum UpdateSleepTime { UPDATE_SLEEP_NONE = 0 };
-template <int NUMBITS> class BitFlags;
+template <unsigned int NUMBITS> class BitFlags;
 // Slot shapes from OpenContain.cpp, whose ??_7OpenContain@@6BUpdateModule@@@ this unit must reproduce.
 class UpdateModuleInterface
 {

@@ -16,7 +16,7 @@ class Rva002618A2 {public:Rva002618A2*rva002618A2(int,int,int,int);unsigned word
 class BfmeFixedStorage0004543D {public:unsigned char data[28];};
 class Rva000421C8 {public:Rva000421C8():m_next(0){}virtual~Rva000421C8(){}virtual bool allow(Object*)=0;virtual int getPlayerMask(){return -1;}Rva000421C8*m_next;};
 class Rva0004584D:public Rva000421C8 {public:Rva0004584D(const BfmeFixedStorage0004543D&,const BfmeFixedStorage0004543D&);virtual~Rva0004584D(){}virtual bool allow(Object*);BfmeFixedStorage0004543D m_08,m_24;};
-template <int N> class BitFlags;
+template <unsigned int N> class BitFlags;
 extern BitFlags<116> KINDOFMASK_NONE;
 #include "PartitionRangeQueryCallView.h"
 extern PartitionManager*ThePartitionManager;

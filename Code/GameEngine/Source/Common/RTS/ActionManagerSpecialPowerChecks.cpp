@@ -519,7 +519,7 @@ struct Rva00045411BitSet {
  Rva00045411BitSet(int, int);
  unsigned words[7];
 };
-template<int N> class BitFlags { public: unsigned m_bits[7]; };
+template<unsigned int N> class BitFlags { public: unsigned m_bits[7]; };
 // Native second mask at DFEFA4 is seven clear words. Use the existing
 // default-mask definition; this caller supplies its first verified DIR32 site.
 extern BitFlags<116> KINDOFMASK_NONE;

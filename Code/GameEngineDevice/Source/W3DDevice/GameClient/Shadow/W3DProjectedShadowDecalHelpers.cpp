@@ -694,7 +694,7 @@ public:
  virtual bool allow(Object*);
  BfmeFixedStorage0004543D m08,m24;
 };
-template <int N> class BitFlags;
+template <unsigned int N> class BitFlags;
 extern BitFlags<116> KINDOFMASK_NONE;
 extern PartitionManager* ThePartitionManager;
 
