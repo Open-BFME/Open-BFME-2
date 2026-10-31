@@ -1,0 +1,3 @@
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Code/GameEngine/Source/GameLogic/AI/AITNGuardInnerStateCtor.cpp: LINKS  LINKED 40 -> 40 bytes (census 2026-10-31 18:37 at 7300bffea9; file's own bytes 40)
+link_check: 1 of 1 link cleanly; LINKED 40 -> 40 bytes (5.2s)

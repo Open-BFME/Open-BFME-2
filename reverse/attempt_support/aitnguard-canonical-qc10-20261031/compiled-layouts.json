@@ -1,0 +1,242 @@
+{
+  "State": {
+    "fwd": false,
+    "key": "class",
+    "size": 32,
+    "bases": [
+      [
+        "Snapshot",
+        0
+      ]
+    ],
+    "fields": [
+      [
+        4,
+        "m_id",
+        "int",
+        4
+      ],
+      [
+        8,
+        "m_successStateID",
+        "int",
+        4
+      ],
+      [
+        12,
+        "m_failureStateID",
+        "int",
+        4
+      ],
+      [
+        16,
+        "m_transitionsFirst",
+        "void*",
+        4
+      ],
+      [
+        20,
+        "m_transitionsLast",
+        "void*",
+        4
+      ],
+      [
+        24,
+        "m_machine",
+        "StateMachine*",
+        4
+      ],
+      [
+        28,
+        "m_tail1C",
+        "bool",
+        1
+      ]
+    ],
+    "statics": [],
+    "methods": [
+      "GetSnapshotName",
+      "State",
+      "__vecDelDtor",
+      "_bfme_state_slot10",
+      "_bfme_state_slot11",
+      "_bfme_state_slot12",
+      "_bfme_state_slot13",
+      "_bfme_state_slot14",
+      "_bfme_state_slot15",
+      "_bfme_state_slot16",
+      "_bfme_state_slot7",
+      "_bfme_state_slot8",
+      "_bfme_state_slot9",
+      "loadPostProcess",
+      "onEnter",
+      "onExit",
+      "update",
+      "xfer",
+      "~State"
+    ],
+    "virtual": [
+      "GetSnapshotName",
+      "__vecDelDtor",
+      "_bfme_state_slot10",
+      "_bfme_state_slot11",
+      "_bfme_state_slot12",
+      "_bfme_state_slot13",
+      "_bfme_state_slot14",
+      "_bfme_state_slot15",
+      "_bfme_state_slot16",
+      "_bfme_state_slot7",
+      "_bfme_state_slot8",
+      "_bfme_state_slot9",
+      "loadPostProcess",
+      "onEnter",
+      "onExit",
+      "update",
+      "xfer",
+      "~State"
+    ],
+    "vslots": {
+      "0": "__vecDelDtor(uint)",
+      "4": "onEnter()",
+      "5": "onExit(enum)",
+      "6": "update()",
+      "7": "_bfme_state_slot7()",
+      "8": "_bfme_state_slot8()",
+      "9": "_bfme_state_slot9()",
+      "10": "_bfme_state_slot10()",
+      "11": "_bfme_state_slot11()",
+      "12": "_bfme_state_slot12()",
+      "13": "_bfme_state_slot13()",
+      "14": "_bfme_state_slot14()",
+      "15": "_bfme_state_slot15()",
+      "16": "_bfme_state_slot16()"
+    },
+    "vfptr": false
+  },
+  "AITNGuardInnerState": {
+    "fwd": false,
+    "key": "class",
+    "size": 48,
+    "bases": [
+      [
+        "State",
+        0
+      ]
+    ],
+    "fields": [
+      [
+        32,
+        "m_exitConditions",
+        "TunnelNetworkExitConditions",
+        8
+      ],
+      [
+        40,
+        "m_scanForEnemy",
+        "bool",
+        1
+      ],
+      [
+        44,
+        "m_attackState",
+        "void*",
+        4
+      ]
+    ],
+    "statics": [],
+    "methods": [
+      "AITNGuardInnerState",
+      "GetSnapshotName",
+      "__vecDelDtor",
+      "loadPostProcess",
+      "onEnter",
+      "onExit",
+      "update",
+      "xfer",
+      "~AITNGuardInnerState"
+    ],
+    "virtual": [
+      "GetSnapshotName",
+      "__vecDelDtor",
+      "loadPostProcess",
+      "onEnter",
+      "onExit",
+      "update",
+      "xfer",
+      "~AITNGuardInnerState"
+    ],
+    "vslots": {
+      "0": "__vecDelDtor(uint)"
+    },
+    "vfptr": false
+  },
+  "AITNGuardReturnState": {
+    "fwd": false,
+    "key": "class",
+    "size": 88,
+    "bases": [
+      [
+        "Rva00341930",
+        0
+      ]
+    ],
+    "fields": [
+      [
+        32,
+        "m_unrecovered20",
+        "char[52]",
+        52
+      ],
+      [
+        84,
+        "m_nextReturnScanTime",
+        "uint",
+        4
+      ]
+    ],
+    "statics": [],
+    "methods": [
+      "AITNGuardReturnState",
+      "__vecDelDtor",
+      "xfer",
+      "~AITNGuardReturnState"
+    ],
+    "virtual": [
+      "__vecDelDtor",
+      "xfer",
+      "~AITNGuardReturnState"
+    ],
+    "vslots": {
+      "0": "__vecDelDtor(uint)"
+    },
+    "vfptr": false
+  },
+  "Rva00341930": {
+    "fwd": false,
+    "key": "class",
+    "size": 32,
+    "bases": [
+      [
+        "State",
+        0
+      ]
+    ],
+    "fields": [],
+    "statics": [],
+    "methods": [
+      "Rva00341930",
+      "__vecDelDtor",
+      "xfer",
+      "~Rva00341930"
+    ],
+    "virtual": [
+      "__vecDelDtor",
+      "xfer",
+      "~Rva00341930"
+    ],
+    "vslots": {
+      "0": "__vecDelDtor(uint)"
+    },
+    "vfptr": false
+  }
+}

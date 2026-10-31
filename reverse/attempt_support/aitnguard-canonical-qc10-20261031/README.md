@@ -1,0 +1,13 @@
+# AITNGuardInnerState / State consumed header reconciliation
+
+Queue5889. Target workshop vanilla1.06 game.dat SHA256 f008b587570bad693981dc7218588c81d192a1e064b0f7f861539c51156a7640, base400000. Native State ctor4D73FC43B stores IDs4/8/C, pointer pair10/14, machine18 and byte1C; complete base extent20hex, not the ctor donor's truncated1C. State tableC605D8 has17code entries then zero alignment; InnerStateC6A140 has17then its own class-name string. Native545D50 constructs State then establishes primary table, exit-condition record20/frame24. Within the independently rowed machine ctor546001, allocation5460BA pushes0x30 and call5460D0 invokes545D50, proving the complete inner extent. Existing state callbacks own4/5/6 and xfer3. Fresh compiler State32/Inner48 plus callback slots match native facts.
+
+Canonical Common/StateMachine.h exposes State only and forward-declares StateMachine. Snapshot is the registered real base with its name-slot surface. Unknown State slots7..16 are private uncallable declarations, not new recovered signatures/providers. The inner-state exit record retains its existing raw eight-byte table-pointer/frame projection; no lifetime or original-type recovery is claimed for that member. Its original native tableRva00545D43 remains untouched.
+
+The transfer donor now includes both shared headers, removes its private State and inner-state views, and names the canonical flag28. Its other return-state projection reduces its tail padding by the now-explicit base extent so the independently matched field54 stays54. All three transfer rows stay exact and State/Inner adoption byte/link guards pass. Other local StateMachine projections are unchanged and are not registered as a recovered class.
+
+The constructor trial also stayed1/1 byte exact and removed its existing update alias, but accept refused LINKED40->0: exact unresolved default-slot/getter/postload provider list attached. The entire ctor trial was reverted, including the existing alias. Rebuilding and link preview of the restored donor confirm40->40 again. Do not replace this genuine closure obstacle with aliases or guessed bodies. Only the transfer donor is adopted; private State and inner-state views remain queued. No census gain is claimed.
+
+Manual class:State scope was claimed by qc-10 for this prerequisite. It is not queue-owned and must be released after this bundle lands (or when the adoption is abandoned). The separate WindowLayout.h manual claim belongs to earlier item5265, not this change.
+
+Normal scoped header hook passed59consumers/399matched rows and16data rows; final changed-unit gate3/3, references/pins/debt pass. Constructor source remains fully restored.

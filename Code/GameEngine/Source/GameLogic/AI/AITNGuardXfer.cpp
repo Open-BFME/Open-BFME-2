@@ -69,15 +69,10 @@ public:
 	float z;
 };
 
+#include "../../../Include/Common/StateMachine.h"
+#include "../../../Include/GameLogic/AITNGuard.h"
+
 // The state base: only its virtual table matters to these bodies.
-class State
-{
-protected:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void xfer( Xfer *xfer );
-};
 
 enum ObjectID
 {
@@ -103,14 +98,6 @@ protected:
 };
 
 // ------------------------------------------------------------------------------------------------
-class AITNGuardInnerState : public State
-{
-protected:
-	virtual void xfer( Xfer *xfer );
-private:
-	char m_unrecovered04[ 0x28 - 0x04 ];
-	Bool m_bfmeFlag28;																												///< 0x28
-};
 
 // ------------------------------------------------------------------------------------------------
 class AITNGuardReturnState : public Rva00341930
@@ -118,7 +105,7 @@ class AITNGuardReturnState : public Rva00341930
 protected:
 	virtual void xfer( Xfer *xfer );
 private:
-	char m_unrecovered04[ 0x54 - 0x04 ];
+	char m_unrecovered20[ 0x54 - sizeof(State) ];
 	UnsignedInt m_nextReturnScanTime;																					///< 0x54
 };
 
@@ -140,7 +127,7 @@ private:
 void AITNGuardInnerState::xfer( Xfer *xfer )
 {
 	xfer->Version1();
-	*xfer == m_bfmeFlag28;
+	*xfer == m_scanForEnemy;
 }  // end xfer
 
 // ------------------------------------------------------------------------------------------------

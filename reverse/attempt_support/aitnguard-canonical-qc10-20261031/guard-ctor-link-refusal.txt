@@ -1,0 +1,15 @@
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Code/GameEngine/Source/GameLogic/AI/AITNGuardInnerStateCtor.cpp: does not link  LINKED 40 -> 0 bytes (census 2026-10-31 18:37 at 7300bffea9; file's own bytes 40)
+  unresolved  ?GetSnapshotName@AITNGuardInnerState@@MBEPBDXZ
+  unresolved  ?_bfme_state_slot10@State@@EAEXXZ
+  unresolved  ?_bfme_state_slot11@State@@EAEXXZ
+  unresolved  ?_bfme_state_slot12@State@@EAEXXZ
+  unresolved  ?_bfme_state_slot13@State@@EAEXXZ
+  unresolved  ?_bfme_state_slot14@State@@EAEXXZ
+  unresolved  ?_bfme_state_slot15@State@@EAEXXZ
+  unresolved  ?_bfme_state_slot16@State@@EAEXXZ
+  unresolved  ?_bfme_state_slot7@State@@EAEXXZ
+  unresolved  ?_bfme_state_slot8@State@@EAEXXZ
+  unresolved  ?_bfme_state_slot9@State@@EAEXXZ
+  unresolved  ?loadPostProcess@AITNGuardInnerState@@MAEXXZ
+link_check: 0 of 1 link cleanly; LINKED 40 -> 0 bytes (5.1s)
