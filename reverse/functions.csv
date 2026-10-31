@@ -75194,7 +75194,7 @@ $L3100,,0x00797053,25,Code/GameEngine/Source/Common/Rva0052B685Transfer.cpp,matc
 ?rva002F14F9@Pathfinder@@QAEPAVObject@@PAV2@0@Z,,0x002F14F9,987,Code/GameEngine/Source/GameLogic/Pathfinder/rva002F14F9Rva002F14F9Farm.cpp,matched,
 ?rva000311E0@GeneralAllocator@Allocator@EA@@QAEIPBXIPADPAGI@Z,,0x000311E0,497,Code/GameEngine/Source/Common/rva000311E0Rva000311E0Farm.cpp,matched,
 ?rva0048DC51@FloodUpdate@@QAEXPBUFloodMember@@PAVRva0048E16C@@@Z,,0x0048DC51,809,Code/GameEngine/Source/Common/INI/FloodUpdate.cpp,matched,
-?rva005AD9E6@Rva005AD9E6@@QAEHXZ,,0x005AD9E6,25,Code/GameEngine/Source/GameLogic/SkirmishAI/AIBaseBuilder/rva005AD9E6Rva005AD9E6Farm.cpp,matched,
+?rva005AD9E6@Rva005AD9E6@@QAEHXZ,,0x005AD9E6,25,Code/GameEngine/Source/GameLogic/SkirmishAI/AIBaseBuilder/AIBase.cpp,matched,
 uw_0079e9a9,,0x0079E9A9,10,Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/TargetlessTactics/AIStructureCreepTactic.cpp,matched,gen-funclet;parent=?rva005AC294@AIStructureCreepTactic@@QAE_NXZ;object-symbol=$L9242
 uw_0077181c,,0x0077181C,24,Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp,matched,gen-funclet;parent=??0GameLogic@@QAE@XZ;object-symbol=$L28684
 uw_0077187a,,0x0077187A,24,Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp,matched,gen-funclet;parent=??0GameLogic@@QAE@XZ;object-symbol=$L28690
@@ -96197,7 +96197,7 @@ uw_00790e8b,,0x00790E8B,14,Code/GameEngine/Source/Common/ConnectionManagerInit2.
 ??1BfmeRecordRange004B205@@QAE@XZ,,0x0004B205,30,Code/GameEngine/Source/Common/StringContainerRecordVector.cpp,matched,; migrated=stlport-4.6
 ??$_Destroy@UBfmeContainerRecord00048139@@@_STL@@YAXPAUBfmeContainerRecord00048139@@@Z,,0x00049DBC,9,Code/GameEngine/Source/Common/StringContainerRecordVector.cpp,matched,STLport _Destroy instance emitted by this TU (cdecl: mov ecx [esp+4]; jmp to the rowed destructor); ledger row only; migrated=stlport-4.6
 ??_GBfmeContainerRecord00048139@@QAEPAXI@Z,,0x0004818E,28,Code/GameEngine/Source/Common/StringContainerRecordVector.cpp,matched,scalar deleting dtor of BfmeContainerRecord00048139 emitted beside its rowed destructor; calls it then operator delete 0x0002FD60; migrated=stlport-4.6
-?rva005AD99C@Rva005AD99C@@QAEXABVAsciiString@@PAV?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@@Z,,0x005AD99C,36,Code/GameEngine/Source/Common/Rva005AD99C.cpp,matched,chain from 0x005DCE72 via rowed inner call; migrated=stlport-4.6
+?rva005AD99C@Rva005AD99C@@QAEXABVAsciiString@@PAV?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@@Z,,0x005AD99C,36,Code/GameEngine/Source/GameLogic/SkirmishAI/AIBaseBuilder/AIBase.cpp,matched,chain from 0x005DCE72 via rowed inner call; migrated=stlport-4.6
 ?Rva001DD8C9Alloc@@YGPAXABU?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@Z,,0x001DD8C9,37,Code/GameEngine/Source/Common/Rva001DD8C9Alloc.cpp,matched,unlock hash node alloc via rowed allocate plus Construct same 37B shape; migrated=stlport-4.6
 ?shutdown@Rva007D85C0@@QAEHXZ,,0x000FB964,105,Code/GameEngine/Source/Common/Rva007D85C0FilterShutdown.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls; migrated=stlport-4.6
 ?erase@?$vector@UGen_p12pod@@V?$allocator@UGen_p12pod@@@_STL@@@_STL@@QAEPAUGen_p12pod@@PAU3@0@Z,,0x002A133B,38,Code/GameEngine/Source/Common/Rva007D85C0FilterShutdown.cpp,matched,unclaimed_scan exact modulo relocations at its pinned call-site address;abuts claimed neighbours; migrated=stlport-4.6
