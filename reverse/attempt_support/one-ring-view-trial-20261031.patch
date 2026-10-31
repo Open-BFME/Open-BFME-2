@@ -1,0 +1,100 @@
+diff --git a/Code/GameEngine/Source/Common/Rva00499C6CWake.cpp b/Code/GameEngine/Source/Common/Rva00499C6CWake.cpp
+index 324e1a018..3bba8847c 100644
+--- a/Code/GameEngine/Source/Common/Rva00499C6CWake.cpp
++++ b/Code/GameEngine/Source/Common/Rva00499C6CWake.cpp
+@@ -21,8 +21,8 @@ class Rva00373EC6
+ {
+ public:
+ 	void rva00374815();
+-	char m_pad[0x31];
+-	unsigned char m_31;
++	char m_pad00[0x31];
++	bool m_31; // +0x31 +0x31
+ };
+ 
+ class Object
+@@ -70,6 +70,8 @@ class BfmeC987
+ {
+ public:
+ 	void bfmeGo987C();
++	char m_bfmePad[0x24]; // +0x00
++	int m_bfmeId; // +0x24
+ };
+ 
+ struct Rva00499C6CHolder
+diff --git a/Code/GameEngine/Source/GameLogic/Object/Update/OneRingPenaltyUpdate.cpp b/Code/GameEngine/Source/GameLogic/Object/Update/OneRingPenaltyUpdate.cpp
+index b9f87e37f..3adc00552 100644
+--- a/Code/GameEngine/Source/GameLogic/Object/Update/OneRingPenaltyUpdate.cpp
++++ b/Code/GameEngine/Source/GameLogic/Object/Update/OneRingPenaltyUpdate.cpp
+@@ -147,9 +147,8 @@ class BfmeC987
+ {
+ public:
+ 	void bfmeGo987C();
+-
+-	char m_bfmePad[0x24];
+-	int m_bfmeId;
++	char m_bfmePad[0x24]; // +0x00
++	int m_bfmeId; // +0x24
+ };
+ 
+ class BfmeD987
+diff --git a/Code/GameEngine/Source/GameLogic/Object/Update/OneRingPenaltyUpdateRva00499C6C.cpp b/Code/GameEngine/Source/GameLogic/Object/Update/OneRingPenaltyUpdateRva00499C6C.cpp
+index c995b0f5f..7984ba2b4 100644
+--- a/Code/GameEngine/Source/GameLogic/Object/Update/OneRingPenaltyUpdateRva00499C6C.cpp
++++ b/Code/GameEngine/Source/GameLogic/Object/Update/OneRingPenaltyUpdateRva00499C6C.cpp
+@@ -19,8 +19,8 @@ class Rva00373EC6
+ {
+ public:
+ 	void rva00374815();
+-	unsigned char m_pad00[0x31];
+-	bool m_31; // +0x31
++	char m_pad00[0x31];
++	bool m_31; // +0x31 +0x31
+ };
+ 
+ class Object
+@@ -74,6 +74,8 @@ class BfmeC987
+ {
+ public:
+ 	void bfmeGo987C();
++	char m_bfmePad[0x24]; // +0x00
++	int m_bfmeId; // +0x24
+ };
+ 
+ struct OneRingPenaltyUpdateModuleData
+diff --git a/Code/GameEngine/Source/GameLogic/Object/Update/OneRingPenaltyUpdateSlot0.cpp b/Code/GameEngine/Source/GameLogic/Object/Update/OneRingPenaltyUpdateSlot0.cpp
+index c90d0f8d0..d2216e1a3 100644
+--- a/Code/GameEngine/Source/GameLogic/Object/Update/OneRingPenaltyUpdateSlot0.cpp
++++ b/Code/GameEngine/Source/GameLogic/Object/Update/OneRingPenaltyUpdateSlot0.cpp
+@@ -9,6 +9,8 @@ class BfmeC987
+ {
+ public:
+ 	void bfmeGo987C();
++	char m_bfmePad[0x24]; // +0x00
++	int m_bfmeId; // +0x24
+ };
+ 
+ class ModuleData;
+diff --git a/Code/GameEngine/Source/GameLogic/Object/Update/OneRingPenaltyUpdateUpdate.cpp b/Code/GameEngine/Source/GameLogic/Object/Update/OneRingPenaltyUpdateUpdate.cpp
+index 525017c47..dbca51504 100644
+--- a/Code/GameEngine/Source/GameLogic/Object/Update/OneRingPenaltyUpdateUpdate.cpp
++++ b/Code/GameEngine/Source/GameLogic/Object/Update/OneRingPenaltyUpdateUpdate.cpp
+@@ -33,13 +33,16 @@ class BfmeC987
+ {
+ public:
+ 	void bfmeGo987C();
++	char m_bfmePad[0x24]; // +0x00
++	int m_bfmeId; // +0x24
+ };
+ 
+ class Rva00373EC6
+ {
+ public:
+-	unsigned char m_pad00[0x31];
+-	Bool m_31; // +0x31
++	void rva00374815();
++	char m_pad00[0x31];
++	bool m_31; // +0x31 +0x31
+ };
+ 
+ class Object
