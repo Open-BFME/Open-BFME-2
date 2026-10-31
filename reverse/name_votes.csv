@@ -19641,3 +19641,7 @@ Code/GameEngine/Source/Common/RvaAdjustCallEchoFamily.cpp|function|0x00538661|rv
 Code/GameEngine/Source/Common/RvaAdjustCallEchoFamily.cpp|function|0x005381DC|rva005381DC,0150864d9fd2524068f3863a,drz-k11,n28h-k11,w-09889333d128,2026-10-31
 Code/GameEngine/Source/Common/RvaAdjustCallEchoFamily.cpp|function|0x0053856F|rva0053856F,2ca325a44c51a3d45307553e,drz-k11,n28h-k11,w-09889333d128,2026-10-31
 Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00396023Search.cpp|member|Box|m_18,2517d7ffbe6b1532cf183cd3,drz-k3,n28c2-k3,w-077d7aeb666b,2026-10-31
+Code/GameEngine/Source/Common/Rva00579E47Delegate.cpp|function|0x0052A786|rva0052A786,8aa3dc806da6f225ae78f8ec,drz-k9,n28d2-k9,w-4d4d8f8584bc,2026-10-31
+Code/GameEngine/Source/Common/Rva00579E47Delegate.cpp|function|0x005B4C73|rva005b4c73,49654d74b1f55d69d3f97976,drz-k9,n28d2-k9,w-4d4d8f8584bc,2026-10-31
+Code/GameEngine/Source/Common/Rva0040A1ACHeroPtrAlgos.cpp|class||Rva0040A1ACRelease,ee0264b9e72129551f005a8d,drz-k9,n28d2-k9,w-4d4d8f8584bc,2026-10-31
+Code/GameEngine/Source/Common/Rva0040A1ACHeroPtrAlgos.cpp|function|0x0040A3B1|rva0040A3B1,ffdbc7daccd02fba23e2dc10,drz-k9,n28d2-k9,w-4d4d8f8584bc,2026-10-31
