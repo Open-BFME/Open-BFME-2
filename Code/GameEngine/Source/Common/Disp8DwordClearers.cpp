@@ -159,10 +159,6 @@ private:
     unsigned int *target;
     unsigned int result;
 };
-unsigned int Rva00405A1CWordClearResult::clear() {
-    *target = 0;
-    return result;
-}
 
 // Complete native 4DE52C..4DE536 follows RET8 at4DE529 and precedes the
 // distinct word-copy leaf4DE536. ECX supplies the accessed prefix; EAX keeps

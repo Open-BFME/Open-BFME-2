@@ -32915,7 +32915,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x004059CF,30,code,Code/GameEngine/Source/Common/OldSchoolHelpBoxContentSource.cpp,approved,N,N=Code/GameEngine/Source/Common/OldSchoolHelpBoxContentSource.cpp provisional,Code/GameEngine/Source/Common/S3TwoFieldComparators.cpp
 0x004059ED,9,code,Code/GameEngine/Source/Common/OldSchoolHelpBoxContentSource.cpp,approved,C,C=0x004059CF..0x004059F6 provisional,Code/GameEngine/Source/Common/OldSchoolHelpBoxContentSource.cpp
 0x004059F6,38,code,Code/GameEngine/Source/Common/OldSchoolHelpBoxContentSource.cpp,approved,C,C=0x004059CF..0x00405A1C provisional,Code/GameEngine/Source/Common/VslotSmallBodiesW.cpp
-0x00405A1C,9,code,Code/GameEngine/Source/Common/OldSchoolHelpBoxContentSource.cpp,approved,C,C=0x004059CF..0x00405A25 provisional,Code/GameEngine/Source/Common/Disp8DwordClearers.cpp
+0x00405A1C,9,code,Code/GameEngine/Source/Common/OldSchoolHelpBoxContentSource.cpp,approved,C,C=0x004059CF..0x00405A25 provisional,Code/GameEngine/Source/Common/OldSchoolHelpBoxContentSource.cpp
 0x00405A25,32,code,Code/GameEngine/Source/Common/OldSchoolHelpBoxContentSource.cpp,approved,U,N=Code/GameEngine/Source/GameClient/GUI/ControlBar/OldSchoolHelpBoxContentSource.cpp provisional,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva004C1B60_Rva00405DBC.cpp
 0x00405A45,11,code,Code/GameEngine/Source/Common/OldSchoolHelpBoxContentSource.cpp,approved,C,C=0x00405A25..0x00405A50 provisional,Code/GameEngine/Source/Common/OldSchoolHelpBoxContentSource.cpp
 0x00405A50,87,code,Code/GameEngine/Source/Common/OldSchoolHelpBoxContentSource.cpp,approved,C,C=0x00405A25..0x00405AA7 provisional,Code/GameEngine/Source/Common/OldSchoolHelpBoxContentSource.cpp
