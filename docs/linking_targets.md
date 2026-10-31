@@ -1,5 +1,15 @@
 # Linking target checklist
 
+Narrow imbue migration with the old proxy retained (2026-10-31, LINK-140):
+six narrow rows use STLport 4.6; the wide 4.5.3 unit supplies all five old
+helper bodies/relocations unchanged. The pair passes 7/7 rows and two EXACT
+EH graphs, frozen checks and strict preparation, retaining 2/2 LINKS and
+513 authored bytes against the published `3c7a254a38` index. No source-path
+move or census gain is claimed. Carry the two new non-const allocator copies,
+the changed unrowed append copy and affected consumers into the scheduled
+selection/census check; the bounded preview is not full-image loss clearance.
+[Evidence](../reverse/attempt_support/imbue-stlport46-provider-handoff-20261031.md).
+
 W3DPropDraw Snapshot identity follow-up (2026-10-30, LINK-102/107): remove the
 false post-effect-base macro while preserving all seven source rows, EXACT EH
 and all 64 external code/data definitions under the corrected base spelling.
