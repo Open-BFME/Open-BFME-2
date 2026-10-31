@@ -54,6 +54,24 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #undef W3DMPO_GLUE
 #define W3DMPO_GLUE(ARGCLASS)
 #include "vector3.h"
+#pragma optimize("gsy", on)
+#pragma optimize("", on)
+#pragma optimize("s", on)
+#pragma optimize("", on)
+#undef W3DMPO_GLUE
+#define W3DMPO_GLUE(ARGCLASS)
+#pragma optimize("gsy", on)
+#pragma optimize("", on)
+#include "../../../../../reference/shims/bfme_part_emt_inline/vector3.h"
+#include "../../../../../reference/shims/bfme_part_emt_inline/matrix3d.h"
+#pragma inline_depth(0)
+#pragma inline_depth()
+#pragma optimize("gsy", on)
+#pragma optimize("", on)
+#pragma optimize("s", on)
+#pragma optimize("", on)
+#undef W3DMPO_GLUE
+#define W3DMPO_GLUE(ARGCLASS)
 
 // Face Connectivity
 extern "C" TriIndex					_BoxFaces[NUM_BOX_FACES] =
@@ -266,6 +284,17 @@ class AABoxTranslationView : public Matrix3D
 public:
 	WWINLINE Vector3 Get_Translation(void) const { return Vector3(Row[0][3],Row[1][3],Row[2][3]); }
 };
+
+namespace BfmeAABoxUpdateCachedBoxAnchor
+{
+class Access : public AABoxRenderObjClass
+{
+public:
+	static void _bfmeAABoxUpdateCachedBoxInlineAnchor(void *storage);
+};
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp
 
@@ -1578,12 +1607,6 @@ void BoxRenderObjClass::Shutdown(void)
 	IsInitted = false;
 }
 
-// tu-skeleton: 0x00175750 6B ?Rva00175750Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x001757A0 112B ?update_cached_box@AABoxRenderObjClass@@MAEXXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/AABoxUpdateCachedBox.cpp (not merged yet)
-
-// tu-skeleton: 0x001758B0 6B ?Rva001758B0Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/OBBoxUpdateCachedBox.cpp
 
 // LINK: this TU's header-inline Transform_Vector copy is not retail's. The
@@ -1647,10 +1670,6 @@ AABoxRenderObjClass::AABoxRenderObjClass(const W3dBoxStruct & def) :
 	update_cached_box();
 }
 
-// tu-skeleton: 0x00175CD0 262B ??0AABoxRenderObjClass@@QAE@ABVAABoxClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/AABoxRenderObjFromAABox.cpp (not merged yet)
-
-// tu-skeleton: 0x00176000 178B ??0OBBoxRenderObjClass@@QAE@ABVOBBoxClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/OBBoxRenderObjFromOBBox.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/AABoxBoundingSphere.cpp
 
 // Link view first: Vector3::Length stays inline without emitting a copy that competes with retail's owner (0x000692B3).
@@ -1699,8 +1718,48 @@ RenderObjClass * OBBoxRenderObjClass::Clone(void) const
 	return ::new OBBoxRenderObjClass(*this);
 }
 
-// tu-skeleton: 0x00767DFD 8B uw_00767dfd -- matched in Code/gen_small/uw_gen_006.cpp (not merged yet)
+// tu-skeleton: 0x00175750 6B ?Rva00175750Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x00767E50 8B uw_00767e50 -- matched in Code/Libraries/Source/WWVegas/WW3D2/OBBoxRenderObjFromOBBox.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/AABoxUpdateCachedBox.cpp
 
-// tu-skeleton: 0x00767E58 10B __ehhandler$??0OBBoxRenderObjClass@@QAE@ABVOBBoxClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/OBBoxRenderObjFromOBBox.cpp (not merged yet)
+// Reuse the verified particle translation/vector consumer views.
+
+// This virtual method is a header inline in copier units. This anchor retains
+// its matched row body here, but the anchor itself is not retail code.
+
+// ?_bfmeAABoxUpdateCachedBoxInlineAnchor@Access@BfmeAABoxUpdateCachedBoxAnchor@@SAXPAX@Z absent-from-retail
+void BfmeAABoxUpdateCachedBoxAnchor::Access::_bfmeAABoxUpdateCachedBoxInlineAnchor(void *storage)
+{
+	((BfmeAABoxUpdateCachedBoxAnchor::Access *)storage)->AABoxRenderObjClass::update_cached_box();
+}
+
+// tu-skeleton: 0x001758B0 6B ?Rva001758B0Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/AABoxRenderObjFromAABox.cpp
+
+// BFME 2 has no W3D memory pools (see Code/Libraries/Source/WWVegas/WWLib/always.h).
+// RefCountClass's inline members and deleting destructor are retail's
+// size-optimised bodies: compile them for size, as hlod.cpp does.
+
+// ??0AABoxRenderObjClass@@QAE@ABVAABoxClass@@@Z
+AABoxRenderObjClass::AABoxRenderObjClass(const AABoxClass & box)
+{
+	ObjSpaceCenter.Set(0, 0, 0);
+	ObjSpaceExtent.Set(box.Extent);
+	Set_Position(box.Center);
+	update_cached_box();
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/OBBoxRenderObjFromOBBox.cpp
+
+// BFME 2 has no W3D memory pools (see Code/Libraries/Source/WWVegas/WWLib/always.h).
+// RefCountClass's inline members and deleting destructor are retail's
+// size-optimised bodies: compile them for size, as hlod.cpp does.
+
+OBBoxRenderObjClass::OBBoxRenderObjClass(const OBBoxClass & box)
+{
+	ObjSpaceCenter.Set(Vector3(0, 0, 0));
+	ObjSpaceExtent.Set(box.Extent);
+	Set_Transform(Matrix3D(box.Basis, box.Center));
+	update_cached_box(); // cached box should == box!
+}

@@ -10849,7 +10849,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00174A8A,35,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderRenderer.cpp,proposed,C,C=0x001748E8..0x00174AAD,Code/GameEngine/Source/Common/Rva00174A8AAdapter.cpp
 0x00174AAD,249,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderRenderer.cpp,proposed,K,K=Rva00DF6F94GapFillerContext,Code/Libraries/Source/WWVegas/WW3D2/FXShaderRendererAddRenderingTask.cpp
 0x00174BA6,113,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderRenderer.cpp,proposed,K,K=Rva00DF6F94GapFillerContext,Code/Libraries/Source/WWVegas/WW3D2/MeshGapFillerFlush.cpp
-0x00174C20,26,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/OBBoxRenderObjFromOBBox.cpp
+0x00174C20,26,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp
 0x00174C40,25,code,,displaced,-,Z=Code/Libraries/Source/WWVegas/WW3D2/w3d_util.cpp S=Code/Libraries/Source/WWVegas/WW3D2/w3d_util.cpp N=Code/Libraries/Source/WWVegas/WW3D2/W3dUtilityClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/w3d_util.cpp
 0x00174C60,31,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp
 0x00174C80,155,code,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp S=Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp N=Code/Libraries/Source/WWVegas/WW3D2/BoxRenderObjClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp
@@ -10865,7 +10865,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00175750,6,code,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp,approved,C,C=0x00174F40..0x00175760,Code/GameEngine/Source/Common/ConstIntGetters.cpp
 0x00175760,27,code,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp S=Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp N=Code/Libraries/Source/WWVegas/WW3D2/AABoxRenderObjClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp
 0x00175780,27,code,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp S=Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp N=Code/Libraries/Source/WWVegas/WW3D2/AABoxRenderObjClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp
-0x001757A0,112,code,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp S=Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp N=Code/Libraries/Source/WWVegas/WW3D2/AABoxRenderObjClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/AABoxUpdateCachedBox.cpp
+0x001757A0,112,code,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp S=Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp N=Code/Libraries/Source/WWVegas/WW3D2/AABoxRenderObjClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp
 0x00175810,83,code,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp S=Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp N=Code/Libraries/Source/WWVegas/WW3D2/AABoxRenderObjClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp
 0x00175870,60,code,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp S=Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp N=Code/Libraries/Source/WWVegas/WW3D2/AABoxRenderObjClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp
 0x001758B0,6,code,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp,approved,C,C=0x00175870..0x001758C0,Code/GameEngine/Source/Common/ConstIntGetters.cpp
@@ -10876,12 +10876,12 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00175B50,87,code,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp S=Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp N=Code/Libraries/Source/WWVegas/WW3D2/BoxRenderObjClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp
 0x00175BB0,136,code,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp S=Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp N=Code/Libraries/Source/WWVegas/WW3D2/AABoxRenderObjClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp
 0x00175C40,143,code,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp S=Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp N=Code/Libraries/Source/WWVegas/WW3D2/AABoxRenderObjClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp
-0x00175CD0,262,code,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp S=Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp N=Code/Libraries/Source/WWVegas/WW3D2/AABoxRenderObjClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/AABoxRenderObjFromAABox.cpp
+0x00175CD0,262,code,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp S=Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp N=Code/Libraries/Source/WWVegas/WW3D2/AABoxRenderObjClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp
 0x00175DE0,97,code,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp,approved,C,C=0x00175CD0..0x00175E50,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp
 0x00175E50,243,code,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp S=Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp N=Code/Libraries/Source/WWVegas/WW3D2/AABoxRenderObjClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp
 0x00175F50,80,code,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp S=Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp N=Code/Libraries/Source/WWVegas/WW3D2/OBBoxRenderObjClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp
 0x00175FA0,87,code,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp S=Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp N=Code/Libraries/Source/WWVegas/WW3D2/OBBoxRenderObjClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp
-0x00176000,178,code,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp S=Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp N=Code/Libraries/Source/WWVegas/WW3D2/OBBoxRenderObjClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/OBBoxRenderObjFromOBBox.cpp
+0x00176000,178,code,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp S=Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp N=Code/Libraries/Source/WWVegas/WW3D2/OBBoxRenderObjClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp
 0x001760C0,43,code,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp,approved,C,C=0x00176000..0x001760F0,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp
 0x001760F0,297,code,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp S=Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp N=Code/Libraries/Source/WWVegas/WW3D2/OBBoxRenderObjClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp
 0x00176220,117,code,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp S=Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp N=Code/Libraries/Source/WWVegas/WW3D2/AABoxRenderObjClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp
@@ -65723,8 +65723,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00767E18,10,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp
 0x00767E30,8,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp
 0x00767E38,10,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp
-0x00767E50,8,code,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp,approved,P,P=0x00176000@FuncInfo0x0090C9D4,Code/Libraries/Source/WWVegas/WW3D2/OBBoxRenderObjFromOBBox.cpp
-0x00767E58,10,code,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp,approved,P,P=0x00176000@FuncInfo0x0090C9D4,Code/Libraries/Source/WWVegas/WW3D2/OBBoxRenderObjFromOBBox.cpp
+0x00767E50,8,code,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp,approved,P,P=0x00176000@FuncInfo0x0090C9D4,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp
+0x00767E58,10,code,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp,approved,P,P=0x00176000@FuncInfo0x0090C9D4,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp
 0x00767E70,11,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp
 0x00767E7B,10,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp
 0x00767E90,8,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/static_sort_list.cpp

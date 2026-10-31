@@ -10841,11 +10841,6 @@ pragma_optimize	Code/Libraries/Source/Apt/AptValue/Rva006CDE50Collect.cpp	"",on	
 pragma_optimize	Code/Libraries/Source/Apt/AptValue/Rva006CDE50Collect.cpp	"s",on	1
 pragma_optimize	Code/Libraries/Source/Apt/AptValueShutdownBFME2.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/Apt/AptValueShutdownBFME2.cpp	"s",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/AABoxRenderObjFromAABox.cpp	"",on	2
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/AABoxRenderObjFromAABox.cpp	"gsy",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/AABoxRenderObjFromAABox.cpp	"s",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/AABoxUpdateCachedBox.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/AABoxUpdateCachedBox.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/AnimatableGetBoneTransform.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/AnimatableGetBoneTransform.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/DX8Caps_constructors.cpp	"",on	1
@@ -11021,9 +11016,6 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/MeshStateEqualBFME2.cpp	"s",
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/Null3DObjClassCopyCtor.cpp	"",on	2
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/Null3DObjClassCopyCtor.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/Null3DObjClassCopyCtor.cpp	"s",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/OBBoxRenderObjFromOBBox.cpp	"",on	2
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/OBBoxRenderObjFromOBBox.cpp	"gsy",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/OBBoxRenderObjFromOBBox.cpp	"s",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/OBBoxTransformO1.cpp	"",on	2
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/OBBoxTransformO1.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/OBBoxTransformO1.cpp	"ty",on	1
@@ -11142,9 +11134,9 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/animobj.cpp	"gsy",on	3
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/animobj.cpp	"s",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/bfme2_mesh_material_pass.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/bfme2_mesh_material_pass.cpp	"gsy",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp	"",on	2
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp	"gsy",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp	"s",on	1
+pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp	"",on	7
+pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp	"gsy",on	4
+pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp	"s",on	3
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/camera.cpp	"",on	5
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/camera.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/camera.cpp	"s",on	4
