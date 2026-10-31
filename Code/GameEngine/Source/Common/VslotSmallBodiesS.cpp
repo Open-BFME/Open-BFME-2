@@ -400,13 +400,6 @@ private:
 	Int m_00;
 	Rva00545222Info *m_04;
 };
-bool Rva00545222::rva00545222() const
-{
-	Int count = m_04 ? m_04->m_04 : 999999;
-	if (count == 0)
-		return true;
-	return false;
-}
 
 // 0x0057A4C9: the rowed 0x005D4BD4 with 0.0 on the +0x28 object, when there
 // is one.
