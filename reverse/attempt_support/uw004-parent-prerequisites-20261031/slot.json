@@ -1,0 +1,60 @@
+{
+  "source": "Code/GameEngine/Source/Common/Rva004EE9E9XferVector.cpp",
+  "scope": "Respect the canonical Snapshot header slot-2 spelling selected by the approved scorekeeper TU; no new slot or method body, retain both standalone ledger rows and all runtime definitions",
+  "variants": {
+    "before": {
+      "source_sha256": "ff0f82010e8a7453157cd5a30190588002180889338a46d40d536ffaa9ffe995",
+      "rows": [
+        {
+          "name": "?Rva004EE9E9XferVector@@YAPAVXfer@@PAV1@PAVRva004EE6D0@@@Z",
+          "rva": "0x004EE9E9",
+          "size": "245",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?Rva004EE9E9XferVector@@YAPAVXfer@@PAV1@PAVRva004EE6D0@@@Z",
+          "rva": "0x0079298F",
+          "size": "10",
+          "exact": true
+        }
+      ],
+      "eh": [
+        {
+          "name": "?Rva004EE9E9XferVector@@YAPAVXfer@@PAV1@PAVRva004EE6D0@@@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ]
+    },
+    "trial": {
+      "source_sha256": "499597e06e452390419e8a254a0a55cfcce3df9ed15db11eaac78faef18a4fa7",
+      "rows": [
+        {
+          "name": "?Rva004EE9E9XferVector@@YAPAVXfer@@PAV1@PAVRva004EE6D0@@@Z",
+          "rva": "0x004EE9E9",
+          "size": "245",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?Rva004EE9E9XferVector@@YAPAVXfer@@PAV1@PAVRva004EE6D0@@@Z",
+          "rva": "0x0079298F",
+          "size": "10",
+          "exact": true
+        }
+      ],
+      "eh": [
+        {
+          "name": "?Rva004EE9E9XferVector@@YAPAVXfer@@PAV1@PAVRva004EE6D0@@@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ]
+    }
+  },
+  "all_external_code_and_symbolic_relocations_identical": true,
+  "all_retained_external_code_and_symbolic_relocations_identical": true
+}

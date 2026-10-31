@@ -1,0 +1,1421 @@
+{
+  "method": "Native FuncInfo magic and unwind-map state actions, parent handler thunk references confirmed by Image.frame_funcinfo; Ghidra starts only intersect those proven native candidates. No adjacency.",
+  "native_parent_evidence": [
+    {
+      "funcinfo_rva": 9456848,
+      "unwind_map_rva": 9456832,
+      "count": 2,
+      "target_states": [
+        {
+          "state": 0,
+          "previous_state": -1,
+          "action_rva": 7739281,
+          "instructions": [
+            "lea ecx, [ebp - 0x30]",
+            "jmp 0x48ba39"
+          ],
+          "callee_rva": 4766265,
+          "current_tu_map": [
+            {
+              "rva": "0x00761791",
+              "size": "8",
+              "kind": "code",
+              "tu": "",
+              "confidence": "",
+              "by": "-",
+              "evidence": "",
+              "source": "Code/gen_small/uw_gen_004.cpp"
+            }
+          ]
+        }
+      ],
+      "thunks": [
+        7739297
+      ],
+      "parent_start_candidates": [
+        775335
+      ],
+      "parents": [
+        {
+          "name": "?parseParticleSysBone@@YAXPAVINI@@PAX1@Z",
+          "export_rva": "",
+          "target_rva": "0x000BD4A7",
+          "target_size": "490",
+          "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawParticleSysBone.cpp",
+          "status": "matched",
+          "notes": "WB925C40 W3DScriptedModelDraw.cpp and native BD4A7..BD691490B prove shared particle-at-bone option reader. Same-unit wrappers BD691 and BD6A8 reproduce private ESI INI plus two stack arguments naturally. Existing32B carrier ctor and list provider retained; target option fields and enum tables independently verified; original record identity unknown. Both enum token reads precede table arguments. Real C++ with no new helper pins.",
+          "cached_evidence": {
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^drawable_^draw_^w3^d^scripted^model^draw^particle^sys^bone.obj",
+            "exists": true,
+            "source_matches_receipt": true,
+            "object_matches_receipt": true,
+            "eh_verdict": [
+              "EXACT",
+              ""
+            ],
+            "target_labels": {
+              "$L1315": "0x00761791"
+            },
+            "funclet_definitions": [
+              {
+                "label": "$L1315",
+                "bytes": "8d4dd0e9000000008d4df0",
+                "relocations": [
+                  [
+                    4,
+                    20,
+                    "??1ScriptedParticleBoneRecord@@QAE@XZ"
+                  ],
+                  [
+                    12,
+                    20,
+                    "??1AsciiString@@QAE@XZ"
+                  ],
+                  [
+                    17,
+                    6,
+                    "$T1377"
+                  ],
+                  [
+                    22,
+                    20,
+                    "___CxxFrameHandler"
+                  ]
+                ]
+              }
+            ]
+          },
+          "callee_definition": {
+            "name": "??1ScriptedParticleBoneRecord@@QAE@XZ",
+            "defined_in_parent": true,
+            "size": 5,
+            "raw": "e900000000",
+            "relocations": [
+              [
+                1,
+                20,
+                "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+              ]
+            ],
+            "target_rva": "0x0048BA39",
+            "native_bytes": "e9d2a9baff",
+            "resolved_bytes": "e9d2a9baff",
+            "relocation_evidence": [
+              {
+                "name": "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+                "native_rva": "0x00036410",
+                "is_existing_binding": true,
+                "via_data_row": false
+              }
+            ],
+            "unresolved": [],
+            "resolved_equal": true
+          },
+          "current_tu_map": [
+            {
+              "rva": "0x000BD4A7",
+              "size": "490",
+              "kind": "code",
+              "tu": "",
+              "confidence": "",
+              "by": "-",
+              "evidence": "W=Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DScriptedModelDraw.cpp",
+              "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawParticleSysBone.cpp"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "funcinfo_rva": 9545364,
+      "unwind_map_rva": 9545340,
+      "count": 3,
+      "target_states": [
+        {
+          "state": 0,
+          "previous_state": -1,
+          "action_rva": 7813168,
+          "instructions": [
+            "lea ecx, [ebp - 0x28]",
+            "jmp 0x49c38a"
+          ],
+          "callee_rva": 4834186,
+          "current_tu_map": [
+            {
+              "rva": "0x00773830",
+              "size": "8",
+              "kind": "code",
+              "tu": "Code/GameEngine/Source/GameClient/Drawable.cpp",
+              "confidence": "approved",
+              "by": "P",
+              "evidence": "P=0x0027B18C@FuncInfo0x0091A694",
+              "source": "Code/gen_small/uw_gen_004.cpp"
+            }
+          ]
+        }
+      ],
+      "thunks": [
+        7813192
+      ],
+      "parent_start_candidates": [
+        2601356
+      ],
+      "parents": [
+        {
+          "name": "?rva0027B18C@Drawable@@QAEXPAUDamageInfo@@@Z",
+          "export_rva": "",
+          "target_rva": "0x0027B18C",
+          "target_size": "755",
+          "source": "Code/GameEngine/Source/GameClient/DrawableRva0027B18C.cpp",
+          "status": "matched",
+          "notes": "WB twin 0xCB7E40 locals: template loaded right after the controlling player and a separate event598 local; findObjectByID and ObjectIdMap::find bodies visible in the unit (select-any copies of COMDAT rows)",
+          "cached_evidence": {
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^drawable^rva0027^b18^c.obj",
+            "exists": true,
+            "source_matches_receipt": true,
+            "object_matches_receipt": true,
+            "eh_verdict": [
+              "EXACT",
+              ""
+            ],
+            "target_labels": {
+              "$L5261": "0x00773830"
+            },
+            "funclet_definitions": [
+              {
+                "label": "$L5261",
+                "bytes": "8d4dd8e9000000008d4dcc",
+                "relocations": [
+                  [
+                    4,
+                    20,
+                    "??1Rva00271B3CFilter@@UAE@XZ"
+                  ],
+                  [
+                    12,
+                    20,
+                    "??1Rva00260E2AFilter@@UAE@XZ"
+                  ],
+                  [
+                    20,
+                    20,
+                    "??1BfmeWideResult@@QAE@XZ"
+                  ],
+                  [
+                    25,
+                    6,
+                    "$T5303"
+                  ],
+                  [
+                    30,
+                    20,
+                    "___CxxFrameHandler"
+                  ]
+                ]
+              }
+            ]
+          },
+          "callee_definition": {
+            "name": "??1Rva00271B3CFilter@@UAE@XZ",
+            "defined_in_parent": true,
+            "size": 7,
+            "raw": "c70100000000c3",
+            "relocations": [
+              [
+                2,
+                6,
+                "??_7Rva000421C8@@6B@"
+              ]
+            ],
+            "target_rva": "0x0049C38A",
+            "native_bytes": "c701e026bc00c3",
+            "resolved_bytes": "c701e026bc00c3",
+            "relocation_evidence": [
+              {
+                "name": "??_7Rva000421C8@@6B@",
+                "native_rva": "0x007C26E0",
+                "is_existing_binding": true,
+                "via_data_row": true
+              }
+            ],
+            "unresolved": [],
+            "resolved_equal": true
+          },
+          "current_tu_map": [
+            {
+              "rva": "0x0027B18C",
+              "size": "755",
+              "kind": "code",
+              "tu": "Code/GameEngine/Source/GameClient/Drawable.cpp",
+              "confidence": "approved",
+              "by": "S",
+              "evidence": "S=Code/GameEngine/Source/GameClient/Drawable.cpp N=Code/GameEngine/Source/GameClient/Drawable.cpp",
+              "source": "Code/GameEngine/Source/GameClient/DrawableRva0027B18C.cpp"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "funcinfo_rva": 9574108,
+      "unwind_map_rva": 9573956,
+      "count": 19,
+      "target_states": [
+        {
+          "state": 13,
+          "previous_state": 12,
+          "action_rva": 7836362,
+          "instructions": [
+            "lea ecx, [ebp - 0xac]",
+            "jmp 0x49c38a"
+          ],
+          "callee_rva": 4834186,
+          "current_tu_map": [
+            {
+              "rva": "0x007792CA",
+              "size": "11",
+              "kind": "code",
+              "tu": "Code/GameEngine/Source/GameLogic/AI/ai.cpp",
+              "confidence": "approved",
+              "by": "P",
+              "evidence": "P=0x002FF07B@FuncInfo0x009216DC",
+              "source": "Code/gen_small/uw_gen_004.cpp"
+            }
+          ]
+        }
+      ],
+      "thunks": [
+        7836427
+      ],
+      "parent_start_candidates": [
+        3141755
+      ],
+      "parents": [
+        {
+          "name": "?rva002FF07B@Rva002FFFCA@@QAEPAXPAVObject@@PBUCoord3D@@MIHHH@Z",
+          "export_rva": "",
+          "target_rva": "0x002FF07B",
+          "target_size": "2146",
+          "source": "Code/GameEngine/Source/GameLogic/AI/AIClosestEnemySearch.cpp",
+          "status": "matched",
+          "notes": "Native 2FF07B..2FF8DD RET28 enemy-search worker behind rowed 2FFFCA; receiver TheAI (this+18 AI data ratio F0); WB twin D78204 fixes while-loop enemy walk / separate priority-zero and status-4F continues / single improves boolean; ZH AI::findClosestEnemy semantic spine; strings GateOpenAndCloseBehavior and PlyrCreeps verified; tactical registry named g_tacticalAIRegistry; EH exact",
+          "cached_evidence": {
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^a^i_^a^i^closest^enemy^search.obj",
+            "exists": true,
+            "source_matches_receipt": true,
+            "object_matches_receipt": true,
+            "eh_verdict": [
+              "EXACT",
+              ""
+            ],
+            "target_labels": {
+              "$L4004": "0x007792CA"
+            },
+            "funclet_definitions": [
+              {
+                "label": "$L4004",
+                "bytes": "8d8d54ffffffe900000000",
+                "relocations": [
+                  [
+                    7,
+                    20,
+                    "??1PartitionFilterSkirmishAI@@UAE@XZ"
+                  ],
+                  [
+                    31,
+                    20,
+                    "??1BfmeWideResult@@QAE@XZ"
+                  ],
+                  [
+                    40,
+                    20,
+                    "??1BfmeWideResult@@QAE@XZ"
+                  ],
+                  [
+                    45,
+                    6,
+                    "?$S1@?EE@??rva002FF07B@Rva002FFFCA@@QAEPAXPAVObject@@PBUCoord3D@@MIHHH@Z@4IA"
+                  ],
+                  [
+                    52,
+                    6,
+                    "?$S1@?EE@??rva002FF07B@Rva002FFFCA@@QAEPAXPAVObject@@PBUCoord3D@@MIHHH@Z@4IA"
+                  ],
+                  [
+                    61,
+                    20,
+                    "??1BfmeWideResult@@QAE@XZ"
+                  ],
+                  [
+                    66,
+                    6,
+                    "$T4812"
+                  ],
+                  [
+                    71,
+                    20,
+                    "___CxxFrameHandler"
+                  ]
+                ]
+              }
+            ]
+          },
+          "callee_definition": {
+            "name": "??1PartitionFilterSkirmishAI@@UAE@XZ",
+            "defined_in_parent": true,
+            "size": 7,
+            "raw": "c70100000000c3",
+            "relocations": [
+              [
+                2,
+                6,
+                "??_7Rva000421C8@@6B@"
+              ]
+            ],
+            "target_rva": "0x0049C38A",
+            "native_bytes": "c701e026bc00c3",
+            "resolved_bytes": "c701e026bc00c3",
+            "relocation_evidence": [
+              {
+                "name": "??_7Rva000421C8@@6B@",
+                "native_rva": "0x007C26E0",
+                "is_existing_binding": true,
+                "via_data_row": true
+              }
+            ],
+            "unresolved": [],
+            "resolved_equal": true
+          },
+          "current_tu_map": [
+            {
+              "rva": "0x002FF07B",
+              "size": "2146",
+              "kind": "code",
+              "tu": "Code/GameEngine/Source/GameLogic/AI/ai.cpp",
+              "confidence": "approved",
+              "by": "C",
+              "evidence": "C=0x002FEEAD..0x002FF8DD",
+              "source": "Code/GameEngine/Source/GameLogic/AI/AIClosestEnemySearch.cpp"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "funcinfo_rva": 9620176,
+      "unwind_map_rva": 9620168,
+      "count": 1,
+      "target_states": [
+        {
+          "state": 0,
+          "previous_state": -1,
+          "action_rva": 7871342,
+          "instructions": [
+            "lea ecx, [ebp - 0xb4]",
+            "jmp 0x48ba39"
+          ],
+          "callee_rva": 4766265,
+          "current_tu_map": [
+            {
+              "rva": "0x00781B6E",
+              "size": "11",
+              "kind": "code",
+              "tu": "",
+              "confidence": "",
+              "by": "-",
+              "evidence": "",
+              "source": "Code/gen_small/uw_gen_004.cpp"
+            }
+          ]
+        }
+      ],
+      "thunks": [
+        7871353
+      ],
+      "parent_start_candidates": [
+        3819507
+      ],
+      "parents": [
+        {
+          "name": "?Rva003A47F3Parse@@YAXPAVINI@@PAVRva003A47F3Owner@@@Z",
+          "export_rva": "",
+          "target_rva": "0x003A47F3",
+          "target_size": "461",
+          "source": "Code/GameEngine/Source/Common/Rva003A47F3Parse.cpp",
+          "status": "matched",
+          "notes": "",
+          "cached_evidence": {
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^rva003^a47^f3^parse.obj",
+            "exists": true,
+            "source_matches_receipt": true,
+            "object_matches_receipt": true,
+            "eh_verdict": [
+              "EXACT",
+              ""
+            ],
+            "target_labels": {
+              "$L5235": "0x00781B6E"
+            },
+            "funclet_definitions": [
+              {
+                "label": "$L5235",
+                "bytes": "8d8d4cffffffe900000000",
+                "relocations": [
+                  [
+                    7,
+                    20,
+                    "??1Rva00469187@@QAE@XZ"
+                  ],
+                  [
+                    12,
+                    6,
+                    "$T5269"
+                  ],
+                  [
+                    17,
+                    20,
+                    "___CxxFrameHandler"
+                  ]
+                ]
+              }
+            ]
+          },
+          "callee_definition": {
+            "name": "??1Rva00469187@@QAE@XZ",
+            "defined_in_parent": true,
+            "size": 5,
+            "raw": "e900000000",
+            "relocations": [
+              [
+                1,
+                20,
+                "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+              ]
+            ],
+            "target_rva": "0x0048BA39",
+            "native_bytes": "e9d2a9baff",
+            "resolved_bytes": "e9d2a9baff",
+            "relocation_evidence": [
+              {
+                "name": "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+                "native_rva": "0x00036410",
+                "is_existing_binding": true,
+                "via_data_row": false
+              }
+            ],
+            "unresolved": [],
+            "resolved_equal": true
+          },
+          "current_tu_map": [
+            {
+              "rva": "0x003A47F3",
+              "size": "461",
+              "kind": "code",
+              "tu": "",
+              "confidence": "",
+              "by": "-",
+              "evidence": "",
+              "source": "Code/GameEngine/Source/Common/Rva003A47F3Parse.cpp"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "funcinfo_rva": 9627172,
+      "unwind_map_rva": 9627148,
+      "count": 3,
+      "target_states": [
+        {
+          "state": 1,
+          "previous_state": 0,
+          "action_rva": 7875835,
+          "instructions": [
+            "lea ecx, [ebp - 0x24]",
+            "jmp 0x49c38a"
+          ],
+          "callee_rva": 4834186,
+          "current_tu_map": [
+            {
+              "rva": "0x00782CFB",
+              "size": "8",
+              "kind": "code",
+              "tu": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions.cpp",
+              "confidence": "approved",
+              "by": "P",
+              "evidence": "P=0x003C1D70@FuncInfo0x0092E624",
+              "source": "Code/gen_small/uw_gen_004.cpp"
+            }
+          ]
+        }
+      ],
+      "thunks": [
+        7875851
+      ],
+      "parent_start_candidates": [
+        3939696
+      ],
+      "parents": [
+        {
+          "name": "?doTeamCaptureNearestUnownedFactionUnit@ScriptActions@@IAEXABVAsciiString@@@Z",
+          "export_rva": "",
+          "target_rva": "0x003C1D70",
+          "target_size": "249",
+          "source": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doTeamCaptureNearestUnownedFactionUnit.cpp",
+          "status": "matched",
+          "notes": "ZH ScriptActions shape (same callees; filters enemy+neutral 0xC / unmanned / on-map) over the BFME2 filter chain; caller 0x003CA4BE",
+          "cached_evidence": {
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^script^engine_^script^actions_do^team^capture^nearest^unowned^faction^unit.obj",
+            "exists": true,
+            "source_matches_receipt": false,
+            "object_matches_receipt": true,
+            "eh_verdict": [
+              "EXACT",
+              ""
+            ],
+            "target_labels": {
+              "$L8163": "0x00782CFB"
+            },
+            "funclet_definitions": [
+              {
+                "label": "$L8163",
+                "bytes": "8d4ddce9000000008d4dbc",
+                "relocations": [
+                  [
+                    4,
+                    20,
+                    "??1Rva00261C58Filter@@UAE@XZ"
+                  ],
+                  [
+                    12,
+                    20,
+                    "??1Rva00261409Filter@@UAE@XZ"
+                  ],
+                  [
+                    17,
+                    6,
+                    "$T8221"
+                  ],
+                  [
+                    22,
+                    20,
+                    "___CxxFrameHandler"
+                  ]
+                ]
+              }
+            ]
+          },
+          "callee_definition": {
+            "name": "??1Rva00261C58Filter@@UAE@XZ",
+            "defined_in_parent": true,
+            "size": 7,
+            "raw": "c70100000000c3",
+            "relocations": [
+              [
+                2,
+                6,
+                "??_7Rva000421C8@@6B@"
+              ]
+            ],
+            "target_rva": "0x0049C38A",
+            "native_bytes": "c701e026bc00c3",
+            "resolved_bytes": "c701e026bc00c3",
+            "relocation_evidence": [
+              {
+                "name": "??_7Rva000421C8@@6B@",
+                "native_rva": "0x007C26E0",
+                "is_existing_binding": true,
+                "via_data_row": true
+              }
+            ],
+            "unresolved": [],
+            "resolved_equal": true
+          },
+          "current_tu_map": [
+            {
+              "rva": "0x003C1D70",
+              "size": "249",
+              "kind": "code",
+              "tu": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions.cpp",
+              "confidence": "approved",
+              "by": "Z",
+              "evidence": "Z=Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions.cpp S=Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions.cpp N=Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions.cpp",
+              "source": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doTeamCaptureNearestUnownedFactionUnit.cpp"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "funcinfo_rva": 9628988,
+      "unwind_map_rva": 9628948,
+      "count": 5,
+      "target_states": [
+        {
+          "state": 1,
+          "previous_state": 0,
+          "action_rva": 7876987,
+          "instructions": [
+            "lea ecx, [ebp - 0x34]",
+            "jmp 0x49c38a"
+          ],
+          "callee_rva": 4834186,
+          "current_tu_map": [
+            {
+              "rva": "0x0078317B",
+              "size": "8",
+              "kind": "code",
+              "tu": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions.cpp",
+              "confidence": "approved",
+              "by": "P",
+              "evidence": "P=0x003C8CCD@FuncInfo0x0092ED3C",
+              "source": "Code/gen_small/uw_gen_004.cpp"
+            }
+          ]
+        },
+        {
+          "state": 4,
+          "previous_state": 3,
+          "action_rva": 7876987,
+          "instructions": [
+            "lea ecx, [ebp - 0x34]",
+            "jmp 0x49c38a"
+          ],
+          "callee_rva": 4834186,
+          "current_tu_map": [
+            {
+              "rva": "0x0078317B",
+              "size": "8",
+              "kind": "code",
+              "tu": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions.cpp",
+              "confidence": "approved",
+              "by": "P",
+              "evidence": "P=0x003C8CCD@FuncInfo0x0092ED3C",
+              "source": "Code/gen_small/uw_gen_004.cpp"
+            }
+          ]
+        }
+      ],
+      "thunks": [
+        7877003
+      ],
+      "parent_start_candidates": [
+        3968205
+      ],
+      "parents": [
+        {
+          "name": "?doTeamGarrisonNearestBuilding@ScriptActions@@IAEXABVAsciiString@@@Z",
+          "export_rva": "",
+          "target_rva": "0x003C8CCD",
+          "target_size": "350",
+          "source": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doTeamGarrisonNearestBuilding.cpp",
+          "status": "matched",
+          "notes": "ZH ScriptActions::doTeamGarrisonNearestBuilding donor (name/flow); target: dispatcher 0x003CA4BE call at 0x003CC18B; getTeamNamed/iterate_TeamMemberList/iterateObjectsInRange/aiEnter 0x0026C347 callees; STLport bitset::test kind shape with range check",
+          "cached_evidence": {
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^script^engine_^script^actions_do^team^garrison^nearest^building.obj",
+            "exists": true,
+            "source_matches_receipt": true,
+            "object_matches_receipt": true,
+            "eh_verdict": [
+              "EXACT",
+              ""
+            ],
+            "target_labels": {
+              "$L8464": "0x0078317B"
+            },
+            "funclet_definitions": [
+              {
+                "label": "$L8464",
+                "bytes": "8d4dcce9000000008d4d08",
+                "relocations": [
+                  [
+                    4,
+                    20,
+                    "??1Rva00261478Filter@@UAE@XZ"
+                  ],
+                  [
+                    12,
+                    20,
+                    "??1BfmeWideResult@@QAE@XZ"
+                  ],
+                  [
+                    17,
+                    6,
+                    "$T8646"
+                  ],
+                  [
+                    22,
+                    20,
+                    "___CxxFrameHandler"
+                  ]
+                ]
+              }
+            ]
+          },
+          "callee_definition": {
+            "name": "??1Rva00261478Filter@@UAE@XZ",
+            "defined_in_parent": true,
+            "size": 7,
+            "raw": "c70100000000c3",
+            "relocations": [
+              [
+                2,
+                6,
+                "??_7Rva000421C8@@6B@"
+              ]
+            ],
+            "target_rva": "0x0049C38A",
+            "native_bytes": "c701e026bc00c3",
+            "resolved_bytes": "c701e026bc00c3",
+            "relocation_evidence": [
+              {
+                "name": "??_7Rva000421C8@@6B@",
+                "native_rva": "0x007C26E0",
+                "is_existing_binding": true,
+                "via_data_row": true
+              }
+            ],
+            "unresolved": [],
+            "resolved_equal": true
+          },
+          "current_tu_map": [
+            {
+              "rva": "0x003C8CCD",
+              "size": "350",
+              "kind": "code",
+              "tu": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions.cpp",
+              "confidence": "approved",
+              "by": "Z",
+              "evidence": "Z=Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions.cpp S=Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions.cpp N=Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions.cpp",
+              "source": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doTeamGarrisonNearestBuilding.cpp"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "funcinfo_rva": 9631392,
+      "unwind_map_rva": 9631384,
+      "count": 1,
+      "target_states": [
+        {
+          "state": 0,
+          "previous_state": -1,
+          "action_rva": 7878471,
+          "instructions": [
+            "lea ecx, [ebp - 0x20]",
+            "jmp 0x48ba39"
+          ],
+          "callee_rva": 4766265,
+          "current_tu_map": [
+            {
+              "rva": "0x00783747",
+              "size": "8",
+              "kind": "code",
+              "tu": "Code/GameEngine/Source/Common/BitRange.cpp",
+              "confidence": "approved",
+              "by": "P",
+              "evidence": "P=0x003EDA43@FuncInfo0x0092F6A0 provisional",
+              "source": "Code/gen_small/uw_gen_004.cpp"
+            }
+          ]
+        }
+      ],
+      "thunks": [
+        7878479
+      ],
+      "parent_start_candidates": [
+        4119107
+      ],
+      "parents": [
+        {
+          "name": "?bfmeAddKey@LargeGroupAudioKeyMap@@QAEXABVAsciiString@@@Z",
+          "export_rva": "",
+          "target_rva": "0x003EDA43",
+          "target_size": "168",
+          "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioKeyMapBfmeAddKey.cpp",
+          "status": "matched",
+          "notes": "Open-BFME-1 donor LargeGroupAudioKeyMapBfmeAddKey.cpp (6583b3c1) verbatim at /O1 with BFME 2 include paths: unique masked placement; pinned pair ctor 0x003ED3F0 insert_unique 0x003ED8B1 and vector<void*>::resize 0x000E6D39; donor method label kept",
+          "cached_evidence": {
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^large^group^audio_^large^group^audio^key^map^bfme^add^key.obj",
+            "exists": true,
+            "source_matches_receipt": true,
+            "object_matches_receipt": true,
+            "eh_verdict": [
+              "EXACT",
+              ""
+            ],
+            "target_labels": {
+              "$L5023": "0x00783747"
+            },
+            "funclet_definitions": [
+              {
+                "label": "$L5023",
+                "bytes": "8d4de0e900000000b80000",
+                "relocations": [
+                  [
+                    4,
+                    20,
+                    "??1?$pair@$$CBVAsciiString@@URva003D3F90Value@@@_STL@@QAE@XZ"
+                  ],
+                  [
+                    9,
+                    6,
+                    "$T5043"
+                  ],
+                  [
+                    14,
+                    20,
+                    "___CxxFrameHandler"
+                  ]
+                ]
+              }
+            ]
+          },
+          "callee_definition": {
+            "name": "??1?$pair@$$CBVAsciiString@@URva003D3F90Value@@@_STL@@QAE@XZ",
+            "defined_in_parent": true,
+            "size": 5,
+            "raw": "e900000000",
+            "relocations": [
+              [
+                1,
+                20,
+                "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+              ]
+            ],
+            "target_rva": "0x0048BA39",
+            "native_bytes": "e9d2a9baff",
+            "resolved_bytes": "e9d2a9baff",
+            "relocation_evidence": [
+              {
+                "name": "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+                "native_rva": "0x00036410",
+                "is_existing_binding": true,
+                "via_data_row": false
+              }
+            ],
+            "unresolved": [],
+            "resolved_equal": true
+          },
+          "current_tu_map": [
+            {
+              "rva": "0x003EDA43",
+              "size": "168",
+              "kind": "code",
+              "tu": "Code/GameEngine/Source/Common/BitRange.cpp",
+              "confidence": "approved",
+              "by": "U",
+              "evidence": "N=Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioKeyMap.cpp provisional",
+              "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioKeyMapBfmeAddKey.cpp"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "funcinfo_rva": 9646212,
+      "unwind_map_rva": 9646188,
+      "count": 3,
+      "target_states": [
+        {
+          "state": 2,
+          "previous_state": 0,
+          "action_rva": 7889465,
+          "instructions": [
+            "lea ecx, [ebp - 0x20]",
+            "jmp 0x48ba39"
+          ],
+          "callee_rva": 4766265,
+          "current_tu_map": [
+            {
+              "rva": "0x00786239",
+              "size": "8",
+              "kind": "code",
+              "tu": "",
+              "confidence": "",
+              "by": "-",
+              "evidence": "",
+              "source": "Code/gen_small/uw_gen_004.cpp"
+            }
+          ]
+        }
+      ],
+      "thunks": [
+        7889473
+      ],
+      "parent_start_candidates": [
+        4283699
+      ],
+      "parents": [
+        {
+          "name": "?parseCrowdResponseDefinition@@YAXPAVINI@@@Z",
+          "export_rva": "",
+          "target_rva": "0x00415D33",
+          "target_size": "314",
+          "source": "Code/GameEngine/Source/Common/CrowdResponseBlockParse.cpp",
+          "status": "matched",
+          "notes": "CrowdResponse INI block parse (theCrowdResponseBlockParse VA 0x00DC20E0); store global TheCrowdResponseStore; insert through inline table member orders the hidden return push before the +0xC this adjust; explicit _CxxThrowException throws the local as retail; migrated=stlport-4.6",
+          "cached_evidence": {
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^crowd^response^block^parse.obj",
+            "exists": true,
+            "source_matches_receipt": true,
+            "object_matches_receipt": true,
+            "eh_verdict": [
+              "EXACT",
+              ""
+            ],
+            "target_labels": {
+              "$L5019": "0x00786239"
+            },
+            "funclet_definitions": [
+              {
+                "label": "$L5019",
+                "bytes": "8d4de0e900000000b80000",
+                "relocations": [
+                  [
+                    4,
+                    20,
+                    "??1?$pair@$$CBVAsciiString@@PAVRva00415B54@@@_STL@@QAE@XZ"
+                  ],
+                  [
+                    9,
+                    6,
+                    "$T5067"
+                  ],
+                  [
+                    14,
+                    20,
+                    "___CxxFrameHandler"
+                  ]
+                ]
+              }
+            ]
+          },
+          "callee_definition": {
+            "name": "??1?$pair@$$CBVAsciiString@@PAVRva00415B54@@@_STL@@QAE@XZ",
+            "defined_in_parent": true,
+            "size": 5,
+            "raw": "e900000000",
+            "relocations": [
+              [
+                1,
+                20,
+                "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+              ]
+            ],
+            "target_rva": "0x0048BA39",
+            "native_bytes": "e9d2a9baff",
+            "resolved_bytes": "e9d2a9baff",
+            "relocation_evidence": [
+              {
+                "name": "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+                "native_rva": "0x00036410",
+                "is_existing_binding": true,
+                "via_data_row": false
+              }
+            ],
+            "unresolved": [],
+            "resolved_equal": true
+          },
+          "current_tu_map": [
+            {
+              "rva": "0x00415D33",
+              "size": "314",
+              "kind": "code",
+              "tu": "",
+              "confidence": "",
+              "by": "-",
+              "evidence": "",
+              "source": "Code/GameEngine/Source/Common/CrowdResponseBlockParse.cpp"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "funcinfo_rva": 9652744,
+      "unwind_map_rva": 9652696,
+      "count": 6,
+      "target_states": [
+        {
+          "state": 1,
+          "previous_state": 0,
+          "action_rva": 7893893,
+          "instructions": [
+            "lea ecx, [ebp - 0x44]",
+            "jmp 0x48ba39"
+          ],
+          "callee_rva": 4766265,
+          "current_tu_map": [
+            {
+              "rva": "0x00787385",
+              "size": "8",
+              "kind": "code",
+              "tu": "Code/GameEngine/Source/GameClient/GUI/LivingWorldAutoResolveArmorStore.cpp",
+              "confidence": "approved",
+              "by": "P",
+              "evidence": "P=0x00427392@FuncInfo0x00934A08 provisional",
+              "source": "Code/gen_small/uw_gen_004.cpp"
+            }
+          ]
+        },
+        {
+          "state": 2,
+          "previous_state": -1,
+          "action_rva": 7893893,
+          "instructions": [
+            "lea ecx, [ebp - 0x44]",
+            "jmp 0x48ba39"
+          ],
+          "callee_rva": 4766265,
+          "current_tu_map": [
+            {
+              "rva": "0x00787385",
+              "size": "8",
+              "kind": "code",
+              "tu": "Code/GameEngine/Source/GameClient/GUI/LivingWorldAutoResolveArmorStore.cpp",
+              "confidence": "approved",
+              "by": "P",
+              "evidence": "P=0x00427392@FuncInfo0x00934A08 provisional",
+              "source": "Code/gen_small/uw_gen_004.cpp"
+            }
+          ]
+        }
+      ],
+      "thunks": [
+        7893936
+      ],
+      "parent_start_candidates": [
+        4354962
+      ],
+      "parents": [
+        {
+          "name": "?parseArmorDefinition@LivingWorldAutoResolveArmorStore@@SAXPAVINI@@@Z",
+          "export_rva": "",
+          "target_rva": "0x00427392",
+          "target_size": "281",
+          "source": "Code/GameEngine/Source/GameClient/GUI/Rva00427157Ctor.cpp",
+          "status": "matched",
+          "notes": "",
+          "cached_evidence": {
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^g^u^i_^rva00427157^ctor.obj",
+            "exists": true,
+            "source_matches_receipt": true,
+            "object_matches_receipt": true,
+            "eh_verdict": [
+              "EXACT",
+              ""
+            ],
+            "target_labels": {
+              "$L7029": "0x00787385"
+            },
+            "funclet_definitions": [
+              {
+                "label": "$L7029",
+                "bytes": "8d4dbce900000000ff75e4",
+                "relocations": [
+                  [
+                    4,
+                    20,
+                    "??1Rva00427157@@QAE@XZ"
+                  ],
+                  [
+                    12,
+                    20,
+                    "??3@YAXPAX@Z"
+                  ],
+                  [
+                    38,
+                    20,
+                    "??1AsciiString@@QAE@XZ"
+                  ],
+                  [
+                    44,
+                    6,
+                    "$T7117"
+                  ],
+                  [
+                    49,
+                    20,
+                    "___CxxFrameHandler"
+                  ]
+                ]
+              }
+            ]
+          },
+          "callee_definition": {
+            "name": "??1Rva00427157@@QAE@XZ",
+            "defined_in_parent": true,
+            "size": 5,
+            "raw": "e900000000",
+            "relocations": [
+              [
+                1,
+                20,
+                "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+              ]
+            ],
+            "target_rva": "0x0048BA39",
+            "native_bytes": "e9d2a9baff",
+            "resolved_bytes": "e9d2a9baff",
+            "relocation_evidence": [
+              {
+                "name": "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+                "native_rva": "0x00036410",
+                "is_existing_binding": true,
+                "via_data_row": false
+              }
+            ],
+            "unresolved": [],
+            "resolved_equal": true
+          },
+          "current_tu_map": [
+            {
+              "rva": "0x00427392",
+              "size": "281",
+              "kind": "code",
+              "tu": "Code/GameEngine/Source/GameClient/GUI/LivingWorldAutoResolveArmorStore.cpp",
+              "confidence": "approved",
+              "by": "N",
+              "evidence": "N=Code/GameEngine/Source/GameClient/GUI/LivingWorldAutoResolveArmorStore.cpp provisional",
+              "source": "Code/GameEngine/Source/GameClient/GUI/Rva00427157Ctor.cpp"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "funcinfo_rva": 9720436,
+      "unwind_map_rva": 9720428,
+      "count": 1,
+      "target_states": [
+        {
+          "state": 0,
+          "previous_state": -1,
+          "action_rva": 7940487,
+          "instructions": [
+            "lea ecx, [ebp - 0x1c]",
+            "jmp 0x49b47c"
+          ],
+          "callee_rva": 4830332,
+          "current_tu_map": [
+            {
+              "rva": "0x00792987",
+              "size": "8",
+              "kind": "code",
+              "tu": "Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp",
+              "confidence": "approved",
+              "by": "P",
+              "evidence": "P=0x004EE9E9@FuncInfo0x00945274 provisional",
+              "source": "Code/gen_small/uw_gen_004.cpp"
+            }
+          ]
+        }
+      ],
+      "thunks": [
+        7940495
+      ],
+      "parent_start_candidates": [
+        5171689
+      ],
+      "parents": [
+        {
+          "name": "?Rva004EE9E9XferVector@@YAPAVXfer@@PAV1@PAVRva004EE6D0@@@Z",
+          "export_rva": "",
+          "target_rva": "0x004EE9E9",
+          "target_size": "245",
+          "source": "Code/GameEngine/Source/Common/Rva004EE9E9XferVector.cpp",
+          "status": "matched",
+          "notes": "Native4EE9E9..4EEADD EH; std vector snapshot xfer over 12B Elem003AF8C0 records (vtable C62A28 three shorts) built inline; twin of the rowed 39C4F7 XferSnapshotVector; rowed reserve 4EE55E and push_back 4EE9B1; block-local formatter exception (throw info CFFD18) shares the record slot as retail t=6 model=claude-opus-5-5",
+          "cached_evidence": {
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^rva004^e^e9^e9^xfer^vector.obj",
+            "exists": true,
+            "source_matches_receipt": true,
+            "object_matches_receipt": true,
+            "eh_verdict": [
+              "EXACT",
+              ""
+            ],
+            "target_labels": {
+              "$L562": "0x00792987"
+            },
+            "funclet_definitions": [
+              {
+                "label": "$L562",
+                "bytes": "8d4de4e900000000b80000",
+                "relocations": [
+                  [
+                    4,
+                    20,
+                    "??1Elem003AF8C0@@UAE@XZ"
+                  ],
+                  [
+                    9,
+                    6,
+                    "$T582"
+                  ],
+                  [
+                    14,
+                    20,
+                    "___CxxFrameHandler"
+                  ]
+                ]
+              }
+            ]
+          },
+          "callee_definition": {
+            "name": "??1Elem003AF8C0@@UAE@XZ",
+            "defined_in_parent": true,
+            "size": 7,
+            "raw": "c70100000000c3",
+            "relocations": [
+              [
+                2,
+                6,
+                "??_7Snapshot@@6B@"
+              ]
+            ],
+            "target_rva": "0x0049B47C",
+            "native_bytes": "c70154b5bb00c3",
+            "resolved_bytes": "c70154b5bb00c3",
+            "relocation_evidence": [
+              {
+                "name": "??_7Snapshot@@6B@",
+                "native_rva": "0x007BB554",
+                "is_existing_binding": true,
+                "via_data_row": false
+              }
+            ],
+            "unresolved": [],
+            "resolved_equal": true
+          },
+          "current_tu_map": [
+            {
+              "rva": "0x004EE9E9",
+              "size": "245",
+              "kind": "code",
+              "tu": "Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp",
+              "confidence": "approved",
+              "by": "C",
+              "evidence": "C=0x004EE950..0x004EEADE provisional",
+              "source": "Code/GameEngine/Source/Common/Rva004EE9E9XferVector.cpp"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "placement_summary": {
+    "funclet_count": 10,
+    "direct_repoint_eligible": 0,
+    "needs_parent_consolidation": 7,
+    "needs_tu_approval": 3,
+    "items": [
+      {
+        "funclet_rva": "0x00761791",
+        "actual_parent_source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawParticleSysBone.cpp",
+        "parent_rva": "0x000BD4A7",
+        "funclet_approved_tu": "",
+        "parent_approved_tu": "",
+        "current_parent_source_is_approved_destination": false,
+        "can_repoint_without_parent_merge_or_TU_approval": false,
+        "constraint": "No approved TU for funclet or parent; TU evidence/admission needed before move"
+      },
+      {
+        "funclet_rva": "0x00773830",
+        "actual_parent_source": "Code/GameEngine/Source/GameClient/DrawableRva0027B18C.cpp",
+        "parent_rva": "0x0027B18C",
+        "funclet_approved_tu": "Code/GameEngine/Source/GameClient/Drawable.cpp",
+        "parent_approved_tu": "Code/GameEngine/Source/GameClient/Drawable.cpp",
+        "current_parent_source_is_approved_destination": false,
+        "can_repoint_without_parent_merge_or_TU_approval": false,
+        "constraint": "Existing parent lies outside approved TU; supported consolidation needed first"
+      },
+      {
+        "funclet_rva": "0x007792CA",
+        "actual_parent_source": "Code/GameEngine/Source/GameLogic/AI/AIClosestEnemySearch.cpp",
+        "parent_rva": "0x002FF07B",
+        "funclet_approved_tu": "Code/GameEngine/Source/GameLogic/AI/ai.cpp",
+        "parent_approved_tu": "Code/GameEngine/Source/GameLogic/AI/ai.cpp",
+        "current_parent_source_is_approved_destination": false,
+        "can_repoint_without_parent_merge_or_TU_approval": false,
+        "constraint": "Existing parent lies outside approved TU; supported consolidation needed first"
+      },
+      {
+        "funclet_rva": "0x00781B6E",
+        "actual_parent_source": "Code/GameEngine/Source/Common/Rva003A47F3Parse.cpp",
+        "parent_rva": "0x003A47F3",
+        "funclet_approved_tu": "",
+        "parent_approved_tu": "",
+        "current_parent_source_is_approved_destination": false,
+        "can_repoint_without_parent_merge_or_TU_approval": false,
+        "constraint": "No approved TU for funclet or parent; TU evidence/admission needed before move"
+      },
+      {
+        "funclet_rva": "0x00782CFB",
+        "actual_parent_source": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doTeamCaptureNearestUnownedFactionUnit.cpp",
+        "parent_rva": "0x003C1D70",
+        "funclet_approved_tu": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions.cpp",
+        "parent_approved_tu": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions.cpp",
+        "current_parent_source_is_approved_destination": false,
+        "can_repoint_without_parent_merge_or_TU_approval": false,
+        "constraint": "Existing parent lies outside approved TU; supported consolidation needed first"
+      },
+      {
+        "funclet_rva": "0x0078317B",
+        "actual_parent_source": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doTeamGarrisonNearestBuilding.cpp",
+        "parent_rva": "0x003C8CCD",
+        "funclet_approved_tu": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions.cpp",
+        "parent_approved_tu": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions.cpp",
+        "current_parent_source_is_approved_destination": false,
+        "can_repoint_without_parent_merge_or_TU_approval": false,
+        "constraint": "Existing parent lies outside approved TU; supported consolidation needed first"
+      },
+      {
+        "funclet_rva": "0x00783747",
+        "actual_parent_source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioKeyMapBfmeAddKey.cpp",
+        "parent_rva": "0x003EDA43",
+        "funclet_approved_tu": "Code/GameEngine/Source/Common/BitRange.cpp",
+        "parent_approved_tu": "Code/GameEngine/Source/Common/BitRange.cpp",
+        "current_parent_source_is_approved_destination": false,
+        "can_repoint_without_parent_merge_or_TU_approval": false,
+        "constraint": "Existing parent lies outside approved TU; supported consolidation needed first"
+      },
+      {
+        "funclet_rva": "0x00786239",
+        "actual_parent_source": "Code/GameEngine/Source/Common/CrowdResponseBlockParse.cpp",
+        "parent_rva": "0x00415D33",
+        "funclet_approved_tu": "",
+        "parent_approved_tu": "",
+        "current_parent_source_is_approved_destination": false,
+        "can_repoint_without_parent_merge_or_TU_approval": false,
+        "constraint": "No approved TU for funclet or parent; TU evidence/admission needed before move"
+      },
+      {
+        "funclet_rva": "0x00787385",
+        "actual_parent_source": "Code/GameEngine/Source/GameClient/GUI/Rva00427157Ctor.cpp",
+        "parent_rva": "0x00427392",
+        "funclet_approved_tu": "Code/GameEngine/Source/GameClient/GUI/LivingWorldAutoResolveArmorStore.cpp",
+        "parent_approved_tu": "Code/GameEngine/Source/GameClient/GUI/LivingWorldAutoResolveArmorStore.cpp",
+        "current_parent_source_is_approved_destination": false,
+        "can_repoint_without_parent_merge_or_TU_approval": false,
+        "constraint": "Existing parent lies outside approved TU; supported consolidation needed first"
+      },
+      {
+        "funclet_rva": "0x00792987",
+        "actual_parent_source": "Code/GameEngine/Source/Common/Rva004EE9E9XferVector.cpp",
+        "parent_rva": "0x004EE9E9",
+        "funclet_approved_tu": "Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp",
+        "parent_approved_tu": "Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp",
+        "current_parent_source_is_approved_destination": false,
+        "can_repoint_without_parent_merge_or_TU_approval": false,
+        "constraint": "Existing parent lies outside approved TU; supported consolidation needed first"
+      }
+    ],
+    "separate_prerequisite": "Parent-emitted destructor admission can be investigated independently; no fold row authorizes moving funclet into split source."
+  },
+  "tu_placement_constraint": "Never infer destination approval from existing split parent source. Funclet may move only into address-approved TU in this committed current map. Blank assignments forbid repoint until independently approved. Destructor-row prerequisites may be considered separately under owning-tool rules; they do not approve a funclet move.",
+  "tu_map_sha256_at_inspection": "bd0caf7d193a7962697fff034ab0cfc17855c11ba405279bfe358871f28772e9",
+  "source_currency_caveat": "Packet predates the verified XferVector declaration repair; capture-nearest cache was already stale. Refresh before admission or relocation. All original-path/TU constraints are retained; no move is authorized by matching bytes."
+}

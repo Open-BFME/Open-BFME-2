@@ -1,0 +1,30 @@
+{
+  "source": "Code/GameEngine/Source/Common/Rva004EE9E9XferVector.cpp",
+  "source_sha256": "728a76de37b71ae0401fd66cded3923d936bbd579bfc27854d8482972259f9ed",
+  "object_sha256": "19917d7233e907f13077cefb9682d56dc9cd1b0952837c49fad619dca83a67a9",
+  "strict_current": true,
+  "code_rows": 3,
+  "eh_exact": 1,
+  "literals": 2,
+  "new_row": {
+    "name": "??1Elem003AF8C0@@UAE@XZ",
+    "rva": "0x0049B47C",
+    "size": 7,
+    "owner": "??1Snapshot@@UAE@XZ",
+    "admission": "tools/add_match.py --icf-owner with full body and Snapshot vptr relocation"
+  },
+  "runtime_changes": "Canonical Snapshot slot spelling is conditional on the existing header mode; the native two-byte version is local. Both original rows and all six external runtime definitions remain exact.",
+  "merge_progression": [
+    "initial rejected abstract Elem003AF8C0 under BFME_SNAPSHOT_NAME_SLOT",
+    "slot declaration fixed abstract rejection; private version collision made 252B instead of245",
+    "two-byte local version restores245B, but merged frame reserves24 vs16; five record offsets move by8",
+    "76 of77 composed rows exact, only transfer parent differs; standalone3rows retain exactbytes/EH",
+    "destination EHsc experiment breaks its existing destructor; rejected; no flag/header/check change",
+    "scoped version lifetime gives no merged improvement and was reverted; noreturn redeclaration refused by compiler and never applied"
+  ],
+  "moves": 0,
+  "funclet_rows_repointed": 0,
+  "unique_byte_gain": 0,
+  "source_file_reduction": 0,
+  "remaining": "Seven funclets need parent consolidation; three need TU approval. Snapshot declaration/version prerequisites and one destructor identity are banked, while the carrier retains all ten generated rows."
+}

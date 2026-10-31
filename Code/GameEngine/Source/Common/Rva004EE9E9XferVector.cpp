@@ -29,7 +29,11 @@ struct __declspec(novtable) Elem003AF8C0 : public Snapshot
 	short field04, field06, field08;
 protected:
 	virtual void loadPostProcess();
+#ifdef BFME_SNAPSHOT_NAME_SLOT
+	virtual const char *GetSnapshotName() const;
+#else
 	virtual void crc(Xfer *);
+#endif
 	virtual void xfer(Xfer *);
 };
 class Rva004EE6D0
@@ -42,10 +46,6 @@ class Rva004EE55EVector
 {
 public:
 	void reserve(unsigned int count);
-};
-struct XferVersion
-{
-    unsigned char minimum, current;
 };
 
 #include "System/XferVectorTypes.h"
@@ -61,7 +61,7 @@ extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__T
 
 Xfer *Rva004EE9E9XferVector(Xfer *xfer, Rva004EE6D0 *vector)
 {
-    XferVersion version = {1, 1};
+    struct { unsigned char minimum, current; } version = {1, 1};
     *xfer == reinterpret_cast<Xfer::Version &>(version);
     unsigned int count = vector->finish - vector->start;
     (*xfer == "std::vector") == count;
