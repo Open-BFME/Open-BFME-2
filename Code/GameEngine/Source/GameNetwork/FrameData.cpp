@@ -69,6 +69,8 @@ private:
 	BfmeCellYN *m_bfmeList;			// 0x8
 };
 
+// ---- from Code/GameEngine/Source/GameNetwork/FrameData.cpp
+
 // ---- from Code/GameEngine/Source/Common/FrameData.cpp
 
 FrameData::FrameData()
@@ -229,10 +231,6 @@ void FrameData::reset()
 	init();
 }
 
-// tu-skeleton: 0x005DA5E3 8B ?zeroFrame@FrameData@@QAEXXZ -- matched in Code/GameEngine/Source/Common/FrameDataManagerCounts.cpp (not merged yet)
-
-// tu-skeleton: 0x005DA5EB 21B ?destroyGameMessages@FrameData@@QAEXXZ -- matched in Code/GameEngine/Source/Common/FrameDataManagerCounts.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/BfmeOneHundredFiftyThree.cpp
 
 // ?BfmeTableYL::bfmeFindYL present-unmatched
@@ -314,4 +312,18 @@ UnsignedInt FrameData::getAckCommandCount()
 	}
 
 	return count;
+}
+
+// ---- from Code/GameEngine/Source/Common/FrameDataManagerCounts.cpp
+
+void FrameData::zeroFrame() {
+ m_commandCount &= 0;
+ m_frameCommandCount &= 0;
+}
+
+void FrameData::destroyGameMessages() {
+ if (m_commandList == 0)
+  return;
+ m_commandList->reset();
+ m_commandCount &= 0;
 }

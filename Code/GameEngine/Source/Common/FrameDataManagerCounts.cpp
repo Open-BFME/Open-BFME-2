@@ -33,17 +33,6 @@ private:
 int MAX_FRAMES_AHEAD = 128;
 int MIN_RUNAHEAD = 100;
 int FRAME_DATA_LENGTH = 258;
-
-void FrameData::zeroFrame() {
- m_commandCount &= 0;
- m_frameCommandCount &= 0;
-}
-void FrameData::destroyGameMessages() {
- if (m_commandList == 0)
-  return;
- m_commandList->reset();
- m_commandCount &= 0;
-}
 unsigned int FrameData::getFrameCommandCount() {
  return m_frameCommandCount;
 }

@@ -2400,10 +2400,10 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?attachTransport@BFMEConnectionManager@@QAEXPAVTransport@@@Z,,0x004CF113,50,Code/GameEngine/Source/Common/ConnectionManagerAttachTransport.cpp,matched,
 ?getIsQuitting@FrameDataManager@@QAE_NXZ,,0x0058B826,4,Code/GameEngine/Source/Common/FrameDataManagerCounts.cpp,matched,BFME2 frame-ring quit-state accessor; companion to reset and readiness path
 ?setQuitFrame@FrameDataManager@@QAEXI@Z,,0x0058B818,14,Code/GameEngine/Source/Common/FrameDataManagerCounts.cpp,matched,BFME2 frame-ring quit-frame setter; marks quitting and stores the quit frame
-?zeroFrame@FrameData@@QAEXXZ,,0x005DA5E3,8,Code/GameEngine/Source/Common/FrameDataManagerCounts.cpp,matched,BFME2 frame-ring entry zeroing helper; clears command and expected-command counts
+?zeroFrame@FrameData@@QAEXXZ,,0x005DA5E3,8,Code/GameEngine/Source/GameNetwork/FrameData.cpp,matched,BFME2 frame-ring entry zeroing helper; clears command and expected-command counts
 ?getFrameCommandCount@FrameData@@QAEIXZ,,0x00421795,3,Code/GameEngine/Source/Common/FrameDataManagerCounts.cpp,matched,BFME2 frame-ring expected-command accessor; reads the entry expected total
 ?setFrameCommandCount@FrameData@@QAEXI@Z,,0x0009070B,9,Code/GameEngine/Source/Common/FrameDataManagerCounts.cpp,matched,BFME2 frame-ring expected-command setter used by reset and frame-info admission
-?destroyGameMessages@FrameData@@QAEXXZ,,0x005DA5EB,21,Code/GameEngine/Source/Common/FrameDataManagerCounts.cpp,matched,BFME2 frame-ring command-list cleanup; null-checks the list then resets it and clears command count
+?destroyGameMessages@FrameData@@QAEXXZ,,0x005DA5EB,21,Code/GameEngine/Source/GameNetwork/FrameData.cpp,matched,BFME2 frame-ring command-list cleanup; null-checks the list then resets it and clears command count
 ?destroyGameMessages@FrameDataManager@@QAEXXZ,,0x0058B7ED,43,Code/GameEngine/Source/Common/FrameDataManagerCounts.cpp,matched,BFME2 frame-ring manager cleanup loop calls each entry cleanup across the fixed ring
 ?Get_First_Collected_Object_Internal@CullSystemClass@@IAEPAVCullableClass@@XZ,,0x007244B0,4,Code/Libraries/Source/WWVegas/WWMath/cullsys.cpp,matched,BFME2 collection head accessor transferred from BFME1 source; retail body is mov eax ecx and ret
 ?Get_Next_Collected_Object_Internal@CullSystemClass@@IAEPAVCullableClass@@PAV2@@Z,,0x00724570,19,Code/Libraries/Source/WWVegas/WWMath/cullsys.cpp,matched,BFME2 collection successor accessor transferred from BFME1 source; null guard and NextCollected field verified in retail
