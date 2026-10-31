@@ -19830,3 +19830,7 @@ Code/GameEngine/Source/GameClient/Rva0005121FElapsed.cpp|function|0x0005121F|rva
 Code/GameEngine/Source/GameClient/Rva0005121FElapsed.cpp|function|0x000511C3|rva000511C3,3c22ed1a9309a8e1db907068,drz-k9,n29f2-k9,w-4d4d8f8584bc,2026-10-31
 Code/GameEngine/Source/GameClient/Rva0005121FElapsed.cpp|function|0x000516EF|rva000516EF,22e77797bac17a2e957086f8,drz-k9,n29f2-k9,w-4d4d8f8584bc,2026-10-31
 Code/GameEngine/Source/GameClient/Rva0005121FElapsed.cpp|global||g_00DBA4FC,db4c4e0cf50f39b16db7d81e,drz-k9,n29f2-k9,w-4d4d8f8584bc,2026-10-31
+Code/GameEngine/Source/GameClient/FXParticleSystemLineDraw.cpp|function|0x0055CD70|rva0055CD70,303c235c8f7550feafb5c8fc,drz-k3,n29g2-k3,w-077d7aeb666b,2026-10-31
+Code/GameEngine/Source/Common/Rva007E3C20Vp6StreamDtor.cpp|function|0x000909B7|rva000909B7,bf2e861e88b9a799bdd17056,drz-k3,n29g2-k3,w-077d7aeb666b,2026-10-31
+Code/GameEngine/Source/Common/Rva00625840Init.cpp|member|Rva00625840Owner|m_120,474b7258f8357a1ac19507d0,drz-k3,n29g2-k3,w-077d7aeb666b,2026-10-31
+Code/GameEngine/Source/Common/Rva005C7636.cpp|function|0x005C7636|rva005C7636,4edc51feee87e56efea8f947,drz-k3,n29g2-k3,w-077d7aeb666b,2026-10-31
