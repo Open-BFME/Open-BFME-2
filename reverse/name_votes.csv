@@ -19672,3 +19672,7 @@ Code/Libraries/Source/WWVegas/WWLib/Rva002BC39D.cpp|member|Header002BC39D|m_08,d
 Code/Libraries/Source/WWVegas/WWLib/Rva002BC39D.cpp|member|Header002BC39D|m_0C,4cc69c55ac7afb33c78d8f18,drz-k4,n29c-k4,w-855a0f400af4,2026-10-31
 Code/GameEngine/Source/GameLogic/Object/Update/HordeNotifyTargetsOfImminentProbableCrushingUpdateCtor.cpp|function|0x004CEB14|Rva004CEB14,51af954998fd1fa4a597ad3c,drz-k4,n29c-k4,w-855a0f400af4,2026-10-31
 Code/GameEngine/Source/GameLogic/Map/AerialPathfinder.cpp|class||Rva00375AF7Entry,9c41052dde726fd48738af6d,drz-k4,n29c-k4,w-855a0f400af4,2026-10-31
+Code/GameEngine/Source/Common/Rva002B8817Filter.cpp|member|Rva002B8817Filter|m_14,754dd4271115228bb098ef96,drz-k5,n29d-k5,w-526a51702f64,2026-10-31
+Code/GameEngine/Source/Common/Rva0029EAFA.cpp|member|Template108|m_108,d212a7d6460e16495f31f543,drz-k5,n29d-k5,w-526a51702f64,2026-10-31
+Code/Libraries/Source/WWVegas/WWLib/realcrc_one_arg.cpp|global||Rva00835BD0Crc32Table,d16984de98c3f769d1e72a86,drz-k5,n29d-k5,w-526a51702f64,2026-10-31
+Code/GameEngine/Source/Main/BfmeDfe6e4.cpp|function|0x0022546B|rva0022546B,62d62463b6c6762e0ef4456d,drz-k5,n29d-k5,w-526a51702f64,2026-10-31
