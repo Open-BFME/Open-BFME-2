@@ -17750,7 +17750,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002522B5,84,code,,displaced,-,N=Code/GameEngine/Source/GameLogic/Object/SpecialPower/StopSpecialPower.cpp,Code/GameEngine/Source/GameLogic/Object/SpecialPower/StopSpecialPowerModuleDataFriendNew.cpp
 0x00252309,59,code,,displaced,-,N=Code/GameEngine/Source/GameLogic/Object/Update/WoundArrowUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/WoundArrowUpdateFriendNew.cpp
 0x00252344,84,code,,displaced,-,N=Code/GameEngine/Source/GameLogic/Object/Update/WoundArrowUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/UpdateModuleDataFriendNew.cpp
-0x00252398,27,code,Code/GameEngine/Source/GameLogic/Object/Update/FellBeastSwoopPower.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/FellBeastSwoopPower.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp
+0x00252398,27,code,Code/GameEngine/Source/GameLogic/Object/Update/FellBeastSwoopPower.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/FellBeastSwoopPower.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Update/FellBeastSwoopPower.cpp
 0x002523B3,59,code,,displaced,-,N=Code/GameEngine/Source/GameLogic/Object/FellBeastSwoopPower.cpp,Code/GameEngine/Source/GameLogic/Object/FellBeastSwoopPowerFriendNew.cpp
 0x002523EE,84,code,Code/GameEngine/Source/GameLogic/Object/Update/FellBeastSwoopPower.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/FellBeastSwoopPower.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Update/FellBeastSwoopPower.cpp
 0x00252442,56,code,,displaced,-,N=Code/GameEngine/Source/GameLogic/Object/SpecialPower/ManTheWallsSpecialPower.cpp,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ManTheWallsSpecialPowerFriendNew.cpp

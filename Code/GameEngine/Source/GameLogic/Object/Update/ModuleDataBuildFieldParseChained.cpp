@@ -1634,31 +1634,11 @@ void SpecialDisguiseUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	parse.add(BfmeSpecialDisguiseUpdateFields, 0);
 }
 
-// Retail VA 0x00BEFE14: 2 fields and the zero sentinel.
-// Class identity comes from this unit's matched registration function;
-// tokens, callbacks and offsets are read from that retail table.
-// The global name below is descriptive; its original spelling is unknown.
-extern const FieldParse BfmeFellBeastSwoopPowerFields[] = {
-	{ "SpecialWeapon", &INI::parseWeaponTemplate, 0, 0xC8 },
-	{ "WhichSpecialWeapon", &INI::parseInt, 0, 0xCC },
-	{ 0, 0, 0, 0 }
-};
-
 class FellBeastSwoopPowerModuleData
 {
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
-
-// ?buildFieldParse@FellBeastSwoopPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z
-// retail 0x00252398 (27 bytes): chained on the rowed SpecialAbilityUpdateModuleData base proc at
-// 0x44ED95, then table 0x00BEFE14. The owning factory pushes this proc VA
-// (unique image-wide); ModuleFactory registers it under "FellBeastSwoopPower".
-void FellBeastSwoopPowerModuleData::buildFieldParse(MultiIniFieldParse &parse)
-{
-	SpecialAbilityUpdateModuleData::buildFieldParse(parse);
-	parse.add(BfmeFellBeastSwoopPowerFields, 0);
-}
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
