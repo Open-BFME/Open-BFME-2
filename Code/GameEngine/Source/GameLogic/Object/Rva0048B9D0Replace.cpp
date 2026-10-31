@@ -37,10 +37,12 @@ public:
 	int m_ownerID; // +8
 };
 
+class AsciiString;
 class WeaponStore
 {
 public:
-	Weapon *allocateNewWeapon(const WeaponTemplate *tmpl, WeaponSlotType wslot) const;
+	const WeaponTemplate *findWeaponTemplate(const AsciiString &name) const;
+	Weapon *allocateNewWeapon(const WeaponTemplate *tmpl, WeaponSlotType slot) const;
 };
 
 extern WeaponStore *TheWeaponStore;
