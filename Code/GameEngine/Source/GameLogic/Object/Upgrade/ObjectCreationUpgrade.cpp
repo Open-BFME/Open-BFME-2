@@ -62,6 +62,39 @@ public:
 #include "../../../Common/GameLogicObjectLookupView.h"
 #include "Common/Snapshot.h"
 #include "ascii_string.h"
+#define BFME_DISP8_BYTECHASE_GETTER(NAME, DISP1, DISP2) \
+	class NAME \
+	{ \
+	public: \
+		unsigned char get() const; \
+		char m_lead[DISP1]; \
+		void *m_ptr; \
+	}; \
+	unsigned char NAME::get() const \
+	{ \
+		return *(unsigned char *)((char *)m_ptr + DISP2); \
+	}
+#define BFME_DISP8_BYTECHASE_BEFORE_GETTER(NAME, BACK, INNER) \
+	class Inner##NAME \
+	{ \
+	public: \
+		char m_lead[INNER]; \
+		unsigned char m_value; \
+	}; \
+	class Sub##NAME \
+	{ \
+	public: \
+		Inner##NAME *m_holder; \
+	}; \
+	class NAME \
+	{ \
+	public: \
+		unsigned char get() const; \
+	}; \
+	unsigned char NAME::get() const \
+	{ \
+		return ((const Sub##NAME *)((const char *)this - (BACK)))->m_holder->m_value; \
+	}
 
 extern GameLogic *TheGameLogic;
 
@@ -224,6 +257,21 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
+// 0x0039ADAF is ExperienceTracker::isTrainable (pinned under that name from
+// VeterancyCrateCollide::isValidToExecute; ZH's isTrainable reads the
+// template's trainable flag): the byte at +0x5E7 of the +0x04 template.
+class ExperienceTracker
+{
+public:
+	bool isTrainable() const;
+	char m_lead[0x4];
+	void *m_template;
+};
+
+BFME_DISP8_BYTECHASE_GETTER(Rva004B4061ByteChase32Field, 0xC, 0x11C)
+
+BFME_DISP8_BYTECHASE_GETTER(Rva004B406BByteChase32Field, 0xC, 0x11D)
+
 // tu-skeleton: 0x004B3F90 36B ??1ObjectCreationUpgrade@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004B3FB4 6B ?name@ObjectCreationUpgrade@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
@@ -237,6 +285,8 @@ public:
 // tu-skeleton: 0x004B3FDC 17B ?rva004B3FDC@Rva00406F9C@@QAEHPBX@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE24.cpp (not merged yet)
 
 // tu-skeleton: 0x004B3FED 8B ??_EObjectCreationUpgrade@@O7AEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeDtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp
 
@@ -303,14 +353,6 @@ ObjectCreationUpgradeModuleData::~ObjectCreationUpgradeModuleData()
 {
 }
 
-// tu-skeleton: 0x004B403A 39B ?getUpgradeActivationMasks@ObjectCreationUpgrade@@MBEXAAUUpgradeMaskType@@0@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxSlotOverrides.cpp (not merged yet)
-
-// tu-skeleton: 0x004B4061 10B ?get@Rva004B4061ByteChase32Field@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x004B406B 10B ?get@Rva004B406BByteChase32Field@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x004B4075 15B ?performUpgradeFX@ObjectCreationUpgrade@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxSlotOverrides.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Create/CreateModuleDataBuildFieldParse.cpp
 
 // ?buildFieldParse@ObjectCreationUpgradeModuleData@@SAXAAVMultiIniFieldParse@@@Z
@@ -322,6 +364,28 @@ void ObjectCreationUpgradeModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	parse.add(ObjectCreationUpgradeModuleDataFieldParse, 0);
 	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE29DGet()), 0x10);
 }
+
+// tu-skeleton: 0x004B403A 39B ?getUpgradeActivationMasks@ObjectCreationUpgrade@@MBEXAAUUpgradeMaskType@@0@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxSlotOverrides.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp
+
+// Disp8 byte-chase getters: seven-byte __thiscall members with one shape:
+//
+//     mov eax,[ecx+<DISP1>] / mov al,[eax+<DISP2>] / ret
+//
+// A pointer is read at a fixed displacement from `this`, then a byte is read
+// at a second displacement from that pointer and returned in `al` (only the
+// low byte is defined; the caller uses `al`). MSVC 7.1 emits the disp8 loads
+// `8B 41 XX` + `8A 40 XX`, plus `ret`, for seven bytes total.
+// Identity is not recovered: every name is derived from its address.
+// No // cl: line (defaults match the frameless seven-byte shape).
+
+// Backward variant: the holder sits at a NEGATIVE displacement from `this`
+// (a sub-object `this` pointing into a larger object). Spelled as an explicit
+// backward cast, which MSVC folds to `mov eax,[ecx-BACK]`; same shape and
+// reading as BFME1's ChainedFieldGetters.
+
+// tu-skeleton: 0x004B4075 15B ?performUpgradeFX@ObjectCreationUpgrade@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxSlotOverrides.cpp (not merged yet)
 
 // tu-skeleton: 0x004B40A6 68B ??0ObjectCreationUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeCtor.cpp (not merged yet)
 
