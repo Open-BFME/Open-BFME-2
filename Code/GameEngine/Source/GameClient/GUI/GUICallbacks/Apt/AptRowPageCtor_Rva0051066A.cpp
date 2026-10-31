@@ -139,7 +139,7 @@ public:
 class Rva0050E952
 {
 public:
-	void rva0050E952(int which, char *result, bool skip); // "_NumOfPlayers"
+	void describeValue(int which, char *result, bool skip); // "_NumOfPlayers"
 };
 
 class Rva0050E8D6
@@ -174,7 +174,7 @@ Rva0050ED58::Rva0050ED58(int level, const AsciiString &name)
 	m_commandMaps.AddCommandMap(prefix + m_name + "_OnRowHidden", AptRef<AptCommandMap>(DelegateDesc(this, reinterpret_cast<CommandMethod>(&Rva0050F10B::rva0050F10B))));
 	m_commandMaps.AddCommandMap(prefix + m_name + "_Reset", AptRef<AptCommandMap>(DelegateDesc(this, reinterpret_cast<CommandMethod>(&Rva0050F5A6::rva0050F5A6))));
 	m_commandMaps.AddCommandMap(prefix + m_name + "_Send", AptRef<AptCommandMap>(DelegateDesc(this, reinterpret_cast<CommandMethod>(&Rva0050F5A6::rva0050EB0A))));
-	((AptExternHandlerAdder *)&m_externHandlers)->AddExternHandler(prefix + m_name + "_NumOfPlayers", 0, AptRef<AptExternHandler>(DelegateDesc(this, reinterpret_cast<CommandMethod>(&Rva0050E952::rva0050E952))));
+	((AptExternHandlerAdder *)&m_externHandlers)->AddExternHandler(prefix + m_name + "_NumOfPlayers", 0, AptRef<AptExternHandler>(DelegateDesc(this, reinterpret_cast<CommandMethod>(&Rva0050E952::describeValue))));
 	((Rva0050E8D6 *)this)->rva0050E8D6();
 	((Rva0050F5A6 *)this)->rva0050F4D0();
 }

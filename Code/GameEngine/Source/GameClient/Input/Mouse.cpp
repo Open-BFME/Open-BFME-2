@@ -822,7 +822,7 @@ void Rva001EEC4B::rva001EEC4B()
 
 // tu-skeleton: 0x001EEFD2 137B ?setCursor@Mouse@@UAEXW4MouseCursor@1@@Z -- matched in Code/GameEngine/Source/GameClient/MouseSetCursor.cpp (not merged yet)
 
-// tu-skeleton: 0x001EF05B 20B ?rva001EF05B@@YA_NABV?$StringBase@G@@0@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE51.cpp (not merged yet)
+// tu-skeleton: 0x001EF05B 20B ?stringsDiffer@@YA_NABV?$StringBase@G@@0@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE51.cpp (not merged yet)
 
 // tu-skeleton: 0x001EF06F 546B ?drawTooltip@Mouse@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/MouseDrawTooltip.cpp (not merged yet)
 

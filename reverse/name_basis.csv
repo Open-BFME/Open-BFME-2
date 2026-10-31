@@ -5976,3 +5976,22 @@ function,?Rva002226DAStore@@YAPAEPAEE@Z,?storeByte@@YAPAEPAEE@Z,inferred,agree:n
 function,?rva0023527F@Rva0023527FScales@@QAEXXZ,?resetScales@Rva0023527FScales@@QAEXXZ,inferred,agree:nl-6e96aa9459b0,Code/GameEngine/Source/Common/GapLeavesSeat8.cpp,0x0023527F
 function,?Rva0029A24FGet@@YA_NXZ,?getFormationPreviewUseDecals@@YA_NXZ,inferred,agree:nl-fa1065777231,Code/GameEngine/Source/Common/GapLeavesSeat8.cpp,0x0029A24F
 function,?rva000910C7@Rva000910C7@@QAEXM@Z,?setTargetValue@Rva000910C7@@QAEXM@Z,inferred,agree:nl-394ad15f9079,Code/GameEngine/Source/Common/VtableSlotBodiesR3F.cpp,0x000910C7
+member,AISpecialPowerTargetEnemy::m_1C,AISpecialPowerTargetEnemy::m_targetID,inferred,agree:nl-539620b49862,Code/GameEngine/Source/Common/VslotSmallBodiesY.cpp,
+member,Rva0050962B::m_128,Rva0050962B::m_objectCreationList,inferred,agree:nl-631fe4ec0490,Code/GameEngine/Source/Common/VslotSmallBodiesY.cpp,
+local,Rva003F17D6::rva003F17D6::b,Rva003F17D6::rva003F17D6::multiplier,inferred,agree:nl-75809bb1c35c,Code/GameEngine/Source/Common/System/Rva003F17D6Init.cpp,0x003F17D6
+local,Rva003F17D6::rva003F17D6::e,Rva003F17D6::rva003F17D6::state,inferred,agree:nl-c727a25008b7,Code/GameEngine/Source/Common/System/Rva003F17D6Init.cpp,0x003F17D6
+local,Rva003F1863::rva003F1863::b,Rva003F1863::rva003F1863::multiplier,inferred,agree:nl-4fe270a0dceb,Code/GameEngine/Source/Common/System/Rva003F17D6Init.cpp,0x003F1863
+local,Rva003F1863::rva003F1863::e,Rva003F1863::rva003F1863::state,inferred,agree:nl-0d62f60a1ba7,Code/GameEngine/Source/Common/System/Rva003F17D6Init.cpp,0x003F1863
+local,Rva003F18F0::rva003F18F0::b,Rva003F18F0::rva003F18F0::multiplier,inferred,agree:nl-4afb8c8805c9,Code/GameEngine/Source/Common/System/Rva003F17D6Init.cpp,0x003F18F0
+local,Rva003F18F0::rva003F18F0::e,Rva003F18F0::rva003F18F0::state,inferred,agree:nl-dd75db8d088a,Code/GameEngine/Source/Common/System/Rva003F17D6Init.cpp,0x003F18F0
+local,Rva003F1976::rva003F1976::b,Rva003F1976::rva003F1976::multiplier,inferred,agree:nl-483e8cdd9325,Code/GameEngine/Source/Common/System/Rva003F17D6Init.cpp,0x003F1976
+local,Rva003F1976::rva003F1976::e,Rva003F1976::rva003F1976::state,inferred,agree:nl-46717f156b1c,Code/GameEngine/Source/Common/System/Rva003F17D6Init.cpp,0x003F1976
+function,?Rva0033A7F7@@YAHI@Z,?popCount@@YAHI@Z,inferred,agree:nl-7552a69cc287,Code/GameEngine/Source/Common/GapBodiesGE07.cpp,0x0033A7F7
+function,?rva00341BF9@Rva00341BF9@@QAEHXZ,?restartTimer@Rva00341BF9@@QAEHXZ,inferred,agree:nl-a6bf64c72ccd,Code/GameEngine/Source/Common/GapBodiesGE07.cpp,0x00341BF9
+function,?rva00367422@Rva00367422@@QAEXPBURva00367422Point@@@Z,?addDelta@Rva00367422@@QAEXPBURva00367422Point@@@Z,inferred,agree:nl-813e1a7ef884,Code/GameEngine/Source/Common/GapBodiesGE07.cpp,0x00367422
+function,?rva0050E952@Rva0050E952@@QAEXHPAD_N@Z,?describeValue@Rva0050E952@@QAEXHPAD_N@Z,inferred,agree:nl-142c393f03fe,Code/GameEngine/Source/Common/GapBodiesGE07.cpp,0x0050E952
+function,?rva005E7D2A@Rva005E7D2A@@QAEXXZ,?popBack@Rva005E7D2A@@QAEXXZ,inferred,agree:nl-2cab8cb1cbbc,Code/GameEngine/Source/Common/GapBodiesGE40.cpp,0x005E7D2A
+function,?rva001EF05B@@YA_NABV?$StringBase@G@@0@Z,?stringsDiffer@@YA_NABV?$StringBase@G@@0@Z,inferred,agree:nl-3c22b5b58f8b,Code/GameEngine/Source/Common/GapBodiesGE51.cpp,0x001EF05B
+carry,rva001EF05B::leftString,stringsDiffer::leftString,inferred,scope renamed by Rename rva001EF05B to stringsDiffer (inferred),Code/GameEngine/Source/Common/GapBodiesGE51.cpp,0x001EF05B
+carry,rva001EF05B::rightString,stringsDiffer::rightString,inferred,scope renamed by Rename rva001EF05B to stringsDiffer (inferred),Code/GameEngine/Source/Common/GapBodiesGE51.cpp,0x001EF05B
+function,?Rva00481BABInvert@@YAXPAI@Z,?invertWord@@YAXPAI@Z,inferred,agree:nl-f25f8bb81578,Code/GameEngine/Source/Common/GapBodiesS9A.cpp,0x00481BAB

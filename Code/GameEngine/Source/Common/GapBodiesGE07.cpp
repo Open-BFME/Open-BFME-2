@@ -6,7 +6,7 @@
 // existing spellings.
 
 // --- 0x0033A7F7 (54B, cdecl): population count of a word.
-int Rva0033A7F7(unsigned int bits)
+int popCount(unsigned int bits)
 {
 	bits = bits - ((bits >> 1) & 0x55555555);
 	bits = ((bits >> 2) & 0x33333333) + (bits & 0x33333333);
@@ -184,13 +184,13 @@ extern int BfmeLogicFramesPerSecond;
 class Rva00341BF9
 {
 public:
-	int rva00341BF9();
+	int restartTimer();
 private:
 	char m_pad[0x20];
 	int m_20;
 };
 
-int Rva00341BF9::rva00341BF9()
+int Rva00341BF9::restartTimer()
 {
 	int frame = ((Rva00341BF9Logic *)TheGameLogic)->m_frame;
 	if (m_20)
@@ -228,13 +228,13 @@ struct Rva00367422Point
 class Rva00367422
 {
 public:
-	void rva00367422(const Rva00367422Point *delta);
+	void addDelta(const Rva00367422Point *delta);
 private:
 	char m_pad[0x56C];
 	Rva00367422Point m_56C;
 };
 
-void Rva00367422::rva00367422(const Rva00367422Point *delta)
+void Rva00367422::addDelta(const Rva00367422Point *delta)
 {
 	m_56C.add(delta);
 }
@@ -271,13 +271,13 @@ extern "C" __declspec(dllimport) int __cdecl _snprintf(char *buffer, unsigned in
 class Rva0050E952
 {
 public:
-	void rva0050E952(int unused, char *buffer, bool defaultOnly);
+	void describeValue(int unused, char *buffer, bool defaultOnly);
 private:
 	char m_pad[0x20];
 	int m_20;
 };
 
-void Rva0050E952::rva0050E952(int, char *buffer, bool defaultOnly)
+void Rva0050E952::describeValue(int, char *buffer, bool defaultOnly)
 {
 	_mbscpy((unsigned char *)buffer, (const unsigned char *)"0");
 	if (!defaultOnly)

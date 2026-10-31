@@ -107,17 +107,17 @@ public:
 	void rva0050965A(const Rva0050962BArg *creationArgs, void *b);
 private:
 	char m_pad00[0x128];
-	ObjectCreationList *m_128;
+	ObjectCreationList *m_objectCreationList;
 };
 void Rva0050962B::rva0050962B(const Rva0050962BArg *creationArgs, void *b)
 {
-	ObjectCreationList *list = m_128;
+	ObjectCreationList *list = m_objectCreationList;
 	if (list)
 		list->create(TheGameLogic->findObjectByID(creationArgs->m_08), b, 0);
 }
 void Rva0050962B::rva0050965A(const Rva0050962BArg *creationArgs, void *b)
 {
-	ObjectCreationList *list = m_128;
+	ObjectCreationList *list = m_objectCreationList;
 	if (list)
 		list->create(TheGameLogic->findObjectByID(creationArgs->m_08), b, 0, 0);
 }
@@ -278,12 +278,12 @@ private:
 	Int m_04;
 	const CommandButton *m_08;
 	char m_pad0C[0x10];
-	ObjectID m_1C;
+	ObjectID m_targetID;
 };
 void AISpecialPowerTargetEnemy::activate(Object *obj)
 {
-	obj->rva00297000(m_08, TheGameLogic->findObjectByID(m_1C), 1, 0);
-	m_1C = INVALID_OBJECT_ID;
+	obj->rva00297000(m_08, TheGameLogic->findObjectByID(m_targetID), 1, 0);
+	m_targetID = INVALID_OBJECT_ID;
 }
 
 // 0x005D7AEC: the +0x28 finder's pick for the argument's controlling player;

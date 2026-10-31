@@ -639,7 +639,7 @@ void PropagandaTowerBehavior::doScan()
 
 // tu-skeleton: 0x00481B7F 44B ??0?$BitFlags@$0L@@@QAE@W4BogusInitType@0@H@Z -- matched in Code/GameEngine/Source/Common/System/BitFlags11DisabilityCtors.cpp (not merged yet)
 
-// tu-skeleton: 0x00481BAB 7B ?Rva00481BABInvert@@YAXPAI@Z -- matched in Code/GameEngine/Source/Common/GapBodiesS9A.cpp (not merged yet)
+// tu-skeleton: 0x00481BAB 7B ?invertWord@@YAXPAI@Z -- matched in Code/GameEngine/Source/Common/GapBodiesS9A.cpp (not merged yet)
 
 // tu-skeleton: 0x00481BB2 28B ??_GPropagandaTowerBehaviorModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModuleDeletingDtors.cpp (not merged yet)
 

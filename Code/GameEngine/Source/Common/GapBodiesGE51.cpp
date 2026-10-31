@@ -228,7 +228,7 @@ public:
 	int compare(const StringBase<T> &that) const;
 };
 
-bool rva001EF05B(const StringBase<unsigned short> &leftString, const StringBase<unsigned short> &rightString)
+bool stringsDiffer(const StringBase<unsigned short> &leftString, const StringBase<unsigned short> &rightString)
 {
 	return leftString.compare(rightString) != 0;
 }

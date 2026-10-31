@@ -89,7 +89,7 @@ bool Rva004F032A::isBelow() const
 }
 
 // --- 0x00481BAB (7B): invert the word the argument points at.
-void Rva00481BABInvert(unsigned int *value)
+void invertWord(unsigned int *value)
 {
 	*value = ~*value;
 }

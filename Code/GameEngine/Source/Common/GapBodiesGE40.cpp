@@ -62,13 +62,13 @@ void Rva005E7BD6(Rva005E74AA *element)
 class Rva005E7D2A
 {
 public:
-	void rva005E7D2A();
+	void popBack();
 private:
 	Rva005E74AA *m_begin;
 	Rva005E74AA *m_end;
 };
 
-void Rva005E7D2A::rva005E7D2A()
+void Rva005E7D2A::popBack()
 {
 	--m_end;
 	m_end->rva005E74AA(0);
