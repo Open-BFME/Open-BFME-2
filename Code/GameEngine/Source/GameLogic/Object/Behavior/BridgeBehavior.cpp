@@ -357,7 +357,51 @@ public:
 	virtual void onDie(const DamageInfo *damageInfo);
 };
 
-// tu-skeleton: 0x00456556 41B ?getBridgeBehaviorInterfaceFromObject@BridgeBehavior@@SAPAVBridgeBehaviorInterface@@PAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorGetInterfaceFromObject.cpp (not merged yet)
+//
+// ?getBridgeBehaviorInterfaceFromObject@BridgeBehavior@@SAPAVBridgeBehaviorInterface@@PAVObject@@@Z,
+// retail 0x00456556, 41 bytes. Dedicated TU.
+// Sits between Bridge::setTowerObjectID (0x00456547) and BridgeBehavior::setTower
+// (0x0045657F) in the BridgeBehavior.cpp code range; called by the Dozer/Worker
+// scaffolding and repair paths. Like Object::getSpawnBehaviorInterface (0x0028BCD4)
+// BFME2 scans the BehaviorModule array at +0x244 (not the ZH +0x18C behaviors
+// array) and asks each module's +0x0C interface sub-object for the bridge
+// interface at slot 12 (+0x30).
+
+class BridgeBehaviorInterface;
+
+class BfmeObjectModule
+{
+public:
+	virtual void slot0() = 0;
+
+private:
+	unsigned int m_data[2];
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorGetInterfaceFromObject.cpp
+
+// ?getBridgeBehaviorInterfaceFromObject@BridgeBehavior@@SAPAVBridgeBehaviorInterface@@PAVObject@@@Z
+BridgeBehaviorInterface *BridgeBehavior::getBridgeBehaviorInterfaceFromObject(Object *obj)
+{
+	// sanity
+	if (obj == 0)
+		return 0;
+
+	// get the bridge behavior module
+	BehaviorModule **bmi;
+	BridgeBehaviorInterface *bbi;
+	for (bmi = obj->getBehaviorModules(); *bmi; ++bmi)
+	{
+		bbi = (*bmi)->getBridgeBehaviorInterface();
+		if (bbi)
+			return bbi;
+	}
+
+	// interface not found
+	return 0;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp
 
@@ -748,8 +792,6 @@ __declspec(noinline) void ForceBridgeBehaviorListDestroy(BridgeBehaviorList12 *l
 	list->~list();
 }
 
-// tu-skeleton: 0x004565BD 360B ?getRandomSurfacePosition@BridgeBehavior@@IAEXPAVTerrainRoadType@@PBVBridgeInfo@@PAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorAreaEffects.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorParseTimeAndLocation.cpp
 
 // Copyright notice and GPL terms retained from the reference BridgeBehavior.cpp.
@@ -797,8 +839,6 @@ void Force_ParseTimeAndLocation( INI *ini, void *instance, TimeAndLocationInfo *
 {
     parseTimeAndLocationInfo( ini, instance, info );
 }
-
-// tu-skeleton: 0x0045685D 143B ?doAreaEffects@BridgeBehavior@@IAEXPAVTerrainRoadType@@PAVBridge@@PBVObjectCreationList@@PBVFXList@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorAreaEffects.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorSetScaffoldData.cpp
 
@@ -861,8 +901,6 @@ void bfmeAnchorBridgeBehaviorSetScaffoldData(BridgeBehavior *bridgeBehavior)
 {
 	bridgeBehavior->setScaffoldData(0, 0, 0, 0, 0, 0);
 }
-
-// tu-skeleton: 0x00456A3E 11B ?rva00456A3E@Rva00456A3E@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAI.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorResolveFX.cpp
 
@@ -1034,11 +1072,8 @@ void BridgeBehavior::onBodyDamageStateChange( const DamageInfo* damageInfo,
 
   // end onBodyDamageStateChange
 
-// tu-skeleton: 0x00456E8D 592B ?update@BridgeBehavior@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorAreaEffects.cpp (not merged yet)
 
-// tu-skeleton: 0x0045710A 9B ??$_Destroy@UPrereqUnitRec@ProductionPrerequisite@@@_STL@@YAXPAUPrereqUnitRec@ProductionPrerequisite@@@Z -- matched in Code/GameEngine/Source/Common/DestroyInstances.cpp (not merged yet)
 
-// tu-skeleton: 0x00457113 150B ??1BridgeBehavior@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorDtor.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Module/BridgeBehaviorPoolKey.cpp
 
@@ -1049,10 +1084,6 @@ NameKeyType BridgeBehavior::getModuleNameKey() const
 		TheNameKeyGenerator->nameToKey("BridgeBehavior");
 	return TheBridgeBehaviorPoolKey;
 }
-
-// tu-skeleton: 0x004571EE 6B ?GetSnapshotName@BridgeBehavior@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x004571F4 7B ?get@Rva004571F4ByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/DispByteFieldGetters.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorOnHealing.cpp
 
@@ -1224,12 +1255,6 @@ Bool BridgeBehavior::isScaffoldInMotion()
 	}
 	return false;
 }
-
-// tu-skeleton: 0x00457472 196B ??0BridgeBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00457536 28B ??_GBridgeBehavior@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00457577 448B ?handleObjectsOnBridgeOnDie@BridgeBehavior@@IAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorHandleObjectsOnBridgeOnDie.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorCreateScaffolding.cpp
 
@@ -1512,15 +1537,10 @@ void BridgeBehavior::createScaffolding( void )
 
   // end createScaffolding
 
-// tu-skeleton: 0x00457E72 357B ?xfer@BridgeBehavior@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorXfer.cpp (not merged yet)
 
-// tu-skeleton: 0x00457FF1 89B ??0BridgeBehaviorModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorModuleDataCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0045804A 95B ??1BridgeBehaviorModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorModuleDataDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x004580A9 170B ?parseFX@BridgeBehaviorModuleData@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorParseFX.cpp (not merged yet)
 
-// tu-skeleton: 0x00458153 170B ?parseOCL@BridgeBehaviorModuleData@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorParseOCL.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/Rva004581FDOnDie.cpp
 
@@ -1550,6 +1570,38 @@ void Rva004581FD::onDie(const DamageInfo *)
 	*(unsigned int *)((char *)this + 0xDC) =
 		*(unsigned int *)((char *)TheGameLogic + 0x40);
 }
+
+// tu-skeleton: 0x004565BD 360B ?getRandomSurfacePosition@BridgeBehavior@@IAEXPAVTerrainRoadType@@PBVBridgeInfo@@PAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorAreaEffects.cpp (not merged yet)
+
+// tu-skeleton: 0x0045685D 143B ?doAreaEffects@BridgeBehavior@@IAEXPAVTerrainRoadType@@PAVBridge@@PBVObjectCreationList@@PBVFXList@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorAreaEffects.cpp (not merged yet)
+
+// tu-skeleton: 0x00456A3E 11B ?rva00456A3E@Rva00456A3E@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAI.cpp (not merged yet)
+
+// tu-skeleton: 0x00456E8D 592B ?update@BridgeBehavior@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorAreaEffects.cpp (not merged yet)
+
+// tu-skeleton: 0x0045710A 9B ??$_Destroy@UPrereqUnitRec@ProductionPrerequisite@@@_STL@@YAXPAUPrereqUnitRec@ProductionPrerequisite@@@Z -- matched in Code/GameEngine/Source/Common/DestroyInstances.cpp (not merged yet)
+
+// tu-skeleton: 0x00457113 150B ??1BridgeBehavior@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004571EE 6B ?GetSnapshotName@BridgeBehavior@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x004571F4 7B ?get@Rva004571F4ByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/DispByteFieldGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00457472 196B ??0BridgeBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00457536 28B ??_GBridgeBehavior@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00457577 448B ?handleObjectsOnBridgeOnDie@BridgeBehavior@@IAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorHandleObjectsOnBridgeOnDie.cpp (not merged yet)
+
+// tu-skeleton: 0x00457E72 357B ?xfer@BridgeBehavior@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x00457FF1 89B ??0BridgeBehaviorModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorModuleDataCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0045804A 95B ??1BridgeBehaviorModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorModuleDataDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004580A9 170B ?parseFX@BridgeBehaviorModuleData@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorParseFX.cpp (not merged yet)
+
+// tu-skeleton: 0x00458153 170B ?parseOCL@BridgeBehaviorModuleData@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorParseOCL.cpp (not merged yet)
 
 // tu-skeleton: 0x0045824C 28B ??_GBridgeBehaviorModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorModuleDataDtor.cpp (not merged yet)
 
