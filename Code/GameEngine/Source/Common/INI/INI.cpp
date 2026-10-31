@@ -28,6 +28,21 @@ struct BfmeE12
 	float x, y, z;
 };
 #include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <time.h>
+#include <memory>
+template <typename T> struct BfmeStringData
+{
+	int refCount;
+	unsigned short length;
+	unsigned short capacity;
+	T text[1];
+};
+#pragma comment(linker, "/alternatename:??0BfmePairEL@@QAE@ABVBfmeWordEL@@0@Z=??0Rva0002C4FD@@QAE@ABV?$StringBase@D@@0@Z")
+#pragma comment(linker, "/alternatename:??RRecordNocaseLess@@QBE_NABUBfmeStringRecord004071F7@@0@Z=?Rva0002C63CAsciiNocaseLess@@YG_NABVAsciiString@@0@Z")
+#define _STLP_NO_EXCEPTIONS 1
+#define _STLP_NO_EXCEPTIONS 1
 
 namespace rts
 {
@@ -687,11 +702,139 @@ struct Rva0002C5E6Range { const StringBase<char>*first,*last; };
 
 extern bool __cdecl Rva0002C5E6(const StringBase<char>&candidate,const Rva0002C5E6Range*filter);
 
+struct SaveDate
+{
+	WORD year;
+	WORD month;
+	WORD day;
+	WORD dayOfWeek;
+	WORD hour;
+	WORD minute;
+	WORD second;
+	WORD milliseconds;
+public:
+	void rva0002BB1C();
+};
+
+// BfmeINIReadTimestamp: matched references place it at VA 0xddf5b8 (zero-filled; a plain-data view).
+SaveDate BfmeINIReadTimestamp;
+
+extern int BfmeINIMacroGeneration;
+
+// BfmeINIMacroGeneration: matched references place it at VA 0xddf5ac (zero-filled .bss).
+int BfmeINIMacroGeneration;
+
+extern int BfmeINISavedMacroGeneration;
+
+// BfmeINISavedMacroGeneration: matched references place it at VA 0xddf5b0 (zero-filled .bss).
+int BfmeINISavedMacroGeneration;
+
+//
+// ?findBlockParse@@YAP6AXPAVINI@@@ZPBD@Z @0x0002BBFC (43B).
+// Out-of-line copy of the block finder that INI::parseLine (0x0002C0F5,
+// INIParseLineBFME2.cpp) inlines: walk theBlockParseList (VA 0x00DDF578) and
+// return the parse callback of the node whose token strcmp-equals the key,
+// else 0. Target facts: cdecl, one stack argument, plain RET; node layout
+// { next +0, token +4, parse +8 } is the BlockParse registration record
+// (Rva007ABBF6BlockParseInits.cpp). Name and semantics carried from Zero
+// Hour's INI.cpp findBlockParse and the BFME1 donor's linked-list form; the
+// named token local reproduces retail's MOV-load of the node token before
+// the key push, as in the inlined parseLine copy.
+
+// strcmp without dllimport, as in INIParseLineBFME2.cpp: E8 into the linker
+// thunk at 0x006291C6 like retail.
+extern "C" int __cdecl strcmp(const char *s1, const char *s2);
+
+//
+// Retail 0x0002C621 (27B): ?bfmeMakePairEL@@YA?AUBfmePairEL@@ABVBfmeWordEL@@0@Z.
+// Hidden-retptr __cdecl factory building the 8-byte BfmePairEL return buffer
+// from two BfmeWordEL const refs. Retail is one EH-state init
+// (and dword ptr [ebp-4],0) plus a single E8 to the shared two-StringBase
+// pair ctor at 0x0002C4FD, then returns the hidden retbuf (leave; ret).
+// Called twice from the rowed splitter
+// ?Rva00194810@@YA?AUBfmePairEL@@ABVBfmeWordEL@@@Z at 0x0032ABDA
+// (REL32 at 0x0032AC4D and 0x0032AC78, both decoding to 0x0002C621).
+//
+// BFME1 donor game/GameEngine/Source/Common/Bfme5TwoWordPairFactory.cpp
+// (reference/open-bfme-1 @ 6583b3c1ff21db4a561285717028fdafc780b7db,
+// verified fresh 2026-10-04T22:47:33Z) compiled /O1 /EHsc. BfmeWordEL takes
+// the rowed split TU's 4-byte StringBase<char> view
+// (Code/GameEngine/Source/GameLogic/Rva00194810Split_Rva0032abda.cpp,
+// 0x0032ABDA 184B); BfmePairEL is two BfmeWordEL (8 bytes total).
+// The donor defines the pair ctor inline; retail proves this factory
+// forwards through the shared pair ctor instead (one E8, EH state stays 0
+// in this frame), so the ctor is declared here and pinned to 0x0002C4FD in
+// reverse/symbols.csv. Defining it here would inline two StringBase copies
+// and lose the call. BfmeWordEL is layout-identical to StringBase<char>
+// (single 4-byte payload, non-trivial copy), so the pinned body is the same
+// bytes under the EL spelling, matching the existing
+// ??0?$pair@VAsciiString@@V1@@ ICF-alias pin at that address.
+
+// A four-byte view of the established word type. Member bodies are supplied by
+// the existing splitter/string providers; this factory only calls the pair ctor.
+// Keep the canonical StringBase template out of this TU rather than redeclaring it.
+class BfmeWordEL
+{
+public:
+    BfmeWordEL(const BfmeWordEL &other);
+    BfmeWordEL(const BfmeWordEL &other, int start, int len);
+    ~BfmeWordEL();
+private:
+    void *m_stringStorage;
+};
+
+typedef char BfmeWordELSizeCheck[sizeof(BfmeWordEL) == 4 ? 1 : -1];
+
+struct BfmePairEL
+{
+	// Callers destroy this pair through the established pair provider.
+	// This producer does not own an independent cleanup implementation.
+	~BfmePairEL();
+	// Defined by the shared pair ctor at 0x0002C4FD (see header note);
+	// declared here so the factory below encodes the same single call.
+	BfmePairEL(const BfmeWordEL &firstValue, const BfmeWordEL &secondValue);
+
+	BfmeWordEL first;
+	BfmeWordEL second;
+};
+
+class Rva0002CB98
+{
+	unsigned char m_pad[0x14];
+public:
+	_STL::set<AsciiString, BfmeStringNoCaseLess, _STL::allocator<AsciiString> > m_set;
+	bool rva0002CB98(const AsciiString &a) const;
+};
+
+class Rva005D0507
+{
+public:
+	int rva005D0507();
+};
+
+class Rva0002C9C2
+{
+public:
+	int write(char *dst);
+	operator AsciiString();
+};
+
+class Rva0002CBB4
+{
+	unsigned char m_pad[0x14];
+
+public:
+	_STL::set<AsciiString, BfmeStringNoCaseLess, _STL::allocator<AsciiString> > m_set;
+	void rva0002CBB4(const AsciiString &v);
+};
+
 // tu-skeleton: 0x0002BABA 10B ?getNthFieldParse@MultiIniFieldParse@@QBEPBUFieldParse@@H@Z -- matched in Code/GameEngine/Source/Common/INI/INI_initFromINIMulti.cpp (not merged yet)
 
 // tu-skeleton: 0x0002BAC4 11B ?getNthExtraOffset@MultiIniFieldParse@@QBEIH@Z -- matched in Code/GameEngine/Source/Common/INI/INI_initFromINIMulti.cpp (not merged yet)
 
 // tu-skeleton: 0x0002BACF 6B ?getBlockParseList@@YAHXZ -- matched in Code/GameEngine/Source/Common/GlobalGetterSingles.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/INI/INI.cpp
 
 // ---- from Code/GameEngine/Source/Common/INI/INI.cpp
 
@@ -1976,60 +2119,6 @@ void INI::parseAsciiString(INI *ini, void *instance, void *store, const void *us
 	*(AsciiString *)store = ini->getNextAsciiString();
 }
 
-// tu-skeleton: 0x0002BAF1 7B ?get@Rva0002BAF1ByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/DispByteFieldGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0002BAF8 36B ??0SaveDate@@QAE@XZ -- matched in Code/GameEngine/Source/Common/System/SaveGame/GameState.cpp (not merged yet)
-
-// tu-skeleton: 0x0002BB71 14B ?rva0002BB71@Rva0002BB71@@QAE_NXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE19.cpp (not merged yet)
-
-// tu-skeleton: 0x0002BB7F 68B ?isValidINIFilename@INI@@KA_NPBD@Z -- matched in Code/GameEngine/Source/Common/INI/INIO1Bodies.cpp (not merged yet)
-
-// tu-skeleton: 0x0002BD39 76B ?scanIndexList@INI@@QAEHPBDPBQBD@Z -- matched in Code/GameEngine/Source/Common/System/INI_scanIndexList.cpp (not merged yet)
-
-// tu-skeleton: 0x0002BDF2 170B ?isEndOfBlock@INI@@SA_NPAD@Z -- matched in Code/GameEngine/Source/Common/INI/INIO1Bodies.cpp (not merged yet)
-
-// tu-skeleton: 0x0002BE9C 37B ?startsWith@?$StringBase@D@@QBE_NPBD@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/string_base.cpp (not merged yet)
-
-// tu-skeleton: 0x0002BEC1 37B ?endsWith@?$StringBase@D@@QBE_NPBD@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/string_base.cpp (not merged yet)
-
-// tu-skeleton: 0x0002BEE6 21B ??$swapRange@M@@YAXAAM0@Z -- matched in Code/GameEngine/Source/Common/INI/INIAudioEventInfoRangeParsers.cpp (not merged yet)
-
-// tu-skeleton: 0x0002BEFB 19B ?rva0002BEFB@@YAXPAH0@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE19.cpp (not merged yet)
-
-// tu-skeleton: 0x0002BF0E 19B ??Rvalue_compare@?$map@IPAXU?$less@I@_STL@@V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@_STL@@QBE_NABU?$pair@$$CBIPAX@2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_lower.cpp (not merged yet)
-
-// tu-skeleton: 0x0002BF21 14B ?rva0002BF21@Rva0002BF21@@QAEHPAD@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE19.cpp (not merged yet)
-
-// tu-skeleton: 0x0002BF2F 27B ??H@YA?AUAsciiStringRefWithChar@@ABVAsciiString@@D@Z -- matched in Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp (not merged yet)
-
-// tu-skeleton: 0x0002C18D 59B (unledgered) -- unmatched, no code, never credited
-
-// tu-skeleton: 0x0002C1C8 53B (unledgered) -- unmatched, no code, never credited
-
-// tu-skeleton: 0x0002C230 6B (unledgered) -- unmatched, no code, never credited
-
-// tu-skeleton: 0x0002C2C7 360B ?isDeclarationOfType@INI@@SA_NVAsciiString@@0PAD@Z -- matched in Code/GameEngine/Source/Common/INI/INIO1Bodies.cpp (not merged yet)
-
-// tu-skeleton: 0x0002C7FD 214B ?resize@Rva0002C7FD@@QAEXI@Z -- matched in Code/GameEngine/Source/Common/Rva0002C7FD.cpp (not merged yet)
-
-// tu-skeleton: 0x0002CF5E 6B (unledgered) -- unmatched, no code, never credited
-
-// tu-skeleton: 0x0002D1B0 11B ?rva0002D1B0Clear@Rva0002D1B0Range@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Thing/VectorAsciiStringErase.cpp (not merged yet)
-
-// tu-skeleton: 0x0002D1CF 178B ?_M_insert_overflow@?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@IAEXPAVAsciiString@@ABV3@ABU__false_type@2@I_N@Z -- matched in Code/GameEngine/Source/Common/System/XferAsciiStringVector.cpp (not merged yet)
-
-// tu-skeleton: 0x0002D2C1 936B ?prepFile@INI@@IAE_NABVAsciiString@@W4INILoadType@@@Z -- matched in Code/GameEngine/Source/Common/System/INI_loadFile.cpp (not merged yet)
-
-// tu-skeleton: 0x0002D7A8 675B ?initFromINIMulti@INI@@QAEXPAXABVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/Common/INI/INI_initFromINIMulti.cpp (not merged yet)
-
-// tu-skeleton: 0x0002D8FE 6B (unledgered) -- unmatched, no code, never credited
-
-// tu-skeleton: 0x0002D904 104B (unledgered) -- unmatched, no code, never credited
-
-// tu-skeleton: 0x0002D96C 90B (unledgered) -- unmatched, no code, never credited
-
-// tu-skeleton: 0x0002DF97 75B ?getNextToken@INI@@QAEPBDPBD@Z -- matched in Code/GameEngine/Source/Common/System/INI_getNextToken.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/System/INI_loadDirectory.cpp
 
 // ?loadDirectory@INI@@QAE_NVAsciiString@@_NW4INILoadType@@PAVXfer@@H@Z
@@ -2102,6 +2191,318 @@ bool INI::loadDirectory(AsciiString dirName, bool subdirs, INILoadType loadType,
 
 	return didLoad;
 }
+
+// tu-skeleton: 0x0002BAF1 7B ?get@Rva0002BAF1ByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/DispByteFieldGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0002BAF8 36B ??0SaveDate@@QAE@XZ -- matched in Code/GameEngine/Source/Common/System/SaveGame/GameState.cpp (not merged yet)
+
+// tu-skeleton: 0x0002BB71 14B ?rva0002BB71@Rva0002BB71@@QAE_NXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE19.cpp (not merged yet)
+
+// tu-skeleton: 0x0002BB7F 68B ?isValidINIFilename@INI@@KA_NPBD@Z -- matched in Code/GameEngine/Source/Common/INI/INIO1Bodies.cpp (not merged yet)
+
+// tu-skeleton: 0x0002BBC3 6B ?Rva0002BBC3Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters5.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/System/SaveGame/Rva0002BBC9Update.cpp
+
+// platformsdk
+// ?Rva0002BBC9Update@@YAXXZ @0x0002BBC9 21B
+// Refreshes global SaveDate BfmeINIReadTimestamp via rowed 0x0002BB1C then copies
+// BfmeINIMacroGeneration to BfmeINISavedMacroGeneration. Caller at 0x001B511B ignores the return.
+
+void Rva0002BBC9Update()
+{
+	BfmeINIReadTimestamp.rva0002BB1C();
+	BfmeINISavedMacroGeneration = BfmeINIMacroGeneration;
+}
+
+// ---- from Code/GameEngine/Source/Common/INI/INIFindBlockParse.cpp
+
+INIBlockParse findBlockParse(const char *token)
+{
+	for (BlockParse *parse = theBlockParseList; parse; parse = parse->next)
+	{
+		const char *name = parse->token;
+		if (strcmp(name, token) == 0)
+			return parse->parse;
+	}
+	return 0;
+}
+
+// tu-skeleton: 0x0002BC27 71B ?findFieldParse@@YAP6AXPAVINI@@PAX1PBX@ZPBUFieldParse@@PBDAAHAAPBX@Z -- matched in Code/GameEngine/Source/Common/INI/ini_parsers_findFieldParse.cpp (not merged yet)
+
+// tu-skeleton: 0x0002BCAB 132B _rva002bcab_scanIndex -- matched in Code/GameEngine/Source/Common/System/INI_scanIndexList.cpp (not merged yet)
+
+// tu-skeleton: 0x0002BD39 76B ?scanIndexList@INI@@QAEHPBDPBQBD@Z -- matched in Code/GameEngine/Source/Common/System/INI_scanIndexList.cpp (not merged yet)
+
+// tu-skeleton: 0x0002BDF2 170B ?isEndOfBlock@INI@@SA_NPAD@Z -- matched in Code/GameEngine/Source/Common/INI/INIO1Bodies.cpp (not merged yet)
+
+// tu-skeleton: 0x0002BE9C 37B ?startsWith@?$StringBase@D@@QBE_NPBD@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/string_base.cpp (not merged yet)
+
+// tu-skeleton: 0x0002BEC1 37B ?endsWith@?$StringBase@D@@QBE_NPBD@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/string_base.cpp (not merged yet)
+
+// tu-skeleton: 0x0002BEE6 21B ??$swapRange@M@@YAXAAM0@Z -- matched in Code/GameEngine/Source/Common/INI/INIAudioEventInfoRangeParsers.cpp (not merged yet)
+
+// tu-skeleton: 0x0002BEFB 19B ?rva0002BEFB@@YAXPAH0@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE19.cpp (not merged yet)
+
+// tu-skeleton: 0x0002BF0E 19B ??Rvalue_compare@?$map@IPAXU?$less@I@_STL@@V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@_STL@@QBE_NABU?$pair@$$CBIPAX@2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_lower.cpp (not merged yet)
+
+// tu-skeleton: 0x0002BF21 14B ?rva0002BF21@Rva0002BF21@@QAEHPAD@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE19.cpp (not merged yet)
+
+// tu-skeleton: 0x0002BF2F 27B ??H@YA?AUAsciiStringRefWithChar@@ABVAsciiString@@D@Z -- matched in Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp (not merged yet)
+
+// tu-skeleton: 0x0002BF8C 89B ??R?$hash@VAsciiString@@@rts@@QBEIABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/System/RtsAsciiStringHash.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/isFileNewer.cpp
+
+// platformsdk
+//
+// ?isFileNewer@@YA_NABVAsciiString@@PBU_SYSTEMTIME@@@Z @ 0x0002C025 (155B)
+// Free file-time check: empty name false; else _stat path and localtime of st_mtime,
+// compare tm (year+1900 mon+1 mday hour min sec) against SYSTEMTIME words.
+// Evidence: isEmpty row 0x1E2F; _stat/localtime IAT; g_Rva0107301CEmptyString for empty;
+// 0x76c=1900; caller 0x2D327 in 0x2D2C1 prepFile. Prev INILineAccessors // cl: reused.
+
+bool isFileNewer(const AsciiString &filename, const SYSTEMTIME *st)
+{
+	if (filename.isEmpty())
+		return false;
+	else
+	{
+		const char *path = filename.str();
+		struct _stat buf;
+		_stat(path, &buf);
+		struct tm *t = localtime(&buf.st_mtime);
+		if (st->wYear < t->tm_year + 0x76C)
+			return true;
+		if (st->wYear > t->tm_year + 0x76C)
+			return false;
+		int mon = t->tm_mon + 1;
+		if (st->wMonth < mon)
+			return true;
+		if (st->wMonth > mon)
+			return false;
+		// Retail reads the day from +4 (wDayOfWeek) rather than +6 (wDay); follow retail.
+		if (st->wDayOfWeek < t->tm_mday)
+			return true;
+		if (st->wDayOfWeek > t->tm_mday)
+			return false;
+		if (st->wHour < t->tm_hour)
+			return true;
+		if (st->wHour > t->tm_hour)
+			return false;
+		if (st->wMinute < t->tm_min)
+			return true;
+		if (st->wMinute > t->tm_min)
+			return false;
+		unsigned char isNewer = (st->wSecond <= t->tm_sec);
+		return isNewer;
+	}
+}
+
+// tu-skeleton: 0x0002C0C0 53B ??1?$pair@$$CBVAsciiString@@V1@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_pair_cleanup.cpp (not merged yet)
+
+// tu-skeleton: 0x0002C18D 59B (unledgered) -- unmatched, no code, never credited
+
+// tu-skeleton: 0x0002C1C8 53B (unledgered) -- unmatched, no code, never credited
+
+// tu-skeleton: 0x0002C230 6B (unledgered) -- unmatched, no code, never credited
+
+// tu-skeleton: 0x0002C2C7 360B ?isDeclarationOfType@INI@@SA_NVAsciiString@@0PAD@Z -- matched in Code/GameEngine/Source/Common/INI/INIO1Bodies.cpp (not merged yet)
+
+// tu-skeleton: 0x0002C42F 42B ?startsWithNoCase@?$StringBase@D@@QBE_NABV1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/string_base.cpp (not merged yet)
+
+// tu-skeleton: 0x0002C459 44B ?find@?$StringBase@D@@QBEPBDD@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/string_base.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_construct_asciistring.cpp
+
+//
+// STLport _Construct<AsciiString> placement-copy helper. Retail 0x0002C485
+// (45 bytes) is the null-guarded placement-new copy over a single element,
+// called per element by the 38B __uninitialized_copy<AsciiString> trio at
+// 0x0002C4B2 and by the AsciiString-vector push_back/insert bodies at
+// 0x0002D222/0x0002DBF8/0x0001FD696. The AsciiString copy delegates inline to
+// the StringBase<char> copy row at 0x000365F0 (AptMap pattern), so no new pin
+// is needed for it; __EH_prolog resolves via its matched row.
+
+void AsciiStringCopyConstructAtRva0002C485(AsciiString *dest, const AsciiString &source)
+{
+    ::new (dest) AsciiString(source);
+}
+
+// tu-skeleton: 0x0002C4B2 38B ??$__uninitialized_copy@PBVAsciiString@@PAV1@@_STL@@YAPAVAsciiString@@PBV1@0PAV1@ABU__false_type@0@@Z -- matched in Code/GameEngine/Source/Common/Thing/AsciiStringUninitializedCopy.cpp (not merged yet)
+
+// tu-skeleton: 0x0002C4D8 37B ??$__uninitialized_fill_n@PAURva0002C4D8Element@@IU1@@_STL@@YAPAURva0002C4D8Element@@PAU1@IABU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0002C4D8.cpp (not merged yet)
+
+// tu-skeleton: 0x0002C4FD 57B ??0Rva0002C4FD@@QAE@ABV?$StringBase@D@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0002C4FDCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0002C536 28B ??_G?$pair@$$CBVAsciiString@@V1@@_STL@@QAEPAXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_pair_cleanup.cpp (not merged yet)
+
+// tu-skeleton: 0x0002C552 34B ?_M_create_node@?$_Rb_tree@VAsciiString@@V1@U?$_Identity@VAsciiString@@@_STL@@U?$less@VAsciiString@@@3@V?$allocator@VAsciiString@@@3@@_STL@@IAEPAU?$_Rb_tree_node@VAsciiString@@@2@ABVAsciiString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_asciistring_set.cpp (not merged yet)
+
+// tu-skeleton: 0x0002C574 61B ??0?$pair@$$CBVAsciiString@@V1@@_STL@@QAE@ABU01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_asciistring_pair.cpp (not merged yet)
+
+// tu-skeleton: 0x0002C5E6 59B ?Rva0002C5E6@@YA_NABV?$StringBase@D@@PBURva0002C5E6Range@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/string_base.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Bfme5TwoWordPairFactory_Rva0002C621.cpp
+
+// ?bfmeMakePairEL@@YA?AUBfmePairEL@@ABVBfmeWordEL@@0@Z
+BfmePairEL __cdecl bfmeMakePairEL(
+	const BfmeWordEL &first,
+	const BfmeWordEL &second)
+{
+	return BfmePairEL(first, second);
+}
+
+// The retail call in this body reads 0x0002C4FD, an address the ledger already
+// carries as ??0Rva0002C4FD@@QAE@ABV?$StringBase@D@@0@Z. Bind the donor spelling to that rowed owner so one
+// address keeps one definition and the unit links.
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_nocase_less.cpp
+
+// ?Rva0002C63CAsciiNocaseLess@@YG_NABVAsciiString@@0@Z @0x0002C63C 25B
+// Case-insensitive AsciiString tree ordering for the INI macro map family.
+// Callees rowed: ?compareNoCase@?$StringBase@D@@QBEHABV1@@Z at 0x00006A00.
+// Callers: _M_insert/find paths at 0x0002C686 0x0002C71B 0x0002C908 0x003ED732.
+// Precedent: ?Rva0006038D4CStrLess@@YG_NPBD0@Z at 0x006038D4 (strcmp stdcall less).
+
+bool __stdcall Rva0002C63CAsciiNocaseLess(const AsciiString &left, const AsciiString &right)
+{
+    return (((const StringBase<char> &)left).compareNoCase(*(const StringBase<char> *)&right) < 0) || false;
+}
+
+// Callers elsewhere reach bodies in this unit through other spellings; retail's
+// call sites in their matched rows land on these addresses (same ABI). Bind them.
+
+// tu-skeleton: 0x0002C655 20B ?rva0002C655@Rva0002C655@@QBEIABVAsciiString@@I@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE19.cpp (not merged yet)
+
+// tu-skeleton: 0x0002C669 29B ?_M_bkt_num_key@?$hashtable@U?$pair@$$CBVAsciiString@@W4BuildableStatus@@@_STL@@VAsciiString@@U?$hash@VAsciiString@@@rts@@U?$_Select1st@U?$pair@$$CBVAsciiString@@W4BuildableStatus@@@_STL@@@2@U?$equal_to@VAsciiString@@@5@V?$allocator@U?$pair@$$CBVAsciiString@@W4BuildableStatus@@@_STL@@@2@@_STL@@ABEIABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicSetBuildableStatusOverride.cpp (not merged yet)
+
+// tu-skeleton: 0x0002C686 149B ?_M_insert@?$_Rb_tree@VAsciiString@@V1@U?$_Identity@VAsciiString@@@_STL@@UBfmeStringNoCaseLess@@V?$allocator@VAsciiString@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@VAsciiString@@U?$_Nonconst_traits@VAsciiString@@@_STL@@@2@PAU_Rb_tree_node_base@2@0ABVAsciiString@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_nocase_asciistring_set_insert.cpp (not merged yet)
+
+// tu-skeleton: 0x0002C71B 45B ??$_Construct@U?$pair@$$CBVAsciiString@@V1@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBVAsciiString@@V1@@0@ABU10@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_asciistring_pair.cpp (not merged yet)
+
+// tu-skeleton: 0x0002C748 9B ??$_Destroy@U?$pair@$$CBVAsciiString@@V1@@_STL@@@_STL@@YAXPAU?$pair@$$CBVAsciiString@@V1@@0@@Z -- matched in Code/GameEngine/Source/Common/GameSpyLoginPreferences.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva0002CB98NocaseSetFind.cpp
+
+// ?rva0002CB98@Rva0002CB98@@QBE_NABVAsciiString@@@Z @0x0002CB98 28B
+// Wrapper that tests membership in a nocase AsciiString set member at +0x14.
+// Evidence: calls the tree _M_find at 0x0002C751, whose body compares through
+// the nocase AsciiString less at 0x0002C63C (Rva0002C63CAsciiNocaseLess), so
+// the key is an AsciiString, not a BitFlags as this unit once declared; the
+// sibling 0x0002CBB4 inserts into a nocase AsciiString set at the same +0x14.
+// WorldBuilder's SidesList::linkLibraryMaps (wb 0xa86e40) and
+// Win32LocalFileSystem::getFileListInDirectory (wb 0x1651780) call the same
+// _M_find (wb 0x6cedf0) on their set<AsciiString> before set::insert 0x0002CA26.
+// Host class opaque, so the honest-address name stays.
+
+bool Rva0002CB98::rva0002CB98(const AsciiString &asciiString) const
+{
+	return m_set.find(asciiString) != m_set.end();
+}
+
+// tu-skeleton: 0x0002C7C1 19B ??8@YA_NABVAsciiString@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_asciistring_remove.cpp (not merged yet)
+
+// tu-skeleton: 0x0002C7D4 20B ??9@YA_NABVAsciiString@@0@Z -- matched in Code/GameEngine/Source/Common/Thing/ThingTemplateParseModuleName.cpp (not merged yet)
+
+// tu-skeleton: 0x0002C7E8 21B ?rva0002C7E8@Rva0002C7E8@@QBE_NABVAsciiString@@0@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE19.cpp (not merged yet)
+
+// tu-skeleton: 0x0002C7FD 214B ?resize@Rva0002C7FD@@QAEXI@Z -- matched in Code/GameEngine/Source/Common/Rva0002C7FD.cpp (not merged yet)
+
+// tu-skeleton: 0x0002C8D3 53B ?_M_erase@?$_Rb_tree@VAsciiString@@V1@U?$_Identity@VAsciiString@@@_STL@@UBfmeStringNoCaseLess@@V?$allocator@VAsciiString@@@3@@_STL@@AAEXPAU?$_Rb_tree_node@VAsciiString@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_nocase_asciistring_set_cleanup.cpp (not merged yet)
+
+// tu-skeleton: 0x0002C908 153B ?insert_unique@?$_Rb_tree@VAsciiString@@V1@U?$_Identity@VAsciiString@@@_STL@@UBfmeStringNoCaseLess@@V?$allocator@VAsciiString@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@VAsciiString@@U?$_Nonconst_traits@VAsciiString@@@_STL@@@_STL@@_N@2@ABVAsciiString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_nocase_asciistring_set_insert.cpp (not merged yet)
+
+// tu-skeleton: 0x0002C9A1 5B ?_M_bkt_num@?$hashtable@U?$pair@$$CBVAsciiString@@W4BuildableStatus@@@_STL@@VAsciiString@@U?$hash@VAsciiString@@@rts@@U?$_Select1st@U?$pair@$$CBVAsciiString@@W4BuildableStatus@@@_STL@@@2@U?$equal_to@VAsciiString@@@5@V?$allocator@U?$pair@$$CBVAsciiString@@W4BuildableStatus@@@_STL@@@2@@_STL@@ABEIABU?$pair@$$CBVAsciiString@@W4BuildableStatus@@@2@@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicSetBuildableStatusOverride.cpp (not merged yet)
+
+// tu-skeleton: 0x0002C9A6 28B ?_M_delete_node@?$hashtable@U?$pair@$$CBVAsciiString@@V1@@_STL@@VAsciiString@@U?$hash@VAsciiString@@@rts@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V1@@_STL@@@2@U?$equal_to@VAsciiString@@@2@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@2@@_STL@@AAEXPAU?$_Hashtable_node@U?$pair@$$CBVAsciiString@@V1@@_STL@@@2@@Z -- matched in Code/GameEngine/Source/Common/System/INIMacroTable.cpp (not merged yet)
+
+// tu-skeleton: 0x0002C9C2 37B ?write@Rva0002C9C2@@QAEHPAD@Z -- matched in Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp (not merged yet)
+
+// tu-skeleton: 0x0002C9E7 63B ??$_M_find@VAsciiString@@@?$hashtable@U?$pair@$$CBVAsciiString@@URva0002C9E7Value@@@_STL@@VAsciiString@@U?$hash@VAsciiString@@@rts@@U?$_Select1st@U?$pair@$$CBVAsciiString@@URva0002C9E7Value@@@_STL@@@2@U?$equal_to@VAsciiString@@@5@V?$allocator@U?$pair@$$CBVAsciiString@@URva0002C9E7Value@@@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBVAsciiString@@URva0002C9E7Value@@@_STL@@@1@ABVAsciiString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_hashtable_nocase_asciistring_m_find.cpp (not merged yet)
+
+// tu-skeleton: 0x0002CA26 35B ?insert@?$set@VAsciiString@@UBfmeStringNoCaseLess@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@VAsciiString@@U?$_Const_traits@VAsciiString@@@_STL@@@_STL@@_N@2@ABVAsciiString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_nocase_asciistring_set_insert.cpp (not merged yet)
+
+// tu-skeleton: 0x0002CA49 41B ?clear@?$_Rb_tree@VAsciiString@@V1@U?$_Identity@VAsciiString@@@_STL@@UBfmeStringNoCaseLess@@V?$allocator@VAsciiString@@@3@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_nocase_asciistring_set_cleanup.cpp (not merged yet)
+
+// tu-skeleton: 0x0002CA72 124B ?rva0002CA72@Rva0002CA72@@QAEPAUOut0002CA72@@PAU2@PBUPair0002CA72@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicBuildableMapInsert.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/System/Rva0002CB02Operator.cpp
+
+// ??BRva0002C9C2@@QAE?AVAsciiString@@XZ
+//
+// Rva0002C9C2 materializer, retail 0x0002CB02, 98 bytes: size via rowed
+// Rva005D0507 length helper (layout-compatible AsciiString pair at +0/+8)
+// then fill via own rowed write plus shared getBufferForRead, return copy
+// with releaseBuffer via tmp dtor. Evidence: RegistryAsciiPath.cpp names
+// unclaimed operator at 0x0002CB02 plus same 98B shape as Rva0020F58E
+// operator at 0x0020F712; LINK BONUS via 0x0002CBCC; prev proves flags.
+
+Rva0002C9C2::operator AsciiString()
+{
+	AsciiString tmp;
+	int len = ((Rva005D0507 *)this)->rva005D0507();
+	char *buf = ((StringBase<char> *)&tmp)->getBufferForRead(len);
+	write(buf);
+	return tmp;
+}
+
+// tu-skeleton: 0x0002CB64 25B ??$_Destroy@PAVAsciiString@@@_STL@@YAXPAVAsciiString@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0002CB64.cpp (not merged yet)
+
+// tu-skeleton: 0x0002CB7D 27B ??$find@VAsciiString@@@?$hashtable@U?$pair@$$CBVAsciiString@@URva0002C9E7Value@@@_STL@@VAsciiString@@U?$hash@VAsciiString@@@rts@@U?$_Select1st@U?$pair@$$CBVAsciiString@@URva0002C9E7Value@@@_STL@@@2@U?$equal_to@VAsciiString@@@5@V?$allocator@U?$pair@$$CBVAsciiString@@URva0002C9E7Value@@@_STL@@@2@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBVAsciiString@@URva0002C9E7Value@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@URva0002C9E7Value@@@_STL@@@2@VAsciiString@@U?$hash@VAsciiString@@@rts@@U?$_Select1st@U?$pair@$$CBVAsciiString@@URva0002C9E7Value@@@_STL@@@2@U?$equal_to@VAsciiString@@@6@V?$allocator@U?$pair@$$CBVAsciiString@@URva0002C9E7Value@@@_STL@@@2@@1@ABVAsciiString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0002CB7D.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_nocase_asciistring_set_touch.cpp
+
+// ?rva0002CBB4@Rva0002CBB4@@QAEXABVAsciiString@@@Z @0x0002CBB4 24B
+// Wrapper that inserts into a nocase AsciiString set member at +0x14.
+// Evidence: calls the rowed set::insert at 0x0002CA26 (which calls the rowed
+// tree insert_unique at 0x0002C908); result discarded (ret 4); no callers,
+// host class opaque so honest-address name used.
+
+void Rva0002CBB4::rva0002CBB4(const AsciiString &v)
+{
+	m_set.insert(v);
+}
+
+// tu-skeleton: 0x0002CC38 56B ??1?$_Rb_tree@VAsciiString@@V1@U?$_Identity@VAsciiString@@@_STL@@UBfmeStringNoCaseLess@@V?$allocator@VAsciiString@@@3@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_nocase_asciistring_set_cleanup.cpp (not merged yet)
+
+// tu-skeleton: 0x0002CC70 63B ??1?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportAsciiStringVectorDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0002CCAF 20B ?find@?$hash_map@VAsciiString@@URva0002C9E7Value@@U?$hash@VAsciiString@@@rts@@U?$equal_to@VAsciiString@@@4@V?$allocator@U?$pair@$$CBVAsciiString@@URva0002C9E7Value@@@_STL@@@_STL@@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBVAsciiString@@URva0002C9E7Value@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@URva0002C9E7Value@@@_STL@@@2@VAsciiString@@U?$hash@VAsciiString@@@rts@@U?$_Select1st@U?$pair@$$CBVAsciiString@@URva0002C9E7Value@@@_STL@@@2@U?$equal_to@VAsciiString@@@6@V?$allocator@U?$pair@$$CBVAsciiString@@URva0002C9E7Value@@@_STL@@@2@@2@ABVAsciiString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0002CB7D.cpp (not merged yet)
+
+// tu-skeleton: 0x0002CCC3 57B ??1?$hashtable@URva0002CCC3Record@@U1@U?$hash@URva0002CCC3Record@@@_STL@@U?$_Identity@URva0002CCC3Record@@@3@U?$equal_to@URva0002CCC3Record@@@3@V?$allocator@URva0002CCC3Record@@@3@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0002CCC3.cpp (not merged yet)
+
+// tu-skeleton: 0x0002CCFC 51B ?erase@?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAEPAVAsciiString@@PAV3@0@Z -- matched in Code/GameEngine/Source/Common/Thing/VectorAsciiStringErase.cpp (not merged yet)
+
+// tu-skeleton: 0x0002CF5E 6B (unledgered) -- unmatched, no code, never credited
+
+// tu-skeleton: 0x0002D1B0 11B ?rva0002D1B0Clear@Rva0002D1B0Range@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Thing/VectorAsciiStringErase.cpp (not merged yet)
+
+// tu-skeleton: 0x0002D1CF 178B ?_M_insert_overflow@?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@IAEXPAVAsciiString@@ABV3@ABU__false_type@2@I_N@Z -- matched in Code/GameEngine/Source/Common/System/XferAsciiStringVector.cpp (not merged yet)
+
+// tu-skeleton: 0x0002D2C1 936B ?prepFile@INI@@IAE_NABVAsciiString@@W4INILoadType@@@Z -- matched in Code/GameEngine/Source/Common/System/INI_loadFile.cpp (not merged yet)
+
+// tu-skeleton: 0x0002D7A8 675B ?initFromINIMulti@INI@@QAEXPAXABVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/Common/INI/INI_initFromINIMulti.cpp (not merged yet)
+
+// tu-skeleton: 0x0002D8FE 6B (unledgered) -- unmatched, no code, never credited
+
+// tu-skeleton: 0x0002D904 104B (unledgered) -- unmatched, no code, never credited
+
+// tu-skeleton: 0x0002D96C 90B (unledgered) -- unmatched, no code, never credited
+
+// tu-skeleton: 0x0002DAEB 63B (unledgered) -- unmatched, no code, never credited
+
+// tu-skeleton: 0x0002DB2A 53B (unledgered) -- unmatched, no code, never credited
+
+// tu-skeleton: 0x0002DB8E 33B (unledgered) -- unmatched, no code, never credited
+
+// tu-skeleton: 0x0002DBAF 17B (unledgered) -- unmatched, no code, never credited
+
+// tu-skeleton: 0x0002DBE6 55B ?push_back@?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAEXABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/System/XferAsciiStringVector.cpp (not merged yet)
+
+// tu-skeleton: 0x0002DC1D 31B ??0?$hash_map@VAsciiString@@V1@U?$hash@VAsciiString@@@rts@@U?$equal_to@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@5@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/Common/System/INIMacroTable.cpp (not merged yet)
+
+// tu-skeleton: 0x0002DF97 75B ?getNextToken@INI@@QAEPBDPBD@Z -- matched in Code/GameEngine/Source/Common/System/INI_getNextToken.cpp (not merged yet)
 
 // tu-skeleton: 0x0002E846 9B (unledgered) -- unmatched, no code, never credited
 

@@ -1575,7 +1575,6 @@ alternatename	Code/GameEngine/Source/Common/Bfme5NinetyOne.cpp	?randwc@@YAJJ@Z	1
 alternatename	Code/GameEngine/Source/Common/Bfme5ThirtyFour.cpp	?unlink@PartitionData@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Bfme5ThirtyTwo.cpp	?rva007F76D0@Rva00801670Host@@QAEPAHPAVBfmeVecCZ@@H@Z	1
 alternatename	Code/GameEngine/Source/Common/Bfme5ThirtyTwo.cpp	?rva007F76D0@Rva00802550Host@@QAEPAHPAVBfmeVecCZ@@H@Z	1
-alternatename	Code/GameEngine/Source/Common/Bfme5TwoWordPairFactory_Rva0002C621.cpp	??0BfmePairEL@@QAE@ABVBfmeWordEL@@0@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeAllocRva.cpp	?bfmeSmallAllocPS@@YAPAXI@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeBigNewDeleteForwarders.cpp	_bfmeMalloc1149	1
 alternatename	Code/GameEngine/Source/Common/BfmeBigNewDeleteForwarders.cpp	_bfmeMalloc1150	1
@@ -1844,6 +1843,8 @@ alternatename	Code/GameEngine/Source/Common/Glo012F1024Item.cpp	?Rva0052C2CACopy
 alternatename	Code/GameEngine/Source/Common/Glo012F1024Item.cpp	?Rva00564C7DFill@@YAPAURva00565FC1Pair@@PAU1@IABU1@ABURva00565FC1Tag@@@Z	1
 alternatename	Code/GameEngine/Source/Common/Glo012F1024Item.cpp	?allocate@Rva00565FC1Storage@@QAEPAURva00565FC1Pair@@IPBX@Z	1
 alternatename	Code/GameEngine/Source/Common/Glo012F1024Item.cpp	?clear@Rva00565FC1@@QAEXXZ	1
+alternatename	Code/GameEngine/Source/Common/INI/INI.cpp	??0BfmePairEL@@QAE@ABVBfmeWordEL@@0@Z	1
+alternatename	Code/GameEngine/Source/Common/INI/INI.cpp	??RRecordNocaseLess@@QBE_NABUBfmeStringRecord004071F7@@0@Z	1
 alternatename	Code/GameEngine/Source/Common/INI/INIEmotionCopyFrom.cpp	??0BfmeStringLiteralBase@@AAE@PBD@Z	1
 alternatename	Code/GameEngine/Source/Common/INI/INIEmotionCopyFrom.cpp	??1BfmeEmotionName@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/INI/INIEmotionCopyFrom.cpp	?bfmeCopyVKC@BfmeThingVKC@@QAEXABV1@@Z	1
@@ -4176,7 +4177,6 @@ alternatename	Code/Libraries/Source/WWVegas/WWLib/VectorResizeRva005EE06C.cpp	?e
 alternatename	Code/Libraries/Source/WWVegas/WWLib/VectorResizeRva005EE06C.cpp	?fill@Rva005EE06CVector@@AAEXPAURva005EE06CRecord@@IABU2@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/VectorResizeRva005FE974.cpp	?erase@Rva005FE974Vector@@AAEPAURva005FE974Record@@PAU2@0@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/VectorResizeRva005FE974.cpp	?fill@Rva005FE974Vector@@AAEXPAURva005FE974Record@@IABU2@@Z	1
-alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_nocase_less.cpp	??RRecordNocaseLess@@QBE_NABUBfmeStringRecord004071F7@@0@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_record_bodies.cpp	??$_Construct@UBfmeStringTailRecord156@@U1@@_STL@@YAXPAUBfmeStringTailRecord156@@ABU1@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_record_bodies.cpp	??0BfmeStringHeadRecord148@@QAE@ABU0@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_record_bodies.cpp	??1BfmeStringHeadRecord184@@QAE@XZ	1

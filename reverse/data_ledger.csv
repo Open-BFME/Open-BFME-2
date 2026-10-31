@@ -17852,10 +17852,10 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009DF57C,4,.data,global,?g_00DDF57C@@3PAXA,Code/GameEngine/Source/Common/INI/INI.cpp,owned,,1,6
 0x009DF580,12,.data,global,?g_vec00200D38@@3V?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@A,Code/GameEngine/Source/Common/INI/INIWater.cpp,provisional,?g_Va00DDF580@@3IA;?g_vec00200D38@@3V?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@A,1,6
 0x009DF58C,32,.data,global,?BfmeINIMacroTableStorage@@3PAIA,Code/GameEngine/Source/Common/System/INI_loadFile.cpp,owned,,1,4
-0x009DF5AC,4,.data,global,?BfmeINIMacroGeneration@@3HA,Code/GameEngine/Source/Common/System/SaveGame/Rva0002BBC9Update.cpp,owned,,1,4
-0x009DF5B0,4,.data,global,?BfmeINISavedMacroGeneration@@3HA,Code/GameEngine/Source/Common/System/SaveGame/Rva0002BBC9Update.cpp,owned,,1,2
+0x009DF5AC,4,.data,global,?BfmeINIMacroGeneration@@3HA,Code/GameEngine/Source/Common/INI/INI.cpp,owned,,1,4
+0x009DF5B0,4,.data,global,?BfmeINISavedMacroGeneration@@3HA,Code/GameEngine/Source/Common/INI/INI.cpp,owned,,1,2
 0x009DF5B4,4,.data,global,?BfmeINICurrentFilename@@3VAsciiString@@A,Code/GameEngine/Source/Common/System/INI_loadFile.cpp,owned,,1,4
-0x009DF5B8,16,.data,global,?BfmeINIReadTimestamp@@3USaveDate@@A,Code/GameEngine/Source/Common/System/SaveGame/Rva0002BBC9Update.cpp,owned,,1,2
+0x009DF5B8,16,.data,global,?BfmeINIReadTimestamp@@3USaveDate@@A,Code/GameEngine/Source/Common/INI/INI.cpp,owned,,1,2
 0x009DF5C8,1032,.data,global,?buff@?9??getNextAsciiString@INI@@QAE?AVAsciiString@@XZ@4PADA,Code/GameEngine/Source/Common/INI/INI.cpp,owned,,1,3
 0x009DF9D0,2048,.data,global,?g_bfmeFormatBuffer@@3PADA,Code/GameEngine/Source/Common/INI/INIExceptionCtor.cpp,owned,,1,1
 0x009E01D0,512,.data,global,?g_registryBlockDir@@3PADA,Code/GameEngine/Source/Common/System/RegistryBlockLoader.cpp,owned,,1,3
