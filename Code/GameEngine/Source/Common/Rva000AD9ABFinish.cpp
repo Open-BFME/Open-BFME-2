@@ -18,12 +18,12 @@ struct Rva000AD9ABBytes
 class Rva000AD9AB
 {
 public:
-	void rva000AD9AB(int x, int y, bool value);
+	void rva000AD9AB(int column, int row, bool value);
 	void rva000AD9FE();
-	void rva000ADB89(int x, int y, bool value);
-	void rva000ADB2F(int x, int y, bool value);
-	void rva000ADBE3(int x, int y, bool value);
-	void rva000ADC41(int x, int y, unsigned char value);
+	void rva000ADB89(int column, int row, bool value);
+	void rva000ADB2F(int column, int row, bool value);
+	void rva000ADBE3(int column, int row, bool value);
+	void rva000ADC41(int column, int row, unsigned char value);
 	void rva000ADCE3(int x, int y);
 
 private:
@@ -43,28 +43,28 @@ private:
 	Rva000AD9ABBytes m_plane8C;
 };
 
-void Rva000AD9AB::rva000AD9AB(int x, int y, bool value)
+void Rva000AD9AB::rva000AD9AB(int column, int row, bool value)
 {
 	Rva000AD9AB *self = this;
 
-	if (x < 0)
+	if (column < 0)
 		return;
-	if (y < 0)
+	if (row < 0)
 		return;
-	if (y >= self->m_height)
+	if (row >= self->m_height)
 		return;
-	if (x >= self->m_width)
+	if (column >= self->m_width)
 		return;
 
-	int index = self->m_pitch * y + (x >> 3);
+	int index = self->m_pitch * row + (column >> 3);
 	if ((unsigned int)index >= self->m_bits.size())
 		return;
 
 	unsigned char *slot = self->m_bits.m_begin + index;
 	if (value)
-		*slot |= (unsigned char)(1 << (x & 7));
+		*slot |= (unsigned char)(1 << (column & 7));
 	else
-		*slot &= (unsigned char)~(1 << (x & 7));
+		*slot &= (unsigned char)~(1 << (column & 7));
 }
 
 // ?rva000AD9FE@Rva000AD9AB@@QAEXXZ, retail 0x000AD9FE, 28 bytes.
@@ -80,19 +80,19 @@ void Rva000AD9AB::rva000AD9FE()
 // ?rva000ADB89@Rva000AD9AB@@QAEXHH_N@Z @0x000ADB89 90B: bit setter on the
 // +0x68/+0x6C plane, same shape as rva000ADBE3 (early x copy, inlined
 // size/operator[], cur-load before mask).
-void Rva000AD9AB::rva000ADB89(int x, int y, bool value)
+void Rva000AD9AB::rva000ADB89(int column, int row, bool value)
 {
-	int xx = x;
+	int xx = column;
 	if (xx < 0)
 		return;
-	if (y < 0)
+	if (row < 0)
 		return;
-	if (y >= m_height)
+	if (row >= m_height)
 		return;
 	if (xx >= m_width)
 		return;
 
-	int index = m_pitch * y + (xx >> 3);
+	int index = m_pitch * row + (xx >> 3);
 	int size = (int)m_plane68.size();
 	if ((unsigned int)index >= (unsigned int)size)
 		return;
@@ -109,19 +109,19 @@ void Rva000AD9AB::rva000ADB89(int x, int y, bool value)
 // ?rva000ADBE3@Rva000AD9AB@@QAEXHH_N@Z @0x000ADBE3 94B: bit setter on the
 // +0x80/+0x84 plane, same bounds/index shape as rva000AD9AB but with a
 // byte-local modify-store.
-void Rva000AD9AB::rva000ADBE3(int x, int y, bool value)
+void Rva000AD9AB::rva000ADBE3(int column, int row, bool value)
 {
-	int xx = x;
+	int xx = column;
 	if (xx < 0)
 		return;
-	if (y < 0)
+	if (row < 0)
 		return;
-	if (y >= m_height)
+	if (row >= m_height)
 		return;
 	if (xx >= m_width)
 		return;
 
-	int index = m_pitch * y + (xx >> 3);
+	int index = m_pitch * row + (xx >> 3);
 	int size = (int)m_plane80.size();
 	if ((unsigned int)index >= (unsigned int)size)
 		return;
@@ -138,18 +138,18 @@ void Rva000AD9AB::rva000ADBE3(int x, int y, bool value)
 // ?rva000ADC41@Rva000AD9AB@@QAEXHHM@Z @0x000ADC41 64B: byte setter on the
 // +0x8C/+0x90 plane. Byte index is width*y + x (no shift); stores the value
 // byte directly instead of flipping a bit.
-void Rva000AD9AB::rva000ADC41(int x, int y, unsigned char value)
+void Rva000AD9AB::rva000ADC41(int column, int row, unsigned char value)
 {
-	if (x < 0)
+	if (column < 0)
 		return;
-	if (y < 0)
+	if (row < 0)
 		return;
-	if (y >= m_height)
+	if (row >= m_height)
 		return;
-	if (x >= m_width)
+	if (column >= m_width)
 		return;
 
-	int index = m_width * y + x;
+	int index = m_width * row + column;
 	if ((unsigned int)index >= m_plane8C.size())
 		return;
 
@@ -157,19 +157,19 @@ void Rva000AD9AB::rva000ADC41(int x, int y, unsigned char value)
 }
 
 // Native 000ADB2F: same bounded bit-plane operation at +38/+3C.
-void Rva000AD9AB::rva000ADB2F(int x, int y, bool value)
+void Rva000AD9AB::rva000ADB2F(int column, int row, bool value)
 {
-	int xx = x;
+	int xx = column;
 	if (xx < 0)
 		return;
-	if (y < 0)
+	if (row < 0)
 		return;
-	if (y >= m_height)
+	if (row >= m_height)
 		return;
 	if (xx >= m_width)
 		return;
 
-	int index = m_pitch * y + (xx >> 3);
+	int index = m_pitch * row + (xx >> 3);
 	int size = (int)m_plane38.size();
 	if ((unsigned int)index >= (unsigned int)size)
 		return;
