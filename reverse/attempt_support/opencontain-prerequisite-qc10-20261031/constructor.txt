@@ -1,0 +1,92 @@
+Retail target game.dat SHA256 f008b587570bad693981dc7218588c81d192a1e064b0f7f861539c51156a7640
+8649f8: mov eax, 0xb8ab9f
+8649fd: call 0xa29188
+864a02: push ecx
+864a03: push ebx
+864a04: push esi
+864a05: push edi
+864a06: push dword ptr [ebp + 0xc]
+864a09: mov esi, ecx
+864a0b: push dword ptr [ebp + 8]
+864a0e: mov dword ptr [ebp - 0x10], esi
+864a11: call 0x653390
+864a16: mov dword ptr [esi + 0x20], 0xc430e8
+864a1d: mov dword ptr [esi + 0x24], 0xc40818
+864a24: mov dword ptr [esi + 0x28], 0xc1c780
+864a2b: mov dword ptr [esi + 0x2c], 0xbe2b78
+864a32: mov dword ptr [esi + 0x30], 0xc430b4
+864a39: mov dword ptr [esi + 0x34], 0xc4ef80
+864a40: xor ebx, ebx
+864a42: lea ecx, [esi + 0x3c]
+864a45: mov dword ptr [ebp - 4], ebx
+864a48: mov dword ptr [esi], 0xc435e8
+864a4e: mov dword ptr [esi + 0xc], 0xc43528
+864a55: mov dword ptr [esi + 0x10], 0xc43be8
+864a5c: mov dword ptr [esi + 0x20], 0xc433b0
+864a63: mov dword ptr [esi + 0x24], 0xc46064
+864a6a: mov dword ptr [esi + 0x28], 0xc46f78
+864a71: mov dword ptr [esi + 0x2c], 0xc58790
+864a78: mov dword ptr [esi + 0x30], 0xc43380
+864a7f: mov dword ptr [esi + 0x34], 0xc48b28
+864a86: mov dword ptr [esi + 0x38], ebx
+864a89: call 0x73c432
+864a8e: lea ecx, [esi + 0x48]
+864a91: mov byte ptr [ebp - 4], 1
+864a95: call 0x73c432
+864a9a: lea eax, [ebp + 0xf]
+864a9d: lea ecx, [esi + 0x54]
+864aa0: push eax
+864aa1: mov byte ptr [ebp - 4], 2
+864aa5: call 0x8ec36c
+864aaa: lea ecx, [esi + 0x5c]
+864aad: mov byte ptr [ebp - 4], 3
+864ab1: call 0x73c432
+864ab6: lea eax, [ebp + 0xf]
+864ab9: lea ecx, [esi + 0x74]
+864abc: push eax
+864abd: mov byte ptr [ebp - 4], 4
+864ac1: call 0x8ec36c
+864ac6: lea edi, [esi + 0x84]
+864acc: mov ecx, edi
+864ace: mov byte ptr [ebp - 4], 5
+864ad2: call 0x442526
+864ad7: lea ecx, [esi + 0xf0]
+864add: call 0x73c432
+864ae2: xorps xmm0, xmm0
+864ae5: lea eax, [esi + 0xd0]
+864aeb: push 0x4c
+864aed: mov dword ptr [esi + 0x78], ebx
+864af0: mov dword ptr [esi + 0x7c], ebx
+864af3: mov dword ptr [esi + 0x80], ebx
+864af9: mov dword ptr [esi + 0x58], ebx
+864afc: mov dword ptr [esi + 0x68], ebx
+864aff: mov dword ptr [esi + 0x70], ebx
+864b02: mov byte ptr [esi + 0xdf], bl
+864b08: mov byte ptr [esi + 0xe0], bl
+864b0e: mov byte ptr [esi + 0xe1], 1
+864b15: push ebx
+864b16: movss dword ptr [eax], xmm0
+864b1a: movss dword ptr [eax + 4], xmm0
+864b1f: movss dword ptr [eax + 8], xmm0
+864b24: push edi
+864b25: mov byte ptr [esi + 0xdc], bl
+864b2b: call 0xa291ae
+864b30: add esp, 0xc
+864b33: mov dword ptr [esi + 0x6c], 1
+864b3a: mov byte ptr [esi + 0xdd], 1
+864b41: mov dword ptr [esi + 0xe4], ebx
+864b47: mov dword ptr [esi + 0xec], ebx
+864b4d: mov dword ptr [esi + 0xe8], ebx
+864b53: mov eax, dword ptr [esi + 4]
+864b56: cmp eax, ebx
+864b58: je 0x864b61
+864b5a: movzx ebx, byte ptr [eax + 0x84]
+864b61: mov ecx, dword ptr [ebp - 0xc]
+864b64: mov byte ptr [esi + 0xde], bl
+864b6a: pop edi
+864b6b: mov eax, esi
+864b6d: pop esi
+864b6e: pop ebx
+864b6f: mov dword ptr fs:[0], ecx
+864b76: leave 
+864b77: ret 8

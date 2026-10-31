@@ -1,0 +1,9 @@
+OpenContain class item5809: 15 served donors, zero adoptions.
+
+Target facts: native constructor RVA4649F8 calls the existing UpdateModule constructor RVA253390 (VA864A11), installs final pointers at0/C/10 plus six secondary offsets20/24/28/2C/30/34, and the existing contract diagnostics independently recover allocationFC. All15 original frozen checks pass. The native constructor and code-pointer/streamed-ledger lookup are attached. Pointer runs are not asserted table boundaries or complete typed slot recovery. Contract diagnostics contain undecided attributes and majority-private spellings: they are explicitly NOT accepted ABI facts.
+
+Donor facts: ZH OpenContain.h derives UpdateModule and five secondary interfaces, versus six native BFME2 secondaries. The matched BFME2 ctor source itself uses six one-slot ContainIface placeholders; leaf sources sometimes model an interior adjusted-this view. Copying the ZH type or promoting the donor placeholder bases would not establish the true inherited virtual layout.
+
+Prerequisite: class:UpdateModule and its BehaviorModule/UpdateModuleInterface scopes are held by qc-11 (claims checked21:53UTC). They are not registered canonical headers on this master. Establish their real inherited layout first, then recover each derived secondary interface from its native table and adjusted-this callers before handwritten OpenContain header adoption. The missing header or undecided contract is not the reason to stop: target MI evidence plus held base scopes prevent an honest inherited declaration here. No rename/flat substitute bypass is attempted.
+
+The broad header-lane probe timed out after60s (exit143); its two temporary Garrison consumer edits were restored, and no compiler/probe remained running. Every Code path is back to HEAD. docs/linking_obstacles.md is held by hdr-player-2, so this evidence and the desired prerequisite entry are handed off for that register owner; no edit to their file.
