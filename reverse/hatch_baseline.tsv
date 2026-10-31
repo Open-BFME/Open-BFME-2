@@ -2895,7 +2895,6 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/ArmorTemplateParse.cpp	?Th
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityBehavior.cpp	?unused@BehaviorModuleOther@@EAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityBehaviorModuleDataCtor.cpp	??0AutoAbilityQueryEntry@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModuleXfer.cpp	?xfer@BehaviorModule@@MAEXPAVXfer@@@Z	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorDtor.cpp	?unused@BehaviorModuleOther@@EAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorCtor.cpp	_vtbl_00C40818	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorXfer.cpp	?push_back@BridgeBehaviorObjectIDList@@QAEXABW4ObjectID@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehaviorCtorThunk.cpp	?slot@BB_Iface1@@UAEXXZ	1
