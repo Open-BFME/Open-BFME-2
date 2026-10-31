@@ -244,21 +244,6 @@ private:
 	Rva00072F49Target *m_08;
 	Rva00072F49State *m_0C;
 };
-bool Rva00072F49::rva00072F49(Int a, Int b)
-{
-	m_0C->m_44 = 2;
-	Rva00072F49Target *target = m_08;
-	if (!target)
-		return false;
-	return target->v02(a, b);
-}
-void Rva00072F49::rva00072F64()
-{
-	Rva00072F49Target *target = m_08;
-	if (target)
-		target->v06();
-	m_0C->m_44 = 0;
-}
 
 // slot at 0x003FF271: stores the argument at +0x14, runs virtual slot 17
 // when the object at VA 0x00DFE78C is in state 3, then sets +0x11.

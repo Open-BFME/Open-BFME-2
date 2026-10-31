@@ -4165,8 +4165,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00072E10,116,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp,approved,C,C=0x00072B72..0x00072E84,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudMaterialPass.cpp
 0x00072E84,103,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp,approved,C,C=0x00072B72..0x00072EEB,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudMaterialPass.cpp
 0x00072EEB,94,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp,approved,Z,Z=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp S=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudMaterialPassClass.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudMaterialPass.cpp
-0x00072F49,27,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp,approved,C,C=0x00072EEB..0x00072F64,Code/GameEngine/Source/Common/VslotSmallBodiesR.cpp
-0x00072F64,24,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp,approved,C,C=0x00072EEB..0x00072F7C,Code/GameEngine/Source/Common/VslotSmallBodiesR.cpp
+0x00072F49,27,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp,approved,C,C=0x00072EEB..0x00072F64,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp
+0x00072F64,24,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp,approved,C,C=0x00072EEB..0x00072F7C,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp
 0x00072F7C,45,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp,approved,C,C=0x00072EEB..0x00072FA9,Code/GameEngine/Source/Common/System/Rva003EF14ADtor.cpp
 0x00072FA9,28,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp,approved,C,C=0x00072EEB..0x00072FC5,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtors.cpp
 0x00072FC5,28,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp,approved,C,C=0x00072EEB..0x00072FE1,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB08.cpp

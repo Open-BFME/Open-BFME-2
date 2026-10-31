@@ -78,6 +78,7 @@ struct Rva00072FE6 {
 };
 #include <new>
 #include <set>
+#include "../../../../GameEngine/Include/Common/Rva0007DF07.h"
 
 struct IDirect3DDevice8;
 
@@ -310,6 +311,299 @@ private:
 	Rva000740CESet m_differences;	// +0x44
 };
 
+typedef int Int;
+
+typedef unsigned int UnsignedInt;
+
+// texture-family slot at 0x0017FAFB: 0x58 bytes per entry of the +0x14
+// object's +0x10 count plus a 0x34 header, 0 without the object.
+struct Rva0017FAFBInfo
+{
+	char m_pad00[0x10];
+	UnsignedInt m_count10;
+};
+
+class Rva0017FAFB
+{
+public:
+	UnsignedInt rva0017FAFB() const;
+private:
+	char m_pad00[0x14];
+	Rva0017FAFBInfo *m_14;
+};
+
+// slot at 0x0018E6B0: whether entry i (0x24 bytes each) of the array at
+// +0x50 has a non-zero +0x1C.
+struct Rva0018E6B0Entry
+{
+	char m_pad00[0x1C];
+	Int m_1C;
+	Int m_20;
+};
+
+class HRawAnimClass
+{
+public:
+	bool Has_VisibilityF(Int i) const;
+private:
+	char m_pad00[0x50];
+	Rva0018E6B0Entry *m_50;
+};
+
+// slot at 0x00200BD9: runs the rowed 0x001E35DF on the +0x04 member of the
+// object held at VA 0x00DFF488, when there is one.
+class Overridable
+{
+public:
+	Overridable *friend_getFinalOverride();
+};
+
+struct Rva00200BD9Holder
+{
+	Int m_00;
+	Overridable *m_04;
+};
+
+// VA 0x00DFF488 is the ledger's TheWaterTransparency (data_rows.csv); its
+// single word is the held object pointer read below.
+class WaterTransparencySetting;
+
+template <class T> class OVERRIDE;
+
+extern OVERRIDE<WaterTransparencySetting> TheWaterTransparency;
+
+class WaterTransparencySetting
+{
+public:
+	virtual void rva00200BD9();
+};
+
+// slot at 0x00222D26: writes the +0x04 object's leading byte, then its +0x04
+// pair through the rowed Rva000B3F84Pair::write; returns the bytes written.
+struct Rva000B3F84Pair
+{
+	Int write(char *buf);
+};
+
+struct Rva00222D26Data
+{
+	char m_00;
+	char m_pad01[3];
+	Rva000B3F84Pair m_pair04;
+};
+
+class Rva00222D26
+{
+public:
+	Int rva00222D26(char *buf);
+private:
+	Int m_00;
+	Rva00222D26Data *m_04;
+};
+
+// slot at 0x0033F504: the rowed BfmeSub932C query of the +0x20 object, 0
+// without one.
+class BfmeSub932C
+{
+public:
+	unsigned char bfmeQuery932C();
+};
+
+class Rva0033F504
+{
+public:
+	Int rva0033F504();
+private:
+	char m_pad00[0x20];
+	BfmeSub932C *m_20;
+};
+
+// slots at 0x003413A1 and 0x0034143C: virtual slot 11 (bool) resp. slot 6 of
+// the +0x24 object, false/nothing without one.
+class Rva003413A1Target
+{
+public:
+	virtual void v00();
+	virtual void v01();
+	virtual void v02();
+	virtual void v03();
+	virtual void v04();
+	virtual void v05();
+	virtual void v06();
+	virtual void v07();
+	virtual void v08();
+	virtual void v09();
+	virtual void v10();
+	virtual bool v11();
+};
+
+class Rva003413A1
+{
+public:
+	bool rva003413A1();
+	void rva0034143C();
+private:
+	char m_pad00[0x24];
+	Rva003413A1Target *m_24;
+};
+
+// slot at 0x004444EB (screen tables beside BfmeAptScreenLanLobby): a new
+// 0x0C-byte object with table VA 0x00C3D490 and both words cleared; its base
+// destructor is the shared 0x004E84A4, which restores the canonical
+// Rva0007DF07 table 0x00BC6F20 (its +0x04 word is the first one cleared).
+class Rva004444EBBase : public Rva0007DF07
+{
+public:
+	Rva004444EBBase() : m_08(0) {}
+	Int m_08;
+};
+
+class Rva004444EBObject : public Rva004444EBBase
+{
+public:
+	Rva004444EBObject() {}
+};
+
+class Rva004444EB
+{
+public:
+	Rva004444EBBase *rva004444EB();
+};
+
+// slot at 0x0059F35E (tables VA 0x00871408/0x00873D28/0x00873DC0): the same
+// 0x0C-byte object under table VA 0x00C7122C, whose deleting destructor
+// 0x005FAA31 also ends in the shared 0x004E84A4.
+class Rva0059F35EObject : public Rva004444EBBase
+{
+public:
+	Rva0059F35EObject() {}
+};
+
+class Rva0059F35E
+{
+public:
+	Rva004444EBBase *rva0059F35E();
+};
+
+// slots at 0x00072F49 and 0x00072F64: state 2 on the +0x0C object then
+// virtual slot 2 of the +0x08 object (false without one); resp. virtual slot
+// 6 of the +0x08 object then state 0.
+struct Rva00072F49State
+{
+	char m_pad00[0x44];
+	Int m_44;
+};
+
+class Rva00072F49Target
+{
+public:
+	virtual void v00();
+	virtual void v01();
+	virtual bool v02(Int a, Int b);
+	virtual void v03();
+	virtual void v04();
+	virtual void v05();
+	virtual void v06();
+};
+
+class Rva00072F49
+{
+public:
+	bool rva00072F49(Int a, Int b);
+	void rva00072F64();
+private:
+	Int m_00;
+	Int m_04;
+	Rva00072F49Target *m_08;
+	Rva00072F49State *m_0C;
+};
+
+// slot at 0x003FF271: stores the argument at +0x14, runs virtual slot 17
+// when the object at VA 0x00DFE78C is in state 3, then sets +0x11.
+struct Rva003FF271Global
+{
+	char m_pad00[0x114];
+	Int m_114;
+};
+
+class Rva003FF271
+{
+public:
+	virtual void v00();
+	virtual void v01();
+	virtual void v02();
+	virtual void v03();
+	virtual void v04();
+	virtual void v05();
+	virtual void v06();
+	virtual void v07();
+	virtual void v08();
+	virtual void v09();
+	virtual void v10();
+	virtual void v11();
+	virtual void v12();
+	virtual void v13();
+	virtual void v14();
+	virtual void v15();
+	virtual void v16();
+	virtual void v17();
+	void rva003FF271(Int value);
+private:
+	char m_pad04[0x0D];
+	bool m_11;
+	char m_pad12[2];
+	Int m_14;
+};
+
+// slots at 0x00330AD8 and 0x00330B85: the rowed setter of the +0x08 member,
+// then virtual slot 12.
+struct BfmeE8;
+
+class AreaPolygonBase
+{
+public:
+	void setPoint(Int a, const BfmeE8 &b);
+	void rva0030B1A7(float f);
+};
+
+class Rva00330AD8Base
+{
+public:
+	virtual void v00();
+	virtual void v01();
+	virtual void v02();
+	virtual void v03();
+	virtual void v04();
+	virtual void v05();
+	virtual void v06();
+	virtual void v07();
+	virtual void v08();
+	virtual void v09();
+	virtual void v10();
+	virtual void v11();
+	virtual void v12();
+};
+
+class Rva00330AD8 : public Rva00330AD8Base
+{
+public:
+	void rva00330AD8(Int index, const BfmeE8 &point);
+private:
+	Int m_04;
+	AreaPolygonBase m_08;
+};
+
+class Rva00330B85 : public Rva00330AD8Base
+{
+public:
+	void rva00330B85(float f);
+private:
+	Int m_04;
+	AreaPolygonBase m_08;
+};
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp
+
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudReAcquire.cpp
@@ -530,48 +824,6 @@ void Rva000731AE::rva000731AE() {
   return map4C.rva00072FE6();
 }
 
-// tu-skeleton: 0x00072988 68B ?getShroudLevel@W3DShroud@@QAEEHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x000729EB 9B ?UnInstall_Materials@W3DShroudMaterialPassClass@@UBEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudMaterialPass.cpp (not merged yet)
-
-// tu-skeleton: 0x00072D5D 179B ?Rva00072D5DShroudPixel@@YAGE@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudMaterialPass.cpp (not merged yet)
-
-// tu-skeleton: 0x00072E10 116B ?fillShroudData@Rva00072B3A@@QAEXE@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudMaterialPass.cpp (not merged yet)
-
-// tu-skeleton: 0x00072E84 103B ?rva00072E84@Rva00072B3A@@QAEXEPAVRva00116680@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudMaterialPass.cpp (not merged yet)
-
-// tu-skeleton: 0x00072EEB 94B ?Install_Materials@W3DShroudMaterialPassClass@@UBEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudMaterialPass.cpp (not merged yet)
-
-// tu-skeleton: 0x00072F49 27B ?rva00072F49@Rva00072F49@@QAE_NHH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesR.cpp (not merged yet)
-
-// tu-skeleton: 0x00072F64 24B ?rva00072F64@Rva00072F49@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesR.cpp (not merged yet)
-
-// tu-skeleton: 0x00072F7C 45B ?rva00072F7C@Rva00072FE6@@QAEXPAURva00072F7CNode@@@Z -- matched in Code/GameEngine/Source/Common/System/Rva003EF14ADtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00072FA9 28B ??_GRva0072AED@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtors.cpp (not merged yet)
-
-// tu-skeleton: 0x00072FC5 28B ??_GRva00072FE1@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB08.cpp (not merged yet)
-
-// tu-skeleton: 0x00072FE1 5B ??1Rva00072FE1@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00072AEDDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00072FE6 41B ?rva00072FE6@Rva00072FE6@@QAEXXZ -- matched in Code/GameEngine/Source/Common/System/Rva003EF14ADtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0007300F 68B ?rva0007300F@Rva00072FE6@@QAEXU?$_Rb_tree_iterator@U?$pair@$$CBHPAX@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0007300FErase.cpp (not merged yet)
-
-// tu-skeleton: 0x00073053 134B ?insert_unique@?$_Rb_tree@HHU?$_Identity@H@_STL@@U?$less@H@2@V?$allocator@H@2@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@HU?$_Nonconst_traits@H@_STL@@@_STL@@_N@2@ABH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_horde_rank_set.cpp (not merged yet)
-
-// tu-skeleton: 0x000730D9 5B ?rva000730D9@Rva00073421@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE31.cpp (not merged yet)
-
-// tu-skeleton: 0x000730DE 56B ??1Rva00072FE6@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x00073116 5B ?rva00073116@Rva00073116@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x0007311B 147B ??1Rva0007311B@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/Rva0007311BDestructor.cpp (not merged yet)
-
-// tu-skeleton: 0x000731F4 184B ?setShroudLevel@W3DShroud@@QAEXHHE_N@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x000732AC 12B ?rva000732AC@Rva000732ACOwner@@QAEXXZ -- matched in Code/GameEngine/Source/Common/System/Rva003EF14ADtor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva000732B8MatrixSet.cpp
 
 // Target facts: counts at +0 and +4 drive nested loops over byte arrays at
@@ -604,6 +856,70 @@ void Rva000732B8::rva000732B8()
 	}
 	m_complete = 1;
 }
+
+// tu-skeleton: 0x00072988 68B ?getShroudLevel@W3DShroud@@QAEEHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x000729EB 9B ?UnInstall_Materials@W3DShroudMaterialPassClass@@UBEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudMaterialPass.cpp (not merged yet)
+
+// tu-skeleton: 0x00072D5D 179B ?Rva00072D5DShroudPixel@@YAGE@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudMaterialPass.cpp (not merged yet)
+
+// tu-skeleton: 0x00072E10 116B ?fillShroudData@Rva00072B3A@@QAEXE@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudMaterialPass.cpp (not merged yet)
+
+// tu-skeleton: 0x00072E84 103B ?rva00072E84@Rva00072B3A@@QAEXEPAVRva00116680@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudMaterialPass.cpp (not merged yet)
+
+// tu-skeleton: 0x00072EEB 94B ?Install_Materials@W3DShroudMaterialPassClass@@UBEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudMaterialPass.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/VslotSmallBodiesR.cpp
+
+//
+// Small vtable-slot bodies with no ledger owner and no Ghidra entry (sized
+// from their bytes), batch R. As in VslotSmallBodiesA-Q, each class and
+// method is address-derived unless the ledger already names it, and models
+// only what its body touches; the comment above each gives what references
+// it. Meanings are not recovered.
+
+bool Rva00072F49::rva00072F49(Int a, Int b)
+{
+	m_0C->m_44 = 2;
+	Rva00072F49Target *target = m_08;
+	if (!target)
+		return false;
+	return target->v02(a, b);
+}
+
+void Rva00072F49::rva00072F64()
+{
+	Rva00072F49Target *target = m_08;
+	if (target)
+		target->v06();
+	m_0C->m_44 = 0;
+}
+
+// tu-skeleton: 0x00072F7C 45B ?rva00072F7C@Rva00072FE6@@QAEXPAURva00072F7CNode@@@Z -- matched in Code/GameEngine/Source/Common/System/Rva003EF14ADtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00072FA9 28B ??_GRva0072AED@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtors.cpp (not merged yet)
+
+// tu-skeleton: 0x00072FC5 28B ??_GRva00072FE1@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB08.cpp (not merged yet)
+
+// tu-skeleton: 0x00072FE1 5B ??1Rva00072FE1@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00072AEDDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00072FE6 41B ?rva00072FE6@Rva00072FE6@@QAEXXZ -- matched in Code/GameEngine/Source/Common/System/Rva003EF14ADtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0007300F 68B ?rva0007300F@Rva00072FE6@@QAEXU?$_Rb_tree_iterator@U?$pair@$$CBHPAX@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0007300FErase.cpp (not merged yet)
+
+// tu-skeleton: 0x00073053 134B ?insert_unique@?$_Rb_tree@HHU?$_Identity@H@_STL@@U?$less@H@2@V?$allocator@H@2@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@HU?$_Nonconst_traits@H@_STL@@@_STL@@_N@2@ABH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_horde_rank_set.cpp (not merged yet)
+
+// tu-skeleton: 0x000730D9 5B ?rva000730D9@Rva00073421@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE31.cpp (not merged yet)
+
+// tu-skeleton: 0x000730DE 56B ??1Rva00072FE6@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x00073116 5B ?rva00073116@Rva00073116@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x0007311B 147B ??1Rva0007311B@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/Rva0007311BDestructor.cpp (not merged yet)
+
+// tu-skeleton: 0x000731F4 184B ?setShroudLevel@W3DShroud@@QAEXHHE_N@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x000732AC 12B ?rva000732AC@Rva000732ACOwner@@QAEXXZ -- matched in Code/GameEngine/Source/Common/System/Rva003EF14ADtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00073320 184B ??0W3DShroud@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudCtor_W3DShroud.cpp (not merged yet)
 
