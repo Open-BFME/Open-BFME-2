@@ -80,8 +80,14 @@ private:
 class Rva001127F2TerrainPrefix
 {
 public:
-	bool advanceScan(ICoord2D &right, Int xOffset, Int yOffset, Int width, Int height);
-	bool advanceYThenX(ICoord2D &point, Int xOffset, Int yOffset, Int width, Int height);
+	bool advanceScan( ICoord2D &right, int xOffset, int yOffset, int width, int height );
+	bool advanceYThenX(ICoord2D &point,int xOffset,int yOffset,int width,int height);
+	char m_pad00[0x50];
+private:
+	int m_xOrigin; // +0x50
+	int m_yOrigin; // +0x54
+	int m_unmodelled58; // +0x58
+	Rva00729300BitPlane *m_map; // +0x5C
 };
 
 class W3DTerrainBackground

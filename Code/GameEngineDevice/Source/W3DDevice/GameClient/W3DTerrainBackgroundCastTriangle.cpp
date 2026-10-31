@@ -23,7 +23,10 @@ public:
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath/lineseg.h
 class LineSegClass
 {
-	unsigned char m_pad[0x34];
+public:
+	LineSegClass(const Vector3 &p0, const Vector3 &p1);
+private:
+	unsigned char m_storage[0x34]; // +0x00
 };
 
 struct CastResultStruct;

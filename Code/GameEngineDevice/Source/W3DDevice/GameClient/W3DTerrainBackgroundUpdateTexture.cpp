@@ -51,10 +51,13 @@ public:
 	ShroudFilter *getFilter(void);
 };
 
+class W3DRadarResetSurface;
 class CursorTextureSlot
 {
 public:
-	void FillLevelSurfaces();
+	W3DRadarResetSurface Get_Surface_Level(int level);
+	void FillLevelSurfaces(void);
+	void *Ptr; // +0x00
 };
 
 class WorldHeightMap
@@ -67,10 +70,11 @@ public:
 class GlobalData
 {
 public:
-	unsigned char m_pad00[0x49];
-	bool m_secondTerrainTexture;
-	unsigned char m_pad4a[0xEA0 - 0x4A];
-	int m_stretchTerrain;
+	char m_pad00[0x49];
+	bool m_secondTerrainTexture; // +0x49
+	bool m_allowTexture2X; // +0x4A
+	char m_pad4B[0xE55];
+	int m_stretchTerrain; // +0xEA0
 };
 
 extern GlobalData *TheWritableGlobalData;

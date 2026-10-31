@@ -229,8 +229,11 @@ extern GameClient *TheGameClient;
 class GlobalData
 {
 public:
-	unsigned char m_pad00[0x49];
-	bool m_secondTerrainTexture;
+	char m_pad00[0x49];
+	bool m_secondTerrainTexture; // +0x49
+	bool m_allowTexture2X; // +0x4A
+	char m_pad4B[0xE55];
+	int m_stretchTerrain; // +0xEA0
 };
 
 extern GlobalData *TheWritableGlobalData;

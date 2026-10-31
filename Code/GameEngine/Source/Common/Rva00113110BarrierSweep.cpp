@@ -37,13 +37,13 @@ class Rva00113110Holder
 {
 public:
 	void rva00113151(void *incoming, float value);
- void rva00113110(void *incoming);
-
-private:
+	void rva00113110(void *incoming);
 	char m_pad00[0x58];
-	int m_callbackContext;
-	Rva00113151Resource *m_resource;
-	unsigned char m_refresh;
+private:
+	int m_callbackContext; // +0x58
+	Rva00113151Resource *m_resource; // +0x5C
+	unsigned char m_refresh; // +0x60
+	char m_pad61[0x3];
 };
 
 void Rva00113110Holder::rva00113110(void *incoming)

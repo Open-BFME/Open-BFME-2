@@ -106,16 +106,15 @@ class WorldHeightMap
 };
 class Rva001127F2TerrainPrefix
 {
- public:
- bool advanceScan( ICoord2D &right, int xOffset, int yOffset,
- int width, int height );
- bool advanceYThenX(ICoord2D &point,int xOffset,int yOffset,int width,int height);
- private:
- unsigned char m_pad00[0x50];
- int m_xOrigin;
- int m_yOrigin;
- int m_unmodelled58;
- Rva00729300BitPlane *m_map;
+public:
+	bool advanceScan( ICoord2D &right, int xOffset, int yOffset, int width, int height );
+	bool advanceYThenX(ICoord2D &point,int xOffset,int yOffset,int width,int height);
+	char m_pad00[0x50];
+private:
+	int m_xOrigin; // +0x50
+	int m_yOrigin; // +0x54
+	int m_unmodelled58; // +0x58
+	Rva00729300BitPlane *m_map; // +0x5C
 };
 // The full BFME1 ba7ddda7 donor with the same +10 origin/map shift also
 // places this entire 166B body at 1127F2..112898. Independent native RET20,

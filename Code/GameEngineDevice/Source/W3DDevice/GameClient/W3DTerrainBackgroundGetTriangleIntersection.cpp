@@ -46,9 +46,8 @@ class LineSegClass
 {
 public:
 	LineSegClass(const Vector3 &p0, const Vector3 &p1);
-
 private:
-	unsigned char m_storage[0x34];
+	unsigned char m_storage[0x34]; // +0x00
 };
 
 class RayCollisionTestClass

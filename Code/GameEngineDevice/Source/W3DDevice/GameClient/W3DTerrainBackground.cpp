@@ -54,12 +54,12 @@ class W3DRadarResetSurface
 {
 	void *m_surface;
 };
-struct CursorTextureSlot
+class CursorTextureSlot
 {
-	void *Ptr;
-
+public:
 	W3DRadarResetSurface Get_Surface_Level(int level);
 	void FillLevelSurfaces(void);
+	void *Ptr; // +0x00
 };
 struct Rva00112153Elem
 {
@@ -194,7 +194,11 @@ struct Rva00112259DeviceLock
 	~Rva00112259DeviceLock() { BFME_DX8_Thread_Assert(); }
 };
 
-class Rva00111F0E {public: void rva00111F0E();};
+class Rva00111F0E
+{
+public:
+	void rva00111F0E();
+};
 
 class Rva00112259
 {
