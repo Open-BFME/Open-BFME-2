@@ -19192,3 +19192,11 @@ Code/GameEngine/Source/GameClient/Rva001F93A3Insert.cpp|function|0x001FA45F|rva0
 Code/GameEngine/Source/Common/Rva0040334BLoop.cpp|class||Rva0040334BElem,5cc8c42520d40a1285e980b9,drz-k9,drz-k9-10,w-4d4d8f8584bc,2026-10-31
 Code/GameEngine/Source/Common/CommandLineFile.cpp|function|0x003B9F56|Rva003B9F56Parse,84e83adaa8a2d5323b5558d2,drz-k9,drz-k9-15,w-4d4d8f8584bc,2026-10-31
 Code/GameEngine/Source/Common/CommandLineFile.cpp|function|0x003BA30A|Rva003BA30AParse,4508dc527e419a167c0ea3c3,drz-k9,drz-k9-15,w-4d4d8f8584bc,2026-10-31
+Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceClassRva00156540.cpp|member|Rva00156540Param|field2c,b204042803a09911fd5b58e3,drz-k1,drz-k1-4,w-d29055ee9848,2026-10-31
+Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGameHeroSelectDataAddHero.cpp|param|Holder00526309::Rva00525CC5|arg,ef8922526ef295342d699702,drz-k1,drz-k1-8,w-d29055ee9848,2026-10-31
+Code/GameEngine/Source/Common/S3GuardedGlobalTriples.cpp|function|0x001071EC|h000217DD,3eaaf9059ecd9f97ae40ba7c,drz-k1,drz-k1-9,w-d29055ee9848,2026-10-31
+Code/GameEngine/Source/Common/S3GuardedGlobalTriples.cpp|function|0x001071FD|h00005592,e1a89fd432c323ebacad9775,drz-k1,drz-k1-9,w-d29055ee9848,2026-10-31
+Code/Libraries/Source/WWVegas/WWLib/Rva003F35E3VectorFillInsert.cpp|function|0x003F3744|rva003F3744,1c93b0ea36b9d0a303c32a95,drz-k1,drz-k1-15,w-d29055ee9848,2026-10-31
+Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenFilterRva007DCA80PostRender.cpp|global||g_Va00DB457C,9243681c376a779368167d1d,drz-k1,drz-k1-16,w-d29055ee9848,2026-10-31
+Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenFilterRva007DCA80PostRender.cpp|global||g_Va00DEC0DC,f8dd9556e7780dcffe7611fb,drz-k1,drz-k1-16,w-d29055ee9848,2026-10-31
+Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenFilterRva007DCA80PostRender.cpp|global||g_Va00DB5B08,2944acdd0dcab79cd091f3b0,drz-k1,drz-k1-16,w-d29055ee9848,2026-10-31
