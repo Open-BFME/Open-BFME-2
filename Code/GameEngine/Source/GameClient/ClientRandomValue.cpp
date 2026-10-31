@@ -65,15 +65,6 @@ GameClientRandomVariable &GameClientRandomVariable::operator=(const GameClientRa
     return *this;
 }
 
-// The distribution type is stored last: retail loads it into eax before either
-// bound reaches memory and writes it after both.
-void GameClientRandomVariable::setRange(float low, float high, DistributionType type)
-{
-    m_low = low;
-    m_high = high;
-    m_type = type;
-}
-
 bool operator==(const GameClientRandomVariable &a, const GameClientRandomVariable &b)
 {
     return a.m_type == b.m_type && a.m_low == b.m_low && a.m_high == b.m_high;
