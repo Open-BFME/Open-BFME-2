@@ -56,10 +56,6 @@ private:
 	char m_pad00[0x7C];
 	_STL::vector<Rva004C3F09Element> m_7C;
 };
-void Rva004C3F40::rva004C3F40(const Rva004C3F09Element &element)
-{
-	m_7C.push_back(element);
-}
 
 // The independent entry 0x004F8871 delegates its first two pointer fields to
 // the same range-erase body as vector<TreeHintRef00217D4C>::clear at 0x002B8134.

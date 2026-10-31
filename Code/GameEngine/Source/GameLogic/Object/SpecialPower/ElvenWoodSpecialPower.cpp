@@ -275,6 +275,12 @@ typedef int Int;
 #include "../../../../../Libraries/Include/Lib/Region3D.h"
 #include "string_base.h"
 #include "../../../../../../reference/shims/bfme2_ascii/ascii_string.h"
+#pragma function(memset)
+#pragma function(memset)
+#pragma intrinsic(_ReadWriteBarrier)
+#pragma comment(linker, "/alternatename:_kF7C=?g_objectSpacingDefault@@3MA")
+#pragma comment(linker, "/alternatename:?g_cloudBreakRadiusDefault@@3MA=?g_Va00BC2428@@3MA")
+
 //
 // WeaponChangeSpecialPowerModule::doSpecialPower, retail 0x004C40BA, 413 bytes:
 // slot 10 of the +0x10 special-power interface vftable 0x00C5D150, so `this`
@@ -291,12 +297,13 @@ class BfmeObject872Header
 public:
 	__declspec(nothrow) BfmeObject872Header(const BfmeObject872Header &);
 };
-#pragma function(memset)
+
 class Rva0028D891Owner
 {
 public:
 	bool testBit(int bit) const;
 };
+
 //
 // ScavengerSpecialPower::doSpecialPower, retail 0x004C4401, 47 bytes: slot
 // 10 of the class's +0x10 special-power interface vftable 0x00C5D2A0 (slots
@@ -311,11 +318,8 @@ class Player
 public:
 	void rva002A9E25(float value);	// sets +0x314
 };
+
  extern class ThingFactory *TheThingFactory;
-#pragma function(memset)
-#pragma intrinsic(_ReadWriteBarrier)
-#pragma comment(linker, "/alternatename:_kF7C=?g_objectSpacingDefault@@3MA")
-#pragma comment(linker, "/alternatename:?g_cloudBreakRadiusDefault@@3MA=?g_Va00BC2428@@3MA")
 
 // ?getModuleNameKey@WeaponChangeSpecialPowerModule@@UBE?AW4NameKeyType@@XZ @0x4C4075
 // (68B): cached pool-name key for WeaponChangeSpecialPowerModule. The class
@@ -750,6 +754,72 @@ extern float g_objectSpacingDefault;
 // ?g_objectSpacingDefault@@3MA: matched references place it at VA 0xbc292c; also referenced as _kF7C.
 float g_objectSpacingDefault = 1e+02f;
 
+struct TreeHintRef00217D4C;
+
+struct Gen_p12pod;
+
+struct Rva004758F4Element;
+
+struct Rva004F6352;
+
+struct Rva00501E3FElement;
+
+enum ParticleSystemID { INVALID_PARTICLE_SYSTEM_ID = 0 };
+
+namespace _STL {
+template <> TreeHintRef00217D4C *vector<TreeHintRef00217D4C>::erase(TreeHintRef00217D4C *, TreeHintRef00217D4C *);
+template <> Gen_p12pod *vector<Gen_p12pod>::erase(Gen_p12pod *, Gen_p12pod *);
+template <> Rva004758F4Element *vector<Rva004758F4Element>::erase(Rva004758F4Element *, Rva004758F4Element *);
+template <> Rva004F6352 *vector<Rva004F6352>::erase(Rva004F6352 *, Rva004F6352 *);
+template <> Rva00501E3FElement *vector<Rva00501E3FElement>::erase(Rva00501E3FElement *, Rva00501E3FElement *);
+template <> ParticleSystemID *vector<ParticleSystemID>::erase(ParticleSystemID *, ParticleSystemID *);
+}
+
+template void _STL::vector<Gen_p12pod>::clear();
+
+template void _STL::vector<Rva004758F4Element>::clear();
+
+template void _STL::vector<Rva004F6352>::clear();
+
+template void _STL::vector<Rva00501E3FElement>::clear();
+
+template void _STL::vector<ParticleSystemID>::clear();
+
+// 0x004C3F40 (8B): a member push_back over a vector embedded at +0x7C
+// (add ecx, 0x7C; jmp vector<Rva004C3F09Element>::push_back 0x004C3F09, the
+// element reference passed through); the member-forward shape of
+// ~PlayerPosition 0x0022D920. The owner is not recovered (no direct
+// caller), so the view is address-named.
+struct Rva004C3F09Element;
+
+namespace _STL {
+template <> void vector<Rva004C3F09Element>::push_back(const Rva004C3F09Element &);
+}
+
+class Rva004C3F40
+{
+public:
+	void rva004C3F40(const Rva004C3F09Element &element);
+private:
+	char m_pad00[0x7C];
+	_STL::vector<Rva004C3F09Element> m_7C;
+};
+
+// The independent entry 0x004F8871 delegates its first two pointer fields to
+// the same range-erase body as vector<TreeHintRef00217D4C>::clear at 0x002B8134.
+// Keep an address-derived owner: the shared bytes do not prove the original
+// class or template instantiation behind this second entry.
+class Rva004F8871
+{
+public:
+    void rva004F8871();
+private:
+    TreeHintRef00217D4C *m_begin;
+    TreeHintRef00217D4C *m_end;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp
@@ -1106,20 +1176,6 @@ DarknessSpecialPowerModuleData::DarknessSpecialPowerModuleData()
 	m_darknessRadius = radius;
 }
 
-// tu-skeleton: 0x004C38FF 6B ?Rva004C38FFGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x004C3905 25B ??1Rva004C3905@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
-
-// tu-skeleton: 0x004C3963 28B ??_GRva004C3905@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
-
-// tu-skeleton: 0x004C3A9F 45B ?Rva004C3A9FConstruct@@YAXPAXPBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp (not merged yet)
-
-// tu-skeleton: 0x004C3ACC 38B ??$__uninitialized_copy@PAUBfmePod8@@PAU1@@_STL@@YAPAUBfmePod8@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod8_resize_byvalue.cpp (not merged yet)
-
-// tu-skeleton: 0x004C3AF2 37B ??$__uninitialized_fill_n@PAURva004C3AF2Element@@IU1@@_STL@@YAPAURva004C3AF2Element@@PAU1@IABU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW6Rva004C3AF2.cpp (not merged yet)
-
-// tu-skeleton: 0x004C3C36 201B ?rva004C3C36@ElvenWoodSpecialPower@@QAEXPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPowerChoice.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/AreaSpecialPowersAtLocation.cpp
 
 //
@@ -1275,10 +1331,6 @@ void DarknessSpecialPower::rva004C4E93(const Coord3D *loc)
    (extent.lo.y + extent.hi.y) * 0.5f, loc->z), 0, 0.0f, 0);
 }
 
-// tu-skeleton: 0x004C3D4C 63B ??1?$vector@URvaPair004C3D4C@@V?$allocator@URvaPair004C3D4C@@@_STL@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x004C3D8B 30B ?_M_clear@?$vector@UBfmeStringRecord00426A5B@@V?$allocator@UBfmeStringRecord00426A5B@@@_STL@@@_STL@@IAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_stringrecord_426a5b_allocate_copy.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPowerModuleDataCtor.cpp
 
 //
@@ -1304,30 +1356,6 @@ ElvenWoodSpecialPowerModuleData::ElvenWoodSpecialPowerModuleData()
 	, m_ocl(0)
 {
 }
-
-// tu-skeleton: 0x004C3DF4 178B ?_M_insert_overflow@?$vector@URva004C3F09Element@@V?$allocator@URva004C3F09Element@@@_STL@@@_STL@@IAEXPAURva004C3F09Element@@ABU3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorInsertOverflowFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x004C3EA6 28B ??_GElvenWoodSpecialPowerModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDeletingDtors.cpp (not merged yet)
-
-// tu-skeleton: 0x004C3EC2 71B ??1ElvenWoodSpecialPowerModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPowerModuleDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004C3F09 55B ?push_back@?$vector@URva004C3F09Element@@V?$allocator@URva004C3F09Element@@@_STL@@@_STL@@QAEXABURva004C3F09Element@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorPushBackFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x004C3F40 8B ?rva004C3F40@Rva004C3F40@@QAEXABURva004C3F09Element@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorClearFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x004C3FC2 27B ?buildFieldParse@ElvenWoodSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDataBuildFieldParse.cpp (not merged yet)
-
-// tu-skeleton: 0x004C3FDD 27B ?buildFieldParse@WeaponChangeSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDataBuildFieldParse.cpp (not merged yet)
-
-// tu-skeleton: 0x004C4022 6B ?Rva004C4022Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x004C4028 28B ??_GRva004C4044@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
-
-// tu-skeleton: 0x004C4044 25B ??1Rva004C4044@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
-
-// tu-skeleton: 0x004C405D 12B ?rva004C405D@WeaponChangeSpecialPowerModule@@UAEXPAXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/WeaponChangeSpecialPowerModuleSlots.cpp (not merged yet)
-
-// tu-skeleton: 0x004C4069 12B ?doSpecialPowerUsingWaypoints@WeaponChangeSpecialPowerModule@@UAEXPAXMH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/WeaponChangeSpecialPowerModuleSlots.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/WeaponChangeSpecialPowerModuleDoSpecialPower.cpp
 
@@ -1388,18 +1416,6 @@ void WeaponChangeSpecialPowerModule::doSpecialPower(unsigned int options)
 	SpecialPowerModule::doSpecialPower(options);
 }
 
-// tu-skeleton: 0x004C42D2 28B ??_GWeaponChangeSpecialPowerModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDeletingDtors.cpp (not merged yet)
-
-// tu-skeleton: 0x004C42EE 74B ??1WeaponChangeSpecialPowerModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/WeaponChangeSpecialPowerModuleDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004C4338 27B ?buildFieldParse@ScavengerSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDataBuildFieldParse.cpp (not merged yet)
-
-// tu-skeleton: 0x004C4381 6B ?Rva004C4381Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x004C4387 28B ??_GRva004C43A3@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
-
-// tu-skeleton: 0x004C43A3 25B ??1Rva004C43A3@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/ScavengerSpecialPowerDoSpecialPower.cpp
 
 void ScavengerSpecialPower::doSpecialPower(unsigned int options)
@@ -1424,14 +1440,6 @@ void Rva004C4430::pauseCountdown(bool flag)
 	}
 	((SpecialPowerModule *)this)->SpecialPowerModule::pauseCountdown(flag);
 }
-
-// tu-skeleton: 0x004C44BD 27B ?buildFieldParse@CloudBreakSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDataBuildFieldParse.cpp (not merged yet)
-
-// tu-skeleton: 0x004C4502 6B ?Rva004C4502Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x004C4508 25B ??1Rva004C4508@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
-
-// tu-skeleton: 0x004C4566 28B ??_GRva004C4508@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/CloudBreakSpecialPowerRva004C45CF.cpp
 
@@ -1486,17 +1494,11 @@ CloudBreakSpecialPowerModuleData::CloudBreakSpecialPowerModuleData()
 
 // ?g_cloudBreakRadiusDefault@@3MA: the global at VA 0xbc2428 is ?g_Va00BC2428@@3MA.
 
-// tu-skeleton: 0x004C47D7 28B ??_GCloudBreakSpecialPowerModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDeletingDtors.cpp (not merged yet)
 
-// tu-skeleton: 0x004C47F3 56B ??1CloudBreakSpecialPowerModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/CloudBreakSpecialPowerModuleDataDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x004C487B 27B ?buildFieldParse@TaintSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDataBuildFieldParse.cpp (not merged yet)
 
-// tu-skeleton: 0x004C48C0 6B ?Rva004C48C0Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
-// tu-skeleton: 0x004C48C6 25B ??1Rva004C48C6@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
 
-// tu-skeleton: 0x004C4924 28B ??_GRva004C48C6@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/TaintSpecialPowerAddObject.cpp
 
@@ -1556,6 +1558,101 @@ void TaintSpecialPower::rva004C49AE( const Coord3D *loc )
 	if( taint )
 		TheTaintManager->bfmeApplyCircleWorld( (const BfmePointFC *)loc, radius, 0, true, taint->m_id );
 }
+
+// tu-skeleton: 0x004C38FF 6B ?Rva004C38FFGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x004C3905 25B ??1Rva004C3905@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
+
+// tu-skeleton: 0x004C3963 28B ??_GRva004C3905@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
+
+// tu-skeleton: 0x004C3A9F 45B ?Rva004C3A9FConstruct@@YAXPAXPBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp (not merged yet)
+
+// tu-skeleton: 0x004C3ACC 38B ??$__uninitialized_copy@PAUBfmePod8@@PAU1@@_STL@@YAPAUBfmePod8@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod8_resize_byvalue.cpp (not merged yet)
+
+// tu-skeleton: 0x004C3AF2 37B ??$__uninitialized_fill_n@PAURva004C3AF2Element@@IU1@@_STL@@YAPAURva004C3AF2Element@@PAU1@IABU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW6Rva004C3AF2.cpp (not merged yet)
+
+// tu-skeleton: 0x004C3C36 201B ?rva004C3C36@ElvenWoodSpecialPower@@QAEXPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPowerChoice.cpp (not merged yet)
+
+// tu-skeleton: 0x004C3D4C 63B ??1?$vector@URvaPair004C3D4C@@V?$allocator@URvaPair004C3D4C@@@_STL@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x004C3D8B 30B ?_M_clear@?$vector@UBfmeStringRecord00426A5B@@V?$allocator@UBfmeStringRecord00426A5B@@@_STL@@@_STL@@IAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_stringrecord_426a5b_allocate_copy.cpp (not merged yet)
+
+// tu-skeleton: 0x004C3DF4 178B ?_M_insert_overflow@?$vector@URva004C3F09Element@@V?$allocator@URva004C3F09Element@@@_STL@@@_STL@@IAEXPAURva004C3F09Element@@ABU3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorInsertOverflowFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x004C3EA6 28B ??_GElvenWoodSpecialPowerModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDeletingDtors.cpp (not merged yet)
+
+// tu-skeleton: 0x004C3EC2 71B ??1ElvenWoodSpecialPowerModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPowerModuleDataDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004C3F09 55B ?push_back@?$vector@URva004C3F09Element@@V?$allocator@URva004C3F09Element@@@_STL@@@_STL@@QAEXABURva004C3F09Element@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorPushBackFamily.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlportVectorClearFamily.cpp
+
+//
+// STLport 4.5.3 vector<T>::clear() - erase(begin(), end()) - for element
+// types whose 51-byte range erase is already rowed and whose 11-byte clear
+// sits unclaimed in retail. Each erase is declared as a specialization so the
+// clear calls retail's out-of-line copy instead of expanding it, as
+// StlportFixedObject60Vector.cpp does for its clear (0x000BCFB8, the skeleton
+// twin of every body here). Element types are the incomplete code-generation
+// views their erase rows already spell; no layout is claimed.
+//
+//   clear       erase       element
+//   0x00351BC5  0x002A133B  Gen_p12pod            (Rva007D85C0FilterShutdown.cpp)
+//   0x00475BDD  0x004758F4  Rva004758F4Element    (StlportVectorEraseRangeFamily.cpp)
+//   0x004F8DC9  0x004F89A8  Rva004F6352           (stlport_rva004f6352_sort.cpp)
+//   0x00501A00  0x0050126C  Rva00501E3FElement    (LocomotorSetMapThunks.cpp)
+//   0x003F1D18  0x00532803  ParticleSystemID      (BoneFXUpdate_eraseParticleSystemID.cpp)
+
+void Rva004C3F40::rva004C3F40(const Rva004C3F09Element &element)
+{
+	m_7C.push_back(element);
+}
+
+// tu-skeleton: 0x004C3FC2 27B ?buildFieldParse@ElvenWoodSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDataBuildFieldParse.cpp (not merged yet)
+
+// tu-skeleton: 0x004C3FDD 27B ?buildFieldParse@WeaponChangeSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDataBuildFieldParse.cpp (not merged yet)
+
+// tu-skeleton: 0x004C4022 6B ?Rva004C4022Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x004C4028 28B ??_GRva004C4044@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
+
+// tu-skeleton: 0x004C4044 25B ??1Rva004C4044@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
+
+// tu-skeleton: 0x004C405D 12B ?rva004C405D@WeaponChangeSpecialPowerModule@@UAEXPAXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/WeaponChangeSpecialPowerModuleSlots.cpp (not merged yet)
+
+// tu-skeleton: 0x004C4069 12B ?doSpecialPowerUsingWaypoints@WeaponChangeSpecialPowerModule@@UAEXPAXMH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/WeaponChangeSpecialPowerModuleSlots.cpp (not merged yet)
+
+// tu-skeleton: 0x004C42D2 28B ??_GWeaponChangeSpecialPowerModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDeletingDtors.cpp (not merged yet)
+
+// tu-skeleton: 0x004C42EE 74B ??1WeaponChangeSpecialPowerModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/WeaponChangeSpecialPowerModuleDataDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004C4338 27B ?buildFieldParse@ScavengerSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDataBuildFieldParse.cpp (not merged yet)
+
+// tu-skeleton: 0x004C4381 6B ?Rva004C4381Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x004C4387 28B ??_GRva004C43A3@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
+
+// tu-skeleton: 0x004C43A3 25B ??1Rva004C43A3@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
+
+// tu-skeleton: 0x004C44BD 27B ?buildFieldParse@CloudBreakSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDataBuildFieldParse.cpp (not merged yet)
+
+// tu-skeleton: 0x004C4502 6B ?Rva004C4502Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x004C4508 25B ??1Rva004C4508@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
+
+// tu-skeleton: 0x004C4566 28B ??_GRva004C4508@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
+
+// tu-skeleton: 0x004C47D7 28B ??_GCloudBreakSpecialPowerModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDeletingDtors.cpp (not merged yet)
+
+// tu-skeleton: 0x004C47F3 56B ??1CloudBreakSpecialPowerModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/CloudBreakSpecialPowerModuleDataDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004C487B 27B ?buildFieldParse@TaintSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDataBuildFieldParse.cpp (not merged yet)
+
+// tu-skeleton: 0x004C48C0 6B ?Rva004C48C0Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x004C48C6 25B ??1Rva004C48C6@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
+
+// tu-skeleton: 0x004C4924 28B ??_GRva004C48C6@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
 
 // tu-skeleton: 0x004C4AEB 28B ??_GTaintSpecialPowerModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDeletingDtors.cpp (not merged yet)
 
