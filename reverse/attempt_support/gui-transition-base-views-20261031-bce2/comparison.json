@@ -1,0 +1,72 @@
+{
+  "rows": 111,
+  "bindings": 342,
+  "all_bindings_identical": true,
+  "all_external_object_facts_identical": true,
+  "objects": {
+    "Code/GameEngine/Source/Common/MainMenuMediumScaleUpTransition.cpp": {
+      "before_sha256": "f7be68cb0443a9937c90a3a969dcca7c5fedb00fd5c155b9cea377ea07d018e4",
+      "after_sha256": "f7be68cb0443a9937c90a3a969dcca7c5fedb00fd5c155b9cea377ea07d018e4",
+      "external_copies": 1,
+      "strong": 1,
+      "undefined": 2,
+      "weak": 0
+    },
+    "Code/GameEngine/Source/Common/Rva0035D74AFinish.cpp": {
+      "before_sha256": "fc8588ba65025a609a75a88855b740fff390776c22d9a6bc2f3b9c512c5146e9",
+      "after_sha256": "fc8588ba65025a609a75a88855b740fff390776c22d9a6bc2f3b9c512c5146e9",
+      "external_copies": 1,
+      "strong": 1,
+      "undefined": 3,
+      "weak": 0
+    },
+    "Code/GameEngine/Source/Common/Rva0035EDA1Init.cpp": {
+      "before_sha256": "d817e4b21e45b64f84a87fb9b120d50b939d254a2f7a0f0c4cad54ac09aa6717",
+      "after_sha256": "d817e4b21e45b64f84a87fb9b120d50b939d254a2f7a0f0c4cad54ac09aa6717",
+      "external_copies": 1,
+      "strong": 1,
+      "undefined": 2,
+      "weak": 0
+    },
+    "Code/GameEngine/Source/Common/S5Parse0059D600_Rva0035F312.cpp": {
+      "before_sha256": "834440f21f95a98ed627c7c0306f6dfa6b91f5c86a69a41a30963845a67ea742",
+      "after_sha256": "834440f21f95a98ed627c7c0306f6dfa6b91f5c86a69a41a30963845a67ea742",
+      "external_copies": 1,
+      "strong": 1,
+      "undefined": 9,
+      "weak": 0
+    },
+    "Code/GameEngine/Source/Common/ScoreScaleUpTransition.cpp": {
+      "before_sha256": "2409ee1d6b468e9d81976a0ce3df5a05a6603f905c1f9f661b9443b3d6d74dc5",
+      "after_sha256": "2409ee1d6b468e9d81976a0ce3df5a05a6603f905c1f9f661b9443b3d6d74dc5",
+      "external_copies": 3,
+      "strong": 1,
+      "undefined": 4,
+      "weak": 1
+    },
+    "Code/GameEngine/Source/GameClient/GUI/CountUpTransitionDestructorThunk.cpp": {
+      "before_sha256": "50f2628b96e21acdf1780172628c8fc4d41528d86b3375d32634bcee98f715d5",
+      "after_sha256": "50f2628b96e21acdf1780172628c8fc4d41528d86b3375d32634bcee98f715d5",
+      "external_copies": 9,
+      "strong": 4,
+      "undefined": 12,
+      "weak": 1
+    },
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp": {
+      "before_sha256": "005bfdcfb29e4907b73a0eeb755ebd1df0e5eb40f6636e621f081014d2fe02f5",
+      "after_sha256": "005bfdcfb29e4907b73a0eeb755ebd1df0e5eb40f6636e621f081014d2fe02f5",
+      "external_copies": 91,
+      "strong": 44,
+      "undefined": 66,
+      "weak": 8
+    },
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStylesO1.cpp": {
+      "before_sha256": "89a4fe49cd6c2b3c1259d3ef3a95617a63f1a512e5c9799284732cdce7532a4c",
+      "after_sha256": "89a4fe49cd6c2b3c1259d3ef3a95617a63f1a512e5c9799284732cdce7532a4c",
+      "external_copies": 16,
+      "strong": 8,
+      "undefined": 20,
+      "weak": 0
+    }
+  }
+}

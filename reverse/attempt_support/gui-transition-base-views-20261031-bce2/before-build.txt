@@ -1,0 +1,12 @@
+Source claims: OK (8 sources, scoped byte-verified)
+Compile: 1 of 8 TU(s) (deps-cache: 7 current)
+Funclet pins: 23 row(s) verified past a renumbered $L label
+    uw_0077de39 (Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp): $L351 was renumbered; verified parent EH data places $L6125 at 0x0077DE39
+    uw_0077dec1 (Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp): $L349 was renumbered; verified parent EH data places $L6276 at 0x0077DEC1
+    uw_0077ded5 (Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp): $L349 was renumbered; verified parent EH data places $L6288 at 0x0077DED5
+    uw_0077defb (Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp): $L348 was renumbered; verified parent EH data places $L6300 at 0x0077DEFB
+    uw_0077df23 (Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp): $L348 was renumbered; verified parent EH data places $L6312 at 0x0077DF23
+Functions: OK 111/111 matched across 8 source file(s)
+String-ref verify: OK (6 literals + 1 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (4 compiler literals verified)
+Import-ref verify: OK (1 named imports verified)

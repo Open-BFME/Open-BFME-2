@@ -12,16 +12,18 @@ private:
 	unsigned int m_word;
 };
 
+class GameWindow;
 class Rva001DBAA4
 {
 public:
 	Rva001DBAA4();
 	virtual ~Rva001DBAA4();
-	int m_frameLength;
-	bool m_isFinished;
-	bool m_isForward;
-	bool m_isReversed;
-	unsigned int m_zero;
+	int m_frameLength; // +0x04 +0x04 +0x04
+	bool m_isFinished; // +0x08 +0x08 +0x08
+	bool m_isForward; // +0x09 +0x09 +0x09
+	bool m_isReversed; // +0x0A +0x0A +0x0a
+	char m_pad0B[0x1];
+	GameWindow *m_win; // +0x0C +0x0C +0x0c
 };
 
 struct CountUpIntPair
@@ -54,14 +56,14 @@ CountUpTransition::CountUpTransition()
 	  m_intValue(0), m_currentValue(0), m_countState(0)
 {
 	m_frameLength = m_endFrame;
-	m_zero = 0;
+	m_win = 0;
 	m_isForward = true;
 }
 
 // ??1CountUpTransition@@UAE@XZ
 CountUpTransition::~CountUpTransition()
 {
-	m_zero = 0;
+	m_win = 0;
 }
 
 // Native factory [0x0035F6E2,0x0035F739), 87 bytes. The allocation is

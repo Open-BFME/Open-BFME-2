@@ -1,0 +1,16 @@
+tu: Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp
+seed: Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp  (8 files)
+  Rva001DBAA4: applied (7 files)
+      note: sizeof 0x10 from Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp; Code/GameEngine/Source/Common/S5Parse0059D600_Rva0035F312.cpp (0x1) stop at their last field
+      note: +0xC m_win: CodeView types differ (GameWindow*, int, uint); Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp's spelling kept, the byte check decides
+      note: Code/GameEngine/Source/Common/ScoreScaleUpTransition.cpp gets class GameWindow;
+      note: Code/GameEngine/Source/Common/Rva0035D74AFinish.cpp gets class GameWindow;
+      note: Code/GameEngine/Source/Common/MainMenuMediumScaleUpTransition.cpp gets class GameWindow;
+      note: Code/GameEngine/Source/Common/S5Parse0059D600_Rva0035F312.cpp gets class GameWindow;
+      note: Code/GameEngine/Source/GameClient/GUI/CountUpTransitionDestructorThunk.cpp gets class GameWindow;
+      rename in Code/GameEngine/Source/Common/ScoreScaleUpTransition.cpp: m_4 -> m_frameLength, m_8 -> m_isFinished, m_9 -> m_isForward, m_A -> m_isReversed, m_C -> m_win
+      rename in Code/GameEngine/Source/Common/Rva0035D74AFinish.cpp: m_4 -> m_frameLength, m_8 -> m_isFinished, m_9 -> m_isForward, m_A -> m_isReversed, m_C -> m_win
+      rename in Code/GameEngine/Source/Common/MainMenuMediumScaleUpTransition.cpp: m_4 -> m_frameLength, m_8 -> m_isFinished, m_9 -> m_isForward, m_A -> m_isReversed, m_C -> m_win
+      rename in Code/GameEngine/Source/Common/Rva0035EDA1Init.cpp: m_4 -> m_frameLength, m_8 -> m_isFinished, m_9 -> m_isForward, m_A -> m_isReversed, m_C -> m_win
+      rename in Code/GameEngine/Source/GameClient/GUI/CountUpTransitionDestructorThunk.cpp: m_zero -> m_win
+applied: ['Rva001DBAA4']

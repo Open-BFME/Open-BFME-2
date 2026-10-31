@@ -10,16 +10,18 @@
 extern "C" const void *const vtbl_00C16574[];  // ??_7MainMenuMediumScaleUpTransition@@6B@
 #pragma comment(linker, "/alternatename:_vtbl_00C16574=??_7MainMenuMediumScaleUpTransition@@6B@")
 
+class GameWindow;
 class Rva001DBAA4
 {
 public:
-	virtual ~Rva001DBAA4();
 	Rva001DBAA4();
-	int m_4;
-	bool m_8;
-	bool m_9;
-	bool m_A;
-	int m_C;
+	virtual ~Rva001DBAA4();
+	int m_frameLength; // +0x04 +0x04 +0x04
+	bool m_isFinished; // +0x08 +0x08 +0x08
+	bool m_isForward; // +0x09 +0x09 +0x09
+	bool m_isReversed; // +0x0A +0x0A +0x0a
+	char m_pad0B[0x1];
+	GameWindow *m_win; // +0x0C +0x0C +0x0c
 };
 class __declspec(novtable) MainMenuMediumScaleUpTransition : public Rva001DBAA4
 {
@@ -60,8 +62,8 @@ MainMenuMediumScaleUpTransition::MainMenuMediumScaleUpTransition()
 	m_38 = 0;
 	m_3C = 0;
 	m_40 = 0;
-	m_4 = *p14;
+	m_frameLength = *p14;
 	m_44 = 0;
-	m_C = 0;
-	m_9 = true;
+	m_win = 0;
+	m_isForward = true;
 }

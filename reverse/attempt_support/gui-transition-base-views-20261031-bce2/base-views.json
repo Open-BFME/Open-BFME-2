@@ -1,0 +1,117 @@
+{
+ "tu": "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp",
+ "classes": {
+  "Rva001DBAA4": {
+   "status": "applied",
+   "files": [
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp",
+    "Code/GameEngine/Source/Common/ScoreScaleUpTransition.cpp",
+    "Code/GameEngine/Source/Common/Rva0035D74AFinish.cpp",
+    "Code/GameEngine/Source/Common/MainMenuMediumScaleUpTransition.cpp",
+    "Code/GameEngine/Source/Common/Rva0035EDA1Init.cpp",
+    "Code/GameEngine/Source/Common/S5Parse0059D600_Rva0035F312.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/CountUpTransitionDestructorThunk.cpp"
+   ],
+   "notes": [
+    "sizeof 0x10 from Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp; Code/GameEngine/Source/Common/S5Parse0059D600_Rva0035F312.cpp (0x1) stop at their last field",
+    "+0xC m_win: CodeView types differ (GameWindow*, int, uint); Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp's spelling kept, the byte check decides",
+    "Code/GameEngine/Source/Common/ScoreScaleUpTransition.cpp gets class GameWindow;",
+    "Code/GameEngine/Source/Common/Rva0035D74AFinish.cpp gets class GameWindow;",
+    "Code/GameEngine/Source/Common/MainMenuMediumScaleUpTransition.cpp gets class GameWindow;",
+    "Code/GameEngine/Source/Common/S5Parse0059D600_Rva0035F312.cpp gets class GameWindow;",
+    "Code/GameEngine/Source/GameClient/GUI/CountUpTransitionDestructorThunk.cpp gets class GameWindow;"
+   ],
+   "renames": {
+    "Code/GameEngine/Source/Common/ScoreScaleUpTransition.cpp": {
+     "m_4": "m_frameLength",
+     "m_8": "m_isFinished",
+     "m_9": "m_isForward",
+     "m_A": "m_isReversed",
+     "m_C": "m_win"
+    },
+    "Code/GameEngine/Source/Common/Rva0035D74AFinish.cpp": {
+     "m_4": "m_frameLength",
+     "m_8": "m_isFinished",
+     "m_9": "m_isForward",
+     "m_A": "m_isReversed",
+     "m_C": "m_win"
+    },
+    "Code/GameEngine/Source/Common/MainMenuMediumScaleUpTransition.cpp": {
+     "m_4": "m_frameLength",
+     "m_8": "m_isFinished",
+     "m_9": "m_isForward",
+     "m_A": "m_isReversed",
+     "m_C": "m_win"
+    },
+    "Code/GameEngine/Source/Common/Rva0035EDA1Init.cpp": {
+     "m_4": "m_frameLength",
+     "m_8": "m_isFinished",
+     "m_9": "m_isForward",
+     "m_A": "m_isReversed",
+     "m_C": "m_win"
+    },
+    "Code/GameEngine/Source/GameClient/GUI/CountUpTransitionDestructorThunk.cpp": {
+     "m_zero": "m_win"
+    }
+   },
+   "fields": [
+    [
+     "0x04",
+     4,
+     "m_frameLength",
+     "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp"
+    ],
+    [
+     "0x08",
+     1,
+     "m_isFinished",
+     "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp"
+    ],
+    [
+     "0x09",
+     1,
+     "m_isForward",
+     "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp"
+    ],
+    [
+     "0x0A",
+     1,
+     "m_isReversed",
+     "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp"
+    ],
+    [
+     "0x0C",
+     4,
+     "m_win",
+     "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp"
+    ]
+   ],
+   "block": "class Rva001DBAA4\n{\npublic:\n\tRva001DBAA4();\n\tvirtual ~Rva001DBAA4();\n\tint m_frameLength; // +0x04 +0x04 +0x04\n\tbool m_isFinished; // +0x08 +0x08 +0x08\n\tbool m_isForward; // +0x09 +0x09 +0x09\n\tbool m_isReversed; // +0x0A +0x0A +0x0a\n\tchar m_pad0B[0x1];\n\tGameWindow *m_win; // +0x0C +0x0C +0x0c\n};\n",
+   "files_changed": [
+    "Code/GameEngine/Source/Common/MainMenuMediumScaleUpTransition.cpp",
+    "Code/GameEngine/Source/Common/Rva0035D74AFinish.cpp",
+    "Code/GameEngine/Source/Common/Rva0035EDA1Init.cpp",
+    "Code/GameEngine/Source/Common/S5Parse0059D600_Rva0035F312.cpp",
+    "Code/GameEngine/Source/Common/ScoreScaleUpTransition.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/CountUpTransitionDestructorThunk.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp"
+   ]
+  }
+ },
+ "canonical": {},
+ "applied": [
+  "Rva001DBAA4"
+ ],
+ "failed": {},
+ "seed": "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp",
+ "files": [
+  "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp",
+  "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStylesO1.cpp",
+  "Code/GameEngine/Source/Common/ScoreScaleUpTransition.cpp",
+  "Code/GameEngine/Source/Common/Rva0035D74AFinish.cpp",
+  "Code/GameEngine/Source/Common/MainMenuMediumScaleUpTransition.cpp",
+  "Code/GameEngine/Source/Common/Rva0035EDA1Init.cpp",
+  "Code/GameEngine/Source/Common/S5Parse0059D600_Rva0035F312.cpp",
+  "Code/GameEngine/Source/GameClient/GUI/CountUpTransitionDestructorThunk.cpp"
+ ]
+}

@@ -19,16 +19,18 @@
 extern "C" const void *const vtbl_00C16530[];  // ??_7Rva0035D74A@@6B@
 #pragma comment(linker, "/alternatename:_vtbl_00C16530=??_7Rva0035D74A@@6B@")
 
+class GameWindow;
 class Rva001DBAA4
 {
 public:
-	virtual ~Rva001DBAA4();
 	Rva001DBAA4();
-	int m_4;
-	bool m_8;
-	bool m_9;
-	bool m_A;
-	int m_C;
+	virtual ~Rva001DBAA4();
+	int m_frameLength; // +0x04 +0x04 +0x04
+	bool m_isFinished; // +0x08 +0x08 +0x08
+	bool m_isForward; // +0x09 +0x09 +0x09
+	bool m_isReversed; // +0x0A +0x0A +0x0a
+	char m_pad0B[0x1];
+	GameWindow *m_win; // +0x0C +0x0C +0x0c
 };
 class __declspec(novtable) Rva0035D74A : public Rva001DBAA4
 {
@@ -64,9 +66,9 @@ Rva0035D74A::Rva0035D74A()
 	m_24 = 0;
 	*p30 = -1;
 	m_34 = 0;
-	m_C = 0;
+	m_win = 0;
 	m_28 = 0.0f;
 	m_2c = 0.0f;
-	m_9 = true;
-	m_4 = 0x16;
+	m_isForward = true;
+	m_frameLength = 0x16;
 }

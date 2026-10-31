@@ -15406,6 +15406,25 @@ All ten remaining carrier rows have native FuncInfo/unwind-map parent proofs and
 
 For the transfer donor, canonical Snapshot slot spelling and a local two-byte version remove the abstract-class and 252-vs245-byte conflicts. Its seven-byte Elem003AF8C0 destructor is admitted through add_match --icf-owner Snapshot; strict3rows, EXACT EH1 and two literals pass, with existing parent/destination LINKS retained. The fold adds no unique bytes or global linked coverage. The merge still fails only that parent's frame: 245B with stack24 vs16 and five record offsets moved8; other76 composed rows match. Changing the TU to EHsc breaks its existing destructor, so no flag/header/check change was retained. No source move, funclet repoint or source-file reduction is claimed. Full ten-row facts and exact attempted boundaries: reverse/attempt_support/uw004-parent-prerequisites-20261031/readme.md and parents.json.
 
+### GUI transition common-base views (2026-10-31, bce2)
+
+At base `223a746cc67d`, the supported view tool reconciles Rva001DBAA4 in
+seven claimed files using the seed's existing 16-byte layout and field names.
+All eight scope objects retain identical external code/relocation digests,
+definitions, undefineds and weak aliases; all 342 bindings are identical.
+Normal/strict checks pass 111 rows and 21 EXACT EH graphs. Paired previews
+retain 8/8 LINKS and 8,321 authored bytes against `7300bffea9`; no census gain,
+debt retirement, new match or source-file reduction is claimed.
+
+The supported merge still accepts none. The cleared base-member errors expose
+ScoreScaleUp's slot3/destructor/vtable prerequisites; CountUp still loses
+bytes. Other donors retain field/view, abstract FullFade, declaration-order
+and O1 compile-context blockers. Four mixed files remain separate. No move
+is applied. The outgoing audit is INCONCLUSIVE on the older index and missing
+current CreateAHeroManager receipt; carry the changed declarations and their
+consumers into the next scheduled census. Full consumer-loss clearance remains
+unverified. [Checks and exact remaining diagnostics](../reverse/attempt_support/gui-transition-base-views-20261031-bce2/README.md).
+
 ### Tokenizer native search-provider import (2026-10-31, codex root)
 
 Rva00309358Tokenize.cpp now imports the existing native 120-byte find_first_not_of root in BfmeS1155.cpp instead of emitting its local optimized search closure. All five rows, EXACT EH and all 26 retained external bodies/relocations are unchanged. Nine removed helper definitions have no retained incoming runtime edge except calls to the already-owned root. The two-source preview clears both units, 1,532 -> 1,769 (+237 tokenizer); no unique coverage or census gain is claimed. Provider/consumer confirmation remains for the scheduled census. Evidence: reverse/attempt_support/tokenize-search-provider-link-20261031/readme.md and proof.json. The prior d21f62cd71 batch audit was INCONCLUSIVE on the older index and missing current CreateAHeroManager consumer; retain that scope for the next census.

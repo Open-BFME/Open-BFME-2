@@ -14,13 +14,14 @@ public:
 class Rva001DBAA4
 {
 public:
-	virtual ~Rva001DBAA4();
 	Rva001DBAA4();
-	int m_4;
-	bool m_8;
-	bool m_9;
-	bool m_A;
-	GameWindow *m_C;
+	virtual ~Rva001DBAA4();
+	int m_frameLength; // +0x04 +0x04 +0x04
+	bool m_isFinished; // +0x08 +0x08 +0x08
+	bool m_isForward; // +0x09 +0x09 +0x09
+	bool m_isReversed; // +0x0A +0x0A +0x0a
+	char m_pad0B[0x1];
+	GameWindow *m_win; // +0x0C +0x0C +0x0c
 };
 
 class Rva0035EE66 : public Rva001DBAA4
@@ -39,12 +40,12 @@ public:
 void Rva0035EE66::rva0035EDA1(GameWindow *win)
 {
 	if (win) {
-		m_C = win;
-		m_C->winGetSize(&m_18, &m_1C);
-		m_C->winGetScreenPosition(&m_10, &m_14);
+		m_win = win;
+		m_win->winGetSize(&m_18, &m_1C);
+		m_win->winGetScreenPosition(&m_10, &m_14);
 	}
-	m_9 = false;
+	m_isForward = false;
 	update(0);
-	m_8 = false;
-	m_9 = true;
+	m_isFinished = false;
+	m_isForward = true;
 }

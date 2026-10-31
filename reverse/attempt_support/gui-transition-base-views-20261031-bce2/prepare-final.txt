@@ -1,0 +1,15 @@
+link_check: preparing 8 explicit safe provider(s), no extra sources
+Compile: 3 of 8 TU(s) (deps-cache: 5 current)
+Source claims: OK (8 sources, scoped byte-verified)
+Compile: 0 of 8 TU(s) (deps-cache: 8 current)
+Funclet pins: 26 row(s) verified past a renumbered $L label
+    uw_0077de39 (Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp): $L351 was renumbered; verified parent EH data places $L6125 at 0x0077DE39
+    uw_0077dec1 (Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp): $L349 was renumbered; verified parent EH data places $L6276 at 0x0077DEC1
+    uw_0077ded5 (Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp): $L349 was renumbered; verified parent EH data places $L6288 at 0x0077DED5
+    uw_0077defb (Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp): $L348 was renumbered; verified parent EH data places $L6300 at 0x0077DEFB
+    uw_0077df23 (Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp): $L348 was renumbered; verified parent EH data places $L6312 at 0x0077DF23
+Functions: OK 111/111 matched across 8 source file(s)
+String-ref verify: OK (6 literals + 1 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (4 compiler literals verified)
+Import-ref verify: OK (1 named imports verified)
+link_check: 8 explicit providers byte-verified with strict reusable receipts; census/index/status unchanged, LINK closure not yet checked

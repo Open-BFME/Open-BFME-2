@@ -29,12 +29,12 @@ class Rva001DBAA4
 public:
 	Rva001DBAA4();
 	virtual ~Rva001DBAA4();
-	int m_frameLength; // +0x04 +0x04
-	bool m_isFinished; // +0x08 +0x08
-	bool m_isForward; // +0x09 +0x09
-	bool m_isReversed; // +0x0A +0x0a
+	int m_frameLength; // +0x04 +0x04 +0x04
+	bool m_isFinished; // +0x08 +0x08 +0x08
+	bool m_isForward; // +0x09 +0x09 +0x09
+	bool m_isReversed; // +0x0A +0x0A +0x0a
 	char m_pad0B[0x1];
-	GameWindow *m_win; // +0x0C +0x0c
+	GameWindow *m_win; // +0x0C +0x0C +0x0c
 };
 class Image;
 class Display;
