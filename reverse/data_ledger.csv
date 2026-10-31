@@ -5118,7 +5118,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00807914,20,.rdata,string,??_C@_0BD@OMFICJEE@GhostObjectManager?$AA@,,literal,,0,1
 0x00807928,20,.rdata,vtable,??_7GhostObject@@6BRva001B3E60VBase@@@,,literal,,0,2
 0x0080793C,20,.rdata,vtable,??_7GhostObject@@6B@,,literal,,0,2
-0x00807950,8,.rdata,global,??_8GhostObject@@7B@,Code/GameEngine/Source/GameLogic/Object/GhostObjectCtorDtor.cpp,owned,,0,1
+0x00807950,8,.rdata,global,??_8GhostObject@@7B@,Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp,owned,,0,1
 0x00807958,20,.rdata,string,??_C@_0M@MCNJCFIC@GhostObject?$AA@,,literal,,0,1
 0x0080796C,24,.rdata,string,??_C@_0BH@CDKCJHKK@ModelConditionFlagType?$AA@,,literal,,0,1
 0x00807984,16,.rdata,string,??_C@_0P@JODNACCI@GameDifficulty?$AA@,,literal,,0,1

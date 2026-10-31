@@ -24017,18 +24017,18 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0030592F,4,code,Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameLogic/GhostObject.cpp,Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObjectScene.cpp
 0x00305933,20,code,Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp S=Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp N=Code/GameEngine/Source/GameLogic/Object/GhostObjectManager.cpp,Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp
 0x00305947,6,code,Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp N=Code/GameEngine/Source/GameLogic/Object/GhostObjectManager.cpp,Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp
-0x0030594D,31,code,Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp S=Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp N=Code/GameEngine/Source/Common/GhostObjectManager.cpp,Code/GameEngine/Source/Common/GhostObjectManager_xfer.cpp
+0x0030594D,31,code,Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp S=Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp N=Code/GameEngine/Source/Common/GhostObjectManager.cpp,Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp
 0x0030596C,137,code,Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp,approved,C,C=0x0030594D..0x003059F5,Code/GameEngine/Source/Common/Rva0030596CIntersects.cpp
 0x003059F5,154,code,Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp S=Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp N=Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp,Code/GameEngine/Source/GameLogic/Object/GhostObjectXfer.cpp
-0x00305A8F,161,code,Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp S=Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp N=Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp,Code/GameEngine/Source/GameLogic/Object/GhostObjectCtorDtor.cpp
+0x00305A8F,161,code,Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp S=Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp N=Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp,Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp
 0x00305B30,6,code,Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp N=Code/GameEngine/Source/Common/GhostObject.cpp,Code/GameEngine/Source/Common/SubsystemNameGetters2.cpp
-0x00305B36,8,code,Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp N=Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp,Code/GameEngine/Source/GameLogic/Object/GhostObjectCtorDtor.cpp
-0x00305B3E,8,code,Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp N=Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp,Code/GameEngine/Source/GameLogic/Object/GhostObjectCtorDtor.cpp
-0x00305B46,8,code,Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp N=Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp,Code/GameEngine/Source/GameLogic/Object/GhostObjectCtorDtor.cpp
-0x00305B4E,8,code,Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp N=Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp,Code/GameEngine/Source/GameLogic/Object/GhostObjectCtorDtor.cpp
-0x00305B56,8,code,Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp N=Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp,Code/GameEngine/Source/GameLogic/Object/GhostObjectCtorDtor.cpp
-0x00305B5E,88,code,Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp S=Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp N=Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp,Code/GameEngine/Source/GameLogic/Object/GhostObjectCtorDtor.cpp
-0x00305BB6,28,code,Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp,Code/GameEngine/Source/GameLogic/Object/GhostObjectCtorDtor.cpp
+0x00305B36,8,code,Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp N=Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp,Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp
+0x00305B3E,8,code,Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp N=Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp,Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp
+0x00305B46,8,code,Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp N=Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp,Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp
+0x00305B4E,8,code,Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp N=Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp,Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp
+0x00305B56,8,code,Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp N=Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp,Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp
+0x00305B5E,88,code,Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp S=Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp N=Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp,Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp
+0x00305BB6,28,code,Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp,Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp
 0x00305BD2,24,code,,,-,,Code/GameEngine/Source/Common/System/XferEnumHelpers.cpp
 0x00305BEA,24,code,,,-,,Code/GameEngine/Source/Common/System/XferEnumHelpers.cpp
 0x00305C02,24,code,,,-,,Code/GameEngine/Source/Common/System/XferEnumHelpers.cpp
@@ -72566,8 +72566,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00779A6F,25,code,,,-,,Code/GameEngine/Source/GameClient/MapUtilGetDefaultMap.cpp
 0x00779A88,8,code,,,-,,Code/GameEngine/Source/GameClient/MapUtilGetDefaultMap.cpp
 0x00779A90,10,code,,,-,,Code/GameEngine/Source/GameClient/MapUtilGetDefaultMap.cpp
-0x00779A9A,8,code,,,-,,Code/GameEngine/Source/GameLogic/Object/GhostObjectCtorDtor.cpp
-0x00779AA2,10,code,,,-,,Code/GameEngine/Source/GameLogic/Object/GhostObjectCtorDtor.cpp
+0x00779A9A,8,code,,,-,,Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp
+0x00779AA2,10,code,,,-,,Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp
 0x00779AAC,8,code,,,-,,Code/GameEngine/Source/GameNetwork/SkirmishGameInfoXfer.cpp
 0x00779AB4,8,code,,,-,,Code/GameEngine/Source/GameNetwork/SkirmishGameInfoXfer.cpp
 0x00779ABC,10,code,,,-,,Code/GameEngine/Source/GameNetwork/SkirmishGameInfoXfer.cpp

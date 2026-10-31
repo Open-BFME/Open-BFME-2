@@ -3117,7 +3117,7 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Die/DieModuleDerived.cpp	?
 alternatename	Code/GameEngine/Source/GameLogic/Object/Die/DieMuxDataInit.cpp	??0DieMuxData@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/ExperienceTracker.cpp	??1ExperienceTracker@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/ExperienceTracker.cpp	?bfmeCalcEFC@@YGMH@Z	2
-alternatename	Code/GameEngine/Source/GameLogic/Object/GhostObjectCtorDtor.cpp	?crc@GhostObject@@MAEXPAVXfer@@@Z	1
+alternatename	Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp	?crc@GhostObject@@MAEXPAVXfer@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Object.cpp	?hasSpecialPower@Object@@QBE_NW4SpecialPowerType@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp	?findObjectCreationList@ObjectCreationListStore@@QAEPBVObjectCreationList@@PBD@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/ObjectCreationListRva001F0878.cpp	?bfmeDoBPB@BfmeSubBPB@@QAEXPAX00@Z	1
