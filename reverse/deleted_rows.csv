@@ -4487,3 +4487,9 @@ __ehhandler$?update@LivingWorldLogic@@QAEXXZ,0x0077699F,"Renamed to __ehhandler$
 ?rva00082D2A@Rva00082C98Host@@QAEXI@Z,0x00082D2A,"Renamed to ?resize@Rva00082C98Host@@QAEXI@Z by tools/rename.py (inferred)"
 ?rva00563F34@Rva00563F34@@QAEXXZ,0x00563F34,"Renamed to ?rva00563F34@FXGate@@QAEXXZ by tools/rename.py (inferred)"
 ?Rva00482E4BGet@@YAHXZ,0x00482E4B,Retracted free-function placeholder for the native FireWeaponWhenDeadBehavior Snapshot slot-2 member getter; constructor vptr 0x008497B4 and exact six-byte const member body independently verified. Readmit GetSnapshotName through add_match in the next commit; evidence reverse/attempt_support/fireweapon-primary-link-20261030/readme.md.
+?Rva00835BD0Crc32Table@@3PAKA,0x00835BD0,"Renamed to ?crc32Table@@3PAKA by tools/rename.py (inferred)"
+?Rva00117C30Get@@YAHXZ,0x00117C30,"Renamed to ?getTextureBitDepth@@YAHXZ by tools/rename.py (inferred)"
+?Rva0011C450Get@@YAHXZ,0x0011C450,"Renamed to ?getTextureFilter@@YAHXZ by tools/rename.py (inferred)"
+?rva005E8E80@Rva005E8E80@@UAE?AURva005E1753Result@@XZ,0x005E8E80,"Renamed to ?getResult@Rva005E8E80@@UAE?AURva005E1753Result@@XZ by tools/rename.py (inferred)"
+?rva00035540@GeneralAllocator@Allocator@EA@@QAE_NP6A_NPBUBlockInfo@23@PAX@Z1H_NPADI@Z,0x00035540,"Renamed to ?reportHeap@GeneralAllocator@Allocator@EA@@QAE_NP6A_NPBUBlockInfo@23@PAX@Z1H_NPADI@Z by tools/rename.py (inferred)"
+?rva0022546B@BfmeDfe6e4@@QAEXXZ,0x0022546B,"Renamed to ?unlock@BfmeDfe6e4@@QAEXXZ by tools/rename.py (inferred)"

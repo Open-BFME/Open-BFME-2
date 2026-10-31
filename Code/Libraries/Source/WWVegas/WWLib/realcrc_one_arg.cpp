@@ -9,7 +9,7 @@
 // identical-content .rdata copy at 0x00C35BD0, so it gets its own
 // address-derived name (owner unknown).
 // Rva00835BD0Crc32Table: matched references place it at VA 0xc35bd0 (retail .rdata contents).
-unsigned long Rva00835BD0Crc32Table[256] = {
+unsigned long crc32Table[256] = {
 	0u, 0x77073096u, 0xee0e612cu, 0x990951bau, 0x76dc419u, 0x706af48fu, 0xe963a535u, 0x9e6495a3u,
 	0xedb8832u, 0x79dcb8a4u, 0xe0d5e91eu, 0x97d2d988u, 0x9b64c2bu, 0x7eb17cbdu, 0xe7b82d07u, 0x90bf1d91u,
 	0x1db71064u, 0x6ab020f2u, 0xf3b97148u, 0x84be41deu, 0x1adad47du, 0x6ddde4ebu, 0xf4d4b551u, 0x83d385c7u,
@@ -52,7 +52,7 @@ unsigned long CRC_String(char const *string)
     crc = 0xFFFFFFFF;
     do {
       ++string;
-      crc = (crc >> 8) ^ Rva00835BD0Crc32Table[(char)crc ^ character];
+      crc = (crc >> 8) ^ crc32Table[(char)crc ^ character];
       character = *string;
     } while (character != 0);
     crc = ~crc;
@@ -70,7 +70,7 @@ unsigned long CRC_Stringi(char *string)
       ++string;
       if (character >= 'a' && character <= 'z')
         character &= 0xDF;
-      crc = (crc >> 8) ^ Rva00835BD0Crc32Table[(char)crc ^ character];
+      crc = (crc >> 8) ^ crc32Table[(char)crc ^ character];
       character = *string;
     } while (character != 0);
     crc = ~crc;
@@ -108,7 +108,7 @@ unsigned long Rva003EC991(const char *buffer, int len, volatile unsigned long cr
   crc = ~crc;
   do {
     char character = *buffer;
-    crc = (crc >> 8) ^ Rva00835BD0Crc32Table[(char)crc ^ character];
+    crc = (crc >> 8) ^ crc32Table[(char)crc ^ character];
     ++buffer;
   } while (--len != 0);
   crc = ~crc;
@@ -124,7 +124,7 @@ unsigned long Rva003EC9CD(const char *buffer, int len, volatile unsigned long cr
     char character = *buffer++;
     if (character >= 'a' && character <= 'z')
       character &= 0xDF;
-    crc = (crc >> 8) ^ Rva00835BD0Crc32Table[(char)crc ^ character];
+    crc = (crc >> 8) ^ crc32Table[(char)crc ^ character];
   } while (--len != 0);
   crc = ~crc;
   return crc;

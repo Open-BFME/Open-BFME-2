@@ -30,8 +30,8 @@ private:
 bool Rva00506A0C::rva00506A0C(const Rva00506A0COther *other)
 {
 	int key = other->m_74;
-	for (Rva00506A0CElem **p = m_04; p != m_08; ++p) {
-		if ((*p)->m_04 == key)
+	for (Rva00506A0CElem **slot = m_04; slot != m_08; ++slot) {
+		if ((*slot)->m_04 == key)
 			return true;
 	}
 	return false;

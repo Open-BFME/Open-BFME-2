@@ -42,7 +42,7 @@ class Rva005EA33D
 {
 public:
 	void rva005EA33D();
-	void rva005EA2B2(int i1, int i2);
+	void rva005EA2B2(int rangeIndex, int elementIndex);
 private:
 	char m_pad00[4];
 	Rva005EA33DData *m_data;
@@ -50,9 +50,9 @@ private:
 
 void Rva005EA33D::rva005EA33D()
 {
-	Rva005EA33DData *d = m_data;
+	Rva005EA33DData *rangeData = m_data;
 	int left = 2;
-	Rva005EA33DVec *range = d->m_ranges + 2;
+	Rva005EA33DVec *range = rangeData->m_ranges + 2;
 	do {
 		--left;
 		--range;
@@ -60,22 +60,22 @@ void Rva005EA33D::rva005EA33D()
 		Rva005EA33DElem *end = range->m_end;
 		for (; cur != end; cur = (Rva005EA33DElem *)((char *)cur + 0x24)) {
 			if (cur->m_a > cur->m_b) {
-				float v = (cur->m_a - cur->m_b) / d->m_divisor * kF7C;
-				((Rva005FBB68 *)((char *)cur->m_ptr + 8))->rva005FBB70(v);
+				float scaledDifference = (cur->m_a - cur->m_b) / rangeData->m_divisor * kF7C;
+				((Rva005FBB68 *)((char *)cur->m_ptr + 8))->rva005FBB70(scaledDifference);
 				return;
 			}
 		}
 	} while (left > 0);
 }
 
-void Rva005EA33D::rva005EA2B2(int i1, int i2)
+void Rva005EA33D::rva005EA2B2(int rangeIndex, int elementIndex)
 {
-	Rva005EA33DElem *mbegin = *(Rva005EA33DElem **)(i1 * 12 + (unsigned int)&m_data->m_ranges[0]);
-	Rva005EA33DElem *first = (Rva005EA33DElem *)((char *)mbegin + (unsigned int)i2 * 0x24);
+	Rva005EA33DElem *mbegin = *(Rva005EA33DElem **)(rangeIndex * 12 + (unsigned int)&m_data->m_ranges[0]);
+	Rva005EA33DElem *first = (Rva005EA33DElem *)((char *)mbegin + (unsigned int)elementIndex * 0x24);
 	((Rva005FBB68 *)((char *)first->m_ptr + 8))->rva005FBB68(first->m_val14);
-	int j = i2;
-	Rva005EA33DData *d = m_data;
-	Rva005EA33DVec *vec = &d->m_ranges[i1];
+	int j = elementIndex;
+	Rva005EA33DData *rangeData = m_data;
+	Rva005EA33DVec *vec = &rangeData->m_ranges[rangeIndex];
 next:
 	{
 		int count = ((char *)vec->m_end - (char *)vec->m_begin) / 0x24;
@@ -83,17 +83,17 @@ next:
 		if (j < (unsigned int)count)
 			goto have;
 		j = 0;
-		if (i1 <= 0)
+		if (rangeIndex <= 0)
 			return;
-		--i1;
+		--rangeIndex;
 		--vec;
 	}
 have:
 	{
 		Rva005EA33DElem *cur = (Rva005EA33DElem *)((char *)vec->m_begin + j * 0x24);
 		if (cur->m_a > cur->m_b) {
-			float v = (cur->m_a - cur->m_b) / d->m_divisor * kF7C;
-			((Rva005FBB68 *)((char *)cur->m_ptr + 8))->rva005FBB70(v);
+			float scaledDifference = (cur->m_a - cur->m_b) / rangeData->m_divisor * kF7C;
+			((Rva005FBB68 *)((char *)cur->m_ptr + 8))->rva005FBB70(scaledDifference);
 			return;
 		}
 		goto next;

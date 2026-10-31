@@ -51,8 +51,8 @@ void Rva0044192FGuarded(void **first, void **last, void *val, Rva0043FE9A comp)
 // 0x00441DB6; callee rowed 0x00440B64.
 void Rva00441974Sort(void **begin, void **end, void *unused, Rva0043FE9A comp)
 {
-	for (void **p = begin; p != end; ++p)
-		Rva00440B64Insert(p, *p, comp);
+	for (void **element = begin; element != end; ++element)
+		Rva00440B64Insert(element, *element, comp);
 }
 
 // ?Rva00441DA4Sort@@YAXPAPAX0VRva0043FE9A@@@Z @0x00441DA4 27B.
@@ -70,6 +70,6 @@ void Rva00441D74Sort(void **begin, void **end, Rva0043FE9A comp)
 {
 	if (begin == end)
 		return;
-	for (void **p = begin + 1; p != end; ++p)
-		Rva0044192FGuarded(begin, p, *p, comp);
+	for (void **element = begin + 1; element != end; ++element)
+		Rva0044192FGuarded(begin, element, *element, comp);
 }

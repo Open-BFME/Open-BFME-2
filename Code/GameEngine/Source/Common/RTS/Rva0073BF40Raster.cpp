@@ -28,40 +28,40 @@ private:
 
 char __cdecl Rva0073BF40Raster(int centerX, int centerY, const int radius, Rva0073BAA0Base updater)
 {
-	int x = 0;
-	int y = radius;
-	int d = (1 - radius) << 1;
+	int m_offsetX = 0;
+	int offsetY = radius;
+	int decision = (1 - radius) << 1;
 	int firstX = centerX;
 	int lastX = centerX;
 
 	for (;;)
 	{
-		if (d + y > 0)
+		if (decision + offsetY > 0)
 		{
-			if (y == 0 && radius == 1)
+			if (offsetY == 0 && radius == 1)
 			{
-				++x;
+				++m_offsetX;
 				++lastX;
 				--firstX;
 			}
 
-			if (!updater.rva0073BAA0(firstX, lastX, centerY + y))
+			if (!updater.rva0073BAA0(firstX, lastX, centerY + offsetY))
 				return 0;
-			if (y == 0)
+			if (offsetY == 0)
 				return 1;
 
-			if (!updater.rva0073BAA0(firstX, lastX, centerY - y))
+			if (!updater.rva0073BAA0(firstX, lastX, centerY - offsetY))
 				return 0;
-			--y;
-			d -= ((y << 1) - 1);
+			--offsetY;
+			decision -= ((offsetY << 1) - 1);
 		}
 
-		if (x > d)
+		if (m_offsetX > decision)
 		{
-			++x;
+			++m_offsetX;
 			++lastX;
 			--firstX;
-			d += ((x << 1) + 1);
+			decision += ((m_offsetX << 1) + 1);
 		}
 	}
 }

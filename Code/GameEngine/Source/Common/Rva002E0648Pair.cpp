@@ -44,7 +44,7 @@ extern class Rva002E18C3Lookup *TheLivingWorldAITemplateStore;
 class Rva002E0648Owner
 {
 public:
-	void rva002E0648(void *a);
+	void rva002E0648(void *source);
 private:
 	char m_pad00[0x48]; // +0x00..+0x48 unclaimed
 	Rva002E0648M48 m_m48; // +0x48
@@ -52,10 +52,10 @@ private:
 };
 
 // ?rva002E0648@Rva002E0648Owner@@QAEXPAX@Z
-void Rva002E0648Owner::rva002E0648(void *a)
+void Rva002E0648Owner::rva002E0648(void *source)
 {
-	((Rva004FB222Owner *)&m_m4C)->rva004FB222((Rva004FB303Target *)this, (int)a);
-	((StringBase<char> *)&m_m48)->set(*(const StringBase<char> *)a);
+	((Rva004FB222Owner *)&m_m4C)->rva004FB222((Rva004FB303Target *)this, (int)source);
+	((StringBase<char> *)&m_m48)->set(*(const StringBase<char> *)source);
 }
 
 // ?rva002E07CC@Rva002E0648Owner@@QAEXXZ

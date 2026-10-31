@@ -62,36 +62,36 @@ struct Rva00079D14Iter
 class Rva00079D14Tree
 {
 public:
-	Rva00079D14Iter rva00079AB9(Rva00079D14Node *x,
-		Rva00079D14Node *y, const Rva00079D14Value &value,
+	Rva00079D14Iter rva00079AB9(Rva00079D14Node *hintNode,
+		Rva00079D14Node *parent, const Rva00079D14Value &value,
 		Rva00079D14Node *w);
 private:
 	Rva00079D14Node *m_header;
 	int m_count;
 };
 
-Rva00079D14Iter Rva00079D14Tree::rva00079AB9(Rva00079D14Node *x,
-	Rva00079D14Node *y, const Rva00079D14Value &value,
+Rva00079D14Iter Rva00079D14Tree::rva00079AB9(Rva00079D14Node *hintNode,
+	Rva00079D14Node *parent, const Rva00079D14Value &value,
 	Rva00079D14Node *w)
 {
 	Rva00079D14Node *z;
-	if (y == m_header || (w == 0 && (x != 0 || *(const unsigned int *)&value < y->_key))) {
+	if (parent == m_header || (w == 0 && (hintNode != 0 || *(const unsigned int *)&value < parent->_key))) {
 		z = (Rva00079D14Node *)reinterpret_cast<Rva0007989CTree *>(this)->_M_create_node(reinterpret_cast<const Rva0007989CValue &>(value));
-		y->_left = z;
-		if (y == m_header) {
+		parent->_left = z;
+		if (parent == m_header) {
 			m_header->_parent = z;
 			m_header->_right = z;
-		} else if (y == m_header->_left) {
+		} else if (parent == m_header->_left) {
 			m_header->_left = z;
 		}
 	} else {
 		z = (Rva00079D14Node *)reinterpret_cast<Rva0007989CTree *>(this)->_M_create_node(reinterpret_cast<const Rva0007989CValue &>(value));
-		y->_right = z;
-		if (y == m_header->_right) {
+		parent->_right = z;
+		if (parent == m_header->_right) {
 			m_header->_right = z;
 		}
 	}
-	z->_parent = y;
+	z->_parent = parent;
 	z->_left = 0;
 	z->_right = 0;
 	_STL::_Rb_global<bool>::_Rebalance((_STL::_Rb_tree_node_base *)z,

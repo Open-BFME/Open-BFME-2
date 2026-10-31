@@ -44,13 +44,13 @@ private:
 
 void Rva0055CD70::rva0055CD70(float x, float y, float z)
 {
-	Rva0055CD70Vec a;
-	a.x = m_a0 + x;
-	a.y = m_a1 + y;
-	a.z = m_a2 + z;
-	Rva0055CD70Vec b;
-	b.x = m_b0 + x;
-	b.y = m_b1 + y;
-	b.z = m_b2 + z;
-	((TacticalView *)TheTacticalView)->slot11(&a, &b, 0xccaaffff);
+	Rva0055CD70Vec start;
+	start.x = m_a0 + x;
+	start.y = m_a1 + y;
+	start.z = m_a2 + z;
+	Rva0055CD70Vec end;
+	end.x = m_b0 + x;
+	end.y = m_b1 + y;
+	end.z = m_b2 + z;
+	((TacticalView *)TheTacticalView)->slot11(&start, &end, 0xccaaffff);
 }

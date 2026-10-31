@@ -199,7 +199,7 @@ public:
 public:
 	void rva00225460();
 public:
-	void rva0022546B();
+	void unlock();
 private:
 	unsigned char m_unreconstructed_00[0x50];
 private:
@@ -238,7 +238,7 @@ void BfmeDfe6e4::rva00225492()
 	m_timestamp = now;
 }
 
-// ?rva00225460@BfmeDfe6e4@@QAEXXZ / ?rva0022546B@BfmeDfe6e4@@QAEXXZ, retail
+// ?rva00225460@BfmeDfe6e4@@QAEXXZ / ?unlock@BfmeDfe6e4@@QAEXXZ, retail
 // 0x00225460 and 0x0022546B (11B each), directly before 0x00225476: enter and
 // leave the class critical section at +0x70 through the IAT.
 void BfmeDfe6e4::rva00225460()
@@ -246,7 +246,7 @@ void BfmeDfe6e4::rva00225460()
 	m_cs.enter();
 }
 
-void BfmeDfe6e4::rva0022546B()
+void BfmeDfe6e4::unlock()
 {
 	m_cs.leave();
 }

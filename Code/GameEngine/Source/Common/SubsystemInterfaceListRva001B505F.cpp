@@ -22,9 +22,9 @@ class ModuleData;
 // push_back's overflow is retail's 0x002DFCF6 body (ModuleFactory.cpp), which inlines
 // max(size(), n); the declaration-only max<unsigned> above would make this TU's copy
 // call it, so spell the inline form out here.
-static inline const unsigned int &moduleOverflowMax(const unsigned int &a, const unsigned int &b)
+static inline const unsigned int &moduleOverflowMax(const unsigned int &left, const unsigned int &right)
 {
-	return a < b ? b : a;
+	return left < right ? right : left;
 }
 namespace _STL {
 template <> inline void vector<const ModuleData *>::_M_insert_overflow(pointer __position, const value_type &__x,

@@ -53,7 +53,7 @@ void Rva002B2757::rva002B2757(Rva00318C79Owner *owner, float *pos, void *extra)
 	buf[0] = pos[0];
 	buf[1] = pos[1];
 	buf[2] = 0.0f;
-	void *r = ((Rva0020EE29 *)m_b0)->rva0020FAEA(buf, 0);
-	if (owner->rva00318C32() != (Rva00318C32Ret *)r)
-		((LivingWorldArmy *)owner)->initiateMove(*(const Coord2D *)pos, (Rva00318C32Ret *)r, (int)extra);
+	void *target = ((Rva0020EE29 *)m_b0)->rva0020FAEA(buf, 0);
+	if (owner->rva00318C32() != (Rva00318C32Ret *)target)
+		((LivingWorldArmy *)owner)->initiateMove(*(const Coord2D *)pos, (Rva00318C32Ret *)target, (int)extra);
 }

@@ -29,17 +29,17 @@ static __forceinline CurveValue operator*(const CurveValue &a,float k){return Cu
 // ?operatorLeftTimes present-unmatched
 static __forceinline CurveValue operator*(float k,const CurveValue &a){return CurveValue(a.X*k,a.Y*k,a.Z*k);}
 }
-D3DXVECTOR3 *rva00311638CatmullRom(D3DXVECTOR3 *out,const D3DXVECTOR3 *d3DXVECTOR3,const D3DXVECTOR3 *p1,const D3DXVECTOR3 *p2,const D3DXVECTOR3 *p3,float t,bool imported)
+D3DXVECTOR3 *rva00311638CatmullRom(D3DXVECTOR3 *out,const D3DXVECTOR3 *d3DXVECTOR3,const D3DXVECTOR3 *point1,const D3DXVECTOR3 *point2,const D3DXVECTOR3 *point3,float t,bool imported)
 {
- if(imported) return rva0062AFC8D3DXVec3CatmullRom(out,d3DXVECTOR3,p1,p2,p3,t);
- float t2=t*t;
- float t3=t*t2;
- CurveValue a=*d3DXVECTOR3,b=*p1,c=*p2,d=*p3;
- CurveValue q0=2.0f*b;
- CurveValue q1=(c-a)*t;
- CurveValue q2=(2.0f*a-5.0f*b+4.0f*c-d)*t2;
- CurveValue q3=(3.0f*b-a-3.0f*c+d)*t3;
- CurveValue v=(q0+q1+q2+q3)*0.5f;
- out->x=v.X;out->y=v.Y;out->z=v.Z;
+ if(imported) return rva0062AFC8D3DXVec3CatmullRom(out,d3DXVECTOR3,point1,point2,point3,t);
+ float tSquared=t*t;
+ float tCubed=t*tSquared;
+ CurveValue startPoint=*d3DXVECTOR3,b=*point1,c=*point2,d=*point3;
+ CurveValue term0=2.0f*b;
+ CurveValue term1=(c-startPoint)*t;
+ CurveValue term2=(2.0f*startPoint-5.0f*b+4.0f*c-d)*tSquared;
+ CurveValue term3=(3.0f*b-startPoint-3.0f*c+d)*tCubed;
+ CurveValue interpolated=(term0+term1+term2+term3)*0.5f;
+ out->x=interpolated.X;out->y=interpolated.Y;out->z=interpolated.Z;
  return out;
 }

@@ -32,14 +32,14 @@ struct Rva007C6FF4Impl : Rva00080221RefImpl
 class Rva00080221
 {
 public:
-	Rva00080221(const int *arg);
+	Rva00080221(const int *initialValue);
 private:
 	Rva007C6FF4Impl *m_impl;
 };
 
-Rva00080221::Rva00080221(const int *arg)
+Rva00080221::Rva00080221(const int *initialValue)
 {
-	Rva007C6FF4Impl *impl = new Rva007C6FF4Impl(*arg);
+	Rva007C6FF4Impl *impl = new Rva007C6FF4Impl(*initialValue);
 	m_impl = impl;
 	if (impl != 0)
 		++impl->m_ref;
@@ -65,14 +65,14 @@ struct Impl002D4594 : Rva00080221RefImpl
 class Rva002D4594
 {
 public:
-	Rva002D4594(const int *arg);
+	Rva002D4594(const int *initialValue);
 private:
 	Impl002D4594 *m_impl;
 };
 
-Rva002D4594::Rva002D4594(const int *arg)
+Rva002D4594::Rva002D4594(const int *initialValue)
 {
-	Impl002D4594 *impl = new Impl002D4594(*arg);
+	Impl002D4594 *impl = new Impl002D4594(*initialValue);
 	m_impl = impl;
 	if (impl != 0)
 		++impl->m_ref;
@@ -88,14 +88,14 @@ struct Impl002D45C9 : Rva00080221RefImpl
 class Rva002D45C9
 {
 public:
-	Rva002D45C9(const int *arg);
+	Rva002D45C9(const int *initialValue);
 private:
 	Impl002D45C9 *m_impl;
 };
 
-Rva002D45C9::Rva002D45C9(const int *arg)
+Rva002D45C9::Rva002D45C9(const int *initialValue)
 {
-	Impl002D45C9 *impl = new Impl002D45C9(*arg);
+	Impl002D45C9 *impl = new Impl002D45C9(*initialValue);
 	m_impl = impl;
 	if (impl != 0)
 		++impl->m_ref;
@@ -111,14 +111,14 @@ struct Impl002D45FE : Rva00080221RefImpl
 class Rva002D45FE
 {
 public:
-	Rva002D45FE(const int *arg);
+	Rva002D45FE(const int *initialValue);
 private:
 	Impl002D45FE *m_impl;
 };
 
-Rva002D45FE::Rva002D45FE(const int *arg)
+Rva002D45FE::Rva002D45FE(const int *initialValue)
 {
-	Impl002D45FE *impl = new Impl002D45FE(*arg);
+	Impl002D45FE *impl = new Impl002D45FE(*initialValue);
 	m_impl = impl;
 	if (impl != 0)
 		++impl->m_ref;
@@ -150,7 +150,7 @@ __declspec(noinline) inline Rva004106FA::Rva004106FA(const int *arg)
 }
 
 // ?bfmeAnchorRva004106FA absent-from-retail
-void *bfmeAnchorRva004106FA(void *where, const int *arg)
+void *bfmeAnchorRva004106FA(void *where, const int *initialValue)
 {
-	return new (where) Rva004106FA(arg);
+	return new (where) Rva004106FA(initialValue);
 }

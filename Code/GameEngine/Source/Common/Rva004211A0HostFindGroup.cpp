@@ -38,16 +38,16 @@ int Rva004211A0Host::rva004210F8(const Overridable *thing)
 		Rva004210F8Group **group = m_groups.begin();
 		do
 		{
-			Rva004210F8Group *g = *group;
+			Rva004210F8Group *m_currentGroup = *group;
 			unsigned int j = 0;
-			if (j < g->m_ids.size())
+			if (j < m_currentGroup->m_ids.size())
 			{
-				int *id = g->m_ids.begin();
+				int *id = m_currentGroup->m_ids.begin();
 				do
 				{
 					if (*id == ((const Rva004210F8IDView *)thing->friend_getFinalOverride())->m_id)
 						return i;
-				} while (++j, ++id, j < g->m_ids.size());
+				} while (++j, ++id, j < m_currentGroup->m_ids.size());
 			}
 		} while (++i, ++group, i < m_groups.size());
 	}

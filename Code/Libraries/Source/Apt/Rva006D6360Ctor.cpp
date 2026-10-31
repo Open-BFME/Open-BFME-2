@@ -54,7 +54,7 @@ class Rva006D6500 : public Rva006D6360
     unsigned int m_bits;
     int m_arg;
 public:
-    Rva006D6500(int a0);
+    Rva006D6500(int argValue);
     // Compiler-generated destruction (members, then the rowed base dtor), the
     // body retail's vtable slot 0 reaches.
     virtual ~Rva006D6500() {}
@@ -67,11 +67,11 @@ inline Rva006D6470Owner::Rva006D6470Owner(int type, int hashSize) : Rva006D6360(
     *(unsigned char *)&m_bits = 0;
     m_bits &= 0xFFFFFCFF;
 }
-Rva006D6500::Rva006D6500(int a0) : Rva006D6360(9, 8)
+Rva006D6500::Rva006D6500(int argValue) : Rva006D6360(9, 8)
 {
     *(unsigned char *)&m_bits = 0;
     m_bits &= 0xFFFFFCFF;
-    m_arg = a0;
+    m_arg = argValue;
 }
 
 // Rva006ECFC0Siblings, Rva006EC730GetBounds, Rva006FC1D0Ctor and others define
@@ -79,7 +79,7 @@ Rva006D6500::Rva006D6500(int a0) : Rva006D6360(9, 8)
 // bodies; defining them inline here too keeps one body under each name. The
 // anchor keeps this unit's copies emitted.
 // ?bfmeAnchorRva006D6470Owner absent-from-retail
-void bfmeAnchorRva006D6470Owner(Rva006D6470Owner *p)
+void bfmeAnchorRva006D6470Owner(Rva006D6470Owner *owner)
 {
-    p->Rva006D6470Owner::Rva006D6470Owner(0, 0);
+    owner->Rva006D6470Owner::Rva006D6470Owner(0, 0);
 }

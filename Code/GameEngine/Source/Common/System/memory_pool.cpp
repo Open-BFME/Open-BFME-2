@@ -155,7 +155,7 @@ public:
 	const BlockInfo *rva00032F60(void *context, int blockTypes);	// ReportNext-like
 	void rva00033E90(void *context);			// ReportEnd-like
 	// ReportHeap-like walk over blocks of the given types (unrowed 0x00035540).
-	bool rva00035540(bool (*callback)(const BlockInfo *info, void *context), void *context, int blockTypes, bool copy, char *storage, unsigned int storageSize);
+	bool reportHeap(bool (*callback)(const BlockInfo *info, void *context), void *context, int blockTypes, bool copy, char *storage, unsigned int storageSize);
 
 private:
 	// Intrusive list node proven by 0x00031680 (size at +4 next at +0x18)
@@ -1273,7 +1273,7 @@ unsigned int rva00030910()
 	unsigned int total = 0;
 	char storage[0x200];
 	for (int i = 0; i <= g_heaps.m_count; ++i)
-		g_heaps.m_allocators[i]->rva00035540(rva00030900, &total, 2, false, storage, sizeof(storage));
+		g_heaps.m_allocators[i]->reportHeap(rva00030900, &total, 2, false, storage, sizeof(storage));
 	return total;
 }
 

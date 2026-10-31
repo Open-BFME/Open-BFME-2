@@ -40,7 +40,7 @@ class Template108
 {
 public:
 	char m_pad[0x108];
-	unsigned char m_108;
+	unsigned char m_flags;
 };
 
 class Object
@@ -193,7 +193,7 @@ void Rva0029EAFA::rva0029EAFA(const GameMessage *msg)
 		Object *inner = ret ? ret->m_fc : (Object *)0;
 		if (inner)
 		{
-			if ((inner->m_template->m_108 & 4) != 0)
+			if ((inner->m_template->m_flags & 4) != 0)
 				return;
 			if (!inner->isMobile())
 				return;

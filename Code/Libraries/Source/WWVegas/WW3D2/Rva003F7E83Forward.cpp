@@ -23,10 +23,10 @@ public:
 
 void Rva003F7E83::rva003F7E83()
 {
-	Rva003F7E83Inner *p = m_ptr1C;
-	if (p == 0)
+	Rva003F7E83Inner *target = m_ptr1C;
+	if (target == 0)
 		return;
-	p->v3();
+	target->v3();
 }
 
 // ?rva003F7E90@Rva003F7E83@@QAEXXZ @0x003F7E90 13B.
@@ -35,8 +35,8 @@ void Rva003F7E83::rva003F7E83()
 // Caller at 0x003F808A is a tail jmp.
 void Rva003F7E83::rva003F7E90()
 {
-	Rva003F7E83Inner *p = m_ptr1C;
-	if (p == 0)
+	Rva003F7E83Inner *target = m_ptr1C;
+	if (target == 0)
 		return;
-	p->v4();
+	target->v4();
 }

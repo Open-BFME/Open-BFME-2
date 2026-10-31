@@ -19,25 +19,25 @@ public:
 class Rva0042755D
 {
 public:
-	bool rva0042755D(unsigned a, unsigned b);
+	bool rva0042755D(unsigned firstIndex, unsigned secondIndex);
 private:
 	char m_pad00[0x10];
 	_STL::vector<Rva004F5436 *> m_vec10;
 };
 
-bool Rva0042755D::rva0042755D(unsigned a, unsigned b)
+bool Rva0042755D::rva0042755D(unsigned firstIndex, unsigned secondIndex)
 {
-	if (m_vec10.size() > a) {
-		Rva004F5436 *p = m_vec10[a];
-		if (p != 0) {
-			if (p->rva004F5436(0) > 0u)
+	if (m_vec10.size() > firstIndex) {
+		Rva004F5436 *entry = m_vec10[firstIndex];
+		if (entry != 0) {
+			if (entry->rva004F5436(0) > 0u)
 				return false;
 		}
 	}
-	if (m_vec10.size() > b) {
-		Rva004F5436 *p = m_vec10[b];
-		if (p != 0) {
-			if (p->rva004F5436(0) > 0u)
+	if (m_vec10.size() > secondIndex) {
+		Rva004F5436 *entry = m_vec10[secondIndex];
+		if (entry != 0) {
+			if (entry->rva004F5436(0) > 0u)
 				return false;
 		}
 	}

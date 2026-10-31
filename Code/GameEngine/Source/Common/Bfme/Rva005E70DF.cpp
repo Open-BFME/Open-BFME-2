@@ -19,7 +19,7 @@ public:
 class Rva005E70DF
 {
 public:
-	void rva005E70DF(int arg);
+	void rva005E70DF(int newValue);
 
 private:
 	char m_pad[0x0C];
@@ -29,8 +29,8 @@ private:
 	int m_val;
 };
 
-void Rva005E70DF::rva005E70DF(int arg)
+void Rva005E70DF::rva005E70DF(int newValue)
 {
-	m_ptr->vfunc(arg);
-	m_val = arg;
+	m_ptr->vfunc(newValue);
+	m_val = newValue;
 }

@@ -1,5 +1,5 @@
 // cl: /O1 /MD /EHsc
-// ?rva005E8E80@Rva005E8E80@@UAE?AURva005E1753Result@@XZ @0x005E8E80 33B:
+// ?getResult@Rva005E8E80@@UAE?AURva005E1753Result@@XZ @0x005E8E80 33B:
 // secondary-base forwarder returning Rva005E1753Result. Identity: ref table slot
 // 0x00877F84 reaches it; neighbours are ?rva005E0D9C, ??_GRva005E8D71 and
 // FUN_009e8cf8. Shape follows the Rva005CC468Family getters (same result type,
@@ -33,11 +33,11 @@ private:
 class Rva005E8E80 : public Rva005E8E80Base0
 {
 public:
-	virtual Rva005E1753Result rva005E8E80();
+	virtual Rva005E1753Result getResult();
 };
 
-// ?rva005E8E80@Rva005E8E80@@UAE?AURva005E1753Result@@XZ
-Rva005E1753Result Rva005E8E80::rva005E8E80()
+// ?getResult@Rva005E8E80@@UAE?AURva005E1753Result@@XZ
+Rva005E1753Result Rva005E8E80::getResult()
 {
 	return ((Rva005E8E80Base0 *)((char *)this - 8))->v08()->GetResult();
 }

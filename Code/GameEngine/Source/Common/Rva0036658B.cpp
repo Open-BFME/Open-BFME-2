@@ -5,7 +5,7 @@
 class Rva0036658B
 {
 public:
-	bool rva0036658B(void *a, void *b);
+	bool rva0036658B(void *source, void *b);
 private:
 	char m_pad00[0x28];
 	void *m_28;
@@ -17,14 +17,14 @@ private:
 	int m_3c;
 };
 
-bool Rva0036658B::rva0036658B(void *a, void *b)
+bool Rva0036658B::rva0036658B(void *source, void *b)
 {
 	if (m_34 != 0 || m_38 != 0)
 		return false;
-	m_38 = a;
-	int tmp = *(int *)((char *)a + 0x30);
+	m_38 = source;
+	int sourceValue = *(int *)((char *)source + 0x30);
 	m_2c = -1;
-	m_3c = tmp;
+	m_3c = sourceValue;
 	m_28 = b;
 	m_30 = 0;
 	return true;

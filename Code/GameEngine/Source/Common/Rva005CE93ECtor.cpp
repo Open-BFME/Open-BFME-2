@@ -49,10 +49,10 @@ Rva005CE93E::Rva005CE93E(void *a, void *b, Rva005CE93EContext *context)
 struct Rva005CE93EHandle
 {
 	Rva005CC5E5 *m_p;
-	__forceinline Rva005CE93EHandle(Rva005CC5E5 *p) : m_p(p)
+	__forceinline Rva005CE93EHandle(Rva005CC5E5 *refCountedObject) : m_p(refCountedObject)
 	{
-		if (p)
-			++static_cast<Rva0007DF07 *>(p)->m_04;
+		if (refCountedObject)
+			++static_cast<Rva0007DF07 *>(refCountedObject)->m_04;
 	}
 	~Rva005CE93EHandle();
 };

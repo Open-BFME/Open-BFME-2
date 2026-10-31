@@ -54,13 +54,13 @@ void Rva002D2DF6::rva002D2DF6()
 {
 	if (m_obj)
 		m_obj->s09();
-	Rva002D2DF6Sub *s = &m_sub;
+	Rva002D2DF6Sub *sub = &m_sub;
 	m_flag7C = 1;
 	int neg = -2;
-	s->m_b08 = 0;
-	s->m_a0C = neg;
-	s->m_a10 = neg;
-	s->m_a14 = neg;
-	s->m_f18 = 0.0f;
+	sub->m_b08 = 0;
+	sub->m_a0C = neg;
+	sub->m_a10 = neg;
+	sub->m_a14 = neg;
+	sub->m_f18 = 0.0f;
 	m_flag128 = 1;
 }

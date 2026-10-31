@@ -27,7 +27,7 @@ struct S16
 class Rva0053FDE6
 {
 public:
-	Rva0053FDE6(S12 *a1, S16 *a2, float f, int d);
+	Rva0053FDE6(S12 *source, S16 *a2, float f, int d);
 	int m_00;
 	int m_04;
 	int m_08;
@@ -35,11 +35,11 @@ public:
 	S16 m_10;
 	float m_20;
 };
-Rva0053FDE6::Rva0053FDE6(S12 *a1, S16 *a2, float f, int d)
+Rva0053FDE6::Rva0053FDE6(S12 *source, S16 *a2, float f, int d)
 {
 	m_00 = d;
 	int *dst = &m_04;
-	const int *src = &a1->a;
+	const int *src = &source->a;
 	dst[0] = src[0];
 	dst[1] = src[1];
 	dst[2] = src[2];

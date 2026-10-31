@@ -45,8 +45,8 @@ void Rva002B41F4::rva002B41F4()
 {
     int count = 0;
     for (unsigned int i = 0; i < m_vec.size(); ++i) {
-        Rva002B41F4Elem *e = m_vec[i];
-        if (e != 0 && e->m_44 == 0 && e->m_3C4 == 0)
+        Rva002B41F4Elem *element = m_vec[i];
+        if (element != 0 && element->m_44 == 0 && element->m_3C4 == 0)
             ++count;
     }
     if ((m_flag176 != 0 || m_state98->m_2BC == 1) && count > 1) {

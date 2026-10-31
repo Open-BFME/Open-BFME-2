@@ -61,18 +61,18 @@ int Rva00116E30Get(void)
 	return DX8Wrapper::Get_Device_Resolution_Height();
 }
 
-// ?Rva00117C30Get@@YAHXZ @ 0x00117C30 (6B): returns global at 0x9B5FE0.
+// ?getTextureBitDepth@@YAHXZ @ 0x00117C30 (6B): returns global at 0x9B5FE0.
 // Follows int3 (prev CC), no .rdata vtable slot, no direct callers,
 // no branch sources. Opaque address-derived name.
-int Rva00117C30Get(void)
+int getTextureBitDepth(void)
 {
 	return DX8Wrapper::Get_Texture_Bit_Depth();
 }
 
-// ?Rva0011C450Get@@YAHXZ @ 0x0011C450 (6B): returns global at 0x9B5F9C.
+// ?getTextureFilter@@YAHXZ @ 0x0011C450 (6B): returns global at 0x9B5F9C.
 // Follows int3 (prev CC), no .rdata vtable slot, no direct callers,
 // no branch sources. Opaque address-derived name.
-int Rva0011C450Get(void)
+int getTextureFilter(void)
 {
 	return WW3D::Get_Texture_Filter();
 }

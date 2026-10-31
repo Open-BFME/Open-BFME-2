@@ -2329,7 +2329,7 @@ void WW3D::Set_Texture_Reduction(int value)
 
 // tu-skeleton: 0x00117C20 13B ?Rva00117C20Get@@YAXPAH@Z -- matched in Code/GameEngine/Source/Common/GlobalGetterSingles.cpp (not merged yet)
 
-// tu-skeleton: 0x00117C30 6B ?Rva00117C30Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstGlobalGetters.cpp (not merged yet)
+// tu-skeleton: 0x00117C30 6B ?getTextureBitDepth@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstGlobalGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x00117DB0 9B ??0Rva00117DB0@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
 

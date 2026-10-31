@@ -21,18 +21,18 @@ public:
     float fieldBC;
     float fieldC0;
     unsigned char fieldC4;
-    void rva0005230D(float a, float b, float c, float d, float e);
+    void rva0005230D(float volume, float b, float c, float d, float e);
 };
 
-void Rva0005230D::rva0005230D(float a, float b, float c, float d, float e)
+void Rva0005230D::rva0005230D(float volume, float b, float c, float d, float e)
 {
     const float zero = 0.0f;
     const float one = 1.0f;
-    if (zero > a)
-        a = zero;
-    else if (a > one)
-        a = one;
-    fieldAC = a;
+    if (zero > volume)
+        volume = zero;
+    else if (volume > one)
+        volume = one;
+    fieldAC = volume;
     float end = one;
     if (zero > b)
         end = zero;
@@ -44,6 +44,6 @@ void Rva0005230D::rva0005230D(float a, float b, float c, float d, float e)
     fieldBC = e;
     fieldC0 = zero;
     fieldC4 = 1;
-    scale = a;
+    scale = volume;
     reinterpret_cast<MilesAudioManager::GlobalVolumeData *>(this)->refreshAll();
 }

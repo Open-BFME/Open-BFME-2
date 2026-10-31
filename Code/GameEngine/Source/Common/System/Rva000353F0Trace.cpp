@@ -82,7 +82,7 @@ public:
 	void rva00033150(const void *block);	// free engine 0x00033150 (memory_pool.cpp)
 	void *rva00034D10(int blockTypes, bool copy, void *storage, unsigned int storageSize);
 	void traceAllocatedMemory(TraceFunction function, void *functionContext, void *context, int blockTypes);
-	bool rva00035540(ReportFunction function, void *context, int blockTypes, bool copy, char *storage, unsigned int storageSize);
+	bool reportHeap(ReportFunction function, void *context, int blockTypes, bool copy, char *storage, unsigned int storageSize);
 	int rva00031430(const void *block, char *dst, unsigned int left);
 	const BlockInfo *rva00032F60(void *context, int blockTypes);
 
@@ -140,14 +140,14 @@ void GeneralAllocator::traceAllocatedMemory(TraceFunction function, void *functi
 	}
 }
 
-// ?rva00035540@GeneralAllocator@Allocator@EA@@QAE_NP6A_NPBUBlockInfo@23@PAX@Z1H_NPADI@Z @0x00035540 154B.
+// ?reportHeap@GeneralAllocator@Allocator@EA@@QAE_NP6A_NPBUBlockInfo@23@PAX@Z1H_NPADI@Z @0x00035540 154B.
 // Unlocked heap report walk (ReportHeap-like, declared as such by
 // memory_pool.cpp): with a callback, opens the report through 0x00034D10
 // with the four trailing arguments, marks +0x0D, hands each 0x00032F60 entry
 // of the requested types to the cdecl bool callback until it returns false,
 // closes the report the same inlined way as 0x000353F0 and returns the last
 // callback result (false without a callback or report). Caller 0x0003094F.
-bool GeneralAllocator::rva00035540(ReportFunction function, void *context, int blockTypes, bool copy, char *storage, unsigned int storageSize)
+bool GeneralAllocator::reportHeap(ReportFunction function, void *context, int blockTypes, bool copy, char *storage, unsigned int storageSize)
 {
 	bool result = false;
 	if (function)
