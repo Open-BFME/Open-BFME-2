@@ -31,6 +31,7 @@ static inline const unsigned int &min(const unsigned int &a, const unsigned int 
 #define _STLP_BFME_COPY_TRIVIAL_EXTERN  // call retail's one __copy_trivial (vendor/stlport/stl/_algobase.h)
 #include <string>
 #include <vector>
+namespace _STL { template <> unsigned int basic_string<char,char_traits<char>,allocator<char> >::find_first_not_of(const char *, unsigned int, unsigned int) const; }
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> void vector<basic_string<char,char_traits<char>,allocator<char> >,allocator<basic_string<char,char_traits<char>,allocator<char> > > >::push_back(basic_string<char,char_traits<char>,allocator<char> > const &); }
 // bfme link decl-only begin

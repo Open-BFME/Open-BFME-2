@@ -1,0 +1,323 @@
+{
+  "source": "Code/GameEngine/Source/Common/System/Rva00309358Tokenize.cpp",
+  "source_before_sha256": "5bb0a7cfea2b9afc9ea04c32c4661ebf71d143ce09cd5326019696d820f1c9ce",
+  "variants": {
+    "before": {
+      "source_sha256": "5bb0a7cfea2b9afc9ea04c32c4661ebf71d143ce09cd5326019696d820f1c9ce",
+      "rows": [
+        {
+          "name": "?Rva00309358Tokenize@@YAXABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@AAV?$vector@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@V?$allocator@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@@2@0@Z",
+          "rva": "0x00309358",
+          "size": "158",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?Rva00309358Tokenize@@YAXABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@AAV?$vector@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@V?$allocator@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@@2@0@Z",
+          "rva": "0x00779ECA",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "$L7467",
+          "rva": "0x00779EC2",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "??$__copy@PAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@PAV12@H@_STL@@YAPAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@0@PAV10@00ABUrandom_access_iterator_tag@0@PAH@Z",
+          "rva": "0x00079F8A",
+          "size": "50",
+          "exact": true
+        },
+        {
+          "name": "??$__copy_ptrs@PAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@PAV12@@_STL@@YAPAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@0@PAV10@00ABU__false_type@0@@Z",
+          "rva": "0x0007A401",
+          "size": "29",
+          "exact": true
+        }
+      ],
+      "eh": [
+        {
+          "name": "?Rva00309358Tokenize@@YAXABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@AAV?$vector@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@V?$allocator@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@@2@0@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ]
+    },
+    "trial": {
+      "source_sha256": "98cc53f2e5ba036e499b0e1c35d8f53d95c67c9ee4f731223e2927834d3702d2",
+      "rows": [
+        {
+          "name": "?Rva00309358Tokenize@@YAXABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@AAV?$vector@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@V?$allocator@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@@2@0@Z",
+          "rva": "0x00309358",
+          "size": "158",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?Rva00309358Tokenize@@YAXABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@AAV?$vector@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@V?$allocator@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@@2@0@Z",
+          "rva": "0x00779ECA",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "$L7467",
+          "rva": "0x00779EC2",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "??$__copy@PAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@PAV12@H@_STL@@YAPAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@0@PAV10@00ABUrandom_access_iterator_tag@0@PAH@Z",
+          "rva": "0x00079F8A",
+          "size": "50",
+          "exact": true
+        },
+        {
+          "name": "??$__copy_ptrs@PAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@PAV12@@_STL@@YAPAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@0@PAV10@00ABU__false_type@0@@Z",
+          "rva": "0x0007A401",
+          "size": "29",
+          "exact": true
+        }
+      ],
+      "eh": [
+        {
+          "name": "?Rva00309358Tokenize@@YAXABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@AAV?$vector@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@V?$allocator@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@@2@0@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ]
+    }
+  },
+  "retained_external_definitions": 26,
+  "retained_code_and_symbolic_relocations_identical": true,
+  "removed_closure": {
+    "??$__find_if@PADU?$_Eq_char_bound@V?$char_traits@D@_STL@@@_STL@@@_STL@@YAPADPAD0U?$_Eq_char_bound@V?$char_traits@D@_STL@@@0@ABUrandom_access_iterator_tag@0@@Z": {
+      "raw": "558bec8b4d0c8b45088a55102bc8c1f902eb1538107434403810742f403810742a4038107425404985c97fe78b4d0c2bc849741049740849750e3810740d403810740840381074038b450c5dc3",
+      "relocations": []
+    },
+    "??$__find_if@PBDU?$_Not_within_traits@V?$char_traits@D@_STL@@@_STL@@@_STL@@YAPBDPBD0U?$_Not_within_traits@V?$char_traits@D@_STL@@@0@ABUrandom_access_iterator_tag@0@@Z": {
+      "raw": "558bec568b750c578b7d082bf7c1fe02eb39578d4d10e80000000084c0757047578d4d10e80000000084c0756247578d4d10e80000000084c0755447578d4d10e80000000084c07546474e85f67fc38b450c2bc748742248741148752b578d4d10e80000000084c0752547578d4d10e80000000084c0751747578d4d10e80000000084c08bc775038b450c5f5e5dc38bc7ebf8",
+      "relocations": [
+        [
+          23,
+          20,
+          "??R?$_Not_within_traits@V?$char_traits@D@_STL@@@_STL@@QBE_NABD@Z"
+        ],
+        [
+          37,
+          20,
+          "??R?$_Not_within_traits@V?$char_traits@D@_STL@@@_STL@@QBE_NABD@Z"
+        ],
+        [
+          51,
+          20,
+          "??R?$_Not_within_traits@V?$char_traits@D@_STL@@@_STL@@QBE_NABD@Z"
+        ],
+        [
+          65,
+          20,
+          "??R?$_Not_within_traits@V?$char_traits@D@_STL@@@_STL@@QBE_NABD@Z"
+        ],
+        [
+          98,
+          20,
+          "??R?$_Not_within_traits@V?$char_traits@D@_STL@@@_STL@@QBE_NABD@Z"
+        ],
+        [
+          112,
+          20,
+          "??R?$_Not_within_traits@V?$char_traits@D@_STL@@@_STL@@QBE_NABD@Z"
+        ],
+        [
+          126,
+          20,
+          "??R?$_Not_within_traits@V?$char_traits@D@_STL@@@_STL@@QBE_NABD@Z"
+        ]
+      ]
+    },
+    "??$find_if@PADU?$_Eq_char_bound@V?$char_traits@D@_STL@@@_STL@@@_STL@@YAPADPAD0U?$_Eq_char_bound@V?$char_traits@D@_STL@@@0@@Z": {
+      "raw": "558bec518d45ff50ff7510ff750cff7508e80000000083c410c9c3",
+      "relocations": [
+        [
+          18,
+          20,
+          "??$__find_if@PADU?$_Eq_char_bound@V?$char_traits@D@_STL@@@_STL@@@_STL@@YAPADPAD0U?$_Eq_char_bound@V?$char_traits@D@_STL@@@0@ABUrandom_access_iterator_tag@0@@Z"
+        ]
+      ]
+    },
+    "??$find_if@PBDU?$_Not_within_traits@V?$char_traits@D@_STL@@@_STL@@@_STL@@YAPBDPBD0U?$_Not_within_traits@V?$char_traits@D@_STL@@@0@@Z": {
+      "raw": "558bec518d45ff50ff7514ff7510ff750cff7508e80000000083c414c9c3",
+      "relocations": [
+        [
+          21,
+          20,
+          "??$__find_if@PBDU?$_Not_within_traits@V?$char_traits@D@_STL@@@_STL@@@_STL@@YAPBDPBD0U?$_Not_within_traits@V?$char_traits@D@_STL@@@0@ABUrandom_access_iterator_tag@0@@Z"
+        ]
+      ]
+    },
+    "??0?$_Eq_char_bound@V?$char_traits@D@_STL@@@_STL@@QAE@D@Z": {
+      "raw": "8bc18a4c24048808c20400",
+      "relocations": []
+    },
+    "??0?$_Not_within_traits@V?$char_traits@D@_STL@@@_STL@@QAE@PBD0@Z": {
+      "raw": "8bc18b4c240489088b4c2408894804c20800",
+      "relocations": []
+    },
+    "??R?$_Eq_char_bound@V?$char_traits@D@_STL@@@_STL@@QBE_NABD@Z": {
+      "raw": "8b4424048a002a01f6d81bc040c20400",
+      "relocations": []
+    },
+    "??R?$_Not_within_traits@V?$char_traits@D@_STL@@@_STL@@QBE_NABD@Z": {
+      "raw": "558bec8b45088a00568b7104884508ff750856ff31e8000000002bc683c40cf7d81bc0405e5dc20400",
+      "relocations": [
+        [
+          22,
+          20,
+          "??$find_if@PADU?$_Eq_char_bound@V?$char_traits@D@_STL@@@_STL@@@_STL@@YAPADPAD0U?$_Eq_char_bound@V?$char_traits@D@_STL@@@0@@Z"
+        ]
+      ]
+    },
+    "?find_first_not_of@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QBEIPBDII@Z": {
+      "raw": "8b542408568b31578b79048bc72bc63bd077218b44240c8b4c241403c851508d04165750e80000000083c4103bc774042bc6eb0383c8ff5f5ec20c00",
+      "relocations": [
+        [
+          37,
+          20,
+          "??$find_if@PBDU?$_Not_within_traits@V?$char_traits@D@_STL@@@_STL@@@_STL@@YAPBDPBD0U?$_Not_within_traits@V?$char_traits@D@_STL@@@0@@Z"
+        ]
+      ]
+    }
+  },
+  "incoming_non_debug": [
+    {
+      "target": "??$__find_if@PADU?$_Eq_char_bound@V?$char_traits@D@_STL@@@_STL@@@_STL@@YAPADPAD0U?$_Eq_char_bound@V?$char_traits@D@_STL@@@0@ABUrandom_access_iterator_tag@0@@Z",
+      "section": 38,
+      "inside_removed_closure": true,
+      "source_symbols": [
+        "??$find_if@PADU?$_Eq_char_bound@V?$char_traits@D@_STL@@@_STL@@@_STL@@YAPADPAD0U?$_Eq_char_bound@V?$char_traits@D@_STL@@@0@@Z"
+      ],
+      "offset": 18
+    },
+    {
+      "target": "??$find_if@PADU?$_Eq_char_bound@V?$char_traits@D@_STL@@@_STL@@@_STL@@YAPADPAD0U?$_Eq_char_bound@V?$char_traits@D@_STL@@@0@@Z",
+      "section": 42,
+      "inside_removed_closure": true,
+      "source_symbols": [
+        "??R?$_Not_within_traits@V?$char_traits@D@_STL@@@_STL@@QBE_NABD@Z"
+      ],
+      "offset": 22
+    },
+    {
+      "target": "??R?$_Not_within_traits@V?$char_traits@D@_STL@@@_STL@@QBE_NABD@Z",
+      "section": 47,
+      "inside_removed_closure": true,
+      "source_symbols": [
+        "??$__find_if@PBDU?$_Not_within_traits@V?$char_traits@D@_STL@@@_STL@@@_STL@@YAPBDPBD0U?$_Not_within_traits@V?$char_traits@D@_STL@@@0@ABUrandom_access_iterator_tag@0@@Z"
+      ],
+      "offset": 23
+    },
+    {
+      "target": "??R?$_Not_within_traits@V?$char_traits@D@_STL@@@_STL@@QBE_NABD@Z",
+      "section": 47,
+      "inside_removed_closure": true,
+      "source_symbols": [
+        "??$__find_if@PBDU?$_Not_within_traits@V?$char_traits@D@_STL@@@_STL@@@_STL@@YAPBDPBD0U?$_Not_within_traits@V?$char_traits@D@_STL@@@0@ABUrandom_access_iterator_tag@0@@Z"
+      ],
+      "offset": 37
+    },
+    {
+      "target": "??R?$_Not_within_traits@V?$char_traits@D@_STL@@@_STL@@QBE_NABD@Z",
+      "section": 47,
+      "inside_removed_closure": true,
+      "source_symbols": [
+        "??$__find_if@PBDU?$_Not_within_traits@V?$char_traits@D@_STL@@@_STL@@@_STL@@YAPBDPBD0U?$_Not_within_traits@V?$char_traits@D@_STL@@@0@ABUrandom_access_iterator_tag@0@@Z"
+      ],
+      "offset": 51
+    },
+    {
+      "target": "??R?$_Not_within_traits@V?$char_traits@D@_STL@@@_STL@@QBE_NABD@Z",
+      "section": 47,
+      "inside_removed_closure": true,
+      "source_symbols": [
+        "??$__find_if@PBDU?$_Not_within_traits@V?$char_traits@D@_STL@@@_STL@@@_STL@@YAPBDPBD0U?$_Not_within_traits@V?$char_traits@D@_STL@@@0@ABUrandom_access_iterator_tag@0@@Z"
+      ],
+      "offset": 65
+    },
+    {
+      "target": "??R?$_Not_within_traits@V?$char_traits@D@_STL@@@_STL@@QBE_NABD@Z",
+      "section": 47,
+      "inside_removed_closure": true,
+      "source_symbols": [
+        "??$__find_if@PBDU?$_Not_within_traits@V?$char_traits@D@_STL@@@_STL@@@_STL@@YAPBDPBD0U?$_Not_within_traits@V?$char_traits@D@_STL@@@0@ABUrandom_access_iterator_tag@0@@Z"
+      ],
+      "offset": 98
+    },
+    {
+      "target": "??R?$_Not_within_traits@V?$char_traits@D@_STL@@@_STL@@QBE_NABD@Z",
+      "section": 47,
+      "inside_removed_closure": true,
+      "source_symbols": [
+        "??$__find_if@PBDU?$_Not_within_traits@V?$char_traits@D@_STL@@@_STL@@@_STL@@YAPBDPBD0U?$_Not_within_traits@V?$char_traits@D@_STL@@@0@ABUrandom_access_iterator_tag@0@@Z"
+      ],
+      "offset": 112
+    },
+    {
+      "target": "??R?$_Not_within_traits@V?$char_traits@D@_STL@@@_STL@@QBE_NABD@Z",
+      "section": 47,
+      "inside_removed_closure": true,
+      "source_symbols": [
+        "??$__find_if@PBDU?$_Not_within_traits@V?$char_traits@D@_STL@@@_STL@@@_STL@@YAPBDPBD0U?$_Not_within_traits@V?$char_traits@D@_STL@@@0@ABUrandom_access_iterator_tag@0@@Z"
+      ],
+      "offset": 126
+    },
+    {
+      "target": "??$__find_if@PBDU?$_Not_within_traits@V?$char_traits@D@_STL@@@_STL@@@_STL@@YAPBDPBD0U?$_Not_within_traits@V?$char_traits@D@_STL@@@0@ABUrandom_access_iterator_tag@0@@Z",
+      "section": 50,
+      "inside_removed_closure": true,
+      "source_symbols": [
+        "??$find_if@PBDU?$_Not_within_traits@V?$char_traits@D@_STL@@@_STL@@@_STL@@YAPBDPBD0U?$_Not_within_traits@V?$char_traits@D@_STL@@@0@@Z"
+      ],
+      "offset": 21
+    },
+    {
+      "target": "??$find_if@PBDU?$_Not_within_traits@V?$char_traits@D@_STL@@@_STL@@@_STL@@YAPBDPBD0U?$_Not_within_traits@V?$char_traits@D@_STL@@@0@@Z",
+      "section": 53,
+      "inside_removed_closure": true,
+      "source_symbols": [
+        "?find_first_not_of@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QBEIPBDII@Z"
+      ],
+      "offset": 37
+    },
+    {
+      "target": "?find_first_not_of@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QBEIPBDII@Z",
+      "section": 57,
+      "inside_removed_closure": false,
+      "source_symbols": [
+        "?find_first_not_of@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QBEIABV12@I@Z"
+      ],
+      "offset": 18
+    },
+    {
+      "target": "?find_first_not_of@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QBEIPBDII@Z",
+      "section": 62,
+      "inside_removed_closure": false,
+      "source_symbols": [
+        "?Rva00309358Tokenize@@YAXABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@AAV?$vector@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@V?$allocator@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@@2@0@Z"
+      ],
+      "offset": 51
+    }
+  ],
+  "imported_root_owner": {
+    "name": "?find_first_not_of@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QBEIPBDII@Z",
+    "export_rva": "",
+    "target_rva": "0x0002A3A0",
+    "target_size": "120",
+    "source": "Code/GameEngine/Source/Common/BfmeS1155.cpp",
+    "status": "matched",
+    "notes": "stlport _string.c basic_string<char>::find_first_not_of(const char*;size_type;size_type) const; find_if<const char*;_Not_within_traits> 0x00029EB0; was placeholder ?bfmeFind1155@BfmeS1155@@QAEIPBDII@Z"
+  },
+  "scope": "existing native string-search provider replaces local unrowed helper closure; no coverage or identity rename"
+}
