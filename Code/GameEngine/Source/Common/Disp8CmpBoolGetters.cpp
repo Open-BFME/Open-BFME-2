@@ -292,7 +292,6 @@ bool ToppleUpdate::isAbleToBeToppled() const
 	return m_toppleState == 0;
 }
 BFME_DISP8_CMP_ZERO_BOOL_GETTER(Rva004D374CCmpBoolField, 0x120, !=)
-BFME_DISP8_CMP_IMM_BOOL_GETTER(Rva004D86B1CmpBoolField, 0x28, 1, ==)
 BFME_DISP8_TERNARY_CMP_BOOL_GETTER(Rva004D393ACmpBoolField, 0x0C, 1, ==)
 struct Rva0036CC89Inner
 {

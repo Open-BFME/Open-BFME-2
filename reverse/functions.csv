@@ -17866,7 +17866,7 @@ _WinMain@16,,0x00002C39,1388,Code/GameEngine/Source/Main/WinMain.cpp,matched,BFM
 ?get@Rva00497960CmpBoolField@@QBE_NXZ,,0x00497960,9,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,Disp8 cmp-zero bool getter; cmp [ecx+0x10] eax setne; /O1
 ?isAbleToBeToppled@ToppleUpdate@@QBE_NXZ,,0x004A8125,9,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,Disp8 cmp-zero bool getter; cmp [ecx+0x38] eax sete; /O1; identity ToppleUpdate::isAbleToBeToppled (ZH: toppleState == TOPPLE_UPRIGHT; pinned under this name from Object::topple 0x0028CF37); was ?get@Rva004A8125CmpBoolField@@QBE_NXZ
 ?get@Rva004D374CCmpBoolField@@QBE_NXZ,,0x004D374C,12,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,Disp32 cmp-zero bool getter; cmp [ecx+0x120] eax setne; /O1
-?get@Rva004D86B1CmpBoolField@@QBE_NXZ,,0x004D86B1,10,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,Disp8 cmp-imm bool getter; cmp [ecx+0x28] 1 sete; /O1
+?get@Rva004D86B1CmpBoolField@@QBE_NXZ,,0x004D86B1,10,Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp,matched,Disp8 cmp-imm bool getter; cmp [ecx+0x28] 1 sete; /O1
 ?vslot08@NetGameCommandMsg@@UAE_NXZ,,0x004D55FC,13,Code/GameEngine/Source/GameNetwork/NetCommandMsgCtor.cpp,matched,NetGameCommandMsg override of base bool slot 2 (vtable 0x8601E4); m_type == 0x448
 ?get@Rva004D393ACmpBoolField@@QBE_NXZ,,0x004D393A,8,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,Disp8 ternary-cmp bool getter; cmp [ecx+0x0C] 1 sete no-xor; /O1
 ?get@Rva0036CC7ECmpBoolField@@QBE_NXZ,,0x0036CC7E,11,Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp,matched,Ptr-chase ternary bool getter; cmp [eax+0x1C] 0 setne no-xor; /O1
