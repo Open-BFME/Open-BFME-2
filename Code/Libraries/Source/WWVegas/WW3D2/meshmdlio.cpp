@@ -322,6 +322,138 @@ typedef char MeshMatDescSizeCheck[sizeof(MeshMatDescClass) == 0x118 ? 1 : -1];
 
 typedef char MeshLoadContextSizeCheck[sizeof(MeshLoadContextClass) == 0x24C ? 1 : -1];
 
+// Small bodies from .text gaps no Ghidra function covers (forty-seventh
+// batch; see GapBodiesGE01.cpp), all from /O2 /arch:SSE /G7 retail regions
+// between 0x001541E0 and 0x0019FFFF (reverse/retail_inventory/
+// flag_regions.csv). Each begins after its neighbour's padding or ret and
+// ends in its own ret. Retail bytes establish every shape; owning classes are
+// not recovered, so each keeps an address-derived name and a view of only
+// the members it touches.
+
+// --- 0x0015F560 (48B): four floats, returning this; 0x0015F590 (46B): set
+// them.
+class Rva0015F560
+{
+public:
+	Rva0015F560(float a, float b, float c, float d);
+	void rva0015F590(float a, float b, float c, float d);
+private:
+	float m_a;
+	float m_b;
+	float m_c;
+	float m_d;
+};
+
+// --- 0x0015F920 (57B): an identity rotation (when asked) and a zero
+// translation; 0x0015F9A0 (56B): a four-word rotation and a three-word
+// translation copied in.
+struct GapVec3;
+
+struct GapQuat
+{
+ GapQuat() {}
+ GapQuat(float ax,float ay,float az,float aw):x(ax),y(ay),z(az),w(aw) {}
+ void assign(const GapQuat&v) {x=v.x;y=v.y;z=v.z;w=v.w;}
+
+	float x;
+	float y;
+	float z;
+	float w;
+ void Rotate(const GapVec3&v,GapVec3*out) const;
+};
+
+struct GapVec3
+{
+ GapVec3() {}
+ GapVec3(float ax,float ay,float az):x(ax),y(ay),z(az) {}
+ GapVec3& operator=(const GapVec3&v) {x=v.x;y=v.y;z=v.z;return *this;}
+ GapVec3& operator+=(const GapVec3&v) {x+=v.x;y+=v.y;z+=v.z;return *this;}
+
+	float x;
+	float y;
+	float z;
+};
+
+class Rva0015F920
+{
+public:
+	Rva0015F920(bool identity);
+	Rva0015F920(const GapQuat &rotation, const GapVec3 &translation);
+	static void rva0015F9E0(const Rva0015F920 &,const Rva0015F920 &,Rva0015F920 *);
+	void rva0015FE80(const GapVec3 &v);
+private:
+	GapQuat m_q;
+	GapVec3 m_t;
+};
+
+// --- 0x00167E04 (24B): copy a three-word value into +0x0C.
+struct GapWords3
+{
+	int a;
+	int b;
+	int c;
+};
+
+class Rva00167E04
+{
+public:
+	void rva00167E04(const GapWords3 &value);
+private:
+	char m_pad00[0x0C];
+	int m_0C;
+	int m_10;
+	int m_14;
+};
+
+// --- 0x0016EB50 (29B): the +0xA8 item i with a reference added.
+struct GapRefItem
+{
+	int m_00;
+	int m_refs;												// +0x04
+};
+
+class Rva0016EB50
+{
+public:
+	GapRefItem *rva0016EB50(int i);
+private:
+	char m_pad00[0xA8];
+	GapRefItem *m_items[4];									// +0xA8
+};
+
+// --- 0x00189400 (33B): slot 2 (+8) of the object embedded at +0x23C, then
+// the +0x240 word.
+class GapSlot2View
+{
+public:
+	virtual void v00();
+	virtual void v01();
+	virtual void slot2(int value);
+};
+
+class Rva00189400
+{
+public:
+	int rva00189400(int value);
+private:
+	char m_pad00[0x23C];
+	GapSlot2View m_23C;
+	int m_240;
+};
+
+// --- 0x0019AF00 (20B): three zero floats, returning this.
+class Rva0019AF00
+{
+public:
+	Rva0019AF00();
+private:
+	float m_x;
+	float m_y;
+	float m_z;
+};
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp
+
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/MeshModelVertexColors.cpp
 
 /*
@@ -1147,29 +1279,17 @@ MeshSaveContextClass::~MeshSaveContextClass(void)
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/SimpleVecResize0096E1B0.cpp
 
-// tu-skeleton: 0x00188320 30B ??_GRva001880D0Dtor@@QAEPAXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00170C0Siblings.cpp (not merged yet)
 
-// tu-skeleton: 0x001883A0 13B ??A?$VectorClass@H@@QAEAAHH@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceDrawBFME2.cpp (not merged yet)
 
-// tu-skeleton: 0x001883B0 13B ??A?$VectorClass@URendererDataStruct@Render2DSentenceClass@@@@QAEAAURendererDataStruct@Render2DSentenceClass@@H@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceDrawBFME2.cpp (not merged yet)
 
-// tu-skeleton: 0x001883C0 41B ??1?$SimpleVecClass@VVector2@@@@UAE@XZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x001884C0 128B ?Uninitialised_Grow@?$SimpleVecClass@VVector2@@@@UAE_NH@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x00188540 61B ??_G?$SimpleVecClass@VVector2@@@@UAEPAXI@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x00188580 75B ??0?$VectorClass@PAULegacyMaterialClass@MeshLoadContextClass@@@@QAE@HPBQAULegacyMaterialClass@MeshLoadContextClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x001885D0 75B ??0?$VectorClass@K@@QAE@HPBK@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x00188620 75B ??0?$VectorClass@PAVTextureClass@@@@QAE@HPBQAVTextureClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/matinfo.cpp (not merged yet)
 
-// tu-skeleton: 0x001886C0 22B ?Peek_Shader@MeshLoadContextClass@@AAE?AVShaderClass@@H@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextAddLegacyMaterial.cpp (not merged yet)
 
-// tu-skeleton: 0x001886E0 16B ?Peek_Vertex_Material@MeshLoadContextClass@@AAEPAVVertexMaterialClass@@H@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextAddLegacyMaterial.cpp (not merged yet)
 
-// tu-skeleton: 0x00188700 40B ?Peek_Texture@MeshLoadContextClass@@AAE?AVBfmeHandleCX@@H@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadTextureIds.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadVertexColors.cpp
 
@@ -1223,12 +1343,6 @@ bool MeshModelClass::read_vertex_colors(ChunkLoadClass &cload, MeshLoadContextCl
 	CurMatDesc->Set_DCG_Source(context->CurPass,VertexMaterialClass::COLOR1);
 	return true;
 }
-
-// tu-skeleton: 0x001888F0 190B ?read_vertex_material_ids@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadVertexMaterialIds.cpp (not merged yet)
-
-// tu-skeleton: 0x001889B0 307B ?read_shader_ids@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadShaderIds.cpp (not merged yet)
-
-// tu-skeleton: 0x00188BB0 562B ?read_dcg@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadDcg.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadDig.cpp
 
@@ -1292,38 +1406,6 @@ bool MeshModelClass::read_dig(ChunkLoadClass &cload, MeshLoadContextClass *conte
 	matdesc->Set_DCG_Source(context->CurPass,VertexMaterialClass::COLOR1);
 	return true;
 }
-
-// tu-skeleton: 0x00189140 293B ?read_texture_ids@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadTextureIds.cpp (not merged yet)
-
-// tu-skeleton: 0x00189270 125B ?get_sort_flags@MeshModelClass@@IBEIH@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshModelClassGetSortFlagsPass.cpp (not merged yet)
-
-// tu-skeleton: 0x00189360 34B ?Peek_Legacy_Shader@MeshLoadContextClass@@AAE?AVShaderClass@@H@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshModelLegacyMaterials.cpp (not merged yet)
-
-// tu-skeleton: 0x00189390 38B ?Peek_Legacy_Vertex_Material@MeshLoadContextClass@@AAEPAVVertexMaterialClass@@H@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshModelLegacyMaterials.cpp (not merged yet)
-
-// tu-skeleton: 0x001893C0 62B ?Peek_Legacy_Texture@MeshLoadContextClass@@AAE?AVBfmeHandleCX@@H@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshModelMaterialLoading.cpp (not merged yet)
-
-// tu-skeleton: 0x00189400 33B ?rva00189400@Rva00189400@@QAEHH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE47.cpp (not merged yet)
-
-// tu-skeleton: 0x00189430 94B ??0?$DynamicVectorClass@PAULegacyMaterialClass@MeshLoadContextClass@@@@QAE@IPBQAULegacyMaterialClass@MeshLoadContextClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00189490 94B ??0?$DynamicVectorClass@K@@QAE@IPBK@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x001894F0 94B ??0?$DynamicVectorClass@PAVTextureClass@@@@QAE@IPBQAVTextureClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/matinfo.cpp (not merged yet)
-
-// tu-skeleton: 0x00189580 71B ??_G?$VectorClass@PAULegacyMaterialClass@MeshLoadContextClass@@@@UAEPAXI@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x001895D0 71B ??_G?$VectorClass@K@@UAEPAXI@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00189620 71B ??_G?$VectorClass@PAVTextureClass@@@@UAEPAXI@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/matinfo.cpp (not merged yet)
-
-// tu-skeleton: 0x001896D0 179B ?read_texcoords@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadTexcoords.cpp (not merged yet)
-
-// tu-skeleton: 0x00189790 655B ?read_per_tri_materials@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshModelLegacyMaterials.cpp (not merged yet)
-
-// tu-skeleton: 0x00189A20 293B ?read_stage_texcoords@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadTexcoords.cpp (not merged yet)
-
-// tu-skeleton: 0x00189C60 102B ?post_process@MeshModelClass@@IAEXXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshModelPostProcess.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/MeshModelPostProcessFog.cpp
 
@@ -1442,30 +1524,6 @@ void MeshModelClass::post_process_fog(void)
 	}
 }
 
-// tu-skeleton: 0x0018A070 298B ?install_materials@MeshModelClass@@IAEXPAVMeshLoadContextClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshModelInstallMaterials.cpp (not merged yet)
-
-// tu-skeleton: 0x0018A1A0 45B ??1?$DynamicVectorClass@PAULegacyMaterialClass@MeshLoadContextClass@@@@UAE@XZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0018A1D0 45B ??1?$DynamicVectorClass@K@@UAE@XZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0018A200 45B ??1?$DynamicVectorClass@PAVTextureClass@@@@UAE@XZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0018A230 87B ?Add_Shader@MeshLoadContextClass@@AAEHVShaderClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextAddLegacyMaterial.cpp (not merged yet)
-
-// tu-skeleton: 0x0018A290 93B ?Add_Vertex_Material@MeshLoadContextClass@@AAEHPAVVertexMaterialClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextAddLegacyMaterial.cpp (not merged yet)
-
-// tu-skeleton: 0x0018A350 29B ?Add_Texture@MeshLoadContextClass@@QAEHABVBfmeHandleCX@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadTextures.cpp (not merged yet)
-
-// tu-skeleton: 0x0018A370 896B ?Add_Legacy_Material@MeshLoadContextClass@@AAEXVShaderClass@@PAVVertexMaterialClass@@ABVBfmeHandleCX@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextAddLegacyMaterial.cpp (not merged yet)
-
-// tu-skeleton: 0x0018A6F0 30B ??_G?$DynamicVectorClass@PAULegacyMaterialClass@MeshLoadContextClass@@@@UAEPAXI@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0018A710 30B ??_G?$DynamicVectorClass@K@@UAEPAXI@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0018A730 30B ??_G?$DynamicVectorClass@PAVTextureClass@@@@UAEPAXI@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0018A750 1336B ?read_v3_materials@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextAddLegacyMaterial.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadShaders.cpp
 
 //
@@ -1545,8 +1603,6 @@ bool MeshModelClass::read_vertex_materials(ChunkLoadClass &cload, MeshLoadContex
 	return true;
 }
 
-// tu-skeleton: 0x0018AE50 284B ?read_textures@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadTextures.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadTextureStage.cpp
 
 //
@@ -1599,10 +1655,6 @@ bool MeshModelClass::read_texture_stage(ChunkLoadClass &cload, MeshLoadContextCl
 	context->CurTexStage++;
 	return true;
 }
-
-// tu-skeleton: 0x0018B180 599B ??1MeshLoadContextClass@@AAE@XZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0018B400 230B ?read_material_pass@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadMaterialPass.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadPrelitMaterial.cpp
 
@@ -1664,8 +1716,6 @@ bool MeshModelClass::read_prelit_material(ChunkLoadClass &cload, MeshLoadContext
 	}
 	return true;
 }
-
-// tu-skeleton: 0x0018B5F0 405B ??0MeshLoadContextClass@@AAE@XZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextCtor.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadChunks.cpp
 
@@ -1983,6 +2033,107 @@ bool MeshModelClass::Load_W3D(ChunkLoadClass &cload)
 Error:
 	return false;
 }
+
+// tu-skeleton: 0x00188320 30B ??_GRva001880D0Dtor@@QAEPAXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00170C0Siblings.cpp (not merged yet)
+
+// tu-skeleton: 0x001883A0 13B ??A?$VectorClass@H@@QAEAAHH@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceDrawBFME2.cpp (not merged yet)
+
+// tu-skeleton: 0x001883B0 13B ??A?$VectorClass@URendererDataStruct@Render2DSentenceClass@@@@QAEAAURendererDataStruct@Render2DSentenceClass@@H@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceDrawBFME2.cpp (not merged yet)
+
+// tu-skeleton: 0x001883C0 41B ??1?$SimpleVecClass@VVector2@@@@UAE@XZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x001884C0 128B ?Uninitialised_Grow@?$SimpleVecClass@VVector2@@@@UAE_NH@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00188540 61B ??_G?$SimpleVecClass@VVector2@@@@UAEPAXI@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00188580 75B ??0?$VectorClass@PAULegacyMaterialClass@MeshLoadContextClass@@@@QAE@HPBQAULegacyMaterialClass@MeshLoadContextClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x001885D0 75B ??0?$VectorClass@K@@QAE@HPBK@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00188620 75B ??0?$VectorClass@PAVTextureClass@@@@QAE@HPBQAVTextureClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/matinfo.cpp (not merged yet)
+
+// tu-skeleton: 0x001886C0 22B ?Peek_Shader@MeshLoadContextClass@@AAE?AVShaderClass@@H@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextAddLegacyMaterial.cpp (not merged yet)
+
+// tu-skeleton: 0x001886E0 16B ?Peek_Vertex_Material@MeshLoadContextClass@@AAEPAVVertexMaterialClass@@H@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextAddLegacyMaterial.cpp (not merged yet)
+
+// tu-skeleton: 0x00188700 40B ?Peek_Texture@MeshLoadContextClass@@AAE?AVBfmeHandleCX@@H@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadTextureIds.cpp (not merged yet)
+
+// tu-skeleton: 0x001888F0 190B ?read_vertex_material_ids@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadVertexMaterialIds.cpp (not merged yet)
+
+// tu-skeleton: 0x001889B0 307B ?read_shader_ids@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadShaderIds.cpp (not merged yet)
+
+// tu-skeleton: 0x00188BB0 562B ?read_dcg@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadDcg.cpp (not merged yet)
+
+// tu-skeleton: 0x00189140 293B ?read_texture_ids@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadTextureIds.cpp (not merged yet)
+
+// tu-skeleton: 0x00189270 125B ?get_sort_flags@MeshModelClass@@IBEIH@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshModelClassGetSortFlagsPass.cpp (not merged yet)
+
+// tu-skeleton: 0x00189360 34B ?Peek_Legacy_Shader@MeshLoadContextClass@@AAE?AVShaderClass@@H@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshModelLegacyMaterials.cpp (not merged yet)
+
+// tu-skeleton: 0x00189390 38B ?Peek_Legacy_Vertex_Material@MeshLoadContextClass@@AAEPAVVertexMaterialClass@@H@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshModelLegacyMaterials.cpp (not merged yet)
+
+// tu-skeleton: 0x001893C0 62B ?Peek_Legacy_Texture@MeshLoadContextClass@@AAE?AVBfmeHandleCX@@H@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshModelMaterialLoading.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/GapBodiesGE47.cpp
+
+int Rva00189400::rva00189400(int value)
+{
+	GapSlot2View *target = &m_23C;
+	target->slot2(value);
+	return m_240;
+}
+
+// tu-skeleton: 0x00189430 94B ??0?$DynamicVectorClass@PAULegacyMaterialClass@MeshLoadContextClass@@@@QAE@IPBQAULegacyMaterialClass@MeshLoadContextClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00189490 94B ??0?$DynamicVectorClass@K@@QAE@IPBK@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x001894F0 94B ??0?$DynamicVectorClass@PAVTextureClass@@@@QAE@IPBQAVTextureClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/matinfo.cpp (not merged yet)
+
+// tu-skeleton: 0x00189580 71B ??_G?$VectorClass@PAULegacyMaterialClass@MeshLoadContextClass@@@@UAEPAXI@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x001895D0 71B ??_G?$VectorClass@K@@UAEPAXI@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00189620 71B ??_G?$VectorClass@PAVTextureClass@@@@UAEPAXI@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/matinfo.cpp (not merged yet)
+
+// tu-skeleton: 0x001896D0 179B ?read_texcoords@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadTexcoords.cpp (not merged yet)
+
+// tu-skeleton: 0x00189790 655B ?read_per_tri_materials@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshModelLegacyMaterials.cpp (not merged yet)
+
+// tu-skeleton: 0x00189A20 293B ?read_stage_texcoords@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadTexcoords.cpp (not merged yet)
+
+// tu-skeleton: 0x00189C60 102B ?post_process@MeshModelClass@@IAEXXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshModelPostProcess.cpp (not merged yet)
+
+// tu-skeleton: 0x0018A070 298B ?install_materials@MeshModelClass@@IAEXPAVMeshLoadContextClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshModelInstallMaterials.cpp (not merged yet)
+
+// tu-skeleton: 0x0018A1A0 45B ??1?$DynamicVectorClass@PAULegacyMaterialClass@MeshLoadContextClass@@@@UAE@XZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0018A1D0 45B ??1?$DynamicVectorClass@K@@UAE@XZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0018A200 45B ??1?$DynamicVectorClass@PAVTextureClass@@@@UAE@XZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0018A230 87B ?Add_Shader@MeshLoadContextClass@@AAEHVShaderClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextAddLegacyMaterial.cpp (not merged yet)
+
+// tu-skeleton: 0x0018A290 93B ?Add_Vertex_Material@MeshLoadContextClass@@AAEHPAVVertexMaterialClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextAddLegacyMaterial.cpp (not merged yet)
+
+// tu-skeleton: 0x0018A350 29B ?Add_Texture@MeshLoadContextClass@@QAEHABVBfmeHandleCX@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadTextures.cpp (not merged yet)
+
+// tu-skeleton: 0x0018A370 896B ?Add_Legacy_Material@MeshLoadContextClass@@AAEXVShaderClass@@PAVVertexMaterialClass@@ABVBfmeHandleCX@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextAddLegacyMaterial.cpp (not merged yet)
+
+// tu-skeleton: 0x0018A6F0 30B ??_G?$DynamicVectorClass@PAULegacyMaterialClass@MeshLoadContextClass@@@@UAEPAXI@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0018A710 30B ??_G?$DynamicVectorClass@K@@UAEPAXI@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0018A730 30B ??_G?$DynamicVectorClass@PAVTextureClass@@@@UAEPAXI@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0018A750 1336B ?read_v3_materials@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextAddLegacyMaterial.cpp (not merged yet)
+
+// tu-skeleton: 0x0018AE50 284B ?read_textures@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadTextures.cpp (not merged yet)
+
+// tu-skeleton: 0x0018B180 599B ??1MeshLoadContextClass@@AAE@XZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0018B400 230B ?read_material_pass@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadMaterialPass.cpp (not merged yet)
+
+// tu-skeleton: 0x0018B5F0 405B ??0MeshLoadContextClass@@AAE@XZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x007685D0 8B uw_007685d0 -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadTextureIds.cpp (not merged yet)
 

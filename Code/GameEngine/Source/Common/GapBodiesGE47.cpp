@@ -166,13 +166,6 @@ private:
 	int m_240;
 };
 
-int Rva00189400::rva00189400(int value)
-{
-	GapSlot2View *target = &m_23C;
-	target->slot2(value);
-	return m_240;
-}
-
 // --- 0x0019AF00 (20B): three zero floats, returning this.
 class Rva0019AF00
 {
