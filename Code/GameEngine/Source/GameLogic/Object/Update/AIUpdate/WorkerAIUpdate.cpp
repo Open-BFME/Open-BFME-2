@@ -1,7 +1,429 @@
-// cl: /Ireference/shims/bfme2_workeraiupdate /Ireference/shims/aiupdatelayout /Ireference/shims/zh_outofline /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib /Ireference/shims
+// cl: /FIzh_ascii.h /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE /Ireference/shims/bfme2_workeraiupdate /Ireference/shims/aiupdatelayout /Ireference/shims/zh_outofline /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib /Ireference/shims /ICode/GameEngine/Include /Ireference/shims/bfme2_statemachine /Ireference/shims/moduledata
 // stlport
-// Ported verbatim from the Generals Zero Hour reference (GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdate.cpp); this unit had no counterpart under Code/.
+// TU Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdate.cpp: generated by tools/tu_skeleton.py from tu_map.csv (approved rows, retail order)
 #define Matrix4x4 Matrix4  // BFME renamed it
+#include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
+#include "Common/ActionManager.h"
+#include "Common/Team.h"
+#include "Common/StateMachine.h"
+#include "Common/BuildAssistant.h"
+#include "Common/GameState.h"
+#include "Common/ThingTemplate.h"
+#include "Common/ThingFactory.h"
+#include "Common/Player.h"
+#include "Common/Money.h"
+#include "Common/Radar.h"
+#include "Common/RandomValue.h"
+#include "Common/GlobalData.h"
+#include "Common/ResourceGatheringManager.h"
+#include "Common/Upgrade.h"
+#include "GameClient/Drawable.h"
+#include "GameClient/GameText.h"
+#include "GameClient/InGameUI.h"
+#include "GameLogic/AIPathfind.h"
+#include "GameLogic/Locomotor.h"
+#include "GameLogic/PartitionManager.h"
+#include "GameLogic/Module/BodyModule.h"
+#include "GameLogic/Module/BridgeBehavior.h"
+#include "GameLogic/Module/BridgeTowerBehavior.h"
+#include "GameLogic/Module/CreateModule.h"
+#include "GameLogic/Module/SupplyTruckAIUpdate.h"
+#include "GameLogic/Module/SupplyCenterDockUpdate.h"
+#include "GameLogic/Module/SupplyWarehouseDockUpdate.h"
+#include "GameLogic/Module/WorkerAIUpdate.h"
+#ifdef _INTERNAL
+// for occasional debugging...
+//#pragma optimize("", off)
+//#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
+
+#endif
+#define WORKER_FIELDS ((BfmeWorkerUpdateFields *)this)
+#define WORKER_TASKS ((BfmeWorkerTaskSlots *)WORKER_FIELDS->m_taskInterface)
+
+// bfme link decl-only begin
+namespace _STL { template <> unsigned long _Base_bitset<4>::_S_maskbit(unsigned int); }
+
+// FORWARD DECLARATIONS ///////////////////////////////////////////////////////////////////////////
+enum
+{
+	AS_DOZER,				///< When not actively Gathering, or when actively building, I am a dozer
+	AS_SUPPLY_TRUCK	///< When told explicitly by player or other object, I become a supply truck
+};
+
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+// BFME 2's Object private status byte (+0x438); bit 0 is effectively-dead.
+struct BfmeWorkerPrivateStatus { unsigned char m_unreconstructed_000[ 0x438 ]; unsigned char m_privateStatus; };
+
+// Only the slot positions matter in these views: the interface gained
+// entries rather than being reordered (DozerAIUpdate.cpp spells the same).
+template <Int N>
+class BfmeWorkerSlots : public BfmeWorkerSlots<N - 1>
+{
+public:
+	virtual void unused(char (*)[N]) = 0;
+};
+
+template <>
+class BfmeWorkerSlots<0>
+{
+};
+
+class BfmeWorkerTaskSlots : public BfmeWorkerSlots<7>
+{
+public:
+	virtual ObjectID getTaskTarget( DozerTask task ) = 0;		///< +0x1C
+	virtual void unusedSlot8() = 0;
+	virtual DozerTask getCurrentTask( void ) = 0;			///< +0x24
+	virtual void unusedSlot10() = 0;
+	virtual void unusedSlot11() = 0;
+	virtual void unusedSlot12() = 0;
+	virtual void cancelTask( DozerTask task ) = 0;			///< +0x34
+};
+
+class BfmeWorkerCommandSourceSlots : public BfmeWorkerSlots<143>
+{
+public:
+	virtual CommandSourceType getLastCommandSource( void ) = 0;	///< +0x23C
+};
+
+class BfmeWorkerMachine : public BfmeWorkerSlots<4>
+{
+public:
+	virtual void updateStateMachine( void ) = 0;			///< +0x10
+	struct CurrentState { void *m_vtable; StateID m_id; };
+	StateID getCurrentStateID( void ) const { return m_currentState ? m_currentState->m_id : INVALID_STATE_ID; }
+	CurrentState *m_currentState;					///< +0x04
+};
+
+// BFME 2's module fields: the dozer task interface (+0x3E4), a byte at
+// +0x3CC that suspends the worker, and the worker, dozer and supply truck
+// machines (+0x4C0/+0x4C4/+0x4C8).
+struct BfmeWorkerUpdateFields
+{
+	unsigned char m_unreconstructed_000[ 0x3cc ];
+	Bool m_suspended;						///< +0x3CC
+	unsigned char m_unreconstructed_3cd[ 0x3e4 - 0x3cd ];
+	unsigned char m_taskInterface[ 4 ];				///< +0x3E4, a BfmeWorkerTaskSlots
+	unsigned char m_unreconstructed_3e8[ 0x4c0 - 0x3e8 ];
+	BfmeWorkerMachine *m_workerMachine;				///< +0x4C0
+	BfmeWorkerMachine *m_dozerMachine;				///< +0x4C4
+	BfmeWorkerMachine *m_supplyTruckStateMachine;			///< +0x4C8
+};
+
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
+// Worker's master state machine, that controls Dozerness or Supplytruckness
+class ActAsDozerState :  public State
+{
+	MEMORY_POOL_GLUE_WITH_USERLOOKUP_CREATE(ActAsDozerState, "ActAsDozerState")		
+protected:
+	// snapshot interface STUBBED.
+	virtual void crc( Xfer *xfer ){};
+	virtual void xfer( Xfer *xfer ){};
+	virtual void loadPostProcess(){};
+
+public:
+	ActAsDozerState( StateMachine *machine ) :State( machine, "ActAsDozerState" ){}
+	virtual StateReturnType onEnter();
+	virtual StateReturnType update();
+	virtual StateReturnType onExit();
+};
+
+EMPTY_DTOR(ActAsDozerState)
+
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
+class ActAsSupplyTruckState :  public State
+{
+	MEMORY_POOL_GLUE_WITH_USERLOOKUP_CREATE(ActAsSupplyTruckState, "ActAsSupplyTruckState")		
+protected:
+	// snapshot interface STUBBED.
+	virtual void crc( Xfer *xfer ){};
+	virtual void xfer( Xfer *xfer ){};
+	virtual void loadPostProcess(){};
+
+public:
+	ActAsSupplyTruckState( StateMachine *machine ) :State( machine, "ActAsSupplyTruckState" ){}
+	virtual StateReturnType onEnter();
+	virtual StateReturnType update();
+	virtual StateReturnType onExit();
+};
+
+EMPTY_DTOR(ActAsSupplyTruckState)
+
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
+//
+// Ported from Open-BFME-1 GameEngine/Source/Common/Rva002C7F30NestedVirtualDispatch.cpp
+// (donor revision 6d9434269164392c5ba62aaa7c15a86b5b020d76, donor flags plus /O1). Compiled that way each body
+// places uniquely on unclaimed game.dat .text by masked whole-.text search:
+//   ?dispatch@Rva002C7F30Object@@QAEXH@Z 0x004A97D3 (27B)
+// Callee addresses are read off retail call sites (reverse/symbols.csv).
+class Rva002C7F30Nested
+{
+public:
+	virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
+	virtual void v4(); virtual void v5(); virtual void v6();
+};
+
+class Rva002C7F30Object
+{
+public:
+	virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
+	virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
+	virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
+	virtual void v12(); virtual void v13(); virtual void v14();
+	virtual void v15( int value );
+
+	void dispatch( int value );
+
+	unsigned char m_padding[0xDC];
+	Rva002C7F30Nested *m_nested;
+};
+
+// ??0Rva004A9947@@QAE@PAVStateMachine@@@Z @0x004A9947 29B: derived State ctor pushing name hash 0x83242288.
+// Evidence: unlock lane; callee rowed 0x004D73FC State hash overload via its pinned ICF twin; caller 0x004A9DF2;
+// vtable 0x00854010; recipe from StateCtor.cpp whose header notes this 29B push-pop-esi form is what the same
+// source compiles to elsewhere (that TU keeps this in edx for 27B because the base body is visible there).
+class StateMachine;
+
+// Rva004A9947_vftable: retail vtable at VA 0x00854010; gate DIR32-fills the store like the StateCtor.cpp tables.
+extern "C" char Rva004A9947_vftable = -3;
+
+class __declspec(novtable) Rva004A9947 : public State
+{
+public:
+	Rva004A9947(StateMachine *machine);
+	virtual ~Rva004A9947();
+};
+
+// ?rva004A99F6@Rva004A99F6@@QAEXXZ @0x004A99F6 28B: thiscall method passing member +0xE8 to TheAudio slot 0x6C virtual then setting it to 1.
+// Evidence: unlock lane; caller 0x004A9A12; TheAudio extern in use ?TheAudio@@3PAVAudioManager@@A; vtable slot 0x6C index 27; member +0xE8 proved by lea and push then dword store of 1.
+struct BfmeAudioEventPrefix136;
+
+class Xfer;
+
+struct AbilityMiscAudio;
+
+// TheAudio's slots as this unit calls them; the class itself is declared below.
+class WorkerAIUpdateAudioView
+{
+public:
+	virtual void _pad00() = 0;
+	virtual void _pad01() = 0;
+	virtual void _pad02() = 0;
+	virtual void _pad03() = 0;
+	virtual void _pad04() = 0;
+	virtual void _pad05() = 0;
+	virtual void _pad06() = 0;
+	virtual void _pad07() = 0;
+	virtual void _pad08() = 0;
+	virtual void _pad09() = 0;
+	virtual void _pad10() = 0;
+	virtual void _pad11() = 0;
+	virtual void _pad12() = 0;
+	virtual void _pad13() = 0;
+	virtual void _pad14() = 0;
+	virtual void _pad15() = 0;
+	virtual void _pad16() = 0;
+	virtual void _pad17() = 0;
+	virtual void _pad18() = 0;
+	virtual void _pad19() = 0;
+	virtual void _pad20() = 0;
+	virtual void _pad21() = 0;
+	virtual void _pad22() = 0;
+	virtual void _pad23() = 0;
+	virtual void _pad24() = 0;
+	// vslot 25 (+0x64)
+	virtual int addAudioEvent(BfmeAudioEventPrefix136 *event) = 0;
+	virtual void _pad26() = 0;
+	// vslot 27 (+0x6C)
+	virtual void removeAudioEvent(unsigned int handle) = 0;
+	virtual void _pad28() = 0;
+	virtual void _pad29() = 0;
+	virtual void _pad30() = 0;
+	virtual void _pad31() = 0;
+	virtual void _pad32() = 0;
+	virtual void _pad33() = 0;
+	virtual void _pad34() = 0;
+	virtual void _pad35() = 0;
+	virtual void _pad36() = 0;
+	virtual void _pad37() = 0;
+	virtual void _pad38() = 0;
+	virtual void _pad39() = 0;
+	virtual void _pad40() = 0;
+	virtual void _pad41() = 0;
+	virtual void _pad42() = 0;
+	virtual void _pad43() = 0;
+	virtual void _pad44() = 0;
+	virtual void _pad45() = 0;
+	virtual void _pad46() = 0;
+	virtual void _pad47() = 0;
+	virtual void _pad48() = 0;
+	virtual void _pad49() = 0;
+	virtual void _pad50() = 0;
+	virtual void _pad51() = 0;
+	// vslot 52 (+0xD0)
+	virtual bool isCurrentlyPlaying(int handle) = 0;
+	virtual void _pad53() = 0;
+	virtual void _pad54() = 0;
+	virtual void _pad55() = 0;
+	virtual void _pad56() = 0;
+	virtual void _pad57() = 0;
+	virtual void _pad58() = 0;
+	virtual void _pad59() = 0;
+	virtual void _pad60() = 0;
+	virtual void _pad61() = 0;
+	virtual void _pad62() = 0;
+	virtual void _pad63() = 0;
+	virtual void _pad64() = 0;
+	virtual void _pad65() = 0;
+	virtual void _pad66() = 0;
+	virtual void _pad67() = 0;
+	virtual void _pad68() = 0;
+	virtual void _pad69() = 0;
+	virtual void _pad70() = 0;
+	virtual void _pad71() = 0;
+	virtual void _pad72() = 0;
+	virtual void _pad73() = 0;
+	virtual void _pad74() = 0;
+	virtual void _pad75() = 0;
+	virtual void _pad76() = 0;
+	virtual void _pad77() = 0;
+	// vslot 78 (+0x138)
+	virtual AbilityMiscAudio * getMiscAudio() = 0;
+	virtual void _pad79() = 0;
+	virtual void _pad80() = 0;
+	virtual void _pad81() = 0;
+	virtual void _pad82() = 0;
+	virtual void _pad83() = 0;
+	virtual void _pad84() = 0;
+	virtual void _pad85() = 0;
+	virtual void _pad86() = 0;
+	virtual void _pad87() = 0;
+	// vslot 88 (+0x160)
+	virtual void xferAudioHandle(Xfer *xfer, unsigned int *handle) = 0;
+};
+
+class AudioManager;
+
+extern AudioManager *TheAudio;
+
+class Rva004A99F6
+{
+public:
+	void rva004A99F6();
+private:
+	char m_pad[0xE8];
+	int m_e8;
+};
+
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+//
+// Ported from Open-BFME-1 GameEngine/Source/Common/Rva002C7DE0Get.cpp
+// (donor revision 6d9434269164392c5ba62aaa7c15a86b5b020d76, donor flags plus /O1). Compiled that way each body
+// places uniquely on unclaimed game.dat .text by masked whole-.text search:
+//   ?get@Rva002C7DE0@@QAEEPAURva002C7DE0Blk@@@Z 0x004A9BB7 (26B)
+// Callee addresses are read off retail call sites (reverse/symbols.csv).
+
+struct Rva002C7DE0Blk
+{
+	int a;
+	int b;
+	int c;
+};
+
+class Rva002C7DE0
+{
+	char pad[0xC0];
+	Rva002C7DE0Blk m_C0;
+	unsigned char m_CC;
+
+public:
+	unsigned char get(Rva002C7DE0Blk *out);
+};
+
+struct AICommandParms;
+
+struct Coord3D;
+
+// The update module's 0x20 bytes ahead of the AI's command interface.
+class WorkerAIModuleView
+{
+public:
+	virtual void v0();
+private:
+	char m_pad04[0x20 - 4];
+};
+
+// AIUpdateInterface as this unit reaches it: its command interface sits at +0x20.
+class WorkerAIUpdateView : public WorkerAIModuleView, public AICommandInterface
+{
+};
+
+class Object;
+
+// Object's AI pointer at +0x258.
+struct WorkerObjectAIView
+{
+	char m_pad[0x258];
+	WorkerAIUpdateView *m_ai;
+};
+
+struct Rva004AAD69Node
+{
+	char m_pad[4];
+	int m_value;
+};
+
+class Rva004AAD69Holder
+{
+public:
+	virtual void s0();
+	virtual void s1();
+	virtual void s2();
+	virtual void s3();
+	virtual void s4();
+	virtual void s5();
+	virtual void s6();
+	virtual void s7();
+	virtual void s8(int flag);
+	Rva004AAD69Node *m_node;
+};
+
+class Rva004AAD69
+{
+public:
+	void rva004AAD69();
+
+private:
+	char m_pad[0xD4];
+	Rva004AAD69Holder *m_holder;
+};
+
+// tu-skeleton: 0x004A976F 5B ?rva004A976F@WorkerAIUpdate@@QAEXW4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp (not merged yet)
+
+// tu-skeleton: 0x004A9774 43B ?privateDock@Rva004A9774AI@@MAEXPAVObject@@W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE16.cpp (not merged yet)
+
+// tu-skeleton: 0x004A979F 52B ?privateHarvest@Rva004A9774AI@@MAEXPBUCoord3D@@W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE16.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva002C7F30NestedVirtualDispatch.cpp
+
+void Rva002C7F30Object::dispatch( int value )
+{
+	v15( value );
+	m_nested->v6();
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdate.cpp
+
+// Ported verbatim from the Generals Zero Hour reference (GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdate.cpp); this unit had no counterpart under Code/.
+
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -32,57 +454,8 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 // USER INCLUDES //////////////////////////////////////////////////////////////////////////////////
-#include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
 
-#include "Common/ActionManager.h"
-#include "Common/Team.h"
-#include "Common/StateMachine.h"
-#include "Common/BuildAssistant.h"
-#include "Common/GameState.h"
-#include "Common/ThingTemplate.h"
-#include "Common/ThingFactory.h"
-#include "Common/Player.h"
-#include "Common/Money.h"
-#include "Common/Radar.h"
-#include "Common/RandomValue.h"
-#include "Common/GlobalData.h"
-#include "Common/ResourceGatheringManager.h"
-#include "Common/Upgrade.h"
-
-#include "GameClient/Drawable.h"
-#include "GameClient/GameText.h"
-#include "GameClient/InGameUI.h"
-
-#include "GameLogic/AIPathfind.h"
-#include "GameLogic/Locomotor.h"
-#include "GameLogic/PartitionManager.h"
-#include "GameLogic/Module/BodyModule.h"
-#include "GameLogic/Module/BridgeBehavior.h"
-#include "GameLogic/Module/BridgeTowerBehavior.h"
-#include "GameLogic/Module/CreateModule.h"
-#include "GameLogic/Module/SupplyTruckAIUpdate.h"
-#include "GameLogic/Module/SupplyCenterDockUpdate.h"
-#include "GameLogic/Module/SupplyWarehouseDockUpdate.h"
-#include "GameLogic/Module/WorkerAIUpdate.h"
-// bfme link decl-only begin
-namespace _STL { template <> unsigned long _Base_bitset<4>::_S_maskbit(unsigned int); }
 // bfme link decl-only end
-
-
-#ifdef _INTERNAL
-// for occasional debugging...
-//#pragma optimize("", off)
-//#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
-#endif
-
-
-// FORWARD DECLARATIONS ///////////////////////////////////////////////////////////////////////////
-enum
-{
-	AS_DOZER,				///< When not actively Gathering, or when actively building, I am a dozer
-	AS_SUPPLY_TRUCK	///< When told explicitly by player or other object, I become a supply truck
-};
-
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -152,12 +525,14 @@ Real WorkerAIUpdate::getRepairHealthPerSecond( void ) const
 {
 	return getWorkerAIUpdateModuleData()->m_repairHealthPercentPerSecond;
 }
+
 // ------------------------------------------------------------------------------------------------
 // ?getBoredTime@WorkerAIUpdate@@UBEMXZ present-unmatched
 Real WorkerAIUpdate::getBoredTime( void ) const
 {
 	return getWorkerAIUpdateModuleData()->m_boredTime;
 }
+
 // ------------------------------------------------------------------------------------------------
 // ?getBoredRange@WorkerAIUpdate@@UBEMXZ present-unmatched
 Real WorkerAIUpdate::getBoredRange( void ) const
@@ -208,62 +583,6 @@ Real WorkerAIUpdate::getWarehouseScanDistance() const
 	return getWorkerAIUpdateModuleData()->m_warehouseScanDistance;
 }
 
-//-------------------------------------------------------------------------------------------------
-//-------------------------------------------------------------------------------------------------
-// BFME 2's Object private status byte (+0x438); bit 0 is effectively-dead.
-struct BfmeWorkerPrivateStatus { unsigned char m_unreconstructed_000[ 0x438 ]; unsigned char m_privateStatus; };
-// Only the slot positions matter in these views: the interface gained
-// entries rather than being reordered (DozerAIUpdate.cpp spells the same).
-template <Int N>
-class BfmeWorkerSlots : public BfmeWorkerSlots<N - 1>
-{
-public:
-	virtual void unused(char (*)[N]) = 0;
-};
-template <>
-class BfmeWorkerSlots<0>
-{
-};
-class BfmeWorkerTaskSlots : public BfmeWorkerSlots<7>
-{
-public:
-	virtual ObjectID getTaskTarget( DozerTask task ) = 0;		///< +0x1C
-	virtual void unusedSlot8() = 0;
-	virtual DozerTask getCurrentTask( void ) = 0;			///< +0x24
-	virtual void unusedSlot10() = 0;
-	virtual void unusedSlot11() = 0;
-	virtual void unusedSlot12() = 0;
-	virtual void cancelTask( DozerTask task ) = 0;			///< +0x34
-};
-class BfmeWorkerCommandSourceSlots : public BfmeWorkerSlots<143>
-{
-public:
-	virtual CommandSourceType getLastCommandSource( void ) = 0;	///< +0x23C
-};
-class BfmeWorkerMachine : public BfmeWorkerSlots<4>
-{
-public:
-	virtual void updateStateMachine( void ) = 0;			///< +0x10
-	struct CurrentState { void *m_vtable; StateID m_id; };
-	StateID getCurrentStateID( void ) const { return m_currentState ? m_currentState->m_id : INVALID_STATE_ID; }
-	CurrentState *m_currentState;					///< +0x04
-};
-// BFME 2's module fields: the dozer task interface (+0x3E4), a byte at
-// +0x3CC that suspends the worker, and the worker, dozer and supply truck
-// machines (+0x4C0/+0x4C4/+0x4C8).
-struct BfmeWorkerUpdateFields
-{
-	unsigned char m_unreconstructed_000[ 0x3cc ];
-	Bool m_suspended;						///< +0x3CC
-	unsigned char m_unreconstructed_3cd[ 0x3e4 - 0x3cd ];
-	unsigned char m_taskInterface[ 4 ];				///< +0x3E4, a BfmeWorkerTaskSlots
-	unsigned char m_unreconstructed_3e8[ 0x4c0 - 0x3e8 ];
-	BfmeWorkerMachine *m_workerMachine;				///< +0x4C0
-	BfmeWorkerMachine *m_dozerMachine;				///< +0x4C4
-	BfmeWorkerMachine *m_supplyTruckStateMachine;			///< +0x4C8
-};
-#define WORKER_FIELDS ((BfmeWorkerUpdateFields *)this)
-#define WORKER_TASKS ((BfmeWorkerTaskSlots *)WORKER_FIELDS->m_taskInterface)
 // Retail 0x004AA92B (222B), update-interface slot 0 (this = module +0x10):
 // Zero Hour's WorkerAIUpdate::update; BFME 2 also stops while the +0x3CC
 // byte is set, tests the worker machine before reading its state and no
@@ -332,7 +651,6 @@ UpdateSleepTime WorkerAIUpdate::update( void )
 	return UPDATE_SLEEP_NONE;
 }
 
-
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
@@ -367,6 +685,7 @@ void WorkerAIUpdate::exitingSupplyTruckState()
  		// I'm not busy.  Both states are being polite, so I must force the switch.
 	}
 }
+
   
 
 // ------------------------------------------------------------------------------------------------
@@ -434,7 +753,9 @@ Bool WorkerAIUpdate::canAcceptNewRepair( Object *obj )
 	// all is well
 	return TRUE;
 
-}  // end canAcceptNewRepair
+}
+
+  // end canAcceptNewRepair
 
 //----------------------------------------------------------------------------------------
 // ?privateIdle@WorkerAIUpdate@@MAEXW4CommandSourceType@@@Z present-unmatched
@@ -491,7 +812,9 @@ void WorkerAIUpdate::privateResumeConstruction( Object *obj, CommandSourceType c
 	// start the new task for construction
 	newTask( DOZER_TASK_BUILD, obj );
 
-}  // end privateResumeConstruction
+}
+
+  // end privateResumeConstruction
 
 //-------------------------------------------------------------------------------------------------
 /** Issue and order to the dozer */
@@ -513,7 +836,9 @@ void WorkerAIUpdate::cancelTask( DozerTask task )
 	// reset the machine to we can re-evaluate what we want to do
 	m_dozerMachine->resetToDefaultState();
 
-} 
+}
+
+ 
 
 //-------------------------------------------------------------------------------------------------
 /** Is there a given task waiting to be done */
@@ -526,7 +851,9 @@ Bool WorkerAIUpdate::isTaskPending( DozerTask task )
 
 	return m_task[ task ].m_targetObjectID != 0 ? TRUE : FALSE;
 		
-}  
+}
+
+  
 
 //-------------------------------------------------------------------------------------------------
 /** Is there any task pending */
@@ -541,7 +868,9 @@ Bool WorkerAIUpdate::isAnyTaskPending( void )
 
 	return FALSE;
 
-} 
+}
+
+ 
 
 //-------------------------------------------------------------------------------------------------
 /** Get the target object of a given task */
@@ -554,7 +883,9 @@ ObjectID WorkerAIUpdate::getTaskTarget( DozerTask task )
 
 	return m_task[ task ].m_targetObjectID;
 
-} 
+}
+
+ 
 
 //-------------------------------------------------------------------------------------------------
 /** Set a task as successfully completed */
@@ -576,7 +907,9 @@ void WorkerAIUpdate::internalTaskComplete( DozerTask task )
 	for( Int i = 0; i < DOZER_NUM_DOCK_POINTS; i++ )
 		m_dockPoint[ task ][ i ].valid = FALSE;
 
-} 
+}
+
+ 
 
 //-------------------------------------------------------------------------------------------------
 /** Clear a task from the Dozer for consideration, we can use this when a goal object becomes
@@ -616,7 +949,9 @@ DozerTask WorkerAIUpdate::getMostRecentCommand( void )
 		}  
 	} 
 	return mostRecentTask;			
-} 
+}
+
+ 
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
@@ -638,7 +973,9 @@ const Coord3D* WorkerAIUpdate::getDockPoint( DozerTask task, DozerDockPoint poin
 	// no valid point has been set for this dock point on this task
 	return NULL;
 
-}  // end getDockPoint
+}
+
+  // end getDockPoint
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
@@ -688,49 +1025,6 @@ void WorkerAIUpdate::resetDozerBrain()
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------
-// Worker's master state machine, that controls Dozerness or Supplytruckness
-class ActAsDozerState :  public State
-{
-	MEMORY_POOL_GLUE_WITH_USERLOOKUP_CREATE(ActAsDozerState, "ActAsDozerState")		
-protected:
-	// snapshot interface STUBBED.
-	virtual void crc( Xfer *xfer ){};
-	virtual void xfer( Xfer *xfer ){};
-	virtual void loadPostProcess(){};
-
-public:
-	ActAsDozerState( StateMachine *machine ) :State( machine, "ActAsDozerState" ){}
-	virtual StateReturnType onEnter();
-	virtual StateReturnType update();
-	virtual StateReturnType onExit();
-};
-EMPTY_DTOR(ActAsDozerState)
-
-// ------------------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------
-class ActAsSupplyTruckState :  public State
-{
-	MEMORY_POOL_GLUE_WITH_USERLOOKUP_CREATE(ActAsSupplyTruckState, "ActAsSupplyTruckState")		
-protected:
-	// snapshot interface STUBBED.
-	virtual void crc( Xfer *xfer ){};
-	virtual void xfer( Xfer *xfer ){};
-	virtual void loadPostProcess(){};
-
-public:
-	ActAsSupplyTruckState( StateMachine *machine ) :State( machine, "ActAsSupplyTruckState" ){}
-	virtual StateReturnType onEnter();
-	virtual StateReturnType update();
-	virtual StateReturnType onExit();
-};
-EMPTY_DTOR(ActAsSupplyTruckState)
-
-// ------------------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------
 // ??0WorkerStateMachine@@QAE@PAVObject@@@Z
 // Body in WorkerAIUpdate_WorkerStateMachine.asm (exact 387B retail).
 
@@ -754,7 +1048,9 @@ void WorkerStateMachine::xfer( Xfer *xfer )
 	xfer->xferVersion( &v, cv );
 
 	StateMachine::xfer(xfer);
-}  // end xfer
+}
+
+  // end xfer
 
 // ------------------------------------------------------------------------------------------------
 /** Load post process */
@@ -763,7 +1059,9 @@ void WorkerStateMachine::xfer( Xfer *xfer )
 void WorkerStateMachine::loadPostProcess( void )
 {
 	StateMachine::loadPostProcess();
-}  // end loadPostProcess
+}
+
+  // end loadPostProcess
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
@@ -803,7 +1101,6 @@ StateReturnType ActAsDozerState::onExit()
 
 	return STATE_CONTINUE;
 }
-
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
@@ -863,7 +1160,9 @@ void WorkerAIUpdate::createBridgeScaffolding( Object *bridgeTower )
 	// tell the bridge to create scaffolding if necessary
 	bbi->createScaffolding();
 
-}  // end createBridgeScaffolding
+}
+
+  // end createBridgeScaffolding
 
 // ------------------------------------------------------------------------------------------------
 /** Remove the bridge scaffolding from the bridge object that is attached to this tower */
@@ -890,7 +1189,9 @@ void WorkerAIUpdate::removeBridgeScaffolding( Object *bridgeTower )
 	// tell the bridge to end any scaffolding from repairing
 	bbi->removeScaffolding();
 
-}  // end removeBridgeScaffolding
+}
+
+  // end removeBridgeScaffolding
 
 //------------------------------------------------------------------------------------------------
 // WorkerAIUpdate::startBuildingSound: Zero Hour copy removed.
@@ -910,7 +1211,9 @@ void WorkerAIUpdate::crc( Xfer *xfer )
 {
 	// extend base class
 	AIUpdateInterface::crc(xfer);
-}  // end crc
+}
+
+  // end crc
 
 // ------------------------------------------------------------------------------------------------
 /** Xfer method
@@ -922,3 +1225,153 @@ void WorkerAIUpdate::crc( Xfer *xfer )
 // ------------------------------------------------------------------------------------------------
 /** Load post process */
 // ------------------------------------------------------------------------------------------------
+
+// tu-skeleton: 0x004A98AC 42B ?loseOneBox@WorkerAIUpdate@@UAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004A98D6 62B ?isSupplyTruckBrainActiveAndBusy@WorkerAIUpdate@@QAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004A9914 11B ?rva004A9914@Rva004A9914Owner@@QAEXXZ -- matched in Code/GameEngine/Source/Common/FieldVirtualForwarders.cpp (not merged yet)
+
+// tu-skeleton: 0x004A991F 11B ?rva004A991F@Rva004A991F@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1C.cpp (not merged yet)
+
+// tu-skeleton: 0x004A992A 29B ??0Rva004A992A@@QAE@PAVStateMachine@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIStateHashCtorsMisc.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva004A9947Ctor.cpp
+
+Rva004A9947::Rva004A9947(StateMachine *machine) : State(machine, 0x83242288u)
+{
+	*reinterpret_cast<char **>(this) = &Rva004A9947_vftable;
+}
+
+// tu-skeleton: 0x004A9964 11B ??1WorkerStateMachine@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004A996F 6B ?GetSnapshotName@WorkerStateMachine@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
+
+// tu-skeleton: 0x004A9975 70B ?supplyTruckSubMachineWantsToEnter@WorkerStateMachine@@SA_NPAUState@@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004A99BB 59B ?supplyTruckSubMachineReadyToLeave@WorkerStateMachine@@SA_NPAUState@@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Module/Rva004A99F6.cpp
+
+void Rva004A99F6::rva004A99F6()
+{
+	((WorkerAIUpdateAudioView *)TheAudio)->removeAudioEvent(m_e8);
+	m_e8 = 1;
+}
+
+// tu-skeleton: 0x004A9A12 244B ??1WorkerAIUpdate@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Module/WorkerAIUpdateDtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Module/WorkerAIUpdatePoolKey.cpp
+
+// ?getModuleNameKey@WorkerAIUpdate@@UBE?AW4NameKeyType@@XZ
+NameKeyType WorkerAIUpdate::getModuleNameKey() const
+{
+	static NameKeyType TheWorkerAIUpdatePoolKey =
+		TheNameKeyGenerator->nameToKey("WorkerAIUpdate");
+	return TheWorkerAIUpdatePoolKey;
+}
+
+// tu-skeleton: 0x004A9B4B 6B ?GetSnapshotName@WorkerAIUpdate@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x004A9B51 15B ?rva004A9B51@Rva004A9B51@@QAEPAVRva004A9B51Sub@@XZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE03.cpp (not merged yet)
+
+// tu-skeleton: 0x004A9B60 15B ?rva004A9B60@Rva004A9B51@@QAEPAVRva004A9B51Sub@@XZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE03.cpp (not merged yet)
+
+// tu-skeleton: 0x004A9B6F 15B ?rva004A9B6F@Rva004A9B51@@QAEPAVRva004A9B51Sub@@XZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE03.cpp (not merged yet)
+
+// tu-skeleton: 0x004A9B7E 7B ?get@Rva004A9B7EByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/DispByteFieldGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x004A9B85 10B ?get@Rva004A9B85PtrChaseField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp32FirstChaseGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x004A9B8F 13B ?set@Rva004A9B8FByteSlot@@QAEXE@Z -- matched in Code/GameEngine/Source/Common/DispByteFieldSetters.cpp (not merged yet)
+
+// tu-skeleton: 0x004A9B9C 7B ?get@Rva004A9B9CByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp32ByteGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x004A9BA3 13B ?set@Rva004A9BA3ByteSlot@@QAEXE@Z -- matched in Code/GameEngine/Source/Common/DispByteFieldSetters.cpp (not merged yet)
+
+// tu-skeleton: 0x004A9BB0 7B ?isForcedIntoWantingState@WorkerAIUpdate@@UBE_NXZ -- matched in Code/GameEngine/Source/Common/Disp32ByteGetters.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva002C7DE0Get.cpp
+
+unsigned char Rva002C7DE0::get(Rva002C7DE0Blk *out)
+{
+	*out = m_C0;
+	return m_CC;
+}
+
+// tu-skeleton: 0x004A9BD1 13B ?set@Rva004A9BD1DwordSlot@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp (not merged yet)
+
+// tu-skeleton: 0x004A9BDE 97B ?privateRepair@WorkerAIUpdate@@MAEXPAVObject@@W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DozerAIUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x004A9C3F 314B ?gainOneBox@WorkerAIUpdate@@UAE_NH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004A9D79 169B ??0WorkerStateMachine@@QAE@PAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004A9E3E 123B ?rva004A9E3E@Rva004A9E3E@@QAEXPBUAudioEventRTS@@H@Z -- matched in Code/GameEngine/Source/Common/Rva004A9E3ESound.cpp (not merged yet)
+
+// tu-skeleton: 0x004A9EB9 28B ??_GWorkerAIUpdate@@MAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateDeleter.cpp (not merged yet)
+
+// tu-skeleton: 0x004A9ED5 218B ?createMachines@WorkerAIUpdate@@AAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004A9FAF 556B ?construct@WorkerAIUpdate@@UAEPAVObject@@PBVThingTemplate@@PBUCoord3D@@MPAVPlayer@@_NH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004AA1DB 453B ?xfer@WorkerAIUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x004AA3A0 11B ?construct@WorkerAIUpdate@@WDOE@AEPAVObject@@PBVThingTemplate@@PBUCoord3D@@MPAVPlayer@@_NH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004AA3AB 339B ??0WorkerAIUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004AA4FE 1069B ?findGoodBuildOrRepairPosition@WorkerAIUpdate@@IAE_NPBVObject@@0AAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004AAA87 132B ?internalTaskCompleteOrCancelled@WorkerAIUpdate@@UAEXW4DozerTask@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004AAB0B 104B ?onDelete@WorkerAIUpdate@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004AABB4 426B ?findGoodBuildOrRepairPositionAndTarget@WorkerAIUpdate@@IAEPAVObject@@PAV2@0AAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004AAD5E 11B ?onDelete@WorkerAIUpdate@@WDOE@AEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva004AAD69Idle.cpp
+
+void Rva004AAD69::rva004AAD69()
+{
+	Rva004AAD69Node *node = m_holder->m_node;
+	int value = node != 0 ? node->m_value : 0xF423F;
+	if (value != 1)
+		return;
+	Object *obj = *(Object **)((char *)this - 0x3E4);
+	WorkerAIUpdateView *ai = ((WorkerObjectAIView *)obj)->m_ai;
+	if (ai != 0)
+		ai->aiIdle(CMD_FROM_AI);
+	m_holder->s8(0);
+}
+
+// tu-skeleton: 0x004AADB1 671B ?newTask@WorkerAIUpdate@@UAEXW4DozerTask@@PAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004AB050 77B ?internalCancelTask@WorkerAIUpdate@@UAEXW4DozerTask@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004AB09D 344B ?aiDoCommand@WorkerAIUpdate@@UAEXPBUAICommandParms@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078E159 11B Unwind@00b8e159 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078E164 10B __ehhandler$?gainOneBox@WorkerAIUpdate@@UAE_NH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078E16E 8B Unwind@00b8e16e -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078E176 10B $L3220 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078E180 10B $L3221 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078E18A 10B __ehhandler$??0WorkerStateMachine@@QAE@PAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078E194 11B $L1422 -- matched in Code/GameEngine/Source/Common/Rva004A9E3ESound.cpp (not merged yet)
+
+// tu-skeleton: 0x0078E19F 10B __ehhandler$?rva004A9E3E@Rva004A9E3E@@QAEXPBUAudioEventRTS@@H@Z -- matched in Code/GameEngine/Source/Common/Rva004A9E3ESound.cpp (not merged yet)
+
+// tu-skeleton: 0x0078E1A9 10B $L3248 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078E1B3 10B $L3249 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078E1BD 10B $L3250 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078E1C7 10B __ehhandler$?createMachines@WorkerAIUpdate@@AAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp (not merged yet)

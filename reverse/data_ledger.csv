@@ -20320,8 +20320,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A03CB0,4,.data,global,?key_center@?3??getActionDelayForDock@Rva004A9660@@QAEIPAVObject@@@Z@4W4NameKeyType@@A,Code/GameEngine/Source/Common/Rva004A9660Delay.cpp,owned,,1,2
 0x00A03CB4,4,.data,global,?key_warehouse@?1??getActionDelayForDock@Rva004A9660@@QAEIPAVObject@@@Z@4W4NameKeyType@@A,Code/GameEngine/Source/Common/Rva004A9660Delay.cpp,owned,,1,2
 0x00A03CB8,4,.data,global,?$S1@?1??getActionDelayForDock@Rva004A9660@@QAEIPAVObject@@@Z@4IA,Code/GameEngine/Source/Common/Rva004A9660Delay.cpp,owned,,1,8
-0x00A03CBC,4,.data,global,?TheWorkerAIUpdatePoolKey@?1??getModuleNameKey@WorkerAIUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Module/WorkerAIUpdatePoolKey.cpp,owned,,1,2
-0x00A03CC0,4,.data,global,?$S1@?1??getModuleNameKey@WorkerAIUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Module/WorkerAIUpdatePoolKey.cpp,owned,,1,4
+0x00A03CBC,4,.data,global,?TheWorkerAIUpdatePoolKey@?1??getModuleNameKey@WorkerAIUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdate.cpp,owned,,1,2
+0x00A03CC0,4,.data,global,?$S1@?1??getModuleNameKey@WorkerAIUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdate.cpp,owned,,1,4
 0x00A03CC4,4,.data,global,?TheWallUpgradeUpdateKey@?1??rva004AB1F5@WallUpgradeUpdate@@SAPAVModule@@PAVObject@@@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/Object/Update/WallUpgradeUpdateFind.cpp,owned,,1,2
 0x00A03CC8,4,.data,global,?$S1@?1??rva004AB1F5@WallUpgradeUpdate@@SAPAVModule@@PAVObject@@@Z@4IA,Code/GameEngine/Source/GameLogic/Object/Update/WallUpgradeUpdateFind.cpp,owned,,1,4
 0x00A03CCC,4,.data,global,?TheWallUpgradeUpdatePoolKey@?1??getModuleNameKey@WallUpgradeUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/WallUpgradeUpdatePoolKey.cpp,owned,,1,2
