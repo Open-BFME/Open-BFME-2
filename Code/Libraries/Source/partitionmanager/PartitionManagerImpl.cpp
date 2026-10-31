@@ -315,8 +315,6 @@ typedef float (__cdecl *Rva009F4130Distance)(void *context, void *item, float th
 // +0xE8/+0xEC). The floor call reaches the msvcr71 floor import through its
 // IAT slot; no new pins.
 
-extern "C" __declspec(dllimport) double floor(double x);
-
 class BfmeHostER
 {
 public:
