@@ -4439,3 +4439,5 @@ __ehhandler$?rva004E5559@ResourceEntryCollector@@QAEXPBUCoord3D@@MH@Z,0x00791FE9
 ?rva002230FF@Rva002230FF@@QAEPAXPBX@Z,0x002230FF,"Renamed to ?newNode@Rva002230FF@@QAEPAXPBX@Z by tools/rename.py (inferred)"
 ?Rva0073F6FCCb@@YGIPAX@Z,0x0073F6FC,"Renamed to ?workerThreadProc@@YGIPAX@Z by tools/rename.py (inferred)"
 ?rva003F3744@Rva003F3744@@QAEXPAURva003F3277Record@@IABU2@@Z,0x003F3744,"Renamed to ?fillInsert@Rva003F3744@@QAEXPAURva003F3277Record@@IABU2@@Z by tools/rename.py (inferred)"
+?update@LivingWorldLogic@@QAEXXZ,0x002BD9B4,"Renamed to ?update@LivingWorldLogic@@UAEXXZ by tools/rename.py (virtual: retail vtable slot)"
+__ehhandler$?update@LivingWorldLogic@@QAEXXZ,0x0077699F,"Renamed to __ehhandler$?update@LivingWorldLogic@@UAEXXZ by tools/rename.py (virtual: retail vtable slot)"
