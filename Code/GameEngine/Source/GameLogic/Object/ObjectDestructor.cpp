@@ -111,6 +111,11 @@ public:
 	~_List_base();
 	void *m_node;
 };
+// list<int>'s destructor is retail's tail thunk 0x00200667 (the unwind
+// funclets call it); the normal path expands it into the base call.
+template <class T, class A> class list : public _List_base<T, A>
+{
+};
 template <class T, class A = allocator<T> > class vector
 {
 public:
@@ -220,13 +225,13 @@ public:
 	Rva00299CE4Owned *m_39c;						// +0x39C
 	Rva00299CE4Owned *m_3a0;						// +0x3A0
 	unsigned char m_unmodelled3A4[0x64];
-	_STL::_List_base<CameraMarker, _STL::allocator<CameraMarker> > m_408;	// +0x408
+	_STL::list<CameraMarker, _STL::allocator<CameraMarker> > m_408;	// +0x408
 	unsigned char m_unmodelled40C[0x10];
 	AsciiString m_41c;								// +0x41C
 	AsciiString m_420;								// +0x420
 	AsciiString m_424;								// +0x424
 	unsigned char m_unmodelled428[0x18];
-	_STL::_List_base<int, _STL::allocator<int> > m_440;	// +0x440
+	_STL::list<int, _STL::allocator<int> > m_440;	// +0x440
 	unsigned char m_unmodelled444[0xc];
 	Rva001DB3E0List *m_450;							// +0x450
 	unsigned char m_unmodelled454;

@@ -298,7 +298,7 @@ private:
     Rva005990DF componentFC;
     Rva0059761B *component12c;
     RvaVector entries130;
-    _STL::_List_base<int, _STL::allocator<int> > orders13c;
+    _STL::list<int> orders13c;
     AIDozerManager dozer140;
     bool flag154; unsigned char gap155[3]; unsigned int value158;
 };

@@ -42,6 +42,14 @@ class list : public _List_base<_Tp, _Alloc>
 public:
 	~list();
 };
+template <class _Tp> class allocator;
+// list<int>'s destructor is retail's tail thunk 0x00200667 (the unwind
+// funclets 0x00778390/0x0077839E jump to it); the normal path expands it
+// into the base destructor call 0x004EC395.
+template <>
+class list<int, allocator<int> > : public _List_base<int, allocator<int> >
+{
+};
 }
 
 class BfmeSubobject0022CE19
@@ -72,8 +80,8 @@ protected:
 private:
 	_STL::list<CameraMarker, _STL::allocator<CameraMarker> > m_cameraLists[5];
 	BfmeSubobject0022CE19 m_saveInfo;
-	_STL::_List_base<int, _STL::allocator<int> > m_intListA;
-	_STL::_List_base<int, _STL::allocator<int> > m_intListB;
+	_STL::list<int, _STL::allocator<int> > m_intListA;
+	_STL::list<int, _STL::allocator<int> > m_intListB;
 	unsigned m_wordE14; // Native constructor stores at +0xE14.
 	bool m_flagE18; // Native constructor stores at +0xE18.
 };

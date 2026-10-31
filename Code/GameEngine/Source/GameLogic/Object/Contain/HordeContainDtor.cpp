@@ -124,7 +124,7 @@ private:
 	ObjectIDIntTree m_17C;
 	FreeHolder m_188;
 	int m_pad18C[2];
-	_STL::_List_base<int, _STL::allocator<int> > m_194;
+	_STL::list<int> m_194;
 	int m_pad198[2];
 	Rva0046AB7D m_1A0;
 	unsigned char m_pad1A8[0x24C - 0x1A8];

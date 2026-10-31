@@ -20,6 +20,11 @@ namespace _STL
 	private:
 		void *m_node;
 	};
+	// list<int>'s destructor is retail's tail thunk 0x00200667 (the unwind
+	// funclets call it); the normal path expands it into the base call.
+	template <class T, class A> class list : public _List_base<T, A>
+	{
+	};
 }
 
 class TextureClass
@@ -60,7 +65,7 @@ public:
 private:
 	char m_pad04[0x14 - 4];
 	Rva000E59D3TextureHandle m_texture; // +0x14
-	_STL::_List_base<int, _STL::allocator<int> > m_list; // +0x18
+	_STL::list<int, _STL::allocator<int> > m_list; // +0x18
 };
 
 Rva000E59D3::~Rva000E59D3()

@@ -79,7 +79,7 @@ public:
 
 private:
 	unsigned char m_pad14_20[0x20 - 0x14];
-	_STL::_List_base<int, _STL::allocator<int> > m_timers;
+	_STL::list<int> m_timers;
 };
 
 ObjectSMCHelper::~ObjectSMCHelper()

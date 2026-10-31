@@ -135,7 +135,7 @@ private:
 
 	ProductionEntry *m_queue28;
 	char m_pad2C[0xF8];
-	_STL::_List_base<int, _STL::allocator<int> > m_list124;
+	_STL::list<int> m_list124;
 	int m_128;
 	int m_12C;
 	_STL::vector<AsciiString, _STL::allocator<AsciiString> > m_vec130;

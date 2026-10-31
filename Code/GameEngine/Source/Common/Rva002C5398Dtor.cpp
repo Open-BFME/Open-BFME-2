@@ -52,7 +52,7 @@ private:
 	int m_field24;
 	int m_field28;
 	int m_field2C;
-	_STL::_List_base<int, _STL::allocator<int> > m_list; // +0x30
+	_STL::list<int> m_list; // +0x30
 	int m_field34;
 	int m_field38;
 	int m_field3C;
