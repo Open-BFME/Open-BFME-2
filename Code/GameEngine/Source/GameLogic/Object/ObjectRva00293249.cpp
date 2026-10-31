@@ -56,12 +56,7 @@ public:
 	virtual Bool slot146();
 };
 
-class Object
-{
-public:
-	unsigned char m_pad[0x258];
-	AIUpdateInterface *m_ai;
-};
+#include "object.h"
 
 class Rva00293249
 {
