@@ -3,6 +3,42 @@
 #include <string.h>
 #pragma function(memset)
 #include <new>
+#define BFME_DISP8_BYTE_ONE_SETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		void enable(); \
+		char m_lead[DISP]; \
+		unsigned char m_enabled; \
+	}; \
+	void NAME::enable() \
+	{ \
+		m_enabled = 1; \
+	}
+#define BFME_DISP8_BYTE_ZERO_SETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		void disable(); \
+		char m_lead[DISP]; \
+		unsigned char m_enabled; \
+	}; \
+	void NAME::disable() \
+	{ \
+		m_enabled = 0; \
+	}
+#define BFME_DISP8_BYTE_TWO_SETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		void set(); \
+		char m_lead[DISP]; \
+		unsigned char m_value; \
+	}; \
+	void NAME::set() \
+	{ \
+		m_value = 2; \
+	}
 
 class BooleanBitmapSet
 {
@@ -36,6 +72,21 @@ private:
 	char m_pad[2];
 	int m_8;
 };
+
+BFME_DISP8_BYTE_ONE_SETTER(Rva00531113OneSetter, 0x35)
+
+BFME_DISP8_BYTE_ZERO_SETTER(Rva00531118ZeroSetter, 0x35)
+
+// BF1 9cbfb551fe Common/Rva004021B0PositiveGetter.cpp is the clean semantic donor.
+// Target 53110B..531113 RET0 followsRET4; signed dword0 greaterthan0 returnedAL
+// Original owner/purpose is unproven; retain an independent address-owned type.
+class Rva0053110BFields
+{
+public: bool isPositive() const;
+private: int field00;
+};
+
+// ---- from Code/GameEngine/Source/Common/BooleanBitmapSet.cpp
 
 // ---- from Code/GameEngine/Source/Common/Rva00530FC5Clear.cpp
 
@@ -117,10 +168,6 @@ void BooleanBitmapSet::rva00531235()
     rva00530FAE();
 }
 
-// tu-skeleton: 0x00531041 9B ?rva00531041@Rva00531041@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat10O1.cpp (not merged yet)
-
-// tu-skeleton: 0x0053104A 153B ?DoEnum@BooleanBitmapSet@@QAE_NPAH@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/PathfindZoneManagerXfer.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva005310E3.cpp
 
 int Rva005310E3::rva005310E3()
@@ -139,13 +186,29 @@ int Rva005310E3::rva005310E3()
 	return v + v;
 }
 
+// tu-skeleton: 0x00531041 9B ?rva00531041@Rva00531041@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat10O1.cpp (not merged yet)
+
+// tu-skeleton: 0x0053104A 153B ?DoEnum@BooleanBitmapSet@@QAE_NPAH@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/PathfindZoneManagerXfer.cpp (not merged yet)
+
 // tu-skeleton: 0x00531101 10B ?rva00531101@Rva00527D7E@@QAEX_N@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1C.cpp (not merged yet)
 
-// tu-skeleton: 0x0053110B 8B ?isPositive@Rva0053110BFields@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp
 
-// tu-skeleton: 0x00531113 5B ?enable@Rva00531113OneSetter@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp (not merged yet)
+// Disp8 byte flag setters: five-byte __thiscall members with one shape:
+//
+//     mov byte ptr [ecx+<DISP>],<IMM8> / ret
+//
+// One byte at a fixed displacement from `this` is set to a hardcoded
+// immediate (0 or 1 in every body found so far) and nothing is read back.
+// This is the small-offset sibling of the disp32 family in
+// DispByteOneSetters.cpp (MSVC 7.1 uses disp8 whenever the offset fits, so
+// every offset here fits in a signed byte). Members before the accessed one
+// are spelled as a lead array because their types are not witnessed here,
+// only their total size. Identity is not recovered: every name is derived
+// from its address.
+// No // cl: line (defaults match the frameless five-byte shape).
 
-// tu-skeleton: 0x00531118 5B ?disable@Rva00531118ZeroSetter@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp (not merged yet)
+bool Rva0053110BFields::isPositive() const { return field00>0; }
 
 // tu-skeleton: 0x0053111D 4B ?get@Rva0053111DByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp (not merged yet)
 
