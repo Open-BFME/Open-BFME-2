@@ -654,14 +654,6 @@ struct Rva00432858Mouse
 	Rva00432858Block m_block;
 };
 
-int Rva00432858()
-{
-	Rva00432858Block *block = &((Rva00432858Mouse *)TheMouse)->m_block;
-	if (block && (block->m_18 || block->m_24 || block->m_30))
-		return 1;
-	return 0;
-}
-
 // --- 0x00432968 (14B): the address of the +0x08 24-byte record the +0x1E8
 // index selects.
 struct Rva00432968Record
@@ -679,11 +671,6 @@ private:
 	Rva00432968Record m_records[20];
 	int m_1E8;
 };
-
-Rva00432968Record *Rva00432968::rva00432968()
-{
-	return &m_records[m_1E8];
-}
 
 // --- 0x00435B71 (17B) / 0x00435BA1 (18B) / 0x00435D70 (13B): the rowed
 // obfuscated hooks fed one value twice (a sign-extended short, the argument,
