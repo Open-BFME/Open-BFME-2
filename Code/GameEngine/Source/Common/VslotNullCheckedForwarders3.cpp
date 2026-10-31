@@ -104,12 +104,6 @@ private:
 	Rva00270025 *m_member;
 };
 
-void Rva002722F4NullForwarder::rva002722F4(Int a0)
-{
-	if (m_member)
-		m_member->rva0027006C(a0);
-}
-
 class LinearCampaign
 {
 public:

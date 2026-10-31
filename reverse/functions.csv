@@ -43207,8 +43207,8 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?draw@Rva0020065ANullForwarder@@QAEXXZ,,0x0020065A,13,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp,matched,Null-checked member tail forwarder by REL32
 ?rva00068373@Rva00068373NullForwarder@@QAEXH@Z,,0x00068373,18,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp,matched,Null-checked member tail forwarder by REL32
 ?rva000682FA@Rva000682FANullForwarder@@QAEXXZ,,0x000682FA,16,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp,matched,Null-checked member tail forwarder by REL32
-?rva002722F4@Rva002722F4NullForwarder@@QAEXH@Z,,0x002722F4,18,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp,matched,Null-checked member tail forwarder by REL32
 ?thru@Rva0023D6D5Callee@@QAEXXZ,,0x001EC98E,13,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp,matched,Null-checked member tail forwarder by REL32
+?rva002722F4@Rva002722F4NullForwarder@@QAEXH@Z,,0x002722F4,18,Code/GameEngine/Source/GameClient/Drawable.cpp,matched,Null-checked member tail forwarder by REL32
 ?rva00068061@Rva00068061NullTarget@@QAEXH@Z,,0x00068061,18,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp,matched,Null-checked member tail forwarder by REL32
 ?rva00068283@Rva00068283NullTarget@@QAEXH@Z,,0x00068283,18,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp,matched,Null-checked member tail forwarder by REL32
 ?rva005CD9F2@Rva005CD9F2NullForwarder@@QAEXXZ,,0x005CD9F2,13,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp,matched,Null-checked member tail forwarder by REL32
