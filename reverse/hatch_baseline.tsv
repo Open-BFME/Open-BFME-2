@@ -931,9 +931,8 @@ address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptScoreSc
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSkirmishCallbacks.cpp	g_Va00E0333C	2
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSkirmishCallbacks_OnUpdateData.cpp	g_Va00E0333C	1
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptStrategicPlayerStatus.cpp	g_Va00A04934	3
-address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp	g_Va00E04920	6
-address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLineCallbacks.cpp	g_Va00E048DC	1
-address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLineCallbacks.cpp	g_Va00E04920	3
+address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp	g_Va00E048DC	1
+address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp	g_Va00E04920	8
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLineCallbacks_CaHAwardNumber.cpp	g_Va00E048DC	3
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTributeScreenDestructor.cpp	g_Va00A046B4	3
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/BfmeAptScreenLanLobby.cpp	g_Va00E032FC	3
@@ -2284,9 +2283,6 @@ alternatename	Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp	?g_Va00E04450@
 alternatename	Code/GameEngine/Source/Common/Rva005183A0Finish.cpp	??1OptionPreferences@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/Rva0051BED7Poll.cpp	?rva0051B09B@Rva0051BED7@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva0051BF47.cpp	?Rva0051ED7ETail@@YAXXZ	1
-alternatename	Code/GameEngine/Source/Common/Rva0051FFF5Feed.cpp	?Rva0039C4F7@@YAXPAVXfer0051FFF5@@PAX@Z	1
-alternatename	Code/GameEngine/Source/Common/Rva0051FFF5Feed.cpp	?Rva0040E269@@YAXPAVXfer0051FFF5@@PAX@Z	1
-alternatename	Code/GameEngine/Source/Common/Rva0051FFF5Feed.cpp	?Rva004EE9E9@@YAXPAVXfer0051FFF5@@PAX@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva005279DDFinish.cpp	?rva005CB260@Rva005CB260@@QAEHH@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva00528AC3Factories.cpp	??0Rva005D4EA8@@QAE@HH@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva00528AC3Factories.cpp	??0Rva005EC64E@@QAE@PAVRva005EC832Owner@@H@Z	1
@@ -2706,6 +2702,9 @@ alternatename	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOptionsC
 alternatename	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOptionsCallbacks.cpp	?g_00BBFDE0@@3QBDB	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOptionsCallbacks.cpp	?writeFirewallBehavior@FirewallHelperClass@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptScoreScreenCallbacks.cpp	_strcpy	1
+alternatename	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp	?Rva0039C4F7@@YAXPAVXfer0051FFF5@@PAX@Z	1
+alternatename	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp	?Rva0040E269@@YAXPAVXfer0051FFF5@@PAX@Z	1
+alternatename	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp	?Rva004EE9E9@@YAXPAVXfer0051FFF5@@PAX@Z	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp	?Rva0051EC31RangeCallee@@YAPAURva0051EC31Output@@PAURva0051EC31Input@@0PAU1@ABURva0051EC31IteratorTag@@PAH@Z	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/ControlBarCallback.cpp	?DebugGetDefaultCommands@@YAPBDXZ	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_mapFind.cpp	?find@CustomPreferenceMapShim@@QAEPAUCustomMapNodeShim@@PAUCustomAsciiStringShim@@@Z	1
