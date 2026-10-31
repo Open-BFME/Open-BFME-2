@@ -13,8 +13,13 @@
 // Zero Hour's header declares RunwayInfo private, which an explicit
 // instantiation cannot name under cl 7.1, so this unit declares only the
 // element (Zero Hour's 36-byte layout, which both bodies' strides confirm).
+// BFME 2's AsciiString reaches PreRTS.h here even when the unit builds without this file's /FI flag.
+#include "zh_ascii.h"
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
 #include <vector>
+// BaseType.h's min and max macros would rewrite the unit's _STL::max overload.
+#undef min
+#undef max
 
 class ParkingPlaceBehavior
 {

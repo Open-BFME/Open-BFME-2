@@ -42,6 +42,9 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include "matrix3d.h"
 #include "vector3.h"
 
+// Retail calls _strcmpi through the CRT import table, whatever _CRTIMP the unit builds with.
+namespace HTreeBoneLookupCrt { extern "C" __declspec(dllimport) int __cdecl _strcmpi(const char *, const char *); }
+
 struct S2CompactTransform
 {
 	Quaternion Q;
@@ -49,16 +52,20 @@ struct S2CompactTransform
 	explicit S2CompactTransform(bool init) : Q(init), Position(0.0f, 0.0f, 0.0f) {}
 };
 
-struct PivotClass
+struct PivotClass;
+
+// BFME 2's 0x58-byte pivot, read through a cast because the shared htree.h
+// types HTreeClass::Pivot with Zero Hour's older pivot.h layout.
+struct HTreeCompactPivotView
 {
 	char Name[16];
-	PivotClass *Parent;
+	HTreeCompactPivotView *Parent;
 	S2CompactTransform Base, Current;
 	int Index;
 	bool IsVisible;
 	float PivotFade;
 };
-typedef char CompactPivotSize[(sizeof(PivotClass) == 0x58) ? 1 : -1];
+typedef char CompactPivotSize[(sizeof(HTreeCompactPivotView) == 0x58) ? 1 : -1];
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/htree.h
 class HTreeClass
@@ -80,7 +87,7 @@ int HTreeClass::Get_Bone_Index(const char * name) const
 	int i = 0;
 	if (NumPivots > i) {
 		do {
-			if (_strcmpi(Pivot[i].Name, name) == 0) {
+			if (HTreeBoneLookupCrt::_strcmpi(reinterpret_cast<HTreeCompactPivotView *>(Pivot)[i].Name, name) == 0) {
 				return i;
 			}
 			++i;
@@ -94,7 +101,7 @@ const char * HTreeClass::Get_Bone_Name(int boneidx) const
 	assert(boneidx >= 0);
 	assert(boneidx < NumPivots);
 
-	return Pivot[boneidx].Name;
+	return reinterpret_cast<HTreeCompactPivotView *>(Pivot)[boneidx].Name;
 }
 
 int HTreeClass::Get_Parent_Index(int bone_indx) const
@@ -102,8 +109,8 @@ int HTreeClass::Get_Parent_Index(int bone_indx) const
 	assert(bone_indx >= 0);
 	assert(bone_indx < NumPivots);
 
-	if (Pivot[bone_indx].Parent != NULL) {
-		return Pivot[bone_indx].Parent->Index;
+	if (reinterpret_cast<HTreeCompactPivotView *>(Pivot)[bone_indx].Parent != NULL) {
+		return reinterpret_cast<HTreeCompactPivotView *>(Pivot)[bone_indx].Parent->Index;
 	} else {
 		return 0;
 	}
@@ -178,7 +185,7 @@ bool HTreeClass::Simple_Evaluate_Pivot(int pivot_index, const Matrix3D &obj_tm, 
 	//	Loop over the hierarchy of pivots that this pivot is
 	// attached to and transform each.
 	//
-	for (PivotClass *pivot = &Pivot[pivot_index]; pivot != NULL && pivot->Parent != NULL; pivot = pivot->Parent) {
+	for (HTreeCompactPivotView *pivot = &reinterpret_cast<HTreeCompactPivotView *>(Pivot)[pivot_index]; pivot != NULL && pivot->Parent != NULL; pivot = pivot->Parent) {
 		//
 		//	Transform the return value by this transform
 		//

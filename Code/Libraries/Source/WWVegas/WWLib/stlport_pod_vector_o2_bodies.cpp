@@ -43,10 +43,6 @@ namespace _STL { template <> BfmePod36 * __copy_backward<BfmePod36 *,BfmePod36 *
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 struct BfmePod36;
 namespace _STL { template <> void _Construct<BfmePod36,BfmePod36>(BfmePod36 *,BfmePod36 const &); }
-// Suppress this TU's non-retail copy of ??$__copy@PAUBfmePod36@@PAU1@H@_STL@@YAPAUBfmePod36@@PAU1@00ABUrandom_access_iterator_tag@:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BfmePod36;
-namespace _STL { template <> BfmePod36 * __copy<BfmePod36 *,BfmePod36 *,int>(BfmePod36 *,BfmePod36 *,BfmePod36 *,random_access_iterator_tag const &,int *); }
 // Suppress this TU's non-retail copy of ??$__copy_backward_ptrs@PAUBfmePod36@@PAU1@@_STL@@YAPAUBfmePod36@@PAU1@00ABU__false_type@0:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 struct BfmePod36;
@@ -83,7 +79,27 @@ namespace _STL { template <> void _STLP_alloc_proxy<BfmePod36 *,BfmePod36,alloca
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 struct BfmePod36;
 namespace _STL { template <> BfmePod36 * _STLP_alloc_proxy<BfmePod36 *,BfmePod36,allocator<BfmePod36> >::allocate(unsigned int); }
-struct BfmePod36 { int a[9]; };
+// The 36-byte record, spelled as htree.cpp spells it.
+struct BfmeCapturedBoneRotation
+{
+    float X, Y, Z, W; BfmeCapturedBoneRotation &operator=(const BfmeCapturedBoneRotation &q){X=q.X;Y=q.Y;Z=q.Z;W=q.W;return *this;}
+};
+
+struct BfmeCapturedBoneTranslation
+{
+    float X, Y, Z;
+    BfmeCapturedBoneTranslation() {}
+    BfmeCapturedBoneTranslation &operator=(const BfmeCapturedBoneTranslation &v){X=v.X;Y=v.Y;Z=v.Z;return *this;}
+    BfmeCapturedBoneTranslation(const BfmeCapturedBoneTranslation &v)
+        : X(v.X), Y(v.Y), Z(v.Z) {}
+};
+
+struct CapturedTransform{BfmeCapturedBoneRotation Rotation;BfmeCapturedBoneTranslation Translation;};
+
+struct BfmePod36{int Index;CapturedTransform Transform;bool WorldSpace;};
+
+// The random-access copy helper, row 0x00161350, emitted as htree.cpp emits it.
+template BfmePod36 *_STL::__copy<BfmePod36 *,BfmePod36 *,int>(BfmePod36 *,BfmePod36 *,BfmePod36 *,const _STL::random_access_iterator_tag &,int *);
 // Emit the owned erase operations and their copy helper, not unused vector
 // constructors whose non-retail copies can win selection for other units.
 template BfmePod36 *_STL::vector<BfmePod36>::erase(BfmePod36 *);
