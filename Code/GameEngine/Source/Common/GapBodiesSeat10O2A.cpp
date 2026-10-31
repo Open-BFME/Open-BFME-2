@@ -106,12 +106,6 @@ private:
 	int m_04;
 	int m_08;
 };
-Rva00665B70::Rva00665B70()
-{
-	m_04 = 0;
-	m_00 = 0;
-	m_08 = 0;
-}
 
 // ?rva00674A20@Rva00674A20@@QAEHXZ @0x00674A20 8B: post-increment of the +0
 // counter, returning the old value.

@@ -69662,7 +69662,7 @@ __ehhandler$?init@W3DView@@UAEXXZ,,0x0075FD33,10,Code/GameEngineDevice/Source/W3
 ?rva005E88E4@Rva005E88E4@@QAEXXZ,,0x005E88E4,10,Code/GameEngine/Source/Common/GapBodiesSeat10O1.cpp,matched,rowed 0x005F884D on +04 member of object at +0
 ?rva005E358A@Rva005E358A@@QAEXXZ,,0x005E358A,5,Code/GameEngine/Source/Common/GapBodiesSeat10O1.cpp,matched,tail jump to rowed 0x005F1B51 on member at +0
 ?rva005EB8D1@Rva005EB8D1@@QAEXXZ,,0x005EB8D1,5,Code/GameEngine/Source/Common/GapBodiesSeat10O1.cpp,matched,tail jump to rowed 0x0022999F on member at +0
-??0Rva00665B70@@QAE@XZ,,0x00665B70,13,Code/GameEngine/Source/Common/GapBodiesSeat10O2A.cpp,matched,default ctor zeroing three words
+??0Rva00665B70@@QAE@XZ,,0x00665B70,13,Code/Libraries/Source/Fesl/transactor.cpp,matched,default ctor zeroing three words
 ?rva00674A20@Rva00674A20@@QAEHXZ,,0x00674A20,8,Code/GameEngine/Source/Common/GapBodiesSeat10O2A.cpp,matched,post-increment of +0 counter returning old value
 ?rva006200A0@Rva006200A0@@QBEPAXXZ,,0x006200A0,6,Code/GameEngine/Source/Common/GapBodiesSeat10O2B.cpp,matched,address 12 bytes into record held at +0
 ?rva006C1840@Rva006C1840@@QAEXXZ,,0x006C1840,14,Code/GameEngine/Source/Common/GapBodiesSeat10O2B.cpp,matched,clear +0 byte +4 +8 +10
