@@ -7981,8 +7981,8 @@ _GetProcessorFlags,,0x001C4390,169,Code/Libraries/Source/VP6/GetProcessorFlags.c
 ?isAmmoReady@Weapon@@QBE_NXZ,,0x002CC3FF,35,Code/GameEngine/Source/GameLogic/Object/Weapon_getRemainingAmmo.cpp,matched,Owner ammo-availability gate adjacent to computeStatus; Object 0x28AF65 helper pinned opaque
 ?isCurWeaponLocked@Object@@QBE_NXZ,,0x0028AF65,17,Code/GameEngine/Source/GameLogic/Object/Object.cpp,matched,Object ammo gate for Weapon isAmmoReady; advances this by 0x330 and null-checks callee dword; callee stays pinned
 ?get@Rva00085516FloatField@@QBEMXZ,,0x00085516,7,Code/GameEngine/Source/Common/DispFloatFieldGetters.cpp,matched,Disp32 float getter
-?get@Rva000879EDFloatField@@QBEMXZ,,0x000879ED,7,Code/GameEngine/Source/Common/DispFloatFieldGetters.cpp,matched,Disp32 float getter
-?get@Rva000879F4FloatField@@QBEMXZ,,0x000879F4,7,Code/GameEngine/Source/Common/DispFloatFieldGetters.cpp,matched,Disp32 float getter
+?get@Rva000879EDFloatField@@QBEMXZ,,0x000879ED,7,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,matched,Disp32 float getter
+?get@Rva000879F4FloatField@@QBEMXZ,,0x000879F4,7,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,matched,Disp32 float getter
 ?get@Rva0008BC64FloatField@@QBEMXZ,,0x0008BC64,7,Code/GameEngine/Source/Common/DispFloatFieldGetters.cpp,matched,Disp32 float getter
 ?get@Rva0008E179FloatField@@QBEMXZ,,0x0008E179,7,Code/GameEngine/Source/Common/DispFloatFieldGetters.cpp,matched,Disp32 float getter
 ?get@Rva00091A48FloatField@@QBEMXZ,,0x00091A48,7,Code/GameEngine/Source/Common/DispFloatFieldGetters.cpp,matched,Disp32 float getter

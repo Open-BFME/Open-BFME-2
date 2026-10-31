@@ -28,6 +28,7 @@
 
 
 
+
 #endif
 #define TERRAIN_SAMPLE_SIZE 40.0f
 #define MIN_CAPPED_ZOOM (0.5f) //WST 10.19.2002. JSC integrated 5/20/03.
@@ -44,6 +45,18 @@
 	void NAME::set(unsigned char value) \
 	{ \
 		m_value = value; \
+	}
+#define BFME_DISP_FLOAT_GETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		float get() const; \
+		char m_lead[DISP]; \
+		float m_value; \
+	}; \
+	float NAME::get() const \
+	{ \
+		return m_value; \
 	}
 
 // BFME adds View and Display virtuals that the shared Zero Hour headers omit;
@@ -263,6 +276,7 @@ public:
 
 
 void drawDrawableExtents( Drawable *draw, void *userData );
+
 
 
 
@@ -981,11 +995,53 @@ class Rva0007F0FBOwner{public:void rva0007F0FB(CameraClass*,bool);};
 
 class Rva0007FD57Owner{char gap[0xfc];Rva0008B689Element camera;public:Rva0008B689Element rva0007FD57(CameraClass*);};
 
+BFME_DISP_FLOAT_GETTER(Rva000879EDFloatField, 0x24F8)
+
+BFME_DISP_FLOAT_GETTER(Rva000879F4FloatField, 0x24FC)
+
+class Rva00094AEERandomField
+{
+public:
+	float get() const;
+private:
+	char m_pad00[0x74];
+	GameClientRandomVariable m_value;
+};
+
+class Rva00094AFDRandomField
+{
+public:
+	float get() const;
+private:
+	char m_pad00[0x84];
+	GameClientRandomVariable m_value;
+};
+
+class Rva00098540RandomField
+{
+public:
+	int get() const;
+private:
+	char m_pad00[0x30];
+	GameClientRandomVariable m_value;
+};
+
+class Rva0009854DRandomField
+{
+public:
+	float get() const;
+private:
+	char m_pad00[0x3C];
+	GameClientRandomVariable m_value;
+};
+
 // tu-skeleton: 0x00085B41 380B ?getAxisAlignedViewRegion@W3DView@@AAEXAAURegion3D@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewGetAxisAlignedViewRegion.cpp (not merged yet)
 
 // tu-skeleton: 0x00085CBD 522B ?rva00085CBD@W3DView@@QAEXAAURegion3D@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewFarRegion.cpp (not merged yet)
 
 // tu-skeleton: 0x00085EC7 62B ?setFadeParameters@W3DView@@UAEXHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewSetFadeParameters.cpp (not merged yet)
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
 
@@ -1392,6 +1448,14 @@ void Rva0008615BForwarder::rva0008615B()
 	slot1();
 }
 
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCameraHandleGet.cpp
+
+Rva0008B689Element Rva000897C8(CameraClass*camera){
+ Rva0008B689Element result;
+ reinterpret_cast<HAnimComboDataClass*>(&result)->Set_HAnim(reinterpret_cast<HAnimClass*>(camera));
+ return result;
+}
+
 // tu-skeleton: 0x00085F6A 62B ?rva00085F6A@Rva00085F6A@@QAE_NH@Z -- matched in Code/GameEngine/Source/Common/Rva00085F6ASet.cpp (not merged yet)
 
 // tu-skeleton: 0x00085FA8 178B ?calcDeltaScroll@Rva00085FA8@@QAEXPAM@Z -- matched in Code/GameEngine/Source/Common/Rva00085FA8Delta.cpp (not merged yet)
@@ -1446,9 +1510,16 @@ void Rva0008615BForwarder::rva0008615B()
 
 // tu-skeleton: 0x000879E6 7B ?get@Rva000879E6FloatField@@QBEMXZ -- matched in Code/GameEngine/Source/Common/Disp32FloatGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x000879ED 7B ?get@Rva000879EDFloatField@@QBEMXZ -- matched in Code/GameEngine/Source/Common/DispFloatFieldGetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/DispFloatFieldGetters.cpp
 
-// tu-skeleton: 0x000879F4 7B ?get@Rva000879F4FloatField@@QBEMXZ -- matched in Code/GameEngine/Source/Common/DispFloatFieldGetters.cpp (not merged yet)
+// Disp32 float getters: seven-byte __thiscall members with one shape:
+//
+//     fld dword ptr [ecx+<DISP>] / ret
+//
+// One dword is loaded onto the x87 stack and left there, which is the return
+// convention for `float`. BFME1 pioneered the same family in
+// reference/open-bfme-1/Code/GameEngine/Source/Common/DispFloatFieldGetters.cpp.
+// No // cl: line (defaults match the frameless 7-byte shape).
 
 // tu-skeleton: 0x000879FB 7B ?get@Rva000879FBByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/DispByteFieldGetters.cpp (not merged yet)
 
@@ -1491,14 +1562,6 @@ void Rva0008615BForwarder::rva0008615B()
 // tu-skeleton: 0x00089510 328B ?rva00089510@Rva00089510@@QAEX_NMH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/CameraPathAnglesBFME2.cpp (not merged yet)
 
 // tu-skeleton: 0x000897B9 15B ?elementAddressBits@Rva000897B9@@QBEII@Z -- matched in Code/GameEngine/Source/Common/T2IndexedArrayAccessors.cpp (not merged yet)
-
-// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCameraHandleGet.cpp
-
-Rva0008B689Element Rva000897C8(CameraClass*camera){
- Rva0008B689Element result;
- reinterpret_cast<HAnimComboDataClass*>(&result)->Set_HAnim(reinterpret_cast<HAnimClass*>(camera));
- return result;
-}
 
 // tu-skeleton: 0x00089851 67B ??1RunwayInfo@FlightDeckBehavior@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FlightDeckBehaviorRunwayInfoDestructor.cpp (not merged yet)
 
