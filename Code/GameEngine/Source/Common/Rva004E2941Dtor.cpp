@@ -24,6 +24,21 @@ private:
     char m_pad[12];
 };
 
+// The member is a set<int>: its tree destructor is the rowed 0x000730DE (the
+// view above), and set<int>::~set is the 5-byte thunk 0x00073116 that the
+// unwind funclet jumps to; the normal path expands it.
+namespace _STL
+{
+	template <class T> struct less;
+	template <class T> class allocator;
+	template <class K, class C, class A> class set;
+	template <> class set<int, less<int>, allocator<int> >
+	{
+		Rva00072FE6 m_tree;
+	};
+}
+typedef _STL::set<int, _STL::less<int>, _STL::allocator<int> > Rva00073116Set;
+
 struct Rva004E2382Vec {
     void *m_start;
     void *m_finish;
@@ -36,7 +51,7 @@ public:
 private:
     AsciiString m_00;
     int m_04;
-    Rva00072FE6 m_08;
+    Rva00073116Set m_08;
     Rva004E2382Vec m_14;
 };
 

@@ -35,6 +35,21 @@ public:
 	char m_data[12];
 };
 
+// The member is a set<int>: its tree destructor is the rowed 0x000730DE (the
+// view above), and set<int>::~set is the 5-byte thunk 0x00073116 that the
+// unwind funclet jumps to; the normal path expands it.
+namespace _STL
+{
+	template <class T> struct less;
+	template <class T> class allocator;
+	template <class K, class C, class A> class set;
+	template <> class set<int, less<int>, allocator<int> >
+	{
+		Rva00072FE6 m_tree;
+	};
+}
+typedef _STL::set<int, _STL::less<int>, _STL::allocator<int> > Rva00073116Set;
+
 class W3DTaint
 {
 public:
@@ -52,7 +67,7 @@ private:
 	unsigned char *m_cellLevels, *m_referenceCellLevels;
 	unsigned char m_trackDirtyCells;
 	char m_pad41[3];
-	Rva00072FE6 m_dirty;
+	Rva00073116Set m_dirty;
 };
 
 W3DTaint::~W3DTaint()

@@ -42,6 +42,21 @@ struct Rva00072FE6
 {
 	~Rva00072FE6();
 };
+
+// The member is a set<int>: its tree destructor is the rowed 0x000730DE (the
+// view above), and set<int>::~set is the 5-byte thunk 0x00073116 that the
+// unwind funclet jumps to; the normal path expands it.
+namespace _STL
+{
+	template <class T> struct less;
+	template <class T> class allocator;
+	template <class K, class C, class A> class set;
+	template <> class set<int, less<int>, allocator<int> >
+	{
+		Rva00072FE6 m_tree;
+	};
+}
+typedef _STL::set<int, _STL::less<int>, _STL::allocator<int> > Rva00073116Set;
 struct Rva003820D1
 {
 	~Rva003820D1();
@@ -131,7 +146,7 @@ private:
 	char m_pad1615[0x1620 - 0x1615];
 	Rva003820D1 m_1620;
 	char m_pad1621[0x162C - 0x1621];
-	Rva00072FE6 m_162C;
+	Rva00073116Set m_162C;
 };
 
 // bfme link decl-only begin
