@@ -6002,7 +6002,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x000AD6E8,12,code,,,-,,Code/GameEngine/Source/Common/Disp8DivAvgDwordGetters.cpp
 0x000AD6F4,29,code,Code/GameEngine/Source/GameLogic/Map/PolygonTrigger.cpp,proposed,K,K=Rva000AD6F4,Code/GameEngine/Source/Common/Disp8DivAvgDwordGetters.cpp
 0x000AD711,12,code,,,-,,Code/GameEngine/Source/Common/GapBodiesSeat2B.cpp
-0x000AD71D,5,code,,,-,,Code/GameEngine/Source/Common/Rva000AD71DDtor.cpp
+0x000AD71D,5,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMap.cpp
 0x000AD722,27,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_s_o1.cpp
 0x000AD73D,51,code,Code/GameEngine/Source/Common/System/BfmeParserBindingVE.cpp,proposed,N,N=Code/GameEngine/Source/Common/System/BfmeParserBindingVE.cpp,Code/GameEngine/Source/Common/System/BfmeDataChunkParserBinding.cpp
 0x000AD770,11,code,,,-,,Code/GameEngine/Source/Common/FunctorBindConstructors.cpp

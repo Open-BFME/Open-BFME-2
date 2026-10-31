@@ -1,4 +1,4 @@
-// cl: /G7 /arch:SSE /FIzh_ascii.h /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE /Ireference/shims/bfmeheightmap /Ireference/shims/zh_overridable_outofline /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib
+// cl: /G7 /arch:SSE /FIzh_ascii.h /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE /Ireference/shims/bfmeheightmap /Ireference/shims/zh_overridable_outofline /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // stlport
 // TU Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMap.cpp: generated by tools/tu_skeleton.py from tu_map.csv (approved rows, retail order)
 #pragma push_macro("inline")
@@ -64,6 +64,7 @@ extern const StaticNameKey TheKey_livingWorldPlayerID("livingWorldPlayerID");
 // for occasional debugging...
 //#pragma optimize("", off)
 //#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
+
 
 #endif
 #define K_OBSOLETE_HEIGHT_MAP_VERSION 8
@@ -380,6 +381,26 @@ void __cdecl Rva000AC6F9SetupAlphaTiles();
 
 void __cdecl Rva000AC63FBlendPixels(UnsignedByte *source,UnsignedByte *destination,UnsignedByte *alpha,Int pixels);
 
+//
+// ??1Rva000AD71D@@UAE@XZ retail 0x000AD71D 5 bytes.
+// A 5-byte jmp to the rowed Rva00328A75 destructor at 0x00328A75, `this` unchanged: the
+// destructor of a class over that base that adds nothing needing teardown and
+// stores no vptr (novtable, the HordeGarrisonContain 0x0047A147 shape). Its
+// deleting destructor 0x000ADE29 (rowed in Rva000AD6F4Members.cpp) and the owned-pointer resets in
+// OwnedPointerResets.cpp call it. Owner identity unrecovered (address name).
+
+class Rva00328A75
+{
+public:
+	virtual ~Rva00328A75();
+};
+
+class __declspec(novtable) Rva000AD71D : public Rva00328A75
+{
+public:
+	virtual ~Rva000AD71D();
+};
+
 // tu-skeleton: 0x000ABD9A 112B ?ParseWorldDictDataChunk@WorldHeightMap@@SA_NAAVDataChunkInput@@PAUDataChunkInfo@@PAX@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseWorldDict.cpp (not merged yet)
 
 // tu-skeleton: 0x000ABE0A 150B ?countTiles@WorldHeightMap@@SAHPAVInputStream@@PA_N@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapTiles.cpp (not merged yet)
@@ -395,6 +416,8 @@ void __cdecl Rva000AC63FBlendPixels(UnsignedByte *source,UnsignedByte *destinati
 // tu-skeleton: 0x000AC4C6 78B ?rva000AC4C6@WorldHeightMap@@QAEHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000AC4C6Finish.cpp (not merged yet)
 
 // tu-skeleton: 0x000AC514 299B ?getTerrainColorAt@WorldHeightMap@@QAEXMMPAURGBColor@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapGetTerrainColorAt.cpp (not merged yet)
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMap.cpp
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapBlendPixels.cpp
 
@@ -614,9 +637,113 @@ void Rva000ADDCEWorldHeightMapView::blendTile(TBlendTileInfo *blend,Int width,In
 
 // tu-skeleton: 0x000AC6F9 405B ?Rva000AC6F9SetupAlphaTiles@@YAXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapAlphaTiles.cpp (not merged yet)
 
+// tu-skeleton: 0x000AC88E 332B ?rawTile@Rva000ADDCEWorldHeightMapView@@QAE_NFHPAEHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapAlphaTiles.cpp (not merged yet)
+
+// tu-skeleton: 0x000AC9DA 285B ?Rva00747E80@@YAXPAVDataChunkOutput@@PAVRva00747E80Filter@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00747E80WriteNamedCameras.cpp (not merged yet)
+
+// tu-skeleton: 0x000ACAF7 1563B ?ReadGlobalLighting_Rva000ACAF7@@YG_NAAVDataChunkInput@@PAUDataChunkInfo@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/GlobalLightingDataChunk.cpp (not merged yet)
+
+// tu-skeleton: 0x000AD112 1494B ?WriteGlobalLighting_Rva000AD112@@YAXAAVDataChunkOutput@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/GlobalLightingDataChunk.cpp (not merged yet)
+
+// tu-skeleton: 0x000AD6E8 12B ?get@Rva000AD6E8DivAvgField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8DivAvgDwordGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x000AD711 12B ?getElement@Rva000AD711@@QAEPAGH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat2B.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva000AD71DDtor.cpp
+
+Rva000AD71D::~Rva000AD71D()
+{
+}
+
+// tu-skeleton: 0x000AD722 27B ?allocate@?$allocator@F@_STL@@QBEPAFIPBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_s_o1.cpp (not merged yet)
+
+// tu-skeleton: 0x000AD770 11B ?invoke@Rva000AD770Binding@@QAEEPAX0@Z -- matched in Code/GameEngine/Source/Common/FunctorBindConstructors.cpp (not merged yet)
+
 // tu-skeleton: 0x000AD77B 45B ??$_Construct@UBfmeStringRecord00111ACF@@U1@@_STL@@YAXPAUBfmeStringRecord00111ACF@@ABU1@@Z -- matched in Code/GameEngine/Source/Common/StringRecordInlineCopyBFME2.cpp (not merged yet)
 
+// tu-skeleton: 0x000AD7A8 37B ??$__uninitialized_fill_n@PAUBfmeStringRecord00111ACF@@IU1@@_STL@@YAPAUBfmeStringRecord00111ACF@@PAU1@IABU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_stringrecord_111acf_allocate_copy.cpp (not merged yet)
+
+// tu-skeleton: 0x000AD7CD 23B ?allocate@?$allocator@URva000AD7CDElement@@@_STL@@QBEPAURva000AD7CDElement@@IPBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorRva000AD7CDAllocator.cpp (not merged yet)
+
+// tu-skeleton: 0x000AD7E4 34B ??$fill@PAUBfmeE8@@U1@@_STL@@YAXPAUBfmeE8@@0ABU1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_e8_o1.cpp (not merged yet)
+
+// tu-skeleton: 0x000AD806 35B ??$fill@PAUBfmeStringRecord00063BE4@@U1@@_STL@@YAXPAUBfmeStringRecord00063BE4@@0ABU1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_stringrecord_allocate_copy.cpp (not merged yet)
+
+// tu-skeleton: 0x000AD829 30B ??$fill_n@I@_STL@@YAPAEPAEIABE@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ByteFillNO1.cpp (not merged yet)
+
+// tu-skeleton: 0x000AD847 22B ??$_Construct@UBfmePod36@@U1@@_STL@@YAXPAUBfmePod36@@ABU1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp (not merged yet)
+
+// tu-skeleton: 0x000AD85D 37B ??$__uninitialized_fill_n@PAUBfmePod36@@IU1@@_STL@@YAPAUBfmePod36@@PAU1@IABU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp (not merged yet)
+
+// tu-skeleton: 0x000AD882 21B ??$__uninitialized_fill_n@PAEIE@_STL@@YAPAEPAEIABEABU__true_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlContainerRva000AD882.cpp (not merged yet)
+
+// tu-skeleton: 0x000AD897 50B ??$__copy_backward@PAUBfmeStringRecord00063BE4@@PAU1@H@_STL@@YAPAUBfmeStringRecord00063BE4@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_stringrecord_allocate_copy.cpp (not merged yet)
+
+// tu-skeleton: 0x000AD8C9 34B ??$fill_n@PAFIF@_STL@@YAPAFPAFIABF@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_s_o1.cpp (not merged yet)
+
+// tu-skeleton: 0x000AD8EB 41B ?Rva000AD8EBCopy@@YAPAHPAF0PAH@Z -- matched in Code/GameEngine/Source/Common/Rva000AD8EBCopy.cpp (not merged yet)
+
+// tu-skeleton: 0x000AD914 28B ??_GRva00111B25Record@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0010225FMethod.cpp (not merged yet)
+
+// tu-skeleton: 0x000AD958 83B ?setBit@Rva007497A0@@QAEXHH_N@Z -- matched in Code/GameEngine/Source/Common/Rva007497BitSetters.cpp (not merged yet)
+
+// tu-skeleton: 0x000AD9AB 83B ?rva000AD9AB@Rva000AD9AB@@QAEXHH_N@Z -- matched in Code/GameEngine/Source/Common/Rva000AD9ABFinish.cpp (not merged yet)
+
+// tu-skeleton: 0x000AD9FE 28B ?rva000AD9FE@Rva000AD9AB@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva000AD9ABFinish.cpp (not merged yet)
+
+// tu-skeleton: 0x000ADA1A 83B ?markBit@Rva000ADA1AMask@@QAEXHHE@Z -- matched in Code/GameEngine/Source/Common/Rva00749A10MaskAX.cpp (not merged yet)
+
+// tu-skeleton: 0x000ADA6D 28B ?rva000ADA6D@Rva000ADA6D@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva000ADA6DFill.cpp (not merged yet)
+
+// tu-skeleton: 0x000ADA89 83B ?bfmeMarkAX@Rva00749990MaskAX@@QAEXHHE@Z -- matched in Code/GameEngine/Source/Common/Rva00749990MarkBits.cpp (not merged yet)
+
+// tu-skeleton: 0x000ADADC 83B ?bfmeMarkAX@Rva00749A10MaskAX@@QAEXHHE@Z -- matched in Code/GameEngine/Source/Common/Rva00749A10MaskAX.cpp (not merged yet)
+
+// tu-skeleton: 0x000ADB2F 90B ?rva000ADB2F@Rva000AD9AB@@QAEXHH_N@Z -- matched in Code/GameEngine/Source/Common/Rva000AD9ABFinish.cpp (not merged yet)
+
+// tu-skeleton: 0x000ADB89 90B ?rva000ADB89@Rva000AD9AB@@QAEXHH_N@Z -- matched in Code/GameEngine/Source/Common/Rva000AD9ABFinish.cpp (not merged yet)
+
+// tu-skeleton: 0x000ADBE3 94B ?rva000ADBE3@Rva000AD9AB@@QAEXHH_N@Z -- matched in Code/GameEngine/Source/Common/Rva000AD9ABFinish.cpp (not merged yet)
+
+// tu-skeleton: 0x000ADC41 64B ?rva000ADC41@Rva000AD9AB@@QAEXHHE@Z -- matched in Code/GameEngine/Source/Common/Rva000AD9ABFinish.cpp (not merged yet)
+
+// tu-skeleton: 0x000ADC81 18B ??0Rva000ADC81@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE35.cpp (not merged yet)
+
 // tu-skeleton: 0x000ADC93 80B ?rva000ADC93@WorldHeightMap@@QAEHHH_N@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE35.cpp (not merged yet)
+
+// tu-skeleton: 0x000ADCE3 235B ?rva000ADCE3@Rva000AD9AB@@QAEXHH@Z -- matched in Code/GameEngine/Source/Common/Rva000AD9ABFinish.cpp (not merged yet)
+
+// tu-skeleton: 0x000ADE29 28B ??_GRva000AD71D@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva000AD6F4Members.cpp (not merged yet)
+
+// tu-skeleton: 0x000ADE45 29B ??$__copy_ptrs@PAUBfmeStringRecord00063BE4@@PAU1@@_STL@@YAPAUBfmeStringRecord00063BE4@@PAU1@00ABU__false_type@0@@Z -- matched in Code/GameEngine/Source/Common/Rva000ADE45Unlock.cpp (not merged yet)
+
+// tu-skeleton: 0x000ADE62 5B ?rva000ADE62@@YAPAEPAEIABE@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ByteFillNO1.cpp (not merged yet)
+
+// tu-skeleton: 0x000ADE67 38B ??$__uninitialized_copy@PBURva000ADE67Element@@PAU1@@_STL@@YAPAURva000ADE67Element@@PBU1@0PAU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva000ADE67.cpp (not merged yet)
+
+// tu-skeleton: 0x000ADE8D 27B ??$uninitialized_fill_n@PAURva00421939Element@@IU1@@_STL@@YAPAURva00421939Element@@PAU1@IABU1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00421939.cpp (not merged yet)
+
+// tu-skeleton: 0x000ADEA8 38B ??$__uninitialized_copy@PBUBfmePod36@@PAU1@@_STL@@YAPAUBfmePod36@@PBU1@0PAU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp (not merged yet)
+
+// tu-skeleton: 0x000ADECE 29B ??$__copy_backward_ptrs@PAUBfmeStringRecord00063BE4@@PAU1@@_STL@@YAPAUBfmeStringRecord00063BE4@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_stringrecord_allocate_copy.cpp (not merged yet)
+
+// tu-skeleton: 0x000ADEEB 27B ??$uninitialized_fill_n@PAUBfmePod36@@IU1@@_STL@@YAPAUBfmePod36@@PAU1@IABU1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp (not merged yet)
+
+// tu-skeleton: 0x000ADF06 21B ??$__uninitialized_fill_n@PAFIF@_STL@@YAPAFPAFIABFABU__true_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_s_o1.cpp (not merged yet)
+
+// tu-skeleton: 0x000ADF1B 29B ?Rva000ADF1BRangeForward@@YAPAURva000ADF1BOutput@@PAURva000ADF1BInput@@0PAU1@ABURva000ADF1BIteratorTag@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva000ADF1BRangeForward.cpp (not merged yet)
+
+// tu-skeleton: 0x000ADF38 9B ??$_Destroy@URva00111B25Record@@@_STL@@YAXPAURva00111B25Record@@@Z -- matched in Code/GameEngine/Source/Common/DestroyInstances.cpp (not merged yet)
+
+// tu-skeleton: 0x000ADF41 79B ?bfmeBitA@Gen_0074B410@@QBE_NHH@Z -- matched in Code/GameEngine/Source/Common/BfmeBitPlaneQueries.cpp (not merged yet)
+
+// tu-skeleton: 0x000ADF90 430B ?rva000ADF90@Rva000ADA1AMask@@QAEXPBUMaskCirclePoint@@ME@Z -- matched in Code/GameEngine/Source/Common/Rva00749A10MaskAX.cpp (not merged yet)
+
+// tu-skeleton: 0x000AE13E 79B ?bfmeBitA@Gen_0074BA50@@QBE_NHH@Z -- matched in Code/GameEngine/Source/Common/BfmeBitPlaneQueries.cpp (not merged yet)
+
+// tu-skeleton: 0x000AE1DC 88B ?bfmeBitA@Gen_0074BB30@@QBE_NHH@Z -- matched in Code/GameEngine/Source/Common/BfmeBitPlaneQueries.cpp (not merged yet)
+
+// tu-skeleton: 0x000AE234 65B ?rva000AE234@Rva000AE234@@QAEDHH@Z -- matched in Code/GameEngine/Source/Common/Rva000AE234GridGet.cpp (not merged yet)
 
 // tu-skeleton: 0x000AE275 265B ?ParseEnvironmentDataChunk@WorldHeightMap@@SA_NAAVDataChunkInput@@PAUDataChunkInfo@@PAX@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseEnvironmentData.cpp (not merged yet)
 
@@ -695,6 +822,30 @@ void Rva000ADDCEWorldHeightMapView::blendTile(TBlendTileInfo *blend,Int width,In
 // tu-skeleton: 0x000B0238 28B ??_GWorldHeightMap@@UAEPAXI@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp (not merged yet)
 
 // tu-skeleton: 0x000B0254 63B ??1?$vector@UEvaMessageInfo@@V?$allocator@UEvaMessageInfo@@@_STL@@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/EvaMessageVectorDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x000B0293 5B ?insert@?$vector@EV?$allocator@E@_STL@@@_STL@@QAEXPAEIABE@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlContainerRva000AFE9F.cpp (not merged yet)
+
+// tu-skeleton: 0x000B0298 30B ?rva000B0298@Rva000B0298@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Rva000B0298Clear.cpp (not merged yet)
+
+// tu-skeleton: 0x000B02B6 223B ?_M_fill_insert@?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@QAEXPAUBfmeE8@@IABU3@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_e8_fill_insert.cpp (not merged yet)
+
+// tu-skeleton: 0x000B0395 227B ?_M_fill_insert@?$vector@UBfmeE16@@V?$allocator@UBfmeE16@@@_STL@@@_STL@@QAEXPAUBfmeE16@@IABU3@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_e16_fill_insert_000b0395.cpp (not merged yet)
+
+// tu-skeleton: 0x000B0478 232B ?_M_fill_insert@?$vector@UBfmePod36@@V?$allocator@UBfmePod36@@@_STL@@@_STL@@QAEXPAUBfmePod36@@IABU3@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod36_fill_insert_000b0478.cpp (not merged yet)
+
+// tu-skeleton: 0x000B0560 5B ??1Rva000B0560@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportMapForwardersSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x000B0565 54B ?rva000B0565@Rva000B0565@@QAEXIE@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/TerrainByteVectorResize.cpp (not merged yet)
+
+// tu-skeleton: 0x000B059B 183B ?_M_insert_overflow@?$vector@URva000B059BRecord@@V?$allocator@URva000B059BRecord@@@_STL@@@_STL@@IAEXPAURva000B059BRecord@@ABU3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/VectorOverflowRva000B059B.cpp (not merged yet)
+
+// tu-skeleton: 0x000B0652 5B ?insert@?$vector@UBfmeE16@@V?$allocator@UBfmeE16@@@_STL@@@_STL@@QAEXPAUBfmeE16@@IABU3@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva000B0652VectorInsert.cpp (not merged yet)
+
+// tu-skeleton: 0x000B0657 5B ?insert@?$vector@UBfmePod36@@V?$allocator@UBfmePod36@@@_STL@@@_STL@@QAEXPAUBfmePod36@@IABU3@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva000B0657VectorInsert.cpp (not merged yet)
+
+// tu-skeleton: 0x000B065C 55B ?push_back@?$vector@UBfmeAssignRecord28@@V?$allocator@UBfmeAssignRecord28@@@_STL@@@_STL@@QAEXABUBfmeAssignRecord28@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_record_deferred.cpp (not merged yet)
+
+// tu-skeleton: 0x000B08F7 147B ?rva000B08F7@Rva000B08F7@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva000B08F7.cpp (not merged yet)
 
 // tu-skeleton: 0x000B098A 323B ??0WorldHeightMap@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp (not merged yet)
 
