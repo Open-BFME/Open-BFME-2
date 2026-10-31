@@ -320,6 +320,43 @@ def include_sources(source, text=None, depth=2):
     return out
 
 
+def include_problem(source, text, depth=2):
+    """Refuse whenever the bounded include walk cannot account for an input."""
+    start = (ROOT / source).resolve()
+    queue, seen = [(start, text, 0)], {start}
+    while queue:
+        path, body, level = queue.pop(0)
+        if body is None:
+            return f"{path}: include cannot be read"
+        if re.search(r"\\\r?\n|\?\?", body):
+            return f"{path}: splice or trigraph in include input"
+        for m in re.finditer(r'(?m)^[ \t]*#[ \t]*include[ \t]*([<"])([^>"\n]+)[>"]', masked(body, keep_literals=True)):
+            angle, name = m.group(1) == "<", m.group(2)
+            candidates = [(base / name).resolve() for base in (path.parent, ROOT, ROOT / "Code")]
+            target = next((p for p in candidates if p.is_file()), None)
+            if angle:
+                return f"{path}: angle include {name} cannot be proven outside Code"
+            if target is None:
+                return f"{path}: unresolved include {name}"
+            if target in seen:
+                continue
+            if level >= depth:
+                return f"{path}: include {name} exceeds scan depth"
+            seen.add(target)
+            queue.append((target, read_path(target), level + 1))
+    return None
+
+
+def conditional_hierarchy(texts, classes):
+    """Conditional declarations in hierarchy bodies are not represented by layouts."""
+    for path, text in texts:
+        # Even a guard may hide declarations from the layout probe. Refuse the
+        # entire input instead of trying to interpret preprocessing conditions.
+        if re.search(r"(?m)^\s*#\s*(?:if|ifdef|ifndef)\b", masked(text)):
+            return f"{path}: conditional header input"
+    return None
+
+
 def header_sources(header):
     """[(path, text)] for the canonical header and its quoted includes, or None when the
     header itself cannot be read."""
@@ -534,6 +571,17 @@ def field_renames(source, text, strip, include, compile=None, header=None):
         if mine:
             mappings[name] = mine
     if mappings:
+        if header:
+            why = include_problem(header, read_source(header))
+            if why:
+                return None, why
+            family = {cls for name in mappings for cls in hierarchy(name, laid)}
+            why = conditional_hierarchy(canonical, family)
+            if why:
+                return None, why
+        why = include_problem(source, text)
+        if why:
+            return None, why
         sources = [(source, text)] + include_sources(source, text) + canonical
         for name in mappings:
             why = name_shadow(sources, name)
@@ -760,11 +808,22 @@ def scoped_rename(text, mappings):
     olds = {old for m in mappings.values() for old in m}
     if not olds:
         return text, None
+    if re.search(r"\\\r?\n|\?\?", text):
+        return None, "line splice or trigraph in unit"
     spliced = spliced_identifiers(text) & olds
     if spliced:
         return None, f"`{sorted(spliced)[0]}` is split by a line splice; not proven a member"
     code = masked(text)
     spans = member_spans(code, list(mappings))
+    for cls in mappings:
+        if re.search(r"\b[A-Za-z_]\w*\s*::\s*" + re.escape(cls) + r"\s*::", code):
+            return None, f"qualified member definition or reference of {cls}"
+    # Conservatively refuse every comma-containing statement mentioning a receiver.
+    receivers = set(re.findall(r"\b([A-Za-z_]\w*)\s*(?:->|\.)\s*(?:" + "|".join(map(re.escape, olds)) + r")\b", code))
+    for receiver in receivers:
+        for statement in re.split(r"[;{}]", code):
+            if "," in statement and re.search(r"\b" + re.escape(receiver) + r"\b", statement):
+                return None, f"{receiver} occurs in a comma declaration or expression"
     derived = re.compile(r"\b(?:class|struct)\s+(\w+)\s*:[^{;]*\b(?:" + "|".join(map(re.escape, mappings)) + r")\b")
     heirs = {m.group(1) for m in derived.finditer(code)}
     pat = re.compile(r"(?<![\w$])(" + "|".join(re.escape(o) for o in sorted(olds, key=len, reverse=True))

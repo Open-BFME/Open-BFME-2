@@ -368,7 +368,7 @@ def test_s6_a_macro_in_an_include_refuses_the_unit(tmp_path, monkeypatch):
 def test_s7_a_spliced_identifier_is_not_half_rewritten():
     text = "class Object;\nint Object::g() { return other_\\\nm_flags; }\n"
     out, why = lane.scoped_rename(text, RENAMES)
-    assert why is None and out == text
+    assert out is None and "line splice" in why
 
 
 def test_s7_a_spliced_old_name_is_refused():
@@ -381,7 +381,7 @@ def test_s7_a_continued_comment_is_not_code():
     text = ("class Object;\nint f(Object *o) { return o->m_flags; }\n"
             "// the member \\\no->m_flags is documented here\n")
     out, why = lane.scoped_rename(text, RENAMES)
-    assert why is None and out.count("m_status") == 1
+    assert out is None and "line splice" in why
 
 
 def test_s7_a_raw_string_is_not_code():
@@ -389,3 +389,32 @@ def test_s7_a_raw_string_is_not_code():
             'const char *s = R"(say "o->m_flags")";\n')
     out, why = lane.scoped_rename(text, RENAMES)
     assert why is None and out.count("m_status") == 1
+
+
+def test_r4_conditional_header_is_refused():
+    assert lane.conditional_hierarchy([("h", "#if 0\nclass Object { static int m_status; };\n#endif")], {"Object"})
+
+
+def test_r4_comma_declarator_receiver_is_refused():
+    text = "class Object; class Other; Other *q, *p; Object *p; int f() { return p->m_flags; }"
+    assert lane.scoped_rename(text, RENAMES)[0] is None
+
+
+def test_r4_qualified_member_definition_is_refused():
+    text = "class Object; int N::Object::g() { return m_flags; }"
+    assert lane.scoped_rename(text, RENAMES)[0] is None
+
+
+def test_r4_include_scan_refuses_unresolved_angle_code_and_depth(tmp_path, monkeypatch):
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    (tmp_path / "Code").mkdir()
+    (tmp_path / "Code" / "a.h").write_text('#include "b.h"\n')
+    (tmp_path / "Code" / "b.h").write_text('#include "c.h"\n')
+    (tmp_path / "Code" / "c.h").write_text('')
+    assert "unresolved" in lane.include_problem("u.cpp", '#include "missing.h"\n')
+    assert "angle" in lane.include_problem("u.cpp", '#include <a.h>\n')
+    assert "depth" in lane.include_problem("u.cpp", '#include "a.h"\n')
+
+
+def test_r4_trigraph_is_refused():
+    assert lane.scoped_rename("int f(Object *o) { return o->m_flags; } // ??/", RENAMES)[0] is None
