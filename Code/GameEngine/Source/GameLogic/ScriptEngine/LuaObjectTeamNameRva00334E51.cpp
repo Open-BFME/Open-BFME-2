@@ -51,11 +51,13 @@ struct Rva00334E51Holder
 	void *m_field30;
 };
 
+class Team;
+
 class Object
 {
 public:
 	char m_pad00[0x304];
-	Rva00334E51Holder *m_holder304;
+	Team *m_team304;
 };
 
 #include "../../Common/GameLogicObjectLookupView.h"
@@ -73,7 +75,7 @@ int Rva00334E51(lua_State *state)
 	{
 		Object *object = TheGameLogic->findObjectByID((ObjectID)id);
 		if (object) {
-			void *field = object->m_holder304->m_field30;
+			void *field = ((Rva00334E51Holder *)object->m_team304)->m_field30;
 			AsciiString *str = !field ? (AsciiString *)&AsciiString::TheEmptyString : (AsciiString *)((char *)field + 0x14);
 			lua_pushstring(state, str->str());
 			goto done;

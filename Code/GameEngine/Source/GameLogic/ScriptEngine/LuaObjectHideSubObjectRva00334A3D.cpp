@@ -49,7 +49,9 @@
 // All 9 callees rowed/pinned, no new symbols.csv pin.
 // No canonical header (GameLogic/Object/Drawable/AsciiString have no
 // canonical entry; AsciiString via bfme2_ascii shim, /I FIRST).
+
 #include "ascii_string.h"
+#include "../../Common/GameLogicObjectLookupView.h"
 
 struct lua_State;
 extern "C" int lua_gettop( lua_State *state );
@@ -60,7 +62,6 @@ unsigned Rva00990030Lookup( Rva00990030Range *range, int index );
 struct Rva00990210Range;
 unsigned Rva00990210Lookup( Rva00990210Range *range, int index );
 
-#include "../../Common/GameLogicObjectLookupView.h"
 
 class Drawable
 {
@@ -90,7 +91,7 @@ int Rva00334A3D( lua_State *state )
 	{
 		AsciiString name( lua_tostring( state, 2 ) );
 		object->getDrawable()->rva002724FD( name,
-			Rva00990210Lookup( (Rva00990210Range *)state, 3 ) == 0, 0, 0.0f, 0.0f );
+			(unsigned char)( Rva00990210Lookup( (Rva00990210Range *)state, 3 ) == 0 ), 0, 0.0f, 0.0f );
 	}
 	return 0;
 }

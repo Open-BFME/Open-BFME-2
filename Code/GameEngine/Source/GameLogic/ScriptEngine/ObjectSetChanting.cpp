@@ -18,6 +18,8 @@
 // preserve bytes per Enraged 0x3358D9 precedent (same 113B envelope).
 // No virtuals, no invented implementations, no shared-header edits.
 
+#include "../../Common/GameLogicObjectLookupView.h"
+
 struct lua_State;
 extern "C" int lua_gettop( lua_State *state );
 extern "C" int lua_type( lua_State *state, int index );
@@ -34,7 +36,6 @@ public:
 	void rva00291080( bool flag );
 };
 
-#include "../../Common/GameLogicObjectLookupView.h"
 
 
 extern GameLogic *TheGameLogic;

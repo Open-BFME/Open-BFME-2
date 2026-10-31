@@ -49,14 +49,14 @@ class ThingTemplate
 {
 public:
 	bool isKindOf(KindOfType bit) const;
-	Bool isKindOf(int bit) const { return (Bool)isKindOf((KindOfType)bit); }
+	unsigned char isKindOf(int bit) const { return (unsigned char)isKindOf((KindOfType)bit); }
 };
 
 class Object
 {
 public:
 	bool rva0028C149(int,float*,int);
-	__forceinline Bool testStatus(int bit) const
+	__forceinline unsigned char testStatus(int bit) const
 	{
 		return (m_status[(unsigned int)bit >> 5] & (1u << (bit & 31))) != 0;
 	}
@@ -80,7 +80,7 @@ public:
 	bool rva00278689(const AsciiString &name, bool a, bool b);
 	void rva002724FD(const AsciiString &name, int show, int permanent, float c, float d);
 
-	__forceinline Bool testModelCondition(int bit) const
+	__forceinline unsigned char testModelCondition(int bit) const
 	{
 		return (m_conditionState[(unsigned int)bit >> 5] & (1u << (bit & 31))) != 0;
 	}
@@ -93,18 +93,22 @@ public:
 
 struct LuaDrawableLink
 {
-	AsciiString m_previousAnimationState;	// +0x00
-	AsciiString m_transitionAnimState;	// +0x04
-	AsciiString m_previousAnimation;	// +0x08
-	Drawable *m_drawable;	// +0x0C
-	float m_prevAnimFraction;	// +0x10
-	Bool m_allowToContinue;	// +0x14
+public:
+	AsciiString m_previousAnimationState; // +0x00
+	AsciiString m_transitionAnimState; // +0x04
+	AsciiString m_previousAnimation; // +0x08
+	Drawable *m_drawable; // +0x0C
+	float m_prevAnimFraction; // +0x10
+	unsigned char m_allowToContinue; // +0x14
+	char m_pad15[0x3];
 };
 
 // TheLuaScriptEngine (VA 0x00E01DBC, the subsystem initSubsystem<LuaScriptEngine>
 // fills); only the current-drawable context it exposes to the callbacks.
 extern "C" void __cdecl lua_close(void *L);
 #include <stdlib.h>
+// The game allocator's free at 0x00030830: retail calls it directly, not through the CRT import.
+void Rva00030830GameFree(void *block);
 struct Rva003378D0
 {
 	~Rva003378D0();
@@ -117,7 +121,7 @@ template <class T> struct Rva00337AA8Buf
 	~Rva00337AA8Buf()
 	{
 		if (m_ptr != 0)
-			free(m_ptr);
+			Rva00030830GameFree(m_ptr);
 	}
 };
 // Retail C0E390 has the fourteen canonical subsystem slots, followed by
@@ -133,7 +137,15 @@ template<> ParticleSystemID *vector<ParticleSystemID>::erase(ParticleSystemID *,
 template<> Rva003371B1 *vector<Rva003371B1>::erase(Rva003371B1 *,Rva003371B1 *);
 template<> BfmeOpaqueRecord156 *vector<BfmeOpaqueRecord156>::erase(BfmeOpaqueRecord156 *,BfmeOpaqueRecord156 *);
 }
-class Rva00335C88 {public:void *rva00335C88(void *,void *);};
+struct BfmeStringRecord00063BE4;
+class Rva00335C88
+{
+public:
+	void *rva00335C88(void *,void *);
+	char m_pad00[0x4];
+private:
+	BfmeStringRecord00063BE4 *m_04; // +0x04
+};
 struct Rva00337RangeView { void *start,*finish,*limit; };
 class LuaScriptEngine : public SubsystemInterface
 {
@@ -145,20 +157,20 @@ public:
  virtual void slot14() {}
  virtual const char *GetSnapshotName() const; virtual void DoXfer(Xfer *);
 private:
-	void *m_lua0C;
-	void *m_lua10;
+	lua_State *m_luaState;
+	lua_State *m_lua10;
 	char m_pad14[0x9C - 0x14];
 public:
 	LuaDrawableLink *m_drawable;
 private:
-	Rva00337AA8Buf<void> m_bufA0;
+	Rva00337AA8Buf<void> m_scriptedEvents;
 	char m_padA4[0xAC - 0xA4];
-	bool m_flagAC; char m_padAD[3];
-	Rva003378D0 m_vecB0;
-	Rva00337AA8Buf<void> m_bufBC;
+	bool m_sorted; char m_padAD[3];
+	Rva003378D0 m_eventLists;
+	Rva00337AA8Buf<void> m_modelConditionEvents;
 	char m_padC0[0xC8 - 0xC0];
 	// C8 is explicitly released by the dtor body; BC/A0 are automatic.
-	void *m_bufC8; void *m_endCC, *m_limitD0;
+	void *m_objectStatusEvents; void *m_endCC, *m_limitD0;
 };
 // Retail VA 0x00E01DBC starts with four zero-filled bytes; the verified
 // initSubsystem<LuaScriptEngine> caller registers the subsystem here.
@@ -191,7 +203,19 @@ int CurDrawableIsCurrentTargetKindof(lua_State *state);
 extern "C" int lua_type(lua_State*,int);
 struct Rva00990030Range;
 unsigned int Rva00990030Lookup(Rva00990030Range*,int);
-class AIUpdateInterface {public: int getCurrentStateID() const;};
+class AIUpdateInterface
+{
+public:
+	int getCurrentStateID() const;
+	void processSpies(int key, void *argument2, void *argument3);
+	int rva002632C7( void ) const;
+	void rva002632E1( void );
+	unsigned char rva002632C7Bool( void ) const { return (unsigned char)rva002632C7(); }
+	char m_pad00[0x20];
+	char m_commandInterface[0x3C4 - 0x20]; // +0x20, this of the command helpers
+	bool m_flag3C4; // +0x3C4, set from Fear's third argument
+	bool m_forbid3C5; // +0x3C5 target fact, Bool byte store
+};
 int GetGameLogicRandomValue(int,int,char*,int);
 
 int ObjectTestCanSufferFear(lua_State *L);
@@ -199,15 +223,15 @@ int ObjectTestCanSufferFear(lua_State *L);
 
 LuaScriptEngine::~LuaScriptEngine()
 {
-	if (m_lua0C != 0)
+	if (m_luaState != 0)
 	{
-		lua_close(m_lua0C);
-		m_lua0C = 0;
+		lua_close(m_luaState);
+		m_luaState = 0;
 	}
 	if (m_lua10 != 0)
 	{
 		lua_close(m_lua10);
 		m_lua10 = 0;
 	}
- if(m_bufC8) free(m_bufC8);
+ if(m_objectStatusEvents) Rva00030830GameFree(m_objectStatusEvents);
 }

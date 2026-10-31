@@ -23,7 +23,7 @@ struct lua_State;
 extern "C"
 {
 	void __cdecl lua_settop( lua_State *L, int idx );
-	int __cdecl lua_dobuffer( lua_State *L, const char *buff, unsigned long size, const char *name );
+	int __cdecl lua_dobuffer( lua_State *L, const char *buff, unsigned int size, const char *name );
 	int __cdecl lua_gettop( lua_State *L );
 	const char *__cdecl lua_tostring( lua_State *L, int idx );
 }
@@ -46,37 +46,39 @@ struct Rva00334133Context
 	Rva00334133Source *m_source;
 };
 
+struct LuaDrawableLink;
+
 class LuaScriptEngine
 {
 public:
 	AsciiString rva00334133( const char *buffer, unsigned long size, Rva00334133Context *context );
 private:
 	char m_pad00[ 0x10 ];
-	lua_State *m_L;
-	char m_pad14[ 0x88 ];
-	Rva00334133Context *m_context9C;
+	lua_State *m_lua10;
+	char m_pad14[ 0x9C - 0x14 ];
+	LuaDrawableLink *m_drawable;
 };
 
 AsciiString LuaScriptEngine::rva00334133( const char *buffer, unsigned long size, Rva00334133Context *context )
 {
-	m_context9C = context;
+	m_drawable = (LuaDrawableLink *)context;
 	AsciiString result;
 	try
 	{
-		lua_settop( m_L, 0 );
+		lua_settop( m_lua10, 0 );
 		const Rva00334133Template *thingTemplate = context->m_source->m_template;
 		const char *name = thingTemplate->m_nameText;
-		int status = lua_dobuffer( m_L, buffer, size, name ? name + 8 : "" );
-		if( status == 0 && lua_gettop( m_L ) > 0 )
+		int status = lua_dobuffer( m_lua10, buffer, size, name ? name + 8 : "" );
+		if( status == 0 && lua_gettop( m_lua10 ) > 0 )
 		{
-			const char *text = lua_tostring( m_L, 1 );
+			const char *text = lua_tostring( m_lua10, 1 );
 			( (StringBase<char> *)&result )->set( text );
 		}
-		lua_settop( m_L, 0 );
+		lua_settop( m_lua10, 0 );
 	}
 	catch( ... )
 	{
 	}
-	m_context9C = 0;
+	m_drawable = 0;
 	return result;
 }

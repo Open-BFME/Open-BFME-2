@@ -33,25 +33,37 @@ public:
 	const char *nameAt(int);
 };
 class INIException {public:char *mFailureMessage;};
-struct ConditionWords {unsigned long words[19];
- ConditionWords(){memset(words,0,sizeof(words));}
+struct ModelConditionWords {unsigned long words[19];
+ ModelConditionWords(){memset(words,0,sizeof(words));}
  void flip(){for(unsigned i=0;i<19;++i)words[i]=~words[i];}
 };
-class Rva000B664E {public:void rva0033394D(AsciiString);};
-class WeaponTemplateSetHead {public:char bytes[76];};
+class Rva000B664E
+{
+public:
+	void rva0033394D(AsciiString text);
+	bool rva000B664E(const char *token, bool *foundNormal, bool *foundAddOrSub);
+private:
+	unsigned m_words[19]; // +0x00
+};
+struct Rva00336BE4Key {
+ unsigned key;
+ Rva00336BE4Key();
+};
+class WeaponTemplateSetHead {public:WeaponTemplateSetHead(const WeaponTemplateSetHead &that);private:char m_data[76];};
 class Rva00332F5B {public:
- Rva00332F5B(const WeaponTemplateSetHead &,const WeaponTemplateSetHead &);
- bool equals(const Rva00332F5B &)const;
- int m_nameKey;
- WeaponTemplateSetHead m_required;
- WeaponTemplateSetHead m_excluded;
+ Rva00332F5B(const WeaponTemplateSetHead &a,const WeaponTemplateSetHead &excluded);
+ bool equals(const Rva00332F5B &other)const;
+private:
+ Rva00336BE4Key m_key;
+ WeaponTemplateSetHead m_a;
+ WeaponTemplateSetHead m_b;
 };
 // Visible copies of the rowed predicates 0x00045473 and 0x00332F81: with both bodies in the unit,
 // cl proves the comparator cannot throw, so the caller tests its result as a plain temporary.
 __declspec(noinline) inline bool Rva00045473Equal(const void *a,const void *b) {return memcmp(a,b,0x4c)==0;}
-__declspec(noinline) inline bool Rva00332F5B::equals(const Rva00332F5B &other)const
+__declspec(noinline) inline bool Rva00332F5B::equals(const Rva00332F5B &other) const
 {
- return m_nameKey==other.m_nameKey&&Rva00045473Equal(&m_required,&other.m_required)&&Rva00045473Equal(&m_excluded,&other.m_excluded);
+	return m_key.key == other.m_key.key && Rva00045473Equal(&m_a, &other.m_a) && Rva00045473Equal(&m_b, &other.m_b);
 }
 struct EventFlagEntry {void setKeyFromName(const char *);};
 // The event record is BfmeOpaqueRecord156: push_back 0x00336AB2 is rowed for it
@@ -99,7 +111,7 @@ void LuaScriptEngine::rva002E9680ParseModelConditionEvent(BfmeLexEAN *parser)
  const char *text=parser->getTailEAN();
  try {
   AsciiString conditions(text);
-  ConditionWords required,excluded;
+  ModelConditionWords required,excluded;
   excluded.flip();
   reinterpret_cast<Rva000B664E *>(&required)->rva0033394D(conditions);
   reinterpret_cast<Rva000B664E *>(&excluded)->rva0033394D(conditions);
@@ -108,10 +120,10 @@ void LuaScriptEngine::rva002E9680ParseModelConditionEvent(BfmeLexEAN *parser)
   Rva00332F5B record(*reinterpret_cast<WeaponTemplateSetHead *>(&required),*reinterpret_cast<WeaponTemplateSetHead *>(&excluded));
   reinterpret_cast<EventFlagEntry *>(&record)->setKeyFromName(name.str());
 
-  for(Rva00336AB2Element *it=m_modelConditionEvents.begin();it!=m_modelConditionEvents.end();++it) {
+  for(Rva00336AB2Element *it=((_STL::vector<Rva00336AB2Element> &)m_modelConditionEvents).begin();it!=((_STL::vector<Rva00336AB2Element> &)m_modelConditionEvents).end();++it) {
    if(record.equals(*reinterpret_cast<Rva00332F5B *>(it))) {found=true;break;}
   }
-  if(!found)m_modelConditionEvents.push_back(*reinterpret_cast<Rva00336AB2Element *>(&record));
+  if(!found)((_STL::vector<Rva00336AB2Element> &)m_modelConditionEvents).push_back(*reinterpret_cast<Rva00336AB2Element *>(&record));
   else return;
  } catch(INIException &iNIException) {
   if(_bfme_debugReportingEnabled()) {

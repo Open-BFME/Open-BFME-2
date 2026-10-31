@@ -71,10 +71,6 @@ public:
 	void *rva00333918( int key );
 	void *rva0033321B(int key); // 0x0033321B
 };
-struct LuaDrawableState
-{
-	unsigned char m_data[0x78];
-};
 class LuaScriptEngine;
 extern LuaScriptEngine *TheLuaScriptEngine;	// 0x00E01DBC
 
@@ -84,11 +80,13 @@ public:
 	void DispatchSpyEvent(void *object, int eventKey, int spyKey);	// 0x002628C3 pinned
 };
 
+class AIUpdateInterface;
+
 class Object
 {
 public:
 	char m_pad000[0x258];
-	Rva002628C3 *m_module258;	// +0x258
+	AIUpdateInterface *m_ai;	// +0x258
 };
 
 // Native lookup 0x00049DC5 takes the same 32-bit ObjectID enum as its
@@ -128,8 +126,8 @@ int ObjectSpy(lua_State *state)
 		io_debug(state);
 		return 0;
 	}
-	if (target->m_module258 != 0) {
-		target->m_module258->DispatchSpyEvent(object, (int)eventKey, (int)spyKey);
+	if (target->m_ai != 0) {
+		reinterpret_cast<Rva002628C3 *>(target->m_ai)->DispatchSpyEvent(object, (int)eventKey, (int)spyKey);
 	}
 	return 0;
 }

@@ -21,6 +21,9 @@
 // unsigned nameToKey, _g_bfmeEmptyAscii). No raw aliases: Range/enum manglings verbatim
 // to rowed providers 9652/9638/5818. No shared-header edits.
 
+#include "../../Common/GameLogicObjectLookupView.h"
+#include <stddef.h>
+
 struct lua_State;
 extern "C" int lua_gettop( lua_State *state );
 extern "C" int lua_type( lua_State *state, int index );
@@ -39,7 +42,6 @@ public:
 	void rva0028EBDA( bool flag );
 };
 
-#include "../../Common/GameLogicObjectLookupView.h"
 
 
 extern GameLogic *TheGameLogic;
@@ -91,7 +93,6 @@ public:
 	virtual void v37call( bool arg ) {}
 };
 
-#include <stddef.h>
 
 // TU-scoped BitFlags<304> view for ModelConditionFlags name lookup.
 // Provider: 0x000B42CA ?getSingleBitFromName@?$BitFlags@$0BDA@@@SAHPBD@Z

@@ -30,31 +30,32 @@ public:
 
 private:
 	unsigned char m_pad[0xC];
-	struct lua_State *m_lua;
+	struct lua_State *m_luaState;
 };
 
 void LuaScriptEngine::ExecuteChunk(char *buff, int size, const AsciiString &chunk)
 {
 	const char *name = GetStr003340C1(chunk);
-	lua_dobuffer(m_lua, buff, size, name);
-	lua_settop(m_lua, 0);
+	lua_dobuffer(m_luaState, buff, size, name);
+	lua_settop(m_luaState, 0);
 }
 
 class File
 {
 public:
-	virtual void slot00();
-	virtual void slot04();
-	virtual void close();
-	virtual int read(char *buff, int size);
-	virtual void slot10();
-	virtual void slot14();
-	virtual void slot18();
-	virtual void slot1C();
-	virtual void slot20();
-	virtual void slot24();
-	virtual void slot28();
-	virtual int getSize();
+	virtual void fileVirtual00() = 0;
+	virtual void fileVirtual01() = 0;
+	virtual void close() = 0;
+	virtual int read(void *buffer, int bytes) = 0;
+	virtual void fileVirtual03() = 0;
+	virtual void fileVirtual04() = 0;
+	virtual void fileVirtual05() = 0;
+	virtual void fileVirtual06() = 0;
+	virtual void fileVirtual07() = 0;
+	virtual void fileVirtual08() = 0;
+	virtual void fileVirtual09() = 0;
+	virtual int size() = 0;
+	virtual void fileVirtual12() = 0;
 };
 
 class FileSystem
@@ -71,12 +72,10 @@ void LuaScriptEngine::LoadScripts(const char *filename)
 	File *file = TheFileSystem->openFile(filename, 0x41, 0);
 	if (!file)
 		return;
-	int size = file->getSize();
+	int size = file->size();
 	char *buff = new char[size + 10];
 	file->read(buff, size);
 	file->close();
-	AsciiString *chunk = new ((void *)&filename) AsciiString(filename);
-	ExecuteChunk(buff, size, *chunk);
-	chunk->~AsciiString();
+	ExecuteChunk(buff, size, AsciiString(filename));
 	delete[] buff;
 }

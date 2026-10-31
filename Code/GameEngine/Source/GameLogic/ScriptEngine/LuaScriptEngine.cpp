@@ -13,7 +13,7 @@ extern "C" void lua_pushstring(lua_State *state, const char *value);
 // lua_pushboolean, rowed under its BFME1 donor name at 0x00747540.
 extern "C" void __cdecl bfmeGo1039E(lua_State *L, int b);
 typedef float Real;
-typedef unsigned char Bool;
+typedef bool Bool;
 Real GetGameClientRandomValueReal(Real low, Real high, char *file, int line);
 Real GetGameLogicRandomValueReal(Real low, Real high, char *file, int line);
 template<int Bits> class BitFlags
@@ -27,7 +27,7 @@ class ThingTemplate
 {
 public:
 	bool isKindOf(KindOfType bit) const;
-	Bool isKindOf(int bit) const { return (Bool)isKindOf((KindOfType)bit); }
+	unsigned char isKindOf(int bit) const { return (unsigned char)isKindOf((KindOfType)bit); }
 };
 #include "../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
@@ -52,21 +52,36 @@ public:
 };
 struct LuaDrawableLink
 {
-	AsciiString m_previousAnimationState;	// +0x00
-	AsciiString m_transitionAnimState;	// +0x04
-	AsciiString m_previousAnimation;	// +0x08
-	Drawable *m_drawable;	// +0x0C
-	float m_prevAnimFraction;	// +0x10
-	unsigned char m_allowToContinue;	// +0x14
+public:
+	AsciiString m_previousAnimationState; // +0x00
+	AsciiString m_transitionAnimState; // +0x04
+	AsciiString m_previousAnimation; // +0x08
+	Drawable *m_drawable; // +0x0C
+	float m_prevAnimFraction; // +0x10
+	unsigned char m_allowToContinue; // +0x14
+	char m_pad15[0x3];
 };
 // TheLuaScriptEngine (VA 0x00E01DBC, the subsystem initSubsystem<LuaScriptEngine>
 // fills); only the current-drawable context it exposes to the callbacks.
 extern "C" void __cdecl lua_close(void *L);
 #include <stdlib.h>
-struct Rva003378D0
+// The game allocator's free at 0x00030830: retail calls it directly, not through the CRT import.
+void Rva00030830GameFree(void *block);
+class Rva003371B1;
+template <class E> struct Rva003378D0Base
+{
+	E *m_start;
+	E *m_finish;
+	E *m_endOfStorage;
+	~Rva003378D0Base()
+	{
+		if (m_start)
+			Rva00030830GameFree(m_start);
+	}
+};
+struct Rva003378D0 : Rva003378D0Base<Rva003371B1>
 {
 	~Rva003378D0();
-	char m_pad[12];
 };
 #include "subsystem_interface.h"
 extern "C" void lua_pushnumber( lua_State *state, double value );
@@ -391,7 +406,7 @@ template <class T> struct Rva00337AA8Buf
 	~Rva00337AA8Buf()
 	{
 		if (m_ptr != 0)
-			free(m_ptr);
+			Rva00030830GameFree(m_ptr);
 	}
 };
 
@@ -431,6 +446,9 @@ class XmlNameSlotList;
 
 class Object;
 
+struct Rva00334133Context;
+struct Rva00336283Element;
+
 class LuaScriptEngine : public SubsystemInterface
 {
 public:
@@ -460,6 +478,8 @@ public:
  void LoadXML(const char *filename, bool keepOpen);
  void rva003387DC(const AsciiString &mapName);
  void rva00338317RegisterScriptFunctions();
+ AsciiString rva00334133( const char *buffer, unsigned long size, Rva00334133Context *context );
+ Rva00336283Element *rva00337DEF(const AsciiString &name);
 private:
 	lua_State *m_luaState;
 	lua_State *m_lua10;
@@ -467,14 +487,14 @@ private:
 public:
 	LuaDrawableLink *m_drawable;
 private:
-	Rva00337AA8Buf<void> m_bufA0;
+	Rva00337AA8Buf<void> m_scriptedEvents;
 	char m_padA4[0xAC - 0xA4];
-	bool m_flagAC; char m_padAD[3];
-	Rva003378D0 m_vecB0;
-	Rva00337AA8Buf<void> m_bufBC;
+	bool m_sorted; char m_padAD[3];
+	Rva003378D0 m_eventLists;
+	Rva00337AA8Buf<void> m_modelConditionEvents;
 	char m_padC0[0xC8 - 0xC0];
 	// C8 is explicitly released by the dtor body; BC/A0 are automatic.
-	void *m_bufC8; void *m_endCC, *m_limitD0;
+	void *m_objectStatusEvents; void *m_endCC, *m_limitD0;
  int m_depth; // +0xD4
  unsigned char m_keepOpen; // +0xD8
  char m_padD9[3];
@@ -502,6 +522,7 @@ public:
 	char m_pad00[0x20];
 	char m_commandInterface[0x3C4 - 0x20]; // +0x20, this of the command helpers
 	bool m_flag3C4; // +0x3C4, set from Fear's third argument
+	bool m_forbid3C5; // +0x3C5 target fact, Bool byte store
 };
 
 int GetGameLogicRandomValue(int,int,char*,int);
@@ -600,10 +621,16 @@ class Player;
 
 class UpgradeTemplate;
 
+class ContainModuleInterface;
+class PhysicsBehavior;
+class Rva002E9F70Vtbl94;
+
 class Object
 {
 public:
 	bool rva0028C149(int,float*,int);
+	// Keep the native +0x250 load inline; omit the competing legacy getter.
+	__declspec(dllimport) __forceinline ContainModuleInterface *getContain() const { return m_contain; }
  void rva00293077(const void *a);
  void removeUpgrade(const UpgradeTemplate *u);
  void rva0028EBDA(bool flag);
@@ -625,15 +652,20 @@ public:
  Coord3D m_position; // +0x38
  char m_pad44[0x74 - 0x44];
  ObjectID m_id; // +0x74
- char m_pad78[0x94 - 0x78];
+ char m_pad78[0x80 - 0x78];
+ ObjectID m_capturingID; // +0x80
+ char m_pad84[0x94 - 0x84];
 public:
 	unsigned int m_status[2];
 public:
-	char m_pad9C[0x258 - 0x9C];
-public:
-	void *m_ai258;
-public:
-	char m_pad25C[0x38C - 0x25C];
+	char m_pad9C[0x250 - 0x9C];
+	ContainModuleInterface *m_contain;	// +0x250
+	Rva002E9F70Vtbl94 *m_body;	// +0x254
+	AIUpdateInterface *m_ai;	// +0x258
+	PhysicsBehavior *m_physics;	// +0x25C
+	char m_pad260[0x304 - 0x260];
+	Team *m_team304; // +0x304 target fact (Team* for player-side path)
+	char m_pad308[0x38C - 0x308];
  Coord3D m_targetPos; // +0x38C
 public:
 	int m_currentTargetID;
@@ -725,23 +757,41 @@ template void _STL::_Construct<Rva003371B1, Rva003371B1>(Rva003371B1 *, const Rv
 
 class Rva002E9E70
 {
-	char _m[0x14];
 public:
 	Rva002E9E70(const Rva002E9E70 &other) throw();
+	AsciiString m_name;
+	unsigned char m_flag4;
+	unsigned char _pad5[3];
+	unsigned char m_vec[12];
 };
 
 typedef Rva002E9E70 *(__cdecl *Rva002E9E70FiveArg)(Rva002E9E70 *, Rva002E9E70 *, Rva002E9E70 *, void *, int);
 
 typedef Rva002E9E70 *(__cdecl *Rva002E9E70FourArg)(Rva002E9E70 *, Rva002E9E70 *, Rva002E9E70 *, void *);
 
-class Rva003371B1 {
+struct Rva003321D8 : _STL::vector<BfmeStringRecord000331962>
+{
+    __declspec(dllimport) __forceinline Rva003321D8(const Rva003321D8 &other) : _STL::vector<BfmeStringRecord000331962>(other) {}
+    ~Rva003321D8();
+};
+
+class Rva003323AD {
 public:
+    Rva003323AD(const StringBase<char> &name);
+    // Imported force-inline: the record's rowed copy and destructor expand these, and this unit emits no COMDAT copy.
+    __declspec(dllimport) __forceinline Rva003323AD(const Rva003323AD &other) : m_str(other.m_str), m_flag(other.m_flag), m_vec(other.m_vec) {}
+    __declspec(dllimport) __forceinline ~Rva003323AD() {}
+    AsciiString m_str;
+    unsigned char m_flag;
+    Rva003321D8 m_vec;
+};
+
+class Rva003371B1 : public Rva003323AD {
+public:
+    Rva003371B1(const AsciiString &name) : Rva003323AD(*(const StringBase<char> *)&name) {}
     Rva003371B1(const Rva003371B1 &other);
     Rva003371B1 &operator=(const Rva003371B1 &other);
     ~Rva003371B1();
-    AsciiString m_str;
-    unsigned char m_flag;
-    _STL::vector<BfmeStringRecord000331962> m_vec;
 };
 
 struct Rva00337C55Less
@@ -778,7 +828,6 @@ struct S4SortElem20
 
 struct S4Cmp002EB8E0
 {
-    void *m_state;
     bool operator()(const S4SortElem20 &left, const S4SortElem20 &right) const
     {
         return ((const StringBase<char> &)left.m_name).compare((const StringBase<char> &)right.m_name) < 0;
@@ -961,14 +1010,14 @@ class Rva00332FC1
 {
 public:
 	Rva00332FC1(const BfmeObject872Header &a, const BfmeObject872Header &b);
-	bool rva00332FE7(const Rva00332FC1 &other) const;
+	__declspec(nothrow) bool rva00332FE7(const Rva00332FC1 &other) const;
 private:
 	Rva00336BE4Key m_key;
 	BfmeObject872Header m_a;
 	BfmeObject872Header m_b;
 };
 
-bool __cdecl Rva002634E0Equal(const void *a, const void *b);
+__declspec(nothrow) bool __cdecl Rva002634E0Equal(const void *a, const void *b);
 
 struct LuaTargetOwner;
 
@@ -1197,7 +1246,8 @@ struct LuaAr
 	int linedefined;
 	const char *what;
 	const char *source;
-	char short_src[32];
+	char short_src[60];
+	int i_ci;
 };
 
 struct LuaDrawableLink;
@@ -1358,7 +1408,7 @@ int CurDrawableModelcondition(lua_State *state)
 	if (drawable != 0) {
 		Drawable *draw = drawable->m_drawable;
 		if (draw != 0 && lua_gettop(state) > 0) {
-			Bool hit = 0;
+			unsigned char hit = 0;
 			int bit = BitFlags<304>::getSingleBitFromName(lua_tostring(state, 1));
 			if (bit != -1)
 				hit = draw->testModelCondition(bit);
@@ -1381,7 +1431,7 @@ int CurDrawableObjectStatus(lua_State *state)
 	if (drawable != 0) {
 		Drawable *draw = drawable->m_drawable;
 		if (draw != 0 && lua_gettop(state) > 0) {
-			Bool hit = 0;
+			unsigned char hit = 0;
 			const char *name = lua_tostring(state, 1);
 			Object *object = draw->m_object;
 			int bit = BitFlags<101>::getSingleBitFromName(name);
@@ -1522,13 +1572,13 @@ int ObjectTestCanSufferFear(lua_State *L)
  if (!id && lua_type(L,1)!=1) { lua_pushnil(L); return 0; }
  Object *obj=TheGameLogic->findObjectByID((ObjectID)id);
  if(obj) {
-  Bool doPush=1;
+  unsigned char doPush=1;
   float v=0.0f;
   if(obj->rva0028C149(4,&v,0)) {
    int r=GetGameLogicRandomValue(0,1,(char*)"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\ScriptEngine\\LuaScriptEngine.cpp",0x85A);
    doPush = ((float)r > v);
   }
-  AIUpdateInterface *ai=(AIUpdateInterface*)obj->m_ai258;
+  AIUpdateInterface *ai=obj->m_ai;
   if(ai && ai->getCurrentStateID()==0x2D) doPush=0;
   bfmeGo1039E(L,doPush);
  } else lua_pushnil(L);
@@ -1541,14 +1591,14 @@ int ObjectTestCanSufferFear(lua_State *L)
 void LuaScriptEngine::reset()
 {
  if(m_luaState) { lua_close(m_luaState); m_luaState=0; }
- _STL::vector<ParticleSystemID> *a=(_STL::vector<ParticleSystemID>*)&m_bufA0;
+ _STL::vector<ParticleSystemID> *a=(_STL::vector<ParticleSystemID>*)&m_scriptedEvents;
  a->erase(a->begin(),a->end());
- _STL::vector<Rva003371B1> *b=(_STL::vector<Rva003371B1>*)&m_vecB0;
+ _STL::vector<Rva003371B1> *b=(_STL::vector<Rva003371B1>*)&m_eventLists;
  b->erase(b->begin(),b->end());
- m_flagAC=false; // target byteAC after clearing B0
- _STL::vector<BfmeOpaqueRecord156> *c=(_STL::vector<BfmeOpaqueRecord156>*)&m_bufBC;
+ m_sorted=false; // target byteAC after clearing B0
+ _STL::vector<BfmeOpaqueRecord156> *c=(_STL::vector<BfmeOpaqueRecord156>*)&m_modelConditionEvents;
  c->erase(c->begin(),c->end());
- Rva00337RangeView *d=(Rva00337RangeView*)&m_bufC8;
+ Rva00337RangeView *d=(Rva00337RangeView*)&m_objectStatusEvents;
  ((Rva00335C88*)d)->rva00335C88(d->start,d->finish);
 }
 
@@ -1864,7 +1914,7 @@ const AsciiString *Rva00335CFMedian(const AsciiString *asciiString, const AsciiS
 // the 67B StringBase+vector copy at 0x000C0BEC in StringVectorRecordCopyBFME2.
 
 Rva003371B1::Rva003371B1(const Rva003371B1 &other)
-    : m_str(other.m_str), m_flag(other.m_flag), m_vec(other.m_vec)
+    : Rva003323AD(other)
 {
 }
 

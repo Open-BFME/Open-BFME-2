@@ -131,7 +131,7 @@ private:
 	char m_pad00[0x0C];
 	lua_State *m_luaState;
 	char m_pad10[0xAC - 0x10];
-	unsigned char m_eventListsDirty;
+	bool m_sorted;
 	char m_padAD[3];
 	_STL::vector<Rva003371B1> m_eventLists;
 	char m_padBC[0xD8 - 0xBC];
@@ -214,10 +214,10 @@ void LuaScriptEngine::ProcessEventList(BfmeLexEAN *parser)
 			item = xml->finish();
 	}
 
-	m_eventListsDirty = 0;
+	m_sorted = false;
 	if (m_keepOpen)
 	{
-		for (Rva003371B1 *it = m_eventLists.begin(); it != m_eventLists.end(); ++it)
+		for (Rva003371B1 *it = ((_STL::vector<Rva003371B1> &)m_eventLists).begin(); it != ((_STL::vector<Rva003371B1> &)m_eventLists).end(); ++it)
 		{
 			if (((const StringBase<char> *)&record)->compare(*(const StringBase<char> *)it) == 0)
 			{
@@ -226,7 +226,7 @@ void LuaScriptEngine::ProcessEventList(BfmeLexEAN *parser)
 			}
 		}
 	}
-	m_eventLists.push_back(record);
+	((_STL::vector<Rva003371B1> &)m_eventLists).push_back(record);
 }
 
 // ?getTailEAN@BfmeLexEAN@@QAEPADXZ

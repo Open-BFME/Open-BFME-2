@@ -28,7 +28,7 @@ struct LuaAr
 
 extern "C" int __cdecl lua_getstack(void *L, int level, LuaAr *ar);
 extern "C" int __cdecl lua_dostring(void *L, const char *str);
-extern "C" void __cdecl lua_settop(void *L, int idx);
+extern "C" void __cdecl lua_settop(struct lua_State *L, int idx);
 void __cdecl bfmeLogMsg574(const char *msg);
 void __cdecl Rva00333BCALog(void *L, LuaAr *ar);
 
@@ -130,7 +130,7 @@ int __cdecl Rva00333CD1Console(void *L, LuaAr *ar)
 				bfmeLogMsg574(line);
 				bfmeLogMsg574("\n");
 				lua_dostring(L, line);
-				lua_settop(L, 0);
+				lua_settop((struct lua_State *)L, 0);
 				bfmeLogMsg574("> ");
 			}
 		}

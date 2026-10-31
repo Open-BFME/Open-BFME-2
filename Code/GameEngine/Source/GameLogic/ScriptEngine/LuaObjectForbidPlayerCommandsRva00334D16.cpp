@@ -43,30 +43,27 @@
 // Independent review: normal-restart/luna-review-lua72-r3.json; native registration
 // and exact interval corroborated separately from the BFME1 source guide.
 
+#include "../../Common/GameLogicObjectLookupView.h"
+
 struct lua_State;
 struct Rva00990030Range;
 unsigned Rva00990030Lookup( Rva00990030Range *range, int index );
 struct Rva00990210Range;
 unsigned Rva00990210Lookup( Rva00990210Range *range, int index );
 
-#include "../../Common/GameLogicObjectLookupView.h"
 
-class Rva00334D16AIView
+class AIUpdateInterface
 {
-private:
-	unsigned char m_pad00[ 0x3C5 ]; // +0x00..0x3C5
-
 public:
+	char m_pad00[0x3C5];
 	bool m_forbid3C5; // +0x3C5 target fact, Bool byte store
 };
 
 class Object
 {
-private:
-	unsigned char m_pad00[ 0x258 ]; // +0x00..0x258
-
 public:
-	Rva00334D16AIView *m_ai258; // +0x258 target fact, AIUpdateInterface*
+	char m_pad00[0x258];
+	AIUpdateInterface *m_ai; // +0x258 target fact
 };
 
 
@@ -81,7 +78,7 @@ int Rva00334D16( lua_State *state )
 	Object *object = TheGameLogic->findObjectByID( (ObjectID)id );
 	if( !object )
 		return 0;
-	Rva00334D16AIView *ai = object->m_ai258;
+	AIUpdateInterface *ai = object->m_ai;
 	if( !ai )
 		return 0;
 	unsigned forbid = Rva00990210Lookup( (Rva00990210Range *)state, 2 );

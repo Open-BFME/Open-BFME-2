@@ -67,13 +67,17 @@ struct BfmeSideHolder
 	void *m_data;
 };
 
+enum UpgradeStatusType { UPGRADE_STATUS_02 = 2 };
+class UpgradeTemplate;
+class Upgrade;
 class Player
 {
-private:
-	unsigned char m_pad00[ 0x58 ]; // +0x00..0x58
-
 public:
+	bool rva002AB87D(const UpgradeTemplate *t) const;
 	bool rva002AA245() const;
+	Upgrade *addUpgrade(const UpgradeTemplate *t, UpgradeStatusType s, int x);
+	void removeUpgrade(const UpgradeTemplate *t, int x);
+	char m_pad00[0x58];
 	BfmeSideHolder m_side58; // +0x58 target fact, AsciiString-compatible 4B
 };
 
@@ -85,6 +89,7 @@ public:
 	Player *getControllingPlayer() const; // row 13658 @0x39D7CF
 };
 
+class AIUpdateInterface;
 class LuaAllegianceAI {
     unsigned char pad00[0x240];
 public:
@@ -97,7 +102,7 @@ private:
 	unsigned char m_pad00[ 0x04 ]; // +0x00 vtable slot
 
 public:
-	void *m_p04; // +0x04 target fact (ThingTemplate* for template-name path)
+	ThingTemplate *m_template; // +0x04 target fact
 
 private:
 	unsigned char m_pad08[ 0x80 - 0x08 ];
@@ -106,7 +111,7 @@ public:
 private:
     unsigned char m_pad84[0x258 - 0x84];
 public:
-    LuaAllegianceAI *ai;
+    AIUpdateInterface *m_ai;
 private:
     unsigned char m_pad25C[0x304 - 0x25C]; // +0x08..0x304
 
@@ -178,7 +183,7 @@ int ObjectTemplateName( lua_State *state )
 	Object *object = TheGameLogic->findObjectByID( (ObjectID)id );
 	if( object )
 	{
-		BfmeSideHolder *holder = (BfmeSideHolder *)( (char *)object->m_p04 + 0x64 );
+		BfmeSideHolder *holder = (BfmeSideHolder *)( (char *)object->m_template + 0x64 );
 		const char *name = holder->m_data ?
 			(const char *)holder->m_data + 8 : "";
 		lua_pushstring( state, name );
@@ -219,7 +224,7 @@ int ObjectChangeAllegianceFromNonPlayablePlayer(lua_State *state) {
         Object *first=TheGameLogic->findObjectByID((ObjectID)firstID);
         Object *second=TheGameLogic->findObjectByID((ObjectID)secondID);
         if(first && second && !first->getControllingPlayer()->rva002AA245())
-            first->ai->allegiance=second->m_team304->controllingPlayer;
+            ((LuaAllegianceAI *)first->m_ai)->allegiance=second->m_team304->controllingPlayer;
     }
     return 0;
 }

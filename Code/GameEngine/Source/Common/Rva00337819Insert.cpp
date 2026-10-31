@@ -19,7 +19,7 @@ class Rva003371B1
 public:
 	Rva003371B1(const Rva003371B1 &other);
 	~Rva003371B1();
-	AsciiString m_name;
+	AsciiString m_str;
 	unsigned char _pad[16];
 };
 
@@ -28,7 +28,7 @@ void Rva00337424Insert(Rva002E9E70 *pos, Rva003371B1 value, int unused);
 
 void Rva00337819Insert(Rva002E9E70 *first, Rva002E9E70 *last, Rva003371B1 value, int unused)
 {
-	if (((const StringBase<char> &)value.m_name).compare((const StringBase<char> &)first->m_name) < 0)
+	if (((const StringBase<char> &)value.m_str).compare((const StringBase<char> &)first->m_name) < 0)
 	{
 		Rva003377A1Copy(first, last, last + 1);
 		__assume(first != 0);

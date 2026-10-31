@@ -18,6 +18,8 @@
 // TU (LuaObjectModelConditionEnragedDelayedDeath.cpp) already calls.
 // Nothing here names the +0x3C4 AI flag or the physics +0x5C flag.
 
+#include "../../Common/GameLogicObjectLookupView.h"
+
 struct lua_State;
 extern "C" int lua_type( lua_State *state, int index );
 
@@ -27,7 +29,6 @@ unsigned Rva00990030Lookup( Rva00990030Range *range, int index );
 struct Rva00990210Range;
 unsigned Rva00990210Lookup( Rva00990210Range *range, int index );
 
-#include "../../Common/GameLogicObjectLookupView.h"
 
 enum CommandSourceType
 {
@@ -58,8 +59,8 @@ public:
 	void rva002632E1( void );
 	unsigned char rva002632C7Bool( void ) const { return (unsigned char)rva002632C7(); }
 	char m_pad00[0x20];
-	char m_commandInterface[0x3C4 - 0x20]; // +0x20 +0x20, this of the command helpers
-	bool m_flag3C4; // +0x3C4 +0x3C4, set from Fear's third argument
+	char m_commandInterface[0x3C4 - 0x20]; // +0x20, this of the command helpers
+	bool m_flag3C4; // +0x3C4, set from Fear's third argument
 };
 
 // Opaque virtual prefix: declarations preserve the observed slot without

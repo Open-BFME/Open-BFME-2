@@ -18,14 +18,14 @@ class Rva003371B1
 {
 public:
 	~Rva003371B1();
-	AsciiString m_name;
+	AsciiString m_str;
 	unsigned char _pad[16];
 };
 
 void Rva00337424Insert(Rva002E9E70 *pos, Rva003371B1 value, int unused)
 {
 	Rva002E9E70 *probe = pos - 1;
-	while (((const StringBase<char> &)value.m_name).compare((const StringBase<char> &)((Rva002E9E70 *)probe)->m_name) < 0)
+	while (((const StringBase<char> &)value.m_str).compare((const StringBase<char> &)((Rva002E9E70 *)probe)->m_name) < 0)
 	{
 		__assume(pos != 0);
 		new (pos) Rva002E9E70(*probe);

@@ -41,16 +41,27 @@ public:
 	const char *nameAt(int);
 };
 class INIException {public:char *mFailureMessage;};
-struct ConditionWords {unsigned long words[4];
- ConditionWords(){memset(words,0,sizeof(words));}
+struct ObjectStatusWords {unsigned long words[4];
+ ObjectStatusWords(){memset(words,0,sizeof(words));}
  void flip(){for(unsigned i=0;i<4;++i)words[i]=~words[i];}
 };
-class Rva003339CE {public:void rva00334506(AsciiString);};
+class Rva003339CE
+{
+public:
+	void rva00334506(AsciiString text);
+	bool rva003339CE(const char *token, bool *foundNormal, bool *foundAddOrSub);
+private:
+	unsigned m_words[4]; // +0x00
+};
 class BfmeObject872Header {public:char bytes[16];};
+struct Rva00336BE4Key {
+ unsigned key;
+ Rva00336BE4Key();
+};
 class Rva00332FC1 {public:
  Rva00332FC1(const BfmeObject872Header &,const BfmeObject872Header &);
  __declspec(nothrow) bool rva00332FE7(const Rva00332FC1 &)const;
- void *m_text;
+ Rva00336BE4Key m_key;
  BfmeObject872Header m_a;
  BfmeObject872Header m_b;
 };
@@ -101,7 +112,7 @@ void LuaScriptEngine::rva002E9AA0ParseObjectStatusEvent(BfmeLexEAN *parser)
  const char *text=parser->getTailEAN();
  try {
   AsciiString conditions(text);
-  ConditionWords required,excluded;
+  ObjectStatusWords required,excluded;
   excluded.flip();
   reinterpret_cast<Rva003339CE *>(&required)->rva00334506(conditions);
   reinterpret_cast<Rva003339CE *>(&excluded)->rva00334506(conditions);
@@ -110,10 +121,10 @@ void LuaScriptEngine::rva002E9AA0ParseObjectStatusEvent(BfmeLexEAN *parser)
   reinterpret_cast<EventFlagEntry *>(&record)->setKeyFromName(name.str());
   bool found=false;
 
-  for(Rva00336AECElement *it=m_objectStatusEvents.begin();it!=m_objectStatusEvents.end();++it) {
+  for(Rva00336AECElement *it=((_STL::vector<Rva00336AECElement> &)m_objectStatusEvents).begin();it!=((_STL::vector<Rva00336AECElement> &)m_objectStatusEvents).end();++it) {
    if(record.rva00332FE7(*reinterpret_cast<Rva00332FC1 *>(it))) {found=true;break;}
   }
-  if(!found)m_objectStatusEvents.push_back(*reinterpret_cast<Rva00336AECElement *>(&record));
+  if(!found)((_STL::vector<Rva00336AECElement> &)m_objectStatusEvents).push_back(*reinterpret_cast<Rva00336AECElement *>(&record));
   else return;
  } catch(...) {}
  if(reinterpret_cast<XmlNameSlotList *>(parser)->finish()==2)reinterpret_cast<XmlNameSlotList *>(parser)->finish();

@@ -3,11 +3,14 @@
 // self-compares of TheScriptEngine in the loop condition fold away (no bytes) and
 // give retail's loop-test layout.
 // cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+
 #include <string.h>
+#include "ascii_string.h"
+#include "../../../Libraries/Include/Lib/Coord3D.h"
+#include "../../Include/GameLogic/ScriptEngine.h"
 
 #pragma function(strcmp)
 
-#include "ascii_string.h"
 
 struct lua_State;
 
@@ -24,14 +27,20 @@ unsigned Rva00990210Lookup(Rva00990210Range*,int);
 
 extern "C" void __cdecl bfmeGo1039E(lua_State *L, int b);
 
-#include "../../../Libraries/Include/Lib/Coord3D.h"
 
 class ObjectStatusMask
 {
 	unsigned int m_bits[2];
 };
 
-class Rva00333B02 { public: void rva00333B02(AsciiString value); };
+class Rva00333B02
+{
+public:
+	void rva00333B02(AsciiString s);
+	char m_pad00[0x10];
+private:
+	AsciiString m_10; // +0x10
+};
 
 class Parameter
 {
@@ -100,7 +109,6 @@ public:
 	AsciiString m_internalName;
 };
 
-#include "../../Include/GameLogic/ScriptEngine.h"
 
 class ScriptConditionsInterface
 {

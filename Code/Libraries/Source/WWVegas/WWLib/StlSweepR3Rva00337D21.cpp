@@ -32,8 +32,10 @@ private:
 };
 
 namespace _STL {
-template <class T> struct less {};
+template <class T> struct less;
+template <> struct less<Rva00337D21Record> {};
 template <class I, class T, class C> I __unguarded_partition(I first, I last, T pivot, C comp);
+template <> S4SortElem20 *__unguarded_partition<S4SortElem20 *, S4SortElem20, S4Cmp002EB8E0>(S4SortElem20 *, S4SortElem20 *, S4SortElem20, S4Cmp002EB8E0);
 template <class I, class T, class S, class C> void __introsort_loop(I first, I last, T *, S depth_limit, C comp);
 template <class I, class C> void partial_sort(I first, I middle, I last, C comp);
 }

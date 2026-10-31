@@ -17,7 +17,7 @@ public:
 };
 struct Rva00336BE4Key {
  unsigned key;
- __declspec(noinline) Rva00336BE4Key();	// Rva00336BE4KeyCtor.cpp (0x00326BE6)
+ Rva00336BE4Key();	// Rva00336BE4KeyCtor.cpp (0x00326BE6)
 };
 
 struct EventFlagEntry {void setKeyFromName(const char *);};
@@ -28,7 +28,7 @@ enum NameKeyType { NAMEKEY_INVALID = 0 };
 namespace _STL { template <> void vector<NameKeyType>::push_back(const NameKeyType &); }
 class LuaScriptEngine {public:
  void ProcessScriptedEvent(XmlNameSlotList *);
- char pad[0xA0];_STL::vector<Rva00336BE4Key> scriptedEvents;
+ char pad[0xA0];_STL::vector<Rva00336BE4Key> m_scriptedEvents;
 };
 void LuaScriptEngine::ProcessScriptedEvent(XmlNameSlotList *xml) {
  int i=0;
@@ -39,7 +39,7 @@ void LuaScriptEngine::ProcessScriptedEvent(XmlNameSlotList *xml) {
     const char *value=xml->nameAt(i);
     Rva00336BE4Key record;
     ((EventFlagEntry *)&record)->setKeyFromName(value);
-    ((_STL::vector<NameKeyType> *)&scriptedEvents)->push_back((const NameKeyType &)record);
+    ((_STL::vector<NameKeyType> *)&m_scriptedEvents)->push_back((const NameKeyType &)record);
    }
    ++i;
   }while(i<xml->count());
