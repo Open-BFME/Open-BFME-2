@@ -912,10 +912,6 @@ class Rva0048F46D : public Rva002645FF
 public:
 	bool rva0048F46D();
 };
-bool Rva0048F46D::rva0048F46D()
-{
-	return Rva002645FF::rva002645FF();
-}
 
 // 0x00494E21: tail jump to SpecialAbilityUpdate::rva0044FC52.
 class Rva00494E21 : public SpecialAbilityUpdate
