@@ -15676,7 +15676,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0022091F,9,code,,,-,,Code/GameEngine/Source/Common/DestroyInstances.cpp
 0x00220928,382,code,,,-,W=Code/GameEngine/Source/GameClient/ArmySummaryDescription.cpp,Code/GameEngine/Source/GameClient/ArmySummaryDescription.cpp
 0x00220AA6,69,code,,,-,,Code/GameEngine/Source/GameClient/ArmySummaryDescription.cpp
-0x00220AEB,25,code,,,-,,Code/GameEngine/Source/GameLogic/Object/LocomotorStoreDestroy.cpp
+0x00220AEB,25,code,,,-,,Code/GameEngine/Source/GameClient/ArmySummaryDescriptionVisitor.cpp
 0x00220B04,124,code,,,-,W=Code/GameEngine/Source/GameClient/ArmySummaryDescription.cpp,Code/GameEngine/Source/GameClient/ArmySummaryDescription.cpp
 0x00220B80,151,code,,,-,W=Code/GameEngine/Source/GameClient/ArmySummaryDescription.cpp,Code/GameEngine/Source/GameClient/ArmySummaryDescription.cpp
 0x00220C17,63,code,,,-,,Code/GameEngine/Source/GameLogic/Object/LocomotorStoreVectorDtor.cpp
