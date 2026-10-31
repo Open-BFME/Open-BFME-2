@@ -97,6 +97,7 @@ import datetime
 import hashlib
 import io
 import json
+import os
 import random
 import re
 import subprocess
@@ -624,7 +625,38 @@ class Lane:
 
     # ------------------------------------------------------------ refusals
 
-    def problem(self, kind, old, new, file_words):
+    def collision_scope(self, rel, kind, scope, old):
+        if kind == "member":
+            return scope
+        if kind == "function":
+            row = next((r for r in self.ledger().get(rel, ())
+                        if rename._rva(r.get("target_rva")) == rename._rva(scope)), None)
+            function = rename.scope_of(row["name"]) if row else None
+            return function.rsplit("::", 1)[0] if function and "::" in function else None
+        return None
+
+    def collision_words(self, rel, kind, scope, old, text=None):
+        """Conservative words visible in this class, including method bodies.
+
+        Other classes may reuse member names. Same-class uses, globals, macros
+        and uncertain class scopes still block; apply performs capture checks.
+        """
+        code = name_metric.strip(self.text(rel) if text is None else text)
+        owner = self.collision_scope(rel, kind, scope, old)
+        bodies = rename.class_bodies(code, owner) if owner else []
+        if not bodies:
+            return set(name_metric.WORD.findall(code))
+        words = set(name_metric.global_names(code)) | set(MACRO.findall(code))
+        for directive in DIRECTIVE.findall(code):
+            words.update(name_metric.WORD.findall(directive))
+        for start, end in bodies:
+            words.update(name_metric.WORD.findall(code[start:end]))
+        for function, start, end, _params in name_metric.functions_in(code):
+            if function.split("#")[0].rsplit("::", 1)[0] == owner:
+                words.update(name_metric.WORD.findall(code[start:end]))
+        return words
+
+    def problem(self, kind, old, new, file_words, *, rel=None, scope="", text=None):
         """Why `new` may not be voted for `old`, or None (BFME 1's problem())."""
         if not re.fullmatch(r"[A-Za-z_]\w*", new or "") or new in name_metric.KEYWORDS:
             return "not a C++ identifier"
@@ -640,6 +672,8 @@ class Lane:
             return "params and locals are camelCase"
         if kind == "class" and self.type_definers(new) and not self.header_type(new):
             return f"{new} is another file's stand-in, not a class any header declares"
+        if rel is not None and kind in ("member", "function"):
+            file_words = self.collision_words(rel, kind, scope, old, text)
         if kind in NAMED and new in file_words:
             return "collides with a name already in the file"
         return None
@@ -832,7 +866,11 @@ Write your answer with a file-writing tool, never inline in a shell command
 (other sessions can read command lines). If a stand-in type IS a real class
 that a game or Zero Hour header declares, answer that class's name.
 
-Write a JSON object mapping each key below to a name or "skip", then run:
+Write a JSON object mapping each key below to a name or "skip", then check it
+before recording votes:
+  python3 tools/name_lane.py validate ANSWER.json --session {session} --model {model}
+Revise only rejected answers once using the reported reasons and declarations;
+use "skip" if still uncertain. Validation records no votes. Then run:
   python3 tools/name_lane.py submit <that file> --session {session} --model {model}
 
 For a function, class, member or global, a structured answer may give the
@@ -858,6 +896,66 @@ structured form or skip if you cannot justify its meaning.
 """ + ("\n".join(evidence) or "  (none)") + "\n"
 
 
+class PickerCache:
+    """Cache expensive ownership discovery, never votes, claims or apply checks."""
+    def __init__(self, lane):
+        self.lane = lane
+        self.path = lane.path(f"{LANE_DIR}/picker-cache.json")
+        self.stamp = self.snapshot()
+        self.hits = self.misses = 0
+        try:
+            saved = json.loads(self.path.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            saved = {}
+        self.entries = saved.get("entries", {}) if isinstance(saved, dict) and self.stamp and saved.get("stamp") == self.stamp else {}
+        if not isinstance(self.entries, dict):
+            self.entries = {}
+        self.updates = {}
+
+    def snapshot(self):
+        return _input_fingerprint(self.lane, (), "picker-cache-v1",
+                                  exclude=(VOTES, MEANINGS, RESOLUTIONS),
+                                  scope_paths=("Code", "reference", "tools", "reverse", "build.sh", ".gitmodules"),
+                                  nested_scope=("game", rename.ZH_TREE))
+
+    def items(self, rel, text):
+        sha = hashlib.sha256(text.encode("utf-8", "surrogateescape")).hexdigest()
+        row = self.entries.get(rel, {})
+        if (isinstance(row, dict) and row.get("sha") == sha and isinstance(row.get("items"), list)
+                and all(isinstance(item, list) and len(item) == 4 and item[0] in KINDS
+                        and all(isinstance(value, str) for value in item[:3])
+                        for item in row["items"])):
+            self.hits += 1
+            return [tuple(item) for item in row["items"]]
+        self.misses += 1
+        items = self.lane.owned(rel, text)
+        if self.stamp:
+            self.updates[rel] = dict(sha=sha, items=items)
+        return items
+
+    def save(self):
+        if not self.updates or not self.stamp or self.snapshot() != self.stamp:
+            return
+        from portable_lock import lock, unlock
+        self.path.parent.mkdir(parents=True, exist_ok=True)
+        with self.path.with_suffix(".lock").open("a") as handle:
+            lock(handle, exclusive=True)
+            try:
+                try:
+                    saved = json.loads(self.path.read_text(encoding="utf-8"))
+                except (OSError, ValueError):
+                    saved = {}
+                entries = saved.get("entries", {}) if isinstance(saved, dict) and saved.get("stamp") == self.stamp else {}
+                if not isinstance(entries, dict):
+                    entries = {}
+                entries.update(self.updates)
+                temporary = self.path.with_suffix(f".{os.getpid()}.tmp")
+                temporary.write_text(json.dumps(dict(stamp=self.stamp, entries=entries)), encoding="utf-8")
+                os.replace(temporary, self.path)
+            finally:
+                unlock(handle)
+
+
 @claims.pick_snapshot()
 def cmd_next(lane, args):
     timing_start = time.perf_counter()
@@ -873,6 +971,9 @@ def cmd_next(lane, args):
     max_keys = getattr(args, "max_keys", None)
     if max_keys is not None and max_keys < 1:
         fail("--max-keys must be positive")
+    max_chars = getattr(args, "max_chars", None)
+    if max_chars is not None and max_chars < 1:
+        fail("--max-chars must be positive")
     session, model = session_id(args.session), model_id(args.model)
     worker = lane.worker()
     state = lane.state()
@@ -920,6 +1021,13 @@ def cmd_next(lane, args):
     selected = None
     selected_review = None
     selected_meaning = None
+    cache = PickerCache(lane)
+    packet_targets, packet_sources = [], []
+    if max_chars is not None:
+        for rel, entry in current["files"].items():
+            packet_sources.append(dict(file=rel, source=lane.text(rel) or ""))
+            packet_targets.extend(dict(key=key_of(rel, *i[:3]), kind=i[0], scope=i[1],
+                                       placeholder=i[2], rva=i[3]) for i in entry["items"])
     def key_count():
         return (sum(len(entry["items"]) for entry in current["files"].values())
                 + sum(sum(entry["kinds"].values()) for entry in metadata))
@@ -938,7 +1046,7 @@ def cmd_next(lane, args):
         text = lane.text(rel)
         if text is None or len(text) > MAX_CHARS:
             continue
-        items = [i for i in lane.owned(rel, text)
+        items = [i for i in cache.items(rel, text)
                  if (not selected_keys or key_of(rel, *i[:3]) in selected_keys) and needs_review(key_of(rel, *i[:3]), state, tally, refused)
                  and (worker not in {w for v in tally[key_of(rel, *i[:3])].values() for w in v}
                       or key_of(rel, *i[:3]) in clarifications.get(rel, ()))]
@@ -961,6 +1069,19 @@ def cmd_next(lane, args):
             items = items[:max(0, remaining)]
         if len(items) < (1 if voted[rel] or args.file or requested_files or explicit_review else 3):
             continue
+        targets = [dict(key=key_of(rel, *i[:3]), kind=i[0], scope=i[1], placeholder=i[2], rva=i[3])
+                   for i in items]
+        source = dict(file=rel, source=text)
+        if max_chars is not None:
+            while targets and len(json.dumps(dict(targets=packet_targets + targets,
+                    sources=packet_sources + [source]), ensure_ascii=True)) > max_chars:
+                targets.pop()
+                items.pop()
+            if not items:
+                print(f"name_lane: {rel}: no target fits --max-chars {max_chars}; left pending", file=sys.stderr)
+                continue
+        packet_targets.extend(targets)
+        packet_sources.append(source)
         if selected_review is None:
             selected_review = review
             selected_meaning = meaning_review
@@ -980,6 +1101,7 @@ def cmd_next(lane, args):
     if args.list_only:
         print(json.dumps(metadata, indent=1))
         return 0
+    cache.save()
     if not served:
         print(f"name_lane: no file is left for session {session} to name.")
         return 0
@@ -1006,6 +1128,7 @@ def cmd_next(lane, args):
         claims=round(claims_done-queue_done, 3),
         selection=round(selection_done-claims_done, 3),
         brief=round(time.perf_counter()-selection_done, 3),
+        cache_hits=cache.hits, cache_misses=cache.misses,
         total=round(time.perf_counter()-timing_start, 3))))
     if len(served) > 1:
         print("name_lane: answer {\"<file>\": {<key>: <name>|\"skip\"}, ...} for several files")
@@ -1014,7 +1137,20 @@ def cmd_next(lane, args):
 
 # ---------------------------------------------------------------- submit
 
-def cmd_submit(lane, args, *, lead=2, min_models=1, verify=rename.build_verify, checks=rename.ledger_checks):
+def cmd_validate(lane, args):
+    """Check the exact submission path without votes, approvals or session edits."""
+    report = cmd_submit(lane, args, validate_only=True)
+    path = Path(getattr(args, "report", None) or lane.path(f"{LANE_DIR}/validation/{args.session}.json"))
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+    print(f"name_lane: validation: {len(report['valid'])} valid, {len(report['rejected'])} rejected; {path}")
+    for row in report["rejected"]:
+        print(f"  {row['key']}: {row['reason']}")
+    return 1 if report["rejected"] else 0
+
+
+def cmd_submit(lane, args, *, lead=2, min_models=1, verify=rename.build_verify, checks=rename.ledger_checks,
+               validate_only=False):
     apply_ready = getattr(args, "apply_ready", None)
     if apply_ready is not None and (apply_ready < 1 or getattr(args, "max_files", 25) < 1):
         fail("--apply-ready and --max-files must be positive")
@@ -1040,11 +1176,16 @@ def cmd_submit(lane, args, *, lead=2, min_models=1, verify=rename.build_verify, 
     tally, state, refused = lane.tally(), lane.state(), lane.disputed()
     now = datetime.date.today().isoformat()
     votes, meanings, agreed, rejected, local_proposals = [], [], [], [], []
+    invalid = []
     for rel, mapping in answers.items():
         entry = files[rel]
         text = lane.text(rel) or ""
         if hashlib.sha256(text.encode("utf-8", "surrogateescape")).hexdigest() != entry["sha"]:
             rejected.append(f"{rel}: changed since `next` served it; run `next` again")
+            invalid.extend(dict(key=key_of(rel, *item[:3]), file=rel,
+                                answer_key=answer_key(*item[:3]), reason="source changed; serve it again",
+                                retryable=False) for item in entry["items"]
+                           if answer_key(*item[:3]) in mapping)
             continue
         items = [tuple(i) for i in entry["items"]]
         unknown = set(mapping) - {answer_key(k, s, i) for k, s, i, _ in items}
@@ -1070,6 +1211,8 @@ def cmd_submit(lane, args, *, lead=2, min_models=1, verify=rename.build_verify, 
                     proposal = proposal["name"]
                 except (ValueError, TypeError) as exc:
                     rejected.append(f"{answer_key(kind, scope, ident)}: {exc}")
+                    invalid.append(dict(key=key_of(rel, kind, scope, ident), file=rel,
+                        answer_key=answer_key(kind, scope, ident), reason=str(exc), retryable=True))
                     continue
             answer = str(proposal).strip()
             if answer.lower() == "skip":
@@ -1079,10 +1222,12 @@ def cmd_submit(lane, args, *, lead=2, min_models=1, verify=rename.build_verify, 
             already = worker in {w for v in tally[key].values() for w in v}
             annotate = (already and meaning and worker in tally[key].get(h, {})
                         and not tally.meanings[key].get((h, worker)))
-            why = lane.eligibility(rel, kind, scope, ident, rva) or lane.problem(kind, ident, answer, file_words)
+            why = lane.eligibility(rel, kind, scope, ident, rva) or lane.problem(
+                kind, ident, answer, file_words, rel=rel, scope=scope, text=text)
             if not why and kind == "class" and lane.ctx.grep_files(answer, word=True):
                 why = f"{answer} already exists; reconcile declarations before a class rename"
-            if not why and kind in NAMED and canon(answer) in taken:
+            name_scope = lane.collision_scope(rel, kind, scope, ident) or ""
+            if not why and kind in NAMED and (name_scope, canon(answer)) in taken:
                 why = "the same name as another placeholder in this file"
             if not why and canon(answer) in refused.get(key, ()):
                 why = "disputed for this key"
@@ -1090,9 +1235,11 @@ def cmd_submit(lane, args, *, lead=2, min_models=1, verify=rename.build_verify, 
                 why = "this worker already voted on it (under some session label)"
             if why:
                 rejected.append(f"{answer_key(kind, scope, ident)} -> {answer}: {why}")
+                invalid.append(dict(key=key, file=rel, answer_key=answer_key(kind, scope, ident),
+                                    name=answer, reason=why, retryable=not already))
                 continue
             if kind in NAMED:
-                taken.add(canon(answer))
+                taken.add((name_scope, canon(answer)))
             if annotate:
                 vote = next(v for v in reversed(prior_votes)
                             if v["key"] == key and v["hash"] == h and v["worker"] == worker)
@@ -1118,6 +1265,9 @@ def cmd_submit(lane, args, *, lead=2, min_models=1, verify=rename.build_verify, 
                 row["detail"] = approval_detail(tally, refused, row)
                 agreed.append(row)
                 state[key] = row
+    if validate_only:
+        return dict(session=session, valid=[v["key"] for v in votes], rejected=invalid,
+                    proposed=len(votes) + len(invalid), rejection_messages=rejected)
     lane.append(VOTES, VOTE_COLUMNS, votes)
     lane.append(MEANINGS, MEANING_COLUMNS, meanings)
     lane.append(AGREED, AGREED_COLUMNS, agreed)
@@ -1386,7 +1536,8 @@ def approval_claim_keys(row):
 APPLY_BLOCKERS = f"{LANE_DIR}/apply_blockers.json"
 
 
-def _input_fingerprint(lane, paths, new, *, max_files=25, compiler_state=None):
+def _input_fingerprint(lane, paths, new, *, max_files=25, compiler_state=None, exclude=(),
+                       scope_paths=None, nested_scope=None):
     """Conservative tracked, untracked and compiler-input snapshot.
 
     Broader invalidation is preferable to suppressing a retry after a header,
@@ -1394,9 +1545,11 @@ def _input_fingerprint(lane, paths, new, *, max_files=25, compiler_state=None):
     """
     digest = hashlib.sha256()
     def repository(root):
-        scope = ("--", ".", ":(exclude)build")
+        selected_scope = scope_paths if root == lane.root else nested_scope
+        scope = ("--", *(selected_scope if selected_scope is not None else (".",)), ":(exclude)build")
         if root == lane.root:
             scope += (f":(exclude){AGREED}",)
+            scope += tuple(f":(exclude){rel}" for rel in exclude)
         index = b""
         for command in (("ls-files", "--stage", "-z"), ("diff", "--binary", "--no-ext-diff", "--no-textconv")):
             result = subprocess.run(["git", "-C", str(root), *command, *scope], capture_output=True)
@@ -1642,7 +1795,8 @@ def cmd_resolve(lane, args):
         fail("the placeholder is no longer owned by this source")
     rva = owned[key]
     why = lane.eligibility(rel, kind, scope, old, rva) or lane.problem(
-        kind, old, chosen, set(name_metric.WORD.findall(name_metric.strip(text))))
+        kind, old, chosen, set(name_metric.WORD.findall(name_metric.strip(text))),
+        rel=rel, scope=scope, text=text)
     if not why and kind == "class" and lane.ctx.grep_files(chosen, word=True):
         why = f"{chosen} already exists; reconcile declarations before a class rename"
     if why:
@@ -1971,6 +2125,7 @@ def main(argv=None, lane=None):
     n.add_argument("--mixed", action="store_true", help="retain the shuffled multi-subsystem queue")
     n.add_argument("--key", action="append", help="serve only this exact source|kind|scope|placeholder key")
     n.add_argument("--max-keys", type=int, help="maximum keys in the entire served batch")
+    n.add_argument("--max-chars", type=int, help="maximum JSON review packet size across the served sources")
     n.add_argument("--review-only", action="store_true", help="serve only shared names needing a different second voter")
     n.add_argument("--meaning-review-only", action="store_true", help="clarify your own unannotated scoped votes in disputes")
     n.add_argument("--list-only", action="store_true",
@@ -1981,6 +2136,11 @@ def main(argv=None, lane=None):
     s.add_argument("--model", required=True)
     s.add_argument("--apply-ready", type=int, metavar="N", help="verify and apply at most N newly approved keys after recording votes")
     s.add_argument("--max-files", type=int, default=25, help="affected-source bound when --apply-ready is used")
+    v = sub.add_parser("validate", help="check proposals before voting; leave the session and ledgers intact")
+    v.add_argument("answer")
+    v.add_argument("--session", required=True)
+    v.add_argument("--model", required=True)
+    v.add_argument("--report", help="local JSON rejection report (default build/name_lane/validation/SESSION.json)")
     for p in (s,):
         p.add_argument("--lead", type=int, default=2, help="votes the name must lead every rival by")
         p.add_argument("--min-models", type=int, default=1, help="distinct models among the agreeing workers")
@@ -2037,6 +2197,8 @@ def main(argv=None, lane=None):
         return cmd_next(lane, args)
     if args.cmd == "submit":
         return cmd_submit(lane, args, lead=args.lead, min_models=args.min_models)
+    if args.cmd == "validate":
+        return cmd_validate(lane, args)
     if args.cmd == "apply":
         return cmd_apply(lane, args)
     if args.cmd == "resolve":

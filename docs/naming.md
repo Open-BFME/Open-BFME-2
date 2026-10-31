@@ -941,3 +941,37 @@ No reviewer commits or pushes. Inspect `review status` and the local
 stops automatic launches and the active reviewer before its next batch.
 `--apply-ready N` is a total apply bound across the run, not per batch.
 Installation without configuration stays proposal-only.
+
+### Validate proposals before voting
+
+Run `python3 tools/name_lane.py validate ANSWER.json --session S --model M`
+after writing proposals. It uses submission's source, eligibility, spelling,
+collision and prior-vote checks, writes a local JSON report under
+`build/name_lane/validation/`, and leaves votes, approvals and the served session
+intact. Revise rejected answers once from their source and rejection reasons;
+skip any that remain uncertain, then submit the final answer file normally.
+Submission validates again against current inputs.
+
+Member and method collision checks consider their own class and method bodies,
+globals and preprocessor directives. An unrelated class may reuse a spelling.
+Same-scope collisions and ambiguous ownership remain blocked. These are voting
+prechecks: the rename planner still checks captures, inherited declarations,
+cross-file consumers, claims and byte verification before applying any name.
+
+The automatic reviewer validates its blind answers before recording its vote.
+Invalid answers get one isolated revision containing only its own proposal,
+the rejection reason and source. Valid answers are retained. The original
+proposer's names remain hidden until the reviewer's final blind vote is fixed.
+Revision reports live under the review job's `validation.json` and `revision/`.
+
+Review packets normally fill the configured key and character budgets across
+as many eligible files as fit. `review --strict-count` makes `--count` a hard
+file limit. Oversized groups are split while selecting, rather than failing
+after preparing an oversized packet. `next --max-chars N` exposes the same
+packet bound for manual selection.
+
+Repeated picks reuse expensive ownership discovery from a local picker cache
+when repository and reference inputs are unchanged. Sources, headers, ledgers,
+tooling and reference worktree changes invalidate it; naming votes and reviewed
+acceptances are read fresh. Claims are refreshed on every pick. Submission and
+application always run their ordinary current-input checks.
