@@ -819,12 +819,6 @@ static const Rva0057A685Entry s_table[3] = {
 
 AsciiString __cdecl Rva00222834Get(int val);
 
-class Rva00222A8BTarget
-{
-public:
-	int rva00222B19(void *level, const char *prefix, const char *function, int argc, const char *a0, void *a1, void *a2, void *a3, void *a4);
-};
-
 // WorldBuilder StrategicHUD::ParseRowNum, WB VA 0x014C10A0 (callgraph lead, score 1.0).
 namespace StrategicHUD {
 bool __cdecl ParseRowNum(const char *s, int *out)
@@ -1146,14 +1140,6 @@ private:
 	void *m_key;
 };
 
-// --- 0x0059AE72 (34B): with a positive +0x0C amount, the rowed 0x0041950A
-// check of the +0x2C template's auto-resolve weapon for the +0x08 object.
-class ThingTemplate
-{
-public:
-	void *getCurrentLivingWorldAutoResolveWeapon(const void *key) const;	// 0x0033A9E2
-};
-
 class Rva004194D6
 {
 public:
@@ -1434,7 +1420,341 @@ struct Rva0057A4BAWord {char prefix[0x34]; unsigned int word;};
 
 class Rva0057A4BA {public: int rva0057A4BA(); private: char prefix[0x48]; Rva0057A4BAWord *entry; unsigned int word;};
 
+// 0x00490628: false while +0x98 is set, else the rowed
+// SpecialAbilityUpdate::continuePreparation (slot 16) it overrides.
+class SpecialAbilityUpdate
+{
+public:
+	virtual bool continuePreparation();
+};
+
+class Rva00490628 : public SpecialAbilityUpdate
+{
+public:
+	virtual bool rva0044FC52();
+private:
+	char m_pad04[0x94];
+	bool m_98;
+};
+
+ 
+ 
+class ThingTemplate
+{
+public:
+	void *getCurrentLivingWorldAutoResolveWeapon(const void *key) const;
+public:
+	void GetAssetList(Int a, Int b);
+};
+
+class ThingFactory
+{
+public:
+	const ThingTemplate *findTemplate(const AsciiString &name);
+};
+
+extern ThingFactory *TheThingFactory;
+
+class Rva0050B95B
+{
+public:
+	void rva0050B95B(Int a, Int b);
+private:
+	char m_pad00[0x12C];
+	Int m_12C;
+};
+
+// 0x0050BDD5: own virtual slot 6 with the argument and the +0x38 member of
+// the second argument, when there is one.
+struct Rva0050BDD5Arg
+{
+	char m_pad00[0x38];
+	Int m_38;
+};
+
+class FireLogicNugget
+{
+public:
+	virtual void v00();
+	virtual void v01();
+	virtual void v02();
+	virtual void v03();
+	virtual void v04();
+	virtual void v05();
+	virtual void v06(Int a, Int *b);
+	void doEffectObject(Int a, Rva0050BDD5Arg *b);
+};
+
+// 0x005101C0: 1 when the +0x24 object's rowed 0x0050FF7F answers 1, else 0.
+class GameWindow;
+
+class Rva0050F5A6
+{
+public:
+	Int rva0050FF7F(UnsignedInt a, GameWindow *w, UnsignedInt b);
+	void rva0050FFC0();
+};
+
+class Rva005101C0
+{
+public:
+	Int rva005101C0(UnsignedInt a, GameWindow *w, UnsignedInt b);
+	void rva005101E2();
+private:
+	char m_pad00[8];
+	void *m_level;
+	AsciiString m_prefix;
+	char m_pad10[0x20 - 0x10];
+	bool m_enabled;
+	char m_pad21[3];
+	Rva0050F5A6 *m_24;
+};
+
+// 0x005117B7: message 0x15 with byte argument 1 and bit 0 of the third runs
+// the rowed 0x00511730 with 0 and answers 1; else 0.
+void Rva00511730(Int a);
+
+class Rva005117B7
+{
+public:
+	Int rva005117B7(Int msg, unsigned char b, Int c);
+};
+
+// 0x005127F3: messages 0x4014 and 0x4031 answer 1; the rest go to the pinned
+// base handler.
+class _bfme_AptGameWindow
+{
+public:
+	Int rva0051274F(Int msg, UnsignedInt a, UnsignedInt b);
+};
+
+class Rva005127F3 : public _bfme_AptGameWindow
+{
+public:
+	Int rva005127F3(Int msg, UnsignedInt a, UnsignedInt b);
+};
+
+class Rva00222A8BTarget
+{
+public:
+	int rva00222B19(void *level, const char *prefix, const char *function, int argc, const char *a0, void *a1, void *a2, void *a3, void *a4);
+public:
+	void rva00222F55(bool b);
+};
+
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
+
+struct Rva00514878Flags
+{
+	char m_pad00[0x5D];
+	bool m_5D;
+};
+
+extern class Shell *TheShell;
+
+class Rva00514878
+{
+public:
+	void rva00514878();
+private:
+	char m_pad00[0x288];
+	Int m_288;
+};
+
+// 0x0051E2FB: state 1 at +0x27C runs virtual slot 9 of the object at VA
+// 0x00DFDC14 and clears; answers 1.
+class Rva0051E2FBTarget
+{
+public:
+	virtual void v00();
+	virtual void v01();
+	virtual void v02();
+	virtual void v03();
+	virtual void v04();
+	virtual void v05();
+	virtual void v06();
+	virtual void v07();
+	virtual void v08();
+	virtual void v09();
+};
+
+extern class GameWindowTransitionsHandler *TheTransitionHandler;
+
+class Rva0051E2FB
+{
+public:
+	Int rva0051E2FB();
+private:
+	char m_pad00[0x27C];
+	Int m_27C;
+};
+
+// 0x0053ECAC: clears (true) or sets (false) status 0x200 of window i of the
+// +0x3C array. A virtual: slot 3 of RadialWindowController's vtable
+// 0x00C6944C, as in WorldBuilder's twin table.
+class GameWindow
+{
+public:
+	UnsignedInt winSetStatus(UnsignedInt status);
+	UnsignedInt winClearStatus(UnsignedInt status);
+};
+
+class RadialWindowController
+{
+public:
+	virtual void EnableButtonInput(Int i, bool clear);
+private:
+	char m_pad04[0x38];
+	GameWindow **m_3C;
+};
+
+// 0x00540131 and 0x005411A3: overrides of the rowed chunk writer 0x0053F8E9
+// that chain to it and then write their members.
+class DataChunkOutput;
+
+class Rva0053FB33
+{
+public:
+	virtual void rva0053F8E9(DataChunkOutput *out);
+};
+
+class Rva0053FF1D
+{
+public:
+	void rva0053FF1D(DataChunkOutput *out);
+};
+
+class Rva00540F0B
+{
+public:
+	void rva00540F0B(DataChunkOutput *out);
+};
+
+class Rva00540F4D
+{
+public:
+	void rva00540F4D(DataChunkOutput *out);
+};
+
+class Rva00540131 : public Rva0053FB33
+{
+public:
+	virtual void rva0053F8E9(DataChunkOutput *out);
+private:
+	char m_pad04[0x20];
+	Rva0053FF1D m_24;
+};
+
+class Rva005411A3 : public Rva0053FB33
+{
+public:
+	virtual void rva0053F8E9(DataChunkOutput *out);
+private:
+	char m_pad04[0x20];
+	Rva00540F0B m_24;
+	char m_pad25[0x1F];
+	Rva00540F4D m_44;
+};
+
+// 0x00541F02: hands this object to virtual slot 1 of the argument.
+class Rva00541F02;
+
+class Rva00541F02Visitor
+{
+public:
+	virtual void v00();
+	virtual void v01(Rva00541F02 *o);
+};
+
+class Rva00541F02
+{
+public:
+	void rva00541F02(Rva00541F02Visitor *visitor);
+};
+
+// 0x005450B5 and 0x005451F3: clear model-condition bit 256 (resp. 257) of
+// the object reached through +0x18/+0x14 (the word array at Object+0x10C, as
+// in ObjectWeaponSetFlags.cpp) and notify it through the pinned 0x0028AE6D.
+class Rva0010CConditionBits
+{
+public:
+	UnsignedInt test(UnsignedInt bit) const
+	{
+		return m_words[bit >> 5] & (1U << (bit & 0x1f));
+	}
+	void clear(UnsignedInt bit)
+	{
+		m_words[bit >> 5] &= ~(1U << (bit & 0x1f));
+	}
+private:
+	UnsignedInt m_words[20];
+};
+
+class Object
+{
+public:
+	void rva0028AE6D();
+	char m_pad00[0x10C];
+	Rva0010CConditionBits m_conditionBits; // +0x10C
+};
+
+struct Rva005450B5Holder
+{
+	char m_pad00[0x14];
+	Object *m_14;
+};
+
+class Rva005450B5
+{
+public:
+	void rva005450B5(Int unused);
+	void onExit(Int unused);
+private:
+	char m_pad00[0x18];
+	Rva005450B5Holder *m_18;
+};
+
+// 0x00545222: whether the +0x04 object's +0x04 count (999999 without the
+// object) is zero.
+struct Rva00545222Info
+{
+	Int m_00;
+	Int m_04;
+};
+
+class Rva00545222
+{
+public:
+	bool rva00545222() const;
+private:
+	Int m_00;
+	Rva00545222Info *m_04;
+};
+
+// 0x0057A4C9: the rowed 0x005D4BD4 with 0.0 on the +0x28 object, when there
+// is one.
+class Rva005D4BD4
+{
+public:
+	void rva005D4BD4(float f);
+};
+
+class Rva0057A4C9
+{
+public:
+	void rva0057A4C9();
+private:
+	char m_pad00[0x28];
+	Rva005D4BD4 *m_28;
+};
+
+bool canPlayersTransferMoneyYet();
+
+int Rva005FB5E6AptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, const char *a0);
+
 // tu-skeleton: 0x00579674 2B ?GetBonusRowNum@StrategicHUD@@YAHH@Z -- matched in Code/GameEngine/Source/Common/Rva00579AB7Dtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/StrategicHUD.cpp
 
 // ---- from Code/GameEngine/Source/Common/StrategicHUD.cpp
 
@@ -2085,6 +2405,47 @@ Rva0057A433::Rva0057A433(Rva005D1A79DwordCounter *const *record, int unused) : m
 // derived from its address.
 // No // cl: line (defaults match the frameless four-byte shape).
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---- from Code/GameEngine/Source/Common/VslotSmallBodiesF.cpp
+
+int Rva0057A4BA::rva0057A4BA() {return (entry->word-word) ?0:1;}
+
 // tu-skeleton: 0x005796FC 53B ??1Rva005796FC@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_stringrecord_b94d2_allocate_copy.cpp (not merged yet)
 
 // tu-skeleton: 0x00579731 63B ??1Rva00579731@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00579731Dtor.cpp (not merged yet)
@@ -2159,11 +2520,13 @@ Rva0057A433::Rva0057A433(Rva005D1A79DwordCounter *const *record, int unused) : m
 
 // tu-skeleton: 0x0057A455 28B ??_GRva0057A2B0@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0057A2B0Dtor.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/VslotSmallBodiesF.cpp
+// ---- from Code/GameEngine/Source/Common/VslotSmallBodiesS.cpp
 
-int Rva0057A4BA::rva0057A4BA() {return (entry->word-word) ?0:1;}
-
-// tu-skeleton: 0x0057A4C9 19B ?rva0057A4C9@Rva0057A4C9@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesS.cpp (not merged yet)
+void Rva0057A4C9::rva0057A4C9()
+{
+	if (m_28)
+		m_28->rva005D4BD4(0.0f);
+}
 
 // tu-skeleton: 0x0057A4DC 11B ?OnScrollBarUnloaded@ChecklistUIImpl@StrategicHUD@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/AptWotrPanelCallbacks.cpp (not merged yet)
 

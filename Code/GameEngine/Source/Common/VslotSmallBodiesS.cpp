@@ -423,11 +423,6 @@ private:
 	char m_pad00[0x28];
 	Rva005D4BD4 *m_28;
 };
-void Rva0057A4C9::rva0057A4C9()
-{
-	if (m_28)
-		m_28->rva005D4BD4(0.0f);
-}
 
 class Rva00222A8BTarget;
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
