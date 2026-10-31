@@ -916,7 +916,211 @@ public:
 	bool m_second;
 };
 
+typedef float Real;
+
+template <int N> class VslotPad : public VslotPad<N - 1>
+{
+public:
+	virtual void pad(char (*)[N]);
+};
+
+template <> class VslotPad<0>
+{
+public:
+	virtual void pad0();
+};
+
+// vtable 0x00BC55B0#9: own slot 14 with 1.
+class MilesAudioManager : public VslotPad<8>
+{
+public:
+	virtual void reset();
+	virtual void update();
+	virtual bool vslot11(Int);
+	virtual void vslot12();
+	virtual void vslot13(Int);
+	virtual void rva00061C87(unsigned int value);
+};
+
+// vtable 0x00C10F40#16: own slot 5 with 1.
+class Rva00340744 : public VslotPad<4>
+{
+public:
+	virtual void slot5(Int value);
+	void rva00340744();
+};
+
+// vtable 0x00C16510#6 and 0x00C1661C#6: own slot 2 with 6 and with 8.
+class Rva0035E2DE : public VslotPad<1>
+{
+public:
+	virtual void slot2(Int value);
+	void rva0035E2DE();
+};
+
+class Rva0035EE5E : public VslotPad<1>
+{
+public:
+	virtual void slot2(Int value);
+	void rva0035EE5E();
+};
+
+// vtable 0x00C163D8#6: own slot 2 with the field at +0x14.
+class Rva0035D1E7 : public VslotPad<1>
+{
+public:
+	virtual void slot2(Int value);
+	void rva0035D1E7();
+private:
+	char m_pad04[0x14 - 0x04];
+	Int m_14;
+};
+
+// vtable 0x00C02114#7: own slot 3, its one stack argument unused.
+class Rva002C941C : public VslotPad<2>
+{
+public:
+	virtual void slot3();
+	void rva002C941C(Int unused);
+};
+
+// vtable 0x00BC7F20#4: own slot 10 with the field at +0x48 plus one.
+class Rva00090F72 : public VslotPad<9>
+{
+public:
+	virtual void slot10(Int value);
+	void rva00090F72();
+	Bool rva00090F7D();
+private:
+	char m_pad04[0x3C - 0x04];
+	Int m_3C;
+	char m_pad40[0x48 - 0x40];
+	Int m_48;
+};
+
+// vtable 0x00BC8208#15: is the field at +0xC0 set.
+class Rva00094DA8
+{
+public:
+	Bool rva00094DA8();
+private:
+	char m_pad00[0xC0];
+	void *m_C0;
+};
+
+// vtable 0x00C112C0#9: own slot 8 negated, as an Int.
+class Rva0034B167 : public VslotPad<7>
+{
+public:
+	virtual Bool slot8();
+	Int rva0034B167();
+};
+
+// vtable 0x00C6DAF0#1: the cdecl function at +8 with the stack argument.
+class Rva00380A75
+{
+public:
+	void rva00380A75(Int value);
+private:
+	char m_pad00[0x08];
+	void (__cdecl *m_function08)(Int);
+};
+
+// vtable 0x00BC89C8#23 and 0x00BF6178#24: own slot 21 with the first of
+// two and of six stack arguments.
+class Rva0009B0AB : public VslotPad<20>
+{
+public:
+	virtual void slot21(Int value);
+	void rva0009B0AB(Int value, Int unused);
+};
+
+class Rva0025EEF5 : public VslotPad<20>
+{
+public:
+	virtual void slot21(Int value);
+	void rva0025EEF5(Int value, Int, Int, Int, Int, Int);
+};
+
+// The partition filter base (ctor 0x000421C8, vftable 0x00BC26E0).
+class Object;
+
+class Rva000421C8
+{
+public:
+	virtual ~Rva000421C8();
+	virtual bool allow(Object *obj) = 0;
+	virtual int getPlayerMask();
+	Rva000421C8 *m_next;
+};
+
+// vtable 0x00C1FDE0#2: the field at +8, complemented unless the byte at +0xC.
+class Rva002613AFFilter : public Rva000421C8
+{
+public:
+	virtual Int getPlayerMask();
+private:
+	Int m_08;
+	Bool m_0C;
+};
+
+// vtable 0x00C07190#1: does the stack argument differ from +8.
+class Rva002614DFFilter : public Rva000421C8
+{
+public:
+	virtual Bool allow(Object *value);
+private:
+	Object *m_08;
+};
+
+// vtable 0x00BC7568#85: store the float argument at +0x50.
+class Rva0008BB5C
+{
+public:
+	void rva0008BB5C(Real value);
+private:
+	char m_pad00[0x50];
+	Real m_50;
+};
+
+// vtable 0x00BE4340#3: are the two stack arguments equal.
+class Rva003F7133
+{
+public:
+	Bool rva003F7133(Int lhs, Int rhs);
+};
+
+// vtable 0x00BF6040#32 and #33: set or clear the byte at +0x12134 of the
+// object at +0xC, if any.
+class Rva0025DC38Target
+{
+public:
+	char m_pad00[0x12134];
+	Bool m_12134;
+};
+
+class Rva0025DC38
+{
+public:
+	void rva0025DC38();
+	void rva0025DC47();
+private:
+	char m_pad00[0x0C];
+	Rva0025DC38Target *m_0C;
+};
+
+// Independent installed-table and unnamed WB evidence: pointer at receiver-4,
+// raw32-bit words at owner8/C, signed difference divided by88, then unsigned
+// quotient greater than zero. Original owner/container identity is unknown.
+struct Rva004FA66CSpan {unsigned int begin,end;};
+
+struct Rva004FA66COwner {char prefix[8]; Rva004FA66CSpan span;};
+
+class Rva004FA66C {public: int rva004FA66C();};
+
 // tu-skeleton: 0x0025DB6D 65B ??0Network@@QAE@XZ -- matched in Code/GameEngine/Source/Common/NetworkInterfaceConstructor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameNetwork/Network.cpp
 
 // ---- from Code/GameEngine/Source/GameNetwork/Network.cpp
 
@@ -1379,13 +1583,9 @@ UnicodeString Rva0025E4CD::rva0025E406(int pid)
 // from its address.
 // No // cl: line (defaults match the frameless five-byte shape).
 
-// tu-skeleton: 0x0025DBCD 15B ?ParseUserList@Network@@UAEXH@Z -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp (not merged yet)
 
-// tu-skeleton: 0x0025DBFB 13B ?InitTransport@Network@@UAEXXZ -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp (not merged yet)
 
-// tu-skeleton: 0x0025DC08 15B ?InitTransport@Network@@UAEXH@Z -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp (not merged yet)
 
-// tu-skeleton: 0x0025DC17 15B ?rva0025DC17@Rva0025DC17NullForwarder@@QAEHXZ -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp
 
@@ -1408,11 +1608,21 @@ UnicodeString Rva0025E4CD::rva0025E406(int pid)
 // `this` and the inner byte is tested through it (probe-proven; a direct
 // backward cast would fold the two offsets into one read).
 
+// tu-skeleton: 0x0025DBCD 15B ?ParseUserList@Network@@UAEXH@Z -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp (not merged yet)
+
+// tu-skeleton: 0x0025DBFB 13B ?InitTransport@Network@@UAEXXZ -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp (not merged yet)
+
+// tu-skeleton: 0x0025DC08 15B ?InitTransport@Network@@UAEXH@Z -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp (not merged yet)
+
+// tu-skeleton: 0x0025DC17 15B ?rva0025DC17@Rva0025DC17NullForwarder@@QAEHXZ -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp (not merged yet)
+
 // tu-skeleton: 0x0025DC30 8B ?rva0025DC30@Rva0025DC30Forwarder@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotMemberForwarders.cpp (not merged yet)
 
-// tu-skeleton: 0x0025DC38 15B ?rva0025DC38@Rva0025DC38@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesA.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/VslotSmallBodiesA.cpp
 
-// tu-skeleton: 0x0025DC47 15B ?rva0025DC47@Rva0025DC38@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesA.cpp (not merged yet)
+void Rva0025DC38::rva0025DC38() { if (m_0C) m_0C->m_12134 = true; }
+
+void Rva0025DC38::rva0025DC47() { if (m_0C) m_0C->m_12134 = false; }
 
 // tu-skeleton: 0x0025DC56 8B ?rva0025DC56@Rva0025DC56Forwarder@@QAEXHHHH@Z -- matched in Code/GameEngine/Source/Common/VslotMemberForwarders.cpp (not merged yet)
 

@@ -217,8 +217,6 @@ private:
 	char m_pad00[0x0C];
 	Rva0025DC38Target *m_0C;
 };
-void Rva0025DC38::rva0025DC38() { if (m_0C) m_0C->m_12134 = true; }
-void Rva0025DC38::rva0025DC47() { if (m_0C) m_0C->m_12134 = false; }
 
 // Independent installed-table and unnamed WB evidence: pointer at receiver-4,
 // raw32-bit words at owner8/C, signed difference divided by88, then unsigned
