@@ -8,14 +8,7 @@ class Player;
 
 #include "../../../Include/Common/TeamBFME2.h"
 
-class Object
-{
-	char pad[0x304];
-	Team *m_team;
-
-public:
-	Player *getControllingPlayer() const;
-};
+#include "object.h"
 
 Player *Object::getControllingPlayer() const
 {
