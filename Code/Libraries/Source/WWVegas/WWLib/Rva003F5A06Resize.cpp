@@ -11,11 +11,6 @@ struct BfmeAssignRecord104
 	int a[26];
 };
 
-struct Rva003F53DAElement
-{
-	char bytes[104];
-};
-
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
@@ -49,14 +44,16 @@ public:
 	BfmeAssignRecord104 *erase(BfmeAssignRecord104 *first, BfmeAssignRecord104 *last);
 };
 
+// The rowed fill-insert 0x003F53DA is vector<ArmySummary>::_M_fill_insert
+// (StlSweepW4Rva003F53DA.cpp).
 template <>
-class vector<Rva003F53DAElement, allocator<Rva003F53DAElement> >
+class vector<ArmySummary, allocator<ArmySummary> >
 {
 public:
-	Rva003F53DAElement *_M_start;
-	Rva003F53DAElement *_M_finish;
-	Rva003F53DAElement *_M_end_of_storage;
-	void _M_fill_insert(Rva003F53DAElement *pos, unsigned int n, const Rva003F53DAElement &x);
+	ArmySummary *_M_start;
+	ArmySummary *_M_finish;
+	ArmySummary *_M_end_of_storage;
+	void _M_fill_insert(ArmySummary *pos, unsigned int n, const ArmySummary &x);
 };
 }
 
@@ -86,13 +83,13 @@ void Rva003F5A06::rva003F5A06(unsigned int n, ArmySummary val)
 	}
 	else
 	{
-		typedef _STL::vector<Rva003F53DAElement, _STL::allocator<Rva003F53DAElement> > VecB;
+		typedef _STL::vector<ArmySummary, _STL::allocator<ArmySummary> > VecB;
 		VecB *self = (VecB *)this;
 		_ReadWriteBarrier();
-		Rva003F53DAElement *fresh = self->_M_finish;
-		unsigned int cur = (unsigned int)((ArmySummary *)fresh - begin);
+		ArmySummary *fresh = self->_M_finish;
+		unsigned int cur = (unsigned int)(fresh - begin);
 		unsigned int count = n - cur;
-		self->_M_fill_insert(fresh, count, (const Rva003F53DAElement &)val);
+		self->_M_fill_insert(fresh, count, val);
 	}
 }
 
