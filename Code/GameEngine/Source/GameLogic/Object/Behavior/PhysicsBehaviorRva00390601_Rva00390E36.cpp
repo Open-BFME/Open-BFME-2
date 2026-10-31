@@ -22,9 +22,9 @@ class Rva003909FAObj
 {
 public:
 	void consume(void *force, int source, int weapon);
-	void *m_vtbl;
-	const struct Rva003909FAModuleData *m_moduleData;
-	class Object *m_object;
+	void *m_vtbl; // +0x00
+	const struct Rva003909FAModuleData *m_moduleData; // +0x04
+	class Object *m_object; // +0x08
 };
 
 enum UpdateSleepTime
@@ -109,7 +109,8 @@ extern int BfmeLogicFramesPerSecond;
 class Pathfinder
 {
 public:
-	void AdjustFlingDestination(Object *obj, const Coord3D *from, Coord3D *to);	// row 0x002EE4DE
+	void AdjustFlingDestination(Object *obj, const Coord3D *from, Coord3D *to); // row 0x002EE4DE
+	void AdjustLayer(Object *);
 };
 class AI;
 extern AI *TheAI;

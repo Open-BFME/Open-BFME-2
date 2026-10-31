@@ -194,7 +194,12 @@ void PhysicsBehavior::rva00390E61(bool skipWake)
 
 class GlobalData { public: char pad00[0xC4]; float gravity; };
 extern GlobalData *TheWritableGlobalData;
-class Pathfinder { public: void AdjustLayer(Object *); };
+class Pathfinder
+{
+public:
+	void AdjustFlingDestination(Object *obj, const Coord3D *from, Coord3D *to); // row 0x002EE4DE
+	void AdjustLayer(Object *);
+};
 class AI { public: char pad00[0x10]; Pathfinder *pathfinder; };
 extern AI *TheAI;
 // Select-any like the PhysicsUpdate.cpp donor copy (this retail body comes

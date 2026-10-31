@@ -14,10 +14,15 @@ struct Gen_p12pod
 
 // Existing retail callee name; this is the PhysicsBehavior receiver at
 // 003909FA. Its original method identity is still unresolved.
+struct Rva003909FAModuleData;
+class Object;
 class Rva003909FAObj
 {
 public:
 	void consume(void *force, int source, int weapon);
+	void *m_vtbl; // +0x00
+	const struct Rva003909FAModuleData *m_moduleData; // +0x04
+	class Object *m_object; // +0x08
 };
 
 enum UpdateSleepTime
