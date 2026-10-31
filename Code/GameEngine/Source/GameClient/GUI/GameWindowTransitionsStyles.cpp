@@ -429,12 +429,53 @@ enum
 #define ICOORD2D_VIEW_DEFAULT_CTOR
 #undef ICOORD2D_VIEW_DEFAULT_CTOR
 #include "../../../../Libraries/Include/Lib/IRegion2D.h"
+#define BFME_PAIR_SETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		void set(Int a, Int b); \
+		char m_lead[DISP]; \
+		Int m_a; \
+		Int m_b; \
+	}; \
+	void NAME::set(Int a, Int b) \
+	{ \
+		m_a = a; \
+		m_b = b; \
+	}
+#define BFME_CONST_ARG_CALL(HOST, SLOT, CALLEE, VALUE) \
+	class HOST \
+	{ \
+	public: \
+		void SLOT(); \
+		void CALLEE(Int value); \
+	}; \
+	void HOST::SLOT() \
+	{ \
+		CALLEE(VALUE); \
+	}
+#define BFME_TWO_CALLS(HOST, SLOT, FIRST, SECOND) \
+	class HOST \
+	{ \
+	public: \
+		void SLOT(); \
+		void FIRST(); \
+		void SECOND(); \
+	}; \
+	void HOST::SLOT() \
+	{ \
+		FIRST(); \
+		SECOND(); \
+	}
+#define BFME_FREE_THEN_MEMBER(HOST, SLOT, FIRST, SECOND) 	class HOST 	{ 	public: 		void SLOT(); 		void SECOND(); 	}; 	void HOST::SLOT() 	{ 		FIRST(); 		SECOND(); 	}
+
 // ??1Rva0035FD0A@@UAE@XZ @0x0035FD0A (105B): virtual dtor storing vtable 0x008166BC.
 // Zeroes +0xC, frees DisplayString at +0x34 via TheDisplayStringManager slot 0x3C,
 // zeroes +0x34, destroys wide StringBase at +0x30/+0x2C via rowed releaseBuffer
 // 0x00036E70, then base dtor via pinned 0x001DBAC3. Caller at 0x0035FF59 is
 // deleting dtor. Prev tail dtors in FamilyTailDtors1DBAC3.cpp.
 class DisplayString;
+
 class DisplayStringManager
 {
 public:
@@ -455,6 +496,7 @@ public:
 	virtual DisplayString *newDisplayString() = 0;
 	virtual void freeDisplayString(DisplayString *s) = 0;
 };
+
 extern DisplayStringManager *TheDisplayStringManager;
 
 class WinInstanceData;
@@ -805,6 +847,201 @@ public:
 	void set(Rva0035FF76 *obj);
 };
 
+// InGameUI::setScrollAmount: defined in InGameUIInputModes.cpp (its row's unit).
+
+// --- A one-shot flag: answers whether the global byte at VA 0x00DFF005
+// (ledger g_flag2) was set, clearing it (vtable 0x00BC4858 slot 5).
+extern Bool g_flag2;
+
+class Rva002CEF14FlagTest
+{
+public:
+	Bool rva002CEF14();
+};
+
+// The callees below are rowed; they are called by their row names.
+class MilesAudioManager { public: void rva0005BBE2(Int value); virtual void rva0005BD20(); virtual void rva0005BD28(); };
+
+	// 0x0005BBE2
+class W3DVolumetricShadow { public: void Update(Bool force); };
+
+	// 0x000F4017
+enum StateReturnType { STATE_CONTINUE = 0 };
+
+class AIAttackAimAtTargetState { public: StateReturnType updateInternal(Bool flag); };
+
+	// 0x003508C5
+
+class Rva000F42F7Host { public: void rva000F42F7(); };
+
+	// vtable 0x00BCEFC8 slot 1
+// AIAttackPositionAimAtTargetState::update is owned with updateInternal in AIStates.cpp.
+class Rva00351949Host { public: void rva00351949(); };
+
+// --- Hand `this` to a manager singleton's member.
+// Callee evidence (retail bytes): 0x000F0A75 walks the manager head at
+// +0x0 with node next at +0x68, unlinks the matching owner, then deletes
+// owner->slot0(0) via rowed operator delete; 0x0010713A null-checks its
+// owner and performs the same virtual-then-delete tail with `this` unused.
+// ZH/BFME1 removeShadow (plain `delete shadow`, projected type checks)
+// does not match either tail, so the virtual-then-delete shape below is
+// modeled on the byte-proven neighbor 0x00107152 (`delete p->rvaFoo(0)`)
+// with honest address-derived node names; manager/owner identities beyond
+// the caller ABI (thiscall void*(owner), ret 4) remain unclaimed.
+class Rva000F0A75Node
+{
+public:
+	virtual void *rvaFoo(int x);
+private:
+	char m_pad[0x64];
+public:
+	Rva000F0A75Node *m_next;
+};
+
+class Rva0010713ANode
+{
+public:
+	virtual void *rvaFoo(int x);
+};
+
+class W3DVolumetricShadowManager
+{
+public:
+	void rva000F0A75(void *owner);
+private:
+	Rva000F0A75Node *m_head;
+};
+
+class W3DProjectedShadowManager
+{
+public:
+	void rva0010713A(void *owner);
+};
+
+class Rva00108660ResourceManager
+{
+public:
+	void rva001091A8(void *owner);
+};
+
+struct Node;
+
+class Rva0010B9E5 { public: void rva0010B9E5(Node *node); };
+
+	// rowed 0x0010B9E5
+extern W3DVolumetricShadowManager *TheW3DVolumetricShadowManager;
+
+extern W3DProjectedShadowManager *TheW3DProjectedShadowManager;
+
+extern Rva00108660ResourceManager *Rva00DEC2D8Manager;
+
+class Rva000F168BHost { public: void rva000F168B(); };
+
+		// vtable 0x00BCEFC8 slot 2
+class Rva001074C8Host { public: void rva001074C8(); };
+
+		// vtable 0x00BCF964 slot 2
+class Rva00109DA6Host { public: void rva00109DA6(); };
+
+		// vtable 0x00BCF9E0 slot 2
+class Rva0010BB04Host { public: void rva0010BB04(); };
+
+// --- Call this object's own vtable slot 2 with a constant.
+class Rva0035D781Self
+{
+public:
+	virtual void slot0();
+	virtual void slot1();
+	virtual void slot2(Int value);
+	void rva0035D781();
+	void rva0035E603();
+	void rva0035F49E();
+};
+
+	// vtable 0x00C1665C slot 6
+
+// --- Float functions of the slot's one float argument (cdecl callees,
+// ledger-named by address; 0x004D6B6E is also rowed as _atan).
+float Rva004D6B9D(float v);
+
+float Rva004D6B3A(float v);
+
+float focalLengthToFovDegrees(float v);
+
+float focalLengthToFov(float v);
+
+class Rva0025ED90Math
+{
+public:
+	float rva0025ED90(float v);		// vtable 0x00BC7568 slot 133
+	float rva0025EDA1(float v);		// slot 134
+	float rva0025EDB2(float focalLength);		// slot 135
+	float rva0025EDC3(float focalLength);		// slot 136
+};
+
+// 0x000B3FD0 is the shared one-byte empty `ret` body; its neutral row name.
+class Rva000B3FD0 { public: void rva000B3FD0(); };
+
+class Rva003FDD05Host
+{
+public:
+	void rva003FDD05();	// vtable 0x00C37DA0 slot 9
+	void rva003FDAEB();
+};
+
+void Rva000A98BACleanup();
+
+	// rowed 0x000A98BA
+void rva000ABA2F();
+
+		// rowed 0x000ABA2F
+void Rva00118A90();
+
+		// rowed 0x00118A90
+// vtable 0x00BC89C8 slot 1: the tail jump goes to the rowed
+// Rva0009D55BProduct::rva0009BAA4 (0x0009BAA4), called by its row name.
+class Rva0009D55BProduct
+{
+public:
+	void rva0009BAA4();
+};
+
+class Rva0009C134Host
+{
+public:
+	void rva0009C134();
+};
+
+class LivingWorldArmyIcon { public: void rva003FE342(); };
+
+	// rowed 0x003FE342
+class Rva0053947D { public: virtual void rva005392EC(); };
+
+	// rowed 0x005392EC (vtable slot)
+class Rva003FE402Host { public: void rva003FE402(); };
+
+// ?rva003FDD15@Rva003FDD15Host@@QAEXXZ @0x003FDD15 16B: chain after 0x003FDC46;
+// calls rowed 0x003FDC46 then tail-jmps to rowed 0x003FBA58. Callees carry
+// their own row names so they are declared only here. Evidence: lane=chain,
+// prev 0x003FDD05 in this file, same 16B two-call tail-jmp shape.
+class Rva003FDC46
+{
+public:
+	void rva003FDC46();
+};
+
+class Rva003FBA58
+{
+public:
+	void rva003FBA58();
+};
+
+class Rva003FDD15Host
+{
+public:
+	void rva003FDD15();
+};
+
 // tu-skeleton: 0x0035D4E6 44B ?update@ReverseSoundTransition@@UAEXH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStylesO1.cpp (not merged yet)
 
 // tu-skeleton: 0x0035D512 14B ?rva0035D512@Rva0035D512@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesC.cpp (not merged yet)
@@ -812,6 +1049,8 @@ public:
 // tu-skeleton: 0x0035D520 28B ??_GRva0035D47B@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
 
 // tu-skeleton: 0x0035D53C 15B ??1ScoreScaleUpTransition@@UAE@XZ -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp
 
@@ -1515,44 +1754,6 @@ void s4ParseFieldsRva0059EE10(INI *ini, Gen_00489270 *sink)
 
 Rva0035DA01::Rva0035DA01() {m_win=0;m_frameLength=6;m_isForward=true;}
 
-// tu-skeleton: 0x0035D5C4 106B ?update@ScoreScaleUpTransition@@UAEXH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/TransitionStyleSlotsBfme2.cpp (not merged yet)
-
-// tu-skeleton: 0x0035D6B8 37B ??0ScoreScaleUpTransition@@QAE@XZ -- matched in Code/GameEngine/Source/Common/ScoreScaleUpTransition.cpp (not merged yet)
-
-// tu-skeleton: 0x0035D74A 19B ??1Rva0035D74A@@UAE@XZ -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
-
-// tu-skeleton: 0x0035D75D 36B ?update@ControlBarArrowTransition@@UAEXH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStylesO1.cpp (not merged yet)
-
-// tu-skeleton: 0x0035D781 8B ?rva0035D781@Rva0035D781Self@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotMiscForwarders.cpp (not merged yet)
-
-// tu-skeleton: 0x0035D789 72B ??0Rva0035D74A@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0035D74AFinish.cpp (not merged yet)
-
-// tu-skeleton: 0x0035D7D1 28B ??_GRva0035D74A@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
-
-// tu-skeleton: 0x0035D83E 230B ?init@ControlBarArrowTransition@@UAEXPAVGameWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/TransitionStyleSlotsBfme2.cpp (not merged yet)
-
-// tu-skeleton: 0x0035DA01 15B ??1Rva0035DA01@@UAE@XZ -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
-
-// tu-skeleton: 0x0035DA10 143B ?update@MainMenuSmallScaleDownTransition@@UAEXH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStylesO1.cpp (not merged yet)
-
-// tu-skeleton: 0x0035DB86 28B ??_GRva0035DA01@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
-
-// tu-skeleton: 0x0035DCF9 15B ??1MainMenuMediumScaleUpTransition@@UAE@XZ -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
-
-// tu-skeleton: 0x0035DD08 148B ?update@MainMenuMediumScaleUpTransition@@UAEXH@Z -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
-
-// tu-skeleton: 0x0035DD9C 33B ?Rva0035DD9C@MainMenuMediumScaleUpTransition@@UAEXXZ -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
-
-// tu-skeleton: 0x0035DDBD 152B ?draw@MainMenuMediumScaleUpTransition@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/TransitionStyleSlotsBfme2.cpp (not merged yet)
-
-// tu-skeleton: 0x0035DE55 80B ??0MainMenuMediumScaleUpTransition@@QAE@XZ -- matched in Code/GameEngine/Source/Common/MainMenuMediumScaleUpTransition.cpp (not merged yet)
-
-// tu-skeleton: 0x0035E00F 15B ??1Rva0035E00F@@UAE@XZ -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
-
-// tu-skeleton: 0x0035E0F7 142B ?update@Rva0035E00F@@UAEXH@Z -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
-
-// tu-skeleton: 0x0035E185 129B ?draw@MainMenuScaleUpTransition@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/TransitionStyleSlotsBfme2.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva0035E00FFinish.cpp
 
   // ??_7Rva0035E00F@@6B@
@@ -1583,16 +1784,6 @@ Rva0035E00F::Rva0035E00F()
 	m_win = 0;
 	m_isForward = true;
 }
-
-// tu-skeleton: 0x0035E25C 28B ??_GRva0035E00F@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
-
-// tu-skeleton: 0x0035E2CF 15B ??1Rva0035E2E6@@UAE@XZ -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
-
-// tu-skeleton: 0x0035E2DE 8B ?rva0035E2DE@Rva0035E2DE@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesA.cpp (not merged yet)
-
-// tu-skeleton: 0x0035E30B 28B ??_GRva0035E2E6@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
-
-// tu-skeleton: 0x0035E378 15B ??1Rva0035E60B@@UAE@XZ -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/ButtonFlashTransitionUpdate.cpp
 
@@ -1978,56 +2169,6 @@ void ButtonFlashTransition::draw()
     }
 }
 
-// tu-skeleton: 0x0035E603 8B ?rva0035E603@Rva0035D781Self@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotMiscForwarders.cpp (not merged yet)
-
-// tu-skeleton: 0x0035E634 28B ??_GRva0035E60B@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
-
-// tu-skeleton: 0x0035E97E 135B ?init@ButtonFlashTransition@@UAEXPAVGameWindow@@@Z -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
-
-// tu-skeleton: 0x0035ED92 15B ??1Rva0035EE66@@UAE@XZ -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
-
-// tu-skeleton: 0x0035EDA1 68B ?rva0035EDA1@Rva0035EE66@@UAEXPAVGameWindow@@@Z -- matched in Code/GameEngine/Source/Common/Rva0035EDA1Init.cpp (not merged yet)
-
-// tu-skeleton: 0x0035EDE5 121B ?update@FlashTransition@@UAEXH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/TransitionStyleSlotsBfme2.cpp (not merged yet)
-
-// tu-skeleton: 0x0035EE5E 8B ?rva0035EE5E@Rva0035EE5E@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesA.cpp (not merged yet)
-
-// tu-skeleton: 0x0035EE8B 28B ??_GRva0035EE66@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
-
-// tu-skeleton: 0x0035EEF8 728B ?draw@FlashTransition@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/TransitionStyleSlotsBfme2.cpp (not merged yet)
-
-// tu-skeleton: 0x0035F1D0 15B ??1Rva0035F1D0@@UAE@XZ -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
-
-// tu-skeleton: 0x0035F2F6 28B ??_GRva0035F1D0@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
-
-// tu-skeleton: 0x0035F312 87B ?s5parse0059D600@@YAXPAVINI@@PAUGen_00489270@@@Z -- matched in Code/GameEngine/Source/Common/S5Parse0059D600_Rva0035F312.cpp (not merged yet)
-
-// tu-skeleton: 0x0035F42E 15B ??1Rva0035F4A6@@UAE@XZ -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
-
-// tu-skeleton: 0x0035F43D 97B ?update@FadeTransition@@UAEXH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStylesO1.cpp (not merged yet)
-
-// tu-skeleton: 0x0035F49E 8B ?rva0035F49E@Rva0035D781Self@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotMiscForwarders.cpp (not merged yet)
-
-// tu-skeleton: 0x0035F4CB 28B ??_GRva0035F4A6@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
-
-// tu-skeleton: 0x0035F538 224B ?draw@FadeTransition@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/TransitionStyleSlotsBfme2.cpp (not merged yet)
-
-// tu-skeleton: 0x0035F618 35B ?reverse@CountUpTransition@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStylesO1.cpp (not merged yet)
-
-// tu-skeleton: 0x0035F63B 15B ?rva0035F63B@CountUpTransition@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/TransitionStyleSlotsBfme2.cpp (not merged yet)
-
-// tu-skeleton: 0x0035F64A 74B ??0CountUpTransition@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/CountUpTransitionDestructorThunk.cpp (not merged yet)
-
-// tu-skeleton: 0x0035F694 78B ??1CountUpTransition@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/CountUpTransitionDestructorThunk.cpp (not merged yet)
-
-// tu-skeleton: 0x0035F6E2 87B ?Rva0035F6E2Parse@@YAXPAVINI@@PAVRva003600D6Holder@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/CountUpTransitionDestructorThunk.cpp (not merged yet)
-
-// tu-skeleton: 0x0035FA2A 15B ??1Rva0035FA2A@@UAE@XZ -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
-
-// tu-skeleton: 0x0035FB39 28B ??_GRva0035FA2A@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
-
-// tu-skeleton: 0x0035FB6A 364B ?drawTypeText@@YAXPAVGameWindow@@PAVDisplayString@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStylesO1.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva0035FD0ADtor.cpp
 
 // Native [0x0035FCD6,0x0035FD0A), 52 bytes. The two zeroed words at
@@ -2064,6 +2205,122 @@ void __cdecl Rva0035FD73Parse(INI *ini, Rva003600D6Holder *holder)
 	obj->m_frameLength = obj->m_endFrame;
 	holder->set((Rva0035FF76 *)obj);
 }
+
+// tu-skeleton: 0x0035D5C4 106B ?update@ScoreScaleUpTransition@@UAEXH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/TransitionStyleSlotsBfme2.cpp (not merged yet)
+
+// tu-skeleton: 0x0035D6B8 37B ??0ScoreScaleUpTransition@@QAE@XZ -- matched in Code/GameEngine/Source/Common/ScoreScaleUpTransition.cpp (not merged yet)
+
+// tu-skeleton: 0x0035D74A 19B ??1Rva0035D74A@@UAE@XZ -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
+
+// tu-skeleton: 0x0035D75D 36B ?update@ControlBarArrowTransition@@UAEXH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStylesO1.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/VslotMiscForwarders.cpp
+
+//
+// Small vtable-slot bodies with no ledger owner, grouped by shape. Every
+// class, method and callee is address-derived unless the ledger already
+// names the callee; the bytes prove only the shapes described per group.
+
+// --- Two-field setters: store both stack arguments at two adjacent fields.
+
+// --- Calls of one member of `this` with a constant argument.
+
+void Rva0035D781Self::rva0035D781() { slot2(0x16); }
+
+	// vtable 0x00C16530 slot 6
+void Rva0035D781Self::rva0035E603() { slot2(0x11); }
+
+	// vtable 0x00C165F0 slot 6
+void Rva0035D781Self::rva0035F49E() { slot2(0x0A); }
+
+// --- Two members of `this` in a row, the second as a tail jump.
+
+// A rowed cdecl first callee that takes nothing (it reads only globals):
+// `this` stays in esi across it exactly as for a member call.
+
+// tu-skeleton: 0x0035D789 72B ??0Rva0035D74A@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0035D74AFinish.cpp (not merged yet)
+
+// tu-skeleton: 0x0035D7D1 28B ??_GRva0035D74A@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
+
+// tu-skeleton: 0x0035D83E 230B ?init@ControlBarArrowTransition@@UAEXPAVGameWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/TransitionStyleSlotsBfme2.cpp (not merged yet)
+
+// tu-skeleton: 0x0035DA01 15B ??1Rva0035DA01@@UAE@XZ -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
+
+// tu-skeleton: 0x0035DA10 143B ?update@MainMenuSmallScaleDownTransition@@UAEXH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStylesO1.cpp (not merged yet)
+
+// tu-skeleton: 0x0035DB86 28B ??_GRva0035DA01@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
+
+// tu-skeleton: 0x0035DCF9 15B ??1MainMenuMediumScaleUpTransition@@UAE@XZ -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
+
+// tu-skeleton: 0x0035DD08 148B ?update@MainMenuMediumScaleUpTransition@@UAEXH@Z -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
+
+// tu-skeleton: 0x0035DD9C 33B ?Rva0035DD9C@MainMenuMediumScaleUpTransition@@UAEXXZ -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
+
+// tu-skeleton: 0x0035DDBD 152B ?draw@MainMenuMediumScaleUpTransition@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/TransitionStyleSlotsBfme2.cpp (not merged yet)
+
+// tu-skeleton: 0x0035DE55 80B ??0MainMenuMediumScaleUpTransition@@QAE@XZ -- matched in Code/GameEngine/Source/Common/MainMenuMediumScaleUpTransition.cpp (not merged yet)
+
+// tu-skeleton: 0x0035E00F 15B ??1Rva0035E00F@@UAE@XZ -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
+
+// tu-skeleton: 0x0035E0F7 142B ?update@Rva0035E00F@@UAEXH@Z -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
+
+// tu-skeleton: 0x0035E185 129B ?draw@MainMenuScaleUpTransition@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/TransitionStyleSlotsBfme2.cpp (not merged yet)
+
+// tu-skeleton: 0x0035E25C 28B ??_GRva0035E00F@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
+
+// tu-skeleton: 0x0035E2CF 15B ??1Rva0035E2E6@@UAE@XZ -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
+
+// tu-skeleton: 0x0035E2DE 8B ?rva0035E2DE@Rva0035E2DE@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesA.cpp (not merged yet)
+
+// tu-skeleton: 0x0035E30B 28B ??_GRva0035E2E6@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
+
+// tu-skeleton: 0x0035E378 15B ??1Rva0035E60B@@UAE@XZ -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
+
+// tu-skeleton: 0x0035E634 28B ??_GRva0035E60B@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
+
+// tu-skeleton: 0x0035E97E 135B ?init@ButtonFlashTransition@@UAEXPAVGameWindow@@@Z -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
+
+// tu-skeleton: 0x0035ED92 15B ??1Rva0035EE66@@UAE@XZ -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
+
+// tu-skeleton: 0x0035EDA1 68B ?rva0035EDA1@Rva0035EE66@@UAEXPAVGameWindow@@@Z -- matched in Code/GameEngine/Source/Common/Rva0035EDA1Init.cpp (not merged yet)
+
+// tu-skeleton: 0x0035EDE5 121B ?update@FlashTransition@@UAEXH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/TransitionStyleSlotsBfme2.cpp (not merged yet)
+
+// tu-skeleton: 0x0035EE5E 8B ?rva0035EE5E@Rva0035EE5E@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesA.cpp (not merged yet)
+
+// tu-skeleton: 0x0035EE8B 28B ??_GRva0035EE66@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
+
+// tu-skeleton: 0x0035EEF8 728B ?draw@FlashTransition@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/TransitionStyleSlotsBfme2.cpp (not merged yet)
+
+// tu-skeleton: 0x0035F1D0 15B ??1Rva0035F1D0@@UAE@XZ -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
+
+// tu-skeleton: 0x0035F2F6 28B ??_GRva0035F1D0@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
+
+// tu-skeleton: 0x0035F312 87B ?s5parse0059D600@@YAXPAVINI@@PAUGen_00489270@@@Z -- matched in Code/GameEngine/Source/Common/S5Parse0059D600_Rva0035F312.cpp (not merged yet)
+
+// tu-skeleton: 0x0035F42E 15B ??1Rva0035F4A6@@UAE@XZ -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
+
+// tu-skeleton: 0x0035F43D 97B ?update@FadeTransition@@UAEXH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStylesO1.cpp (not merged yet)
+
+// tu-skeleton: 0x0035F4CB 28B ??_GRva0035F4A6@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
+
+// tu-skeleton: 0x0035F538 224B ?draw@FadeTransition@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/TransitionStyleSlotsBfme2.cpp (not merged yet)
+
+// tu-skeleton: 0x0035F618 35B ?reverse@CountUpTransition@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStylesO1.cpp (not merged yet)
+
+// tu-skeleton: 0x0035F63B 15B ?rva0035F63B@CountUpTransition@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/TransitionStyleSlotsBfme2.cpp (not merged yet)
+
+// tu-skeleton: 0x0035F64A 74B ??0CountUpTransition@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/CountUpTransitionDestructorThunk.cpp (not merged yet)
+
+// tu-skeleton: 0x0035F694 78B ??1CountUpTransition@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/CountUpTransitionDestructorThunk.cpp (not merged yet)
+
+// tu-skeleton: 0x0035F6E2 87B ?Rva0035F6E2Parse@@YAXPAVINI@@PAVRva003600D6Holder@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/CountUpTransitionDestructorThunk.cpp (not merged yet)
+
+// tu-skeleton: 0x0035FA2A 15B ??1Rva0035FA2A@@UAE@XZ -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
+
+// tu-skeleton: 0x0035FB39 28B ??_GRva0035FA2A@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
+
+// tu-skeleton: 0x0035FB6A 364B ?drawTypeText@@YAXPAVGameWindow@@PAVDisplayString@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStylesO1.cpp (not merged yet)
 
 // tu-skeleton: 0x0035FDCA 168B ?init@TextTypeTransition@@UAEXPAVGameWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStylesO1.cpp (not merged yet)
 

@@ -164,11 +164,7 @@ public:
 	void rva0035D781();
 	void rva0035E603();
 	void rva0035F49E();
-};
-
-void Rva0035D781Self::rva0035D781() { slot2(0x16); }	// vtable 0x00C16530 slot 6
-void Rva0035D781Self::rva0035E603() { slot2(0x11); }	// vtable 0x00C165F0 slot 6
-void Rva0035D781Self::rva0035F49E() { slot2(0x0A); }	// vtable 0x00C1665C slot 6
+};	// vtable 0x00C1665C slot 6
 
 // --- Float functions of the slot's one float argument (cdecl callees,
 // ledger-named by address; 0x004D6B6E is also rowed as _atan).

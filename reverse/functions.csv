@@ -34027,9 +34027,9 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?rva000F42F7@Rva000F42F7Host@@QAEXXZ,,0x000F42F7,8,Code/GameEngine/Source/Common/VslotMiscForwarders.cpp,matched,calls this->0x000F4017 with a constant
 ?update@AIAttackPositionAimAtTargetState@@UAE?AW4StateReturnType@@XZ,,0x0034A871,8,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,matched,Target C11068 slot2 name getter names AIAttackPositionAimAtTargetState and slot6 selects this complete8B34A871..34A879 wrapper. Push false / call34A570 / ret preserves core EAX return; WB E20760 calls named updateInternal E20060 with false. Move the real C++ wrapper into its existing AIStates class unit; no duplicate or redirecting alias.
 ?rva00351949@Rva00351949Host@@QAEXXZ,,0x00351949,8,Code/GameEngine/Source/Common/VslotMiscForwarders.cpp,matched,calls this->0x003508C5 with a constant
-?rva0035D781@Rva0035D781Self@@QAEXXZ,,0x0035D781,8,Code/GameEngine/Source/Common/VslotMiscForwarders.cpp,matched,calls its own vtable slot 2 with a constant
-?rva0035E603@Rva0035D781Self@@QAEXXZ,,0x0035E603,8,Code/GameEngine/Source/Common/VslotMiscForwarders.cpp,matched,calls its own vtable slot 2 with a constant
-?rva0035F49E@Rva0035D781Self@@QAEXXZ,,0x0035F49E,8,Code/GameEngine/Source/Common/VslotMiscForwarders.cpp,matched,calls its own vtable slot 2 with a constant
+?rva0035D781@Rva0035D781Self@@QAEXXZ,,0x0035D781,8,Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp,matched,calls its own vtable slot 2 with a constant
+?rva0035E603@Rva0035D781Self@@QAEXXZ,,0x0035E603,8,Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp,matched,calls its own vtable slot 2 with a constant
+?rva0035F49E@Rva0035D781Self@@QAEXXZ,,0x0035F49E,8,Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp,matched,calls its own vtable slot 2 with a constant
 ?rva0025ED90@Rva0025ED90Math@@QAEMM@Z,,0x0025ED90,17,Code/GameEngine/Source/Common/VslotMiscForwarders.cpp,matched,float function of the float argument
 ?rva0025EDA1@Rva0025ED90Math@@QAEMM@Z,,0x0025EDA1,17,Code/GameEngine/Source/Common/VslotMiscForwarders.cpp,matched,float function of the float argument
 ?rva0025EDB2@Rva0025ED90Math@@QAEMM@Z,,0x0025EDB2,17,Code/GameEngine/Source/Common/VslotMiscForwarders.cpp,matched,float function of the float argument
