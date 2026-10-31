@@ -1,6 +1,12 @@
 # Linking target checklist
 
 
+### Adopt canonical Vector4 rows in formation previews (2026-11-01)
+
+Formation preview matrices use registered Vector4 storage with direct constant-component reads. Complete native rows, EH, frozen and strict preparation pass; owning acceptance retires one Vector4 key. This does not claim new census or runtime closure.
+[Evidence](../reverse/attempt_support/formation-preview-vector4-20261101.md).
+
+
 ### Adopt canonical Vector4 storage in mesh color loading (2026-11-01)
 
 Mesh DCG loading uses registered Vector4 storage; the native read/color conversion flow is retained, including alpha and x87 behavior. Normal/frozen/EH/strict and owning acceptance pass and retire the Vector4 key. This is source reconciliation, not measured memory or runtime improvement.

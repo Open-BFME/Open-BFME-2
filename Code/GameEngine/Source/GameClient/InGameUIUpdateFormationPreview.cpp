@@ -146,13 +146,7 @@ public:
  __forceinline float &operator[](int i) {return (&X)[i];}
  __forceinline const float &operator[](int i) const {return (&X)[i];}
 };
-class Vector4 {
-public:
- float X,Y,Z,W;
- __forceinline float &operator[](int i) {return (&X)[i];}
- __forceinline const float &operator[](int i) const {return (&X)[i];}
- __forceinline void Set(float x,float y,float z,float w) {X=x;Y=y;Z=z;W=w;}
-};
+#include "../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 // Keep these two helpers visible for native inlining, without emitting external
 // copies that compete with the rowed Matrix3D providers.
 class Matrix3D {
@@ -194,9 +188,9 @@ public:
   } else {
    v = (Vector3 *)&in;
   }
-  out->X = (A[0][0] * v->X + A[0][1] * v->Y + A[0][2] * v->Z + A[0][3]);
-  out->Y = (A[1][0] * v->X + A[1][1] * v->Y + A[1][2] * v->Z + A[1][3]);
-  out->Z = (A[2][0] * v->X + A[2][1] * v->Y + A[2][2] * v->Z + A[2][3]);
+  out->X = (A[0].X * v->X + A[0].Y * v->Y + A[0].Z * v->Z + A[0].W);
+  out->Y = (A[1].X * v->X + A[1].Y * v->Y + A[1].Z * v->Z + A[1].W);
+  out->Z = (A[2].X * v->X + A[2].Y * v->Y + A[2].Z * v->Z + A[2].W);
  }
 private:
  Vector4 Row[3];
