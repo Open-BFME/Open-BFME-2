@@ -350,16 +350,24 @@ struct Rva00568FE4Less {
 	}
 };
 #include <set>
+// Semantic guide: Open-BFME-1 ba7ddda7e8f261163972ddbe23c7e7a12ac5b84f,
+// game/GameEngineDevice/Source/W3DDevice/GameClient/
+// Rva006DED60RoadBufferDestructor.cpp. The original BFME2 class name is unknown.
+// Identity/layout come from native D3996..D3A17 RET0, the rowed reset atD3A17,
+// constructor atD3A8A (two ten-element 12B arrays), and paired release74011F.
+// Target differs from the donor by calling the existing paired release first.
+// Its slot-A cleanup owns the string at+4; slot-B cleanup destroys the tree.
+// The nonvirtual deleting wrapper at665BF calls this complete destructor.
+class Rva000D3A17Resource { public: virtual void Delete_This()=0; int references; };
+#include "../../Include/Common/Rva000D3A8AElemA.h"
+
 // Retail has no EH frame here (no __EH_prolog, only the [ebp-4] alive flag of
 // the rva00568BE2 temporary): it compiled compare and the temporary's
 // releaseBuffer teardown as non-throwing.
 template <> int StringBase<char>::compare(const StringBase<char> &str) const throw();
+
 template <> void StringBase<char>::releaseBuffer() throw();
-// The element strings compare through StringBase<char>::compare, as retail calls it.
-static inline const StringBase<char> &asBase(const AsciiString &asciiString)
-{
-	return *(const StringBase<char> *)&asciiString;
-}
+
 // The ledger row at 0x005C834A is HostClass005C815B::method_005C834A.
 class HostClass005C815B
 {
@@ -369,20 +377,24 @@ public:
 	void method_005C834A(int a, int b) throw();
 	void method_005C815B();
 };
+
 class Rva005C834A
 {
 public:
 };
+
 class BitRange
 {
 public:
 	AsciiString rva00568BE2() throw();
 };
+
 struct Rva0056913DKeyRef
 {
 	char m_pad[0x18];
 	AsciiString m_key; // +0x18
 };
+
 struct DuckingTarget
 {
 	AsciiString m_a;	// +0x0
@@ -392,11 +404,13 @@ struct DuckingTarget
 	unsigned char m_active; // +0x10
 	char m_pad11[3];
 };
+
 struct Rva005691DBKeyRef
 {
 	char m_pad[0x18];
 	AsciiString m_key; // +0x18
 };
+
 struct Rva005691DBElem
 {
 	AsciiString m_a;	// +0x0
@@ -406,6 +420,7 @@ struct Rva005691DBElem
 	unsigned char m_active; // +0x10
 	char m_pad11[3];
 };
+
 //
 // Wave-3 F34 shape family: range-apply wrappers. Each body walks a begin/end
 // pointer pair (at +0x58/+0x5C for the pointer array, +0x8/+0xC for the
@@ -420,6 +435,7 @@ public:
 	void rva005C8F50(int a, int b);
 	unsigned char m_data[0x48];
 };
+
 class Rva005C834AOwner
 {
 public:
@@ -429,12 +445,14 @@ private:
 	Rva005C8F50Elem *m_begin;
 	Rva005C8F50Elem *m_end;
 };
+
 class Rva005C90F1Elem
 {
 public:
 	void rva005C90F1(int a, int b);
 	unsigned char m_data[0x48];
 };
+
 class Rva005C839BOwner
 {
 public:
@@ -444,6 +462,7 @@ private:
 	Rva005C90F1Elem *m_begin;
 	Rva005C90F1Elem *m_end;
 };
+
 struct Rva0056956DElem
 {
 	char m_pad[8];	// +0x0/+0x4 strings, unused here
@@ -639,6 +658,17 @@ union Rva0056956DLookupCall
 
 typedef char Rva0056956DLookupCallWidth[sizeof(Rva0056956DLookupCall)==4 ? 1 : -1];
 
+class Rva000D20A9 {public: ~Rva000D20A9(); private: void *head; int count;};
+
+struct Rva000D3A8AElemB {Rva000D20A9 tree; int extra; ~Rva000D3A8AElemB() {} };
+
+class Rva0074011F {public: void rva0074011F(); private: void *first,*second; };
+
+class Rva000D3A17 {
+public: ~Rva000D3A17();
+private: Rva0074011F buffers; int field08,field0c,field10,field14; Rva000D3A8AElemA refs[10]; int field90; Rva000D3A8AElemB sets[10]; unsigned char field10c;
+};
+
 // tu-skeleton: 0x005686C1 24B ?getGrid@LargeGroupAudioSoundKeyPair@@QAEHH@Z -- matched in Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair_getGrid.cpp (not merged yet)
 
 // tu-skeleton: 0x005686D9 28B ??_GRva005C8565@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors12.cpp (not merged yet)
@@ -656,6 +686,14 @@ typedef char Rva0056956DLookupCallWidth[sizeof(Rva0056956DLookupCall)==4 ? 1 : -
 // tu-skeleton: 0x005687DF 16B ?rva005687DF@@YAHABI0@Z -- matched in Code/GameEngine/Source/Common/Rva005687DFPermuted.cpp (not merged yet)
 
 // tu-skeleton: 0x005687EF 16B ??$advance@PBIH@_STL@@YAXAAPBIH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_lower_bound_uint.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
+
+// The element strings compare through StringBase<char>::compare, as retail calls it.
+static inline const StringBase<char> &asBase(const AsciiString &asciiString)
+{
+	return *(const StringBase<char> *)&asciiString;
+}
 
 // ---- from Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
 
@@ -962,52 +1000,6 @@ void Rva0056A3FF::rva0056A3FF(HostClass005C8E0A *host, _STL::vector<Rva00568A20>
 	}
 }
 
-// tu-skeleton: 0x00568899 57B ??0Rva0051D93@@QAE@ABUOpaqueRefElement4@@ABUBfmeEventPositionView@@H@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB09.cpp (not merged yet)
-
-// tu-skeleton: 0x00568920 25B ?rva00568920@LargeGroupAudioSoundKeyPair@@QBE_NXZ -- matched in Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp (not merged yet)
-
-// tu-skeleton: 0x00568939 88B ?rva00568939@LargeGroupAudioSoundKeyPair@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp (not merged yet)
-
-// tu-skeleton: 0x00568A20 33B ??0Rva00568A20@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Rva00568A20Copy.cpp (not merged yet)
-
-// tu-skeleton: 0x00568A41 92B ??$_M_find@URva00568FE4Key@@@?$_Rb_tree@URva00568FE4Key@@U1@U?$_Identity@URva00568FE4Key@@@_STL@@URva00568FE4Less@@V?$allocator@URva00568FE4Key@@@3@@_STL@@ABEPAU?$_Rb_tree_node@URva00568FE4Key@@@1@ABURva00568FE4Key@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_10byte_key_568fe4_insert.cpp (not merged yet)
-
-// tu-skeleton: 0x00568A9D 31B ?Rva00568A9DCopy@@YAXPAXPBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_10byte_key_helpers.cpp (not merged yet)
-
-// tu-skeleton: 0x00568BD5 13B ??0Rva000D3A8AElemA@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000D3A17Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00568C4E 53B ??1Rva00568C4E@@QAE@XZ -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)
-
-// tu-skeleton: 0x00568C83 18B ??$_Construct@VRva00568A20@@V1@@_STL@@YAXPAVRva00568A20@@ABV1@@Z -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)
-
-// tu-skeleton: 0x00568CBB 37B ??$__uninitialized_fill_n@PAVRva00568A20@@IV1@@_STL@@YAPAVRva00568A20@@PAV1@IABV1@ABU__false_type@0@@Z -- matched in Code/GameEngine/Source/Common/Rva00568CBBFillN.cpp (not merged yet)
-
-// tu-skeleton: 0x00568CE0 79B ??0BfmeStringRecord00568CE0@@QAE@ABU0@@Z -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)
-
-// tu-skeleton: 0x00568D2F 57B ??$__lower_bound@PBIIU?$less@I@_STL@@H@_STL@@YAPBIPBI0ABIU?$less@I@0@PAH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_lower_bound_uint.cpp (not merged yet)
-
-// tu-skeleton: 0x00568D68 45B ??$_M_allocate_and_copy@PBVRva00568A20@@@?$vector@VRva00568A20@@V?$allocator@VRva00568A20@@@_STL@@@_STL@@IAEPAVRva00568A20@@IPBV2@0@Z -- matched in Code/GameEngine/Source/Common/Rva00568D68AllocateCopy.cpp (not merged yet)
-
-// tu-skeleton: 0x00568D95 34B ?Rva00568D95CreateNode@@YGPAXPBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_10byte_key_helpers.cpp (not merged yet)
-
-// tu-skeleton: 0x00568DB7 73B ??$__unguarded_partition@PAPAXPAXURva00568721Cmp@@@_STL@@YAPAPAXPAPAX0PAXURva00568721Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_unguarded_partition_rva00568721.cpp (not merged yet)
-
-// tu-skeleton: 0x00568E17 28B ??_GRva00568C4E@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)
-
-// tu-skeleton: 0x00568F2E 45B ?_M_erase@?$_Rb_tree@URva00568FE4Key@@U1@U?$_Identity@URva00568FE4Key@@@_STL@@URva00568FE4Less@@V?$allocator@URva00568FE4Key@@@3@@_STL@@AAEXPAU?$_Rb_tree_node@URva00568FE4Key@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_10byte_key_568fe4_insert.cpp (not merged yet)
-
-// tu-skeleton: 0x00568F5B 35B ??$lower_bound@PBII@_STL@@YAPBIPBI0ABI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_lower_bound_uint.cpp (not merged yet)
-
-// tu-skeleton: 0x00568F7E 20B ??$find@URva00568FE4Key@@@?$_Rb_tree@URva00568FE4Key@@U1@U?$_Identity@URva00568FE4Key@@@_STL@@URva00568FE4Less@@V?$allocator@URva00568FE4Key@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@URva00568FE4Key@@U?$_Nonconst_traits@URva00568FE4Key@@@_STL@@@1@ABURva00568FE4Key@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_10byte_key_568fe4_insert.cpp (not merged yet)
-
-// tu-skeleton: 0x00568F92 45B ??$_Construct@UBfmeStringRecord00568CE0@@U1@@_STL@@YAXPAUBfmeStringRecord00568CE0@@ABU1@@Z -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)
-
-// tu-skeleton: 0x00568FE4 149B ?_M_insert@?$_Rb_tree@URva00568FE4Key@@U1@U?$_Identity@URva00568FE4Key@@@_STL@@URva00568FE4Less@@V?$allocator@URva00568FE4Key@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@URva00568FE4Key@@U?$_Nonconst_traits@URva00568FE4Key@@@_STL@@@2@PAU_Rb_tree_node_base@2@0ABURva00568FE4Key@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_10byte_key_568fe4_insert.cpp (not merged yet)
-
-// tu-skeleton: 0x005690DE 9B ?Rva005690DE@@YAXPAVRva00568C4E@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat10O1.cpp (not merged yet)
-
-// tu-skeleton: 0x005690E7 9B ?Rva005690E7@@YAXPAVBfmePoolRef10@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat10O1.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair_removeDuckingTarget.cpp
 
 //
@@ -1091,10 +1083,6 @@ void LargeGroupAudioSoundKeyPair::removePointersToGridCellsInDuckingTarget(BitRa
 	}
 }
 
-// tu-skeleton: 0x0056926C 41B ?clear@?$_Rb_tree@URva00568FE4Key@@U1@U?$_Identity@URva00568FE4Key@@@_STL@@URva00568FE4Less@@V?$allocator@URva00568FE4Key@@@3@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_10byte_key_568fe4_insert.cpp (not merged yet)
-
-// tu-skeleton: 0x00569295 74B ?insert_equal@?$_Rb_tree@URva00568FE4Key@@U1@U?$_Identity@URva00568FE4Key@@@_STL@@URva00568FE4Less@@V?$allocator@URva00568FE4Key@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@URva00568FE4Key@@U?$_Nonconst_traits@URva00568FE4Key@@@_STL@@@2@ABURva00568FE4Key@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_10byte_key_568fe4_insert.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva00569373Drain.cpp
 
 void Rva00569373::rva00569373(void *tag)
@@ -1110,14 +1098,6 @@ void Rva00569393Owner::rva00569393(int a)
 	for (LargeGroupAudioSoundKeyPair **largeGroupAudioSoundKeyPair = m_begin; largeGroupAudioSoundKeyPair != m_end; ++largeGroupAudioSoundKeyPair)
 		(*largeGroupAudioSoundKeyPair)->removePointersToGridCellsInDuckingTarget((BitRange *)this, (void *)a);
 }
-
-// tu-skeleton: 0x005693B5 26B ?insert@?$multiset@URva00568FE4Key@@URva00568FE4Less@@V?$allocator@URva00568FE4Key@@@_STL@@@_STL@@QAE?AU?$_Rb_tree_iterator@URva00568FE4Key@@U?$_Const_traits@URva00568FE4Key@@@_STL@@@2@ABURva00568FE4Key@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_10byte_key_568fe4_insert.cpp (not merged yet)
-
-// tu-skeleton: 0x005693CF 5B ?rva005693CF@Rva005693CF@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat10O1.cpp (not merged yet)
-
-// tu-skeleton: 0x005693D4 56B ??1?$_Rb_tree@URva00568FE4Key@@U1@U?$_Identity@URva00568FE4Key@@@_STL@@URva00568FE4Less@@V?$allocator@URva00568FE4Key@@@3@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_10byte_key_568fe4_insert.cpp (not merged yet)
-
-// tu-skeleton: 0x005694CD 118B ?rva005694CD@Rva00569393@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva005694CDTeardown.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair_setupAllDuckingTargets.cpp
 
@@ -1150,6 +1130,66 @@ void LargeGroupAudioSoundKeyPair::setupAllDuckingTargets()
 	next_elem:;
 	}
 }
+
+// tu-skeleton: 0x00568899 57B ??0Rva0051D93@@QAE@ABUOpaqueRefElement4@@ABUBfmeEventPositionView@@H@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB09.cpp (not merged yet)
+
+// tu-skeleton: 0x00568920 25B ?rva00568920@LargeGroupAudioSoundKeyPair@@QBE_NXZ -- matched in Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp (not merged yet)
+
+// tu-skeleton: 0x00568939 88B ?rva00568939@LargeGroupAudioSoundKeyPair@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp (not merged yet)
+
+// tu-skeleton: 0x00568A20 33B ??0Rva00568A20@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Rva00568A20Copy.cpp (not merged yet)
+
+// tu-skeleton: 0x00568A41 92B ??$_M_find@URva00568FE4Key@@@?$_Rb_tree@URva00568FE4Key@@U1@U?$_Identity@URva00568FE4Key@@@_STL@@URva00568FE4Less@@V?$allocator@URva00568FE4Key@@@3@@_STL@@ABEPAU?$_Rb_tree_node@URva00568FE4Key@@@1@ABURva00568FE4Key@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_10byte_key_568fe4_insert.cpp (not merged yet)
+
+// tu-skeleton: 0x00568A9D 31B ?Rva00568A9DCopy@@YAXPAXPBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_10byte_key_helpers.cpp (not merged yet)
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000D3A17Dtor.cpp
+
+Rva000D3A8AElemA::Rva000D3A8AElemA() : pointer(0), name(), flag(0) {}
+
+// tu-skeleton: 0x00568C4E 53B ??1Rva00568C4E@@QAE@XZ -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)
+
+// tu-skeleton: 0x00568C83 18B ??$_Construct@VRva00568A20@@V1@@_STL@@YAXPAVRva00568A20@@ABV1@@Z -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)
+
+// tu-skeleton: 0x00568CBB 37B ??$__uninitialized_fill_n@PAVRva00568A20@@IV1@@_STL@@YAPAVRva00568A20@@PAV1@IABV1@ABU__false_type@0@@Z -- matched in Code/GameEngine/Source/Common/Rva00568CBBFillN.cpp (not merged yet)
+
+// tu-skeleton: 0x00568CE0 79B ??0BfmeStringRecord00568CE0@@QAE@ABU0@@Z -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)
+
+// tu-skeleton: 0x00568D2F 57B ??$__lower_bound@PBIIU?$less@I@_STL@@H@_STL@@YAPBIPBI0ABIU?$less@I@0@PAH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_lower_bound_uint.cpp (not merged yet)
+
+// tu-skeleton: 0x00568D68 45B ??$_M_allocate_and_copy@PBVRva00568A20@@@?$vector@VRva00568A20@@V?$allocator@VRva00568A20@@@_STL@@@_STL@@IAEPAVRva00568A20@@IPBV2@0@Z -- matched in Code/GameEngine/Source/Common/Rva00568D68AllocateCopy.cpp (not merged yet)
+
+// tu-skeleton: 0x00568D95 34B ?Rva00568D95CreateNode@@YGPAXPBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_10byte_key_helpers.cpp (not merged yet)
+
+// tu-skeleton: 0x00568DB7 73B ??$__unguarded_partition@PAPAXPAXURva00568721Cmp@@@_STL@@YAPAPAXPAPAX0PAXURva00568721Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_unguarded_partition_rva00568721.cpp (not merged yet)
+
+// tu-skeleton: 0x00568E17 28B ??_GRva00568C4E@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)
+
+// tu-skeleton: 0x00568F2E 45B ?_M_erase@?$_Rb_tree@URva00568FE4Key@@U1@U?$_Identity@URva00568FE4Key@@@_STL@@URva00568FE4Less@@V?$allocator@URva00568FE4Key@@@3@@_STL@@AAEXPAU?$_Rb_tree_node@URva00568FE4Key@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_10byte_key_568fe4_insert.cpp (not merged yet)
+
+// tu-skeleton: 0x00568F5B 35B ??$lower_bound@PBII@_STL@@YAPBIPBI0ABI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_lower_bound_uint.cpp (not merged yet)
+
+// tu-skeleton: 0x00568F7E 20B ??$find@URva00568FE4Key@@@?$_Rb_tree@URva00568FE4Key@@U1@U?$_Identity@URva00568FE4Key@@@_STL@@URva00568FE4Less@@V?$allocator@URva00568FE4Key@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@URva00568FE4Key@@U?$_Nonconst_traits@URva00568FE4Key@@@_STL@@@1@ABURva00568FE4Key@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_10byte_key_568fe4_insert.cpp (not merged yet)
+
+// tu-skeleton: 0x00568F92 45B ??$_Construct@UBfmeStringRecord00568CE0@@U1@@_STL@@YAXPAUBfmeStringRecord00568CE0@@ABU1@@Z -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)
+
+// tu-skeleton: 0x00568FE4 149B ?_M_insert@?$_Rb_tree@URva00568FE4Key@@U1@U?$_Identity@URva00568FE4Key@@@_STL@@URva00568FE4Less@@V?$allocator@URva00568FE4Key@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@URva00568FE4Key@@U?$_Nonconst_traits@URva00568FE4Key@@@_STL@@@2@PAU_Rb_tree_node_base@2@0ABURva00568FE4Key@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_10byte_key_568fe4_insert.cpp (not merged yet)
+
+// tu-skeleton: 0x005690DE 9B ?Rva005690DE@@YAXPAVRva00568C4E@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat10O1.cpp (not merged yet)
+
+// tu-skeleton: 0x005690E7 9B ?Rva005690E7@@YAXPAVBfmePoolRef10@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat10O1.cpp (not merged yet)
+
+// tu-skeleton: 0x0056926C 41B ?clear@?$_Rb_tree@URva00568FE4Key@@U1@U?$_Identity@URva00568FE4Key@@@_STL@@URva00568FE4Less@@V?$allocator@URva00568FE4Key@@@3@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_10byte_key_568fe4_insert.cpp (not merged yet)
+
+// tu-skeleton: 0x00569295 74B ?insert_equal@?$_Rb_tree@URva00568FE4Key@@U1@U?$_Identity@URva00568FE4Key@@@_STL@@URva00568FE4Less@@V?$allocator@URva00568FE4Key@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@URva00568FE4Key@@U?$_Nonconst_traits@URva00568FE4Key@@@_STL@@@2@ABURva00568FE4Key@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_10byte_key_568fe4_insert.cpp (not merged yet)
+
+// tu-skeleton: 0x005693B5 26B ?insert@?$multiset@URva00568FE4Key@@URva00568FE4Less@@V?$allocator@URva00568FE4Key@@@_STL@@@_STL@@QAE?AU?$_Rb_tree_iterator@URva00568FE4Key@@U?$_Const_traits@URva00568FE4Key@@@_STL@@@2@ABURva00568FE4Key@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_10byte_key_568fe4_insert.cpp (not merged yet)
+
+// tu-skeleton: 0x005693CF 5B ?rva005693CF@Rva005693CF@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat10O1.cpp (not merged yet)
+
+// tu-skeleton: 0x005693D4 56B ??1?$_Rb_tree@URva00568FE4Key@@U1@U?$_Identity@URva00568FE4Key@@@_STL@@URva00568FE4Less@@V?$allocator@URva00568FE4Key@@@3@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_10byte_key_568fe4_insert.cpp (not merged yet)
+
+// tu-skeleton: 0x005694CD 118B ?rva005694CD@Rva00569393@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva005694CDTeardown.cpp (not merged yet)
 
 // tu-skeleton: 0x00569628 370B ?updateSubject@LargeGroupAudioSoundKeyPair@@QAEXPAVLargeGroupAudioSubject@@@Z -- matched in Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp (not merged yet)
 

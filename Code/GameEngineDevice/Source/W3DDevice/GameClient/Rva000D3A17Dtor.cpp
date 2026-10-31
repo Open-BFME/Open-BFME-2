@@ -23,5 +23,3 @@ Rva000D3A17::~Rva000D3A17() {
 }
 // ?Rva000D3A17DeleteAnchor absent-from-retail
 void Rva000D3A17DeleteAnchor(Rva000D3A17 *p) {delete p;}
-
-Rva000D3A8AElemA::Rva000D3A8AElemA() : pointer(0), name(), flag(0) {}
