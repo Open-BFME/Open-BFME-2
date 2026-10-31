@@ -1,0 +1,14 @@
+{
+ "current": {
+  "bytes": "8bc18b4c24048b1189108b51048950048b4908894808c20400",
+  "relocations": []
+ },
+ "original_gate_exit": 0,
+ "original_gate_output": "Source claims: OK (1 sources, scoped byte-verified)\nFunctions: OK 2/2 matched across 1 source file(s)\nString-ref verify: OK (0 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)\nFloat-ref verify: OK (6 compiler literals verified)\nImport-ref verify: OK (0 named imports verified)\n",
+ "original": {
+  "bytes": "8bc18b4c24048b1189108b51048950048b4908894808c20400",
+  "relocations": []
+ },
+ "restored_gate_exit": 0,
+ "identical": true
+}

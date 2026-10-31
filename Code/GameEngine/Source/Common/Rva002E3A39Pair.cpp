@@ -18,14 +18,7 @@ public:
 bool IntersectLine2D(const Coord2D *, const Coord2D *, const Coord2D *,
                      const Coord2D *, Coord2D *);
 
-class PolygonTrigger {
-public:
-    bool rva002E3A39(const Coord3D &);
-    bool rva002E3AA8(const Coord3D *, const Coord3D *, Coord3D *, bool);
-private:
-    char prefix[8];
-    Coord2D *begin, *end;
-};
+#include "../../Include/GameLogic/PolygonTrigger.h"
 
 bool PolygonTrigger::rva002E3A39(const Coord3D &p)
 {
@@ -85,7 +78,7 @@ bool PolygonTrigger::rva002E3AA8(const Coord3D *from, const Coord3D *to,
 
     Coord2D current, previous, intersection;
     int i = 0;
-    const int n = end - begin;
+    const int n = pointCount();
     for (; i < n; ++i) {
         ((Rva002E3A8DHolder *)this)->get((Rva002E3A8DPair *)&current, i);
         ((Rva002E3A8DHolder *)this)->get((Rva002E3A8DPair *)&previous, i ? i - 1 : n - 1);

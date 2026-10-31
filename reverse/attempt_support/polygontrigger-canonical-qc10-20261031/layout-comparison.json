@@ -1,0 +1,451 @@
+{
+ "PolygonTrigger": {
+  "before": {
+   "fwd": false,
+   "key": "class",
+   "size": 100,
+   "bases": [
+    [
+     "PolygonLink",
+     60
+    ],
+    [
+     "Rva00330C50",
+     0
+    ],
+    [
+     "Rva002E3EB8Base",
+     56
+    ]
+   ],
+   "fields": [
+    [
+     64,
+     "name",
+     "AsciiString",
+     4
+    ],
+    [
+     68,
+     "id",
+     "int",
+     4
+    ],
+    [
+     72,
+     "flag48",
+     "bool",
+     1
+    ],
+    [
+     76,
+     "layer",
+     "AsciiString",
+     4
+    ],
+    [
+     80,
+     "flag50",
+     "bool",
+     1
+    ],
+    [
+     84,
+     "field54",
+     "int",
+     4
+    ],
+    [
+     88,
+     "field58",
+     "int",
+     4
+    ]
+   ],
+   "statics": [],
+   "methods": [
+    "PolygonTrigger",
+    "__vecDelDtor",
+    "rva002E36B7",
+    "slot",
+    "~PolygonTrigger"
+   ],
+   "virtual": [
+    "__vecDelDtor",
+    "slot",
+    "~PolygonTrigger"
+   ],
+   "vslots": {
+    "0": "__vecDelDtor(uint)"
+   },
+   "vfptr": false
+  },
+  "after": {
+   "fwd": false,
+   "key": "class",
+   "size": 100,
+   "bases": [
+    [
+     "PolygonLink",
+     60
+    ],
+    [
+     "Rva00330C50",
+     0
+    ],
+    [
+     "Rva002E3EB8Base",
+     56
+    ]
+   ],
+   "fields": [
+    [
+     64,
+     "name",
+     "AsciiString",
+     4
+    ],
+    [
+     68,
+     "id",
+     "int",
+     4
+    ],
+    [
+     72,
+     "flag48",
+     "bool",
+     1
+    ],
+    [
+     76,
+     "layer",
+     "AsciiString",
+     4
+    ],
+    [
+     80,
+     "flag50",
+     "bool",
+     1
+    ],
+    [
+     84,
+     "field54",
+     "int",
+     4
+    ],
+    [
+     88,
+     "field58",
+     "int",
+     4
+    ]
+   ],
+   "statics": [],
+   "methods": [
+    "PolygonTrigger",
+    "__vecDelDtor",
+    "rva002E36B7",
+    "rva002E3A39",
+    "rva002E3AA8",
+    "slot",
+    "~PolygonTrigger"
+   ],
+   "virtual": [
+    "__vecDelDtor",
+    "slot",
+    "~PolygonTrigger"
+   ],
+   "vslots": {
+    "0": "__vecDelDtor(uint)"
+   },
+   "vfptr": false
+  }
+ },
+ "PolygonLink": {
+  "before": {
+   "fwd": false,
+   "key": "class",
+   "size": 4,
+   "bases": [],
+   "fields": [
+    [
+     0,
+     "next",
+     "PolygonTrigger*",
+     4
+    ]
+   ],
+   "statics": [],
+   "methods": [
+    "PolygonLink"
+   ],
+   "virtual": [],
+   "vslots": {},
+   "vfptr": false
+  },
+  "after": {
+   "fwd": false,
+   "key": "class",
+   "size": 4,
+   "bases": [],
+   "fields": [
+    [
+     0,
+     "next",
+     "PolygonTrigger*",
+     4
+    ]
+   ],
+   "statics": [],
+   "methods": [
+    "PolygonLink"
+   ],
+   "virtual": [],
+   "vslots": {},
+   "vfptr": false
+  }
+ },
+ "Rva00330C50": {
+  "before": {
+   "fwd": false,
+   "key": "class",
+   "size": 64,
+   "bases": [
+    [
+     "virtual Rva00330C50Interface",
+     -1
+    ],
+    [
+     "virtual Rva00330C50Interface",
+     -1
+    ]
+   ],
+   "fields": [
+    [
+     8,
+     "container",
+     "Rva0030B9DD",
+     44
+    ],
+    [
+     52,
+     "changed",
+     "bool",
+     1
+    ]
+   ],
+   "statics": [],
+   "methods": [
+    "Rva00330C50",
+    "__local_vftable_ctor_closure",
+    "__vecDelDtor",
+    "rva00330AA6",
+    "slot0",
+    "slot1",
+    "slot2",
+    "slot3",
+    "slot4",
+    "slot5",
+    "slot6",
+    "~Rva00330C50"
+   ],
+   "virtual": [
+    "__vecDelDtor",
+    "slot0",
+    "slot1",
+    "slot2",
+    "slot3",
+    "slot4",
+    "slot5",
+    "slot6",
+    "~Rva00330C50"
+   ],
+   "vslots": {
+    "0": "__vecDelDtor(uint)"
+   },
+   "vfptr": true
+  },
+  "after": {
+   "fwd": false,
+   "key": "class",
+   "size": 64,
+   "bases": [
+    [
+     "virtual Rva00330C50Interface",
+     -1
+    ],
+    [
+     "virtual Rva00330C50Interface",
+     -1
+    ]
+   ],
+   "fields": [
+    [
+     8,
+     "container",
+     "Rva0030B9DD",
+     44
+    ],
+    [
+     52,
+     "changed",
+     "bool",
+     1
+    ]
+   ],
+   "statics": [],
+   "methods": [
+    "Rva00330C50",
+    "__local_vftable_ctor_closure",
+    "__vecDelDtor",
+    "pointCount",
+    "rva00330AA6",
+    "slot0",
+    "slot1",
+    "slot2",
+    "slot3",
+    "slot4",
+    "slot5",
+    "slot6",
+    "~Rva00330C50"
+   ],
+   "virtual": [
+    "__vecDelDtor",
+    "slot0",
+    "slot1",
+    "slot2",
+    "slot3",
+    "slot4",
+    "slot5",
+    "slot6",
+    "~Rva00330C50"
+   ],
+   "vslots": {
+    "0": "__vecDelDtor(uint)"
+   },
+   "vfptr": true
+  }
+ },
+ "Rva00330C50Interface": {
+  "before": {
+   "fwd": false,
+   "key": "class",
+   "size": 4,
+   "bases": [],
+   "fields": [],
+   "statics": [],
+   "methods": [
+    "Rva00330C50Interface",
+    "__vecDelDtor",
+    "slot0",
+    "slot1",
+    "slot2",
+    "slot3",
+    "slot4",
+    "slot5",
+    "slot6",
+    "~Rva00330C50Interface"
+   ],
+   "virtual": [
+    "slot0",
+    "slot1",
+    "slot2",
+    "slot3",
+    "slot4",
+    "slot5",
+    "slot6"
+   ],
+   "vslots": {
+    "0": "slot0()",
+    "1": "slot1(int)",
+    "2": "slot2()",
+    "3": "slot3()",
+    "4": "slot4()",
+    "5": "slot5()",
+    "6": "slot6()"
+   },
+   "vfptr": true
+  },
+  "after": {
+   "fwd": false,
+   "key": "class",
+   "size": 4,
+   "bases": [],
+   "fields": [],
+   "statics": [],
+   "methods": [
+    "Rva00330C50Interface",
+    "__vecDelDtor",
+    "slot0",
+    "slot1",
+    "slot2",
+    "slot3",
+    "slot4",
+    "slot5",
+    "slot6",
+    "~Rva00330C50Interface"
+   ],
+   "virtual": [
+    "slot0",
+    "slot1",
+    "slot2",
+    "slot3",
+    "slot4",
+    "slot5",
+    "slot6"
+   ],
+   "vslots": {
+    "0": "slot0()",
+    "1": "slot1(int)",
+    "2": "slot2()",
+    "3": "slot3()",
+    "4": "slot4()",
+    "5": "slot5()",
+    "6": "slot6()"
+   },
+   "vfptr": true
+  }
+ },
+ "Rva002E3EB8Base": {
+  "before": {
+   "fwd": false,
+   "key": "class",
+   "size": 4,
+   "bases": [],
+   "fields": [],
+   "statics": [],
+   "methods": [
+    "Rva002E3EB8Base",
+    "slot"
+   ],
+   "virtual": [
+    "slot"
+   ],
+   "vslots": {
+    "0": "slot()"
+   },
+   "vfptr": true
+  },
+  "after": {
+   "fwd": false,
+   "key": "class",
+   "size": 4,
+   "bases": [],
+   "fields": [],
+   "statics": [],
+   "methods": [
+    "Rva002E3EB8Base",
+    "slot"
+   ],
+   "virtual": [
+    "slot"
+   ],
+   "vslots": {
+    "0": "slot()"
+   },
+   "vfptr": true
+  }
+ }
+}
