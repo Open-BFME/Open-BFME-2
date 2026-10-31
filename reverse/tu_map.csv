@@ -13381,8 +13381,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x001ED0DE,92,code,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp,approved,C,C=0x001ECE98..0x001ED13A provisional,Code/Libraries/Source/WWVegas/WWLib/Rva001ED0DEDtor.cpp
 0x001ED13A,183,code,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp,approved,C,C=0x001ECE98..0x001ED1F1 provisional,Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp
 0x001ED1F1,45,code,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp,approved,C,C=0x001ECE98..0x001ED21E provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_construct_rva001ED03C.cpp
-0x001ED21E,38,code,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp,approved,C,C=0x001ECE98..0x001ED244 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_copy_rva001ED03C.cpp
-0x001ED244,37,code,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp,approved,C,C=0x001ECE98..0x001ED269 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_fill_n_rva001ED03C.cpp
+0x001ED21E,38,code,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp,approved,C,C=0x001ECE98..0x001ED244 provisional,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp
+0x001ED244,37,code,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp,approved,C,C=0x001ECE98..0x001ED269 provisional,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp
 0x001ED269,28,code,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp,approved,C,C=0x001ECE98..0x001ED285 provisional,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp
 0x001ED285,55,code,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp,approved,C,C=0x001ECE98..0x001ED2BC provisional,Code/Libraries/Source/WWVegas/WWLib/StlportVectorPushBackSiblings.cpp
 0x001ED2BC,9,code,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp,approved,C,C=0x001ECE98..0x001ED2C5 provisional,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp
