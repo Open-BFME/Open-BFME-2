@@ -294,16 +294,6 @@ extern const FieldParse BfmeSpecialAbilityUpdateFields[] = {
 	{ 0, 0, 0, 0 }
 };
 
-// Retail VA 0x00C702CC: 2 fields and the zero sentinel.
-// Class identity comes from this unit's matched registration function;
-// tokens, callbacks and offsets are read from that retail table.
-// The global name below is descriptive; its original spelling is unknown.
-extern const FieldParse BfmeDockUpdateFields[] = {
-	{ "NumberApproachPositions", &INI::parseInt, 0, 0x8 },
-	{ "AllowsPassthrough", &INI::parseBool, 0, 0xC },
-	{ 0, 0, 0, 0 }
-};
-
 class DockUpdateModuleData
 {
 public:
@@ -387,11 +377,6 @@ __declspec(noinline) inline void SpecialAbilityUpdateModuleData::buildFieldParse
 void bfmeAnchorSpecialAbilityUpdateModuleDatabuildFieldParse(SpecialAbilityUpdateModuleData *specialAbilityUpdateModuleData, MultiIniFieldParse &parse)
 {
 	specialAbilityUpdateModuleData->buildFieldParse(parse);
-}
-
-void DockUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
-{
-	parse.add(BfmeDockUpdateFields, 0);
 }
 
 void TeleportToCasterSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &parse)

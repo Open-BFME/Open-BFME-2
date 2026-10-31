@@ -12322,7 +12322,7 @@ _chatRetryWithNickA,,0x006A33C0,119,Code/GameEngine/Source/GameNetwork/GameSpy/c
 ?buildFieldParse@UpgradeSoundSelectorClientBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z,,0x004CBBB4,17,Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp,matched,
 ?buildFieldParse@ModelConditionAudioLoopClientBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z,,0x004CC583,17,Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp,matched,
 ?canAnySlavesAttack@SpawnBehavior@@UAE_NXZ,,0x0045F99E,58,Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_canAnySlavesAttack.cpp,matched,BFME2 layout m_spawnIDs at secondary-this+0x2C; callees findObjectByID row 0x49DC5 isAbleToAttack pin 0x290B73
-?buildFieldParse@DockUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z,,0x005896C1,17,Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp,matched,
+?buildFieldParse@DockUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z,,0x005896C1,17,Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate.cpp,matched,
 ?buildFieldParse@TeleportToCasterSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,,0x004CD389,27,Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp,matched,
 ?buildFieldParse@StoreObjectsSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,,0x004CD918,27,Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp,matched,
 ?buildFieldParse@CurseSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,,0x004CCD64,27,Code/GameEngine/Source/GameLogic/Object/Update/CurseSpecialPower.cpp,matched,
