@@ -19509,3 +19509,9 @@ Code/GameEngine/Source/Common/Rva005757A5Method.cpp|param|Rva005757A5::rva005757
 Code/GameEngine/Source/Common/Rva004D6F86.cpp|param|Rva00263895Member::rva004D6F86|arg,a88022c550de437ce019c24c,drz-k11,n27h-k11,w-09889333d128,2026-10-31
 Code/GameEngine/Source/Common/Rva004D6F86.cpp|local|Rva00263895Member::rva004D6F86|a,7ad8432bb78936838b26d772,drz-k11,n27h-k11,w-09889333d128,2026-10-31
 Code/GameEngine/Source/Common/Rva004D6F86.cpp|local|Rva00263895Member::rva004D6F86|t,f56ffa2a68c5454b8bf1bd09,drz-k11,n27h-k11,w-09889333d128,2026-10-31
+Code/GameEngine/Source/Common/Rva0014F3E7Destroy.cpp|function|0x0014F3E7|Rva0014F3E7Destroy,38921bb9fcecea1fc3a1431e,drz-k3,n27a2-k3,w-077d7aeb666b,2026-10-31
+Code/GameEngine/Source/GameLogic/Object/Rva003FD6E0.cpp|member|Rva003FD6E0Mid|m_08,2bc7b90157771b445f339c5f,drz-k3,n27a2-k3,w-077d7aeb666b,2026-10-31
+Code/GameEngine/Source/Common/Rva00690CB0Init.cpp|global||g_rva00690cb0Riid,25e3f96a9dcffe7c59f084b3,drz-k3,n27a2-k3,w-077d7aeb666b,2026-10-31
+Code/GameEngine/Source/Common/Rva00690CB0Init.cpp|global||g_rva00690cb0Rclsid,3a2ab0f711bfb4f530e957d9,drz-k3,n27a2-k3,w-077d7aeb666b,2026-10-31
+Code/GameEngine/Source/Common/VslotSmallBodiesAH.cpp|member|Rva006EBE50|m_24,27fa063e3c1b51ac49976da4,drz-k3,n27a2-k3,w-077d7aeb666b,2026-10-31
+Code/GameEngine/Source/Common/VslotSmallBodiesAH.cpp|member|Rva00711AB0|m_1C,4137841a95904605c3ffc936,drz-k3,n27a2-k3,w-077d7aeb666b,2026-10-31
