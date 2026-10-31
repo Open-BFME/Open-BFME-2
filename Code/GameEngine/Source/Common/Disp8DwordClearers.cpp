@@ -240,8 +240,3 @@ private:
     unsigned char unknown0[8];
     unsigned int word8;
 };
-Rva004B9C46ZeroView *Rva004B9C46ZeroView::clear()
-{
-    word8 = 0;
-    return this;
-}

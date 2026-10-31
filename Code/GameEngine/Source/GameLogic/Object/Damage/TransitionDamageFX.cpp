@@ -188,6 +188,30 @@ template <typename T> struct BfmeStringData;
 #include "GameLogicObjectLookupView.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
+#define BFME_DISP8_DWORD_CLEAR(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		void clear(); \
+		char m_lead[DISP]; \
+		int m_counter; \
+	}; \
+	void NAME::clear() \
+	{ \
+		m_counter = 0; \
+	}
+#define BFME_DISP8_DWORD_MASK(NAME, DISP, MASK) \
+	class NAME \
+	{ \
+	public: \
+		void clear(); \
+		char m_lead[DISP]; \
+		int m_counter; \
+	}; \
+	void NAME::clear() \
+	{ \
+		m_counter &= MASK; \
+	}
 
 class Xfer::Version
 {
@@ -762,6 +786,169 @@ _Vector_base<Rva004BA1C8, allocator<Rva004BA1C8> >::_Vector_base(
 	const allocator<Rva004BA1C8> &storage) throw();
 }
 
+class AI
+{
+public:
+	virtual void init();
+private:
+	char m_lead[0x1C - 4];
+	int m_counter;
+};
+
+// Callers elsewhere reach bodies in this unit through other spellings; retail's
+// call sites in their matched rows land on these addresses (same ABI). Bind them.
+
+// Callers elsewhere reach bodies in this unit through other spellings; retail's
+// call sites in their matched rows land on these addresses (same ABI). Bind them.
+
+// Clean BF1 9cbfb551fe20dae985f91f2319d8997287b6a705 donor
+// game/GameEngine/Source/Common/R1MemberValueReads.cpp /O1 /arch:SSE /G7
+// supplies the ordered two-field zeroing expression. Retail independently
+// proves dword zero stores at +0x0c then +0x24 and the complete leaf
+// 0x000C9286..0x000C928F between prior RET at C9285 and the next function.
+// Original receiver, field purposes and signedness remain unknown.
+class Rva000C9286PairClearer
+{
+public:
+    void clear();
+private:
+    char m_lead[0x0c];
+    unsigned m_at0c;
+    char m_middle[0x24 - 0x0c - 4];
+    unsigned m_at24;
+};
+
+// Receiver-return zero-field leaves from clean BFME1 9cbfb551 donor leads:
+// WorldHeightMap.cpp and W3DBridgeBufferCtorThunk.cpp supply the source pattern.
+// Retail independently fixes complete RET boundaries, raw32 fields14/0C and
+// EAX=receiver. The donor class names and complete layouts remain unproven;
+// address-owned carriers preserve that uncertainty without aliases or pins.
+// ?clear@Rva004D9A35Fields@@QAEPAU1@XZ
+struct Rva004D9A35Fields { char pad[0x14]; unsigned int word14; Rva004D9A35Fields *clear(); };
+
+// ?clear@Rva002175C7Fields@@QAEPAU1@XZ
+struct Rva002175C7Fields { char pad[0xC]; unsigned int wordC; Rva002175C7Fields *clear(); };
+
+// Complete native 2C8E52..2C8E5A follows RET8 and precedes a new leaf.
+// It returns the old receiver word at +4 in EAX and clears that word to zero.
+// Whole clean BF1 f98983a7d3bb405f1a4ba94bb6a2a168062a819d's
+// GameLogic/Object/WeaponStore_reset.cpp supplies friend_clearNextTemplate's
+// take-and-clear expression. Its pointer type and WeaponTemplate identity
+// are donor facts only. This consumed-prefix view preserves the raw 32 bits;
+// original receiver, field type and pointer/ownership meanings remain unknown.
+class Rva002C8E52WordField
+{
+public:
+    unsigned int take();
+private:
+    char m_unknown0[4];
+    unsigned int m_word4;
+};
+
+// Complete native 2E6C8D..2E6C94 follows the preceding member's final RET
+// and precedes a distinct word setter. It loads the receiver's pointer at
+// +0 and clears the pointee's raw word at +8; no original owner is proven.
+// The whole clean BF1 f98983a7d3bb405f1a4ba94bb6a2a168062a819d
+// GameLogic/Pathfinder/PathfindPrependCells.cpp supplies
+// PathfindCell::clearParentCellForPrepend's expression as a source lead.
+// Its class, parent-cell name and pointer meaning remain donor facts only.
+struct Rva002E6C8DWordNode {
+    char unknown0[8];
+    unsigned int word8;
+};
+
+class Rva002E6C8DWordChase {
+public:
+    void clear();
+private:
+    Rva002E6C8DWordNode *node;
+};
+
+// Whole native 405A1C..405A25 is bracketed by the predecessor's RET at
+// 405A1B and the next constructor's entry at 405A25. It loads the receiver's
+// pointer at +0, clears that pointee's raw DWORD, and returns the raw word +4.
+// Clean BF1 f98983a7d3bb405f1a4ba94bb6a2a168062a819d Common/
+// R2SmallMemberOps.cpp, compiled O1/SSE2/G6, supplies the pointer-clear/return
+// expression. Donor Rva004C1280::run and its result pointer type are source
+// facts only: target receiver, field meanings and complete layout are unknown.
+class Rva00405A1CWordClearResult {
+public:
+    unsigned int clear();
+private:
+    unsigned int *target;
+    unsigned int result;
+};
+
+// Complete native 4DE52C..4DE536 follows RET8 at4DE529 and precedes the
+// distinct word-copy leaf4DE536. ECX supplies the accessed prefix; EAX keeps
+// that receiver while raw DWORD+4 then DWORD+0 are zeroed before RET0.
+// Clean BF1 f98983a7d3bb405f1a4ba94bb6a2a168062a819d GameLogic/Object/
+// WeaponNuggetParse.cpp, compiled O1/SSE2/G6, supplies Made001E5D60::Tail's
+// two-zero expression. Its Tail/WeaponNugget identity and constructor role
+// are donor facts only; target owner, field meanings and complete class
+// bounds remain unknown. This ordinary method models only the physical
+// receiver/return and two raw32 accesses, with no original lifetime claim.
+class Rva004DE52CWordPair {
+public:
+    Rva004DE52CWordPair *clear();
+private:
+    unsigned int word0;
+    unsigned int word4;
+};
+
+// Whole clean BF1 f98983a7d3bb405f1a4ba94bb6a2a168062a819d WWLib/
+// msgloop.cpp supplies AcceleratorTracker's ordered two-zero expression.
+// Other donor names emit the same bytes; no tracker identity or constructor
+// role is asserted. Native306761..306769 begins after the prior tail-JMP
+// wrapper and ends before a distinct global-guarded entry. It clears raw32
+// receiver words+0 then+4 and returns RET0 without calls or relocations.
+// Original receiver, field meanings and complete layout remain unknown.
+class Rva00306761WordPair
+{
+public:
+    void clear();
+private:
+    unsigned int word0;
+    unsigned int word4;
+};
+
+// Complete native 3B3F6D..3B3F78 follows RET 3B3F6C and precedes a new entry.
+// It clears only raw words +8 and +10, retaining the receiver in EAX; no
+// literal-address or direct-call references establish its original lifetime.
+// Clean BF1 f989 S1ZeroingConstructors.cpp compiled O1/SSE/G6 supplies two
+// indistinguishable zeroing guides. The original owner, field meanings,
+// constructor role and unaccessed prefix/gap remain unknown.
+class Rva003B3F6DZeroView
+{
+public:
+    Rva003B3F6DZeroView *clear();
+private:
+    unsigned char unknown0[8];
+    unsigned int word8;
+    unsigned char unknownC[4];
+    unsigned int word10;
+};
+
+// Complete native 4B9C46..4B9C4D follows RET4 at 4B9C43 and precedes 4B9C4D.
+// This distinct entry clears only raw word +8 and returns the receiver.
+// Actual pushes 4BA5A7/4BA5C4/4BA5E2 pass it to owned EH vector constructor
+// iterator 629512 with stride 1C and count 30, supporting its initializer use.
+// Clean BF1 f989 ProductionPrerequisite.cpp, ProductionPrerequisiteAddUnitPrereq.cpp,
+// Team.cpp and TeamTemplateInfoConstructor.cpp compiled O1/SSE/G6 supply
+// indistinguishable constructor guides. Their record names and string fields
+// are donor facts only; original target element and complete layout are unknown.
+// This ordinary operation exposes the consumed prefix without a lifetime claim.
+class Rva004B9C46ZeroView
+{
+public:
+    Rva004B9C46ZeroView *clear();
+private:
+    unsigned char unknown0[8];
+    unsigned int word8;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Damage/TransitionDamageFX.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Damage/TransitionDamageFX.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/TransitionDamageFXXfer.cpp
@@ -1002,8 +1189,6 @@ NameKeyType TransitionDamageFX::getModuleNameKey() const
 	return TheTransitionDamageFXPoolKey;
 }
 
-// tu-skeleton: 0x004B9910 7B ??0TPropType@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DPropBufferCtor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Damage/TransitionDamageFXParse.cpp
 
 static void parseFXLocInfo(INI *ini, void *instance, FXLocInfo *locInfo)
@@ -1194,8 +1379,6 @@ void TransitionDamageFX::onBodyDamageStateChange(const DamageInfo *damageInfo, B
 		rva004B9DA9(true);
 }
 
-// tu-skeleton: 0x004B9C46 7B ?clear@Rva004B9C46ZeroView@@QAEPAV1@XZ -- matched in Code/GameEngine/Source/Common/Disp8DwordClearers.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Damage/TransitionDamageFXRva004B9DA9.cpp
 
 // ?rva004B9DA9@TransitionDamageFX@@QAEX_N@Z @0x004B9DA9 367B
@@ -1260,18 +1443,6 @@ void TransitionDamageFX::rva004B9DA9(bool applyTransition)
 	}
 }
 
-// tu-skeleton: 0x004BA1B2 22B ??0Rva004BA1B2@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/ManTheWallsSpecialPower.cpp (not merged yet)
-
-// tu-skeleton: 0x004BA219 45B ??$_Construct@VRva004BA1D0@@V1@@_STL@@YAXPAVRva004BA1D0@@ABV1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_rva_records.cpp (not merged yet)
-
-// tu-skeleton: 0x004BA246 38B ??$__uninitialized_copy@PBVRva004BA1D0@@PAV1@@_STL@@YAPAVRva004BA1D0@@PBV1@0PAV1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00051AF9FillN.cpp (not merged yet)
-
-// tu-skeleton: 0x004BA26C 37B ??$__uninitialized_fill_n@PAVRva004BA1D0@@IV1@@_STL@@YAPAVRva004BA1D0@@PAV1@IABV1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00051AF9FillN.cpp (not merged yet)
-
-// tu-skeleton: 0x004BA35A 63B ??1TensileFormationUpdateMember@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/VectorMemberRecordDtors.cpp (not merged yet)
-
-// tu-skeleton: 0x004BA399 51B ?EraseRange@Rva004BA399Vector@@QAEPAVRva004BA1C8@@PAV2@0@Z -- matched in Code/GameEngine/Source/Common/Rva004BA399EraseRange.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/TransitionDamageFXCtor.cpp
 
 // The protected destructor is the separately verified body at 0x004BA47C.
@@ -1296,14 +1467,6 @@ TransitionDamageFX::TransitionDamageFX(Thing *thing, const ModuleData *moduleDat
 	for (int i = 0; i < 0x30; ++i)
 		((int *)m_particleSystemID)[i] = 0;
 }
-
-// tu-skeleton: 0x004BA431 6B ?Rva004BA431Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x004BA47C 76B ??1TransitionDamageFX@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/TransitionDamageFXDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004BA4C8 11B ?rva004BA4C8@Rva004BA399Vector@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1C.cpp (not merged yet)
-
-// tu-skeleton: 0x004BA715 175B ??1TransitionDamageFXModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Damage/TransitionDamageFXModuleDataDestructorThunk.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Damage/TransitionDamageFXModuleData_NeighborIDSubobjectNameDataAppend.cpp
 
@@ -1352,6 +1515,47 @@ void TransitionDamageFXModuleData::NeighborIDSubobjectNameDataAppend(INI *ini, v
 
 	((_STL::vector<Rva004BA1D0> *)store)->push_back(*(Rva004BA1D0 *)&neighbor);
 }
+
+// tu-skeleton: 0x004B9910 7B ??0TPropType@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DPropBufferCtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Disp8DwordClearers.cpp
+
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
+// Disp8 dword clearers: five-byte __thiscall members with one shape:
+//
+//     and dword ptr [ecx+<DISP>],0 / ret     (83 61 XX 00 C3)
+//
+// A dword counter at a fixed displacement from `this` is cleared in place.
+// The zero is applied as an AND-immediate (not a MOV-immediate): under /O1
+// MSVC 7.1 emits the RMW form for `m_counter = 0` (defaults emit the longer
+// MOV-imm form). The displacements here fit in a signed byte, hence disp8.
+// Identity is not recovered: every name is derived from its address.
+
+Rva004B9C46ZeroView *Rva004B9C46ZeroView::clear()
+{
+    word8 = 0;
+    return this;
+}
+
+// tu-skeleton: 0x004BA1B2 22B ??0Rva004BA1B2@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/ManTheWallsSpecialPower.cpp (not merged yet)
+
+// tu-skeleton: 0x004BA219 45B ??$_Construct@VRva004BA1D0@@V1@@_STL@@YAXPAVRva004BA1D0@@ABV1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_rva_records.cpp (not merged yet)
+
+// tu-skeleton: 0x004BA246 38B ??$__uninitialized_copy@PBVRva004BA1D0@@PAV1@@_STL@@YAPAVRva004BA1D0@@PBV1@0PAV1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00051AF9FillN.cpp (not merged yet)
+
+// tu-skeleton: 0x004BA26C 37B ??$__uninitialized_fill_n@PAVRva004BA1D0@@IV1@@_STL@@YAPAVRva004BA1D0@@PAV1@IABV1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00051AF9FillN.cpp (not merged yet)
+
+// tu-skeleton: 0x004BA35A 63B ??1TensileFormationUpdateMember@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/VectorMemberRecordDtors.cpp (not merged yet)
+
+// tu-skeleton: 0x004BA399 51B ?EraseRange@Rva004BA399Vector@@QAEPAVRva004BA1C8@@PAV2@0@Z -- matched in Code/GameEngine/Source/Common/Rva004BA399EraseRange.cpp (not merged yet)
+
+// tu-skeleton: 0x004BA431 6B ?Rva004BA431Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x004BA47C 76B ??1TransitionDamageFX@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/TransitionDamageFXDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004BA4C8 11B ?rva004BA4C8@Rva004BA399Vector@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1C.cpp (not merged yet)
+
+// tu-skeleton: 0x004BA715 175B ??1TransitionDamageFXModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Damage/TransitionDamageFXModuleDataDestructorThunk.cpp (not merged yet)
 
 // tu-skeleton: 0x004BA9E4 321B ?mapLoadPostProcess@TransitionDamageFX@@UAEXPBVDict@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Damage/TransitionDamageFX_mapLoadPostProcess.cpp (not merged yet)
 
