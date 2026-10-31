@@ -10828,9 +10828,9 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x0084A7D8,4,.rdata,float,__real@42fa0000,,literal,,0,1
 0x0084A7DC,4,.rdata,vtable,??_7CreateObjectDie@@6B@,,literal,??_7CreateObjectDie@@6B@;??_7Rva0048593D@@6BRva0048593D_B2@@@,0,2
 0x0084A7E0,48,.rdata,vtable,??_7CreateObjectDie@@6BObjectModule@@@,,literal,??_7CreateObjectDie@@6BObjectModule@@@;??_7Rva0048593D@@6BDieModule@@@,0,2
-0x0084A810,8,.rdata,vtable,??_7Rva00485983@@6BRva0048593D_B2@@@,,literal,??_7Rva00485983@@6BRva0048593D_B2@@@;_s_secondary10@Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDieIfEldestKindofCtor.cpp,1,2
-0x0084A818,188,.rdata,vtable,??_7Rva00485983@@6BRva0048593D_Mid@@@,,literal,??_7Rva00485983@@6BRva0048593D_Mid@@@;_s_secondary0C@Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDieIfEldestKindofCtor.cpp,1,2
-0x0084A8D4,148,.rdata,vtable,??_7Rva00485983@@6BRva0048593D_Root@@@,,literal,??_7Rva00485983@@6BRva0048593D_Root@@@;_s_vtable@Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDieIfEldestKindofCtor.cpp,1,2
+0x0084A810,8,.rdata,vtable,??_7Rva00485983@@6BRva0048593D_B2@@@,,literal,??_7Rva00485983@@6BRva0048593D_B2@@@;_s_secondary10@Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDie.cpp,1,2
+0x0084A818,188,.rdata,vtable,??_7Rva00485983@@6BRva0048593D_Mid@@@,,literal,??_7Rva00485983@@6BRva0048593D_Mid@@@;_s_secondary0C@Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDie.cpp,1,2
+0x0084A8D4,148,.rdata,vtable,??_7Rva00485983@@6BRva0048593D_Root@@@,,literal,??_7Rva00485983@@6BRva0048593D_Root@@@;_s_vtable@Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDie.cpp,1,2
 0x0084A968,32,.rdata,global,?g_00C4A968@@3QBUFieldParse@@B,Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDie.cpp,owned,,1,1
 0x0084A988,252,.rdata,vtable,??_7CreateObjectDieModuleData@@6B@,,literal,,0,1
 0x0084AA84,12,.rdata,vtable,??_7DamageFilteredCreateObjectDie@@6BDamageFilteredCreateObjectDie_B3@@@,,literal,??_7DamageFilteredCreateObjectDie@@6BDamageFilteredCreateObjectDie_B3@@@;_s_second14@Code/GameEngine/Source/GameLogic/Object/Die/DamageFilteredCreateObjectDieCtor.cpp,1,2
@@ -20059,8 +20059,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A03834,4,.data,global,?$S1@?1??rva0004859EA@CreateObjectDie@@SA?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDiePoolKey.cpp,owned,,1,4
 0x00A03838,4,.data,global,?TheCreateObjectDieIfEldestKindofPoolKey@?1??getModuleNameKey@CreateObjectDieIfEldestKindof@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDie.cpp,owned,,1,2
 0x00A0383C,4,.data,global,?$S69@?1??getModuleNameKey@CreateObjectDieIfEldestKindof@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDie.cpp,owned,,1,2
-0x00A03840,4,.data,global,?TheCreateObjectDieIfEldestKindofKey@?1??onDie@CreateObjectDieIfEldestKindof@@UAEXPBVDamageInfo@@@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDieIfEldestKindofOnDie.cpp,owned,,1,2
-0x00A03844,4,.data,global,?$S1@?1??onDie@CreateObjectDieIfEldestKindof@@UAEXPBVDamageInfo@@@Z@4IA,Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDieIfEldestKindofOnDie.cpp,owned,,1,4
+0x00A03840,4,.data,global,?TheCreateObjectDieIfEldestKindofKey@?1??onDie@CreateObjectDieIfEldestKindof@@UAEXPBVDamageInfo@@@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDie.cpp,owned,,1,2
+0x00A03844,4,.data,global,?$S1@?1??onDie@CreateObjectDieIfEldestKindof@@UAEXPBVDamageInfo@@@Z@4IA,Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDie.cpp,owned,,1,4
 0x00A03848,4,.data,global,_s_rva007B1266,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A0384C,4,.data,global,?TheDamageFilteredCreateObjectDiePoolKey@?1??getModuleNameKey@DamageFilteredCreateObjectDie@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Die/DamageFilteredCreateObjectDie.cpp,owned,,1,2
 0x00A03850,4,.data,global,?$S1@?1??getModuleNameKey@DamageFilteredCreateObjectDie@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Die/DamageFilteredCreateObjectDie.cpp,owned,,1,4

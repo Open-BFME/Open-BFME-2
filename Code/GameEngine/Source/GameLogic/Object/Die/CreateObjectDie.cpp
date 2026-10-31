@@ -24,6 +24,7 @@ extern GameLogic *TheGameLogic;
 
 
 
+
 #endif
 #pragma comment(linker, "/alternatename:?f1@Rva0048593D_Mid@@UAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
 #pragma comment(linker, "/alternatename:?f2@Rva0048593D_B2@@UAEXXZ=?onDie@CreateObjectDieIfEldestKindof@@UAEXPBVDamageInfo@@@Z")
@@ -47,6 +48,16 @@ extern GameLogic *TheGameLogic;
 	{ \
 		return TEXT; \
 	}
+#define Matrix4x4 Matrix4  // BFME renamed it
+#define __PLACEMENT_VEC_NEW_INLINE  // always.h/GameMemory.h define array placement-new themselves
+#define Matrix4x4 Matrix4  // BFME renamed it
+#define __PLACEMENT_VEC_NEW_INLINE  // always.h/GameMemory.h define array placement-new themselves
+#define _GAME_LOGIC_H_  // the canonical GameLogic above replaces the Zero Hour copy AIUpdate.h names
+#define DEFINE_OBJECT_STATUS_NAMES
+#define Matrix4x4 Matrix4  // BFME renamed it
+#define __PLACEMENT_VEC_NEW_INLINE  // always.h/GameMemory.h define array placement-new themselves
+#define Matrix4x4 Matrix4  // BFME renamed it
+#define __PLACEMENT_VEC_NEW_INLINE  // always.h/GameMemory.h define array placement-new themselves
 
 //
 // Opaque single-inheritance destructor tail-calling Rva0048593D::~
@@ -99,6 +110,7 @@ struct Rva00485C19Data
 {
 	int m_00;
 };
+
 struct StatusBitsEldestFrame
 {
 public:
@@ -146,6 +158,7 @@ struct Rva00485D11DataHead
 {
 	unsigned char m_pad00[0x4C];
 };
+
 class CreateObjectDieIfEldestKindofModuleData : public Rva00485D11DataHead, public Rva00485C19Data
 {
 public:
@@ -166,7 +179,107 @@ protected:
 	virtual const char *GetSnapshotName() const;
 };
 
-// tu-skeleton: 0x00485975 14B ?cacheGameLogicFrame@StatusBitsEldestFrame@@QAEPAU1@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/StatusBitsEldestFrameCache.cpp (not merged yet)
+class Object;
+
+struct Rva00485C19Data;
+
+class Rva2225E0Filter
+{
+public:
+	bool accepts(Object *obj, Player *player);
+};
+
+struct EldestKindofRecord
+{
+	unsigned int m_value; // +0x00
+};
+
+class ModuleInterfaceAt0C
+{
+public:
+	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
+	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
+	virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
+	virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
+	virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19();
+	virtual void v20(); virtual void v21(); virtual void v22(); virtual void v23();
+	virtual void v24(); virtual void v25(); virtual void v26(); virtual void v27();
+	virtual void v28(); virtual void v29(); virtual void v30(); virtual void v31();
+	virtual void v32(); virtual void v33(); virtual void v34(); virtual void v35();
+	virtual void v36(); virtual void v37(); virtual void v38(); virtual void v39();
+	virtual EldestKindofRecord *getEldestKindofRecord(); // slot 0xA0
+};
+
+// The base is the real class; only the observed derived interface at +0x0C is viewed.
+class Rva004859A2ModuleView : public Module
+{
+public:
+	unsigned char m_pad08[4];
+	ModuleInterfaceAt0C m_interface; // +0x0C
+};
+
+struct findEldestData
+{
+	Object *m_eldest; // +0x00
+	unsigned int m_lowest; // +0x04
+	Rva2225E0Filter *m_filter; // +0x08
+	NameKeyType m_moduleKey; // +0x0C
+};
+
+struct findEldest
+{
+public:
+	static int func(Object *obj, void *userData);
+};
+
+typedef Int (__cdecl *ObjectIterateFunc)(Object *obj, void *userData);
+
+class TeamPrototype
+{
+public:
+	Int rva0039ED9C(ObjectIterateFunc func, void *userData);
+};
+
+struct PlayerTeamNode
+{
+	PlayerTeamNode *m_next;
+	PlayerTeamNode *m_prev;
+	TeamPrototype *m_value;
+};
+
+class Player
+{
+public:
+	bool rva002AB87D(const UpgradeTemplate *t) const;
+	char m_pad00[0x32C];
+	PlayerTeamNode *m_head32C; // +0x32C
+};
+
+struct Rva00485C19Ctx
+{
+	Object *m_found;
+	int m_best;
+	const Rva00485C19Data *m_data;
+	NameKeyType m_key;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/StatusBitsEldestFrameCache.cpp
+
+//
+// ?cacheGameLogicFrame@StatusBitsEldestFrame@@QAEPAU1@XZ, retail 0x00485975,
+// 14 bytes: the +0x1C eldest-frame cache of StatusBitsUpgradeIfEldestKindof
+// (ctor 0x004B4A32, its sole caller). WorldBuilder's debug body (0x011C1270,
+// unnamed) stores the GameLogic frame (+0x40) into the member and returns
+// 'this'; the returned pointer is what puts 'this' in eax and the GameLogic
+// object in ecx in the retail bytes.
+
+StatusBitsEldestFrame *StatusBitsEldestFrame::cacheGameLogicFrame(void)
+{
+	m_cachedFrame = (int)TheGameLogic->getFrame();
+	return this;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDie.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDie.cpp
 
@@ -340,7 +453,40 @@ void CreateObjectDieIfEldestKindofModuleData::buildFieldParse(MultiIniFieldParse
 // No // cl: line (defaults match the frameless 6-byte shape, same as the
 // ModuleNameGetters.cpp precedent).
 
-// tu-skeleton: 0x004859A2 72B ?func@findEldest@@SAHPAVObject@@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDieFindEldest.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDieFindEldest.cpp
+
+// findEldest::func, retail 0x004859A2 (72 bytes):
+// ?func@findEldest@@SAHPAVObject@@PAX@Z (an int-returning iteration callback)
+// Identity (target): WorldBuilder's debug CreateObjectDie.cpp:198..204
+// findEldest::func ("findEldest:func - no module found for object match.",
+// "... no EldestKindof module found ...") calls the object filter's accepts
+// (0x00362437) and Object::findModule, then the module interface's slot
+// 0xA0, as retail does.
+// Body (target): an object-iteration callback that keeps, in its user data,
+// the accepted object whose eldest-kindof record (first word) is lowest;
+// it always continues the iteration. Layout (target): user data is
+// (eldest object, lowest value, filter, module name key); the module's
+// interface base sits at +0x0C.
+
+int findEldest::func(Object *obj, void *userData)
+{
+	findEldestData *data = (findEldestData *)userData;
+	if (data->m_filter->accepts(obj, 0))
+	{
+		// findUpdateModule is the public inline forward to the protected Object::findModule.
+		Module *module = (Module *)obj->findUpdateModule(data->m_moduleKey);
+		if (module)
+		{
+			EldestKindofRecord *record = ((Rva004859A2ModuleView *)module)->m_interface.getEldestKindofRecord();
+			if (record && record->m_value < data->m_lowest)
+			{
+				data->m_lowest = record->m_value;
+				data->m_eldest = obj;
+			}
+		}
+	}
+	return 1;
+}
 
 // tu-skeleton: 0x004859EA 69B ?rva0004859EA@CreateObjectDie@@SA?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDiePoolKey.cpp (not merged yet)
 
@@ -350,7 +496,25 @@ void CreateObjectDieIfEldestKindofModuleData::buildFieldParse(MultiIniFieldParse
 
 // tu-skeleton: 0x00485ADC 84B ??0Rva00485ADCFilter@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/Rva00485ADCFilterCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x00485B4B 53B ??0CreateObjectDieIfEldestKindof@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDieIfEldestKindofCtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDieIfEldestKindofCtor.cpp
+
+//
+// ??0CreateObjectDieIfEldestKindof@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x00485B4B, 53 bytes.
+// CreateObjectDieIfEldestKindof behavior ctor over the rowed CreateObjectDie
+// behavior base (0x485A96): loads +0x14 from TheGameLogic+0x40, then
+// stores the primary vtable slot and the +0x0C/+0x10 secondary slots. The
+// rowed name getter at 0x485A2F proves the class; the rowed instance factory
+// 0x24C912 is the sole raw caller. Row supersedes the ctor pin.
+// re-stores the primary vtable slot and the +0x0C/+0x10 secondary slots
+// (address-of TU-local dummies, DIR32-masked). The rowed name getter at
+// 0x485A2F proves the class; the rowed instance factory 0x24C912 is the sole
+// raw caller. Row supersedes the ctor pin.
+
+// ??0CreateObjectDieIfEldestKindof@@QAE@PAVThing@@PBVModuleData@@@Z @0x485B4B
+CreateObjectDieIfEldestKindof::CreateObjectDieIfEldestKindof(Thing *thing, const ModuleData *moduleData)
+	: CreateObjectDie(thing, moduleData)
+{
+}
 
 // tu-skeleton: 0x00485B9C 28B ??0Rva00485B9C@@QAE@HABH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE22.cpp (not merged yet)
 
@@ -358,11 +522,56 @@ void CreateObjectDieIfEldestKindofModuleData::buildFieldParse(MultiIniFieldParse
 
 // tu-skeleton: 0x00485BD4 69B ?xfer@Rva00485BD4@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/Rva00485BD4Xfer.cpp (not merged yet)
 
-// tu-skeleton: 0x00485C19 109B ?rva00485C19@StatusBitsEldestFrame@@QAE_NPAVObject@@PBURva00485C19Data@@PBW4NameKeyType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/StatusBitsEldestFrameCheck.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/StatusBitsEldestFrameCheck.cpp
+
+//
+// ?rva00485C19@StatusBitsEldestFrame@@QAE_NPAVObject@@PBURva00485C19Data@@PBW4NameKeyType@@@Z, retail 0x00485C19 109B:
+// eldest-of-kind check of the helper member StatusBitsUpgradeIfEldestKindof keeps at +0x1C and
+// CreateObjectDieIfEldestKindof at +0x14. Walks the Object's controlling Player's teams (+0x32C)
+// through TeamPrototype::rva0039ED9C with the callback 0x004859A2 and answers whether the Object
+// found is the given one (dword +0x74). Returning the condition directly is
+// what gives retail's xor eax,eax / inc eax tail.
+//
+// Evidence: LINK BONUS pin name; called by StatusBitsUpgradeIfEldestKindof 0x004B4AFF and
+// CreateObjectDieIfEldestKindof::onDie 0x00485D11 with the module data's eldest-kind block and a
+// cached module name key; callees getControllingPlayer 0x0028AFA9 and TeamPrototype 0x0039ED9C.
+
+Bool StatusBitsEldestFrame::rva00485C19(Object *obj, const Rva00485C19Data *data, const NameKeyType *key)
+{
+	PlayerTeamNode **head = &obj->getControllingPlayer()->m_head32C;
+	Rva00485C19Ctx ctx;
+	ctx.m_found = 0;
+	ctx.m_best = -1;
+	ctx.m_data = data;
+	ctx.m_key = *key;
+	for (PlayerTeamNode *it = (*head)->m_next; it != *head; it = it->m_next)
+		it->m_value->rva0039ED9C(findEldest::func, &ctx);
+	return ctx.m_found != 0 && ctx.m_found->getID() == obj->getID();
+}
 
 // tu-skeleton: 0x00485C86 139B ?onDie@CreateObjectDie@@UAEXPBVDamageInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDie_onDie.cpp (not merged yet)
 
-// tu-skeleton: 0x00485D11 119B ?onDie@CreateObjectDieIfEldestKindof@@UAEXPBVDamageInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDieIfEldestKindofOnDie.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDieIfEldestKindofOnDie.cpp
+
+//
+// CreateObjectDieIfEldestKindof::onDie, retail 0x00485D11 (119 bytes): slot
+// 0 of the class's +0x10 die-module interface table 0x00C4A810. Only when
+// the eldest-of-kind helper at +0x14 (the pinned StatusBitsEldestFrame's
+// 0x00485C19) finds our Object eldest for the module data's eldest-kind block
+// (a base at +0x4C of the module data) under this module's cached name key
+// does the CreateObjectDie onDie 0x00485C86 (slot 0 of CreateObjectDie's die
+// table 0x00C4A7DC; pinned by address) run.
+
+void CreateObjectDieIfEldestKindof::onDie(const DamageInfo *damageInfo)
+{
+	static NameKeyType TheCreateObjectDieIfEldestKindofKey =
+		TheNameKeyGenerator->nameToKey("CreateObjectDieIfEldestKindof");
+	const CreateObjectDieIfEldestKindofModuleData *data =
+		(const CreateObjectDieIfEldestKindofModuleData *)getModuleData();
+	Object *obj = getObject();
+	if (rva00485C19(obj, data, &TheCreateObjectDieIfEldestKindofKey))
+		CreateObjectDie::onDie(damageInfo);
+}
 
 // tu-skeleton: 0x00485D88 82B ??0CreateObjectDieModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDieModuleDataCtor.cpp (not merged yet)
 
@@ -379,10 +588,6 @@ void CreateObjectDieIfEldestKindofModuleData::buildFieldParse(MultiIniFieldParse
 // tu-skeleton: 0x0078BFBE 8B Unwind@00b8bfbe -- matched in Code/GameEngine/Source/GameLogic/Object/Update/Rva00485ADCFilterCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0078BFC6 10B __ehhandler$??0Rva00485ADCFilter@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/Rva00485ADCFilterCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078BFD0 13B $L424 -- matched in Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDieIfEldestKindofOnDie.cpp (not merged yet)
-
-// tu-skeleton: 0x0078BFDD 10B __ehhandler$?onDie@CreateObjectDieIfEldestKindof@@UAEXPBVDamageInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDieIfEldestKindofOnDie.cpp (not merged yet)
 
 // tu-skeleton: 0x0078BFE7 8B $L4826 -- matched in Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDieModuleDataCtor.cpp (not merged yet)
 
