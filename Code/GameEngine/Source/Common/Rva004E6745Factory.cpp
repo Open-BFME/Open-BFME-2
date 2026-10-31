@@ -62,12 +62,3 @@ Rva004E7F43 *Rva004E7F43::rva004E7F43()
 	m_00 = new Rva004E7D72(this);
 	return this;
 }
-
-// Native4E7D72..4E7DC8 RET4 and WB131C300 prove parent+0, scalar+4,
-// string+8, list+C, map+10 and the 12-byte member+1C. Native unwind
-// action792399 adjusts this by8 and jumps to rowed AsciiString::~AsciiString
-// at48BA39; the old artificial-base model hid that real member lifetime.
-Rva004E7D72::Rva004E7D72(void *parent)
-    : m_parent(parent), m_04(0), m_name(), m_list0C(), m_map10(), m_1C()
-{
-}
