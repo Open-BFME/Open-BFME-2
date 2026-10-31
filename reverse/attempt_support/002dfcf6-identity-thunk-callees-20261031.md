@@ -14,9 +14,13 @@ ledger rows) are kept apart from the structural inferences that fix them.
 | tree views at 0x00383567/0x0038356C/0x00383571 | 5-byte thunks = `map<unsigned char, int/short/float>::~map` | private `map` specializations holding the tree views; one ICF row at 0x00383567 | 19 |
 | `_M_erase` of the region-record multimap (0x005025DB) | calls the pair destructor 0x0050174A out of line | `~Rva00501656()` declared in both instantiating units; ICF row | 2 |
 | `_M_erase` at 0x0026C238 and 0x00501F2D | value destructors 0x000796BC (frees a vector at +4) and 0x005011B4 (`add ecx,4; jmp` the rowed vector destructor 0x00500E3D) | the sweep records hold that member; ICF rows for the pair destructor and `_M_erase` | 2 |
+| `set<int>::~set` at 0x00073116 | `jmp` the int-tree destructor 0x000730DE | `set<int>` specialization holding the tree view in 4 units | 4 |
+| `ModuleInfo::~ModuleInfo` at 0x0033CF2F | `jmp` the record-vector destructor 0x0033CD02 | ThingTemplate's four module-info members typed ModuleInfo | 4 |
+| `~Rva0021DA13` at 0x0021DA13 | `jmp` the name-set destructor 0x0021D5D5 | the save-file name sets typed Rva0021DA13 (as AptSaveLoadRva0043684C.cpp does) in 4 units | 4 |
+| `PlayerStorage::~PlayerStorage` at 0x002BBD4D | `jmp` the battle-record vector destructor | the battle records typed PlayerStorage in LivingWorldBattle and LivingWorldAIArmyMover | 3 |
 | `_M_insert_overflow<const UpgradeTemplate *>` at 0x002DFCF6 (step 1 of 2) | retail expands `max<unsigned>` | dllimport + `__forceinline` max in HordeContainApplyUpgradeMask.cpp; leaves `allocate` 0x00068E15 and `fill_n` 0x0007E48F rowed | 0 (prerequisite) |
 
-The rule behind the first three rows: an unwind funclet (and the eh vector
+The rule behind every row but the `_M_erase` and `_M_insert_overflow` ones: an unwind funclet (and the eh vector
 destructor helper) always takes the member or local type's own destructor.
 When a view type makes the normal path call the right address, the funclet
 still names the view. Type the object as retail's container and keep the base
@@ -58,5 +62,9 @@ destructor declaration-only so the normal path stays out of line.
   - 0x0028614C: 55 bytes with no destructor call; a different difference.
 - **Next direct groups (same funclet rule, wrapper identity still to prove):**
   0x002F0F02 (`jmp` the tree destructor ??1Rva002EE9B7 at 0x002F0B52; 6 units),
-  vector<Rva0007BB16Record> at 0x0007C632 (8 units), 0x0022CA3B,
-  0x001FE065, 0x0021DA13, 0x0029A21F.
+  vector<Rva0007BB16Record> at 0x0007C632 (8 units; the owner
+  ??1Rva0007C632Dtor is a strong definition, so a COMDAT wrapper would
+  collide), 0x0022CA3B, 0x001FE065 and 0x0029A21F (their owners are
+  method-named forwards, so the wrapper destructor needs its own ICF row),
+  PlayerStorage in LivingWorldLogic.cpp ($L26855), and the deque holder
+  0x000581F0 (MilesAudioManager.cpp, 4).
