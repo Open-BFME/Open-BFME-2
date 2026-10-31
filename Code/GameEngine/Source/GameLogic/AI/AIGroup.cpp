@@ -144,14 +144,7 @@ class Waypoint;
 class Rva003427DD;
 class PolygonTrigger;
 struct AICommandParms;
-class Rva0035149F;
-class Object;
-class Team;
 struct Coord3D;
-class Waypoint;
-class Rva003427DD;
-class PolygonTrigger;
-struct AICommandParms;
 class AICommandInterface
 {
 public:
@@ -195,52 +188,6 @@ public:
 #define PAD_VIRTUALS10(p) \
 	virtual void p##0(); virtual void p##1(); virtual void p##2(); virtual void p##3(); virtual void p##4(); \
 	virtual void p##5(); virtual void p##6(); virtual void p##7(); virtual void p##8(); virtual void p##9();
-class AIUpdateInterface
-{
- public:
- PAD_VIRTUALS10(a0) PAD_VIRTUALS10(a1) PAD_VIRTUALS10(a2) PAD_VIRTUALS10(a3) PAD_VIRTUALS10(a4)
- PAD_VIRTUALS10(a5) PAD_VIRTUALS10(a6) PAD_VIRTUALS10(a7) PAD_VIRTUALS10(a8) PAD_VIRTUALS10(a9)
- PAD_VIRTUALS10(b0)
- virtual void b10(); virtual void b11(); virtual void b12(); virtual bool pred113() const; virtual void b14(); virtual void b15(); virtual void b16(); virtual void b17(); virtual void b18(); virtual void b19();
- PAD_VIRTUALS10(b2)
- virtual void c0();
- virtual void c1();
- virtual void c2();
- virtual void c3();
- virtual void c4();
- virtual void c5();
- virtual void c6();
- virtual bool isDoingGroundMovement() const;
-// slot 137
- AICommandInterface *getCommandInterface()
- {
-  return &m_commands;
- }
- int getTmpValue() const
- {
-  return m_tmpInt;
- }
- void setTmpValue(int val)
- {
-  m_tmpInt = val;
- }
- __declspec(dllimport) __forceinline const LocomotorSet &getLocomotorSet() const
- {
-  return *(const LocomotorSet *)m_locomotorSet;
- }
- private:
- char m_pad004[0x20 - 0x04];
- public:
- AICommandInterface m_commands;
- private:
-// +0x20 AICommandInterface
- char m_pad024[0x1CC - 0x24];
- char m_locomotorSet[0x04];
-// +0x1CC
- char m_pad1D0[0x23C - 0x1D0];
- int m_tmpInt;
-// +0x23C
-};
 class ThingTemplate
 {
  public:
@@ -327,6 +274,9 @@ _List_iterator<Object *, _Nonconst_traits<Object *> >::operator++()
 }
 #include <algorithm>
 #define _STLP_NO_EXCEPTIONS 1
+#include <windows.h>
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
+#include "../../../../Libraries/Include/Lib/Coord2D.h"
 
 class UpgradeTemplate;
 
@@ -423,6 +373,194 @@ public:
 	virtual Player *slotE0();
 };
 
+extern ControlBar *TheControlBar;
+
+extern SpecialPowerStore *TheSpecialPowerStore;
+
+// ?rva00372BB9@AIGroup@@QAEXPBXH@Z @0x00372BB9 76B
+// Unlock over AIGroup pin 0x00372571 plus virtual 0x158.
+// Evidence: calls pin 0x00372571; callees rowed/pinned; unblocks 0x004ED2ED.
+struct Rva00372571Params
+{
+	const void *m_00;
+	bool m_04;
+	const void *m_08;
+	const void *m_0C;
+	int m_10;
+	int m_14;
+	int m_18;
+	bool m_1C;
+};
+
+class V86;
+
+struct VTable86
+{
+	void *m_pad[86];
+	void *(__fastcall *m_f158)(V86 *p);
+};
+
+class AIGroup;
+
+class CommandButton;
+
+struct TargetRef00217D4C;
+
+void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
+
+class FunctorNotSet {public: FunctorNotSet(); virtual ~FunctorNotSet(); private: char pad[8];};
+
+class Rva0036E474Op {public: virtual ~Rva0036E474Op(); virtual unsigned char invoke(Object*);};
+
+class Rva0036E474Ref {
+public:
+ unsigned char invoke(Object*) const;
+ Rva0036E474Ref(const Rva0036E474Ref&); // caller-side copying is not recovered here
+ ~Rva0036E474Ref() {if(m_op) ReleaseTreeHintRef00217D4C((TargetRef00217D4C*)m_op);}
+ Rva0036E474Op* m_op;
+};
+
+template <int N> class VSlots : public VSlots<N - 1>
+{
+public:
+	virtual void gap(char (*)[N]) = 0;
+};
+
+template <> class VSlots<0>
+{
+};
+
+class Rva00A027B8
+{
+public:
+	virtual void slot00();
+	virtual void slot01();
+	virtual void slot02();
+	virtual void slot03();
+	virtual void slot04();
+	virtual void slot05();
+	virtual void slot06();
+	virtual void slot07();
+	virtual void slot08();
+	virtual void slot09();
+	virtual void slot10();
+	virtual void slot11();
+	virtual void slot12();
+	virtual void slot13();
+	virtual void slot14();
+	virtual void slot15();
+	virtual void slot16();
+	virtual void slot17();
+	virtual void slot18();
+	virtual void slot19();
+	virtual void slot20();
+	virtual void slot21();
+	virtual void slot22();
+	virtual void slot23();
+	virtual void slot24();
+	virtual void slot25();
+	virtual void slot26(void *arg);
+};
+
+// Project data ledger binds RVA A027B8 to the defined BuildAssistant global.
+// Keep the observed slot26 interface view until its method identity is recovered.
+extern class BuildAssistant *TheBuildAssistant;
+
+class Rva0036D6B4Ret : public VSlots<52>
+{
+public:
+	virtual void slotD0();
+};
+
+class Rva0036D6B4Iface : public VSlots<31>
+{
+public:
+	virtual Rva0036D6B4Ret *slot7C();
+};
+
+template<int N> class BitFlags;
+
+class AIUpdateInterface;
+
+class Coord2D;
+
+class Rva00373EC6;
+
+class ThingTemplate;
+
+class Provider250;
+
+struct RvaListNode
+{
+	RvaListNode *m_next;
+	char m_pad04[4];
+	void *m_payload; // +0x08
+};
+
+class Rva0036ListOwner
+{
+public:
+	void rva0036E474(Rva0036E474Ref ref);
+	void rva0036DC46(int unused);
+	void rva0036D6B4();
+	char m_pad00[0x4];
+private:
+	RvaListNode *m_head; // +0x04
+};
+
+class Rva00352F2FOpaque
+{
+public:
+	void invoke(const Waypoint *waypoint, int maxShots, CommandSourceType cmdSource);
+};
+
+class AIUpdateInterface
+{
+ public:
+ PAD_VIRTUALS10(a0) PAD_VIRTUALS10(a1) PAD_VIRTUALS10(a2) PAD_VIRTUALS10(a3) PAD_VIRTUALS10(a4)
+ PAD_VIRTUALS10(a5) PAD_VIRTUALS10(a6) PAD_VIRTUALS10(a7) PAD_VIRTUALS10(a8) PAD_VIRTUALS10(a9)
+ PAD_VIRTUALS10(b0)
+ virtual void b10(); virtual void b11(); virtual void b12(); virtual bool pred113() const; virtual void b14(); virtual void b15(); virtual void b16(); virtual void b17(); virtual void b18(); virtual void b19();
+ PAD_VIRTUALS10(b2)
+ virtual void c0();
+ virtual void c1();
+ virtual void c2();
+ virtual void c3();
+ virtual void c4();
+ virtual void c5();
+ virtual void c6();
+ virtual bool isDoingGroundMovement() const;
+// slot 137
+ AICommandInterface *getCommandInterface()
+ {
+  return &m_commands;
+ }
+ int getTmpValue() const
+ {
+  return m_tmpInt;
+ }
+ void setTmpValue(int val)
+ {
+  m_tmpInt = val;
+ }
+ __declspec(dllimport) __forceinline const LocomotorSet &getLocomotorSet() const
+ {
+  return *(const LocomotorSet *)m_locomotorSet;
+ }
+ private:
+ char m_pad004[0x20 - 0x04];
+ public:
+ AICommandInterface m_commands;
+ private:
+// +0x20 AICommandInterface
+ char m_pad024[0x1CC - 0x24];
+ char m_locomotorSet[0x04];
+// +0x1CC
+ char m_pad1D0[0x23C - 0x1D0];
+ int m_tmpInt;
+// +0x23C
+};
+
 class Object
 {
 public:
@@ -493,31 +631,10 @@ private:
 	Coord2D m_formationOffset; // +0x414
 };
 
-extern ControlBar *TheControlBar;
-
-extern SpecialPowerStore *TheSpecialPowerStore;
-
-// ?rva00372BB9@AIGroup@@QAEXPBXH@Z @0x00372BB9 76B
-// Unlock over AIGroup pin 0x00372571 plus virtual 0x158.
-// Evidence: calls pin 0x00372571; callees rowed/pinned; unblocks 0x004ED2ED.
-struct Rva00372571Params
+class Rva00352F9D
 {
-	const void *m_00;
-	bool m_04;
-	const void *m_08;
-	const void *m_0C;
-	int m_10;
-	int m_14;
-	int m_18;
-	bool m_1C;
-};
-
-class V86;
-
-struct VTable86
-{
-	void *m_pad[86];
-	void *(__fastcall *m_f158)(V86 *p);
+public:
+	void rva00352F9D(const void *waypoint, int intVal, CommandSourceType cmdSource);
 };
 
 class AIGroup
@@ -604,12 +721,21 @@ public:
 	void cohereAttackState();
 public:
 	void rva00372C05();
+public:
+	void rva0036F9FE(const Waypoint *waypoint, CommandSourceType cmdSource, int mode);
+public:
+	void rva0036FB57(const Waypoint *waypoint, CommandSourceType cmdSource, int mode);
+public:
+	bool rva0036E357();
+public:
+	void groupGuardObject(Object *obj, int x, CommandSourceType cmdSource);
+public:
+	void rva00370451(const Team *team, int x, CommandSourceType cmdSource);
+public:
+	void rva00370492(const PolygonTrigger *trigger, int x, CommandSourceType cmdSource);
+public:
+	void rva003704D3(const PolygonTrigger *trigger, int x, CommandSourceType cmdSource, const Coord3D *coord);
 };
-
-class AIGroup;
-
-class CommandButton;
-
 
 // tu-skeleton: 0x0036CBF9 129B ?rotateOffset@AIGroup@@SAXPBUCoord3D@@0PAVCoord2D@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupMoveFormation.cpp (not merged yet)
 
@@ -622,6 +748,8 @@ class CommandButton;
 // tu-skeleton: 0x0036CC94 499B ?computeIndividualDestination@AIGroup@@SAXPAUCoord3D@@PBU2@PAVObject@@1PBMH@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupIndividualDestination.cpp (not merged yet)
 
 // tu-skeleton: 0x0036CE87 73B ?rva0036CE87@AIGroup@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/AI/Rva0036CE87Finish.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/AI/AIGroupMembership.cpp
 
@@ -685,8 +813,6 @@ Bool AIGroup::isMember( Object *member )
 
 	return true;
 }
-
-// tu-skeleton: 0x0036CF07 108B ?remove@AIGroup@@QAE_NPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupRemove.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/AI/AIGroupMembership_Rva0036CFA4.cpp
 
@@ -1618,36 +1744,6 @@ void AIGroup::rva00372C05()
 	cohereAttackState();
 }
 
-// tu-skeleton: 0x0036D14F 374B ?getMinMaxAndCenter@AIGroup@@QAE_NPAVCoord2D@@0PAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupRva00372571.cpp (not merged yet)
-
-// tu-skeleton: 0x0036D2C5 222B ?recompute@AIGroup@@AAEXXZ -- matched in Code/GameEngine/Source/GameLogic/AI/Rva0036CE87Finish.cpp (not merged yet)
-
-// tu-skeleton: 0x0036D3A3 785B ?computeGroundPath@AIGroup@@QAE_NPBUCoord3D@@W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupGetCenter.cpp (not merged yet)
-
-// tu-skeleton: 0x0036D6B4 64B ?rva0036D6B4@Rva0036ListOwner@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva0036ListWalkers.cpp (not merged yet)
-
-// tu-skeleton: 0x0036D6F4 178B ?groupSetPositionInFormation@AIGroup@@QAEXPBUCoord3D@@0H@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupSetPositionInFormation.cpp (not merged yet)
-
-// tu-skeleton: 0x0036D7A6 95B ?removeInvalidObjectsFromGroup@AIGroup@@QAE_NPAURva0036D7A6Outer@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupRemove.cpp (not merged yet)
-
-// tu-skeleton: 0x0036D805 50B ?rva0036D805@AIGroup@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupRemove.cpp (not merged yet)
-
-// tu-skeleton: 0x0036D837 50B ?rva0036D837@AIGroup@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupRemove.cpp (not merged yet)
-
-// tu-skeleton: 0x0036D869 409B ?groupDoSpecialPower@AIGroup@@QAE_NIIH@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroup_groupDoSpecialPower.cpp (not merged yet)
-
-// tu-skeleton: 0x0036DA02 440B ?groupDoSpecialPowerAtLocation@AIGroup@@QAE_NIPBUCoord3D@@PBVObject@@IH@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroup_groupDoSpecialPowerAtLocation.cpp (not merged yet)
-
-// tu-skeleton: 0x0036DBBA 99B ?rva0036DBBA@AIGroup@@QAEXHHI@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupAttackTeam.cpp (not merged yet)
-
-// tu-skeleton: 0x0036DC1D 41B ?rva0036DC1D@AIGroup@@QAEXW4ModelConditionFlagType@@I@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupAttackTeam.cpp (not merged yet)
-
-// tu-skeleton: 0x0036DC46 41B ?rva0036DC46@Rva0036ListOwner@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/Rva0036ListWalkers.cpp (not merged yet)
-
-// tu-skeleton: 0x0036DC6F 30B ?rva0036DC6F@AIGroup@@QAEXHH@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupRemove.cpp (not merged yet)
-
-// tu-skeleton: 0x0036DC8D 43B ?groupDoCommandButton@AIGroup@@QAEXPBVCommandButton@@W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupBroadcastOrders.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/AI/AIGroupDoCommandButton.cpp
 
 //
@@ -1677,6 +1773,91 @@ void AIGroup::groupDoCommandButtonAtObject( const CommandButton *commandButton, 
 	}
 }
 
+// tu-skeleton: 0x0036CF07 108B ?remove@AIGroup@@QAE_NPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupRemove.cpp (not merged yet)
+
+// tu-skeleton: 0x0036D14F 374B ?getMinMaxAndCenter@AIGroup@@QAE_NPAVCoord2D@@0PAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupRva00372571.cpp (not merged yet)
+
+// tu-skeleton: 0x0036D2C5 222B ?recompute@AIGroup@@AAEXXZ -- matched in Code/GameEngine/Source/GameLogic/AI/Rva0036CE87Finish.cpp (not merged yet)
+
+// tu-skeleton: 0x0036D3A3 785B ?computeGroundPath@AIGroup@@QAE_NPBUCoord3D@@W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupGetCenter.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva0036ListWalkers.cpp
+
+// platformsdk
+//
+// Three +0x04 list walkers sharing one owner (list head at +0x04, node
+// next at +0x00, payload at +0x08), landed as a homogeneous batch.
+// The owner's real class name remains unknown; the raw member-list
+// ABI is established independently by each retail walk.
+//
+// ?rva0036DC46@Rva0036ListOwner@@QAEXH@Z @0x0036DC46 41B
+// Walks the list and calls the g_00A027B8 slot26 virtual on each node's
+// +8 payload. The int argument is unused (ret 4). Advances before the
+// call (deletion-safe).
+//
+// ?rva0036D6B4@Rva0036ListOwner@@QAEXXZ @0x0036D6B4 64B
+// Walks the list; treats each +8 payload as Object (rowed rva0028AD32),
+// then follows its +0x250 interface (vslot 0x7C) and, when non-null,
+// that result's vslot 0xD0.
+//
+
+unsigned char Rva0036E474Ref::invoke(Object*obj) const {Rva0036E474Op*op=m_op;if(!op)throw FunctorNotSet();return op->invoke(obj);}
+
+// ?rva0036DC46@Rva0036ListOwner@@QAEXH@Z, retail 0x0036DC46, 41 bytes.
+void Rva0036ListOwner::rva0036DC46(int unused)
+{
+	(void)unused;
+	RvaListNode *node = m_head->m_next;
+	while (node != m_head) {
+		RvaListNode *cur = node;
+		node = node->m_next;
+		((Rva00A027B8*)TheBuildAssistant)->slot26(cur->m_payload);
+	}
+}
+
+// ?rva0036D6B4@Rva0036ListOwner@@QAEXXZ, retail 0x0036D6B4, 64 bytes.
+void Rva0036ListOwner::rva0036D6B4()
+{
+	for (RvaListNode *node = m_head->m_next; node != m_head; node = node->m_next) {
+		Object *object = (Object *)node->m_payload;
+		object->rva0028AD32();
+		Rva0036D6B4Iface *ifc = (Rva0036D6B4Iface *)object->m_provider250;
+		if (ifc != NULL) {
+			Rva0036D6B4Ret *r = ifc->slot7C();
+			if (r != NULL)
+				r->slotD0();
+		}
+	}
+}
+
+void Rva0036ListOwner::rva0036E474(Rva0036E474Ref ref) {
+ if(!ref.m_op)return; {
+  for(RvaListNode*node=m_head->m_next;node!=m_head;node=node->m_next) {
+   if(!ref.invoke((Object*)node->m_payload))break;
+  }
+ }
+}
+
+// tu-skeleton: 0x0036D6F4 178B ?groupSetPositionInFormation@AIGroup@@QAEXPBUCoord3D@@0H@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupSetPositionInFormation.cpp (not merged yet)
+
+// tu-skeleton: 0x0036D7A6 95B ?removeInvalidObjectsFromGroup@AIGroup@@QAE_NPAURva0036D7A6Outer@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupRemove.cpp (not merged yet)
+
+// tu-skeleton: 0x0036D805 50B ?rva0036D805@AIGroup@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupRemove.cpp (not merged yet)
+
+// tu-skeleton: 0x0036D837 50B ?rva0036D837@AIGroup@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupRemove.cpp (not merged yet)
+
+// tu-skeleton: 0x0036D869 409B ?groupDoSpecialPower@AIGroup@@QAE_NIIH@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroup_groupDoSpecialPower.cpp (not merged yet)
+
+// tu-skeleton: 0x0036DA02 440B ?groupDoSpecialPowerAtLocation@AIGroup@@QAE_NIPBUCoord3D@@PBVObject@@IH@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroup_groupDoSpecialPowerAtLocation.cpp (not merged yet)
+
+// tu-skeleton: 0x0036DBBA 99B ?rva0036DBBA@AIGroup@@QAEXHHI@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupAttackTeam.cpp (not merged yet)
+
+// tu-skeleton: 0x0036DC1D 41B ?rva0036DC1D@AIGroup@@QAEXW4ModelConditionFlagType@@I@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupAttackTeam.cpp (not merged yet)
+
+// tu-skeleton: 0x0036DC6F 30B ?rva0036DC6F@AIGroup@@QAEXHH@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupRemove.cpp (not merged yet)
+
+// tu-skeleton: 0x0036DC8D 43B ?groupDoCommandButton@AIGroup@@QAEXPBVCommandButton@@W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupBroadcastOrders.cpp (not merged yet)
+
 // tu-skeleton: 0x0036DD16 47B ?setAttitude@AIGroup@@QAEXW4AttitudeType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupAttackTeam.cpp (not merged yet)
 
 // tu-skeleton: 0x0036DD45 136B ?setWeaponLockForGroup@AIGroup@@QAE_NW4WeaponSlotType@@W4WeaponLockType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupAttackTeam.cpp (not merged yet)
@@ -1703,6 +1884,8 @@ void AIGroup::groupDoCommandButtonAtObject( const CommandButton *commandButton, 
 
 // tu-skeleton: 0x0036E1C3 52B ?groupSetEmoticon@AIGroup@@QAEXABV?$StringBase@D@@H@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupRva0036E1C3.cpp (not merged yet)
 
+// tu-skeleton: 0x0036E1F7 56B ?groupOverrideSpecialPowerDestination@Rva0036E1F7@@QAEXHHH@Z -- matched in Code/GameEngine/Source/Common/Rva0036E346Count.cpp (not merged yet)
+
 // tu-skeleton: 0x0036E269 62B ?groupChangeStance@AIGroup@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/AIGroup_groupChangeStance.cpp (not merged yet)
 
 // tu-skeleton: 0x0036E2A7 59B ?rva0036E2A7@Rva0036E2A7@@QAEXPAVSequentialScript@@H@Z -- matched in Code/GameEngine/Source/Common/Rva0036E346Count.cpp (not merged yet)
@@ -1718,8 +1901,6 @@ void AIGroup::groupDoCommandButtonAtObject( const CommandButton *commandButton, 
 // tu-skeleton: 0x0036E357 111B ?rva0036E357@AIGroup@@QAE_NXZ -- matched in Code/GameEngine/Source/Common/Rva0036E346Count.cpp (not merged yet)
 
 // tu-skeleton: 0x0036E3C6 174B ?xfer@AIGroup@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0036E474 83B ?rva0036E474@Rva0036ListOwner@@QAEXVRva0036E474Ref@@@Z -- matched in Code/GameEngine/Source/Common/Rva0036ListWalkers.cpp (not merged yet)
 
 // tu-skeleton: 0x0036E4C7 151B ??0AIGroup@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupConstructor.cpp (not merged yet)
 
@@ -1739,7 +1920,37 @@ void AIGroup::groupDoCommandButtonAtObject( const CommandButton *commandButton, 
 
 // tu-skeleton: 0x0036F917 231B ?groupTightenToPosition@AIGroup@@QAEXPBUCoord3D@@_NW4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupTightenToPosition.cpp (not merged yet)
 
-// tu-skeleton: 0x0036F9FE 88B ?rva0036F9FE@AIGroup@@QAEXPBVWaypoint@@W4CommandSourceType@@H@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupWaypointMode.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/AI/AIGroupWaypointMode.cpp
+
+//
+// ?rva0036F9FE@AIGroup@@QAEXPBVWaypoint@@W4CommandSourceType@@H@Z, retail 0x0036F9FE, 88 bytes.
+// AIGroup mode switch forwarding to each member via rowed aiFollowWaypointPath
+// at 0x0036EC82 (mode 0) and the pinned invoke at 0x00352F2F (mode 1 with
+// 0x7FFFFFFF). Evidence: same list-at-+0x00 plus Object+0x258 plus +0x20
+// subobject loop as groupAttackTeam and the landed rva0036FA56/rva0036FBC5;
+// callers at 0x003BF1DD 0x003BF4C3 0x003BF5F2; both callees share the +0x20
+// subobject.
+
+void AIGroup::rva0036F9FE(const Waypoint *waypoint, CommandSourceType cmdSource, int mode)
+{
+	for (std::list<Object *>::iterator i = m_memberList.begin(); i != m_memberList.end(); ++i)
+	{
+		AIUpdateInterface *ai = (*i)->m_ai;
+		if (ai == 0)
+			continue;
+		switch (mode)
+		{
+		case 1:
+			reinterpret_cast<Rva00352F2FOpaque*>(&ai->m_commands)->invoke(waypoint, 0x7FFFFFFF, cmdSource);
+			break;
+		case 0:
+			ai->m_commands.aiFollowWaypointPath(waypoint, cmdSource);
+			break;
+		default:
+			break;
+		}
+	}
+}
 
 // tu-skeleton: 0x0036FA56 54B ?rva0036FA56@AIGroup@@QAEXPBVWaypoint@@W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupFollowWaypointPathExact.cpp (not merged yet)
 
@@ -1749,7 +1960,34 @@ void AIGroup::groupDoCommandButtonAtObject( const CommandButton *commandButton, 
 
 // tu-skeleton: 0x0036FAF8 95B ?rva0036FAF8@Rva0036FAF8@@QAEXPBVWaypoint@@W4CommandSourceType@@H@Z -- matched in Code/GameEngine/Source/GameLogic/AI/Rva0036FAF8Group.cpp (not merged yet)
 
-// tu-skeleton: 0x0036FB57 110B ?rva0036FB57@AIGroup@@QAEXPBVWaypoint@@W4CommandSourceType@@H@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupRva0036FB57.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/AI/AIGroupRva0036FB57.cpp
+
+// ?rva0036FB57@AIGroup@@QAEXPBVWaypoint@@W4CommandSourceType@@H@Z @0x0036FB57 110B
+// Evidence: pin AIGroup; BfmeC986 ready guard 0x0036E357 plus step 0x005494A0; same list-at-+0 plus Object+0x258 plus +0x20 subobject mode switch as Rva0036FAF8Group (mode1 rowed rva00352F9D with 0x7FFFFFFF mode0 rowed aiFollowWaypointPathAsTeam); no m_410 clear like AIGroupWaypointMode; callers 0x003BF4B0 0x003BF5DE.
+
+void AIGroup::rva0036FB57(const Waypoint *waypoint, CommandSourceType cmdSource, int mode)
+{
+	if (!rva0036E357())
+		return;
+	createFormation(cmdSource, mode);
+	for (std::list<Object *>::iterator i = m_memberList.begin(); i != m_memberList.end(); ++i)
+	{
+		AIUpdateInterface *ai = (*i)->m_ai;
+		if (ai == 0)
+			continue;
+		switch (mode)
+		{
+		case 1:
+			reinterpret_cast<Rva00352F9D*>(&ai->m_commands)->rva00352F9D(waypoint, 0x7FFFFFFF, cmdSource);
+			break;
+		case 0:
+			ai->m_commands.aiFollowWaypointPathAsTeam(waypoint, cmdSource);
+			break;
+		default:
+			break;
+		}
+	}
+}
 
 // tu-skeleton: 0x0036FBC5 61B ?rva0036FBC5@AIGroup@@QAEXPBVWaypoint@@W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupBfmeCommand33.cpp (not merged yet)
 
@@ -1787,13 +2025,85 @@ void AIGroup::groupDoCommandButtonAtObject( const CommandButton *commandButton, 
 
 // tu-skeleton: 0x003703CF 65B ?groupGuardPosition@AIGroup@@QAEXPBUCoord3D@@W4GuardMode@@W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroup_groupGuardPosition.cpp (not merged yet)
 
-// tu-skeleton: 0x00370410 65B ?groupGuardObject@AIGroup@@QAEXPAVObject@@HW4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroup_groupGuardObject.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/AI/AIGroup_groupGuardObject.cpp
 
-// tu-skeleton: 0x00370451 65B ?rva00370451@AIGroup@@QAEXPBVTeam@@HW4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/Rva00370451Group.cpp (not merged yet)
+// ?groupGuardObject@AIGroup@@QAEXPAVObject@@HW4CommandSourceType@@@Z @0x00370410 65B
+// AIGroup forward of aiGuardObject to each member via rowed 0x0036F4DF,
+// null object returns, same list-at-+0 plus Object+0x258 plus +0x20 loop.
+// Evidence: calls 0x0036F4DF; callers 0x00378690 0x003BF807 0x003C2BB5;
+// precedent Rva003703CFGroup.cpp 65B same loop with aiGuardPosition.
 
-// tu-skeleton: 0x00370492 65B ?rva00370492@AIGroup@@QAEXPBVPolygonTrigger@@HW4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/Rva00370492Group.cpp (not merged yet)
+void AIGroup::groupGuardObject(Object *obj, int x, CommandSourceType cmdSource)
+{
+	if (obj == 0)
+		return;
+	for (std::list<Object *>::iterator i = m_memberList.begin(); i != m_memberList.end(); ++i)
+	{
+		AIUpdateInterface *ai = (*i)->m_ai;
+		if (ai != 0)
+			ai->m_commands.aiGuardObject(obj, x, cmdSource);
+	}
+}
 
-// tu-skeleton: 0x003704D3 68B ?rva003704D3@AIGroup@@QAEXPBVPolygonTrigger@@HW4CommandSourceType@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/Rva003704D3Group.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/AI/Rva00370451Group.cpp
+
+// ?rva00370451@AIGroup@@QAEXPBVTeam@@HW4CommandSourceType@@@Z @0x00370451 65B
+// AIGroup forward of rva0036F54D to each member via rowed 0x0036F54D,
+// null team returns, same list-at-+0 plus Object+0x258 plus +0x20 loop.
+// Evidence: calls 0x0036F54D; caller 0x003C2A94; unblocks 0x003C2A29;
+// precedent Rva00370410Group.cpp 65B same loop with aiGuardObject.
+
+void AIGroup::rva00370451(const Team *team, int x, CommandSourceType cmdSource)
+{
+	if (team == 0)
+		return;
+	for (std::list<Object *>::iterator i = m_memberList.begin(); i != m_memberList.end(); ++i)
+	{
+		AIUpdateInterface *ai = (*i)->m_ai;
+		if (ai != 0)
+			ai->m_commands.rva0036F54D(team, x, cmdSource);
+	}
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/AI/Rva00370492Group.cpp
+
+// ?rva00370492@AIGroup@@QAEXPBVPolygonTrigger@@HW4CommandSourceType@@@Z @0x00370492 65B
+// AIGroup forward of aiGuardArea to each member via rowed 0x0036F5BB,
+// null trigger returns, same list-at-+0 plus Object+0x258 plus +0x20 loop.
+// Evidence: calls 0x0036F5BB; caller 0x003BF8A9; unblocks 0x003BF813;
+// precedent Rva00370451Group.cpp 65B same loop with Team.
+
+void AIGroup::rva00370492(const PolygonTrigger *trigger, int x, CommandSourceType cmdSource)
+{
+	if (trigger == 0)
+		return;
+	for (std::list<Object *>::iterator i = m_memberList.begin(); i != m_memberList.end(); ++i)
+	{
+		AIUpdateInterface *ai = (*i)->m_ai;
+		if (ai != 0)
+			ai->m_commands.aiGuardArea(trigger, x, cmdSource);
+	}
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/AI/Rva003704D3Group.cpp
+
+// ?rva003704D3@AIGroup@@QAEXPBVPolygonTrigger@@HW4CommandSourceType@@PBUCoord3D@@@Z @0x003704D3 68B
+// AIGroup forward of aiGuardAreaFromPosition to each member via rowed 0x0036F629,
+// null trigger returns, same list-at-+0 plus Object+0x258 plus +0x20 loop.
+// Evidence: calls 0x0036F629; caller 0x003BF89B; unblocks 0x003BF813;
+// precedent Rva00370492Group.cpp 65B same loop with 3 args.
+
+void AIGroup::rva003704D3(const PolygonTrigger *trigger, int x, CommandSourceType cmdSource, const Coord3D *coord)
+{
+	if (trigger == 0)
+		return;
+	for (std::list<Object *>::iterator i = m_memberList.begin(); i != m_memberList.end(); ++i)
+	{
+		AIUpdateInterface *ai = (*i)->m_ai;
+		if (ai != 0)
+			ai->m_commands.aiGuardAreaFromPosition(trigger, x, cmdSource, coord);
+	}
+}
 
 // tu-skeleton: 0x00370517 61B ?groupAttackArea@AIGroup@@QAEXPAVPolygonTrigger@@W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupGroupAttackArea.cpp (not merged yet)
 
@@ -1810,8 +2120,6 @@ void AIGroup::groupDoCommandButtonAtObject( const CommandButton *commandButton, 
 // tu-skeleton: 0x00372B09 176B ?groupAttackMoveToPosition@AIGroup@@QAEXPBUCoord3D@@HW4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupAttackMoveToPosition.cpp (not merged yet)
 
 // tu-skeleton: 0x0077E639 8B uw_0077e639 -- matched in Code/gen_small/uw_gen_009.cpp (not merged yet)
-
-// tu-skeleton: 0x0077E641 10B __ehhandler$?rva0036E474@Rva0036ListOwner@@QAEXVRva0036E474Ref@@@Z -- matched in Code/GameEngine/Source/Common/Rva0036ListWalkers.cpp (not merged yet)
 
 // tu-skeleton: 0x0077E64B 8B Unwind@00b7e64b -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupConstructor.cpp (not merged yet)
 
