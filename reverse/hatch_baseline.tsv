@@ -1659,9 +1659,6 @@ alternatename	Code/GameEngine/Source/Common/BfmeConv692.cpp	?Gen007F89D0@@YAPAUR
 alternatename	Code/GameEngine/Source/Common/BfmeConv695.cpp	?Gen007F86A0@@YAPAURva007E9EF0Cached@@PAURva007E9EF0Owner@@@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv771.cpp	?bfmeVecDtorDSE@@YGXPAXIHP6AX0@Z@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv793.cpp	?bfmeFailDXE@@YGXH@Z	1
-alternatename	Code/GameEngine/Source/Common/BfmeConv808.cpp	?bfmeOneEFF@@YAPAXPAXH@Z	1
-alternatename	Code/GameEngine/Source/Common/BfmeConv808.cpp	?bfmeTwoEFF@@YAXHPAX@Z	1
-alternatename	Code/GameEngine/Source/Common/BfmeConv808.cpp	?bfmeTwoEFFb@@YAXHPAX@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv812.cpp	?bfmeGetEHA@BfmeObjEHA@@QAEPAUBfmeSubEHA@@XZ	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv831.cpp	?findObj@BfmeMgrD74_Linked@@QAEPAVBfmeLinkedObj@@H@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv831.cpp	?findSomething@BfmeMgrF07@@QAEHPAXH@Z	1
@@ -3269,6 +3266,9 @@ alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/DelayedLuaEventUpdat
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/DelayedLuaEventUpdateModuleDataCtorThunk.cpp	??0HordeTransportContainDamageModuleData@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine.cpp	??4Rva003371B1@@QAEAAV0@ABV0@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine.cpp	?Rva002EBEF0Intro@@YAXPAUS4SortElem20@@00HUS4Cmp002EB8E0@@@Z	1
+alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine.cpp	?bfmeOneEFF@@YAPAXPAXH@Z	1
+alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine.cpp	?bfmeTwoEFF@@YAXHPAX@Z	1
+alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine.cpp	?bfmeTwoEFFb@@YAXHPAX@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/OrConditionCtor.cpp	??1OrCondition@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/Rva0020453CHolderBaseDtor.cpp	?holderSlot0@Rva0020453CHolderBase@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BBFFB.cpp	?g_Va00BCF628@@3MA	1
