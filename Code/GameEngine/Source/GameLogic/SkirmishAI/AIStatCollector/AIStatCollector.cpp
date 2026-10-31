@@ -48,10 +48,6 @@ template <> void _STLP_alloc_proxy<int*, int, allocator<int> >::deallocate(int*,
 #include "ascii_string.h"
 
 // bfme link decl-only begin
-namespace _STL { template <> _Vector_base<void *, allocator<void *> >::_Vector_base(allocator<void *> const &); }
-
-namespace _STL { template <> vector<void *, allocator<void *> >::vector(allocator<void *> const &); }
-
 namespace _STL { template <> _STLP_alloc_proxy<void **, void *, allocator<void *> >::~_STLP_alloc_proxy(); }
 
 namespace _STL { template <> _Vector_base<void *, allocator<void *> >::~_Vector_base(); }
@@ -73,8 +69,6 @@ namespace _STL { template <> unsigned int vector<void *, allocator<void *> >::ca
 namespace _STL { template <> void vector<void *, allocator<void *> >::insert(void **, unsigned int, void *const &); }
 
 namespace _STL { template <> void vector<void *, allocator<void *> >::reserve(unsigned int); }
-
-namespace _STL { template <> allocator<void *>::~allocator(); }
 
 // bfme link decl-only end
 // Suppress this TU's non-retail copy of ??1?$hash_map@HHU?$hash@H@_STL@@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL:
@@ -101,13 +95,11 @@ template <> bool less<unsigned>::operator()(const unsigned &a, const unsigned &b
 // vector<void*> begin/end otherwise instantiate per-TU COMDATs (one byte
 // shape per TU flags); explicit dllimport+forceinline specializations take
 // those calls inline so this TU emits no external copies.
+namespace _STL { template <> __declspec(dllimport) __forceinline void **vector<void*>::end() { return _M_finish; } }
 namespace _STL {
 template <> __declspec(dllimport) __forceinline
 void **vector<void*>::begin()
 { return _M_start; }
-template <> __declspec(dllimport) __forceinline
-void **vector<void*>::end()
-{ return _M_finish; }
 template <> __declspec(dllimport) __forceinline
 size_t vector<void*>::size() const
 { return size_t(this->_M_finish - this->_M_start); }
@@ -141,6 +133,10 @@ private:
 	char bytes[0x1c]; // +0x00
 };
 
+class Rva00283081;
+
+// This file's own build sees no constructor body, so it sizes the class and declares throw().
+// Rva00283081Ctor.cpp holds the members and the body.
 class Rva00283081 { public: Rva00283081(float,int) throw(); private: char bytes[0x24]; };
 
 class Rva002A8F24;
@@ -154,8 +150,11 @@ void *Rva004DF983Field(void *);
 class AIStatCollector {
 public: AIStatCollector(Player *);
  void Register(Object *,int);
+ void Register(Object *);
+ void UnRegister(void *);
  void addInfoReceiver(const ModuleData *);
  bool rva004DFB7E(Object *);
+ void rva004DF9B9(void *,int);
 private:
  Rva005961D6 *units;
  Rva00596069 *otherUnits;
@@ -175,7 +174,7 @@ typedef char AIStatCollectorNativeSize[(sizeof(AIStatCollector)==0x38)?1:-1];
 class FilterElem
 {
 public:
-	virtual void v0(void *a);
+	virtual void v0(void *a, int b);
 	virtual void v1(void *a);
 	int m_flags;
 };
@@ -405,8 +404,8 @@ private:
 // ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AIStatCollector/AIStatCollector.cpp
 
 // The target has no operator-delete rollback state for this last helper's
-// construction. Its throw() declaration preserves that native EH behavior;
-// the existing helper provider keeps the same binary constructor ABI.
+// construction: the constructor body 0x004DFC59 cannot throw, which cl sees
+// when that body shares the unit and takes from throw() when it does not.
 AIStatCollector::AIStatCollector(Player *owner)
  :units(0),otherUnits(0),structures(0),resources(0),player(owner)
 {

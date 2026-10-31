@@ -14,9 +14,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include <cstddef>
 // bfme link decl-only begin
 namespace _STL { template <> void swap<_STLP_alloc_proxy<void **, void *, allocator<void *> > >(_STLP_alloc_proxy<void **, void *, allocator<void *> > &, _STLP_alloc_proxy<void **, void *, allocator<void *> > &); }
-namespace _STL { template <> _Vector_base<void *, allocator<void *> >::_Vector_base(allocator<void *> const &); }
 namespace _STL { template <> _Vector_base<void *, allocator<void *> >::_Vector_base(unsigned int, allocator<void *> const &); }
-namespace _STL { template <> vector<void *, allocator<void *> >::vector(allocator<void *> const &); }
 namespace _STL { template <> vector<void *, allocator<void *> >::vector(unsigned int, void *const &, allocator<void *> const &); }
 namespace _STL { template <> _STLP_alloc_proxy<void **, void *, allocator<void *> >::~_STLP_alloc_proxy(); }
 namespace _STL { template <> _Vector_base<void *, allocator<void *> >::~_Vector_base(); }
@@ -30,7 +28,6 @@ namespace _STL { template <> unsigned int vector<void *, allocator<void *> >::ca
 namespace _STL { template <> allocator<void *> vector<void *, allocator<void *> >::get_allocator() const; }
 namespace _STL { template <> void vector<void *, allocator<void *> >::reserve(unsigned int); }
 namespace _STL { template <> void vector<void *, allocator<void *> >::swap(vector<void *, allocator<void *> > &); }
-namespace _STL { template <> allocator<void *>::~allocator(); }
 // bfme link decl-only end
 // Suppress this TU's non-retail copy of ??0?$hash_map@HHU?$hash@H@_STL@@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
@@ -73,18 +70,17 @@ template <> vector<void *>::const_iterator _STL::vector<void *>::begin() const;
 namespace _STL {
 template <> bool less<unsigned>::operator()(const unsigned &a, const unsigned &b) const;
 }
+// end() is taken inline, as retail's hashtable::_M_initialize_buckets does (it reads
+// _M_finish); dllimport + forceinline emits no copy.
+namespace _STL { template <> __declspec(dllimport) __forceinline void **vector<void*>::end() { return _M_finish; } }
+// The fill insert(pos, n, x) is taken inline, as retail's hashtable::_M_initialize_buckets
+// does (59 bytes: it calls the rowed _M_fill_insert); dllimport + forceinline emits no copy.
+namespace _STL { template <> __declspec(dllimport) __forceinline void vector<void*>::insert(void **pos, size_t n, void *const &x) { _M_fill_insert(pos, n, x); } }
 // Suppress this TU's non-retail vector<void*> size copy (family2-LK3 row 17):
 // the retail copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL {
 template <> size_t vector<void*>::size() const;
 template <> void **vector<void*>::begin();
-// end() and the fill insert(pos, n, x) are taken inline, as retail's
-// hashtable::_M_initialize_buckets does (59 bytes: it reads _M_finish and
-// calls the rowed _M_fill_insert); dllimport + forceinline emits no copy.
-template <> __declspec(dllimport) __forceinline void **vector<void*>::end()
-{ return _M_finish; }
-template <> __declspec(dllimport) __forceinline void vector<void*>::insert(void **pos, size_t n, void *const &x)
-{ _M_fill_insert(pos, n, x); }
 // /Ob1 would leave __less<unsigned> out of line in _M_next_size; retail
 // expands it (48 bytes). Inline only, no external copy.
 template <> __declspec(dllimport) __forceinline less<unsigned int> __less(unsigned int *)
@@ -98,8 +94,6 @@ template <> __declspec(dllimport) __forceinline less<unsigned int> __less(unsign
 // reference the element's undefined ctors and ==).
 struct Rva004E007AElement {Rva004E007AElement();Rva004E007AElement(const Rva004E007AElement&);Rva004E007AElement&operator=(const Rva004E007AElement&);~Rva004E007AElement(){}char bytes[8]; bool operator==(const Rva004E007AElement&)const;};
 typedef _STL::pair<const int, Rva004E007AElement> Rva004E007AElementPair;
-// The bucket-size helper is declared only: the kept copy serves its call.
-namespace _STL { template <> unsigned int hashtable<Rva004E007AElementPair, int, hash<int>, _Select1st<Rva004E007AElementPair>, equal_to<int>, allocator<Rva004E007AElementPair> >::_M_next_size(unsigned int) const; }
 template _STL::hash_map<int, Rva004E007AElement, _STL::hash<int>, _STL::equal_to<int>, _STL::allocator<Rva004E007AElementPair> >::hash_map();
 // AIStatCollector::Register increments the mapped four-byte count at node+8;
 // its constructor's empty count-map call uses this same retail body. Keep

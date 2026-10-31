@@ -51,18 +51,17 @@ template <> vector<void *>::const_iterator _STL::vector<void *>::begin() const;
 namespace _STL {
 template <> bool less<unsigned>::operator()(const unsigned &a, const unsigned &b) const;
 }
+// end() is taken inline, as retail's hashtable::_M_initialize_buckets does (it reads
+// _M_finish); dllimport + forceinline emits no copy.
+namespace _STL { template <> __declspec(dllimport) __forceinline void **vector<void*>::end() { return _M_finish; } }
+// The fill insert(pos, n, x) is taken inline, as retail's hashtable::_M_initialize_buckets
+// does (59 bytes: it calls the rowed _M_fill_insert); dllimport + forceinline emits no copy.
+namespace _STL { template <> __declspec(dllimport) __forceinline void vector<void*>::insert(void **pos, size_t n, void *const &x) { _M_fill_insert(pos, n, x); } }
 // Suppress this TU's non-retail vector<void*> size copy (family2-LK3 row 17):
 // the retail copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL {
 template <> size_t vector<void*>::size() const;
 template <> void **vector<void*>::begin();
-// end() and the fill insert(pos, n, x) are taken inline, as retail's
-// hashtable::_M_initialize_buckets does (59 bytes: it reads _M_finish and
-// calls the rowed _M_fill_insert); dllimport + forceinline emits no copy.
-template <> __declspec(dllimport) __forceinline void **vector<void*>::end()
-{ return _M_finish; }
-template <> __declspec(dllimport) __forceinline void vector<void*>::insert(void **pos, size_t n, void *const &x)
-{ _M_fill_insert(pos, n, x); }
 }
 
 struct Rva004E007AElement {Rva004E007AElement();Rva004E007AElement(const Rva004E007AElement&);Rva004E007AElement&operator=(const Rva004E007AElement&);~Rva004E007AElement(){}char bytes[8]; bool operator==(const Rva004E007AElement&)const;};

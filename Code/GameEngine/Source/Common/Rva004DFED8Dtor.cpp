@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii /ICode/Libraries/Include/Lib
 // stlport
 // ??1Rva004DFED8@@UAE@XZ, RVA 0x004DFED8, 84 bytes.
 // Dtor: vstore 0x008615D4, calls rowed clear 0x002827F3, frees vec buffers
@@ -13,6 +13,12 @@
 // ~vector<void*> at 0x00027370, so neither member is a vector<void*>.
 struct Rva004DFED8Entry4;
 struct Rva004DFED8Entry10;
+
+// The member buffers free through the C++-linkage game free at 0x00030830: retail's
+// unwind state stays live across each call.
+void __cdecl Rva00030830GameFree(void *);
+namespace _STL { template <> inline void allocator<Rva004DFED8Entry4 *>::deallocate(Rva004DFED8Entry4 **__p, size_t) const { if (__p != 0) Rva00030830GameFree(__p); } }
+namespace _STL { template <> inline void allocator<Rva004DFED8Entry10 *>::deallocate(Rva004DFED8Entry10 **__p, size_t) const { if (__p != 0) Rva00030830GameFree(__p); } }
 
 class Rva002827F3
 {

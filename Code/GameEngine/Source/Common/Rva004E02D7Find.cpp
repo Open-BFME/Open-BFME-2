@@ -1,4 +1,4 @@
-// cl: /MD /D_STLP_USE_STATIC_LIB
+// cl: /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii /ICode/Libraries/Include/Lib
 // stlport
 // ?rva004E02D7@Rva004E02D7Owner@@QAEXPAVCreateAHeroData@@@Z @0x004E02D7 52B: thiscall, one
 // reference argument, ret 4. Finds the argument in the pointer vector at +4 (start +4, finish +8)
@@ -9,9 +9,8 @@ class CreateAHeroData;
 
 #include <vector>
 #include <algorithm>
-// Retail calls the rowed find 0x0020E873 and erase 0x001FF51F out of line.
+// Retail calls the rowed erase 0x001FF51F out of line.
 // bfme link decl-only begin
-namespace _STL { template <> CreateAHeroData **find(CreateAHeroData **, CreateAHeroData **, CreateAHeroData * const &); }
 namespace _STL { template <> void **vector<void *, allocator<void *> >::erase(void **); }
 // bfme link decl-only end
 

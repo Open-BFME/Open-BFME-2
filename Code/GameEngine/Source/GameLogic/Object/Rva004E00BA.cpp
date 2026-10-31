@@ -6,32 +6,27 @@
 // pinned STLport vector<Object*>::push_back at 0x001F211B, then call 0x004DFF2C
 // with the same receiver and Object*. The callee's identity and the owner's
 // class identity are unresolved; these address-derived names preserve that.
-// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
-// overload takes the call instead, so this TU emits no external max COMDAT.
-namespace _STL {
-static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
-{
-    return a < b ? b : a;
-}
-}
-#define _STLP_BFME_COPY_TRIVIAL_EXTERN  // call retail's one __copy_trivial (vendor/stlport/stl/_algobase.h)
 #include <vector>
-// Suppress this TU's non-retail copy of ?deallocate@?$allocator@PAVObject@@@_STL@@QBEXPAPAVObject@@I@Z:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-class Object;
-namespace _STL { template <> void allocator<Object *>::deallocate(Object **, size_t) const; }
-// Suppress this TU's non-retail copy of ?_M_insert_overflow@?$vector@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@IAEXPAPAVObj:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-class Object;
-namespace _STL { template <> void vector<Object *, allocator<Object *> >::_M_insert_overflow(Object **, Object *const &, const __true_type &, size_t, bool); }
 
 class Object;
+
+namespace _STL { template <> void vector<Object *, allocator<Object *> >::push_back(Object *const &); }
+
+typedef void *(__cdecl *Rva004DFE4FCallback)(void *key);
+
+class Rva00281A76;
 
 // 0x004DFF2C is rowed as ?rva004DFF2C@Rva004DFF2C@@QAEXPAX@Z; bind to that row.
 class Rva004DFF2C
 {
 public:
-	void rva004DFF2C(void *object);
+ virtual float padding() = 0;
+ void rva004DFF2C(void *key);
+private:
+ char m_pad04[0xC];
+ _STL::vector<Rva00281A76 *> m_groups;
+ int m_1C;
+ Rva004DFE4FCallback m_callback;
 };
 
 class Rva004E00BAOwner
