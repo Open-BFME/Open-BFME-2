@@ -304,45 +304,7 @@ public:
 
 class Thing;
 
-class ObjectModule
-{
-public:
-	virtual void objectModuleAnchor();
-
-protected:
-	const ModuleData *getModuleData() const { return m_moduleData; }
-	Object *getObject() const { return m_object; }
-
-private:
-	const ModuleData *m_moduleData;	// +0x04
-	Object *m_object;	// +0x08
-};
-
-// ?objectModuleAnchor@ObjectModule@@UAEXXZ present-unmatched
-void ObjectModule::objectModuleAnchor()
-{
-}
-
-class BehaviorModuleInterface
-{
-public:
-	virtual void behaviorModuleInterfaceAnchor();
-};
-
-class DieModuleInterface
-{
-public:
-	virtual void onDie(const DamageInfo *damageInfo) = 0;
-};
-
-class DieModule : public ObjectModule, public BehaviorModuleInterface, public DieModuleInterface
-{
-public:
-	DieModule(Thing *thing, const ModuleData *moduleData);
-
-protected:
-	Bool isDieApplicable(const DamageInfo *damageInfo) const;
-};
+#include "../../../../Include/GameLogic/Module/DieModule.h"
 
 class CreateCrateDie : public DieModule
 {
