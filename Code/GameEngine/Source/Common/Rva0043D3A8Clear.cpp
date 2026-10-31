@@ -16,6 +16,7 @@ class Rva0043D3A8
 {
 public:
 	void rva0043D3A8();
+	void rva0043D5CB(ScienceType science);
 
 private:
 	char m_unk0[8];

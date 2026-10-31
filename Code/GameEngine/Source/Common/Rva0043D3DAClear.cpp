@@ -67,6 +67,7 @@ extern GameLogic *TheGameLogic;
 class Rva0043D3DA
 {
 public:
+	void rva0043C7C9(int unused);
 	void rva0043D3DA(int unused);
 
 private:
@@ -74,7 +75,8 @@ private:
 	_STL::vector<void *> m_ptrs;
 	Rva0043D3A8 m_sub;
 	char m_pad1[2];
-	bool m_flag;
+	bool m_closed;
+	bool m_bgHidden;
 };
 
 void Rva0043D3DA::rva0043D3DA(int unused)
@@ -84,7 +86,7 @@ void Rva0043D3DA::rva0043D3DA(int unused)
 		if (*(unsigned char *)((reinterpret_cast<int>(TheInGameUI)) + 0x16) == 0)
 			return;
 	}
-	if (m_flag)
+	if (m_closed)
 		return;
 	m_sub.rva0043D3A8();
 	_STL::vector<void *> &slot = m_ptrs;

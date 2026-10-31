@@ -47,7 +47,9 @@ public:
 };
 // Its rowed constructor 0x0043D16F (Rva0043D16FCtor.cpp's view) builds the
 // vftable, the player, the science vector and the count; the rowed views
-// split the class by name, so Rva0043D3A8 adds no vftable of its own.
+// split the class by name. The screen's +0x288 member is spelled by this
+// constructor's class; the clear 0x0043D3A8 and cost-add 0x0043D5CB rows
+// view the same 0x18 bytes as Rva0043D3A8 (below), with no vftable of its own.
 // The destructor is 0x0043D193 (state 2 of AptSpellStore's unwind map);
 // retail never stores state 1 before the constructor call, so the spell
 // store's constructor treats it as unable to throw.
@@ -66,10 +68,16 @@ public:
 private:
 	unsigned char m_pad08[0x18 - 0x08];
 };
-class __declspec(novtable) Rva0043D3A8 : public Rva0043D16F
+class Rva0043D3A8
 {
 public:
+	void rva0043D3A8();
 	void rva0043D5CB(ScienceType science);
+
+private:
+	char m_unk0[8];
+	_STL::vector<ScienceType> m_sciences;
+	int m_unk14;
 };
 class ScienceStore
 {
@@ -329,7 +337,7 @@ public:
 
 private:
 	_STL::vector<const ModuleData *, _STL::allocator<const ModuleData *> > m_chosen; // +0x27C
-	Rva0043D3A8 m_sciences; // +0x288
+	Rva0043D16F m_sciences; // +0x288
 	bool m_2a0; // +0x2A0
 	bool m_2a1;
 	bool m_2a2; // +0x2A2
@@ -475,6 +483,14 @@ class Rva0043D3DA
 public:
 	void rva0043C7C9(int unused);
 	void rva0043D3DA(int unused);
+
+private:
+	char m_pad0[0x27c];
+	_STL::vector<void *> m_ptrs;
+	Rva0043D3A8 m_sub;
+	char m_pad1[2];
+	bool m_closed;
+	bool m_bgHidden;
 };
 
 int Rva0043C933Get(void);
@@ -496,6 +512,7 @@ class Rva00222A8BTarget
 public:
 	int invoke(void *window, const char *function, int argc, const char *arg,
 		void *arg1, void *arg2, void *arg3, void *arg4);
+	void rva00222F55(bool flag);
 	void rva002233A6(int mode);
 };
 

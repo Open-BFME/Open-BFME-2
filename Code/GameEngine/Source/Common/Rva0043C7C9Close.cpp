@@ -17,6 +17,8 @@ class Rva0043D3A8
 {
 public:
 	void rva0043D3A8();
+	void rva0043D5CB(ScienceType science);
+
 private:
 	char m_unk0[8];
 	_STL::vector<ScienceType> m_sciences;
@@ -47,8 +49,10 @@ class AptPlayer { public: static int GetLevelIndex(GameWindow *window); };
 class Rva00222A8BTarget
 {
 public:
-	void invoke(void *owner, const char *name, int flag, const char *value, void *a4, void *a5, void *a6, void *a7);
+	int invoke(void *window, const char *function, int argc, const char *arg,
+		void *arg1, void *arg2, void *arg3, void *arg4);
 	void rva00222F55(bool flag);
+	void rva002233A6(int mode);
 };
 
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
@@ -57,6 +61,8 @@ class Rva0043D3DA
 {
 public:
 	void rva0043C7C9(int unused);
+	void rva0043D3DA(int unused);
+
 private:
 	char m_pad0[0x27c];
 	_STL::vector<void *> m_ptrs;
