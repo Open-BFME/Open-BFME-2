@@ -261,12 +261,6 @@ private:
 	SizedForwarderSlots *m_inner;
 };
 
-// vtable 0x00BE0358#9 (??_7Rva001EE3DE@@6B@): (+0x4FA8)->slot5()
-void Rva001EDDBBForwarder::rva001EDDBB()
-{
-	m_inner->slot5();
-}
-
 class Rva0024002ELead
 {
 public:

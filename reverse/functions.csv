@@ -34539,7 +34539,7 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?rva0008BD2B@Rva0008BD2BForwarder@@QAEXXZ,,0x0008BD2B,11,Code/GameEngine/Source/Common/VslotSizedForwarders.cpp,matched,vtable 0x00BC7568#138 slot forwarder to slot 20 (arguments unproven)
 ?rva00091D32@Rva00091D32Forwarder@@QAEXXZ,,0x00091D32,11,Code/GameEngine/Source/Common/VslotSizedForwarders.cpp,matched,vtable 0x00BC80A0#5 slot forwarder to slot 132 (arguments unproven)
 ?rva000ABD68@Rva000ABD68Forwarder@@QAEXXZ,,0x000ABD68,8,Code/GameEngine/Source/Common/VslotSizedForwarders.cpp,matched,vtable 0x00BC957C#0 (??_7Rva000ABD56@@6B@) slot forwarder to slot 3 (arguments unproven)
-?rva001EDDBB@Rva001EDDBBForwarder@@QAEXXZ,,0x001EDDBB,11,Code/GameEngine/Source/Common/VslotSizedForwarders.cpp,matched,vtable 0x00BE0358#9 (??_7Mouse@@6B@) slot forwarder to slot 5 (arguments unproven)
+?rva001EDDBB@Rva001EDDBBForwarder@@QAEXXZ,,0x001EDDBB,11,Code/GameEngine/Source/GameClient/Input/Mouse.cpp,matched,vtable 0x00BE0358#9 (??_7Mouse@@6B@) slot forwarder to slot 5 (arguments unproven)
 ?rva0024002E@Rva0024002EForwarder@@QAEXXZ,,0x0024002E,7,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,matched,vtable 0x00BEDCB4#0 slot forwarder to slot 0 (arguments unproven)
 ?rva00240035@Rva00240035Forwarder@@QAEXXZ,,0x00240035,8,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,matched,vtable 0x00BEDCB4#1 slot forwarder to slot 1 (arguments unproven)
 ?rva0024003D@Rva0024003DForwarder@@QAEXXZ,,0x0024003D,8,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,matched,vtable 0x00BEDCB4#2 slot forwarder to slot 2 (arguments unproven)

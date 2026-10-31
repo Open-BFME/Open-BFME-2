@@ -26,6 +26,7 @@
 //#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
 
 
+
 #endif
 #include <windows.h>
 #include "unicode_string.h"
@@ -320,6 +321,334 @@ const char *g_00DB9058[] = {
 	"Patrol"
 };
 
+//
+// Vtable-slot forwarders with no ledger owner and no Ghidra size, generated
+// by tools/slot_forwarders.py (family vjmp). Each body was sized from its
+// bytes (a branch-free hop ending in jmp, followed by a known boundary).
+// Every class and method here is address-derived: the bytes prove the hop
+// and the slot or callee, nothing more. A tail-jumped virtual slot passes
+// the caller's arguments through untouched, so its argument count is not
+// provable and the slot is declared without arguments (inference).
+// A direct callee's argument count comes from its own ret N; an unnamed
+// callee is pinned by address in reverse/symbols.csv.
+
+typedef int Int;
+
+typedef bool Bool;
+
+typedef float Real;
+
+typedef unsigned int UnsignedInt;
+
+class SizedForwarderSlots
+{
+public:
+	virtual void slot0();
+	virtual void slot1();
+	virtual void slot2();
+	virtual void slot3();
+	virtual void slot4();
+	virtual void slot5();
+	virtual void slot6();
+	virtual void slot7();
+	virtual void slot8();
+	virtual void slot9();
+	virtual void slot10();
+	virtual void slot11();
+	virtual void slot12();
+	virtual void slot13();
+	virtual void slot14();
+	virtual void slot15();
+	virtual void slot16();
+	virtual void slot17();
+	virtual void slot18();
+	virtual void slot19();
+	virtual void slot20();
+	virtual void slot21();
+	virtual void slot22();
+	virtual void slot23();
+	virtual void slot24();
+	virtual void slot25();
+	virtual void slot26();
+	virtual void slot27();
+	virtual void slot28();
+	virtual void slot29();
+	virtual void slot30();
+	virtual void slot31();
+	virtual void slot32();
+	virtual void slot33();
+	virtual void slot34();
+	virtual void slot35();
+	virtual void slot36();
+	virtual void slot37();
+	virtual void slot38();
+	virtual void slot39();
+	virtual void slot40();
+	virtual void slot41();
+	virtual void slot42();
+	virtual void slot43();
+	virtual void slot44();
+	virtual void slot45();
+	virtual void slot46();
+	virtual void slot47();
+	virtual void slot48();
+	virtual void slot49();
+	virtual void slot50();
+	virtual void slot51();
+	virtual void slot52();
+	virtual void slot53();
+	virtual void slot54();
+	virtual void slot55();
+	virtual void slot56();
+	virtual void slot57();
+	virtual void slot58();
+	virtual void slot59();
+	virtual void slot60();
+	virtual void slot61();
+	virtual void slot62();
+	virtual void slot63();
+	virtual void slot64();
+	virtual void slot65();
+	virtual void slot66();
+	virtual void slot67();
+	virtual void slot68();
+	virtual void slot69();
+	virtual void slot70();
+	virtual void slot71();
+	virtual void slot72();
+	virtual void slot73();
+	virtual void slot74();
+	virtual void slot75();
+	virtual void slot76();
+	virtual void slot77();
+	virtual void slot78();
+	virtual void slot79();
+	virtual void slot80();
+	virtual void slot81();
+	virtual void slot82();
+	virtual void slot83();
+	virtual void slot84();
+	virtual void slot85();
+	virtual void slot86();
+	virtual void slot87();
+	virtual void slot88();
+	virtual void slot89();
+	virtual void slot90();
+	virtual void slot91();
+	virtual void slot92();
+	virtual void slot93();
+	virtual void slot94();
+	virtual void slot95();
+	virtual void slot96();
+	virtual void slot97();
+	virtual void slot98();
+	virtual void slot99();
+	virtual void slot100();
+	virtual void slot101();
+	virtual void slot102();
+	virtual void slot103();
+	virtual void slot104();
+	virtual void slot105();
+	virtual void slot106();
+	virtual void slot107();
+	virtual void slot108();
+	virtual void slot109();
+	virtual void slot110();
+	virtual void slot111();
+	virtual void slot112();
+	virtual void slot113();
+	virtual void slot114();
+	virtual void slot115();
+	virtual void slot116();
+	virtual void slot117();
+	virtual void slot118();
+	virtual void slot119();
+	virtual void slot120();
+	virtual void slot121();
+	virtual void slot122();
+	virtual void slot123();
+	virtual void slot124();
+	virtual void slot125();
+	virtual void slot126();
+	virtual void slot127();
+	virtual void slot128();
+	virtual void slot129();
+	virtual void slot130();
+	virtual void slot131();
+	virtual void slot132();
+};
+
+class MilesAudioManager : public SizedForwarderSlots
+{
+public:
+	virtual void rva000512BC();
+};
+
+class Rva00078AC6Forwarder
+{
+public:
+	void rva00078AC6();
+private:
+	char m_lead[0x4];
+	SizedForwarderSlots *m_inner;
+};
+
+class Rva0008605ALead
+{
+public:
+	virtual void lead0();
+private:
+	char m_lead[0xB0];
+};
+
+class Rva0008605AForwarder : public Rva0008605ALead, public SizedForwarderSlots
+{
+public:
+	void rva0008605A();
+};
+
+class Rva0008615BLead
+{
+public:
+	virtual void lead0();
+private:
+	char m_lead[0x24C4];
+};
+
+class Rva0008615BForwarder : public Rva0008615BLead, public SizedForwarderSlots
+{
+public:
+	void rva0008615B();
+};
+
+class Rva0008BD2BLead
+{
+public:
+	virtual void lead0();
+private:
+	char m_lead[0x24C4];
+};
+
+class Rva0008BD2BForwarder : public Rva0008BD2BLead, public SizedForwarderSlots
+{
+public:
+	void rva0008BD2B();
+};
+
+class Rva00091D32Forwarder
+{
+public:
+	void rva00091D32();
+private:
+	char m_lead[0x14];
+	SizedForwarderSlots *m_inner;
+};
+
+class Rva000ABD68Forwarder
+{
+public:
+	void rva000ABD68();
+private:
+	char m_lead[0x4];
+	SizedForwarderSlots *m_inner;
+};
+
+class Rva001EDDBBForwarder
+{
+public:
+	void rva001EDDBB();
+private:
+	char m_lead[0x4FA8];
+	SizedForwarderSlots *m_inner;
+};
+
+class Rva0024002ELead
+{
+public:
+	virtual void lead0();
+private:
+	char m_lead[0xC];
+};
+
+class Rva0024002EForwarder : public Rva0024002ELead, public SizedForwarderSlots
+{
+public:
+	void rva0024002E();
+};
+
+class Rva00240035Lead
+{
+public:
+	virtual void lead0();
+private:
+	char m_lead[0xC];
+};
+
+class Rva00240035Forwarder : public Rva00240035Lead, public SizedForwarderSlots
+{
+public:
+	void rva00240035();
+};
+
+class Rva0024003DLead
+{
+public:
+	virtual void lead0();
+private:
+	char m_lead[0xC];
+};
+
+class Rva0024003DForwarder : public Rva0024003DLead, public SizedForwarderSlots
+{
+public:
+	void rva0024003D();
+};
+
+class Rva0025C25AForwarder : public SizedForwarderSlots
+{
+public:
+	void rva0025C25A();
+};
+
+class Rva0029AC98Forwarder : public SizedForwarderSlots
+{
+public:
+	void rva0029AC98();
+};
+
+class Rva0030ADE8Forwarder : public SizedForwarderSlots
+{
+public:
+	void rva0030ADE8();
+};
+
+class Rva00328CC5Forwarder
+{
+public:
+	void rva00328CC5();
+private:
+	char m_lead[0x18];
+	SizedForwarderSlots *m_inner;
+};
+
+class Rva00328CCCForwarder
+{
+public:
+	void rva00328CCC();
+private:
+	char m_lead[0xC];
+	SizedForwarderSlots *m_inner;
+};
+
+class Rva0039AC9CForwarder
+{
+public:
+	void rva0039AC9C();
+private:
+	char m_lead[0x2C];
+	SizedForwarderSlots *m_inner;
+};
+
 // tu-skeleton: 0x001EDC41 112B ?moveMouse@Mouse@@IAEXHHH@Z -- matched in Code/GameEngine/Source/GameClient/Input/MouseProcessEvents.cpp (not merged yet)
 
 // tu-skeleton: 0x001EDCB1 107B ?updateMouseData@Mouse@@IAEXXZ -- matched in Code/GameEngine/Source/GameClient/Input/MouseProcessEvents.cpp (not merged yet)
@@ -328,7 +657,15 @@ const char *g_00DB9058[] = {
 
 // tu-skeleton: 0x001EDD80 59B ?rva001EDD80@Mouse@@QAE_NPBURva001EDD80Pair@@0@Z -- matched in Code/GameEngine/Source/Common/Rva001EDD80Range.cpp (not merged yet)
 
-// tu-skeleton: 0x001EDDBB 11B ?rva001EDDBB@Rva001EDDBBForwarder@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSizedForwarders.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/VslotSizedForwarders.cpp
+
+// vtable 0x00BE0358#9 (??_7Rva001EE3DE@@6B@): (+0x4FA8)->slot5()
+void Rva001EDDBBForwarder::rva001EDDBB()
+{
+	m_inner->slot5();
+}
+
+// ---- from Code/GameEngine/Source/GameClient/Input/Mouse.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/Input/Mouse.cpp
 
@@ -759,6 +1096,50 @@ void Rva005A4660::copy(unsigned *first, unsigned *second) const
 	*second = m_word1;
 }
 
+// ---- from Code/GameEngine/Source/GameClient/MouseRva001EEC4B_muse-f8cb.cpp
+
+// platformsdk
+// ?rva001EEC4B@Rva001EEC4B@@QAEXXZ @ 0x001EEC4B (76B): Mouse tooltip reset with Hide.
+// Retail calls timeGetTime and stores to +0x4FD8 then clears +0x1308. If tooltip string
+// at +0x12F8 is not empty it fires HideToolTip via HideToolTip (landed 60B) and clears
+// +0x12F8. Then clears +0x12FC and tail-jmps to clear +0x1300 through StringBase wide
+// releaseBuffer (row 0x36E70) plus isEmpty (row 0x35740). Callers 0x0029F27E. Prev
+// Mouse::setVisibility proves Mouse area but owner uses honest-address Rva class per packet.
+
+void Rva001EEC4B::rva001EEC4B()
+{
+	m_4FD8 = timeGetTime();
+	m_1308 = 0;
+	if (!m_12F8.isEmpty())
+	{
+		HideToolTip();
+		m_12F8.clear();
+	}
+	m_12FC.clear();
+	m_1300.clear();
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva001EF291Find.cpp
+
+//
+// Retail 0x001EF291 58B:
+// ?getCursorIndex@Mouse@@QAEHABVAsciiString@@@Z
+// Empty check via rowed isEmpty 0x00001E2F returns -1. Loop 0x38 over
+// retail pointer table at 0x00DB9058 via rowed compareNoCase 0x00037980
+// returns index or -1. Callers at 0x002A344F 0x004023A6 0x0042AB2B.
+//
+
+int Mouse::getCursorIndex(const AsciiString &name)
+{
+	if (name.isEmpty())
+		return -1;
+	for (int i = 0; i < 0x38; ++i) {
+		if (((const StringBase<char> &)name).compareNoCase(g_00DB9058[i]) == 0)
+			return i;
+	}
+	return -1;
+}
+
 // tu-skeleton: 0x001EDDFF 39B ?commitPendingCursor@Mouse@@AAEXXZ -- matched in Code/GameEngine/Source/GameClient/MouseSetEngineVisibility.cpp (not merged yet)
 
 // tu-skeleton: 0x001EDE26 20B ?rva001EDE26@Mouse@@QBE_NXZ -- matched in Code/GameEngine/Source/GameClient/MouseRva001EDE26.cpp (not merged yet)
@@ -793,29 +1174,6 @@ void Rva005A4660::copy(unsigned *first, unsigned *second) const
 
 // tu-skeleton: 0x001EEBD5 118B ?setMouseText@Mouse@@QAEXVUnicodeString@@PBURGBAColorInt@@1@Z -- matched in Code/GameEngine/Source/GameClient/Mouse_setMouseText.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/GameClient/MouseRva001EEC4B_muse-f8cb.cpp
-
-// platformsdk
-// ?rva001EEC4B@Rva001EEC4B@@QAEXXZ @ 0x001EEC4B (76B): Mouse tooltip reset with Hide.
-// Retail calls timeGetTime and stores to +0x4FD8 then clears +0x1308. If tooltip string
-// at +0x12F8 is not empty it fires HideToolTip via HideToolTip (landed 60B) and clears
-// +0x12F8. Then clears +0x12FC and tail-jmps to clear +0x1300 through StringBase wide
-// releaseBuffer (row 0x36E70) plus isEmpty (row 0x35740). Callers 0x0029F27E. Prev
-// Mouse::setVisibility proves Mouse area but owner uses honest-address Rva class per packet.
-
-void Rva001EEC4B::rva001EEC4B()
-{
-	m_4FD8 = timeGetTime();
-	m_1308 = 0;
-	if (!m_12F8.isEmpty())
-	{
-		HideToolTip();
-		m_12F8.clear();
-	}
-	m_12FC.clear();
-	m_1300.clear();
-}
-
 // tu-skeleton: 0x001EEC97 799B ??0Mouse@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x001EEFB6 28B ??_GMouse@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp (not merged yet)
@@ -825,27 +1183,6 @@ void Rva001EEC4B::rva001EEC4B()
 // tu-skeleton: 0x001EF05B 20B ?stringsDiffer@@YA_NABV?$StringBase@G@@0@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE51.cpp (not merged yet)
 
 // tu-skeleton: 0x001EF06F 546B ?drawTooltip@Mouse@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/MouseDrawTooltip.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/Rva001EF291Find.cpp
-
-//
-// Retail 0x001EF291 58B:
-// ?getCursorIndex@Mouse@@QAEHABVAsciiString@@@Z
-// Empty check via rowed isEmpty 0x00001E2F returns -1. Loop 0x38 over
-// retail pointer table at 0x00DB9058 via rowed compareNoCase 0x00037980
-// returns index or -1. Callers at 0x002A344F 0x004023A6 0x0042AB2B.
-//
-
-int Mouse::getCursorIndex(const AsciiString &name)
-{
-	if (name.isEmpty())
-		return -1;
-	for (int i = 0; i < 0x38; ++i) {
-		if (((const StringBase<char> &)name).compareNoCase(g_00DB9058[i]) == 0)
-			return i;
-	}
-	return -1;
-}
 
 // tu-skeleton: 0x0076ACC1 11B Unwind@00b6acc1 -- matched in Code/GameEngine/Source/GameClient/GUI/FontLibraryInit.cpp (not merged yet)
 
