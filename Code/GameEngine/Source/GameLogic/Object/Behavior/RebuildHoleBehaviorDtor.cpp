@@ -49,10 +49,15 @@ public:
 	BehaviorModule(Thing *thing, const ModuleData *moduleData);
 };
 
+enum UpdateSleepTime
+{
+	UPDATE_SLEEP_NONE = 1
+};
+
 class UpdateModuleInterface
 {
 public:
-	virtual void update();
+	virtual UpdateSleepTime update() = 0;
 };
 
 class UpdateModule : public BehaviorModule, public UpdateModuleInterface
@@ -86,6 +91,7 @@ class RebuildHoleBehavior : public UpdateModule,
 	public RebuildHoleBehaviorInterface
 {
 public:
+	virtual UpdateSleepTime update();
 	virtual ~RebuildHoleBehavior();
 	virtual void startRebuildProcess(const ThingTemplate *rebuild, ObjectID spawnerID);
 	void newWorkerRespawnProcess(Object *existingWorker);

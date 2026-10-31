@@ -14757,6 +14757,18 @@ fix in the consumers.
   real-vptr class view and a real ctor. Its interface bases' own-table
   stores (retail +0x20/+0x24 before the member zeroing) must keep the folded
   data-ledger names, then the re-row above applies.
+  2026-10-31 (Noro420): Resolved. Declaring `__declspec(novtable)` on the
+  `RebuildHoleBehavior` prefix/interface view in `RebuildHoleBehavior.cpp`
+  places `UpdateModuleInterface` at `+0x10` without disturbing `0x00483271`'s
+  two-phase vptr store order or emitting duplicate COMDAT vftables, so
+  `0x00483645` re-rows cleanly as
+  `?update@RebuildHoleBehavior@@UAE?AW4UpdateSleepTime@@XZ` (tombstoned in
+  `reverse/deleted_rows.csv`) and `RebuildHoleBehaviorDtor.cpp` binds it via
+  `virtual UpdateSleepTime update() = 0` on `UpdateModuleInterface` with zero
+  new hatches. Verified: `./build.sh` 12/12 rows across both files;
+  `data_check --enforce` 0 findings; `link_check` 12/12 `RebuildHole*` units
+  `LINKS`, `2,860 -> 3,087 B` (`RebuildHoleBehavior.cpp` `1,198 -> 1,198 B`,
+  `RebuildHoleBehaviorDtor.cpp` `0 -> 227 B`; census confirmation pending).
 
 ### GarrisonContain source-recovery prerequisites (2026-10-30, codex5)
 
