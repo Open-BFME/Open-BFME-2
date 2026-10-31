@@ -190,12 +190,6 @@ public:
 	Rva0056FCDB *rva00570405(const short &value);
 };
 
-Rva0056FCDB *Rva0056FCDB::rva00570405(const short &value)
-{
-	rva0056FCDB(value);
-	return this;
-}
-
 class Rva0056FAA5
 {
 public:
@@ -206,24 +200,6 @@ public:
 	Rva0056FAA5 *rva00570455(const int &value);
 	Rva0056FAA5 *rva00570469(const short &value);
 };
-
-Rva0056FAA5 *Rva0056FAA5::rva0057041B(const int &value)
-{
-	rva0056FD14(value);
-	return this;
-}
-
-Rva0056FAA5 *Rva0056FAA5::rva00570455(const int &value)
-{
-	rva0056FD2D(value);
-	return this;
-}
-
-Rva0056FAA5 *Rva0056FAA5::rva00570469(const short &value)
-{
-	rva0056FD46(value);
-	return this;
-}
 
 // --- 0x005C8774 (19B): +0x00 = 1.0f, +0x04 = 0; 0x005C8787 (23B): +0x00 and
 // +0x04 cleared, +0x08 = 1.0f.
