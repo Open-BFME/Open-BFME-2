@@ -18569,8 +18569,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009FDC34,8,.data,global,_s_rva007AD1B3,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x009FDC3C,4,.data,global,?TheFXListStore@@3PAVFXListStore@@A,Code/GameEngine/Source/GameClient/FXList.cpp,owned,,1,18
 0x009FDC40,8,.data,global,_s_rva007AD231,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
-0x009FDC48,8,.data,global,?g_Va00DFDC48@@3IA,Code/GameEngine/Source/Common/GlobalFlagClearers_DFD8xx.cpp,owned,,1,2
-0x009FDC50,12,.data,global,?g_Va00DFDC50@@3IA,Code/GameEngine/Source/Common/GlobalFlagClearers_DFD8xx.cpp,owned,,1,2
+0x009FDC48,8,.data,global,?g_Va00DFDC48@@3IA,Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp,owned,,1,2
+0x009FDC50,12,.data,global,?g_Va00DFDC50@@3IA,Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp,owned,,1,2
 0x009FDC5C,4,.data,global,?TheLocomotorStore@@3PAVLocomotorStore@@A,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,owned,,1,10
 0x009FDC60,1,.data,global,_g_Va00DFDC60,Code/GameEngine/Source/Common/Rva001E72B4Reload.cpp,owned,,1,4
 0x009FDC61,3,.data,global,_g_Va00DFDC61,Code/GameEngine/Source/Common/Rva001E72B4Reload.cpp,owned,,1,3
@@ -18590,7 +18590,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009FDCCC,4,.data,global,?TheObjectCreationListStore@@3PAVObjectCreationListStore@@A,Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp,owned,,1,15
 0x009FDCD0,4,.data,global,_s_rva007AD4BC,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x009FDCD4,4,.data,global,?key_RadiusDecalUpdate@?7??create@AttackNugget@@UBEPAVObject@@PBV3@PBUCoord3D@@1M@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/Object/AttackNuggetCreate.cpp,owned,,1,2
-0x009FDCD8,8,.data,global,?g_Va00DFDCD8@@3IA,Code/GameEngine/Source/Common/GlobalFlagClearers_DFD8xx.cpp,provisional,?$S1@?7??create@AttackNugget@@UBEPAVObject@@PBV3@PBUCoord3D@@1M@Z@4IA@Code/GameEngine/Source/GameLogic/Object/AttackNuggetCreate.cpp;?g_Va00DFDCD8@@3IA,2,4
+0x009FDCD8,8,.data,global,?g_Va00DFDCD8@@3IA,Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp,provisional,?$S1@?7??create@AttackNugget@@UBEPAVObject@@PBV3@PBUCoord3D@@1M@Z@4IA@Code/GameEngine/Source/GameLogic/Object/AttackNuggetCreate.cpp;?g_Va00DFDCD8@@3IA,2,4
 0x009FDCE0,20,.data,global,?$S1@?1??reallyCreate@GenericObjectCreationNugget@@QBE?AV?$vector@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@PBUCoord3D@@PBVMatrix3D@@MPBVObject@@I@Z@4IA,Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetReallyCreate.cpp,owned,,1,4
 0x009FDCF4,8,.data,global,?$S2@?3??doStuffToObj@GenericObjectCreationNugget@@IBEXPAVObject@@ABVAsciiString@@PBUCoord3D@@PBVMatrix3D@@MPBV3@IH@Z@4IA,Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetDoStuffToObj.cpp,owned,,1,12
 0x009FDCFC,8,.data,global,?$S1@?BE@??create@GenericObjectCreationNugget@@QBEXPBVObject@@PBUCoord3D@@1I@Z@4IA,Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetPositionCreate.cpp,owned,,1,4
@@ -18616,7 +18616,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009FDD5C,4,.data,global,?s_head@?$CategoryModuleClass@$07@FXParticleSystem@@2PAV12@A,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,owned,,1,4
 0x009FDD60,480,.data,global,?nullSystem@?1??Make001FCBD7@@YAPAVParticleSystem@@XZ@4V2@A,Code/GameEngine/Source/GameClient/System/ParticleSystemMake001FCBD7.cpp,owned,,1,3
 0x009FDF40,212,.data,global,?nullTemplate@?1??Make001FCBD7@@YAPAVParticleSystem@@XZ@4VParticleSystemTemplate@FXParticleSystem@@A,Code/GameEngine/Source/GameClient/System/ParticleSystemMake001FCBD7.cpp,owned,,1,3
-0x009FE014,188,.data,global,?g_Va00DFE014@@3IA,Code/GameEngine/Source/Common/GlobalFlagClearers_DFD8xx.cpp,provisional,?$S1@?1??Make001FCBD7@@YAPAVParticleSystem@@XZ@4IA@Code/GameEngine/Source/GameClient/System/ParticleSystemMake001FCBD7.cpp;?g_Va00DFE014@@3IA,2,12
+0x009FE014,188,.data,global,?g_Va00DFE014@@3IA,Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp,provisional,?$S1@?1??Make001FCBD7@@YAPAVParticleSystem@@XZ@4IA@Code/GameEngine/Source/GameClient/System/ParticleSystemMake001FCBD7.cpp;?g_Va00DFE014@@3IA,2,12
 0x009FE0D0,4,.data,global,?ThePlayerTemplateStore@@3PAVPlayerTemplateStore@@A,Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp,owned,,1,50
 0x009FE0D4,12,.data,global,?g_Va00DFE0D4@@3_NA,Code/GameEngine/Source/Common/ReloadIniFileNotices.cpp,owned,,1,4
 0x009FE0E0,4,.data,global,?TheScienceStore@@3PAVScienceStore@@A,Code/GameEngine/Source/Common/Thing/ThingTemplateScanScience.cpp,provisional,?TheScienceStore@@3PAVScienceStore@@A;?g_scienceStoreLoaded@@3HA,1,32

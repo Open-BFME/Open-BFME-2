@@ -123,10 +123,6 @@ address_global	Code/GameEngine/Source/Common/GlobalFlagClearers_DE60xx.cpp	g_Va0
 address_global	Code/GameEngine/Source/Common/GlobalFlagClearers_DE60xx.cpp	g_Va00DE60F0	3
 address_global	Code/GameEngine/Source/Common/GlobalFlagClearers_DE60xx.cpp	g_Va00DE6100	3
 address_global	Code/GameEngine/Source/Common/GlobalFlagClearers_DEAFxx.cpp	g_Va00DEBBAC	2
-address_global	Code/GameEngine/Source/Common/GlobalFlagClearers_DFD8xx.cpp	g_Va00DFDC48	2
-address_global	Code/GameEngine/Source/Common/GlobalFlagClearers_DFD8xx.cpp	g_Va00DFDC50	2
-address_global	Code/GameEngine/Source/Common/GlobalFlagClearers_DFD8xx.cpp	g_Va00DFDCD8	3
-address_global	Code/GameEngine/Source/Common/GlobalFlagClearers_DFD8xx.cpp	g_Va00DFE014	2
 address_global	Code/GameEngine/Source/Common/GlobalFlagClearers_DFECxx.cpp	g_Va00DFEC4C	2
 address_global	Code/GameEngine/Source/Common/GlobalFlagClearers_DFECxx.cpp	g_Va00DFEC80	2
 address_global	Code/GameEngine/Source/Common/GlobalFlagClearers_DFEDE4.cpp	g_Va00DFEDE4	1
@@ -1055,6 +1051,10 @@ address_global	Code/GameEngine/Source/GameLogic/Object/LocomotorCtor.cpp	g_Va00D
 address_global	Code/GameEngine/Source/GameLogic/Object/Made002CCB04.cpp	g_Va00BBB8D8	3
 address_global	Code/GameEngine/Source/GameLogic/Object/Made002CCB04.cpp	g_Va00DFEFD8	2
 address_global	Code/GameEngine/Source/GameLogic/Object/Object.cpp	g_Va00BFBC84	3
+address_global	Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp	g_Va00DFDC48	2
+address_global	Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp	g_Va00DFDC50	2
+address_global	Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp	g_Va00DFDCD8	3
+address_global	Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp	g_Va00DFE014	2
 address_global	Code/GameEngine/Source/GameLogic/Object/ObjectRva0028FCD9.cpp	g_Va00BFBF34	6
 address_global	Code/GameEngine/Source/GameLogic/Object/ObjectRva002E6B89.cpp	g_Va00DFECD0	2
 address_global	Code/GameEngine/Source/GameLogic/Object/ObjectSetTriggerAreaFlagsForChangeInPosition.cpp	g_Va00DBD0F4	2
@@ -13093,7 +13093,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Die/SpecialPowerComple
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Die/SpecialPowerCompletionDie.cpp	loadPostProcess@SpecialPowerCompletionDie@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/FiringTracker.cpp	FiringTracker::getNumConsecutiveShotsAtVictim	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/FiringTracker.cpp	FiringTracker::loadPostProcess	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetAnimSetCopy.cpp	bfmeEmitGenericObjectCreationNuggetAnimSetCopy@@YAXPAUAnimSet@GenericObjectCreationNugget@@PBU12@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp	Rva00409850SubObject::method	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp	Rva00409850SubObject::rva_00409810	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp	Rva00409930::dispatchSlot	1
@@ -13140,6 +13139,7 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp	Locomoto
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp	LocomotorSet::~LocomotorSet	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp	LocomotorStore::update	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp	LocomotorTemplate::getFieldParse	1
+present_unmatched	Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp	bfmeEmitGenericObjectCreationNuggetAnimSetCopy@@YAXPAUAnimSet@GenericObjectCreationNugget@@PBU12@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp	clear@ObjectCreationList@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp	create@ObjectCreationNugget@@	2
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp	createInternal@ObjectCreationList@@	3
