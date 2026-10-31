@@ -73,39 +73,6 @@ class NetAckBothCommandMsg;
 
 struct InitAddrs;
 
-class Connection
-{
-public:
-	Connection();
-	bool isQueueEmpty();
-	void setQuitting(unsigned int quitFrame);
-	NetCommandRef *processAck(unsigned short commandID, unsigned char playerID, unsigned int timestamp, unsigned int executionFrame);
-	void rva0058BAA7(InitAddrs *addrs, const UnicodeString &name, int id);
-	unsigned int doSend(bool throttle);
-	NetCommandRef *rva0058BD4F(void *msg);
-	NetCommandRef *processAck(NetCommandMsg *msg);
-	NetCommandRef *processAck(NetAckBothCommandMsg *msg);
-	void sendNetCommandMsg(NetCommandMsg *msg, unsigned char relay);
-
-protected:
-	void doRetryMetrics();
-
-private:
-	int m_id;
-	unsigned int m_openedTime;
-	Transport *m_unknown08;
-	ConnectionBlock0C m_block0C;
-	NetCommandList *m_netCommandList;
-	long m_retryTime;
-	float m_averageLatency;
-	float m_latencies[200];
-	long m_frameGrouping;
-	long m_lastTimeSent;
-	unsigned int m_unknown34C;
-	int m_numRetries;
-	unsigned int m_retryMetricsTime;
-};
-
 typedef unsigned char UnsignedByte;
 
 extern const float g_00BC26EC;
@@ -244,7 +211,82 @@ public:
 	NetCommandList *getCommandList();
 };
 
-// tu-skeleton: 0x0058B960 73B ?clearCommandsExceptFrom@Connection@@QAEXH@Z -- matched in Code/GameEngine/Source/GameNetwork/Connection_clearCommandsExceptFrom.cpp (not merged yet)
+class Connection
+{
+public:
+	Connection();
+public:
+	bool isQueueEmpty();
+public:
+	void setQuitting(unsigned int quitFrame);
+public:
+	NetCommandRef *processAck(unsigned short commandID, unsigned char playerID, unsigned int timestamp, unsigned int executionFrame);
+public:
+	void rva0058BAA7(InitAddrs *addrs, const UnicodeString &name, int id);
+public:
+	unsigned int doSend(bool throttle);
+public:
+	NetCommandRef *rva0058BD4F(void *msg);
+public:
+	NetCommandRef *processAck(NetCommandMsg *msg);
+public:
+	NetCommandRef *processAck(NetAckBothCommandMsg *msg);
+public:
+	void sendNetCommandMsg(NetCommandMsg *msg, unsigned char relay);
+protected:
+	void doRetryMetrics();
+private:
+	int m_id;
+private:
+	unsigned int m_openedTime;
+private:
+	Transport *m_unknown08;
+private:
+	ConnectionBlock0C m_block0C;
+private:
+	NetCommandList *m_netCommandList;
+private:
+	long m_retryTime;
+private:
+	float m_averageLatency;
+private:
+	float m_latencies[200];
+private:
+	long m_frameGrouping;
+private:
+	long m_lastTimeSent;
+private:
+	unsigned int m_unknown34C;
+private:
+	int m_numRetries;
+private:
+	unsigned int m_retryMetricsTime;
+public:
+	void clearCommandsExceptFrom(Int playerIndex);
+};
+
+// ---- from Code/GameEngine/Source/GameNetwork/Connection_clearCommandsExceptFrom.cpp
+
+void Connection::clearCommandsExceptFrom(Int playerIndex)
+{
+	NetCommandRef *netCommandRef = m_netCommandList->getFirstMessage();
+	while (netCommandRef != 0)
+	{
+		if (netCommandRef->getCommand()->m_playerID != playerIndex)
+		{
+			m_netCommandList->removeMessage(netCommandRef);
+			NetCommandRef *toDelete = netCommandRef;
+			netCommandRef = netCommandRef->getNext();
+			delete toDelete;
+		}
+		else
+		{
+			netCommandRef = netCommandRef->getNext();
+		}
+	}
+}
+
+// ---- from Code/GameEngine/Source/GameNetwork/Connection.cpp
 
 // ---- from Code/GameEngine/Source/GameNetwork/Connection.cpp
 
@@ -458,8 +500,6 @@ UnsignedInt Connection::doSend(Bool throttle)
 	return numPackets;
 }
 
-// tu-skeleton: 0x0058BD4F 44B ?rva0058BD4F@Connection@@QAEPAVNetCommandRef@@PAX@Z -- matched in Code/GameEngine/Source/GameNetwork/ConnectionRva0058BD4F.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameNetwork/ConnectionProcessAck.cpp
 
 // platformsdk
@@ -560,3 +600,5 @@ void Connection::sendNetCommandMsg(NetCommandMsg *msg, UnsignedByte relay)
 			ref->setRelay(relay);
 	}
 }
+
+// tu-skeleton: 0x0058BD4F 44B ?rva0058BD4F@Connection@@QAEPAVNetCommandRef@@PAX@Z -- matched in Code/GameEngine/Source/GameNetwork/ConnectionRva0058BD4F.cpp (not merged yet)
