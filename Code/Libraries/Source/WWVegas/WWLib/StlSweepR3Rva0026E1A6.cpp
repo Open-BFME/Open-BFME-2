@@ -3,10 +3,14 @@
 // cl: /O1 /G7 /EHs /D_BFME_RETAIL_TREE_INSERT_LAYOUT /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 #include <map>
+#include <vector>
 
 
 
-struct Rva0026E1A6Record {  char bytes[1]; };
+// Retail's value destructor (0x000796BC, the pair destructor ICF-folded with
+// the locomotor-set and science-vector maps) frees one vector buffer at +4:
+// the mapped value is a vector of trivially destructible elements.
+struct Rva0026E1A6Record { _STL::vector<const void *> items; };
 typedef _STL::pair<const int,Rva0026E1A6Record> Rva0026E1A6Pair;
 typedef _STL::_Rb_tree<int,Rva0026E1A6Pair,_STL::_Select1st<Rva0026E1A6Pair>,_STL::less<int>,_STL::allocator<Rva0026E1A6Pair> > Rva0026E1A6Tree;
 // Emit only the owned destructor and its dependencies.
