@@ -33,9 +33,11 @@ struct CreateObjectDieIfEldestKindofModuleData : public Rva00485D11DataHead, pub
 };
 struct StatusBitsEldestFrame
 {
-	Bool rva00485C19(Object *obj, const Rva00485C19Data *data, const NameKeyType *key);
+public:
+	StatusBitsEldestFrame *cacheGameLogicFrame(void);
+	bool rva00485C19(Object *obj, const Rva00485C19Data *data, const NameKeyType *key);
 private:
-	int m_cachedFrame;
+	int m_cachedFrame; // +0x00
 };
 class ModuleData;
 class ModuleBase

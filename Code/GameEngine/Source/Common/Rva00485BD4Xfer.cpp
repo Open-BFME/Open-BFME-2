@@ -50,8 +50,7 @@ class Rva00485BB8
 {
 public:
 	void xfer(Xfer *xfer);
-
-	unsigned int m_00;
+	unsigned int m_00; // +0x00
 };
 
 class Rva00485BD4 : public Rva0045CE8C

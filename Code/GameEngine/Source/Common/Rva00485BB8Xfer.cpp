@@ -26,9 +26,7 @@ class Rva00485BB8
 {
 public:
 	void xfer(Xfer *xfer);
-
-private:
-	unsigned int m_00;
+	unsigned int m_00; // +0x00
 };
 
 void Rva00485BB8::xfer(Xfer *xfer)

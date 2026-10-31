@@ -56,11 +56,17 @@ public:
 	ModuleInterfaceAt0C m_interface; // +0x0C
 };
 
+class UpgradeTemplate;
 class Object
 {
 protected:
-	Module *findModule(NameKeyType key) const;
 	friend struct findEldest;
+	Module *findModule(NameKeyType key) const;
+public:
+	Player *getControllingPlayer() const;
+	bool hasUpgrade(const UpgradeTemplate *t) const;
+	char m_pad00[0x74];
+	int m_id74; // +0x74
 };
 
 struct findEldestData
@@ -73,6 +79,7 @@ struct findEldestData
 
 struct findEldest
 {
+public:
 	static int func(Object *obj, void *userData);
 };
 

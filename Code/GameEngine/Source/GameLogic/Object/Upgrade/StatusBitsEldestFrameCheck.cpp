@@ -25,7 +25,8 @@ typedef Int (__cdecl *ObjectIterateFunc)(Object *obj, void *userData);
 // The callback 0x004859A2 is the rowed findEldest::func.
 struct findEldest
 {
-	static Int __cdecl func(Object *obj, void *userData);
+public:
+	static int func(Object *obj, void *userData);
 };
 class TeamPrototype
 {
@@ -38,26 +39,33 @@ struct PlayerTeamNode
 	PlayerTeamNode *m_prev;
 	TeamPrototype *m_value;
 };
+class UpgradeTemplate;
 class Player
 {
 public:
-	unsigned char m_pad00[0x32C];
-	PlayerTeamNode *m_head32C;
+	bool rva002AB87D(const UpgradeTemplate *t) const;
+	char m_pad00[0x32C];
+	PlayerTeamNode *m_head32C; // +0x32C
 };
+class Module;
 class Object
 {
+protected:
+	friend struct findEldest;
+	Module *findModule(NameKeyType key) const;
 public:
 	Player *getControllingPlayer() const;
-private:
-	unsigned char m_pad00[0x74];
-public:
-	int m_id74;
+	bool hasUpgrade(const UpgradeTemplate *t) const;
+	char m_pad00[0x74];
+	int m_id74; // +0x74
 };
 struct StatusBitsEldestFrame
 {
-	Bool rva00485C19(Object *obj, const Rva00485C19Data *data, const NameKeyType *key);
+public:
+	StatusBitsEldestFrame *cacheGameLogicFrame(void);
+	bool rva00485C19(Object *obj, const Rva00485C19Data *data, const NameKeyType *key);
 private:
-	int m_cachedFrame;
+	int m_cachedFrame; // +0x00
 };
 struct Rva00485C19Ctx
 {

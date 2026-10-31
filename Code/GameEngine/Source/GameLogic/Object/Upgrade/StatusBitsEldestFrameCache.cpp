@@ -10,12 +10,19 @@
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+class Object;
+struct Rva00485C19Data;
 struct StatusBitsEldestFrame
 {
+public:
 	StatusBitsEldestFrame *cacheGameLogicFrame(void);
-
+	bool rva00485C19(Object *obj, const Rva00485C19Data *data, const NameKeyType *key);
 private:
-	int m_cachedFrame;
+	int m_cachedFrame; // +0x00
 };
 
 StatusBitsEldestFrame *StatusBitsEldestFrame::cacheGameLogicFrame(void)

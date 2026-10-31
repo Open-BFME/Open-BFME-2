@@ -37,17 +37,27 @@ public:
 };
 extern UpgradeCenter *TheUpgradeCenter;
 
+struct PlayerTeamNode;
 class Player
 {
 public:
 	bool rva002AB87D(const UpgradeTemplate *t) const;
+	char m_pad00[0x32C];
+	PlayerTeamNode *m_head32C; // +0x32C
 };
 
+class Module;
+struct findEldest;
 class Object
 {
+protected:
+	friend struct findEldest;
+	Module *findModule(NameKeyType key) const;
 public:
 	Player *getControllingPlayer() const;
 	bool hasUpgrade(const UpgradeTemplate *t) const;
+	char m_pad00[0x74];
+	int m_id74; // +0x74
 };
 
 #include "../../../Common/GameLogicObjectLookupView.h"
