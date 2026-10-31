@@ -9265,7 +9265,7 @@ _luaK_storevar,,0x00752E10,421,Code/Libraries/Source/Lua/lcode.c,matched,vendore
 _luaK_patchlistaux,,0x00751FF0,332,Code/Libraries/Source/Lua/lcode.c,matched,vendored=lua-4.0.1; BFME1 byte-identical donor; exact via unclaimed_scan
 _luaK_setcallreturns,,0x00751EF0,137,Code/Libraries/Source/Lua/lcode.c,matched,vendored=lua-4.0.1; BFME1 byte-identical donor; exact via unclaimed_scan
 _codelineinfo,,0x007521D0,105,Code/Libraries/Source/Lua/lcode.c,matched,vendored=lua-4.0.1; BFME1 byte-identical donor; exact via unclaimed_scan
-?go@Rva00958C40@@QAEXXZ,,0x00176FF0,22,Code/GameEngine/Source/Common/R1GuardedReleaseHelpers.cpp,matched,BFME1 byte-identical donor shape b1 Rva00958C40; callee is donor-attested bfmeGoVGP pin at 0x176E90 (BFME1 opaque Gen00958BF0 handle is the same bstr Data release; no new pin)
+?go@Rva00958C40@@QAEXXZ,,0x00176FF0,22,Code/Libraries/Source/WWVegas/WW3D2/dx8webbrowser.cpp,matched,BFME1 byte-identical donor shape b1 Rva00958C40; callee is donor-attested bfmeGoVGP pin at 0x176E90 (BFME1 opaque Gen00958BF0 handle is the same bstr Data release; no new pin)
 _listfields,,0x00754EA0,281,Code/Libraries/Source/Lua/lparser.c,matched,BFME1 byte-identical donor; exact via unclaimed_scan
 _luaK_concat,,0x00752180,72,Code/Libraries/Source/Lua/lcode.c,matched,vendored=lua-4.0.1; BFME1 byte-identical donor; exact via unclaimed_scan; fixjump pin 0x751D60
 _luaK_deltastack,,0x00751DE0,65,Code/Libraries/Source/Lua/lcode.c,matched,vendored=lua-4.0.1; BFME1 byte-identical donor; exact via unclaimed_scan

@@ -123,9 +123,61 @@ public:
 	}
 };
 
+class Gen0089C880
+{
+public:
+	void handle();
+};
+
+class Rva008A2C60
+{
+public:
+	void go();
+	char m_lead[ 0x10 ];
+	Gen0089C880 *m_target;
+	bool m_done;
+};
+
+class Rva00958C40
+{
+public:
+	void go();
+	BfmeThingVGP *m_target;
+};
+
+// -------------------------------------------------- pointer-to-member call
+
+class GenC9EF0
+{
+public:
+	GenC9EF0 *step();
+};
+
+class Rva000C9EF0
+{
+public:
+	void go();
+	GenC9EF0 *m_target;
+	GenC9EF0 *( GenC9EF0::*m_step )();
+};
+
 // tu-skeleton: 0x00176FA0 77B ?Shutdown@DX8WebBrowser@@SAXXZ -- matched in Code/GameEngine/Source/Common/BfmeConv804.cpp (not merged yet)
 
-// tu-skeleton: 0x00176FF0 22B ?go@Rva00958C40@@QAEXXZ -- matched in Code/GameEngine/Source/Common/R1GuardedReleaseHelpers.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/R1GuardedReleaseHelpers.cpp
+
+// ?go@Rva00958C40@@QAEXXZ, retail 0x00176FF0 (22B).
+// Call-and-clear-together shape (the jz covers the call and the store).
+// The callee is the _bstr_t Data release the WebBrowser lane donor-attests
+// as ?bfmeGoVGP@BfmeThingVGP@@QAEHXZ (ledger pin at 0x00176E90); BFME1's
+// opaque Gen00958BF0::handle names the same release, so no new pin is added.
+void Rva00958C40::go()
+{
+	if( m_target )
+	{
+		m_target->bfmeGoVGP();
+		m_target = 0;
+	}
+}
 
 // tu-skeleton: 0x00177010 170B ?invoke@Rva00958C80@@QAEJVBfmeBstrVGP@@0JJJJJJPAX@Z -- matched in Code/GameEngine/Source/GameNetwork/WOLBrowser/WebBrowserComWrappers.cpp (not merged yet)
 
@@ -138,6 +190,8 @@ public:
 // tu-skeleton: 0x00177240 111B ?invoke@Rva00958D30@@QAEJVBfmeBstrVGP@@PAX@Z -- matched in Code/GameEngine/Source/GameNetwork/WOLBrowser/WebBrowserComWrappers.cpp (not merged yet)
 
 // tu-skeleton: 0x001772B0 717B ?Initialize@DX8WebBrowser@@SA_NPBD000@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/DX8WebBrowserInitialize.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/dx8webbrowser.cpp
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/DX8WebBrowserCreateBrowser.cpp
 

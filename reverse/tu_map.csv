@@ -10928,7 +10928,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00176EE0,44,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/DX8WebBrowserInitialize.cpp
 0x00176F10,141,code,,,-,,Code/GameEngine/Source/GameNetwork/WOLBrowser/WebBrowserComCreateInstance.cpp
 0x00176FA0,77,code,Code/Libraries/Source/WWVegas/WW3D2/dx8webbrowser.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/dx8webbrowser.cpp S=Code/Libraries/Source/WWVegas/WW3D2/dx8webbrowser.cpp N=Code/GameEngine/Source/Common/DX8WebBrowser.cpp,Code/GameEngine/Source/Common/BfmeConv804.cpp
-0x00176FF0,22,code,Code/Libraries/Source/WWVegas/WW3D2/dx8webbrowser.cpp,approved,C,C=0x00176FA0..0x00177010,Code/GameEngine/Source/Common/R1GuardedReleaseHelpers.cpp
+0x00176FF0,22,code,Code/Libraries/Source/WWVegas/WW3D2/dx8webbrowser.cpp,approved,C,C=0x00176FA0..0x00177010,Code/Libraries/Source/WWVegas/WW3D2/dx8webbrowser.cpp
 0x00177010,170,code,Code/Libraries/Source/WWVegas/WW3D2/dx8webbrowser.cpp,approved,C,C=0x00176FA0..0x001770C0,Code/GameEngine/Source/GameNetwork/WOLBrowser/WebBrowserComWrappers.cpp
 0x001770C0,106,code,Code/Libraries/Source/WWVegas/WW3D2/dx8webbrowser.cpp,approved,C,C=0x00176FA0..0x00177130,Code/GameEngine/Source/GameNetwork/WOLBrowser/WebBrowserComWrappers.cpp
 0x00177130,135,code,Code/Libraries/Source/WWVegas/WW3D2/dx8webbrowser.cpp,approved,C,C=0x00176FA0..0x001771C0,Code/GameEngine/Source/GameNetwork/WOLBrowser/WebBrowserComWrappers.cpp
