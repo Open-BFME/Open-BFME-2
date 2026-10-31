@@ -3520,6 +3520,7 @@ alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/Find_Asset.cpp	?Rva009EEC60_FindAsset@Rva009EEC60Registry@@QAE?AVRva009EBCE0AssetReference@@PBD@Z	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/FlatHeightMap.cpp	??1Rva00112291@@UAE@XZ	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptAux_PostDraw_W3dDrawRenderingUnit.cpp	?cleanup@Rva00785FD0Item@@QAEXXZ	1
+alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DGameFont.cpp	?Grow@?$SimpleDynVecClass@VVector3@@@@QAE_NH@Z	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS2DSceneCtor.cpp	??1RTS2DScene@@UAE@XZ	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/Render_Obj_Exists_Impl.cpp	?bfmeSay1025@BfmeP1025@@QAEDPAD@Z	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0008F00DDtor.cpp	?s0@InGameUIPrimary@@UAEXXZ	1
@@ -4332,7 +4333,6 @@ alternatename	Code/Libraries/Source/WWVegas/WWLib/string_base_compare_range.cpp	
 alternatename	Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp	??0?$StringBase@D@@QAE@PBD@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp	?init@CustomAsciiStringShim@@QAEXPBD@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/thread.cpp	?stop@Rva006105F0@@QAEXXZ	1
-alternatename	Code/Libraries/Source/WWVegas/WWLib/wwlib_pod_container_bodies.cpp	?Grow@?$SimpleDynVecClass@VVector3@@@@QAE_NH@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWMath/Rva005EA0F6Method.cpp	?slot00@Rva005EA0F6StateBase@@UAEPAXI@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWMath/Rva005EA0F6Method.cpp	?slot04@Rva005EA0F6State@@UAEXXZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWMath/Rva005EA0F6Method.cpp	?slot08@Rva005EA0F6StateBase@@UAEXXZ	1

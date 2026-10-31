@@ -5148,13 +5148,13 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0008FFE0,32,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DGameWindowManagerGadgets.cpp
 0x00090000,52,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DGameFont.cpp,approved,Z,Z=Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DGameFont.cpp S=Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DGameFont.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DFontLibrary.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DGameFont.cpp
 0x00090034,33,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DGameFont.cpp,approved,C,C=0x00090000..0x00090055,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DGameFont.cpp
-0x00090055,51,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DGameFont.cpp,approved,C,C=0x00090000..0x00090088,Code/Libraries/Source/WWVegas/WWLib/wwlib_pod_container_bodies.cpp
+0x00090055,51,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DGameFont.cpp,approved,C,C=0x00090000..0x00090088,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DGameFont.cpp
 0x00090088,35,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DGameFont.cpp,approved,C,C=0x00090000..0x000900AB,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DGameFont.cpp
 0x000900AB,28,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DGameFont.cpp,approved,C,C=0x00090000..0x000900C7,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DGameFont.cpp
 0x000900C7,28,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DGameFont.cpp,approved,C,C=0x00090000..0x000900E3,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DGameFont.cpp
-0x000900E3,38,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DGameFont.cpp,approved,C,C=0x00090000..0x00090109,Code/Libraries/Source/WWVegas/WWLib/wwlib_pod_container_bodies.cpp
-0x00090109,28,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DGameFont.cpp,approved,C,C=0x00090000..0x00090125,Code/Libraries/Source/WWVegas/WWLib/wwlib_pod_container_bodies.cpp
-0x00090125,37,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DGameFont.cpp,approved,C,C=0x00090000..0x0009014A,Code/Libraries/Source/WWVegas/WWLib/wwlib_pod_container_bodies.cpp
+0x000900E3,38,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DGameFont.cpp,approved,C,C=0x00090000..0x00090109,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DGameFont.cpp
+0x00090109,28,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DGameFont.cpp,approved,C,C=0x00090000..0x00090125,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DGameFont.cpp
+0x00090125,37,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DGameFont.cpp,approved,C,C=0x00090000..0x0009014A,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DGameFont.cpp
 0x0009014A,51,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DGameFont.cpp,approved,C,C=0x00090000..0x0009017D,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DGameFont.cpp
 0x0009017D,191,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DGameFont.cpp,approved,C,C=0x00090000..0x0009023C,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DGameFont.cpp
 0x0009023C,106,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DGameFont.cpp,approved,S,S=Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DGameFont.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DFontLibrary.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DFontLibraryDestructor.cpp
@@ -7850,8 +7850,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x000FF5E6,788,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/W3DWaterTracks.cpp,approved,C,C=0x000FF4D6..0x000FF8FA,Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/W3DWaterTracks.cpp
 0x000FF8FA,1875,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/W3DWaterTracks.cpp,approved,C,C=0x000FF4D6..0x0010004D,Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/W3DWaterTracksTestUpdate.cpp
 0x0010004D,392,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/W3DWaterTracks.cpp,approved,Z,Z=Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/W3DWaterTracks.cpp S=Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/W3DWaterTracks.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/WaterTracksRenderSystem.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/WaterTracksRenderSystemFlush_Flush.cpp
-0x001001D5,59,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/wwlib_pod_container_bodies.cpp
-0x00100210,31,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/wwlib_pod_container_bodies.cpp
+0x001001D5,59,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DGameFont.cpp
+0x00100210,31,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DGameFont.cpp
 0x0010022F,98,code,,,-,,Code/Libraries/Source/WWVegas/WWMath/vector3.cpp
 0x00100291,52,code,,displaced,-,N=Code/Libraries/Source/WWVegas/WW3D2/PlaneClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/PlaneO1Inlines.cpp
 0x001002C5,65,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/simpledynvec_vector3_add.cpp
@@ -10442,7 +10442,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00167F59,7,code,,,-,,Code/GameEngine/Source/Common/GlobalFloatGetters.cpp
 0x00167F60,7,code,,,-,,Code/GameEngine/Source/Common/GlobalFloatGetters.cpp
 0x00167F67,33,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/simplevec_float_cleanup.cpp
-0x00167F88,111,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/wwlib_pod_container_bodies.cpp
+0x00167F88,111,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DGameFont.cpp
 0x00167FF7,35,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/simplevec_float_cleanup.cpp
 0x0016801A,38,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StreakVectorConstructorsBFME2.cpp
 0x00168040,39,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StreakVectorConstructorsBFME2.cpp
@@ -10457,7 +10457,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0016825D,330,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/Rva0016825DLineBounds.cpp
 0x001683A7,28,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StreakVectorConstructorsBFME2.cpp
 0x001683C3,51,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/simplevec_float_cleanup.cpp
-0x001683F6,70,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/wwlib_pod_container_bodies.cpp
+0x001683F6,70,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DGameFont.cpp
 0x0016843C,19,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/SimpleDynVecDeleteAllV4_Rva0016843C.cpp
 0x0016844F,99,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/Rva001684D6Ctor.cpp
 0x001684B2,8,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/Rva001684D6Ctor.cpp
