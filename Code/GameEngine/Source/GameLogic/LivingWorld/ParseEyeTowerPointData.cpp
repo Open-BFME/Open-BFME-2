@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmecamera /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/Code/GameEngine/Source/Common/System /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/GameEngine/Source/Common /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/LivingWorld
 // ParseEyeTowerPointData, retail RVA 0x004E383D (123 bytes), recovered from the
 // ParseForceBattle recipe at 0x004E16D9. Same operand-masked shape: null-check
 // INI and instance, construct a stack record, INI::initFromINI it against the
@@ -9,30 +9,32 @@
 // literal differ from the template. Evidence: the retail literal at
 // 0x00C62004 names the type; the 0x0C record size is read from sub esp,0x14
 // with the record at ebp-0x20 and the exception buffer at ebp-0x14.
+// stlport
+#include <vector>
+
+struct BfmePod8 { int a[2]; };
+
 typedef int Int;
 
+typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
 struct FieldParse
 {
-	const char *name;
-	void (*parse)(class INI *, void *, void *, const void *);
-	const void *userData;
-	int offset;
+    const char *token;
+    FieldParseProc parse;
+    const void *userData;
+    int offset;
 };
 
-class INIException
-{
-public:
-	INIException(int argCount, const char *format, ...);
-	char *mFailureMessage;
-	int mErrorCode;
-	INIException(const INIException &that);
-	~INIException();
-};
+#include "../../../../../reference/shims/iniexception/Common/INIException.h"
 
 class INI
 {
 public:
 	void initFromINI( void *what, const FieldParse *parseTable );
+	static void dup_002F0F7(INI *, void *, void *, const void *);
+	static void parseBool(INI *, void *, void *, const void *);
+	static void parseAsciiString( INI *, void *, void *, const void * );
+	static void parseCoord3D(INI *ini, void *instance, void *store, const void *userData);
 	static void Rva004E3816Parse(INI *, void *, void *, const void *);
 };
 
@@ -44,9 +46,8 @@ class Rva004E364F
 public:
 	Rva004E364F();
 	~Rva004E364F();
-
 private:
-	char m_body[ 0x0C ];
+	_STL::vector<BfmePod8> m_vec;
 };
 
 struct Rva005668E9Element;

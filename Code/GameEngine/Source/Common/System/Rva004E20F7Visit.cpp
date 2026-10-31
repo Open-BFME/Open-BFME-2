@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /D_CRTIMP=
+// cl: /DNDEBUG /DWIN32 /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmecamera /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/Code/GameEngine/Source/Common/System /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/GameEngine/Source/Common /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/LivingWorld
 // Target-only view of the complete 110B destructor at 0x003EF14A.
 // The queue's Rva00382574 name is refuted by this body's different layout.
 // Target facts: primary vptr C363C8; unregister this from global E02E88 via
@@ -11,18 +11,8 @@
 
 
 class Rva004E2E58Value;
-namespace _STL {
-    struct _Rb_tree_node_base;
-    template <class T> class _Rb_global {
-    public:
-        static _Rb_tree_node_base *_M_increment(_Rb_tree_node_base *);
-    };
-}
-
-namespace _STL { void __cdecl free(void *); }
-
-
-
+// stlport
+#include <set>
 
 // Only the two called vslots and reference word are recovered. The names
 // and signatures of unused slots remain opaque in this local call view.

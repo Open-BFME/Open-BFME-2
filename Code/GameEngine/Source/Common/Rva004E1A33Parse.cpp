@@ -8,20 +8,24 @@
 
 class INI;
 
+typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
 struct FieldParse
 {
-	const char *token;
-	void (__cdecl *parse)(INI *ini, void *instance, void *store, const void *userData);
-	const void *userData;
-	int offset;
+    const char *token;
+    FieldParseProc parse;
+    const void *userData;
+    int offset;
 };
 
 class INI
 {
 public:
-	void initFromINI(void *what, const FieldParse *parseTable);
-	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
+	void initFromINI( void *what, const FieldParse *parseTable );
+	static void dup_002F0F7(INI *, void *, void *, const void *);
+	static void parseBool(INI *, void *, void *, const void *);
+	static void parseAsciiString( INI *, void *, void *, const void * );
 	static void parseCoord3D(INI *ini, void *instance, void *store, const void *userData);
+	static void Rva004E3816Parse(INI *, void *, void *, const void *);
 };
 
 // Retail VA 0x00C61D84 (.rdata, file offset 0x0085DD84): the AnimObjectUpdate

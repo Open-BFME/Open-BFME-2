@@ -58,12 +58,11 @@ class INI
 {
 public:
 	void initFromINI( void *what, const FieldParse *parseTable );
-public:
 	static void dup_002F0F7(INI *, void *, void *, const void *);
-public:
 	static void parseBool(INI *, void *, void *, const void *);
-public:
 	static void parseAsciiString( INI *, void *, void *, const void * );
+	static void parseCoord3D(INI *ini, void *instance, void *store, const void *userData);
+	static void Rva004E3816Parse(INI *, void *, void *, const void *);
 };
 #pragma inline_depth(0)
 #pragma inline_depth()
@@ -82,9 +81,12 @@ struct Rva004E16D9Pair {
 	Rva004E16D9Pair() : x(0.0f), y(0.0f) {}
 };
 
+struct EmitVtableTag;
+
 class Rva004E16D9Record {
 public:
 	Rva004E16D9Record();
+	Rva004E16D9Record(EmitVtableTag *);
 	virtual ~Rva004E16D9Record();
 private:
 	AsciiString m_04;
@@ -167,7 +169,13 @@ namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
 
 struct Rva004E1FE4Element { char bytes[8]; };
 
-struct Rva004E1D4EElement { char bytes[12]; };
+struct Rva004E1D4EElement
+{
+public:
+	bool operator<(const Rva004E1D4EElement&)const;
+	bool operator==(const Rva004E1D4EElement&)const;
+	char bytes[12]; // +0x00
+};
 
 typedef _STL::_Rb_tree<Rva004E1FE4Element, Rva004E1FE4Element,
     _STL::_Identity<Rva004E1FE4Element>, _STL::less<Rva004E1FE4Element>,
@@ -299,11 +307,13 @@ private:
 class Rva004E18A2
 {
 public:
+	Rva004E18A2() : m_04(0), m_member08(0), m_0C(false) {}
 	virtual ~Rva004E18A2();
-
 private:
-	unsigned char m_pad04[4];
-	PoolMember *m_member08;
+	int m_04; // +0x04
+	PoolMember *m_member08; // +0x08
+	bool m_0C; // +0x0C
+	char m_pad0D[0x3];
 };
 
 class Rva004E2382 {
@@ -472,13 +482,18 @@ class Rva004E364F
 {
 public:
 	Rva004E364F();
+	~Rva004E364F();
 private:
 	_STL::vector<BfmePod8> m_vec;
 };
 
-struct BfmePod88 {
-    BfmePod88(const BfmePod88 &other);
-    char m_body[88];
+struct BfmePod88
+{
+public:
+	BfmePod88(const BfmePod88 &other);
+	BfmePod88 &operator=(const BfmePod88 &);
+	~BfmePod88();
+	char m_body[88]; // +0x00
 };
 
 template void _STL::_Construct<BfmePod88, BfmePod88>(BfmePod88 *, const BfmePod88 &);

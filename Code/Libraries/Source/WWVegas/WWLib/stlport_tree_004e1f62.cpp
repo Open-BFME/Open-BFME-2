@@ -6,7 +6,8 @@
 // payload pointer whose virtual slot 6 (bool) gates virtual slot 5 (void).
 // Caller jmps at 0x003EEABA. Prev TreeHintPayload004E2257 family so same
 // flags. Owner unknown so honest address-derived names.
-namespace _STL { struct _Rb_tree_node_base { bool _M_color; _Rb_tree_node_base *_M_parent; _Rb_tree_node_base *_M_left; _Rb_tree_node_base *_M_right; }; template <class D> class _Rb_global { public: static _Rb_tree_node_base *__cdecl _M_increment(_Rb_tree_node_base *); }; }
+#include <set>
+
 struct Rva004E1F62Payload
 {
 	virtual void v0();

@@ -1,4 +1,4 @@
-// cl: /MD
+// cl: /DNDEBUG /DWIN32 /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmecamera /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/Code/GameEngine/Source/Common/System /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/GameEngine/Source/Common /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/LivingWorld
 //
 // ?rva004E366E@Rva004E366E@@QAEXXZ @ 0x004E366E (28B).
 // Vector clear plus free: erases the BfmePod8 vector at +0 via rowed erase
@@ -8,27 +8,15 @@
 
 struct BfmePod8 { int a[2]; };
 
-namespace _STL
-{
-template <class T> class allocator
-{
-};
-
-template <class T, class A = allocator<T> > class vector
-{
-public:
-	T *erase(T *first, T *last);
-
-	T *m_start;
-	T *m_finish;
-	T *m_end;
-};
-}
-
 // Retail calls free directly (the game allocator), not through the CRT
 // import: read <stdlib.h> without dllimport.
 #define _CRTIMP
 #include <stdlib.h>
+
+// stlport
+#include <vector>
+namespace _STL { template <> __declspec(nothrow) BfmePod8 *vector<BfmePod8, allocator<BfmePod8> >::erase(BfmePod8 *, BfmePod8 *); }
+
 #undef _CRTIMP
 
 class Rva004E366E
@@ -42,7 +30,7 @@ private:
 
 void Rva004E366E::rva004E366E()
 {
-	m_vec.erase(m_vec.m_start, m_vec.m_finish);
-	if (m_vec.m_start)
-		free(m_vec.m_start);
+	m_vec.erase(m_vec.begin(), m_vec.end());
+	if (m_vec.begin())
+		free(m_vec.begin());
 }
