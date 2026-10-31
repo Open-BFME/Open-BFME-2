@@ -161,17 +161,19 @@ struct Rva004AE5B8Data08 {
 	char m_pad[0x74];
 	int m_74;
 };
+class ModuleData;
 class Rva0044EF5E
 {
 public:
+	Rva0044EF5E(Thing *thing, const ModuleData *moduleData);
 	Rva0044EF5E();
 protected:
-	const void *m_vtable;
-	Thing *m_owner;
-	Rva004AE5B8Data08 *m_p08;
-	const void *m_p0C;
-	const void *m_p10;
-	unsigned char m_pad[0x20 - 0x14];
+	const void *m_vtable; // +0x00
+	Thing *m_owner; // +0x04
+	Rva004AE5B8Data08 *m_p08; // +0x08
+	const void *m_p0C; // +0x0C
+	const void *m_p10; // +0x10
+	char m_pad14[0xC];
 };
 class Rva004AE6D7P20
 {
@@ -186,9 +188,15 @@ public:
 	virtual void v07();
 	virtual bool v08(int v);
 };
+enum KindOfType
+{
+	KINDOF_BFME_5E = 0x5e,
+	KINDOF_BFME_60 = 0x60
+};
 class Object
 {
 public:
+	bool isKindOf(KindOfType kind) const;
 	int rva0028B7C8() const;
 };
 enum CommandSourceType {

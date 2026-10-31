@@ -73,7 +73,8 @@ enum KindOfType
 class Object
 {
 public:
-	Bool isKindOf(KindOfType kind) const;
+	bool isKindOf(KindOfType kind) const;
+	int rva0028B7C8() const;
 };
 
 class ModuleData;

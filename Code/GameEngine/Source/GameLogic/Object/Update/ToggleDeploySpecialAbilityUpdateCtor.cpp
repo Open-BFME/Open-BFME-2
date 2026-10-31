@@ -21,18 +21,19 @@ extern "C" int s_dummy5348;
 
 // Opaque intermediate base; ctor resolves to its pin. The explicit m_vtable
 // member stands in for the inherited vptr so body order is source order.
+struct Rva004AE5B8Data08;
 class Rva0044EF5E
 {
 public:
 	Rva0044EF5E(Thing *thing, const ModuleData *moduleData);
-
+	Rva0044EF5E();
 protected:
-	const void *m_vtable;
-	Thing *m_owner;
-	int m_pad08;
-	const void *m_p0C;
-	const void *m_p10;
-	unsigned char m_pad[0x20 - 0x14];
+	const void *m_vtable; // +0x00
+	Thing *m_owner; // +0x04
+	Rva004AE5B8Data08 *m_p08; // +0x08
+	const void *m_p0C; // +0x0C
+	const void *m_p10; // +0x10
+	char m_pad14[0xC];
 };
 
 class ToggleDeploySpecialAbilityUpdate : public Rva0044EF5E
