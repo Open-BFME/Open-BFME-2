@@ -373,7 +373,11 @@ public:
 	int AsyncGetHostByName(char *name, sockaddr_in &address);
 public:
 	int d_00885530( const char* command, int size );
+public:
+	Cftp();
 };
+
+// ---- from Code/Libraries/Source/WWVegas/WWDownload/FTP.CPP
 
 // ---- from Code/GameEngine/Source/Common/Bfme/Rva00885980.cpp
 
@@ -1476,8 +1480,6 @@ void Cftp::d_008859d0( const char* name, char* outBuf )
 	free( dupName );
 }
 
-// tu-skeleton: 0x006CA5E0 18B ??0Cftp@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWDownload/ftp_constructor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Bfme/Cftp.cpp
 
 Cftp::~Cftp()
@@ -1497,4 +1499,11 @@ Cftp::~Cftp()
 		fclose( m_pfLocalFile );
 		m_pfLocalFile = 0;
 	}
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WWDownload/ftp_constructor.cpp
+
+Cftp::Cftp()
+{
+	ZeroStuff();
 }
