@@ -155,6 +155,9 @@ class Snapshot;
 	{ \
 		return m_value; \
 	}
+#include "Code/Libraries/Include/Lib/Coord3D.h"
+#include <math.h>
+struct MissilePoint:public Coord3D {MissilePoint(const Coord3D &p){x=p.x;y=p.y;z=p.z;}void setXY(const Coord3D&p,float height){x=p.x;y=p.y;z=height;}};
 
 class Object;
 
@@ -324,9 +327,15 @@ public: unsigned char isTwo() const;
 private: char unknown[0x0C]; unsigned int value;
 };
 
+class TerrainLogic {public:virtual ~TerrainLogic();virtual void slot1();virtual void slot2();virtual void slot3();virtual void slot4();virtual void slot5();virtual float getGroundHeight(float,float,Coord3D*)const;virtual float getLayerHeight(float,float,PathfindLayerEnum,Coord3D*,bool)const;PathfindLayerEnum getHighestLayerForDestination(const Coord3D*,bool);};
+
+extern TerrainLogic *TheTerrainLogic;
+
 // tu-skeleton: 0x004A74EF 27B ?buildFieldParse@MissileUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp (not merged yet)
 
 // tu-skeleton: 0x004A750A 8B ?clear@Rva004A750ADwordClearer@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Disp32DwordClearers2.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdate.cpp
 
@@ -610,8 +619,6 @@ void MissileUpdate::xfer(Xfer *xfer)
 	xfer->XferRawBytes(&m_C8, sizeof(m_C8));
 }
 
-// tu-skeleton: 0x004A7684 6B ?Rva004A7684Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/DispByteFieldGetters.cpp
 
 // Disp32 byte getters: seven-byte __thiscall members with one shape:
@@ -632,9 +639,31 @@ void MissileUpdate::xfer(Xfer *xfer)
 // reference/open-bfme-1/Code/GameEngine/Source/Common/DispByteFieldGetters.cpp).
 // No // cl: line (defaults match the frameless 7-byte shape).
 
+// tu-skeleton: 0x004A7684 6B ?Rva004A7684Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
 // tu-skeleton: 0x004A7869 51B ??1MissileUpdateModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdateModuleDataDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x004A7B48 498B ?update@MissileUpdate@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdate_update.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdate_update.cpp
+
+// ?update@MissileUpdate@@UAE?AW4UpdateSleepTime@@XZ
+// partial score=0.980602 date=2026-10-13
+// ?update@MissileUpdate@@UAE?AW4UpdateSleepTime@@XZ
+// partial score=0.9826050638015957 date=2026-10-09
+
+UpdateSleepTime MissileUpdate::update(){
+ MissilePoint pos(*getObject()->getPosition());
+ if(remaining>0.0f&&m_state>=2){double dx=(double)pos.x-m_prevPos.x,dy=(double)pos.y-m_prevPos.y,dz=(double)pos.z-m_prevPos.z;double sum=dz*dz+dy*dy+dx*dx;
+  double root=sqrt(sum);
+  float distance=(float)root;
+  remaining-=distance;
+  copyPosition(pos);}
+ if(pos.z<0.0f){TheGameLogic->destroyObject(getObject());return UPDATE_SLEEP_FOREVER;}
+ switch(m_state){case 0:state0();break;case 5:state5();break;case 1:rva004A7797();if(m_state!=2)break;case 2:rva004A78E1();break;case 3:rva004A7A86(0);break;case 4:rva004A7A86(1);break;case 6:rva004A7AF6();break;case 7:rva004A7767();break;}
+ int oldLayer=getObject()->rva0028B511();PathfindLayerEnum layer=TheTerrainLogic->getHighestLayerForDestination(getObject()->getPosition(),false);getObject()->setLayer(layer);
+ if(rva004A768A()&&oldLayer!=1&&layer==1){pos.setXY(*getObject()->getPosition(),9999.0f);
+ PathfindLayerEnum ground=TheTerrainLogic->getHighestLayerForDestination(&pos,false);if(ground==oldLayer){pos.z=TheTerrainLogic->getLayerHeight(pos.x,pos.y,ground,0,true)+2.0f;getObject()->Thing::setPosition(&pos);rva004A7580();return UPDATE_SLEEP_NONE;}}
+ return BezierProjectileBehavior::update();
+}
 
 // tu-skeleton: 0x0078DF6E 8B uw_0078df6e -- matched in Code/gen_small/uw_gen_013.cpp (not merged yet)
 
