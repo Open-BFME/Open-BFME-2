@@ -188,14 +188,7 @@ public:
 
 extern GameLogic *TheGameLogic;
 
-class Object
-{
-public:
-	ObjectID getID() const { return m_id; }
-private:
-	char m_pad00[0x74];
-	ObjectID m_id; // +0x74
-};
+#include "../object.h"
 
 template <int NUMBITS> class BitFlags
 {
