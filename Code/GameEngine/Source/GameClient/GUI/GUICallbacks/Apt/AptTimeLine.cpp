@@ -27,6 +27,20 @@ static inline const int &max(const int &a, const int &b) { return a < b ? b : a;
 }
 #include "unicode_string.h"
 #define g_00E04920 (*(_STL::vector<ScienceType> *)&g_Va00E04920)
+#define BFME_DISP8_DIV_AVG_DWORD_GETTER(NAME, DISP1, DISP2, DIVISOR) \
+	class NAME \
+	{ \
+	public: \
+		int get() const; \
+		char m_lead[DISP1]; \
+		int m_first; \
+	}; \
+	int NAME::get() const \
+	{ \
+		return (m_first - *(int *)((char *)this + DISP2)) / DIVISOR; \
+	}
+BFME_DISP8_DIV_AVG_DWORD_GETTER(Rva0051E3D9DivAvgField, 0x04, 0x00, 0x50)
+BFME_DISP8_DIV_AVG_DWORD_GETTER(Rva0051E42BDivAvgField, 0x08, 0x00, 0x50)
 
 // vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
 // overload takes the call instead, so this TU emits no external max COMDAT.
@@ -675,13 +689,43 @@ public:
 	float scale1194;
 };
 
+struct Rva000AD6F4Base
+{
+	virtual void *virt0(unsigned int);
+};
+
+class Rva000AD6F4
+{
+public:
+	~Rva000AD6F4();
+	void clear();
+private:
+	Rva000AD6F4Base *m_ptr;
+};
+
 // tu-skeleton: 0x0051E3C3 22B ?rva0051E3C3@AptTimeLine@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLineCallbacks.cpp (not merged yet)
 
-// tu-skeleton: 0x0051E3D9 12B ?get@Rva0051E3D9DivAvgField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8DivAvgDwordGetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Disp8DivAvgDwordGetters.cpp
+
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
+// Disp8 div-avg dword getters: thirteen-byte __thiscall members with one shape:
+//
+//     mov eax,[ecx+<DISP1>] / sub eax,[ecx+<DISP2>] / push <DIV> / cdq
+//     pop ecx / idiv ecx / ret
+//
+// The difference of two dwords at fixed displacements from `this` is divided
+// by a small constant. MSVC 7.1 under /O1 materializes the divisor through
+// the stack (`push imm` + `pop ecx`, three bytes) instead of `mov ecx,imm`
+// (five bytes); `cdq` sign-extends for the signed `idiv`. Thirteen bytes
+// total. Identity is not recovered: every name is derived from its address.
+
+// ?clear@Rva000AD6F4@@QAEXXZ @0x000AD6F4 29B: owning-pointer clear via virtual slot0 with 0 plus operator delete; callers 40+ incl Rva002D3573 dtor; no donor.
 
 // tu-skeleton: 0x0051E3E5 12B ?get@Rva0051E3E5ImulAddField@@QBEHH@Z -- matched in Code/GameEngine/Source/Common/Disp8ImulAddDwordGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x0051E3F1 7B ?get@Rva0051E3F1SubDwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8SubDwordFieldGetters.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp
 
@@ -892,8 +936,6 @@ Rva005202C8::~Rva005202C8()
 	s_instance = 0;
 }
 
-// tu-skeleton: 0x0051E42B 12B ?get@Rva0051E42BDivAvgField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8DivAvgDwordGetters.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva0051E437Copy.cpp
 
 Rva0051E437 &Rva0051E437::rva0051E437(const Rva0051E437 &src)
@@ -903,8 +945,6 @@ Rva0051E437 &Rva0051E437::rva0051E437(const Rva0051E437 &src)
 	m08 = src.m08;
 	return *this;
 }
-
-// tu-skeleton: 0x0051E471 63B ??1Rva0051C0E7@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0051C0E7Ctor.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine_Rva0051E511.cpp
 
@@ -1217,8 +1257,6 @@ void Rva0051E766::rva0051E766(int which, char *buffer, bool probing)
 	}
 }
 
-// tu-skeleton: 0x0051E8C8 113B ?PlayerColor@AptTimeLine@@QAEXHPAD_N@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLineCallbacks.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva0051E939Copy.cpp
 
 Rva0051E437 *Rva0051E939Copy(Rva0051E437 *first, Rva0051E437 *last, Rva0051E437 *result)
@@ -1296,6 +1334,10 @@ float Rva0051E73E::value(int index)
 	}
 	return 0.0f;
 }
+
+// tu-skeleton: 0x0051E471 63B ??1Rva0051C0E7@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0051C0E7Ctor.cpp (not merged yet)
+
+// tu-skeleton: 0x0051E8C8 113B ?PlayerColor@AptTimeLine@@QAEXHPAD_N@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLineCallbacks.cpp (not merged yet)
 
 // tu-skeleton: 0x0051EA7A 89B ?GraphFocus@AptTimeLine@@QAEXHPBD_N@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLineCallbacks.cpp (not merged yet)
 
@@ -1378,6 +1420,10 @@ float Rva0051E73E::value(int index)
 // tu-skeleton: 0x00520923 942B ?CollectPlayerData@AptTimeLine@@QAEXPAVLivingWorldPlayer@@PAVRva00520923Source@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLineCollectPlayerData.cpp (not merged yet)
 
 // tu-skeleton: 0x00520CD1 684B ?rva00520CD1@AptTimeLine@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLineRva00520CD1.cpp (not merged yet)
+
+// tu-skeleton: 0x00795C49 8B Unwind@00b95c49 -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0051C0E7Ctor.cpp (not merged yet)
+
+// tu-skeleton: 0x00795C51 10B __ehhandler$??0Rva0051C0E7@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0051C0E7Ctor.cpp (not merged yet)
 
 // tu-skeleton: 0x00795EAD 8B Unwind@00b95ead -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0051C0E7Ctor.cpp (not merged yet)
 
