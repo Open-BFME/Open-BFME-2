@@ -23,11 +23,6 @@ struct Rva0008B689Element {
  __forceinline Rva0008B689Element(const Rva0008B689Element&other):pointer(other.pointer){if(pointer)pointer->Add_Ref();}
  __forceinline ~Rva0008B689Element(){CameraClass*camera=pointer;if(camera)camera->Release_Ref();}
 };
-Rva0008B689Element Rva000897C8(CameraClass*camera){
- Rva0008B689Element result;
- reinterpret_cast<HAnimComboDataClass*>(&result)->Set_HAnim(reinterpret_cast<HAnimClass*>(camera));
- return result;
-}
 class GlobalData {public:char gap[0x62];bool reflections;};
 extern GlobalData *TheWritableGlobalData;
 class Rva0007BB79Owner {public:CameraClass *camera;Rva0008B689Element rva0007BB79();};

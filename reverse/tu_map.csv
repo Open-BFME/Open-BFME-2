@@ -4927,7 +4927,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00089510,328,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x000892F0..0x00089658,Code/GameEngineDevice/Source/W3DDevice/GameClient/CameraPathAnglesBFME2.cpp
 0x00089658,353,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,Z,Z=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp S=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
 0x000897B9,15,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x00089658..0x000897C8,Code/GameEngine/Source/Common/T2IndexedArrayAccessors.cpp
-0x000897C8,90,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x00089658..0x00089822,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCameraHandleGet.cpp
+0x000897C8,90,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x00089658..0x00089822,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
 0x00089822,35,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x00089658..0x00089845,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
 0x00089845,12,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x00089658..0x00089851,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
 0x00089851,67,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x00089658..0x00089894,Code/GameEngine/Source/GameLogic/Object/Behavior/FlightDeckBehaviorRunwayInfoDestructor.cpp
@@ -62593,9 +62593,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0075FAC3,10,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainTracksBind.cpp
 0x0075FACD,19,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,P,P=0x00085B41@FuncInfo0x009026A8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewGetAxisAlignedViewRegion.cpp
 0x0075FAE0,10,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,P,P=0x00085B41@FuncInfo0x009026A8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewGetAxisAlignedViewRegion.cpp
-0x0075FAEA,8,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,P,P=0x000897C8@FuncInfo0x009026F8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCameraHandleGet.cpp
-0x0075FAF2,25,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,P,P=0x000897C8@FuncInfo0x009026F8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCameraHandleGet.cpp
-0x0075FB0B,10,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,P,P=0x000897C8@FuncInfo0x009026F8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCameraHandleGet.cpp
+0x0075FAEA,8,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,P,P=0x000897C8@FuncInfo0x009026F8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
+0x0075FAF2,25,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,P,P=0x000897C8@FuncInfo0x009026F8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
+0x0075FB0B,10,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,P,P=0x000897C8@FuncInfo0x009026F8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
 0x0075FB15,22,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,P,P=0x00089851@FuncInfo0x0090271C,Code/GameEngine/Source/GameLogic/Object/Behavior/FlightDeckBehaviorRunwayInfoDestructor.cpp
 0x0075FB2B,10,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,P,P=0x00089851@FuncInfo0x0090271C,Code/GameEngine/Source/GameLogic/Object/Behavior/FlightDeckBehaviorRunwayInfoDestructor.cpp
 0x0075FB35,8,code,,,-,,Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva00564E0DAssign.cpp

@@ -27,6 +27,7 @@
 
 
 
+
 #endif
 #define TERRAIN_SAMPLE_SIZE 40.0f
 #define MIN_CAPPED_ZOOM (0.5f) //WST 10.19.2002. JSC integrated 5/20/03.
@@ -262,6 +263,7 @@ public:
 
 
 void drawDrawableExtents( Drawable *draw, void *userData );
+
 
 
 
@@ -959,11 +961,33 @@ private:
 	SizedForwarderSlots *m_inner;
 };
 
+class HAnimClass:public RefCountClass {};
+
+class HAnimComboDataClass {HAnimClass*HAnim;public: __declspec(noinline) void Set_HAnim(HAnimClass*motion){if(motion)motion->Add_Ref();if(HAnim)HAnim->Release_Ref();HAnim=motion;}};
+
+struct Rva0008B689Element {
+ CameraClass *pointer;
+ Rva0008B689Element():pointer(0){}
+ __forceinline Rva0008B689Element(CameraClass*camera):pointer(camera){if(pointer)pointer->Add_Ref();}
+ __forceinline Rva0008B689Element(const Rva0008B689Element&other):pointer(other.pointer){if(pointer)pointer->Add_Ref();}
+ __forceinline ~Rva0008B689Element(){CameraClass*camera=pointer;if(camera)camera->Release_Ref();}
+};
+
+class Rva0007BB79Owner {public:CameraClass *camera;Rva0008B689Element rva0007BB79();};
+
+// Native7FD57..7FD89 RET8, camera raw argument refreshes owner before
+// copying the counted camera handle at FC. WB744500 agrees on both operations.
+class Rva0007F0FBOwner{public:void rva0007F0FB(CameraClass*,bool);};
+
+class Rva0007FD57Owner{char gap[0xfc];Rva0008B689Element camera;public:Rva0008B689Element rva0007FD57(CameraClass*);};
+
 // tu-skeleton: 0x00085B41 380B ?getAxisAlignedViewRegion@W3DView@@AAEXAAURegion3D@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewGetAxisAlignedViewRegion.cpp (not merged yet)
 
 // tu-skeleton: 0x00085CBD 522B ?rva00085CBD@W3DView@@QAEXAAURegion3D@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewFarRegion.cpp (not merged yet)
 
 // tu-skeleton: 0x00085EC7 62B ?setFadeParameters@W3DView@@UAEXHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewSetFadeParameters.cpp (not merged yet)
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
 
@@ -1354,10 +1378,6 @@ void __stdcall bfmeSet(bool value)
 		g_bfmeFlagEC = false;
 }
 
-// tu-skeleton: 0x00085F6A 62B ?rva00085F6A@Rva00085F6A@@QAE_NH@Z -- matched in Code/GameEngine/Source/Common/Rva00085F6ASet.cpp (not merged yet)
-
-// tu-skeleton: 0x00085FA8 178B ?calcDeltaScroll@Rva00085FA8@@QAEXPAM@Z -- matched in Code/GameEngine/Source/Common/Rva00085FA8Delta.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/VslotSizedForwarders.cpp
 
 // vtable 0x00BC7568#94: base at +0xB4 ->slot12()
@@ -1371,6 +1391,10 @@ void Rva0008615BForwarder::rva0008615B()
 {
 	slot1();
 }
+
+// tu-skeleton: 0x00085F6A 62B ?rva00085F6A@Rva00085F6A@@QAE_NH@Z -- matched in Code/GameEngine/Source/Common/Rva00085F6ASet.cpp (not merged yet)
+
+// tu-skeleton: 0x00085FA8 178B ?calcDeltaScroll@Rva00085FA8@@QAEXPAM@Z -- matched in Code/GameEngine/Source/Common/Rva00085FA8Delta.cpp (not merged yet)
 
 // tu-skeleton: 0x00086065 46B ?rva00086065@W3DView@@UAEXH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRva0008DAE4.cpp (not merged yet)
 
@@ -1468,7 +1492,13 @@ void Rva0008615BForwarder::rva0008615B()
 
 // tu-skeleton: 0x000897B9 15B ?elementAddressBits@Rva000897B9@@QBEII@Z -- matched in Code/GameEngine/Source/Common/T2IndexedArrayAccessors.cpp (not merged yet)
 
-// tu-skeleton: 0x000897C8 90B ?Rva000897C8@@YA?AURva0008B689Element@@PAVCameraClass@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCameraHandleGet.cpp (not merged yet)
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCameraHandleGet.cpp
+
+Rva0008B689Element Rva000897C8(CameraClass*camera){
+ Rva0008B689Element result;
+ reinterpret_cast<HAnimComboDataClass*>(&result)->Set_HAnim(reinterpret_cast<HAnimClass*>(camera));
+ return result;
+}
 
 // tu-skeleton: 0x00089851 67B ??1RunwayInfo@FlightDeckBehavior@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FlightDeckBehaviorRunwayInfoDestructor.cpp (not merged yet)
 
@@ -1599,12 +1629,6 @@ void Rva0008615BForwarder::rva0008615B()
 // tu-skeleton: 0x0075FACD 19B ?rva0075FACD@@YAXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewGetAxisAlignedViewRegion.cpp (not merged yet)
 
 // tu-skeleton: 0x0075FAE0 10B __ehhandler$?getAxisAlignedViewRegion@W3DView@@AAEXAAURegion3D@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewGetAxisAlignedViewRegion.cpp (not merged yet)
-
-// tu-skeleton: 0x0075FAEA 8B $L455 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCameraHandleGet.cpp (not merged yet)
-
-// tu-skeleton: 0x0075FAF2 25B ?rva0075FAF2@@YAXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCameraHandleGet.cpp (not merged yet)
-
-// tu-skeleton: 0x0075FB0B 10B __ehhandler$?Rva000897C8@@YA?AURva0008B689Element@@PAVCameraClass@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCameraHandleGet.cpp (not merged yet)
 
 // tu-skeleton: 0x0075FB15 22B uw_0075fb15 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FlightDeckBehaviorRunwayInfoDestructor.cpp (not merged yet)
 
