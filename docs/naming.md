@@ -141,6 +141,12 @@ hashed votes remain unchanged. The approval record carries the agreed name and
 the source fingerprint. The rename engine recomputes the original voter set,
 their accepted spelling, and the source fingerprint before applying an inferred
 rename. If the source changes, resolve it again against the changed code.
+Verified run-wide rename batches may carry this worker's local plaintext
+proposal to the new source hash only when the proposal matches the transaction's
+exact old source and the on-disk file matches its exact verified result. This
+keeps automatic local/parameter application from stranding shared-name comparisons.
+Unrelated edits and failed transactions never refresh the proposal; the original
+votes, reviewer independence and resolution fingerprint checks remain unchanged.
 
 `review --no-resolve` disables this comparison for a configured reviewer. The
 reviewer runs the comparison only when the original plaintext proposal is
@@ -888,25 +894,51 @@ integration batch. It attempts at most 20 eligible approvals; the rest keep
 waiting, and blocked entries need an explicit `--retry-blocked` to be retried.
 Existing key/worker filters and the source fan-out bound still compose.
 
-For a worker authorized to edit source as well as propose names,
-`submit ANSWER.json --session S --model M --apply-ready 5` records votes, then
-claims and verifies at most five approvals created by that submission. It never
-selects unrelated backlog or starts an apply when nothing newly agreed. Default
-submission still records proposals only. `--max-files` controls the verification
-bound for this optional apply. Failed verification restores source and records
-blocked outcomes while retaining the votes. Neither command commits or pushes.
+Normal `submit ANSWER.json --session S --model M` records votes, then claims and
+applies every approval created by that submission as one verified run-wide batch.
+It never selects unrelated ready backlog or starts an apply when nothing newly
+agreed. `--apply-ready 5` explicitly caps that immediate application at five;
+without the flag there is no arbitrary name-count cap on this submission's batch.
+`--max-files` retains the per-plan affected-source bound and all units are verified.
+Failed verification restores source and records blocked outcomes while retaining
+the votes. Neither command commits or pushes.
+
+Use `submit --propose-only` only for an explicitly proposal-only/read-only pass:
+it records votes without applying source changes or dispatching a reviewer.
+`--no-auto-review` retains immediate application but suppresses reviewer dispatch
+for that submission. Prefer completing a subsystem batch through application to
+accumulating separate blanket voting rounds.
 
 ### Automatically dispatch independent second reviews
 
-Enable a stable reviewer seat once per local fleet:
+Normal submission automatically configures a stable reviewer seat when shared
+names need an independent second vote and no fleet configuration exists. It
+discovers an installed Codex, Claude Code or OpenCode CLI, preferring the
+submitting CLI when identifiable. Existing configurations, especially an explicit
+`review disable`, are never replaced. No runner or model is required merely to
+apply uncontested parameter/local proposals when no shared reviews are pending.
+Missing runtimes/models are reported explicitly; recorded votes are retained.
+
+Override the discovered runner/model once per local fleet when desired:
 
 ```sh
-python3 tools/name_lane.py review configure --worker bfme-independent-name-reviewer
+python3 tools/name_lane.py review configure
+python3 tools/name_lane.py review configure --provider claude --model sonnet
+python3 tools/name_lane.py review configure --provider opencode --model provider/model
+python3 tools/name_lane.py review configure --provider t3 --t3-backend codex
 ```
 
-Configuration uses the installed Codex CLI's actual model by default; pass
-`--model` to select another available model. This enables real model execution
-and uses that account's credits. Each subsequent submission with new votes
+Codex uses its configured model. Claude uses `ANTHROPIC_MODEL`, its user model
+setting, or the CLI's `sonnet` alias. OpenCode uses a configured `provider/model`
+from its JSON/JSONC configuration or an explicit `--model`; no paid model is
+guessed when it has no configured choice. `--provider t3` supports T3 Code by
+launching a fresh underlying Codex/Claude/OpenCode CLI, selected automatically or
+with `--t3-backend`. It never starts a T3 server or reuses an existing T3 thread.
+The T3 backend can also be selected with `BFME_NAME_REVIEW_T3_BACKEND`.
+See the [T3 provider requirements](https://github.com/pingdotgg/t3code#requirements).
+
+Automatic review enables real model execution and uses the chosen account's
+credits. Each subsequent submission with new votes
 starts a background reviewer that drains eligible work in successive batches.
 The submitting worker can continue immediately.
 A shared lock permits one AI reviewer at a time, with at most ten keys, six
@@ -920,27 +952,38 @@ validation error stops the run; it never records a fabricated vote.
 Completed skips/rejections are remembered per worker and source hash, so an
 unchanged target is not repeatedly sent to the model.
 Git worktrees share configuration and the lock through their common repository.
+The automatically chosen reviewer identity is stable and account-scoped;
+different contributors do not all cast votes as one identically named seat.
 Independent clones should set `BFME_NAME_REVIEW_CONFIG` to the same fleet-local
 configuration path to share the slot. Keep the reviewer identity stable across
 batches; changing it to manufacture additional votes defeats independent review.
 
-The child is a fresh, ephemeral, read-only Codex process outside the repository.
+The child is a fresh process outside the repository with no inherited agent
+session. Codex uses its ephemeral read-only mode; Claude disables tools, MCP,
+session persistence and customizations while retaining subscription login;
+OpenCode uses a fresh tool-denied session and a private server when supported.
 It receives only source and target keys, with no original proposals or vote
 hashes. It must use the packet only; tool-using, malformed, incomplete, failed
 or timed-out answers contribute no votes. Source hashes and current protections
 are rechecked through normal submission after it finishes. Different answers
-remain disagreements. The reviewer records proposals and approvals only.
+remain disagreements unless the existing source-based comparison resolves them.
 
 The integrator can run `python3 tools/name_lane.py apply --limit 20` for ready
-approvals, or run a foreground `review --apply-ready 10` pass to verify and apply
-new approvals under the integrator's own identity. All usual claims, quorum,
+approvals. A normal foreground or automatically dispatched `review` verifies and
+applies each newly agreed review batch under the caller/integrator's identity,
+after leaving the independent voter's identity. `review --propose-only` retains
+proposal-only operation; `review --apply-ready 10` explicitly bounds application
+to ten names across the run. All usual claims, quorum,
 byte checks, consumer checks and failure rollback remain in force. Larger source
 fan-out still requires an explicit reviewed `--max-files` override on apply.
 No reviewer commits or pushes. Inspect `review status` and the local
 `build/name_lane/reviewer-last.json` / `review-dispatch.log`; `review disable`
 stops automatic launches and the active reviewer before its next batch.
 `--apply-ready N` is a total apply bound across the run, not per batch.
-Installation without configuration stays proposal-only.
+An unavailable reviewer does not invent a second vote: another real worker can
+use `next --review-only`. Worker and library integrations deliberately recording
+proposals only must opt out explicitly at the CLI, or retain the proposal-only
+library API. No command commits or pushes automatically.
 
 ### Validate proposals before voting
 

@@ -1805,6 +1805,51 @@ def test_ready_cli_options_are_forwarded(tree, monkeypatch):
     assert seen["apply"].limit == 7 and seen["apply"].max_files == 60
 
 
+@pytest.mark.parametrize("options, lands, reviews", [
+    ([], True, True),
+    (["--propose-only"], False, False),
+    (["--no-auto-review"], True, False),
+])
+def test_normal_submit_completes_ready_batch_unless_explicitly_opted_out(
+        tree, tmp_path, monkeypatch, options, lands, reviews):
+    import name_review
+    agree_on(tree, tmp_path, MEMBER_ANSWER)
+    serve(tree, "automatic", worker="automatic-worker")
+    answer = tmp_path / "automatic.json"
+    answer.write_text(json.dumps(READY_ANSWERS))
+    source = (tree / SOURCE).read_bytes()
+    builds, launches = [], []
+    original_submit = name_lane.cmd_submit
+    monkeypatch.setattr(name_lane, "cmd_submit", lambda lane, args, **kw: original_submit(
+        lane, args, verify=lambda ctx, sources: builds.append(sources) or True, checks=no_checks, **kw))
+    monkeypatch.setattr(name_review, "maybe_launch", lambda lane, **kw: launches.append(kw))
+    assert name_lane.main(["submit", str(answer), "--session", "automatic",
+                           "--model", "claude-opus-5-5", *options], lane=lane_of(tree)) == 0
+    state = lane_of(tree).state()
+    scoped = [r for r in state.values() if r["kind"] in ("param", "local")]
+    assert len(scoped) == 3
+    assert {r["status"] for r in scoped} == {"landed" if lands else "agreed"}
+    assert state[MEMBER_KEY]["status"] == "agreed"  # no unrelated backlog application
+    assert builds == ([[SOURCE]] if lands else [])
+    assert launches == ([{"auto_configure": True, "apply_new": True}] if reviews else [])
+    assert ((tree / SOURCE).read_bytes() != source) == lands
+
+
+def test_default_submit_keeps_rollback_and_votes_when_verification_fails(tree, tmp_path, monkeypatch):
+    serve(tree, "automatic-failure", worker="automatic-worker")
+    answer = tmp_path / "automatic-failure.json"
+    answer.write_text(json.dumps(READY_ANSWERS))
+    source = (tree / SOURCE).read_bytes()
+    original_submit = name_lane.cmd_submit
+    monkeypatch.setattr(name_lane, "cmd_submit", lambda lane, args, **kw: original_submit(
+        lane, args, verify=lambda *_: False, checks=no_checks, **kw))
+    name_lane.main(["submit", str(answer), "--session", "automatic-failure",
+                    "--model", "claude-opus-5-5", "--no-auto-review"], lane=lane_of(tree))
+    assert (tree / SOURCE).read_bytes() == source
+    assert len(rows(tree, name_lane.VOTES)) == 3
+    assert {r["status"] for r in lane_of(tree).state().values()} == {"blocked"}
+
+
 
 def test_claim_conflict_diagnostic_is_parsed_for_batch_pruning():
     result = SimpleNamespace(failure=rename.Refusal(

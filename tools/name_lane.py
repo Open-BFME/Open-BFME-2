@@ -15,6 +15,7 @@ and never misleading.
 
     python3 tools/name_lane.py next --session S --model M [--count N] [--subsystem Code/...] [--file F] [--list-only]
     python3 tools/name_lane.py submit ANSWER.json --session S --model M
+    python3 tools/name_lane.py submit ANSWER.json --session S --model M --propose-only
     python3 tools/name_lane.py apply [--retry-blocked] [--lead 2] [--min-models 1] [--only-labels L,L]
     python3 tools/name_lane.py dispute KEY... --reason TEXT
     python3 tools/name_lane.py status [--only-labels L,L] [--lead 2] [--min-models 1]
@@ -51,6 +52,13 @@ workers with a lead of `--lead` votes over every rival spelling, optionally
 `--min-models` distinct models under either policy; files another
 model voted on are served first), the name is written to
 reverse/name_agreed.csv as `agreed`.
+
+Normal CLI submission applies every newly agreed key in one verified run batch,
+then automatically configures an installed independent-review CLI when needed.
+The reviewer compares disagreements and applies its newly agreed batches too.
+`--propose-only` explicitly records votes without either source application or
+automatic reviewer dispatch. Library callers opt into this cycle with
+`auto_workflow=True`; reviewer-internal submissions remain proposal-only.
 
 `apply` lands each agreed key through tools/rename.py's library API with
 basis `inferred` and evidence `agree:<id>`; rename.py's check_agreement uses
@@ -1152,7 +1160,9 @@ def cmd_validate(lane, args):
 def cmd_submit(lane, args, *, lead=2, min_models=1, verify=rename.build_verify, checks=rename.ledger_checks,
                validate_only=False):
     apply_ready = getattr(args, "apply_ready", None)
-    if apply_ready is not None and (apply_ready < 1 or getattr(args, "max_files", 25) < 1):
+    auto_workflow = getattr(args, "auto_workflow", False) and not getattr(args, "propose_only", False)
+    if ((apply_ready is not None and apply_ready < 1)
+            or ((apply_ready is not None or auto_workflow) and getattr(args, "max_files", 25) < 1)):
         fail("--apply-ready and --max-files must be positive")
     session, model = session_id(args.session), model_id(args.model)
     record = lane.path(f"{LANE_DIR}/sessions/{session}.json")
@@ -1294,19 +1304,23 @@ def cmd_submit(lane, args, *, lead=2, min_models=1, verify=rename.build_verify, 
     for a in agreed:
         print(f"  AGREED: {a['key']} -> {a['new']} ({a['agents']})")
     print(f"name_lane: {len(votes)} vote(s) recorded as hashes, {len(rejected)} rejected, {len(agreed)} newly agreed"
-          + ("; run `python3 tools/name_lane.py apply` to land them" if agreed and apply_ready is None else ""))
+          + ("; run `python3 tools/name_lane.py apply` to land them"
+             if agreed and apply_ready is None and not auto_workflow else ""))
     if meanings:
         print(f"name_lane: stage {VOTES}, {MEANINGS} and {AGREED} together for structured meanings")
     result = 0
-    if apply_ready is not None and agreed:
+    if agreed and (apply_ready is not None or auto_workflow):
         result = cmd_apply(lane, argparse.Namespace(
             key=[row["key"] for row in agreed], retry_blocked=False, only_labels=None,
-            lead=lead, min_models=min_models, claim=True, limit=apply_ready,
+            lead=lead, min_models=min_models, claim=True, limit=apply_ready or len(agreed),
             max_files=getattr(args, "max_files", 25)), verify=verify, checks=checks)
-    if votes and not getattr(args, "no_auto_review", False):
+    if votes and not getattr(args, "no_auto_review", False) and not getattr(args, "propose_only", False):
         import name_review
         try:
-            name_review.maybe_launch(lane)
+            if auto_workflow:
+                name_review.maybe_launch(lane, auto_configure=True, apply_new=True)
+            else:
+                name_review.maybe_launch(lane)
         except (name_review.ReviewError, OSError, ValueError) as exc:
             print(f"name_lane: votes recorded; reviewer dispatch failed: {exc}", file=sys.stderr)
     return result
@@ -1360,6 +1374,54 @@ def warm_donor_parameters(lane, files):
                    for name in rename.parameters(params)):
                 functions.add(base(scope))
     return lane.donor_params(functions) if functions else {}
+
+
+def carry_verified_proposals(lane, plans):
+    """Keep this worker's pending plaintext proposals current across verified renames.
+
+    Require the proposal's exact old source, the transaction's final source,
+    and the on-disk source to agree. Never refresh a proof over unrelated edits
+    or a failed/speculative rename, and never touch another worker's proposal.
+    """
+    before, after = {}, {}
+    for plan in plans:
+        for rel, data in getattr(plan, "before", {}).items():
+            if rel.startswith("Code/") and isinstance(data, bytes):
+                before.setdefault(rel, data)
+        for rel, data in getattr(plan, "after", {}).items():
+            if rel.startswith("Code/") and isinstance(data, bytes):
+                after[rel] = data
+    changed = {}
+    for rel, data in after.items():
+        try:
+            current = lane.path(rel).read_bytes()
+        except OSError:
+            continue
+        if rel not in before or before[rel] == data or current != data:
+            continue
+        changed[rel] = (hashlib.sha256(before[rel]).hexdigest(), hashlib.sha256(data).hexdigest())
+    if not changed:
+        return
+    worker = lane.worker()
+    for vote in lane.votes():
+        rel = vote["key"].split("|")[0]
+        if vote["worker"] != worker or rel not in changed:
+            continue
+        path = proposal_path(lane, vote["key"], worker)
+        if path.is_file():
+            try:
+                proposal = json.loads(path.read_text(encoding="utf-8"))
+                old, new = changed[rel]
+                if (not isinstance(proposal, dict) or proposal.get("source_sha") != old or proposal.get("worker") != worker
+                        or proposal.get("key") != vote["key"]):
+                    continue
+                proposal["source_sha"] = new
+                proposal["verified_source_carry"] = {"before": old, "after": new}
+                temporary = path.with_suffix(f".{os.getpid()}.carry")
+                temporary.write_text(json.dumps(proposal, indent=2), encoding="utf-8")
+                temporary.replace(path)
+            except (OSError, ValueError) as exc:
+                print(f"name_lane: could not carry local proposal {vote['key']}: {exc}", file=sys.stderr)
 
 
 def _apply_run(lane, todo, args, tally, refused, *, verify, checks, max_files):
@@ -1420,6 +1482,7 @@ def _apply_run(lane, todo, args, tally, refused, *, verify, checks, max_files):
         planned = [rows[index] for index, _plan in result.plans]
         rejected = [rows[index] for index in result.refused]
         if result.failure is None:
+            carry_verified_proposals(lane, [plan for _index, plan in result.plans])
             for row in planned:
                 record(row, "landed", approval_detail(tally, refused, row))
             for index, reason in result.refused.items():
@@ -2130,12 +2193,19 @@ def main(argv=None, lane=None):
     n.add_argument("--meaning-review-only", action="store_true", help="clarify your own unannotated scoped votes in disputes")
     n.add_argument("--list-only", action="store_true",
                    help="print the queue's file/size/kind metadata as JSON; no session, no brief")
-    s = sub.add_parser("submit", help="record a session's answers as hashed votes")
+    s = sub.add_parser("submit", help="record names, batch-apply new approvals and arrange independent review")
     s.add_argument("answer")
     s.add_argument("--session", required=True)
     s.add_argument("--model", required=True)
-    s.add_argument("--apply-ready", type=int, metavar="N", help="verify and apply at most N newly approved keys after recording votes")
-    s.add_argument("--max-files", type=int, default=25, help="affected-source bound when --apply-ready is used")
+    s.set_defaults(auto_workflow=True)
+    submit_mode = s.add_mutually_exclusive_group()
+    submit_mode.add_argument("--apply-ready", type=int, metavar="N",
+                             help="cap immediate application at N newly approved keys; default applies all new approvals")
+    submit_mode.add_argument("--propose-only", action="store_true",
+                             help="record proposals without applying names or dispatching an automatic reviewer")
+    s.add_argument("--no-auto-review", action="store_true",
+                   help="apply ready names but do not dispatch an automatic reviewer")
+    s.add_argument("--max-files", type=int, default=25, help="maximum affected sources per rename plan")
     v = sub.add_parser("validate", help="check proposals before voting; leave the session and ledgers intact")
     v.add_argument("answer")
     v.add_argument("--session", required=True)

@@ -310,6 +310,14 @@ Maintenance and measurement rules: `docs/linking.md` ("Shared obstacle register"
 - **Escape-hatch debt**: replace a hatch with real code or a real name and lower
   its count, preferably in files you are already in.
 - **Names**: `tools/rename.py`, `tools/name_lane.py` (`docs/naming.md`).
+  Complete a naming batch through application: normal `name_lane.py submit`
+  applies its new approvals together and arranges independent review/application
+  for pending shared names using an available Codex, Claude or OpenCode CLI
+  (including T3 Code's underlying provider). Do not accumulate separate blanket
+  voting rounds when ready names can land. Use `--propose-only` only for an
+  explicitly proposal-only/read-only assignment. Existing claims, approval and
+  byte/link/ledger checks still decide what may land; nothing commits or pushes
+  automatically. See the reviewer status if the runtime is unavailable/disabled.
 - **Cleanup**: funclet repoints via `tools/eh_verify.py`, `repair_queue.py
   ms-headers`, `next_work.py --tier dx` (`docs/matching.md`, "Cleanup lane
   details").
