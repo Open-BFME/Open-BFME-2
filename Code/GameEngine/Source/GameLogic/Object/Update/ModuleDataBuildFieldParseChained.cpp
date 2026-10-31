@@ -887,21 +887,6 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-// Retail VA 0x00C590E8: 2 fields and the zero sentinel.
-// The matched registration proves the class relationship; retail supplies
-// every token, offset and callback. Global spelling is descriptive.
-extern const FieldParse BfmeCommandPointsUpgradeFields[] = {
-	{ "CommandPoints", &INI::parseInt, 0, 0x118 },
-	{ "RequiredObject", &iniParseObjectFilter, 0, 0x11C },
-	{ 0, 0, 0, 0 }
-};
-
-void CommandPointsUpgradeModuleData::buildFieldParse(MultiIniFieldParse &parse)
-{
-	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE29DGet()), 8);
-	parse.add(BfmeCommandPointsUpgradeFields, 0);
-}
-
 // Retail VA 0x00C57208: 3 fields and the zero sentinel.
 // Class identity comes from this unit's matched registration function;
 // tokens, callbacks and offsets are read from that retail table.
