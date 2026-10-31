@@ -1,5 +1,11 @@
 # Linking target checklist
 
+Matrix3D comparison Vector4 adoption (2026-10-31): existing canonical storage
+and direct pointer-based component reads preserve both 61/70-byte rows,
+the row accessor and all relocations. Owning acceptance retires one queue
+key; bounded LINKS/131 remains unchanged. No new helper is emitted.
+[Evidence](../reverse/attempt_support/matrix-equality-vector4-adoption-20261031.md).
+
 Matrix3D setter Vector4 adoption (2026-10-31): the existing canonical storage
 header and per-row captured inputs retain both 118/10-byte functions and all
 relocations, with no extra code provider. Strict preparation and owning

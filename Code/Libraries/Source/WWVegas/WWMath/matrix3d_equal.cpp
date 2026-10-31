@@ -4,17 +4,8 @@
 // inlined into !=. Donor: the BFME1 reconstruction of the same upstream
 // WWMath member (their retail 0x006F6E00, 83 bytes).
 
-class Vector4
-{
-public:
-	const float &operator[](int index) const { return (&m_x)[index]; }
+#include "Vector4Data.h"
 
-private:
-	float m_x;
-	float m_y;
-	float m_z;
-	float m_w;
-};
 
 class Matrix3D
 {
@@ -29,7 +20,7 @@ __forceinline bool operator==(const Matrix3D &a, const Matrix3D &b)
 {
 	for (int row = 0; row < 3; ++row) {
 		for (int column = 0; column < 4; ++column) {
-			if (a[row][column] != b[row][column]) {
+			if ((&a[row].X)[column] != (&b[row].X)[column]) {
 				return false;
 			}
 		}
