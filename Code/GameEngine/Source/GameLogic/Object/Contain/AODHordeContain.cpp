@@ -106,6 +106,17 @@ inline AODDtorElem24::~AODDtorElem24()
 	}
 BFME_DISP8_DIV_AVG_DWORD_GETTER(Rva0047A6B4DivAvgField, 0x08, 0x00, 0x18)
 #include <new>
+#define BFME_IMUL_ADD_DWORD_GETTER(NAME, IMM) \
+	class NAME \
+	{ \
+	public: \
+		int get(int scale) const; \
+		int m_value; \
+	}; \
+	int NAME::get(int scale) const \
+	{ \
+		return scale * IMM + m_value; \
+	}
 
 class GeometryInfo;
 
@@ -437,6 +448,10 @@ private:
 	Rva000AD6F4Base *m_ptr;
 };
 
+BFME_IMUL_ADD_DWORD_GETTER(Rva0047A875ImulAddField, 0x18)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContain.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContain.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContain.cpp
@@ -740,14 +755,6 @@ void AODHordeContain::refreshTrackedLargeUnit()
 	m_largeUnitHeight = unit->m_geometry.getMaxHeightAbovePosition();
 }
 
-// tu-skeleton: 0x0047A3CB 72B ?onContaining@AODHordeContain@@UAEXPAVObject@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContainOnContaining.cpp (not merged yet)
-
-// tu-skeleton: 0x0047A69C 3B ?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z -- matched in Code/GameEngine/Source/GameClient/System/FXParticleSystem/EmissionInfoCopyCtors.cpp (not merged yet)
-
-// tu-skeleton: 0x0047A69F 5B ?j_0047a69f@@YAXXZ -- matched in Code/gen_small/gthunks_000_admitted.cpp (not merged yet)
-
-// tu-skeleton: 0x0047A6A4 5B ?ModuleFactoryHookAt0047A6A4@@YAXPAXH0@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Disp8DivAvgDwordGetters.cpp
 
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
@@ -764,11 +771,32 @@ void AODHordeContain::refreshTrackedLargeUnit()
 
 // ?clear@Rva000AD6F4@@QAEXXZ @0x000AD6F4 29B: owning-pointer clear via virtual slot0 with 0 plus operator delete; callers 40+ incl Rva002D3573 dtor; no donor.
 
+// tu-skeleton: 0x0047A3CB 72B ?onContaining@AODHordeContain@@UAEXPAVObject@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContainOnContaining.cpp (not merged yet)
+
+// tu-skeleton: 0x0047A69C 3B ?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z -- matched in Code/GameEngine/Source/GameClient/System/FXParticleSystem/EmissionInfoCopyCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x0047A69F 5B ?j_0047a69f@@YAXXZ -- matched in Code/gen_small/gthunks_000_admitted.cpp (not merged yet)
+
+// tu-skeleton: 0x0047A6A4 5B ?ModuleFactoryHookAt0047A6A4@@YAXPAXH0@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain.cpp (not merged yet)
+
 // tu-skeleton: 0x0047A6C0 45B ??$_M_allocate_and_copy@PBUBfmePod24@@@?$vector@UBfmePod24@@V?$allocator@UBfmePod24@@@_STL@@@_STL@@IAEPAUBfmePod24@@IPBU2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pod24_allocate_copy.cpp (not merged yet)
 
 // tu-skeleton: 0x0047A724 5B ??1Rva0047A724@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/ContainModuleDataFriendNew.cpp (not merged yet)
 
-// tu-skeleton: 0x0047A875 12B ?get@Rva0047A875ImulAddField@@QBEHH@Z -- matched in Code/GameEngine/Source/Common/Disp8ImulAddDwordGetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Disp8ImulAddDwordGetters.cpp
+
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
+// Disp8 imul-add dword getters: twelve-byte __thiscall members with one shape:
+//
+//     mov eax,[esp+4] / imul eax,eax,<IMM> / add eax,[ecx] / ret 4
+//
+// A stack-passed integer is scaled by a small immediate and biased by the
+// dword at `this`. MSVC 7.1 emits `8B 44 24 04` + `6B C0 XX` + `03 01`,
+// plus `ret 4` for the single callee-cleaned stack argument, for twelve
+// bytes total. /O1 keeps the memory-add after the multiply; /O2 hoists the
+// member load into edx first. /G7 keeps small multipliers as true `imul`
+// (/O1 alone strength-reduces them to lea sequences). Identity is not
+// recovered: every name is derived from its address.
 
 // tu-skeleton: 0x0047A881 20B ?rva0047A881@Rva0047A881@@QAEPAURva0047A881Record@@H@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE22.cpp (not merged yet)
 
