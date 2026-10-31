@@ -8780,10 +8780,10 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00129710,84,code,,displaced,-,N=Code/Libraries/Source/WWVegas/WW3D2/TextureStatisticsStruct.cpp,Code/Libraries/Source/WWVegas/WW3D2/TextureStatisticsVector.cpp
 0x00129770,53,code,Code/Libraries/Source/WWVegas/WW3D2/statistics.cpp,approved,C,C=0x00129630..0x001297B0,Code/Libraries/Source/WWVegas/WW3D2/statistics.cpp
 0x001297B0,194,code,Code/Libraries/Source/WWVegas/WW3D2/statistics.cpp,approved,C,C=0x00129630..0x00129880,Code/Libraries/Source/WWVegas/WW3D2/TextureStatisticsVector.cpp
-0x00129880,45,code,Code/Libraries/Source/WWVegas/WW3D2/statistics.cpp,approved,C,C=0x00129630..0x001298B0,Code/Libraries/Source/WWVegas/WW3D2/TextureStatisticsVectorID.cpp
+0x00129880,45,code,Code/Libraries/Source/WWVegas/WW3D2/statistics.cpp,approved,C,C=0x00129630..0x001298B0,Code/Libraries/Source/WWVegas/WW3D2/statistics.cpp
 0x001298B0,33,code,Code/Libraries/Source/WWVegas/WW3D2/statistics.cpp,approved,C,C=0x00129630..0x001298E0,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp
 0x001298E0,102,code,Code/Libraries/Source/WWVegas/WW3D2/statistics.cpp,approved,C,C=0x00129630..0x00129950,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsRecordTexture.cpp
-0x00129950,63,code,Code/Libraries/Source/WWVegas/WW3D2/statistics.cpp,approved,C,C=0x00129630..0x00129990,Code/Libraries/Source/WWVegas/WW3D2/TextureStatisticsVectorID.cpp
+0x00129950,63,code,Code/Libraries/Source/WWVegas/WW3D2/statistics.cpp,approved,C,C=0x00129630..0x00129990,Code/Libraries/Source/WWVegas/WW3D2/statistics.cpp
 0x00129990,363,code,Code/Libraries/Source/WWVegas/WW3D2/statistics.cpp,approved,C,C=0x00129630..0x00129B00,Code/Libraries/Source/WWVegas/WW3D2/statistics.cpp
 0x00129B00,61,code,Code/Libraries/Source/WWVegas/WW3D2/statistics.cpp,approved,C,C=0x00129630..0x00129B40,Code/Libraries/Source/WWVegas/WW3D2/TextureStatisticsVector.cpp
 0x00129B40,47,code,Code/Libraries/Source/WWVegas/WW3D2/statistics.cpp,approved,C,C=0x00129630..0x00129B70,Code/Libraries/Source/WWVegas/WW3D2/TextureStatisticsVector.cpp
@@ -8799,9 +8799,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0012A450,122,code,Code/Libraries/Source/WWVegas/WW3D2/statistics.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/statistics.cpp S=Code/Libraries/Source/WWVegas/WW3D2/statistics.cpp N=Code/Libraries/Source/WWVegas/WW3D2/Debug_Statistics.cpp,Code/Libraries/Source/WWVegas/WW3D2/statistics.cpp
 0x0012A4D0,67,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/TextureStatisticsVector.cpp
 0x0012A520,46,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/TextureStatisticsVector.cpp
-0x0012A550,40,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/TextureStatisticsVectorID.cpp
+0x0012A550,40,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/statistics.cpp
 0x0012A580,64,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/TextureStatisticsVector.cpp
-0x0012A5C0,93,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/TextureStatisticsVectorID.cpp
+0x0012A5C0,93,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/statistics.cpp
 0x0012A620,30,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/TextureStatisticsVector.cpp
 0x0012A640,385,code,Code/Libraries/Source/WWVegas/WW3D2/dx8caps.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/dx8caps.cpp S=Code/Libraries/Source/WWVegas/WW3D2/dx8caps.cpp N=Code/Libraries/Source/WWVegas/WW3D2/DX8Caps.cpp,Code/Libraries/Source/WWVegas/WW3D2/dx8caps.cpp
 0x0012A7D0,801,code,Code/Libraries/Source/WWVegas/WW3D2/dx8caps.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/dx8caps.cpp S=Code/Libraries/Source/WWVegas/WW3D2/dx8caps.cpp N=Code/Libraries/Source/WWVegas/WW3D2/DX8Caps.cpp,Code/Libraries/Source/WWVegas/WW3D2/dx8caps.cpp
