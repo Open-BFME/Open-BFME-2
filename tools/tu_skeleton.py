@@ -2356,6 +2356,42 @@ def cut(text, spans):
     return "".join(out)
 
 
+def prune_unused_externs(text):
+    """Drop only simple, unused extern-object declarations from a carved text.
+
+    Search the entire remaining output, including helpers, initializers, inline
+    bodies and directives. Ambiguous declarators and preprocessing stay intact.
+    Includes after a declaration can hide a user; token pasting and line splicing
+    can hide an identifier, so those contexts are deliberately left alone.
+    """
+    code = code_only(text)
+    if re.search(r"^\s*#\s*(?:if|ifdef|ifndef|elif|else|endif)\b|##|\b__asm\b", code, re.M) \
+            or re.search(r"\\\r?\n|\bR\"", text):
+        return text
+    cuts = []
+    for kind, c, at, _ in flat_chunks(text):
+        if kind != "decl":
+            continue
+        # No initializer, function, attributes, templates or multiple declarators.
+        m = re.fullmatch(r'extern\s+(?:"C"\s+)?(?:[A-Za-z_]\w*\s+)+'
+                         r'(?:[*&]\s*(?:const\s+)?)?([A-Za-z_]\w*)'
+                         r'\s*(?:\[\s*[0-9]*\s*\]\s*)*;', norm(c))
+        if not m:
+            continue
+        end = at + len(c)
+        if re.search(r"^\s*#\s*(?:include|import)\b", code_only(text[end:]), re.M):
+            continue
+        rest = code_only(text[:at] + text[end:])
+        if not re.search(r"\b" + re.escape(m.group(1)) + r"\b", rest):
+            # Preserve attached comments, including evidence and debt markers.
+            blanked = COMMENT.sub(lambda m: " " * len(m.group(0)), c)
+            start = re.search(r"\bextern\b", blanked).start()
+            if any(m.group(0).startswith(("//", "/*")) for m in COMMENT.finditer(c[start:])):
+                continue
+            cuts.append((at + start, end))
+    return cut(text, cuts)
+
+
 class Carve:
     """The two texts a carve produces, or why it cannot be made.
 
@@ -2376,8 +2412,8 @@ def carve(text, take, rowed=frozenset(), data_rowed=frozenset(), own=frozenset()
           altname_keep=False):
     """The definitions at span indices `take` leave the file.
 
-    Both texts keep every preprocessor line, declaration and comment, so each
-    still compiles against the same view. Definitions are never duplicated:
+    Both texts keep every preprocessor line and comment, and declarations except
+    lexically unused simple extern objects. Definitions are never duplicated:
       * a file-local helper function with internal linkage that is not a ledger
         row (`rowed`: span indices any row of the file identifies) travels as a
         copy when a carved body calls it, transitively; one with external
@@ -2486,7 +2522,8 @@ def carve(text, take, rowed=frozenset(), data_rowed=frozenset(), own=frozenset()
         pieces.append(text[pos:])
         donor = "".join(pieces)
     residual = cut(text, residual_cuts)
-    return Carve(donor, residual, sorted(copies), data_moved, externs)
+    return Carve(prune_unused_externs(donor), prune_unused_externs(residual),
+                 sorted(copies), data_moved, externs)
 
 
 INCLUDE = re.compile(r'^([ \t]*#[ \t]*include[ \t]*)"([^"\n]+)"', re.M)

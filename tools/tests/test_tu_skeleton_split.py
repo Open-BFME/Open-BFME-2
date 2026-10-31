@@ -75,6 +75,56 @@ class NameTests(unittest.TestCase):
 
 
 class CarveTests(unittest.TestCase):
+    def test_unused_hatch_extern_is_not_copied_and_evidence_stays(self):
+        text = ('// evidence remains\nextern unsigned int g_Va00DD828C;\n'
+                'int moved() { return 7; }\nint stays() { return g_Va00DD828C; }\n')
+        cv = T.carve(text, {0}, {0, 1})
+        self.assertNotIn('extern unsigned int g_Va00DD828C;', cv.donor)
+        self.assertIn('// evidence remains', cv.donor)
+        self.assertIn('extern unsigned int g_Va00DD828C;', cv.residual)
+
+    def test_used_hatch_extern_is_copied_and_unused_residual_is_pruned(self):
+        text = ('extern int g_Va00DD828C;\n'
+                'int moved() { return g_Va00DD828C; }\nint stays() { return 0; }\n')
+        cv = T.carve(text, {0}, {0, 1})
+        self.assertIn('extern int g_Va00DD828C;', cv.donor)
+        self.assertNotIn('extern int g_Va00DD828C;', cv.residual)
+
+    def test_extern_reference_detection_uses_whole_identifier_tokens(self):
+        text = ('extern int value;\nint moved() { int value_suffix = 0; '
+                '/* value */ return value_suffix; }\nint stays() { return value; }\n')
+        self.assertNotIn('extern int value;', T.carve(text, {0}, {0, 1}).donor)
+        self.assertIn('extern int value;', T.prune_unused_externs(
+            'extern int value;\nint moved() { return ns::value + p->value; }\n'))
+
+    def test_extern_uses_in_helpers_initializers_and_macros_are_kept(self):
+        for use in ('static int helper() { return value; }', 'int other = value;',
+                    '#define GET value', 'struct X { int f() { return value; } };'):
+            with self.subTest(use=use):
+                text = 'extern int value;\n' + use + '\n'
+                self.assertEqual(T.prune_unused_externs(text), text)
+
+    def test_ambiguous_extern_contexts_are_kept(self):
+        for text in ('extern int a, b;', 'extern int (*fp)(int);',
+                     'extern /* evidence */ int a;',
+                     'extern int a = 1;', 'extern TYPE(NAME);',
+                     '#if ENABLED\nextern int a;\n#endif',
+                     'extern int a;\n#include "inline_users.h"',
+                     '#define JOIN(a,b) a ## b\nextern int a;',
+                     'extern int a;\nint f() { return a\\\n; }'):
+            with self.subTest(text=text):
+                self.assertEqual(T.prune_unused_externs(text), text)
+
+    def test_shared_live_hatch_extern_still_refuses_growth(self):
+        text = ('extern int g_Va00DD828C;\n'
+                'int moved() { return g_Va00DD828C; }\n'
+                'int stays() { return g_Va00DD828C; }\n')
+        cv = T.carve(text, {0}, {0, 1})
+        for side in (cv.donor, cv.residual):
+            self.assertIn('extern int g_Va00DD828C;', side)
+        self.assertIsNone(T.hatch_move('Code/ExternPruneMixed.cpp', text, cv.residual,
+                                      'Code/ExternPruneNew.cpp', cv.donor))
+
     def test_carved_bodies_leave_and_the_preamble_stays_on_both_sides(self):
         donor, residual = T.carve(FILE, {3, 5})   # FadeTransition::update and drawTypeText
         for side in (donor, residual):
@@ -223,14 +273,15 @@ class DataPlacementTests(unittest.TestCase):
                 self.assertNotIn('extern extern', cv.donor)
                 self.assertIn('extern const int table', cv.donor)
 
-    def test_uninitialized_externs_remain_declarations_on_both_sides(self):
+    def test_uninitialized_externs_follow_their_users(self):
         text = ('extern const int table[];\nextern int counter;\n'
                 'void moved() { use(table); }\nvoid stays() { counter++; }\n')
         cv = T.carve(text, {0})
         self.assertEqual(T.data_decls(text), [])
-        for side in (cv.donor, cv.residual):
-            self.assertIn('extern const int table[];', side)
-            self.assertIn('extern int counter;', side)
+        self.assertIn('extern const int table[];', cv.donor)
+        self.assertNotIn('extern int counter;', cv.donor)
+        self.assertNotIn('extern const int table[];', cv.residual)
+        self.assertIn('extern int counter;', cv.residual)
 
     def spans(self):
         sp = T.def_spans(DATA)
