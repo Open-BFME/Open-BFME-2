@@ -1,4 +1,5 @@
-// cl: /DNDEBUG /EHsc /MD
+// cl: /Ireference/shims/bfme2hanim /Ireference/shims/bfme2htree /Ireference/shims/bfme2renderobj /Ireference/shims/bfmeanimobj /arch:SSE /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
+ // Verified RenderObj/Composite state plus hierarchy ownership ends at0x100.
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -17,28 +18,17 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-// Declared object prefixes used only by the out-of-line frame calculation.
-// Virtual slot3 is an independently observed DWORD getter with unknown meaning.
-class HAnimClass {
-public:
- virtual void Delete_This(); virtual ~HAnimClass();
- virtual const char *Get_Name() const;
- virtual unsigned int Unknown_Slot3() const;
- virtual const char *Get_HName() const;
- virtual int Get_Num_Frames(); virtual float Get_Frame_Rate();
-};
-class WW3D { static unsigned int SyncTime; public: static unsigned int Get_Sync_Time() {return SyncTime;} };
-class Animatable3DObjClass {
- enum {SINGLE_ANIM=2, ANIM_MODE_MANUAL=0, ANIM_MODE_LOOP=1, ANIM_MODE_ONCE=2, ANIM_MODE_LOOP_PINGPONG=3, ANIM_MODE_CLAMP_TO_FRAME=4, ANIM_MODE_LOOP_BACKWARDS=5, ANIM_MODE_ONCE_BACKWARDS=6};
- // Verified RenderObj/Composite state plus hierarchy ownership ends at0x100.
- unsigned char ExistingObjectPrefix[0x100];
- int CurMotionMode;
- struct { HAnimClass *Motion; float Frame, TargetFrame; int AnimMode; unsigned int LastSyncTime; float animDirection, frameRateMultiplier; } ModeAnim;
-protected: float Compute_Current_Frame(float *newDirection) const;
-};
-typedef char AnimatablePrefixSizeIs288[(sizeof(Animatable3DObjClass)==0x120)?1:-1];
+// RenderObj/Composite state and hierarchy ownership end at +0x100.
+// HAnim virtual slot 3 is a DWORD getter; frame count and rate occupy slots 5 and 6.
+#include "rendobj.h"
+#include "../../../../../reference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2/composite.h"
+#include "animobj.h"
+#include "ww3d.h"
+
 float Animatable3DObjClass::Compute_Current_Frame(float *newDirection) const
 {
+	// BFME 2 inserts clamp-to-frame before the backwards modes; PrevFrame holds its target.
+	enum { ANIM_MODE_CLAMP_TO_FRAME = 4, ANIM_MODE_LOOP_BACKWARDS = 5, ANIM_MODE_ONCE_BACKWARDS = 6 };
 	float frame = 0;
 	float direction = ModeAnim.animDirection;
 
@@ -115,9 +105,9 @@ float Animatable3DObjClass::Compute_Current_Frame(float *newDirection) const
 						break;
 					case ANIM_MODE_CLAMP_TO_FRAME:
                         if (ModeAnim.animDirection > 0.0f) {
-                            if (frame > ModeAnim.TargetFrame) frame = ModeAnim.TargetFrame;
+                            if (frame > ModeAnim.PrevFrame) frame = ModeAnim.PrevFrame;
                         } else {
-                            if (frame < ModeAnim.TargetFrame) frame = ModeAnim.TargetFrame;
+                            if (frame < ModeAnim.PrevFrame) frame = ModeAnim.PrevFrame;
                         }
                         break;
 
