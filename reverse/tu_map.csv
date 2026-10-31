@@ -23401,8 +23401,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002E6C8D,7,code,Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp,approved,C,C=0x002E6C23..0x002E6C94,Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp
 0x002E6C94,14,code,Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp,approved,C,C=0x002E6C23..0x002E6CA2,Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp
 0x002E6CA2,14,code,Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp,approved,C,C=0x002E6C23..0x002E6CB0,Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp
-0x002E6CB0,7,code,Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp,approved,C,C=0x002E6C23..0x002E6CB7,Code/GameEngine/Source/Common/Disp8WordChaseGetters.cpp
-0x002E6CB7,7,code,Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp,approved,C,C=0x002E6C23..0x002E6CBE,Code/GameEngine/Source/Common/Disp8WordChaseGetters.cpp
+0x002E6CB0,7,code,Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp,approved,C,C=0x002E6C23..0x002E6CB7,Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp
+0x002E6CB7,7,code,Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp,approved,C,C=0x002E6C23..0x002E6CBE,Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp
 0x002E6CBE,26,code,Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp,approved,C,C=0x002E6C23..0x002E6CD8,Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp
 0x002E6CD8,38,code,Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp,approved,C,C=0x002E6C23..0x002E6CFE,Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp
 0x002E6CFE,49,code,Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp,approved,C,C=0x002E6C23..0x002E6D2F,Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp
@@ -23537,7 +23537,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002EAC41,59,code,Code/GameEngine/Source/GameLogic/AI/PathfindRequestRing.cpp,proposed,N,N=Code/GameEngine/Source/GameLogic/AI/PathfindRequestRing.cpp,Code/GameEngine/Source/GameLogic/AI/PathfindRequestRing_Rva002EABF3.cpp
 0x002EAC7C,35,code,Code/GameEngine/Source/GameLogic/AI/PathfindRequestRing.cpp,proposed,C,C=0x002EAC41..0x002EAC9F,Code/GameEngine/Source/Common/Rva002EAC7CPool.cpp
 0x002EAC9F,154,code,Code/GameEngine/Source/GameLogic/AI/PathfindRequestRing.cpp,proposed,N,N=Code/GameEngine/Source/GameLogic/AI/PathfindRequestRing.cpp,Code/GameEngine/Source/GameLogic/AI/PathfindRequestRing_Rva002EABF3.cpp
-0x002EAD39,41,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_auto_ptr_rva0053476A.cpp
+0x002EAD39,41,code,,,-,,Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp
 0x002EAD62,23,code,,,-,,Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp
 0x002EAD79,6,code,,,-,,Code/GameEngine/Source/Common/Disp8SubDwordFieldGetters.cpp
 0x002EAD7F,5,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_int.cpp
