@@ -165,5 +165,16 @@
       "rva": "0x423d92",
       "reason": "primary typed row now owns this name"
     }
+  ],
+  "commit_hook_consumer_check": {
+    "sources": 96,
+    "exact_code_rows": 511,
+    "exact_eh_rows": 86,
+    "data_rows": 6
+  },
+  "pending_shadow_findings": [
+    "pooled operator= to range insert at 0x00423890",
+    "pooled _M_assign_dispatch to range insert at 0x00423890",
+    "divergent const Object-list iterator constructor copies"
   ]
 }
