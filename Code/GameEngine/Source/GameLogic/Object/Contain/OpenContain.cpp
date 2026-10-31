@@ -68,6 +68,7 @@ template unsigned int vector<Coord3D, allocator<Coord3D> >::capacity() const;
 
 
 
+
 #endif
 #include <deque>
 #include <string.h>
@@ -122,6 +123,19 @@ struct BfmePod96 { int a[24]; };
 	int NAME::get() const \
 	{ \
 		return ((const Sub##NAME *)((const char *)this - (BACK)))->m_holder->m_value; \
+	}
+#define BFME_DISP8_LEA_NEG_SBB_GETTER(NAME, LEADISP, ADDIMM) \
+	class NAME \
+	{ \
+	public: \
+		int get() const; \
+	}; \
+	int NAME::get() const \
+	{ \
+		const char *field = (const char *)this; \
+		const void *base = field - LEADISP; \
+		field += ADDIMM; \
+		return base ? (int)field : 0; \
 	}
 
 namespace _STL { template <> void __malloc_alloc<0>::deallocate(void *, size_t); }
@@ -861,6 +875,16 @@ public:
  unsigned int *m_ptr;
 };
 
+// 0x004543A9 is also reached through the this-0x14 thunk 0x004543E3 in four
+// vtables, so it is virtual (same body).
+class Rva004543A9LeaNegSbbField
+{
+public:
+	virtual int get() const;
+};
+
+BFME_DISP8_LEA_NEG_SBB_GETTER(Rva004647C0LeaNegSbbField, 12, 0x20)
+
 // tu-skeleton: 0x004624E3 8B ?containReactToTransformChange@OpenContain@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainReactToTransformChange.cpp (not merged yet)
 
 // tu-skeleton: 0x004624EB 25B ?rva004624EB@Rva004624EB@@UAE?AURva00462465@@XZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE22.cpp (not merged yet)
@@ -868,6 +892,8 @@ public:
 // tu-skeleton: 0x0046262D 29B ??0Rva0046262D@@QAE@PAXABVWeaponTemplateSetHead@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/Rva0046262DCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0046264A 20B ?deallocate@?$allocator@D@_STL@@QAEXPADI@Z -- matched in Code/GameEngine/Source/Common/NarrowStringRecordCopyBFME2.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp
 
@@ -1340,14 +1366,6 @@ unsigned int Rva004643C9::rva004643C9(const Rva00463D9BElement &key)
     return erase(key);
 }
 
-// tu-skeleton: 0x00462697 15B ?rva00462697@Rva00462697@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE22.cpp (not merged yet)
-
-// tu-skeleton: 0x004626A6 9B ??0Rva004626A6@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
-
-// tu-skeleton: 0x004626CA 107B ?rva004626CA@OpenContain@@UAEPBUCoord3D@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainRva004626CA.cpp (not merged yet)
-
-// tu-skeleton: 0x00462735 16B ?rva00462735@Rva00462735@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesC.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp
 
 // Disp8 pointer-chase dword getters: seven-byte __thiscall members with one shape:
@@ -1364,6 +1382,14 @@ unsigned int Rva004643C9::rva004643C9(const Rva00463D9BElement &key)
 // (a sub-object `this` pointing into a larger object). Spelled as an explicit
 // backward cast, which MSVC folds to `mov eax,[ecx-BACK]`; same shape and
 // reading as BFME1's ChainedFieldGetters.
+
+// tu-skeleton: 0x00462697 15B ?rva00462697@Rva00462697@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE22.cpp (not merged yet)
+
+// tu-skeleton: 0x004626A6 9B ??0Rva004626A6@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x004626CA 107B ?rva004626CA@OpenContain@@UAEPBUCoord3D@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainRva004626CA.cpp (not merged yet)
+
+// tu-skeleton: 0x00462735 16B ?rva00462735@Rva00462735@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesC.cpp (not merged yet)
 
 // tu-skeleton: 0x0046279C 143B ?doLoadSound@OpenContain@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainSounds.cpp (not merged yet)
 
@@ -1447,7 +1473,19 @@ unsigned int Rva004643C9::rva004643C9(const Rva00463D9BElement &key)
 
 // tu-skeleton: 0x004647BA 6B ?name@OpenContain@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x004647C0 13B ?get@Rva004647C0LeaNegSbbField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8LeaNegSbbGetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Disp8LeaNegSbbGetters.cpp
+
+// Disp8 lea-neg-sbb getters: thirteen-byte __thiscall members with one shape:
+//
+//     lea eax,[ecx-<LEADISP>] / add ecx,<ADDIMM> / neg eax / sbb eax,eax / and eax,ecx / ret
+//
+// A pointer derived from `this` is null-tested branchlessly: neg sets carry
+// exactly when the derived base is nonzero and sbb spreads it to a full mask
+// that selects the adjusted `this` or null. Deriving the base from a live
+// field-local keeps `this` in ecx so the adjustment compiles to an in-place
+// add instead of a lea into a scratch register. Identity is not recovered:
+// every name is derived from its address.
+// No // cl: line (defaults match the shape).
 
 // tu-skeleton: 0x004647CD 4B ?get@Rva004647CDLeaField@@QBEPAXXZ -- matched in Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp (not merged yet)
 
