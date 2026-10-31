@@ -100,11 +100,11 @@ public:
 	ParticleSystemTemplate *rva001E0C77(Int a, Int unused);
 private:
 	char m_pad00[0x148];
-	void *m_148; // AsciiString
+	void *m_templateName; // AsciiString
 };
 ParticleSystemTemplate *Rva001E0C77::rva001E0C77(Int a, Int)
 {
-	return TheParticleSystemManager->rva001F9343(*(const AsciiString *)&m_148, a);
+	return TheParticleSystemManager->rva001F9343(*(const AsciiString *)&m_templateName, a);
 }
 
 // Native42C0AE and42C0B5 now use the proven +4/+8 observer receivers

@@ -235,10 +235,10 @@ void AIGroup::rva0036DC6F(int a, int b)
 	if (m_memberList.empty())
 		return;
 	Object *obj = (Object *)m_memberList.front();
-	void *p = obj->rva0028C1A9();
-	if (p == 0)
+	void *module = obj->rva0028C1A9();
+	if (module == 0)
 		return;
-	((Rva0036DC6FIf *)p)->slot0(a, b);
+	((Rva0036DC6FIf *)module)->slot0(a, b);
 }
 
 void AIGroup::rva0036D805(int x)

@@ -64,8 +64,8 @@ Rva005765D1::Rva005765D1(void *outer, int a, int b)
 }
 void Rva005765D1::rva0057662B()
 {
-	const Rva005765D1Outer *o = (const Rva005765D1Outer *)m_08;
-	int v1 = o->m_10->m_04->get();
+	const Rva005765D1Outer *outer = (const Rva005765D1Outer *)m_08;
+	int v1 = outer->m_10->m_04->get();
 	const Rva0042D697PtrChaseField *p2 = (const Rva0042D697PtrChaseField *)v1;
 	int v2 = p2->get();
 	if (v2) {

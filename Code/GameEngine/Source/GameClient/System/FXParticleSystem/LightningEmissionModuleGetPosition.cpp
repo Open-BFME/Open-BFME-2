@@ -32,29 +32,29 @@ __declspec(noinline) inline void Coord3D::normalize()
 
 __forceinline void ITR1(const Matrix3D & matrix3D,const Vector3 & in,Vector3 * out)
 {
-	Vector3 tmp;
-	Vector3 * v;
+	Vector3 copy;
+	Vector3 * input;
 	if (out == &in) {
-		tmp = in;
-		v = &tmp;
+		copy = in;
+		input = &copy;
 	} else {
-		v = (Vector3 *)&in;
+		input = (Vector3 *)&in;
 	}
-	out->X = (matrix3D[0][0] * v->X + matrix3D[1][0] * v->Y + matrix3D[2][0] * v->Z);
-	out->Y = (matrix3D[0][1] * v->X + matrix3D[1][1] * v->Y + matrix3D[2][1] * v->Z);
-	out->Z = (matrix3D[0][2] * v->X + (matrix3D[1][2] * v->Y + matrix3D[2][2] * v->Z));
+	out->X = (matrix3D[0][0] * input->X + matrix3D[1][0] * input->Y + matrix3D[2][0] * input->Z);
+	out->Y = (matrix3D[0][1] * input->X + matrix3D[1][1] * input->Y + matrix3D[2][1] * input->Z);
+	out->Z = (matrix3D[0][2] * input->X + (matrix3D[1][2] * input->Y + matrix3D[2][2] * input->Z));
 }
 __forceinline void ITV1(const Matrix3D & matrix3D,const Vector3 & in,Vector3 * out)
 {
-	Vector3 tmp;
-	Vector3 * v;
+	Vector3 copy;
+	Vector3 * input;
 	if (out == &in) {
-		tmp = in;
-		v = &tmp;
+		copy = in;
+		input = &copy;
 	} else {
-		v = (Vector3 *)&in;
+		input = (Vector3 *)&in;
 	}
-	Vector3 diff(v->X - matrix3D[0][3], v->Y - matrix3D[1][3], v->Z - matrix3D[2][3]);
+	Vector3 diff(input->X - matrix3D[0][3], input->Y - matrix3D[1][3], input->Z - matrix3D[2][3]);
 	ITR1(matrix3D, diff, out);
 }
 
@@ -63,29 +63,29 @@ __forceinline void ITV1(const Matrix3D & matrix3D,const Vector3 & in,Vector3 * o
 // destination, as in retail's second transform. ITR1's grouped Z sum leads with A[2][2]*z instead.
 __forceinline void ITR2(const Matrix3D & matrix3D,const Vector3 & in,Vector3 * out)
 {
-	Vector3 tmp;
-	Vector3 * v;
+	Vector3 copy;
+	Vector3 * input;
 	if (out == &in) {
-		tmp = in;
-		v = &tmp;
+		copy = in;
+		input = &copy;
 	} else {
-		v = (Vector3 *)&in;
+		input = (Vector3 *)&in;
 	}
-	out->X = (matrix3D[0][0] * v->X + matrix3D[1][0] * v->Y + matrix3D[2][0] * v->Z);
-	out->Y = (matrix3D[0][1] * v->X + matrix3D[1][1] * v->Y + matrix3D[2][1] * v->Z);
-	out->Z = ((matrix3D[0][2] * v->X) + matrix3D[1][2] * v->Y + matrix3D[2][2] * v->Z);
+	out->X = (matrix3D[0][0] * input->X + matrix3D[1][0] * input->Y + matrix3D[2][0] * input->Z);
+	out->Y = (matrix3D[0][1] * input->X + matrix3D[1][1] * input->Y + matrix3D[2][1] * input->Z);
+	out->Z = ((matrix3D[0][2] * input->X) + matrix3D[1][2] * input->Y + matrix3D[2][2] * input->Z);
 }
 __forceinline void ITV2(const Matrix3D & matrix3D,const Vector3 & in,Vector3 * out)
 {
-	Vector3 tmp;
-	Vector3 * v;
+	Vector3 copy;
+	Vector3 * input;
 	if (out == &in) {
-		tmp = in;
-		v = &tmp;
+		copy = in;
+		input = &copy;
 	} else {
-		v = (Vector3 *)&in;
+		input = (Vector3 *)&in;
 	}
-	Vector3 diff(v->X - matrix3D[0][3], v->Y - matrix3D[1][3], v->Z - matrix3D[2][3]);
+	Vector3 diff(input->X - matrix3D[0][3], input->Y - matrix3D[1][3], input->Z - matrix3D[2][3]);
 	ITR2(matrix3D, diff, out);
 }
 class GameClientRandomVariable
@@ -217,9 +217,9 @@ Coord3D LightningEmissionModule::getPosition(float, float, int index, int count)
 				Vector3 localStart;
 				ITV1(matrix3D, matrix3D.Get_Translation(), &localStart);
 				start = *(Coord3D *)&localStart;
-				const Vector3 *p = &((ParticleSystemView *)handle.system())->m_position;
+				const Vector3 *systemPosition = &((ParticleSystemView *)handle.system())->m_position;
 				Vector3 localEnd;
-				ITV2(matrix3D, Vector3(p->X, p->Y, p->Z), &localEnd);
+				ITV2(matrix3D, Vector3(systemPosition->X, systemPosition->Y, systemPosition->Z), &localEnd);
 				end = *(Coord3D *)&localEnd;
 			}
 			Coord3D delta;
@@ -242,30 +242,30 @@ Coord3D LightningEmissionModule::getPosition(float, float, int index, int count)
 				up.z * dir.x - up.x * dir.z,
 				up.x * dir.y - up.y * dir.x);
 			float step = 1.0f / (float)(count - 1);
-			float t = 0.0f;
+			float fraction = 0.0f;
 			for (int i = 0; i < count; ++i)
 			{
 				Coord3D *pt = &s_points[i];
-				float envelope = 0.5f - WWMath::Fabs(0.5f - t);
-				float s1 = WWMath::Sin(t * frequency1 + phase1) * envelope * amplitude1;
-				float s2 = WWMath::Sin(t * frequency2 + phase2) * envelope * amplitude2;
-				float s3 = WWMath::Sin(t * frequency3 + phase3) * envelope * amplitude3;
-				float x = t * delta.x + start.x;
-				x += perp.x * s1;
-				x += perp.x * s2;
-				x += perp.x * s3;
+				float envelope = 0.5f - WWMath::Fabs(0.5f - fraction);
+				float sine1 = WWMath::Sin(fraction * frequency1 + phase1) * envelope * amplitude1;
+				float sine2 = WWMath::Sin(fraction * frequency2 + phase2) * envelope * amplitude2;
+				float sine3 = WWMath::Sin(fraction * frequency3 + phase3) * envelope * amplitude3;
+				float x = fraction * delta.x + start.x;
+				x += perp.x * sine1;
+				x += perp.x * sine2;
+				x += perp.x * sine3;
 				pt->x = x;
-				float y = t * delta.y + start.y;
-				y += perp.y * s1;
-				y += perp.y * s2;
-				y += perp.y * s3;
+				float y = fraction * delta.y + start.y;
+				y += perp.y * sine1;
+				y += perp.y * sine2;
+				y += perp.y * sine3;
 				pt->y = y;
-				float z = t * delta.z + start.z;
-				z += perp.z * s1;
-				z += perp.z * s2;
-				z += perp.z * s3;
+				float z = fraction * delta.z + start.z;
+				z += perp.z * sine1;
+				z += perp.z * sine2;
+				z += perp.z * sine3;
 				pt->z = z;
-				t += step;
+				fraction += step;
 			}
 		}
 		result.x = s_points[index].x;

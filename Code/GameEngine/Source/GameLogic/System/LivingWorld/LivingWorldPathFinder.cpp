@@ -13,17 +13,17 @@ class Rva003F71D4Metric {
  virtual void v02(const Rva003F71D4Point *);
  virtual bool v03(int,int);
 };
-float Rva003F71D4Metric::v00(const Rva003F71D4Point *a,const Rva003F71D4Point *b) {
- Coord2D delta={a->x,a->y};
- delta.x-=b->x;
- delta.y-=b->y;
+float Rva003F71D4Metric::v00(const Rva003F71D4Point *from,const Rva003F71D4Point *to) {
+ Coord2D delta={from->x,from->y};
+ delta.x-=to->x;
+ delta.y-=to->y;
  return delta.length();
 }
 
 // Native table007E4340: slot04 repeats the distance; slot08 is RET4;
 // slot0C compares the two node pointers, the independently rowed14B body.
-float Rva003F71D4Metric::v01(const Rva003F71D4Point *a,const Rva003F71D4Point *b) {
- Coord2D delta={a->x,a->y}; delta.x-=b->x; delta.y-=b->y; return delta.length();
+float Rva003F71D4Metric::v01(const Rva003F71D4Point *from,const Rva003F71D4Point *to) {
+ Coord2D delta={from->x,from->y}; delta.x-=to->x; delta.y-=to->y; return delta.length();
 }
 void Rva003F71D4Metric::v02(const Rva003F71D4Point *) {}
 bool Rva003F71D4Metric::v03(int a,int b) {return a==b ? true : false;}

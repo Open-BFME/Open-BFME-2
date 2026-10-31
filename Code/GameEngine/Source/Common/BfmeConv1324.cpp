@@ -58,12 +58,12 @@ public:
 	void *bfmeDelTVA(unsigned char flags);
 	void bfmeDtorTVA();
 	void *m_bfmeVft;
-	HANDLE m_bfmeHandle;
+	HANDLE m_handle;
 };
 
 void *BfmeThingTVA::bfmeDelTVA(unsigned char flags)
 {
-	HANDLE h = m_bfmeHandle;
+	HANDLE h = m_handle;
 	m_bfmeVft = __identifier("??_7Rva00CE12FCMutex@@6B@");
 	if (h)
 		CloseHandle(h);
@@ -81,15 +81,15 @@ class BfmeThingTVB
 public:
 	void *bfmeDelTVB(unsigned char flags);
 	BSTR m_bfmeObj;
-	void *m_bfmeBuf;
+	void *m_buffer;
 };
 
 void *BfmeThingTVB::bfmeDelTVB(unsigned char flags)
 {
 	if (m_bfmeObj)
 		SysFreeString(m_bfmeObj);
-	if (m_bfmeBuf)
-		operator delete[](m_bfmeBuf);
+	if (m_buffer)
+		operator delete[](m_buffer);
 	if (flags & 1)
 		operator delete(this);
 	return this;

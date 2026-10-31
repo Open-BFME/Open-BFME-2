@@ -18,16 +18,16 @@ class BfmeThingVFA
 public:
 	int bfmeGoVFA(BfmeRecVFA *r);
 	char m_bfmePad[8];
-	void *m_bfmeHandle;
+	void *m_handle;
 	char m_bfmePad2[4];
-	char m_bfmeReady;
+	char m_ready;
 };
 
 int BfmeThingVFA::bfmeGoVFA(BfmeRecVFA *r)
 {
-	if (!m_bfmeReady)
+	if (!m_ready)
 		return 0xffffff33;
-	return bfmeSendVFA(m_bfmeHandle, r->m_bfme00, r->m_bfme04, r->m_bfme08, r->m_bfme0c);
+	return bfmeSendVFA(m_handle, r->m_bfme00, r->m_bfme04, r->m_bfme08, r->m_bfme0c);
 }
 
 class BfmeBufVFD
