@@ -166,8 +166,12 @@ public:
 class ObjectSMCHelper : public ObjectHelper
 {
 public:
+	virtual ~ObjectSMCHelper();
 	virtual UpdateSleepTime update();
 	void setModelConditionState(ModelConditionFlagType condition, UnsignedInt frames);
+
+protected:
+	virtual void xfer(Xfer *xfer);
 
 private:
 	Int framesUntilNext();

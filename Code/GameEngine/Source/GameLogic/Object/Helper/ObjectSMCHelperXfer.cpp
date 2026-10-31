@@ -1,5 +1,5 @@
-// cl: /DNDEBUG /MD
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /O1 /arch:SSE /G7 /DNDEBUG /DWIN32 /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /Ireference/shims/bfmelist /ICode/GameEngine/Source/Common
+// stlport
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -80,63 +80,105 @@ typedef unsigned int UnsignedInt;
 
 void XferModelConditionFlagType( Xfer *xfer, Int *value );
 
-struct ObjectSMCHelperTimerValue
-{
-	Int m_condition;
-	UnsignedInt m_frame;
-};
-
-struct ObjectSMCHelperTimerNode
-{
-	ObjectSMCHelperTimerNode *m_next;
-	ObjectSMCHelperTimerNode *m_previous;
-	ObjectSMCHelperTimerValue m_value;
-};
-
-class ObjectSMCHelperTimerList
-{
-public:
-	Int size( void ) const
-	{
-		Int n = 0;
-		for( ObjectSMCHelperTimerNode *objectSMCHelperTimerNode = m_node->m_next; objectSMCHelperTimerNode != m_node; objectSMCHelperTimerNode = objectSMCHelperTimerNode->m_next )
-			++n;
-		return n;
-	}
-	ObjectSMCHelperTimerNode *m_node;
-};
-
-// Rowed 8-byte list element at 0x004DE74D (SpecialPowerTimerList.cpp). Same
-// layout as ObjectSMCHelperTimerValue (condition + frame); the retail xfer
+// The rowed push_back at 0x004DE74D (SpecialPowerTimerList.cpp) takes the
+// eight-byte condition/frame element; its definition lives in the row owner.
+// Rowed 8-byte list element at 0x004DE74D (SpecialPowerTimerList.cpp), holding
+// condition and frame; the retail xfer
 // calls it directly, so this TU calls the row name via cast. Declaration
 // only: the definition lives in the row owner.
 #include "../../../Common/BfmeSpecialPowerTimer8.h"
 
-namespace _STL
-{
-	template <class T> class allocator;
-	template <class T, class Alloc> class list
-	{
-	public:
-		void push_back(const T &value);
-	};
+#include <list>
+
+// Declaration-only: retail keeps one copy of this STLport member (rowed elsewhere); this unit calls it
+// rather than emitting its own.
+namespace _STL {
+template <> list<BfmeSpecialPowerTimer8, allocator<BfmeSpecialPowerTimer8> >::iterator list<BfmeSpecialPowerTimer8, allocator<BfmeSpecialPowerTimer8> >::insert(list<BfmeSpecialPowerTimer8, allocator<BfmeSpecialPowerTimer8> >::iterator, const BfmeSpecialPowerTimer8 &);
 }
+
+// Inline comparisons avoid the base-class operator!= COMDAT, whose byte
+// shape depends on TU flags; this overload emits no external copy.
+namespace _STL {
+template <class _IterTp, class _LeftTraits, class _RightTraits>
+static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
+                              const _List_iterator<_IterTp, _RightTraits> &b)
+{ return a._M_node != b._M_node; }
+}
+
+enum UpdateSleepTime
+{
+	UPDATE_SLEEP_NONE = 1,
+	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
+};
+
+enum ModelConditionFlagType
+{
+	MODELCONDITION_FIRST = 0,
+	MODELCONDITION_COUNT = 0x24F
+};
 
 class Rva004DF81B
 {
 public:
-	virtual ~Rva004DF81B();
-	void xfer( Xfer *xfer );
-private:
-	char m_unrecovered04[ 0x20 - 0x04 ];
+	void xfer(Xfer *xfer);
 };
 
-class ObjectSMCHelper : public Rva004DF81B
+class BehaviorModuleInterface
 {
+public:
+	virtual void getBehaviorModuleInterface() = 0;
+};
+
+class UpdateModuleInterface
+{
+public:
+	virtual UpdateSleepTime update() = 0;
+};
+
+#include "../../../../Include/Common/ObjectModule.h"
+
+class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
+{
+public:
+	virtual ~BehaviorModule() {}
+};
+
+class UpdateModule : public BehaviorModule, public UpdateModuleInterface
+{
+public:
+	virtual ~UpdateModule();
+
 protected:
-	virtual void xfer( Xfer *xfer );
+	void setWakeFrame(Object *obj, UpdateSleepTime wakeDelay);
+
 private:
-	ObjectSMCHelperTimerList m_timers;																				///< 0x20
+	unsigned int m_nextCallFrameAndPhase;
+	int m_indexInLogic;
+	unsigned int m_updateState;
+};
+
+class ObjectHelper : public UpdateModule
+{
+public:
+	virtual ~ObjectHelper();
+};
+
+class ObjectSMCHelper : public ObjectHelper
+{
+public:
+	virtual ~ObjectSMCHelper();
+	virtual UpdateSleepTime update();
+	void setModelConditionState(ModelConditionFlagType condition, UnsignedInt frames);
+
+protected:
+	virtual void xfer(Xfer *xfer);
+
+private:
+	Int framesUntilNext();
+
+	typedef _STL::list<BfmeSpecialPowerTimer8> TimerList;
+
+	TimerList m_timers;																												///< 0x20
 };
 
 // ------------------------------------------------------------------------------------------------
@@ -148,34 +190,34 @@ void ObjectSMCHelper::xfer( Xfer *xfer )
 {
 
 	// object helper base class
-	Rva004DF81B::xfer( xfer );
+	((Rva004DF81B *)this)->xfer( xfer );
 
 	if( xfer->IsLightCRC() )
 		return;
 
 	xfer->Version1();
 
-	ObjectSMCHelperTimerValue timer;
+	BfmeSpecialPowerTimer8 timer;
 	Int count = m_timers.size();
 	*xfer == count;
 
 	if( xfer->IsStoring() )
 	{
-		for( ObjectSMCHelperTimerNode *it = m_timers.m_node->m_next; it != m_timers.m_node; )
+		for( TimerList::iterator it = m_timers.begin(); it != m_timers.end(); )
 		{
-			timer = it->m_value;
-			it = it->m_next;
-			XferModelConditionFlagType( xfer, &timer.m_condition );
-			*xfer == timer.m_frame;
+			timer = *it;
+			++it;
+			XferModelConditionFlagType( xfer, (Int *)&timer.m_templateID );
+			*xfer == timer.m_readyFrame;
 		}
 	}
 	else
 	{
 		for( Int i = 0; i < count; ++i )
 		{
-			XferModelConditionFlagType( xfer, &timer.m_condition );
-			*xfer == timer.m_frame;
-			(( _STL::list<BfmeSpecialPowerTimer8, _STL::allocator<BfmeSpecialPowerTimer8> > *)&m_timers)->push_back(*(const BfmeSpecialPowerTimer8 *)&timer);
+			XferModelConditionFlagType( xfer, (Int *)&timer.m_templateID );
+			*xfer == timer.m_readyFrame;
+			m_timers.push_back(timer);
 		}
 	}
 

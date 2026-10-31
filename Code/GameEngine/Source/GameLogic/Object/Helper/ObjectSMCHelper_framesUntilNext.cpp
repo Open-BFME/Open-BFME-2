@@ -1,5 +1,5 @@
 // ?framesUntilNext@ObjectSMCHelper@@AAEHXZ
-// cl: /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc /Ireference/shims/bfmelist
+// cl: /O1 /arch:SSE /G7 /DNDEBUG /DWIN32 /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /Ireference/shims/bfmelist /ICode/GameEngine/Source/Common
 // stlport
 //
 // ?framesUntilNext@ObjectSMCHelper@@AAEHXZ, retail 0x004DE700, 77 bytes.
@@ -11,39 +11,93 @@
 // /arch:SSE (the P6 instruction set) on top of the TU's /O1. Donor:
 // BFME1 ObjectSMCHelperFramesUntilNext.cpp with ObjectSMCHelperUpdate.cpp.
 
-struct Rva004DE700FrameSource
+#include <list>
+#include "BfmeSpecialPowerTimer8.h"
+#include "../../../Common/GameLogicObjectLookupView.h"
+
+// Inline comparisons avoid the base-class operator!= COMDAT, whose byte
+// shape depends on TU flags; this overload emits no external copy.
+namespace _STL {
+template <class _IterTp, class _LeftTraits, class _RightTraits>
+static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
+                              const _List_iterator<_IterTp, _RightTraits> &b)
+{ return a._M_node != b._M_node; }
+}
+
+typedef bool Bool;
+typedef int Int;
+typedef unsigned int UnsignedInt;
+
+enum UpdateSleepTime
 {
-	unsigned char m_padding[0x40];
-	unsigned int m_frame;
+	UPDATE_SLEEP_NONE = 1,
+	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
 };
-class GameLogic;
+
+enum ModelConditionFlagType
+{
+	MODELCONDITION_FIRST = 0,
+	MODELCONDITION_COUNT = 0x24F
+};
+
 extern GameLogic *TheGameLogic;
 
-struct Rva004DE700TimerValue
+class BehaviorModuleInterface
 {
-	unsigned int m_condition;
-	unsigned int m_frame;
-};
-struct Rva004DE700TimerNode
-{
-	Rva004DE700TimerNode *m_next;
-	Rva004DE700TimerNode *m_previous;
-	Rva004DE700TimerValue m_value;
-};
-struct Rva004DE700TimerList
-{
-	Rva004DE700TimerNode *m_node;
-	bool empty() const { return m_node->m_next == m_node; }
-	Rva004DE700TimerNode *begin() const { return m_node->m_next; }
-	Rva004DE700TimerNode *end() const { return m_node; }
+public:
+	virtual void getBehaviorModuleInterface() = 0;
 };
 
-class ObjectSMCHelper
+class UpdateModuleInterface
 {
+public:
+	virtual UpdateSleepTime update() = 0;
+};
+
+#include "../../../../Include/Common/ObjectModule.h"
+
+class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
+{
+public:
+	virtual ~BehaviorModule() {}
+};
+
+class UpdateModule : public BehaviorModule, public UpdateModuleInterface
+{
+public:
+	virtual ~UpdateModule();
+
+protected:
+	void setWakeFrame(Object *obj, UpdateSleepTime wakeDelay);
+
 private:
-	int framesUntilNext();
-	unsigned char m_padding[0x20];
-	Rva004DE700TimerList m_timers;
+	unsigned int m_nextCallFrameAndPhase;
+	int m_indexInLogic;
+	unsigned int m_updateState;
+};
+
+class ObjectHelper : public UpdateModule
+{
+public:
+	virtual ~ObjectHelper();
+};
+
+class ObjectSMCHelper : public ObjectHelper
+{
+public:
+	virtual ~ObjectSMCHelper();
+	virtual UpdateSleepTime update();
+	void setModelConditionState(ModelConditionFlagType condition, UnsignedInt frames);
+
+protected:
+	virtual void xfer(Xfer *xfer);
+
+private:
+	Int framesUntilNext();
+
+	typedef _STL::list<BfmeSpecialPowerTimer8> TimerList;
+
+	TimerList m_timers;																												///< 0x20
 };
 
 int ObjectSMCHelper::framesUntilNext()
@@ -51,16 +105,16 @@ int ObjectSMCHelper::framesUntilNext()
 	if (m_timers.empty())
 		return 0x3fffffff;
 
-	unsigned int frame = ((Rva004DE700FrameSource *)TheGameLogic)->m_frame;
+	unsigned int frame = TheGameLogic->getFrame();
 	unsigned int best = 99999999;
-	Rva004DE700TimerNode *node = m_timers.begin();
+	TimerList::iterator node = m_timers.begin();
 	if (node != m_timers.end())
 	{
 		do
 		{
-			Rva004DE700TimerValue value = node->m_value;
-			unsigned int expirationFrame = value.m_frame;
-			node = node->m_next;
+			BfmeSpecialPowerTimer8 value = *node;
+			unsigned int expirationFrame = value.m_readyFrame;
+			++node;
 			if (expirationFrame < best)
 				best = expirationFrame;
 		} while (node != m_timers.end());
