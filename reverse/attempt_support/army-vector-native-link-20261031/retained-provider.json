@@ -1,0 +1,18 @@
+{
+  "retained_external_code_definitions": 512,
+  "changed_retained_definitions": [],
+  "removed_definitions": [
+    "?allocate@?$allocator@UBfmePod104@@@_STL@@QBEPAUBfmePod104@@IPBX@Z"
+  ],
+  "existing_removed_definition_owners": [
+    {
+      "name": "?allocate@?$allocator@UBfmePod104@@@_STL@@QBEPAUBfmePod104@@IPBX@Z",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp",
+      "rva": "0x0040A673",
+      "size": "28"
+    }
+  ],
+  "removed_allocator_existing_provider_native_exact": true,
+  "removed_allocator_existing_provider_source": "Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp",
+  "removed_allocator_existing_provider_size": "28"
+}
