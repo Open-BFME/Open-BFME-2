@@ -1035,10 +1035,6 @@ class Rva00545CAA : public AIEnterState
 public:
 	void rva00545CAA(StateExitType a);
 };
-void Rva00545CAA::rva00545CAA(StateExitType a)
-{
-	AIEnterState::onExit(a);
-}
 
 // 0x0057BC20: tail jump to SelectionDetailsUIImpl::rva0057BA90 (the Open body).
 class Rva0057BC20 : public StrategicHUD::SelectionDetailsUIImpl
