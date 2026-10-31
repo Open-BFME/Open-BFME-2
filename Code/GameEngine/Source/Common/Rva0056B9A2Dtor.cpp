@@ -8,7 +8,13 @@
 // the old Rva002D3627Host spelling named an unresolved symbol. The global keeps
 // its pointer type, the call binds the rowed member through a cast.
 class Rva002D3627Host;
-class Rva002BFF5A { public: void rva002C004F(const char *name); };
+struct Rva002BFFD4Template;
+class Rva002BFF5A
+{
+public:
+	void rva002BFFD4(Rva002BFFD4Template *, int, unsigned int);
+	void rva002C004F(const char *name);
+};
 
 class LivingWorld; extern LivingWorld *TheLivingWorld;
 
