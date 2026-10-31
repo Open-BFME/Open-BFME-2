@@ -17209,7 +17209,7 @@ _VP60D_GetVersionNumber,,0x001B5830,6,Code/Libraries/Source/VP6/PbAccessors.cpp,
 ?get@Rva005FC726PtrChaseField@@QBEHXZ,,0x005FC726,7,Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp,matched,disp8 pointer-chase dword getter in chase run after loop jump; opaque holder
 ?get@Rva0056AD79ByteChaseField@@QBEEXZ,,0x0056AD79,7,Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp,matched,disp8 byte-chase getter; opaque holder
 ?get@Rva00493236PtrChaseField@@QBEHXZ,,0x00493236,7,Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp,matched,disp8 pointer-chase dword getter with negative holder; backward cast
-?get@Rva00495DC6PtrChaseField@@QBEHXZ,,0x00495DC6,7,Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp,matched,disp8 pointer-chase dword getter with negative holder; backward cast
+?get@Rva00495DC6PtrChaseField@@QBEHXZ,,0x00495DC6,7,Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdate.cpp,matched,disp8 pointer-chase dword getter with negative holder; backward cast
 ?get@Rva0058912EPtrChaseField@@QBEHXZ,,0x0058912E,7,Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp,matched,disp8 pointer-chase dword getter with negative holder; backward cast
 ?get@Rva0046294EByteChaseField@@QBEEXZ,,0x0046294E,7,Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp,matched,disp8 byte-chase getter with negative holder; backward cast
 ?get@Rva004A1942ByteChaseField@@QBEEXZ,,0x004A1942,7,Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp,matched,disp8 byte-chase getter abutting matched deleting-dtor; backward cast
