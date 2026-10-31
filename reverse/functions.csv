@@ -19253,7 +19253,7 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?stopBurningSound@FlammableUpdate@@IAEXXZ,,0x0048C55E,28,Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdate.cpp,matched,gap between calcSleepTime and wouldIgnite donor ZH stopBurningSound
 ?Rva00129670Inc@@YAXXZ,,0x00129670,8,Code/Libraries/Source/WWVegas/WW3D2/statistics.cpp,matched,gap between 0x00129660 and 0x00129680 over 0x00DEE8C0 add-idiom /O2 /G7
 ??0Rva006166B0List@@QAE@XZ,,0x006166B0,18,Code/Libraries/Source/WWVegas/WWLib/ini.cpp,matched,Empty GenericList-derived List ctor. Calls rowed GenericList ctor then installs List vtable 0x87C2E0 shared by EntryList and SectionList. No callers
-?close@RAMFile@@UAEXXZ,,0x00605547,29,Code/GameEngine/Source/Common/System/LocalFile.cpp,matched,ZH RAMFile close verbatim; delete array plus null plus File close tail; slot2 File family
+?close@RAMFile@@UAEXXZ,,0x00605547,29,Code/GameEngine/Source/Common/System/RAMFile.cpp,matched,ZH RAMFile close verbatim; delete array plus null plus File close tail; slot2 File family
 ?Rva00549D30Median@@YAABURva00549D30Elem@@ABU1@00@Z,,0x00549D30,75,Code/Libraries/Source/WWVegas/WWLib/Rva00549D30Median.cpp,matched,gap between _M_advance and _M_decrement caller 0x0054C199 SSE median float at plus4
 ??1BaseUpgradeModuleData@@UAE@XZ,,0x004B3785,69,Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgrade.cpp,matched,ModuleData dtor with 2 Strings plus Snapshot vtable no base call
 ??1FlammableUpdate@@UAE@XZ,,0x0048C724,77,Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdateDtor.cpp,matched,dtor calls rowed stopBurningSound 0x48C55E and pinned base 0x24A797
@@ -19360,7 +19360,7 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??1CreateObjectDieIfEldestKindofModuleData@@UAE@XZ,,0x00485E88,59,Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDieIfEldestKindofModuleDataDtor.cpp,matched,EldestKindof dtor via second-base filter 0x360D26 plus base 0x485DDA
 ??1RankInfo@@UAE@XZ,,0x00200236,74,Code/GameEngine/Source/GameLogic/System/RankInfo.cpp,matched,BFME1 donor empty dtor plus vector free 0x30830 plus string 0x36E70 plus base 0x1E3624
 ??_G?$SimpleDynVecClass@E@@UAEPAXI@Z,,0x001A8050,30,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-7a10c.cpp,matched,slot0 of 0x007D71EC calls pinned dtor 0x001A7F20
-?copyDataToFile@RAMFile@@UAE_NPAVFile@@@Z,,0x0060565E,36,Code/GameEngine/Source/Common/System/LocalFile.cpp,matched,slot19 of vtable 0087AA00 writes m_data m_size via File write slot
+?copyDataToFile@RAMFile@@UAE_NPAVFile@@@Z,,0x0060565E,36,Code/GameEngine/Source/Common/System/RAMFile.cpp,matched,slot19 of vtable 0087AA00 writes m_data m_size via File write slot
 ??_GRankInfo@@UAEPAXI@Z,,0x0020021A,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-zqk.cpp,matched,slot0 vtable 0x7E26E0 calls rowed 0x200236 plus delete
 ??1PassiveAreaEffectBehaviorModuleData@@UAE@XZ,,0x00484EA9,75,Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehaviorModuleDataDtor.cpp,matched,ctor 0x484DF4 vtable 0xC4A490 table 0xC4A388 factory 0x24C724 slot0 0x484E8D donor BFME1 destructor thunk
 ??1ScriptActions@@UAE@XZ,,0x003BD582,22,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_ctor.cpp,matched,BFME1 donor plus vtable 0x81FE48 plus base 0x81FD98 plus Rva 0x3BA8AC plus slot0 0x3BE5AD

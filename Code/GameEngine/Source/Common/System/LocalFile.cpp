@@ -647,43 +647,6 @@ bool LocalFile::rva00605CFB( const char *filename, int access )
 	return wideOpenStub( widePath, access );
 }
 
-// ?close@RAMFile@@UAEXXZ @ 0x00605547 (29B): ZH RAMFile::close verbatim.
-// If m_data is set delete[] it and null it then tail-jump to File::close.
-// Vtable 0x0087AA00 slot 2 is the File-family close slot; the delete-zero
-// plus File::close tail match the ZH donor exactly. Explicit vector-delete
-// call: delete[] on char* folds to scalar ??3 here but retail calls ??_V.
-void RAMFile::close( void )
-{
-	if( m_data )
-	{
-		::operator delete[]( m_data );
-		m_data = NULL;
-	}
-
-	File::close();
-}
-
-// ?copyDataToFile@RAMFile@@UAE_NPAVFile@@@Z, retail 0x0060565E, 36 bytes.
-// Slot 19 (offset 0x4C) of vtable 0x0087AA00; Win32BIGFileOpenArchived donor
-// says openFromArchive/copyDataToFile land on 0x48/0x4C. Writes m_data/m_size
-// through the File write slot (call [eax+0x10]) and returns (eax == m_size).
-// Null file returns false. The if-return-false form folds to cmp/sete;
-// a direct return of == uses sub/neg/sbb/inc instead.
-bool RAMFile::copyDataToFile( File *file )
-{
-	if( !file )
-	{
-		return false;
-	}
-
-	if( file->write( m_data, m_size ) != m_size )
-	{
-		return false;
-	}
-
-	return true;
-}
-
 
 // ?read@StreamingArchiveFile@@UAEHPAXH@Z @ 0x00605A82 (91B)
 // Slot 3 (offset 0xC) of vtable 0x0087AA50. ZH StreamingArchiveFile::read plus

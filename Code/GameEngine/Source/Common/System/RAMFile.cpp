@@ -5,6 +5,16 @@
 #include <stdlib.h>
 #include <new>
 #include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
+#define NULL 0
+#include <io.h>
+#include <fcntl.h>
+#include <sys/stat.h>
+// Wide filename adapter, retail 0x002FB30: UTF16-to-UTF8 through
+// WideCharToMultiByte (CP_UTF8). Rowed in Utf8Conversions.cpp; the G spelling
+// matches that row so this TU resolves it with no pin.
+typedef unsigned short Wide;
+int BFME2WideToUtf8(const Wide *source, int count, char *output, int capacity);
+int BFME2Utf8ToWide(const char *source, int count, Wide *output, int capacity);
 
 class File
 {
@@ -84,11 +94,183 @@ public:
 
 extern FileSystem *TheFileSystem;
 
+// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/LocalFile.h
+class LocalFile : public File
+{
+public:
+	virtual ~LocalFile();
+	virtual bool open( const char *filename, int access );
+	virtual void close( void );
+	virtual int read( void *buffer, int bytes );
+	virtual int write( const void *buffer, int bytes );
+	virtual int seek( int pos, seekMode mode );
+	virtual void nextLine( char *buf, int bufSize );
+	virtual bool scanInt( int &newInt );
+	virtual bool scanReal( float &newReal );
+	virtual bool scanString( AsciiString &newString );
+	virtual char *readEntireAndClose( void );
+	virtual File *convertToRAMFile( void );
+	// Retail slot 17 (0x44) is the wide-filename worker (0x00605D36, rowed as
+	// narrow-spelled open). Declared-only so gap's virtual call emits
+	// call [eax+0x44] with no extra row.
+	virtual bool wideOpenStub( const Wide *filename, int access );
+	// Retail slot 1 (0x04) narrow adapter 0x00605CFB 59B: Utf8->Wide then
+	// slot 17. Honest address name: vtable proves LocalFile slot 1, ret 8
+	// plus Utf8ToWide call proves (const char*,int)->bool.
+	virtual bool rva00605CFB( const char *filename, int access );
+
+protected:
+	int m_handle;			// +0x14, -1 when closed
+};
+
+class StreamingArchiveFile : public RAMFile
+{
+public:
+	StreamingArchiveFile();
+	virtual ~StreamingArchiveFile();
+	virtual bool open( const char *filename, int access );
+	virtual bool open( File *file );
+	virtual void close( void );
+	virtual int seek( int pos, seekMode mode );
+	virtual bool openFromArchive(File *archiveFile, const AsciiString &filename, int offset, int size);
+	virtual int read(void *buffer, int bytes);
+
+protected:
+	File *m_file;		// +0x20
+	int m_startingPos;	// +0x24
+	int m_curPos;		// +0x28
+};
+
+class Debug
+{
+public:
+	virtual void pad00(); virtual void pad01(); virtual void pad02(); virtual void pad03();
+	virtual void pad04(); virtual void pad05(); virtual void pad06(); virtual void pad07();
+	virtual void pad08(); virtual void pad09(); virtual void pad10(); virtual void pad11();
+	virtual void pad12(); virtual void pad13();
+	virtual Debug &operator<<(const char *str);
+	virtual void pad15(); virtual void pad16(); virtual void pad17(); virtual void pad18();
+	virtual bool CrashDone(int mode);
+	virtual void pad20(); virtual void pad21(); virtual void pad22();
+	virtual void SetCrashAddress(void *returnAddress, int set);
+	virtual void SkipNext();
+	virtual void pad25(); virtual void pad26();
+	virtual Debug &CrashBegin(const char *file, int line, int reserved);
+};
+
+extern Debug *theDebug;
+
+extern void _bfme_debugRecordCallsite(int kind);
+
 // tu-skeleton: 0x006054E7 29B ??0RAMFile@@QAE@XZ -- matched in Code/GameEngine/Source/Common/System/LocalFile_Unresolved.cpp (not merged yet)
 
 // tu-skeleton: 0x00605504 67B ??1RAMFile@@UAE@XZ -- matched in Code/GameEngine/Source/Common/System/LocalFile_Unresolved.cpp (not merged yet)
 
-// tu-skeleton: 0x00605547 29B ?close@RAMFile@@UAEXXZ -- matched in Code/GameEngine/Source/Common/System/LocalFile.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/System/LocalFile.cpp
+
+// Open-BFME5: LocalFile, retail vtable 0x01143D38.
+//
+// File.cpp already pins this class by construction: 0x009D23E0 installs
+// 0x01143D38 and stores -1 at +0x14, and a base of Win32LocalFile holding an
+// invalid-handle sentinel is LocalFile, so +0x14 is the OS file handle. The
+// bodies here confirm it from the other side -- every one of them passes
+// [this+0x14] straight to a CRT low-level io import.
+//
+// The File base is spelled locally rather than included, the same way File.cpp
+// spells it: only the layout matters here (m_open at +0xc is what write's
+// leading `mov al,[ecx+0xc]` tests), and AsciiString stands in as a raw pointer
+// because no body in this file touches the name.
+//
+// USE_BUFFERED_IO is off in retail: every call site here is a low-level
+// _write/_lseek/_read through the IAT, not the stdio pair the Zero Hour source
+// takes when that macro is defined.
+//
+// The vtable itself is the map for the rest of the class. Read out of the image
+// at 0x01143D38, seventeen slots, against Zero Hour's file.h declaration order:
+//
+//   slot  0  0x009D26C0  scalar deleting destructor   (gen_small/dtors_010)
+//   slot  1  0x009D2480  open                         landed here
+//   slot  2  0x009D2540  close                        5-byte tail jump, see below
+//   slot  3  0x009D2550  read                         landed here
+//   slot  4  0x009D25A0  write                        landed here
+//   slot  5  0x009D25D0  seek                         landed here
+//   slot  6  0x009D2610  nextLine                     landed here
+//   slot  7  0x009D2850  scanInt                      open, needs AsciiString
+//   slot  8  0x009D2970  scanReal                     open, needs AsciiString
+//   slot  9  0x009D26E0  scanString                   open, needs AsciiString
+//   slot 10  0x009CB6C0  print                        File's, already matched
+//   slot 11  0x009CB670  size                         File's, already matched
+//   slot 12  0x009CB6B0  position                     File's, already matched
+//   slot 13  0x009D2690  readEntireAndClose           landed here
+//   slot 14  0x009D2790  convertToRAMFile             open, needs RAMFile
+//   slot 15  0x009CB760  lock                         File's
+//   slot 16  0x009CB790  unlock                       File's
+//
+// Slots 10..12 and 15..16 landing on File's own bodies is the independent check
+// on the whole table: those five addresses are exactly the ones File.cpp already
+// identified as File's un-overridden implementations, so the slot numbering here
+// agrees with the numbering derived there from three other vtables.
+//
+// ~LocalFile is 0x009D2400 and LocalFile::LocalFile 0x009D23E0 (the latter
+// already matched in File.cpp), which brackets the class: everything from
+// 0x009D23E0 to 0x009D2A00 is one compiland.
+
+// The CRT low-level io family, /MD, so dllimport -- retail reaches all three
+// through the IAT (ds:0x135936C, ds:0x1359300, ds:0x1359320) rather than a
+// direct call, which is exactly what an import stub gives.
+
+// Scanning uses the shared AsciiString layout and StringBase buffer operations.
+
+// For a POD element type with no explicit `operator new[]` declaration visible,
+// this MSVC 7.1 build folds `new T[n]` down to the scalar ??2 as a size-cookie-
+// avoidance optimization. Retail's readEntireAndClose calls the array form
+// (0x00881F70), so <new> has to be visible here as in the real project TUs.
+
+// ?close@RAMFile@@UAEXXZ @ 0x00605547 (29B): ZH RAMFile::close verbatim.
+// If m_data is set delete[] it and null it then tail-jump to File::close.
+// Vtable 0x0087AA00 slot 2 is the File-family close slot; the delete-zero
+// plus File::close tail match the ZH donor exactly. Explicit vector-delete
+// call: delete[] on char* folds to scalar ??3 here but retail calls ??_V.
+void RAMFile::close( void )
+{
+	if( m_data )
+	{
+		::operator delete[]( m_data );
+		m_data = NULL;
+	}
+
+	File::close();
+}
+
+// ?copyDataToFile@RAMFile@@UAE_NPAVFile@@@Z, retail 0x0060565E, 36 bytes.
+// Slot 19 (offset 0x4C) of vtable 0x0087AA00; Win32BIGFileOpenArchived donor
+// says openFromArchive/copyDataToFile land on 0x48/0x4C. Writes m_data/m_size
+// through the File write slot (call [eax+0x10]) and returns (eax == m_size).
+// Null file returns false. The if-return-false form folds to cmp/sete;
+// a direct return of == uses sub/neg/sbb/inc instead.
+bool RAMFile::copyDataToFile( File *file )
+{
+	if( !file )
+	{
+		return false;
+	}
+
+	if( file->write( m_data, m_size ) != m_size )
+	{
+		return false;
+	}
+
+	return true;
+}
+
+// Callers elsewhere reach bodies in this unit through other spellings; retail's
+// call sites in their matched rows land on these addresses (same ABI). Bind them.
+
+// Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
+// each one has the same function in that slot (vftable addresses from matched vptr
+// stores). Bind them to the rows at those functions.
+
+// ---- from Code/GameEngine/Source/Common/System/RAMFile.cpp
 
 // ---- from Code/GameEngine/Source/Common/System/RAMFileRead.cpp
 
@@ -391,8 +573,6 @@ bool RAMFile::open(const char *filename, int access)
 
 	return result;
 }
-
-// tu-skeleton: 0x0060565E 36B ?copyDataToFile@RAMFile@@UAE_NPAVFile@@@Z -- matched in Code/GameEngine/Source/Common/System/LocalFile.cpp (not merged yet)
 
 // tu-skeleton: 0x006056A1 28B ??_GRAMFile@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/System/LocalFile_Unresolved.cpp (not merged yet)
 
