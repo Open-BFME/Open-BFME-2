@@ -94,6 +94,18 @@ class Object;
 	{ \
 		return TEXT; \
 	}
+#define BFME_DISP_BYTE_SETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		void set(unsigned char value); \
+		char m_lead[DISP]; \
+		unsigned char m_value; \
+	}; \
+	void NAME::set(unsigned char value) \
+	{ \
+		m_value = value; \
+	}
 
 struct Coord3DBase
 {
@@ -1977,13 +1989,57 @@ protected:
 	virtual const char *GetSnapshotName() const;
 };
 
+BFME_DISP_BYTE_SETTER(Rva001F3C13ByteSlot, 0x1A8)
+
+// Address-owned initializer at 0x0047A2B6..0x0047A2E1 (RET0).
+// Clean donor: Open-BFME-1 34f59164, game/GameEngine/Source/Common/
+// Rva00221100TinyBodies.cpp, Rva0022F780Pair constructor, /O1 /arch:SSE /G7.
+// Target evidence establishes six float slots at 0/4/8/C/10/14, the
+// 0,0,1,0,0,1 stores, and ECX returned through EAX. No target class name
+// or constructor identity is established; retain the target address and
+// describe its proven initializer ABI. Destination is the repository's
+// nearest-neighbour home, immediately after its 0x0047A2A9 setter.
+class Rva0047A2B6Floats
+{
+public:
+    Rva0047A2B6Floats *initialize();
+private:
+    float first[3];
+    float second[3];
+};
+
+// Clean BF1 9cbfb551fe Common/Rva007AE610Array.cpp semantic donor, normal O1/SSE/G7.
+// Native 0010855F..0010856E has its own complete RET boundary and establishes
+// receiver68 indexed dword store, RET8. Original owner and full array bound remain
+// unresolved; this separate address-owned view models only observed accesses.
+class Rva0010855FArray {
+public: void setValue(unsigned int index, unsigned int value);
+private: unsigned char unknown[0x68]; unsigned int values[1];
+};
+
 // tu-skeleton: 0x001F392E 247B ?rotateLocalTransformX@ParticleSystem@@QAEXM@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemRotateLocalTransform.cpp (not merged yet)
 
 // tu-skeleton: 0x001F3A25 247B ?rotateLocalTransformY@ParticleSystem@@QAEXM@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemRotateLocalTransform.cpp (not merged yet)
 
 // tu-skeleton: 0x001F3B1C 247B ?rotateLocalTransformZ@ParticleSystem@@QAEXM@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemRotateLocalTransform.cpp (not merged yet)
 
-// tu-skeleton: 0x001F3C13 13B ?set@Rva001F3C13ByteSlot@@QAEXE@Z -- matched in Code/GameEngine/Source/Common/DispByteFieldSetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/DispByteFieldSetters.cpp
+
+// Disp32 byte setters: thirteen-byte __thiscall members with one shape:
+//
+//     mov al,[esp+4] / mov [ecx+<DISP>],al / ret 4
+//
+// One byte is taken from the stack argument slot and stored at a fixed
+// displacement from `this`. Ported from Open-BFME-1
+// (Code/GameEngine/Source/Common/DispByteFieldSetters.cpp): the
+// BFME_DISP_BYTE_SETTER macro is verbatim (unsigned char set over a lead
+// array), only the class names follow this tree's Disp* convention
+// (address-derived Rva<addr>ByteSlot, identity unrecoverable from 13 bytes).
+// Every displacement here is a disp32 (MSVC 7.1 uses disp8 whenever the
+// offset fits, so every offset is at least 0x80).
+// No // cl: line (defaults match the frameless 13-byte shape).
+
+// ---- from Code/GameEngine/Source/GameClient/System/ParticleSys.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/System/ParticleSys.cpp
 
@@ -2977,6 +3033,23 @@ void Rva001F4240::forward(unsigned first, unsigned second) {
 
 void Rva001F424E::forward(unsigned word) { if (held) held->forward(word); }
 
+// ---- from Code/GameEngine/Source/Common/SubsystemNameGetters.cpp
+
+// Subsystem literal name getters: six-byte const members with one shape:
+//
+//     mov eax,<offset string literal> / ret
+//
+// Each body returns a pointer to a NUL-terminated class-name string in
+// .rdata. The vtable at each site carries the body at slot 2 (offset 8)
+// behind a shared pair (slot 0 varies, slot 1 is 0xA9E440) and ahead of
+// class-specific tails, closed by 0x5B5384 -- the Subsystem/Snapshot family
+// pattern. Ported from Open-BFME-1
+// (Code/GameEngine/Source/Common/LiteralNameGetters_01.cpp): the
+// BFME_LITERAL_NAME_GETTER macro is verbatim; only the class names follow
+// this tree's address-derived convention (identity unrecoverable from 6
+// bytes, string carried in source where verify_string_refs re-reads it).
+// No // cl: line (defaults match the frameless 6-byte shape).
+
 // tu-skeleton: 0x001F3C6B 47B ?rva001F3C6B@ParticleSystem@@QAEIXZ -- matched in Code/GameEngine/Source/GameClient/System/FXParticleSystem/FXPSStorageModuleRva003B0869.cpp (not merged yet)
 
 // tu-skeleton: 0x001F3D21 13B ?set@Rva001F3D21DwordSlot@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp (not merged yet)
@@ -3262,23 +3335,6 @@ void Rva001F424E::forward(unsigned word) { if (held) held->forward(word); }
 // tu-skeleton: 0x001FBCDC 59B ??1Rva001FBCDC@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva001F8BE8DtorChain.cpp (not merged yet)
 
 // tu-skeleton: 0x001FBD17 410B ??1ParticleSystem@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemDestructor.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/SubsystemNameGetters.cpp
-
-// Subsystem literal name getters: six-byte const members with one shape:
-//
-//     mov eax,<offset string literal> / ret
-//
-// Each body returns a pointer to a NUL-terminated class-name string in
-// .rdata. The vtable at each site carries the body at slot 2 (offset 8)
-// behind a shared pair (slot 0 varies, slot 1 is 0xA9E440) and ahead of
-// class-specific tails, closed by 0x5B5384 -- the Subsystem/Snapshot family
-// pattern. Ported from Open-BFME-1
-// (Code/GameEngine/Source/Common/LiteralNameGetters_01.cpp): the
-// BFME_LITERAL_NAME_GETTER macro is verbatim; only the class names follow
-// this tree's address-derived convention (identity unrecoverable from 6
-// bytes, string carried in source where verify_string_refs re-reads it).
-// No // cl: line (defaults match the frameless 6-byte shape).
 
 // tu-skeleton: 0x001FBEB7 59B ??1ParticleSystemTemplateTail@FXParticleSystem@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva001F8BE8DtorChain.cpp (not merged yet)
 

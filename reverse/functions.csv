@@ -7756,7 +7756,7 @@ _GetProcessorFlags,,0x001C4390,169,Code/Libraries/Source/VP6/GetProcessorFlags.c
 ?set@Rva00166C20ByteSlot@@QAEXE@Z,,0x00166C20,13,Code/Libraries/Source/WWVegas/WW3D2/line3d.cpp,matched,Disp32 byte setter
 ?set@Rva00188070ByteSlot@@QAEXE@Z,,0x00188070,13,Code/GameEngine/Source/Common/DispByteFieldSetters.cpp,matched,Disp32 byte setter
 ?set@Rva001EAE0DByteSlot@@QAEXE@Z,,0x001EAE0D,13,Code/GameEngine/Source/Common/DispByteFieldSetters.cpp,matched,Disp32 byte setter
-?set@Rva001F3C13ByteSlot@@QAEXE@Z,,0x001F3C13,13,Code/GameEngine/Source/Common/DispByteFieldSetters.cpp,matched,Disp32 byte setter
+?set@Rva001F3C13ByteSlot@@QAEXE@Z,,0x001F3C13,13,Code/GameEngine/Source/GameClient/System/ParticleSys.cpp,matched,Disp32 byte setter
 ?set@Rva002146D4ByteSlot@@QAEXE@Z,,0x002146D4,13,Code/GameEngine/Source/Common/DispByteFieldSetters.cpp,matched,Disp32 byte setter
 ?set@Rva0023C404ByteSlot@@QAEXE@Z,,0x0023C404,13,Code/GameEngine/Source/Common/DispByteFieldSetters.cpp,matched,Disp32 byte setter
 ?set@Rva0023C456ByteSlot@@QAEXE@Z,,0x0023C456,13,Code/GameEngine/Source/Common/DispByteFieldSetters.cpp,matched,Disp32 byte setter
