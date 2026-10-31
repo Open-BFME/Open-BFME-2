@@ -14683,6 +14683,13 @@ from the post-census `c1db761559` split clears after the documented local
 index update. Other private-view and consumer/census prerequisites below
 remain open. [Scope and remaining donors](../reverse/attempt_support/terrain-listener-consolidation-20261101-codex.md).
 
+The notifier is now absorbed through the supported merger: one source removed,
+35/35 TU rows retained, 83 COMDAT fingerprints identical to the input union,
+and no external-definition loss or new undefined names. The three surviving
+affected units retain LINKS (4,055 authored bytes). The grid row's shadow
+`??_9@$BA@AE` finding at `0x005CC208` is identical in verified parent/current
+controls and remains open; broader consumer/census confirmation is separate.
+
 `TerrainResourceManager.cpp` now takes its float math adapters from `math.h`
 with internal linkage, replacing the copied static `floorf` declaration. The
 owning Microsoft-header scanner retires its one queue record. All 23 rows,

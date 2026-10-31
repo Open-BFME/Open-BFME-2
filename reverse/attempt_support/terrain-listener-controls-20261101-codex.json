@@ -1,0 +1,54 @@
+{
+  "prerequisite_parent": "3261895e6c",
+  "underlying_census_commit": "85e8af1a53",
+  "local_index_commit": "3261895e6c",
+  "identity_control": {
+    "parent": [
+      [
+        "?rva0035A2DC@Rva0035A2DC@@QAEXPAURegion3D@@M@Z",
+        "??_9@$BA@AE",
+        "0x005CC208",
+        "wrong"
+      ]
+    ],
+    "current": [
+      [
+        "?rva0035A2DC@Rva0035A2DC@@QAEXPAURegion3D@@M@Z",
+        "??_9@$BA@AE",
+        "0x005CC208",
+        "wrong"
+      ]
+    ],
+    "unchanged_wrong_bindings": true
+  },
+  "object_union_control": {
+    "retained_comdats": 83,
+    "changed_comdats": [],
+    "removed_comdats": [],
+    "added_comdats": [],
+    "lost_external_definitions": [],
+    "new_external_definitions": [],
+    "new_undefined_symbols": []
+  },
+  "object_sha256": {
+    "merged.after.obj": "ee362314e949ec758a4963f63db8c9fc6971da3db5744754b3fa454fa9c29507",
+    "notifier.before.obj": "2e9202083ad424473e936b029733a7a911010d9302220d2824808ea1df0ca69b",
+    "seed.before.obj": "65d7b80c29f3c673e2615c2983cb71d419f76592fd7306ae9b3de7bf1bd56566"
+  },
+  "verified_merged_rows": 35,
+  "affected_preview_authored_bytes_before": 4055,
+  "affected_preview_authored_bytes_after": 4055,
+  "source_files_removed": 1,
+  "original_local_prerequisite_commit": "c047247e3d",
+  "prerequisite_source_blob": "5ce388c6d881311e0d206d4648f36410c29485c1",
+  "post_rebase_base_verified": "0d2cdb9d27cf643f284b9d8eb9bcc2887b0d8185",
+  "post_rebase_object_union_control": {
+    "retained_comdats": 83,
+    "changed_comdats": [],
+    "removed_comdats": [],
+    "added_comdats": [],
+    "lost_external_definitions": [],
+    "new_external_definitions": [],
+    "new_undefined_symbols": []
+  }
+}

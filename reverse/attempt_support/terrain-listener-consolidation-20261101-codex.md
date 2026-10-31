@@ -37,3 +37,37 @@ the constructor's explicit Snapshot vftable declaration, the claim unit's
 argument declaration, and the Xfer unit's incompatible manager view.
 The existing CRT/provider and affected-consumer census prerequisites remain
 open. Reconcile each donor separately before another supported merge trial.
+
+## Applied notifier merge
+
+After the listener prerequisite, the supported merger absorbs the notifier
+and repoints its 15-byte row at `0x00359E04` into the approved TU. One source
+file is removed; no matched row is added or lost. The TU verifies 35/35 rows,
+its literal/import checks and frozen declarations. Ordinary previews retain
+LINKS for all three surviving affected units, totaling the same 4,055
+authored bytes as the four input units.
+
+Actual-object comparison against the verified pre-merge seed and notifier
+retains all 83 unique COMDAT fingerprints. There are no changed, removed or
+new copies, no lost or new external definitions and no new undefined names.
+The protected hatch update has no net register diff; data and identity debt
+keys do not move or retire, and the other header-queue prerequisites remain.
+
+The shadow identity finding on `?rva0035A2DC@Rva0035A2DC@@QAEXPAURegion3D@@M@Z`
+binding `??_9@$BA@AE` at `0x005CC208` predates this change. A controlled
+official build and identity scan of the prerequisite's parent and current
+source produce the same single wrong-binding key. The merged TU retains
+that key. It is unresolved debt, not newly introduced or retired here.
+[Object and identity controls](terrain-listener-controls-20261101-codex.json).
+
+## Outgoing path audit
+
+Audited both outgoing commits after rebase onto `0d2cdb9d27`. The removed
+notifier path has no active references in tools, hooks, workflows, source
+includes, shims, root build/configuration files or path-keyed registers.
+Its remaining mentions are this historical handoff and the merged TU's
+source-provenance comment. Function/TU ledger ownership is repointed by the
+merger; no regenerated TU map is committed. Header queues and surviving
+data/identity keys are retained. The post-rebase 43-row build and the
+83-COMDAT union comparison pass again. Broader affected-consumer/census
+confirmation remains separate from these scoped checks.
