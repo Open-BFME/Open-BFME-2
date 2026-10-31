@@ -15705,7 +15705,6 @@ uw_0076d7bb,,0x0076D7BB,11,Code/gen_small/uw_gen_010.cpp,matched,gen-funclet;obj
 uw_0076d89a,,0x0076D89A,11,Code/gen_small/uw_gen_010.cpp,matched,gen-funclet;object-symbol=$L2815
 uw_0076d8a5,,0x0076D8A5,11,Code/gen_small/uw_gen_010.cpp,matched,gen-funclet;object-symbol=$L2817
 uw_0076d8b0,,0x0076D8B0,11,Code/gen_small/uw_gen_010.cpp,matched,gen-funclet;object-symbol=$L2821
-uw_0076d8d9,,0x0076D8D9,8,Code/gen_small/uw_gen_006.cpp,matched,gen-funclet;object-symbol=$L4903
 uw_0076df46,,0x0076DF46,8,Code/gen_small/uw_gen_003.cpp,matched,gen-funclet;object-symbol=$L305
 $L6044,,0x0076DF58,8,Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerCleanup.cpp,matched,gen-funclet;parent=?rva002142EA@LivingWorldManager@@QAEXXZ; Matched parent 0x002142EA's EH graph is EXACT (eh_verify) and binds compiler label $L6044 to retail Unwind@00b6df58 0x76DF58; replaces generated uw_0076df58
 uw_0076e039,,0x0076E039,14,Code/gen_small/uw_gen_011.cpp,matched,gen-funclet;object-symbol=$L10545
@@ -99264,3 +99263,4 @@ $L4705,,0x00783FBC,8,Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva003F53DA.c
 ??1OrCondition@@MAE@XZ,,0x003B262E,68,Code/GameEngine/Source/GameLogic/ScriptEngine/OrConditionCtor.cpp,matched,icf;native compatible implementation of existing OrCondition interface; protected destructor; no original-name claim; target12B layout and one-slot table
 ??_GOrCondition@@MAEPAXI@Z,,0x003B331E,28,Code/GameEngine/Source/GameLogic/ScriptEngine/Scripts.cpp,matched,icf;native protected scalar delete; existing OrCondition interface; approved Scripts TU; no original-name claim
 ??1Rva00210FC6Ref@@QAE@XZ,,0x0010F149,12,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldManager.cpp,matched,fold-proof=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldManager.cpp; complete existing12B C++ destructor twin with rowed OpaqueRefCounted Release_Ref39B; unblocks exact parent cleanup76D8D9; no original type claim
+$L1471,,0x0076D8D9,8,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldManager.cpp,matched,gen-funclet;parent=?rva00210FC6@LivingWorldManager@@QAEXURva00210FC6Ref@@H@Z; EXACT native FuncInfo913428 state0 binds compiler-local label; complete admitted12B Rva00210FC6Ref destructor at10F149; current approved P TU; replaces generated uw_0076d8d9

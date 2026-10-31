@@ -72,4 +72,4 @@ void LivingWorldManager::rva00210FC6(Rva00210FC6Ref sound,int owner) {
  owner230=owner;
 }
 
-// tu-skeleton: 0x0076D8D9 8B uw_0076d8d9 -- matched in Code/gen_small/uw_gen_006.cpp (not merged yet)
+// The native FuncInfo at 0x00913428 binds this parent's cleanup to 0x0076D8D9.

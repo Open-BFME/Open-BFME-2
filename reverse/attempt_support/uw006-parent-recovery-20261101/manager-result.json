@@ -1,0 +1,30 @@
+{
+  "native_cleanup_rva": "0x0076D8D9",
+  "bytes": 8,
+  "destination": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldManager.cpp",
+  "compiler_local_label": "$L1471",
+  "parent": "?rva00210FC6@LivingWorldManager@@QAEXURva00210FC6Ref@@H@Z",
+  "parent_eh": "EXACT",
+  "current_child_tu": "approved P to destination",
+  "paired_build": {
+    "rows": 60,
+    "sources": 2,
+    "verdict": "PASS",
+    "remaining_generated_rows": 55
+  },
+  "strict_provider_scope": {
+    "rows": 8,
+    "sources": 3,
+    "imports": 3,
+    "verdict": "PASS"
+  },
+  "source_changes": "one stale skeleton comment corrected; no executable source change",
+  "generated_source_changed": false,
+  "pins_added": 0,
+  "baseline_changed": false,
+  "ordinary_preview": "Unverified: published index omits current rowed OpaqueRefCounted release provider; indexed pair reports its existing missing-name dependency",
+  "current_ledger_preview": "Refused before judgment: first14missing provider objects prepared74/74rows; then11500 unrelated objects lack current compiler evidence",
+  "link_gain_claimed": false,
+  "tombstone": "Owning gen_small.write_tombstones records the replaced scaffold; add_match --replace-rva performed the verified replacement",
+  "tooling_audit": "No source file moves/deletions; gen_uw will see existing identity-bearing parent row and skip this address; no active tools/hooks/workflow names old scaffold; old generated file stays untouched; parent skeleton comment corrected; no TU map committed"
+}
