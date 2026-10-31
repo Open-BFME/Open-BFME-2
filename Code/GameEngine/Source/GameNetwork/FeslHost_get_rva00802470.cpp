@@ -77,19 +77,3 @@ int Rva00801900Get::rva008018C0Get(const char *key)
 	volatile Rva00801900Entry *entry = m_firstEntries + index;
 	return entry->m_value;
 }
-
-int Rva00802470Get::get(const char *key)
-{
-	const char *k = key;
-	Rva00802240Host *host = m_host;
-	int index = host->rva007F76F0(&host->m_thirdVector, k);
-	if (index == -1)
-		return 0;
-	if (index >= m_count)
-	{
-		volatile int *crash = 0;
-		return *crash;
-	}
-	volatile Rva00801900Entry *entry = m_entries + index;
-	return entry->m_value;
-}
