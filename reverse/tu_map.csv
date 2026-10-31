@@ -39036,7 +39036,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x004AE883,91,code,Code/GameEngine/Source/GameLogic/Object/Update/DetachableRiderUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/DetachableRiderUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/DetachableRiderUpdateCtorModuleFactoryBody.cpp
 0x004AE8DE,28,code,Code/GameEngine/Source/GameLogic/Object/Update/DetachableRiderUpdate.cpp,approved,C,C=0x004AE883..0x004AE8FA,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp
 0x004AE8FA,15,code,Code/GameEngine/Source/GameLogic/Object/Update/DetachableRiderUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/DetachableRiderUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/DetachableRiderUpdateCtorModuleFactoryBody.cpp
-0x004AE909,12,code,Code/GameEngine/Source/GameLogic/Object/Update/DetachableRiderUpdate.cpp,approved,C,C=0x004AE8FA..0x004AE915,Code/GameEngine/Source/Common/Disp8ImulAddDwordGetters.cpp
+0x004AE909,12,code,Code/GameEngine/Source/GameLogic/Object/Update/DetachableRiderUpdate.cpp,approved,C,C=0x004AE8FA..0x004AE915,Code/GameEngine/Source/GameLogic/Object/Update/DetachableRiderUpdate.cpp
 0x004AE915,18,code,Code/GameEngine/Source/GameLogic/Object/Update/DetachableRiderUpdate.cpp,approved,C,C=0x004AE8FA..0x004AE927,Code/GameEngine/Source/Common/Thing/WeaponTemplateSetConstruct.cpp
 0x004AE927,38,code,Code/GameEngine/Source/GameLogic/Object/Update/DetachableRiderUpdate.cpp,approved,C,C=0x004AE8FA..0x004AE94D,Code/GameEngine/Source/Common/Thing/WeaponTemplateSetUninitializedCopy.cpp
 0x004AE94D,37,code,Code/GameEngine/Source/GameLogic/Object/Update/DetachableRiderUpdate.cpp,approved,C,C=0x004AE8FA..0x004AE972,Code/GameEngine/Source/GameLogic/Object/Update/DetachableRiderUpdate.cpp

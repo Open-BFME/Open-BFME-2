@@ -8,7 +8,6 @@
 #include <algorithm>
 #include <memory>
 #include "DetachableRiderXferPrefix.h"
-
 // Compare nodes locally so this TU does not emit a conflicting iterator-base
 // wrapper (_List_iterator_base::operator!=, retail's copy is 0x006CFE40).
 namespace _STL {
@@ -17,7 +16,6 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
                               const _List_iterator<T, Traits>& b)
 { return a._M_node != b._M_node; }
 }
-
 // Native004AEC9B..004AEF05 RET0; DetachableRiderUpdate ctor4AE883
 // installs C5545C as the+10 secondary update vtable, whose slot0 is this body.
 // ModuleData+8 records have nativeIMUL54/19-word masks/OCL50; data14 names,
@@ -30,63 +28,40 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 // the shape that gives retail's register assignment (a do-while on begin
 // itself swaps EBX/EDI).
 class ObjectCreationList {public:void create(void*,void*,void*);};
-
 class Drawable {public:void rva002724FD(const AsciiString&,int,int,float,float);};
-
 enum DisabledType{DISABLED4=4};
-
 enum WeaponSlotType{WEAPON0=0};
-
 enum WeaponLockType{LOCK2=2};
-
 enum ObjectStatusTypes{STATUS39=39};
-
 enum CommandSourceType{SOURCE2=2};
-
 enum UpdateSleepTime{FOREVER=0x3fffffff};
-
 class AICommandInterface {public:void aiIdle(CommandSourceType);};
-
 struct RiderAI {char pad[0x20];AICommandInterface commands;};
-
 class BfmeSubBGB {public:bool rva00298893();};
-
 class Rva001E42F2 {public:void rva001E42F2(const int*);};
-
 template<int N>class VGap:public VGap<N-1>{public:virtual void gap(char(*)[N]);};
-
 template<>class VGap<0>{};
-
 class RiderInterface:public VGap<14>{public:virtual void release(Object*);};
-
 class RiderContainInterface:public VGap<31>{public:virtual RiderInterface*getRider();virtual void s32();virtual void s33();virtual void s34();virtual void s35();virtual void s36();virtual void s37();virtual void s38();virtual void s39();virtual void s40();virtual void remove(Object*,bool);virtual void s42();virtual void s43();virtual void s44();virtual void s45();virtual void s46();virtual void s47();virtual void s48();virtual void s49();virtual void s50();virtual void s51();virtual void s52();virtual void s53();virtual void s54();virtual void s55();virtual void s56();virtual void s57();virtual void s58();virtual void s59();virtual void s60();virtual void s61();virtual void s62();virtual void s63();virtual void s64();virtual void s65();virtual void s66();virtual void s67();virtual void s68();virtual int getCount(bool);virtual Rva0036AE51ListView getList();};
-
 struct RiderConditionBits {
  unsigned words[19];
  __forceinline unsigned test(int bit)const{return words[bit>>5]&(1u<<(bit&31));}
  __forceinline void set(int bit){words[bit>>5]|=1u<<(bit&31);}
  __forceinline void clear(int bit){words[bit>>5]&=~(1u<<(bit&31));}
 };
-
 class Object {
 public:
  Drawable*getDrawable()const;bool clearDisabled(DisabledType);bool setWeaponLock(WeaponSlotType,WeaponLockType);void releaseWeaponLock(WeaponLockType);void setStatus(ObjectStatusTypes,bool);bool testStatus(ObjectStatusTypes)const;void rva0028AE6D();
  char pad[0x110];RiderConditionBits conditions;char pad15c[0x250-0x15c];RiderContainInterface*contain;char pad254[4];RiderAI*ai;char pad25c[0x274-0x25c];Object*parent;
  __forceinline RiderInterface*getRider(){RiderContainInterface*riderContain=contain;return riderContain?riderContain->getRider():0;}
 };
-
 struct RiderRecord {int mask[19];unsigned opaque4c;ObjectCreationList*creation;};
-
 struct RiderData {char pad[8];_STL::vector<RiderRecord> records;_STL::vector<AsciiString> names;WeaponSlotType weapon;bool m_riderlessHordeFlees;bool m_removeRiderlessFromHorde;};
-
 struct RiderOwnerHead {void*vtable;const RiderData*data;Object*object;};
-
 class DetachableRiderUpdateUpdateReceiver {
 public:UpdateSleepTime update();char pad[0x10];bool active;unsigned char index;
 };
-
 extern GameLogic*TheGameLogic;
-
 //
 // WeaponTemplateSet copy ctor, retail 0x004AE811, 33 bytes.
 // Dedicated TU so WeaponTemplateSetConstruct.cpp cannot see this body.
@@ -99,7 +74,6 @@ class WeaponTemplateSetHead
 public:
 	WeaponTemplateSetHead(const WeaponTemplateSetHead &that);
 };
-
 //
 // ??0Rva004AE877@@QAE@XZ, retail 0x004AE877, 12 bytes.
 // Default ctor whose only work is the rowed Rva0042526Member ctor at +0x00
@@ -114,7 +88,6 @@ public:
 private:
 	char m_bytes[0x4C];
 };
-
 class Rva004AE877
 {
 public:
@@ -123,7 +96,6 @@ public:
 private:
 	Rva0042526Member m_00;
 };
-
 class WeaponTemplateSet
 {
 	WeaponTemplateSetHead m_head;
@@ -133,14 +105,11 @@ class WeaponTemplateSet
 public:
 	WeaponTemplateSet(const WeaponTemplateSet &that);
 };
-
 namespace _STL {
 template <> void _Construct<WeaponTemplateSet, WeaponTemplateSet>(WeaponTemplateSet *, const WeaponTemplateSet &);
 }
-
 // Instantiate the recovered operation and its required template dependencies.
 template WeaponTemplateSet * _STL::__uninitialized_fill_n<WeaponTemplateSet *, unsigned int, WeaponTemplateSet>(WeaponTemplateSet *, unsigned int, WeaponTemplateSet const &, _STL::__false_type const &);
-
 // ?getModuleNameKey@DetachableRiderUpdate@@UBE?AW4NameKeyType@@XZ @0x4AE832
 // (69B): cached pool-name key for DetachableRiderUpdate. The class
 // identity comes from the pool-name string the body pushes
@@ -155,15 +124,12 @@ enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-
 class NameKeyGenerator
 {
 public:
 	NameKeyType nameToKey(const char *name);
 };
-
 extern NameKeyGenerator *TheNameKeyGenerator;
-
 class Xfer::Version
 {
 public:
@@ -173,8 +139,18 @@ public:
 	unsigned char m_current;
 	unsigned char m_minimum;
 };
-
 #include "../../../../Include/Common/ObjectModule.h"
+#define BFME_IMUL_ADD_DWORD_GETTER(NAME, IMM) \
+	class NAME \
+	{ \
+	public: \
+		int get(int scale) const; \
+		int m_value; \
+	}; \
+	int NAME::get(int scale) const \
+	{ \
+		return scale * IMM + m_value; \
+	}
 
 class BehaviorModuleInterface { public: virtual void behaviorSlot(); };
 
@@ -207,6 +183,10 @@ private:
 	bool m_flag21;
 };
 
+BFME_IMUL_ADD_DWORD_GETTER(Rva004AE909ImulAddField, 0x54)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/DetachableRiderUpdate.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/DetachableRiderUpdateXfer.cpp
 
 //
@@ -229,8 +209,6 @@ void DetachableRiderUpdate::xfer(Xfer *xfer)
 	*xfer == m_flag20;
 	*xfer == m_flag21;
 }
-
-// tu-skeleton: 0x004AE7F5 28B ?allocate@?$allocator@VWeaponTemplateSet@@@_STL@@QBEPAVWeaponTemplateSet@@IPBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DetachableRiderDataRva004AEB84.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/DetachableRiderUpdate.cpp
 
@@ -316,13 +294,28 @@ NameKeyType DetachableRiderUpdate::getModuleNameKey() const
 	return TheDetachableRiderUpdatePoolKey;
 }
 
+// tu-skeleton: 0x004AE7F5 28B ?allocate@?$allocator@VWeaponTemplateSet@@@_STL@@QBEPAVWeaponTemplateSet@@IPBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DetachableRiderDataRva004AEB84.cpp (not merged yet)
+
 // tu-skeleton: 0x004AE883 91B ??0DetachableRiderUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DetachableRiderUpdateCtorModuleFactoryBody.cpp (not merged yet)
 
 // tu-skeleton: 0x004AE8DE 28B ??_GRva004AE78E@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
 
 // tu-skeleton: 0x004AE8FA 15B ?rva004AE8FA@DetachableRiderUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DetachableRiderUpdateCtorModuleFactoryBody.cpp (not merged yet)
 
-// tu-skeleton: 0x004AE909 12B ?get@Rva004AE909ImulAddField@@QBEHH@Z -- matched in Code/GameEngine/Source/Common/Disp8ImulAddDwordGetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Disp8ImulAddDwordGetters.cpp
+
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
+// Disp8 imul-add dword getters: twelve-byte __thiscall members with one shape:
+//
+//     mov eax,[esp+4] / imul eax,eax,<IMM> / add eax,[ecx] / ret 4
+//
+// A stack-passed integer is scaled by a small immediate and biased by the
+// dword at `this`. MSVC 7.1 emits `8B 44 24 04` + `6B C0 XX` + `03 01`,
+// plus `ret 4` for the single callee-cleaned stack argument, for twelve
+// bytes total. /O1 keeps the memory-add after the multiply; /O2 hoists the
+// member load into edx first. /G7 keeps small multipliers as true `imul`
+// (/O1 alone strength-reduces them to lea sequences). Identity is not
+// recovered: every name is derived from its address.
 
 // tu-skeleton: 0x004AE915 18B ??$_Construct@VWeaponTemplateSet@@V1@@_STL@@YAXPAVWeaponTemplateSet@@ABV1@@Z -- matched in Code/GameEngine/Source/Common/Thing/WeaponTemplateSetConstruct.cpp (not merged yet)
 

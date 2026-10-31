@@ -17661,7 +17661,7 @@ _VP6_DecodeMacroBlock,,0x001C66B0,705,Code/Libraries/Source/VP6/DecodeMacroBlock
 ?get@Rva0033A8F0ImulAddField@@QBEHH@Z,,0x0033A8F0,12,Code/GameEngine/Source/Common/Disp8ImulAddDwordGetters.cpp,matched,disp8 imul-add dword getter; phase-proven no-branch-to-addr
 ?get@Rva0040A667ImulAddField@@QBEHH@Z,,0x0040A667,12,Code/GameEngine/Source/Common/Disp8ImulAddDwordGetters.cpp,matched,disp8 imul-add dword getter; phase-proven no-branch-to-addr
 ?get@Rva0047A875ImulAddField@@QBEHH@Z,,0x0047A875,12,Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContain.cpp,matched,disp8 imul-add dword getter; phase-proven no-branch-to-addr
-?get@Rva004AE909ImulAddField@@QBEHH@Z,,0x004AE909,12,Code/GameEngine/Source/Common/Disp8ImulAddDwordGetters.cpp,matched,disp8 imul-add dword getter; phase-proven no-branch-to-addr
+?get@Rva004AE909ImulAddField@@QBEHH@Z,,0x004AE909,12,Code/GameEngine/Source/GameLogic/Object/Update/DetachableRiderUpdate.cpp,matched,disp8 imul-add dword getter; phase-proven no-branch-to-addr
 ?get@Rva0051E3E5ImulAddField@@QBEHH@Z,,0x0051E3E5,12,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp,matched,disp8 imul-add dword getter; phase-proven no-branch-to-addr
 ?get@Rva0053FCCBImulAddField@@QBEHH@Z,,0x0053FCCB,12,Code/GameEngine/Source/Common/Disp8ImulAddDwordGetters.cpp,matched,disp8 imul-add dword getter; phase-proven no-branch-to-addr
 ?get@Rva00564C40ImulAddField@@QBEHH@Z,,0x00564C40,12,Code/GameEngine/Source/Common/LivingWorldCampaignAct.cpp,matched,disp8 imul-add dword getter; phase-proven no-branch-to-addr
