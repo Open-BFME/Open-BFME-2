@@ -93,14 +93,6 @@ void INI::Rva0033A49B_ParseDecal(INI *ini, void *, void *store, const void *)
 	ini->initFromINI(store, dataFieldParse);
 }
 
-// ?Rva004BACAF_ParseWeaponName@@YAXPAVINI@@PAX1PBX@Z
-void Rva004BACAF_ParseWeaponName(INI *ini, void *instance, void *, const void *)
-{
-	const char *token = ini->getNextToken();
-	if (TheWeaponStore->findWeaponTemplate(AsciiString(token)))
-		((Rva004BACAFOwner *)instance)->m_weaponName.set(token);
-}
-
 // ?Rva0045A22E_ParseQuery@INI@@SAXPAV1@PAX1PBX@Z
 void INI::Rva0045A22E_ParseQuery(INI *ini, void *instance, void *store, const void *userData)
 {

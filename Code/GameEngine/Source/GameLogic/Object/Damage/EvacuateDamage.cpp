@@ -69,6 +69,7 @@ class RGBAColorInt;
 class Snapshot;
 class Object;
 #include "../../../../Include/Common/BfmeXfer.h"
+#include <windows.h>
 
 class Xfer::Version
 {
@@ -171,6 +172,71 @@ public:
 	void rva004BAF2D(void *obj);
 };
 
+class INI;
+
+typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
+
+struct FieldParse
+{
+	const char *token;
+	INIFieldParseProc parse;
+	const void *userData;
+	int offset;
+};
+
+class INI
+{
+public:
+	const char *getNextToken(const char *seps = 0);
+	void initFromINI(void *what, const FieldParse *parseTable);
+	static void parseReal(INI *ini, void *instance, void *store, const void *userData);
+	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
+	static void Rva0033A49B_ParseDecal(INI *ini, void *instance, void *store, const void *userData);
+	static void Rva0045A22E_ParseQuery(INI *ini, void *instance, void *store, const void *userData);
+	static void parseInt(INI *ini, void *instance, void *store, const void *userData);
+};
+
+class WeaponTemplate;
+
+class WeaponStore
+{
+public:
+	const WeaponTemplate *findWeaponTemplate(const AsciiString &name) const;
+};
+
+extern WeaponStore *TheWeaponStore;
+
+class INIException
+{
+public:
+	char *mFailureMessage;
+	int m_argCount;
+	INIException(int argCount, const char *format, ...);
+	INIException(const INIException &other);
+	~INIException();
+};
+
+void iniParseObjectFilter(INI *ini, void *instance, void *store, const void *userData);
+
+// Only EvacuateDamageModuleData's FieldParse table (WeaponThatCausesEvacuation)
+// references 0x004BACAF and it writes that class's +8 field, so nothing ties it
+// to class INI: it is declared at file scope.
+void Rva004BACAF_ParseWeaponName(INI *ini, void *instance, void *store, const void *userData);
+
+struct Rva0045A22EQuery
+{
+	int m_count;
+	int m_filter;
+};
+
+struct Rva004BACAFOwner
+{
+	unsigned char m_unreconstructed_00[8];
+	AsciiString m_weaponName;	// +0x08
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Damage/EvacuateDamage.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Damage/EvacuateDamage.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Damage/EvacuateDamageXfer.cpp
@@ -239,22 +305,6 @@ EvacuateDamage::~EvacuateDamage()
 {
 }
 
-// tu-skeleton: 0x004BACAF 97B ?Rva004BACAF_ParseWeaponName@@YAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/Common/INI/INIInlineTableParsers.cpp (not merged yet)
-
-// tu-skeleton: 0x004BAD64 17B ?buildFieldParse@EvacuateDamageModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
-
-// tu-skeleton: 0x004BAD75 28B ??_GEvacuateDamageModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EvacuateDamageModuleDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004BAD91 48B ??1EvacuateDamageModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EvacuateDamageModuleDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004BADC1 92B ?rva004BADC1@EvacuateDamage@@QAEMXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Damage/EvacuateDamageEvacuationSum.cpp (not merged yet)
-
-// tu-skeleton: 0x004BAE1D 96B ??0EvacuateDamage@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Damage/EvacuateDamageCtorModuleFactoryBody.cpp (not merged yet)
-
-// tu-skeleton: 0x004BAE7D 6B ?Rva004BAE7DGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x004BAF11 28B ??_GRva004BAEC8@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAR.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Damage/EvacuateDamageOnDamage.cpp
 
 //
@@ -276,11 +326,47 @@ void EvacuateDamage::rva004BAF2D(void *obj)
 	}
 }
 
+// ---- from Code/GameEngine/Source/Common/INI/INIInlineTableParsers.cpp
+
+// platformsdk
+//
+// Two more FieldParse procs (names address-derived):
+//   0x0033A49B 102B FormationPreviewDecal / FormationPreviewItemDecal
+//       (0x00DBF888 / 0x00DBF898): fills a {Texture, Width, Height} decal
+//       record at the store through initFromINI with a FieldParse table built
+//       on the stack (parseAsciiString at +0, parseReal at +4 and +8).
+//   0x004BACAF 97B WeaponThatCausesEvacuation (0x00C59DD0): keeps the token
+//       as the AsciiString at instance + 8 only when TheWeaponStore knows the
+//       weapon (rowed findWeaponTemplate 0x002CB8BF).
+//   0x0045A22E 99B Query (0x00C41700): takes the first of six {count, object
+//       filter} slots at the store whose count is still negative, parses the
+//       count (parseInt) and the filter (rowed iniParseObjectFilter
+//       0x00361CA5) into it, and throws INIException "iniParseQuery: Too many
+//       queries, can only have %d." when all six are used.
+
+// ?Rva004BACAF_ParseWeaponName@@YAXPAVINI@@PAX1PBX@Z
+void Rva004BACAF_ParseWeaponName(INI *ini, void *instance, void *, const void *)
+{
+	const char *token = ini->getNextToken();
+	if (TheWeaponStore->findWeaponTemplate(AsciiString(token)))
+		((Rva004BACAFOwner *)instance)->m_weaponName.set(token);
+}
+
+// tu-skeleton: 0x004BAD64 17B ?buildFieldParse@EvacuateDamageModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
+
+// tu-skeleton: 0x004BAD75 28B ??_GEvacuateDamageModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EvacuateDamageModuleDataDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004BAD91 48B ??1EvacuateDamageModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EvacuateDamageModuleDataDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004BADC1 92B ?rva004BADC1@EvacuateDamage@@QAEMXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Damage/EvacuateDamageEvacuationSum.cpp (not merged yet)
+
+// tu-skeleton: 0x004BAE1D 96B ??0EvacuateDamage@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Damage/EvacuateDamageCtorModuleFactoryBody.cpp (not merged yet)
+
+// tu-skeleton: 0x004BAE7D 6B ?Rva004BAE7DGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x004BAF11 28B ??_GRva004BAEC8@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAR.cpp (not merged yet)
+
 // tu-skeleton: 0x004BAF55 144B ?onDamage@EvacuateDamage@@UAEXPAUDamageInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Damage/EvacuateDamageRva004BAF55.cpp (not merged yet)
-
-// tu-skeleton: 0x0078F54A 8B $L55594 -- matched in Code/GameEngine/Source/Common/INI/INIInlineTableParsers.cpp (not merged yet)
-
-// tu-skeleton: 0x0078F552 10B __ehhandler$?Rva004BACAF_ParseWeaponName@@YAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/Common/INI/INIInlineTableParsers.cpp (not merged yet)
 
 // tu-skeleton: 0x0078F579 8B uw_0078f579 -- matched in Code/gen_small/uw_gen_013.cpp (not merged yet)
 
