@@ -34,8 +34,18 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include "vector3.h" // select the verified three-word constructor before donor math headers
 #include "intersec.h"
 #include <stdio.h>
-#pragma optimize("gsy", on)
-#pragma optimize("", on)
+#define BFME_DISP_DWORD_SETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		void set(int value); \
+		char m_lead[DISP]; \
+		int m_value; \
+	}; \
+	void NAME::set(int value) \
+	{ \
+		m_value = value; \
+	}
 
 typedef char RenderObjSizeMatchesRetail[(sizeof(RenderObjClass) == 0xC4) ? 1 : -1];
 
@@ -214,6 +224,58 @@ public:
     void *Get_Inherited_Render_Data(void);
 };
 
+BFME_DISP_DWORD_SETTER(Rva0013BEB0DwordSlot, 0xC0)
+
+// Native UpdateTurnPhase reads the complete EAX result at 2BD6E3,
+// 2BD7A6 and 2BD885, not just AL. The complete 20-byte predicate returns
+// integer zero or one; the original class and method names stay unknown.
+// Its previous narrow bool claim was retracted separately (94c03954b6).
+// ?rva002B2405@Rva002B2405@@QAEHXZ @ 0x002B2405, 20 B. The packet's
+// callers do not prove a target class name; the adjacent setter identifies
+// the field at 0x2C4, and retail reads another dword at 0x44.
+class Rva002B2405
+{
+public:
+	int rva002B2405();
+	char m_lead[0x44];
+	int m_field44;
+	char m_padding[0x2C4 - 0x48];
+	int m_field2C4;
+};
+
+// Callers elsewhere reach bodies in this unit through other spellings; retail's
+// call sites in their matched rows land on these addresses (same ABI). Bind them.
+
+// Clean BF1 9cbfb551fe Common/Rva001A1AE0Sub.cpp semantic guide.
+// Native 0027C2A4..0027C2AE is a complete independently bounded RET leaf.
+// Target behavior: receiver28 dword subtracts stack argument modulo32; RET4.
+// Original owner and full array bounds remain unknown; address-owned view only.
+class Rva0027C2A4Fields {
+public: void subtract(unsigned int value);
+private: unsigned char unknown[0x28]; unsigned int value28;
+};
+
+// BF1 9cbfb551fe Common/Rva005BD470ZeroTest.cpp is the clean semantic guide.
+// Complete native 001F34FE..001F350B RET leaf proves: cdecl pointer argument; byte1C equals zero; full EAX result0 or1.
+// Original owner and complete bounds unresolved; independent address-owned view.
+struct Rva001F34FEFields { unsigned char unknown[0x1C]; unsigned char value; };
+
+// BF1 9cb Rva005FC2B0Set.cpp guides the raw store/receiver-return pattern.
+// Target 563E5F..563E65 follows RET8 and writes byte0=1, returning this.
+// Original owner and complete class bounds remain unknown.
+struct Rva00563E5FFields
+{
+    unsigned char flag;
+    Rva00563E5FFields *enable();
+};
+
+// Clean BFME1 9cbfb551 donor structural leads; native instructions independently
+// establish complete RET boundaries and each raw field operation and ABI.
+// Address-owned carriers retain unknown original receiver identity and bounds.
+
+// ?set@Rva002DAC16Fields@@QAEXM@Z
+struct Rva002DAC16Fields { char pad[0x144]; float value144; void set(float value); };
+
 // tu-skeleton: 0x0013B160 10B ?Are_Sub_Object_Transforms_Dirty@RenderObjClass@@QAE_NXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp (not merged yet)
 
 // tu-skeleton: 0x0013B170 5B ?Invalidate_Cached_Bounding_Volumes@RenderObjClass@@IBEXXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/composite.cpp (not merged yet)
@@ -222,7 +284,13 @@ public:
 
 // tu-skeleton: 0x0013B430 427B ??0RenderObjClass@@QAE@ABV0@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/RenderObjCopy.cpp (not merged yet)
 
-// tu-skeleton: 0x0013B5E0 4B ?underflow@?$basic_streambuf@DV?$char_traits@D@_STL@@@_STL@@MAEHXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_streambuf_defaults.cpp (not merged yet)
+// tu-skeleton: 0x0013B5E0 4B ?showmanyc@stdio_ostreambuf@_SgI@@MAEHXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_stdio_streambuf.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/rendobj.cpp
+
+#pragma optimize("gsy", on)
+
+#pragma optimize("", on)
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/RenderObjAssign.cpp
 
@@ -446,12 +514,6 @@ void RenderObjClass::Set_Force_Visible(int onoff)
 	}
 }
 
-// tu-skeleton: 0x0013B790 115B ?Set_Transform@RenderObjClass@@UAEXABVMatrix3D@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/RenderObjTransform.cpp (not merged yet)
-
-// tu-skeleton: 0x0013B810 64B ?Set_Position@RenderObjClass@@UAEXABVVector3@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/RenderObjTransform.cpp (not merged yet)
-
-// tu-skeleton: 0x0013B850 77B ?Validate_Transform@RenderObjClass@@UBEXXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/RenderObjTransform.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/RenderObjScreenSize.cpp
 
 /*
@@ -586,10 +648,6 @@ int RenderObjClass::Add_Sub_Object_To_Bone(RenderObjClass * subobj,const char * 
 	return Add_Sub_Object_To_Bone(subobj,bindex,offset);
 }
 
-// tu-skeleton: 0x0013BAF0 104B ?Set_Collision_Type@RenderObjClass@@UAEXH_N@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/RenderObjCollision.cpp (not merged yet)
-
-// tu-skeleton: 0x0013BB60 245B ?Update_Sub_Object_Bits@RenderObjClass@@MAEXXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/RenderObjCollision.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/rendobj_notify_removed.cpp
 
 void RenderObjClass::Notify_Added(SceneClass *scene)
@@ -601,8 +659,6 @@ void RenderObjClass::Notify_Removed(SceneClass *)
 {
 	Scene = 0;
 }
-
-// tu-skeleton: 0x0013BD20 78B ?Intersect_Sphere@RenderObjClass@@UAE_NPAVIntersectionClass@@PAVIntersectionResultClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/RenderObjIntersectSphere.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/RenderObjIntersectSphereQuick.cpp
 
@@ -620,8 +676,6 @@ bool RenderObjClass::Intersect_Sphere_Quick(IntersectionClass *Intersection, Int
 	}
 	return Final_Result->Intersects = true;
 }
-
-// tu-skeleton: 0x0013BE20 79B ??1RenderObjClass@@UAE@XZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/RenderObjCopy.cpp (not merged yet)
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0013BE70OpaqueCall.cpp
 
@@ -641,8 +695,6 @@ void Rva0013BE70Host::opaqueCall(const char *name)
 	sprintf(m_name, name);
 }
 
-// tu-skeleton: 0x0013BEB0 13B ?set@Rva0013BEB0DwordSlot@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/bfme2_renderobj_inherited_data.cpp
 
 void *BFME2RenderObjInheritedDataView::Get_Inherited_Render_Data(void)
@@ -655,8 +707,6 @@ void *BFME2RenderObjInheritedDataView::Get_Inherited_Render_Data(void)
     }
     return data;
 }
-
-// tu-skeleton: 0x0013BF00 262B ??0RenderObjClass@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/RenderObjCtor.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/RenderObjBounds.cpp
 
@@ -693,6 +743,38 @@ void RenderObjClass::Update_Cached_Bounding_Volumes(void) const
 
 	Validate_Cached_Bounding_Volumes();
 }
+
+// tu-skeleton: 0x0013B790 115B ?Set_Transform@RenderObjClass@@UAEXABVMatrix3D@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/RenderObjTransform.cpp (not merged yet)
+
+// tu-skeleton: 0x0013B810 64B ?Set_Position@RenderObjClass@@UAEXABVVector3@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/RenderObjTransform.cpp (not merged yet)
+
+// tu-skeleton: 0x0013B850 77B ?Validate_Transform@RenderObjClass@@UBEXXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/RenderObjTransform.cpp (not merged yet)
+
+// tu-skeleton: 0x0013BAF0 104B ?Set_Collision_Type@RenderObjClass@@UAEXH_N@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/RenderObjCollision.cpp (not merged yet)
+
+// tu-skeleton: 0x0013BB60 245B ?Update_Sub_Object_Bits@RenderObjClass@@MAEXXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/RenderObjCollision.cpp (not merged yet)
+
+// tu-skeleton: 0x0013BD20 78B ?Intersect_Sphere@RenderObjClass@@UAE_NPAVIntersectionClass@@PAVIntersectionResultClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/RenderObjIntersectSphere.cpp (not merged yet)
+
+// tu-skeleton: 0x0013BE20 79B ??1RenderObjClass@@UAE@XZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/RenderObjCopy.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp
+
+// Disp32 dword setters: thirteen-byte __thiscall members with one shape:
+//
+//     mov eax,[esp+4] / mov [ecx+<DISP>],eax / ret 4
+//
+// One dword is taken from the stack argument slot and stored at a fixed
+// displacement from `this`. Ported from Open-BFME-1
+// (Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp): the
+// BFME_DISP_DWORD_SETTER macro is verbatim (void set over a lead array),
+// only the class names follow this tree's Disp* convention
+// (address-derived Rva<addr>DwordSlot, identity unrecoverable from 13 bytes).
+// Every displacement here is a disp32 (MSVC 7.1 uses disp8 whenever the
+// offset fits, so every offset is at least 0x80).
+// No // cl: line (defaults match the frameless 13-byte shape).
+
+// tu-skeleton: 0x0013BF00 262B ??0RenderObjClass@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/RenderObjCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0013C2D0 210B ?Filename_From_Asset_Name@@YA?AVStringClass@@PBD@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/Filename_From_Asset_Name.cpp (not merged yet)
 

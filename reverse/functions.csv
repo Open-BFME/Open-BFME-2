@@ -7919,7 +7919,7 @@ _GetProcessorFlags,,0x001C4390,169,Code/Libraries/Source/VP6/GetProcessorFlags.c
 ?set@Rva0006E010DwordSlot@@QAEXH@Z,,0x0006E010,13,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,Disp32 dword setter
 ?set@Rva0008BCA9DwordSlot@@QAEXH@Z,,0x0008BCA9,13,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,Disp32 dword setter
 ?set@Rva000DD758DwordSlot@@QAEXH@Z,,0x000DD758,13,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,Disp32 dword setter
-?set@Rva0013BEB0DwordSlot@@QAEXH@Z,,0x0013BEB0,13,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,Disp32 dword setter
+?set@Rva0013BEB0DwordSlot@@QAEXH@Z,,0x0013BEB0,13,Code/Libraries/Source/WWVegas/WW3D2/rendobj.cpp,matched,Disp32 dword setter
 ?set@Rva001B15A0DwordSlot@@QAEXH@Z,,0x001B15A0,13,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,Disp32 dword setter
 ?set@Rva001B16C0DwordSlot@@QAEXH@Z,,0x001B16C0,13,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,Disp32 dword setter
 ?set@Rva001EAE21DwordSlot@@QAEXH@Z,,0x001EAE21,13,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,Disp32 dword setter
