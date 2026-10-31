@@ -44908,7 +44908,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0053BA4D,58,code,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommand.cpp,approved,C,C=0x0053B98C..0x0053BAE1,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommand.cpp
 0x0053BA87,90,code,,displaced,-,N=Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommand.cpp
 0x0053BAE1,45,code,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommand.cpp,approved,C,C=0x0053B98C..0x0053BB0E,Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp
-0x0053BB0E,8,code,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommand.cpp,approved,C,C=0x0053B98C..0x0053BB16,Code/GameEngine/Source/Common/StringFieldOps.cpp
+0x0053BB0E,8,code,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommand.cpp,approved,C,C=0x0053B98C..0x0053BB16,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommand.cpp
 0x0053BB16,360,code,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommand.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommand.cpp N=Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommand.cpp
 0x0053BC7E,70,code,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommand.cpp,approved,C,C=0x0053BB16..0x0053BCC4,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRappellerCount.cpp
 0x0053BCC4,41,code,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommand.cpp,approved,C,C=0x0053BB16..0x0053BCED,Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp
