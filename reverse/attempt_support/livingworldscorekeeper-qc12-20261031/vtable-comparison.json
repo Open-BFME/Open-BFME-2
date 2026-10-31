@@ -1,0 +1,294 @@
+[
+ {
+  "table": "??_7LivingWorldScoreKeeper@@6BLivingWorldBuildingNuggetSpawnArmyObserver@@@",
+  "native_va": "0xc62a60",
+  "unchanged": true,
+  "slots": [
+   {
+    "slot": 0,
+    "provider": "?event7_0@LivingWorldBuildingNuggetSpawnArmyObserver@@UAEXH@Z",
+    "native_rva": "0x47a69c",
+    "proof": "complete relocation-free body equals native",
+    "row_targets": []
+   },
+   {
+    "slot": 1,
+    "provider": "?event7_1@LivingWorldBuildingNuggetSpawnArmyObserver@@UAEXHH@Z",
+    "native_rva": "0x50b238",
+    "proof": "complete relocation-free body equals native",
+    "row_targets": []
+   },
+   {
+    "slot": 2,
+    "provider": "?event7_2@LivingWorldBuildingNuggetSpawnArmyObserver@@UAEXHH@Z",
+    "native_rva": "0x50b238",
+    "proof": "complete relocation-free body equals native",
+    "row_targets": []
+   },
+   {
+    "slot": 3,
+    "provider": "?event7_3@LivingWorldScoreKeeper@@UAEXPAVCountInputPrefix@@PAX@Z",
+    "native_rva": "0x4ee7ed",
+    "proof": "existing exact row",
+    "row_targets": [
+     "0x004EE7ED"
+    ]
+   }
+  ]
+ },
+ {
+  "table": "??_7LivingWorldScoreKeeper@@6BLivingWorldLogicObserver@@@",
+  "native_va": "0xc62a70",
+  "unchanged": true,
+  "slots": [
+   {
+    "slot": 0,
+    "provider": "?event6_0@LivingWorldLogicObserver@@UAEXH@Z",
+    "native_rva": "0x47a69c",
+    "proof": "complete relocation-free body equals native",
+    "row_targets": []
+   },
+   {
+    "slot": 1,
+    "provider": "?event6_1@LivingWorldScoreKeeper@@UAEXPAVLivingWorldLogic@@@Z",
+    "native_rva": "0x4ef309",
+    "proof": "existing exact row",
+    "row_targets": [
+     "0x004EF309"
+    ]
+   }
+  ]
+ },
+ {
+  "table": "??_7LivingWorldScoreKeeper@@6BLivingWorldPlayerObserver@@@",
+  "native_va": "0xc62a78",
+  "unchanged": true,
+  "slots": [
+   {
+    "slot": 0,
+    "provider": "?event5_0@LivingWorldScoreKeeper@@UAEXPAURva004EF2ABArg@@@Z",
+    "native_rva": "0x4ef2ab",
+    "proof": "existing exact row",
+    "row_targets": [
+     "0x004EF2AB"
+    ]
+   },
+   {
+    "slot": 1,
+    "provider": "?event5_1@LivingWorldPlayerObserver@@UAEXHHH@Z",
+    "native_rva": "0xd1407",
+    "proof": "complete relocation-free body equals native",
+    "row_targets": []
+   },
+   {
+    "slot": 2,
+    "provider": "?event5_2@LivingWorldPlayerObserver@@UAEXHHH@Z",
+    "native_rva": "0xd1407",
+    "proof": "complete relocation-free body equals native",
+    "row_targets": []
+   },
+   {
+    "slot": 3,
+    "provider": "?event5_3@LivingWorldPlayerObserver@@UAEXH@Z",
+    "native_rva": "0x47a69c",
+    "proof": "complete relocation-free body equals native",
+    "row_targets": []
+   }
+  ]
+ },
+ {
+  "table": "??_7LivingWorldScoreKeeper@@6BLivingWorldRegionObserver@@@",
+  "native_va": "0xc62a88",
+  "unchanged": true,
+  "slots": [
+   {
+    "slot": 0,
+    "provider": "?event4_0@LivingWorldScoreKeeper@@UAEXHHH@Z",
+    "native_rva": "0x4ee113",
+    "proof": "existing exact row",
+    "row_targets": [
+     "0x004EE113"
+    ]
+   },
+   {
+    "slot": 1,
+    "provider": "?event4_1@LivingWorldRegionObserver@@UAEXHHH@Z",
+    "native_rva": "0xd1407",
+    "proof": "complete relocation-free body equals native",
+    "row_targets": []
+   },
+   {
+    "slot": 2,
+    "provider": "?event4_2@LivingWorldRegionObserver@@UAEXHH@Z",
+    "native_rva": "0x50b238",
+    "proof": "complete relocation-free body equals native",
+    "row_targets": []
+   },
+   {
+    "slot": 3,
+    "provider": "?event4_3@LivingWorldRegionObserver@@UAEXHH@Z",
+    "native_rva": "0x50b238",
+    "proof": "complete relocation-free body equals native",
+    "row_targets": []
+   }
+  ]
+ },
+ {
+  "table": "??_7LivingWorldScoreKeeper@@6BLivingWorldRTSEventObserver@@@",
+  "native_va": "0xc62a98",
+  "unchanged": true,
+  "slots": [
+   {
+    "slot": 0,
+    "provider": "?event3_0@LivingWorldScoreKeeper@@UAEXHH@Z",
+    "native_rva": "0x4ee0a6",
+    "proof": "existing exact row",
+    "row_targets": [
+     "0x004EE0A6"
+    ]
+   },
+   {
+    "slot": 1,
+    "provider": "?event3_1@LivingWorldScoreKeeper@@UAEXHPAVLivingWorldBattle@@@Z",
+    "native_rva": "0x4ee0c6",
+    "proof": "existing exact row",
+    "row_targets": [
+     "0x004EE0C6"
+    ]
+   }
+  ]
+ },
+ {
+  "table": "??_7LivingWorldScoreKeeper@@6BLivingWorldAutoResolveEventObserver@@@",
+  "native_va": "0xc62aa0",
+  "unchanged": true,
+  "slots": [
+   {
+    "slot": 0,
+    "provider": "?event2_0@LivingWorldAutoResolveEventObserver@@UAEXHHH@Z",
+    "native_rva": "0xd1407",
+    "proof": "complete relocation-free body equals native",
+    "row_targets": []
+   },
+   {
+    "slot": 1,
+    "provider": "?event2_1@LivingWorldAutoResolveEventObserver@@UAEXHHH@Z",
+    "native_rva": "0xd1407",
+    "proof": "complete relocation-free body equals native",
+    "row_targets": []
+   },
+   {
+    "slot": 2,
+    "provider": "?OnLivingWorldAutoResolveBattleCompleted@LivingWorldScoreKeeper@@UAEXHPAVLivingWorldBattle@@PAX@Z",
+    "native_rva": "0x4ee260",
+    "proof": "existing exact row",
+    "row_targets": [
+     "0x004EE260"
+    ]
+   }
+  ]
+ },
+ {
+  "table": "??_7LivingWorldScoreKeeper@@6BLivingWorldBuildingObserver@@@",
+  "native_va": "0xc62aac",
+  "unchanged": true,
+  "slots": [
+   {
+    "slot": 0,
+    "provider": "?event1_0@LivingWorldScoreKeeper@@UAEXPAVRva004E06FBPtrChase32Field@@@Z",
+    "native_rva": "0x4ee79e",
+    "proof": "existing exact row",
+    "row_targets": [
+     "0x004EE79E"
+    ]
+   },
+   {
+    "slot": 1,
+    "provider": "?event1_1@LivingWorldBuildingObserver@@UAEXH@Z",
+    "native_rva": "0x47a69c",
+    "proof": "complete relocation-free body equals native",
+    "row_targets": []
+   },
+   {
+    "slot": 2,
+    "provider": "?NotifyBuildingAboutToBeDestroyedByUI@LivingWorldBuildingObserver@@UAEXH@Z",
+    "native_rva": "0x47a69c",
+    "proof": "complete relocation-free body equals native",
+    "row_targets": []
+   },
+   {
+    "slot": 3,
+    "provider": "?event1_3@LivingWorldScoreKeeper@@UAEXPBVRva004E06FBPtrChase32Field@@H@Z",
+    "native_rva": "0x4ee072",
+    "proof": "existing exact row",
+    "row_targets": [
+     "0x004EE072"
+    ]
+   }
+  ]
+ },
+ {
+  "table": "??_7LivingWorldScoreKeeper@@6BLivingWorldPhaseObserver@@@",
+  "native_va": "0xc62abc",
+  "unchanged": true,
+  "slots": [
+   {
+    "slot": 0,
+    "provider": "?event0_0@LivingWorldPhaseObserver@@UAEXHH@Z",
+    "native_rva": "0x50b238",
+    "proof": "complete relocation-free body equals native",
+    "row_targets": []
+   },
+   {
+    "slot": 1,
+    "provider": "?event0_1@LivingWorldScoreKeeper@@UAEXHH@Z",
+    "native_rva": "0x4ef2fa",
+    "proof": "existing exact row",
+    "row_targets": [
+     "0x004EF2FA"
+    ]
+   }
+  ]
+ },
+ {
+  "table": "??_7LivingWorldScoreKeeper@@6BSnapshot@@@",
+  "native_va": "0xc62ac4",
+  "unchanged": true,
+  "slots": [
+   {
+    "slot": 0,
+    "provider": "??_ELivingWorldScoreKeeper@@UAEPAXI@Z",
+    "native_rva": "0x4ef28f",
+    "proof": "unchanged compiler weak SEARCH_LIBRARY E->G; existing exact scalar deleting destructor at4EF28F; full bytes and relocations unchanged",
+    "row_targets": []
+   },
+   {
+    "slot": 1,
+    "provider": "?loadPostProcess@LivingWorldScoreKeeper@@MAEXXZ",
+    "native_rva": "0x4ee695",
+    "proof": "existing exact row",
+    "row_targets": [
+     "0x004EE695"
+    ]
+   },
+   {
+    "slot": 2,
+    "provider": "?GetSnapshotName@LivingWorldScoreKeeper@@MBEPBDXZ",
+    "native_rva": "0x4eecfc",
+    "proof": "existing exact row",
+    "row_targets": [
+     "0x004EECFC"
+    ]
+   },
+   {
+    "slot": 3,
+    "provider": "?xfer@LivingWorldScoreKeeper@@MAEXPAVXfer@@@Z",
+    "native_rva": "0x4ef039",
+    "proof": "existing exact row",
+    "row_targets": [
+     "0x004EF039"
+    ]
+   }
+  ]
+ }
+]
