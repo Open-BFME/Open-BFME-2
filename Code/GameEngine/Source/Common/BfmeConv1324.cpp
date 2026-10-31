@@ -115,17 +115,6 @@ public:
 	int m_bfme04;
 	void *m_bfmeItem;
 };
-
-void *BfmeThingTVC::bfmeDelTVC(unsigned char flags)
-{
-	((BfmeSinkTVC *)Gen007EFFC0())->bfmeDropTVC(m_bfmeItem, 1);
-	m_bfme04 = 0;
-	m_bfme00 = 0;
-	m_bfmeItem = 0;
-	if (flags & 1)
-		bfmeFreeTVC(this, 0xc);
-	return this;
-}
 // ?g_bfmeVftTUA@@3PAPAXA: the global at VA 0xce0f20 is ?vftable_011296B0@@3HA.
 #pragma comment(linker, "/alternatename:?g_bfmeVftTUA@@3PAPAXA=?vftable_011296B0@@3HA")
 

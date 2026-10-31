@@ -8207,7 +8207,7 @@ _vp6_writeframe,,0x001BB3B0,104,Code/Libraries/Source/VP6/WriteFrame.cpp,matched
 ?bfmeMask@@YAHPAVBfmeThingBW@@@Z,,0x006A45B0,25,Code/GameEngine/Source/Common/Bfme5TinyThree.cpp,matched,BFME1 byte-identical donor; b1 0x008636E0
 ?bfmeScale@@YANI@Z,,0x006B8C60,25,Code/GameEngine/Source/Common/Bfme5TinyThree.cpp,matched,BFME1 byte-identical donor; b1 0x008793D0
 ?bfmeResetVMP@BfmeCtxVMP@@QAEXXZ,,0x00666080,75,Code/GameEngine/Source/Common/BfmeConv1455.cpp,matched,BFME1 byte-identical donor; b1 0x007F9B30
-?bfmeDelTVC@BfmeThingTVC@@QAEPAXE@Z,,0x00665BD0,55,Code/GameEngine/Source/Common/BfmeConv1324.cpp,matched,BFME1 byte-identical donor; b1 0x007F9660
+?bfmeDelTVC@BfmeThingTVC@@QAEPAXE@Z,,0x00665BD0,55,Code/Libraries/Source/Fesl/transactor.cpp,matched,BFME1 byte-identical donor; b1 0x007F9660
 ??0BfmeThingTUA@@QAE@XZ,,0x0066CCC0,50,Code/GameEngine/Source/Common/BfmeConv1324.cpp,matched,BFME1 byte-identical donor; b1 0x008008E0
 ?bfmeDelTVA@BfmeThingTVA@@QAEPAXE@Z,,0x00656C30,52,Code/GameEngine/Source/Common/BfmeConv1324.cpp,matched,BFME1 port; CloseHandle import plus scalar delete replace BFME1 helpers
 ?bfmeDelTVB@BfmeThingTVB@@QAEPAXE@Z,,0x00176D90,54,Code/GameEngine/Source/Common/BfmeConv1324.cpp,matched,BFME1 port; SysFreeString plus array and scalar delete replace BFME1 helpers
