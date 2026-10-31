@@ -669,3 +669,4 @@ Code/GameEngine/Source/GameClient/InGameUIRva002A4A0C.cpp|param|InGameUI::rva002
 Code/GameEngine/Source/GameClient/InGameUIRva002A4A0C.cpp|param|InGameUI::rva002A4A0C|p2,17bca7af74c88643e8c504a5,drz-k9,drz-k9-b2-13,w-4d4d8f8584bc,2026-10-31,5ed5862c99532f5aa880ab8b
 Code/GameEngine/Source/GameClient/InGameUIRva002A4A0C.cpp|param|InGameUI::rva002A4A0C|p3,31df27e86228461c7a3c60f8,drz-k9,drz-k9-b2-13,w-4d4d8f8584bc,2026-10-31,76b19e4bb5f9557b13906e82
 Code/GameEngine/Source/GameClient/InGameUIRva002A4A0C.cpp|param|InGameUI::rva002A4A0C|p4,04cfd48b4983d962caf2fbea,drz-k9,drz-k9-b2-13,w-4d4d8f8584bc,2026-10-31,12ec94e679ece827d4b0751b
+Code/GameEngine/Source/GameLogic/Object/ObjectGetRelationship.cpp|local|Object::getRelationship|p2,b8fc3c94e502cef66b926875,drz-k9,drz-k9-d2-18,w-4d4d8f8584bc,2026-10-31,3e1a6ca318b7887669c51005

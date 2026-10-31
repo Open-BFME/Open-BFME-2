@@ -19362,3 +19362,11 @@ Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsAudioControl.cpp|func
 Code/GameEngine/Source/GameLogic/Object/Behavior/Rva0045F2F8Finish.cpp|member|Rva0045F2F8|m_34,2a5ff7f33ef571630e4b87a5,drz-k3,drz-k3-c2-9,w-077d7aeb666b,2026-10-31
 Code/GameEngine/Source/GameLogic/Object/Behavior/Rva0045F2F8Finish.cpp|member|Rva0045F2F8|m_38,829bb43ab6aa4f9d2296d7df,drz-k3,drz-k3-c2-9,w-077d7aeb666b,2026-10-31
 Code/GameEngine/Source/Common/SixteenByteIteratorArithmetic_Rva000696C0Distance.cpp|function|0x005047A0|Rva005047A0Advance,9ca51fcab8ab53e6071b0d0f,drz-k3,drz-k3-c2-18,w-077d7aeb666b,2026-10-31
+Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003B3989TemplateText.cpp|class||Rva003B3989TemplatePrefix,cf8fbe7a243390c70d9db9a4,drz-k9,drz-k9-d2-2,w-4d4d8f8584bc,2026-10-31
+Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003B3989TemplateText.cpp|class||Rva003B3989ConditionPrefix,afc5e38c863697fa900c7534,drz-k9,drz-k9-d2-2,w-4d4d8f8584bc,2026-10-31
+Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003B3989TemplateText.cpp|class||Rva003B3AB9ActionPrefix,c1f8a3bfa60e7f92ee0ac23a,drz-k9,drz-k9-d2-2,w-4d4d8f8584bc,2026-10-31
+Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva002645FF.cpp|local|Rva002645FF::rva002645FF|s,3fbc28c226f53be822ed60cf,drz-k9,drz-k9-d2-9,w-4d4d8f8584bc,2026-10-31
+Code/GameEngine/Source/GameLogic/Object/Contain/Rva00475EA2.cpp|member|Rva00475EA2|m_54,420f5686dc43d00bae753cdf,drz-k9,drz-k9-d2-10,w-4d4d8f8584bc,2026-10-31
+Code/GameEngine/Source/GameLogic/Object/ObjectRva0029041B.cpp|local|Object::rva0029041B|t,ea37c4d6bb958b5888b15774,drz-k9,drz-k9-d2-13,w-4d4d8f8584bc,2026-10-31
+Code/GameEngine/Source/GameLogic/Object/ObjectRva0029041B.cpp|local|Object::rva00290496|t,6a1461748548328aadda8447,drz-k9,drz-k9-d2-13,w-4d4d8f8584bc,2026-10-31
+Code/GameEngine/Source/GameLogic/Object/ObjectGetRelationship.cpp|local|Object::getRelationship|p2,b8fc3c94e502cef66b926875,drz-k9,drz-k9-d2-18,w-4d4d8f8584bc,2026-10-31
