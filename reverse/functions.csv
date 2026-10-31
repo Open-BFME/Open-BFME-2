@@ -17624,7 +17624,7 @@ _VP6_DecodeMacroBlock,,0x001C66B0,705,Code/Libraries/Source/VP6/DecodeMacroBlock
 ?get@Rva00433199ShrNAnd32Field@@QBEHXZ,,0x00433199,13,Code/GameEngine/Source/Common/Disp8ShrAndDwordGetters.cpp,matched,disp8 shr-N-and dword getter with disp32 displacement; phase-proven no-branch-to-addr
 ?get@Rva002E6B6EShrNMaskField@@QBEHXZ,,0x002E6B6E,10,Code/GameEngine/Source/Common/Disp8ShrAndDwordGetters.cpp,matched,disp8 shr-N-and-mask dword getter; phase-proven no-branch-to-addr
 ?get@Rva002E6C04ShrNMaskField@@QBEHXZ,,0x002E6C04,10,Code/GameEngine/Source/Common/Disp8ShrAndDwordGetters.cpp,matched,disp8 shr-N-and-mask dword getter; phase-proven no-branch-to-addr
-?get@Rva006CBDC0ShrNMaskField@@QBEHXZ,,0x006CBDC0,10,Code/GameEngine/Source/Common/Disp8ShrAndDwordGetters.cpp,matched,disp8 shr-N-and-mask dword getter; phase-proven no-branch-to-addr
+?get@Rva006CBDC0ShrNMaskField@@QBEHXZ,,0x006CBDC0,10,Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp,matched,disp8 shr-N-and-mask dword getter; phase-proven no-branch-to-addr
 ?get@Rva004331A6ShrNAnd32Field@@QBEHXZ,,0x004331A6,13,Code/GameEngine/Source/Common/Disp8ShrAndDwordGetters.cpp,matched,disp8 shr-N-and dword getter with disp32 displacement; phase-proven no-branch-to-addr
 ?get@Rva002638C2ShrNAndField@@QBEHXZ,,0x002638C2,10,Code/GameEngine/Source/Common/Disp8ShrAndDwordGetters.cpp,matched,disp8 shr-N-and dword getter; phase-proven no-branch-to-addr
 ?get@Rva002E6C0EShrNMaskField@@QBEHXZ,,0x002E6C0E,10,Code/GameEngine/Source/Common/Disp8ShrAndDwordGetters.cpp,matched,disp8 shr-N-and-mask dword getter; phase-proven no-branch-to-addr
@@ -17642,7 +17642,7 @@ _VP6_DecodeMacroBlock,,0x001C66B0,705,Code/Libraries/Source/VP6/DecodeMacroBlock
 ?get@Rva000CB1BFShrNAndField@@QBEHXZ,,0x000CB1BF,10,Code/GameEngine/Source/Common/Disp8ShrAndDwordGetters.cpp,matched,disp8 shr-and dword getter; phase-proven no-branch-to-addr
 ?get@Rva003685A7ShrNAnd32Field@@QBEHXZ,,0x003685A7,13,Code/GameEngine/Source/Common/Disp8ShrAndDwordGetters.cpp,matched,disp32 shr-and dword getter; adjacent to rowed 0x003685B4; phase-proven no-branch-to-addr
 ?get@Rva003BA66AShrNAndField@@QBEHXZ,,0x003BA66A,10,Code/GameEngine/Source/Common/Disp8ShrAndDwordGetters.cpp,matched,disp8 shr-and dword getter; tail-jmp prev boundary; phase-proven no-branch-to-addr
-?get@Rva006CBED0ShrNAndField@@QBEHXZ,,0x006CBED0,10,Code/GameEngine/Source/Common/Disp8ShrAndDwordGetters.cpp,matched,disp8 shr-and dword getter; C2-prev pad boundary; phase-proven no-branch-to-addr
+?get@Rva006CBED0ShrNAndField@@QBEHXZ,,0x006CBED0,10,Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp,matched,disp8 shr-and dword getter; C2-prev pad boundary; phase-proven no-branch-to-addr
 ?get@Rva006DB340ShrNAndField@@QBEHXZ,,0x006DB340,10,Code/GameEngine/Source/Common/Disp8ShrAndDwordGetters.cpp,matched,disp8 shr-and dword getter; AptValue bitfield cluster; phase-proven no-branch-to-addr
 ?get@Rva006DB3B0ShrNAndField@@QBEHXZ,,0x006DB3B0,10,Code/GameEngine/Source/Common/Disp8ShrAndDwordGetters.cpp,matched,disp8 shr-and dword getter; C2-prev pad boundary; phase-proven no-branch-to-addr
 ?cleanUp@SpectreGunshipUpdate@@QAEXXZ,,0x004984CC,75,Code/GameEngine/Source/GameLogic/Object/Update/SpectreGunshipUpdateCleanUp.cpp,matched,Destroys tracked spawned object via rowed findObjectByID destroyObject then forwards payload to player 0x2ADB4F handler; all callees rowed or pinned

@@ -35,10 +35,59 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 //#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
 
 
+
 #endif
 #pragma comment(linker, "/alternatename:?loadPostProcess@Rva006DCD20@@MAEXXZ=?ForceDelete@AptValue@@UAEXXZ")
 #pragma inline_depth(0)
 #pragma inline_depth()
+#define BFME_DISP8_SHR_AND_DWORD_GETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		int get() const; \
+		char m_lead[DISP]; \
+		unsigned int m_value; \
+	}; \
+	int NAME::get() const \
+	{ \
+		return (m_value >> 1) & 1; \
+	}
+#define BFME_DISP8_SHR3_AND_DWORD_GETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		int get() const; \
+		char m_lead[DISP]; \
+		unsigned int m_value; \
+	}; \
+	int NAME::get() const \
+	{ \
+		return (m_value >> 3) & 1; \
+	}
+#define BFME_DISP8_SHRN_AND_DWORD_GETTER(NAME, DISP, COUNT) \
+	class NAME \
+	{ \
+	public: \
+		int get() const; \
+		char m_lead[DISP]; \
+		unsigned int m_value; \
+	}; \
+	int NAME::get() const \
+	{ \
+		return (m_value >> COUNT) & 1; \
+	}
+#define BFME_DISP8_SHRN_AND_MASK_DWORD_GETTER(NAME, DISP, COUNT, MASK) \
+	class NAME \
+	{ \
+	public: \
+		int get() const; \
+		char m_lead[DISP]; \
+		unsigned int m_value; \
+	}; \
+	int NAME::get() const \
+	{ \
+		return (m_value >> COUNT) & MASK; \
+	}
 
 //
 // The 28B target body at 0x006CBBF0 clears eight dwords at offsets 0x00..0x1C.
@@ -264,7 +313,29 @@ class Rva0056ACF1 {public: unsigned int rva0056ACF1(int unused); private: char p
 
 class Rva005CC5D3 {public: void rva005CC5D3(unsigned int value); private: char prefix[0xC]; unsigned int *destination;};
 
+BFME_DISP8_SHRN_AND_MASK_DWORD_GETTER(Rva006CBDC0ShrNMaskField, 0x5C, 18, 3)
+
+BFME_DISP8_SHRN_AND_DWORD_GETTER(Rva006CBED0ShrNAndField, 0x5C, 17)
+
+// Callers elsewhere reach bodies in this unit through other spellings; retail's
+// call sites in their matched rows land on these addresses (same ABI). Bind them.
+
+// Clean BFME1 9cbfb551 donor structural leads; native instructions independently
+// establish complete RET boundaries and each raw field operation and ABI.
+// Address-owned carriers retain unknown original receiver identity and bounds.
+
+// ?setBit1@Rva0030D38FFields@@QAEXXZ
+struct Rva0030D38FFields { char pad[0x44]; unsigned int word44; void setBit1(); };
+
+// ?setBit5@Rva0030D394Fields@@QAEXXZ
+struct Rva0030D394Fields { char pad[0x44]; unsigned int word44; void setBit5(); };
+
+// ?setBit3@Rva0030D399Fields@@QAEXXZ
+struct Rva0030D399Fields { char pad[0x44]; unsigned int word44; void setBit3(); };
+
 // tu-skeleton: 0x006CBB20 84B ??_EAptValueNameEntry@@QAEPAXI@Z -- matched in Code/Libraries/Source/Apt/AptValue/PlaybackBufferResize.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp
 
 // ---- from Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp
 
@@ -714,6 +785,14 @@ void LaserUpdate::loadPostProcess( void )
 // ?RvaLaserAnchor present-unmatched
 void RvaLaserAnchor(Thing *thing, const ModuleData *moduleData) { char buf[sizeof(LaserUpdate)]; LaserUpdate *laserUpdate = ::new (buf) LaserUpdate(thing, moduleData); (void)laserUpdate; }
 
+// ---- from Code/GameEngine/Source/Common/VslotSmallBodiesAN.cpp
+
+void Rva006CBCF0::rva006CBCF0()
+{
+	if (this)
+		v14(1);
+}
+
 // tu-skeleton: 0x006CBC10 7B ?Rva006CBC10Get@@YAMXZ -- matched in Code/GameEngine/Source/Common/GlobalFloatGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x006CBC20 30B ?set@Rva006CBC20Flag5@@QAEX_N@Z -- matched in Code/Libraries/Source/Apt/AptGapLeaves.cpp (not merged yet)
@@ -724,25 +803,33 @@ void RvaLaserAnchor(Thing *thing, const ModuleData *moduleData) { char buf[sizeo
 
 // tu-skeleton: 0x006CBC60 70B ??0Rva006CC380ValuePool@@QAE@IH@Z -- matched in Code/Libraries/Source/Apt/Apt.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/VslotSmallBodiesAN.cpp
-
-void Rva006CBCF0::rva006CBCF0()
-{
-	if (this)
-		v14(1);
-}
-
 // tu-skeleton: 0x006CBD00 5B ?rva006CBD00@Rva006CBD00@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp (not merged yet)
 
 // tu-skeleton: 0x006CBDA0 25B ?set@Rva006CBDA0Field18@@QAEXH@Z -- matched in Code/Libraries/Source/Apt/AptGapLeaves.cpp (not merged yet)
 
-// tu-skeleton: 0x006CBDC0 10B ?get@Rva006CBDC0ShrNMaskField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8ShrAndDwordGetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Disp8ShrAndDwordGetters.cpp
+
+// Disp8 shr-and dword getters: nine-byte __thiscall members with one shape:
+//
+//     mov eax,[ecx+<DISP>] / shr eax,1 / and eax,1 / ret
+//
+// A dword is read at a fixed displacement from `this`, shifted right by one,
+// masked to the low bit, and returned. This is the bit-1 test idiom
+// `(m_value >> 1) & 1`. MSVC 7.1 emits the disp8 load `8B 41 XX`, plus
+// `D1 E8`, plus the `83 E0 01` and-mask, plus `ret`, for nine bytes total
+// (twelve with a disp32 load, which the same macro auto-encodes).
+// Identity is not recovered: every name is derived from its address.
+// No // cl: line (defaults match the frameless shape).
+
+// Shift-by-three variant: `C1 E8 03` instead of `D1 E8` (bit-3 test idiom).
+
+// General shift-count variant: `C1 E8 <COUNT>` for any bit-N test idiom.
+
+// General shift-count and mask variant for multi-bit field extraction.
 
 // tu-skeleton: 0x006CBDD0 9B ?rva006CBDD0@Rva006CBDD0@@QBEIXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat10O2B.cpp (not merged yet)
 
 // tu-skeleton: 0x006CBEB0 32B ?rva006CBEB0@Rva006CBEB0@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesP.cpp (not merged yet)
-
-// tu-skeleton: 0x006CBED0 10B ?get@Rva006CBED0ShrNAndField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8ShrAndDwordGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x006CBF40 35B ??_GRva006CBF40@@UAEPAXI@Z -- matched in Code/Libraries/Source/Apt/AptCIH.cpp (not merged yet)
 
