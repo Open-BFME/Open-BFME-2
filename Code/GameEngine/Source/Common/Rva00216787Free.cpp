@@ -5,15 +5,14 @@
 // import: read <stdlib.h> without dllimport.
 #define _CRTIMP
 #include <stdlib.h>
-#undef _CRTIMP
 
 #include "ascii_string.h"
 class Gen_003A8BE0 {
-    AsciiString m_0;
-    AsciiString m_4;
-    AsciiString m_8;
 public:
-    ~Gen_003A8BE0();
+ __forceinline Gen_003A8BE0() {}
+ Gen_003A8BE0(const Gen_003A8BE0 &);
+ ~Gen_003A8BE0();
+ AsciiString first,second,third;
 };
 class Rva00216108 {
     AsciiString m_0;

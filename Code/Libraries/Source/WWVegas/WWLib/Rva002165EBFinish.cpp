@@ -16,11 +16,12 @@
 #include <utility>
 #include <memory>
 
-class Gen_003A8BE0
-{
+class Gen_003A8BE0 {
 public:
-	Gen_003A8BE0(const Gen_003A8BE0 &other);
-	~Gen_003A8BE0();
+ __forceinline Gen_003A8BE0() {}
+ Gen_003A8BE0(const Gen_003A8BE0 &);
+ ~Gen_003A8BE0();
+ AsciiString first,second,third;
 };
 
 template void _STL::_Construct<_STL::pair<const AsciiString, Gen_003A8BE0>, _STL::pair<const AsciiString, Gen_003A8BE0> >(_STL::pair<const AsciiString, Gen_003A8BE0> *, const _STL::pair<const AsciiString, Gen_003A8BE0> &);

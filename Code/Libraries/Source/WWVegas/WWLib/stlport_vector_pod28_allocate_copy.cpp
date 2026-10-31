@@ -21,10 +21,20 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 #include <vector>
 #include <algorithm>
-struct BfmePod28 { int a[7]; __forceinline bool operator<(const BfmePod28 &o) const { return a[0] < o.a[0]; } };
+struct BfmePod28
+{
+	unsigned int slot;			// +0x00
+	int bannerID;				// +0x04
+	const void *typeEntry;		// +0x08, the type table's key/info pair
+	int state;					// +0x0C
+	int progress;				// +0x10
+	int timer;					// +0x14
+	bool pendingDelete;			// +0x18
+	// The default less<> of __lower_bound 0x005413B0: signed, on the first word.
+	__forceinline bool operator<(const BfmePod28 &o) const { return (int)slot < (int)o.slot; }
+};
 // bfme link decl-only BfmePod28
 namespace _STL { template <> BfmePod28 * vector<BfmePod28, allocator<BfmePod28> >::erase(BfmePod28 *, BfmePod28 *); }
-namespace _STL { template <> BfmePod28 * vector<BfmePod28, allocator<BfmePod28> >::erase(BfmePod28 *); }
 template void _STL::vector<BfmePod28>::clear();
 template void _STL::vector<BfmePod28>::_M_insert_overflow(BfmePod28 *, const BfmePod28 &, const _STL::__false_type &, unsigned int, bool);
 template BfmePod28 *_STL::__lower_bound<BfmePod28 *, BfmePod28, _STL::less<BfmePod28>, int>(BfmePod28 *, BfmePod28 *, const BfmePod28 &, _STL::less<BfmePod28>, int *);

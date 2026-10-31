@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /I.
+// cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /I. /Ireference/shims/bfme2_bannerui /Ireference/shims/bfmealloc
 // stlport
 // ?update@BannerUI@@QAEXXZ retail 0x002167A3..0x00216A2E (651B).
 // Same-TU callee lever: stateString's address goes to Rva00216332Call
@@ -26,29 +26,106 @@
 // Banner record layout: BannerUI.cpp's BfmePod28 (+0x0C state +0x10 progress
 // +0x14 timer +0x18 delete flag).
 #include <vector>
+#include <hash_map>
 #include "ascii_string.h"
 #include "unicode_string.h"
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
+#include "../../../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
 class Rva00215EA4BannerState { public: static const char *GetStateString(int state); };
 class GameLogicFwd { public: int rva0023D075(int); float rva0023D096(int); int rva0023D0AC(int); };
+class INI;
+
+struct Rva002171F2Element { char bytes[1]; bool operator<(const Rva002171F2Element&)const; bool operator==(const Rva002171F2Element&)const; };
+namespace _STL {template<> struct hash<Rva002171F2Element> { unsigned operator()(const Rva002171F2Element&) const; };}
+typedef _STL::hash_map<int, Rva002171F2Element> Rva002171F2Table;
+class Rva00056F61;
+// Native ctor217211 constructs this20B table at+C through the shared
+// constructor2171F2 and FuncInfo913FFC state1 destroys it through216BF0.
+// Preserve lookup/constructor ABI names on the storage view while using
+// the existing destructor owner for this wrapper; original type unknown.
+// Native 00216B80: rowed 00216AF6 clear, then free the bucket vector.
+class Rva00216AF6 : public Rva002171F2Table
+{
+public:
+	~Rva00216AF6();
+};
+// Its inline teardown is the 5-byte tail jump 0x00216BF0 in unwind funclets.
+class Rva00216BF0 : public Rva00216AF6
+{
+public:
+	Rva00216BF0() {}
+	~Rva00216BF0() {}
+	// The lookups 0x00056F61 and 0x0041534B are rowed on the Rva00056F61 view of these 20 bytes.
+	Rva00056F61 &lookup() { return *reinterpret_cast<Rva00056F61 *>(this); }
+};
+typedef char BannerTableHas20Bytes[sizeof(Rva00216BF0)==20 ? 1 : -1];
 struct BfmePod28
 {
-	unsigned int slot;
-	int bannerID;
-	const void *typeEntry;
-	int state;
-	int progress;
-	int timer;
-	bool pendingDelete;
+	unsigned int slot;			// +0x00
+	int bannerID;				// +0x04
+	const void *typeEntry;		// +0x08, the type table's key/info pair
+	int state;					// +0x0C
+	int progress;				// +0x10
+	int timer;					// +0x14
+	bool pendingDelete;			// +0x18
+	// The default less<> of __lower_bound 0x005413B0: signed, on the first word.
+	__forceinline bool operator<(const BfmePod28 &o) const { return (int)slot < (int)o.slot; }
 };
 
+// Retail reaches the 29-byte forwarder 0x002161A5, whose tag travels by const reference.
 namespace _STL {
-// Bind the single-element erase to the rowed BfmePod28 erase.
-template <> BfmePod28 *vector<BfmePod28, allocator<BfmePod28> >::erase(BfmePod28 *position);
+template <> BfmePod28 *__copy_ptrs<BfmePod28 *, BfmePod28 *>(BfmePod28 *first, BfmePod28 *last, BfmePod28 *result, const __false_type &tag);
 }
 
-class Rva00222A8BTarget { public: int invoke(void *owner, const char *name, int argc, const char *a0, void *a1, void *a2, void *a3, void *a4); };
+class BannerUI : public SubsystemInterface
+{
+public:
+	BannerUI();
+	static void ParseBannerTypeInfo(INI *ini);
+ void init();
+ const AsciiString &GetBannerIconImageName(const AsciiString &key);
+ int CreateBanner(int bannerID);
+ void OnAptMovieInitialized(const char *path);
+ void OnBannerButton(int slot);
+ void rva00216735(const char *path);
+ void SetBannerSlotXOffset(unsigned int index, float value);
+ void RemoveBanner(int value);
+ void Hide(bool on);
+ void reset();
+ void update();
+
+	static __forceinline int bannerStateFor(int armyState)
+	{
+		switch (armyState) {
+		case 0:
+			return 0;
+		case 2:
+			return 1;
+		case 3:
+			return 2;
+		default:
+			return 3;
+		}
+	}
+
+private:
+ Rva00216BF0 m_types;
+ bool m_aptMovieInitialized;	// +0x20, WB's assert names it
+ unsigned char m_pad21[3];
+ int m_windowIndex;
+ _STL::vector<BfmePod28, _STL::allocator<BfmePod28> > m_banners;	// +0x28
+ bool m_movieGone;	// +0x34
+ unsigned char m_pad35[3];
+ unsigned int m_summaryIndex;	// +0x38
+ float m_bannerXOffsets[2];	// +0x3C, SetBannerSlotXOffset's per-slot offsets; native21725B..21726F initializes3C..44 only
+};
+
+class Rva00222A8BTarget
+{
+public:
+	int invoke(void *owner, const char *name, int argc, const char *a0, void *a1, void *a2, void *a3, void *a4);
+};
 AsciiString __cdecl Rva0022288EGet(unsigned int value);
 AsciiString __cdecl Rva00222834Get(int value);
 static inline const char *Rva002162CFStr(const AsciiString &asciiString) { return ((const StringBase<char> *)&asciiString)->str(); }
@@ -74,7 +151,7 @@ __declspec(noinline) inline int __cdecl Rva0021639AInvoke(Rva00222A8BTarget *tar
 class BfmeAptWindowManager
 {
 public:
-	void bfmeSetText(const AsciiString &window, const UnicodeString &text, bool html);
+	void bfmeSetText(const AsciiString &key, const UnicodeString &text, bool usePlaceholder);
 };
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
@@ -108,10 +185,18 @@ public:
 };
 extern ControlBar *TheControlBar;
 
-class Rva00216094
+extern "C" const void *const __identifier("??_7Rva00215E42@@6B@")[];
+class Rva00216094Base
+{
+public:
+	virtual ~Rva00216094Base() { *(const void **)this = __identifier("??_7Rva00215E42@@6B@"); }
+};
+class __declspec(novtable) Rva00216094 : public Rva00216094Base
 {
 public:
 	virtual ~Rva00216094();
+private:
+	StringBase<unsigned short> m_04;
 };
 class Rva00406BB0
 {
@@ -124,42 +209,13 @@ private:
 	int m_armyID;
 };
 
-class BannerUI
-{
-public:
-	void OnBannerButton(int slot);
-	void update();
-
-	static __forceinline int bannerStateFor(int armyState)
-	{
-		switch (armyState) {
-		case 0:
-			return 0;
-		case 2:
-			return 1;
-		case 3:
-			return 2;
-		default:
-			return 3;
-		}
-	}
-
-private:
-	unsigned char m_pad00[0x24];
-	void *m_movie;
-	_STL::vector<BfmePod28, _STL::allocator<BfmePod28> > m_banners;
-	bool m_movieGone;
-	unsigned char m_pad35[3];
-	unsigned int m_summaryIndex;
-};
-
 void BannerUI::update()
 {
 	if (m_movieGone)
 		return;
 	for (BfmePod28 *it = m_banners.begin(); it != m_banners.end(); ) {
 		if (it->pendingDelete) {
-			Rva002162CFInvoke((Rva00222A8BTarget *)g_bfmeAptWindowManager, m_movie, "DeleteBanner", it->slot);
+			Rva002162CFInvoke((Rva00222A8BTarget *)g_bfmeAptWindowManager, (void *)m_windowIndex, "DeleteBanner", it->slot);
 			it = m_banners.erase(it);
 		} else {
 			++it;
@@ -169,7 +225,7 @@ void BannerUI::update()
 		int state = bannerStateFor(((GameLogicFwd *)TheGameLogic)->rva0023D075(banner->bannerID));
 		if (state != banner->state) {
 			const char *stateString = Rva00215EA4BannerState::GetStateString(state);
-			Rva00216332Call(g_bfmeAptWindowManager, m_movie, "SetBannerState", &banner->slot, (void *const *)&stateString);
+			Rva00216332Call(g_bfmeAptWindowManager, (void *)m_windowIndex, "SetBannerState", &banner->slot, (void *const *)&stateString);
 			banner->state = state;
 		}
 		if (banner->state == 0)
@@ -184,7 +240,7 @@ void BannerUI::update()
 			timer = -1;
 		}
 		if (progress != banner->progress) {
-			Rva0021639AInvoke((Rva00222A8BTarget *)g_bfmeAptWindowManager, m_movie, "SetBannerProgress", banner->slot, progress);
+			Rva0021639AInvoke((Rva00222A8BTarget *)g_bfmeAptWindowManager, (void *)m_windowIndex, "SetBannerProgress", banner->slot, progress);
 			banner->progress = progress;
 		}
 		if (timer != banner->timer) {

@@ -63,8 +63,10 @@ template <> __declspec(dllimport) __forceinline void **vector<void*>::end()
 { return _M_finish; }
 template <> __declspec(dllimport) __forceinline void vector<void*>::insert(void **pos, size_t n, void *const &x)
 { _M_fill_insert(pos, n, x); }
+}
 // /Ob1 would leave __less<unsigned> out of line in _M_next_size; retail
 // expands it (48 bytes). Inline only, no external copy.
+namespace _STL {
 template <> __declspec(dllimport) __forceinline less<unsigned int> __less(unsigned int *)
 { return less<unsigned int>(); }
 }
