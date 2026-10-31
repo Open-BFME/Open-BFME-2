@@ -405,12 +405,6 @@ public:
 	virtual void rva004B0303();
 };
 
-void Rva004B0303::rva004B0303()
-{
-	if (m_data->m_C8)
-		s17();
-}
-
 // --- 0x004B5B82 (42B): from a +0x1C interface, when the +0x04 data's +0x129
 // flag is set run slots 10 and 9 (true) of the +0x10 base; then latch +0x20.
 struct Rva004B5B82Data
