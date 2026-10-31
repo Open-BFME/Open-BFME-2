@@ -1120,6 +1120,32 @@ static const volatile float IdentityDiagonal=1.0f;
 	{ \
 		return (m_first - *(int *)((char *)this + DISP2)) >> IMM; \
 	}
+#define BFME_ASCII_FIELD_CLEAR(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		void clear(); \
+	private: \
+		char m_pad[DISP]; \
+		AsciiString m_str; \
+	}; \
+	void NAME::clear() \
+	{ \
+		((StringBase<char> *)&m_str)->clear(); \
+	}
+#define BFME_ASCII_FIELD_SET_CSTR(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		void set(const char *s); \
+	private: \
+		char m_pad[DISP]; \
+		AsciiString m_str; \
+	}; \
+	void NAME::set(const char *s) \
+	{ \
+		((StringBase<char> *)&m_str)->set(s); \
+	}
 
 BFME_DISP8_SAR_AVG_DWORD_GETTER(Rva0023D6F0SarAvgField, 0x5C, 0x58, 2)
 
@@ -3584,6 +3610,26 @@ struct Rva002AA3B5Fields {
     Rva002AA3B5Fields *initialize();
 };
 
+class Rva00225A79StringField
+{
+public:
+	void set(const UnicodeString &s);
+private:
+	char m_pad[0x30];
+	UnicodeString m_str;
+};
+
+class Rva0023DC86StringField
+{
+public:
+	~Rva0023DC86StringField();
+private:
+	char m_pad[0x18];
+	AsciiString m_str;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
@@ -6002,6 +6048,10 @@ void Rva0023CF83ByteOneSetter::enable()
 	m_enabled = 1;
 }
 
+// ---- from Code/GameEngine/Source/Common/R1SmallFieldInitialisersOs.cpp
+
+Rva0023DC7FFields *Rva0023DC7FFields::clear() { word18=0; return this; }
+
 // tu-skeleton: 0x0023CAE7 69B ?friend_createObject@GameLogic@@QAEPAVObject@@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z -- matched in Code/GameEngine/Source/Common/Thing/ThingFactory_newObject.cpp (not merged yet)
 
 // tu-skeleton: 0x0023CD97 7B ?isGamePaused@GameLogic@@QAEEXZ -- matched in Code/GameEngine/Source/Common/GameEngineNetworkHelpers.cpp (not merged yet)
@@ -6026,11 +6076,20 @@ void Rva0023CF83ByteOneSetter::enable()
 
 // tu-skeleton: 0x0023DBF9 134B ??0Rva0023C641@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0023C641Write.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/R1SmallFieldInitialisersOs.cpp
+// ---- from Code/GameEngine/Source/Common/StringFieldOps.cpp
 
-Rva0023DC7FFields *Rva0023DC7FFields::clear() { word18=0; return this; }
+//
+// String field operations: add ecx, <field>; jmp to a rowed StringBase
+// member. Five clear an AsciiString field (StringBase<char>::clear, which is
+// releaseBuffer 0x00036410), two assign one from a C string
+// (StringBase<char>::set(const char *) 0x000055F5), one assigns a
+// UnicodeString field (StringBase<unsigned short>::set 0x00037150). Receivers
+// are unknown; names are per address and no referencing site was found for
+// these in this pass.
 
-// tu-skeleton: 0x0023DC86 8B ??1Rva0023DC86StringField@@QAE@XZ -- matched in Code/GameEngine/Source/Common/StringFieldOps.cpp (not merged yet)
+Rva0023DC86StringField::~Rva0023DC86StringField()
+{
+}
 
 // tu-skeleton: 0x0023DCCE 122B ?rva0023DCCE@Rva0023DCCE@@QAEXABVAsciiString@@ABUOpaqueRefElement4@@1@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
 
