@@ -22,14 +22,9 @@
 
 #include "BehaviorModule.h"
 
-class DamageInfo;
 
 //-------------------------------------------------------------------------------------------------
-class DieModuleInterface
-{
-public:
-	virtual void onDie( const DamageInfo *damageInfo ) = 0;
-};
+#include "DieModuleInterface.h"
 
 //-------------------------------------------------------------------------------------------------
 class DieModule : public BehaviorModule, public DieModuleInterface

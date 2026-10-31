@@ -46,11 +46,7 @@ class CreateModule : public ModuleBase, public BehaviorModuleInterface, public C
 protected:
 	bool m_needToRunOnBuildComplete;	// +0x14
 };
-class DieModuleInterface
-{
-public:
-	virtual void onDie(const DamageInfo *damageInfo) = 0;
-};
+#include "../../../../Include/GameLogic/Module/DieModuleInterface.h"
 class AnnounceBirthAndDeathBehavior : public CreateModule, public DieModuleInterface
 {
 public:
