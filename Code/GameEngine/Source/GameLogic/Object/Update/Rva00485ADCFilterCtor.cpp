@@ -11,7 +11,7 @@
 // Rva name is honest: the address is proven, the filter role is proven
 // by the callees, but no donor names the holder class.
 
-template <int N> class BitFlags;
+template <unsigned int NUMBITS> class BitFlags;
 extern BitFlags<116> KINDOFMASK_NONE;
 
 class BfmeFixedStorage0004543D
