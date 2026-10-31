@@ -30,7 +30,6 @@ int g_00DCB4CC = -1;
 #include "../../../../Include/Common/BfmeModuleData.h"
 #include "../../../../Include/Common/ObjectModule.h"
 #include "../../../Common/Thing/thing.h"
-
 #define BFME_DISP8_FLOAT_GETTER(NAME, DISP) \
 	class NAME \
 	{ \
@@ -53,6 +52,10 @@ int g_00DCB4CC = -1;
 	{ \
 		return ((const float *)this)[INDEX]; \
 	}
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
+#include "Lib/Coord3D.h"
+#include "Common/PartitionRangeQueryCallView.h"
+#include "../../../Common/GameLogicObjectLookupView.h"
 
 // ?getControllingPlayer@GateOpenAndCloseBehavior@@QBEPAVPlayer@@XZ @0x004989D7 8B
 // Gap between GateOpenAndCloseBehaviorCtorShard 0x0049889C and Disp8 getter.
@@ -72,6 +75,7 @@ enum Relationship
 enum UpdateSleepTime;
 
 class GateOpenAndCloseBehaviorModuleData;
+
 struct Rva00498DF3Arg;
 
 class BehaviorModuleInterface
@@ -176,8 +180,6 @@ private:
 };
 
 enum ArmorSetType { ARMORSET_NONE = 0 };
-
-enum ObjectID;
 
 // How the rowed setFlag 0x006BF3C0 names its argument, one of the module
 // data's geometry-name AsciiStrings.
@@ -370,9 +372,249 @@ public:
  Rva0006643CResult project() const;
 };
 
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *name);
+};
+
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+typedef unsigned int UnsignedInt;
+
+template <int N> class VSlots : public VSlots<N - 1>
+{
+public:
+	virtual void gap(char (*)[N]) = 0;
+};
+
+template <> class VSlots<0>
+{
+};
+
+class AudioManager : public VSlots<25>
+{
+public:
+	virtual UnsignedInt addAudioEvent(const BfmeAudioEventPrefix136 *eventToAdd) = 0;
+	virtual void slot26() = 0;
+	virtual void removeAudioEvent(UnsignedInt handle) = 0;
+};
+
+extern AudioManager *TheAudio;
+
+enum CommandSourceType
+{
+	CMD_FROM_PLAYER = 0,
+	CMD_FROM_SCRIPT = 1,
+	CMD_FROM_AI = 2
+};
+
+class AIUpdateInterface
+{
+public:
+	bool rva00262DD3(const Object *obj) const;
+	Object *getCurrentVictim() const;
+};
+
+class AICommandInterface
+{
+public:
+	void aiMoveAwayFromUnit(Object *victim, const Coord3D *pos, CommandSourceType cmdSource);
+};
+
+class TurretStateMachine
+{
+public:
+	Object *getGoalObject();
+};
+
+unsigned char __cdecl Rva00498B8BGet(Object *p);
+
+extern float g_00C50244;
+
+// g_00C50244: matched references place it at VA 0xc50244 (retail .rdata value 16.67f).
+float g_00C50244 = 16.67f;
+
+struct Rva00498DF3Mid
+{
+	char m_pad[0x20];
+	char m_cmd20[0x10];
+	TurretStateMachine *m_turretStateMachine;
+};
+
+struct Rva00498DF3Arg
+{
+	char m_pad[0x258];
+	Rva00498DF3Mid *m_ai;
+};
+
+extern "C" void *memset(void *dst, int value, unsigned int size) throw();
+
+class Rva000421C8
+{
+public:
+	Rva000421C8() : m_next(0) {}
+	virtual ~Rva000421C8() {}
+	virtual bool allow(Object *obj) = 0;
+	virtual int getPlayerMask();
+	Rva000421C8 *link(Rva000421C8 *next);	// 0x00625790
+	Rva000421C8 *m_next;
+};
+
+enum GeometryType
+{
+	GEOMETRY_SPHERE = 0,
+	GEOMETRY_CYLINDER,
+	GEOMETRY_BOX
+};
+
+// GeometryInfo as this scan reads it (ctor 0x00050B74, dtor 0x00050B2A).
+class GeometryInfo
+{
+public:
+	GeometryInfo(GeometryType type, bool isSmall, float height, float majorRadius,
+		float minorRadius);
+	virtual ~GeometryInfo();
+	char m_pad04[0x10 - 0x04];
+	float m_majorRadius;	// +0x10
+	float m_minorRadius;	// +0x14
+	// The +0x14 read is the getMinorRadius copy other units emit.
+	float getMinorRadius() const { return m_minorRadius; }
+	char m_pad18[0x5C - 0x18];
+};
+
+// vftable 0x00BFB1B8; the out-of-line ctor 0x0027C2C9: +0x08 a position,
+// +0x14 a geometry, +0x18 an angle, +0x1C a flag.
+class Rva00261603Filter : public Rva000421C8
+{
+public:
+	Rva00261603Filter(const Coord3D &pos, const GeometryInfo &geom, float angle, bool flag);
+	virtual bool allow(Object *obj);
+	Coord3D m_pos;
+	const GeometryInfo *m_geom;
+	float m_angle;
+	bool m_flag;
+};
+
+// A 128-bit ObjectStatusMaskType; 0x0023DA79 clears it and sets one bit.
+class BfmeObject872Header
+{
+	unsigned int m_words[4];
+};
+
+class Rva0023DA79 : public BfmeObject872Header
+{
+public:
+	Rva0023DA79 *rva0023DA79(int base, int bit) throw();	// 0x0023DA79
+};
+
+struct ObjectStatusMaskNone : BfmeObject872Header
+{
+	ObjectStatusMaskNone() throw() { memset(this, 0, sizeof(*this)); }
+};
+
+// vftable 0x00C17968: must have every status of the first mask and none of
+// the second.
+class Rva003685CF : public Rva000421C8
+{
+public:
+	Rva003685CF(const BfmeObject872Header &must, const BfmeObject872Header &mustNot) throw();	// 0x003685CF
+	virtual bool allow(Object *obj);
+	BfmeObject872Header m_must;
+	BfmeObject872Header m_mustNot;
+};
+
+// The 224-bit KindOf mask.
+class BfmeFixedStorage0004543D
+{
+public:
+	BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &other) throw();
+private:
+	unsigned char m_bytes[28];
+};
+
+// Its (unused, four bits) constructor 0x0006EEBC.
+struct Rva0006EE7A
+{
+	unsigned int words[7];
+	Rva0006EE7A(int unused, int b1, int b2, int b3, int b4) throw();
+};
+
+template <int N> class BitFlags;
+
+extern BitFlags<116> KINDOFMASK_NONE;
+
+// vftable 0x00BC2908, allow 0x002610DE: accept what has every kind of the
+// first mask and none of the second.
+class Rva0004584D : public Rva000421C8
+{
+public:
+	Rva0004584D(const BfmeFixedStorage0004543D &a, const BfmeFixedStorage0004543D &b) throw();
+	virtual bool allow(Object *obj);
+	BfmeFixedStorage0004543D m_08;
+	BfmeFixedStorage0004543D m_24;
+};
+
+// vftable 0x00C17F08, allow 0x0026118B: the object has an AI (+0x258).
+class Rva0026118BFilter : public Rva000421C8
+{
+public:
+	virtual bool allow(Object *obj);
+};
+
+// vftable 0x00BFAD10, allow 0x0026119D: not effectively dead (status bit 0),
+// ZH's PartitionFilterAlive.
+class Rva0026119DFilter : public Rva000421C8
+{
+public:
+	virtual bool allow(Object *obj);
+};
+
+extern PartitionManager *ThePartitionManager;
+
+class Pathfinder
+{
+public:
+	void RemoveObjectFromPathfindMapKeepingGateFlags(Object *object);
+	void AddObjectToPathfindMap(Object *object);
+};
+
+class AI
+{
+public:
+	unsigned char m_pad00[0x10];
+	Pathfinder *m_10; // +0x10
+};
+
+extern AI *TheAI;
+
+class GateOpenBehaviorList
+{
+public:
+	void rva004E908C(void *item);
+	void appendOnce(void *item);
+	void push_back(void *const &item);
+private:
+	void **m_begin; // +0x00
+	void **m_end; // +0x04
+};
+
+class Rva002A8F24
+{
+public:
+	unsigned char m_pad[0x940];
+	GateOpenBehaviorList *m_gateList; // +0x940
+};
+
+extern GameLogic *TheGameLogic;
+
+extern Rva002A8F24 *TheSkirmishAIManager;
+
 // tu-skeleton: 0x00498798 92B ??1GateOpenAndCloseBehavior@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorSlots.cpp (not merged yet)
 
 // tu-skeleton: 0x004987F4 6B ?name@GateOpenAndCloseBehavior@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehavior.cpp
 
 // ---- from Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp
 
@@ -392,7 +634,6 @@ public:
 // above 0x7F reads *before* `this` (e.g. 98 = -104). Spelled as a negative
 // float index from `this`, which MSVC 7.1 folds to the same disp8 fld.
 
-// tu-skeleton: 0x00498802 4B ?get@Rva00498802ByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehavior.cpp
 
@@ -469,27 +710,186 @@ GateOpenAndCloseBehaviorModuleData::GateOpenAndCloseBehaviorModuleData()
 	m_snap48 = snap;
 }
 
+// tu-skeleton: 0x00498802 4B ?get@Rva00498802ByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp (not merged yet)
+
 // tu-skeleton: 0x0049881D 20B ?rva0049881D@Rva0049881D@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE24.cpp (not merged yet)
 
-// tu-skeleton: 0x00498831 30B ?changeWantOpenCount@GateOpenAndCloseBehavior@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehavior_changeWantOpenCount.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehavior_changeWantOpenCount.cpp
+
+// ?changeWantOpenCount@GateOpenAndCloseBehavior@@QAEXH@Z @0x00498831 30B
+// GateOpenAndCloseBehavior delta clamp-add at +0x40. Evidence: gap between
+// Disp8ByteFieldGetters and GateOpenAndCloseBehaviorPoolKey; offset 0x40
+// matches m_40 in GateOpenAndCloseBehaviorCtorShard; caller 0x003A23A5.
+
+void GateOpenAndCloseBehavior::changeWantOpenCount(int delta)
+{
+	if (delta == -1 || delta == 1) {
+		if (m_request < 0)
+			m_request = 0;
+		m_request += delta;
+	}
+}
 
 // tu-skeleton: 0x0049884F 8B ??_EGateOpenAndCloseBehavior@@W3AEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorSlots.cpp (not merged yet)
 
-// tu-skeleton: 0x00498857 69B ?getModuleNameKey@GateOpenAndCloseBehavior@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorPoolKey.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorPoolKey.cpp
+
+// ?getModuleNameKey@GateOpenAndCloseBehavior@@UBE?AW4NameKeyType@@XZ @0x498857
+// (69B): cached pool-name key for GateOpenAndCloseBehavior. The class
+// identity comes from the pool-name string the body pushes
+// ("GateOpenAndCloseBehavior"); the body guards a function-local static
+// key fetched once through TheNameKeyGenerator. It is NOT getClassMemoryPool:
+// retail stores nameToKey's return (a key, not a pool pointer) and returns it,
+// and the address carries no getClassMemoryPool row anywhere. /EHsc for the
+// static-guard EH prologue; globals are TU-local externs (DIR32 slots patch
+// from retail, no pins; nameToKey resolves via its matched row).
+
+// ?getModuleNameKey@GateOpenAndCloseBehavior@@UBE?AW4NameKeyType@@XZ
+NameKeyType GateOpenAndCloseBehavior::getModuleNameKey() const
+{
+	static NameKeyType TheGateOpenAndCloseBehaviorPoolKey =
+		TheNameKeyGenerator->nameToKey("GateOpenAndCloseBehavior");
+	return TheGateOpenAndCloseBehaviorPoolKey;
+}
 
 // tu-skeleton: 0x0049889C 200B ??0GateOpenAndCloseBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorCtorShard.cpp (not merged yet)
 
 // tu-skeleton: 0x00498964 28B ??_GGateOpenAndCloseBehavior@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorSlots.cpp (not merged yet)
 
-// tu-skeleton: 0x00498980 87B ?rva00498980@GateOpenAndCloseBehavior@@QAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00498980Finish.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00498980Finish.cpp
+
+//
+// ?rva00498980@GateOpenAndCloseBehavior@@QAE_NXZ @0x00498980 (87B):
+// Gate open/close state test. ModuleData at +8, state at +0x28, timer at
+// +0x34. Case 2: (100 - percent) >= m_34; case 1: true; case 0: m_34 >
+// percent; default false. Retail lays the true block first, so the source
+// cases are ordered 2, 1, 0. Evidence: rowed win/timer callers, m_28 state
+// values 0/1/2 from GateOpenAndCloseBehaviorCtorShard, /arch:SSE fcomi shape.
+
+bool GateOpenAndCloseBehavior::rva00498980()
+{
+	const GateOpenAndCloseBehaviorModuleData *data = getGateModuleData();
+	switch (m_state)
+	{
+	case 2:
+		if ((float)(100 - data->m_percentOpen) >= m_34)
+			return true;
+		return false;
+	case 1:
+		return true;
+	case 0:
+		if (m_34 > (float)data->m_percentOpen)
+			return true;
+		return false;
+	default:
+		return false;
+	}
+}
 
 // tu-skeleton: 0x004989EE 7B ?get@Rva004989EEAddDwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8AddDwordFieldGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x004989F5 189B ?rva004989F5@GateOpenAndCloseBehavior@@AAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorSound.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorSound.cpp
 
-// tu-skeleton: 0x00498AB2 217B ?setOpenCloseState@GateOpenAndCloseBehavior@@AAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorSound.cpp (not merged yet)
+//
+// GateOpenAndCloseBehavior's sound and state helpers (BFME 2), from BFME 1's
+// GateOpenAndCloseBehavior_playSound.cpp (retail 0x001FC6B0) and the state
+// setter in BfmeThreeHundredSeventySix.cpp (BfmeThingYD::bfmeSetYD).
+//
+// Target facts: both are non-virtual and take the whole gate as `this` (the
+// module data at +8 and the object at +0xC of the primary layout, see
+// GateOpenAndCloseBehaviorSlots.cpp). 0x004989F5 is called by update and by
+// 0x00498AB2; 0x00498AB2 is called with 0 by 0x004991CB and with 2 by
+// 0x0049920B. The state at +0x28 runs 0 opening, 1 open, 2 closing, 3 closed
+// (see GateOpenAndCloseBehaviorUpdate.cpp); +0x44 is the sound handle and
+// +0x48 the played flag. The module data holds four sound references:
+// +0x1C and +0x24 are started by the setter for states 0 and 2 and keep
+// their handle, +0x20 and +0x28 are started by playSound for states 0..1 and
+// 2..3. Events are the shared 0x88-byte prefix built by the owner-ID
+// constructor 0x002DA461; TheAudio's slot 25 adds an event and returns its
+// handle, slot 27 removes one.
 
-// tu-skeleton: 0x00498B8B 36B ?Rva00498B8BGet@@YAEPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00498B8BCheck.cpp (not merged yet)
+// ?rva004989F5@GateOpenAndCloseBehavior@@AAEXXZ @0x004989F5 189B
+void GateOpenAndCloseBehavior::rva004989F5()
+{
+	TheAudio->removeAudioEvent(m_soundHandle);
+	const GateOpenAndCloseBehaviorModuleData *data = getGateModuleData();
+	Object *object = getObject();
+	switch (m_state)
+	{
+	case 0:
+	case 1:
+		if (data->m_openSound.referent != 0)
+		{
+			BfmeAudioEventPrefix136 event(data->m_openSound, object->getID());
+			TheAudio->addAudioEvent(&event);
+		}
+		break;
+	case 2:
+	case 3:
+		if (data->m_closeSound.referent != 0)
+		{
+			BfmeAudioEventPrefix136 event(data->m_closeSound, object->getID());
+			TheAudio->addAudioEvent(&event);
+		}
+		break;
+	}
+	m_soundPlayed = true;
+}
+
+// ?setOpenCloseState@GateOpenAndCloseBehavior@@AAEXH@Z @0x00498AB2 215B
+void GateOpenAndCloseBehavior::setOpenCloseState(int state)
+{
+	if (m_state == state)
+		return;
+
+	const GateOpenAndCloseBehaviorModuleData *data = getGateModuleData();
+	Object *object = getObject();
+	switch (state)
+	{
+	case 0:
+		if (data->m_openingSound.referent != 0)
+		{
+			BfmeAudioEventPrefix136 event(data->m_openingSound, object->getID());
+			m_soundHandle = TheAudio->addAudioEvent(&event);
+		}
+		m_soundPlayed = false;
+		break;
+	case 2:
+		if (data->m_closingSound.referent != 0)
+		{
+			BfmeAudioEventPrefix136 event(data->m_closingSound, object->getID());
+			m_soundHandle = TheAudio->addAudioEvent(&event);
+		}
+		m_soundPlayed = false;
+		break;
+	case 1:
+	case 3:
+		if (!m_soundPlayed)
+			rva004989F5();
+		break;
+	}
+
+	m_state = state;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00498B8BCheck.cpp
+
+//
+// ?Rva00498B8BGet@@YAEPAVObject@@@Z, retail 0x00498B8B, 36 bytes.
+// Evidence: calls rowed 0x0028B511 Object::rva0028B511; flag byte at +0x108 bit 2; caller at 0x00498F5E pushes one pointer and tests al; free shape mov ecx [esp+4].
+
+unsigned char __cdecl Rva00498B8BGet(Object *object)
+{
+	if (object == 0)
+		return 0;
+	else
+	{
+		const ThingTemplate *inner = object->getTemplate();
+		if ((inner->m_flag108 & 4) != 0)
+			return 0;
+		return (unsigned char)(object->rva0028B511() == 1);
+	}
+}
 
 // tu-skeleton: 0x00498BAF 28B ?rva00498BAF@GateOpenAndCloseBehavior@@UAE_NPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorSlots.cpp (not merged yet)
 
@@ -503,31 +903,230 @@ GateOpenAndCloseBehaviorModuleData::GateOpenAndCloseBehaviorModuleData()
 
 // tu-skeleton: 0x00498DD7 28B ??_GGateOpenAndCloseBehaviorModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorModuleDataDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x00498DF3 59B ?rva00498DF3@GateOpenAndCloseBehavior@@QAEXPAURva00498DF3Arg@@M@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00498F46Cmd.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00498F46Cmd.cpp
 
-// tu-skeleton: 0x00498F46 100B ?rva00498F46@GateOpenAndCloseBehavior@@QAEXPAURva00498DF3Arg@@HH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00498F46Cmd.cpp (not merged yet)
+//
+// ?rva00498DF3@GateOpenAndCloseBehavior@@QAEXPAURva00498DF3Arg@@M@Z, retail 0x00498DF3, 59 bytes.
+// Evidence: calls rowed 0x00262DD3 AIUpdateInterface::rva00262DD3 and rowed 0x0026C411 AICommandInterface::aiMoveAwayFromUnit; Object+0x38 Coord3D and CMD_FROM_AI=2 match donors; caller at 0x00498F9E pushes ebp plus float and tests nothing; this+0xC Object pattern matches caller 0x00498F46.
 
-// tu-skeleton: 0x00498FAA 545B ?rva00498FAA@GateOpenAndCloseBehavior@@AAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorPushOut.cpp (not merged yet)
+void GateOpenAndCloseBehavior::rva00498DF3(Rva00498DF3Arg *unit, float flt)
+{
+	Object *obj = m_object;
+	if (!obj)
+		return;
+	if (!unit)
+		return;
+	Rva00498DF3Mid *mid = unit->m_ai;
+	if (!mid)
+		return;
+	if (((AIUpdateInterface *)mid)->rva00262DD3(obj))
+		return;
+	((AICommandInterface *)((char *)mid + 0x20))->aiMoveAwayFromUnit(obj, obj->getPosition(), CMD_FROM_AI);
+}
+
+void GateOpenAndCloseBehavior::rva00498F46(Rva00498DF3Arg *unit, int u1, int u2)
+{
+	if (!getGateModuleData()->m_repel)
+		return;
+	if (m_2C != 1)
+		return;
+	if (!Rva00498B8BGet((Object *)unit))
+		return;
+	Rva00498DF3Mid *mid = unit->m_ai;
+	if (mid != 0)
+	{
+		Object *object = m_object;
+		if (mid->m_turretStateMachine->getGoalObject() == object)
+			return;
+		Object *gateObject = m_object;
+		if (((AIUpdateInterface *)mid)->getCurrentVictim() == gateObject)
+			return;
+	}
+	rva00498DF3(unit, g_00C50244);
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorPushOut.cpp
+
+//
+// ?rva00498FAA@GateOpenAndCloseBehavior@@AAEXXZ, retail 0x00498FAA: the
+// gate's push-out scan, run by slots 7 and 8 (GateOpenAndCloseBehaviorSlots.cpp)
+// before the gate changes state. A cylinder (height 30, both radii the
+// template's +0xB0) is moved ahead of the gate along its 2D direction by
+// 0.66 of its major radius (+0x10); every object that is alive, has an AI,
+// is of none of kinds 0x59 0x68 0x3C 2 (against KINDOFMASK_NONE), lacks
+// status 0x26 and lies inside that footprint at the gate's angle
+// (0x0027C2C9) within 1.1 times its minor radius (+0x14) is handed to
+// 0x00498DF3 with that offset.
+//
+// The filters are BFME2's partition filter chain (the view
+// AIStructureCreepTactic.cpp documents): a vptr, the +0x04 link to the next
+// filter (0x00625790), then each filter's members; address-derived names
+// after the out-of-line ctor, else after allow (slot 1).
+
+void GateOpenAndCloseBehavior::rva00498FAA()
+{
+	Object *us = m_object;
+	if (!us)
+		return;
+	Coord3D pos;
+	pos.x = us->getPosition()->x;
+	pos.y = us->getPosition()->y;
+	pos.z = us->getPosition()->z;
+	float radius = us->getTemplate()->m_B0;
+	GeometryInfo geom(GEOMETRY_CYLINDER, false, 30.0f, radius, radius);
+	float offset = geom.m_majorRadius * 0.66;
+	Coord3D dir;
+	us->getUnitDirectionVector2D(dir);
+	dir.x *= offset;
+	dir.y *= offset;
+	dir.z *= offset;
+	// Retail reloads pos.x / pos.y as the add's first operand (movss, addss
+	// the direction); a plain read folds the load into the add instead.
+	volatile Coord3D *vp = &pos;
+	pos.x = vp->x + dir.x;
+	pos.y = vp->y + dir.y;
+	BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(&pos, geom.getMinorRadius() * 1.1f, 3,
+		Rva0026119DFilter().link(&Rva0026118BFilter())
+			->link(&Rva0004584D(*(const BfmeFixedStorage0004543D *)&KINDOFMASK_NONE,
+				*(const BfmeFixedStorage0004543D *)&Rva0006EE7A(0, 0x59, 0x68, 0x3C, 2)))
+			->link(&Rva003685CF(ObjectStatusMaskNone(), *Rva0023DA79().rva0023DA79(0, 0x26)))
+			->link(&Rva00261603Filter(pos, geom, us->getOrientation(), true)), 0);
+	for (Object *obj = hits.next(); obj; obj = hits.next())
+		rva00498DF3((Rva00498DF3Arg *)obj, offset);
+}
 
 // tu-skeleton: 0x004991CB 64B ?open@GateOpenAndCloseBehavior@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorSlots.cpp (not merged yet)
 
 // tu-skeleton: 0x0049920B 64B ?close@GateOpenAndCloseBehavior@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorSlots.cpp (not merged yet)
 
-// tu-skeleton: 0x0049924B 138B ?rva0049924B@GateOpenAndCloseBehavior@@AAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorRva0049924B.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorRva0049924B.cpp
 
-// tu-skeleton: 0x004992D5 149B ?rva004992D5@GateOpenAndCloseBehavior@@AAEX_N0@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorRva004992D5.cpp (not merged yet)
+// ?rva0049924B@GateOpenAndCloseBehavior@@AAEX_N@Z @0x0049924B 138B: private helper;
+// if +0x2C==1 return; if flag runs pinned 0x00498FAA; removes object from
+// pathfind shim, sets state 1 via Object::clearArmorSetFlag(9), clears two
+// BfmeStrF9 vectors through Object+0xA8 setFlag(0/1), notifies via
+// Object::rva0028AB75(true), re-adds to pathfind shim. Evidence: rowed
+// callees 0x002E71AD 0x0028B79C 0x006BF3C0 0x0028AB75 0x002E7178 plus pin
+// 0x00498FAA; callers 0x00499651 0x004996C8 0x004E8FE4 0x004E9021; neighbours
+// GateOpenAndCloseBehaviorSlots/ Rva0024A797Grandchildren.
 
-// tu-skeleton: 0x0049936A 267B ?onObjectCreated@GateOpenAndCloseBehavior@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorOnObjectCreated.cpp (not merged yet)
+void GateOpenAndCloseBehavior::rva0049924B(bool flag)
+{
+	if (m_2C == 1)
+		return;
+	if (flag)
+		rva00498FAA();
+	Pathfinder *shim = TheAI->m_10;
+	Object *obj = m_object;
+	shim->RemoveObjectFromPathfindMapKeepingGateFlags(obj);
+	m_2C = 1;
+	obj->clearArmorSetFlag((ArmorSetType)9);
+	const GateOpenAndCloseBehaviorModuleData *data = getGateModuleData();
+	BfmeObjF9 *f9 = &obj->m_objA8;
+	for (const AsciiString *p = data->m_geometryForOpen.begin(); p != data->m_geometryForOpen.end(); ++p)
+		f9->setFlag(*(const BfmeStrF9 *)p, 0);
+	for (const AsciiString *p = data->m_geometryForClosed.begin(); p != data->m_geometryForClosed.end(); ++p)
+		f9->setFlag(*(const BfmeStrF9 *)p, 1);
+	obj->rva0028AB75(true);
+	TheAI->m_10->AddObjectToPathfindMap(obj);
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorRva004992D5.cpp
+
+// ?rva004992D5@GateOpenAndCloseBehavior@@AAEX_N0@Z @0x004992D5 149B: private helper
+// with two flags; if +0x2C==2 then first flag must hold else return; second flag
+// runs pinned 0x00498FAA; removes object from pathfind shim, sets state 2 via
+// Object::setArmorSetFlag(9), sets two BfmeStrF9 vectors through Object+0xA8
+// setFlag(1/0), notifies via Object::rva0028AB75(true), re-adds to pathfind
+// shim. Evidence: rowed callees 0x002E71AD 0x0028B78A 0x006BF3C0 0x0028AB75
+// 0x002E7178 plus pin 0x00498FAA; callers 0x0049939B 0x004E8FA5 0x004E906D;
+// neighbour GateOpenAndCloseBehaviorRva0049924B.
+
+void GateOpenAndCloseBehavior::rva004992D5(bool a, bool b)
+{
+	if (m_2C == 2)
+	{
+		if (!a)
+			return;
+	}
+	if (b)
+		rva00498FAA();
+	Pathfinder *shim = TheAI->m_10;
+	Object *obj = m_object;
+	shim->RemoveObjectFromPathfindMapKeepingGateFlags(obj);
+	m_2C = 2;
+	obj->setArmorSetFlag((ArmorSetType)9);
+	const GateOpenAndCloseBehaviorModuleData *data = getGateModuleData();
+	for (const AsciiString *p = data->m_geometryForOpen.begin(); p != data->m_geometryForOpen.end(); ++p)
+		(&obj->m_objA8)->setFlag(*(const BfmeStrF9 *)p, 1);
+	for (const AsciiString *p = data->m_geometryForClosed.begin(); p != data->m_geometryForClosed.end(); ++p)
+		(&obj->m_objA8)->setFlag(*(const BfmeStrF9 *)p, 0);
+	obj->rva0028AB75(true);
+	TheAI->m_10->AddObjectToPathfindMap(obj);
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorOnObjectCreated.cpp
+
+//
+// GateOpenAndCloseBehavior::onObjectCreated (BFME 2), from BFME 1's
+// GateOpenAndCloseBehavior_onObjectCreated.cpp (retail 0x001FD780).
+//
+// Target facts: the body is slot 1 of the module vftable 0x00C50144 that the
+// rowed ctor 0x0049889C installs at +4, so `this` is the module subobject and
+// members of the whole gate are reached at this-4 (see
+// GateOpenAndCloseBehaviorSlots.cpp for the four vptrs). BFME 2 changes the
+// dead-owner path: instead of BFME 1's state update it runs the rowed
+// 0x004992D5 with both flags set and drops the gate from the global gate list
+// ([0x00DFEEF8]+0x940, the list the ctor appends to and the dtor removes
+// from) through the rowed 0x004E908C. The gate name is the module data's
+// AsciiString at +0x14 and the linked object ID is at +0x24, as in BFME 1;
+// the partner's module is found by the "GateProxyBehavior" name key.
+
+// ?onObjectCreated@GateOpenAndCloseBehavior@@UAEXXZ @0x0049936A 267B
+void GateOpenAndCloseBehavior::onObjectCreated()
+{
+	BehaviorModule::loadPostProcess();
+
+	if (m_object == 0)
+		return;
+
+	if (m_object->isEffectivelyDead())
+	{
+		rva004992D5(true, true);
+		TheSkirmishAIManager->m_gateList->rva004E908C(this);
+	}
+
+	const GateOpenAndCloseBehaviorModuleData *data = getGateModuleData();
+	if (((const StringBase<char> *)&data->m_proxy)->isEmpty())
+		return;
+
+	Object *candidate = TheGameLogic->getFirstObject();
+	AsciiString candidateName;
+	while (candidate != 0)
+	{
+		candidateName = candidate->m_name;
+		if (candidateName.compare(data->m_proxy) == 0)
+		{
+			static NameKeyType gateKey =
+				TheNameKeyGenerator->nameToKey("GateProxyBehavior");
+			GateOpenAndCloseBehavior *other =
+				static_cast<GateOpenAndCloseBehavior *>(candidate->findModule(gateKey));
+			if (other != 0)
+			{
+				other->m_linkedObjectId = getObject()->getID();
+				m_linkedObjectId = candidate->getID();
+			}
+			break;
+		}
+		candidate = candidate->getNextObject();
+	}
+}
 
 // tu-skeleton: 0x0049947A 1210B ?update@GateOpenAndCloseBehavior@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorUpdate.cpp (not merged yet)
 
 // tu-skeleton: 0x0078D398 20B (unledgered) -- unmatched, no code, never credited
 
 // tu-skeleton: 0x0078D3AC 10B __ehhandler$??1GateOpenAndCloseBehavior@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorSlots.cpp (not merged yet)
-
-// tu-skeleton: 0x0078D3B6 13B $L310 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorPoolKey.cpp (not merged yet)
-
-// tu-skeleton: 0x0078D3C3 10B __ehhandler$?getModuleNameKey@GateOpenAndCloseBehavior@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorPoolKey.cpp (not merged yet)
 
 // tu-skeleton: 0x0078D3CD 11B Unwind@00b8d3cd -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorCtorShard.cpp (not merged yet)
 
@@ -548,25 +1147,3 @@ GateOpenAndCloseBehaviorModuleData::GateOpenAndCloseBehaviorModuleData()
 // tu-skeleton: 0x0078D441 11B Unwind@00b8d441 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorModuleDataDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0078D44C 10B __ehhandler$??1GateOpenAndCloseBehaviorModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorModuleDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078D4CD 11B Unwind@00b8d4cd -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorPushOut.cpp (not merged yet)
-
-// tu-skeleton: 0x0078D4D8 11B $L821 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorPushOut.cpp (not merged yet)
-
-// tu-skeleton: 0x0078D4E3 11B $L822 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorPushOut.cpp (not merged yet)
-
-// tu-skeleton: 0x0078D4EE 11B Unwind@00b8d4ee -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorPushOut.cpp (not merged yet)
-
-// tu-skeleton: 0x0078D4F9 8B $L824 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorPushOut.cpp (not merged yet)
-
-// tu-skeleton: 0x0078D501 8B Unwind@00b8d501 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorPushOut.cpp (not merged yet)
-
-// tu-skeleton: 0x0078D509 8B Unwind@00b8d509 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorPushOut.cpp (not merged yet)
-
-// tu-skeleton: 0x0078D511 10B __ehhandler$?rva00498FAA@GateOpenAndCloseBehavior@@AAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorPushOut.cpp (not merged yet)
-
-// tu-skeleton: 0x0078D51B 8B $L1567 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorOnObjectCreated.cpp (not merged yet)
-
-// tu-skeleton: 0x0078D523 13B $L1568 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorOnObjectCreated.cpp (not merged yet)
-
-// tu-skeleton: 0x0078D530 10B __ehhandler$?onObjectCreated@GateOpenAndCloseBehavior@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorOnObjectCreated.cpp (not merged yet)

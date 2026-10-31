@@ -11036,7 +11036,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x008501B0,124,.rdata,vtable,??_7GateOpenAndCloseBehaviorModuleData@@6B@,,literal,,0,2
 0x0085022C,12,.rdata,string,??_C@_09LOOHMEAG@OpenRight?$AA@,,literal,,0,1
 0x00850238,12,.rdata,string,??_C@_08MJAPACGG@OpenLeft?$AA@,,literal,,0,1
-0x00850244,12,.rdata,global,?g_00C50244@@3MA,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00498F46Cmd.cpp,owned,,1,1
+0x00850244,12,.rdata,global,?g_00C50244@@3MA,Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehavior.cpp,owned,,1,1
 0x00850250,4,.rdata,vtable,??_7Rva00499934@@6B@,,literal,??_7Rva00499934@@6B@;_vtbl_00C50250,0,2
 0x00850254,12,.rdata,vtable,??_7Rva00499934@@6BRva0024A797_B2@@@,,literal,??_7Rva00499934@@6BRva0024A797_B2@@@;_vtbl_00C50254,0,2
 0x00850260,56,.rdata,vtable,??_7Rva00499934@@6BRva0024A797_Root@@@,,literal,??_7Rva00499934@@6BRva0024A797_Root@@@;_vtbl_00C50260,0,2
@@ -20207,10 +20207,10 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A03AE0,4,.data,global,_s_rva007B17E7,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A03AE4,4,.data,global,?s_key@?1??Rva00498725Find@@YAPAXPAX@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourFind.cpp,owned,,1,2
 0x00A03AE8,4,.data,global,?$S2@?1??Rva00498725Find@@YAPAXPAX@Z@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourFind.cpp,owned,,1,4
-0x00A03AEC,4,.data,global,?TheGateOpenAndCloseBehaviorPoolKey@?1??getModuleNameKey@GateOpenAndCloseBehavior@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorPoolKey.cpp,owned,,1,2
-0x00A03AF0,4,.data,global,?$S1@?1??getModuleNameKey@GateOpenAndCloseBehavior@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorPoolKey.cpp,owned,,1,4
-0x00A03AF4,4,.data,global,?gateKey@?O@??onObjectCreated@GateOpenAndCloseBehavior@@UAEXXZ@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorOnObjectCreated.cpp,owned,,1,2
-0x00A03AF8,4,.data,global,?$S1@?O@??onObjectCreated@GateOpenAndCloseBehavior@@UAEXXZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorOnObjectCreated.cpp,owned,,1,2
+0x00A03AEC,4,.data,global,?TheGateOpenAndCloseBehaviorPoolKey@?1??getModuleNameKey@GateOpenAndCloseBehavior@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehavior.cpp,owned,,1,2
+0x00A03AF0,4,.data,global,?$S1@?1??getModuleNameKey@GateOpenAndCloseBehavior@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehavior.cpp,owned,,1,4
+0x00A03AF4,4,.data,global,?gateKey@?O@??onObjectCreated@GateOpenAndCloseBehavior@@UAEXXZ@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehavior.cpp,owned,,1,2
+0x00A03AF8,4,.data,global,?$S1@?O@??onObjectCreated@GateOpenAndCloseBehavior@@UAEXXZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehavior.cpp,owned,,1,2
 0x00A03AFC,4,.data,global,?TheOneRingPenaltyUpdatePoolKey@?1??getModuleNameKey@OneRingPenaltyUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/OneRingPenaltyUpdatePoolKey.cpp,owned,,1,2
 0x00A03B00,4,.data,global,?$S1@?1??getModuleNameKey@OneRingPenaltyUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/OneRingPenaltyUpdatePoolKey.cpp,owned,,1,4
 0x00A03B04,4,.data,global,_s_rva007B182B,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
