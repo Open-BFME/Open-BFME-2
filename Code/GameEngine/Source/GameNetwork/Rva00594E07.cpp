@@ -33,7 +33,11 @@ struct sockaddr_in
 class UDP
 {
 public:
+	enum sockStat { NOTSOCK = -11 };
+	~UDP();
 	int Read(unsigned char *a, unsigned int b, struct sockaddr_in *c);
+	sockStat GetStatus(void);
+	int getLocalAddr(unsigned int &ip, unsigned short &port);
 };
 unsigned int __cdecl ComputeCRC(const unsigned char *a, unsigned int b, unsigned int c);
 class Rva00594E07;

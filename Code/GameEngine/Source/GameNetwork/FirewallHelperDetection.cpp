@@ -41,17 +41,27 @@ private:
 	unsigned short m_88; // +0x88
 };
 
+class UDP;
 class Rva0059534A
 {
+private:
+	struct Slot { UDP *ptr; unsigned short key; char m_padKey[2]; };
 public:
-	void rva0059534A(UnsignedShort port); // FirewallHelperClass::closeSpareSocket
+	void rva0059534A(unsigned short port); // FirewallHelperClass::closeSpareSocket
+	char m_pad00[0x14];
+private:
+	Slot m_slots[8]; // +0x14
 };
 
 class Rva0059517F
 {
 public:
 	// FirewallHelperClass::sendToManglerFromPort(address, port, packetID, destPort, blitzme)
-	Bool sendToManglerFromPort(unsigned long address, UnsignedShort port, UnsignedShort packetID, UnsignedShort destPort, Bool blitzme);
+	bool sendToManglerFromPort(unsigned long address, unsigned short port, unsigned short packetID, unsigned short destPort, bool blitzme);
+	bool rva00595213(UDP *udp, unsigned long address, unsigned short packetID, unsigned short port, bool blitzme);
+	char m_pad00[0x88];
+private:
+	unsigned short m_88; // +0x88
 };
 
 // FirewallHelperClass::getNATPortAllocationScheme with BFME 2's signature:
@@ -61,7 +71,7 @@ public:
 class Rva00594F19
 {
 public:
-	Int rva00594F19(Int numPorts, UnsignedShort *originalPorts, UnsignedShort *mangledPorts, Int &relativeDelta, Bool &looksGood);
+	Int rva00594F19(Int, UnsignedShort *, UnsignedShort *, Int &, Bool &);
 };
 
 static const UnsignedShort BFME_MANGLER_PORT = 4321;

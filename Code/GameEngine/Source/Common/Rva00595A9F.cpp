@@ -9,16 +9,27 @@ public:
     unsigned short rva00594E07(unsigned short a, int b);
 };
 
+class UDP;
 class Rva0059534A
 {
+private:
+	struct Slot { UDP *ptr; unsigned short key; char m_padKey[2]; };
 public:
-    void rva0059534A(unsigned short key);
+	void rva0059534A(unsigned short port); // FirewallHelperClass::closeSpareSocket
+	char m_pad00[0x14];
+private:
+	Slot m_slots[8]; // +0x14
 };
 
 class Rva0059517F
 {
 public:
-    bool sendToManglerFromPort(unsigned long a1, unsigned short a2, unsigned short a3, unsigned short a4, bool a5);
+	// FirewallHelperClass::sendToManglerFromPort(address, port, packetID, destPort, blitzme)
+	bool sendToManglerFromPort(unsigned long address, unsigned short port, unsigned short packetID, unsigned short destPort, bool blitzme);
+	bool rva00595213(UDP *udp, unsigned long address, unsigned short packetID, unsigned short port, bool blitzme);
+	char m_pad00[0x88];
+private:
+	unsigned short m_88; // +0x88
 };
 
 class Rva00595A9F

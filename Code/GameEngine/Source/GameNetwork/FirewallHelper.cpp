@@ -103,9 +103,10 @@ typedef bool Bool;
 #include <windows.h>
 #define NUM_TEST_PORTS 4
 
-class Rva00594F19 {
+class Rva00594F19
+{
 public:
-    Int rva00594F19(Int, UnsignedShort *, UnsignedShort *, Int &, Bool &);
+	Int rva00594F19(Int, UnsignedShort *, UnsignedShort *, Int &, Bool &);
 };
 
 // Small GameEngine bodies from .text gaps no Ghidra function covers

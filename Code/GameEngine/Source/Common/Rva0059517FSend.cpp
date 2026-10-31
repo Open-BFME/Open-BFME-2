@@ -58,10 +58,13 @@ struct Rva0059517FPacket
 	char _pad[8];
 };
 
+struct sockaddr_in;
 class UDP
 {
 public:
 	enum sockStat { NOTSOCK = -11 };
+	~UDP();
+	int Read(unsigned char *a, unsigned int b, struct sockaddr_in *c);
 	sockStat GetStatus(void);
 	int getLocalAddr(unsigned int &ip, unsigned short &port);
 };
@@ -69,11 +72,12 @@ public:
 class Rva0059517F
 {
 public:
-	bool sendToManglerFromPort(unsigned long address, unsigned short m_localPort, unsigned short packetID, unsigned short port, bool blitzme);
+	// FirewallHelperClass::sendToManglerFromPort(address, port, packetID, destPort, blitzme)
+	bool sendToManglerFromPort(unsigned long address, unsigned short port, unsigned short packetID, unsigned short destPort, bool blitzme);
 	bool rva00595213(UDP *udp, unsigned long address, unsigned short packetID, unsigned short port, bool blitzme);
+	char m_pad00[0x88];
 private:
-	char m_pad[0x88];
-	unsigned short m_88;
+	unsigned short m_88; // +0x88
 };
 
 bool Rva0059517F::sendToManglerFromPort(unsigned long address, unsigned short m_localPort, unsigned short packetID, unsigned short port, bool blitzme)

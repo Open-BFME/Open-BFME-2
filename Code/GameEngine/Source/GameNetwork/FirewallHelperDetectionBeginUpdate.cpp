@@ -31,11 +31,16 @@
 // updates call memset, so memset is an intrinsic here only. The empty
 // string, strlen, strcpy, memcmp and memcpy stay calls, as in retail.
 
+class UDP;
 class Rva0059517F
 {
 public:
 	// FirewallHelperClass::sendToManglerFromPort(address, port, packetID, destPort, blitzme)
-	Bool sendToManglerFromPort(unsigned long address, UnsignedShort port, UnsignedShort packetID, UnsignedShort destPort, Bool blitzme);
+	bool sendToManglerFromPort(unsigned long address, unsigned short port, unsigned short packetID, unsigned short destPort, bool blitzme);
+	bool rva00595213(UDP *udp, unsigned long address, unsigned short packetID, unsigned short port, bool blitzme);
+	char m_pad00[0x88];
+private:
+	unsigned short m_88; // +0x88
 };
 
 // BFME 2's GameSpyConfigInterface keeps getManglerLocation in vslot 11

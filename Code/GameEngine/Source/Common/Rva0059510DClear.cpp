@@ -1,9 +1,14 @@
 // cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD
 // ?rva0059510D@Rva0059510D@@QAEXXZ @0x0059510D 54B: clear 8 GameNetwork drain slots at this+0x14. Evidence: rowed UDP dtor 0x00594918 plus operator delete 0x0002FD60; caller 0x0059515C.
+struct sockaddr_in;
 class UDP
 {
 public:
+	enum sockStat { NOTSOCK = -11 };
 	~UDP();
+	int Read(unsigned char *a, unsigned int b, struct sockaddr_in *c);
+	sockStat GetStatus(void);
+	int getLocalAddr(unsigned int &ip, unsigned short &port);
 };
 
 struct Rva0059510DEntry
