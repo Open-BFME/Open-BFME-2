@@ -12772,8 +12772,8 @@ present_unmatched	Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuScheme.cp
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuScheme.cpp	addLine@ShellMenuScheme@@QAEXPAVShellMenuSchemeLine@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuScheme.cpp	parseLinePart@ShellMenuSchemeManager@@	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/WinInstanceData.cpp	setVideoBuffer@WinInstanceData@@QAEXPAVVideoBuffer@@@Z	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/WindowVideoHashtableDtor.cpp	0WindowVideoHashtableHolder@@QAE@XZ	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/WindowVideoHashtableDtor.cpp	1WindowVideoHashtableHolder@@QAE@XZ	1
+present_unmatched	Code/GameEngine/Source/GameClient/GUI/WindowVideoManager.cpp	0WindowVideoHashtableHolder@@QAE@XZ	1
+present_unmatched	Code/GameEngine/Source/GameClient/GUI/WindowVideoManager.cpp	1WindowVideoHashtableHolder@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameClient/GameClient.cpp	GameClient::GameClient	1
 present_unmatched	Code/GameEngine/Source/GameClient/GameClient.cpp	GameClient::addDrawableToLookupTable	1
 present_unmatched	Code/GameEngine/Source/GameClient/GameClient.cpp	GameClient::addTOCEntry	1
