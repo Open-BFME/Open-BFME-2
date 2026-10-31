@@ -50,6 +50,26 @@
 	{ \
 		m_value = value; \
 	}
+#define BFME_DISP8_LEA_GETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		void *get() const; \
+	}; \
+	void *NAME::get() const \
+	{ \
+		return (char *)this + DISP; \
+	}
+#define BFME_DISP8_NEG_LEA_GETTER(NAME, BACK) \
+	class NAME \
+	{ \
+	public: \
+		void *get() const; \
+	}; \
+	void *NAME::get() const \
+	{ \
+		return (char *)this - BACK; \
+	}
 
 // Clean Open-BFME-1 6d9434269164392c5ba62aaa7c15a86b5b020d76 reference transfer.
 // Native font dispatcher313D73 and helper boundaries establish target operation/ABI.
@@ -976,11 +996,32 @@ struct Rva00563E5FFields
 // ?set@Rva002DAC16Fields@@QAEXM@Z
 struct Rva002DAC16Fields { char pad[0x144]; float value144; void set(float value); };
 
+BFME_DISP8_LEA_GETTER(Rva00314046LeaField, 0x30)
+
+// Callers elsewhere reach bodies in this unit through other spellings; retail's
+// call sites in their matched rows land on these addresses (same ABI). Bind them.
+
+// Callers elsewhere reach bodies in this unit through other spellings; retail's
+// call sites in their matched rows land on these addresses (same ABI). Bind them.
+
+// Clean BF1 9cbfb551fe Common/Rva00880960Accessors.cpp semantic guide.
+// Native 006C03C0..006C03CB is a complete independently bounded RET leaf.
+// Target behavior: receiver8 plus eight-byte element stride; RET4.
+// Original owner and full array bounds remain unknown; address-owned view only.
+struct Rva006C03C0Slot { unsigned char bytes[8]; };
+
+class Rva006C03C0Fields {
+public: void *at(int index);
+private: unsigned char unknown[8]; Rva006C03C0Slot entries[1];
+};
+
 // tu-skeleton: 0x00313913 16B ?vslot6@GameWindow@@UBE_NXZ -- matched in Code/GameEngine/Source/Common/Disp8CmpBoolGettersFuncPtr.cpp (not merged yet)
 
 // tu-skeleton: 0x00313923 23B ?rva00313923@Rva00313923@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/GapForwardersSeat8.cpp (not merged yet)
 
 // tu-skeleton: 0x0031393A 16B ?vslot8@GameWindow@@UBE_NXZ -- matched in Code/GameEngine/Source/Common/Disp8CmpBoolGettersFuncPtr.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp
 
@@ -1952,6 +1993,22 @@ void GameWindow::winDrawBorder()
 		m_positionSink->drawBorder(this);
 }
 
+// ---- from Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp
+
+// Disp32 dword setters: thirteen-byte __thiscall members with one shape:
+//
+//     mov eax,[esp+4] / mov [ecx+<DISP>],eax / ret 4
+//
+// One dword is taken from the stack argument slot and stored at a fixed
+// displacement from `this`. Ported from Open-BFME-1
+// (Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp): the
+// BFME_DISP_DWORD_SETTER macro is verbatim (void set over a lead array),
+// only the class names follow this tree's Disp* convention
+// (address-derived Rva<addr>DwordSlot, identity unrecoverable from 13 bytes).
+// Every displacement here is a disp32 (MSVC 7.1 uses disp8 whenever the
+// offset fits, so every offset is at least 0x80).
+// No // cl: line (defaults match the frameless 13-byte shape).
+
 // tu-skeleton: 0x00313D64 8B ?winGetTextLength@GameWindow@@QAEHXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowStatusUserData.cpp (not merged yet)
 
 // tu-skeleton: 0x00313D6C 7B ?get@Rva00313D6CDwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp (not merged yet)
@@ -1970,27 +2027,29 @@ void GameWindow::winDrawBorder()
 
 // tu-skeleton: 0x00313EBD 393B ??4WinInstanceData@@QAEAAV0@ABV0@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/WinInstanceData.cpp (not merged yet)
 
-// tu-skeleton: 0x00314046 4B ?get@Rva00314046LeaField@@QBEPAXXZ -- matched in Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp
+
+// Disp8 LEA getters: four-byte __thiscall members with one shape:
+//
+//     lea eax,[ecx+<DISP>] / ret
+//
+// The address of a member at a fixed displacement from `this` is returned.
+// Spelled as byte-pointer arithmetic from `this`, which MSVC 7.1 folds to
+// the same disp8 lea. The pointee type is unwitnessed (only an address is
+// produced), so the return is an untyped pointer. Members before the
+// accessed one are not spelled at all: unlike the load families, no lead
+// array is needed because nothing is read.
+// Identity is not recovered: every name is derived from its address, in the
+// same opaque-holder convention as the neighboring Disp* families.
+// No // cl: line (defaults match the frameless four-byte shape).
+
+// Negative-displacement sibling: the disp8 byte sign-extends, so a disp byte
+// above 0x7F addresses *before* `this` (e.g. 9C = -100). Spelled as a
+// negative byte offset from `this`, which folds to the same disp8 lea.
 
 // tu-skeleton: 0x0031404A 12B ?winSetWindowId@GameWindow@@QAEHH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowFields.cpp (not merged yet)
 
 // tu-skeleton: 0x003140C8 7B ?get@Rva003140C8DwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp
-
-// Disp32 dword setters: thirteen-byte __thiscall members with one shape:
-//
-//     mov eax,[esp+4] / mov [ecx+<DISP>],eax / ret 4
-//
-// One dword is taken from the stack argument slot and stored at a fixed
-// displacement from `this`. Ported from Open-BFME-1
-// (Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp): the
-// BFME_DISP_DWORD_SETTER macro is verbatim (void set over a lead array),
-// only the class names follow this tree's Disp* convention
-// (address-derived Rva<addr>DwordSlot, identity unrecoverable from 13 bytes).
-// Every displacement here is a disp32 (MSVC 7.1 uses disp8 whenever the
-// offset fits, so every offset is at least 0x80).
-// No // cl: line (defaults match the frameless 13-byte shape).
 
 // tu-skeleton: 0x003140F1 7B ?get@Rva003140F1DwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp (not merged yet)
 
