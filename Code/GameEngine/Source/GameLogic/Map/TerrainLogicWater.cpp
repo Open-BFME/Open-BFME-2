@@ -65,12 +65,12 @@ class Rva00263895Member
 public:
 	Rva00263895Member(); // 0x00263895
 	char m_pad00[0x8];
-	ObjectID m_sourceID; // +0x08 +0x08
+	ObjectID m_sourceID; // +0x08
 	char m_pad0C[0x4];
-	Int m_damageType; // +0x10 +0x10
+	Int m_damageType; // +0x10
 	char m_pad14[0x8];
-	Int m_deathType; // +0x1C +0x1C
-	Real m_amount; // +0x20 +0x20
+	Int m_deathType; // +0x1C
+	Real m_amount; // +0x20
 	char m_pad24[0x58];
 };
 
@@ -112,30 +112,39 @@ public:
 };
 
 // N unnamed vftable slots appended to Base.
-template <class Base, int N> class TerrainLogicSlots : public TerrainLogicSlots<Base, N - 1>
+class TerrainLogic
 {
 public:
-	virtual void gap(Base *, char (*)[N]);
-};
-template <class Base> class TerrainLogicSlots<Base, 0> : public Base
-{
-};
-
-class TerrainLogicHead
-{
-public:
-	virtual void slot0();
-};
-
-class TerrainLogicUnderwater : public TerrainLogicSlots<TerrainLogicHead, 18>
-{
-public:
+	virtual void slot00();
+	virtual void slot01();
+	virtual void slot02();
+	virtual void slot03();
+	virtual void slot04();
+	virtual void slot05();
+	virtual void slot06();
+	virtual void slot07();
+	virtual void slot08();
+	virtual void slot09();
+	virtual void slot10();
+	virtual void slot11();
+	virtual void slot12();
+	virtual void slot13();
+	virtual void slot14();
+	virtual void slot15();
+	virtual void slot16();
+	virtual void slot17();
+	virtual void slot18();
 	virtual Bool isUnderwater(Real x, Real y, Real *waterZ = NULL, Real *terrainZ = NULL, Int unused = 0); // +0x4C
-};
-
-class TerrainLogic : public TerrainLogicSlots<TerrainLogicUnderwater, 10>
-{
-public:
+	virtual void slot20();
+	virtual void slot21();
+	virtual void slot22();
+	virtual void slot23();
+	virtual void slot24();
+	virtual void slot25();
+	virtual void slot26();
+	virtual void slot27();
+	virtual void slot28();
+	virtual void slot29();
 	virtual Real getWaterHeight(const WaterHandle *water); // +0x78
 	virtual void setWaterHeight(const WaterHandle *water, Real height, Real damageAmount, Bool forcePathfindUpdate); // +0x7C
 private:
@@ -208,7 +217,7 @@ void TerrainLogic::setWaterHeight( const WaterHandle *water, Real height, Real d
 				Rva00263895Member damageInfo;
 				damageInfo.m_damageType = 9;
 				damageInfo.m_deathType = 7;
-				damageInfo.m_sourceID = INVALID_ID;
+				damageInfo.m_sourceID = (ObjectID)0;
 				damageInfo.m_amount = damageAmount;
 				obj->attemptDamage( (DamageInfo *)&damageInfo );
 

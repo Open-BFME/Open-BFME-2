@@ -2,7 +2,7 @@
 // ?Rva0027DC65Check@@YA_NPAM@Z, retail 0x0027DC65, 141 bytes.
 // Free __cdecl check on 3-float point: null TerrainLogic -> 0; getExtent
 // bounds (lo.x<p.x<hi.x, lo.y<p.y<hi.y) else refresh via slot13 copy;
-// then slot19 with (p.x,p.y,0,0,0) and return inverted boolean.
+// then isUnderwater with (p.x,p.y,0,0,0) and return inverted boolean.
 // Evidence: TheTerrainLogic 0x009FEC50, slots 0x20/0x34/0x4c, callers huge.
 #include "../../../Libraries/Include/Lib/Region3D.h"
 
@@ -35,7 +35,7 @@ public:
 	virtual void _slot16();
 	virtual void _slot17();
 	virtual void _slot18();
-	virtual bool slot19(float x, float y, float *a, float *b, bool *c);
+	virtual bool isUnderwater(float x, float y, float *a, float *b, bool *c);
 };
 
 extern TerrainLogic *TheTerrainLogic;
@@ -53,7 +53,7 @@ bool __cdecl Rva0027DC65Check(float *p)
 			*(Triple *)p = *res;
 		}
 	done:
-		if (TheTerrainLogic->slot19(p[0], p[1], 0, 0, 0))
+		if (TheTerrainLogic->isUnderwater(p[0], p[1], 0, 0, 0))
 			return false;
 		return true;
 	}

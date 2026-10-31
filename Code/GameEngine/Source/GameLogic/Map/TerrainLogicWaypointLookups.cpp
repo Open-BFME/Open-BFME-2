@@ -90,7 +90,7 @@ public:
 	UnsignedInt getID() const { return m_id; }
 	const AsciiString &getName() const { return m_name; }
 	const Coord3D *getLocation() const { return &m_location; }
-	Waypoint *getNext() const { return m_pNext; }
+	Waypoint *getNext() const { return m_next; }
 	Waypoint *getLinkSource() const { return m_linkSource; }
 private:
 	void *m_vtbl; // +0x00
@@ -98,7 +98,7 @@ private:
 	AsciiString m_name; // +0x08
 	Coord3D m_location; // +0x0C
 	char m_pad18[0x1C - 0x18];
-	Waypoint *m_pNext; // +0x1C
+	Waypoint *m_next; // +0x1C
 	Waypoint *m_links[8]; // +0x20
 	Waypoint *m_linkSource; // +0x40
 };
@@ -138,20 +138,42 @@ public:
 	Image *&operator[](const unsigned int &key);
 };
 
-template <int N> class TerrainLogicSlots : public TerrainLogicSlots<N - 1>
+class TerrainLogic
 {
 public:
-	virtual void gap(char (*)[N]);
-};
-template <> class TerrainLogicSlots<1>
-{
-public:
-	virtual void gap(char (*)[1]);
-};
-
-class TerrainLogic : public TerrainLogicSlots<33>
-{
-public:
+	virtual void slot00();
+	virtual void slot01();
+	virtual void slot02();
+	virtual void slot03();
+	virtual void slot04();
+	virtual void slot05();
+	virtual void slot06();
+	virtual void slot07();
+	virtual void slot08();
+	virtual void slot09();
+	virtual void slot10();
+	virtual void slot11();
+	virtual void slot12();
+	virtual void slot13();
+	virtual void slot14();
+	virtual void slot15();
+	virtual void slot16();
+	virtual void slot17();
+	virtual void slot18();
+	virtual void slot19();
+	virtual void slot20();
+	virtual void slot21();
+	virtual void slot22();
+	virtual void slot23();
+	virtual void slot24();
+	virtual void slot25();
+	virtual void slot26();
+	virtual void slot27();
+	virtual void slot28();
+	virtual void slot29();
+	virtual void slot30();
+	virtual void slot31();
+	virtual void slot32();
 	virtual Waypoint *getFirstWaypoint(); // +0x84
 	virtual Waypoint *getWaypointByName(const AsciiString &name); // +0x88
 	virtual Waypoint *getWaypointByID(UnsignedInt id); // +0x8C

@@ -18,17 +18,19 @@ class Rva0027FBACHelper {
 public: virtual void *Get(int);
 };
 
+class PolygonTrigger;
+
 class Bridge {
 public: virtual ~Bridge();
 private: char m_pad04[4];
          StringBase<char> m_str;
          char m_pad0C[188];
-         Rva0027FBACHelper *m_c8;
+         PolygonTrigger *m_outline;
 };
 Bridge::~Bridge()
 {
-	if (m_c8) {
-		::operator delete(m_c8->Get(0));
-		m_c8 = 0;
+	if (m_outline) {
+		::operator delete(((Rva0027FBACHelper *)m_outline)->Get(0));
+		m_outline = 0;
 	}
 }

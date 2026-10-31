@@ -88,13 +88,18 @@ class Drawable;
 Bool LineInRegion( const Coord2D *p1, const Coord2D *p2, const Region2D *clipRegion );
   // end LineInRegion
 
+enum GeometryType { GEOMETRY_SPHERE, GEOMETRY_CYLINDER, GEOMETRY_BOX };
+
 class GeometryInfo
 {
 public:
+	GeometryInfo(GeometryType type, Bool isSmall, Real height, Real majorRadius, Real minorRadius);
+	virtual ~GeometryInfo();
+	Bool CollidesWith(const Coord3D &pos, Real angle, const GeometryInfo &other, const Coord3D &otherPos, Real otherAngle) const;
 	__declspec(dllimport) __forceinline Real getMinorRadius() const { return m_minorRadius; }
-private:
-	char m_pad00[0x10];
+	char m_pad04[0x10 - 0x04];
 	Real m_minorRadius; // +0x10
+	char m_pad14[0x5C - 0x14];
 };
 
 class BodyModuleInterface
@@ -119,12 +124,12 @@ class Rva00263895Member
 public:
 	Rva00263895Member(); // 0x00263895
 	char m_pad00[0x8];
-	ObjectID m_sourceID; // +0x08 +0x08
+	ObjectID m_sourceID; // +0x08
 	char m_pad0C[0x4];
-	Int m_damageType; // +0x10 +0x10
+	Int m_damageType; // +0x10
 	char m_pad14[0x8];
-	Int m_deathType; // +0x1C +0x1C
-	Real m_amount; // +0x20 +0x20
+	Int m_deathType; // +0x1C
+	Real m_amount; // +0x20
 	char m_pad24[0x58];
 };
 class DamageInfo
@@ -162,7 +167,7 @@ private:
 	Object *m_next; // +0x8C
 	char m_pad90[0xA8 - 0x90];
 	GeometryInfo m_geometryInfo; // +0xA8
-	char m_padBC[0x254 - 0xBC];
+	char m_pad104[0x254 - 0x104];
 	BodyModuleInterface *m_body; // +0x254
 };
 
@@ -209,6 +214,8 @@ private:
 };
 typedef Rva0027C36A BridgeInfo;
 
+class PolygonTrigger;
+
 class Bridge
 {
 public:
@@ -232,7 +239,7 @@ private:
 	BridgeInfo m_bridgeInfo; // +0x0C
 	Region2D m_bounds; // +0xB4
 	Int m_layer; // +0xC4
-	void *m_outline; // +0xC8, the polygon isPointOnBridge tests when set
+	PolygonTrigger *m_outline; // +0xC8, the polygon isPointOnBridge tests when set
 };
 
 // 0x00281BF7: the bridge object's drawable (Zero Hour's tail of
@@ -284,32 +291,51 @@ extern AI *TheAI;
 extern GameLogic *TheGameLogic;
 
 // N unnamed vftable slots appended to Base.
-template <class Base, int N> class TerrainLogicSlots : public TerrainLogicSlots<Base, N - 1>
+class TerrainLogic
 {
 public:
-	virtual void gap(Base *, char (*)[N]);
-};
-template <class Base> class TerrainLogicSlots<Base, 0> : public Base
-{
-};
-
-class TerrainLogicHead
-{
-public:
-	virtual void slot0();
+	virtual void slot00();
 protected:
 	virtual void loadPostProcess(void); // +0x04
-};
-
-class TerrainLogicGround : public TerrainLogicSlots<TerrainLogicHead, 4>
-{
 public:
+	virtual void slot02();
+	virtual void slot03();
+	virtual void slot04();
+	virtual void slot05();
 	virtual Real getGroundHeight(Real x, Real y, Coord3D *normal = NULL) const; // +0x18
-};
-
-class TerrainLogic : public TerrainLogicSlots<TerrainLogicGround, 33>
-{
-public:
+	virtual void slot07();
+	virtual void slot08();
+	virtual void slot09();
+	virtual void slot10();
+	virtual void slot11();
+	virtual void slot12();
+	virtual void slot13();
+	virtual void slot14();
+	virtual void slot15();
+	virtual void slot16();
+	virtual void slot17();
+	virtual void slot18();
+	virtual void slot19();
+	virtual void slot20();
+	virtual void slot21();
+	virtual void slot22();
+	virtual void slot23();
+	virtual void slot24();
+	virtual void slot25();
+	virtual void slot26();
+	virtual void slot27();
+	virtual void slot28();
+	virtual void slot29();
+	virtual void slot30();
+	virtual void slot31();
+	virtual void slot32();
+	virtual void slot33();
+	virtual void slot34();
+	virtual void slot35();
+	virtual void slot36();
+	virtual void slot37();
+	virtual void slot38();
+	virtual void slot39();
 	PathfindLayerEnum getLayerForDestination(Object *obj, const Coord3D *pos);
 	PathfindLayerEnum getHighestLayerForDestination(const Coord3D *pos, Bool onlyHealthyBridges = false);
 
@@ -323,8 +349,6 @@ public:
 	virtual void slot47();
 	virtual void deleteBridge(Bridge *bridge); // +0xC0
 	virtual void updateBridgeDamageStates(void); // +0xC4
-protected:
-	virtual void loadPostProcess(void); // +0x04
 private:
 	char m_pad04[0x40 - 0x04];
 	Bridge *m_bridgeListHead; // +0x40

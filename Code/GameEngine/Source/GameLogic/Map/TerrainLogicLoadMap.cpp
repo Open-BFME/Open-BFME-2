@@ -160,6 +160,7 @@ private:
 // The 0x20-byte objects TerrainLogic's constructor allocates (0x002834C4).
 class Rva002834C4;
 
+struct TerrainPoint00282CFB;
 class G00DFF080Obj
 {
 public:
@@ -169,35 +170,37 @@ public:
 	virtual void slot3();
 	virtual void slot4(const AsciiString &filename, ChunkInputStream *pStrm, Rva002834C4 *a,
 		Rva002834C4 *b, Rva002834C4 *c); // +0x10
+	virtual void v05(); virtual void v06(); virtual void v07();
+	virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
+	virtual void v12(); virtual void v13(void *p); virtual void v14();
+	virtual void v15(); virtual void v16(); virtual void v17(); virtual void v18();
+	virtual void v19(); virtual void v20(); virtual void v21(); virtual void v22();
+	virtual void rva00282CFBNotify(TerrainPoint00282CFB point, float radius);
 };
+
 extern G00DFF080Obj *TheTerrainVisual;
 
 // N unnamed vftable slots appended to Base.
-template <class Base, int N> class TerrainLogicSlots : public TerrainLogicSlots<Base, N - 1>
+class TerrainLogic
 {
 public:
-	virtual void gap(Base *, char (*)[N]);
-};
-template <class Base> class TerrainLogicSlots<Base, 0> : public Base
-{
-};
-
-class TerrainLogicHead
-{
-public:
-	virtual void slot0();
-};
-
-class TerrainLogicLoad : public TerrainLogicSlots<TerrainLogicHead, 3>
-{
-public:
+	virtual void slot00();
+	virtual void slot01();
+	virtual void slot02();
+	virtual void slot03();
 	virtual Bool loadMap(const AsciiString &filename, ChunkInputStream *pStrm, Bool query, Bool addWaypoints); // +0x10
-};
-
-class TerrainLogic : public TerrainLogicSlots<TerrainLogicLoad, 12>
-{
-public:
-	virtual Bool loadMap(const AsciiString &filename, ChunkInputStream *pStrm, Bool query, Bool addWaypoints);
+	virtual void slot05();
+	virtual void slot06();
+	virtual void slot07();
+	virtual void slot08();
+	virtual void slot09();
+	virtual void slot10();
+	virtual void slot11();
+	virtual void slot12();
+	virtual void slot13();
+	virtual void slot14();
+	virtual void slot15();
+	virtual void slot16();
 	virtual AsciiString getSourceFilename(); // +0x44
 protected:
 	static Bool parseWaypointDataChunk(DataChunkInput &file, DataChunkInfo *info, void *userData);

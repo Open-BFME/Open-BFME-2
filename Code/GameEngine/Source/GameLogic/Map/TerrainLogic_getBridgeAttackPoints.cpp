@@ -37,20 +37,39 @@ private:
 	ObjectID m_id;		// +0x74
 };
 
-class BridgeInfo
+typedef bool Bool;
+typedef int Int;
+
+enum BodyDamageType
+{
+	BODY_PRISTINE = 0,
+	BODY_DAMAGED = 1,
+	BODY_REALLYDAMAGED = 2,
+	BODY_RUBBLE = 3
+};
+
+class Rva0027C36A
 {
 public:
-	Coord3D from;		// +0x00
-	Coord3D to;		// +0x0C
-	Real bridgeWidth;	// +0x18
-	Coord3D fromLeft;	// +0x1C
-	Coord3D fromRight;	// +0x28
-	Coord3D toLeft;		// +0x34
-	Coord3D toRight;	// +0x40
-	int bridgeIndex;	// +0x4C
-	int curDamageState;	// +0x50
-	ObjectID bridgeObjectID;	// +0x54
+	Rva0027C36A();
+	Rva0027C36A &operator=(const Rva0027C36A &other);
+
+	Coord3D from; // +0x00
+	Coord3D to; // +0x0C
+	Real bridgeWidth; // +0x18
+	Coord3D fromLeft; // +0x1C
+	Coord3D fromRight; // +0x28
+	Coord3D toLeft; // +0x34
+	Coord3D toRight; // +0x40
+	Int bridgeIndex; // +0x4C
+	BodyDamageType curDamageState; // +0x50
+	ObjectID bridgeObjectID; // +0x54
+	ObjectID towerObjectID[4]; // +0x58
+	Bool damageStateChanged; // +0x68
+private:
+	char m_pad69[0xA8 - 0x69];
 };
+typedef Rva0027C36A BridgeInfo;
 
 class Bridge
 {

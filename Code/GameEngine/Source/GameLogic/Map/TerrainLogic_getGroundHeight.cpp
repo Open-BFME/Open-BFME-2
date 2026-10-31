@@ -18,7 +18,10 @@ static inline void zeroInline(Coord3D &c) { c.x = 0.0f; c.y = 0.0f; c.z = 0.0f; 
 
 enum PathfindLayerEnum
 {
-	LAYER_INVALID = 0
+	LAYER_INVALID = 0,
+	LAYER_GROUND = 1,
+	LAYER_LAST = 15,
+	LAYER_RAMP = 16 // BFME 2: the pathfinder's ramp test reports it
 };
 
 class TerrainLogic

@@ -15,14 +15,14 @@ public:
 		int amount, bool absolute, int mode);
 };
 
+#include "GameLogicObjectLookupView.h"
 class Object
 {
 public:
 	char m_pad00[0x38];
-	Coord3D m_pos38;
+	Coord3D m_pos;
 };
 
-#include "GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 
 class Rva000421C8
@@ -104,7 +104,7 @@ void TerrainLogic::rva00283262(const Coord3D *a, float radius)
 	BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(a, radius, 0,
 		&Rva0004584D(*(BfmeFixedStorage0004543D *)&Rva00045411BitSet(0, 0x98), *reinterpret_cast<const BfmeFixedStorage0004543D *>(&KINDOFMASK_NONE)), 1);
 	for (Object *other = hits.next(); other != 0; other = hits.next()) {
-		rva00282CFB(&other->m_pos38, radius, (unsigned int)-1);
+		rva00282CFB(&other->m_pos, radius, (unsigned int)-1);
 		TheGameLogic->destroyObject(other);
 	}
 	rva00282CFB(a, radius, (unsigned int)-1);
@@ -123,17 +123,26 @@ struct TerrainPoint00282CFB
 	TerrainPoint00282CFB(const TerrainPoint00282CFB &p) : x(p.x), y(p.y), z(p.z) {}
 };
 
+class AsciiString;
+class ChunkInputStream;
+class Rva002834C4;
 class G00DFF080Obj
 {
 public:
-	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
-	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
+	virtual void slot0();
+	virtual void slot1();
+	virtual void slot2();
+	virtual void slot3();
+	virtual void slot4(const AsciiString &filename, ChunkInputStream *pStrm, Rva002834C4 *a,
+		Rva002834C4 *b, Rva002834C4 *c); // +0x10
+	virtual void v05(); virtual void v06(); virtual void v07();
 	virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
 	virtual void v12(); virtual void v13(void *p); virtual void v14();
 	virtual void v15(); virtual void v16(); virtual void v17(); virtual void v18();
 	virtual void v19(); virtual void v20(); virtual void v21(); virtual void v22();
 	virtual void rva00282CFBNotify(TerrainPoint00282CFB point, float radius);
 };
+
 extern G00DFF080Obj *TheTerrainVisual;
 
 void TerrainLogic::rva00282CFB(const Coord3D *pos, float radius, unsigned int mode)

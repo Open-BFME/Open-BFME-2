@@ -13,7 +13,13 @@
 #include "ascii_string.h"
 
 typedef int ObjectID;
-enum BodyDamageType { BODY_PRISTINE, BODY_DAMAGED, BODY_REALLYDAMAGED, BODY_RUBBLE };
+enum BodyDamageType
+{
+	BODY_PRISTINE = 0,
+	BODY_DAMAGED = 1,
+	BODY_REALLYDAMAGED = 2,
+	BODY_RUBBLE = 3
+};
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 // Retail 0x0027D3D9: placement manager slot 20 takes template and position
@@ -22,21 +28,32 @@ enum BodyDamageType { BODY_PRISTINE, BODY_DAMAGED, BODY_REALLYDAMAGED, BODY_RUBB
 class ThingTemplate;
 class Matrix3D {public: float Get_Z_Rotation() const;};
 
-struct BridgeInfo
+typedef bool Bool;
+typedef float Real;
+typedef int Int;
+
+class Rva0027C36A
 {
-	Coord3D from;
-	Coord3D to;
-	float bridgeWidth;
-	Coord3D fromLeft;
-	Coord3D fromRight;
-	Coord3D toLeft;
-	Coord3D toRight;
-	int bridgeIndex;
-	BodyDamageType curDamageState;
-	ObjectID bridgeObjectID;
-	ObjectID towerObjectID[4];
-	bool damageStateChanged;
+public:
+	Rva0027C36A();
+	Rva0027C36A &operator=(const Rva0027C36A &other);
+
+	Coord3D from; // +0x00
+	Coord3D to; // +0x0C
+	Real bridgeWidth; // +0x18
+	Coord3D fromLeft; // +0x1C
+	Coord3D fromRight; // +0x28
+	Coord3D toLeft; // +0x34
+	Coord3D toRight; // +0x40
+	Int bridgeIndex; // +0x4C
+	BodyDamageType curDamageState; // +0x50
+	ObjectID bridgeObjectID; // +0x54
+	ObjectID towerObjectID[4]; // +0x58
+	Bool damageStateChanged; // +0x68
+private:
+	char m_pad69[0xA8 - 0x69];
 };
+typedef Rva0027C36A BridgeInfo;
 
 class Bridge
 {

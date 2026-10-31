@@ -6,7 +6,15 @@
 // 27D5AD..27D5E0; ::delete calls virtual destructor flags0 then global delete.
 // BFME1's game/ replacement only deletes orphaned bridges and is inapplicable.
 // Keep cleanup independent of the older bridge unit's unresolved providers.
-class Bridge {public:virtual ~Bridge();Bridge *next;};
+class Bridge
+{
+public:
+	virtual ~Bridge();
+	Bridge *getNext() { return m_next; }
+	void setNext(Bridge *next) { m_next = next; }
+private:
+	Bridge *m_next; // +0x04
+};
 template<int N> class TerrainLogicCleanupSlots:public TerrainLogicCleanupSlots<N-1> {
 public:virtual void gap(char (*)[N]);
 };
@@ -19,8 +27,8 @@ private:char opaque04[0x40-4];Bridge *m_bridgeListHead;
 void TerrainLogic::deleteBridges() {
  Bridge *next=0;
  for(Bridge *bridge=getFirstBridge();bridge;bridge=next) {
-  next=bridge->next;
-  bridge->next=0;
+  next=bridge->getNext();
+  bridge->setNext(0);
   ::delete bridge;
  }
  m_bridgeListHead=0;

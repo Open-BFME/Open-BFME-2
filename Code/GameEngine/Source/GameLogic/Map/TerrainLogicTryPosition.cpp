@@ -17,8 +17,26 @@
 #include "../../Common/PartitionRangeQueryCallView.h"
 typedef bool Bool;
 typedef float Real;
+enum PathfindLayerEnum
+{
+	LAYER_INVALID = 0,
+	LAYER_GROUND = 1,
+	LAYER_LAST = 15,
+	LAYER_RAMP = 16 // BFME 2: the pathfinder's ramp test reports it
+};
 enum GeometryType { GEOMETRY_SPHERE, GEOMETRY_CYLINDER, GEOMETRY_BOX };
-enum PathfindLayerEnum { LAYER_GROUND = 1 };
+
+class GeometryInfo
+{
+public:
+	GeometryInfo(GeometryType type, Bool isSmall, Real height, Real majorRadius, Real minorRadius);
+	virtual ~GeometryInfo();
+	Bool CollidesWith(const Coord3D &pos, Real angle, const GeometryInfo &other, const Coord3D &otherPos, Real otherAngle) const;
+	__declspec(dllimport) __forceinline Real getMinorRadius() const { return m_minorRadius; }
+	char m_pad04[0x10 - 0x04];
+	Real m_minorRadius; // +0x10
+	char m_pad14[0x5C - 0x14];
+};
 enum Relationship { ENEMIES, NEUTRAL, ALLIES };
 enum FindPositionFlags {
  FPF_IGNORE_WATER=1, FPF_WATER_ONLY=2, FPF_IGNORE_ALL_OBJECTS=4,
@@ -47,12 +65,6 @@ public:
 	const Object *ignoreObject; // +0x14
 	const Object *sourceToPathToDest; // +0x18
 	const Object *relationshipObject; // +0x1C
-};
-class GeometryInfo {
-public:
- GeometryInfo(GeometryType,Bool,Real,Real,Real);
- virtual ~GeometryInfo();
- char unknown[0x58];
 };
 class Rva000421C8
 {
