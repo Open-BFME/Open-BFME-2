@@ -21,6 +21,12 @@ census confirmation remain separate; retain the outgoing audit's scope and
 currency qualifications. Do not retire the LINK-140 family on this preview.
 [Actual-object comparison, controls and scope](../reverse/attempt_support/imbue-stlport46-provider-handoff-20261031.md).
 
+Publication audit for `b4d0c4f5547f5fb9fa26dfca3ab6d6ea4fe0273d`:
+INCONCLUSIVE. The index `3c7a254a38` predates outgoing base `d8afc35512fc`;
+two affected source objects lack current receipts, first
+`stlport_basic_ios_init.cpp`. No full consumer-loss clearance follows from
+the successful 7-row hook. Keep these cases for the next scheduled census.
+
 ### Banner-spawn query canonical Module storage view (2026-10-30)
 
 Rva00496B48Finish includes the canonical eight-byte Module and retains its

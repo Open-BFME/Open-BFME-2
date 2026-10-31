@@ -52,6 +52,15 @@ verified directly rather than assuming those old consumers still exist.
 The outgoing audit's currency/consumer limits remain separate and must stay
 in the obstacle register. A preview is not a new census or a full-image link.
 
+The normal publisher lands the repair on its first attempt as
+`b4d0c4f5547f5fb9fa26dfca3ab6d6ea4fe0273d`, after rebasing onto
+`d8afc35512fc89d1ae4da5ce63875ea2ed3a28af`. Its hook verifies all seven rows,
+both EH graphs and converged data. The outgoing link audit is INCONCLUSIVE:
+the index predates that outgoing base and two affected objects lack current
+receipts, first `Code/Libraries/Source/WWVegas/WWLib/stlport_basic_ios_init.cpp`.
+Those qualifications remain open for the scheduled census; neither the
+successful push nor the two-file preview proves full consumer-loss clearance.
+
 Qwen reviewed only the supplied provider-loss scenario, on four CPU threads
 with CUDA hidden. It identified the stated unresolved-reference risk but
 provided no independent binary evidence or source patch. Host COFF, row, EH
