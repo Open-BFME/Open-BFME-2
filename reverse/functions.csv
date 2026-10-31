@@ -7355,7 +7355,7 @@ _GetProcessorFlags,,0x001C4390,169,Code/Libraries/Source/VP6/GetProcessorFlags.c
 ?get@Rva0045B123ByteField@@QBEEXZ,,0x0045B123,7,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp,matched,Disp32 byte getter
 ?get@Rva0045B4A6ByteField@@QBEEXZ,,0x0045B4A6,7,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp,matched,Disp32 byte getter
 ?get@Rva00462450ByteField@@QBEEXZ,,0x00462450,7,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp,matched,Disp32 byte getter
-?get@Rva00466467ByteField@@QBEEXZ,,0x00466467,7,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp,matched,Disp32 byte getter
+?get@Rva00466467ByteField@@QBEEXZ,,0x00466467,7,Code/GameEngine/Source/GameLogic/Object/Contain/CaveContain.cpp,matched,Disp32 byte getter
 ?get@Rva0046F82AByteField@@QBEEXZ,,0x0046F82A,7,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp,matched,Disp32 byte getter
 ?get@Rva0046F845ByteField@@QBEEXZ,,0x0046F845,7,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp,matched,Disp32 byte getter
 ?get@Rva0047DB8EByteField@@QBEEXZ,,0x0047DB8E,7,Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContain.cpp,matched,Disp32 byte getter
