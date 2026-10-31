@@ -66,12 +66,30 @@ template unsigned int vector<Coord3D, allocator<Coord3D> >::capacity() const;
 //#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
 
 
+
 #endif
 #include <deque>
 #include <string.h>
 #pragma comment(linker, "/alternatename:?rva0046444E@Rva0046444E@@QAE?AVRva00464984Iterator@@V2@ABVRva00464984Pair@@@Z=?insert_unique@?$_Rb_tree@HU?$pair@$$CBHURva0046444ERecord@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva0046444ERecord@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva0046444ERecord@@@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHURva0046444ERecord@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHURva0046444ERecord@@@_STL@@@2@@2@U32@ABU?$pair@$$CBHURva0046444ERecord@@@2@@Z")
 #include <set>
 #define _STLP_BFME_RB_MINMAX_IMPORT  // inline _Rb_tree_node_base::_S_minimum/_S_maximum without a COMDAT copy (vendor/stlport/stl/_tree.h)
+//
+// BFME2's 96-byte Pod vector allocator at RVA 0x0046265E (28B: imul-0x60
+// size computation plus the shared byte-allocator call). The home TU
+// (stlport_pod_vector_bodies.cpp) compiles its allocators under /O1, which
+// strength-reduces n*96 to lea+shl; retail keeps the imul, which this
+// toolchain emits only under /G7 P4 tuning (probe-proven on the B9534 and
+// Pod144 allocator precedents). Same-TU visibility and flag-split rules
+// require a shard: flipping the home TU's flags would break its landed /O1
+// bodies. Size-carrying body, so the BfmePod96 placeholder name is honest
+// per the POD-PLACEHOLDER LAW (element construction never passes through
+// here). The BfmePod96 layout mirrors the home TU declaration.
+struct BfmePod96 { int a[24]; };
+#include <memory>
+#define SLOT08(a,b,c,d,e,f,g,h) virtual void a(); virtual void b(); virtual void c(); virtual void d(); virtual void e(); virtual void f(); virtual void g(); virtual void h();
+#define SLOT16(a) SLOT08(a##0,a##1,a##2,a##3,a##4,a##5,a##6,a##7) SLOT08(a##8,a##9,a##A,a##B,a##C,a##D,a##E,a##F)
+#include <stl/_alloc.h>
+namespace _STL { template <> void __malloc_alloc<0>::deallocate(void *, size_t); }
 
 // map<unsigned> internals otherwise instantiate the less<unsigned>::operator()
 // COMDAT (one byte shape per TU flags); an explicit specialization declaration
@@ -625,15 +643,168 @@ namespace _STL { template <> _Rb_tree<Rva00463D59Element, Rva00463D59Element, _I
 // Emit only the rowed constructor; unrelated set operations require element bodies.
 template _STL::set<Rva00463D59Element>::set();
 
+template class _STL::allocator<BfmePod96>;
+
+class Rva0046267A
+{
+public:
+	Rva0046267A(const Rva0046267A &that);
+private:
+	int m_00;
+	WeaponTemplateSetHead m_04;
+};
+
+//
+// ?rva00462785@Rva00462785@@QAEHXZ, retail 0x00462785, 23 bytes.
+// Leaf just after SlaughterHordeContain slot81 (0x0046274C) in the 00462xxx
+// page: returns 1 only when the byte at +0xE1 is nonzero and the byte at
+// +0x83 of the object at +0x4 is nonzero, else 0. Int return (xor eax plus
+// inc eax) not bool. Evidence: address neighbours plus three unclaimed
+// callers at 0x00477B88/0x00478E1A/0x00479CFF plus no callees; class identity
+// unproven so honest RVA class name, no invented class or method.
+
+struct Inner00462785 {
+	char pad[0x83];
+	unsigned char flag83;
+};
+
+class Rva00462785
+{
+public:
+	virtual void s0();
+	virtual void s1();
+
+	Inner00462785 *m_ptr04;
+	char m_pad08[0xE1 - 0x8];
+	unsigned char m_flagE1;
+
+	int rva00462785();
+};
+
+struct Buf00462B4A {
+	char m_data[0x10];
+};
+
+struct Ret00462B4A {
+ unsigned m_flags,m_b,m_c,m_d;
+ Ret00462B4A(){}
+ Ret00462B4A(const Ret00462B4A& x):m_flags(x.m_flags),m_b(x.m_b),m_c(x.m_c),m_d(x.m_d){}
+ __forceinline unsigned char test(int i)const {return (unsigned char)(m_flags>>i)&1;}
+};
+
+class Other00462B4A {
+public:
+	SLOT16(o0) SLOT16(o1) SLOT08(o20,o21,o22,o23,o24,o25,o26,o27)
+	virtual void o28(); virtual void o29(); virtual void o2A(); virtual void o2B(); virtual void o2C();
+	virtual bool v_b4();
+};
+
+struct Mid00462B4A {
+	char m_pad[0x250];
+	Other00462B4A *m_other;
+};
+
+struct Parent00462B4A {
+	char m_pad[0x274];
+	Mid00462B4A *m_mid;
+};
+
+class Rva00462B4A {
+public:
+	SLOT16(s0) SLOT16(s1) SLOT08(s20,s21,s22,s23,s24,s25,s26,s27)
+	virtual void s28(); virtual void s29(); virtual void s2A(); virtual void s2B();
+	virtual Ret00462B4A v_b0(int zero);
+	bool rva00462B4A();
+};
+
+struct Rva00462D08Mapped
+{
+	unsigned int m_bits;
+};
+
+typedef _STL::pair<const int, Rva00462D08Mapped> Rva00462D08Pair;
+
+// Preserve retail's inline node/buffer free; the public allocator is supplied by its verified owner.
+namespace _STL {
+#pragma optimize("gsy", on)
+template <> __forceinline void allocator<_Rb_tree_node< ::Rva00462D08Pair > >::deallocate(_Rb_tree_node< ::Rva00462D08Pair > *p, size_t) const { if (p != 0) free(p); }
+#pragma optimize("", on)
+}
+
+typedef _STL::_Rb_tree<int, Rva00462D08Pair, _STL::_Select1st<Rva00462D08Pair>, _STL::less<int>, _STL::allocator<Rva00462D08Pair> > Rva00462D08Tree;
+
+template void Rva00462D08Tree::_M_erase(Rva00462D08Tree::_Link_type);
+
+// Retain only the matched clear body at 0x004633D3. The former whole-class
+// instantiation emitted wrong COMDAT copies; explicit instantiation keeps
+// just clear (plus _M_erase above).
+template void Rva00462D08Tree::clear();
+
 // tu-skeleton: 0x004624E3 8B ?containReactToTransformChange@OpenContain@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainReactToTransformChange.cpp (not merged yet)
 
+// tu-skeleton: 0x004624EB 25B ?rva004624EB@Rva004624EB@@UAE?AURva00462465@@XZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE22.cpp (not merged yet)
+
+// tu-skeleton: 0x0046262D 29B ??0Rva0046262D@@QAE@PAXABVWeaponTemplateSetHead@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/Rva0046262DCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0046264A 20B ?deallocate@?$allocator@D@_STL@@QAEXPADI@Z -- matched in Code/GameEngine/Source/Common/NarrowStringRecordCopyBFME2.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pod96_allocator.cpp
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/Rva0046267ACopyCtor.cpp
+
+Rva0046267A::Rva0046267A(const Rva0046267A &that)
+	: m_00(that.m_00), m_04(that.m_04)
+{
+}
+
+// tu-skeleton: 0x00462697 15B ?rva00462697@Rva00462697@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE22.cpp (not merged yet)
+
+// tu-skeleton: 0x004626A6 9B ??0Rva004626A6@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
+
 // tu-skeleton: 0x004626CA 107B ?rva004626CA@OpenContain@@UAEPBUCoord3D@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainRva004626CA.cpp (not merged yet)
+
+// tu-skeleton: 0x00462735 16B ?rva00462735@Rva00462735@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesC.cpp (not merged yet)
+
+// tu-skeleton: 0x00462745 7B ?get@Rva00462745PtrChaseField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/Rva00462785.cpp
+
+int Rva00462785::rva00462785()
+{
+	int r = 0;
+	if (m_flagE1 != 0 && m_ptr04->flag83 != 0)
+		r = 1;
+	return r;
+}
 
 // tu-skeleton: 0x0046279C 143B ?doLoadSound@OpenContain@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainSounds.cpp (not merged yet)
 
 // tu-skeleton: 0x0046282B 128B ?doUnloadSound@OpenContain@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainSounds.cpp (not merged yet)
 
 // tu-skeleton: 0x00462977 467B ?isValidContainerFor@OpenContain@@UAE_NPAVObject@@_N1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainIsValidContainerFor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/Rva00462B4AFlagsPredicate.cpp
+
+// ?rva00462B4A@Rva00462B4A@@QAE_NXZ
+// ?rva00462B4A@Rva00462B4A@@QAE_NXZ @0x00462B4A 73B
+// Evidence: Native462B4A..462B93 RET0; table43464 near SlaughterHordeContain and owner at secondary minus18. Virtual slot44 returns16B flags value through hidden pointer then zero argument. Real flags return and inline byte test reproduce native MOV SHR TEST. Parent274 and far interface slot45; purpose and original class unknown; full73 bytes exact no pins.
+// ?rva00462B4A@Rva00462B4A@@QAE_NXZ @0x00462B4A 73B: bool predicate via v_b0 buffer check then parent chain
+// Identity: REF table slots (e.g. 0x00843464) with SlaughterHordeContain neighbours; honest address name.
+// Evidence: virtual offsets 0xB0/0xB4, returning false/true/forwarded bool.
+
+// ?rva00462B4A@Rva00462B4A@@QAE_NXZ
+bool Rva00462B4A::rva00462B4A()
+{
+	if (!v_b0(0).test(1))
+		return false;
+	Parent00462B4A *outer = *(Parent00462B4A **)((char *)this - 0x18);
+	Mid00462B4A *mid = *(Mid00462B4A **)((char *)outer + 0x274);
+	if (mid) {
+		Other00462B4A *o = *(Other00462B4A **)((char *)mid + 0x250);
+		return o->v_b4();
+	}
+	return true;
+}
 
 // tu-skeleton: 0x00462C72 97B ?monitorConditionChanges@OpenContain@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain_monitorConditionChanges.cpp (not merged yet)
 
@@ -649,11 +820,21 @@ template _STL::set<Rva00463D59Element>::set();
 
 // tu-skeleton: 0x0046333B 152B ?rva0046333B@Rva0046333B@@QAE_NPAH00000@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/Rva0046333BCounts.cpp (not merged yet)
 
-// tu-skeleton: 0x004633D3 41B ?clear@?$_Rb_tree@HU?$pair@$$CBHURva00462D08Mapped@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva00462D08Mapped@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva00462D08Mapped@@@_STL@@@2@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_tree_erase_00462D08.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_tree_erase_00462D08.cpp
+
+// ?_M_erase@?$_Rb_tree@HU?$pair@$$CBHURva00462D08Mapped@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva00462D08Mapped@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva00462D08Mapped@@@_STL@@@2@@_STL@@AAEXPAU?$_Rb_tree_node@U?$pair@$$CBHURva00462D08Mapped@@@_STL@@@2@@Z @ 0x00462D08 (45B).
+// Trivial red-black tree node eraser, byte-identical shape to rowed 45B erases
+// 0x00603A00 and 0x000692F5 plus sibling 0x00462D35 (recurse-right via
+// [esi+0x0C], walk-left via [esi+0x08], release via GameMemory free 0x00030830,
+// ret 4). Caller is 0x004633D3 which passes root [eax+0x04] same as clear
+// 0x00603A7F. True key/value unknown; opaque trivial 4-byte placeholder,
+// erase bytes independent of trivial type, identity via call chain.
 
 // tu-skeleton: 0x004633FC 41B ?clear@?$_Rb_tree@HU?$pair@$$CBHURva00462D35Mapped@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva00462D35Mapped@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva00462D35Mapped@@@_STL@@@2@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_tree_erase_00462D35.cpp (not merged yet)
 
 // tu-skeleton: 0x00463425 68B ?dup_00463425@@YAXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_o1.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp
 
@@ -1028,6 +1209,46 @@ Rva00464984Iterator Rva00464984::rva00464984(
 // carries as ?insert_unique@?$_Rb_tree@HU?$pair@$$CBHURva0046444ERecord@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva0046444ERecord@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva0046444ERecord@@@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHURva0046444ERecord@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHURva0046444ERecord@@@_STL@@@2@@2@U32@ABU?$pair@$$CBHURva0046444ERecord@@@2@@Z. Bind the donor spelling to that rowed owner so one
 // address keeps one definition and the unit links.
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva00463D59.cpp
+
+// STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
+// Element identity and unconstrained fields remain address-derived structural inference.
+// STLport 4.5.3 reference instantiation. Target boundary and byte comparison prove operation shape.
+// Element spelling/layout is donor inference; opaque records have address-derived identity.
+
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva00463D9B.cpp
+
+// STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
+// Element identity and unconstrained fields remain address-derived structural inference.
+// STLport 4.5.3 reference instantiation. Target boundary and byte comparison prove operation shape.
+// Element spelling/layout is donor inference; opaque records have address-derived identity.
+
+inline bool operator<(const Rva00463D9BElement &left, const Rva00463D9BElement &right)
+{
+ return left.m_key < right.m_key;
+}
+
+unsigned int Rva004643C9::rva004643C9(const Rva00463D9BElement &key)
+{
+    return erase(key);
+}
+
 // tu-skeleton: 0x0046348D 45B ??$_Construct@UBfmeContainerRecord00462D62@@U1@@_STL@@YAXPAUBfmeContainerRecord00462D62@@ABU1@@Z -- matched in Code/GameEngine/Source/Common/StringContainerRecordCopyBFME2.cpp (not merged yet)
 
 // tu-skeleton: 0x004634BA 34B ?Rva004634BACreate@@YGPAURva004634BANode@@ABVRva0046267A@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva004634BACreateNode.cpp (not merged yet)
@@ -1058,31 +1279,15 @@ Rva00464984Iterator Rva00464984::rva00464984(
 
 // tu-skeleton: 0x004638F1 42B ?addToContainList@OpenContain@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainRva004638F1.cpp (not merged yet)
 
-// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva00463D59.cpp
+// tu-skeleton: 0x0046391B 186B ?rva0046391B@Rva00463A81@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/Rva0046391BDelayed.cpp (not merged yet)
 
-// STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
-// Element identity and unconstrained fields remain address-derived structural inference.
-// STLport 4.5.3 reference instantiation. Target boundary and byte comparison prove operation shape.
-// Element spelling/layout is donor inference; opaque records have address-derived identity.
+// tu-skeleton: 0x004639D5 120B ?rva004639D5@Rva004639D5@@UAEHH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE22.cpp (not merged yet)
+
+// tu-skeleton: 0x00463A81 82B ?rva00463A81@Rva00463A81@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00463A81Prune.cpp (not merged yet)
+
+// tu-skeleton: 0x00463AD3 411B ?rva00463AD3@Rva00463AD3@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SlaughterHordeContainRva00463AD3.cpp (not merged yet)
 
 // tu-skeleton: 0x00463D72 41B ?rva00463D72@Rva00463782@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeValueEraseFamily.cpp (not merged yet)
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva00463D9B.cpp
-
-// STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
-// Element identity and unconstrained fields remain address-derived structural inference.
-// STLport 4.5.3 reference instantiation. Target boundary and byte comparison prove operation shape.
-// Element spelling/layout is donor inference; opaque records have address-derived identity.
-
-inline bool operator<(const Rva00463D9BElement &left, const Rva00463D9BElement &right)
-{
- return left.m_key < right.m_key;
-}
-
-unsigned int Rva004643C9::rva004643C9(const Rva00463D9BElement &key)
-{
-    return erase(key);
-}
 
 // tu-skeleton: 0x00463DE4 37B ?insert@?$list@UBfmeContainerRecord00462D62@@V?$allocator@UBfmeContainerRecord00462D62@@@_STL@@@_STL@@QAE?AU?$_List_iterator@UBfmeContainerRecord00462D62@@U?$_Nonconst_traits@UBfmeContainerRecord00462D62@@@_STL@@@2@U32@ABUBfmeContainerRecord00462D62@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportListInsertFootprints.cpp (not merged yet)
 

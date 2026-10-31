@@ -10692,6 +10692,8 @@ pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00396E4ARemo
 pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehavior.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehavior.cpp	"gsy",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain_onContaining.cpp	"y",on	1
+pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp	"",on	1
+pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp	"gsy",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Object.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Object.cpp	"t",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	"",on	1
@@ -11816,8 +11818,6 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_tree_erase_002B60F9.
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_tree_erase_002B60F9.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_tree_erase_00357153.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_tree_erase_00357153.cpp	"gsy",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_tree_erase_00462D08.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_tree_erase_00462D08.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_tree_erase_00462D35.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_tree_erase_00462D35.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_assetreference_overflow.cpp	"",on	1
