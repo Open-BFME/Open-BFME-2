@@ -92,14 +92,3 @@ void Rva003F936EHost::rva003FB793(Vec3 *out)
 	out->y = y;
 	out->z = z;
 }
-
-void LivingWorldEyeTower::rva003F936E(Rva003F936EHost *host, float *f)
-{
-	if (host == 0)
-		return;
-	Vec3 position;
-	host->rva003FB793(&position);
-	position.x = f[0];
-	position.y = f[1];
-	host->vfunc7(&position);
-}
