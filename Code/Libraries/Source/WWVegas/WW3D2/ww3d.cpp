@@ -88,6 +88,8 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include <string.h>
 #include <windows.h>
 #include <new>
+#include <stdlib.h>
+#include "framgrab.h"
 
 const char* DAZZLE_INI_FILENAME="DAZZLE.INI";
 
@@ -407,6 +409,131 @@ public:
 	void *m_file;
 	void *m_stream;
 };
+
+class Debug;
+
+class DebugCmdInterface
+{
+protected:
+	virtual ~DebugCmdInterface() {}
+
+public:
+	__declspec(dllimport) __forceinline DebugCmdInterface() {}
+
+	enum CommandMode
+	{
+		Normal,
+		Structured,
+		MAX
+	};
+
+	virtual bool Execute( Debug &dbg, const char *cmd, CommandMode cmdmode, unsigned argn, const char *const *argv ) = 0;
+	virtual void Delete() = 0;
+};
+
+class Rva007ACBC0CmdInterface : public DebugCmdInterface
+{
+public:
+	virtual bool Execute( Debug &dbg, const char *cmd, CommandMode cmdmode, unsigned argn, const char *const *argv );
+	virtual void Delete();
+};
+
+// Placeholder slots up to AddCommands at 0x84; DebugPostStaticInit.cpp
+// carries the named view.
+class Debug
+{
+public:
+	virtual void slot00();
+	virtual void slot04();
+	virtual void slot08();
+	virtual void slot0C();
+	virtual void slot10();
+	virtual void slot14();
+	virtual void slot18();
+	virtual void slot1C();
+	virtual void slot20();
+	virtual void slot24();
+	virtual void slot28();
+	virtual void slot2C();
+	virtual void slot30();
+	virtual void slot34();
+	virtual void slot38(const char *text);
+	virtual void slot3C();
+	virtual void slot40();
+	virtual void slot44();
+	virtual void slot48();
+	virtual void slot4C();
+	virtual void slot50();
+	virtual void slot54();
+	virtual void slot58();
+	virtual void slot5C();
+	virtual void slot60();
+	virtual void slot64();
+	virtual void slot68();
+	virtual void slot6C();
+	virtual void slot70();
+	virtual void slot74();
+	virtual void slot78();
+	virtual void slot7C();
+	virtual void slot80();
+	virtual bool AddCommands( const char *cmdgroup, DebugCmdInterface *cmdif ); // slot 0x84
+	virtual void slot88();
+	virtual void slot8C(const char *command);
+};
+
+static int g_rva00DEC414SceneAnalystFrames;
+
+static char g_rva00DEC418SceneAnalystFilter[128];
+
+void Rva0011F3D0Convert(const char *name, void *value);
+
+// The device keeps its D3D8 type name but is a Direct3D 9 device
+// (TestCooperativeLevel, vtable slot 3).
+namespace Debug_Statistics
+{
+	void Begin_Statistics();
+}
+
+extern Debug *theDebug;
+
+// WW3D::Set_Texture_Reduction, retail 0x00117BB0.
+// The setter must not capture globals locally: `mov eax,[esp+4]; cmp [glob],eax; je; cmp-flag; mov-glob; je;
+// jmp _Invalidate_Textures` -- the flag cmp schedules above the store while
+// the je still tests it (mov preserves flags). BFME 2 drops ZH's min_dim
+// argument and only invalidates once WW3D is initialised.
+
+
+extern int g_Va00DEC40C;
+
+// Clean BFME body for WW3D::Begin_Render at BFME1 donor RVA 0x008FE280; BFME2 native118170..118296.
+// Semantic donor BFME1 6583b3c1ff21db4a561285717028fdafc780b7db.
+// Target flags, removed counters/statistics, pool reset callees, viewport
+// direct DX8 call and bool result are proved by native294, not donor labels.
+// Target returns AL; keep an address-derived API name because the return
+// ABI and return values differ from the donor enum. The frame-start purpose
+// is established by the reset/capture/
+// clear/scene sequence and matched WW3D companions; original enum identity
+// is not asserted. The reset-phase empty call uses an existing provider ABI
+// view; it does not name the original folded function.
+// Reset_Device122600, target resolution121860 and Clear11D330 are unrowed.
+
+typedef unsigned int UnsignedInt;
+
+class BfmeD3DDevice
+{
+public:
+	virtual long __stdcall slot00(void);
+	virtual long __stdcall slot04(void);
+	virtual long __stdcall slot08(void);
+	virtual long __stdcall TestCooperativeLevel(void);
+};
+
+// Native pushes an unused value1 before calling the shared empty RET.
+// Reuse its already rowed provider without adding a second pin/name.
+// The bool cdecl call view describes the caller stack, not DX8_Assert identity.
+void DX8_Assert(void);
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp
 
@@ -1507,7 +1634,7 @@ float	WW3D::Get_Movie_Capture_Frame_Rate( void )
  * HISTORY:                                                                                    *
  *   5/19/99    GTH : Created.                                                                 *
  *=============================================================================================*/
-// ?Set_Texture_Reduction@WW3D@@ present-unmatched
+// ?Set_Texture_Reduction@WW3D@@SAXHH@Z present-unmatched
 void	WW3D::Set_Texture_Reduction( int value, int minDim )
 {
 	if (_TextureReduction != value || _TextureMinDim != minDim) {
@@ -1950,18 +2077,6 @@ bool WW3D::Init(void *hwnd, char *, bool lite)
 	return true;
 }
 
-// tu-skeleton: 0x00116E20 6B ?Rva00116E20Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstGlobalGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00116E30 6B ?Rva00116E30Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstGlobalGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00116E40 10B ?Rva00116E40Set@@YAXH@Z -- matched in Code/GameEngine/Source/Common/ColdGlobalDwordSetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00116F70 6B ?Rva00116F70GetByte@@YAEXZ -- matched in Code/GameEngine/Source/Common/GlobalByteGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00116FA0 5B ?Rva00116FA0Get@@YAHXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva00116FA0Forwarders.cpp (not merged yet)
-
-// tu-skeleton: 0x001170A0 120B ?_Invalidate_Mesh_Cache@WW3D@@SAXXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/bfmedynamicvertexbuffer.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/Rva00117120Cluster.cpp
 
 void rva00117120()
@@ -1975,36 +2090,6 @@ void rva00117120()
 			matDesc->m_obj->rva152d1c(4);
 	}
 }
-
-// tu-skeleton: 0x001171B0 199B ?_Invalidate_Textures@WW3D@@SAXXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva001171B0Cluster.cpp (not merged yet)
-
-// tu-skeleton: 0x001172B0 317B ?Prepare_Render_New_Frame@WW3D@@SA_NXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva007ACBC0Ww3dCmdExecute.cpp (not merged yet)
-
-// tu-skeleton: 0x001174C0 5B ?Rva001174C0Get@@YAHXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva00116FA0Forwarders.cpp (not merged yet)
-
-// tu-skeleton: 0x001174D0 5B ?Rva001174D0@@YAXH@Z -- matched in Code/GameEngine/Source/Common/TailJumpWrappers5B.cpp (not merged yet)
-
-// tu-skeleton: 0x001174E0 5B ?Rva001174E0Get@@YAHXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva00116FA0Forwarders.cpp (not merged yet)
-
-// tu-skeleton: 0x00117AD0 219B ?Update_Movie_Capture@WW3D@@SAXXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/WW3DUpdateMovieCapture.cpp (not merged yet)
-
-// tu-skeleton: 0x00117BB0 32B ?Set_Texture_Reduction@WW3D@@SAXH@Z -- matched in Code/GameEngine/Source/Common/WW3DOptionSetter.cpp (not merged yet)
-
-// tu-skeleton: 0x00117C00 6B ?Get_Texture_Reduction@WW3D@@SAHXZ -- matched in Code/GameEngine/Source/Common/GlobalGetterSingles.cpp (not merged yet)
-
-// tu-skeleton: 0x00117C10 13B ?Rva00117C10Get@@YAXPAH@Z -- matched in Code/GameEngine/Source/Common/GlobalGetterSingles.cpp (not merged yet)
-
-// tu-skeleton: 0x00117C20 13B ?Rva00117C20Get@@YAXPAH@Z -- matched in Code/GameEngine/Source/Common/GlobalGetterSingles.cpp (not merged yet)
-
-// tu-skeleton: 0x00117C30 6B ?Rva00117C30Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstGlobalGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00117DB0 9B ??0Rva00117DB0@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
-
-// tu-skeleton: 0x00117DC0 330B ?Execute@Rva007ACBC0CmdInterface@@UAE_NAAVDebug@@PBDW4CommandMode@DebugCmdInterface@@IPBQBD@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva007ACBC0Ww3dCmdExecute.cpp (not merged yet)
-
-// tu-skeleton: 0x00117F10 28B ?Delete@Rva007ACBC0CmdInterface@@UAEXXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva007ACBC0Ww3dCmdExecute.cpp (not merged yet)
-
-// tu-skeleton: 0x00117F30 23B ??$Bound@H@@YAHHHH@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/WW3DShutdownRenderDevice.cpp
 
@@ -2027,12 +2112,6 @@ bool WW3D::Shutdown()
     IsInitted=false;
     return true;
 }
-
-// tu-skeleton: 0x00118170 294B ?Begin_Render@WW3D@@SA_N_N0ABVVector3@@M@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/WW3DBeginRenderBFME2.cpp (not merged yet)
-
-// tu-skeleton: 0x001182A0 399B ?Rva001182A0@@YA_NPAXAAVRenderInfoClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/WW3DRenderSceneBFME2.cpp (not merged yet)
-
-// tu-skeleton: 0x00118430 156B ?Render@WW3D@@SA_NAAVRenderObjClass@@AAVRenderInfoClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/WW3DRenderObjRender.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/WW3DStartMovieCapture.cpp
 
@@ -2061,6 +2140,332 @@ void WW3D::Start_Movie_Capture(const char *filename_base, float frame_rate, int 
 		PauseRecord = false;
 	}
 	Movie = reinterpret_cast<FrameGrabClass *>(new BfmeThingTXA(filename_base, width, height, 24, frame_rate, count, compressed));
+}
+
+// tu-skeleton: 0x00116E20 6B ?Rva00116E20Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstGlobalGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00116E30 6B ?Rva00116E30Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstGlobalGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00116E40 10B ?Rva00116E40Set@@YAXH@Z -- matched in Code/GameEngine/Source/Common/ColdGlobalDwordSetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00116F70 6B ?Rva00116F70GetByte@@YAEXZ -- matched in Code/GameEngine/Source/Common/GlobalByteGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00116FA0 5B ?Rva00116FA0Get@@YAHXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva00116FA0Forwarders.cpp (not merged yet)
+
+// tu-skeleton: 0x001170A0 120B ?_Invalidate_Mesh_Cache@WW3D@@SAXXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/bfmedynamicvertexbuffer.cpp (not merged yet)
+
+// tu-skeleton: 0x001171B0 199B ?_Invalidate_Textures@WW3D@@SAXXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva001171B0Cluster.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/Rva007ACBC0Ww3dCmdExecute.cpp
+
+// ?Execute@Rva007ACBC0CmdInterface@@..., retail 0x00117DC0 (330 B, RET 0x14): the "ww3d"
+// debug command group's Execute (class table 0x00BCFBF0, registered by Rva007ACBC0Ww3dCmdGroup.cpp;
+// WB 0x009C02D0 by its strings). "help" lists or explains sceneanalyst and pixmarker through
+// the Debug slot 0x38 writer; "sceneanalyst <frames> <filter>" arms the frame count
+// (0x00DEC414, frames + 1) and copies the 128-byte filter (0x00DEC418, terminated at +127);
+// "pixmarker <name>" forwards to the rowed 0x0011F3D0. Both settings are file-scope statics of
+// the WW3D unit (their only other reader is 0x001172B0 in the same range); retail schedules the
+// frame store past the strncpy pushes, which needs the no-alias knowledge a static gives.
+// WW3D::Prepare_Render_New_Frame, retail 0x001172B0 (317 B; WB 0x009BDFD0, ww3d.cpp): device
+// lost/not-reset handling, Begin_Statistics, then the scene analyst countdown that switches
+// the debug log groups through theDebug's command slot 0x8C.
+	// dx8wrapper.cpp's protected static at VA 0x00DEDC70.
+	// dllimport: inlined at every use, so no out-of-line copy competes with retail's
+	// Convert_Color (0x0006E1C0) or Set_Ambient (0x00117F50, DX8SetAmbient.cpp).
+
+bool Rva007ACBC0CmdInterface::Execute( Debug &dbg, const char *cmd, CommandMode cmdmode, unsigned argn, const char *const *argv )
+{
+	if (!strcmp(cmd, "help"))
+	{
+		if (cmdmode != Normal)
+			return true;
+		if (!argn)
+		{
+			dbg.slot38("ww3d group help:\n  sceneanalyst\n  pixmarker\n");
+			return true;
+		}
+		if (!strcmp(argv[0], "sceneanalyst"))
+		{
+			dbg.slot38("sceneanalyst <number of frames> (*|Mesh*|MeshFXShader|MeshDX8Render|Skinning|DrawCall)\n\nDump rendering order (mesh names, draw calls) for a given number of (client) frames\n");
+			return true;
+		}
+		if (!strcmp(argv[0], "pixmarker"))
+		{
+			dbg.slot38("pixmarker <markername>\n\nExecute a \"user marker\" for PIX allowing to trigger PIX actions\n");
+			return true;
+		}
+		return false;
+	}
+	if (!strcmp(cmd, "sceneanalyst"))
+	{
+		if (argn < 2)
+		{
+			dbg.slot38("see help for parameters");
+			return true;
+		}
+		g_rva00DEC414SceneAnalystFrames = atoi(argv[0]) + 1;
+		strncpy(g_rva00DEC418SceneAnalystFilter, argv[1], 128);
+		g_rva00DEC418SceneAnalystFilter[127] = 0;
+		return true;
+	}
+	if (!strcmp(cmd, "pixmarker"))
+	{
+		if (argn < 1)
+		{
+			dbg.slot38("see help for parameters");
+			return true;
+		}
+		Rva0011F3D0Convert(argv[0], 0);
+		return true;
+	}
+	return false;
+}
+
+bool WW3D::Prepare_Render_New_Frame()
+{
+	if (DX8Wrapper::D3DDevice)
+	{
+		HRESULT hr = DX8Wrapper::D3DDevice->TestCooperativeLevel();
+		if (hr != D3D_OK)
+		{
+			if (hr != D3DERR_DEVICELOST && hr == D3DERR_DEVICENOTRESET)
+				DX8Wrapper::Reset_Device(true);
+			return false;
+		}
+	}
+	Debug_Statistics::Begin_Statistics();
+	if (g_rva00DEC414SceneAnalystFrames > 0)
+	{
+		char command[192];
+		if (--g_rva00DEC414SceneAnalystFrames <= 0)
+		{
+			theDebug->slot8C("debug.add l - SceneAnalystFrame");
+			strcpy(command, "debug.add l - SceneAnalyst");
+			strcat(command, g_rva00DEC418SceneAnalystFilter);
+			theDebug->slot8C(command);
+		}
+		else
+		{
+			strcpy(command, "debug.add l + SceneAnalyst");
+			strcat(command, g_rva00DEC418SceneAnalystFilter);
+			theDebug->slot8C(command);
+			theDebug->slot8C("debug.add l + SceneAnalystFrame");
+		}
+	}
+	return true;
+}
+
+// Retail 0x00117F10 (28 bytes), the class table's Delete slot (0x007CFBF8): the command
+// interface destroys itself through its virtual destructor and the global operator delete.
+void Rva007ACBC0CmdInterface::Delete()
+{
+	::delete this;
+}
+
+// tu-skeleton: 0x001174C0 5B ?Rva001174C0Get@@YAHXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva00116FA0Forwarders.cpp (not merged yet)
+
+// tu-skeleton: 0x001174D0 5B ?Rva001174D0@@YAXH@Z -- matched in Code/GameEngine/Source/Common/TailJumpWrappers5B.cpp (not merged yet)
+
+// tu-skeleton: 0x001174E0 5B ?Rva001174E0Get@@YAHXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva00116FA0Forwarders.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/WW3DUpdateMovieCapture.cpp
+
+// Semantic donor: ZH ww3d.cpp via BFME1 6583b3c1ff21db4a561285717028fdafc780b7db.
+// Native117AD0..117BAB (219B); Begin_Render118170 calls this capture helper.
+// Donor carries the WW3D movie-copy purpose and class spellings. Native calls
+// prove GetBuffer-first ordering and no trailing Grab; native loop proves
+// flipped RGB rows, hoisted row offsets, and four-byte source pixels.
+// Movie DEC3DC (ww3d.cpp's private static) and g_WW3D_Hwnd DEC408 use
+// existing global providers.
+// Target gets FrameGrab buffer first, uses D3D9 surface slots12/13,
+// and releases the surface after copying RGB bytes with a flipped row order.
+	// dx8wrapper.cpp's protected static at VA 0x00DEDC70.
+	// dllimport: inlined at every use, so no out-of-line copy competes with retail's
+	// Convert_Color (0x0006E1C0) or Set_Ambient (0x00117F50, DX8SetAmbient.cpp).
+
+void WW3D::Update_Movie_Capture()
+{
+    char *image=(char *)Movie->GetBuffer();
+    D3D9FrontBufferView *fb=reinterpret_cast<D3D9FrontBufferView *>(DX8Wrapper::_Get_DX8_Front_Buffer());
+    char desc[32];
+    fb->GetDesc(&desc);
+    RECT bounds;
+    GetWindowRect((HWND)g_WW3D_Hwnd,&bounds);
+    D3DLOCKED_RECT lrect;
+    HRESULT hr=fb->LockRect(&lrect,&bounds,D3DLOCK_READONLY);
+    if (hr) Log_DX8_ErrorCode((unsigned)hr);
+    unsigned x,y,index,index2,width,height;
+    width=bounds.right-bounds.left;
+    height=bounds.bottom-bounds.top;
+    for (y=0;y<height;y++) {
+        index=3*((height-y-1)*width);
+        index2=y*lrect.Pitch;
+        for (x=0;x<width;x++) {
+            image[index]=*((char *)lrect.pBits+index2);
+            image[index+1]=*((char *)lrect.pBits+index2+1);
+            image[index+2]=*((char *)lrect.pBits+index2+2);
+            index+=3;
+            index2+=4;
+        }
+    }
+    fb->Release();
+}
+
+// ---- from Code/GameEngine/Source/Common/WW3DOptionSetter.cpp
+
+void WW3D::Set_Texture_Reduction(int value)
+{
+	if (g_Va00DEC40C != value) {
+		g_Va00DEC40C = value;
+		if (IsInitted) {
+			_Invalidate_Textures();
+		}
+	}
+}
+
+// tu-skeleton: 0x00117C00 6B ?Get_Texture_Reduction@WW3D@@SAHXZ -- matched in Code/GameEngine/Source/Common/GlobalGetterSingles.cpp (not merged yet)
+
+// tu-skeleton: 0x00117C10 13B ?Rva00117C10Get@@YAXPAH@Z -- matched in Code/GameEngine/Source/Common/GlobalGetterSingles.cpp (not merged yet)
+
+// tu-skeleton: 0x00117C20 13B ?Rva00117C20Get@@YAXPAH@Z -- matched in Code/GameEngine/Source/Common/GlobalGetterSingles.cpp (not merged yet)
+
+// tu-skeleton: 0x00117C30 6B ?Rva00117C30Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstGlobalGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00117DB0 9B ??0Rva00117DB0@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x00117F30 23B ??$Bound@H@@YAHHHH@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/WW3DBeginRenderBFME2.cpp
+
+bool WW3D::Begin_Render(bool clear, bool clearz, const Vector3 &color,
+	float dest_alpha)
+{
+	if (!IsInitted)
+		return true;
+	if (IsRendering)
+		return false;
+	{
+		BfmeD3DDevice *device = (BfmeD3DDevice *)DX8Wrapper::D3DDevice;
+		if (device)
+		{
+			long hr = device->TestCooperativeLevel();
+			if (hr != 0)
+			{
+				if (hr == 0x88760868)
+					return false;
+				if (hr != 0x88760869)
+					return false;
+				DX8Wrapper::Reset_Device(true);
+				return false;
+			}
+		}
+	}
+	DynamicVBAccessClass::_Reset(true);
+	DynamicIBAccessClass::_Reset(true);
+	reinterpret_cast<void(__cdecl *)(bool)>(&DX8_Assert)(true);
+	if (IsCapturing && (!PauseRecord || RecordNextFrame))
+	{
+		WW3D::Update_Movie_Capture();
+		RecordNextFrame = false;
+	}
+	if (clear)
+	{
+		IsRendering = true;
+		goto clear_viewport;
+	}
+	IsRendering = true;
+	if (clearz)
+		goto clear_viewport;
+	goto begin_scene;
+clear_viewport:
+	{
+		_D3DVIEWPORT8 vp;
+		int width, height, bits;
+		bool windowed;
+		DX8Wrapper::Get_Render_Target_Resolution(width, height, bits, windowed);
+		vp.X = 0;
+		vp.Y = 0;
+		vp.Width = width;
+		vp.Height = height;
+		vp.MinZ = 0.0f;
+		vp.MaxZ = 1.0f;
+		DX8Wrapper::Set_Viewport(&vp);
+		DX8Wrapper::Clear(clear, clearz, clearz, color, dest_alpha, 1.0f, 0);
+	}
+begin_scene:
+	DX8Wrapper::Begin_Scene_Inner();
+	return true;
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/WW3DRenderSceneBFME2.cpp
+
+// Native 001182A0..0011842F, 399B, cdecl bool-return ABI, called by
+// verified Rva00118660Call. Semantic lead: BFME1 6583b3c1 WW3DRenderScene.cpp
+// and ZH ww3d.cpp scene Render; retail supplies an existing RenderInfo.
+// Target facts: scene polygon mode +14, ambient vcall +1C, Render +58;
+// camera On_Frame_Update +34, camera pointer at RenderInfo+0; renderer+4.
+// The original entry name remains unknown. Existing named globals/callees
+// are reused from matched WW3DRenderObjRender and DX8SetAmbient.
+// The header's Convert_Color x87 rounding helper has the proven
+// control-word/codegen requirements, as in matched DX8SetAmbient.
+	// dx8wrapper.cpp's protected static at VA 0x00DEDC70.
+	// dllimport: inlined at every use, so no out-of-line copy competes with retail's
+	// Convert_Color (0x0006E1C0) or Set_Ambient (0x00117F50, DX8SetAmbient.cpp).
+
+// The +0x87 static flush: the callee reads only the global 0x00DEC4F4 and an
+// SSE constant: the rowed static SortingRendererClass::Flush (SortingRendererBFME1.cpp).
+bool Rva001182A0(void *owner, RenderInfoClass &rinfo)
+{
+    if (!WW3D::IsInitted) return true;
+    SceneClass *scene=static_cast<SceneClass *>(owner);
+    rinfo.Camera.On_Frame_Update();
+    rinfo.Camera.Apply();
+    switch (scene->Get_Polygon_Mode()) {
+    case SceneClass::POINT: DX8Wrapper::Set_DX8_Render_State(D3DRS_FILLMODE,D3DFILL_POINT); break;
+    case SceneClass::LINE: DX8Wrapper::Set_DX8_Render_State(D3DRS_FILLMODE,D3DFILL_WIREFRAME); break;
+    case SceneClass::FILL: DX8Wrapper::Set_DX8_Render_State(D3DRS_FILLMODE,D3DFILL_SOLID); break;
+    }
+    DX8Wrapper::Set_Ambient(scene->Get_Ambient_Light());
+    TheDX8MeshRenderer->Set_Camera(&rinfo.Camera);
+    scene->Render(rinfo);
+    TheDX8MeshRenderer->Flush();
+    TheMeshGapFillerContext->rva174ba6();
+    bool old_enable=WW3D::AreStaticSortListsEnabled;
+    WW3D::AreStaticSortListsEnabled=false;
+    WW3D::CurrentStaticSortLists->Render_And_Clear(rinfo);
+    WW3D::AreStaticSortListsEnabled=old_enable;
+    SortingRendererClass::Flush();
+    TheDX8MeshRenderer->Clear_Pending_Delete_Lists();
+    return true;
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/WW3DRenderObjRender.cpp
+
+// ?Render@WW3D@@SA_NAAVRenderObjClass@@AAVRenderInfoClass@@@Z
+bool WW3D::Render(RenderObjClass &obj, RenderInfoClass &rinfo)
+{
+	if (!IsInitted)
+		return true;
+
+	rinfo.Camera.On_Frame_Update();
+	rinfo.Camera.Apply();
+	DX8Wrapper::Set_DX8_Render_State(8, 3);
+	if (rinfo.light_environment != 0)
+		DX8Wrapper::Set_Light_Environment(rinfo.light_environment);
+
+	TheDX8MeshRenderer->Set_Camera(&rinfo.Camera);
+	obj.Render(rinfo);
+	TheDX8MeshRenderer->Flush();
+	TheMeshGapFillerContext->rva174ba6();
+
+	bool old_enable = AreStaticSortListsEnabled;
+	AreStaticSortListsEnabled = false;
+	CurrentStaticSortLists->Render_And_Clear(rinfo);
+	AreStaticSortListsEnabled = old_enable;
+
+	SortingRendererClass::Flush();
+	TheDX8MeshRenderer->Clear_Pending_Delete_Lists();
+	return true;
 }
 
 // tu-skeleton: 0x00118610 48B ?Toggle_Movie_Capture@WW3D@@SA_NPBDMH_N@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE41_Rva00118610.cpp (not merged yet)

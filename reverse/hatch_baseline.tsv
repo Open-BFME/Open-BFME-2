@@ -836,7 +836,6 @@ address_global	Code/GameEngine/Source/Common/W3DAptComponentView3D.cpp	g_Rva0074
 address_global	Code/GameEngine/Source/Common/W3DAptComponentView3D.cpp	g_Rva00789900Table	1
 address_global	Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp	g_Va001FDEB0	4
 address_global	Code/GameEngine/Source/Common/W3DShrubBuffer.cpp	g_Va00BBB8D8	2
-address_global	Code/GameEngine/Source/Common/WW3DOptionSetter.cpp	g_Va00DEC40C	3
 address_global	Code/GameEngine/Source/Common/calc.cpp	g_Va00863BF8	2
 address_global	Code/GameEngine/Source/Common/calc.cpp	g_Va00863BFC	2
 address_global	Code/GameEngine/Source/Common/rva005B95B8Rva005B95B8Farm.cpp	g_Va00E06484	5
@@ -1528,6 +1527,7 @@ address_global	Code/Libraries/Source/WWVegas/WW3D2/fxshadernamespaceww3d.cpp	g_V
 address_global	Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp	g_Va00DB5F7D	2
 address_global	Code/Libraries/Source/WWVegas/WW3D2/renderasset.cpp	g_Va00DB6218	2
 address_global	Code/Libraries/Source/WWVegas/WW3D2/statistics.cpp	g_Va00DEE8E8	6
+address_global	Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp	g_Va00DEC40C	3
 address_global	Code/Libraries/Source/WWVegas/WWLib/HordeMeleeSwarmXfer.cpp	g_Rva0107301CEmptyString	3
 address_global	Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp	g_Va00E03174	2
 address_global	Code/Libraries/Source/WWVegas/WWLib/LivingWorldAutoResolveBodyTemplate.cpp	g_Va00BBB8D8	2
@@ -15211,7 +15211,7 @@ present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp	Registry_Save_Ren
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp	Release_Debug_Resources@WW3D@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp	Set_Collision_Box_Display_Mask@WW3D@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp	Set_Texture_Bitdepth@WW3D@@	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp	Set_Texture_Reduction@WW3D@@	1
+present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp	Set_Texture_Reduction@WW3D@@SAXHH@Z	1	allow=137a56a69a12c9fbf52ef12b7007d92dcd50efde
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp	Toggle_Windowed@WW3D@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp	Update_Pixel_Center@WW3D@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWDebug/debug_stack.cpp	0Signature@DebugStackwalk@@QAE@ABV01@@Z	1
