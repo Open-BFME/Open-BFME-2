@@ -41500,7 +41500,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x004E063F,104,code,Code/GameEngine/Source/Common/LivingWorldBuilding.cpp,approved,N,N=Code/GameEngine/Source/Common/LivingWorldBuilding.cpp provisional,Code/GameEngine/Source/Common/LivingWorldBuilding.cpp
 0x004E06A7,17,code,Code/GameEngine/Source/Common/LivingWorldBuilding.cpp,approved,C,C=0x004E063F..0x004E06B8 provisional,Code/GameEngine/Source/Common/LivingWorldBuilding.cpp
 0x004E06B8,67,code,Code/GameEngine/Source/Common/LivingWorldBuilding.cpp,approved,N,N=Code/GameEngine/Source/Common/LivingWorldBuilding.cpp provisional,Code/GameEngine/Source/Common/VslotSmallBodiesAE.cpp
-0x004E06FB,10,code,Code/GameEngine/Source/Common/LivingWorldBuilding.cpp,approved,C,C=0x004E06B8..0x004E0705 provisional,Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp
+0x004E06FB,10,code,Code/GameEngine/Source/Common/LivingWorldBuilding.cpp,approved,C,C=0x004E06B8..0x004E0705 provisional,Code/GameEngine/Source/Common/LivingWorldBuilding.cpp
 0x004E0705,24,code,Code/GameEngine/Source/Common/LivingWorldBuilding.cpp,approved,C,C=0x004E06B8..0x004E071D provisional,Code/GameEngine/Source/Common/LivingWorldBuilding.cpp
 0x004E071D,36,code,Code/GameEngine/Source/Common/LivingWorldBuilding.cpp,approved,C,C=0x004E06B8..0x004E0741 provisional,Code/GameEngine/Source/Common/LivingWorldBuilding.cpp
 0x004E0741,15,code,Code/GameEngine/Source/Common/LivingWorldBuilding.cpp,approved,C,C=0x004E06B8..0x004E0750 provisional,Code/GameEngine/Source/Common/LivingWorldBuilding.cpp

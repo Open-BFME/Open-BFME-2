@@ -22,6 +22,39 @@ public:
 };
 #include <string.h>
 #pragma function(memset)
+#define BFME_DISP8_PTRCHASE_DWORD_GETTER(NAME, DISP1, DISP2) \
+	class NAME \
+	{ \
+	public: \
+		int get() const; \
+		char m_lead[DISP1]; \
+		void *m_ptr; \
+	}; \
+	int NAME::get() const \
+	{ \
+		return *(int *)((char *)m_ptr + DISP2); \
+	}
+#define BFME_DISP8_PTRCHASE_BEFORE_DWORD_GETTER(NAME, BACK, INNER) \
+	class Inner##NAME \
+	{ \
+	public: \
+		char m_lead[INNER]; \
+		int m_value; \
+	}; \
+	class Sub##NAME \
+	{ \
+	public: \
+		Inner##NAME *m_holder; \
+	}; \
+	class NAME \
+	{ \
+	public: \
+		int get() const; \
+	}; \
+	int NAME::get() const \
+	{ \
+		return ((const Sub##NAME *)((const char *)this - (BACK)))->m_holder->m_value; \
+	}
 
 //
 // Dump-range-25 packet family: seven homogeneous forwarders around the
@@ -595,6 +628,94 @@ public:
 	void updateArmySummaryEntryRepresentation(const Rva004E0790Inner &arg);
 };
 
+BFME_DISP8_PTRCHASE_DWORD_GETTER(Rva004E06FBPtrChase32Field, 0x24, 0x13C)
+
+// Address-named indexed pointer-chase getter at retail 0x005F6B12.
+class Rva005F6B12
+{
+public:
+	int rva005F6B12(int index) const;
+private:
+	char m_pad00[4];
+	int *m_values;
+};
+
+// Byte bit-7 getters: ptr-chase byte read plus shr to LSB (bool from high bit).
+// Retail 0x005FC73B is mov eax,[ecx+0x18] / mov al,[eax+0x34] / shr al,7 / ret.
+struct Rva005FC73BPtrChaseInner
+{
+	char m_pad[0x34];
+	unsigned char m_byte;
+};
+
+class Rva005FC73BPtrChaseField
+{
+public:
+	bool get() const;
+	char m_lead[0x18];
+	Rva005FC73BPtrChaseInner *m_ptr;
+};
+
+// Virtual-fallback ptr-chase getter: if bit 3 of the chased byte is set,
+// tail-jump to virtual slot 1; else return the chased pointer.
+// Retail 0x005FC745 is mov eax,[ecx+0x18] / test byte [eax+0x34],8 /
+// je ret / mov eax,[ecx] / jmp [eax+4] / ret.
+struct Rva005FC745PtrChaseInner
+{
+	char m_pad[0x34];
+	unsigned char m_flag;
+};
+
+class Rva005FC745PtrChaseField
+{
+	virtual ~Rva005FC745PtrChaseField() {}
+	virtual void *fetch() const = 0;
+	char m_lead[0x18 - 4];
+public:
+	void *get() const;
+	Rva005FC745PtrChaseInner *m_ptr;
+};
+
+// Clean BFME1 9cbfb551 donor structural leads; native instructions independently
+// establish complete RET boundaries and each raw field operation and ABI.
+// Address-owned carriers retain unknown original receiver identity and bounds.
+
+// ?clear@Rva002D2CDCFields@@QAEPAU1@XZ
+struct Rva002D2CDCFields { unsigned char byte0; Rva002D2CDCFields *clear(); };
+
+// Current BF1 9cbfb551fe20dae985f91f2319d8997287b6a705 ambiguous-min5 leads.
+// Rva00537850IndirectGet.cpp suggests the first operation; list iterator
+// dereference in Rva006CCCA0LoadSchemeVariant.cpp suggests the second.
+// Several donor names share each shape, so no donor owner/type is asserted.
+// Each native entry follows INT3 padding and ends its own RET: 1CD70..1CD76
+// and6F6830..6F6836. They read raw words through independently proved offsets.
+class Rva0001CD70Word
+{
+public:
+ unsigned int get() const;
+ char m_pad00[4];
+ unsigned int *m_ptr;
+};
+
+// 0x0001CDA0 is the same shape with the pointer at receiver offset 8 (1CDA0..1CDA5,
+// INT3 padding before, no reference in the image).
+class Rva0001CDA0Word
+{
+public:
+ unsigned int get() const;
+ char m_pad00[8];
+ unsigned int *m_ptr;
+};
+
+class Rva006F6830Word
+{
+public:
+ unsigned int get() const;
+ unsigned int *m_ptr;
+};
+
+// ---- from Code/GameEngine/Source/Common/LivingWorldBuilding.cpp
+
 // ---- from Code/GameEngine/Source/Common/Rva004E060CMethod.cpp
 
 void LivingWorldBuilding::rva004E060C(unsigned char v)
@@ -917,22 +1038,6 @@ void LivingWorldBuilding::createIcon()
 	m_2C->rva0052B003(m_20 == -1);
 }
 
-// tu-skeleton: 0x004E06B8 67B ?BeginTurn@LivingWorldBuilding@@UAEXHH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAE.cpp (not merged yet)
-
-// tu-skeleton: 0x004E06FB 10B ?get@Rva004E06FBPtrChase32Field@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x004E0777 6B ?GetSnapshotName@LivingWorldBuilding@@UAEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x004E077D 19B ?Rva004E077D@@YAHI@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE24.cpp (not merged yet)
-
-// tu-skeleton: 0x004E07A9 26B ??0Rva004E07A9@@QAE@URva004E07A9Block@@H@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE16.cpp (not merged yet)
-
-// tu-skeleton: 0x004E07C3 33B ??0Rva004E07C3@@QAE@URva004E07A9Block@@HH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE16.cpp (not merged yet)
-
-// tu-skeleton: 0x004E07E4 17B ?rva004E07E4@Rva004E07E4Delegate1@@QAEXPAVRva004E07E4Target@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1C.cpp (not merged yet)
-
-// tu-skeleton: 0x004E07F5 20B ?rva004E07F5@Rva004E07E4Delegate2@@QAEXPAVRva004E07E4Target@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1C.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva004E09FBAssign.cpp
 
 Rva004E0790Inner &Rva004E0790Inner::rva004E09FB(const Rva004E0790Inner &other)
@@ -965,8 +1070,6 @@ void LivingWorldBuilding::createGhostObject()
 	m_2C = 0;
 }
 
-// tu-skeleton: 0x004E0B2F 49B ?rva004E0B2F@Rva004E0B2F@@QAEPAURva004E0B2FEntry@@ABV?$StringBase@D@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE05.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/LivingWorldBuilding_updateArmySummaryEntryRepresentation.cpp
 
 // ?updateArmySummaryEntryRepresentation@LivingWorldBuilding@@QAEXABURva004E0790Inner@@@Z @0x004E0BDC 109B ensure Inner at +0x3c via new plus copy ctor 0x0040D688 or assign 0x004E09FB then store +0x18 to +0xB4; chain via 0x0040D688
@@ -982,3 +1085,36 @@ void LivingWorldBuilding::updateArmySummaryEntryRepresentation(const Rva004E0790
 	}
 	m_3c.m_ptr->m_b4 = m_18;
 }
+
+// tu-skeleton: 0x004E06B8 67B ?BeginTurn@LivingWorldBuilding@@UAEXHH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAE.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp
+
+// Disp8 pointer-chase dword getters: seven-byte __thiscall members with one shape:
+//
+//     mov eax,[ecx+<DISP1>] / mov eax,[eax+<DISP2>] / ret
+//
+// A pointer is read at a fixed displacement from `this`, then a dword is read
+// at a second displacement from that pointer and returned. MSVC 7.1 emits the
+// disp8 loads `8B 41 XX` + `8B 40 XX`, plus `ret`, for seven bytes total.
+// Identity is not recovered: every name is derived from its address.
+// No // cl: line (defaults match the frameless seven-byte shape).
+
+// Backward variant: the holder sits at a NEGATIVE displacement from `this`
+// (a sub-object `this` pointing into a larger object). Spelled as an explicit
+// backward cast, which MSVC folds to `mov eax,[ecx-BACK]`; same shape and
+// reading as BFME1's ChainedFieldGetters.
+
+// tu-skeleton: 0x004E0777 6B ?GetSnapshotName@LivingWorldBuilding@@UAEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x004E077D 19B ?Rva004E077D@@YAHI@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE24.cpp (not merged yet)
+
+// tu-skeleton: 0x004E07A9 26B ??0Rva004E07A9@@QAE@URva004E07A9Block@@H@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE16.cpp (not merged yet)
+
+// tu-skeleton: 0x004E07C3 33B ??0Rva004E07C3@@QAE@URva004E07A9Block@@HH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE16.cpp (not merged yet)
+
+// tu-skeleton: 0x004E07E4 17B ?rva004E07E4@Rva004E07E4Delegate1@@QAEXPAVRva004E07E4Target@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1C.cpp (not merged yet)
+
+// tu-skeleton: 0x004E07F5 20B ?rva004E07F5@Rva004E07E4Delegate2@@QAEXPAVRva004E07E4Target@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1C.cpp (not merged yet)
+
+// tu-skeleton: 0x004E0B2F 49B ?rva004E0B2F@Rva004E0B2F@@QAEPAURva004E0B2FEntry@@ABV?$StringBase@D@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE05.cpp (not merged yet)
