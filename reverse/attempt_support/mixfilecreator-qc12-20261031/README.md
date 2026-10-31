@@ -58,3 +58,16 @@ not new work or new coverage. Any changed lifetime/trait/provider binding must
 still byte-match and keep existing linking consumers; no unsafe trait shortcut.
 Shared obstacle register was held elsewhere; proposed entry is this native
 16-byte AsciiString record scope, with original outer/archive identity unproved.
+
+## Second served consumer
+
+GameFont.cpp now replaces only its opaque16-byte nested-record declaration
+with the same canonical header. All28/28 rows match, including the associated
+funclet; its existing28-row/1unclaimed-definition frozen-check note is unchanged.
+The real record's nontrivial AsciiString member introduces ZERO runtime
+changes in this unit: the full8unit graph is still identical to baseline
+(924sections/858external definitions/2weak bindings). This also preserves every
+existing linker directive/alternatename; no alias is added or bypassed. The
+first before/after graph files remain the exact graph for this second state,
+so only the second verdict is repeated here. Header accept and normal commit
+hooks must pass before this consumer is bundled.

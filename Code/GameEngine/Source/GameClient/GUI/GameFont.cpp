@@ -152,15 +152,7 @@ public:
 };
 
 // Typed placement-copy owner Rva0021781DConstruct at 0x0021781D.
-class MixFileCreator
-{
-public:
-	struct FileInfoStruct
-	{
-		unsigned char m_data[0x10];
-	};
-};
-
+#include "../../../../Libraries/Source/WWVegas/WWLib/MixFileCreatorFileInfo.h"
 void Rva0021781DConstruct(MixFileCreator::FileInfoStruct *, const MixFileCreator::FileInfoStruct &);
 
 struct Rva004748F0Element
