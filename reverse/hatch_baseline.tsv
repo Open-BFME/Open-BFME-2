@@ -12456,7 +12456,6 @@ present_unmatched	Code/GameEngine/Source/Common/Thing/ThingFactory.cpp	newObject
 present_unmatched	Code/GameEngine/Source/Common/Thing/ThingFactory.cpp	update@ThingFactory@@	1
 present_unmatched	Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	ArmorTemplateSet::parseArmorTemplateSet	1
 present_unmatched	Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	ModuleInfo::friend_getNthData	1
-present_unmatched	Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	ModuleInfo::getNuggetWithTag	1
 present_unmatched	Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	ThingTemplate::OverrideableByLikeKind	1
 present_unmatched	Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	ThingTemplate::calcCostToBuild	1
 present_unmatched	Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	ThingTemplate::calcTimeToBuild	1
@@ -12466,7 +12465,6 @@ present_unmatched	Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	ThingTem
 present_unmatched	Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	ThingTemplate::getPerUnitFX	1
 present_unmatched	Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	ThingTemplate::getPerUnitSound	1
 present_unmatched	Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	ThingTemplate::getSkillPointValue	1
-present_unmatched	Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	ThingTemplate::initForLTA	1
 present_unmatched	Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	ThingTemplate::isBuildableItem	1
 present_unmatched	Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	ThingTemplate::parseArmorTemplateSet	1
 present_unmatched	Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	ThingTemplate::parseIntList	1

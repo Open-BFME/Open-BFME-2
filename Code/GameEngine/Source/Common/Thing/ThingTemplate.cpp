@@ -397,7 +397,6 @@ const FieldParse ThingTemplate::s_objectReskinFieldParseTable[] =
 // ------------------------------------------------------------------------------------------------
 /** See if the tag string is present in any of the module info entries here */
 // ------------------------------------------------------------------------------------------------
-// ?ModuleInfo::getNuggetWithTag present-unmatched
 const ModuleInfo::Nugget *ModuleInfo::getNuggetWithTag( const AsciiString& tag ) const
 {
 
@@ -850,7 +849,6 @@ void bfmeAnchorThingTemplateMemberDtors(ModuleInfo *info, BfmePrereqVector *prer
 // ModuleInfo::clear() calls emitted a non-retail Nugget::operator= (3-bool
 // Nugget) ahead of retail's 0x002CEFCD. Kept for reference only.
 #if defined(LOAD_TEST_ASSETS) && 0
-// ?ThingTemplate::initForLTA present-unmatched
 void ThingTemplate::initForLTA(const AsciiString& name)
 {
 	m_nameString = name;

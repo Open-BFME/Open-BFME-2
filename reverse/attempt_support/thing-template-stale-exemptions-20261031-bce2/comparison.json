@@ -1,0 +1,11 @@
+{
+  "rows": 23,
+  "bindings": 48,
+  "complete_object_facts_identical": true,
+  "all_bindings_identical": true,
+  "before_and_after_sha256": "ff93d688828b567c3628ea5cd577cc56ce365ca562c44f0b223088de4c943836",
+  "external_copies": 1091,
+  "strong_definitions": 29,
+  "undefineds": 88,
+  "weak_aliases": 0
+}
