@@ -48271,8 +48271,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00594F07,5,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,C,C=0x00594EEF..0x00594F0C,Code/GameEngine/Source/Common/Disp8WordFieldGetters.cpp
 0x00594F0C,13,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,S,S=Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp N=Code/GameEngine/Source/GameNetwork/FirewallHelperClass.cpp,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
 0x00594F19,263,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,C,W=Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp C=0x00594F0C..0x00595020,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
-0x00595020,59,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,C,C=0x00594F0C..0x0059505B,Code/GameEngine/Source/Common/GapBodiesGE17.cpp
-0x0059505B,46,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,C,C=0x00594F0C..0x00595089,Code/GameEngine/Source/Common/GapBodiesGE17.cpp
+0x00595020,59,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,C,C=0x00594F0C..0x0059505B,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
+0x0059505B,46,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,C,C=0x00594F0C..0x00595089,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
 0x00595089,132,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp S=Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp N=Code/GameEngine/Source/GameNetwork/FirewallHelperClass.cpp,Code/GameEngine/Source/GameNetwork/FirewallHelper_FirewallHelperClass_openSpareSocket.cpp
 0x0059510D,54,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,C,C=0x00595089..0x00595143,Code/GameEngine/Source/Common/Rva0059510DClear.cpp
 0x00595143,25,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,C,C=0x00595089..0x0059515C,Code/GameEngine/Source/Common/Rva00595143Firewall.cpp

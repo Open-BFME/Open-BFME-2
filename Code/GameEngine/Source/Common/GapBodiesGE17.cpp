@@ -13,42 +13,6 @@ public:
 	int rva0059505B(unsigned char flags);
 };
 
-int Rva00595020::rva00595020(unsigned char flags)
-{
-	int weight = 0;
-	if (flags & 0x01)
-		weight += 1;
-	if (flags & 0x02)
-		weight += 2;
-	if (flags & 0x04)
-		weight += 3;
-	if (flags & 0x08)
-		weight += 10;
-	if (flags & 0x10)
-		weight += 1;
-	if (flags & 0x20)
-		weight += 2;
-	if (flags & 0x40)
-		weight += 20;
-	return weight;
-}
-
-int Rva00595020::rva0059505B(unsigned char flags)
-{
-	int weight = 2;
-	if (flags & 0x01)
-		weight = 3;
-	if (flags & 0x02)
-		weight += 1;
-	if (flags & 0x04)
-		weight += 1;
-	if (flags & 0x20)
-		weight += 5;
-	if (flags & 0x40)
-		weight += 5;
-	return weight;
-}
-
 // --- vtable 0x00C4ED70 over a zero +0x08 and a cleared +0x0C; 0x002534B1 (17B): its field table (VA 0x00BF00A0) for the parser;
 // 0x002534C2 (60B): the INI factory building one with that table.
 class INI;
