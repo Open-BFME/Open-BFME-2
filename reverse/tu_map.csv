@@ -11261,7 +11261,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x001880E0,67,code,,displaced,-,N=Code/Libraries/Source/WWVegas/WW3D2/MeshModelClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/MeshModelClass_ComputeRamSize.cpp
 0x00188130,52,code,,,-,,Code/GameEngine/Source/Common/Rva0096D2C0ReadBlock.cpp
 0x00188170,5,code,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl.cpp,proposed,K,K=Rva0073BAA0Base noncontiguous,Code/GameEngine/Source/Common/RTS/Rva0073BAA0.cpp
-0x00188180,49,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp N=Code/Libraries/Source/WWVegas/WW3D2/MeshModelClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/MeshModelVertexColors.cpp
+0x00188180,49,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp N=Code/Libraries/Source/WWVegas/WW3D2/MeshModelClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp
 0x001881C0,204,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp N=Code/Libraries/Source/WWVegas/WW3D2/MeshModelClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp
 0x00188290,134,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp N=Code/Libraries/Source/WWVegas/WW3D2/MeshModelClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp
 0x00188320,30,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,C,C=0x00188290..0x00188340,Code/Libraries/Source/WWVegas/WWLib/Rva00170C0Siblings.cpp
@@ -11285,12 +11285,12 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00188730,7,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,C,C=0x00188700..0x00188740,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp
 0x00188740,7,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,C,C=0x00188700..0x00188750,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp
 0x00188750,7,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,C,C=0x00188700..0x00188760,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp
-0x00188760,392,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp N=Code/Libraries/Source/WWVegas/WW3D2/MeshModelClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadVertexColors.cpp
+0x00188760,392,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp N=Code/Libraries/Source/WWVegas/WW3D2/MeshModelClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp
 0x001888F0,190,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp N=Code/Libraries/Source/WWVegas/WW3D2/MeshModelClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadVertexMaterialIds.cpp
 0x001889B0,307,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp N=Code/Libraries/Source/WWVegas/WW3D2/MeshModelClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadShaderIds.cpp
 0x00188AF0,190,code,,displaced,-,N=Code/Libraries/Source/WWVegas/WW3D2/MeshModelClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadRva00188AF0.cpp
 0x00188BB0,562,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp N=Code/Libraries/Source/WWVegas/WW3D2/MeshModelClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadDcg.cpp
-0x00188DF0,848,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp N=Code/Libraries/Source/WWVegas/WW3D2/MeshModelClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadDig.cpp
+0x00188DF0,848,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp N=Code/Libraries/Source/WWVegas/WW3D2/MeshModelClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp
 0x00189140,293,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp N=Code/Libraries/Source/WWVegas/WW3D2/MeshModelClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadTextureIds.cpp
 0x00189270,125,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp N=Code/Libraries/Source/WWVegas/WW3D2/MeshModelClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/MeshModelClassGetSortFlagsPass.cpp
 0x001892F0,48,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp N=Code/Libraries/Source/WWVegas/WW3D2/MeshModelClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp
@@ -11312,7 +11312,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00189A20,293,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp N=Code/Libraries/Source/WWVegas/WW3D2/MeshModelClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadTexcoords.cpp
 0x00189B50,260,code,,displaced,-,N=Code/Libraries/Source/WWVegas/WW3D2/MeshModelClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadTexcoords.cpp
 0x00189C60,102,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp N=Code/Libraries/Source/WWVegas/WW3D2/MeshModelClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/MeshModelPostProcess.cpp
-0x00189CD0,913,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp N=Code/Libraries/Source/WWVegas/WW3D2/MeshModelClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/MeshModelPostProcessFog.cpp
+0x00189CD0,913,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp N=Code/Libraries/Source/WWVegas/WW3D2/MeshModelClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp
 0x0018A070,298,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp N=Code/Libraries/Source/WWVegas/WW3D2/MeshModelClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/MeshModelInstallMaterials.cpp
 0x0018A1A0,45,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,C,C=0x0018A070..0x0018A1D0,Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextCtor.cpp
 0x0018A1D0,45,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,C,C=0x0018A070..0x0018A200,Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextCtor.cpp
@@ -11326,18 +11326,18 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0018A710,30,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,C,C=0x0018A370..0x0018A730,Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextCtor.cpp
 0x0018A730,30,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,C,C=0x0018A370..0x0018A750,Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextCtor.cpp
 0x0018A750,1336,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp N=Code/Libraries/Source/WWVegas/WW3D2/MeshModelClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextAddLegacyMaterial.cpp
-0x0018AC90,172,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp N=Code/Libraries/Source/WWVegas/WW3D2/MeshModelClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadShaders.cpp
-0x0018AD40,271,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp N=Code/Libraries/Source/WWVegas/WW3D2/MeshModelClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadVertexMaterials.cpp
+0x0018AC90,172,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp N=Code/Libraries/Source/WWVegas/WW3D2/MeshModelClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp
+0x0018AD40,271,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp N=Code/Libraries/Source/WWVegas/WW3D2/MeshModelClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp
 0x0018AE50,284,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp N=Code/Libraries/Source/WWVegas/WW3D2/MeshModelClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadTextures.cpp
 0x0018AF70,272,code,,displaced,-,N=Code/Libraries/Source/WWVegas/WW3D2/MeshModelClass.cpp W=Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadFXShaderSetup.cpp
-0x0018B080,247,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp N=Code/Libraries/Source/WWVegas/WW3D2/MeshModelClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadTextureStage.cpp
+0x0018B080,247,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp N=Code/Libraries/Source/WWVegas/WW3D2/MeshModelClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp
 0x0018B180,599,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp S=Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp N=Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextCtor.cpp
 0x0018B3E0,30,code,,displaced,-,N=Code/GameEngine/Source/Common/MeshLoadContextClass.cpp,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-8fbc30.cpp
 0x0018B400,230,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp N=Code/Libraries/Source/WWVegas/WW3D2/MeshModelClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadMaterialPass.cpp
-0x0018B4F0,245,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp N=Code/Libraries/Source/WWVegas/WW3D2/MeshModelClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadPrelitMaterial.cpp
+0x0018B4F0,245,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp N=Code/Libraries/Source/WWVegas/WW3D2/MeshModelClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp
 0x0018B5F0,405,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp S=Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp N=Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextCtor.cpp
-0x0018B790,636,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp N=Code/Libraries/Source/WWVegas/WW3D2/MeshModelClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadChunks.cpp
-0x0018BA10,875,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp N=Code/Libraries/Source/WWVegas/WW3D2/MeshModelClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/MeshModelLoadW3D.cpp
+0x0018B790,636,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp N=Code/Libraries/Source/WWVegas/WW3D2/MeshModelClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp
+0x0018BA10,875,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp N=Code/Libraries/Source/WWVegas/WW3D2/MeshModelClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp
 0x0018BD7B,7,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/fxshadernamespaceww3d.cpp
 0x0018BD82,7,code,,,-,,Code/GameEngine/Source/Common/GlobalFloatGetters.cpp
 0x0018BD89,23,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/fxshadernamespaceww3d.cpp
@@ -65891,9 +65891,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007685F0,8,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,P,P=0x00189790@FuncInfo0x0090D3FC,Code/Libraries/Source/WWVegas/WW3D2/MeshModelLegacyMaterials.cpp
 0x007685F8,8,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,P,P=0x00189790@FuncInfo0x0090D3FC,Code/Libraries/Source/WWVegas/WW3D2/MeshModelLegacyMaterials.cpp
 0x00768600,10,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,P,P=0x00189790@FuncInfo0x0090D3FC,Code/Libraries/Source/WWVegas/WW3D2/MeshModelLegacyMaterials.cpp
-0x00768610,11,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,P,P=0x00189CD0@FuncInfo0x0090D428,Code/Libraries/Source/WWVegas/WW3D2/MeshModelPostProcessFog.cpp
-0x0076861B,8,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,P,P=0x00189CD0@FuncInfo0x0090D428,Code/Libraries/Source/WWVegas/WW3D2/MeshModelPostProcessFog.cpp
-0x00768623,10,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,P,P=0x00189CD0@FuncInfo0x0090D428,Code/Libraries/Source/WWVegas/WW3D2/MeshModelPostProcessFog.cpp
+0x00768610,11,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,P,P=0x00189CD0@FuncInfo0x0090D428,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp
+0x0076861B,8,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,P,P=0x00189CD0@FuncInfo0x0090D428,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp
+0x00768623,10,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,P,P=0x00189CD0@FuncInfo0x0090D428,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp
 0x00768630,8,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,P,P=0x0018A070@FuncInfo0x0090D44C,Code/Libraries/Source/WWVegas/WW3D2/MeshModelInstallMaterials.cpp
 0x00768638,10,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,P,P=0x0018A070@FuncInfo0x0090D44C,Code/Libraries/Source/WWVegas/WW3D2/MeshModelInstallMaterials.cpp
 0x00768650,11,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,P,P=0x0018A370@FuncInfo0x0090D478,Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextAddLegacyMaterial.cpp
@@ -65925,8 +65925,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007687A6,14,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,P,P=0x0018B5F0@FuncInfo0x0090D5A0,Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextCtor.cpp
 0x007687B4,14,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,P,P=0x0018B5F0@FuncInfo0x0090D5A0,Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextCtor.cpp
 0x007687C2,10,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,P,P=0x0018B5F0@FuncInfo0x0090D5A0,Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextCtor.cpp
-0x007687D0,11,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,P,P=0x0018BA10@FuncInfo0x0090D5C4,Code/Libraries/Source/WWVegas/WW3D2/MeshModelLoadW3D.cpp
-0x007687DB,10,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,P,P=0x0018BA10@FuncInfo0x0090D5C4,Code/Libraries/Source/WWVegas/WW3D2/MeshModelLoadW3D.cpp
+0x007687D0,11,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,P,P=0x0018BA10@FuncInfo0x0090D5C4,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp
+0x007687DB,10,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,approved,P,P=0x0018BA10@FuncInfo0x0090D5C4,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp
 0x007687E5,8,code,,,-,,Code/GameEngine/Source/Common/Rva0018BEC7Ctor.cpp
 0x007687ED,11,code,,,-,,Code/GameEngine/Source/Common/Rva0018BEC7Ctor.cpp
 0x007687F8,10,code,,,-,,Code/GameEngine/Source/Common/Rva0018BEC7Ctor.cpp

@@ -10973,17 +10973,11 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/MeshModelInitNPatch.cpp	"",o
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/MeshModelInitNPatch.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/MeshModelLegacyMaterials.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/MeshModelLegacyMaterials.cpp	"gsy",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/MeshModelLoadW3D.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/MeshModelLoadW3D.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/MeshModelPostProcess.cpp	"",on	2
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/MeshModelPostProcess.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/MeshModelPostProcess.cpp	"s",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/MeshModelPostProcessFog.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/MeshModelPostProcessFog.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/MeshModelReset.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/MeshModelReset.cpp	"gsy",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/MeshModelVertexColors.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/MeshModelVertexColors.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/MeshStateEqualBFME2.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/MeshStateEqualBFME2.cpp	"s",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/Null3DObjClassCopyCtor.cpp	"",on	2
@@ -11204,8 +11198,8 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/meshmatdesc.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/meshmatdesc.cpp	"s",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/meshmdl_sidehash.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/meshmdl_sidehash.cpp	"gsy",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp	"",on	2
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp	"gsy",on	1
+pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp	"",on	5
+pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp	"gsy",on	4
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp	"s",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/motchan.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/motchan.cpp	"gsy",on	1
@@ -11929,8 +11923,8 @@ pragma_optimize	reference/shims/banked_segline/matrix4.h	"",on	1
 pragma_optimize	reference/shims/banked_segline/matrix4.h	"s",on	1
 pragma_optimize	reference/shims/bfme2_ascii/ascii_string.h	"",on	1
 pragma_optimize	reference/shims/bfme2_ascii/ascii_string.h	"sy",on	1
-pragma_optimize	reference/shims/bfme2_meshmdlio/meshmatdesc.h	"",on	1	allow=97d2bcab3c13487ef01884eb90e191c1e2d40e00
-pragma_optimize	reference/shims/bfme2_meshmdlio/meshmatdesc.h	"s",on	1	allow=97d2bcab3c13487ef01884eb90e191c1e2d40e00
+pragma_optimize	reference/shims/bfme2_meshmdlio/meshmatdesc.h	"",on	1
+pragma_optimize	reference/shims/bfme2_meshmdlio/meshmatdesc.h	"s",on	1
 pragma_optimize	reference/shims/bfme2_vector3/vector3.h	"",on	2
 pragma_optimize	reference/shims/bfme2_vector3/vector3.h	"s",on	2
 pragma_optimize	reference/shims/bfme2_vector3/vector3.h	"t",off	2
@@ -14369,8 +14363,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/Line3DClassRender.cpp	Set_
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/MaterialRemapperClassCtor.cpp	0TextureRemapStruct@MaterialRemapperClass@@QAE@XZ	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/MaterialRemapperClassDtor.cpp	1TextureRemapStruct@MaterialRemapperClass@@QAE@XZ	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadDcg.cpp	DX8Wrapper::Convert_Color	3
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadDig.cpp	DX8Wrapper::Convert_Color	3
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadVertexColors.cpp	DX8Wrapper::Convert_Color	2
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/ParticleEmitterVisibilityWrappers.cpp	bfmeEmitParticleEmitterVisibilityWrappers@@YAXPAVParticleEmitterClass@@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/PendingSurfaceStructAssignmentBFME.cpp	bfmeEmitPendingSurfaceStructAssignmentBFME@@YAXPAUPendingSurfaceStruct@Render2DSentenceClass@@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/PendingSurfaceStructResize.cpp	BfmeRendererVectorBase::BfmeRendererVectorBase	1
