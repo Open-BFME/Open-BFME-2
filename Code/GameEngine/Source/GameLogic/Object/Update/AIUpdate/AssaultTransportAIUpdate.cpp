@@ -347,6 +347,28 @@ public:
 	void addNeed(int a);
 };
 #include "../../../../../Include/Common/Overridable.h"
+#define BFME_SNAPSHOT_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	protected: \
+		virtual const char *GetSnapshotName() const; \
+	}; \
+	const char *NAME::GetSnapshotName() const \
+	{ \
+		return TEXT; \
+	}
+#define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	public: \
+		const char *name() const; \
+	}; \
+	const char *NAME::name() const \
+	{ \
+		return TEXT; \
+	}
+#include "../../../AI/WorkOrder.h"
+#include "../../../AI/TeamInQueue.h"
 
 enum NameKeyType { NK_UNKNOWN = 0 };
 
@@ -1361,9 +1383,13 @@ public:
  ~Rva00200667();
 };
 
+BFME_LITERAL_NAME_GETTER(Rva0048F456Named, "AssaultTransportAIUpdate")
+
 // tu-skeleton: 0x0048F365 123B ?Rva0048F365Helper@AssaultTransportAIUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AssaultTransportAIUpdateHelper.cpp (not merged yet)
 
 // tu-skeleton: 0x0048F3E0 49B ??1AssaultTransportAIUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0026E836Derived.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AssaultTransportAIUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AssaultTransportAIUpdate.cpp
 
@@ -1402,14 +1428,29 @@ bool __stdcall Rva0048F472IsEqual(void *p)
 	return false;
 }
 
-// tu-skeleton: 0x0048F456 6B ?name@Rva0048F456Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp
 
 bool Rva0048F46D::rva0048F46D()
 {
 	return Rva002645FF::rva002645FF();
 }
+
+// ---- from Code/GameEngine/Source/Common/ModuleNameGetters.cpp
+
+// Module literal name getters: six-byte const members with one shape:
+//
+//     mov eax,<offset string literal> / ret
+//
+// Each body returns a pointer to a NUL-terminated Behavior/Update/Contain
+// class-name string in .rdata. Each body VA carries exactly one .rdata
+// reference from its module vtable (descriptor tail closed by the shared
+// 0x004B3FD0 pair -- the same family marker as the Subsystem getters).
+// Split from Code/GameEngine/Source/Common/SubsystemNameGetters.cpp into a
+// contributor-local unit to keep concurrent landings conflict-free; the
+// BFME_LITERAL_NAME_GETTER macro is verbatim, only the class names follow
+// this tree's address-derived convention (identity unrecoverable from 6
+// bytes, string carried in source where verify_string_refs re-reads it).
+// No // cl: line (defaults match the frameless 6-byte shape).
 
 // tu-skeleton: 0x0048F4AC 247B ?xfer@AssaultTransportAIUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AssaultTransportAIUpdateXfer.cpp (not merged yet)
 

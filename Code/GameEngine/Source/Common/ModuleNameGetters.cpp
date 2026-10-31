@@ -61,7 +61,6 @@ BFME_LITERAL_NAME_GETTER(SpawnPointProductionExitUpdate, "SpawnPointProductionEx
 BFME_SNAPSHOT_NAME_GETTER(SlavedUpdate, "SlavedUpdate")
 BFME_LITERAL_NAME_GETTER(GateOpenAndCloseBehavior, "GateOpenAndCloseBehavior")
 BFME_LITERAL_NAME_GETTER(WeaponFireSpecialAbilityUpdate, "WeaponFireSpecialAbilityUpdate")
-BFME_LITERAL_NAME_GETTER(Rva0048F456Named, "AssaultTransportAIUpdate")
 BFME_SNAPSHOT_NAME_GETTER(DozerAIUpdate, "DozerAIUpdate")
 BFME_SNAPSHOT_NAME_GETTER(AssistedTargetingUpdate, "AssistedTargetingUpdate")
 BFME_LITERAL_NAME_GETTER(RebuildHoleExposeDie, "RebuildHoleExposeDie")
