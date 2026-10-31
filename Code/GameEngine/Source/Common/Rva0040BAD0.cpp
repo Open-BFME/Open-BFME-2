@@ -21,15 +21,36 @@ public:
 };
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-// Read-only layout view of the existing statistic type. The matched copy
-// constructor at 0x0040AF66 and vector push_back at 0x0040BA6A establish the
-// extent. Lookup reads only the key; it neither copies nor destroys records.
+enum ScienceType
+{
+	SCIENCE_NONE = 0
+};
+
+class BfmeFixedStorage0004543D
+{
+public:
+	BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &other);
+private:
+	char m_pad[0x1C];
+};
+
+// The 0x68-byte award statistic: the copy constructor 0x0040AF66 builds
+// every member; the lookup 0x0040AAF8 reads the name key in the first word.
 class Rva0040AF66
 {
 public:
-    int m_00;
+	Rva0040AF66(const Rva0040AF66 &other);
+	int m_00;
 private:
-    char m_rest[0x64];
+	_STL::vector<ScienceType, _STL::allocator<ScienceType> > m_04;
+	_STL::vector<ScienceType, _STL::allocator<ScienceType> > m_10;
+	BfmeFixedStorage0004543D m_1C;
+	BfmeFixedStorage0004543D m_38;
+	AsciiString m_54;
+	AsciiString m_58;
+	int m_5C;
+	int m_60;
+	unsigned char m_64;
 };
 
 inline bool operator==(const Rva0040AF66 &record, const int &key)

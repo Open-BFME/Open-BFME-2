@@ -16,14 +16,15 @@ class AsciiString;
 
 #include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
-enum ScienceType { SCIENCE_NONE = 0 };
-// Native scalar-vector cleanup uses the rowed game-memory free wrapper.
-// Keep the first compatible ScienceType destructor's allocator identity.
-void __cdecl Rva00030830GameFree(void *);
-namespace _STL {
-template <> inline _Vector_base<ScienceType, allocator<ScienceType> >::~_Vector_base()
-{ if (_M_start) Rva00030830GameFree(_M_start); }
-}
+enum ScienceType
+{
+	SCIENCE_NONE = 0
+};
+
+// The unwind actions call the ScienceType vector destructor out of line, as
+// AwardSystemManager.cpp declares it; the kept copy serves the link.
+namespace _STL { template <> _Vector_base<ScienceType,_STL::allocator<ScienceType> >::~_Vector_base(); }
+namespace _STL { template <> vector<ScienceType,_STL::allocator<ScienceType> >::~vector(); }
 
 
 namespace _STL
@@ -42,12 +43,14 @@ private:
 	char m_pad[0x1C];
 };
 
+// The 0x68-byte award statistic: the copy constructor 0x0040AF66 builds
+// every member; the lookup 0x0040AAF8 reads the name key in the first word.
 class Rva0040AF66
 {
 public:
 	Rva0040AF66(const Rva0040AF66 &other);
-private:
 	int m_00;
+private:
 	_STL::vector<ScienceType, _STL::allocator<ScienceType> > m_04;
 	_STL::vector<ScienceType, _STL::allocator<ScienceType> > m_10;
 	BfmeFixedStorage0004543D m_1C;

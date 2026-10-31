@@ -134,7 +134,37 @@ namespace _STL { template <> void sort<int *>(int *, int *); }
 
 struct Rva0040C0C7Element {char bytes[40];};
 
-class Rva0040AF66 {char bytes[104];};
+enum ScienceType
+{
+	SCIENCE_NONE = 0
+};
+
+class BfmeFixedStorage0004543D
+{
+public:
+	BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &other);
+private:
+	char m_pad[0x1C];
+};
+
+// The 0x68-byte award statistic: the copy constructor 0x0040AF66 builds
+// every member; the lookup 0x0040AAF8 reads the name key in the first word.
+class Rva0040AF66
+{
+public:
+	Rva0040AF66(const Rva0040AF66 &other);
+	int m_00;
+private:
+	_STL::vector<ScienceType, _STL::allocator<ScienceType> > m_04;
+	_STL::vector<ScienceType, _STL::allocator<ScienceType> > m_10;
+	BfmeFixedStorage0004543D m_1C;
+	BfmeFixedStorage0004543D m_38;
+	AsciiString m_54;
+	AsciiString m_58;
+	int m_5C;
+	int m_60;
+	unsigned char m_64;
+};
 
 // The range destroy is retail's rowed _Destroy<Rva0040AFF3*> (0x0040B547,
 // stlport_destroy_range_0040B547.cpp); forward to it as the vector units do.
@@ -268,11 +298,6 @@ template <> void _STLP_alloc_proxy<int*, int, allocator<int> >::deallocate(int*,
 struct Rva0021C21BElement { char bytes[4]; };
 
 namespace _STL { template <> vector<Rva0021C21BElement, allocator<Rva0021C21BElement> > &vector<Rva0021C21BElement, allocator<Rva0021C21BElement> >::operator=(const vector<Rva0021C21BElement, allocator<Rva0021C21BElement> > &); }
-
-enum ScienceType
-{
-	SCIENCE_NONE = 0
-};
 
 class Rva0040AEE3
 {
