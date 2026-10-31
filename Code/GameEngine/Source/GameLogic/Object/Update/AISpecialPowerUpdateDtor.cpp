@@ -14,10 +14,23 @@
 class Thing;
 class ModuleData;
 class Object;
-// Retail 0x00253330 calls ObjectModule and installs the secondary interface at +0x0C.
-#include "../../../../Include/Common/ObjectModule.h"
-#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-
+class BehaviorModuleBase
+{
+public:
+	virtual void behaviorModuleBaseAnchor();
+	const ModuleData *m_moduleData;
+	Object *m_object;
+};
+class BehaviorModuleOther
+{
+public:
+	virtual void behaviorModuleOtherAnchor();
+};
+class BehaviorModule : public BehaviorModuleBase, public BehaviorModuleOther
+{
+public:
+	BehaviorModule(Thing *thing, const ModuleData *moduleData);
+};
 enum UpdateSleepTime
 {
 	UPDATE_SLEEP_FOREVER = 0x3fffffff
