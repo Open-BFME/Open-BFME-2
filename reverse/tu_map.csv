@@ -255,7 +255,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x000052C4,14,code,Code/GameEngine/Source/Common/System/Snapshot.cpp,approved,C,C=0x00004EDF..0x000052D2,Code/GameEngine/Source/Common/System/AsciiString.cpp
 0x000052D2,15,code,Code/GameEngine/Source/Common/System/Snapshot.cpp,approved,C,C=0x00004EDF..0x000052E1,Code/GameEngine/Source/Common/System/WideLengthOrZero.cpp
 0x000052E1,23,code,Code/GameEngine/Source/Common/System/Snapshot.cpp,approved,C,C=0x00004EDF..0x000052F8,Code/Libraries/Source/WWVegas/WWLib/Rva0000532CCompareBytes.cpp
-0x000052F8,52,code,Code/GameEngine/Source/Common/System/Snapshot.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WWLib/WideCharCompare.cpp,Code/Libraries/Source/WWVegas/WWLib/string_base_compare_range.cpp
+0x000052F8,52,code,Code/GameEngine/Source/Common/System/Snapshot.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WWLib/WideCharCompare.cpp,Code/GameEngine/Source/Common/System/Snapshot.cpp
 0x0000532C,24,code,Code/GameEngine/Source/Common/System/Snapshot.cpp,approved,C,C=0x000052F8..0x00005344,Code/Libraries/Source/WWVegas/WWLib/Rva0000532CCompareBytes.cpp
 0x00005344,80,code,Code/GameEngine/Source/Common/System/Snapshot.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WWLib/WideCharCompare.cpp,Code/Libraries/Source/WWVegas/WWLib/string_base_compare_nocase.cpp
 0x00005394,18,code,Code/GameEngine/Source/Common/System/Snapshot.cpp,approved,C,C=0x00005344..0x000053A6,Code/Libraries/Source/WWVegas/WWLib/unicode_string.cpp

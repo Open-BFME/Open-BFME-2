@@ -44,11 +44,35 @@ public:
 #pragma inline_depth()
 #pragma inline_depth(0)
 #pragma inline_depth()
+#define _DLL
+#include <string.h>
 
 // The generated assignment: nothing to copy, not even the vtable.
 typedef Snapshot &(Snapshot::*SnapshotAssign)(const Snapshot &);
 
 SnapshotAssign g_snapshotAssign = &Snapshot::operator=;
+
+// The four (const T *, int) comparison members hand five arguments to a shared
+// worker: this string's data and length, the argument's data and length, and a
+// one-byte trait object the callers zero with a lea/stosb pair. Neither narrow
+// worker reads that object - only the wide pair takes its address - so it stays
+// an opaque byte here.
+struct CharCompare
+{
+    char m_unused;
+};
+
+// The wide pair at 0x0000586D and 0x00005898 is the same shape, except that
+// both of them DO read the trait object: each takes its address and calls
+// through it, which is why the narrow pair can leave it opaque and these
+// cannot. ecx holds &tag at the call, so the worker is a member of the trait.
+struct WideCharCompare
+{
+    char m_unused;
+
+    int compare(const wchar_t *a, const wchar_t *b, int len) const;
+    int compareNoCase(const wchar_t *a, const wchar_t *b, int len) const;
+};
 
 // tu-skeleton: 0x0000401C 93B ?SetIdentity@Matrix4D@@QAEAAV1@XZ -- matched in Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp (not merged yet)
 
@@ -87,6 +111,10 @@ SnapshotAssign g_snapshotAssign = &Snapshot::operator=;
 // tu-skeleton: 0x00004C2E 55B ?isInside@Region2D@@QBE_NABVCoord2D@@@Z -- matched in Code/Libraries/Source/WWVegas/WWMath/region.cpp (not merged yet)
 
 // tu-skeleton: 0x00004C65 72B ?IsExactlyEqualTo@Region2D@@QBE_NABU1@@Z -- matched in Code/Libraries/Source/WWVegas/WWMath/region.cpp (not merged yet)
+
+// tu-skeleton: 0x00004CAD 28B ??8ICoord2D@@QBE_NABUICoord2DBase@@@Z -- matched in Code/Libraries/Source/WWVegas/WWMath/icoord.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/System/Snapshot.cpp
 
 // ---- from Code/Libraries/Source/WWVegas/WWMath/icoord.cpp
 
@@ -143,6 +171,62 @@ void ICoord3D::zero()
 // ICoord2D::operator== anchor, same recipe as the constructors above; it is not
 // retail code.
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---- from Code/GameEngine/Source/Common/System/Snapshot.cpp
+
+// Zero Hour's Snapshot.h, which many ported units still include, declares the
+// destructor nonvirtual and out of line (??1Snapshot@@QAE@XZ). Retail has one
+// Snapshot destructor, the exported virtual ??1Snapshot@@UAE@XZ at 0x0049B47C
+// (a store of vtable 0x00BBB554); its derived destructors call it or inline
+// that store. The QAE spelling is that header's view of the same function.
+
+// Snapshot's constructors and destructor are header inlines: 145 other units
+// emit them as select-any copies, which plain definitions here collided
+// with. The anchor keeps this unit's copies for the rows; it is not retail
+// code.
+
+// ?_bfmeSnapshotInlineAnchor@@YAXPAVSnapshot@@@Z absent-from-retail
+void _bfmeSnapshotInlineAnchor(Snapshot *snapshot)
+{
+    snapshot->Snapshot::Snapshot();
+    snapshot->Snapshot::Snapshot(*snapshot);
+    snapshot->Snapshot::~Snapshot();
+}
+
+// tu-skeleton: 0x00004D0B 25B ??XICoord2D@@QAEAAU0@H@Z -- matched in Code/Libraries/Source/WWVegas/WWMath/icoord.cpp (not merged yet)
+
 // tu-skeleton: 0x00004D4B 6B ?width@IRegion2D@@QBEHXZ -- matched in Code/Libraries/Source/WWVegas/WWMath/region.cpp (not merged yet)
 
 // tu-skeleton: 0x00004D51 7B ?height@IRegion2D@@QBEHXZ -- matched in Code/Libraries/Source/WWVegas/WWMath/region.cpp (not merged yet)
@@ -181,11 +265,15 @@ void ICoord3D::zero()
 
 // tu-skeleton: 0x00004FC8 78B ??6@YAAAVDebug@@AAV0@ABVCoord2D@@@Z -- matched in Code/Libraries/Source/WWVegas/WWMath/coord2d.cpp (not merged yet)
 
+// tu-skeleton: 0x00005016 70B ??6@YAAAVDebug@@AAV0@ABUICoord2DBase@@@Z -- matched in Code/Libraries/Source/WWVegas/WWMath/icoord.cpp (not merged yet)
+
 // tu-skeleton: 0x0000505C 47B ??6@YAAAVDebug@@AAV0@ABURegion2D@@@Z -- matched in Code/Libraries/Source/WWVegas/WWMath/region.cpp (not merged yet)
 
 // tu-skeleton: 0x0000508B 47B ??6@YAAAVDebug@@AAV0@ABUIRegion2D@@@Z -- matched in Code/Libraries/Source/WWVegas/WWMath/region.cpp (not merged yet)
 
 // tu-skeleton: 0x000050BA 103B ??6@YAAAVDebug@@AAV0@ABVCoord3D@@@Z -- matched in Code/Libraries/Source/WWVegas/WWMath/coord3d.cpp (not merged yet)
+
+// tu-skeleton: 0x00005121 91B ??6@YAAAVDebug@@AAV0@ABUICoord3D@@@Z -- matched in Code/Libraries/Source/WWVegas/WWMath/icoord.cpp (not merged yet)
 
 // tu-skeleton: 0x0000517C 47B ??6@YAAAVDebug@@AAV0@ABURegion3D@@@Z -- matched in Code/Libraries/Source/WWVegas/WWMath/region.cpp (not merged yet)
 
@@ -201,34 +289,53 @@ void ICoord3D::zero()
 
 // tu-skeleton: 0x000052E1 23B ?rva000052E1CompareBytes@@YGHPBX0I@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0000532CCompareBytes.cpp (not merged yet)
 
-// tu-skeleton: 0x000052F8 52B ?compare@WideCharCompare@@QBEHPBG0H@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/string_base_compare_range.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/string_base_compare_range.cpp
+
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
+//
+// The two narrow (const char *, int) comparison workers, split out of
+// string_base.cpp for one flag: /arch:SSE. Both bodies pick the shorter of the
+// two lengths with cmovge, and cl 13.10 will not emit a conditional move
+// without /arch - not at /G5, /G6, /G7, /GB, /Ot, /Os, /O1, /O2 or /Ox, which
+// is what kept these two unclaimed while the members calling them were
+// already matched. /O2 loses it again by dropping the ebp frame.
+//
+// The ternary is not cosmetic either: written as an if statement cl also
+// picks the other length for esi and three more bytes move.
+//
+// The trait object is a one-byte struct the callers zero with a lea/stosb
+// pair. Neither narrow worker reads it - only the wide pair takes its address
+// - so it stays opaque here.
+
+// The two trait members themselves, at 0x000052F8 and 0x00005344. Both were
+// named by the reloc sweep from the call sites in the wide workers below, so
+// the identity is the callers' rather than a guess.
+//
+// Neither touches the trait, which is why both callers can pass it by value
+// and the struct can stay a single opaque byte: `this` arrives in ecx and is
+// never read. Both count down the length parameter in its own home slot
+// rather than in a register, and both take the difference through movzx, so
+// the comparison is on the unsigned value.
+int WideCharCompare::compare(const wchar_t *a, const wchar_t *b, int len) const
+{
+    while (len > 0) {
+        if (*a != *b)
+            return *a - *b;
+        ++a;
+        ++b;
+        --len;
+    }
+    return 0;
+}
+
+// Callers elsewhere reach bodies in this unit through other spellings; retail's
+// call sites in their matched rows land on these addresses (same ABI). Bind them.
 
 // tu-skeleton: 0x0000532C 24B ?rva0000532CCompareBytes@@YGHPBX0I@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0000532CCompareBytes.cpp (not merged yet)
 
 // tu-skeleton: 0x00005344 80B ?compareNoCase@WideCharCompare@@QBEHPBG0H@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/string_base_compare_nocase.cpp (not merged yet)
 
 // tu-skeleton: 0x00005394 18B ??4UnicodeString@@QAEAAV0@ABV0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/unicode_string.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/System/Snapshot.cpp
-
-// Zero Hour's Snapshot.h, which many ported units still include, declares the
-// destructor nonvirtual and out of line (??1Snapshot@@QAE@XZ). Retail has one
-// Snapshot destructor, the exported virtual ??1Snapshot@@UAE@XZ at 0x0049B47C
-// (a store of vtable 0x00BBB554); its derived destructors call it or inline
-// that store. The QAE spelling is that header's view of the same function.
-
-// Snapshot's constructors and destructor are header inlines: 145 other units
-// emit them as select-any copies, which plain definitions here collided
-// with. The anchor keeps this unit's copies for the rows; it is not retail
-// code.
-
-// ?_bfmeSnapshotInlineAnchor@@YAXPAVSnapshot@@@Z absent-from-retail
-void _bfmeSnapshotInlineAnchor(Snapshot *snapshot)
-{
-    snapshot->Snapshot::Snapshot();
-    snapshot->Snapshot::Snapshot(*snapshot);
-    snapshot->Snapshot::~Snapshot();
-}
 
 // tu-skeleton: 0x000053AF 29B ??_GSnapshot@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/System/LivingWorldRegionConnectionCopy.cpp (not merged yet)
 

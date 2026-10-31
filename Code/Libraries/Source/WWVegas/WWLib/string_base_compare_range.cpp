@@ -57,27 +57,6 @@ struct WideCharCompare
     int compareNoCase(const wchar_t *a, const wchar_t *b, int len) const;
 };
 
-// The two trait members themselves, at 0x000052F8 and 0x00005344. Both were
-// named by the reloc sweep from the call sites in the wide workers below, so
-// the identity is the callers' rather than a guess.
-//
-// Neither touches the trait, which is why both callers can pass it by value
-// and the struct can stay a single opaque byte: `this` arrives in ecx and is
-// never read. Both count down the length parameter in its own home slot
-// rather than in a register, and both take the difference through movzx, so
-// the comparison is on the unsigned value.
-int WideCharCompare::compare(const wchar_t *a, const wchar_t *b, int len) const
-{
-    while (len > 0) {
-        if (*a != *b)
-            return *a - *b;
-        ++a;
-        ++b;
-        --len;
-    }
-    return 0;
-}
-
 int compareRange(const wchar_t *left, int alen, const wchar_t *right, int blen, WideCharCompare tag)
 {
     const int len = alen < blen ? alen : blen;
