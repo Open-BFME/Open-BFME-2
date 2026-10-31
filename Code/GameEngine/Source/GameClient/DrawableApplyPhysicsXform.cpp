@@ -24,8 +24,12 @@
 // emits only the row itself (no divergent Vector3/Matrix3D COMDATs).
 #include <math.h>
 class Vector3{public:float X,Y,Z;__declspec(dllimport) __forceinline Vector3(float x,float y,float z){X=x;Y=y;Z=z;}__forceinline float&operator[](int i){return (&X)[i];}__declspec(dllimport) __forceinline const float&operator[](int i)const{return (&X)[i];}};
-class Vector4{public:float X,Y,Z,W;__declspec(dllimport) __forceinline Vector4&operator=(const Vector4&v){X=v.X;Y=v.Y;Z=v.Z;W=v.W;return *this;}
-__declspec(dllimport) __forceinline float&operator[](int i){return (&X)[i];}__declspec(dllimport) __forceinline const float&operator[](int i)const{return (&X)[i];}};
+#include "../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
+// Preserve the pointer-based component access used by the native row math.
+static __forceinline float &vector4Component(Vector4 &row, int index)
+{
+	return (&row.X)[index];
+}
 class Matrix3D{Vector4 Row[3];public:
 __declspec(dllimport) __forceinline void Translate(const Vector3 &t)
 {
@@ -34,9 +38,9 @@ __declspec(dllimport) __forceinline void Translate(const Vector3 &t)
 	// sum is X-first; row 2 keeps the direct t[2] memory operand. All other
 	// orientations were measured non-exact (2-42 residual instructions).
 	const float z=t[2];
-	Row[0][3] += (float)(Row[0][0]*t[0] + Row[0][1]*t[1] + Row[0][2]*z);
-	Row[1][3] += (float)(Row[1][0]*t[0] + Row[1][1]*t[1] + Row[1][2]*z);
-	Row[2][3] += (float)(Row[2][0]*t[0] + Row[2][1]*t[1] + Row[2][2]*t[2]);
+	vector4Component(Row[0],3) += (float)(vector4Component(Row[0],0)*t[0] + vector4Component(Row[0],1)*t[1] + vector4Component(Row[0],2)*z);
+	vector4Component(Row[1],3) += (float)(vector4Component(Row[1],0)*t[0] + vector4Component(Row[1],1)*t[1] + vector4Component(Row[1],2)*z);
+	vector4Component(Row[2],3) += (float)(vector4Component(Row[2],0)*t[0] + vector4Component(Row[2],1)*t[1] + vector4Component(Row[2],2)*t[2]);
 }
 __declspec(dllimport) __forceinline void Rotate_X(const float&theta)
 {
@@ -46,17 +50,17 @@ __declspec(dllimport) __forceinline void Rotate_X(const float&theta)
 	s = sinf(theta);
 	c = cosf(theta);
 
-	tmp1 = Row[0][1]; tmp2 = Row[0][2];
-	Row[0][1] = (float)( c*tmp1 + s*tmp2);
-	Row[0][2] = (float)(-s*tmp1 + c*tmp2);
+	tmp1 = vector4Component(Row[0],1); tmp2 = vector4Component(Row[0],2);
+	vector4Component(Row[0],1) = (float)( c*tmp1 + s*tmp2);
+	vector4Component(Row[0],2) = (float)(-s*tmp1 + c*tmp2);
 
-	tmp1 = Row[1][1]; tmp2 = Row[1][2];
-	Row[1][1] = (float)( c*tmp1 + s*tmp2);
-	Row[1][2] = (float)(-s*tmp1 + c*tmp2);
+	tmp1 = vector4Component(Row[1],1); tmp2 = vector4Component(Row[1],2);
+	vector4Component(Row[1],1) = (float)( c*tmp1 + s*tmp2);
+	vector4Component(Row[1],2) = (float)(-s*tmp1 + c*tmp2);
 
-	tmp1 = Row[2][1]; tmp2 = Row[2][2];
-	Row[2][1] = (float)( c*tmp1 + s*tmp2);
-	Row[2][2] = (float)(-s*tmp1 + c*tmp2);
+	tmp1 = vector4Component(Row[2],1); tmp2 = vector4Component(Row[2],2);
+	vector4Component(Row[2],1) = (float)( c*tmp1 + s*tmp2);
+	vector4Component(Row[2],2) = (float)(-s*tmp1 + c*tmp2);
 
 }
 __declspec(dllimport) __forceinline void Rotate_Y(const float&theta)
@@ -67,17 +71,17 @@ __declspec(dllimport) __forceinline void Rotate_Y(const float&theta)
 	s = sinf(theta);
 	c = cosf(theta);
 
-	tmp1 = Row[0][0]; tmp2 = Row[0][2];
-	Row[0][0] = (float)(c*tmp1 - s*tmp2);
-	Row[0][2] = (float)(s*tmp1 + c*tmp2);
+	tmp1 = vector4Component(Row[0],0); tmp2 = vector4Component(Row[0],2);
+	vector4Component(Row[0],0) = (float)(c*tmp1 - s*tmp2);
+	vector4Component(Row[0],2) = (float)(s*tmp1 + c*tmp2);
 
-	tmp1 = Row[1][0]; tmp2 = Row[1][2];
-	Row[1][0] = (float)(c*tmp1 - s*tmp2);
-	Row[1][2] = (float)(s*tmp1 + c*tmp2);
+	tmp1 = vector4Component(Row[1],0); tmp2 = vector4Component(Row[1],2);
+	vector4Component(Row[1],0) = (float)(c*tmp1 - s*tmp2);
+	vector4Component(Row[1],2) = (float)(s*tmp1 + c*tmp2);
 
-	tmp1 = Row[2][0]; tmp2 = Row[2][2];
-	Row[2][0] = (float)(c*tmp1 - s*tmp2);
-	Row[2][2] = (float)(s*tmp1 + c*tmp2);
+	tmp1 = vector4Component(Row[2],0); tmp2 = vector4Component(Row[2],2);
+	vector4Component(Row[2],0) = (float)(c*tmp1 - s*tmp2);
+	vector4Component(Row[2],2) = (float)(s*tmp1 + c*tmp2);
 }
 __declspec(dllimport) __forceinline void Rotate_Z(const float&theta)
 {
@@ -87,17 +91,17 @@ __declspec(dllimport) __forceinline void Rotate_Z(const float&theta)
 	c = cosf(theta);
 	s = sinf(theta);
 
-	tmp1 = Row[0][0]; tmp2 = Row[0][1];
-	Row[0][0] = (float)( c*tmp1 + s*tmp2);
-	Row[0][1] = (float)(-s*tmp1 + c*tmp2);
+	tmp1 = vector4Component(Row[0],0); tmp2 = vector4Component(Row[0],1);
+	vector4Component(Row[0],0) = (float)( c*tmp1 + s*tmp2);
+	vector4Component(Row[0],1) = (float)(-s*tmp1 + c*tmp2);
 
-	tmp1 = Row[1][0]; tmp2 = Row[1][1];
-	Row[1][0] = (float)( c*tmp1 + s*tmp2);
-	Row[1][1] = (float)(-s*tmp1 + c*tmp2);
+	tmp1 = vector4Component(Row[1],0); tmp2 = vector4Component(Row[1],1);
+	vector4Component(Row[1],0) = (float)( c*tmp1 + s*tmp2);
+	vector4Component(Row[1],1) = (float)(-s*tmp1 + c*tmp2);
 
-	tmp1 = Row[2][0]; tmp2 = Row[2][1];
-	Row[2][0] = (float)( c*tmp1 + s*tmp2);
-	Row[2][1] = (float)(-s*tmp1 + c*tmp2);
+	tmp1 = vector4Component(Row[2],0); tmp2 = vector4Component(Row[2],1);
+	vector4Component(Row[2],0) = (float)( c*tmp1 + s*tmp2);
+	vector4Component(Row[2],1) = (float)(-s*tmp1 + c*tmp2);
 }
 };
 enum KindOfType{NATIVE_KIND_51=0x51};

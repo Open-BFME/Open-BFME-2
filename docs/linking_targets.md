@@ -1,5 +1,12 @@
 # Linking target checklist
 
+Physics transformation Vector4 adoption (2026-10-31): use the canonical
+storage header with a local component accessor retaining the native SSE
+schedule. The complete 875-byte method and all relocations remain exact;
+strict preparation and owning acceptance retire one header key. Bounded
+LINKS/875 is retained, with no new census or runtime claim.
+[Evidence](../reverse/attempt_support/physics-vector4-adoption-20261031.md).
+
 AptScriptColour clean-donor consolidation (2026-10-31): reconcile the two
 existing qualified GC-call declarations first, then merge the one clean
 donor through `tu_skeleton.py`. One source file is removed; both 45/30-byte
