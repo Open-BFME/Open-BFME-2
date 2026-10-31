@@ -334,3 +334,87 @@ def test_duplicate_class_name_gets_no_deleted_donor_credit(repo, capsys, side, s
     assert class_gate.staged_renames() == {}
     rc, err = repo.gate(capsys)
     assert rc == 1 and '`X`' in err
+
+
+@pytest.mark.parametrize('same', [False, True], ids=['changed-namespace', 'same-namespace'])
+def test_deleted_donor_namespace_identity(repo, capsys, same):
+    old = 'namespace A {\nclass X { int a; };\n}\n'
+    new = old if same else old.replace('namespace A', 'namespace B')
+    repo.write('reverse/canonical_classes.csv', 'class,header\nX,Code/Game/X.h\n')
+    repo.write(OLD, old + BODY)
+    repo.commit('reverse/canonical_classes.csv', OLD)
+    merge_into(repo, FILLER + new + FRESH, OLD)
+    assert class_gate.staged_renames() == {}
+    rc, err = repo.gate(capsys)
+    if same:
+        assert (rc, err) == (0, '')
+    else:
+        assert rc == 1 and '`X`' in err
+
+
+X_BODY = 'class X { int a; };\n'
+
+
+def scoped_x(*scopes):
+    text = X_BODY
+    for scope in reversed(scopes):
+        text = scope + ' {\n' + text + '}\n'
+    return text
+
+
+@pytest.mark.parametrize('old,new,path,passes', [
+    (scoped_x('namespace A', 'namespace B'), scoped_x('namespace A', 'namespace C'), ('A', 'B'), False),
+    (scoped_x('namespace A', 'namespace B'), scoped_x('namespace A::B'), ('A', 'B'), True),
+    (scoped_x('namespace'), X_BODY, ('(anonymous)',), False),
+    (scoped_x('namespace'), scoped_x('namespace'), ('(anonymous)',), True),
+    (scoped_x('class Outer'), scoped_x('class Other'), ('Outer',), False),
+    (scoped_x('namespace A', 'class Outer'), scoped_x('namespace A', 'class Outer'), ('A', 'Outer'), True),
+])
+def test_deleted_donor_full_scope_path(repo, capsys, old, new, path, passes):
+    assert class_gate.moved_bodies(old)['X'][0] == path
+    repo.write('reverse/canonical_classes.csv', 'class,header\nX,Code/Game/X.h\n')
+    repo.write(OLD, old + BODY)
+    repo.commit('reverse/canonical_classes.csv', OLD)
+    merge_into(repo, FILLER + new + FRESH, OLD)
+    assert class_gate.staged_renames() == {}
+    rc, err = repo.gate(capsys)
+    if passes:
+        assert (rc, err) == (0, '')
+    else:
+        assert rc == 1 and '`X`' in err
+
+
+@pytest.mark.parametrize('ambiguous', [
+    '}\n' + X_BODY,
+    '{\n' + X_BODY,
+    '#define S A\n' + scoped_x('namespace S'),
+    'BEGIN_NAMESPACE(A)\n' + X_BODY + 'END_NAMESPACE\n',
+    scoped_x('namespace NS(A)'),
+])
+@pytest.mark.parametrize('side', ['donor', 'destination'])
+def test_ambiguous_scope_gets_no_move_credit(repo, capsys, ambiguous, side):
+    assert class_gate.moved_bodies(ambiguous) == {}
+    old, new = (ambiguous, X_BODY) if side == 'donor' else (X_BODY, ambiguous)
+    repo.write('reverse/canonical_classes.csv', 'class,header\nX,Code/Game/X.h\n')
+    repo.write(OLD, old + BODY)
+    repo.commit('reverse/canonical_classes.csv', OLD)
+    merge_into(repo, FILLER + new + FRESH, OLD)
+    assert class_gate.staged_renames() == {}
+    rc, err = repo.gate(capsys)
+    assert rc == 1 and '`X`' in err
+
+
+@pytest.mark.parametrize('prefix,suffix', [
+    ('#include "X.h"\n', ''),
+    ('extern "C" {\n', '}\n'),
+])
+def test_move_scope_preserves_offsets_and_ignores_linkage(prefix, suffix):
+    plain = scoped_x('namespace A')
+    assert class_gate.moved_bodies(prefix + plain + suffix) == class_gate.moved_bodies(plain)
+
+
+def test_inline_namespace_class_heads_keep_namespace_identity():
+    old = 'namespace A { class X { int a; }; }'
+    new = 'namespace B { class X { int a; }; }'
+    assert class_gate.moved_bodies(old)['X'][0] == ('A',)
+    assert class_gate.moved_bodies(new)['X'][0] == ('B',)

@@ -19,7 +19,8 @@ A body that a unit deleted in the same commit carried verbatim (after comment
 and whitespace normalisation outside literals) is moved, not introduced: a TU merge
 (tools/tu_skeleton.py --merge) composes one unit from several deleted donors,
 which git rarely rates as a rename. Each deleted unit's body credits at most
-one staged unit, and an edited body gets no credit. Ambiguous preprocessing,
+one staged unit, and an edited body gets no credit. Enclosing namespace/class paths must also
+match, with anonymous namespaces recorded as `(anonymous)`. Ambiguous preprocessing,
 raw strings and alternative brace/bracket tokens receive no move credit.
 
 A unit that genuinely needs its own layout for a registered class (a
@@ -40,6 +41,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "tools"))
+import class_layouts  # noqa: E402
 import class_views  # noqa: E402
 
 ALLOW = re.compile(r"//\s*class-gate:\s*allow\s+(\w+)\s+\S")
@@ -144,6 +146,67 @@ def normalised_body(text):
     return collapsed(text)
 
 
+# The move proof needs every enclosing namespace/class, including nested heads.
+# Reuse the existing class-head grammar without its survey-only line anchor.
+MOVE_HEAD = re.compile(r'\b' + class_layouts.HEAD.pattern.removeprefix('^'), re.M)
+MOVE_NAMESPACE = re.compile(r'\bnamespace\s*([A-Za-z_]\w*(?:::[A-Za-z_]\w*)*)?\s*\{')
+
+
+def declared_names(text):
+    """Class heads including nested/inline ones the survey omits."""
+    code = LITERAL.sub(lambda m: ' ' * len(m.group()), text)
+    return {m.group('name') for m in MOVE_HEAD.finditer(code)}
+
+
+def scoped_move_spans(text):
+    """(name, start, end, enclosing path), or [] if scope proof is ambiguous.
+
+    Unknown brace scopes cannot enclose a credited class. A bare macro before
+    a scope head is likewise not evidence of global/namespace/class scope.
+    Includes are accepted; other directives can manufacture or condition scope
+    and are refused. Check the whole unit's balance, not only a class's prefix.
+    """
+    code = LITERAL.sub(lambda m: re.sub(r'[^\n]', ' ', m.group()), text)
+    if re.search(r'^[ \t\f\v]*(?:#|%:)(?![ \t]*include\b)', code, re.M):
+        return []
+    code = re.sub(r'^[ \t]*#[ \t]*include\b[^\n]*',
+                  lambda m: ' ' * len(m.group()), code, flags=re.M)
+    heads = {m.end() - 1: m for m in MOVE_HEAD.finditer(code)}
+    namespaces = {m.end() - 1: m for m in MOVE_NAMESPACE.finditer(code)}
+    linkage = {m.end() - 1 for m in class_layouts.LINKAGE.finditer(text)
+               if code[m.start():m.start() + 6] == 'extern'}
+    stack, spans, boundary = [], [], 0
+    for token in re.finditer(r'[{};]', code):
+        pos, char = token.start(), token.group()
+        if char == '{':
+            head, namespace = heads.get(pos), namespaces.get(pos)
+            if head or namespace:
+                start = (head or namespace).start()
+                prefix = code[boundary:start].strip()
+                if (any(frame[0] is None for frame in stack)
+                        or not re.fullmatch(r'(?:(?:public|protected|private)\s*:\s*)*'
+                                            r'(?:inline\s*)?', prefix)):
+                    return []
+            if namespace:
+                path = tuple((namespace.group(1) or '(anonymous)').split('::'))
+            elif head:
+                path = tuple(head.group('name').split('::'))
+            else:
+                path = () if pos in linkage else None
+            scope = tuple(part for frame in stack for part in (frame[0] or ()))
+            stack.append((path, head, scope))
+        elif char == '}':
+            if not stack:
+                return []
+            _, head, scope = stack.pop()
+            if head:
+                if head.group('template'):
+                    return []
+                spans.append((head.group('name'), head.start(), pos + 1, scope))
+        boundary = token.end()
+    return [] if stack else sorted(spans, key=lambda span: span[1])
+
+
 def moved_bodies(text):
     """Master's body keys, with conservative lexical checks for move credit.
 
@@ -156,7 +219,7 @@ def moved_bodies(text):
             or re.search(r"\?\?[=/'()!<>-]", text)):
         return {}
     found, seen = {}, set()
-    for name, start, end, _ in class_views.class_body_spans(text):
+    for name, start, end, scope in scoped_move_spans(text):
         # Unqualified keys cannot prove which of multiple bodies moved.
         # Count even bodies whose normalisation would refuse credit.
         if name in seen:
@@ -164,12 +227,12 @@ def moved_bodies(text):
         seen.add(name)
         body = normalised_body(text[start:end])
         if body is not None:
-            found.setdefault(name, body)
+            found[name] = (scope, body)
     return found
 
 
 def staged_deletions(renames):
-    """{(class name, normalised body): [HEAD path, ...]} for gated units the index deletes.
+    """{(class name, (enclosing scope, normalised body)): [HEAD path, ...]} for gated units the index deletes.
 
     --no-renames lists every vanished path as D; a path a staged rename already
     credits is skipped so one body is never credited twice. Any git failure
@@ -199,7 +262,7 @@ def introduced(path, text, canon, renamed_from=None, moved=None):
     then the in-place edit, both admitted). `moved` is staged_deletions()'s
     pool: a body found there verbatim is consumed from it and credited.
     """
-    now = set(class_views.class_bodies(text)) & set(canon)
+    now = declared_names(text) & set(canon)
     if not now:
         return []
     had = set()
@@ -208,11 +271,11 @@ def introduced(path, text, canon, renamed_from=None, moved=None):
     for parent in ("HEAD", "MERGE_HEAD"):
         before = git_text(f"{parent}:{path}")
         if before:
-            had |= set(class_views.class_bodies(before))
+            had |= declared_names(before)
     if renamed_from:
         before = git_text(f"HEAD:{renamed_from}")
         if before:
-            had |= set(class_views.class_bodies(before))
+            had |= declared_names(before)
     allowed = set(ALLOW.findall(text))
     fresh = now - had - allowed
     if moved:
