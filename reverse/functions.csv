@@ -17767,7 +17767,7 @@ _VP6_DecodeMacroBlock,,0x001C66B0,705,Code/Libraries/Source/VP6/DecodeMacroBlock
 ?get@Rva0047A6B4DivAvgField@@QBEHXZ,,0x0047A6B4,12,Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContain.cpp,matched,Disp8 div-avg getter /O1 push-imm8 shape phase-proven no-branch-to-addr
 ?get@Rva0051E3D9DivAvgField@@QBEHXZ,,0x0051E3D9,12,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp,matched,Disp8 div-avg getter /O1 push-imm8 shape phase-proven no-branch-to-addr
 ?get@Rva0051E42BDivAvgField@@QBEHXZ,,0x0051E42B,12,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp,matched,Disp8 div-avg getter /O1 push-imm8 shape phase-proven no-branch-to-addr
-?get@Rva0052BB28DivAvgField@@QBEHXZ,,0x0052BB28,12,Code/GameEngine/Source/Common/Disp8DivAvgDwordGetters.cpp,matched,Disp8 div-avg getter /O1 push-imm8 shape phase-proven no-branch-to-addr
+?get@Rva0052BB28DivAvgField@@QBEHXZ,,0x0052BB28,12,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp,matched,Disp8 div-avg getter /O1 push-imm8 shape phase-proven no-branch-to-addr
 ?get@Rva0053FCBFDivAvgField@@QBEHXZ,,0x0053FCBF,12,Code/GameEngine/Source/Common/Disp8DivAvgDwordGetters.cpp,matched,Disp8 div-avg getter /O1 push-imm8 shape phase-proven no-branch-to-addr
 ?get@Rva00540D2ADivAvgField@@QBEHXZ,,0x00540D2A,12,Code/GameEngine/Source/Common/Disp8DivAvgDwordGetters.cpp,matched,Disp8 div-avg getter /O1 push-imm8 shape phase-proven no-branch-to-addr
 ?get@Rva005687D3DivAvgField@@QBEHXZ,,0x005687D3,12,Code/GameEngine/Source/Common/Disp8DivAvgDwordGetters.cpp,matched,Disp8 div-avg getter /O1 push-imm8 shape phase-proven no-branch-to-addr

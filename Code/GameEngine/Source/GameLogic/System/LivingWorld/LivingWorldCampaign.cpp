@@ -126,6 +126,19 @@ class DamageInfo;
 class Xfer;
 #include "string_base.h"
 #define BFME_SNAPSHOT_NAME_SLOT
+#define BFME_DISP8_DIV_AVG_DWORD_GETTER(NAME, DISP1, DISP2, DIVISOR) \
+	class NAME \
+	{ \
+	public: \
+		int get() const; \
+		char m_lead[DISP1]; \
+		int m_first; \
+	}; \
+	int NAME::get() const \
+	{ \
+		return (m_first - *(int *)((char *)this + DISP2)) / DIVISOR; \
+	}
+BFME_DISP8_DIV_AVG_DWORD_GETTER(Rva0052BB28DivAvgField, 0x04, 0x00, 0x28)
 
 extern GameLogic *TheGameLogic;
 
@@ -849,6 +862,22 @@ public:
 
 struct Res004FCA0C;
 
+struct Rva000AD6F4Base
+{
+	virtual void *virt0(unsigned int);
+};
+
+class Rva000AD6F4
+{
+public:
+	~Rva000AD6F4();
+	void clear();
+private:
+	Rva000AD6F4Base *m_ptr;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp
@@ -1310,7 +1339,156 @@ void LivingWorldCampaign::loadPostProcess()
 {
 }
 
-// tu-skeleton: 0x0052BB28 12B ?get@Rva0052BB28DivAvgField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8DivAvgDwordGetters.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_construct_eh_twins.cpp
+
+//
+// STLport _Construct<T> placement copies with an EH frame, 45 bytes each, for
+// three address-named classes whose copy constructors are rowed:
+//
+//   0x004157E1  T = Rva0041579E  (copy ctor 0x0041579E, Rva0041573FCopy.cpp)
+//   0x0052C1D6  T = Rva002E0A0A  (copy ctor 0x002E0A0A, Rva002E0A0ACopyCtor.cpp)
+//   0x0052C3D7  T = Rva004E194E  (copy ctor 0x0052BE96, Rva004E194ECopyCtor.cpp)
+//
+// Each is an EH-framed twin of the rowed _Construct<GenericObjectCreationNugget::AnimSet>
+// (0x001F06B9, ObjectCreationList.cpp), identical except for its copy call and
+// its own __ehhandler; the copy call names T. StlportConstructEhSiblings.cpp's
+// two _Construct rows have this shape.
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva002E0A0AUninitCopy.cpp
+
+// ??$__uninitialized_copy@PAVRva002E0A0A@@PAV1@@_STL@@YAPAVRva002E0A0A@@PAV1@00ABU__false_type@0@@Z 0x0052C203 38B evidence: copy stride 0x28 via rowed _Construct 0x0052C1D6; callers 0x0052D157 0x0052D1A2; siblings Rva003A6F70UninitCopy Rva004E18A2UninitCopy
+// ??$__uninitialized_copy@PAVRva002E0A0A@@PAV1@@_STL@@YAPAVRva002E0A0A@@PAV1@00ABU__false_type@0@@Z 0x0052C203 38B evidence: copy stride 0x28 via rowed _Construct 0x0052C1D6; callers 0x0052D157 0x0052D1A2; siblings Rva003A6F70UninitCopy Rva004E18A2UninitCopy same flags
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva002E0A0AFillN.cpp
+
+//
+// ??$__uninitialized_fill_n@PAVRva002E0A0A@@IV1@@_STL@@YAPAVRva002E0A0A@@PAV1@IABV1@ABU__false_type@0@@Z @0x0052C229 (37B).
+// _STL::__uninitialized_fill_n<Rva002E0A0A>, retail 37 bytes. Element
+// stride is 0x28; the loop calls _Construct out of line, the rowed
+// 0x0052C1D6. Caller 0x0052D184. Sibling Rva00564C58FillN same recipe.
+// _STL::__uninitialized_fill_n<Rva002E0A0A>, retail 37 bytes. Dedicated TU
+// so no local _Construct definition can inline into this loop. Element
+// stride is 0x28 via the dummy body below; _Construct is declared only
+// and resolves through the rowed 0x0052C1D6. Caller 0x0052D184.
+// Sibling Rva00564C58FillN same recipe same flags.
+
+
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva003A6F70UninitCopy.cpp
+
+// ??$__uninitialized_copy@PAVRva003A6F70@@PAV1@@_STL@@YAPAVRva003A6F70@@PAV1@00ABU__false_type@0@@Z 0x0052C27E 38B evidence: copy stride 0x20 via rowed _Construct 0x0052BD04; callers 0x0052C854 0x00565DE0 0x00565E2B; sibling Rva00564C58FillN same record
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva004E18A2UninitCopy.cpp
+
+// ??$__uninitialized_copy@PAVRva004E18A2@@PAV1@@_STL@@YAPAVRva004E18A2@@PAV1@00ABU__false_type@0@@Z 0x0052C2A4 38B evidence: copy stride 0x10 via rowed _Construct 0x0052BD16; callers 0x0052C898 0x00565F4B 0x00565F96; siblings Rva003A6F70UninitCopy Rva003A6360UninitCopy
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva003A6360UninitCopy.cpp
+
+// ??$__uninitialized_copy@PAVRva003A6360Record@@PAV1@@_STL@@YAPAVRva003A6360Record@@PAV1@00ABU__false_type@0@@Z 0x0052C2CA 41B evidence: stride 0x10 via rowed copy ctor 0x0052BB9A; callers 0x0052C8AB 0x00565FC1; sibling Rva003A6F70UninitCopy same template
+
+
+
+
+
+
+
+
+
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva0052C867Copy.cpp
+
+// ??0Rva0052C867@@QAE@ABV0@@Z 0x0052C867 68B evidence: Vector_base 0x00421D73 row E16; get_allocator 0x0021983A row AsciiString; uninit-copy 0x0052C2A4 row Rva004E18A2; caller 0x0052D627; sibling Rva0052C8ABCopy same recipe
+
+Rva0052C867::Rva0052C867(const Rva0052C867 &x)
+	: _STL::_Vector_base<BfmeE16, _STL::allocator<BfmeE16> >((x._M_finish - x._M_start), *(const _STL::allocator<BfmeE16> *)&((const _STL::vector<AsciiString, _STL::allocator<AsciiString> > &)x).get_allocator())
+{
+	_M_finish = (BfmeE16 *)_STL::__uninitialized_copy((Rva004E18A2 *)x._M_start, (Rva004E18A2 *)x._M_finish, (Rva004E18A2 *)_M_start, _STL::__false_type());
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva0052C8ABCopy.cpp
+
+// ??0Rva0052C8AB@@QAE@ABV0@@Z 0x0052C8AB 68B evidence: Vector_base 0x00421D73 row E16; get_allocator 0x0021983A row AsciiString; uninit-copy 0x0052C2CA row Rva003A6360Record; caller 0x0052D555; sibling Rva005386F5Copy same recipe
+
+Rva0052C8AB::Rva0052C8AB(const Rva0052C8AB &x)
+	: _STL::_Vector_base<BfmeE16, _STL::allocator<BfmeE16> >((x._M_finish - x._M_start), *(const _STL::allocator<BfmeE16> *)&((const _STL::vector<AsciiString, _STL::allocator<AsciiString> > &)x).get_allocator())
+{
+	_M_finish = (BfmeE16 *)_STL::__uninitialized_copy((Rva003A6360Record *)x._M_start, (Rva003A6360Record *)x._M_finish, (Rva003A6360Record *)_M_start, _STL::__false_type());
+}
+
+// ---- from Code/GameEngine/Source/Common/LivingWorldCampaign.cpp
+
+//
+// ??0LivingWorldCampaign@@QAE@ABVAsciiString@@@Z, retail 0x0052cf0f, 156 bytes. Banked partial (score 1.0) closed by tools/permute.py;
+// the body is the banked one up to statement/operand order and local types.
+//
+// Evidence: vtable 0x00868780 at +0 (same as dtor 0x0052CFB1 own unit), StringBase copy 0x000365F0 from param, vector_base 0x00211E58 twice, immutable floats2.0/1.0 atC686F4/C686F8, ints 0xb4 0x1d4c 0x9c4, caller 0x0052D0CD in 0x0052D04E.
+
+LivingWorldCampaign::LivingWorldCampaign(const AsciiString &asciiString)
+	: Snapshot()
+	, m_04(asciiString)
+	, m_08(0)
+	, m_records()
+	, m_currentIndex(0)
+	, m_1C(0)
+	, m_20(0)
+	, players()
+	, localName()
+	, m_34()
+	, m_38(0xb4)
+	, m_3c(0x1d4c)
+	, m_40(0x9c4)
+	, m_44(2.0f)
+	, m_48(1.0f)
+	, fromCampaign(false)
+	, m_4d(false)
+	, m_4e(false)
+{
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva0052CFB1Dtor.cpp
+
+// ??1LivingWorldCampaign@@UAE@XZ @0x0052CFB1 157B: dtor with AsciiStrings vectors and twin deletes via get plus Snapshot base BBB554.
+// Evidence: vtable 0x00868780 at +0, releaseBuffer +0x04 +0x30 +0x34, vectors +0x0C +0x24 rowed, deletes +0x1C +0x20 via virtual get, base 0xBBB554, caller 0x0052D305, neighbours ConstIntGetters4 RvaVectorDtorFamily.
+
+LivingWorldCampaign::~LivingWorldCampaign()
+{
+	delete (m_1C ? m_1C->get(0) : 0);
+	delete (m_20 ? m_20->get(0) : 0);
+}
+
+// ---- from Code/GameEngine/Source/Common/LivingWorldCampaign_AddPlayer.cpp
+
+// ?AddPlayer@LivingWorldCampaign@@QAEXABVRva002E0A0A@@@Z 0x0052D394 93B evidence: chain via 0x0052D31E just landed; dedup via StringBase compare 0x000069D6 plus push_back 0x0052D31E; stride 0x28 idiv; caller 0x002E1DD4; v4 no-G7 for regalloc edi-ebx flip; same C++ as overflow-file attempt which was 93-vs-93 regs-only.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+
+void LivingWorldCampaign::AddPlayer(const Rva002E0A0A &arg)
+{
+    unsigned i = 0;
+    for (; i < ((_STL::vector<Rva002E0A0A> &)players).size(); ++i) {
+        const StringBase<char> &argStr = *(const StringBase<char> *)((const char *)&arg + 8);
+        const StringBase<char> &elemStr = *(const StringBase<char> *)((const char *)&((_STL::vector<Rva002E0A0A> &)players)[i] + 8);
+        if (argStr.compare(elemStr) == 0)
+            return;
+    }
+    ((_STL::vector<Rva002E0A0A> &)players).push_back(arg);
+}
+
+// ---- from Code/GameEngine/Source/Common/Disp8DivAvgDwordGetters.cpp
+
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
+// Disp8 div-avg dword getters: thirteen-byte __thiscall members with one shape:
+//
+//     mov eax,[ecx+<DISP1>] / sub eax,[ecx+<DISP2>] / push <DIV> / cdq
+//     pop ecx / idiv ecx / ret
+//
+// The difference of two dwords at fixed displacements from `this` is divided
+// by a small constant. MSVC 7.1 under /O1 materializes the divisor through
+// the stack (`push imm` + `pop ecx`, three bytes) instead of `mov ecx,imm`
+// (five bytes); `cdq` sign-extends for the signed `idiv`. Thirteen bytes
+// total. Identity is not recovered: every name is derived from its address.
+
+// ?clear@Rva000AD6F4@@QAEXXZ @0x000AD6F4 29B: owning-pointer clear via virtual slot0 with 0 plus operator delete; callers 40+ incl Rva002D3573 dtor; no donor.
 
 // tu-skeleton: 0x0052BBD7 28B ??_GRva004E364F@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors11.cpp (not merged yet)
 
@@ -1348,54 +1526,9 @@ void LivingWorldCampaign::loadPostProcess()
 
 // tu-skeleton: 0x0052C161 117B ?rva0052C161@Rva0052C036@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionCampaignInitPathfinder.cpp (not merged yet)
 
-// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_construct_eh_twins.cpp
-
-//
-// STLport _Construct<T> placement copies with an EH frame, 45 bytes each, for
-// three address-named classes whose copy constructors are rowed:
-//
-//   0x004157E1  T = Rva0041579E  (copy ctor 0x0041579E, Rva0041573FCopy.cpp)
-//   0x0052C1D6  T = Rva002E0A0A  (copy ctor 0x002E0A0A, Rva002E0A0ACopyCtor.cpp)
-//   0x0052C3D7  T = Rva004E194E  (copy ctor 0x0052BE96, Rva004E194ECopyCtor.cpp)
-//
-// Each is an EH-framed twin of the rowed _Construct<GenericObjectCreationNugget::AnimSet>
-// (0x001F06B9, ObjectCreationList.cpp), identical except for its copy call and
-// its own __ehhandler; the copy call names T. StlportConstructEhSiblings.cpp's
-// two _Construct rows have this shape.
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva002E0A0AUninitCopy.cpp
-
-// ??$__uninitialized_copy@PAVRva002E0A0A@@PAV1@@_STL@@YAPAVRva002E0A0A@@PAV1@00ABU__false_type@0@@Z 0x0052C203 38B evidence: copy stride 0x28 via rowed _Construct 0x0052C1D6; callers 0x0052D157 0x0052D1A2; siblings Rva003A6F70UninitCopy Rva004E18A2UninitCopy
-// ??$__uninitialized_copy@PAVRva002E0A0A@@PAV1@@_STL@@YAPAVRva002E0A0A@@PAV1@00ABU__false_type@0@@Z 0x0052C203 38B evidence: copy stride 0x28 via rowed _Construct 0x0052C1D6; callers 0x0052D157 0x0052D1A2; siblings Rva003A6F70UninitCopy Rva004E18A2UninitCopy same flags
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva002E0A0AFillN.cpp
-
-//
-// ??$__uninitialized_fill_n@PAVRva002E0A0A@@IV1@@_STL@@YAPAVRva002E0A0A@@PAV1@IABV1@ABU__false_type@0@@Z @0x0052C229 (37B).
-// _STL::__uninitialized_fill_n<Rva002E0A0A>, retail 37 bytes. Element
-// stride is 0x28; the loop calls _Construct out of line, the rowed
-// 0x0052C1D6. Caller 0x0052D184. Sibling Rva00564C58FillN same recipe.
-// _STL::__uninitialized_fill_n<Rva002E0A0A>, retail 37 bytes. Dedicated TU
-// so no local _Construct definition can inline into this loop. Element
-// stride is 0x28 via the dummy body below; _Construct is declared only
-// and resolves through the rowed 0x0052C1D6. Caller 0x0052D184.
-// Sibling Rva00564C58FillN same recipe same flags.
-
 // tu-skeleton: 0x0052C24E 24B ?Rva0052C24EDestroyRange@@YAXPAURva0052BCE7Elem@@0@Z -- matched in Code/GameEngine/Source/Common/System/Rva0052BF33DestroyTagged.cpp (not merged yet)
 
 // tu-skeleton: 0x0052C266 24B ?Rva0052C266DestroyRange@@YAXPAURva0052BF4DElem@@0@Z -- matched in Code/GameEngine/Source/Common/System/Rva0052BF33DestroyTagged.cpp (not merged yet)
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva003A6F70UninitCopy.cpp
-
-// ??$__uninitialized_copy@PAVRva003A6F70@@PAV1@@_STL@@YAPAVRva003A6F70@@PAV1@00ABU__false_type@0@@Z 0x0052C27E 38B evidence: copy stride 0x20 via rowed _Construct 0x0052BD04; callers 0x0052C854 0x00565DE0 0x00565E2B; sibling Rva00564C58FillN same record
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva004E18A2UninitCopy.cpp
-
-// ??$__uninitialized_copy@PAVRva004E18A2@@PAV1@@_STL@@YAPAVRva004E18A2@@PAV1@00ABU__false_type@0@@Z 0x0052C2A4 38B evidence: copy stride 0x10 via rowed _Construct 0x0052BD16; callers 0x0052C898 0x00565F4B 0x00565F96; siblings Rva003A6F70UninitCopy Rva003A6360UninitCopy
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva003A6360UninitCopy.cpp
-
-// ??$__uninitialized_copy@PAVRva003A6360Record@@PAV1@@_STL@@YAPAVRva003A6360Record@@PAV1@00ABU__false_type@0@@Z 0x0052C2CA 41B evidence: stride 0x10 via rowed copy ctor 0x0052BB9A; callers 0x0052C8AB 0x00565FC1; sibling Rva003A6F70UninitCopy same template
 
 // tu-skeleton: 0x0052C2F3 45B ??$_Construct@VFXList@@V1@@_STL@@YAXPAVFXList@@ABV1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_game_structs.cpp (not merged yet)
 
@@ -1414,26 +1547,6 @@ void LivingWorldCampaign::loadPostProcess()
 // tu-skeleton: 0x0052C431 45B ??$_Construct@VRva0052BEF0@@V1@@_STL@@YAXPAVRva0052BEF0@@ABV1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_game_structs.cpp (not merged yet)
 
 // tu-skeleton: 0x0052C72B 119B ?hasEntryNamed@Rva0052BFE1@@QAE_NABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva0052C119CurrentEntry.cpp (not merged yet)
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva0052C867Copy.cpp
-
-// ??0Rva0052C867@@QAE@ABV0@@Z 0x0052C867 68B evidence: Vector_base 0x00421D73 row E16; get_allocator 0x0021983A row AsciiString; uninit-copy 0x0052C2A4 row Rva004E18A2; caller 0x0052D627; sibling Rva0052C8ABCopy same recipe
-
-Rva0052C867::Rva0052C867(const Rva0052C867 &x)
-	: _STL::_Vector_base<BfmeE16, _STL::allocator<BfmeE16> >((x._M_finish - x._M_start), *(const _STL::allocator<BfmeE16> *)&((const _STL::vector<AsciiString, _STL::allocator<AsciiString> > &)x).get_allocator())
-{
-	_M_finish = (BfmeE16 *)_STL::__uninitialized_copy((Rva004E18A2 *)x._M_start, (Rva004E18A2 *)x._M_finish, (Rva004E18A2 *)_M_start, _STL::__false_type());
-}
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva0052C8ABCopy.cpp
-
-// ??0Rva0052C8AB@@QAE@ABV0@@Z 0x0052C8AB 68B evidence: Vector_base 0x00421D73 row E16; get_allocator 0x0021983A row AsciiString; uninit-copy 0x0052C2CA row Rva003A6360Record; caller 0x0052D555; sibling Rva005386F5Copy same recipe
-
-Rva0052C8AB::Rva0052C8AB(const Rva0052C8AB &x)
-	: _STL::_Vector_base<BfmeE16, _STL::allocator<BfmeE16> >((x._M_finish - x._M_start), *(const _STL::allocator<BfmeE16> *)&((const _STL::vector<AsciiString, _STL::allocator<AsciiString> > &)x).get_allocator())
-{
-	_M_finish = (BfmeE16 *)_STL::__uninitialized_copy((Rva003A6360Record *)x._M_start, (Rva003A6360Record *)x._M_finish, (Rva003A6360Record *)_M_start, _STL::__false_type());
-}
 
 // tu-skeleton: 0x0052C8EF 38B ??$__uninitialized_copy@PAVFXList@@PAV1@@_STL@@YAPAVFXList@@PAV1@00ABU__false_type@0@@Z -- matched in Code/GameEngine/Source/GameClient/FXListVectorInsertOverflow.cpp (not merged yet)
 
@@ -1471,48 +1584,7 @@ Rva0052C8AB::Rva0052C8AB(const Rva0052C8AB &x)
 
 // tu-skeleton: 0x0052CE7D 96B ??0?$vector@VRva0052BEF0@@V?$allocator@VRva0052BEF0@@@_STL@@@_STL@@QAE@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorCopyCtorFamily.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/LivingWorldCampaign.cpp
-
-//
-// ??0LivingWorldCampaign@@QAE@ABVAsciiString@@@Z, retail 0x0052cf0f, 156 bytes. Banked partial (score 1.0) closed by tools/permute.py;
-// the body is the banked one up to statement/operand order and local types.
-//
-// Evidence: vtable 0x00868780 at +0 (same as dtor 0x0052CFB1 own unit), StringBase copy 0x000365F0 from param, vector_base 0x00211E58 twice, immutable floats2.0/1.0 atC686F4/C686F8, ints 0xb4 0x1d4c 0x9c4, caller 0x0052D0CD in 0x0052D04E.
-
-LivingWorldCampaign::LivingWorldCampaign(const AsciiString &asciiString)
-	: Snapshot()
-	, m_04(asciiString)
-	, m_08(0)
-	, m_records()
-	, m_currentIndex(0)
-	, m_1C(0)
-	, m_20(0)
-	, players()
-	, localName()
-	, m_34()
-	, m_38(0xb4)
-	, m_3c(0x1d4c)
-	, m_40(0x9c4)
-	, m_44(2.0f)
-	, m_48(1.0f)
-	, fromCampaign(false)
-	, m_4d(false)
-	, m_4e(false)
-{
-}
-
 // tu-skeleton: 0x0052CFAB 6B ?GetSnapshotName@LivingWorldCampaign@@UBEPBDXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/Rva0052CFB1Dtor.cpp
-
-// ??1LivingWorldCampaign@@UAE@XZ @0x0052CFB1 157B: dtor with AsciiStrings vectors and twin deletes via get plus Snapshot base BBB554.
-// Evidence: vtable 0x00868780 at +0, releaseBuffer +0x04 +0x30 +0x34, vectors +0x0C +0x24 rowed, deletes +0x1C +0x20 via virtual get, base 0xBBB554, caller 0x0052D305, neighbours ConstIntGetters4 RvaVectorDtorFamily.
-
-LivingWorldCampaign::~LivingWorldCampaign()
-{
-	delete (m_1C ? m_1C->get(0) : 0);
-	delete (m_20 ? m_20->get(0) : 0);
-}
 
 // tu-skeleton: 0x0052D116 183B ?_M_insert_overflow@?$vector@VRva002E0A0A@@V?$allocator@VRva002E0A0A@@@_STL@@@_STL@@IAEXPAVRva002E0A0A@@ABV3@ABU__false_type@2@I_N@Z -- matched in Code/GameEngine/Source/Common/Rva0052D116Overflow.cpp (not merged yet)
 
@@ -1529,24 +1601,6 @@ LivingWorldCampaign::~LivingWorldCampaign()
 // tu-skeleton: 0x0052D355 45B ??$_Construct@URva005668E9Element@@U1@@_STL@@YAXPAURva005668E9Element@@ABU1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportConstructFamily.cpp (not merged yet)
 
 // tu-skeleton: 0x0052D382 18B ??0?$map@HVAsciiString@@U?$less@H@_STL@@V?$allocator@U?$pair@$$CBHVAsciiString@@@_STL@@@3@@_STL@@QAE@ABV01@@Z -- matched in Code/GameEngine/Source/Common/UserPreferencesDeferredIgnores.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/LivingWorldCampaign_AddPlayer.cpp
-
-// ?AddPlayer@LivingWorldCampaign@@QAEXABVRva002E0A0A@@@Z 0x0052D394 93B evidence: chain via 0x0052D31E just landed; dedup via StringBase compare 0x000069D6 plus push_back 0x0052D31E; stride 0x28 idiv; caller 0x002E1DD4; v4 no-G7 for regalloc edi-ebx flip; same C++ as overflow-file attempt which was 93-vs-93 regs-only.
-// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
-// overload takes the call instead, so this TU emits no external max COMDAT.
-
-void LivingWorldCampaign::AddPlayer(const Rva002E0A0A &arg)
-{
-    unsigned i = 0;
-    for (; i < ((_STL::vector<Rva002E0A0A> &)players).size(); ++i) {
-        const StringBase<char> &argStr = *(const StringBase<char> *)((const char *)&arg + 8);
-        const StringBase<char> &elemStr = *(const StringBase<char> *)((const char *)&((_STL::vector<Rva002E0A0A> &)players)[i] + 8);
-        if (argStr.compare(elemStr) == 0)
-            return;
-    }
-    ((_STL::vector<Rva002E0A0A> &)players).push_back(arg);
-}
 
 // tu-skeleton: 0x00797132 8B uw_00797132 -- matched in Code/gen_small/uw_gen_013.cpp (not merged yet)
 

@@ -44318,7 +44318,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0052BAB2,15,code,,,-,,Code/GameEngine/Source/Common/Rva0052BAB2Getter.cpp
 0x0052BAC1,61,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp W=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp
 0x0052BAFE,42,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp,approved,U,N=Code/GameEngine/Source/Common/LivingWorldCampaign.cpp,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp
-0x0052BB28,12,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp,approved,C,C=0x0052BAFE..0x0052BB34,Code/GameEngine/Source/Common/Disp8DivAvgDwordGetters.cpp
+0x0052BB28,12,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp,approved,C,C=0x0052BAFE..0x0052BB34,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp
 0x0052BB34,57,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp,approved,C,C=0x0052BAFE..0x0052BB6D,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp
 0x0052BB6D,45,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp,approved,C,C=0x0052BAFE..0x0052BB9A,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp
 0x0052BB9A,33,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp,approved,C,C=0x0052BAFE..0x0052BBBB,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp
