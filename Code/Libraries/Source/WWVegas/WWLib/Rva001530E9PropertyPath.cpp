@@ -1,4 +1,5 @@
-// cl: /MD /Oi-
+// cl: /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// stlport
 // Banked C++ source: reverse/attempts/0x001530e9.cpp at 4615be509614819810bca848d60a47a6921bb6d0.
 // Target Ghidra boundary 0x001530E9..0x001531C9, 224B, plain cdecl RET.
 // Callers 0x0007FFED/0x00080E30/0x000E1F42/0x0014FE33/0x001F4A90 parse
@@ -10,8 +11,25 @@
 // into its dead argument slot. A separate cand value keeps the strcmp push
 // in a register. This qualifier describes our codegen, not a target API fact.
 // Preserve the target's 64-byte clamp, flags and terminator order verbatim.
+// string.h and stdio.h declare these without dllimport because this TU builds
+// with /D_CRTIMP=; rename those decls away so the real import decls are the only ones.
+#define strchr _stlport_hides_strchr
+#define strrchr _stlport_hides_strrchr
+#define strncpy _stlport_hides_strncpy
+#define sscanf _stlport_hides_sscanf
 #include <string.h>
 #include <stdio.h>
+#undef strchr
+#undef strrchr
+#undef strncpy
+#undef sscanf
+
+extern "C" {
+__declspec(dllimport) char *__cdecl strchr(const char *s, int c);
+__declspec(dllimport) char *__cdecl strrchr(const char *s, int c);
+__declspec(dllimport) char *__cdecl strncpy(char *d, const char *s, unsigned int n);
+__declspec(dllimport) int __cdecl sscanf(const char *s, const char *format, ...);
+}
 
 struct Rva001530E9Parts {
     char m_name[64];

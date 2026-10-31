@@ -17,6 +17,8 @@
 #define strchr _stlport_hides_strchr
 #define strncpy _stlport_hides_strncpy
 #define _strcmpi _stlport_hides_strcmpi
+#include "../../../../../vendor/stlport/stl/_algobase.h"
+#include "../../../../../vendor/stlport/stl/_uninitialized.h"
 // vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
 // overload takes the call instead, so this TU emits no external max COMDAT.
 namespace _STL {
@@ -36,8 +38,82 @@ __declspec(dllimport) char *__cdecl strncpy(char *d, const char *s, unsigned int
 __declspec(dllimport) int __cdecl _strcmpi(const char *a, const char *b);
 }
 
-typedef long HRESULT;
+struct TargetRef00217D4C { virtual void *destroy(unsigned int flags); int references; };
+
+void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
+
+struct TreeHintRef00217D4C
+{
+	TargetRef00217D4C *m_ptr;
+	TreeHintRef00217D4C() : m_ptr(0) {}
+	TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &other);
+	~TreeHintRef00217D4C()
+	{
+		if (m_ptr)
+			ReleaseTreeHintRef00217D4C(m_ptr);
+	}
+};
+
+struct Rva005F8F96
+{
+	~Rva005F8F96();
+	TargetRef00217D4C *m_00;
+	int m_04;
+};
+
 typedef const char *D3DXHANDLE;
+
+// One per technique, 0x4C bytes: the handle and six binding vectors.
+struct Rva00153729
+{
+	Rva00153729();
+	~Rva00153729() {}
+	Rva00153729 &rva001539BC(const Rva00153729 &other);
+
+	D3DXHANDLE m_technique;			// +0
+	_STL::vector<Rva005F8F96> m_vec[6];	// +4
+};
+
+// Bind to the kept retail copy instead of emitting this unit's own.
+namespace _STL { template <> vector<Rva005F8F96,allocator<Rva005F8F96> > & vector<Rva005F8F96,allocator<Rva005F8F96> >::operator=(vector<Rva005F8F96,allocator<Rva005F8F96> > const &); }
+// Bind to the kept retail copy instead of emitting this unit's own.
+namespace _STL { template <> Rva00153729 * vector<Rva00153729,allocator<Rva00153729> >::erase(Rva00153729 *,Rva00153729 *); }
+
+// The stack's 4-byte elements append through the ICF-shared push_back
+// 0x002E01C6, rowed under its established ScienceType spelling (as the
+// PushDynamicSetStack row 0x0015354E also spells it).
+enum ScienceType { SCIENCE_INVALID = -1 };
+
+// The binder's stack parsing record: the parameter being bound and the
+// dynamic-set stack (the 4-byte vector the Push/PopDynamicSetStack rows use).
+// destructor 0x000796BC, not 0x002154BE. So the ctor view here is trivially
+// destructible and the stack record is its own class, Rva00153F08Parsing.
+class Rva0015334F
+{
+public:
+	Rva0015334F();
+
+	D3DXHANDLE m_current;			// +0
+	_STL::vector<ScienceType> m_stack;	// +4
+};
+
+// 0x0015334F is an ICF-shared ctor: PlayerAITypeSetParse.cpp's Rva0015334F (a
+// name plus a string vector, dtor 0x002154BE) folds onto it too. This record's
+// destruction is different: Init's unwind reaches the 15-byte vector-at-+4
+// destructor 0x000796BC, not 0x002154BE. So the record Init builds through that
+// ctor is its own class, Rva00153F08Parsing: bytes the ctor fills, of which only
+// the stack is destroyed.
+class Rva00153F08Parsing
+{
+public:
+	Rva00153F08Parsing() { record().Rva0015334F::Rva0015334F(); }
+	~Rva00153F08Parsing() { record().m_stack.~vector(); }
+	Rva0015334F &record() { return *reinterpret_cast<Rva0015334F *>(this); }
+private:
+	char m_storage[sizeof(Rva0015334F)];
+};
+
+typedef long HRESULT;
 
 struct D3DXEFFECT_DESC
 {
@@ -49,6 +125,7 @@ struct D3DXEFFECT_DESC
 
 #define FX_SLOT(n) virtual HRESULT __stdcall slot##n()
 
+// Interface slots are d3dx9effect.h's ID3DXEffect order.
 struct ID3DXEffect
 {
 	FX_SLOT(00);
@@ -78,7 +155,7 @@ struct ID3DXEffect
 	FX_SLOT(24);
 	FX_SLOT(25);
 	FX_SLOT(26);
-	FX_SLOT(27);
+	virtual HRESULT __stdcall GetInt(D3DXHANDLE param, int *value);
 	FX_SLOT(28);
 	FX_SLOT(29);
 	FX_SLOT(30);
@@ -103,62 +180,34 @@ struct ID3DXEffect
 	FX_SLOT(49);
 	FX_SLOT(50);
 	virtual HRESULT __stdcall GetString(D3DXHANDLE param, const char **string);
+	FX_SLOT(52);
+	FX_SLOT(53);
+	FX_SLOT(54);
+	FX_SLOT(55);
+	FX_SLOT(56);
+	FX_SLOT(57);
+	FX_SLOT(58);
+	FX_SLOT(59);
+	FX_SLOT(60);
+	FX_SLOT(61);
+	virtual int __stdcall IsParameterUsed(D3DXHANDLE param, D3DXHANDLE technique);
 };
 
-// The stack's 4-byte elements append through the ICF-shared push_back
-// 0x002E01C6, rowed under its established ScienceType spelling (as the
-// PushDynamicSetStack row 0x0015354E also spells it).
-enum ScienceType { SCIENCE_INVALID = -1 };
-
-// The binder's stack parsing record: the parameter being bound and the
-// dynamic-set stack (the 4-byte vector the Push/PopDynamicSetStack rows use).
-//
-// 0x0015334F is an ICF-shared ctor: PlayerAITypeSetParse.cpp's Rva0015334F (a
-// name plus a string vector, dtor 0x002154BE) folds onto it too. This record's
-// destruction is different: Init's unwind reaches the 15-byte vector-at-+4
-// destructor 0x000796BC, not 0x002154BE. So the ctor view here is trivially
-// destructible and the stack record is its own class, Rva00153F08Parsing.
-class Rva0015334F
+class FXShaderParameterBinder
 {
 public:
-	Rva0015334F();
+	FXShaderParameterBinder(void *surface);
+	void Init(ID3DXEffect *effect);
+	void ResolveBindings(const char *address, D3DXHANDLE param);
+	void PopDynamicSetStack();
+	void PushDynamicSetStack(const char *name);
+	void PushDynamicSetStack(ScienceType value);
+	void AddBinding(TreeHintRef00217D4C arg, const char *name);
 
-	D3DXHANDLE m_current;			// +0
-	_STL::vector<ScienceType> &stack() { return *reinterpret_cast<_STL::vector<ScienceType> *>(m_stack); }
-private:
-	char m_stack[sizeof(_STL::vector<ScienceType>)];	// +4, built by the ctor
+	ID3DXEffect *m_effect;				// +0
+	_STL::vector<Rva00153729> m_techniques;		// +4
+	Rva0015334F *m_ParsingData;			// +0x10
 };
-
-class Rva00153F08Parsing : public Rva0015334F
-{
-public:
-	~Rva00153F08Parsing() { stack().~vector(); }
-};
-
-struct Rva005F8F96
-{
-	~Rva005F8F96();
-	void *m_00;
-	int m_04;
-};
-// Bind to the kept retail copy instead of emitting this unit's own.
-namespace _STL { template <> vector<Rva005F8F96,allocator<Rva005F8F96> > & vector<Rva005F8F96,allocator<Rva005F8F96> >::operator=(vector<Rva005F8F96,allocator<Rva005F8F96> > const &); }
-
-// One per technique, 0x4C bytes: the handle and six binding vectors.
-struct Rva00153729
-{
-	Rva00153729();
-	~Rva00153729();
-
-	D3DXHANDLE m_technique;			// +0
-	_STL::vector<Rva005F8F96> m_04[6];	// +4
-};
-// Bind to the kept retail copy instead of emitting this unit's own.
-namespace _STL { template <> Rva00153729 * vector<Rva00153729,allocator<Rva00153729> >::erase(Rva00153729 *,Rva00153729 *); }
-// Bind to the kept retail copy instead of emitting this unit's own.
-namespace _STL { template <> void vector<Rva00153729,allocator<Rva00153729> >::_M_fill_insert(Rva00153729 *,unsigned int,Rva00153729 const &); }
-
-class FXShaderParameterBinder;
 
 class FXShaderParameterSourceNamespace
 {
@@ -166,6 +215,8 @@ public:
 	virtual ~FXShaderParameterSourceNamespace();
 	virtual void ResolveBindings(const char *name, D3DXHANDLE parameter, FXShaderParameterBinder *binder) = 0;
 };
+
+class FXShaderParameterSourceNamespace;
 
 // The registered namespaces (rowed register 0x00153565): a 64-byte name and
 // the namespace object, in the vector the pointer at 0x00DF6F20 owns.
@@ -180,19 +231,6 @@ extern _STL::vector<BfmePod68> *g_Rva00153565Vec;
 // 0x00190F8E: binds the standard semantic tables to the effect.
 void __cdecl Rva00190F8E_BindStandardSemantics(FXShaderParameterBinder *binder);
 
-class FXShaderParameterBinder
-{
-public:
-	void Init(ID3DXEffect *effect);
-
-	void ResolveBindings(const char *address, D3DXHANDLE param);
-
-private:
-	ID3DXEffect *m_effect;				// +0
-	_STL::vector<Rva00153729> m_techniques;		// +4
-	Rva0015334F *m_parsing;				// +0x10
-};
-
 void FXShaderParameterBinder::Init(ID3DXEffect *effect)
 {
 	_STL::vector<Rva00153729> *techniques = &m_techniques;
@@ -205,9 +243,9 @@ void FXShaderParameterBinder::Init(ID3DXEffect *effect)
 	effect->AddRef();
 
 	Rva00153F08Parsing parsing;
-	m_parsing = &parsing;
+	m_ParsingData = &parsing.record();
 	ScienceType top = (ScienceType)0;
-	parsing.stack().push_back(top);
+	parsing.record().m_stack.push_back(top);
 
 	int num_params = 0;
 	int num_techniques = 0;
@@ -233,13 +271,13 @@ void FXShaderParameterBinder::Init(ID3DXEffect *effect)
 		const char *address = 0;
 		if (m_effect->GetString(annotation, &address) < 0)
 			continue;
-		m_parsing->m_current = param;
+		m_ParsingData->m_current = param;
 		ResolveBindings(address, param);
-		m_parsing->m_current = 0;
+		m_ParsingData->m_current = 0;
 	}
 
 	Rva00190F8E_BindStandardSemantics(this);
-	m_parsing = 0;
+	m_ParsingData = 0;
 }
 
 // 0x0015306D: splits "Namespace.Member" at the first '.', finds the

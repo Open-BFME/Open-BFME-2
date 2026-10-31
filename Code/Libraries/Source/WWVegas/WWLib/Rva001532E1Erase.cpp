@@ -12,9 +12,14 @@
 #include <vector>
 #undef _strcmpi
 
+class FXShaderParameterSourceNamespace;
+
+// The registered namespaces (rowed register 0x00153565): a 64-byte name and
+// the namespace object, in the vector the pointer at 0x00DF6F20 owns.
 struct BfmePod68
 {
-	char m_name[0x44];
+	char m_name[0x40];
+	FXShaderParameterSourceNamespace *m_namespace;
 };
 
 extern _STL::vector<BfmePod68> *g_Rva00153565Vec;
@@ -27,7 +32,7 @@ void __cdecl Rva001532E1Erase(const char *name)
 		return;
 	for (_STL::vector<BfmePod68>::iterator it = g_Rva00153565Vec->begin(); it != g_Rva00153565Vec->end(); ++it)
 	{
-		if (_strcmpi((const char *)&*it, name) == 0)
+		if (_strcmpi(it->m_name, name) == 0)
 		{
 			g_Rva00153565Vec->erase(it);
 			return;
