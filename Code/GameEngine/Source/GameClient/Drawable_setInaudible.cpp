@@ -8,10 +8,15 @@
 // Evidence: packet disasm plus chain callees 0x002714CA and 0x002743D7 plus
 // neighbour Drawable_rva00274176 TU and flags plus loop precedent rva00274445.
 
+#include "../../Include/GameClient/DrawableBFME2.h"
+#include "DrawableFieldsView.h"
 class Rva002714CA
 {
 public:
 	void rva002714CA();
+private:
+	unsigned char m_pre[0x148]; // +0x00
+	unsigned int m_handle; // +0x148
 };
 
 class ElemB274401
@@ -39,26 +44,15 @@ public:
 	virtual ElemB274401 *slot12() = 0;
 };
 
-class Drawable
-{
-public:
-	void setInaudible();
-	void stopAmbientSound();
-private:
-	unsigned char m_pad0[0x154];
-	ElemA274401 **m_arr154;
-	unsigned char m_pad1[0x44a - 0x158];
-	bool m_flag44a;
-};
-
 void Drawable::setInaudible()
 {
-	if (!m_flag44a)
+	BfmeDrawableDrawFields *self = (BfmeDrawableDrawFields *)this;
+	if (!self->m_44A)
 		return;
-	m_flag44a = false;
+	self->m_44A = false;
 	((Rva002714CA *)this)->rva002714CA();
 	stopAmbientSound();
-	for (ElemA274401 **p = m_arr154; p != 0; ++p) {
+	for (ElemA274401 **p = ((ElemA274401 **)m_modules[2]); p != 0; ++p) {
 		ElemA274401 *a = *p;
 		if (a == 0)
 			return;

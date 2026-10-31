@@ -7,32 +7,20 @@
 // base at this-0x60 gets that Thing's matrix (+8). Then the module pointer
 // at +0x3f0 is tail-called through vslot +4. WB debug uses +0x10 / this-0x68;
 // retail displacements are +8 and -0x60.
-class Matrix3D { public: float m[12]; };
-class Thing {
-public:
-	virtual void slot0() = 0;
-	int m_pad4;
-	Matrix3D m_transform;
-	void setTransformMatrix(const Matrix3D *mx);
-};
+#define BFME_SNAPSHOT_CAPITALIZED_SLOTS
+#define BFME_SNAPSHOT_NAME_SLOT
+#include "../../Include/GameClient/DrawableBFME2.h"
+#include "DrawableFieldsView.h"
 class Rva002717BCModule {
 public:
 	virtual void slot0() = 0;
 	virtual void slot4() = 0;
 };
-class Drawable {
-public:
-	virtual void LoadPostProcess();
-	char m_pad[0x9c - 4];
-	Thing *m_other;
-	char m_pad2[0x3f0 - 0x9c - 4];
-	Rva002717BCModule *m_module;
-};
 void Drawable::LoadPostProcess()
 {
-	Thing *base = (Thing *)((char *)this - 0x60);
-	if (m_other)
-		base->setTransformMatrix(&m_other->m_transform);
-	if (m_module)
-		m_module->slot4();
+	if (m_object)
+		setTransformMatrix(((Thing *)m_object)->getTransformMatrix());
+	BfmeDrawableDrawFields *self = (BfmeDrawableDrawFields *)this;
+	if (self->m_buffManager)
+		((Rva002717BCModule *)self->m_buffManager)->slot4();
 }

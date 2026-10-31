@@ -5,6 +5,7 @@
 // 0x002783F6 with 0, then walk null-terminated +0x154 table calling vslot
 // 0x30 and vslot 0. Caller 0x002900A9; LINK names no new pin.
 
+#include "../../Include/GameClient/DrawableBFME2.h"
 class Rva00278644Item
 {
 public:
@@ -20,22 +21,21 @@ public:
 	virtual void slot0();
 };
 
-class Drawable
-{
-public:
-	void rva002784EB();
-	void setAudible();
-private:
-	unsigned char m_pad00[0x154];
-	Rva00278644Item **m_154; // +0x154
-	unsigned char m_pad158[0x44A - 0x158];
-	unsigned char m_44A; // +0x44A
-};
-
+class Object;
 class Rva002783F6Host
 {
 public:
 	void rva002783F6(int v);
+	void rva00278341(int query, int v); // 0x00278341
+	char m_pad00[0xFC];
+private:
+	Object *m_object; // +0xFC
+	char m_pad100[0x347];
+	unsigned char m_x447; // +0x447
+	unsigned char m_x448; // +0x448
+	char m_pad449[0x1];
+	unsigned char m_x44A; // +0x44A
+	char m_pad44B[0x1];
 };
 
 void Drawable::setAudible()
@@ -46,7 +46,7 @@ void Drawable::setAudible()
 	*flag = 1;
 	rva002784EB();
 	((Rva002783F6Host *)this)->rva002783F6(0);
-	Rva00278644Item **list = m_154;
+	Rva00278644Item **list = ((Rva00278644Item **)m_modules[2]);
 	while (list != 0)
 	{
 		Rva00278644Item *item = *list;

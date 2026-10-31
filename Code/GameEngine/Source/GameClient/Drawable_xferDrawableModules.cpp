@@ -38,8 +38,9 @@ public:
 class NameKeyGenerator
 {
 public:
-	const AsciiString &keyToName(NameKeyType key);
+	NameKeyType nameToKey(const char *name);
 	NameKeyType nameToKey(const AsciiString &name);
+	const AsciiString &keyToName(NameKeyType key);
 };
 
 extern NameKeyGenerator *TheNameKeyGenerator;

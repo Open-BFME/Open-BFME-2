@@ -8,6 +8,8 @@
 // key compare is DrawModule+4 -> ModuleData+4 tag; found path calls DrawModule
 // slots 0x48 then 0x40, returns bool.
 
+#include "../../Include/GameClient/DrawableBFME2.h"
+#include "DrawableFieldsView.h"
 enum NameKeyType
 {
 	NAMEKEY_INVALID = 0
@@ -18,43 +20,22 @@ class AsciiString;
 class NameKeyGenerator
 {
 public:
+	NameKeyType nameToKey(const char *name);
 	NameKeyType nameToKey(const AsciiString &name);
+	const AsciiString &keyToName(NameKeyType key);
 };
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-struct ModuleData
-{
-	virtual void slot00() = 0;
-	NameKeyType m_tagKey;
-};
-
-class DrawModule
+class ModuleData
 {
 public:
-	virtual void slot00() = 0;
-	virtual void slot04() = 0;
-	virtual void slot08() = 0;
-	virtual void slot0C() = 0;
-	virtual void slot10() = 0;
-	virtual void slot14() = 0;
-	virtual void slot18() = 0;
-	virtual void slot1C() = 0;
-	virtual void slot20() = 0;
-	virtual void slot24() = 0;
-	virtual void slot28() = 0;
-	virtual void slot2C() = 0;
-	virtual void slot30() = 0;
-	virtual void slot34() = 0;
-	virtual void slot38() = 0;
-	virtual void slot3C() = 0;
-	virtual void slot40(bool b) = 0;
-	virtual void slot44() = 0;
-	virtual void slot48(bool b) = 0;
-	ModuleData *m_moduleData;
+	NameKeyType getModuleTagNameKey() const { return m_moduleTagNameKey; }
+private:
+	void *m_vtable;
+	NameKeyType m_moduleTagNameKey;
 };
 
-#include "../../Include/GameClient/DrawableBFME2.h"
 
 bool Drawable::rva00278689(const AsciiString &name, bool a2, bool a3)
 {
@@ -62,7 +43,7 @@ bool Drawable::rva00278689(const AsciiString &name, bool a2, bool a3)
 	DrawModule **modules = *reinterpret_cast<DrawModule ***>((unsigned char *)this + 0x14C);
 	for (DrawModule **dm = modules; *dm; ++dm) {
 		DrawModule *drawModule = *dm;
-		if (key == drawModule->m_moduleData->m_tagKey) {
+		if (key == drawModule->m_moduleData->getModuleTagNameKey()) {
 			drawModule->slot48(a3);
 			drawModule->slot40(a2 == 0);
 			return true;

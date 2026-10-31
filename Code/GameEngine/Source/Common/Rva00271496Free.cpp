@@ -34,10 +34,9 @@ class Rva00271496
 {
 public:
 	void rva00271496();
-
 private:
-	unsigned char m_pre[0x344];
-	DisplayString *m_ptr;
+	unsigned char m_pre[0x344]; // +0x00
+	DisplayString *m_ptr; // +0x344
 };
 
 void Rva00271496::rva00271496()

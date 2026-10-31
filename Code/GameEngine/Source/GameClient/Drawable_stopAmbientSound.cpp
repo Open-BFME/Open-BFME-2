@@ -8,6 +8,8 @@
 // slot 0x6c removeAudioEvent precedent CastleMemberBehaviorDtor plus rowed
 // clear Rva000A8C9BClear plus neighbour Drawable_rva00274176 TU and flags.
 
+#include "../../Include/GameClient/DrawableBFME2.h"
+#include "DrawableFieldsView.h"
 typedef unsigned int AudioHandle;
 
 class AudioManager
@@ -45,26 +47,12 @@ public:
 
 extern AudioManager *TheAudio;
 
-struct Rva000A8C9B
-{
-	void *m_ptr;
-	void clear();
-};
-
-class Drawable
-{
-public:
-	void stopAmbientSound();
-private:
-	unsigned char m_pad0[0x110];
-	Rva000A8C9B m_holder110;
-	unsigned char m_pad1[0x144 - 0x114];
-	unsigned int m_audio144;
-};
+class OpaqueRefCounted;
 
 void Drawable::stopAmbientSound()
 {
-	TheAudio->removeAudioEvent(m_audio144);
-	m_audio144 = 1;
-	return m_holder110.clear();
+	BfmeDrawableDrawFields *self = (BfmeDrawableDrawFields *)this;
+	TheAudio->removeAudioEvent(self->m_ambientSound144);
+	self->m_ambientSound144 = 1;
+	return self->m_holder110.clear();
 }

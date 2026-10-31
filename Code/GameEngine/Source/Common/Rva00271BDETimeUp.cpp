@@ -2,6 +2,7 @@
 // ?rva00271BDE@Rva00271BDE@@QAE_NXZ, retail 0x00271BDE (62 bytes). Owner unproven (address token, like the rowed
 // Rva00271C1C / Rva00271B03 at +0x384 / +0x594). Whether the held object (+0xFC) is not of kind 0x25 and the
 // game's frame has reached the deadline stored at +0x384.
+#include "GameLogicObjectLookupView.h"
 enum KindOfType
 {
 	KINDOF_0x25 = 0x25
@@ -13,7 +14,6 @@ public:
 	bool rva00293926(KindOfType kind);	// 0x00293926, isKindOf
 };
 
-#include "GameLogicObjectLookupView.h"
 
 // The frame counter at +0x40 (the shared GameLogic view keeps it private).
 struct GameLogicFrameView

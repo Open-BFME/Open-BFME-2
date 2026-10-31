@@ -76,11 +76,12 @@ class Rva002706A8
 {
 public:
 	void rva002706A8();
+	char m_pad00[0xFC];
 private:
-	unsigned char m_pad00[0xFC];
-	Rva002706A8Holder *m_fc;
-	unsigned char m_pad100[0x445 - 0x100];
-	unsigned char m_445;
+	Rva002706A8Holder *m_fc; // +0xFC
+	char m_pad100[0x345];
+	unsigned char m_445; // +0x445
+	char m_pad446[0x2];
 };
 
 void Rva002706A8::rva002706A8()

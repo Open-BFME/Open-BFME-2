@@ -8,6 +8,7 @@
 // calls it with key_LaserUpdate. Retail is frameless with the key compared
 // in memory: /O1, not the /Oy- of the other Drawable units.
 
+#include "../../Include/GameClient/DrawableBFME2.h"
 enum NameKeyType
 {
 	NAMEKEY_INVALID = 0
@@ -23,20 +24,9 @@ public:
 	virtual NameKeyType getModuleNameKey() const;
 };
 
-class Drawable
-{
-public:
-	ClientUpdateModule *findClientUpdateModule(NameKeyType key);
-	ClientUpdateModule **getClientUpdateModules() { return m_clientModules; }
-
-private:
-	char m_pad[0x150];
-	ClientUpdateModule **m_clientModules; // +0x150
-};
-
 ClientUpdateModule *Drawable::findClientUpdateModule(NameKeyType key)
 {
-	ClientUpdateModule **clientModules = getClientUpdateModules();
+	ClientUpdateModule **clientModules = (ClientUpdateModule **)m_modules[1];
 	if (clientModules)
 	{
 		while (*clientModules)

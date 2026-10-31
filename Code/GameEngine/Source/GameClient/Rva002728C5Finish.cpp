@@ -7,38 +7,13 @@
 // pattern as Drawable_rva00272835; slot 0x54 callee pops 8B (no add esp);
 // callers at 0x00485773; neighbours Drawable share flags.
 
-class Rva002728C5Elem
-{
-public:
-	virtual void s00() = 0; virtual void s01() = 0;
-	virtual void s02() = 0; virtual void s03() = 0;
-	virtual void s04() = 0; virtual void s05() = 0;
-	virtual void s06() = 0; virtual void s07() = 0;
-	virtual void s08() = 0; virtual void s09() = 0;
-	virtual void s10() = 0; virtual void s11() = 0;
-	virtual void s12() = 0; virtual void s13() = 0;
-	virtual void s14() = 0; virtual void s15() = 0;
-	virtual void s16() = 0; virtual void s17() = 0;
-	virtual void s18() = 0; virtual void s19() = 0;
-	virtual void s20() = 0;
-	virtual void slot54(float a, float b) = 0;
-};
-
-class Drawable
-{
-public:
-	void rva002728C5(float a, float b);
-private:
-	char m_padAC[0xAC];
-	float m_unkAC;
-	char m_pad14C[0x14C - 0xAC - 4];
-	Rva002728C5Elem **m_list;
-};
-
+#include "../../Include/GameClient/DrawableBFME2.h"
+#include "DrawableFieldsView.h"
 void Drawable::rva002728C5(float a, float b)
 {
-	Rva002728C5Elem **head = m_list;
+	BfmeDrawableDrawFields *self = (BfmeDrawableDrawFields *)this;
+	DrawModule **head = ((DrawModule **)m_modules[0]);
 	if (*head != 0)
 		(*head)->slot54(a, b);
-	m_unkAC = (a + b) * 0.5f;
+	self->m_ac = (a + b) * 0.5f;
 }

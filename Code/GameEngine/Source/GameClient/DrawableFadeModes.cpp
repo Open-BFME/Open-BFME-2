@@ -8,6 +8,8 @@
 // the 0x00271601 holder method, with 0 for mode 4 and 1 for mode 3. Built
 // /O1 (retail clears elapsed with and-0), unlike DrawableFade.cpp's bodies.
 
+#include "../../Include/GameClient/DrawableBFME2.h"
+#include "DrawableFieldsView.h"
 class GameClient;
 extern GameClient *TheGameClient;
 
@@ -26,36 +28,22 @@ public:
 
 #define TheRva00DFE77C (*(Rva00DFE77CHolder **)&TheGameClient)
 
-class Drawable
-{
-public:
-	void rva00272D03(unsigned int frames);
-	void rva00272D3D(unsigned int frames);
-	void setDrawableHidden(bool hidden);
-
-private:
-	unsigned char m_pad00[0x128];
-	int m_fadeMode; // +0x128
-	int m_timeElapsedFade; // +0x12C
-	int m_timeToFade; // +0x130
-	unsigned char m_pad134[0x37C - 0x134];
-	int m_fadeStartFrame; // +0x37C
-};
-
 void Drawable::rva00272D03(unsigned int frames)
 {
+	BfmeDrawableDrawFields *self = (BfmeDrawableDrawFields *)this;
 	setDrawableHidden(false);
-	m_timeElapsedFade = 0;
-	m_fadeMode = 4;
-	m_timeToFade = frames;
-	m_fadeStartFrame = TheRva00DFE77C->slot1F();
+	self->m_timeElapsedFade = 0;
+	self->m_fadeMode = 4;
+	self->m_timeToFade = frames;
+	self->m_fadeStartFrame = TheRva00DFE77C->slot1F();
 }
 
 void Drawable::rva00272D3D(unsigned int frames)
 {
+	BfmeDrawableDrawFields *self = (BfmeDrawableDrawFields *)this;
 	setDrawableHidden(true);
-	m_timeElapsedFade = 0;
-	m_fadeMode = 3;
-	m_timeToFade = frames;
-	m_fadeStartFrame = TheRva00DFE77C->slot1F();
+	self->m_timeElapsedFade = 0;
+	self->m_fadeMode = 3;
+	self->m_timeToFade = frames;
+	self->m_fadeStartFrame = TheRva00DFE77C->slot1F();
 }

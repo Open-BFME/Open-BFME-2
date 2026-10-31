@@ -2,6 +2,7 @@
 // Native0027411F..00274176, 87B, RET8. Receiver+FC is Object as proved by
 // Drawable sibling source; local state+460 and three cdecl(3-word) helpers
 // are measured. Original member and output layout remain unknown.
+#include "../../Include/GameClient/DrawableBFME2.h"
 enum ObjectStatusTypes { RvaStatus2 = 2 };
 class Object
 {
@@ -21,7 +22,6 @@ struct Rva0027411FObjectView
 void Rva00271CB6(void *state, void *out, float time);
 void Rva00271EAD(void *state, void *out, float time);
 void Rva002720A4(void *state, void *out, float time);
-#include "../../Include/GameClient/DrawableBFME2.h"
 void Drawable::rva0027411F(void *out, float time)
 {
     Object *owner = m_object;

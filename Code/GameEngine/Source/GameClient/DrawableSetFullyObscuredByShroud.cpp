@@ -26,46 +26,21 @@
 // also runs a Drawable member at 0x0027893E (747B, identity open; it walks
 // the controlling player's objects and castle modules).
 
+#include "../../Include/GameClient/DrawableBFME2.h"
+#include "DrawableFieldsView.h"
 typedef bool Bool;
-
-class DrawModule
-{
-public:
-	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
-	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
-	virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
-	virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
-	virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19();
-	virtual void v20(); virtual void v21(); virtual void v22(); virtual void v23();
-	virtual void v24(); virtual void v25(); virtual void v26(); virtual void v27();
-	virtual void v28(); virtual void v29(); virtual void v30(); virtual void v31();
-	virtual void v32(); virtual void v33(); virtual void v34();
-	virtual void setFullyObscuredByShroud( Bool fullyObscured );								///< slot 35
-};
-
-class Drawable
-{
-public:
-	void setFullyObscuredByShroud( Bool fullyObscured );
-private:
-	void onComingOutOfShroud( void );
-
-	char m_unrecovered000[ 0x14C ];
-	DrawModule **m_drawModules;																								///< 0x14C
-	char m_unrecovered150[ 0x440 - 0x150 ];
-	Bool m_drawableFullyObscuredByShroud;																			///< 0x440
-};
 
 //-------------------------------------------------------------------------------------------------
 void Drawable::setFullyObscuredByShroud(Bool fullyObscured)
 {
-	if (m_drawableFullyObscuredByShroud != fullyObscured)
+	BfmeDrawableDrawFields *self = (BfmeDrawableDrawFields *)this;
+	if (self->fullyObscuredByShroud != fullyObscured)
 	{
-		for (DrawModule** dm = m_drawModules; *dm; ++dm)
+		for (DrawModule** dm = ((DrawModule **)m_modules[0]); *dm; ++dm)
 		{
 			(*dm)->setFullyObscuredByShroud(fullyObscured);
 		}
-		m_drawableFullyObscuredByShroud = fullyObscured;
+		self->fullyObscuredByShroud = fullyObscured;
 		if (!fullyObscured)
 			onComingOutOfShroud();
 	}

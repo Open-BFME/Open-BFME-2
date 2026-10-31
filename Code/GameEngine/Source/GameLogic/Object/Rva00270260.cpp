@@ -6,10 +6,10 @@ class Rva00270260
 {
 public:
 	bool rva00270260();
+	char m_pad00[0x43D];
 private:
-	unsigned char m_pad[0x43d];
-	bool m_43d;
-	bool m_43e;
+	bool m_43d; // +0x43D
+	bool m_43e; // +0x43E
 };
 
 bool Rva00270260::rva00270260()

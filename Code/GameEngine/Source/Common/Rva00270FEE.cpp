@@ -84,13 +84,13 @@ public:
 	char *rva00270FEE();
 	float rva00271008();
 	const Rva00290EABElem *rva0027103F(int idx);
+	char m_pad00[0x4];
 private:
-	unsigned char m_pad0[4];
-	char *m_04;
-	unsigned char m_pad8[0xfc - 8];
-	Rva00270FEEInner *m_fc;
-	unsigned char m_pad100[0x14c - 0x100];
-	BfmeFloatModule **m_14c;
+	char *m_04; // +0x04
+	char m_pad08[0xF4];
+	Rva00270FEEInner *m_fc; // +0xFC
+	char m_pad100[0x4C];
+	BfmeFloatModule **m_14c; // +0x14C
 };
 
 char *Rva00270FEE::rva00270FEE()
