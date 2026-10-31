@@ -289,13 +289,25 @@ private:
     unsigned int m_words[4];
 };
 
+enum ObjectStatusTypes
+{
+    OBJECT_STATUS_NONE = 0
+};
+enum WeaponSlotType
+{
+    PRIMARY_WEAPON = 0
+};
+class Weapon;
+class AIUpdateInterface;
 class ContainModuleInterface;
 
 // Native trackTargets reads ObjectID at +0x74 and Thing's position at +0x38;
 // validateRallyPoint 0x00478141 reads the bounding circle radius at +0xB8;
 // redeployOccupants 0x00479395 tests and sets the +0x10C condition bits
 // (0x0028AE6D after a set) and getObjectGarrisonPointIndex 0x00479292 reads
-// the +0x250 contain interface.
+// the +0x250 contain interface; addValidObjectsToGarrisonPoints 0x0047894C
+// tests a status bit, reads the current weapon and the
+// +0x258 AI pointer.
 // Only the accessed Object prefix is represented; its full extent is unknown.
 class Object : public Thing
 {
@@ -305,6 +317,9 @@ public:
     ContainModuleInterface *getContain() const { return m_contain; }
     ConditionBits *getConditionBits() { return &m_conditionBits; }
     void rva0028AE6D();
+    bool testStatus(ObjectStatusTypes bit) const;
+    const Weapon *getCurrentWeapon(WeaponSlotType *slot = 0) const;
+    AIUpdateInterface *getAI() const { return m_ai; }
 private:
     unsigned char m_pad60[0x74 - 0x60];
     ObjectID m_id;
@@ -314,6 +329,8 @@ private:
     ConditionBits m_conditionBits; // +0x10C
     unsigned char m_pad11C[0x250 - 0x11C];
     ContainModuleInterface *m_contain; // +0x250
+    void *m_pad254;
+    AIUpdateInterface *m_ai; // +0x258
 };
 
 class AIUpdateInterface
@@ -396,6 +413,7 @@ enum BodyDamageType
 };
 
 class DamageInfo;
+struct Flags128;
 
 class Weapon;
 
@@ -518,7 +536,7 @@ public:
     virtual void c41() = 0;
     virtual void c42() = 0;
     virtual void c43() = 0;
-    virtual void c44() = 0;
+    virtual Flags128 getFlags(int unused) = 0;
     virtual void c45() = 0;
     virtual void c46() = 0;
     virtual void c47() = 0;

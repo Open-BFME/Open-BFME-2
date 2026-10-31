@@ -68,6 +68,7 @@ enum BodyDamageType
 };
 
 class DamageInfo;
+struct Flags128;
 
 class Weapon;
 
@@ -190,7 +191,7 @@ public:
     virtual void c41() = 0;
     virtual void c42() = 0;
     virtual void c43() = 0;
-    virtual void c44() = 0;
+    virtual Flags128 getFlags(int unused) = 0;
     virtual void c45() = 0;
     virtual void c46() = 0;
     virtual void c47() = 0;
