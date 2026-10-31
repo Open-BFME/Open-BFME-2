@@ -319,9 +319,9 @@ private:
 
 int Rva005E5920::rva005E5920(void *buffer, int size)
 {
-	int r = RAMFile::write(buffer, size);
+	int writeResult = RAMFile::write(buffer, size);
 	_ReadWriteBarrier();
-	if ((r == -1) && (m_8 != 0 || m_8 == 0))
+	if ((writeResult == -1) && (m_8 != 0 || m_8 == 0))
 		return (size ? m_8 : m_8)->rva005E5884(buffer, size);
-	return r;
+	return writeResult;
 }

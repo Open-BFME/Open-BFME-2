@@ -29,11 +29,11 @@ struct Rva006680C0Arg
 class Rva006680C0
 {
 public:
-	Int rva006680C0(const Rva006680C0Arg *arg, Int unused);
+	Int rva006680C0(const Rva006680C0Arg *source, Int unused);
 };
-Int Rva006680C0::rva006680C0(const Rva006680C0Arg *arg, Int)
+Int Rva006680C0::rva006680C0(const Rva006680C0Arg *source, Int)
 {
-	return arg->m_280;
+	return source->m_280;
 }
 
 // 0x00669400: the rowed getter 0x00656F40 of what virtual slot 0 of

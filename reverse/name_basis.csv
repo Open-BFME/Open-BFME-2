@@ -6154,3 +6154,12 @@ carry,Rva002230FF::rva002230FF::node,Rva002230FF::newNode::node,inferred,scope r
 function,?Rva0073F6FCCb@@YGIPAX@Z,?workerThreadProc@@YGIPAX@Z,inferred,agree:nl-19290342c485,Code/Libraries/Source/WWVegas/WWLib/AsyncServiceQueueWorker.cpp,0x0073F6FC
 carry,Rva0073F6FCCb::worker,workerThreadProc::worker,inferred,scope renamed by Rename Rva0073F6FCCb to workerThreadProc (inferred),Code/Libraries/Source/WWVegas/WWLib/AsyncServiceQueueWorker.cpp,0x0073F6FC
 function,?rva003F3744@Rva003F3744@@QAEXPAURva003F3277Record@@IABU2@@Z,?fillInsert@Rva003F3744@@QAEXPAURva003F3277Record@@IABU2@@Z,inferred,agree:nl-9d21c7fd1524,Code/Libraries/Source/WWVegas/WWLib/Rva003F35E3VectorFillInsert.cpp,0x003F3744
+member,Rva004BF8AC::m_F8,Rva004BF8AC::m_armorName,inferred,agree:nl-31f46218615a,Code/GameEngine/Source/Common/VslotSmallBodiesAA.cpp,
+member,Rva004388E3Template::m_14,Rva004388E3Template::m_scale,inferred,agree:nl-26b3d1d55e82,Code/GameEngine/Source/GameLogic/AI/Rva004389AENearbyCheck.cpp,
+param,Rva00301E90::a,Rva00301E90::leftKeys,inferred,agree:nl-16965647b855,Code/GameEngine/Source/Common/GapBodiesGE07.cpp,0x00301E90
+param,Rva00301E90::b,Rva00301E90::rightKeys,inferred,agree:nl-84b3e240fbec,Code/GameEngine/Source/Common/GapBodiesGE07.cpp,0x00301E90
+local,Rva005E5920::rva005E5920::r,Rva005E5920::rva005E5920::writeResult,inferred,agree:nl-6bcffa098680,Code/GameEngine/Source/Common/Rva0010BA61Wrappers.cpp,0x005E5920
+local,Rva003F80E6::rva003F80E6::p,Rva003F80E6::rva003F80E6::iter,inferred,agree:nl-489c2297a0b5,Code/GameEngine/Source/Common/Rva003F81B0Chain.cpp,0x003F80E6
+local,Rva003F812C::rva003F812C::p,Rva003F812C::rva003F812C::iter,inferred,agree:nl-d9372f3fc600,Code/GameEngine/Source/Common/Rva003F81B0Chain.cpp,0x003F812C
+local,Rva003F81FDProxy::rva003F816E::p,Rva003F81FDProxy::rva003F816E::iter,inferred,agree:nl-1998fb9c388a,Code/GameEngine/Source/Common/Rva003F81B0Chain.cpp,0x003F816E
+param,Rva006680C0::rva006680C0::arg,Rva006680C0::rva006680C0::source,inferred,agree:nl-41c2feebdfa3-m0a06ae5e7fe94271c5fedc5e,Code/GameEngine/Source/Common/VslotSmallBodiesAN.cpp,0x006680C0

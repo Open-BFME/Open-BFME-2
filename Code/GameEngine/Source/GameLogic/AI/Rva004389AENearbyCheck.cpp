@@ -190,7 +190,7 @@ struct Rva004388E3Template
 {
 	unsigned char m_00;		// +0x00 bit 0
 	char m_pad01[0x14 - 0x01];
-	float m_14;			// +0x14 the scale
+	float m_scale;			// +0x14 the scale
 	char m_pad18[0x1C - 0x18];
 	Rva00406F9C m_1C;		// +0x1C
 	unsigned char m_9C;		// +0x9C bits 0 and 1
@@ -253,10 +253,10 @@ bool Rva004389AE::rva0043912F(Object *obj, const Coord3D *pos, Rva004388E3Templa
 	notThis.link(&same);
 	notThis.link(&relationship);
 	BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(pos,
-		m_10 * tmpl->m_14, 2, &notThis, 0);
+		m_10 * tmpl->m_scale, 2, &notThis, 0);
 	Object *other;
 	while ((other = hits.next()) != 0) {
-		float radius = other->m_template->m_10 * tmpl->m_14;
+		float radius = other->m_template->m_10 * tmpl->m_scale;
 		float dx = pos->x - other->m_pos.x;
 		float dy = pos->y - other->m_pos.y;
 		float dz = pos->z - other->m_pos.z;

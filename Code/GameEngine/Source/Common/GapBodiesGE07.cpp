@@ -162,10 +162,10 @@ struct BfmeKeySX
 
 int Rva00301E7BNotEqual(const BfmeKeySX &a, const BfmeKeySX &b);	// 0x00301E7B
 
-bool Rva00301E90(const BfmeKeySX *a, const BfmeKeySX *b)
+bool Rva00301E90(const BfmeKeySX *leftKeys, const BfmeKeySX *rightKeys)
 {
 	for (int i = 0; i < 8; ++i)
-		if ((unsigned char)Rva00301E7BNotEqual(a[i], b[i]))
+		if ((unsigned char)Rva00301E7BNotEqual(leftKeys[i], rightKeys[i]))
 			return false;
 	return true;
 }

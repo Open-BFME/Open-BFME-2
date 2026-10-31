@@ -82,12 +82,12 @@ private:
 
 Rva003F8101 *Rva003F81FDProxy::rva003F816E()
 {
-	Rva003F816EItem **p = m_begin14;
+	Rva003F816EItem **iter = m_begin14;
 	Rva003F816EItem **end = m_end18;
 	int sought = TheLivingWorldLogic->m_xFC + 1;
-	for (; p != end; ++p)
+	for (; iter != end; ++iter)
 	{
-		Rva003F816EItem *it = *p;
+		Rva003F816EItem *it = *iter;
 		if (it->m_id08 == sought)
 			return (Rva003F8101 *)it;
 	}
@@ -118,19 +118,19 @@ private:
 
 void Rva003F812C::rva003F812C()
 {
-	Rva003F80E6 **p = m_begin14;
+	Rva003F80E6 **iter = m_begin14;
 	Rva003F80E6 **end = m_end18;
 	m_flag20 = 0;
-	for (; p != end; ++p)
-		(*p)->rva003F80E6();
+	for (; iter != end; ++iter)
+		(*iter)->rva003F80E6();
 }
 
 void Rva003F80E6::rva003F80E6()
 {
-	Rva003F8090 **p = m_begin0C;
+	Rva003F8090 **iter = m_begin0C;
 	Rva003F8090 **end = m_end10;
-	for (; p != end; ++p)
-		(*p)->rva003F8090();
+	for (; iter != end; ++iter)
+		(*iter)->rva003F8090();
 }
 
 void *Rva003F81FDProxy::rva003F819A()
