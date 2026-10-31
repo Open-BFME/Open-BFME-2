@@ -187,17 +187,6 @@ extern const FieldParse g_00C58C38TooltipUpgradeFieldParse[] = {
 	{ 0, 0, 0, 0 }
 };
 
-// Retail VA 0x00C5F810 is the CurseSpecialPowerModuleData FieldParse table:
-// TriggerFX and CursedFX use parseFXList at +0xC8/+0xCC, CursePercentage uses
-// parsePercentToReal at +0xD0, then a zero sentinel. The matched caller
-// supports the table's class identity.
-extern const FieldParse g_00C5F810CurseSpecialPowerFieldParse[] = {
-	{ "TriggerFX", &INI::parseFXList, 0, 0xC8 },
-	{ "CursedFX", &INI::parseFXList, 0, 0xCC },
-	{ "CursePercentage", &INI::parsePercentToReal, 0, 0xD0 },
-	{ 0, 0, 0, 0 }
-};
-
 // Retail VA 0x00BEF0A8 is the WeaponFireSpecialAbilityUpdateModuleData
 // FieldParse table: SpecialWeapon/parseAsciiString at +0xC8,
 // WhichSpecialWeapon/parseInt at +0xCC, SkipContinue/parseBool at +0xD0,
@@ -415,12 +404,6 @@ void StoreObjectsSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &par
 {
 	SpecialAbilityUpdateModuleData::buildFieldParse(parse);
 	parse.add(g_00C5FB9CStoreObjectsFieldParse, 0);
-}
-
-void CurseSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &parse)
-{
-	SpecialAbilityUpdateModuleData::buildFieldParse(parse);
-	parse.add(g_00C5F810CurseSpecialPowerFieldParse, 0);
 }
 
 void SupplyWarehouseDockUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)

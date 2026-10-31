@@ -12325,7 +12325,7 @@ _chatRetryWithNickA,,0x006A33C0,119,Code/GameEngine/Source/GameNetwork/GameSpy/c
 ?buildFieldParse@DockUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z,,0x005896C1,17,Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp,matched,
 ?buildFieldParse@TeleportToCasterSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,,0x004CD389,27,Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp,matched,
 ?buildFieldParse@StoreObjectsSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,,0x004CD918,27,Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp,matched,
-?buildFieldParse@CurseSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,,0x004CCD64,27,Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp,matched,
+?buildFieldParse@CurseSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,,0x004CCD64,27,Code/GameEngine/Source/GameLogic/Object/Update/CurseSpecialPower.cpp,matched,
 ?buildFieldParse@SupplyWarehouseDockUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z,,0x004A7D3A,27,Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp,matched,
 ??0?$SimpleVecClass@URva0096E1B0Elem@@@@QAE@H@Z,,0x00189550,39,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,matched,Address-typed SimpleVec int ctor; TU-local element
 ?buildFieldParse@LifetimeUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z,,0x003A4A6C,17,Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp,matched,Single-table leaf; factory 0x24E3A3 pushes its VA; MultiIniFieldParseadd pinned at 0x2BC6E

@@ -11636,7 +11636,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x0085F698,96,.rdata,vtable,??_7DominateEnemySpecialPower@@6B@,,literal,??_7DominateEnemySpecialPower@@6B@;??_7Rva004CC9BF@@6B@,0,2
 0x0085F6F8,128,.rdata,vtable,??_7DominateEnemySpecialPowerModuleData@@6B@,,literal,,0,1
 0x0085F778,152,.rdata,vtable,??_7EvacuateGarrisonSpecialPowerModuleData@@6B@,,literal,??_7EvacuateGarrisonSpecialPowerModuleData@@6B@;??_7StoreObjectsSpecialPowerModuleData@@6B@;??_7TeleportToCasterSpecialPowerModuleData@@6B@;_SpyVisionUpdate_vftable;_vtbl_00C5F778,1,10
-0x0085F810,64,.rdata,global,?g_00C5F810CurseSpecialPowerFieldParse@@3QBUFieldParse@@B,Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp,owned,,1,1
+0x0085F810,64,.rdata,global,?g_00C5F810CurseSpecialPowerFieldParse@@3QBUFieldParse@@B,Code/GameEngine/Source/GameLogic/Object/Update/CurseSpecialPower.cpp,owned,,1,1
 0x0085F850,176,.rdata,vtable,??_7CurseSpecialPower@@6B@,,literal,,0,2
 0x0085F900,128,.rdata,global,_vtbl_00C5F900,Code/GameEngine/Source/GameLogic/Object/SpecialPower/GiveOrRestoreUpgradeSpecialPowerModuleDataCtor.cpp,owned,,1,1
 0x0085F980,192,.rdata,vtable,??_7GiveOrRestoreUpgradeSpecialPower@@6BBehaviorModuleOther@@@,,literal,??_7GiveOrRestoreUpgradeSpecialPower@@6BBehaviorModuleOther@@@;_s_secondary0C@Code/GameEngine/Source/GameLogic/Object/SpecialPower/GiveOrRestoreUpgradeSpecialPowerCtor.cpp,1,2
