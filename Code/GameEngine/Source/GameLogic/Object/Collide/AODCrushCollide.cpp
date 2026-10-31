@@ -33,27 +33,45 @@ private:
 	int m_indexInLogic;
 	int m_updateState;
 };
-class CollideModuleInterface
+static int s_crush20;
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
+
+class __declspec(novtable) CollideModuleInterface
 {
 public:
 	virtual void onCollide(Object *, const Coord3D *, const Coord3D *) = 0;
 };
-class AODCrushCollide : public UpdateModule, public CollideModuleInterface
+class __declspec(novtable) CrushCollide : public UpdateModule, public CollideModuleInterface
+{
+public:
+	__forceinline CrushCollide(Thing *thing, const ModuleData *moduleData)
+		: UpdateModule(thing, moduleData)
+	{
+		*(const void **)((char *)this + 0x20) = &s_crush20;
+		_ReadWriteBarrier();
+		m_24 = 0;
+		m_28 = (ObjectID)0;
+		m_2C = false;
+	}
+
+protected:
+	unsigned int m_24;
+	ObjectID m_28;
+	bool m_2C;
+};
+class AODCrushCollide : public CrushCollide
 {
 public:
 	AODCrushCollide(Thing *thing, const ModuleData *moduleData);
 	virtual ~AODCrushCollide();
 	virtual NameKeyType getModuleNameKey() const;
+	virtual CollideModuleInterface *getCollide() { return this; }
 	virtual UpdateSleepTime update();
 	virtual void onCollide(Object *, const Coord3D *, const Coord3D *);
 
 protected:
 	virtual void xfer(Xfer *xfer);
-
-private:
-	unsigned int m_24;
-	ObjectID m_28;
-	bool m_2C;
 };
 #include "Common/Snapshot.h"
 //

@@ -5,69 +5,93 @@
 // UpdateModule base (0x253390, thing plus data): initializes the
 // CrushCollide-interface slot at +0x20 and zeroes +0x24/+0x28/+0x2C, then
 // re-stores the primary vtable slot (the behavior vtable 0x00C5A31C) and
-// the +0x0C/+0x10/+0x20 secondary slots (address-of TU-local dummies,
-// DIR32-masked).
+// the +0x0C/+0x10/+0x20 secondary slots.
 //
 // Donor: BFME1 AODCrushCollideConstructor.cpp (three inline-ctor levels;
 // the CrushCollide level adds the +0x20 interface slot with +0x24/+0x28/+0x2C
-// fields, and AODCrushCollide overwrites all four vtable slots). Retail
-// calls UpdateModule directly, so the CrushCollide level is modeled flat
-// with init-list members; the _ReadWriteBarrier keeps the init-list +0x20
-// store from folding into the body +0x20 re-store (zero bytes emitted), and
-// the zeros live in the body so the xor materializes after the +0x20 store.
+// fields, and AODCrushCollide overwrites all four vtable slots).
 // Class identity is the AODCrush retail cluster (pool key rowed at
 // 0x004BBF44, name getter at 0x004BBEFD pushing AODCrushCollide, vtable
 // 0x00C5A31C installed here and in the thunk at 0x004BBEDD, the instance
 // factory at 0x0025101E is the sole raw caller).
 
-static int s_vtable;
-static int s_secondary0C;
-static int s_secondary10;
 static int s_crush20;
-static int s_aod20;
 
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+enum UpdateSleepTime
+{
+	UPDATE_SLEEP_NONE = 1,
+	UPDATE_SLEEP_FOREVER = 0x3fffffff
+};
+enum ObjectID;
 class Thing;
 class ModuleData;
-
-class UpdateModule
+class Xfer;
+class Object;
+struct Coord3D;
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
+class UpdateModuleInterface
+{
+public:
+	virtual UpdateSleepTime update() = 0;
+};
+class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 {
 public:
 	UpdateModule(Thing *thing, const ModuleData *moduleData);
+	virtual ~UpdateModule();
+	void xfer(Xfer *xfer);
+
+private:
+	unsigned int m_nextCallFrameAndPhase;
+	int m_indexInLogic;
+	int m_updateState;
+};
+class __declspec(novtable) CollideModuleInterface
+{
+public:
+	virtual void onCollide(Object *, const Coord3D *, const Coord3D *) = 0;
+};
+class __declspec(novtable) CrushCollide : public UpdateModule, public CollideModuleInterface
+{
+public:
+	__forceinline CrushCollide(Thing *thing, const ModuleData *moduleData)
+		: UpdateModule(thing, moduleData)
+	{
+		*(const void **)((char *)this + 0x20) = &s_crush20;
+		_ReadWriteBarrier();
+		m_24 = 0;
+		m_28 = (ObjectID)0;
+		m_2C = false;
+	}
 
 protected:
-	const void *m_vtable;
-	unsigned char m_pad04[0x0C - 4];
-	const void *m_p0C;
-	const void *m_p10;
-	unsigned char m_pad14[0x20 - 0x14];
+	unsigned int m_24;
+	ObjectID m_28;
+	bool m_2C;
 };
-
-class AODCrushCollide : public UpdateModule
+class AODCrushCollide : public CrushCollide
 {
 public:
 	AODCrushCollide(Thing *thing, const ModuleData *moduleData);
+	virtual ~AODCrushCollide();
+	virtual NameKeyType getModuleNameKey() const;
+	virtual CollideModuleInterface *getCollide() { return this; }
+	virtual UpdateSleepTime update();
+	virtual void onCollide(Object *, const Coord3D *, const Coord3D *);
 
 protected:
-	const void *m_x20;
-	int m_x24;
-	int m_x28;
-	bool m_x2C;
+	virtual void xfer(Xfer *xfer);
 };
 
 // ??0AODCrushCollide@@QAE@PAVThing@@PBVModuleData@@@Z
 AODCrushCollide::AODCrushCollide(Thing *thing, const ModuleData *moduleData)
-	: UpdateModule(thing, moduleData),
-	  m_x20(&s_crush20)
+	: CrushCollide(thing, moduleData)
 {
-	_ReadWriteBarrier();
-	m_x24 = 0;
-	m_x28 = 0;
-	m_x2C = false;
-	m_vtable = &s_vtable;
-	m_p0C = &s_secondary0C;
-	m_p10 = &s_secondary10;
-	m_x20 = &s_aod20;
 }
