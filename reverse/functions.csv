@@ -17540,7 +17540,7 @@ _VP60D_GetVersionNumber,,0x001B5830,6,Code/Libraries/Source/VP6/PbAccessors.cpp,
 ?disable@Rva0020E1FDDwordSetter@@QAEXXZ,,0x0020E1FD,8,Code/GameEngine/Source/Common/Disp8DwordSetters.cpp,matched,disp8 dword setter; phase-proven no-branch-to-addr
 ?reset@Rva0029FB3BMember@@QAEXXZ,,0x0026549E,42,Code/GameEngine/Source/GameLogic/Object/Update/Rva0029FB3BMemberInit.cpp,matched,Freelist-node member reset; drains nodes to the pool at 0xDA60F0 then relinks circular sentinel
 ??0W3DProjectileStreamDraw@@QAE@PAVThing@@PBVModuleData@@@Z,,0x000D1370,145,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DProjectileStreamDrawCtor.cpp,matched,
-?get@Rva0023DB89WordChaseField@@QBEHXZ,,0x0023DB89,10,Code/GameEngine/Source/Common/Disp32FirstChaseGetters.cpp,matched,disp32-first word chase getter; phase-proven no-branch-to-addr
+?get@Rva0023DB89WordChaseField@@QBEHXZ,,0x0023DB89,10,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,matched,disp32-first word chase getter; phase-proven no-branch-to-addr
 ?get@Rva004B6FF3FildField@@QBENXZ,,0x004B6FF3,4,Code/GameEngine/Source/Common/Disp8FildFieldGetters.cpp,matched,Disp8 fild int-to-double getter; row repair after 6cbce2a16 row loss with TU line surviving
 ?get@Rva00661E70LeaField@@QBEPAXXZ,,0x00661E70,4,Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp,matched,Disp8 LEA getter with vtable witness
 ?get@Rva0066D800LeaField@@QBEPAXXZ,,0x0066D800,4,Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp,matched,Disp8 LEA getter with vtable witness
