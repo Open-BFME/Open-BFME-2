@@ -62,6 +62,28 @@ public:
     virtual void rva006F2C20();
 };
 
+// ?Rva006F2C50@Rva006F2C50@@UAEXXZ @0x006F2C50 30B.
+// Recovered from the ?Rva0070DF60@Rva006DE2B0@@UAEXXZ recipe at 0x0070DF60.
+// Same operand-masked shape: release the AptRef member through vtable slot 1,
+// clear it, then tail-jump to the rowed clear on the same this. Only the member
+// offset (+0x20 here, +0x1C in the template) and the tail target differ; the
+// tail is the rowed 5-byte thunk ?rva0070DFE0@BfmeAptValue006DCD20@@QAEXXZ at 0x0070DFE0,
+// itself a jmp to Rva006DE150::rva006DE150 at 0x006DE150, so the row name resolves it. Virtual slot 0x2C of the class vtable.
+class AptRef
+{
+public:
+	virtual void AddRef();
+	virtual void Release();
+};
+
+class Rva006F2C50
+{
+public:
+	char m_pad[0x1c];
+	AptRef *m_ctor;
+	virtual void rva006F2C50();
+};
+
 // tu-skeleton: 0x006F24E0 229B ??0AptScriptColour@@QAE@QAVAptValue@@@Z -- matched in Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors.cpp (not merged yet)
 
 // tu-skeleton: 0x006F25D0 11B ??1Rva006F25D0@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva006D6470Derived.cpp (not merged yet)
@@ -76,6 +98,8 @@ public:
 
 // tu-skeleton: 0x006F29C0 596B ?callback006F29C0@@YAPAVAptValue@@PAV1@H@Z -- matched in Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors.cpp (not merged yet)
 
+// ---- from Code/Libraries/Source/Apt/AptObject/AptScriptColour.cpp
+
 // ---- from Code/GameEngine/Source/Common/Rva006F2C20Siblings.cpp
 
 void Rva006F2C20::rva006F2C20()
@@ -89,8 +113,38 @@ void Rva006F2C20::rva006F2C20()
     m_ctor->unused13();
 }
 
-// tu-skeleton: 0x006F2C50 30B ?rva006F2C50@Rva006F2C50@@UAEXXZ -- matched in Code/GameEngine/Source/Common/Rva006F2C50Siblings.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva006F2C50Siblings.cpp
+
+void Rva006F2C50::rva006F2C50()
+{
+	if (m_ctor)
+		m_ctor->Release();
+	m_ctor = 0;
+	((AptObject *)this)->AptObject::DestroyGCPointers();
+}
 
 // tu-skeleton: 0x006F2C70 35B ??_GRva006F25D0@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva006D6470Derived.cpp (not merged yet)
 
 // tu-skeleton: 0x006F2CA0 576B ?objectMemberLookup@AptScriptColour@@UBEPAVAptValue@@QAV2@QBVEAStringC@@@Z -- matched in Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors.cpp (not merged yet)
+
+// tu-skeleton: 0x007A9C80 8B $L2443 -- matched in Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors.cpp (not merged yet)
+
+// tu-skeleton: 0x007A9C88 8B Unwind@00ba9c88 -- matched in Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors.cpp (not merged yet)
+
+// tu-skeleton: 0x007A9C90 10B __ehhandler$??0AptScriptColour@@QAE@QAVAptValue@@@Z -- matched in Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors.cpp (not merged yet)
+
+// tu-skeleton: 0x007A9CA0 15B $L2524 -- matched in Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors.cpp (not merged yet)
+
+// tu-skeleton: 0x007A9CAF 8B $L2532 -- matched in Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors.cpp (not merged yet)
+
+// tu-skeleton: 0x007A9CB7 10B __ehhandler$?callback006F2760@@YAPAVAptValue@@PAV1@H@Z -- matched in Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors.cpp (not merged yet)
+
+// tu-skeleton: 0x007A9CD0 15B $L2638 -- matched in Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors.cpp (not merged yet)
+
+// tu-skeleton: 0x007A9CDF 15B $L2639 -- matched in Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors.cpp (not merged yet)
+
+// tu-skeleton: 0x007A9CEE 15B $L2640 -- matched in Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors.cpp (not merged yet)
+
+// tu-skeleton: 0x007A9CFD 15B $L2641 -- matched in Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors.cpp (not merged yet)
+
+// tu-skeleton: 0x007A9D0C 10B __ehhandler$?objectMemberLookup@AptScriptColour@@UBEPAVAptValue@@QAV2@QBVEAStringC@@@Z -- matched in Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors.cpp (not merged yet)

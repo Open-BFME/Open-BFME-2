@@ -1,5 +1,13 @@
 # Linking target checklist
 
+AptScriptColour clean-donor consolidation (2026-10-31): reconcile the two
+existing qualified GC-call declarations first, then merge the one clean
+donor through `tu_skeleton.py`. One source file is removed; both 45/30-byte
+rows and all external code bodies/relocations remain identical. Strict
+preparation and LinkGuard pass; the bounded preview conserves 75 cohort
+bytes. The mixed-file split constraints and full consumer/census result
+remain separate. [Evidence and path audit](../reverse/attempt_support/apt-colour-consolidation-20261031.md).
+
 Special-power view-object ObjectModule adoption (2026-10-31): one private
 class view is replaced by the existing header, conserving all four rows,
 EXACT EH, ten retained external code definitions and the local S1 guard.
