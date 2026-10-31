@@ -62,6 +62,119 @@ private:
 };
 #include "../../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
+struct FindPositionOptions
+{
+	FindPositionOptions()
+	{
+		flags = 0;
+		minRadius = 0.0f;
+		maxRadius = 0.0f;
+		startAngle = -99999.9f;
+		maxZDelta = 1e10f;
+		ignoreObject = 0;
+		sourceToPathToDest = 0;
+		relationshipObject = 0;
+	}
+
+	unsigned int flags;
+	float minRadius;
+	float maxRadius;
+	float startAngle;
+	float maxZDelta;
+	const void *ignoreObject;
+	const void *sourceToPathToDest;
+	const void *relationshipObject;
+};
+enum
+{
+	FPF_IGNORE_ALLY_OR_NEUTRAL_UNITS = 8
+};
+#include "../../../Common/PartitionRangeQueryCallView.h"
+// ?rva00478231@Rva00478231@@QAEX_N@Z @0x00478231 (46B): GarrisonContain
+// removeAllContained shape after the slot38-leaf precedent — the donor TU's
+// class model has the wrong vtable slots, so this uses flat classes: a
+// gap-templated vtable carrying recalcApparentControllingPlayer at slot 0x50
+// and getContainCount(int) at slot 0x114; the rowed GarrisonContain
+// validateRallyPoint is reached on this-0x20 through an address-honest pin
+// (its true protection is inherited-only); OpenContain::removeAllContained
+// is called non-virtually through its pin at 0x004635C0. All three guarded
+// by getContainCount(0) > 0. Honest address name; owning class unproven.
+
+template <int N> class Rva00478231Gaps : public Rva00478231Gaps<N - 1>
+{
+public:
+	virtual void gap(char (*)[N]) = 0;
+};
+template <> class Rva00478231Gaps<1>
+{
+public:
+	virtual void gap(char (*)[1]) = 0;
+};
+class Rva00478231Low : public Rva00478231Gaps<20>
+{
+public:
+	virtual void recalcApparentControllingPlayer() = 0; // slot 0x50
+};
+template <int N> class Rva00478231Mid : public Rva00478231Mid<N - 1>
+{
+public:
+	virtual void mid(char (*)[N]) = 0;
+};
+template <> class Rva00478231Mid<1> : public Rva00478231Low
+{
+public:
+	virtual void mid(char (*)[1]) = 0;
+};
+/*
+**	Command & Conquer Generals Zero Hour(tm)
+**	Copyright 2025 Electronic Arts Inc.
+**
+**	This program is free software: you can redistribute it and/or modify
+**	it under the terms of the GNU General Public License as published by
+**	the Free Software Foundation, either version 3 of the License, or
+**	(at your option) any later version.
+**
+**	This program is distributed in the hope that it will be useful,
+**	but WITHOUT ANY WARRANTY; without even the implied warranty of
+**	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+**	GNU General Public License for more details.
+**
+**	You should have received a copy of the GNU General Public License
+**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
+// GarrisonContain::xfer, ported from Zero Hour's GameEngine/Source/GameLogic/
+// Object/Contain/GarrisonContain.cpp (GeneralsMD tree vendored under
+// reference/open-bfme-1/inputs/reference). It is slot 3 of the vftable whose
+// name getter returns "GarrisonContain".
+//
+// BFME 2 order: the OpenContain base (0x00465EF1) first, then the light-CRC
+// gate and Version1. BFME 2 keeps the original team as an id at +0xFC rather
+// than ZH's Team pointer. An id the team factory (0x0039F761) no longer knows
+// is cleared before saving, and on load an unknown id throws XferException
+// tag 5 (constructor 0x0060C36E) where ZH throws SC_INVALID_DATA. The
+// garrison point records are transferred in place, with no save/load split.
+// ZH's raw garrison-point block becomes one Coord3D at a time.
+
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+#include "../../../../Include/Common/BfmeXfer.h"
 
 typedef float Real;
 
@@ -440,6 +553,58 @@ public:
 
 class Object;
 
+class Rva00478231 : public Rva00478231Mid<48>
+{
+public:
+	virtual unsigned int getContainCount(unsigned int arg) = 0; // slot 0x114
+	void rva00478231(bool exposeStealthUnits);
+};
+
+class Xfer::Version
+{
+public:
+	Version(unsigned char current, unsigned char minimum)
+		: m_current(current), m_minimum(minimum) {}
+
+	unsigned char m_current;
+	unsigned char m_minimum;
+};
+
+typedef bool Bool;
+
+typedef int Int;
+
+typedef unsigned int UnsignedInt;
+
+class Coord3DBase
+{
+public:
+	float x;
+	float y;
+	float z;
+};
+
+typedef unsigned short UnsignedShort;
+
+void XferObjectID( Xfer *xfer, ObjectID *value );
+
+void XferDrawableID( Xfer *xfer, Int *value );
+
+class XferException
+{
+public:
+	XferException(int tag, const char *format, ...);
+	XferException(const XferException &that);
+	~XferException(void);
+
+	char *text;
+	int tagValue;
+};
+
+class Team;
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContain.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainPutObjectAtGarrisonPoint.cpp
 
 // ?putObjectAtGarrisonPoint@GarrisonContain@@IAEXPAVObject@@W4ObjectID@@HH@Z @0x00477DA1 175B.
@@ -533,8 +698,6 @@ void GarrisonContain::removeObjectFromGarrisonPoint(Object *occupant, int pointI
 	--m_garrisonPointsInUse;
 	occupant->setPosition(m_object->getPosition());
 }
-
-// tu-skeleton: 0x00477F06 278B ??0GarrisonContain@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainCtor.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContain.cpp
 
@@ -957,20 +1120,6 @@ void Rva004697E1Contain::rva004783D7()
     reinterpret_cast<OpenContain *>(this)->OpenContain::loadPostProcess();
 }
 
-// tu-skeleton: 0x00478061 6B ?name@GarrisonContain@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00478067 128B ??1GarrisonContain@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00478141 240B ?validateRallyPoint@GarrisonContain@@IAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainValidateRallyPoint.cpp (not merged yet)
-
-// tu-skeleton: 0x00478231 47B ?rva00478231@Rva00478231@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/Rva00478231Contain.cpp (not merged yet)
-
-// tu-skeleton: 0x00478260 375B ?xfer@GarrisonContain@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x00478416 47B ?calcDistSqr@@YAMABUCoord3D@@0@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainFindClosestFreePoint.cpp (not merged yet)
-
-// tu-skeleton: 0x00478445 258B ?findClosestFreeGarrisonPointIndex@GarrisonContain@@IAEHHPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainFindClosestFreePoint.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainCalcBestGarrisonPosition.cpp
 
 // ZH GeneralsMD GarrisonContain.cpp::calcBestGarrisonPosition, reviewed
@@ -998,6 +1147,191 @@ bool GarrisonContain::calcBestGarrisonPosition(Coord3D *sourcePos, const Coord3D
     out[1] = point[1];
     out[2] = point[2];
     return true;
+}
+
+// tu-skeleton: 0x00477F06 278B ??0GarrisonContain@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00478061 6B ?name@GarrisonContain@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00478067 128B ??1GarrisonContain@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainDtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainValidateRallyPoint.cpp
+
+// ?validateRallyPoint@GarrisonContain@@IAEXXZ, retail 0x00478141, 240 bytes.
+// GarrisonContain::validateRallyPoint: exit rally at +0x9D0, valid flag at +0x9DE.
+// Donor BFME1 GarrisonContain_validateRallyPoint plus ZH GarrisonContain.cpp
+// validateRallyPoint shape: two PartitionManager::findPositionAround calls
+// (pin 0x00285202), flags 8, radius at Object+0xB8 scaled by 1.8. Evidence:
+// caller 0x00478231 slot 80 of SlaughterHordeContain vtable, layout from
+// GarrisonContainXfer (0x9D0/0x9DE) and dtor array 0x424.
+
+void GarrisonContain::validateRallyPoint()
+{
+	if (m_rallyValid == 1)
+	{
+		Coord3D result;
+		FindPositionOptions options;
+		options.flags = FPF_IGNORE_ALLY_OR_NEUTRAL_UNITS;
+		options.minRadius = 0.0f;
+		options.maxRadius = 0.0f;
+		options.ignoreObject = getObject();
+		options.relationshipObject = getObject();
+		if (PartitionManager::findPositionAround(&m_exitRallyPoint, &options, &result) == false)
+			m_rallyValid = 0;
+	}
+
+	if (m_rallyValid == 0)
+	{
+		FindPositionOptions options;
+		options.flags = FPF_IGNORE_ALLY_OR_NEUTRAL_UNITS;
+		options.minRadius = getObject()->getBoundingCircleRadius();
+		options.maxRadius = options.minRadius * 1.8f;
+		options.ignoreObject = getObject();
+		options.relationshipObject = getObject();
+		m_rallyValid = PartitionManager::findPositionAround(getObject()->getPosition(), &options, &m_exitRallyPoint);
+	}
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/Rva00478231Contain.cpp
+
+// The rally-point check is the rowed protected GarrisonContain::validateRallyPoint.
+
+// ?validateRallyPoint@Rva00478231@@QAEXXZ @0x00478141 (pinned): the rowed
+// GarrisonContain method is protected-only; this address-honest spelling
+// carries the call. Declared, never defined here.
+
+// ?rva00478231@Rva00478231@@QAEX_N@Z
+void Rva00478231::rva00478231(bool exposeStealthUnits)
+{
+	if (getContainCount(0) > 0u) {
+		((GarrisonContain *)((char *)this - 0x20))->validateRallyPoint();
+		((OpenContain *)this)->OpenContain::removeAllContained(exposeStealthUnits);
+		recalcApparentControllingPlayer();
+	}
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainXfer.cpp
+
+// ------------------------------------------------------------------------------------------------
+/** Xfer method
+	* Version Info:
+	* 1: Initial version */
+// ------------------------------------------------------------------------------------------------
+void GarrisonContain::xfer( Xfer *xfer )
+{
+	Int i;
+
+	// extend base class
+	OpenContain::xfer( xfer );
+
+	if( xfer->IsLightCRC() )
+		return;
+
+	// version
+	xfer->Version1();
+
+	// original team
+	if( TheTeamFactory->findTeamByID( m_originalTeamID ) == 0 )
+		m_originalTeamID = 0;
+	*xfer == m_originalTeamID;
+	if( xfer->IsLoading() )
+	{
+
+		if( m_originalTeamID != 0 && TheTeamFactory->findTeamByID( m_originalTeamID ) == 0 )
+			throw XferException( 5, 0 );
+
+	}  // end if
+
+	*xfer == m_hideGarrisonedStateFromNonallies;
+
+	// garrison point data
+	UnsignedShort pointDataCount = MAX_GARRISON_POINTS;
+	*xfer == pointDataCount;
+	for( i = 0; i < pointDataCount; ++i )
+	{
+		XferObjectID( xfer, &m_garrisonPointData[ i ].objectID );
+		XferObjectID( xfer, &m_garrisonPointData[ i ].targetID );
+		*xfer == m_garrisonPointData[ i ].placeFrame;
+		*xfer == m_garrisonPointData[ i ].lastEffectFrame;
+		XferDrawableID( xfer, &m_garrisonPointData[ i ].effect );
+	}  // end for i
+
+	// garrison points in use
+	*xfer == m_garrisonPointsInUse;
+
+	// garrison points
+	for( i = 0; i < MAX_GARRISON_POINT_CONDITIONS; ++i )
+		for( Int j = 0; j < MAX_GARRISON_POINTS; ++j )
+			*xfer == (Coord3DBase &)m_garrisonPoint[ i ][ j ];
+
+	// garrison points initialized
+	*xfer == m_garrisonPointsInitialized;
+
+	// rally valid
+	*xfer == m_rallyValid;
+
+	// exit rally point
+	*xfer == (Coord3DBase &)m_exitRallyPoint;
+
+}
+
+  // end xfer
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainFindClosestFreePoint.cpp
+
+// GarrisonContain::findClosestFreeGarrisonPointIndex (0x00478445, 258 bytes),
+// after the ZH GeneralsMD GarrisonContain.cpp body of the same name (BFME1
+// reference revision 1399ad37d42ea52a63829e417c46a1ba9ed2cd20).
+//
+// Target facts: thiscall, ret 8, entered on the full object (callers
+// putObjectAtBestGarrisonPoint 0x004785A2 and calcBestGarrisonPosition
+// 0x00478547). It refuses a null position, a full structure (+0x420 == 40)
+// and a structure whose in-use count reaches the condition's point count
+// (+0x9C4). A target at the structure's own position (+0x08 object, +0x38)
+// takes the first free slot of the 0x14-byte point records at +0x100 (or
+// returns the condition index when none is free); otherwise it keeps the
+// nearest free point by calcDistSqr 0x00478416 over the condition's 0x0C
+// coordinates at +0x424, starting from FLT_MAX (0x00BBB8E0).
+//
+// Carried from the donor: the method and helper names and the nearest-point
+// scan. The same-position shortcut, the per-condition point count and the
+// FLT_MAX start differ from ZH and are read from the target. Structural
+// inference: retail's register choice needs calcDistSqr's body in this TU,
+// as in ZH, where it is an inline that /O1 keeps out of line.
+
+int GarrisonContain::findClosestFreeGarrisonPointIndex(int conditionIndex, const Coord3D *targetPos)
+{
+    if (targetPos == 0 || m_garrisonPointsInUse == MAX_GARRISON_POINTS)
+        return GARRISON_INDEX_INVALID;
+    if (m_garrisonPointsInUse >= m_numGarrisonPoints[conditionIndex])
+        return GARRISON_INDEX_INVALID;
+
+    const Coord3D *pos = getObject()->getPosition();
+    if (targetPos->x == pos->x && targetPos->y == pos->y && targetPos->z == pos->z)
+    {
+        for (int i = 0; i < MAX_GARRISON_POINTS; ++i)
+        {
+            if (m_garrisonPointData[i].objectID == 0)
+                return i;
+        }
+        return conditionIndex;
+    }
+
+    int closestIndex = GARRISON_INDEX_INVALID;
+    float closestDistSq = 3.402823466e+38f;
+    for (int i = 0; i < m_numGarrisonPoints[conditionIndex]; ++i)
+    {
+        if (m_garrisonPointData[i].objectID == 0)
+        {
+            float distSq = calcDistSqr(*targetPos, m_garrisonPoint[conditionIndex][i]);
+            if (distSq < closestDistSq)
+            {
+                closestDistSq = distSq;
+                closestIndex = i;
+            }
+        }
+    }
+    return closestIndex;
 }
 
 // tu-skeleton: 0x004785A2 107B ?putObjectAtBestGarrisonPoint@GarrisonContain@@IAEXPAVObject@@0PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainFirePoints.cpp (not merged yet)
