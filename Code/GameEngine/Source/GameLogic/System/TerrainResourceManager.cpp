@@ -159,6 +159,17 @@ __forceinline int cellInteger(float value)
 	{ \
 		return ((NAME##Outer *)((char *)this - BACK))->m_ptr->m_b ? true : false; \
 	}
+#include "../../GameClient/BuffManager.h"
+#define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	public: \
+		const char *name() const; \
+	}; \
+	const char *NAME::name() const \
+	{ \
+		return TEXT; \
+	}
 
 class Pathfinder {public: void GetCellType(int,void*,void*,void*,int);};
 
@@ -692,6 +703,35 @@ public:
 	bool m_first;
 	bool m_second;
 };
+
+BFME_LITERAL_NAME_GETTER(Rva00359E8DNamed, "TerrainResourceManager")
+
+// ScoreKeeper::GetSnapshotName is owned by RTS/ScoreKeeperDtor.cpp.
+// Slot 2 of TeamRelationMap's vftable 0x00C1ADFC: the Snapshot name slot.
+class TeamRelationMap
+{
+protected:
+	virtual const char *GetSnapshotName() const;
+};
+
+class Xfer;
+
+class LivingWorldRegion
+{
+public:
+    virtual ~LivingWorldRegion();
+	virtual void loadPostProcess();
+	virtual const char *GetSnapshotName() const;
+	virtual void DoXfer(Xfer *);
+};
+
+class CreateAHeroData
+{
+public:
+ virtual const char *GetSnapshotName() const;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp
 
@@ -1300,7 +1340,15 @@ void Rva0035ABC0::rva0035ABC0(unsigned int n)
 
 // tu-skeleton: 0x00359E13 122B ??0Rva00359E13@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/System/Rva00359E13Ctor.cpp (not merged yet)
 
-// tu-skeleton: 0x00359E8D 6B ?name@Rva00359E8DNamed@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters4.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/SubsystemNameGetters4.cpp
+
+// Subsystem literal name getters, fourth unit: six-byte const members with one
+// shape (mov eax,<offset string literal> / ret). Split to keep concurrent
+// contributors conflict-free; the BFME_LITERAL_NAME_GETTER macro is verbatim.
+// Each body returns a pointer to a NUL-terminated class-name string in .rdata
+// with exactly one vtable (body-VA) reference behind a C3 predecessor;
+// verify_string_refs re-reads the string.
+// No // cl: line (defaults match the frameless 6-byte shape).
 
 // tu-skeleton: 0x00359E93 370B ?rva00359E93@Rva0035A238@@QAEXPAURva0035A238Argument@@M_N1@Z -- matched in Code/GameEngine/Source/GameLogic/System/TerrainResourceManagerClaimRva00359E93.cpp (not merged yet)
 

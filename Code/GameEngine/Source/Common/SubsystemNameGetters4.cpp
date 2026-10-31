@@ -30,7 +30,6 @@ BFME_LITERAL_NAME_GETTER(Rva00345F70Named, "AIAttackFollowWaypointPathState")
 BFME_LITERAL_NAME_GETTER(Rva0034B172Named, "AIAttackState")
 BFME_LITERAL_NAME_GETTER(Rva00354EF6Named, "AiOrdersManager")
 BFME_LITERAL_NAME_GETTER(Rva0035701FNamed, "AttackPriorityInfo")
-BFME_LITERAL_NAME_GETTER(Rva00359E8DNamed, "TerrainResourceManager")
 const char *GlowMaterial::GetSnapshotName() const { return "GlowMaterial"; }
 const char *BuffInstance::GetSnapshotName() const { return "BuffInstance"; }
 BFME_LITERAL_NAME_GETTER(Rva00367929Named, "GiantBirdDieState")
