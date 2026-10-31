@@ -36,8 +36,6 @@ class RGBAColorInt;
 class Snapshot;
 #include "../../../Include/Common/BfmeXfer.h"
 #pragma pointers_to_members(full_generality, multiple_inheritance)
-#pragma optimize("t", on)
-#pragma optimize("", on)
 
 class Xfer::Version
 {
@@ -379,6 +377,99 @@ private:
 	char m_pad[0x17C];
 	_STL::map<AsciiString, AsciiString> m_map;
 };
+
+//
+// Embedded-member forwarders: each body offsets this to an object embedded at a
+// fixed field (add ecx, <field>) and tail-jumps a rowed member of it. The
+// targets are only declared here so the calls are not inlined, as they would be
+// beside their definitions. Owners are unknown; names are address-derived and
+// no referencing site was found for these in this pass.
+struct Coord3D;
+
+class ArmySummarySystem;
+
+class Rva003B24C7 { public: void rva003B24C7(bool val); };
+
+class AIBaseBuilder { public: void rva00506B96(const Coord3D *point); bool rva00506C39(void *arg); };
+
+class QuadStrip2D { public: void rva0053892C(unsigned int count); };
+
+class Rva005382A6 { public: void *rva005382A6(int i, int off); };
+
+class Rva005D40A6 { public: void Update(); };
+
+class Rva004E7B0CHolder { public: void rva004E7B0C(); void rva004E7D1D(); };
+
+class UnitRevivalTracker { public: void retrieveHeroesForArmySummary(ArmySummarySystem *summary); };
+
+// 0x00203595: this + 0x10 -> Rva003B24C7::rva003B24C7
+class Rva00203595Owner
+{
+public:
+	void rva00203595(bool val);
+};
+
+// 0x002C6AC3: this + 0x4 -> AIBaseBuilder::rva00506B96
+class Rva002C6AC3Owner
+{
+public:
+	void rva002C6AC3(const Coord3D *point);
+};
+
+// 0x004EC0B9: this + 0x4 -> AIBaseBuilder::rva00506C39
+class Rva004EC0B9Owner
+{
+public:
+	bool rva004EC0B9(void *arg);
+};
+
+// 0x0030BBF9: this + 0x68 -> QuadStrip2D::rva0053892C
+class Rva0030BBF9Owner
+{
+public:
+	void rva0030BBF9(unsigned int count);
+};
+
+// 0x0030BC09: this + 0x68 -> Rva005382A6::rva005382A6
+class Rva0030BC09Owner
+{
+public:
+	void * rva0030BC09(int i, int off);
+};
+
+// 0x0057A313: this + 0x8 -> Rva005D40A6::Update
+class Rva0057A313Owner
+{
+public:
+	void update();
+};
+
+// 0x004CC594: this + 0x58C -> Rva004E7B0CHolder::rva004E7B0C
+class Rva004CC594Owner
+{
+public:
+	void rva004CC594();
+};
+
+// 0x004CC59F: this + 0x58C -> Rva004E7B0CHolder::rva004E7D1D
+class Rva004CC59FOwner
+{
+public:
+	void rva004CC59F();
+};
+
+// 0x0040C922: this + 0x738 -> UnitRevivalTracker::retrieveHeroesForArmySummary
+class Rva0040C922Owner
+{
+public:
+	void rva0040C922(ArmySummarySystem *summary);
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp
+
+#pragma optimize("t", on)
+
+#pragma optimize("", on)
 
 // ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp
 
@@ -726,12 +817,6 @@ int SkirmishAI::resetMaster()
 	return result;
 }
 
-// tu-skeleton: 0x002C6A3D 17B ?rva002C6A3D@Rva002A8AB1Record@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/Common/Rva004EC30EAddOwnedObject.cpp (not merged yet)
-
-// tu-skeleton: 0x002C6A4E 17B ?rva002C6A4E@Rva002A8AB1Record@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/Common/Rva004EC30EAddOwnedObject.cpp (not merged yet)
-
-// tu-skeleton: 0x002C6AC3 8B ?rva002C6AC3@Rva002C6AC3Owner@@QAEXPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/Common/EmbeddedMemberForwarders.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/Rva002A8AB1RecordGet.cpp
 
 // ?rva002C6ACB@Rva002A8AB1Record@@QAEPAXXZ
@@ -742,12 +827,6 @@ void *Rva002A8AB1Record::rva002C6ACB()
 	Player *player = (Player *)TheSkirmishAIManager->rva002A8AB1(found);
 	return player->m_164->rva002C5FD9();
 }
-
-// tu-skeleton: 0x002C6C8E 5B ?clear@?$map@VAsciiString@@UTreeHintPayload001F8ACB@@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@@4@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportMapForwardersSeat8.cpp (not merged yet)
-
-// tu-skeleton: 0x002C6C93 443B ?insert_unique@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@@2@@2@U32@ABU?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_002c6c93.cpp (not merged yet)
-
-// tu-skeleton: 0x002C6E4E 86B ??1Rva002C6E4E@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva002C6E4EDtor.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva002C6EA4Method.cpp
 
@@ -762,6 +841,23 @@ bool Rva002C6EA4::rva002C6EA4(const AsciiString &key)
 {
 	return m_map.find(key) != m_map.end();
 }
+
+// tu-skeleton: 0x002C6A3D 17B ?rva002C6A3D@Rva002A8AB1Record@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/Common/Rva004EC30EAddOwnedObject.cpp (not merged yet)
+
+// tu-skeleton: 0x002C6A4E 17B ?rva002C6A4E@Rva002A8AB1Record@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/Common/Rva004EC30EAddOwnedObject.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/EmbeddedMemberForwarders.cpp
+
+void Rva002C6AC3Owner::rva002C6AC3(const Coord3D *point)
+{
+	((AIBaseBuilder *)((char *)this + 0x4))->rva00506B96(point);
+}
+
+// tu-skeleton: 0x002C6C8E 5B ?clear@?$map@VAsciiString@@UTreeHintPayload001F8ACB@@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@@4@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportMapForwardersSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x002C6C93 443B ?insert_unique@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@@2@@2@U32@ABU?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_002c6c93.cpp (not merged yet)
+
+// tu-skeleton: 0x002C6E4E 86B ??1Rva002C6E4E@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva002C6E4EDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x002C6EC3 29B ?insert@?$map@VAsciiString@@UTreeHintPayload001F8ACB@@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@@4@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@@2@@2@U32@ABU?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_002c6c93.cpp (not merged yet)
 

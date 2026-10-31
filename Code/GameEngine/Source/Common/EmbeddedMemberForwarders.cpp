@@ -32,10 +32,6 @@ class Rva002C6AC3Owner
 public:
 	void rva002C6AC3(const Coord3D *point);
 };
-void Rva002C6AC3Owner::rva002C6AC3(const Coord3D *point)
-{
-	((AIBaseBuilder *)((char *)this + 0x4))->rva00506B96(point);
-}
 
 // 0x004EC0B9: this + 0x4 -> AIBaseBuilder::rva00506C39
 class Rva004EC0B9Owner
