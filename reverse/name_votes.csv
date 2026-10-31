@@ -19424,3 +19424,13 @@ Code/Libraries/Source/EA/Apt/Rva006EE1B0Cluster.cpp|function|0x006EE1B0|rva006ee
 Code/Libraries/Source/EA/Apt/Rva006EE1B0Cluster.cpp|function|0x006EE210|rva006ee210,2c7109b05ad2a8285b4ee9a6,claude-sonnet-5-5,halilkkaya-nm-s2-19,w-758249a52a6f,2026-10-31
 Code/Libraries/Source/EA/Apt/Rva006EE1B0Cluster.cpp|function|0x006EE270|rva006ee270,52bd36c13ba8d5c336969ca1,claude-sonnet-5-5,halilkkaya-nm-s2-19,w-758249a52a6f,2026-10-31
 Code/Libraries/Source/EA/Apt/Rva006EE1B0Cluster.cpp|function|0x006EE310|rva006ee310,c8dc087623fe9c145a360126,claude-sonnet-5-5,halilkkaya-nm-s2-19,w-758249a52a6f,2026-10-31
+Code/GameEngine/Source/Common/System/Rva003F17D6Init.cpp|local|Rva003F17D6::rva003F17D6|q,0a9ce10e33bdf1ae78077276,drz-k1,n27a-k1,w-d29055ee9848,2026-10-31
+Code/GameEngine/Source/Common/System/Rva003F17D6Init.cpp|local|Rva003F1863::rva003F1863|q,18120ce2a253b11383e42af8,drz-k1,n27a-k1,w-d29055ee9848,2026-10-31
+Code/GameEngine/Source/Common/System/Rva003F17D6Init.cpp|local|Rva003F18F0::rva003F18F0|q,9fa4eed7bf134977d009b966,drz-k1,n27a-k1,w-d29055ee9848,2026-10-31
+Code/GameEngine/Source/Common/System/Rva003F17D6Init.cpp|local|Rva003F1976::rva003F1976|q,5384f873ef84eaf3ddd933f5,drz-k1,n27a-k1,w-d29055ee9848,2026-10-31
+Code/GameEngine/Source/Common/Rva0014F3E7Destroy.cpp|function|0x0014F3E7|Rva0014F3E7Destroy,38921bb9fcecea1fc3a1431e,drz-k1,n27a-k1,w-d29055ee9848,2026-10-31
+Code/GameEngine/Source/Common/GapBodiesGE49.cpp|member|Rva001D9715|m_48,d84db27efae3784820a4cf95,drz-k1,n27a-k1,w-d29055ee9848,2026-10-31
+Code/GameEngine/Source/GameLogic/Object/Rva003FD6E0.cpp|member|Rva003FD6E0Mid|m_08,2bc7b90157771b445f339c5f,drz-k1,n27a-k1,w-d29055ee9848,2026-10-31
+Code/GameEngine/Source/Common/Palantir_SetPlanningModeEnabled.cpp|member|Rva002D37BDMid10|m_128,4d0b69ea7b9cbcb8a77e046e,drz-k1,n27a-k1,w-d29055ee9848,2026-10-31
+Code/GameEngine/Source/Common/VslotSmallBodiesAH.cpp|member|Rva006EBE50|m_24,27fa063e3c1b51ac49976da4,drz-k1,n27a-k1,w-d29055ee9848,2026-10-31
+Code/GameEngine/Source/Common/VslotSmallBodiesAH.cpp|member|Rva00711AB0|m_1C,4137841a95904605c3ffc936,drz-k1,n27a-k1,w-d29055ee9848,2026-10-31
