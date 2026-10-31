@@ -18105,8 +18105,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009EBB54,4,.data,global,_s_rva007AC36B,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x009EBB58,4,.data,global,?key_LaserUpdate@?1??doDrawModule@W3DLaserDraw@@UAEXPBVMatrix3D@@@Z@4W4NameKeyType@@A,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DLaserDrawBfmeDoDraw.cpp,owned,,1,2
 0x009EBB5C,4,.data,global,?$S17@?1??doDrawModule@W3DLaserDraw@@UAEXPBVMatrix3D@@@Z@4IA,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DLaserDrawBfmeDoDraw.cpp,owned,,1,4
-0x009EBB60,4,.data,global,?TheW3DLaserDrawPoolKey@?1??getModuleNameKey@W3DLaserDraw@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DLaserDrawPoolKey.cpp,owned,,1,2
-0x009EBB64,4,.data,global,?$S1@?1??getModuleNameKey@W3DLaserDraw@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DLaserDrawPoolKey.cpp,owned,,1,4
+0x009EBB60,4,.data,global,?TheW3DLaserDrawPoolKey@?1??getModuleNameKey@W3DLaserDraw@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DLaserDraw.cpp,owned,,1,2
+0x009EBB64,4,.data,global,?$S1@?1??getModuleNameKey@W3DLaserDraw@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DLaserDraw.cpp,owned,,1,4
 0x009EBB68,4,.data,global,_s_rva007AC395,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x009EBB6C,4,.data,global,?TheW3DQuadrupedDrawPoolKey@?1??getModuleNameKey@W3DQuadrupedDraw@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DQuadrupedDraw.cpp,owned,,1,2
 0x009EBB70,4,.data,global,?$S1@?1??getModuleNameKey@W3DQuadrupedDraw@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DQuadrupedDraw.cpp,owned,,1,4
