@@ -19157,3 +19157,4 @@ Code/GameEngine/Source/Common/Rva005E24D8Wrap.cpp|param|StrategicInGameUI::Regio
 Code/GameEngine/Source/Common/Rva004F8AECErase.cpp|function|0x004F8AEC|rva004F8AEC,033b35032aabf51a7eff1d7e,drz-k3,drz-k3-17,w-077d7aeb666b,2026-10-30
 Code/GameEngine/Source/Common/Rva004F8AECErase.cpp|function|0x004F8D81|rva004F8D81,1554aef4eb446bff015856f4,drz-k3,drz-k3-17,w-077d7aeb666b,2026-10-30
 Code/GameEngine/Source/Common/Rva00431B76.cpp|local|FormationTranslator::WaitForSecondButtonDownStateHandler::Update|q,0b60cf2119906b79f28dc325,drz-k3,drz-k3-18,w-077d7aeb666b,2026-10-30
+Code/Libraries/Source/WWVegas/WWLib/Rva0030E8DFClear.cpp|function|0x0030E94F|rva0030E94F,39da01a4c57b7b38568557d2,drz-k9,drz-k9-16,w-4d4d8f8584bc,2026-10-30
