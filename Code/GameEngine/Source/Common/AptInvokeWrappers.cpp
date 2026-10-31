@@ -141,13 +141,6 @@ int __cdecl Rva005252CDInvoke(Rva00222A8BTarget *target, void *level, const char
 	return target->rva00222B19(level, prefix, name, 2, Rva002162CFStr(Rva00222834Get(a)), (void *)Rva005252CDPass(text), 0, 0, 0);
 }
 
-// ?Rva007410ECInvoke@@YAHPAVRva00222A8BTarget@@PAXPBD2ABI@Z @0x007410EC 102B:
-// the level-scoped call with one unsigned argument.
-int __cdecl Rva007410ECInvoke(Rva00222A8BTarget *target, void *level, const char *prefix, const char *name, const unsigned int &a)
-{
-	return target->rva00222B19(level, prefix, name, 1, Rva002162CFStr(Rva0022288EGet(a)), 0, 0, 0, 0);
-}
-
 // ?Rva002D3409Invoke@@YAHPAVRva00222A8BTarget@@PAXPBDABQBD@Z @0x002D3409 33B:
 // the one-string member: the string held by reference passes straight through.
 int __cdecl Rva002D3409Invoke(Rva00222A8BTarget *target, void *owner, const char *name, const char *const &text)
