@@ -1,4 +1,4 @@
-// cl: /Ireference/shims /Ireference/shims/bfmerendobj /DNDEBUG /MD
+// cl: /DNDEBUG /MD /Ireference/shims/wwstring_teardown/bfme /Ireference/shims/bfmerendobj /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep /Ireference/shims /Ireference/shims/bfmeparticlequat /Ireference/shims/bfme2renderobj /Ireference/shims/bfmeparticlehandle
 // platformsdk
 // ?Set_Name@ParticleEmitterClass@@UAEXPBD@Z @ 0x001A2220 (55B NameString+0x120).
 //
@@ -22,21 +22,14 @@
 #include <string.h>
 #define _CRTIMP
 #include <stdlib.h>
-#include "winbase_shim.h"
 
 // Every header that declares strdup has now had its declaration renamed aside;
 // this is the spelling the unit calls to reach 0x006C4C70 directly.
 #undef strdup
 extern "C" char * __cdecl strdup(const char *);
 
-class ParticleEmitterClass
-{
-public:
-	virtual void Set_Name(const char *pname);
-
-	unsigned char _pad[0x11C];
-	char *NameString;
-};
+#include "rendobj.h"
+#include "part_emt.h"
 
 void ParticleEmitterClass::Set_Name(const char *pname)
 {
