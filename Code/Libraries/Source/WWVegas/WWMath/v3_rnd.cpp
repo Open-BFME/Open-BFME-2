@@ -11,12 +11,53 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include "rendobj.h"	// the bfmerendobj shim has to win the include guard
 #include "../../../../../reference/shims/bfme_randomizer_dtor/v3_rnd.h"
 #include "vector2.h"
+#define BFME_DISP8_LEA_GETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		void *get() const; \
+	}; \
+	void *NAME::get() const \
+	{ \
+		return (char *)this + DISP; \
+	}
+#define BFME_DISP8_NEG_LEA_GETTER(NAME, BACK) \
+	class NAME \
+	{ \
+	public: \
+		void *get() const; \
+	}; \
+	void *NAME::get() const \
+	{ \
+		return (char *)this - BACK; \
+	}
 
 const float Vector3Randomizer::OOIntMax = 1.0f / (float)INT_MAX;
 
 const float Vector3Randomizer::OOUIntMax = 1.0f / (float)UINT_MAX;
 
 Random3Class Vector3Randomizer::Randomizer;
+
+BFME_DISP8_LEA_GETTER(Rva00723140LeaField, 0x04)
+
+// Callers elsewhere reach bodies in this unit through other spellings; retail's
+// call sites in their matched rows land on these addresses (same ABI). Bind them.
+
+// Callers elsewhere reach bodies in this unit through other spellings; retail's
+// call sites in their matched rows land on these addresses (same ABI). Bind them.
+
+// Clean BF1 9cbfb551fe Common/Rva00880960Accessors.cpp semantic guide.
+// Native 006C03C0..006C03CB is a complete independently bounded RET leaf.
+// Target behavior: receiver8 plus eight-byte element stride; RET4.
+// Original owner and full array bounds remain unknown; address-owned view only.
+struct Rva006C03C0Slot { unsigned char bytes[8]; };
+
+class Rva006C03C0Fields {
+public: void *at(int index);
+private: unsigned char unknown[8]; Rva006C03C0Slot entries[1];
+};
+
+// ---- from Code/Libraries/Source/WWVegas/WWMath/v3_rnd.cpp
 
 // ---- from Code/Libraries/Source/WWVegas/WWMath/v3_rnd.cpp
 
@@ -187,12 +228,6 @@ void Vector3SolidCylinderRandomizer::Scale(float scale)
 	Radius *= scale;
 }
 
-// tu-skeleton: 0x007230E0 9B ??0Rva00191120@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/InlineDtorDeletingDtorsC03.cpp (not merged yet)
-
-// tu-skeleton: 0x00723140 4B ?get@Rva00723140LeaField@@QBEPAXXZ -- matched in Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00723490 4B ?get@Rva00723490FloatField@@QBEMXZ -- matched in Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWMath/Vector3SolidSphereRandomizerExtent.cpp
 
 // ?Get_Maximum_Extent@Vector3SolidSphereRandomizer@@UAEMXZ
@@ -200,3 +235,27 @@ float Vector3SolidSphereRandomizer::Get_Maximum_Extent(void)
 {
 	return Radius;
 }
+
+// tu-skeleton: 0x007230E0 9B ??0Rva00191120@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/InlineDtorDeletingDtorsC03.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp
+
+// Disp8 LEA getters: four-byte __thiscall members with one shape:
+//
+//     lea eax,[ecx+<DISP>] / ret
+//
+// The address of a member at a fixed displacement from `this` is returned.
+// Spelled as byte-pointer arithmetic from `this`, which MSVC 7.1 folds to
+// the same disp8 lea. The pointee type is unwitnessed (only an address is
+// produced), so the return is an untyped pointer. Members before the
+// accessed one are not spelled at all: unlike the load families, no lead
+// array is needed because nothing is read.
+// Identity is not recovered: every name is derived from its address, in the
+// same opaque-holder convention as the neighboring Disp* families.
+// No // cl: line (defaults match the frameless four-byte shape).
+
+// Negative-displacement sibling: the disp8 byte sign-extends, so a disp byte
+// above 0x7F addresses *before* `this` (e.g. 9C = -100). Spelled as a
+// negative byte offset from `this`, which folds to the same disp8 lea.
+
+// tu-skeleton: 0x00723490 4B ?get@Rva00723490FloatField@@QBEMXZ -- matched in Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp (not merged yet)
