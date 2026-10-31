@@ -23,19 +23,48 @@ typedef bool Bool;
 typedef int Int;
 typedef unsigned int PlayerMaskType;
 
+#include "../../Common/GameLogicObjectLookupView.h"
+#include "../../Common/Thing/thing.h"
+#include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
+enum NameKeyType { NAMEKEY_INVALID = 0 };
+enum ObjectStatusTypes { OBJECT_STATUS_0x37 = 0x37 };
+class Module;
 class Drawable;
 class Player;
 class AIGroup;
-
-class Object
+class Pathfinder;
+class Rva005CB260;
+class SystemBase
 {
 public:
-	Bool isMassSelectable() const;
+	virtual ~SystemBase();
+private:
+	char m_pad[8];
+};
+
+class Object : public Thing, public Snapshot
+{
+public:
+	void rva0028ACEE(int a, int b);
+protected: Module *findModule(NameKeyType) const;
+public: Module *lookupModule(NameKeyType key) const {return findModule(key);}
+	bool isMassSelectable() const;
 	Drawable *getDrawable() const;
 	Player *getControllingPlayer() const;
 	void *rva0028BD3A() const;
 	void rva0029041B(Player *player);
 	void rva00290496(Player *player);
+	void friend_bindToDrawable( Drawable *draw );
+	void rva0028B31A(int val);
+	bool testStatus(ObjectStatusTypes status) const;
+	const ThingTemplate *getTemplate() const { return m_template; }
+	ObjectID getID() const { return m_id; }
+	Object *getNextObject() const { return m_next; }
+
+	char m_pad64[0x74 - 0x64];
+	ObjectID m_id; // +0x74
+	char m_pad78[0x8C - 0x78];
+	Object *m_next; // +0x8C
 };
 
 class Rva0028BD3AInterface
@@ -45,18 +74,56 @@ public:
 	virtual void v01();
 };
 
+class Rva0039B795
+{
+public:
+	void rva0039B795(int delta);
+	void rva0039B7CB(int delta);
+	void rva0039B7E3(int delta);
+};
+class Rva0039B7AD
+{
+public:
+	void rva0039B7AD(int delta);
+};
+class Rva003B0D7C
+{
+public:
+	unsigned int withdraw(unsigned int amount, Rva0039B795 *arg2, bool flag);
+	void rva003B0D7C(int amount, Rva0039B7AD *arg2, bool flag);
+public:
+	char m_pad00[4];
+	unsigned int m_val04;
+	int m_val08;
+};
 class Player
 {
 public:
+	void onStructureCreated(Object*,Object*);
+	void onUnitCreated(Object*,Object*);
+	void onStructureConstructionComplete(Object*,Object*,bool);
 	void getCurrentSelectionAsAIGroup(AIGroup *group);
 	void setCurrentlySelectedAIGroup(AIGroup *group);
 	void addAIGroupToCurrentSelection(AIGroup *group);
+
+	char m_pad[0x54];
+	int m_playerIndex; // +0x54
+	char m_pad58[0x90 - 0x58];
+	Rva003B0D7C m_money; // +0x90
+	char m_pad9C[0x2EC - 0x9C];
+	Team *m_team; // +0x2EC
+	char pad2F0[0x3AC-0x2F0];
+	int livingId; // +0x3AC
+	char m_pad3B0[0x3BC - 0x3B0];
+	char m_track[0x14]; // +0x3BC
 };
 
-class PlayerList
+class PlayerList : public SystemBase, public Snapshot
 {
 public:
-	Player *getEachPlayerFromMask(Int &mask);
+	Player *Rva002A7A6F(int index);
+	Player *getEachPlayerFromMask(int &mask);
+	Player *getNthPlayer(int i);
 };
 
 class AIGroup
@@ -66,11 +133,12 @@ public:
 	Bool remove(Object *obj);
 };
 
-class AI
+class AI : public SystemBase, public Snapshot
 {
 public:
 	AIGroup *createGroup(void);
 	void destroyGroup(AIGroup *group); // destroyGroup
+	Pathfinder *m_pf; // +0x10
 };
 
 class InGameUISlots
@@ -98,6 +166,7 @@ public:
 class InGameUI : public InGameUISlots
 {
 public:
+	Rva005CB260 *rva000CF155();
 	virtual void selectDrawable(Drawable *draw); // slot 66
 	virtual void deselectDrawable(Drawable *draw); // slot 67
 };
@@ -105,8 +174,6 @@ public:
 extern PlayerList *ThePlayerList;
 extern AI *TheAI;
 extern InGameUI *TheInGameUI;
-
-#include "../../Common/GameLogicObjectLookupView.h"
 
 void GameLogic::selectObject(Object *obj, Bool createNewSelection, PlayerMaskType playerMask, Bool affectClient)
 {

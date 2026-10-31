@@ -1,5 +1,5 @@
-// cl: /DNDEBUG /DWIN32 /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
-// stlport46
+// cl: /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /Ireference/shims/bfmelist /I. /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/shims/moduledata /ICode/Libraries/Include/Lib /ICode/GameEngine/Source/Common /Ireference/shims/stlp_nodealloc /ICode/GameEngine/Include
+// stlport
 // list<Rva0024076D>::push_back @0x00248211 and its insert @0x00247089, which
 // creates the node through _M_create_node 0x002461F1. 0x0024877A inserts into
 // its record list through 0x00247089.

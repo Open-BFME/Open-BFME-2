@@ -29,7 +29,9 @@ class GlobalData
 {
 public:
 	char m_pad[0x9AD];
-	unsigned char m_flag9AD;
+	unsigned char m_flag9AD; // +0x9AD
+	char m_pad9AE[0x1110 - 0x9AE];
+	unsigned char m_1110; // +0x1110
 };
 extern GlobalData *TheWritableGlobalData;
 

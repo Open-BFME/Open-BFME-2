@@ -22,8 +22,8 @@ class GameSlot
 {
 public:
 	bool isHuman() const;
-	unsigned char m_pad[0x10];
-	int m_startPos;
+	char pad[0x10];
+	int startPos; // +0x10
 };
 
 #include "ascii_string.h"
@@ -40,6 +40,6 @@ void GameLogic::formatPlayerStartWaypointName(AsciiString *out)
 	GameSlot *slot = TheGameInfo->getSlot(localSlot);
 	if (!slot->isHuman())
 		return;
-	int startPos = slot->m_startPos;
+	int startPos = slot->startPos;
 	out->format("Player_%d_Start", startPos + 1);
 }

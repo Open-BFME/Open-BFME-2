@@ -3,14 +3,7 @@
 // ?Rva00240C89Create@@YGPAURva00240C89Node@@ABUBfmeStringRecord00239B46@@@Z, retail 0x00240C89, 34 bytes.
 // Free stdcall node creator: allocate 0x10 via byte allocator 0x307F0 then placement-copy the value at +8 via 0x23FC3E, return node.
 // Evidence: rowed allocator and typed copy owner, caller 0x241959 (pushes arg, links node), prev Rva00439325Erase flags.
-namespace _STL
-{
-	template <class T> class allocator
-	{
-	public:
-		static char *allocate(unsigned int n, const void *hint);
-	};
-}
+#include <memory>
 struct BfmeStringRecord00239B46;
 void Rva0023FC3EConstruct(BfmeStringRecord00239B46 *, const BfmeStringRecord00239B46 &);
 struct BfmeStringRecord00239B46

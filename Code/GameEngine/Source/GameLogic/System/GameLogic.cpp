@@ -131,11 +131,26 @@ class GlobalData;
 class AI;
 struct CreateMask;
 extern ThingFactory *TheThingFactory;
+#include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
+class SystemBase
+{
+public:
+	virtual ~SystemBase();
+private:
+	char m_pad[8];
+};
+class Bridge;
+class AIGroup;
+class Player;
+class Rva005CB260;
+enum ObjectStatusTypes { OBJECT_STATUS_0x37 = 0x37 };
 class GlobalData
 {
 public:
-	char m_pad[0x1110];
-	unsigned char m_1110;
+	char m_pad[0x9AD];
+	unsigned char m_flag9AD; // +0x9AD
+	char m_pad9AE[0x1110 - 0x9AE];
+	unsigned char m_1110; // +0x1110
 };
 extern GlobalData *TheWritableGlobalData;
 void __cdecl bfmeMergeReceiverKeys(int value);
@@ -148,18 +163,20 @@ class ThingFactory
 {
 public:
 	const ThingTemplate *findTemplate(const AsciiString &name);	// 0x002D06CA
-public:
 	Object *newObject(const ThingTemplate *tmpl, Team *team, const CreateMask *mask, ObjectID flag);
+	void *newDrawable(void *tmplate, int status, int random);
 };
 #include "../../Common/Thing/thing.h"
 class ThingTemplate
 {
 public:
-	char m_pad[0x108];
-	unsigned char m_flags108;
-	char m_pad2[0x4D0 - 0x109];
-	float m_orient4D0;
+	__forceinline bool isKindOf(int t) const { return (m_kindOf[t >> 3] & (1 << (t & 7))) != 0; }
 	void GetAssetList(int a, int b);
+
+	char m_pad[0x108];
+	unsigned char m_kindOf[0x20]; // +0x108
+	char m_pad128[0x4D0 - 0x128];
+	float m_orient4D0; // +0x4D0
 };
 #include "../../../Include/Common/TeamBFME2.h"
 class LocomotorSet
@@ -174,12 +191,29 @@ public:
 	LocomotorSet m_loco;
 };
 class Module;
-class Object
+class Object : public Thing, public Snapshot
 {
 public:
 	void rva0028ACEE(int a, int b);
 protected: Module *findModule(NameKeyType) const;
 public: Module *lookupModule(NameKeyType key) const {return findModule(key);}
+	bool isMassSelectable() const;
+	Drawable *getDrawable() const;
+	Player *getControllingPlayer() const;
+	void *rva0028BD3A() const;
+	void rva0029041B(Player *player);
+	void rva00290496(Player *player);
+	void friend_bindToDrawable( Drawable *draw );
+	void rva0028B31A(int val);
+	bool testStatus(ObjectStatusTypes status) const;
+	const ThingTemplate *getTemplate() const { return m_template; }
+	ObjectID getID() const { return m_id; }
+	Object *getNextObject() const { return m_next; }
+
+	char m_pad64[0x74 - 0x64];
+	ObjectID m_id; // +0x74
+	char m_pad78[0x8C - 0x78];
+	Object *m_next; // +0x8C
 };
 class Rva0028CBFD
 {
@@ -194,26 +228,59 @@ public:
 class Pathfinder
 {
 public:
- void AddObjectToPathfindMap(Object*);
+	void AddObjectToPathfindMap(Object*);
 	bool AdjustDestination(Object *obj, const LocomotorSet &set, Coord3D *dst, const Coord3D *group);
 };
-class AI
+class AI : public SystemBase, public Snapshot
 {
 public:
-	char m_pad[0x10];
-	Pathfinder *m_pf;
+	AIGroup *createGroup(void);
+	void destroyGroup(AIGroup *group); // destroyGroup
+	Pathfinder *m_pf; // +0x10
 };
 extern AI *TheAI;
+class Rva0039B795
+{
+public:
+	void rva0039B795(int delta);
+	void rva0039B7CB(int delta);
+	void rva0039B7E3(int delta);
+};
+class Rva0039B7AD
+{
+public:
+	void rva0039B7AD(int delta);
+};
+class Rva003B0D7C
+{
+public:
+	unsigned int withdraw(unsigned int amount, Rva0039B795 *arg2, bool flag);
+	void rva003B0D7C(int amount, Rva0039B7AD *arg2, bool flag);
+public:
+	char m_pad00[4];
+	unsigned int m_val04;
+	int m_val08;
+};
 class Player
 {
 public:
-	char m_pad[0x2EC];
-	Team *m_team;
-	char pad2F0[0x3AC-0x2F0];
-	int livingId;
 	void onStructureCreated(Object*,Object*);
 	void onUnitCreated(Object*,Object*);
 	void onStructureConstructionComplete(Object*,Object*,bool);
+	void getCurrentSelectionAsAIGroup(AIGroup *group);
+	void setCurrentlySelectedAIGroup(AIGroup *group);
+	void addAIGroupToCurrentSelection(AIGroup *group);
+
+	char m_pad[0x54];
+	int m_playerIndex; // +0x54
+	char m_pad58[0x90 - 0x58];
+	Rva003B0D7C m_money; // +0x90
+	char m_pad9C[0x2EC - 0x9C];
+	Team *m_team; // +0x2EC
+	char pad2F0[0x3AC-0x2F0];
+	int livingId; // +0x3AC
+	char m_pad3B0[0x3BC - 0x3B0];
+	char m_track[0x14]; // +0x3BC
 };
 static Object *placeObjectAtPosition(int slot, AsciiString name, const Coord3D *pos, Player *player, const void *playerTemplate)
 {
@@ -248,7 +315,7 @@ static Object *placeObjectAtPosition(int slot, AsciiString name, const Coord3D *
 	}
 	TheAI->m_pf->AddObjectToPathfindMap(obj);
 	AIUpdateInterface *aiu = *(AIUpdateInterface **)((char *)obj + 0x258);
-	if (aiu && !((*(ThingTemplate **)((char *)obj + 4))->m_flags108 & 4)) {
+	if (aiu && !((*(ThingTemplate **)((char *)obj + 4))->m_kindOf[0] & 4)) {
 		LocomotorSet *loco = &aiu->m_loco;
 		Pathfinder *pf = TheAI->m_pf;
 		if (pf->AdjustDestination(obj, *loco, (Coord3D *)pos, 0)) {
@@ -263,12 +330,36 @@ extern GameLogic *TheGameLogic;
 class Rva003F468D;
 class Rva0020E89C;
 class Rva002E2903Player;
-class Rva0020E6B7RegionManager {public:Rva003F468D *rva0020E6B7();};
+class Rva0020E6B7RegionManager
+{
+public:
+	Rva003F468D *rva0020E6B7();
+};
 class Rva0020EAF6View {public:Rva0020E89C *rva0020EAF6(int);};
-class Rva002BA8F1Logic {public:char pad[0xB0];Rva0020E6B7RegionManager *regions;char padB4[4];int currentRegion;Rva002E2903Player *find(int,unsigned*);};
+class Rva002BA8F1Logic : public SystemBase, public Snapshot
+{
+public:
+	Rva002E2903Player *find(int,unsigned*);
+
+	char pad[0xB0 - 0x10];
+	Rva0020E6B7RegionManager *regions; // +0xB0
+	char padB4[4];
+	int currentRegion; // +0xB8
+};
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
-class LivingWorldBattle {public:void *rva003F4FBD(void*);};
+class LivingWorldBattle
+{
+public:
+	void *rva003F4FBD(void*);
+	int rva003F4752(void *player);
+	int rva003F4FAA(int side, void *player);
+	void rva003F470E(int side, int slot, void *block);
+	void SetWinningSide(int side) { m_winningSide = side; }
+	char m_pad00[0x38];
+private:
+	int m_winningSide; // +0x38
+};
 struct LivingArmy {char pad[0x20];int id;};
 struct LivingBuildingTemplate {char pad[0xC];AsciiString name;};
 class LivingWorldBuilding {public:char pad[0x18];int id;char pad1C[0xC];const AsciiString &getName()const {const LivingBuildingTemplate &d=*definition;return d.name;} LivingBuildingTemplate *definition;};
@@ -276,7 +367,12 @@ class LivingWorldRegion {public:char pad[0x13C];int owner;int GetOwner()const{re
 class Waypoint {public:Waypoint(unsigned,AsciiString,const Coord3D*,AsciiString,AsciiString,AsciiString,bool,int,AsciiString);virtual ~Waypoint();char pad[8];Coord3D position;char rest[0xC0-0x18];};
 Waypoint *Rva00506CC3FindWaypoint(const AsciiString&);
 void ValidateLivingWorldBuildPlotWaypoints(Waypoint*,int);
-class ArmySummarySystem {public:void rva0040D280(Object*,int);};
+class ArmySummarySystem
+{
+public:
+	void rva0040D280(Object*,int);
+	void Save(Object *objects);
+};
 class PlayerTemplate;
 // WB 0x00CFC810 identifies this GameLogic.cpp placement pass. Retail
 // 0x0024104A..0x00241230 reads Player +0x3AC and region owner +0x13C;
@@ -334,8 +430,22 @@ static void PlaceLivingWorldObjectsForPlayer(Player *player,const PlayerTemplate
 // purpose and base flow; WB CFABB0 confirms the BFME additions. Native
 // 0x00241C75..0x002421F5 supplies every offset,
 // mode branch, CastleBehavior radius, ten starting offsets and polar math.
-class GameSlot {public:char pad[0x10];int startPos;};
-class PlayerTemplate {public:char pad[0x44];AsciiString startingBuilding;};
+class GameSlot
+{
+public:
+	bool isHuman() const;
+	char pad[0x10];
+	int startPos; // +0x10
+};
+class UnicodeString;
+class PlayerTemplate
+{
+public:
+	UnicodeString getDisplayName() const;
+	AsciiString getName() const;
+	char pad[0x44]; // +0x00
+	AsciiString startingBuilding; // +0x44
+};
 class Rva001FD19E {public:const char *rva001FD19E(int);};
 class Rva001FD2D9 {public:Coord3D *rva001FD2D9(Coord3D*,int);};
 struct FindPositionOptions {unsigned flags;float minRadius,maxRadius,startAngle,maxZDelta;void *ignoreObject;const void *sourceToPathToDest;void *relationshipObject;};
@@ -375,10 +485,12 @@ struct Rva003F468DParticipant
 	int m_playerIndex;
 };
 class Player;
-class PlayerList
+class PlayerList : public SystemBase, public Snapshot
 {
 public:
 	Player *Rva002A7A6F(int index);
+	Player *getEachPlayerFromMask(int &mask);
+	Player *getNthPlayer(int i);
 };
 extern PlayerList *ThePlayerList;
 class VictoryConditionsInterface
@@ -430,7 +542,6 @@ template <> list<int, allocator<int> >::iterator list<int, allocator<int> >::ins
 #undef _CRTIMP
 class Snapshot;
 class AsciiString;
-class UnicodeString;
 class PooledString;
 class Coord3DBase;
 struct ICoord3D;
@@ -502,7 +613,6 @@ public:
 private:
     Rva00439325 m_tree;
 };
-#include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
 #pragma comment(linker, "/alternatename:?loadPostProcess@Rva000D3FA0Map@@MAEXXZ=??1Coord2D@@QAE@XZ")
 #pragma comment(linker, "/alternatename:?crc@Rva000D3FA0Map@@MAEXPAVXfer@@@Z=?name@Rva002431A9Named@@QBEPBDXZ")
 #pragma comment(linker, "/alternatename:?xfer@Rva000D3FA0Map@@MAEXPAVXfer@@@Z=__purecall")
@@ -510,11 +620,13 @@ private:
 
 class GameMessage
 {
-private:
-	void *m_argumentList;
-
 public:
-	GameMessage *m_next;
+	void appendIntegerArgument(int arg);
+	void appendBooleanArgument(bool arg);
+private:
+	void *m_argumentList; // +0x00
+public:
+	GameMessage *m_next; // +0x04
 };
 class CommandList
 {
@@ -556,7 +668,34 @@ void Rva00518262Enable();
 void Rva0051B11CEnable();
 void Rva00437E9C(int);
 class Rva005CB260;
-class InGameUI { public: Rva005CB260 *rva000CF155(); };
+class InGameUISlots
+{
+public:
+	virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03();
+	virtual void s04(); virtual void s05(); virtual void s06(); virtual void s07();
+	virtual void s08(); virtual void s09(); virtual void s10(); virtual void s11();
+	virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15();
+	virtual void s16(); virtual void s17(); virtual void s18(); virtual void s19();
+	virtual void s20(); virtual void s21(); virtual void s22(); virtual void s23();
+	virtual void s24(); virtual void s25(); virtual void s26(); virtual void s27();
+	virtual void s28(); virtual void s29(); virtual void s30(); virtual void s31();
+	virtual void s32(); virtual void s33(); virtual void s34(); virtual void s35();
+	virtual void s36(); virtual void s37(); virtual void s38(); virtual void s39();
+	virtual void s40(); virtual void s41(); virtual void s42(); virtual void s43();
+	virtual void s44(); virtual void s45(); virtual void s46(); virtual void s47();
+	virtual void s48(); virtual void s49(); virtual void s50(); virtual void s51();
+	virtual void s52(); virtual void s53(); virtual void s54(); virtual void s55();
+	virtual void s56(); virtual void s57(); virtual void s58(); virtual void s59();
+	virtual void s60(); virtual void s61(); virtual void s62(); virtual void s63();
+	virtual void s64(); virtual void s65();
+};
+class InGameUI : public InGameUISlots
+{
+public:
+	Rva005CB260 *rva000CF155();
+	virtual void selectDrawable(Drawable *draw); // slot 66
+	virtual void deselectDrawable(Drawable *draw); // slot 67
+};
 class Rva005CB265 { public: virtual int rva005CB265(); };
 class Rva0054CBEFTarget { public: void method(int); };
 extern InGameUI *TheInGameUI;
@@ -575,7 +714,19 @@ extern int g_Va00A04908;
 struct PlaceDeltaView : Vector3 { WWINLINE PlaceDeltaView & operator *= (float k) { X = X*k; Y=Y*k; Z=Z*k; return *this; } };
 extern PartitionManager *ThePartitionManager;
 class NetworkPartitionDispatch {public:virtual void v0();virtual void v1();virtual void v2();virtual void v3();virtual void v4();virtual void v5();virtual void v6();virtual void v7();virtual void v8();virtual void v9();virtual void update();};
-class TerrainLogic {public:virtual void v0();virtual void v1();virtual void v2();virtual void v3();virtual void v4();virtual void v5();virtual float getGroundHeight(float,float,Coord3D*);};
+class TerrainLogic
+{
+public:
+	virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5();
+	virtual float getGroundHeight(float,float,Coord3D*); // slot 6
+	virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12();
+	virtual void v13(); virtual void v14(); virtual void v15(); virtual void v16(); virtual void v17(); virtual void v18();
+	virtual void v19(); virtual void v20(); virtual void v21(); virtual void v22(); virtual void v23(); virtual void v24();
+	virtual void v25(); virtual void v26(); virtual void v27(); virtual void v28(); virtual void v29(); virtual void v30();
+	virtual void v31(); virtual void v32(); virtual void v33(); virtual void v34(); virtual void v35(); virtual void v36();
+	virtual void v37(); virtual void v38(); virtual void v39(); virtual void v40();
+	virtual Bridge *findBridgeAt(const Coord3D *pLoc) const; // 0xA4
+};
 extern TerrainLogic *TheTerrainLogic;
 struct NetworkObjectPrefix {char pad[0x88];AsciiString name;char pad8C[0xB8-0x8C];float radius,width;float getWidth()const{return width;}};
 class Rva00395A60 {public:float rva00395A60();};
@@ -1018,7 +1169,11 @@ class Rva0024076D
 {
 public:
 	Rva0024076D();
+	Rva0024076D(const Rva0024076D &); // 0x002419E2
 	~Rva0024076D();
+	Rva0024076D &operator=(const Rva0024076D &);
+	bool operator==(const Rva0024076D &) const;
+	bool operator<(const Rva0024076D &) const;
 
 private:
 	AsciiString m_name;										// +0x00
@@ -1102,12 +1257,12 @@ class Rva00242F1A
 {
 public:
 	void *rva00242F1A(const void *arg);
+	char m_pad00[0x4];
 private:
-	void *m_unused00;
-	void **m_beginBuckets;
-	void **m_endBuckets;
-	void **m_storageEnd;
-	unsigned int m_numElements;
+	void **m_beginBuckets; // +0x04
+	void **m_endBuckets; // +0x08
+	void **m_storageEnd; // +0x0C
+	unsigned int m_numElements; // +0x10
 };
 
 namespace _STL {
@@ -1281,10 +1436,10 @@ class Rva0023E7D9
 public:
 	void rva0023E7D9();
 	void rva0023F88C(bool loadingSaveGame);
-	char m_lead[0x48];
-	Rva0023E7D9Link *m_head;
-	_STL::list<int, _STL::allocator<int> >::iterator m_cur;
-	_STL::list<int, _STL::allocator<int> > m_list;
+	char m_lead[0x48]; // +0x00
+	Rva0023E7D9Link *m_head; // +0x48
+	_STL::list<int, _STL::allocator<int> >::iterator m_cur; // +0x4C
+	_STL::list<int, _STL::allocator<int> > m_list; // +0x50
 };
 
 class Rva00A00958Obj

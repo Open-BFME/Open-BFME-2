@@ -6,19 +6,45 @@
 // sites: Drawable::friend_bindToObject 0x00274240 (stores the object at
 // Drawable +0xFC) and Object::friend_bindToDrawable 0x0029080C.
 
-class Object;
+#include "../../Common/GameLogicObjectLookupView.h"
+#include "../../Common/Thing/thing.h"
+#include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
+enum NameKeyType { NAMEKEY_INVALID = 0 };
+enum ObjectStatusTypes { OBJECT_STATUS_0x37 = 0x37 };
+class Module;
+class Drawable;
+class Player;
 
 class Drawable
 {
 public:
 	void friend_bindToObject( Object *obj );
+	void rva00270FAC(bool value);
 };
 
-class Object
+class Object : public Thing, public Snapshot
 {
 public:
-	void friend_bindToDrawable( Drawable *draw );
+	void rva0028ACEE(int a, int b);
+protected: Module *findModule(NameKeyType) const;
+public: Module *lookupModule(NameKeyType key) const {return findModule(key);}
+	bool isMassSelectable() const;
 	Drawable *getDrawable() const;
+	Player *getControllingPlayer() const;
+	void *rva0028BD3A() const;
+	void rva0029041B(Player *player);
+	void rva00290496(Player *player);
+	void friend_bindToDrawable( Drawable *draw );
+	void rva0028B31A(int val);
+	bool testStatus(ObjectStatusTypes status) const;
+	const ThingTemplate *getTemplate() const { return m_template; }
+	ObjectID getID() const { return m_id; }
+	Object *getNextObject() const { return m_next; }
+
+	char m_pad64[0x74 - 0x64];
+	ObjectID m_id; // +0x74
+	char m_pad78[0x8C - 0x78];
+	Object *m_next; // +0x8C
 };
 
 // sendObjectDestroyed reaches GameClient::destroyDrawable through slot 0x74 of
@@ -38,8 +64,6 @@ public:
 };
 
 extern GameClient *TheGameClient;
-
-#include "../../Common/GameLogicObjectLookupView.h"
 
 void GameLogic::bindObjectAndDrawable(Object* obj, Drawable* draw)
 {

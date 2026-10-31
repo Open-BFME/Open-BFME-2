@@ -3,14 +3,7 @@
 // ?createNode@@YGPAURva00240D0FNode@@ABURva00240D0FValue@@@Z, retail 0x00240D0F, 37 bytes.
 // Free stdcall node creator: allocate 0xC via byte allocator 0x307F0 clear +0 then _Construct value at +4 via dup 0x23FC6B, return node.
 // Evidence: unlock lane, callee allocate row + dup_0023FC6B row (pair AsciiString NoCaseTreeValue _Construct), caller 0x242F45, sibling Rva00240C89Create same recipe.
-namespace _STL
-{
-	template <class T> class allocator
-	{
-	public:
-		static char *allocate(unsigned int n, const void *hint);
-	};
-}
+#include <memory>
 void __cdecl Rva0023FC6BConstruct(void *dest, const void *source);
 struct Rva00240D0FValue
 {

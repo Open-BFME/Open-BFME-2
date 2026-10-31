@@ -15,15 +15,18 @@ enum BuildableStatus
 
 namespace rts
 {
-	template <class T> struct hash
-	{
-		size_t operator()(const T &value) const;
-	};
+template <typename T> struct hash
+{
+	size_t operator()(const T &value) const;
+};
+}
 
-	template <class T> struct equal_to
-	{
-		bool operator()(const T &left, const T &right) const;
-	};
+namespace rts
+{
+template <typename T> struct equal_to
+{
+	bool operator()(const T &left, const T &right) const;
+};
 }
 
 typedef _STL::pair<const AsciiString, BuildableStatus> BuildableStatusPair;
@@ -41,7 +44,17 @@ class Rva00056F61 {
 public:
     __declspec(nothrow) Rva0041534BIter rva0041534B(const AsciiString *);
 };
-class Rva00242F1A { public: void *rva00242F1A(const void *); };
+class Rva00242F1A
+{
+public:
+	void *rva00242F1A(const void *arg);
+	char m_pad00[0x4];
+private:
+	void **m_beginBuckets; // +0x04
+	void **m_endBuckets; // +0x08
+	void **m_storageEnd; // +0x0C
+	unsigned int m_numElements; // +0x10
+};
 struct BuildableSlotPair {
     AsciiString name;
     BuildableStatus status;

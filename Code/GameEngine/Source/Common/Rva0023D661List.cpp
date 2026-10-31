@@ -1,12 +1,38 @@
 // cl: /MD
 // ?rva0023D661@Rva0023D661@@QAEXH@Z @ 0x0023D661 45B: calls Object::rva0028B31A on each node from +0xAC head via +0x8C next then tails to TheAudio slot 0x180
 // Evidence: chain from just-landed 0x0028B31A; global 0x009FE6E8 is TheAudio per GameLogicSetGamePaused and ScriptActions siblings; slot 0x180 follows audioSlot178 convention.
-class Object
+#include "GameLogicObjectLookupView.h"
+#include "Thing/thing.h"
+#include "../../../../reference/shims/moduledata/Common/Snapshot.h"
+enum NameKeyType { NAMEKEY_INVALID = 0 };
+enum ObjectStatusTypes { OBJECT_STATUS_0x37 = 0x37 };
+class Module;
+class Drawable;
+class Player;
+
+class Object : public Thing, public Snapshot
 {
 public:
+	void rva0028ACEE(int a, int b);
+protected: Module *findModule(NameKeyType) const;
+public: Module *lookupModule(NameKeyType key) const {return findModule(key);}
+	bool isMassSelectable() const;
+	Drawable *getDrawable() const;
+	Player *getControllingPlayer() const;
+	void *rva0028BD3A() const;
+	void rva0029041B(Player *player);
+	void rva00290496(Player *player);
+	void friend_bindToDrawable( Drawable *draw );
 	void rva0028B31A(int val);
-	char m_pad0[0x8C];
-	Object *m_next;
+	bool testStatus(ObjectStatusTypes status) const;
+	const ThingTemplate *getTemplate() const { return m_template; }
+	ObjectID getID() const { return m_id; }
+	Object *getNextObject() const { return m_next; }
+
+	char m_pad64[0x74 - 0x64];
+	ObjectID m_id; // +0x74
+	char m_pad78[0x8C - 0x78];
+	Object *m_next; // +0x8C
 };
 
 class BfmeAudio

@@ -5,6 +5,7 @@
 // Evidence: unlock lane, vtable store at +0, Vector_base ctor 0x7FAEA, caller fanout 7, prev/next neighbours.
 // The retail table at RVA 0x007EDCB4: 4 slots, each a rowed code owner (the next
 // word is not a code address or starts another ledger datum).
+#include <vector>
 extern "C" {
 void __identifier("?rva0024002E@Rva0024002EForwarder@@QAEXXZ")();
 void __identifier("?rva00240035@Rva00240035Forwarder@@QAEXXZ")();
@@ -31,28 +32,15 @@ extern const void *const g_00BEDAA8[4] = {
 	(const void *)&__identifier("?slot08@Rva0023DB34@@UAE_NH@Z"), // slot 2 0x00306C49
 	(const void *)&__identifier("?slot0C@Rva0023DB34@@UAE_NXZ"), // slot 3 0x00306C58
 };
-namespace _STL
-{
-	template <class T> class allocator
-	{
-	public:
-		allocator() {}
-	};
-	template <class T, class A> class _Vector_base
-	{
-	public:
-		_Vector_base(const A &);
-		void *_M_start;
-		void *_M_finish;
-		void *_M_end;
-	};
-}
 struct BfmeE12
 {
 	float x;
 	float y;
 	float z;
 };
+// The base ctor is the rowed out-of-line 0x0007FAEA; the allocator temporary dies inline with no EH state.
+namespace _STL { template <> _Vector_base<BfmeE12, allocator<BfmeE12> >::_Vector_base(const allocator<BfmeE12> &); }
+namespace _STL { template <> inline allocator<BfmeE12>::~allocator() _STLP_NOTHROW {} }
 class Rva00240000
 {
 public:

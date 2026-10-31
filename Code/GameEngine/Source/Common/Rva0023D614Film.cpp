@@ -5,7 +5,7 @@
 // Evidence: unlock lane; callers push none (this in arg); format StillImage_Film%02d.
 #include "string_base.h"
 int GetGameClientRandomValue(int lo, int hi, char *file, int line);
-#include <stdio.h>
+extern "C" __declspec(dllimport) int __cdecl sprintf(char *, const char *, ...);
 void Rva0023D614Set(StringBase<char> *out)
 {
 	char buf[60];

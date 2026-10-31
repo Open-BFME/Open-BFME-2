@@ -25,5 +25,13 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 class Rva0024076D { public: Rva0024076D(const Rva0024076D &); ~Rva0024076D(); bool operator==(const Rva0024076D&) const; bool operator<(const Rva0024076D&) const; private: unsigned char bytes[80]; };
 
 
-// Instantiate the recovered member; retain only its required template dependencies.
+// Retail keeps this member out of line: insert 0x00247089 calls it, as list<int>'s does.
+namespace _STL {
+template <> __declspec(noinline) _List_node<Rva0024076D> *list<Rva0024076D, allocator<Rva0024076D> >::_M_create_node(const Rva0024076D &__x)
+{
+	_Node *__p = this->_M_node.allocate(1);
+	_Construct(&__p->_M_data, __x);
+	return __p;
+}
+}
 template _STL::_List_node<Rva0024076D> * _STL::list<Rva0024076D, _STL::allocator<Rva0024076D> >::_M_create_node(Rva0024076D const &);
