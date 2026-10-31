@@ -55,6 +55,8 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 	{ \
 		return ((const Sub##NAME *)((const char *)this - (BACK)))->m_holder->m_value; \
 	}
+#define Matrix4x4 Matrix4
+#include "PreRTS.h"
 
 BFME_DISP8_BYTECHASE_BEFORE_GETTER(Rva004A0107ByteChaseField, 0x1C, 0x31)
 
@@ -69,9 +71,13 @@ public:
 	void *m_template;
 };
 
+Object *bfmeQueryRallyOverride(Object *obj, const Coord3D *pos);
+
 // tu-skeleton: 0x0049FFF7 32B ??1QueueProductionExitUpdate@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/QueueProductionExitUpdateDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004A0017 6B ?name@QueueProductionExitUpdate@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/QueueProductionExitUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/QueueProductionExitUpdate.cpp
 
@@ -240,9 +246,7 @@ void QueueProductionExitUpdate::loadPostProcess( void )
 
   // end loadPostProcess
 
-// tu-skeleton: 0x004A0057 107B ?xfer@QueueProductionExitUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/QueueProductionExitUpdateXfer.cpp (not merged yet)
 
-// tu-skeleton: 0x004A00C2 69B ?getModuleNameKey@QueueProductionExitUpdate@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/QueueProductionExitUpdatePoolKey.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp
 
@@ -262,6 +266,10 @@ void QueueProductionExitUpdate::loadPostProcess( void )
 // backward cast, which MSVC folds to `mov eax,[ecx-BACK]`; same shape and
 // reading as BFME1's ChainedFieldGetters.
 
+// tu-skeleton: 0x004A0057 107B ?xfer@QueueProductionExitUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/QueueProductionExitUpdateXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x004A00C2 69B ?getModuleNameKey@QueueProductionExitUpdate@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/QueueProductionExitUpdatePoolKey.cpp (not merged yet)
+
 // tu-skeleton: 0x004A010E 106B ??0QueueProductionExitUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/QueueProductionExitUpdateCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004A0194 212B ?getExitPosition@QueueProductionExitUpdate@@UBE_NAAUCoord3D@@AAM@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/QueueProductionExitUpdateExitObjectViaDoor.cpp (not merged yet)
@@ -270,7 +278,25 @@ void QueueProductionExitUpdate::loadPostProcess( void )
 
 // tu-skeleton: 0x004A0403 280B ?bfmeQueryRallyOverride@@YAPAVObject@@PAV1@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/QueueProductionExitUpdateQueryRallyOverride.cpp (not merged yet)
 
-// tu-skeleton: 0x004A051B 44B ?setRallyPoint@QueueProductionExitUpdate@@UAEXPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/QueueProductionExitUpdateSetRallyPoint.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/QueueProductionExitUpdateSetRallyPoint.cpp
+
+//
+// Ported from Open-BFME-1 GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/QueueProductionExitUpdateSetRallyPoint.cpp
+// (donor revision 6d9434269164392c5ba62aaa7c15a86b5b020d76, donor flags plus /O1). Compiled that way each body
+// places uniquely on unclaimed game.dat .text by masked whole-.text search:
+//   ?setRallyPoint@QueueProductionExitUpdate@@UAEXPBUCoord3D@@@Z 0x004A051B (44B)
+// Callee addresses are read off retail call sites (reverse/symbols.csv).
+// QueueProductionExitUpdate::setRallyPoint at 0x002D0CA0.
+
+void QueueProductionExitUpdate::setRallyPoint(const Coord3D *pos)
+{
+	Object *overrideHost = bfmeQueryRallyOverride(getObject(), pos);
+	if (overrideHost)
+		m_rallyPoint = *overrideHost->getPosition();
+	else
+		m_rallyPoint = *pos;
+	m_rallyPointExists = true;
+}
 
 // tu-skeleton: 0x004A0547 297B ?notifyProductionBurstFinished@QueueProductionExitUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/QueueProductionExitUpdate_notifyProductionBurstFinished.cpp (not merged yet)
 
