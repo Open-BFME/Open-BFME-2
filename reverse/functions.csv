@@ -69093,8 +69093,8 @@ _$E8,,0x007ACE70,12,Code/Libraries/Source/WWVegas/WW3D2/meshmdl_sidehash.cpp,mat
 ?rva000184F0@Rva000184F0Slots@@QAEXXZ,,0x000184F0,5,Code/GameEngine/Source/Common/GapBodiesGE21.cpp,matched,virtual-slot tail-jump forwarder; unreferenced
 ?rva0001C8B0@Rva0001C8B0Slots@@QAEXXZ,,0x0001C8B0,5,Code/GameEngine/Source/Common/GapBodiesGE21.cpp,matched,virtual-slot tail-jump forwarder; unreferenced
 ?rva0001D170@Rva0001D170Slots@@QAEXXZ,,0x0001D170,5,Code/GameEngine/Source/Common/GapBodiesGE21.cpp,matched,virtual-slot tail-jump forwarder; unreferenced
-?rva00035790@Rva00035790Slots@@QAEXXZ,,0x00035790,4,Code/GameEngine/Source/Common/GapBodiesGE21.cpp,matched,virtual-slot tail-jump forwarder; unreferenced
-?rva000357F0@Rva000357F0Slots@@QAEXXZ,,0x000357F0,5,Code/GameEngine/Source/Common/GapBodiesGE21.cpp,matched,virtual-slot tail-jump forwarder; unreferenced
+?rva00035790@Rva00035790Slots@@QAEXXZ,,0x00035790,4,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp,matched,virtual-slot tail-jump forwarder; unreferenced
+?rva000357F0@Rva000357F0Slots@@QAEXXZ,,0x000357F0,5,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp,matched,virtual-slot tail-jump forwarder; unreferenced
 ?rva00021280@@YAHHHHHH@Z,,0x00021280,5,Code/GameEngine/Source/Common/GapBodiesGE21.cpp,matched,returns its fifth argument; unreferenced
 ?rva00132C8D@Rva0090E190@@QAEXH@Z,,0x00132C8D,16,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,matched,null-guarded inner setter +0x34 between set 0x00132C7D (+0x30) and TextureAsset::SetQualityLevel 0x00132C9D (+0x38); no direct caller
 ?rva000B3F75@Rva000B3F75@@QAEPAURva000B3F75Record@@H@Z,,0x000B3F75,15,Code/GameEngine/Source/Common/GapBodiesSeat2A.cpp,matched,indexed address into the 0xFC-byte record array at +0; no direct caller

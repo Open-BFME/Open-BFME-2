@@ -5,6 +5,9 @@
 #define _DLL
 #include <string.h>
 #include "string_base.h"
+#include <mbstring.h>
+#include <stdlib.h>
+#define GAP_RTS_TAG ((const void *)'str')
 
 // ??1Rva000358B0@@QAE@XZ @0x000358B0 35B
 // String lock guard destructor: if the +4 locked flag is set, leaves the
@@ -28,11 +31,251 @@ private:
 
 template const wchar_t *StringBase<wchar_t>::find(wchar_t c) const;
 
+typedef void *(__cdecl *GameAllocateFunction)(unsigned int, int, const void *);
+
+extern "C" GameAllocateFunction __gameMemAllocatePtr;
+
+	// VA 0x00DE0404
+
+namespace _STL
+{
+	template <class T> class allocator;
+	template <> class allocator<char>
+	{
+	public:
+		static char *allocate(unsigned int n, const void *hint);	// 0x000307F0
+	};
+}
+
+// --- 0x0002FC80 (24B): _msize: the block's size through the null-guarded
+// block-size forwarder 0x00030860, with the heap word the block-heap slot
+// (VA 0x00DE03F0, ?_GetBlockHeap@MemoryPool@@YAIPAX@Z) reports.
+extern void *__gameMemGetBlockHeapPtr;
+
+unsigned int rva00030860(void *block, unsigned int heap);
+
+// --- 0x0002FCA0 (24B): realloc through the resize slot VA 0x00DE0400 with
+// two zero words.
+extern void *__gameMemReallocatePtr;
+
+// --- 0x0002FFA0 (25B): run the resolver 0x00030730 (its WorldBuilder
+// identity MemoryPool::InitFunctionPointers), register the slot at
+// VA 0x00DE040C with atexit, then tail-call the slot at VA 0x00DE0410.
+namespace MemoryPool { void InitFunctionPointers(); }
+
+extern void *__gameMemExitPtr;
+
+extern void *__gameMemInitPtr;
+
+// --- 0x0002F980 (22B): the registry block's once-gate on its own, ahead of
+// the getters at 0x0002F9C0 that inline the same test; tail-jumps to the
+// rowed LoadRegistryValues 0x0002F840.
+extern bool g_registryValuesLoaded;
+
+void LoadRegistryValues();
+
+// Unreferenced leaves from the /O2 regions (twins.tsv leads): the full
+// dword store and the load-then-test byte read are /O2 forms.
+// 0x000657B3 (9B): constructor zeroing the word at +0.
+class Rva000657B3
+{
+public:
+	Rva000657B3();
+private:
+	int m_00;
+};
+
+// 0x0001D1D0 (11B): whether the byte at +0x0E is set.
+class Rva0001D1D0
+{
+public:
+	bool rva0001D1D0() const;
+private:
+	char m_pad[0x0E];
+	unsigned char m_0E;
+};
+
+// 0x00030E10 (8B): the word at +0x18 of a record passed by pointer (the
+// shape of STLport's _FILE_I_begin over a stdio FILE).
+struct Rva00030E10Record
+{
+	char m_pad[0x18];
+	int m_18;
+};
+
+// Unreferenced virtual-slot forwarders: each calls one slot of its own
+// object with no arguments, a tail jump through the vtable (mov eax,[ecx];
+// jmp [eax+4*slot]). Owners are address-derived views of the slots used.
+// 0x00013280: slot 6.
+class Rva00013280Slots
+{
+public:
+	virtual void slot00();
+	virtual void slot01();
+	virtual void slot02();
+	virtual void slot03();
+	virtual void slot04();
+	virtual void slot05();
+	virtual void slot06();
+	void rva00013280();
+};
+
+// 0x00013290: slot 10.
+class Rva00013290Slots
+{
+public:
+	virtual void slot00();
+	virtual void slot01();
+	virtual void slot02();
+	virtual void slot03();
+	virtual void slot04();
+	virtual void slot05();
+	virtual void slot06();
+	virtual void slot07();
+	virtual void slot08();
+	virtual void slot09();
+	virtual void slot10();
+	void rva00013290();
+};
+
+// 0x00013380, 0x00013390, 0x000133A0: slots 4, 5 and 7, three CC-padded
+// forwarders in the STLport fstream run. Lead only: slots 4/5/7 of the
+// codecvt vftables (0x007BBB08, 0x007BBB2C) are do_encoding,
+// do_always_noconv and do_max_length, so these read as codecvt's encoding(),
+// always_noconv() and max_length(); the char and wchar_t instantiations are
+// byte-identical and nothing references these copies, so the owner stays an
+// address-derived view.
+class Rva00013380Slots
+{
+public:
+	virtual void slot00();
+	virtual void slot01();
+	virtual void slot02();
+	virtual void slot03();
+	virtual void slot04();
+	virtual void slot05();
+	virtual void slot06();
+	virtual void slot07();
+	void rva00013380();
+	void rva00013390();
+	void rva000133A0();
+};
+
+// 0x000184E0: slot 8.
+class Rva000184E0Slots
+{
+public:
+	virtual void slot00();
+	virtual void slot01();
+	virtual void slot02();
+	virtual void slot03();
+	virtual void slot04();
+	virtual void slot05();
+	virtual void slot06();
+	virtual void slot07();
+	virtual void slot08();
+	void rva000184E0();
+};
+
+// 0x000184F0: slot 12.
+class Rva000184F0Slots
+{
+public:
+	virtual void slot00();
+	virtual void slot01();
+	virtual void slot02();
+	virtual void slot03();
+	virtual void slot04();
+	virtual void slot05();
+	virtual void slot06();
+	virtual void slot07();
+	virtual void slot08();
+	virtual void slot09();
+	virtual void slot10();
+	virtual void slot11();
+	virtual void slot12();
+	void rva000184F0();
+};
+
+// 0x0001C8B0: slot 11.
+class Rva0001C8B0Slots
+{
+public:
+	virtual void slot00();
+	virtual void slot01();
+	virtual void slot02();
+	virtual void slot03();
+	virtual void slot04();
+	virtual void slot05();
+	virtual void slot06();
+	virtual void slot07();
+	virtual void slot08();
+	virtual void slot09();
+	virtual void slot10();
+	virtual void slot11();
+	void rva0001C8B0();
+};
+
+// 0x0001D170: slot 3.
+class Rva0001D170Slots
+{
+public:
+	virtual void slot00();
+	virtual void slot01();
+	virtual void slot02();
+	virtual void slot03();
+	void rva0001D170();
+};
+
+// 0x00035790: slot 0.
+class Rva00035790Slots
+{
+public:
+	virtual void slot00();
+	void rva00035790();
+};
+
+// 0x000357F0: slot 2.
+class Rva000357F0Slots
+{
+public:
+	virtual void slot00();
+	virtual void slot01();
+	virtual void slot02();
+	void rva000357F0();
+};
+
 // tu-skeleton: 0x00035780 7B ??1WideStrLenSource@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StringBaseWideStrLenSet.cpp (not merged yet)
 
-// tu-skeleton: 0x00035790 4B ?rva00035790@Rva00035790Slots@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE21.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/GapBodiesGE21.cpp
+
+// CRT replacement shims from .text gaps no Ghidra function covers, between
+// the matched wwmath wrappers (0x0002FBC0) and mem_ops.cpp's operator
+// new/delete (0x0002FD60..0x0002FDE0). Each begins after its neighbour's
+// padding and ends in its own ret or tail jump. They route the C heap through
+// the game's pluggable memory-manager slots, the counterparts of BFME 1's
+// Rva00881D70CrtShims.cpp (donor shapes only: BFME 2's allocate slot takes a
+// third tag word, read from these bodies). The inlined strlen/strcpy loops and
+// the rep stos memset are the /O2 intrinsic forms. Names stay address-derived
+// except the two operator new overloads, whose ABI is the one Zero Hour's
+// GameMemory.h declares for the file/line forms.
+
+// Tag the duplicating shims pass to the byte allocator: the multi-character
+// constant 'str' (dword 0x00737472 in the pushes).
+
+void Rva00035790Slots::rva00035790()
+{
+	slot00();
+}
+
+void Rva000357F0Slots::rva000357F0()
+{
+	slot02();
+}
 
 // tu-skeleton: 0x000357A0 19B ??$swap@PAD@_STL@@YAXAAPAD0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_string.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp
 
 // ---- from Code/GameEngine/Source/Common/System/AsciiString_skipWhitespace.cpp
 
@@ -54,12 +297,6 @@ static char *skipWhitespace(char *p)
 // C++ integration entry, absent from retail. Keeping the worker static gives
 // MSVC its private EAX argument convention. Only the 42B worker is claimed.
 char *SkipWhitespaceAnchor(char *p) { return skipWhitespace(p); }
-
-// tu-skeleton: 0x000357F0 5B ?rva000357F0@Rva000357F0Slots@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE21.cpp (not merged yet)
-
-// tu-skeleton: 0x00035800 46B _skipWhitespace -- matched in Code/Libraries/Source/WWVegas/WWLib/StringBaseWideTrim.cpp (not merged yet)
-
-// tu-skeleton: 0x00035830 9B ??0Rva00035830@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/string/StringBaseWideScan.cpp
 
@@ -114,8 +351,6 @@ const unsigned short *Rva00887300Keep(const unsigned short *s, unsigned short c)
 	return Rva00887300Scan(s, c);
 }
 
-// tu-skeleton: 0x00035880 48B ??0Rva00035880@@QAE@PAVRva000355E0@@H@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE27.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/StringBaseLockGuardDtor.cpp
 
 Rva000358B0::~Rva000358B0()
@@ -126,14 +361,6 @@ Rva000358B0::~Rva000358B0()
         m_locked = false;
     }
 }
-
-// tu-skeleton: 0x000358E0 40B ?isNotEmpty@?$StringBase@G@@QBE_NXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp (not merged yet)
-
-// tu-skeleton: 0x00035910 17B ?swap@?$StringBase@D@@QAEXAAV1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/string_base.cpp (not merged yet)
-
-// tu-skeleton: 0x00035930 56B ?reverseFind@?$StringBase@D@@QBEPBDD@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp (not merged yet)
-
-// tu-skeleton: 0x00035970 60B ?startsWith@?$StringBase@D@@QBE_NPBDH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/string_base_starts_with_nocase.cpp
 
@@ -172,20 +399,6 @@ const T *StringBase<T>::find(T c) const
     return 0;
 }
 
-// tu-skeleton: 0x00035A00 75B ?endsWith@?$StringBase@D@@QBE_NPBDH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp (not merged yet)
-
-// tu-skeleton: 0x00035A50 83B ?endsWithNoCase@?$StringBase@D@@QBE_NPBDH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp (not merged yet)
-
-// tu-skeleton: 0x00035AF0 55B ?reverseFind@?$StringBase@G@@QBEPBGG@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp (not merged yet)
-
-// tu-skeleton: 0x00035B30 69B ?startsWith@?$StringBase@G@@QBE_NPBGH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp (not merged yet)
-
-// tu-skeleton: 0x00035B80 69B ?startsWithNoCase@?$StringBase@G@@QBE_NPBGH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp (not merged yet)
-
-// tu-skeleton: 0x00035BD0 84B ?endsWith@?$StringBase@G@@QBE_NPBGH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp (not merged yet)
-
-// tu-skeleton: 0x00035C30 84B ?endsWithNoCase@?$StringBase@G@@QBE_NPBGH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/StringBaseLockGetters.cpp
 
 // ?Rva00035C90Get@@YAPAVRva00041004@@XZ @0x00035C90 93B
@@ -216,6 +429,34 @@ Rva00041004 *Rva00035DF0Get()
     static Rva00041004 obj(1);
     return &obj;
 }
+
+// tu-skeleton: 0x00035800 46B _skipWhitespace -- matched in Code/Libraries/Source/WWVegas/WWLib/StringBaseWideTrim.cpp (not merged yet)
+
+// tu-skeleton: 0x00035830 9B ??0Rva00035830@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x00035880 48B ??0Rva00035880@@QAE@PAVRva000355E0@@H@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE27.cpp (not merged yet)
+
+// tu-skeleton: 0x000358E0 40B ?isNotEmpty@?$StringBase@G@@QBE_NXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp (not merged yet)
+
+// tu-skeleton: 0x00035910 17B ?swap@?$StringBase@D@@QAEXAAV1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/string_base.cpp (not merged yet)
+
+// tu-skeleton: 0x00035930 56B ?reverseFind@?$StringBase@D@@QBEPBDD@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp (not merged yet)
+
+// tu-skeleton: 0x00035970 60B ?startsWith@?$StringBase@D@@QBE_NPBDH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp (not merged yet)
+
+// tu-skeleton: 0x00035A00 75B ?endsWith@?$StringBase@D@@QBE_NPBDH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp (not merged yet)
+
+// tu-skeleton: 0x00035A50 83B ?endsWithNoCase@?$StringBase@D@@QBE_NPBDH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp (not merged yet)
+
+// tu-skeleton: 0x00035AF0 55B ?reverseFind@?$StringBase@G@@QBEPBGG@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp (not merged yet)
+
+// tu-skeleton: 0x00035B30 69B ?startsWith@?$StringBase@G@@QBE_NPBGH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp (not merged yet)
+
+// tu-skeleton: 0x00035B80 69B ?startsWithNoCase@?$StringBase@G@@QBE_NPBGH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp (not merged yet)
+
+// tu-skeleton: 0x00035BD0 84B ?endsWith@?$StringBase@G@@QBE_NPBGH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp (not merged yet)
+
+// tu-skeleton: 0x00035C30 84B ?endsWithNoCase@?$StringBase@G@@QBE_NPBGH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp (not merged yet)
 
 // tu-skeleton: 0x00035CF0 25B ??0NarrowStrLenSource@@QAE@PBDH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StringBaseNarrowStrLenSet.cpp (not merged yet)
 

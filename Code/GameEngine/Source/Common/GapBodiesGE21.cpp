@@ -346,11 +346,6 @@ public:
 	void rva00035790();
 };
 
-void Rva00035790Slots::rva00035790()
-{
-	slot00();
-}
-
 // 0x000357F0: slot 2.
 class Rva000357F0Slots
 {
@@ -360,11 +355,6 @@ public:
 	virtual void slot02();
 	void rva000357F0();
 };
-
-void Rva000357F0Slots::rva000357F0()
-{
-	slot02();
-}
 
 // 0x00021280 (5B), unreferenced: return the fifth argument.
 int rva00021280(int, int, int, int, int fifth)
