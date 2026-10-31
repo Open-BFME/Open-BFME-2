@@ -42,17 +42,79 @@ namespace _STL {
 template <> ScienceType *allocator<ScienceType>::allocate(size_t, const void *) const;
 }
 
-class MineshaftPortalBehaviour
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+#include "GameLogicObjectLookupView.h"
+class Thing;
+class ModuleData;
+class BehaviorModuleBase
+{
+private:
+	virtual void unused();
+public:
+	const ModuleData *m_moduleData; // +0x04
+	Object *m_object; // +0x08
+};
+class BehaviorModuleOther
+{
+	virtual void unused();
+};
+class BehaviorModule : public BehaviorModuleBase, public BehaviorModuleOther
 {
 public:
+	BehaviorModule(Thing *thing, const ModuleData *moduleData);
+};
+enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
+class UpdateModuleInterface
+{
+public:
+	virtual UpdateSleepTime update() = 0;
+};
+class UpdateModule : public BehaviorModule, public UpdateModuleInterface
+{
+	unsigned m_nextCallFrameAndPhase;
+	int m_indexInLogic;
+	int m_bfmeReserved;
+
+public:
+	UpdateModule(Thing *thing, const ModuleData *moduleData);
+	virtual UpdateSleepTime update();
+ virtual ~UpdateModule();
+	void xfer(Xfer *xfer);
+};
+class MineshaftPortalInterfaceA
+{
+public:
+	virtual void ifaceA() = 0;
+};
+class MineshaftPortalInterfaceB
+{
+public:
+	virtual void ifaceB() = 0;
+};
+struct Coord3D;
+class Waypoint;
+class MineshaftPortalBehaviour : public UpdateModule, public MineshaftPortalInterfaceA, public MineshaftPortalInterfaceB
+{
+public:
+	MineshaftPortalBehaviour(Thing *thing, const ModuleData *moduleData);
+	virtual NameKeyType getModuleNameKey() const;
+	virtual void DoXfer(Xfer *xfer);
 	void addArrivingObject(void *p);
+	Waypoint *rva00372DFA(const Coord3D *pos);
+	void createWaypoint();
+
 private:
-	char m_pad[0x28];
-	_STL::vector<ScienceType> m_vec;
+	_STL::vector<ObjectID> m_pending; // +0x28
+	Waypoint *m_waypoint; // +0x34
+	bool m_registered; // +0x38
+	bool m_mode39; // +0x39
 };
 
 void MineshaftPortalBehaviour::addArrivingObject(void *p)
 {
 	ScienceType tmp = *(ScienceType *)((char *)p + 0x74);
-	m_vec.push_back(tmp);
+	((_STL::vector<ScienceType> *)&m_pending)->push_back(tmp);
 }

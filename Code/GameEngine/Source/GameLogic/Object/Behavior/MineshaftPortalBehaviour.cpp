@@ -34,19 +34,12 @@ public:
 	NameKeyType nameToKey(const char *name);
 };
 extern NameKeyGenerator *TheNameKeyGenerator;
-class MineshaftPortalBehaviour
-{
-public:
-	virtual NameKeyType getModuleNameKey() const;
-public:
-	void createWaypoint();
-};
-struct TreeOpaqueMapped00372FF4;
+struct TreeOpaqueMapped00372FF4 { unsigned int m_bits; };
 class MineshaftPortalNetworkManager;
 namespace _STL {
 typedef pair<const float, TreeOpaqueMapped00372FF4> TreeValue00372FF4;
 typedef _Rb_tree<float, TreeValue00372FF4, _Select1st<TreeValue00372FF4>, less<float>, allocator<TreeValue00372FF4> > Tree00372FF4;
-template <> Tree00372FF4::~_Rb_tree();
+template <> void Tree00372FF4::clear();
 }
 class Rva0037314E
 {
@@ -75,10 +68,12 @@ void Rva00373153::rva00373153()
 class Rva00373373Portal
 {
 public:
-    virtual void *destroy(unsigned int flags);
-    unsigned int id;
-    char pad08[4];
-    float x, y, z;
+	virtual void *destroy(unsigned int flags);
+	unsigned int id; // +0x04
+	char m_pad08[0x4];
+	float x; // +0x0C
+	float y; // +0x10
+	float z; // +0x14
 };
 class Rva002E6ECA { public: int get() const; };
 class Rva00372CA8
@@ -216,6 +211,10 @@ void allocator<int>::deallocate(int* __p, size_t __n) const {
     if (__p != 0) __sgi_alloc::deallocate((void*)__p, __n * sizeof(value_type));
 }
 }
+enum ScienceType
+{
+	SCIENCE_Dummy0
+};
 class Thing;
 class ModuleData;
 class BehaviorModuleBase
@@ -251,6 +250,7 @@ public:
 	UpdateModule(Thing *thing, const ModuleData *moduleData);
 	virtual UpdateSleepTime update();
  virtual ~UpdateModule();
+	void xfer(Xfer *xfer);
 };
 class MineshaftPortalInterfaceA
 {
@@ -325,6 +325,7 @@ struct Rva00373B70Template
 	char pad00[0x114];
 	unsigned int m_kindOf;
 };
+class GeometryInfo;
 class Object
 {
 public:
@@ -332,14 +333,38 @@ public:
 	unsigned int isKindOf6D() const { return m_template->m_kindOf & 0x2000; }
 	char pad00[4];
 	const Rva00373B70Template *m_template;
-	char pad08[0x74 - 0x08];
+	char pad08[0x38 - 0x08];
+	float x, y; // +0x38, +0x3C
+	char pad40[4];
+	float angle; // +0x44
+	char pad48[0x74 - 0x48];
 	ObjectID m_id;
-	char pad78[0x250 - 0x78];
+	char pad78[0x104 - 0x78];
+	GeometryInfo *geometry; // +0x104
+	char pad108[0x250 - 0x108];
 	Rva00373B70Contain *m_contain;
 	char pad254[0x258 - 0x254];
 	char *m_ai;
 };
 extern GameLogic *TheGameLogic;
+struct Coord3D;
+class Waypoint;
+class MineshaftPortalBehaviour : public UpdateModule, public MineshaftPortalInterfaceA, public MineshaftPortalInterfaceB
+{
+public:
+	MineshaftPortalBehaviour(Thing *thing, const ModuleData *moduleData);
+	virtual NameKeyType getModuleNameKey() const;
+	virtual void DoXfer(Xfer *xfer);
+	void addArrivingObject(void *p);
+	Waypoint *rva00372DFA(const Coord3D *pos);
+	void createWaypoint();
+
+private:
+	_STL::vector<ObjectID> m_pending; // +0x28
+	Waypoint *m_waypoint; // +0x34
+	bool m_registered; // +0x38
+	bool m_mode39; // +0x39
+};
 class Rva0037343B : public UpdateModule, public MineshaftPortalInterfaceA, public MineshaftPortalInterfaceB
 {
 public:
@@ -366,7 +391,15 @@ private:
 	bool registered; // +0x38
 	char m_pad39[0x3];
 };
-class Xfer::Version { public: unsigned char a, b; Version(unsigned char x, unsigned char y) : a(x), b(y) {} };
+class Xfer::Version
+{
+public:
+	Version(unsigned char current, unsigned char minimum)
+		: m_current(current), m_minimum(minimum) {}
+
+	unsigned char m_current;
+	unsigned char m_minimum;
+};
 struct Rva003732BFNode : _STL::_Rb_tree_node_base { int key; Rva00373158Group *group; };
 #include "../../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 #include "Common/Snapshot.h"
@@ -378,7 +411,6 @@ template <> __declspec(dllimport) __forceinline
 _Rb_tree<int, pair<const int, void *>, _Select1st<pair<const int, void *> >, less<int>, allocator<pair<const int, void *> > >::~_Rb_tree()
 { clear(); }
 }
-struct TreeOpaqueMapped00372FF4 { unsigned int m_bits; };
 typedef _STL::pair<const float, TreeOpaqueMapped00372FF4> TreeValue00372FF4;
 typedef _STL::_Rb_tree<float, TreeValue00372FF4, _STL::_Select1st<TreeValue00372FF4>, _STL::less<float>, _STL::allocator<TreeValue00372FF4> > Tree00372FF4;
 typedef _STL::_Rb_tree<int, int, _STL::_Identity<int>, _STL::less<int>, _STL::allocator<int> > SetIntTree;
@@ -393,7 +425,6 @@ static __forceinline void eraseFirst(LocalTree *tree) throw()
 {
     ((SetIntTree *)tree)->erase(SetIntTree::iterator((SetIntTree::_Link_type)((_STL::_Rb_tree_node_base *)tree->header)->_M_left));
 }
-struct Coord3D;
 class Waypoint
 {
 public:
@@ -492,11 +523,6 @@ public:
 	char m_pad11A[2]; // to the rowed 0x11C instance size
 };
 
-enum ScienceType
-{
-	SCIENCE_Dummy0
-};
-
 class Rva00373357
 {
 public:
@@ -513,9 +539,8 @@ class Rva0037307F
 {
 public:
 	Rva0037307F();
-private:
 	_STL::vector<BfmeE16> m_vec; // +0
-	bool m_flag; // +0x0C
+	bool changed; // +0x0C
 };
 
 BFME_DISP8_LEA_NEG_SBB_GETTER(Rva003730FCLeaNegSbbField, 12, 0x18)
@@ -546,6 +571,8 @@ public:
     virtual void update();
     void rva00373158(Rva00373373Portal *portal, int key);
     void rva003731CB(Rva00373373Portal *portal, Player *player);
+    bool hasUsableNetwork(void *p);
+    void addWaypoint(Waypoint *waypoint, Player *player);
     _STL::map<int, void *> m_map; // +0x10, after the 0xC subsystem base and the Snapshot pointer
 };
 
@@ -603,7 +630,7 @@ void MineshaftPortalBehaviourModuleData::buildFieldParse(MultiIniFieldParse &par
 Rva0037307F::Rva0037307F()
 	: m_vec(_STL::allocator<BfmeE16>())
 {
-	m_flag = false;
+	changed = false;
 }
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourPoolKey.cpp
