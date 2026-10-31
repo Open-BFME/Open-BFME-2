@@ -11,6 +11,7 @@ typedef bool Bool;
 #include <string>
 #include <cstddef>
 #include <functional>
+#include <algorithm>
 #include "../../../Libraries/Include/Lib/BfmeE16.h"
 
 class Rva0040A7D5;
@@ -128,7 +129,8 @@ public:
 
 class Rva0040A7D5 {public:int GetStatNameKey(int) const;};
 
-namespace _STL {template<class I> void sort(I,I);}
+// Retail calls the TU's sort<int *> (0x0040B4B6) out of line.
+namespace _STL { template <> void sort<int *>(int *, int *); }
 
 struct Rva0040C0C7Element {char bytes[40];};
 
@@ -335,21 +337,18 @@ enum ObjectID { INVALID_ID = 0 };
 namespace _STL
 {
 
-template <class _InputIter, class _OutputIter>
-_OutputIter copy_backward(_InputIter __first, _InputIter __last,
-	_OutputIter __result);
-
 // Keep the linear-insert donor's external ObjectID helper call. The combined
 // includes otherwise instantiate an unused copy of its helper chain here.
 template <> ObjectID *copy_backward<ObjectID *, ObjectID *>(ObjectID *, ObjectID *, ObjectID *);
 
-template <class _RandomAccessIter, class _Tp, class _Compare>
-void __unguarded_linear_insert(_RandomAccessIter __last, _Tp __val,
-	_Compare __comp);
+// The rowed int __unguarded_linear_insert (0x0040A77B) stays a call.
+template <> void __unguarded_linear_insert<int *, int, less<int> >(int *, int, less<int>);
 
-template <class _RandomAccessIter, class _Tp, class _Compare>
-void __linear_insert(_RandomAccessIter __first, _RandomAccessIter __last,
-	_Tp __val, _Compare __comp)
+// __linear_insert<int *> (0x0040AE5E) is the header's body except that the
+// shift goes through the typed ObjectID copy_backward wrapper: an explicit
+// specialization of the real template.
+template <> void __linear_insert<int *, int, less<int> >(int *__first, int *__last,
+	int __val, less<int> __comp)
 {
 	if (__comp(__val, *__first))
 	{
@@ -362,9 +361,6 @@ void __linear_insert(_RandomAccessIter __first, _RandomAccessIter __last,
 		__unguarded_linear_insert(__last, __val, __comp);
 	}
 }
-
-template void __linear_insert<int *, int, _STL::less<int> >(int *, int *,
-	int, _STL::less<int>);
 
 }
 
@@ -537,11 +533,8 @@ class INI;
 
 extern class NameKeyGenerator *TheNameKeyGenerator;
 
-namespace _STL
-{
-    template <class _ForwardIter, class _Tp>
-    bool binary_search(_ForwardIter __first, _ForwardIter __last, const _Tp &__val);
-}
+// Retail calls the TU's binary_search<int *> (0x0040AD75) out of line.
+namespace _STL { template <> bool binary_search<int *, int>(int *, int *, const int &); }
 
 template Rva0040AEE3 *_STL::__copy_ptrs<Rva0040AEE3 *, Rva0040AEE3 *>(Rva0040AEE3 *, Rva0040AEE3 *, Rva0040AEE3 *, _STL::__false_type);
 
