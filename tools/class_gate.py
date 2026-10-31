@@ -155,8 +155,13 @@ def moved_bodies(text):
     if (re.search(r'(?:u8|u|U|L)?R"|<%|%>|<:|:>|\\\r?\n', text)
             or re.search(r"\?\?[=/'()!<>-]", text)):
         return {}
-    found = {}
+    found, seen = {}, set()
     for name, start, end, _ in class_views.class_body_spans(text):
+        # Unqualified keys cannot prove which of multiple bodies moved.
+        # Count even bodies whose normalisation would refuse credit.
+        if name in seen:
+            return {}
+        seen.add(name)
         body = normalised_body(text[start:end])
         if body is not None:
             found.setdefault(name, body)

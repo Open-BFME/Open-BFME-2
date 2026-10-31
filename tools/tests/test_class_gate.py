@@ -314,3 +314,23 @@ def test_moved_literal_keeps_data_but_allows_comment_and_format_edits(repo, caps
     merge_into(repo, FILLER + new + FRESH, OLD)
     assert class_gate.staged_renames() == {}
     assert repo.gate(capsys) == (0, '')
+
+
+@pytest.mark.parametrize('side', ['both', 'donor', 'destination'])
+@pytest.mark.parametrize('scopes', ['namespaces', 'same-file'])
+def test_duplicate_class_name_gets_no_deleted_donor_credit(repo, capsys, side, scopes):
+    # Sol R1: changing only B::X used to disappear behind A::X's body key.
+    first = 'class X { int a; };\n'
+    second = 'class X { int b; };\n'
+    if scopes == 'namespaces':
+        first = 'namespace A {\n' + first + '}\n'
+        second = 'namespace B {\n' + second + '}\n'
+    old = first + (second if side != 'destination' else '')
+    new = first + (second.replace('int b;', 'double b;') if side != 'donor' else '')
+    repo.write('reverse/canonical_classes.csv', 'class,header\nX,Code/Game/X.h\n')
+    repo.write(OLD, old + BODY)
+    repo.commit('reverse/canonical_classes.csv', OLD)
+    merge_into(repo, FILLER + new + FRESH, OLD)
+    assert class_gate.staged_renames() == {}
+    rc, err = repo.gate(capsys)
+    assert rc == 1 and '`X`' in err
