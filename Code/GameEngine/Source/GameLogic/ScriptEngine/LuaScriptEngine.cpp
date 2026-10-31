@@ -373,19 +373,51 @@ struct ParserWrap : Rva00542806
 	~ParserWrap() { ((Rva0054288B *)this)->rva0054288B(); }
 };
 #include "unicode_string.h"
+#define _CRTIMP __declspec(dllimport)
+#undef _CRTIMP
+#include "../../../Include/GameLogic/ScriptEngine.h"
+#pragma function(strcmp)
+#pragma function(strcmp)
+extern "C" void lua_pushstring(lua_State *state, const char *str);
+// Retail-measured holder chain. Names are address-derived only: the
+// Object+0x304 slot and holder+0x30 indirect are unproven as Team/Proto;
+// the donor's equivalent slots are m_team (at +0x23C) and m_field4 (+0x4).
+struct Rva00334E51Holder
+{
+	char m_unreconstructed00[0x30];
+	void *m_field30;
+};
+#include <stddef.h>
+#include <list>
+#include "../../../Include/GameLogic/ContainmentListView.h"
+	// 0x007473B0
+extern "C" int io_debug(lua_State *state);
+	// 0x00E01DBC
+
+class Rva002628C3
+{
+public:
+	void DispatchSpyEvent(void *object, int eventKey, int spyKey);	// 0x002628C3 pinned
+};
+#pragma function(strcmp)
+
 class GameState
 {
 	char m_pad00[0x2c];
 public:
 	AsciiString m_pristineMapName;                                       // +0x2C
 };
+
 class Rva002DC7C1
 {
 public:
 	bool rva002DC7C1(const UnicodeString &path) const;
 };
+
 class File;
+
 extern GameState *TheGameState;
+
 extern "C" int (__cdecl * const _imp__sprintf)(char *buffer, const char *format, ...);
 
 struct Rva00990210Range;
@@ -417,8 +449,6 @@ template <class T> struct Rva00337AA8Buf
 // compatibility with the already-owned deleting dtor337C70.
 enum ParticleSystemID { ParticleSystemIDUnknown = 0 };
 
-class Rva003371B1;
-
 struct BfmeOpaqueRecord156;
 
 namespace _STL {
@@ -447,6 +477,7 @@ class XmlNameSlotList;
 class Object;
 
 struct Rva00334133Context;
+
 struct Rva00336283Element;
 
 class LuaScriptEngine : public SubsystemInterface
@@ -622,7 +653,9 @@ class Player;
 class UpgradeTemplate;
 
 class ContainModuleInterface;
+
 class PhysicsBehavior;
+
 class Rva002E9F70Vtbl94;
 
 class Object
@@ -1327,11 +1360,541 @@ public:
 
 extern WeaponStore *TheWeaponStore;
 
+int GetClientRandomNumberReal(lua_State *state);
+
+int CurDrawableAllowToContinue(lua_State *state);
+
+int GetRandomNumber(lua_State *state);
+
+int CurDrawableModelcondition(lua_State *state);
+
+int CurDrawableObjectStatus(lua_State *state);
+
+int CurDrawableHideSubObject(lua_State *state);
+
+int CurDrawableShowSubObject(lua_State *state);
+
+int CurDrawableHideSubObjectPermanently(lua_State *state);
+
+int CurDrawableShowSubObjectPermanently(lua_State *state);
+
+int CurDrawablePrevAnimationState(lua_State *state);
+
+int CurDrawablePrevAnimation(lua_State *state);
+
+int CurDrawableIsCurrentTargetKindof(lua_State *state);
+
+int ObjectTestCanSufferFear(lua_State *L);
+
+extern "C" int __cdecl lua_getstack(void *L, int level, LuaAr *ar);
+
+extern "C" int __cdecl lua_dostring(void *L, const char *str);
+
+class Debug
+{
+public:
+	virtual void slot00();
+	virtual void slot01();
+	virtual void slot02();
+	virtual void slot03();
+	virtual void slot04();
+	virtual void slot05();
+	virtual void slot06();
+	virtual void slot07();
+	virtual void slot08();
+	virtual void slot09();
+	virtual void slot10();
+	virtual void slot11();
+	virtual void slot12();
+	virtual void slot13();
+	virtual void slot14();
+	virtual void slot15();
+	virtual void slot16();
+	virtual void slot17();
+	virtual void slot18();
+	virtual void slot19();
+	virtual void slot20();
+	virtual void slot21();
+	virtual void slot22();
+	virtual void slot23();
+	virtual void slot24();
+	virtual void slot25();
+	virtual void slot26();
+	virtual void slot27();
+	virtual void slot28();
+	virtual void slot29();
+	virtual void slot30();
+	virtual void slot31();
+	virtual void slot32();
+	virtual void slot33();
+	virtual void slot34();
+	virtual void slot35();
+	virtual void slot36();
+	virtual void slot37();
+	virtual int readLine(char *buffer, int maxChars, bool *more);
+};
+
+extern Debug *theDebug;
+
+// The Lua debugger's active object, retail VA 0x00E01DC0 (RVA 0x00A01DC0): the
+// rowed console body clears it and stores the state into it (retail 0x00333E27
+// `andl $0x0,0xe01dc0` and 0x00333E3A `mov %edi,0xe01dc0`), and BfmeConv's
+// deactivation hook clears it the same way. RVA 0x00A01DC0 is past .data's raw
+// end (0x009DE008) but inside its virtual size, so retail's image holds null
+// until the debugger parks a state object there -- which no rowed body does at
+// static-init time -- so the definition is zero-initialised. This unit and
+// BfmeConv824.cpp are its only writers, and this is the sole one whose rows are
+// otherwise ready to link.
+void *g_activeObj12F0610 = 0;
+
+extern "C"
+{
+	void __cdecl lua_settop( lua_State *L, int idx );
+	int __cdecl lua_dobuffer( lua_State *L, const char *buff, unsigned int size, const char *name );
+	int __cdecl lua_gettop( lua_State *L );
+	const char *__cdecl lua_tostring( lua_State *L, int idx );
+}
+
+struct Rva00334133Template
+{
+	char m_pad00[ 0x64 ];
+	const char *m_nameText;
+};
+
+struct Rva00334133Source
+{
+	char m_pad00[ 4 ];
+	Rva00334133Template *m_template;
+};
+
+struct Rva00334133Context
+{
+	char m_pad00[ 0xC ];
+	Rva00334133Source *m_source;
+};
+
+extern "C" int lua_isnumber(lua_State *state, int index);
+
+extern "C" int lua_isstring(lua_State *state, int index);
+
+unsigned Rva00990030Lookup(Rva00990030Range*,int);
+
+unsigned Rva00990210Lookup(Rva00990210Range*,int);
+
+class ObjectStatusMask
+{
+	unsigned int m_bits[2];
+};
+
+class Parameter
+{
+public:
+	void friend_setInt(int value) { m_int = value; }
+	void friend_setReal(float value) { m_real = value; }
+ void setWord24(unsigned value) { *(unsigned*)((char*)this+0x24)=value; }
+
+private:
+	int m_paramType;
+	bool m_initialized;
+	int m_int;
+	float m_real;
+
+public:
+	AsciiString m_string;
+
+private:
+	Coord3D m_coord;
+	ObjectStatusMask m_objectStatus;
+};
+
+class ScriptAction
+{
+public:
+	enum ScriptActionType { NUM_ITEMS = 0x257 };
+	Parameter *getParameter(int index);
+	ScriptAction(ScriptActionType type);
+	int getNumParameters() const { return m_numParms; }
+	virtual ~ScriptAction();
+	ScriptActionType m_actionType; // +0x04
+	int m_numParms; // +0x08
+	Parameter *m_parms[12]; // +0x0C
+	ScriptAction *m_nextAction; // +0x3C
+	bool m_hasWarnings; // +0x40
+	char m_pad41[0x3];
+	int m_bfmeActionTail; // +0x44
+};
+
+class Condition
+{
+public:
+	enum ConditionType { NUM_ITEMS = 0xCA };
+
+	Condition(ConditionType type);
+	virtual ~Condition();
+
+	int getNumParameters() const { return m_numParms; }
+
+	ConditionType m_actionType;
+	int m_numParms;
+	Parameter *m_parms[12];
+	Condition *m_nextAction;
+	bool m_hasWarnings;
+	int m_bfmeActionTail;
+ int m_tail44, m_tail48;
+	
+};
+
+class ConditionTemplate
+{
+public:
+	int m_type;
+	AsciiString m_uiName;
+	AsciiString m_uiName2;
+	AsciiString m_internalName;
+};
+
+class ScriptConditionsInterface
+{
+public:
+	virtual void slot00();
+	virtual void slot01();
+	virtual void slot02();
+	virtual void slot03();
+	virtual void slot04();
+	virtual void slot05();
+	virtual void slot06();
+	virtual void slot07();
+	virtual void slot08();
+	virtual void slot09();
+	virtual void slot10();
+	virtual void slot11();
+	virtual void slot12();
+	virtual void slot13();
+	virtual bool evaluateCondition(Condition *action);
+};
+
+extern ScriptEngine *TheScriptEngine;
+
+// Use ScriptEngine_init's global type; the interface class is a local call view.
+class ScriptConditions;
+
+extern ScriptConditions *TheScriptConditions;
+
+class ActionTemplate
+{
+public:
+	int m_type;
+	AsciiString m_uiName;
+	AsciiString m_uiName2;
+	AsciiString m_internalName;
+};
+
+class ScriptActionsInterface
+{
+public:
+	virtual void slot00();
+	virtual void slot01();
+	virtual void slot02();
+	virtual void slot03();
+	virtual void slot04();
+	virtual void slot05();
+	virtual void slot06();
+	virtual void slot07();
+	virtual void slot08();
+	virtual void slot09();
+	virtual void slot10();
+	virtual void slot11();
+	virtual void slot12();
+	virtual void slot13();
+	virtual void executeAction(ScriptAction *action);
+};
+
+// Use ScriptEngine_init's global type; the interface class is a local call view.
+class ScriptActions;
+
+extern ScriptActions *TheScriptActions;
+
+unsigned Rva00990210Lookup( Rva00990210Range *range, int index );
+
+class Team;
+
+class Team
+{
+    unsigned char pad00[0x34];
+public:
+    Player *controllingPlayer;
+	Player *getControllingPlayer() const; // row 13658 @0x39D7CF
+};
+
+class AIUpdateInterface;
+
+class LuaAllegianceAI {
+    unsigned char pad00[0x240];
+public:
+    Player *allegiance;
+};
+
+// Native lookup bodies are visible so the compiler knows they only read the
+// map and can retain TheGameLogic across both calls in ObjectCapturingObjectPlayerSide.
+// Same verified traversal as ProjectileNuggetObjectEffect.cpp: native
+// _M_find2888D4 plus pinned STLport reference; 37B/47B COMDAT owners unchanged.
+struct LuaCapturingLookupNode { LuaCapturingLookupNode *next; ObjectID key; Object *object; };
+
+struct LuaCapturingLookupBuckets {
+ LuaCapturingLookupNode **begin,**end,**capacity;
+ unsigned int size() const { return end-begin; }
+ LuaCapturingLookupNode *const &operator[](unsigned int i) const { return begin[i]; }
+};
+
+struct LuaCapturingLookupMap { unsigned char hashEqual[4]; LuaCapturingLookupBuckets buckets; };
+
+namespace _STL {
+template<> _List_base<Rva0036ADF9Element,allocator<Rva0036ADF9Element> >::_List_base(const allocator<Rva0036ADF9Element>&);
+template<> _List_base<Rva0036ADF9Element,allocator<Rva0036ADF9Element> >::~_List_base();
+}
+
+class AsciiString;
+
+class Rva001BDA20
+{
+public:
+	void rva00331842(lua_State *state, int index);	// 0x00331842
+};
+
+class HordeContainInterface
+{
+public:
+#define HORDE_SLOT(n) virtual void hordeSlot##n();
+	HORDE_SLOT(0) HORDE_SLOT(1) HORDE_SLOT(2) HORDE_SLOT(3) HORDE_SLOT(4)
+	HORDE_SLOT(5) HORDE_SLOT(6) HORDE_SLOT(7) HORDE_SLOT(8) HORDE_SLOT(9)
+	HORDE_SLOT(10) HORDE_SLOT(11) HORDE_SLOT(12) HORDE_SLOT(13) HORDE_SLOT(14)
+	HORDE_SLOT(15) HORDE_SLOT(16) HORDE_SLOT(17) HORDE_SLOT(18) HORDE_SLOT(19)
+	HORDE_SLOT(20) HORDE_SLOT(21) HORDE_SLOT(22) HORDE_SLOT(23) HORDE_SLOT(24)
+	HORDE_SLOT(25) HORDE_SLOT(26) HORDE_SLOT(27) HORDE_SLOT(28) HORDE_SLOT(29)
+	HORDE_SLOT(30) HORDE_SLOT(31) HORDE_SLOT(32) HORDE_SLOT(33) HORDE_SLOT(34)
+	HORDE_SLOT(35) HORDE_SLOT(36) HORDE_SLOT(37) HORDE_SLOT(38) HORDE_SLOT(39)
+	HORDE_SLOT(40) HORDE_SLOT(41) HORDE_SLOT(42) HORDE_SLOT(43) HORDE_SLOT(44)
+	HORDE_SLOT(45) HORDE_SLOT(46) HORDE_SLOT(47) HORDE_SLOT(48) HORDE_SLOT(49)
+	HORDE_SLOT(50) HORDE_SLOT(51) HORDE_SLOT(52) HORDE_SLOT(53) HORDE_SLOT(54)
+	HORDE_SLOT(55) HORDE_SLOT(56) HORDE_SLOT(57) HORDE_SLOT(58) HORDE_SLOT(59)
+	HORDE_SLOT(60) HORDE_SLOT(61) HORDE_SLOT(62) HORDE_SLOT(63) HORDE_SLOT(64)
+	HORDE_SLOT(65) HORDE_SLOT(66)
+#undef HORDE_SLOT
+	virtual void getMemberIDs(ContainmentList *members);	// slot 67 (+0x10C)
+};
+
+class ContainModuleInterface
+{
+public:
+#define CONTAIN_SLOT(n) virtual void containSlot##n();
+	CONTAIN_SLOT(0) CONTAIN_SLOT(1) CONTAIN_SLOT(2) CONTAIN_SLOT(3) CONTAIN_SLOT(4)
+	CONTAIN_SLOT(5) CONTAIN_SLOT(6) CONTAIN_SLOT(7) CONTAIN_SLOT(8) CONTAIN_SLOT(9)
+	CONTAIN_SLOT(10) CONTAIN_SLOT(11) CONTAIN_SLOT(12) CONTAIN_SLOT(13) CONTAIN_SLOT(14)
+	CONTAIN_SLOT(15) CONTAIN_SLOT(16) CONTAIN_SLOT(17) CONTAIN_SLOT(18) CONTAIN_SLOT(19)
+	CONTAIN_SLOT(20) CONTAIN_SLOT(21) CONTAIN_SLOT(22) CONTAIN_SLOT(23) CONTAIN_SLOT(24)
+	CONTAIN_SLOT(25) CONTAIN_SLOT(26) CONTAIN_SLOT(27) CONTAIN_SLOT(28) CONTAIN_SLOT(29)
+	CONTAIN_SLOT(30)
+#undef CONTAIN_SLOT
+	virtual HordeContainInterface *getHordeContainInterface();	// slot 31 (+0x7C)
+};
+
+struct EventFlagEntry {void setKeyFromName(const char *);};
+
+namespace _STL { template <> void vector<NameKeyType>::push_back(const NameKeyType &); }
+
+class INIException {public:char *mFailureMessage;};
+
+struct ModelConditionWords {unsigned long words[19];
+ ModelConditionWords(){memset(words,0,sizeof(words));}
+ void flip(){for(unsigned i=0;i<19;++i)words[i]=~words[i];}
+};
+
+// The event record is BfmeOpaqueRecord156: push_back 0x00336AB2 is rowed for it
+// (StlSweepW5Rva00336AB2.cpp) and calls its rowed _Construct and overflow.
+// (Object156.h's member view clashes with this unit's WeaponTemplateSetHead.)
+struct BfmeOpaqueRecord156 {unsigned char bytes[156];};
+
+typedef BfmeOpaqueRecord156 Rva00336AB2Element;
+
+extern template void _STL::vector<Rva00336AB2Element>::push_back(const Rva00336AB2Element &);
+
+bool _bfme_debugReportingEnabled();
+
+void _bfme_debugRecordCallsite(int);
+
+class LuaParseLog {public:
+ virtual void v0();virtual void v1();virtual void v2();virtual void v3();
+ virtual void v4();virtual void v5();virtual void v6();virtual void v7();
+ virtual void v8();virtual void v9();virtual void v10();virtual void v11();
+ virtual void v12();virtual void v13();virtual LuaParseLog *write(const char *);
+ virtual void v15();virtual void v16();virtual void v17();virtual void v18();
+ virtual LuaParseLog *end(int);
+};
+
+class LuaParseDebug {public:
+ virtual void v0();virtual void v1();virtual void v2();virtual void v3();
+ virtual void v4();virtual void v5();virtual void v6();virtual void v7();
+ virtual void v8();virtual void v9();virtual void v10();virtual void v11();
+ virtual void v12();virtual void v13();virtual void v14();virtual void v15();
+ virtual void v16();virtual void v17();virtual void v18();virtual void v19();
+ virtual void v20();virtual void v21();virtual void v22();virtual void v23();
+ virtual void v24();virtual void v25();virtual void v26();
+ virtual LuaParseLog *line(int,int,int);
+};
+
+class Debug;
+
+struct ObjectStatusWords {unsigned long words[4];
+ ObjectStatusWords(){memset(words,0,sizeof(words));}
+ void flip(){for(unsigned i=0;i<4;++i)words[i]=~words[i];}
+};
+
+// Both rowed predicates return equality without throwing. Keep that contract
+// visible here, with their definitions supplied by the existing owner units.
+__declspec(nothrow) bool Rva002634E0Equal(const void *a,const void *b);
+
+struct Rva00336AECElement {unsigned char bytes[36];};
+
+extern template void _STL::vector<Rva00336AECElement>::push_back(const Rva00336AECElement &);
+
+enum CommandSourceType
+{
+	CMD_FROM_PLAYER = 0,
+	CMD_FROM_SCRIPT = 1
+};
+
+class Rva00336B23
+{
+public:
+	void rva00336B23( void *obj, CommandSourceType cmdSource );
+};
+
+class Rva00336B88
+{
+public:
+	void rva00336B88( CommandSourceType cmdSource );
+};
+
+class PhysicsBehavior
+{
+public:
+	char m_pad00[0x5C];
+	bool m_5C;	// +0x5C
+};
+
+struct S4SortElem20;
+
+namespace _STL
+{
+// The unguarded loop binds its existing rowed copy at 0x00337555.
+template <> void __unguarded_insertion_sort_aux<S4SortElem20 *, S4SortElem20, S4Cmp002EB8E0>(S4SortElem20 *, S4SortElem20 *, S4SortElem20 *, S4Cmp002EB8E0);
+
+template void __unguarded_insertion_sort<S4SortElem20 *, S4Cmp002EB8E0>(S4SortElem20 *, S4SortElem20 *, S4Cmp002EB8E0);
+}
+
+Rva002E9E70 *Rva003377A1Copy(Rva002E9E70 *first, Rva002E9E70 *last, Rva002E9E70 *result) throw();
+
+void Rva00337424Insert(Rva002E9E70 *pos, Rva003371B1 value, int unused);
+
+namespace _STL
+{
+template <class I> void __cdecl _Destroy(I first, I last);
+}
+
+// STLport 4.5.3 reference instantiation. Target boundary and byte comparison prove operation shape.
+// Element spelling/layout is donor inference; opaque records have address-derived identity.
+//
+// 0x00337D21 is __introsort_loop<Rva00337D21Record*, ..., less<>> (STLport 4.5.3 _algo.c) over
+// the 20-byte S4SortElem20 / Rva003371B1 records (string-keyed). Its four other callees are
+// rowed under other spellings: 0x00335CFD Rva00335CFMedian over AsciiString pointers
+// (Rva00335CFMedian.cpp), 0x003371B1 Rva003371B1's copy constructor (Rva003371B1Copy.cpp),
+// 0x00337655 __unguarded_partition<S4SortElem20*, S4SortElem20, S4Cmp002EB8E0>
+// (stlport_unguarded_partition_s4sortelem20.cpp) and 0x00337C55
+// partial_sort<Rva003371B1*, Rva00337C55Less> (stlport_partial_sort_rva00337c55.cpp).
+// Instantiating sort over this unit's record emitted non-retail median and partition copies,
+// left the record's operator< unresolved and bound its copy constructor with /alternatename,
+// so this unit declares only the template shapes it needs (as StlSweepR3Rva00332613.cpp does)
+// and calls the rows by their own types. Retail passes the median its comparator as a fourth
+// argument and builds the pivot in the partition's argument slot with 0x003371B1, so both are
+// called through casts (declaring the pivot record's destructor, rowed at 0x003372B7, keeps
+// retail's EH spill of the argument-slot address).
+struct Rva00337D21Record { char bytes[20]; };
+
+namespace _STL {
+template <class T> struct less;
+template <> struct less<Rva00337D21Record> {};
+template <class I, class T, class C> I __unguarded_partition(I first, I last, T pivot, C comp);
+template <> S4SortElem20 *__unguarded_partition<S4SortElem20 *, S4SortElem20, S4Cmp002EB8E0>(S4SortElem20 *, S4SortElem20 *, S4SortElem20, S4Cmp002EB8E0);
+template <class I, class T, class S, class C> void __introsort_loop(I first, I last, T *, S depth_limit, C comp);
+template <class I, class C> void partial_sort(I first, I middle, I last, C comp);
+}
+
+const AsciiString *Rva00335CFMedian(const AsciiString *a, const AsciiString *b, const AsciiString *c);
+
+typedef const Rva003371B1 *(__cdecl *Rva00335CFDMedianFn)(const Rva00337D21Record *, const Rva00337D21Record *, const Rva00337D21Record *, S4Cmp002EB8E0);
+
+typedef S4SortElem20 *(__cdecl *Rva00337655RowFn)(S4SortElem20 *, S4SortElem20 *, S4SortElem20, S4Cmp002EB8E0);
+
+typedef S4SortElem20 *(__cdecl *Rva00337655PartitionFn)(S4SortElem20 *, S4SortElem20 *, Rva003371B1, S4Cmp002EB8E0);
+
+namespace _STL {
+template <>
+void __introsort_loop<Rva00337D21Record *, Rva00337D21Record, int, less<Rva00337D21Record> >(
+	Rva00337D21Record *__first, Rva00337D21Record *__last, Rva00337D21Record *,
+	int __depth_limit, less<Rva00337D21Record> __comp)
+{
+	while (__last - __first > 16) {
+		if (__depth_limit == 0) {
+			partial_sort((Rva003371B1 *)__first, (Rva003371B1 *)__last, (Rva003371B1 *)__last,
+				*(Rva00337C55Less *)&__comp);
+			return;
+		}
+		--__depth_limit;
+		Rva00337D21Record *__cut = (Rva00337D21Record *)((Rva00337655PartitionFn)static_cast<Rva00337655RowFn>(
+			&__unguarded_partition<S4SortElem20 *, S4SortElem20, S4Cmp002EB8E0>))(
+			(S4SortElem20 *)__first, (S4SortElem20 *)__last,
+			*((Rva00335CFDMedianFn)&Rva00335CFMedian)(
+				__first, __first + (__last - __first) / 2, __last - 1, *(S4Cmp002EB8E0 *)&__comp),
+			*(S4Cmp002EB8E0 *)&__comp);
+		__introsort_loop(__cut, __last, (Rva00337D21Record *)0, __depth_limit, __comp);
+		__last = __cut;
+	}
+}
+}
+
+// One event handler: key / Lua function name / single-step flag (12 bytes).
+class Rva002DFC30
+{
+public:
+	NameKeyType m_key;
+	AsciiString m_function;
+	unsigned char m_debugSingleStep;
+};
+
+class Rva0033269B
+{
+public:
+	void rva0033269B(const BfmeStringRecord000331962 &rec);
+};
+
+class Rva002E17F0
+{
+public:
+	void operator=(const Rva002E17F0 &other);
+};
+
+namespace _STL
+{
+template <> void vector<Rva003371B1, allocator<Rva003371B1> >::push_back(const Rva003371B1 &);
+}
+
 // tu-skeleton: 0x00332B7A 256B ?InitializeInternalEvents@LuaScriptEngine@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEventFlags.cpp (not merged yet)
 
 // tu-skeleton: 0x00332C7A 117B ?ProcessInternalEvent@LuaScriptEngine@@QAEXPAVXmlNameSlotList@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEventFlags.cpp (not merged yet)
 
 // tu-skeleton: 0x00332CEF 12B ??0Rva00332CEFHolder@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaMemberCtorHolders.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine.cpp
 
@@ -2249,10 +2812,6 @@ void *Rva00332E60::rva00333918(int key)
 	return rva00333261(key);
 }
 
-// tu-skeleton: 0x00332E83 12B ?flip@Rva00332E83BitWords@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva0023DA79Bitset.cpp (not merged yet)
-
-// tu-skeleton: 0x00332E8F 14B ?rva00332E8F@Rva00332E8F@@QBEHXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00332EC8Copy.cpp
 
 Rva00332EC8::Rva00332EC8(const Rva00332EC8 &that) : m_key(that.m_key), m_a(that.m_a), m_b(that.m_b)
@@ -2298,8 +2857,6 @@ bool Rva00332FC1::rva00332FE7(const Rva00332FC1 &other) const
 {
  return m_key.key == other.m_key.key && Rva002634E0Equal(&m_a, &other.m_a) && Rva002634E0Equal(&m_b, &other.m_b);
 }
-
-// tu-skeleton: 0x00333027 10B ?get@Rva00333027ByteChase32Field@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/CurDrawableGetCurrentTargetDistance.cpp
 
@@ -2373,8 +2930,6 @@ int CurDrawableSetTransitionAnimState(lua_State *state)
 	return 0;
 }
 
-// tu-skeleton: 0x00333283 18B ??$_Construct@UBfmeOpaqueRecord156@@U1@@_STL@@YAXPAUBfmeOpaqueRecord156@@ABU1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Object156Copy.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00333295Construct.cpp
 
 // ?Rva00333295Construct@@YAXPAVRva00332EC8@@ABV1@@Z @0x00333295 18B
@@ -2387,12 +2942,6 @@ void Rva00333295Construct(Rva00332EC8 *dest, const Rva00332EC8 &src)
 	if (dest)
 		new (dest) Rva00332EC8(src);
 }
-
-// tu-skeleton: 0x003332A7 47B ??$__uninitialized_copy@PAUBfmeOpaqueRecord156@@PAU1@@_STL@@YAPAUBfmeOpaqueRecord156@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportObject156Vector.cpp (not merged yet)
-
-// tu-skeleton: 0x003332D6 40B ??$__uninitialized_fill_n@PAUBfmeOpaqueRecord156@@IU1@@_STL@@YAPAUBfmeOpaqueRecord156@@PAU1@IABU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportObject156Vector.cpp (not merged yet)
-
-// tu-skeleton: 0x003332FE 29B ??$__copy_ptrs@PAURva00335C62Element@@PAU1@@_STL@@YAPAURva00335C62Element@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseNoDestroyFamily.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/Rva0033331BCopy.cpp
 
@@ -2419,8 +2968,6 @@ Rva00332EC8 *Rva00333341Fill(Rva00332EC8 *dest, unsigned count, const Rva00332EC
 		Rva00333295Construct(d, src);
 	return d;
 }
-
-// tu-skeleton: 0x00333366 14B ?Rva00333366Advance@@YAXPAPAEH@Z -- matched in Code/GameEngine/Source/Common/Rva004362B0StrideAdd.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva00333374Get.cpp
 
@@ -2588,8 +3135,6 @@ void Rva00333B02::rva00333B02(AsciiString s)
 	((StringBase<char> *)&dst)->set(*(const StringBase<char> *)&s);
 }
 
-// tu-skeleton: 0x00333B36 148B ?bfmeLogMsg574@@YAXPBD@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/BfmeLogMsg574.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/Rva00333BCALog.cpp
 
 // ?Rva00333BCALog@@YAXPAXPAULuaAr@@@Z @0x00333BCA 263B: lua traceback line printer via rowed lua_getinfo 0x0074D330 plus sprintf IAT plus rowed bfmeLogMsg574 0x00333B36. Evidence: Snl query namewhat/what/short_src/currentline strings callers 0x00333D80 0x003345AA unblocks 0x00333CD1 0x00334587 donor liolib_bfme1.c errorfb.
@@ -2634,26 +3179,6 @@ void __cdecl Rva00333BCALog(void *L, LuaAr *ar)
 	}
 	bfmeLogMsg574("\012");
 }
-
-// tu-skeleton: 0x00333CD1 369B ?Rva00333CD1Console@@YAHPAXPAULuaAr@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/Rva00333CD1Console.cpp (not merged yet)
-
-// tu-skeleton: 0x00333E42 25B _io_debug -- matched in Code/Libraries/Source/Lua/luaB_debug.cpp (not merged yet)
-
-// tu-skeleton: 0x00334003 165B ?PushObjectTable@LuaScriptEngine@@QAEXPAUlua_State@@PAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineRegisterObject.cpp (not merged yet)
-
-// tu-skeleton: 0x003340A8 25B ??RS4Cmp002EB8E0@@QBE_NABUS4SortElem20@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_unguarded_partition_s4sortelem20.cpp (not merged yet)
-
-// tu-skeleton: 0x003340C1 57B ?ExecuteChunk@LuaScriptEngine@@QAEXPADHABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineExecuteChunk.cpp (not merged yet)
-
-// tu-skeleton: 0x00334133 223B ?rva00334133@LuaScriptEngine@@QAE?AVAsciiString@@PBDKPAURva00334133Context@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineRunBuffer.cpp (not merged yet)
-
-// tu-skeleton: 0x003341CD 6B (unledgered) -- unmatched, no code, never credited
-
-// tu-skeleton: 0x00334212 349B ?EvaluateCondition@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/Common/LuaScriptEngineEvaluateCondition.cpp (not merged yet)
-
-// tu-skeleton: 0x0033436F 407B ?ExecuteAction@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/Common/LuaScriptEngineExecuteAction.cpp (not merged yet)
-
-// tu-skeleton: 0x003345BE 118B ?LoadScripts@LuaScriptEngine@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineExecuteChunk.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineDispatchEvent.cpp
 
@@ -2870,10 +3395,6 @@ void LuaScriptEngine::DispatchSpyEvent(int key, void *object, void *spy, void *p
 	}
 }
 
-// tu-skeleton: 0x00334A38 5B ?rva00334A38@Rva00334A38@@QBE_NABUS4SortElem20@@0@Z -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
-
-// tu-skeleton: 0x00334A3D 182B ?Rva00334A3D@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectHideSubObjectRva00334A3D.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectHideSubObjectPermanently.cpp
 
 // ?ObjectHideSubObjectPermanently@@YAHPAUlua_State@@@Z @0x00334AF3 263B: Lua binding. Evidence: pinned plus donor plus rowed callees plus siblings.
@@ -2903,10 +3424,6 @@ int ObjectHideSubObjectPermanently(lua_State *state)
     }
     return 0;
 }
-
-// tu-skeleton: 0x00334C9F 119B ?ObjectChangeAllegianceFromNonPlayablePlayer@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectPlayerSideRva00334EC4.cpp (not merged yet)
-
-// tu-skeleton: 0x00334D16 72B ?Rva00334D16@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectForbidPlayerCommandsRva00334D16.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptBindingsLuaAO1.cpp
 
@@ -2971,18 +3488,6 @@ int ObjectDispatchEvent( lua_State *state )
 
 	return 0;
 }
-
-// tu-skeleton: 0x00334E51 115B ?Rva00334E51@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectTeamNameRva00334E51.cpp (not merged yet)
-
-// tu-skeleton: 0x00334EC4 106B ?ObjectPlayerSide@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectPlayerSideRva00334EC4.cpp (not merged yet)
-
-// tu-skeleton: 0x00334F2E 125B ?ObjectCapturingObjectPlayerSide@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectPlayerSideRva00334EC4.cpp (not merged yet)
-
-// tu-skeleton: 0x00334FAB 98B ?ObjectTemplateName@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectPlayerSideRva00334EC4.cpp (not merged yet)
-
-// tu-skeleton: 0x0033500D 130B ?ObjectTestModelCondition@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectModelConditionEnragedDelayedDeath.cpp (not merged yet)
-
-// tu-skeleton: 0x003353A9 115B ?ObjectSetDelayedDeath@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectModelConditionEnragedDelayedDeath.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectCreateAndFireTempWeapon.cpp
 
@@ -3082,36 +3587,6 @@ int ObjectRemoveUpgrade(lua_State *luaState)
 	return LuaScriptEngine::ObjectModifyUpgrade(luaState, false);
 }
 
-// tu-skeleton: 0x003357E0 113B ?ObjectSetChanting@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectSetChanting.cpp (not merged yet)
-
-// tu-skeleton: 0x003358D9 113B ?ObjectSetEnragedState@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectModelConditionEnragedDelayedDeath.cpp (not merged yet)
-
-// tu-skeleton: 0x00335A61 295B ?HordeBroadcastEventToMembers@LuaScriptEngine@@SAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineHordeBroadcastEventToMembers.cpp (not merged yet)
-
-// tu-skeleton: 0x00335B88 218B ?ObjectSpy@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectSpy.cpp (not merged yet)
-
-// tu-skeleton: 0x00335C62 38B ?erase@?$vector@UBfmeOpaqueRecord156@@V?$allocator@UBfmeOpaqueRecord156@@@_STL@@@_STL@@QAEPAUBfmeOpaqueRecord156@@PAU3@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorErase38Family.cpp (not merged yet)
-
-// tu-skeleton: 0x00335C88 38B ?rva00335C88@Rva00335C88@@QAEPAXPAX0@Z -- matched in Code/GameEngine/Source/Common/Rva00335C88Rva00335C88.cpp (not merged yet)
-
-// tu-skeleton: 0x00335D5B 646B ?init@LuaScriptEngine@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/openLuaLibraries.cpp (not merged yet)
-
-// tu-skeleton: 0x00336BE4 121B ?ProcessScriptedEvent@LuaScriptEngine@@QAEXPAVXmlNameSlotList@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine_ProcessScriptedEvent.cpp (not merged yet)
-
-// tu-skeleton: 0x00336C5D 595B ?rva002E9680ParseModelConditionEvent@LuaScriptEngine@@QAEXPAVBfmeLexEAN@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineParseModelConditionEvent.cpp (not merged yet)
-
-// tu-skeleton: 0x00336E1E 84B (unledgered) -- unmatched, no code, never credited
-
-// tu-skeleton: 0x00336E72 6B (unledgered) -- unmatched, no code, never credited
-
-// tu-skeleton: 0x00336EB0 482B ?rva002E9AA0ParseObjectStatusEvent@LuaScriptEngine@@QAEXPAVBfmeLexEAN@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineParseObjectStatusEvent.cpp (not merged yet)
-
-// tu-skeleton: 0x00337055 6B (unledgered) -- unmatched, no code, never credited
-
-// tu-skeleton: 0x00337092 153B ?ObjectEnterFearState@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectEnterFearRampageState.cpp (not merged yet)
-
-// tu-skeleton: 0x0033712B 134B ?ObjectEnterRampageState@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectEnterFearRampageState.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine_ProcessEventsElement.cpp
 
 //
@@ -3177,56 +3652,6 @@ void LuaScriptEngine::ProcessEventsElement(BfmeLexEAN *parser)
 		status = ((XmlNameSlotList *)parser)->finish();
 	}
 }
-
-// tu-skeleton: 0x003372B7 53B ??1Rva003371B1@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva003371B1Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x003372EC 39B ??0Rva002E9E70@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Rva002E9E70Copy.cpp (not merged yet)
-
-// tu-skeleton: 0x00337340 38B ??$__uninitialized_copy@PAVRva003371B1@@PAV1@@_STL@@YAPAVRva003371B1@@PAV1@00ABU__false_type@0@@Z -- matched in Code/GameEngine/Source/Common/Rva003371B1UninitCopy.cpp (not merged yet)
-
-// tu-skeleton: 0x00337366 37B ??$__uninitialized_fill_n@PAVRva003371B1@@IV1@@_STL@@YAPAVRva003371B1@@PAV1@IABV1@ABU__false_type@0@@Z -- matched in Code/GameEngine/Source/Common/Rva003371B1FillN.cpp (not merged yet)
-
-// tu-skeleton: 0x003373D9 75B ??$swap@US4SortElem20@@@_STL@@YAXAAUS4SortElem20@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_introsort_loop_s4sortelem20.cpp (not merged yet)
-
-// tu-skeleton: 0x00337424 85B ?Rva00337424Insert@@YAXPAVRva002E9E70@@VRva003371B1@@H@Z -- matched in Code/GameEngine/Source/Common/Rva00337424Insert.cpp (not merged yet)
-
-// tu-skeleton: 0x00337550 5B ??$iter_swap@PAUS4SortElem20@@PAU1@@_STL@@YAXPAUS4SortElem20@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_introsort_loop_s4sortelem20.cpp (not merged yet)
-
-// tu-skeleton: 0x00337555 46B ??$__unguarded_insertion_sort_aux@PAUS4SortElem20@@U1@US4Cmp002EB8E0@@@_STL@@YAXPAUS4SortElem20@@00US4Cmp002EB8E0@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_unguarded_insertion_sort_s4sortelem20.cpp (not merged yet)
-
-// tu-skeleton: 0x00337583 9B ??$_Destroy@VRva003371B1@@@_STL@@YAXPAVRva003371B1@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
-
-// tu-skeleton: 0x00337655 101B ??$__unguarded_partition@PAUS4SortElem20@@U1@US4Cmp002EB8E0@@@_STL@@YAPAUS4SortElem20@@PAU1@0U1@US4Cmp002EB8E0@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_unguarded_partition_s4sortelem20.cpp (not merged yet)
-
-// tu-skeleton: 0x003376BA 23B ??$__unguarded_insertion_sort@PAUS4SortElem20@@US4Cmp002EB8E0@@@_STL@@YAXPAUS4SortElem20@@0US4Cmp002EB8E0@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_unguarded_insertion_sort_s4sortelem20b.cpp (not merged yet)
-
-// tu-skeleton: 0x003376D1 25B ??$_Destroy@PAVRva003371B1@@@_STL@@YAXPAVRva003371B1@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorPushBackSiblings.cpp (not merged yet)
-
-// tu-skeleton: 0x00337819 118B ?Rva00337819Insert@@YAXPAVRva002E9E70@@0VRva003371B1@@H@Z -- matched in Code/GameEngine/Source/Common/Rva00337819Insert.cpp (not merged yet)
-
-// tu-skeleton: 0x003378D0 63B ??1Rva003378D0@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva003378D0DestroyFree.cpp (not merged yet)
-
-// tu-skeleton: 0x0033790F 51B ?erase@?$vector@VRva003371B1@@V?$allocator@VRva003371B1@@@_STL@@@_STL@@QAEPAVRva003371B1@@PAV3@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp (not merged yet)
-
-// tu-skeleton: 0x00337942 30B ?_M_clear@?$vector@VRva003371B1@@V?$allocator@VRva003371B1@@@_STL@@@_STL@@IAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorPushBackSiblings.cpp (not merged yet)
-
-// tu-skeleton: 0x003379FD 165B ??0LuaScriptEngine@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00337AA8 164B ??1LuaScriptEngine@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine_Unresolved.cpp (not merged yet)
-
-// tu-skeleton: 0x00337B4C 11B ?clear@?$vector@VRva003371B1@@V?$allocator@VRva003371B1@@@_STL@@@_STL@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VectorClearInstances.cpp (not merged yet)
-
-// tu-skeleton: 0x00337B57 183B ?_M_insert_overflow@?$vector@VRva003371B1@@V?$allocator@VRva003371B1@@@_STL@@@_STL@@IAEXPAVRva003371B1@@ABV3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
-
-// tu-skeleton: 0x00337C70 28B ??_GLuaScriptEngine@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine_Unresolved.cpp (not merged yet)
-
-// tu-skeleton: 0x00337CEA 55B ?push_back@?$vector@VRva003371B1@@V?$allocator@VRva003371B1@@@_STL@@@_STL@@QAEXABVRva003371B1@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorPushBackSiblings.cpp (not merged yet)
-
-// tu-skeleton: 0x00337D21 136B ??$__introsort_loop@PAURva00337D21Record@@U1@HU?$less@URva00337D21Record@@@_STL@@@_STL@@YAXPAURva00337D21Record@@00HU?$less@URva00337D21Record@@@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00337D21.cpp (not merged yet)
-
-// tu-skeleton: 0x00337DEF 187B ?rva00337DEF@LuaScriptEngine@@QAEPAURva00336283Element@@ABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineRva00337DEF.cpp (not merged yet)
-
-// tu-skeleton: 0x00337EAA 794B ?ProcessEventList@LuaScriptEngine@@QAEXPAVBfmeLexEAN@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineProcessEventList.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine_ProcessSageElement.cpp
 
@@ -3309,8 +3734,6 @@ void LuaScriptEngine::LoadXML(const char *filename, bool keepOpen)
 	}
 }
 
-// tu-skeleton: 0x00338317 1221B ?rva00338317RegisterScriptFunctions@LuaScriptEngine@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/openLuaLibraries.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineLoadMapScripts.cpp
 
 //
@@ -3359,29 +3782,1272 @@ void LuaScriptEngine::rva003387DC(const AsciiString &mapName)
 	}
 }
 
+// tu-skeleton: 0x00332E83 12B ?flip@Rva00332E83BitWords@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva0023DA79Bitset.cpp (not merged yet)
+
+// tu-skeleton: 0x00332E8F 14B ?rva00332E8F@Rva00332E8F@@QBEHXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
+
+// tu-skeleton: 0x00333027 10B ?get@Rva00333027ByteChase32Field@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00333283 18B ??$_Construct@UBfmeOpaqueRecord156@@U1@@_STL@@YAXPAUBfmeOpaqueRecord156@@ABU1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Object156Copy.cpp (not merged yet)
+
+// tu-skeleton: 0x003332A7 47B ??$__uninitialized_copy@PAUBfmeOpaqueRecord156@@PAU1@@_STL@@YAPAUBfmeOpaqueRecord156@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportObject156Vector.cpp (not merged yet)
+
+// tu-skeleton: 0x003332D6 40B ??$__uninitialized_fill_n@PAUBfmeOpaqueRecord156@@IU1@@_STL@@YAPAUBfmeOpaqueRecord156@@PAU1@IABU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportObject156Vector.cpp (not merged yet)
+
+// tu-skeleton: 0x003332FE 29B ??$__copy_ptrs@PAURva00335C62Element@@PAU1@@_STL@@YAPAURva00335C62Element@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseNoDestroyFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x00333366 14B ?Rva00333366Advance@@YAXPAPAEH@Z -- matched in Code/GameEngine/Source/Common/Rva004362B0StrideAdd.cpp (not merged yet)
+
+// tu-skeleton: 0x00333B36 148B ?bfmeLogMsg574@@YAXPBD@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/BfmeLogMsg574.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/Rva00333CD1Console.cpp
+
+// ?Rva00333CD1Console@@YAHPAXPAULuaAr@@@Z
+// Lua debug console hook, retail 0x00333CD1, 369 bytes: prompts on the debug
+// console, reads lines and answers "cont" (leave debug mode), "step" (stop at the
+// next line), "where" (traceback line via 0x00333BCA), "?" (help) and otherwise
+// runs the line through the Lua interpreter, until the console reports no input.
+// Strings and flow are read from the retail bytes; the console object is the
+// ledger's global at 0x00DE0880 (virtual slot 38 reads a line).
+
+// The x86 header keeps strcmp direct while importing strncmp, as retail does.
+
+int __cdecl Rva00333CD1Console(void *L, LuaAr *ar)
+{
+	char line[250];
+	LuaAr local;
+	bool more = false;
+	if (!ar)
+	{
+		ar = &local;
+		lua_getstack(L, 1, ar);
+	}
+	bfmeLogMsg574("> ");
+	do
+	{
+		if (theDebug->readLine(line, 250, &more) > 0)
+		{
+			if (strcmp(line, "cont") == 0)
+			{
+				bfmeLogMsg574("cont - Exiting LUA debug mode.\n");
+				g_activeObj12F0610 = 0;
+				return 0;
+			}
+			if (strcmp(line, "step") == 0)
+			{
+				bfmeLogMsg574("step\n");
+				g_activeObj12F0610 = L;
+				return 0;
+			}
+			if (strcmp(line, "where") == 0)
+			{
+				Rva00333BCALog(L, ar);
+				bfmeLogMsg574("> ");
+			}
+			else if (strncmp(line, "?", 1) == 0)
+			{
+				bfmeLogMsg574("cont - continue, step - single step script, where - describe current execution point.\n");
+				bfmeLogMsg574("Any other text is passed to the LUA interpreter.  Try print('something')\n");
+				bfmeLogMsg574("> ");
+			}
+			else
+			{
+				bfmeLogMsg574(line);
+				bfmeLogMsg574("\n");
+				lua_dostring(L, line);
+				lua_settop((struct lua_State *)L, 0);
+				bfmeLogMsg574("> ");
+			}
+		}
+	} while (more);
+	bfmeLogMsg574("No console input devices.  Exiting LUA debug mode.\n");
+	return 0;
+}
+
+// tu-skeleton: 0x00333E42 25B _io_debug -- matched in Code/Libraries/Source/Lua/luaB_debug.cpp (not merged yet)
+
+// tu-skeleton: 0x00334003 165B ?PushObjectTable@LuaScriptEngine@@QAEXPAUlua_State@@PAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineRegisterObject.cpp (not merged yet)
+
+// tu-skeleton: 0x003340A8 25B ??RS4Cmp002EB8E0@@QBE_NABUS4SortElem20@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_unguarded_partition_s4sortelem20.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineExecuteChunk.cpp
+
+//
+// ?ExecuteChunk@LuaScriptEngine@@QAEXPADHABVAsciiString@@@Z @0x003340C1 57B: Lua
+// dobuffer helper calling lua_dobuffer then lua_settop 0. Evidence: GetStr via
+// m_data+8 or g_Rva0107301CEmptyString, lua_dobuffer 0x0074DD00,
+// lua_settop 0x00746F40, this+0xC lua_State, caller 0x003345BE passes
+// buffer size and AsciiString chunkname.
+// Names: WorldBuilder's LuaScriptEngine.cpp ExecuteChunk (:1331, lua_dobuffer
+// then lua_settop) and LoadScripts (:352, openFile / new[] / ExecuteChunk).
+
+__forceinline const char *GetStr003340C1(const AsciiString &asciiString)
+{
+	char *t = *(char * *)(void *)&asciiString;
+	return t ? t + 8 : "";
+}
+
+void LuaScriptEngine::ExecuteChunk(char *buff, int size, const AsciiString &chunk)
+{
+	const char *name = GetStr003340C1(chunk);
+	lua_dobuffer(m_luaState, buff, size, name);
+	lua_settop(m_luaState, 0);
+}
+
+void LuaScriptEngine::LoadScripts(const char *filename)
+{
+	File *file = TheFileSystem->openFile(filename, 0x41, 0);
+	if (!file)
+		return;
+	int size = file->size();
+	char *buff = new char[size + 10];
+	file->read(buff, size);
+	file->close();
+	ExecuteChunk(buff, size, AsciiString(filename));
+	delete[] buff;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineRunBuffer.cpp
+
+// ?rva00334133@LuaScriptEngine@@QAE?AVAsciiString@@PBDKPAURva00334133Context@@@Z
+// WB C02710 and retail334133..334212223B including catch and common continuation.
+//
+// Retail 0x00334133, 223 bytes through the `ret 0x10` at +0xDC, including the
+// catch(...) funclet at +0x9A (it returns the continuation 0x003341D3, the
+// 6-byte Catch@007341cd that Ghidra rowed apart). It runs a Lua buffer on the
+// state at +0x10 with the context parked at +0x9C, naming the chunk after the
+// context's source template (name text at +0x64), and returns the first stack
+// result as a string. Body: Open-BFME-1 Rva002E4470LuaBufferRun.cpp (retail
+// 0x002E4470 there, donor revision 575ba2b04); BFME 2 differs in the owner
+// offsets and in reading the template without the final-override walk.
+// Receiver is LuaScriptEngine from the shared Lua state/context fields and
+// independently owned engine/callback siblings. Original method name remains unknown.
+// Named template pointer mirrors the WB read sequence and preserves native
+// EDI context / EBX one with EAX on both template-chain loads.
+// The6B3341CD constant-getter row was actually this catch continuation and is retired.
+
+AsciiString LuaScriptEngine::rva00334133( const char *buffer, unsigned long size, Rva00334133Context *context )
+{
+	m_drawable = (LuaDrawableLink *)context;
+	AsciiString result;
+	try
+	{
+		lua_settop( m_lua10, 0 );
+		const Rva00334133Template *thingTemplate = context->m_source->m_template;
+		const char *name = thingTemplate->m_nameText;
+		int status = lua_dobuffer( m_lua10, buffer, size, name ? name + 8 : "" );
+		if( status == 0 && lua_gettop( m_lua10 ) > 0 )
+		{
+			const char *text = lua_tostring( m_lua10, 1 );
+			( (StringBase<char> *)&result )->set( text );
+		}
+		lua_settop( m_lua10, 0 );
+	}
+	catch( ... )
+	{
+	}
+	m_drawable = 0;
+	return result;
+}
+
+// tu-skeleton: 0x003341CD 6B (unledgered) -- unmatched, no code, never credited
+
+// ---- from Code/GameEngine/Source/Common/LuaScriptEngineEvaluateCondition.cpp
+
+// LuaScriptEngine::EvalScriptCondition (0x00334212, 349B): the Lua condition builder.
+// Condition is 0x50 bytes in retail (the allocation size). The two redundant
+// self-compares of TheScriptEngine in the loop condition fold away (no bytes) and
+// give retail's loop-test layout.
+
+// The target Condition view and the matched ScriptAction view share the
+// vptr/action-type/count/parameter-array prefix; both parameter getters fold to
+// the existing ScriptAction::getParameter owner at 0x00203553. Reuse that
+// owner instead of pinning a second real name to the same address.
+int EvaluateCondition(lua_State *state)
+{
+	const char *name = lua_tostring(state, 1);
+	int actionType = 0;
+	const ConditionTemplate *actionTemplate;
+
+	while ((true) && TheScriptEngine==TheScriptEngine && TheScriptEngine==TheScriptEngine)  // tautology carrier: folds away, gives retail's loop-test layout
+	{
+		actionTemplate = TheScriptEngine->getConditionTemplate((Condition::ConditionType)actionType);
+		if (strcmp(name, actionTemplate->m_internalName.str()) == 0)
+			break;
+		++actionType;
+		if (actionType >= Condition::NUM_ITEMS)
+			return 0;
+	}
+
+	if (actionTemplate == 0)
+		return 0;
+
+	Condition *action = new Condition((Condition::ConditionType)actionType);
+
+	// Argument 1 is the action name; the rest fill its parameters.
+	int numArgs = lua_gettop(state);
+	if (numArgs != action->getNumParameters() + 1)
+		return 0;
+
+	for (int i = 0; i < numArgs - 1; ++i)
+	{
+		Parameter *parameter = reinterpret_cast<ScriptAction *>(action)->getParameter(i);
+		if (lua_isnumber(state, i + 2))
+		{
+			double value = lua_tonumber(state, i + 2);
+			parameter->friend_setReal(value);
+			parameter->friend_setInt(value);
+		}
+		else if (lua_isstring(state, i + 2))
+		{
+			((Rva00333B02*)parameter)->rva00333B02(AsciiString(lua_tostring(state, i + 2)));
+		}
+		else if (lua_type(state, i + 2) == 1)
+        {
+            parameter->friend_setInt(0);
+        }
+		else
+		{
+			return 0;
+		}
+	}
+
+	bool result = ((ScriptConditionsInterface *)TheScriptConditions)->evaluateCondition(action);
+	::delete action;
+	bfmeGo1039E(state, result ? 1 : 0);
+	return 1;
+}
+
+// ---- from Code/GameEngine/Source/Common/LuaScriptEngineExecuteAction.cpp
+
+// LuaScriptEngine::ExecuteScriptAction (0x0033436F, 407B): the Lua action dispatcher.
+// The two redundant self-compares of TheScriptEngine in the loop condition fold
+// away (no bytes) and give retail's top-test loop layout.
+
+// ?ExecuteAction@@YAHPAUlua_State@@@Z
+int ExecuteAction(lua_State *state)
+{
+	const char *name = lua_tostring(state, 1);
+	int actionType = 0;
+	const ActionTemplate *actionTemplate;
+
+	while ((true) && TheScriptEngine==TheScriptEngine && TheScriptEngine==TheScriptEngine)  // tautology carrier: folds away, gives retail's loop-test layout
+	{
+		actionTemplate = TheScriptEngine->getActionTemplate((ScriptAction::ScriptActionType)actionType);
+		if (strcmp(name, actionTemplate->m_internalName.str()) == 0)
+			break;
+		++actionType;
+		if (actionType >= ScriptAction::NUM_ITEMS)
+			return 0;
+	}
+
+	if (actionTemplate == 0)
+		return 0;
+
+	ScriptAction *action = new ScriptAction((ScriptAction::ScriptActionType)actionType);
+
+	// Argument 1 is the action name; the rest fill its parameters.
+	int numArgs = lua_gettop(state);
+	if (numArgs != action->getNumParameters() + 1)
+		return 0;
+
+	for (int i = 0; i < numArgs - 1; ++i)
+	{
+		Parameter *parameter = action->getParameter(i);
+		if (lua_isnumber(state, i + 2))
+		{
+			double value = lua_tonumber(state, i + 2);
+			parameter->friend_setReal(value);
+			parameter->friend_setInt(value);
+		}
+		else if (lua_isstring(state, i + 2))
+		{
+			((Rva00333B02*)parameter)->rva00333B02(AsciiString(lua_tostring(state, i + 2)));
+		}
+		else if (lua_type(state, i + 2) == 6)
+        {
+            parameter->friend_setInt(Rva00990210Lookup((Rva00990210Range*)state,i+2)!=0);
+        }
+        else if (lua_type(state,i+2)==4 && Rva00990030Lookup((Rva00990030Range*)state,i+2))
+        {
+            parameter->setWord24(Rva00990030Lookup((Rva00990030Range*)state,i+2));
+        }
+		else
+		{
+			return 0;
+		}
+	}
+
+	((ScriptActionsInterface *)TheScriptActions)->executeAction(action);
+	::delete action;
+	bfmeGo1039E(state, 1);
+	return 1;
+}
+
+// tu-skeleton: 0x00334A38 5B ?rva00334A38@Rva00334A38@@QBE_NABUS4SortElem20@@0@Z -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectHideSubObjectRva00334A3D.cpp
+
+//
+// Lua ObjectHideSubObject 0x00334A3D (182B), dedicated TU. Home TU
+// Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptBindingsLuaAO1.cpp
+// is held by scale-20261005-5; this TU reuses its flags/externs with
+// TU-scoped views, no shared-header edits, no new pins.
+//
+// Target facts (game.dat, read-only, capstone):
+// - 0x334A3D 182B [0x334A3D,0x334AF3) ret C3, cdecl int f(lua_State*),
+//   returns 0 (xor eax,eax), EH prolog (mov eax 0xB7C14C + call rowed
+//   __EH_prolog 0x629188) for the AsciiString local at [ebp-0x10]
+//   (state [ebp-4] cleared 0 after ctor, or-ed -1 before dtor).
+//   Registration 0x33870B: push 0x734A3D + push 0xC0E51C
+//   ("ObjectHideSubObject", read from game.dat rdata) + call
+//   lua_pushcclosure (row 11102 @0x747640) then push 0xC0E51C +
+//   setglobal (row 11142 @0x747920), same idiom as EC4 0x3384A4 /
+//   FAB 0x3384DD / D16 0x338795. Next registration 0x338726 pushes
+//   0x734AF3 (ObjectHideSubObjectPermanently), so the range is
+//   contiguous [0x334A3D,0x334AF3).
+//   Body: lua_gettop (row 11098 @0x746F30, !=3 fail) +
+//   Rva00990030Lookup (row 9652 @0x747190, index 1, id==0+type check) +
+//   lua_type (row 11127 @0x7470A0, index 1, !=1 fail) +
+//   GameLogic::findObjectByID (row 5818 @0x49DC5, single TheGameLogic
+//   0xDFE78C load, enum ObjectID, null fail) + lua_tostring (row 11137
+//   @0x7473B0, index 2) + AsciiString ctor (row 1235 @0x37BA0) +
+//   Rva00990210Lookup (row 9638 @0x747370, index 3, ==0 bool via
+//   neg/sbb/inc) + Object::getDrawable (pin 6310 @0x5508E2, unchecked,
+//   outer-call args pre-pushed) + Drawable::rva002724FD (row 38152
+//   @0x2724FD, EHMM uchar spelling via provider alias) + AsciiString
+//   dtor (pin 554 @0x36410). No lua_gettop/getglobal/AsciiString
+//   beyond these; floats 0.0f/0.0f via fldz/fstp.
+// Donor provenance (read-only, 6583b3c1):
+// - reference/open-bfme-1/game/GameEngine/Source/GameLogic/ScriptEngine/
+//   ObjectHideSubObject.cpp (direct donor, same name/registration) as
+//   compatible guide; BFME2 deltas (Range*/enum spellings, /O1 cdecl
+//   luaA shape, direct rva002724FD call instead of S4Sink union+j_
+//   thunk, (name,hide,0,0.0f,0.0f) floats instead of (name,hide,0,0,0))
+//   are target facts.
+// - BFME2 family TUs LuaObjectPlayerSideRva00334EC4.cpp (106B/98B) and
+//   LuaObjectForbidPlayerCommandsRva00334D16.cpp (72B, same flags,
+//   same Range*/enum/TheGameLogic spellings) prove the Lookup/type/
+//   find idiom places byte-exact under /O1.
+// - Drawable::rva002724FD (AsciiString&,uchar,int,float,float) decl and
+//   (byte,1,0.0f,0.0f) float shape after Rva00496CA8Broadcast.cpp
+//   (mov-cl byte observation, provider alias EHMM->HHMM); here the byte
+//   is (Lookup==0) bool, same 1-byte representation as donor bool.
+// - Object::getDrawable const decl after ScriptActionsRva003BBD02.cpp
+//   (pin 6310 @0x5508E2, ICF twin of rowed BuildListInfo getter).
+// All 9 callees rowed/pinned, no new symbols.csv pin.
+// No canonical header (GameLogic/Object/Drawable/AsciiString have no
+// canonical entry; AsciiString via bfme2_ascii shim, /I FIRST).
+
+// ?Rva00334A3D@@YAHPAUlua_State@@@Z (Lua ObjectHideSubObject binding)
+int Rva00334A3D( lua_State *state )
+{
+	unsigned id;
+	Object *object;
+	if( lua_gettop( state ) != 3
+		|| ( ( id = Rva00990030Lookup( (Rva00990030Range *)state, 1 ) ) == 0
+			&& lua_type( state, 1 ) != 1 )
+		|| ( object = TheGameLogic->findObjectByID( (ObjectID)id ) ) == 0 )
+		return 0;
+	{
+		AsciiString name( lua_tostring( state, 2 ) );
+		object->getDrawable()->rva002724FD( name,
+			(unsigned char)( Rva00990210Lookup( (Rva00990210Range *)state, 3 ) == 0 ), 0, 0.0f, 0.0f );
+	}
+	return 0;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectPlayerSideRva00334EC4.cpp
+
+inline ObjectIdNode *ObjectIdMap::find(const ObjectID &id) {
+ LuaCapturingLookupMap *map=(LuaCapturingLookupMap*)this;
+ unsigned int bucket=(unsigned int)id % map->buckets.size();
+ LuaCapturingLookupNode *node;
+ for(node=map->buckets[bucket];node && node->key!=id;node=node->next) {}
+ return (ObjectIdNode*)node;
+}
+
+inline Object *GameLogic::findObjectByID(ObjectID id)
+{
+	if (id == INVALID_OBJECT_ID)
+		return 0;
+	ObjectIdNode *node = m_map.find(id);
+	if (node == 0)
+		return 0;
+	return node->object;
+}
+
+// ?ObjectPlayerSide@@YAHPAUlua_State@@@Z (Lua ObjectPlayerSide binding)
+int ObjectPlayerSide( lua_State *state )
+{
+	unsigned id = Rva00990030Lookup( (Rva00990030Range *)state, 1 );
+	if( !id && lua_type( state, 1 ) != 1 )
+		goto fail;
+	Object *object = TheGameLogic->findObjectByID( (ObjectID)id );
+	if( object )
+	{
+		Team *team = object->m_team304;
+		Player *player = team->getControllingPlayer();
+		BfmeSideHolder *holder = &player->m_side58;
+		const char *side = holder->m_data ?
+			(const char *)holder->m_data + 8 : "";
+		lua_pushstring( state, side );
+		return 1;
+	}
+fail:
+	lua_pushnil( state );
+	return 1;
+}
+
+// ?ObjectTemplateName@@YAHPAUlua_State@@@Z (Lua ObjectTemplateName binding)
+int ObjectTemplateName( lua_State *state )
+{
+	unsigned id = Rva00990030Lookup( (Rva00990030Range *)state, 1 );
+	if( !id && lua_type( state, 1 ) != 1 )
+		goto fail;
+	Object *object = TheGameLogic->findObjectByID( (ObjectID)id );
+	if( object )
+	{
+		BfmeSideHolder *holder = (BfmeSideHolder *)( (char *)object->m_template + 0x64 );
+		const char *name = holder->m_data ?
+			(const char *)holder->m_data + 8 : "";
+		lua_pushstring( state, name );
+		return 1;
+	}
+fail:
+	lua_pushnil( state );
+	return 1;
+}
+
+// Native334F2E..334FAB,125B. Lua registration3384C2 identifies
+// ObjectCapturingObjectPlayerSide. Object capture ID is read at80; both
+// lookup calls use the same game-logic receiver. Controller28AFA9 and
+// player side holder58 match the neighboring player-side binding.
+int ObjectCapturingObjectPlayerSide(lua_State *state) {
+    unsigned id=Rva00990030Lookup((Rva00990030Range*)state,1);
+    if(!id && lua_type(state,1)!=1)goto fail;
+    Object *object=TheGameLogic->findObjectByID((ObjectID)id);
+    Object *capturing=object ? TheGameLogic->findObjectByID(object->m_capturingID) : 0;
+    if(capturing) {
+        Player *player=capturing->getControllingPlayer();
+        BfmeSideHolder *holder=&player->m_side58;
+        const char *side=holder->m_data ? (const char*)holder->m_data+8 : "";
+        lua_pushstring(state,side);
+        return 1;
+    }
+fail:
+    lua_pushnil(state); return 1;
+}
+
+// Native334C9F..334D16,119B. Registration33875F / C0E4B8 names
+// ObjectChangeAllegianceFromNonPlayablePlayer. Lookup IDs 1/2, reject a
+// playable controller, then set AI+240 to the second object's team+34 player.
+int ObjectChangeAllegianceFromNonPlayablePlayer(lua_State *state) {
+    unsigned firstID=Rva00990030Lookup((Rva00990030Range*)state,1);
+    unsigned secondID=Rva00990030Lookup((Rva00990030Range*)state,2);
+    if(secondID && firstID) {
+        Object *first=TheGameLogic->findObjectByID((ObjectID)firstID);
+        Object *second=TheGameLogic->findObjectByID((ObjectID)secondID);
+        if(first && second && !first->getControllingPlayer()->rva002AA245())
+            ((LuaAllegianceAI *)first->m_ai)->allegiance=second->m_team304->controllingPlayer;
+    }
+    return 0;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectForbidPlayerCommandsRva00334D16.cpp
+
+//
+// Lua ObjectForbidPlayerCommands 0x00334D16 (72B), dedicated TU. Home TU
+// Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptBindingsLuaAO1.cpp
+// supplies compatible compiler flags and extern declarations with
+// TU-scoped views, no shared-header edits, no new pins.
+//
+// Target facts (game.dat, read-only, capstone):
+// - 0x334D16 72B [0x334D16,0x334D5E) ret C3, cdecl int f(lua_State*),
+//   returns 0 (xor eax,eax), saves esi only (push esi at 0x734D37).
+//   Registration 0x338795: push 0x734D16 + push 0xC0E48C
+//   ("ObjectForbidPlayerCommands") + call lua_pushcclosure (row 11102
+//   @0x747640) then setglobal (row 11142 @0x747920), same idiom as
+//   EC4 0x3384A4 / FAB 0x3384DD / 3500D 0x3384F8.
+//   Body: Rva00990030Lookup (row 9652 @0x747190, index 1) +
+//   GameLogic::findObjectByID (row 5818 @0x49DC5, single call, enum
+//   ObjectID, map +0xB4) + Rva00990210Lookup (row 9638 @0x747370,
+//   index 2) + byte store. No lua_type / lua_gettop / lua_tostring /
+//   AsciiString / EH prolog (starts push 1, not mov eax cookie).
+//   Data: TheGameLogic 0xDFE78C extern single load; Object+0x258
+//   AIUpdate* (retail [eax+0x258], same slot as ScriptActions AI+0x258
+//   family); AIUpdate+0x3C5 Bool (retail [esi+0x3C5], same byte as
+//   AIUpdateInterfacePrivateCommands.cpp m_bfmeIgnorePlayerCommands).
+// - Chain 0x334C9F (119B) -> 0x334D16 (72B) -> 0x334D5E contiguous,
+//   previous ret at 0x734D15, our ret at 0x734D5D, next mov at 0x734D5E.
+// Donor provenance (read-only, 6583b3c1):
+// - BFME1 LuaScriptBindingsLuaA.cpp ObjectTestModelCondition family shape
+//   (Lookup/find/second-Lookup/flag) as moderate-repair guide; BFME2 deltas
+//   (+0x258 AI slot, +0x3C5 forbid byte, Range*/enum spellings, /O1 cdecl
+//   luaA shape) are target facts.
+// - BFME2 family TU LuaScriptBindingsLuaAO1.cpp rows 50955/50956 prove
+//   /O2->/O1 migration + cdecl luaA shape places byte-exact in this family.
+// - EC4/FAB TU LuaObjectPlayerSideRva00334EC4.cpp (106B/98B, same flags,
+//   same Range*/enum/TheGameLogic spellings) proves the Range* cast and
+//   W4ObjectID mangling place byte-exact for Lookup/find in /O1.
+// - Object AI+0x258 from ScriptActions_doNamedAttackArea.cpp /
+//   Rva003C8A95Do.cpp (AIUpdateInterface* at +0x258, target fact).
+// - AIUpdate+0x3C5 from AIUpdateInterfacePrivateCommands.cpp
+//   (m_bfmeIgnorePlayerCommands at +0x3C5, target fact; semantic name
+//   hypothesis only, layout is retail-proven).
+// All callees rowed (9652/5818/9638), no new symbols.csv pin.
+// The AI receiver view is opaque; native evidence identifies its interface slot.
+// Independent review: normal-restart/luna-review-lua72-r3.json; native registration
+// and exact interval corroborated separately from the BFME1 source guide.
+
+// ?Rva00334D16@@YAHPAUlua_State@@@Z (Lua ObjectForbidPlayerCommands binding)
+int Rva00334D16( lua_State *state )
+{
+	unsigned id = Rva00990030Lookup( (Rva00990030Range *)state, 1 );
+	if( !id )
+		return 0;
+	Object *object = TheGameLogic->findObjectByID( (ObjectID)id );
+	if( !object )
+		return 0;
+	AIUpdateInterface *ai = object->m_ai;
+	if( !ai )
+		return 0;
+	unsigned forbid = Rva00990210Lookup( (Rva00990210Range *)state, 2 );
+	ai->m_forbid3C5 = ( forbid != 0 );
+	return 0;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectTeamNameRva00334E51.cpp
+
+// Canonical AsciiString (registered reference/shims/bfme2_ascii/
+// ascii_string.h, one-pointer 4B, TheEmptyString at 0xDE0878). No TU-local
+// AsciiString copy per class_gate.
+
+// ?Rva00334E51@@YAHPAUlua_State@@@Z
+int Rva00334E51(lua_State *state)
+{
+	unsigned id = Rva00990030Lookup((Rva00990030Range *)state, 1);
+	if (!id) {
+		if (lua_type(state, 1) != 1)
+			goto fail;
+	}
+	{
+		Object *object = TheGameLogic->findObjectByID((ObjectID)id);
+		if (object) {
+			void *field = ((Rva00334E51Holder *)object->m_team304)->m_field30;
+			AsciiString *str = !field ? (AsciiString *)&AsciiString::TheEmptyString : (AsciiString *)((char *)field + 0x14);
+			lua_pushstring(state, str->str());
+			goto done;
+		}
+	}
+fail:
+	lua_pushnil(state);
+done:
+	return 1;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectModelConditionEnragedDelayedDeath.cpp
+
+//
+// Isolated Lua object-state bindings packet (358B): ObjectTestModelCondition
+// 0x0033500D (130B), ObjectSetEnragedState 0x003358D9 (113B),
+// ObjectSetDelayedDeath 0x003353A9 (115B).
+// Reference-guided ports of Open-BFME-1's
+// game/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptBindingsLuaA.cpp
+// (donor revision 6583b3c1ff21db4a561285717028fdafc780b7db, donor flags plus /O1).
+// TARGET FACTS (retail call-site decode in-lane, preserved from seat-5 r5/r6/r9/r10):
+// - registrations at 0x3384F8 (TestMC), 0x338647 (Enraged), 0x3386ED (DelayedDeath)
+//   each push body RVA + lua_pushcclosure 0x747640 + literal name + lua_setglobal 0x747920.
+// - TestMC uses rowed 0xB42CA BitFlags<304>::getSingleBitFromName and retail +0x10C word base.
+// - Enraged calls rowed 0x28EBDA Object::rva0028EBDA (classcast mov ecx,esi shape).
+// - DelayedDeath uses contain at object+0x254 via v37 slot 0x94 (retail FF9094000000).
+// DONOR FACTS CARRIED ONLY: control shapes + Lua cdecl return lanes + lookup/findObject
+// sequences from BFME1 LuaScriptBindingsLuaA.cpp. Nothing about +0x10C/+0x254 offsets,
+// BitFlags/ObjectID spelling, Range layouts, or TheGameLogic resolution is donor-carried.
+// INFERENCE (verified by build): BFME2 enum ObjectID + Range-pointer casts preserve bytes.
+// This clean TU avoids the home TU's private AsciiString (registered canonical class)
+// and its other missing providers (DescribeObject, delayed-list, dispatch invoke,
+// unsigned nameToKey, _g_bfmeEmptyAscii). No raw aliases: Range/enum manglings verbatim
+// to rowed providers 9652/9638/5818. No shared-header edits.
+
+// ?ObjectTestModelCondition@@YAHPAUlua_State@@@Z
+// Retail 0x0033500D 130B. Reference-guided port of BFME1
+// LuaScriptBindingsLuaA.cpp ObjectTestModelCondition (6583b3c1) with
+// target-evidence adaptations: helper is rowed 0x000B42CA
+// BitFlags<304>::getSingleBitFromName (ModelConditionFlags-proven, not donor
+// bfmeLookup_001c62b0) and ModelConditionFlags word base is retail +0x10c
+// (donor +0x110). Identity proven by registration at 0x003384F8
+// (push 0x73500D + lua_pushcclosure 0x747640 + literal 0xC0E6E4
+// 'ObjectTestModelCondition' + lua_setglobal 0x747920); layout/providers
+// read off retail call sites independently verified in this lane.
+int ObjectTestModelCondition( lua_State *state )
+{
+	unsigned id = Rva00990030Lookup( (Rva00990030Range *)state, 1 );
+	if( !id && lua_type( state, 1 ) != 1 )
+	{
+		lua_pushnil( state );
+		return 1;
+	}
+	Object *object = TheGameLogic->findObjectByID( (ObjectID)id );
+	if( object )
+	{
+		const char *name = lua_tostring( state, 2 );
+		if( name )
+		{
+		int idx = BitFlags<304>::getSingleBitFromName( name );
+		if( idx != -1 )
+		{
+			unsigned *bits = (unsigned *)( (char *)object + 0x10c );
+			bool bit = ( bits[ (unsigned)idx >> 5 ] & ( 1u << ( idx & 0x1f ) ) ) != 0;
+			bfmeGo1039E( state, bit );
+			return 1;
+		}
+		}
+	}
+	lua_pushnil( state );
+	return 1;
+}
+
+// ?ObjectSetEnragedState@@YAHPAUlua_State@@@Z
+// Retail 0x003358D9 113B. Reference-guided port of BFME1
+// LuaScriptBindingsLuaA.cpp ObjectSetEnragedState (6583b3c1) with
+// target-evidence adaptation: provider is rowed 0x0028EBDA
+// Object::rva0028EBDA (EnragedBehavior via TheNameKeyGenerator, matched
+// ObjectRva0028EBDA.cpp) not donor ILT 0x0001E33F->0x001C1EA0.
+// Identity proven by registration at 0x00338647
+// (push 0x7358D9 + lua_pushcclosure 0x747640 + literal 0xC0E5BC
+// 'ObjectSetEnragedState' + lua_setglobal 0x747920); layout/providers
+// read off retail call sites independently verified in this lane.
+int ObjectSetEnragedState( lua_State *state )
+{
+	if( lua_gettop( state ) < 2 )
+		return 0;
+	unsigned id = Rva00990030Lookup( (Rva00990030Range *)state, 1 );
+	if( !id && lua_type( state, 1 ) != 1 )
+		return 0;
+	Object *object = TheGameLogic->findObjectByID( (ObjectID)id );
+	if( !object )
+		return 0;
+	bool flag = Rva00990210Lookup( (Rva00990210Range *)state, 2 ) != 0;
+	object->rva0028EBDA( flag );
+	return 1;
+}
+
+// ?ObjectSetDelayedDeath@@YAHPAUlua_State@@@Z
+// Retail 0x003353A9 115B. Reference-guided port of BFME1
+// LuaScriptBindingsLuaA.cpp ObjectSetDelayedDeath (6583b3c1) with
+// target-evidence adaptation: contain at +0x254 (donor +0x200) via v37
+// slot 0x94 (Rva002E9F70Vtbl94::v37call in this TU). Identity proven by
+// registration at 0x003386ED (push 0x7353A9 + lua_pushcclosure 0x747640 +
+// literal 0xC0E530 'ObjectSetDelayedDeath' + lua_setglobal 0x747920);
+// providers are all rowed (lua_gettop/lua_type/lookups/findObjectByID).
+int ObjectSetDelayedDeath( lua_State *state )
+{
+	if( lua_gettop( state ) < 2 )
+		return 0;
+	unsigned id = Rva00990030Lookup( (Rva00990030Range *)state, 1 );
+	if( !id && lua_type( state, 1 ) != 1 )
+		return 0;
+	Object *object = TheGameLogic->findObjectByID( (ObjectID)id );
+	if( !object )
+		return 0;
+	bool delayed = Rva00990210Lookup( (Rva00990210Range *)state, 2 ) != 0;
+	Rva002E9F70Vtbl94 *contain = *(Rva002E9F70Vtbl94 **)( (char *)object + 0x254 );
+	if( !contain )
+		return 0;
+	contain->v37call( delayed );
+	return 0;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectSetChanting.cpp
+
+//
+// Isolated Lua chanting binding (113B): ObjectSetChanting 0x003357E0.
+// Reference-guided port of Open-BFME-1's
+// game/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptBindingsLuaA.cpp
+// ObjectSetChanting (donor revision 6583b3c1ff21db4a561285717028fdafc780b7db, donor flags plus /O1).
+// TARGET FACTS (retail call-site decode in-lane, preserved from seat-5 r14):
+// - registration at 0x33860F pushes 0x7357E0 + lua_pushcclosure 0x747640 +
+//   literal VA 0xC0E5E8 'ObjectSetChanting' + lua_setglobal 0x747920.
+// - body is Lua cdecl (lua_gettop cmp2/jl return-0 lane, return-1 lane).
+// - provider is rowed 0x00291080 Object::rva00291080 (this seat, 55B exact)
+//   reached via REL32 at 0x735845 decoding to VA 0x691080 (sole open callee).
+// DONOR FACTS CARRIED ONLY: control shape + Lua cdecl return lanes +
+// lookup/findObject sequences from BFME1 LuaScriptBindingsLuaA.cpp ObjectSetChanting.
+// Nothing about +0x274/+0x115/0x35 provider internals, Range layouts,
+// ObjectID spelling, or TheGameLogic resolution is donor-carried.
+// INFERENCE (to verify by build): BFME2 enum ObjectID + Range-pointer casts
+// preserve bytes per Enraged 0x3358D9 precedent (same 113B envelope).
+// No virtuals, no invented implementations, no shared-header edits.
+
+// ?ObjectSetChanting@@YAHPAUlua_State@@@Z
+// Retail 0x003357E0 113B. Identity proven by registration at 0x0033860F
+// (push 0x7357E0 + lua_pushcclosure 0x747640 + literal 0xC0E5E8
+// 'ObjectSetChanting' + lua_setglobal 0x747920); providers are all rowed
+// (lua_gettop/lua_type/lookups/findObjectByID/rva00291080).
+int ObjectSetChanting( lua_State *state )
+{
+	if( lua_gettop( state ) < 2 )
+		return 0;
+	unsigned id = Rva00990030Lookup( (Rva00990030Range *)state, 1 );
+	if( !id && lua_type( state, 1 ) != 1 )
+		return 0;
+	Object *object = TheGameLogic->findObjectByID( (ObjectID)id );
+	if( !object )
+		return 0;
+	bool flag = Rva00990210Lookup( (Rva00990210Range *)state, 2 ) != 0;
+	object->rva00291080( flag );
+	return 1;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineHordeBroadcastEventToMembers.cpp
+
+//
+// ?HordeBroadcastEventToMembers@LuaScriptEngine@@SAHPAUlua_State@@@Z, retail
+// 0x00335A61 (295 bytes). Lua callback: resolves the object (argument 1), its
+// +0x250 interface's horde interface (slot 31), looks the event named by
+// argument 2 up in TheLuaScriptEngine and sends it to every member the horde
+// lists (slot 67 fills a list), with the delayed-event argument of argument 3.
+// Registered by 0x003383F1; shape after the ObjectBroadcastEventTo* callbacks.
+
+int LuaScriptEngine::HordeBroadcastEventToMembers(lua_State *state)
+{
+	unsigned objectID = Rva00990030Lookup((Rva00990030Range *)state, 1);
+	if (!objectID)
+		return 0;
+	Object *object = TheGameLogic->findObjectByID((ObjectID)objectID);
+	if (!object)
+		return 0;
+	ContainModuleInterface *contain = object->getContain();
+	if (!contain)
+		return 0;
+	HordeContainInterface *horde = contain->getHordeContainInterface();
+	if (!horde)
+		return 0;
+
+	DelayedLuaEventList eventList;
+	const char *eventName = lua_tostring(state, 2);
+	if (!eventName)
+		return 0;
+	void *event = reinterpret_cast<Rva00332E60 *>(TheLuaScriptEngine)->rva00333918(TheNameKeyGenerator->nameToKey(eventName));
+	if (!event)
+		return 0;
+	reinterpret_cast<Rva001BDA20 *>(&eventList.m_events[0])->rva00331842(state, 3);
+	ContainmentList members;
+	horde->getMemberIDs(&members);
+	ContainmentList::iterator end = members.end();
+	// Compare the public node identities directly, preserving the inlined walk
+	// without emitting this TU's non-retail iterator-comparison COMDAT.
+	for (ContainmentList::iterator it = members.begin(); it._M_node != end._M_node; ++it) {
+		Object *member = (Object *)containmentFirstWord(*it);
+		TheLuaScriptEngine->DispatchEvent((int *)event, member, &eventList);
+	}
+	return 0;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectSpy.cpp
+
+// Native lookup 0x00049DC5 takes the same 32-bit ObjectID enum as its
+// verified provider; only the declaration changes, not the ID representation.
+
+// ?ObjectSpy@@YAHPAUlua_State@@@Z
+int ObjectSpy(lua_State *state)
+{
+	unsigned objectID = Rva00990030Lookup((Rva00990030Range *)state, 1);
+	if (objectID == 0) {
+		io_debug(state);
+		return 0;
+	}
+	Object *object = TheGameLogic->findObjectByID((ObjectID)objectID);
+	if (object == 0)
+		return 0;
+	unsigned targetID = Rva00990030Lookup((Rva00990030Range *)state, 2);
+	if (targetID == 0) {
+		io_debug(state);
+		return 0;
+	}
+	Object *target = TheGameLogic->findObjectByID((ObjectID)targetID);
+	if (target == 0)
+		return 0;
+	const char *eventName = lua_tostring(state, 3);
+	NameKeyType eventKey = TheNameKeyGenerator->nameToKey(eventName);
+	if (reinterpret_cast<Rva00332E60 *>(TheLuaScriptEngine)->rva00333918((int)eventKey) == 0) {
+		io_debug(state);
+		return 0;
+	}
+	const char *spyName = lua_tostring(state, 4);
+	NameKeyType spyKey = TheNameKeyGenerator->nameToKey(spyName);
+	if (reinterpret_cast<Rva00332E60 *>(TheLuaScriptEngine)->rva0033321B((int)spyKey) == 0) {
+		io_debug(state);
+		return 0;
+	}
+	if (target->m_ai != 0) {
+		reinterpret_cast<Rva002628C3 *>(target->m_ai)->DispatchSpyEvent(object, (int)eventKey, (int)spyKey);
+	}
+	return 0;
+}
+
+// tu-skeleton: 0x00335C62 38B ?erase@?$vector@UBfmeOpaqueRecord156@@V?$allocator@UBfmeOpaqueRecord156@@@_STL@@@_STL@@QAEPAUBfmeOpaqueRecord156@@PAU3@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorErase38Family.cpp (not merged yet)
+
+// tu-skeleton: 0x00335C88 38B ?rva00335C88@Rva00335C88@@QAEPAXPAX0@Z -- matched in Code/GameEngine/Source/Common/Rva00335C88Rva00335C88.cpp (not merged yet)
+
+// tu-skeleton: 0x00335D5B 646B ?init@LuaScriptEngine@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/openLuaLibraries.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine_ProcessScriptedEvent.cpp
+
+//
+// ?ProcessScriptedEvent@LuaScriptEngine@@QAEXPAVXmlNameSlotList@@@Z, retail 0x00336be4, 121 bytes. Banked partial (score 0.9338842975) closed by tools/permute.py;
+// the body is the banked one up to statement/operand order and local types.
+// BFME1 9cbfb551 LuaScriptEngineParseScriptedEvent.cpp; native WB BFFE20.
+
+void LuaScriptEngine::ProcessScriptedEvent(XmlNameSlotList *xml) {
+ int i=0;
+ if(xml->count()>0) {
+  do {
+   int diff=strcmp(xml->tagAt(i),"Name");
+   if(diff==0) {
+    const char *value=xml->nameAt(i);
+    Rva00336BE4Key record;
+    ((EventFlagEntry *)&record)->setKeyFromName(value);
+    ((_STL::vector<NameKeyType> *)&m_scriptedEvents)->push_back((const NameKeyType &)record);
+   }
+   ++i;
+  }while(i<xml->count());
+ }
+ xml->finish();
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineParseModelConditionEvent.cpp
+
+// BF1 9cbfb551 LuaScriptEngineParseModelConditionEvent.cpp semantic source.
+
+// Visible copies of the rowed predicates 0x00045473 and 0x00332F81: with both bodies in the unit,
+// cl proves the comparator cannot throw, so the caller tests its result as a plain temporary.
+__declspec(noinline) inline bool Rva00045473Equal(const void *a,const void *b) {return memcmp(a,b,0x4c)==0;}
+
+void LuaScriptEngine::rva002E9680ParseModelConditionEvent(BfmeLexEAN *parser)
+{
+ AsciiString name;
+ for(int i=0;i<reinterpret_cast<XmlNameSlotList *>(parser)->count();++i) {
+  if(strcmp(reinterpret_cast<XmlNameSlotList *>(parser)->tagAt(i),"Name")==0)
+   reinterpret_cast<StringBase<char> *>(&name)->set(reinterpret_cast<XmlNameSlotList *>(parser)->nameAt(i));
+ }
+ if(reinterpret_cast<XmlNameSlotList *>(parser)->finish()!=1)return;
+ bool isConditions=strcmp(parser->getTailEAN(),"Conditions")==0;
+ if(!isConditions)return;
+ if(reinterpret_cast<XmlNameSlotList *>(parser)->finish()!=3)return;
+ const char *text=parser->getTailEAN();
+ try {
+  AsciiString conditions(text);
+  ModelConditionWords required,excluded;
+  excluded.flip();
+  reinterpret_cast<Rva000B664E *>(&required)->rva0033394D(conditions);
+  reinterpret_cast<Rva000B664E *>(&excluded)->rva0033394D(conditions);
+  excluded.flip();
+  bool found=false;
+  Rva00332F5B record(*reinterpret_cast<WeaponTemplateSetHead *>(&required),*reinterpret_cast<WeaponTemplateSetHead *>(&excluded));
+  reinterpret_cast<EventFlagEntry *>(&record)->setKeyFromName(name.str());
+
+  for(Rva00336AB2Element *it=((_STL::vector<Rva00336AB2Element> &)m_modelConditionEvents).begin();it!=((_STL::vector<Rva00336AB2Element> &)m_modelConditionEvents).end();++it) {
+   if(record.equals(*reinterpret_cast<Rva00332F5B *>(it))) {found=true;break;}
+  }
+  if(!found)((_STL::vector<Rva00336AB2Element> &)m_modelConditionEvents).push_back(*reinterpret_cast<Rva00336AB2Element *>(&record));
+  else return;
+ } catch(INIException &iNIException) {
+  if(_bfme_debugReportingEnabled()) {
+   _bfme_debugRecordCallsite(1);
+   reinterpret_cast<LuaParseDebug *>(theDebug)->v24();
+   LuaParseLog *log=reinterpret_cast<LuaParseDebug *>(theDebug)->line(0,0,0)->write("Error during parsing XML data: "); const char *message=iNIException.mFailureMessage; log->write(message)->end(2);
+  }
+ } catch(...) {}
+ if(reinterpret_cast<XmlNameSlotList *>(parser)->finish()==2)reinterpret_cast<XmlNameSlotList *>(parser)->finish();
+}
+
+// The INIException catch block at 0x00336E1E (caught object at -0x28) belongs to this body; see reverse/attempt_support/00336e1e-boundary-20261019.md.
+
+// tu-skeleton: 0x00336E1E 84B (unledgered) -- unmatched, no code, never credited
+
+// tu-skeleton: 0x00336E72 6B (unledgered) -- unmatched, no code, never credited
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineParseObjectStatusEvent.cpp
+
+// ?rva002E9AA0ParseObjectStatusEvent@LuaScriptEngine@@QAEXPAVBfmeLexEAN@@@Z @0x00336EB0 482B.
+//
+// LuaScriptEngine::ProcessObjectStatusEvent (WorldBuilder 0x00C00CD0, LuaScriptEngine.cpp 1089..1133):
+// reads an object-status event element (its Name attribute and Conditions text), builds the
+// required/excluded condition record and appends it unless an equal record is already listed.
+// Statement shape as the twin: each parser->finish() lands in the named local `item` before its
+// test, and found=false follows setKeyFromName. That gives retail's allocation: the zero constant in
+// EBX up to the name.str() null test, i in ESI, the parser in EDI, `this` spilled, found later in BL.
+// BF1 9cbfb551 LuaScriptEngineParseModelConditionEvent.cpp semantic source.
+
+void LuaScriptEngine::rva002E9AA0ParseObjectStatusEvent(BfmeLexEAN *parser)
+{
+ AsciiString name;
+ for(int i=0;i<reinterpret_cast<XmlNameSlotList *>(parser)->count();++i) {
+  if(strcmp(reinterpret_cast<XmlNameSlotList *>(parser)->tagAt(i),"Name")==0)
+   reinterpret_cast<StringBase<char> *>(&name)->set(reinterpret_cast<XmlNameSlotList *>(parser)->nameAt(i));
+ }
+ int item=reinterpret_cast<XmlNameSlotList *>(parser)->finish();
+ if(item!=1)return;
+ bool isConditions=strcmp(parser->getTailEAN(),"Conditions")==0;
+ if(!isConditions)return;
+ item=reinterpret_cast<XmlNameSlotList *>(parser)->finish();
+ if(item!=3)return;
+ const char *text=parser->getTailEAN();
+ try {
+  AsciiString conditions(text);
+  ObjectStatusWords required,excluded;
+  excluded.flip();
+  reinterpret_cast<Rva003339CE *>(&required)->rva00334506(conditions);
+  reinterpret_cast<Rva003339CE *>(&excluded)->rva00334506(conditions);
+  excluded.flip();
+  Rva00332FC1 record(*reinterpret_cast<BfmeObject872Header *>(&required),*reinterpret_cast<BfmeObject872Header *>(&excluded));
+  reinterpret_cast<EventFlagEntry *>(&record)->setKeyFromName(name.str());
+  bool found=false;
+
+  for(Rva00336AECElement *it=((_STL::vector<Rva00336AECElement> &)m_objectStatusEvents).begin();it!=((_STL::vector<Rva00336AECElement> &)m_objectStatusEvents).end();++it) {
+   if(record.rva00332FE7(*reinterpret_cast<Rva00332FC1 *>(it))) {found=true;break;}
+  }
+  if(!found)((_STL::vector<Rva00336AECElement> &)m_objectStatusEvents).push_back(*reinterpret_cast<Rva00336AECElement *>(&record));
+  else return;
+ } catch(...) {}
+ if(reinterpret_cast<XmlNameSlotList *>(parser)->finish()==2)reinterpret_cast<XmlNameSlotList *>(parser)->finish();
+}
+
+// tu-skeleton: 0x00337055 6B (unledgered) -- unmatched, no code, never credited
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectEnterFearRampageState.cpp
+
+//
+// Two adjacent Lua object-state callbacks: ObjectEnterFearState 0x00337092
+// (153B) and ObjectEnterRampageState 0x0033712B (134B).
+// TARGET FACTS: each body is named by its registration (Fear 0x00338554,
+// Rampage 0x003385E1), lua_pushcclosure
+// (row @0x00747640) of the body's address followed by lua_setglobal (row
+// @0x00747920) of the name string. Both resolve objects with the rowed
+// Rva00990030Lookup / lua_type / findObjectByID sequence, then drive the
+// object's AIUpdateInterface (Object +0x258) through the rowed command
+// helpers on its +0x20 command interface: 0x00336B23 (object, source) and
+// 0x00336B88 (source). Rampage first refuses an object whose physics
+// (Object +0x25C) has its +0x5C flag set, calls slot 0x94 of the body module
+// (Object +0x254) with 1, and leaves a temporary AI state through the rowed
+// 0x002632C7 / 0x002632E1 pair.
+// DONOR FACTS: Open-BFME-1 (6583b3c1) registers both names but holds no
+// body; the body-module slot 0x94 view is the one ObjectSetDelayedDeath's
+// Nothing here names the +0x3C4 AI flag or the physics +0x5C flag.
+
+// ?ObjectEnterFearState@@YAHPAUlua_State@@@Z
+int ObjectEnterFearState( lua_State *state )
+{
+	unsigned id = Rva00990030Lookup( (Rva00990030Range *)state, 1 );
+	if( !id && lua_type( state, 1 ) != 1 )
+		return 0;
+	Object *object = TheGameLogic->findObjectByID( (ObjectID)id );
+	if( !object )
+		return 0;
+	unsigned sourceID = Rva00990030Lookup( (Rva00990030Range *)state, 2 );
+	// Retail checks argument 1 again here, not argument 2.
+	if( !sourceID && lua_type( state, 1 ) != 1 )
+		return 0;
+	Object *source = TheGameLogic->findObjectByID( (ObjectID)sourceID );
+	if( !source )
+		return 0;
+	bool flag = Rva00990210Lookup( (Rva00990210Range *)state, 3 ) != 0;
+	AIUpdateInterface *ai = object->m_ai;
+	if( ai )
+	{
+		((Rva00336B23 *)ai->m_commandInterface)->rva00336B23( source, CMD_FROM_SCRIPT );
+		ai->m_flag3C4 = flag;
+	}
+	return 0;
+}
+
+// ?ObjectEnterRampageState@@YAHPAUlua_State@@@Z
+int ObjectEnterRampageState( lua_State *state )
+{
+	unsigned id = Rva00990030Lookup( (Rva00990030Range *)state, 1 );
+	if( !id && lua_type( state, 1 ) != 1 )
+		return 0;
+	Object *object = TheGameLogic->findObjectByID( (ObjectID)id );
+	if( !object )
+		return 0;
+	PhysicsBehavior *physics = object->m_physics;
+	if( physics && physics->m_5C )
+		return 0;
+	Rva002E9F70Vtbl94 *body = object->m_body;
+	if( !body )
+		return 0;
+	body->v37call( true );
+	AIUpdateInterface *ai = object->m_ai;
+	if( ai )
+	{
+		if( ai->rva002632C7Bool() )
+			ai->rva002632E1();
+		((Rva00336B88 *)ai->m_commandInterface)->rva00336B88( CMD_FROM_SCRIPT );
+	}
+	return 0;
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva003371B1Dtor.cpp
+
+// ??1Rva003371B1@@QAE@XZ @ 0x003372B7 (53B): non-virtual dtor of 20-byte record with AsciiString at +0 and vector at +8 via rowed 0x003321D8 and releaseBuffer 0x00036410. Evidence: pin ??1Rva003371B1, prev copy 0x003371B1 layout, _Destroy caller 0x003376DA and Insert callers.
+
+Rva003371B1::~Rva003371B1()
+{
+}
+
+// tu-skeleton: 0x003372EC 39B ??0Rva002E9E70@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Rva002E9E70Copy.cpp (not merged yet)
+
+// tu-skeleton: 0x00337340 38B ??$__uninitialized_copy@PAVRva003371B1@@PAV1@@_STL@@YAPAVRva003371B1@@PAV1@00ABU__false_type@0@@Z -- matched in Code/GameEngine/Source/Common/Rva003371B1UninitCopy.cpp (not merged yet)
+
+// tu-skeleton: 0x00337366 37B ??$__uninitialized_fill_n@PAVRva003371B1@@IV1@@_STL@@YAPAVRva003371B1@@PAV1@IABV1@ABU__false_type@0@@Z -- matched in Code/GameEngine/Source/Common/Rva003371B1FillN.cpp (not merged yet)
+
+// tu-skeleton: 0x003373D9 75B ??$swap@US4SortElem20@@@_STL@@YAXAAUS4SortElem20@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_introsort_loop_s4sortelem20.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva00337424Insert.cpp
+
+// ?Rva00337424Insert@@YAXPAVRva002E9E70@@VRva003371B1@@H@Z @0x00337424 85B sorted insert.
+// Evidence: retail 85B EH with __EH_prolog FuncInfo 0x00B7C304; callees rowed copy ctor 0x003372EC and StringBase compare 0x000069D6 plus pin dtor 0x003372B7; callers 0x00337570 and 0x0033786F; prev/next 0x0033738B and 0x00337501 in Rva0033738BCopy.cpp.
+
+void Rva00337424Insert(Rva002E9E70 *pos, Rva003371B1 value, int unused)
+{
+	Rva002E9E70 *probe = pos - 1;
+	while (((const StringBase<char> &)value.m_str).compare((const StringBase<char> &)((Rva002E9E70 *)probe)->m_name) < 0)
+	{
+		__assume(pos != 0);
+		new (pos) Rva002E9E70(*probe);
+		pos = probe;
+		--probe;
+	}
+	__assume(pos != 0);
+	new (pos) Rva002E9E70(*(const Rva002E9E70 *)&value);
+}
+
+// tu-skeleton: 0x00337550 5B ??$iter_swap@PAUS4SortElem20@@PAU1@@_STL@@YAXPAUS4SortElem20@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_introsort_loop_s4sortelem20.cpp (not merged yet)
+
+// tu-skeleton: 0x00337555 46B ??$__unguarded_insertion_sort_aux@PAUS4SortElem20@@U1@US4Cmp002EB8E0@@@_STL@@YAXPAUS4SortElem20@@00US4Cmp002EB8E0@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_unguarded_insertion_sort_s4sortelem20.cpp (not merged yet)
+
+// tu-skeleton: 0x00337583 9B ??$_Destroy@VRva003371B1@@@_STL@@YAXPAVRva003371B1@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
+
+// tu-skeleton: 0x00337655 101B ??$__unguarded_partition@PAUS4SortElem20@@U1@US4Cmp002EB8E0@@@_STL@@YAPAUS4SortElem20@@PAU1@0U1@US4Cmp002EB8E0@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_unguarded_partition_s4sortelem20.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_unguarded_insertion_sort_s4sortelem20b.cpp
+
+//
+// ?__unguarded_insertion_sort@PAUS4SortElem20@@US4Cmp002EB8E0@@@_STL@@YAXPAUS4SortElem20@@0US4Cmp002EB8E0@@@Z @ 0x003376BA (23B). Calls __unguarded_insertion_sort_aux with a null value-type tag.
+// Evidence: pin ??$__unguarded_insertion_sort@PAUS4SortElem20@@US4Cmp002EB8E0@@@_STL@@YAXPAUS4SortElem20@@0US4Cmp002EB8E0@@@Z; callee __unguarded_insertion_sort_aux 0x00337555 rowed; caller __final_insertion_sort matched; donor Open-BFME-1 stlport_unguarded_insertion_sort_s4sortelem20.cpp revision 6d9434269164392c5ba62aaa7c15a86b5b020d76.
+
+// tu-skeleton: 0x003376D1 25B ??$_Destroy@PAVRva003371B1@@@_STL@@YAXPAVRva003371B1@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorPushBackSiblings.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva00337819Insert.cpp
+
+// ?Rva00337819Insert@@YAXPAVRva002E9E70@@0VRva003371B1@@H@Z @0x00337819 118B sorted-range insert.
+// Evidence: retail 118B EH with __EH_prolog FuncInfo 0x00B7C328; callees rowed StringBase compare 0x000069D6 and Rva002E9E70 copy 0x003372EC and Rva003371B1 copy 0x003371B1 and Rva003377A1Copy 0x003377A1 plus pin dtor 0x003372B7 and just-landed insert 0x00337424; caller 0x00337985.
+
+void Rva00337819Insert(Rva002E9E70 *first, Rva002E9E70 *last, Rva003371B1 value, int unused)
+{
+	if (((const StringBase<char> &)value.m_str).compare((const StringBase<char> &)first->m_name) < 0)
+	{
+		Rva003377A1Copy(first, last, last + 1);
+		__assume(first != 0);
+		new (first) Rva002E9E70(*(const Rva002E9E70 *)&value);
+	}
+	else
+	{
+		Rva00337424Insert(last, value, unused);
+	}
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva003378D0DestroyFree.cpp
+
+Rva003378D0::~Rva003378D0()
+{
+	_STL::_Destroy(m_start, m_finish);
+}
+
+// tu-skeleton: 0x0033790F 51B ?erase@?$vector@VRva003371B1@@V?$allocator@VRva003371B1@@@_STL@@@_STL@@QAEPAVRva003371B1@@PAV3@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp (not merged yet)
+
+// tu-skeleton: 0x00337942 30B ?_M_clear@?$vector@VRva003371B1@@V?$allocator@VRva003371B1@@@_STL@@@_STL@@IAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorPushBackSiblings.cpp (not merged yet)
+
+// tu-skeleton: 0x003379FD 165B ??0LuaScriptEngine@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineCtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine_Unresolved.cpp
+
+// Split from LuaScriptEngine.cpp: these definitions reference a callee with no matched body yet,
+// so they are kept apart from the unit's bodies that already link.
+//
+// Lua callbacks of BFME2's LuaScriptEngine.cpp: the file-name literal the two
+// random-number bindings pass (VA 0x00C0DE00) reads
+// "C:\projects\bfme2patch103\bfme2\Code\GameEngine\Source\GameLogic\
+// ScriptEngine\LuaScriptEngine.cpp", and every body here is named by its
+// registration: lua_pushcclosure (row @0x00747640) of the body's address
+// followed by lua_setglobal (row @0x00747920) of the name string. The
+// CurDrawable* names come from the drawable registration block
+// (0x00335DC3..0x00335FB8), GetRandomNumber from the game registration at
+// 0x00338782.
+//
+// Donor: Open-BFME-1 game/GameEngine/Source/GameLogic/ScriptEngine/
+// LuaScriptEngine.cpp (revision 6583b3c1), which holds the BFME1 forms of
+// GetClientRandomNumberReal, CurDrawableIsCurrentTargetKindof,
+// CurDrawablePrevAnimationState and CurDrawablePrevAnimation. Target facts:
+// the per-drawable Lua context sits at +0x9C of the Lua state global
+// (+0x78 in BFME1), its drawable at +0x0C; the rest is read from the
+// retail bodies, as noted per field.
+
+LuaScriptEngine::~LuaScriptEngine()
+{
+	if (m_luaState != 0)
+	{
+		lua_close(m_luaState);
+		m_luaState = 0;
+	}
+	if (m_lua10 != 0)
+	{
+		lua_close(m_lua10);
+		m_lua10 = 0;
+	}
+ if(m_objectStatusEvents) Rva00030830GameFree(m_objectStatusEvents);
+}
+
+// tu-skeleton: 0x00337B4C 11B ?clear@?$vector@VRva003371B1@@V?$allocator@VRva003371B1@@@_STL@@@_STL@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VectorClearInstances.cpp (not merged yet)
+
+// tu-skeleton: 0x00337B57 183B ?_M_insert_overflow@?$vector@VRva003371B1@@V?$allocator@VRva003371B1@@@_STL@@@_STL@@IAEXPAVRva003371B1@@ABV3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
+
+// tu-skeleton: 0x00337CEA 55B ?push_back@?$vector@VRva003371B1@@V?$allocator@VRva003371B1@@@_STL@@@_STL@@QAEXABVRva003371B1@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorPushBackSiblings.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00337D21.cpp
+
+// tu-skeleton: 0x00337DEF 187B ?rva00337DEF@LuaScriptEngine@@QAEPAURva00336283Element@@ABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineRva00337DEF.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineProcessEventList.cpp
+
+//
+// ?ProcessEventList@LuaScriptEngine@@QAEXPAVBfmeLexEAN@@@Z
+// retail 0x00337EAA..0x003381C4 (794 bytes, ret 4).
+// LuaScriptEngine::ProcessEventList: WorldBuilder's twin (va 0xC01930) is
+// named by LuaScriptEngine.cpp's own asserts (lines 1233..1256) and runs the
+// same Name/Inherit attribute scan / EventHandler loop with EventName
+// ScriptFunctionName and DebugSingleStep attributes / lua_getglobal plus
+// lua_type checks / merge-or-push_back into the event-list vector. Its only
+// caller is the matched ProcessSageElement (0x003381C4) for the "EventList"
+// tag beside its sibling ProcessEventsElement; the parser type BfmeLexEAN
+// follows those two rows. WB's "Method ... in event list" debug output and
+// the item==ELEM_END assert are compiled out of retail (the first finish()
+// result after an EventHandler is discarded).
+// Engine layout from retail accesses: lua_State at +0x0C / dirty flag at
+// +0xAC / vector of 20-byte event lists at +0xB0 / keep-open flag at +0xD8.
+// Callee spellings follow their rows or pins: record ctor 0x003323AD /
+// base assign 0x003323D2 / add handler 0x0033269B / dtor 0x003372B7 /
+// assign 0x003372EC / push_back 0x00337CEA / lookup 0x00337DEF; handler
+// entry dtor 0x0029D7C2 (pinned ??1Rva002DFC30) is reached from the unwind
+// funclet.
+
+void LuaScriptEngine::ProcessEventList(BfmeLexEAN *parser)
+{
+	XmlNameSlotList *xml = (XmlNameSlotList *)parser;
+	AsciiString name;
+	AsciiString inherit;
+	for (int i = 0; i < xml->count(); ++i)
+	{
+		const char *value = xml->nameAt(i);
+		if (strcmp(xml->tagAt(i), "Name") == 0)
+			name = value;
+		else if (strcmp(xml->tagAt(i), "Inherit") == 0)
+			inherit = value;
+	}
+
+	Rva003371B1 record(name);
+	int item = xml->finish();
+	Rva00336283Element *base = rva00337DEF(inherit);
+	if (base)
+		*(Rva002E17F0 *)&record = *(Rva002E17F0 *)base;
+
+	bool done = false;
+	while (!done && item != 0)
+	{
+		switch (item)
+		{
+		case 1:
+		{
+			const char *element = parser->getTailEAN();
+			if (strcmp(element, "EventHandler") != 0)
+				return;
+			{
+				AsciiString eventName;
+				AsciiString functionName;
+				bool debugSingleStep = false;
+				for (int i = 0; i < xml->count(); ++i)
+				{
+					const char *value = xml->nameAt(i);
+					if (strcmp(xml->tagAt(i), "EventName") == 0)
+						eventName = value;
+					else if (strcmp(xml->tagAt(i), "ScriptFunctionName") == 0)
+						functionName = value;
+					else if (strcmp(xml->tagAt(i), "DebugSingleStep") == 0)
+						debugSingleStep = strcmp(value, "true") == 0;
+				}
+				if (!eventName.isEmpty() && !functionName.isEmpty())
+				{
+					lua_getglobal(m_luaState, functionName.str());
+					if (lua_type(m_luaState, -1) != 5)
+					{
+						AsciiString error;
+						if (lua_type(m_luaState, -1) == 1)
+							error = " is not defined.";
+						else
+							error = " is not a lua function.";
+					}
+					lua_settop(m_luaState, -2);
+					Rva002DFC30 entry;
+					entry.m_key = TheNameKeyGenerator->nameToKey(eventName);
+					entry.m_function = functionName;
+					entry.m_debugSingleStep = debugSingleStep;
+					((Rva0033269B *)&record)->rva0033269B(*(const BfmeStringRecord000331962 *)&entry);
+				}
+				item = xml->finish();
+			}
+			break;
+		}
+		case 2:
+			done = true;
+			break;
+		default:
+			return;
+		}
+		if (!done)
+			item = xml->finish();
+	}
+
+	m_sorted = false;
+	if (m_keepOpen)
+	{
+		for (Rva003371B1 *it = ((_STL::vector<Rva003371B1> &)m_eventLists).begin(); it != ((_STL::vector<Rva003371B1> &)m_eventLists).end(); ++it)
+		{
+			if (((const StringBase<char> *)&record)->compare(*(const StringBase<char> *)it) == 0)
+			{
+				*it = record;
+				return;
+			}
+		}
+	}
+	((_STL::vector<Rva003371B1> &)m_eventLists).push_back(record);
+}
+
+// ?getTailEAN@BfmeLexEAN@@QAEPADXZ
+// retail 0x0030F2C7 (4 bytes): the shared this+0x1C dword getter, ICF-folded
+// with the rowed NetWrapperCommandMsg::getData; defined out of line here so the
+// unit links the spelling its caller uses.
+__declspec(noinline) char *BfmeLexEAN::getTailEAN()
+{
+	return m_tail;
+}
+
+// tu-skeleton: 0x00338317 1221B ?rva00338317RegisterScriptFunctions@LuaScriptEngine@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/openLuaLibraries.cpp (not merged yet)
+
 // tu-skeleton: 0x0077C077 8B Unwind@00b7c077 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineRegisterObject.cpp (not merged yet)
 
 // tu-skeleton: 0x0077C07F 10B __ehhandler$?PushObjectTable@LuaScriptEngine@@QAEXPAUlua_State@@PAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineRegisterObject.cpp (not merged yet)
-
-// tu-skeleton: 0x0077C089 8B $L1223 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineRunBuffer.cpp (not merged yet)
-
-// tu-skeleton: 0x0077C091 25B uw_0077c091 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineRunBuffer.cpp (not merged yet)
-
-// tu-skeleton: 0x0077C0AA 10B __ehhandler$?rva00334133@LuaScriptEngine@@QAE?AVAsciiString@@PBDKPAURva00334133Context@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineRunBuffer.cpp (not merged yet)
-
-// tu-skeleton: 0x0077C0B4 10B uw_0077c0b4 -- matched in Code/GameEngine/Source/Common/LuaScriptEngineEvaluateCondition.cpp (not merged yet)
-
-// tu-skeleton: 0x0077C0BE 10B __ehhandler$?EvaluateCondition@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/Common/LuaScriptEngineEvaluateCondition.cpp (not merged yet)
-
-// tu-skeleton: 0x0077C0C8 10B uw_0077c0c8 -- matched in Code/GameEngine/Source/Common/LuaScriptEngineExecuteAction.cpp (not merged yet)
-
-// tu-skeleton: 0x0077C0D2 10B __ehhandler$?ExecuteAction@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/Common/LuaScriptEngineExecuteAction.cpp (not merged yet)
-
-// tu-skeleton: 0x0077C195 8B Unwind@00b7c195 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineHordeBroadcastEventToMembers.cpp (not merged yet)
-
-// tu-skeleton: 0x0077C19D 8B Unwind@00b7c19d -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineHordeBroadcastEventToMembers.cpp (not merged yet)
-
-// tu-skeleton: 0x0077C1A5 10B __ehhandler$?HordeBroadcastEventToMembers@LuaScriptEngine@@SAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineHordeBroadcastEventToMembers.cpp (not merged yet)
 
 // tu-skeleton: 0x0077C1C1 8B Unwind@00b7c1c1 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectCountNearbyEnemies.cpp (not merged yet)
 
@@ -3415,58 +5081,16 @@ void LuaScriptEngine::rva003387DC(const AsciiString &mapName)
 
 // tu-skeleton: 0x0077C243 10B __ehhandler$?ObjectBroadcastEventToCivilians@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectBroadcastEvent.cpp (not merged yet)
 
-// tu-skeleton: 0x0077C28C 8B Unwind@00b7c28c -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineParseModelConditionEvent.cpp (not merged yet)
-
-// tu-skeleton: 0x0077C294 8B Unwind@00b7c294 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineParseModelConditionEvent.cpp (not merged yet)
-
-// tu-skeleton: 0x0077C29C 10B __ehhandler$?rva002E9680ParseModelConditionEvent@LuaScriptEngine@@QAEXPAVBfmeLexEAN@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineParseModelConditionEvent.cpp (not merged yet)
-
-// tu-skeleton: 0x0077C2A6 8B $L5120 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineParseObjectStatusEvent.cpp (not merged yet)
-
-// tu-skeleton: 0x0077C2AE 8B $L5121 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineParseObjectStatusEvent.cpp (not merged yet)
-
-// tu-skeleton: 0x0077C2B6 10B __ehhandler$?rva002E9AA0ParseObjectStatusEvent@LuaScriptEngine@@QAEXPAVBfmeLexEAN@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineParseObjectStatusEvent.cpp (not merged yet)
-
 // tu-skeleton: 0x0077C2EA 8B $L4590 -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_introsort_loop_s4sortelem20.cpp (not merged yet)
 
 // tu-skeleton: 0x0077C2F2 10B __ehhandler$??$swap@US4SortElem20@@@_STL@@YAXAAUS4SortElem20@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_introsort_loop_s4sortelem20.cpp (not merged yet)
-
-// tu-skeleton: 0x0077C2FC 8B uw_0077c2fc -- matched in Code/GameEngine/Source/Common/Rva00337424Insert.cpp (not merged yet)
-
-// tu-skeleton: 0x0077C304 10B __ehhandler$?Rva00337424Insert@@YAXPAVRva002E9E70@@VRva003371B1@@H@Z -- matched in Code/GameEngine/Source/Common/Rva00337424Insert.cpp (not merged yet)
 
 // tu-skeleton: 0x0077C344 8B $L7273 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0077C34C 10B __ehhandler$??0LuaScriptEngine@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0077C356 8B $L6388 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine_Unresolved.cpp (not merged yet)
-
-// tu-skeleton: 0x0077C35E 14B $L6389 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine_Unresolved.cpp (not merged yet)
-
-// tu-skeleton: 0x0077C36C 14B uw_0077c36c -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine_Unresolved.cpp (not merged yet)
-
-// tu-skeleton: 0x0077C37A 14B $L6391 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine_Unresolved.cpp (not merged yet)
-
-// tu-skeleton: 0x0077C388 10B __ehhandler$??1LuaScriptEngine@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine_Unresolved.cpp (not merged yet)
-
 // tu-skeleton: 0x0077C392 8B uw_0077c392 -- matched in Code/gen_small/uw_gen_001.cpp (not merged yet)
 
 // tu-skeleton: 0x0077C39A 10B __ehhandler$?rva00337DEF@LuaScriptEngine@@QAEPAURva00336283Element@@ABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineRva00337DEF.cpp (not merged yet)
-
-// tu-skeleton: 0x0077C3A4 8B Unwind@00b7c3a4 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineProcessEventList.cpp (not merged yet)
-
-// tu-skeleton: 0x0077C3AC 8B Unwind@00b7c3ac -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineProcessEventList.cpp (not merged yet)
-
-// tu-skeleton: 0x0077C3B4 8B uw_0077c3b4 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineProcessEventList.cpp (not merged yet)
-
-// tu-skeleton: 0x0077C3BC 8B Unwind@00b7c3bc -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineProcessEventList.cpp (not merged yet)
-
-// tu-skeleton: 0x0077C3C4 8B Unwind@00b7c3c4 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineProcessEventList.cpp (not merged yet)
-
-// tu-skeleton: 0x0077C3CC 8B Unwind@00b7c3cc -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineProcessEventList.cpp (not merged yet)
-
-// tu-skeleton: 0x0077C3D4 8B Unwind@00b7c3d4 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineProcessEventList.cpp (not merged yet)
-
-// tu-skeleton: 0x0077C3DC 10B __ehhandler$?ProcessEventList@LuaScriptEngine@@QAEXPAVBfmeLexEAN@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineProcessEventList.cpp (not merged yet)
 
 // tu-skeleton: 0x0077C3E6 11B uw_0077c3e6 -- matched in Code/gen_small/uw_gen_005.cpp (not merged yet)
