@@ -30,18 +30,22 @@ class ModuleData;
 #include "../../../../../Libraries/Include/Lib/Coord3DInline.h"
 #include "../../../../../Libraries/Include/Lib/Coord3DBase.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
+#include "../../../Common/Thing/thing.h"
+// Thing supplies the cached position at +0x38.
 enum ObjectStatusTypes { OBJECT_STATUS_NONE=0 };
-class Object
+enum PathfindLayerEnum {GROUND_LAYER=0,BRIDGE_LAYER=1};
+class Object : public Thing
 {
 public:
-	unsigned char m_pad[0x38];
-	Coord3D m_pos; // +0x38
-	unsigned char m_pad44[0x74-0x44];
+	unsigned char m_pad60[0x74 - 0x60];
 	ObjectID m_id; // +0x74
-	void setStatus(ObjectStatusTypes,bool);
+	void setStatus(ObjectStatusTypes, bool);
+	int rva0028B511() const;
+	void setLayer(PathfindLayerEnum);
 };
 // The virtual layout below is MissileUpdateDtor.cpp's, slot for slot: both
 // units emit the MissileUpdate vftable COMDATs and the copies must agree.
+enum UpdateSleepTime {UPDATE_SLEEP_NONE=1,UPDATE_SLEEP_FOREVER=0x3fffffff};
 class Xfer;
 enum NameKeyType
 {
@@ -52,7 +56,7 @@ enum NameKeyType
 // still names a body this unit defines.
 class Rva004A76DEBase0 { public: virtual ~Rva004A76DEBase0(); virtual NameKeyType getModuleNameKey() const; protected: virtual void xfer(Xfer *xfer); public: const ModuleData *m_moduleData; Object *m_object; };
 class Rva004A76DEBase1 { public: virtual ~Rva004A76DEBase1(); };
-class Rva004A76DEBase2 { public: virtual ~Rva004A76DEBase2(); unsigned char m_pad[12]; };
+class Rva004A76DEBase2 { public: virtual UpdateSleepTime update() = 0; virtual ~Rva004A76DEBase2(); unsigned char m_pad[12]; };
 // Native +0x20/C53548 and +0x24/C53530 are six-slot projectile
 // interfaces, not destructor interfaces. Preserve their existing view names
 // while describing every populated slot. Existing providers and exact folded
@@ -226,6 +230,7 @@ class BezierProjectileBehavior : public Rva004A76DEBase0, public Rva004A76DEBase
 public:
 	BezierProjectileBehavior(Thing *thing, const ModuleData *moduleData);
 	virtual ~BezierProjectileBehavior();
+	virtual UpdateSleepTime update();
  virtual void projectileLaunchAtObjectOrPosition(Object *, const Coord3D *, Object *, int, int, const Rva0045B936Arg *, Rva002CBA7C *, const Matrix3D *);
  virtual bool rva0045CD6E(Object *);
  virtual void rva0045B4C0(Object *, int, int);
@@ -245,6 +250,11 @@ class MissileUpdate : public BezierProjectileBehavior
 {
 public:
 	MissileUpdate(Thing *thing, const ModuleData *moduleData);
+	virtual UpdateSleepTime update();
+	void copyPosition(const Coord3D &p) { m_prevPos = p; }
+	void state0() {}
+	void state5() {}
+	Object *getObject() const { return m_object; }
  virtual void projectileLaunchAtObjectOrPosition(Object *, const Coord3D *, Object *, int, int, const Rva0045B936Arg *, Rva002CBA7C *, const Matrix3D *);
  virtual unsigned char rva004A768A() const;
  virtual int getLauncherID() const;
@@ -276,12 +286,12 @@ private:
 	}
 
 
-	int m_88; // +0x88
+	int m_state; // +0x88
 	unsigned int m_frame; // +0x8C (TheGameLogic frame)
 	ObjectID m_90; // +0x90 (launcher)
 	ObjectID m_94; // +0x94 (victim)
 	unsigned int m_98; // +0x98
-	float m_9C; // +0x9C (module data +0xCC)
+	float remaining; // +0x9C (module data +0xCC)
 	Coord3D m_velA; // +0xA0
 	Coord3D m_prevPos; // +0xAC (the object's position at +0x38)
 	Coord3D m_velB; // +0xB8
@@ -334,15 +344,15 @@ private: char unknown[0x0C]; unsigned int value;
 MissileUpdate::MissileUpdate(Thing *thing, const ModuleData *moduleData) :
 	BezierProjectileBehavior(thing, moduleData)
 {
-	m_88 = 0;
+	m_state = 0;
 	m_frame = TheGameLogic->getFrame();
 	const MissileUpdateModuleData *data = getMissileUpdateModuleData();
 	m_90 = INVALID_OBJECT_ID;
 	m_94 = INVALID_OBJECT_ID;
 	m_CD = false;
 	m_98 = 0;
-	m_9C = data->m_unkCC;
-	m_prevPos = m_object->m_pos;
+	remaining = data->m_unkCC;
+	m_prevPos = m_object->m_cachedPos;
 	m_CC = false;
 	m_C8 = 0;
 	m_C4 = 0;
@@ -363,9 +373,9 @@ void MissileUpdate::Rva004A7512Clear()
 
 void MissileUpdate::Rva004A7530Set(int val)
 {
-	if (m_88 != val)
+	if (m_state != val)
 	{
-		m_88 = val;
+		m_state = val;
 		m_frame = TheGameLogic->getFrame();
 	}
 }
@@ -418,7 +428,7 @@ void MissileUpdate::rva004A7A86(int)
 		}
 		Rva004A7512Clear();
 	}
-	if (m_9C <= 0.0f)
+	if (remaining <= 0.0f)
 	{
 		Rva004A7530Set(4);
 		m_CC = true;
@@ -522,7 +532,7 @@ void MissileUpdate::projectileFireAtObjectOrPosition(Object *victim, const Coord
 	BezierProjectileBehavior::projectileFireAtObjectOrPosition(victim, victimPos);
 	Rva004A7530Set(1);
 	m_CC = false;
-	m_prevPos = m_object->m_pos;
+	m_prevPos = m_object->m_cachedPos;
 }
 
 void MissileUpdate::projectileLaunchAtObjectOrPosition(Object *victim, const Coord3D *pos, Object *launcher, int wslot, int barrel, const Rva0045B936Arg *arg, Rva002CBA7C *helper, const Matrix3D *matrix)
@@ -591,12 +601,12 @@ void MissileUpdate::xfer(Xfer *xfer)
 	XferObjectID(xfer, &m_94);
 	*xfer == m_CD;
 	*xfer == m_98;
-	*xfer == m_9C;
+	*xfer == remaining;
 	*xfer == m_CE;
 	*xfer == m_CC;
 	*xfer == asBase(m_prevPos);
 	*xfer == m_C4;
-	xfer->XferRawBytes(&m_88, sizeof(m_88));
+	xfer->XferRawBytes(&m_state, sizeof(m_state));
 	xfer->XferRawBytes(&m_C8, sizeof(m_C8));
 }
 
