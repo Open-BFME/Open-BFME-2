@@ -1,0 +1,11 @@
+# ArmySummary vector native helper closure (2026-10-31)
+
+The Oct28 bank is refreshed at322fdc4ea4. Four private sources preserve all64 current rows and three primary EXACT EH graphs. Nine independently emitted native helper definitions have complete byte/relocation proof. ArmySummary identity is established separately by its existing copy40E96D/destructor40E499/assignment40EAED call chain and104-byte stride; equal bytes do not establish a name or global type equivalence.
+
+The old bank's pin-admission barrier is resolved through normal add_match --icf-owner admissions for complete independently emitted bodies, preserving existing helper owners. No second-name pin, object-symbol or gen-alias is added. The native copy38B at3F417E calls existing Construct3B8AD8; backward50B at3F41BE and fill29B at3F4146 call existing ArmySummary assignment. Typed native definitions coexist with the old native providers until their callers migrate. All nine are normally byte-verified on admission.
+
+A first withdrawal attempt was correctly refused by the hook because Resize and the POD-vector push_back would lose two target identities. No commit was made; all attempted withdrawal changes were restored. The supported sequence now admits typed native equivalents while retaining the old providers, then migrates the resize caller and removes only the obsolete Rva003F53DAElement definitions. The legitimate BfmePod104 and BfmeAssignRecord104 providers remain available to their existing callers. No verification bypass or temporary new pin is used.
+
+One additional imported-inline placement-copy adapter in the /Ob0 fill unit removes a wrong56-byte local Construct while preserving its call to the existing45-byte native owner at3B8AD8. A direct-constructor trial emitted14B and was rejected. Original64 rows, the nine native definitions and native helper callees remain exact. This adapter is an ABI-level pointer view, not a claim that the placeholder provider's C++ layout is ArmySummary.
+
+Private funclets are identified only through exact native parent EH graphs. Final ordinary ledger-aware build, EH, DIR32, identity and provider/consumer checks are required after migration. No unique C++ or census gain is claimed. Census scope from prior322fdc4ea4 still includes the older-index/missing-current CreateAHeroManager consumer receipt.

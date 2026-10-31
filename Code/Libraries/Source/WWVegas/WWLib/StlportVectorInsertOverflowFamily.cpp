@@ -199,6 +199,12 @@ struct BfmeContainerRecord002CF46E { char m_pad[12]; public: BfmeContainerRecord
 namespace _STL { struct Rva007719C0Element { char m_pad[8]; public: Rva007719C0Element(const Rva007719C0Element &); ~Rva007719C0Element(); }; }
 // 104-byte element; push_back 0x003B9369.
 struct BfmePod104 { char m_pad[104]; public: BfmePod104(const BfmePod104 &); ~BfmePod104(); };
+// vector<ArmySummary>: its overflow 0x003B9184 is reached from the push_back
+// 0x003B9369 (rowed over BfmePod104 in stlport_pod_vector_bodies.cpp) and from
+// vector<ArmySummary>::_M_fill_insert 0x003F53DA (StlSweepW4Rva003F53DA.cpp).
+// Its helpers are rowed over the BfmePod104 / BfmeAssignRecord104 spellings,
+// so the forwarders below bind them by those names.
+class ArmySummary { public: ArmySummary(const ArmySummary &); virtual ~ArmySummary(); private: char m_fields[0x64]; };
 // 16-byte element; push_back 0x0032D2EA.
 class BfmeThingUBB { char m_pad[16]; public: BfmeThingUBB(const BfmeThingUBB &); ~BfmeThingUBB(); };
 // 4-byte element; push_back 0x005E825C.
@@ -298,6 +304,13 @@ template <> void _Construct<BfmeContainerRecord002CF46E, BfmeContainerRecord002C
 template <> __declspec(dllimport) __forceinline void _Construct<_STL::Rva007719C0Element, _STL::Rva007719C0Element>(_STL::Rva007719C0Element *__p, const _STL::Rva007719C0Element &__val)
 { Rva000BBA47Construct(reinterpret_cast<TreeKey00242F5E *>(__p), *reinterpret_cast<const TreeKey00242F5E *>(&__val)); }
 template <> void _Construct<BfmePod104, BfmePod104>(BfmePod104 *, const BfmePod104 &);
+// Retail calls the rowed allocator<BfmePod104>::allocate 0x0040A673
+// (stlport_pod_vector_bodies.cpp) out of line.
+template <> BfmePod104 *allocator<BfmePod104>::allocate(size_t, const void *) const;
+template <> __declspec(dllimport) __forceinline ArmySummary *allocator<ArmySummary>::allocate(size_t __n, const void *__hint) const
+{ return reinterpret_cast<ArmySummary *>(reinterpret_cast<const allocator<BfmePod104> *>(this)->allocate(__n, __hint)); }
+template <> __declspec(dllimport) __forceinline void _Construct<ArmySummary, ArmySummary>(ArmySummary *__p, const ArmySummary &__val)
+{ _Construct(reinterpret_cast<BfmePod104 *>(__p), *reinterpret_cast<const BfmePod104 *>(&__val)); }
 template <> __declspec(dllimport) __forceinline void _Construct<BfmeThingUBB, BfmeThingUBB>(BfmeThingUBB *__p, const BfmeThingUBB &__val)
 { Rva0032ACEASet(reinterpret_cast<Rva00193660 *>(__p), reinterpret_cast<const Rva00193660Src *>(&__val)); }
 template <> void _Construct<Rva005E71C6Ref, Rva005E71C6Ref>(Rva005E71C6Ref *, const Rva005E71C6Ref &);
@@ -367,6 +380,7 @@ BFME_CLEAR_FORWARD(Rva005E2B0EElement, ((ClearOwner<Rva002B9062Element> *)this)-
 BFME_CLEAR_FORWARD(Rva005F13E6Element, ((Rva005F120F *)this)->rva005F120F())
 BFME_CLEAR_FORWARD(Rva007719C0Element, ((ClearOwner<CameraMarker> *)this)->_M_clear())
 BFME_CLEAR_FORWARD(BfmePod104, ((ClearOwner<BfmeAssignRecord104> *)this)->_M_clear())
+BFME_CLEAR_FORWARD(ArmySummary, ((ClearOwner<BfmeAssignRecord104> *)this)->_M_clear())
 BFME_CLEAR_FORWARD(BfmeStringRecord00395E75, ((Rva00399800 *)this)->Rva00399800::~Rva00399800())
 BFME_CLEAR_FORWARD(Rva00260B88Element, ((ClearOwner<BfmeStringRecord005DDD40> *)this)->_M_clear())
 BFME_CLEAR_FORWARD(Rva00308E2CElement, ((Rva00308C13 *)this)->Rva00308C13::~Rva00308C13())
@@ -527,8 +541,8 @@ template void _STL::vector<BfmeContainerRecord002CF46E>::_M_insert_overflow(
 template void _STL::vector<_STL::Rva007719C0Element>::_M_insert_overflow(
     _STL::Rva007719C0Element *, const _STL::Rva007719C0Element &, const _STL::__false_type &, unsigned int, bool);
 // Retail 0x003B9184.
-template void _STL::vector<BfmePod104>::_M_insert_overflow(
-    BfmePod104 *, const BfmePod104 &, const _STL::__false_type &, unsigned int, bool);
+template void _STL::vector<ArmySummary>::_M_insert_overflow(
+    ArmySummary *, const ArmySummary &, const _STL::__false_type &, unsigned int, bool);
 // Retail 0x0032CAA1.
 template void _STL::vector<BfmeThingUBB>::_M_insert_overflow(
     BfmeThingUBB *, const BfmeThingUBB &, const _STL::__false_type &, unsigned int, bool);
@@ -553,3 +567,6 @@ template void _STL::vector<BfmeStringTailRecord156>::_M_insert_overflow(
 //   0x005EB2C9 30B ?_M_clear@?$vector@UGeometryShape@@V?$allocator@UGeometryShape@@@_STL@@@_STL@@IAEXXZ
 //   0x004CC0A7 47B ??$__uninitialized_copy@PAUBfmeStringTailRecord156@@PAU1@@_STL@@YAPAUBfmeStringTailRecord156@@PAU1@00ABU__false_type@0@@Z
 //   0x004CC0D6 40B ??$__uninitialized_fill_n@PAUBfmeStringTailRecord156@@IU1@@_STL@@YAPAUBfmeStringTailRecord156@@PAU1@IABU1@ABU__false_type@0@@Z
+
+template void _STL::vector<BfmePod104>::_M_insert_overflow(
+    BfmePod104 *, const BfmePod104 &, const _STL::__false_type &, unsigned int, bool);

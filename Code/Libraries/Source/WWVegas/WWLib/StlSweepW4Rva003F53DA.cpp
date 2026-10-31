@@ -30,3 +30,35 @@ void Rva003F5724::rva003F5724(Rva003F53DAElement *position, unsigned int count, 
 {
     _M_fill_insert(position, count, value);
 }
+
+// Native ArmySummary instantiations coexist until callers migrate.
+class ArmySummary
+{
+public:
+	ArmySummary(const ArmySummary &);
+	virtual ~ArmySummary();
+	ArmySummary &operator=(const ArmySummary &);
+
+private:
+	char m_fields[0x64];
+};
+
+// Native copies use the already-owned placement-copy entry at 0x003B8AD8.
+// The imported inline adapter preserves that actual call under /Ob0.
+struct BfmePod104;
+namespace _STL {
+template <> void _Construct<BfmePod104, BfmePod104>(BfmePod104 *, const BfmePod104 &);
+template <> __declspec(dllimport) __forceinline
+void _Construct<ArmySummary, ArmySummary>(ArmySummary *destination, const ArmySummary &value)
+{ _Construct(reinterpret_cast<BfmePod104 *>(destination), *reinterpret_cast<const BfmePod104 *>(&value)); }
+}
+
+// The overflow copy's storage call binds the proxy allocate that
+// StlportVectorInsertOverflowFamily.cpp emits beside the retail overflow, so
+// the two units do not keep different copies of that unaddressed helper.
+namespace _STL {
+template <> ArmySummary *_STLP_alloc_proxy<ArmySummary *, ArmySummary, allocator<ArmySummary> >::allocate(size_t);
+}
+
+template void _STL::vector<ArmySummary, _STL::allocator<ArmySummary> >::_M_fill_insert(ArmySummary *, unsigned int, const ArmySummary &);
+template void _STL::vector<ArmySummary, _STL::allocator<ArmySummary> >::insert(ArmySummary *, unsigned int, const ArmySummary &);

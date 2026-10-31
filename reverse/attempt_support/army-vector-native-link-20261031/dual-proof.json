@@ -1,0 +1,80 @@
+{
+  "original_rows": 64,
+  "new_full_native_definitions": [
+    {
+      "name": "??$__uninitialized_fill_n@PAVArmySummary@@IV1@@_STL@@YAPAVArmySummary@@PAV1@IABV1@ABU__false_type@0@@Z",
+      "rva": "0x3b8b05",
+      "size": 37,
+      "exact_sources": [
+        "Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva003B8B05.cpp",
+        "Code/Libraries/Source/WWVegas/WWLib/StlportVectorInsertOverflowFamily.cpp"
+      ]
+    },
+    {
+      "name": "?_M_fill_insert@?$vector@VArmySummary@@V?$allocator@VArmySummary@@@_STL@@@_STL@@QAEXPAVArmySummary@@IABV3@@Z",
+      "rva": "0x3f53da",
+      "size": 258,
+      "exact_sources": [
+        "Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva003F53DA.cpp"
+      ]
+    },
+    {
+      "name": "?_M_insert_overflow@?$vector@VArmySummary@@V?$allocator@VArmySummary@@@_STL@@@_STL@@IAEXPAVArmySummary@@ABV3@ABU__false_type@2@I_N@Z",
+      "rva": "0x3b9184",
+      "size": 183,
+      "exact_sources": [
+        "Code/Libraries/Source/WWVegas/WWLib/StlportVectorInsertOverflowFamily.cpp"
+      ]
+    },
+    {
+      "name": "?insert@?$vector@VArmySummary@@V?$allocator@VArmySummary@@@_STL@@@_STL@@QAEXPAVArmySummary@@IABV3@@Z",
+      "rva": "0x3f5724",
+      "size": 5,
+      "exact_sources": [
+        "Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva003F53DA.cpp"
+      ]
+    },
+    {
+      "name": "??$uninitialized_fill_n@PAVArmySummary@@IV1@@_STL@@YAPAVArmySummary@@PAV1@IABV1@@Z",
+      "rva": "0x3f4163",
+      "size": 27,
+      "exact_sources": [
+        "Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva003F53DA.cpp",
+        "Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva003B8B05.cpp"
+      ]
+    },
+    {
+      "name": "??$__uninitialized_copy@PAVArmySummary@@PAV1@@_STL@@YAPAVArmySummary@@PAV1@00ABU__false_type@0@@Z",
+      "rva": "0x3f417e",
+      "size": 38,
+      "exact_sources": [
+        "Code/Libraries/Source/WWVegas/WWLib/StlportVectorInsertOverflowFamily.cpp"
+      ]
+    },
+    {
+      "name": "??$__copy_backward_ptrs@PAVArmySummary@@PAV1@@_STL@@YAPAVArmySummary@@PAV1@00ABU__false_type@0@@Z",
+      "rva": "0x3f447f",
+      "size": 29,
+      "exact_sources": [
+        "Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva003F53DA.cpp"
+      ]
+    },
+    {
+      "name": "??$fill@PAVArmySummary@@V1@@_STL@@YAXPAVArmySummary@@0ABV1@@Z",
+      "rva": "0x3f4146",
+      "size": 29,
+      "exact_sources": [
+        "Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva003F53DA.cpp"
+      ]
+    },
+    {
+      "name": "??$__copy_backward@PAVArmySummary@@PAV1@H@_STL@@YAPAVArmySummary@@PAV1@00ABUrandom_access_iterator_tag@0@PAH@Z",
+      "rva": "0x3f41be",
+      "size": 50,
+      "exact_sources": [
+        "Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva003F53DA.cpp"
+      ]
+    }
+  ],
+  "scope": "Original code and typed native definitions coexist without losing a caller target"
+}

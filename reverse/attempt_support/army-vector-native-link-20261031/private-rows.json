@@ -1,0 +1,452 @@
+{
+  "base": "322fdc4ea4e75378773ce9308b551d97adf4582c",
+  "renames": {
+    "??$__uninitialized_fill_n@PAUBfmePod104@@IU1@@_STL@@YAPAUBfmePod104@@PAU1@IABU1@ABU__false_type@0@@Z": "??$__uninitialized_fill_n@PAVArmySummary@@IV1@@_STL@@YAPAVArmySummary@@PAV1@IABV1@ABU__false_type@0@@Z",
+    "?_M_fill_insert@?$vector@URva003F53DAElement@@V?$allocator@URva003F53DAElement@@@_STL@@@_STL@@QAEXPAURva003F53DAElement@@IABU3@@Z": "?_M_fill_insert@?$vector@VArmySummary@@V?$allocator@VArmySummary@@@_STL@@@_STL@@QAEXPAVArmySummary@@IABV3@@Z",
+    "?_M_insert_overflow@?$vector@UBfmePod104@@V?$allocator@UBfmePod104@@@_STL@@@_STL@@IAEXPAUBfmePod104@@ABU3@ABU__false_type@2@I_N@Z": "?_M_insert_overflow@?$vector@VArmySummary@@V?$allocator@VArmySummary@@@_STL@@@_STL@@IAEXPAVArmySummary@@ABV3@ABU__false_type@2@I_N@Z",
+    "?rva003F5724@Rva003F5724@@QAEXPAURva003F53DAElement@@IABU2@@Z": "?insert@?$vector@VArmySummary@@V?$allocator@VArmySummary@@@_STL@@@_STL@@QAEXPAVArmySummary@@IABV3@@Z",
+    "??$uninitialized_fill_n@PAUBfmePod104@@IU1@@_STL@@YAPAUBfmePod104@@PAU1@IABU1@@Z": "??$uninitialized_fill_n@PAVArmySummary@@IV1@@_STL@@YAPAVArmySummary@@PAV1@IABV1@@Z"
+  },
+  "sources": [
+    {
+      "source": "Code/Libraries/Source/WWVegas/WWLib/Rva003F5A06Resize.cpp",
+      "before_sha256": "dce886694bb0ae08bfc705bd1a9411a6dd5c0bf70dde926df3331a90a94eab3a",
+      "rows": [
+        {
+          "name": "?rva003F5A06@Rva003F5A06@@QAEXIVArmySummary@@@Z",
+          "rva": "0x003F5A06",
+          "size": "108",
+          "exact": true
+        },
+        {
+          "name": "?rva003F5C4F@Rva003F5A06@@QAEXH@Z",
+          "rva": "0x003F5C4F",
+          "size": "35",
+          "exact": true
+        },
+        {
+          "name": "uw_0078402d",
+          "compiler_label": "$L390",
+          "rva": "0x0078402D",
+          "size": "8",
+          "exact": true,
+          "parent_graph_exact": true
+        },
+        {
+          "name": "__ehhandler$?rva003F5A06@Rva003F5A06@@QAEXIVArmySummary@@@Z",
+          "rva": "0x00784035",
+          "size": "10",
+          "exact": true
+        }
+      ],
+      "eh": [
+        {
+          "name": "?rva003F5A06@Rva003F5A06@@QAEXIVArmySummary@@@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ]
+    },
+    {
+      "source": "Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva003F53DA.cpp",
+      "before_sha256": "80e171ffff5f7c09ec0fd92c9a5e8e90072bbeb9b2482033e8f219481a234641",
+      "rows": [
+        {
+          "name": "?_M_fill_insert@?$vector@VArmySummary@@V?$allocator@VArmySummary@@@_STL@@@_STL@@QAEXPAVArmySummary@@IABV3@@Z",
+          "rva": "0x003F53DA",
+          "size": "258",
+          "exact": true
+        },
+        {
+          "name": "?insert@?$vector@VArmySummary@@V?$allocator@VArmySummary@@@_STL@@@_STL@@QAEXPAVArmySummary@@IABV3@@Z",
+          "rva": "0x003F5724",
+          "size": "5",
+          "exact": true
+        },
+        {
+          "name": "$L4705",
+          "compiler_label": "$L4646",
+          "rva": "0x00783FBC",
+          "size": "8",
+          "exact": true,
+          "parent_graph_exact": true
+        }
+      ],
+      "eh": [
+        {
+          "name": "?_M_fill_insert@?$vector@VArmySummary@@V?$allocator@VArmySummary@@@_STL@@@_STL@@QAEXPAVArmySummary@@IABV3@@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ]
+    },
+    {
+      "source": "Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva003B8B05.cpp",
+      "before_sha256": "6e2cfd6664442e46e7e827ddef1ff47540faf8b00abf298a754db3b147324eae",
+      "rows": [
+        {
+          "name": "??$__uninitialized_fill_n@PAVArmySummary@@IV1@@_STL@@YAPAVArmySummary@@PAV1@IABV1@ABU__false_type@0@@Z",
+          "rva": "0x003B8B05",
+          "size": "37",
+          "exact": true
+        },
+        {
+          "name": "??$uninitialized_fill_n@PAVArmySummary@@IV1@@_STL@@YAPAVArmySummary@@PAV1@IABV1@@Z",
+          "rva": "0x003F4163",
+          "size": "27",
+          "exact": true
+        }
+      ],
+      "eh": []
+    },
+    {
+      "source": "Code/Libraries/Source/WWVegas/WWLib/StlportVectorInsertOverflowFamily.cpp",
+      "before_sha256": "91c3135defde45d42251ee7f68613addf365db3f5dc48e7429347c04a825eb8d",
+      "rows": [
+        {
+          "name": "??$_Destroy@PAURva004F9018Element@@@_STL@@YAXPAURva004F9018Element@@0@Z",
+          "rva": "0x004F7E78",
+          "size": "25",
+          "exact": true
+        },
+        {
+          "name": "??$__uninitialized_copy@PAUBfmeStringTailRecord156@@PAU1@@_STL@@YAPAUBfmeStringTailRecord156@@PAU1@00ABU__false_type@0@@Z",
+          "rva": "0x004CC0A7",
+          "size": "47",
+          "exact": true
+        },
+        {
+          "name": "??$__uninitialized_fill_n@PAUBfmeStringTailRecord156@@IU1@@_STL@@YAPAUBfmeStringTailRecord156@@PAU1@IABU1@ABU__false_type@0@@Z",
+          "rva": "0x004CC0D6",
+          "size": "40",
+          "exact": true
+        },
+        {
+          "name": "?_M_clear@?$vector@UGeometryShape@@V?$allocator@UGeometryShape@@@_STL@@@_STL@@IAEXXZ",
+          "rva": "0x005EB2C9",
+          "size": "30",
+          "exact": true
+        },
+        {
+          "name": "?_M_clear@?$vector@URva00413B16Element@@V?$allocator@URva00413B16Element@@@_STL@@@_STL@@IAEXXZ",
+          "rva": "0x00413A06",
+          "size": "30",
+          "exact": true
+        },
+        {
+          "name": "?_M_clear@?$vector@URva004F9018Element@@V?$allocator@URva004F9018Element@@@_STL@@@_STL@@IAEXXZ",
+          "rva": "0x004F82ED",
+          "size": "30",
+          "exact": true
+        },
+        {
+          "name": "?_M_clear@?$vector@VCreateAHeroClass@CreateAHeroManager@@V?$allocator@VCreateAHeroClass@CreateAHeroManager@@@_STL@@@_STL@@IAEXXZ",
+          "rva": "0x0021FE2B",
+          "size": "30",
+          "exact": true
+        },
+        {
+          "name": "?_M_clear@?$vector@VRva00403927@@V?$allocator@VRva00403927@@@_STL@@@_STL@@IAEXXZ",
+          "rva": "0x004043E1",
+          "size": "30",
+          "exact": true
+        },
+        {
+          "name": "?_M_clear@?$vector@VRvaSmartPtr12@@V?$allocator@VRvaSmartPtr12@@@_STL@@@_STL@@IAEXXZ",
+          "rva": "0x0004CDAF",
+          "size": "30",
+          "exact": true
+        },
+        {
+          "name": "?_M_insert_overflow@?$vector@VArmySummary@@V?$allocator@VArmySummary@@@_STL@@@_STL@@IAEXPAVArmySummary@@ABV3@ABU__false_type@2@I_N@Z",
+          "rva": "0x003B9184",
+          "size": "183",
+          "exact": true
+        },
+        {
+          "name": "?_M_insert_overflow@?$vector@UBfmeStringRecord00395E75@@V?$allocator@UBfmeStringRecord00395E75@@@_STL@@@_STL@@IAEXPAUBfmeStringRecord00395E75@@ABU3@ABU__false_type@2@I_N@Z",
+          "rva": "0x00399F70",
+          "size": "183",
+          "exact": true
+        },
+        {
+          "name": "?_M_insert_overflow@?$vector@UBfmeStringRecord00466E64@@V?$allocator@UBfmeStringRecord00466E64@@@_STL@@@_STL@@IAEXPAUBfmeStringRecord00466E64@@ABU3@ABU__false_type@2@I_N@Z",
+          "rva": "0x0046824A",
+          "size": "183",
+          "exact": true
+        },
+        {
+          "name": "?_M_insert_overflow@?$vector@UBfmeStringTailRecord156@@V?$allocator@UBfmeStringTailRecord156@@@_STL@@@_STL@@IAEXPAUBfmeStringTailRecord156@@ABU3@ABU__false_type@2@I_N@Z",
+          "rva": "0x004CC25C",
+          "size": "191",
+          "exact": true
+        },
+        {
+          "name": "?_M_insert_overflow@?$vector@UGeometryShape@@V?$allocator@UGeometryShape@@@_STL@@@_STL@@IAEXPAUGeometryShape@@ABU3@ABU__false_type@2@I_N@Z",
+          "rva": "0x005EB379",
+          "size": "183",
+          "exact": true
+        },
+        {
+          "name": "?_M_insert_overflow@?$vector@URva00153A27Element@@V?$allocator@URva00153A27Element@@@_STL@@@_STL@@IAEXPAURva00153A27Element@@ABU3@ABU__false_type@2@I_N@Z",
+          "rva": "0x001538C9",
+          "size": "178",
+          "exact": true
+        },
+        {
+          "name": "?_M_insert_overflow@?$vector@URva001DAAF2Element@@V?$allocator@URva001DAAF2Element@@@_STL@@@_STL@@IAEXPAURva001DAAF2Element@@ABU3@ABU__false_type@2@I_N@Z",
+          "rva": "0x001DA68C",
+          "size": "178",
+          "exact": true
+        },
+        {
+          "name": "?_M_insert_overflow@?$vector@URva001DF3F1Element@@V?$allocator@URva001DF3F1Element@@@_STL@@@_STL@@IAEXPAURva001DF3F1Element@@ABU3@ABU__false_type@2@I_N@Z",
+          "rva": "0x001DF21C",
+          "size": "183",
+          "exact": true
+        },
+        {
+          "name": "?_M_insert_overflow@?$vector@URva0020A227Element@@V?$allocator@URva0020A227Element@@@_STL@@@_STL@@IAEXPAURva0020A227Element@@ABU3@ABU__false_type@2@I_N@Z",
+          "rva": "0x002098A0",
+          "size": "178",
+          "exact": true
+        },
+        {
+          "name": "?_M_insert_overflow@?$vector@URva00260B88Element@@V?$allocator@URva00260B88Element@@@_STL@@@_STL@@IAEXPAURva00260B88Element@@ABU3@ABU__false_type@2@I_N@Z",
+          "rva": "0x00260AD6",
+          "size": "178",
+          "exact": true
+        },
+        {
+          "name": "?_M_insert_overflow@?$vector@URva002898ACElement@@V?$allocator@URva002898ACElement@@@_STL@@@_STL@@IAEXPAURva002898ACElement@@ABU3@ABU__false_type@2@I_N@Z",
+          "rva": "0x002895F8",
+          "size": "178",
+          "exact": true
+        },
+        {
+          "name": "?_M_insert_overflow@?$vector@URva002B72C9@@V?$allocator@URva002B72C9@@@_STL@@@_STL@@IAEXPAURva002B72C9@@ABU3@ABU__false_type@2@I_N@Z",
+          "rva": "0x002BC3C6",
+          "size": "183",
+          "exact": true
+        },
+        {
+          "name": "?_M_insert_overflow@?$vector@URva00308E2CElement@@V?$allocator@URva00308E2CElement@@@_STL@@@_STL@@IAEXPAURva00308E2CElement@@ABU3@ABU__false_type@2@I_N@Z",
+          "rva": "0x00282870",
+          "size": "178",
+          "exact": true
+        },
+        {
+          "name": "?_M_insert_overflow@?$vector@URva00318203Element@@V?$allocator@URva00318203Element@@@_STL@@@_STL@@IAEXPAURva00318203Element@@ABU3@ABU__false_type@2@I_N@Z",
+          "rva": "0x0031809E",
+          "size": "178",
+          "exact": true
+        },
+        {
+          "name": "?_M_insert_overflow@?$vector@URva0032DC80Element@@V?$allocator@URva0032DC80Element@@@_STL@@@_STL@@IAEXPAURva0032DC80Element@@ABU3@ABU__false_type@2@I_N@Z",
+          "rva": "0x0032D321",
+          "size": "178",
+          "exact": true
+        },
+        {
+          "name": "?_M_insert_overflow@?$vector@URva0032EA3FElement@@V?$allocator@URva0032EA3FElement@@@_STL@@@_STL@@IAEXPAURva0032EA3FElement@@ABU3@ABU__false_type@2@I_N@Z",
+          "rva": "0x0032E842",
+          "size": "183",
+          "exact": true
+        },
+        {
+          "name": "?_M_insert_overflow@?$vector@URva003328B6Element@@V?$allocator@URva003328B6Element@@@_STL@@@_STL@@IAEXPAURva003328B6Element@@ABU3@ABU__false_type@2@I_N@Z",
+          "rva": "0x0033270E",
+          "size": "183",
+          "exact": true
+        },
+        {
+          "name": "?_M_insert_overflow@?$vector@URva0033A23AElement@@V?$allocator@URva0033A23AElement@@@_STL@@@_STL@@IAEXPAURva0033A23AElement@@ABU3@ABU__false_type@2@I_N@Z",
+          "rva": "0x00339FA7",
+          "size": "183",
+          "exact": true
+        },
+        {
+          "name": "?_M_insert_overflow@?$vector@URva0039A48EElement@@V?$allocator@URva0039A48EElement@@@_STL@@@_STL@@IAEXPAURva0039A48EElement@@ABU3@ABU__false_type@2@I_N@Z",
+          "rva": "0x00399EBE",
+          "size": "178",
+          "exact": true
+        },
+        {
+          "name": "?_M_insert_overflow@?$vector@URva003F7B22Element@@V?$allocator@URva003F7B22Element@@@_STL@@@_STL@@IAEXPAURva003F7B22Element@@ABU3@ABU__false_type@2@I_N@Z",
+          "rva": "0x003F79A0",
+          "size": "178",
+          "exact": true
+        },
+        {
+          "name": "?_M_insert_overflow@?$vector@URva00413B16Element@@V?$allocator@URva00413B16Element@@@_STL@@@_STL@@IAEXPAURva00413B16Element@@ABU3@ABU__false_type@2@I_N@Z",
+          "rva": "0x00413A5F",
+          "size": "183",
+          "exact": true
+        },
+        {
+          "name": "?_M_insert_overflow@?$vector@URva00414258Element@@V?$allocator@URva00414258Element@@@_STL@@@_STL@@IAEXPAURva00414258Element@@ABU3@ABU__false_type@2@I_N@Z",
+          "rva": "0x004141A1",
+          "size": "183",
+          "exact": true
+        },
+        {
+          "name": "?_M_insert_overflow@?$vector@URva00414BA4Element@@V?$allocator@URva00414BA4Element@@@_STL@@@_STL@@IAEXPAURva00414BA4Element@@ABU3@ABU__false_type@2@I_N@Z",
+          "rva": "0x004149BF",
+          "size": "183",
+          "exact": true
+        },
+        {
+          "name": "?_M_insert_overflow@?$vector@URva00475F2AElement@@V?$allocator@URva00475F2AElement@@@_STL@@@_STL@@IAEXPAURva00475F2AElement@@ABU3@ABU__false_type@2@I_N@Z",
+          "rva": "0x00475BE8",
+          "size": "178",
+          "exact": true
+        },
+        {
+          "name": "?_M_insert_overflow@?$vector@URva004C3F09Element@@V?$allocator@URva004C3F09Element@@@_STL@@@_STL@@IAEXPAURva004C3F09Element@@ABU3@ABU__false_type@2@I_N@Z",
+          "rva": "0x004C3DF4",
+          "size": "178",
+          "exact": true
+        },
+        {
+          "name": "?_M_insert_overflow@?$vector@URva004F87BCElement@@V?$allocator@URva004F87BCElement@@@_STL@@@_STL@@IAEXPAURva004F87BCElement@@ABU3@ABU__false_type@2@I_N@Z",
+          "rva": "0x004F823B",
+          "size": "178",
+          "exact": true
+        },
+        {
+          "name": "?_M_insert_overflow@?$vector@URva004F8D92Element@@V?$allocator@URva004F8D92Element@@@_STL@@@_STL@@IAEXPAURva004F8D92Element@@ABU3@ABU__false_type@2@I_N@Z",
+          "rva": "0x004F88F6",
+          "size": "178",
+          "exact": true
+        },
+        {
+          "name": "?_M_insert_overflow@?$vector@URva004F9018Element@@V?$allocator@URva004F9018Element@@@_STL@@@_STL@@IAEXPAURva004F9018Element@@ABU3@ABU__false_type@2@I_N@Z",
+          "rva": "0x004F8A35",
+          "size": "183",
+          "exact": true
+        },
+        {
+          "name": "?_M_insert_overflow@?$vector@URva004F93B0Element@@V?$allocator@URva004F93B0Element@@@_STL@@@_STL@@IAEXPAURva004F93B0Element@@ABU3@ABU__false_type@2@I_N@Z",
+          "rva": "0x004F8DFD",
+          "size": "178",
+          "exact": true
+        },
+        {
+          "name": "?_M_insert_overflow@?$vector@URva00501E3FElement@@V?$allocator@URva00501E3FElement@@@_STL@@@_STL@@IAEXPAURva00501E3FElement@@ABU3@ABU__false_type@2@I_N@Z",
+          "rva": "0x00501A7C",
+          "size": "183",
+          "exact": true
+        },
+        {
+          "name": "?_M_insert_overflow@?$vector@URva005668E9Element@@V?$allocator@URva005668E9Element@@@_STL@@@_STL@@IAEXPAURva005668E9Element@@ABU3@ABU__false_type@2@I_N@Z",
+          "rva": "0x005665AC",
+          "size": "183",
+          "exact": true
+        },
+        {
+          "name": "?_M_insert_overflow@?$vector@URva00578425Element@@V?$allocator@URva00578425Element@@@_STL@@@_STL@@IAEXPAURva00578425Element@@ABU3@ABU__false_type@2@I_N@Z",
+          "rva": "0x0057833B",
+          "size": "178",
+          "exact": true
+        },
+        {
+          "name": "?_M_insert_overflow@?$vector@URva005E1E9BElement@@V?$allocator@URva005E1E9BElement@@@_STL@@@_STL@@IAEXPAURva005E1E9BElement@@ABU3@ABU__false_type@2@I_N@Z",
+          "rva": "0x005E1D5D",
+          "size": "178",
+          "exact": true
+        },
+        {
+          "name": "?_M_insert_overflow@?$vector@URva005E2B0EElement@@V?$allocator@URva005E2B0EElement@@@_STL@@@_STL@@IAEXPAURva005E2B0EElement@@ABU3@ABU__false_type@2@I_N@Z",
+          "rva": "0x005E2A40",
+          "size": "178",
+          "exact": true
+        },
+        {
+          "name": "?_M_insert_overflow@?$vector@URva005F13E6Element@@V?$allocator@URva005F13E6Element@@@_STL@@@_STL@@IAEXPAURva005F13E6Element@@ABU3@ABU__false_type@2@I_N@Z",
+          "rva": "0x005F131A",
+          "size": "178",
+          "exact": true
+        },
+        {
+          "name": "?_M_insert_overflow@?$vector@URva005FA197Element@@V?$allocator@URva005FA197Element@@@_STL@@@_STL@@IAEXPAURva005FA197Element@@ABU3@ABU__false_type@2@I_N@Z",
+          "rva": "0x005F9C05",
+          "size": "178",
+          "exact": true
+        },
+        {
+          "name": "?_M_insert_overflow@?$vector@URva005FA1CEElement@@V?$allocator@URva005FA1CEElement@@@_STL@@@_STL@@IAEXPAURva005FA1CEElement@@ABU3@ABU__false_type@2@I_N@Z",
+          "rva": "0x005F9CB7",
+          "size": "178",
+          "exact": true
+        },
+        {
+          "name": "?_M_insert_overflow@?$vector@URva007719C0Element@_STL@@V?$allocator@URva007719C0Element@_STL@@@2@@_STL@@IAEXPAURva007719C0Element@2@ABU32@ABU__false_type@2@I_N@Z",
+          "rva": "0x000C1E4A",
+          "size": "178",
+          "exact": true
+        },
+        {
+          "name": "?_M_insert_overflow@?$vector@VBfmeThingUBB@@V?$allocator@VBfmeThingUBB@@@_STL@@@_STL@@IAEXPAVBfmeThingUBB@@ABV3@ABU__false_type@2@I_N@Z",
+          "rva": "0x0032CAA1",
+          "size": "180",
+          "exact": true
+        },
+        {
+          "name": "?_M_insert_overflow@?$vector@VLivingWorldRegionConnection@@V?$allocator@VLivingWorldRegionConnection@@@_STL@@@_STL@@IAEXPAVLivingWorldRegionConnection@@ABV3@ABU__false_type@2@I_N@Z",
+          "rva": "0x003F2B0B",
+          "size": "183",
+          "exact": true
+        },
+        {
+          "name": "?_M_insert_overflow@?$vector@VCreateAHeroClass@CreateAHeroManager@@V?$allocator@VCreateAHeroClass@CreateAHeroManager@@@_STL@@@_STL@@IAEXPAVCreateAHeroClass@CreateAHeroManager@@ABV34@ABU__false_type@2@I_N@Z",
+          "rva": "0x00220105",
+          "size": "180",
+          "exact": true
+        },
+        {
+          "name": "?_M_insert_overflow@?$vector@VRva00403927@@V?$allocator@VRva00403927@@@_STL@@@_STL@@IAEXPAVRva00403927@@ABV3@ABU__false_type@2@I_N@Z",
+          "rva": "0x00404457",
+          "size": "183",
+          "exact": true
+        },
+        {
+          "name": "?_M_insert_overflow@?$vector@VRva0052BE33@@V?$allocator@VRva0052BE33@@@_STL@@@_STL@@IAEXPAVRva0052BE33@@ABV3@ABU__false_type@2@I_N@Z",
+          "rva": "0x00565CEB",
+          "size": "183",
+          "exact": true
+        },
+        {
+          "name": "?_M_insert_overflow@?$vector@VRva00568A20@@V?$allocator@VRva00568A20@@@_STL@@@_STL@@IAEXPAVRva00568A20@@ABV3@ABU__false_type@2@I_N@Z",
+          "rva": "0x0056A1E4",
+          "size": "183",
+          "exact": true
+        },
+        {
+          "name": "?_M_insert_overflow@?$vector@VRvaSmartPtr12@@V?$allocator@VRvaSmartPtr12@@@_STL@@@_STL@@IAEXPAVRvaSmartPtr12@@ABV3@ABU__false_type@2@I_N@Z",
+          "rva": "0x0004CE90",
+          "size": "183",
+          "exact": true
+        },
+        {
+          "name": "??1?$vector@URva004F9018Element@@V?$allocator@URva004F9018Element@@@_STL@@@_STL@@QAE@XZ",
+          "rva": "0x004F81FC",
+          "size": "63",
+          "exact": true
+        }
+      ],
+      "eh": [
+        {
+          "name": "??1?$vector@URva004F9018Element@@V?$allocator@URva004F9018Element@@@_STL@@@_STL@@QAE@XZ",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ]
+    }
+  ]
+}
