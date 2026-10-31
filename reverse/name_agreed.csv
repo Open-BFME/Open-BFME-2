@@ -14354,3 +14354,13 @@ nl-f4d795f767c7,param,arg,initialValue,,w-4471b1f6edef@drz-k7,Code/Libraries/Sou
 nl-846bde0d5a4a,param,arg,initialValue,,w-4471b1f6edef@drz-k7,Code/Libraries/Source/WWVegas/WWLib/Rva00080221Ctor.cpp|param|Rva002D45C9::Rva002D45C9|arg,agreed,single-worker scoped approval: w-4471b1f6edef@drz-k7
 nl-1336c23f2c6d,param,arg,initialValue,,w-4471b1f6edef@drz-k7,Code/Libraries/Source/WWVegas/WWLib/Rva00080221Ctor.cpp|param|Rva002D45FE::Rva002D45FE|arg,agreed,single-worker scoped approval: w-4471b1f6edef@drz-k7
 nl-a4a1c2ce47fe,param,arg,initialValue,,w-4471b1f6edef@drz-k7,Code/Libraries/Source/WWVegas/WWLib/Rva00080221Ctor.cpp|param|bfmeAnchorRva004106FA|arg,agreed,single-worker scoped approval: w-4471b1f6edef@drz-k7
+nl-843bac8a46eb,param,x,hintNode,,w-87ae7cdc64ef@drz-k8,Code/Libraries/Source/WWVegas/WWLib/Rva00079AB9Worker.cpp|param|Rva00079D14Tree::rva00079AB9|x,agreed,single-worker scoped approval: w-87ae7cdc64ef@drz-k8
+nl-d19977be7fcd,param,y,parent,,w-87ae7cdc64ef@drz-k8,Code/Libraries/Source/WWVegas/WWLib/Rva00079AB9Worker.cpp|param|Rva00079D14Tree::rva00079AB9|y,agreed,single-worker scoped approval: w-87ae7cdc64ef@drz-k8
+nl-dfa25f0c4f6c,param,a1,source,,w-87ae7cdc64ef@drz-k8,Code/Libraries/Source/WWVegas/WW3D2/Rva0053FE2AFinish.cpp|param|Rva0053FDE6::Rva0053FDE6|a1,agreed,single-worker scoped approval: w-87ae7cdc64ef@drz-k8
+nl-727c2843e21c,local,p,target,,w-87ae7cdc64ef@drz-k8,Code/Libraries/Source/WWVegas/WW3D2/Rva003F7E83Forward.cpp|local|Rva003F7E83::rva003F7E83|p,agreed,single-worker scoped approval: w-87ae7cdc64ef@drz-k8
+nl-b26ebf3afa3a,local,p,target,,w-87ae7cdc64ef@drz-k8,Code/Libraries/Source/WWVegas/WW3D2/Rva003F7E83Forward.cpp|local|Rva003F7E83::rva003F7E90|p,agreed,single-worker scoped approval: w-87ae7cdc64ef@drz-k8
+nl-49d96418f48b,param,a0,argValue,,w-87ae7cdc64ef@drz-k8,Code/Libraries/Source/Apt/Rva006D6360Ctor.cpp|param|Rva006D6500::Rva006D6500|a0,agreed,single-worker scoped approval: w-87ae7cdc64ef@drz-k8
+nl-507f2c70d14c,param,p,owner,,w-87ae7cdc64ef@drz-k8,Code/Libraries/Source/Apt/Rva006D6360Ctor.cpp|param|bfmeAnchorRva006D6470Owner|p,agreed,single-worker scoped approval: w-87ae7cdc64ef@drz-k8
+nl-db1a984b05aa,param,a,volume,,w-87ae7cdc64ef@drz-k8,Code/GameEngineDevice/Source/MilesAudioDevice/Rva0005230D.cpp|param|Rva0005230D::rva0005230D|a,agreed,single-worker scoped approval: w-87ae7cdc64ef@drz-k8
+nl-7ad3f42325f5,local,p,element,,w-87ae7cdc64ef@drz-k8,Code/GameEngine/Source/GameClient/GUI/Rva00440B64Insert.cpp|local|Rva00441974Sort|p,agreed,single-worker scoped approval: w-87ae7cdc64ef@drz-k8
+nl-e641ad94beb3,local,p,element,,w-87ae7cdc64ef@drz-k8,Code/GameEngine/Source/GameClient/GUI/Rva00440B64Insert.cpp|local|Rva00441D74Sort|p,agreed,single-worker scoped approval: w-87ae7cdc64ef@drz-k8
