@@ -44767,8 +44767,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00537E7C,20,code,Code/GameEngine/Source/Common/WaterArea.cpp,approved,N,N=Code/GameEngine/Source/Common/WaterArea.cpp provisional,Code/GameEngine/Source/Common/WaterArea.cpp
 0x00537E90,29,code,Code/GameEngine/Source/Common/WaterArea.cpp,approved,N,N=Code/GameEngine/Source/Common/WaterArea.cpp provisional,Code/GameEngine/Source/Common/WaterArea.cpp
 0x00537EAD,60,code,Code/GameEngine/Source/Common/WaterArea.cpp,approved,C,C=0x00537E90..0x00537EE9 provisional,Code/GameEngine/Source/Common/WaterArea.cpp
-0x00537EE9,109,code,Code/GameEngine/Source/Common/WaterArea.cpp,approved,C,C=0x00537E90..0x00537F56 provisional,Code/GameEngine/Source/Common/Rva00308AA4Notifiers.cpp
-0x00537F56,30,code,Code/GameEngine/Source/Common/WaterArea.cpp,approved,C,C=0x00537E90..0x00537F74 provisional,Code/GameEngine/Source/Common/Rva00308AA4Notifiers.cpp
+0x00537EE9,109,code,Code/GameEngine/Source/Common/WaterArea.cpp,approved,C,C=0x00537E90..0x00537F56 provisional,Code/GameEngine/Source/Common/WaterArea.cpp
+0x00537F56,30,code,Code/GameEngine/Source/Common/WaterArea.cpp,approved,C,C=0x00537E90..0x00537F74 provisional,Code/GameEngine/Source/Common/WaterArea.cpp
 0x00537F74,44,code,Code/GameEngine/Source/Common/WaterArea.cpp,approved,N,N=Code/GameEngine/Source/Common/WaterArea.cpp provisional,Code/GameEngine/Source/Common/WaterArea.cpp
 0x00537FA0,44,code,Code/GameEngine/Source/Common/WaterArea.cpp,approved,N,N=Code/GameEngine/Source/Common/WaterArea.cpp provisional,Code/GameEngine/Source/Common/WaterArea.cpp
 0x00537FCC,145,code,Code/GameEngine/Source/Common/WaterArea.cpp,approved,N,N=Code/GameEngine/Source/Common/WaterArea.cpp W=Code/GameEngine/Source/GameLogic/Map/WaterArea.cpp provisional,Code/GameEngine/Source/Common/WaterArea.cpp
@@ -84729,8 +84729,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007977EA,10,code,Code/GameEngine/Source/Common/StrategicStatsPreferences.cpp,approved,P,P=0x00537DF9@FuncInfo0x0094B6F0 p-group provisional,Code/GameEngine/Source/Common/ProfilePreferences.cpp
 0x007977F4,8,code,,,-,,Code/GameEngine/Source/Common/UserPreferences.cpp
 0x007977FC,10,code,,,-,,Code/GameEngine/Source/Common/UserPreferences.cpp
-0x00797806,8,code,Code/GameEngine/Source/Common/WaterArea.cpp,approved,P,P=0x00537EE9@FuncInfo0x0094B738 provisional,Code/GameEngine/Source/Common/Rva00308AA4Notifiers.cpp
-0x0079780E,10,code,Code/GameEngine/Source/Common/WaterArea.cpp,approved,P,P=0x00537EE9@FuncInfo0x0094B738 provisional,Code/GameEngine/Source/Common/Rva00308AA4Notifiers.cpp
+0x00797806,8,code,Code/GameEngine/Source/Common/WaterArea.cpp,approved,P,P=0x00537EE9@FuncInfo0x0094B738 provisional,Code/GameEngine/Source/Common/WaterArea.cpp
+0x0079780E,10,code,Code/GameEngine/Source/Common/WaterArea.cpp,approved,P,P=0x00537EE9@FuncInfo0x0094B738 provisional,Code/GameEngine/Source/Common/WaterArea.cpp
 0x00797818,8,code,Code/GameEngine/Source/Common/WaterArea.cpp,approved,P,P=0x00537FCC@FuncInfo0x0094B764 provisional,Code/GameEngine/Source/Common/WaterArea.cpp
 0x00797820,8,code,Code/GameEngine/Source/Common/WaterArea.cpp,approved,P,P=0x00537FCC@FuncInfo0x0094B764 provisional,Code/GameEngine/Source/Common/WaterArea.cpp
 0x00797828,10,code,Code/GameEngine/Source/Common/WaterArea.cpp,approved,P,P=0x00537FCC@FuncInfo0x0094B764 provisional,Code/GameEngine/Source/Common/WaterArea.cpp

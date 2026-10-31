@@ -226,14 +226,6 @@ void Rva003089CFList::forEach(void (Rva00308AA4Listener::*notify)(Rva00308AA4Own
 	apply(call);
 }
 
-void Rva00537F56List::forEach(void (Rva0053805DListener::*notify)(Rva0053805DBase *), Rva0053805DBase *owner)
-{
-	Rva00537EE9Call call;
-	call.notify = notify;
-	call.owner = owner;
-	apply(call);
-}
-
 void Rva0053805DBase::rva0053805D()
 {
 	m_listeners.forEach(&Rva0053805DListener::notify04, this);
@@ -283,19 +275,6 @@ void Rva003089CFList::apply(const Rva003086F5Call &call)
 	{
 		m_index++;
 		(m_begin[i]->*call.notify)(call.owner, call.value);
-		i = m_index;
-	}
-}
-
-// 0x00537EE9: the same walk over the base's own listener list.
-void Rva00537F56List::apply(const Rva00537EE9Call &call)
-{
-	unsigned int i = 0;
-	LatchRestore<unsigned int> latch(m_index, i);
-	while (i < (unsigned int)(m_end - m_begin))
-	{
-		m_index++;
-		(m_begin[i]->*call.notify)(call.owner);
 		i = m_index;
 	}
 }
