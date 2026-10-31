@@ -46,12 +46,6 @@ struct Rva00106970RangeView
 	int m_limit;
 };
 
-class Rva007E3410Object
-{
-public:
-	void invokeForMode();
-};
-
 // 0x00106781 145B: reads one checked range record. The record's first word is
 // copied out, then either the body is allocated and filled through the device
 // (mode set; the filled size must come back whole or the allocation is released)
@@ -264,6 +258,74 @@ public:
 	char m_at0C;
 	Rva000EC1E0();
 };
+
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
+// Open-BFME: mode-gated virtual call reconstructed from retail RVA 0x007E3410.
+
+class Rva007E3410Target
+{
+public:
+    virtual void unused0(void);
+    virtual void unused1(void);
+    virtual void unused2(void);
+    virtual void unused3(void);
+    virtual void unused4(void);
+    virtual void invoke(int first, int second);
+};
+
+class Rva007E3410Object
+{
+public:
+    void invokeForMode(void);
+
+private:
+    char m_pad0[4];
+    Rva007E3410Target *m_target;
+    int m_mode;
+};
+
+// Whole one-body BFME1 Rva00971BA0GuardedHelper.cpp at revision
+// 1281192f682ce6f29b8f06b7daea4b5e8fdfbb24 supplies this control-flow
+// lead. Complete native Ghidra180AD6/35 independently proves receiver
+// virtual slots +28/+2C, a pointer at +14, and the null-zero/otherwise
+// tail call at 180AF4 to rowed1A3140/80. That provider independently
+// byte-verifies and links in agg_def.cpp. This narrow external
+// ABI view declares no new layout or original identity for its receiver.
+// The caller's owner, original names and full layout are unknown; unused
+// virtual declarations preserve slot spacing only, not original signatures.
+// The callee at 0x1A3140 is AggregateDefClass::Create (agg_def.cpp); only that
+// member is declared here.
+class RenderObjClass;
+
+class AggregateDefClass
+{
+public:
+    RenderObjClass *Create(void);
+};
+
+class Rva00180AD6HelperOwner
+{
+public:
+    virtual void slot00();
+    virtual void slot04();
+    virtual void slot08();
+    virtual void slot0C();
+    virtual void slot10();
+    virtual void slot14();
+    virtual void slot18();
+    virtual void slot1C();
+    virtual void slot20();
+    virtual void slot24();
+    virtual bool ready();
+    virtual void prepare();
+
+    int guardedHelper();
+private:
+    unsigned char reserved04[0x14 - 4];
+    AggregateDefClass *helper;
+};
+
+// ---- from Code/GameEngine/Source/Common/BfmeB996Range.cpp
 
 // ---- from Code/GameEngine/Source/Common/BfmeB996Range.cpp
 
@@ -579,10 +641,6 @@ Rva00106AC9::Rva00106AC9(const char *path, int mode, bool flag)
     rva00106AC9(path, mode, flag);
 }
 
-// tu-skeleton: 0x001068A7 42B ?sendIfState7@BfmeB996@@QAE_NPAVBfmePkt996@@@Z -- matched in Code/GameEngine/Source/Common/Rva007E3190BfmeSendIfState7.cpp (not merged yet)
-
-// tu-skeleton: 0x00106A06 19B ?invokeForMode@Rva007E3410Object@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva007E3410VirtualCall.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/R2ZeroingConstructors.cpp
 
 Rva007E3430::Rva007E3430()
@@ -591,4 +649,16 @@ Rva007E3430::Rva007E3430()
 	m_at04 = 0;
 	m_at08 = 4;
 	m_at0C = 0;
+}
+
+// tu-skeleton: 0x001068A7 42B ?sendIfState7@BfmeB996@@QAE_NPAVBfmePkt996@@@Z -- matched in Code/GameEngine/Source/Common/Rva007E3190BfmeSendIfState7.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva007E3410VirtualCall.cpp
+
+void Rva007E3410Object::invokeForMode(void)
+{
+    if (m_mode == 6)
+    {
+        m_target->invoke(0, 0);
+    }
 }

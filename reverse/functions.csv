@@ -8311,7 +8311,7 @@ _LastVerticalBand_1_2_Scale_C,,0x001BA3A0,28,Code/Libraries/Source/VP6/CopyHelpe
 ?iword@ios_base@_STL@@QAEAAJH@Z,,0x0001BF90,117,Code/Libraries/Source/WWVegas/WWLib/stlport_ios_base_iword.cpp,matched,BFME1 byte-identical donor; b1 0x0083F0C0
 ?pword@ios_base@_STL@@QAEAAPAXH@Z,,0x0001C010,117,Code/Libraries/Source/WWVegas/WWLib/stlport_ios_base_iword.cpp,matched,BFME1 byte-identical donor; b1 0x0083F140
 ?rva0082C160Deref@@YAHPAH@Z,,0x00024C20,19,Code/GameEngine/Source/Common/Rva0082C160Deref.cpp,matched,BFME1 byte-identical donor b1 0x0082C160
-?invokeForMode@Rva007E3410Object@@QAEXXZ,,0x00106A06,19,Code/GameEngine/Source/Common/Rva007E3410VirtualCall.cpp,matched,BFME1 byte-identical donor b1 0x007E3410
+?invokeForMode@Rva007E3410Object@@QAEXXZ,,0x00106A06,19,Code/GameEngine/Source/Common/BfmeB996Range.cpp,matched,BFME1 byte-identical donor b1 0x007E3410
 ?get@Rva0066B100@@QAEHH@Z,,0x004D38C5,19,Code/GameEngine/Source/GameNetwork/DisconnectManager.cpp,matched,BFME1 byte-identical donor b1 0x0066B100
 ?distCalcProc_BoundaryAndBoundary_3D@@YAMPBUCoord3D@@PBVObject@@H@Z,,0x00627130,145,Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp,matched,BFME1 byte-identical donor; b1 0x009F4860
 _VP6_decodeModeDiff,,0x001C7250,211,Code/Libraries/Source/VP6/DecodeModeDiff.cpp,matched,Clean-room spec 001c7250; VP6_decodeModeDiff: cdecl clean-room reimplementation of VP6_decodeModeDiff per the spec; same retail extent as the replaced placeholder; implemented from reverse/vp6_cleanroom/specs/001c7250.md and retail only

@@ -23,14 +23,6 @@ private:
     int m_mode;
 };
 
-void Rva007E3410Object::invokeForMode(void)
-{
-    if (m_mode == 6)
-    {
-        m_target->invoke(0, 0);
-    }
-}
-
 // Whole one-body BFME1 Rva00971BA0GuardedHelper.cpp at revision
 // 1281192f682ce6f29b8f06b7daea4b5e8fdfbb24 supplies this control-flow
 // lead. Complete native Ghidra180AD6/35 independently proves receiver

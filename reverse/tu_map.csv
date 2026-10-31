@@ -8010,7 +8010,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0010690D,62,code,Code/GameEngine/Source/Common/BfmeB996Range.cpp,approved,N,N=Code/GameEngine/Source/Common/BfmeB996Range.cpp provisional,Code/GameEngine/Source/Common/BfmeB996Range.cpp
 0x0010694B,37,code,Code/GameEngine/Source/Common/BfmeB996Range.cpp,approved,N,N=Code/GameEngine/Source/Common/BfmeB996Range.cpp provisional,Code/GameEngine/Source/Common/BfmeB996Range.cpp
 0x00106970,150,code,Code/GameEngine/Source/Common/BfmeB996Range.cpp,approved,C,C=0x0010694B..0x00106A06 provisional,Code/GameEngine/Source/Common/BfmeB996Range.cpp
-0x00106A06,19,code,Code/GameEngine/Source/Common/BfmeB996Range.cpp,approved,C,C=0x0010694B..0x00106A19 provisional,Code/GameEngine/Source/Common/Rva007E3410VirtualCall.cpp
+0x00106A06,19,code,Code/GameEngine/Source/Common/BfmeB996Range.cpp,approved,C,C=0x0010694B..0x00106A19 provisional,Code/GameEngine/Source/Common/BfmeB996Range.cpp
 0x00106A19,20,code,Code/GameEngine/Source/Common/BfmeB996Range.cpp,approved,C,C=0x0010694B..0x00106A2D provisional,Code/GameEngine/Source/Common/BfmeB996Range.cpp
 0x00106A2D,47,code,Code/GameEngine/Source/Common/BfmeB996Range.cpp,approved,C,C=0x0010694B..0x00106A5C provisional,Code/GameEngine/Source/Common/BfmeB996Range.cpp
 0x00106A5C,109,code,Code/GameEngine/Source/Common/BfmeB996Range.cpp,approved,N,N=Code/GameEngine/Source/Common/BfmeB996Range.cpp provisional,Code/GameEngine/Source/Common/BfmeB996Range.cpp
