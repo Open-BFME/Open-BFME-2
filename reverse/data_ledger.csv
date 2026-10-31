@@ -19621,8 +19621,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A02E08,4,.data,global,_s_rva007AF889,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A02E0C,4,.data,global,?gateKey@?4??rva003E3EC3@ScriptConditions@@IAE_NPAVParameter@@@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateNamedUnit.cpp,owned,,1,2
 0x00A02E10,4,.data,global,?$S1@?4??rva003E3EC3@ScriptConditions@@IAE_NPAVParameter@@@Z@4IA,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateNamedUnit.cpp,owned,,1,4
-0x00A02E14,4,.data,global,?gateKey@?3??rva003E4921@ScriptConditions@@QAE_NPAVParameter@@@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003E4921Finish.cpp,owned,,1,2
-0x00A02E18,4,.data,global,?$S1@?3??rva003E4921@ScriptConditions@@QAE_NPAVParameter@@@Z@4IA,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003E4921Finish.cpp,owned,,1,4
+0x00A02E14,4,.data,global,?gateKey@?3??rva003E4921@ScriptConditions@@QAE_NPAVParameter@@@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions.cpp,owned,,1,2
+0x00A02E18,4,.data,global,?$S1@?3??rva003E4921@ScriptConditions@@QAE_NPAVParameter@@@Z@4IA,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions.cpp,owned,,1,4
 0x00A02E1C,4,.data,global,?siegeKey@?3??Rva003E4B83Get@@YG_NPAVParameter@@@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions.cpp,owned,,1,2
 0x00A02E20,4,.data,global,?$S1@?3??Rva003E4B83Get@@YG_NPAVParameter@@@Z@4IA,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions.cpp,owned,,1,4
 0x00A02E24,4,.data,global,?key_StancesBehavior@?3??rva003E5267@ScriptConditions@@IAE_NPAVParameter@@0@Z@4W4NameKeyType@@B,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp,owned,,1,2
@@ -19630,8 +19630,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A02E2C,4,.data,global,?keyFound@?BI@??evaluateCanBuildAtBase@ScriptConditions@@IAE_NPAVParameter@@0@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp,owned,,1,2
 0x00A02E30,4,.data,global,?$S2@?BI@??evaluateCanBuildAtBase@ScriptConditions@@IAE_NPAVParameter@@0@Z@4IA,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp,owned,,1,2
 0x00A02E34,4,.data,global,?g_00E02E34@@3_NA,,unowned,,0,2
-0x00A02E38,4,.data,global,?key@?9??evaluateSkirmishSuppliesWithinDistancePerimeter@ScriptConditions@@QAE_NPAVParameter@@000@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003EA566.cpp,owned,,1,2
-0x00A02E3C,4,.data,global,?$S1@?9??evaluateSkirmishSuppliesWithinDistancePerimeter@ScriptConditions@@QAE_NPAVParameter@@000@Z@4IA,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003EA566.cpp,owned,,1,2
+0x00A02E38,4,.data,global,?key@?9??evaluateSkirmishSuppliesWithinDistancePerimeter@ScriptConditions@@QAE_NPAVParameter@@000@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions.cpp,owned,,1,2
+0x00A02E3C,4,.data,global,?$S1@?9??evaluateSkirmishSuppliesWithinDistancePerimeter@ScriptConditions@@QAE_NPAVParameter@@000@Z@4IA,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions.cpp,owned,,1,2
 0x00A02E40,4,.data,global,?TheThreatFinderUpdatePoolKey@?1??getModuleNameKey@ThreatFinderUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/ThreatFinderUpdate.cpp,owned,,1,2
 0x00A02E44,4,.data,global,?$S1@?1??getModuleNameKey@ThreatFinderUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/ThreatFinderUpdate.cpp,owned,,1,4
 0x00A02E48,4,.data,global,?g_manager@@3PAVRva003ED2A3Manager@@A,Code/GameEngine/Source/GameLogic/Object/Update/ThreatFinderUpdate.cpp,owned,,1,5

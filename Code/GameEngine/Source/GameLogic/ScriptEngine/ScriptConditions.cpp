@@ -487,17 +487,6 @@ enum ObjectStatusTypes { OBJECT_STATUS_NONE = 0 };
 class PolygonTrigger;
 #include "../../Common/PartitionRangeQueryCallView.h"
 extern PartitionManager *ThePartitionManager;
-template<class OBJCLASS>
-class DLINK_ITERATOR
-{
-private:
-    OBJCLASS *m_cur;
-    unsigned char m_targetAbiState[20];
-public:
-    void advance();
-    bool done() const { return m_cur == 0; }
-    OBJCLASS *cur() const { return m_cur; }
-};
 enum SpecialPowerType { SPECIAL_INVALID = 0 };
 class Overridable
 {
@@ -583,45 +572,6 @@ public:
 	char m_pad00[0x130];
 	TeamEntry m_entries[7];
 	int m_1D8;
-};
-class Team
-{
-public:
-	bool hasAnyObjects(bool ignoreBuildings);
-public:
-	int countKind(int kind, bool flagA, bool flagB);
-public:
-	bool isCreated() const { return m_created; }
-public:
-	unsigned char m_pad00[0x5E];
-public:
-	bool m_created;
-public:
-	unsigned char m_pad5F[0x128 - 0x5F];
-public:
-	bool m_128;
-public:
-	Coord3D *rva0039DA2A(Coord3D *center) const;
-public:
-	int rva0039DC05(int kind, Bool includeContained, Bool includeDead) const;
-public:
-	bool someInsideSomeOutside(PolygonTrigger *, unsigned int);
-public:
-	bool allInside(PolygonTrigger *, unsigned int);
-public:
-	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
-public:
-	Player *getControllingPlayer() const;
-public:
-	bool didAllEnter(PolygonTrigger *, unsigned int);
-public:
-	bool didPartialEnter(PolygonTrigger *, unsigned int);
-public:
-	bool didAllExit(PolygonTrigger *, unsigned int);
-public:
-	bool didPartialExit(PolygonTrigger *, unsigned int);
-public:
-	bool rva003A3717(const AsciiString &stateName);
 };
 #include "../../../Include/GameLogic/ScriptConditions.h"
 #include "../../../Include/GameLogic/ScriptEngine.h"
@@ -719,18 +669,686 @@ struct CondB003E53C8
 };
 #include <vector>
 #include "../System/ArmySummary.h"
+class Rva003E3FFEFace
+{
+public:
+	virtual void s00();
+	virtual void s01();
+	virtual void s02();
+	virtual void s03();
+	virtual void s04();
+	virtual void s05();
+	virtual void s06();
+	virtual void s07();
+	virtual void s08();
+	virtual void s09();
+	virtual void s10();
+	virtual void s11();
+	virtual void s12();
+	virtual void s13();
+	virtual void s14();
+	virtual void s15();
+	virtual void s16();
+	virtual void s17();
+	virtual void s18();
+	virtual void s19();
+	virtual void s20();
+	virtual void s21();
+	virtual void s22();
+	virtual void s23();
+	virtual void s24();
+	virtual void s25();
+	virtual void s26();
+	virtual void s27();
+	virtual void s28();
+	virtual void s29();
+	virtual void s30();
+	virtual void s31();
+	virtual void s32();
+	virtual void s33();
+	virtual void s34();
+	virtual void s35();
+	virtual void s36();
+	virtual void s37();
+	virtual void s38();
+	virtual void s39();
+	virtual void s40();
+	virtual void s41();
+	virtual void s42();
+	virtual void s43();
+	virtual void s44();
+	virtual void s45();
+	virtual void s46();
+	virtual void s47();
+	virtual void s48();
+	virtual void s49();
+	virtual void s50();
+	virtual void s51();
+	virtual void s52();
+	virtual void s53();
+	virtual void s54();
+	virtual void s55();
+	virtual void s56();
+	virtual void s57();
+	virtual void s58();
+	virtual void s59();
+	virtual void s60();
+	virtual void s61();
+	virtual void s62();
+	virtual void s63();
+	virtual void s64();
+	virtual void s65();
+	virtual void s66();
+	virtual void s67();
+	virtual void s68();
+	virtual void s69();
+	virtual void s70();
+	virtual void s71();
+	virtual void s72();
+	virtual void s73();
+	virtual void s74();
+	virtual void s75();
+	virtual void s76();
+	virtual void s77();
+	virtual void s78();
+	virtual void s79();
+	virtual void s80();
+	virtual int getMask();
+};
+struct Coord3D;
+class Rva00261C89;
+class Rva003E8863ContainedItems;
+class ContainModuleInterface
+{
+public:
+	virtual void slot00();
+	virtual void slot01();
+	virtual void slot02();
+	virtual void slot03();
+	virtual bool isGarrisonable() const; // +0x10
+	virtual void slot05();
+	virtual void slot06();
+	virtual void slot07();
+	virtual void slot08();
+	virtual void slot09();
+	virtual void slot10();
+	virtual void slot11();
+	virtual void slot12();
+	virtual void slot13();
+	virtual void slot14();
+	virtual void slot15();
+	virtual void slot16();
+	virtual void slot17();
+	virtual void slot18();
+	virtual void slot19();
+	virtual void slot20();
+	virtual void slot21();
+	virtual void slot22();
+	virtual void slot23();
+	virtual void slot24();
+	virtual void slot25();
+	virtual void slot26();
+	virtual void slot27();
+	virtual void slot28();
+	virtual void slot29();
+	virtual void slot30();
+	virtual void slot31();
+	virtual void slot32();
+	virtual void slot33();
+	virtual void slot34();
+	virtual void slot35();
+	virtual void slot36();
+	virtual void slot37();
+	virtual void slot38();
+	virtual void slot39();
+	virtual void slot40();
+	virtual void slot41();
+	virtual void slot42();
+	virtual void slot43();
+	virtual void slot44();
+	virtual void slot45();
+	virtual void slot46();
+	virtual void slot47();
+	virtual void slot48();
+	virtual void slot49();
+	virtual void slot50();
+	virtual void slot51();
+	virtual void slot52();
+	virtual void slot53();
+	virtual void slot54();
+	virtual void slot55();
+	virtual void slot56();
+	virtual void slot57();
+	virtual void slot58();
+	virtual void slot59();
+	virtual void slot60();
+	virtual void slot61();
+	virtual void slot62();
+	virtual void slot63();
+	virtual void slot64();
+	virtual void slot65();
+	virtual void slot66();
+	virtual void slot67();
+	virtual void slot68();
+	virtual unsigned int getContainCount(int extra) const; // +0x114
+	virtual Rva003E8863ContainedItems getContainedItems() const; // +0x118
+};
+class Rva004DF17F
+{
+public:
+    bool rva004DF17F() const;
+};
+class ScienceStore
+{
+public:
+    ScienceType getScienceFromInternalName(const AsciiString &name) const;
+};
+extern ScienceStore *TheScienceStore;
+class CommandButton;
+class CommandSet;
+class Rva00395F57
+{
+ public:
+ bool canUnpack(bool);
+};
+class Rva00397F45 : public Rva00395F57
+{
+ public:
+ bool isPlayerAllowedToPackOrUnpack(Player *, int);
+};
+class Rva0039718B : public Rva00397F45
+{
+ public:
+ bool rva0039718B(Player *);
+};
+class Rva00395686 : public Rva0039718B
+{
+ public:
+ bool rva00395686(Player *, ThingTemplate *);
+};
+class CommandSet
+{
+ public:
+ const CommandButton *getCommandButton(int) const;
+};
+class GateOpenAndCloseBehaviorView
+{
+public:
+	virtual void slot00() = 0;
+	virtual void slot01() = 0;
+	virtual void slot02() = 0;
+	virtual void slot03() = 0;
+	virtual void slot04() = 0;
+	virtual void slot05() = 0;
+	virtual bool stateIsOne() = 0;
+	virtual void slot07() = 0;
+	virtual void slot08() = 0;
+	virtual void slot09() = 0;
+	virtual bool isReady() = 0;
+	virtual void slot11() = 0;
+	virtual void slot12() = 0;
+	int m_pad40[15];
+	int m_state40;
+};
+#define LogicFramesPerSecond BfmeLogicFramesPerSecond
+class Rva002AA201IndexedByteField
+{
+public:
+    unsigned char get(int index) const;
+};
+class Vector3i16;
+// ledger 0x000B49A1 (named MeshGeometryClass::get_polys): [[this+0x2C]+0xC].
+class MeshGeometryClass
+{
+protected:
+	Vector3i16 *get_polys();
+};
+class ExperienceTracker : public MeshGeometryClass
+{
+public:
+	int getRank() const { return m_rank; }
+	int getLevelCap() { return (int)get_polys(); }
+private:
+	unsigned char m_pad[0x24];
+	int m_rank; // +0x24
+};
+class CastleBehavior : public Rva00395686
+{
+ public:
+ static NameKeyType rva0003955DA();
+};
+struct Arg3971BF
+{
+};
+class Rva003971BF
+{
+public:
+	bool rva003971BF(Arg3971BF *arg);
+};
+class Waypoint
+{
+public:
+	char m_pad[0x0c]; // +0x00
+	Coord3D m_0c; // +0x0C
+};
+class Pathfinder
+{
+public:
+	bool QuickDoesPathExist(Object *obj, const Coord3D *from, const Coord3D *to, int x);
+};
+class AI
+{
+public:
+	Pathfinder *pathfinder() { return m_10; }
+	char m_pad[0x10]; // +0x00
+	Pathfinder *m_10; // +0x10
+};
+extern AI *TheAI;
+struct CondA003E514F
+{
+	char m_pad[8];
+	int m_op;
+};
+struct CondB003E514F
+{
+	char m_pad[8];
+	int m_value;
+};
+struct CondA003E52EB
+{
+	char m_pad[8];
+	int m_op;
+};
+struct CondB003E52EB
+{
+	char m_pad[8];
+	int m_value;
+};
+class Mid003E537D
+{
+public:
+	virtual unsigned int v00(int);
+	virtual unsigned int v01(int);
+	virtual unsigned int v02(int);
+	virtual unsigned int v03(int);
+	virtual unsigned int v04(int);
+	virtual unsigned int v05(int);
+	virtual unsigned int v06(int);
+	virtual unsigned int v07(int);
+	virtual unsigned int v08(int);
+	virtual unsigned int v09(int);
+	virtual unsigned int v10(int);
+	virtual unsigned int v11(int);
+	virtual unsigned int v12(int);
+	virtual unsigned int v13(int);
+	virtual unsigned int v14(int);
+	virtual unsigned int v15(int);
+	virtual unsigned int v16(int);
+	virtual unsigned int v17(int);
+	virtual unsigned int v18(int);
+	virtual unsigned int v19(int);
+	virtual unsigned int v20(int);
+	virtual unsigned int v21(int);
+	virtual unsigned int v22(int);
+	virtual unsigned int v23(int);
+	virtual unsigned int v24(int);
+	virtual unsigned int v25(int);
+	virtual unsigned int v26(int);
+	virtual unsigned int v27(int);
+	virtual unsigned int v28(int);
+	virtual unsigned int v29(int);
+	virtual unsigned int v30(int);
+	virtual unsigned int v31(int);
+	virtual unsigned int v32(int);
+	virtual unsigned int v33(int);
+	virtual unsigned int v34(int);
+	virtual unsigned int v35(int);
+	virtual unsigned int v36(int);
+	virtual unsigned int v37(int);
+	virtual unsigned int v38(int);
+	virtual unsigned int v39(int);
+	virtual unsigned int v40(int);
+	virtual unsigned int v41(int);
+	virtual unsigned int v42(int);
+	virtual unsigned int v43(int);
+	virtual unsigned int v44(int);
+	virtual unsigned int v45(int);
+	virtual unsigned int v46(int);
+	virtual unsigned int v47(int);
+	virtual unsigned int v48(int);
+	virtual unsigned int v49(int);
+	virtual unsigned int v50(int);
+	virtual unsigned int v51(int);
+	virtual unsigned int v52(int);
+	virtual unsigned int v53(int);
+	virtual unsigned int v54(int);
+	virtual unsigned int v55(int);
+	virtual unsigned int v56(int);
+	virtual unsigned int v57(int);
+	virtual unsigned int v58(int);
+	virtual unsigned int v59(int);
+	virtual unsigned int v60(int);
+	virtual unsigned int v61(int);
+	virtual unsigned int v62(int);
+	virtual unsigned int v63(int);
+	virtual unsigned int v64(int);
+	virtual unsigned int v65(int);
+	virtual unsigned int v66(int);
+	virtual unsigned int v67(int);
+	virtual unsigned int v68(int);
+	virtual unsigned int v69(int);
+};
+// The 224-bit KindOf mask; the (unused, bit) constructor is 0x00045411.
+struct Rva00045411BitSet
+{
+public:
+	Rva00045411BitSet(int unused, int bit) throw(); // 0x00045411
+	unsigned m_bits[7]; // +0x00
+};
+#include "Code/Libraries/Include/Lib/Coord3D.h"
+#include "Code/GameEngine/Source/Common/PartitionRangeQueryCallView.h"
+#define REALLY_FAR (100000 * 10.0f)
+// 0x00395E53, the castle area trigger for an index (row Rva00395E53Get.cpp).
+class Rva00395E53
+{
+public:
+	void *rva00395E53(unsigned int index);
+};
+#include "../../../Include/Common/TeamBFME2.h"
+struct Cond003E5D95
+{
+    char m_pad[8];
+    int m_value;
+};
+class Inner003E5D95
+{
+public:
+    char m_pad[0x118];
+    unsigned int m_flags;
+};
+#include "../../../../Libraries/Include/Lib/ICoord3D.h"
+class Rva0030B719Shape
+{
+public:
+	float getRadius() const;	// 0x0030B719
+};
+class PolygonTrigger
+{
+public:
+	bool pointInTrigger(const ICoord3D &position);
+	void getCenterPoint(Coord3D *pOutCoord) const; // 0x002E38F3
+	char m_pad00[0x8];
+	Rva0030B719Shape m_shape; // +0x08
+};
+struct CondA003E5F73
+{
+	char m_pad[0x10];
+	void *m_holder;
+};
+struct CondB003E5F73
+{
+	char m_pad[8];
+	int m_op;
+};
+struct CondC003E5F73
+{
+	char m_pad[8];
+	int m_limit;
+};
+struct DamageInfo
+{
+    unsigned char m_pad[0xC];
+    int m_sourcePlayerMask; // +0x0C
+};
+class BodyModuleInterface
+{
+public:
+    virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03();
+    virtual void s04(); virtual void s05(); virtual void s06(); virtual void s07();
+    virtual void s08(); virtual void s09(); virtual void s10(); virtual void s11();
+    virtual void s12(); virtual void s13(); virtual void s14();
+    virtual const DamageInfo *getLastDamageInfo() const; // slot +0x3C
+};
+enum KindOfType
+{
+	KINDOF_90 = 90
+};
+class ThingTemplate
+{
+public:
+	bool isKindOfInert() const { return (m_kindOf[0x113 - 0x108] & 0x02) != 0; }
+	bool isEquivalentTo(const ThingTemplate *other) const;
+	bool isKindOf(KindOfType t) const
+	{
+		return (m_kindOf[t >> 3] >> (t & 7)) & 1;
+	}
+	// LINK: same-body helper under a TU-unique name (identical inlined bytes); the isKindOf
+	// copy loses to the kept copy. No flags touched.
+	bool bfme_isKindOf_puc(KindOfType t) const
+	{
+		return (m_kindOf[t >> 3] >> (t & 7)) & 1;
+	}
+	const AsciiString &getName() const { return m_name; }
+	char m_pad00[0x64];
+	AsciiString m_name; // +0x64
+	char m_pad68[0xA0];
+	unsigned char m_kindOf[16]; // +0x108 KindOf bits; 0x02 of byte 11 is the inert flag
+};
+#define REALLY_FAR (100000 * 10.0f)
+class AIUpdateInterface
+{
+public:
+    int getCurrentStateID() const;
+};
+// AI_EXIT is enum item 37 in the pristine Zero Hour AIStateMachine.h.
+enum { BFME_AI_EXIT = 37 };
+struct ScriptCounter
+{
+	int m_value;
+};
+extern float g_parseDurationMsecScale;
+// Retail keeps no EH state store before this call: the import does not throw.
+extern "C" __declspec(dllimport) int __cdecl _strcmpi(const char *, const char *) throw();
+template<class OBJCLASS>
+class DLINK_ITERATOR
+{
+private:
+    OBJCLASS *m_cur;
+    unsigned char m_targetAbiState[20];
+public:
+    void advance();
+    bool done() const { return m_cur == 0; }
+    OBJCLASS *cur() const { return m_cur; }
+};
+class Rva003E803DAI
+{
+public:
+	virtual void f00(); virtual void f01(); virtual void f02(); virtual void f03();
+	virtual void f04(); virtual void f05(); virtual void f06(); virtual void f07();
+	virtual void f08(); virtual void f09(); virtual void f10(); virtual void f11();
+	virtual void f12(); virtual void f13(); virtual void f14(); virtual void f15();
+	virtual void f16(); virtual void f17(); virtual void f18(); virtual void f19();
+	virtual void f20(); virtual void f21(); virtual void f22(); virtual void f23();
+	virtual void f24(); virtual void f25(); virtual void f26(); virtual void f27();
+	virtual void f28(); virtual void f29(); virtual void f30();
+	virtual void *f31();
+};
+class Rva003E803DSub
+{
+public:
+	virtual void g00(); virtual void g01(); virtual void g02(); virtual void g03();
+	virtual void g04(); virtual void g05(); virtual void g06(); virtual void g07();
+	virtual void g08(); virtual void g09(); virtual void g10(); virtual void g11();
+	virtual void g12(); virtual void g13(); virtual void g14(); virtual void g15();
+	virtual void g16(); virtual void g17(); virtual void g18(); virtual void g19();
+	virtual void g20(); virtual void g21(); virtual void g22(); virtual void g23();
+	virtual void g24(); virtual void g25(); virtual void g26(); virtual void g27();
+	virtual void g28(); virtual void g29(); virtual void g30(); virtual void g31();
+	virtual void g32(); virtual void g33(); virtual void g34(); virtual void g35();
+	virtual void g36(); virtual void g37(); virtual void g38(); virtual void g39();
+	virtual void g40(); virtual void g41(); virtual void g42(); virtual void g43();
+	virtual void g44(); virtual void g45(); virtual void g46(); virtual void g47();
+	virtual void g48(); virtual void g49(); virtual void g50(); virtual void g51();
+	virtual void g52(); virtual void g53(); virtual void g54(); virtual void g55();
+	virtual void g56(); virtual void g57();
+	virtual bool g58(int val);
+};
+bool g_00E02E34;
+class ObjectTypes
+{
+public:
+	ObjectTypes();
+	virtual ~ObjectTypes();
+	void addObjectType(const AsciiString &objectType);
+	bool isInSet(const AsciiString &name) const;	// 0x00376A62
+	int getListSize() const { return m_objectTypes.size(); }
+
+private:
+	AsciiString m_listName;
+	_STL::vector<AsciiString> m_objectTypes;
+};
+class ObjectTypesTemp
+{
+public:
+	ObjectTypesTemp();	// 0x003BA7FF
+	~ObjectTypesTemp() { ::delete m_types; }
+	ObjectTypes *m_types;
+};
+void Script_objectTypesFromParam(Parameter *typeParm, ObjectTypes *types);
+// vftable 0x00BFAD1C, allow 0x002611DD: no members of its own.
+class Rva002611DDFilter : public Rva000421C8
+{
+public:
+	virtual bool allow(Object *obj);
+};
+// vftable 0x00C004D8, allow 0x00261409: the player's relationship to the
+// object's team against the +0x10 flags, +0x0C whether a hit allows.
+class Rva00261409Filter : public Rva000421C8
+{
+public:
+	Rva00261409Filter(Player *player, bool match, int flags)
+		: m_player(player), m_match(match), m_flags(flags) {}
+	virtual bool allow(Object *obj);
+	virtual int getPlayerMask();
+	Player *m_player;
+	bool m_match;
+	int m_flags;
+};
+// Partial storage view of the module found by this condition. Native
+// 3EA6DF reads +0x88; the original complete derived layout is not recovered.
+class Rva003EA566ModuleView : public Module
+{
+public:
+    char m_pad08[0x88 - 0x08];
+    unsigned m_boxesStored;
+};
+struct ICoord3D;
+class View
+{
+public:
+	virtual void slot0();
+	virtual void slot1();
+	virtual void slot2();
+	virtual void slot3();
+	virtual void slot4();
+	virtual void slot5();
+	virtual void slot6();
+	virtual void slot7();
+	virtual void slot8();
+	virtual void slot9();
+	virtual void slot10();
+	virtual void slot11();
+	virtual void slot12();
+	virtual void slot13();
+	virtual void slot14();
+	virtual void slot15();
+	virtual void slot16();
+	virtual void slot17();
+	virtual void slot18();
+	virtual void slot19();
+	virtual void slot20();
+	virtual void slot21();
+	virtual void slot22();
+	virtual void slot23();
+	virtual void slot24();
+	virtual void slot25();
+	virtual void slot26();
+	virtual void slot27();
+	virtual void slot28();
+	virtual void slot29();
+	virtual bool isCameraMovementFinished();
+};
+extern View *TheTacticalView;
+struct UnknownE03138
+{
+	virtual void slot0();
+	virtual void slot1();
+	virtual void slot2();
+	virtual void slot3();
+	virtual void slot4();
+	virtual void slot5();
+	virtual void slot6();
+	virtual void slot7();
+	virtual void slot8();
+	virtual void slot9();
+	virtual void slot10();
+	virtual void slot11();
+	virtual void slot12();
+	virtual void slot13();
+	virtual void slot14();
+	virtual void slot15();
+	virtual void slot16();
+	virtual void slot17();
+	virtual bool isLocalAlliedVictory();
+	virtual bool isLocalAlliedDefeat();
+};
+class VictoryConditionsInterface;
+ extern VictoryConditionsInterface *TheVictoryConditions;
+class Rva0022AD10Subsystem
+{
+public:
+	bool m_flag34() const { return m_f; }
+private:
+	unsigned char m_pad[0x34];
+	bool m_f;
+};
+extern Rva0022AD10Subsystem *TheFormationAssistant;
+extern int g_Va00E04450;
+bool Rva0056815AAny(void);
+bool __stdcall Rva003E41CBGet(Parameter *);
+int __cdecl evaluateMultiplayerPlayerDefeat(void);
+bool __stdcall Rva003E4B83Get(Parameter *);
+int __cdecl Rva003E4C77Get(void);
+bool __stdcall Rva003E4E6AGet(Parameter *);
+bool __stdcall Rva003E4EA5Get(Parameter *);
+bool __stdcall Rva003E4ED5Get(Parameter *);
+bool __stdcall Rva003E4F05Get(Parameter *);
+bool __stdcall Rva003E4F3BGet(Parameter *);
+bool __stdcall Rva003E4F6BGet(void);
+bool __stdcall Rva003E537DCheck(Parameter *);
+bool __stdcall Rva003E7FD5Get(Parameter *);
+bool __stdcall Rva003E8FEE(Parameter *);
+bool __stdcall Rva003E9029(const AsciiString *);
+int __cdecl Rva0043C99AGet(void);
+int __stdcall bfmeGo939D(char);
+
 class UnitRevivalTracker;
+
 class Energy
 {
 public:
 	float getEnergySupplyRatio() const;
 };
+
 enum ScienceType
 {
     SCIENCE_INVALID = -1
 };
+
 class Rva004DF17F;
+
 struct PlayerTeamNode;
+
 class Player
 {
 public:
@@ -780,26 +1398,16 @@ private:
 public:
 	int m_750; // +0x750
 };
-class ObjectTypes
-{
-public:
-	ObjectTypes();
-	virtual ~ObjectTypes();
-	void addObjectType(const AsciiString &objectType);
-	bool isInSet(const AsciiString &name) const;	// 0x00376A62
-	int getListSize() const { return m_objectTypes.size(); }
 
-private:
-	AsciiString m_listName;
-	_STL::vector<AsciiString> m_objectTypes;
-};
 // The campaign query is rowed under its address classes (Rva001EB0FBHas.cpp).
 class Rva00376A62;
+
 class Rva001EB0FB
 {
 public:
 	bool rva001EB0FB(Rva00376A62 &types);
 };
+
 class LinearCampaignManager
 {
 public:
@@ -812,7 +1420,9 @@ private:
 	unsigned char m_pad00[0x10];
 	void *m_campaign;
 };
+
 extern LinearCampaignManager *TheLinearCampaignManager;
+
 // WorldBuilder names this class ArmySummary. The local vector's base ctor is
 // the shared fold at 0x00211E58, which already has a real name, so the element
 // class keeps an address-derived spelling (the address of the spawn method).
@@ -822,12 +1432,15 @@ public:
 	bool SpawnOneDelayedCarryoverUnitIntoUnitRevivalTracker(ObjectTypes *types);
 	ObjectID SpawnOneDelayedCarryoverUnit(ObjectTypes *types);
 };
+
 class Rva002BA8F1Logic
 {
 public:
 	void rva002B323C(_STL::vector<Rva0040D701ArmySummary *> *armies, int armyID);
 };
+
 class Rva002BA8F1Logic;
+
  extern class LivingWorldLogic *TheLivingWorldLogic;
 
 class Rva00286772Manager
@@ -859,10 +1472,15 @@ struct LivingWorldRva
 };
 
 enum CellShroudStatus { CELLSHROUD_CLEAR, CELLSHROUD_FOGGED, CELLSHROUD_SHROUDED, CELLSHROUD_COUNT };
+
 class ContainModuleInterface;
+
 class BodyModuleInterface;
+
 class AIUpdateInterface;
+
 class ExperienceTracker;
+
 class Object
 {
 private:
@@ -914,7 +1532,21 @@ public:
 	int m_44c; // +0x44C
 };
 
+// Native 0x003E6032..0x003E609F is a cdecl callback returning full EAX.
+// Object positions agree with the named-area sibling at +0x38/+0x3C/+0x40.
+// The context contains a point, squared-distance limit, counter and maximum.
+// Its original callback and context names remain unknown.
+struct Rva003E6032Context
+{
+    float point[3];
+    float limit0C;
+    int count10;
+    int maximum14;
+};
+
 // tu-skeleton: 0x003E3C66 35B ?reset@ScriptConditions@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions.cpp
 
@@ -1704,26 +2336,6 @@ bool ScriptConditions::evaluateBridgeRepaired(Parameter *pBridgeParm)
     return false;
 }
 
-// tu-skeleton: 0x003E3DF7 56B ?evaluateNamedUnitDestroyed@ScriptConditions@@IAE_NPAVParameter@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateNamedUnit.cpp (not merged yet)
-
-// tu-skeleton: 0x003E3E2F 37B ?evaluateNamedUnitExists@ScriptConditions@@IAE_NPAVParameter@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateNamedUnit.cpp (not merged yet)
-
-// tu-skeleton: 0x003E3E54 53B ?evaluateNamedUnitDying@ScriptConditions@@IAE_NPAVParameter@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateNamedUnit.cpp (not merged yet)
-
-// tu-skeleton: 0x003E3E89 49B ?evaluateNamedUnitTotallyDead@ScriptConditions@@IAE_NPAVParameter@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateNamedUnit.cpp (not merged yet)
-
-// tu-skeleton: 0x003E3EBA 9B ?rva003E3EBA@ScriptConditions@@IAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateNamedUnit.cpp (not merged yet)
-
-// tu-skeleton: 0x003E3EC3 126B ?rva003E3EC3@ScriptConditions@@IAE_NPAVParameter@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateNamedUnit.cpp (not merged yet)
-
-// tu-skeleton: 0x003E3F41 24B ?evaluateNamedCreated@ScriptConditions@@IAE_NPAVParameter@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateNamedUnit.cpp (not merged yet)
-
-// tu-skeleton: 0x003E3F59 165B ?evaluatePlayerHasCredits@ScriptConditions@@IAE_NPAVParameter@@00@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluatePlayerHasCredits.cpp (not merged yet)
-
-// tu-skeleton: 0x003E3FFE 123B ?evaluateBuildingEntered@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateBuildingEntered.cpp (not merged yet)
-
-// tu-skeleton: 0x003E4079 54B ?evaluateIsBuildingEmpty@ScriptConditions@@IAE_NPAVParameter@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateIsBuildingEmpty.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateNamedOwnedByPlayer.cpp
 
 // ?evaluateNamedOwnedByPlayer@ScriptConditions@@IAE_NPAVParameter@@0@Z
@@ -1752,10 +2364,6 @@ bool ScriptConditions::evaluateNamedOwnedByPlayer(Parameter *pUnitParm, Paramete
     }
     return false;
 }
-
-// tu-skeleton: 0x003E4132 75B ?evaluatePlayerHasNOrFewerBuildings@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluatePlayerHasPower.cpp (not merged yet)
-
-// tu-skeleton: 0x003E417D 78B ?evaluatePlayerHasPower@ScriptConditions@@IAE_NPAVParameter@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluatePlayerHasPower.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003E41CB.cpp
 
@@ -1797,44 +2405,6 @@ bool ScriptConditions::evaluateAudioHasCompleted(Parameter *pAudioParm)
     return TheScriptEngine->rva00358076(pAudioParm->getString(), true);
 }
 
-// tu-skeleton: 0x003E422B 118B ?evaluatePlayerSpecialPowerFromUnitTriggered@ScriptConditions@@IAE_NPAVParameter@@00@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateFromUnitConditions.cpp (not merged yet)
-
-// tu-skeleton: 0x003E42A1 118B ?evaluatePlayerSpecialPowerFromUnitMidway@ScriptConditions@@IAE_NPAVParameter@@00@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateFromUnitConditions.cpp (not merged yet)
-
-// tu-skeleton: 0x003E4317 118B ?evaluatePlayerSpecialPowerFromUnitComplete@ScriptConditions@@IAE_NPAVParameter@@00@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateFromUnitConditions.cpp (not merged yet)
-
-// tu-skeleton: 0x003E438D 118B ?evaluateUpgradeFromUnitComplete@ScriptConditions@@IAE_NPAVParameter@@00@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateFromUnitConditions.cpp (not merged yet)
-
-// tu-skeleton: 0x003E4403 108B ?evaluateScienceAcquired@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateScienceConditions.cpp (not merged yet)
-
-// tu-skeleton: 0x003E446F 98B ?evaluateCanPurchaseScience@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateScienceConditions.cpp (not merged yet)
-
-// tu-skeleton: 0x003E44D1 72B ?evaluateSciencePurchasePoints@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluatePlayerMaskTests.cpp (not merged yet)
-
-// tu-skeleton: 0x003E4519 76B ?rva003E4519@ScriptConditions@@IAE_NPAVParameter@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
-
-// tu-skeleton: 0x003E4565 276B ?evaluateNamedBaseUnpackableForPlayer@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateNamedBaseUnpackableForPlayer.cpp (not merged yet)
-
-// tu-skeleton: 0x003E4679 11B ?evaluateMultiplayerAlliedVictory@@YA_NXZ -- matched in Code/GameEngine/Source/Common/Rva0051AF0BEnable.cpp (not merged yet)
-
-// tu-skeleton: 0x003E4684 11B ?evaluateMultiplayerAlliedDefeat@@YA_NXZ -- matched in Code/GameEngine/Source/Common/Rva0051AF0BEnable.cpp (not merged yet)
-
-// tu-skeleton: 0x003E468F 37B ?evaluateMultiplayerPlayerDefeat@@YAHXZ -- matched in Code/GameEngine/Source/Common/Rva0051AF0BEnable.cpp (not merged yet)
-
-// tu-skeleton: 0x003E46B4 203B ?evaluatePlayerHasComparisonPercentPower@ScriptConditions@@IAE_NPAVParameter@@00@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluatePlayerHasComparisonPercentPower.cpp (not merged yet)
-
-// tu-skeleton: 0x003E477F 145B ?evaluatePlayerHasComparisonValueExcessPower@ScriptConditions@@IAE_NPAVParameter@@00@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluatePlayerHasComparisonValueExcessPower.cpp (not merged yet)
-
-// tu-skeleton: 0x003E4810 80B ?evaluatePlayerDestroyedNOrMoreBuildings@ScriptConditions@@IAE_NPAVParameter@@00@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsPlayerMask.cpp (not merged yet)
-
-// tu-skeleton: 0x003E4860 193B ?evaluateUnitHasEmptied@ScriptConditions@@IAE_NPAVParameter@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
-
-// tu-skeleton: 0x003E4921 151B ?rva003E4921@ScriptConditions@@QAE_NPAVParameter@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003E4921Finish.cpp (not merged yet)
-
-// tu-skeleton: 0x003E49B8 171B ?evaluateSkirmishPlayerHasPrereqsToBuild@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
-
-// tu-skeleton: 0x003E4A63 129B ?evaluateSkirmishSupplySourceSafe@ScriptConditions@@IAE_NPAVCondition@@PAVParameter@@1@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateSkirmishSupplySourceSafe.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateSkirmishSupplySourceAttacked.cpp
 
 //
@@ -1855,10 +2425,6 @@ bool ScriptConditions::evaluateSkirmishSupplySourceAttacked(Parameter *pPlayerPa
     return false;
 }
 
-// tu-skeleton: 0x003E4B2A 74B ?evaluateSkirmishStartPosition@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluatePlayerMaskTests.cpp (not merged yet)
-
-// tu-skeleton: 0x003E4B74 15B ?rva003E4B74@Rva003E4B74@@QAE_NHPBURva003E4B74Arg@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1C.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003E4B83Siege.cpp
 
 bool __stdcall Rva003E4B83Get(Parameter *pUnitParm)
@@ -1873,22 +2439,12 @@ bool __stdcall Rva003E4B83Get(Parameter *pUnitParm)
     return false;
 }
 
-// tu-skeleton: 0x003E4BFA 125B ?evaluateSkirmishPlayerHasBeenAttackedByPlayer@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateSkirmishPlayerHasBeenAttackedByPlayer.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003E4C77.cpp
 
 int __cdecl Rva003E4C77Get()
 {
     return !TheAudio->s39(0);
 }
-
-// tu-skeleton: 0x003E4C8D 262B ?evaluateDistanceBetweenObjects@ScriptConditions@@IAE_NPAVCondition@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
-
-// tu-skeleton: 0x003E4D93 215B ?rva003E4D93@ScriptConditions@@IAE_NPAVParameter@@000@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
-
-// tu-skeleton: 0x003E4E6A 59B ?Rva003E4E6AGet@@YG_NPAVParameter@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003E4E6A.cpp (not merged yet)
-
-// tu-skeleton: 0x003E4EA5 48B ?Rva003E4EA5Get@@YG_NPAVParameter@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003E4EA5.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluatePlayerCompareLightPoints.cpp
 
@@ -1913,22 +2469,6 @@ bool ScriptConditions::evaluatePlayerCompareLightPoints(Parameter *pMaskParm, Pa
     }
     return result;
 }
-
-// tu-skeleton: 0x003E5017 157B ?evaluateCanBuildObjectTypeAtBase@ScriptConditions@@IAE_NPAVParameter@@00@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateCanBuildObjectTypeAtBase.cpp (not merged yet)
-
-// tu-skeleton: 0x003E50B4 81B ?evaluateNamedCanPathToWaypoint@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateNamedCanPathToWaypoint.cpp (not merged yet)
-
-// tu-skeleton: 0x003E5105 74B ?rva003E5105@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003E5105.cpp (not merged yet)
-
-// tu-skeleton: 0x003E514F 138B ?rva003E514F@ScriptConditions@@IAE_NPAVParameter@@PAUCondA003E514F@@PAUCondB003E514F@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003E514F.cpp (not merged yet)
-
-// tu-skeleton: 0x003E51D9 142B ?rva003E51D9@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
-
-// tu-skeleton: 0x003E5267 132B ?rva003E5267@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
-
-// tu-skeleton: 0x003E52EB 146B ?rva003E52EB@ScriptConditions@@IAE_NPAVParameter@@PAUCondA003E52EB@@PAUCondB003E52EB@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003E52EB.cpp (not merged yet)
-
-// tu-skeleton: 0x003E537D 52B ?Rva003E537DCheck@@YG_NPAVParameter@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003E537D.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateNumPlayersInGame.cpp
 
@@ -1964,162 +2504,6 @@ bool ScriptConditions::evaluateNumPlayersInGame(CondA003E53C8 *a, CondB003E53C8 
 
 	return result;
 }
-
-// tu-skeleton: 0x003E549E 5B ?Rva003E549E@@YA_NXZ -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
-
-// tu-skeleton: 0x003E54A3 5B ?Rva003E54A3@@YAHXZ -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
-
-// tu-skeleton: 0x003E54A8 12B ?Rva003E54A8@@YA_NXZ -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
-
-// tu-skeleton: 0x003E54B4 67B ?evaluatePlayerIsInPlanningMode@ScriptConditions@@IAE_NPAVParameter@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluatePlayerIsInPlanningMode.cpp (not merged yet)
-
-// tu-skeleton: 0x003E5513 18B ??0ScriptConditions@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_ctor.cpp (not merged yet)
-
-// tu-skeleton: 0x003E5525 62B ??1ScriptConditions@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_ctor.cpp (not merged yet)
-
-// tu-skeleton: 0x003E5563 36B ??0Rva003E5563@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva003E5563Finish.cpp (not merged yet)
-
-// tu-skeleton: 0x003E5587 318B ?evaluateUnitHealth@ScriptConditions@@IAE_NPAVParameter@@00@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
-
-// tu-skeleton: 0x003E56C5 422B ?evaluateEnemySighted@ScriptConditions@@QAE_NABVAsciiString@@PAVParameter@@1@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003E56C5.cpp (not merged yet)
-
-// tu-skeleton: 0x003E59B0 313B ?rva003E59B0@ScriptConditions@@IAE_NPAVParameter@@00_N@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_rva003E59B0.cpp (not merged yet)
-
-// tu-skeleton: 0x003E5B11 243B ?evaluateCanBuildAtBase@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
-
-// tu-skeleton: 0x003E5C04 173B ?evaluatePlayerHasKilledKindOfUnits@ScriptConditions@@IAE_NPAVParameter@@00@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
-
-// tu-skeleton: 0x003E5CB1 228B ?rva003E5CB1@ScriptConditions@@QAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003E5CB1.cpp (not merged yet)
-
-// tu-skeleton: 0x003E5D95 56B ?rva003E5D95@ScriptConditions@@IAEEPAVParameter@@PAUCond003E5D95@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003E5D95.cpp (not merged yet)
-
-// tu-skeleton: 0x003E5DCD 28B ??_GScriptConditions@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_ctor.cpp (not merged yet)
-
-// tu-skeleton: 0x003E5EFF 116B ?evaluateNamedInsideArea@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateNamedInsideArea.cpp (not merged yet)
-
-// tu-skeleton: 0x003E5F73 191B ?evaluatePlayerHasNumberObjectsWithModelCondition@ScriptConditions@@IAE_NPAVParameter@@PAUCondA003E5F73@@PAUCondB003E5F73@@PAUCondC003E5F73@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluatePlayerHasNumberObjectsWithModelCondition.cpp (not merged yet)
-
-// tu-skeleton: 0x003E6032 109B ?Rva003E6032@@YAHPAVObject@@PAURva003E6032Context@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateNamedInsideArea.cpp (not merged yet)
-
-// tu-skeleton: 0x003E61A4 553B ?evaluatePlayerHasUnitTypeInArea@ScriptConditions@@IAE_NPAVCondition@@PAVParameter@@11111_N@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
-
-// tu-skeleton: 0x003E63CD 217B ?rva003E63CD@ScriptConditions@@IAE_NPAVCondition@@PAVParameter@@11@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
-
-// tu-skeleton: 0x003E64A6 559B ?evaluatePlayerHasUnitKindInArea@ScriptConditions@@IAE_NPAVCondition@@PAVParameter@@1111@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
-
-// tu-skeleton: 0x003E6784 127B ?evaluateTeamAttackedByPlayer@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamAttackedByPlayer.cpp (not merged yet)
-
-// tu-skeleton: 0x003E6A2B 126B ?evaluateNamedDiscovered@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateNamedDiscovered.cpp (not merged yet)
-
-// tu-skeleton: 0x003E6AA9 174B ?evaluateTeamDiscovered@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamDiscovered.cpp (not merged yet)
-
-// tu-skeleton: 0x003E6BC5 325B ?rva003E6BC5@ScriptConditions@@IAE_NPAVCondition@@PAVParameter@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
-
-// tu-skeleton: 0x003E6D0A 86B ?evaluateNamedEnteredArea@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateNamedEnteredArea.cpp (not merged yet)
-
-// tu-skeleton: 0x003E6D60 74B ?evaluateNamedExitedArea@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateNamedExitedArea.cpp (not merged yet)
-
-// tu-skeleton: 0x003E6ED0 378B ?rva003E6ED0@ScriptConditions@@QAE_NPAVParameter@@PBVAsciiString@@0_N2@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003E6ED0.cpp (not merged yet)
-
-// tu-skeleton: 0x003E70AC 126B ?evaluateTeamIsContained@ScriptConditions@@MAE_NPAVParameter@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamIsContained.cpp (not merged yet)
-
-// tu-skeleton: 0x003E719C 587B ?evaluateSkirmishValueInArea@ScriptConditions@@IAE_NPAVCondition@@PAVParameter@@111@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
-
-// tu-skeleton: 0x003E749E 249B ?evaluateSkirmishUnownedFactionUnitComparison@ScriptConditions@@IAE_NPAVParameter@@00@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsPlayerUnitCounts.cpp (not merged yet)
-
-// tu-skeleton: 0x003E7597 333B ?evaluateSkirmishPlayerHasComparisonGarrisoned@ScriptConditions@@IAE_NPAVParameter@@00@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsPlayerUnitCounts.cpp (not merged yet)
-
-// tu-skeleton: 0x003E76E4 283B ?evaluateSkirmishPlayerHasComparisonCapturedUnits@ScriptConditions@@IAE_NPAVParameter@@00@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsPlayerUnitCounts.cpp (not merged yet)
-
-// tu-skeleton: 0x003E782D 386B ?evaluateSkirmishPlayerHasUnitsInArea@ScriptConditions@@IAE_NPAVCondition@@PAVParameter@@1@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
-
-// tu-skeleton: 0x003E79F5 263B ?evaluateSkirmishPlayerHasDiscoveredPlayer@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsPlayerUnitCounts.cpp (not merged yet)
-
-// tu-skeleton: 0x003E7B56 356B ?evaluateDistanceBetweenTeams@ScriptConditions@@IAE_NPAVCondition@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
-
-// tu-skeleton: 0x003E7CBA 201B ?evaluateCounterCounter@ScriptConditions@@IAE_NPAVCondition@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsCounterCompare.cpp (not merged yet)
-
-// tu-skeleton: 0x003E7D83 209B ?evaluateCounterSeconds@ScriptConditions@@IAE_NPAVCondition@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsCounterCompare.cpp (not merged yet)
-
-// tu-skeleton: 0x003E7E54 230B ?evaluateTeamCachedFloatCompare@ScriptConditions@@IAE_NPAVParameter@@000@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamCachedFloatCompare.cpp (not merged yet)
-
-// tu-skeleton: 0x003E7F3A 155B ?rva003E7F3A@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003E7F3A.cpp (not merged yet)
-
-// tu-skeleton: 0x003E7FD5 104B ?Rva003E7FD5Get@@YG_NPAVParameter@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003E7FD5.cpp (not merged yet)
-
-// tu-skeleton: 0x003E803D 157B ?evaluateTeamIsLedByUnit@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamIsLedByUnit.cpp (not merged yet)
-
-// tu-skeleton: 0x003E81E8 250B ?evaluateHasCommandPointsToBuildUnit@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
-
-// tu-skeleton: 0x003E82E2 205B ?evaluatePlayerHasKilledTypeUnits@ScriptConditions@@IAE_NPAVParameter@@00@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
-
-// tu-skeleton: 0x003E83AF 278B ?rva003E83AF@ScriptConditions@@QAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003E5CB1.cpp (not merged yet)
-
-// tu-skeleton: 0x003E84C5 112B ?evaluateTeamCanPathToWaypoint@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamCanPathToWaypoint.cpp (not merged yet)
-
-// tu-skeleton: 0x003E8535 105B ?evaluateTeamCanPathToNamed@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamCanPathToNamed.cpp (not merged yet)
-
-// tu-skeleton: 0x003E85E0 195B ?rva003E85E0@ScriptConditions@@IAE_NPAVParameter@@00@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsPlayerUnitCounts.cpp (not merged yet)
-
-// tu-skeleton: 0x003E86A3 226B ?rva003E86A3@ScriptConditions@@IAE_NPAVParameter@@00@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsPlayerUnitCounts.cpp (not merged yet)
-
-// tu-skeleton: 0x003E8785 222B ?rva003E8785@ScriptConditions@@IAE_NPAVParameter@@00@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsPlayerUnitCounts.cpp (not merged yet)
-
-// tu-skeleton: 0x003E8863 326B ?rva003E8863@ScriptConditions@@IAE_NPAVParameter@@000@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsPlayerUnitCounts.cpp (not merged yet)
-
-// tu-skeleton: 0x003E89A9 256B ?evaluateUnitHasToggledWeapon@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsPlayerUnitCounts.cpp (not merged yet)
-
-// tu-skeleton: 0x003E8AA9 158B ?evaluateAnyUnitsUsingBloodthirsty@ScriptConditions@@IAE_NPAVParameter@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsPlayerUnitCounts.cpp (not merged yet)
-
-// tu-skeleton: 0x003E8B47 221B ?rva003E8B47@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsPlayerUnitCounts.cpp (not merged yet)
-
-// tu-skeleton: 0x003E8C24 221B ?rva003E8C24@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsPlayerUnitCounts.cpp (not merged yet)
-
-// tu-skeleton: 0x003E8D01 290B ?rva003E8D01@ScriptConditions@@IAE_NPAVParameter@@00@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
-
-// tu-skeleton: 0x003E8E23 459B ?rva003E8E23@ScriptConditions@@IAE_NPAVParameter@@000@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsRva003E8E23.cpp (not merged yet)
-
-// tu-skeleton: 0x003E9062 404B ?evaluateSkirmishSpecialPowerIsReady@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateSkirmishSpecialPowerIsReady.cpp (not merged yet)
-
-// tu-skeleton: 0x003E92DF 148B ?evaluateNamedUnitRankLevel@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateNamedUnitRankLevel.cpp (not merged yet)
-
-// tu-skeleton: 0x003E9373 254B ?evaluateHasUnits@ScriptConditions@@IAE_NPAVParameter@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
-
-// tu-skeleton: 0x003E9471 116B ?evaluateTeamStateIs@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
-
-// tu-skeleton: 0x003E94E5 113B ?evaluateTeamStateIsNot@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
-
-// tu-skeleton: 0x003E9556 169B ?evaluateNamedAttackedByType@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
-
-// tu-skeleton: 0x003E95FF 246B ?evaluateTeamAttackedByType@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
-
-// tu-skeleton: 0x003E96F5 137B ?evaluateNamedAttackedByPlayer@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
-
-// tu-skeleton: 0x003E977E 430B ?evaluateBuiltByPlayer@ScriptConditions@@IAE_NPAVCondition@@PAVParameter@@1@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
-
-// tu-skeleton: 0x003E992C 243B ?evaluateNamedReachedWaypointsEnd@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
-
-// tu-skeleton: 0x003E9A1F 331B ?evaluateTeamReachedWaypointsEnd@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
-
-// tu-skeleton: 0x003E9B6A 209B ?evaluateNamedSelected@ScriptConditions@@IAE_NPAVCondition@@PAVParameter@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
-
-// tu-skeleton: 0x003E9C3B 551B ?evaluatePlayerUnitCondition@ScriptConditions@@IAE_NPAVCondition@@PAVParameter@@111@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
-
-// tu-skeleton: 0x003E9E62 78B ?evaluateSkirmishPlayerIsFaction@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateSkirmishPlayerIsFaction.cpp (not merged yet)
-
-// tu-skeleton: 0x003E9EB0 454B ?evaluatePlayerLostObjectType@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
-
-// tu-skeleton: 0x003EA076 180B ?evaluateNamedDestroyedByType@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
-
-// tu-skeleton: 0x003EA12A 254B ?rva003EA12A@ScriptConditions@@IAE_NPAVParameter@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
-
-// tu-skeleton: 0x003EA228 387B ?rva003EA228@ScriptConditions@@IAE_NPAVParameter@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
-
-// tu-skeleton: 0x003EA3AB 443B ?evaluateTypeSighted@ScriptConditions@@QAE_NABVAsciiString@@PAVParameter@@1@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTypeSighted.cpp (not merged yet)
-
-// tu-skeleton: 0x003EA566 510B ?evaluateSkirmishSuppliesWithinDistancePerimeter@ScriptConditions@@QAE_NPAVParameter@@000@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003EA566.cpp (not merged yet)
-
-// tu-skeleton: 0x003EA764 280B ?evaluateIsNumOfUnitsBelongingToPlayerNearEvaEventLastPlayedLocationComparisonInt@ScriptConditions@@QAE_NPAVParameter@@MPBVAsciiString@@HH@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateIsNumOfUnitsBelongingToPlayerNearEvaEventLastPlayedLocationComparisonInt.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_delayedCarryover.cpp
 
@@ -2165,15 +2549,2236 @@ bool ScriptConditions::evaluateHasDelayedCarryoverUnitOfType(const AsciiString &
 	return false;
 }
 
-// tu-skeleton: 0x003EA9AF 7973B ?evaluateConditionHelper@ScriptConditions@@IAE_NPAVCondition@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateConditionHelper.cpp (not merged yet)
+// tu-skeleton: 0x003E3DF7 56B ?evaluateNamedUnitDestroyed@ScriptConditions@@IAE_NPAVParameter@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateNamedUnit.cpp (not merged yet)
+
+// tu-skeleton: 0x003E3E2F 37B ?evaluateNamedUnitExists@ScriptConditions@@IAE_NPAVParameter@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateNamedUnit.cpp (not merged yet)
+
+// tu-skeleton: 0x003E3E54 53B ?evaluateNamedUnitDying@ScriptConditions@@IAE_NPAVParameter@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateNamedUnit.cpp (not merged yet)
+
+// tu-skeleton: 0x003E3E89 49B ?evaluateNamedUnitTotallyDead@ScriptConditions@@IAE_NPAVParameter@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateNamedUnit.cpp (not merged yet)
+
+// tu-skeleton: 0x003E3EBA 9B ?rva003E3EBA@ScriptConditions@@IAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateNamedUnit.cpp (not merged yet)
+
+// tu-skeleton: 0x003E3EC3 126B ?rva003E3EC3@ScriptConditions@@IAE_NPAVParameter@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateNamedUnit.cpp (not merged yet)
+
+// tu-skeleton: 0x003E3F41 24B ?evaluateNamedCreated@ScriptConditions@@IAE_NPAVParameter@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateNamedUnit.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluatePlayerHasCredits.cpp
+
+// ?evaluatePlayerHasCredits@ScriptConditions@@IAE_NPAVParameter@@00@Z @0x003E3F59 165B: player-mask sum of Player+0x94 vs threshold with 0..5 op switch
+// Evidence: neighbours ScriptConditions_evaluateNamedUnit and evaluateRva003E3FFE same flags; rowed getEachPlayerFromMask 0x002A7BC9 plus pin rva00357B82 plus globals g_Va009FE16C ThePlayerList plus caller 0x003EAD99
+
+bool ScriptConditions::evaluatePlayerHasCredits(Parameter *pValue, Parameter *pOp, Parameter *pPlayerParm)
+{
+	int mask = TheScriptEngine->rva00357B82(pPlayerParm);
+	int total = 0;
+	while (mask != 0) {
+		Player *player = ThePlayerList->getEachPlayerFromMask(mask);
+		if (player) {
+			if (&player->m_90) {
+				total += player->m_94;
+			}
+		}
+	}
+	int op = pOp->m_int;
+	bool result = false;
+	switch (op) {
+	case 0:
+		result = pValue->m_int < total;
+		break;
+	case 1:
+		result = pValue->m_int <= total;
+		break;
+	case 2:
+		result = pValue->m_int == total;
+		break;
+	case 3:
+		result = pValue->m_int >= total;
+		break;
+	case 4:
+		result = pValue->m_int > total;
+		break;
+	case 5:
+		result = pValue->m_int != total;
+		break;
+	default:
+		break;
+	}
+	return result;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateBuildingEntered.cpp
+
+bool ScriptConditions::evaluateBuildingEntered(Parameter *pPlayerParm, Parameter *pUnitParm)
+{
+	Object *obj = TheScriptEngine->getUnitNamed(pUnitParm);
+	if (!obj) {
+		return false;
+	}
+	Rva003E3FFEFace *face = (Rva003E3FFEFace *)obj->m_contain;
+	if (!face) {
+		return false;
+	}
+	int ownerMask = face->getMask();
+	if (!ownerMask) {
+		return false;
+	}
+	Player *owner = ThePlayerList->getPlayerFromMask(ownerMask);
+	if (!owner) {
+		return false;
+	}
+	int mask = TheScriptEngine->rva00357B82(pPlayerParm);
+	while (mask) {
+		Player *player = ThePlayerList->getEachPlayerFromMask(mask);
+		if (owner == player) {
+			return true;
+		}
+	}
+	return false;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateIsBuildingEmpty.cpp
+
+// ?evaluateIsBuildingEmpty@ScriptConditions@@IAE_NPAVParameter@@@Z
+// @0x003E4079 54B. ZH donor: GeneralsMD ScriptConditions.cpp
+// evaluateIsBuildingEmpty. Target evidence: the evaluateCondition jump table
+// (0x007EC5C0) sends case 78 here, which initConditionTemplates names
+// NAMED_BUILDING_IS_EMPTY. BFME2 differences: the unit lookup takes the
+// Parameter (rowed getUnitNamed 0x003588E7), the contain module sits at
+// Object +0x250, and the contain count is vslot +0x114 with one extra zero
+// argument whose meaning is not asserted.
+
+bool ScriptConditions::evaluateIsBuildingEmpty(Parameter *pItemParm)
+{
+
+    Object *theBuilding = TheScriptEngine->getUnitNamed(pItemParm);
+    if (!theBuilding) {
+        return false;
+    }
+
+    ContainModuleInterface *contain = theBuilding->getContain();
+    if (!contain) {
+        return false;
+    }
+    if (contain->getContainCount(0) > 0) {
+        return false;
+    }
+    return true;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluatePlayerHasPower.cpp
+
+// ZH donor: GeneralsMD ScriptConditions.cpp evaluatePlayerHasPower and
+// evaluatePlayerHasNOrFewerBuildings. Target evidence: the evaluateCondition
+// jump table (0x007EC5C0) sends cases 33 and 47 (PLAYER_HAS_POWER, and
+// PLAYER_HAS_NO_POWER through the dispatcher) to 0x003E417D and case 32 to
+// 0x003E4132, which initConditionTemplates names PLAYER_HAS_N_OR_FEWER_BUILDINGS.
+// BFME2 difference: the player parameter is a mask from the pinned ScriptEngine
+// helper 0x00357B82, walked with the rowed PlayerList::getEachPlayerFromMask
+// 0x002A7BC9 on ThePlayerList (0x00DFEEE8); power asks the rowed 0x004DF17F on
+// the energy block embedded at Player +0x1BC (ZH hasSufficientPower), and the
+// building count sums Player::countBuildings 0x002AB10F over the mask.
+// Structural inference: the count result is an if/return pair, which keeps
+// retail's setge into al without a zeroed eax.
+
+bool ScriptConditions::evaluatePlayerHasNOrFewerBuildings(Parameter *pBuildingCountParm, Parameter *pPlayerParm)
+{
+    PlayerMaskType mask = TheScriptEngine->rva00357B82(pPlayerParm);
+    int count = 0;
+    while (mask) {
+        Player *pPlayer = ThePlayerList->getEachPlayerFromMask(mask);
+        if (pPlayer) {
+            count += pPlayer->countBuildings();
+        }
+    }
+    // Native code reads this view's +0x08 word directly. Other Parameter
+    // views give getInt a different layout, so do not emit that shared name.
+    if (pBuildingCountParm->m_int >= count) {
+        return true;
+    }
+    return false;
+}
+
+bool ScriptConditions::evaluatePlayerHasPower(Parameter *pPlayerParm)
+{
+    PlayerMaskType mask = TheScriptEngine->rva00357B82(pPlayerParm);
+    while (mask) {
+        Player *pPlayer = ThePlayerList->getEachPlayerFromMask(mask);
+        if (!pPlayer) {
+            continue;
+        }
+        Rva004DF17F *pPlayersEnergy = pPlayer->getEnergy();
+        if (!pPlayersEnergy) {
+            continue;
+        }
+        if (pPlayersEnergy->rva004DF17F()) {
+            return true;
+        }
+    }
+    return false;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateFromUnitConditions.cpp
+
+//
+// Zero Hour's ScriptConditions::evaluatePlayerSpecialPowerFromUnitTriggered,
+// ...Midway, ...Complete and evaluateUpgradeFromUnitComplete (retail
+// 0x003E422B, 0x003E42A1, 0x003E4317, 0x003E438D; 118B each, in Zero Hour's
+// order, called from the condition dispatcher at 0x003EB490..0x003EB60D):
+// an optional unit parameter supplies the source ObjectID (+0x74; a missing
+// unit answers false), then the rowed ScriptEngine queries 0x003571B8,
+// 0x0035721A, 0x0035727C and 0x003572DE (Zero Hour's isSpecialPowerTriggered,
+// ...MidwayThrough, ...Complete and isUpgradeComplete order) run per player
+// index (+0x54). BFME2 difference, as in
+// ScriptConditions_evaluateSkirmishPlayerIsFaction.cpp: the player parameter
+// is a mask walked with PlayerList::getEachPlayerFromMask.
+
+bool ScriptConditions::evaluatePlayerSpecialPowerFromUnitTriggered(Parameter *pPlayerParm, Parameter *pSpecialPowerParm, Parameter *pUnitParm)
+{
+    unsigned int sourceID = 0;
+    if (pUnitParm)
+    {
+        Object *pUnit = TheScriptEngine->getUnitNamed(pUnitParm);
+        if (!pUnit)
+            return false;
+        sourceID = pUnit->getID();
+    }
+    PlayerMaskType mask = TheScriptEngine->rva00357B82(pPlayerParm);
+    while (mask)
+    {
+        Player *player = ThePlayerList->getEachPlayerFromMask(mask);
+        if (player && TheScriptEngine->rva003571B8(player->getPlayerIndex(), pSpecialPowerParm->getString(), true, sourceID))
+            return true;
+    }
+    return false;
+}
+
+bool ScriptConditions::evaluatePlayerSpecialPowerFromUnitMidway(Parameter *pPlayerParm, Parameter *pSpecialPowerParm, Parameter *pUnitParm)
+{
+    unsigned int sourceID = 0;
+    if (pUnitParm)
+    {
+        Object *pUnit = TheScriptEngine->getUnitNamed(pUnitParm);
+        if (!pUnit)
+            return false;
+        sourceID = pUnit->getID();
+    }
+    PlayerMaskType mask = TheScriptEngine->rva00357B82(pPlayerParm);
+    while (mask)
+    {
+        Player *player = ThePlayerList->getEachPlayerFromMask(mask);
+        if (player && TheScriptEngine->rva0035721A(player->getPlayerIndex(), pSpecialPowerParm->getString(), true, sourceID))
+            return true;
+    }
+    return false;
+}
+
+bool ScriptConditions::evaluatePlayerSpecialPowerFromUnitComplete(Parameter *pPlayerParm, Parameter *pSpecialPowerParm, Parameter *pUnitParm)
+{
+    unsigned int sourceID = 0;
+    if (pUnitParm)
+    {
+        Object *pUnit = TheScriptEngine->getUnitNamed(pUnitParm);
+        if (!pUnit)
+            return false;
+        sourceID = pUnit->getID();
+    }
+    PlayerMaskType mask = TheScriptEngine->rva00357B82(pPlayerParm);
+    while (mask)
+    {
+        Player *player = ThePlayerList->getEachPlayerFromMask(mask);
+        if (player && TheScriptEngine->rva0035727C(player->getPlayerIndex(), pSpecialPowerParm->getString(), true, sourceID))
+            return true;
+    }
+    return false;
+}
+
+bool ScriptConditions::evaluateUpgradeFromUnitComplete(Parameter *pPlayerParm, Parameter *pUpgradeParm, Parameter *pUnitParm)
+{
+    unsigned int sourceID = 0;
+    if (pUnitParm)
+    {
+        Object *pUnit = TheScriptEngine->getUnitNamed(pUnitParm);
+        if (!pUnit)
+            return false;
+        sourceID = pUnit->getID();
+    }
+    PlayerMaskType mask = TheScriptEngine->rva00357B82(pPlayerParm);
+    while (mask)
+    {
+        Player *player = ThePlayerList->getEachPlayerFromMask(mask);
+        if (player && TheScriptEngine->rva003572DE(player->getPlayerIndex(), pUpgradeParm->getString(), true, sourceID))
+            return true;
+    }
+    return false;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateScienceConditions.cpp
+
+//
+// Zero Hour's ScriptConditions::evaluateScienceAcquired (retail 0x003E4403,
+// 108B) and evaluateCanPurchaseScience (0x003E446F, 98B), next after the
+// FromUnit evaluators as in Zero Hour: the science looked up by internal
+// name on TheScienceStore first, then per player of the BFME2 player mask
+// the rowed ScriptEngine science query 0x00357B3D (its row types the
+// science as ObjectID) or Player::isCapableOfPurchasingScience.
+
+bool ScriptConditions::evaluateScienceAcquired(Parameter *pPlayerParm, Parameter *pScienceParm)
+{
+    ScienceType science = TheScienceStore->getScienceFromInternalName(pScienceParm->getString());
+    if (science == SCIENCE_INVALID)
+        return false;
+    PlayerMaskType mask = TheScriptEngine->rva00357B82(pPlayerParm);
+    while (mask)
+    {
+        Player *player = ThePlayerList->getEachPlayerFromMask(mask);
+        if (player && TheScriptEngine->rva00357B3D(player->getPlayerIndex(), (ObjectID)science, true))
+            return true;
+    }
+    return false;
+}
+
+bool ScriptConditions::evaluateCanPurchaseScience(Parameter *pPlayerParm, Parameter *pScienceParm)
+{
+    ScienceType science = TheScienceStore->getScienceFromInternalName(pScienceParm->getString());
+    if (science == SCIENCE_INVALID)
+        return false;
+    PlayerMaskType mask = TheScriptEngine->rva00357B82(pPlayerParm);
+    while (mask)
+    {
+        Player *player = ThePlayerList->getEachPlayerFromMask(mask);
+        if (player && player->isCapableOfPurchasingScience(science))
+            return true;
+    }
+    return false;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluatePlayerMaskTests.cpp
+
+// ZH donor: GeneralsMD ScriptConditions.cpp evaluateSciencePurchasePoints and
+// evaluateSkirmishStartPosition. Target evidence: the evaluateCondition jump
+// table (0x007EC5C0) sends case 101 to 0x003E44D1 and case 107 to 0x003E4B2A,
+// which initConditionTemplates names PLAYER_HAS_SCIENCEPURCHASEPOINTS and
+// START_POSITION_IS. BFME2 difference: the player parameter is a mask from
+// the pinned ScriptEngine helper 0x00357B82 walked with the rowed
+// PlayerList::getEachPlayerFromMask 0x002A7BC9, true when any player matches.
+// Player +0x24 is the science purchase points and +0x2E0 the multiplayer
+// start index (retail offsets).
+
+bool ScriptConditions::evaluateSciencePurchasePoints(Parameter *pPlayerParm, Parameter *pSciencePointParm)
+{
+    int pointsNeeded = pSciencePointParm->m_int;
+    PlayerMaskType mask = TheScriptEngine->rva00357B82(pPlayerParm);
+    while (mask) {
+        Player *pPlayer = ThePlayerList->getEachPlayerFromMask(mask);
+        if (pPlayer && pPlayer->getSciencePurchasePoints() >= pointsNeeded) {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool ScriptConditions::evaluateSkirmishStartPosition(Parameter *pSkirmishPlayerParm, Parameter *pStartNdx)
+{
+    PlayerMaskType mask = TheScriptEngine->rva00357B82(pSkirmishPlayerParm);
+    while (mask) {
+        Player *player = ThePlayerList->getEachPlayerFromMask(mask);
+        if (player && pStartNdx->m_int - 1 == player->getMpStartIndex()) {
+            return true;
+        }
+    }
+    return false;
+}
+
+// tu-skeleton: 0x003E4519 76B ?rva003E4519@ScriptConditions@@IAE_NPAVParameter@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateNamedBaseUnpackableForPlayer.cpp
+
+//
+// ?evaluateNamedBaseUnpackableForPlayer@ScriptConditions@@IAE_NPAVParameter@@0@Z
+// @0x003E4565 276B.
+//
+// ZH/BFME1 donor: ScriptConditionsNamedBaseUnpackableForPlayer.cpp (the only
+// copy of this condition in the reference tree); BFME2 renames the module key
+// source to CastleBehavior::rva0003955DA (rowed 0x003955DA), resolves
+// ScriptEngine::rva00357B82 for the player mask, and reads the command button
+// through rva0031D5F8/getCommandButton/rva0035B570 and the CastleBehavior
+// chain canUnpack/rva00397F45/rva0039718B/Finish.
+//
+// Retail's schedule at the findModule call is: call rva0003955DA, push eax,
+// mov ecx, base, call findModule. Passing the call result straight as the
+// argument schedules mov ecx before push eax (nd 2); binding the key to a
+// named NameKeyType local reproduces retail exactly (the donor also keeps a
+// named module-key local). Raw stream instruction-identical, 276/276.
+
+bool ScriptConditions::evaluateNamedBaseUnpackableForPlayer(Parameter *baseParm, Parameter *playerParm)
+
+{
+ Object *base = TheScriptEngine->getUnitNamed(baseParm);
+ if (!base)
+ return false;
+ int mask = TheScriptEngine->rva00357B82(playerParm);
+ if (!mask)
+ return false;
+ Player *player = ThePlayerList->getPlayerFromMask(mask);
+ if (!player || base->getControllingPlayer() != player)
+ return false;
+ const NameKeyType baseModuleKey = CastleBehavior::rva0003955DA();
+ CastleBehavior *castle = (CastleBehavior *)base->findModule(baseModuleKey);
+ if (castle && castle->canUnpack(true) && castle->isPlayerAllowedToPackOrUnpack(player, 1) && castle->rva0039718B(player))
+ return true;
+ CommandSet *commandSet = (CommandSet *)TheControlBar->rva0031D5F8(base->rva00290E67());
+ if (commandSet) 
+ 
+ {
+  int i = 0;
+  do 
+  
+  {
+   const CommandButton *button = commandSet->getCommandButton(i);
+   if (button && button->m_command == 0x32) 
+   
+   {
+    ThingTemplate *thing = (ThingTemplate *)button->rva0035B570();
+    if (thing && castle && castle->canUnpack(true) && castle->isPlayerAllowedToPackOrUnpack(player, 1) &&
+    castle->rva00395686(player, thing))
+    return true;
+    
+   }
+   ++i;
+   
+  }
+  while (i < 32);
+  
+ }
+ return false;
+ 
+}
+
+// tu-skeleton: 0x003E4679 11B ?evaluateMultiplayerAlliedVictory@@YA_NXZ -- matched in Code/GameEngine/Source/Common/Rva0051AF0BEnable.cpp (not merged yet)
+
+// tu-skeleton: 0x003E4684 11B ?evaluateMultiplayerAlliedDefeat@@YA_NXZ -- matched in Code/GameEngine/Source/Common/Rva0051AF0BEnable.cpp (not merged yet)
+
+// tu-skeleton: 0x003E468F 37B ?evaluateMultiplayerPlayerDefeat@@YAHXZ -- matched in Code/GameEngine/Source/Common/Rva0051AF0BEnable.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluatePlayerHasComparisonPercentPower.cpp
+
+// free compare-mask @ 0x003E46B4 203B leaf from 0x003EB90E. Evidence:
+// 3x Parameter ret 0xc; mask via rowed rva00357B82 walked with rowed
+// getEachPlayerFromMask; ratio via rowed Energy::getEnergySupplyRatio at +0x1BC vs float
+// threshold (param+8 int * 0.01f); op at [param+8] 0..5 selects
+// float compares via dec-je switch. Direct transfer of landed sibling
+// Rva003E477FCompare (145B, same shape, int diff) to float ratio.
+
+bool ScriptConditions::evaluatePlayerHasComparisonPercentPower(Parameter *pMaskParm, Parameter *pOpParm, Parameter *pValParm)
+{
+    float threshold = (float)pValParm->m_int * 0.01f;
+    int mask = TheScriptEngine->rva00357B82(pMaskParm);
+    while (mask) {
+        Player *pl = ThePlayerList->getEachPlayerFromMask(mask);
+        float ratio = pl->m_energy.getEnergySupplyRatio();
+        int op = pOpParm->m_int;
+        bool hit = false;
+        switch (op) {
+            case 0: hit = (ratio < threshold); break;
+            case 1: hit = (ratio <= threshold); break;
+            case 2: hit = (ratio == threshold); break;
+            case 3: hit = (ratio >= threshold); break;
+            case 4: hit = (ratio > threshold); break;
+            case 5: hit = (ratio != threshold); break;
+            default: continue;
+        }
+        if (hit)
+            return true;
+    }
+    return false;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluatePlayerHasComparisonValueExcessPower.cpp
+
+// free compare-mask @ 0x003E477F 145B leaf from 0x003EB941. Evidence:
+// 3x Parameter ret 0xc; mask via rowed rva00357B82 walked with rowed
+// getEachPlayerFromMask; Player diff +0x1C0-+0x1C4 vs [param+8]; op at
+// [param+8] 0..5 selects < <= == >= > != via dec-je switch.
+
+bool ScriptConditions::evaluatePlayerHasComparisonValueExcessPower(Parameter *pMaskParm, Parameter *pOpParm, Parameter *pValParm)
+{
+    int threshold = pValParm->m_int;
+    int mask = TheScriptEngine->rva00357B82(pMaskParm);
+    while (mask) {
+        Player *pl = ThePlayerList->getEachPlayerFromMask(mask);
+        int diff = pl->m_val1C0 - pl->m_val1C4;
+        int op = pOpParm->m_int;
+        bool hit = false;
+        switch (op) {
+            case 0: hit = (diff < threshold); break;
+            case 1: hit = (diff <= threshold); break;
+            case 2: hit = (diff == threshold); break;
+            case 3: hit = (diff >= threshold); break;
+            case 4: hit = (diff > threshold); break;
+            case 5: hit = (diff != threshold); break;
+            default: continue;
+        }
+        if (hit)
+            return true;
+    }
+    return false;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsPlayerMask.cpp
+
+//
+// Bodies ported from Open-BFME-1's
+// GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsPlayerMask.cpp
+// (donor revision 6d9434269164392c5ba62aaa7c15a86b5b020d76, donor flags plus
+// /O1). Compiled that way each body below places uniquely on unclaimed
+// game.dat .text by masked whole-.text search, and ./build.sh reproduces it
+// byte for byte: ScriptConditions::evaluatePlayerDestroyedNOrMoreBuildings
+// 0x003E4810 (80B). Callee addresses are read off retail's call sites
+// (reverse/symbols.csv). Only the placed bodies are carried; the donor's other
+// definitions are omitted.
+
+// Every ScriptConditions condition that resolves a player parameter to a mask
+// of players and then asks each of them one question:
+//
+//   0x00322530  evaluatePlayerHasCredits                   money
+//   0x00322780  evaluateNamedOwnedByPlayer                 a named unit's owner
+//   0x003230C0  evaluatePlayerHasComparisonPercentPower    power supply ratio
+//   0x003232D0  evaluatePlayerDestroyedNOrMoreBuildings    (never finished)
+//   0x00323D50  evaluatePlayerCompareLightPoints           light points
+//   0x00328590  evaluatePlayerHasNOrFewerFactionBuildings  faction buildings
+//   0x00329160  evaluateSkirmishPlayerIsFaction            the player's side
+//   0x003297F0  evaluatePlayerHasKilledKindOfUnits         kills of a KindOf
+//
+// All of them open the same way -- a mask out of the resolver at 0x0034DB40,
+// then PlayerList::getEachPlayerFromMask consuming it one player at a time --
+// and differ only in what they read off each player and how they compare it.
+//
+// They sat in five files, and the shared pair of callees appeared in them
+// under four different names: the resolver as both unidentified_0034DB40 on
+// ScriptEngine and bfmeNext1087 on a "BfmeP1087", the iterator as both
+// getEachPlayerFromMask on PlayerList and bfmeLook1087 on a "BfmeD1087". The
+// two Bfme classes were not other objects: g_bfmeP1087 is TheScriptEngine
+// (0x00EF076C) and g_bfmeD1087 is ThePlayerList (0x00EED748), the same two
+// globals under placeholder names. Named once, the family is visible.
+//
+
+// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Object.h
+
+// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/ScriptEngine.h
+
+// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/ScriptConditions.h
+
+// ?evaluatePlayerDestroyedNOrMoreBuildings@ScriptConditions@@IAE_NPAVParameter@@00@Z
+Bool ScriptConditions::evaluatePlayerDestroyedNOrMoreBuildings(
+	Parameter *playerParm, Parameter *, Parameter *opponentParm)
+{
+	int playerMask = TheScriptEngine->rva00357B82(playerParm);
+	Player *player = ThePlayerList->getEachPlayerFromMask(playerMask);
+	int opponentMask = TheScriptEngine->rva00357B82(opponentParm);
+	Player *opponent = ThePlayerList->getEachPlayerFromMask(opponentMask);
+	if (!player || !opponent) {
+		return false;
+	}
+
+	return false;
+}
+
+// tu-skeleton: 0x003E4860 193B ?evaluateUnitHasEmptied@ScriptConditions@@IAE_NPAVParameter@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003E4921Finish.cpp
+
+bool ScriptConditions::rva003E4921(Parameter *param)
+{
+	Object *object = TheScriptEngine->getUnitNamed(param);
+	if (!object)
+		return false;
+	static NameKeyType gateKey = TheNameKeyGenerator->nameToKey("GateOpenAndCloseBehavior");
+	Module *module = object->findModule(gateKey);
+	GateOpenAndCloseBehaviorView *gate = module ? (GateOpenAndCloseBehaviorView *)((char *)module - 4) : 0;
+	if (gate == 0)
+		return false;
+	if (!gate->isReady())
+		return false;
+	bool result = gate->m_state40 <= 0 || gate->stateIsOne();
+	return result;
+}
+
+// tu-skeleton: 0x003E49B8 171B ?evaluateSkirmishPlayerHasPrereqsToBuild@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateSkirmishSupplySourceSafe.cpp
+
+//
+// ScriptConditions::evaluateSkirmishSupplySourceSafe, retail 0x003E4A63 (129B; dispatcher call
+// 0x003EBD0F): a cached player condition in Zero Hour's
+// evaluatePlayerUnitCondition style - the Condition's custom data holds the
+// last answer (1 true, -1 false) until its custom frame; otherwise it
+// re-arms the frame one second ahead and asks each player of the BFME2
+// player mask the rowed Player::rva002A9CA4 with the value parameter's int.
+
+ // logic frames per second
+
+bool ScriptConditions::evaluateSkirmishSupplySourceSafe(Condition *pCondition, Parameter *pPlayerParm, Parameter *pValueParm)
+{
+    if (TheGameLogic->getFrame() <= pCondition->getCustomFrame())
+    {
+        if (pCondition->getCustomData() == -1)
+            return false;
+        if (pCondition->getCustomData() == 1)
+            return true;
+    }
+    pCondition->setCustomFrame(TheGameLogic->getFrame() + LogicFramesPerSecond);
+    PlayerMaskType mask = TheScriptEngine->rva00357B82(pPlayerParm);
+    while (mask)
+    {
+        Player *player = ThePlayerList->getEachPlayerFromMask(mask);
+        if (player && player->rva002A9CA4(pValueParm->m_int))
+        {
+            pCondition->setCustomData(1);
+            return true;
+        }
+    }
+    pCondition->setCustomData(-1);
+    return false;
+}
+
+// tu-skeleton: 0x003E4B74 15B ?rva003E4B74@Rva003E4B74@@QAE_NHPBURva003E4B74Arg@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1C.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateSkirmishPlayerHasBeenAttackedByPlayer.cpp
+
+// ?evaluateSkirmishPlayerHasBeenAttackedByPlayer@ScriptConditions@@IAE_NPAVParameter@@0@Z
+// @0x003E4BFA 125B. ZH donor: GeneralsMD ScriptConditions.cpp
+// evaluateSkirmishPlayerHasBeenAttackedByPlayer. Target evidence: the
+// evaluateCondition jump table (0x007EC5C0) sends case 97 here, which
+// initConditionTemplates names SKIRMISH_PLAYER_HAS_BEEN_ATTACKED_BY_PLAYER.
+// BFME2 difference: both player parameters are masks from the pinned
+// ScriptEngine helper 0x00357B82, walked with the rowed
+// PlayerList::getEachPlayerFromMask 0x002A7BC9 (the attacker mask restarts for
+// each player). The attacked-by test is the rowed indexed byte getter
+// 0x002AA201 called on the Player with the attacker's index (Player +0x54);
+// that row keeps its placeholder class, hence the cast.
+
+bool ScriptConditions::evaluateSkirmishPlayerHasBeenAttackedByPlayer(Parameter *pSkirmishPlayerParm, Parameter *pAttackedByParm)
+{
+    PlayerMaskType playerMask = TheScriptEngine->rva00357B82(pSkirmishPlayerParm);
+    PlayerMaskType attackerMask = TheScriptEngine->rva00357B82(pAttackedByParm);
+    while (playerMask) {
+        Player *player = ThePlayerList->getEachPlayerFromMask(playerMask);
+        if (!player) {
+            continue;
+        }
+        PlayerMaskType mask = attackerMask;
+        while (mask) {
+            Player *srcPlayer = ThePlayerList->getEachPlayerFromMask(mask);
+            if (srcPlayer && ((const Rva002AA201IndexedByteField *)player)->get(srcPlayer->getPlayerIndex())) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+// tu-skeleton: 0x003E4C8D 262B ?evaluateDistanceBetweenObjects@ScriptConditions@@IAE_NPAVCondition@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
+
+// tu-skeleton: 0x003E4D93 215B ?rva003E4D93@ScriptConditions@@IAE_NPAVParameter@@000@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003E4E6A.cpp
+
+bool __stdcall Rva003E4E6AGet(Parameter *parameter)
+{
+    if (parameter) {
+        Object *obj = TheScriptEngine->getUnitNamed(parameter);
+        if (obj) {
+            ExperienceTracker *tracker = obj->m_experienceTracker;
+            if (tracker) {
+                int rank = tracker->getRank();
+                if (rank > tracker->getLevelCap())
+                    return true;
+            }
+        }
+    }
+    return false;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003E4EA5.cpp
+
+bool __stdcall Rva003E4EA5Get(Parameter *parameter)
+{
+	void *cell = TheTerrainLogic->getWaypointByName(*(const AsciiString *)((char *)parameter + 0x10));
+	if (cell) {
+		int val = *(int *)((char *)cell + 4);
+		return ((TacticalView *)TheTacticalView)->slot6C(val);
+	}
+	return false;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateCanBuildObjectTypeAtBase.cpp
+
+// ?evaluateCanBuildObjectTypeAtBase@ScriptConditions@@IAE_NPAVParameter@@00@Z
+// retail 0x003E5017 157B leaf free stdcall bool of 3x Parameter ret 0xc. Evidence:
+// rowed ThingFactory::rva002D06CA via g_009FF000 with (Parameter+0x10 AsciiString)
+// plus rowed ScriptEngine::getUnitNamed via g_Va009FE16C plus rowed rva00357B82
+// plus rowed PlayerList::getPlayerFromMask via ThePlayerList plus rowed
+// Object::getControllingPlayer twice plus static CastleBehavior::rva0003955DA
+// plus rowed Object::findModule plus rowed Rva003971BF::rva003971BF;
+// Parameter +0x08 int +0x10 AsciiString like sibling 0x003E6ED0;
+// globals g_009FF000 g_Va009FE16C ThePlayerList; siblings 0x003E4F79 /O1.
+
+bool ScriptConditions::evaluateCanBuildObjectTypeAtBase(Parameter *parameter, Parameter *b, Parameter *c)
+{
+	void *payload = (void *)TheThingFactory->findTemplate(c->m_string);
+	if (!payload)
+		return false;
+	Object *obj = TheScriptEngine->getUnitNamed(b);
+	if (!obj)
+		return false;
+	int mask = TheScriptEngine->rva00357B82(parameter);
+	if (!mask)
+		return false;
+	Player *player = ThePlayerList->getPlayerFromMask(mask);
+	if (player != 0) {
+		Player *ctrl1 = obj->getControllingPlayer();
+		if (ctrl1 == player) {
+			Player *ctrl2 = obj->getControllingPlayer();
+			if (player == ctrl2) {
+				Module *mod = obj->findModule(CastleBehavior::rva0003955DA());
+				if (mod != 0) {
+					if (((Rva003971BF *)mod)->rva003971BF((Arg3971BF *)payload) != false)
+						return true;
+				}
+			}
+		}
+	}
+	return false;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateNamedCanPathToWaypoint.cpp
+
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
+// ?evaluateNamedCanPathToWaypoint@ScriptConditions@@IAE_NPAVParameter@@0@Z
+// retail 0x003E50B4 81B leaf free stdcall bool of 2x Parameter ret 8. Evidence:
+// rowed ScriptEngine::getUnitNamed via TheScriptEngine plus TerrainLogic slot 0x88
+// getWaypointByName via TheTerrainLogic with (Parameter+0x10) plus pin
+// QuickDoesPathExist via TheAI+0x10 pathfinder with (object from to 0);
+// Object +0x38 Coord3D; Waypoint +0x0c Coord3D; siblings 0x003E4F79 0x003E5105 /O1.
+
+bool ScriptConditions::evaluateNamedCanPathToWaypoint(Parameter *parameter, Parameter *b)
+{
+	Object *object = TheScriptEngine->getUnitNamed(parameter);
+	if (!object)
+		return false;
+	Waypoint *way = TheTerrainLogic->getWaypointByName(*(const AsciiString *)((const char *)b + 0x10));
+	if (!way)
+		return false;
+	Pathfinder *pf = TheAI->m_10;
+	return pf->QuickDoesPathExist(object, &object->m_pos, &way->m_0c, 0);
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003E5105.cpp
+
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
+// ?rva003E5105@ScriptConditions@@IAE_NPAVParameter@@0@Z
+// retail 0x003E5105 74B leaf free stdcall bool of 2x Parameter ret 8 from 0x003EC0F3. Evidence:
+// rowed ScriptEngine::getUnitNamed twice via TheScriptEngine plus pin QuickDoesPathExist via TheAI+0x10
+// pathfinder with (object from to 0); Object +0x38 Coord3D; siblings 0x003E4F79 0x003E514F /O1.
+
+bool ScriptConditions::rva003E5105(Parameter *parameter, Parameter *b)
+{
+	Object *object = TheScriptEngine->getUnitNamed(parameter);
+	if (!object)
+		return false;
+	Object *o2 = TheScriptEngine->getUnitNamed(b);
+	if (!o2)
+		return false;
+	Pathfinder *pf = TheAI->m_10;
+	return pf->QuickDoesPathExist(object, &object->m_pos, &o2->m_pos, 0);
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003E514F.cpp
+
+// ?rva003E514F@ScriptConditions@@IAE_NPAVParameter@@PAUCondA003E514F@@PAUCondB003E514F@@@Z
+// retail 0x003E514F, 138 bytes.
+// Evidence: leaf via rowed ScriptEngine::getUnitNamed plus ThePlayerList not needed; g_Va009FE16C ScriptEngine global; Object +0x264 ptr plus +0x24 value; op switch 0..5 to setl/setle/sete/setge/setg/setne.
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
+
+bool ScriptConditions::rva003E514F(Parameter *param, CondA003E514F *a, CondB003E514F *b)
+{
+	Object *obj = TheScriptEngine->getUnitNamed(param);
+	if (!obj)
+		return false;
+
+	ExperienceTracker *inner = obj->m_experienceTracker;
+	if (!inner)
+		return false;
+
+	int op = a->m_op;
+	int count = inner->getRank();
+	bool result;
+
+	switch (op)
+	{
+	case 0:
+		result = count < b->m_value;
+		break;
+	case 1:
+		result = count <= b->m_value;
+		break;
+	case 2:
+		result = count == b->m_value;
+		break;
+	case 3:
+		result = count >= b->m_value;
+		break;
+	case 4:
+		result = count > b->m_value;
+		break;
+	case 5:
+		result = count != b->m_value;
+		break;
+	default:
+		result = false;
+		break;
+	}
+
+	if (result)
+		return true;
+
+	return false;
+}
+
+// tu-skeleton: 0x003E51D9 142B ?rva003E51D9@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
+
+// tu-skeleton: 0x003E5267 132B ?rva003E5267@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003E52EB.cpp
+
+// ?rva003E52EB@ScriptConditions@@IAE_NPAVParameter@@PAUCondA003E52EB@@PAUCondB003E52EB@@@Z
+// retail 0x003E52EB 146B leaf free stdcall bool of 3x Parameter ret 0xc. Evidence:
+// rowed ScriptEngine::rva00357475 via g_Va009FE16C with (Parameter+0x10 AsciiString and NULL)
+// plus rowed PlayerList::getPlayerFromMask via ThePlayerList plus Player +0x1c value
+// op at [p2+8] 0..5 selects < <= == >= > != vs [p3+8] like siblings 0x003E4F79 0x003E514F;
+// globals g_Va009FE16C ThePlayerList; siblings 0x003E514F 0x003E537D /O1.
+
+bool ScriptConditions::rva003E52EB(Parameter *parameter, CondA003E52EB *b, CondB003E52EB *c)
+{
+	int mask = TheScriptEngine->rva00357475(parameter->m_string, 0);
+	Player *pl = ThePlayerList->getPlayerFromMask(mask);
+	if (!pl)
+		return false;
+	int op = b->m_op;
+	int val = pl->m_1c;
+	bool result = false;
+	switch (op) {
+		case 0: result = (val < c->m_value); break;
+		case 1: result = (val <= c->m_value); break;
+		case 2: result = (val == c->m_value); break;
+		case 3: result = (val >= c->m_value); break;
+		case 4: result = (val > c->m_value); break;
+		case 5: result = (val != c->m_value); break;
+	}
+	if (result)
+		return true;
+	return false;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003E537D.cpp
+
+// ?Rva003E537DCheck@@YG_NPAVParameter@@@Z
+// retail 0x003E537D, 52 bytes.
+// Evidence: leaf free __stdcall bool with 1 Parameter arg frameless; rowed ScriptEngine::getUnitNamed; Object +0x250 Mid with vslot 69 (0x114) taking int returning unsigned; unsigned <=0 gives jbe.
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
+
+bool __stdcall Rva003E537DCheck(Parameter *param)
+{
+	Object *obj = TheScriptEngine->getUnitNamed(param);
+	if (obj)
+	{
+		Mid003E537D *mid = (Mid003E537D *)obj->m_contain;
+		if (mid)
+		{
+			if (mid->v69(0) > 0)
+				return true;
+		}
+	}
+	return false;
+}
+
+// tu-skeleton: 0x003E549E 5B ?Rva003E549E@@YA_NXZ -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x003E54A3 5B ?Rva003E54A3@@YAHXZ -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x003E54A8 12B ?Rva003E54A8@@YA_NXZ -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluatePlayerIsInPlanningMode.cpp
+
+// ?evaluatePlayerIsInPlanningMode@ScriptConditions@@IAE_NPAVParameter@@@Z
+// retail 0x003E54B4, 67 bytes.
+// Evidence: leaf via pin-only ScriptEngine::rva00357B82 plus rowed PlayerList::getEachPlayerFromMask; ThePlayerList 0x009FEEE8 plus g_Va009FE16C ScriptEngine global; Player +0x750 == 2.
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
+
+bool ScriptConditions::evaluatePlayerIsInPlanningMode(Parameter *param)
+{
+	if (!param)
+		return false;
+
+	int mask = TheScriptEngine->rva00357B82(param);
+	Player *player = ThePlayerList->getEachPlayerFromMask(mask);
+	if (!player)
+		return false;
+
+	return player->m_750 == 2;
+}
+
+// tu-skeleton: 0x003E5513 18B ??0ScriptConditions@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_ctor.cpp (not merged yet)
+
+// tu-skeleton: 0x003E5525 62B ??1ScriptConditions@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_ctor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva003E5563Finish.cpp
+
+// ??0Rva003E5563@@QAE@XZ
+// retail 0x003E5563, 36 bytes.
+// Evidence: default constructor of an address-derived class. It zeroes the int
+// at +0x10, the four floats at +0..+0xc, then stores the 0x7ffffffe sentinel at
+// +0x14. The `mov eax, ecx` prologue and eax-based stores are MSVC's constructor
+// shape -- a plain void method with the same body compiles to 34 bytes -- and
+// the sole caller 0x3E60BD (`lea ecx,[ebp-0x18]; call`) constructs a local.
+// The banked attempt named this void; the constructor signature is what the
+// bytes prove.
+
+Rva003E5563::Rva003E5563()
+{
+	m_count = 0;
+	m_pos.x = 0.0f;
+	m_pos.y = 0.0f;
+	m_pos.z = 0.0f;
+	m_distSqr = 0.0f;
+	m_max = 0x7ffffffe;
+}
+
+// tu-skeleton: 0x003E5587 318B ?evaluateUnitHealth@ScriptConditions@@IAE_NPAVParameter@@00@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
+
+// tu-skeleton: 0x003E56C5 422B ?evaluateEnemySighted@ScriptConditions@@QAE_NABVAsciiString@@PAVParameter@@1@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003E56C5.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_rva003E59B0.cpp
+
+//
+// ?rva003E59B0@ScriptConditions@@IAE_NPAVParameter@@00_N@Z
+// retail 0x003E59B0 (313B, RET 0x10): unit form of the castle area test.
+// Exact via W7-D3: the didEnter/didExit equal-arm must be spelled as a nested
+// if/else, not a ternary, or cl emits cmp al,bl instead of test al,al.
+// ?rva003E59B0@ScriptConditions@@IAE_NPAVParameter@@00_N@Z, retail 0x003E59B0
+// (313 bytes, RET 0x10): the unit form of the castle area test in ScriptConditions_Rva003E6ED0.cpp
+// -- the named unit against the named castle or, with no castle name and a player parameter naming
+// no player, the closest KindOf-120 object to the unit through the same filter chain; the unit's
+// didEnter / didExit against the castle's areas 1..7.
+
+bool ScriptConditions::rva003E59B0(Parameter *pUnitParm, Parameter *pCastleParm,
+	Parameter *playerParm, bool entered)
+{
+	Object *obj = TheScriptEngine->getUnitNamed(pUnitParm);
+	if (!obj)
+		return false;
+	Object *castle;
+	if (pCastleParm) {
+		castle = (entered ? (TheScriptEngine->getUnitNamed(pCastleParm)) : (TheScriptEngine->getUnitNamed(pCastleParm)));
+	} else {
+		if (!playerParm)
+			return false;
+		Player *player = ThePlayerList->getPlayerFromMask(TheScriptEngine->rva00357475(playerParm->getString(), 0));
+		if (player)
+			return false;
+		castle = ThePartitionManager->getClosestObject(obj->getPosition(), REALLY_FAR, 0,
+			Rva0004584D((const BfmeFixedStorage0004543D &)Rva00045411BitSet(0, 0x78), *(const BfmeFixedStorage0004543D *)&KINDOFMASK_NONE)
+				.link(&Rva0026137EFilter(player, true)));
+	}
+	if (!castle)
+		return false;
+	CastleBehavior *behavior = (CastleBehavior *)castle->findModule(CastleBehavior::rva0003955DA());
+	if (!behavior)
+		return false;
+	int i = 0;
+	do {
+		++i;
+		PolygonTrigger *area = (PolygonTrigger *)((Rva00395E53 *)behavior)->rva00395E53(i);
+		if (!area)
+			return false;
+		if (entered)
+		{
+			if (obj->didEnter(area))
+				return true;
+		}
+		else
+		{
+			if (obj->didExit(area))
+				return true;
+		}
+	} while (i < 7);
+	return false;
+}
+
+// tu-skeleton: 0x003E5B11 243B ?evaluateCanBuildAtBase@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
+
+// tu-skeleton: 0x003E5C04 173B ?evaluatePlayerHasKilledKindOfUnits@ScriptConditions@@IAE_NPAVParameter@@00@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003E5CB1.cpp
+
+//
+// ?rva003E5CB1@ScriptConditions@@QAE_NPAVParameter@@0@Z, retail 0x003E5CB1,
+// 228 bytes (caller 0x003EB385 in the condition dispatcher 0x003EA9AF). A
+// BFME2 script condition: false unless the named unit exists and the
+// player parameter resolves to no player; then whether a path exists from
+// the unit to the closest kind-120 object (within 1000000) that passes the
+// player filter for that (null) player.
+//
+// 0x003E83AF (caller 0x003EB3AB) is the team twin: the team's first member
+// (0x0039E8EB) and the closest such object to the team's centre
+// (0x0039E5B9).
+//
+// The filters are BFME2's partition filter chain (the view
+// AIStructureCreepTactic.cpp documents): a vptr, the +0x04 link to the next
+// filter (PartitionFilter::link 0x00625790), then each filter's members;
+// address-derived names after the out-of-line ctor, else after allow
+// (slot 1).
+
+bool ScriptConditions::rva003E5CB1(Parameter *unitParm, Parameter *playerParm)
+{
+	Object *obj = TheScriptEngine->getUnitNamed(unitParm);
+	if (obj == 0)
+		return false;
+	Player *player = ThePlayerList->getPlayerFromMask(TheScriptEngine->rva00357475(playerParm->m_string, 0));
+	if (player != 0)
+		return false;
+	Object *found = ThePartitionManager->getClosestObject(&obj->m_pos, 1000000.0f, 0,
+		Rva0004584D(*(BfmeFixedStorage0004543D *)&Rva00045411BitSet(0, 120),
+			*(BfmeFixedStorage0004543D *)&KINDOFMASK_NONE).link(&Rva0026137EFilter(player, true)));
+	if (found == 0)
+		return false;
+	return TheAI->pathfinder()->QuickDoesPathExist(obj, &obj->m_pos, &found->m_pos, 0);
+}
+
+bool ScriptConditions::rva003E83AF(Parameter *teamParm, Parameter *playerParm)
+{
+	Team *team = TheScriptEngine->getTeamNamed(teamParm->m_string, false);
+	if (team == 0)
+		return false;
+	Object *obj = team->rva0039E8EB();
+	if (obj == 0)
+		return false;
+	Player *player = ThePlayerList->getPlayerFromMask(TheScriptEngine->rva00357475(playerParm->m_string, 0));
+	if (player != 0)
+		return false;
+	Coord3D center;
+	team->rva0039E5B9(&center);
+	Object *found = ThePartitionManager->getClosestObject(&center, 1000000.0f, 0,
+		Rva0004584D(*(BfmeFixedStorage0004543D *)&Rva00045411BitSet(0, 120),
+			*(BfmeFixedStorage0004543D *)&KINDOFMASK_NONE).link(&Rva0026137EFilter(player, true)));
+	if (found == 0)
+		return false;
+	return TheAI->pathfinder()->QuickDoesPathExist(obj, &obj->m_pos, &found->m_pos, 0);
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003E5D95.cpp
+
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
+// ?rva003E5D95@ScriptConditions@@IAEEPAVParameter@@PAUCond003E5D95@@@Z
+// @0x003E5D95 56B. Leaf via rowed ScriptEngine::getUnitNamed 0x003588E7
+// via g_Va009FE16C; Object+4 inner +0x118 bit27 vs second param +8 int.
+
+unsigned char ScriptConditions::rva003E5D95(Parameter *param, Cond003E5D95 *cond)
+{
+    Object *obj = TheScriptEngine->getUnitNamed(param);
+    if (!obj)
+        return 0;
+    unsigned int flags = ((const Inner003E5D95 *)obj->m_template)->m_flags;
+    unsigned char flag = (unsigned char)((flags >> 27) & 1);
+    unsigned char expected = (unsigned char)(cond->m_value != 0);
+    return flag == expected;
+}
+
+// tu-skeleton: 0x003E5DCD 28B ??_GScriptConditions@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_ctor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateNamedInsideArea.cpp
+
+Bool ScriptConditions::evaluateNamedInsideArea(
+    Parameter *unitParm, Parameter *triggerParm)
+{
+    Object *object = TheScriptEngine->getUnitNamed(unitParm);
+    if (!object)
+        return false;
+
+    PolygonTrigger *trigger = TheScriptEngine->getQualifiedTriggerAreaByName(
+        triggerParm->getString());
+    if (!trigger)
+        return false;
+
+    const float *sourcePosition = (const float *)object->getPosition();
+    float pCoord[3] = { sourcePosition[0], sourcePosition[1], sourcePosition[2] };
+    ICoord3D position;
+    position.x = (int)pCoord[0];
+    position.y = (int)pCoord[1];
+    position.z = (int)pCoord[2];
+    return trigger->pointInTrigger(position);
+}
+
+int Rva003E6032(Object *object, Rva003E6032Context *context)
+{
+    Rva00261C89 *value = object->getField04();
+    if (value && value->rva00261C89())
+    {
+        const float *position = (const float *)object->getPosition();
+        float dx = position[0] - context->point[0];
+        float dy = position[1] - context->point[1];
+        float dz = position[2] - context->point[2];
+        float distanceSquared = dz*dz + dy*dy + dx*dx;
+        if (distanceSquared > context->limit0C)
+        {
+            ++context->count10;
+            if (context->count10 > context->maximum14)
+                return 0;
+        }
+    }
+    return 1;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluatePlayerHasNumberObjectsWithModelCondition.cpp
+
+// ?evaluatePlayerHasNumberObjectsWithModelCondition@ScriptConditions@@IAE_NPAVParameter@@PAUCondA003E5F73@@PAUCondB003E5F73@@PAUCondC003E5F73@@@Z
+// retail 0x003E5F73, 191 bytes.
+// Evidence: leaf via pin-only rva00357B82 plus rowed getSingleBitFromName plus rowed getEachPlayerFromMask plus rowed Player::rva002ABD1D; TheScriptEngine plus ThePlayerList plus empty string fallback; accumulate until sum exceeds limit then op switch.
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
+
+bool ScriptConditions::evaluatePlayerHasNumberObjectsWithModelCondition(Parameter *param, CondA003E5F73 *modelConditionParm, CondB003E5F73 *comparisonParm, CondC003E5F73 *countParm)
+{
+	int mask = TheScriptEngine->rva00357B82(param);
+	int limit = countParm->m_limit;
+	int total = 0;
+
+	void *holder = modelConditionParm->m_holder;
+	const char *name = holder ? (const char *)holder + 8 : "";
+	int bit = BitFlags<304>::getSingleBitFromName(name);
+
+	while (mask != 0)
+	{
+		Player *player = ThePlayerList->getEachPlayerFromMask(mask);
+		if (player)
+		{
+			total += player->rva002ABD1D(bit, limit);
+			if (total > limit)
+				break;
+		}
+	}
+
+	int op = comparisonParm->m_op;
+
+	switch (op)
+	{
+	case 0:
+		return total < limit;
+	case 1:
+		return total <= limit;
+	case 2:
+		return total == limit;
+	case 3:
+		return total >= limit;
+	case 4:
+		return total > limit;
+	case 5:
+		return total != limit;
+	default:
+		break;
+	}
+
+	return false;
+}
+
+// ?TheScriptEngine@@3PAVScriptEngine@@A: the global at this VA is ?TheScriptEngine@@3PAVScriptEngine@@A; this name is an alias for it.
+// ?TheScriptEngine@@3PAVScriptEngine@@A: the global at VA 0xdfe16c is ?TheScriptEngine@@3PAVScriptEngine@@A.
+
+// tu-skeleton: 0x003E61A4 553B ?evaluatePlayerHasUnitTypeInArea@ScriptConditions@@IAE_NPAVCondition@@PAVParameter@@11111_N@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
+
+// tu-skeleton: 0x003E63CD 217B ?rva003E63CD@ScriptConditions@@IAE_NPAVCondition@@PAVParameter@@11@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
+
+// tu-skeleton: 0x003E64A6 559B ?evaluatePlayerHasUnitKindInArea@ScriptConditions@@IAE_NPAVCondition@@PAVParameter@@1111@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamAttackedByPlayer.cpp
+
+// ?evaluateTeamAttackedByPlayer@ScriptConditions@@IAE_NPAVParameter@@0@Z
+// @0x003E6784 127B. BFME1 donor ScriptConditionsTeamMembers.cpp
+// evaluateTeamAttackedByPlayer: player mask from the ScriptEngine helper
+// 0x00357B82 (pinned by this call site), then each member's body (+0x254)
+// last DamageInfo (vslot +0x3C) source mask (+0x0C) is compared to it.
+
+bool ScriptConditions::evaluateTeamAttackedByPlayer(Parameter *teamParm, Parameter *playerParm)
+{
+    Team *team = TheScriptEngine->getTeamNamed(teamParm->getString(), false);
+    if (!team)
+        return false;
+    int mask = TheScriptEngine->rva00357B82(playerParm);
+    for (DLINK_ITERATOR<Object> iter = team->iterate_TeamMemberList(); !iter.done(); iter.advance())
+    {
+        Object *cur = iter.cur();
+        if (!cur)
+            continue;
+        BodyModuleInterface *body = cur->getBodyModule();
+        if (!body)
+            continue;
+        const DamageInfo *lastDamageInfo = body->getLastDamageInfo();
+        if (!lastDamageInfo)
+            continue;
+        if (lastDamageInfo->m_sourcePlayerMask == mask)
+            return true;
+    }
+    return false;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateNamedDiscovered.cpp
+
+bool ScriptConditions::evaluateNamedDiscovered(Parameter *pUnitParm, Parameter *pPlayerParm)
+{
+	Object *obj = TheScriptEngine->getUnitNamed(pUnitParm);
+	if (!obj)
+		return false;
+	if ((obj->m_disabledMask[0] & 8) != 0)
+		return false;
+	int mask = TheScriptEngine->rva00357B82(pPlayerParm);
+	while (mask) {
+		Player *player = ThePlayerList->getEachPlayerFromMask(mask);
+		if (!obj->rva002943B2(player)) {
+			CellShroudStatus status = obj->getShroudStatusForPlayer(player->m_playerIndex);
+			if (status == CELLSHROUD_FOGGED || status == CELLSHROUD_SHROUDED)
+				return true;
+		}
+	}
+	return false;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamDiscovered.cpp
+
+// ?evaluateTeamDiscovered@ScriptConditions@@IAE_NPAVParameter@@0@Z @0x003E6AA9 174B
+// Team twin of 0x003E6A2B; neighbours Rva003E6A2B and evaluateTeamOwnedByPlayer.
+// Evidence: ScriptConditions 2-Parameter bool via dispatcher 0x003EAE15; getTeamNamed 0x003584E9; flag +0x1C8 bit 8; player mask 0x00357B82 walked by getEachPlayerFromMask 0x002A7BC9; Object gate 0x002943B2 skipping shroud 0x0028D2A2 for Player +0x54 with FOGGED SHROUDED true.
+
+bool ScriptConditions::evaluateTeamDiscovered(Parameter *pTeamParm, Parameter *pPlayerParm)
+{
+	Team *team = TheScriptEngine->getTeamNamed(pTeamParm->getString(), false);
+	if (!team)
+		return false;
+	int mask = TheScriptEngine->rva00357B82(pPlayerParm);
+	DLINK_ITERATOR<Object> iter = team->iterate_TeamMemberList();
+	while (!iter.done()) {
+		Object *obj = iter.cur();
+		if ((obj->m_disabledMask[0] & 8) == 0) {
+			int m = mask;
+			while (m) {
+				Player *player = ThePlayerList->getEachPlayerFromMask(m);
+				if (!obj->rva002943B2(player)) {
+					CellShroudStatus status = obj->getShroudStatusForPlayer(player->m_playerIndex);
+					if (status == CELLSHROUD_FOGGED || status == CELLSHROUD_SHROUDED)
+						return true;
+				}
+			}
+		}
+		iter.advance();
+	}
+	return false;
+}
+
+// tu-skeleton: 0x003E6BC5 325B ?rva003E6BC5@ScriptConditions@@IAE_NPAVCondition@@PAVParameter@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateNamedEnteredArea.cpp
+
+Bool ScriptConditions::evaluateNamedEnteredArea(Parameter *unitParm, Parameter *triggerParm)
+{
+    Object *unit = TheScriptEngine->getUnitNamed(unitParm);
+    if (!unit)
+        return false;
+    if (unit->getTemplate()->isKindOfInert())
+        return false;
+    PolygonTrigger *trigger = TheScriptEngine->getQualifiedTriggerAreaByName(triggerParm->getString());
+    if (!trigger)
+        return false;
+    return unit->didEnter(trigger);
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateNamedExitedArea.cpp
+
+Bool ScriptConditions::evaluateNamedExitedArea(Parameter *unitParm, Parameter *triggerParm)
+{
+    Object *unit = TheScriptEngine->getUnitNamed(unitParm);
+    if (!unit)
+        return false;
+    PolygonTrigger *trigger = TheScriptEngine->getQualifiedTriggerAreaByName(triggerParm->getString());
+    if (!trigger)
+        return false;
+    return unit->didExit(trigger);
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003E6ED0.cpp
+
+//
+// ScriptConditions::rva003E6ED0, retail 0x003E6ED0, 378 bytes (caller
+// 0x003EB1F0 in the condition dispatcher 0x003EA9AF). The castle form of
+// Zero Hour's evaluateTeamEntered/ExitedArea{Entirely,Partially}: the castle
+// is the named unit, or (with no name and a player parameter that resolves
+// to no player) the closest KindOf-120 object within 1000000 of the team's
+// centre for that (null) player through BFME2's partition filter chain;
+// its CastleBehavior module's areas 1..7 (0x00395E53) are tested in turn
+// with the team's didPartialEnter / didAllEnter / didPartialExit /
+// didAllExit (entered and partially picking), any hit answering true.
+
+bool ScriptConditions::rva003E6ED0(Parameter *teamParm, const AsciiString *unitName, Parameter *playerParm,
+	bool entered, bool partially)
+{
+	Team *team = TheScriptEngine->getTeamNamed(teamParm->getString(), false);
+	if (!team)
+		return false;
+	Object *castle;
+	if (unitName) {
+		castle = TheScriptEngine->getUnitNamed(*unitName);
+	} else {
+		if (!playerParm)
+			return false;
+		Player *player = ThePlayerList->getPlayerFromMask(TheScriptEngine->rva00357475(playerParm->getString(), 0));
+		if (player)
+			return false;
+		Coord3D pos;
+		team->rva0039E5B9(&pos);
+		castle = ThePartitionManager->getClosestObject(&pos, REALLY_FAR, 0,
+			Rva0004584D((const BfmeFixedStorage0004543D &)Rva00045411BitSet(0, 0x78), *(const BfmeFixedStorage0004543D *)&KINDOFMASK_NONE)
+				.link(&Rva0026137EFilter(player, true)));
+	}
+	if (!castle)
+		return false;
+	CastleBehavior *behavior = (CastleBehavior *)castle->findModule(CastleBehavior::rva0003955DA());
+	if (!behavior)
+		return false;
+	int i = 0;
+	do {
+		++i;
+		PolygonTrigger *area = (PolygonTrigger *)((Rva00395E53 *)behavior)->rva00395E53(i);
+		if (!area)
+			return false;
+		if (entered) {
+			if (partially) {
+				if (team->didPartialEnter(area, 9))
+					return true;
+			} else {
+				if (team->didAllEnter(area, 9))
+					return true;
+			}
+		} else {
+			if (partially) {
+				if (team->didPartialExit(area, 9))
+					return true;
+			} else {
+				if (team->didAllExit(area, 9))
+					return true;
+			}
+		}
+	} while (i < 7);
+	return false;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamIsContained.cpp
+
+// ?evaluateTeamIsContained@ScriptConditions@@MAE_NPAVParameter@@_N@Z
+// @0x003E70AC 126B. Virtual: the ScriptConditions vtable (0x00835B38) holds
+// it in slot 16 next to evaluateSkirmishCommandButtonIsReady, the ZH
+// ScriptConditionsInterface pure virtual it overrides; nothing calls it
+// directly. BFME1 donor ScriptConditionsTeamMembers.cpp
+// evaluateTeamIsContained: member walk through the pinned
+// iterate_TeamMemberList 0x00263864 and DLINK advance 0x00263526, contained =
+// Object +0x274 non-null. The donor's AI-exit refinement is kept: it only runs
+// when isContained is false, so `isContained && ...` folds away entirely (no
+// load survives in BFME2), but it is what makes MSVC materialise the bool
+// (setne/test) as retail does. The m_ai slot is +0x258, proven by the kept
+// ScriptActions_doTeamFaceWaypoint copy of getAIUpdateInterface.
+
+bool ScriptConditions::evaluateTeamIsContained(Parameter *teamParm, bool allContained)
+{
+    Team *team = TheScriptEngine->getTeamNamed(teamParm->getString(), false);
+    if (!team)
+        return false;
+    bool anyConsidered = false;
+    for (DLINK_ITERATOR<Object> iter = team->iterate_TeamMemberList(); !iter.done(); iter.advance())
+    {
+        Object *obj = iter.cur();
+        if (!obj)
+            continue;
+        bool isContained = obj->getContainedBy() != 0;
+        if (!isContained)
+        {
+            AIUpdateInterface *ai = obj->getAIUpdateInterface();
+            if (ai)
+                isContained = isContained && ai->getCurrentStateID() == BFME_AI_EXIT;
+        }
+        if (isContained)
+        {
+            if (!allContained)
+                return true;
+        }
+        else
+        {
+            if (allContained)
+                return false;
+        }
+        anyConsidered = true;
+    }
+    if (anyConsidered)
+        return allContained;
+    return false;
+}
+
+// tu-skeleton: 0x003E719C 587B ?evaluateSkirmishValueInArea@ScriptConditions@@IAE_NPAVCondition@@PAVParameter@@111@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
+
+// tu-skeleton: 0x003E749E 249B ?evaluateSkirmishUnownedFactionUnitComparison@ScriptConditions@@IAE_NPAVParameter@@00@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsPlayerUnitCounts.cpp (not merged yet)
+
+// tu-skeleton: 0x003E7597 333B ?evaluateSkirmishPlayerHasComparisonGarrisoned@ScriptConditions@@IAE_NPAVParameter@@00@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsPlayerUnitCounts.cpp (not merged yet)
+
+// tu-skeleton: 0x003E76E4 283B ?evaluateSkirmishPlayerHasComparisonCapturedUnits@ScriptConditions@@IAE_NPAVParameter@@00@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsPlayerUnitCounts.cpp (not merged yet)
+
+// tu-skeleton: 0x003E782D 386B ?evaluateSkirmishPlayerHasUnitsInArea@ScriptConditions@@IAE_NPAVCondition@@PAVParameter@@1@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
+
+// tu-skeleton: 0x003E79F5 263B ?evaluateSkirmishPlayerHasDiscoveredPlayer@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsPlayerUnitCounts.cpp (not merged yet)
+
+// tu-skeleton: 0x003E7B56 356B ?evaluateDistanceBetweenTeams@ScriptConditions@@IAE_NPAVCondition@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsCounterCompare.cpp
+
+// ScriptConditions counter-compare condition, retail 0x003E7CBA (201B):
+// compares the values of two script counters. Ported from Open-BFME-1's
+// ScriptConditionsCounterCompareRva00325BC0.cpp (donor revision
+// 6d9434269164392c5ba62aaa7c15a86b5b020d76, BFME 1 0x00325BC0), compiled with
+// the donor's flags plus /O1, where it places uniquely and builds byte for
+// byte. The method name stays address-derived, re-keyed to BFME 2.
+//
+// ?evaluateCounterSeconds@ScriptConditions@@IAE_NPAVCondition@@@Z @ 0x003E7D83 209B
+// Ported from Open-BFME-1's ScriptConditions_evaluateCounterSeconds.cpp
+// (BFME 1 0x00325D00), name carried from the donor. Target evidence:
+// jump-table case 112 calls 0x003E7D83 with the Condition, which
+// initConditionTemplates names COUNTER_SECONDS (counter, comparison, real).
+// The counter's value (0 without one) is compared six ways with the
+// seconds converted to frames: the 0.005 frames-per-msec global at
+// 0x00DBA4EC times the real times 1000, rounded up through the msvcrt
+// ceil import and narrowed by BaseType.h's fast_float2long_round (retail's
+// fstp dword / fld / fistp dword; a C cast emits _ftol2).
+
+bool ScriptConditions::evaluateCounterCounter(Condition *condition)
+{
+	int left = 0;
+	ScriptCounter *counter = (ScriptCounter *)TheScriptEngine->rva002086C5(condition->getParameter(0)->getString());
+	if (counter)
+		left = counter->m_value;
+
+	int right = 0;
+	counter = (ScriptCounter *)TheScriptEngine->rva002086C5(condition->getParameter(2)->getString());
+	if (counter)
+		right = counter->m_value;
+
+	switch (condition->getParameter(1)->m_int) {
+	case 0: return left < right;
+	case 1: return left <= right;
+	case 2: return left == right;
+	case 3: return left >= right;
+	case 4: return left > right;
+	case 5: return left != right;
+	}
+	return false;
+}
+
+bool ScriptConditions::evaluateCounterSeconds(Condition *pCondition)
+{
+	int count = 0;
+	ScriptCounter *counter = (ScriptCounter *)TheScriptEngine->rva002086C5(pCondition->getParameter(0)->getString());
+	if (counter)
+		count = counter->m_value;
+	float frames = g_parseDurationMsecScale * pCondition->getParameter(2)->getReal() * 1000.0f;
+	int value = fast_float2long_round((float)ceil((double)frames));
+	switch (pCondition->getParameter(1)->m_int) {
+	case 0: return count < value;
+	case 1: return count <= value;
+	case 2: return count == value;
+	case 3: return count >= value;
+	case 4: return count > value;
+	case 5: return count != value;
+	}
+	return false;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamCachedFloatCompare.cpp
+
+// Native 0x003E7E54..0x003E7F3A, RET16; ECX is unused on entry. A ScriptConditions
+// member (the condition dispatcher 0x003EA9AF reloads ECX = this for the call).
+// Four Parameter pointers have native modes at +8, float values at +C,
+// and strings at +10, consistent with the adjacent rowed condition helpers.
+// A named team is resolved through verified getTeamNamed(AsciiString,false),
+// then the independently rowed Team::rva003A3736 float result is compared
+// against the threshold using the six native modes. The Team metric and
+// this condition's original spelling remain unknown.
+// Source guide: ZH ScriptConditions.cpp's six Parameter comparison cases;
+// the target's full branches, parameter order and callees establish this body.
+
+bool ScriptConditions::evaluateTeamCachedFloatCompare(Parameter *teamName,Parameter *comparison,Parameter *threshold,Parameter *input)
+{
+    if (!teamName || !input || !comparison || !threshold)
+        return false;
+    Team *team=TheScriptEngine->getTeamNamed(teamName->m_string,false);
+    if (!team) return false;
+    float m_real=team->rva003A3736(input->m_real);
+    switch(comparison->m_int) {
+    case 0: return m_real<threshold->m_real;
+    case 1: return m_real<=threshold->m_real;
+    case 2: return m_real==threshold->m_real;
+    case 3: return m_real>=threshold->m_real;
+    case 4: return m_real>threshold->m_real;
+    case 5: return m_real!=threshold->m_real;
+    }
+    return false;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003E7F3A.cpp
+
+// ?rva003E7F3A@ScriptConditions@@IAE_NPAVParameter@@0@Z retail 0x003E7F3A 155 bytes.
+// Evidence: leaf free stdcall ret 8 two Parameter args; caller 0x003EBEC7; prev/next same cl;
+// calls rowed getUnitNamed 0x003588E7 via g_Va009FE16C plus StringBase copy 0x365F0 plus releaseBuffer 0x36410 plus IAT strcmpi; isEmpty plus str plus strcmpi==0 shape.
+
+bool ScriptConditions::rva003E7F3A(Parameter *parameter, Parameter *p2)
+{
+    if (!parameter || !p2)
+        return false;
+    Object *obj = TheScriptEngine->getUnitNamed(parameter);
+    if (!obj)
+        return false;
+    AsciiString tmp = p2->getString();
+    if (tmp.isEmpty())
+        return false;
+    void *holder = obj->m_experienceTracker;
+    if (!holder)
+        return false;
+    const AsciiString *named = (const AsciiString *)((const char *)holder + 8);
+    return _strcmpi(named->str(), tmp.str()) == 0;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003E7FD5.cpp
+
+// ?Rva003E7FD5Get@@YG_NPAVParameter@@@Z retail 0x003E7FD5 104 bytes.
+// Evidence: leaf lane free function ret 4 with 1 Parameter arg; caller 0x003EBDD7; prev/next same cl; calls getQualifiedTriggerAreaByName pin plus TacticalView slot 0x118 plus pointInTrigger row.
+
+bool __stdcall Rva003E7FD5Get(Parameter *parameter)
+{
+    PolygonTrigger *trig = TheScriptEngine->getQualifiedTriggerAreaByName(parameter->getString());
+    if (trig)
+    {
+        float f[3];
+        ((TacticalView *)TheTacticalView)->getPos(f);
+        ICoord3D pt;
+        pt.x = (int)f[0];
+        pt.y = (int)f[1];
+        pt.z = (int)f[2];
+        return trig->pointInTrigger(pt);
+    }
+    return false;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamIsLedByUnit.cpp
+
+// ?evaluateTeamIsLedByUnit@ScriptConditions@@IAE_NPAVParameter@@0@Z @0x003E803D 157B: free stdcall team contains unit test.
+// Evidence: ret 8 two params; Parameter+0x10 AsciiString by-value plus false to ScriptEngine::getTeamNamed row; Parameter to getUnitNamed row; null je; Team::iterate_TeamMemberList row plus Rva001705A0 advance row walking members; Object+0x250 AI virtual +0x7c sub virtual +0xe8 with unit+0x74 plus Object+0x44c equals unit+0x74; caller 0x003EBEED.
+
+bool ScriptConditions::evaluateTeamIsLedByUnit(Parameter *parameter, Parameter *unitParameter)
+{
+	Team *team = TheScriptEngine->getTeamNamed(parameter->m_string, false);
+	Object *unit = TheScriptEngine->getUnitNamed(unitParameter);
+	if (team == 0 || unit == 0)
+		return false;
+	for (DLINK_ITERATOR<Object> iter = team->iterate_TeamMemberList(); !iter.done(); iter.advance()) {
+		Object *cur = iter.cur();
+		Rva003E803DAI *ai = (Rva003E803DAI *)cur->m_contain;
+		void *sub = ai ? (void *)ai->f31() : 0;
+		if (sub != 0) {
+			int id = unit->m_id;
+			if (((Rva003E803DSub *)sub)->g58(id))
+				return true;
+		}
+		if (cur->m_44c == unit->m_id)
+			return true;
+	}
+	return false;
+}
+
+// tu-skeleton: 0x003E81E8 250B ?evaluateHasCommandPointsToBuildUnit@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
+
+// tu-skeleton: 0x003E82E2 205B ?evaluatePlayerHasKilledTypeUnits@ScriptConditions@@IAE_NPAVParameter@@00@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamCanPathToWaypoint.cpp
+
+// ?evaluateTeamCanPathToWaypoint@ScriptConditions@@IAE_NPAVParameter@@0@Z @0x003E84C5 112B: free stdcall two Parameters team+waypoint path test.
+// Evidence: ret 8 two params; Parameter+0x10 AsciiString by-value plus false to ScriptEngine::getTeamNamed row; null je; Team::rva0039E8EB row null je; Parameter+0x10 to TheTerrainLogic slot 0x88 returning Waypoint with Coord3D at +0xc null jne; TheAI+0x10 Pathfinder::QuickDoesPathExist pin with teamObj positions plus 0; caller 0x003EC119.
+
+bool ScriptConditions::evaluateTeamCanPathToWaypoint(Parameter *parameter, Parameter *p1)
+{
+	Team *team = TheScriptEngine->getTeamNamed(parameter->m_string, false);
+	if (!team)
+		return false;
+	Object *teamObj = team->rva0039E8EB();
+	if (!teamObj)
+		return false;
+	Waypoint *way = TheTerrainLogic->getWaypointByName(p1->m_string);
+	if (!way)
+		return false;
+	Pathfinder *pf = TheAI->m_10;
+	return pf->QuickDoesPathExist(teamObj, &teamObj->m_pos, &way->m_0c, 0);
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamCanPathToNamed.cpp
+
+// ?evaluateTeamCanPathToNamed@ScriptConditions@@IAE_NPAVParameter@@0@Z @0x003E8535 105B: free stdcall two Parameters team+unit path test.
+// Evidence: ret 8 two params; Parameter+0x10 AsciiString by-value plus false to ScriptEngine::getTeamNamed row; null je; Team::rva0039E8EB row null je; Parameter+? to getUnitNamed row null jne; TheAI+0x10 Pathfinder::QuickDoesPathExist pin with teamObj UnitObj positions plus 0; caller 0x003EC13F.
+
+bool ScriptConditions::evaluateTeamCanPathToNamed(Parameter *parameter, Parameter *p1)
+{
+	Team *team = TheScriptEngine->getTeamNamed(parameter->m_string, false);
+	if (!team)
+		return false;
+	Object *teamObj = team->rva0039E8EB();
+	if (!teamObj)
+		return false;
+	Object *unitObj = TheScriptEngine->getUnitNamed(p1);
+	if (!unitObj)
+		return false;
+	Pathfinder *pf = TheAI->m_10;
+	return pf->QuickDoesPathExist(teamObj, &teamObj->m_pos, &unitObj->m_pos, 0);
+}
+
+// tu-skeleton: 0x003E85E0 195B ?rva003E85E0@ScriptConditions@@IAE_NPAVParameter@@00@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsPlayerUnitCounts.cpp (not merged yet)
+
+// tu-skeleton: 0x003E86A3 226B ?rva003E86A3@ScriptConditions@@IAE_NPAVParameter@@00@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsPlayerUnitCounts.cpp (not merged yet)
+
+// tu-skeleton: 0x003E8785 222B ?rva003E8785@ScriptConditions@@IAE_NPAVParameter@@00@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsPlayerUnitCounts.cpp (not merged yet)
+
+// tu-skeleton: 0x003E8863 326B ?rva003E8863@ScriptConditions@@IAE_NPAVParameter@@000@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsPlayerUnitCounts.cpp (not merged yet)
+
+// tu-skeleton: 0x003E89A9 256B ?evaluateUnitHasToggledWeapon@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsPlayerUnitCounts.cpp (not merged yet)
+
+// tu-skeleton: 0x003E8AA9 158B ?evaluateAnyUnitsUsingBloodthirsty@ScriptConditions@@IAE_NPAVParameter@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsPlayerUnitCounts.cpp (not merged yet)
+
+// tu-skeleton: 0x003E8B47 221B ?rva003E8B47@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsPlayerUnitCounts.cpp (not merged yet)
+
+// tu-skeleton: 0x003E8C24 221B ?rva003E8C24@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsPlayerUnitCounts.cpp (not merged yet)
+
+// tu-skeleton: 0x003E8D01 290B ?rva003E8D01@ScriptConditions@@IAE_NPAVParameter@@00@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
+
+// tu-skeleton: 0x003E8E23 459B ?rva003E8E23@ScriptConditions@@IAE_NPAVParameter@@000@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsRva003E8E23.cpp (not merged yet)
+
+// tu-skeleton: 0x003E9062 404B ?evaluateSkirmishSpecialPowerIsReady@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateSkirmishSpecialPowerIsReady.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateNamedUnitRankLevel.cpp
+
+// ?evaluateNamedUnitRankLevel@ScriptConditions@@IAE_NPAVParameter@@0@Z
+// ?evaluateNamedUnitRankLevel@ScriptConditions@@IAE_NPAVParameter@@0@Z @0x003E92DF 148B
+// Target evidence: retail pushes Parameter* to rowed getUnitNamed 0x003588E7,
+// warn-once byte at 0x00E02E34, string at 0x00835B8C, rowed concat 0x00006987,
+// rowed AppendDebugMessage 0x00205263, Object+0x264 null-checked then +0x24
+// compared >= with second Parameter+0x08, ret 8. Donor: BFME1
+// game/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsNamedUnit.cpp
+// evaluateNamedUnitRankLevel (same name/mangled/shape, Body+0x28 rank there).
+// Target layout from Rva003E514F/Rva003BC96F siblings: Object+0x264 inner
+// with rank at +0x24, not donor +0x210/+0x28.
+// TheScriptEngine is 0x00DFE16C (reverse/symbols.csv).
+
+	// retail RVA 0x00A02E34 (.data, 4 bytes), defined here: nothing else owns it
+
+// The warn block is textual A and the rank load is textual B, because retail's
+// +0x1c is a jne OUT of the warn block into the out-of-line rank load; both
+// falses reach the single trailing return false, which is the xor al,al / ret 8
+// sink at +0x67.
+bool ScriptConditions::evaluateNamedUnitRankLevel(Parameter *pUnitParm, Parameter *pRankParm)
+{
+	Object *pUnit = TheScriptEngine->getUnitNamed(pUnitParm);
+	if (pUnit == 0) {
+	if (!g_00E02E34) {
+		g_00E02E34 = true;
+		AsciiString message("ScriptConditions::evaluateNamedUnitRankLevel: Unit not found: ");
+		message += pUnitParm->getString();
+		TheScriptEngine->AppendDebugMessage(message, false);
+	}
+	} else {
+		ExperienceTracker *body = pUnit->m_experienceTracker;
+		if (body != 0)
+			return body->getRank() >= pRankParm->getInt();
+	}
+	return false;
+}
+
+// tu-skeleton: 0x003E9373 254B ?evaluateHasUnits@ScriptConditions@@IAE_NPAVParameter@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
+
+// tu-skeleton: 0x003E9471 116B ?evaluateTeamStateIs@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
+
+// tu-skeleton: 0x003E94E5 113B ?evaluateTeamStateIsNot@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
+
+// tu-skeleton: 0x003E9556 169B ?evaluateNamedAttackedByType@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
+
+// tu-skeleton: 0x003E95FF 246B ?evaluateTeamAttackedByType@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
+
+// tu-skeleton: 0x003E96F5 137B ?evaluateNamedAttackedByPlayer@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
+
+// tu-skeleton: 0x003E977E 430B ?evaluateBuiltByPlayer@ScriptConditions@@IAE_NPAVCondition@@PAVParameter@@1@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
+
+// tu-skeleton: 0x003E992C 243B ?evaluateNamedReachedWaypointsEnd@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
+
+// tu-skeleton: 0x003E9A1F 331B ?evaluateTeamReachedWaypointsEnd@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
+
+// tu-skeleton: 0x003E9B6A 209B ?evaluateNamedSelected@ScriptConditions@@IAE_NPAVCondition@@PAVParameter@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
+
+// tu-skeleton: 0x003E9C3B 551B ?evaluatePlayerUnitCondition@ScriptConditions@@IAE_NPAVCondition@@PAVParameter@@111@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateSkirmishPlayerIsFaction.cpp
+
+// ?evaluateSkirmishPlayerIsFaction@ScriptConditions@@IAE_NPAVParameter@@0@Z
+// @0x003E9E62 78B. ZH donor: GeneralsMD ScriptConditions.cpp
+// evaluateSkirmishPlayerIsFaction. Target evidence: the evaluateCondition jump
+// table (0x007EC5C0) sends case 87 here, which initConditionTemplates names
+// SKIRMISH_PLAYER_FACTION. BFME2 difference: the player parameter is a mask
+// from the pinned ScriptEngine helper 0x00357B82 walked with the rowed
+// PlayerList::getEachPlayerFromMask 0x002A7BC9, true when any player's side
+// string (Player +0x58) equals the faction parameter (rowed
+// StringBase<char>::compare 0x000069D6).
+
+bool ScriptConditions::evaluateSkirmishPlayerIsFaction(Parameter *pSkirmishPlayerParm, Parameter *pFactionParm)
+{
+    PlayerMaskType mask = TheScriptEngine->rva00357B82(pSkirmishPlayerParm);
+    while (mask) {
+        Player *player = ThePlayerList->getEachPlayerFromMask(mask);
+        if (player && player->m_side == pFactionParm->getString()) {
+            return true;
+        }
+    }
+    return false;
+}
+
+// tu-skeleton: 0x003E9EB0 454B ?evaluatePlayerLostObjectType@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
+
+// tu-skeleton: 0x003EA076 180B ?evaluateNamedDestroyedByType@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
+
+// tu-skeleton: 0x003EA12A 254B ?rva003EA12A@ScriptConditions@@IAE_NPAVParameter@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
+
+// tu-skeleton: 0x003EA228 387B ?rva003EA228@ScriptConditions@@IAE_NPAVParameter@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTypeSighted.cpp
+
+//
+// ScriptConditions::evaluateTypeSighted, retail 0x003EA3AB, 443 bytes (caller
+// 0x003EAEDD in the condition dispatcher 0x003EA9AF). Zero Hour's
+// evaluateTypeSighted made BFME2: for each player of the parameter's player
+// mask (TheScriptEngine 0x00357B82, ThePlayerList::getEachPlayerFromMask),
+// whether any object that player owns, alive, of the parsed ObjectTypes
+// (0x00566E6C into an ObjectTypesTemp) lies within the named unit's vision
+// range through BFME2's partition filter chain (the view
+// AIStructureCreepTactic.cpp documents).
+
+bool ScriptConditions::evaluateTypeSighted(const AsciiString &unitName, Parameter *typeParm, Parameter *playerParm)
+{
+	Object *theObj = TheScriptEngine->getUnitNamed(unitName);
+	if (!theObj)
+		return false;
+	int mask = TheScriptEngine->rva00357B82(playerParm);
+	while (mask) {
+		Player *player = ThePlayerList->getEachPlayerFromMask(mask);
+		ObjectTypesTemp types;
+		Script_objectTypesFromParam(typeParm, types.m_types);
+		BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(theObj->getPosition(),
+			theObj->getVisionRange(), 0,
+			Rva0026137EFilter(player, true).link(Rva0026119DFilter().link(Rva00261058(theObj, false).link(
+				Rva00261513Filter(theObj, true, -1.0f).link(&Rva002611BFFilter(theObj))))), 0);
+		Object *obj;
+		while ((obj = hits.next()) != 0)
+			if (types.m_types->isInSet(obj->getTemplate()->getName()))
+				return true;
+	}
+	return false;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003EA566.cpp
+
+//
+// ScriptConditions::evaluateSkirmishSuppliesWithinDistancePerimeter, retail 0x003EA566, 510 bytes (caller
+// 0x003EBAD9 in the condition dispatcher 0x003EA9AF). A BFME2 script
+// condition: for each player of the parameter's player mask (TheScriptEngine
+// 0x00357B82), whether some structure (KindOf bit 7) in the named trigger
+// area's circle (its centre, its radius plus the radius parameter) that the
+// 0x00261409 filter accepts for that player with flags 8 and that has a
+// SupplyWarehouseDockUpdate module holds supplies (boxes at the module's
+// +0x88 times the player's supply box value) worth more than the value
+// parameter. The scan goes through BFME2's partition filter chain (the view
+// AIStructureCreepTactic.cpp documents).
+
+// SupplyWarehouseDockUpdate as this condition reads it.
+
+bool ScriptConditions::evaluateSkirmishSuppliesWithinDistancePerimeter(Parameter *playerParm, Parameter *radiusParm, Parameter *areaParm,
+	Parameter *valueParm)
+{
+	int mask = TheScriptEngine->rva00357B82(playerParm);
+	while (mask) {
+		Player *player = ThePlayerList->getEachPlayerFromMask(mask);
+		if (!player)
+			continue;
+		PolygonTrigger *trigger = TheScriptEngine->getQualifiedTriggerAreaByName(areaParm->m_string);
+		if (!trigger)
+			continue;
+		Coord3D center;
+		trigger->getCenterPoint(&center);
+		float extra = radiusParm->m_real;
+		float radius = trigger->m_shape.getRadius() + extra;
+		float value = valueParm->m_real;
+		float best = 0.0f;
+		BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(&center, radius, 0,
+			Rva0004584D((const BfmeFixedStorage0004543D &)Rva00045411BitSet(0, 7), *(const BfmeFixedStorage0004543D *)&KINDOFMASK_NONE)
+				.link(Rva00261409Filter(player, true, 8).link(&Rva002611DDFilter())), 0);
+		Object *obj;
+		while ((obj = hits.next()) != 0) {
+			static NameKeyType key = TheNameKeyGenerator->nameToKey("SupplyWarehouseDockUpdate");
+			Module *dock = obj->findModule(key);
+			if (!dock)
+				continue;
+			unsigned boxes = ((Rva003EA566ModuleView *)dock)->m_boxesStored;
+			float supplies = (float)(boxes * player->getSupplyBoxValue());
+			if (supplies > best)
+				best = supplies;
+		}
+		if (best > value)
+			return true;
+	}
+	return false;
+}
+
+// tu-skeleton: 0x003EA764 280B ?evaluateIsNumOfUnitsBelongingToPlayerNearEvaEventLastPlayedLocationComparisonInt@ScriptConditions@@QAE_NPAVParameter@@MPBVAsciiString@@HH@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateIsNumOfUnitsBelongingToPlayerNearEvaEventLastPlayedLocationComparisonInt.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateConditionHelper.cpp
+
+//
+// ScriptConditions::evaluateConditionHelper, retail 0x003EA9AF, 7185 bytes:
+// the script condition dispatcher (WorldBuilder's ScriptConditions.cpp,
+// assert line 5418 "Unknown ScriptCondition type %d"; Zero Hour's
+// ScriptConditions::evaluateCondition made BFME2). The jump table at
+// 0x007EC5C0 maps condition type - 5 (0xC5 entries); unmapped types return
+// false. Case bodies fetch parameters with the inlined Condition::getParameter
+// (null past the parameter count) and call the evaluators at their rowed
+// addresses; where several callers share a push tail the compiler
+// cross-jumps it again.
+
+bool ScriptConditions::evaluateConditionHelper(Condition *condition)
+{
+	switch (condition->getType()) {
+	case 5:
+		return this->evaluateAllDestroyed(condition->getParameter(0));
+	case 6:
+		return this->evaluateAllBuildFacilitiesDestroyed(condition->getParameter(0));
+	case 7:
+		return this->evaluateTeamInsideAreaPartially(condition->getParameter(0), condition->getParameter(1), condition->getParameter(2));
+	case 13:
+		return this->evaluateNamedInsideArea(condition->getParameter(0), condition->getParameter(1));
+	case 8:
+		return this->evaluateIsDestroyed(condition->getParameter(0));
+	case 170:
+		return this->evaluateTeamCountCompare(condition->getParameter(0), condition->getParameter(1), condition->getParameter(2));
+	case 172:
+		return this->evaluateNamedUnitRankLevel(condition->getParameter(0), condition->getParameter(1));
+	case 15:
+		return this->evaluateNamedUnitDestroyed(condition->getParameter(0));
+	case 56:
+		return this->evaluateNamedUnitDying(condition->getParameter(0));
+	case 57:
+		return this->evaluateNamedUnitTotallyDead(condition->getParameter(0));
+	case 16:
+		return this->evaluateNamedUnitExists(condition->getParameter(0));
+	case 10:
+		return this->evaluateHasUnits(condition->getParameter(0));
+	case 9:
+		return TheTacticalView->isCameraMovementFinished();
+	case 189:
+		return Rva003E4ED5Get(condition->getParameter(0));
+	case 190:
+		return Rva003E4F05Get(condition->getParameter(0));
+	case 191:
+		return Rva003E4F3BGet(condition->getParameter(0));
+	case 192:
+		return Rva003E4F6BGet();
+	case 11:
+		return this->evaluateTeamStateIs(condition->getParameter(0), condition->getParameter(1));
+	case 12:
+		return this->evaluateTeamStateIsNot(condition->getParameter(0), condition->getParameter(1));
+	case 14:
+		return this->evaluateNamedOutsideArea(condition->getParameter(0), condition->getParameter(1));
+	case 17:
+		return this->evaluateTeamInsideAreaEntirely(condition->getParameter(0), condition->getParameter(1), condition->getParameter(2));
+	case 18:
+		return this->evaluateTeamOutsideAreaEntirely(condition->getParameter(0), condition->getParameter(1), condition->getParameter(2));
+	case 19:
+		return this->evaluateNamedAttackedByType(condition->getParameter(0), condition->getParameter(1));
+	case 20:
+		return this->evaluateTeamAttackedByType(condition->getParameter(0), condition->getParameter(1));
+	case 21:
+		return this->evaluateNamedAttackedByPlayer(condition->getParameter(0), condition->getParameter(1));
+	case 22:
+		return this->evaluateTeamAttackedByPlayer(condition->getParameter(0), condition->getParameter(1));
+	case 23:
+		return this->evaluateBuiltByPlayer(condition, condition->getParameter(0), condition->getParameter(1));
+	case 24:
+		return this->evaluateNamedCreated(condition->getParameter(0));
+	case 25:
+		return (this->*(bool (ScriptConditions::*)(Parameter *))&ScriptConditions::evaluateTeamCreated)(condition->getParameter(0));
+	case 26:
+		return this->evaluatePlayerHasCredits(condition->getParameter(0), condition->getParameter(1), condition->getParameter(2));
+	case 54:
+		return this->evaluateBridgeRepaired(condition->getParameter(0));
+	case 55:
+		return this->evaluateBridgeBroken(condition->getParameter(0));
+	case 27:
+		return this->evaluateNamedDiscovered(condition->getParameter(0), condition->getParameter(1));
+	case 28:
+		return this->evaluateTeamDiscovered(condition->getParameter(0), condition->getParameter(1));
+	case 51:
+		return this->evaluateBuildingEntered(condition->getParameter(0), condition->getParameter(1));
+	case 52:
+		if (condition->getNumParameters() < 3)
+			return false;
+		return this->evaluateEnemySighted(*(const AsciiString *)condition->getParameter(0), condition->getParameter(1), condition->getParameter(2));
+	case 133:
+		return this->rva003E6835(condition->getParameter(0), condition->getParameter(1), condition->getParameter(2));
+	case 77:
+		return this->evaluateTypeSighted(*(const AsciiString *)condition->getParameter(0), condition->getParameter(1), condition->getParameter(2));
+	case 78:
+		return this->evaluateIsBuildingEmpty(condition->getParameter(0));
+	case 30:
+		return this->evaluateNamedOwnedByPlayer(condition->getParameter(0), condition->getParameter(1));
+	case 31:
+		return this->evaluateTeamOwnedByPlayer(condition->getParameter(0), condition->getParameter(1));
+	case 32:
+		return this->evaluatePlayerHasNOrFewerBuildings(condition->getParameter(1), condition->getParameter(0));
+	case 79:
+		return this->evaluatePlayerHasNOrFewerFactionBuildings(condition->getParameter(1), condition->getParameter(0));
+	case 131:
+		return this->evaluatePlayerHasNOrFewerBases(condition->getParameter(1), condition->getParameter(0));
+	case 33:
+		return this->evaluatePlayerHasPower(condition->getParameter(0));
+	case 47:
+		return !this->evaluatePlayerHasPower(condition->getParameter(0));
+	case 34:
+		return this->evaluateNamedReachedWaypointsEnd(condition->getParameter(0), condition->getParameter(1));
+	case 35:
+		return this->evaluateTeamReachedWaypointsEnd(condition->getParameter(0), condition->getParameter(1));
+	case 200:
+		return this->rva003E6BC5(condition, condition->getParameter(0));
+	case 37:
+		return this->evaluateNamedSelected(condition, condition->getParameter(0));
+	case 38:
+		return this->evaluateNamedEnteredArea(condition->getParameter(0), condition->getParameter(1));
+	case 39:
+		return this->evaluateNamedExitedArea(condition->getParameter(0), condition->getParameter(1));
+	case 40:
+		return this->evaluateTeamEnteredAreaEntirely(condition->getParameter(0), condition->getParameter(1), condition->getParameter(2));
+	case 121:
+		return this->evaluateNamedBaseUnpackableForPlayer(condition->getParameter(0), condition->getParameter(1));
+	case 41:
+		return this->evaluateTeamEnteredAreaPartially(condition->getParameter(0), condition->getParameter(1), condition->getParameter(2));
+	case 42:
+		return this->evaluateTeamExitedAreaEntirely(condition->getParameter(0), condition->getParameter(1), condition->getParameter(2));
+	case 43:
+		return this->evaluateTeamExitedAreaPartially(condition->getParameter(0), condition->getParameter(1), condition->getParameter(2));
+	case 147:
+		return this->rva003E51D9(condition->getParameter(0), condition->getParameter(1));
+	case 148:
+		return this->rva003E6ED0(condition->getParameter(0), (const AsciiString *)condition->getParameter(1), 0, true, false);
+	case 149:
+		return this->rva003E6ED0(condition->getParameter(0), (const AsciiString *)condition->getParameter(1), 0, true, true);
+	case 150:
+		return this->rva003E6ED0(condition->getParameter(0), (const AsciiString *)condition->getParameter(1), 0, false, false);
+	case 151:
+		return this->rva003E6ED0(condition->getParameter(0), (const AsciiString *)condition->getParameter(1), 0, false, true);
+	case 152:
+		return this->rva003E6ED0(condition->getParameter(0), 0, condition->getParameter(1), true, false);
+	case 153:
+		return this->rva003E6ED0(condition->getParameter(0), 0, condition->getParameter(1), true, true);
+	case 154:
+		return this->rva003E6ED0(condition->getParameter(0), 0, condition->getParameter(1), false, false);
+	case 155:
+		return this->rva003E6ED0(condition->getParameter(0), 0, condition->getParameter(1), false, true);
+	case 156:
+		return this->rva003E59B0(condition->getParameter(0), condition->getParameter(1), 0, true);
+	case 157:
+		return this->rva003E59B0(condition->getParameter(0), condition->getParameter(1), 0, false);
+	case 158:
+		return this->rva003E59B0(condition->getParameter(0), 0, condition->getParameter(1), true);
+	case 159:
+		return this->rva003E59B0(condition->getParameter(0), 0, condition->getParameter(1), false);
+	case 138:
+		return this->rva003E5CB1(condition->getParameter(0), condition->getParameter(1));
+	case 141:
+		return this->rva003E83AF(condition->getParameter(0), condition->getParameter(1));
+	case 44:
+		return ((UnknownE03138 *)TheVictoryConditions)->isLocalAlliedVictory();
+	case 45:
+		return ((UnknownE03138 *)TheVictoryConditions)->isLocalAlliedDefeat();
+	case 46:
+		return ((bool (__cdecl *)(void))evaluateMultiplayerPlayerDefeat)();
+	case 36:
+		return Rva003E41CBGet(condition->getParameter(0));
+	case 48:
+		return this->evaluateVideoHasCompleted(condition->getParameter(0));
+	case 49:
+		return this->evaluateSpeechHasCompleted(condition->getParameter(0));
+	case 50:
+		return this->evaluateAudioHasCompleted(condition->getParameter(0));
+	case 53:
+		return this->evaluateUnitHealth(condition->getParameter(0), condition->getParameter(1), condition->getParameter(2));
+	case 61:
+		return this->evaluatePlayerSpecialPowerFromUnitTriggered(condition->getParameter(0), condition->getParameter(1), 0);
+	case 64:
+		return this->evaluatePlayerSpecialPowerFromUnitTriggered(condition->getParameter(0), condition->getParameter(1), condition->getParameter(2));
+	case 63:
+		return this->evaluatePlayerSpecialPowerFromUnitMidway(condition->getParameter(0), condition->getParameter(1), 0);
+	case 66:
+		return this->evaluatePlayerSpecialPowerFromUnitMidway(condition->getParameter(0), condition->getParameter(1), condition->getParameter(2));
+	case 62:
+		return this->evaluatePlayerSpecialPowerFromUnitComplete(condition->getParameter(0), condition->getParameter(1), 0);
+	case 65:
+		return this->evaluatePlayerSpecialPowerFromUnitComplete(condition->getParameter(0), condition->getParameter(1), condition->getParameter(2));
+	case 100:
+		return this->evaluateScienceAcquired(condition->getParameter(0), condition->getParameter(1));
+	case 102:
+		return this->evaluateCanPurchaseScience(condition->getParameter(0), condition->getParameter(1));
+	case 101:
+		return this->evaluateSciencePurchasePoints(condition->getParameter(0), condition->getParameter(1));
+	case 173:
+		return this->rva003E4519(condition->getParameter(0));
+	case 69:
+		return this->evaluateUpgradeFromUnitComplete(condition->getParameter(0), condition->getParameter(1), 0);
+	case 70:
+		return this->evaluateUpgradeFromUnitComplete(condition->getParameter(0), condition->getParameter(1), condition->getParameter(2));
+	case 58:
+		return this->evaluatePlayerUnitCondition(condition, condition->getParameter(0), condition->getParameter(1), condition->getParameter(2), condition->getParameter(3));
+	case 71:
+		return this->evaluatePlayerDestroyedNOrMoreBuildings(condition->getParameter(0), condition->getParameter(1), condition->getParameter(2));
+	case 74:
+		{
+		Parameter *parameter;
+		if (condition->getNumParameters() < 5)
+			return false;
+		parameter = condition->getParameter(4);
+		return this->evaluatePlayerHasUnitTypeInArea(condition, condition->getParameter(0), condition->getParameter(1), condition->getParameter(2), condition->getParameter(3), parameter, 0, false);
+		}
+	case 188:
+		{
+		Parameter *parameter;
+		if (condition->getNumParameters() < 5)
+			return false;
+		parameter = condition->getParameter(4);
+		return this->evaluatePlayerHasUnitTypeInArea(condition, condition->getParameter(0), condition->getParameter(1), condition->getParameter(2), condition->getParameter(3), parameter, 0, true);
+		}
+	case 110:
+		{
+		Parameter *parameter;
+		Parameter *p5;
+		if (condition->getNumParameters() < 6)
+			return false;
+		p5 = condition->getParameter(5);
+		parameter = condition->getParameter(4);
+		return this->evaluatePlayerHasUnitTypeInArea(condition, condition->getParameter(0), condition->getParameter(1), condition->getParameter(2), condition->getParameter(3), parameter, p5, false);
+		}
+	case 194:
+		return TheFormationAssistant->m_flag34();
+	case 75:
+		{
+		Parameter *parameter;
+		if (condition->getNumParameters() < 5)
+			return false;
+		parameter = condition->getParameter(4);
+		return this->evaluatePlayerHasUnitKindInArea(condition, condition->getParameter(0), condition->getParameter(1), condition->getParameter(2), condition->getParameter(3), parameter);
+		}
+	case 160:
+		return this->evaluatePlayerHasNumberObjectsWithModelCondition(condition->getParameter(0), (CondA003E5F73 *)condition->getParameter(1), (CondB003E5F73 *)condition->getParameter(2), (CondC003E5F73 *)condition->getParameter(3));
+	case 161:
+		return this->evaluatePlayerHasNumberUnitsDistanceFromObject(condition->getParameter(0), condition->getParameter(1), condition->getParameter(2), condition->getParameter(3), condition->getParameter(4));
+	case 76:
+		return this->evaluateUnitHasEmptied(condition->getParameter(0));
+	case 83:
+		return this->evaluatePlayerHasComparisonPercentPower(condition->getParameter(0), condition->getParameter(1), condition->getParameter(2));
+	case 84:
+		return this->evaluatePlayerHasComparisonValueExcessPower(condition->getParameter(0), condition->getParameter(1), condition->getParameter(2));
+	case 85:
+		return this->evaluateSkirmishSpecialPowerIsReady(condition->getParameter(0), condition->getParameter(1));
+	case 171:
+		return this->evaluateSkirmishCanFireSpecialPowerOnTeam(condition->getParameter(0), condition->getParameter(1), condition->getParameter(2));
+	case 80:
+		return this->evaluateUnitHasObjectStatus(condition->getParameter(0), condition->getParameter(1));
+	case 193:
+		return this->rva003E5267(condition->getParameter(0), condition->getParameter(1));
+	case 81:
+		return this->evaluateTeamHasObjectStatus(condition->getParameter(0), condition->getParameter(1), true);
+	case 82:
+		return this->evaluateTeamHasObjectStatus(condition->getParameter(0), condition->getParameter(1), false);
+	case 86:
+		return this->evaluateSkirmishValueInArea(condition, condition->getParameter(0), condition->getParameter(1), condition->getParameter(2), condition->getParameter(3));
+	case 87:
+		return this->evaluateSkirmishPlayerIsFaction(condition->getParameter(0), condition->getParameter(1));
+	case 88:
+		return this->evaluateSkirmishSuppliesWithinDistancePerimeter(condition->getParameter(0), condition->getParameter(1), condition->getParameter(2), condition->getParameter(3));
+	case 89:
+		return evaluateSkirmishCommandButtonIsReady(condition->getParameter(0), condition->getParameter(1), condition->getParameter(2), true);
+	case 90:
+		return evaluateSkirmishCommandButtonIsReady(condition->getParameter(0), condition->getParameter(1), condition->getParameter(2), false);
+	case 91:
+		return this->evaluateSkirmishUnownedFactionUnitComparison(condition->getParameter(0), condition->getParameter(1), condition->getParameter(2));
+	case 92:
+		return this->evaluateSkirmishPlayerHasPrereqsToBuild(condition->getParameter(0), condition->getParameter(1));
+	case 93:
+		return this->evaluateSkirmishPlayerHasComparisonGarrisoned(condition->getParameter(0), condition->getParameter(1), condition->getParameter(2));
+	case 94:
+		return this->evaluateSkirmishPlayerHasComparisonCapturedUnits(condition->getParameter(0), condition->getParameter(1), condition->getParameter(2));
+	case 95:
+		return this->evaluateSkirmishNamedAreaExists(condition->getParameter(0), condition->getParameter(1));
+	case 96:
+		return this->evaluateSkirmishPlayerHasUnitsInArea(condition, condition->getParameter(0), condition->getParameter(1));
+	case 97:
+		return this->evaluateSkirmishPlayerHasBeenAttackedByPlayer(condition->getParameter(0), condition->getParameter(1));
+	case 98:
+		return this->evaluateSkirmishPlayerIsOutsideArea(condition, condition->getParameter(0), condition->getParameter(1));
+	case 99:
+		return this->evaluateSkirmishPlayerHasDiscoveredPlayer(condition->getParameter(0), condition->getParameter(1));
+	case 103:
+		return this->evaluateMusicHasCompleted(condition->getParameter(0), condition->getParameter(1));
+	case 105:
+		return this->evaluateSkirmishSupplySourceSafe(condition, condition->getParameter(0), condition->getParameter(1));
+	case 106:
+		return this->evaluateSkirmishSupplySourceAttacked(condition->getParameter(0));
+	case 107:
+		return this->evaluateSkirmishStartPosition(condition->getParameter(0), condition->getParameter(1));
+	case 108:
+		return condition->getParameter(1)->getInt() <= 0;
+	case 109:
+		return Rva003E4B83Get(condition->getParameter(0));
+	case 104:
+		return this->evaluatePlayerLostObjectType(condition->getParameter(0), condition->getParameter(1));
+	case 120:
+		return Rva003E4EA5Get(condition->getParameter(0));
+	case 132:
+		return Rva003E7FD5Get(condition->getParameter(0));
+	case 111:
+		return this->evaluateCounterCounter(condition);
+	case 112:
+		return this->evaluateCounterSeconds(condition);
+	case 113:
+		return this->evaluateDistanceBetweenObjects(condition);
+	case 114:
+		return this->evaluateDistanceBetweenTeams(condition);
+	case 115:
+		return this->rva003E4D93(condition->getParameter(0), condition->getParameter(1), condition->getParameter(2), condition->getParameter(3));
+	case 116:
+		return this->evaluateTeamCachedFloatCompare(condition->getParameter(0), condition->getParameter(1), condition->getParameter(2), condition->getParameter(3));
+	case 117:
+		return Rva003E4E6AGet(condition->getParameter(0));
+	case 118:
+		return this->rva003E7F3A(condition->getParameter(0), condition->getParameter(1));
+	case 123:
+		return this->evaluateTeamIsLedByUnit(condition->getParameter(0), condition->getParameter(1));
+	case 124:
+		return this->evaluatePlayerCompareLightPoints(condition->getParameter(0), condition->getParameter(1), condition->getParameter(2));
+	case 125:
+		return this->evaluateHasCommandPointsToBuildTeam(condition->getParameter(0), condition->getParameter(1));
+	case 126:
+		return this->evaluateHasCommandPointsToBuildUnit(condition->getParameter(0), condition->getParameter(1));
+	case 127:
+		return this->evaluateCanBuildAtBase(condition->getParameter(0), condition->getParameter(1));
+	case 169:
+		return this->evaluateCanBuildObjectTypeAtBase(condition->getParameter(0), condition->getParameter(1), condition->getParameter(2));
+	case 128:
+		return this->evaluatePlayerHasKilledKindOfUnits(condition->getParameter(0), condition->getParameter(1), condition->getParameter(2));
+	case 129:
+		return this->evaluatePlayerHasKilledTypeUnits(condition->getParameter(0), condition->getParameter(1), condition->getParameter(2));
+	case 130:
+		return this->evaluateNamedDestroyedByType(condition->getParameter(0), condition->getParameter(1));
+	case 134:
+		return this->rva003E63CD(condition, condition->getParameter(0), condition->getParameter(1), condition->getParameter(2));
+	case 135:
+		return this->rva003E3EC3(condition->getParameter(0));
+	case 142:
+		return ((bool (__cdecl *)(void))Rva003E4C77Get)();
+	case 136:
+		return this->evaluateNamedCanPathToWaypoint(condition->getParameter(0), condition->getParameter(1));
+	case 137:
+		return this->rva003E5105(condition->getParameter(0), condition->getParameter(1));
+	case 139:
+		return this->evaluateTeamCanPathToWaypoint(condition->getParameter(0), condition->getParameter(1));
+	case 140:
+		return this->evaluateTeamCanPathToNamed(condition->getParameter(0), condition->getParameter(1));
+	case 143:
+		return this->rva003E859E(condition->getParameter(0), condition->getParameter(1));
+	case 144:
+		return this->rva003E514F(condition->getParameter(0), (CondA003E514F *)condition->getParameter(1), (CondB003E514F *)condition->getParameter(2));
+	case 145:
+		return this->rva003E52EB(condition->getParameter(0), (CondA003E52EB *)condition->getParameter(1), (CondB003E52EB *)condition->getParameter(2));
+	case 146:
+		return this->rva003E8E23(condition->getParameter(0), condition->getParameter(1), condition->getParameter(2), condition->getParameter(3));
+	case 162:
+		return Rva003E537DCheck(condition->getParameter(0));
+	case 163:
+		return this->rva003EA12A(condition->getParameter(0));
+	case 164:
+		return this->rva003EA228(condition->getParameter(0), true);
+	case 165:
+		return this->rva003EA228(condition->getParameter(0), false);
+	case 166:
+		return ((bool (__stdcall *)(char))bfmeGo939D)(condition->getParameter(0)->getInt() != 0);
+	case 201:
+		return this->evaluateGameModeActive(condition->getParameter(0));
+	case 168:
+		return this->evaluateNumPlayersInGame((CondA003E53C8 *)condition->getParameter(0), (CondB003E53C8 *)condition->getParameter(1));
+	case 174:
+		return this->rva003E8D01(condition->getParameter(0), condition->getParameter(1), condition->getParameter(2));
+	case 175:
+		return (this->*(bool (ScriptConditions::*)(Parameter *, Cond003E5D95 *))&ScriptConditions::rva003E5D95)(condition->getParameter(0), (Cond003E5D95 *)condition->getParameter(1));
+	case 176:
+		return this->rva003E85E0(condition->getParameter(0), condition->getParameter(1), condition->getParameter(2));
+	case 177:
+		return this->rva003E86A3(condition->getParameter(0), condition->getParameter(1), condition->getParameter(2));
+	case 178:
+		return this->rva003E8785(condition->getParameter(0), condition->getParameter(1), condition->getParameter(2));
+	case 179:
+		return this->rva003E8863(condition->getParameter(0), condition->getParameter(1), condition->getParameter(2), condition->getParameter(3));
+	case 180:
+		return this->evaluateUnitHasToggledWeapon(condition->getParameter(0), condition->getParameter(1));
+	case 182:
+		return this->rva003E8C24(condition->getParameter(0), condition->getParameter(1));
+	case 181:
+		return this->evaluateAnyUnitsUsingBloodthirsty(condition->getParameter(0));
+	case 183:
+		return this->rva003E8B47(condition->getParameter(0), condition->getParameter(1));
+	case 184:
+		return Rva003E8FEE(condition->getParameter(0));
+	case 185:
+		return Rva003E9029(&condition->getParameter(0)->getString());
+	case 186:
+		return this->evaluateHasEvaEventPlayedInLastNSeconds(condition->getParameter(0)->getString(), condition->getParameter(1)->getReal());
+	case 187:
+		return this->evaluateIsNumOfUnitsBelongingToPlayerNearEvaEventLastPlayedLocationComparisonInt(condition->getParameter(0), condition->getParameter(1)->getReal(), &condition->getParameter(2)->getString(), condition->getParameter(3)->getInt(), condition->getParameter(4)->getInt());
+	case 195:
+		return this->evaluateHasDelayedCarryoverUnitOfType(condition->getParameter(0)->getString(), condition->getParameter(1));
+	case 196:
+		return Rva0056815AAny();
+	case 197:
+		return ((bool (__cdecl *)(void))Rva0043C99AGet)();
+	case 198:
+		return g_Va00E04450 != 0;
+	case 199:
+		return this->evaluatePlayerIsInPlanningMode(condition->getParameter(0));
+	default:
+		return false;
+	}
+}
 
 // tu-skeleton: 0x007832F6 13B $L1357 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateNamedUnit.cpp (not merged yet)
 
 // tu-skeleton: 0x00783303 10B __ehhandler$?rva003E3EC3@ScriptConditions@@IAE_NPAVParameter@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateNamedUnit.cpp (not merged yet)
-
-// tu-skeleton: 0x0078330D 13B $L377 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003E4921Finish.cpp (not merged yet)
-
-// tu-skeleton: 0x0078331A 10B __ehhandler$?rva003E4921@ScriptConditions@@QAE_NPAVParameter@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003E4921Finish.cpp (not merged yet)
 
 // tu-skeleton: 0x0078333B 8B $L9938 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
 
@@ -2252,34 +4857,6 @@ bool ScriptConditions::evaluateHasDelayedCarryoverUnitOfType(const AsciiString &
 // tu-skeleton: 0x00783557 8B $L10573 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
 
 // tu-skeleton: 0x0078355F 10B __ehhandler$?rva003EA228@ScriptConditions@@IAE_NPAVParameter@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
-
-// tu-skeleton: 0x00783569 8B $L1619 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTypeSighted.cpp (not merged yet)
-
-// tu-skeleton: 0x00783571 8B Unwind@00b83571 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTypeSighted.cpp (not merged yet)
-
-// tu-skeleton: 0x00783579 8B $L1621 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTypeSighted.cpp (not merged yet)
-
-// tu-skeleton: 0x00783581 8B Unwind@00b83581 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTypeSighted.cpp (not merged yet)
-
-// tu-skeleton: 0x00783589 8B Unwind@00b83589 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTypeSighted.cpp (not merged yet)
-
-// tu-skeleton: 0x00783591 8B Unwind@00b83591 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTypeSighted.cpp (not merged yet)
-
-// tu-skeleton: 0x00783599 8B $L1624 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTypeSighted.cpp (not merged yet)
-
-// tu-skeleton: 0x007835A1 10B __ehhandler$?evaluateTypeSighted@ScriptConditions@@QAE_NABVAsciiString@@PAVParameter@@1@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTypeSighted.cpp (not merged yet)
-
-// tu-skeleton: 0x007835AB 8B $L1553 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003EA566.cpp (not merged yet)
-
-// tu-skeleton: 0x007835B3 8B Unwind@00b835b3 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003EA566.cpp (not merged yet)
-
-// tu-skeleton: 0x007835BB 11B Unwind@00b835bb -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003EA566.cpp (not merged yet)
-
-// tu-skeleton: 0x007835C6 8B uw_007835c6 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003EA566.cpp (not merged yet)
-
-// tu-skeleton: 0x007835CE 13B $L1557 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003EA566.cpp (not merged yet)
-
-// tu-skeleton: 0x007835DB 10B __ehhandler$?evaluateSkirmishSuppliesWithinDistancePerimeter@ScriptConditions@@QAE_NPAVParameter@@000@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003EA566.cpp (not merged yet)
 
 // tu-skeleton: 0x007835E5 8B $L1431 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateIsNumOfUnitsBelongingToPlayerNearEvaEventLastPlayedLocationComparisonInt.cpp (not merged yet)
 

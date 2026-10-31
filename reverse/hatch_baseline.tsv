@@ -1071,7 +1071,7 @@ address_global	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva00
 address_global	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003BF5FE.cpp	g_Va00BBB8D8	2
 address_global	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C062D.cpp	g_Va007C26F0	2
 address_global	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions.cpp	g_Va007C26F0	2
-address_global	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateConditionHelper.cpp	g_Va00E04450	2
+address_global	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions.cpp	g_Va00E04450	2
 address_global	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_appendMessage_Rva00341350AdjustVariableForwarder.cpp	g_Va00E02D64	2
 address_global	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptWriteDataChunk.cpp	g_Va00DD263CNames	2
 address_global	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptWriteDataChunk.cpp	g_Va00E02D64	2
@@ -3268,8 +3268,6 @@ alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003B
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_ctor.cpp	?init@ScriptActions@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_playerOwnershipOfTypeCounter.cpp	?prepForPlayerCounting@ObjectTypes@@QAEHAAV?$vector@PBVThingTemplate@@V?$allocator@PBVThingTemplate@@@_STL@@@_STL@@AAV?$vector@HV?$allocator@H@_STL@@@3@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C2EC9.cpp	??0?$BitFlags@$0HE@@@QAE@ABV0@@Z	1
-alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsPlayerMask.cpp	?getEachPlayerFromMask@PlayerList@@QAEPAVPlayer@@AAG@Z	1
-alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsPlayerMask.cpp	?unidentified_0034DB40@ScriptEngine@@QAEGPAVParameter@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_ctor.cpp	?init@ScriptConditions@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineGetUnitNamed.cpp	?getUnitNamed@ScriptEngine@@QAEPAVObject@@ABVAsciiString@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva00357AF8.cpp	?g_str009E0878@@3V?$StringBase@D@@A	1
