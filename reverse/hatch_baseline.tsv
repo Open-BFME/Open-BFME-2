@@ -1039,7 +1039,7 @@ address_global	Code/GameEngine/Source/GameLogic/Map/OldPolygonTrigger.cpp	g_Va00
 address_global	Code/GameEngine/Source/GameLogic/Map/PolygonTrigger.cpp	g_Va00DBD0F4	9
 address_global	Code/GameEngine/Source/GameLogic/Map/Rva00282021WaterLookup.cpp	g_Va00DBB710	2
 address_global	Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp	g_Va00DBB708	8
-address_global	Code/GameEngine/Source/GameLogic/Map/TerrainLogicWaypointLookups.cpp	g_Va00DBD0F4	2
+address_global	Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp	g_Va00DBD0F4	2
 address_global	Code/GameEngine/Source/GameLogic/Map/TerrainLogicXfer.cpp	g_Va00DBB708	3
 address_global	Code/GameEngine/Source/GameLogic/Object/ArmorStoreReload.cpp	g_Va00DFDBC8	5
 address_global	Code/GameEngine/Source/GameLogic/Object/AttackNuggetCreate.cpp	g_Va00DFDCD8	1
@@ -2894,7 +2894,7 @@ alternatename	Code/GameEngine/Source/GameLogic/Map/SidesListTeamsInfoRecClear.cp
 alternatename	Code/GameEngine/Source/GameLogic/Map/SidesListTeamsInfoRecClear.cpp	??1?$vector@VBfmeThingUBB@@V?$allocator@VBfmeThingUBB@@@_STL@@@_STL@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Map/SidesListTeamsInfoRecClear.cpp	?swap@?$vector@VBfmeThingUBB@@V?$allocator@VBfmeThingUBB@@@_STL@@@_STL@@QAEXAAV12@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Map/StandingWaveAreasDataChunkParser.cpp	?rva005CB283@Rva005CB283@@QAEXPBVRva0030B9DD@@@Z	1
-alternatename	Code/GameEngine/Source/GameLogic/Map/TerrainLogicRva00285193.cpp	?rva00284DD2@TerrainLogic@@QAEXPBUCoord3D@@MPBXPAPAVObject@@_N3@Z	1
+alternatename	Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp	?rva00284DD2@TerrainLogic@@QAEXPBUCoord3D@@MPBXPAPAVObject@@_N3@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Module/WorkerAIUpdateDtor.cpp	??1Rva0026E836@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Module/WorkerAIUpdateDtor.cpp	?f1@DBaseM1@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Module/WorkerAIUpdateDtor.cpp	?f2@DBaseB2@@UAEXXZ	1
