@@ -56,6 +56,18 @@ public:
 	{ \
 		return m_value; \
 	}
+#define BFME_DISP_DWORD_GETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		int get() const; \
+		char m_lead[DISP]; \
+		int m_value; \
+	}; \
+	int NAME::get() const \
+	{ \
+		return m_value; \
+	}
 
 // Global variable which is only used to communicate the worldspace emitter
 // velocity from ParticleEmitterClass::Create_New_Particles() to
@@ -92,6 +104,17 @@ private:
 	VBase *m_ptr;
 };
 
+BFME_DISP_BYTE_GETTER(Rva001A1520ByteField, 0x11C)
+
+// BF1 9cbfb551fe Common/Rva005BD470ZeroTest.cpp is the clean semantic donor.
+// Full native leaf 001F350B..001F3513 ends at its own RET boundary.
+// Target evidence: receiver0C dword equals two; result in AL.
+// Original owner unresolved; the address-owned type is independent of nearby classes.
+class Rva001F350BFields {
+public: unsigned char isTwo() const;
+private: char unknown[0x0C]; unsigned int value;
+};
+
 class MilesAudioManager
 {
 public:
@@ -103,15 +126,36 @@ public:
     unsigned char m_6A6;
 };
 
-BFME_DISP_BYTE_GETTER(Rva001A1520ByteField, 0x11C)
+BFME_DISP_DWORD_GETTER(Rva001A0F60DwordField, 0x1C0)
 
-// BF1 9cbfb551fe Common/Rva005BD470ZeroTest.cpp is the clean semantic donor.
-// Full native leaf 001F350B..001F3513 ends at its own RET boundary.
-// Target evidence: receiver0C dword equals two; result in AL.
-// Original owner unresolved; the address-owned type is independent of nearby classes.
-class Rva001F350BFields {
-public: unsigned char isTwo() const;
-private: char unknown[0x0C]; unsigned int value;
+BFME_DISP_DWORD_GETTER(Rva001A0F70DwordField, 0x1C4)
+
+BFME_DISP_DWORD_GETTER(Rva001A0FE0DwordField, 0x164)
+
+// ?rva00524F35@Rva00524F35@@QAEAAV1@H@Z @0x00524F35 37B
+class Rva00524F35
+{
+public:
+	int m_00;
+	int m_04;
+	int m_08;
+	int m_0c;
+	int m_10;
+	unsigned char m_14;
+	unsigned char m_15;
+	unsigned char m_16;
+	Rva00524F35& rva00524F35(int v);
+};
+
+// Callers elsewhere reach bodies in this unit through other spellings; retail's
+// call sites in their matched rows land on these addresses (same ABI). Bind them.
+
+// BF1 9cbfb551fe Common/Bfme/Rva001BD660_setFlags.cpp is the clean semantic guide.
+// Complete native 0023C4CE..0023C4DB RET leaf proves: OR stack dword into receiver114; RET4.
+// Original owner and complete bounds unresolved; independent address-owned view.
+class Rva0023C4CEFields {
+public: void setFlags(unsigned int value);
+private: unsigned char unknown[0x114]; unsigned int flags;
 };
 
 // tu-skeleton: 0x001A0C30 7B ?Is_Remove_On_Complete_Enabled@ParticleEmitterClass@@QAE_NXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_frame.cpp (not merged yet)
@@ -176,11 +220,22 @@ private: char unknown[0x0C]; unsigned int value;
 
 // tu-skeleton: 0x001A0F40 23B ?Get_UV_Offset_Rate@ParticleEmitterClass@@QBE?AVVector2@@XZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_build_definition.cpp (not merged yet)
 
-// tu-skeleton: 0x001A0F60 7B ?get@Rva001A0F60DwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp
 
-// tu-skeleton: 0x001A0F70 7B ?get@Rva001A0F70DwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x001A0FE0 7B ?get@Rva001A0FE0DwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp (not merged yet)
+// Disp32 dword getters: seven-byte __thiscall members with one shape:
+//
+//     mov eax,[ecx+<DISP>] / ret
+//
+// One dword is read at a fixed displacement from `this` and returned. Every
+// displacement here is a multiple of four, so the accessed member is spelled
+// as an `int` right after the lead array. The bytes cannot distinguish `int`
+// from `unsigned int`, a pointer, or anything else four bytes wide moved
+// with a plain load. Members before the accessed one are spelled as a lead
+// array because their types are not witnessed here, only their total size.
+// Identity is not recovered: every name is derived from its address (BFME1
+// pioneered the same family in
+// reference/open-bfme-1/Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp).
+// No // cl: line (defaults match the frameless 7-byte shape).
 
 // tu-skeleton: 0x001A1070 881B ??0ParticleEmitterClass@@QAE@MIPAVVector3Randomizer@@VVector3@@0MMAAU?$ParticlePropertyStruct@VVector3@@@@AAU?$ParticlePropertyStruct@M@@33M331MMABVBFME2ParticleTextureHandle@@VShaderClass@@HH_NHHPBUW3dEmitterLinePropertiesStruct@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_constructor.cpp (not merged yet)
 
@@ -197,6 +252,8 @@ private: char unknown[0x0C]; unsigned int value;
 // tu-skeleton: 0x001A14E0 27B ?Set_Force_Visible@ParticleEmitterClass@@UAEXH@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/ParticleEmitterVisibilityWrappers.cpp (not merged yet)
 
 // tu-skeleton: 0x001A1500 26B ?rva001A1500@ParticleEmitterClass@@UAEXH@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/ParticleEmitterRva001A1500.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp
 
 // ---- from Code/GameEngine/Source/Common/DispByteFieldGetters.cpp
 
@@ -218,9 +275,7 @@ private: char unknown[0x0C]; unsigned int value;
 // reference/open-bfme-1/Code/GameEngine/Source/Common/DispByteFieldGetters.cpp).
 // No // cl: line (defaults match the frameless 7-byte shape).
 
-// tu-skeleton: 0x001A1530 486B ??0ParticleEmitterClass@@QAE@ABV0@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_copy.cpp (not merged yet)
 
-// tu-skeleton: 0x001A1720 218B ??1ParticleEmitterClass@@UAE@XZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_destructor.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp
 
@@ -765,6 +820,10 @@ void Rva001A1C40::set(VBase *vBase)
 		vBase->slot4(0.001f);
 	}
 }
+
+// tu-skeleton: 0x001A1530 486B ??0ParticleEmitterClass@@QAE@ABV0@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_copy.cpp (not merged yet)
+
+// tu-skeleton: 0x001A1720 218B ??1ParticleEmitterClass@@UAE@XZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_destructor.cpp (not merged yet)
 
 // tu-skeleton: 0x001A1970 266B ?On_Frame_Update@ParticleEmitterClass@@UAEXXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_frame.cpp (not merged yet)
 

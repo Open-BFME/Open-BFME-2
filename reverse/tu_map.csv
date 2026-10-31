@@ -11806,11 +11806,11 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x001A0F20,11,code,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,approved,S,S=Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp N=Code/Libraries/Source/WWVegas/WW3D2/ParticleEmitterClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_build_definition.cpp
 0x001A0F30,11,code,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,approved,S,S=Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp N=Code/Libraries/Source/WWVegas/WW3D2/ParticleEmitterClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_build_definition.cpp
 0x001A0F40,23,code,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,approved,S,S=Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp N=Code/Libraries/Source/WWVegas/WW3D2/ParticleEmitterClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_build_definition.cpp
-0x001A0F60,7,code,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,approved,C,C=0x001A0F40..0x001A0F70,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp
-0x001A0F70,7,code,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,approved,C,C=0x001A0F40..0x001A0FE0,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp
+0x001A0F60,7,code,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,approved,C,C=0x001A0F40..0x001A0F70,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp
+0x001A0F70,7,code,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,approved,C,C=0x001A0F40..0x001A0FE0,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp
 0x001A0F80,41,code,,displaced,-,S=Code/Libraries/Source/WWVegas/WW3D2/part_ldr.cpp N=Code/Libraries/Source/WWVegas/WW3D2/ParticleEmitterDefClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_create_from_definition.cpp
 0x001A0FB0,41,code,,displaced,-,S=Code/Libraries/Source/WWVegas/WW3D2/part_ldr.cpp N=Code/Libraries/Source/WWVegas/WW3D2/ParticleEmitterDefClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_create_from_definition.cpp
-0x001A0FE0,7,code,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,approved,C,C=0x001A0F40..0x001A1070,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp
+0x001A0FE0,7,code,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,approved,C,C=0x001A0F40..0x001A1070,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp
 0x001A0FF0,7,code,,displaced,-,S=Code/Libraries/Source/WWVegas/WW3D2/part_ldr.cpp N=Code/Libraries/Source/WWVegas/WW3D2/ParticleEmitterDefClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_create_from_definition.cpp
 0x001A1000,7,code,,displaced,-,S=Code/Libraries/Source/WWVegas/WW3D2/part_ldr.cpp N=Code/Libraries/Source/WWVegas/WW3D2/ParticleEmitterDefClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_create_from_definition.cpp
 0x001A1010,7,code,,displaced,-,S=Code/Libraries/Source/WWVegas/WW3D2/part_ldr.cpp N=Code/Libraries/Source/WWVegas/WW3D2/ParticleEmitterDefClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_create_from_definition.cpp
