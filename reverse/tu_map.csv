@@ -15214,7 +15214,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00217545,28,code,Code/GameEngine/Source/GameClient/GUI/GameFont.cpp,approved,U,N=Code/GameEngine/Source/Common/GameFont.cpp,Code/GameEngine/Source/Common/AsciiStringFoldDeleters.cpp
 0x00217561,89,code,Code/GameEngine/Source/GameClient/GUI/GameFont.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/GUI/GameFont.cpp S=Code/GameEngine/Source/GameClient/GUI/GameFont.cpp N=Code/GameEngine/Source/GameClient/GUI/FontLibrary.cpp,Code/GameEngine/Source/GameClient/GUI/FontLibraryInit.cpp
 0x002175BA,13,code,Code/GameEngine/Source/GameClient/GUI/GameFont.cpp,approved,U,N=Code/GameEngine/Source/Common/GameFont.cpp,Code/GameEngine/Source/Common/AsciiStringFoldDeleters.cpp
-0x002175C7,7,code,Code/GameEngine/Source/GameClient/GUI/GameFont.cpp,approved,C,C=0x002175BA..0x002175CE,Code/GameEngine/Source/Common/Disp8DwordClearers.cpp
+0x002175C7,7,code,Code/GameEngine/Source/GameClient/GUI/GameFont.cpp,approved,C,C=0x002175BA..0x002175CE,Code/GameEngine/Source/GameClient/GUI/GameFont.cpp
 0x002175CE,57,code,Code/GameEngine/Source/GameClient/GUI/GameFont.cpp,approved,C,C=0x002175BA..0x00217607,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00218022.cpp
 0x00217607,29,code,Code/GameEngine/Source/GameClient/GUI/GameFont.cpp,approved,C,C=0x002175BA..0x00217624,Code/GameEngine/Source/GameClient/GUI/GameFont.cpp
 0x00217624,41,code,Code/GameEngine/Source/GameClient/GUI/GameFont.cpp,approved,C,C=0x002175BA..0x0021764D,Code/Libraries/Source/WWVegas/WWLib/MixFileCreatorFileInfoStructAssign.cpp

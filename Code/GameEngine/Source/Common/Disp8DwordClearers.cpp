@@ -100,7 +100,6 @@ Rva004D9A35Fields *Rva004D9A35Fields::clear() { word14=0; return this; }
 
 // ?clear@Rva002175C7Fields@@QAEPAU1@XZ
 struct Rva002175C7Fields { char pad[0xC]; unsigned int wordC; Rva002175C7Fields *clear(); };
-Rva002175C7Fields *Rva002175C7Fields::clear() { wordC=0; return this; }
 
 // Complete native 2C8E52..2C8E5A follows RET8 and precedes a new leaf.
 // It returns the old receiver word at +4 in EAX and clears that word to zero.
