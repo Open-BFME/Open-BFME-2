@@ -17527,7 +17527,7 @@ _VP60D_GetVersionNumber,,0x001B5830,6,Code/Libraries/Source/VP6/PbAccessors.cpp,
 ?clear@Rva0033F9F9DwordClearer@@QAEXXZ,,0x0033F9F9,5,Code/GameEngine/Source/Common/Disp8DwordClearers.cpp,matched,disp8 dword clearer; and-zero under O1; phase-proven no-branch-to-addr
 ?clear@Rva004C12CBDwordClearer@@QAEXXZ,,0x004C12CB,5,Code/GameEngine/Source/Common/Disp8DwordClearers.cpp,matched,disp8 dword clearer; and-zero under O1; phase-proven no-branch-to-addr
 ?clear@Rva0055059ADwordClearer@@QAEXXZ,,0x0055059A,5,Code/GameEngine/Source/Common/Disp8DwordClearers.cpp,matched,disp8 dword clearer; and-zero under O1; phase-proven no-branch-to-addr
-?clear@Rva005A9D01DwordClearer@@QAEXXZ,,0x005A9D01,5,Code/GameEngine/Source/Common/Disp8DwordClearers.cpp,matched,disp8 dword clearer; and-zero under O1; phase-proven no-branch-to-addr
+?clear@Rva005A9D01DwordClearer@@QAEXXZ,,0x005A9D01,5,Code/GameEngine/Source/Common/AISimpleSiegeTactic.cpp,matched,disp8 dword clearer; and-zero under O1; phase-proven no-branch-to-addr
 ?clear@Rva005B5B07DwordClearer@@QAEXXZ,,0x005B5B07,5,Code/GameEngine/Source/Common/Disp8DwordClearers.cpp,matched,disp8 dword clearer; and-zero under O1; phase-proven no-branch-to-addr
 ?clear@Rva005C494DDwordClearer@@QAEXXZ,,0x005C494D,5,Code/GameEngine/Source/Common/Disp8DwordClearers.cpp,matched,disp8 dword clearer; and-zero under O1; phase-proven no-branch-to-addr
 ?clear@Rva006DBD90DwordMask@@QAEXXZ,,0x006DBD90,5,Code/GameEngine/Source/Common/Disp8DwordClearers.cpp,matched,disp8 dword mask clearer; phase-proven no-branch-to-addr
