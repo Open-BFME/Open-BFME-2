@@ -5,6 +5,98 @@
 #define _CRTIMP
 #include <stdlib.h>
 #undef _CRTIMP
+class Rva000421C8
+{
+public:
+	Rva000421C8() : m_next(0) {}
+	virtual ~Rva000421C8() {}
+	virtual bool allow(class Object *obj) = 0;
+	virtual int getPlayerMask();
+	Rva000421C8 *link(Rva000421C8 *next);	// 0x00625790
+	Rva000421C8 *m_next;
+};
+// vftable 0x00BFAD10, allow 0x0026119D: not effectively dead.
+class Rva0026119DFilter : public Rva000421C8
+{
+public:
+	virtual bool allow(class Object *obj);
+};
+// vftable 0x00BF91BC, allow 0x002611BF.
+class Rva002611BFFilter : public Rva000421C8
+{
+public:
+	Rva002611BFFilter(const class Object *obj) : m_obj(obj) {}
+	virtual bool allow(class Object *obj);
+	const class Object *m_obj;
+};
+// vftable 0x00C51150, allow 0x00261130: +0x08 an upgrade.
+class Rva00261130Filter : public Rva000421C8
+{
+public:
+	Rva00261130Filter(const void *upgrade) : m_upgrade(upgrade) {}
+	virtual bool allow(class Object *obj);
+	const void *m_upgrade;
+};
+// vftable 0x00C004D8, allow 0x00261409: the player's relationship to the
+// object's team against the +0x10 flags, +0x0C whether a hit allows.
+class Rva00261409Filter : public Rva000421C8
+{
+public:
+	Rva00261409Filter(class Player *player, bool match, int flags)
+		: m_player(player), m_match(match), m_flags(flags) {}
+	virtual bool allow(class Object *obj);
+	virtual int getPlayerMask();
+	class Player *m_player;
+	bool m_match;
+	int m_flags;
+};
+#include "../../../Common/PartitionRangeQueryCallView.h"
+extern PartitionManager *ThePartitionManager;
+// TheUpgradeCenter's lookup: the first upgrade whose bit the mask has.
+class Rva0026F0F0
+{
+public:
+	void *rva0026F0F0(const void *mask);	// 0x0026F0F0
+};
+// TheUpgradeCenter is only an alias of the owned global TheUpgradeCenter (ledger names column); this unit reads the owner through its own view type.
+class UpgradeCenter;
+extern UpgradeCenter *TheUpgradeCenter;
+//
+// ?xfer@GiveUpgradeUpdate@@MAEXPAVXfer@@@Z, retail 0x0049C41C, 85 bytes.
+// Slot 3 (offset 0x0C) of vtable 0x00851220 (class of ??0GiveUpgradeUpdate
+// rowed at 0x0049C3AC in GiveUpgradeUpdateCtor.cpp).
+//
+// Evidence: rowed base ?xfer@SpecialAbilityUpdate@@MAEXPAVXfer@@@Z at
+// 0x0044F996, IsLightCRC early-out via Xfer slot 0x10, Version1 via rowed
+// 0x000053EE, then bool at +0x88 via Xfer slot 0x90, float at +0x8C via Xfer
+// slot 0x70, bool at +0x89 via Xfer slot 0x90. Layout is the rowed
+// GiveUpgradeUpdate class from GiveUpgradeUpdateCtor.cpp (SpecialAbilityUpdate
+// base 0x88 plus bool m_firstFlag at +0x88 plus bool m_secondFlag at +0x89
+// plus float m_value at +0x8C). BFME1 donor GiveUpgradeUpdate.cpp has the same
+// two-bool plus trailing member shape.
+
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+class Thing;
+class ModuleData;
+class DamageInfo;
+#include "../../../../Include/Common/BfmeXfer.h"
+
 //
 // ?rva0049C51A@Rva0049C51A@@QAEXHHHHH@Z @0x0049C51A 57B.
 // Look up the id at +0x20 through GameLogic::findObjectByID. Forward the
@@ -13,6 +105,7 @@
 
 
 class Object;
+
 class Player;
 
 enum CommandSourceType
@@ -176,8 +269,11 @@ enum ObjectStatusTypes
 };
 
 class UpgradeTemplate;
+
 class ThingTemplate;
+
 class Provider31;
+
 class Object
 {
 public:
@@ -274,6 +370,85 @@ public:
 	void onExit(bool cleanup, bool aborted);
 };
 
+class ThingTemplate
+{
+public:
+	char m_pad000[0x108];
+	unsigned m_kindOf;		// +0x108 (bit 7 tested)
+	char m_pad10C[0x118 - 0x10C];
+	unsigned m_118;		// +0x118 (bit 22 tested)
+};
+
+class AIUpdate;
+
+class GiveUpgradeUpdateModuleData;
+
+class Provider31
+{
+public:
+	virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03();
+	virtual void s04(); virtual void s05(); virtual void s06(); virtual void s07();
+	virtual void s08(); virtual void s09(); virtual void s10(); virtual void s11();
+	virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15();
+	virtual void s16(); virtual void s17(); virtual void s18(); virtual void s19();
+	virtual void s20(); virtual void s21(); virtual void s22(); virtual void s23();
+	virtual void s24(); virtual void s25(); virtual void s26(); virtual void s27();
+	virtual void s28(); virtual void s29(); virtual void s30();
+	virtual void *slot31();
+};
+
+class Rva0049C5F4
+{
+public:
+	void *rva0049C5F4(Object *arg);
+};
+
+class Matrix3D;
+
+class FXList
+{
+public:
+	static void doFXPos(const FXList *fx, const Coord3D *primary, const Matrix3D *mtx, float speed, const Coord3D *secondary);
+};
+
+struct Rva0049C67EInner
+{
+	char m_pad[0xD8];
+	FXList *m_fx;
+};
+
+class Rva0049C67E
+{
+public:
+	void rva0049C67E(Object *obj);
+
+private:
+	char m_pad0[4];
+	Rva0049C67EInner *m_inner;
+	char m_pad8[0x88 - 8];
+	unsigned char m_88;
+	unsigned char m_89;
+	char m_pad8A[2];
+	float m_8c;
+};
+
+class Rva0049C6E1Prov
+{
+public:
+	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
+	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
+	virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
+	virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
+	virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19();
+	virtual void v20(); virtual void v21(); virtual void v22(); virtual void v23();
+	virtual void v24(); virtual void v25(); virtual void v26(); virtual void v27();
+	virtual void v28(); virtual void v29(); virtual void v30(); virtual void v31();
+	virtual void v32(); virtual void v33(); virtual void v34(); virtual void v35();
+	virtual void v36(); virtual void v37(); virtual void v38(); virtual void v39();
+	virtual void v40(); virtual void v41(); virtual void v42();
+	virtual bool slot43(void *upgrade);
+};
+
 // tu-skeleton: 0x0049C391 27B ?buildFieldParse@GiveUpgradeUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp (not merged yet)
 
 // tu-skeleton: 0x0049C3AC 74B ??0GiveUpgradeUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdateCtor.cpp (not merged yet)
@@ -282,7 +457,20 @@ public:
 
 // tu-skeleton: 0x0049C3FC 32B ??1Rva0049C3FC@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00451F45Derived.cpp (not merged yet)
 
-// tu-skeleton: 0x0049C41C 85B ?xfer@GiveUpgradeUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdateXfer.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdateXfer.cpp
+
+void GiveUpgradeUpdate::xfer(Xfer *xfer)
+{
+	SpecialAbilityUpdate::xfer(xfer);
+	if (xfer->IsLightCRC())
+		return;
+	xfer->Version1();
+	*xfer == m_firstFlag;
+	*xfer == m_value;
+	*xfer == m_89;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdate.cpp
 
@@ -396,10 +584,6 @@ int Rva0049C93F::update()
 	return m_flag89 ? 1 : code;
 }
 
-// tu-skeleton: 0x0049C4B6 28B ??_GRva0049C3FC@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00451F45Derived.cpp (not merged yet)
-
-// tu-skeleton: 0x0049C4D2 72B ??0GiveUpgradeUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdateModuleDataCtor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva0049C51AForward.cpp
 
 void Rva0049C51A::rva0049C51A(int specialPowerTemplate, int targetObj, int targetPos, int commandOptions, int way)
@@ -409,8 +593,6 @@ void Rva0049C51A::rva0049C51A(int specialPowerTemplate, int targetObj, int targe
 		((SpecialAbilityUpdate *)this)->SpecialAbilityUpdate::initiateIntentToDoSpecialPower((const SpecialPowerTemplate *)specialPowerTemplate, (const Object *)targetObj, (const Coord3D *)targetPos, (unsigned int)commandOptions, (const Waypoint *)way);
 }
 
-// tu-skeleton: 0x0049C553 63B ?rva0044EDA6@GiveUpgradeUpdate@@UAE_NH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdateSlot8.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva0049C5D9Exit.cpp
 
 void Rva0049C5D9::onExit(bool cleanup, bool aborted)
@@ -419,26 +601,141 @@ void Rva0049C5D9::onExit(bool cleanup, bool aborted)
 	((SpecialAbilityUpdate *)this)->SpecialAbilityUpdate::onExit(cleanup, aborted);
 }
 
-// tu-skeleton: 0x0049C5F4 48B ?rva0049C5F4@Rva0049C5F4@@QAEPAXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/Rva0049C5F4ProviderGet.cpp (not merged yet)
+// tu-skeleton: 0x0049C4B6 28B ??_GRva0049C3FC@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00451F45Derived.cpp (not merged yet)
+
+// tu-skeleton: 0x0049C4D2 72B ??0GiveUpgradeUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdateModuleDataCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0049C553 63B ?rva0044EDA6@GiveUpgradeUpdate@@UAE_NH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdateSlot8.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/Rva0049C5F4ProviderGet.cpp
+
+// ?rva0049C5F4@Rva0049C5F4@@QAEPAXPAVObject@@@Z @0x0049C5F4 48B
+// Producer-provider slot31 forward. Retail takes Object arg with +0x78
+// producer ID; finds producer via TheGameLogic at 0x00DFE78C through rowed
+// findObjectByID; returns null when arg null or producer missing or its
+// +0x250 provider null; else returns provider vtable slot 0x7C (slot31).
+// Evidence: unlock lane; callers at 0x0049C70F in 0x0049C6E1 plus 0x0049CAC0;
+// unblocks 0x0049C6E1; thiscall ecx passed by callers but unused so the
+// class stays empty and address-derived. Flags /O1 /DNDEBUG /MD already fit.
+
+void *Rva0049C5F4::rva0049C5F4(Object *object)
+{
+	if (object == 0)
+		return 0;
+	Object *found = TheGameLogic->findObjectByID(object->m_78);
+	if (found == 0)
+		return 0;
+	Provider31 *prov = found->m_prov250;
+	if (prov == 0)
+		return 0;
+	return prov->slot31();
+}
 
 // tu-skeleton: 0x0049C624 28B ??_GGiveUpgradeUpdateModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdateModuleDataCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0049C67E 99B ?rva0049C67E@Rva0049C67E@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/Common/Rva0049C67EBegin.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva0049C67EBegin.cpp
 
-// tu-skeleton: 0x0049C6E1 89B ?rva0049C6E1@Rva0049C6E1@@QAE_NPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Rva0049C6E1Finish.cpp (not merged yet)
+//
+// ?rva0049C67E@Rva0049C67E@@QAEXPAVObject@@@Z @0x0049C67E 99B ret 4.
+// Null object returns. Otherwise clear the id via the 71B neighbour, zero
+// +0x89, play FXList at [[this+4]+0xD8] from the object's +0x38, set status
+// 3, then store 1 at +0x88 and 1.0 at +0x8C.
 
-// tu-skeleton: 0x0049C73A 431B ?GetDeliveryTarget@GiveUpgradeUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdateRva0049C8E9.cpp (not merged yet)
+void Rva0049C67E::rva0049C67E(Object *obj)
+{
+	if (obj == 0)
+		return;
+	((Rva0049C592 *)this)->rva0049C592();
+	Rva0049C67EInner *inner = m_inner;
+	m_89 = 0;
+	FXList *fx = inner->m_fx;
+	if (fx != 0)
+		FXList::doFXPos(fx, &obj->m_pos, 0, 0.0f, 0);
+	obj->setStatus(OS_3, true);
+	m_88 = 1;
+	m_8c = 1.0f;
+}
 
-// tu-skeleton: 0x0049C8E9 19B ?rva0049C8E9@GiveUpgradeUpdate@@QAEEXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdateRva0049C8E9.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Rva0049C6E1Finish.cpp
 
-// tu-skeleton: 0x0078D852 8B Unwind@00b8d852 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdateRva0049C8E9.cpp (not merged yet)
+// ?rva0049C6E1@Rva0049C6E1@@QAE_NPAVObject@@@Z
+// Retail lays the value test out with the TRUE return inline and the FALSE
+// return as the out-of-line branch target (test al,al / je FALSE / mov al,1),
+// which only the positive-nested form produces: every failing guard falls out
+// to a single shared `return false` and the success path returns true early.
+bool Rva0049C6E1::rva0049C6E1(Object *object)
+{
+	void *upgrade = ((Rva0026F0F0 *)TheUpgradeCenter)->rva0026F0F0((const void *)((char *)m_ptr08 + 0x284));
+	if (upgrade != 0)
+	{
+		unsigned char ok;
+		if (object->m_int274 != 0)
+		{
+			void *prov = ((Rva0049C5F4 *)this)->rva0049C5F4(object);
+			if (prov != 0)
+			{
+				ok = ((Rva0049C6E1Prov *)prov)->slot43(upgrade);
+				if (ok != 0)
+					return true;
+			}
+		}
+		else
+		{
+			ok = object->affectedByUpgrade((const UpgradeTemplate *)upgrade);
+			if (ok != 0)
+				return true;
+		}
+	}
+	return false;
+}
 
-// tu-skeleton: 0x0078D85A 8B $L889 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdateRva0049C8E9.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdateRva0049C8E9.cpp
 
-// tu-skeleton: 0x0078D862 8B Unwind@00b8d862 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdateRva0049C8E9.cpp (not merged yet)
+void GiveUpgradeUpdate::GetDeliveryTarget()
+{
+	ObjectID target = m_40;
+	const GiveUpgradeUpdateModuleData *data = getGiveUpgradeUpdateModuleData();
+	if (target != INVALID_OBJECT_ID || !data->m_deliverUpgrade)
+		return;
+	Object *obj = m_object;
+	m_89 = true;
+	const void *upgrade = ((Rva0026F0F0 *)TheUpgradeCenter)->rva0026F0F0(obj->m_284);
+	BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(obj->getPosition(), 100000.0f, 0,
+		Rva00261409Filter(obj->getControllingPlayer(), true, 2).link(&Rva0026119DFilter())
+			->link(&Rva00261130Filter(upgrade))
+			->link(&Rva002611BFFilter(obj)), 1);
+	Object *other;
+	while ((other = hits.next()) != 0) {
+		if (other->m_template->m_118 & 0x00400000)
+			continue;
+		if (other->testStatus(OBJECT_STATUS_RVA0049C73A_66))
+			continue;
+		Object *rider = other->rva002931F5(false);
+		if (!rider && other->m_78) {
+			Object *object = TheGameLogic->findObjectByID(other->m_78);
+			if (object && !(object->m_template->m_kindOf & 0x80))
+				rider = object;
+		}
+		if (rider) {
+			if (rider->testStatus(OBJECT_STATUS_RVA0049C73A_66) || rider->testStatus(OBJECT_STATUS_RVA0049C73A_2))
+				continue;
+			rider->setStatus(OBJECT_STATUS_RVA0049C73A_66, true);
+		}
+		other->setStatus(OBJECT_STATUS_RVA0049C73A_66, true);
+		m_20.rva0049C73ASlot0(getGiveUpgradeUpdateModuleData()->m_38, other, 0, 0, 0);
+		break;
+	}
+}
 
-// tu-skeleton: 0x0078D86A 8B Unwind@00b8d86a -- matched in Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdateRva0049C8E9.cpp (not merged yet)
-
-// tu-skeleton: 0x0078D872 8B uw_0078d872 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdateRva0049C8E9.cpp (not merged yet)
-
-// tu-skeleton: 0x0078D87A 10B __ehhandler$?GetDeliveryTarget@GiveUpgradeUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdateRva0049C8E9.cpp (not merged yet)
+// Donor lead: official BFME1 5cc75ddda6455c338a5068307e587a793f96d6b3,
+// game/GameEngine/Source/Common/BfmeConv940.cpp. Its nominal prototype is
+// not claimed. Native vtable 0x851220 slot 14 and Ghidra boundary 0x49C8E9/19
+// call the existing 0x49C73A helper, then 0x450AE9 with the same receiver,
+// and return AL=0. No complete return type or original method name is known.
+// 0x450AE9 remains unconverted; this declaration records only observed ABI.
+unsigned char GiveUpgradeUpdate::rva0049C8E9()
+{
+    GetDeliveryTarget();
+    ((SpecialAbilityUpdate *)this)->rva00450AE9();
+    return 0;
+}
