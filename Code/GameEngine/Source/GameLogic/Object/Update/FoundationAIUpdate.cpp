@@ -475,6 +475,19 @@ void FoundationAIUpdate::rva0045537F()
 }
 #include <math.h>
 #include "vector3.h"
+#define BFME_ASCII_FIELD_SETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		void set(const AsciiString &s); \
+	private: \
+		char m_pad[DISP]; \
+		AsciiString m_str; \
+	}; \
+	void NAME::set(const AsciiString &s) \
+	{ \
+		return ((StringBase<char> &)m_str).set((const StringBase<char> &)s); \
+	}
 
 float GetGameLogicRandomValueReal(float, float, char *, int);
 
@@ -614,6 +627,10 @@ public:
 
 extern AudioManager *TheAudio;
 
+BFME_ASCII_FIELD_SETTER(Rva0045515CStringField, 0x424)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/FoundationAIUpdate.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/FoundationAIUpdateSlot14.cpp
 
 void FoundationAIUpdate::rva0004550DE()
@@ -621,10 +638,6 @@ void FoundationAIUpdate::rva0004550DE()
 	TheAudio->removeAudioEvent(m_24);
 	m_24 = 1;
 }
-
-// tu-skeleton: 0x004550F8 100B ?xfer@FoundationAIUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/FoundationAIUpdateXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0045515C 11B ?set@Rva0045515CStringField@@QAEXABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/AsciiStringFieldSetters.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/FoundationAIUpdate.cpp
 
@@ -776,6 +789,18 @@ UpdateSleepTime FoundationAIUpdate::update()
  }
  return UPDATE_SLEEP_NONE;
 }
+
+// tu-skeleton: 0x004550F8 100B ?xfer@FoundationAIUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/FoundationAIUpdateXfer.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/AsciiStringFieldSetters.cpp
+
+//
+// AsciiString field setters: one shape, add ecx, <field>; jmp
+// StringBase<char>::set (rowed 0x000366F0), i.e. assign an AsciiString member
+// at a fixed offset of the receiver. Same recipe as the rowed Rva004EC1CE.cpp
+// (+0x148). Each body sits in a gap between rowed functions; receivers and
+// field purposes are unknown, so each gets a per-address name, and no
+// referencing site was found for these in this pass.
 
 // tu-skeleton: 0x004551AC 7B ?get@Rva004551ACByteChaseField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp (not merged yet)
 
