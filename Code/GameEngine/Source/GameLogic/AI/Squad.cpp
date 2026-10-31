@@ -71,6 +71,10 @@ class RGBAColorReal;
 class RGBAColorInt;
 class Snapshot;
 #include "../../../Include/Common/BfmeXfer.h"
+#define _STLP_BFME_COPY_TRIVIAL_EXTERN  // call retail's one __copy_trivial (vendor/stlport/stl/_algobase.h)
+#define _STLP_USE_NEWALLOC 1
+#define _STLP_NO_EXCEPTIONS 1
+#include <hash_map>
 
 class Rva004D6C9C
 {
@@ -196,9 +200,90 @@ public:
 // bfme link decl-only begin
 namespace _STL { template <> ObjectID * allocator<ObjectID>::allocate(unsigned int,void const *) const; }
 
-// tu-skeleton: 0x004D6CAC 75B ?rva004D6CAC@Squad@@QAEABV?$vector@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/SquadGetAllObjectsAndRemoveDead.cpp (not merged yet)
+namespace _STL { template <> Object * * allocator<Object *>::allocate(unsigned int,void const *) const; }
 
-// tu-skeleton: 0x004D6CF7 88B ?getAllObjectsAndRemoveDead@Squad@@QAEABV?$vector@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/SquadGetAllObjectsAndRemoveDead.cpp (not merged yet)
+// Keep growth out of line so push_back uses retail's initialized POD tag.
+namespace _STL { template <> void vector<Object *>::_M_insert_overflow(Object **, Object *const &, const __true_type &, unsigned, bool); }
+
+// The matched size() body remains part of this unit.
+template unsigned _STL::vector<Object *>::size() const;
+
+typedef _STL::hash_map<int, Object *, _STL::hash<int>, _STL::equal_to<int> > ObjectPtrHash;
+
+class GameLogic
+{
+public:
+	Object *findObjectByID(ObjectID id)
+	{
+		if (id == INVALID_ID)
+			return 0;
+
+		ObjectPtrHash::iterator it = m_objHash.find(id);
+		if (it == m_objHash.end())
+			return 0;
+		return (*it).second;
+	}
+
+private:
+	char m_pad000[0xB0];
+	ObjectPtrHash m_objHash;
+};
+
+extern GameLogic *TheGameLogic;
+
+typedef _STL::vector<Object *> VecObjectPtr;
+
+// ---- from Code/GameEngine/Source/GameLogic/AI/SquadGetAllObjectsAndRemoveDead.cpp
+
+// Retail 0x0018BB10, 282 bytes. Shape-twin of Zero Hour's Squad::getAllObjects
+// (zh_fuzzy_twins 0.85): clear a cached Object* vector at +0x10, then walk an
+// ObjectID vector at +0x04, resolving each id through TheGameLogic's object hash
+// and erasing ids that no longer resolve. The +0x04 id vector is the same claim
+// the re-homed 0x0018B520 sibling makes, and matched Squad rows put Squad's
+// m_objectIDs at +0x08, so the owner keeps its address token rather than a
+// guessed class name.
+
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+
+// Retail 0x004D6CAC, 75B, directly before getAllObjectsAndRemoveDead: the
+// same cache rebuild without pruning -- ids that no longer resolve are skipped
+// and left in the id vector. Player's selection (+0x730) walks this
+// (0x002AABBC). Landed upstream on a Rva0018BB10Roster owner; same object.
+const VecObjectPtr &Squad::rva004D6CAC()
+{
+	m_objectsCached.clear();
+	for (VecObjectID::iterator it = m_objectIDs.begin(); it != m_objectIDs.end(); ++it)
+	{
+		Object *obj = TheGameLogic->findObjectByID(*it);
+		if (obj)
+			m_objectsCached.push_back(obj);
+	}
+
+	return m_objectsCached;
+}
+
+const VecObjectPtr &Squad::getAllObjectsAndRemoveDead()
+{
+	m_objectsCached.clear();
+	for (VecObjectID::iterator it = m_objectIDs.begin(); it != m_objectIDs.end(); )
+	{
+		Object *obj = TheGameLogic->findObjectByID(*it);
+		if (obj)
+		{
+			m_objectsCached.push_back(obj);
+			++it;
+		}
+		else
+		{
+			it = m_objectIDs.erase(it);
+		}
+	}
+
+	return m_objectsCached;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/AI/Squad.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/AI/Squad.cpp
 
@@ -277,8 +362,6 @@ void Gen_0018BC70::bfmeVisitAll(BfmeVisitorBF *visitor)
 		}
 	}
 }
-
-// tu-skeleton: 0x004D6DF3 162B ?rva004D6DF3@Squad@@QAEXPAVObject@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/AI/SquadFromContainedMembers.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/AI/SquadXfer.cpp
 
@@ -369,6 +452,8 @@ void Squad::xfer( Xfer *xfer )
 }
 
   // end xfer
+
+// tu-skeleton: 0x004D6DF3 162B ?rva004D6DF3@Squad@@QAEXPAVObject@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/AI/SquadFromContainedMembers.cpp (not merged yet)
 
 // tu-skeleton: 0x00791171 8B $L6381 -- matched in Code/GameEngine/Source/GameLogic/AI/SquadFromContainedMembers.cpp (not merged yet)
 
