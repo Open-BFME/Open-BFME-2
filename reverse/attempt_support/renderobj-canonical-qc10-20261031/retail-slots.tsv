@@ -1,0 +1,131 @@
+slot	va	compiled declaration	RenderObj ledger owner
+0	0x46ce57	(inherited Delete_This)	
+1	0x53c010	__vecDelDtor(uint)	
+2	0x43b810	Clone()	
+3	0x53b5e0	Class_ID()	
+4	0x4d43d0	_bfme_ro_v2()	
+5	0x4d43d0	_bfme_ro_v3()	
+6	0x46ce6b	Get_Name()	
+7	0x87a69c	Set_Name(char*)	
+8	0x4d43d0	Get_Base_Model_Name()	
+9	0x87a69c	Set_Base_Model_Name(char*)	
+10	0x4d43d0	Get_Num_Polys()	
+11	0x4d43d0	_bfme_ro_v9()	
+12	0x43b810	Render(RenderInfoClass*)	
+13	0x4b3fd0	On_Frame_Update()	
+14	0x4b3fd0	Restart()	
+15	0x53bc80	Add(SceneClass*)	?Add@RenderObjClass@@UAEXPAVSceneClass@@@Z
+16	0x53bca0	Remove()	?Remove@RenderObjClass@@UAEXXZ
+17	0x53b770	Get_Scene()	?Get_Scene@RenderObjClass@@UAEPAVSceneClass@@XZ
+18	0x8f04f1	Peek_Scene()	?Peek_Scene@RenderObjClass@@UAEPAVSceneClass@@XZ
+19	0x53b780	Set_Container(RenderObjClass*)	?Set_Container@RenderObjClass@@UAEXPAV1@@Z
+20	0x53b850	Validate_Transform()	?Validate_Transform@RenderObjClass@@UBEXXZ
+21	0x53b790	Set_Transform(Matrix3D*)	?Set_Transform@RenderObjClass@@UAEXABVMatrix3D@@@Z
+22	0x53b810	Set_Position(Vector3*)	?Set_Position@RenderObjClass@@UAEXABVVector3@@@Z
+23	0x46ce71	_bfme_set_indexed_factor(int,float)	?_bfme_set_indexed_factor@RenderObjClass@@UAEXHM@Z
+24	0x46ce87	_bfme_get_indexed_factor(int)	?_bfme_get_indexed_factor@RenderObjClass@@UBEMH@Z
+25	0x53bc60	_bfme_get_factor_product()	?_bfme_get_factor_product@RenderObjClass@@UBEMXZ
+26	0x53bcd0	Notify_Added(SceneClass*)	?Notify_Added@RenderObjClass@@UAEXPAVSceneClass@@@Z
+27	0x53bce0	Notify_Removed(SceneClass*)	?Notify_Removed@RenderObjClass@@UAEXPAVSceneClass@@@Z
+28	0x4d43d0	Get_Num_Sub_Objects()	
+29	0x46ce95	_bfme_ro_v28()	?_bfme_ro_v28@RenderObjClass@@UBEHXZ
+30	0x9daa6c	Get_Sub_Object(int)	?Remove_Sub_Object@RenderObjClass@@UAEHPAV1@@Z
+31	0x9daa6c	Remove_Sub_Object(RenderObjClass*)	?Remove_Sub_Object@RenderObjClass@@UAEHPAV1@@Z
+32	0x53b8d0	Get_Sub_Object_By_Name(char*,int*)	?Get_Sub_Object_By_Name@RenderObjClass@@UBEPAV1@PBDPAH@Z
+33	0x9daa6c	Get_Num_Sub_Objects_On_Bone(int)	?Remove_Sub_Object@RenderObjClass@@UAEHPAV1@@Z
+34	0x9748b2	Get_Sub_Object_On_Bone(int,int)	
+35	0x9748b2	Get_Sub_Object_Bone_Index(int,int)	
+36	0x9daa6c	Get_Sub_Object_Bone_Index(RenderObjClass*)	?Remove_Sub_Object@RenderObjClass@@UAEHPAV1@@Z
+37	0x53b9e0	Add_Sub_Object_To_Bone(RenderObjClass*,char*,Vector3*)	?Add_Sub_Object_To_Bone@RenderObjClass@@UAEHPAV1@PBDPBVVector3@@@Z
+38	0x9748ad	Add_Sub_Object_To_Bone(RenderObjClass*,int,Vector3*)	
+39	0x53ba80	Remove_Sub_Objects_From_Bone(char*)	?Remove_Sub_Objects_From_Bone@RenderObjClass@@UAEHPBD@Z
+40	0x53ba10	Remove_Sub_Objects_From_Bone(int)	?Remove_Sub_Objects_From_Bone@RenderObjClass@@UAEHH@Z
+41	0x4b3fd0	_bfme_ro_v40()	
+42	0xa9e440	Update_Sub_Object_Transforms()	?Update_Sub_Object_Transforms@RenderObjClass@@UAEXXZ
+43	0x87a69c	Set_Animation(HAnimClass*,float,int)	
+44	0x65ef04	Set_Animation(HAnimClass*,float,HAnimClass*,float,float)	?Set_Animation@RenderObjClass@@UAEXPAVHAnimClass@@M0MM@Z
+45	0x4d1407	Set_Animation(HAnimComboClass*)	?Set_Animation@RenderObjClass@@UAEXPAVHAnimClass@@MH@Z
+46	0x4b3fd0	Set_Animation()	
+47	0x4d43d0	Peek_Animation()	
+48	0x4d43d0	Get_Num_Bones()	
+49	0x9daa6c	Get_Bone_Name(int)	?Remove_Sub_Object@RenderObjClass@@UAEHPAV1@@Z
+50	0x9daa6c	Get_Bone_Index(char*)	?Remove_Sub_Object@RenderObjClass@@UAEHPAV1@@Z
+51	0x46d06d	Get_Bone_Transform(int)	?Get_Bone_Transform@RenderObjClass@@UAE?AVMatrix3D@@PBD@Z,?Get_Bone_Transform@RenderObjClass@@UAE?AVMatrix3D@@H@Z
+52	0x46d06d	Get_Bone_Transform(char*)	?Get_Bone_Transform@RenderObjClass@@UAE?AVMatrix3D@@PBD@Z,?Get_Bone_Transform@RenderObjClass@@UAE?AVMatrix3D@@H@Z
+53	0x9cb9fa	_bfme_ro_v50(int)	?_bfme_ro_v50@RenderObjClass@@UAE_NH@Z
+54	0x87a69c	Capture_Bone(int)	
+55	0x87a69c	Release_Bone(int)	
+56	0x9cb9ff	Is_Bone_Captured(int)	
+57	0x4d1407	Control_Bone(int,Matrix3D*,bool)	?Set_Animation@RenderObjClass@@UAEXPAVHAnimClass@@MH@Z
+58	0x4d43d0	Get_HTree()	
+59	0x87a69c	_bfme_ro_v56(int)	
+60	0x9cb9ff	Cast_Ray(RayCollisionTestClass*)	
+61	0x9cb9ff	Intersect_OBBox(OBBoxIntersectionTestClass*)	
+62	0x53c3b0	Intersect(IntersectionClass*,IntersectionResultClass*)	?Intersect@RenderObjClass@@UAE_NPAVIntersectionClass@@PAVIntersectionResultClass@@@Z
+63	0x53bd20	Intersect_Sphere(IntersectionClass*,IntersectionResultClass*)	?Intersect_Sphere@RenderObjClass@@UAE_NPAVIntersectionClass@@PAVIntersectionResultClass@@@Z
+64	0x53bd70	Intersect_Sphere_Quick(IntersectionClass*,IntersectionResultClass*)	?Intersect_Sphere_Quick@RenderObjClass@@UAE_NPAVIntersectionClass@@PAVIntersectionResultClass@@@Z
+65	0x46d028	Get_Bounding_Sphere()	?Get_Bounding_Sphere@RenderObjClass@@UBEABVSphereClass@@XZ
+66	0x46d03e	Get_Bounding_Box()	?Get_Bounding_Box@RenderObjClass@@UBEABVAABoxClass@@XZ
+67	0x53bcf0	Get_Obj_Space_Bounding_Sphere(SphereClass*)	?Get_Obj_Space_Bounding_Sphere@RenderObjClass@@UBEXAAVSphereClass@@@Z
+68	0x5a1420	Get_Obj_Space_Bounding_Box(AABoxClass*)	?Get_Obj_Space_Bounding_Box@RenderObjClass@@UBEXAAVAABoxClass@@@Z
+69	0x4b3fd0	Update_Obj_Space_Bounding_Volumes()	
+70	0x46ce9a	_bfme_set_float_84(float)	?_bfme_set_float_84@RenderObjClass@@UAEXM@Z
+71	0x46ceab	_bfme_get_float_84()	?_bfme_get_float_84@RenderObjClass@@UBEMXZ
+72	0x580fd0	Prepare_LOD(CameraClass*)	?Prepare_LOD@RenderObjClass@@UAEXAAVCameraClass@@@Z
+73	0x4b3fd0	Recalculate_Static_LOD_Factors()	
+74	0x4b3fd0	Increment_LOD()	
+75	0x4b3fd0	Decrement_LOD()	
+76	0x53baa0	Get_Cost()	?Get_Cost@RenderObjClass@@UBEMXZ
+77	0x567f59	Get_Value()	
+78	0x567f60	Get_Post_Increment_Value()	
+79	0x87a69c	Set_LOD_Level(int)	
+80	0x4d43d0	Get_LOD_Level()	
+81	0x4910fb	Get_LOD_Count()	?Get_LOD_Count@RenderObjClass@@UBEHXZ
+82	0x87a69c	Set_LOD_Bias(float)	
+83	0x53bac0	Calculate_Cost_Value_Arrays(float,float*,float*)	?Calculate_Cost_Value_Arrays@RenderObjClass@@UBEHMPAM0@Z
+84	0x47e4af	Get_Current_LOD()	?Get_Current_LOD@RenderObjClass@@UAEPAV1@XZ
+85	0x4d43d0	Get_Material_Info()	
+86	0x46ceb2	Set_User_Data(void*,bool)	?Set_User_Data@RenderObjClass@@UAEXPAX_N@Z
+87	0x70c8a7	Get_User_Data()	?Get_User_Data@RenderObjClass@@UAEPAXXZ
+88	0x4d43d0	Get_Num_Snap_Points()	
+89	0x90b238	Get_Snap_Point(int,Vector3*)	?Add_Dependencies_To_List@RenderObjClass@@MAEXAAV?$DynamicVectorClass@VStringClass@@@@_N@Z
+90	0x53c030	Get_Screen_Size(CameraClass*)	?Get_Screen_Size@RenderObjClass@@UAEMAAVCameraClass@@@Z
+91	0x4d1407	Scale(float)	?Set_Animation@RenderObjClass@@UAEXPAVHAnimClass@@MH@Z
+92	0x87a69c	Scale(float,float,float)	
+93	0x46cebf	Set_ObjectScale(float)	?Set_ObjectScale@RenderObjClass@@UAEXM@Z
+94	0x4d43d0	Get_Sort_Level()	
+95	0x87a69c	Set_Sort_Level(int)	
+96	0x46cecd	Is_Really_Visible()	?Is_Really_Visible@RenderObjClass@@UAEHXZ
+97	0x46ceee	Is_Not_Hidden_At_All()	?Is_Not_Hidden_At_All@RenderObjClass@@UAEHXZ
+98	0x53b6d0	Is_Visible()	
+99	0x53b710	Set_Visible(int,int)	?Set_Visible@RenderObjClass@@UAEXHH@Z
+100	0x46cf00	Is_Hidden()	?Is_Hidden@RenderObjClass@@UBEHXZ
+101	0x46cf0c	Set_Hidden(int)	?Set_Hidden@RenderObjClass@@UAEXH@Z
+102	0x46cf20	Is_Animation_Hidden()	?Is_Animation_Hidden@RenderObjClass@@UBEHXZ
+103	0x46cf2c	Set_Animation_Hidden(int)	?Set_Animation_Hidden@RenderObjClass@@UAEXH@Z
+104	0x46cf40	Is_Force_Visible()	?Is_Force_Visible@RenderObjClass@@UBEHXZ
+105	0x53b720	Set_Force_Visible(int)	?Set_Force_Visible@RenderObjClass@@UAEXH@Z
+106	0x46cf49	Is_Translucent()	?Is_Translucent@RenderObjClass@@UBEHXZ
+107	0x46cf52	Set_Translucent(int)	?Set_Translucent@RenderObjClass@@UAEXH@Z
+108	0x46cf66	Is_Alpha()	?Is_Alpha@RenderObjClass@@UBEHXZ
+109	0x46cf6f	Set_Alpha(int)	?Set_Alpha@RenderObjClass@@UAEXH@Z
+110	0x46cf83	Is_Additive()	?Is_Additive@RenderObjClass@@UBEHXZ
+111	0x46cf8c	Set_Additive(int)	?Set_Additive@RenderObjClass@@UAEXH@Z
+112	0x46cfa0	_bfme_ro_flag109()	?_bfme_ro_flag109@RenderObjClass@@UBEHXZ
+113	0x46cfa9	_bfme_ro_flag110(int)	?_bfme_ro_flag110@RenderObjClass@@UAEXH@Z
+114	0x46cfbd	_bfme_ro_flag111()	?_bfme_ro_flag111@RenderObjClass@@UBEHXZ
+115	0x46cfc6	_bfme_ro_flag112(int)	?_bfme_ro_flag112@RenderObjClass@@UAEXH@Z
+116	0x46cfda	_bfme_ro_flag113()	?_bfme_ro_flag113@RenderObjClass@@UBEHXZ
+117	0x46cfe3	_bfme_ro_flag114(int)	?_bfme_ro_flag114@RenderObjClass@@UAEXH@Z
+118	0x46cff7	_bfme_ro_flag115()	?_bfme_ro_flag115@RenderObjClass@@UBEHXZ
+119	0x46d000	_bfme_ro_flag116(int)	?_bfme_ro_flag116@RenderObjClass@@UAEXH@Z
+120	0x46d014	Get_Collision_Type()	?Get_Collision_Type@RenderObjClass@@UBEHXZ
+121	0x53baf0	Set_Collision_Type(int,bool)	?Set_Collision_Type@RenderObjClass@@UAEXH_N@Z
+122	0x87a699	Is_Complete()	
+123	0x46d01f	Is_In_Scene()	?Is_In_Scene@RenderObjClass@@UAE_NXZ
+124	0x90b238	Create_Decal(DecalGeneratorClass*,bool)	?Add_Dependencies_To_List@RenderObjClass@@MAEXAAV?$DynamicVectorClass@VStringClass@@@@_N@Z
+125	0x87a69c	Delete_Decal(ulong)	
+126	0x90b238	Add_Dependencies_To_List(DynamicVectorClass<StringClass>*,bool)	?Add_Dependencies_To_List@RenderObjClass@@MAEXAAV?$DynamicVectorClass@VStringClass@@@@_N@Z
+127	0x53c190	Update_Cached_Bounding_Volumes()	?Update_Cached_Bounding_Volumes@RenderObjClass@@MBEXXZ
+128	0x53bb60	Update_Sub_Object_Bits()	?Update_Sub_Object_Bits@RenderObjClass@@MAEXXZ
+129	0x358637bd	(past table)	

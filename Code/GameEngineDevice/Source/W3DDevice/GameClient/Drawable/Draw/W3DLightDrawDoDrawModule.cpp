@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /ICode/Libraries/Include/Lib
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /ICode/Libraries/Include/Lib /Ireference/shims/bfme2renderobj /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep
 //
 // ?doDrawModule@W3DLightDraw@@UAEXPBVMatrix3D@@@Z, retail 0x000CFC0C..0x000CFDDF
 // (467B), thiscall ret 4.
@@ -21,42 +21,10 @@ typedef bool Bool;
 
 #include "Coord3D.h"
 
-struct Vector3
-{
-	Vector3(Real x, Real y, Real z) : X(x), Y(y), Z(z) {}
-	Real X, Y, Z;
-};
+#include "../../../../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"
 
-class Matrix3D
-{
-public:
-	// No user-declared default constructor: retail's ??0Matrix3D@@QAE@XZ (0x000423C5) runs the
-	// vector constructor iterator over Vector4 rows, which this flat view cannot reproduce, and
-	// an empty inline one was emitted here as a wrong COMDAT copy. The inlined code is the same.
-	void Set_Translation(const Vector3 &t)
-	{
-		Row[0][3] = t.X;
-		Row[1][3] = t.Y;
-		Row[2][3] = t.Z;
-	}
-	Real Row[3][4];
-};
 
-class WWMath
-{
-public:
-	static Real Random_Float();
-	static __forceinline Real Sin(Real val)
-	{
-		Real retval;
-		__asm {
-			fld [val]
-			fsin
-			fstp [retval]
-		}
-		return retval;
-	}
-};
+
 
 extern int BfmeLogicFramesPerSecond;
 
@@ -67,24 +35,6 @@ public:
 };
 class Drawable;
 
-class RenderObjClass
-{
-public:
-	virtual void slot00(); virtual void slot01(); virtual void slot02();
-	virtual void slot03(); virtual void slot04(); virtual void slot05();
-	virtual void slot06(); virtual void slot07(); virtual void slot08();
-	virtual void slot09(); virtual void slot10(); virtual void slot11();
-	virtual void slot12(); virtual void slot13(); virtual void slot14();
-	virtual void slot15(); virtual void slot16(); virtual void slot17();
-	virtual void slot18(); virtual void slot19();
-	virtual void Validate_Transform() const;
-	virtual void Set_Transform(const Matrix3D &transform);
-
-	const Matrix3D &Get_Transform_No_Validity_Check() const { return m_transform; }
-
-	unsigned char m_pad04[0x14];
-	Matrix3D m_transform;			// +0x18
-};
 
 class W3DDynamicLight : public RenderObjClass
 {
@@ -177,6 +127,6 @@ void W3DLightDraw::doDrawModule(const Matrix3D *)
 		m_height = height;
 	}
 	if (data->m_pulseAmplitude > 0.0f)
-		height = WWMath::Sin(m_phase * data->m_pulseFrequency * 6.2831855f) * data->m_pulseAmplitude + height;
+		height = WWMath::Sin(m_phase * data->m_pulseFrequency * 6.2831855f) * *(volatile const Real *)&data->m_pulseAmplitude + height;
 	*(Real *)((char *)m_light + 0xd0) = height;
 }

@@ -11245,6 +11245,8 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/renderobjectrecycler.cpp	"",
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/renderobjectrecycler.cpp	"s",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/rendobj.cpp	"",on	7
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/rendobj.cpp	"gsy",on	7
+pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/rendobj.h	"",on	1
+pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/rendobj.h	"s",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/rinfo.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/rinfo.cpp	"s",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/ringobj.cpp	"",on	1
@@ -11884,8 +11886,6 @@ pragma_optimize	reference/shims/bfme2_vector3/vector3.h	"",on	2
 pragma_optimize	reference/shims/bfme2_vector3/vector3.h	"s",on	2
 pragma_optimize	reference/shims/bfme2_vector3/vector3.h	"t",off	2
 pragma_optimize	reference/shims/bfme2_vector3/vector3.h	"y",off	2
-pragma_optimize	reference/shims/bfme2renderobj/rendobj.h	"",on	1
-pragma_optimize	reference/shims/bfme2renderobj/rendobj.h	"s",on	1
 pragma_optimize	reference/shims/bfme_colmath_linebox_link/matrix3.h	"",on	1
 pragma_optimize	reference/shims/bfme_colmath_linebox_link/matrix3.h	"s",on	1
 pragma_optimize	reference/shims/bfme_hlod_vector3/vector3.h	"",on	2
