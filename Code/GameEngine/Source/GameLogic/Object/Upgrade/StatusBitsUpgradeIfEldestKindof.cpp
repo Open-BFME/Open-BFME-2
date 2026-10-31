@@ -25,6 +25,19 @@ class RGBAColorReal;
 class RGBAColorInt;
 class Snapshot;
 #include "../../../../Include/Common/BfmeXfer.h"
+#define BFME_DISP8_LEA_NEG_SBB_GETTER(NAME, LEADISP, ADDIMM) \
+	class NAME \
+	{ \
+	public: \
+		int get() const; \
+	}; \
+	int NAME::get() const \
+	{ \
+		const char *field = (const char *)this; \
+		const void *base = field - LEADISP; \
+		field += ADDIMM; \
+		return base ? (int)field : 0; \
+	}
 
 //
 // StatusBitsUpgradeIfEldestKindofModuleData parse-unit.
@@ -312,6 +325,18 @@ protected:
 	friend class StatusBitsUpgradeIfEldestKindof;
 };
 
+// 0x004543A9 is also reached through the this-0x14 thunk 0x004543E3 in four
+// vtables, so it is virtual (same body).
+class Rva004543A9LeaNegSbbField
+{
+public:
+	virtual int get() const;
+};
+
+BFME_DISP8_LEA_NEG_SBB_GETTER(Rva004B4A8CLeaNegSbbField, 12, 0x10)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/StatusBitsUpgradeIfEldestKindof.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/StatusBitsUpgradeIfEldestKindof.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/StatusBitsUpgradeIfEldestKindofModuleDataParse.cpp
@@ -340,10 +365,6 @@ StatusBitsUpgradeIfEldestKindof::StatusBitsUpgradeIfEldestKindof(Thing *thing, c
 	*slot18 = (int)((unsigned int)__identifier("??_7AODHordeContain@@6BIface2C@@@"));
 }
 
-// tu-skeleton: 0x004B4A86 6B ?Rva004B4A86Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x004B4A8C 13B ?get@Rva004B4A8CLeaNegSbbField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8LeaNegSbbGetters.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/System/StatusBitsUpgradeIfEldestKindofPoolKey.cpp
 
 // ?getModuleNameKey@StatusBitsUpgradeIfEldestKindof@@UBE?AW4NameKeyType@@XZ
@@ -354,15 +375,11 @@ NameKeyType StatusBitsUpgradeIfEldestKindof::getModuleNameKey() const
 	return TheStatusBitsUpgradeIfEldestKindofPoolKey;
 }
 
-// tu-skeleton: 0x004B4ADE 28B ??_GStatusBitsUpgradeIfEldestKindof@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/UpgradeModuleDeletingDtors.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/StatusBitsUpgradeIfEldestKindofDtor.cpp
 
 StatusBitsUpgradeIfEldestKindof::~StatusBitsUpgradeIfEldestKindof()
 {
 }
-
-// tu-skeleton: 0x004B4AFF 125B ?rva004CE2B0@StatusBitsUpgradeIfEldestKindof@@UAE_NPAVRva00406F9C@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/StatusBitsUpgradeIfEldestKindofSlot2.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/StatusBitsUpgradeIfEldestKindofXfer.cpp
 
@@ -373,6 +390,26 @@ void StatusBitsUpgradeIfEldestKindof::xfer(Xfer *xfer)
 	((ArmorUpgrade *)this)->ArmorUpgrade::xfer(xfer);
 	((Rva00485BB8 *)&m_eldestFrame)->xfer(xfer);
 }
+
+// tu-skeleton: 0x004B4A86 6B ?Rva004B4A86Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Disp8LeaNegSbbGetters.cpp
+
+// Disp8 lea-neg-sbb getters: thirteen-byte __thiscall members with one shape:
+//
+//     lea eax,[ecx-<LEADISP>] / add ecx,<ADDIMM> / neg eax / sbb eax,eax / and eax,ecx / ret
+//
+// A pointer derived from `this` is null-tested branchlessly: neg sets carry
+// exactly when the derived base is nonzero and sbb spreads it to a full mask
+// that selects the adjusted `this` or null. Deriving the base from a live
+// field-local keeps `this` in ecx so the adjustment compiles to an in-place
+// add instead of a lea into a scratch register. Identity is not recovered:
+// every name is derived from its address.
+// No // cl: line (defaults match the shape).
+
+// tu-skeleton: 0x004B4ADE 28B ??_GStatusBitsUpgradeIfEldestKindof@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/UpgradeModuleDeletingDtors.cpp (not merged yet)
+
+// tu-skeleton: 0x004B4AFF 125B ?rva004CE2B0@StatusBitsUpgradeIfEldestKindof@@UAE_NPAVRva00406F9C@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/StatusBitsUpgradeIfEldestKindofSlot2.cpp (not merged yet)
 
 // tu-skeleton: 0x0078EC45 13B $L436 -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/StatusBitsUpgradeIfEldestKindofSlot2.cpp (not merged yet)
 

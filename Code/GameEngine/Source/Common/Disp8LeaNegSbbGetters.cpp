@@ -31,4 +31,3 @@ class Rva004543A9LeaNegSbbField
 public:
 	virtual int get() const;
 };
-BFME_DISP8_LEA_NEG_SBB_GETTER(Rva004B4A8CLeaNegSbbField, 12, 0x10)
