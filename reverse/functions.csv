@@ -69685,7 +69685,7 @@ __ehhandler$?init@W3DView@@UAEXXZ,,0x0075FD33,10,Code/GameEngineDevice/Source/W3
 ?rva005FF9C5@Rva005FF9C5@@QAEXI@Z,,0x005FF9C5,19,Code/Libraries/Source/WWVegas/WWLib/stlport_pod8_resize_byvalue.cpp,matched,one-argument resize with default pod 0 -1 forwarding to rowed by-value resize 0x005FF96A
 ?rva005C6D48@Rva005C6D48@@QAEIABURva0027EA49@@@Z,,0x005C6D48,5,Code/GameEngine/Source/Common/GapBodiesSeat10O1.cpp,matched,tail jump to rowed set tree erase key 0x005C6C2D
 ?rva005CABBB@Rva005CABBB@@QAEIABVAsciiString@@@Z,,0x005CABBB,5,Code/GameEngine/Source/Common/GapBodiesSeat10O1_Rva00525E00.cpp,matched,tail jump to rowed AsciiString set tree erase key 0x005CA950
-?rva00549420@Rva00549420@@QBEHABV1@@Z,,0x00549420,5,Code/GameEngine/Source/Common/GapBodiesSeat10O1.cpp,matched,deque iterator difference via rowed _M_subtract 0x00549001
+?rva00549420@Rva00549420@@QBEHABV1@@Z,,0x00549420,5,Code/GameEngine/Source/GameLogic/AI/FormationSquad.cpp,matched,deque iterator difference via rowed _M_subtract 0x00549001
 ?rva00584D50@Rva00584D50@@QBEHABV1@@Z,,0x00584D50,5,Code/GameEngine/Source/Common/GapBodiesSeat10O1.cpp,matched,deque iterator difference via rowed _M_subtract 0x004218A5
 ?rva005D7357@Rva005D7357@@QBEIXZ,,0x005D7357,5,Code/GameEngine/Source/Common/GapBodiesSeat10O1.cpp,matched,tail jump to rowed hash_map int int bucket_count 0x002BEDAB
 ?rva0052B488@Rva0052B488@@QAEHPBD@Z,,0x0052B488,5,Code/GameEngine/Source/Common/XferMD5CRC.cpp,matched,tail jump to rowed XferSave rva0060D435 on member at +0

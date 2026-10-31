@@ -1356,10 +1356,6 @@ class Rva00549420 : public _STL::_Deque_iterator_base<BfmeE8>
 public:
 	int rva00549420(const Rva00549420 &other) const;
 };
-int Rva00549420::rva00549420(const Rva00549420 &other) const
-{
-	return _M_subtract(other);
-}
 class Rva00584D50 : public _STL::_Deque_iterator_base<BfmeE12>
 {
 public:
