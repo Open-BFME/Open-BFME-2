@@ -9417,7 +9417,7 @@ _open_func,,0x00754080,87,Code/Libraries/Source/Lua/lparser.c,matched,BFME1 byte
 ?apply@Rva000E14BDDwordImmSetter@@QAEXXZ,,0x000E14BD,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter
 ?get@Rva001F4975LeaGetter@@QBEPAXXZ,,0x001F4975,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
 ?get@Rva004543C2ByteField@@QBEEXZ,,0x004543C2,4,Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehavior.cpp,matched,Disp8 byte getter
-?get@Rva00498802ByteField@@QBEEXZ,,0x00498802,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter
+?get@Rva00498802ByteField@@QBEEXZ,,0x00498802,4,Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehavior.cpp,matched,Disp8 byte getter
 ?get@Rva0049CB6EByteField@@QBEEXZ,,0x0049CB6E,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter
 ?apply@Rva00104D73DwordImmSetter@@QAEXXZ,,0x00104D73,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter
 ?get@Rva001F497CLeaGetter@@QBEPAXXZ,,0x001F497C,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
