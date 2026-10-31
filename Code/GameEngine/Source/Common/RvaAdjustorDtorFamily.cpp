@@ -172,10 +172,6 @@ int Rva002A9ECA::rva002A9ECA(int points)
  return reinterpret_cast<Rva00380200 *>(reinterpret_cast<char *>(this)+8)->rva00380459(points);
 }
 
-Rva0042581E::~Rva0042581E()
-{
-}
-
 Rva0050174A::~Rva0050174A()
 {
 }

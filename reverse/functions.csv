@@ -43239,7 +43239,7 @@ _FilterBlockBil_8_mmx,,0x001D7200,204,Code/Libraries/Source/VP6/FilterBlockBil8M
 ?Rva00437E9C@@YAXH@Z,,0x00437E9C,16,Code/GameEngine/Source/Common/RvaSingletonFwdMisc.cpp,matched,Address-derived singleton/global forward: free cdecl forward through 0x00E032FC to 0x0054CBEF; peer signature
 ??1Rva00229487@@QAE@XZ,,0x0022630F,8,Code/GameEngine/Source/Common/RvaAdjustorDtorFamily.cpp,matched,Address-derived empty adjustor dtor: peer pin name; called by scalar deleting dtor 0x00229487; 8B shape
 ?rva002A9ECA@Rva002A9ECA@@QAEHH@Z,,0x002A9ECA,8,Code/GameEngine/Source/Common/RvaAdjustorDtorFamily.cpp,matched,Corrected false destructor claim: caller3BC67A passesint and consumesEAX; native8 addsECX8 then tails to owned64B int RET4 converter380459; targetABI proven independently of unresolved original owner/method identity; gpt-6.1-sol
-??1Rva0042581E@@QAE@XZ,,0x0042581E,8,Code/GameEngine/Source/Common/RvaAdjustorDtorFamily.cpp,matched,Address-derived empty adjustor dtor: +8 member teardown; 8B shape
+??1Rva0042581E@@QAE@XZ,,0x0042581E,8,Code/Libraries/Source/WWVegas/WWLib/LightPoint.cpp,matched,Address-derived empty adjustor dtor: +8 member teardown; 8B shape
 ??1Rva0050174A@@QAE@XZ,,0x0050174A,8,Code/GameEngine/Source/Common/RvaAdjustorDtorFamily.cpp,matched,Address-derived empty adjustor dtor: peer pin name; 8B shape
 ??1Rva005C8565@@QAE@XZ,,0x005C8565,8,Code/GameEngine/Source/Common/RvaAdjustorDtorFamily.cpp,matched,Address-derived empty adjustor dtor: peer pin name; 8B shape
 ??1Rva00603C57@@QAE@XZ,,0x00603C57,8,Code/GameEngine/Source/Common/RvaAdjustorDtorFamily.cpp,matched,Address-derived empty adjustor dtor: peer pin name; 8B shape

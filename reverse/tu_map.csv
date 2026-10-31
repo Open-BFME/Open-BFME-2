@@ -34351,7 +34351,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x004257AD,84,code,Code/GameEngine/Source/Common/INI/LightPoint.cpp,proposed,N,N=Code/GameEngine/Source/Common/INI/LightPoint.cpp,Code/GameEngine/Source/Common/INI/FormationTemplate.cpp
 0x00425801,5,code,Code/Libraries/Source/WWVegas/WWLib/LightPoint.cpp,approved,N,N=Code/Libraries/Source/WWVegas/WWLib/LightPoint.cpp provisional,Code/Libraries/Source/WWVegas/WWLib/LightPointDtor.cpp
 0x00425806,24,code,Code/Libraries/Source/WWVegas/WWLib/LightPoint.cpp,approved,C,C=0x00425801..0x0042581E provisional,Code/GameEngine/Source/Common/GapBodiesGE20.cpp
-0x0042581E,8,code,Code/Libraries/Source/WWVegas/WWLib/LightPoint.cpp,approved,C,C=0x00425801..0x00425826 provisional,Code/GameEngine/Source/Common/RvaAdjustorDtorFamily.cpp
+0x0042581E,8,code,Code/Libraries/Source/WWVegas/WWLib/LightPoint.cpp,approved,C,C=0x00425801..0x00425826 provisional,Code/Libraries/Source/WWVegas/WWLib/LightPoint.cpp
 0x00425826,28,code,Code/Libraries/Source/WWVegas/WWLib/LightPoint.cpp,approved,N,N=Code/Libraries/Source/WWVegas/WWLib/LightPoint.cpp provisional,Code/Libraries/Source/WWVegas/WWLib/LightPointDtor.cpp
 0x00425842,818,code,,,-,,Code/GameEngine/Source/Common/INI/FormationTemplate.cpp
 0x00425B75,27,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/Rva00425B75Delete.cpp
