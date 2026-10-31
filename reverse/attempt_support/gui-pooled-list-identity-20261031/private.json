@@ -1,0 +1,237 @@
+{
+  "status": "private trial only; ordinary source/ledger admission still required",
+  "replacement_bodies": [
+    {
+      "name": "?erase@?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@QAE?AU?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@2@U32@0@Z",
+      "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp",
+      "target_rva": "0x4221b2",
+      "target_size": "52",
+      "notes": "",
+      "whole_body_exact": true,
+      "no_masking": true,
+      "all_rel32_resolved": true,
+      "verification_scope": "private trial; caller may use only earlier whole-body-verified owner facts; ordinary ledger admission still required"
+    },
+    {
+      "name": "??4?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@QAEAAV01@ABV01@@Z",
+      "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp",
+      "target_rva": "0x46f0c2",
+      "target_size": "104",
+      "notes": "",
+      "whole_body_exact": true,
+      "no_masking": true,
+      "all_rel32_resolved": true,
+      "verification_scope": "private trial; caller may use only earlier whole-body-verified owner facts; ordinary ledger admission still required"
+    },
+    {
+      "name": "?erase@?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVGameWindow@@U?$_Nonconst_traits@PAVGameWindow@@@_STL@@@2@U32@@Z",
+      "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp",
+      "target_rva": "0x438539",
+      "target_size": "32",
+      "notes": "",
+      "whole_body_exact": true,
+      "no_masking": true,
+      "all_rel32_resolved": true,
+      "verification_scope": "private trial; caller may use only earlier whole-body-verified owner facts; ordinary ledger admission still required"
+    }
+  ],
+  "retained_rows": [
+    {
+      "name": "?resetWindowDefaults@@YAXXZ",
+      "rva": "0x00314EC8",
+      "exact": true,
+      "masked": false,
+      "unresolved": []
+    },
+    {
+      "name": "?popWindow@@YAPAVGameWindow@@XZ",
+      "rva": "0x00314F01",
+      "exact": true,
+      "masked": false,
+      "unresolved": []
+    },
+    {
+      "name": "?pushWindow@@YAXPAVGameWindow@@@Z",
+      "rva": "0x00314F1B",
+      "exact": true,
+      "masked": false,
+      "unresolved": []
+    },
+    {
+      "name": "?peekWindow@@YAPAVGameWindow@@XZ",
+      "rva": "0x00314EEE",
+      "exact": true,
+      "masked": false,
+      "unresolved": []
+    },
+    {
+      "name": "?freeStaticStrings@GameWindowManager@@UAEXXZ",
+      "rva": "0x00315ACC",
+      "exact": true,
+      "masked": false,
+      "unresolved": []
+    },
+    {
+      "name": "?resetWindowStack@@YAXXZ",
+      "rva": "0x00314EAD",
+      "exact": true,
+      "masked": false,
+      "unresolved": []
+    },
+    {
+      "name": "?parseDefaultColor@@YA_NPAHPAVFile@@PAD@Z",
+      "rva": "0x00315AF4",
+      "exact": true,
+      "masked": false,
+      "unresolved": []
+    },
+    {
+      "name": "?parseDefaultFont@@YA_NPAVGameFont@@PAVFile@@PAD@Z",
+      "rva": "0x00315B5E",
+      "exact": true,
+      "masked": false,
+      "unresolved": []
+    },
+    {
+      "name": "??__EtheSystemString@@YAXXZ",
+      "rva": "0x007AE8B0",
+      "exact": true,
+      "masked": false,
+      "unresolved": []
+    },
+    {
+      "name": "??__EtheInputString@@YAXXZ",
+      "rva": "0x007AE8C6",
+      "exact": true,
+      "masked": false,
+      "unresolved": []
+    },
+    {
+      "name": "??__EtheTooltipString@@YAXXZ",
+      "rva": "0x007AE8DC",
+      "exact": true,
+      "masked": false,
+      "unresolved": []
+    },
+    {
+      "name": "??__EtheDrawString@@YAXXZ",
+      "rva": "0x007AE8F2",
+      "exact": true,
+      "masked": false,
+      "unresolved": []
+    },
+    {
+      "name": "??__FtheSystemString@@YAXXZ",
+      "rva": "0x007B7B50",
+      "exact": true,
+      "masked": false,
+      "unresolved": []
+    },
+    {
+      "name": "??__FtheInputString@@YAXXZ",
+      "rva": "0x007B7B5A",
+      "exact": true,
+      "masked": false,
+      "unresolved": []
+    },
+    {
+      "name": "??__FtheTooltipString@@YAXXZ",
+      "rva": "0x007B7B64",
+      "exact": true,
+      "masked": false,
+      "unresolved": []
+    },
+    {
+      "name": "??__FtheDrawString@@YAXXZ",
+      "rva": "0x007B7B6E",
+      "exact": true,
+      "masked": false,
+      "unresolved": []
+    },
+    {
+      "name": "?_M_create_node@?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@IAEPAU?$_List_node@PAVGameWindow@@@2@ABQAVGameWindow@@@Z",
+      "rva": "0x000B6447",
+      "exact": true,
+      "masked": false,
+      "unresolved": []
+    },
+    {
+      "name": "?insert@?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVGameWindow@@U?$_Nonconst_traits@PAVGameWindow@@@_STL@@@2@U32@ABQAVGameWindow@@@Z",
+      "rva": "0x005925E2",
+      "exact": true,
+      "masked": false,
+      "unresolved": []
+    },
+    {
+      "name": "?winCreateFromScript@GameWindowManager@@UAEPAVGameWindow@@VAsciiString@@PAVRva0031763A@@PAV2@@Z",
+      "rva": "0x003177EC",
+      "exact": true,
+      "masked": false,
+      "unresolved": []
+    },
+    {
+      "name": "__ehhandler$?winCreateFromScript@GameWindowManager@@UAEPAVGameWindow@@VAsciiString@@PAVRva0031763A@@PAV2@@Z",
+      "rva": "0x0077A6BF",
+      "exact": true,
+      "masked": false,
+      "unresolved": []
+    },
+    {
+      "name": "?parseChildWindows@@YA_NPAVGameWindow@@PAVFile@@PAD@Z",
+      "rva": "0x00316CF8",
+      "exact": true,
+      "masked": false,
+      "unresolved": []
+    },
+    {
+      "name": "?parseWindow@@YAPAVGameWindow@@PAVFile@@PAD@Z",
+      "rva": "0x00316E8F",
+      "exact": true,
+      "masked": false,
+      "unresolved": []
+    },
+    {
+      "name": "__ehhandler$?parseWindow@@YAPAVGameWindow@@PAVFile@@PAD@Z",
+      "rva": "0x0077A5C8",
+      "exact": true,
+      "masked": false,
+      "unresolved": []
+    },
+    {
+      "name": "Unwind@00b7a6a7",
+      "rva": "0x0077A6A7",
+      "exact": true,
+      "masked": false,
+      "unresolved": []
+    },
+    {
+      "name": "Unwind@00b7a6af",
+      "rva": "0x0077A6AF",
+      "exact": true,
+      "masked": false,
+      "unresolved": []
+    },
+    {
+      "name": "Unwind@00b7a6b7",
+      "rva": "0x0077A6B7",
+      "exact": true,
+      "masked": false,
+      "unresolved": []
+    },
+    {
+      "name": "Unwind@00b7a5b5",
+      "rva": "0x0077A5B5",
+      "exact": true,
+      "masked": false,
+      "unresolved": []
+    },
+    {
+      "name": "Unwind@00b7a5c0",
+      "rva": "0x0077A5C0",
+      "exact": true,
+      "masked": false,
+      "unresolved": []
+    }
+  ],
+  "trial_source_sha256": "adc59605e60d228dc4daa5da7595700f157287f999929078edc2e357987212d6"
+}

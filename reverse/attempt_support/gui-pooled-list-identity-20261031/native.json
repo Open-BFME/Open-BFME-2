@@ -1,0 +1,1719 @@
+{
+  "schema": 1,
+  "index_metadata": {
+    "date": "2026-10-31 18:11",
+    "commit": "d249ce458a",
+    "clean_tree": true,
+    "census_date": "2026-10-31 16:54",
+    "census_commit": "85e8af1a53"
+  },
+  "rows": [
+    {
+      "name": "?erase@?$list@HV?$allocator@H@_STL@@@_STL@@QAE?AU?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@2@U32@@Z",
+      "export_rva": "",
+      "target_rva": "0x00438539",
+      "target_size": "32",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_o1.cpp",
+      "status": "matched",
+      "notes": "stlport-4.5.3"
+    },
+    {
+      "name": "??4?$list@HV?$allocator@H@_STL@@@_STL@@QAEAAV01@ABV01@@Z",
+      "export_rva": "",
+      "target_rva": "0x002C54EE",
+      "target_size": "104",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_o1.cpp",
+      "status": "matched",
+      "notes": ""
+    },
+    {
+      "name": "??$insert@U?$_List_iterator@HU?$_Const_traits@H@_STL@@@_STL@@@?$list@HV?$allocator@H@_STL@@@_STL@@QAEXU?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@1@U?$_List_iterator@HU?$_Const_traits@H@_STL@@@1@1@Z",
+      "export_rva": "",
+      "target_rva": "0x000BB975",
+      "target_size": "30",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_o1.cpp",
+      "status": "matched",
+      "notes": "unclaimed_scan exact; boundary confirmed by EH-prolog next-function pattern; callee pinned via retail REL32 decode"
+    },
+    {
+      "name": "??$_M_insert_dispatch@U?$_List_iterator@HU?$_Const_traits@H@_STL@@@_STL@@@?$list@HV?$allocator@H@_STL@@@_STL@@QAEXU?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@1@U?$_List_iterator@HU?$_Const_traits@H@_STL@@@1@1ABU__false_type@1@@Z",
+      "export_rva": "",
+      "target_rva": "0x002C526D",
+      "target_size": "48",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_o1.cpp",
+      "status": "matched",
+      "notes": "unclaimed_scan exact; boundary confirmed by ghidra_functions.csv extent=48 matching exactly; callee pinned via retail REL32 decode"
+    },
+    {
+      "name": "?insert@?$list@HV?$allocator@H@_STL@@@_STL@@QAE?AU?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@2@U32@ABH@Z",
+      "export_rva": "",
+      "target_rva": "0x005925E2",
+      "target_size": "37",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_insert.cpp",
+      "status": "matched",
+      "notes": "stlport-4.5.3 /O1 insert calls _M_create_node"
+    },
+    {
+      "name": "?insert@?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@2@U32@ABQAVObject@@@Z",
+      "export_rva": "",
+      "target_rva": "0x001EBD16",
+      "target_size": "37",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_list_objectptr_insert.cpp",
+      "status": "matched",
+      "notes": "stlport-4.5.3 /O1 insert calls create_node; whole-class TU without bfmelist shim; create_node pinned at 0x1EB9AC from the retail REL32"
+    },
+    {
+      "name": "?erase@?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVGameWindow@@U?$_Nonconst_traits@PAVGameWindow@@@_STL@@@2@U32@0@Z",
+      "export_rva": "",
+      "target_rva": "0x004221B2",
+      "target_size": "52",
+      "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp",
+      "status": "matched",
+      "notes": "STLport list<GameWindow*> range erase; unique masked-byte placement (locate.py)"
+    },
+    {
+      "name": "??4?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z",
+      "export_rva": "",
+      "target_rva": "0x0046F0C2",
+      "target_size": "104",
+      "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp",
+      "status": "matched",
+      "notes": "STLport list<GameWindow*>::operator=; unique masked-byte placement (locate.py)"
+    },
+    {
+      "name": "?rva00423D92@Rva00423D92@@QAEXU?$_List_iterator@PAVGameWindow@@U?$_Const_traits@PAVGameWindow@@@_STL@@@_STL@@0ABU__false_type@3@@Z",
+      "export_rva": "",
+      "target_rva": "0x00423D92",
+      "target_size": "79",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_list_gamewindow_assign_dispatch.cpp",
+      "status": "matched",
+      "notes": "list GameWindow assign dispatch via rowed erase insert plus caller assign wrapper"
+    },
+    {
+      "name": "??$assign@U?$_List_iterator@PAVGameWindow@@U?$_Const_traits@PAVGameWindow@@@_STL@@@_STL@@@?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAEXU?$_List_iterator@PAVGameWindow@@U?$_Const_traits@PAVGameWindow@@@_STL@@@1@0@Z",
+      "export_rva": "",
+      "target_rva": "0x004243BE",
+      "target_size": "22",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_list_gamewindow_assign_004243BE.cpp",
+      "status": "matched",
+      "notes": "STLport assign via rowed honest dispatch 0x00423D92 plus stash 0x004243BE"
+    },
+    {
+      "name": "??$__copy@PAV?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@PAV12@H@_STL@@YAPAV?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@0@PAV10@00ABUrandom_access_iterator_tag@0@PAH@Z",
+      "export_rva": "",
+      "target_rva": "0x004703B1",
+      "target_size": "47",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_list_gamewindow_copy.cpp",
+      "status": "matched",
+      "notes": "STLport copy for list GameWindowPtr via rowed assign 0x46F0C2"
+    },
+    {
+      "name": "??$__copy_aux@PAV?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@PAV12@@_STL@@YAPAV?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@0@PAV10@00U__true_type@0@@Z",
+      "export_rva": "",
+      "target_rva": "0x00474125",
+      "target_size": "29",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_list_gamewindow_copy.cpp",
+      "status": "matched",
+      "notes": "STLport copy_aux for list GameWindowPtr via rowed copy 0x4703B1"
+    },
+    {
+      "name": "??$_M_insert_dispatch@U?$_List_iterator@URva0036ADF9Element@@U?$_Const_traits@URva0036ADF9Element@@@_STL@@@_STL@@@?$list@URva0036ADF9Element@@V?$allocator@URva0036ADF9Element@@@_STL@@@_STL@@QAEXU?$_List_iterator@URva0036ADF9Element@@U?$_Nonconst_traits@URva0036ADF9Element@@@_STL@@@1@U?$_List_iterator@URva0036ADF9Element@@U?$_Const_traits@URva0036ADF9Element@@@_STL@@@1@1ABU__false_type@1@@Z",
+      "export_rva": "",
+      "target_rva": "0x002C526D",
+      "target_size": "48",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0036ADF9.cpp",
+      "status": "matched",
+      "notes": "Typed4B containment range-insertion dispatch; full48B iterator loop and owned37B insertion call exact; ICF with int-list dispatch"
+    },
+    {
+      "name": "??$_M_insert_dispatch@U?$_List_iterator@URva00423216Element@@U?$_Const_traits@URva00423216Element@@@_STL@@@_STL@@@?$list@URva00423216Element@@V?$allocator@URva00423216Element@@@_STL@@@_STL@@QAEXU?$_List_iterator@URva00423216Element@@U?$_Nonconst_traits@URva00423216Element@@@_STL@@@1@U?$_List_iterator@URva00423216Element@@U?$_Const_traits@URva00423216Element@@@_STL@@@1@1ABU__false_type@1@@Z",
+      "export_rva": "",
+      "target_rva": "0x00423216",
+      "target_size": "48",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/FormationAssistant.cpp",
+      "status": "matched",
+      "notes": "STLport4.5.3 reference; target 0x423216;48;FUN_00823216; native call displacements; address-derived element; donor layout is inference; full byte gate"
+    },
+    {
+      "name": "??$insert@U?$_List_iterator@PAVObject@@U?$_Const_traits@PAVObject@@@_STL@@@_STL@@@?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAEXU?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@1@U?$_List_iterator@PAVObject@@U?$_Const_traits@PAVObject@@@_STL@@@1@1@Z",
+      "export_rva": "",
+      "target_rva": "0x00423890",
+      "target_size": "30",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_list_objectptr_insert.cpp",
+      "status": "matched",
+      "notes": "STLport4.5.3 existing provider restored as canonical owner; complete body and each retail call target agree with existing typed callees; established donor/structural element spelling, no new application identity claim; no alias or duplicate range"
+    },
+    {
+      "name": "??$insert@U?$_List_iterator@URva0036ADF9Element@@U?$_Const_traits@URva0036ADF9Element@@@_STL@@@_STL@@@?$list@URva0036ADF9Element@@V?$allocator@URva0036ADF9Element@@@_STL@@@_STL@@QAEXU?$_List_iterator@URva0036ADF9Element@@U?$_Nonconst_traits@URva0036ADF9Element@@@_STL@@@1@U?$_List_iterator@URva0036ADF9Element@@U?$_Const_traits@URva0036ADF9Element@@@_STL@@@1@1@Z",
+      "export_rva": "",
+      "target_rva": "0x000BB975",
+      "target_size": "30",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0036ADF9.cpp",
+      "status": "matched",
+      "notes": "Typed containment range-insertion wrapper; full30B and call to owned48B dispatch2C526D exact; ICF with int range insertion; resolves copier36ADF9 dependency"
+    },
+    {
+      "name": "?erase@?$list@HV?$allocator@H@_STL@@@_STL@@QAE?AU?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@2@U32@0@Z",
+      "export_rva": "",
+      "target_rva": "0x00548267",
+      "target_size": "52",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_o1.cpp",
+      "status": "matched",
+      "notes": "STLport4.5.3 list<int> range erase; existing native single erase owner 0x00438539 proves type/callee; complete 52B including resolved call; canonical owner restored without duplicate range or pin"
+    },
+    {
+      "name": "?erase@?$list@UBfmeSpecialPowerTimer8@@V?$allocator@UBfmeSpecialPowerTimer8@@@_STL@@@_STL@@QAE?AU?$_List_iterator@UBfmeSpecialPowerTimer8@@U?$_Nonconst_traits@UBfmeSpecialPowerTimer8@@@_STL@@@2@U32@@Z",
+      "export_rva": "",
+      "target_rva": "0x00438539",
+      "target_size": "32",
+      "source": "Code/GameEngine/Source/GameLogic/Object/Helper/ObjectSMCHelper.cpp",
+      "status": "matched",
+      "notes": "stlport-4.5.3 list<BfmeSpecialPowerTimer8> single erase emitted by ObjectSMCHelper::update; ICF-folded with the list<int> erase (both free the node through the bfmealloc shim)"
+    },
+    {
+      "name": "?insert@?$list@PAVObjectSellInfo@@V?$allocator@PAVObjectSellInfo@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVObjectSellInfo@@U?$_Nonconst_traits@PAVObjectSellInfo@@@_STL@@@2@U32@ABQAVObjectSellInfo@@@Z",
+      "export_rva": "",
+      "target_rva": "0x005925E2",
+      "target_size": "37",
+      "source": "Code/GameEngine/Source/Common/System/BuildAssistantXferSellList.cpp",
+      "status": "matched",
+      "notes": "stlport-4.5.3 list<ObjectSellInfo *> insert folds onto the list<int> copy and calls the folded _M_create_node 0x000B6447; push_back of xferTheSellList 0x003924FE"
+    },
+    {
+      "name": "?erase@?$list@PAVObjectSellInfo@@V?$allocator@PAVObjectSellInfo@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVObjectSellInfo@@U?$_Nonconst_traits@PAVObjectSellInfo@@@_STL@@@2@U32@@Z",
+      "export_rva": "",
+      "target_rva": "0x00438539",
+      "target_size": "32",
+      "source": "Code/GameEngine/Source/Common/System/BuildAssistant.cpp",
+      "status": "matched",
+      "notes": "stlport-4.5.3 list<ObjectSellInfo *> erase from update; ICF twin of list<int>::erase"
+    },
+    {
+      "name": "?erase@?$list@FV?$allocator@F@_STL@@@_STL@@QAE?AU?$_List_iterator@FU?$_Nonconst_traits@F@_STL@@@2@U32@@Z",
+      "export_rva": "",
+      "target_rva": "0x00438539",
+      "target_size": "32",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_list_s_o1.cpp",
+      "status": "matched",
+      "notes": "ICF twin of the owner row here: callers reach this body by this name and this unit's copy equals retail at it (bytes and relocations); replaces the symbols.csv pin"
+    },
+    {
+      "name": "?erase@?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@2@U32@@Z",
+      "export_rva": "",
+      "target_rva": "0x00438539",
+      "target_size": "32",
+      "source": "Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp",
+      "status": "matched",
+      "notes": "Native AIGroup destructor36E564 directly calls438539 to erase null Object-pointer members. Genuine Object-pointer list erase full32B and free relocation independently identical to int-list owner. Zero unique-byte credit; donor f989. gen-alias"
+    },
+    {
+      "name": "?erase@?$list@PAVRva002D5333@@V?$allocator@PAVRva002D5333@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVRva002D5333@@U?$_Nonconst_traits@PAVRva002D5333@@@_STL@@@2@U32@@Z",
+      "export_rva": "",
+      "target_rva": "0x00438539",
+      "target_size": "32",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_list_radar_ping.cpp",
+      "status": "matched",
+      "notes": "STLport4.5.3 typed ping-pointer erase; native2D3D2A removes cursor installed by ctor2D3CA5; full32B and free30830 relocation twin; zero unique bytes; gen-alias"
+    },
+    {
+      "name": "?erase@?$list@PAVRva00598C3AItem@@V?$allocator@PAVRva00598C3AItem@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVRva00598C3AItem@@U?$_Nonconst_traits@PAVRva00598C3AItem@@@_STL@@@2@U32@@Z",
+      "export_rva": "",
+      "target_rva": "0x00438539",
+      "target_size": "32",
+      "source": "Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilderRva00598D7A.cpp",
+      "status": "matched",
+      "notes": "Authentic STLport pointer-list single erase from named AIUnitBuilder manageConstructingList; full32B and free30830 relocation match established list-int owner; node payload is observed buildable pointer; verified ICF twin adds zero retail bytes"
+    },
+    {
+      "name": "?erase@?$list@PAVSnapshot@@V?$allocator@PAVSnapshot@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVSnapshot@@U?$_Nonconst_traits@PAVSnapshot@@@_STL@@@2@U32@@Z",
+      "export_rva": "",
+      "target_rva": "0x00438539",
+      "target_size": "32",
+      "source": "Code/GameEngine/Source/Common/System/SaveGame/GameStatePostProcess.cpp",
+      "status": "matched",
+      "notes": "gen-alias; native2DC4B8 post-list erase; node payloadSnapshot pointer8; complete emitted32B plus free30830 relocation twin of list-int owner; zero unique bytes; canonical Snapshot interface"
+    },
+    {
+      "name": "?erase@?$list@UBuilderButtonInfo@@V?$allocator@UBuilderButtonInfo@@@_STL@@@_STL@@QAE?AU?$_List_iterator@UBuilderButtonInfo@@U?$_Nonconst_traits@UBuilderButtonInfo@@@_STL@@@2@U32@@Z",
+      "export_rva": "",
+      "target_rva": "0x00438539",
+      "target_size": "32",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_list_hero_selection.cpp",
+      "status": "matched",
+      "notes": "Complete typed body and relocation twin of the established owner; genuine hero-selection iterator binding; zero unique-byte credit;gen-alias"
+    },
+    {
+      "name": "?erase@?$list@UGameStatePostRecord@@V?$allocator@UGameStatePostRecord@@@_STL@@@_STL@@QAE?AU?$_List_iterator@UGameStatePostRecord@@U?$_Nonconst_traits@UGameStatePostRecord@@@_STL@@@2@U32@@Z",
+      "export_rva": "",
+      "target_rva": "0x00438539",
+      "target_size": "32",
+      "source": "Code/GameEngine/Source/Common/System/SaveGame/GameStatePostProcess.cpp",
+      "status": "matched",
+      "notes": "gen-alias; native2DC4B8 paired marked-list erase; payloadSnapshot pointer8 and unsignedsequenceC; canonical4B list header; complete emitted32B plus free30830 relocation twin of list-int owner; zero unique bytes; no original record type identity claim"
+    },
+    {
+      "name": "?erase@?$list@UHeroButtonInfo@@V?$allocator@UHeroButtonInfo@@@_STL@@@_STL@@QAE?AU?$_List_iterator@UHeroButtonInfo@@U?$_Nonconst_traits@UHeroButtonInfo@@@_STL@@@2@U32@@Z",
+      "export_rva": "",
+      "target_rva": "0x00438539",
+      "target_size": "32",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_list_hero_selection.cpp",
+      "status": "matched",
+      "notes": "Complete typed body and relocation twin of the established owner; genuine hero-selection iterator binding; zero unique-byte credit;gen-alias"
+    },
+    {
+      "name": "?erase@?$vector@URva004758F4Element@@V?$allocator@URva004758F4Element@@@_STL@@@_STL@@QAEPAURva004758F4Element@@PAU3@0@Z",
+      "export_rva": "",
+      "target_rva": "0x004758F4",
+      "target_size": "51",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp",
+      "status": "matched",
+      "notes": "STLport vector range erase: __copy_ptrs 0x00474125 then _Destroy 0x00470398 (retail REL32s); element view only"
+    },
+    {
+      "name": "?insert@?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVGameWindow@@U?$_Nonconst_traits@PAVGameWindow@@@_STL@@@2@U32@ABQAVGameWindow@@@Z",
+      "export_rva": "",
+      "target_rva": "0x005925E2",
+      "target_size": "37",
+      "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp",
+      "status": "matched",
+      "notes": "STLport 4.5.3 window-pointer list insertion called by native window script caller; exact37-byte body with node allocation B6447 and every int-owner relocation proven by folded binding admission; typed payload supported by caller; ICF alias adds no unique retail bytes"
+    },
+    {
+      "name": "?insert@?$list@PAVMapObject@@V?$allocator@PAVMapObject@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVMapObject@@U?$_Nonconst_traits@PAVMapObject@@@_STL@@@2@U32@ABQAVMapObject@@@Z",
+      "export_rva": "",
+      "target_rva": "0x005925E2",
+      "target_size": "37",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesListDataChunks.cpp",
+      "status": "matched",
+      "notes": "stlport-4.5.3 list<MapObject *> insert folds onto the list<int> copy and calls the folded _M_create_node 0x000B6447; push_back of writeCastleTemplateDataChunk 0x0032B88C"
+    },
+    {
+      "name": "?insert@?$list@PAVRva002D5333@@V?$allocator@PAVRva002D5333@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVRva002D5333@@U?$_Nonconst_traits@PAVRva002D5333@@@_STL@@@2@U32@ABQAVRva002D5333@@@Z",
+      "export_rva": "",
+      "target_rva": "0x005925E2",
+      "target_size": "37",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_list_radar_ping.cpp",
+      "status": "matched",
+      "notes": "STLport4.5.3 typed ping-pointer insert; native2D4FDB plus ctor2D3CA5 prove node8 pointer payload; full37B and nodeB6447 relocation twin; zero unique bytes; gen-alias"
+    },
+    {
+      "name": "?insert@?$list@URva0036ADF9Element@@V?$allocator@URva0036ADF9Element@@@_STL@@@_STL@@QAE?AU?$_List_iterator@URva0036ADF9Element@@U?$_Nonconst_traits@URva0036ADF9Element@@@_STL@@@2@U32@ABURva0036ADF9Element@@@Z",
+      "export_rva": "",
+      "target_rva": "0x005925E2",
+      "target_size": "37",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/ContainmentListInsert.cpp",
+      "status": "matched",
+      "notes": "STLport4.5.3 typed4B insertion; full37B and node-creation callB6447 exact; ICF with int insertion; four-byte element identity remains opaque"
+    },
+    {
+      "name": "?insert@?$list@PAVSnapshot@@V?$allocator@PAVSnapshot@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVSnapshot@@U?$_Nonconst_traits@PAVSnapshot@@@_STL@@@2@U32@ABQAVSnapshot@@@Z",
+      "export_rva": "",
+      "target_rva": "0x005925E2",
+      "target_size": "37",
+      "source": "Code/GameEngine/Source/Common/System/SaveGame/GameStatePostProcess.cpp",
+      "status": "matched",
+      "notes": "gen-alias; GameState append2DCF6C and prune2DC4B8 prove Snapshot pointer or Snapshot-plus-sequence list payload; complete typed STL body and every resolved relocation match existing owner including recursive node/copy chain. Zero unique retail bytes; replaces caller-only fold pins with verified definitions."
+    },
+    {
+      "name": "?insert@?$list@PBVObject@@V?$allocator@PBVObject@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PBVObject@@U?$_Nonconst_traits@PBVObject@@@_STL@@@2@U32@ABQBVObject@@@Z",
+      "export_rva": "",
+      "target_rva": "0x005925E2",
+      "target_size": "37",
+      "source": "Code/GameEngine/Source/Common/RTS/PlayerTransferAssets.cpp",
+      "status": "matched",
+      "notes": "gen-alias; native Player transfer2AEA9F calls this genuine const Object pointer insertion; full37B and rowed node factoryB6447 relocation equal every integer-list owner; zero unique bytes"
+    },
+    {
+      "name": "?erase@?$list@UScriptPositionRecord@@V?$allocator@UScriptPositionRecord@@@_STL@@@_STL@@QAE?AU?$_List_iterator@UScriptPositionRecord@@U?$_Nonconst_traits@UScriptPositionRecord@@@_STL@@@2@U32@@Z",
+      "export_rva": "",
+      "target_rva": "0x00438539",
+      "target_size": "32",
+      "source": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEnginePositions.cpp",
+      "status": "matched",
+      "notes": "Native35820A removes a key-plus-coordinate record from receiver+1A498; STLport4.5.3 typed list erase reproduces complete32B and free30830 relocation; structural record identity; zero unique bytes; gen-alias"
+    },
+    {
+      "name": "??$insert@U?$_List_iterator@PAVSuperweaponInfo@@U?$_Const_traits@PAVSuperweaponInfo@@@_STL@@@_STL@@@?$list@PAVSuperweaponInfo@@V?$allocator@PAVSuperweaponInfo@@@_STL@@@_STL@@QAEXU?$_List_iterator@PAVSuperweaponInfo@@U?$_Nonconst_traits@PAVSuperweaponInfo@@@_STL@@@1@U?$_List_iterator@PAVSuperweaponInfo@@U?$_Const_traits@PAVSuperweaponInfo@@@_STL@@@1@1@Z",
+      "export_rva": "",
+      "target_rva": "0x000BB975",
+      "target_size": "30",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_list_superweaponinfo_copy.cpp",
+      "status": "matched",
+      "notes": "ICF twin of the owner row here: callers reach this body by this name and this unit's copy equals retail at it (bytes and relocations); called by the list<SuperweaponInfo *> copy 0x002A1383; replaces the address-derived placeholder pin"
+    },
+    {
+      "name": "??$_M_insert_dispatch@U?$_List_iterator@PAVSuperweaponInfo@@U?$_Const_traits@PAVSuperweaponInfo@@@_STL@@@_STL@@@?$list@PAVSuperweaponInfo@@V?$allocator@PAVSuperweaponInfo@@@_STL@@@_STL@@QAEXU?$_List_iterator@PAVSuperweaponInfo@@U?$_Nonconst_traits@PAVSuperweaponInfo@@@_STL@@@1@U?$_List_iterator@PAVSuperweaponInfo@@U?$_Const_traits@PAVSuperweaponInfo@@@_STL@@@1@1ABU__false_type@1@@Z",
+      "export_rva": "",
+      "target_rva": "0x002C526D",
+      "target_size": "48",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_list_superweaponinfo_copy.cpp",
+      "status": "matched",
+      "notes": "ICF twin of the owner row here: callers reach this body by this name and this unit's copy equals retail at it (bytes and relocations); reached from the list<SuperweaponInfo *> copy 0x002A1383 range insert"
+    },
+    {
+      "name": "?insert@?$list@PAVSuperweaponInfo@@V?$allocator@PAVSuperweaponInfo@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVSuperweaponInfo@@U?$_Nonconst_traits@PAVSuperweaponInfo@@@_STL@@@2@U32@ABQAVSuperweaponInfo@@@Z",
+      "export_rva": "",
+      "target_rva": "0x005925E2",
+      "target_size": "37",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_list_superweaponinfo_insert.cpp",
+      "status": "matched",
+      "notes": "ICF twin of the owner row here: callers reach this body by this name and this unit's copy equals retail at it (bytes and relocations); reached from the list<SuperweaponInfo *> copy 0x002A1383 range insert"
+    },
+    {
+      "name": "?rva0029DFC5@Rva0029DFC5List@@QAE?AU?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@_STL@@U23@@Z",
+      "export_rva": "",
+      "target_rva": "0x0029DFC5",
+      "target_size": "36",
+      "source": "Code/GameEngine/Source/Common/System/FormationBuildRow.cpp",
+      "status": "matched",
+      "notes": "Native29DFC5..29DFE9 RET8; Object-pointer iterator unlink and pool recycle; caller29F77E proves member and hidden iterator return ABI; original allocator identity unresolved; replaces old stdcall view; row moved home from InGameUI_RemoveRecycle.cpp"
+    },
+    {
+      "name": "?insert@?$list@PAVCreditsLine@@V?$allocator@PAVCreditsLine@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVCreditsLine@@U?$_Nonconst_traits@PAVCreditsLine@@@_STL@@@2@U32@ABQAVCreditsLine@@@Z",
+      "export_rva": "",
+      "target_rva": "0x005925E2",
+      "target_size": "37",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_insert.cpp",
+      "status": "matched",
+      "notes": "ICF twin of the owner row here: this unit's copy equals retail at it (bytes and relocations) and calls Credits.cpp's retail _M_create_node 0xB6447; first in link order ahead of Credits.cpp's copy that inlines the bfmelist node creator"
+    },
+    {
+      "name": "?insert@?$list@PAVShadow@@V?$allocator@PAVShadow@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVShadow@@U?$_Nonconst_traits@PAVShadow@@@_STL@@@2@U32@ABQAVShadow@@@Z",
+      "export_rva": "",
+      "target_rva": "0x005925E2",
+      "target_size": "37",
+      "source": "Code/GameEngine/Source/Common/Rva004E52DCWalk.cpp",
+      "status": "matched",
+      "notes": "gen-alias; genuine Shadow pointer insertion in native terrain-shadow list; full37B and node-creation B6447 relocation equal every existing int owner; typed dependency of push_front392076; zero unique bytes; migrated=stlport-4.6"
+    },
+    {
+      "name": "?insert@?$list@PAVHeaderTemplate@@V?$allocator@PAVHeaderTemplate@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVHeaderTemplate@@U?$_Nonconst_traits@PAVHeaderTemplate@@@_STL@@@2@U32@ABQAVHeaderTemplate@@@Z",
+      "export_rva": "",
+      "target_rva": "0x005925E2",
+      "target_size": "37",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_insert.cpp",
+      "status": "matched",
+      "notes": "stlport-4.5.3 ICF twin: list<HeaderTemplate *> insert folds into 0x5925E2 and calls node creation out of line at 0xB6447; first in link order ahead of HeaderTemplate.cpp's inlined copy"
+    },
+    {
+      "name": "?insert@?$list@PAVAnimateWindow@@V?$allocator@PAVAnimateWindow@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVAnimateWindow@@U?$_Nonconst_traits@PAVAnimateWindow@@@_STL@@@2@U32@ABQAVAnimateWindow@@@Z",
+      "export_rva": "",
+      "target_rva": "0x005925E2",
+      "target_size": "37",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_insert.cpp",
+      "status": "matched",
+      "notes": "stlport-4.5.3 ICF twin: list<AnimateWindow *> insert folds into 0x5925E2 and calls node creation out of line at 0xB6447; AnimateWindowManager.cpp declares it only"
+    },
+    {
+      "name": "?insert@?$list@PAVShellMenuScheme@@V?$allocator@PAVShellMenuScheme@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVShellMenuScheme@@U?$_Nonconst_traits@PAVShellMenuScheme@@@_STL@@@2@U32@ABQAVShellMenuScheme@@@Z",
+      "export_rva": "",
+      "target_rva": "0x005925E2",
+      "target_size": "37",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_insert.cpp",
+      "status": "matched",
+      "notes": "stlport-4.5.3 ICF twin: list<ShellMenuScheme *> insert folds into 0x5925E2 and calls node creation out of line at 0xB6447; first in link order ahead of ShellMenuScheme.cpp's copy"
+    },
+    {
+      "name": "?insert@?$list@PAVControlBarScheme@@V?$allocator@PAVControlBarScheme@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVControlBarScheme@@U?$_Nonconst_traits@PAVControlBarScheme@@@_STL@@@2@U32@ABQAVControlBarScheme@@@Z",
+      "export_rva": "",
+      "target_rva": "0x005925E2",
+      "target_size": "37",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_insert.cpp",
+      "status": "matched",
+      "notes": "stlport-4.5.3 ICF twin: list<ControlBarScheme *> insert folds into 0x5925E2 and calls node creation out of line at 0xB6447; first in link order"
+    },
+    {
+      "name": "?insert@?$list@PAVAIGroup@@V?$allocator@PAVAIGroup@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVAIGroup@@U?$_Nonconst_traits@PAVAIGroup@@@_STL@@@2@U32@ABQAVAIGroup@@@Z",
+      "export_rva": "",
+      "target_rva": "0x005925E2",
+      "target_size": "37",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_insert.cpp",
+      "status": "matched",
+      "notes": "stlport-4.5.3 ICF twin: list<AIGroup *> insert folds into 0x5925E2 and calls node creation out of line at 0xB6447; first in link order"
+    },
+    {
+      "name": "?erase@?$list@PAVAptShapeContainer@@V?$allocator@PAVAptShapeContainer@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVAptShapeContainer@@U?$_Nonconst_traits@PAVAptShapeContainer@@@_STL@@@2@U32@@Z",
+      "export_rva": "",
+      "target_rva": "0x00438539",
+      "target_size": "32",
+      "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptShapeContainer.cpp",
+      "status": "matched",
+      "notes": "ICF twin;fold-proof=Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptAux_PostDraw_W3dDrawRenderingUnit.cpp;compiler-emitted body a code-identity reference reaches at this retail address: this unit keeps the copy link.exe selects and it equals retail in bytes and resolved relocations;no unique coverage added"
+    },
+    {
+      "name": "?insert@?$list@URva000BC0DBElement@@V?$allocator@URva000BC0DBElement@@@_STL@@@_STL@@QAE?AU?$_List_iterator@URva000BC0DBElement@@U?$_Nonconst_traits@URva000BC0DBElement@@@_STL@@@2@U32@ABURva000BC0DBElement@@@Z",
+      "export_rva": "",
+      "target_rva": "0x005925E2",
+      "target_size": "37",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva000BC0DB.cpp",
+      "status": "matched",
+      "notes": "ICF twin;fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva000BC0DB.cpp;compiler-emitted body a code-identity reference reaches at this retail address: this unit keeps the copy link.exe selects and it equals retail in bytes and resolved relocations;no unique coverage added"
+    },
+    {
+      "name": "??$_M_insert_dispatch@U?$_List_iterator@URva000BC0DBElement@@U?$_Const_traits@URva000BC0DBElement@@@_STL@@@_STL@@@?$list@URva000BC0DBElement@@V?$allocator@URva000BC0DBElement@@@_STL@@@_STL@@QAEXU?$_List_iterator@URva000BC0DBElement@@U?$_Nonconst_traits@URva000BC0DBElement@@@_STL@@@1@U?$_List_iterator@URva000BC0DBElement@@U?$_Const_traits@URva000BC0DBElement@@@_STL@@@1@1ABU__false_type@1@@Z",
+      "export_rva": "",
+      "target_rva": "0x002C526D",
+      "target_size": "48",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva000BC0DB.cpp",
+      "status": "matched",
+      "notes": "ICF twin;fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva000BC0DB.cpp;compiler-emitted body a code-identity reference reaches at this retail address: this unit keeps the copy link.exe selects and it equals retail in bytes and resolved relocations;no unique coverage added"
+    },
+    {
+      "name": "?insert@?$list@URva0055AB41Element@@V?$allocator@URva0055AB41Element@@@_STL@@@_STL@@QAE?AU?$_List_iterator@URva0055AB41Element@@U?$_Nonconst_traits@URva0055AB41Element@@@_STL@@@2@U32@ABURva0055AB41Element@@@Z",
+      "export_rva": "",
+      "target_rva": "0x005925E2",
+      "target_size": "37",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0055AB41.cpp",
+      "status": "matched",
+      "notes": "ICF twin;fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0055AB41.cpp;compiler-emitted body a code-identity reference reaches at this retail address: this unit keeps the copy link.exe selects and it equals retail in bytes and resolved relocations;no unique coverage added"
+    },
+    {
+      "name": "??$_M_insert_dispatch@U?$_List_iterator@URva0055AB41Element@@U?$_Const_traits@URva0055AB41Element@@@_STL@@@_STL@@@?$list@URva0055AB41Element@@V?$allocator@URva0055AB41Element@@@_STL@@@_STL@@QAEXU?$_List_iterator@URva0055AB41Element@@U?$_Nonconst_traits@URva0055AB41Element@@@_STL@@@1@U?$_List_iterator@URva0055AB41Element@@U?$_Const_traits@URva0055AB41Element@@@_STL@@@1@1ABU__false_type@1@@Z",
+      "export_rva": "",
+      "target_rva": "0x002C526D",
+      "target_size": "48",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0055AB41.cpp",
+      "status": "matched",
+      "notes": "ICF twin;fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0055AB41.cpp;compiler-emitted body a code-identity reference reaches at this retail address: this unit keeps the copy link.exe selects and it equals retail in bytes and resolved relocations;no unique coverage added"
+    }
+  ],
+  "correct_gui_typed_symbol_targets": [
+    {
+      "operation": "single erase",
+      "correct_native_rva": "0x00438539",
+      "existing_typed_name": "?erase@?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVGameWindow@@U?$_Nonconst_traits@PAVGameWindow@@@_STL@@@2@U32@@Z",
+      "current_pin_records": [
+        {
+          "name": "?erase@?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVGameWindow@@U?$_Nonconst_traits@PAVGameWindow@@@_STL@@@2@U32@@Z",
+          "address": "0x0029DFC5",
+          "notes": "callee REL32 read by locate.py from the unique list<GameWindow*> placements at 0x004221B2/0x0046F0C2"
+        }
+      ],
+      "current_rows": []
+    },
+    {
+      "operation": "range insert",
+      "correct_native_rva": "0x000BB975",
+      "existing_typed_name": "??$insert@U?$_List_iterator@PAVGameWindow@@U?$_Const_traits@PAVGameWindow@@@_STL@@@_STL@@@?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAEXU?$_List_iterator@PAVGameWindow@@U?$_Nonconst_traits@PAVGameWindow@@@_STL@@@1@U?$_List_iterator@PAVGameWindow@@U?$_Const_traits@PAVGameWindow@@@_STL@@@1@1@Z",
+      "current_pin_records": [
+        {
+          "name": "??$insert@U?$_List_iterator@PAVGameWindow@@U?$_Const_traits@PAVGameWindow@@@_STL@@@_STL@@@?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAEXU?$_List_iterator@PAVGameWindow@@U?$_Nonconst_traits@PAVGameWindow@@@_STL@@@1@U?$_List_iterator@PAVGameWindow@@U?$_Const_traits@PAVGameWindow@@@_STL@@@1@1@Z",
+          "address": "0x00423890",
+          "notes": "callee REL32 read by locate.py from the unique list<GameWindow*> placements at 0x004221B2/0x0046F0C2"
+        }
+      ],
+      "current_rows": []
+    },
+    {
+      "operation": "range erase",
+      "correct_native_rva": "0x00548267",
+      "existing_typed_name": "?erase@?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVGameWindow@@U?$_Nonconst_traits@PAVGameWindow@@@_STL@@@2@U32@0@Z",
+      "current_pin_records": [],
+      "current_rows": [
+        {
+          "name": "?erase@?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVGameWindow@@U?$_Nonconst_traits@PAVGameWindow@@@_STL@@@2@U32@0@Z",
+          "export_rva": "",
+          "target_rva": "0x004221B2",
+          "target_size": "52",
+          "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp",
+          "status": "matched",
+          "notes": "STLport list<GameWindow*> range erase; unique masked-byte placement (locate.py)"
+        }
+      ]
+    },
+    {
+      "operation": "assignment",
+      "correct_native_rva": "0x002C54EE",
+      "existing_typed_name": "??4?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z",
+      "current_pin_records": [
+        {
+          "name": "??4?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z",
+          "address": "0x002C54EE",
+          "notes": "ICF twin of int list assign per GameWindowManager registerTabList 0x002C55AC call site"
+        }
+      ],
+      "current_rows": [
+        {
+          "name": "??4?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z",
+          "export_rva": "",
+          "target_rva": "0x0046F0C2",
+          "target_size": "104",
+          "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp",
+          "status": "matched",
+          "notes": "STLport list<GameWindow*>::operator=; unique masked-byte placement (locate.py)"
+        }
+      ]
+    },
+    {
+      "operation": "insert dispatch",
+      "correct_native_rva": "0x002C526D",
+      "existing_typed_name": "??$_M_insert_dispatch@U?$_List_iterator@PAVGameWindow@@U?$_Const_traits@PAVGameWindow@@@_STL@@@_STL@@@?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAEXU?$_List_iterator@PAVGameWindow@@U?$_Nonconst_traits@PAVGameWindow@@@_STL@@@1@U?$_List_iterator@PAVGameWindow@@U?$_Const_traits@PAVGameWindow@@@_STL@@@1@1ABU__false_type@1@@Z",
+      "current_pin_records": [],
+      "current_rows": []
+    },
+    {
+      "operation": "single insert",
+      "correct_native_rva": "0x005925E2",
+      "existing_typed_name": "?insert@?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVGameWindow@@U?$_Nonconst_traits@PAVGameWindow@@@_STL@@@2@U32@ABQAVGameWindow@@@Z",
+      "current_pin_records": [
+        {
+          "name": "?insert@?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVGameWindow@@U?$_Nonconst_traits@PAVGameWindow@@@_STL@@@2@U32@ABQAVGameWindow@@@Z",
+          "address": "0x005925E2",
+          "notes": "native window-pointer insertion; fold-proof=Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp; STLport 4.5.3 whole-body and every-owner relocation proof"
+        }
+      ],
+      "current_rows": [
+        {
+          "name": "?insert@?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVGameWindow@@U?$_Nonconst_traits@PAVGameWindow@@@_STL@@@2@U32@ABQAVGameWindow@@@Z",
+          "export_rva": "",
+          "target_rva": "0x005925E2",
+          "target_size": "37",
+          "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp",
+          "status": "matched",
+          "notes": "STLport 4.5.3 window-pointer list insertion called by native window script caller; exact37-byte body with node allocation B6447 and every int-owner relocation proven by folded binding admission; typed payload supported by caller; ICF alias adds no unique retail bytes"
+        }
+      ]
+    }
+  ],
+  "native_and_object_proofs": [
+    {
+      "role": "existing ledger owner",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_o1.cpp",
+      "name": "??4?$list@HV?$allocator@H@_STL@@@_STL@@QAEAAV01@ABV01@@Z",
+      "native_rva": "0x002C54EE",
+      "native_size": 104,
+      "body_size": 104,
+      "body_hex": "558bec518b55083bca535657894dfc744d8b328b168bc18b088b01eb123bd674168bfa8b7f088b128bd88b00897b083bc175ea3bd67518518bd451890a8bcc89018b4dfc8d450850e800000000eb0f5652518bc489088b4dfce8000000008b45fc5f5e5bc9c20400",
+      "native_hex": "558bec518b55083bca535657894dfc744d8b328b168bc18b088b01eb123bd674168bfa8b7f088b128bd88b00897b083bc175ea3bd67518518bd451890a8bcc89018b4dfc8d450850e82c2d2800eb0f5652518bc489088b4dfce82964dfff8b45fc5f5e5bc9c20400",
+      "relocations": [
+        [
+          73,
+          20,
+          "?erase@?$list@HV?$allocator@H@_STL@@@_STL@@QAE?AU?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@2@U32@0@Z"
+        ],
+        [
+          90,
+          20,
+          "??$insert@U?$_List_iterator@HU?$_Const_traits@H@_STL@@@_STL@@@?$list@HV?$allocator@H@_STL@@@_STL@@QAEXU?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@1@U?$_List_iterator@HU?$_Const_traits@H@_STL@@@1@1@Z"
+        ]
+      ],
+      "nonrelocation_differences": [],
+      "size_equal": true,
+      "native_edges": [
+        {
+          "offset": 73,
+          "opcode": "e8",
+          "object_target": "?erase@?$list@HV?$allocator@H@_STL@@@_STL@@QAE?AU?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@2@U32@0@Z",
+          "native_target_rva": "0x00548267"
+        },
+        {
+          "offset": 90,
+          "opcode": "e8",
+          "object_target": "??$insert@U?$_List_iterator@HU?$_Const_traits@H@_STL@@@_STL@@@?$list@HV?$allocator@H@_STL@@@_STL@@QAEXU?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@1@U?$_List_iterator@HU?$_Const_traits@H@_STL@@@1@1@Z",
+          "native_target_rva": "0x000BB975"
+        }
+      ],
+      "runtime_incoming": []
+    },
+    {
+      "role": "existing ledger owner",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_o1.cpp",
+      "name": "?erase@?$list@HV?$allocator@H@_STL@@@_STL@@QAE?AU?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@2@U32@0@Z",
+      "native_rva": "0x00548267",
+      "native_size": 52,
+      "body_size": 52,
+      "body_hex": "558bec53568b750c578b7d108bd9eb14518bc48bce8b3689088d450c508bcbe8000000003bf775e88b450889385f5e5b5dc20c00",
+      "native_hex": "558bec53568b750c578b7d108bd9eb14518bc48bce8b3689088d450c508bcbe8ae02efff3bf775e88b450889385f5e5b5dc20c00",
+      "relocations": [
+        [
+          32,
+          20,
+          "?erase@?$list@HV?$allocator@H@_STL@@@_STL@@QAE?AU?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@2@U32@@Z"
+        ]
+      ],
+      "nonrelocation_differences": [],
+      "size_equal": true,
+      "native_edges": [
+        {
+          "offset": 32,
+          "opcode": "e8",
+          "object_target": "?erase@?$list@HV?$allocator@H@_STL@@@_STL@@QAE?AU?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@2@U32@@Z",
+          "native_target_rva": "0x00438539"
+        }
+      ],
+      "runtime_incoming": [
+        {
+          "section": ".text",
+          "offset": 46,
+          "relocation_type": 20,
+          "owner": "?resize@?$list@HV?$allocator@H@_STL@@@_STL@@QAEXIABH@Z",
+          "executable": true,
+          "debug": false
+        },
+        {
+          "section": ".text",
+          "offset": 76,
+          "relocation_type": 20,
+          "owner": "?_M_fill_assign@?$list@HV?$allocator@H@_STL@@@_STL@@QAEXIABH@Z",
+          "executable": true,
+          "debug": false
+        },
+        {
+          "section": ".text",
+          "offset": 73,
+          "relocation_type": 20,
+          "owner": "??4?$list@HV?$allocator@H@_STL@@@_STL@@QAEAAV01@ABV01@@Z",
+          "executable": true,
+          "debug": false
+        }
+      ]
+    },
+    {
+      "role": "existing ledger owner",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_o1.cpp",
+      "name": "?erase@?$list@HV?$allocator@H@_STL@@@_STL@@QAE?AU?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@2@U32@@Z",
+      "native_rva": "0x00438539",
+      "native_size": 32,
+      "body_size": 32,
+      "body_hex": "8b4c24088b4104568b31893051894604e8000000008b44240c5989305ec20800",
+      "native_hex": "8b4c24088b4104568b31893051894604e8e282bfff8b44240c5989305ec20800",
+      "relocations": [
+        [
+          17,
+          20,
+          "_free"
+        ]
+      ],
+      "nonrelocation_differences": [],
+      "size_equal": true,
+      "native_edges": [
+        {
+          "offset": 17,
+          "opcode": "e8",
+          "object_target": "_free",
+          "native_target_rva": "0x00030830"
+        }
+      ],
+      "runtime_incoming": [
+        {
+          "section": ".text",
+          "offset": 32,
+          "relocation_type": 20,
+          "owner": "?erase@?$list@HV?$allocator@H@_STL@@@_STL@@QAE?AU?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@2@U32@0@Z",
+          "executable": true,
+          "debug": false
+        },
+        {
+          "section": ".text",
+          "offset": 16,
+          "relocation_type": 20,
+          "owner": "?pop_front@?$list@HV?$allocator@H@_STL@@@_STL@@QAEXXZ",
+          "executable": true,
+          "debug": false
+        },
+        {
+          "section": ".text",
+          "offset": 17,
+          "relocation_type": 20,
+          "owner": "?pop_back@?$list@HV?$allocator@H@_STL@@@_STL@@QAEXXZ",
+          "executable": true,
+          "debug": false
+        },
+        {
+          "section": ".text",
+          "offset": 41,
+          "relocation_type": 20,
+          "owner": "?remove@?$list@HV?$allocator@H@_STL@@@_STL@@QAEXABH@Z",
+          "executable": true,
+          "debug": false
+        },
+        {
+          "section": ".text",
+          "offset": 39,
+          "relocation_type": 20,
+          "owner": "??$_S_unique@HV?$allocator@H@_STL@@U?$equal_to@H@2@@_STL@@YAXAAV?$list@HV?$allocator@H@_STL@@@0@U?$equal_to@H@0@@Z",
+          "executable": true,
+          "debug": false
+        }
+      ]
+    },
+    {
+      "role": "existing ledger owner",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_o1.cpp",
+      "name": "??$insert@U?$_List_iterator@HU?$_Const_traits@H@_STL@@@_STL@@@?$list@HV?$allocator@H@_STL@@@_STL@@QAEXU?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@1@U?$_List_iterator@HU?$_Const_traits@H@_STL@@@1@1@Z",
+      "native_rva": "0x000BB975",
+      "native_size": 30,
+      "body_size": 30,
+      "body_hex": "558bec8b55088d451350ff7510ff750c518bc48910e8000000005dc20c00",
+      "native_hex": "558bec8b55088d451350ff7510ff750c518bc48910e8de9820005dc20c00",
+      "relocations": [
+        [
+          22,
+          20,
+          "??$_M_insert_dispatch@U?$_List_iterator@HU?$_Const_traits@H@_STL@@@_STL@@@?$list@HV?$allocator@H@_STL@@@_STL@@QAEXU?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@1@U?$_List_iterator@HU?$_Const_traits@H@_STL@@@1@1ABU__false_type@1@@Z"
+        ]
+      ],
+      "nonrelocation_differences": [],
+      "size_equal": true,
+      "native_edges": [
+        {
+          "offset": 22,
+          "opcode": "e8",
+          "object_target": "??$_M_insert_dispatch@U?$_List_iterator@HU?$_Const_traits@H@_STL@@@_STL@@@?$list@HV?$allocator@H@_STL@@@_STL@@QAEXU?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@1@U?$_List_iterator@HU?$_Const_traits@H@_STL@@@1@1ABU__false_type@1@@Z",
+          "native_target_rva": "0x002C526D"
+        }
+      ],
+      "runtime_incoming": [
+        {
+          "section": ".text",
+          "offset": 66,
+          "relocation_type": 20,
+          "owner": "??0?$list@HV?$allocator@H@_STL@@@_STL@@QAE@ABV01@@Z",
+          "executable": true,
+          "debug": false
+        },
+        {
+          "section": ".text",
+          "offset": 90,
+          "relocation_type": 20,
+          "owner": "??4?$list@HV?$allocator@H@_STL@@@_STL@@QAEAAV01@ABV01@@Z",
+          "executable": true,
+          "debug": false
+        }
+      ]
+    },
+    {
+      "role": "existing ledger owner",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_o1.cpp",
+      "name": "??$_M_insert_dispatch@U?$_List_iterator@HU?$_Const_traits@H@_STL@@@_STL@@@?$list@HV?$allocator@H@_STL@@@_STL@@QAEXU?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@1@U?$_List_iterator@HU?$_Const_traits@H@_STL@@@1@1ABU__false_type@1@@Z",
+      "native_rva": "0x002C526D",
+      "native_size": 48,
+      "body_size": 48,
+      "body_hex": "558bec568b750c578bf9eb198d460850518b4d088bc489088d450c508bcfe8000000008b363b751075e25f5e5dc21000",
+      "native_hex": "558bec568b750c578bf9eb198d460850518b4d088bc489088d450c508bcfe852d32c008b363b751075e25f5e5dc21000",
+      "relocations": [
+        [
+          31,
+          20,
+          "?insert@?$list@HV?$allocator@H@_STL@@@_STL@@QAE?AU?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@2@U32@ABH@Z"
+        ]
+      ],
+      "nonrelocation_differences": [],
+      "size_equal": true,
+      "native_edges": [
+        {
+          "offset": 31,
+          "opcode": "e8",
+          "object_target": "?insert@?$list@HV?$allocator@H@_STL@@@_STL@@QAE?AU?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@2@U32@ABH@Z",
+          "native_target_rva": "0x005925E2"
+        }
+      ],
+      "runtime_incoming": [
+        {
+          "section": ".text",
+          "offset": 22,
+          "relocation_type": 20,
+          "owner": "??$insert@U?$_List_iterator@HU?$_Const_traits@H@_STL@@@_STL@@@?$list@HV?$allocator@H@_STL@@@_STL@@QAEXU?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@1@U?$_List_iterator@HU?$_Const_traits@H@_STL@@@1@1@Z",
+          "executable": true,
+          "debug": false
+        }
+      ]
+    },
+    {
+      "role": "existing ledger owner",
+      "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp",
+      "name": "?insert@?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVGameWindow@@U?$_Nonconst_traits@PAVGameWindow@@@_STL@@@2@U32@ABQAVGameWindow@@@Z",
+      "native_rva": "0x005925E2",
+      "native_size": 37,
+      "body_size": 37,
+      "body_hex": "ff74240ce8000000008b4c24088b5104890889500489028941048b4c240489018bc1c20c00",
+      "native_hex": "ff74240ce85c3eb2ff8b4c24088b5104890889500489028941048b4c240489018bc1c20c00",
+      "relocations": [
+        [
+          5,
+          20,
+          "?_M_create_node@?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@IAEPAU?$_List_node@PAVGameWindow@@@2@ABQAVGameWindow@@@Z"
+        ]
+      ],
+      "nonrelocation_differences": [],
+      "size_equal": true,
+      "native_edges": [
+        {
+          "offset": 5,
+          "opcode": "e8",
+          "object_target": "?_M_create_node@?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@IAEPAU?$_List_node@PAVGameWindow@@@2@ABQAVGameWindow@@@Z",
+          "native_target_rva": "0x000B6447"
+        }
+      ],
+      "runtime_incoming": [
+        {
+          "section": ".text",
+          "offset": 31,
+          "relocation_type": 20,
+          "owner": "??$_M_insert_dispatch@U?$_List_iterator@PAVGameWindow@@U?$_Const_traits@PAVGameWindow@@@_STL@@@_STL@@@?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAEXU?$_List_iterator@PAVGameWindow@@U?$_Nonconst_traits@PAVGameWindow@@@_STL@@@1@U?$_List_iterator@PAVGameWindow@@U?$_Const_traits@PAVGameWindow@@@_STL@@@1@1ABU__false_type@1@@Z",
+          "executable": true,
+          "debug": false
+        },
+        {
+          "section": ".text",
+          "offset": 18,
+          "relocation_type": 20,
+          "owner": "?push_back@?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAEXABQAVGameWindow@@@Z",
+          "executable": true,
+          "debug": false
+        },
+        {
+          "section": ".text",
+          "offset": 776,
+          "relocation_type": 20,
+          "owner": "?winCreateFromScript@GameWindowManager@@UAEPAVGameWindow@@VAsciiString@@PAVRva0031763A@@PAV2@@Z",
+          "executable": true,
+          "debug": false
+        }
+      ]
+    },
+    {
+      "role": "existing ledger owner",
+      "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp",
+      "name": "??4?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z",
+      "native_rva": "0x0046F0C2",
+      "native_size": 104,
+      "body_size": 104,
+      "body_hex": "558bec518b55083bca535657894dfc744d8b328b168bc18b088b01eb123bd674168bfa8b7f088b128bd88b00897b083bc175ea3bd67518518bd451890a8bcc89018b4dfc8d450850e800000000eb0f5652518bc489088b4dfce8000000008b45fc5f5e5bc9c20400",
+      "native_hex": "558bec518b55083bca535657894dfc744d8b328b168bc18b088b01eb123bd674168bfa8b7f088b128bd88b00897b083bc175ea3bd67518518bd451890a8bcc89018b4dfc8d450850e8a330fbffeb0f5652518bc489088b4dfce87047fbff8b45fc5f5e5bc9c20400",
+      "relocations": [
+        [
+          73,
+          20,
+          "?erase@?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVGameWindow@@U?$_Nonconst_traits@PAVGameWindow@@@_STL@@@2@U32@0@Z"
+        ],
+        [
+          90,
+          20,
+          "??$insert@U?$_List_iterator@PAVGameWindow@@U?$_Const_traits@PAVGameWindow@@@_STL@@@_STL@@@?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAEXU?$_List_iterator@PAVGameWindow@@U?$_Nonconst_traits@PAVGameWindow@@@_STL@@@1@U?$_List_iterator@PAVGameWindow@@U?$_Const_traits@PAVGameWindow@@@_STL@@@1@1@Z"
+        ]
+      ],
+      "nonrelocation_differences": [],
+      "size_equal": true,
+      "native_edges": [
+        {
+          "offset": 73,
+          "opcode": "e8",
+          "object_target": "?erase@?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVGameWindow@@U?$_Nonconst_traits@PAVGameWindow@@@_STL@@@2@U32@0@Z",
+          "native_target_rva": "0x004221B2"
+        },
+        {
+          "offset": 90,
+          "opcode": "e8",
+          "object_target": "??$insert@U?$_List_iterator@PAVGameWindow@@U?$_Const_traits@PAVGameWindow@@@_STL@@@_STL@@@?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAEXU?$_List_iterator@PAVGameWindow@@U?$_Nonconst_traits@PAVGameWindow@@@_STL@@@1@U?$_List_iterator@PAVGameWindow@@U?$_Const_traits@PAVGameWindow@@@_STL@@@1@1@Z",
+          "native_target_rva": "0x00423890"
+        }
+      ],
+      "runtime_incoming": []
+    },
+    {
+      "role": "existing ledger owner",
+      "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp",
+      "name": "?erase@?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVGameWindow@@U?$_Nonconst_traits@PAVGameWindow@@@_STL@@@2@U32@0@Z",
+      "native_rva": "0x004221B2",
+      "native_size": 52,
+      "body_size": 52,
+      "body_hex": "558bec53568b750c578b7d108bd9eb14518bc48bce8b3689088d450c508bcbe8000000003bf775e88b450889385f5e5b5dc20c00",
+      "native_hex": "558bec53568b750c578b7d108bd9eb14518bc48bce8b3689088d450c508bcbe8efbde7ff3bf775e88b450889385f5e5b5dc20c00",
+      "relocations": [
+        [
+          32,
+          20,
+          "?erase@?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVGameWindow@@U?$_Nonconst_traits@PAVGameWindow@@@_STL@@@2@U32@@Z"
+        ]
+      ],
+      "nonrelocation_differences": [],
+      "size_equal": true,
+      "native_edges": [
+        {
+          "offset": 32,
+          "opcode": "e8",
+          "object_target": "?erase@?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVGameWindow@@U?$_Nonconst_traits@PAVGameWindow@@@_STL@@@2@U32@@Z",
+          "native_target_rva": "0x0029DFC5"
+        }
+      ],
+      "runtime_incoming": [
+        {
+          "section": ".text",
+          "offset": 73,
+          "relocation_type": 20,
+          "owner": "??4?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z",
+          "executable": true,
+          "debug": false
+        }
+      ]
+    },
+    {
+      "role": "existing ledger owner",
+      "source": "Code/GameEngine/Source/Common/System/FormationBuildRow.cpp",
+      "name": "?rva0029DFC5@Rva0029DFC5List@@QAE?AU?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@_STL@@U23@@Z",
+      "native_rva": "0x0029DFC5",
+      "native_size": 36,
+      "body_size": 36,
+      "body_hex": "8b4424088b50048b08890a8951048b15080000008910a3080000008b4424048908c20800",
+      "native_hex": "8b4424088b50048b08890a8951048b15f48fdb008910a3f48fdb008b4424048908c20800",
+      "relocations": [
+        [
+          16,
+          6,
+          "?g_freelistPool00DB8FEC@@3VFreelistPool@@A"
+        ],
+        [
+          23,
+          6,
+          "?g_freelistPool00DB8FEC@@3VFreelistPool@@A"
+        ]
+      ],
+      "nonrelocation_differences": [],
+      "size_equal": true,
+      "native_edges": [],
+      "runtime_incoming": [
+        {
+          "section": ".text",
+          "offset": 309,
+          "relocation_type": 20,
+          "owner": "?rva0042481E@FormationAssistant@@QAE_NPAVFormationRowList@@PBVFormationTemplateRows@@PAVFormationObjectList@@@Z",
+          "executable": true,
+          "debug": false
+        }
+      ]
+    },
+    {
+      "role": "existing ledger owner",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_list_objectptr_insert.cpp",
+      "name": "??$insert@U?$_List_iterator@PAVObject@@U?$_Const_traits@PAVObject@@@_STL@@@_STL@@@?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAEXU?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@1@U?$_List_iterator@PAVObject@@U?$_Const_traits@PAVObject@@@_STL@@@1@1@Z",
+      "native_rva": "0x00423890",
+      "native_size": 30,
+      "body_size": 30,
+      "body_hex": "558bec8b55088d451350ff7510ff750c518bc48910e8000000005dc20c00",
+      "native_hex": "558bec8b55088d451350ff7510ff750c518bc48910e86cf9ffff5dc20c00",
+      "relocations": [
+        [
+          22,
+          20,
+          "??$_M_insert_dispatch@U?$_List_iterator@PAVObject@@U?$_Const_traits@PAVObject@@@_STL@@@_STL@@@?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAEXU?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@1@U?$_List_iterator@PAVObject@@U?$_Const_traits@PAVObject@@@_STL@@@1@1ABU__false_type@1@@Z"
+        ]
+      ],
+      "nonrelocation_differences": [],
+      "size_equal": true,
+      "native_edges": [
+        {
+          "offset": 22,
+          "opcode": "e8",
+          "object_target": "??$_M_insert_dispatch@U?$_List_iterator@PAVObject@@U?$_Const_traits@PAVObject@@@_STL@@@_STL@@@?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAEXU?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@1@U?$_List_iterator@PAVObject@@U?$_Const_traits@PAVObject@@@_STL@@@1@1ABU__false_type@1@@Z",
+          "native_target_rva": "0x00423216"
+        }
+      ],
+      "runtime_incoming": [
+        {
+          "section": ".text",
+          "offset": 66,
+          "relocation_type": 20,
+          "owner": "??0?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE@ABV01@@Z",
+          "executable": true,
+          "debug": false
+        },
+        {
+          "section": ".text",
+          "offset": 90,
+          "relocation_type": 20,
+          "owner": "??4?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z",
+          "executable": true,
+          "debug": false
+        }
+      ]
+    },
+    {
+      "role": "existing ledger owner",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/FormationAssistant.cpp",
+      "name": "??$_M_insert_dispatch@U?$_List_iterator@URva00423216Element@@U?$_Const_traits@URva00423216Element@@@_STL@@@_STL@@@?$list@URva00423216Element@@V?$allocator@URva00423216Element@@@_STL@@@_STL@@QAEXU?$_List_iterator@URva00423216Element@@U?$_Nonconst_traits@URva00423216Element@@@_STL@@@1@U?$_List_iterator@URva00423216Element@@U?$_Const_traits@URva00423216Element@@@_STL@@@1@1ABU__false_type@1@@Z",
+      "native_rva": "0x00423216",
+      "native_size": 48,
+      "body_size": 48,
+      "body_hex": "558bec568b750c578bf9eb198d460850518b4d088bc489088d450c508bcfe8000000008b363b751075e25f5e5dc21000",
+      "native_hex": "558bec568b750c578bf9eb198d460850518b4d088bc489088d450c508bcfe8dd8adcff8b363b751075e25f5e5dc21000",
+      "relocations": [
+        [
+          31,
+          20,
+          "?insert@?$list@URva00423216Element@@V?$allocator@URva00423216Element@@@_STL@@@_STL@@QAE?AU?$_List_iterator@URva00423216Element@@U?$_Nonconst_traits@URva00423216Element@@@_STL@@@2@U32@ABURva00423216Element@@@Z"
+        ]
+      ],
+      "nonrelocation_differences": [],
+      "size_equal": true,
+      "native_edges": [
+        {
+          "offset": 31,
+          "opcode": "e8",
+          "object_target": "?insert@?$list@URva00423216Element@@V?$allocator@URva00423216Element@@@_STL@@@_STL@@QAE?AU?$_List_iterator@URva00423216Element@@U?$_Nonconst_traits@URva00423216Element@@@_STL@@@2@U32@ABURva00423216Element@@@Z",
+          "native_target_rva": "0x001EBD16"
+        }
+      ],
+      "runtime_incoming": []
+    },
+    {
+      "role": "existing ledger owner",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_list_objectptr_insert.cpp",
+      "name": "?insert@?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@2@U32@ABQAVObject@@@Z",
+      "native_rva": "0x001EBD16",
+      "native_size": 37,
+      "body_size": 37,
+      "body_hex": "ff74240ce8000000008b4c24088b5104890889500489028941048b4c240489018bc1c20c00",
+      "native_hex": "ff74240ce88dfcffff8b4c24088b5104890889500489028941048b4c240489018bc1c20c00",
+      "relocations": [
+        [
+          5,
+          20,
+          "?_M_create_node@?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@IAEPAU?$_List_node@PAVObject@@@2@ABQAVObject@@@Z"
+        ]
+      ],
+      "nonrelocation_differences": [],
+      "size_equal": true,
+      "native_edges": [
+        {
+          "offset": 5,
+          "opcode": "e8",
+          "object_target": "?_M_create_node@?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@IAEPAU?$_List_node@PAVObject@@@2@ABQAVObject@@@Z",
+          "native_target_rva": "0x001EB9AC"
+        }
+      ],
+      "runtime_incoming": [
+        {
+          "section": ".text",
+          "offset": 32,
+          "relocation_type": 20,
+          "owner": "?_M_fill_insert@?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAEXU?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@2@IABQAVObject@@@Z",
+          "executable": true,
+          "debug": false
+        },
+        {
+          "section": ".text",
+          "offset": 20,
+          "relocation_type": 20,
+          "owner": "?push_front@?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAEXABQAVObject@@@Z",
+          "executable": true,
+          "debug": false
+        },
+        {
+          "section": ".text",
+          "offset": 18,
+          "relocation_type": 20,
+          "owner": "?push_back@?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAEXABQAVObject@@@Z",
+          "executable": true,
+          "debug": false
+        },
+        {
+          "section": ".text",
+          "offset": 24,
+          "relocation_type": 20,
+          "owner": "?insert@?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@2@U32@@Z",
+          "executable": true,
+          "debug": false
+        },
+        {
+          "section": ".text",
+          "offset": 31,
+          "relocation_type": 20,
+          "owner": "??$_M_insert_dispatch@U?$_List_iterator@PAVObject@@U?$_Const_traits@PAVObject@@@_STL@@@_STL@@@?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAEXU?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@1@U?$_List_iterator@PAVObject@@U?$_Const_traits@PAVObject@@@_STL@@@1@1ABU__false_type@1@@Z",
+          "executable": true,
+          "debug": false
+        }
+      ]
+    },
+    {
+      "role": "existing ledger owner",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_list_gamewindow_copy.cpp",
+      "name": "??$__copy@PAV?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@PAV12@H@_STL@@YAPAV?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@0@PAV10@00ABUrandom_access_iterator_tag@0@PAH@Z",
+      "native_rva": "0x004703B1",
+      "native_size": 47,
+      "body_size": 47,
+      "body_hex": "558bec8b450c2b4508c1f80285c07e1a568bf0ff75088b4d10e80000000083450804834510044e75ea5e8b45105dc3",
+      "native_hex": "558bec8b450c2b4508c1f80285c07e1a568bf0ff75088b4d10e8f3ecffff83450804834510044e75ea5e8b45105dc3",
+      "relocations": [
+        [
+          26,
+          20,
+          "??4?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z"
+        ]
+      ],
+      "nonrelocation_differences": [],
+      "size_equal": true,
+      "native_edges": [
+        {
+          "offset": 26,
+          "opcode": "e8",
+          "object_target": "??4?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z",
+          "native_target_rva": "0x0046F0C2"
+        }
+      ],
+      "runtime_incoming": [
+        {
+          "section": ".text",
+          "offset": 20,
+          "relocation_type": 20,
+          "owner": "??$__copy_ptrs@PAV?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@PAV12@@_STL@@YAPAV?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@0@PAV10@00U__false_type@0@@Z",
+          "executable": true,
+          "debug": false
+        },
+        {
+          "section": ".text",
+          "offset": 20,
+          "relocation_type": 20,
+          "owner": "??$__copy_aux@PAV?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@PAV12@@_STL@@YAPAV?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@0@PAV10@00U__true_type@0@@Z",
+          "executable": true,
+          "debug": false
+        },
+        {
+          "section": ".text",
+          "offset": 20,
+          "relocation_type": 20,
+          "owner": "??$copy@PAV?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@PAV12@@_STL@@YAPAV?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@0@PAV10@00@Z",
+          "executable": true,
+          "debug": false
+        }
+      ]
+    },
+    {
+      "role": "existing ledger owner",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_list_gamewindow_copy.cpp",
+      "name": "??$__copy_aux@PAV?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@PAV12@@_STL@@YAPAV?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@0@PAV10@00U__true_type@0@@Z",
+      "native_rva": "0x00474125",
+      "native_size": 29,
+      "body_size": 29,
+      "body_hex": "558bec516a008d45ff50ff7510ff750cff7508e80000000083c414c9c3",
+      "native_hex": "558bec516a008d45ff50ff7510ff750cff7508e874c2ffff83c414c9c3",
+      "relocations": [
+        [
+          20,
+          20,
+          "??$__copy@PAV?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@PAV12@H@_STL@@YAPAV?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@0@PAV10@00ABUrandom_access_iterator_tag@0@PAH@Z"
+        ]
+      ],
+      "nonrelocation_differences": [],
+      "size_equal": true,
+      "native_edges": [
+        {
+          "offset": 20,
+          "opcode": "e8",
+          "object_target": "??$__copy@PAV?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@PAV12@H@_STL@@YAPAV?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@0@PAV10@00ABUrandom_access_iterator_tag@0@PAH@Z",
+          "native_target_rva": "0x004703B1"
+        }
+      ],
+      "runtime_incoming": []
+    },
+    {
+      "role": "existing ledger owner",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp",
+      "name": "?erase@?$vector@URva004758F4Element@@V?$allocator@URva004758F4Element@@@_STL@@@_STL@@QAEPAURva004758F4Element@@PAU3@0@Z",
+      "native_rva": "0x004758F4",
+      "native_size": 51,
+      "body_size": 51,
+      "body_hex": "558bec56578d450b50ff75088bf1ff7604ff750ce800000000ff76048bf857e8000000008b450883c418897e045f5e5dc20800",
+      "native_hex": "558bec56578d450b50ff75088bf1ff7604ff750ce818e8ffffff76048bf857e880aaffff8b450883c418897e045f5e5dc20800",
+      "relocations": [
+        [
+          21,
+          20,
+          "??$__copy_ptrs@PAURva004758F4Element@@PAU1@@_STL@@YAPAURva004758F4Element@@PAU1@00ABU__false_type@0@@Z"
+        ],
+        [
+          32,
+          20,
+          "??$_Destroy@PAURva004758F4Element@@@_STL@@YAXPAURva004758F4Element@@0@Z"
+        ]
+      ],
+      "nonrelocation_differences": [],
+      "size_equal": true,
+      "native_edges": [
+        {
+          "offset": 21,
+          "opcode": "e8",
+          "object_target": "??$__copy_ptrs@PAURva004758F4Element@@PAU1@@_STL@@YAPAURva004758F4Element@@PAU1@00ABU__false_type@0@@Z",
+          "native_target_rva": "0x00474125"
+        },
+        {
+          "offset": 32,
+          "opcode": "e8",
+          "object_target": "??$_Destroy@PAURva004758F4Element@@@_STL@@YAXPAURva004758F4Element@@0@Z",
+          "native_target_rva": "0x00470398"
+        }
+      ],
+      "runtime_incoming": []
+    },
+    {
+      "role": "existing ledger owner",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_list_gamewindow_assign_dispatch.cpp",
+      "name": "?rva00423D92@Rva00423D92@@QAEXU?$_List_iterator@PAVGameWindow@@U?$_Const_traits@PAVGameWindow@@@_STL@@@_STL@@0ABU__false_type@3@@Z",
+      "native_rva": "0x00423D92",
+      "native_size": 79,
+      "body_size": 79,
+      "body_hex": "558bec8b118b02568b7508573bc274113b750c74118b7e088978088b008b36ebeb3b750c7515518bf45189168bd489028d450c50e800000000eb0eff750c56518bc48910e8000000005f5e5dc20c00",
+      "native_hex": "558bec8b118b02568b7508573bc274113b750c74118b7e088978088b008b36ebeb3b750c7515518bf45189168bd489028d450c50e8e7e3ffffeb0eff750c56518bc48910e8b5faffff5f5e5dc20c00",
+      "relocations": [
+        [
+          53,
+          20,
+          "?erase@?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVGameWindow@@U?$_Nonconst_traits@PAVGameWindow@@@_STL@@@2@U32@0@Z"
+        ],
+        [
+          69,
+          20,
+          "??$insert@U?$_List_iterator@PAVGameWindow@@U?$_Const_traits@PAVGameWindow@@@_STL@@@_STL@@@?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAEXU?$_List_iterator@PAVGameWindow@@U?$_Nonconst_traits@PAVGameWindow@@@_STL@@@1@U?$_List_iterator@PAVGameWindow@@U?$_Const_traits@PAVGameWindow@@@_STL@@@1@1@Z"
+        ]
+      ],
+      "nonrelocation_differences": [],
+      "size_equal": true,
+      "native_edges": [
+        {
+          "offset": 53,
+          "opcode": "e8",
+          "object_target": "?erase@?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVGameWindow@@U?$_Nonconst_traits@PAVGameWindow@@@_STL@@@2@U32@0@Z",
+          "native_target_rva": "0x004221B2"
+        },
+        {
+          "offset": 69,
+          "opcode": "e8",
+          "object_target": "??$insert@U?$_List_iterator@PAVGameWindow@@U?$_Const_traits@PAVGameWindow@@@_STL@@@_STL@@@?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAEXU?$_List_iterator@PAVGameWindow@@U?$_Nonconst_traits@PAVGameWindow@@@_STL@@@1@U?$_List_iterator@PAVGameWindow@@U?$_Const_traits@PAVGameWindow@@@_STL@@@1@1@Z",
+          "native_target_rva": "0x00423890"
+        }
+      ],
+      "runtime_incoming": [
+        {
+          "section": ".text",
+          "offset": 17,
+          "relocation_type": 20,
+          "owner": "?emitGameWindowAssignDispatch@@YAXPAVRva00423D92@@U?$_List_iterator@PAVGameWindow@@U?$_Const_traits@PAVGameWindow@@@_STL@@@_STL@@1ABU__false_type@3@@Z",
+          "executable": true,
+          "debug": false
+        }
+      ]
+    },
+    {
+      "role": "existing ledger owner",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_list_gamewindow_assign_004243BE.cpp",
+      "name": "??$assign@U?$_List_iterator@PAVGameWindow@@U?$_Const_traits@PAVGameWindow@@@_STL@@@_STL@@@?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAEXU?$_List_iterator@PAVGameWindow@@U?$_Const_traits@PAVGameWindow@@@_STL@@@1@0@Z",
+      "native_rva": "0x004243BE",
+      "native_size": 22,
+      "body_size": 22,
+      "body_hex": "558bec8d450f50ff750cff7508e8000000005dc20800",
+      "native_hex": "558bec8d450f50ff750cff7508e8c2f9ffff5dc20800",
+      "relocations": [
+        [
+          14,
+          20,
+          "??$_M_assign_dispatch@U?$_List_iterator@PAVGameWindow@@U?$_Const_traits@PAVGameWindow@@@_STL@@@_STL@@@?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAEXU?$_List_iterator@PAVGameWindow@@U?$_Const_traits@PAVGameWindow@@@_STL@@@1@0ABU__false_type@1@@Z"
+        ]
+      ],
+      "nonrelocation_differences": [],
+      "size_equal": true,
+      "native_edges": [
+        {
+          "offset": 14,
+          "opcode": "e8",
+          "object_target": "??$_M_assign_dispatch@U?$_List_iterator@PAVGameWindow@@U?$_Const_traits@PAVGameWindow@@@_STL@@@_STL@@@?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAEXU?$_List_iterator@PAVGameWindow@@U?$_Const_traits@PAVGameWindow@@@_STL@@@1@0ABU__false_type@1@@Z",
+          "native_target_rva": "0x00423D92"
+        }
+      ],
+      "runtime_incoming": []
+    },
+    {
+      "role": "existing pooled assignment",
+      "source": "Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainRva00475F61.cpp",
+      "name": "??4?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@QAEAAV01@ABV01@@Z",
+      "native_rva": "0x0046F0C2",
+      "native_size": 104,
+      "body_size": 104,
+      "body_hex": "558bec518b55083bca535657894dfc744d8b328b168bc18b088b01eb123bd674168bfa8b7f088b128bd88b00897b083bc175ea3bd67518518bd451890a8bcc89018b4dfc8d450850e800000000eb0f5652518bc489088b4dfce8000000008b45fc5f5e5bc9c20400",
+      "native_hex": "558bec518b55083bca535657894dfc744d8b328b168bc18b088b01eb123bd674168bfa8b7f088b128bd88b00897b083bc175ea3bd67518518bd451890a8bcc89018b4dfc8d450850e8a330fbffeb0f5652518bc489088b4dfce87047fbff8b45fc5f5e5bc9c20400",
+      "relocations": [
+        [
+          73,
+          20,
+          "?erase@?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@QAE?AU?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@2@U32@0@Z"
+        ],
+        [
+          90,
+          20,
+          "??$insert@U?$_List_iterator@PAVObject@@U?$_Const_traits@PAVObject@@@_STL@@@_STL@@@?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@QAEXU?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@1@U?$_List_iterator@PAVObject@@U?$_Const_traits@PAVObject@@@_STL@@@1@1@Z"
+        ]
+      ],
+      "nonrelocation_differences": [],
+      "size_equal": true,
+      "native_edges": [
+        {
+          "offset": 73,
+          "opcode": "e8",
+          "object_target": "?erase@?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@QAE?AU?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@2@U32@0@Z",
+          "native_target_rva": "0x004221B2"
+        },
+        {
+          "offset": 90,
+          "opcode": "e8",
+          "object_target": "??$insert@U?$_List_iterator@PAVObject@@U?$_Const_traits@PAVObject@@@_STL@@@_STL@@@?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@QAEXU?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@1@U?$_List_iterator@PAVObject@@U?$_Const_traits@PAVObject@@@_STL@@@1@1@Z",
+          "native_target_rva": "0x00423890"
+        }
+      ],
+      "runtime_incoming": [
+        {
+          "section": ".text",
+          "offset": 26,
+          "relocation_type": 20,
+          "owner": "??$__copy@PAV?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@PAV12@H@_STL@@YAPAV?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@0@PAV10@00ABUrandom_access_iterator_tag@0@PAH@Z",
+          "executable": true,
+          "debug": false
+        }
+      ]
+    },
+    {
+      "role": "existing pooled range erase",
+      "source": "Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainRva00475F61.cpp",
+      "name": "?erase@?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@QAE?AU?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@2@U32@0@Z",
+      "native_rva": "0x004221B2",
+      "native_size": 52,
+      "body_size": 52,
+      "body_hex": "558bec53568b750c578b7d108bd9eb14518bc48bce8b3689088d450c508bcbe8000000003bf775e88b450889385f5e5b5dc20c00",
+      "native_hex": "558bec53568b750c578b7d108bd9eb14518bc48bce8b3689088d450c508bcbe8efbde7ff3bf775e88b450889385f5e5b5dc20c00",
+      "relocations": [
+        [
+          32,
+          20,
+          "?erase@?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@QAE?AU?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@2@U32@@Z"
+        ]
+      ],
+      "nonrelocation_differences": [],
+      "size_equal": true,
+      "native_edges": [
+        {
+          "offset": 32,
+          "opcode": "e8",
+          "object_target": "?erase@?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@QAE?AU?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@2@U32@@Z",
+          "native_target_rva": "0x0029DFC5"
+        }
+      ],
+      "runtime_incoming": [
+        {
+          "section": ".text",
+          "offset": 73,
+          "relocation_type": 20,
+          "owner": "??4?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@QAEAAV01@ABV01@@Z",
+          "executable": true,
+          "debug": false
+        }
+      ]
+    },
+    {
+      "role": "existing pooled single erase",
+      "source": "Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainRva00475F61.cpp",
+      "name": "?erase@?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@QAE?AU?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@2@U32@@Z",
+      "native_rva": "0x0029DFC5",
+      "native_size": 36,
+      "body_size": 36,
+      "body_hex": "8b4424088b50048b08890a8951048b15080000008910a3080000008b4424048908c20800",
+      "native_hex": "8b4424088b50048b08890a8951048b15f48fdb008910a3f48fdb008b4424048908c20800",
+      "relocations": [
+        [
+          16,
+          6,
+          "?g_freelistPool00DB8FEC@@3VFreelistPool@@A"
+        ],
+        [
+          23,
+          6,
+          "?g_freelistPool00DB8FEC@@3VFreelistPool@@A"
+        ]
+      ],
+      "nonrelocation_differences": [],
+      "size_equal": true,
+      "native_edges": [],
+      "runtime_incoming": [
+        {
+          "section": ".text",
+          "offset": 32,
+          "relocation_type": 20,
+          "owner": "?erase@?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@QAE?AU?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@2@U32@0@Z",
+          "executable": true,
+          "debug": false
+        }
+      ]
+    },
+    {
+      "role": "existing pooled range insert",
+      "source": "Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainRva00475F61.cpp",
+      "name": "??$insert@U?$_List_iterator@PAVObject@@U?$_Const_traits@PAVObject@@@_STL@@@_STL@@@?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@QAEXU?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@1@U?$_List_iterator@PAVObject@@U?$_Const_traits@PAVObject@@@_STL@@@1@1@Z",
+      "native_rva": "0x00423890",
+      "native_size": 30,
+      "body_size": 30,
+      "body_hex": "558bec8b55088d451350ff7510ff750c518bc48910e8000000005dc20c00",
+      "native_hex": "558bec8b55088d451350ff7510ff750c518bc48910e86cf9ffff5dc20c00",
+      "relocations": [
+        [
+          22,
+          20,
+          "??$_M_insert_dispatch@U?$_List_iterator@PAVObject@@U?$_Const_traits@PAVObject@@@_STL@@@_STL@@@?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@QAEXU?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@1@U?$_List_iterator@PAVObject@@U?$_Const_traits@PAVObject@@@_STL@@@1@1ABU__false_type@1@@Z"
+        ]
+      ],
+      "nonrelocation_differences": [],
+      "size_equal": true,
+      "native_edges": [
+        {
+          "offset": 22,
+          "opcode": "e8",
+          "object_target": "??$_M_insert_dispatch@U?$_List_iterator@PAVObject@@U?$_Const_traits@PAVObject@@@_STL@@@_STL@@@?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@QAEXU?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@1@U?$_List_iterator@PAVObject@@U?$_Const_traits@PAVObject@@@_STL@@@1@1ABU__false_type@1@@Z",
+          "native_target_rva": "0x00423216"
+        }
+      ],
+      "runtime_incoming": [
+        {
+          "section": ".text",
+          "offset": 90,
+          "relocation_type": 20,
+          "owner": "??4?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@QAEAAV01@ABV01@@Z",
+          "executable": true,
+          "debug": false
+        },
+        {
+          "section": ".text",
+          "offset": 66,
+          "relocation_type": 20,
+          "owner": "??0?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@QAE@ABV01@@Z",
+          "executable": true,
+          "debug": false
+        }
+      ]
+    },
+    {
+      "role": "existing pooled insert dispatch",
+      "source": "Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainRva00475F61.cpp",
+      "name": "??$_M_insert_dispatch@U?$_List_iterator@PAVObject@@U?$_Const_traits@PAVObject@@@_STL@@@_STL@@@?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@QAEXU?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@1@U?$_List_iterator@PAVObject@@U?$_Const_traits@PAVObject@@@_STL@@@1@1ABU__false_type@1@@Z",
+      "native_rva": "0x00423216",
+      "native_size": 48,
+      "body_size": 48,
+      "body_hex": "558bec568b750c578bf9eb198d460850518b4d088bc489088d450c508bcfe8000000008b363b751075e25f5e5dc21000",
+      "native_hex": "558bec568b750c578bf9eb198d460850518b4d088bc489088d450c508bcfe8dd8adcff8b363b751075e25f5e5dc21000",
+      "relocations": [
+        [
+          31,
+          20,
+          "?insert@?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@QAE?AU?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@2@U32@ABQAVObject@@@Z"
+        ]
+      ],
+      "nonrelocation_differences": [],
+      "size_equal": true,
+      "native_edges": [
+        {
+          "offset": 31,
+          "opcode": "e8",
+          "object_target": "?insert@?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@QAE?AU?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@2@U32@ABQAVObject@@@Z",
+          "native_target_rva": "0x001EBD16"
+        }
+      ],
+      "runtime_incoming": [
+        {
+          "section": ".text",
+          "offset": 22,
+          "relocation_type": 20,
+          "owner": "??$insert@U?$_List_iterator@PAVObject@@U?$_Const_traits@PAVObject@@@_STL@@@_STL@@@?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@QAEXU?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@1@U?$_List_iterator@PAVObject@@U?$_Const_traits@PAVObject@@@_STL@@@1@1@Z",
+          "executable": true,
+          "debug": false
+        }
+      ]
+    },
+    {
+      "role": "existing pooled copy loop",
+      "source": "Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainRva00475F61.cpp",
+      "name": "??$__copy@PAV?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@PAV12@H@_STL@@YAPAV?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@0@PAV10@00ABUrandom_access_iterator_tag@0@PAH@Z",
+      "native_rva": "0x004703B1",
+      "native_size": 47,
+      "body_size": 47,
+      "body_hex": "558bec8b450c2b4508c1f80285c07e1a568bf0ff75088b4d10e80000000083450804834510044e75ea5e8b45105dc3",
+      "native_hex": "558bec8b450c2b4508c1f80285c07e1a568bf0ff75088b4d10e8f3ecffff83450804834510044e75ea5e8b45105dc3",
+      "relocations": [
+        [
+          26,
+          20,
+          "??4?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@QAEAAV01@ABV01@@Z"
+        ]
+      ],
+      "nonrelocation_differences": [],
+      "size_equal": true,
+      "native_edges": [
+        {
+          "offset": 26,
+          "opcode": "e8",
+          "object_target": "??4?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@QAEAAV01@ABV01@@Z",
+          "native_target_rva": "0x0046F0C2"
+        }
+      ],
+      "runtime_incoming": [
+        {
+          "section": ".text",
+          "offset": 20,
+          "relocation_type": 20,
+          "owner": "??$__copy_ptrs@PAV?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@PAV12@@_STL@@YAPAV?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@0@PAV10@00ABU__false_type@0@@Z",
+          "executable": true,
+          "debug": false
+        }
+      ]
+    },
+    {
+      "role": "existing pooled copy pointer dispatch",
+      "source": "Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainRva00475F61.cpp",
+      "name": "??$__copy_ptrs@PAV?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@PAV12@@_STL@@YAPAV?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@0@PAV10@00ABU__false_type@0@@Z",
+      "native_rva": "0x00474125",
+      "native_size": 29,
+      "body_size": 29,
+      "body_hex": "558bec516a008d45ff50ff7510ff750cff7508e80000000083c414c9c3",
+      "native_hex": "558bec516a008d45ff50ff7510ff750cff7508e874c2ffff83c414c9c3",
+      "relocations": [
+        [
+          20,
+          20,
+          "??$__copy@PAV?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@PAV12@H@_STL@@YAPAV?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@0@PAV10@00ABUrandom_access_iterator_tag@0@PAH@Z"
+        ]
+      ],
+      "nonrelocation_differences": [],
+      "size_equal": true,
+      "native_edges": [
+        {
+          "offset": 20,
+          "opcode": "e8",
+          "object_target": "??$__copy@PAV?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@PAV12@H@_STL@@YAPAV?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@0@PAV10@00ABUrandom_access_iterator_tag@0@PAH@Z",
+          "native_target_rva": "0x004703B1"
+        }
+      ],
+      "runtime_incoming": [
+        {
+          "section": ".text",
+          "offset": 21,
+          "relocation_type": 20,
+          "owner": "?erase@?$vector@V?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@V?$allocator@V?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@@2@@_STL@@QAEPAV?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@2@PAV32@0@Z",
+          "executable": true,
+          "debug": false
+        }
+      ]
+    },
+    {
+      "role": "existing pooled vector erase",
+      "source": "Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainRva00475F61.cpp",
+      "name": "?erase@?$vector@V?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@V?$allocator@V?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@@2@@_STL@@QAEPAV?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@2@PAV32@0@Z",
+      "native_rva": "0x004758F4",
+      "native_size": 51,
+      "body_size": 51,
+      "body_hex": "558bec56578d450b50ff75088bf1ff7604ff750ce800000000ff76048bf857e8000000008b450883c418897e045f5e5dc20800",
+      "native_hex": "558bec56578d450b50ff75088bf1ff7604ff750ce818e8ffffff76048bf857e880aaffff8b450883c418897e045f5e5dc20800",
+      "relocations": [
+        [
+          21,
+          20,
+          "??$__copy_ptrs@PAV?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@PAV12@@_STL@@YAPAV?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@0@PAV10@00ABU__false_type@0@@Z"
+        ],
+        [
+          32,
+          20,
+          "??$_Destroy@PAV?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@@_STL@@YAXPAV?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@0@0@Z"
+        ]
+      ],
+      "nonrelocation_differences": [],
+      "size_equal": true,
+      "native_edges": [
+        {
+          "offset": 21,
+          "opcode": "e8",
+          "object_target": "??$__copy_ptrs@PAV?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@PAV12@@_STL@@YAPAV?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@0@PAV10@00ABU__false_type@0@@Z",
+          "native_target_rva": "0x00474125"
+        },
+        {
+          "offset": 32,
+          "opcode": "e8",
+          "object_target": "??$_Destroy@PAV?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@@_STL@@YAXPAV?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@0@0@Z",
+          "native_target_rva": "0x00470398"
+        }
+      ],
+      "runtime_incoming": [
+        {
+          "section": ".text",
+          "offset": 213,
+          "relocation_type": 20,
+          "owner": "?rva00475F61@Rva00475F61Iface@@UAEXAAV?$vector@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@@Z",
+          "executable": true,
+          "debug": false
+        }
+      ]
+    }
+  ],
+  "correction_scope": [
+    {
+      "rvas": [
+        "0046F0C2",
+        "004221B2"
+      ],
+      "sizes": [
+        104,
+        52
+      ],
+      "action": "Wrong GameWindow real claims: separately reviewable retraction/tombstones, then normal typed pooled readmission in ORIGINAL GameScript source; both TU assignments remain unapproved."
+    },
+    {
+      "rvas": [
+        "004703B1",
+        "00474125"
+      ],
+      "sizes": [
+        47,
+        29
+      ],
+      "action": "Wrong GameWindow list-copy identity; existing pooled __copy and __copy_ptrs names/bodies are emitted by Horde. Preserve physical copy-file ownership until valid routing approval; do not pretend __copy_aux true_type is __copy_ptrs false_type."
+    },
+    {
+      "rvas": [
+        "00423890",
+        "00423216",
+        "0029DFC5"
+      ],
+      "sizes": [
+        30,
+        48,
+        36
+      ],
+      "action": "Existing primary owners remain; pooled spellings need proven whole-body/every-binding fold admission or a supported existing-owner reconciliation, never hand aliases/pins."
+    },
+    {
+      "rvas": [
+        "00423D92",
+        "004243BE"
+      ],
+      "sizes": [
+        79,
+        22
+      ],
+      "action": "Additional Formation pooled-list users with false GameWindow iterator payloads; must reconcile with LightSubPoint before old helper pins are globally rebound."
+    },
+    {
+      "rvas": [
+        "00548267",
+        "000BB975",
+        "00438539",
+        "002C526D"
+      ],
+      "sizes": [
+        52,
+        30,
+        32,
+        48
+      ],
+      "action": "Actual GUI assignment children. Correct GameWindow spellings denote range erase, range insertion, single erase and _M_insert_dispatch at THESE addresses respectively. Existing primary int owners remain; any typed fold requires owning-tool admission and resolved-callee proof."
+    }
+  ],
+  "limits": [
+    "No compilation or tracked changes. Current object proof excludes stale source/dependency receipts from fresh-provider claims.",
+    "Native call targets are decoded ONLY at relocation offsets in a compared current object; no byte-scanning false E8 calls.",
+    "Nonrelocation equality is not fully resolved exactness: the report deliberately exposes different or missing typed bindings.",
+    "Consumer enumeration is the saved index's complete old-pin touching cohort, not a post-index whole-tree consumer census.",
+    "Original allocator and Horde regrouping method names remain unknown; existing pooled names are structural views."
+  ]
+}
