@@ -1,0 +1,1223 @@
+{
+  "baseline": {
+    "external_definition_count": 148,
+    "index_comdat_mismatches": [],
+    "object": "build/module-storage-20261030/curve-lifetime-only/before.obj",
+    "object_sha256": "28ac8b2d9f57b5695aca62420d5c34369daac8b3fddd9c1e1b13a0d23fa7b57c",
+    "source": "build/module-storage-20261030/curve-lifetime-only/before.cpp",
+    "source_sha256": "ffa9014887a6029198b2b8e9b784d2a9e791388dfc2dd5b2a0ba814079e9d8cc"
+  },
+  "changed_providers": {
+    "??_GPersistClass@@UAEPAXI@Z": {
+      "after_selection": {
+        "copies": [
+          {
+            "digest": "62a190cadea7",
+            "loses": false,
+            "object": "^code_^libraries_^source_^w^w^vegas_^w^w^save^load_twiddler.obj",
+            "verdict": null
+          }
+        ],
+        "referenced": false,
+        "rule": "unreferenced",
+        "selected": "^code_^libraries_^source_^w^w^vegas_^w^w^save^load_twiddler.obj"
+      },
+      "all_indexed_copies": [
+        {
+          "current_object_sha256": "28ac8b2d9f57b5695aca62420d5c34369daac8b3fddd9c1e1b13a0d23fa7b57c",
+          "index_digest": "1ded4a030d43",
+          "index_verdict": null,
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^math_curve.obj",
+          "position": 2738,
+          "raw_hex": "568bf1e800000000f644240801740756e800000000598bc65ec20400",
+          "raw_size": 28,
+          "relocations": [
+            [
+              4,
+              20,
+              "??1PersistClass@@UAE@XZ"
+            ],
+            [
+              17,
+              20,
+              "??3@YAXPAX@Z"
+            ]
+          ],
+          "source": "Code/Libraries/Source/WWVegas/WWMath/curve.cpp",
+          "weak_and_raw_references": {
+            "raw_incoming": {
+              "??_GPersistClass@@UAEPAXI@Z": [
+                {
+                  "debug": true,
+                  "executable": false,
+                  "offset": 0,
+                  "owner": null,
+                  "relocation_type": 7,
+                  "section": ".debug$F"
+                }
+              ]
+            },
+            "weak_fallbacks": [
+              [
+                "??_EPersistClass@@UAEPAXI@Z",
+                "??_GPersistClass@@UAEPAXI@Z"
+              ]
+            ],
+            "weak_incoming": {
+              "??_EPersistClass@@UAEPAXI@Z": [
+                {
+                  "debug": false,
+                  "executable": false,
+                  "offset": 0,
+                  "owner": "??_7PersistClass@@6B@",
+                  "relocation_type": 6,
+                  "section": ".rdata"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "current_object_sha256": "2c87054ec31dad93b0b94ff19658bb60037d5a1655e549ed4845528c29bd96b4",
+          "index_digest": "62a190cadea7",
+          "index_verdict": null,
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^save^load_twiddler.obj",
+          "position": 17666,
+          "raw_hex": "568bf1e800000000f644240801740956e80000000083c4048bc65ec20400",
+          "raw_size": 30,
+          "relocations": [
+            [
+              4,
+              20,
+              "??1PersistClass@@UAE@XZ"
+            ],
+            [
+              17,
+              20,
+              "??3@YAXPAX@Z"
+            ]
+          ],
+          "source": "Code/Libraries/Source/WWVegas/WWSaveLoad/twiddler.cpp",
+          "weak_and_raw_references": {
+            "raw_incoming": {
+              "??_GPersistClass@@UAEPAXI@Z": [
+                {
+                  "debug": true,
+                  "executable": false,
+                  "offset": 0,
+                  "owner": null,
+                  "relocation_type": 7,
+                  "section": ".debug$F"
+                }
+              ]
+            },
+            "weak_fallbacks": [
+              [
+                "??_EPersistClass@@UAEPAXI@Z",
+                "??_GPersistClass@@UAEPAXI@Z"
+              ]
+            ],
+            "weak_incoming": {
+              "??_EPersistClass@@UAEPAXI@Z": [
+                {
+                  "debug": false,
+                  "executable": false,
+                  "offset": 0,
+                  "owner": "??_7PersistClass@@6B@",
+                  "relocation_type": 6,
+                  "section": ".rdata"
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "all_indexed_touching_objects": [
+        "^code_^libraries_^source_^w^w^vegas_^w^w^math_curve.obj",
+        "^code_^libraries_^source_^w^w^vegas_^w^w^save^load_twiddler.obj"
+      ],
+      "before_selection": {
+        "copies": [
+          {
+            "digest": "1ded4a030d43",
+            "loses": false,
+            "object": "^code_^libraries_^source_^w^w^vegas_^w^w^math_curve.obj",
+            "verdict": null
+          },
+          {
+            "digest": "62a190cadea7",
+            "loses": false,
+            "object": "^code_^libraries_^source_^w^w^vegas_^w^w^save^load_twiddler.obj",
+            "verdict": null
+          }
+        ],
+        "referenced": false,
+        "rule": "unreferenced",
+        "selected": "^code_^libraries_^source_^w^w^vegas_^w^w^math_curve.obj"
+      },
+      "census_previously_linking_consumers": [],
+      "ledger_owners": [],
+      "selection_exception": "absent",
+      "strong_positions": []
+    },
+    "??_GPostLoadableClass@@UAEPAXI@Z": {
+      "after_selection": {
+        "copies": [
+          {
+            "digest": "158a690f1796",
+            "loses": false,
+            "object": "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_dynamesh.obj",
+            "verdict": null
+          },
+          {
+            "digest": "158a690f1796",
+            "loses": false,
+            "object": "^code_^libraries_^source_^w^w^vegas_^w^w^save^load_twiddler.obj",
+            "verdict": null
+          }
+        ],
+        "referenced": true,
+        "rule": "first",
+        "selected": "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_dynamesh.obj"
+      },
+      "all_indexed_copies": [
+        {
+          "current_object_sha256": "28ac8b2d9f57b5695aca62420d5c34369daac8b3fddd9c1e1b13a0d23fa7b57c",
+          "index_digest": "85aa332d5a78",
+          "index_verdict": null,
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^math_curve.obj",
+          "position": 2738,
+          "raw_hex": "f644240401568bf1c70600000000740756e800000000598bc65ec20400",
+          "raw_size": 29,
+          "relocations": [
+            [
+              10,
+              6,
+              "??_7PostLoadableClass@@6B@"
+            ],
+            [
+              18,
+              20,
+              "??3@YAXPAX@Z"
+            ]
+          ],
+          "source": "Code/Libraries/Source/WWVegas/WWMath/curve.cpp",
+          "weak_and_raw_references": {
+            "raw_incoming": {
+              "??_GPostLoadableClass@@UAEPAXI@Z": [
+                {
+                  "debug": true,
+                  "executable": false,
+                  "offset": 0,
+                  "owner": null,
+                  "relocation_type": 7,
+                  "section": ".debug$F"
+                }
+              ]
+            },
+            "weak_fallbacks": [
+              [
+                "??_EPostLoadableClass@@UAEPAXI@Z",
+                "??_GPostLoadableClass@@UAEPAXI@Z"
+              ]
+            ],
+            "weak_incoming": {
+              "??_EPostLoadableClass@@UAEPAXI@Z": [
+                {
+                  "debug": false,
+                  "executable": false,
+                  "offset": 0,
+                  "owner": "??_7PostLoadableClass@@6B@",
+                  "relocation_type": 6,
+                  "section": ".rdata"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "current_object_sha256": "3989ea8d068df690b878cf5b74fd93cafff8907e2e6211a3a94289414b33d0a8",
+          "index_digest": "158a690f1796",
+          "index_verdict": null,
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_dynamesh.obj",
+          "position": 3760,
+          "raw_hex": "f644240401568bf1c70600000000740956e80000000083c4048bc65ec20400",
+          "raw_size": 31,
+          "relocations": [
+            [
+              10,
+              6,
+              "??_7PostLoadableClass@@6B@"
+            ],
+            [
+              18,
+              20,
+              "??3@YAXPAX@Z"
+            ]
+          ],
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/dynamesh.cpp",
+          "weak_and_raw_references": {
+            "raw_incoming": {
+              "??_GPostLoadableClass@@UAEPAXI@Z": [
+                {
+                  "debug": true,
+                  "executable": false,
+                  "offset": 0,
+                  "owner": null,
+                  "relocation_type": 7,
+                  "section": ".debug$F"
+                }
+              ]
+            },
+            "weak_fallbacks": [
+              [
+                "??_EPostLoadableClass@@UAEPAXI@Z",
+                "??_GPostLoadableClass@@UAEPAXI@Z"
+              ]
+            ],
+            "weak_incoming": {
+              "??_EPostLoadableClass@@UAEPAXI@Z": [
+                {
+                  "debug": false,
+                  "executable": false,
+                  "offset": 0,
+                  "owner": "??_7PostLoadableClass@@6B@",
+                  "relocation_type": 6,
+                  "section": ".rdata"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "current_object_sha256": "2c87054ec31dad93b0b94ff19658bb60037d5a1655e549ed4845528c29bd96b4",
+          "index_digest": "158a690f1796",
+          "index_verdict": null,
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^save^load_twiddler.obj",
+          "position": 17666,
+          "raw_hex": "f644240401568bf1c70600000000740956e80000000083c4048bc65ec20400",
+          "raw_size": 31,
+          "relocations": [
+            [
+              10,
+              6,
+              "??_7PostLoadableClass@@6B@"
+            ],
+            [
+              18,
+              20,
+              "??3@YAXPAX@Z"
+            ]
+          ],
+          "source": "Code/Libraries/Source/WWVegas/WWSaveLoad/twiddler.cpp",
+          "weak_and_raw_references": {
+            "raw_incoming": {
+              "??_GPostLoadableClass@@UAEPAXI@Z": [
+                {
+                  "debug": true,
+                  "executable": false,
+                  "offset": 0,
+                  "owner": null,
+                  "relocation_type": 7,
+                  "section": ".debug$F"
+                }
+              ]
+            },
+            "weak_fallbacks": [
+              [
+                "??_EPostLoadableClass@@UAEPAXI@Z",
+                "??_GPostLoadableClass@@UAEPAXI@Z"
+              ]
+            ],
+            "weak_incoming": {
+              "??_EPostLoadableClass@@UAEPAXI@Z": [
+                {
+                  "debug": false,
+                  "executable": false,
+                  "offset": 0,
+                  "owner": "??_7PostLoadableClass@@6B@",
+                  "relocation_type": 6,
+                  "section": ".rdata"
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "all_indexed_touching_objects": [
+        "^code_^libraries_^source_^w^w^vegas_^w^w^math_curve.obj",
+        "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_dynamesh.obj",
+        "^code_^libraries_^source_^w^w^vegas_^w^w^save^load_twiddler.obj"
+      ],
+      "before_selection": {
+        "copies": [
+          {
+            "digest": "85aa332d5a78",
+            "loses": false,
+            "object": "^code_^libraries_^source_^w^w^vegas_^w^w^math_curve.obj",
+            "verdict": null
+          },
+          {
+            "digest": "158a690f1796",
+            "loses": true,
+            "object": "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_dynamesh.obj",
+            "verdict": null
+          },
+          {
+            "digest": "158a690f1796",
+            "loses": true,
+            "object": "^code_^libraries_^source_^w^w^vegas_^w^w^save^load_twiddler.obj",
+            "verdict": null
+          }
+        ],
+        "referenced": true,
+        "rule": "first",
+        "selected": "^code_^libraries_^source_^w^w^vegas_^w^w^math_curve.obj"
+      },
+      "census_previously_linking_consumers": [],
+      "ledger_owners": [],
+      "selection_exception": "absent",
+      "strong_positions": []
+    }
+  },
+  "cohort": {
+    "Code/Libraries/Source/WWVegas/WW3D2/dynamesh.cpp": {
+      "after": {
+        "addresses": [],
+        "comdat": [
+          [
+            "??1RenderObjClass@@UAE@XZ",
+            "retail",
+            "wrong"
+          ],
+          [
+            "??_7RenderObjClass@@6BMultiListObjectClass@@@",
+            "first",
+            null
+          ],
+          [
+            "??_7RenderObjClass@@6BRefCountClass@@@",
+            "first",
+            null
+          ],
+          [
+            "?Is_Visible@RenderObjClass@@UBEHXZ",
+            "first",
+            null
+          ],
+          [
+            "?Set_Collision_Type@RenderObjClass@@UAEXH@Z",
+            "first",
+            null
+          ],
+          [
+            "?Get_Bone_Transform@RenderObjClass@@UAEABVMatrix3D@@PBD@Z",
+            "first",
+            null
+          ],
+          [
+            "?Get_Bone_Transform@RenderObjClass@@UAEABVMatrix3D@@H@Z",
+            "first",
+            null
+          ]
+        ],
+        "duplicates": [],
+        "selected": [
+          "?Add_Vertex_Material@MaterialInfoClass@@QAEHPAVVertexMaterialClass@@@Z",
+          "?Peek_Single_Material@MeshMatDescClass@@QBEPAVVertexMaterialClass@@H@Z"
+        ],
+        "unreferenced_differs": [
+          {
+            "bytes_differ": 1,
+            "kind": "layout",
+            "majority_object": "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_seglinerenderer.obj",
+            "majority_size": 4,
+            "name": "?Get_Location_Offset@FVFInfoClass@@QBEIXZ",
+            "size": 4
+          },
+          {
+            "bytes_differ": 1,
+            "kind": "layout",
+            "majority_object": "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_seglinerenderer.obj",
+            "majority_size": 11,
+            "name": "?Get_Tex_Offset@FVFInfoClass@@QBEII@Z",
+            "size": 11
+          },
+          {
+            "bytes_differ": 1,
+            "kind": "layout",
+            "majority_object": "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_^simple^streak^renderer^render^streak.obj",
+            "majority_size": 4,
+            "name": "?Get_Diffuse_Offset@FVFInfoClass@@QBEIXZ",
+            "size": 4
+          },
+          {
+            "bytes_differ": 1,
+            "kind": "layout",
+            "majority_object": "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_^simple^streak^renderer^render^streak.obj",
+            "majority_size": 4,
+            "name": "?Get_FVF_Size@FVFInfoClass@@QBEIXZ",
+            "size": 4
+          },
+          {
+            "bytes_differ": null,
+            "kind": "codegen",
+            "majority_object": "^code_^game^engine^device_^source_^w3^d^device_^game^client_^height^map.obj",
+            "majority_size": 63,
+            "name": "?Set_Texture@DX8Wrapper@@SAXIPAVTextureBaseClass@@@Z",
+            "size": 73
+          },
+          {
+            "bytes_differ": 5,
+            "kind": "codegen",
+            "majority_object": "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_shattersystem.obj",
+            "majority_size": 18,
+            "name": "?Peek_Single_Texture@MeshMatDescClass@@QBEPAVTextureClass@@HH@Z",
+            "size": 18
+          },
+          {
+            "bytes_differ": null,
+            "kind": "codegen",
+            "majority_object": "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_shattersystem.obj",
+            "majority_size": 20,
+            "name": "?Get_Color_Array@DynamicMeshModel@@QAEPAIH@Z",
+            "size": 21
+          },
+          {
+            "bytes_differ": 1,
+            "kind": "layout",
+            "majority_object": "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_shattersystem.obj",
+            "majority_size": 11,
+            "name": "?Set_Single_Texture@DynamicMeshModel@@QAEXPAVTextureClass@@HH@Z",
+            "size": 11
+          },
+          {
+            "bytes_differ": 2,
+            "kind": "layout",
+            "majority_object": "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_shattersystem.obj",
+            "majority_size": 11,
+            "name": "?Set_Dirty_Bounds@DynamicMeshClass@@QAEXXZ",
+            "size": 11
+          },
+          {
+            "bytes_differ": 2,
+            "kind": "layout",
+            "majority_object": "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_shattersystem.obj",
+            "majority_size": 11,
+            "name": "?Set_Dirty_Planes@DynamicMeshClass@@QAEXXZ",
+            "size": 11
+          }
+        ],
+        "unresolved": [
+          "??0DynamicVBAccessClass@@QAE@IIG@Z",
+          "??0WriteLockClass@DynamicVBAccessClass@@QAE@PAV1@@Z",
+          "??1WriteLockClass@DynamicVBAccessClass@@QAE@XZ",
+          "?Add_Sub_Object_To_Bone@RenderObjClass@@UAEHPAV1@PBD@Z",
+          "?Add_Texture@MaterialInfoClass@@QAEHPAVTextureClass@@@Z",
+          "?Build_Dependency_List@RenderObjClass@@UAE_NAAV?$DynamicVectorClass@VStringClass@@@@_N@Z",
+          "?Build_Texture_List@RenderObjClass@@UAE_NAAV?$DynamicVectorClass@VStringClass@@@@_N@Z",
+          "?Draw_Triangles@DX8Wrapper@@SAXGGGG@Z",
+          "?Get_Factory@RenderObjClass@@UBEABVPersistFactoryClass@@XZ",
+          "?Get_Vertex_Normal_Array@MeshGeometryClass@@QAEPBVVector3@@XZ",
+          "?Insert_Triangles@SortingRendererClass@@SAXABVSphereClass@@GGGG@Z",
+          "?Load@RenderObjClass@@UAE_NAAVChunkLoadClass@@@Z",
+          "?Reset_Geometry@MeshGeometryClass@@QAEXHH@Z",
+          "?Save@RenderObjClass@@UAE_NAAVChunkSaveClass@@@Z",
+          "?Set_Element@TexBufferClass@@QAEXHPAVTextureClass@@@Z",
+          "?Set_Single_Texture@MeshMatDescClass@@QAEXPAVTextureClass@@HH@Z",
+          "?Set_Texture@MeshMatDescClass@@QAEXHPAVTextureClass@@HH@Z"
+        ]
+      },
+      "before": {
+        "addresses": [],
+        "comdat": [
+          [
+            "??_GPostLoadableClass@@UAEPAXI@Z",
+            "first",
+            null
+          ],
+          [
+            "??1RenderObjClass@@UAE@XZ",
+            "retail",
+            "wrong"
+          ],
+          [
+            "??_7RenderObjClass@@6BMultiListObjectClass@@@",
+            "first",
+            null
+          ],
+          [
+            "??_7RenderObjClass@@6BRefCountClass@@@",
+            "first",
+            null
+          ],
+          [
+            "?Is_Visible@RenderObjClass@@UBEHXZ",
+            "first",
+            null
+          ],
+          [
+            "?Set_Collision_Type@RenderObjClass@@UAEXH@Z",
+            "first",
+            null
+          ],
+          [
+            "?Get_Bone_Transform@RenderObjClass@@UAEABVMatrix3D@@PBD@Z",
+            "first",
+            null
+          ],
+          [
+            "?Get_Bone_Transform@RenderObjClass@@UAEABVMatrix3D@@H@Z",
+            "first",
+            null
+          ]
+        ],
+        "duplicates": [],
+        "selected": [
+          "?Add_Vertex_Material@MaterialInfoClass@@QAEHPAVVertexMaterialClass@@@Z",
+          "?Peek_Single_Material@MeshMatDescClass@@QBEPAVVertexMaterialClass@@H@Z"
+        ],
+        "unreferenced_differs": [
+          {
+            "bytes_differ": 1,
+            "kind": "layout",
+            "majority_object": "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_seglinerenderer.obj",
+            "majority_size": 4,
+            "name": "?Get_Location_Offset@FVFInfoClass@@QBEIXZ",
+            "size": 4
+          },
+          {
+            "bytes_differ": 1,
+            "kind": "layout",
+            "majority_object": "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_seglinerenderer.obj",
+            "majority_size": 11,
+            "name": "?Get_Tex_Offset@FVFInfoClass@@QBEII@Z",
+            "size": 11
+          },
+          {
+            "bytes_differ": 1,
+            "kind": "layout",
+            "majority_object": "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_^simple^streak^renderer^render^streak.obj",
+            "majority_size": 4,
+            "name": "?Get_Diffuse_Offset@FVFInfoClass@@QBEIXZ",
+            "size": 4
+          },
+          {
+            "bytes_differ": 1,
+            "kind": "layout",
+            "majority_object": "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_^simple^streak^renderer^render^streak.obj",
+            "majority_size": 4,
+            "name": "?Get_FVF_Size@FVFInfoClass@@QBEIXZ",
+            "size": 4
+          },
+          {
+            "bytes_differ": null,
+            "kind": "codegen",
+            "majority_object": "^code_^game^engine^device_^source_^w3^d^device_^game^client_^height^map.obj",
+            "majority_size": 63,
+            "name": "?Set_Texture@DX8Wrapper@@SAXIPAVTextureBaseClass@@@Z",
+            "size": 73
+          },
+          {
+            "bytes_differ": 5,
+            "kind": "codegen",
+            "majority_object": "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_shattersystem.obj",
+            "majority_size": 18,
+            "name": "?Peek_Single_Texture@MeshMatDescClass@@QBEPAVTextureClass@@HH@Z",
+            "size": 18
+          },
+          {
+            "bytes_differ": null,
+            "kind": "codegen",
+            "majority_object": "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_shattersystem.obj",
+            "majority_size": 20,
+            "name": "?Get_Color_Array@DynamicMeshModel@@QAEPAIH@Z",
+            "size": 21
+          },
+          {
+            "bytes_differ": 1,
+            "kind": "layout",
+            "majority_object": "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_shattersystem.obj",
+            "majority_size": 11,
+            "name": "?Set_Single_Texture@DynamicMeshModel@@QAEXPAVTextureClass@@HH@Z",
+            "size": 11
+          },
+          {
+            "bytes_differ": 2,
+            "kind": "layout",
+            "majority_object": "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_shattersystem.obj",
+            "majority_size": 11,
+            "name": "?Set_Dirty_Bounds@DynamicMeshClass@@QAEXXZ",
+            "size": 11
+          },
+          {
+            "bytes_differ": 2,
+            "kind": "layout",
+            "majority_object": "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_shattersystem.obj",
+            "majority_size": 11,
+            "name": "?Set_Dirty_Planes@DynamicMeshClass@@QAEXXZ",
+            "size": 11
+          }
+        ],
+        "unresolved": [
+          "??0DynamicVBAccessClass@@QAE@IIG@Z",
+          "??0WriteLockClass@DynamicVBAccessClass@@QAE@PAV1@@Z",
+          "??1WriteLockClass@DynamicVBAccessClass@@QAE@XZ",
+          "?Add_Sub_Object_To_Bone@RenderObjClass@@UAEHPAV1@PBD@Z",
+          "?Add_Texture@MaterialInfoClass@@QAEHPAVTextureClass@@@Z",
+          "?Build_Dependency_List@RenderObjClass@@UAE_NAAV?$DynamicVectorClass@VStringClass@@@@_N@Z",
+          "?Build_Texture_List@RenderObjClass@@UAE_NAAV?$DynamicVectorClass@VStringClass@@@@_N@Z",
+          "?Draw_Triangles@DX8Wrapper@@SAXGGGG@Z",
+          "?Get_Factory@RenderObjClass@@UBEABVPersistFactoryClass@@XZ",
+          "?Get_Vertex_Normal_Array@MeshGeometryClass@@QAEPBVVector3@@XZ",
+          "?Insert_Triangles@SortingRendererClass@@SAXABVSphereClass@@GGGG@Z",
+          "?Load@RenderObjClass@@UAE_NAAVChunkLoadClass@@@Z",
+          "?Reset_Geometry@MeshGeometryClass@@QAEXHH@Z",
+          "?Save@RenderObjClass@@UAE_NAAVChunkSaveClass@@@Z",
+          "?Set_Element@TexBufferClass@@QAEXHPAVTextureClass@@@Z",
+          "?Set_Single_Texture@MeshMatDescClass@@QAEXPAVTextureClass@@HH@Z",
+          "?Set_Texture@MeshMatDescClass@@QAEXHPAVTextureClass@@HH@Z"
+        ]
+      },
+      "currency": {
+        "command_fingerprint": "fcee0568537540acace795ec0ae4a282",
+        "dependencies_current": true,
+        "dependency_count": 125,
+        "dependency_mismatches": [],
+        "object": "build/match/^code_^libraries_^source_^w^w^vegas_^w^w3^d2_dynamesh.obj",
+        "object_current": true,
+        "object_sha256": "3989ea8d068df690b878cf5b74fd93cafff8907e2e6211a3a94289414b33d0a8",
+        "receipt_sha256": "ea544e977a816373ead40ec6f4a26d06c0963d52c385fdffe8d6c37e1301ddea",
+        "source": "Code/Libraries/Source/WWVegas/WW3D2/dynamesh.cpp",
+        "source_current": true,
+        "source_sha256": "e27184c21af120ca8618d46cd1c33115a63f8a8cfd606c657a87111979bbf1c1"
+      },
+      "linked_after": false,
+      "linked_before": false
+    },
+    "Code/Libraries/Source/WWVegas/WWMath/curve.cpp": {
+      "after": {
+        "addresses": [],
+        "comdat": [],
+        "duplicates": [],
+        "selected": [],
+        "unreferenced_differs": [],
+        "unresolved": []
+      },
+      "before": {
+        "addresses": [],
+        "comdat": [
+          [
+            "??0?$VectorClass@VKeyClass@Curve3DClass@@@@QAE@HPBVKeyClass@Curve3DClass@@@Z",
+            "retail",
+            "wrong"
+          ]
+        ],
+        "duplicates": [],
+        "selected": [
+          "??0?$VectorClass@VKeyClass@Curve3DClass@@@@QAE@HPBVKeyClass@Curve3DClass@@@Z"
+        ],
+        "unreferenced_differs": [],
+        "unresolved": [
+          "??0PersistFactoryClass@@QAE@XZ",
+          "??1PersistFactoryClass@@UAE@XZ",
+          "?Register_Pointer@SaveLoadSystemClass@@SAXPAX0@Z"
+        ]
+      },
+      "currency": {
+        "command_fingerprint": "d26b5980b0c8bd36b13f50e455f0d27b",
+        "dependencies_current": true,
+        "dependency_count": 36,
+        "dependency_mismatches": [],
+        "object": "build/match/^code_^libraries_^source_^w^w^vegas_^w^w^math_curve.obj",
+        "object_current": true,
+        "object_sha256": "ba3b65d46d00714956010512cd7de6bb337710e29e4c8c80bf9de703322e8b0b",
+        "receipt_sha256": "cb6e816f7b3f280f0aa9a885d37ef0e31d6196a1b38536f904239b83af166a72",
+        "source": "Code/Libraries/Source/WWVegas/WWMath/curve.cpp",
+        "source_current": true,
+        "source_sha256": "65a94ffa19dd7d7d2b2df6d84354e2c9f5beb057051977ad3d2dd8abd7ffc171"
+      },
+      "linked_after": true,
+      "linked_before": false
+    },
+    "Code/Libraries/Source/WWVegas/WWSaveLoad/twiddler.cpp": {
+      "after": {
+        "addresses": [],
+        "comdat": [],
+        "duplicates": [],
+        "selected": [],
+        "unreferenced_differs": [
+          {
+            "bytes_differ": 2,
+            "kind": "register",
+            "majority_object": "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_^render2^d^sentence^draw^b^f^m^e2.obj",
+            "majority_size": 77,
+            "name": "?Add@?$DynamicVectorClass@H@@QAE_NABH@Z",
+            "size": 77
+          }
+        ],
+        "unresolved": [
+          "??0DefinitionFactoryClass@@QAE@XZ",
+          "??0PersistFactoryClass@@QAE@XZ",
+          "??0RandomClass@@QAE@I@Z",
+          "??1DefinitionFactoryClass@@UAE@XZ",
+          "??1PersistFactoryClass@@UAE@XZ",
+          "?Find_Definition@DefinitionMgrClass@@SAPAVDefinitionClass@@K_N@Z",
+          "?Load@DefinitionClass@@UAE_NAAVChunkLoadClass@@@Z",
+          "?Register_Pointer@SaveLoadSystemClass@@SAXPAX0@Z",
+          "?Save@DefinitionClass@@UAE_NAAVChunkSaveClass@@@Z",
+          "?Set_ID@DefinitionClass@@UAEXK@Z"
+        ]
+      },
+      "before": {
+        "addresses": [],
+        "comdat": [
+          [
+            "??_GPostLoadableClass@@UAEPAXI@Z",
+            "first",
+            null
+          ]
+        ],
+        "duplicates": [],
+        "selected": [],
+        "unreferenced_differs": [
+          {
+            "bytes_differ": null,
+            "kind": "unclassified",
+            "majority_object": null,
+            "majority_size": null,
+            "name": "??_GPersistClass@@UAEPAXI@Z",
+            "size": 30
+          },
+          {
+            "bytes_differ": 2,
+            "kind": "register",
+            "majority_object": "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_^render2^d^sentence^draw^b^f^m^e2.obj",
+            "majority_size": 77,
+            "name": "?Add@?$DynamicVectorClass@H@@QAE_NABH@Z",
+            "size": 77
+          }
+        ],
+        "unresolved": [
+          "??0DefinitionFactoryClass@@QAE@XZ",
+          "??0PersistFactoryClass@@QAE@XZ",
+          "??0RandomClass@@QAE@I@Z",
+          "??1DefinitionFactoryClass@@UAE@XZ",
+          "??1PersistFactoryClass@@UAE@XZ",
+          "?Find_Definition@DefinitionMgrClass@@SAPAVDefinitionClass@@K_N@Z",
+          "?Load@DefinitionClass@@UAE_NAAVChunkLoadClass@@@Z",
+          "?Register_Pointer@SaveLoadSystemClass@@SAXPAX0@Z",
+          "?Save@DefinitionClass@@UAE_NAAVChunkSaveClass@@@Z",
+          "?Set_ID@DefinitionClass@@UAEXK@Z"
+        ]
+      },
+      "currency": {
+        "command_fingerprint": "dc50dec2f4f2afe42ac6d53446fc3a85",
+        "dependencies_current": true,
+        "dependency_count": 93,
+        "dependency_mismatches": [],
+        "object": "build/match/^code_^libraries_^source_^w^w^vegas_^w^w^save^load_twiddler.obj",
+        "object_current": true,
+        "object_sha256": "2c87054ec31dad93b0b94ff19658bb60037d5a1655e549ed4845528c29bd96b4",
+        "receipt_sha256": "4905282be64874fec16bce33897f35ddb6fb0f06466c6e26631b2fa6bc3cd65d",
+        "source": "Code/Libraries/Source/WWVegas/WWSaveLoad/twiddler.cpp",
+        "source_current": true,
+        "source_sha256": "812761ac16f55426b0d264fd967c958f90a1745396a1a811e15b299798549813"
+      },
+      "linked_after": false,
+      "linked_before": false
+    }
+  },
+  "curve_closure": {
+    "header_and_prior_claimed_consumer_objects": [
+      {
+        "currency": {
+          "command_fingerprint": "a156ca55d77f019e1f0ea90400d71d36",
+          "dependencies_current": true,
+          "dependency_count": 320,
+          "dependency_mismatches": [],
+          "object": "build/match/^code_^game^engine^device_^source_^w3^d^device_^game^client_^shadow_^w3^d^volumetric^shadow.obj",
+          "object_current": true,
+          "object_sha256": "040c7d9bbecab6f031611e95d1ee518dfce0f929e04e861a49a5f36a25a3cd0e",
+          "receipt_sha256": "f4244db4f7775781f2677182f23a33d2e6b45b65a3d54019fd2457047c6bbf7a",
+          "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DVolumetricShadow.cpp",
+          "source_current": true,
+          "source_sha256": "b1f9ae8411f947f84af7ef98f3e293c318073724d1b3c0b41cd67ab501652afa"
+        },
+        "curve_family_runtime_refs": {},
+        "curve_family_symbols": [],
+        "effective_curve_headers": [
+          "reference\\open-bfme-1\\inputs\\reference\\CnC_Generals_Zero_Hour\\GeneralsMD\\Code\\Libraries\\Source\\WWVegas\\WWMath\\curve.h"
+        ]
+      },
+      {
+        "currency": {
+          "command_fingerprint": "e42c98fabd5b2d21a73c9890be810405",
+          "dependencies_current": true,
+          "dependency_count": 38,
+          "dependency_mismatches": [],
+          "object": "build/match/^code_^libraries_^source_^w^w^vegas_^w^w^math_tcbspline.obj",
+          "object_current": true,
+          "object_sha256": "aae8fb1f281f6ceaca30e02a0dcec57bff8d126a912943221a816696d1cab013",
+          "receipt_sha256": "09326c0c6e6fd601ce7717b37d02e1b61020e29fc535cff21e3e2afe62050f7c",
+          "source": "Code/Libraries/Source/WWVegas/WWMath/tcbspline.cpp",
+          "source_current": true,
+          "source_sha256": "d4a313fad24a342d8c3e4802517e8d1ed3c6cd39f6c6e82161985e3c2713303f"
+        },
+        "curve_family_runtime_refs": {},
+        "curve_family_symbols": [],
+        "effective_curve_headers": [
+          "reference\\open-bfme-1\\inputs\\reference\\CnC_Generals_Zero_Hour\\GeneralsMD\\Code\\Libraries\\Source\\WWVegas\\WWMath\\curve.h"
+        ]
+      },
+      {
+        "currency": {
+          "command_fingerprint": "bab1171ab906489ba9c65a98777389ba",
+          "dependencies_current": true,
+          "dependency_count": 54,
+          "dependency_mismatches": [],
+          "object": "build/match/^code_^libraries_^source_^w^w^vegas_^w^w^math_vehiclecurve.obj",
+          "object_current": true,
+          "object_sha256": "159a989a89a1407e3c3ac97678baac9172e4f4820569d4bd73d27eda9af80122",
+          "receipt_sha256": "19cccc3c7ac939e23c024d272f0110d96dade848a1e8b36ad60d9843d1830689",
+          "source": "Code/Libraries/Source/WWVegas/WWMath/vehiclecurve.cpp",
+          "source_current": true,
+          "source_sha256": "3793b6279b6db4d61b28c581614b4e453c5f2918259c050f38e225708bb59a05"
+        },
+        "curve_family_runtime_refs": {},
+        "curve_family_symbols": [],
+        "effective_curve_headers": [
+          "reference\\open-bfme-1\\game\\libraries\\source\\wwvegas\\wwmath\\curve.h"
+        ]
+      },
+      {
+        "currency": {
+          "command_fingerprint": "d458559ca5536b556da0be14806882db",
+          "dependencies_current": true,
+          "dependency_count": 28,
+          "dependency_mismatches": [],
+          "object": "build/match/^code_^libraries_^source_^w^w^vegas_^w^w^math_lookuptable.obj",
+          "object_current": true,
+          "object_sha256": "df1aa8e7d86190977429f9bbd3f653282fda0d2449845b275f38dc04709bdf6e",
+          "receipt_sha256": "4f9e0fccb04962656751e0a69e2197ae59b6033b491c17175074b6b5af7a72fc",
+          "source": "Code/Libraries/Source/WWVegas/WWMath/lookuptable.cpp",
+          "source_current": true,
+          "source_sha256": "0018c6352f6a6fb94077a5c337b547f6754a588afc549635a59f2755848caefa"
+        },
+        "curve_family_runtime_refs": {},
+        "curve_family_symbols": [],
+        "effective_curve_headers": []
+      }
+    ],
+    "native_destructor": "??1?$DynamicVectorClass@VKeyClass@Curve3DClass@@@@UAE@XZ",
+    "native_thunk_currency": {
+      "command_fingerprint": "dfa1bbdd6a799fa179c4f3ca59c059a5",
+      "dependencies_current": true,
+      "dependency_count": 7,
+      "dependency_mismatches": [],
+      "object": "build/match/^code_^game^engine_^source_^common_^rva007^b6880^thunks.obj",
+      "object_current": true,
+      "object_sha256": "651ed7caa25bb8c021f00a8792d317739c0cd7c20951632ff8526c8ad80bc6d5",
+      "receipt_sha256": "3570c541c14331ccc1c887f0252eadd57ebaad6483ace9d6c4e774d1c520d126",
+      "source": "Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp",
+      "source_current": true,
+      "source_sha256": "0c1db71990165043ccaf40d0712fa191a1aa0b016e1a1320b999820cae0ba11e"
+    },
+    "native_thunk_rows": [
+      {
+        "export_rva": "",
+        "name": "?rva007B6E54@@YAXXZ",
+        "notes": "gap thunk tail-jmp to rowed DynamicVectorClass dtor via g_00DEBE0C",
+        "source": "Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp",
+        "status": "matched",
+        "target_rva": "0x007B6E54",
+        "target_size": "10"
+      },
+      {
+        "export_rva": "",
+        "name": "?rva007B6E5E@@YAXXZ",
+        "notes": "Global DynamicVectorClass dtor thunk at 0x007B6E5E",
+        "source": "Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp",
+        "status": "matched",
+        "target_rva": "0x007B6E5E",
+        "target_size": "10"
+      },
+      {
+        "export_rva": "",
+        "name": "?rva007B7190@@YAXXZ",
+        "notes": "Global DynamicVectorClass dtor thunk at 0x007B7190",
+        "source": "Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp",
+        "status": "matched",
+        "target_rva": "0x007B7190",
+        "target_size": "10"
+      },
+      {
+        "export_rva": "",
+        "name": "?rva007B71A0@@YAXXZ",
+        "notes": "Global DynamicVectorClass dtor thunk at 0x007B71A0",
+        "source": "Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp",
+        "status": "matched",
+        "target_rva": "0x007B71A0",
+        "target_size": "10"
+      },
+      {
+        "export_rva": "",
+        "name": "?rva007B7253@@YAXXZ",
+        "notes": "gap thunk ecx g_Va00DF6F98 tail-jmp pinned DynamicVectorClass Curve3DClass KeyClass dtor 0x000F1D19",
+        "source": "Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp",
+        "status": "matched",
+        "target_rva": "0x007B7253",
+        "target_size": "10"
+      },
+      {
+        "export_rva": "",
+        "name": "?rva007B725D@@YAXXZ",
+        "notes": "gap thunk ecx g_Va00DF6FB0 tail-jmp pinned DynamicVectorClass Curve3DClass KeyClass dtor 0x000F1D19",
+        "source": "Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp",
+        "status": "matched",
+        "target_rva": "0x007B725D",
+        "target_size": "10"
+      }
+    ],
+    "native_thunk_source": "Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp",
+    "old_curve_family_definition_count": 125,
+    "old_curve_family_definitions": [
+      "??0?$DynamicVectorClass@VKeyClass@Curve1DClass@@@@QAE@IPBVKeyClass@Curve1DClass@@@Z",
+      "??0?$DynamicVectorClass@VKeyClass@Curve3DClass@@@@QAE@IPBVKeyClass@Curve3DClass@@@Z",
+      "??0?$SimplePersistFactoryClass@VLinearCurve1DClass@@$0IAAAA@@@QAE@XZ",
+      "??0?$SimplePersistFactoryClass@VLinearCurve3DClass@@$0IABAA@@@QAE@XZ",
+      "??0?$VectorClass@VKeyClass@Curve1DClass@@@@QAE@HPBVKeyClass@Curve1DClass@@@Z",
+      "??0?$VectorClass@VKeyClass@Curve3DClass@@@@QAE@HPBVKeyClass@Curve3DClass@@@Z",
+      "??0Curve1DClass@@QAE@ABV0@@Z",
+      "??0Curve1DClass@@QAE@XZ",
+      "??0Curve3DClass@@QAE@ABV0@@Z",
+      "??0Curve3DClass@@QAE@XZ",
+      "??0KeyClass@Curve3DClass@@QAE@XZ",
+      "??1?$DynamicVectorClass@VKeyClass@Curve1DClass@@@@UAE@XZ",
+      "??1?$DynamicVectorClass@VKeyClass@Curve3DClass@@@@UAE@XZ",
+      "??1?$SimplePersistFactoryClass@VLinearCurve1DClass@@$0IAAAA@@@UAE@XZ",
+      "??1?$SimplePersistFactoryClass@VLinearCurve3DClass@@$0IABAA@@@UAE@XZ",
+      "??1?$VectorClass@VKeyClass@Curve1DClass@@@@UAE@XZ",
+      "??1?$VectorClass@VKeyClass@Curve3DClass@@@@UAE@XZ",
+      "??1Curve1DClass@@UAE@XZ",
+      "??1Curve3DClass@@UAE@XZ",
+      "??1LinearCurve1DClass@@UAE@XZ",
+      "??1LinearCurve3DClass@@UAE@XZ",
+      "??4?$DynamicVectorClass@VKeyClass@Curve1DClass@@@@QAEAAV0@ABV0@@Z",
+      "??4?$DynamicVectorClass@VKeyClass@Curve3DClass@@@@QAEAAV0@ABV0@@Z",
+      "??4?$VectorClass@VKeyClass@Curve1DClass@@@@QAEAAV0@ABV0@@Z",
+      "??4?$VectorClass@VKeyClass@Curve3DClass@@@@QAEAAV0@ABV0@@Z",
+      "??4Curve1DClass@@QAEAAV0@ABV0@@Z",
+      "??4Curve3DClass@@QAEAAV0@ABV0@@Z",
+      "??4KeyClass@Curve3DClass@@QAEAAV01@ABV01@@Z",
+      "??8?$VectorClass@VKeyClass@Curve1DClass@@@@UBE_NABV0@@Z",
+      "??8?$VectorClass@VKeyClass@Curve3DClass@@@@UBE_NABV0@@Z",
+      "??8KeyClass@Curve3DClass@@QAE_NABV01@@Z",
+      "??A?$VectorClass@VKeyClass@Curve1DClass@@@@QAEAAVKeyClass@Curve1DClass@@H@Z",
+      "??A?$VectorClass@VKeyClass@Curve1DClass@@@@QBEABVKeyClass@Curve1DClass@@H@Z",
+      "??A?$VectorClass@VKeyClass@Curve3DClass@@@@QAEAAVKeyClass@Curve3DClass@@H@Z",
+      "??A?$VectorClass@VKeyClass@Curve3DClass@@@@QBEABVKeyClass@Curve3DClass@@H@Z",
+      "??_7?$DynamicVectorClass@VKeyClass@Curve1DClass@@@@6B@",
+      "??_7?$DynamicVectorClass@VKeyClass@Curve3DClass@@@@6B@",
+      "??_7?$SimplePersistFactoryClass@VLinearCurve1DClass@@$0IAAAA@@@6B@",
+      "??_7?$SimplePersistFactoryClass@VLinearCurve3DClass@@$0IABAA@@@6B@",
+      "??_7?$VectorClass@VKeyClass@Curve1DClass@@@@6B@",
+      "??_7?$VectorClass@VKeyClass@Curve3DClass@@@@6B@",
+      "??_7Curve1DClass@@6B@",
+      "??_7Curve3DClass@@6B@",
+      "??_7LinearCurve1DClass@@6B@",
+      "??_7LinearCurve3DClass@@6B@",
+      "??_G?$DynamicVectorClass@VKeyClass@Curve1DClass@@@@UAEPAXI@Z",
+      "??_G?$DynamicVectorClass@VKeyClass@Curve3DClass@@@@UAEPAXI@Z",
+      "??_G?$SimplePersistFactoryClass@VLinearCurve1DClass@@$0IAAAA@@@UAEPAXI@Z",
+      "??_G?$SimplePersistFactoryClass@VLinearCurve3DClass@@$0IABAA@@@UAEPAXI@Z",
+      "??_G?$VectorClass@VKeyClass@Curve1DClass@@@@UAEPAXI@Z",
+      "??_G?$VectorClass@VKeyClass@Curve3DClass@@@@UAEPAXI@Z",
+      "??_GCurve1DClass@@UAEPAXI@Z",
+      "??_GCurve3DClass@@UAEPAXI@Z",
+      "??_GLinearCurve1DClass@@UAEPAXI@Z",
+      "??_GLinearCurve3DClass@@UAEPAXI@Z",
+      "?Add@?$DynamicVectorClass@VKeyClass@Curve1DClass@@@@QAE_NABVKeyClass@Curve1DClass@@@Z",
+      "?Add@?$DynamicVectorClass@VKeyClass@Curve3DClass@@@@QAE_NABVKeyClass@Curve3DClass@@@Z",
+      "?Add_Key@Curve1DClass@@UAEHMMI@Z",
+      "?Add_Key@Curve3DClass@@UAEHABVVector3@@M@Z",
+      "?Chunk_ID@?$SimplePersistFactoryClass@VLinearCurve1DClass@@$0IAAAA@@@UBEKXZ",
+      "?Chunk_ID@?$SimplePersistFactoryClass@VLinearCurve3DClass@@$0IABAA@@@UBEKXZ",
+      "?Clear@?$DynamicVectorClass@VKeyClass@Curve1DClass@@@@UAEXXZ",
+      "?Clear@?$DynamicVectorClass@VKeyClass@Curve3DClass@@@@UAEXXZ",
+      "?Clear@?$VectorClass@VKeyClass@Curve1DClass@@@@UAEXXZ",
+      "?Clear@?$VectorClass@VKeyClass@Curve3DClass@@@@UAEXXZ",
+      "?Clear_Keys@Curve1DClass@@UAEXXZ",
+      "?Clear_Keys@Curve3DClass@@UAEXXZ",
+      "?Count@?$DynamicVectorClass@VKeyClass@Curve1DClass@@@@QBEHXZ",
+      "?Count@?$DynamicVectorClass@VKeyClass@Curve3DClass@@@@QBEHXZ",
+      "?Delete@?$DynamicVectorClass@VKeyClass@Curve1DClass@@@@QAE_NH@Z",
+      "?Delete@?$DynamicVectorClass@VKeyClass@Curve3DClass@@@@QAE_NH@Z",
+      "?Delete_All@?$DynamicVectorClass@VKeyClass@Curve1DClass@@@@QAEXXZ",
+      "?Delete_All@?$DynamicVectorClass@VKeyClass@Curve3DClass@@@@QAEXXZ",
+      "?Evaluate@LinearCurve1DClass@@UAEXMPAM@Z",
+      "?Evaluate@LinearCurve3DClass@@UAEXMPAVVector3@@@Z",
+      "?Find_Interval@Curve1DClass@@IAEXMPAH0PAM@Z",
+      "?Find_Interval@Curve3DClass@@IAEXMPAH0PAM@Z",
+      "?Get_End_Time@Curve1DClass@@QAEMXZ",
+      "?Get_End_Time@Curve3DClass@@QAEMXZ",
+      "?Get_Factory@LinearCurve1DClass@@UBEABVPersistFactoryClass@@XZ",
+      "?Get_Factory@LinearCurve3DClass@@UBEABVPersistFactoryClass@@XZ",
+      "?Get_Key@Curve1DClass@@UAEXHPAM0PAI@Z",
+      "?Get_Key@Curve3DClass@@UAEXHPAVVector3@@PAM@Z",
+      "?Get_Start_Time@Curve1DClass@@QAEMXZ",
+      "?Get_Start_Time@Curve3DClass@@QAEMXZ",
+      "?ID@?$DynamicVectorClass@VKeyClass@Curve1DClass@@@@UAEHABVKeyClass@Curve1DClass@@@Z",
+      "?ID@?$DynamicVectorClass@VKeyClass@Curve1DClass@@@@UAEHPBVKeyClass@Curve1DClass@@@Z",
+      "?ID@?$DynamicVectorClass@VKeyClass@Curve3DClass@@@@UAEHABVKeyClass@Curve3DClass@@@Z",
+      "?ID@?$DynamicVectorClass@VKeyClass@Curve3DClass@@@@UAEHPBVKeyClass@Curve3DClass@@@Z",
+      "?ID@?$VectorClass@VKeyClass@Curve1DClass@@@@UAEHABVKeyClass@Curve1DClass@@@Z",
+      "?ID@?$VectorClass@VKeyClass@Curve1DClass@@@@UAEHPBVKeyClass@Curve1DClass@@@Z",
+      "?ID@?$VectorClass@VKeyClass@Curve3DClass@@@@UAEHABVKeyClass@Curve3DClass@@@Z",
+      "?ID@?$VectorClass@VKeyClass@Curve3DClass@@@@UAEHPBVKeyClass@Curve3DClass@@@Z",
+      "?Insert@?$DynamicVectorClass@VKeyClass@Curve1DClass@@@@QAE_NHABVKeyClass@Curve1DClass@@@Z",
+      "?Insert@?$DynamicVectorClass@VKeyClass@Curve3DClass@@@@QAE_NHABVKeyClass@Curve3DClass@@@Z",
+      "?Is_Looping@Curve1DClass@@UAE_NXZ",
+      "?Is_Looping@Curve3DClass@@UAE_NXZ",
+      "?Key_Count@Curve1DClass@@UAEHXZ",
+      "?Key_Count@Curve3DClass@@UAEHXZ",
+      "?Length@?$VectorClass@VKeyClass@Curve1DClass@@@@QBEHXZ",
+      "?Length@?$VectorClass@VKeyClass@Curve3DClass@@@@QBEHXZ",
+      "?Load@?$SimplePersistFactoryClass@VLinearCurve1DClass@@$0IAAAA@@@UBEPAVPersistClass@@AAVChunkLoadClass@@@Z",
+      "?Load@?$SimplePersistFactoryClass@VLinearCurve3DClass@@$0IABAA@@@UBEPAVPersistClass@@AAVChunkLoadClass@@@Z",
+      "?Load@Curve1DClass@@UAE_NAAVChunkLoadClass@@@Z",
+      "?Load@Curve3DClass@@UAE_NAAVChunkLoadClass@@@Z",
+      "?Load@LinearCurve1DClass@@UAE_NAAVChunkLoadClass@@@Z",
+      "?Load@LinearCurve3DClass@@UAE_NAAVChunkLoadClass@@@Z",
+      "?Remove_Key@Curve1DClass@@UAEXH@Z",
+      "?Remove_Key@Curve3DClass@@UAEXH@Z",
+      "?Resize@?$DynamicVectorClass@VKeyClass@Curve1DClass@@@@UAE_NHPBVKeyClass@Curve1DClass@@@Z",
+      "?Resize@?$DynamicVectorClass@VKeyClass@Curve3DClass@@@@UAE_NHPBVKeyClass@Curve3DClass@@@Z",
+      "?Resize@?$VectorClass@VKeyClass@Curve1DClass@@@@UAE_NHPBVKeyClass@Curve1DClass@@@Z",
+      "?Resize@?$VectorClass@VKeyClass@Curve3DClass@@@@UAE_NHPBVKeyClass@Curve3DClass@@@Z",
+      "?Save@?$SimplePersistFactoryClass@VLinearCurve1DClass@@$0IAAAA@@@UBEXAAVChunkSaveClass@@PAVPersistClass@@@Z",
+      "?Save@?$SimplePersistFactoryClass@VLinearCurve3DClass@@$0IABAA@@@UBEXAAVChunkSaveClass@@PAVPersistClass@@@Z",
+      "?Save@Curve1DClass@@UAE_NAAVChunkSaveClass@@@Z",
+      "?Save@Curve3DClass@@UAE_NAAVChunkSaveClass@@@Z",
+      "?Save@LinearCurve1DClass@@UAE_NAAVChunkSaveClass@@@Z",
+      "?Save@LinearCurve3DClass@@UAE_NAAVChunkSaveClass@@@Z",
+      "?Set_Key@Curve1DClass@@UAEXHMI@Z",
+      "?Set_Key@Curve3DClass@@UAEXHABVVector3@@@Z",
+      "?Set_Looping@Curve1DClass@@UAEX_N@Z",
+      "?Set_Looping@Curve3DClass@@UAEX_N@Z",
+      "?_LinearCurve1DFactory@@3V?$SimplePersistFactoryClass@VLinearCurve1DClass@@$0IAAAA@@@A",
+      "?_LinearCurve3DFactory@@3V?$SimplePersistFactoryClass@VLinearCurve3DClass@@$0IABAA@@@A"
+    ],
+    "outside_index_touches": {
+      "^code_^game^engine_^source_^common_^rva007^b6880^thunks.obj": [
+        "??1?$DynamicVectorClass@VKeyClass@Curve3DClass@@@@UAE@XZ"
+      ]
+    },
+    "raw_native_incoming": [
+      {
+        "debug": false,
+        "executable": true,
+        "offset": 6,
+        "owner": "?rva007B6E54@@YAXXZ",
+        "relocation_type": 20,
+        "section": ".text"
+      },
+      {
+        "debug": false,
+        "executable": true,
+        "offset": 6,
+        "owner": "?rva007B6E5E@@YAXXZ",
+        "relocation_type": 20,
+        "section": ".text"
+      },
+      {
+        "debug": false,
+        "executable": true,
+        "offset": 6,
+        "owner": "?rva007B7190@@YAXXZ",
+        "relocation_type": 20,
+        "section": ".text"
+      },
+      {
+        "debug": false,
+        "executable": true,
+        "offset": 6,
+        "owner": "?rva007B71A0@@YAXXZ",
+        "relocation_type": 20,
+        "section": ".text"
+      },
+      {
+        "debug": false,
+        "executable": true,
+        "offset": 6,
+        "owner": "?rva007B7253@@YAXXZ",
+        "relocation_type": 20,
+        "section": ".text"
+      },
+      {
+        "debug": false,
+        "executable": true,
+        "offset": 6,
+        "owner": "?rva007B725D@@YAXXZ",
+        "relocation_type": 20,
+        "section": ".text"
+      }
+    ],
+    "retained_curve_rows": [
+      {
+        "export_rva": "",
+        "name": "??1?$DynamicVectorClass@VKeyClass@Curve3DClass@@@@UAE@XZ",
+        "notes": "vtable 0x7CEFDC slot0 0xF28A7 plus base 0x7CEFAC plus Clear twin 0xF0CD4",
+        "source": "Code/Libraries/Source/WWVegas/WWMath/curve.cpp",
+        "status": "matched",
+        "target_rva": "0x000F1D19",
+        "target_size": "11"
+      },
+      {
+        "export_rva": "",
+        "name": "??_G?$DynamicVectorClass@VKeyClass@Curve3DClass@@@@UAEPAXI@Z",
+        "notes": "slot0 of 0x7CEFDC calls rowed 0xF1D19 plus delete 0x2FD60",
+        "source": "Code/Libraries/Source/WWVegas/WWMath/curve.cpp",
+        "status": "matched",
+        "target_rva": "0x000F28A7",
+        "target_size": "28"
+      },
+      {
+        "export_rva": "",
+        "name": "?Clear@?$DynamicVectorClass@VKeyClass@Curve3DClass@@@@UAEXXZ",
+        "notes": "vftable slot 3 of ??_7DynamicVectorClass<Curve3DClass::KeyClass>; zero ActiveCount then tail-jump to the base Clear",
+        "source": "Code/Libraries/Source/WWVegas/WWMath/curve.cpp",
+        "status": "matched",
+        "target_rva": "0x000F1C0D",
+        "target_size": "9"
+      }
+    ]
+  },
+  "generated_utc": "2026-10-31T22:55:09.203982+00:00",
+  "index": {
+    "metadata": {
+      "census_commit": "5d5cf41adf",
+      "census_date": "2026-10-31 21:33",
+      "clean_tree": true,
+      "commit": "4a490aa2e4",
+      "date": "2026-10-31 22:25"
+    },
+    "path": "build/link_census/link_index.pkl",
+    "sha256": "e35d1e1e52b56d0e1d82acbe3e663212005d48cde30f1f91d73664814ed47016"
+  },
+  "limits": [
+    "Preview only; not a new census or retail-dead-strip proof.",
+    "No claim that port class names/factory layouts existed in retail.",
+    "Two changed shared deleting destructors are codegen-equivalent-looking, not byte-identical/native-exact claims. Their old and new symbolic relocation sets agree.",
+    "Cached universe is the published index plus the explicitly checked current sources, not every possible future/unbuilt source."
+  ],
+  "method": "Normal link_check.refresh/check_object and link_census.keep_rule in two deep-copied indexes; same current peer objects; old curve object copied to scratch with census basename. No compile/cache/index write. RetailTruth rows narrowly filtered by actual object symbols then complete shared physical addresses.",
+  "proven_previously_linking_losses": [],
+  "stable_inputs": {
+    "current_curve_object": true,
+    "index": true,
+    "sources_and_objects": true
+  },
+  "targeted_previously_linking_consumers": [],
+  "truth_row_count": 762
+}
