@@ -19438,3 +19438,6 @@ Code/GameEngine/Source/GameNetwork/FeslMessage_send_rva007F93E0.cpp|class||Rva00
 Code/GameEngine/Source/GameLogic/AI/Rva002EC3CEProbe.cpp|local|Rva002EC3CE::rva002EC3CE|p2c,e707b07ad26854ba5b5a7849,drz-k2,n27b-k2,w-ded32b2e2c5e,2026-10-31
 Code/GameEngine/Source/Common/VslotSmallBodiesP.cpp|function|0x00709BF0|rva00709BF0,f30bc56d2e2f950dca01ed5c,drz-k2,n27b-k2,w-ded32b2e2c5e,2026-10-31
 Code/GameEngine/Source/Common/VslotSmallBodiesI.cpp|member|Rva0057A83C|m_08,fc14f0fde1b981b1ddf22f37,drz-k2,n27b-k2,w-ded32b2e2c5e,2026-10-31
+Code/GameEngine/Source/Common/Rva005B01D3Lerp.cpp|function|0x005B01D3|rva005B01D3,7183d8852e488bae1e32359f,drz-k4,n27c-k4,w-855a0f400af4,2026-10-31
+Code/GameEngine/Source/Common/GapBodiesGE47.cpp|function|0x0016EB50|rva0016EB50,6bd6af64ea4c5b34bee2cc64,drz-k4,n27c-k4,w-855a0f400af4,2026-10-31
+Code/GameEngine/Source/Common/GapBodiesGE47.cpp|function|0x0015F9E0|rva0015F9E0,4455e57047b7cdfb2a1fcba6,drz-k4,n27c-k4,w-855a0f400af4,2026-10-31
