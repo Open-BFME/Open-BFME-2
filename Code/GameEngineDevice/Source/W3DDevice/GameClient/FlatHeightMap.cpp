@@ -407,14 +407,15 @@ void Rva0004CB5FSet(int);
 class WorldHeightMap
 {
 public:
-	__declspec(dllimport) Int getXExtent(void) { return m_width; }
-	__declspec(dllimport) Int getYExtent(void) { return m_height; }
-	__declspec(dllimport) Int getBorderSizeInline(void) const { return m_borderSize; }
+	__declspec(dllimport) int getXExtent(void) { return m_width; }
+	__declspec(dllimport) int getYExtent(void) { return m_height; }
+	__declspec(dllimport) int getBorderSizeInline(void) const { return m_borderSize; }
+	virtual void Delete_This();
+	int m_refs; // +0x04
 private:
-	char m_pad00[8];
-	Int m_width;	// +0x08
-	Int m_height;	// +0x0C
-	Int m_borderSize;	// +0x10
+	int m_width; // +0x08 +0x08
+	int m_height; // +0x0C +0x0C
+	int m_borderSize; // +0x10 +0x10
 };
 
 class BFME2ScopedRenderEvent
@@ -537,11 +538,14 @@ private:
 
 class WorldHeightMap;
 
-class W3DTerrainBackground {
+class W3DTerrainBackground
+{
 public:
 	void rva0011580A(RenderInfoClass&,bool,FXShader::RenderingMethod*);
-public:
 	void doPartialUpdate(const IRegion2D &partialRange, WorldHeightMap *htMap, bool doTextures, bool flag);
+	bool updateTexture(void);
+	void rva00115DD2();
+	char m_pad00[0xD4];
 };
 
 struct Rva000E10C0View

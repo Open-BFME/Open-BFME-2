@@ -18,13 +18,18 @@ typedef bool Bool;
 
 extern unsigned char g_00DFE7A8;
 
+class RenderInfoClass;
+namespace FXShader { class RenderingMethod; }
+struct IRegion2D;
+class WorldHeightMap;
 class W3DTerrainBackground
 {
 public:
-	Bool updateTexture(void);
+	void rva0011580A(RenderInfoClass&,bool,FXShader::RenderingMethod*);
+	void doPartialUpdate(const IRegion2D &partialRange, WorldHeightMap *htMap, bool doTextures, bool flag);
+	bool updateTexture(void);
 	void rva00115DD2();
-private:
-	unsigned char m_pad[0xD4];
+	char m_pad00[0xD4];
 };
 
 // 0x000B3FD0 is the one-byte empty body the toolchain folds many empties into.
