@@ -19,6 +19,7 @@ struct Rva00485C19Data;
 struct StatusBitsEldestFrame
 {
 public:
+	StatusBitsEldestFrame() { m_cachedFrame = (int)TheGameLogic->getFrame(); }
 	StatusBitsEldestFrame *cacheGameLogicFrame(void);
 	bool rva00485C19(Object *obj, const Rva00485C19Data *data, const NameKeyType *key);
 private:
