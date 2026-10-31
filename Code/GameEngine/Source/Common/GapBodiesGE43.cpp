@@ -265,10 +265,3 @@ private:
 	int m_10;
 	int m_14;
 };
-
-void Rva0015DFB0::rva0015DFB0(const GapWords3 &value)
-{
-	m_0C = value.a;
-	m_10 = value.b;
-	m_14 = value.c;
-}
