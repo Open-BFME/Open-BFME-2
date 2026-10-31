@@ -61,6 +61,19 @@ struct XferUnknown11;
 	{ \
 		return m_value + IMM; \
 	}
+#define BFME_DISP8_LEA_NEG_SBB_GETTER(NAME, LEADISP, ADDIMM) \
+	class NAME \
+	{ \
+	public: \
+		int get() const; \
+	}; \
+	int NAME::get() const \
+	{ \
+		const char *field = (const char *)this; \
+		const void *base = field - LEADISP; \
+		field += ADDIMM; \
+		return base ? (int)field : 0; \
+	}
 
 class Thing
 {
@@ -195,9 +208,21 @@ public:
 
 BFME_DISP8_ADD_IMM32_BEFORE_DWORD_GETTER(Rva00483D9BAddImm32Field, 0x4C, 0x190)
 
+// 0x004543A9 is also reached through the this-0x14 thunk 0x004543E3 in four
+// vtables, so it is virtual (same body).
+class Rva004543A9LeaNegSbbField
+{
+public:
+	virtual int get() const;
+};
+
+BFME_DISP8_LEA_NEG_SBB_GETTER(Rva00483C75LeaNegSbbField, 12, 0x44)
+
 // tu-skeleton: 0x00483C35 46B ??1ClearanceTestingSlowDeathBehavior@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0045D39EDerived.cpp (not merged yet)
 
 // tu-skeleton: 0x00483C63 6B ?name@ClearanceTestingSlowDeathBehavior@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters2.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/ClearanceTestingSlowDeathBehavior.cpp
 
 // ---- from Code/GameEngine/Source/Common/ClearanceTestingSlowDeathBehavior.cpp
 
@@ -286,16 +311,6 @@ void ClearanceTestingSlowDeathBehavior::xfer(Xfer *xfer)
 	SlowDeathBehavior::xfer(xfer);
 }
 
-// tu-skeleton: 0x00483C75 13B ?get@Rva00483C75LeaNegSbbField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8LeaNegSbbGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00483C82 29B ??0Rva00483C9FFilter@@QAE@H_N@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PartitionFilterCtorCopies.cpp (not merged yet)
-
-// tu-skeleton: 0x00483CEF 5B ?rva00483CEF@Rva00483CEF@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp (not merged yet)
-
-// tu-skeleton: 0x00483D39 70B ??0ClearanceTestingSlowDeathBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/ClearanceTestingSlowDeathBehaviorCtorThunk.cpp (not merged yet)
-
-// tu-skeleton: 0x00483D7F 28B ??_GClearanceTestingSlowDeathBehavior@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0045D39EDerived.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Disp8AddImm32DwordFieldGetters.cpp
 
 // Disp8 add-imm32 dword getters: nine-byte __thiscall members with one shape:
@@ -313,6 +328,28 @@ void ClearanceTestingSlowDeathBehavior::xfer(Xfer *xfer)
 // Backward variant: the field sits at a NEGATIVE displacement from `this`.
 // Spelled as an explicit backward read, which MSVC folds to
 // `mov eax,[ecx-BACK]`.
+
+// ---- from Code/GameEngine/Source/Common/Disp8LeaNegSbbGetters.cpp
+
+// Disp8 lea-neg-sbb getters: thirteen-byte __thiscall members with one shape:
+//
+//     lea eax,[ecx-<LEADISP>] / add ecx,<ADDIMM> / neg eax / sbb eax,eax / and eax,ecx / ret
+//
+// A pointer derived from `this` is null-tested branchlessly: neg sets carry
+// exactly when the derived base is nonzero and sbb spreads it to a full mask
+// that selects the adjusted `this` or null. Deriving the base from a live
+// field-local keeps `this` in ecx so the adjustment compiles to an in-place
+// add instead of a lea into a scratch register. Identity is not recovered:
+// every name is derived from its address.
+// No // cl: line (defaults match the shape).
+
+// tu-skeleton: 0x00483C82 29B ??0Rva00483C9FFilter@@QAE@H_N@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PartitionFilterCtorCopies.cpp (not merged yet)
+
+// tu-skeleton: 0x00483CEF 5B ?rva00483CEF@Rva00483CEF@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp (not merged yet)
+
+// tu-skeleton: 0x00483D39 70B ??0ClearanceTestingSlowDeathBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/ClearanceTestingSlowDeathBehaviorCtorThunk.cpp (not merged yet)
+
+// tu-skeleton: 0x00483D7F 28B ??_GClearanceTestingSlowDeathBehavior@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0045D39EDerived.cpp (not merged yet)
 
 // tu-skeleton: 0x00483E25 160B ??0ClearanceTestingSlowDeathBehaviorModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/ClearanceTestingSlowDeathBehaviorModuleDataCtor.cpp (not merged yet)
 
