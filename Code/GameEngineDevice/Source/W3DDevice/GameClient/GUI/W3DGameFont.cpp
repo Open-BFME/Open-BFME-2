@@ -39,11 +39,10 @@ public:
 	int a[1]; // +0x00
 };
 
-template <> class SimpleDynVecClass<BfmePod4>
+class BfmePod4VectorAccess : public SimpleDynVecClass<BfmePod4>
 {
-protected:
-	bool Grow(int new_size_hint);
-	friend bool SimpleDynVecClass<unsigned>::Add(const unsigned &object, int new_size_hint);
+public:
+	using SimpleDynVecClass<BfmePod4>::Grow;
 };
 
 SimpleDynVecClass<FontCharsClass*> BfmeFontCharsCache;
@@ -182,7 +181,7 @@ template <>
 bool SimpleDynVecClass<unsigned>::Add(const unsigned &object, int new_size_hint)
 {
 	if (ActiveCount >= VectorMax) {
-		if (!((SimpleDynVecClass<BfmePod4> *)(void *)this)->Grow(new_size_hint))
+		if (!((BfmePod4VectorAccess *)(void *)this)->Grow(new_size_hint))
 			return false;
 	}
 	int n = ActiveCount;

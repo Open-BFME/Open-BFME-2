@@ -7,7 +7,11 @@
 // that size compiles the same). No retail caller is claimed.
 #include "always.h"
 #include "simplevec.h"
-struct BfmePod4 { int a[1]; };
+struct BfmePod4
+{
+public:
+	int a[1]; // +0x00
+};
 inline bool operator==(const BfmePod4 &x, const BfmePod4 &y) { return x.a[0] == y.a[0]; }
 inline bool operator!=(const BfmePod4 &x, const BfmePod4 &y) { return x.a[0] != y.a[0]; }
 template class SimpleVecClass<BfmePod4>;
