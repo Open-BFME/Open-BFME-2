@@ -332,12 +332,6 @@ public:
 	virtual bool getNaturalRallyPoint(Rva00479CD9Pos *out, int unused);
 };
 
-bool Rva00479CD9::getNaturalRallyPoint(Rva00479CD9Pos *out, int)
-{
-	*out = *(const Rva00479CD9Pos *)s88();
-	return true;
-}
-
 // --- 0x00481837 (11B): from a +0x20 interface, the object's slot 13; the
 // argument is unused.
 class Rva00481837Base0
