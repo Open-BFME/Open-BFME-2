@@ -9,19 +9,21 @@
 // elem+8 into out, else constructs Rva0028F59A(0,0xb8) into out; returns out.
 // Evidence: callees compareNoCase 0x00006A00 Rva0028F59A ctor 0x0028F59A
 // WeaponTemplateSetHead copy 0x00045455, caller 0x00496E2B.
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
 #include "ascii_string.h"
 #include <new>
 
 struct Rva0028F59A
 {
 	unsigned m_bits[19];
-	Rva0028F59A(int unused, int bit);
+	Rva0028F59A(int unused, int bit) throw();
 };
 
 class WeaponTemplateSetHead
 {
 public:
-	WeaponTemplateSetHead(const WeaponTemplateSetHead &that);
+	WeaponTemplateSetHead(const WeaponTemplateSetHead &that) throw();
 	char m_data[0x4C];
 };
 
@@ -35,14 +37,12 @@ class Rva00496D43
 {
 public:
 	void *rva00496D43(void *out, const AsciiString &key);
-private:
 	char m_pad00[0x18];
-	Rva00496D43Elem **m_begin18;
-	Rva00496D43Elem **m_end1C;
+private:
+	Rva00496D43Elem **m_begin18; // +0x18
+	Rva00496D43Elem **m_end1C; // +0x1C
 };
 
-extern "C" void _ReadWriteBarrier(void);
-#pragma intrinsic(_ReadWriteBarrier)
 void *Rva00496D43::rva00496D43(void *out, const AsciiString &key)
 {
 	for (unsigned i = 0; i < (unsigned)(m_end1C - m_begin18); ++i) {

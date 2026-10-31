@@ -1,4 +1,5 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /ICode/Libraries/Include /Ireference/shims/iniexception /Ireference/shims/bfmealloc /Ireference/shims/moduledata
+// stlport
 //
 // BannerCarrierUpdate's replenish scan (0x004973CF; REL32 from 0x00497524).
 // Field names are the module data's INI table (UnitSpawnFX +0x34,
@@ -10,8 +11,30 @@
 // contain (Object::rva0028C197) has room (slot 98 below slot 95) spawns one
 // through slot 99 (partition refresh and UnitSpawnFX), stopping after the
 // first unless ReplenishAllNearbyHordes; a full one above 1 gets slot 93(1).
+#include "ascii_string.h"
+#include "Lib/Coord3D.h"
+#include "Common/Snapshot.h"
+#include <vector>
+
 class Object;
+
 class Player;
+
+class Module;
+
+class UpgradeTemplate;
+
+class Gen_0028EF10;
+
+class BannerContain;
+
+class AIUpdateInterface;
+
+struct ObjectInner04;
+
+struct BfmeMorphCondition;
+
+struct BfmeExpLevelDraw;
 
 class Rva000421C8
 {
@@ -67,7 +90,6 @@ template <int N> class BitFlags;
 extern BitFlags<116> KINDOFMASK_NONE;
 
 
-#include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
 struct BfmeWideResult
 {
@@ -84,15 +106,21 @@ public:
 };
 extern PartitionManager *ThePartitionManager;
 
-enum ObjectStatusTypes
+enum UpdateSleepTime { UPDATE_SLEEP_NONE=1 };
+
+enum KindOfType { KINDOF_DUMMY=0 };
+
+enum ObjectStatusTypes { STATUS_DUMMY=0 };
+
+enum NameKeyType
 {
-	OBJECT_STATUS_RVA004973CF_2 = 2
+	NK_UNKNOWN = 0
 };
 
 class FXList
 {
 public:
-	static void doFXObj(const FXList *fx, const Object *primary, const Object *secondary);	// 0x000B2235
+	static void doFXObj(const FXList *,const Object *,const Object *); // 0x000B2235
 };
 
 template <int N> class Rva004973CFSlots : public Rva004973CFSlots<N - 1>
@@ -117,62 +145,87 @@ public:
 	virtual Object *rva004973CFSlot99(void *what) = 0;
 };
 
-class Object
-{
-public:
-	Player *getControllingPlayer() const;	// 0x0028AFA9
-	bool testStatus(ObjectStatusTypes bit) const;	// 0x0004E536
-	void *rva0028C197() const;	// 0x0028C197
-	void updateShroudNow();	// 0x0028C11A
-	const Coord3D *getPosition() const { return &m_pos; }
-	char m_pad000[0x08];
-	char m_08[4];		// +0x08
-	char m_pad00C[0x38 - 0x0C];
-	Coord3D m_pos;		// +0x38
+class Object { public:
+ bool isKindOf(KindOfType) const;
+ bool testStatus(ObjectStatusTypes) const; // 0x0004E536
+ bool hasUpgrade(const UpgradeTemplate *) const;
+ Object *rva002931F5(bool);
+ int rva0028AF76() const;
+ Player *getControllingPlayer() const; // 0x0028AFA9
+ void *rva0028C197() const; // 0x0028C197
+ void rva0028CFB2(const int *clearFlags, const int *setFlags);
+ void updateShroudNow(); // 0x0028C11A
+ const Coord3D *getPosition() const { return &m_position; }
+ AIUpdateInterface *getAI() const { return m_ai; }
+ char pad00[4]; ObjectInner04 *m_04; // +0x04
+ char matrix[0x30]; // +0x08
+ Coord3D m_position; // +0x38
+ char pad44[0x24C-0x44]; Gen_0028EF10 *m_stats; BannerContain *m_contain; // +0x24C, +0x250
+ char pad254[4]; AIUpdateInterface *m_ai; // +0x258
+ char pad25C[0x274-0x25C]; Object *m_containedBy; // +0x274
+protected:
+ Module *findModule(NameKeyType key) const;
 };
 
-class BannerCarrierUpdateModuleData
+// Field identity is retail's own INI table at 0x00C4F9E8; the +0x18/+0x24 element
+// classes keep the names the ledger's vector destructor rows carry.
+class BannerCarrierUpdateModuleData : public Snapshot
 {
 public:
-	char m_pad00[0x34];
-	const FXList *m_unitSpawnFX;		// +0x34 UnitSpawnFX
-	bool m_replenishNearbyHorde;		// +0x38 ReplenishNearbyHorde
-	bool m_replenishAllNearbyHordes;	// +0x39 ReplenishAllNearbyHordes
-	float m_scanHordeDistance;		// +0x3C ScanHordeDistance
+	BannerCarrierUpdateModuleData();
+	virtual ~BannerCarrierUpdateModuleData();
+	AsciiString rva00496DA3(const AsciiString &name) const;
+	const FXList *getFX() const { return m_bannerMorphFX; }
+	int m_unused04; // +0x04
+	unsigned m_idleSpawnRate; // +0x08
+	unsigned m_meleeFreeUnitSpawnTime; // +0x0C
+	int m_diedRespawnTime; // +0x10
+	int m_meleeFreeBannerReSpawnTime; // +0x14
+	_STL::vector<BfmeMorphCondition *> m_morphConditions; // +0x18
+	_STL::vector<BfmeExpLevelDraw *> m_expLevelDraws; // +0x24
+	const FXList *m_bannerMorphFX; // +0x30
+	const FXList *m_unitSpawnFX; // +0x34
+	bool m_replenishNearbyHorde; // +0x38
+	bool m_replenishAllNearbyHordes; // +0x39
+	unsigned char m_pad3A[2]; // +0x3A
+	float m_scanHordeDistance; // +0x3C
+	AsciiString m_upgradeRequired; // +0x40
 };
 
-class BannerCarrierUpdate
-{
+class BannerBase { public: virtual void slot0();
+ Object *getObject() const { return object; }
+ const BannerCarrierUpdateModuleData *data; Object *object;
+};
+
+class BannerOther { public: virtual void slot0(); };
+
+class UpdateModuleInterface { public: virtual UpdateSleepTime update()=0; };
+
+class BannerCarrierUpdate : public BannerBase, public BannerOther, public UpdateModuleInterface {
 public:
-	void rva004973CF();
-	Object *getObject() const { return m_object; }
-private:
-	const BannerCarrierUpdateModuleData *getBannerCarrierUpdateModuleData() const
-	{
-		return (const BannerCarrierUpdateModuleData *)m_moduleData;
-	}
-	void *m_vtable;
-	const void *m_moduleData;	// +0x04
-	Object *m_object;		// +0x08
+ virtual UpdateSleepTime update();
+ void rva004973CF(); bool rva00496BD2(Object *); void rva00496E05(void *entry, bool playFX);
+public:
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 void BannerCarrierUpdate::rva004973CF()
 {
-	Player *player = m_object->getControllingPlayer();
+	Player *player = object->getControllingPlayer();
 	if (!player)
 		return;
-	const BannerCarrierUpdateModuleData *data = getBannerCarrierUpdateModuleData();
+	const BannerCarrierUpdateModuleData *data = this->data;
 	BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(getObject()->getPosition(), data->m_scanHordeDistance, 0,
 		Rva0004584D(*(BfmeFixedStorage0004543D *)&Rva00045411BitSet(0, 109),
 			*(BfmeFixedStorage0004543D *)&KINDOFMASK_NONE).link(&Rva00261409Filter(player, true, 2)), 1);
 	Object *other;
 	while ((other = hits.next()) != 0) {
-		if (!other->testStatus(OBJECT_STATUS_RVA004973CF_2)) {
+		if (!other->testStatus((ObjectStatusTypes)2)) {
 			Rva004973CFContain *contain = (Rva004973CFContain *)other->rva0028C197();
 			if (contain) {
 				unsigned maxCount = contain->rva004973CFSlot95();
 				if (contain->rva004973CFSlot98() < maxCount) {
-					Object *spawned = contain->rva004973CFSlot99(other->m_08);
+					Object *spawned = contain->rva004973CFSlot99(other->matrix);
 					if (spawned) {
 						spawned->updateShroudNow();
 						if (data->m_unitSpawnFX)

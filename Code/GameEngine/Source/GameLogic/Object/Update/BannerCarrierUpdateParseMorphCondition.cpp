@@ -26,7 +26,24 @@ class INI { public:
 };
 class ModuleData;
 class Rva000B664E { public: void rva0033394D(AsciiString);unsigned words[19]; };
-class Rva00496ADE { public:Rva00496ADE();AsciiString unitType;int unknown04;Rva000B664E modelState;AsciiString locomotor; };
+class Rva0042526Member
+{
+public:
+	Rva0042526Member();
+private:
+	unsigned char m_pad[0x4C];
+};
+
+class Rva00496ADE
+{
+public:
+	Rva00496ADE();
+	AsciiString unitType; // +0x00
+	int m_04;
+	Rva0042526Member modelState; // +0x08
+	AsciiString locomotor; // +0x54
+};
+
 void parseBannerCarrierMorphCondition(INI *ini,void *instance,void *store,const void *userData) {
  Rva00496ADE *entry=new Rva00496ADE;
  const ModuleData *slot=reinterpret_cast<const ModuleData *>(entry);
@@ -40,7 +57,7 @@ void parseBannerCarrierMorphCondition(INI *ini,void *instance,void *store,const 
   token=ini->getNextTokenOrNull(ini->colon);
  }
  if(!token || strcmp(token,"ModelState")!=0) throw INIException(3,"'ModelState' expected");
- entry->modelState.rva0033394D(AsciiString(ini->getNextToken(ini->quote)));
+ reinterpret_cast<Rva000B664E *>(&entry->modelState)->rva0033394D(AsciiString(ini->getNextToken(ini->quote)));
  reinterpret_cast<_STL::vector<const ModuleData *> *>(store)->push_back(slot);
  return;
 }

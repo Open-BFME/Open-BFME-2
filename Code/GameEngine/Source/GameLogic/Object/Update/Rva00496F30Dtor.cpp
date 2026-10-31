@@ -12,6 +12,7 @@
 // /EHs for the extern-C free state store plus static STLport so erase and
 // free stay E8 to rows instead of IAT.
 
+#include "../../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 #include <vector>
 
 // The +4 member is spelled with its StringBase<char> pointers, not
@@ -23,23 +24,13 @@ template <> __declspec(dllimport) __forceinline void **vector<void *>::begin() {
 template <> __declspec(dllimport) __forceinline void **vector<void *>::end() { return _M_finish; }
 }
 
-template <typename T>
-class StringBase
-{
-	void releaseBuffer();
-	friend class Rva00496F30;
-public:
-	~StringBase();
-	T *m_data;
-};
-
 class Rva00496F30
 {
 public:
 	~Rva00496F30();
 private:
-	int m_00;
-	_STL::vector<StringBase<char> *> m_vec;
+	int m_00; // +0x00
+	_STL::vector<StringBase<char> *> m_vec; // +0x04
 };
 
 Rva00496F30::~Rva00496F30()
@@ -47,7 +38,7 @@ Rva00496F30::~Rva00496F30()
 	for (_STL::size_t i = 0; i < m_vec.size(); i++) {
 		StringBase<char> *p = m_vec[i];
 		if (p) {
-			p->releaseBuffer();
+			((AsciiString *)p)->~AsciiString();
 			::operator delete(p);
 		}
 	}
