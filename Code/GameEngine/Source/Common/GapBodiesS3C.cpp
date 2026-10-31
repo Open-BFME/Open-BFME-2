@@ -448,16 +448,6 @@ private:
 	bool m_latched;											// +0x20
 };
 
-void Rva004B5B82::rva004B5B82()
-{
-	if (m_data->m_129)
-	{
-		s10();
-		s9(true);
-	}
-	m_latched = true;
-}
-
 // --- 0x004E55B9 (64B): when the id names a live object and the flag is set,
 // add its position (+0x38) with the float and its indicator colour through
 // the rowed ResourceEntryCollector 0x004E5559.
