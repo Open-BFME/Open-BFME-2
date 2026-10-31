@@ -5,6 +5,7 @@
 // globals TheScriptEngine ThePlayerList caller 0x003EAE3B.
 class Parameter;
 class Player;
+class ContainModuleInterface;
 class Rva003E3FFEFace
 {
 public:
@@ -91,17 +92,84 @@ public:
 	virtual void s80();
 	virtual int getMask();
 };
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
+enum ObjectStatusTypes { OBJECT_STATUS_NONE = 0 };
+enum SpecialPowerType { SPECIAL_INVALID = 0 };
+enum NameKeyType
+{
+    NAMEKEY_INVALID = 0
+};
+enum CellShroudStatus { CELLSHROUD_CLEAR, CELLSHROUD_FOGGED, CELLSHROUD_SHROUDED, CELLSHROUD_COUNT };
+struct Coord3D;
+class Rva00261C89;
+class Module;
+class ScriptConditions;
+class AsciiString;
+class PolygonTrigger;
+class BodyModuleInterface;
+class ThingTemplate;
+class AIUpdateInterface;
+class ExperienceTracker;
 class Object
 {
+private:
+	friend bool __stdcall Rva003E4B83Get(Parameter *);
 public:
-	unsigned char m_pad[0x250];
-	Rva003E3FFEFace *m_face;
+	friend class ScriptConditions;
+	const Coord3D *getPosition() const { return &m_pos; }
+	Rva00261C89 *getField04() const { return (Rva00261C89 *)m_template; }
+	bool testStatus(ObjectStatusTypes status) const;
+	float getVisionRange() const;
+	bool hasSpecialPower(SpecialPowerType type) const;
+	Player *getControllingPlayer() const;
+protected:
+	Module *findModule(NameKeyType key) const;
+public:
+	// Keep the native +0x250 load inline; omit the competing legacy getter.
+	__declspec(dllimport) __forceinline ContainModuleInterface *getContain() const { return m_contain; }
+	unsigned int getID() const { return m_id; }
+	const AsciiString *rva00290E67() const;
+	bool didEnter(PolygonTrigger *trigger); // 0x0028D718
+	bool didExit(PolygonTrigger *trigger); // 0x0028D757
+	BodyModuleInterface *getBodyModule() const { return m_body; }
+	bool rva002943B2(const Player *player);
+	CellShroudStatus getShroudStatusForPlayer(int playerIndex) const;
+	const ThingTemplate *getTemplate() const { return m_template; }
+	void *getContainedBy() const { return m_containedBy; }
+	AIUpdateInterface *getAIUpdateInterface() const { return m_ai; }
+	char m_pad00[0x4];
+	const ThingTemplate *m_template; // +0x04
+	char m_pad08[0x30];
+	Coord3D m_pos; // +0x38
+	char m_pad44[0x30];
+	unsigned int m_id; // +0x74
+	char m_pad78[0x150];
+	unsigned char m_disabledMask[4]; // +0x1C8
+	char m_pad1CC[0x84];
+	ContainModuleInterface *m_contain; // +0x250
+private:
+	BodyModuleInterface *m_body; // +0x254
+	AIUpdateInterface *m_ai; // +0x258 (retail-proven by the kept ScriptActions_doTeamFaceWaypoint row)
+	char m_pad25C[0x8];
+public:
+	ExperienceTracker *m_experienceTracker; // +0x264
+	char m_pad268[0xC];
+private:
+	void *m_containedBy; // +0x274
+	char m_pad278[0x1D4];
+public:
+	int m_44c; // +0x44C
 };
 class PlayerList
 {
 public:
 	Player *getPlayerFromMask(int mask);
-	Player *getEachPlayerFromMask(int &maskToAdjust);
+	Player *getEachPlayerFromMask(int &mask);
+	int rva002A7C0B(bool flag);
+	Player *getNeutralPlayer() const { return m_neutralPlayer; }
+	char m_pad00[0x18];
+private:
+	Player *m_neutralPlayer; // +0x18
 };
 extern PlayerList *ThePlayerList;
 #include "../../../Include/GameLogic/ScriptEngine.h"
@@ -114,7 +182,7 @@ bool ScriptConditions::evaluateBuildingEntered(Parameter *pPlayerParm, Parameter
 	if (!obj) {
 		return false;
 	}
-	Rva003E3FFEFace *face = obj->m_face;
+	Rva003E3FFEFace *face = (Rva003E3FFEFace *)obj->m_contain;
 	if (!face) {
 		return false;
 	}

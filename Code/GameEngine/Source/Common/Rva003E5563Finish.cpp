@@ -17,7 +17,8 @@ typedef float Real;
 class Rva003E5563
 {
 public:
-	Rva003E5563();
+	// Retail calls this out of line from 0x003E60BD, after the body in address order.
+	__declspec(noinline) Rva003E5563();
 
 	Coord3D m_pos;				// +0x00
 	Real m_distSqr;				// +0x0C

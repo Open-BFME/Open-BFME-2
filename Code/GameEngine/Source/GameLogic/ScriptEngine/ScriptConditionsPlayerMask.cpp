@@ -35,137 +35,184 @@
 // (0x00EF076C) and g_bfmeD1087 is ThePlayerList (0x00EED748), the same two
 // globals under placeholder names. Named once, the family is visible.
 //
-// The Player they iterate had drifted the same way -- empty in two files, a
-// "BfmeR1087" with a float at +0xA4 in a third, a 0x348 prefix before the
-// kills in a fourth. One layout states all of it: the power supply at +0xA4
-// and the kill counters at +0x348.
-//
-// The owner check and the faction check joined later, out of two more files,
-// and brought two more spellings of the same things. Their Player was empty in
-// one and a side string at +0x28 in the other; the side now sits in the one
-// layout with the rest. Their Parameter disagreed outright: the owner file
-// declared its string at +0x00 -- so that getString() would compile to nothing
-// and the raw Parameter pointer would be what got pushed -- against +0x10
-// everywhere else in ScriptConditions. The +0x10 layout is what retail has;
-// the two call sites cast instead, and the body still byte-matches, which is
-// how the +0x00 claim is shown to have been a fiction.
-//
-// unidentified_0034DB40 keeps its address-derived name: it forwards to
-// TheScriptEngine's virtual at +0x4C and no identity has been proven for it.
-// It appears here under both of its overloads on purpose, because they are not
-// the same call: the AsciiString one is the ILT thunk at 0x000230B5, which is
-// the route the owner check takes, while the Parameter one is the body at
-// 0x0034DB40 that ScriptEngineGetPlayerMaskFromParameter.cpp defines. Spelling
-// either call the other way moves the call target. The same is true of the
-// light-point reader, which is still reached through the thunk at 0x00047D34
-// rather than by name.
-
 #include "ascii_string.h"
-#include <bitset>
 
 typedef bool Bool;
-typedef unsigned short PlayerMaskType;
-typedef unsigned int UnsignedInt;
-
-// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/BitFlags.h
-template <int NUMBITS>
-class BitFlags
-{
-public:
-	enum BogusInitType
-	{
-		kInit = 0
-	};
-
-	BitFlags(void) {}
-	BitFlags(BogusInitType, int idx) { m_bits._Unchecked_set((size_t)idx); }
-	BitFlags(BogusInitType, int idx1, int idx2)
-	{
-		m_bits._Unchecked_set(idx1);
-		m_bits._Unchecked_set(idx2);
-	}
-
-	void clear(void) { m_bits.reset(); }
-	void set(int idx) { m_bits._Unchecked_set((size_t)idx); }
-
-private:
-	_STL::bitset<NUMBITS> m_bits;
-};
-
-typedef BitFlags<192> KindOfMaskType;
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Scripts.h
+class ScriptConditions;
 class Parameter
 {
 public:
-	int getInt(void) const { return m_int; }
-	const AsciiString &getString(void) const { return m_string; }
-
+	enum { LESS_THAN = 0, LESS_EQUAL, EQUAL, GREATER_EQUAL, GREATER, NOT_EQUAL };
 private:
-	unsigned char m_beforeInt[8];
-	int m_int;						// this+0x08
-	float m_real;
-	AsciiString m_string;					// this+0x10
-};
-
-// The power supply ratio at retail 0x000C7DE0; still an address-derived name.
-class Gen_000C7DE0
-{
+	friend class ScriptConditions; // Native conditions read the +0x08 word inline.
 public:
-	float bfmeRatio(void) const;
+	float getReal() const { return m_real; }
+	const AsciiString &getString() const { return m_string; }
+	void setCachedFrame(int value) { m_cachedFrame = value; }
+	__declspec(dllimport) __forceinline int getInt() const { return m_int; }
+	int bfme_getInt_58502() const { return m_int; }
+	int bfme_int_ena() const { return m_int; }
+	int bfme_int_exa() const { return m_int; }
+	int bfme_int_hos() const { return m_int; }
+	// LINK: same-body helper under a TU-unique name (identical inlined bytes); the getInt copy loses to the first-in-order copy. No flags touched.
+	int bfme_getInt_f996b() const { return m_int; }
+	char m_pad00[0x8];
+	int m_int; // +0x08
+	float m_real; // +0x0C
+	AsciiString m_string; // +0x10
+	unsigned char m_afterString[8]; // +0x14
+	unsigned int m_objectId; // +0x1C
+	int m_cachedFrame; // +0x20
 };
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Player.h
-class PlayerKills
+class Energy
 {
 public:
-	int getKillsOfKindOf(KindOfMaskType setMask, KindOfMaskType clearMask);	// retail 0x00036D72
+	float getEnergySupplyRatio() const;
 };
-
-// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Money.h
-class Money
+template <int N> class BitFlags;
+typedef BitFlags<116> KindOfMaskType;
+enum ScienceType
 {
-public:
-	virtual void unused();
-
-	UnsignedInt countMoney() const { return m_money; }
-
-private:
-	UnsignedInt m_money;
-	int m_playerIndex;
+    SCIENCE_INVALID = -1
 };
-
-// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Player.h
+class UnitRevivalTracker;
+class Object;
+class Rva004DF17F;
+struct PlayerTeamNode;
 class Player
 {
 public:
-	int countObjects(KindOfMaskType setMask, KindOfMaskType clearMask);	// retail 0x0001FF1E
-	int rva000D4730CountObjects( UnsignedInt bitIndex, int limit ) const;
-	Money *getMoney() { return &m_money; }
-	const AsciiString &getSide() const { return m_side; }
-
-	unsigned char m_beforeSide[0x28];
-	AsciiString m_side;					// this+0x28
-	unsigned char m_beforeMoney[0x48 - 0x28 - sizeof(AsciiString)];
-	Money m_money;						// this+0x48
-	unsigned char m_beforeEnergy[0xA4 - 0x48 - sizeof(Money)];
-	Gen_000C7DE0 m_energy;					// this+0xA4
-	unsigned char m_beforeKills[0x348 - 0xA4 - sizeof(Gen_000C7DE0)];
-	PlayerKills m_kills;					// this+0x348
+	UnitRevivalTracker *getUnitRevivalTracker() { return (UnitRevivalTracker *)m_unitRevivalTracker; }
+	int getArmyID() const { return m_armyID; }
+	Object *rva002AC629();
+	int iterateObjects(int (*func)(Object *obj, void *userData), void *userData) const;
+	bool hasAnyObjects(bool flag) const;
+	bool rva002AB3FA() const;
+	int countObjects(KindOfMaskType setMask, KindOfMaskType clearMask);
+	bool rva002A9CB8();
+	Rva004DF17F *getEnergy() { return (Rva004DF17F *)&m_energy; }
+	int countBuildings();
+	__declspec(dllimport) __forceinline int getPlayerIndex() const { return m_playerIndex; }
+	bool isCapableOfPurchasingScience(ScienceType science) const;
+	int getSciencePurchasePoints() const { return m_sciencePurchasePoints; }
+	int getMpStartIndex() const { return m_mpStartIndex; }
+	bool rva002A9CA4(int value);
+	int rva002ABD1D(int kind, int limit);
+	PlayerTeamNode *getPlayerTeams() const { return m_playerTeamPrototypes; }
+	int getSupplyBoxValue(); // 0x002A9DAC
+	char m_pad00[0x1C];
+	int m_1c; // +0x1C
+	char m_pad20[0x4];
+	int m_sciencePurchasePoints; // +0x24
+	char m_pad28[0x2C];
+	int m_playerIndex; // +0x54
+	AsciiString m_side; // +0x58
+	char m_pad5C[0x34];
+	int m_90; // +0x90
+	int m_94; // +0x94
+	char m_pad98[0x124];
+	Energy m_energy; // +0x1BC
+	char m_pad1BD[0x3];
+	int m_val1C0; // +0x1C0
+	int m_val1C4; // +0x1C4
+	char m_pad1C8[0x118];
+	int m_mpStartIndex; // +0x2E0
+	char m_pad2E4[0x48];
+private:
+	PlayerTeamNode *m_playerTeamPrototypes; // +0x32C
+	char m_pad330[0x7C];
+	int m_armyID; // +0x3AC
+	char m_pad3B0[0x388];
+	unsigned char m_unitRevivalTracker[4]; // +0x738
+	char m_pad73C[0x14];
+public:
+	int m_750; // +0x750
 };
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/PlayerList.h
 class PlayerList
 {
 public:
-	Player *getEachPlayerFromMask(PlayerMaskType &mask);	// retail 0x000DF4A0 via ILT 0x0002EE60
+	Player *getPlayerFromMask(int mask);
+	Player *getEachPlayerFromMask(int &mask);
+	int rva002A7C0B(bool flag);
+	Player *getNeutralPlayer() const { return m_neutralPlayer; }
+	char m_pad00[0x18];
+private:
+	Player *m_neutralPlayer; // +0x18
 };
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Object.h
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
+enum ObjectStatusTypes { OBJECT_STATUS_NONE = 0 };
+enum SpecialPowerType { SPECIAL_INVALID = 0 };
+enum NameKeyType
+{
+    NAMEKEY_INVALID = 0
+};
+enum CellShroudStatus { CELLSHROUD_CLEAR, CELLSHROUD_FOGGED, CELLSHROUD_SHROUDED, CELLSHROUD_COUNT };
+struct Coord3D;
+class Rva00261C89;
+class Module;
+class ContainModuleInterface;
+class PolygonTrigger;
+class BodyModuleInterface;
+class ThingTemplate;
+class AIUpdateInterface;
+class ExperienceTracker;
 class Object
 {
+private:
+	friend bool __stdcall Rva003E4B83Get(Parameter *);
 public:
-	Player *getControllingPlayer(void) const;		///< ILT thunk at 0x00020824
+	friend class ScriptConditions;
+	const Coord3D *getPosition() const { return &m_pos; }
+	Rva00261C89 *getField04() const { return (Rva00261C89 *)m_template; }
+	bool testStatus(ObjectStatusTypes status) const;
+	float getVisionRange() const;
+	bool hasSpecialPower(SpecialPowerType type) const;
+	Player *getControllingPlayer() const;
+protected:
+	Module *findModule(NameKeyType key) const;
+public:
+	// Keep the native +0x250 load inline; omit the competing legacy getter.
+	__declspec(dllimport) __forceinline ContainModuleInterface *getContain() const { return m_contain; }
+	unsigned int getID() const { return m_id; }
+	const AsciiString *rva00290E67() const;
+	bool didEnter(PolygonTrigger *trigger); // 0x0028D718
+	bool didExit(PolygonTrigger *trigger); // 0x0028D757
+	BodyModuleInterface *getBodyModule() const { return m_body; }
+	bool rva002943B2(const Player *player);
+	CellShroudStatus getShroudStatusForPlayer(int playerIndex) const;
+	const ThingTemplate *getTemplate() const { return m_template; }
+	void *getContainedBy() const { return m_containedBy; }
+	AIUpdateInterface *getAIUpdateInterface() const { return m_ai; }
+	char m_pad00[0x4];
+	const ThingTemplate *m_template; // +0x04
+	char m_pad08[0x30];
+	Coord3D m_pos; // +0x38
+	char m_pad44[0x30];
+	unsigned int m_id; // +0x74
+	char m_pad78[0x150];
+	unsigned char m_disabledMask[4]; // +0x1C8
+	char m_pad1CC[0x84];
+	ContainModuleInterface *m_contain; // +0x250
+private:
+	BodyModuleInterface *m_body; // +0x254
+	AIUpdateInterface *m_ai; // +0x258 (retail-proven by the kept ScriptActions_doTeamFaceWaypoint row)
+	char m_pad25C[0x8];
+public:
+	ExperienceTracker *m_experienceTracker; // +0x264
+	char m_pad268[0xC];
+private:
+	void *m_containedBy; // +0x274
+	char m_pad278[0x1D4];
+public:
+	int m_44c; // +0x44C
 };
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/ScriptEngine.h
@@ -173,27 +220,6 @@ public:
 
 extern ScriptEngine *TheScriptEngine;
 extern PlayerList *ThePlayerList;
-extern const KindOfMaskType KINDOFMASK_NONE;
-extern void j_00047d34();
-int bfmeLookup_001c62b0( void *name );
-
-class BfmeP1087
-{
-public:
-	PlayerMaskType bfmeNext1087( Parameter *parameter );
-};
-
-// Retail spells the singleton at 0x012F076C TheScriptEngine (declared above);
-// BfmeP1087 is this TU's view of the reviewed player-mask thunk, so it is cast
-// at the use instead of being a second name for the global.
-
-// The per-player light-point reader is only known as the thunk at 0x00047D34,
-// so it is called through the thunk's address rather than by name.
-class PlayerLightPoints
-{
-};
-
-
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/ScriptConditions.h
 #include "../../../Include/GameLogic/ScriptConditions.h"
 
@@ -202,9 +228,9 @@ class PlayerLightPoints
 Bool ScriptConditions::evaluatePlayerDestroyedNOrMoreBuildings(
 	Parameter *playerParm, Parameter *, Parameter *opponentParm)
 {
-	PlayerMaskType playerMask = TheScriptEngine->unidentified_0034DB40(playerParm);
+	int playerMask = TheScriptEngine->rva00357B82(playerParm);
 	Player *player = ThePlayerList->getEachPlayerFromMask(playerMask);
-	PlayerMaskType opponentMask = TheScriptEngine->unidentified_0034DB40(opponentParm);
+	int opponentMask = TheScriptEngine->rva00357B82(opponentParm);
 	Player *opponent = ThePlayerList->getEachPlayerFromMask(opponentMask);
 	if (!player || !opponent) {
 		return false;
@@ -212,13 +238,3 @@ Bool ScriptConditions::evaluatePlayerDestroyedNOrMoreBuildings(
 
 	return false;
 }
-
-
-
-// Each retail call in this body reads an address the ledger already carries
-// under the rowed name below. Bind the donor spelling to that owner so one
-// address keeps one definition and the unit links.
-//   2784201 reads ?getEachPlayerFromMask@PlayerList@@QAEPAVPlayer@@AAH@Z
-#pragma comment(linker, "/alternatename:?getEachPlayerFromMask@PlayerList@@QAEPAVPlayer@@AAG@Z=?getEachPlayerFromMask@PlayerList@@QAEPAVPlayer@@AAH@Z")
-//   3505026 reads ?rva00357B82@ScriptEngine@@QAEHPAVParameter@@@Z
-#pragma comment(linker, "/alternatename:?unidentified_0034DB40@ScriptEngine@@QAEGPAVParameter@@@Z=?rva00357B82@ScriptEngine@@QAEHPAVParameter@@@Z")

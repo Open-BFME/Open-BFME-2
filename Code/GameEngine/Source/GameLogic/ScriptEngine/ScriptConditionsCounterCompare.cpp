@@ -21,30 +21,52 @@
 
 class Parameter
 {
-    friend class ScriptConditions; // Native conditions read the +0x08 word inline.
+public:
+	enum { LESS_THAN = 0, LESS_EQUAL, EQUAL, GREATER_EQUAL, GREATER, NOT_EQUAL };
+private:
+	friend class ScriptConditions; // Native conditions read the +0x08 word inline.
 public:
 	float getReal() const { return m_real; }
 	const AsciiString &getString() const { return m_string; }
-private:
-	char m_unknown[8];
-	int m_integer;
-	float m_real;
-	AsciiString m_string;
+	void setCachedFrame(int value) { m_cachedFrame = value; }
+	__declspec(dllimport) __forceinline int getInt() const { return m_int; }
+	int bfme_getInt_58502() const { return m_int; }
+	int bfme_int_ena() const { return m_int; }
+	int bfme_int_exa() const { return m_int; }
+	int bfme_int_hos() const { return m_int; }
+	// LINK: same-body helper under a TU-unique name (identical inlined bytes); the getInt copy loses to the first-in-order copy. No flags touched.
+	int bfme_getInt_f996b() const { return m_int; }
+	char m_pad00[0x8];
+	int m_int; // +0x08
+	float m_real; // +0x0C
+	AsciiString m_string; // +0x10
+	unsigned char m_afterString[8]; // +0x14
+	unsigned int m_objectId; // +0x1C
+	int m_cachedFrame; // +0x20
 };
 
 class Condition
 {
 public:
-	Parameter *getParameter(int index)
-	{
-		if (index >= 0 && index < m_numParms)
-			return m_parameters[index];
-		return 0;
-	}
+	bool isInverted() const { return m_inverted; }
+	Parameter *getParameter(int ndx) const { if (ndx >= 0 && ndx < m_numParms) return m_parms[ndx]; return 0; }
+	int getCustomData() const { return m_customData; }
+	void setCustomData(int val) { m_customData = val; }
+	unsigned int getCustomFrame() const { return m_customFrame; }
+	void setCustomFrame(unsigned int frame) { m_customFrame = frame; }
+	int getType() const { return m_type; }
+	int getNumParameters() const { return m_numParms; }
+	char m_pad00[0x4];
 private:
-	char m_unknown[8];
-	int m_numParms;
-	Parameter *m_parameters[13];
+	int m_type; // +0x04
+	int m_numParms; // +0x08
+	Parameter *m_parms[13]; // +0x0C
+	char m_pad40[0x4];
+	int m_customData; // +0x44
+	unsigned int m_customFrame; // +0x48
+	char m_pad4C[0x1];
+	bool m_inverted; // +0x4D
+	char m_pad4E[0x2];
 };
 
 struct ScriptCounter
@@ -80,7 +102,7 @@ bool ScriptConditions::evaluateCounterCounter(Condition *condition)
 	if (counter)
 		right = counter->m_value;
 
-	switch (condition->getParameter(1)->m_integer) {
+	switch (condition->getParameter(1)->m_int) {
 	case 0: return left < right;
 	case 1: return left <= right;
 	case 2: return left == right;
@@ -99,7 +121,7 @@ bool ScriptConditions::evaluateCounterSeconds(Condition *pCondition)
 		count = counter->m_value;
 	float frames = g_parseDurationMsecScale * pCondition->getParameter(2)->getReal() * 1000.0f;
 	int value = fast_float2long_round((float)ceil((double)frames));
-	switch (pCondition->getParameter(1)->m_integer) {
+	switch (pCondition->getParameter(1)->m_int) {
 	case 0: return count < value;
 	case 1: return count <= value;
 	case 2: return count == value;

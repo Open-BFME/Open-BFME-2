@@ -34,11 +34,13 @@ extern int BfmeLogicFramesPerSecond;
 #include "../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 enum EvaEventID { EVA_EVENT_ID_RV = 0 };
+struct Vec001DCDAF;
 class Eva
 {
 public:
-	Int rva001DE78E(const AsciiString *name);	// 0x001DE78E, event index or -1
-	Bool getLastReallyPlayedFrameForEvaEvent(EvaEventID index, UnsignedInt *frame) const;	// 0x001DD604 (rowed: const, enum arg)
+	int rva001DE78E(const AsciiString *name); // 0x001DE78E, event index or -1
+	bool getLastReallyPlayedFrameForEvaEvent(EvaEventID index, unsigned int *frame) const; // 0x001DD604 (rowed: const, enum arg)
+	bool rva001DD670(EvaEventID index, Vec001DCDAF *pos) const; // 0x001DD670
 };
 extern Eva *TheEva;
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
@@ -53,6 +55,7 @@ public:
     __declspec(dllimport) __forceinline BitFlags() { memset(m_bits, 0, sizeof(m_bits)); }
     BitFlags(const BitFlags &other);
     void set(int bit) { m_bits[bit >> 5] |= 1u << (bit & 31); }
+    static int getSingleBitFromName(const char *token);
 private:
     unsigned int m_bits[7];
 };
@@ -169,22 +172,33 @@ public:
 class Condition
 {
 public:
-	Bool isInverted() const { return m_inverted; }
-    Parameter *getParameter(Int ndx) const { if (ndx >= 0 && ndx < m_numParms) return m_parms[ndx]; return 0; }
-
+	bool isInverted() const { return m_inverted; }
+	Parameter *getParameter(int ndx) const { if (ndx >= 0 && ndx < m_numParms) return m_parms[ndx]; return 0; }
+	int getCustomData() const { return m_customData; }
+	void setCustomData(int val) { m_customData = val; }
+	unsigned int getCustomFrame() const { return m_customFrame; }
+	void setCustomFrame(unsigned int frame) { m_customFrame = frame; }
+	int getType() const { return m_type; }
+	int getNumParameters() const { return m_numParms; }
+	char m_pad00[0x4];
 private:
-	unsigned char m_padCond00[8];
-	Int m_numParms;				// +0x08
-	Parameter *m_parms[13];			// +0x0C
-	char m_unknown40[0x0d];
-	bool m_inverted;				// +0x4D
+	int m_type; // +0x04
+	int m_numParms; // +0x08
+	Parameter *m_parms[13]; // +0x0C
+	char m_pad40[0x4];
+	int m_customData; // +0x44
+	unsigned int m_customFrame; // +0x48
+	char m_pad4C[0x1];
+	bool m_inverted; // +0x4D
+	char m_pad4E[0x2];
 };
 // Distance-count callback data; its constructor (0x003E5563) zeroes the
 // position, threshold and count and sets the cap to 0x7ffffffe.
 class Rva003E5563
 {
 public:
-	Rva003E5563();
+	// Retail calls this out of line from 0x003E60BD, after the body in address order.
+	__declspec(noinline) Rva003E5563();
 
 	Coord3D m_pos;				// +0x00
 	Real m_distSqr;				// +0x0C
@@ -246,7 +260,7 @@ public:
 	virtual void _v024();
 	virtual void _v025();
 	virtual void _v026();
-	virtual void _v027();
+	virtual bool slot6C(int arg);
 	virtual void _v028();
 	virtual void _v029();
 	virtual void _v030();
@@ -289,7 +303,7 @@ public:
 	virtual void _v067();
 	virtual void _v068();
 	virtual void _v069();
-	virtual void _v070();
+	virtual void getPos(float *out);
 	virtual void _v071();
 	virtual void _v072();
 	virtual void _v073();
@@ -391,7 +405,7 @@ class GlobalData
 {
 public:
 	char m_pad00[0x110C];
-	float m_secondsBeforeBaseCheckActive; // +0x110C +0x110C, seconds before the destroyed conditions may fire
+	float m_secondsBeforeBaseCheckActive; // +0x110C, seconds before the destroyed conditions may fire
 };
 extern class GlobalData *TheWritableGlobalData;
 class AudioManager
@@ -513,11 +527,16 @@ public:
 	int m_command; // +0x14
 	char m_pad18[0xC];
 private:
-	const void *m_upgrade; // +0x24 +0x24
+	const void *m_upgrade; // +0x24
 	char m_pad28[0x1C];
-	const SpecialPowerTemplate *m_specialPower; // +0x44 +0x44
+	const SpecialPowerTemplate *m_specialPower; // +0x44
 };
-class ControlBar
+class Rva0031D5F8
+{
+public:
+    void *rva0031D5F8(const AsciiString *);
+};
+class ControlBar : public Rva0031D5F8
 {
 public:
     const CommandButton *findCommandButton(const AsciiString &name);
@@ -580,7 +599,7 @@ public:
 public:
 	unsigned char m_pad5F[0x128 - 0x5F];
 public:
-	bool m_flag128;
+	bool m_128;
 public:
 	Coord3D *rva0039DA2A(Coord3D *center) const;
 public:
@@ -606,14 +625,22 @@ public:
 };
 #include "../../../Include/GameLogic/ScriptConditions.h"
 #include "../../../Include/GameLogic/ScriptEngine.h"
+class Waypoint;
 class TerrainLogic
 {
 public:
-    bool anyBridgesDamageStatesChanged() { return m_bridgeDamageStatesChanged; }
-    bool isBridgeRepaired(const Object *bridge);
-    bool isBridgeBroken(const Object *bridge);
-    unsigned char m_pad00[0x44];
-    bool m_bridgeDamageStatesChanged;
+	bool anyBridgesDamageStatesChanged() { return m_bridgeDamageStatesChanged; }
+	bool isBridgeRepaired(const Object *bridge);
+	bool isBridgeBroken(const Object *bridge);
+	virtual void _d00(), _d01(), _d02(), _d03(), _d04(), _d05(), _d06();
+	virtual void _d07(), _d08(), _d09(), _d10(), _d11(), _d12(), _d13();
+	virtual void _d14(), _d15(), _d16(), _d17(), _d18(), _d19(), _d20();
+	virtual void _d21(), _d22(), _d23(), _d24(), _d25(), _d26(), _d27();
+	virtual void _d28(), _d29(), _d30(), _d31(), _d32(), _d33();
+	virtual Waypoint *getWaypointByName(const AsciiString &name);
+	char m_pad04[0x40];
+	bool m_bridgeDamageStatesChanged; // +0x44
+	char m_pad45[0x3];
 };
 extern TerrainLogic *TheTerrainLogic;
 // ?Rva003E4B83Get free @ 0x003E4B83 119B leaf from 0x003EBD81. Evidence:
@@ -638,38 +665,31 @@ public:
     bool get() const;
 };
 #include "../../../Include/Common/Module.h"
+class ScriptConditions;
 class Parameter
 {
 public:
 	enum { LESS_THAN = 0, LESS_EQUAL, EQUAL, GREATER_EQUAL, GREATER, NOT_EQUAL };
+private:
+	friend class ScriptConditions; // Native conditions read the +0x08 word inline.
 public:
-	Real getReal() const { return m_real; }
-public:
+	float getReal() const { return m_real; }
 	const AsciiString &getString() const { return m_string; }
-public:
-	unsigned char m_padParm00[8];
-public:
-	Int m_int;
-public:
-	Real m_real;
-public:
-	AsciiString m_string;
-public:
-	unsigned char m_pad14[0x20 - 0x14];
-public:
-	Int m_field20;
-public:
-	void setField20(Int value) { m_field20 = value; }
-public:
+	void setCachedFrame(int value) { m_cachedFrame = value; }
 	__declspec(dllimport) __forceinline int getInt() const { return m_int; }
-public:
 	int bfme_getInt_58502() const { return m_int; }
-public:
 	int bfme_int_ena() const { return m_int; }
-public:
 	int bfme_int_exa() const { return m_int; }
-public:
 	int bfme_int_hos() const { return m_int; }
+	// LINK: same-body helper under a TU-unique name (identical inlined bytes); the getInt copy loses to the first-in-order copy. No flags touched.
+	int bfme_getInt_f996b() const { return m_int; }
+	char m_pad00[0x8];
+	int m_int; // +0x08
+	float m_real; // +0x0C
+	AsciiString m_string; // +0x10
+	unsigned char m_afterString[8]; // +0x14
+	unsigned int m_objectId; // +0x1C
+	int m_cachedFrame; // +0x20
 };
 class Rva002A9ED2DwordField
 {
@@ -679,11 +699,13 @@ public:
 class PlayerList
 {
 public:
-	Player *getPlayerFromMask(Int mask);
-public:
-	Player *getEachPlayerFromMask(Int &mask);
-public:
+	Player *getPlayerFromMask(int mask);
+	Player *getEachPlayerFromMask(int &mask);
 	int rva002A7C0B(bool flag);
+	Player *getNeutralPlayer() const { return m_neutralPlayer; }
+	char m_pad00[0x18];
+private:
+	Player *m_neutralPlayer; // +0x18
 };
 struct CondA003E53C8
 {
@@ -698,32 +720,65 @@ struct CondB003E53C8
 #include <vector>
 #include "../System/ArmySummary.h"
 class UnitRevivalTracker;
+class Energy
+{
+public:
+	float getEnergySupplyRatio() const;
+};
+enum ScienceType
+{
+    SCIENCE_INVALID = -1
+};
+class Rva004DF17F;
+struct PlayerTeamNode;
 class Player
 {
 public:
 	UnitRevivalTracker *getUnitRevivalTracker() { return (UnitRevivalTracker *)m_unitRevivalTracker; }
-public:
 	int getArmyID() const { return m_armyID; }
-private:
-	unsigned char m_pad00[0x3AC];
-private:
-	int m_armyID;
-private:
-	unsigned char m_pad3B0[0x738 - 0x3B0];
-private:
-	unsigned char m_unitRevivalTracker[4];
-public:
 	Object *rva002AC629();
-public:
-	Int iterateObjects(Int (*func)(Object *obj, void *userData), void *userData) const;
-public:
+	int iterateObjects(int (*func)(Object *obj, void *userData), void *userData) const;
 	bool hasAnyObjects(bool flag) const;
-public:
 	bool rva002AB3FA() const;
-public:
 	int countObjects(KindOfMaskType setMask, KindOfMaskType clearMask);
-public:
 	bool rva002A9CB8();
+	Rva004DF17F *getEnergy() { return (Rva004DF17F *)&m_energy; }
+	int countBuildings();
+	__declspec(dllimport) __forceinline int getPlayerIndex() const { return m_playerIndex; }
+	bool isCapableOfPurchasingScience(ScienceType science) const;
+	int getSciencePurchasePoints() const { return m_sciencePurchasePoints; }
+	int getMpStartIndex() const { return m_mpStartIndex; }
+	bool rva002A9CA4(int value);
+	int rva002ABD1D(int kind, int limit);
+	PlayerTeamNode *getPlayerTeams() const { return m_playerTeamPrototypes; }
+	int getSupplyBoxValue(); // 0x002A9DAC
+	char m_pad00[0x1C];
+	int m_1c; // +0x1C
+	char m_pad20[0x4];
+	int m_sciencePurchasePoints; // +0x24
+	char m_pad28[0x2C];
+	int m_playerIndex; // +0x54
+	AsciiString m_side; // +0x58
+	char m_pad5C[0x34];
+	int m_90; // +0x90
+	int m_94; // +0x94
+	char m_pad98[0x124];
+	Energy m_energy; // +0x1BC
+	char m_pad1BD[0x3];
+	int m_val1C0; // +0x1C0
+	int m_val1C4; // +0x1C4
+	char m_pad1C8[0x118];
+	int m_mpStartIndex; // +0x2E0
+	char m_pad2E4[0x48];
+private:
+	PlayerTeamNode *m_playerTeamPrototypes; // +0x32C
+	char m_pad330[0x7C];
+	int m_armyID; // +0x3AC
+	char m_pad3B0[0x388];
+	unsigned char m_unitRevivalTracker[4]; // +0x738
+	char m_pad73C[0x14];
+public:
+	int m_750; // +0x750
 };
 class ObjectTypes
 {
@@ -731,6 +786,7 @@ public:
 	ObjectTypes();
 	virtual ~ObjectTypes();
 	void addObjectType(const AsciiString &objectType);
+	bool isInSet(const AsciiString &name) const;	// 0x00376A62
 	int getListSize() const { return m_objectTypes.size(); }
 
 private:
@@ -802,32 +858,60 @@ struct LivingWorldRva
     Rva002104B6 *m_B0;
 };
 
+enum CellShroudStatus { CELLSHROUD_CLEAR, CELLSHROUD_FOGGED, CELLSHROUD_SHROUDED, CELLSHROUD_COUNT };
+class ContainModuleInterface;
+class BodyModuleInterface;
+class AIUpdateInterface;
+class ExperienceTracker;
 class Object
 {
-public:
-	const Coord3D *getPosition() const { return &m_pos; }
-public:
-	Rva00261C89 *getField04() const { return m_field04; }
-private:
-	unsigned char m_padObj00[4];
-private:
-	Rva00261C89 *m_field04;
-private:
-	unsigned char m_pad08[0x38 - 8];
-private:
-	Coord3D m_pos;
-public:
-	bool testStatus(ObjectStatusTypes status) const;
-public:
-	float getVisionRange() const;
-public:
-	bool hasSpecialPower(SpecialPowerType type) const;
-public:
-	Player *getControllingPlayer() const;
 private:
 	friend bool __stdcall Rva003E4B83Get(Parameter *);
+public:
+	friend class ScriptConditions;
+	const Coord3D *getPosition() const { return &m_pos; }
+	Rva00261C89 *getField04() const { return (Rva00261C89 *)m_template; }
+	bool testStatus(ObjectStatusTypes status) const;
+	float getVisionRange() const;
+	bool hasSpecialPower(SpecialPowerType type) const;
+	Player *getControllingPlayer() const;
 protected:
 	Module *findModule(NameKeyType key) const;
+public:
+	// Keep the native +0x250 load inline; omit the competing legacy getter.
+	__declspec(dllimport) __forceinline ContainModuleInterface *getContain() const { return m_contain; }
+	unsigned int getID() const { return m_id; }
+	const AsciiString *rva00290E67() const;
+	bool didEnter(PolygonTrigger *trigger); // 0x0028D718
+	bool didExit(PolygonTrigger *trigger); // 0x0028D757
+	BodyModuleInterface *getBodyModule() const { return m_body; }
+	bool rva002943B2(const Player *player);
+	CellShroudStatus getShroudStatusForPlayer(int playerIndex) const;
+	const ThingTemplate *getTemplate() const { return m_template; }
+	void *getContainedBy() const { return m_containedBy; }
+	AIUpdateInterface *getAIUpdateInterface() const { return m_ai; }
+	char m_pad00[0x4];
+	const ThingTemplate *m_template; // +0x04
+	char m_pad08[0x30];
+	Coord3D m_pos; // +0x38
+	char m_pad44[0x30];
+	unsigned int m_id; // +0x74
+	char m_pad78[0x150];
+	unsigned char m_disabledMask[4]; // +0x1C8
+	char m_pad1CC[0x84];
+	ContainModuleInterface *m_contain; // +0x250
+private:
+	BodyModuleInterface *m_body; // +0x254
+	AIUpdateInterface *m_ai; // +0x258 (retail-proven by the kept ScriptActions_doTeamFaceWaypoint row)
+	char m_pad25C[0x8];
+public:
+	ExperienceTracker *m_experienceTracker; // +0x264
+	char m_pad268[0xC];
+private:
+	void *m_containedBy; // +0x274
+	char m_pad278[0x1D4];
+public:
+	int m_44c; // +0x44C
 };
 
 // tu-skeleton: 0x003E3C66 35B ?reset@ScriptConditions@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp (not merged yet)
@@ -1084,7 +1168,7 @@ Bool ScriptConditions::evaluateSkirmishCanFireSpecialPowerOnTeam(Parameter *pSki
 	const SpecialPowerTemplate *power = TheSpecialPowerStore->findSpecialPowerTemplate(pSpecialPowerParm->getString());
 	if (power == 0)
 	{
-		pSpecialPowerParm->setField20(-1);
+		pSpecialPowerParm->setCachedFrame(-1);
 		return false;
 	}
 	Team *team = TheScriptEngine->getTeamNamed(pTeamParm->getString(), false);
@@ -1194,7 +1278,7 @@ bool ScriptConditions::evaluateUnitHasObjectStatus(Parameter *unitParm, Paramete
 bool ScriptConditions::evaluateIsDestroyed(Parameter *teamParm)
 {
     Team *team = TheScriptEngine->getTeamNamed(teamParm->getString(), false);
-    if (team && team->m_flag128)
+    if (team && team->m_128)
         return !team->hasAnyObjects(false);
     return false;
 }

@@ -11,35 +11,55 @@
 // cross-jumps it again.
 #include "ascii_string.h"
 
+class ScriptConditions;
 class Parameter
 {
 public:
-	__declspec(dllimport) __forceinline int getInt() const { return m_int; }
-	float getReal() const { return m_real; }
-	const AsciiString *getString() const { return &m_string; }
-
+	enum { LESS_THAN = 0, LESS_EQUAL, EQUAL, GREATER_EQUAL, GREATER, NOT_EQUAL };
 private:
-	int m_pad[2];
-	int m_int;
-	float m_real;
-	AsciiString m_string;
+	friend class ScriptConditions; // Native conditions read the +0x08 word inline.
+public:
+	float getReal() const { return m_real; }
+	const AsciiString &getString() const { return m_string; }
+	void setCachedFrame(int value) { m_cachedFrame = value; }
+	__declspec(dllimport) __forceinline int getInt() const { return m_int; }
+	int bfme_getInt_58502() const { return m_int; }
+	int bfme_int_ena() const { return m_int; }
+	int bfme_int_exa() const { return m_int; }
+	int bfme_int_hos() const { return m_int; }
+	// LINK: same-body helper under a TU-unique name (identical inlined bytes); the getInt copy loses to the first-in-order copy. No flags touched.
+	int bfme_getInt_f996b() const { return m_int; }
+	char m_pad00[0x8];
+	int m_int; // +0x08
+	float m_real; // +0x0C
+	AsciiString m_string; // +0x10
+	unsigned char m_afterString[8]; // +0x14
+	unsigned int m_objectId; // +0x1C
+	int m_cachedFrame; // +0x20
 };
 
 class Condition
 {
 public:
+	bool isInverted() const { return m_inverted; }
+	Parameter *getParameter(int ndx) const { if (ndx >= 0 && ndx < m_numParms) return m_parms[ndx]; return 0; }
+	int getCustomData() const { return m_customData; }
+	void setCustomData(int val) { m_customData = val; }
+	unsigned int getCustomFrame() const { return m_customFrame; }
+	void setCustomFrame(unsigned int frame) { m_customFrame = frame; }
 	int getType() const { return m_type; }
 	int getNumParameters() const { return m_numParms; }
-	Parameter *getParameter(int ix) const
-	{
-		return (ix >= 0 && ix < m_numParms) ? m_parms[ix] : 0;
-	}
-
+	char m_pad00[0x4];
 private:
-	int m_pad0;
-	int m_type;
-	int m_numParms;
-	Parameter *m_parms[13];
+	int m_type; // +0x04
+	int m_numParms; // +0x08
+	Parameter *m_parms[13]; // +0x0C
+	char m_pad40[0x4];
+	int m_customData; // +0x44
+	unsigned int m_customFrame; // +0x48
+	char m_pad4C[0x1];
+	bool m_inverted; // +0x4D
+	char m_pad4E[0x2];
 };
 
 struct Cond003E5D95;
@@ -536,13 +556,13 @@ bool ScriptConditions::evaluateConditionHelper(Condition *condition)
 	case 184:
 		return Rva003E8FEE(condition->getParameter(0));
 	case 185:
-		return Rva003E9029(condition->getParameter(0)->getString());
+		return Rva003E9029(&condition->getParameter(0)->getString());
 	case 186:
-		return this->evaluateHasEvaEventPlayedInLastNSeconds(*condition->getParameter(0)->getString(), condition->getParameter(1)->getReal());
+		return this->evaluateHasEvaEventPlayedInLastNSeconds(condition->getParameter(0)->getString(), condition->getParameter(1)->getReal());
 	case 187:
-		return this->evaluateIsNumOfUnitsBelongingToPlayerNearEvaEventLastPlayedLocationComparisonInt(condition->getParameter(0), condition->getParameter(1)->getReal(), condition->getParameter(2)->getString(), condition->getParameter(3)->getInt(), condition->getParameter(4)->getInt());
+		return this->evaluateIsNumOfUnitsBelongingToPlayerNearEvaEventLastPlayedLocationComparisonInt(condition->getParameter(0), condition->getParameter(1)->getReal(), &condition->getParameter(2)->getString(), condition->getParameter(3)->getInt(), condition->getParameter(4)->getInt());
 	case 195:
-		return this->evaluateHasDelayedCarryoverUnitOfType(*condition->getParameter(0)->getString(), condition->getParameter(1));
+		return this->evaluateHasDelayedCarryoverUnitOfType(condition->getParameter(0)->getString(), condition->getParameter(1));
 	case 196:
 		return Rva0056815AAny();
 	case 197:
