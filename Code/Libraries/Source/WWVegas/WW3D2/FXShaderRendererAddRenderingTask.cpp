@@ -54,7 +54,7 @@ class RenderingMethod : public RefCountClass
 struct Rva00174AADLightEnv
 {
 	char m_pad00[0x19];
-	unsigned char m_flags19;
+	unsigned char m_flags;
 	char m_pad1A[0xBC - 0x1A];
 	unsigned char *m_ptrBC;
 };
@@ -120,7 +120,7 @@ void Rva00DF6F94GapFillerContext::Add_Rendering_Task(RefCountPtr<MeshClass> mesh
 		return;
 	Rva00174AADRecord *record;
 	Rva00174AADLightEnv *env = mesh->m_lightEnv;
-	if (env->m_flags19 & 4)
+	if (env->m_flags & 4)
 	{
 		if (*env->m_ptrBC)
 		{

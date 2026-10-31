@@ -139,7 +139,7 @@ void *Rva0057C50C::v04(void *color, void *arg)
 		*destination = def;
 		return destination;
 	}
-	Rva0057CC70Color tmp;
+	Rva0057CC70Color slotColor;
 	Rva0057CC70Color *src;
 	int slot = cC70Arg->m_field140;
 	if (slot == -1)
@@ -173,8 +173,8 @@ void *Rva0057C50C::v04(void *color, void *arg)
 			MultiplayerColorDefinition *multiplayerColorDefinition = TheMultiplayerSettings->getColor(color);
 			if (multiplayerColorDefinition)
 			{
-				tmp = ((CC70ColorDefView *)multiplayerColorDefinition)->m_color;
-				src = &tmp;
+				slotColor = ((CC70ColorDefView *)multiplayerColorDefinition)->m_color;
+				src = &slotColor;
 			}
 			else
 				src = &def;

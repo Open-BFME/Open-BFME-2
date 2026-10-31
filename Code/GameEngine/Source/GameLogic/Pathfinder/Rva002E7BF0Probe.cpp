@@ -68,15 +68,15 @@ struct Rva002E7BF0Locomotor
 class Rva002EC3CEProbes
 {
 public:
-	bool rva002E7BF0(int locomotor, int zone, bool flag, int x, int y, int layer, void *out, bool remap);
+	bool rva002E7BF0(int locomotor, int zone, bool flag, int cellX, int cellY, int layer, void *out, bool remap);
 private:
 	unsigned char m_pad000[0x460];
 	Rva002E99F9Sub460 m_zones460;			// +0x460
 };
 
-bool Rva002EC3CEProbes::rva002E7BF0(int locomotor, int zone, bool flag, int x, int y, int layer, void *out, bool remap)
+bool Rva002EC3CEProbes::rva002E7BF0(int locomotor, int zone, bool flag, int cellX, int cellY, int layer, void *out, bool remap)
 {
-	PathfindCell *cell = reinterpret_cast<Pathfinder *>(this)->getCell((PathfindLayerEnum)layer, x, y);
+	PathfindCell *cell = reinterpret_cast<Pathfinder *>(this)->getCell((PathfindLayerEnum)layer, cellX, cellY);
 	if (!cell)
 		return false;
 	if (cell->m_layer != layer)
@@ -87,11 +87,11 @@ bool Rva002EC3CEProbes::rva002E7BF0(int locomotor, int zone, bool flag, int x, i
 		return false;
 	if ((bool)cell->m_flag18 && ((Rva002E7BF0Locomotor *)locomotor)->m_05)
 		return false;
-	int z = m_zones460.rva0053241F((void *)locomotor, cell->m_zone08);
+	int mappedZone = m_zones460.rva0053241F((void *)locomotor, cell->m_zone08);
 	if (remap)
-		z = m_zones460.rva00531FD4((void *)locomotor, z);
-	if (zone == z) {
-		*(Coord3D *)out = rva002E79A8(flag, x, y, (PathfindLayerEnum)layer);
+		mappedZone = m_zones460.rva00531FD4((void *)locomotor, mappedZone);
+	if (zone == mappedZone) {
+		*(Coord3D *)out = rva002E79A8(flag, cellX, cellY, (PathfindLayerEnum)layer);
 		return true;
 	}
 	return false;

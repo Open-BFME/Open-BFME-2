@@ -242,7 +242,7 @@ public:
 	int m_clientFramePeriod;					// +0x34
 
 private:
-	void _bfme_updateClientFrameRatio(void);	// 0x00225D78
+	void updateClientFrameRatio(void);	// 0x00225D78
 };
 
 void GameEngine::_bfme_updateNetworkAndLogic(int phase)
@@ -294,7 +294,7 @@ void GameEngine::_bfme_updateNetworkAndLogic(int phase)
 				Rva00225A0C(logic->m_frame * 10 + period - 1);
 				TheGameLogic->update(phase);
 			}
-			_bfme_updateClientFrameRatio();
+			updateClientFrameRatio();
 		}
 	}
 	else

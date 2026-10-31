@@ -26,7 +26,7 @@ public:
 struct Rva005CB432Entry
 {
 	char m_pad00[0x20];
-	int m_20;
+	int m_enabled;
 };
 struct Rva005CB432Vector
 {
@@ -41,12 +41,12 @@ struct Rva005CB432Owner
 	char m_pad000[0x170];
 	Rva005CB432Vector m_entries;	// +0x170
 };
-void __fastcall rva005CB432(RegionUI *ui, Rva005CB432Owner *owner)
+void __fastcall updatePageCounts(RegionUI *ui, Rva005CB432Owner *owner)
 {
 	Int enabled = 0;
 	Int total = owner->m_entries.size();
 	for (Int i = 0; i < total; ++i)
-		if (owner->m_entries[i]->m_20 != 0)
+		if (owner->m_entries[i]->m_enabled != 0)
 			++enabled;
 	ui->SetPageCounts(enabled, total);
 }

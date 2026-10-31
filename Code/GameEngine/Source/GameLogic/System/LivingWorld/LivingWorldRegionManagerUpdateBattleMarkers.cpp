@@ -114,14 +114,14 @@ void LivingWorldRegionManager::UpdateBattleMarkers()
 			return;
 		}
 	}
-	LivingWorldBattle *p = SelectPendingBattle();
-	if (!p)
+	LivingWorldBattle *pendingBattle = SelectPendingBattle();
+	if (!pendingBattle)
 		return;
 	void *q = *(void **)((char *)g_009FEF10 + 0x98);
 	if (!q)
 		return;
-	if (p->rva003F48EF(q)) {
-		TmpBE433C tmp(p);
+	if (pendingBattle->rva003F48EF(q)) {
+		TmpBE433C tmp(pendingBattle);
 		EnumeratePendingBattles(*(PendingBattleVisitor *)&tmp);
 	}
 	else {

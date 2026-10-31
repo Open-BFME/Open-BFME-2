@@ -25,7 +25,7 @@ public:
 
 struct Rva005686F5Elem
 {
-	AsciiString m_00;
+	AsciiString m_key;
 	AsciiString m_04;
 };
 
@@ -33,7 +33,7 @@ void *__stdcall rva005686F5(const Rva005686F5Elem *element)
 {
 	if (TheLargeGroupAudio == 0)
 		return 0;
-	void *item = reinterpret_cast<Rva0020DB91 *>(TheLargeGroupAudio)->rva0020DB91(element->m_00);
+	void *item = reinterpret_cast<Rva0020DB91 *>(TheLargeGroupAudio)->rva0020DB91(element->m_key);
 	if (item == 0)
 		return 0;
 	return ((Rva003EE083 *)item)->rva003EE083(element->m_04);

@@ -157,11 +157,11 @@ void *EA::Allocator::GeneralAllocator::rva00034D10(int blockTypes, bool copy, vo
 				unsigned int size = count * sizeof(EA::Allocator::BlockInfo) + sizeof(Rva00034D10Snapshot);
 				if (storage && (unsigned int)storageSize < size)
 					storage = 0;
-				void *p = storage ? (void *)storage : reinterpret_cast<Rva006C1F60 *>(this)->rva00033ED0(size, 0x80000000);
-				if (p)
+				void *snapshotStorage = storage ? (void *)storage : reinterpret_cast<Rva006C1F60 *>(this)->rva00033ED0(size, 0x80000000);
+				if (snapshotStorage)
 				{
-					((unsigned int *)p)[-1] |= 4;
-					snapshot = (Rva00034D10Snapshot *)new (p) EA::Allocator::GeneralAllocator::Snapshot(size, (void *)blockTypes);
+					((unsigned int *)snapshotStorage)[-1] |= 4;
+					snapshot = (Rva00034D10Snapshot *)new (snapshotStorage) EA::Allocator::GeneralAllocator::Snapshot(size, (void *)blockTypes);
 					snapshot->m_size = size;
 					snapshot->m_external = storage != 0;
 					snapshot->m_headerOnly = 0;
@@ -245,11 +245,11 @@ void *EA::Allocator::GeneralAllocator::rva00034D10(int blockTypes, bool copy, vo
 		unsigned int size = 0x38;
 		if (storage && (unsigned int)storageSize < size)
 			storage = 0;
-		void *p = storage ? (void *)storage : reinterpret_cast<Rva006C1F60 *>(this)->rva00033ED0(size, 0x80000000);
-		if (p)
+		void *snapshotStorage = storage ? (void *)storage : reinterpret_cast<Rva006C1F60 *>(this)->rva00033ED0(size, 0x80000000);
+		if (snapshotStorage)
 		{
-			((unsigned int *)p)[-1] |= 4;
-			Rva00034D10Snapshot *s = (Rva00034D10Snapshot *)new (p) EA::Allocator::GeneralAllocator::Snapshot(size, (void *)blockTypes);
+			((unsigned int *)snapshotStorage)[-1] |= 4;
+			Rva00034D10Snapshot *s = (Rva00034D10Snapshot *)new (snapshotStorage) EA::Allocator::GeneralAllocator::Snapshot(size, (void *)blockTypes);
 			s->m_size = size;
 			s->m_external = storage != 0;
 			s->m_headerOnly = 1;

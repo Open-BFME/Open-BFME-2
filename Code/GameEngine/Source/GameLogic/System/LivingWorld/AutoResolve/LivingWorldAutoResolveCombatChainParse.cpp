@@ -32,7 +32,7 @@ Rva0022D214::Rva0022D214(const AsciiString&asciiString,const Rva004191E5&v):key(
 #pragma pack(push,1)
 struct InsertRet00419331 {void *node;void *owner;unsigned char found;};
 #pragma pack(pop)
-class Rva000427195 {public:InsertRet00419331 rva004193AD(const void*); __forceinline InsertRet00419331 rva004193D1(const void *value) {return rva004193AD(value);}};
+class Rva000427195 {public:InsertRet00419331 insertUnique(const void*); __forceinline InsertRet00419331 rva004193D1(const void *value) {return insertUnique(value);}};
 class Rva0041811D {public:void *rva00419154();unsigned char pad[12];Rva000427195 table;};
 extern Rva0041811D *TheLivingWorldAutoResolveCombatChainStore;
 void parseAutoResolveCombatChainDefinition(INI *ini)

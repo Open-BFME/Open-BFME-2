@@ -10,8 +10,8 @@ struct Rva00502787Header
 {
 	int m_00;
 	void *m_04;
-	void *m_08;
-	void *m_0c;
+	void *m_left;
+	void *m_right;
 };
 
 struct Rva00502787
@@ -26,8 +26,8 @@ void Rva00502787::rva00502787()
 	if (m_04 == 0)
 		return;
 	((Rva005025DB *)this)->rva005025DB(m_00->m_04);
-	m_00->m_08 = m_00;
+	m_00->m_left = m_00;
 	m_00->m_04 = 0;
-	m_00->m_0c = m_00;
+	m_00->m_right = m_00;
 	m_04 = 0;
 }

@@ -35,7 +35,7 @@ public:
     void freeBlock(void *pBlock, int size);
 };
 
-void *g_00E180F8;
+void *g_clipStackBlock;
 extern Rva006DB270 *g_pChainBlockAllocator;
 
 AptMath::ClipTransform_t *AptMath::m_pStackBase;
@@ -72,7 +72,7 @@ void AptMath::ClipStackShutdown()
         return;
     }
     unsigned short capacity = m_nStackCapacity;
-    void *ptr = g_00E180F8;
+    void *ptr = g_clipStackBlock;
     int size = capacity * 96 + 16;
     Rva006DB270 *pool = g_pChainBlockAllocator;
     pool->freeBlock(ptr, size);
@@ -97,8 +97,8 @@ void AptMath::ClipStackInit(unsigned int count)
         g_bfmeAptAssertAtE17734("nMaxTransforms <= 0xFFFF && \"Max Transforms is currently bounded by a uint 16.\"", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptMath.cpp",160);
         if (g_bfmeAptBreakOnAssertAtDDC01C) __debugbreak();
     }
-    g_00E180F8 = reinterpret_cast<Rva006DB160 *>(g_pChainBlockAllocator)->allocBlock(count*96+16);
-    unsigned int ptr = reinterpret_cast<unsigned int>(g_00E180F8);
+    g_clipStackBlock = reinterpret_cast<Rva006DB160 *>(g_pChainBlockAllocator)->allocBlock(count*96+16);
+    unsigned int ptr = reinterpret_cast<unsigned int>(g_clipStackBlock);
     if (ptr & 15) { ptr += 16; ptr &= ~15; }
     m_pStackBase = reinterpret_cast<ClipTransform_t *>(ptr);
     m_nStackCapacity = count;

@@ -12,7 +12,7 @@ public:
 };
 // BFME 2 0x00661F40 (15B): forward the reply to the browser's
 // handleLoginReply (0x00661ED0).
-extern "C" void Rva007F5790Callback(void *message, void *browser)
+extern "C" void loginReplyCallback(void *message, void *browser)
 {
     ((Rva007F5720GameBrowser *)browser)->handleLoginReply((Rva007E8810Message *)message);
 }
@@ -70,6 +70,6 @@ void Rva007F7030::request(int first, int second)
     state = 4;
     BfmeC994 message(buffer, 0x400);
     sender->send(&message, "", second, first);
-    notifier->send(&message, Rva007F5790Callback, this, transaction);
+    notifier->send(&message, loginReplyCallback, this, transaction);
     ((Gen_007e86c0 *)&message)->m();
 }

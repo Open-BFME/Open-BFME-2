@@ -77,17 +77,17 @@ public:
 };
 AptValue *Rva008A4EA0MakeFloat(float value);
 
-AptValue *Rva006CBA10CreateInteger(int value)
+AptValue *createInteger(int value)
 {
 	return AptInteger::Create(value);
 }
 
-AptValue *Rva006CBA20CreateFloat(float value)
+AptValue *createFloat(float value)
 {
 	return Rva008A4EA0MakeFloat(value);
 }
 
-AptValue *Rva006CBA30CreateBoolean(bool value)
+AptValue *createBoolean(bool value)
 {
 	return AptBoolean::Create(value);
 }
@@ -120,7 +120,7 @@ private:
 	char m_storage[0x2C];
 };
 
-AptValue *Rva006CBA40CreateArray(int count, BfmeAptValue006DCD20 **pAptValue)
+AptValue *createArray(int count, BfmeAptValue006DCD20 **pAptValue)
 {
 	if (pAptValue == 0) {
 		g_bfmeAptAssertAtE17734("pAptValue != NULL",
@@ -133,7 +133,7 @@ AptValue *Rva006CBA40CreateArray(int count, BfmeAptValue006DCD20 **pAptValue)
 
 // 0x006CB9B0 (17B, just before 0x006CB9D0): a raw block of the given size
 // from the same value allocator (rowed allocBlock 0x006D29E0).
-void *Rva006CB9B0Alloc(int size)
+void *allocValueBlock(int size)
 {
 	return g_pChainBlockAllocatorF4->allocBlock(size);
 }

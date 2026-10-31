@@ -94,8 +94,8 @@ void Rva003F5DBD::rva003F5DBD(void *a, int idx)
 	Rva003F610FElement &element = m_04[idx];
 	if (element.m_00 != 0)
 	{
-		ScienceType tmp = ((SciSrc *)element.m_00)->m_14;
-		m_10.push_back(tmp);
+		ScienceType m_scienceType = ((SciSrc *)element.m_00)->m_14;
+		m_10.push_back(m_scienceType);
 	}
 	int cnt = (int)element.m_04.size();
 	CreateAHeroData *createAHeroData;

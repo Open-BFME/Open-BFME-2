@@ -157,8 +157,8 @@ void TargetObj005C8DBF::method_005C8DBF(float val)
 	TreeNode005C8DBF *node = (TreeNode005C8DBF *)m_tree2C.rva005C8CA0(&key);
 	if (node != (TreeNode005C8DBF *)m_tree2C.end()._M_node)
 	{
-		int *p = &node->m_count;
-		(*p)--;
+		int *countPtr = &node->m_count;
+		(*countPtr)--;
 		if (node->m_count == 0)
 		{
 			Tree005530A8::iterator it;

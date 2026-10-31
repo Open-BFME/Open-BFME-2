@@ -45,7 +45,7 @@ struct Rva003F5BDBElem
 struct Rva003F5BDBRet
 {
 	void *m_00;
-	_STL::vector<Rva003F5BDBElem *> m_04;
+	_STL::vector<Rva003F5BDBElem *> m_elements;
 };
 
 class LivingWorldBattle
@@ -58,12 +58,12 @@ public:
 void LivingWorldBattle::rva003F5BDB(void *a, _STL::vector<ScienceType> *out)
 {
 	out->erase(out->begin(), out->end());
-	Rva003F5BDBRet *r = (Rva003F5BDBRet *)rva003F4DEE(a);
-	if (r == 0)
+	Rva003F5BDBRet *record = (Rva003F5BDBRet *)rva003F4DEE(a);
+	if (record == 0)
 		return;
-	for (unsigned int i = 0; i < r->m_04.size(); ++i)
+	for (unsigned int i = 0; i < record->m_elements.size(); ++i)
 	{
-		Rva003F5BDBElem *element = r->m_04[i];
+		Rva003F5BDBElem *element = record->m_elements[i];
 		if ((char)element->m_78->rva003F3F83())
 		{
 			ScienceType science = element->m_20;

@@ -79,7 +79,7 @@ void Rva005422CF::reset()
 		int key = *(int *)((char *)vec->m_begin + 20);
 		((Rva005418CB *)this)->rva005418CB(key);
 	}
-	Rva00540FF6 tmp;
-	tmp.m_00 = 0;
-	((_STL::vector<Rva0054103E, _STL::allocator<Rva0054103E> > *)&m_vec10)->push_back(reinterpret_cast<const Rva0054103E &>(tmp));
+	Rva00540FF6 defaultRecord;
+	defaultRecord.m_00 = 0;
+	((_STL::vector<Rva0054103E, _STL::allocator<Rva0054103E> > *)&m_vec10)->push_back(reinterpret_cast<const Rva0054103E &>(defaultRecord));
 }

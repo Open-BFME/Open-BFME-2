@@ -64,7 +64,7 @@ public:
 class Rva003328ED
 {
 public:
-	void rva003328ED(void *x, int nameKey1, int nameKey2);
+	void rva003328ED(void *listItem, int nameKey1, int nameKey2);
 
 private:
 	void *m_unk0;
@@ -83,7 +83,7 @@ namespace _STL { template <> void vector<Rva003328B6Element,_STL::allocator<Rva0
 namespace _STL { template <> void vector<Rva003328B6Element,_STL::allocator<Rva003328B6Element> >::_M_insert_overflow(Rva003328B6Element *,Rva003328B6Element const &,_STL::__false_type const &,unsigned int,bool); }
 namespace _STL { template <> void vector<Rva003328B6Element,_STL::allocator<Rva003328B6Element> >::push_back(Rva003328B6Element const &); }
 // bfme link decl-only end
-void Rva003328ED::rva003328ED(void *x, int nameKey1, int nameKey2)
+void Rva003328ED::rva003328ED(void *listItem, int nameKey1, int nameKey2)
 {
 	Rva003328B6Element *element = m_vec.begin();
 	bool found = false;
@@ -93,7 +93,7 @@ void Rva003328ED::rva003328ED(void *x, int nameKey1, int nameKey2)
 			break;
 		if (element->m_key1 == nameKey1 && element->m_key2 == nameKey2)
 		{
-			((Rva003320C7ListOwner *)element)->appendIfAbsent(x);
+			((Rva003320C7ListOwner *)element)->appendIfAbsent(listItem);
 			found = true;
 		}
 		++element;
@@ -106,5 +106,5 @@ void Rva003328ED::rva003328ED(void *x, int nameKey1, int nameKey2)
 	m_vec.push_back(*(Rva003328B6Element *)&tmp);
 	Rva003328B6Element *plast = m_vec.end();
 	--plast;
-	((Rva003320C7ListOwner *)plast)->appendIfAbsent(x);
+	((Rva003320C7ListOwner *)plast)->appendIfAbsent(listItem);
 }

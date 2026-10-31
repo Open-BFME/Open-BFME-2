@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /Ob2 /DNDEBUG /MD /EHsc
 // stlport
-// ?rva00419331@Rva000427195@@QAE?AUInsertRet00419331@@PBX@Z, retail 0x00419331 124B.
+// ?insertUniqueNoresize@Rva000427195@@QAE?AUInsertRet00419331@@PBX@Z, retail 0x00419331 124B.
 // Hashtable insert_unique same shape as rowed 0x00212A5A/0x0041539F/0x001F8F2A (124B).
 // Buckets at +4/+8 (proven by rowed bucketIndex 0x00223149), count at +0x10 (inc).
 // Walks bucket chain with rowed StringBase compare 0x000069D6; on miss allocates
@@ -81,8 +81,8 @@ class Rva000427195
 public:
 	int bucketIndex(const AsciiString *name);
 	void rva00212858(unsigned int newSize);
-	InsertRet00419331 rva00419331(const void *key);
-	InsertRet00419331 rva004193AD(const void *key);
+	InsertRet00419331 insertUniqueNoresize(const void *key);
+	InsertRet00419331 insertUnique(const void *key);
 	InsertRet00419331 rva004198EB(const void *key);
 	InsertRet00419331 rva00419967(const void *key);
 
@@ -93,7 +93,7 @@ public:
 	unsigned int m_numElements;
 };
 
-InsertRet00419331 Rva000427195::rva00419331(const void *key)
+InsertRet00419331 Rva000427195::insertUniqueNoresize(const void *key)
 {
 	int bucket = bucketIndex((const AsciiString *)key);
 	void *head = m_beginBuckets[bucket];
@@ -114,10 +114,10 @@ InsertRet00419331 Rva000427195::rva00419331(const void *key)
 	return InsertRet00419331(node, this, 1);
 }
 
-InsertRet00419331 Rva000427195::rva004193AD(const void *key)
+InsertRet00419331 Rva000427195::insertUnique(const void *key)
 {
 	rva00212858(m_numElements + 1);
-	return rva00419331(key);
+	return insertUniqueNoresize(key);
 }
 
 InsertRet00419331 Rva000427195::rva004198EB(const void *key)

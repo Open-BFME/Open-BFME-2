@@ -38,8 +38,8 @@ private:
 
 void Rva002B2BEC::rva002B2BEC(Rva002B2BECArg *arg)
 {
-	void *r = m_b0->rva002104B6(&arg->m_2C);
-	if (r == 0)
+	void *location = m_b0->rva002104B6(&arg->m_2C);
+	if (location == 0)
 		return;
-	((Rva002BF652 *)((Rva002D3627Host *)TheLivingWorld))->rva002BF652(r);
+	((Rva002BF652 *)((Rva002D3627Host *)TheLivingWorld))->rva002BF652(location);
 }

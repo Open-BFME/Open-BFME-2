@@ -7,7 +7,7 @@
 class Rva004F8DD4
 {
 public:
-	void rva004F8DD4();
+	void clear();
 };
 
 struct Rva004F9378Base
@@ -33,5 +33,5 @@ public:
 
 Rva004F9378::~Rva004F9378()
 {
-	((Rva004F8DD4 *)this)->rva004F8DD4();
+	((Rva004F8DD4 *)this)->clear();
 }

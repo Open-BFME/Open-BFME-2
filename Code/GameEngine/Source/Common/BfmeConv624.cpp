@@ -78,18 +78,18 @@ public:
 
 int BfmeThingCME::bfmeGoCME(void *what)
 {
-	BfmeTempCME tmp;
-	((Rva0027D1C6 *)&tmp)->rva0027D1C6();
-	(((Rva0027DCF2 *)this)->*reinterpret_cast<Rva0027DCF2Shape>(&Rva0027DCF2::rva0027DCF2))(what, 10.0f, &tmp, 0, 0);
-	return tmp.m_bfmeResult;
+	BfmeTempCME queryResult;
+	((Rva0027D1C6 *)&queryResult)->rva0027D1C6();
+	(((Rva0027DCF2 *)this)->*reinterpret_cast<Rva0027DCF2Shape>(&Rva0027DCF2::rva0027DCF2))(what, 10.0f, &queryResult, 0, 0);
+	return queryResult.m_bfmeResult;
 }
 
 int BfmeThingCME::rva0027F108(void *what, float value, int one, int two)
 {
-	BfmeTempCME tmp;
-	((Rva0027D1C6 *)&tmp)->rva0027D1C6();
-	(((Rva0027DCF2 *)this)->*reinterpret_cast<Rva0027DCF2Shape>(&Rva0027DCF2::rva0027DCF2))(what, value, &tmp, one, two);
-	return tmp.m_bfmeResult;
+	BfmeTempCME queryResult;
+	((Rva0027D1C6 *)&queryResult)->rva0027D1C6();
+	(((Rva0027DCF2 *)this)->*reinterpret_cast<Rva0027DCF2Shape>(&Rva0027DCF2::rva0027DCF2))(what, value, &queryResult, one, two);
+	return queryResult.m_bfmeResult;
 }
 
 // Native 0x0027F171..0x0027F1DD, RET 4. The measured grid-query helper

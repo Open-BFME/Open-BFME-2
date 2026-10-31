@@ -44,8 +44,8 @@ void AITacticsGenerator::rva00505AF1()
 	for (_STL::vector<Rva00505AF1Elem *>::iterator it = m_10.begin(); it != m_10.end(); ) {
 		Rva00505AF1Elem *element = *it;
 		if (element->m_28 != 0) {
-			void *p = element->rva(0);
-			::operator delete(p);
+			void *payload = element->rva(0);
+			::operator delete(payload);
 			it = (_STL::vector<Rva00505AF1Elem *>::iterator)(((_STL::vector<void *> *)&m_10)->erase((void **)it));
 		} else {
 			++it;
@@ -54,8 +54,8 @@ void AITacticsGenerator::rva00505AF1()
 	for (_STL::vector<Rva00505AF1Elem *>::iterator it = m_28.begin(); it != m_28.end(); ) {
 		Rva00505AF1Elem *element = *it;
 		if (element->m_28 != 0) {
-			void *p = element->rva(0);
-			::operator delete(p);
+			void *payload = element->rva(0);
+			::operator delete(payload);
 			it = (_STL::vector<Rva00505AF1Elem *>::iterator)(((_STL::vector<void *> *)&m_28)->erase((void **)it));
 		} else {
 			++it;
@@ -64,8 +64,8 @@ void AITacticsGenerator::rva00505AF1()
 	for (_STL::vector<Rva00505AF1Elem *>::iterator it = m_40.begin(); it != m_40.end(); ) {
 		Rva00505AF1Elem *element = *it;
 		if (element->m_28 != 0) {
-			void *p = element->rva(0);
-			::operator delete(p);
+			void *payload = element->rva(0);
+			::operator delete(payload);
 			it = (_STL::vector<Rva00505AF1Elem *>::iterator)(((_STL::vector<void *> *)&m_40)->erase((void **)it));
 		} else {
 			++it;
@@ -74,8 +74,8 @@ void AITacticsGenerator::rva00505AF1()
 	for (_STL::vector<Rva00505AF1Elem *>::iterator it = m_58.begin(); it != m_58.end(); ) {
 		Rva00505AF1Elem *element = *it;
 		if (element->m_28 != 0) {
-			void *p = element->rva(0);
-			::operator delete(p);
+			void *payload = element->rva(0);
+			::operator delete(payload);
 			it = (_STL::vector<Rva00505AF1Elem *>::iterator)(((_STL::vector<void *> *)&m_58)->erase((void **)it));
 		} else {
 			++it;

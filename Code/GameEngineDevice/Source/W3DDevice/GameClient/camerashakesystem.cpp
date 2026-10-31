@@ -95,7 +95,7 @@ protected:
 class Rva000658C5 : public GenericMultiListClass
 {
 public:
-	bool rva000658C5(MultiListObjectClass *obj, bool onlyonce);
+	bool add(MultiListObjectClass *obj, bool onlyonce);
 	bool rva000658CA(MultiListObjectClass *obj);
 	MultiListObjectClass *rva000658CF();
 };
@@ -107,7 +107,7 @@ struct Rva00065E21Node
 	void *m_prev00;
 	Rva00065E21Node *m_next04;
 	void *m_pad08;
-	int m_flag0C;
+	int m_flags;
 };
 
 class Rva00065E21
@@ -116,7 +116,7 @@ public:
 	bool rva00065E21();
 private:
 	char m_pad00[4];
-	Rva00065E21Node m_head04;
+	Rva00065E21Node m_head;
 };
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/camerashakesystem.cpp
@@ -150,7 +150,7 @@ bool CameraShakeSystemClass::CameraShakerClass::Is_Expired(void)
 	return ElapsedTime >= Duration;
 }
 
-bool Rva000658C5::rva000658C5(MultiListObjectClass *obj, bool onlyonce)
+bool Rva000658C5::add(MultiListObjectClass *obj, bool onlyonce)
 {
 	return Internal_Add(obj, onlyonce);
 }
@@ -171,8 +171,8 @@ MultiListObjectClass *Rva000658C5::rva000658CF()
 
 bool Rva00065E21::rva00065E21()
 {
-	for (Rva00065E21Node *node = m_head04.m_next04; node != &m_head04; node = node->m_next04) {
-		if (node->m_flag0C != 0)
+	for (Rva00065E21Node *node = m_head.m_next04; node != &m_head; node = node->m_next04) {
+		if (node->m_flags != 0)
 			return true;
 	}
 	return false;

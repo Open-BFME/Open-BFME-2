@@ -43,10 +43,10 @@ template MacroTable::~hashtable();
 class Rva002238E1
 {
 public:
-	void rva002238E1();
+	void destroyMacroTable();
 };
 
-void Rva002238E1::rva002238E1()
+void Rva002238E1::destroyMacroTable()
 {
 	((MacroTable *)this)->~hashtable();
 }

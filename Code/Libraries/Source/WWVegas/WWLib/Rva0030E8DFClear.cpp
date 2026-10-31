@@ -17,7 +17,7 @@ struct RvaVector {
 	void **m_cap;
 	void **erase(void **first, void **last);
 	void rva0030E910(unsigned newSize, float value);
-	void rva0030E94F(unsigned newSize);
+	void resize(unsigned newSize);
 };
 class Rva0030E8DF {
 public:
@@ -59,7 +59,7 @@ void RvaVector::rva0030E910(unsigned newSize, float value)
 // Whole BF1f989 Common/Rva001DC500ArgFlagForwarders.cpp underO1/SSE2/G6
 // supplies the same zero-fill wrapper guide. Original owner and element
 // identity remain unknown; this reuses the existing raw storage receiver.
-void RvaVector::rva0030E94F(unsigned newSize)
+void RvaVector::resize(unsigned newSize)
 {
     rva0030E910(newSize, 0.0f);
 }

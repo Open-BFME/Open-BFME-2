@@ -510,7 +510,7 @@ void AreaPolygonBase::setPoint(int i, const BfmeE8 &val)
 	m_dirty = true;
 }
 
-// tu-skeleton: 0x0030B343 53B ?Rva0030B343Swap@@YAXAAURva0030D111Point@@0@Z -- matched in Code/GameEngine/Source/Common/Rva0030D111ContainsPoint.cpp (not merged yet)
+// tu-skeleton: 0x0030B343 53B ?swapPoints@@YAXAAURva0030D111Point@@0@Z -- matched in Code/GameEngine/Source/Common/Rva0030D111ContainsPoint.cpp (not merged yet)
 
 // tu-skeleton: 0x0030B3D1 478B ?rva0030B3D1@AreaPolygonBase@@QAEXXZ -- matched in Code/GameEngine/Source/Common/AreaPolygonUpdateBounds.cpp (not merged yet)
 

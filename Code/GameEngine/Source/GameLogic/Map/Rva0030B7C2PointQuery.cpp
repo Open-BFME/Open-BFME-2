@@ -11,7 +11,7 @@ struct Rva0030D111Point : Coord2D {
  Rva0030D111Point() {}
  Rva0030D111Point(const Rva0030D111Point &r) { x=r.x;y=r.y; }
 };
-void Rva0030B343Swap(Rva0030D111Point &,Rva0030D111Point &);
+void swapPoints(Rva0030D111Point &,Rva0030D111Point &);
 class Rva0030B719Shape {
 public:
  Region2D rva0030B6E3();
@@ -44,7 +44,7 @@ bool rva0030B5AF(const Rva0030B7C2Point *point,Rva0030B719Shape *shape)
   Rva0030D111Point b(points[i>0?i-1:n-1]);
   if(a.y == b.y)continue;
   if(point->x > a.x && point->x > b.x)continue;
-  if(a.y > b.y)Rva0030B343Swap(a,b);
+  if(a.y > b.y)swapPoints(a,b);
   if(point->y > b.y || a.y >= point->y)continue;
   float dy=b.y-a.y;
   float lhs=(point->y-a.y)*(b.x-a.x);

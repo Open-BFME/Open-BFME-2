@@ -57,13 +57,13 @@ Rva008030C0Elem::Rva008030C0Elem()
 void Rva00803080::initPool()
 {
 	void *raw = Gen007F0150::operator new(0x800);
-	Rva008030C0Elem *p;
+	Rva008030C0Elem *elements;
 	if (raw)
-		p = new (raw) Rva008030C0Elem[0x80];
+		elements = new (raw) Rva008030C0Elem[0x80];
 	else
-		p = 0;
-	m_0c = p;
-	memset(p, 0, 0x800);
+		elements = 0;
+	m_0c = elements;
+	memset(elements, 0, 0x800);
 	m_10 = 0;
 	m_08 = Rva00807BA0();
 }

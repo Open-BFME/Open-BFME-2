@@ -185,12 +185,12 @@ __forceinline long fast_float2long_round(Real f)
 }
 
 static void rva0004F037(void *surface, Int width, Int height,
-	Int x, Int y, Color color, const UnsignedByte *alpha)
+	Int centerX, Int centerY, Color color, const UnsignedByte *alpha)
 {
-	Int blobLeft = x - 3;
-	Int blobTop = y - 3;
-	Int blobRight = x + 3;
-	Int blobBottom = y + 3;
+	Int blobLeft = centerX - 3;
+	Int blobTop = centerY - 3;
+	Int blobRight = centerX + 3;
+	Int blobBottom = centerY + 3;
 	Int left = (blobLeft > 0) ? blobLeft : 0;
 	Int startY = (blobTop > 0) ? blobTop : 0;
 	Int right = (blobRight < width) ? blobRight : width;
@@ -203,37 +203,37 @@ static void rva0004F037(void *surface, Int width, Int height,
 		return;
 	{
 		Int row;
-		for (row = startY; row < y && row < endY; ++row)
+		for (row = startY; row < centerY && row < endY; ++row)
 		{
 			Color *dst = (Color *)((char *)bits + (row - startY) * pitch);
 			Int dy = row - blobTop;
 			Int col;
-			for (col = left; col < x && col < right; ++col)
+			for (col = left; col < centerX && col < right; ++col)
 				Rva0004DE72Blend(&dst[col - left], color, alpha[(col - blobLeft) * 3 + dy]);
-			for (col = std::max(x, left); col < right; ++col)
+			for (col = std::max(centerX, left); col < right; ++col)
 				Rva0004DE72Blend(&dst[col - left], color, alpha[(blobRight - col - 1) * 3 + dy]);
 		}
-		if (y < endY)
-		for (row = std::max(y, startY); row < endY; ++row)
+		if (centerY < endY)
+		for (row = std::max(centerY, startY); row < endY; ++row)
 		{
 			Int dy = blobBottom - row - 1;
 			Color *dst = (Color *)((char *)bits + (row - startY) * pitch);
 			Int col;
-			for (col = left; col < x && col < right; ++col)
+			for (col = left; col < centerX && col < right; ++col)
 				Rva0004DE72Blend(&dst[col - left], color, alpha[(col - blobLeft) * 3 + dy]);
-			for (col = std::max(x, left); col < right; ++col)
+			for (col = std::max(centerX, left); col < right; ++col)
 				Rva0004DE72Blend(&dst[col - left], color, alpha[(blobRight - col - 1) * 3 + dy]);
 		}
 	}
 }
 
 static void rva0004F29B(void *surface, Int width, Int height,
-	Int x, Int y, Color color, const UnsignedByte alpha[][2])
+	Int centerX, Int centerY, Color color, const UnsignedByte alpha[][2])
 {
-	Int blobLeft = x - 2;
-	Int blobTop = y - 2;
-	Int blobRight = x + 2;
-	Int blobBottom = y + 2;
+	Int blobLeft = centerX - 2;
+	Int blobTop = centerY - 2;
+	Int blobRight = centerX + 2;
+	Int blobBottom = centerY + 2;
 	Int left = (blobLeft > 0) ? blobLeft : 0;
 	Int startY = (blobTop > 0) ? blobTop : 0;
 	Int right = (blobRight < width) ? blobRight : width;
@@ -246,25 +246,25 @@ static void rva0004F29B(void *surface, Int width, Int height,
 		return;
 	{
 		Int row;
-		for (row = startY; row < y && row < endY; ++row)
+		for (row = startY; row < centerY && row < endY; ++row)
 		{
 			Color *dst = (Color *)((char *)bits + (row - startY) * pitch);
 			Int dy = row - blobTop;
 			Int col;
-			for (col = left; col < x && col < right; ++col)
+			for (col = left; col < centerX && col < right; ++col)
 				Rva0004DE72Blend(&dst[col - left], color, alpha[col - blobLeft][dy]);
-			for (col = std::max(x, left); col < right; ++col)
+			for (col = std::max(centerX, left); col < right; ++col)
 				Rva0004DE72Blend(&dst[col - left], color, alpha[blobRight - col - 1][dy]);
 		}
-		if (y < endY)
-		for (row = std::max(y, startY); row < endY; ++row)
+		if (centerY < endY)
+		for (row = std::max(centerY, startY); row < endY; ++row)
 		{
 			Int dy = blobBottom - row - 1;
 			Color *dst = (Color *)((char *)bits + (row - startY) * pitch);
 			Int col;
-			for (col = left; col < x && col < right; ++col)
+			for (col = left; col < centerX && col < right; ++col)
 				Rva0004DE72Blend(&dst[col - left], color, alpha[col - blobLeft][dy]);
-			for (col = std::max(x, left); col < right; ++col)
+			for (col = std::max(centerX, left); col < right; ++col)
 				Rva0004DE72Blend(&dst[col - left], color, alpha[blobRight - col - 1][dy]);
 		}
 	}
@@ -272,9 +272,9 @@ static void rva0004F29B(void *surface, Int width, Int height,
 
 // ?rva0004F037Caller absent-from-retail
 // The emission driver takes its tables from its caller; it owns no retail data.
-void rva0004F037Caller(void *surface, Int width, Int height, Int x, Int y, Color color, Color light,
+void rva0004F037Caller(void *surface, Int width, Int height, Int centerX, Int centerY, Color color, Color light,
 	const UnsignedByte *blobAlpha, const UnsignedByte blipAlpha[][2])
 {
-	rva0004F037(surface, width, height, x, y, color, blobAlpha);
-	rva0004F29B(surface, width, height, x, y, light, blipAlpha);
+	rva0004F037(surface, width, height, centerX, centerY, color, blobAlpha);
+	rva0004F29B(surface, width, height, centerX, centerY, light, blipAlpha);
 }

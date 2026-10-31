@@ -14,7 +14,7 @@ struct Rva0030D111Point : Coord2D {
  Rva0030D111Point() {}
  Rva0030D111Point(const Rva0030D111Point &source) { x=source.x;y=source.y; }
 };
-__declspec(noinline) void Rva0030B343Swap(Rva0030D111Point &a,Rva0030D111Point &b) {
+__declspec(noinline) void swapPoints(Rva0030D111Point &a,Rva0030D111Point &b) {
  Rva0030D111Point t(a);a=b;b=t;
 }
 struct Rva0030D111Region {float x0,y0,x1,y1;};
@@ -29,7 +29,7 @@ bool Rva0030D111Contains(Rva0030D111Shape *shape,const Coord2D *point) {
   reinterpret_cast<Rva0007E016*>(shape)->rva0007E016(reinterpret_cast<int>(&b),i>0?i-1:vertexCount-1);
   if(edgeStart.y == b.y)continue;
   if(point->x > edgeStart.x && point->x > b.x)continue;
-  if(edgeStart.y > b.y)Rva0030B343Swap(edgeStart,b);
+  if(edgeStart.y > b.y)swapPoints(edgeStart,b);
   if(point->y > b.y || edgeStart.y >= point->y)continue;
   float dy=b.y-edgeStart.y;
   float lhs=(point->y-edgeStart.y)*(b.x-edgeStart.x);

@@ -32,51 +32,51 @@ void Rva0050492F::rva0050492F(Rva0050492F *other)
 	{
 		int &lhs = m_0;
 		int &rhs = other->m_0;
-		int t = lhs;
+		int saved = lhs;
 		lhs = rhs;
-		rhs = t;
+		rhs = saved;
 	}
 	{
 		int &lhs = m_4;
 		int &rhs = other->m_4;
-		int t = lhs;
+		int saved = lhs;
 		lhs = rhs;
-		rhs = t;
+		rhs = saved;
 	}
 	{
 		int &lhs = m_18;
 		int &rhs = other->m_18;
-		int t = lhs;
+		int saved = lhs;
 		lhs = rhs;
-		rhs = t;
+		rhs = saved;
 	}
 	{
 		float &lhs = m_1c;
 		float &rhs = other->m_1c;
-		float t = lhs;
+		float saved = lhs;
 		lhs = rhs;
-		rhs = t;
+		rhs = saved;
 	}
 	{
 		float &lhs = m_20;
 		float &rhs = other->m_20;
-		float t = lhs;
+		float saved = lhs;
 		lhs = rhs;
-		rhs = t;
+		rhs = saved;
 	}
 	{
 		float &lhs = m_24;
 		float &rhs = other->m_24;
-		float t = lhs;
+		float saved = lhs;
 		lhs = rhs;
-		rhs = t;
+		rhs = saved;
 	}
 	{
 		float &lhs = m_28;
 		float &rhs = other->m_28;
-		float t = lhs;
+		float saved = lhs;
 		lhs = rhs;
-		rhs = t;
+		rhs = saved;
 	}
 	m_vec.swap(other->m_vec);
 }

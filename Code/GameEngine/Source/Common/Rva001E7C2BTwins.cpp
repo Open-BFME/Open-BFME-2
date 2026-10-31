@@ -20,24 +20,24 @@ public:
 class Rva001E7C2B
 {
 public:
-	void rva001E7C2B(int a, int goal, float onPath, float speed);
+	void rva001E7C2B(int movingObject, int goal, float onPath, float speed);
 };
 class Rva001E9045
 {
 public:
-	void rva001E9045(int a, int goal, float onPath, float speed);
+	void rva001E9045(int movingObject, int goal, float onPath, float speed);
 };
 
 // ?rva001E7C2B@Rva001E7C2B@@QAEXHHMM@Z
-void Rva001E7C2B::rva001E7C2B(int a, int goal, float onPath, float speed)
+void Rva001E7C2B::rva001E7C2B(int movingObject, int goal, float onPath, float speed)
 {
-	((Rva001E7053 *)this)->rva001e7053(a, goal, onPath, speed);
+	((Rva001E7053 *)this)->rva001e7053(movingObject, goal, onPath, speed);
 }
 
 // ?rva001E9045@Rva001E9045@@QAEXHHMM@Z
-void Rva001E9045::rva001E9045(int a, int goal, float onPath, float speed)
+void Rva001E9045::rva001E9045(int movingObject, int goal, float onPath, float speed)
 {
-	((Rva001E8C1B *)this)->rva001E8C1B(a, goal, onPath, speed);
+	((Rva001E8C1B *)this)->rva001E8C1B(movingObject, goal, onPath, speed);
 }
 
 class HoverConditionBits

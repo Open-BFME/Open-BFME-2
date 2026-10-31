@@ -80,8 +80,8 @@ public:
 	virtual void s36(); virtual void s37(); virtual void s38(int v); virtual void s39();
 
 private:
-	void _bfme_updateClientFrameCounter(void);
-	void _bfme_updateClientFrameRatio(void);
+	void updateClientFrameCounter(void);
+	void updateClientFrameRatio(void);
 	char m_gap04[0x34 - 4];
 	int m_clientFramePeriod;
 	int m_clientFrameCounter;
@@ -94,12 +94,12 @@ private:
 	int m_5c;
 };
 
-void GameEngine::_bfme_updateClientFrameCounter(void)
+void GameEngine::updateClientFrameCounter(void)
 {
 	m_clientFrameCounter = FramesPerSecond / LogicFramesPerSecond;
 }
 
-void GameEngine::_bfme_updateClientFrameRatio(void)
+void GameEngine::updateClientFrameRatio(void)
 {
 	float ratio = (float)m_clientFramePeriod / (float)m_clientFrameCounter;
 	m_clientFrameRatio = ratio;
@@ -132,18 +132,18 @@ void GameEngine::update()
 	int logicFrame = (int)*(unsigned int *)((char *)TheGameLogic + 0x40);
 	int scaled = logicFrame * 10 + next - 1;
 	Rva00225A0C(scaled);
-	_bfme_updateClientFrameRatio();
+	updateClientFrameRatio();
 	int currentPeriod = m_clientFramePeriod;
 	if (currentPeriod > 6) {
 		if (m_50 % 25 == 0) {
-			unsigned int t = timeGetTime();
-			unsigned int dt = t - m_54;
+			unsigned int currentTime = timeGetTime();
+			unsigned int dt = currentTime - m_54;
 			double elapsedSeconds = ((double)(float)dt * g_bfmeMillisecondsToSeconds);
 			float den = (float)elapsedSeconds;
-			float a = (float)m_50;
+			float sampleFrameCount = (float)m_50;
 			m_50 = 0;
-			float b = (float)m_5c;
-			m_58 = (b / a) * (a / den);
+			float accumulatedTicks = (float)m_5c;
+			m_58 = (accumulatedTicks / sampleFrameCount) * (sampleFrameCount / den);
 			m_5c = 0;
 			m_54 = timeGetTime();
 		}
@@ -151,13 +151,13 @@ void GameEngine::update()
 		int savedPeriod = m_clientFramePeriod;
 		m_50++;
 		m_clientFramePeriod = 1;
-		_bfme_updateClientFrameRatio();
+		updateClientFrameRatio();
 		s38(1);
 		if (((ClientFrameSubsystem *)TheGameClient)->m_c8 != 0) {
 			m_40 = 1;
 		} else {
 			m_clientFramePeriod = savedPeriod;
-			_bfme_updateClientFrameRatio();
+			updateClientFrameRatio();
 		}
 	} else {
 		s38(currentPeriod);

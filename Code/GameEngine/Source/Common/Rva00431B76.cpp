@@ -79,6 +79,6 @@ void FormationTranslator::WaitForSecondButtonDownStateHandler::Update()
 	{
 		m_nextState = 0;
 	}
-	Rva00575674 *q = (Rva00575674 *)((char *)m_04 + 8);
-	q->rva00575674((Object *)m_nextState);
+	Rva00575674 *stateOwner = (Rva00575674 *)((char *)m_04 + 8);
+	stateOwner->rva00575674((Object *)m_nextState);
 }

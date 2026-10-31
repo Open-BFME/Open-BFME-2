@@ -20,28 +20,28 @@ public:
 	virtual ~Rva001F4A90HostBase();
 };
 
-class Rva001F4B01Draw
+class ParticleDrawBinder
 {
 public:
 	virtual void slot0();
 	virtual void ResolveBindings();
-	virtual ~Rva001F4B01Draw();
+	virtual ~ParticleDrawBinder();
 };
 
-class Rva001F4B01Physics
+class ParticlePhysicsBinder
 {
 public:
 	virtual void slot0();
 	virtual void ResolveBindings();
-	virtual ~Rva001F4B01Physics();
+	virtual ~ParticlePhysicsBinder();
 };
 
-class Rva001F4B01Update
+class ParticleUpdateBinder
 {
 public:
 	virtual void slot0();
 	virtual void ResolveBindings();
-	virtual ~Rva001F4B01Update();
+	virtual ~ParticleUpdateBinder();
 };
 
 class Rva001F4B01 : public Rva001F4A90HostBase
@@ -51,9 +51,9 @@ public:
 	virtual ~Rva001F4B01();
 
 private:
-	Rva001F4B01Draw m_draw; // +0x04
-	Rva001F4B01Physics m_physics; // +0x08
-	Rva001F4B01Update m_update; // +0x0C
+	ParticleDrawBinder m_draw; // +0x04
+	ParticlePhysicsBinder m_physics; // +0x08
+	ParticleUpdateBinder m_update; // +0x0C
 };
 
 void Rva00153565Register(const char *name, void *object);

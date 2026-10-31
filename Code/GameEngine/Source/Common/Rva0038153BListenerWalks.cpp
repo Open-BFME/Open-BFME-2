@@ -57,7 +57,7 @@ class Rva0038188BList
 public:
 	void forEach(void (Rva0038188BListener::*notify)(void *, int), void *arg, int value);
 	void apply(const Rva0038153BCall &call);
-	void rva003818CE(void *arg, int value);
+	void rva003818CE(void *userData, int value);
 
 private:
 	Rva0038188BListener **m_begin;		// +0x00
@@ -105,7 +105,7 @@ class Rva003818B0List
 public:
 	void forEach(void (Rva003818B0Listener::*notify)(void *), void *arg);
 	void apply(const Rva003815ABCall &call);
-	void rva003818E3(void *arg);
+	void rva003818E3(void *userData);
 
 private:
 	Rva003818B0Listener **m_begin;		// +0x00
@@ -143,9 +143,9 @@ void Rva003818B0List::apply(const Rva003815ABCall &call)
 // ?rva003818E3@Rva003818B0List@@QAEXPAX@Z, retail 0x003818E3, 17 bytes.
 // Thin wrapper over forEach 0x003818B0 with fixed notify 0x005CB260.
 // Evidence: unlock lane, caller 0x00381900 loads g_00E02310 as this.
-void Rva003818B0List::rva003818E3(void *arg)
+void Rva003818B0List::rva003818E3(void *userData)
 {
-	forEach((void (Rva003818B0Listener::*)(void *))&Rva005CB260::rva005CB260, arg);
+	forEach((void (Rva003818B0Listener::*)(void *))&Rva005CB260::rva005CB260, userData);
 }
 
 // ?Rva00381900@@YAXH@Z, retail 0x00381900, 15 bytes.
@@ -162,7 +162,7 @@ void Rva00381900(int arg)
 
 // Native3818CE..3818E3 invokes the established two-argument listener walk
 // with slot0's compiler-generated virtual-member call thunk (RVA1FF3A9).
-void Rva0038188BList::rva003818CE(void *arg, int value)
+void Rva0038188BList::rva003818CE(void *userData, int value)
 {
-    forEach(&Rva0038188BListener::notify, arg, value);
+    forEach(&Rva0038188BListener::notify, userData, value);
 }
