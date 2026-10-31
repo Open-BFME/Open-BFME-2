@@ -10894,8 +10894,6 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/HLodUpdateObjSpaceBoundingVo
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/HLodUpdateObjSpaceBoundingVolumes.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/HLodUpdateSubObjectTransforms.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/HLodUpdateSubObjectTransforms.cpp	"gsy",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/HTreeClassBoneLookup.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/HTreeClassBoneLookup.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/HTreeClassCopyConstructor.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/HTreeClassCopyConstructor.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/HTreeClassInitDefault.cpp	"",on	1
@@ -11182,8 +11180,8 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/hlod_read_header.cpp	"gsy",o
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp	"",on	5
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp	"gsy",on	4
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp	"s",on	2
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/htree.cpp	"",on	2
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/htree.cpp	"gsy",on	1
+pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/htree.cpp	"",on	3
+pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/htree.cpp	"gsy",on	2
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/htree.cpp	"s",off	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/htree.cpp	"t",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/layer.cpp	"",on	1

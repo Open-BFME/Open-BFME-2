@@ -26,10 +26,55 @@
 #include <stl/_iterator_base.h>
 #include <memory>
 #include <algorithm>
+// HTree compact-pivot lookup and base-pose evaluation.
+/*
+**	Command & Conquer Generals Zero Hour(tm)
+**	Copyright 2025 Electronic Arts Inc.
+**
+**	This program is free software: you can redistribute it and/or modify
+**	it under the terms of the GNU General Public License as published by
+**	the Free Software Foundation, either version 3 of the License, or
+**	(at your option) any later version.
+**
+**	This program is distributed in the hope that it will be useful,
+**	but WITHOUT ANY WARRANTY; without even the implied warranty of
+**	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+**	GNU General Public License for more details.
+**
+**	You should have received a copy of the GNU General Public License
+**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+// HTreeClass::Simple_Evaluate_Pivot at 0x001606E0 (1144 bytes): walk from
+// the pivot up to the root accumulating rotation and translation, build
+// the matrix, then post-multiply by the object transform.
+//
+// Layout (proven by the HTreeClassCopyConstructor / HTreeClassInitDefault
+// units): 0x58-byte pivots, rotation-plus-translation blocks at +0x14 and
+// +0x30, Index at +0x4C.  Only Matrix3D::Multiply is called (matched
+// WWMath unit); all of the quaternion math is inline.
+
+// The compiler-generated vector constructor iterator (??_H) takes the
+// optimization state of the first function that needs it; retail links the
+// /O1 body at 0x00001423. Instantiate it first in an unemitted anchor (the
+// lookuptable.cpp pattern) so this unit's copy is that body.
+struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
+#pragma optimize("gsy", on)
+static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
+#pragma optimize("", on)
+#include "quat.h"
+#include "matrix3d.h"
+#include "vector3.h"
+#include "zh_ascii.h"
+#include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
+#undef min
+#undef max
+
 struct Elem36Block16
 {
 	int m_words[4];
 };
+
 struct Elem36Tail
 {
 	Elem36Block16 m_block;
@@ -295,13 +340,208 @@ extern void (Elem36Vector::*const g_elem36PushBack)(const Elem36 &);
 
 void (Elem36Vector::*const g_elem36PushBack)(const Elem36 &) = &Elem36Vector::push_back;
 
-// tu-skeleton: 0x001606E0 1144B ?Simple_Evaluate_Pivot@HTreeClass@@QBE_NHABVMatrix3D@@PAV2@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HTreeClassBoneLookup.cpp (not merged yet)
+// Retail calls _strcmpi through the CRT import table, whatever _CRTIMP the unit builds with.
+namespace HTreeBoneLookupCrt { extern "C" __declspec(dllimport) int __cdecl _strcmpi(const char *, const char *); }
 
-// tu-skeleton: 0x00160B60 68B ?Get_Bone_Index@HTreeClass@@QBEHPBD@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HTreeClassBoneLookup.cpp (not merged yet)
+struct S2CompactTransform
+{
+	Quaternion Q;
+	Vector3 Position;
+	explicit S2CompactTransform(bool init) : Q(init), Position(0.0f, 0.0f, 0.0f) {}
+};
 
-// tu-skeleton: 0x00160BB0 22B ?Get_Bone_Name@HTreeClass@@QBEPBDH@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HTreeClassBoneLookup.cpp (not merged yet)
+struct PivotClass;
 
-// tu-skeleton: 0x00160BD0 35B ?Get_Parent_Index@HTreeClass@@QBEHH@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HTreeClassBoneLookup.cpp (not merged yet)
+// BFME 2's 0x58-byte pivot, read through a cast because the shared htree.h
+// types HTreeClass::Pivot with Zero Hour's older pivot.h layout.
+struct HTreeCompactPivotView
+{
+	char Name[16];
+	HTreeCompactPivotView *Parent;
+	S2CompactTransform Base, Current;
+	int Index;
+	bool IsVisible;
+	float PivotFade;
+};
+
+typedef char CompactPivotSize[(sizeof(HTreeCompactPivotView) == 0x58) ? 1 : -1];
+
+class ParkingPlaceBehavior
+{
+public:
+	struct RunwayInfo
+	{
+		Coord3D		m_start;
+		Coord3D		m_end;
+		ObjectID	m_inUseBy;
+		ObjectID	m_nextInLineForTakeoff;
+		Bool			m_wasInLine;
+	};
+};
+
+namespace _STL {
+template unsigned int vector<ParkingPlaceBehavior::RunwayInfo, allocator<ParkingPlaceBehavior::RunwayInfo> >::size() const;
+template ParkingPlaceBehavior::RunwayInfo &vector<ParkingPlaceBehavior::RunwayInfo, allocator<ParkingPlaceBehavior::RunwayInfo> >::operator[](unsigned int);
+}
+
+namespace _STL { template <> _Vector_base<BfmePod36, allocator<BfmePod36> >::_Vector_base(unsigned int, const allocator<BfmePod36> &); }
+
+namespace _STL { template <> BfmePod36 * uninitialized_fill_n<BfmePod36 *,unsigned int,BfmePod36>(BfmePod36 *,unsigned int,BfmePod36 const &); }
+
+namespace _STL { template <> void vector<BfmePod36,allocator<BfmePod36> >::_M_fill_insert(BfmePod36 *,unsigned int,BfmePod36 const &); }
+
+namespace _STL { template <> BfmePod36 * __uninitialized_copy<BfmePod36 *,BfmePod36 *>(BfmePod36 *,BfmePod36 *,BfmePod36 *,__false_type const &); }
+
+namespace _STL { template <> BfmePod36 * __uninitialized_copy<BfmePod36 const *,BfmePod36 *>(BfmePod36 const *,BfmePod36 const *,BfmePod36 *,__false_type const &); }
+
+namespace _STL { template <> BfmePod36 * __copy_backward<BfmePod36 *,BfmePod36 *,int>(BfmePod36 *,BfmePod36 *,BfmePod36 *,random_access_iterator_tag const &,int *); }
+
+namespace _STL { template <> void _Construct<BfmePod36,BfmePod36>(BfmePod36 *,BfmePod36 const &); }
+
+namespace _STL { template <> BfmePod36 * __copy_backward_ptrs<BfmePod36 *,BfmePod36 *>(BfmePod36 *,BfmePod36 *,BfmePod36 *,__false_type const &); }
+
+namespace _STL { template <> void vector<BfmePod36,allocator<BfmePod36> >::_M_insert_overflow(BfmePod36 *,BfmePod36 const &,__false_type const &,unsigned int,bool); }
+
+namespace _STL { template <> BfmePod36 * __uninitialized_fill_n<BfmePod36 *,unsigned int,BfmePod36>(BfmePod36 *,unsigned int,BfmePod36 const &,__false_type const &); }
+
+namespace _STL { template <> void fill<BfmePod36 *,BfmePod36>(BfmePod36 *,BfmePod36 *,BfmePod36 const &); }
+
+namespace _STL { template <> void vector<BfmePod36,allocator<BfmePod36> >::_M_set(BfmePod36 *,BfmePod36 *,BfmePod36 *); }
+
+namespace _STL { template <> unsigned int vector<BfmePod36,allocator<BfmePod36> >::size() const; }
+
+namespace _STL { template <> void vector<BfmePod36,allocator<BfmePod36> >::_M_clear(); }
+
+namespace _STL { template <> void _STLP_alloc_proxy<BfmePod36 *,BfmePod36,allocator<BfmePod36> >::deallocate(BfmePod36 *,unsigned int); }
+
+namespace _STL { template <> BfmePod36 * _STLP_alloc_proxy<BfmePod36 *,BfmePod36,allocator<BfmePod36> >::allocate(unsigned int); }
+
+// Emit the owned erase operations and their copy helper, not unused vector
+// constructors whose non-retail copies can win selection for other units.
+template BfmePod36 *_STL::vector<BfmePod36>::erase(BfmePod36 *);
+
+template BfmePod36 *_STL::vector<BfmePod36>::erase(BfmePod36 *, BfmePod36 *);
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/HTreeClassBoneLookup.cpp
+
+int HTreeClass::Get_Bone_Index(const char * name) const
+{
+	int i = 0;
+	if (NumPivots > i) {
+		do {
+			if (HTreeBoneLookupCrt::_strcmpi(reinterpret_cast<HTreeCompactPivotView *>(Pivot)[i].Name, name) == 0) {
+				return i;
+			}
+			++i;
+		} while (i < NumPivots);
+	}
+	return 0;
+}
+
+const char * HTreeClass::Get_Bone_Name(int boneidx) const
+{
+	assert(boneidx >= 0);
+	assert(boneidx < NumPivots);
+
+	return reinterpret_cast<HTreeCompactPivotView *>(Pivot)[boneidx].Name;
+}
+
+int HTreeClass::Get_Parent_Index(int bone_indx) const
+{
+	assert(bone_indx >= 0);
+	assert(bone_indx < NumPivots);
+
+	if (reinterpret_cast<HTreeCompactPivotView *>(Pivot)[bone_indx].Parent != NULL) {
+		return reinterpret_cast<HTreeCompactPivotView *>(Pivot)[bone_indx].Parent->Index;
+	} else {
+		return 0;
+	}
+}
+
+static __forceinline Matrix3D &S2PivotMatrix(const Quaternion &Q, const S2CompactTransform &transform, Matrix3D &matrix)
+{
+	const float xx = Q.X * Q.X * 2.0f, xy = 2.0f * (Q.X * Q.Y), xz = Q.Z * Q.X * 2.0f, wx = Q.W * Q.X * 2.0f;
+	const float yy = Q.Y * Q.Y * 2.0f, yz = Q.Z * Q.Y * 2.0f, wy = Q.W * Q.Y * 2.0f;
+	const float zz = Q.Z * Q.Z * 2.0f, wz = Q.W * Q.Z * 2.0f;
+	matrix[0][0] = 1.0f - yy - zz;
+	matrix[0][1] = xy - wz;
+	matrix[0][2] = xz + wy;
+	matrix[1][0] = xy + wz;
+	matrix[1][1] = 1.0f - zz - xx;
+	matrix[1][2] = yz - wx;
+	matrix[2][0] = xz - wy;
+	matrix[2][1] = yz + wx;
+	matrix[2][2] = 1.0f - yy - xx;
+	matrix[0][3] = transform.Position.X;
+	matrix[1][3] = transform.Position.Y;
+	matrix[2][3] = transform.Position.Z;
+	return matrix;
+}
+
+static __forceinline void baseRotate(const Quaternion &rotation, const Vector3 &vector, Vector3 *out)
+{
+	float productX = (rotation.Y * vector.Z - rotation.Z * vector.Y) + rotation.W * vector.X;
+	float productY = -(rotation.X * vector.Z - rotation.Z * vector.X) + rotation.W * vector.Y;
+	float productZ = (rotation.X * vector.Y - rotation.Y * vector.X) + rotation.W * vector.Z;
+	float productW = 0.0f - (rotation.X * vector.X + rotation.Y * vector.Y + rotation.Z * vector.Z);
+	float rx = rotation.Y * productZ - productY * rotation.Z;
+	rx += rotation.W * productX - rotation.X * productW;
+	out->X = rx;
+	out->Y = (rotation.W * productY - rotation.Y * productW) - (rotation.X * productZ - rotation.Z * productX);
+	float rz = rotation.X * productY - rotation.Y * productX;
+	rz += rotation.W * productZ - rotation.Z * productW;
+	out->Z = rz;
+}
+
+static __forceinline void baseCompose(const S2CompactTransform &a, const S2CompactTransform &b, S2CompactTransform &result)
+{
+	Vector3 rotatedPosition;
+	baseRotate(a.Q, b.Position, &rotatedPosition);
+	result.Position = rotatedPosition + a.Position;
+	result.Q = a.Q * b.Q;
+}
+
+/***********************************************************************************************
+ * HTreeClass::Simple_Evaluate_Pivot -- Returns the transform of a pivot at the given frame.	  *
+ *                                                                                             *
+ * INPUT:                                                                                      *
+ *                                                                                             *
+ * OUTPUT:                                                                                     *
+ *                                                                                             *
+ * WARNINGS:                                                                                   *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   04/13/2000 PDS  : Created.                                                                *
+ *=============================================================================================*/
+bool HTreeClass::Simple_Evaluate_Pivot(int pivot_index, const Matrix3D &obj_tm, Matrix3D *end_tm) const
+{
+	if (end_tm == NULL) {
+		return false;
+	}
+	end_tm->Make_Identity();
+	if (pivot_index < 0 || pivot_index >= NumPivots) {
+		return false;
+	}
+	S2CompactTransform total(true);
+	//
+	//	Loop over the hierarchy of pivots that this pivot is
+	// attached to and transform each.
+	//
+	for (HTreeCompactPivotView *pivot = &reinterpret_cast<HTreeCompactPivotView *>(Pivot)[pivot_index]; pivot != NULL && pivot->Parent != NULL; pivot = pivot->Parent) {
+		//
+		//	Transform the return value by this transform
+		//
+		baseCompose(pivot->Base, total, total);
+	}
+	S2PivotMatrix(total.Q, total, *end_tm);
+	//
+	//	Transform the return value by the object's transform
+	//
+	Matrix3D::Multiply(obj_tm, *end_tm, end_tm);
+	return true;
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/htree.cpp
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/htree.cpp
 
@@ -1211,12 +1451,6 @@ Elem36 *rva00161150CopyWalk(Elem36 *first, Elem36 *last, Elem36 *dest)
 	return cursor;
 }
 
-// tu-skeleton: 0x00160CB0 770B ?Slave_Update@HTreeClass@@QAEXPBV1@ABVMatrix3D@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HTreeClassReadPivots.cpp (not merged yet)
-
-// tu-skeleton: 0x001610A0 23B ?size@?$vector@URunwayInfo@ParkingPlaceBehavior@@V?$allocator@URunwayInfo@ParkingPlaceBehavior@@@_STL@@@_STL@@QBEIXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/ParkingPlaceBehavior.cpp (not merged yet)
-
-// tu-skeleton: 0x001610C0 34B ?allocate@?$allocator@U?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@VArchivedFileInfo@@@_STL@@@_STL@@@_STL@@QBEPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@VArchivedFileInfo@@@_STL@@@2@IPBX@Z -- matched in Code/GameEngine/Source/Common/System/ArchiveFile.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_vector_elem36_push_back.cpp
 
 //
@@ -1237,6 +1471,29 @@ Elem36 *rva00161150CopyWalk(Elem36 *first, Elem36 *last, Elem36 *dest)
 // flags (/G7) compile a different copy, and retail kept another unit's. This unit-local
 // overload keeps the inlined code and offers the link no second copy.
 
+// tu-skeleton: 0x00160CB0 770B ?Slave_Update@HTreeClass@@QAEXPBV1@ABVMatrix3D@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HTreeClassReadPivots.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/ParkingPlaceBehavior.cpp
+
+// BFME 2 has no ParkingPlaceBehavior module: retail game.dat carries no
+// "ParkingPlaceBehavior" module-name string (only the UI label
+// "GUI:ParkingPlacesFull"), while other module names such as "SlavedUpdate"
+// are there, and the ledger holds no row for any of its methods. The Zero Hour
+// port this unit carried (33 unrowed bodies) was a nonmatching
+// reconstruction of code retail never had; its non-retail DamageInfo,
+// BitFlags and vector<Coord3D> COMDATs kept the unit from linking. Only the
+// two vector<RunwayInfo> members rowed here (size at 0x001610A0, operator[] at
+// 0x006BD4B0) are retail bodies; the explicit instantiations below emit them.
+// They keep Zero Hour's element name until the real element is identified.
+// Zero Hour's header declares RunwayInfo private, which an explicit
+// instantiation cannot name under cl 7.1, so this unit declares only the
+// element (Zero Hour's 36-byte layout, which both bodies' strides confirm).
+// BFME 2's AsciiString reaches PreRTS.h here even when the unit builds without this file's /FI flag.
+
+// BaseType.h's min and max macros would rewrite the unit's _STL::max overload.
+
+// tu-skeleton: 0x001610C0 34B ?allocate@?$allocator@U?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@VArchivedFileInfo@@@_STL@@@_STL@@@_STL@@QBEPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@VArchivedFileInfo@@@_STL@@@2@IPBX@Z -- matched in Code/GameEngine/Source/Common/System/ArchiveFile.cpp (not merged yet)
+
 // tu-skeleton: 0x001614F0 526B ?read_pivots@HTreeClass@@AAE_NAAVChunkLoadClass@@_N@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HTreeClassReadPivots.cpp (not merged yet)
 
 // tu-skeleton: 0x00161700 2338B ?Simple_Evaluate_Pivot@HTreeClass@@QBE_NPAVHAnimClass@@HMABVMatrix3D@@PAV3@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HTreeClassReadPivots.cpp (not merged yet)
@@ -1247,7 +1504,7 @@ Elem36 *rva00161150CopyWalk(Elem36 *first, Elem36 *last, Elem36 *dest)
 
 // tu-skeleton: 0x001627F0 7B ?get_allocator@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QBE?AV?$allocator@G@2@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_wide_string_default_ctor.cpp (not merged yet)
 
-// tu-skeleton: 0x00162880 32B ??$__copy_ptrs@PAUBfmePod36@@PAU1@@_STL@@YAPAUBfmePod36@@PAU1@00U__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_o2_bodies.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_o2_bodies.cpp
 
 // tu-skeleton: 0x001628A0 769B ?Base_Update@HTreeClass@@QAEXABVMatrix3D@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HTreeClassFirstCapturedBone.cpp (not merged yet)
 
@@ -1258,10 +1515,6 @@ Elem36 *rva00161150CopyWalk(Elem36 *first, Elem36 *last, Elem36 *dest)
 // tu-skeleton: 0x001645B0 4715B ?Blend_Update@HTreeClass@@QAEXABVMatrix3D@@PAVHAnimClass@@M1MM@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HTreeClassFirstCapturedBone.cpp (not merged yet)
 
 // tu-skeleton: 0x00165820 2277B ?Combo_Update@HTreeClass@@QAEXABVMatrix3D@@PAVHAnimComboClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HTreeClassFirstCapturedBone.cpp (not merged yet)
-
-// tu-skeleton: 0x001661C0 47B ?erase@?$vector@UBfmePod36@@V?$allocator@UBfmePod36@@@_STL@@@_STL@@QAEPAUBfmePod36@@PAU3@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_o2_bodies.cpp (not merged yet)
-
-// tu-skeleton: 0x00166240 43B ?erase@?$vector@UBfmePod36@@V?$allocator@UBfmePod36@@@_STL@@@_STL@@QAEPAUBfmePod36@@PAU3@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_o2_bodies.cpp (not merged yet)
 
 // tu-skeleton: 0x001662A0 285B ??0HTreeClass@@QAE@ABV0@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HTreeClassCopyConstructor.cpp (not merged yet)
 
