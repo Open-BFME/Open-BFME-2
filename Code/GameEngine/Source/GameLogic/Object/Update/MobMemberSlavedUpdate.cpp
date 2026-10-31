@@ -63,7 +63,7 @@ namespace _STL { template <> unsigned long _Base_bitset<4>::_S_maskbit(unsigned 
 // bfme link decl-only end
 // Suppress this TU's non-retail copy of ?anyIntersectionWith@?$BitFlags@$0HF@@@QBE_NABV1@@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-class BitFlags;
+#include "Common/BitFlags.h"
 template <> bool BitFlags<117>::anyIntersectionWith(BitFlags<117> const &) const;
 // Suppress this TU's non-retail copy of ?_Unchecked_set@?$bitset@$0HF@@_STL@@QAEAAV12@IH@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
