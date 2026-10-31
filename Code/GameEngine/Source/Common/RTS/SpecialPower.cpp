@@ -43,8 +43,10 @@ public:
 };
 #include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 #include "../../../../Libraries/Include/Lib/BfmeE16.h"
+
 // bfme link decl-only BfmeE16
 namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
+
 class BFME2NativeNetwork
 {
 public:
@@ -154,11 +156,73 @@ private:
 	int m_18;
 };
 
+// INI field-parse forwarders: Zero Hour's BitFlags<N>::parseFromINI shape,
+//   static void parseFromINI(INI *ini, void *, void *store, const void *)
+//   { ((BitFlags *)store)->parse(ini, NULL); }
+// for seven parse targets the ledger already rows under address-derived
+// classes. Each forwarder is a FieldParse entry's parser (token, parser,
+// userData, offset) in retail .data; the token names are in each comment.
+// The forwarders stay static members of their target's class.
+class INI;
+
+class AsciiString;
+
+class Rva0021B7B6
+{
+public:
+	void rva0021B7B6(INI *ini, void *str);
+	static void parseFromINI(INI *ini, void *instance, void *store, const void *userData);
+};
+
+class Rva0033AFBB
+{
+public:
+	void rva0033B84E(INI *ini, AsciiString *str);
+	static void parseFromINI(INI *ini, void *instance, void *store, const void *userData);
+};
+
+class Rva003B1017
+{
+public:
+	void rva003B1017(INI *ini, void *str);
+	static void parseFromINI(INI *ini, void *instance, void *store, const void *userData);
+};
+
+class Rva003FB508
+{
+public:
+	void rva003FB508(INI *ini, void *str);
+	static void parseFromINI(INI *ini, void *instance, void *store, const void *userData);
+};
+
+class Rva00417DFB
+{
+public:
+	void rva00417DFB(INI *ini, void *str);
+	static void parseFromINI(INI *ini, void *instance, void *store, const void *userData);
+};
+
+class Rva0049B8A0
+{
+public:
+	void parse(INI *ini, void *str);
+	static void parseFromINI(INI *ini, void *instance, void *store, const void *userData);
+};
+
+class Rva0049DD83
+{
+public:
+	void rva0049DD83(INI *ini, void *str);
+	static void parseFromINI(INI *ini, void *instance, void *store, const void *userData);
+};
+
 // tu-skeleton: 0x003B0FD0 71B ?findSpecialPowerTemplateByID@SpecialPowerStore@@QAEPBVSpecialPowerTemplate@@I@Z -- matched in Code/GameEngine/Source/Common/RTS/SpecialPowerStoreFind.cpp (not merged yet)
 
 // tu-skeleton: 0x003B1017 234B ?rva003B1017@Rva003B1017@@QAEXPAVINI@@PAX@Z -- matched in Code/GameEngine/Source/Common/Disp8SarAvgDwordGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x003B1101 172B ??1Rva003B1101@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva003B1101Dtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/RTS/SpecialPower.cpp
 
 // ---- from Code/GameEngine/Source/Common/SpecialPowerStore.cpp
 
@@ -172,14 +236,6 @@ SpecialPowerStore::SpecialPowerStore()
 	, m_18(0)
 {
 }
-
-// tu-skeleton: 0x003B11D2 114B ?findSpecialPowerTemplatePrivate@SpecialPowerStore@@IAEPAVSpecialPowerTemplate@@VAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/RTS/SpecialPowerStoreFind.cpp (not merged yet)
-
-// tu-skeleton: 0x003B1244 227B ?canUseSpecialPower@SpecialPowerStore@@QAE_NPAVObject@@PBVSpecialPowerTemplate@@@Z -- matched in Code/GameEngine/Source/Common/RTS/SpecialPowerStoreCanUseSpecialPower.cpp (not merged yet)
-
-// tu-skeleton: 0x003B1327 16B ?parseFromINI@Rva003B1017@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/Common/System/INIParseFromINIForwarders.cpp (not merged yet)
-
-// tu-skeleton: 0x003B1337 215B ??4Rva003B1101@@QAEAAV0@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Rva003B1101Assign.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva003B1101Ctor.cpp
 
@@ -231,8 +287,6 @@ Rva003B1101::Rva003B1101()
 		*reinterpret_cast<const BfmeFixedStorage0004543D *>(&KINDOFMASK_NONE));
 }
 
-// tu-skeleton: 0x003B152A 28B ??_GRva003B1101@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva003B1101Dtor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva003B1546Dtor.cpp
 
 //
@@ -264,6 +318,22 @@ Rva003B1546::~Rva003B1546()
 	m_18 = 0;
 }
 
+// tu-skeleton: 0x003B11D2 114B ?findSpecialPowerTemplatePrivate@SpecialPowerStore@@IAEPAVSpecialPowerTemplate@@VAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/RTS/SpecialPowerStoreFind.cpp (not merged yet)
+
+// tu-skeleton: 0x003B1244 227B ?canUseSpecialPower@SpecialPowerStore@@QAE_NPAVObject@@PBVSpecialPowerTemplate@@@Z -- matched in Code/GameEngine/Source/Common/RTS/SpecialPowerStoreCanUseSpecialPower.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/System/INIParseFromINIForwarders.cpp
+
+// @0x003B1327 16B
+void Rva003B1017::parseFromINI(INI *ini, void * /*instance*/, void *store, const void * /*userData*/)
+{
+	((Rva003B1017 *)store)->rva003B1017(ini, 0);
+}
+
+// tu-skeleton: 0x003B1337 215B ??4Rva003B1101@@QAEAAV0@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Rva003B1101Assign.cpp (not merged yet)
+
+// tu-skeleton: 0x003B152A 28B ??_GRva003B1101@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva003B1101Dtor.cpp (not merged yet)
+
 // tu-skeleton: 0x003B15D6 541B ?parseSpecialPowerDefinition@SpecialPowerStore@@SAXPAVINI@@@Z -- matched in Code/GameEngine/Source/Common/RTS/SpecialPowerStoreParseSpecialPowerDefinition.cpp (not merged yet)
 
 // tu-skeleton: 0x0078200C 8B Unwind@00b8200c -- matched in Code/GameEngine/Source/Common/Disp8SarAvgDwordGetters.cpp (not merged yet)
@@ -276,11 +346,11 @@ Rva003B1546::~Rva003B1546()
 
 // tu-skeleton: 0x0078202E 11B Unwind@00b8202e -- matched in Code/GameEngine/Source/Common/Rva003B1101Dtor.cpp (not merged yet)
 
-// tu-skeleton: 0x00782039 11B uw_00782039 -- matched in Code/gen_small/uw_gen_010.cpp (not merged yet)
+// tu-skeleton: 0x00782039 11B $L410 -- matched in Code/GameEngine/Source/Common/Rva003B1101Dtor.cpp (not merged yet)
 
-// tu-skeleton: 0x00782044 11B uw_00782044 -- matched in Code/gen_small/uw_gen_010.cpp (not merged yet)
+// tu-skeleton: 0x00782044 11B $L411 -- matched in Code/GameEngine/Source/Common/Rva003B1101Dtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0078204F 11B uw_0078204f -- matched in Code/gen_small/uw_gen_010.cpp (not merged yet)
+// tu-skeleton: 0x0078204F 11B $L412 -- matched in Code/GameEngine/Source/Common/Rva003B1101Dtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0078205A 11B Unwind@00b8205a -- matched in Code/GameEngine/Source/Common/Rva003B1101Dtor.cpp (not merged yet)
 

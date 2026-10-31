@@ -70,12 +70,6 @@ void Rva0033AFBB::parseFromINI(INI *ini, void * /*instance*/, void *store, const
 	((Rva0033AFBB *)store)->rva0033B84E(ini, 0);
 }
 
-// @0x003B1327 16B
-void Rva003B1017::parseFromINI(INI *ini, void * /*instance*/, void *store, const void * /*userData*/)
-{
-	((Rva003B1017 *)store)->rva003B1017(ini, 0);
-}
-
 // @0x003FB5F2 16B
 void Rva003FB508::parseFromINI(INI *ini, void * /*instance*/, void *store, const void * /*userData*/)
 {
