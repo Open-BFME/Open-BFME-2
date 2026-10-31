@@ -59,11 +59,7 @@ private:
 };
 
 
-class PartitionManager
-{
-public:
-	static bool findPositionAround(const Coord3D *center, const FindPositionOptions *options, Coord3D *result);
-};
+#include "../../../Common/PartitionRangeQueryCallView.h"
 
 // One garrison point record: 40 of them at +0x100, 0x14 bytes each (the
 // constructor 0x00477F06 zeroes five dwords per record, the matched
