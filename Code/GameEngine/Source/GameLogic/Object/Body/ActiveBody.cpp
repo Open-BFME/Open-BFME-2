@@ -319,6 +319,18 @@ struct BfmeCopyElementA;
 	{ \
 		return ((const Sub##NAME *)((const char *)this - (BACK)))->m_holder->m_value; \
 	}
+#define BFME_DISP_BYTE_SETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		void set(unsigned char value); \
+		char m_lead[DISP]; \
+		unsigned char m_value; \
+	}; \
+	void NAME::set(unsigned char value) \
+	{ \
+		m_value = value; \
+	}
 
 class BodyModuleInterface;
 
@@ -1285,6 +1297,38 @@ public:
 public:
 	float rva0044E6B8(const Object *other) const;
 };
+
+BFME_DISP_BYTE_SETTER(Rva004BF8BEByteSlot, 0xB4)
+
+BFME_DISP_BYTE_SETTER(Rva004BF8CBByteSlot, 0xB5)
+
+// Address-owned initializer at 0x0047A2B6..0x0047A2E1 (RET0).
+// Clean donor: Open-BFME-1 34f59164, game/GameEngine/Source/Common/
+// Rva00221100TinyBodies.cpp, Rva0022F780Pair constructor, /O1 /arch:SSE /G7.
+// Target evidence establishes six float slots at 0/4/8/C/10/14, the
+// 0,0,1,0,0,1 stores, and ECX returned through EAX. No target class name
+// or constructor identity is established; retain the target address and
+// describe its proven initializer ABI. Destination is the repository's
+// nearest-neighbour home, immediately after its 0x0047A2A9 setter.
+class Rva0047A2B6Floats
+{
+public:
+    Rva0047A2B6Floats *initialize();
+private:
+    float first[3];
+    float second[3];
+};
+
+// Clean BF1 9cbfb551fe Common/Rva007AE610Array.cpp semantic donor, normal O1/SSE/G7.
+// Native 0010855F..0010856E has its own complete RET boundary and establishes
+// receiver68 indexed dword store, RET8. Original owner and full array bound remain
+// unresolved; this separate address-owned view models only observed accesses.
+class Rva0010855FArray {
+public: void setValue(unsigned int index, unsigned int value);
+private: unsigned char unknown[0x68]; unsigned int values[1];
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp
 
@@ -2497,10 +2541,6 @@ NameKeyType ActiveBody::getModuleNameKey() const
 	return TheActiveBodyPoolKey;
 }
 
-// tu-skeleton: 0x004BDB85 126B ?setMaxHealth@ActiveBody@@UAEXMW4MaxHealthChangeType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Body/ActiveBodySetMaxHealth.cpp (not merged yet)
-
-// tu-skeleton: 0x004BDC1C 9B ??0Rva004BDC1C@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Disp8FloatChaseGetters.cpp
 
 // Disp8 float-chase getters: seven-byte __thiscall members with one shape:
@@ -2516,6 +2556,10 @@ NameKeyType ActiveBody::getModuleNameKey() const
 // Backward variant: the holder sits at a NEGATIVE displacement from `this`.
 // Spelled as an explicit backward cast, which MSVC folds to
 // `mov eax,[ecx-BACK]`; same reading as the dword/byte chase families.
+
+// tu-skeleton: 0x004BDB85 126B ?setMaxHealth@ActiveBody@@UAEXMW4MaxHealthChangeType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Body/ActiveBodySetMaxHealth.cpp (not merged yet)
+
+// tu-skeleton: 0x004BDC1C 9B ??0Rva004BDC1C@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
 
 // tu-skeleton: 0x004BDC48 7B ?get@Rva004BDC48PtrChaseField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp (not merged yet)
 
@@ -2549,9 +2593,21 @@ NameKeyType ActiveBody::getModuleNameKey() const
 
 // tu-skeleton: 0x004BF8AC 11B ?rva004BF8AC@Rva004BF8AC@@QAEHXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAA.cpp (not merged yet)
 
-// tu-skeleton: 0x004BF8BE 13B ?set@Rva004BF8BEByteSlot@@QAEXE@Z -- matched in Code/GameEngine/Source/Common/DispByteFieldSetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/DispByteFieldSetters.cpp
 
-// tu-skeleton: 0x004BF8CB 13B ?set@Rva004BF8CBByteSlot@@QAEXE@Z -- matched in Code/GameEngine/Source/Common/DispByteFieldSetters.cpp (not merged yet)
+// Disp32 byte setters: thirteen-byte __thiscall members with one shape:
+//
+//     mov al,[esp+4] / mov [ecx+<DISP>],al / ret 4
+//
+// One byte is taken from the stack argument slot and stored at a fixed
+// displacement from `this`. Ported from Open-BFME-1
+// (Code/GameEngine/Source/Common/DispByteFieldSetters.cpp): the
+// BFME_DISP_BYTE_SETTER macro is verbatim (unsigned char set over a lead
+// array), only the class names follow this tree's Disp* convention
+// (address-derived Rva<addr>ByteSlot, identity unrecoverable from 13 bytes).
+// Every displacement here is a disp32 (MSVC 7.1 uses disp8 whenever the
+// offset fits, so every offset is at least 0x80).
+// No // cl: line (defaults match the frameless 13-byte shape).
 
 // tu-skeleton: 0x004BF8D8 7B ?get@Rva004BF8D8ByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp32ByteGetters.cpp (not merged yet)
 
