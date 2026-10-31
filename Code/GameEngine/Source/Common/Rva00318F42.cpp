@@ -1,5 +1,34 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /G7 /MD /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // stlport
+#include <vector>
+#include "ascii_string.h"
+#include "unicode_string.h"
+class Xfer;
+class Snapshot;
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct Coord3DBase;
+struct ICoord3D;
+struct Region3D;
+class IRegion3D;
+class Coord2D;
+struct ICoord2D;
+struct Region2D;
+struct IRegion2D;
+class RealRange;
+struct RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+struct XferUnknown11;
+#include "../../Include/Common/BfmeXfer.h"
+struct BfmeVectorRecord00319C84
+{
+	virtual ~BfmeVectorRecord00319C84();
+	char m_body[12];
+	BfmeVectorRecord00319C84();
+	BfmeVectorRecord00319C84(const BfmeVectorRecord00319C84 &);
+};
 // Native318F42..318F64: the vector-like view returned twice by318B83
 // must exist and have a nonzero unsigned16-byte record count. Original
 // application names remain unknown; WB131AA30 order drain corroborates uses.
@@ -18,9 +47,59 @@ public:
 	bool rva00538D17(Rva00538CEFPair *out);
 	void rva00538DC1(const Rva00538CEFPair *,int);
 };
-class Rva003195C9Owner {public:void rva003195C9();};
-class Rva003197EEListener {public:virtual void notify(void *);virtual void slot04(void *);virtual void slot08(void *);virtual void slot0c(void *);virtual void slot10(void *);};
-class Rva003197EEList {public:void forEach(void (Rva003197EEListener::*)(void *),void *);};
+struct TWheelInfo;
+
+class Drawable
+{
+public:
+	const TWheelInfo *getWheelInfo() const;
+};
+
+class LivingWorldArmyLine
+{
+public:
+	void rva00538F6B(void *a, void *b, void *c, void *d);
+};
+
+class Rva003195C9Owner : public Drawable
+{
+public:
+	void rva003195C9();
+	void rva00319831(void *arg);
+	void rva00319E7C();
+	void rva00319AA0(const int *arg);
+private:
+	unsigned char m_pad[0x3C];
+	int m_3c;
+	int m_40;
+	int m_44;
+	int m_48;
+	unsigned char m_pad4C[0x44];
+	LivingWorldArmyLine m_90;
+};
+class Rva003197EEListener
+{
+public:
+	virtual void notify00(void *);
+	virtual void notify04(void *);
+	virtual void notify08(void *);
+	virtual void notify0C(void *);
+	virtual void notify10(void *);
+};
+struct Rva003196A7Call;
+
+class Rva003197EEList
+{
+public:
+	void forEach(void (Rva003197EEListener::*notify)(void *), void *arg);
+	void apply(const Rva003196A7Call &call);
+
+private:
+	Rva003197EEListener **m_begin;		// +0x00
+	Rva003197EEListener **m_end;		// +0x04
+	Rva003197EEListener **m_capacity;	// +0x08
+	unsigned int m_index;	// +0x0C
+};
 class Rva00318F42 {
 public:
  __declspec(noinline) Rva00318F42View *rva00318B83() const;
@@ -49,7 +128,7 @@ void Rva00318F42::rva0031986B(const Rva00538CEFPair *pair,int word){
   ((Rva00538CEF*)recordView)->rva00538DC1(pair,word);
   ((Rva00538CEF*)recordView)->rva00538D17((Rva00538CEFPair*)((char*)this+0x3c));
   ((Rva003195C9Owner*)this)->rva003195C9();
-  ((Rva003197EEList*)((char*)this+8))->forEach(&Rva003197EEListener::slot10,this);
+  ((Rva003197EEList*)((char*)this+8))->forEach(&Rva003197EEListener::notify10,this);
  }}
 }
 
@@ -71,11 +150,6 @@ void Rva003190BBOwner::rva003190BB(int *out){
  out[0]=*(int*)((char*)this+0x44);out[1]=*(int*)((char*)this+0x48);
 }
 
-#include <vector>
-#include "ascii_string.h"
-#include "unicode_string.h"
-class Xfer;
-struct BfmeVectorRecord00319C84 { unsigned int words[4]; };
 struct Elem003AF9E0 { unsigned int words[4]; };
 namespace _STL {
 template<> vector<BfmeVectorRecord00319C84> &vector<BfmeVectorRecord00319C84>::operator=(const vector<BfmeVectorRecord00319C84> &);
@@ -88,61 +162,49 @@ struct Rva0031A6DBStatus {
     virtual void s08(); virtual void s09(); virtual void s10();
     virtual bool s11();
 };
-class Snapshot;
-class AsciiString;
-class UnicodeString;
-class PooledString;
-struct Coord3DBase;
-struct ICoord3D;
-struct Region3D;
-class IRegion3D;
-class Coord2D;
-struct ICoord2D;
-struct Region2D;
-struct IRegion2D;
-class RealRange;
-struct RGBColor;
-class RGBAColorReal;
-class RGBAColorInt;
-struct XferUnknown11;
-#include "../../Include/Common/BfmeXfer.h"
 class Xfer::Version { public: unsigned char current, minimum; Version(unsigned char a,unsigned char b):current(a),minimum(b){} };
 
-struct LivingWorldArmy {
+struct Rva00318EC0Colors;
+class Rva00318EC0Target;
+struct LivingWorldArmy
+{
 public:
-    virtual void xfer(Xfer *xfer);
-    char pad04[0x18 - 0x04];
-    AsciiString name18;
-    AsciiString name1C;
-    int owner20;
-    AsciiString name24;
-    AsciiString name28;
-    int region2C;
-    int value30;
-    unsigned int pos34[2];
-    unsigned int pos3C[2];
-    unsigned int pos44[2];
-    int source4C;
-    char pad50[4];
-    int owner54;
-    bool flag58;
-    bool flag59;
-    char pad5A[2];
-    float value5C;
-    unsigned int audio60;
-    char pad64;
-    bool flag65;
-    char pad66[2];
-    UnicodeString text68;
-    UnicodeString text6C;
-    int iconSize70;
-    bool flag74;
-    bool flag75;
-    char pad76[2];
-    void *summary78;
-    _STL::vector<BfmeVectorRecord00319C84> records7C;
-    Rva0031A6DBStatus *status88;
-    int value8C;
+	void rva00318EC0();
+	void KillSummaryEntry(int value);
+	void createVisualObjects(const AsciiString *key);
+	virtual void xfer(Xfer *xfer);
+	char pad04[0x18 - 0x04];
+	AsciiString name18;
+	AsciiString name1C;
+	int owner20;
+	AsciiString name24;
+	AsciiString name28;
+	int region2C;
+	int value30;
+	unsigned int pos34[2];
+	unsigned int pos3C[2];
+	unsigned int pos44[2];
+	int source4C;
+	char pad50[4];
+	int owner54;
+	bool flag58;
+	bool flag59;
+	char pad5A[2];
+	float value5C;
+	unsigned int audio60;
+	char pad64;
+	bool flag65;
+	char pad66[2];
+	UnicodeString text68;
+	UnicodeString text6C;
+	int iconSize70;
+	bool flag74;
+	bool flag75;
+	char pad76[2];
+	Rva00318EC0Colors *m_colors78;
+	_STL::vector<BfmeVectorRecord00319C84> records7C;
+	Rva00318EC0Target *m_target88;
+	int value8C;
 };
 
 // LivingWorldArmy::xfer, native 0031A6DB..0031A8DD RET4: the vtable slot
@@ -282,7 +344,7 @@ void LivingWorldArmy::xfer(Xfer *xfer)
     }
     if (!xfer->IsCRC())
         Rva0031A160Xfer(xfer, &records7C);
-    (*xfer == *reinterpret_cast<Snapshot *>(summary78));
+    (*xfer == *reinterpret_cast<Snapshot *>(m_colors78));
     ((Rva0031A6DBAudio *)TheAudio)->xferHandle(xfer, &audio60);
     if (version.minimum >= 5) {
         (*xfer == name28);
@@ -291,7 +353,7 @@ void LivingWorldArmy::xfer(Xfer *xfer)
     if (!xfer->IsCRC()) {
         if (version.minimum >= 6) {
             if (xfer->IsStoring())
-                flag65 = status88 ? status88->s11() : false;
+                flag65 = m_target88 ? ((Rva0031A6DBStatus *)m_target88)->s11() : false;
             (*xfer == flag65);
             XferArmyIconSize(xfer, &iconSize70);
             (*xfer == text68);

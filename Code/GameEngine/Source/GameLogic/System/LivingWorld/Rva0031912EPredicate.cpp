@@ -29,11 +29,11 @@ class Rva0031912E
 {
 public:
 	int rva0031912E();
+	char m_pad00[0x18];
 private:
-	char m_pad[0x18];
-	AsciiString m_str;
-	char m_pad2[0x78 - 0x1C];
-	Rva0031912EInner *m_78;
+	AsciiString m_str; // +0x18
+	char m_pad1C[0x5C];
+	Rva0031912EInner *m_78; // +0x78
 };
 
 int Rva0031912E::rva0031912E()

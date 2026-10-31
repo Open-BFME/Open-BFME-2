@@ -9,14 +9,20 @@
 // element identity remain unknown; the former AsciiString/vector view was a
 // size-only guess. BF1 575ba2b Q4VectorDtorPolymorphic.cpp supplies the same
 // evidence-backed STLport virtual-element pattern, not the target identity.
-struct BfmeVectorRecord00319C84 {
-    virtual ~BfmeVectorRecord00319C84();
-    char m_body[12];
-    BfmeVectorRecord00319C84();
-    BfmeVectorRecord00319C84(const BfmeVectorRecord00319C84 &);
+struct BfmeVectorRecord00319C84
+{
+	virtual ~BfmeVectorRecord00319C84();
+	char m_body[12];
+	BfmeVectorRecord00319C84();
+	BfmeVectorRecord00319C84(const BfmeVectorRecord00319C84 &);
 };
-namespace _STL {
-template <> void _Construct<BfmeVectorRecord00319C84, BfmeVectorRecord00319C84>(BfmeVectorRecord00319C84 *, const BfmeVectorRecord00319C84 &);
+class Rva00318B5C;
+void Rva00318D63Copy(Rva00318B5C *dest, const Rva00318B5C &src);
+namespace _STL
+{
+// Retail's copy loop 0x00318D75 calls the 18B null-guarded construct at 0x00318D63.
+template <> __declspec(dllimport) __forceinline void _Construct<BfmeVectorRecord00319C84, BfmeVectorRecord00319C84>(BfmeVectorRecord00319C84 *p, const BfmeVectorRecord00319C84 &v)
+{ ::Rva00318D63Copy(reinterpret_cast<Rva00318B5C *>(p), reinterpret_cast<const Rva00318B5C &>(v)); }
 // Declared, not defined: retail routes the range destruction through the
 // pinned worker at 0x00319784 (pin 247), and the rowed vector dtor
 // (0x00319B58) calls it as such. Defining the template here inlines the
