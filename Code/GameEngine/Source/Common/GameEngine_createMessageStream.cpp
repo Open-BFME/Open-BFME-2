@@ -10,9 +10,8 @@
 class MessageStream
 {
 public:
+	void propagateMessages(void);
 	MessageStream();
-
-private:
 	char m_pad00[0x20];
 };
 
