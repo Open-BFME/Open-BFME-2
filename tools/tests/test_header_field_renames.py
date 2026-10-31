@@ -405,7 +405,7 @@ def test_r4_qualified_member_definition_is_refused():
     assert lane.scoped_rename(text, RENAMES)[0] is None
 
 
-def test_r4_include_scan_refuses_unresolved_angle_code_and_depth(tmp_path, monkeypatch):
+def test_r4_include_scan_refuses_unresolved_and_angle_code(tmp_path, monkeypatch):
     monkeypatch.setattr(lane, "ROOT", tmp_path)
     (tmp_path / "Code").mkdir()
     (tmp_path / "Code" / "a.h").write_text('#include "b.h"\n')
@@ -413,7 +413,21 @@ def test_r4_include_scan_refuses_unresolved_angle_code_and_depth(tmp_path, monke
     (tmp_path / "Code" / "c.h").write_text('')
     assert "unresolved" in lane.include_problem("u.cpp", '#include "missing.h"\n')
     assert "angle" in lane.include_problem("u.cpp", '#include <a.h>\n')
-    assert "depth" in lane.include_problem("u.cpp", '#include "a.h"\n')
+    assert lane.include_problem("u.cpp", '#include "a.h"\n') is None
+
+
+def test_r4d_transitive_include_chain_and_cycles(tmp_path, monkeypatch):
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    for i in range(4):
+        (tmp_path / f"{i}.h").write_text(f'#include "{i + 1}.h"\n')
+    (tmp_path / "4.h").write_text("class Deep { int field; };\n")
+    text = '#include "0.h"\n'
+    assert lane.include_problem("u.cpp", text) is None
+    assert any("class Deep" in body for _, body in lane.include_sources("u.cpp", text))
+    (tmp_path / "4.h").write_text('#include "0.h"\n')
+    assert "cycle" in lane.include_problem("u.cpp", text)
+    (tmp_path / "0.h").write_text('#ifndef H0\n#define H0\n#include "1.h"\n#endif\n')
+    assert lane.include_problem("u.cpp", text) is None
 
 
 def test_r4_trigraph_is_refused():

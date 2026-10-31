@@ -295,31 +295,6 @@ def read_source(source):
     return read_path(ROOT / source)
 
 
-def include_sources(source, text=None, depth=2):
-    """[(path, text)] for the quoted includes `source` reaches that resolve next to the
-    includer, at the root or under Code/ (the build's own include roots are not read here).
-    `text` is the unit's own text when it is not (or not only) the file on disk."""
-    start = Path(os.path.normpath(str(ROOT / source)))
-    out, queue, seen = [], [(start, 0)], {str(start)}
-    while queue and len(out) < 200:
-        path, level = queue.pop(0)
-        body = text if level == 0 and text is not None else read_path(path)
-        if body is None:
-            continue
-        if level:
-            out.append((str(path), body))
-        if level >= depth:
-            continue
-        for m in re.finditer(r'(?m)^[ \t]*#[ \t]*include[ \t]*"([^"]+)"', masked(body, keep_literals=True)):
-            for base in (path.parent, ROOT, ROOT / "Code"):
-                candidate = Path(os.path.normpath(str(base / m.group(1))))
-                if str(candidate) not in seen and candidate.is_file():
-                    seen.add(str(candidate))
-                    queue.append((candidate, level + 1))
-                    break
-    return out
-
-
 def header_comment_splice(text):
     """Find continued line comments while skipping literals and block comments."""
     # Translation phase 2 precedes comment recognition, including when a splice
@@ -368,36 +343,85 @@ def header_comment_splice(text):
     return None
 
 
-def include_problem(source, text, depth=2, include_roots=()):
-    """Refuse whenever the bounded include walk cannot account for an input."""
+def include_guarded(code):
+    directives = list(re.finditer(r'(?m)^[ \t]*#[ \t]*(if|ifdef|ifndef|endif|else|elif|define)\b([^\n]*)', code))
+    if len(directives) < 3:
+        return False
+    first, define = directives[:2]
+    macro = first.group(2).strip()
+    if (first.group(1) != "ifndef" or not re.fullmatch(r"[A-Za-z_]\w*", macro)
+            or define.group(1) != "define" or define.group(2).strip() != macro
+            or code[:first.start()].strip()):
+        return False
+    depth = 0
+    for directive in directives:
+        op = directive.group(1)
+        if op in ("if", "ifdef", "ifndef"):
+            depth += 1
+        elif op == "endif":
+            depth -= 1
+            if depth == 0:
+                return directive is directives[-1] and not code[directive.end():].strip()
+        elif depth == 1 and op in ("else", "elif"):
+            return False
+    return False
+
+
+def include_walk(source, text, include_roots=()):
+    """Scan the complete quoted include closure once, refusing unorderable cycles."""
     start = (ROOT / source).resolve()
-    queue, seen = [(start, text, 0)], {start}
-    while queue:
-        path, body, level = queue.pop(0)
+    seen, active, guarded, out = set(), set(), set(), []
+    stack = [(start, text, False)]
+    while stack:
+        path, body, leaving = stack.pop()
+        if leaving:
+            active.remove(path)
+            continue
+        if path in active:
+            if path not in guarded:
+                return out, f"{path}: include cycle cannot be ordered"
+            continue
+        if path in seen:
+            continue
+        seen.add(path)
+        active.add(path)
+        stack.append((path, None, True))
         if body is None:
-            return f"{path}: include cannot be read"
+            return out, f"{path}: include cannot be read"
+        out.append((str(path), body))
+        code = masked(body)
+        if include_guarded(code):
+            guarded.add(path)
         problem = re.search(r"\?\?[=/'()!<>-]", body)
         position = problem.start() if problem else header_comment_splice(body)
         if position is not None:
             line = body.count("\n", 0, position) + 1
-            return f"{path}:{line}: trigraph or continued line comment in include input"
+            return out, f"{path}:{line}: trigraph or continued line comment in include input"
+        children = []
         for m in re.finditer(r'(?m)^[ \t]*#[ \t]*include[ \t]*([<"])([^>"\n]+)[>"]', masked(body, keep_literals=True)):
             angle, name = m.group(1) == "<", m.group(2)
             candidates = [(base / name).resolve() for base in (path.parent, ROOT, ROOT / "Code", *include_roots)]
             target = next((p for p in candidates if p.is_file()), None)
             if angle:
                 if target and target.is_relative_to(ROOT.resolve() / "Code"):
-                    return f"{path}: angle include {name} resolves under Code"
+                    return out, f"{path}: angle include {name} resolves under Code"
                 continue
             if target is None:
-                return f"{path}: unresolved include {name}"
-            if target in seen:
-                continue
-            if level >= depth:
-                return f"{path}: include {name} exceeds scan depth"
-            seen.add(target)
-            queue.append((target, read_path(target), level + 1))
-    return None
+                return out, f"{path}: unresolved include {name}"
+            children.append(target)
+        for target in reversed(children):
+            stack.append((target, read_path(target), False))
+    return out, None
+
+
+def include_problem(source, text, include_roots=()):
+    return include_walk(source, text, include_roots)[1]
+
+
+def include_sources(source, text=None, include_roots=()):
+    if text is None:
+        text = read_source(source)
+    return include_walk(source, text, include_roots)[0][1:]
 
 
 def conditional_hierarchy(texts, classes):
@@ -435,13 +459,13 @@ def conditional_hierarchy(texts, classes):
     return None
 
 
-def header_sources(header):
+def header_sources(header, include_roots=()):
     """[(path, text)] for the canonical header and its quoted includes, or None when the
     header itself cannot be read."""
     text = read_source(header)
     if text is None:
         return None
-    return [(header, text)] + include_sources(header)
+    return [(header, text)] + include_sources(header, text, include_roots)
 
 
 def hierarchy(name, layouts):
@@ -600,9 +624,19 @@ def field_renames(source, text, strip, include, compile=None, header=None):
             views.append((view, own))
     if not views:
         return {}, None
+    # Use the same compiler include roots for validation and name collection.
+    import build
+    flags_line = next((line[6:] for line in text.splitlines() if line.startswith("// cl:")), "")
+    flags = build._source_flag_tokens(flags_line)
+    include_roots = []
+    for i, flag in enumerate(flags):
+        if flag in ("/I", "-I") and i + 1 < len(flags):
+            include_roots.append(ROOT / flags[i + 1])
+        elif flag.startswith(("/I", "-I")) and len(flag) > 2:
+            include_roots.append(ROOT / flag[2:])
     canonical = []
     if header:
-        canonical = header_sources(header)
+        canonical = header_sources(header, include_roots)
         if canonical is None:
             return None, f"the canonical header {header} cannot be read; no proof of its names"
     try:
@@ -649,16 +683,6 @@ def field_renames(source, text, strip, include, compile=None, header=None):
         if mine:
             mappings[name] = mine
     if mappings:
-        # The compiler also searches /I directories declared by the unit.
-        import build
-        flags_line = next ( (line[6:] for line in text.splitlines() if line.startswith("// cl:")), "")
-        flags = build._source_flag_tokens(flags_line)
-        include_roots = []
-        for i, flag in enumerate(flags):
-            if flag in ("/I", "-I") and i + 1 < len(flags):
-                include_roots.append(ROOT / flags[i + 1])
-            elif flag.startswith(("/I", "-I")) and len(flag) > 2:
-                include_roots.append(ROOT / flag[2:])
         if header:
             why = include_problem(header, read_source(header), include_roots=include_roots)
             if why:
@@ -670,7 +694,7 @@ def field_renames(source, text, strip, include, compile=None, header=None):
         why = include_problem(source, text, include_roots=include_roots)
         if why:
             return None, why
-        sources = [(source, text)] + include_sources(source, text) + canonical
+        sources = [(source, text)] + include_sources(source, text, include_roots) + canonical
         for name in mappings:
             why = name_shadow(sources, name)
             if why:
