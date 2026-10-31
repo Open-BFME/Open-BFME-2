@@ -7690,10 +7690,10 @@ _GetProcessorFlags,,0x001C4390,169,Code/Libraries/Source/VP6/GetProcessorFlags.c
 ?getStaticGameDetail@OptionPreferences@@QAEHXZ,,0x002E427D,30,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionsMenu.cpp,matched,ZH OptionsMenu.cpp:418 static LOD via slot-0x1C enum virtual over table 0xDB95F4 with live LOD default at globals 0xDFE144+0x1768
 ?Rva000B29C3Get@@YAHXZ,,0x000B29C3,6,Code/GameEngine/Source/Common/GlobalGetterSingles.cpp,matched,Global dword getter reading 0x00DE1B40
 ?Rva000B29C9Set@@YAXH@Z,,0x000B29C9,10,Code/GameEngine/Source/Common/GlobalGetterSingles.cpp,matched,Global dword setter writing 0x00DB3BDC
-?set@Rva00087A02ByteSlot@@QAEXE@Z,,0x00087A02,13,Code/GameEngine/Source/Common/DispByteFieldSetters.cpp,matched,Disp32 byte setter
-?set@Rva00087A0FByteSlot@@QAEXE@Z,,0x00087A0F,13,Code/GameEngine/Source/Common/DispByteFieldSetters.cpp,matched,Disp32 byte setter
-?set@Rva00087A1CByteSlot@@QAEXE@Z,,0x00087A1C,13,Code/GameEngine/Source/Common/DispByteFieldSetters.cpp,matched,Disp32 byte setter
-?set@Rva00087A29ByteSlot@@QAEXE@Z,,0x00087A29,13,Code/GameEngine/Source/Common/DispByteFieldSetters.cpp,matched,Disp32 byte setter
+?set@Rva00087A02ByteSlot@@QAEXE@Z,,0x00087A02,13,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,matched,Disp32 byte setter
+?set@Rva00087A0FByteSlot@@QAEXE@Z,,0x00087A0F,13,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,matched,Disp32 byte setter
+?set@Rva00087A1CByteSlot@@QAEXE@Z,,0x00087A1C,13,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,matched,Disp32 byte setter
+?set@Rva00087A29ByteSlot@@QAEXE@Z,,0x00087A29,13,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,matched,Disp32 byte setter
 ?set@Rva003BA63BDwordSlot@@QAEXH@Z,,0x003BA63B,13,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,Disp32 dword setter
 ?set@Rva003BA648DwordSlot@@QAEXH@Z,,0x003BA648,13,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,Disp32 dword setter
 ?rva00203B47@Rva00203B47Host@@QAE_NXZ,,0x00203B47,106,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_appGate.cpp,matched,
@@ -7732,7 +7732,7 @@ _GetProcessorFlags,,0x001C4390,169,Code/Libraries/Source/VP6/GetProcessorFlags.c
 ?set@Rva004BF8CBByteSlot@@QAEXE@Z,,0x004BF8CB,13,Code/GameEngine/Source/Common/DispByteFieldSetters.cpp,matched,Disp32 byte setter
 ?set@Rva004201E0ByteSlot@@QAEXE@Z,,0x004201E0,13,Code/GameEngine/Source/Common/DispByteFieldSetters.cpp,matched,Disp32 byte setter
 ?set@Rva004201EDByteSlot@@QAEXE@Z,,0x004201ED,13,Code/GameEngine/Source/Common/DispByteFieldSetters.cpp,matched,Disp32 byte setter
-?set@Rva00085F05ByteSlot@@QAEXE@Z,,0x00085F05,13,Code/GameEngine/Source/Common/DispByteFieldSetters.cpp,matched,Disp32 byte setter
+?set@Rva00085F05ByteSlot@@QAEXE@Z,,0x00085F05,13,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,matched,Disp32 byte setter
 ?set@Rva0008BCD3ByteSlot@@QAEXE@Z,,0x0008BCD3,13,Code/GameEngine/Source/Common/DispByteFieldSetters.cpp,matched,Disp32 byte setter
 ?set@Rva0008BCE7ByteSlot@@QAEXE@Z,,0x0008BCE7,13,Code/GameEngine/Source/Common/DispByteFieldSetters.cpp,matched,Disp32 byte setter
 ?set@Rva0008BCFBByteSlot@@QAEXE@Z,,0x0008BCFB,13,Code/GameEngine/Source/Common/DispByteFieldSetters.cpp,matched,Disp32 byte setter

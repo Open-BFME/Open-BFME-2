@@ -4850,7 +4850,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00085B41,380,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,Z,Z=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp S=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewGetAxisAlignedViewRegion.cpp
 0x00085CBD,522,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,S,S=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewFarRegion.cpp
 0x00085EC7,62,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,Z,Z=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp S=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewSetFadeParameters.cpp
-0x00085F05,13,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x00085EC7..0x00085F12,Code/GameEngine/Source/Common/DispByteFieldSetters.cpp
+0x00085F05,13,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x00085EC7..0x00085F12,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
 0x00085F12,26,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,Z,Z=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp S=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
 0x00085F2C,62,code,Code/GameEngine/Source/Common/BfmeValidatedHandle.cpp,proposed,N,N=Code/GameEngine/Source/Common/BfmeValidatedHandle.cpp,Code/GameEngine/Source/Common/BfmeValidatedHandle.cpp
 0x00085F6A,62,code,,,-,,Code/GameEngine/Source/Common/Rva00085F6ASet.cpp
@@ -4898,10 +4898,10 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x000879ED,7,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x00087973..0x000879F4,Code/GameEngine/Source/Common/DispFloatFieldGetters.cpp
 0x000879F4,7,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x00087973..0x000879FB,Code/GameEngine/Source/Common/DispFloatFieldGetters.cpp
 0x000879FB,7,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x00087973..0x00087A02,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp
-0x00087A02,13,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x00087973..0x00087A0F,Code/GameEngine/Source/Common/DispByteFieldSetters.cpp
-0x00087A0F,13,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x00087973..0x00087A1C,Code/GameEngine/Source/Common/DispByteFieldSetters.cpp
-0x00087A1C,13,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x00087973..0x00087A29,Code/GameEngine/Source/Common/DispByteFieldSetters.cpp
-0x00087A29,13,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x00087973..0x00087A36,Code/GameEngine/Source/Common/DispByteFieldSetters.cpp
+0x00087A02,13,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x00087973..0x00087A0F,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
+0x00087A0F,13,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x00087973..0x00087A1C,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
+0x00087A1C,13,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x00087973..0x00087A29,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
+0x00087A29,13,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x00087973..0x00087A36,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
 0x00087A36,14,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x00087973..0x00087A44,Code/GameEngine/Source/Common/Disp8DivMovDwordGetters.cpp
 0x00087A44,24,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x00087973..0x00087A5C,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_ptr_o1.cpp
 0x00087A5C,24,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x00087973..0x00087A74,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp

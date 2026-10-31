@@ -25,11 +25,24 @@
 //#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
 
 
+
 #endif
 #define TERRAIN_SAMPLE_SIZE 40.0f
 #define MIN_CAPPED_ZOOM (0.5f) //WST 10.19.2002. JSC integrated 5/20/03.
 #define BFME_SHAKE_DATA ((const BfmeGlobalDataShakeFields *)TheGlobalData)
 #include <map>
+#define BFME_DISP_BYTE_SETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		void set(unsigned char value); \
+		char m_lead[DISP]; \
+		unsigned char m_value; \
+	}; \
+	void NAME::set(unsigned char value) \
+	{ \
+		m_value = value; \
+	}
 
 // BFME adds View and Display virtuals that the shared Zero Hour headers omit;
 // these scoped views preserve the witnessed slots and +0x104 camera offset.
@@ -248,6 +261,7 @@ public:
 
 
 void drawDrawableExtents( Drawable *draw, void *userData );
+
 
 
 
@@ -579,13 +593,65 @@ private:
 // here, nothing else defines it.
 bool g_bfmeFlagEC;
 
+BFME_DISP_BYTE_SETTER(Rva00085F05ByteSlot, 0x115)
+
+BFME_DISP_BYTE_SETTER(Rva00087A02ByteSlot, 0x2503)
+
+BFME_DISP_BYTE_SETTER(Rva00087A0FByteSlot, 0x2502)
+
+BFME_DISP_BYTE_SETTER(Rva00087A1CByteSlot, 0x2501)
+
+BFME_DISP_BYTE_SETTER(Rva00087A29ByteSlot, 0x2504)
+
+// Address-owned initializer at 0x0047A2B6..0x0047A2E1 (RET0).
+// Clean donor: Open-BFME-1 34f59164, game/GameEngine/Source/Common/
+// Rva00221100TinyBodies.cpp, Rva0022F780Pair constructor, /O1 /arch:SSE /G7.
+// Target evidence establishes six float slots at 0/4/8/C/10/14, the
+// 0,0,1,0,0,1 stores, and ECX returned through EAX. No target class name
+// or constructor identity is established; retain the target address and
+// describe its proven initializer ABI. Destination is the repository's
+// nearest-neighbour home, immediately after its 0x0047A2A9 setter.
+class Rva0047A2B6Floats
+{
+public:
+    Rva0047A2B6Floats *initialize();
+private:
+    float first[3];
+    float second[3];
+};
+
+// Clean BF1 9cbfb551fe Common/Rva007AE610Array.cpp semantic donor, normal O1/SSE/G7.
+// Native 0010855F..0010856E has its own complete RET boundary and establishes
+// receiver68 indexed dword store, RET8. Original owner and full array bound remain
+// unresolved; this separate address-owned view models only observed accesses.
+class Rva0010855FArray {
+public: void setValue(unsigned int index, unsigned int value);
+private: unsigned char unknown[0x68]; unsigned int values[1];
+};
+
 // tu-skeleton: 0x00085B41 380B ?getAxisAlignedViewRegion@W3DView@@AAEXAAURegion3D@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewGetAxisAlignedViewRegion.cpp (not merged yet)
 
 // tu-skeleton: 0x00085CBD 522B ?rva00085CBD@W3DView@@QAEXAAURegion3D@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewFarRegion.cpp (not merged yet)
 
 // tu-skeleton: 0x00085EC7 62B ?setFadeParameters@W3DView@@UAEXHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewSetFadeParameters.cpp (not merged yet)
 
-// tu-skeleton: 0x00085F05 13B ?set@Rva00085F05ByteSlot@@QAEXE@Z -- matched in Code/GameEngine/Source/Common/DispByteFieldSetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/DispByteFieldSetters.cpp
+
+// Disp32 byte setters: thirteen-byte __thiscall members with one shape:
+//
+//     mov al,[esp+4] / mov [ecx+<DISP>],al / ret 4
+//
+// One byte is taken from the stack argument slot and stored at a fixed
+// displacement from `this`. Ported from Open-BFME-1
+// (Code/GameEngine/Source/Common/DispByteFieldSetters.cpp): the
+// BFME_DISP_BYTE_SETTER macro is verbatim (unsigned char set over a lead
+// array), only the class names follow this tree's Disp* convention
+// (address-derived Rva<addr>ByteSlot, identity unrecoverable from 13 bytes).
+// Every displacement here is a disp32 (MSVC 7.1 uses disp8 whenever the
+// offset fits, so every offset is at least 0x80).
+// No // cl: line (defaults match the frameless 13-byte shape).
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
 
@@ -940,6 +1006,22 @@ void __cdecl Rva0008AFDCDestroy(void *first, void *last)
 	((Rva0008A1FDDestroyView)(Rva0008A1FDDestroyRowed)&Rva0008A1FDDestroy)(first, last, (int)&tag);
 }
 
+// ---- from Code/GameEngine/Source/Common/Bfme5FiftySeven.cpp
+
+// ?bfmeSet@@YGX_N@Z
+void __stdcall bfmeSet(bool value)
+{
+	if (value)
+	{
+		g_bfmeFlagEC = true;
+
+		return;
+	}
+
+	if (g_bfmeFlagEC)
+		g_bfmeFlagEC = false;
+}
+
 // tu-skeleton: 0x00085F6A 62B ?rva00085F6A@Rva00085F6A@@QAE_NH@Z -- matched in Code/GameEngine/Source/Common/Rva00085F6ASet.cpp (not merged yet)
 
 // tu-skeleton: 0x00085FA8 178B ?calcDeltaScroll@Rva00085FA8@@QAEXPAM@Z -- matched in Code/GameEngine/Source/Common/Rva00085FA8Delta.cpp (not merged yet)
@@ -992,22 +1074,6 @@ void __cdecl Rva0008AFDCDestroy(void *first, void *last)
 
 // tu-skeleton: 0x0008780A 328B ?rva0008780A@W3DView@@QAEXH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRva00087642CameraRestore.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/Bfme5FiftySeven.cpp
-
-// ?bfmeSet@@YGX_N@Z
-void __stdcall bfmeSet(bool value)
-{
-	if (value)
-	{
-		g_bfmeFlagEC = true;
-
-		return;
-	}
-
-	if (g_bfmeFlagEC)
-		g_bfmeFlagEC = false;
-}
-
 // tu-skeleton: 0x00087973 54B ?rva00087973@W3DView@@QAEXH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00087973Notify.cpp (not merged yet)
 
 // tu-skeleton: 0x000879A9 61B ?rva000879A9@Rva00085947@@QAE_NH@Z -- matched in Code/GameEngine/Source/GameClient/Rva00085947Method.cpp (not merged yet)
@@ -1019,14 +1085,6 @@ void __stdcall bfmeSet(bool value)
 // tu-skeleton: 0x000879F4 7B ?get@Rva000879F4FloatField@@QBEMXZ -- matched in Code/GameEngine/Source/Common/DispFloatFieldGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x000879FB 7B ?get@Rva000879FBByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/DispByteFieldGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00087A02 13B ?set@Rva00087A02ByteSlot@@QAEXE@Z -- matched in Code/GameEngine/Source/Common/DispByteFieldSetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00087A0F 13B ?set@Rva00087A0FByteSlot@@QAEXE@Z -- matched in Code/GameEngine/Source/Common/DispByteFieldSetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00087A1C 13B ?set@Rva00087A1CByteSlot@@QAEXE@Z -- matched in Code/GameEngine/Source/Common/DispByteFieldSetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00087A29 13B ?set@Rva00087A29ByteSlot@@QAEXE@Z -- matched in Code/GameEngine/Source/Common/DispByteFieldSetters.cpp (not merged yet)
 
 // tu-skeleton: 0x00087A36 14B ?get@Rva00087A36DivMovField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8DivMovDwordGetters.cpp (not merged yet)
 
