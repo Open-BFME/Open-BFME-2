@@ -32,6 +32,7 @@
 
 
 
+
 #endif
 #define TERRAIN_SAMPLE_SIZE 40.0f
 #define MIN_CAPPED_ZOOM (0.5f) //WST 10.19.2002. JSC integrated 5/20/03.
@@ -647,6 +648,7 @@ void drawDrawableExtents( Drawable *draw, void *userData );
 
 
 
+
   // end drawDrawableExtents
 
 
@@ -1166,12 +1168,6 @@ public:
 	virtual void slot130();
 	virtual void slot131();
 	virtual void slot132();
-};
-
-class MilesAudioManager : public SizedForwarderSlots
-{
-public:
-	virtual void rva000512BC();
 };
 
 class Rva00078AC6Forwarder
@@ -2357,11 +2353,522 @@ BFME_DISP32_FLOAT_GETTER(Rva000879E6FloatField, 0x24F4)
 
 BFME_DISP8_DIV_MOV_DWORD_GETTER(Rva00087A36DivMovField, 0x04, 0x00, 0xB8)
 
+// Byte one-setters: eight-byte __thiscall members with one shape:
+//
+//     mov byte ptr [ecx+<DISP>],1 / ret
+//
+// One byte at a fixed displacement from `this` is set to 1 and nothing is
+// read back. Ported from Open-BFME-1's RvaB7F70Offset8ByteOneSetterThunk
+// pattern (`void enable() { enabled = 1; }`); only the class names follow
+// this tree's Disp* convention (address-derived Rva<addr>ByteOneSetter,
+// identity unrecoverable from 8 bytes). Every displacement here is a disp32
+// (MSVC 7.1 uses disp8 whenever the offset fits, so every offset is at
+// least 0x80).
+// No // cl: line (defaults match the frameless 8-byte shape).
+class Rva00042F57ByteOneSetter
+{
+public:
+	void enable();
+
+	char m_lead[0x145];
+	unsigned char m_enabled;
+};
+
+class Rva00042F5FByteOneSetter
+{
+public:
+	void enable();
+
+	char m_lead[0x146];
+	unsigned char m_enabled;
+};
+
+class Rva000203AD5ByteOneSetter
+{
+public:
+	void enable();
+
+	char m_lead[0x1A4D4];
+	unsigned char m_enabled;
+};
+
+class Rva000203ADDByteZeroSetter
+{
+public:
+	void disable();
+
+	char m_lead[0x1A4D4];
+	unsigned char m_enabled;
+};
+
+class Rva0033F971ByteOneSetter
+{
+public:
+	void enable();
+
+	char m_lead[0x3C6];
+	unsigned char m_enabled;
+};
+
+class Rva0033F979ByteZeroSetter
+{
+public:
+	void disable();
+
+	char m_lead[0x3C6];
+	unsigned char m_enabled;
+};
+
+class Rva0041FDDEByteZeroSetter
+{
+public:
+	void disable();
+
+	char m_lead[0x140];
+	unsigned char m_enabled;
+};
+
+class Rva0041FDE6ByteOneSetter
+{
+public:
+	void enable();
+
+	char m_lead[0x140];
+	unsigned char m_enabled;
+};
+
+class Rva0004CB16ByteOneSetter
+{
+public:
+	void enable();
+
+	char m_lead[0xA8];
+	unsigned char m_enabled;
+};
+
+class MilesAudioManager : public SizedForwarderSlots
+{
+public:
+	virtual void rva000512BC();
+public:
+	char m_lead[0x6AB - sizeof(void *)];
+};
+
+class Rva00066517ByteOneSetter
+{
+public:
+	void enable();
+
+	char m_lead[0xD7B5];
+	unsigned char m_enabled;
+};
+
+class Rva0007DEAFByteOneSetter
+{
+public:
+	void enable();
+
+	char m_lead[0xA0];
+	unsigned char m_enabled;
+};
+
+class Rva0008BC93ByteOneSetter
+{
+public:
+	void enable();
+
+	char m_lead[0x23D0];
+	unsigned char m_enabled;
+};
+
+class Rva000B2B33ByteOneSetter
+{
+public:
+	void enable();
+
+	char m_lead[0x131C];
+	unsigned char m_enabled;
+};
+
+class Rva000B380CByteOneSetter
+{
+public:
+	void enable();
+
+	char m_lead[0x94];
+	unsigned char m_enabled;
+};
+
+class Rva000E0F16ByteOneSetter
+{
+public:
+	void enable();
+
+	char m_lead[0x4FB6D];
+	unsigned char m_enabled;
+};
+
+class Rva000E9C15ByteOneSetter
+{
+public:
+	void enable();
+
+	char m_lead[0x4FB5C];
+	unsigned char m_enabled;
+};
+
+class Rva000EDB3FByteOneSetter
+{
+public:
+	void enable();
+
+	char m_lead[0x44544];
+	unsigned char m_enabled;
+};
+
+class Rva001EADF7ByteOneSetter
+{
+public:
+	void enable();
+
+	char m_lead[0xC1];
+	unsigned char m_enabled;
+};
+
+class Rva001F3852ByteOneSetter
+{
+public:
+	void enable();
+
+	char m_lead[0x1A3];
+	unsigned char m_enabled;
+};
+
+class Rva00203BE1ByteOneSetter
+{
+public:
+	void enable();
+
+	char m_lead[0x1A4D7];
+	unsigned char m_enabled;
+};
+
+class Rva00222479ByteOneSetter
+{
+public:
+	void enable();
+
+	char m_lead[0x310];
+	unsigned char m_enabled;
+};
+
+class Rva00238D7BByteOneSetter
+{
+public:
+	void enable();
+
+	char m_lead[0x114];
+	unsigned char m_enabled;
+};
+
+class Rva0023CF83ByteOneSetter
+{
+public:
+	void enable();
+
+	char m_lead[0x150];
+	unsigned char m_enabled;
+};
+
+class Rva0025C0F7ByteOneSetter
+{
+public:
+	void enable();
+
+	char m_lead[0x10C];
+	unsigned char m_enabled;
+};
+
+class Rva002A87F1ByteOneSetter
+{
+public:
+	void enable();
+
+	char m_lead[0x168];
+	unsigned char m_enabled;
+};
+
+class Rva00406D5FByteOneSetter
+{
+public:
+	void enable();
+
+	char m_lead[0x1D8];
+	unsigned char m_enabled;
+};
+
+class Rva00433CF2ByteOneSetter
+{
+public:
+	void enable();
+
+	char m_lead[0x27D];
+	unsigned char m_enabled;
+};
+
+class Rva0043DB56ByteOneSetter
+{
+public:
+	void enable();
+
+	char m_lead[0x2BE];
+	unsigned char m_enabled;
+};
+
+class Rva0043DB5EByteOneSetter
+{
+public:
+	void enable();
+
+	char m_lead[0x2BB];
+	unsigned char m_enabled;
+};
+
+class Rva0043DB66ByteOneSetter
+{
+public:
+	void enable();
+
+	char m_lead[0x2B8];
+	unsigned char m_enabled;
+};
+
+class Rva0047709EByteOneSetter
+{
+public:
+	void enable();
+
+	char m_lead[0x104];
+	unsigned char m_enabled;
+};
+
+class Rva004BF8EDByteOneSetter
+{
+public:
+	void enable();
+
+	char m_lead[0xC6];
+	unsigned char m_enabled;
+};
+
+class Rva00513821ByteOneSetter
+{
+public:
+	void enable();
+
+	char m_lead[0x184];
+	unsigned char m_enabled;
+};
+
+class Rva00513829ByteOneSetter
+{
+public:
+	void enable();
+
+	char m_lead[0x42F];
+	unsigned char m_enabled;
+};
+
+class Rva0051AF03ByteOneSetter
+{
+public:
+	void enable();
+
+	char m_lead[0x3C5];
+	unsigned char m_enabled;
+};
+
+class Rva00085154ByteZeroSetter
+{
+public:
+	void disable();
+
+	char m_lead[0x5009];
+	unsigned char m_enabled;
+};
+
+class Rva0023C488ByteZeroSetter
+{
+public:
+	void disable();
+
+	char m_lead[0x115];
+	unsigned char m_enabled;
+};
+
+class Rva0029AB03ByteZeroSetter
+{
+public:
+	void disable();
+
+	char m_lead[0x554];
+	unsigned char m_enabled;
+};
+
+class Rva0036859FByteZeroSetter
+{
+public:
+	void disable();
+
+	char m_lead[0x558];
+	unsigned char m_enabled;
+};
+
+class Rva00513819ByteZeroSetter
+{
+public:
+	void disable();
+
+	char m_lead[0x184];
+	unsigned char m_enabled;
+};
+
+class Rva005B0232ByteZeroSetter
+{
+public:
+	void disable();
+
+	char m_lead[0x141];
+	unsigned char m_enabled;
+};
+
+class Rva001F384AByteZeroSetter
+{
+public:
+	void disable();
+
+	char m_lead[0x1A3];
+	unsigned char m_enabled;
+};
+
+class Rva0038896BByteOneSetter
+{
+public:
+	void enable();
+
+	char m_lead[0x48C];
+	unsigned char m_enabled;
+};
+
+class Rva000875CEByteZeroSetter
+{
+public:
+	void disable();
+
+	char m_lead[0x2439];
+	unsigned char m_enabled;
+};
+
+class Rva00210D0DByteZeroSetter
+{
+public:
+	void disable();
+
+	char m_lead[0x2C0];
+	unsigned char m_enabled;
+};
+
+class Rva00332B49ByteZeroSetter
+{
+public:
+	void disable();
+
+	char m_lead[0x3C5];
+	unsigned char m_enabled;
+};
+
+class Rva004690C8ByteZeroSetter
+{
+public:
+	void disable();
+
+	char m_lead[0x1A8];
+	unsigned char m_enabled;
+};
+
+class Rva000E43DFByteOneSetter
+{
+public:
+	void enable();
+
+	char m_lead[0x9D];
+	unsigned char m_enabled;
+};
+
+class Rva00210CB6ByteOneSetter
+{
+public:
+	void enable();
+
+	char m_lead[0x88];
+	unsigned char m_enabled;
+};
+
+// Native 39B78D is ScoreKeeper::LoadPostProcess, owned by ScoreKeeperDtor.cpp.
+
+class Rva0046F822ByteOneSetter
+{
+public:
+	void enable();
+
+	char m_lead[0x188];
+	unsigned char m_enabled;
+};
+
+class Rva0052E112ByteOneSetter
+{
+public:
+	void enable();
+
+	char m_lead[0x1BA31];
+	unsigned char m_enabled;
+};
+
+class Rva0053997DByteOneSetter
+{
+public:
+	void enable();
+
+	char m_lead[0x43B];
+	unsigned char m_enabled;
+};
+
+class Rva005B022AByteOneSetter
+{
+public:
+	void enable();
+
+	char m_lead[0x141];
+	unsigned char m_enabled;
+};
+
+// BF1 9cb Rva000C3EF0ByteGetter.cpp is a structural lead only. Complete
+// native 2A87EA..2A87F1 follows a terminal JMP and reads raw byte+4B0 into
+// AL. Original owner and complete class bounds remain unknown.
+struct Rva002A87EAFields
+{
+    char unknown00[0x4B0];
+    unsigned char value;
+    unsigned char get() const;
+};
+
 // tu-skeleton: 0x00085B41 380B ?getAxisAlignedViewRegion@W3DView@@AAEXAAURegion3D@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewGetAxisAlignedViewRegion.cpp (not merged yet)
 
 // tu-skeleton: 0x00085CBD 522B ?rva00085CBD@W3DView@@QAEXAAURegion3D@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewFarRegion.cpp (not merged yet)
 
 // tu-skeleton: 0x00085EC7 62B ?setFadeParameters@W3DView@@UAEXHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewSetFadeParameters.cpp (not merged yet)
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
 
@@ -2853,6 +3360,49 @@ float * Rva00088D05::rva00088D05()
 // derived from its address.
 // No // cl: line (defaults match the frameless seven-byte shape).
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---- from Code/GameEngine/Source/Common/Disp8DivMovDwordGetters.cpp
+
+// Disp8 div-mov dword getters: fourteen-byte __thiscall members with one shape:
+//
+//     mov eax,[ecx+<DISP1>] / sub eax,[ecx+<DISP2>] / mov ecx,<DIV>
+//     cdq / idiv ecx / ret
+//
+// The difference of two dwords at fixed displacements from `this` is divided
+// by a constant. MSVC 7.1 under /O1 materializes small divisors through the
+// stack (`push imm8` + `pop ecx`, three bytes; the DivAvg sister TU) but
+// large divisors (>=0x80, needing `push imm32` + `pop`, six bytes) via
+// `mov ecx,imm32` (five bytes). All divisors here need imm32, so /O1 emits
+// mov. Fourteen-to-fifteen bytes total. Identity is not recovered: every
+// name is derived from its address.
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
+
 // tu-skeleton: 0x00085F6A 62B ?rva00085F6A@Rva00085F6A@@QAE_NH@Z -- matched in Code/GameEngine/Source/Common/Rva00085F6ASet.cpp (not merged yet)
 
 // tu-skeleton: 0x00085FA8 178B ?calcDeltaScroll@Rva00085FA8@@QAEXPAM@Z -- matched in Code/GameEngine/Source/Common/Rva00085FA8Delta.cpp (not merged yet)
@@ -2893,7 +3443,12 @@ float * Rva00088D05::rva00088D05()
 
 // tu-skeleton: 0x000875A2 44B ?rva000875A2@W3DView@@UAEXABV?$StringBase@D@@0@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRva0008DAE4.cpp (not merged yet)
 
-// tu-skeleton: 0x000875CE 8B ?disable@Rva000875CEByteZeroSetter@@QAEXXZ -- matched in Code/GameEngine/Source/Common/DispByteOneSetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/DispByteOneSetters.cpp
+
+void Rva000875CEByteZeroSetter::disable()
+{
+	m_enabled = 0;
+}
 
 // tu-skeleton: 0x000875D6 28B ?rva000875D6@W3DView@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRva0008DAE4.cpp (not merged yet)
 
@@ -2906,22 +3461,6 @@ float * Rva00088D05::rva00088D05()
 // tu-skeleton: 0x000879A9 61B ?rva000879A9@Rva00085947@@QAE_NH@Z -- matched in Code/GameEngine/Source/GameClient/Rva00085947Method.cpp (not merged yet)
 
 // tu-skeleton: 0x000879FB 7B ?get@Rva000879FBByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/DispByteFieldGetters.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/Disp8DivMovDwordGetters.cpp
-
-// Disp8 div-mov dword getters: fourteen-byte __thiscall members with one shape:
-//
-//     mov eax,[ecx+<DISP1>] / sub eax,[ecx+<DISP2>] / mov ecx,<DIV>
-//     cdq / idiv ecx / ret
-//
-// The difference of two dwords at fixed displacements from `this` is divided
-// by a constant. MSVC 7.1 under /O1 materializes small divisors through the
-// stack (`push imm8` + `pop ecx`, three bytes; the DivAvg sister TU) but
-// large divisors (>=0x80, needing `push imm32` + `pop`, six bytes) via
-// `mov ecx,imm32` (five bytes). All divisors here need imm32, so /O1 emits
-// mov. Fourteen-to-fifteen bytes total. Identity is not recovered: every
-// name is derived from its address.
-// flags: region default (reverse/retail_inventory/flag_regions.csv)
 
 // tu-skeleton: 0x00087A44 24B ??$fill@PAPAXPAX@_STL@@YAXPAPAX0ABQAX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_ptr_o1.cpp (not merged yet)
 

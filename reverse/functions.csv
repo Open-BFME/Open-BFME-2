@@ -17461,7 +17461,7 @@ _VP60D_GetVersionNumber,,0x001B5830,6,Code/Libraries/Source/VP6/PbAccessors.cpp,
 ?get@Rva00528C52ByteChase32Field@@QBEEXZ,,0x00528C52,10,Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp,matched,disp8 byte-chase getter with disp32 inner; phase-proven no-branch-to-addr
 ?get@Rva0026FDCAFloatChase32Field@@QBEMXZ,,0x0026FDCA,10,Code/GameEngine/Source/Common/Disp8FloatChaseGetters.cpp,matched,disp8 float-chase getter with disp32 inner; phase-proven no-branch-to-addr
 ?get@Rva004BB980FloatChase32Field@@QBEMXZ,,0x004BB980,10,Code/GameEngine/Source/Common/Disp8FloatChaseGetters.cpp,matched,disp8 float-chase getter with disp32 inner; phase-proven no-branch-to-addr
-?disable@Rva000875CEByteZeroSetter@@QAEXXZ,,0x000875CE,8,Code/GameEngine/Source/Common/DispByteOneSetters.cpp,matched,disp32 byte zero-setter; C2-ret prev plus phase-clean
+?disable@Rva000875CEByteZeroSetter@@QAEXXZ,,0x000875CE,8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,matched,disp32 byte zero-setter; C2-ret prev plus phase-clean
 ?disable@Rva00210D0DByteZeroSetter@@QAEXXZ,,0x00210D0D,8,Code/GameEngine/Source/Common/DispByteOneSetters.cpp,matched,disp32 byte zero-setter; C2-ret prev plus phase-clean
 ?disable@Rva00332B49ByteZeroSetter@@QAEXXZ,,0x00332B49,8,Code/GameEngine/Source/Common/DispByteOneSetters.cpp,matched,disp32 byte zero-setter; C2-ret prev plus phase-clean plus getter-cluster neighbor
 ?disable@Rva004690C8ByteZeroSetter@@QAEXXZ,,0x004690C8,8,Code/GameEngine/Source/Common/DispByteOneSetters.cpp,matched,disp32 byte zero-setter; C2-ret prev plus phase-clean

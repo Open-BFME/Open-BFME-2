@@ -619,11 +619,6 @@ public:
 	unsigned char m_enabled;
 };
 
-void Rva000875CEByteZeroSetter::disable()
-{
-	m_enabled = 0;
-}
-
 class Rva00210D0DByteZeroSetter
 {
 public:
