@@ -22939,12 +22939,12 @@ uw_0076443a,,0x0076443A,8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DD
 ??_GRva00555B79@@QAEPAXI@Z,,0x00555BB9,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-08b.cpp,matched,chain deleting dtor for Rva00555B79 via famgenDelete
 ?get@Rva00555A8BNarrowField@@QBE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@XZ,,0x00555A8B,27,Code/GameEngine/Source/Common/System/StlportStringRvoGetter555A8B.cpp,matched,sibling of 0x00555AC1 getter at plus0x6c via rowed copy ctor
 ?get@Rva00555AA6NarrowField@@QBE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@XZ,,0x00555AA6,27,Code/GameEngine/Source/Common/System/StlportStringRvoGetter555AA6.cpp,matched,sibling of 0x00555AC1 getter at plus0x78 via rowed copy ctor
-?rva0043D3A8@Rva0043D3A8@@QAEXXZ,,0x0043D3A8,22,Code/GameEngine/Source/Common/Rva0043D3A8Clear.cpp,matched,caller 0x0043D3DA passes outer+0x288 as this rowed Science erase
+?rva0043D3A8@Rva0043D3A8@@QAEXXZ,,0x0043D3A8,22,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,matched,caller 0x0043D3DA passes outer+0x288 as this rowed Science erase
 ?rva0032EAA1@Rva0032EAA1@@QAEXPAX@Z,,0x0032EAA1,53,Code/GameEngine/Source/GameLogic/Map/SidesList.cpp,matched,rb-erase recurse-right loop-left via rowed dtor plus free
 ?set@Rva00555EB4Setter@@QAEXV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@Z,,0x00555EB4,59,Code/GameEngine/Source/Common/System/StlportStringByValueSetter555EB4.cpp,matched,by-value string setter at plus0x6c via rowed assign
 ?set@Rva00555EEFSetter@@QAEXV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@Z,,0x00555EEF,59,Code/GameEngine/Source/Common/System/StlportStringByValueSetter555EEF.cpp,matched,by-value string setter at plus0x78 via rowed assign
 ?set@Rva00555F2ASetter@@QAEXV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@Z,,0x00555F2A,62,Code/GameEngine/Source/Common/System/StlportStringByValueSetter555F2A.cpp,matched,by-value string setter at plus0x84 via rowed assign
-?rva0043D3DA@Rva0043D3DA@@QAEXH@Z,,0x0043D3DA,68,Code/GameEngine/Source/Common/Rva0043D3DAClear.cpp,matched,caller 0x0043D452 gated by globals 0x009FE78C 0x009FEDF0
+?rva0043D3DA@Rva0043D3DA@@QAEXH@Z,,0x0043D3DA,68,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,matched,caller 0x0043D452 gated by globals 0x009FE78C 0x009FEDF0
 ?rva0032EB5E@Rva0032EAA1@@QAEXXZ,,0x0032EB5E,41,Code/GameEngine/Source/GameLogic/Map/SidesList.cpp,matched,clear erase root reinit header plus count
 ?rva0032E7E2@Rva0032E7E2@@QAEXXZ,,0x0032E7E2,30,Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalLinkVector.cpp,matched,vector destroy range plus free start
 ?rva00556050@Rva00556050@@QAEXPAURva00556050Node@@@Z,,0x00556050,53,Code/GameEngine/Source/Common/Rva00556050Teardown.cpp,matched,recursive teardown via rowed dtor 0x00555B79 and free
@@ -27530,7 +27530,7 @@ _$E4,,0x007ACD20,26,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsRecordTex
 ?rva002ABCF0@Player@@QAEHEPAH@Z,,0x002ABCF0,45,Code/GameEngine/Source/Common/RTS/PlayerRva002ABCF0.cpp,matched,ecx passthrough to pinned iterateObjects with callback 0x002AB01C
 ?rva002ABAB3@Player@@QAEXXZ,,0x002ABAB3,13,Code/GameEngine/Source/Common/RTS/PlayerRva002ABAB3.cpp,matched,ecx pass-through to pinned iterateObjects with callback 0x002AA27A and NULL
 ?rva0043C754@Rva0043D16F@@UAEXPAVCreateAHeroData@@PA_N@Z,,0x0043C754,30,Code/GameEngine/Source/Common/Rva0043C754Check.cpp,matched,vtable slot2 Rva0043D16F via Player at plus4 and rowed rva002AB855; spelled virtual: slot 2 of vftable 0x00C3D7E8 that the class's own constructor install at +0; retail never calls it directly; the view takes the vptr at +0
-?rva0043C7C9@Rva0043D3DA@@QAEXH@Z,,0x0043C7C9,105,Code/GameEngine/Source/Common/Rva0043C7C9Close.cpp,matched,same gating and flag as sibling 0x0043D3DA via invoke Close
+?rva0043C7C9@Rva0043D3DA@@QAEXH@Z,,0x0043C7C9,105,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,matched,same gating and flag as sibling 0x0043D3DA via invoke Close
 ??$__copy_ptrs@PAUOpaqueRefElement4@@PAU1@@_STL@@YAPAUOpaqueRefElement4@@PAU1@00ABU__false_type@0@@Z,,0x00239B29,29,Code/Libraries/Source/WWVegas/WWLib/Rva00239B29CopyWrapper.cpp,matched,chain via rowed __copy 0x00051C10 tag plus NULL
 ?rva0046A915@Rva0046A915@@QAEXXZ,,0x0046A915,41,Code/GameEngine/Source/Common/Rva0046A915Clear.cpp,matched,ready leaf same shape as rowed clears 0x46A93E 0x46AB7D via rowed free 0x469C07
 ?rva0046E455@Rva0046E455@@QAE?AURva0046E455Iter@@PAURva0046E455Node@@0ABVRva00469BEA@@0@Z,,0x0046E455,136,Code/GameEngine/Source/Common/Rva0046E455.cpp,matched,unlock calls rowed create 0x46AC30 plus rowed Rebalance 0x25490 same shape as rowed 0x46AC52
@@ -34189,7 +34189,7 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ??0Rva0050406E@@QAE@XZ,,0x0050406E,12,Code/GameEngine/Source/Common/Rva0050406ECtor.cpp,matched,ctor forwards to pinned 0x3FD398; caller 0x504091; neighbours share DNDEBUG MD EHsc record shape
 ?rva0051AEEF@Rva0051AEEF@@QBE_NXZ,,0x0051AEEF,20,Code/GameEngine/Source/Common/Rva0051AEEFCheck.cpp,matched,two-byte-flag predicate B4 and B6; caller 0x51B450; frameless const bool shape
 ??_GRva0043DAE0@@UAEPAXI@Z,,0x0043DB07,28,Code/GameEngine/Source/Common/Rva0043DAE0.cpp,matched,chain from 0x0043DAE0 deleting dtor same TU
-?rva0043D5CB@Rva0043D3A8@@QAEXW4ScienceType@@@Z,,0x0043D5CB,42,Code/GameEngine/Source/Common/Rva0043D3DAClear.cpp,matched,unlock TheScienceStore cost push_back at 0x08 add at 0x14 caller 0x0043D67A
+?rva0043D5CB@Rva0043D3A8@@QAEXW4ScienceType@@@Z,,0x0043D5CB,42,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,matched,unlock TheScienceStore cost push_back at 0x08 add at 0x14 caller 0x0043D67A
 ?rva0043DFE0@Rva0043DFE0@@QAE_NH@Z,,0x0043DFE0,109,Code/GameEngine/Source/Common/Rva0043DFE0.cpp,matched,leaf provider 0x5C target 0x58 slot 0x30 flag 0x2C3 combo 0x314 caller 0x00442DF3
 ?rva0033C288@ModuleInfo@@QBEPBHH@Z,,0x0033C288,43,Code/GameEngine/Source/Common/Thing/ModuleInfoRva0033C288.cpp,matched,map find guarded by count calls rowed _M_find node+0x14
 ?rva0033C259@ModuleInfo@@QBEMH@Z,,0x0033C259,47,Code/GameEngine/Source/Common/Thing/ModuleInfoRva0033C259.cpp,matched,map find guarded by count returns float bits else BfmeZeroRange

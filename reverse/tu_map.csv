@@ -35120,7 +35120,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0043C772,17,code,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,proposed,C,C=0x0043C754..0x0043C783,Code/GameEngine/Source/Common/VslotSmallBodiesD.cpp
 0x0043C783,7,code,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,proposed,C,C=0x0043C754..0x0043C78A,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp
 0x0043C78A,63,code,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp provisional,Code/GameEngine/Source/GameClient/GUI/parseSpellIndex_Thunk.cpp
-0x0043C7C9,105,code,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,approved,C,W=Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/SpellStore.cpp C=0x0043C78A..0x0043C832 provisional,Code/GameEngine/Source/Common/Rva0043C7C9Close.cpp
+0x0043C7C9,105,code,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,approved,C,W=Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/SpellStore.cpp C=0x0043C78A..0x0043C832 provisional,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp
 0x0043C832,43,code,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,approved,C,C=0x0043C78A..0x0043C85D provisional,Code/GameEngine/Source/GameClient/GUI/parseSpellIndex_Thunk.cpp
 0x0043C85D,38,code,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp provisional,Code/GameEngine/Source/GameClient/GUI/parseSpellIndex_Thunk.cpp
 0x0043C883,32,code,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp provisional,Code/GameEngine/Source/GameClient/GUI/parseSpellIndex_Thunk.cpp
@@ -35146,12 +35146,12 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0043D1C9,390,code,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp W=Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/SpellStore.cpp provisional,Code/GameEngine/Source/GameClient/GUI/Rva0043D1C9Destructor.cpp
 0x0043D34F,11,code,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,approved,U,N=Code/GameEngine/Source/Common/AptSpellStore.cpp provisional,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB10.cpp
 0x0043D35A,78,code,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,approved,C,C=0x0043D34F..0x0043D3A8 provisional,Code/GameEngine/Source/GameClient/GUI/parseSpellIndex_Thunk.cpp
-0x0043D3A8,22,code,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,approved,C,C=0x0043D34F..0x0043D3BE provisional,Code/GameEngine/Source/Common/Rva0043D3A8Clear.cpp
+0x0043D3A8,22,code,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,approved,C,C=0x0043D34F..0x0043D3BE provisional,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp
 0x0043D3BE,28,code,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,approved,U,N=Code/GameEngine/Source/Common/AptSpellStore.cpp provisional,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB10.cpp
-0x0043D3DA,68,code,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,approved,C,C=0x0043D3BE..0x0043D41E provisional,Code/GameEngine/Source/Common/Rva0043D3DAClear.cpp
+0x0043D3DA,68,code,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,approved,C,C=0x0043D3BE..0x0043D41E provisional,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp
 0x0043D41E,73,code,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,approved,C,C=0x0043D3BE..0x0043D467 provisional,Code/GameEngine/Source/Common/VslotSmallBodiesY.cpp
 0x0043D467,356,code,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,approved,C,C=0x0043D3BE..0x0043D5CB provisional,Code/GameEngine/Source/GameClient/GUI/parseSpellIndex_Thunk.cpp
-0x0043D5CB,42,code,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,approved,C,W=Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/SpellStore.cpp C=0x0043D3BE..0x0043D5F5 provisional,Code/GameEngine/Source/Common/Rva0043D3DAClear.cpp
+0x0043D5CB,42,code,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,approved,C,W=Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/SpellStore.cpp C=0x0043D3BE..0x0043D5F5 provisional,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp
 0x0043D5F5,145,code,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp provisional,Code/GameEngine/Source/GameClient/GUI/parseSpellIndex_Thunk.cpp
 0x0043D686,917,code,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp provisional,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp
 0x0043DA1B,58,code,,,-,,Code/GameEngine/Source/Common/Rva002D1E55Factories.cpp
