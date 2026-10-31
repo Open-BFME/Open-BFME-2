@@ -32919,7 +32919,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00405A25,32,code,Code/GameEngine/Source/Common/OldSchoolHelpBoxContentSource.cpp,approved,U,N=Code/GameEngine/Source/GameClient/GUI/ControlBar/OldSchoolHelpBoxContentSource.cpp provisional,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva004C1B60_Rva00405DBC.cpp
 0x00405A45,11,code,Code/GameEngine/Source/Common/OldSchoolHelpBoxContentSource.cpp,approved,C,C=0x00405A25..0x00405A50 provisional,Code/GameEngine/Source/Common/OldSchoolHelpBoxContentSource.cpp
 0x00405A50,87,code,Code/GameEngine/Source/Common/OldSchoolHelpBoxContentSource.cpp,approved,C,C=0x00405A25..0x00405AA7 provisional,Code/GameEngine/Source/Common/OldSchoolHelpBoxContentSource.cpp
-0x00405AA7,34,code,Code/GameEngine/Source/Common/OldSchoolHelpBoxContentSource.cpp,approved,C,C=0x00405A25..0x00405AC9 provisional,Code/GameEngine/Source/Common/Rva00405AA7Method.cpp
+0x00405AA7,34,code,Code/GameEngine/Source/Common/OldSchoolHelpBoxContentSource.cpp,approved,C,C=0x00405A25..0x00405AC9 provisional,Code/GameEngine/Source/Common/OldSchoolHelpBoxContentSource.cpp
 0x00405AC9,65,code-unledgered,Code/GameEngine/Source/Common/OldSchoolHelpBoxContentSource.cpp,approved,C,C=0x00405A25..0x00405B0A provisional,
 0x00405B0A,86,code,Code/GameEngine/Source/Common/OldSchoolHelpBoxContentSource.cpp,approved,C,C=0x00405A25..0x00405B60 provisional,Code/GameEngine/Source/Common/OldSchoolHelpBoxContentSource.cpp
 0x00405B60,45,code,Code/GameEngine/Source/Common/OldSchoolHelpBoxContentSource.cpp,approved,N,N=Code/GameEngine/Source/Common/OldSchoolHelpBoxContentSource.cpp provisional,Code/GameEngine/Source/Common/Rva00405B60Ctor.cpp

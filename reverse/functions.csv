@@ -28114,7 +28114,7 @@ _SetDeInterlaceMode,,0x001B6910,15,Code/Libraries/Source/VP6/PostProcModes.cpp,m
 ?ReleaseResources@W3DVolumetricShadowManager@@QAEXXZ,,0x000F0972,111,Code/GameEngine/Source/Common/W3DVolumetricShadowManager_ReleaseResources.cpp,matched,DX8 lock release two globals plus manager then clear list
 ?ReAcquireResources@W3DVolumetricShadowManager@@QAE_NXZ,,0x000F09E1,148,Code/GameEngine/Source/Common/W3DVolumetricShadowManagerReAcquire.cpp,matched,ZH ReAcquireResources IB VB manager under DX8 lock
 ?rva002EE9B7@Rva002EE9B7@@QAEXXZ,,0x002EE9B7,41,Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp,matched,pool reset via 0x002EADB4 self-links shape as Rva002EB416
-?rva00405AA7@Rva00405AA7@@QAEXXZ,,0x00405AA7,34,Code/GameEngine/Source/Common/Rva00405AA7Method.cpp,matched,caller 0x003BBB26 passes g_bfmeWorldRV plus 0x2A4 match
+?rva00405AA7@Rva00405AA7@@QAEXXZ,,0x00405AA7,34,Code/GameEngine/Source/Common/OldSchoolHelpBoxContentSource.cpp,matched,caller 0x003BBB26 passes g_bfmeWorldRV plus 0x2A4 match
 ?rva00262BEC@AIUpdateInterface@@QAE_NXZ,,0x00262BEC,39,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_rva00262BEC.cpp,matched,checks if m_locomotorGoalType is 1 or 4 and m_path has rva003638BA
 ?rva00262BA9@AIUpdateInterface@@UAE_NXZ,,0x00262BA9,67,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_rva00262BEC.cpp,matched,checks m_field1F0 and locomotorGoalType 1 or 4 and path rva001E3591 or rva00262176
 ?setLocomotorGoalPositionOnPath@AIUpdateInterface@@UAEXXZ,,0x00262C13,34,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_setLocomotorGoalPositionExplicit.cpp,matched,ZH AIUpdate POSITION_ON_PATH plus zero

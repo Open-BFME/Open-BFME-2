@@ -171,9 +171,37 @@ private:
 	int m_c; // +0x0C
 };
 
+//
+// ?rva00405AA7@Rva00405AA7@@QAEXXZ @0x00405AA7 (34B):
+// Clears +0x2A4 via rowed Rva000AD6F4::clear then notifies
+// theRadarWindowOverrideSource via rowed rva002D370A.
+// Evidence: caller 0x003BBB26 passes g_bfmeWorldRV in ecx with no stack args;
+// same +0x2A4 as neighbour 0x00405A50; callees rowed; jmp tail to 0x002D370A.
+
+class Rva000AD6F4
+{
+public:
+	void clear();
+};
+
+struct TreeHintRef00217D4C;
+
+class Rva00405AA7
+{
+public:
+	void rva00405AA7();
+private:
+	char m_pad[0x214];
+	unsigned char m_214;
+	char m_pad2[0x2a4 - 0x214 - 1];
+	Rva000AD6F4 m_2a4;
+};
+
 // tu-skeleton: 0x004059BE 17B ?get@OldSchoolHelpBoxContentSource@@UAEHXZ -- matched in Code/GameEngine/Source/Common/R2GuardedFieldGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x004059CF 30B ?bfmeEquals@OldSchoolHelpBoxContentSource@@UBEHPBVBfmeThingGX@@@Z -- matched in Code/GameEngine/Source/Common/S3TwoFieldComparators.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/OldSchoolHelpBoxContentSource.cpp
 
 // ---- from Code/GameEngine/Source/Common/Rva00405A45Ctor.cpp
 
@@ -190,12 +218,6 @@ Rva00405A45::Rva00405A45()
 	m_vtable = g_00C38958;
 }
 
-// tu-skeleton: 0x004059F6 38B ?rva004059F6@Rva00405A45@@UAEHXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesW.cpp (not merged yet)
-
-// tu-skeleton: 0x00405A1C 9B ?clear@Rva00405A1CWordClearResult@@QAEIXZ -- matched in Code/GameEngine/Source/Common/Disp8DwordClearers.cpp (not merged yet)
-
-// tu-skeleton: 0x00405A25 32B ??0OldSchoolHelpBoxContentSource@@QAE@PAVControlBar@@PAVGameWindow@@PAX@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva004C1B60_Rva00405DBC.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva00405A50Method.cpp
 
 void Rva00405A50::rva00405A50()
@@ -211,10 +233,6 @@ void Rva00405A50::rva00405A50()
 		}
 	}
 }
-
-// tu-skeleton: 0x00405AA7 34B ?rva00405AA7@Rva00405AA7@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva00405AA7Method.cpp (not merged yet)
-
-// tu-skeleton: 0x00405AC9 65B (unledgered) -- unmatched, no code, never credited
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/ControlBarPopupDescriptionHeroNameRva00405B0A.cpp
 
@@ -238,8 +256,6 @@ bool rva00405B0A(const AsciiString &label, const Player *player, const ThingTemp
     }
     return false;
 }
-
-// tu-skeleton: 0x00405B60 45B ??0OldSchoolHelpBoxContentSource@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Rva00405B60Ctor.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/OldSchoolHelpBoxContentSource_allRequiredUpgradesComplete.cpp
 
@@ -271,6 +287,26 @@ bool OldSchoolHelpBoxContentSource::allRequiredUpgradesComplete(Object *obj, Upg
 	}
 	return flag == 0;
 }
+
+// tu-skeleton: 0x004059F6 38B ?rva004059F6@Rva00405A45@@UAEHXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesW.cpp (not merged yet)
+
+// tu-skeleton: 0x00405A1C 9B ?clear@Rva00405A1CWordClearResult@@QAEIXZ -- matched in Code/GameEngine/Source/Common/Disp8DwordClearers.cpp (not merged yet)
+
+// tu-skeleton: 0x00405A25 32B ??0OldSchoolHelpBoxContentSource@@QAE@PAVControlBar@@PAVGameWindow@@PAX@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva004C1B60_Rva00405DBC.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva00405AA7Method.cpp
+
+void Rva00405AA7::rva00405AA7()
+{
+	m_214 = 0;
+	m_2a4.clear();
+	if (theRadarWindowOverrideSource)
+		theRadarWindowOverrideSource->rva002D370A();
+}
+
+// tu-skeleton: 0x00405AC9 65B (unledgered) -- unmatched, no code, never credited
+
+// tu-skeleton: 0x00405B60 45B ??0OldSchoolHelpBoxContentSource@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Rva00405B60Ctor.cpp (not merged yet)
 
 // tu-skeleton: 0x00405C04 371B ?rva00405C04@Rva00405A50@@QAEXPAVBfmeThingGX@@@Z -- matched in Code/GameEngine/Source/Common/Rva00405C04Show.cpp (not merged yet)
 
