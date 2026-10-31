@@ -10,6 +10,12 @@ VslotSmallBodiesAG_Rva00131CF2.cpp (10 matched functions, 264 bytes) does not li
 Recorded `blocked` in `reverse/re_attempts.log`.
 
 
+### Make the Vector4 dependency explicit in the Thing constructor (2026-11-01)
+
+The Thing constructor now explicitly includes the registered Vector4 header it already received transitively. Complete byte/frozen/EH/strict checks retain all existing code/relocations, and owning acceptance retires one header key. No new census or runtime gain is claimed. Separately, Drawable retirement is deferred: original and direct-include controls both lose the current census prediction through an unresolved existing OpaqueRefCounted release provider; original restored and no queue override (reverse/attempt_support/drawable-vector4-dependency-block-20261101.md).
+[Evidence](../reverse/attempt_support/thing-vector4-stale-key-20261101.md).
+
+
 ### Adopt canonical Vector4 storage in horde rider release (2026-11-01)
 
 The rider-release source adopts canonical Vector4. All three rows and 38 external code bodies/relocations survive; the EH graph is EXACT. Owning acceptance retires one key and the e78b61f1b2 preview retains LINKS/457. Matrix3D and wider consumer/census proof remain separate.
