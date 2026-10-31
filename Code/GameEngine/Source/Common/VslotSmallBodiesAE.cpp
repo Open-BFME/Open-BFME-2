@@ -227,11 +227,6 @@ private:
 	Int m_04;
 	Rva00584A7DVector<Rva00584A7DEntry> m_08;
 };
-void Rva00584A7D::rva00584A7D(UnsignedInt count)
-{
-	if (m_08.size() < count)
-		m_08.grow(count);
-}
 class Rva00587057
 {
 public:

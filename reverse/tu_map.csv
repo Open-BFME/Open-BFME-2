@@ -47814,7 +47814,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x005849F4,73,code,Code/Libraries/Source/WWVegas/WWLib/HordeMeleeSwarm.cpp,approved,C,C=0x00584644..0x00584A3D provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_pod28_vector_resize_value.cpp
 0x00584A3D,56,code,Code/Libraries/Source/WWVegas/WWLib/HordeMeleeSwarm.cpp,approved,C,C=0x00584644..0x00584A75 provisional,Code/Libraries/Source/WWVegas/WWLib/HordeMeleeSwarmXfer.cpp
 0x00584A75,8,code,Code/Libraries/Source/WWVegas/WWLib/HordeMeleeSwarm.cpp,approved,C,C=0x00584644..0x00584A7D provisional,Code/GameEngine/Source/Common/GapBodiesSeat10O1.cpp
-0x00584A7D,30,code,Code/Libraries/Source/WWVegas/WWLib/HordeMeleeSwarm.cpp,approved,C,C=0x00584644..0x00584A9B provisional,Code/GameEngine/Source/Common/VslotSmallBodiesAE.cpp
+0x00584A7D,30,code,Code/Libraries/Source/WWVegas/WWLib/HordeMeleeSwarm.cpp,approved,C,C=0x00584644..0x00584A9B provisional,Code/Libraries/Source/WWVegas/WWLib/HordeMeleeSwarm.cpp
 0x00584A9B,423,code,Code/Libraries/Source/WWVegas/WWLib/HordeMeleeSwarm.cpp,approved,N,N=Code/Libraries/Source/WWVegas/WWLib/HordeMeleeSwarm.cpp provisional,Code/Libraries/Source/WWVegas/WWLib/HordeMeleeSwarmXfer.cpp
 0x00584C42,39,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/Rva00584C42Ctor.cpp
 0x00584C69,19,code,,,-,,Code/GameEngine/Source/Common/GapBodiesS3L.cpp
