@@ -192,10 +192,8 @@ struct XferUnknown11;
 		field += ADDIMM; \
 		return base ? (int)field : 0; \
 	}
-
 // bfme link decl-only begin
 namespace _STL { template <> ObjectID * vector<ObjectID, allocator<ObjectID> >::erase(ObjectID *); }
-
 // bfme link decl-only end
 
 // _List_iterator comparisons otherwise instantiate the base-class
@@ -208,7 +206,6 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
                               const _List_iterator<_IterTp, _RightTraits> &b)
 { return a._M_node != b._M_node; }
 }
-
 // vector<int>/char destruction otherwise instantiates per-TU allocator
 // deallocate COMDATs (one byte shape per TU flags); explicit
 // dllimport+forceinline specializations take those calls inline so this
@@ -219,11 +216,8 @@ void allocator<int>::deallocate(int* __p, size_t __n) const {
     if (__p != 0) __sgi_alloc::deallocate((void*)__p, __n * sizeof(value_type));
 }
 }
-
 class Thing;
-
 class ModuleData;
-
 class BehaviorModuleBase
 {
 private:
@@ -232,26 +226,21 @@ public:
 	const ModuleData *m_moduleData; // +0x04
 	Object *m_object; // +0x08
 };
-
 class BehaviorModuleOther
 {
 	virtual void unused();
 };
-
 class BehaviorModule : public BehaviorModuleBase, public BehaviorModuleOther
 {
 public:
 	BehaviorModule(Thing *thing, const ModuleData *moduleData);
 };
-
 enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
-
 class UpdateModuleInterface
 {
 public:
 	virtual UpdateSleepTime update() = 0;
 };
-
 class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 {
 	unsigned m_nextCallFrameAndPhase;
@@ -263,31 +252,24 @@ public:
 	virtual UpdateSleepTime update();
  virtual ~UpdateModule();
 };
-
 class MineshaftPortalInterfaceA
 {
 public:
 	virtual void ifaceA() = 0;
 };
-
 class MineshaftPortalInterfaceB
 {
 public:
 	virtual void ifaceB() = 0;
 };
-
 enum CommandSourceType { CMD_FROM_PLAYER, CMD_FROM_SCRIPT, CMD_FROM_AI };
-
 template<int N> class Rva00373B70Gap : public Rva00373B70Gap<N - 1> { public: virtual void gap(char (*)[N]); };
-
 template<> class Rva00373B70Gap<0> {};
-
 class Rva00373B70ContainExit : public Rva00373B70Gap<61>
 {
 public:
 	virtual bool slot61();
 };
-
 class Rva00373B70Contain : public Rva00373B70Gap<31>
 {
 public:
@@ -332,20 +314,17 @@ public:
 	virtual void slot69();
 	virtual Rva0036AE51ListView getList();
 };
-
 class AICommandInterface
 {
 public:
 	void aiExit(Object *obj, CommandSourceType cmdSource);
 	void rva0037379B(Object *obj, CommandSourceType cmdSource);
 };
-
 struct Rva00373B70Template
 {
 	char pad00[0x114];
 	unsigned int m_kindOf;
 };
-
 class Object
 {
 public:
@@ -360,9 +339,7 @@ public:
 	char pad254[0x258 - 0x254];
 	char *m_ai;
 };
-
 extern GameLogic *TheGameLogic;
-
 class Rva0037343B : public UpdateModule, public MineshaftPortalInterfaceA, public MineshaftPortalInterfaceB
 {
 public:
@@ -377,7 +354,6 @@ private:
 	unsigned char m_mode39;
 	unsigned char m_pad3A[2];
 };
-
 class Rva003733B5Base
 {
 public:
@@ -390,27 +366,57 @@ private:
 	bool registered; // +0x38
 	char m_pad39[0x3];
 };
-
 class Xfer::Version { public: unsigned char a, b; Version(unsigned char x, unsigned char y) : a(x), b(y) {} };
-
-
-
 struct Rva003732BFNode : _STL::_Rb_tree_node_base { int key; Rva00373158Group *group; };
-
 #include "../../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 #include "Common/Snapshot.h"
-class MineshaftPortalNetworkManager : public SubsystemInterface, public Snapshot
+#define _BFME_RETAIL_TREE_INSERT_LAYOUT
+#include <set>
+#include <new>
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+_Rb_tree<int, pair<const int, void *>, _Select1st<pair<const int, void *> >, less<int>, allocator<pair<const int, void *> > >::~_Rb_tree()
+{ clear(); }
+}
+struct TreeOpaqueMapped00372FF4 { unsigned int m_bits; };
+typedef _STL::pair<const float, TreeOpaqueMapped00372FF4> TreeValue00372FF4;
+typedef _STL::_Rb_tree<float, TreeValue00372FF4, _STL::_Select1st<TreeValue00372FF4>, _STL::less<float>, _STL::allocator<TreeValue00372FF4> > Tree00372FF4;
+typedef _STL::_Rb_tree<int, int, _STL::_Identity<int>, _STL::less<int>, _STL::allocator<int> > SetIntTree;
+struct LocalTree {
+    void *header;
+    unsigned int count;
+    int pad;
+    __forceinline LocalTree() { ((_STL::map<int, void *> *)this)->_STL::map<int, void *>::map(); }
+    __forceinline ~LocalTree() { ((Rva00372F00 *)this)->~Rva00372F00(); }
+};
+static __forceinline void eraseFirst(LocalTree *tree) throw()
+{
+    ((SetIntTree *)tree)->erase(SetIntTree::iterator((SetIntTree::_Link_type)((_STL::_Rb_tree_node_base *)tree->header)->_M_left));
+}
+struct Coord3D;
+class Waypoint
 {
 public:
-    MineshaftPortalNetworkManager();
-    virtual ~MineshaftPortalNetworkManager();
-    virtual void xfer(Xfer *xfer);
-    virtual void reset();
-    virtual void update();
-    void rva00373158(Rva00373373Portal *portal, int key);
-    void rva003731CB(Rva00373373Portal *portal, Player *player);
-    _STL::map<int, void *> m_map; // +0x10, after the 0xC subsystem base and the Snapshot pointer
+	Waypoint(unsigned int id, AsciiString name, const Coord3D *pLoc, AsciiString label1, AsciiString label2, AsciiString label3, bool biDirectional, int bfmeType, AsciiString bfmeName);
+	__forceinline int getID() const { return id; }
+	void addLink(Waypoint *other);
+	char m_pad00[0x4];
+	int id; // +0x04
+	char m_pad08[0x40];
+	unsigned char m_48; // +0x48
+	char m_pad49[0x5F];
+	unsigned char m_A8; // +0xA8
+	unsigned char m_A9; // +0xA9
+	char m_padAA[0x6];
+	int m_B0; // +0xB0
+	char m_padB4[0xC];
 };
+struct NetGroup : public _STL::vector<ObjectID> { bool changed; };
+struct NetNode : _STL::_Rb_tree_node_base { int key; NetGroup *group; };
+struct TreeNode : _STL::_Rb_tree_node_base { float key; ObjectID id; };
+class Player;
+class Rva00373B70Contain;
+extern void *TheMineshaftPortalNetworkManager;
 
 //
 // ??0MineshaftPortalBehaviourModuleData@@QAE@XZ, retail 0x00372DB8,
@@ -521,6 +527,29 @@ class Rva004543A9LeaNegSbbField
 public:
 	virtual int get() const;
 };
+
+struct RvaNodeBase
+{
+	RvaNodeBase *m_parent;
+	RvaNodeBase *m_left;
+	RvaNodeBase *m_right;
+	int m_color;
+};
+
+class MineshaftPortalNetworkManager : public SubsystemInterface, public Snapshot
+{
+public:
+    MineshaftPortalNetworkManager();
+    virtual ~MineshaftPortalNetworkManager();
+    virtual void xfer(Xfer *xfer);
+    virtual void reset();
+    virtual void update();
+    void rva00373158(Rva00373373Portal *portal, int key);
+    void rva003731CB(Rva00373373Portal *portal, Player *player);
+    _STL::map<int, void *> m_map; // +0x10, after the 0xC subsystem base and the Snapshot pointer
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviour.cpp
 
 // ?getModuleNameKey@MineshaftPortalBehaviour@@UBE?AW4NameKeyType@@XZ
 NameKeyType MineshaftPortalBehaviour::getModuleNameKey() const
@@ -719,6 +748,20 @@ UpdateSleepTime Rva0037343B::update()
 	return UPDATE_SLEEP_NONE;
 }
 
+// ---- from Code/GameEngine/Source/Common/Disp8LeaNegSbbGetters.cpp
+
+// Disp8 lea-neg-sbb getters: thirteen-byte __thiscall members with one shape:
+//
+//     lea eax,[ecx-<LEADISP>] / add ecx,<ADDIMM> / neg eax / sbb eax,eax / and eax,ecx / ret
+//
+// A pointer derived from `this` is null-tested branchlessly: neg sets carry
+// exactly when the derived base is nonzero and sbb spreads it to a full mask
+// that selects the adjusted `this` or null. Deriving the base from a live
+// field-local keeps `this` in ecx so the adjustment compiles to an in-place
+// add instead of a lea into a scratch register. Identity is not recovered:
+// every name is derived from its address.
+// No // cl: line (defaults match the shape).
+
 // tu-skeleton: 0x00372DFA 217B ?rva00372DFA@MineshaftPortalBehaviour@@QAEPAVWaypoint@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourNewWaypoint.cpp (not merged yet)
 
 // tu-skeleton: 0x00372ED3 45B ?_M_erase@?$_Rb_tree@MU?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@U?$_Select1st@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@U?$less@M@2@V?$allocator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@@_STL@@AAEXPAU?$_Rb_tree_node@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_float_00372ff4.cpp (not merged yet)
@@ -741,25 +784,24 @@ UpdateSleepTime Rva0037343B::update()
 
 // tu-skeleton: 0x003730F6 6B ?Rva003730F6Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/Disp8LeaNegSbbGetters.cpp
-
-// Disp8 lea-neg-sbb getters: thirteen-byte __thiscall members with one shape:
-//
-//     lea eax,[ecx-<LEADISP>] / add ecx,<ADDIMM> / neg eax / sbb eax,eax / and eax,ecx / ret
-//
-// A pointer derived from `this` is null-tested branchlessly: neg sets carry
-// exactly when the derived base is nonzero and sbb spreads it to a full mask
-// that selects the adjusted `this` or null. Deriving the base from a live
-// field-local keeps `this` in ecx so the adjustment compiles to an in-place
-// add instead of a lea into a scratch register. Identity is not recovered:
-// every name is derived from its address.
-// No // cl: line (defaults match the shape).
-
 // tu-skeleton: 0x00373158 115B ?rva00373158@MineshaftPortalNetworkManager@@QAEXPAVRva00373373Portal@@H@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourLinkStep.cpp (not merged yet)
 
 // tu-skeleton: 0x00373278 71B ?hasUsableNetwork@MineshaftPortalNetworkManager@@QAE_NPAX@Z -- matched in Code/GameEngine/Source/Common/MineshaftPortalNetworkManager_hasUsableNetwork.cpp (not merged yet)
 
-// tu-skeleton: 0x00373373 66B ?Init@Rva003733B5Base@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MineshaftPortalCleanupRva00373373.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/MineshaftPortalCleanupRva00373373.cpp
+
+void Rva003733B5Base::Init()
+{
+    if (registered)
+    {
+        reinterpret_cast<MineshaftPortalNetworkManager *>(TheMineshaftPortalNetworkManager)
+            ->rva003731CB(portal, owner->getControllingPlayer());
+        void *released = portal ? portal->destroy(0) : 0;
+        ::operator delete(released);
+        portal = 0;
+        registered = false;
+    }
+}
 
 // tu-skeleton: 0x003733B5 19B ?Start@Rva003733B5Obj@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/Rva00082E1DInitFamily.cpp (not merged yet)
 
@@ -771,9 +813,119 @@ UpdateSleepTime Rva0037343B::update()
 
 // tu-skeleton: 0x003734A4 28B ?addArrivingObject@MineshaftPortalBehaviour@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/MineshaftPortalBehaviour_addArrivingObject.cpp (not merged yet)
 
-// tu-skeleton: 0x003734C0 61B ?reset@MineshaftPortalNetworkManager@@UAEXXZ -- matched in Code/GameEngine/Source/Common/MineshaftPortalNetworkManager_reset.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/MineshaftPortalNetworkManager_reset.cpp
 
-// tu-skeleton: 0x003734FD 670B ?update@MineshaftPortalNetworkManager@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourUpdate.cpp (not merged yet)
+//
+// ?reset@MineshaftPortalNetworkManager@@UAEXXZ @0x003734C0 (61B).
+// Slot 9 (reset) of the MineshaftPortalNetworkManager table (update
+// 0x003734FD in slot 10); ~MineshaftPortalNetworkManager 0x0037381C calls it.
+// Map-values delete-then-clear over Tree00372FF4 at +0x10: walk nodes via
+// header at [map] and begin at [header+8] with rowed _M_increment 0x00024250,
+// for each value pointer at [node+0x14] call rowed rva00373357 0x00373357
+// then rowed operator delete 0x0002FD60, tail-jmp rowed clear 0x00372F2D.
+// Caller dtor 0x0037381C destroys map at +0x10 right after. Flags from prev.
+
+// ?reset@MineshaftPortalNetworkManager@@UAEXXZ
+void MineshaftPortalNetworkManager::reset()
+{
+	char *base = (char *)this + 0x10;
+	RvaNodeBase *header = *(RvaNodeBase **)base;
+	RvaNodeBase *cur = *(RvaNodeBase **)((char *)header + 8);
+	while (cur != (RvaNodeBase *)header) {
+		void *p = *(void **)((char *)cur + 0x14);
+		if (p != 0) {
+			((Rva00373357 *)p)->rva00373357();
+			::operator delete(p);
+		}
+		cur = (RvaNodeBase *)_STL::_Rb_global<bool>::_M_increment((_STL::_Rb_tree_node_base *)cur);
+	}
+	((Tree00372FF4 *)base)->clear();
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourUpdate.cpp
+
+//
+// ?update@MineshaftPortalNetworkManager@@UAEXXZ @0x003734FD (670B).
+// Native 3734FD..37379B and WB MineshaftPortalNetworkManager::update (wpA/wpB
+// asserts at MineshaftPortalBehaviour.cpp:337..395; the registration calls and
+// asserts are compiled out of retail). For every portal network (the map at
+// +0x10: key at node+0x10, group at node+0x14) whose group is flagged changed:
+// clear the flag, score every portal of the group by the mean squared 2D
+// distance to the others (portal slot 0x8C of TheTerrainLogic, position at
+// +0xC/+0x10) and keep the three highest scores in a float-keyed multimap
+// (insert_equal 0x004EA301, erase 0x005530A8 of the folded POD tree, dtor
+// 0x00372FBC). A portal that is not kept is re-linked through 0x00373158 when
+// its 0x002E6ECA test passes, as is each evicted one. Then every kept portal is
+// linked to every other kept one (hasLink 0x00372CEC, addLink 0x00272306) and
+// handed to the pathfinder (0x002E8FE5) when the 0x002E6ECA test fails.
+// The map ctor is the ICF-folded 12-byte empty-tree body 0x0033C432; the
+// local's dtor is the rowed 0x00372FBC.
+// Evicting the smallest score goes through a throw() helper: without it the
+// by-value iterator argument of the erase call saves ESP, which retail does not.
+
+void MineshaftPortalNetworkManager::update()
+{
+    _STL::_Rb_tree_node_base *mapHeader = (_STL::_Rb_tree_node_base *)((Rva0037381CMap *)&m_map)->header;
+    for (NetNode *node = (NetNode *)mapHeader->_M_left; node != (NetNode *)mapHeader;
+         node = (NetNode *)_STL::_Rb_global<bool>::_M_increment(node)) {
+        if (!node->group->changed)
+            continue;
+        node->group->changed = false;
+        LocalTree tree;
+        ObjectID *end = node->group->end();
+        for (ObjectID *it = node->group->begin(); it != end; ++it) {
+            Rva00373373Portal *portal = TheTerrainLogic->portalAt(*it);
+            float sum = 0.0f;
+            for (ObjectID *jt = node->group->begin(); jt != end; ++jt) {
+                if (*it != *jt) {
+                    Rva00373373Portal *other = TheTerrainLogic->portalAt(*jt);
+                    float dx = portal->x - other->x;
+                    float dy = portal->y - other->y;
+                    sum += dy * dy + dx * dx;
+                }
+            }
+            if (node->group->size() > 1)
+                sum /= (float)(node->group->size() - 1);
+            if (tree.count == 0 || tree.count < 3) {
+                TreeOpaqueMapped00372FF4 m = { (unsigned)*it };
+                TreeValue00372FF4 v(sum, m);
+                ((Tree00372FF4 *)&tree)->insert_equal(v);
+            } else {
+                if (sum > ((TreeNode *)((_STL::_Rb_tree_node_base *)tree.header)->_M_left)->key) {
+                    Rva00373373Portal *old = TheTerrainLogic->portalAt(((TreeNode *)((_STL::_Rb_tree_node_base *)tree.header)->_M_left)->id);
+                    if ((unsigned char)((Rva002E6ECA *)old)->get())
+                        rva00373158(old, node->key);
+                    eraseFirst(&tree);
+                    TreeOpaqueMapped00372FF4 m = { (unsigned)*it };
+                    TreeValue00372FF4 v(sum, m);
+                    ((Tree00372FF4 *)&tree)->insert_equal(v);
+                } else {
+                    if ((unsigned char)((Rva002E6ECA *)portal)->get())
+                        rva00373158(portal, node->key);
+                }
+            }
+        }
+        _STL::_Rb_tree_node_base *treeHeader = (_STL::_Rb_tree_node_base *)tree.header;
+        for (TreeNode *treeNode = (TreeNode *)treeHeader->_M_left; treeNode != (TreeNode *)treeHeader;
+             treeNode = (TreeNode *)_STL::_Rb_global<bool>::_M_increment(treeNode)) {
+            Rva00373373Portal *wa = TheTerrainLogic->portalAt(treeNode->id);
+            for (TreeNode *b = (TreeNode *)((_STL::_Rb_tree_node_base *)tree.header)->_M_left; b != (TreeNode *)treeHeader;
+                 b = (TreeNode *)_STL::_Rb_global<bool>::_M_increment(b)) {
+                Rva00373373Portal *wb = TheTerrainLogic->portalAt(b->id);
+                if (wa != wb) {
+                    if (!((Rva00372CA8 *)wa)->rva00372CEC((int)wb)) {
+                        ((Waypoint *)wa)->addLink((Waypoint *)wb);
+                        ((Waypoint *)wb)->addLink((Waypoint *)wa);
+                    }
+                    if (!(unsigned char)((Rva002E6ECA *)wa)->get())
+                        TheAI->pathfinder->AddPortal(wa);
+                    if (!(unsigned char)((Rva002E6ECA *)wb)->get())
+                        TheAI->pathfinder->AddPortal(wb);
+                }
+            }
+        }
+    }
+}
 
 // tu-skeleton: 0x0037381C 85B ??1MineshaftPortalNetworkManager@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0037381CDtor.cpp (not merged yet)
 
@@ -802,10 +954,6 @@ UpdateSleepTime Rva0037343B::update()
 // tu-skeleton: 0x0077E7F4 11B $L5320 -- matched in Code/GameEngine/Source/Common/MineshaftPortalNetworkManager.cpp (not merged yet)
 
 // tu-skeleton: 0x0077E7FF 10B __ehhandler$??0MineshaftPortalNetworkManager@@QAE@XZ -- matched in Code/GameEngine/Source/Common/MineshaftPortalNetworkManager.cpp (not merged yet)
-
-// tu-skeleton: 0x0077E826 8B $L7649 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x0077E82E 10B __ehhandler$?update@MineshaftPortalNetworkManager@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourUpdate.cpp (not merged yet)
 
 // tu-skeleton: 0x0077E84D 8B $L6395 -- matched in Code/GameEngine/Source/Common/Rva0037381CDtor.cpp (not merged yet)
 
