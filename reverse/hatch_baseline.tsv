@@ -9,7 +9,7 @@ address_global	Code/GameEngine/Source/Common/AptHeroPowerText.cpp	g_Va007C9260	1
 address_global	Code/GameEngine/Source/Common/AptHeroPowerText.cpp	g_Va00E06398	2
 address_global	Code/GameEngine/Source/Common/AptHeroPowerText_Rva0043C8E4.cpp	g_Va007C9260	2
 address_global	Code/GameEngine/Source/Common/AptHeroPowerText_Rva0043C8E4.cpp	g_Va00E06398	1
-address_global	Code/GameEngine/Source/Common/AptMessageBox.cpp	g_Va00E032FC	2
+address_global	Code/GameEngine/Source/Common/AptMessageBox.cpp	g_Va00E032FC	5
 address_global	Code/GameEngine/Source/Common/AptMessengerOnline.cpp	g_Va00E046BC	2
 address_global	Code/GameEngine/Source/Common/AptMpGameSetup.cpp	g_Va00E0333C	2
 address_global	Code/GameEngine/Source/Common/AptMpGameSetup.cpp	g_Va00E03340	2
@@ -266,7 +266,6 @@ address_global	Code/GameEngine/Source/Common/Rva00417AB8Init.cpp	g_Va00BBB8D8	2
 address_global	Code/GameEngine/Source/Common/Rva00423FD8Parse.cpp	g_Va00E03168	2
 address_global	Code/GameEngine/Source/Common/Rva00425CE2Dtor.cpp	g_Va00E03168	3
 address_global	Code/GameEngine/Source/Common/Rva00425CE2Dtor.cpp	g_Va00E03174	3
-address_global	Code/GameEngine/Source/Common/Rva00437E72Dtor.cpp	g_Va00E032FC	4
 address_global	Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp	g_Va00E032FC	6
 address_global	Code/GameEngine/Source/Common/Rva0043DB3DGlobalSet.cpp	g_Va00E03340	2
 address_global	Code/GameEngine/Source/Common/Rva004421E1Dtor.cpp	g_Va00E0333C	3
