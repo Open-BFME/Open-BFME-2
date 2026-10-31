@@ -17,6 +17,7 @@
 	{ \
 		return m_value; \
 	}
+#define PI 3.14159265f
 
 // ?update@TunnelContain@@UAE?AW4UpdateSleepTime@@XZ, retail 0x0047E017, 183 bytes:
 // slot 0 of the update interface at +0x10. Zero Hour's TunnelContain::update
@@ -157,7 +158,52 @@ public:
  virtual void onDelete();
 };
 
+typedef float Real;
+
+enum CommandSourceType
+{
+	CMD_FROM_PLAYER = 0,
+	CMD_FROM_SCRIPT = 1,
+	CMD_FROM_AI = 2
+};
+
+class AICommandInterface
+{
+public:
+	void aiMoveToPosition(const Coord3D *pos, CommandSourceType src);
+};
+
+class TerrainLogic
+{
+public:
+	virtual void bfmeSlot0() = 0;
+	virtual void bfmeSlot1() = 0;
+	virtual void bfmeSlot2() = 0;
+	virtual void bfmeSlot3() = 0;
+	virtual void bfmeSlot4() = 0;
+	virtual void bfmeSlot5() = 0;
+	virtual Real getGroundHeight(Real x, Real y, Coord3D *normal) = 0;
+};
+
+extern TerrainLogic *TheTerrainLogic;
+
+float GetGameLogicRandomValueReal(float lo, float hi, char *file, int line);
+
+// The source-file tag the randomised scatter logs, retail RVA 0x008477C8 (.rdata,
+// 108 bytes including the NUL) holding the LFN
+// "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Contain\\TunnelContain.cpp".
+// The rowed body passes it as the file argument of GetGameLogicRandomValueReal's
+// two calls (retail 0x0047E182 `mov $0xc477c8,%ebx`). Transcribed verbatim.
+extern char g_00C477C8[] =
+	"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Contain\\TunnelContain.cpp";
+
+float cos(float v);
+
+float sin(float v);
+
 // tu-skeleton: 0x0047DB00 67B ??1TunnelContain@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainDtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContain.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContain.cpp
 
@@ -463,11 +509,8 @@ Rva0036AE51ListView TunnelContain::rva0047DD0F()
 // reference/open-bfme-1/Code/GameEngine/Source/Common/DispByteFieldGetters.cpp).
 // No // cl: line (defaults match the frameless 7-byte shape).
 
-// tu-skeleton: 0x0047DB88 6B ?name@TunnelContain@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x0047DBF7 98B ??0TunnelContain@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0047DC59 28B ??_GTunnelContain@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainDtor.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainRemoveFromContain.cpp
 
@@ -658,9 +701,100 @@ void TunnelContain::onDelete()
  rva0047DF81();
 }
 
+// tu-skeleton: 0x0047DB88 6B ?name@TunnelContain@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainCtor.cpp
+
+//
+// ??0TunnelContain@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x0047DBF7, 98 bytes.
+// TunnelContain behavior ctor over the pinned HordeGarrisonContain
+// intermediate base (0x47A040, thing plus data): forwards both args to the
+// base, then re-stores the primary vtable slot and eight secondary slots at
+// +0x0C/+0x10/+0x20/+0x24/+0x28/+0x2C/+0x30/+0x34, then stores the bytes at
+// +0x9E4/+0x9E5. The rowed name getter at 0x47DB88 and ModuleData factory
+// 0x257A0A prove the class;
+// the rowed instance factory 0x24BCED (news 0x9E8) is the sole raw caller.
+// Row supersedes the ctor pin.
+
+// ??0TunnelContain@@QAE@PAVThing@@PBVModuleData@@@Z @0x47DBF7
+TunnelContain::TunnelContain(Thing *thing, const ModuleData *moduleData)
+	: HordeGarrisonContain(thing, moduleData)
+{
+	m_flag9B0 = 1;
+	pending = 0;
+}
+
+// tu-skeleton: 0x0047DC59 28B ??_GTunnelContain@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainDtor.cpp (not merged yet)
+
 // tu-skeleton: 0x0047E0CE 157B ?removeAllContained@TunnelContain@@UAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainRemoveAllContained.cpp (not merged yet)
 
-// tu-skeleton: 0x0047E16B 253B ?scatterToNearbyPosition@TunnelContain@@IAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainScatter.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainScatter.cpp
+
+//
+// ?scatterToNearbyPosition@TunnelContain@@IAEXPAVObject@@@Z @0x0047E16B 253B.
+//
+// TunnelContain override that scatters an exiting rider to a random nearby
+// position: random angle in [0, 2*PI), random distance in
+// [minRadius, minRadius * 1.5], position from Cos/Sin plus the container
+// center, z from the terrain, then either an AI-driven move (through the
+// container position, ignoring the container as an obstacle) or a direct
+// setPosition when the rider has no AI.
+//
+// Donor: ZH GeneralsMD TunnelContain::scatterToNearbyPosition (TunnelContain.cpp).
+// Retail proves the home TU is TunnelContain.cpp, not OpenContain.cpp: both
+// GameLogicRandomValueReal sites pass __FILE__ = the TunnelContain.cpp path
+// (VA 0x00C477C8) with lines 337 and 344. The assignment's OpenContain name
+// is the drift classifier attributing ZH OpenContain.cpp's same-named body;
+// the TunnelContain override is the body retail carries.
+//
+// BFME2 deltas from the ZH donor, all read off retail 0x0047E16B:
+// - z comes from TerrainLogic::getGroundHeight(x, y) (virtual slot 6), not
+//   getLayerHeight(x, y, layer): only three argument slots (x, y, NULL).
+// - maxRadius is minRadius * 1.5f (mulss against the 1.5f literal), not
+//   minRadius + minRadius / 2.0f (which would emit divss+addss).
+// - Object layout is BFME2's (ObjectInterfaceSlots.cpp precedent): position
+//   at +0x38, GeometryInfo at +0xA8 with the bounding radius float at +0x10
+//   (hence the [esi+0xB8] load); ZH headers place that radius at +0xC0, so
+//   the TU uses a view-local layout instead of the ZH Object headers.
+// - The rider's AI interface sits at +0x258 and its command interface at
+//   AI+0x20 (ZH spells the latter +0x1C); both are applied as explicit
+//   offsets with the real callee declarations, so every call resolves to
+//   the already-rowed body (setOrientation 0x0030AB9D, setPosition
+//   0x0030AA80, ignoreObstacle 0x00268D88, aiMoveToPosition 0x0026C26D,
+//   GetGameLogicRandomValueReal 0x00234092, Cos/Sin 0x002FBC0/0x002FBB0).
+
+void TunnelContain::scatterToNearbyPosition(Object *rider)
+{
+	Object *theContainer = m_object;
+
+	Real angle = GetGameLogicRandomValueReal(0.0f, 2.0f * PI, g_00C477C8, 0x151);
+
+	Real minRadius = theContainer->m_geometryBoundingRadius;
+	const Coord3D *containerPos = theContainer->getPosition();
+	Real dist = GetGameLogicRandomValueReal(minRadius, minRadius * 1.5f, g_00C477C8, 0x158);
+
+	Coord3D pos;
+	pos.x = dist * cos(angle) + containerPos->x;
+	pos.y = dist * sin(angle) + containerPos->y;
+	pos.z = TheTerrainLogic->getGroundHeight(pos.x, pos.y, 0);
+
+	// set orientation
+	rider->setOrientation(angle);
+
+	AIUpdateInterface *ai = rider->getAI();
+	if (ai)
+	{
+		// set position of the object at center of building and move them toward pos
+		rider->setPosition(containerPos);
+		ai->ignoreObstacle(theContainer);
+		((AICommandInterface *)((char *)ai + 0x20))->aiMoveToPosition(&pos, CMD_FROM_AI);
+	}
+	else
+	{
+		// no ai, just set position at the target pos
+		rider->setPosition(&pos);
+	}
+}
 
 // tu-skeleton: 0x0078B7AE 8B $L4107 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainRemoveAllContained.cpp (not merged yet)
 
