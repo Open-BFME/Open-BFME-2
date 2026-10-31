@@ -105,20 +105,6 @@ private:
 	Rva005C9A89List m_list;
 };
 
-int Obj005C9B0C::rva005C9B0C(int id, int, int extra)
-{
-	int value = reinterpret_cast<int>(reinterpret_cast<Rva005C98C0 *>(this)->rva005C98C0(id));
-	m_list.forEach(&Rva005C9A89Listener::notify08, this, value, extra);
-	return 0;
-}
-
-int Obj005C9B0C::rva005C9B31(int v, int, int extra)
-{
-	int value = reinterpret_cast<int>(reinterpret_cast<Rva005C98C0 *>(this)->rva005C98C0(v));
-	m_list.forEach(&Rva005C9A89Listener::notify0C, this, value, extra);
-	return 0;
-}
-
 void Rva005C9B76::rva005C9B56(int v)
 {
 	int cur = m_i1C;
