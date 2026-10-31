@@ -3281,7 +3281,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x007E3878,64,.rdata,string,??_C@_05OKMLJOMC@?$CFd?5?$CFd?$AA@,,literal,??_C@_05OKMLJOMC@?$CFd?5?$CFd?$AA@;?g_rva005B57C6Fmt@@3PADA,0,3
 0x007E38B8,56,.rdata,string,??_C@_0O@GPEDCCME@StaticGameLOD?$AA@,,literal,,0,2
 0x007E38F0,24,.rdata,string,??_C@_0BG@BFGIOKMP@FXParticleEditorI?4dll?$AA@,,literal,,0,1
-0x007E3908,116,.rdata,global,?g_00BE3908@@3QBUFieldParse@@B,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva00206E63Search.cpp,owned,,1,2
+0x007E3908,116,.rdata,global,?g_00BE3908@@3QBUFieldParse@@B,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine.cpp,owned,,1,2
 0x007E397C,20,.rdata,string,??_C@_0BE@BICGKGLD@LivingWorldPlayerID?$AA@,,literal,,0,1
 0x007E3990,4,.rdata,vtable,??_7BfmeDualVtableReleaseBase@@6B@,,literal,??_7BfmeDualVtableReleaseBase@@6B@;??_7DllHandle@@6B@;??_7Rva00203E76@@6B@;_vtbl_00BE3990,0,4
 0x007E3994,4,.rdata,vtable,??_7BfmeDualVtableReleaseDtor@@6B@,,literal,??_7BfmeDualVtableReleaseDtor@@6B@;_vtbl_00BE3994,0,4
@@ -18628,11 +18628,11 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009FE144,4,.data,global,?TheGameLODManager@@3PAVGameLODManager@@A,Code/GameEngine/Source/Common/GameLOD.cpp,provisional,?TheGameLODManager@@3PAVGameLODManager@@A;?TheRva00DFE144@@3PAURva00DFE144Globals@@A,1,50
 0x009FE148,12,.data,global,_s_rva007AD6F3,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x009FE154,4,.data,global,_TheDebugWindowHolder,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_dtor.cpp,owned,,1,2
-0x009FE158,4,.data,global,?st_DebugDLL@@3HA,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_appGate.cpp,provisional,?g_00DFE158@@3HA;?st_DebugDLL@@3HA;_st_DebugDLL@Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_dtor.cpp;_st_DebugDLL@Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_init.cpp,4,28
+0x009FE158,4,.data,global,?st_DebugDLL@@3HA,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine.cpp,provisional,?g_00DFE158@@3HA;?st_DebugDLL@@3HA;_st_DebugDLL@Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_dtor.cpp;_st_DebugDLL@Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_init.cpp,4,28
 0x009FE15C,1,.data,global,?g_00DFE15C@@3EA,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_updateClientDebugFrame.cpp,owned,,1,3
 0x009FE15D,3,.data,global,?g_00DFE15D@@3EA,,unowned,,0,3
 0x009FE160,8,.data,global,_st_CurrentFrame,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_appendMessage_Rva00341350AdjustVariableForwarder.cpp,owned,,1,1
-0x009FE168,4,.data,global,?g_00DFE168@@3EA,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_appGate.cpp,owned,,1,3
+0x009FE168,4,.data,global,?g_00DFE168@@3EA,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine.cpp,owned,,1,3
 0x009FE16C,4,.data,global,?TheScriptEngine@@3PAVScriptEngine@@A,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_setSequentialTimer.cpp,provisional,?TheCopier@@3PAVRva002036B4GlobalCopier@@A;?TheDebugWindowInterface@@3PAXA;?TheScriptEngine@@3PAVRva00203B08@@A;?TheScriptEngine@@3PAVScriptEngine@@A;?g_Va009FE16C@@3PAVRva00358752Opaque@@A;?g_Va009FE16C@@3PAVScriptEngine@@A,1,761
 0x009FE170,4,.data,global,_s_rva007AD7B0,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x009FE174,12,.data,global,?g_00DFE174@@3IA,,unowned,?g_00DFE174@@3IA;?g_Va00DFE174@@3IA,0,7
@@ -19167,7 +19167,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A01D48,4,.data,global,?doubleClickTime@@3IA,Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetListBoxMultiInput.cpp,owned,,1,2
 0x00A01D4C,4,.data,global,_lastRepeatTime,Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetPushButtonInput.cpp,owned,,1,4
 0x00A01D50,8,.data,global,_s_rva007AE9F2,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
-0x00A01D58,4,.data,global,?TheSidesList@@3PAVSidesList@@A,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva00204E64Find.cpp,owned,,1,36
+0x00A01D58,4,.data,global,?TheSidesList@@3PAVSidesList@@A,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine.cpp,owned,,1,36
 0x00A01D5C,84,.data,global,_s_rva007AEA1C,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A01DB0,4,.data,global,?TheCameraAnimationList@@3PAVCameraAnimationList@@A,Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParse.cpp,owned,,1,3
 0x00A01DB4,4,.data,global,_s_rva007AEA84,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1

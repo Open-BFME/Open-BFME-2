@@ -3254,16 +3254,17 @@ alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine.cpp	
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine.cpp	?bfmeTwoEFF@@YAXHPAX@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine.cpp	?bfmeTwoEFFb@@YAXHPAX@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/OrConditionCtor.cpp	??1OrCondition@@UAE@XZ	1
-alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/Rva0020453CHolderBaseDtor.cpp	?holderSlot0@Rva0020453CHolderBase@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BBFFB.cpp	?g_Va00BCF628@@3MA	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_ctor.cpp	?init@ScriptActions@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_playerOwnershipOfTypeCounter.cpp	?prepForPlayerCounting@ObjectTypes@@QAEHAAV?$vector@PBVThingTemplate@@V?$allocator@PBVThingTemplate@@@_STL@@@_STL@@AAV?$vector@HV?$allocator@H@_STL@@@3@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C2EC9.cpp	??0?$BitFlags@$0HE@@@QAE@ABV0@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_ctor.cpp	?init@ScriptConditions@@UAEXXZ	1
+alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine.cpp	??1Rva00207E26Vector@@QAE@XZ	1
+alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine.cpp	?holderSlot0@Rva0020453CHolderBase@@UAEXXZ	1
+alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine.cpp	_vtbl_00BD3B54	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineGetUnitNamed.cpp	?getUnitNamed@ScriptEngine@@QAEPAVObject@@ABVAsciiString@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva00357AF8.cpp	?g_str009E0878@@3V?$StringBase@D@@A	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_DllHandleExceptionCopies.cpp	_vtbl_00BD3B54	1
-alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_DllHandleLoadFailure.cpp	_vtbl_00BD3B54	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListElementDestroy.cpp	??1ScriptListElementName@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/SkirmishAI/AIBaseBuilder/BaseTemplateLibrary.cpp	??1Rva0022BD9ASubsystem@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/SkirmishAI/AIStatCollector/AIStatCollector.cpp	??0?$hash_map@HHU?$hash@H@_STL@@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAE@XZ	1
@@ -4012,7 +4013,6 @@ alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva001DF88CValueVectorResize.c
 alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva001EBACFRangeForward.cpp	?Rva001EBACFRangeCallee@@YAPAURva001EBACFOutput@@PAURva001EBACFInput@@0PAU1@ABURva001EBACFIteratorTag@@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva001ED2C5Parse.cpp	??0BfmeRecord001ECAF9@@QAE@ABV?$StringBase@D@@@Z	2
 alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva001ED2C5Parse.cpp	??1BfmeRecord001ECAF9@@QAE@XZ	2
-alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva00207E26VectorDtor.cpp	??1Rva00207E26Vector@@QAE@XZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva00212354NewNode.cpp	?rva00212354@Rva000427195@@QAEPAXPBX@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva00222F55Background.cpp	?g_00BBFDDC@@3QBDB	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva002299F1MetadataConstructors.cpp	??0RvaMapCacheProxy0014F3C4@@QAE@ABURvaMapCacheEmptyAllocator@@PAURvaMapCacheNodeHeader@@@Z	1
