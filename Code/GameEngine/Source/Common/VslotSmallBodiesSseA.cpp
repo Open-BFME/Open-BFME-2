@@ -105,12 +105,6 @@ class Rva00452E00 : public Rva00452E00Primary, public Rva00452E00Iface
 public:
 	Int getValue(Real *out);
 };
-Int Rva00452E00::getValue(Real *out)
-{
-	Real value = m_moduleData->m_30;
-	*out = value;
-	return value != 54321.0f;
-}
 
 // 0x005D9D81: whether the two arguments' +0x38/+0x3C positions are more than
 // 100 apart (squared distance against 10000).
