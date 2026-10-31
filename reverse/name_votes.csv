@@ -19646,3 +19646,7 @@ Code/GameEngine/Source/Common/Rva00579E47Delegate.cpp|function|0x005B4C73|rva005
 Code/GameEngine/Source/Common/Rva0040A1ACHeroPtrAlgos.cpp|class||Rva0040A1ACRelease,ee0264b9e72129551f005a8d,drz-k9,n28d2-k9,w-4d4d8f8584bc,2026-10-31
 Code/GameEngine/Source/Common/Rva0040A1ACHeroPtrAlgos.cpp|function|0x0040A3B1|rva0040A3B1,ffdbc7daccd02fba23e2dc10,drz-k9,n28d2-k9,w-4d4d8f8584bc,2026-10-31
 Code/GameEngine/Source/Common/Rva0010F49AFinish.cpp|member|Rva0010F49A|m_volume0C,7ab289f6c1835e769a330a7c,drz-k3,n28e2-k3,w-077d7aeb666b,2026-10-31
+Code/GameEngine/Source/Common/Rva002DFC30CopyLoop.cpp|function|0x003319C9|Rva003319C9Copy,fc82432363e5c0b4e27d483e,drz-k3,n28g2-k3,w-077d7aeb666b,2026-10-31
+Code/GameEngine/Source/Common/Rva002DFC30CopyLoop.cpp|function|0x0033177E|Rva0033177ECopy,45cd727351e912dd4d103498,drz-k3,n28g2-k3,w-077d7aeb666b,2026-10-31
+Code/GameEngine/Source/Common/Rva0010F33CStart.cpp|function|0x0010F33C|rva0010F33C,80eafadae5f027a833097e0f,drz-k3,n28g2-k3,w-077d7aeb666b,2026-10-31
+Code/GameEngine/Source/Common/GapBodiesSeat2A.cpp|function|0x000D167A|rva000D167A,54697eb5beec6229e8042c07,drz-k3,n28g2-k3,w-077d7aeb666b,2026-10-31
