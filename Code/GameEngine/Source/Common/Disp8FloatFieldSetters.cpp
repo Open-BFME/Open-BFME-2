@@ -24,5 +24,4 @@
 		m_value = newValue; \
 	}
 
-BFME_DISP8_FLOAT_SETTER(Rva0015DFA0FloatField, 0x1C)
 BFME_DISP8_FLOAT_SETTER(Rva00196100FloatField, 0x04)
