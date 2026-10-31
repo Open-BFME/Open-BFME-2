@@ -4855,11 +4855,11 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00085F2C,62,code,Code/GameEngine/Source/Common/BfmeValidatedHandle.cpp,proposed,N,N=Code/GameEngine/Source/Common/BfmeValidatedHandle.cpp,Code/GameEngine/Source/Common/BfmeValidatedHandle.cpp
 0x00085F6A,62,code,,,-,,Code/GameEngine/Source/Common/Rva00085F6ASet.cpp
 0x00085FA8,178,code,,,-,,Code/GameEngine/Source/Common/Rva00085FA8Delta.cpp
-0x0008605A,11,code,,,-,,Code/GameEngine/Source/Common/VslotSizedForwarders.cpp
+0x0008605A,11,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
 0x00086065,46,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,S,S=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRva0008DAE4.cpp
 0x00086093,28,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x00086065..0x000860AF,Code/GameEngine/Source/Common/VtableSlotBodiesR3F.cpp
 0x000860AF,172,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,S,S=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewConstrainPosition.cpp
-0x0008615B,11,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x000860AF..0x00086166,Code/GameEngine/Source/Common/VslotSizedForwarders.cpp
+0x0008615B,11,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x000860AF..0x00086166,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
 0x00086166,43,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,S,S=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRva0008DAE4.cpp
 0x00086191,14,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x00086166..0x0008619F,Code/GameEngine/Source/GameClient/View.cpp
 0x0008619F,166,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,Z,Z=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp S=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewWorldToScreenBfme.cpp

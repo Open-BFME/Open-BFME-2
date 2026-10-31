@@ -194,12 +194,6 @@ public:
 	void rva0008605A();
 };
 
-// vtable 0x00BC7568#94: base at +0xB4 ->slot12()
-void Rva0008605AForwarder::rva0008605A()
-{
-	slot12();
-}
-
 class Rva0008615BLead
 {
 public:
@@ -213,12 +207,6 @@ class Rva0008615BForwarder : public Rva0008615BLead, public SizedForwarderSlots
 public:
 	void rva0008615B();
 };
-
-// vtable 0x00BC7568#58: base at +0x24C8 ->slot1()
-void Rva0008615BForwarder::rva0008615B()
-{
-	slot1();
-}
 
 class Rva0008BD2BLead
 {
