@@ -19177,3 +19177,5 @@ Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/Rva000C65CBBoneA
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/Rva000C65CBBoneAttachments.cpp|local|Rotate_Z|c,36c38e619dd4f766804094e5,drz-k9,n25d2-k9-15,w-4d4d8f8584bc,2026-10-31
 Code/GameEngine/Source/Common/Rva00395E19.cpp|local|Rva00395E19::rva00395E19|q,059b5e981d2167803bf29ac4,drz-k9,n25d2-k9-20,w-4d4d8f8584bc,2026-10-31
 Code/GameEngine/Source/Common/Rva00395E19.cpp|local|Rva00395E19::rva00395E19|s,a666d42188df3ffb63bb9e9c,drz-k9,n25d2-k9-20,w-4d4d8f8584bc,2026-10-31
+Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003BC47ADo.cpp|function|0x003BC466|Rva003BC466RadarForceOn,df9e3911f88c17066853677f,drz-k3,drz-k3-n25e2-5,w-077d7aeb666b,2026-10-31
+Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003BC47ADo.cpp|function|0x003BC470|Rva003BC470RadarRevertNormal,5b3708967e8d20a5a2dafe3e,drz-k3,drz-k3-n25e2-5,w-077d7aeb666b,2026-10-31
