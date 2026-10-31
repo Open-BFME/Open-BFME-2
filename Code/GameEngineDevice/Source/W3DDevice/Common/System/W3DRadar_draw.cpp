@@ -1,4 +1,5 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/moduledata /Ireference/shims/subsystem_bfme2 /Ireference/shims/bfme2_ascii
+// cl: /D__PLACEMENT_VEC_NEW_INLINE /FIzh_ascii.h /DNDEBUG /DWIN32 /MD /EHsc /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/sweep_bfme1_outofline /Ireference/open-bfme-1/reference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Include/Lib /ICode/Libraries/Include /Ireference/shims/moduledata /Ireference/shims/subsystem_bfme2
+// stlport
 //
 // ?draw@W3DRadar@@QAEXHHHHH@Z, retail 0x0005053e, 1314 bytes. Banked partial (score 1.0) closed by tools/permute.py;
 // the body is the banked one up to statement/operand order and local types.
@@ -16,19 +17,24 @@
 // The last two take the same origin/dimensions/unused-colour stack arguments.
 // Reconstruction banks preserve their implementations and remaining codegen
 // blockers; their direct in-image pins add no recovered callee bytes.
-#include "Common/Snapshot.h"
-// stlport
-typedef bool Bool;
-#include "subsystem_interface.h"
-#include "../../../../../Libraries/Include/Lib/ICoord2D.h"
-#include "../../../../../Libraries/Include/Lib/Coord3D.h"
-#include "../../../../../Libraries/Include/Lib/Region3D.h"
-class Image;class RadarObject;
-class Player{public:bool hasRadar()const;};
-class PlayerList{public:char pad[0x10];Player*local;};extern PlayerList*ThePlayerList;
-class W3DRadarResetSurface{public:void*ptr;W3DRadarResetSurface(){}W3DRadarResetSurface(const W3DRadarResetSurface&);~W3DRadarResetSurface();void clear(bool);};
-class CursorTextureSlot{public:void*ptr;W3DRadarResetSurface Get_Surface_Level();};
-class Display{public:
+#include "always.h"
+#undef W3DMPO_GLUE
+#define W3DMPO_GLUE(ARGCLASS)
+#define Matrix4x4 Matrix4  // BFME renamed it
+#include "Common/Player.h"
+#include "Common/PlayerList.h"
+#include "W3DDevice/Common/W3DRadar.h"
+
+// BFME's offset of the local player, reached through the real ThePlayerList.
+class W3DRadarPlayerListView
+{
+public:
+	Player *bfme_local_player() { return m_local; }
+	char m_pad00[0x10];
+	Player *m_local; // +0x10
+};
+// BFME's Display slots, reached through the real TheDisplay.
+class W3DRadarDisplayView{public:
 virtual void slot0();
 virtual void slot1();
 virtual void slot2();
@@ -74,10 +80,11 @@ virtual void slot41();
 virtual void setClip(void*);
 virtual void slot43();
 virtual void resetClip(void*);
-};extern Display*TheDisplay;
+};
 class W3DDisplay{public:void rva0004D664(float,float,float,float,float,int);void rva0004D6B3(Image*,float,float,float,float,int,int);};
 class Rva0004263F{public:void rva0004263F(float,float,float,float,int);};
-class View{public:
+// BFME's View slots, reached through the real TheTacticalView.
+class W3DRadarTacticalView{public:
 virtual void slot0();
 virtual void slot1();
 virtual void slot2();
@@ -91,7 +98,7 @@ virtual void slot9();
 virtual void slot10();
 virtual void slot11();
 virtual void slot12();
-virtual void slot13();
+virtual void getScreenCornerWorldPointsAtZ(Coord3D*,Coord3D*,Coord3D*,Coord3D*,float);
 virtual void slot14();
 virtual void slot15();
 virtual void slot16();
@@ -148,68 +155,34 @@ virtual void slot66();
 virtual void slot67();
 virtual void slot68();
 virtual void slot69();
-virtual void slot70();
+virtual void getPosition(Coord3D*);
 virtual void slot71();
 virtual void slot72();
 virtual float getZoom();
-};extern View*TheTacticalView;
-class GameClient{public:
-virtual void slot0();
-virtual void slot1();
-virtual void slot2();
-virtual void slot3();
-virtual void slot4();
-virtual void slot5();
-virtual void slot6();
-virtual void slot7();
-virtual void slot8();
-virtual void slot9();
-virtual void slot10();
-virtual void slot11();
-virtual void slot12();
-virtual void slot13();
-virtual void slot14();
-virtual void slot15();
-virtual void slot16();
-virtual void slot17();
-virtual void slot18();
-virtual void slot19();
-virtual void slot20();
-virtual void slot21();
-virtual void slot22();
-virtual void slot23();
-virtual void slot24();
-virtual void slot25();
-virtual void slot26();
-virtual void slot27();
-virtual void slot28();
-virtual void slot29();
-virtual void slot30();
-virtual unsigned getFrame();
-};extern GameClient*TheGameClient;
-class Radar:public Snapshot,public SubsystemInterface{public:void findDrawPositions(int,int,int,int,ICoord2D*,ICoord2D*);void rva0004F515(int,int,int,int);};extern Radar*TheRadar;
-class W3DRadar:public Radar{public:void draw(int,int,int,int,int);
-void rva00050125(const RadarObject*,const CursorTextureSlot*,int);
-void drawEvents(int,int,int,int,int);
-void reconstructViewBox();void drawViewBox(int,int,int,int,int);
-char pad10[0x14-0x10];RadarObject*list1;RadarObject*list2;
-char pad1c[0x1434-0x1c];Region3D extent;
-float clipRect[4];bool clip;char pad145d[0x1464-0x145d];bool dirty;char pad1465[3];
-int terrainFormat;Image*terrain;CursorTextureSlot terrainTex,altTerrainTex;
-int overlayFormat;Image*shroud;CursorTextureSlot overlayTex;
-int ringFormat;Image*ring;CursorTextureSlot ringTex;
-int iconFormat;Image*overlay;CursorTextureSlot shroudTex;
-char pad149c[0x14d4-0x149c];bool rebuild;bool flag1,flag2;char pad14d7;float angle,zoom;
 };
+class BeaconClientFrame
+{
+public:
+#define SLOT(N) virtual void slot##N();
+    SLOT(0) SLOT(1) SLOT(2) SLOT(3) SLOT(4) SLOT(5) SLOT(6)
+    SLOT(7) SLOT(8) SLOT(9) SLOT(10) SLOT(11) SLOT(12)
+    SLOT(13) SLOT(14) SLOT(15) SLOT(16) SLOT(17) SLOT(18)
+    SLOT(19) SLOT(20) SLOT(21) SLOT(22) SLOT(23) SLOT(24) SLOT(25) SLOT(26) SLOT(27) SLOT(28) SLOT(29) SLOT(30)
+#undef SLOT
+    virtual unsigned getFrame();
+};
+
+class GameClient;
+extern GameClient *TheGameClient;
 int Rva0004D76EBlend(int,int);
 void W3DRadar::draw(int pixelX,int pixelY,int width,int height,int color){
-Player*player=ThePlayerList->local;
+Player*player=((W3DRadarPlayerListView *)ThePlayerList)->m_local;
 if(!player->hasRadar()&&!*(bool*)((char*)TheRadar+0x11))return;
-if(clip)TheDisplay->setClip(clipRect);
+if(m_clip)((W3DRadarDisplayView *)TheDisplay)->setClip(m_clipRect);
 ICoord2D ul,lr;findDrawPositions(pixelX,pixelY,width,height,&ul,&lr);
 int scaledWidth=lr.x-ul.x,scaledHeight=lr.y-ul.y;
-if(!flag1&&!flag2){int fillColor=Rva0004D76EBlend(0xff000000,color);int lineColor=Rva0004D76EBlend(0xff323232,color);
-if(extent.width()/width>=extent.height()/height){
+if(!m_useAltTerrainTexture&&!m_scrollShroudLoaded){int fillColor=Rva0004D76EBlend(0xff000000,color);int lineColor=Rva0004D76EBlend(0xff323232,color);
+if(m_mapExtent.width()/width>=m_mapExtent.height()/height){
 ((Rva0004263F*)TheDisplay)->rva0004263F(pixelX,pixelY,width,ul.y-pixelY-1,fillColor);
 ((Rva0004263F*)TheDisplay)->rva0004263F(pixelX,lr.y+1,width,pixelY+height-lr.y-1,fillColor);
 ((W3DDisplay*)TheDisplay)->rva0004D664(pixelX,ul.y,pixelX+width,ul.y,1,lineColor);
@@ -220,20 +193,20 @@ if(extent.width()/width>=extent.height()/height){
 ((W3DDisplay*)TheDisplay)->rva0004D664(ul.x,pixelY,ul.x,pixelY+height,1,lineColor);
 ((W3DDisplay*)TheDisplay)->rva0004D664(lr.x+1,pixelY,lr.x+1,pixelY+height,1,lineColor);
 }}
-((W3DDisplay*)TheDisplay)->rva0004D6B3(terrain,ul.x,ul.y,lr.x,lr.y,color,2);
-if(dirty||TheGameClient->getFrame()%6==0){
-overlayTex.Get_Surface_Level().clear(false);
-rva00050125(list1,&overlayTex,color);rva00050125(list2,&overlayTex,color);
+((W3DDisplay*)TheDisplay)->rva0004D6B3(m_terrainImage,ul.x,ul.y,lr.x,lr.y,color,2);
+if(m_dirty||reinterpret_cast<BeaconClientFrame *>(TheGameClient)->getFrame()%6==0){
+m_overlayTexture.Get_Surface_Level().clear(false);
+rva00050125(m_objectList,&m_overlayTexture,color);rva00050125(m_localObjectList,&m_overlayTexture,color);
 }
-((W3DDisplay*)TheDisplay)->rva0004D6B3(overlay,ul.x,ul.y,lr.x,lr.y,color,2);
-((W3DDisplay*)TheDisplay)->rva0004D6B3(shroud,ul.x,ul.y,lr.x,lr.y,color,2);
-((W3DDisplay*)TheDisplay)->rva0004D6B3(ring,pixelX,pixelY,pixelX+width,pixelY+height,color,2);
+((W3DDisplay*)TheDisplay)->rva0004D6B3(m_fogImage,ul.x,ul.y,lr.x,lr.y,color,2);
+((W3DDisplay*)TheDisplay)->rva0004D6B3(m_overlayImage,ul.x,ul.y,lr.x,lr.y,color,2);
+((W3DDisplay*)TheDisplay)->rva0004D6B3(m_shroudImage,pixelX,pixelY,pixelX+width,pixelY+height,color,2);
 drawEvents(ul.x,ul.y,scaledWidth,scaledHeight,color);
 rva0004F515(ul.x,ul.y,scaledWidth,scaledHeight);
-if(TheTacticalView->getZoom()!=zoom)rebuild=true;
-if(TheTacticalView->getAngle()!=angle)rebuild=true;
-if(rebuild==true)reconstructViewBox();
+if(((W3DRadarTacticalView*)TheTacticalView)->getZoom()!=m_viewZoom)m_reconstructViewBox=true;
+if(((W3DRadarTacticalView*)TheTacticalView)->getAngle()!=m_viewAngle)m_reconstructViewBox=true;
+if(m_reconstructViewBox==true)reconstructViewBox();
 drawViewBox(ul.x,ul.y,scaledWidth,scaledHeight,color);
-if(clip)TheDisplay->resetClip(0);
-dirty=false;
+if(m_clip)((W3DRadarDisplayView *)TheDisplay)->resetClip(0);
+m_dirty=false;
 }

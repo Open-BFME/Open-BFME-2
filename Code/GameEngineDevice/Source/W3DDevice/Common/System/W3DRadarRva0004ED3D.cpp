@@ -1,4 +1,5 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /ICode/Libraries/Include
+// cl: /D__PLACEMENT_VEC_NEW_INLINE /FIzh_ascii.h /DNDEBUG /DWIN32 /MD /EHsc /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/sweep_bfme1_outofline /Ireference/open-bfme-1/reference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Include/Lib /ICode/Libraries/Include /Ireference/shims/moduledata /Ireference/shims/subsystem_bfme2
+// stlport
 //
 // ?rva0004ED3D@W3DRadar@@QAEXHHE@Z @0x0004ED3D 544B, thiscall ret 0xC.
 // W3DRadar taint counterpart of setShroudLevel (0x0004EB00): gate on the
@@ -17,47 +18,24 @@
 // Shape note: the body after the missing-grid return sits in its else block
 // (as in setShroudLevel); that is what puts cellX in eax before the first
 // cell-width load.
-
-#include "Lib/Coord3D.h"
-
-typedef int Int;
-typedef float Real;
-typedef unsigned int UnsignedInt;
-typedef unsigned char UnsignedByte;
-typedef Int Color;
-
-#include "Lib/ICoord2D.h"
+#include "always.h"
+#undef W3DMPO_GLUE
+#define W3DMPO_GLUE(ARGCLASS)
+#define Matrix4x4 Matrix4  // BFME renamed it
+#include "Common/GlobalData.h"
+#include "W3DDevice/Common/W3DRadar.h"
+#include "W3DDevice/GameClient/HeightMap.h"
+#include "W3DDevice/GameClient/W3DShroud.h"
+#include "WW3D2/Texture.h"
 
 extern void BFME_DX8_Thread_Lock(void);
-extern void BFME_DX8_Thread_Assert(void);
+extern bool BFME_DX8_Thread_Assert(void);
 
 class BFMEDX8DeviceLock
 {
 public:
 	BFMEDX8DeviceLock() { BFME_DX8_Thread_Lock(); }
 	~BFMEDX8DeviceLock() { BFME_DX8_Thread_Assert(); }
-};
-
-class SurfaceClass
-{
-public:
-	void DrawPixel(UnsignedInt x, UnsignedInt y, UnsignedInt color);
-};
-
-class W3DRadarResetSurface
-{
-public:
-	~W3DRadarResetSurface();
-	SurfaceClass *operator->() { return (SurfaceClass *)this; }
-
-private:
-	void *m_surface;
-};
-
-class CursorTextureSlot
-{
-public:
-	W3DRadarResetSurface Get_Surface_Level();
 };
 
 class TaintGrid
@@ -72,19 +50,20 @@ private:
 	Real m_cellHeight;
 };
 
-class BaseHeightMapRenderObjClass
+// BFME's offsets of the terrain's two grids, reached through the real TheTerrainRenderObject.
+class W3DRadarTerrainView
 {
 public:
+	__declspec(dllimport) __forceinline W3DShroud *getShroud() { return m_shroud; }
 	TaintGrid *getTaintGrid() { return m_taintGrid; }
-
+	char m_pad00[0x3878];
 private:
-	unsigned char m_pad00[0x387C];
-	TaintGrid *m_taintGrid;
+	W3DShroud *m_shroud; // +0x3878
+	TaintGrid *m_taintGrid; // +0x387C
 };
 
-extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
-
-class GlobalData
+// BFME's offsets of the taint colours and enable byte, reached through the real TheWritableGlobalData.
+class W3DRadarGlobalDataView
 {
 	unsigned char m_pad00[0xBEC];
 
@@ -103,43 +82,19 @@ public:
 	UnsignedByte m_taintOn;
 };
 
-extern GlobalData *TheWritableGlobalData;
-
-bool legalRadarPoint(Int px, Int py);
-
-inline Color GameMakeColor(UnsignedByte red, UnsignedByte green, UnsignedByte blue, UnsignedByte alpha)
-{
-	return (alpha << 24) | (red << 16) | (green << 8) | (blue);
-}
-
-class Radar
-{
-public:
-	virtual ~Radar();
-	bool worldToRadar(const Coord3D *world, ICoord2D *radar);
-};
-
-class W3DRadar : public Radar
-{
-public:
-	void rva0004ED3D(Int cellX, Int cellY, UnsignedByte level);
-
-private:
-	unsigned char m_pad04[0x1498 - 0x04];
-	CursorTextureSlot m_taintTexture;
-};
+Bool legalRadarPoint(Int px, Int py);
 
 void W3DRadar::rva0004ED3D(Int cellX, Int cellY, UnsignedByte level)
 {
-	if (!TheWritableGlobalData->m_taintOn)
+	if (!((W3DRadarGlobalDataView *)TheWritableGlobalData)->m_taintOn)
 		return;
 
-	TaintGrid *grid = TheTerrainRenderObject ? TheTerrainRenderObject->getTaintGrid() : 0;
+	TaintGrid *grid = TheTerrainRenderObject ? ((W3DRadarTerrainView *)TheTerrainRenderObject)->getTaintGrid() : 0;
 	if (!grid)
 		return;
 	else {
 		BFMEDX8DeviceLock lock;
-		W3DRadarResetSurface surface = m_taintTexture.Get_Surface_Level();
+		W3DRadarResetSurface surface = m_fogTexture.Get_Surface_Level();
 
 		Int mapMinX = cellX * grid->getCellWidth();
 		Int mapMinY = cellY * grid->getCellHeight();
@@ -167,14 +122,14 @@ void W3DRadar::rva0004ED3D(Int cellX, Int cellY, UnsignedByte level)
 		Int blue;
 		if (level < 128) {
 			alpha = (127 - level) * 2;
-			red = alpha * TheWritableGlobalData->m_lowRed;
-			green = alpha * TheWritableGlobalData->m_lowGreen;
-			blue = alpha * TheWritableGlobalData->m_lowBlue;
+			red = alpha * ((W3DRadarGlobalDataView *)TheWritableGlobalData)->m_lowRed;
+			green = alpha * ((W3DRadarGlobalDataView *)TheWritableGlobalData)->m_lowGreen;
+			blue = alpha * ((W3DRadarGlobalDataView *)TheWritableGlobalData)->m_lowBlue;
 		} else if (level > 128) {
 			alpha = level * 2 - 256;
-			red = alpha * TheWritableGlobalData->m_highRed;
-			green = alpha * TheWritableGlobalData->m_highGreen;
-			blue = alpha * TheWritableGlobalData->m_highBlue;
+			red = alpha * ((W3DRadarGlobalDataView *)TheWritableGlobalData)->m_highRed;
+			green = alpha * ((W3DRadarGlobalDataView *)TheWritableGlobalData)->m_highGreen;
+			blue = alpha * ((W3DRadarGlobalDataView *)TheWritableGlobalData)->m_highBlue;
 		} else {
 			alpha = 0;
 			red = 255;

@@ -1,12 +1,17 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /ICode/Libraries/Include/Lib
+// cl: /D__PLACEMENT_VEC_NEW_INLINE /FIzh_ascii.h /DNDEBUG /DWIN32 /MD /EHsc /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/sweep_bfme1_outofline /Ireference/open-bfme-1/reference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Include/Lib /ICode/Libraries/Include /Ireference/shims/moduledata /Ireference/shims/subsystem_bfme2
+// stlport
 // Native4D9B6..4DB33 RET0; BF1 f989 W3DRadar::reconstructViewBox
 // supplies four-corner projection and deltas. Target uses float radar points.
-#include "Coord3D.h"
-#include "Coord2D.h"
+#include "always.h"
+#undef W3DMPO_GLUE
+#define W3DMPO_GLUE(ARGCLASS)
+#define Matrix4x4 Matrix4  // BFME renamed it
+#include "W3DDevice/Common/W3DRadar.h"
+
 struct BfmeRadarWorldPoint:Coord3D{BfmeRadarWorldPoint();~BfmeRadarWorldPoint();};
 struct BfmeRadarMapPoint:Coord2D{BfmeRadarMapPoint();~BfmeRadarMapPoint();};
-#include "../../../../../Libraries/Include/Lib/Region3D.h"
-class View{public:
+// BFME's View slots, reached through the real TheTacticalView.
+class W3DRadarTacticalView{public:
 virtual void slot0();
 virtual void slot1();
 virtual void slot2();
@@ -81,13 +86,11 @@ virtual void getPosition(Coord3D*);
 virtual void slot71();
 virtual void slot72();
 virtual float getZoom();
-};extern View*TheTacticalView;
-class W3DRadar{public:void reconstructViewBox();
-char pad0[0x1c];float averageZ;char pad20[0x1434-0x20];Region3D extent;char pad144c[0x14d4-0x144c];bool rebuild;char pad14d5[3];float angle,zoom;Coord2D viewBox[4];};
+};
 void W3DRadar::reconstructViewBox(){
 BfmeRadarWorldPoint world[4];BfmeRadarMapPoint radar[4];int i;
-TheTacticalView->getScreenCornerWorldPointsAtZ(&world[0],&world[1],&world[2],&world[3],averageZ);
-for(i=0;i<4;++i){radar[i].x=world[i].x/(extent.width()/128);radar[i].y=world[i].y/(extent.height()/128);
-if(i==0){viewBox[i].x=0;viewBox[i].y=0;}else{viewBox[i].x=radar[i].x-radar[i-1].x;viewBox[i].y=radar[i].y-radar[i-1].y;}}
-angle=TheTacticalView->getAngle();Coord3D pos;TheTacticalView->getPosition(&pos);zoom=TheTacticalView->getZoom();rebuild=false;
+((W3DRadarTacticalView*)TheTacticalView)->getScreenCornerWorldPointsAtZ(&world[0],&world[1],&world[2],&world[3],m_terrainAverageZ);
+for(i=0;i<4;++i){radar[i].x=world[i].x/(m_mapExtent.width()/128);radar[i].y=world[i].y/(m_mapExtent.height()/128);
+if(i==0){m_viewBox[i].x=0;m_viewBox[i].y=0;}else{m_viewBox[i].x=radar[i].x-radar[i-1].x;m_viewBox[i].y=radar[i].y-radar[i-1].y;}}
+m_viewAngle=((W3DRadarTacticalView*)TheTacticalView)->getAngle();Coord3D pos;((W3DRadarTacticalView*)TheTacticalView)->getPosition(&pos);m_viewZoom=((W3DRadarTacticalView*)TheTacticalView)->getZoom();m_reconstructViewBox=false;
 }

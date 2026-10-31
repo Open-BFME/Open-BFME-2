@@ -349,6 +349,9 @@ public:
 	// Out of line: one retail body (Object.cpp, 0x0004E536); the inline copy read Zero Hour's
 	// m_status at +0x90 with a range check and offered the link a second, non-retail body.
 	Bool testStatus( ObjectStatusTypes bit ) const;
+	class Rva00373EC6 *rva0028F4BC();					///< row 0x0028F4BC: the disguise record
+	bool rva002943B2( const Player *player );	///< row 0x002943B2
+	Int rva002933CD();												///< row 0x002933CD
 	void setStatus( ObjectStatusMaskType objectStatus, Bool set = true );
 	inline void clearStatus( ObjectStatusMaskType objectStatus ) { setStatus( objectStatus, false ); }
 	void updateUpgradeModules();	///< We need to go through our Upgrade Modules and see which should be activated

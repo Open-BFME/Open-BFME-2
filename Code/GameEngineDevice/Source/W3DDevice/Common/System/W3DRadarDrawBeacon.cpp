@@ -1,10 +1,16 @@
-// cl: /O1 /G7 /DNDEBUG /MD /EHsc
+// cl: /D__PLACEMENT_VEC_NEW_INLINE /FIzh_ascii.h /DNDEBUG /DWIN32 /MD /EHsc /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/sweep_bfme1_outofline /Ireference/open-bfme-1/reference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Include/Lib /ICode/Libraries/Include /Ireference/shims/moduledata /Ireference/shims/subsystem_bfme2
+// stlport
 // BF1 f98983a7d W3DRadarEventRva006C1280.cpp supplies event projection and
 // animation semantics. Target 4DDBF..4DE72 RET24 proves a six-argument member;
 // target event records are 80B at +2C, animation table +14A8 and client-frame
 // query is slot31. Original method name remains unknown. Keep duration as
 // a float local: native retains it on the x87 stack across the size conversion.
-#include "../../../../../Libraries/Include/Lib/ICoord2D.h"
+#include "always.h"
+#undef W3DMPO_GLUE
+#define W3DMPO_GLUE(ARGCLASS)
+#define Matrix4x4 Matrix4  // BFME renamed it
+#include "W3DDevice/Common/W3DRadar.h"
+
 extern int BfmeClientFramesPerSecond;
 class Anim2D
 {
@@ -27,36 +33,13 @@ public:
 class GameClient;
 extern GameClient *TheGameClient;
 
-struct BeaconEventRecord
-{
-    int type;
-    unsigned field04, frame;
-    char pad0c[0x34];
-    ICoord2D radarLoc;
-    char pad48[8];
-};
-
-class W3DRadar
-{
-public:
-    char pad00[0x2C];
-    BeaconEventRecord events[64];
-    char pad142c[0x7C];
-    Anim2D *images[16];
-
-    void rva0004DDBF(int, int, int, int, int, int);
-
-protected:
-    void radarToPixel(const ICoord2D *, ICoord2D *, int,int,int,int);
-};
-
 void W3DRadar::rva0004DDBF(int x, int y, int w, int h, int i, int unused)
 {
-    BeaconEventRecord *event = &events[i];
+    RadarEvent *event = &m_event[i];
     int type = event->type;
     unsigned frame = reinterpret_cast<BeaconClientFrame *>(TheGameClient)->getFrame();
     const float duration = BfmeClientFramesPerSecond * 1.5;
-    int size = (int)((1.0f - (float)(frame - event->frame) / duration) *
+    int size = (int)((1.0f - (float)(frame - event->createFrame) / duration) *
         (w * (2.0f / 3.0f)));
     if (size < 16)
         size = 16;
@@ -65,5 +48,5 @@ void W3DRadar::rva0004DDBF(int x, int y, int w, int h, int i, int unused)
     radarToPixel(&event->radarLoc, &pixel, x, y, w, h);
     int px = pixel.x - size / 2;
     int py = pixel.y - size / 2;
-    images[type]->draw(px, py, size, size);
+    m_eventImages[type]->draw(px, py, size, size);
 }

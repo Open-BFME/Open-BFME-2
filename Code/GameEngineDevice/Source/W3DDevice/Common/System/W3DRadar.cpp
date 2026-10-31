@@ -36,7 +36,6 @@
 
 #endif
 #include <string.h>
-#pragma intrinsic( memcpy )
 #include "ascii_string.h"
 
 // Native 0004EFE9..0004F037, RET0. The rowed deleting destructor at
@@ -195,29 +194,6 @@ static const KindOfType BFME_KINDOF_DISGUISER = static_cast<KindOfType>(89);
 /** Reset the radar to the initial empty state ready for new data */
 //-------------------------------------------------------------------------------------------------
 // BFME's value surfaces and radar layout differ from the shared Zero Hour headers.
-struct IDirect3DSurface8;
-
-class SurfaceClass;
-
-class W3DRadarResetSurface
-{
-public:
-    W3DRadarResetSurface() {}
-    W3DRadarResetSurface(const W3DRadarResetSurface &);
-    ~W3DRadarResetSurface();
-    void clear(bool white);
-    SurfaceClass *operator->() { return (SurfaceClass *)this; }
-    IDirect3DSurface8 *m_surface;
-};
-
-class CursorTextureSlot
-{
-public:
-    void *Ptr;
-    W3DRadarResetSurface Get_Surface_Level(int level);
-    W3DRadarResetSurface Get_Surface_Level();
-};
-
 class W3DRadarResetTexture : public CursorTextureSlot
 {
 public:
@@ -444,6 +420,13 @@ public:
 	Rva0004E4C9 &rva0004E4C9(void *p);
 private:
 	void *m_ptr;
+};
+
+struct GeometryRecordScalars
+{
+	int m_first;
+	int m_second;
+	int m_third;
 };
 
 struct GeometryRecord
@@ -846,7 +829,7 @@ Rva0004E4C9 &Rva0004E4C9::rva0004E4C9(void *p)
 
 GeometryRecord &GeometryRecord::operator=( const GeometryRecord &other )
 {
-	memcpy( this, &other, sizeof( int ) * 3 );
+	*reinterpret_cast<GeometryRecordScalars *>( this ) = *reinterpret_cast<const GeometryRecordScalars *>( &other );
 	m_name = other.m_name;
 	return *this;
 }

@@ -1,4 +1,5 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /ICode/Libraries/Include
+// cl: /D__PLACEMENT_VEC_NEW_INLINE /FIzh_ascii.h /DNDEBUG /DWIN32 /MD /EHsc /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/sweep_bfme1_outofline /Ireference/open-bfme-1/reference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Include/Lib /ICode/Libraries/Include /Ireference/shims/moduledata /Ireference/shims/subsystem_bfme2
+// stlport
 // Native [0004EB00,0004ED3D),573B, RET12. BFME 2 W3DRadar::setShroudLevel;
 // the ZH setShroudLevel (W3DRadar.cpp) is the semantic guide: shroud cell to
 // world rectangle (W3DShroud cell size +0x10/+0x14 on TheTerrainRenderObject
@@ -8,18 +9,17 @@
 // scale from 0x002D790A (centered with the texture height 0x00132784 or width
 // 0x0013275A) and writes only the alpha byte (0x00116D10). The body after
 // the missing-shroud return is its else block (retail's block layout).
-
-#include "Lib/Coord3D.h"
-
-typedef int Int;
-typedef float Real;
-typedef unsigned int UnsignedInt;
-typedef unsigned char UnsignedByte;
-
-#include "Lib/ICoord2D.h"
+#include "always.h"
+#undef W3DMPO_GLUE
+#define W3DMPO_GLUE(ARGCLASS)
+#define Matrix4x4 Matrix4  // BFME renamed it
+#include "W3DDevice/Common/W3DRadar.h"
+#include "W3DDevice/GameClient/HeightMap.h"
+#include "W3DDevice/GameClient/W3DShroud.h"
+#include "WW3D2/Texture.h"
 
 extern void BFME_DX8_Thread_Lock(void);
-extern void BFME_DX8_Thread_Assert(void);
+extern bool BFME_DX8_Thread_Assert(void);
 
 class BFMEDX8DeviceLock
 {
@@ -28,36 +28,7 @@ public:
 	~BFMEDX8DeviceLock() { BFME_DX8_Thread_Assert(); }
 };
 
-class SurfaceClass
-{
-public:
-	void rva00116D10(UnsignedInt x, UnsignedInt y, UnsignedByte alpha);
-};
-
-class W3DRadarResetSurface
-{
-public:
-	~W3DRadarResetSurface();
-	SurfaceClass *operator->() { return (SurfaceClass *)this; }
-
-private:
-	void *m_surface;
-};
-
-class CursorTextureSlot
-{
-public:
-	W3DRadarResetSurface Get_Surface_Level();
-};
-
-class TextureBaseClass
-{
-public:
-	Int rva0013275A() const;
-	Int rva00132784() const;
-};
-
-class W3DShroud
+class TaintGrid
 {
 public:
 	Real getCellWidth() const { return m_cellWidth; }
@@ -69,48 +40,23 @@ private:
 	Real m_cellHeight;
 };
 
-class BaseHeightMapRenderObjClass
+// BFME's offsets of the terrain's two grids, reached through the real TheTerrainRenderObject.
+class W3DRadarTerrainView
 {
 public:
 	__declspec(dllimport) __forceinline W3DShroud *getShroud() { return m_shroud; }
-
+	TaintGrid *getTaintGrid() { return m_taintGrid; }
+	char m_pad00[0x3878];
 private:
-	unsigned char m_pad00[0x3878];
-	W3DShroud *m_shroud;
+	W3DShroud *m_shroud; // +0x3878
+	TaintGrid *m_taintGrid; // +0x387C
 };
 
-extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
-
-bool legalRadarPoint(Int px, Int py);
-
-enum CellShroudStatus
-{
-	CELLSHROUD_CLEAR,
-	CELLSHROUD_FOGGED,
-	CELLSHROUD_SHROUDED
-};
-
-class Radar
-{
-public:
-	virtual void setShroudLevel(Int shroudX, Int shroudY, CellShroudStatus setting);
-	bool worldToRadar(const Coord3D *world, ICoord2D *radar);
-	void rva002D790A(Real *scaleX, Real *scaleY);
-};
-
-class W3DRadar : public Radar
-{
-public:
-	virtual void setShroudLevel(Int shroudX, Int shroudY, CellShroudStatus setting);
-
-private:
-	unsigned char m_pad04[0x148C - 0x04];
-	CursorTextureSlot m_shroudTexture;
-};
+Bool legalRadarPoint(Int px, Int py);
 
 void W3DRadar::setShroudLevel(Int shroudX, Int shroudY, CellShroudStatus setting)
 {
-	W3DShroud *shroud = TheTerrainRenderObject ? TheTerrainRenderObject->getShroud() : 0;
+	W3DShroud *shroud = TheTerrainRenderObject ? ((W3DRadarTerrainView *)TheTerrainRenderObject)->getShroud() : 0;
 	if (!shroud)
 		return;
 	else

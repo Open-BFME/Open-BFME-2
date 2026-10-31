@@ -1,4 +1,5 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
+// cl: /D__PLACEMENT_VEC_NEW_INLINE /FIzh_ascii.h /DNDEBUG /DWIN32 /MD /EHsc /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/sweep_bfme1_outofline /Ireference/open-bfme-1/reference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Include/Lib /ICode/Libraries/Include /Ireference/shims/moduledata /Ireference/shims/subsystem_bfme2
+// stlport
 // ?rva0004F580@W3DRadar@@UAEXXZ, retail 0x0004F580..0x0004F7D8 (600 bytes, EH).
 // W3DRadar primary vftable 0x00BC4E34 slot 8 (the step W3DRadar::reset calls
 // first): clears the texture held at +0x148C, then copies the "ScrollShroud"
@@ -9,34 +10,28 @@
 // mismatch clears the destination), both are unlocked and +0x14D6 is set.
 // Purpose and every offset/slot are read from the retail bytes; names of the
 // method and of the +0x148C/+0x14D6 members are not recovered.
+#include "always.h"
+#undef W3DMPO_GLUE
+#define W3DMPO_GLUE(ARGCLASS)
+#define Matrix4x4 Matrix4  // BFME renamed it
+#include "GameClient/Image.h"
+#include "W3DDevice/Common/W3DRadar.h"
+#include "WW3D2/Texture.h"
+#include "WW3D2/dx8wrapper.h"
 #include "ascii_string.h"
 
-typedef unsigned int UnsignedInt;
+extern void BFME_DX8_Thread_Lock(void);
+extern bool BFME_DX8_Thread_Assert(void);
 
-void __cdecl BFME_DX8_Thread_Lock();
-bool __cdecl BFME_DX8_Thread_Assert();
-void __cdecl Log_DX8_ErrorCode(unsigned int res);
-
-struct BFMEDX8DeviceLock
+class BFMEDX8DeviceLock
 {
+public:
 	BFMEDX8DeviceLock() { BFME_DX8_Thread_Lock(); }
 	~BFMEDX8DeviceLock() { BFME_DX8_Thread_Assert(); }
 };
 
-static inline void DX8_ErrorCode(unsigned int res)
-{
-	if (res)
-		Log_DX8_ErrorCode(res);
-}
-
-struct RECT;
-struct D3DLOCKED_RECT
-{
-	int Pitch;
-	void *pBits;
-};
-
-struct IDirect3DSurface8
+// Retail's surface slots, reached through W3DRadarResetSurface::m_surface.
+struct BfmeD3DSurface
 {
 	virtual long __stdcall QueryInterface(void);
 	virtual unsigned long __stdcall AddRef(void);
@@ -55,38 +50,11 @@ struct IDirect3DSurface8
 	virtual long __stdcall UnlockRect(void);								// +0x38
 };
 
-class SurfaceClass
+enum
 {
-public:
-	struct SurfaceDescription
-	{
-		unsigned int Format;
-		unsigned int Width;
-		unsigned int Height;
-	};
-	void Get_Description(SurfaceDescription &desc);
-};
-
-// The surface holder Get_Surface_Level returns: the D3D surface first.
-class W3DRadarResetSurface
-{
-public:
-	~W3DRadarResetSurface();
-	void clear(bool white);
-	IDirect3DSurface8 *m_surface;
-};
-
-class CursorTextureSlot
-{
-public:
-	W3DRadarResetSurface Get_Surface_Level();
-	void *texture;
-};
-
-class TextureClass
-{
-public:
-	void Release_Ref();
+	BFME_D3DFMT_A8R8G8B8 = 21,
+	BFME_D3DFMT_A4R4G4B4 = 26,
+	BFME_D3DLOCK_READONLY = 0x10
 };
 
 class BFME2ParticleTextureHandle
@@ -104,59 +72,23 @@ public:
 	void rva00132FE9(bool flag);
 };
 
-class Image
-{
-public:
-	char m_unreconstructed_00[8];
-	AsciiString m_filename;			// +0x08
-	char m_unreconstructed_0c[0x2C - 0x0C];
-	CursorTextureSlot *m_textureSlot;	// +0x2C
-};
-
-class ImageCollection
-{
-public:
-	const Image *findImageByName(const AsciiString &name);
-};
-extern ImageCollection *TheMappedImageCollection;
-
-enum
-{
-	BFME_D3DFMT_A8R8G8B8 = 21,
-	BFME_D3DFMT_A4R4G4B4 = 26,
-	BFME_D3DLOCK_READONLY = 0x10
-};
-
-class W3DRadar
-{
-public:
-	virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03();
-	virtual void s04(); virtual void s05(); virtual void s06(); virtual void s07();
-	virtual void rva0004F580();
-private:
-	unsigned char m_unreconstructed_004[0x148C - 4];
-	CursorTextureSlot m_148c;			// +0x148C
-	unsigned char m_unreconstructed_1490[0x14D6 - 0x1490];
-	bool m_14d6;					// +0x14D6
-};
-
 void W3DRadar::rva0004F580()
 {
-	m_14d6 = false;
-	m_148c.Get_Surface_Level().clear(false);
+	m_scrollShroudLoaded = false;
+	m_shroudTexture.Get_Surface_Level().clear(false);
 
 	const Image *image = TheMappedImageCollection->findImageByName(AsciiString("ScrollShroud"));
 	if (!image)
 		return;
 
-	BFME2ParticleTextureHandle texture = TextureAsset::Get(image->m_filename.str(), 1, 0);
+	BFME2ParticleTextureHandle texture = TextureAsset::Get(image->getFilename().str(), 1, 0);
 	((TextureAsset *)&texture)->rva00132FE9(true);
 
-	CursorTextureSlot *slot = image->m_textureSlot ? image->m_textureSlot : (CursorTextureSlot *)&texture;
+	CursorTextureSlot *slot = image->getRawTextureData() ? (CursorTextureSlot *)image->getRawTextureData() : (CursorTextureSlot *)&texture;
 	if (slot)
 	{
 		W3DRadarResetSurface srcSurface = slot->Get_Surface_Level();
-		W3DRadarResetSurface dstSurface = m_148c.Get_Surface_Level();
+		W3DRadarResetSurface dstSurface = m_shroudTexture.Get_Surface_Level();
 		SurfaceClass::SurfaceDescription srcDesc;
 		SurfaceClass::SurfaceDescription dstDesc;
 		((SurfaceClass *)&srcSurface)->Get_Description(srcDesc);
@@ -164,8 +96,8 @@ void W3DRadar::rva0004F580()
 		if (srcDesc.Format == dstDesc.Format)
 		{
 			BFMEDX8DeviceLock lock;
-			IDirect3DSurface8 *src = srcSurface.m_surface;
-			IDirect3DSurface8 *dst = dstSurface.m_surface;
+			BfmeD3DSurface *src = (BfmeD3DSurface *)srcSurface.m_surface;
+			BfmeD3DSurface *dst = (BfmeD3DSurface *)dstSurface.m_surface;
 			if (src && dst)
 			{
 				D3DLOCKED_RECT srcRect;
@@ -199,7 +131,7 @@ void W3DRadar::rva0004F580()
 unlock:
 				DX8_ErrorCode(dst->UnlockRect());
 				DX8_ErrorCode(src->UnlockRect());
-				m_14d6 = true;
+				m_scrollShroudLoaded = true;
 			}
 		}
 	}
