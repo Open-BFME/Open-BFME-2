@@ -68,6 +68,17 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
 #undef min
 #undef max
+#pragma auto_inline(off)
+#pragma optimize("gsy", on)
+#pragma optimize("", on)
+#pragma auto_inline(on)
+#pragma intrinsic(memcpy)
+#pragma optimize("gsy", on)
+#pragma optimize("", on)
+#pragma intrinsic(strcpy)
+#pragma optimize("gsy", on)
+#pragma optimize("", on)
+#pragma intrinsic(memcpy)
 
 struct Elem36Block16
 {
@@ -370,6 +381,8 @@ namespace _STL { template <> BfmePod36 * _STLP_alloc_proxy<BfmePod36 *,BfmePod36
 template BfmePod36 *_STL::vector<BfmePod36>::erase(BfmePod36 *);
 
 template BfmePod36 *_STL::vector<BfmePod36>::erase(BfmePod36 *, BfmePod36 *);
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/htree.cpp
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/HTreeClassBoneLookup.cpp
 
@@ -1413,7 +1426,6 @@ Elem36 *rva00161150CopyWalk(Elem36 *first, Elem36 *last, Elem36 *dest)
 // flags (/G7) compile a different copy, and retail kept another unit's. This unit-local
 // overload keeps the inlined code and offers the link no second copy.
 
-// tu-skeleton: 0x00160CB0 770B ?Slave_Update@HTreeClass@@QAEXPBV1@ABVMatrix3D@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HTreeClassReadPivots.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/ParkingPlaceBehavior.cpp
 
@@ -1434,6 +1446,16 @@ Elem36 *rva00161150CopyWalk(Elem36 *first, Elem36 *last, Elem36 *dest)
 
 // BaseType.h's min and max macros would rewrite the unit's _STL::max overload.
 
+
+
+
+
+
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_o2_bodies.cpp
+
+// tu-skeleton: 0x00160CB0 770B ?Slave_Update@HTreeClass@@QAEXPBV1@ABVMatrix3D@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HTreeClassReadPivots.cpp (not merged yet)
+
 // tu-skeleton: 0x001610C0 34B ?allocate@?$allocator@U?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@VArchivedFileInfo@@@_STL@@@_STL@@@_STL@@QBEPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@VArchivedFileInfo@@@_STL@@@2@IPBX@Z -- matched in Code/GameEngine/Source/Common/System/ArchiveFile.cpp (not merged yet)
 
 // tu-skeleton: 0x001614F0 526B ?read_pivots@HTreeClass@@AAE_NAAVChunkLoadClass@@_N@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HTreeClassReadPivots.cpp (not merged yet)
@@ -1446,8 +1468,6 @@ Elem36 *rva00161150CopyWalk(Elem36 *first, Elem36 *last, Elem36 *dest)
 
 // tu-skeleton: 0x001627F0 7B ?get_allocator@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QBE?AV?$allocator@G@2@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_wide_string_default_ctor.cpp (not merged yet)
 
-// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_o2_bodies.cpp
-
 // tu-skeleton: 0x001628A0 769B ?Base_Update@HTreeClass@@QAEXABVMatrix3D@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HTreeClassFirstCapturedBone.cpp (not merged yet)
 
 // tu-skeleton: 0x00162BB0 3785B ?Anim_Update@HTreeClass@@QAEXABVMatrix3D@@PAVHAnimClass@@M@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HTreeClassFirstCapturedBone.cpp (not merged yet)
@@ -1458,22 +1478,96 @@ Elem36 *rva00161150CopyWalk(Elem36 *first, Elem36 *last, Elem36 *dest)
 
 // tu-skeleton: 0x00165820 2277B ?Combo_Update@HTreeClass@@QAEXABVMatrix3D@@PAVHAnimComboClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HTreeClassFirstCapturedBone.cpp (not merged yet)
 
-// tu-skeleton: 0x001662A0 285B ??0HTreeClass@@QAE@ABV0@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HTreeClassCopyConstructor.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/HTreeClassCopyConstructor.cpp
 
-// tu-skeleton: 0x001666D0 267B ?Init_Default@HTreeClass@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/HTreeClassInitDefault.cpp (not merged yet)
+HTreeClass::HTreeClass(const HTreeClass & src) :
+	NumPivots(src.NumPivots),
+	Pivot(0),
+	ScaleFactor(src.ScaleFactor),
+	OwnedSequence1C(src.OwnedSequence1C),
+	Unknown28(0),
+	Unknown2C(0),
+	Unknown30(0)
+{
+	memcpy(&Name,&src.Name,sizeof(Name));
 
-// tu-skeleton: 0x00166800 371B ?Load_W3D@HTreeClass@@QAEHAAVChunkLoadClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HTreeClassLoadW3D.cpp (not merged yet)
+	if (NumPivots > 0) {
+		Pivot = new PivotClass[NumPivots];
+	}
 
-// tu-skeleton: 0x007674A0 11B uw_007674a0 -- matched in Code/Libraries/Source/WWVegas/WW3D2/HTreeClassCopyConstructor.cpp (not merged yet)
+	for (int pi = 0; pi < NumPivots; pi++) {
+		Pivot[pi] = src.Pivot[pi];
 
-// tu-skeleton: 0x007674AB 11B uw_007674ab -- matched in Code/Libraries/Source/WWVegas/WW3D2/HTreeClassCopyConstructor.cpp (not merged yet)
+		if (src.Pivot[pi].Parent != 0) {
+			Pivot[pi].Parent = &(Pivot[src.Pivot[pi].Parent->Index]);
+		} else {
+			Pivot[pi].Parent = 0;
+		}
+	}
+}
 
-// tu-skeleton: 0x007674B6 10B __ehhandler$??0HTreeClass@@QAE@ABV0@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HTreeClassCopyConstructor.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/HTreeClassInitDefault.cpp
 
-// tu-skeleton: 0x007674C0 11B uw_007674c0 -- matched in Code/Libraries/Source/WWVegas/WW3D2/HTreeClassInitDefault.cpp (not merged yet)
+void HTreeClass::Init_Default(void)
+{
+	Free();
 
-// tu-skeleton: 0x007674CB 10B __ehhandler$?Init_Default@HTreeClass@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/HTreeClassInitDefault.cpp (not merged yet)
+	NumPivots = 1;
+	Pivot = new PivotClass[NumPivots];
 
-// tu-skeleton: 0x007674E0 11B uw_007674e0 -- matched in Code/Libraries/Source/WWVegas/WW3D2/HTreeClassLoadW3D.cpp (not merged yet)
+	Pivot[0].Index = 0;
+	Pivot[0].Parent = 0;
+	Pivot[0].BaseTransform.Make_Identity();
+	Pivot[0].Transform.Make_Identity();
+	Pivot[0].IsVisible = true;
+	Pivot[0].PivotFade = 1.0f;
+	strcpy(Pivot[0].Name,"RootTransform");
 
-// tu-skeleton: 0x007674EB 10B __ehhandler$?Load_W3D@HTreeClass@@QAEHAAVChunkLoadClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HTreeClassLoadW3D.cpp (not merged yet)
+	Name[0] = 0;
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/HTreeClassLoadW3D.cpp
+
+int HTreeClass::Load_W3D(ChunkLoadClass &cload)
+{
+	Free();
+
+	if (!cload.Open_Chunk())
+		return LOAD_ERROR;
+
+	if (cload.Cur_Chunk_ID() != 0x101)
+		return LOAD_ERROR;
+
+	W3dHierarchyStruct header;
+	if (cload.Read(&header, sizeof(header)) != sizeof(header))
+		return LOAD_ERROR;
+
+	cload.Close_Chunk();
+
+	bool pre30 = false;
+	if (header.Version < 0x30000)
+	{
+		header.NumPivots++;
+		pre30 = true;
+	}
+
+	memcpy(Name, header.Name, sizeof(Name));
+	NumPivots = header.NumPivots;
+	if (NumPivots > 0)
+		Pivot = new PivotClass[NumPivots];
+
+	while (cload.Open_Chunk())
+	{
+		if (cload.Cur_Chunk_ID() == 0x102)
+		{
+			if (!read_pivots(cload, pre30))
+			{
+				Free();
+				return LOAD_ERROR;
+			}
+		}
+		cload.Close_Chunk();
+	}
+
+	return OK;
+}
