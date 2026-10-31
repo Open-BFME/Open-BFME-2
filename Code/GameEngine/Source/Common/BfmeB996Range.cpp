@@ -69,6 +69,7 @@ void Rva00090714Free( void **pointer );
 // the same complete-object pointer; it writes the `stop` byte through its third
 // argument, which is why this body tests it after the call.
 
+class BfmePkt996;
 class BfmeDev996
 {
 public:
@@ -76,17 +77,18 @@ public:
 	virtual void v1();
 	virtual void v2();
 	virtual int classify( int value, int width );
+	virtual int send(BfmePkt996 *pkt, int size);
 };
 
 class BfmeB996
 {
 public:
-	char movePair( int *output, int *first, unsigned int *second,
-		unsigned int limit );
-
+	char movePair( int *output, int *first, unsigned int *second, unsigned int limit );
+	bool sendIfState7(BfmePkt996 *pkt);
 private:
-	char m_pad[ 4 ];
-	BfmeDev996 *m_dev;
+	char m_bfmePad[4]; // +0x00
+	BfmeDev996 *m_dev; // +0x04
+	int m_bfmeKind; // +0x08
 };
 
 //
