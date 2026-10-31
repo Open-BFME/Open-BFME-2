@@ -25049,7 +25049,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0031BD55,34,code,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp,approved,C,C=0x0031BAC3..0x0031BD77,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_voidptr_opt.cpp
 0x0031BD77,45,code,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp,approved,C,C=0x0031BAC3..0x0031BDA4,Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorChains.cpp
 0x0031BDA4,29,code,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp,approved,C,C=0x0031BAC3..0x0031BDC1,Code/Libraries/Source/WWVegas/WWLib/stlport_copy_ptrs_scalar8.cpp
-0x0031BDC1,45,code,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp,approved,C,C=0x0031BAC3..0x0031BDEE,Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp
+0x0031BDC1,45,code,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp,approved,C,C=0x0031BAC3..0x0031BDEE,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp
 0x0031BDEE,25,code,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp,approved,C,C=0x0031BAC3..0x0031BE07,Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorChains.cpp
 0x0031BE07,53,code,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp,approved,C,C=0x0031BAC3..0x0031BE3C,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp
 0x0031BE3C,28,code,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp N=Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp
@@ -72998,8 +72998,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0077ABBE,8,code,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp,approved,P,P=0x0031BAC3@FuncInfo0x009238A8,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp
 0x0077ABC6,8,code,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp,approved,P,P=0x0031BAC3@FuncInfo0x009238A8,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp
 0x0077ABCE,10,code,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp,approved,P,P=0x0031BAC3@FuncInfo0x009238A8,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp
-0x0077ABD8,14,code,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp,approved,P,P=0x0031BDC1@FuncInfo0x009238CC,Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp
-0x0077ABE6,10,code,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp,approved,P,P=0x0031BDC1@FuncInfo0x009238CC,Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp
+0x0077ABD8,14,code,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp,approved,P,P=0x0031BDC1@FuncInfo0x009238CC,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp
+0x0077ABE6,10,code,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp,approved,P,P=0x0031BDC1@FuncInfo0x009238CC,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp
 0x0077ABF0,8,code,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp,approved,P,P=0x0031BE58@FuncInfo0x009238F8,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp
 0x0077ABF8,8,code,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp,approved,P,P=0x0031BE58@FuncInfo0x009238F8,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp
 0x0077AC00,10,code,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp,approved,P,P=0x0031BE58@FuncInfo0x009238F8,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp
