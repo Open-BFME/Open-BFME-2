@@ -46,6 +46,8 @@
 // Drawable deriving from Thing at offset 0 is carried from the Zero Hour
 // donor (GameClient/Drawable.h); the unadjusted jump agrees with it.
 
+#include "../../Include/GameLogic/Module/DieModule.h"
+
 class Rva006DE350
 {
 public:
