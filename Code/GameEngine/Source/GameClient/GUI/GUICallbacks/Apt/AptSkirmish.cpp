@@ -408,6 +408,17 @@ struct Rva005232D0
 	AsciiString m_1C;
 };
 
+// Two getters returning factory entry points: 0x0048FF84 and 0x006D21BB are
+// the matched Rva0008FF84Create and Rva002D21BBCreate rows, so take their
+// addresses instead of the image constants.
+class Rva0008FF3E;
+
+class AptSkirmish;
+
+Rva0008FF3E *__stdcall Rva0008FF84Create(void *context);
+
+AptSkirmish *__stdcall Rva002D21BBCreate(void *context);
+
 // tu-skeleton: 0x00521720 33B ?MpOwnerGetLocalPlayerName@AptSkirmish@@QAEXPAVUnicodeString@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSkirmishCallbacks.cpp (not merged yet)
 
 // tu-skeleton: 0x00521741 13B ?OnInitialized@AptSkirmish@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSkirmishCallbacks.cpp (not merged yet)
@@ -428,6 +439,8 @@ struct Rva005232D0
 
 // tu-skeleton: 0x005218AF 126B ?InitCreateAHeroOnStartGame@AptSkirmish@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSkirmishCallbacks.cpp (not merged yet)
 
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSkirmish.cpp
+
 // ---- from Code/GameEngine/Source/Common/Rva0052192DInit.cpp
 
 void AptSkirmish::OpenScreen(int mode)
@@ -440,8 +453,6 @@ void AptSkirmish::OpenScreen(int mode)
         return;
     (*(Rva00222A8BTarget **)&g_bfmeAptWindowManager)->rva002233A6(1);
 }
-
-// tu-skeleton: 0x00521977 315B ??1AptSkirmish@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSkirmishDestructor.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSkirmish.cpp
 
@@ -600,6 +611,27 @@ Rva00523149 &Rva00523149::rva00523149(const Rva00523149 *other)
 	return *this;
 }
 
+// ---- from Code/GameEngine/Source/Common/Rva005232D0Assign.cpp
+
+//
+// ??4Rva005232D0@@QAEAAU0@ABU0@@Z @0x005232D0 51B: memberwise assignment of a
+// record whose first member is Rva00523149 (rowed pointer-taking assign
+// 0x00523149, see Rva00523149Assign.cpp), then a word at +0x14, a
+// list<UnicodeString> at +0x18 (rowed operator= 0x005227C0) and an AsciiString
+// at +0x1C (rowed StringBase<char>::set 0x000366F0). Caller 0x00523356; owner
+// unknown, so the name is address-derived.
+
+Rva005232D0 &Rva005232D0::operator=(const Rva005232D0 &other)
+{
+	m_00.rva00523149(&other.m_00);
+	m_14 = other.m_14;
+	m_18 = other.m_18;
+	m_1C = other.m_1C;
+	return *this;
+}
+
+// tu-skeleton: 0x00521977 315B ??1AptSkirmish@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSkirmishDestructor.cpp (not merged yet)
+
 // tu-skeleton: 0x00521B48 14B ?rva00521B48@Rva00521B48@@QAEXHH@Z -- matched in Code/GameEngine/Source/Common/GapForwardersSeat8.cpp (not merged yet)
 
 // tu-skeleton: 0x00521B56 260B ?OnAddProfileAccept@AptSkirmish@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSkirmishCallbacks.cpp (not merged yet)
@@ -650,25 +682,11 @@ Rva00523149 &Rva00523149::rva00523149(const Rva00523149 *other)
 
 // tu-skeleton: 0x005231B0 282B ?rva005231B0@AptSkirmish@@UAEHHII@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSkirmishCallbacks.cpp (not merged yet)
 
-// tu-skeleton: 0x005232CA 6B ?Rva005232CAGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4Addr.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/ConstIntGetters4Addr.cpp
 
-// ---- from Code/GameEngine/Source/Common/Rva005232D0Assign.cpp
-
-//
-// ??4Rva005232D0@@QAEAAU0@ABU0@@Z @0x005232D0 51B: memberwise assignment of a
-// record whose first member is Rva00523149 (rowed pointer-taking assign
-// 0x00523149, see Rva00523149Assign.cpp), then a word at +0x14, a
-// list<UnicodeString> at +0x18 (rowed operator= 0x005227C0) and an AsciiString
-// at +0x1C (rowed StringBase<char>::set 0x000366F0). Caller 0x00523356; owner
-// unknown, so the name is address-derived.
-
-Rva005232D0 &Rva005232D0::operator=(const Rva005232D0 &other)
+int Rva005232CAGet(void)
 {
-	m_00.rva00523149(&other.m_00);
-	m_14 = other.m_14;
-	m_18 = other.m_18;
-	m_1C = other.m_1C;
-	return *this;
+	return (int)Rva002D21BBCreate;
 }
 
 // tu-skeleton: 0x00523303 249B ?rva00523303@AptSkirmish@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSkirmishCallbacks.cpp (not merged yet)

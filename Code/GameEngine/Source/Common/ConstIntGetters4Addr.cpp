@@ -10,8 +10,3 @@ int Rva0008FFBEGet(void)
 {
 	return (int)Rva0008FF84Create;
 }
-
-int Rva005232CAGet(void)
-{
-	return (int)Rva002D21BBCreate;
-}
