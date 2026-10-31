@@ -69,16 +69,7 @@ public:
     unsigned char get() const;
 };
 
-class Weapon
-{
-public:
-    bool isWithinAttackRange(const Object *source, const Object *target, float extra = 0.0f, int flag = 1) const;
-    char isWithinAttackRange(Object *source, void *pos, float extra = 0.0f, int flag = 1) const;
-    Rva002C9400ByteField *getTemplate() const { return m_template; }
-private:
-    void *m_vt;
-    Rva002C9400ByteField *m_template; // +4
-};
+#include "../../../../Include/GameLogic/Weapon.h"
 
 class AIUpdateInterface
 {
@@ -229,7 +220,7 @@ void GarrisonContain::addValidObjectsToGarrisonPoints()
             {
                 Object *member = *it2;
                 const Weapon *weapon = member->getCurrentWeapon();
-                if (!weapon || weapon->getTemplate()->get())
+                if (!weapon || ((const Rva002C9400ByteField *)weapon->getTemplate())->get())
                     continue;
                 AIUpdateInterface *ai = member->getAI();
                 if (!ai)
