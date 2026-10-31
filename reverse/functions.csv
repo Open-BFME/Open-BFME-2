@@ -7987,7 +7987,7 @@ _GetProcessorFlags,,0x001C4390,169,Code/Libraries/Source/VP6/GetProcessorFlags.c
 ?get@Rva0008E179FloatField@@QBEMXZ,,0x0008E179,7,Code/GameEngine/Source/Common/DispFloatFieldGetters.cpp,matched,Disp32 float getter
 ?get@Rva00091A48FloatField@@QBEMXZ,,0x00091A48,7,Code/GameEngine/Source/Common/DispFloatFieldGetters.cpp,matched,Disp32 float getter
 ?get@Rva00091A4FFloatField@@QBEMXZ,,0x00091A4F,7,Code/GameEngine/Source/Common/DispFloatFieldGetters.cpp,matched,Disp32 float getter
-?get@Rva0009533CFloatField@@QBEMXZ,,0x0009533C,7,Code/GameEngine/Source/Common/DispFloatFieldGetters.cpp,matched,Disp32 float getter
+?get@Rva0009533CFloatField@@QBEMXZ,,0x0009533C,7,Code/GameEngine/Source/Common/BfmeB1137.cpp,matched,Disp32 float getter
 ?get@Rva000B228DFloatField@@QBEMXZ,,0x000B228D,7,Code/GameEngine/Source/Common/DispFloatFieldGetters.cpp,matched,Disp32 float getter
 ?get@Rva000B28CFFloatField@@QBEMXZ,,0x000B28CF,7,Code/GameEngine/Source/Common/DispFloatFieldGetters.cpp,matched,Disp32 float getter
 ?get@Rva000D43D3FloatField@@QBEMXZ,,0x000D43D3,7,Code/GameEngine/Source/Common/DispFloatFieldGetters.cpp,matched,Disp32 float getter

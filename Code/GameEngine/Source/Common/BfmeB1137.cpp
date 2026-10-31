@@ -18,6 +18,18 @@ typedef unsigned short WideChar;
 #include <windows.h>
 #include "ascii_string.h"
 #include "unicode_string.h"
+#define BFME_DISP_FLOAT_GETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		float get() const; \
+		char m_lead[DISP]; \
+		float m_value; \
+	}; \
+	float NAME::get() const \
+	{ \
+		return m_value; \
+	}
 
 //
 // ?rva00094CEA@Rva009519B@@UAEXXZ, retail 0x00094CEA (80 bytes): slot 44
@@ -369,11 +381,66 @@ private:
 	AsciiString m_value; // +0x1DC
 };
 
+BFME_DISP_FLOAT_GETTER(Rva0009533CFloatField, 0xD0)
+
+// Two getters that read a GameClientRandomVariable field through its rowed
+// getValue (0x002341A1): add ecx, <field>; tail jump. They bracket the 0x80
+// float getter above: 0x00094AEE (8B, field +0x74) ends where it begins and
+// 0x00094AFD (11B, field +0x84) starts where it ends. Receiver classes are
+// unknown; names follow this file's per-address convention.
+class GameClientRandomVariable
+{
+public:
+	float getValue() const;
+private:
+	int m_type;
+	float m_low;
+	float m_high;
+};
+
+class Rva00094AEERandomField
+{
+public:
+	float get() const;
+private:
+	char m_pad00[0x74];
+	GameClientRandomVariable m_value;
+};
+
+class Rva00094AFDRandomField
+{
+public:
+	float get() const;
+private:
+	char m_pad00[0x84];
+	GameClientRandomVariable m_value;
+};
+
+class Rva00098540RandomField
+{
+public:
+	int get() const;
+private:
+	char m_pad00[0x30];
+	GameClientRandomVariable m_value;
+};
+
+class Rva0009854DRandomField
+{
+public:
+	float get() const;
+private:
+	char m_pad00[0x3C];
+	GameClientRandomVariable m_value;
+};
+
 // tu-skeleton: 0x00094EBF 93B ??0BfmeB1137@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Gen006E2310Ctor.cpp (not merged yet)
 
 // tu-skeleton: 0x00094F1C 28B ??_GBfmeB1137@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/BfmeConv1137Dtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00094F38 114B ??1BfmeB1137@@UAE@XZ -- matched in Code/GameEngine/Source/Common/BfmeConv1137Dtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/BfmeB1137.cpp
 
 // ---- from Code/GameEngine/Source/Common/BfmeB1137.cpp
 
@@ -470,8 +537,6 @@ bool Rva009519B::rva0009520C()
 	return m_20 && m_mode != 0 && m_mode != 4;
 }
 
-// tu-skeleton: 0x0009519B 113B ??1Rva009519B@@UAE@XZ -- matched in Code/GameEngine/Source/Common/SubsystemDerivedDtors.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/System/AsciiStringRvoGetters.cpp
 
 // ?get@Rva00095224AsciiField@@QBE?AVAsciiString@@XZ
@@ -480,11 +545,22 @@ AsciiString Rva00095224AsciiField::get() const
 	return m_value;
 }
 
+// tu-skeleton: 0x0009519B 113B ??1Rva009519B@@UAE@XZ -- matched in Code/GameEngine/Source/Common/SubsystemDerivedDtors.cpp (not merged yet)
+
 // tu-skeleton: 0x00095242 28B ??_GRva009519B@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/SubsystemDerivedDtors.cpp (not merged yet)
 
 // tu-skeleton: 0x0009525E 222B ??0Gen006E2310@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Gen006E2310Ctor.cpp (not merged yet)
 
-// tu-skeleton: 0x0009533C 7B ?get@Rva0009533CFloatField@@QBEMXZ -- matched in Code/GameEngine/Source/Common/DispFloatFieldGetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/DispFloatFieldGetters.cpp
+
+// Disp32 float getters: seven-byte __thiscall members with one shape:
+//
+//     fld dword ptr [ecx+<DISP>] / ret
+//
+// One dword is loaded onto the x87 stack and left there, which is the return
+// convention for `float`. BFME1 pioneered the same family in
+// reference/open-bfme-1/Code/GameEngine/Source/Common/DispFloatFieldGetters.cpp.
+// No // cl: line (defaults match the frameless 7-byte shape).
 
 // tu-skeleton: 0x00095343 29B ?rva00095343@Rva00095343@@QAE?AURva00SlotFloat3Copy@@XZ -- matched in Code/GameEngine/Source/Common/VtableSlotBodiesR3F.cpp (not merged yet)
 
