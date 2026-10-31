@@ -27572,8 +27572,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x003631CC,28,code,Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/UpdateModuleDataDeletingDtors.cpp
 0x003631E8,75,code,Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdate.cpp
 0x00363233,809,code,Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdate.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdate.cpp S=Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdate.cpp N=Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdateClientUpdate.cpp
-0x0036355C,759,code,Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdate.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdate.cpp S=Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdate.cpp N=Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdate.cpp W=Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdateInitLaser.cpp
-0x00363853,76,code,Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdate.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdate.cpp N=Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdate_initFromDrawables.cpp
+0x0036355C,759,code,Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdate.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdate.cpp S=Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdate.cpp N=Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdate.cpp W=Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdate.cpp
+0x00363853,76,code,Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdate.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdate.cpp N=Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdate.cpp
 0x0036389F,13,code,,,-,,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp
 0x003638AC,7,code,,,-,,Code/GameEngine/Source/Common/Disp8FloatChaseGetters.cpp
 0x003638B3,7,code,,,-,,Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp
@@ -74378,8 +74378,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0077E26D,11,code,Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdate.cpp,approved,P,P=0x003631E8@FuncInfo0x0092828C,Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdate.cpp
 0x0077E278,11,code,Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdate.cpp,approved,P,P=0x003631E8@FuncInfo0x0092828C,Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdate.cpp
 0x0077E283,10,code,Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdate.cpp,approved,P,P=0x003631E8@FuncInfo0x0092828C,Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdate.cpp
-0x0077E28D,8,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdateInitLaser.cpp
-0x0077E295,10,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdateInitLaser.cpp
+0x0077E28D,8,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdate.cpp
+0x0077E295,10,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdate.cpp
 0x0077E29F,8,code,,,-,,Code/GameEngine/Source/Common/Rva0046A93EDtor.cpp
 0x0077E2A7,10,code,,,-,,Code/GameEngine/Source/Common/Rva0046A93EDtor.cpp
 0x0077E2B1,8,code,,,-,,Code/GameEngine/Source/GameLogic/Pathfinder/PathDoXfer.cpp

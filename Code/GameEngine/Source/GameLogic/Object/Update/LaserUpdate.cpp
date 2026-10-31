@@ -3,6 +3,7 @@
 #include "Common/Snapshot.h"
 #include "ascii_string.h"
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
+#include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
 
 class __declspec(novtable) LaserUpdateModuleData : public Snapshot
 {
@@ -42,7 +43,9 @@ enum ParticleSystemID
 };
 
 struct Rva001F3899Arg { float x,y,z; };
+
 class Rva001F3899Slot { public: void set(const Rva001F3899Arg &); };
+
 class ParticleSystem
 {
 public:
@@ -50,12 +53,14 @@ public:
 	char m_pad00[0xA8];
 	ParticleSystemID m_systemID; // +0xA8 +0xA8, verified by native initLaser loads.
 };
+
 class RvaSmartPtr12
 {
 public:
 	void rva0004CBC0() throw(); // 0x0004CBC0, the unlink the inline dtor null test calls
 	RvaSmartPtr12 &operator=(const RvaSmartPtr12 &) throw();
 };
+
 class BfmeParticleSystemHandle
 {
 public:
@@ -68,9 +73,11 @@ public:
 	void *m_previous; // +0x04
 	void *m_next; // +0x08
 };
+
 class ParticleSystemTemplate;
 
 class LaserUpdate;
+
 class ParticleSystemManager
 {
 private:
@@ -87,8 +94,11 @@ public:
 extern ParticleSystemManager *TheParticleSystemManager;
 
 class Matrix3D;
+
 class Rva00603BB0ObjectView;
+
 class Drawable;
+
 class Object;
 
 class Rva0049B47C
@@ -215,9 +225,71 @@ public:
 	unsigned m_targetID;
 };
 
+class GeometryInfo { public: float getMaxHeightAbovePosition() const; };
+
+class Rva00603BB0ObjectView {
+public:
+    char m_unmodelled_000[0xa8];
+    const GeometryInfo &getGeometryInfo() const { return *(const GeometryInfo *)((const char *)this+0xa8); }
+};
+
+class Drawable
+{
+public:
+	bool rva00272835(int, int);
+	__forceinline bool getCurrentWorldspaceClientBonePositions(const char *name, Matrix3D &matrix) const { return const_cast<Drawable *>(this)->rva00272835(reinterpret_cast<int>(name),reinterpret_cast<int>(&matrix)); }
+	void setPosition(const Coord3D *);
+	const Coord3D *getPosition() const;
+	Rva00603BB0ObjectView *getObject() const { return m_object; }
+	char m_unmodelled_000[0xfc]; // +0x00
+	Rva00603BB0ObjectView *m_object; // +0xFC
+};
+
+class GameClient {
+public:
+    virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03();
+    virtual void slot04(); virtual void slot05(); virtual void slot06(); virtual void slot07();
+    virtual void slot08(); virtual void slot09(); virtual void slot10();
+    virtual void slot11();virtual void slot12();virtual void slot13();virtual void slot14();virtual void slot15();
+ virtual Drawable *findDrawableByID(unsigned);
+    virtual void slot17(); virtual void slot18(); virtual void slot19();
+ virtual void slot20(); virtual void slot21(); virtual void slot22(); virtual void slot23();
+ virtual void slot24();virtual void slot25();virtual void slot26();virtual void slot27();virtual void slot28();
+    virtual void destroyDrawable(Drawable *);
+    virtual void slot30(); virtual unsigned getFrame();
+};
+
+extern GameClient *TheGameClient;
+
+extern float BfmeClientFramesPerMillisecond;
+
+enum WhichTurretType { TURRET_INVALID=-1,TURRET_MAIN=0 };
+
+class Object { public:
+ bool getSingleLogicalBonePosition(const char *,Coord3D *,Matrix3D *) const;
+ bool getSingleLogicalBonePositionOnTurret(WhichTurretType,const char *,Coord3D *,Matrix3D *) const;
+};
+
+enum DrawableID
+{
+	INVALID_DRAWABLE_ID = 0
+};
+
+// Drawable::getID is ICF-folded onto the matched dword getter row at 0x0055A88B
+// (DispDwordFieldGetters.cpp); called here by that row name.
+class Rva0055A88BDwordField
+{
+public:
+	int get() const;
+};
+
+class LaserUpdateModuleData;
+
 // tu-skeleton: 0x00362EEE 112B ??0LaserUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdateCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00362F5E 6B ?Rva00362F5EGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdateDtor.cpp
 
@@ -242,12 +314,6 @@ float LaserUpdate::getCurrentLaserRadius() const
     return 0.0f;
 }
 
-// tu-skeleton: 0x00362FC3 53B ?rva00362FC3@Rva00362FC3@@QAEXI@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE06.cpp (not merged yet)
-
-// tu-skeleton: 0x00362FF8 238B ?xfer@LaserUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdateXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x003630E6 28B ??_GRva00362EE3@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0049B47CDerived.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdatePoolKey.cpp
 
 // ?rva000363102@LaserUpdate@@SA?AW4NameKeyType@@XZ
@@ -258,12 +324,6 @@ NameKeyType LaserUpdate::rva000363102()
 	return TheLaserUpdatePoolKey;
 }
 
-// tu-skeleton: 0x00363147 31B ??0LaserUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdateModuleDataCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00363166 17B ?buildFieldParse@LaserUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
-
-// tu-skeleton: 0x003631CC 28B ??_GLaserUpdateModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpdateModuleDataDeletingDtors.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdateModuleDataDtor.cpp
 
 // ??1LaserUpdateModuleData@@UAE@XZ @0x003631E8, 75B.
@@ -273,10 +333,167 @@ LaserUpdateModuleData::~LaserUpdateModuleData()
 {
 }
 
+// tu-skeleton: 0x00362FC3 53B ?rva00362FC3@Rva00362FC3@@QAEXI@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE06.cpp (not merged yet)
+
+// tu-skeleton: 0x00362FF8 238B ?xfer@LaserUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdateXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x003630E6 28B ??_GRva00362EE3@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0049B47CDerived.cpp (not merged yet)
+
+// tu-skeleton: 0x00363147 31B ??0LaserUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdateModuleDataCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00363166 17B ?buildFieldParse@LaserUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
+
+// tu-skeleton: 0x003631CC 28B ??_GLaserUpdateModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpdateModuleDataDeletingDtors.cpp (not merged yet)
+
 // tu-skeleton: 0x00363233 809B ?clientUpdate@LaserUpdate@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdateClientUpdate.cpp (not merged yet)
 
-// tu-skeleton: 0x0036355C 759B ?initLaser@LaserUpdate@@QAEXPBVObject@@PBUCoord3D@@1H@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdateInitLaser.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdateInitLaser.cpp
 
-// tu-skeleton: 0x00363853 76B ?initFromDrawables@LaserUpdate@@QAEXPAXPAVDrawable@@10@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdate_initFromDrawables.cpp (not merged yet)
+// BFME1 LaserUpdate_initLaser.cpp donor 9cbfb551fe20dae985f91f2319d8997287b6a705;
+// ZH initLaser supplies the widening/decaying, bone and particle initialization semantics.
+// Target identity: WB 0xF16CF0 names LaserUpdate::initLaser and pairs by callgraph;
+// native 0x36355C is the complete 759B four-argument body (ret 16).
+// Target layout/calls: GameClient frame31/destroy29, ParticleSystem ID+A8,
+// 12B handles and frame-per-millisecond global BfmeClientFramesPerMillisecond measured in retail.
+// Module layout carried from BFME1, corroborated by native field accesses.
+// Bone-on-turret callee identity uses native Object drawable/AI guards and
+// pristine-bone/turret-transform spine; WB's automatic Matrix3D pairing is not evidence.
+
+static inline void coordSet(Coord3D *to,const Coord3D *from) {to->x=from->x;to->y=from->y;to->z=from->z;}
+
+static inline void coordSet(Coord3D *to,float x,float y,float z) {to->x=x;to->y=y;to->z=z;}
+
+static inline void coordAdd(Coord3D *to,const Coord3D *from) {to->x=to->x+from->x;to->y=to->y+from->y;to->z=to->z+from->z;}
+
+static inline void coordScale(Coord3D *to,float scale) {to->x*=scale;to->y*=scale;to->z*=scale;}
+
+void LaserUpdate::initLaser(const Object *parent, const Coord3D *startPos, const Coord3D *endPos, int sizeDeltaFrames)
+{
+    const LaserUpdateModuleData *data = getLaserUpdateModuleData();
+    BfmeParticleSystemHandle system;
+    if( sizeDeltaFrames > 0 )
+    {
+        m_widening = true;
+        m_widenStartFrame = TheGameClient->getFrame();
+        m_widenFinishFrame = m_widenStartFrame + sizeDeltaFrames;
+        m_currentWidthScalar = 0.0f;
+    }
+    else if( sizeDeltaFrames < 0 )
+    {
+        m_decaying = true;
+        m_decayStartFrame = TheGameClient->getFrame();
+        m_decayFinishFrame = m_decayStartFrame - sizeDeltaFrames;
+        m_currentWidthScalar = 1.0f;
+    }
+
+    m_rva00603BB0ExpiryFrame = (unsigned)((float)TheGameClient->getFrame() + BfmeClientFramesPerMillisecond * data->m_rva00603FE0LifetimeMsec);
+
+    if( parent && !data->m_parentFireBoneName.isEmpty() )
+    {
+        if( data->m_parentFireBoneOnTurret )
+        {
+            if( !parent->getSingleLogicalBonePositionOnTurret( TURRET_MAIN, data->m_parentFireBoneName.str(), &m_startPos, 0 ) )
+            {
+                TheGameClient->destroyDrawable( getDrawable() );
+                return;
+            }
+        }
+        else if( !parent->getSingleLogicalBonePosition( data->m_parentFireBoneName.str(), &m_startPos, 0 ) )
+        {
+            TheGameClient->destroyDrawable( getDrawable() );
+            return;
+        }
+    }
+    else if( startPos )
+    {
+        m_startPos = *startPos;
+    }
+    else
+    {
+        TheGameClient->destroyDrawable( getDrawable() );
+        return;
+    }
+
+    if( endPos )
+    {
+        m_endPos = *endPos;
+    }
+    else
+    {
+        TheGameClient->destroyDrawable( getDrawable() );
+        return;
+    }
+
+    if( !m_particleSystemID )
+    {
+        if( !data->m_particleSystemName.isEmpty() )
+        {
+            const ParticleSystemTemplate *particleSystemTemplate = TheParticleSystemManager->findTemplate( data->m_particleSystemName );
+            if( particleSystemTemplate )
+            {
+                system = TheParticleSystemManager->createParticleSystem( particleSystemTemplate, true );
+                if( system.m_system )
+                    m_particleSystemID = system.m_system->m_systemID;
+            }
+        }
+
+        if( !data->m_targetParticleSystemName.isEmpty() )
+        {
+            const ParticleSystemTemplate *particleSystemTemplate = TheParticleSystemManager->findTemplate( data->m_targetParticleSystemName );
+            if( particleSystemTemplate )
+            {
+                system = TheParticleSystemManager->createParticleSystem( particleSystemTemplate, true );
+                if( system.m_system )
+                    m_targetParticleSystemID = system.m_system->m_systemID;
+            }
+        }
+    }
+
+    if( m_particleSystemID )
+    {
+        system = TheParticleSystemManager->findParticleSystemByID( m_particleSystemID );
+        if( system.m_system )
+            system.m_system->setPosition( &m_startPos );
+    }
+
+    if( m_targetParticleSystemID )
+    {
+        system = TheParticleSystemManager->findParticleSystemByID( m_targetParticleSystemID );
+        if( system.m_system )
+            system.m_system->setPosition( &m_endPos );
+    }
+
+    Coord3D posToUse;
+    coordSet(&posToUse,startPos);
+    coordAdd(&posToUse,endPos);
+    coordScale(&posToUse,0.5f);
+    getDrawable()->setPosition( &posToUse );
+    m_dirty = true;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdate_initFromDrawables.cpp
+
+//
+// LaserUpdate helper — retail 0x00604460 (80B).
+// If both drawable args are live, store their IDs at +0x4C/+0x50 and forward
+// arg1, parent position, target position, arg4 into LaserUpdate::initLaser,
+// the 776-byte body at 0x00603FE0 (ILT 0x00024FC3).
+
+// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include/Lib/BaseType.h
+
+// ?initFromDrawables@LaserUpdate@@QAEXPAXPAVDrawable@@10@Z
+void LaserUpdate::initFromDrawables(void *primary, Drawable *parent, Drawable *target, void *d)
+{
+	if (parent)
+	{
+		if (target)
+		{
+			m_parentID = ((const Rva0055A88BDwordField *)parent)->get();
+			m_targetID = ((const Rva0055A88BDwordField *)target)->get();
+			initLaser((const Object *)primary, parent->getPosition(),
+				target->getPosition(), (int)d);
+		}
+	}
+}
 
 // tu-skeleton: 0x0077E23C 8B uw_0077e23c -- matched in Code/gen_small/uw_gen_011.cpp (not merged yet)
