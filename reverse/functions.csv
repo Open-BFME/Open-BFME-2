@@ -69059,9 +69059,9 @@ __ehhandler$?rva00115DD2@W3DTerrainBackground@@QAEXXZ,,0x00764B35,10,Code/GameEn
 ?isRenderingToTexture@W3DShaderManager@@SA_NXZ,,0x000A60EA,6,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSmudgeManagerTestHardwareSupport.cpp,matched,ZH W3DShaderManager.h inline isRenderingToTexture (m_renderingToTexture 0x00DE1F60) emitted out of line ahead of ??0W3DSmudgeManager 0x000A60F0
 ?Height@Rva001338A0@@QBEMXZ,,0x001338B0,7,Code/GameEngine/Source/Common/GapBodiesSeat2B.cpp,matched,float +0xC minus float +4 (sibling of 0x001338A0); no direct caller
 ?Rva000E0E64OnlyEmissiveDraws@@YA_NXZ,,0x000E0E64,6,Code/GameEngine/Source/Common/GapBodiesSeat2B.cpp,matched,reads bfmeOnlyEmissiveDraws 0x00DEC3D8; no direct caller
-?Rva00116FA0Get@@YAHXZ,,0x00116FA0,5,Code/Libraries/Source/WWVegas/WW3D2/Rva00116FA0Forwarders.cpp,matched,tail jump to rowed Rva00120130Get 0x00120130; int3-padded; no direct caller
-?Rva001174C0Get@@YAHXZ,,0x001174C0,5,Code/Libraries/Source/WWVegas/WW3D2/Rva00116FA0Forwarders.cpp,matched,tail jump to rowed Rva0011CDB0Get 0x0011CDB0; int3-padded; no direct caller
-?Rva001174E0Get@@YAHXZ,,0x001174E0,5,Code/Libraries/Source/WWVegas/WW3D2/Rva00116FA0Forwarders.cpp,matched,tail jump to rowed Rva00174F30Get 0x00174F30; int3-padded; no direct caller
+?Rva00116FA0Get@@YAHXZ,,0x00116FA0,5,Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp,matched,tail jump to rowed Rva00120130Get 0x00120130; int3-padded; no direct caller
+?Rva001174C0Get@@YAHXZ,,0x001174C0,5,Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp,matched,tail jump to rowed Rva0011CDB0Get 0x0011CDB0; int3-padded; no direct caller
+?Rva001174E0Get@@YAHXZ,,0x001174E0,5,Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp,matched,tail jump to rowed Rva00174F30Get 0x00174F30; int3-padded; no direct caller
 ?Rva0012E830Sort@@YAXPAUTempIndexStruct@@0@Z,,0x0012E830,5,Code/Libraries/Source/WWVegas/WW3D2/Rva00116FA0Forwarders.cpp,matched,tail jump to rowed Sort 0x0012DCF0 with the caller's two arguments; int3-padded; no direct caller
 ?ReAcquireResources@FlatHeightMapRenderObjClass@@UAEXXZ,,0x000E1276,5,Code/GameEngineDevice/Source/W3DDevice/GameClient/FlatHeightMap.cpp,matched,Zero Hour FlatHeightMap ReAcquireResources forwarding to the base heightmap reacquire 0x00066962; vftable slot after ReleaseResources 0x000E1271
 ?insert@?$vector@EV?$allocator@E@_STL@@@_STL@@QAEXPAEIABE@Z,,0x000B0293,5,Code/Libraries/Source/WWVegas/WWLib/StlContainerRva000AFE9F.cpp,matched,STLport 4.5.3 vector<unsigned char>::insert(pos n x): tail jump to the rowed _M_fill_insert 0x000AFE9F

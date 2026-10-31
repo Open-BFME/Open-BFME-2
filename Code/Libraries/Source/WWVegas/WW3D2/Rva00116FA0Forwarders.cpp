@@ -17,21 +17,6 @@ public:
 struct TempIndexStruct;
 void Sort(TempIndexStruct *begin, TempIndexStruct *end);
 
-int Rva00116FA0Get(void)
-{
-	return Rva00120130Get();
-}
-
-int Rva001174C0Get(void)
-{
-	return Rva0011CDB0Get();
-}
-
-int Rva001174E0Get(void)
-{
-	return BoxRenderObjClass::Get_Box_Display_Mask();
-}
-
 void Rva0012E830Sort(TempIndexStruct *begin, TempIndexStruct *end)
 {
 	Sort(begin, end);
