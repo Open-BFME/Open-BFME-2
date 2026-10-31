@@ -200,10 +200,12 @@ public:
 	}
 };
 
+class AsciiString;
 class ParticleSystemManager
 {
 public:
 	BfmeParticleSystemHandle createParticleSystem(const ParticleSystemTemplate *sysTemplate, bool createSlaves);
+	ParticleSystemTemplate *findTemplate(const AsciiString &name) const;
 };
 
 extern ParticleSystemManager *TheParticleSystemManager;
@@ -290,9 +292,10 @@ public:
 // and the named-shape flag update (0x006BF450).
 struct BfmeShapeE15
 {
-	unsigned char m_pad00[0x1C];
-	AsciiString m_name;			// +0x1C
-	unsigned char m_pad20[4];
+public:
+	char _00[0x1C]; // +0x00
+	AsciiString m_name; // +0x1C +0x1C
+	char m_pad20[0x4];
 };
 
 class BfmeObjE15
@@ -338,10 +341,12 @@ enum DisabledType { DISABLED_8 = 8 };
 
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 
+struct AICommandParms;
 class Rva004BFD27
 {
 public:
 	void rva004BFD27(CommandSourceType cmdSource);
+	virtual void rvaVirtual(AICommandParms *parms) = 0;
 };
 
 class AIUpdateInterface
@@ -432,10 +437,11 @@ public:
 class Player
 {
 public:
-	Int getPlayerIndex() const { return m_playerIndex; }
-
-	unsigned char m_pad00[0x54];
-	Int m_playerIndex;
+	int getPlayerIndex() const { return m_playerIndex; }
+	char m_pad00[0x54];
+	int m_playerIndex; // +0x54
+	char m_pad58[0x4];
+	int m_field5C; // +0x5C
 };
 
 class Module;

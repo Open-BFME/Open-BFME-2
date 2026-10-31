@@ -12,8 +12,10 @@ enum ObjectStatusTypes
 };
 struct BfmeShapeE15
 {
-	char _00[0x1C];
-	AsciiString m_name;
+public:
+	char _00[0x1C]; // +0x00
+	AsciiString m_name; // +0x1C +0x1C
+	char m_pad20[0x4];
 };
 // The shape list at Object +0xA8: 36-byte records between +0x2C and +0x30,
 // indexed through 0x006BD980 and searched by name through 0x006BF450.
@@ -43,7 +45,7 @@ class BfmeStrF9;
 class BfmeObjF9
 {
 public:
-	void rva0087FA50(const BfmeStrF9 &s, char c);
+	void rva0087FA50(const BfmeStrF9 &name, char flag);
 };
 class UpdateModule
 {

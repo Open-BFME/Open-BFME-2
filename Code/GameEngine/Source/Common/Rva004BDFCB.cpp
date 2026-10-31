@@ -17,8 +17,11 @@ enum Relationship
 class Player
 {
 public:
-	char m_pad[0x5C];
-	int m_field5C;
+	int getPlayerIndex() const { return m_playerIndex; }
+	char m_pad00[0x54];
+	int m_playerIndex; // +0x54
+	char m_pad58[0x4];
+	int m_field5C; // +0x5C
 };
 
 class AIInner

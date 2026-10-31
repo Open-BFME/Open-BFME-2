@@ -60,8 +60,8 @@ struct AICommandParms
 class Rva004BFD27
 {
 public:
+	void rva004BFD27(CommandSourceType cmdSource);
 	virtual void rvaVirtual(AICommandParms *parms) = 0;
-	void rva004BFD27(CommandSourceType src);
 };
 
 void Rva004BFD27::rva004BFD27(CommandSourceType src)
