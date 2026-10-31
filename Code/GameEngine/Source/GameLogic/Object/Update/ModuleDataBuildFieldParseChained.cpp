@@ -1118,30 +1118,6 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-// Retail VA 0x00C53470: 11 fields and the zero sentinel.
-// The matched registration proves the class relationship; retail supplies
-// every token, offset and callback. Global spelling is descriptive.
-extern const FieldParse BfmeMissileUpdateFields[] = {
-	{ "FuelLifetime", &INI::parseDurationUnsignedInt, 0, 0xC4 },
-	{ "IgnitionDelay", &INI::parseDurationUnsignedInt, 0, 0xC8 },
-	{ "DistanceToTravelBeforeTurning", &INI::parseReal, 0, 0xCC },
-	{ "DistanceToTargetBeforeDiving", &INI::parseReal, 0, 0xD0 },
-	{ "IgnitionFX", &INI::parseFXList, 0, 0xD4 },
-	{ "DetonateOnNoFuel", &INI::parseBool, 0, 0xD8 },
-	{ "ExhaustTemplate", &INI::parseAsciiString, 0, 0x11C },
-	{ "GarrisonHitKillRequiredKindOf", &Rva002567EAParse, 0, 0xE0 },
-	{ "GarrisonHitKillForbiddenKindOf", &Rva002567EAParse, 0, 0xFC },
-	{ "GarrisonHitKillCount", &INI::parseUnsignedInt, 0, 0xDC },
-	{ "GarrisonHitKillFX", &INI::parseFXList, 0, 0x118 },
-	{ 0, 0, 0, 0 }
-};
-
-void MissileUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
-{
-	BezierProjectileBehaviorModuleData::buildFieldParse(parse);
-	parse.add(BfmeMissileUpdateFields, 0);
-}
-
 // Retail VA 0x00BF0200: 15 fields and the zero sentinel.
 // Class identity comes from this unit's matched registration function;
 // tokens, callbacks and offsets are read from that retail table.
