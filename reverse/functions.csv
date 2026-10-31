@@ -7565,7 +7565,7 @@ _GetProcessorFlags,,0x001C4390,169,Code/Libraries/Source/VP6/GetProcessorFlags.c
 ?get@Rva0044402FDwordField@@QBEHXZ,,0x0044402F,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
 ?get@Rva004476E0DwordField@@QBEHXZ,,0x004476E0,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
 ?get@Rva004494FADwordField@@QBEHXZ,,0x004494FA,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
-?get@Rva00467F2CDwordField@@QBEHXZ,,0x00467F2C,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
+?get@Rva00467F2CDwordField@@QBEHXZ,,0x00467F2C,7,Code/GameEngine/Source/GameLogic/Object/Contain/TransportContain.cpp,matched,Disp32 dword getter
 ?get@Rva0047DAE3DwordField@@QBEHXZ,,0x0047DAE3,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
 ?get@Rva0028A873WordField@@QBEGXZ,,0x0028A873,8,Code/GameEngine/Source/Common/DispWordFieldGetters.cpp,matched,Disp32 word getter
 ?get@Rva005686B1WordField@@QBEGXZ,,0x005686B1,8,Code/GameEngine/Source/Common/DispWordFieldGetters.cpp,matched,Disp32 word getter

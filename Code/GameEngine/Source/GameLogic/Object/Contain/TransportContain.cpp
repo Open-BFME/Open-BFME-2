@@ -15,6 +15,18 @@
 #pragma comment(linker, "/alternatename:?_M_create_node@?$list@PAVRva00467DB3Obj@@V?$allocator@PAVRva00467DB3Obj@@@_STL@@@_STL@@IAEPAU?$_List_node@PAVRva00467DB3Obj@@@2@ABQAVRva00467DB3Obj@@@Z=?Rva004677FDCreateNode@@YGPAXPBX@Z")
 #include <vector>
 #include "../../../../../Libraries/Include/Lib/BfmeE16.h"
+#define BFME_DISP_DWORD_GETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		int get() const; \
+		char m_lead[DISP]; \
+		int m_value; \
+	}; \
+	int NAME::get() const \
+	{ \
+		return m_value; \
+	}
 
 enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
 
@@ -1360,11 +1372,49 @@ struct Rva00467DE6Payload
 	int count;
 };
 
+class MilesAudioManager
+{
+public:
+    virtual int rva0005189D() const;
+    char m_lead[0x678 - sizeof(void *)];
+    int m_value;
+};
+
+BFME_DISP_DWORD_GETTER(Rva00467F2CDwordField, 0xE0)
+
+// ?rva00524F35@Rva00524F35@@QAEAAV1@H@Z @0x00524F35 37B
+class Rva00524F35
+{
+public:
+	int m_00;
+	int m_04;
+	int m_08;
+	int m_0c;
+	int m_10;
+	unsigned char m_14;
+	unsigned char m_15;
+	unsigned char m_16;
+	Rva00524F35& rva00524F35(int v);
+};
+
+// Callers elsewhere reach bodies in this unit through other spellings; retail's
+// call sites in their matched rows land on these addresses (same ABI). Bind them.
+
+// BF1 9cbfb551fe Common/Bfme/Rva001BD660_setFlags.cpp is the clean semantic guide.
+// Complete native 0023C4CE..0023C4DB RET leaf proves: OR stack dword into receiver114; RET4.
+// Original owner and complete bounds unresolved; independent address-owned view.
+class Rva0023C4CEFields {
+public: void setFlags(unsigned int value);
+private: unsigned char unknown[0x114]; unsigned int flags;
+};
+
 // tu-skeleton: 0x00466DA9 19B ?isExitBusy@TransportContain@@UBE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/Rva00466D93ExitReserve.cpp (not merged yet)
 
 // tu-skeleton: 0x00466DBC 73B ?xfer@TransportContain@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainXfer.cpp (not merged yet)
 
 // tu-skeleton: 0x00466E05 5B ?rva00466E05@Rva00466E05@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/TransportContain.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/TransportContain.cpp
 
@@ -1867,6 +1917,30 @@ NameKeyType TransportContain::getModuleNameKey() const
 	return TheTransportContainPoolKey;
 }
 
+// ---- from Code/GameEngine/Source/Common/Rva00467DE6PayloadParse.cpp
+
+//
+// Retail 0x00467DE6 (123B, EH, cdecl), an EH-prolog start Ghidra never listed:
+// an INI field parse callback in the shape of Zero Hour's
+// TransportContainModuleData::parseInitialPayload (neighbours: the
+// TransportContain destructor and Rva00467DCDDestroy.cpp). It reads a name and
+// an optional count (default 1) and appends the {name, count} record to the
+// list at instance + 0xA4 through the rowed push_back 0x00467DB3, whose pinned
+// spelling is for a list of pointers; the record is passed by reference
+// through it. Names are address-derived.
+
+void __cdecl rva00467DE6(INI *ini, void *instance, void *store, const void *userData)
+{
+	const char *name = ini->getNextToken(0);
+	const char *countText = ini->getNextTokenOrNull(0);
+	int count = countText ? ini->scanInt(countText) : 1;
+	Rva00467DE6Payload payload;
+	payload.name.set(name);
+	payload.count = count;
+	reinterpret_cast<_STL::list<Rva00467DB3Obj *, _STL::allocator<Rva00467DB3Obj *> > *>(
+		static_cast<char *>(instance) + 0xA4)->push_back(reinterpret_cast<Rva00467DB3Obj *const &>(payload));
+}
+
 // tu-skeleton: 0x00466E12 17B ??0Rva00466E12@@QAE@XZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE22.cpp (not merged yet)
 
 // tu-skeleton: 0x00466E58 12B ?rva00466E58@Rva00466E58@@QBEEH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAM.cpp (not merged yet)
@@ -1901,35 +1975,26 @@ NameKeyType TransportContain::getModuleNameKey() const
 
 // tu-skeleton: 0x0046781F 665B ?rva0046781F@Rva0046781F@@QAEXPAVObject@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainOnContaining.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/Rva00467DE6PayloadParse.cpp
-
-//
-// Retail 0x00467DE6 (123B, EH, cdecl), an EH-prolog start Ghidra never listed:
-// an INI field parse callback in the shape of Zero Hour's
-// TransportContainModuleData::parseInitialPayload (neighbours: the
-// TransportContain destructor and Rva00467DCDDestroy.cpp). It reads a name and
-// an optional count (default 1) and appends the {name, count} record to the
-// list at instance + 0xA4 through the rowed push_back 0x00467DB3, whose pinned
-// spelling is for a list of pointers; the record is passed by reference
-// through it. Names are address-derived.
-
-void __cdecl rva00467DE6(INI *ini, void *instance, void *store, const void *userData)
-{
-	const char *name = ini->getNextToken(0);
-	const char *countText = ini->getNextTokenOrNull(0);
-	int count = countText ? ini->scanInt(countText) : 1;
-	Rva00467DE6Payload payload;
-	payload.name.set(name);
-	payload.count = count;
-	reinterpret_cast<_STL::list<Rva00467DB3Obj *, _STL::allocator<Rva00467DB3Obj *> > *>(
-		static_cast<char *>(instance) + 0xA4)->push_back(reinterpret_cast<Rva00467DB3Obj *const &>(payload));
-}
-
 // tu-skeleton: 0x00467E61 128B ??1TransportContain@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00467F26 6B ?name@TransportContain@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x00467F2C 7B ?get@Rva00467F2CDwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp
+
+// Disp32 dword getters: seven-byte __thiscall members with one shape:
+//
+//     mov eax,[ecx+<DISP>] / ret
+//
+// One dword is read at a fixed displacement from `this` and returned. Every
+// displacement here is a multiple of four, so the accessed member is spelled
+// as an `int` right after the lead array. The bytes cannot distinguish `int`
+// from `unsigned int`, a pointer, or anything else four bytes wide moved
+// with a plain load. Members before the accessed one are spelled as a lead
+// array because their types are not witnessed here, only their total size.
+// Identity is not recovered: every name is derived from its address (BFME1
+// pioneered the same family in
+// reference/open-bfme-1/Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp).
+// No // cl: line (defaults match the frameless 7-byte shape).
 
 // tu-skeleton: 0x00467F33 8B ?onCapture@TransportContain@@WCA@AEXHH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainDtor.cpp (not merged yet)
 
