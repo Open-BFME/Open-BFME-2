@@ -48312,7 +48312,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00596225,68,code,Code/GameEngine/Source/Common/AIStatBase.cpp,approved,C,C=0x0059614B..0x00596269 provisional,Code/GameEngine/Source/Common/Rva005961D6Dtor.cpp
 0x00596269,98,code,Code/GameEngine/Source/Common/AIStatBase.cpp,approved,C,W=Code/GameEngine/Source/GameLogic/SkirmishAI/AIStatCollector/AIUnitStats.cpp C=0x0059614B..0x005962CB provisional,Code/GameEngine/Source/Common/AIStatBase.cpp
 0x005962CB,28,code,Code/GameEngine/Source/Common/AIStatBase.cpp,approved,C,C=0x0059614B..0x005962E7 provisional,Code/GameEngine/Source/Common/AIStatBase.cpp
-0x005962E7,16,code,Code/GameEngine/Source/Common/AIStatBase.cpp,approved,C,C=0x0059614B..0x005962F7 provisional,Code/GameEngine/Source/Common/Rva0010BA61Wrappers.cpp
+0x005962E7,16,code,Code/GameEngine/Source/Common/AIStatBase.cpp,approved,C,C=0x0059614B..0x005962F7 provisional,Code/GameEngine/Source/Common/AIStatBase.cpp
 0x005962F7,111,code,Code/GameEngine/Source/Common/AIStatBase.cpp,approved,U,N=Code/GameEngine/Source/Common/AIUnitStats.cpp provisional,Code/GameEngine/Source/Common/AIStatBase.cpp
 0x00596366,35,code,Code/GameEngine/Source/Common/AIStatBase.cpp,approved,U,N=Code/GameEngine/Source/Common/AIEconomyStats.cpp provisional,Code/GameEngine/Source/Common/Rva0025BFE3Derived.cpp
 0x00596389,11,code,Code/GameEngine/Source/Common/AIStatBase.cpp,approved,U,N=Code/GameEngine/Source/Common/AIEconomyStats.cpp provisional,Code/GameEngine/Source/Common/Rva0025BFE3Derived.cpp

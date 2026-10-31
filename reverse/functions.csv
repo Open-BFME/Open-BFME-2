@@ -43426,7 +43426,7 @@ _FilterBlockBil_8_mmx,,0x001D7200,204,Code/Libraries/Source/VP6/FilterBlockBil8M
 ?rva002F1CB3@Rva002F1CB3@@QAEPAV1@HH@Z,,0x002F1CB3,42,Code/GameEngine/Source/Common/Rva002F1C5FSelfLink.cpp,matched,self-link init returning this calling unrowed member 0x002F0C55
 ?rva004152BC@Rva004152BC@@QAEPAV1@HH@Z,,0x004152BC,42,Code/GameEngine/Source/Common/Rva002F1C5FSelfLink.cpp,matched,self-link init returning this calling unrowed member 0x004151C4
 ?rva004E54B8@Rva004E54B8@@QAEXXZ,,0x004E54B8,16,Code/GameEngine/Source/Common/Rva0010BA61Wrappers.cpp,matched,helper-then-tail wrapper calling 0x004E5372 with tail 0x004E52DC
-?rva005962E7@Rva005962E7@@QAEXXZ,,0x005962E7,16,Code/GameEngine/Source/Common/Rva0010BA61Wrappers.cpp,matched,helper-then-tail wrapper calling rowed 0x0025C010 with tail 0x00596269
+?rva005962E7@Rva005962E7@@QAEXXZ,,0x005962E7,16,Code/GameEngine/Source/Common/AIStatBase.cpp,matched,helper-then-tail wrapper calling rowed 0x0025C010 with tail 0x00596269
 ?rva005D1516@Rva005D1516@@QAEXXZ,,0x005D1516,17,Code/GameEngine/Source/Common/Rva0010BA61Wrappers.cpp,matched,helper-then-member-tail wrapper with +8 member and tail 0x005D13C2
 ?rva005E1906@Rva005E1906@@QAEXXZ,,0x005E1906,17,Code/GameEngine/Source/Common/Rva0010BA61Wrappers.cpp,matched,helper-then-member-tail wrapper with +0xC member and tail 0x005E18D0
 ?rva005E1917@Rva005E1917@@QAEXXZ,,0x005E1917,17,Code/GameEngine/Source/Common/Rva0010BA61Wrappers.cpp,matched,helper-then-member-tail wrapper with +0xC member and tail 0x005E18DC

@@ -70,11 +70,6 @@ class Rva005962E7 : public Rva005961D6
 public:
 	void rva005962E7();
 };
-void Rva005962E7::rva005962E7()
-{
-	((Rva0025C010 *)this)->rva0025C010();
-	Rva005961D6::rva00596269();
-}
 
 // Coord3D: shared header/view; no private copy.
 #define COORD3D_VIEW_EXTERN_DTOR
