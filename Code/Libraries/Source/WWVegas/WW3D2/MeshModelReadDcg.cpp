@@ -46,38 +46,32 @@ public:
 	WWINLINE const float & operator [](int i) const { return (&X)[i]; }
 };
 
-class Vector4
-{
-public:
-	float X;
-	float Y;
-	float Z;
-	float W;
+#include "../WWMath/Vector4Data.h"
 
-	__declspec(dllimport) __forceinline Vector4(void) {};
-	__declspec(dllimport) __forceinline Vector4(const Vector4 & v) { X = v.X; Y = v.Y; Z = v.Z; W = v.W; }
-	__declspec(dllimport) __forceinline Vector4 & operator = (const Vector4 & v) { X = v.X; Y = v.Y; Z = v.Z; W = v.W; return *this; }
-	__declspec(dllimport) __forceinline void Set(float x, float y, float z, float w) { X = x; Y = y; Z = z; W = w; }
-	__declspec(dllimport) __forceinline float & operator [](int i) { return (&X)[i]; }
-	__declspec(dllimport) __forceinline const float & operator [](int i) const { return (&X)[i]; }
+namespace {
+struct UnpackedColor : Vector4 {
+ __declspec(dllimport) __forceinline UnpackedColor() {}
+ __declspec(dllimport) __forceinline UnpackedColor(const UnpackedColor &v) {X=v.X;Y=v.Y;Z=v.Z;W=v.W;}
 };
+static __forceinline void copyColor(Vector4 &value, const UnpackedColor &other) {
+ value.X=other.X;value.Y=other.Y;value.Z=other.Z;value.W=other.W;
+}
+}
 
 class DX8Wrapper
 {
 public:
-	__declspec(dllimport) static Vector4 Convert_Color(unsigned color);
 	__declspec(dllimport) static unsigned int Convert_Color(const Vector3 &color, const float alpha);
 	__declspec(dllimport) static unsigned int Convert_Color(const Vector4 &color);
 };
 
-// ?DX8Wrapper::Convert_Color present-unmatched
-__declspec(dllimport) __forceinline Vector4 DX8Wrapper::Convert_Color(unsigned color)
+static __forceinline UnpackedColor unpackColor(unsigned color)
 {
-	Vector4 col;
-	col[3] = ((color & 0xff000000) >> 24) / 255.0f;
-	col[0] = ((color & 0xff0000) >> 16) / 255.0f;
-	col[1] = ((color & 0xff00) >> 8) / 255.0f;
-	col[2] = ((color & 0xff) >> 0) / 255.0f;
+	UnpackedColor col;
+	col.W = ((color & 0xff000000) >> 24) / 255.0f;
+	col.X = ((color & 0xff0000) >> 16) / 255.0f;
+	col.Y = ((color & 0xff00) >> 8) / 255.0f;
+	col.Z = ((color & 0xff) >> 0) / 255.0f;
 	return col;
 }
 
@@ -147,7 +141,7 @@ not_changed:
 // ?DX8Wrapper::Convert_Color present-unmatched
 __declspec(dllimport) __forceinline unsigned int DX8Wrapper::Convert_Color(const Vector4 &color)
 {
-	return Convert_Color(reinterpret_cast<const Vector3 &>(color), color[3]);
+	return Convert_Color(reinterpret_cast<const Vector3 &>(color), color.W);
 }
 
 class VertexMaterialClass
@@ -246,7 +240,7 @@ bool MeshModelClass::read_dcg(ChunkLoadClass &cload, MeshLoadContextClass *conte
 		for (int i = 0; i < VertexCount; i++) {
 			cload.Read(&color, sizeof(color));
 			Vector4 col;
-			col = DX8Wrapper::Convert_Color(dcg[i]);
+			copyColor(col, unpackColor(dcg[i]));
 			col.W = (float)color.A / 255.0f;
 			dcg[i] = DX8Wrapper::Convert_Color(col);
 		}

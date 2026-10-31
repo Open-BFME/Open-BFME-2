@@ -10,6 +10,12 @@ VslotSmallBodiesAG_Rva00131CF2.cpp (10 matched functions, 264 bytes) does not li
 Recorded `blocked` in `reverse/re_attempts.log`.
 
 
+### Adopt canonical Vector4 storage in mesh color loading (2026-11-01)
+
+Mesh DCG loading uses registered Vector4 storage; the native read/color conversion flow is retained, including alpha and x87 behavior. Normal/frozen/EH/strict and owning acceptance pass and retire the Vector4 key. This is source reconciliation, not measured memory or runtime improvement.
+[Evidence](../reverse/attempt_support/mesh-dcg-vector4-20261101.md).
+
+
 ### Adopt canonical Vector4 storage in Drawable interpolation (2026-11-01)
 
 Drawable interpolation now uses canonical Vector4 row storage with local component copying. Complete normal/frozen/EH/strict checks and owning acceptance preserve the existing native scope and retire one Vector4 key. No current census or full runtime gain is claimed.
