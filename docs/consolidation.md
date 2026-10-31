@@ -256,6 +256,14 @@ row where it was:
     python3 tools/tu_skeleton.py --split FILE --for TU --dry-run
     BFME_CLAIM_OWNER=<seat> python3 tools/tu_skeleton.py --split FILE --for TU
 
+A successful split dry run saves its composition under ignored
+`build/tu_skeleton/split_plans/`. Applying the same split reuses that composition
+while the tree and planning inputs are unchanged. Application still claims the
+scope, checks the residual and moved rows, verifies the final TU, runs the full
+residual/destination link guard, and carries the unit-key registers. A stale or
+failing plan falls back to the normal search; `plan_reused: True` identifies a
+successful reuse. Plans are separate for each donor and destination pair.
+
 What it does, in order, writing nothing until the last step:
 
 1. Identifies each approved row's definition by the name it spells

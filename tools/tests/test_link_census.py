@@ -804,6 +804,38 @@ def test_ledger_row_object_owns_its_name(monkeypatch):
     assert "s" not in L.ledger_owners(scaffold, [])  # a dump row claims no identity
 
 
+def test_owner_paths_are_scoped_to_one_call_and_keep_archive_members_distinct(monkeypatch):
+    calls = collections.Counter()
+    generation = ["old"]
+
+    def object_of(row):
+        member = L.build.ledger_member(row) if row["source"].endswith(".lib") else "unit"
+        calls[(row["source"], member)] += 1
+        return Path(generation[0] + "_" + member + ".obj")
+
+    monkeypatch.setattr(L.build, "row_object", object_of)
+    rows = [dict(name="f", source="Code/A.cpp", notes=""),
+            dict(name="g", source="Code/A.cpp", notes="object-symbol=real_g"),
+            dict(name="h", source="Code/A.lib", notes="member=one"),
+            dict(name="i", source="Code/A.lib", notes="member=two"),
+            dict(name="j", source="Code/A.lib", notes="member=one"),
+            dict(name="ignored", source="Code/A.cpp", notes="icf-owner=elsewhere")]
+    owners = L.ledger_owners(rows, [])
+    assert owners["f"] == owners["g"] == owners["real_g"] == {"old_unit.obj"}
+    assert owners["h"] == owners["j"] == {"old_one.obj"}
+    assert owners["i"] == {"old_two.obj"} and "ignored" not in owners
+    assert set(calls.values()) == {2}  # resolve once, then recheck once per selector
+    generation[0] = "new"
+    assert L.ledger_owners(rows, [])["f"] == {"new_unit.obj"}
+
+
+def test_owner_path_retarget_during_the_call_is_refused(monkeypatch):
+    choices = iter((Path("old.obj"), Path("new.obj")))
+    monkeypatch.setattr(L.build, "row_object", lambda row: next(choices))
+    with pytest.raises(SystemExit, match="object path changed"):
+        L.ledger_owners([dict(name="f", source="Code/A.cpp", notes="")], [])
+
+
 def test_selected_second_definition_over_the_owner_blocks_its_callers():
     # legacy.obj defines d1 too, ahead of glob.obj (the ledger row's owner), and the link kept it
     present = [Path("/o/legacy.obj"), Path("/o/glob.obj"), Path("/o/caller.obj")]

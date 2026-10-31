@@ -1755,12 +1755,15 @@ def ledger_owners(rows, data=None):
     matched data row (`data`, default data_ledger()). For a name several
     objects define, the owner's is retail's definition."""
     owners = collections.defaultdict(set)
+    paths = build.RowObjectPaths(build.row_object)
     for row in rows:
         if "icf-owner=" not in (row.get("notes") or "") and not build.is_scaffold_row(row):
+            obj = paths.get(row).name
             for name in {row["name"], build.ledger_object_symbol(row)}:
-                owners[name].add(build.row_object(row).name)
+                owners[name].add(obj)
     for row in data_ledger() if data is None else data:
         owners[row["name"]].add(data_object(row).name)
+    paths.check()  # detect a retargeted path; no mapping survives this call
     return owners
 
 

@@ -1752,10 +1752,14 @@ def merge_plan_inputs(sk, don, mixed, refused):
 
 
 def load_merge_plan(tu, state, inputs):
+    return load_verified_plan(merge_plan_path(tu), state, inputs)
+
+
+def load_verified_plan(path, state, inputs):
     if state is None:
         return None
     try:
-        plan = json.loads(merge_plan_path(tu).read_text(encoding="utf-8"))
+        plan = json.loads(path.read_text(encoding="utf-8"))
     except (OSError, ValueError):
         return None
     if not isinstance(plan, dict):
@@ -1766,9 +1770,12 @@ def load_merge_plan(tu, state, inputs):
 
 
 def save_merge_plan(tu, state, inputs, plan):
+    save_verified_plan(merge_plan_path(tu), state, inputs, plan)
+
+
+def save_verified_plan(path, state, inputs, plan):
     if state is None or merge_plan_state() != state:
         return  # inputs changed during verification; a later apply must search again
-    path = merge_plan_path(tu)
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_name(path.name + f".{os.getpid()}.tmp")
     temporary.write_text(json.dumps({"version": 1, "state": state, "inputs": inputs, **plan}),
@@ -2839,7 +2846,49 @@ def placed_elsewhere(tu, own, assigned):
                                if placed(r) not in (tu.lower(), None) and not fold_alias(r))
 
 
+def split_plan_path(path, tu):
+    key = hashlib.sha256(json.dumps([path, tu]).encode("utf-8")).hexdigest()
+    return ROOT / "build/tu_skeleton/split_plans" / (key + ".json")
+
+
+def reuse_split_plan(tu, don, report, plan, dry_run, guard, applier, state):
+    """Reuse a composition, with fresh bytes and the complete two-object link guard."""
+    acc, text = plan.get("accepted"), plan.get("text")
+    expected = {r["target_rva"] for rows in don.values() for r in rows}
+    baseline = plan.get("baseline")
+    if (plan.get("tu_file") != tu or not isinstance(acc, list)
+            or not all(isinstance(f, str) for f in acc) or len(acc) != len(set(acc))
+            or set(acc) != set(don) or not isinstance(text, str)
+            or not isinstance(baseline, list) or not all(isinstance(r, str) for r in baseline)
+            or set(baseline) != expected or not isinstance(plan.get("rows"), int)
+            or not isinstance(plan.get("flags"), list)
+            or not all(isinstance(flag, str) for flag in plan["flags"])
+            or not isinstance(plan.get("rejected"), dict)):
+        return None
+    v = Verifier(tu)
+    rows = [r for f in acc for r in don[f]]
+    got = v.matched(text, rows)
+    if got is None or not expected <= got:
+        return None
+    guard.load()
+    if guard.prepare(don) or guard.judge(v.obj, acc, text):
+        return None
+    if state is None or merge_plan_state() != state:
+        return None
+    report.update(accepted=acc, flags=plan["flags"], rows=plan["rows"],
+                  rejected=plan["rejected"], plan_reused=True,
+                  link_guard="split: residual and destination compared together")
+    if dry_run:
+        report["text"] = text
+    else:
+        moved = applier(tu, acc, text)
+        report["repointed"] = moved
+        report["stage"] = "staged: " + " ".join([tu] + sorted(moved) + [f for f in acc if f != tu])
+    return report
+
+
 def split(path, tu, dry_run=False, claim=True):
+    state = merge_plan_state()
     report = {"file": path, "tu": tu}
     rows = file_rows(path)
     if not rows:
@@ -3005,6 +3054,8 @@ def split(path, tu, dry_run=False, claim=True):
         don[tu] = own
     report.update(approved=len(sk), accepted=[], rejected={})
     texts = {path: donor_text}
+    inputs = merge_plan_inputs(sk, don, texts, {"residual": residual,
+                              "data_moved": cv.data_moved, "hatches_move": report["hatches_move"]})
     guard = SplitLinkGuard(tu, path, residual, v.obj, [r["target_rva"] for r in carved],
                            data_moved=cv.data_moved, root=ROOT, expected_source=original_bytes)
 
@@ -3029,6 +3080,11 @@ def split(path, tu, dry_run=False, claim=True):
 
     def run():
         try:
+            plan = load_verified_plan(split_plan_path(path, tu), state, inputs)
+            if plan:
+                reused = reuse_split_plan(tu, don, report, plan, dry_run, guard, applier, state)
+                if reused is not None:
+                    return reused
             return _merge(tu, sk, don, report, dry_run, texts=texts, applier=applier, guard=guard)
         except UnitKeyRefusal as refused_keys:
             report["blocked"] = f"unit keys (data_ledger.csv / fold proofs): {refused_keys}"[:400]
@@ -3051,6 +3107,11 @@ def split(path, tu, dry_run=False, claim=True):
             report["blocked"] = "unit keys (data_ledger.csv / fold proofs): " + "; ".join(keys.problems[:3])[:300]
         elif keys.moved:
             report["carried"] = dict(keys.moved)
+        if state is not None and "blocked" not in report and isinstance(report.get("text"), str):
+            save_verified_plan(split_plan_path(path, tu), state, inputs, {
+                "tu_file": tu, "accepted": report["accepted"], "text": report["text"],
+                "baseline": sorted({r["target_rva"] for f in report["accepted"] for r in don[f]}),
+                "rows": report["rows"], "flags": report["flags"], "rejected": report["rejected"]})
     if path not in report.get("accepted", []):
         report.setdefault("blocked", "the carved bodies do not verify in the TU: "
                           + str(report.get("rejected", {}).get(path, ""))[:300])

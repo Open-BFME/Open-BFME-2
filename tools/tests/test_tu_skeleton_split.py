@@ -2,7 +2,7 @@
 import sys
 import tempfile
 import unittest
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
@@ -759,6 +759,77 @@ class ShatterLedgerTests(unittest.TestCase):
 
 
 HEADER = "name,export_rva,target_rva,target_size,source,status,notes\n"
+
+
+class SavedSplitPlanTests(unittest.TestCase):
+    def plan(self):
+        return {"tu_file": "Code/T.cpp", "accepted": ["Code/T.cpp", "Code/M.cpp"],
+                "text": "verified composition", "baseline": ["0x1000", "0x1010"],
+                "rows": 2, "flags": [], "rejected": {}}
+
+    def test_plans_are_separate_per_donor_and_require_unchanged_inputs(self):
+        with tempfile.TemporaryDirectory() as folder, patch.object(T, "ROOT", Path(folder)), \
+                patch.object(T, "merge_plan_state", return_value="tree-a"):
+            path = T.split_plan_path("Code/M.cpp", "Code/T.cpp")
+            T.save_verified_plan(path, "tree-a", "inputs-a", self.plan())
+            self.assertEqual(T.load_verified_plan(path, "tree-a", "inputs-a")["text"], "verified composition")
+            self.assertIsNone(T.load_verified_plan(path, "tree-b", "inputs-a"))
+            self.assertIsNone(T.load_verified_plan(path, "tree-a", "inputs-b"))
+            self.assertIsNone(T.load_verified_plan(T.split_plan_path("Code/N.cpp", "Code/T.cpp"),
+                                                  "tree-a", "inputs-a"))
+            self.assertNotEqual(path, T.split_plan_path("Code/M.cpp", "Code/Other.cpp"))
+            other = T.split_plan_path("Code/N.cpp", "Code/T.cpp")
+            T.save_verified_plan(other, "old-tree", "inputs-a", self.plan())
+            self.assertFalse(other.exists())  # source changed during the trial
+            path.write_text("{invalid", encoding="utf-8")
+            self.assertIsNone(T.load_verified_plan(path, "tree-a", "inputs-a"))
+
+    def test_reuse_still_checks_all_bytes_linking_and_latest_tree_before_apply(self):
+        don = {"Code/M.cpp": [{"target_rva": "0x1000"}],
+               "Code/T.cpp": [{"target_rva": "0x1010"}]}
+        verifier = Mock(obj="new.obj")
+        verifier.matched.return_value = {"0x1000", "0x1010"}
+        guard = Mock()
+        guard.prepare.return_value = None
+        guard.judge.return_value = []
+        apply = Mock(return_value={"reverse/functions.csv": 1})
+        with patch.object(T, "Verifier", return_value=verifier), \
+                patch.object(T, "merge_plan_state", return_value="same-tree") as state:
+            verifier.matched.return_value = {"0x1000"}
+            self.assertIsNone(T.reuse_split_plan("Code/T.cpp", don, {}, self.plan(), False, guard, apply, "same-tree"))
+            guard.prepare.assert_not_called()
+            verifier.matched.return_value = {"0x1000", "0x1010"}
+            guard.prepare.return_value = "baseline no longer matches"
+            self.assertIsNone(T.reuse_split_plan("Code/T.cpp", don, {}, self.plan(), False, guard, apply, "same-tree"))
+            guard.prepare.return_value = None
+            guard.judge.return_value = ["outside consumers lose provider"]
+            self.assertIsNone(T.reuse_split_plan("Code/T.cpp", don, {}, self.plan(), False, guard, apply, "same-tree"))
+            guard.judge.return_value = []
+            state.return_value = "changed-tree"
+            self.assertIsNone(T.reuse_split_plan("Code/T.cpp", don, {}, self.plan(), False, guard, apply, "same-tree"))
+            apply.assert_not_called()
+            state.return_value = "same-tree"
+            dry = T.reuse_split_plan("Code/T.cpp", don, {}, self.plan(), True, guard, apply, "same-tree")
+            self.assertEqual(dry["text"], "verified composition")
+            apply.assert_not_called()
+            apply.side_effect = T.UnitKeyRefusal("data ownership changed")
+            with self.assertRaises(T.UnitKeyRefusal):
+                T.reuse_split_plan("Code/T.cpp", don, {}, self.plan(), False, guard, apply, "same-tree")
+            apply.side_effect = None
+            result = T.reuse_split_plan("Code/T.cpp", don, {}, self.plan(), False, guard, apply, "same-tree")
+            self.assertTrue(result["plan_reused"])
+            guard.judge.assert_called_with("new.obj", ["Code/T.cpp", "Code/M.cpp"], "verified composition")
+            self.assertEqual({r["target_rva"] for r in verifier.matched.call_args.args[1]}, {"0x1000", "0x1010"})
+
+    def test_incomplete_or_malformed_plan_falls_back_before_verification(self):
+        don = {"Code/M.cpp": [{"target_rva": "0x1000"}],
+               "Code/T.cpp": [{"target_rva": "0x1010"}]}
+        with patch.object(T, "Verifier") as verifier:
+            for change in ({"baseline": ["0x1000"]}, {"accepted": ["Code/M.cpp"]},
+                           {"accepted": [None]}, {"flags": "-O1"}, {"tu_file": "Code/Wrong.cpp"}):
+                plan = dict(self.plan(), **change)
+                self.assertIsNone(T.reuse_split_plan("Code/T.cpp", don, {}, plan, False, Mock(), Mock(), "same-tree"))
+            verifier.assert_not_called()
 
 
 class RepointTests(unittest.TestCase):
