@@ -54,6 +54,28 @@ typedef float Real;
 #define LogicFramesPerSecond BfmeLogicFramesPerSecond
 #define SLOT_GAP10(p, n) virtual void p##n##0(); virtual void p##n##1(); virtual void p##n##2(); virtual void p##n##3(); virtual void p##n##4(); \
 	virtual void p##n##5(); virtual void p##n##6(); virtual void p##n##7(); virtual void p##n##8(); virtual void p##n##9();
+#define BFME_SNAPSHOT_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	protected: \
+		virtual const char *GetSnapshotName() const; \
+	}; \
+	const char *NAME::GetSnapshotName() const \
+	{ \
+		return TEXT; \
+	}
+#define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	public: \
+		const char *name() const; \
+	}; \
+	const char *NAME::name() const \
+	{ \
+		return TEXT; \
+	}
+#include "../GameLogic/AI/WorkOrder.h"
+#include "../GameLogic/AI/TeamInQueue.h"
 
 class NameKeyGenerator
 {
@@ -725,7 +747,11 @@ public:
 	virtual void rva00494AC6(float v);
 };
 
+BFME_LITERAL_NAME_GETTER(Rva0049A6C1Named, "HordeAIUpdate")
+
 // tu-skeleton: 0x0049A64B 49B ??1HordeAIUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0026E836Derived.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/HordeAIUpdate.cpp
 
 // ---- from Code/GameEngine/Source/Common/HordeAIUpdate.cpp
 
@@ -863,14 +889,29 @@ UpdateSleepTime HordeAIUpdate::update( void )
 	return AIUpdateInterface::update();
 }
 
-// tu-skeleton: 0x0049A6C1 6B ?name@Rva0049A6C1Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/GapBodiesS3B.cpp
 
 Rva0049A6C7Base3 *Rva0049A6C7::rva0049A6C7()
 {
 	return this;
 }
+
+// ---- from Code/GameEngine/Source/Common/ModuleNameGetters.cpp
+
+// Module literal name getters: six-byte const members with one shape:
+//
+//     mov eax,<offset string literal> / ret
+//
+// Each body returns a pointer to a NUL-terminated Behavior/Update/Contain
+// class-name string in .rdata. Each body VA carries exactly one .rdata
+// reference from its module vtable (descriptor tail closed by the shared
+// 0x004B3FD0 pair -- the same family marker as the Subsystem getters).
+// Split from Code/GameEngine/Source/Common/SubsystemNameGetters.cpp into a
+// contributor-local unit to keep concurrent landings conflict-free; the
+// BFME_LITERAL_NAME_GETTER macro is verbatim, only the class names follow
+// this tree's address-derived convention (identity unrecoverable from 6
+// bytes, string carried in source where verify_string_refs re-reads it).
+// No // cl: line (defaults match the frameless 6-byte shape).
 
 // tu-skeleton: 0x0049A6D7 5B ?rva0049A6D7@Rva0049A6D7@@QAE_NHHH@Z -- matched in Code/GameEngine/Source/Common/VtableConstantPredicates.cpp (not merged yet)
 

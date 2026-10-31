@@ -38236,7 +38236,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0049A642,9,code,,,-,,Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp
 0x0049A64B,49,code,Code/GameEngine/Source/Common/HordeAIUpdate.cpp,approved,N,N=Code/GameEngine/Source/Common/HordeAIUpdate.cpp provisional,Code/GameEngine/Source/Common/Rva0026E836Derived.cpp
 0x0049A67C,69,code,Code/GameEngine/Source/Common/HordeAIUpdate.cpp,approved,N,N=Code/GameEngine/Source/Common/HordeAIUpdate.cpp provisional,Code/GameEngine/Source/Common/HordeAIUpdate.cpp
-0x0049A6C1,6,code,Code/GameEngine/Source/Common/HordeAIUpdate.cpp,approved,C,C=0x0049A67C..0x0049A6C7 provisional,Code/GameEngine/Source/Common/ModuleNameGetters.cpp
+0x0049A6C1,6,code,Code/GameEngine/Source/Common/HordeAIUpdate.cpp,approved,C,C=0x0049A67C..0x0049A6C7 provisional,Code/GameEngine/Source/Common/HordeAIUpdate.cpp
 0x0049A6C7,16,code,Code/GameEngine/Source/Common/HordeAIUpdate.cpp,approved,C,C=0x0049A67C..0x0049A6D7 provisional,Code/GameEngine/Source/Common/HordeAIUpdate.cpp
 0x0049A6D7,5,code,Code/GameEngine/Source/Common/HordeAIUpdate.cpp,approved,C,C=0x0049A67C..0x0049A6DC provisional,Code/GameEngine/Source/Common/VtableConstantPredicates.cpp
 0x0049A6DC,144,code,Code/GameEngine/Source/Common/HordeAIUpdate.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/HordeAIUpdate.cpp W=Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/HordeAIUpdate.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/HordeAIUpdatePrivateCommands.cpp
