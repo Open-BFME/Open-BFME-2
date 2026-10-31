@@ -335,6 +335,8 @@ public:
 	unsigned char m_deadByte;			// +0x438
 };
 
+class Weapon;
+
 class TurretAI : public Snapshot, public TurretAINotifyBase
 {
 public:
@@ -425,6 +427,153 @@ public:
 	bool isWeaponSlotOnTurret(WeaponSlotType wslot) const;
 };
 
+enum MoodMatrixAction
+{
+	MM_Action_Idle
+};
+
+class AIUpdateInterface
+{
+public:
+	Object *getNextMoodTarget(Bool calledByAI, Bool calledDuringIdle);
+	unsigned int getMoodMatrixActionAdjustment(MoodMatrixAction action) const;
+	virtual void _slot000();
+	virtual void _slot001();
+	virtual void _slot002();
+	virtual void _slot003();
+	virtual void _slot004();
+	virtual void _slot005();
+	virtual void _slot006();
+	virtual void _slot007();
+	virtual void _slot008();
+	virtual void _slot009();
+	virtual void _slot010();
+	virtual void _slot011();
+	virtual void _slot012();
+	virtual void _slot013();
+	virtual void _slot014();
+	virtual void _slot015();
+	virtual void _slot016();
+	virtual void _slot017();
+	virtual void _slot018();
+	virtual void _slot019();
+	virtual void _slot020();
+	virtual void _slot021();
+	virtual void _slot022();
+	virtual void _slot023();
+	virtual void _slot024();
+	virtual void _slot025();
+	virtual void _slot026();
+	virtual void _slot027();
+	virtual void _slot028();
+	virtual void _slot029();
+	virtual void _slot030();
+	virtual void _slot031();
+	virtual void _slot032();
+	virtual void _slot033();
+	virtual void _slot034();
+	virtual void _slot035();
+	virtual void _slot036();
+	virtual void _slot037();
+	virtual void _slot038();
+	virtual void _slot039();
+	virtual void _slot040();
+	virtual void _slot041();
+	virtual void _slot042();
+	virtual void _slot043();
+	virtual void _slot044();
+	virtual void _slot045();
+	virtual void _slot046();
+	virtual void _slot047();
+	virtual void _slot048();
+	virtual void _slot049();
+	virtual void _slot050();
+	virtual void _slot051();
+	virtual void _slot052();
+	virtual void _slot053();
+	virtual void _slot054();
+	virtual void _slot055();
+	virtual void _slot056();
+	virtual void _slot057();
+	virtual void _slot058();
+	virtual void _slot059();
+	virtual void _slot060();
+	virtual void _slot061();
+	virtual void _slot062();
+	virtual void _slot063();
+	virtual void _slot064();
+	virtual void _slot065();
+	virtual void _slot066();
+	virtual void _slot067();
+	virtual void _slot068();
+	virtual void _slot069();
+	virtual void _slot070();
+	virtual void _slot071();
+	virtual void _slot072();
+	virtual void _slot073();
+	virtual void _slot074();
+	virtual void _slot075();
+	virtual void _slot076();
+	virtual void _slot077();
+	virtual void _slot078();
+	virtual void _slot079();
+	virtual void _slot080();
+	virtual void _slot081();
+	virtual void _slot082();
+	virtual void _slot083();
+	virtual void _slot084();
+	virtual void _slot085();
+	virtual void _slot086();
+	virtual void _slot087();
+	virtual void _slot088();
+	virtual void _slot089();
+	virtual void _slot090();
+	virtual void _slot091();
+	virtual void _slot092();
+	virtual void _slot093();
+	virtual void _slot094();
+	virtual void _slot095();
+	virtual void _slot096();
+	virtual void _slot097();
+	virtual void _slot098();
+	virtual void _slot099();
+	virtual void _slot100();
+	virtual void _slot101();
+	virtual void _slot102();
+	virtual void _slot103();
+	virtual void _slot104();
+	virtual void _slot105();
+	virtual void _slot106();
+	virtual void _slot107();
+	virtual void _slot108();
+	virtual void _slot109();
+	virtual void _slot110();
+	virtual void _slot111();
+	virtual void _slot112();
+	virtual void _slot113();
+	virtual void _slot114();
+	virtual void _slot115();
+	virtual void _slot116();
+	virtual void _slot117();
+	virtual void _slot118();
+	virtual void _slot119();
+	virtual void _slot120();
+	virtual void _slot121();
+	virtual void _slot122();
+	virtual void _slot123();
+	virtual void _slot124();
+	virtual void _slot125();
+	virtual void _slot126();
+	virtual void _slot127();
+	virtual void _slot128();
+	virtual void addTargeter(int id, Bool add);
+};
+
+enum
+{
+	MAA_Affect_Range_IgnoreAll = 0x00000010
+};
+
 // tu-skeleton: 0x004D7CE6 373B ??0TurretStateMachine@@QAE@PAVTurretAI@@PAVObject@@I@Z -- matched in Code/GameEngine/Source/GameLogic/AI/TurretStateMachineCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004D7E5B 6B ?Rva004D7E5BGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
@@ -443,6 +592,8 @@ public:
 
 // tu-skeleton: 0x004D7FAD 295B ?xfer@TurretAI@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIMainXfer.cpp (not merged yet)
 
+// ---- from Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/TurretAI_loadPostProcess.cpp
 
 // ?loadPostProcess@TurretAI@@UAEXXZ, retail 0x004D80D4, 26 bytes.
@@ -460,8 +611,6 @@ void TurretAI::loadPostProcess()
 	if (obj)
 		m_victimInitialTeam = obj->m_team;
 }
-
-// tu-skeleton: 0x004D80EE 200B ?friend_turnTowardsPitch@TurretAI@@QAE_NMM@Z -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAITurnTowardsPitch.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp
 
@@ -547,21 +696,13 @@ float TurretAI::getTurretSweepSpeedModifierForWeaponSlot(WeaponSlotType slot) co
 // `this` and the inner byte is tested through it (probe-proven; a direct
 // backward cast would fold the two offsets into one read).
 
-// tu-skeleton: 0x004D81D2 5B ?notifyFired@TurretAI@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAICtor.cpp (not merged yet)
 
-// tu-skeleton: 0x004D81D7 26B ?isWeaponSlotOnTurret@TurretAI@@QBE_NW4WeaponSlotType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/TurretAI_isWeaponSlotOnTurret.cpp (not merged yet)
 
-// tu-skeleton: 0x004D81F1 110B ?friend_getTurretTarget@TurretAI@@QBE?AW4TurretTargetType@@AAPAVObject@@AAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp (not merged yet)
 
-// tu-skeleton: 0x004D825F 57B ?removeSelfAsTargeter@TurretAI@@AAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/TurretAI_removeSelfAsTargeter.cpp (not merged yet)
 
-// tu-skeleton: 0x004D8298 11B ?recenterTurret@TurretAI@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/TurretAI_isWeaponSlotOnTurret.cpp (not merged yet)
 
-// tu-skeleton: 0x004D82A3 39B ?isTurretInNaturalPosition@TurretAI@@QBE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/TurretAI_isWeaponSlotOnTurret.cpp (not merged yet)
 
-// tu-skeleton: 0x004D82CA 12B ?rva004D82CA@Rva004D82CA@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE24.cpp (not merged yet)
 
-// tu-skeleton: 0x004D82D6 32B ?setTurretEnabled@TurretAI@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/TurretAI_isWeaponSlotOnTurret.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/TurretAI_rva004D82F6.cpp
 
@@ -572,12 +713,6 @@ void TurretAI::rva004D82F6()
 	TheAudio->removeAudioEvent(m_audio20);
 	m_audio20 = 1;
 }
-
-// tu-skeleton: 0x004D8310 85B ?friend_isAnyWeaponInRangeOf@TurretAI@@QBE_NPBVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAI_friendIsAnyWeaponInRangeOf.cpp (not merged yet)
-
-// tu-skeleton: 0x004D8365 24B ?friend_isSweepEnabled@TurretAI@@QBE_NXZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp (not merged yet)
-
-// tu-skeleton: 0x004D837D 29B ?rva004D837D@TurretAI@@QAEIXZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva004D839ARva004D839A.cpp
 
@@ -596,8 +731,6 @@ void Rva004D839A::rva004D839A()
 	m_20 = delay + frame;
 }
 
-// tu-skeleton: 0x004D83D1 88B ?onEnter@TurretAIIdleState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/AI/TurretAIXfer.cpp
 
 // The canonical State (Snapshot slots 0-3, 0x20 bytes) is the base.
@@ -613,25 +746,15 @@ void TurretAIIdleScanState::xfer( Xfer *xfer )
 
   // end xfer
 
-// tu-skeleton: 0x004D8448 138B ?onEnter@TurretAIIdleScanState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp (not merged yet)
 
-// tu-skeleton: 0x004D84D2 53B ?onEnter@TurretAIHoldTurretState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp (not merged yet)
 
-// tu-skeleton: 0x004D853F 28B ?clear@TurretStateMachine@@UAEXXZ -- matched in Code/GameEngine/Source/Common/TurretStateMachineSetState.cpp (not merged yet)
 
-// tu-skeleton: 0x004D855B 29B ?resetToDefaultState@TurretStateMachine@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/Common/TurretStateMachineSetState.cpp (not merged yet)
 
-// tu-skeleton: 0x004D8578 62B ?setState@TurretStateMachine@@UAE?AW4StateReturnType@@H@Z -- matched in Code/GameEngine/Source/Common/TurretStateMachineSetState.cpp (not merged yet)
 
-// tu-skeleton: 0x004D85B6 251B ??0TurretAI@@QAE@PAVObject@@PBVTurretAIData@@W4WhichTurretType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAICtor.cpp (not merged yet)
 
-// tu-skeleton: 0x004D86BB 6B ?name@TurretAI@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x004D86C1 86B ??1TurretAI@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/TurretAIDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x004D8717 8B ?rva004D8717@Rva004D8717@@QBE_NW4WeaponSlotType@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesS9B.cpp (not merged yet)
 
-// tu-skeleton: 0x004D871F 67B ?isTryingToAimAtTarget@TurretAI@@QBE_NPBVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_isWeaponSlotOnTurretAndAimingAtTarget.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/TurretAI_isOwnersCurWeaponOnTurret.cpp
 
@@ -643,11 +766,199 @@ bool TurretAI::isOwnersCurWeaponOnTurret() const
 	return currentWeapon != 0 && isWeaponSlotOnTurret(wslot);
 }
 
+// tu-skeleton: 0x004D80EE 200B ?friend_turnTowardsPitch@TurretAI@@QAE_NMM@Z -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAITurnTowardsPitch.cpp (not merged yet)
+
+// tu-skeleton: 0x004D81D2 5B ?notifyFired@TurretAI@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAICtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/TurretAI_isWeaponSlotOnTurret.cpp
+
+//
+// ?isWeaponSlotOnTurret@TurretAI@@QBE_NW4WeaponSlotType@@@Z,
+// retail 0x004D81D7, 21 bytes. Dedicated TU.
+// Single-mask test: the data at +8 carries the allowed-slot mask at +0x4C;
+// the neg/sbb/neg tail is MSVC's bool normalization of the masked test.
+
+// ?isWeaponSlotOnTurret@TurretAI@@QBE_NW4WeaponSlotType@@@Z
+Bool TurretAI::isWeaponSlotOnTurret(WeaponSlotType wslot) const
+{
+	return (m_data->m_turretWeaponSlots & (1 << wslot)) != 0;
+}
+
+// ?recenterTurret@TurretAI@@QAEXXZ, retail 0x004D8298, 11 bytes.
+// The state machine lives at +0x14; setState is vtable slot 8 and
+// TURRETAI_RECENTER is 4, matching the push-4 plus call-[eax+0x20] shape.
+void TurretAI::recenterTurret()
+{
+	m_turretStateMachine->setState(TURRETAI_RECENTER);
+}
+
+// ?setTurretEnabled@TurretAI@@QAEX_N@Z, retail 0x004D82D6, 32 bytes.
+// Verbatim ZH logic: on the disabled-to-enabled transition, wake up by
+// stamping m_sleepUntil (+0x34) with TheGameLogic->getFrame() (inlined
+// [edx+0x40] read); m_enabled lives at +0x3C.
+void TurretAI::setTurretEnabled(Bool enabled)
+{
+	if (enabled && !m_enabled)
+	{
+		m_sleepUntil = TheGameLogic->getFrame();
+	}
+	m_enabled = enabled;
+}
+
+// ?isTurretInNaturalPosition@TurretAI@@QBE_NXZ, retail 0x004D82A3, 39 bytes.
+// BFME2 dropped ZH's under-construction early-out; the body is a pure
+// SSE float comparison of the data natural angle/pitch (+8/+0xC) against
+// the live angle/pitch (+0x18/+0x1C). The &&-returns-true spelling emits
+// retail's jp-false block order via the ucomiss parity trick.
+Bool TurretAI::isTurretInNaturalPosition() const
+{
+	if (m_data->m_naturalTurretAngle == m_angle && m_data->m_naturalTurretPitch == m_pitch)
+	{
+		return true;
+	}
+	return false;
+}
+
+// tu-skeleton: 0x004D81F1 110B ?friend_getTurretTarget@TurretAI@@QBE?AW4TurretTargetType@@AAPAVObject@@AAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/TurretAI_removeSelfAsTargeter.cpp
+
+//
+// ?removeSelfAsTargeter@TurretAI@@AAEXXZ,
+// retail 0x004D825F, 57 bytes. Dedicated TU.
+// Verbatim BFME1 logic (Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp:723):
+// if the turret tracks an object, drop self from the victim's targeter list.
+// BFME2 layout (retail-proven): owner at +0x10, state machine at +0x14,
+// target at +0x2C (TARGET_OBJECT is 1); Object id at +0x74, AI at +0x258.
+// getGoalObject resolves via the row at 0x4D7726; addTargeter is the 130th primary virtual (slot 0x204); placeholders are
+// declared-only and never constructed, so no vtable is emitted.
+
+// ?removeSelfAsTargeter@TurretAI@@AAEXXZ
+void TurretAI::removeSelfAsTargeter()
+{
+	if (m_target == TARGET_OBJECT && m_turretStateMachine != 0)
+	{
+		Object *self = m_owner;
+		Object *target = m_turretStateMachine->getGoalObject();
+		if (self != 0 && target != 0)
+		{
+			AIUpdateInterface *targetAI = target->getAI();
+			if (targetAI)
+			{
+				targetAI->addTargeter(self->getID(), false);
+			}
+		}
+	}
+}
+
+// tu-skeleton: 0x004D82CA 12B ?rva004D82CA@Rva004D82CA@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE24.cpp (not merged yet)
+
+// tu-skeleton: 0x004D8310 85B ?friend_isAnyWeaponInRangeOf@TurretAI@@QBE_NPBVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAI_friendIsAnyWeaponInRangeOf.cpp (not merged yet)
+
+// tu-skeleton: 0x004D8365 24B ?friend_isSweepEnabled@TurretAI@@QBE_NXZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp (not merged yet)
+
+// tu-skeleton: 0x004D837D 29B ?rva004D837D@TurretAI@@QAEIXZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp (not merged yet)
+
+// tu-skeleton: 0x004D83D1 88B ?onEnter@TurretAIIdleState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp (not merged yet)
+
+// tu-skeleton: 0x004D8448 138B ?onEnter@TurretAIIdleScanState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp (not merged yet)
+
+// tu-skeleton: 0x004D84D2 53B ?onEnter@TurretAIHoldTurretState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/TurretStateMachineSetState.cpp
+
+// ?setState@TurretStateMachine@@UAE?AW4StateReturnType@@H@Z, retail 0x004D8578, 62 bytes.
+// Virtual slot 8 (offset 0x20) of vtable 0x008609C8 (VA 0x00C609C8), class
+// TurretStateMachine (slot 2 returns "TurretStateMachine" at 0x00860A08).
+// BFME1 donor reference/open-bfme-1/Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp
+// TurretStateMachine::setState verbatim plus BFME2 layout deltas: current-state
+// pointer at +0x04 (StateMachine base), StateID at State+0x04, TurretAI owner at
+// +0x3C, friend_notifyStateMachineChanged inlined as m_sleepUntil (+0x34) =
+// TheGameLogic->getFrame ([0x00DFE78C]+0x40). Single callee setState 0x004D7ACD
+// already rowed in StateMachineGoal.cpp.
+
+// End of the TurretAI.cpp TU view.
+
+StateReturnType TurretStateMachine::setState(int newStateID)
+{
+	State *current = m_currentState;
+	int oldID = current ? current->m_id : INVALID_STATE_ID;
+	StateReturnType tmp = StateMachine::setState(newStateID);
+	TurretAI *turret = m_turretAI;
+	if (turret && oldID != newStateID)
+		turret->friend_notifyStateMachineChanged();
+	return tmp;
+}
+
+// ?resetToDefaultState@TurretStateMachine@@UAE?AW4StateReturnType@@XZ @0x004D855B 29B
+// Retail vtable slot 6 (offset 0x18) of vtable 0x008609C8, class TurretStateMachine.
+// BFME1 donor TurretAI.cpp resetToDefaultState verbatim plus BFME2 deltas (owner at
+// +0x3C, notify inlined as m_sleepUntil (+0x34) = frame). Single callee reset 0x004D7A75.
+StateReturnType TurretStateMachine::resetToDefaultState()
+{
+	StateReturnType tmp = StateMachine::resetToDefaultState();
+	TurretAI *turret = m_turretAI;
+	if (turret)
+		turret->friend_notifyStateMachineChanged();
+	return tmp;
+}
+
+// ?clear@TurretStateMachine@@UAEXXZ @0x004D853F 28B
+// Retail vtable slot 5 (offset 0x14) of vtable 0x008609C8, class TurretStateMachine.
+// BFME1 donor TurretAI.cpp clear verbatim plus BFME2 deltas (owner +0x3C, notify).
+// Single callee clear 0x004D72C5 rowed in StateMachineGoal.cpp.
+void TurretStateMachine::clear()
+{
+	StateMachine::clear();
+	TurretAI *turret = m_turretAI;
+	if (turret)
+		turret->friend_notifyStateMachineChanged();
+}
+
+// tu-skeleton: 0x004D85B6 251B ??0TurretAI@@QAE@PAVObject@@PBVTurretAIData@@W4WhichTurretType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAICtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004D86BB 6B ?name@TurretAI@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x004D86C1 86B ??1TurretAI@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/TurretAIDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004D8717 8B ?rva004D8717@Rva004D8717@@QBE_NW4WeaponSlotType@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesS9B.cpp (not merged yet)
+
+// tu-skeleton: 0x004D871F 67B ?isTryingToAimAtTarget@TurretAI@@QBE_NPBVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_isWeaponSlotOnTurretAndAimingAtTarget.cpp (not merged yet)
+
 // tu-skeleton: 0x004D8791 151B ?setTurretTargetObject@TurretAI@@QAEXPAVObject@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/TurretAI_setTurretTargetObject.cpp (not merged yet)
 
 // tu-skeleton: 0x004D8828 132B ?setTurretTargetPosition@TurretAI@@QAEXPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/TurretAI_setTurretTargetObject.cpp (not merged yet)
 
-// tu-skeleton: 0x004D88AC 74B ?friend_checkForIdleMoodTarget@TurretAI@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/TurretAI_friendCheckForIdleMoodTarget.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/TurretAI_friendCheckForIdleMoodTarget.cpp
+
+//
+// ?friend_checkForIdleMoodTarget@TurretAI@@QAEXXZ, retail 0x004D88AC, 74 bytes.
+// Dedicated TU. Zero Hour TurretAI::friend_checkForIdleMoodTarget verbatim:
+// owner at +0x10, its AIUpdateInterface at Object +0x258, the idle mood
+// adjustment (getMoodMatrixActionAdjustment(MM_Action_Idle) at 0x00264FF8)
+// tested against MAA_Affect_Range_IgnoreAll (0x10), getNextMoodTarget(true,
+// true), rowed setTurretTargetObject(enemy, FALSE), the owner's
+// chooseBestWeaponForTarget (0x0028AF4A, the +0x330 WeaponSet forwarder) and
+// the idle-mood flag at +0x3F. BFME 2 passes weapon-choice criterion 5 where
+// Zero Hour's PREFER_MOST_DAMAGE is 0; the enum's BFME 2 names are unknown.
+
+void TurretAI::friend_checkForIdleMoodTarget()
+{
+	Object *obj = getOwner();
+	AIUpdateInterface *ai = obj->getAIUpdateInterface();
+
+	UnsignedInt moodAdjust = ai->getMoodMatrixActionAdjustment(MM_Action_Idle);
+	if (moodAdjust & MAA_Affect_Range_IgnoreAll)
+		return;
+
+	Object *enemy = ai->getNextMoodTarget(true, true);
+	if (enemy)
+	{
+		setTurretTargetObject(enemy, false);
+		obj->chooseBestWeaponForTarget(enemy, WEAPON_CHOICE_CRITERIA_5, CMD_FROM_AI);
+		m_targetWasSetByIdleMood = true;
+	}
+}
 
 // tu-skeleton: 0x004D88F6 63B ?update@TurretAIIdleState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp (not merged yet)
 
