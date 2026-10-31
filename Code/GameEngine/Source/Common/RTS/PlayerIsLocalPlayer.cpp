@@ -20,11 +20,7 @@ struct PlayerListLocalPlayerView
 
 extern PlayerList *ThePlayerList;
 
-class Player
-{
-public:
-	bool isLocalPlayer() const;
-};
+#include "../../../Include/Common/Player.h"
 
 bool Player::isLocalPlayer() const
 {

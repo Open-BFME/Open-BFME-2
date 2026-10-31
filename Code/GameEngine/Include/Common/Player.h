@@ -47,10 +47,14 @@ public:
  virtual bool rslot05();
  void onUnitCreated(Object *, Object *);
  bool rva002A9CA4(int);
+ int getPlayerIndex() const { return m_playerIndex; }
+ bool isLocalPlayer() const;
  bool isSkirmishAIPlayer();
  bool rva002A9CB8();
 private:
- unsigned char m_opaque34[0x2DC - 0x34];
+ unsigned char m_opaque34[0x54 - 0x34];
+ int m_playerIndex; // constructor 2B0F94/97 stores the int argument at +54
+ unsigned char m_opaque58[0x2DC - 0x58];
  AIPlayer *m_ai; // retail delegates use +0x2DC
  unsigned char m_opaque2E0[0x758 - 0x2E0];
 };
