@@ -377,11 +377,6 @@ private:
 	Rva0039D840Target *m_target2C;
 };
 
-float Rva0039D840::rva0039D840()
-{
-	return (float)m_target2C->m_value21C;
-}
-
 // 0x003ABEFD / 0x003A3700 / 0x003A36F7 / 0x003F7257: float constants
 // (0.7, 1.0 and 0.0) taking none, one, one and two arguments.
 class Rva003ABEFD
@@ -396,16 +391,6 @@ public:
 float Rva003ABEFD::rva003ABEFD()
 {
 	return 0.7f;
-}
-
-float Rva003ABEFD::rva003A3700(int)
-{
-	return 1.0f;
-}
-
-float Rva003ABEFD::rva003A36F7(int)
-{
-	return 0.0f;
 }
 
 float Rva003ABEFD::rva003F7257(int, int)
