@@ -391,6 +391,7 @@ private:
 };
 
 class Rva001EAFFE;
+
 class LinearCampaign {
 public:
 	void onCurrentMissionWon();
@@ -605,6 +606,7 @@ private:
 // third callee is the already-rowed AITargetChooser::rva00505408. Field offsets
 // and return/argument shapes come from each retail body.
 struct Rva001EB023Elem;
+
 class Rva001EC859
 {
 public:
@@ -665,6 +667,107 @@ private:
 	char m_lead[0x3860];
 	W3DFloorBuffer *m_member;
 };
+
+// LinearCampaign::beginCampaign: WB AF7DE0 names the function and retail
+// 1ECDB3..1ECE98 is its complete229B RET0 body. The original campaign input
+// unit-name array is at+0C; the runtime 0xC4 state stores its record pointer
+// at+4 and carryover vector at+A4. CarryoverUnit strideAC/name+4/count+90
+// agrees with the owned resize1ECCF3 and GetThingTemplate37DC52 providers.
+// Template KindOf bit5A is byte+113 bit2. WB proves the record name local,
+// indexed writes and intro movie at record+8; native Display vslot is+10C.
+// The typed STLport carryover vector exposes the actual operator[] helper:
+// it reproduces native EDI vector/EBX offset allocation without volatile.
+// Every direct call retains the current ledger owner's spelling. No EH map.
+class Rva0037DCA5
+{
+public:
+	void *GetThingTemplate();	// 0x0037DC52, WB CarryoverUnit::GetThingTemplate
+};
+
+struct CarryoverUnitRecord
+{
+	void *m_vtable;
+	AsciiString m_name;		// +0x04
+	unsigned char m_pad08[0x90 - 0x08];
+	int m_90;
+	unsigned char m_pad94[0xAC - 0x94];
+};
+
+class Rva001EC9BDVector: public _STL::vector<CarryoverUnitRecord> {public:void resize(unsigned);};
+
+// The history vector calls the verified reserve implementation at 0x001EBE2D.
+// Its record stays opaque here; the provider owns its copy and lifetime logic.
+namespace _STL {
+template <> void vector<BfmeAssignRecord172, allocator<BfmeAssignRecord172> >::reserve(unsigned int);
+}
+
+struct CarryoverThingTemplateView
+{
+	unsigned char m_pad00[0x108];
+	unsigned char m_kindOf[0x14];	// +0x108
+};
+
+struct CarryoverNameVectorView
+{
+	int size() const { return m_finish - m_start; }
+	void **m_start;
+	void **m_finish;
+	void **m_endOfStorage;
+};
+
+class Rva001EAFFE
+{
+public:
+	AsciiString &rva001EAFFE(int index);	// 0x001EAFFE
+
+	unsigned char m_pad00[0x08];
+	AsciiString m_movie;			// +0x08
+	CarryoverNameVectorView m_units;	// +0x0C
+};
+
+class Display
+{
+public:
+	virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03();
+	virtual void slot04(); virtual void slot05(); virtual void slot06(); virtual void slot07();
+	virtual void slot08(); virtual void slot09(); virtual void slot10(); virtual void slot11();
+	virtual void slot12(); virtual void slot13(); virtual void slot14(); virtual void slot15();
+	virtual void slot16(); virtual void slot17(); virtual void slot18(); virtual void slot19();
+	virtual void slot20(); virtual void slot21(); virtual void slot22(); virtual void slot23();
+	virtual void slot24(); virtual void slot25(); virtual void slot26(); virtual void slot27();
+	virtual void slot28(); virtual void slot29(); virtual void slot30(); virtual void slot31();
+	virtual void slot32(); virtual void slot33(); virtual void slot34(); virtual void slot35();
+	virtual void slot36(); virtual void slot37(); virtual void slot38(); virtual void slot39();
+	virtual void slot40(); virtual void slot41(); virtual void slot42(); virtual void slot43();
+	virtual void slot44(); virtual void slot45(); virtual void slot46(); virtual void slot47();
+	virtual void slot48(); virtual void slot49(); virtual void slot50(); virtual void slot51();
+	virtual void slot52(); virtual void slot53(); virtual void slot54(); virtual void slot55();
+	virtual void slot56(); virtual void slot57(); virtual void slot58(); virtual void slot59();
+	virtual void slot60(); virtual void slot61(); virtual void slot62(); virtual void slot63();
+	virtual void slot64(); virtual void slot65(); virtual void slot66();
+	virtual void slot67(AsciiString movieName, int a, int b);	// +0x10C
+};
+
+extern Display *TheDisplay;
+
+class Rva001EB456
+{
+public:
+	void rva001EB456(int,int);
+};
+
+// Bind to the kept retail copy instead of emitting this unit's own.
+namespace _STL { template <> BfmeAssignRecord172 * vector<BfmeAssignRecord172,allocator<BfmeAssignRecord172> >::erase(BfmeAssignRecord172 *,BfmeAssignRecord172 *); }
+
+// Bind to the kept retail copy instead of emitting this unit's own.
+namespace _STL { template <> BfmeAssignRecord172 * __copy<BfmeAssignRecord172 *,BfmeAssignRecord172 *,int>(BfmeAssignRecord172 *,BfmeAssignRecord172 *,BfmeAssignRecord172 *,random_access_iterator_tag const &,int *); }
+
+class Rva001ECD19 : public _STL::vector<BfmeAssignRecord172> {
+public:
+    void rva001ECD19(BfmeAssignRecord172 *, BfmeAssignRecord172 *, BfmeAssignRecord172 *);
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp
 
@@ -888,6 +991,28 @@ void Rva001ED338::rva001ED338(void *ini)
 	((INI *)ini)->initFromINI(this, g_00BDF1D8);
 }
 
+// ---- from Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp
+
+void Rva0023D6D5Callee::thru()
+{
+	if (m_member)
+		m_member->addCarryoverStuffToMap();
+}
+
+void *Rva001EC99B::rva001EC99B(Int a0, Int a1)
+{
+	if (m_member)
+		return m_member->rva001EC859(a0, a1);
+	return 0;
+}
+
+bool Rva001EC9AC::rva001EC9AC(Int a0, Int a1, Int a2)
+{
+	if (m_member)
+		return m_member->rva001EC8C0(a0, a1, a2);
+	return false;
+}
+
 // tu-skeleton: 0x001EBCC6 18B ??0?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE@ABV?$allocator@PAVObject@@@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_objectptr_insert.cpp (not merged yet)
 
 // tu-skeleton: 0x001EBCD8 62B ?rva001EBCD8@Rva001EBCD8@@QAEPAXPAX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001EBCD8Erase.cpp (not merged yet)
@@ -926,28 +1051,6 @@ void Rva001ED338::rva001ED338(void *ini)
 
 // tu-skeleton: 0x001EC8C0 193B ?rva001EC8C0@Rva001EC8C0@@QAE_NHHH@Z -- matched in Code/GameEngine/Source/Common/Rva001EC8C0CarryoverRevive.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp
-
-void Rva0023D6D5Callee::thru()
-{
-	if (m_member)
-		m_member->addCarryoverStuffToMap();
-}
-
-void *Rva001EC99B::rva001EC99B(Int a0, Int a1)
-{
-	if (m_member)
-		return m_member->rva001EC859(a0, a1);
-	return 0;
-}
-
-bool Rva001EC9AC::rva001EC9AC(Int a0, Int a1, Int a2)
-{
-	if (m_member)
-		return m_member->rva001EC8C0(a0, a1, a2);
-	return false;
-}
-
 // tu-skeleton: 0x001EC9BD 112B ?resize@Rva001EC9BDVector@@QAEXIUCarryoverUnit@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001EC9BDResize.cpp (not merged yet)
 
 // tu-skeleton: 0x001ECA2D 204B ?Rva001ECA2DXfer@@YAPAVXfer@@PAV1@PAX@Z -- matched in Code/GameEngine/Source/Common/System/XferScienceTypeVector.cpp (not merged yet)
@@ -968,9 +1071,56 @@ bool Rva001EC9AC::rva001EC9AC(Int a0, Int a1, Int a2)
 
 // tu-skeleton: 0x001ECD84 38B ??$__uninitialized_copy@PAUBfmeRecord001ECAF9@@PAU1@@_STL@@YAPAUBfmeRecord001ECAF9@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
 
-// tu-skeleton: 0x001ECDB3 229B ?beginCampaign@LinearCampaign@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/LinearCampaign/LinearCampaignBegin.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/System/LinearCampaign/LinearCampaignBegin.cpp
 
-// tu-skeleton: 0x001ECE98 94B ?restartCurrentCampaignMission@LinearCampaign@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/LinearCampaign/LinearCampaignRestart.cpp (not merged yet)
+void LinearCampaign::beginCampaign()
+{
+	int count = m_campaign->m_units.size();
+	// The TU's other views type +A4 by its element; this body reaches it as
+	// the vector the 0x001ECCF3 resize forwarder takes.
+	Rva001EC9BDVector &carryovers = reinterpret_cast<Rva001EC9BDVector &>(units);
+	carryovers.resize(count);
+	m_numFlaggedCarryovers = 0;
+	for (int i = 0; i < count; ++i)
+	{
+		const AsciiString &name = m_campaign->rva001EAFFE(i);
+		carryovers[i].m_name = name;
+		carryovers[i].m_90 = 1;
+		const CarryoverThingTemplateView *thing = static_cast<const CarryoverThingTemplateView *>(
+			reinterpret_cast<Rva0037DCA5 *>(&carryovers[i])->GetThingTemplate());
+		if (thing && (thing->m_kindOf[0x5A >> 3] & (1 << (0x5A & 7))))
+			++m_numFlaggedCarryovers;
+	}
+	used.reserve(count);
+	const AsciiString &movie = m_campaign->m_movie;
+	if (!reinterpret_cast<const StringBase<char> *>(&movie)->isEmpty())
+		TheDisplay->slot67(movie, 1, 0);
+	m_0c = 0;
+	advanced = false;
+	((Rva001EB456*)this)->rva001EB456(1, 1);
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/System/LinearCampaign/LinearCampaignRestart.cpp
+
+// WB AF8520 names LinearCampaign::restartCurrentCampaignMission (lines890..901).
+// Native1ECE98..1ECEF6 RET; +C0/+C3 select completion1EB68A or restart1EB456.
+// Current carryover vector is+A4; consumed vector+B4; element stride172.
+// The two-way switch preserves native's early completion tail jump. The local
+// view used for erase avoids retaining a separate finish-field address in EBX.
+// Native1ECD19 forwards this vector in ECX; its old free owner was repaired.
+
+void LinearCampaign::restartCurrentCampaignMission() {
+switch(won || advanced) { case 0: {
+    restarting = false;
+    // The TU's other views type +A4 by its element; this body reaches it as
+    // the vector the 0x001ECD19 insert forwarder takes.
+    reinterpret_cast<Rva001ECD19 &>(units).rva001ECD19(
+        reinterpret_cast<Rva001ECD19 &>(units).end(), used.begin(), used.end());
+    _STL::vector<BfmeAssignRecord172> *history=&used;
+    history->erase(history->begin(), history->end());
+    reinterpret_cast<Rva001EB456 *>(this)->rva001EB456(1, 0);
+break; } default: onMissionComplete(); break; }
+}
 
 // tu-skeleton: 0x001ECEF6 13B ?rva001ECEF6@Rva0023D607Holder@@QAEXXZ -- matched in Code/GameEngine/Source/Common/PinnedForwarders1830.cpp (not merged yet)
 
