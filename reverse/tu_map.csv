@@ -41740,7 +41740,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x004E5526,28,code,Code/GameEngine/Source/GameClient/ResourceOwnedEntryList.cpp,approved,C,C=0x004E551E..0x004E5542 provisional,Code/Libraries/Source/WWVegas/WWLib/StlportListInsertFootprints.cpp
 0x004E5542,23,code,Code/GameEngine/Source/GameClient/ResourceOwnedEntryList.cpp,approved,N,N=Code/GameEngine/Source/GameClient/ResourceOwnedEntryList.cpp provisional,Code/GameEngine/Source/GameClient/InGameUIResourceEntries.cpp
 0x004E5559,96,code,Code/GameEngine/Source/GameClient/ResourceOwnedEntryList.cpp,approved,U,N=Code/GameEngine/Source/GameClient/ResourceEntryCollector.cpp provisional,Code/GameEngine/Source/GameClient/InGameUIResourceEntries.cpp
-0x004E55B9,64,code,Code/GameEngine/Source/GameClient/ResourceOwnedEntryList.cpp,approved,U,N=Code/GameEngine/Source/Common/ResourceEntryCollector.cpp provisional,Code/GameEngine/Source/Common/GapBodiesS3C.cpp
+0x004E55B9,64,code,Code/GameEngine/Source/GameClient/ResourceOwnedEntryList.cpp,approved,U,N=Code/GameEngine/Source/Common/ResourceEntryCollector.cpp provisional,Code/GameEngine/Source/GameClient/ResourceOwnedEntryList.cpp
 0x004E55F9,18,code,Code/GameEngine/Source/GameClient/ResourceOwnedEntryList.cpp,approved,C,C=0x004E55B9..0x004E560B provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_list_bodies.cpp
 0x004E560B,5,code,Code/GameEngine/Source/GameClient/ResourceOwnedEntryList.cpp,approved,N,N=Code/GameEngine/Source/GameClient/ResourceOwnedEntryList.cpp provisional,Code/GameEngine/Source/GameClient/InGameUIResourceEntries.cpp
 0x004E5610,68,code,,,-,,Code/GameEngine/Source/Common/Rva004E5610Ctor.cpp
