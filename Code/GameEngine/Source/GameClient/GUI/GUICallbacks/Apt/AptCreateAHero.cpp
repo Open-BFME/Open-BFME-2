@@ -289,35 +289,10 @@ public:
 	AptCustomRenderAdder m_customRenders; // +0x34
 };
 
-// ?rva00513E6F@Rva00513E6F@@QAE?AVUnicodeString@@XZ @0x00513E6F 98B
-// Chain lane: calls 0x00513E4A just landed; length via rowed 0x00513E03 then
-// wide getBufferForRead then rowed fill 0x00513E4A then wide copy ctor
-// 0x00037050 then releaseBuffer; EH frame ret 4. Prev 0x00513E4A in
-// Rva00513D8F.cpp; caller 0x00513F70 unclaimed 415B. Layout matches 24B
-// Rva00513E03/Rva00513E4A views at offset 0; wide materializer twin of narrow
-// Rva005E36EA in Rva005E36EAMat.cpp and operator UnicodeString in
-// WinMainPairUnicode.cpp.
-struct Rva00513E03
-{
-	int length() const;
-};
-
 class Rva00513E6F
 {
 public:
 	UnicodeString rva00513E6F();
-};
-
-// ?copyToBuffer@Rva00513D8F@@QAEHPAG@Z @0x00513D8F 37B
-// Unlock lane: landing it makes 0x00513E25 ready. Prev/next vector ctors
-// in stlport_vector_s_o1.cpp (adjacent rows only). Calls rowed
-// Rva000B3F84Pair::copyWchars 0x002342A7 then rowed
-// BFME2WideStringRef::copyPayloadTo 0x0021AC32 via this+8; returns sum.
-// Same shape as BFME2WideConcatPair::copyPayloads in WideConcatPair.cpp.
-class Rva000B3F84Pair
-{
-public:
-	int copyWchars(unsigned short *dst);
 };
 
 struct BFME2WideStringRef
@@ -447,6 +422,108 @@ struct DestructorGlobalData
 
 extern bool skipCinematicSubsystemExclusions;
 
+class UnicodeString;
+
+class Rva000B3F84Pair
+{
+public:
+	Rva000B3F84Pair() {}
+public:
+	Rva000B3F84Pair *init(const char *src);
+public:
+	int write(char *dst);
+public:
+	const char *m_ptr;
+public:
+	int m_len;
+public:
+	int copyWchars(unsigned short *dst);
+};
+
+struct AsciiStringRef
+{
+	int write(char *dst);
+	const AsciiString *m_string;
+};
+
+struct Rva002226E5TextPlusString
+{
+	int length() const;
+	int write(char *dst);
+	Rva000B3F84Pair m_left;
+	AsciiStringRef m_right;
+};
+
+struct Rva00513E03
+{
+	int length() const;
+	Rva000B3F84Pair m_first;
+	const AsciiString *m_second;
+	Rva000B3F84Pair m_third;
+	const AsciiString *m_fourth;
+};
+
+// ?length@Rva005E3693@@QBEHXZ @0x005E3693 13B: five-part extension (four-part base at 0x00513E03 plus fifth pair len at +0x1C); chain from 0x00513E03 landing.
+struct Rva005E3693 : Rva00513E03
+{
+	int length() const;
+	Rva000B3F84Pair m_fifth;
+};
+
+// ?length@Rva005E366A@@QBEHXZ @0x005E366A 13B: three-part extension (TextPlusString base at 0x00513B94 plus third pair len at +0x10); chain from 0x00513B94 landing.
+struct Rva005E366A : Rva002226E5TextPlusString
+{
+	int length() const;
+	Rva000B3F84Pair m_third;
+};
+
+// ?length@Rva005F1B75@@QBEHXZ @0x005F1B75 27B: three-part string extension (TextPlusString base at 0x00513B94 plus third string len at +0x0C); chain from 0x00513B94 landing; callers 0x005F1BAA 0x005F1D47.
+struct Rva005F1B75 : Rva002226E5TextPlusString
+{
+	int length() const;
+	int write(char *dst);
+	AsciiStringRef m_third;
+};
+
+// The caller at 0x005F1DB0 materializes this four-part expression for the
+// region bonus label: the rowed three-part writer followed by the final text
+// pair. The class layout follows Rva005F1B75 plus the pair at +0x10.
+struct Rva005F1D06 : Rva005F1B75
+{
+	int write(char *dst);
+	Rva000B3F84Pair m_fourth;
+	operator AsciiString();
+};
+
+// Target bytes at 0x0059B115 call the rowed AsciiStringPlusText::length
+// body at 0x002DBF50, then add the dword at this+0x10. The four bytes at
+// this+0x0C are only layout padding here; the containing type is unresolved.
+// This declaration matches the AsciiStringPlusText layout in RegistryAsciiPath.cpp.
+struct AsciiStringPlusText : AsciiStringRef
+{
+	int length() const;
+	int write(char *dst);
+	operator AsciiString();
+	Rva000B3F84Pair m_right;
+};
+
+struct Rva0059B115 : AsciiStringPlusText
+{
+	int rva0059B115() const;
+
+	char m_opaque_0C[4];
+	int m_opaque_10;
+};
+
+// ?length@Rva005F1BAA@@QBEHXZ @0x005F1BAA 13B: four-part extension (three-part string base at 0x005F1B75 plus fourth pair len at +0x14); chain from 0x005F1B75 landing.
+struct Rva005F1BAA : Rva005F1B75
+{
+	int length() const;
+	Rva000B3F84Pair m_fourth;
+};
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp
+
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroCallbacks.cpp
 
 //
@@ -570,14 +647,6 @@ void AptCreateAHero::OpenScreen(int mode)
 	if (s_instance)
 		s_instance->m_mode = mode;
 }
-
-// tu-skeleton: 0x00513B0B 28B ??0?$pair@$$CBVAsciiString@@W4BuildableStatus@@@_STL@@QAE@ABVAsciiString@@ABW4BuildableStatus@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicSetBuildableStatusOverride.cpp (not merged yet)
-
-// tu-skeleton: 0x00513B27 52B ??H@YA?AURva00513B27Concat@@PBGABVUnicodeString@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroDrawMapComponent.cpp (not merged yet)
-
-// tu-skeleton: 0x00513B5B 57B ??H@YA?AURva002343C3TitleSegment@@ABUPairWithChar@@PBG@Z -- matched in Code/GameEngine/Source/Main/WinMainPairUnicode.cpp (not merged yet)
-
-// tu-skeleton: 0x00513B94 23B ?length@Rva002226E5TextPlusString@@QBEHXZ -- matched in Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroScreenDestructor.cpp
 
@@ -731,11 +800,32 @@ UnicodeString Rva00513E6F::rva00513E6F()
 	return tmp;
 }
 
+// tu-skeleton: 0x00513B0B 28B ??0?$pair@$$CBVAsciiString@@W4BuildableStatus@@@_STL@@QAE@ABVAsciiString@@ABW4BuildableStatus@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicSetBuildableStatusOverride.cpp (not merged yet)
+
+// tu-skeleton: 0x00513B27 52B ??H@YA?AURva00513B27Concat@@PBGABVUnicodeString@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroDrawMapComponent.cpp (not merged yet)
+
+// tu-skeleton: 0x00513B5B 57B ??H@YA?AURva002343C3TitleSegment@@ABUPairWithChar@@PBG@Z -- matched in Code/GameEngine/Source/Main/WinMainPairUnicode.cpp (not merged yet)
+
+// tu-skeleton: 0x00513B94 23B ?length@Rva002226E5TextPlusString@@QBEHXZ -- matched in Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp (not merged yet)
+
 // tu-skeleton: 0x00513D55 58B ??0?$_Vector_base@GV?$allocator@G@_STL@@@_STL@@QAE@IABV?$allocator@G@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_word_o1.cpp (not merged yet)
 
 // tu-skeleton: 0x00513DD0 51B ??0?$vector@GV?$allocator@G@_STL@@@_STL@@QAE@I@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_word_o1.cpp (not merged yet)
 
-// tu-skeleton: 0x00513E03 34B ?length@Rva00513E03@@QBEHXZ -- matched in Code/GameEngine/Source/Common/System/Rva00513E03Length.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/System/Rva00513E03Length.cpp
+
+// Complete exact native parent and associative EH graph establish
+// the naturally emitted return-object cleanup at 0x007A4DC2.
+// Its 25-byte unwind-map entry excludes the interior return label.
+// ?length@Rva00513E03@@QBEHXZ @0x00513E03 34B: four-part narrow concat length (Text+String+Text+String); base TextPlusString length at 0x00513B94 plus third pair len at +0x10 plus fourth string len at +0x14; chain from 0x00513B94 landing; callers 0x00513E6F 0x005E3693 0x005E36EA.
+
+int Rva00513E03::length() const
+{
+	int third = m_third.m_len;
+	int fourth = m_fourth->getLength();
+	int base = ((const Rva002226E5TextPlusString *)this)->length();
+	return base + fourth + third;
+}
 
 // tu-skeleton: 0x00513ED1 415B ?Rva00513ED1@@YA?AVUnicodeString@@ABV1@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroDrawMapComponent.cpp (not merged yet)
 

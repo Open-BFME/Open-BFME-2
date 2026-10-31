@@ -34,13 +34,6 @@ struct Rva00513E03
 	Rva000B3F84Pair m_third;
 	const AsciiString *m_fourth;
 };
-int Rva00513E03::length() const
-{
-	int third = m_third.m_len;
-	int fourth = m_fourth->getLength();
-	int base = ((const Rva002226E5TextPlusString *)this)->length();
-	return base + fourth + third;
-}
 
 // ?length@Rva005E3693@@QBEHXZ @0x005E3693 13B: five-part extension (four-part base at 0x00513E03 plus fifth pair len at +0x1C); chain from 0x00513E03 landing.
 struct Rva005E3693 : Rva00513E03
