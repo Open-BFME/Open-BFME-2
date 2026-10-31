@@ -36,7 +36,6 @@ private:
 static int s_crush20;
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
-
 class __declspec(novtable) CollideModuleInterface
 {
 public:
@@ -209,6 +208,7 @@ static __forceinline void clearModelConditionBit(Object *object, int bit)
 	}
 }
 #include "../../../Common/GameLogicObjectLookupView.h"
+#pragma intrinsic(_ReadWriteBarrier)
 
 // ?getModuleNameKey@AODCrushCollide@@UBE?AW4NameKeyType@@XZ @0x4BBF44
 // (69B): cached pool-name key for AODCrushCollide. The class
@@ -377,6 +377,8 @@ class Rva004BC0B8State { public:
 
 // tu-skeleton: 0x004BBEFD 6B ?name@AODCrushCollide@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
 
+// ---- from Code/GameEngine/Source/GameLogic/Object/Collide/AODCrushCollide.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Collide/AODCrushCollideXfer.cpp
 
 void AODCrushCollide::xfer(Xfer *xfer)
@@ -416,14 +418,6 @@ NameKeyType AODCrushCollide::getModuleNameKey() const
 AODCrushCollideModuleData::~AODCrushCollideModuleData()
 {
 }
-
-// tu-skeleton: 0x004BBFFC 17B ?buildFieldParse@AODCrushCollideModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Collide/CollideModuleDataBuildFieldParse.cpp (not merged yet)
-
-// tu-skeleton: 0x004BC00D 67B ??0AODCrushCollide@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Collide/AODCrushCollideCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004BC050 28B ??_GAODCrushCollide@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Collide/AODCrushCollideDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004BC06C 28B ??_GAODCrushCollideModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-95ab.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Collide/AODCrushCollideUpdate.cpp
 
@@ -511,3 +505,17 @@ void AODCrushCollide::onCollide(Object *other,const Coord3D *,const Coord3D *)
  if (fx) FXList::doFXObj(fx,other,self);
  if (ocl) ocl->create(other,self,0);
 }
+
+// tu-skeleton: 0x004BBFFC 17B ?buildFieldParse@AODCrushCollideModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Collide/CollideModuleDataBuildFieldParse.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Collide/AODCrushCollideCtor.cpp
+
+// ??0AODCrushCollide@@QAE@PAVThing@@PBVModuleData@@@Z
+AODCrushCollide::AODCrushCollide(Thing *thing, const ModuleData *moduleData)
+	: CrushCollide(thing, moduleData)
+{
+}
+
+// tu-skeleton: 0x004BC050 28B ??_GAODCrushCollide@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Collide/AODCrushCollideDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004BC06C 28B ??_GAODCrushCollideModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-95ab.cpp (not merged yet)

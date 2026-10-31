@@ -10521,7 +10521,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00840658,112,.rdata,string,??_C@_0GP@OLBEODJH@C?3?2projects?2bfme2patch103?2bfme2?2@,,literal,,0,1
 0x008406C8,12,.rdata,vtable,??_7BuildingBehavior@@6BBB_Iface2@@@,,literal,??_7BuildingBehavior@@6BBB_Iface2@@@;??_7Rva004561A2@@6BRva004561A2_B2@@@,0,2
 0x008406D4,324,.rdata,vtable,??_7BuildingBehavior@@6BBB_DeepBase@@@,,literal,??_7BuildingBehavior@@6BBB_DeepBase@@@;??_7Rva004561A2@@6BRva0024A797@@@,0,2
-0x00840818,24,.rdata,vtable,??_7BezierProjectileInterface0@@6B@,,literal,??_7BezierProjectileInterface0@@6B@;??_7BezierProjectileInterface1@@6B@;??_7BfmeCtor001B3A20@@6BBfmeCtorFirstBase001B3A20@@@;??_7BridgeScaffoldBehaviorInterface@@6B@;??_7CollideModuleInterface@@6B@;??_7ContainIface24@@6B@;??_7CritterEmitterUpdateIface3@@6B@;??_7DeflectSpecialPowerIface5@@6B@;??_7GatePrimary@@6B@;_s_crush20@Code/GameEngine/Source/GameLogic/Object/Collide/AODCrushCollideCtor.cpp;_vtbl_00C40818,1,13
+0x00840818,24,.rdata,vtable,??_7BezierProjectileInterface0@@6B@,,literal,??_7BezierProjectileInterface0@@6B@;??_7BezierProjectileInterface1@@6B@;??_7BfmeCtor001B3A20@@6BBfmeCtorFirstBase001B3A20@@@;??_7BridgeScaffoldBehaviorInterface@@6B@;??_7CollideModuleInterface@@6B@;??_7ContainIface24@@6B@;??_7CritterEmitterUpdateIface3@@6B@;??_7DeflectSpecialPowerIface5@@6B@;??_7GatePrimary@@6B@;_s_crush20@Code/GameEngine/Source/GameLogic/Object/Collide/AODCrushCollide.cpp;_vtbl_00C40818,1,13
 0x00840830,100,.rdata,string,??_C@_0GE@FJFOLAEC@C?3?2projects?2bfme2patch103?2bfme2?2@,,literal,,0,1
 0x00840894,36,.rdata,string,??_C@_0CD@ODLAHDKD@Expected?5?8Bone?8?5token?0?5found?5?8?$CFs@,,literal,,0,1
 0x008408B8,36,.rdata,string,??_C@_0CE@DELLBPAE@Expected?5?8Delay?8?5token?0?5found?5?8?$CF@,,literal,,0,1
@@ -11452,10 +11452,10 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x0085A160,140,.rdata,string,??_C@_0O@EMJFKKHB@CollideModule?$AA@,,literal,,0,1
 0x0085A1EC,24,.rdata,vtable,??_7Rva004BB949@@6BRva004BB949_B2@@@,,literal,??_7Rva004BB949@@6BRva004BB949_B2@@@;_s_secondary10@Code/GameEngine/Source/GameLogic/Object/Collide/SquishCollideCtor.cpp,1,2
 0x0085A204,56,.rdata,vtable,??_7Rva004BB949@@6BRva004BB68E@@@,,literal,??_7Rva004BB949@@6BRva004BB68E@@@;_s_vtable@Code/GameEngine/Source/GameLogic/Object/Collide/SquishCollideCtor.cpp,1,2
-0x0085A23C,24,.rdata,vtable,??_7AODCrushCollide@@6BCollideDtorB4@@@,,literal,??_7AODCrushCollide@@6BCollideDtorB4@@@;_s_aod20@Code/GameEngine/Source/GameLogic/Object/Collide/AODCrushCollideCtor.cpp,1,2
-0x0085A254,12,.rdata,vtable,??_7AODCrushCollide@@6BCollideDtorB3@@@,,literal,??_7AODCrushCollide@@6BCollideDtorB3@@@;_s_secondary10@Code/GameEngine/Source/GameLogic/Object/Collide/AODCrushCollideCtor.cpp,1,2
-0x0085A260,188,.rdata,vtable,??_7AODCrushCollide@@6BCollideDtorB2@@@,,literal,??_7AODCrushCollide@@6BCollideDtorB2@@@;??_7CritterEmitterUpdate@@6BBehaviorModuleOther@@@;??_7CritterEmitterUpdate@@6BCritterEmitterUpdateIface1@@@;??_7Rva004A8091@@6BRva0024A797_Mid@@@;_s_secondary0C@Code/GameEngine/Source/GameLogic/Object/Collide/AODCrushCollideCtor.cpp;_vtbl_00C5A260,1,6
-0x0085A31C,52,.rdata,vtable,??_7AODCrushCollide@@6BCollideDtorB1@@@,,literal,??_7AODCrushCollide@@6BCollideDtorB1@@@;_s_vtable@Code/GameEngine/Source/GameLogic/Object/Collide/AODCrushCollideCtor.cpp,1,2
+0x0085A23C,24,.rdata,vtable,??_7AODCrushCollide@@6BCollideDtorB4@@@,,literal,??_7AODCrushCollide@@6BCollideDtorB4@@@;_s_aod20@Code/GameEngine/Source/GameLogic/Object/Collide/AODCrushCollide.cpp,1,2
+0x0085A254,12,.rdata,vtable,??_7AODCrushCollide@@6BCollideDtorB3@@@,,literal,??_7AODCrushCollide@@6BCollideDtorB3@@@;_s_secondary10@Code/GameEngine/Source/GameLogic/Object/Collide/AODCrushCollide.cpp,1,2
+0x0085A260,188,.rdata,vtable,??_7AODCrushCollide@@6BCollideDtorB2@@@,,literal,??_7AODCrushCollide@@6BCollideDtorB2@@@;??_7CritterEmitterUpdate@@6BBehaviorModuleOther@@@;??_7CritterEmitterUpdate@@6BCritterEmitterUpdateIface1@@@;??_7Rva004A8091@@6BRva0024A797_Mid@@@;_s_secondary0C@Code/GameEngine/Source/GameLogic/Object/Collide/AODCrushCollide.cpp;_vtbl_00C5A260,1,6
+0x0085A31C,52,.rdata,vtable,??_7AODCrushCollide@@6BCollideDtorB1@@@,,literal,??_7AODCrushCollide@@6BCollideDtorB1@@@;_s_vtable@Code/GameEngine/Source/GameLogic/Object/Collide/AODCrushCollide.cpp,1,2
 0x0085A350,616,.rdata,vtable,??_7AODCrushCollideModuleData@@6B@,,literal,,0,1
 0x0085A5B8,24,.rdata,vtable,??_7Rva004BC325@@6BRva004BC325_B2@@@,,literal,??_7Rva004BC325@@6BRva004BC325_B2@@@;_s_secondary10@Code/GameEngine/Source/GameLogic/Object/Collide/HordeMemberCollide.cpp,1,2
 0x0085A5D0,48,.rdata,vtable,??_7Rva004BC325@@6BRva004BB68E@@@,,literal,??_7Rva004BC325@@6BRva004BB68E@@@;_s_vtable@Code/GameEngine/Source/GameLogic/Object/Collide/HordeMemberCollide.cpp,1,2

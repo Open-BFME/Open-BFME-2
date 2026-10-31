@@ -13185,7 +13185,7 @@ _XMP_Randomize,,0x0061C3C0,92,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,mat
 ?friend_newModuleData@StealthDetectorUpdateModuleData@@SAPAVModuleData@@PAVINI@@@Z,,0x002553C5,49,Code/GameEngine/Source/GameLogic/Object/Update/StealthDetectorUpdateModuleDataFriendNew.cpp,matched,Frameless TU news 0x70 plus pinned throw-ctor 0x255371 plus rowed proc 0x4A2D82
 ?friend_newModuleData@FireWeaponCollideModuleData@@SAPAVModuleData@@PAVINI@@@Z,,0x00254A7A,49,Code/GameEngine/Source/GameLogic/Object/Collide/FireWeaponCollideModuleDataFriendNew.cpp,matched,Frameless TU news 0x30 plus pinned throw-ctor 0x254A36 plus rowed proc 0x4BB918
 ??0FireWeaponCollide@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004BB79A,108,Code/GameEngine/Source/GameLogic/Object/Collide/FireWeaponCollide.cpp,matched,
-??0AODCrushCollide@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004BC00D,67,Code/GameEngine/Source/GameLogic/Object/Collide/AODCrushCollideCtor.cpp,matched,
+??0AODCrushCollide@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004BC00D,67,Code/GameEngine/Source/GameLogic/Object/Collide/AODCrushCollide.cpp,matched,
 ?friend_newModuleInstance@AODCrushCollide@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z,,0x0025101E,56,Code/GameEngine/Source/GameLogic/Object/Collide/AODCrushCollideFriendNew.cpp,matched,
 ?addUnitPrereq@ProductionPrerequisite@@QAEXVAsciiString@@_N@Z,,0x004F52CB,105,Code/GameEngine/Source/Common/Thing/ProductionPrerequisiteAddUnitPrereq.cpp,matched,BFME1 ProductionPrerequisiteAddUnitPrereq donor shape; 1-arg Rec pushback pin 0x004F5243; opassign pin 0x000366F0; dtor fold 0x00036410
 ??1AODCrushCollide@@UAE@XZ,,0x004BBEDD,32,Code/GameEngine/Source/GameLogic/Object/Collide/AODCrushCollideDtor.cpp,matched,
