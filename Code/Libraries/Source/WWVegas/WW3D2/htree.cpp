@@ -1,4 +1,4 @@
-// cl: /MD /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /Ireference/shims/bfme2htree /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib /Ireference/shims/archivefile_directory_dtor /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include
+// cl: /MD /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /Ireference/shims/bfme2htree /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib /Ireference/shims/archivefile_directory_dtor /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/shims/zh_outofline /Ireference/shims/updatemodule_ctor
 // stlport
 // TU Code/Libraries/Source/WWVegas/WW3D2/htree.cpp: generated by tools/tu_skeleton.py from tu_map.csv (approved rows, retail order)
 #include <windows.h>
@@ -26,6 +26,17 @@
 #include <stl/_iterator_base.h>
 #include <memory>
 #include <algorithm>
+struct Elem36Block16
+{
+	int m_words[4];
+};
+struct Elem36Tail
+{
+	Elem36Block16 m_block;
+	int m_word14;
+	int m_word18;
+	int m_word1C;
+};
 
 //
 // HTreeClass destructor, retail 0x001667E0, 26 bytes.
@@ -280,6 +291,10 @@ struct Rva001D28F0Element
 	char m_bytes[28];
 };
 
+extern void (Elem36Vector::*const g_elem36PushBack)(const Elem36 &);
+
+void (Elem36Vector::*const g_elem36PushBack)(const Elem36 &) = &Elem36Vector::push_back;
+
 // tu-skeleton: 0x001606E0 1144B ?Simple_Evaluate_Pivot@HTreeClass@@QBE_NHABVMatrix3D@@PAV2@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HTreeClassBoneLookup.cpp (not merged yet)
 
 // tu-skeleton: 0x00160B60 68B ?Get_Bone_Index@HTreeClass@@QBEHPBD@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HTreeClassBoneLookup.cpp (not merged yet)
@@ -287,6 +302,8 @@ struct Rva001D28F0Element
 // tu-skeleton: 0x00160BB0 22B ?Get_Bone_Name@HTreeClass@@QBEPBDH@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HTreeClassBoneLookup.cpp (not merged yet)
 
 // tu-skeleton: 0x00160BD0 35B ?Get_Parent_Index@HTreeClass@@QBEHH@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HTreeClassBoneLookup.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/htree.cpp
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/htree.cpp
 
@@ -1178,11 +1195,8 @@ void HTreeClass::Capture_Bone(int boneindex)
 
 // STLport 4.5.3 captured-bone copy forwarder.
 
-// tu-skeleton: 0x00160CB0 770B ?Slave_Update@HTreeClass@@QAEXPBV1@ABVMatrix3D@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HTreeClassReadPivots.cpp (not merged yet)
 
-// tu-skeleton: 0x001610A0 23B ?size@?$vector@URunwayInfo@ParkingPlaceBehavior@@V?$allocator@URunwayInfo@ParkingPlaceBehavior@@@_STL@@@_STL@@QBEIXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/ParkingPlaceBehavior.cpp (not merged yet)
 
-// tu-skeleton: 0x001610C0 34B ?allocate@?$allocator@U?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@VArchivedFileInfo@@@_STL@@@_STL@@@_STL@@QBEPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@VArchivedFileInfo@@@_STL@@@2@IPBX@Z -- matched in Code/GameEngine/Source/Common/System/ArchiveFile.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/ElementStrideWalks.cpp
 
@@ -1197,7 +1211,31 @@ Elem36 *rva00161150CopyWalk(Elem36 *first, Elem36 *last, Elem36 *dest)
 	return cursor;
 }
 
-// tu-skeleton: 0x00161180 43B ??$__uninitialized_fill_n@PAUElem36@@IU1@@_STL@@YAPAUElem36@@PAU1@IABU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_elem36_push_back.cpp (not merged yet)
+// tu-skeleton: 0x00160CB0 770B ?Slave_Update@HTreeClass@@QAEXPBV1@ABVMatrix3D@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HTreeClassReadPivots.cpp (not merged yet)
+
+// tu-skeleton: 0x001610A0 23B ?size@?$vector@URunwayInfo@ParkingPlaceBehavior@@V?$allocator@URunwayInfo@ParkingPlaceBehavior@@@_STL@@@_STL@@QBEIXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/ParkingPlaceBehavior.cpp (not merged yet)
+
+// tu-skeleton: 0x001610C0 34B ?allocate@?$allocator@U?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@VArchivedFileInfo@@@_STL@@@_STL@@@_STL@@QBEPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@VArchivedFileInfo@@@_STL@@@2@IPBX@Z -- matched in Code/GameEngine/Source/Common/System/ArchiveFile.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_vector_elem36_push_back.cpp
+
+//
+// STLport vector push_back / _M_insert_overflow / __uninitialized_fill_n for a
+// 36-byte element, default flags. Retail push_back 0x00166570 is called from
+// the unclaimed HTree-area functions at 0x001666BA and 0x00166A57; it tests
+// finish==end_of_storage and either placement-constructs through 0x001610F0
+// and bumps finish by 0x24 or calls _M_insert_overflow 0x001663F0 with
+// (pos value __false_type n=1 atend=true). The overflow body allocates via
+// the byte allocator 0x000307F0 copies prefix/value/suffix through
+// 0x001610F0 and frees the old block through 0x00030830.
+//
+// Element identity is not recovered. Elem36 is the stride-sized stand-in of
+// ElementStrideWalks.cpp; the member split (dword + 16-byte block + three
+// dwords + byte) follows the retail construct helper 0x001610F0 which copies
+// +0x04..+0x13 as one block then +0x14/+0x18/+0x1C and the byte at +0x20.
+// Retail keeps one unsigned max, RVA 0x00013740 (the vendored STLport row). This unit's
+// flags (/G7) compile a different copy, and retail kept another unit's. This unit-local
+// overload keeps the inlined code and offers the link no second copy.
 
 // tu-skeleton: 0x001614F0 526B ?read_pivots@HTreeClass@@AAE_NAAVChunkLoadClass@@_N@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HTreeClassReadPivots.cpp (not merged yet)
 
@@ -1221,11 +1259,11 @@ Elem36 *rva00161150CopyWalk(Elem36 *first, Elem36 *last, Elem36 *dest)
 
 // tu-skeleton: 0x00165820 2277B ?Combo_Update@HTreeClass@@QAEXABVMatrix3D@@PAVHAnimComboClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HTreeClassFirstCapturedBone.cpp (not merged yet)
 
+// tu-skeleton: 0x001661C0 47B ?erase@?$vector@UBfmePod36@@V?$allocator@UBfmePod36@@@_STL@@@_STL@@QAEPAUBfmePod36@@PAU3@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_o2_bodies.cpp (not merged yet)
+
 // tu-skeleton: 0x00166240 43B ?erase@?$vector@UBfmePod36@@V?$allocator@UBfmePod36@@@_STL@@@_STL@@QAEPAUBfmePod36@@PAU3@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_o2_bodies.cpp (not merged yet)
 
 // tu-skeleton: 0x001662A0 285B ??0HTreeClass@@QAE@ABV0@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HTreeClassCopyConstructor.cpp (not merged yet)
-
-// tu-skeleton: 0x00166570 55B ?push_back@?$vector@UElem36@@V?$allocator@UElem36@@@_STL@@@_STL@@QAEXABUElem36@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_elem36_push_back.cpp (not merged yet)
 
 // tu-skeleton: 0x001666D0 267B ?Init_Default@HTreeClass@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/HTreeClassInitDefault.cpp (not merged yet)
 
