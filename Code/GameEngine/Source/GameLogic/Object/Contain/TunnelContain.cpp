@@ -72,7 +72,94 @@ public: unsigned char isTwo() const;
 private: char unknown[0x0C]; unsigned int value;
 };
 
+class TurretStateMachine
+{
+public:
+	Object *getGoalObject();
+};
+
+class Rva0047DE6CRiderInterface
+{
+public:
+	virtual void x00();
+	virtual void x01();
+	virtual void x02();
+	virtual void x03();
+	virtual void x04();
+	virtual void x05();
+	virtual void x06();
+	virtual void x07();
+	virtual void x08();
+	virtual void x09();
+	virtual void x10();
+	virtual void x11();
+	virtual void x12();
+	virtual void x13();
+	virtual void x14();
+	virtual void x15();
+	virtual void x16();
+	virtual void x17();
+	virtual void x18();
+	virtual void x19();
+	virtual void x20();
+	virtual void x21();
+	virtual void x22();
+	virtual void x23();
+	virtual void x24();
+	virtual void x25();
+	virtual void x26();
+	virtual void x27();
+	virtual void x28();
+	virtual void x29();
+	virtual void x30();
+	virtual void x31();
+	virtual void x32();
+	virtual void x33();
+	virtual void x34();
+	virtual void x35();
+	virtual void x36();
+	virtual void x37();
+	virtual void x38();
+	virtual void x39();
+	virtual void x40();
+	virtual void x41();
+	virtual void x42();
+	virtual void x43();
+	virtual void x44();
+	virtual void x45();
+	virtual void x46();
+	virtual void x47();
+	virtual void x48();
+	virtual void x49();
+	virtual void x50();
+	virtual void x51();
+	virtual void x52();
+	virtual void x53();
+	virtual void x54();
+	virtual void x55();
+	virtual void x56();
+	virtual void x57();
+	virtual void x58();
+	virtual void x59();
+	virtual void x60();
+	virtual bool x61();
+};
+
+namespace _STL {template<> _List_base<Rva0036ADF9Element,allocator<Rva0036ADF9Element> >::~_List_base();}
+
+// LINK: 0x4F571B is rowed as Rva004F56FC::rva004F571B (const Object *) and 0x47DE6C as the
+// callback Rva0047DE6CVisit(Object *, void *); both are bound under those names.
+void __cdecl Rva0047DE6CVisit(Object *object, void *userData);
+
+class OpenContain
+{
+public:
+ virtual void onDelete();
+};
+
 // tu-skeleton: 0x0047DB00 67B ??1TunnelContain@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainDtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContain.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContain.cpp
 
@@ -356,8 +443,6 @@ Rva0036AE51ListView TunnelContain::rva0047DD0F()
 	return ((Rva00466398 *)owningPlayer->m_tunnelSystem)->rva00466398();
 }
 
-// tu-skeleton: 0x0047DB88 6B ?name@TunnelContain@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/DispByteFieldGetters.cpp
 
 // Disp32 byte getters: seven-byte __thiscall members with one shape:
@@ -378,21 +463,200 @@ Rva0036AE51ListView TunnelContain::rva0047DD0F()
 // reference/open-bfme-1/Code/GameEngine/Source/Common/DispByteFieldGetters.cpp).
 // No // cl: line (defaults match the frameless 7-byte shape).
 
+// tu-skeleton: 0x0047DB88 6B ?name@TunnelContain@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+
 // tu-skeleton: 0x0047DBF7 98B ??0TunnelContain@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0047DC59 28B ??_GTunnelContain@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0047DC88 87B ?removeFromContain@TunnelContain@@UAEXPAVObject@@H@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainRemoveFromContain.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainRemoveFromContain.cpp
 
-// tu-skeleton: 0x0047DE6C 117B ?Rva0047DE6CVisit@@YAXPAVObject@@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainRva0047DE6C.cpp (not merged yet)
+// Retail 0x0047DC88, 87B: TunnelContain::removeFromContain, entered through
+// the contain interface at TunnelContain+0x20 (object this-0x18, primary
+// vtable this-0x20).
+// Body: Zero Hour's TunnelContain::removeFromContain (GeneralsMD GameEngine/
+// Source/GameLogic/Object/Contain/TunnelContain.cpp) reshaped for BFME 2:
+// the onRemoving/onRemovedFrom notifications are the inherited body
+// 0x00479DCD (called on the same interface), then, with a controlling
+// player, the object is removed from the player's tunnel tracker (+0x2E8)
+// when primary slot 0x80 reports it or the tracker says it is contained
+// (0x004F550A); TunnelTracker::removeFromContain is 0x004F54BF. The tracker
+// methods are rowed with ObjectID parameters while retail passes the Object
+// pointer, hence the casts.
 
-// tu-skeleton: 0x0047DEE1 99B ?rva0047DEE1@TunnelContain@@UAEPAVRva0047DEE1Rider@@H@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainGetRider.cpp (not merged yet)
+// The contain interface at +0x20; its inherited removeFromContain body is
+// the rowed 0x00479DCD (address-named class and method as rowed).
+void TunnelContain::removeFromContain( Object *obj, int exposeStealthUnits )
+{
+	rva00479DCD( obj, exposeStealthUnits );
 
-// tu-skeleton: 0x0047DF44 61B ?rva0047DF44@TunnelContain@@UAE_NH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainRva0047DF44.cpp (not merged yet)
+	Player *owningPlayer = m_object->getControllingPlayer();
+	if( owningPlayer == 0 )
+		return;
 
-// tu-skeleton: 0x0047DF81 88B ?rva0047DF81@TunnelContain@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainRva0047DF81.cpp (not merged yet)
+	if( p32( obj ) == 0 && !owningPlayer->getTunnelSystem()->isInContainer( (ObjectID)(int)obj ) )
+		return;
 
-// tu-skeleton: 0x0047DFFF 16B ?onDelete@TunnelContain@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContain_onDelete.cpp (not merged yet)
+	owningPlayer->getTunnelSystem()->removeFromContain( (ObjectID)(int)obj, exposeStealthUnits );
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainRva0047DE6C.cpp
+
+// Retail 0x0047DE6C, 117B: a TunnelContain contained-object visitor
+// (cdecl (Object *, void *userData), the tunnel Object as user data).
+// Target evidence: an object whose AI state machine (AI at Object+0x258,
+// machine at +0x30) has the tunnel as goal object (TurretStateMachine::
+// getGoalObject 0x004D7726), whose template has kind-of bit 0x115:0x20 set,
+// and whose contain module (Object+0x250, slot 0x7C) yields an interface
+// whose slot 0xF4 test is false, is removed from the tunnel with
+// exposeStealthUnits set: the tunnel's contain pointer is cast down to
+// TunnelContain (null-checked) and removeFromContain (slot 0xA4 of the
+// contain interface at +0x20) is called. The owner and purpose are not
+// otherwise named; the function keeps an address-derived name.
+
+// Keep the native +0x250 load inline; omit the competing legacy getter.
+void Rva0047DE6CVisit( Object *obj, void *userData )
+{
+	if( obj == 0 )
+		return;
+
+	Object *tunnel = (Object *)userData;
+	if( tunnel == 0 )
+		return;
+
+	AIUpdateInterface *ai = obj->getAI();
+	if( ai == 0 )
+		return;
+
+	if( ai->m_stateMachine->getGoalObject() != tunnel )
+		return;
+
+	if( ( obj->getTemplate()->m_kindOf115 & 0x20 ) == 0 )
+		return;
+
+	ContainModuleInterface *contain = obj->getContain();
+	if( contain == 0 )
+		return;
+
+	Rva0047DE6CRiderInterface *rider = contain->c31();
+	if( rider == 0 )
+		return;
+
+	if( rider->x61() )
+		return;
+
+	TunnelContain *tunnelContain = static_cast<TunnelContain *>( reinterpret_cast<B20 *>(tunnel->getContain()) );
+	tunnelContain->removeFromContain( obj, 1 );
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainGetRider.cpp
+
+// The inline/noinline view getter is the already rowed 26-byte provider
+// at 0x00466398 and its complete bytes also match in this TU. Its visible
+// write set restores the target caller register allocation.
+// Retail 0x0047DEE1, 99B: a TunnelContain primary-vtable member (only
+// reference is a vtable entry; the slot's name is not established, hence the
+// address name). It walks the containment list the controlling player's
+// tunnel tracker (+0x2E8) returns (0x00466398, as in the matched sibling
+// TunnelContain::rva0047DF44 0x0047DF44) and returns the first contained
+// object's rider interface (contain module Object+0x250, slot 0x7C) whose
+// slot 0x18 test accepts the argument, else null.
+
+inline __declspec(noinline) Rva0036AE51ListView Rva00466398::rva00466398(){Rva0036AE51ListView out;out.a=this?(void*)((char*)this+4):0;out.b=(ContainmentList*)((char*)this+16);return out;}
+
+Rva0047DEE1Rider *TunnelContain::rva0047DEE1( int arg )
+{
+	Player *player = m_object->getControllingPlayer();
+	Rva0036AE51ListView out = ((Rva00466398 *)player->m_tunnelSystem)->rva00466398();
+	ContainmentList *list = out.b;
+	for (ContainmentList::iterator it = list->begin(); it._M_node != list->end()._M_node; ++it)
+	{
+		Object *obj = (Object *)containmentFirstWord(*it);
+		ContainModuleInterface *contain = obj->getContain();
+		if (contain)
+		{
+			Rva0047DEE1Rider *rider = (Rva0047DEE1Rider *)contain->c31();
+			if (rider && rider->x6(arg))
+				return rider;
+		}
+	}
+	return 0;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainRva0047DF44.cpp
+
+//
+// ?rva0047DF44@TunnelContain@@UAE_NH@Z @0x0047DF44 61B.
+// Target evidence: the only reference to this body is slot 58 of the vtable
+// 0x00C475B8 that the matched TunnelContain ctor 0x0047DBF7 and dtor
+// 0x0047DB00 install at +0x20 (the OpenContain-family layout); the slot's
+// name is not established, hence the address name. cl 7.1 compiles an
+// override of a non-primary base's virtual with the base subobject's this
+// and folds the adjustment into the member accesses: the Object pointer at
+// +8 is read as [ecx-0x18]. Body: asks the controlling player's +0x2E8
+// object (rowed 0x00466398) to fill a two-dword record whose second dword is
+// a list<int>, and reports whether the argument is in that list (STLport
+// list walk: header at [list], first node at [header], value at node +8).
+// Structural inference: the Player is held in a local before the call, which
+// evaluates the object before pushing &out as retail does.
+
+bool TunnelContain::rva0047DF44(int id)
+{
+	Player *player = m_object->getControllingPlayer();
+	Rva0036AE51ListView out = ((Rva00466398 *)player->m_tunnelSystem)->rva00466398();
+	for (ContainmentList::iterator it = out.b->begin(); it._M_node != out.b->end()._M_node; ++it)
+	{
+		if (containmentFirstWord(*it) == id)
+			return true;
+	}
+	return false;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainRva0047DF81.cpp
+
+// Retail 0x0047DF81, 88 bytes, RET. Object +8 and pending +9E5 are
+// fixed by native loads. The controlling Player supplies a TunnelTracker
+// at +2E8; the containment interface at +20 dispatches slots 42 and 68.
+// TunnelContain identity follows the rowed ctor/dtor, xfer state +9E5,
+// approved TU map and adjacent containment overrides; method name unresolved.
+// ZH TunnelContain/TunnelTracker sources corroborate unregister/iteration flow.
+// Callback 0x0047DE6C
+// has a complete 117-byte cdecl boundary and reads two Object pointers.
+
+void TunnelContain::rva0047DF81()
+{
+ if (pending)
+ {
+  Player *player = m_object->getControllingPlayer();
+  if (player == 0)
+   return;
+  TunnelTracker *tracker = player->m_tunnelSystem;
+  if (tracker != 0)
+  {
+   if (((Rva004F56FC *)tracker)->rva004F571B(m_object))
+    dispatch42(false);
+   else
+    dispatch68((void (__cdecl *)(Object *, Object *))Rva0047DE6CVisit, m_object, true);
+  }
+  pending = false;
+ }
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContain_onDelete.cpp
+
+// Retail 0x0047DFFF, 16 bytes, RET.
+// Shape: this is kept in esi across one member call (0x00464120, address-derived
+// name: its only evidence is the __thiscall with ecx = this), then the last
+// statement tail-jumps into TunnelContain::rva0047DF81 (0x0047DF81, matched in
+// TunnelContainRva0047DF81.cpp). The owner is inferred from the tail callee and
+// the file neighbours; the class name is not otherwise established.
+
+// Slot 8 of TunnelContain's vftable 0x00C47740: virtual.
+void TunnelContain::onDelete()
+{
+ ((OpenContain *)this)->OpenContain::onDelete();
+ rva0047DF81();
+}
 
 // tu-skeleton: 0x0047E0CE 157B ?removeAllContained@TunnelContain@@UAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainRemoveAllContained.cpp (not merged yet)
 
