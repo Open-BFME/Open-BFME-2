@@ -1,0 +1,22 @@
+{
+  "pin_before": {
+    "name": "??$insert@U?$_List_iterator@PAVObject@@U?$_Const_traits@PAVObject@@@_STL@@@_STL@@@?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@QAEXU?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@1@U?$_List_iterator@PAVObject@@U?$_Const_traits@PAVObject@@@_STL@@@1@1@Z",
+    "address": "0x00423890",
+    "notes": "Existing pooled Object-list helper; complete native body and relocation proof; fold-proof=Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainRva00475F61.cpp"
+  },
+  "candidate": {
+    "name": "??$insert@U?$_List_iterator@PAVObject@@U?$_Const_traits@PAVObject@@@_STL@@@_STL@@@?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@QAEXU?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@1@U?$_List_iterator@PAVObject@@U?$_Const_traits@PAVObject@@@_STL@@@1@1@Z",
+    "address": "0x00423890",
+    "notes": "Existing pooled Object-list helper; complete native body and relocation proof; fold-proof=Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp"
+  },
+  "problems": [],
+  "receipt": {
+    "output": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^g^u^i_^game^window^manager^script.obj",
+    "bindings": {
+      "??$insert@U?$_List_iterator@PAVObject@@U?$_Const_traits@PAVObject@@@_STL@@@_STL@@@?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@QAEXU?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@1@U?$_List_iterator@PAVObject@@U?$_Const_traits@PAVObject@@@_STL@@@1@1@Z": 4339856,
+      "??$_M_insert_dispatch@U?$_List_iterator@PAVObject@@U?$_Const_traits@PAVObject@@@_STL@@@_STL@@@?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@QAEXU?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@1@U?$_List_iterator@PAVObject@@U?$_Const_traits@PAVObject@@@_STL@@@1@1ABU__false_type@1@@Z": 4338198
+    }
+  },
+  "scope": "Existing binding removed and re-admitted solely through pin_admission --add, using complete native proof from the actual kept Script copy; no new name/address or source-body change",
+  "admitted": true
+}

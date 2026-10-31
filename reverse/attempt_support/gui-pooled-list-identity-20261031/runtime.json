@@ -176,5 +176,13 @@
     "pooled operator= to range insert at 0x00423890",
     "pooled _M_assign_dispatch to range insert at 0x00423890",
     "divergent const Object-list iterator constructor copies"
-  ]
+  ],
+  "latest_identity_retirement": {
+    "retired": true,
+    "keys": 1,
+    "still_found": 0,
+    "method": "repair_queue.py retire identity after official kept-copy pin admission and ordinary missing-object builds",
+    "earlier_refusals": "Historical publication state retained above; see retirement.json for later PASS",
+    "global_identity_clean": false
+  }
 }

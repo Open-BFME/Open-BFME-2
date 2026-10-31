@@ -761,7 +761,7 @@ existing LINK-011 preview clearances retained for its two rows.
 | `Code/Libraries/Source/WWVegas/WW3D2/HRawLoadW3D_Unresolved.cpp` | 149 | 2 (C=2) | Current-object preview LINKS (2026-10-27); census pending; shared-view/consolidation prerequisites in LINK-023 |
 | `Code/Libraries/Source/WWVegas/WWLib/Rva00056da2Finish.cpp` | 136 | 2 (C=1, S=1) | Open |
 | `Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShaderManagerScreenBWFilterInit.cpp` | 101 | 2 (U=2) | Open |
-| `Code/GameEngine/Source/GameClient/GUI/GameWindowManager_registerTabList.cpp` | 73 | 2 (C=1, S=1) | Open |
+| `Code/GameEngine/Source/GameClient/GUI/GameWindowManager_registerTabList.cpp` | 73 | 2 (C=1, S=1) | 2026-10-31: native GUI/pooled Object-list identity repair landed at `7469976011`; bounded eight-unit preview LINKS 6,915 -> 6,993 (+78). Historical checklist count retained; current authored unit is 78 bytes. Census and wider consumer closure pending; outgoing audit INCONCLUSIVE on 23 missing receipts. [Evidence](../reverse/attempt_support/gui-pooled-list-identity-20261031/audit.md). |
 | `Code/GameEngine/Source/Common/Rva003ADEFBCopy.cpp` | 67 | 2 (U=2) | Open |
 | `Code/GameEngine/Source/Common/EmotionSystem.cpp` | 59 | 2 (U=2) | LINK-011: preview cleared; census pending |
 | `Code/Libraries/Source/WWVegas/WW3D2/Rva007B73C0.cpp` | 59 | 2 (C=1, S=1) | LINK-015: blocked; its own inlined `??_G` loses while no copy is proven |
