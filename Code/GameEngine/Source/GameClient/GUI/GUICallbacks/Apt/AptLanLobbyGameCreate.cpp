@@ -30,9 +30,21 @@ public:
 
 // The +0x288 panel's rowed bodies: 0x0044303D (1040 bytes; registers the
 // panel's Apt callbacks) and 0x0043DC0F.
+class GameInfo;
 class AptMpGameSetup
 {
 public:
+	void InitGadgets();
+	void rva0043FFCF();
+	bool OnHostStartGame(bool flag);
+	bool WaitStartGame();
+	bool OnUpdate();
+	int rva00442CB3(unsigned int msg, unsigned int data1, unsigned int data2);
+	void rva0043FA68(GameInfo *game);
+	void rva004422B4(int mode);
+	bool rva00442C9C();
+	bool InitGameInfoFromSaveGame(GameInfo *game);
+	bool Init(GameInfo *game, int flag);
 	void rva0044303D();
 	void rva0043DC0F();
 };

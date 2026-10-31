@@ -11,9 +11,11 @@
 // rowed LANAPI::ValidateGameInfo via global 0x00DFE958. Returns game or 0.
 // Evidence: chain lane calls 0x003253BE; callers 0x00444704 0x0044489F.
 
+class WinInstanceData;
 class GameWindow
 {
 public:
+	int winSetTooltipFunc(void (*tooltip)(GameWindow *window, WinInstanceData *data, unsigned int mouse));
 	void *winGetUserData();
 };
 
