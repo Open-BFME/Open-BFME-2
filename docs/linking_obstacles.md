@@ -15260,3 +15260,8 @@ Publication follow-up (34caf16ef8, first attempt): the required batch audit is I
 ### Player legacy AI wrapper handoff (2026-10-31, codex root)
 
 Two unused legacy wrappers have byte/data/runtime-preserving removal evidence from da4ce080d1 but remain pending: current class:Object scope is held by another worker and covers Player.cpp. Current Code/ and all debt registers are unchanged. The interrupted consolidation run left no verdict; no source move is approved. Reacquire and refresh evidence before retiring either wrapper. [Pending patch and scope](../reverse/attempt_support/player-unused-ai-wrappers-20261030/readme.md).
+
+
+### GUI/pooled-list identity correction: migrate the live caller first (2026-10-31, codex root)
+
+The mandatory separate withdrawal of six wrong GameWindow-family identities exposed a live Formation424E77 caller of the old Rva423D92 dispatch and was correctly refused by name_dependents. The attempted withdrawal was fully restored. The supported sequence now migrates that caller through native, tool-admitted pooled bindings before repeating the withdrawal. Its845B body requires the corrected dispatch body to remain visible to the compiler. All18 Formation rows and10 Horde rows, including scoped EH, now pass ordinary build. Seven private replacement bodies also pass full byte/relocation verification. No unit-link or census gain is claimed yet. The six legacy claims and other consumers still need correction; affected rows remain in their original physical sources until TU approval. [Evidence](../reverse/attempt_support/gui-pooled-list-identity-20261031/readme.md).

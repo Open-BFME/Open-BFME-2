@@ -233,5 +233,247 @@
       "unresolved": []
     }
   ],
-  "trial_source_sha256": "adc59605e60d228dc4daa5da7595700f157287f999929078edc2e357987212d6"
+  "trial_source_sha256": "adc59605e60d228dc4daa5da7595700f157287f999929078edc2e357987212d6",
+  "family_replacements": [
+    {
+      "trial": "script",
+      "name": "?erase@?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@QAE?AU?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@2@U32@0@Z",
+      "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp",
+      "target_rva": "0x4221b2",
+      "target_size": "52",
+      "notes": "",
+      "whole_body_exact": true,
+      "no_masking": true,
+      "no_unresolved": true,
+      "private_verified_predecessor_bindings": []
+    },
+    {
+      "trial": "script",
+      "name": "??4?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@QAEAAV01@ABV01@@Z",
+      "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp",
+      "target_rva": "0x46f0c2",
+      "target_size": "104",
+      "notes": "",
+      "whole_body_exact": true,
+      "no_masking": true,
+      "no_unresolved": true,
+      "private_verified_predecessor_bindings": [
+        "0x4221b2"
+      ]
+    },
+    {
+      "trial": "script",
+      "name": "?erase@?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVGameWindow@@U?$_Nonconst_traits@PAVGameWindow@@@_STL@@@2@U32@@Z",
+      "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp",
+      "target_rva": "0x438539",
+      "target_size": "32",
+      "notes": "",
+      "whole_body_exact": true,
+      "no_masking": true,
+      "no_unresolved": true,
+      "private_verified_predecessor_bindings": [
+        "0x4221b2",
+        "0x46f0c2"
+      ]
+    },
+    {
+      "trial": "copy-46",
+      "name": "??$__copy@PAV?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@PAV12@H@_STL@@YAPAV?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@0@PAV10@00ABUrandom_access_iterator_tag@0@PAH@Z",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_list_gamewindow_copy.cpp",
+      "target_rva": "0x4703b1",
+      "target_size": "47",
+      "notes": "",
+      "whole_body_exact": true,
+      "no_masking": true,
+      "no_unresolved": true,
+      "private_verified_predecessor_bindings": [
+        "0x4221b2",
+        "0x46f0c2",
+        "0x438539"
+      ]
+    },
+    {
+      "trial": "copy-46",
+      "name": "??$__copy_ptrs@PAV?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@PAV12@@_STL@@YAPAV?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@0@PAV10@00ABU__false_type@0@@Z",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_list_gamewindow_copy.cpp",
+      "target_rva": "0x474125",
+      "target_size": "29",
+      "notes": "",
+      "whole_body_exact": true,
+      "no_masking": true,
+      "no_unresolved": true,
+      "private_verified_predecessor_bindings": [
+        "0x4221b2",
+        "0x46f0c2",
+        "0x438539",
+        "0x4703b1"
+      ]
+    },
+    {
+      "trial": "dispatch-46",
+      "name": "??$_M_assign_dispatch@U?$_List_iterator@PAVObject@@U?$_Const_traits@PAVObject@@@_STL@@@_STL@@@?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@QAEXU?$_List_iterator@PAVObject@@U?$_Const_traits@PAVObject@@@_STL@@@1@0ABU__false_type@1@@Z",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_list_gamewindow_assign_dispatch.cpp",
+      "target_rva": "0x423d92",
+      "target_size": "79",
+      "notes": "",
+      "whole_body_exact": true,
+      "no_masking": true,
+      "no_unresolved": true,
+      "private_verified_predecessor_bindings": [
+        "0x4221b2",
+        "0x46f0c2",
+        "0x438539",
+        "0x4703b1",
+        "0x474125"
+      ]
+    },
+    {
+      "trial": "assign-46",
+      "name": "??$assign@U?$_List_iterator@PAVObject@@U?$_Const_traits@PAVObject@@@_STL@@@_STL@@@?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@QAEXU?$_List_iterator@PAVObject@@U?$_Const_traits@PAVObject@@@_STL@@@1@0@Z",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_list_gamewindow_assign_004243BE.cpp",
+      "target_rva": "0x4243be",
+      "target_size": "22",
+      "notes": "",
+      "whole_body_exact": true,
+      "no_masking": true,
+      "no_unresolved": true,
+      "private_verified_predecessor_bindings": [
+        "0x4221b2",
+        "0x46f0c2",
+        "0x438539",
+        "0x4703b1",
+        "0x474125",
+        "0x423d92"
+      ]
+    }
+  ],
+  "formation_rows_after_binding": [
+    {
+      "name": "??1?$deque@V?$deque@UBfmeWordValue4@@V?$allocator@UBfmeWordValue4@@@_STL@@@_STL@@V?$allocator@V?$deque@UBfmeWordValue4@@V?$allocator@UBfmeWordValue4@@@_STL@@@_STL@@@2@@_STL@@QAE@XZ",
+      "rva": "0x00424A0E",
+      "exact": true,
+      "masked": false,
+      "unresolved": []
+    },
+    {
+      "name": "?_M_push_back_aux_v@?$deque@V?$deque@V?$deque@UBfmeWordValue4@@V?$allocator@UBfmeWordValue4@@@_STL@@@_STL@@V?$allocator@V?$deque@UBfmeWordValue4@@V?$allocator@UBfmeWordValue4@@@_STL@@@_STL@@@2@@_STL@@V?$allocator@V?$deque@V?$deque@UBfmeWordValue4@@V?$allocator@UBfmeWordValue4@@@_STL@@@_STL@@V?$allocator@V?$deque@UBfmeWordValue4@@V?$allocator@UBfmeWordValue4@@@_STL@@@_STL@@@2@@_STL@@@2@@_STL@@IAEXABV?$deque@V?$deque@UBfmeWordValue4@@V?$allocator@UBfmeWordValue4@@@_STL@@@_STL@@V?$allocator@V?$deque@UBfmeWordValue4@@V?$allocator@UBfmeWordValue4@@@_STL@@@_STL@@@2@@2@@Z",
+      "rva": "0x00424A65",
+      "exact": true,
+      "masked": false,
+      "unresolved": []
+    },
+    {
+      "name": "??$_Construct@VRva0042476C@@V1@@_STL@@YAXPAVRva0042476C@@ABV1@@Z",
+      "rva": "0x00424BF4",
+      "exact": true,
+      "masked": false,
+      "unresolved": []
+    },
+    {
+      "name": "?init@Rva00425CE2@@UAEXXZ",
+      "rva": "0x00424DDE",
+      "exact": true,
+      "masked": false,
+      "unresolved": []
+    },
+    {
+      "name": "__ehhandler$?init@Rva00425CE2@@UAEXXZ",
+      "rva": "0x007870F5",
+      "exact": true,
+      "masked": false,
+      "unresolved": []
+    },
+    {
+      "name": "??0Rva00425CE2@@QAE@XZ",
+      "rva": "0x00421A84",
+      "exact": true,
+      "masked": false,
+      "unresolved": []
+    },
+    {
+      "name": "?rva00424E77@FormationAssistant@@QAEPAVFormation@@HPAVRva001EB130Holder@@PBUCoord3D@@@Z",
+      "rva": "0x00424E77",
+      "exact": true,
+      "masked": false,
+      "unresolved": []
+    },
+    {
+      "name": "??$_Destroy@V?$deque@V?$deque@UBfmeWordValue4@@V?$allocator@UBfmeWordValue4@@@_STL@@@_STL@@V?$allocator@V?$deque@UBfmeWordValue4@@V?$allocator@UBfmeWordValue4@@@_STL@@@_STL@@@2@@_STL@@@_STL@@YAXPAV?$deque@V?$deque@UBfmeWordValue4@@V?$allocator@UBfmeWordValue4@@@_STL@@@_STL@@V?$allocator@V?$deque@UBfmeWordValue4@@V?$allocator@UBfmeWordValue4@@@_STL@@@_STL@@@2@@0@@Z",
+      "rva": "0x00424DD5",
+      "exact": true,
+      "masked": false,
+      "unresolved": []
+    },
+    {
+      "name": "uw_007870c0",
+      "rva": "0x007870C0",
+      "exact": true,
+      "masked": false,
+      "unresolved": []
+    },
+    {
+      "name": "__ehhandler$??0Rva00425CE2@@QAE@XZ",
+      "rva": "0x00786FDE",
+      "exact": true,
+      "masked": false,
+      "unresolved": []
+    },
+    {
+      "name": "__ehhandler$?_M_push_back_aux_v@?$deque@V?$deque@V?$deque@UBfmeWordValue4@@V?$allocator@UBfmeWordValue4@@@_STL@@@_STL@@V?$allocator@V?$deque@UBfmeWordValue4@@V?$allocator@UBfmeWordValue4@@@_STL@@@_STL@@@2@@_STL@@V?$allocator@V?$deque@V?$deque@UBfmeWordValue4@@V?$allocator@UBfmeWordValue4@@@_STL@@@_STL@@V?$allocator@V?$deque@UBfmeWordValue4@@V?$allocator@UBfmeWordValue4@@@_STL@@@_STL@@@2@@_STL@@@2@@_STL@@IAEXABV?$deque@V?$deque@UBfmeWordValue4@@V?$allocator@UBfmeWordValue4@@@_STL@@@_STL@@V?$allocator@V?$deque@UBfmeWordValue4@@V?$allocator@UBfmeWordValue4@@@_STL@@@_STL@@@2@@2@@Z",
+      "rva": "0x007870C8",
+      "exact": true,
+      "masked": false,
+      "unresolved": []
+    },
+    {
+      "name": "__ehhandler$?rva00424E77@FormationAssistant@@QAEPAVFormation@@HPAVRva001EB130Holder@@PBUCoord3D@@@Z",
+      "rva": "0x00787117",
+      "exact": true,
+      "masked": false,
+      "unresolved": []
+    },
+    {
+      "name": "Unwind@00b8710f",
+      "rva": "0x0078710F",
+      "exact": true,
+      "masked": false,
+      "unresolved": []
+    },
+    {
+      "name": "Unwind@00b86fcb",
+      "rva": "0x00786FCB",
+      "exact": true,
+      "masked": false,
+      "unresolved": []
+    },
+    {
+      "name": "Unwind@00b86fd3",
+      "rva": "0x00786FD3",
+      "exact": true,
+      "masked": false,
+      "unresolved": []
+    },
+    {
+      "name": "$L5788",
+      "rva": "0x007870EA",
+      "exact": true,
+      "masked": false,
+      "unresolved": []
+    },
+    {
+      "name": "??1FormationRowList@@QAE@XZ",
+      "rva": "0x00424A09",
+      "exact": true,
+      "masked": false,
+      "unresolved": []
+    },
+    {
+      "name": "$L7268",
+      "rva": "0x007870FF",
+      "exact": true,
+      "masked": false,
+      "unresolved": []
+    }
+  ],
+  "caller_first_order": "Failed withdrawal fully restored; migrate live caller before repeating mandatory withdrawal."
 }

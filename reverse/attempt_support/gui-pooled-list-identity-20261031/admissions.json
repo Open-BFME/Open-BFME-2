@@ -15,5 +15,19 @@
   "source_sha256": "c0153143a9c8d9dab53a15fa6da51c4e603f7792474cab5487a33f384e50057d",
   "object_sha256": "3e62493785a1b4b9a9a4c20672abaa2f705c1ac264e1a7a906b2de234d1cadeb",
   "preflight": "Each new name had no prior pin; pin_consistency --check passes after admission",
-  "full_body_proof": "Admission independently verified complete native bodies and relocation twins of every existing owner, recursively including same-object child calls"
+  "full_body_proof": "Admission independently verified complete native bodies and relocation twins of every existing owner, recursively including same-object child calls",
+  "caller_migration": {
+    "dispatch_binding": {
+      "name": "??$_M_assign_dispatch@U?$_List_iterator@PAVObject@@U?$_Const_traits@PAVObject@@@_STL@@@_STL@@@?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@QAEXU?$_List_iterator@PAVObject@@U?$_Const_traits@PAVObject@@@_STL@@@1@0ABU__false_type@1@@Z",
+      "source": "Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainRva00475F61.cpp",
+      "target_rva": "0x00423D92",
+      "target_size": "79",
+      "notes": ""
+    },
+    "range_erase_binding": "0x004221B2",
+    "temporary_bindings_retire_after_primary_rows": true,
+    "horde_retained_rows": 10,
+    "formation_retained_rows": 18,
+    "normal_byte_and_scoped_EH_checks_passed": true
+  }
 }

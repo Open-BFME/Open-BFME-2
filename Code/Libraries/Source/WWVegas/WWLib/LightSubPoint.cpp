@@ -74,7 +74,6 @@ namespace _STL {template<> __declspec(dllimport) __forceinline unsigned* _STLP_a
 
 class Object;
 
-class GameWindow;
 
 struct BfmePod32 {int words[8];};
 
@@ -102,6 +101,12 @@ template<class T,class A=allocator<T> > class list {public:
  typedef _List_iterator<T,_Const_traits<T> > const_iterator;
  iterator erase(iterator,iterator);
  template<class InputIter> void insert(iterator,InputIter,InputIter);
+ template<class InputIter> __declspec(noinline) void _M_assign_dispatch(InputIter first2,InputIter last2,const __false_type&){
+  iterator first1(head->next),last1(head);
+  for(;first1!=last1 && first2!=last2;++first1,++first2)*first1=*first2;
+  if(first2==last2)erase(first1,last1);
+  else insert(last1,first2,last2);
+ }
  
  __declspec(noinline) _List_node<T> *_M_create_node(const T&x){
   _List_node<T>*node=(_List_node<T>*)g_freelistPool00DB8FEC.pop();
@@ -185,17 +190,6 @@ class Rva00421A16 {public:
 
 class Rva00423D2FOwner {public:void rva00423D2F(Rva00421A16);};
 
-class Rva00423D92 {public:
- typedef _STL::_List_iterator<GameWindow*,_STL::_Const_traits<GameWindow*> > ConstIter;
- typedef _STL::_List_iterator<GameWindow*,_STL::_Nonconst_traits<GameWindow*> > Iter;
- __declspec(noinline) void rva00423D92(ConstIter first2,ConstIter last2,const _STL::__false_type&){
-  _STL::list<GameWindow*> *me=(_STL::list<GameWindow*>*)this;
-  Iter first1(me->head->next),last1(me->head);
-  for(;first1!=last1 && first2!=last2;++first1,++first2)*first1=*first2;
-  if(first2==last2)me->erase(first1,last1);
-  else me->insert(last1,first2,last2);
- }
-};
 
 class FormationTemplateRows {public:char vector[12];};
 
@@ -396,8 +390,8 @@ Formation *FormationAssistant::rva00424E77(int type,Rva001EB130Holder*source,con
  }
  if(origin)((Rva00423D2FOwner*)&objects)->rva00423D2F(Rva00421A16(*origin));
  else {
-  typedef _STL::_List_iterator<GameWindow*,_STL::_Const_traits<GameWindow*> > Iter;
-  ((Rva00423D92*)&objects)->rva00423D92(Iter(source->head->next),Iter(source->head),_STL::__false_type());
+  typedef _STL::_List_iterator<Object*,_STL::_Const_traits<Object*> > Iter;
+  ((_STL::list<Object*,Rva001EB984PoolAllocator<Object*> >*)&objects)->_M_assign_dispatch(Iter(source->head->next),Iter(source->head),_STL::__false_type());
  }
  for(int i=0;i<(int)formationTemplateView->rows.size();++i) {
   FormationTemplateRows *row=&formationTemplateView->rows[i].cells;

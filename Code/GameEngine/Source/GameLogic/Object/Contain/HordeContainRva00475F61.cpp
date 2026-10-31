@@ -735,3 +735,8 @@ void Rva00475F61Iface::rva00475F61(_STL::vector<Object *> &out)
     }
     TheGameLogic->destroyObject(getObject());
 }
+
+// Keep the native pooled assignment dispatch available for its live Formation caller.
+namespace _STL {
+template void PooledMemberList::_M_assign_dispatch<PooledMemberList::const_iterator>(PooledMemberList::const_iterator, PooledMemberList::const_iterator, const __false_type &);
+}
