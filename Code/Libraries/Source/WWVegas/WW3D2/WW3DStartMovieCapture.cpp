@@ -8,15 +8,13 @@
 #include <windows.h>
 
 extern void *g_WW3D_Hwnd;
-class FrameGrabClass
+class FrameGrabClass;
+// FramGrab.cpp's view of the movie object: its own vptr and 0x20 bytes, which
+// Zero Hour's larger FrameGrabClass in framgrab.h cannot be a base of.
+class BfmeThingTXA
 {
 public:
-	long *GetBuffer();
-	virtual ~FrameGrabClass();
-};
-class BfmeThingTXA : public FrameGrabClass
-{
-public:
+	virtual ~BfmeThingTXA();
 	BfmeThingTXA(const char *filename, int width, int height, int bitcount, float framerate, int count, bool compressed);
 	int m_imageSize;
 	int m_count;
@@ -55,5 +53,5 @@ void WW3D::Start_Movie_Capture(const char *filename_base, float frame_rate, int 
 	{
 		PauseRecord = false;
 	}
-	Movie = new BfmeThingTXA(filename_base, width, height, 24, frame_rate, count, compressed);
+	Movie = reinterpret_cast<FrameGrabClass *>(new BfmeThingTXA(filename_base, width, height, 24, frame_rate, count, compressed));
 }

@@ -30,7 +30,11 @@ public:
 	Rva00152D1CObj *m_obj;
 };
 
-class MeshModelClass {
+class MeshModelClass;
+
+// Retail's mesh model holds this pointer at +0x94, where Zero Hour's meshmdl.h
+// lays out AlternateMatDesc (CurMatDesc is +0x98 there), so it reads through a view.
+class Rva00117120MeshModelView {
 public:
 	char m_pad[0x94];
 	Rva00117120MatDesc *m_matDesc;
@@ -44,7 +48,7 @@ void rva00117120()
 	for (MeshModelClass *model = rva001718E0GetNextMeshModel(0);
 	     model != 0;
 	     model = rva001718E0GetNextMeshModel(model)) {
-		Rva00117120MatDesc *matDesc = model->m_matDesc;
+		Rva00117120MatDesc *matDesc = reinterpret_cast<Rva00117120MeshModelView *>(model)->m_matDesc;
 		if (matDesc->m_obj)
 			matDesc->m_obj->rva152d1c(4);
 	}
