@@ -29,13 +29,6 @@ public:
 	int m_first;
 	int m_second;
 };
-
-R1DwordPair *Rva000DFB80(R1DwordPair *pair, int first, int second)
-{
-	pair->m_first = first;
-	pair->m_second = second;
-	return pair;
-}
 // Clean BF1 9cbfb551fe Common/MidTwoStoreCtors.cpp supplies two-field
 // initialization semantics only; donor constructor/class identity is not
 // asserted for these target bodies. Actual native ECX receiver/EAX return,

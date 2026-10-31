@@ -51508,7 +51508,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x005E69C8,8,code,Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp,approved,C,C=0x005E5DF5..0x005E69D0 provisional,Code/GameEngine/Source/Common/Rva005E4F6DConstructor.cpp
 0x005E69D0,48,code,Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp,approved,C,C=0x005E5DF5..0x005E6A00 provisional,Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIHeroComparator.cpp
 0x005E6A00,17,code,Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp,approved,C,C=0x005E5DF5..0x005E6A11 provisional,Code/GameEngine/Source/Common/RvaHelperThenMemberForwarders.cpp
-0x005E6A11,18,code,Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp,approved,C,C=0x005E5DF5..0x005E6A9D provisional,Code/GameEngine/Source/Common/R1SmallFieldInitialisersOs.cpp
+0x005E6A11,18,code,Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp,approved,C,C=0x005E5DF5..0x005E6A9D provisional,Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp
 0x005E6A23,122,code,,displaced,-,N=Code/GameEngine/Source/Common/StrategicInGameUI.cpp,Code/GameEngine/Source/Common/Rva005E6A23Rva005E6A23Farm.cpp
 0x005E6A9D,59,code,Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp,approved,C,C=0x005E5DF5..0x005E6AD8 provisional,Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp
 0x005E6AD8,102,code,Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp,approved,C,C=0x005E5DF5..0x005E6B3E provisional,Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIHeroComparator.cpp
