@@ -4168,7 +4168,6 @@ alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_classic_locale.cpp	?do
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_classic_locale.cpp	?do_tolower@?$ctype@G@_STL@@MBEPBGPAGPBG@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_classic_locale.cpp	?do_toupper@?$ctype@G@_STL@@MBEPBGPAGPBG@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_classic_locale.cpp	?do_widen@?$ctype@G@_STL@@MBEPBDPBD0PAG@Z	1
-alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_copy_backward_assign24.cpp	??4BfmeAssignRecord24@@QAEAAU0@ABU0@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_create_filebuf.cpp	??1stdio_istreambuf@_SgI@@UAE@XZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_create_filebuf.cpp	??1stdio_ostreambuf@_SgI@@UAE@XZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_deque_copyrecord8_sort.cpp	??RBfmeCopyRecord8KeyAscending@@QBE_NABUBfmeCopyRecord8@@0@Z	1
@@ -12244,15 +12243,6 @@ present_unmatched	Code/GameEngine/Source/Common/Rva0041F042Dtor.cpp	OwnedBucketS
 present_unmatched	Code/GameEngine/Source/Common/Rva0041F4A7Dtor.cpp	Rva0041F4A7Buckets::~Rva0041F4A7Buckets	1
 present_unmatched	Code/GameEngine/Source/Common/Rva0042818FSwap.cpp	0Tmp24@@QAE@ABV0@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/Rva0042818FSwap.cpp	1Tmp24@@QAE@XZ	1
-present_unmatched	Code/GameEngine/Source/Common/Rva004281DAInsert.cpp	0Pivot24@@QAE@ABU0@@Z	1
-present_unmatched	Code/GameEngine/Source/Common/Rva004281DAInsert.cpp	1Pivot24@@QAE@XZ	1
-present_unmatched	Code/GameEngine/Source/Common/Rva00428233PushHeap.cpp	0Pivot24@@QAE@ABU0@@Z	1
-present_unmatched	Code/GameEngine/Source/Common/Rva00428233PushHeap.cpp	1Pivot24@@QAE@XZ	1
-present_unmatched	Code/GameEngine/Source/Common/Rva00428372Finish.cpp	1Pivot24@@QAE@XZ	1
-present_unmatched	Code/GameEngine/Source/Common/Rva00428512Partition.cpp	0Pivot24@@QAE@ABU0@@Z	1
-present_unmatched	Code/GameEngine/Source/Common/Rva00428512Partition.cpp	1Pivot24@@QAE@XZ	1
-present_unmatched	Code/GameEngine/Source/Common/Rva00428594PopHeap.cpp	1Pivot24@@QAE@XZ	1
-present_unmatched	Code/GameEngine/Source/Common/Rva0042872DFinish.cpp	1Pivot24@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/Rva0042C936.cpp	1Holder0042C936@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/Rva0042C936.cpp	release@Holder0042C936@@QAEPAURva0042C936Helper@@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp	TreeHintRef00217D4C::TreeHintRef00217D4C	1
