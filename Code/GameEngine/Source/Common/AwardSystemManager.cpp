@@ -13,6 +13,7 @@ typedef bool Bool;
 #include <functional>
 #include <algorithm>
 #include "../../../Libraries/Include/Lib/BfmeE16.h"
+#include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
 class Rva0040A7D5;
 
@@ -563,6 +564,51 @@ namespace _STL { template <> bool binary_search<int *, int>(int *, int *, const 
 
 template Rva0040AEE3 *_STL::__copy_ptrs<Rva0040AEE3 *, Rva0040AEE3 *>(Rva0040AEE3 *, Rva0040AEE3 *, Rva0040AEE3 *, _STL::__false_type);
 
+// The existing provider owns push_back. Keep the insertion member's real
+// call to it instead of instantiating another copy in this unit.
+namespace _STL
+{
+template <> void vector<Rva0040AF66>::push_back(const Rva0040AF66 &);
+}
+
+class Rva0040BAD0
+{
+public:
+    bool rva0040BAD0(Rva0040AF66 *arg);
+    int rva0040AAF8(int key);
+private:
+    char m_pad00[0x18];
+    _STL::vector<Rva0040AF66> m_vec18;
+};
+
+namespace _STL
+{
+// Suppress the duplicate vector<ScienceType> copy COMDAT; retail's copy is
+// rowed at 0x0054878E in ProductionPrerequisiteCopyCtor.cpp. The row below
+// keeps calling it (member-inits), so its bytes are unchanged.
+template <> vector<ScienceType, allocator<ScienceType> >::vector(const vector<ScienceType, allocator<ScienceType> > &);
+}
+
+namespace _STL {
+template<> __declspec(dllimport) __forceinline _OKToMemCpy<int,int> _IsOKToMemCpy<int,int>(int*,int*) { return _OKToMemCpy<int,int>(); }
+template<> __declspec(dllimport) __forceinline __true_type _OKToMemCpy<int,int>::_Ret() { return __true_type(); }
+template<> __declspec(dllimport) __forceinline __true_type _BothPtrType<int*,int*>::_Ret() {return __true_type();}
+template<> __declspec(dllimport) __forceinline int* __copy_backward_ptrs<int*,int*>(int* first,int* last,int* result,const __true_type&) { return (int*)__copy_trivial_backward(first,last,result); }
+template<> void __linear_insert<int*,int,less<int> >(int*,int*,int,less<int>);
+}
+
+class Rva0040B4F9
+{
+public:
+	void rva0040B4F9();
+private:
+	int m_00;
+	_STL::vector<int> m_04;
+	_STL::vector<int> m_10;
+};
+
+// ---- from Code/GameEngine/Source/Common/AwardSystemManager.cpp
+
 // ---- from Code/GameEngine/Source/Common/Rva0040AA73Load.cpp
 
 // ?init@AwardSystemManager@@UAEXXZ @0x0040AA73 98B: AwardSystemManager::init
@@ -581,10 +627,6 @@ void AwardSystemManager::init()
 	INI ini;
 	ini.loadFile("Data\\INI\\AwardSystem.ini", INI_LOAD_OVERWRITE, 0);
 }
-
-// tu-skeleton: 0x0040AAD5 35B ?rva0040AAD5@Rva0040AAD5@@QAEPAUBfmePod40@@H@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp (not merged yet)
-
-// tu-skeleton: 0x0040AAF8 173B ?rva0040AAF8@Rva0040BAD0@@QAEHH@Z -- matched in Code/GameEngine/Source/Common/Rva0040BAD0.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/AwardSystemManager.cpp
 
@@ -937,24 +979,6 @@ AwardSystemManager::~AwardSystemManager()
 {
 }
 
-// tu-skeleton: 0x0040AC58 57B ??$__lower_bound@PAHHU?$less@H@_STL@@H@_STL@@YAPAHPAH0ABHU?$less@H@0@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_int_algorithm_bodies.cpp (not merged yet)
-
-// tu-skeleton: 0x0040AC91 47B ??$__unguarded_partition@PAHHU?$less@H@_STL@@@_STL@@YAPAHPAH0HU?$less@H@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_int_algorithm_bodies.cpp (not merged yet)
-
-// tu-skeleton: 0x0040ACC0 23B ??$__unguarded_insertion_sort@PAHU?$less@H@_STL@@@_STL@@YAXPAH0U?$less@H@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_int_introsort_loop.cpp (not merged yet)
-
-// tu-skeleton: 0x0040ACD7 41B ??$__pop_heap@PAHHU?$less@H@_STL@@H@_STL@@YAXPAH00HU?$less@H@0@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_int_algorithm_bodies.cpp (not merged yet)
-
-// tu-skeleton: 0x0040AD00 60B ??$__make_heap@PAHU?$less@H@_STL@@HH@_STL@@YAXPAH0U?$less@H@0@00@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_int_algorithm_bodies.cpp (not merged yet)
-
-// tu-skeleton: 0x0040AD3C 30B ??$__pop_heap_aux@PAHHU?$less@H@_STL@@@_STL@@YAXPAH00U?$less@H@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_int_introsort_loop.cpp (not merged yet)
-
-// tu-skeleton: 0x0040AD75 56B ??$binary_search@PAHH@_STL@@YA_NPAH0ABH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_binary_search_int.cpp (not merged yet)
-
-// tu-skeleton: 0x0040ADAD 25B ??$make_heap@PAHU?$less@H@_STL@@@_STL@@YAXPAH0U?$less@H@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_int_algorithm_bodies.cpp (not merged yet)
-
-// tu-skeleton: 0x0040ADC6 23B ??$pop_heap@PAHU?$less@H@_STL@@@_STL@@YAXPAH0U?$less@H@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_int_introsort_loop.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/Rva0040ADFAContains.cpp
 
 // ?rva0040ADFA@Rva0040ADFA@@QBE_NPBX@Z @0x0040ADFA 50B
@@ -975,9 +999,108 @@ bool Rva0040AE2C::rva0040AE2C(const void *arg) const
     return _STL::binary_search(m_first, m_last, (int)key);
 }
 
+// ---- from Code/GameEngine/Source/Common/Thing/Rva0040AEE3CopyPtrs.cpp
+
+// ??$__copy_ptrs@PAVRva0040AEE3@@PAV1@@_STL@@YAPAVRva0040AEE3@@PAV1@00U__false_type@0@@Z @ 0x0040B350 (29B). Wrapper via pinned __copy 0x0040B218.
+// Evidence: chain lane calls rowed Rva0040B218Copy 0x0040B218 with tag plus 0; callers 0x0040B680 0x0040B6A0 in vector assign 0x0040B61A; same 29B shape as rowed 0x0040D8FB.
+
+// tu-skeleton: 0x0040AAD5 35B ?rva0040AAD5@Rva0040AAD5@@QAEPAUBfmePod40@@H@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva0040BAD0.cpp
+
+// Award-statistic lookup and insertion on the same manager. Retail and the
+// WorldBuilder lookup at VA 0x01084A80 establish the vector at +0x18, its
+// 0x68-byte elements, and the name key in each element's first word.
+// Keep the existing address-derived names; original method names are unknown.
+
+inline bool operator==(const Rva0040AF66 &record, const int &key)
+{
+    return record.m_00 == key;
+}
+
+// ?rva0040AAF8@Rva0040BAD0@@QAEHH@Z @0x0040AAF8 173B.
+// Return the matching statistic, or materialize the diagnostic names and
+// return null. The name lifetimes remain observable through StringBase's
+// refcount operations even though no diagnostic output survives in retail.
+int Rva0040BAD0::rva0040AAF8(int key)
+{
+    Rva0040AF66 *begin = m_vec18.begin();
+    Rva0040AF66 *end = m_vec18.end();
+    Rva0040AF66 *found = _STL::find(begin, end, key);
+    if (found != end)
+        return (int)found;
+
+    AsciiString name = TheNameKeyGenerator->keyToName((NameKeyType)key);
+    for (unsigned int i = 0; i < m_vec18.size(); ++i)
+    {
+        Rva0040AF66 *record = &m_vec18[i];
+        AsciiString current(TheNameKeyGenerator->keyToName((NameKeyType)record->m_00));
+        // Codegen workaround: both retail VA 0x0080AB69 and WorldBuilder
+        // VA 0x01084B7F retain this NOP between the copy and destruction.
+        // MSVC 7.1 omits it for the recovered C++ lifetime alone. All control
+        // flow, storage, calls and EH data are still generated from C++.
+        __asm nop
+    }
+    return 0;
+}
+
+// ?rva0040BAD0@Rva0040BAD0@@QAE_NPAVRva0040AF66@@@Z @0x0040BAD0 39B.
+// Insert the whole argument record only when its name key is not present.
+bool Rva0040BAD0::rva0040BAD0(Rva0040AF66 *arg)
+{
+    if (rva0040AAF8(arg->m_00) == 0)
+    {
+        m_vec18.push_back(*arg);
+        return true;
+    }
+    return false;
+}
+
+// tu-skeleton: 0x0040AC58 57B ??$__lower_bound@PAHHU?$less@H@_STL@@H@_STL@@YAPAHPAH0ABHU?$less@H@0@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_int_algorithm_bodies.cpp (not merged yet)
+
+// tu-skeleton: 0x0040AC91 47B ??$__unguarded_partition@PAHHU?$less@H@_STL@@@_STL@@YAPAHPAH0HU?$less@H@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_int_algorithm_bodies.cpp (not merged yet)
+
+// tu-skeleton: 0x0040ACC0 23B ??$__unguarded_insertion_sort@PAHU?$less@H@_STL@@@_STL@@YAXPAH0U?$less@H@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_int_introsort_loop.cpp (not merged yet)
+
+// tu-skeleton: 0x0040ACD7 41B ??$__pop_heap@PAHHU?$less@H@_STL@@H@_STL@@YAXPAH00HU?$less@H@0@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_int_algorithm_bodies.cpp (not merged yet)
+
+// tu-skeleton: 0x0040AD00 60B ??$__make_heap@PAHU?$less@H@_STL@@HH@_STL@@YAXPAH0U?$less@H@0@00@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_int_algorithm_bodies.cpp (not merged yet)
+
+// tu-skeleton: 0x0040AD3C 30B ??$__pop_heap_aux@PAHHU?$less@H@_STL@@@_STL@@YAXPAH00U?$less@H@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_int_introsort_loop.cpp (not merged yet)
+
+// tu-skeleton: 0x0040AD75 56B ??$binary_search@PAHH@_STL@@YA_NPAH0ABH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_binary_search_int.cpp (not merged yet)
+
+// tu-skeleton: 0x0040ADAD 25B ??$make_heap@PAHU?$less@H@_STL@@@_STL@@YAXPAH0U?$less@H@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_int_algorithm_bodies.cpp (not merged yet)
+
+// tu-skeleton: 0x0040ADC6 23B ??$pop_heap@PAHU?$less@H@_STL@@@_STL@@YAXPAH0U?$less@H@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_int_introsort_loop.cpp (not merged yet)
+
 // tu-skeleton: 0x0040AE92 58B ??$sort_heap@PAHU?$less@H@_STL@@@_STL@@YAXPAH0U?$less@H@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_int_introsort_loop.cpp (not merged yet)
 
-// tu-skeleton: 0x0040AF66 141B ??0Rva0040AF66@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Rva0040AF66Copy.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva0040AF66Copy.cpp
+
+//
+// Rva0040AF66 copy ctor, retail 0x0040AF66 141 bytes. Copy ctor with int
+// plus two vector<ScienceType> plus two FixedStorage plus two StringBase plus
+// ints and byte. Evidence: caller 0x0040B197, rowed vector 0x0054878E, rowed
+// FixedStorage 0x0004543D, pin StringBase 0x000365F0, unblocks 0x0040B17B.
+// The strings are AsciiString members with an inline copy ctor: retail forms
+// the +0x54 member address before pushing the source, which a direct
+// StringBase copy-ctor call orders the other way (the banked 0.98 attempt).
+// The FixedStorage copy ctor is the rowed class-key spelling (ABV0).
+
+Rva0040AF66::Rva0040AF66(const Rva0040AF66 &other)
+	: m_00(other.m_00)
+	, m_04(other.m_04)
+	, m_10(other.m_10)
+	, m_1C(other.m_1C)
+	, m_38(other.m_38)
+	, m_54(other.m_54)
+	, m_58(other.m_58)
+	, m_5C(0)
+	, m_60(0)
+	, m_64(other.m_64)
+{
+}
 
 // tu-skeleton: 0x0040AFF3 117B ??1Rva0040AFF3@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0040AFF3Dtor.cpp (not merged yet)
 
@@ -995,11 +1118,6 @@ bool Rva0040AE2C::rva0040AE2C(const void *arg) const
 
 // tu-skeleton: 0x0040B323 45B ??$_M_allocate_and_copy@PBUBfmeRecord0040B61A@@@?$vector@UBfmeRecord0040B61A@@V?$allocator@UBfmeRecord0040B61A@@@_STL@@@_STL@@IAEPAUBfmeRecord0040B61A@@IPBU2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_BfmeRecord0040B61A_allocate_copy.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/Thing/Rva0040AEE3CopyPtrs.cpp
-
-// ??$__copy_ptrs@PAVRva0040AEE3@@PAV1@@_STL@@YAPAVRva0040AEE3@@PAV1@00U__false_type@0@@Z @ 0x0040B350 (29B). Wrapper via pinned __copy 0x0040B218.
-// Evidence: chain lane calls rowed Rva0040B218Copy 0x0040B218 with tag plus 0; callers 0x0040B680 0x0040B6A0 in vector assign 0x0040B61A; same 29B shape as rowed 0x0040D8FB.
-
 // tu-skeleton: 0x0040B36D 68B ??$__final_insertion_sort@PAHU?$less@H@_STL@@@_STL@@YAXPAH0U?$less@H@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_int_algorithm_bodies.cpp (not merged yet)
 
 // tu-skeleton: 0x0040B3B1 27B ??$partial_sort@PAHU?$less@H@_STL@@@_STL@@YAXPAH00U?$less@H@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_int_algorithm_bodies.cpp (not merged yet)
@@ -1014,7 +1132,18 @@ bool Rva0040AE2C::rva0040AE2C(const void *arg) const
 
 // tu-skeleton: 0x0040B4B6 67B ??$sort@PAH@_STL@@YAXPAH0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_int_algorithm_bodies.cpp (not merged yet)
 
-// tu-skeleton: 0x0040B4F9 53B ?rva0040B4F9@Rva0040B4F9@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0040B4F9Sort.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva0040B4F9Sort.cpp
+
+// ?rva0040B4F9@Rva0040B4F9@@QAEXXZ @ 0x0040B4F9 (53B). Sort two int vectors if non-empty via rowed sort.
+// Evidence: retail sizes (finish-start)>>2 at +4/+8 and +10/+14 then calls rowed ??$sort@PAH 0x0040B4B6; caller 0x0040BD7B in 0x0040BC7C; neighbours share int sort flags.
+
+void Rva0040B4F9::rva0040B4F9()
+{
+	if (m_04.size() > 0)
+		_STL::sort(m_04.begin(), m_04.end());
+	if (m_10.size() > 0)
+		_STL::sort(m_10.begin(), m_10.end());
+}
 
 // tu-skeleton: 0x0040B547 25B ??$_Destroy@PAURva0040AFF3@@@_STL@@YAXPAURva0040AFF3@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_destroy_range_0040B547.cpp (not merged yet)
 
@@ -1040,25 +1169,11 @@ bool Rva0040AE2C::rva0040AE2C(const void *arg) const
 
 // tu-skeleton: 0x0040BA6A 55B ?push_back@?$vector@VRva0040AF66@@V?$allocator@VRva0040AF66@@@_STL@@@_STL@@QAEXABVRva0040AF66@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_Rva0040AF66_pushback.cpp (not merged yet)
 
-// tu-skeleton: 0x0040BAD0 39B ?rva0040BAD0@Rva0040BAD0@@QAE_NPAVRva0040AF66@@@Z -- matched in Code/GameEngine/Source/Common/Rva0040BAD0.cpp (not merged yet)
-
 // tu-skeleton: 0x0040BC7C 548B ?parseThingStat@AwardSystemManager@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/Common/AwardSystemManagerParseThingStat.cpp (not merged yet)
 
 // tu-skeleton: 0x0040BEBA 63B ??1Rva0040BEBA@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaVectorDtorFamily.cpp (not merged yet)
 
 // tu-skeleton: 0x0040BFF4 183B ?_M_insert_overflow@?$vector@URva0040C0C7Element@@V?$allocator@URva0040C0C7Element@@@_STL@@@_STL@@IAEXPAURva0040C0C7Element@@ABU3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_Rva0040C0C7_overflow.cpp (not merged yet)
-
-// tu-skeleton: 0x007854E1 8B $L6578 -- matched in Code/GameEngine/Source/Common/Rva0040BAD0.cpp (not merged yet)
-
-// tu-skeleton: 0x007854E9 10B __ehhandler$?rva0040AAF8@Rva0040BAD0@@QAEHH@Z -- matched in Code/GameEngine/Source/Common/Rva0040BAD0.cpp (not merged yet)
-
-// tu-skeleton: 0x007854F3 11B Unwind@00b854f3 -- matched in Code/GameEngine/Source/Common/Rva0040AF66Copy.cpp (not merged yet)
-
-// tu-skeleton: 0x007854FE 11B Unwind@00b854fe -- matched in Code/GameEngine/Source/Common/Rva0040AF66Copy.cpp (not merged yet)
-
-// tu-skeleton: 0x00785509 11B Unwind@00b85509 -- matched in Code/GameEngine/Source/Common/Rva0040AF66Copy.cpp (not merged yet)
-
-// tu-skeleton: 0x00785514 10B __ehhandler$??0Rva0040AF66@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Rva0040AF66Copy.cpp (not merged yet)
 
 // tu-skeleton: 0x0078551E 11B $L4196 -- matched in Code/GameEngine/Source/Common/Rva0040AFF3Dtor.cpp (not merged yet)
 
