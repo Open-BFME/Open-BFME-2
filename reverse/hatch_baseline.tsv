@@ -1837,6 +1837,8 @@ alternatename	Code/GameEngine/Source/Common/Glo012F1024Item.cpp	?Rva00564C7DFill
 alternatename	Code/GameEngine/Source/Common/Glo012F1024Item.cpp	?allocate@Rva00565FC1Storage@@QAEPAURva00565FC1Pair@@IPBX@Z	1
 alternatename	Code/GameEngine/Source/Common/Glo012F1024Item.cpp	?clear@Rva00565FC1@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/INI/INI.cpp	??0BfmePairEL@@QAE@ABVBfmeWordEL@@0@Z	1
+alternatename	Code/GameEngine/Source/Common/INI/INI.cpp	??1RvaVecAscii@@QAE@XZ	1
+alternatename	Code/GameEngine/Source/Common/INI/INI.cpp	??1TransitionDamageFXSlotD@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/INI/INI.cpp	??RRecordNocaseLess@@QBE_NABUBfmeStringRecord004071F7@@0@Z	1
 alternatename	Code/GameEngine/Source/Common/INI/INIEmotionCopyFrom.cpp	??0BfmeStringLiteralBase@@AAE@PBD@Z	1
 alternatename	Code/GameEngine/Source/Common/INI/INIEmotionCopyFrom.cpp	??1BfmeEmotionName@@QAE@XZ	1
@@ -4100,8 +4102,6 @@ alternatename	Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva004390F7.cpp	?ins
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva005FE0A6.cpp	??4Rva005FE0A6Element@@QAEAAU0@ABU0@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlVectorRva0052D801.cpp	??$_Construct@URva0052D801Record@@U1@@_STL@@YAXPAURva0052D801Record@@ABU1@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlVectorRva0052D801.cpp	??$_Destroy@PAURva0052D801Record@@@_STL@@YAXPAURva0052D801Record@@0@Z	1
-alternatename	Code/Libraries/Source/WWVegas/WWLib/StlportAsciiStringVectorDtor.cpp	??1RvaVecAscii@@QAE@XZ	1
-alternatename	Code/Libraries/Source/WWVegas/WWLib/StlportAsciiStringVectorDtor.cpp	??1TransitionDamageFXSlotD@@QAE@XZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlportConstructFamily.cpp	??0BfmePod104@@QAE@ABU0@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlportConstructFamily.cpp	??0BfmePod340@@QAE@ABU0@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlportConstructFamily.cpp	??0Rva001DF3F1Element@@QAE@ABU0@@Z	1
@@ -11419,9 +11419,6 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlHelperRva0054107F.cpp	"t"
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlHelperRva005C847B.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlHelperRva005C847B.cpp	"s",off	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlHelperRva005C847B.cpp	"t",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0002CB7D.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0002CB7D.cpp	"s",off	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0002CB7D.cpp	"t",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva000556AB.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva000556AB.cpp	"s",off	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva000556AB.cpp	"t",on	1
@@ -12095,7 +12092,6 @@ present_unmatched	Code/GameEngine/Source/Common/GameEngineDeletingBaseDerived.cp
 present_unmatched	Code/GameEngine/Source/Common/GameLOD.cpp	parseStaticGameLODLevel@INI@@SAXPAV1@PAX1PBX@Z	1
 present_unmatched	Code/GameEngine/Source/Common/INI/INI.cpp	StringBase<char>::find	1
 present_unmatched	Code/GameEngine/Source/Common/INI/INI.cpp	findFieldParse	1
-present_unmatched	Code/GameEngine/Source/Common/INI/INI_initFromINIMulti.cpp	findFieldParse	1
 present_unmatched	Code/GameEngine/Source/Common/INI/LivingWorldBonusMapParsers.cpp	InsertValue::pair	1
 present_unmatched	Code/GameEngine/Source/Common/INI/WaterTransparencySettingCtor.cpp	WaterTransparencySetting::slot1	1
 present_unmatched	Code/GameEngine/Source/Common/LivingWorldCampaign_xfer.cpp	LivingWorldCampaign::loadPostProcess	1
