@@ -50,11 +50,16 @@ RandomAccessIter __unguarded_partition(RandomAccessIter first,
 template <class RandomAccessIter, class Compare>
 void partial_sort(RandomAccessIter first, RandomAccessIter middle,
 	RandomAccessIter last, Compare comp);
-// ??$__introsort_loop@PAPAXPAXHURva00568721Cmp@@@_STL@@YAXPAPAX0PAPAXHURva00568721Cmp@@@Z @0x00569E91
 template <class RandomAccessIter, class Tp, class Size, class Compare>
 void __introsort_loop(RandomAccessIter first, RandomAccessIter last,
-	Tp *, Size depth_limit, Compare comp)
+	Tp *, Size depth_limit, Compare comp);
+template <> void **__unguarded_partition<void **, void *, Rva00568721Cmp>(void **, void **, void *, Rva00568721Cmp);
+// ??$__introsort_loop@PAPAXPAXHURva00568721Cmp@@@_STL@@YAXPAPAX0PAPAXHURva00568721Cmp@@@Z @0x00569E91
+template <>
+void __introsort_loop<void **, void *, int, Rva00568721Cmp>(void **first, void **last,
+	void **, int depth_limit, Rva00568721Cmp comp)
 {
+	typedef void **(*Median)(void **, void **, void **, Rva00568721Cmp);
 	while (last - first > 16)
 	{
 		if (depth_limit == 0)
@@ -63,12 +68,11 @@ void __introsort_loop(RandomAccessIter first, RandomAccessIter last,
 			return;
 		}
 		--depth_limit;
-		RandomAccessIter cut = __unguarded_partition(first, last,
-			*__median(first, first + (last - first) / 2, last - 1, comp),
+		void **cut = __unguarded_partition(first, last,
+			*static_cast<Median>(__median)(first, first + (last - first) / 2, last - 1, comp),
 			comp);
-		__introsort_loop(cut, last, (Tp *)0, depth_limit, comp);
+		__introsort_loop(cut, last, (void **)0, depth_limit, comp);
 		last = cut;
 	}
 }
-template void __introsort_loop<void **, void *, int, Rva00568721Cmp>(void **, void **, void **, int, Rva00568721Cmp);
 }

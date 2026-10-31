@@ -1,5 +1,5 @@
-// cl: /DNDEBUG /MD /EHsc
-// stlport46
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfme2_ascii -Ireference/open-bfme-1/game/GameEngine/Source/Common /Ireference/shims/bfmealloc
+// stlport
 //
 // __lower_bound over const unsigned int* with less<unsigned int>, the
 // binary-search worker behind lower_bound on a sorted unsigned array.
@@ -22,48 +22,19 @@
 // reproduce it - so this says the unit was built for size and does not
 // distinguish between them.
 
+#include <algorithm>
+
+// Retail zero-fills the empty comparator temporary (xor/stosb at 0x00568F5B), which
+// value-initialization does only for a less<unsigned int> without the binary_function base.
 namespace _STL {
-
-template <class _Tp>
-struct less {
-	bool operator()(const _Tp& __x, const _Tp& __y) const { return __x < __y; }
+template <>
+struct less<unsigned int> {
+	__declspec(dllimport) __forceinline bool operator()(const unsigned int &left, const unsigned int &right) const
+	{ return left < right; }
 };
-
-template <> __declspec(dllimport) __forceinline
-bool less<unsigned int>::operator()(const unsigned int &left, const unsigned int &right) const
-{ return left < right; }
-
-template <class _RandomAccessIter, class _Distance>
-inline void distance(_RandomAccessIter __first, _RandomAccessIter __last, _Distance& __n)
-{ __n += __last - __first; }
-
-template <class _RandomAccessIter, class _Distance>
-inline void advance(_RandomAccessIter& __i, _Distance __n)
-{ __i += __n; }
-
-template <class _ForwardIter, class _Tp, class _Compare, class _Distance>
-_ForwardIter __lower_bound(_ForwardIter __first, _ForwardIter __last,
-                           const _Tp& __val, _Compare __comp, _Distance*)
-{
-	_Distance __len = 0;
-	distance(__first, __last, __len);
-	_Distance __half;
-	_ForwardIter __middle;
-
-	while (__len > 0) {
-		__half = __len >> 1;
-		__middle = __first;
-		advance(__middle, __half);
-		if (__comp(*__middle, __val)) {
-			__first = __middle;
-			++__first;
-			__len = __len - __half - 1;
-		}
-		else
-			__len = __half;
-	}
-	return __first;
 }
+
+namespace _STL {
 
 template const unsigned int* __lower_bound<const unsigned int*, unsigned int, less<unsigned int>, int>(
 	const unsigned int*, const unsigned int*, const unsigned int&, less<unsigned int>, int*);
@@ -72,12 +43,6 @@ template const unsigned int* __lower_bound<const unsigned int*, unsigned int, le
 // wrapper, building the empty less<unsigned int> temporary (xor/stosb into the
 // frame slot) and passing a null distance-type pointer to the rowed worker
 // 0x00568D2F above. Evidence: sole callee is that worker; unique masked hit.
-template <class _ForwardIter, class _Tp>
-_ForwardIter lower_bound(_ForwardIter __first, _ForwardIter __last, const _Tp& __val)
-{
-	return __lower_bound(__first, __last, __val, less<_Tp>(), (int*)0);
-}
-
 template const unsigned int* lower_bound<const unsigned int*, unsigned int>(
 	const unsigned int*, const unsigned int*, const unsigned int&);
 

@@ -16,12 +16,14 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 
 #include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
+class Rva00568F04;
 struct BfmeStringRecord00568CE0 {
     AsciiString text0, text1;
-    unsigned int word0, word1;
+    unsigned int word0;
+    Rva00568F04 *subject;
     unsigned char flag;
     BfmeStringRecord00568CE0();
-    BfmeStringRecord00568CE0(const BfmeStringRecord00568CE0 &other) : text0(other.text0), text1(other.text1), word0(other.word0), word1(other.word1), flag(other.flag) {}
+    BfmeStringRecord00568CE0(const BfmeStringRecord00568CE0 &other) : text0(other.text0), text1(other.text1), word0(other.word0), subject(other.subject), flag(other.flag) {}
 };
 #include <vector>
 namespace _STL {

@@ -14,17 +14,13 @@ public:
 namespace _STL
 {
 
-template <class ForwardIter1, class ForwardIter2>
-__forceinline void iter_swap(ForwardIter1 left, ForwardIter2 right)
-{
-	void *temporary = *left;
-	*left = *right;
-	*right = temporary;
-}
-
 template <class RandomAccessIter, class Tp, class Compare>
 RandomAccessIter __unguarded_partition(RandomAccessIter first,
-	RandomAccessIter last, Tp pivot, Compare comp)
+	RandomAccessIter last, Tp pivot, Compare comp);
+
+template <>
+void **__unguarded_partition<void **, void *, Rva00568721Cmp>(void **first,
+	void **last, void *pivot, Rva00568721Cmp comp)
 {
 	while (true)
 	{
@@ -35,11 +31,11 @@ RandomAccessIter __unguarded_partition(RandomAccessIter first,
 			--last;
 		if (!(first < last))
 			return first;
-		iter_swap(first, last);
+		void *temporary = *first;
+		*first = *last;
+		*last = temporary;
 		++first;
 	}
 }
-
-template void **__unguarded_partition<void **, void *, Rva00568721Cmp>(void **, void **, void *, Rva00568721Cmp);
 
 }

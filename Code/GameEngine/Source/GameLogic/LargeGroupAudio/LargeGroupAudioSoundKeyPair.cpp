@@ -145,6 +145,7 @@ struct Rva00568939Elem
 	char m_pad11[3];
 };
 
+class HostClass005C815B;
 // Layout the two ducking helpers below read (+0x14/+0x18 element range,
 // four grid slots at +0x2C); a view of LargeGroupAudioSoundKeyPair's storage.
 struct LargeGroupAudioSoundKeyPairDuckingView
@@ -205,8 +206,8 @@ public:
 	void rva00569373(void *);
 	char m_pad00[0x58];
 private:
-	LargeGroupAudioSoundKeyPair **volatile m_begin; // +0x58 +0x58
-	LargeGroupAudioSoundKeyPair **m_end; // +0x5C +0x5C
+	LargeGroupAudioSoundKeyPair **volatile m_begin; // +0x58
+	LargeGroupAudioSoundKeyPair **m_end; // +0x5C
 };
 struct Rva005694CDElem;
 class Rva00569393
@@ -216,13 +217,13 @@ public:
 	void rva00569393(void *tag);
 	char m_pad00[0x14];
 private:
-	Rva005694CDElem *m_begin; // +0x14 +0x14
-	Rva005694CDElem *m_end; // +0x18 +0x18
+	Rva005694CDElem *m_begin; // +0x14
+	Rva005694CDElem *m_end; // +0x18
 	char m_pad1C[0x10];
-	void *m_slots[4]; // +0x2C +0x2C
+	void *m_slots[4]; // +0x2C
 	char m_pad3C[0x4];
-	::_STL::vector<void *, ::_STL::allocator<void *> > m_40; // +0x40 +0x40
-	::_STL::vector<void *, ::_STL::allocator<void *> > m_4C; // +0x4C +0x4C
+	::_STL::vector<void *, ::_STL::allocator<void *> > m_40; // +0x40
+	::_STL::vector<void *, ::_STL::allocator<void *> > m_4C; // +0x4C
 };
 class Rva00568F04
 {
@@ -230,8 +231,8 @@ public:
 	void rva00568F04(void *item);
 	char m_pad00[0x58];
 private:
-	void **m_begin; // +0x58 +0x58
-	void **m_end; // +0x5C +0x5C
+	void **m_begin; // +0x58
+	void **m_end; // +0x5C
 };
 class Rva00568F04;
 struct BfmeStringRecord00568CE0 {
@@ -241,7 +242,6 @@ struct BfmeStringRecord00568CE0 {
     unsigned char flag;
     BfmeStringRecord00568CE0();
     BfmeStringRecord00568CE0(const BfmeStringRecord00568CE0 &o);
-    ~BfmeStringRecord00568CE0();
 };
 // Native transfer569BBC and WB unnamed twin1442480 establish version/Xfer
 // protocol. WB-named1442010 establishes xferGridCellVector identity.
@@ -324,7 +324,9 @@ class Rva005C8565
 public:
 	~Rva005C8565();
 };
-struct Rva00569F0CVec { void *m_begin,*m_end,*m_pad; void rva00569F0C(void *,void *,bool *);};
+struct Rva00569F0CVec : _STL::vector<BfmeStringRecord00568CE0,_STL::allocator<BfmeStringRecord00568CE0> > {
+ void rva00569F0C(void *,void *,bool *);
+};
 class Rva005C865B {public: Rva005C865B(void *,float *); char opaque[0x1C];};
 class Rva005C81D8 {public: void rva005C81D8(Rva005C8176 *,Rva005C8176 *,Rva005C8176 *);};
 class LargeGroupAudioSoundKeyPair;
@@ -566,7 +568,7 @@ void LargeGroupAudioSoundKeyPair::rva0056A378(Rva0056A378Source arg)
  ((StringBase<char> &)(m_name)).set((const StringBase<char> &)(other->m_name));
  Rva00569F0CVec *v=reinterpret_cast<Rva00569F0CVec *>(&m_subjects);
  v->rva00569F0C(const_cast<BfmeStringRecord00568CE0 *>(other->m_subjects.begin()),const_cast<BfmeStringRecord00568CE0 *>(other->m_subjects.end()),&arg.result.ok);
- for(BfmeStringRecord00568CE0 *e=reinterpret_cast<BfmeStringRecord00568CE0 *>(v->m_begin);e!=m_subjects.end();++e)e->subject=0;
+ for(BfmeStringRecord00568CE0 *e=m_subjects.begin();e!=m_subjects.end();++e)e->subject=0;
 }
 
 void LargeGroupAudioSoundKeyPair::rva00569BBC(Xfer *xfer, VersionPair *version)

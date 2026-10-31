@@ -4,6 +4,15 @@
 class LargeGroupAudioSoundKeyPair;
 #include <algorithm>
 #include <stl/_algobase.h>
+// Retail zero-fills the empty comparator temporary (xor/stosb at 0x00568F5B), which
+// value-initialization does only for a less<unsigned int> without the binary_function base.
+namespace _STL {
+template <>
+struct less<unsigned int> {
+	__declspec(dllimport) __forceinline bool operator()(const unsigned int &left, const unsigned int &right) const
+	{ return left < right; }
+};
+}
 namespace _STL {
 static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
 {
@@ -19,7 +28,6 @@ struct BfmeStringRecord00568CE0 {
     unsigned char flag;
     BfmeStringRecord00568CE0();
     BfmeStringRecord00568CE0(const BfmeStringRecord00568CE0 &o);
-    ~BfmeStringRecord00568CE0();
 };
 #include <memory>
 namespace _STL {
@@ -141,11 +149,20 @@ void __partial_sort<void **, void *, Rva00568721Cmp>(void **first, void **middle
 }
 }
 // ??$sort@PAPAXURva00568721Cmp@@@_STL@@YAXPAPAX0URva00568721Cmp@@@Z @0x0056A29B and its callees
-template void _STL::sort<void **, Rva00568721Cmp>(void **, void **, Rva00568721Cmp);
-template void _STL::partial_sort<void**,Rva00568721Cmp>(void**,void**,void**,Rva00568721Cmp);
-namespace _STL {
-template <> BfmeStringRecord00568CE0 *allocator<BfmeStringRecord00568CE0>::allocate(unsigned int, const void *) const;
+// A specialization, so a caller that only declares it keeps its call out of line.
+namespace _STL
+{
+template <>
+void sort<void **, Rva00568721Cmp>(void **first, void **last, Rva00568721Cmp comp)
+{
+	if (first != last)
+	{
+		__introsort_loop(first, last, (void **)0, __lg(last - first) * 2, comp);
+		__final_insertion_sort(first, last, comp);
+	}
 }
+}
+template void _STL::partial_sort<void**,Rva00568721Cmp>(void**,void**,void**,Rva00568721Cmp);
 // Only the members whose bodies are rowed here (and the helpers they emit)
 // are instantiated: a whole-class instantiation also emits resize() and the
 // count ctor, which reference the record's default ctor (no row, no
@@ -220,8 +237,6 @@ public:
 	Rva00568A20(const Rva00568A20 &o);
 	Rva00568A20() : m_ref(), m_host(0) {}
 };
-// Bind to the kept retail copy instead of emitting this unit's own.
-namespace _STL { template <> Rva00568A20 * __uninitialized_fill_n<Rva00568A20 *,unsigned int,Rva00568A20>(Rva00568A20 *,unsigned int,Rva00568A20 const &,__false_type const &); }
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> Rva00568A20 * __uninitialized_copy<Rva00568A20 *,Rva00568A20 *>(Rva00568A20 *,Rva00568A20 *,Rva00568A20 *,__false_type const &); }
 // Bind to the kept retail copy instead of emitting this unit's own.
@@ -362,11 +377,9 @@ class Rva000D3A17Resource { public: virtual void Delete_This()=0; int references
 #include "../../Include/Common/Rva000D3A8AElemA.h"
 
 // Retail has no EH frame here (no __EH_prolog, only the [ebp-4] alive flag of
-// the rva00568BE2 temporary): it compiled compare and the temporary's
-// releaseBuffer teardown as non-throwing.
+// the rva00568BE2 temporary): it compiled compare as non-throwing.
 template <> int StringBase<char>::compare(const StringBase<char> &str) const throw();
 
-template <> void StringBase<char>::releaseBuffer() throw();
 
 // The ledger row at 0x005C834A is HostClass005C815B::method_005C834A.
 class HostClass005C815B
@@ -542,8 +555,8 @@ public:
 	void rva00568F04(void *item);
 	char m_pad00[0x58];
 private:
-	void **m_begin; // +0x58 +0x58
-	void **m_end; // +0x5C +0x5C
+	void **m_begin; // +0x58
+	void **m_end; // +0x5C
 };
 
 // Reference-derived iterator forwarding shape from STLport4.5.3.
@@ -574,10 +587,6 @@ private:
 };
 
 // bfme link decl-only begin
-namespace _STL { template <> _Rb_tree<Rva00568FE4Key,Rva00568FE4Key,_STL::_Identity<Rva00568FE4Key>,Rva00568FE4Less,_STL::allocator<Rva00568FE4Key> >::~_Rb_tree(); }
-
-namespace _STL { template <> _Rb_tree_base<Rva00568FE4Key,_STL::allocator<Rva00568FE4Key> >::~_Rb_tree_base(); }
-
 namespace _STL { template <> void _STLP_alloc_proxy<_STL::_Rb_tree_node<Rva00568FE4Key> *,_STL::_Rb_tree_node<Rva00568FE4Key>,_STL::allocator<_STL::_Rb_tree_node<Rva00568FE4Key> > >::deallocate(_STL::_Rb_tree_node<Rva00568FE4Key> *,unsigned int); }
 
 namespace _STL { template <> void allocator<_STL::_Rb_tree_node<Rva00568FE4Key> >::deallocate(_STL::_Rb_tree_node<Rva00568FE4Key> *,unsigned int) const; }
@@ -603,13 +612,13 @@ public:
 	void rva00569393(void *tag);
 	char m_pad00[0x14];
 private:
-	Rva005694CDElem *m_begin; // +0x14 +0x14
-	Rva005694CDElem *m_end; // +0x18 +0x18
+	Rva005694CDElem *m_begin; // +0x14
+	Rva005694CDElem *m_end; // +0x18
 	char m_pad1C[0x10];
-	void *m_slots[4]; // +0x2C +0x2C
+	void *m_slots[4]; // +0x2C
 	char m_pad3C[0x4];
-	::_STL::vector<void *, ::_STL::allocator<void *> > m_40; // +0x40 +0x40
-	::_STL::vector<void *, ::_STL::allocator<void *> > m_4C; // +0x4C +0x4C
+	::_STL::vector<void *, ::_STL::allocator<void *> > m_40; // +0x40
+	::_STL::vector<void *, ::_STL::allocator<void *> > m_4C; // +0x4C
 };
 
 class Rva00569AA8
@@ -629,8 +638,8 @@ public:
 	void rva00569373(void *);
 	char m_pad00[0x58];
 private:
-	LargeGroupAudioSoundKeyPair **volatile m_begin; // +0x58 +0x58
-	LargeGroupAudioSoundKeyPair **m_end; // +0x5C +0x5C
+	LargeGroupAudioSoundKeyPair **volatile m_begin; // +0x58
+	LargeGroupAudioSoundKeyPair **m_end; // +0x5C
 };
 
 class Rva00569393Owner
@@ -729,7 +738,8 @@ static inline const StringBase<char> &asBase(const AsciiString &asciiString)
 
 // ---- from Code/GameEngine/Source/Common/Rva0056887DMethod.cpp
 
-Rva0056887D &Rva0056887D::rva0056887D(const Rva0056887D &src, unsigned short w)
+// Retail calls this out of line from 0x005697F7 and 0x00569BBC.
+__declspec(noinline) Rva0056887D &Rva0056887D::rva0056887D(const Rva0056887D &src, unsigned short w)
 {
 	m00 = src.m00;
 	m04 = src.m04;
@@ -1056,9 +1066,9 @@ void LargeGroupAudioSoundKeyPair::removeDuckingTarget(BitRange *host, void *tag)
 // Codegen: the strings are the shared AsciiString, whose destructor calls
 // releaseBuffer directly, and rva00568BE2 returns one (the row's own spelling,
 // Rva003ED498Count.cpp). Retail has no EH frame (no __EH_prolog, no fs chain),
-// only the plain [ebp-4] alive-flag, so compare and releaseBuffer are declared
-// non-throwing below; the shared header declares them potentially-throwing,
-// which emits a frame.
+// only the plain [ebp-4] alive-flag, so compare is declared non-throwing
+// above; the shared header declares it potentially-throwing, which emits a
+// frame.
 
 void LargeGroupAudioSoundKeyPair::removePointersToGridCellsInDuckingTarget(BitRange *host, void *tag)
 {

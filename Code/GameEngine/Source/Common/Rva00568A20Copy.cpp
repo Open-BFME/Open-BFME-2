@@ -10,18 +10,19 @@ class BfmePoolRef10
 public:
 	BfmePoolRef10(const BfmePoolRef10 &other);
 };
+class HostClass005C8E0A;
 class Rva00568A20
 {
 public:
 	Rva00568A20(const Rva00568A20 &o);
-private:
-	BfmePoolRef10 m_pool;
-	int m_word;
-	unsigned char m_flag;
+	BfmePoolRef10 m_ref;
+	HostClass005C8E0A *m_host;
+	unsigned char m_byte;
+	char m_pad[3];
 };
 // Select-any like every other TU's copy (a strong definition would duplicate theirs at link time);
 // the anchor keeps the noinline body emitted.
-__declspec(noinline) inline Rva00568A20::Rva00568A20(const Rva00568A20 &o) : m_pool(o.m_pool), m_word(o.m_word), m_flag(o.m_flag)
+__declspec(noinline) inline Rva00568A20::Rva00568A20(const Rva00568A20 &o) : m_ref(o.m_ref), m_host(o.m_host), m_byte(o.m_byte)
 {
 }
 

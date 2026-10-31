@@ -13,81 +13,43 @@ class BfmePoolRef10
 	BfmePoolHolder88 *m_target;
 public:
 	BfmePoolRef10(const BfmePoolRef10 &other);
-	~BfmePoolRef10();
 };
+class HostClass005C8E0A;
 class Rva00568A20
 {
 public:
-	Rva00568A20(const Rva00568A20 &other);
-	~Rva00568A20();
-private:
-	BfmePoolRef10 m_pool;
-	int m_word;
-	unsigned char m_flag;
+	BfmePoolRef10 m_ref;
+	HostClass005C8E0A *m_host;
+	unsigned char m_byte;
+	char m_pad[3];
+	Rva00568A20(const Rva00568A20 &o);
 };
-struct BfmeE12
-{
-	int a[3];
-};
+#include <vector>
+
 namespace _STL
 {
-template <class T>
-class allocator
-{
-public:
-	T *allocate(unsigned int n, const void *hint) const;
-};
-template <class T, class A>
-class vector
-{
-public:
-	typedef T *pointer;
-	typedef const T *const_pointer;
-	typedef unsigned int size_type;
-	pointer m_start;
-	pointer m_finish;
-	struct Proxy : public allocator<T>
-	{
-		T *m_data;
-	} m_end;
-	void reserve(size_type n);
-protected:
-	template <class ForwardIter>
-	pointer _M_allocate_and_copy(size_type n, ForwardIter first, ForwardIter last);
-};
+template <> void _Construct<Rva00568A20, Rva00568A20>(Rva00568A20 *, const Rva00568A20 &);
+template <> Rva00568A20 *allocator<Rva00568A20>::allocate(unsigned int, const void *) const;
+template <> void vector<Rva00568A20>::_M_clear();
 }
-namespace _STL
-{
+
+// The copy goes through the const-pointer instance rowed at 0x00568D68.
 template <>
-class vector<BfmePoolRef10, allocator<BfmePoolRef10> >
-{
-public:
-	typedef BfmePoolRef10 *pointer;
-	pointer m_start;
-	pointer m_finish;
-	struct ProxyB : public allocator<BfmePoolRef10>
-	{
-		pointer m_data;
-	} m_end;
-protected:
-	void _M_clear();
-	friend class vector<Rva00568A20, allocator<Rva00568A20> >;
-};
-}
 void _STL::vector<Rva00568A20, _STL::allocator<Rva00568A20> >::reserve(size_type n)
 {
-	size_type cap = size_type(m_end.m_data - m_start);
-	if (cap < n) {
-		size_type old_size = size_type(m_finish - m_start);
+	if (capacity() < n)
+	{
+		const size_type old_size = size();
 		pointer tmp;
-		if (m_start) {
-			tmp = _M_allocate_and_copy(n, (const_pointer)m_start, (const_pointer)m_finish);
-			((vector<BfmePoolRef10, allocator<BfmePoolRef10> > *)this)->_M_clear();
-		} else {
-			tmp = (pointer)reinterpret_cast<const allocator<BfmeE12> &>((const allocator<Rva00568A20> &)m_end).allocate(n, 0);
+		if (_M_start)
+		{
+			tmp = _M_allocate_and_copy(n, (const_pointer)_M_start, (const_pointer)_M_finish);
+			_M_clear();
 		}
-		m_start = tmp;
-		m_finish = tmp + old_size;
-		m_end.m_data = tmp + n;
+		else
+		{
+			tmp = _M_end_of_storage.allocate(n);
+		}
+		_M_set(tmp, tmp + old_size, tmp + n);
 	}
 }

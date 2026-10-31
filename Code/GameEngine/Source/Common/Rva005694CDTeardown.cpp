@@ -12,9 +12,11 @@
 // copies: retail's out-of-line ones are the /Od bodies (0x00023B90, 0x00023BA0).
 namespace _STL {
 template <> __declspec(dllimport) __forceinline
-void **vector<void*>::begin() { return this->_M_start; }
+void **vector<void*>::begin()
+{ return _M_start; }
 template <> __declspec(dllimport) __forceinline
-void **vector<void*>::end() { return this->_M_finish; }
+void **vector<void*>::end()
+{ return _M_finish; }
 }
 
 class HostClass005C815B
@@ -46,13 +48,13 @@ public:
 	void rva00569393(void *tag);
 	char m_pad00[0x14];
 private:
-	Rva005694CDElem *m_begin; // +0x14 +0x14
-	Rva005694CDElem *m_end; // +0x18 +0x18
+	Rva005694CDElem *m_begin; // +0x14
+	Rva005694CDElem *m_end; // +0x18
 	char m_pad1C[0x10];
-	void *m_slots[4]; // +0x2C +0x2C
+	void *m_slots[4]; // +0x2C
 	char m_pad3C[0x4];
-	::_STL::vector<void *, ::_STL::allocator<void *> > m_40; // +0x40 +0x40
-	::_STL::vector<void *, ::_STL::allocator<void *> > m_4C; // +0x4C +0x4C
+	::_STL::vector<void *, ::_STL::allocator<void *> > m_40; // +0x40
+	::_STL::vector<void *, ::_STL::allocator<void *> > m_4C; // +0x4C
 };
 
 void Rva00569393::rva005694CD()
