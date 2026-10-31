@@ -540,24 +540,38 @@ struct Coord3D;
 #include "../Common/Thing/thing.h"
 typedef unsigned short UnsignedShort;
 #include "../../Include/Common/Module.h"
+
 // Access to the existing +4 data pointer; no additional state or helper body.
 class Rva002786D9ModuleDataAccess : public Module
 {
 public:
     using Module::getModuleData;
 };
+
 class Snapshot;
+
 struct Coord3DBase;
+
 struct ICoord3D;
+
 struct Region3D;
+
 struct IRegion3D;
+
 class Coord2D;
+
 struct ICoord2D;
+
 struct Region2D;
+
 struct IRegion2D;
+
 struct RealRange;
+
 struct RGBColor;
+
 struct RGBAColorReal;
+
 struct RGBAColorInt;
 
 // Native 00271B5C..00271BCC lazily allocates the 0x26C-byte manager
@@ -1137,8 +1151,6 @@ class Rva0036CA00Str {public:
 class Rva004333C0 {public:virtual ~Rva004333C0();Rva004333C0(int);char unknown[0xD0-4];};
 
 struct OpaqueRefElement4 { OpaqueRefCounted *referent; OpaqueRefElement4 &operator=(const OpaqueRefElement4 &); };
-
-class Rva00279354Host {public:void rva00279354(bool);};
 
 class Rva0027974B
 {
@@ -2878,6 +2890,47 @@ public:
 	void drawIconLayer(int v);
 };
 
+class Rva00279354Host
+{
+public:
+	void rva00279354(bool v);
+	void setCustomSoundAmbientInfo(const OpaqueRefElement4 &v);
+private:
+	unsigned char m_pad[0x10C];
+	Rva000A8C9B m_10C;
+};
+
+class Rva0027937BInner
+{
+public:
+	virtual int v00();
+	virtual int v04();
+	virtual int v08();
+	virtual int v0C();
+	virtual int v10();
+	virtual int v14();
+	virtual int v18();
+	virtual int v1C();
+	virtual int v20();
+};
+
+struct Rva0027937BMid
+{
+	unsigned char m_pad[0x254];
+	Rva0027937BInner *m_254;
+};
+
+class Rva0027937BHost
+{
+public:
+	Rva0036CA00Str rva0027937B();
+private:
+	unsigned char m_pad[0xFC];
+	Rva0027937BMid *m_fc;
+};
+
+// ---- from Code/GameEngine/Source/GameClient/Drawable.cpp
+
 // ---- from Code/GameEngine/Source/Common/DrawableLocoInfoCtor.cpp
 
 DrawableLocoInfo::DrawableLocoInfo() throw()
@@ -2904,10 +2957,6 @@ DrawableLocoInfo::DrawableLocoInfo() throw()
 	m_yawModulator = GetGameClientRandomValueReal(0.0f, 6.28318530717958647692f, (char *)"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameClient\\Drawable.cpp", 325);
 	m_pitchModulator = GetGameClientRandomValueReal(0.0f, 6.28318530717958647692f, (char *)"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameClient\\Drawable.cpp", 326);
 }
-
-// tu-skeleton: 0x00270158 7B ?apply@Rva00270158DwordImmSetter@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0027015F 8B ?drawableIconIndexToName@@YAPBDH@Z -- matched in Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/Drawable.cpp
 
@@ -3328,8 +3377,6 @@ void Rva002722F4NullForwarder::rva002722F4(Int a0)
 		m_member->rva0027006C(a0);
 }
 
-// tu-skeleton: 0x00270190 24B ?Rva00270190Free@@YAXXZ -- matched in Code/GameEngine/Source/Common/Rva00270190.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameClient/DrawableSaturateRGB.cpp
 
 void Drawable::saturateRGB(RGBColor& color, Real factor)
@@ -3346,20 +3393,12 @@ void Drawable::saturateRGB(RGBColor& color, Real factor)
 
 }
 
-// tu-skeleton: 0x002701F4 45B ??0Rva002701F4@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva002701F4Ctor.cpp (not merged yet)
-
-// tu-skeleton: 0x00270234 44B ?rva00270234@Rva00270234@@QAEXXZ -- matched in Code/GameEngine/Source/Common/BfmeConv771.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Rva00270260.cpp
 
 bool Rva00270260::rva00270260()
 {
 	return m_43d || m_43e;
 }
-
-// tu-skeleton: 0x00270276 931B ?calcPitchRoll@Drawable@@QAE_NPAX000HH@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_calcPitchRoll.cpp (not merged yet)
-
-// tu-skeleton: 0x00270678 17B ?set@Rva00270678FloatField@@QAEXM@Z -- matched in Code/GameEngine/Source/Common/Disp32FloatFieldSetters.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/Rva002706A8.cpp
 
@@ -3389,8 +3428,6 @@ void Rva002706A8::rva002706A8()
 		++pp;
 	}
 }
-
-// tu-skeleton: 0x002706F0 28B ?rva002706F0@@YAHPAVObject@@H@Z -- matched in Code/GameEngine/Source/GameClient/DrawableShroud.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/DrawableFade.cpp
 
@@ -3477,18 +3514,6 @@ float Drawable::rva00272C9E(int key)
 	}
 	return opacity * self->m_explicitOpacity;
 }
-
-// tu-skeleton: 0x00270817 760B ?calcPhysicsXformTreads@Drawable@@IAEXPBVLocomotor@@AAUPhysicsXformInfo@1@@Z -- matched in Code/GameEngine/Source/GameClient/DrawablePhysicsXformTreads.cpp (not merged yet)
-
-// tu-skeleton: 0x00270B0F 153B ?rva00270B0F@Drawable@@IAEXPBVLocomotor@@AAUPhysicsXformInfo@1@@Z -- matched in Code/GameEngine/Source/GameClient/DrawablePhysicsXformTreads.cpp (not merged yet)
-
-// tu-skeleton: 0x00270BD9 205B ?rva00270BD9Blend@@YAHABURGBAColorInt@@0M@Z -- matched in Code/GameEngine/Source/GameClient/DrawableRegionBandColors_Rva00270ca6.cpp (not merged yet)
-
-// tu-skeleton: 0x00270CA6 62B ?bfmeColorLookup00411220@@YAXMPAH@Z -- matched in Code/GameEngine/Source/GameClient/DrawableRegionBandColors_Rva00270ca6.cpp (not merged yet)
-
-// tu-skeleton: 0x00270CE4 356B ?rva00270CE4ColorBands@@YAXMPAH@Z -- matched in Code/GameEngine/Source/GameClient/DrawableRegionBandColors_Rva00270ca6.cpp (not merged yet)
-
-// tu-skeleton: 0x00270E48 356B ?rva00270E48ColorBands@@YAXMPAH@Z -- matched in Code/GameEngine/Source/GameClient/DrawableRegionBandColors_Rva00270ca6.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/Drawable_rva00270FAC.cpp
 
@@ -3582,14 +3607,6 @@ void Drawable::rva00271C38(int value)
 	}
 }
 
-// tu-skeleton: 0x002710E7 5B ?setPosition@Drawable@@QAEXPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/Common/TailJumpWrappers5B.cpp (not merged yet)
-
-// tu-skeleton: 0x00271108 190B ?handleWeaponFireFX@Drawable@@QAE_NHHHMMMH@Z -- matched in Code/GameEngine/Source/Common/Drawable_handleWeaponFireFX.cpp (not merged yet)
-
-// tu-skeleton: 0x002711C6 605B ?setInstanceMatrix@Drawable@@QAEXPBVMatrix3D@@_N@Z -- matched in Code/GameEngine/Source/GameClient/DrawableSetInstanceMatrix.cpp (not merged yet)
-
-// tu-skeleton: 0x00271423 115B ?rva00271423@Rva00271423@@QAEPAVMatrix3D@@XZ -- matched in Code/GameEngine/Source/Common/Rva00271423.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva00271496Free.cpp
 
 void Rva00271496::rva00271496()
@@ -3599,8 +3616,6 @@ void Rva00271496::rva00271496()
 	m_ptr = 0;
 }
 
-// tu-skeleton: 0x002714B4 22B ?rva002714B4@Rva002714B4@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapForwardersSeat8.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva002714CALoop.cpp
 
 void Rva002714CA::rva002714CA()
@@ -3608,10 +3623,6 @@ void Rva002714CA::rva002714CA()
 	TheAudio->removeAudioEvent(m_handle);
 	m_handle = 1;
 }
-
-// tu-skeleton: 0x00271547 186B ?rva00271547@Rva002716Holder@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva00271547.cpp (not merged yet)
-
-// tu-skeleton: 0x00271601 24B ?setDrawableHidden@Drawable@@QAEX_N@Z -- matched in Code/GameEngine/Source/Common/Rva00271547.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/Drawable_setSelectable.cpp
 
@@ -3647,8 +3658,6 @@ int Drawable::rva00271745() const
 	return 0;
 }
 
-// tu-skeleton: 0x0027175F 26B ?rva0027175F@Rva0027175F@@QBEHXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameClient/Drawable_LoadPostProcess.cpp
 
 // ?LoadPostProcess@Drawable@@UAEXXZ 0x002717BC 47B
@@ -3669,20 +3678,6 @@ void Drawable::LoadPostProcess()
 		((Rva002717BCModule *)self->m_buffManager)->slot4();
 }
 
-// tu-skeleton: 0x002717EB 43B ?friend_lockDirtyStuffForIteration@Drawable@@SAXXZ -- matched in Code/GameEngine/Source/GameClient/DrawableLockDirtyStuff.cpp (not merged yet)
-
-// tu-skeleton: 0x00271816 16B ?friend_unlockDirtyStuffForIteration@Drawable@@SAXXZ -- matched in Code/GameEngine/Source/GameClient/DrawableLockDirtyStuff.cpp (not merged yet)
-
-// tu-skeleton: 0x00271826 108B ??0Rva00271826@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/Rva00271826.cpp (not merged yet)
-
-// tu-skeleton: 0x00271892 6B ?name@Rva00271892Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x0027192B 124B ?setAttackFrames@TintEnvelope@@AAEXI@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp (not merged yet)
-
-// tu-skeleton: 0x002719A7 25B ?rva002719A7@TintEnvelope@@QAEXMM@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva0027541E.cpp (not merged yet)
-
-// tu-skeleton: 0x002719C0 79B ?setDecayFrames@TintEnvelope@@AAEXI@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva00271A0FXfer.cpp
 
 void Rva00271A0F::rva00271A0F(Xfer *xfer)
@@ -3699,14 +3694,6 @@ void Rva00271A0F::rva00271A0F(Xfer *xfer)
 	*xfer == m_38;
 }
 
-// tu-skeleton: 0x00271A80 106B ?rva00271A80@Rva00271A80@@QAEXM@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp (not merged yet)
-
-// tu-skeleton: 0x00271B26 22B ??0Rva00271B3CFilter@@QAE@PBX@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PartitionFilterCtorCopies.cpp (not merged yet)
-
-// tu-skeleton: 0x00271B3C 32B ?allow@Rva00271B3CFilter@@UAE_NPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/PartitionFilterAllowSlots.cpp (not merged yet)
-
-// tu-skeleton: 0x00271BCC 18B ?rva00271BCC@Rva00271BCC@@QAEXHH@Z -- matched in Code/GameEngine/Source/Common/RvaMixedMemberForwarders.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva00271BDETimeUp.cpp
 
 // ?rva00271BDE@Rva00271BDE@@QAE_NXZ, retail 0x00271BDE (62 bytes). Owner unproven (address token, like the rowed
@@ -3721,18 +3708,6 @@ bool Rva00271BDE::rva00271BDE()
 		return false;
 	return !m_fc->rva00293926(KINDOF_0x25) && ((GameLogicFrameView *)TheGameLogic)->m_frame >= m_384;
 }
-
-// tu-skeleton: 0x00271CB6 503B ?Rva00271CB6@@YAXPAX0M@Z -- matched in Code/GameEngine/Source/GameClient/DrawableRegionBandColors_Rva00270ca6.cpp (not merged yet)
-
-// tu-skeleton: 0x00271EAD 503B ?Rva00271EAD@@YAXPAX0M@Z -- matched in Code/GameEngine/Source/GameClient/DrawableRegionBandColors_Rva00270ca6.cpp (not merged yet)
-
-// tu-skeleton: 0x002720A4 503B ?Rva002720A4@@YAXPAX0M@Z -- matched in Code/GameEngine/Source/GameClient/DrawableRegionBandColors_Rva00270ca6.cpp (not merged yet)
-
-// tu-skeleton: 0x0027229B 15B ?rva0027229B@Rva0027229B@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
-
-// tu-skeleton: 0x0027231F 31B ??0Rva0027231F@@QAE@ABVBfmeFixedStorage0004543D@@@Z -- matched in Code/GameEngine/Source/Common/Rva00599AE3Crowded.cpp (not merged yet)
-
-// tu-skeleton: 0x00272366 45B ?rva00272366@Rva00272366@@QAE_NHHH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/Drawable_rva00272393.cpp
 
@@ -3757,10 +3732,6 @@ void Drawable::rva002723C0(int arg)
 			di->rva002723C0Target(arg);
 	}
 }
-
-// tu-skeleton: 0x002723ED 39B ?updateSubObjects@Drawable@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Drawable_rva002724FD.cpp (not merged yet)
-
-// tu-skeleton: 0x00272414 118B ?rva00272414@Drawable@@QAEXPBV?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva002724FD.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/Drawable_rva0027248A.cpp
 
@@ -3802,8 +3773,6 @@ int Drawable::rva00272545(int arg)
 	}
 	return 0;
 }
-
-// tu-skeleton: 0x002724FD 72B ?rva002724FD@Drawable@@QAEXABVAsciiString@@HHMM@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva002724FD.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/Drawable_rva0027257B.cpp
 
@@ -4072,10 +4041,6 @@ bool Drawable::rva00272835(int a, int b)
 	return false;
 }
 
-// tu-skeleton: 0x00272870 37B ?rva00272870@Drawable@@QAEXH@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva0027290C.cpp (not merged yet)
-
-// tu-skeleton: 0x00272895 48B ?rva00272895@Drawable@@QAEHPAX@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva0027290C.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameClient/Rva002728C5Finish.cpp
 
 //
@@ -4094,8 +4059,6 @@ void Drawable::rva002728C5(float a, float b)
 		(*head)->slot54(a, b);
 	self->m_ac = (a + b) * 0.5f;
 }
-
-// tu-skeleton: 0x0027290C 35B ?rva0027290C@Drawable@@QAEXH@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva0027290C.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/Rva0027292FFinish.cpp
 
@@ -4247,10 +4210,6 @@ void Drawable::rva00272A51()
 		(*pp)->slot38();
 }
 
-// tu-skeleton: 0x00272A6A 107B ?rva00272A6A@@YAHPAVObject@@PAX@Z -- matched in Code/GameEngine/Source/GameClient/DrawableShroud.cpp (not merged yet)
-
-// tu-skeleton: 0x00272AD5 214B ?rva00272AD5@Drawable@@QAEPAVObject@@XZ -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00272AD5.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameClient/Rva00272BABFinish.cpp
 
 void Drawable::rva00272BAB(int a, int b)
@@ -4350,10 +4309,6 @@ void Drawable::rva00272DBB(Object *obj)
 		(*p)->slotF4();
 }
 
-// tu-skeleton: 0x00272DEE 456B ?rva00272DEE@Drawable@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp (not merged yet)
-
-// tu-skeleton: 0x00272FB6 1682B ?rva00272FB6@Drawable@@IAEXPBVLocomotor@@AAUPhysicsXformInfo@1@@Z -- matched in Code/GameEngine/Source/GameClient/DrawablePhysicsXformShip.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameClient/Drawable_rva00273648.cpp
 
 // ?rva00273648@Drawable@@QAEX PAX@Z @0x00273648 34B: Drawable module walk at +0x14c calling slot 0xEC; callers 0x00275F24 0x00275F33; unblocks 0x00275DCE.
@@ -4392,20 +4347,6 @@ void Drawable::rva0027366A()
 	}
 }
 
-// tu-skeleton: 0x002736BA 155B ?setEmoticon@Drawable@@QAEXABV?$StringBase@D@@H@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_setEmoticon.cpp (not merged yet)
-
-// tu-skeleton: 0x00273755 179B ?rva00273755@Drawable@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00273755.cpp (not merged yet)
-
-// tu-skeleton: 0x00273808 457B ?drawAmmo@Drawable@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00273755.cpp (not merged yet)
-
-// tu-skeleton: 0x002739D1 630B ?rva002739D1@Drawable@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00273755.cpp (not merged yet)
-
-// tu-skeleton: 0x00273C47 392B ?rva00273C47@Rva00273C47Host@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/DrawableGroupNumber.cpp (not merged yet)
-
-// tu-skeleton: 0x00273DCF 421B ?rva00273DCF@Drawable@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/rva00273DCFRva00273DCFFarm.cpp (not merged yet)
-
-// tu-skeleton: 0x00273F74 427B ?rva00273F74@Drawable@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/DrawableRva00273F74.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameClient/DrawableRva0027411F.cpp
 
 // Native0027411F..00274176, 87B, RET8. Receiver+FC is Object as proved by
@@ -4425,18 +4366,6 @@ void Drawable::rva0027411F(void *out, float time)
             Rva002720A4(((char *)this + 0x460), out, time);
     }
 }
-
-// tu-skeleton: 0x00274176 104B ?rva00274176@Drawable@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00274176.cpp (not merged yet)
-
-// tu-skeleton: 0x002741DE 98B ?setIndicatorColor@Drawable@@QAEXH@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00274176.cpp (not merged yet)
-
-// tu-skeleton: 0x00274240 108B ?friend_bindToObject@Drawable@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00274176.cpp (not merged yet)
-
-// tu-skeleton: 0x002742AC 57B ?changedTeam@Drawable@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00274176.cpp (not merged yet)
-
-// tu-skeleton: 0x002742E5 104B ?reactToTransformChange@Drawable@@MAEXPBVMatrix3D@@PBUCoord3D@@M@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00274176.cpp (not merged yet)
-
-// tu-skeleton: 0x0027434D 138B ?rva0027434D@Drawable@@QAEHH@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00274176.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/Drawable_stopAmbientSound.cpp
 
@@ -4486,8 +4415,6 @@ void Drawable::setInaudible()
 	}
 }
 
-// tu-skeleton: 0x00274445 87B ?rva00274445@Drawable@@QAEXM@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00274176.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameClient/DrawableFindClientUpdateModule.cpp
 
 //
@@ -4516,28 +4443,6 @@ ClientUpdateModule *Drawable::findClientUpdateModule(NameKeyType key)
 	return 0;
 }
 
-// tu-skeleton: 0x002744F2 159B ?play@TintEnvelope@@QAEXPBURGBColor@@III@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp (not merged yet)
-
-// tu-skeleton: 0x00274591 551B ?update@TintEnvelope@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Drawable_rva0027541E.cpp (not merged yet)
-
-// tu-skeleton: 0x002747F9 1129B ?rva002747F9@Rva002747F9@@QAEXH@Z -- matched in Code/GameEngine/Source/GameClient/DrawableInterpolationRebuild.cpp (not merged yet)
-
-// tu-skeleton: 0x00274C62 38B ?rva00274C62@Drawable@@QAE_NPAVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00274C62.cpp (not merged yet)
-
-// tu-skeleton: 0x00274C88 42B ?rva00274C88@Drawable@@QAEXPAVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00274C62.cpp (not merged yet)
-
-// tu-skeleton: 0x00274CB2 38B ?rva00274CB2@Drawable@@QAE_NPAVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00274C62.cpp (not merged yet)
-
-// tu-skeleton: 0x00274CD8 151B ?rva00274CD8@Drawable@@QAE?AVRva002390CB@@ABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/DrawableKeyedLookup.cpp (not merged yet)
-
-// tu-skeleton: 0x00274D6F 71B ?rva00274D6F@Drawable@@QAEHXZ -- matched in Code/GameEngine/Source/GameClient/DrawableKeyedLookup.cpp (not merged yet)
-
-// tu-skeleton: 0x00274DB6 30B ?get@Rva00274DB6AsciiField@@QBE?AVAsciiString@@XZ -- matched in Code/GameEngine/Source/Common/System/AsciiStringRvoGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00274E7D 1147B ?Rva00274E7DInit@@YAXXZ -- matched in Code/GameEngine/Source/Common/System/Rva00274E7DInit.cpp (not merged yet)
-
-// tu-skeleton: 0x002752F8 55B ?rva002752F8@Rva00275376@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Rva00275376.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameClient/Rva0027532FFlag.cpp
 
 bool Rva0027532F::rva0027532F(bool flag)
@@ -4560,26 +4465,6 @@ bool Rva0027532F::rva0027532F(bool flag)
 	}
 	return true;
 }
-
-// tu-skeleton: 0x00275376 168B ?getProjectileLaunchOffset@Drawable@@QBE_NW4WeaponSlotType@@HPAVMatrix3D@@W4WhichTurretType@@PAUCoord3D@@3@Z -- matched in Code/GameEngine/Source/GameClient/Rva00275376.cpp (not merged yet)
-
-// tu-skeleton: 0x0027541E 114B ?colorFlash@Drawable@@QAEXPBURGBColor@@III@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva0027541E.cpp (not merged yet)
-
-// tu-skeleton: 0x00275490 83B ?colorTint@Drawable@@QAEXPBURGBColor@@@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva0027541E.cpp (not merged yet)
-
-// tu-skeleton: 0x002754E3 98B ?rva002754E3@Drawable@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00275545.cpp (not merged yet)
-
-// tu-skeleton: 0x00275545 83B ?rva00275545@Drawable@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00275545.cpp (not merged yet)
-
-// tu-skeleton: 0x00275598 211B ?rva00275598@Drawable@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp (not merged yet)
-
-// tu-skeleton: 0x0027566B 1844B ?updateDrawable@Drawable@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp (not merged yet)
-
-// tu-skeleton: 0x00275DCE 369B ?rva00275DCE@Drawable@@QAEXHMMM@Z -- matched in Code/GameEngine/Source/GameClient/DrawableRva00275DCE.cpp (not merged yet)
-
-// tu-skeleton: 0x00275F3F 220B ?rva00275F3F@Rva00275F3FHost@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/DrawableDisabledIcon.cpp (not merged yet)
-
-// tu-skeleton: 0x0027601B 472B ?rva0027601B@Rva0027601BHost@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/DrawableHealthBarGate.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/DrawableRva002761F3.cpp
 
@@ -4611,12 +4496,6 @@ void Rva00276223::rva00276223(AsciiString modelName, bool randomlyRotate, int ex
 		drawInterface->v35(modelName, randomlyRotate, expireTimer);
 	}
 }
-
-// tu-skeleton: 0x0027628E 344B ?getTransformMatrix@Drawable@@QBEPBVMatrix3D@@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/BFMERopeDrawableGetPosition.cpp (not merged yet)
-
-// tu-skeleton: 0x002763E6 138B ?getPosition@Drawable@@QBEPBUCoord3D@@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/BFMERopeDrawableGetPosition.cpp (not merged yet)
-
-// tu-skeleton: 0x00276470 202B ?rva00276470@Rva00276470Drawable@@QBEPBUCoord3D@@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/BFMERopeDrawableGetPosition.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/Rva0027653AGetText.cpp
 
@@ -4677,18 +4556,6 @@ bool Drawable::rva00276641(UnicodeString *dst)
 	return false;
 }
 
-// tu-skeleton: 0x002766AE 74B ?rva002766AE@Drawable@@QAE_NPBH@Z -- matched in Code/GameEngine/Source/GameClient/DrawableRva002766AE.cpp (not merged yet)
-
-// tu-skeleton: 0x002766F8 103B ?rva002766F8@Drawable@@QAEXABUOpaqueRefElement4@@@Z -- matched in Code/GameEngine/Source/GameClient/DrawableRecentRefSlots.cpp (not merged yet)
-
-// tu-skeleton: 0x0027675F 166B ?rva0027675F@Drawable@@QAE?AVRva002390CB@@H@Z -- matched in Code/GameEngine/Source/GameClient/DrawableKeyedLookup.cpp (not merged yet)
-
-// tu-skeleton: 0x00276805 42B ?rva00276805@Drawable@@QAE_NH@Z -- matched in Code/GameEngine/Source/GameClient/DrawableKeyedLookup.cpp (not merged yet)
-
-// tu-skeleton: 0x002768AC 166B ?rva002768AC@Rva002768AC@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Rva002768AC.cpp (not merged yet)
-
-// tu-skeleton: 0x00276952 480B ?rva00276952@Rva002768AC@@QAE_NPBUCoord3D@@PAU2@@Z -- matched in Code/GameEngine/Source/GameClient/Rva00276952.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva00276B32.cpp
 
 // ?rva00276B32@Rva00276B32Host@@QAE_NHH@Z
@@ -4728,10 +4595,6 @@ void Drawable::rva00276B95()
 	return rva00275545();
 }
 
-// tu-skeleton: 0x00276BA9 338B ?rva00276BA9@Drawable@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00276BA9.cpp (not merged yet)
-
-// tu-skeleton: 0x00276CFB 2162B ?calcPhysicsXformWheels@Drawable@@IAEXPBVLocomotor@@AAUPhysicsXformInfo@1@@Z -- matched in Code/GameEngine/Source/GameClient/DrawablePhysicsXformWheels.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameClient/DrawableRva0027756D.cpp
 
 Rva002390CB Drawable::rva0027756D(int sel)
@@ -4754,16 +4617,6 @@ Rva002390CB Drawable::rva0027756D(int sel)
 		return rva0027682F();
 	}
 }
-
-// tu-skeleton: 0x002775C9 160B ?rva002775C9@Drawable@@QAEXPAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameClient/DrawableIconAnchorPosition.cpp (not merged yet)
-
-// tu-skeleton: 0x00277669 632B ?rva00277669@Drawable@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00273755.cpp (not merged yet)
-
-// tu-skeleton: 0x002778E1 237B ?rva002778E1@Drawable@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/DrawableDrawLevelNumber.cpp (not merged yet)
-
-// tu-skeleton: 0x002779CE 628B ?drawConstructPercent@Rva002779CEHost@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/DrawableConstructPercentRva002779CE.cpp (not merged yet)
-
-// tu-skeleton: 0x00277C42 370B ?rva00277C42@Rva00277C42Host@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/DrawableCaptionRva00277C42.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/DrawableDrawVeterancy.cpp
 
@@ -4833,16 +4686,6 @@ void Drawable::drawVeterancy(Bool flag, Int level)
 	}
 }
 
-// tu-skeleton: 0x00278064 300B ?setCaptionText@Drawable@@QAEXABVUnicodeString@@@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_setCaptionText.cpp (not merged yet)
-
-// tu-skeleton: 0x00278190 74B ?rva00278190@Drawable@@QAE?AVRva0036CA00Str@@XZ -- matched in Code/GameEngine/Source/GameClient/DrawableRva0027824D.cpp (not merged yet)
-
-// tu-skeleton: 0x002781DA 115B ?rva002781DA@Drawable@@QAEXURva0010F149Handle@@@Z -- matched in Code/GameEngine/Source/GameClient/DrawableRva0027824D.cpp (not merged yet)
-
-// tu-skeleton: 0x0027824D 244B ?rva0027824D@Drawable@@QAE?AVRva0036CA00Str@@H@Z -- matched in Code/GameEngine/Source/GameClient/DrawableRva0027824D.cpp (not merged yet)
-
-// tu-skeleton: 0x00278341 181B ?rva00278341@Rva00278341Host@@QAEXHH@Z -- matched in Code/GameEngine/Source/GameClient/DrawableRva0027824D.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameClient/DrawableRva002783F6.cpp
 
 void Rva002783F6Host::rva002783F6(int v)
@@ -4857,12 +4700,6 @@ void Rva002783F6Host::rva002783F6(int v)
 		((Rva00278341Host *)this)->rva00278341(query, v);
 	}
 }
-
-// tu-skeleton: 0x00278440 111B ?rva00278440@Rva00278440Host@@QAEXH@Z -- matched in Code/GameEngine/Source/GameClient/DrawableRva00278440.cpp (not merged yet)
-
-// tu-skeleton: 0x002784EB 235B ?rva002784EB@Drawable@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/DrawableRva0027824D.cpp (not merged yet)
-
-// tu-skeleton: 0x002785D6 37B ?enableAmbientSound@Drawable@@QAEX_N@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/DrawableRva002785FB.cpp
 
@@ -4887,8 +4724,6 @@ void Drawable::rva002785FB(bool v)
 		((Rva002714CA *)this)->rva002714CA();
 	}
 }
-
-// tu-skeleton: 0x0027862C 24B ?rva0027862C@Drawable@@QAEX_N@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Drawable_setAudible.cpp
 
@@ -5001,14 +4836,6 @@ void Drawable::xferDrawableModules(Xfer *xfer)
 	}
 }
 
-// tu-skeleton: 0x00278869 65B ??0Rva002768AC@@QAE@PAVDrawable@@@Z -- matched in Code/GameEngine/Source/GameClient/Rva002768AC.cpp (not merged yet)
-
-// tu-skeleton: 0x002788AA 29B ??_GRva002768AC@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/Rva002768AC.cpp (not merged yet)
-
-// tu-skeleton: 0x002788C7 119B ?rva002788C7@Drawable@@QAE_NHH@Z -- matched in Code/GameEngine/Source/GameClient/DrawableLazyHelper.cpp (not merged yet)
-
-// tu-skeleton: 0x0027893E 747B ?onComingOutOfShroud@Drawable@@AAEXXZ -- matched in Code/GameEngine/Source/GameClient/DrawableShroud.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameClient/DrawableSetFullyObscuredByShroud.cpp
 
 /*
@@ -5069,18 +4896,6 @@ void Drawable::rva00278C6B()
 		((Rva002783F6Host *)this)->rva002783F6(0);
 }
 
-// tu-skeleton: 0x00278C7C 381B ?rva00278C7C@Drawable@@QAEXH@Z -- matched in Code/GameEngine/Source/GameClient/DrawableFlashAsSelected.cpp (not merged yet)
-
-// tu-skeleton: 0x00278DF9 5B ?rva00278DF9@Rva00278DF9@@QAEXPBVLocomotor@@AAUPhysicsXformInfo@Drawable@@@Z -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
-
-// tu-skeleton: 0x00278DFE 525B ?drawIconUI@Drawable@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/DrawableDrawIconUI.cpp (not merged yet)
-
-// tu-skeleton: 0x0027900B 105B ?rva0027900B@@YA_NPAD@Z -- matched in Code/GameEngine/Source/GameClient/Rva0027900BFinish.cpp (not merged yet)
-
-// tu-skeleton: 0x00279074 371B ?rva00279074@Rva00279074Host@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Rva0027900BFinish.cpp (not merged yet)
-
-// tu-skeleton: 0x002791E7 296B ?rva002791E7@Drawable@@QAEXABVModelConditionFlags@@II@Z -- matched in Code/GameEngine/Source/GameClient/DrawableRva002791E7.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva0027930F.cpp
 
 // ?rva0027930F@Rva0027930FHost@@QAEXH@Z
@@ -5090,10 +4905,6 @@ void Rva0027930FHost::rva0027930F(int v)
 	tmp.rva000B3FA5(7, v == 4);
 	((Drawable *)this)->rva002791E7((const ModelConditionFlags &)tmp, 0, 0);
 }
-
-// tu-skeleton: 0x00279354 39B ?rva00279354@Rva00279354Host@@QAEX_N@Z -- matched in Code/GameEngine/Source/Common/Rva00279354.cpp (not merged yet)
-
-// tu-skeleton: 0x0027937B 52B ?rva0027937B@Rva0027937BHost@@QAE?AVRva0036CA00Str@@XZ -- matched in Code/GameEngine/Source/Common/Rva00279354.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/DrawableRva002793AF.cpp
 
@@ -5108,14 +4919,6 @@ void Rva002793AF::rva002793AF(const AsciiString &name)
 	else if (!((const StringBase<char> *)&name)->isEmpty())
 		((StringBase<char> *)&m_str348)->set(*(const StringBase<char> *)&name);
 }
-
-// tu-skeleton: 0x002793F0 633B ??1Drawable@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/DrawableDestructor.cpp (not merged yet)
-
-// tu-skeleton: 0x00279669 6B ?GetSnapshotName@Drawable@@UBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters2.cpp (not merged yet)
-
-// tu-skeleton: 0x0027966F 8B ??_ERva002793F0@@WGA@AEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB05.cpp (not merged yet)
-
-// tu-skeleton: 0x002796B8 33B ?rva002796B8@Drawable@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/InGameUISelectDrawable.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva002796D9.cpp
 
@@ -5154,7 +4957,278 @@ void Rva002796D9Host::drawIconLayer(int v)
 	}
 }
 
-// tu-skeleton: 0x00279797 38B ?setCustomSoundAmbientInfo@Rva00279354Host@@QAEXABUOpaqueRefElement4@@@Z -- matched in Code/GameEngine/Source/Common/Rva00279354.cpp (not merged yet)
+// tu-skeleton: 0x00270158 7B ?apply@Rva00270158DwordImmSetter@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0027015F 8B ?drawableIconIndexToName@@YAPBDH@Z -- matched in Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x00270190 24B ?Rva00270190Free@@YAXXZ -- matched in Code/GameEngine/Source/Common/Rva00270190.cpp (not merged yet)
+
+// tu-skeleton: 0x002701F4 45B ??0Rva002701F4@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva002701F4Ctor.cpp (not merged yet)
+
+// tu-skeleton: 0x00270234 44B ?rva00270234@Rva00270234@@QAEXXZ -- matched in Code/GameEngine/Source/Common/BfmeConv771.cpp (not merged yet)
+
+// tu-skeleton: 0x00270276 931B ?calcPitchRoll@Drawable@@QAE_NPAX000HH@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_calcPitchRoll.cpp (not merged yet)
+
+// tu-skeleton: 0x00270678 17B ?set@Rva00270678FloatField@@QAEXM@Z -- matched in Code/GameEngine/Source/Common/Disp32FloatFieldSetters.cpp (not merged yet)
+
+// tu-skeleton: 0x002706F0 28B ?rva002706F0@@YAHPAVObject@@H@Z -- matched in Code/GameEngine/Source/GameClient/DrawableShroud.cpp (not merged yet)
+
+// tu-skeleton: 0x00270817 760B ?calcPhysicsXformTreads@Drawable@@IAEXPBVLocomotor@@AAUPhysicsXformInfo@1@@Z -- matched in Code/GameEngine/Source/GameClient/DrawablePhysicsXformTreads.cpp (not merged yet)
+
+// tu-skeleton: 0x00270B0F 153B ?rva00270B0F@Drawable@@IAEXPBVLocomotor@@AAUPhysicsXformInfo@1@@Z -- matched in Code/GameEngine/Source/GameClient/DrawablePhysicsXformTreads.cpp (not merged yet)
+
+// tu-skeleton: 0x00270BD9 205B ?rva00270BD9Blend@@YAHABURGBAColorInt@@0M@Z -- matched in Code/GameEngine/Source/GameClient/DrawableRegionBandColors_Rva00270ca6.cpp (not merged yet)
+
+// tu-skeleton: 0x00270CA6 62B ?bfmeColorLookup00411220@@YAXMPAH@Z -- matched in Code/GameEngine/Source/GameClient/DrawableRegionBandColors_Rva00270ca6.cpp (not merged yet)
+
+// tu-skeleton: 0x00270CE4 356B ?rva00270CE4ColorBands@@YAXMPAH@Z -- matched in Code/GameEngine/Source/GameClient/DrawableRegionBandColors_Rva00270ca6.cpp (not merged yet)
+
+// tu-skeleton: 0x00270E48 356B ?rva00270E48ColorBands@@YAXMPAH@Z -- matched in Code/GameEngine/Source/GameClient/DrawableRegionBandColors_Rva00270ca6.cpp (not merged yet)
+
+// tu-skeleton: 0x002710E7 5B ?setPosition@Drawable@@QAEXPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/Common/TailJumpWrappers5B.cpp (not merged yet)
+
+// tu-skeleton: 0x00271108 190B ?handleWeaponFireFX@Drawable@@QAE_NHHHMMMH@Z -- matched in Code/GameEngine/Source/Common/Drawable_handleWeaponFireFX.cpp (not merged yet)
+
+// tu-skeleton: 0x002711C6 605B ?setInstanceMatrix@Drawable@@QAEXPBVMatrix3D@@_N@Z -- matched in Code/GameEngine/Source/GameClient/DrawableSetInstanceMatrix.cpp (not merged yet)
+
+// tu-skeleton: 0x00271423 115B ?rva00271423@Rva00271423@@QAEPAVMatrix3D@@XZ -- matched in Code/GameEngine/Source/Common/Rva00271423.cpp (not merged yet)
+
+// tu-skeleton: 0x002714B4 22B ?rva002714B4@Rva002714B4@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapForwardersSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x00271547 186B ?rva00271547@Rva002716Holder@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva00271547.cpp (not merged yet)
+
+// tu-skeleton: 0x00271601 24B ?setDrawableHidden@Drawable@@QAEX_N@Z -- matched in Code/GameEngine/Source/Common/Rva00271547.cpp (not merged yet)
+
+// tu-skeleton: 0x0027175F 26B ?rva0027175F@Rva0027175F@@QBEHXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
+
+// tu-skeleton: 0x002717EB 43B ?friend_lockDirtyStuffForIteration@Drawable@@SAXXZ -- matched in Code/GameEngine/Source/GameClient/DrawableLockDirtyStuff.cpp (not merged yet)
+
+// tu-skeleton: 0x00271816 16B ?friend_unlockDirtyStuffForIteration@Drawable@@SAXXZ -- matched in Code/GameEngine/Source/GameClient/DrawableLockDirtyStuff.cpp (not merged yet)
+
+// tu-skeleton: 0x00271826 108B ??0Rva00271826@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/Rva00271826.cpp (not merged yet)
+
+// tu-skeleton: 0x00271892 6B ?name@Rva00271892Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x0027192B 124B ?setAttackFrames@TintEnvelope@@AAEXI@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp (not merged yet)
+
+// tu-skeleton: 0x002719A7 25B ?rva002719A7@TintEnvelope@@QAEXMM@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva0027541E.cpp (not merged yet)
+
+// tu-skeleton: 0x002719C0 79B ?setDecayFrames@TintEnvelope@@AAEXI@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp (not merged yet)
+
+// tu-skeleton: 0x00271A80 106B ?rva00271A80@Rva00271A80@@QAEXM@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp (not merged yet)
+
+// tu-skeleton: 0x00271B26 22B ??0Rva00271B3CFilter@@QAE@PBX@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PartitionFilterCtorCopies.cpp (not merged yet)
+
+// tu-skeleton: 0x00271B3C 32B ?allow@Rva00271B3CFilter@@UAE_NPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/PartitionFilterAllowSlots.cpp (not merged yet)
+
+// tu-skeleton: 0x00271BCC 18B ?rva00271BCC@Rva00271BCC@@QAEXHH@Z -- matched in Code/GameEngine/Source/Common/RvaMixedMemberForwarders.cpp (not merged yet)
+
+// tu-skeleton: 0x00271CB6 503B ?Rva00271CB6@@YAXPAX0M@Z -- matched in Code/GameEngine/Source/GameClient/DrawableRegionBandColors_Rva00270ca6.cpp (not merged yet)
+
+// tu-skeleton: 0x00271EAD 503B ?Rva00271EAD@@YAXPAX0M@Z -- matched in Code/GameEngine/Source/GameClient/DrawableRegionBandColors_Rva00270ca6.cpp (not merged yet)
+
+// tu-skeleton: 0x002720A4 503B ?Rva002720A4@@YAXPAX0M@Z -- matched in Code/GameEngine/Source/GameClient/DrawableRegionBandColors_Rva00270ca6.cpp (not merged yet)
+
+// tu-skeleton: 0x0027229B 15B ?rva0027229B@Rva0027229B@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
+
+// tu-skeleton: 0x0027231F 31B ??0Rva0027231F@@QAE@ABVBfmeFixedStorage0004543D@@@Z -- matched in Code/GameEngine/Source/Common/Rva00599AE3Crowded.cpp (not merged yet)
+
+// tu-skeleton: 0x00272366 45B ?rva00272366@Rva00272366@@QAE_NHHH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
+
+// tu-skeleton: 0x002723ED 39B ?updateSubObjects@Drawable@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Drawable_rva002724FD.cpp (not merged yet)
+
+// tu-skeleton: 0x00272414 118B ?rva00272414@Drawable@@QAEXPBV?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva002724FD.cpp (not merged yet)
+
+// tu-skeleton: 0x002724FD 72B ?rva002724FD@Drawable@@QAEXABVAsciiString@@HHMM@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva002724FD.cpp (not merged yet)
+
+// tu-skeleton: 0x00272870 37B ?rva00272870@Drawable@@QAEXH@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva0027290C.cpp (not merged yet)
+
+// tu-skeleton: 0x00272895 48B ?rva00272895@Drawable@@QAEHPAX@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva0027290C.cpp (not merged yet)
+
+// tu-skeleton: 0x0027290C 35B ?rva0027290C@Drawable@@QAEXH@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva0027290C.cpp (not merged yet)
+
+// tu-skeleton: 0x00272A6A 107B ?rva00272A6A@@YAHPAVObject@@PAX@Z -- matched in Code/GameEngine/Source/GameClient/DrawableShroud.cpp (not merged yet)
+
+// tu-skeleton: 0x00272AD5 214B ?rva00272AD5@Drawable@@QAEPAVObject@@XZ -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00272AD5.cpp (not merged yet)
+
+// tu-skeleton: 0x00272DEE 456B ?rva00272DEE@Drawable@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp (not merged yet)
+
+// tu-skeleton: 0x00272FB6 1682B ?rva00272FB6@Drawable@@IAEXPBVLocomotor@@AAUPhysicsXformInfo@1@@Z -- matched in Code/GameEngine/Source/GameClient/DrawablePhysicsXformShip.cpp (not merged yet)
+
+// tu-skeleton: 0x002736BA 155B ?setEmoticon@Drawable@@QAEXABV?$StringBase@D@@H@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_setEmoticon.cpp (not merged yet)
+
+// tu-skeleton: 0x00273755 179B ?rva00273755@Drawable@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00273755.cpp (not merged yet)
+
+// tu-skeleton: 0x00273808 457B ?drawAmmo@Drawable@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00273755.cpp (not merged yet)
+
+// tu-skeleton: 0x002739D1 630B ?rva002739D1@Drawable@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00273755.cpp (not merged yet)
+
+// tu-skeleton: 0x00273C47 392B ?rva00273C47@Rva00273C47Host@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/DrawableGroupNumber.cpp (not merged yet)
+
+// tu-skeleton: 0x00273DCF 421B ?rva00273DCF@Drawable@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/rva00273DCFRva00273DCFFarm.cpp (not merged yet)
+
+// tu-skeleton: 0x00273F74 427B ?rva00273F74@Drawable@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/DrawableRva00273F74.cpp (not merged yet)
+
+// tu-skeleton: 0x00274176 104B ?rva00274176@Drawable@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00274176.cpp (not merged yet)
+
+// tu-skeleton: 0x002741DE 98B ?setIndicatorColor@Drawable@@QAEXH@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00274176.cpp (not merged yet)
+
+// tu-skeleton: 0x00274240 108B ?friend_bindToObject@Drawable@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00274176.cpp (not merged yet)
+
+// tu-skeleton: 0x002742AC 57B ?changedTeam@Drawable@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00274176.cpp (not merged yet)
+
+// tu-skeleton: 0x002742E5 104B ?reactToTransformChange@Drawable@@MAEXPBVMatrix3D@@PBUCoord3D@@M@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00274176.cpp (not merged yet)
+
+// tu-skeleton: 0x0027434D 138B ?rva0027434D@Drawable@@QAEHH@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00274176.cpp (not merged yet)
+
+// tu-skeleton: 0x00274445 87B ?rva00274445@Drawable@@QAEXM@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00274176.cpp (not merged yet)
+
+// tu-skeleton: 0x002744F2 159B ?play@TintEnvelope@@QAEXPBURGBColor@@III@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp (not merged yet)
+
+// tu-skeleton: 0x00274591 551B ?update@TintEnvelope@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Drawable_rva0027541E.cpp (not merged yet)
+
+// tu-skeleton: 0x002747F9 1129B ?rva002747F9@Rva002747F9@@QAEXH@Z -- matched in Code/GameEngine/Source/GameClient/DrawableInterpolationRebuild.cpp (not merged yet)
+
+// tu-skeleton: 0x00274C62 38B ?rva00274C62@Drawable@@QAE_NPAVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00274C62.cpp (not merged yet)
+
+// tu-skeleton: 0x00274C88 42B ?rva00274C88@Drawable@@QAEXPAVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00274C62.cpp (not merged yet)
+
+// tu-skeleton: 0x00274CB2 38B ?rva00274CB2@Drawable@@QAE_NPAVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00274C62.cpp (not merged yet)
+
+// tu-skeleton: 0x00274CD8 151B ?rva00274CD8@Drawable@@QAE?AVRva002390CB@@ABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/DrawableKeyedLookup.cpp (not merged yet)
+
+// tu-skeleton: 0x00274D6F 71B ?rva00274D6F@Drawable@@QAEHXZ -- matched in Code/GameEngine/Source/GameClient/DrawableKeyedLookup.cpp (not merged yet)
+
+// tu-skeleton: 0x00274DB6 30B ?get@Rva00274DB6AsciiField@@QBE?AVAsciiString@@XZ -- matched in Code/GameEngine/Source/Common/System/AsciiStringRvoGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00274E7D 1147B ?Rva00274E7DInit@@YAXXZ -- matched in Code/GameEngine/Source/Common/System/Rva00274E7DInit.cpp (not merged yet)
+
+// tu-skeleton: 0x002752F8 55B ?rva002752F8@Rva00275376@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Rva00275376.cpp (not merged yet)
+
+// tu-skeleton: 0x00275376 168B ?getProjectileLaunchOffset@Drawable@@QBE_NW4WeaponSlotType@@HPAVMatrix3D@@W4WhichTurretType@@PAUCoord3D@@3@Z -- matched in Code/GameEngine/Source/GameClient/Rva00275376.cpp (not merged yet)
+
+// tu-skeleton: 0x0027541E 114B ?colorFlash@Drawable@@QAEXPBURGBColor@@III@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva0027541E.cpp (not merged yet)
+
+// tu-skeleton: 0x00275490 83B ?colorTint@Drawable@@QAEXPBURGBColor@@@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva0027541E.cpp (not merged yet)
+
+// tu-skeleton: 0x002754E3 98B ?rva002754E3@Drawable@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00275545.cpp (not merged yet)
+
+// tu-skeleton: 0x00275545 83B ?rva00275545@Drawable@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00275545.cpp (not merged yet)
+
+// tu-skeleton: 0x00275598 211B ?rva00275598@Drawable@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp (not merged yet)
+
+// tu-skeleton: 0x0027566B 1844B ?updateDrawable@Drawable@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp (not merged yet)
+
+// tu-skeleton: 0x00275DCE 369B ?rva00275DCE@Drawable@@QAEXHMMM@Z -- matched in Code/GameEngine/Source/GameClient/DrawableRva00275DCE.cpp (not merged yet)
+
+// tu-skeleton: 0x00275F3F 220B ?rva00275F3F@Rva00275F3FHost@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/DrawableDisabledIcon.cpp (not merged yet)
+
+// tu-skeleton: 0x0027601B 472B ?rva0027601B@Rva0027601BHost@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/DrawableHealthBarGate.cpp (not merged yet)
+
+// tu-skeleton: 0x0027628E 344B ?getTransformMatrix@Drawable@@QBEPBVMatrix3D@@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/BFMERopeDrawableGetPosition.cpp (not merged yet)
+
+// tu-skeleton: 0x002763E6 138B ?getPosition@Drawable@@QBEPBUCoord3D@@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/BFMERopeDrawableGetPosition.cpp (not merged yet)
+
+// tu-skeleton: 0x00276470 202B ?rva00276470@Rva00276470Drawable@@QBEPBUCoord3D@@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/BFMERopeDrawableGetPosition.cpp (not merged yet)
+
+// tu-skeleton: 0x002766AE 74B ?rva002766AE@Drawable@@QAE_NPBH@Z -- matched in Code/GameEngine/Source/GameClient/DrawableRva002766AE.cpp (not merged yet)
+
+// tu-skeleton: 0x002766F8 103B ?rva002766F8@Drawable@@QAEXABUOpaqueRefElement4@@@Z -- matched in Code/GameEngine/Source/GameClient/DrawableRecentRefSlots.cpp (not merged yet)
+
+// tu-skeleton: 0x0027675F 166B ?rva0027675F@Drawable@@QAE?AVRva002390CB@@H@Z -- matched in Code/GameEngine/Source/GameClient/DrawableKeyedLookup.cpp (not merged yet)
+
+// tu-skeleton: 0x00276805 42B ?rva00276805@Drawable@@QAE_NH@Z -- matched in Code/GameEngine/Source/GameClient/DrawableKeyedLookup.cpp (not merged yet)
+
+// tu-skeleton: 0x002768AC 166B ?rva002768AC@Rva002768AC@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Rva002768AC.cpp (not merged yet)
+
+// tu-skeleton: 0x00276952 480B ?rva00276952@Rva002768AC@@QAE_NPBUCoord3D@@PAU2@@Z -- matched in Code/GameEngine/Source/GameClient/Rva00276952.cpp (not merged yet)
+
+// tu-skeleton: 0x00276BA9 338B ?rva00276BA9@Drawable@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00276BA9.cpp (not merged yet)
+
+// tu-skeleton: 0x00276CFB 2162B ?calcPhysicsXformWheels@Drawable@@IAEXPBVLocomotor@@AAUPhysicsXformInfo@1@@Z -- matched in Code/GameEngine/Source/GameClient/DrawablePhysicsXformWheels.cpp (not merged yet)
+
+// tu-skeleton: 0x002775C9 160B ?rva002775C9@Drawable@@QAEXPAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameClient/DrawableIconAnchorPosition.cpp (not merged yet)
+
+// tu-skeleton: 0x00277669 632B ?rva00277669@Drawable@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00273755.cpp (not merged yet)
+
+// tu-skeleton: 0x002778E1 237B ?rva002778E1@Drawable@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/DrawableDrawLevelNumber.cpp (not merged yet)
+
+// tu-skeleton: 0x002779CE 628B ?drawConstructPercent@Rva002779CEHost@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/DrawableConstructPercentRva002779CE.cpp (not merged yet)
+
+// tu-skeleton: 0x00277C42 370B ?rva00277C42@Rva00277C42Host@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/DrawableCaptionRva00277C42.cpp (not merged yet)
+
+// tu-skeleton: 0x00278064 300B ?setCaptionText@Drawable@@QAEXABVUnicodeString@@@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_setCaptionText.cpp (not merged yet)
+
+// tu-skeleton: 0x00278190 74B ?rva00278190@Drawable@@QAE?AVRva0036CA00Str@@XZ -- matched in Code/GameEngine/Source/GameClient/DrawableRva0027824D.cpp (not merged yet)
+
+// tu-skeleton: 0x002781DA 115B ?rva002781DA@Drawable@@QAEXURva0010F149Handle@@@Z -- matched in Code/GameEngine/Source/GameClient/DrawableRva0027824D.cpp (not merged yet)
+
+// tu-skeleton: 0x0027824D 244B ?rva0027824D@Drawable@@QAE?AVRva0036CA00Str@@H@Z -- matched in Code/GameEngine/Source/GameClient/DrawableRva0027824D.cpp (not merged yet)
+
+// tu-skeleton: 0x00278341 181B ?rva00278341@Rva00278341Host@@QAEXHH@Z -- matched in Code/GameEngine/Source/GameClient/DrawableRva0027824D.cpp (not merged yet)
+
+// tu-skeleton: 0x00278440 111B ?rva00278440@Rva00278440Host@@QAEXH@Z -- matched in Code/GameEngine/Source/GameClient/DrawableRva00278440.cpp (not merged yet)
+
+// tu-skeleton: 0x002784EB 235B ?rva002784EB@Drawable@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/DrawableRva0027824D.cpp (not merged yet)
+
+// tu-skeleton: 0x002785D6 37B ?enableAmbientSound@Drawable@@QAEX_N@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
+
+// tu-skeleton: 0x0027862C 24B ?rva0027862C@Drawable@@QAEX_N@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
+
+// tu-skeleton: 0x00278869 65B ??0Rva002768AC@@QAE@PAVDrawable@@@Z -- matched in Code/GameEngine/Source/GameClient/Rva002768AC.cpp (not merged yet)
+
+// tu-skeleton: 0x002788AA 29B ??_GRva002768AC@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/Rva002768AC.cpp (not merged yet)
+
+// tu-skeleton: 0x002788C7 119B ?rva002788C7@Drawable@@QAE_NHH@Z -- matched in Code/GameEngine/Source/GameClient/DrawableLazyHelper.cpp (not merged yet)
+
+// tu-skeleton: 0x0027893E 747B ?onComingOutOfShroud@Drawable@@AAEXXZ -- matched in Code/GameEngine/Source/GameClient/DrawableShroud.cpp (not merged yet)
+
+// tu-skeleton: 0x00278C7C 381B ?rva00278C7C@Drawable@@QAEXH@Z -- matched in Code/GameEngine/Source/GameClient/DrawableFlashAsSelected.cpp (not merged yet)
+
+// tu-skeleton: 0x00278DF9 5B ?rva00278DF9@Rva00278DF9@@QAEXPBVLocomotor@@AAUPhysicsXformInfo@Drawable@@@Z -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x00278DFE 525B ?drawIconUI@Drawable@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/DrawableDrawIconUI.cpp (not merged yet)
+
+// tu-skeleton: 0x0027900B 105B ?rva0027900B@@YA_NPAD@Z -- matched in Code/GameEngine/Source/GameClient/Rva0027900BFinish.cpp (not merged yet)
+
+// tu-skeleton: 0x00279074 371B ?rva00279074@Rva00279074Host@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Rva0027900BFinish.cpp (not merged yet)
+
+// tu-skeleton: 0x002791E7 296B ?rva002791E7@Drawable@@QAEXABVModelConditionFlags@@II@Z -- matched in Code/GameEngine/Source/GameClient/DrawableRva002791E7.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva00279354.cpp
+
+// ?rva00279354@Rva00279354Host@@QAEX_N@Z
+void Rva00279354Host::rva00279354(bool v)
+{
+	((Drawable *)this)->stopAmbientSound();
+	m_10C.clear();
+	if (v != 0)
+		((Rva002783F6Host *)this)->rva002783F6(0);
+}
+
+void Rva00279354Host::setCustomSoundAmbientInfo(const OpaqueRefElement4 &opaqueRefElement4)
+{
+	rva00279354(false);
+	*(OpaqueRefElement4 *)((char *)this + 0x10C) = opaqueRefElement4;
+	((Rva002783F6Host *)this)->rva002783F6(0);
+}
+
+Rva0036CA00Str Rva0027937BHost::rva0027937B()
+{
+	int selector = 0;
+	Rva0027937BMid *mid = m_fc;
+	if (mid != 0)
+		selector = mid->m_254->v20();
+	return ((Drawable *)this)->rva0027824D(selector);
+}
+
+// tu-skeleton: 0x002793F0 633B ??1Drawable@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/DrawableDestructor.cpp (not merged yet)
+
+// tu-skeleton: 0x00279669 6B ?GetSnapshotName@Drawable@@UBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters2.cpp (not merged yet)
+
+// tu-skeleton: 0x0027966F 8B ??_ERva002793F0@@WGA@AEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB05.cpp (not merged yet)
+
+// tu-skeleton: 0x002796B8 33B ?rva002796B8@Drawable@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/InGameUISelectDrawable.cpp (not merged yet)
 
 // tu-skeleton: 0x002797BD 2111B ??0Drawable@@QAE@PBVThingTemplate@@W4DrawableStatus@@H@Z -- matched in Code/GameEngine/Source/GameClient/DrawableConstructor.cpp (not merged yet)
 
