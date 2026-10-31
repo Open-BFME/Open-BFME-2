@@ -1,4 +1,5 @@
-// cl: /MD
+// cl: /MD /Ireference/shims/moduledata
+// stlport
 //
 // ?rva004EE5D2@LivingWorldScoreKeeper@@QAEXXZ @0x004EE5D2 195B
 // Removes 8 embedded entries via rowed ?rva002B7250@Rva002B7250@@QAEXPAVCreateAHeroData@@@Z:
@@ -35,47 +36,26 @@ public:
 
 #include <time.h>
 
-class LivingWorldScoreKeeper
-{
-public:
-	void rva004EE5D2();
-	void rva004EE695();
-	void rva004EE78A();
-private:
-	int m_0;
-	CreateAHeroData m_4;
-	CreateAHeroData m_8;
-	CreateAHeroData m_c;
-	CreateAHeroData m_10;
-	CreateAHeroData m_14;
-	CreateAHeroData m_18;
-	CreateAHeroData m_1c;
-	CreateAHeroData m_20;
-	Rva002B7250 *m_24;
-	char m_pad28[0x48];
-	int m_70;
-	char m_pad74[0x84];
-	unsigned char m_f8;
-};
+#include "../../Include/Common/LivingWorldScoreKeeper.h"
 
 void LivingWorldScoreKeeper::rva004EE5D2()
 {
-	((Rva002B7250 *)((char *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic) + 0x1c))->rva002B7250(this ? &m_4 : (CreateAHeroData *)0);
-	((Rva002B7250 *)((char *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic) + 0x2c))->rva002B7250(this ? &m_c : (CreateAHeroData *)0);
-	((Rva002B7250 *)((char *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic) + 0x3c))->rva002B7250(this ? &m_10 : (CreateAHeroData *)0);
-	((Rva002B7250 *)((char *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic) + 0x4c))->rva002B7250(this ? &m_1c : (CreateAHeroData *)0);
-	g_00E04424.rva002B7250(this ? &m_8 : (CreateAHeroData *)0);
-	g_registryAtE02E88.rva002B7250(this ? &m_14 : (CreateAHeroData *)0);
-	g_00E044F0.rva002B7250(this ? &m_20 : (CreateAHeroData *)0);
-	m_24->rva002B7250(this ? &m_18 : (CreateAHeroData *)0);
+	((Rva002B7250 *)((char *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic) + 0x1c))->rva002B7250((CreateAHeroData *)static_cast<LivingWorldPhaseObserver *>(this));
+	((Rva002B7250 *)((char *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic) + 0x2c))->rva002B7250((CreateAHeroData *)static_cast<LivingWorldAutoResolveEventObserver *>(this));
+	((Rva002B7250 *)((char *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic) + 0x3c))->rva002B7250((CreateAHeroData *)static_cast<LivingWorldRTSEventObserver *>(this));
+	((Rva002B7250 *)((char *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic) + 0x4c))->rva002B7250((CreateAHeroData *)static_cast<LivingWorldLogicObserver *>(this));
+	g_00E04424.rva002B7250((CreateAHeroData *)static_cast<LivingWorldBuildingObserver *>(this));
+	g_registryAtE02E88.rva002B7250((CreateAHeroData *)static_cast<LivingWorldRegionObserver *>(this));
+	g_00E044F0.rva002B7250((CreateAHeroData *)static_cast<LivingWorldBuildingNuggetSpawnArmyObserver *>(this));
+	((Rva002B7250 *)m_player)->rva002B7250((CreateAHeroData *)static_cast<LivingWorldPlayerObserver *>(this));
 }
 
 
 
 void LivingWorldScoreKeeper::rva004EE78A()
 {
-	if (m_f8 != 0)
+	if (m_F8 != 0)
 		return;
-	m_f8 = 1;
+	m_F8 = 1;
 	return rva004EE5D2();
 }

@@ -49,3 +49,11 @@ defines PerTurnStats::xfer and emits no LivingWorldScoreKeeper vtable.
 Added STLport and canonical Snapshot include context; method stays exact.
 All four header-hook shadow definition findings have identical complete bytes
 and relocations in the original and adopted owner (shadow-comparison.txt).
+
+Second served consumer Rva004EE5D2Erase.cpp: its eight original fake data
+members are replaced with casts to the native observer base subobjects. A
+standard derived-to-base pointer conversion preserves the native null adjustment
+without an extra conditional. m_player and m_F8 are the actual shared members.
+Both complete owned bodies including relocation names equal their original
+objects; 2/2 code and2/2 data rows pass. Header accept PASS. No scorekeeper
+vtable is emitted here. No extent or compiler optimization switch changed.
