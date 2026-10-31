@@ -70,6 +70,7 @@ void Rva00090714Free( void **pointer );
 // argument, which is why this body tests it after the call.
 
 class BfmePkt996;
+
 class BfmeDev996
 {
 public:
@@ -326,6 +327,23 @@ private:
     unsigned char reserved04[0x14 - 4];
     AggregateDefClass *helper;
 };
+
+//
+// Ported from Open-BFME-1 GameEngine/Source/Common/Rva007E3190BfmeSendIfState7.cpp
+// (donor revision 6d9434269164392c5ba62aaa7c15a86b5b020d76, donor flags plus /O1). Compiled that way each body
+// places uniquely on unclaimed game.dat .text by masked whole-.text search:
+//   ?sendIfState7@BfmeB996@@QAE_NPAVBfmePkt996@@@Z 0x001068A7 (42B)
+// Callee addresses are read off retail call sites (reverse/symbols.csv).
+// BfmeB996 state-7 packet send recovered at retail 0x007E3190.
+
+class BfmePkt996
+{
+public:
+	char m_pad[4];
+	int m_size;
+};
+
+// ---- from Code/GameEngine/Source/Common/BfmeB996Range.cpp
 
 // ---- from Code/GameEngine/Source/Common/BfmeB996Range.cpp
 
@@ -653,8 +671,6 @@ Rva007E3430::Rva007E3430()
 	m_at0C = 0;
 }
 
-// tu-skeleton: 0x001068A7 42B ?sendIfState7@BfmeB996@@QAE_NPAVBfmePkt996@@@Z -- matched in Code/GameEngine/Source/Common/Rva007E3190BfmeSendIfState7.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva007E3410VirtualCall.cpp
 
 void Rva007E3410Object::invokeForMode(void)
@@ -663,4 +679,19 @@ void Rva007E3410Object::invokeForMode(void)
     {
         m_target->invoke(0, 0);
     }
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva007E3190BfmeSendIfState7.cpp
+
+bool BfmeB996::sendIfState7(BfmePkt996 *pkt)
+{
+	if (m_bfmeKind == 7)
+	{
+		BfmeDev996 *dev = m_dev;
+		BfmePkt996 *p = pkt;
+		int want = p->m_size;
+		int got = dev->send(p, want);
+		return got == p->m_size;
+	}
+	return false;
 }
