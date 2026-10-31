@@ -70,6 +70,18 @@
 	{ \
 		return (char *)this - BACK; \
 	}
+#define BFME_DISP_DWORD_GETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		int get() const; \
+		char m_lead[DISP]; \
+		int m_value; \
+	}; \
+	int NAME::get() const \
+	{ \
+		return m_value; \
+	}
 
 // Clean Open-BFME-1 6d9434269164392c5ba62aaa7c15a86b5b020d76 reference transfer.
 // Native font dispatcher313D73 and helper boundaries establish target operation/ABI.
@@ -1015,11 +1027,59 @@ public: void *at(int index);
 private: unsigned char unknown[8]; Rva006C03C0Slot entries[1];
 };
 
+class MilesAudioManager
+{
+public:
+    virtual int rva0005189D() const;
+    char m_lead[0x678 - sizeof(void *)];
+    int m_value;
+};
+
+BFME_DISP_DWORD_GETTER(Rva0031412DDwordField, 0x20C)
+
+// ?rva00524F35@Rva00524F35@@QAEAAV1@H@Z @0x00524F35 37B
+class Rva00524F35
+{
+public:
+	int m_00;
+	int m_04;
+	int m_08;
+	int m_0c;
+	int m_10;
+	unsigned char m_14;
+	unsigned char m_15;
+	unsigned char m_16;
+	Rva00524F35& rva00524F35(int v);
+};
+
+BFME_DISP_DWORD_GETTER(Rva00313D6CDwordField, 0x1B4)
+
+BFME_DISP_DWORD_GETTER(Rva003140C8DwordField, 0x204)
+
+BFME_DISP_DWORD_GETTER(Rva003140F1DwordField, 0x1F8)
+
+BFME_DISP_DWORD_GETTER(Rva00314126DwordField, 0x210)
+
+BFME_DISP_DWORD_GETTER(Rva00314105DwordField, 0x1FC)
+
+// Callers elsewhere reach bodies in this unit through other spellings; retail's
+// call sites in their matched rows land on these addresses (same ABI). Bind them.
+
+// BF1 9cbfb551fe Common/Bfme/Rva001BD660_setFlags.cpp is the clean semantic guide.
+// Complete native 0023C4CE..0023C4DB RET leaf proves: OR stack dword into receiver114; RET4.
+// Original owner and complete bounds unresolved; independent address-owned view.
+class Rva0023C4CEFields {
+public: void setFlags(unsigned int value);
+private: unsigned char unknown[0x114]; unsigned int flags;
+};
+
 // tu-skeleton: 0x00313913 16B ?vslot6@GameWindow@@UBE_NXZ -- matched in Code/GameEngine/Source/Common/Disp8CmpBoolGettersFuncPtr.cpp (not merged yet)
 
 // tu-skeleton: 0x00313923 23B ?rva00313923@Rva00313923@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/GapForwardersSeat8.cpp (not merged yet)
 
 // tu-skeleton: 0x0031393A 16B ?vslot8@GameWindow@@UBE_NXZ -- matched in Code/GameEngine/Source/Common/Disp8CmpBoolGettersFuncPtr.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp
 
@@ -2009,23 +2069,14 @@ void GameWindow::winDrawBorder()
 // offset fits, so every offset is at least 0x80).
 // No // cl: line (defaults match the frameless 13-byte shape).
 
-// tu-skeleton: 0x00313D64 8B ?winGetTextLength@GameWindow@@QAEHXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowStatusUserData.cpp (not merged yet)
 
-// tu-skeleton: 0x00313D6C 7B ?get@Rva00313D6CDwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x00313E8C 7B ?winGetEnabledTextColor@GameWindow@@QAEHXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowStatusUserData.cpp (not merged yet)
 
-// tu-skeleton: 0x00313E93 7B ?winGetEnabledTextBorderColor@GameWindow@@QAEHXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowStatusUserData.cpp (not merged yet)
 
-// tu-skeleton: 0x00313E9A 7B ?winGetDisabledTextColor@GameWindow@@QAEHXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowStatusUserData.cpp (not merged yet)
 
-// tu-skeleton: 0x00313EA1 7B ?winGetDisabledTextBorderColor@GameWindow@@QAEHXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowStatusUserData.cpp (not merged yet)
 
-// tu-skeleton: 0x00313EA8 7B ?winGetIMECompositeTextColor@GameWindow@@QAEHXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowStatusUserData.cpp (not merged yet)
 
-// tu-skeleton: 0x00313EB6 7B ?winGetHiliteTextColor@GameWindow@@QAEHXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowStatusUserData.cpp (not merged yet)
 
-// tu-skeleton: 0x00313EBD 393B ??4WinInstanceData@@QAEAAV0@ABV0@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/WinInstanceData.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp
 
@@ -2047,19 +2098,42 @@ void GameWindow::winDrawBorder()
 // above 0x7F addresses *before* `this` (e.g. 9C = -100). Spelled as a
 // negative byte offset from `this`, which folds to the same disp8 lea.
 
+// tu-skeleton: 0x00313D64 8B ?winGetTextLength@GameWindow@@QAEHXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowStatusUserData.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp
+
+// Disp32 dword getters: seven-byte __thiscall members with one shape:
+//
+//     mov eax,[ecx+<DISP>] / ret
+//
+// One dword is read at a fixed displacement from `this` and returned. Every
+// displacement here is a multiple of four, so the accessed member is spelled
+// as an `int` right after the lead array. The bytes cannot distinguish `int`
+// from `unsigned int`, a pointer, or anything else four bytes wide moved
+// with a plain load. Members before the accessed one are spelled as a lead
+// array because their types are not witnessed here, only their total size.
+// Identity is not recovered: every name is derived from its address (BFME1
+// pioneered the same family in
+// reference/open-bfme-1/Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp).
+// No // cl: line (defaults match the frameless 7-byte shape).
+
+// tu-skeleton: 0x00313E8C 7B ?winGetEnabledTextColor@GameWindow@@QAEHXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowStatusUserData.cpp (not merged yet)
+
+// tu-skeleton: 0x00313E93 7B ?winGetEnabledTextBorderColor@GameWindow@@QAEHXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowStatusUserData.cpp (not merged yet)
+
+// tu-skeleton: 0x00313E9A 7B ?winGetDisabledTextColor@GameWindow@@QAEHXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowStatusUserData.cpp (not merged yet)
+
+// tu-skeleton: 0x00313EA1 7B ?winGetDisabledTextBorderColor@GameWindow@@QAEHXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowStatusUserData.cpp (not merged yet)
+
+// tu-skeleton: 0x00313EA8 7B ?winGetIMECompositeTextColor@GameWindow@@QAEHXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowStatusUserData.cpp (not merged yet)
+
+// tu-skeleton: 0x00313EB6 7B ?winGetHiliteTextColor@GameWindow@@QAEHXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowStatusUserData.cpp (not merged yet)
+
+// tu-skeleton: 0x00313EBD 393B ??4WinInstanceData@@QAEAAV0@ABV0@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/WinInstanceData.cpp (not merged yet)
+
 // tu-skeleton: 0x0031404A 12B ?winSetWindowId@GameWindow@@QAEHH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowFields.cpp (not merged yet)
 
-// tu-skeleton: 0x003140C8 7B ?get@Rva003140C8DwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x003140F1 7B ?get@Rva003140F1DwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00314105 7B ?get@Rva00314105DwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp (not merged yet)
-
 // tu-skeleton: 0x00314119 13B ?Set_Subdivision_Level@ParticleEmitterDefClass@@UAEXH@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/part_ldr.cpp (not merged yet)
-
-// tu-skeleton: 0x00314126 7B ?get@Rva00314126DwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0031412D 7B ?get@Rva0031412DDwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x003143B9 36B ?winSetEnabledImage@GameWindow@@QAEHHPBVImage@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowFields.cpp (not merged yet)
 

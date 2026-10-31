@@ -24679,7 +24679,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00313D28,23,code,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,approved,C,C=0x00313D03..0x00313D3F,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp
 0x00313D3F,37,code,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,approved,C,C=0x00313D03..0x00313D64,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp
 0x00313D64,8,code,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp S=Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp N=Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,Code/GameEngine/Source/GameClient/GUI/GameWindowStatusUserData.cpp
-0x00313D6C,7,code,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,approved,C,C=0x00313D64..0x00313D73,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp
+0x00313D6C,7,code,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,approved,C,C=0x00313D64..0x00313D73,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp
 0x00313D73,121,code,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp S=Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp N=Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp
 0x00313DEC,40,code,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp S=Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp N=Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp
 0x00313E14,40,code,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp S=Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp N=Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp
@@ -24698,16 +24698,16 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00314056,78,code,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp S=Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp N=Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp
 0x003140A4,7,code,,displaced,-,S=Code/Libraries/Source/WWVegas/WW3D2/ringobj.cpp N=Code/Libraries/Source/WWVegas/WW3D2/RingRenderObjClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/ringobj.cpp
 0x003140AB,29,code,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,approved,C,C=0x00314056..0x003140C8,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp
-0x003140C8,7,code,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,approved,C,C=0x00314056..0x003140CF,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp
+0x003140C8,7,code,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,approved,C,C=0x00314056..0x003140CF,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp
 0x003140CF,21,code,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,approved,C,C=0x00314056..0x003140E4,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp
 0x003140E4,13,code,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,approved,C,C=0x00314056..0x003140F1,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp
-0x003140F1,7,code,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,approved,C,C=0x00314056..0x003140F8,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp
+0x003140F1,7,code,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,approved,C,C=0x00314056..0x003140F8,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp
 0x003140F8,13,code,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,approved,C,C=0x00314056..0x00314105,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp
-0x00314105,7,code,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,approved,C,C=0x00314056..0x0031410C,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp
+0x00314105,7,code,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,approved,C,C=0x00314056..0x0031410C,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp
 0x0031410C,13,code,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,approved,C,C=0x00314056..0x00314119,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp
 0x00314119,13,code,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,approved,C,C=0x00314056..0x00314126,Code/Libraries/Source/WWVegas/WW3D2/part_ldr.cpp
-0x00314126,7,code,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,approved,C,C=0x00314056..0x0031412D,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp
-0x0031412D,7,code,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,approved,C,C=0x00314056..0x00314134,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp
+0x00314126,7,code,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,approved,C,C=0x00314056..0x0031412D,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp
+0x0031412D,7,code,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,approved,C,C=0x00314056..0x00314134,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp
 0x00314134,19,code,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,approved,C,C=0x00314056..0x00314147,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp
 0x00314147,19,code,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp S=Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp N=Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp
 0x0031415A,19,code,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp S=Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp N=Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp

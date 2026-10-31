@@ -7527,7 +7527,7 @@ _GetProcessorFlags,,0x001C4390,169,Code/Libraries/Source/VP6/GetProcessorFlags.c
 ?get@Rva002C8EE4DwordField@@QBEHXZ,,0x002C8EE4,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
 ?get@Rva002E0603DwordField@@QBEHXZ,,0x002E0603,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
 ?get@Rva0030ECBDDwordField@@QBEHXZ,,0x0030ECBD,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
-?get@Rva0031412DDwordField@@QBEHXZ,,0x0031412D,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
+?get@Rva0031412DDwordField@@QBEHXZ,,0x0031412D,7,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,matched,Disp32 dword getter
 ?get@Rva00332B06DwordField@@QBEHXZ,,0x00332B06,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
 ?get@Rva0033F917DwordField@@QBEHXZ,,0x0033F917,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
 ?get@Rva00356F60DwordField@@QBEHXZ,,0x00356F60,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
@@ -9006,12 +9006,12 @@ _luaK_jump,,0x00752690,166,Code/Libraries/Source/Lua/lcode.c,matched,vendored=lu
 ?bfmeGet@Gen_00895650@@QBE?AVBfmeHolderDB@@XZ,,0x006D0770,27,Code/GameEngine/Source/Common/Bfme5ThirtyFour.cpp,matched,BFME1 byte-identical donor; b1 0x00895650
 ?get@Rva002A9ED2DwordField@@QBEHXZ,,0x002A9ED2,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter; address-derived opaque holder
 ?get@Rva0030C94ADwordField@@QBEHXZ,,0x0030C94A,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter; address-derived opaque holder
-?get@Rva00313D6CDwordField@@QBEHXZ,,0x00313D6C,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter; address-derived opaque holder
-?get@Rva003140C8DwordField@@QBEHXZ,,0x003140C8,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter; address-derived opaque holder
+?get@Rva00313D6CDwordField@@QBEHXZ,,0x00313D6C,7,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,matched,Disp32 dword getter; address-derived opaque holder
+?get@Rva003140C8DwordField@@QBEHXZ,,0x003140C8,7,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,matched,Disp32 dword getter; address-derived opaque holder
 ?bfmeGoECKa@BfmeThingECKa@@QAEPAXXZ,,0x00657AC0,22,Code/GameEngine/Source/Common/BfmeConv805.cpp,matched,BFME1 byte-identical donor; b1 0x007EAB20
-?get@Rva003140F1DwordField@@QBEHXZ,,0x003140F1,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter; address-derived opaque holder
+?get@Rva003140F1DwordField@@QBEHXZ,,0x003140F1,7,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,matched,Disp32 dword getter; address-derived opaque holder
 ?bfmeGoECKb@BfmeThingECKb@@QAEPAXXZ,,0x00657B90,22,Code/GameEngine/Source/Common/BfmeConv805.cpp,matched,BFME1 byte-identical donor; b1 0x007EABF0
-?get@Rva00314126DwordField@@QBEHXZ,,0x00314126,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter; address-derived opaque holder
+?get@Rva00314126DwordField@@QBEHXZ,,0x00314126,7,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,matched,Disp32 dword getter; address-derived opaque holder
 ?get@Rva0052A28EDwordField@@QBEHXZ,,0x0052A28E,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter; address-derived opaque holder
 ?get@Rva0055A88BDwordField@@QBEHXZ,,0x0055A88B,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter; address-derived opaque holder
 ?copyMessageHeader@@YGXPAVBfmeMsgVHE@@0@Z,,0x00675680,71,Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp,matched,BFME1 byte-identical donor; b1 0x00809780; 2 DIR32 string literal(s) agree
@@ -10157,7 +10157,7 @@ _check_capture,,0x00748EA0,42,Code/Libraries/Source/Lua/lstrlib.c,matched,vendor
 ?get@Rva003889A9DwordField@@QBEHXZ,,0x003889A9,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
 _luaI_classend,,0x00748F10,105,Code/Libraries/Source/Lua/lstrlib.c,matched,vendored=lua-4.0.1; obj_sweep rel32 alias; object-symbol=_luaI_classend; Lua lstrlib static compiles to retail span
 ?get@Rva00367473DwordField@@QBEHXZ,,0x00367473,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
-?get@Rva00314105DwordField@@QBEHXZ,,0x00314105,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
+?get@Rva00314105DwordField@@QBEHXZ,,0x00314105,7,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,matched,Disp32 dword getter
 ?get@Rva00238D74DwordField@@QBEHXZ,,0x00238D74,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
 ?get@Rva0036CBD9DwordField@@QBEHXZ,,0x0036CBD9,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
 ?set@Rva0043282FDwordSlot@@QAEXH@Z,,0x0043282F,13,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,Disp32 dword setter
