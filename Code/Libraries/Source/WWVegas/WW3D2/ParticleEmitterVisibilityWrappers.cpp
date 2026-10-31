@@ -1,78 +1,12 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_part_emt /DNDEBUG /MD /Ireference/shims/wwstring_teardown/bfme /Ireference/shims/bfmerendobj /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep /Ireference/shims /Ireference/shims/bfmeparticlequat /Ireference/shims/bfme2renderobj /Ireference/shims/bfmeparticlehandle
 
 // BFME's ParticleEmitterClass visibility wrappers. Retail's RenderObjClass
 // interface has an extra Set_Visible scene token relative to the later public
-// header, so this focused TU models the exact ABI without changing that shared
-// vendored declaration.
+// header. BFME2 RenderObjClass has one fewer slot before Set_Visible vs BFME1
+// (retail calls [edx+0x210] slot 132, donor [edx+0x214] slot 133).
 
-#define BFME_VIRTUAL_EIGHT(a, b, c, d, e, f, g, h) \
-	virtual void Dummy##a(); virtual void Dummy##b(); \
-	virtual void Dummy##c(); virtual void Dummy##d(); \
-	virtual void Dummy##e(); virtual void Dummy##f(); \
-	virtual void Dummy##g(); virtual void Dummy##h();
-
-class RenderObjClass
-{
-public:
-	BFME_VIRTUAL_EIGHT(0, 1, 2, 3, 4, 5, 6, 7)
-	BFME_VIRTUAL_EIGHT(8, 9, 10, 11, 12, 13, 14, 15)
-	BFME_VIRTUAL_EIGHT(16, 17, 18, 19, 20, 21, 22, 23)
-	BFME_VIRTUAL_EIGHT(24, 25, 26, 27, 28, 29, 30, 31)
-	BFME_VIRTUAL_EIGHT(32, 33, 34, 35, 36, 37, 38, 39)
-	BFME_VIRTUAL_EIGHT(40, 41, 42, 43, 44, 45, 46, 47)
-	BFME_VIRTUAL_EIGHT(48, 49, 50, 51, 52, 53, 54, 55)
-	BFME_VIRTUAL_EIGHT(56, 57, 58, 59, 60, 61, 62, 63)
-	BFME_VIRTUAL_EIGHT(64, 65, 66, 67, 68, 69, 70, 71)
-	BFME_VIRTUAL_EIGHT(72, 73, 74, 75, 76, 77, 78, 79)
-	BFME_VIRTUAL_EIGHT(80, 81, 82, 83, 84, 85, 86, 87)
-	BFME_VIRTUAL_EIGHT(88, 89, 90, 91, 92, 93, 94, 95)
-	virtual void Dummy96();
-	// BFME2 RenderObjClass has one fewer slot before Set_Visible vs BFME1
-	// (retail calls [edx+0x210] slot 132, donor [edx+0x214] slot 133).
-	virtual void Set_Visible(int onoff, int sceneToken);
-	virtual void Dummy99();
-	virtual void Set_Hidden(int onoff)
-	{
-		if (onoff) {
-			Bits &= ~0x2000UL;
-		} else {
-			Bits |= 0x2000UL;
-		}
-	}
-	virtual void Dummy101();
-	virtual void Set_Animation_Hidden(int onoff)
-	{
-		if (onoff) {
-			Bits &= ~0x4000UL;
-		} else {
-			Bits |= 0x4000UL;
-		}
-	}
-	virtual void Dummy103();
-	virtual void Set_Force_Visible(int onoff);
-	BFME_VIRTUAL_EIGHT(105, 106, 107, 108, 109, 110, 111, 112)
-	BFME_VIRTUAL_EIGHT(113, 114, 115, 116, 117, 118, 119, 120)
-	BFME_VIRTUAL_EIGHT(121, 122, 123, 124, 125, 126, 127, 128)
-	virtual void Dummy129();
-	virtual void Dummy130();
-	virtual void Dummy131();
-	virtual void Dummy132();
-
-protected:
-	unsigned char PaddingToBits[12];
-	unsigned long Bits;
-};
-
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/part_emt.h
-class ParticleEmitterClass : public RenderObjClass
-{
-public:
-	virtual void Set_Hidden(int onoff);
-	virtual void Set_Visible(int onoff, int sceneToken = 0);
-	virtual void Set_Animation_Hidden(int onoff);
-	virtual void Set_Force_Visible(int onoff);
-	virtual void Update_On_Visibilty();
-};
+#include "../../../../../reference/shims/bfme2renderobj/rendobj.h"
+#include "part_emt.h"
 
 // ?Set_Visible@ParticleEmitterClass@@UAEXHH@Z
 void ParticleEmitterClass::Set_Visible(int onoff, int sceneToken)
@@ -85,9 +19,9 @@ void ParticleEmitterClass::Set_Visible(int onoff, int sceneToken)
 void ParticleEmitterClass::Set_Hidden(int onoff)
 {
 	if (onoff) {
-		Bits &= ~0x2000UL;
+		Bits &= ~IS_NOT_HIDDEN;
 	} else {
-		Bits |= 0x2000UL;
+		Bits |= IS_NOT_HIDDEN;
 	}
 	Update_On_Visibilty();
 }
@@ -96,20 +30,12 @@ void ParticleEmitterClass::Set_Hidden(int onoff)
 void ParticleEmitterClass::Set_Animation_Hidden(int onoff)
 {
 	if (onoff) {
-		Bits &= ~0x4000UL;
+		Bits &= ~IS_NOT_ANIMATION_HIDDEN;
 	} else {
-		Bits |= 0x4000UL;
+		Bits |= IS_NOT_ANIMATION_HIDDEN;
 	}
 	Update_On_Visibilty();
 }
-
-inline void ParticleEmitterClass::Set_Force_Visible(int onoff)
-{
-	RenderObjClass::Set_Force_Visible(onoff);
-	Update_On_Visibilty();
-}
-
-#undef BFME_VIRTUAL_EIGHT
 
 // Set_Force_Visible is a header inline in retail: other units emit select-any
 // copies, so a strong definition here was a duplicate in the linked build.

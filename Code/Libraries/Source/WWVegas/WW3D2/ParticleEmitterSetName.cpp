@@ -1,5 +1,4 @@
-// cl: /DNDEBUG /MD /Ireference/shims/wwstring_teardown/bfme /Ireference/shims/bfmerendobj /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep /Ireference/shims /Ireference/shims/bfmeparticlequat /Ireference/shims/bfme2renderobj /Ireference/shims/bfmeparticlehandle
-// platformsdk
+// cl: /Ireference/shims/bfme2_part_emt /DNDEBUG /MD /Ireference/shims/wwstring_teardown/bfme /Ireference/shims/bfmerendobj /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep /Ireference/shims /Ireference/shims/bfmeparticlequat /Ireference/shims/bfme2renderobj /Ireference/shims/bfmeparticlehandle
 // ?Set_Name@ParticleEmitterClass@@UAEXPBD@Z @ 0x001A2220 (55B NameString+0x120).
 //
 // BFME1 donor: reference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp
@@ -7,28 +6,9 @@
 // Evidence: vtable slot 7 offset 0x1C of 0x007D69F8 for ctor 0x001A1070 class;
 // retail frees [esi+0x120] via 0x00030830 then strdup via 0x006C4C70;
 // twin 46B Def Set_Name at 0x001AF880 proves free plus strdup shape.
-// Split TU because part_emt.cpp resolves free and strdup through dllimport
-// while retail calls 0x00030830 and 0x006C4C70 directly.
-// Import-deflection recipe from ParticleEmitterDefSetName.cpp:
-// _CRTIMP defused for <stdlib.h> for direct free and strdup renamed aside
-// then redeclared direct as extern C.
 
-// Rename the dllimport strdup declaration out of the way before any header
-// can declare it.
-#define strdup __bfme_strdup_dllimport
-
-#include <sweep/winbase_shim.h>
-
-#include <string.h>
-#define _CRTIMP
-#include <stdlib.h>
-
-// Every header that declares strdup has now had its declaration renamed aside;
-// this is the spelling the unit calls to reach 0x006C4C70 directly.
-#undef strdup
-extern "C" char * __cdecl strdup(const char *);
-
-#include "rendobj.h"
+#define _CRTIMP // free and strdup bind the game's direct allocation wrappers (0x00030830, 0x006C4C70), not CRT imports.
+#include "../../../../../reference/shims/bfme2renderobj/rendobj.h"
 #include "part_emt.h"
 
 void ParticleEmitterClass::Set_Name(const char *pname)
