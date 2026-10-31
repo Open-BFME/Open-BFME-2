@@ -384,8 +384,3 @@ class Rva00494AC6 : public Rva00494AC6Base0, public Rva00494AC6Base18
 public:
 	virtual void rva00494AC6(float v);
 };
-
-void Rva00494AC6::rva00494AC6(float v)
-{
-	s15(v);
-}
