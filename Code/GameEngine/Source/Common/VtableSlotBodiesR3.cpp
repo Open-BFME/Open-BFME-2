@@ -371,12 +371,6 @@ private:
 	bool m_flag22;
 };
 
-void Rva000E4886::rva000E4886()
-{
-	m_flag22 = true;
-	m_flag21 = true;
-}
-
 // 0x000E7529: sets four flag bytes deep in a large object.
 class Rva000E7529
 {
