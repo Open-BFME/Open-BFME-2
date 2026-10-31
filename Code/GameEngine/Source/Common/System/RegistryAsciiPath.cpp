@@ -203,19 +203,6 @@ AsciiStringPlusText::operator UnicodeString()
 	return tmp;
 }
 
-// ?length@AsciiStringCharPlusText@@QBEHXZ @0x2347EB
-int AsciiStringCharPlusText::length() const
-{
-	return m_string->getLength() + 1 + m_right.m_len;
-}
-
-// ?write@AsciiStringCharPlusText@@QAEHPAD@Z @0x2349D8
-int AsciiStringCharPlusText::write(char *dst)
-{
-	int written = AsciiStringRefWithChar::write(dst);
-	return written + m_right.write(dst + written);
-}
-
 // ??BAsciiStringCharPlusText@@QAE?AVAsciiString@@XZ @0x234CA6
 AsciiStringCharPlusText::operator AsciiString()
 {

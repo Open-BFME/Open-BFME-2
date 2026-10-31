@@ -17886,8 +17886,8 @@ _WinMain@16,,0x00002C39,1388,Code/GameEngine/Source/Main/WinMain.cpp,matched,BFM
 ?length@AsciiStringPlusText@@QBEHXZ,,0x002DBF50,22,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp,matched,narrow concat node length: string + text
 ?write@AsciiStringPlusText@@QAEHPAD@Z,,0x000BBD41,37,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp,matched,narrow concat node write: string + text
 ??BAsciiStringPlusText@@QAE?AVAsciiString@@XZ,,0x000BC4F7,98,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp,matched,narrow concat node to AsciiString: sized getBufferForRead then write
-?length@AsciiStringCharPlusText@@QBEHXZ,,0x002347EB,24,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp,matched,narrow concat node length: string + char + text
-?write@AsciiStringCharPlusText@@QAEHPAD@Z,,0x002349D8,37,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp,matched,narrow concat node write: string + char + text
+?length@AsciiStringCharPlusText@@QBEHXZ,,0x002347EB,24,Code/GameEngine/Source/Common/System/AsciiStringCharPlusText.cpp,matched,narrow concat node length: string + char + text
+?write@AsciiStringCharPlusText@@QAEHPAD@Z,,0x002349D8,37,Code/GameEngine/Source/Common/System/AsciiStringCharPlusText.cpp,matched,narrow concat node write: string + char + text
 ??BAsciiStringCharPlusText@@QAE?AVAsciiString@@XZ,,0x00234CA6,98,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp,matched,narrow concat node to AsciiString: sized getBufferForRead then write
 ??H@YA?AUAsciiStringPlusText@@ABVAsciiString@@PBD@Z,,0x000B49C5,52,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp,matched,narrow concat: AsciiString + C string node
 ??H@YA?AUAsciiStringCharPlusText@@ABUAsciiStringRefWithChar@@PBD@Z,,0x00109CFD,61,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp,matched,narrow concat: (AsciiString + char) + C string node

@@ -3,8 +3,378 @@
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #include "unicode_string.h"
+/*
+**	Command & Conquer Generals Zero Hour(tm)
+**	Copyright 2025 Electronic Arts Inc.
+**
+**	This program is free software: you can redistribute it and/or modify
+**	it under the terms of the GNU General Public License as published by
+**	the Free Software Foundation, either version 3 of the License, or
+**	(at your option) any later version.
+**
+**	This program is distributed in the hope that it will be useful,
+**	but WITHOUT ANY WARRANTY; without even the implied warranty of
+**	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+**	GNU General Public License for more details.
+**
+**	You should have received a copy of the GNU General Public License
+**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+// October 2026 EH ownership: native parent bytes and every associative EH
+// code/data relocation verify for this whole unit. Cleanup entry identities
+// come from unwind-map references; interior return labels are excluded.
+// The naturally emitted state-bit cleanups replace manual MASM ownership.
+//
+// The narrow half of BFME 2's expression-template string concatenation, and
+// the AsciiString registry-path builder built on it. The wide half lives in
+// Code/GameEngine/Source/Main/WinMainPairUnicode.cpp; the (pointer, length)
+// text reference is the same Rva000B3F84Pair shape.
+//
+// A concatenation "name + '\\' + text" builds by-value nodes: a reference to
+// the AsciiString operand (optionally followed by one char) and a text
+// reference. Each node knows its length and writes itself into a buffer;
+// operator AsciiString() sizes an AsciiString and fills it. The generic
+// nodes are template-shared across the image, so their bodies sit far from
+// the registry code that first used them here.
 
-// tu-skeleton: 0x002347EB 24B ?length@AsciiStringCharPlusText@@QBEHXZ -- matched in Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp (not merged yet)
+extern "C" void *__cdecl memcpy(void *dst, const void *src, unsigned int written);
+class AsciiString;
+#include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
+#include "../../../../../reference/shims/bfme2_ascii/unicode_string.h"
+#define ERROR_SUCCESS 0L
+#define KEY_READ 0x20019L
+#define HKEY_CURRENT_USER ((HKEY)0x80000001)
+#define HKEY_LOCAL_MACHINE ((HKEY)0x80000002)
+
+class UnicodeString;
+
+// The wide string, as far as the registry readers reach it: its storage
+// releases inline, and it converts from an AsciiString out of line.
+
+
+// The (pointer, length) text reference shared with the wide builders.
+class Rva000B3F84Pair
+{
+public:
+	Rva000B3F84Pair() {}
+	Rva000B3F84Pair *init(const char *src);
+	int write(char *dst);
+
+	const char *m_ptr;
+	int m_len;
+};
+
+// A reference to an AsciiString operand.
+struct AsciiStringRef
+{
+	int write(char *dst);
+
+	const AsciiString *m_string;
+};
+
+// An AsciiString operand followed by one char.
+struct AsciiStringRefWithChar : AsciiStringRef
+{
+	int write(char *dst);
+	operator AsciiString();
+
+	char m_char;
+};
+
+// "string + text"
+class Rva002DCD9A
+{
+public:
+	int copyToBuffer(unsigned short *dst);
+};
+
+struct AsciiStringPlusText : AsciiStringRef
+{
+	int length() const;
+	int write(char *dst);
+	operator AsciiString();
+	operator UnicodeString();
+
+	Rva000B3F84Pair m_right;
+};
+
+// "string + char + text"
+struct AsciiStringCharPlusText : AsciiStringRefWithChar
+{
+	int length() const;
+	int write(char *dst);
+	operator AsciiString();
+
+	Rva000B3F84Pair m_right;
+};
+
+// "string + string": two AsciiString operands. The length sums through the
+// shared header-length fold pinned at 0x002198C8 (layout-compatible with
+// the wide pair summer).
+struct AsciiStringPlusString : AsciiStringRef
+{
+	int length() const;
+	int write(char *dst);
+	operator AsciiString();
+
+	AsciiStringRef m_second;
+};
+
+// "string + string + char"
+struct AsciiStringPlusStringChar : AsciiStringPlusString
+{
+	int write(char *dst);
+
+	char m_char;
+};
+
+// "string + string + text"
+struct AsciiStringPlusStringText : AsciiStringPlusString
+{
+	int write(char *dst);
+	operator AsciiString();
+
+	Rva000B3F84Pair m_text;
+};
+
+// ?rva005EF5CA@Rva005EF5CA@@QAEHPAD@Z @0x005EF5CA 37B.
+// Two part write via rowed registry path writer and AsciiStringRef writer;
+// caller 0x005EF607 uses this output in the next path operation.
+struct Rva005EF5CA : AsciiStringPlusStringText
+{
+	int write(char *dst);
+	int length() const;
+	operator AsciiString();
+	AsciiStringRef m_fourth;
+};
+
+// ?write@Rva0050F23E@@QAEHPAD@Z @0x0050F23E 37B narrow concat node two-ref plus char plus trailing text: base PlusStringChar write 0x0050EE58 then Rva pair write 0x000B44F0; caller is materializer 0x0050F7B4.
+struct Rva0050F23E : AsciiStringPlusStringChar
+{
+	int write(char *dst);
+	operator AsciiString();
+
+	Rva000B3F84Pair m_text;
+};
+
+// ?write@Rva005D32EC@@QAEHPAD@Z @0x005D32EC 37B narrow concat node two-ref plus trailing text: base PlusStringText write 0x0050F219 then Rva pair write 0x000B44F0; caller materializer 0x005D3311.
+struct Rva005D32EC : AsciiStringPlusStringText
+{
+	int write(char *dst);
+
+	Rva000B3F84Pair m_text2;
+};
+
+// ?write@Rva005D3311@@QAEHPAD@Z @0x005D3311 37B narrow concat node: base Rva005D32EC write 0x005D32EC then Rva pair write 0x000B44F0 at +0x18; callers 0x005D3365 0x005F985C.
+struct Rva005D3311 : Rva005D32EC
+{
+	int length() const;
+	int write(char *dst);
+	operator AsciiString();
+
+	Rva000B3F84Pair m_text3;
+};
+
+// ?write@Rva005F9852@@QAEHPAD@Z @0x005F9852 37B narrow concat node: base Rva005D3311 write 0x005D3311 then AsciiStringRef write 0x0002C5B1 at +0x20; caller 0x005F9D98.
+struct Rva005F9852 : Rva005D3311
+{
+	int length() const;
+	int write(char *dst);
+	operator AsciiString();
+
+	AsciiStringRef m_ref;
+};
+
+// ??H@YA?AURva002226E5TextPlusString@@PBDABVAsciiString@@@Z, retail 0x002226E5, 52 bytes.
+// Char-text plus string node mirroring string-plus-text at 0xB49C5: pair from the left literal plus the right string ref. Builds "_nrm" plus extension in makeNrmTextureName 0x317D89 plus 24 other callers. No donor; honest address struct; shape mirrors the rowed sibling with swapped operands.
+struct Rva002226E5TextPlusString
+{
+	int length() const;
+	int write(char *dst);
+	operator AsciiString();
+	Rva000B3F84Pair m_left;
+	AsciiStringRef m_right;
+};
+
+const char *GetRegistryGameRegPath();
+
+struct HKEY__;
+
+typedef HKEY__ *HKEY;
+
+typedef unsigned long DWORD;
+
+typedef long LONG;
+
+extern "C" __declspec(dllimport) LONG __stdcall RegOpenKeyExA(
+		HKEY hKey, const char *lpSubKey, DWORD ulOptions, DWORD samDesired, HKEY *phkResult);
+
+extern "C" __declspec(dllimport) LONG __stdcall RegQueryValueExA(
+		HKEY hKey, const char *lpValueName, DWORD *lpReserved, DWORD *lpType,
+		unsigned char *lpData, DWORD *lpcbData);
+
+extern "C" __declspec(dllimport) LONG __stdcall RegCloseKey(HKEY hKey);
+
+bool getStringFromRegistry(HKEY root, UnicodeString path, UnicodeString key, UnicodeString &val);
+
+const char *GetRegistryUserDataLeafName();
+
+// ?write@Rva0002C9C2@@QAEHPAD@Z @0x0002C9C2 37B
+// Narrow concat node "string + char + string": an AsciiString operand
+// followed by one char, then a second AsciiString operand. Retail writes
+// the first part through AsciiStringRefWithChar 0x0002C7A7 then the second
+// through AsciiStringRef 0x0002C5B1, summing the lengths. Called from the
+// unclaimed operator at 0x0002CB02. Honest address name; true type unknown.
+struct Rva0002C9C2
+{
+	AsciiStringRefWithChar m_first;
+	AsciiStringRef m_second;
+	int write(char *dst);
+};
+
+// ?write@Rva0020F58E@@QAEHPAD@Z @0x0020F58E 37B narrow concat node PlusText plus Ref via rowed writes 0xBBD41 plus 0x2C5B1.
+// Evidence: unlock lane every callee rowed; callers 0x0020F741 0x00238C3E; same 37B shape as Rva0002C9C2.
+struct Rva0020F58E
+{
+	AsciiStringPlusText m_first;
+	AsciiStringRef m_second;
+	int length() const;
+	int write(char *dst);
+	operator AsciiString();
+};
+
+// ??BWinMainTitlePair@@QAE?AVAsciiString@@XZ @0x0010BA9F 101B
+// Narrow materializer for the double-pair title segment rowed at 0x00109D3A:
+// sizes via both pair lengths then fills through that write; callers at
+// 0x0010BCC8 0x0057A11F 0x0057A190; chain from 0x00109D3A.
+struct WinMainTitlePair : Rva000B3F84Pair
+{
+	int write(char *dst);
+	int firstLength() const { return m_len; }
+	int length() const { return firstLength() + m_secondPair.m_len; }
+	operator AsciiString();
+	Rva000B3F84Pair m_secondPair;
+};
+
+// ?write@Rva00238C34@@QAEHPAD@Z @0x00238C34 37B narrow concat node: base Rva0020F58E write 0x0020F58E then Rva pair write 0x000B44F0 at +0x10; caller materializer 0x00238C59.
+struct Rva00238C34 : Rva0020F58E
+{
+	int write(char *dst);
+	operator AsciiString();
+
+	Rva000B3F84Pair m_text2;
+};
+
+// Native 0x000BDC6D..0x000BDCD6 and 0x0059B2EC..0x0059B355 use the
+// same owning-string materialization as Rva00238C34 above. Their own
+// length/write callees are independently rowed; target loads establish
+// additional lengths at +0x18 and +0x10 respectively. The caller returns
+// through StringBase<char>'s copy constructor and direct releaseBuffer.
+// Address-derived receiver names retain the unknown template identity.
+class Rva000B65FD {
+public:
+	int rva000B65FD();
+};
+
+struct Rva000BD268 {
+	int write(char *dst);
+};
+
+class Rva000BDC6D {
+	char m_prefix[0x18];
+	int m_extra18;
+public:
+	AsciiString rva000BDC6D();
+};
+
+class Rva0059B1A2 {
+public:
+	int copyToBuffer(char *dst);
+};
+
+// operator AsciiString(): the matched caller 0x0059B5A3 copy-initialises its
+// string from this node and only a conversion function reproduces retail's
+// kept temporary (its address re-derived for the copy constructor).
+class Rva0059B2EC {
+	char m_prefix[0x10];
+	int m_extra10;
+public:
+	operator AsciiString();
+};
+
+// Native 005F9877..005F9904 RET0. Existing deleting wrapper005F9B32
+// and guarded-delete005FA146 identify a complete nonvirtual destructor.
+// Cleanup offsets establish the storage views below; original owner and
+// container element identities remain unknown. Existing row/pin spellings
+// name the nine measured destructor calls. The range destructor now has
+// a real definition here and the pointer members call the rowed clear.
+// No new callee pins are introduced.
+namespace _STL {
+template<class T> class allocator {};
+template<class T, class A = allocator<T> > class vector {
+public: ~vector();
+private: T *begin, *end, *limit;
+};
+}
+
+struct Rva005F9813Record;
+
+struct BfmeContainerRecord005FDEC7;
+
+void free(void *pointer);
+
+namespace _STL { template<class Pointer> void _Destroy(Pointer begin, Pointer end); }
+
+struct Gen_uwm_005f97d4Storage {
+ BfmeContainerRecord005FDEC7 *begin, *end, *limit;
+ // ?Gen_uwm_005f97d4Storage::~Gen_uwm_005f97d4Storage absent-from-retail
+ __forceinline ~Gen_uwm_005f97d4Storage() { if (begin) free(begin); }
+};
+
+class Gen_uwm_005f97d4 : private Gen_uwm_005f97d4Storage {
+public: ~Gen_uwm_005f97d4();
+};
+
+class Rva0052413E { public: ~Rva0052413E(); private: char bytes[12]; };
+
+class Rva000AD6F4 {
+public:
+ void clear();
+ ~Rva000AD6F4();
+private: void *pointer;
+};
+
+class Rva005F9877 {
+public: ~Rva005F9877();
+private:
+ char unknown00[8];
+ AsciiString string08;
+ Rva0052413E bindings0C;
+ char unknown18[4];
+ UnicodeString string1C;
+ Gen_uwm_005f97d4 records20;
+ Rva000AD6F4 owner2C;
+ Gen_uwm_005f97d4 records30;
+ Rva000AD6F4 owner3C;
+ _STL::vector<Rva005F9813Record> records40;
+ char unknown4C[4];
+ _STL::vector<Rva005F9813Record> records50;
+};
+
+// ---- from Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp
+
+// ?length@AsciiStringCharPlusText@@QBEHXZ @0x2347EB
+int AsciiStringCharPlusText::length() const
+{
+	return m_string->getLength() + 1 + m_right.m_len;
+}
+
+// ?write@AsciiStringCharPlusText@@QAEHPAD@Z @0x2349D8
+int AsciiStringCharPlusText::write(char *dst)
+{
+	int written = AsciiStringRefWithChar::write(dst);
+	return written + m_right.write(dst + written);
+}
 
 // tu-skeleton: 0x00234803 37B ?convertTitleSegments@Rva002343C3TitleSegment@@QAEHPAG@Z -- matched in Code/GameEngine/Source/Main/WinMainPairUnicode.cpp (not merged yet)
 
@@ -14,7 +384,7 @@
 
 // tu-skeleton: 0x00234973 101B ??BWinMainTitlePair@@QAE?AVUnicodeString@@XZ -- matched in Code/GameEngine/Source/Main/WinMainPairUnicode.cpp (not merged yet)
 
-// tu-skeleton: 0x002349D8 37B ?write@AsciiStringCharPlusText@@QAEHPAD@Z -- matched in Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/System/AsciiStringCharPlusText.cpp
 
 // ---- from Code/GameEngine/Source/Common/System/RegistryGetUnicodeString.cpp
 
@@ -79,22 +449,6 @@ bool getStringFromRegistry(HKEY root, UnicodeString path, UnicodeString key, Uni
 
 	return false;
 }
-
-// tu-skeleton: 0x0076FE9C 8B $L1437 -- matched in Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp (not merged yet)
-
-// tu-skeleton: 0x0076FEA4 8B $L1438 -- matched in Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp (not merged yet)
-
-// tu-skeleton: 0x0076FEAC 8B $L1439 -- matched in Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp (not merged yet)
-
-// tu-skeleton: 0x0076FEB4 8B $L1440 -- matched in Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp (not merged yet)
-
-// tu-skeleton: 0x0076FEBC 10B __ehhandler$?getStringFromRegistry@@YA_NPAUHKEY__@@VAsciiString@@1AAV2@@Z -- matched in Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp (not merged yet)
-
-// tu-skeleton: 0x0076FEC6 8B $L1479 -- matched in Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp (not merged yet)
-
-// tu-skeleton: 0x0076FECE 8B $L1480 -- matched in Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp (not merged yet)
-
-// tu-skeleton: 0x0076FED6 10B __ehhandler$?getUnsignedIntFromRegistry@@YA_NPAUHKEY__@@VAsciiString@@1AAI@Z -- matched in Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp (not merged yet)
 
 // tu-skeleton: 0x0076FEE0 8B Unwind@00b6fee0 -- matched in Code/GameEngine/Source/Common/System/RegistrySetString.cpp (not merged yet)
 
