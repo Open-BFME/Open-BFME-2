@@ -9020,7 +9020,7 @@ _luaK_jump,,0x00752690,166,Code/Libraries/Source/Lua/lcode.c,matched,vendored=lu
 ?bfmeSetPair@Gen_0094AC70@@QAEXPBVBfmeVecHF@@0@Z,,0x0013F620,64,Code/GameEngine/Source/Common/Bfme5EightyEight.cpp,matched,BFME1 byte-identical donor; b1 0x0094AC70
 ?get@Rva0008BB38FloatField@@QBEMXZ,,0x0008BB38,4,Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp,matched,Disp8 float getter; address-derived opaque holder
 ?vslot08@GhostObject@@UBEMXZ,,0x0030592F,4,Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObjectScene.cpp,matched,Native W3DGhostObject ctor63912 and dtor633E5 install virtual-base tableBC5970. Slot2 owns thunk00063688 to 0030592F. Existing ZH-derived GhostObject hierarchy and native base layout84 establish geometry20 position10 angle1C and partition7C; actual C++ virtual-base override emits the whole callee and vtordisp thunk. Slot spellings remain neutral. Owner renamed and moved from opaque negative-offset getter; no aliases pins or assembly.
-?get@Rva004987FEFloatField@@QBEMXZ,,0x004987FE,4,Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp,matched,Disp8 float getter; address-derived opaque holder
+?get@Rva004987FEFloatField@@QBEMXZ,,0x004987FE,4,Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehavior.cpp,matched,Disp8 float getter; address-derived opaque holder
 ?disable@Rva001F384AByteZeroSetter@@QAEXXZ,,0x001F384A,8,Code/GameEngine/Source/Common/DispByteOneSetters.cpp,matched,Disp32 byte zero-setter
 ?bfmeSlotAt@@YGPAVBfmeRecJD@@H@Z,,0x00689400,66,Code/GameEngine/Source/GameClient/VideoPlayer.cpp,matched,BFME1 byte-identical donor; b1 0x0081C5F0
 ?get@Rva006E3C40WordIntField@@QBEHXZ,,0x006E3C40,5,Code/GameEngine/Source/Common/DispWordIntGetters.cpp,matched,Disp8 word-int getter movzx shape
@@ -9584,7 +9584,7 @@ _luaS_newudata,,0x00750230,148,Code/Libraries/Source/Lua/lstring.c,matched,BFME1
 ?get@Rva0028A992FloatField@@QBEMXZ,,0x0028A992,7,Code/GameEngine/Source/Common/DispFloatFieldGetters.cpp,matched,Disp32 float getter
 ?get@Rva0028A9AEFloatField@@QBEMXZ,,0x0028A9AE,7,Code/GameEngine/Source/Common/DispFloatFieldGetters.cpp,matched,Disp32 float getter
 ?get@Rva00437603FloatField@@QBEMXZ,,0x00437603,4,Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp,matched,Disp8 float getter
-?get@Rva004987FAFloatField@@QBEMXZ,,0x004987FA,4,Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp,matched,Disp8 float getter
+?get@Rva004987FAFloatField@@QBEMXZ,,0x004987FA,4,Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehavior.cpp,matched,Disp8 float getter
 ?get@Rva005C4AD5LeaField@@QBEPAXXZ,,0x005C4AD5,4,Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp,matched,Disp8 LEA getter; address-derived opaque holder
 ?apply@Rva00019EC0DwordImmSetter@@QAEXXZ,,0x00019EC0,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-D4C8BB00-C3
 ?get@Rva00539990LeaGetter@@QBEPAXXZ,,0x00539990,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter; address-derived opaque holder
