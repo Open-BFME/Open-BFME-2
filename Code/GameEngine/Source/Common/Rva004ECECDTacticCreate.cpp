@@ -50,8 +50,6 @@ TACTIC(AISimpleExpansionTactic, 0x60)
 // 0x005AADA7, ctor 0x005AABC6 (AIRoamingDefenseTactic), 0x5C bytes
 TACTIC(AIRoamingDefenseTactic, 0x5C)
 
-// 0x005AB203, ctor 0x005AB1B4 (AIStartWoTRBattleTactic), 0x58 bytes
-TACTIC(AIStartWoTRBattleTactic, 0x58)
 
 // 0x005AC8F2, ctor 0x005AC7EC (AIRingHeroTactic), 0x68 bytes
 TACTIC(AIRingHeroTactic, 0x68)

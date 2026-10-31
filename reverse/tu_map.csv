@@ -48892,7 +48892,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x005AB16C,28,code,Code/GameEngine/Source/Common/AIStartWoTRBattleTactic.cpp,approved,N,N=Code/GameEngine/Source/Common/AIStartWoTRBattleTactic.cpp provisional,Code/GameEngine/Source/Common/Rva005DCC24Derived.cpp
 0x005AB188,44,code,Code/GameEngine/Source/Common/AIStartWoTRBattleTactic.cpp,approved,N,N=Code/GameEngine/Source/Common/AIStartWoTRBattleTactic.cpp provisional,Code/GameEngine/Source/Common/Rva005AB125Tactic.cpp
 0x005AB1B4,79,code,Code/GameEngine/Source/Common/AIStartWoTRBattleTactic.cpp,approved,N,N=Code/GameEngine/Source/Common/AIStartWoTRBattleTactic.cpp provisional,Code/GameEngine/Source/Common/Rva004ECECDTacticCtors.cpp
-0x005AB203,50,code,Code/GameEngine/Source/Common/AIStartWoTRBattleTactic.cpp,approved,N,N=Code/GameEngine/Source/Common/AIStartWoTRBattleTactic.cpp provisional,Code/GameEngine/Source/Common/Rva004ECECDTacticCreate.cpp
+0x005AB203,50,code,Code/GameEngine/Source/Common/AIStartWoTRBattleTactic.cpp,approved,N,N=Code/GameEngine/Source/Common/AIStartWoTRBattleTactic.cpp provisional,Code/GameEngine/Source/Common/AIStartWoTRBattleTactic.cpp
 0x005AB235,212,code,Code/GameEngine/Source/Common/AIStartWoTRBattleTactic.cpp,approved,N,N=Code/GameEngine/Source/Common/AIStartWoTRBattleTactic.cpp provisional,Code/GameEngine/Source/Common/Rva005AB125Tactic.cpp
 0x005AB309,11,code,Code/GameEngine/Source/Common/AIReturnTheRingTactic.cpp,approved,N,N=Code/GameEngine/Source/Common/AIReturnTheRingTactic.cpp provisional,Code/GameEngine/Source/Common/Rva005DCC24Derived.cpp
 0x005AB314,36,code,Code/GameEngine/Source/Common/AIReturnTheRingTactic.cpp,approved,N,N=Code/GameEngine/Source/Common/AIReturnTheRingTactic.cpp provisional,Code/GameEngine/Source/Common/Rva005AB309Tactic.cpp
@@ -87645,8 +87645,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0079E867,8,code,Code/GameEngine/Source/Common/AIStartWoTRBattleTactic.cpp,approved,P,P=0x005AB1B4@FuncInfo0x00954ED0 provisional,Code/GameEngine/Source/Common/Rva004ECECDTacticCtors.cpp
 0x0079E86F,8,code,Code/GameEngine/Source/Common/AIStartWoTRBattleTactic.cpp,approved,P,P=0x005AB1B4@FuncInfo0x00954ED0 provisional,Code/GameEngine/Source/Common/Rva004ECECDTacticCtors.cpp
 0x0079E877,10,code,Code/GameEngine/Source/Common/AIStartWoTRBattleTactic.cpp,approved,P,P=0x005AB1B4@FuncInfo0x00954ED0 provisional,Code/GameEngine/Source/Common/Rva004ECECDTacticCtors.cpp
-0x0079E881,10,code,Code/GameEngine/Source/Common/AIStartWoTRBattleTactic.cpp,approved,P,P=0x005AB203@FuncInfo0x00954EF4 provisional,Code/GameEngine/Source/Common/Rva004ECECDTacticCreate.cpp
-0x0079E88B,10,code,Code/GameEngine/Source/Common/AIStartWoTRBattleTactic.cpp,approved,P,P=0x005AB203@FuncInfo0x00954EF4 provisional,Code/GameEngine/Source/Common/Rva004ECECDTacticCreate.cpp
+0x0079E881,10,code,Code/GameEngine/Source/Common/AIStartWoTRBattleTactic.cpp,approved,P,P=0x005AB203@FuncInfo0x00954EF4 provisional,Code/GameEngine/Source/Common/AIStartWoTRBattleTactic.cpp
+0x0079E88B,10,code,Code/GameEngine/Source/Common/AIStartWoTRBattleTactic.cpp,approved,P,P=0x005AB203@FuncInfo0x00954EF4 provisional,Code/GameEngine/Source/Common/AIStartWoTRBattleTactic.cpp
 0x0079E895,8,code,Code/GameEngine/Source/Common/AIReturnTheRingTactic.cpp,approved,P,P=0x005AB3BE@FuncInfo0x00954F28 provisional,Code/GameEngine/Source/Common/Rva004ECECDTacticCtors.cpp
 0x0079E89D,8,code,Code/GameEngine/Source/Common/AIReturnTheRingTactic.cpp,approved,P,P=0x005AB3BE@FuncInfo0x00954F28 provisional,Code/GameEngine/Source/Common/Rva004ECECDTacticCtors.cpp
 0x0079E8A5,10,code,Code/GameEngine/Source/Common/AIReturnTheRingTactic.cpp,approved,P,P=0x005AB3BE@FuncInfo0x00954F28 provisional,Code/GameEngine/Source/Common/Rva004ECECDTacticCtors.cpp
