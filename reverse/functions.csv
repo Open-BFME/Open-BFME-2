@@ -10751,7 +10751,7 @@ _luaX_lex,,0x00757C90,1324,Code/Libraries/Source/Lua/llex.c,matched,BFME1 byte-i
 ??0SmudgeManager@@QAE@XZ,,0x002D25BA,40,Code/GameEngine/Source/GameClient/System/Smudge.cpp,matched,BFME1 donor verbatim; pin-to-row upgrade; /O1 flips zero-reg to edx; vptrs DIR32
 ?Rva00367839Get@@YAHXZ,,0x00367839,6,Code/GameEngine/Source/Common/ConstIntGetters4.cpp,matched,B8-6 returner ret C1758C; prev C2-04-00 with 1 vtable ref and no callers; opaque name
 ?Rva00346CF5Get@@YAHXZ,,0x00346CF5,6,Code/GameEngine/Source/Common/ConstIntGetters4.cpp,matched,B8-6 returner ret C136E8; prev C2-04-00 with 1 vtable ref and no callers; opaque name
-?GetSnapshotName@BuffManager@@MBEPBDXZ,,0x00362E16,6,Code/GameEngine/Source/Common/ConstIntGetters4.cpp,matched,Native C17088 slot2 literal BuffManager identifies the complete canonical class; whole6B getter verified alongside constructor362DBD and destructor362E1C.
+?GetSnapshotName@BuffManager@@MBEPBDXZ,,0x00362E16,6,Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp,matched,Native C17088 slot2 literal BuffManager identifies the complete canonical class; whole6B getter verified alongside constructor362DBD and destructor362E1C.
 ?Rva00362F5EGet@@YAHXZ,,0x00362F5E,6,Code/GameEngine/Source/Common/ConstIntGetters4.cpp,matched,B8-6 returner ret BCB950; prev C2-08-00 with 1 vtable ref and no callers; opaque name
 ?Rva00136825Get@@YAHXZ,,0x00136825,6,Code/GameEngine/Source/Common/ConstIntGetters4.cpp,matched,B8-6 returner ret 0x6D6F6472; prev C2-1C-00 with 1 vtable ref and no callers; opaque name
 ?Rva0015162CGet@@YAHXZ,,0x0015162C,6,Code/GameEngine/Source/Common/ConstIntGetters4.cpp,matched,B8-6 returner ret 0x46585348; prev C2-04-00 with 1 vtable ref and no callers; opaque name

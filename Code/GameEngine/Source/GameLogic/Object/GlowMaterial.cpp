@@ -531,6 +531,112 @@ struct DrawObj
 	float effectIntensity;
 };
 
+// Cold-slice B8-imm32 const-int returners (twin-free TU).
+//
+// Same shape as ConstIntGetters2.cpp/ConstIntGetters3.cpp (mov eax,<IMM32> /
+// ret, 6B) but kept in a separate TU so this lane does not contend with the
+// hot ConstIntGetters appends on origin/master. Rows are opaque
+// address-derived names: each body follows a ret-imm (C2-04-00 / C2-08-00)
+// and is carried by .rdata vtable slots with no direct callers and no branch
+// sources, so no class identity is witnessed. No // cl: line (defaults match
+// the frameless 6-byte shape).
+
+// The three Apt screen factories these getters return are matched rows.
+void *__stdcall createAptScreenInGameChat(void *);
+
+void *__stdcall createAptScreenObjectives(void *);
+
+void *__stdcall createAptScreenQuickMatchMenu(void *);
+
+// Object Snapshot table VA 0x00BFC2F0 slot 2 returns its class name.
+class Object
+{
+public:
+	virtual const char *GetSnapshotName() const;
+};
+
+// ?GetSnapshotName@Rva004885DE@@MBEPBDXZ @ 0x004886c1 (6B): returns 0x00c4b550.
+// Follows a ret-8 (prev C2-08-00), carried by 1 .rdata vtable slot,
+// no direct callers, no branch sources. Opaque address-derived name.
+class Rva004885DE
+{
+protected:
+	virtual const char *GetSnapshotName() const;
+};
+
+// Retail table C4C3D4 selects this Snapshot name getter in slot 2.
+class FlammableUpdate
+{
+protected:
+	virtual const char *GetSnapshotName() const;
+};
+
+// Snapshot slot 2 of retail DamageModule table RVA 0x008598E4 selects this getter.
+class DamageModule
+{
+protected:
+	virtual const char *GetSnapshotName() const;
+};
+
+class LivingWorldCampaign
+{
+public:
+	virtual ~LivingWorldCampaign();
+	virtual void loadPostProcess();
+	virtual const char *GetSnapshotName() const;
+	virtual void xfer(Xfer *);
+};
+
+// Existing verified getters rehomed after naming their actual providers.
+// Integer return representation retained; provider addresses now relocate.
+class GameWindow;
+
+ class WinInstanceData;
+
+ void W3DLeftHUDDraw(GameWindow *, WinInstanceData *);
+
+class Rva0078D310Host;
+
+ Rva0078D310Host *__stdcall Rva00104FD5Create(void *);
+
+class AptLanLobby;
+
+ AptLanLobby *__stdcall Rva002D1F77Create(void *);
+
+class Rva004E4A45;
+
+ Rva004E4A45 *__stdcall Rva002D1FEBCreate(void *);
+
+class Rva004E8B38;
+
+ Rva004E8B38 *__stdcall Rva002D1F3DCreate(void *);
+
+class Rva00512AC8;
+
+ Rva00512AC8 *__stdcall Rva002D1E8FCreate(void *);
+
+class Rva005142B0;
+
+ Rva005142B0 *__stdcall Rva002D1F03Create(void *);
+
+class Rva00516211;
+
+ Rva00516211 *__stdcall Rva002D1FB1Create(void *);
+
+class Rva0051A78E;
+
+ Rva0051A78E *__stdcall Rva002D205FCreate(void *);
+
+class Rva005202C8;
+
+ Rva005202C8 *__stdcall Rva002D2147Create(void *);
+
+class Rva00523825;
+
+ Rva00523825 *__stdcall Rva002D21FBCreate(void *);
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Rva0036247CCtor.cpp
@@ -1008,10 +1114,6 @@ BuffManager::~BuffManager()
 
 void BuffManager::LoadPostProcess() {}
 
-// tu-skeleton: 0x00362493 6B ?GetSnapshotName@GlowMaterial@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x003624C4 58B ?DoXfer@GlowMaterial@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/System/SnapshotXfersBfme.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/BuffInstance_MakeNormalBuff.cpp
 
 bool BuffInstance::MakeNormalBuff(int a, int b, void *c, void *d, int e)
@@ -1057,6 +1159,10 @@ bool BuffInstance::MakeNormalBuff(int a, int b, void *c, void *d, int e)
 	return false;
 }
 
+// tu-skeleton: 0x00362493 6B ?GetSnapshotName@GlowMaterial@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x003624C4 58B ?DoXfer@GlowMaterial@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/System/SnapshotXfersBfme.cpp (not merged yet)
+
 // tu-skeleton: 0x00362702 109B ?DoXfer@BuffManager@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/System/SnapshotXfersBfme.cpp (not merged yet)
 
 // tu-skeleton: 0x003628A6 45B ?rva003628A6@Rva003628A6@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/Bfme/Rva003628A6Free.cpp (not merged yet)
@@ -1073,6 +1179,14 @@ bool BuffInstance::MakeNormalBuff(int a, int b, void *c, void *d, int e)
 
 // tu-skeleton: 0x00362D66 6B ?GetSnapshotName@BuffInstance@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters4.cpp (not merged yet)
 
-// tu-skeleton: 0x00362E16 6B ?GetSnapshotName@BuffManager@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/ConstIntGetters4.cpp
+
+// ?Rva00362E16Get@@YAHXZ @ 0x00362e16 (6B): returns 0x00C17098.
+// Follows a ret-4 (prev C2-04-00), carried by 1 .rdata vtable slot,
+// no direct callers, no branch sources. Opaque address-derived name.
+const char *BuffManager::GetSnapshotName() const
+{
+	return "BuffManager";
+}
 
 // tu-skeleton: 0x0077E1B5 8B uw_0077e1b5 -- matched in Code/gen_small/uw_gen_010.cpp (not merged yet)

@@ -238,14 +238,6 @@ int Rva00346CF5Get(void)
 	return (int)"AIMoveToPositionAndEnterState";
 }
 
-// ?Rva00362E16Get@@YAHXZ @ 0x00362e16 (6B): returns 0x00C17098.
-// Follows a ret-4 (prev C2-04-00), carried by 1 .rdata vtable slot,
-// no direct callers, no branch sources. Opaque address-derived name.
-const char *BuffManager::GetSnapshotName() const
-{
-	return "BuffManager";
-}
-
 // ?Rva00362F5EGet@@YAHXZ @ 0x00362f5e (6B): returns 0x00BCB950.
 // Follows a ret-8 (prev C2-08-00), carried by 1 .rdata vtable slot,
 // no direct callers, no branch sources. Opaque address-derived name.
