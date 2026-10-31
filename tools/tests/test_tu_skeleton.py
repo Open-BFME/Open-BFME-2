@@ -686,6 +686,53 @@ class ComposePreprocessorTests(unittest.TestCase):
         self.assertEqual(out.count('#include "b.h"'), 1)
 
 
+class ComposeWhitespaceVariantTests(unittest.TestCase):
+    """A type or typedef two donors spell with the same tokens is one spelling, the first, at
+    the first position. Compared as collapsed strings, `struct Vec{int *p;};` and
+    `struct Vec { int * p; };` were two variants: every strategy but 'first' emitted the
+    donor's copy at the donor's position, below the seed's own uses of it (C2065,
+    LinearCampaignManager.cpp's donors, cons-o1 2026-10-31)."""
+
+    SEED = ("struct Vec{int *p;};\ntypedef char*PSTR;\n"
+            "struct Holder { Vec v; PSTR s; };\nint seed() { return 1; }\n")
+    DONOR = "struct Vec { int * p; };\ntypedef char * PSTR;\nint donor() { return 2; }\n"
+
+    def compose(self, strategy, seed=SEED, donor=DONOR):
+        return T.compose("Seed.cpp", [], ["Seed.cpp", "Donor.cpp"],
+                         {"Seed.cpp": seed, "Donor.cpp": donor}, [], strategy)
+
+    def test_a_whitespace_variant_keeps_the_first_spelling_at_its_position(self):
+        for st in T.STRATEGIES:
+            out = self.compose(st)
+            self.assertEqual(out.count("struct Vec"), 1, st)
+            self.assertEqual(out.count("PSTR;"), 1, st)
+            self.assertIn("struct Vec{int *p;};", out, st)        # the seed's own text
+            self.assertIn("typedef char*PSTR;", out, st)
+            self.assertLess(out.index("struct Vec"), out.index("struct Holder"), st)
+            self.assertLess(out.index("PSTR;"), out.index("struct Holder"), st)
+        self.assertEqual(len(T.distinct_strategies(self.compose)), 1)
+
+    def test_spellings_that_differ_in_tokens_stay_variants(self):
+        pairs = [("typedef A<B<int>> T;", "typedef A<B<int> > T;"),       # `> >` is not `>>`
+                 ("enum E { V = 1--1 };", "enum E { V = 1 - -1 };"),       # `- -` is not `--`
+                 ('struct S { S() : s("ab") {} const char *s; };',
+                  'struct S { S() : s("a b") {} const char *s; };'),      # literal text is not whitespace
+                 ("struct Q { int a; };", "struct Q { int a; int b; };")]
+        for a, b in pairs:                                         # (seed's, donor's longer spelling)
+            self.assertNotEqual(T.token_seq(a), T.token_seq(b), (a, b))
+            seed, donor = a + "\nint seed() { return 1; }\n", b + "\nint donor() { return 2; }\n"
+            self.assertIn(a, self.compose("first", seed, donor), (a, b))   # both spellings still on offer
+            self.assertIn(b, self.compose("longest", seed, donor), (a, b))
+        self.assertNotEqual(T.token_seq('char *s = "a b";'), T.token_seq('char *s = "a  b";'))
+        self.assertNotEqual(T.token_seq("struct P {\n#pragma pack(1)\nint a;\n};"),   # a directive ends
+                            T.token_seq("struct P {\n#pragma pack(1) int a;\n};"))    # at its line
+
+    def test_comments_and_layout_are_not_tokens(self):
+        self.assertEqual(T.token_seq("struct R{int*p;/* x */};"),
+                         T.token_seq("struct R\n{\n    int * p;   // y\n};"))
+        self.assertEqual(T.token_seq("x = a->b;"), ("x", "=", "a", "->", "b", ";"))
+
+
 class EffectiveFlagsTests(unittest.TestCase):
     def verifier(self, overridden=False):
         v = T.Verifier.__new__(T.Verifier)

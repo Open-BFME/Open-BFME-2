@@ -329,6 +329,24 @@ def norm(t):
     return re.sub(r"\s+", " ", strip(t)).strip()
 
 
+# C++ preprocessing tokens, longest punctuator first: `>>` is not `> >`, `--` not `- -`
+TOKEN = re.compile(r'''[LuU]?"(?:\\.|[^"\\\n])*"|[LuU]?'(?:\\.|[^'\\\n])*'
+                       |\.?\d(?:[eEpP][+-]|[\w.])*|[A-Za-z_$]\w*
+                       |%:%:|\.\.\.|<<=|>>=|->\*|::|\.\*|->|\+\+|--|<<|>>|<=|>=|==|!=|&&|\|\|
+                       |[-+*/%&|^]=|\#\#|<:|:>|<%|%>|%:|\S''', re.X)
+
+
+def token_seq(t):
+    """`t`'s token sequence: comments and layout dropped, literals kept whole, and the end
+    of each directive line kept (a directive ends at its newline)."""
+    out = []
+    for line in strip(t).replace("\\\n", "").splitlines():
+        out.extend(TOKEN.findall(line))
+        if line.lstrip().startswith("#"):
+            out.append("\n")
+    return tuple(out)
+
+
 def key_of(kind, text):
     s = norm(text)
     m = re.match(r"^(?:template\s*<[^>]*>\s*)?(class|struct|enum|union)\s+(?:__declspec\([^)]*\)\s*)?"
@@ -710,17 +728,21 @@ def compose(tu, sk, files, texts, flags, strategy, drop=frozenset(), drop_all=fr
     `files` is in donor order with the seed first. A type two donors spell
     differently is emitted once, from the donor whose spelling is chosen and at
     that donor's own position, so whatever it depends on is already declared.
+    Spellings are compared as token sequences: one that differs only in layout or
+    comments is the first spelling, not a variant a strategy could move below the
+    seed's uses of it.
     """
     parsed = {f: composition_chunks("\n".join(l for l in texts[f].lstrip("\ufeff").splitlines()
                                   if not l.startswith("// cl:") and l.strip() != "// stlport"
                                   and not l.startswith(MARK) and not l.startswith("// TU ")) + "\n")
               for f in files}   # a seed's own placeholders and header are regenerated below
-    variants = collections.defaultdict(list)
+    variants, spelled = collections.defaultdict(list), collections.defaultdict(set)
     for f in files:
         for kind, c in parsed[f]:
             if kind == "decl":
                 k = key_of(kind, c)
-                if k[0] in ("type", "typedef") and norm(c) not in [norm(v) for v, _ in variants[k]]:
+                if k[0] in ("type", "typedef") and (seq := token_seq(c)) not in spelled[k]:
+                    spelled[k].add(seq)
                     variants[k].append((c, f))
     chosen = {}
     for k, v in variants.items():
@@ -2747,6 +2769,12 @@ def companions(rows, parents):
     return [r for r in rows if r["name"] not in parents and (parent_of(r, dtors) in parents)]
 
 
+def c_ident(symbol):
+    """The C identifier of an undecorated-C data symbol: exactly one decorating underscore
+    goes (`__VertexBufferCount` is `_VertexBufferCount`, `___rtc_iaa` is `__rtc_iaa`)."""
+    return symbol[1:] if symbol.startswith("_") else symbol
+
+
 def debt_keys(path):
     """Identifiers of data-identity debt keyed to `path` (a carved body naming one would move the debt)."""
     out = set()
@@ -2756,7 +2784,7 @@ def debt_keys(path):
             parts = line.split("\t")
             if len(parts) >= 3 and parts[0] == path:
                 m = re.match(r"^\?([A-Za-z_]\w*)@", parts[2])
-                out.add(m.group(1) if m else parts[2].lstrip("_"))
+                out.add(m.group(1) if m else c_ident(parts[2]))
     return out
 
 
@@ -3458,7 +3486,7 @@ def data_rowed_idents(path):
     for row in csv.DictReader(io.StringIO(dr.read_text(encoding="utf-8", errors="replace"), newline="")):
         if row.get("source") == path:
             m = re.match(r"^\?([A-Za-z_]\w*)@@", row["name"])
-            out.add(m.group(1) if m else row["name"].lstrip("_"))
+            out.add(m.group(1) if m else c_ident(row["name"]))
     return frozenset(out)
 
 
@@ -3543,7 +3571,7 @@ def data_row_names(raw, idents):
     out = set()
     for row in csv.DictReader(io.StringIO(raw.decode("utf-8"), newline="")):
         m = re.match(r"^\?([A-Za-z_]\w*)@@", row["name"])
-        ident = m.group(1) if m else row["name"].lstrip("_")
+        ident = m.group(1) if m else c_ident(row["name"])
         if ident in idents:
             out.add(row["name"])
     return out

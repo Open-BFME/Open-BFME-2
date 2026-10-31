@@ -2,6 +2,7 @@
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
@@ -511,6 +512,40 @@ class BlockCarveTests(unittest.TestCase):
         ix = {T.head_names(c)[1]: i for i, (_, _, c, k) in enumerate(sp) if k == "def" and T.head_names(c)}
         cv = T.carve(text, {ix["setVolume"]}, rowed={ix["setVolume"], ix["cpeek"]})
         self.assertIn("s_mixes", cv.refused or "")
+
+
+class DecoratedDataNameTests(unittest.TestCase):
+    """A C data symbol carries exactly one decorating underscore: `__VertexBufferCount` is
+    the identifier `_VertexBufferCount` and `___rtc_iaa` is `__rtc_iaa`. lstrip("_") took
+    every one, so the split guard looked for `VertexBufferCount`, never found it in a body
+    naming `_VertexBufferCount`, and carved that body despite its debt."""
+
+    def test_debt_keys_strip_one_decorating_underscore(self):
+        with tempfile.TemporaryDirectory() as folder, patch.object(T, "ROOT", Path(folder)):
+            (Path(folder) / "reverse").mkdir()
+            (Path(folder) / "reverse/data_check_baseline.txt").write_text(
+                "# source\tcheck\tsymbol\taddress -- shrink-only; written by tools/data_check.py\n"
+                "Code/V.cpp\tduplicate-def\t__VertexBufferCount\t0x009F2A40\n"
+                "Code/V.cpp\twrong-name\t_Plain\t0x009F2A44\n"
+                "Code/V.cpp\twrong-name\t?g_x@@3HA\t0x009F2A48\n"
+                "Code/W.cpp\twrong-name\t__Other\t0x009F2A4C\n", encoding="utf-8")
+            keys = T.debt_keys("Code/V.cpp")
+        self.assertEqual(keys, {"_VertexBufferCount", "Plain", "g_x"})
+        body = "void Grow(int n) { _VertexBufferCount += n; }"
+        self.assertEqual([k for k in sorted(keys) if T.names_used(k, body)], ["_VertexBufferCount"])
+
+    def test_data_row_identifiers_strip_one_decorating_underscore(self):
+        raw = ("name,address,address_kind,size,section,source,status,evidence,model\n"
+               "___rtc_iaa,0xcfd04c,va,4,.rdata,Code/R.cpp,matched,e,m\n"
+               "__dist_code,0xcfd050,va,4,.rdata,Code/R.cpp,matched,e,m\n"
+               "_BfmeNone,0xcfd054,va,4,.data,Code/R.cpp,matched,e,m\n"
+               "?g_y@@3HA,0xcfd058,va,4,.data,Code/R.cpp,matched,e,m\n").encode("utf-8")
+        with tempfile.TemporaryDirectory() as folder, patch.object(T, "ROOT", Path(folder)):
+            (Path(folder) / "reverse").mkdir()
+            (Path(folder) / "reverse/data_rows.csv").write_bytes(raw)
+            self.assertEqual(T.data_rowed_idents("Code/R.cpp"), {"__rtc_iaa", "_dist_code", "BfmeNone", "g_y"})
+        self.assertEqual(T.data_row_names(raw, {"__rtc_iaa", "_dist_code"}), {"___rtc_iaa", "__dist_code"})
+        self.assertEqual(T.data_row_names(raw, {"rtc_iaa", "dist_code"}), set())
 
 
 class CompanionTests(unittest.TestCase):
