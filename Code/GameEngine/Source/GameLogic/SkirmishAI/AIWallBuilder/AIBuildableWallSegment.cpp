@@ -165,6 +165,118 @@ private:
     bool value58;
 };
 
+//
+// Small vtable-slot bodies with no ledger owner and no Ghidra entry (sized
+// from their bytes), batch J. As in VslotSmallBodiesA-I, each class and method
+// is address-derived unless the ledger already names it, and models only what
+// its body touches; the comment above each gives the .rdata slot address(es)
+// that reference it. Meanings are not recovered.
+
+typedef int Int;
+
+typedef bool Bool;
+
+// slot at VA 0x00BCEEA8: raises five flag bytes deep inside the object.
+class Rva000EAF80
+{
+public:
+	void rva000EAF80();
+private:
+	char m_pad00[0x44544];
+	Bool m_44544;
+	Bool m_44545;
+	char m_pad44546[0x44556 - 0x44546];
+	Bool m_44556;
+	char m_pad44557[0x45C5C - 0x44557];
+	Bool m_45C5C;
+	char m_pad45C5D[0x45C64 - 0x45C5D];
+	Bool m_45C64;
+};
+
+// slots 3 and 5 of the vtable at VA 0x00BCF7FC (slot 0 is the rowed
+// ??_GRva00104DB0Base): the first adds the extents of the rectangle given by
+// its four arguments to +0xC8/+0xCC, the second sets the embedded +0x04
+// sentence's font from the argument's +0x14 (rowed
+// Render2DSentenceClass::Set_Font); both raise the +0xD5/+0xD4 dirty bytes.
+class FontCharsClass;
+
+class Render2DSentenceClass
+{
+public:
+	void Set_Font(FontCharsClass *font);
+};
+
+struct Rva00104DE6Font
+{
+	char m_pad00[0x14];
+	FontCharsClass *m_font;
+};
+
+class Rva00104DE6
+{
+public:
+	void rva00104E68(Int left, Int top, Int right, Int bottom);
+	void rva00104DE6(const Rva00104DE6Font *font);
+private:
+	char m_pad00[0x04];
+	Render2DSentenceClass m_sentence;
+	char m_pad05[0xC8 - 0x05];
+	Int m_width;
+	Int m_CC;
+	char m_padD0[0xD4 - 0xD0];
+	Bool m_D4;
+	Bool m_D5;
+};
+
+// slots at VA 0x00BC70FC and 0x00BC70EC: erase from the pointer vector at
+// +0x40 (resp. +0x4C) the first element whose object has +0x40 equal to the
+// second argument, through the rowed vector erase 0x004F70D1; the first
+// argument is unused.
+struct Rva00080637Object
+{
+	char m_pad00[0x40];
+	Int m_40;
+};
+
+struct TreeHintRef00217D4C
+{
+	Rva00080637Object *m_object;
+};
+
+class Rva004F70D1
+{
+public:
+	TreeHintRef00217D4C *rva004F70D1(TreeHintRef00217D4C *position);
+	TreeHintRef00217D4C *m_begin;
+	TreeHintRef00217D4C *m_end;
+};
+
+class Rva00080637
+{
+public:
+	void rva00080637(Int unused, Int id);
+	void rva00080664(Int unused, Int id);
+private:
+	char m_pad00[0x40];
+	Rva004F70D1 m_40;
+	char m_pad48[0x4C - 0x48];
+	Rva004F70D1 m_4C;
+};
+
+// Installed-table buffer copies. Native x87 accesses establish the first
+// float; other fields are opaque raw32-bit words. Original owner, field
+// meanings and source-level return convention remain unknown. These views
+// model the observed stack buffer, writes and EAX buffer pointer only.
+struct Rva00596CC7Buffer {float first; unsigned int second,third;};
+
+class Rva00596CC7 {public: void *rva00596CC7(Rva00596CC7Buffer *output); private: char prefix[0x40]; float first; unsigned int second,third;};
+
+struct Rva005C3513Buffer {float first; unsigned int second;};
+
+class Rva005C3513 {public: void *rva005C3513(Rva005C3513Buffer *output); private: char prefix[0x14]; float first; unsigned int second;};
+
+// ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AIWallBuilder/AIBuildableWallSegment.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AIWallBuilder/AIBuildableWallSegment.cpp
 
 // WorldBuilder names 0x1538510 AIBuildableWallSegment::build. The paired
@@ -258,8 +370,6 @@ int AIBuildableWallSegment::canMake(Player *player)
     }
 }
 
-// tu-skeleton: 0x00596C7C 9B ?registerWithBuilder@Rva00596CDF@@UAEXPAX_N@Z -- matched in Code/GameEngine/Source/Common/Rva0055AD91Wrapper.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva00596CDFDtor.cpp
 
 Rva00596CDF::~Rva00596CDF()
@@ -277,8 +387,12 @@ Rva00596CDF::Rva00596CDF(unsigned int key)
     value58 = false;
 }
 
+// tu-skeleton: 0x00596C7C 9B ?registerWithBuilder@Rva00596CDF@@UAEXPAX_N@Z -- matched in Code/GameEngine/Source/Common/Rva0055AD91Wrapper.cpp (not merged yet)
+
 // tu-skeleton: 0x00596CBE 9B ?rva00596CBE@Rva00596CBE@@QAEHXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesZ.cpp (not merged yet)
 
-// tu-skeleton: 0x00596CC7 24B ?rva00596CC7@Rva00596CC7@@QAEPAXPAURva00596CC7Buffer@@@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesJ.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/VslotSmallBodiesJ.cpp
+
+void *Rva00596CC7::rva00596CC7(Rva00596CC7Buffer *output) {output->first=first; output->second=second; output->third=third; return output;}
 
 // tu-skeleton: 0x00596CEA 147B ?Rva00596CEA@Rva00596CDF@@UAEXPAVXfer@@PAX@Z -- matched in Code/GameEngine/Source/Common/Rva00596CEAXfer.cpp (not merged yet)
