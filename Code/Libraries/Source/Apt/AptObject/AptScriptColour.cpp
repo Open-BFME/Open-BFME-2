@@ -84,11 +84,62 @@ public:
 	virtual void rva006F2C50();
 };
 
+// Open-BFME5 conversions.
+//
+// Trimmed port of Open-BFME-1 Code/GameEngine/Source/Common/BfmeConv1082.cpp:
+// the B/C shutdown pair only. The donor's A sibling (BfmeQ1082::bfmeGo1082A)
+// is unserved so it stays out (the gate refuses unrowed definitions).
+//
+// WHAT THE BODIES ARE. Global-slot shutdown helpers: each one walks four
+// BfmeS1082 slots, invoking virtual slot 1 on every live entry and clearing
+// it. B owns slots 0-3, C owns slots 4-7; the eight globals sit contiguous
+// (4-byte stride) in both images, in the same order, so B is the lower
+// retail body (0x006F1DF0) and C the higher (0x006F25E0).
+
+class BfmeS1082
+{
+public:
+	virtual void bfmeSlot1082S_0(void);
+	virtual void bfmeSlot1082S_1(void);
+};
+
+// g_bfmeS1082_4: matched references place it at VA 0xe1822c (retail .data initial value 0).
+BfmeS1082 * g_bfmeS1082_4 = 0;
+
+// g_bfmeS1082_5: matched references place it at VA 0xe18230 (retail .data initial value 0).
+BfmeS1082 * g_bfmeS1082_5 = 0;
+
+// g_bfmeS1082_6: matched references place it at VA 0xe18234 (retail .data initial value 0).
+BfmeS1082 * g_bfmeS1082_6 = 0;
+
+// g_bfmeS1082_7: matched references place it at VA 0xe18238 (retail .data initial value 0).
+BfmeS1082 * g_bfmeS1082_7 = 0;
+
 // tu-skeleton: 0x006F24E0 229B ??0AptScriptColour@@QAE@QAVAptValue@@@Z -- matched in Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors.cpp (not merged yet)
 
 // tu-skeleton: 0x006F25D0 11B ??1Rva006F25D0@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva006D6470Derived.cpp (not merged yet)
 
-// tu-skeleton: 0x006F25E0 89B ?bfmeGo1082C@@YAXXZ -- matched in Code/GameEngine/Source/Common/BfmeConv1082.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/BfmeConv1082.cpp
+
+void bfmeGo1082C(void)
+{
+	if (g_bfmeS1082_4) {
+		g_bfmeS1082_4->bfmeSlot1082S_1();
+		g_bfmeS1082_4 = 0;
+	}
+	if (g_bfmeS1082_5) {
+		g_bfmeS1082_5->bfmeSlot1082S_1();
+		g_bfmeS1082_5 = 0;
+	}
+	if (g_bfmeS1082_6) {
+		g_bfmeS1082_6->bfmeSlot1082S_1();
+		g_bfmeS1082_6 = 0;
+	}
+	if (g_bfmeS1082_7) {
+		g_bfmeS1082_7->bfmeSlot1082S_1();
+		g_bfmeS1082_7 = 0;
+	}
+}
 
 // tu-skeleton: 0x006F2640 181B ?callback006F2640@@YAPAVAptValue@@PAV1@H@Z -- matched in Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors.cpp (not merged yet)
 
@@ -97,6 +148,8 @@ public:
 // tu-skeleton: 0x006F2760 607B ?callback006F2760@@YAPAVAptValue@@PAV1@H@Z -- matched in Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors.cpp (not merged yet)
 
 // tu-skeleton: 0x006F29C0 596B ?callback006F29C0@@YAPAVAptValue@@PAV1@H@Z -- matched in Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/Apt/AptObject/AptScriptColour.cpp
 
 // ---- from Code/Libraries/Source/Apt/AptObject/AptScriptColour.cpp
 

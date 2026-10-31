@@ -25,14 +25,6 @@ BfmeS1082 * g_bfmeS1082_1 = 0;
 BfmeS1082 * g_bfmeS1082_2 = 0;
 // g_bfmeS1082_3: matched references place it at VA 0xe18228 (retail .data initial value 0).
 BfmeS1082 * g_bfmeS1082_3 = 0;
-// g_bfmeS1082_4: matched references place it at VA 0xe1822c (retail .data initial value 0).
-BfmeS1082 * g_bfmeS1082_4 = 0;
-// g_bfmeS1082_5: matched references place it at VA 0xe18230 (retail .data initial value 0).
-BfmeS1082 * g_bfmeS1082_5 = 0;
-// g_bfmeS1082_6: matched references place it at VA 0xe18234 (retail .data initial value 0).
-BfmeS1082 * g_bfmeS1082_6 = 0;
-// g_bfmeS1082_7: matched references place it at VA 0xe18238 (retail .data initial value 0).
-BfmeS1082 * g_bfmeS1082_7 = 0;
 
 void bfmeGo1082B(void)
 {
@@ -51,25 +43,5 @@ void bfmeGo1082B(void)
 	if (g_bfmeS1082_3) {
 		g_bfmeS1082_3->bfmeSlot1082S_1();
 		g_bfmeS1082_3 = 0;
-	}
-}
-
-void bfmeGo1082C(void)
-{
-	if (g_bfmeS1082_4) {
-		g_bfmeS1082_4->bfmeSlot1082S_1();
-		g_bfmeS1082_4 = 0;
-	}
-	if (g_bfmeS1082_5) {
-		g_bfmeS1082_5->bfmeSlot1082S_1();
-		g_bfmeS1082_5 = 0;
-	}
-	if (g_bfmeS1082_6) {
-		g_bfmeS1082_6->bfmeSlot1082S_1();
-		g_bfmeS1082_6 = 0;
-	}
-	if (g_bfmeS1082_7) {
-		g_bfmeS1082_7->bfmeSlot1082S_1();
-		g_bfmeS1082_7 = 0;
 	}
 }
