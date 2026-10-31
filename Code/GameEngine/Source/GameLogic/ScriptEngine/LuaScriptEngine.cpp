@@ -1616,22 +1616,14 @@ extern ScriptActions *TheScriptActions;
 
 unsigned Rva00990210Lookup( Rva00990210Range *range, int index );
 
-class Team;
-
-class Team
-{
-    unsigned char pad00[0x34];
-public:
-    Player *controllingPlayer;
-	Player *getControllingPlayer() const; // row 13658 @0x39D7CF
-};
+#include "Common/TeamBFME2.h"
 
 class AIUpdateInterface;
 
 class LuaAllegianceAI {
     unsigned char pad00[0x240];
 public:
-    Player *allegiance;
+    unsigned int allegianceTeamID;
 };
 
 // Native lookup bodies are visible so the compiler knows they only read the
@@ -4241,7 +4233,7 @@ fail:
 
 // Native334C9F..334D16,119B. Registration33875F / C0E4B8 names
 // ObjectChangeAllegianceFromNonPlayablePlayer. Lookup IDs 1/2, reject a
-// playable controller, then set AI+240 to the second object's team+34 player.
+// playable controller, then set AI+240 to the second object's team+34 ID.
 int ObjectChangeAllegianceFromNonPlayablePlayer(lua_State *state) {
     unsigned firstID=Rva00990030Lookup((Rva00990030Range*)state,1);
     unsigned secondID=Rva00990030Lookup((Rva00990030Range*)state,2);
@@ -4249,7 +4241,7 @@ int ObjectChangeAllegianceFromNonPlayablePlayer(lua_State *state) {
         Object *first=TheGameLogic->findObjectByID((ObjectID)firstID);
         Object *second=TheGameLogic->findObjectByID((ObjectID)secondID);
         if(first && second && !first->getControllingPlayer()->rva002AA245())
-            ((LuaAllegianceAI *)first->m_ai)->allegiance=second->m_team304->controllingPlayer;
+            ((LuaAllegianceAI *)first->m_ai)->allegianceTeamID=second->m_team304->getID();
     }
     return 0;
 }
