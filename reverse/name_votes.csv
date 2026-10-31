@@ -19816,3 +19816,17 @@ Code/GameEngine/Source/Common/Rva005B6967Box.cpp|class||Rva005B6967Buf,e0833c66e
 Code/GameEngine/Source/Common/Rva005B6967Box.cpp|global||g_rva00873640,fb19e986bb06d72015c03006,drz-k3,n29e2-k3,w-077d7aeb666b,2026-10-31
 Code/GameEngine/Source/Common/Rva005B6967Box.cpp|global||g_rva00873630,c9e23d7f540e367742f4e720,drz-k3,n29e2-k3,w-077d7aeb666b,2026-10-31
 Code/GameEngine/Source/Common/Rva00311638CatmullRom.cpp|function|0x00311638|rva00311638CatmullRom,958d63e8ad07a58f147062fc,drz-k3,n29e2-k3,w-077d7aeb666b,2026-10-31
+Code/Libraries/Source/WWVegas/WWLib/Rva00079AB9Worker.cpp|function|0x00079AB9|rva00079AB9,5b04a159b061c0000b0ec665,drz-k9,n29f2-k9,w-4d4d8f8584bc,2026-10-31
+Code/Libraries/Source/WWVegas/WWDebug/DebugSingletonForwarders.cpp|function|0x000383B0|rva000383B0,171bd3cd50cb8e229d1383ea,drz-k9,n29f2-k9,w-4d4d8f8584bc,2026-10-31
+Code/Libraries/Source/WWVegas/WWDebug/DebugSingletonForwarders.cpp|function|0x000383C0|rva000383C0,b2912acdc2b3d89cb13f9c19,drz-k9,n29f2-k9,w-4d4d8f8584bc,2026-10-31
+Code/Libraries/Source/WWVegas/WW3D2/Rva00132B83Finish.cpp|member|TextureSurfaceInfo|m_type0C,28ec28bc1bb94b25cd5ea960,drz-k9,n29f2-k9,w-4d4d8f8584bc,2026-10-31
+Code/Libraries/Source/WWVegas/WW3D2/Rva00132B83Finish.cpp|member|TextureSurfaceInfo|m_dim28,30c18a54e88b6f5b28a0729f,drz-k9,n29f2-k9,w-4d4d8f8584bc,2026-10-31
+Code/Libraries/Source/WWVegas/WW3D2/Rva00132B83Finish.cpp|member|TextureSurfaceInfo|m_dim2C,9226d91db61b9b020965d52b,drz-k9,n29f2-k9,w-4d4d8f8584bc,2026-10-31
+Code/Libraries/Source/WWVegas/WW3D2/Rva00132B83Finish.cpp|member|TextureSurfaceInfo|m_dim30,839cc80257780e76a8803cef,drz-k9,n29f2-k9,w-4d4d8f8584bc,2026-10-31
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/Rva000C199DInterface.cpp|function|0x000C199D|rva000C199D,0ecde92ea943ff0432d099c8,drz-k9,n29f2-k9,w-4d4d8f8584bc,2026-10-31
+Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/AITacticDefensive.cpp|class||Rva005DCB32Chances,4ffda07b3108afe469047fc5,drz-k9,n29f2-k9,w-4d4d8f8584bc,2026-10-31
+Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/AITacticDefensive.cpp|class||Rva005DCB32Slot,dbe110e6c055a4264b76a492,drz-k9,n29f2-k9,w-4d4d8f8584bc,2026-10-31
+Code/GameEngine/Source/GameClient/Rva0005121FElapsed.cpp|function|0x0005121F|rva0005121F,9002409e48966730b74a9335,drz-k9,n29f2-k9,w-4d4d8f8584bc,2026-10-31
+Code/GameEngine/Source/GameClient/Rva0005121FElapsed.cpp|function|0x000511C3|rva000511C3,3c22ed1a9309a8e1db907068,drz-k9,n29f2-k9,w-4d4d8f8584bc,2026-10-31
+Code/GameEngine/Source/GameClient/Rva0005121FElapsed.cpp|function|0x000516EF|rva000516EF,22e77797bac17a2e957086f8,drz-k9,n29f2-k9,w-4d4d8f8584bc,2026-10-31
+Code/GameEngine/Source/GameClient/Rva0005121FElapsed.cpp|global||g_00DBA4FC,db4c4e0cf50f39b16db7d81e,drz-k9,n29f2-k9,w-4d4d8f8584bc,2026-10-31
