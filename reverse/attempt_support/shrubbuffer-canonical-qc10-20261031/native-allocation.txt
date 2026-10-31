@@ -1,0 +1,13 @@
+Retail game.dat SHA256 f008b587570bad693981dc7218588c81d192a1e064b0f7f861539c51156a7640
+46cb54: push 0x51280
+46cb59: mov byte ptr [ebp - 4], 0x11
+46cb5d: mov dword ptr [esi + 0x3850], eax
+46cb63: mov dword ptr [esi + 0x3854], ebx
+46cb69: call 0x42fda0
+46cb6e: pop ecx
+46cb6f: mov ecx, eax
+46cb71: mov dword ptr [ebp - 0x18], ecx
+46cb74: cmp ecx, ebx
+46cb76: mov byte ptr [ebp - 4], 0x13
+46cb7a: je 0x46cb83
+46cb7c: call 0x4e9c1d

@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/moduledata /Ireference/shims/bfme2_ascii
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/moduledata /Ireference/shims/bfme2_ascii /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
 // stlport
 // ?rva000E9D18@W3DShrubBuffer@@QAEXPBUCoord3D@@ABVGeometryInfo@@M@Z @0x000E9D18 228B
 // Shrub counterpart of W3DPropBuffer::removePropsForConstruction (W3DPropBufferRemovePropsForConstruction.cpp,
@@ -8,6 +8,7 @@
 // body 00895DB0 (unnamed); shrub layout (location +0, type +0x40, stride 0xA0 from +0x1958 in the buffer,
 // count +0x4FB58, changed flag +0x4FB5C) from the rowed W3DShrubBuffer units. The method name is unproven.
 
+#define __PLACEMENT_VEC_NEW_INLINE
 #include <vector>
 
 typedef float Real;
@@ -23,19 +24,8 @@ static inline void setCoord(Coord3D &c, Real nx, Real ny, Real nz)
 	c.z = nz;
 }
 
-struct Vector3
-{
-	Real x;
-	Real y;
-	Real z;
 
-	void set(Real nx, Real ny, Real nz)
-	{
-		x = nx;
-		y = ny;
-		z = nz;
-	}
-};
+#include "../../../Include/W3DDevice/GameClient/W3DShrubBuffer.h"
 
 struct SphereClass
 {
@@ -119,39 +109,21 @@ private:
 public:
 	virtual ~GeometryInfo();	// rowed elsewhere; declared so this unit binds to it
 };
-struct Rva000E9D18Shrub
-{
-	Coord3D location;
-	char m_pad0C[0x34];
-	int treeType;	// +0x40
-	char m_pad44[0x5C];
-};
 
-class W3DShrubBuffer
-{
-public:
-	void rva000E9D18(const Coord3D *pos, const GeometryInfo &geom, Real angle);
-
-private:
-	char m_pad0000[0x1958];
-	Rva000E9D18Shrub m_shrubs[2000];
-	int m_numShrubs;	// +0x4FB58
-	Bool m_anythingChanged;	// +0x4FB5C
-};
 
 void W3DShrubBuffer::rva000E9D18(const Coord3D *pos, const GeometryInfo &geom, Real angle)
 {
-	for (int i = 0; i < m_numShrubs; ++i)
+	for (int i = 0; i < m_numTrees; ++i)
 	{
-		if (m_shrubs[i].treeType < 0)
+		if (m_trees[i].treeType < 0)
 			continue;
 
 		GeometryInfo info(GEOMETRY_CYLINDER, false, 35.0f, 14.0f, 14.0f);
 		Coord3D shrubPos;
-		setCoord(shrubPos, m_shrubs[i].location.x, m_shrubs[i].location.y, m_shrubs[i].location.z);
+		setCoord(shrubPos, m_trees[i].location.X, m_trees[i].location.Y, m_trees[i].location.Z);
 		if (geom.CollidesWith(*pos, angle, info, shrubPos, 0.0f))
 		{
-			m_shrubs[i].treeType = -2;
+			m_trees[i].treeType = -2;
 			m_anythingChanged = true;
 		}
 	}

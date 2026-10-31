@@ -1,0 +1,894 @@
+{
+  "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBufferRemoveShrubsForConstruction.cpp": {
+    "before": {
+      "W3DShrubBuffer": {
+        "fwd": false,
+        "key": "class",
+        "size": 326496,
+        "bases": [],
+        "fields": [
+          [
+            0,
+            "m_pad0000",
+            "char[6488]",
+            6488
+          ],
+          [
+            6488,
+            "m_shrubs",
+            "Rva000E9D18Shrub[320000]",
+            320000
+          ],
+          [
+            326488,
+            "m_numShrubs",
+            "int",
+            4
+          ],
+          [
+            326492,
+            "m_anythingChanged",
+            "bool",
+            1
+          ]
+        ],
+        "statics": [],
+        "methods": [
+          "rva000E9D18"
+        ],
+        "virtual": [],
+        "vslots": {},
+        "vfptr": false
+      }
+    },
+    "after": {
+      "W3DShrubBuffer": {
+        "fwd": false,
+        "key": "class",
+        "size": 332416,
+        "bases": [],
+        "fields": [
+          [
+            0,
+            "m_vtable",
+            "void*",
+            4
+          ],
+          [
+            4,
+            "m_vertexTree",
+            "_STL::vector<VertexBufferClass *,_STL::allocator<VertexBufferClass *> >",
+            12
+          ],
+          [
+            16,
+            "m_curNumTreeVertices",
+            "_STL::vector<int,_STL::allocator<int> >",
+            12
+          ],
+          [
+            28,
+            "m_indexTree",
+            "_STL::vector<IndexBufferClass *,_STL::allocator<IndexBufferClass *> >",
+            12
+          ],
+          [
+            40,
+            "m_curNumTreeIndices",
+            "_STL::vector<int,_STL::allocator<int> >",
+            12
+          ],
+          [
+            52,
+            "opaque34",
+            "uchar[6436]",
+            6436
+          ],
+          [
+            6488,
+            "m_trees",
+            "ShrubInstance[320000]",
+            320000
+          ],
+          [
+            326488,
+            "m_numTrees",
+            "int",
+            4
+          ],
+          [
+            326492,
+            "m_anythingChanged",
+            "bool",
+            1
+          ],
+          [
+            326493,
+            "m_anyPushChanged",
+            "bool",
+            1
+          ],
+          [
+            326494,
+            "opaque4fb5e",
+            "uchar[14]",
+            14
+          ],
+          [
+            326508,
+            "m_initialized",
+            "bool",
+            1
+          ],
+          [
+            326509,
+            "opaque4fb6d",
+            "uchar[3]",
+            3
+          ],
+          [
+            326512,
+            "m_treeTypes",
+            "W3DShrubType[5888]",
+            5888
+          ],
+          [
+            332400,
+            "m_numTypes",
+            "int",
+            4
+          ],
+          [
+            332404,
+            "m_unknown51274",
+            "int",
+            4
+          ],
+          [
+            332408,
+            "m_treeIndexStep",
+            "int",
+            4
+          ],
+          [
+            332412,
+            "m_unknown5127c",
+            "int",
+            4
+          ]
+        ],
+        "statics": [],
+        "methods": [
+          "W3DShrubBuffer",
+          "__vecDelDtor",
+          "loadShrubsInVertexAndIndexBuffers",
+          "rva000E8365",
+          "rva000E9D18",
+          "~W3DShrubBuffer"
+        ],
+        "virtual": [],
+        "vslots": {},
+        "vfptr": false
+      },
+      "ShrubInstance": {
+        "fwd": false,
+        "key": "struct",
+        "size": 160,
+        "bases": [],
+        "fields": [
+          [
+            0,
+            "location",
+            "Vector3",
+            12
+          ],
+          [
+            12,
+            "scale",
+            "float",
+            4
+          ],
+          [
+            16,
+            "transform",
+            "Matrix3D",
+            48
+          ],
+          [
+            64,
+            "treeType",
+            "int",
+            4
+          ],
+          [
+            68,
+            "visible",
+            "bool",
+            1
+          ],
+          [
+            69,
+            "opaque45",
+            "uchar[23]",
+            23
+          ],
+          [
+            92,
+            "pushAside",
+            "float",
+            4
+          ],
+          [
+            96,
+            "pushAsideDelta",
+            "float",
+            4
+          ],
+          [
+            100,
+            "pushAsideSin",
+            "float",
+            4
+          ],
+          [
+            104,
+            "pushAsideCos",
+            "float",
+            4
+          ],
+          [
+            108,
+            "opaque6c",
+            "uchar[12]",
+            12
+          ],
+          [
+            120,
+            "swayType",
+            "int",
+            4
+          ],
+          [
+            124,
+            "firstIndex",
+            "int",
+            4
+          ],
+          [
+            128,
+            "bufferNdx",
+            "int",
+            4
+          ],
+          [
+            132,
+            "m_toppleState",
+            "int",
+            4
+          ],
+          [
+            136,
+            "opaque88",
+            "uchar[20]",
+            20
+          ],
+          [
+            156,
+            "m_field9c",
+            "int",
+            4
+          ]
+        ],
+        "statics": [],
+        "methods": [
+          "ShrubInstance"
+        ],
+        "virtual": [],
+        "vslots": {},
+        "vfptr": false
+      },
+      "W3DShrubType": {
+        "fwd": false,
+        "key": "struct",
+        "size": 92,
+        "bases": [],
+        "fields": [
+          [
+            0,
+            "m_mesh",
+            "MeshClass*",
+            4
+          ],
+          [
+            4,
+            "m_offset",
+            "Vector3",
+            12
+          ],
+          [
+            16,
+            "opaque10",
+            "uchar[16]",
+            16
+          ],
+          [
+            32,
+            "m_data",
+            "W3DShrubTypeData*",
+            4
+          ],
+          [
+            36,
+            "m_scale",
+            "Vector2",
+            8
+          ],
+          [
+            44,
+            "opaque2c",
+            "uchar[8]",
+            8
+          ],
+          [
+            52,
+            "m_origin",
+            "Vector2",
+            8
+          ],
+          [
+            60,
+            "opaque3c",
+            "uchar[32]",
+            32
+          ]
+        ],
+        "statics": [],
+        "methods": [
+          "W3DShrubType"
+        ],
+        "virtual": [],
+        "vslots": {},
+        "vfptr": false
+      }
+    }
+  },
+  "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer_loadShrubsInVertexAndIndexBuffers.cpp": {
+    "before": {
+      "W3DShrubBuffer": {
+        "fwd": false,
+        "key": "class",
+        "size": 332412,
+        "bases": [],
+        "fields": [
+          [
+            0,
+            "m_vtable",
+            "void*",
+            4
+          ],
+          [
+            4,
+            "m_vertexTree",
+            "_STL::vector<VertexBufferClass *,_STL::allocator<VertexBufferClass *> >",
+            12
+          ],
+          [
+            16,
+            "m_curNumTreeVertices",
+            "_STL::vector<int,_STL::allocator<int> >",
+            12
+          ],
+          [
+            28,
+            "m_indexTree",
+            "_STL::vector<IndexBufferClass *,_STL::allocator<IndexBufferClass *> >",
+            12
+          ],
+          [
+            40,
+            "m_curNumTreeIndices",
+            "_STL::vector<int,_STL::allocator<int> >",
+            12
+          ],
+          [
+            52,
+            "m_gap34",
+            "uchar[6436]",
+            6436
+          ],
+          [
+            6488,
+            "m_trees",
+            "ShrubInstance[320000]",
+            320000
+          ],
+          [
+            326488,
+            "m_numTrees",
+            "int",
+            4
+          ],
+          [
+            326492,
+            "m_anythingChanged",
+            "bool",
+            1
+          ],
+          [
+            326493,
+            "m_gap4fb5d",
+            "uchar[15]",
+            15
+          ],
+          [
+            326508,
+            "m_initialized",
+            "bool",
+            1
+          ],
+          [
+            326509,
+            "m_gap4fb6d",
+            "uchar[3]",
+            3
+          ],
+          [
+            326512,
+            "m_treeTypes",
+            "Rva000E7DF3Type[5888]",
+            5888
+          ],
+          [
+            332400,
+            "m_gap51270",
+            "uchar[8]",
+            8
+          ],
+          [
+            332408,
+            "m_treeIndexStep",
+            "int",
+            4
+          ]
+        ],
+        "statics": [],
+        "methods": [
+          "W3DShrubBuffer",
+          "__vecDelDtor",
+          "loadShrubsInVertexAndIndexBuffers",
+          "~W3DShrubBuffer"
+        ],
+        "virtual": [],
+        "vslots": {},
+        "vfptr": false
+      },
+      "ShrubInstance": {
+        "fwd": false,
+        "key": "struct",
+        "size": 160,
+        "bases": [],
+        "fields": [
+          [
+            0,
+            "location",
+            "Vector3",
+            12
+          ],
+          [
+            12,
+            "scale",
+            "float",
+            4
+          ],
+          [
+            16,
+            "transform",
+            "Matrix3D",
+            48
+          ],
+          [
+            64,
+            "treeType",
+            "int",
+            4
+          ],
+          [
+            68,
+            "visible",
+            "bool",
+            1
+          ],
+          [
+            69,
+            "m_gap45",
+            "uchar[23]",
+            23
+          ],
+          [
+            92,
+            "pushAside",
+            "float",
+            4
+          ],
+          [
+            96,
+            "pushAsideDelta",
+            "float",
+            4
+          ],
+          [
+            100,
+            "pushAsideSin",
+            "float",
+            4
+          ],
+          [
+            104,
+            "pushAsideCos",
+            "float",
+            4
+          ],
+          [
+            108,
+            "m_gap6c",
+            "uchar[12]",
+            12
+          ],
+          [
+            120,
+            "swayType",
+            "int",
+            4
+          ],
+          [
+            124,
+            "firstIndex",
+            "int",
+            4
+          ],
+          [
+            128,
+            "bufferNdx",
+            "int",
+            4
+          ],
+          [
+            132,
+            "m_toppleState",
+            "int",
+            4
+          ],
+          [
+            136,
+            "m_gap88",
+            "uchar[20]",
+            20
+          ],
+          [
+            156,
+            "m_field9c",
+            "int",
+            4
+          ]
+        ],
+        "statics": [],
+        "methods": [
+          "ShrubInstance"
+        ],
+        "virtual": [],
+        "vslots": {},
+        "vfptr": false
+      }
+    },
+    "after": {
+      "W3DShrubBuffer": {
+        "fwd": false,
+        "key": "class",
+        "size": 332416,
+        "bases": [],
+        "fields": [
+          [
+            0,
+            "m_vtable",
+            "void*",
+            4
+          ],
+          [
+            4,
+            "m_vertexTree",
+            "_STL::vector<VertexBufferClass *,_STL::allocator<VertexBufferClass *> >",
+            12
+          ],
+          [
+            16,
+            "m_curNumTreeVertices",
+            "_STL::vector<int,_STL::allocator<int> >",
+            12
+          ],
+          [
+            28,
+            "m_indexTree",
+            "_STL::vector<IndexBufferClass *,_STL::allocator<IndexBufferClass *> >",
+            12
+          ],
+          [
+            40,
+            "m_curNumTreeIndices",
+            "_STL::vector<int,_STL::allocator<int> >",
+            12
+          ],
+          [
+            52,
+            "opaque34",
+            "uchar[6436]",
+            6436
+          ],
+          [
+            6488,
+            "m_trees",
+            "ShrubInstance[320000]",
+            320000
+          ],
+          [
+            326488,
+            "m_numTrees",
+            "int",
+            4
+          ],
+          [
+            326492,
+            "m_anythingChanged",
+            "bool",
+            1
+          ],
+          [
+            326493,
+            "m_anyPushChanged",
+            "bool",
+            1
+          ],
+          [
+            326494,
+            "opaque4fb5e",
+            "uchar[14]",
+            14
+          ],
+          [
+            326508,
+            "m_initialized",
+            "bool",
+            1
+          ],
+          [
+            326509,
+            "opaque4fb6d",
+            "uchar[3]",
+            3
+          ],
+          [
+            326512,
+            "m_treeTypes",
+            "W3DShrubType[5888]",
+            5888
+          ],
+          [
+            332400,
+            "m_numTypes",
+            "int",
+            4
+          ],
+          [
+            332404,
+            "m_unknown51274",
+            "int",
+            4
+          ],
+          [
+            332408,
+            "m_treeIndexStep",
+            "int",
+            4
+          ],
+          [
+            332412,
+            "m_unknown5127c",
+            "int",
+            4
+          ]
+        ],
+        "statics": [],
+        "methods": [
+          "W3DShrubBuffer",
+          "__vecDelDtor",
+          "loadShrubsInVertexAndIndexBuffers",
+          "rva000E8365",
+          "rva000E9D18",
+          "~W3DShrubBuffer"
+        ],
+        "virtual": [],
+        "vslots": {},
+        "vfptr": false
+      },
+      "ShrubInstance": {
+        "fwd": false,
+        "key": "struct",
+        "size": 160,
+        "bases": [],
+        "fields": [
+          [
+            0,
+            "location",
+            "Vector3",
+            12
+          ],
+          [
+            12,
+            "scale",
+            "float",
+            4
+          ],
+          [
+            16,
+            "transform",
+            "Matrix3D",
+            48
+          ],
+          [
+            64,
+            "treeType",
+            "int",
+            4
+          ],
+          [
+            68,
+            "visible",
+            "bool",
+            1
+          ],
+          [
+            69,
+            "opaque45",
+            "uchar[23]",
+            23
+          ],
+          [
+            92,
+            "pushAside",
+            "float",
+            4
+          ],
+          [
+            96,
+            "pushAsideDelta",
+            "float",
+            4
+          ],
+          [
+            100,
+            "pushAsideSin",
+            "float",
+            4
+          ],
+          [
+            104,
+            "pushAsideCos",
+            "float",
+            4
+          ],
+          [
+            108,
+            "opaque6c",
+            "uchar[12]",
+            12
+          ],
+          [
+            120,
+            "swayType",
+            "int",
+            4
+          ],
+          [
+            124,
+            "firstIndex",
+            "int",
+            4
+          ],
+          [
+            128,
+            "bufferNdx",
+            "int",
+            4
+          ],
+          [
+            132,
+            "m_toppleState",
+            "int",
+            4
+          ],
+          [
+            136,
+            "opaque88",
+            "uchar[20]",
+            20
+          ],
+          [
+            156,
+            "m_field9c",
+            "int",
+            4
+          ]
+        ],
+        "statics": [],
+        "methods": [
+          "ShrubInstance"
+        ],
+        "virtual": [],
+        "vslots": {},
+        "vfptr": false
+      },
+      "W3DShrubType": {
+        "fwd": false,
+        "key": "struct",
+        "size": 92,
+        "bases": [],
+        "fields": [
+          [
+            0,
+            "m_mesh",
+            "MeshClass*",
+            4
+          ],
+          [
+            4,
+            "m_offset",
+            "Vector3",
+            12
+          ],
+          [
+            16,
+            "opaque10",
+            "uchar[16]",
+            16
+          ],
+          [
+            32,
+            "m_data",
+            "W3DShrubTypeData*",
+            4
+          ],
+          [
+            36,
+            "m_scale",
+            "Vector2",
+            8
+          ],
+          [
+            44,
+            "opaque2c",
+            "uchar[8]",
+            8
+          ],
+          [
+            52,
+            "m_origin",
+            "Vector2",
+            8
+          ],
+          [
+            60,
+            "opaque3c",
+            "uchar[32]",
+            32
+          ]
+        ],
+        "statics": [],
+        "methods": [
+          "W3DShrubType"
+        ],
+        "virtual": [],
+        "vslots": {},
+        "vfptr": false
+      }
+    }
+  }
+}

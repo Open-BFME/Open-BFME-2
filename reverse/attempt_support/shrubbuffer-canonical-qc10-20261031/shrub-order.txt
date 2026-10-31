@@ -1,0 +1,32 @@
+classes by merge donors unblocked (1004 block a queued merge; cache /home/user/bfme2-runner/repo/.git/bfme-picker-cache/merge_blockers):
+  class                            score   own  rows  TUs  header/contract  kinds
+  Thing                              675    85   829   22  header/contract  canonical-copy:22
+  Object                             675   675  3377   50  -/-              base:39 fake-vtable:8 vfptr:3
+  BehaviorModuleInterface            188    78   462   26  -/-              base:3 key/declspec:1 vslot:22
+  BehaviorModuleBase                 188    11    31    4  -/-              vslot:4
+  BehaviorModuleOther                188     2     5    1  -/-              vslot:1
+  BehaviorModule                     188   112   708   32  -/-              base:16 vfptr:3 vslot:13
+  UpdateModuleInterface              188    55   304   20  -/-              key/declspec:1 vfptr:1 vslot:18
+  BB_Iface2                          188     2     4    1  -/-              vslot:1
+  UpdateModule                       188   188   996   61  -/-              base:57 fake-vtable:3 vfptr:1
+  Rva0043D16F                        148     3    14    1  -/-              fake-vtable:1
+  Rva00380200                        148     8    74    1  -/-              vfptr:1
+  Rva0043D3A8                        148     4    16    1  -/-              base:1
+  Player                             148   148   542    3  -/-              base:1 vfptr:2
+  CollideModuleInterface             146     2    14    1  -/-              vslot:1
+  AICommandInterface                 146    20   209    7  -/-              vfptr:7
+  AIUpdateInterface24                146     2     8    1  -/-              vslot:1
+  AIUpdateInterfaceHead              146     2     9    1  -/-              vfptr:1
+  AIUpdateInterface                  146   146   910   26  -/-              base:18 key/declspec:1 vfptr:6 vslot:1
+  Overridable                        114    35   343   11  header/contract  canonical-copy:11
+  ThingTemplate                      114   114   906    9  -/-              base:1 key/declspec:7 vfptr:1
+  Drawable                            99    99   513    6  -/-              base:5 fake-vtable:1
+  InGameUI                            96    96   717   10  -/-              base:2 vfptr:6 vslot:2
+  TerrainLogic                        95    95   708   12  -/-              base:4 vfptr:2 vslot:6
+  ScriptActions                       94    94   382    2  header/-         canonical-copy:2
+  Pathfinder                          61    61   239    2  -/-              base:2
+  ExitInterface                       49     4    13    1  -/-              vslot:1
+  ContainModuleInterface              49    29   261    9  -/-              base:5 vslot:4
+  B0                                  49    12    19    1  -/-              vslot:1
+  B3                                  49    12    19    1  -/-              vslot:1
+  OpenContain                         49    49   238    6  -/-              base:6

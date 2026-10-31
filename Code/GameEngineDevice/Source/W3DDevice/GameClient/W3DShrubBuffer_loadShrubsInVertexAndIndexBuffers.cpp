@@ -18,6 +18,8 @@
 #include "matrix3d.h"
 
 
+#include "../../../Include/W3DDevice/GameClient/W3DShrubBuffer.h"
+
 struct TriIndex { unsigned short I, J, K; };
 
 extern void BFME_DX8_Thread_Lock(void);
@@ -145,46 +147,8 @@ private:
 	Rva000E7DF3Model *m_model;
 };
 
-struct Rva000E7DF3Data
-{
-	unsigned char m_head[0x18];
-	float m_maxOutwardMovement;
-	unsigned char m_gap1c[0x54 - 0x1c];
-	bool m_noSway;
-};
 
-struct Rva000E7DF3Type
-{
-	MeshClass *m_mesh;
-	Vector3 m_offset;
-	unsigned char m_gap10[0x10];
-	const Rva000E7DF3Data *m_data;
-	Vector2 m_scale;
-	unsigned char m_gap2c[0x34 - 0x2c];
-	Vector2 m_origin;
-	unsigned char m_gap3c[0x5c - 0x3c];
-};
 
-struct ShrubInstance
-{
-	Vector3 location;
-	float scale;
-	Matrix3D transform;
-	int treeType;
-	bool visible;
-	unsigned char m_gap45[0x5c - 0x45];
-	float pushAside;
-	float pushAsideDelta;
-	float pushAsideSin;
-	float pushAsideCos;
-	unsigned char m_gap6c[0x78 - 0x6c];
-	int swayType;
-	int firstIndex;
-	int bufferNdx;
-	int m_toppleState;
-	unsigned char m_gap88[0x9c - 0x88];
-	int m_field9c;
-};
 
 
 // The vertex and index loops each open with a WorldBuilder assert
@@ -195,28 +159,6 @@ struct ShrubInstance
 struct ShrubAssertSink { ShrubAssertSink(); ~ShrubAssertSink(); void Crash(); };
 #define SHRUB_ASSERT(c) do { if (0) { ShrubAssertSink().Crash(); } } while (0)
 
-class W3DShrubBuffer
-{
-public:
-	void loadShrubsInVertexAndIndexBuffers(void);
-
-private:
-	void *m_vtable;
-	std::vector<VertexBufferClass *> m_vertexTree;
-	std::vector<int> m_curNumTreeVertices;
-	std::vector<IndexBufferClass *> m_indexTree;
-	std::vector<int> m_curNumTreeIndices;
-	unsigned char m_gap34[0x1958 - 0x34];
-	ShrubInstance m_trees[2000];
-	int m_numTrees;
-	bool m_anythingChanged;
-	unsigned char m_gap4fb5d[0x4fb6c - 0x4fb5d];
-	bool m_initialized;
-	unsigned char m_gap4fb6d[3];
-	Rva000E7DF3Type m_treeTypes[64];
-	unsigned char m_gap51270[8];
-	int m_treeIndexStep;
-};
 
 // ?loadShrubsInVertexAndIndexBuffers@W3DShrubBuffer@@QAEXXZ
 void W3DShrubBuffer::loadShrubsInVertexAndIndexBuffers(void)

@@ -1,0 +1,59 @@
+W3DShrubBuffer: 22 units, 18 layouts, header: -
+
+layout bb79ea1573 (3 units)
+     8460 linked   Code/GameEngine/Source/GameClient/Drawable.cpp
+     2581 linked   Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp
+      207 linked   Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp
+
+layout b15cf16d64 (3 units)
+      306 linked   Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReset.cpp
+      155 linked   Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E9BACDtor.cpp
+       35 linked   Code/GameEngine/Source/Common/Rva00068295.cpp
+
+layout 4767f2a58a (1 units)
+     5482 linked   Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp
+
+layout b5a7998239 (1 units)
+     4382 linked   Code/GameEngineDevice/Source/W3DDevice/GameClient/FlatHeightMap.cpp
+
+layout 6602f18510 (1 units)
+     1314 linked   Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBufferDoXfer.cpp
+
+layout e7a5424bd1 (1 units)
+     2417 linked   Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp
+
+layout 0f6fbb50b2 (1 units)
+       99 linked   Code/GameEngine/Source/Common/Rva000E76B8.cpp
+
+layout 913654ae66 (1 units)
+      490 linked   Code/GameEngine/Source/Common/W3DShrubBuffer.cpp
+
+layout aa1c9c0824 (1 units)
+      785 linked   Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBufferUpdate.cpp
+
+layout d989bc38b8 (1 units)
+     1521 linked   Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp
+
+layout 9e1480f608 (1 units)
+      131 linked   Code/GameEngine/Source/Common/Rva00068073Bodies.cpp
+
+layout bf5dcfd7f5 (1 units)
+      192 linked   Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapAddTree.cpp
+
+layout 1be0d2873c (1 units)
+      649 linked   Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBufferAddTreeType.cpp
+
+layout 0827313a7d (1 units)
+      148 linked   Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapMoveTree.cpp
+
+layout b4f7a0cbeb (1 units)
+      753 linked   Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBufferRva000E8365.cpp
+
+layout 45648fa902 (1 units)
+     1254 linked   Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer_addShrub.cpp
+
+layout d6da7f8205 (1 units)
+     1420 linked   Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer_loadShrubsInVertexAndIndexBuffers.cpp
+
+layout 1f85934680 (1 units)
+      246 linked   Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBufferRemoveShrubsForConstruction.cpp
