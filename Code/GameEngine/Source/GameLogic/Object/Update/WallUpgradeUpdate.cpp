@@ -145,6 +145,9 @@ public:
 	{ \
 		return TEXT; \
 	}
+// ?rva004AB4AB@Rva004AB4AB@@QBE_NXZ @0x004AB4AB 45B: returns false when TheGameLogic findObjectByID over m_28 misses or Object plus 0x438 bit0 set else inverted isKindOf 0x45. Callees rowed 0x00049DC5 and 0x0006F039. Caller at 0x004AB517. Prev Rva0024A797Grandchildren next LargeGroupAudioUpdateRandom share flags.
+
+typedef bool Bool;
 
 class Module;
 
@@ -355,9 +358,46 @@ protected:
 	virtual const char *GetSnapshotName() const;
 };
 
-// tu-skeleton: 0x004AB1F5 81B ?rva004AB1F5@WallUpgradeUpdate@@SAPAVModule@@PAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/WallUpgradeUpdateFind.cpp (not merged yet)
+class Drawable;
+
+class AIUpdateInterface;
+
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *name);
+};
+
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+enum ObjectStatusTypes;
+
+extern GameLogic *TheGameLogic;
+
+class Rva004AB4AB
+{
+public:
+	Bool rva004AB4AB() const;
+
+private:
+	unsigned char m_pad00[0x28];
+	ObjectID m_id28;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/WallUpgradeUpdateFind.cpp
+
+// ?rva004AB1F5@WallUpgradeUpdate@@SAPAVModule@@PAVObject@@@Z @0x004AB1F5 81B: static WallUpgradeUpdate lookup over an Object guards a function-local NameKeyType for WallUpgradeUpdate through TheNameKeyGenerator then returns obj findModule key (matched row 0x0028B6D6). Plain ret proves static member not thiscall. Class from pool string at 0x007F4F30. Callers at 0x0027614A 0x0028D0AF 0x004B6ECC. Recipe CastleMemberBehaviorFind precedent 81B.
+
+Module *WallUpgradeUpdate::rva004AB1F5(Object *obj)
+{
+	static NameKeyType TheWallUpgradeUpdateKey =
+		TheNameKeyGenerator->nameToKey("WallUpgradeUpdate");
+	return obj->findModule(TheWallUpgradeUpdateKey);
+}
 
 // tu-skeleton: 0x004AB246 39B ??1Rva004AB246@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/WallUpgradeUpdate.cpp
 
 // ---- from Code/GameEngine/Source/Common/ModuleNameGetters3.cpp
 
@@ -375,9 +415,7 @@ protected:
 // No // cl: line (defaults match the frameless 6-byte shape, same as the
 // ModuleNameGetters.cpp precedent).
 
-// tu-skeleton: 0x004AB273 95B ?xfer@WallUpgradeUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/WallUpgradeUpdateXfer.cpp (not merged yet)
 
-// tu-skeleton: 0x004AB2D2 69B ?getModuleNameKey@WallUpgradeUpdate@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/WallUpgradeUpdatePoolKey.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/WallUpgradeUpdate.cpp
 
@@ -459,19 +497,27 @@ void WallUpgradeUpdate::rva004AB57E()
 	}
 }
 
+// tu-skeleton: 0x004AB273 95B ?xfer@WallUpgradeUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/WallUpgradeUpdateXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x004AB2D2 69B ?getModuleNameKey@WallUpgradeUpdate@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/WallUpgradeUpdatePoolKey.cpp (not merged yet)
+
 // tu-skeleton: 0x004AB392 28B ??_GRva004AB246@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp (not merged yet)
 
 // tu-skeleton: 0x004AB3AE 61B ?rva004AB3AE@WallUpgradeUpdate@@UAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/WallUpgradeUpdateSlots.cpp (not merged yet)
 
 // tu-skeleton: 0x004AB3EB 42B ?onBodyDamageStateChange@WallUpgradeUpdate@@UAEXPBVDamageInfo@@W4BodyDamageType@@1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/WallUpgradeUpdateSlots.cpp (not merged yet)
 
-// tu-skeleton: 0x004AB4AB 45B ?rva004AB4AB@Rva004AB4AB@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/Rva004AB4ABCheck.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva004AB4ABCheck.cpp
+
+Bool Rva004AB4AB::rva004AB4AB() const
+{
+	Object *obj = TheGameLogic->findObjectByID(m_id28);
+	if (!obj || (obj->m_flag438 & 1))
+		return false;
+	return !obj->isKindOf(KIND_45);
+}
 
 // tu-skeleton: 0x004AB4D8 166B ?update@WallUpgradeUpdate@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/WallUpgradeUpdateSlots.cpp (not merged yet)
-
-// tu-skeleton: 0x0078E1FB 13B $L324 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/WallUpgradeUpdateFind.cpp (not merged yet)
-
-// tu-skeleton: 0x0078E208 10B __ehhandler$?rva004AB1F5@WallUpgradeUpdate@@SAPAVModule@@PAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/WallUpgradeUpdateFind.cpp (not merged yet)
 
 // tu-skeleton: 0x0078E212 13B $L310 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/WallUpgradeUpdatePoolKey.cpp (not merged yet)
 
