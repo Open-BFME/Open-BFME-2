@@ -19011,3 +19011,12 @@ Code/GameEngine/Source/Common/BfmeConv1351.cpp|member|BfmeThingVFD|m_bfmeBuf,a9d
 Code/GameEngine/Source/Common/BfmeConv1324.cpp|member|BfmeThingTVA|m_bfmeHandle,26083a0f0b36e491f97c1575,drz-k10,drz-k10-559,w-88a32c4f7da7,2026-10-30
 Code/GameEngine/Source/Common/BfmeConv1324.cpp|member|BfmeThingTVB|m_bfmeObj,4c98954505829af28ab2fd44,drz-k10,drz-k10-559,w-88a32c4f7da7,2026-10-30
 Code/GameEngine/Source/Common/BfmeConv1324.cpp|member|BfmeThingTVB|m_bfmeBuf,f9148e3a5e4388f8da3859ce,drz-k10,drz-k10-559,w-88a32c4f7da7,2026-10-30
+Code/Libraries/Source/WWVegas/WWLib/Rva006CB9D0Cluster.cpp|function|0x006CBA10|Rva006CBA10CreateInteger,d4fe36104e8431dce9192194,drz-k1,drz-k1-9,w-d29055ee9848,2026-10-30
+Code/Libraries/Source/WWVegas/WWLib/Rva006CB9D0Cluster.cpp|function|0x006CBA20|Rva006CBA20CreateFloat,a342bb7b83186f1f1040f5cb,drz-k1,drz-k1-9,w-d29055ee9848,2026-10-30
+Code/Libraries/Source/WWVegas/WWLib/Rva006CB9D0Cluster.cpp|function|0x006CBA30|Rva006CBA30CreateBoolean,a565a46f493bd84778216823,drz-k1,drz-k1-9,w-d29055ee9848,2026-10-30
+Code/Libraries/Source/WWVegas/WWLib/Rva006CB9D0Cluster.cpp|function|0x006CBA40|Rva006CBA40CreateArray,a9d97781788cdfd02a7b7371,drz-k1,drz-k1-9,w-d29055ee9848,2026-10-30
+Code/GameEngine/Source/Common/Rva005E24D8Wrap.cpp|param|StrategicInGameUI::RegionDetailsStructuresPage::Impl::SetSelectedIconIndex|a,b12a33fe8503ca8482c60dd9,drz-k1,drz-k1-15,w-d29055ee9848,2026-10-30
+Code/GameEngine/Source/Common/Rva00542148Reset.cpp|local|Rva005422CF::reset|tmp,9a56e5194ab27f2b4500f248,drz-k1,drz-k1-17,w-d29055ee9848,2026-10-30
+Code/GameEngine/Source/Common/Rva004F8AECErase.cpp|function|0x004F8AEC|rva004F8AEC,6d4b83e96d9738b78776e211,drz-k1,drz-k1-18,w-d29055ee9848,2026-10-30
+Code/GameEngine/Source/Common/Rva004F8AECErase.cpp|function|0x004F8DD4|rva004F8DD4,f3a0d01106359e77d5425a91,drz-k1,drz-k1-18,w-d29055ee9848,2026-10-30
+Code/GameEngine/Source/Common/Rva002B2590.cpp|local|Rva0059E647World::Apply|p1,3a8f96de45d4b1abce8857f0,drz-k1,drz-k1-19,w-d29055ee9848,2026-10-30
