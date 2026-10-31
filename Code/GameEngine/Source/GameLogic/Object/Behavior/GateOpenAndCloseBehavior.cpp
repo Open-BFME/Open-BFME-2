@@ -56,6 +56,28 @@ int g_00DCB4CC = -1;
 #include "Lib/Coord3D.h"
 #include "Common/PartitionRangeQueryCallView.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
+#define BFME_DISP8_ADD_BEFORE_DWORD_GETTER(NAME, BACK, IMM) \
+	class NAME \
+	{ \
+	public: \
+		int get() const; \
+	}; \
+	int NAME::get() const \
+	{ \
+		return *(const int *)((const char *)this - (BACK)) + (IMM); \
+	}
+#define BFME_DISP8_ADD_DWORD_GETTER(NAME, DISP, IMM) \
+	class NAME \
+	{ \
+	public: \
+		int get() const; \
+		char m_lead[DISP]; \
+		int m_value; \
+	}; \
+	int NAME::get() const \
+	{ \
+		return m_value + IMM; \
+	}
 
 // ?getControllingPlayer@GateOpenAndCloseBehavior@@QBEPAVPlayer@@XZ @0x004989D7 8B
 // Gap between GateOpenAndCloseBehaviorCtorShard 0x0049889C and Disp8 getter.
@@ -610,9 +632,21 @@ extern GameLogic *TheGameLogic;
 
 extern Rva002A8F24 *TheSkirmishAIManager;
 
+BFME_DISP8_ADD_DWORD_GETTER(Rva004989EEAddDwordField, 0x0C, 0x38)
+
+// Native5F83ED..5F83F4 follows a complete tail JMP and ends RET:
+// read raw word4 and add12. Clean BF1 9cb tagblock.cpp supplies the source
+// expression only; original receiver, signedness and complete bounds remain
+// unresolved. Unsigned storage preserves the native32-bit wrap semantics.
+
+// ?get@Rva005F83EDFields@@QBEIXZ
+struct Rva005F83EDFields { char pad[4]; unsigned int word4; unsigned int get() const; };
+
 // tu-skeleton: 0x00498798 92B ??1GateOpenAndCloseBehavior@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorSlots.cpp (not merged yet)
 
 // tu-skeleton: 0x004987F4 6B ?name@GateOpenAndCloseBehavior@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehavior.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehavior.cpp
 
@@ -710,10 +744,6 @@ GateOpenAndCloseBehaviorModuleData::GateOpenAndCloseBehaviorModuleData()
 	m_snap48 = snap;
 }
 
-// tu-skeleton: 0x00498802 4B ?get@Rva00498802ByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0049881D 20B ?rva0049881D@Rva0049881D@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE24.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehavior_changeWantOpenCount.cpp
 
 // ?changeWantOpenCount@GateOpenAndCloseBehavior@@QAEXH@Z @0x00498831 30B
@@ -729,8 +759,6 @@ void GateOpenAndCloseBehavior::changeWantOpenCount(int delta)
 		m_request += delta;
 	}
 }
-
-// tu-skeleton: 0x0049884F 8B ??_EGateOpenAndCloseBehavior@@W3AEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorSlots.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorPoolKey.cpp
 
@@ -751,10 +779,6 @@ NameKeyType GateOpenAndCloseBehavior::getModuleNameKey() const
 		TheNameKeyGenerator->nameToKey("GateOpenAndCloseBehavior");
 	return TheGateOpenAndCloseBehaviorPoolKey;
 }
-
-// tu-skeleton: 0x0049889C 200B ??0GateOpenAndCloseBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorCtorShard.cpp (not merged yet)
-
-// tu-skeleton: 0x00498964 28B ??_GGateOpenAndCloseBehavior@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorSlots.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00498980Finish.cpp
 
@@ -785,8 +809,6 @@ bool GateOpenAndCloseBehavior::rva00498980()
 		return false;
 	}
 }
-
-// tu-skeleton: 0x004989EE 7B ?get@Rva004989EEAddDwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8AddDwordFieldGetters.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorSound.cpp
 
@@ -891,18 +913,6 @@ unsigned char __cdecl Rva00498B8BGet(Object *object)
 	}
 }
 
-// tu-skeleton: 0x00498BAF 28B ?rva00498BAF@GateOpenAndCloseBehavior@@UAE_NPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorSlots.cpp (not merged yet)
-
-// tu-skeleton: 0x00498BCB 225B ?xfer@GateOpenAndCloseBehavior@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x00498CAC 5B ?rva00498CAC@Rva00498CAC@@QAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp (not merged yet)
-
-// tu-skeleton: 0x00498CB1 149B ?invoke@Rva00498CB1Owner@@QAE_NXZ -- matched in Code/GameEngine/Source/GameClient/InGameUISelectDrawable.cpp (not merged yet)
-
-// tu-skeleton: 0x00498D46 145B ??1GateOpenAndCloseBehaviorModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorModuleDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00498DD7 28B ??_GGateOpenAndCloseBehaviorModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorModuleDataDtor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00498F46Cmd.cpp
 
 //
@@ -994,10 +1004,6 @@ void GateOpenAndCloseBehavior::rva00498FAA()
 	for (Object *obj = hits.next(); obj; obj = hits.next())
 		rva00498DF3((Rva00498DF3Arg *)obj, offset);
 }
-
-// tu-skeleton: 0x004991CB 64B ?open@GateOpenAndCloseBehavior@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorSlots.cpp (not merged yet)
-
-// tu-skeleton: 0x0049920B 64B ?close@GateOpenAndCloseBehavior@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorSlots.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorRva0049924B.cpp
 
@@ -1121,6 +1127,50 @@ void GateOpenAndCloseBehavior::onObjectCreated()
 		candidate = candidate->getNextObject();
 	}
 }
+
+// tu-skeleton: 0x00498802 4B ?get@Rva00498802ByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0049881D 20B ?rva0049881D@Rva0049881D@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE24.cpp (not merged yet)
+
+// tu-skeleton: 0x0049884F 8B ??_EGateOpenAndCloseBehavior@@W3AEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorSlots.cpp (not merged yet)
+
+// tu-skeleton: 0x0049889C 200B ??0GateOpenAndCloseBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorCtorShard.cpp (not merged yet)
+
+// tu-skeleton: 0x00498964 28B ??_GGateOpenAndCloseBehavior@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorSlots.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Disp8AddDwordFieldGetters.cpp
+
+// Disp8 add dword getters: seven-byte __thiscall members with one shape:
+//
+//     mov eax,[ecx+<DISP>] / add eax,<IMM8> / ret
+//
+// One dword is read at a fixed displacement from `this`, a small immediate
+// is added, and the result is returned. The immediate fits in a signed
+// byte, so MSVC 7.1 emits the `83 C0 XX` form (three bytes) after the disp8
+// load `8B 41 XX`, plus `ret`, for seven bytes total. This is the add
+// sibling of the sub Disp8SubDwordFieldGetters family; the opcode itself
+// is why the two families are kept in separate translation units. Identity
+// is not recovered: every name is derived from its address.
+// No // cl: line (defaults match the frameless seven-byte shape).
+// Backward variant: the field sits at a NEGATIVE displacement from `this`.
+// Spelled as an explicit backward read, which MSVC folds to
+// `mov eax,[ecx-BACK]`; same reading as the chase-family backward cast.
+
+// tu-skeleton: 0x00498BAF 28B ?rva00498BAF@GateOpenAndCloseBehavior@@UAE_NPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorSlots.cpp (not merged yet)
+
+// tu-skeleton: 0x00498BCB 225B ?xfer@GateOpenAndCloseBehavior@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x00498CAC 5B ?rva00498CAC@Rva00498CAC@@QAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp (not merged yet)
+
+// tu-skeleton: 0x00498CB1 149B ?invoke@Rva00498CB1Owner@@QAE_NXZ -- matched in Code/GameEngine/Source/GameClient/InGameUISelectDrawable.cpp (not merged yet)
+
+// tu-skeleton: 0x00498D46 145B ??1GateOpenAndCloseBehaviorModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorModuleDataDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00498DD7 28B ??_GGateOpenAndCloseBehaviorModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorModuleDataDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004991CB 64B ?open@GateOpenAndCloseBehavior@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorSlots.cpp (not merged yet)
+
+// tu-skeleton: 0x0049920B 64B ?close@GateOpenAndCloseBehavior@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorSlots.cpp (not merged yet)
 
 // tu-skeleton: 0x0049947A 1210B ?update@GateOpenAndCloseBehavior@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorUpdate.cpp (not merged yet)
 

@@ -9969,7 +9969,7 @@ _math_mod,,0x007485A0,65,Code/Libraries/Source/Lua/lmathlib.c,matched,vendored=l
 ?name@Rva00414307Named@@QBEPBDXZ,,0x00414307,6,Code/GameEngine/Source/Common/SubsystemNameGetters.cpp,matched,literal name getter returning ScoredKillEvaAnnouncer; vtable ref in .rdata; address-derived placeholder name
 _math_exp,,0x007486D0,54,Code/Libraries/Source/Lua/lmathlib.c,matched,vendored=lua-4.0.1; Lua math.exp via check_number + inline FPU + pushnumber; callees pinned
 ?GetSnapshotName@LivingWorldBuilding@@UAEPBDXZ,,0x004E0777,6,Code/GameEngine/Source/Common/SubsystemNameGetters.cpp,matched,literal name getter returning LivingWorldBuilding; vtable ref in .rdata; address-derived placeholder name
-?get@Rva004989EEAddDwordField@@QBEHXZ,,0x004989EE,7,Code/GameEngine/Source/Common/Disp8AddDwordFieldGetters.cpp,matched,disp8 add dword getter; opaque holder
+?get@Rva004989EEAddDwordField@@QBEHXZ,,0x004989EE,7,Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehavior.cpp,matched,disp8 add dword getter; opaque holder
 _math_deg,,0x00748710,38,Code/Libraries/Source/Lua/lmathlib.c,matched,vendored=lua-4.0.1; Lua math.deg via check_number + pushnumber; callees pinned
 ??_GRva005D9DC1@@UAEPAXI@Z,,0x005D9DE6,28,Code/GameEngine/Source/Common/Rva005EEDAADerived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GRva005EE30C@@UAEPAXI@Z,,0x005EE394,28,Code/GameEngine/Source/Common/Rva005EE30CChain.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
