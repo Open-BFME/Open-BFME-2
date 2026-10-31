@@ -21,21 +21,14 @@ public:
 	int a[1]; // +0x00
 };
 
-template <class T> class SimpleVecClass
+#include "../../../../../Libraries/Source/WWVegas/WWLib/simplevec.h"
+// The real header keeps Shrink protected; expose it for the destructor body.
+class BfmePod4FontListAccess : public SimpleDynVecClass<BfmePod4>
 {
 public:
-	virtual ~SimpleVecClass();
-	T *Vector;
-	int VectorMax;
-};
-
-template <class T> class SimpleDynVecClass : public SimpleVecClass<T>
-{
-public:
-	int ActiveCount;
-	friend class W3DFontLibrary;
-protected:
-	bool Shrink();
+	using SimpleDynVecClass<BfmePod4>::Shrink;
+	using SimpleDynVecClass<BfmePod4>::ActiveCount;
+	using SimpleVecClass<BfmePod4>::Vector;
 };
 
 class FontLibrary
@@ -58,7 +51,7 @@ public:
 // the anchor keeps the noinline body emitted.
 __declspec(noinline) inline W3DFontLibrary::~W3DFontLibrary()
 {
-	SimpleDynVecClass<BfmePod4> *fonts = (SimpleDynVecClass<BfmePod4> *)&BfmeFontCharsCache;
+	BfmePod4FontListAccess *fonts = (BfmePod4FontListAccess *)&BfmeFontCharsCache;
 	for (int i = 0; i < fonts->ActiveCount; ++i)
 	{
 		RefCountedFont *font = (RefCountedFont *)fonts->Vector[i].a[0];
