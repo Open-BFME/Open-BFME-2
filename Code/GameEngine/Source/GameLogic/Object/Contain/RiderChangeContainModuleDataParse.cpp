@@ -47,14 +47,12 @@ public:
 
 extern const char *const ModelConditionNames[];
 
-class ModelConditionFlags
+// The ModelCondition bit names reached through an inline accessor; the call keeps
+// the table's ScuttleStatus entry dynamically initialized, as retail's guard shows.
+__forceinline static const char **modelConditionBitNames()
 {
-public:
-	__forceinline static const char **getBitNames()
-	{
-		return (const char **)(unsigned int)ModelConditionNames;
-	}
-};
+	return (const char **)(unsigned int)ModelConditionNames;
+}
 
 class RiderChangeContainModuleData
 {
@@ -79,7 +77,7 @@ void RiderChangeContainModuleData::buildFieldParse(MultiIniFieldParse &parse)
 		{ "Rider7", &RiderChangeContainModuleData::parseRiderInfo, 0, 0x248 },
 		{ "Rider8", &RiderChangeContainModuleData::parseRiderInfo, 0, 0x260 },
 		{ "ScuttleDelay", &INI::parseDurationUnsignedInt, 0, 0x278 },
-		{ "ScuttleStatus", &INI::parseIndexList, (const void *)ModelConditionFlags::getBitNames(), 0x27C },
+		{ "ScuttleStatus", &INI::parseIndexList, (const void *)modelConditionBitNames(), 0x27C },
 		{ "KillRiderWhenVehicleDies", &INI::parseBool, 0, 0x280 },
 		{ 0, 0, 0, 0 }
 	};

@@ -192,6 +192,11 @@ const char *TheLocomotorSetNames[] = {
 	0,
 };
 
+enum ModelConditionFlagType;
+enum WeaponSetType;
+enum ObjectStatusType;
+enum LocomotorSetType;
+
 extern const char **VeterancyNames104;
 extern const char **BodyStateNames;
 
@@ -204,8 +209,8 @@ public:
 	int m_weaponSetFlag; // +0x04 +4
 	int m_modelConditionFlagType; // +0x08 +8
 	int m_objectStatusType; // +0x0C +0xC
-	AsciiString m_commandSet; // +0x10 +0x10
-	int m_locomotorSetType; // +0x14 +0x14
+	AsciiString m_commandSet; // +0x10
+	int m_locomotorSetType; // +0x14
 };
 
 class RiderChangeContainModuleData
@@ -220,10 +225,10 @@ void RiderChangeContainModuleData::parseRiderInfo(INI *ini, void *instance, void
 	RiderInfo *rider = (RiderInfo *)store;
 	const char *name = ini->getNextToken(0);
 	rider->m_templateName.format(name);
-	rider->m_modelConditionFlagType = ini->scanIndexList(ini->getNextToken(0), ModelConditionNames);
-	rider->m_weaponSetFlag = ini->scanIndexList(ini->getNextToken(0), reinterpret_cast<const char *const *>(&VeterancyNames104));
-	rider->m_objectStatusType = ini->scanIndexList(ini->getNextToken(0), reinterpret_cast<const char *const *>(&BodyStateNames));
+	rider->m_modelConditionFlagType = (ModelConditionFlagType)ini->scanIndexList(ini->getNextToken(0), ModelConditionNames);
+	rider->m_weaponSetFlag = (WeaponSetType)ini->scanIndexList(ini->getNextToken(0), reinterpret_cast<const char *const *>(&VeterancyNames104));
+	rider->m_objectStatusType = (ObjectStatusType)ini->scanIndexList(ini->getNextToken(0), reinterpret_cast<const char *const *>(&BodyStateNames));
 	const char *commandName = ini->getNextToken(0);
 	rider->m_commandSet.format(commandName);
-	rider->m_locomotorSetType = ini->scanIndexList(ini->getNextToken(0), TheLocomotorSetNames);
+	rider->m_locomotorSetType = (LocomotorSetType)ini->scanIndexList(ini->getNextToken(0), TheLocomotorSetNames);
 }

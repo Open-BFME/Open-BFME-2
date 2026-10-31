@@ -12,6 +12,8 @@
 
 #include "ascii_string.h"
 
+enum ModelConditionFlagType;
+
 struct RiderInfo
 {
 public:
@@ -21,8 +23,8 @@ public:
 	int m_weaponSetFlag; // +0x04 +4
 	int m_modelConditionFlagType; // +0x08 +8
 	int m_objectStatusType; // +0x0C +0xC
-	AsciiString m_commandSet; // +0x10 +0x10
-	int m_locomotorSetType; // +0x14 +0x14
+	AsciiString m_commandSet; // +0x10
+	int m_locomotorSetType; // +0x14
 };
 
 RiderInfo::RiderInfo()
@@ -53,7 +55,7 @@ private:
 	RiderInfo m_riders[8]; // +0x1B8
 	int m_scuttleFrames; // +0x278
 	int m_scuttleState; // +0x27C
-	unsigned char m_byte280; // +0x280
+	bool m_killRiderWhenVehicleDies; // +0x280
 	unsigned char m_pad281[0x284 - 0x280 - 1];
 };
 
@@ -61,6 +63,6 @@ private:
 RiderChangeContainModuleData::RiderChangeContainModuleData()
 {
 	m_scuttleFrames = 0;
-	m_scuttleState = 0;
-	m_byte280 = 0;
+	m_scuttleState = (ModelConditionFlagType)0;
+	m_killRiderWhenVehicleDies = false;
 }
