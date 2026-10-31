@@ -10103,7 +10103,7 @@ _str_rep,,0x00748CE0,114,Code/Libraries/Source/Lua/lstrlib.c,matched,vendored=lu
 ?set@Rva00078941DwordSlot@@QAEXH@Z,,0x00078941,13,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,Disp32 dword setter
 _read_word,,0x0074A700,184,Code/Libraries/Source/Lua/liolib_bfme1.c,matched,strict relocations from its own object
 ?set@Rva00105DB3DwordSlot@@QAEXH@Z,,0x00105DB3,13,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,Disp32 dword setter
-?set@Rva001F3D21DwordSlot@@QAEXH@Z,,0x001F3D21,13,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,Disp32 dword setter
+?set@Rva001F3D21DwordSlot@@QAEXH@Z,,0x001F3D21,13,Code/GameEngine/Source/GameClient/System/ParticleSys.cpp,matched,Disp32 dword setter
 ?set@Rva002620C7DwordSlot@@QAEXH@Z,,0x002620C7,13,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,Disp32 dword setter
 ?set@Rva0023C463DwordSlot@@QAEXH@Z,,0x0023C463,13,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,Disp32 dword setter
 ?set@Rva0027C2AEDwordSlot@@QAEXH@Z,,0x0027C2AE,13,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,Disp32 dword setter

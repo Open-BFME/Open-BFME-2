@@ -106,6 +106,18 @@ class Object;
 	{ \
 		m_value = value; \
 	}
+#define BFME_DISP_DWORD_SETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		void set(int value); \
+		char m_lead[DISP]; \
+		int m_value; \
+	}; \
+	void NAME::set(int value) \
+	{ \
+		m_value = value; \
+	}
 
 struct Coord3DBase
 {
@@ -2017,11 +2029,65 @@ public: void setValue(unsigned int index, unsigned int value);
 private: unsigned char unknown[0x68]; unsigned int values[1];
 };
 
+// Native UpdateTurnPhase reads the complete EAX result at 2BD6E3,
+// 2BD7A6 and 2BD885, not just AL. The complete 20-byte predicate returns
+// integer zero or one; the original class and method names stay unknown.
+// Its previous narrow bool claim was retracted separately (94c03954b6).
+// ?rva002B2405@Rva002B2405@@QAEHXZ @ 0x002B2405, 20 B. The packet's
+// callers do not prove a target class name; the adjacent setter identifies
+// the field at 0x2C4, and retail reads another dword at 0x44.
+class Rva002B2405
+{
+public:
+	int rva002B2405();
+	char m_lead[0x44];
+	int m_field44;
+	char m_padding[0x2C4 - 0x48];
+	int m_field2C4;
+};
+
+BFME_DISP_DWORD_SETTER(Rva001F3D21DwordSlot, 0x19C)
+
+// Callers elsewhere reach bodies in this unit through other spellings; retail's
+// call sites in their matched rows land on these addresses (same ABI). Bind them.
+
+// Clean BF1 9cbfb551fe Common/Rva001A1AE0Sub.cpp semantic guide.
+// Native 0027C2A4..0027C2AE is a complete independently bounded RET leaf.
+// Target behavior: receiver28 dword subtracts stack argument modulo32; RET4.
+// Original owner and full array bounds remain unknown; address-owned view only.
+class Rva0027C2A4Fields {
+public: void subtract(unsigned int value);
+private: unsigned char unknown[0x28]; unsigned int value28;
+};
+
+// BF1 9cbfb551fe Common/Rva005BD470ZeroTest.cpp is the clean semantic guide.
+// Complete native 001F34FE..001F350B RET leaf proves: cdecl pointer argument; byte1C equals zero; full EAX result0 or1.
+// Original owner and complete bounds unresolved; independent address-owned view.
+struct Rva001F34FEFields { unsigned char unknown[0x1C]; unsigned char value; };
+
+// BF1 9cb Rva005FC2B0Set.cpp guides the raw store/receiver-return pattern.
+// Target 563E5F..563E65 follows RET8 and writes byte0=1, returning this.
+// Original owner and complete class bounds remain unknown.
+struct Rva00563E5FFields
+{
+    unsigned char flag;
+    Rva00563E5FFields *enable();
+};
+
+// Clean BFME1 9cbfb551 donor structural leads; native instructions independently
+// establish complete RET boundaries and each raw field operation and ABI.
+// Address-owned carriers retain unknown original receiver identity and bounds.
+
+// ?set@Rva002DAC16Fields@@QAEXM@Z
+struct Rva002DAC16Fields { char pad[0x144]; float value144; void set(float value); };
+
 // tu-skeleton: 0x001F392E 247B ?rotateLocalTransformX@ParticleSystem@@QAEXM@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemRotateLocalTransform.cpp (not merged yet)
 
 // tu-skeleton: 0x001F3A25 247B ?rotateLocalTransformY@ParticleSystem@@QAEXM@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemRotateLocalTransform.cpp (not merged yet)
 
 // tu-skeleton: 0x001F3B1C 247B ?rotateLocalTransformZ@ParticleSystem@@QAEXM@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemRotateLocalTransform.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/System/ParticleSys.cpp
 
 // ---- from Code/GameEngine/Source/Common/DispByteFieldSetters.cpp
 
@@ -3052,7 +3118,21 @@ void Rva001F424E::forward(unsigned word) { if (held) held->forward(word); }
 
 // tu-skeleton: 0x001F3C6B 47B ?rva001F3C6B@ParticleSystem@@QAEIXZ -- matched in Code/GameEngine/Source/GameClient/System/FXParticleSystem/FXPSStorageModuleRva003B0869.cpp (not merged yet)
 
-// tu-skeleton: 0x001F3D21 13B ?set@Rva001F3D21DwordSlot@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp
+
+// Disp32 dword setters: thirteen-byte __thiscall members with one shape:
+//
+//     mov eax,[esp+4] / mov [ecx+<DISP>],eax / ret 4
+//
+// One dword is taken from the stack argument slot and stored at a fixed
+// displacement from `this`. Ported from Open-BFME-1
+// (Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp): the
+// BFME_DISP_DWORD_SETTER macro is verbatim (void set over a lead array),
+// only the class names follow this tree's Disp* convention
+// (address-derived Rva<addr>DwordSlot, identity unrecoverable from 13 bytes).
+// Every displacement here is a disp32 (MSVC 7.1 uses disp8 whenever the
+// offset fits, so every offset is at least 0x80).
+// No // cl: line (defaults match the frameless 13-byte shape).
 
 // tu-skeleton: 0x001F3D2E 674B ?parse@ParticleSystemTemplate@FXParticleSystem@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameClient/ParticleSystemTemplate.cpp (not merged yet)
 
