@@ -75,6 +75,24 @@ class RGBAColorReal;
 class RGBAColorInt;
 class Snapshot;
 #include "../../../../Include/Common/BfmeXfer.h"
+enum StateReturnType
+{
+	STATE_CONTINUE = 0,
+	STATE_SUCCESS = -1,
+	STATE_FAILURE = -2
+};
+#include "../../../../../../reference/shims/bfme2_statemachine/StateMachineView.h"
+#define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	public: \
+		const char *name() const; \
+	}; \
+	const char *NAME::name() const \
+	{ \
+		return TEXT; \
+	}
+
 class Xfer::Version
 {
 public:
@@ -372,9 +390,33 @@ protected:
 	Module *findModule(NameKeyType key) const;	// 0x0028B6D6
 };
 
+class SlowDeathBehavior
+{
+protected:
+	virtual const char *GetSnapshotName() const;
+};
+
+BFME_LITERAL_NAME_GETTER(Rva00484181Named, "ReplenishUnitsBehavior")
+
 // tu-skeleton: 0x00484161 32B ??1ReplenishUnitsBehavior@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/ReplenishUnitsBehaviorDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x00484181 6B ?name@Rva00484181Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters2.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/ModuleNameGetters2.cpp
+
+// Module literal name getters (state-machine/behavior/update names): six-byte
+// const members with one shape:
+//
+//     mov eax,<offset string literal> / ret
+//
+// Each body returns a pointer to a NUL-terminated class-name string in
+// .rdata. Contributor-local unit split from ModuleNameGetters.cpp to keep
+// concurrent landings conflict-free; the BFME_LITERAL_NAME_GETTER macro is
+// verbatim, only the class names follow this tree's address-derived
+// convention (identity unrecoverable from 6 bytes, string carried in source
+// where verify_string_refs re-reads it).
+// No // cl: line (defaults match the frameless 6-byte shape, same as the
+// ModuleNameGetters.cpp precedent).
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/ReplenishUnitsBehavior.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/ReplenishUnitsBehavior.cpp
 
@@ -424,8 +466,6 @@ ReplenishUnitsBehavior::ReplenishUnitsBehavior(Thing *thing, const ModuleData *m
 		setWakeFrame(obj, UPDATE_SLEEP_FOREVER);
 	}
 }
-
-// tu-skeleton: 0x004842C1 28B ??_GReplenishUnitsBehavior@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/ReplenishUnitsBehaviorDtor.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/ReplenishUnitsBehaviorUpdate.cpp
 
@@ -499,6 +539,6 @@ void ReplenishUnitsBehavior::xfer(Xfer *xfer)
 	UpgradeMux::upgradeMuxXfer(xfer);
 }
 
-// tu-skeleton: 0x00484598 34B ?buildFieldParse@ReplenishUnitsBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp (not merged yet)
+// tu-skeleton: 0x004842C1 28B ??_GReplenishUnitsBehavior@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/ReplenishUnitsBehaviorDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0078BD23 8B uw_0078bd23 -- matched in Code/gen_small/uw_gen_011.cpp (not merged yet)
