@@ -58,8 +58,6 @@ private:
 	unsigned int m_unmodelled_04;
 	FunctorMethod m_method;
 };
-Rva0050DA20FunctorBind::Rva0050DA20FunctorBind( FunctorMethod method, FunctorTarget *target )
-	: m_target( target ), m_method( method ) {}
 // Reference guide: Open-BFME-1 f98983a7d3bb405f1a4ba94bb6a2a168062a819d
 // Common/Rva00192120FunctorInvoker.cpp expresses the member binding dispatch.
 // Its void/no-argument prototype is not adopted: native registration ABB87
