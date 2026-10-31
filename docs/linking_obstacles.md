@@ -14423,6 +14423,13 @@ its `__ehhandler$` 0x0077699F still carry the non-virtual `QAE` spelling, and
 declaration virtual means adding the matching base and override slots to that
 view, renaming both rows and adding a tombstone. That file was claimed by
 another seat (claudec3) during this pass, so it was left alone.
+2026-10-31 (Noro420): `rename.py function --rva 0x002BD9B4 --virtual` respelled
+both rows `UAE` on retail table 0x00BFE2E4 slot 10 (installed by ctor 0x002B93B3),
+with tombstones; the declaration in `LivingWorldLogic.cpp` became virtual without
+any other view change. The rename's build verified 13,081/13,081 rows; `link_check`:
+LivingWorldLogicDtorRva002B964F.cpp 0 -> 717 B (LINKS), LivingWorldLogic.cpp
+20,081 -> 20,092 B (LINKS). The update prerequisite is cleared; census
+confirmation is pending.
 `LivingWorldLogicCtorBfme.cpp` also needs event4_0, event5_0 and event5_2:
 0x002BA82B OnRegionChangedOwnership, `rva002BA3F2@LivingWorldLogic` and
 0x002B2A95. Those need the region and player observer bases reconciled with
