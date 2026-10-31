@@ -19807,3 +19807,12 @@ Code/GameEngine/Source/Common/Bfme/Rva005E70DF.cpp|function|0x005E70DF|rva005E70
 Code/GameEngine/Source/Common/Rva0021BC2CWrapper.cpp|member|Rva0021BC2CVec|m_14,80c74ec43a63d3594f1a2e09,drz-k9,n29d2-k9,w-4d4d8f8584bc,2026-10-31
 Code/GameEngine/Source/Common/Rva0021BC2CWrapper.cpp|member|Rva0021BC2CVec|m_18,c9093dc70b10667e0d9ea811,drz-k9,n29d2-k9,w-4d4d8f8584bc,2026-10-31
 Code/Libraries/Source/WWVegas/WWLib/realcrc_one_arg.cpp|function|0x003ECA2F|Rva003ECA2FGet,c3a7745674c060269bb49155,drz-k9,n29d2-k9,w-4d4d8f8584bc,2026-10-31
+Code/Libraries/Source/WWVegas/WWMath/Rva009F40A0DistanceSquared.cpp|function|0x00626A60|Rva009F40A0DistanceSquared,51baf8ea849db0cb09d5310f,drz-k3,n29e2-k3,w-077d7aeb666b,2026-10-31
+Code/GameEngine/Source/Common/System/Rva54b800_InlineAsmHelpers.cpp|function|0x00226819|rva54b800,0a5f980b423e695582da5d91,drz-k3,n29e2-k3,w-077d7aeb666b,2026-10-31
+Code/GameEngine/Source/Common/System/Rva54b800_InlineAsmHelpers.cpp|function|0x00226809|rva61b20,1cb5c5085f90c57cc2916542,drz-k3,n29e2-k3,w-077d7aeb666b,2026-10-31
+Code/GameEngine/Source/Common/System/Rva54b800_InlineAsmHelpers.cpp|function|0x0056E692|rva61ae0,2d8c18ccc9c7a9d0bfb97492,drz-k3,n29e2-k3,w-077d7aeb666b,2026-10-31
+Code/GameEngine/Source/Common/System/Rva54b800_InlineAsmHelpers.cpp|function|0x0056DD9C|rva61b40,dfbbe7efc424cdb8a9461c9e,drz-k3,n29e2-k3,w-077d7aeb666b,2026-10-31
+Code/GameEngine/Source/Common/Rva005B6967Box.cpp|class||Rva005B6967Buf,e0833c66e9b2dd939a036afb,drz-k3,n29e2-k3,w-077d7aeb666b,2026-10-31
+Code/GameEngine/Source/Common/Rva005B6967Box.cpp|global||g_rva00873640,fb19e986bb06d72015c03006,drz-k3,n29e2-k3,w-077d7aeb666b,2026-10-31
+Code/GameEngine/Source/Common/Rva005B6967Box.cpp|global||g_rva00873630,c9e23d7f540e367742f4e720,drz-k3,n29e2-k3,w-077d7aeb666b,2026-10-31
+Code/GameEngine/Source/Common/Rva00311638CatmullRom.cpp|function|0x00311638|rva00311638CatmullRom,958d63e8ad07a58f147062fc,drz-k3,n29e2-k3,w-077d7aeb666b,2026-10-31
