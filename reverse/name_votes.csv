@@ -19640,3 +19640,4 @@ Code/GameEngine/Source/GameLogic/AI/AIRampageStateOnEnter.cpp|local|AIRampageSta
 Code/GameEngine/Source/Common/RvaAdjustCallEchoFamily.cpp|function|0x00538661|rva00538661,4306e8258cc113d0bf1c8fce,drz-k11,n28h-k11,w-09889333d128,2026-10-31
 Code/GameEngine/Source/Common/RvaAdjustCallEchoFamily.cpp|function|0x005381DC|rva005381DC,0150864d9fd2524068f3863a,drz-k11,n28h-k11,w-09889333d128,2026-10-31
 Code/GameEngine/Source/Common/RvaAdjustCallEchoFamily.cpp|function|0x0053856F|rva0053856F,2ca325a44c51a3d45307553e,drz-k11,n28h-k11,w-09889333d128,2026-10-31
+Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00396023Search.cpp|member|Box|m_18,2517d7ffbe6b1532cf183cd3,drz-k3,n28c2-k3,w-077d7aeb666b,2026-10-31
