@@ -16,9 +16,7 @@ extern int BfmeLogicFramesPerSecond;
 #define GB_GAP10(n) virtual void aigap##n##0(); virtual void aigap##n##1(); virtual void aigap##n##2(); virtual void aigap##n##3(); virtual void aigap##n##4(); \
 	virtual void aigap##n##5(); virtual void aigap##n##6(); virtual void aigap##n##7(); virtual void aigap##n##8(); virtual void aigap##n##9();
 
-// Retail update uses a direct free call; the /MD CRT declaration changes it
-// to an indirect IAT call and grows the matched body by one byte.
-extern "C" void __cdecl free(void *p);
+#include <stdlib.h>
 
 Real normalizeAngle(Real angle);
 
