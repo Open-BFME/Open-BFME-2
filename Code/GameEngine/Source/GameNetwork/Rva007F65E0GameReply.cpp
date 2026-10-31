@@ -24,8 +24,9 @@ typedef __int64 FeslInt64;
 class Rva007E8810Message
 {
 public:
-	bool hasError( void );                                            // 0x007E88A0
-	int getError( void );                                             // 0x007E88B0
+	bool hasError();                                                  // 0x007E88A0
+	int getError();                                                   // 0x007E88B0
+	int getInt( const char *key, int defaultValue );                  // 0x007E8900
 
 	char m_head[ 0x28 ];
 	int m_txn;

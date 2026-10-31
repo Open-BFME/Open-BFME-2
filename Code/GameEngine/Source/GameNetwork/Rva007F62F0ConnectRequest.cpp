@@ -2,10 +2,21 @@
 
 class Rva007E8810Message;
 class Rva007F6260GameBrowser;
+class Rva007F6260Listener;
+class Rva008006C0Owner;
 class Rva007F6260GameBrowser
 {
 public:
-    void handleConnectingProtocolReply(Rva007E8810Message *message);
+	void handleConnectingProtocolReply( Rva007E8810Message *msg );
+	char m_pad00[0x1C];
+private:
+	Rva007F6260Listener *m_listener; // +0x1C
+	char m_pad20[0x4];
+	Rva008006C0Owner *m_connectOwner; // +0x24
+	char m_pad28[0x8];
+	int m_state; // +0x30
+	bool m_connectProtocol; // +0x34
+	char m_pad35[0x3];
 };
 // Reply adapter 0x00662A70 (15B; BFME 1 0x007F62E0): forward the reply to the
 // browser registered with it.
@@ -17,22 +28,21 @@ void a_007ea650();
 
 struct Rva007EB810Diag
 {
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void fail(const char *, const char *, int);
+	virtual void slot00();
+	virtual void slot04();
+	virtual void slot08();
+	virtual void fail( const char *expression, const char *file, int line );
 };
 Rva007EB810Diag *Rva007EB810Get();
+
+class Gen_007e86c0 { public: void m(); };
+
 class BfmeC994
 {
 public:
-    BfmeC994(char *buffer, int size);
-    char m_unknown[0x34];
-};
-class Gen_007e86c0
-{
-public:
-    void m();
+ BfmeC994(char *buffer, int capacity);
+ ~BfmeC994() { ((Gen_007e86c0 *)this)->m(); }
+ int m_storage[0x0D]; // no /GS cookie in retail frames holding this object
 };
 class Rva007EA6A0FieldAddress
 {
@@ -82,9 +92,9 @@ class Rva007F62F0ConnectRequest
     char m_buffer[0x400];
     int m_transaction;
 public:
-    void request(int action, void *unused, int *status);
+    void request(int action, void *unused, int *status) throw();
 };
-void Rva007F62F0ConnectRequest::request(int action, void *, int *status)
+void Rva007F62F0ConnectRequest::request(int action, void *, int *status) throw()
 {
     if (action == 3)
     {
@@ -100,7 +110,6 @@ void Rva007F62F0ConnectRequest::request(int action, void *, int *status)
             ((Rva007EA6A0FieldAddress *)m_field08)->get());
         m_notifier->send(&message, Rva007F62E0Callback,
             (Rva007F6260GameBrowser *)((char *)this - 4), m_transaction);
-        ((Gen_007e86c0 *)&message)->m();
         return;
     }
     if (action == 0)

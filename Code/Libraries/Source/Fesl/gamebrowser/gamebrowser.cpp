@@ -36,7 +36,7 @@ class BfmeC994
 public:
  BfmeC994(char *buffer, int capacity);
  ~BfmeC994() { ((Gen_007e86c0 *)this)->m(); }
- char m_storage[0x34];
+ int m_storage[0x0D]; // no /GS cookie in retail frames holding this object
 };
 
 class Rva007F5E00Sender
@@ -83,8 +83,12 @@ public:
 class Rva007E8810Message
 {
 public:
-	bool hasError();
-	int getError();
+	bool hasError();                                                  // 0x007E88A0
+	int getError();                                                   // 0x007E88B0
+	int getInt( const char *key, int defaultValue );                  // 0x007E8900
+
+	char m_head[ 0x28 ];
+	int m_txn;
 };
 
 class Rva008022A0Owner
@@ -230,10 +234,17 @@ private:
 
 class BfmeOwnerYA;
 
+class Rva007F5840Listener;
 class Rva007F5840Owner
 {
 public:
-    void handleQueueReply(Rva007E8810Message *message, BfmeOwnerYA *result);
+	void handleQueueReply(Rva007E8810Message *message, BfmeOwnerYA *result);
+	char m_pad00[0x1C];
+private:
+	Rva007F5840Listener *m_listener; // +0x1C
+	char m_pad20[0x16];
+	unsigned char m_flag036; // +0x36
+	char m_pad37[0x1];
 };
 
 struct Rva007F5900Context
@@ -258,7 +269,7 @@ class BfmeMsgVJH : public BfmeMsg
 public:
 	BfmeMsgVJH(char *buf, int n) throw();
 	virtual ~BfmeMsgVJH() throw();
-	char m_pad[0x2C];
+	int m_pad[0x0B]; // no /GS cookie in retail frames holding this object
 };
 
 class Rva00800290Buffer
@@ -359,7 +370,7 @@ class BfmeMsgVJO
 public:
 	void bfmeInitVJO(char *buf, int n);
 	void bfmeDoneVJO();
-	char m_bfmePad[0x34];
+	int m_bfmePad[0x0D]; // no /GS cookie in retail frames holding this object
 };
 
 class BfmeAVJO
@@ -545,8 +556,11 @@ public:
 
 struct BfmeEntryZI
 {
-	char m_head[ 8 ];
-	int m_active;
+public:
+	char m_head[ 8 ]; // +0x00
+	int m_active; // +0x08
+	void *m_listenerB; // +0x0C
+	void *m_listenerA; // +0x10
 };
 
 class Rva007F7980Listener
@@ -555,16 +569,23 @@ public:
 	virtual void v0();
 	virtual void v1();
 	virtual void v2();
-	virtual void v3();
-	virtual void v4();
-	virtual void v5();
-	virtual void v6();
+	virtual void onRegionCountDone( int status );                     // slot 3
+	virtual void onLobbyCountDone( int status );                      // slot 4
+	virtual void onLobbyCounts( int lid, int status );                // slot 5
+	virtual void v6( int lid, int gid );
 	virtual void v7();
 	virtual void v8();
-	virtual void v9();
-	virtual void v10();
-	virtual void v11();
+	virtual void gameReady( int lid, int gid );                       // slot 9
+	virtual void v10( int lid, int gid, int pid );
+	virtual void onEntry( BfmeEntryZI *entry, int flag );             // slot 11
 	virtual void onSlot12( int lid, int gid, int status );
+	virtual void v13();
+	virtual void v14();
+	virtual void v15( int value );
+	virtual void v16();
+	virtual void v17();
+	virtual void onSlot18( int status );                              // slot 18
+	virtual void onSlot19( int status );                              // slot 19
 };
 
 class BfmeThingZI
@@ -572,6 +593,7 @@ class BfmeThingZI
 public:
 	BfmeEntryZI *bfmeFindZI( int key, int other );
 	void Rva007F72D0( Rva007E8810Message *msg );
+	void rva007F7640( Rva007E8810Message *msg );
 
 private:
 	char m_pad000[ 0x1c ];

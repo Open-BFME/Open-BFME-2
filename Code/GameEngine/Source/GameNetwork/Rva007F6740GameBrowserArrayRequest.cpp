@@ -9,13 +9,21 @@
 
 typedef __int64 Rva007F6740Int64;
 
-class BfmeMsgVJH
+class BfmeMsg
 {
 public:
-	BfmeMsgVJH( char *buffer, int size ) throw();
-	~BfmeMsgVJH() throw();
+	virtual ~BfmeMsg() throw();
 
-	char m_data[ 0x34 ];
+protected:
+	int m_state;
+};
+
+class BfmeMsgVJH : public BfmeMsg
+{
+public:
+	BfmeMsgVJH(char *buf, int n) throw();
+	virtual ~BfmeMsgVJH() throw();
+	int m_pad[0x0B]; // no /GS cookie in retail frames holding this object
 };
 
 void Rva00800040JoinI64( const Rva007F6740Int64 *parts, unsigned count,
@@ -28,10 +36,36 @@ class Rva007E8810Message;
 
 // Retail 0x007F6730 is the cdecl two-argument reply adapter: it forwards its
 // first argument to the browser object supplied as its second argument.
+class Rva00802CD0Element;
+class Rva007F7980Listener;
 class Rva007F66B0Browser
 {
 public:
-	void onLobbyCounts( Rva007E8810Message *message );
+	void onLobbyCounts( Rva007E8810Message *msg );
+	virtual void v0();
+	virtual void v1();
+	virtual void v2();
+	virtual void v3();
+	virtual void v4();
+	virtual void v5();
+	virtual void v6();
+	virtual void v7();
+	virtual void v8();
+	virtual void v9();
+	virtual void v10();
+	virtual void v11();
+	virtual void v12();
+	virtual void v13();
+	virtual void v14();
+	virtual void v15();
+	virtual void v16();
+	virtual void v17();
+	virtual void v18();
+	virtual void v19();
+	virtual void v20();
+	virtual Rva00802CD0Element *findLobby( int lid ); // slot 21
+	char m_head[ 0x18 ]; // +0x04
+	Rva007F7980Listener *m_listener; // +0x1C
 };
 
 // BFME 2 0x00662EC0 (15B); the receiver is the browser whose onLobbyCounts

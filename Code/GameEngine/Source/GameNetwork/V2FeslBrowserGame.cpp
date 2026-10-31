@@ -7,7 +7,12 @@
 class Rva007E8810Message
 {
 public:
-	bool hasError();
+	bool hasError();                                                  // 0x007E88A0
+	int getError();                                                   // 0x007E88B0
+	int getInt( const char *key, int defaultValue );                  // 0x007E8900
+
+	char m_head[ 0x28 ];
+	int m_txn;
 };
 
 class Rva007FBEF0GameRecord
@@ -33,51 +38,110 @@ public:
 	void bfmeFindZP(BfmeKeyZP *key);
 };
 
+struct BfmeEntryZI;
+
 class Rva007F7980Listener
 {
 public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
-	virtual void slot06();
-	virtual void slot07();
-	virtual void slot08();
-	virtual void gameReady(int lid, int gid);
+	virtual void v0();
+	virtual void v1();
+	virtual void v2();
+	virtual void onRegionCountDone( int status );                     // slot 3
+	virtual void onLobbyCountDone( int status );                      // slot 4
+	virtual void onLobbyCounts( int lid, int status );                // slot 5
+	virtual void v6( int lid, int gid );
+	virtual void v7();
+	virtual void v8();
+	virtual void gameReady( int lid, int gid );                       // slot 9
+	virtual void v10( int lid, int gid, int pid );
+	virtual void onEntry( BfmeEntryZI *entry, int flag );             // slot 11
+	virtual void onSlot12( int lid, int gid, int status );
+	virtual void v13();
+	virtual void v14();
+	virtual void v15( int value );
+	virtual void v16();
+	virtual void v17();
+	virtual void onSlot18( int status );                              // slot 18
+	virtual void onSlot19( int status );                              // slot 19
 };
+
+class Rva007F6BA0
+{
+public:
+	void clear();                                                     // 0x007F6BA0
+	void *m_array;
+	int m_count;
+};
+
+class Rva007F6C60
+{
+public:
+	void clear();                                                     // 0x007F6C60
+	void *m_array;
+	int m_count;
+};
+
+class Rva007F77B0Block : public Rva007F6BA0
+{
+public:
+	void allocate( int count );                                       // 0x007F77B0
+};
+
+class Rva007F7810Block : public Rva007F6C60
+{
+public:
+	void allocate( int count );                                       // 0x007F7810
+};
+
+class Rva00802B30Element;
+class Rva00800920Owner;
+class Rva00802040Owner;
 
 class Rva007F7980Browser
 {
 public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
-	virtual void slot06();
-	virtual void slot07();
-	virtual void slot08();
-	virtual void slot09();
-	virtual void slot10();
-	virtual void slot11();
-	virtual void slot12();
-	virtual void slot13();
-	virtual void slot14();
-	virtual void slot15();
-	virtual void slot16();
-	virtual void slot17();
-	virtual void slot18();
-	virtual void slot19();
-	virtual void slot20();
-	virtual Rva00802B30Element *findGame(int lid);
+	void onRegionCount( Rva007E8810Message *msg );
+	void onLobbyCount( Rva007E8810Message *msg );
+	void onGame( Rva007E8810Message *message );
+	void onPlayer( Rva007E8810Message *message );
+	void rva007f63f0( void *message );
 
-	char m_head[0x18];
+	virtual void v0();
+	virtual void v1();
+	virtual void v2();
+	virtual void v3();
+	virtual void v4();
+	virtual void v5();
+	virtual void v6();
+	virtual void v7();
+	virtual void v8();
+	virtual void v9();
+	virtual void v10();
+	virtual void v11();
+	virtual void v12();
+	virtual void v13();
+	virtual void v14();
+	virtual void v15();
+	virtual void v16();
+	virtual void v17();
+	virtual void v18();
+	virtual void v19();
+	virtual void v20();
+	virtual Rva00802B30Element *findGame( int lid );                  // slot 21
+
+	char m_head[ 0x18 ];
 	Rva007F7980Listener *m_listener;
-
-	void onGame(Rva007E8810Message *message);
+	char m_pad20[ 4 ];
+	Rva00800920Owner *field24;
+	char m_pad28[ 0x10 ];
+	Rva007F77B0Block m_regions;
+	int m_regionIndex;
+	int m_regionTxn;
+	Rva007F7810Block m_lobbies;
+	int m_lobbyIndex;
+	int m_lobbyTxn;
+	char m_pad58[ 0x280 ];
+	Rva00802040Owner *field2d8;
 };
 
 void Rva007F7980Browser::onGame(Rva007E8810Message *message)
