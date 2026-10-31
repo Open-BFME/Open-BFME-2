@@ -13265,7 +13265,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x001EAEBD,31,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp
 0x001EAEDC,15,code,,,-,,Code/GameEngine/Source/Common/GapBodiesSeat1C.cpp
 0x001EAEEB,14,code,,,-,,Code/GameEngine/Source/Common/Disp8DivMovDwordGetters.cpp
-0x001EAEF9,101,code,Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Update/FreelistPoolPop.cpp
+0x001EAEF9,101,code,Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp
 0x001EAF5E,29,code,Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp,approved,C,C=0x001EAEF9..0x001EAF7B provisional,Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp
 0x001EAF7B,32,code,Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp,approved,C,C=0x001EAEF9..0x001EAF9B provisional,Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp
 0x001EAF9B,21,code,Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp,approved,C,C=0x001EAEF9..0x001EAFB0 provisional,Code/GameEngine/Source/Common/GapBodiesGE51.cpp

@@ -153,21 +153,6 @@ public:
 	bool rva001EB0FB(Rva00376A62 &val);
 };
 
-// ??0FreelistPool@@QAE@HHHHHH@Z @0x001EB1CB 67B: FreelistPool ctor sets 0x80 plus alloc free defaults then init; calls 0x002AA35C.
-class FreelistPool
-{
-public:
-	FreelistPool(int a1, int a2, int a3, int a4, int a5, int a6);
-	bool init(int a1, int a2, int a3, void* (__cdecl* a4)(int, int), int a5, int a6);
-private:
-	int m_00;
-	void* m_04;
-	void* m_head;
-	void* (__cdecl* m_alloc)(int, int);
-	void (__cdecl* m_free)(void*, int);
-	int m_14;
-};
-
 void* __cdecl Rva0002FFC0Alloc(int size, int ignored);
 
 void __cdecl Rva0002FFE0Free(void* ptr, int ignored);
@@ -225,7 +210,73 @@ struct Rva001EB15A
 
 BFME_IMUL_ADD_DWORD_GETTER(Rva001EB10CImulAddField, 0x24)
 
-// tu-skeleton: 0x001EAEF9 101B ?grow@FreelistPool@@AAE_NHH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/FreelistPoolPop.cpp (not merged yet)
+ 
+class FreelistPool
+{
+public:
+	FreelistPool(int a1, int a2, int a3, int a4, int a5, int a6);
+public:
+	bool init(int a1, int a2, int a3, void* (__cdecl* a4)(int, int), int a5, int a6);
+private:
+	int m_00;
+private:
+	void* m_04;
+private:
+	void* m_head;
+private:
+	void* (__cdecl* m_alloc)(int, int);
+private:
+	void (__cdecl* m_free)(void*, int);
+private:
+	int m_14;
+public:
+	void *pop();
+private:
+	bool grow( int arena, int size );
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/FreelistPoolPop.cpp
+
+// Retail 0x001EAEF9, 101 bytes: pool grow with retry. While arena==0,
+// default the size (m_00*16+4), fail on -1, allocate through m_alloc and
+// retry; then carve the block into 0x10-sized nodes aligned to 8, chaining
+// them from m_head. /O1 gives and-[mem],0 and pop/pop cleanup.
+bool FreelistPool::grow(int arena, int size)
+{
+retry:
+	if (arena != 0)
+		goto carve;
+	if (size != 0) {
+		if (size == -1)
+			return false;
+		arena = (int)m_alloc(size, m_14);
+		if (arena == 0)
+			return false;
+		goto retry;
+	}
+	size = m_00 * 16 + 4;
+	goto retry;
+carve:
+	void *old = m_04;
+	*(void **)arena = old;
+	int aligned = (arena + 15) & ~7;
+	void *end = (char *)arena + size - 0x20;
+	*(int *)((char *)arena + 4) = size;
+	m_04 = (void *)arena;
+	m_head = (void *)aligned;
+	if ((unsigned int)aligned > (unsigned int)end)
+		goto done;
+	do {
+		int next = aligned + 0x10;
+		*(int *)aligned = next;
+		aligned = next;
+	} while ((unsigned int)aligned <= (unsigned int)end);
+done:
+	*(int *)aligned = 0;
+	return true;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp
 
@@ -401,14 +452,6 @@ Rva001EB15A::Rva001EB15A(const Rva001EB15A &other)
 Rva001EB15A::Rva001EB15A()
  : m_00(0),m_04(0),m_08(0),m_wstr0C(),m_str10(),m_14(0) {}
 
-// tu-skeleton: 0x001EAF9B 21B ?rva001EAF9B@@YAHABUGapRecordCursor@@0@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE51.cpp (not merged yet)
-
-// tu-skeleton: 0x001EAFB0 17B ?advanceCursor@@YAXAAUGapRecordCursor@@H@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE51.cpp (not merged yet)
-
-// tu-skeleton: 0x001EAFFE 37B ?rva001EAFFE@Rva001EAFFE@@QAEAAVAsciiString@@H@Z -- matched in Code/GameEngine/Source/Common/Rva001EAFFEElementAt.cpp (not merged yet)
-
-// tu-skeleton: 0x001EB0EA 17B ?rva001EB0EA@Rva001EB0EA@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE51.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Disp8ImulAddDwordGetters.cpp
 
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
@@ -423,6 +466,14 @@ Rva001EB15A::Rva001EB15A()
 // member load into edx first. /G7 keeps small multipliers as true `imul`
 // (/O1 alone strength-reduces them to lea sequences). Identity is not
 // recovered: every name is derived from its address.
+
+// tu-skeleton: 0x001EAF9B 21B ?rva001EAF9B@@YAHABUGapRecordCursor@@0@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE51.cpp (not merged yet)
+
+// tu-skeleton: 0x001EAFB0 17B ?advanceCursor@@YAXAAUGapRecordCursor@@H@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE51.cpp (not merged yet)
+
+// tu-skeleton: 0x001EAFFE 37B ?rva001EAFFE@Rva001EAFFE@@QAEAAVAsciiString@@H@Z -- matched in Code/GameEngine/Source/Common/Rva001EAFFEElementAt.cpp (not merged yet)
+
+// tu-skeleton: 0x001EB0EA 17B ?rva001EB0EA@Rva001EB0EA@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE51.cpp (not merged yet)
 
 // tu-skeleton: 0x001EB118 24B ?deallocate@Rva001EB118@@QAEXPAXI@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE51.cpp (not merged yet)
 

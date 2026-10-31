@@ -19321,7 +19321,7 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??_GBloodthirstyUpdate@@MAEPAXI@Z,,0x0044E113,28,Code/GameEngine/Source/GameLogic/Object/Update/BloodthirstyUpdateDtor.cpp,matched,slot 0 of vtable 0x0083F0B4; calls rowed ??1 0x0044DFE0
 ??1BloodthirstyUpdateModuleData@@UAE@XZ,,0x0044E331,67,Code/GameEngine/Source/GameLogic/Object/Update/BloodthirstyUpdateModuleDataDtor.cpp,matched,dtor lane; filter plus holder plus Snapshot BBB554 restore; ctor 0x0044E2AC vtable 0x0083F160
 ??_GBloodthirstyUpdateModuleData@@UAEPAXI@Z,,0x0044E315,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-e1cc.cpp,matched,slot 0 of vtable 0x0083F160; calls rowed ??1 0x0044E331
-?grow@FreelistPool@@AAE_NHH@Z,,0x001EAEF9,101,Code/GameEngine/Source/GameLogic/Object/Update/FreelistPoolPop.cpp,matched,pool grow with retry via m_alloc and 0x10-node carve
+?grow@FreelistPool@@AAE_NHH@Z,,0x001EAEF9,101,Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp,matched,pool grow with retry via m_alloc and 0x10-node carve
 ??_GRebuildHoleExposeDieModuleData@@UAEPAXI@Z,,0x004869B0,28,Code/GameEngine/Source/GameLogic/Object/Die/RebuildHoleExposeDie.cpp,matched,Deleting dtor slot 0 of vtable 0xC4AD40 calls rowed 0x4869CC; the compiler's own copy where RebuildHoleExposeDieModuleData's ctor emits the vtable
 ?get@Rva0042D69DPtrChaseField@@QBEHXZ,,0x0042D69D,17,Code/GameEngine/Source/Common/Disp0PtrChaseDwordGetters.cpp,matched,null-checked ptr-chase plus tail-jmp rowed getter 0x5C4AF9
 ??1RampageBehaviorModuleData@@UAE@XZ,,0x00458C9B,48,Code/GameEngine/Source/GameLogic/Object/Behavior/RampageBehaviorModuleDataDtor.cpp,matched,Virtual dtor with vector at 8 and Snapshot base
