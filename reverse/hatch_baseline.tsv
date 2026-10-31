@@ -10844,8 +10844,6 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/AABoxRenderObjFromAABox.cpp	
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/AABoxRenderObjFromAABox.cpp	"s",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/AABoxUpdateCachedBox.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/AABoxUpdateCachedBox.cpp	"gsy",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/Animatable3DObjRelease.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/Animatable3DObjRelease.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/AnimatableGetBoneTransform.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/AnimatableGetBoneTransform.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/DX8Caps_constructors.cpp	"",on	1
