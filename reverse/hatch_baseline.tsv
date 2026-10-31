@@ -11094,8 +11094,6 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/SimpleSceneClass_dtor.cpp	""
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/SimpleSceneClass_dtor.cpp	"s",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/SimpleStreakRendererRenderStreak.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/SimpleStreakRendererRenderStreak.cpp	"gty",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/SimpleVecResize0096E1B0.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/SimpleVecResize0096E1B0.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/SortingRendererBFME1.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/SortingRendererBFME1.cpp	"s",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/StreakLineCtor.cpp	"",on	1
@@ -11222,7 +11220,8 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/meshmatdesc.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/meshmatdesc.cpp	"s",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/meshmdl_sidehash.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/meshmdl_sidehash.cpp	"gsy",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp	"",on	1
+pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp	"",on	2
+pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp	"s",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/motchan.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/motchan.cpp	"gsy",on	1
