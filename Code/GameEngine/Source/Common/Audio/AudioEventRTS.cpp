@@ -2096,4 +2096,4 @@ AsciiString Rva002D9BC1AsciiField::get() const
 
 // tu-skeleton: 0x00777B53 10B __ehhandler$??1BfmeStringTailRecord144@@UAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_stringtailrecord144_dtor.cpp (not merged yet)
 
-// tu-skeleton: 0x00777B65 8B uw_00777b65 -- matched in Code/gen_small/uw_gen_006.cpp (not merged yet)
+// Native FuncInfo 0x0091F918 binds internalXfer's reference cleanup to 0x00777B65.
