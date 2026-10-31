@@ -23,6 +23,7 @@ public:
 	virtual void notify04(Rva00359E04Owner *owner);
 	virtual void notify08(Rva00359E04Owner *owner);
 	virtual void notify0C(Rva00359E04Owner *owner);
+	virtual void notify10(Rva00359E04Owner *owner);
 };
 class Rva00359BE8List
 {

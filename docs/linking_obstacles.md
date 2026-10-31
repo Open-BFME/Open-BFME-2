@@ -14673,6 +14673,16 @@ confirmation is pending.
 
 ### Terrain resource CRT header cleanup (2026-10-30, codexb)
 
+Listener composition follow-up (2026-11-01, halilkkaya-codex): the supported
+view reconciler gives the seed and three donors the same five listener slots.
+Only three sources need declaration additions; all four retain their byte,
+layout and external-symbol checks and ordinary LINKS preview (4,055 authored
+bytes). The supported merge now accepts the seed plus the notifier donor,
+where previously it accepted no composition. A stale name-getter duplicate
+from the post-census `c1db761559` split clears after the documented local
+index update. Other private-view and consumer/census prerequisites below
+remain open. [Scope and remaining donors](../reverse/attempt_support/terrain-listener-consolidation-20261101-codex.md).
+
 `TerrainResourceManager.cpp` now takes its float math adapters from `math.h`
 with internal linkage, replacing the copied static `floorf` declaration. The
 owning Microsoft-header scanner retires its one queue record. All 23 rows,
