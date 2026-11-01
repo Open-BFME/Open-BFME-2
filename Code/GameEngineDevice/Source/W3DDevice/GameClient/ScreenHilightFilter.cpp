@@ -457,19 +457,6 @@ private:
 
 // --- 0x000B3F75 (15B): address of element `index` in the 0xFC-byte record
 // array whose base pointer is at +0.
-struct Rva000B3F75Record
-{
-	unsigned char m_data[0xFC];
-};
-
-class Rva000B3F75
-{
-public:
-	Rva000B3F75Record *rva000B3F75(int index);
-private:
-	Rva000B3F75Record *m_records;
-};
-
 // --- 0x000B693D (15B): when the object at +0x68 exists, assign the argument
 // to it through the rowed ?bfmeAssign@Gen_0075EF90@@QAEAAV1@ABV1@@Z
 // (0x000B4682) as a tail jump.
@@ -477,15 +464,6 @@ class Gen_0075EF90
 {
 public:
 	Gen_0075EF90 &bfmeAssign(const Gen_0075EF90 &that);
-};
-
-class Rva000B693D
-{
-public:
-	void rva000B693D(const Gen_0075EF90 &that);
-private:
-	unsigned char m_pad00[0x68];
-	Gen_0075EF90 *m_68;
 };
 
 // --- 0x000FB85D (15B): holder destructor freeing the block at +0x18
@@ -498,15 +476,6 @@ struct Rva000FB85D
 };
 
 // --- 0x000D167A (13B): ORs the argument into the flag word at +0x118.
-class Rva000D167A
-{
-public:
-	void addFlags(unsigned int flags);
-private:
-	unsigned char m_pad00[0x118];
-	unsigned int m_118;
-};
-
 // tu-skeleton: 0x000FA935 400B ?init@ScreenHilightFilter@@UAEHXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenHilightFilterPreRender.cpp (not merged yet)
 
 // tu-skeleton: 0x000FAAC5 370B ?preRender@ScreenHilightFilter@@UAE_NAA_NAAW4CustomScenePassModes@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenHilightFilterPreRender.cpp (not merged yet)

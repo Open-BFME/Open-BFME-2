@@ -221,20 +221,6 @@ void Rva00362AB5::rva00362ADE(IntPtrTree::iterator first, IntPtrTree::iterator l
 // below, with the same calling convention and stack arguments; bind them.
 #pragma comment(linker, "/alternatename:?erase@Rva006DF050Slot@@QAEIABH@Z=?rva000D3BFD@Rva000D20A9@@QAEIABH@Z")
 
-class Rva00082BE1
-{
-public:
-	unsigned int rva00082BE1(const int &x);
-};
-
-
-class Rva000D3C46
-{
-public:
-	unsigned int rva000D3C46(const int &x);
-};
-
-
 class Rva001E7E78
 {
 public:
@@ -245,13 +231,6 @@ unsigned int Rva001E7E78::rva001E7E78(const int &key)
 {
 	return reinterpret_cast<Rva001E6731 *>(this)->rva001E71FA(key);
 }
-
-class Rva00362C9A
-{
-public:
-	unsigned int rva00362C9A(const int &x);
-};
-
 
 class Rva003899C4
 {
@@ -275,8 +254,3 @@ unsigned int Rva0047003C::rva0047003C(const int &key)
 	return reinterpret_cast<Rva002EE9B7 *>(this)->rva0046EDEF(key);
 }
 
-class Rva004E7E19
-{
-public:
-	unsigned int rva004E7E19(const int &key);
-};

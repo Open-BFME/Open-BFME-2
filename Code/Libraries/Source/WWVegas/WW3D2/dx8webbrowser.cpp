@@ -123,21 +123,6 @@ public:
 	}
 };
 
-class Gen0089C880
-{
-public:
-	void handle();
-};
-
-class Rva008A2C60
-{
-public:
-	void go();
-	char m_lead[ 0x10 ];
-	Gen0089C880 *m_target;
-	bool m_done;
-};
-
 class Rva00958C40
 {
 public:
@@ -146,20 +131,6 @@ public:
 };
 
 // -------------------------------------------------- pointer-to-member call
-
-class GenC9EF0
-{
-public:
-	GenC9EF0 *step();
-};
-
-class Rva000C9EF0
-{
-public:
-	void go();
-	GenC9EF0 *m_target;
-	GenC9EF0 *( GenC9EF0::*m_step )();
-};
 
 // tu-skeleton: 0x00176FA0 77B ?Shutdown@DX8WebBrowser@@SAXXZ -- matched in Code/GameEngine/Source/Common/BfmeConv804.cpp (not merged yet)
 

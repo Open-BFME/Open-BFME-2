@@ -24,10 +24,7 @@ public:
  __forceinline void DrawPixel(unsigned x,unsigned y,unsigned color) { ((SurfaceClass *)this)->DrawPixel(x,y,color); }
  void *surface;
 };
-struct CursorTextureSlot { void *Ptr; W3DRadarResetSurface Get_Surface_Level(); };
 struct IDirect3DBaseTexture8;
-class TextureBaseClass { public: IDirect3DBaseTexture8 *Peek_D3D_Base_Texture() const; };
-class Rva00131DFC { public: void rva00131DFC(void *,void *,void *,void *,int,int); };
 void BFME_DX8_Thread_Lock();
 bool BFME_DX8_Thread_Assert();
 class BfmeFallbackTextureLock {
@@ -71,7 +68,6 @@ static __forceinline CriticalSection *deferredDeviceMutex() {
 static __forceinline _STL::vector<void *> &deferredDeviceQueue() {
  return *reinterpret_cast<_STL::vector<void *> *>(&g_Va00DF29A8);
 }
-class Rva0020FB8BVec20 { public: void vecPushBack(void *&); };
 class Rva0013331A {
  unsigned char prefix[8]; BfmeDeferredTexture *texture;
 public: void rva0013331A();

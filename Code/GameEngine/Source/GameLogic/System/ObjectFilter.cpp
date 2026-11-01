@@ -276,12 +276,6 @@ class BfmeObjEBJ;
 
 extern "C" unsigned char bfmeStrEBJ[];
 
-class BfmeObjEBK
-{
-public:
-	void bfmeTwoEBK(void *x, void *b);
-};
-
 // Retail body at 0x007E8900 is BfmeThingRF::bfmeGoRF; declared here (no real
 // header owns it) so this call spells its defining mangled name.
 class BfmeThingRF
@@ -292,13 +286,6 @@ public:
 
 extern void *g_bfmeXEBK;
 
-class BfmeObjEBL
-{
-public:
-	void *m_bfmeA;
-	void *m_bfmeB;
-};
-
 class Rva00361624
 {
 public:
@@ -308,20 +295,6 @@ public:
 char bfmeCmpEBMa(void *a, void *b);
 
 char bfmeCmpEBMb(void *a, void *b);
-
-struct BfmeSubEBN
-{
-	unsigned char m_bfmeHead[0x20];
-	char m_bfmeC;
-	unsigned char m_bfmePad[3];
-	void *m_bfmeP;
-};
-
-class BfmeObjEBN
-{
-public:
-	BfmeSubEBN *bfmeGetEBN();
-};
 
 int __cdecl Rva00361790(Rva00360F55 *record);
 

@@ -102,12 +102,6 @@ public:
     unsigned char prefix[0x0c]; unsigned classIndex; unsigned subClassIndex;
 };
 
-class Rva00406E47
-{
-public:
-	Bool rva00406E47(Int value);
-};
-
 // A bling entry starts with its name and description string tags.
 struct CreateAHeroBling
 {
@@ -365,7 +359,6 @@ template <> inline bool StringBase<char>::isEmpty() const { return m_data == 0 |
 // Each four-byte value selects a bling and its upgrade; only the unsigned
 // word at upgrade+88 participates in ordering. Its original field and
 // comparator names are unresolved. Ghidra omitted this standalone boundary.
-struct BlingUpgradeOrderView { char unknown00[0x88]; unsigned int word88; };
 typedef bool (*BlingIndexLess)(unsigned int, unsigned int);
 namespace _STL {
 template <> void sort<unsigned int *, BlingIndexLess>(unsigned int *, unsigned int *, BlingIndexLess);
@@ -375,10 +368,6 @@ template <> vector<unsigned int> &map<int, vector<unsigned int> >::operator[](co
 }
 // Native substring builder and conversion use the same12-byte view ABI.
 struct Rva000B6AF5Rec { void *p; int a; int b; };
-struct Rva000B6AA9Rec {
-    operator AsciiString();
-    AsciiString *m_string; int m_start; int m_len;
-};
 Rva000B6AF5Rec *__cdecl Rva000B6AF5Build(Rva000B6AF5Rec *, void **, int);
 // Retail expands the old nullable character accessor. The canonical
 // string header's current getCharAt deliberately calls a different body.

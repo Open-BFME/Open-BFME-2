@@ -134,22 +134,3 @@ void Rva004A9774AI::privateHarvest(const Coord3D *pos, CommandSourceType cmdSour
 
 // --- 0x004E07A9 (26B) / 0x004E07C3 (33B): a by-value 16-byte block and one
 // or two words.
-struct Rva004E07A9Block
-{
-	int m_data[4];
-};
-
-struct Rva004E07A9
-{
-	Rva004E07A9(Rva004E07A9Block block, int a);
-	Rva004E07A9Block m_block;
-	int m_10;
-};
-
-struct Rva004E07C3
-{
-	Rva004E07C3(Rva004E07A9Block block, int a, int b);
-	Rva004E07A9Block m_block;
-	int m_10;
-	int m_14;
-};

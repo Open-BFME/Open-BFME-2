@@ -299,24 +299,6 @@ void Rva000184F0Slots::rva000184F0()
 }
 
 // 0x0001C8B0: slot 11.
-class Rva0001C8B0Slots
-{
-public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
-	virtual void slot06();
-	virtual void slot07();
-	virtual void slot08();
-	virtual void slot09();
-	virtual void slot10();
-	virtual void slot11();
-	void rva0001C8B0();
-};
-
 // 0x0001D170: slot 3.
 class Rva0001D170Slots
 {
@@ -334,23 +316,7 @@ void Rva0001D170Slots::rva0001D170()
 }
 
 // 0x00035790: slot 0.
-class Rva00035790Slots
-{
-public:
-	virtual void slot00();
-	void rva00035790();
-};
-
 // 0x000357F0: slot 2.
-class Rva000357F0Slots
-{
-public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
-	void rva000357F0();
-};
-
 // 0x00021280 (5B), unreferenced: return the fifth argument.
 int rva00021280(int, int, int, int, int fifth)
 {

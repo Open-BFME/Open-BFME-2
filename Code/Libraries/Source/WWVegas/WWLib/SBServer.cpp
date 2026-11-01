@@ -275,16 +275,6 @@ template SBServerPair::~pair();
 // erase specialization proposed by the drift queue. WB 015FA460 passes the
 // same stack argument through the handle at +10 to native 005E4087.
 // Keep the receiver and callee address-derived until independent names exist.
-class Rva005E4087 { public: void rva005E4087(int); };
-
-class Rva005E4157
-{
-public:
-    void rva005E4157(int);
-    char unknown00[0x10];
-    Rva005E4087 *implementation;
-};
-
 // BF1 9cb assetmgr.cpp HAnimIterator predicate is a structural lead, not
 // naming proof. Complete native 5E3D8C..5E3D95 follows the previous tail
 // branch and tests receiver+14 for zero. Original owner remains unknown.
@@ -306,12 +296,6 @@ public:
 	void rva005F3F6B();
 };
 
-class Rva005F3FF4
-{
-public:
-	void rva005F3FF4();
-};
-
 class Rva005E39AE
 {
 public:
@@ -329,12 +313,6 @@ class Rva005E3E41
 {
 public:
 	void rva005E3E41();
-};
-
-class Rva005E4389
-{
-public:
-	void rva005E4389();
 };
 
 // tu-skeleton: 0x005E3B2D 29B ??0SBServer@@QAE@ABU0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_sbserver.cpp (not merged yet)

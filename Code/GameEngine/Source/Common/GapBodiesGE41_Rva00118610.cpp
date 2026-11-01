@@ -14,40 +14,10 @@ class Debug;
 extern Debug *theDebug;
 
 // --- 0x0011C300 (27B): forward three words to theDebug's slot 30 (+0x78).
-class GapDebugView30
-{
-public:
-	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
-	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
-	virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
-	virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
-	virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19();
-	virtual void v20(); virtual void v21(); virtual void v22(); virtual void v23();
-	virtual void v24(); virtual void v25(); virtual void v26(); virtual void v27();
-	virtual void v28(); virtual void v29();
-	virtual void slot30(int a, int b, int c);
-};
 void rva0011C300(int a, int b, int c);
 
 
 // --- 0x0010EFBD (16B): vtable 0x00BCFAA4 over a base that clears +4.
-class GapClearedBase
-{
-public:
-	GapClearedBase() : m_04(0) {}
-	virtual ~GapClearedBase() {}
-private:
-	int m_04;
-};
-
-class Rva0010EFBD : public GapClearedBase
-{
-public:
-	Rva0010EFBD();
-	virtual ~Rva0010EFBD() {}
-};
-
-
 // --- 0x001189C0 (45B): reset six render-state words.
 // The 0x00DEC4Ax words are the ledger's g_Va00DEC4Ax (Rva00118990Init and
 // Rva001188A0Reset own them); the 0x00DB5Fxx three had no owner, so they are

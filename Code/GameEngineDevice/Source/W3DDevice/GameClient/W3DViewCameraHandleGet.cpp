@@ -14,8 +14,6 @@
 // cl: /O1 /G7 /DNDEBUG /MD /EHsc /Oy
 class RefCountClass {public:virtual void Delete_This();int refs;__forceinline void Add_Ref(){refs++;}__forceinline void Release_Ref(){refs--;if(refs==0)Delete_This();}};
 class CameraClass : public RefCountClass {char opaque[0x3f4];};
-class HAnimClass:public RefCountClass {};
-class HAnimComboDataClass {HAnimClass*HAnim;public: __declspec(noinline) void Set_HAnim(HAnimClass*motion){if(motion)motion->Add_Ref();if(HAnim)HAnim->Release_Ref();HAnim=motion;}};
 struct Rva0008B689Element {
  CameraClass *pointer;
  Rva0008B689Element():pointer(0){}
@@ -33,6 +31,3 @@ Rva0008B689Element Rva0007BB79Owner::rva0007BB79(){
 
 // Native7FD57..7FD89 RET8, camera raw argument refreshes owner before
 // copying the counted camera handle at FC. WB744500 agrees on both operations.
-class Rva0007F0FBOwner{public:void rva0007F0FB(CameraClass*,bool);};
-class Rva0007FD57Owner{char gap[0xfc];Rva0008B689Element camera;public:Rva0008B689Element rva0007FD57(CameraClass*);};
-

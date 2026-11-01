@@ -121,21 +121,6 @@ extern const FieldParse HouseColorFields[];
 // forwarder LivingWorldCampaign's parser uses).
 class ModuleData;
 
-class Rva00289218
-{
-public:
-	void rva00289218(const ModuleData *data);
-};
-
-class Rva00288BBA
-{
-public:
-	Rva00288BBA(const AsciiString &name);
-
-private:
-	char m_unreconstructed_00[0x10];
-};
-
 class ExperienceLevelSystem;
 extern ExperienceLevelSystem *TheExperienceLevelSystem;
 extern const FieldParse ExperienceScalarTableFields[];
@@ -194,12 +179,6 @@ extern const FieldParse AwardSystemFields[];
 // Skips without TheCampaignManager (0x00E02D6C), else initFromINI the entry
 // its rowed member 0x003B93BC returns against VA 0x00C39538.
 struct BfmePod104;
-
-class Rva003B93BC
-{
-public:
-	BfmePod104 *rva003B93BC();
-};
 
 class Rva00E02D6C;
 extern Rva00E02D6C *TheCampaignManager;

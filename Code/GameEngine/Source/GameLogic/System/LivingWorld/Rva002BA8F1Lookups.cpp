@@ -22,13 +22,9 @@ public: AsciiString *find(const AsciiString &);
 private: char at00[0xc]; _STL::vector<AsciiString *> entries;
 };
 extern Rva002E18C3Lookup *TheLivingWorldPlayerTemplateStore, *TheLivingWorldAITemplateStore;
-struct Rva002000D7Config { char at00[0x34]; int at34; };
-class Rva002000D7Store { public: Rva002000D7Config *get(int); };
 extern class RankInfoStore *TheRankInfoStore;
-struct Va00DFE78CState { char at00[0x114]; int at114; };
 class GameLogic;
 extern GameLogic *TheGameLogic;
-struct Rva002BA8F1Slot { char at00[0x4c]; int at4C; };
 struct Rva002BA8F1Listener { char opaque[4]; };
 class Rva005A0B4CList { public: void append(Rva002BA8F1Listener *); char opaque[12]; };
 class Rva002E2903Player {

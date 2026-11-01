@@ -79,46 +79,6 @@ unsigned int Rva000D20A9::rva000D3BFD(const int &key)
 	return n;
 }
 
-class Rva00388EAE
-{
-public:
-	void rva00389129();
-	void rva003891E8(IntPtrTree::iterator first, IntPtrTree::iterator last);
-	unsigned int rva00389913(const int &x);
-};
-
-
-
-class Rva002EE9B7
-{
-public:
-	void rva002EE9B7();
-	void rva0046A967(IntPtrTree::iterator first, IntPtrTree::iterator last);
-	unsigned int rva0046EDEF(const int &x);
-};
-
-
-
-class Rva004E7B13
-{
-public:
-	void rva004E7BAF();
-	void rva004E7BD8(IntPtrTree::iterator first, IntPtrTree::iterator last);
-	unsigned int rva004E7D29(const int &x);
-};
-
-
-
-class Rva001E6731
-{
-public:
-	void rva001E6731();
-	void rva001E675A(IntPtrTree::iterator first, IntPtrTree::iterator last);
-	unsigned int rva001E71FA(const int &x);
-};
-
-
-
 class Rva00362AB5
 {
 public:

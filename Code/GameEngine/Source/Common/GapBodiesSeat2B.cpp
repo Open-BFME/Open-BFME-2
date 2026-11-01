@@ -57,20 +57,6 @@ int *Rva00135F0C::GetItem(int index)
 
 // --- 0x000CF0FF (12B): element count of a [begin,end) range of 0x4C-byte
 // records held at +0/+4.
-struct Rva000CF0FFRecord
-{
-	unsigned char m_data[0x4C];
-};
-
-class Rva000CF0FF
-{
-public:
-	int size() const;
-private:
-	Rva000CF0FFRecord *m_begin;
-	Rva000CF0FFRecord *m_end;
-};
-
 // --- 0x000B2B7C (11B): scales its argument by 0.001 (the constant at
 // VA 0x00BC28F8), e.g. milliseconds to seconds.
 float millisecondsToSeconds(float value)
@@ -93,14 +79,6 @@ int Rva000A47AEGet(const Rva000A47AERecord *record)
 // --- 0x000D1D2B / 0x000D1EA2 (8B each): cdecl addresses of the link words
 // at +8 and +4 of a tree-node-like record (the shape of STLport's
 // _Rb_tree _S_left / _S_parent; the instantiation is not recovered).
-struct Rva000D1D2BNode
-{
-	int m_color;
-	Rva000D1D2BNode *m_parent;
-	Rva000D1D2BNode *m_left;
-	Rva000D1D2BNode *m_right;
-};
-
 // --- 0x000E0F0E (8B): sets the byte flag at +0x44555.
 class Rva000E0F0E
 {

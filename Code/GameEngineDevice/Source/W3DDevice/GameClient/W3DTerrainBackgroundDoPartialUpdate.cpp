@@ -197,25 +197,6 @@ private:
 	T *m_referent;
 };
 
-struct BfmeResetTextureRef
-{
-	void clear();
-};
-
-class ShroudFilter
-{
-public:
-	int m_pad00[3];
-	int m_uAddressMode;
-	int m_vAddressMode;
-};
-
-class ShroudTexture
-{
-public:
-	ShroudFilter *getFilter(void);
-};
-
 class BaseHeightMapRenderObjClass
 {
 public:
@@ -265,12 +246,6 @@ inline __declspec(noinline) short BoundedShortGrid::load(int a, int b)
 		return m_data[idx];
 	return 0;
 }
-
-class Rva00729300BitPlane
-{
-public:
-	bool test(Int x, Int y) const;
-};
 
 class Rva0006653B
 {

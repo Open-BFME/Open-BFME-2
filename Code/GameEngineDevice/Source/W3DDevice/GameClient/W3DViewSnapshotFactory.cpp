@@ -10,9 +10,6 @@
 struct V3 {float x,y,z; V3(){}  void sub(const V3&p){x-=p.x;y-=p.y;z-=p.z;} void add(const V3&p){x+=p.x;y+=p.y;z+=p.z;}};
 class Rva00564E0D {public: Rva00564E0D &operator=(Rva00564E0D &other); V3 pos; AsciiString s;int v;};
 struct CameraGoalInfo {char u00[8];V3 pos;int u14;int u18;float f1c;float f20;float f24;float f28;};
-class Rva00089510 : public Rva000869CF {public:void rva00089510(bool orient,float firstAngle,int offset);};
-class PathVirtual {public: virtual void s0();virtual void s1();virtual void init(int,int,float,float,int,int);};
-class TerrainView {public:virtual void s0();virtual void s1();virtual void s2();virtual void s3();virtual void s4();virtual void s5();virtual float ground(float,float,void*);};
 class TerrainLogic;
 extern TerrainLogic *TheTerrainLogic;
 class Rva0030E7D0

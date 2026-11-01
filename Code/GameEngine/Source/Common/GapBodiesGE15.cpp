@@ -12,17 +12,6 @@ struct GapPair
 };
 
 // --- 0x002E7334 (26B): a word and a pair; 0x002E734E (58B): cell callback.
-struct Rva002E734ECell { int m_pad00[3]; unsigned int m_flags; };
-
-struct Rva002E7334
-{
-	Rva002E7334(int value, const GapPair &pair);
-	int rva002E734E(Rva002E734ECell *from, Rva002E734ECell *to, int cellColumn, int cellRow);
-	int m_00;
-	int m_04;
-	int m_08;
-};
-
 // --- 0x004E4E05 (37B): copy five settings from another record;
 // 0x004E4E2A (48B): the +0x08 value clamped to [0, 1].
 class Rva004E4E05
@@ -131,11 +120,3 @@ void Rva0052A621::rva0052A652(int value)
 }
 
 // --- 0x005DBB4D (45B): the 8x8 short table at +0x838, 0 out of range.
-class Rva005DBB4D
-{
-public:
-	short rva005DBB4D(unsigned short row, unsigned short column) const;
-private:
-	char m_pad[0x838];
-	short m_table[8][8];
-};
