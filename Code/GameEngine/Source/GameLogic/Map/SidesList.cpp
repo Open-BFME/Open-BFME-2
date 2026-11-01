@@ -49,6 +49,7 @@ class Rva00329D0E
 {
 public:
 	~Rva00329D0E();
+	char m_pad00[0x10];
 };
 void Rva0032AF56Destroy(Rva00329D0E *first, Rva00329D0E *last);
 #define _CRTIMP
@@ -1490,7 +1491,7 @@ public:
 class Q1Forwardee0000871A
 {
 public:
-	void handle(int id);
+	void handle(int id); // 0x00306D7B
 };
 
 class Rva0032989FBase
@@ -1548,7 +1549,8 @@ private:
 class Rva00148F5ECache
 {
 public:
-	NameKeyType get(void);
+	NameKeyType get(void); // 0x00148F5E
+	operator NameKeyType() { return get(); }
 	NameKeyType key;
 	const char *name;
 };
@@ -1570,10 +1572,10 @@ class Rva00329EE9
 {
 public:
 	bool rva00329EE9(void) const;
-
 private:
-	int m_prefix;
-	Rva00329EE9Dict m_dict;
+	int m_prefix; // +0x00
+	Rva00329EE9Dict m_dict; // +0x04
+	char m_pad05[0x3];
 };
 
 struct Rva00193660Src
@@ -1658,11 +1660,11 @@ public:
 	const void *m_arg;
 };
 
-class Rva0032A3A9Element {
+class Rva0032A3A9Element
+{
 public:
 	virtual ~Rva0032A3A9Element();
-private:
-	char m_pad[124];
+	char m_pad04[0x7C];
 };
 
 namespace _STL {
@@ -1675,8 +1677,8 @@ class Rva0032BF1B
 public:
 	~Rva0032BF1B();
 private:
-	Rva0032A3A9Element *m_start;
-	Rva0032A3A9Element *m_finish;
+	Rva0032A3A9Element *m_start; // +0x00
+	Rva0032A3A9Element *m_finish; // +0x04
 };
 
 // ?Rva0032BF39Equal@@YA_NHH@Z @0x0032BF39 21B chain via 0x0032B610
@@ -1685,7 +1687,8 @@ int __cdecl Rva0032B610Compare(int a, int b);
 
 struct Rva0032C0E3Element
 {
-	char m_body[0x80];
+public:
+	char m_body[0x80]; // +0x00
 };
 
 // Use the rowed 0x0032C0E3 assignment rather than emitting a POD-only copy.
@@ -1821,11 +1824,11 @@ class Rva0032ED61
 {
 public:
 	void rva0032ED61();
-private:
 	char m_pad00[0x24];
-	Rva0032D3D3 m_24;
-	char m_pad2C[0x30 - 0x24 - 8];
-	Rva0032EAA1 m_30;
+private:
+	Rva0032D3D3 m_24; // +0x24
+	char m_pad2C[0x4];
+	Rva0032EAA1 m_30; // +0x30
 };
 
 class BfmeParserRegistryVE
@@ -1849,12 +1852,11 @@ private:
 class Rva003B3417 : public BfmeParserBindingBaseVE
 {
 public:
-	Rva003B3417(void *a, void *b, BfmeParserRegistryVE *registry, const AsciiString *parentLabel);
+	Rva003B3417(void *a, void *b, BfmeParserRegistryVE *registry, const AsciiString *parentLabel); // 0x003B3417
+	virtual ~Rva003B3417(); // 0x003B3417
 private:
-	void *m_a;
-	void *m_b;
-public:
-	virtual ~Rva003B3417();	// rowed elsewhere; declared so this unit binds to it
+	void *m_a; // +0x0C
+	void *m_b; // +0x10
 };
 
 class Rva0032A082 : public Rva003B3417
@@ -1877,17 +1879,17 @@ class Rva0032A438
 public:
 	void rva0032A438(AsciiString s);
 private:
-	int m_00;
-	AsciiString m_04;
+	int m_00; // +0x00
+	AsciiString m_04; // +0x04
 };
 
 class Rva0032A46C
 {
 public:
 	void rva0032A46C(AsciiString s);
+	char m_pad00[0x30];
 private:
-	char m_pad[48];
-	AsciiString m_30;
+	AsciiString m_30; // +0x30
 };
 
 class BfmeWordEL : private AsciiString
@@ -1935,10 +1937,39 @@ struct RvaPair0032C0CA
 // releaseBuffer 0x00036410). Offset 0xF44 from retail add ecx.
 //
 
+struct Rva0019B780Key
+{
+	AsciiString first;
+	AsciiString second;
+};
+
+struct Rva0019B780Node
+{
+	unsigned char m_data[0x1c];
+};
+
+class Rva0019B780Tree
+{
+public:
+	Rva0019B780Node *find( const Rva0019B780Key &key ) const throw();
+
+private:
+	unsigned char m_tree[12];
+};
+
+struct Rva0019B780Entry
+{
+	unsigned char m_data[16];
+};
+
 class Rva0019C520Member
 {
 public:
-	int lookup(AsciiString *name, int extra);
+	int lookup( AsciiString *name, int extra );
+
+private:
+	Rva0019B780Tree m_tree;
+	Rva0019B780Entry *m_entries;
 };
 
 class Rva0019C520Owner

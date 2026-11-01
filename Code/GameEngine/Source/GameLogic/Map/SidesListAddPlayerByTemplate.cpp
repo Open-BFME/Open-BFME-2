@@ -20,9 +20,10 @@ enum NameKeyType
 class Rva00148F5ECache
 {
 public:
-	NameKeyType get();
-	NameKeyType m_key;
-	const char *m_name;
+	NameKeyType get(void); // 0x00148F5E
+	operator NameKeyType() { return get(); }
+	NameKeyType key;
+	const char *name;
 };
 
 // Use the existing const StaticNameKey owners through the retail lazy-cache

@@ -10,12 +10,19 @@
 // spellings below describe the recovered operations, not original names.
 #include "ascii_string.h"
 
-class DataChunkOutput {
+enum NameKeyType { NAMEKEY_INVALID = 0 };
+class Dict;
+class DataChunkOutput
+{
 public:
-    void openDataChunk(char *name, unsigned short version);
-    void closeDataChunk();
-    void writeInt(int value);
-    void writeAsciiString(const AsciiString &value);
+	void openDataChunk(char *name, unsigned short version); // 0x00307C76
+	void closeDataChunk(); // 0x00306C88
+	void writeInt(int value); // 0x00306CFF
+	void writeAsciiString(const AsciiString &value); // 0x00307033
+	void writeReal(float value); // 0x00306CFF
+	void writeByte(unsigned char value); // 0x00306D17
+	void writeNameKey(NameKeyType key); // 0x00307D29
+	void writeDict(const Dict &d); // 0x00307D85
 };
 class ScriptList {
 public:

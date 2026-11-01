@@ -35,11 +35,10 @@ enum NameKeyType
 class Rva00148F5ECache
 {
 public:
-	NameKeyType get();
-
-private:
-	NameKeyType m_key;
-	const char *m_name;
+	NameKeyType get(void); // 0x00148F5E
+	operator NameKeyType() { return get(); }
+	NameKeyType key;
+	const char *name;
 };
 
 extern Rva00148F5ECache TheKey_playerFaction;
@@ -128,33 +127,38 @@ private:
 	Dict m_dict; // +0x04
 };
 
+class Dict;
 class DataChunkOutput
 {
 public:
-	void openDataChunk(char *name, unsigned short version);
-	void closeDataChunk();
-	void writeReal(float value);
-	void writeInt(int value);
-	void writeByte(unsigned char value);
-	void writeAsciiString(const AsciiString &string);
-	void writeNameKey(NameKeyType key);
+	void openDataChunk(char *name, unsigned short version); // 0x00307C76
+	void closeDataChunk(); // 0x00306C88
+	void writeInt(int value); // 0x00306CFF
+	void writeAsciiString(const AsciiString &value); // 0x00307033
+	void writeReal(float value); // 0x00306CFF
+	void writeByte(unsigned char value); // 0x00306D17
+	void writeNameKey(NameKeyType key); // 0x00307D29
+	void writeDict(const Dict &d); // 0x00307D85
 };
 
 class NameKeyGenerator
 {
 public:
-	NameKeyType nameToKey(const AsciiString &name);
-	NameKeyType nameToKey(const char *name);
+	NameKeyType nameToKey(const AsciiString &name); // 0x0009FA65
+	NameKeyType nameToKey(const char *name); // 0x00148E1A
 };
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 class PlayerTemplate
 {
-	char m_pad00[0x18];
-
 public:
+	const AsciiString &getDefaultAIType() const { return m_defaultAIType; }
+	char m_pad00[0x18];
 	AsciiString m_side; // +0x18
+	char m_pad1C[0x194];
+private:
+	AsciiString m_defaultAIType; // +0x1B0
 };
 
 class PlayerTemplateStore
@@ -167,10 +171,15 @@ extern PlayerTemplateStore *ThePlayerTemplateStore;
 
 class ThingTemplate
 {
-	char m_pad00[0x10A];
+public:
+	const AsciiString &getName() const { return m_name; }
+	__forceinline bool isKindOf(int t) const { return (m_kindOf[t >> 3] & (1 << (t & 7))) != 0; }
 
 public:
-	unsigned char m_kindOfByte2; // +0x10A
+	char m_pad00[0x64];
+	AsciiString m_name;					// +0x64
+	char m_pad68[0x108 - 0x68];
+	unsigned char m_kindOf[4];			// +0x108, byte 2 at +0x10A
 };
 
 class ThingFactory
@@ -242,7 +251,7 @@ void SidesList::rva0032A5FC(DataChunkOutput &chunkWriter)
 			{
 				const ThingTemplate *thing = TheThingFactory->findTemplate(
 					((const TerrainType *)pBuildList)->getTexture());
-				if (thing && (thing->m_kindOfByte2 & 4))
+				if (thing && (thing->m_kindOf[2] & 4))
 				{
 					center = *pBuildList->getLocation();
 					break;

@@ -11,7 +11,14 @@
 // These are the rowed call owners at 0x0032B580 and 0x0032BF1B.
 // The casts below bind the proven call targets without asserting element identity.
 class Rva0032A3A9Element;
-class Rva0032BF1B { public: ~Rva0032BF1B(); };
+class Rva0032BF1B
+{
+public:
+	~Rva0032BF1B();
+private:
+	Rva0032A3A9Element *m_start; // +0x00
+	Rva0032A3A9Element *m_finish; // +0x04
+};
 
 namespace _STL {
 struct __false_type
@@ -53,7 +60,11 @@ template <class ForwardIter>
 void _Destroy(ForwardIter first, ForwardIter last);
 }
 
-struct Rva0032C0E3Element { unsigned char bytes[128]; };
+struct Rva0032C0E3Element
+{
+public:
+	char m_body[0x80]; // +0x00
+};
 
 template <class Type, class Allocator>
 _STL::vector<Type, Allocator> &_STL::vector<Type, Allocator>::operator=(const vector &x)

@@ -8,8 +8,7 @@ class Rva00329D0E
 {
 public:
 	~Rva00329D0E();
-
-	char m_pad[0x10];
+	char m_pad00[0x10];
 };
 
 void Rva0032AF56Destroy(Rva00329D0E *first, Rva00329D0E *last)

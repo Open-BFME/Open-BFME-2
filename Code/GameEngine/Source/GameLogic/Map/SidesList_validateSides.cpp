@@ -54,8 +54,8 @@ enum NameKeyType { NAMEKEY_INVALID = 0 };
 class NameKeyGenerator
 {
 public:
-	NameKeyType nameToKey(const AsciiString &name);	// 0x0009FA65
-	NameKeyType nameToKey(const char *name);	// 0x00148E1A
+	NameKeyType nameToKey(const AsciiString &name); // 0x0009FA65
+	NameKeyType nameToKey(const char *name); // 0x00148E1A
 };
 extern NameKeyGenerator *TheNameKeyGenerator;
 
@@ -75,13 +75,13 @@ extern const StaticNameKey TheKey_objectBaseName;		// VA 0x00DBDD14
 extern const StaticNameKey TheKey_objectBasePriority;	// VA 0x00DBDD84
 extern const StaticNameKey TheKey_objectBasePhase;		// VA 0x00DBDD8C
 // Preserve the data ledger's established provider spelling for this key.
-class Rva00148F5ECache {
+class Rva00148F5ECache
+{
 public:
-    NameKeyType get();
-    operator NameKeyType() { return get(); }
-private:
-    int m_key;
-    const char *m_name;
+	NameKeyType get(void); // 0x00148F5E
+	operator NameKeyType() { return get(); }
+	NameKeyType key;
+	const char *name;
 };
 extern Rva00148F5ECache TheKey_playerAIType;
 extern const StaticNameKey TheKey_playerName;			// VA 0x00DBDE24
@@ -129,12 +129,11 @@ class ChunkInputStream
 class Rva00240000 : public ChunkInputStream
 {
 public:
-	Rva00240000();						// 0x00240000
-	~Rva00240000();						// 0x0023F4F0
-	bool rva00308050(AsciiString path);	// 0x00308050, open
-
+	Rva00240000() throw(); // 0x00240000
+	~Rva00240000(); // 0x0023F4F0
+	bool rva00308050(AsciiString path); // 0x00308050, open
 private:
-	char m_data[0x20];
+	char m_data[0x20]; // +0x00
 };
 
 class Rva003079ED
@@ -146,18 +145,17 @@ public:
 class DataChunkInput
 {
 public:
-	explicit DataChunkInput(ChunkInputStream *stream);	// 0x00307316
-	~DataChunkInput();					// 0x00306F01
-	int readInt();						// 0x00306E78
-	float readReal();					// 0x00306E56
-	unsigned char readByte();			// 0x00306E9A
-	NameKeyType readNameKey();			// 0x003077E0
-	AsciiString readAsciiString();		// 0x0030750A
-	Dict readDict();					// 0x00307833
-	bool parse(void *userData);			// 0x00307AC0
-
+	explicit DataChunkInput(ChunkInputStream *stream); // 0x00307316
+	~DataChunkInput(); // 0x00306F01
+	int readInt(); // 0x00306E78
+	float readReal(); // 0x00306E56
+	unsigned char readByte(); // 0x00306E9A
+	NameKeyType readNameKey(); // 0x003077E0
+	AsciiString readAsciiString(); // 0x0030750A
+	Dict readDict(); // 0x00307833
+	bool parse(void *userData); // 0x00307AC0
 private:
-	char m_data[0x28];
+	char m_data[0x28]; // +0x00
 };
 
 // DataChunkInput's parser unregistration (WB DataChunkInput::unregisterParser),
@@ -165,7 +163,7 @@ private:
 class Q1Forwardee0000871A
 {
 public:
-	void handle(int token);				// 0x00306D7B
+	void handle(int id); // 0x00306D7B
 };
 
 // The parser binding that registers "PlayerScriptsList" on construction and
@@ -188,11 +186,11 @@ private:
 class Rva003B3417 : public BfmeParserBindingBaseVE
 {
 public:
-	Rva003B3417(void *scripts, void *count, BfmeParserRegistryVE *registry, const AsciiString *parentLabel);	// 0x003B3417
-
+	Rva003B3417(void *a, void *b, BfmeParserRegistryVE *registry, const AsciiString *parentLabel); // 0x003B3417
+	virtual ~Rva003B3417(); // 0x003B3417
 private:
-	void *m_scripts;
-	void *m_count;
+	void *m_a; // +0x0C
+	void *m_b; // +0x10
 };
 
 // The binding that registers "LibraryMaps" and fills one vector<AsciiString>
@@ -230,17 +228,18 @@ public:
 	void rva003B89A7(BfmeSubGE *other);	// 0x003B89A7
 };
 
+class Dict;
 class DataChunkOutput
 {
 public:
-	void openDataChunk(char *name, unsigned short ver);	// 0x00307C76
-	void closeDataChunk();				// 0x00306C88
-	void writeNameKey(NameKeyType key);	// 0x00307D29
-	void writeReal(float r);			// 0x00306CFF
-	void writeInt(int i);				// 0x00306CFF
-	void writeByte(unsigned char b);	// 0x00306D17
-	void writeAsciiString(const AsciiString &s);	// 0x00307033
-	void writeDict(const Dict &d);		// 0x00307D85
+	void openDataChunk(char *name, unsigned short version); // 0x00307C76
+	void closeDataChunk(); // 0x00306C88
+	void writeInt(int value); // 0x00306CFF
+	void writeAsciiString(const AsciiString &value); // 0x00307033
+	void writeReal(float value); // 0x00306CFF
+	void writeByte(unsigned char value); // 0x00306D17
+	void writeNameKey(NameKeyType key); // 0x00307D29
+	void writeDict(const Dict &d); // 0x00307D85
 };
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
@@ -253,11 +252,11 @@ public:
 	const AsciiString &getName() const { return m_name; }
 	__forceinline bool isKindOf(int t) const { return (m_kindOf[t >> 3] & (1 << (t & 7))) != 0; }
 
-private:
+public:
 	char m_pad00[0x64];
 	AsciiString m_name;					// +0x64
 	char m_pad68[0x108 - 0x68];
-	unsigned char m_kindOf[4];			// +0x108
+	unsigned char m_kindOf[4];			// +0x108, byte 2 at +0x10A
 };
 
 // MapObject resolves the final template override at 0x0030D833; the
@@ -317,9 +316,27 @@ struct BfmeE8 { float x; float y; };
 // By-value AsciiString setters at BuildListInfo +0x04, +0x08 and +0x30. The
 // first and last sit beside BuildListInfo's ctor and dtor; +0x08 is folded
 // with another class's setter at 0x002AAE81.
-class Rva0032A438 { public: void rva0032A438(AsciiString s); };
-class Rva002AAE81 { public: void rva002AAE81(AsciiString s); };
-class Rva0032A46C { public: void rva0032A46C(AsciiString s); };
+class Rva0032A438
+{
+public:
+	void rva0032A438(AsciiString s);
+private:
+	int m_00; // +0x00
+	AsciiString m_04; // +0x04
+};
+class Rva002AAE81
+{
+public:
+	void rva002AAE81(AsciiString name);
+};
+class Rva0032A46C
+{
+public:
+	void rva0032A46C(AsciiString s);
+	char m_pad00[0x30];
+private:
+	AsciiString m_30; // +0x30
+};
 
 // The by-value getter of the AsciiString at +0x04, folded with other classes'
 // name getters at 0x00564DF2.
@@ -492,13 +509,71 @@ private:
 // The chunk parsers, writers and library-map linkers of this class are rowed
 // in SidesListDataChunks.cpp; this unit keeps validateSides only.
 
-class Rva00329EE9 { public: bool rva00329EE9() const; };
+class Rva00329EE9StringValue;
+class Rva00329EE9Dict
+{
+public:
+	Rva00329EE9StringValue getAsciiString(int key, bool *exists) const;
+};
+
+class Rva00329EE9
+{
+public:
+	bool rva00329EE9(void) const;
+private:
+	int m_prefix; // +0x00
+	Rva00329EE9Dict m_dict; // +0x04
+	char m_pad05[0x3];
+};
 
 
 extern Rva00148F5ECache TheKey_teamIsSingleton;
 extern Rva00148F5ECache TheKey_playerAllies;
 extern Rva00148F5ECache TheKey_playerEnemies;
-class Rva0019C520Owner { public: int forward(AsciiString name, int index); };
+struct Rva0019B780Key
+{
+	AsciiString first;
+	AsciiString second;
+};
+
+struct Rva0019B780Node
+{
+	unsigned char m_data[0x1c];
+};
+
+class Rva0019B780Tree
+{
+public:
+	Rva0019B780Node *find( const Rva0019B780Key &key ) const throw();
+
+private:
+	unsigned char m_tree[12];
+};
+
+struct Rva0019B780Entry
+{
+	unsigned char m_data[16];
+};
+
+class Rva0019C520Member
+{
+public:
+	int lookup( AsciiString *name, int extra );
+
+private:
+	Rva0019B780Tree m_tree;
+	Rva0019B780Entry *m_entries;
+};
+
+class Rva0019C520Owner
+{
+public:
+	int forward(AsciiString name, int extra);
+
+private:
+	char m_head[0xF44];
+	Rva0019C520Member m_member;
+};
 AsciiString Rva0032B389Join(const AsciiString &a, const AsciiString &b);
 
 bool SidesList::validateSides()

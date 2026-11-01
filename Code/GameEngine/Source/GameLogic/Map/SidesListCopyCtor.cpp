@@ -62,9 +62,12 @@ private:
 	char m_body[0x10];
 };
 
+class Rva00281A15Listener;
 class SidesListNotifier : public Rva00330757Member
 {
 public:
+	void post(void (*callback)(), void *owner, int index);
+	void post(void (Rva00281A15Listener::*callback)(void *), void *owner);
 	__forceinline SidesListNotifier() : Rva00330757Member() {}
 	__forceinline SidesListNotifier(const SidesListNotifier &) : Rva00330757Member() {}
 };
@@ -98,7 +101,8 @@ private:
 
 struct Rva0032C0E3Element
 {
-	char m_body[0x80];
+public:
+	char m_body[0x80]; // +0x00
 };
 // POD cleanup stays inline, as in SidesListCopyCtors.cpp, so this unit does
 // not compete with the rowed nontrivial destroy worker at 0x32B580.

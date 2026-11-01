@@ -72,12 +72,11 @@ class ChunkInputStream
 class Rva00240000 : public ChunkInputStream
 {
 public:
-	Rva00240000() throw();						// 0x00240000
-	~Rva00240000();						// 0x0023F4F0
-	bool rva00308050(AsciiString path);	// 0x00308050, open
-
+	Rva00240000() throw(); // 0x00240000
+	~Rva00240000(); // 0x0023F4F0
+	bool rva00308050(AsciiString path); // 0x00308050, open
 private:
-	char m_data[0x20];
+	char m_data[0x20]; // +0x00
 };
 
 class Rva003079ED
@@ -86,15 +85,22 @@ public:
 	void rva003079ED();					// 0x003079ED, close
 };
 
+enum NameKeyType { NAMEKEY_INVALID = 0 };
+class Dict;
 class DataChunkInput
 {
 public:
-	explicit DataChunkInput(ChunkInputStream *stream);	// 0x00307316
-	~DataChunkInput();					// 0x00306F01
-	bool parse(void *userData);			// 0x00307AC0
-
+	explicit DataChunkInput(ChunkInputStream *stream); // 0x00307316
+	~DataChunkInput(); // 0x00306F01
+	int readInt(); // 0x00306E78
+	float readReal(); // 0x00306E56
+	unsigned char readByte(); // 0x00306E9A
+	NameKeyType readNameKey(); // 0x003077E0
+	AsciiString readAsciiString(); // 0x0030750A
+	Dict readDict(); // 0x00307833
+	bool parse(void *userData); // 0x00307AC0
 private:
-	char m_data[0x28];
+	char m_data[0x28]; // +0x00
 };
 
 // DataChunkInput's parser unregistration (WB DataChunkInput::unregisterParser),
@@ -102,7 +108,7 @@ private:
 class Q1Forwardee0000871A
 {
 public:
-	void handle(int token);				// 0x00306D7B
+	void handle(int id); // 0x00306D7B
 };
 
 // The chunk parser binding: registers its label on construction and
@@ -141,7 +147,38 @@ private:
 };
 
 // The castle build-list and path maps' clear (this +0x24 and +0x30).
-class Rva0032ED61 { public: void rva0032ED61(); };
+struct Rva0032EAA1Node;
+class Rva0032D3D3
+{
+public:
+	void rva0032DCB7();
+private:
+	void *m_head;
+private:
+	int m_flag;
+public:
+	~Rva0032D3D3();
+};
+
+class Rva0032EAA1
+{
+public:
+	void rva0032EAA1(void *p);
+	void rva0032EB5E();
+	Rva0032EAA1Node *m_header;
+	int m_count;
+};
+
+class Rva0032ED61
+{
+public:
+	void rva0032ED61();
+	char m_pad00[0x24];
+private:
+	Rva0032D3D3 m_24; // +0x24
+	char m_pad2C[0x4];
+	Rva0032EAA1 m_30; // +0x30
+};
 
 // The SidesList chunk binding (BfmeDataChunkParserBinding.cpp): its callback
 // is an 8-byte member pointer, its base destructor the inline one above.

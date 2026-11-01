@@ -34,7 +34,8 @@ enum NameKeyType { NAMEKEY_INVALID = 0 };
 class NameKeyGenerator
 {
 public:
-	NameKeyType nameToKey(const AsciiString &name);	// 0x0009FA65
+	NameKeyType nameToKey(const AsciiString &name); // 0x0009FA65
+	NameKeyType nameToKey(const char *name); // 0x00148E1A
 };
 extern NameKeyGenerator *TheNameKeyGenerator;
 
@@ -53,12 +54,10 @@ private:
 class Rva00148F5ECache
 {
 public:
-	NameKeyType get();					// 0x00148F5E
+	NameKeyType get(void); // 0x00148F5E
 	operator NameKeyType() { return get(); }
-
-private:
-	NameKeyType m_key;
-	const char *m_name;
+	NameKeyType key;
+	const char *name;
 };
 
 extern const StaticNameKey TheKey_playerName;		// VA 0x00DBDE24
@@ -94,10 +93,11 @@ class PlayerTemplate
 {
 public:
 	const AsciiString &getDefaultAIType() const { return m_defaultAIType; }
-
+	char m_pad00[0x18];
+	AsciiString m_side; // +0x18
+	char m_pad1C[0x194];
 private:
-	char m_pad000[0x1B0];
-	AsciiString m_defaultAIType;		// +0x1B0
+	AsciiString m_defaultAIType; // +0x1B0
 };
 
 class PlayerTemplateStore

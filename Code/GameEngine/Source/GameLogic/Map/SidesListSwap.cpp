@@ -41,10 +41,24 @@ private:
 	char m_body[0x1C];
 };
 
-class SidesListNotifier
+class Rva00330757Member
+{
+public:
+	__declspec(nothrow) Rva00330757Member();
+	~Rva00330757Member();
+
+private:
+	char m_body[0x10];
+};
+
+class Rva00281A15Listener;
+class SidesListNotifier : public Rva00330757Member
 {
 public:
 	void post(void (*callback)(), void *owner, int index);
+	void post(void (Rva00281A15Listener::*callback)(void *), void *owner);
+	__forceinline SidesListNotifier() : Rva00330757Member() {}
+	__forceinline SidesListNotifier(const SidesListNotifier &) : Rva00330757Member() {}
 };
 
 struct SidesListExtra
@@ -63,7 +77,7 @@ public:
 private:
 	char m_head[0x10];
 	SidesListNotifier m_notifier;          // +0x10
-	char m_pad[0x3C - 0x11];
+	char m_pad[0x3C - 0x20];
 	int m_numSides;                        // +0x3C
 	SidesInfo m_sides[20];                 // +0x40
 	int m_numSkirmishSides;                // +0x7C0

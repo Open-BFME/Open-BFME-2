@@ -21,11 +21,10 @@ enum NameKeyType
 class Rva00148F5ECache
 {
 public:
-	NameKeyType get();
-
-private:
-	NameKeyType m_key;
-	const char *m_name;
+	NameKeyType get(void); // 0x00148F5E
+	operator NameKeyType() { return get(); }
+	NameKeyType key;
+	const char *name;
 };
 
 class StaticNameKey;

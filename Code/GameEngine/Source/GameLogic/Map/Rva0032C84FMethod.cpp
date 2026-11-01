@@ -6,17 +6,20 @@ enum NameKeyType
 	NAMEKEY_INVALID = 0
 };
 
+class AsciiString;
 class NameKeyGenerator
 {
 public:
-	NameKeyType nameToKey(const char *s);
+	NameKeyType nameToKey(const AsciiString &name); // 0x0009FA65
+	NameKeyType nameToKey(const char *name); // 0x00148E1A
 };
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 class Rva0032A3A9Element
 {
 public:
-	char m_pad[4];
+	virtual ~Rva0032A3A9Element();
+	char m_pad04[0x7C];
 };
 
 namespace _STL

@@ -5,9 +5,24 @@
 // The indexed post stores an opaque second word: the other owner pointer
 // here. The callback is the existing compiler vcall thunk5CB27E, slot20.
 // Callback owner/method identities and the original method name are unknown.
-class SidesListNotifier {
+class Rva00330757Member
+{
 public:
-    void post(void (*callback)(), void *owner, int argumentWord);
+	__declspec(nothrow) Rva00330757Member();
+	~Rva00330757Member();
+
+private:
+	char m_body[0x10];
+};
+
+class Rva00281A15Listener;
+class SidesListNotifier : public Rva00330757Member
+{
+public:
+	void post(void (*callback)(), void *owner, int index);
+	void post(void (Rva00281A15Listener::*callback)(void *), void *owner);
+	__forceinline SidesListNotifier() : Rva00330757Member() {}
+	__forceinline SidesListNotifier(const SidesListNotifier &) : Rva00330757Member() {}
 };
 class SidesList {
 public:
@@ -15,7 +30,7 @@ public:
 private:
     char unknown00[0x10];
     SidesListNotifier m_notifier;
-    char unknown11[0xF7C-0x11];
+    char m_pad20[0xF7C-0x20];
     bool m_cleared;
 };
 class Rva0032B833Listener {

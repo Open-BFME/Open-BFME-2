@@ -35,10 +35,24 @@ public:
 	void swap(TeamsInfoRec *other);
 };
 
-class SidesListNotifier
+class Rva00330757Member
 {
 public:
-	void post(void (*callback)(), void *owner, int other);
+	__declspec(nothrow) Rva00330757Member();
+	~Rva00330757Member();
+
+private:
+	char m_body[0x10];
+};
+
+class Rva00281A15Listener;
+class SidesListNotifier : public Rva00330757Member
+{
+public:
+	void post(void (*callback)(), void *owner, int index);
+	void post(void (Rva00281A15Listener::*callback)(void *), void *owner);
+	__forceinline SidesListNotifier() : Rva00330757Member() {}
+	__forceinline SidesListNotifier(const SidesListNotifier &) : Rva00330757Member() {}
 };
 
 class SidesList
@@ -50,7 +64,7 @@ public:
 private:
 	char m_pad00[0x10];
 	SidesListNotifier m_notifier;
-	char m_pad[0xF44 - 0x11];
+	char m_pad[0xF44 - 0x20];
 	TeamsInfoRec m_teamrec;
 	char m_padF45[0xF7C - 0xF44 - sizeof(TeamsInfoRec)];
 	unsigned char m_flagF7C;

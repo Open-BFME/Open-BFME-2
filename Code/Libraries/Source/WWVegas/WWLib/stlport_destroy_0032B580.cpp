@@ -7,11 +7,11 @@
 // rowed __destroy_aux at 0x0032A3A9. Evidence: chain from 0x0032A3A9 which this
 // session landed; callers at 0x0032BE9A/0x0032BF07/0x0032BF23/0x0032C152.
 // Named-local tag (not __false_type() temporary) avoids the 8B stosb zeroing.
-class Rva0032A3A9Element {
+class Rva0032A3A9Element
+{
 public:
 	virtual ~Rva0032A3A9Element();
-private:
-	char m_pad[124];
+	char m_pad04[0x7C];
 };
 namespace _STL {
 struct __false_type {
