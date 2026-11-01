@@ -70,3 +70,13 @@ existing sizeof-checked ten-ID trivial carrier copies the array before the
 m_desiredGatherers initializer. Native253-byte body and its exception handler
 match exactly, preserving the actual three-string/base construction states.
 There is no raw assembly or replacement virtual/default provider.
+
+Seven unique class consumers adopted: name getter, default ctor/duplicate,
+assignment, destructor, INI parser, transfer, copy constructor. Both the owned
+rows and all runtime/table/provider data are preserved. The served SidesList
+caller remains unchanged and blocked on canonical coordinates, with the
+failure logged against its existing addToBuildList row solely as attempt
+context; that matched original body is not a regression and remains verified.
+Original all-eight before/after graphs are retained as well as the aggregate
+proof. Unused SidesList class/root-shim claims can be released after exact
+restoration; native header and six edited owner file claims await landing.
