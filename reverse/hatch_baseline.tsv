@@ -12066,7 +12066,6 @@ present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	buildBaseDefenseS
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	buildSpecificBuilding@Player@@QAEXABVAsciiString@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	buildSpecificTeam@Player@@QAEXPAVTeamPrototype@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	buildUpgrade@Player@@QAEXABVAsciiString@@@Z	1
-present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	calcClosestConstructionZoneLocation@Player@@QAE_NPBVThingTemplate@@PAUCoord3D@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	canAffordBuild@Player@@QBE_NPBVThingTemplate@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	canBuildMoreOfType@Player@@QBE_NPBVThingTemplate@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	countReadyShortcutSpecialPowersOfType@Player@@QAEHW4SpecialPowerType@@@Z	1

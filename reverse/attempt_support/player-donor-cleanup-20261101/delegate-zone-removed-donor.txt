@@ -1,0 +1,9 @@
+Bool Player::calcClosestConstructionZoneLocation( const ThingTemplate *constructTemplate, Coord3D *location )
+{
+	if( m_ai )
+	{
+		return m_ai->calcClosestConstructionZoneLocation( constructTemplate, location );
+	}
+
+  return FALSE;
+}

@@ -1554,16 +1554,8 @@ void Player::recruitSpecificTeam( TeamPrototype *teamProto, Real recruitRadius)
 //=============================================================================
 // Calculates the closest construction zone location based on a template. Gets plassed to aiPlayer
 //=============================================================================
-// ?calcClosestConstructionZoneLocation@Player@@QAE_NPBVThingTemplate@@PAUCoord3D@@@Z present-unmatched
-Bool Player::calcClosestConstructionZoneLocation( const ThingTemplate *constructTemplate, Coord3D *location )
-{
-	if( m_ai )
-	{
-		return m_ai->calcClosestConstructionZoneLocation( constructTemplate, location );
-	}
 
-  return FALSE;
-}
+
 
 //=============================================================================
 // Player::hasPrereqsForScience is defined with its retail-matched body in Code/GameEngine/Source/Common/RTS/Player_hasPrereqsForScience_Rva002A9EAC.cpp (0x002A9EAC).

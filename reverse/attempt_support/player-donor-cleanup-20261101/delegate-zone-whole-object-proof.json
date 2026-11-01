@@ -1,0 +1,11 @@
+{
+  "base": "6584c197419be3fc15b423d5142c7de896336fc3",
+  "before_definitions": 347,
+  "after_definitions": 346,
+  "added": [],
+  "removed": [
+    "?calcClosestConstructionZoneLocation@Player@@QAE_NPBVThingTemplate@@PAUCoord3D@@@Z"
+  ],
+  "changed": [],
+  "all_retained_whole_code_and_relocations_equal": true
+}

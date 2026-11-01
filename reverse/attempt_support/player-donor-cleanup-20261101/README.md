@@ -116,3 +116,7 @@ preview's unresolved names from 28 to 26; one vector losing/wrong-selected
 copy still blocks the unit. No census gain is claimed. The preceding snapshot
 batch's wider audit remains inconclusive on the older index and an AIBuildable
 receipt; it is carried into the next census, without claiming full clearance.
+
+## Isolated donor delegate: calcClosestConstructionZoneLocation
+
+The unrowed donor is removed after the saved reference audit finds only a debug incoming edge and no outside-index caller. All 12 function rows and the owned global still verify. The sole removed definition is this method; all 346 retained complete code definitions/relocations are identical to the preceding 347-definition control. Its one placeholder hatch retires through the owning counter. The removed donor text is evidence only, not a target-body or original-name claim.
