@@ -194,11 +194,6 @@ struct Rva002E5678Cmp
 	bool operator()(const StringLookUp &a, const StringLookUp &b) const;
 };
 
-namespace _STL
-{
-template <> void sort<StringLookUp *, Rva002E5678Cmp>(StringLookUp *, StringLookUp *, Rva002E5678Cmp);
-}
-
 struct NoString
 {
 	NoString *next;
@@ -326,7 +321,33 @@ public:
 	StringLookUp *m_lookup;	// +0x08
 };
 
-class GameTextManager : public SubsystemInterface
+// GameTextInterface, the abstract string-table subsystem (Zero Hour's
+// GameText.h). Retail table 0x00804E90 (22 slots) is SubsystemInterface's 14
+// with __purecall at init, reset and update, then eight __purecall slots
+// (14-21) that GameTextManager's table 0x00804FA8 fills with fetch, fetchPtr,
+// getStringsWithLabelPrefix, initMapStringFile and the translate mode. The
+// destructor is inline: ~GameTextManager (0x002E66F2) stores 0x00804E90 and
+// calls ~SubsystemInterface itself, and the unwind funclets of the constructor
+// and destructor (0x00778D11, 0x00778D49) call its out-of-line copy 0x002E55D8.
+// The ledger still names that table ??_7Rva002E55D8@@6B@, so the destructor
+// stores it by that name; the compiler's own store of this class's table is dead.
+extern "C" const void *const __identifier("??_7Rva002E55D8@@6B@")[];
+
+class GameTextInterface : public SubsystemInterface
+{
+public:
+	virtual ~GameTextInterface() { *(const void **)this = __identifier("??_7Rva002E55D8@@6B@"); }
+	virtual UnicodeString fetch(const char *label, Bool *exists) = 0;
+	virtual UnicodeString fetch(const AsciiString &label, Bool *exists) = 0;
+	virtual UnicodeString *fetchPtr(const char *label, Bool *exists) = 0;
+	virtual UnicodeString *fetchPtr(const AsciiString &label, Bool *exists) = 0;
+	virtual _STL::vector<AsciiString> &getStringsWithLabelPrefix(const AsciiString &label) = 0;
+	virtual void initMapStringFile(const AsciiString &filename) = 0;
+	virtual void setTranslateMode(int mode) = 0;
+	virtual int getTranslateMode() = 0;
+};
+
+class GameTextManager : public GameTextInterface
 {
 public:
 	GameTextManager();
