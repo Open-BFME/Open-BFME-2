@@ -102,31 +102,7 @@ public:
 #include "../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 
-class Weapon
-{
-protected:
-	void reloadWithBonus(const Object *sourceObj, const WeaponBonus &bonus, bool loadInstantly);
-	void rebuildScatterTargets();
-	void computeBonus(const Object *, unsigned int, WeaponBonus &) const;
-public:
-	UnsignedInt getRemainingAmmo(bool countReloadingAsEmpty) const;
-	void preFireWeapon(const Object *, const Object *, const Coord3D *);
-	int getPreAttackDelay(const Object *, const Object *, const Coord3D *) const;
-	void rva002C959E();
-private:
-	char m_pad00[4];
-	WeaponTemplate *m_template;
-	char m_pad08[8];
-	WeaponStatus m_status;
-	UnsignedInt m_ammoInClip;
-	UnsignedInt m_whenWeCanFireAgain;
-	UnsignedInt m_whenPreAttackFinished;
-	UnsignedInt m_unknown20;
-	UnsignedInt m_lastFireFrame;
-	UnsignedInt m_whenLastReloadStarted;
-	char m_pad2C[0x50-0x2C];
-	UnsignedInt m_leechWeaponRangeActive;
-};
+#include "../../../Include/GameLogic/Weapon.h"
 
 void Weapon::reloadWithBonus(const Object *sourceObj, const WeaponBonus &bonus, bool loadInstantly)
 {
@@ -139,7 +115,7 @@ void Weapon::reloadWithBonus(const Object *sourceObj, const WeaponBonus &bonus, 
 
 	Real reloadTime = loadInstantly ? 0 : m_template->getClipReloadTime(bonus);
 	UnsignedInt curFrame = TheGameLogic->getFrame();
-	m_whenLastReloadStarted = curFrame;
+	m_projectileStreamID = curFrame;
 	m_whenWeCanFireAgain = curFrame + reloadTime;
 
 	if (reloadTime > 0.0f && m_template->getFlag80())
@@ -171,7 +147,7 @@ void Weapon::preFireWeapon(const Object *source, const Object *victim,
 		bonus.m_field[i] = 1.0f;
 	computeBonus(source, 0, bonus);
 
-	WeaponTemplate *weaponTemplate = m_template;
+	const WeaponTemplate *weaponTemplate = m_template;
 	m_whenPreAttackFinished = TheGameLogic->getFrame() + delay;
 	int timingExtra = weaponTemplate->m_timingExtra;
 	if (timingExtra > 0)

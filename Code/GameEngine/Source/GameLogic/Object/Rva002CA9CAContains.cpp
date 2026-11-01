@@ -405,25 +405,16 @@ enum WeaponStatus
 	OUT_OF_AMMO
 };
 
-class Weapon
-{
-public:
-	WeaponStatus computeStatus(bool *a) const;	// 0x002CC422
-	bool rva002CCED3(const Object *victim, const Object *source);
-	Rva002CA9CA *getTemplate() const { return m_template; }
-private:
-	void *m_vtbl;
-	Rva002CA9CA *m_template;
-};
+#include "../../../Include/GameLogic/Weapon.h"
 
 bool Weapon::rva002CCED3(const Object *victim, const Object *source)
 {
 	(void)victim;
 	if (m_template == 0)
 		return false;
-	if (computeStatus(0) == OUT_OF_AMMO && !m_template->getAutoReloadsClip())
+	if (computeStatus(0) == OUT_OF_AMMO && !((Rva002CA9CA *)m_template)->getAutoReloadsClip())
 		return false;
-	if (m_template->getReal168() != 0.0f)
+	if (((Rva002CA9CA *)m_template)->getReal168() != 0.0f)
 	{
 		if (source->rva0028B511() >= 16)
 			return false;
@@ -438,5 +429,5 @@ bool Weapon::rva002CCED3(const Object *victim, const Object *source)
 				return false;
 		}
 	}
-	return m_template->rva002CAA59((int)source, this);
+	return ((Rva002CA9CA *)m_template)->rva002CAA59((int)source, this);
 }

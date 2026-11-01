@@ -22,7 +22,7 @@ virtual void slot114();virtual void slot115();virtual void slot116();virtual voi
  char pad04[0x3c7-4];bool m_flag3c7;
 };
 class Rva002C9400ByteField{public:unsigned char get()const;};
-class Weapon{public:char pad00[4];Rva002C9400ByteField *m_field;};
+#include "../../../Include/GameLogic/Weapon.h"
 struct ThingTemplateView{char pad00[0x108];unsigned char kinds[28];bool isStructure()const{return(kinds[0]&0x80)!=0;}bool isKind55()const{return(kinds[6]&0x80)!=0;}};
 class Object{public:
  void rva00295A84(Object*);
@@ -48,7 +48,7 @@ void Object::rva00295A84(Object*victim){
    }
    if(ai->slot113())return;
    const Weapon *weapon=getCurrentWeapon(0);if(!weapon)return;
-   if(!weapon->m_field->get())return;
+   if(!((const Rva002C9400ByteField *)weapon->m_template)->get())return;
    if(rva0029493F(victim,2) && rva0028CECF())return;
    related=rva002931F5(false);
    if(testStatus(STATUS_26) && related && related->rva0029493F(victim,2) && related->rva0028CECF())return;

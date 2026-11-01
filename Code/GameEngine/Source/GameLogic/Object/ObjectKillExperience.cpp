@@ -11,7 +11,7 @@ enum KindOfType { KINDOF_84=0x84 };
 enum Relationship { ENEMIES=0,NEUTRAL=1,ALLIES=2 };
 enum WeaponSlotType { PRIMARY=0 };
 class Rva002C9400ByteField { public: unsigned char get() const; };
-class Weapon { public: char pad[4]; Rva002C9400ByteField *info; };
+#include "../../../Include/GameLogic/Weapon.h"
 class Object {
 public:
  bool rva0029493F(Object *,int);
@@ -26,6 +26,6 @@ bool Object::rva0029493F(Object *victim,int mode) {
  if (testStatus(STATUS_39) || testStatus(STATUS_32) || isKindOf(KINDOF_84)) return true;
  if (getRelationship(victim)!=ENEMIES) return false;
  const Weapon *weapon=getCurrentWeapon(0);
- if (weapon && !weapon->info->get()) return false;
+ if (weapon && !((const Rva002C9400ByteField *)weapon->m_template)->get()) return false;
  return true;
 }

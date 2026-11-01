@@ -97,15 +97,7 @@ struct IterateData
 };
 
 
-class Weapon
-{
-protected:
-	void processRequestAssistance(const Object *requestingObject, Object *victimObject);
-
-private:
-	char m_pad00[4];
-	const WeaponTemplateRange *m_template; // +4
-};
+#include "../../../Include/GameLogic/Weapon.h"
 
 void Weapon::processRequestAssistance(const Object *source, Object *other)
 {
@@ -116,7 +108,7 @@ void Weapon::processRequestAssistance(const Object *source, Object *other)
 	data.m_source = source;
 	data.m_other = other;
 	data.m_rangeSqr = 0.0f;
-	float range = m_template->m_range;
+	float range = ((const WeaponTemplateRange *)m_template)->m_range;
 	data.m_rangeSqr = range * range;
 	player->iterateObjects(makeAssistanceRequest, &data);
 }

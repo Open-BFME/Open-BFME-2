@@ -166,12 +166,7 @@ class Path { public:
  unsigned int pad; PathNode *head,*tail; Bool optimized, m_blockedByAlly; char rest[0x28-14];
 };
 class WeaponTemplate { public: Bool isContactWeapon()const; };
-class Weapon { public:
- Bool isWithinAttackRange(const Object*,const Object*,float,int)const;
- Bool isWithinAttackRange(Object*,const Coord3D*,Object*,const Coord3D*,float,Bool); // 0x002CB35C
- unsigned int pad; WeaponTemplate *templ;
- Bool computeApproachTarget(const Object*,const Object*,const Coord3D*,float,Coord3D&) const;
-};
+#include "../../../../Include/GameLogic/Weapon.h"
 // updateLastNode, rowed under its address name.
 class Rva003638BA
 {
@@ -341,7 +336,7 @@ Bool AIUpdateInterface::computeAttackPath(PathfindServicesInterface *services,co
    destroyPath();return true;
   }
  }
- if(weapon->templ->isContactWeapon()){
+ if(weapon->m_template->isContactWeapon()){
   Coord3D tmp;tmp.x=victimPos->x;tmp.y=victimPos->y;tmp.z=victimPos->z;
   destroyPath();
   if(m_curLocomotor)m_curLocomotor->setNoSlowDownAsApproachingDest(true);

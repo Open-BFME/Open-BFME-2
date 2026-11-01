@@ -52,12 +52,7 @@ public:
 	bool rva002CA9CA(int id, const void *arg);
 };
 
-class Weapon
-{
-public:
-	char m_pad00[4];
-	Rva002CA9CA *m_parent;
-};
+#include "../../../Include/GameLogic/Weapon.h"
 
 class MidProvider
 {
@@ -145,7 +140,7 @@ Relationship Object::getRelationship(const Object *other) const
 			const Weapon *weapon = cand->getCurrentWeapon(0);
 			if (weapon == 0)
 				goto team;
-			if (!weapon->m_parent->rva002CA9CA(6, weapon))
+			if (!((Rva002CA9CA *)weapon->m_template)->rva002CA9CA(6, weapon))
 				goto team;
 ret0:
 			return ENEMIES;

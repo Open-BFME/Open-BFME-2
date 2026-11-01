@@ -25,12 +25,7 @@ enum WeaponSlotType
 	PRIMARY_WEAPON = 0
 };
 
-class Weapon
-{
-public:
-	char m_pad00[0x2C];
-	unsigned int m_2c;	// +0x2C, a frame stamp
-};
+#include "../../../../Include/GameLogic/Weapon.h"
 
 class WeaponSet
 {
@@ -180,7 +175,7 @@ bool Rva00439E0C::rva004387B1(Object *obj, unsigned int flags)
 		if (flags & slots[i].m_mask)
 		{
 			Weapon *weapon = obj->m_weaponSet.getWeaponInWeaponSlot(slots[i].m_slot);
-			if (weapon && weapon->m_2c >= previous)
+			if (weapon && weapon->m_unknown2C >= previous)
 				return true;
 		}
 	}

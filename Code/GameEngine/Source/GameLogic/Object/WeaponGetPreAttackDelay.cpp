@@ -81,21 +81,7 @@ private:
 	int m_preAttackDelay; // +0x138
 };
 
-class Weapon
-{
-public:
-	int getPreAttackDelay(const Object *source, const Object *victim, const Coord3D *pos) const;
-	unsigned int getRemainingAmmo(bool b) const;
-
-protected:
-	void computeBonus(const Object *source, unsigned flags, WeaponBonus &bonus) const;
-
-private:
-	unsigned char m_pad00[0x04];
-	const WeaponTemplate *m_template; // +0x04
-	unsigned char m_pad08[0x58 - 0x08];
-	int m_preAttackDelayExtra; // +0x58
-};
+#include "../../../Include/GameLogic/Weapon.h"
 
 int Weapon::getPreAttackDelay(const Object *source, const Object *victim, const Coord3D *pos) const
 {
@@ -124,6 +110,6 @@ int Weapon::getPreAttackDelay(const Object *source, const Object *victim, const 
 	{
 		WeaponBonus bonus;
 		computeBonus(source, 0, bonus);
-		return m_template->getPreAttackDelay(bonus) + m_preAttackDelayExtra;
+		return m_template->getPreAttackDelay(bonus) + (int)m_tailState;
 	}
 }

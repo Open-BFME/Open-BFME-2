@@ -18,10 +18,7 @@ enum WeaponSetConditionType { WSF_INVALID=-1,WSF_NONE=0,WSF_FIRING,WSF_BETWEEN,W
 class WeaponTemplate {public:
  char p0[0x78];int idleDelay;char p7c[4];bool special80;char p81[0xe4-0x81];int clip;char pe8[0x169-0xe8];bool follow;
 };
-class Weapon {public:
- void* vptr;const WeaponTemplate* data;int unknown8;WeaponSlotType slot;char p10[0x1c-0x10];unsigned frame1c;unsigned frame20;unsigned frame24;unsigned frame28;unsigned lastShot;
- WeaponStatus getStatus()const;unsigned getRemainingAmmo(bool)const;bool rva002C9586();
-};
+#include "../../../Include/GameLogic/Weapon.h"
 class WeaponSet {public:Weapon*getWeaponInWeaponSlot(WeaponSlotType)const;};
 class GameLogic;extern GameLogic*TheGameLogic;
 struct ClockView {char p0[0x40];unsigned frame;};
@@ -38,14 +35,14 @@ void Object::rva0028DB3C(){
  const bool aiming=testStatus(AIM),firing=testStatus(FIRE),attacking=testStatus(ATTACK);
  for(int i=0;i<6;++i){
   Weapon*weapon=((const WeaponSet*)((const char*)this+0x330))->getWeaponInWeaponSlot((WeaponSlotType)i);
-  bool special=weapon && weapon->data->special80;
+  bool special=weapon && weapon->m_template->special80;
   WeaponSetConditionType condition=WSF_INVALID;
   if(!weapon)condition=WSF_NONE;
   else {
-   unsigned shot=weapon->lastShot;
-   if(shot>0){int delay=weapon->data->idleDelay;if(delay>=0 && shot+delay>now)condition=WSF_FIRING;}
+   unsigned shot=weapon->m_unknown2C;
+   if(shot>0){int delay=weapon->m_template->idleDelay;if(delay>=0 && shot+delay>now)condition=WSF_FIRING;}
    if(condition==WSF_INVALID && shot==now)condition=WSF_FIRING;
-   if(condition==WSF_INVALID && weapon->data->follow && now<weapon->frame24 && now>weapon->frame1c)condition=WSF_PREATTACK;
+   if(condition==WSF_INVALID && weapon->m_template->follow && now<weapon->m_lastFireFrame && now>weapon->m_whenPreAttackFinished)condition=WSF_PREATTACK;
    if(condition==WSF_INVALID && !testStatus(AIM)){
     if(!weapon->rva002C9586() && (!special || weapon->getStatus()!=RELOADING_CLIP))condition=WSF_NONE;
    }
@@ -56,7 +53,7 @@ void Object::rva0028DB3C(){
    }
   }
   if(draw){
-   if(weapon && weapon->data->clip>0)((Rva002716Holder*)draw)->Rva00271619Broadcast(weapon->getRemainingAmmo(true),weapon->data->clip,(int)weapon->slot);
+   if(weapon && weapon->m_template->clip>0)((Rva002716Holder*)draw)->Rva00271619Broadcast(weapon->getRemainingAmmo(true),weapon->m_template->clip,(int)weapon->m_wslot);
    if(condition!=WSF_INVALID && condition!=lastCondition[i]){
     lastCondition[i]=(signed char)condition;
     WeaponTemplateSetHead tmp1;Rva002C76B2Build(&tmp1,i,condition);

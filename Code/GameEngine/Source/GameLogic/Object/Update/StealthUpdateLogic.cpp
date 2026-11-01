@@ -231,14 +231,7 @@ public:
 	virtual void rvaSlot66(ContainedItemsView *out) = 0;
 };
 
-class Weapon
-{
-public:
-	__declspec(dllimport) __forceinline UnsignedInt getLastShotFrame() const { return m_lastFireFrame; }
-private:
-	char m_pad00[0x2C];
-	UnsignedInt m_lastFireFrame; // +0x2C
-};
+#include "../../../../Include/GameLogic/Weapon.h"
 
 enum WeaponSlotType
 {
@@ -1092,31 +1085,31 @@ Bool StealthUpdate::rva00373F59(const Coord3D *pos, const Coord3D *ownerPos)
 		if (flags & 0x08)
 		{
 			weapon = self->getWeaponInWeaponSlot(PRIMARY_WEAPON);
-			if (weapon && weapon->getLastShotFrame() >= lastFrame)
+			if (weapon && weapon->m_unknown2C >= lastFrame)
 				return FALSE;
 		}
 		if (flags & 0x10)
 		{
 			weapon = self->getWeaponInWeaponSlot(SECONDARY_WEAPON);
-			if (weapon && weapon->getLastShotFrame() >= lastFrame)
+			if (weapon && weapon->m_unknown2C >= lastFrame)
 				return FALSE;
 		}
 		if (flags & 0x20)
 		{
 			weapon = self->getWeaponInWeaponSlot(TERTIARY_WEAPON);
-			if (weapon && weapon->getLastShotFrame() >= lastFrame)
+			if (weapon && weapon->m_unknown2C >= lastFrame)
 				return FALSE;
 		}
 		if (flags & 0x40)
 		{
 			weapon = self->getWeaponInWeaponSlot((WeaponSlotType)3);
-			if (weapon && weapon->getLastShotFrame() >= lastFrame)
+			if (weapon && weapon->m_unknown2C >= lastFrame)
 				return FALSE;
 		}
 		if (flags & 0x80)
 		{
 			weapon = self->getWeaponInWeaponSlot((WeaponSlotType)4);
-			if (weapon && weapon->getLastShotFrame() >= lastFrame)
+			if (weapon && weapon->m_unknown2C >= lastFrame)
 				return FALSE;
 		}
 	}

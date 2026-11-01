@@ -30,21 +30,12 @@ public:
 	GeometryInfo m_geometry;
 };
 
-class Weapon
-{
-public:
-	bool isWithinTargetPitch(const Object *source, const Object *victim) const;
-
-	const void *m_vtable;
-	const void *m_template;
-	unsigned char m_pad008[0x4C - 8];
-	bool m_pitchCheck;
-};
+#include "../../../Include/GameLogic/Weapon.h"
 
 // ?isWithinTargetPitch@Weapon@@QBE_NPBVObject@@0@Z @0x002C9C82
 bool Weapon::isWithinTargetPitch(const Object *source, const Object *victim) const
 {
-	if (m_pitchCheck)
+	if (m_pitchLimited)
 	{
 		const Coord3D *src = &source->m_position;
 		const Coord3D *dst = &victim->m_position;

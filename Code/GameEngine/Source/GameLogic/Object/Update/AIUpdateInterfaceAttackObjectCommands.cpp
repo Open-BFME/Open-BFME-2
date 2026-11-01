@@ -106,7 +106,7 @@ class AttackContainView : public AttackSlots<31> {public:virtual AttackHordeView
 class SpawnBehaviorInterface : public AttackSlots<3> {public:virtual void slot3(Object*,int,CommandSourceType)=0;};
 class Rva0028B7AELeaGetter {public:void *get() const;bool testBit8()const{return (unsigned)((*(const unsigned*)get()>>8)&1);}};
 class Rva002C9400ByteField {public:unsigned char get() const;};
-class Weapon {public:char pad0[4];Rva002C9400ByteField *data;char pad8[0x20-8];int shots;char pad24[0x34-0x24];int maximum;};
+#include "../../../../Include/GameLogic/Weapon.h"
 class AttackTemplate {public:char pad0[0x112];unsigned char flag112;char pad113;unsigned flags114;};
 class AttackAIGate {public:char pad0[0x34];int word34;};
 class Object {public:bool testStatus(ObjectStatusTypes) const;bool chooseBestWeaponForTarget(const Object*,WeaponChoiceCriteria,CommandSourceType);const Weapon *getCurrentWeapon(WeaponSlotType*) const;SpawnBehaviorInterface *getSpawnBehaviorInterface()const;
@@ -139,13 +139,13 @@ void AIUpdateInterface::privateAttackObject(Object *target,int shots,volatile Co
  obj->chooseBestWeaponForTarget(target,(WeaponChoiceCriteria)5,command);
  Weapon *weapon=const_cast<Weapon*>(obj->getCurrentWeapon(0));
  obj->victim=INVALID_OBJECT_ID;
- if(command==0 && target->testStatus(STATUS38) && weapon && !weapon->data->get())obj->victim=target->id;
+ if(command==0 && target->testStatus(STATUS38) && weapon && !((const Rva002C9400ByteField *)weapon->m_template)->get())obj->victim=target->id;
  if(obj->ai && obj->ai->word34)return;
  bool horde=false;target=ModifyVictimForHorde(target,obj,&horde);if(!target)return;
  machine->clear();
  if(horde){Squad *squad=new Squad;squad->rva004D6DF3(target,true);machine->setGoalSquad(squad);source=command;machine->setState(23);::operator delete(squad?squad->slot0(0):0);}
  else{machine->setGoalObject(target);source=command;machine->setState(10);}
- if(weapon){weapon->maximum=shots;weapon->shots=0;if(weapon->data->get()&&(command==0||command==1))forcedTarget=target->id;}
+ if(weapon){weapon->m_maxShotCount=shots;weapon->m_whenLastReloadStarted=0;if(((const Rva002C9400ByteField *)weapon->m_template)->get()&&(command==0||command==1))forcedTarget=target->id;}
  if(command==0||command==1)playAttackVoiceResponse(target);
  if(obj->thing->flag112&0x10){SpawnBehaviorInterface *spawn=obj->getSpawnBehaviorInterface();if(spawn)spawn->slot3(target,shots,command);}
 }
@@ -155,6 +155,6 @@ void AIUpdateInterface::privateForceAttackObject(Object *target,int shots,Comman
  machine->clear();Object *obj=owner;bool horde=false;target=ModifyVictimForHorde(target,obj,&horde);if(!target)return;
  if(horde){Squad *squad=new Squad;squad->rva004D6DF3(target,true);machine->setGoalSquad(squad);source=command;machine->setState(23);::operator delete(squad?squad->slot0(0):0);}
  else{machine->setGoalObject(target);source=command;machine->setState(11);}
- Weapon *weapon=const_cast<Weapon*>(owner->getCurrentWeapon(0));if(weapon){weapon->maximum=shots;weapon->shots=0;}
+ Weapon *weapon=const_cast<Weapon*>(owner->getCurrentWeapon(0));if(weapon){weapon->m_maxShotCount=shots;weapon->m_whenLastReloadStarted=0;}
  if(command==0||command==1)playAttackVoiceResponse(target);
 }

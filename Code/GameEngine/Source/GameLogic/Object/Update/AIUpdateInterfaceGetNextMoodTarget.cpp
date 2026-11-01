@@ -236,11 +236,7 @@ private:
 	Int m_playerType; // +0x5C
 };
 
-class Weapon
-{
-public:
-	Bool isWithinAttackRange(const Object *source, const Object *target, Real extra, Int flag) const;
-};
+#include "../../../../Include/GameLogic/Weapon.h"
 
 class AIUpdateInterface;
 // 0x002615E3 is rowed as Rva000CBA20::distSq (Rva000CBA20DistSq.cpp).
@@ -504,7 +500,7 @@ Object *AIUpdateInterface::getNextMoodTarget(Bool calledByAI, Bool calledDuringI
 					m_3cc = false;
 					target = attacker;
 				}
-				if (weapon->isWithinAttackRange(obj, attacker, 0.0f, 1))
+				if (weapon->isWithinAttackRange((const Object *)obj, (const Object *)attacker, 0.0f, 1))
 					target = attacker;
 			}
 		}

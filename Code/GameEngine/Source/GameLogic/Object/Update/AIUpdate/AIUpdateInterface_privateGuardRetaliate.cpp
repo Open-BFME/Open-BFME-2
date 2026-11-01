@@ -37,12 +37,7 @@ public:
 	virtual void m14(void *target);
 };
 
-class Weapon
-{
-public:
-	char m_pad00[0x34];
-	int m_val34;
-};
+#include "../../../../../Include/GameLogic/Weapon.h"
 
 enum WeaponSlotType
 {
@@ -88,5 +83,5 @@ void AIUpdateInterface::privateGuardRetaliate(Object *victim, const Coord3D *pos
 	const Weapon *weapon = m_object->getCurrentWeapon((WeaponSlotType *)0);
 	if (weapon == 0)
 		return;
-	const_cast<Weapon *>(weapon)->m_val34 = maxShotsToFire;
+	const_cast<Weapon *>(weapon)->m_maxShotCount = maxShotsToFire;
 }

@@ -22,13 +22,7 @@ public:
 	unsigned char get() const;
 };
 
-class Weapon
-{
-public:
-	Bool isWithinAttackRange(const Object *source, const Object *target, float extra, int flag) const;
-	char m_pad00[4];
-	Rva002C9400ByteField *m_field4; // +0x04
-};
+#include "../../../../Include/GameLogic/Weapon.h"
 
 class Player
 {
@@ -76,11 +70,11 @@ Bool Rva00263077Filter::allow(Object *target)
 	const Weapon *weapon = m_object->getCurrentWeapon(0);
 	if (weapon != 0)
 	{
-		if (!weapon->isWithinAttackRange(m_object, target, 0.0f, 1))
+		if (!weapon->isWithinAttackRange((const Object *)m_object, (const Object *)target, 0.0f, 1))
 		{
-			if (!((Rva002C9400ByteField *)weapon->m_field4)->get())
+			if (!((Rva002C9400ByteField *)weapon->m_template)->get())
 			{
-				if (!((Rva002C9407ByteField *)weapon->m_field4)->get())
+				if (!((Rva002C9407ByteField *)weapon->m_template)->get())
 				{
 					if (m_object->getControllingPlayer()->m_5C == 0)
 					{

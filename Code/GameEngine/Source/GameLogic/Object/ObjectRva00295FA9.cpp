@@ -61,15 +61,7 @@ public:
 	unsigned char get() const;
 };
 
-class Weapon
-{
-public:
-	bool isWithinAttackRange(const Object *source, const Object *target, float range, int mode) const;
-
-public:
-	unsigned char m_pad00[4];
-	Rva002C9400ByteField *m_4;
-};
+#include "../../../Include/GameLogic/Weapon.h"
 
 extern int BfmeLogicFramesPerSecond;
 
@@ -160,7 +152,7 @@ void Object::rva00295FA9(Object *other)
 	if (getRelationship(other) != ENEMIES)
 		return;
 	Weapon *weapon = getCurrentWeapon(0);
-	if (weapon != 0 && weapon->m_4->get() && weapon->isWithinAttackRange(this, other, 0.0f, 1))
+	if (weapon != 0 && ((const Rva002C9400ByteField *)weapon->m_template)->get() && weapon->isWithinAttackRange((const Object *)this, (const Object *)other, 0.0f, 1))
 		rva00295A84(other);
 	const Rva0028AC4EEntry *e = rva0028AC4E();
 	if (e != 0)
