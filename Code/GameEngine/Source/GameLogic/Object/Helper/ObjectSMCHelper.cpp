@@ -91,13 +91,10 @@ private:
 };
 #include "../../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
-#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
-#include "../../../../Include/Common/ObjectModule.h"
+
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
+
+
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -172,20 +169,6 @@ public:
 	void xfer(Xfer *xfer);
 };
 
-
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-public:
-	virtual ~UpdateModule();
-
-protected:
-	void setWakeFrame(Object *obj, UpdateSleepTime wakeDelay);
-
-private:
-	unsigned int m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	unsigned int m_updateState;
-};
 
 class ObjectHelper : public UpdateModule
 {

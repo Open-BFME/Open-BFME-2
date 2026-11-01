@@ -387,31 +387,10 @@ public:
 bool pickAndPlayUnitVoiceResponse(const DrawableList *list, GameMessage::Type messageType,
 	PickAndPlayInfo *info);
 
-#include "../../../Include/GameLogic/Module/BehaviorModule.h"
-
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
-
-#include "../../../Include/Common/ObjectModule.h"
+#include "../../../Include/GameLogic/Module/UpdateModule.h"
 
 
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-public:
-	virtual ~UpdateModule();
-	void xfer(Xfer *xfer);
 
-protected:
-	void setWakeFrame(Object *obj, UpdateSleepTime wakeDelay);
-
-private:
-	unsigned int m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	unsigned int m_updateState;
-};
 
 class FiringTracker : public UpdateModule
 {
