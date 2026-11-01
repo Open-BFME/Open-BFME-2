@@ -248,7 +248,7 @@ Xfer *Rva0036ABAFXfer( Xfer *xfer, _STL::list<int> *values );
 // (0x0028BAC0). Neither original name is claimed here.
 #include "../../../Include/GameClient/Drawable.h"
 
-class Pathfinder { public: void RemoveObjectFromPathfindMap(Object *); };
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 #include "../../../Include/GameLogic/AI.h"
 

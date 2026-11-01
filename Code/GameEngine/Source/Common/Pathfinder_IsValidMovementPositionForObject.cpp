@@ -24,12 +24,7 @@ public:
 
 class Object;
 
-class Pathfinder
-{
-public:
-	PathfindCell *getCell(PathfindLayerEnum layer, int x, int y);
-	bool IsValidMovementPositionForObject(const Coord3D *pos, int layer, int a3, const Object *obj);
-};
+#include "../../Include/GameLogic/AIPathfind.h"
 
 int __cdecl Rva002E6E8AGet(int v);
 

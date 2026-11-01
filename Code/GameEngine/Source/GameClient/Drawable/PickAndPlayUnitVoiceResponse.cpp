@@ -602,11 +602,7 @@ public:
 };
 #include "../../../Include/GameLogic/Weapon.h"
 
-class Pathfinder
-{
-public:
-	bool QuickDoesPathExist(Object *obj, const Coord3D *from, const Coord3D *to, int locoSet);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 class AttackPriorityInfo;
 class PartitionFilter;

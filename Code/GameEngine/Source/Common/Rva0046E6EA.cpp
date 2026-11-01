@@ -15,10 +15,7 @@ extern AI *TheAI;
 struct Rva0046E6EACoord { float x, y, z; };
 struct Rva0046E6EADefinition { char unknown[0x11f]; unsigned char flags; };
 struct Rva0046E6EAObject { void *unknown; Rva0046E6EADefinition *definition; };
-class Pathfinder {
-public:
-    bool rva002EF3EE(Object *, Coord3D *, Object *, bool);
-};
+#include "../../Include/GameLogic/AIPathfind.h"
 class Rva0046E6EAAIView {
     char unknown[0x10];
     Pathfinder *finder;

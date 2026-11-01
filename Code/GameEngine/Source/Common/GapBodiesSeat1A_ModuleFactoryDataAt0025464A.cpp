@@ -231,11 +231,7 @@ public:
 // --- 0x00262B7D (44B): TheAI's pathfinder (+0x10) validates a position for
 // the +8 object with its rowed 0x0028B511 answer and this +0x1DC word.
 struct Coord3D;
-class Pathfinder
-{
-public:
-	bool IsValidMovementPositionForObject(const Coord3D *pos, int a, int b, const Object *obj);	// 0x002E909F
-};
+#include "../../Include/GameLogic/AIPathfind.h"
 
 class AI;
 extern AI *TheAI;

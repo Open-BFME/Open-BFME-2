@@ -61,11 +61,7 @@ extern unsigned char g_00E03745;
 extern "C" void *theLogicRandomLogFile;
 extern "C" void __cdecl fprintf(void *stream, const char *format, ...);
 
-class Pathfinder
-{
-public:
-	Bool isAttackViewBlockedByObstacle(const Object *a, const Coord3D &b, const Object *c, const Coord3D &d);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 #include "../../../Include/GameLogic/Weapon.h"
 

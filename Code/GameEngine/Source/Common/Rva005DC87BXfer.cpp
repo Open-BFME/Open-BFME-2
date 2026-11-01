@@ -115,10 +115,7 @@ public:DLINK_ITERATOR(){} T*current;unsigned char state[20];void advance();
 };
 #include "../../Include/Common/TeamBFME2.h"
 class Rva002C589B {public:Object*rva002C5DA6();unsigned char pad[12];Coord3D position;};
-class Pathfinder {public:
- bool QuickDoesPathExistToStructure(Object*,const Coord3D*,Object*,int);
- bool QuickDoesPathExist(Object*,const Coord3D*,const Coord3D*,int);
-};
+#include "../../Include/GameLogic/AIPathfind.h"
 class AI {public:unsigned char pad[16];Pathfinder*pathfinder;};
 extern AI*TheAI;
 bool AITacticSiege::isWallBreached() {

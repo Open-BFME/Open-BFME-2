@@ -734,7 +734,7 @@ class ActionManager { public: GameMessage::Type rva0041CE06(const Object*); };
 extern ActionManager* TheActionManager;
 class Keyboard { public: bool isShift(); };
 extern Keyboard* TheKeyboard;
-class Pathfinder { public: bool QuickDoesPathExist(Object*,const Coord3D*,const Coord3D*,int); bool IsWaterCell(int,int); };
+#include "../../../Include/GameLogic/AIPathfind.h"
 class AI;
 extern AI* TheAI;
 struct ContextAI {char pad[0x10];Pathfinder*path; Pathfinder*getPathfinder() const {return path;}};

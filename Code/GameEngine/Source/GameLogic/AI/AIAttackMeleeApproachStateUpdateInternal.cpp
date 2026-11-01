@@ -40,11 +40,7 @@ enum ObjectStatusTypes
 class Object;
 class Player;
 
-class Pathfinder
-{
-public:
-	Bool rva002ED313(Object *obj);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 struct Rva00349611AIData
 {

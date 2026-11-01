@@ -247,13 +247,7 @@ class SimpleObjectIterator
  private:
  char m_pad04[0x3C - 0x04];
 };
-class Pathfinder
-{
-public:
-	bool AdjustDestination(Object *obj, const LocomotorSet &locomotorSet, Coord3D *dest, const Coord3D *groupDest);
-	bool IsLineBlocked(void *obj, void *surfaces, PathfindLayerEnum layer, const Coord3D *from, const Coord3D *to);
-	Path *FindGroundPath(Object *obj, const Coord3D *from, const Coord3D *to, int pathDiameter);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 class AIData;
 class AI
 {

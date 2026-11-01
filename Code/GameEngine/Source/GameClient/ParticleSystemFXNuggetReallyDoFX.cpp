@@ -157,7 +157,7 @@ public:
 	PathfindLayerEnum getLayerForDestination(Object *, const Coord3D *);
 };
 extern TerrainLogic *TheTerrainLogic;
-class Pathfinder { public: int GetGroundLayer(const Coord3D *); };
+#include "../../Include/GameLogic/AIPathfind.h"
 struct RvaFxAi { char pad[0x10]; Pathfinder *path; };
 class AI; extern AI *TheAI;
 extern float g_parseDurationMsecScale;

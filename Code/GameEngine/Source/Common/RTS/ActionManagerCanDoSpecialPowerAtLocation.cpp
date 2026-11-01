@@ -127,7 +127,7 @@ public:
 class Locomotor { public: float getMaxSpeed(Object *) const; };
 class Rva00395A60 { public: float rva00395A60(); };
 class CastleBehavior { public: static NameKeyType rva0003955DA(); };
-class Pathfinder { public: bool IsImpassableCell(int,int); };
+#include "../../../Include/GameLogic/AIPathfind.h"
 class AI; extern AI *TheAI;
 struct ActionAIManagerView { char pad[0x10]; Pathfinder *pathfinder; Pathfinder *getPathfinder() { return pathfinder; } };
 class TerrainLogic {

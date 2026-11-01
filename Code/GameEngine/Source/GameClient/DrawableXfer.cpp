@@ -302,12 +302,7 @@ public:
 // Pathfinder::AddPortal (WB name lead) is still rowed under its placeholder.
 class Rva002E9042 { public: void AddPortal(void *portal); };
 
-class Pathfinder
-{
-public:
-	void RemoveObjectFromPathfindMap(Object *obj);
-	void AddObjectToPathfindMap(Object *obj);
-};
+#include "../../Include/GameLogic/AIPathfind.h"
 
 class AI;
 extern AI *TheAI;

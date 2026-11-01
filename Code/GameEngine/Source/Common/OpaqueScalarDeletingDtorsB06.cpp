@@ -205,7 +205,7 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
                               const _List_iterator<_IterTp, _RightTraits> &b)
 { return a._M_node != b._M_node; }
 }
-class Pathfinder { public: void rva002F462C(); };
+#include "../../Include/GameLogic/AIPathfind.h"
 class AIGroup;
 struct Rva002FEB3AData
 {

@@ -82,11 +82,7 @@ int Rva002E7D6DInfo::cellCallback(PathfindCell *previousCell,
 // its purpose is inferred from its square-cell checks, not a recovered name.
 // 2E79A8 returns the coordinate temporary through EAX, as the rowed sibling
 // above already establishes. Original callback/context names remain unknown.
-class Pathfinder
-{
-public:
- int rva002E7749(void *object, int x, int y, int layer, int clearance, bool exact);
-};
+#include "../../Include/GameLogic/AIPathfind.h"
 bool Rva001E3679(int value);
 struct Rva002E7B29Info
 {

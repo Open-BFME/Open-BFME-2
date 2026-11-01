@@ -273,13 +273,7 @@ class Path
     PathNode *getFirstNode() const { return first; }
     PathNode *getLastNode() const { return last; }
 };
-class Pathfinder
-{
-  public:
-    bool IsLineBlocked(void *, void *, PathfindLayerEnum, const Coord3D *, const Coord3D *);
-    int AdjustGroundPathPosition(const Coord3D *, Coord3D *);
-    bool AdjustDestination(Object *, const LocomotorSet &, Coord3D *, const Coord3D *);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 struct FormationAIData
 {
     char pad0[0xA4];

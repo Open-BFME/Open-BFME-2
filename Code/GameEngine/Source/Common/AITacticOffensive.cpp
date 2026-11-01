@@ -27,12 +27,7 @@ public:
 	unsigned int m_status438;			// +0x438
 };
 
-class Pathfinder
-{
-public:
-	bool QuickDoesPathExist(Object *obj, const Coord3D *from, const Coord3D *to, int flags);	// 0x002F477E
-	bool QuickDoesPathExistToStructure(Object *obj, const Coord3D *from, Object *structure, int flags);	// 0x002F4B33
-};
+#include "../../Include/GameLogic/AIPathfind.h"
 
 #include "../../Include/GameLogic/AI.h"
 

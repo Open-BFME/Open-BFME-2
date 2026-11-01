@@ -447,7 +447,7 @@ extern UpgradeCenter *TheUpgradeCenter;
 extern GameLogic *TheGameLogic;
 class PlayerList;
 extern PlayerList *ThePlayerList;
-class Pathfinder { public: Bool getClosestPointOnLand(const Coord3D *pos, Object *obj, Coord3D *out); };
+#include "../../../../Include/GameLogic/AIPathfind.h"
 class AI { public: char m_pad000[0x10]; Pathfinder *m_pathfinder; };
 extern AI *TheAI;
 struct DrawableNode { DrawableNode *m_next; DrawableNode *m_prev; Drawable *m_data; };

@@ -110,12 +110,7 @@ private:
 	PathNode *m_path;	// +0x04
 };
 
-class Pathfinder
-{
-public:
-	Bool IsLineBlocked(void *obj, void *surfaces, PathfindLayerEnum layer, const Coord3D *from, const Coord3D *to);
-	Path *FindGroundPath(Object *obj, const Coord3D *from, const Coord3D *to, Int pathDiameter);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 class AttackPriorityInfo;
 class PartitionFilter;

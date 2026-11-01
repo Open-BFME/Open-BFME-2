@@ -8,11 +8,7 @@
 // mov ecx,[eax+0x10]; call 0x002E718A.
 class Object;
 
-class Pathfinder
-{
-public:
-	void RemoveObjectFromPathfindMap(Object *object);
-};
+#include "../../Include/GameLogic/AIPathfind.h"
 
 #include "../../Include/GameLogic/Module/UpdateModule.h"
 class Rva00497805 : public UpdateModule

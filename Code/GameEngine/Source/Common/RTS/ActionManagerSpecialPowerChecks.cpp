@@ -960,12 +960,7 @@ bool ActionManager::canDoSpecialPowerAtObject(const Object *obj, const Object *t
 
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 
-class Pathfinder
-{
-public:
-	int GetGroundLayer(const Coord3D *pos);	// 0x002E9871
-	bool IsWaterCell(int a, int b);	// 0x002E9897
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 class AI
 {

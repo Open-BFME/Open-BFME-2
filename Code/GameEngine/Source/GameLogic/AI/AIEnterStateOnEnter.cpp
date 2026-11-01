@@ -148,12 +148,7 @@ private:
 	AIUpdateInterface *m_ai; // +0x258
 };
 
-class Pathfinder
-{
-public:
-	Bool AdjustDestination(Object *obj, const LocomotorSet &locomotorSet, Coord3D *dest,
-		const Coord3D *groupDest);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 #include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;

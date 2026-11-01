@@ -301,7 +301,7 @@ public:
 	unsigned char flags438;
 };
 class Rva002C9B80Owner;
-class Pathfinder { public: bool CanApproachToTarget(Object *, const Coord3D *, Rva002C9B80Owner *, bool); };
+#include "../../../Include/GameLogic/AIPathfind.h"
 struct TAiData { char pad0[0x54]; float distanceModifier; char pad58[0xF0 - 0x58]; float friendlyFireRatio; };
 class AI { public: char pad0[0x10]; Pathfinder *pathfinder; char pad14[4]; TAiData *data; };
 extern AI *TheAI;

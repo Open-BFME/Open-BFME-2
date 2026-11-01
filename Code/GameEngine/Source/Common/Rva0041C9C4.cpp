@@ -31,11 +31,7 @@ class Pathfinder;
 
 extern AI *TheAI;
 
-class Pathfinder
-{
-public:
-	bool QuickDoesPathExist(Object *obj, const Coord3D *a, const Coord3D *b, int c);
-};
+#include "../../Include/GameLogic/AIPathfind.h"
 
 class SpecialPowerTemplate : public Overridable {};
 class ActionManager

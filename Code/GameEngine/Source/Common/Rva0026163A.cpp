@@ -21,11 +21,7 @@ public:
 	GeometryInfo m_geom;
 };
 
-class Pathfinder
-{
-public:
-	bool isAttackViewBlockedByObstacle(const Object *source, const Coord3D *targetPosition);
-};
+#include "../../Include/GameLogic/AIPathfind.h"
 
 class AI
 {

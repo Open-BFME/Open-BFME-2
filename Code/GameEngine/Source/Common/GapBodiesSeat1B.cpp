@@ -726,11 +726,7 @@ float Rva002FD661::rva002FD661()
 // 0x00C073D0 (slot 9 is the rowed AI::reset): the +0x10 pathfinder's rowed
 // ProcessPathfindQueue 0x002F0F07, then ThePlayerList's update (slot 10), as
 // in ZH AI::update.
-class Pathfinder
-{
-public:
-	void ProcessPathfindQueue();										// 0x002F0F07
-};
+#include "../../Include/GameLogic/AIPathfind.h"
 
 class PlayerList;
 extern PlayerList *ThePlayerList;
