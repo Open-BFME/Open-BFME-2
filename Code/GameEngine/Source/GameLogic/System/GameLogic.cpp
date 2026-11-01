@@ -662,16 +662,7 @@ private:
 #pragma comment(linker, "/alternatename:?xfer@Rva000D3FA0Map@@MAEXPAVXfer@@@Z=__purecall")
 // BFME 1.03 GameLogic::processCommandList at RVA 0x00383050.
 
-class GameMessage
-{
-public:
-	void appendIntegerArgument(int arg);
-	void appendBooleanArgument(bool arg);
-private:
-	void *m_argumentList; // +0x00
-public:
-	GameMessage *m_next; // +0x04
-};
+#include "../../../Include/Common/MessageStream.h"
 class CommandList
 {
 public:
@@ -2497,29 +2488,6 @@ public:
 extern Mouse *TheMouse;
 
 // MessageStreamSubsystem (0x00A00950); appendMessage is vslot 18.
-class MessageStream
-{
-public:
-	virtual void m00();
-	virtual void m01();
-	virtual void m02();
-	virtual void m03();
-	virtual void m04();
-	virtual void m05();
-	virtual void m06();
-	virtual void m07();
-	virtual void m08();
-	virtual void m09();
-	virtual void m10();
-	virtual void m11();
-	virtual void m12();
-	virtual void m13();
-	virtual void m14();
-	virtual void m15();
-	virtual void m16();
-	virtual void m17();
-	virtual GameMessage *appendMessage(int type);
-};
 
 extern MessageStream *TheMessageStream;
 

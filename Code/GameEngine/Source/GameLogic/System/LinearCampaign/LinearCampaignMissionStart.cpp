@@ -40,14 +40,7 @@ class GlobalData;
 extern GlobalData *TheWritableGlobalData;
 struct CampaignGlobalView { char unknown00[0xac0]; AsciiString map; };
 void InitGameLogicRandom(unsigned);
-class GameMessage { public: void appendIntegerArgument(int); };
-class MessageStream {
-public:
-#define V(N) virtual void v##N();
- V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9) V(10) V(11) V(12) V(13) V(14) V(15) V(16) V(17)
-#undef V
- virtual GameMessage *appendMessage(int);
-};
+#include "../../../../Include/Common/MessageStream.h"
 extern MessageStream *TheMessageStream;
 class Rva0023DC8E { public: void rva0023DC8E(const AsciiString &); };
 class Rva0023DCCE { public: void rva0023DCCE(const AsciiString &,const OpaqueRefElement4 &,const OpaqueRefElement4 &); };

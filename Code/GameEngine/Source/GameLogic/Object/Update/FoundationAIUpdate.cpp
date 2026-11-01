@@ -101,34 +101,7 @@ private:
 	Player *m_local; // +0x10
 };
 extern PlayerList *ThePlayerList;
-class GameMessage
-{
-public:
-	void appendObjectIDArgument(ObjectID id);
-};
-class MessageStream
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void v03();
-	virtual void v04();
-	virtual void v05();
-	virtual void v06();
-	virtual void v07();
-	virtual void v08();
-	virtual void v09();
-	virtual void v10();
-	virtual void v11();
-	virtual void v12();
-	virtual void v13();
-	virtual void v14();
-	virtual void v15();
-	virtual void v16();
-	virtual void v17();
-	virtual GameMessage *appendMessage(int type);
-};
+#include "../../../../Include/Common/MessageStream.h"
 extern class MessageStream *TheMessageStream;
 template <int N> class Rva0045527AUISlots : public Rva0045527AUISlots<N - 1>
 {

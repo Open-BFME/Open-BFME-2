@@ -461,9 +461,8 @@ class InGameUI : public MountedSlots<66> {public:virtual void slot66(Drawable*)=
 
 extern InGameUI *TheInGameUI;
 
-class GameMessage {public:void appendBooleanArgument(bool);void appendObjectIDArgument(ObjectID);};
+#include "../../../../Include/Common/MessageStream.h"
 
-class MessageStream : public MountedSlots<18> {public:virtual GameMessage *appendMessage(int)=0;};
 
 extern MessageStream *TheMessageStream;
 
