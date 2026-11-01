@@ -9,7 +9,7 @@ class Rva0070A5C0 {public:BfmeN1034 *rva0070A5C0(int);};
 
 class Rva0070B380 {public:void *lookup(const EAStringC &);};
 
-class BfmeAptValue006DCD20 {public:bool isUndefined()const;};
+#include "../BfmeAptValue006DCD20.h"
 
 extern AptValue *g_shutdownAtE18360,*gpGlobalGlobalObject;
 

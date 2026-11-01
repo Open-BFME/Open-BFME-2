@@ -62,7 +62,7 @@ class XmlNativeInterface {public:
 
 struct XmlValuePrefix {unsigned char prefix[32];XmlNativeInterface *node;};
 
-class BfmeAptValue006DCD20 {friend class AptXml;private:void setTypeAt006DBBC0(int);public:void setGCRootCount(unsigned int);int isXml()const;int isString()const;BfmeAptValue006DCD20 *rva006DD260();};
+#include "BfmeAptValue006DCD20.h"
 
 class AptBasePtrStack {public:BfmeAptValue006DCD20 *At(int);};
 

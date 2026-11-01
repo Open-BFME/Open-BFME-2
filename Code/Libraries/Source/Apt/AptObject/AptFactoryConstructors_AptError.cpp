@@ -68,7 +68,7 @@ typedef char ErrorSize[sizeof(AptError)==40?1:-1];
 // Original PDB ScriptColour is36B with pSprite+20; MAP supplies const-pointer
 // parameter. Donor f1e86798adbb054c supplies semantics. Native6F24E0..6F25C5
 // asserts non-null and only clears pSprite when isCIH fails (later code differs).
-class BfmeAptValue006DCD20 {public: BfmeAptValue006DCD20 *rva006DCF60(bool);int rva006E02B0() const;void setGCRootCount(unsigned int);void factorySetString(const char *);int isSound() const;BfmeAptValue006DCD20 *rva006DCFE0();void rva006DD6C0(EAStringC *);BfmeAptValue006DCD20 *rva006DD0A0();int toInteger() const;int isObject() const;BfmeAptValue006DCD20 *rva006DD0E0();};
+#include "../BfmeAptValue006DCD20.h"
 class AptScriptColour : public AptObject {
 public:
  AptScriptColour(AptValue *const);

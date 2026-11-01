@@ -32,11 +32,7 @@ public:
 	AptCIH *c_cih(bool = false);
 };
 
-class BfmeAptValue006DCD20
-{
-public:
-	void *rva006E0F40() const;
-};
+#include "BfmeAptValue006DCD20.h"
 
 class AptCIH
 {

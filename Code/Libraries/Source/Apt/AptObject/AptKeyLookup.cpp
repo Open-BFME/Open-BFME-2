@@ -7,9 +7,7 @@
 // Existing canonical Apt base types, native tagged providers and data owners
 // are retained; the animation/listener prefix remains a scoped receiver view.
 #include "AptScriptFunction.h"
-class BfmeAptValue006DCD20 {
-public: int isKey() const;bool isCIH(bool=false) const; void setGCRootCount(unsigned int);
-};
+#include "../BfmeAptValue006DCD20.h"
 class Rva006DBB60ShrNAndField { public: bool get()const; };
 class AptBasePtrStack {public: BfmeAptValue006DCD20 *At(int);int count,capacity;BfmeAptValue006DCD20 **elements;};
 struct AptActionInterpreter { AptBasePtrStack stack; };

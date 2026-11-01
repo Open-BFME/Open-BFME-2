@@ -17,11 +17,7 @@ void __debugbreak();
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(__debugbreak, _ReadWriteBarrier)
 
-class BfmeAptValue006DCD20
-{
-public:
-    void *rva006E04A0() const;
-};
+#include "BfmeAptValue006DCD20.h"
 
 class Rva006DBB40ShrAndField
 {

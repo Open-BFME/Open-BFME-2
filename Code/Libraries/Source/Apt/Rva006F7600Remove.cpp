@@ -96,7 +96,7 @@ void *Rva006F7600::getMask(int i)
 // that class name. Field and class names are structural inferences; the
 // method name is address-derived.
 extern unsigned int g_bfmeExtra1282Flags;
-class BfmeAptValue006DCD20 { public: bool isUndefined() const; };
+#include "BfmeAptValue006DCD20.h"
 class Rva006DBB30SarDwordField { public: int get() const; };
 struct AptMaskInfo { int unknown00; int clipDepth; };
 struct AptDisplayNode

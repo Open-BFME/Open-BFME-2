@@ -5,16 +5,10 @@
 // with signed type extraction (sar 0x19); jump table at 0x006DCA80 and byte
 // table at 0x006DCA88 select mov al,1 vs xor al,al; true types
 // 1/9/21/22/26/27/29/30/33/35/36/41/42/43/44 measured from retail tables.
-class BfmeAptValue006DCD20
-{
-    virtual void vtableSlot0();
-    unsigned int m_flags;
-public:
-    bool rva006DCA60() const;
-};
+#include "../BfmeAptValue006DCD20.h"
 bool BfmeAptValue006DCD20::rva006DCA60() const
 {
-    int type = static_cast<int>(m_flags) >> 25;
+    int type = static_cast<int>(field04) >> 25;
     switch (type) {
     case 1:
     case 9:

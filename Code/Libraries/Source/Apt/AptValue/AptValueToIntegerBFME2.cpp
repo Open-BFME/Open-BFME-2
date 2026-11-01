@@ -32,19 +32,7 @@ public:
     int rva00144010();
 };
 
-class BfmeAptValue006DCD20
-{
-    virtual void vtableSlot0();
-
-public:
-    unsigned int m_flags;
-
-private:
-public:
-    bool isUndefined() const;
-    BfmeAptValue006DCD20 *checkedString();	// rowed 0x006DCE50 (Rva006DCE50Finish.cpp)
-    int toInteger() const;
-};
+#include "../BfmeAptValue006DCD20.h"
 
 class AptValue; extern AptValue *gpUndefinedValue;
 
@@ -53,7 +41,7 @@ int BfmeAptValue006DCD20::toInteger() const
     if (isUndefined())
         return 0;
 
-    int type = static_cast<int>(m_flags) >> 25;
+    int type = static_cast<int>(field04) >> 25;
     switch (type) {
     // Retail's index table (+0xD0) sends type 42 to the string conversion,
     // the same jump-table slot as type 1; there is no separate 42 case.

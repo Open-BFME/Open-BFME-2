@@ -50,7 +50,7 @@ struct NativeCharacterDefinition {char unknown00[12];NativeAnimation *animation;
 struct NativeCharacter {char unknown00[12];NativeAnimation *definition;};
 struct TextDefinition {char unknown00[24];int fontIndex;};
 struct TextInstance {char unknown00[12];TextDefinition *definition;char unknown10[20];int color;char unknown28[20];int align;char unknown40[32];int size;int unknown64;Rva006EB4B0 *format;};
-class BfmeAptValue006DCD20 {public: void *rva006E0F40()const;};
+#include "BfmeAptValue006DCD20.h"
 class AptCIH {public:bool IsCharacterInst()const;char unknown00[0x4C];NativeCharacter *character;
  __forceinline NativeCharacter *getCharacter(){if(!IsCharacterInst())aptAssert("isCharacterInst()","c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h",0xA5);return character;}};
 class AptValue {public:AptCIH *c_cih(bool);};

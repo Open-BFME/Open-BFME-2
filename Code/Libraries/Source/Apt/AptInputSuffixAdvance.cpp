@@ -9,7 +9,7 @@ extern "C" int __cdecl isdigit(int);
 extern "C" int __cdecl atoi(const char*);
 #include "EAStringC.h"
 class AsciiString;
-class BfmeAptValue006DCD20 {public:bool isCIH(bool)const;BfmeAptValue006DCD20 *rva006DCF60(bool);bool isUndefined()const;};
+#include "BfmeAptValue006DCD20.h"
 class Rva006DBB30SarDwordField {public:int get()const;};
 class AptNativeHash {public:struct Entry {EAStringC key;BfmeAptValue006DCD20 *value;};AsciiString *rva0070AA40();Entry *rva0070AAA0(Entry*);};
 struct AptInputInst {char unknown00[0x10];AptNativeHash *hash;};

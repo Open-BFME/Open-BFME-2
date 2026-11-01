@@ -144,10 +144,7 @@ private:
 	void *m_fieldC;
 };
 
-class BfmeAptValue006DCD20 {
-public:
-    bool isCIH(bool bUndefOK) const;
-};
+#include "BfmeAptValue006DCD20.h"
 
 struct R4Word {
     const char *name;

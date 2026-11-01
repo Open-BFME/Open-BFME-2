@@ -9,15 +9,7 @@ extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
 void __debugbreak();
 #pragma intrinsic(__debugbreak)
-class BfmeAptValue006DCD20
-{
-    virtual void vtableSlot0();
-    unsigned int m_flags;
-    void setTypeAt006DBBC0(int type);
-    friend void bfmeAnchorAptValueSetType(BfmeAptValue006DCD20 *, int);
-public:
-    BfmeAptValue006DCD20(int type, unsigned int unused);
-};
+#include "../BfmeAptValue006DCD20.h"
 // Select-any like every other TU's copy (a strong definition would duplicate theirs at link time);
 // the anchor keeps the noinline body emitted.
 __declspec(noinline) inline void BfmeAptValue006DCD20::setTypeAt006DBBC0(int type)
@@ -30,7 +22,7 @@ __declspec(noinline) inline void BfmeAptValue006DCD20::setTypeAt006DBBC0(int typ
         g_bfmeAptAssertAtE17734("n < AptVFT_NumVFTs", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptValue/AptValue.inl", 327);
         if (g_bfmeAptBreakOnAssertAtDDC01C) __debugbreak();
     }
-    m_flags = (m_flags & 0x01ffffffu) | (static_cast<unsigned int>(type) << 25);
+    field04 = (field04 & 0x01ffffffu) | (static_cast<unsigned int>(type) << 25);
 }
 
 // ?bfmeAnchorAptValueSetType absent-from-retail

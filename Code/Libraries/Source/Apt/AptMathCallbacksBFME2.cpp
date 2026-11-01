@@ -43,13 +43,7 @@ inline float __cdecl pow(float _X, float _Y)
         {return (powf(_X, _Y)); }
 
 class AptValue;
-class BfmeAptValue006DCD20
-{
-public:
-    float rva006DD460();
-    int isInteger() const;
-    int toInteger() const;
-};
+#include "BfmeAptValue006DCD20.h"
 
 class AptBasePtrStack
 {

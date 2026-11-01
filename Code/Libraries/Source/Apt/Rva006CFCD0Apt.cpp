@@ -12,11 +12,7 @@ extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
 void __debugbreak();
 #pragma intrinsic(__debugbreak)
-class BfmeAptValue006DCD20 {
-    virtual void vtableSlot0();
-public:
-    bool isUndefined() const;
-};
+#include "BfmeAptValue006DCD20.h"
 class Rva006DBB30SarDwordField {
 public:
     int get() const;

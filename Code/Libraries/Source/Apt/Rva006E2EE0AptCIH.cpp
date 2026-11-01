@@ -35,13 +35,7 @@ public:
 	virtual void Release();
 };
 
-class BfmeAptValue006DCD20
-{
-public:
-	int isCharacterInst() const;
-	bool isUndefined() const;
-	BfmeAptValue006DCD20 *rva006DCEE0();
-};
+#include "BfmeAptValue006DCD20.h"
 class Rva006DBB30SarDwordField { public: int get() const; };
 class Rva006DBB60ShrNAndField { public: int get() const; };
 class Rva006CFCD0 { public: bool isSpriteInstBase() const; };

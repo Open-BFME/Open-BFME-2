@@ -242,16 +242,7 @@ struct AptActionInterpreter
 extern AptActionInterpreter g_aptDateInterpreter;
 
 class AptLinker;
-class BfmeAptValue006DCD20
-{
-	friend class AptLinker;
-public:
-	bool isCIH(bool) const;
-	BfmeAptValue006DCD20 *rva006DCF60(bool);
-	void setGCRootCount(unsigned);
-private:
-	void setTypeAt006DBBC0(int);
-};
+#include "BfmeAptValue006DCD20.h"
 
 class AptNativeHash { public: void Set(const EAStringC *const, AptValue *const); };
 class AptDisplayList { public: void bfmeProcess1279(void *); };

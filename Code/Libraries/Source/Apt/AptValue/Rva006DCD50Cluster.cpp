@@ -11,18 +11,7 @@
 // g_bfmeAptBreakOnAssertAtDDC01C. Names come from the retail assertion text.
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
-class BfmeAptValue006DCD20 {
-    virtual void vtableSlot0();
-public:
-    int isLookup() const;
-    int isInteger() const;
-    int isRegister() const;
-    int isFloat() const;
-    BfmeAptValue006DCD20 *checkedLookup();
-    BfmeAptValue006DCD20 *checkedInteger();
-    BfmeAptValue006DCD20 *checkedRegister();
-    BfmeAptValue006DCD20 *checkedFloat();
-};
+#include "../BfmeAptValue006DCD20.h"
 // ?checkedLookup@BfmeAptValue006DCD20@@QAEPAV1@XZ @0x006DCD50 50B. Checked cast for isLookup.
 // Evidence: calls rowed ?isLookup@BfmeAptValue006DCD20@@QBEHXZ; asserts "isLookup()" at AptValue.inl:632.
 BfmeAptValue006DCD20 *BfmeAptValue006DCD20::checkedLookup()

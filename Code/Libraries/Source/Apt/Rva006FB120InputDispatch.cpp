@@ -41,11 +41,7 @@ public:
     bool isUndefined() const;                   // 0x006DC010
     AptCIH *c_cih(bool bUndefOK = false) const; // 0x006DCF60
 };
-class BfmeAptValue006DCD20
-{
-public:
-    int rva006E02B0() const; // 0x006E02B0 (rowed QBEHXZ; caller tests al)
-};
+#include "BfmeAptValue006DCD20.h"
 
 struct AptButtonRecord
 {

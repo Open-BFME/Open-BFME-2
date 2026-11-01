@@ -303,11 +303,7 @@ void AptCharacterAnimation::ExportClassDefinitionAssets(AptCIH *inst) {
 #define DL_CHECK(c,l,s) if(!(c)){g_bfmeAptAssertAtE17734(s,"C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptDisplayList.cpp",l);if(g_bfmeAptBreakOnAssertAtDDC01C){__asm int 3}}
 void __debugbreak();
 #pragma intrinsic(__debugbreak)
-class BfmeAptValue006DCD20
-{
-public:
-	bool isUndefined() const;
-};
+#include "BfmeAptValue006DCD20.h"
 
 struct BfmeQueryNode1279
 {

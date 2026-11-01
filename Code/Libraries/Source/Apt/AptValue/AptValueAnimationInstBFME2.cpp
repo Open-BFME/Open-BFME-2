@@ -16,11 +16,7 @@ public:
 	int get() const;
 };
 
-class BfmeAptValue006DCD20
-{
-public:
-	bool isUndefined() const;
-};
+#include "../BfmeAptValue006DCD20.h"
 
 class Rva006CD650
 {

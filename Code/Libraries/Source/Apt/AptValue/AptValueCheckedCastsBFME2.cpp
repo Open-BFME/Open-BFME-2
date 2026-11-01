@@ -21,48 +21,7 @@ extern "C" void __cdecl _ReadWriteBarrier(void);
 
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
-class BfmeAptValue006DCD20 {
-    virtual void vtableSlot0();
-public:
-    int isBoolean() const;
-    int isKey() const;
-    int isMath() const;
-    int isScriptColour() const;
-    int isObject() const;
-    int isPrototype() const;
-    int isDate() const;
-    int isTextFormat() const;
-    int isMovieClip() const;
-    int isXmlNode() const;
-    int isXml() const;
-    int isXmlAttributes() const;
-    int isLoadVars() const;
-    int isStage() const;
-    int isArray() const;
-    int isSound() const;
-    int isNativeFunction() const;
-    int isScriptFunction() const;
-    bool isCIH(bool bUndefOK) const;
-    BfmeAptValue006DCD20 *rva006DCEA0();
-    BfmeAptValue006DCD20 *rva006DCEE0();
-    BfmeAptValue006DCD20 *rva006DCF20();
-    BfmeAptValue006DCD20 *rva006DCFA0();
-    BfmeAptValue006DCD20 *rva006DCFE0();
-    BfmeAptValue006DCD20 *rva006DCF60(bool bUndefOK);
-    BfmeAptValue006DCD20 *rva006DD020();
-    BfmeAptValue006DCD20 *rva006DD060();
-    BfmeAptValue006DCD20 *rva006DD0A0();
-    BfmeAptValue006DCD20 *rva006DD0E0();
-    BfmeAptValue006DCD20 *rva006DD120();
-    BfmeAptValue006DCD20 *rva006DD160();
-    BfmeAptValue006DCD20 *rva006DD1A0();
-    BfmeAptValue006DCD20 *rva006DD1E0();
-    BfmeAptValue006DCD20 *rva006DD220();
-    BfmeAptValue006DCD20 *rva006DD260();
-    BfmeAptValue006DCD20 *rva006DD2A0();
-    BfmeAptValue006DCD20 *rva006DD2E0();
-    BfmeAptValue006DCD20 *rva006DD320();
-};
+#include "../BfmeAptValue006DCD20.h"
 // ?rva006DD020@BfmeAptValue006DCD20@@QAEPAV1@XZ @0x006DD020 50B. Checked cast for isKey type 24.
 // Evidence: calls rowed ?isKey@BfmeAptValue006DCD20@@QBEHXZ; asserts "isKey()" at AptValue.inl:917.
 BfmeAptValue006DCD20 *BfmeAptValue006DCD20::rva006DD020()

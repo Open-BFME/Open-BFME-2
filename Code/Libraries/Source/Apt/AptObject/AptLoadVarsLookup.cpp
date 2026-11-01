@@ -30,15 +30,7 @@ public:
 	virtual void slot2();
 	virtual AptNativeHash *GetNativeHashVirtual();
 };
-class BfmeAptValue006DCD20
-{
-public:
-	bool isCIH(bool=false) const;
-	void setGCRootCount(unsigned int);
-	BfmeAptValue006DCD20 *rva006DD2E0();
-	void rva006DD6C0(EAStringC *pBuffer);
-	virtual void slot0();
-};
+#include "../BfmeAptValue006DCD20.h"
 class AptBasePtrStack
 {
 public:

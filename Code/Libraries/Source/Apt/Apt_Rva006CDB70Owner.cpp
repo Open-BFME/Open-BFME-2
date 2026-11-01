@@ -105,7 +105,7 @@ extern int g_bfmeAptFlagAtE176D4,g_rva00891FA0Value,g_rva00891FA0Ready;
 extern unsigned char g_Va00E1770C;
 extern AptActionInterpreter g_aptDateInterpreter;
 class Rva006DBB30SarDwordField {public:int get() const;};
-class BfmeAptValue006DCD20 {public:bool isUndefined() const;void setGCRootCount(unsigned);BfmeAptValue006DCD20 *rva006DCF60(bool);};
+#include "BfmeAptValue006DCD20.h"
 class Rva006CD650 {public:void *rva006CD650();};
 struct TickMovie {char pad[0x24];unsigned interval;};
 struct TickState {char pad[0xc];TickMovie *movie;char pad10[0x20];unsigned remainder;};

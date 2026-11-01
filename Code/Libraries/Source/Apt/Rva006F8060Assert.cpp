@@ -7,11 +7,7 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 void __debugbreak();
 #pragma intrinsic(__debugbreak)
 
-class BfmeAptValue006DCD20
-{
-public:
-	bool isUndefined() const;
-};
+#include "BfmeAptValue006DCD20.h"
 
 class Rva006F8060Head
 {

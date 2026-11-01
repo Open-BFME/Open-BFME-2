@@ -16,11 +16,7 @@ public:
 class AptBoolean { public: bool GetBool() const; };
 class AptInteger { public: int GetInt() const; };
 class Rva00723490FloatField { public: float get() const; };
-class BfmeAptValue006DCD20 {
-public:
-    BfmeAptValue006DCD20 *checkedFloat();
-    BfmeAptValue006DCD20 *rva006DCEA0();
-};
+#include "../BfmeAptValue006DCD20.h"
 class AptValue {
     virtual void vtableSlot0();
     unsigned int flags;

@@ -4,9 +4,7 @@
 #pragma intrinsic(__debugbreak)
 #pragma intrinsic(__debugbreak)
 
-class BfmeAptValue006DCD20 {
-public: int isKey() const;bool isCIH(bool=false) const; void setGCRootCount(unsigned int);
-};
+#include "../BfmeAptValue006DCD20.h"
 
 class AptBasePtrStack {public: BfmeAptValue006DCD20 *At(int);int count,capacity;BfmeAptValue006DCD20 **elements;};
 

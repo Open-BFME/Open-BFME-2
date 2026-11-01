@@ -19,14 +19,7 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 
 void __debugbreak();
 
-class BfmeAptValue006DCD20
-{
-public:
-	int isString() const;
-	// 0x006DCE50, rowed in Apt/AptValue/Rva006DCE50Finish.cpp: the value's
-	// string payload.
-	BfmeAptValue006DCD20 *checkedString();
-};
+#include "../BfmeAptValue006DCD20.h"
 
 #include "../EAStringC.h"
 
