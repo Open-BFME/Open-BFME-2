@@ -27,11 +27,7 @@
 // 0x002B5944 / 0x002B4623 / 0x002B3049 (fold-proof pins).
 #include <algorithm>
 
-struct TargetRef00217D4C
-{
-	void *m_vtbl;
-	int references;
-};
+#include "../../Apt/AptRefTarget.h"
 
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 

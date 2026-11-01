@@ -10,7 +10,7 @@
 #include <map>
 #include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 bool operator<(const AsciiString &, const AsciiString &);
-struct TargetRef00217D4C { virtual void *destroy(unsigned flags); int references; };
+#include "../../Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 struct TreeHintRef00222C5A {
     TargetRef00217D4C *m_ptr;

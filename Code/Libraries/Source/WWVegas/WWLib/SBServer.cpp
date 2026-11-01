@@ -219,7 +219,7 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
 // Teardown shares the rowed 0x7DEEF release helper: it computes the same
 // slot-derived object and tail-jumps to it (the fastcall argument is already
 // in ecx). Declaration mirrors TreeHintRefReleaseBFME2.cpp.
-struct TargetRef00217D4C { virtual void *destroy(unsigned flags); int references; };
+#include "../../Apt/AptRefTarget.h"
 
 extern void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 

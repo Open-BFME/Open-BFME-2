@@ -14,7 +14,7 @@
 // Unit destructor and sole scalar slot are verified under the same real
 // class in Rva0059B072Dtor.cpp. A whole-tree link remains separate evidence.
 #include "ascii_string.h"
-struct TargetRef00217D4C {virtual void *destroy(unsigned); int references;};
+#include "../../../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 class ThingTemplate;class ArmySummary;
 class ArmySummaryEntry {public: ArmySummaryEntry(const ArmySummaryEntry &); char opaque[0xAC]; TargetRef00217D4C reference; char rest[0xC8-0xB4];};

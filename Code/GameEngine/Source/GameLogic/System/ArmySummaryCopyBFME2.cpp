@@ -39,11 +39,7 @@ enum ObjectID
 // The ObjectID vector copy is provided by VectorObjectIDFillInsert.cpp.
 namespace _STL { template <> vector<ObjectID>::vector(const vector<ObjectID> &); }
 
-struct TargetRef00217D4C
-{
-	void *m_vtbl;
-	int references;
-};
+#include "../../../../Libraries/Source/Apt/AptRefTarget.h"
 
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 

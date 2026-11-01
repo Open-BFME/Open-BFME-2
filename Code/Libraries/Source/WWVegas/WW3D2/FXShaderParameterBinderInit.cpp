@@ -38,21 +38,10 @@ __declspec(dllimport) char *__cdecl strncpy(char *d, const char *s, unsigned int
 __declspec(dllimport) int __cdecl _strcmpi(const char *a, const char *b);
 }
 
-struct TargetRef00217D4C { virtual void *destroy(unsigned int flags); int references; };
+#include "../../Apt/AptRefTarget.h"
 
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 
-struct TreeHintRef00217D4C
-{
-	TargetRef00217D4C *m_ptr;
-	TreeHintRef00217D4C() : m_ptr(0) {}
-	TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &other);
-	~TreeHintRef00217D4C()
-	{
-		if (m_ptr)
-			ReleaseTreeHintRef00217D4C(m_ptr);
-	}
-};
 
 struct Rva005F8F96
 {

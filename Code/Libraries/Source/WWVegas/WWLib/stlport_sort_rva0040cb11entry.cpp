@@ -42,11 +42,7 @@
 // at 0x0040D11C, rowed under a hand name and pinned here.
 #include <algorithm>
 
-struct TargetRef00217D4C
-{
-	void *m_vtbl;
-	int references;
-};
+#include "../../Apt/AptRefTarget.h"
 
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 

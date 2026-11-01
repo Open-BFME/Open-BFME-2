@@ -21,7 +21,7 @@ bool operator<(const AsciiString &, const AsciiString &);
 // through the shared rowed fastcall 0x0007DEEF before destroying the
 // AsciiString key, identical to 0x002175CE except its EH scopetable.
 // The pointee carries a virtual destroy slot and a reference count at +4.
-struct TargetRef00217D4C { virtual void *destroy(unsigned flags); int references; };
+#include "../../Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 struct TreeHintRef00221D6B {
     TargetRef00217D4C *m_ptr;

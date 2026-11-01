@@ -11,7 +11,7 @@ class Player;
 class Object;
 // Native DB8FEC freelist policy is distinct from the generic 41B allocator.
 template<class T>class Rva001EB984PoolAllocator {};
-struct TargetRef00217D4C {void*vt;int references;};
+#include "../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
 class ArmySummaryEntry {
 public:ArmySummaryEntry();Object*rva0040C495(Player*,int);

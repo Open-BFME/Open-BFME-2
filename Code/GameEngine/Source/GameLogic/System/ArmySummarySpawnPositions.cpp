@@ -15,7 +15,7 @@
 #define BFME_SNAPSHOT_NAME_SLOT 1
 #include "Common/Snapshot.h"
 extern "C" void __cdecl free(void*);
-struct TargetRef00217D4C { void* vtable; int references; };
+#include "../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
 struct Rva004F69C3Target { unsigned char unknown0[4]; AsciiString templateName; unsigned char opaque[0xAC-8]; TargetRef00217D4C ref; };
 // Target lookup2D06CA and the following byte test prove only this flag offset.

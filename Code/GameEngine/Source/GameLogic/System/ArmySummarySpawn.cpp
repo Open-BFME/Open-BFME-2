@@ -18,7 +18,7 @@ template<class T>class Rva001EB984PoolAllocator {};
 #include "../../Common/GameLogicObjectLookupView.h"
 class Object {public:char bytes00[0x74];ObjectID id;};
 struct LoadedObjectNode{LoadedObjectNode*next,*prev;Object*value;};
-struct TargetRef00217D4C {void*vt;int references;};
+#include "../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
 class ArmySummaryEntry {
 public:Object*rva0040C495(Player*,int);

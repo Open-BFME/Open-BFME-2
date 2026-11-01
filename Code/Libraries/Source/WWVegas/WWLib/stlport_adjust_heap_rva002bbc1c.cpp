@@ -10,11 +10,7 @@
 // at +0xB0; tail calls rowed __push_heap 0x002B459E; value-temp dtor releases
 // TargetRef at +0xAC through rowed fastcall 0x0007DEEF.
 
-struct TargetRef00217D4C
-{
-	void *m_vtbl;
-	int references;
-};
+#include "../../Apt/AptRefTarget.h"
 
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 

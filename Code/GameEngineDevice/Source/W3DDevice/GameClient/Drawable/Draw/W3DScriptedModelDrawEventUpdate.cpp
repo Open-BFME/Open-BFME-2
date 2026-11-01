@@ -252,7 +252,7 @@ void W3DScriptedModelDraw::rva000BB3E6(Rva000BB491 event)
 class INI {public: const char*getNextTokenOrNull(const char*);int scanInt(const char*);};
 class FXList;
 class FXListStore {public:const FXList*findFXList(const char*)const;};extern FXListStore*TheFXListStore;
-struct TargetRef00217D4C {virtual void*destroy(unsigned);int references;};
+#include "../../../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
 struct Rva000B3F15Payload {char pad[0x28];TargetRef00217D4C ref;};
 class Rva000B3F15 {public:

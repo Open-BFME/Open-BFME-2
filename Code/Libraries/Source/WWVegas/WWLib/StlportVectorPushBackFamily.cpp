@@ -159,7 +159,7 @@ struct Rva004E3E5AElement { int a[8]; };
 // pointee refs4; native198B insertion4F9658 retains then releases its
 // temporary with7DEEF. Keep this4B owning element consistent with that
 // independently verified consumer rather than the old size-only view.
-struct TargetRef00217D4C {virtual void *destroy(unsigned); int references;};
+#include "../../Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 struct Rva004F87BCElement {
  TargetRef00217D4C *m_ptr;

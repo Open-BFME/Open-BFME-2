@@ -14,7 +14,7 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 { return a._M_node != b._M_node; }
 }
 
-struct TargetRef00217D4C { virtual void *destroy(unsigned int flags); int references; };
+#include "../../Apt/AptRefTarget.h"
 struct Rva005F8F96
 {
 	~Rva005F8F96();

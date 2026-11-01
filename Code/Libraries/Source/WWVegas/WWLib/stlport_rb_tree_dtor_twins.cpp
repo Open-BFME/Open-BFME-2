@@ -28,7 +28,7 @@ struct Rva004D1B38Mapped
 typedef _STL::pair<const int, Rva004D1B38Mapped> Rva004D1B38Pair;
 typedef _STL::_Rb_tree<int, Rva004D1B38Pair, _STL::_Select1st<Rva004D1B38Pair>, _STL::less<int>, _STL::allocator<Rva004D1B38Pair> > Rva004D1B38Tree;
 
-struct TargetRef00217D4C { virtual void *destroy(unsigned flags); int references; };
+#include "../../Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 struct TreeHintRef0051030C
 {

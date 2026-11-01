@@ -16,7 +16,7 @@ static inline bool operator!=(const _Rb_tree_iterator<_RbVal, _RbLeft> &a,
                               const _Rb_tree_iterator<_RbVal, _RbRight> &b)
 { return a._M_node != b._M_node; }
 }
-struct TargetRef00217D4C {void *vtable; int references;};
+#include "../../../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
 class ArmySummaryEntry {public:
  ArmySummaryEntry(const ArmySummaryEntry&);

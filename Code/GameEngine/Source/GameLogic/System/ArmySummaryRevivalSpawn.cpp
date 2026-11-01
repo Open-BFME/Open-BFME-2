@@ -15,7 +15,7 @@
 class Player;
 class Object;
 #include "../../Common/GameLogicObjectLookupView.h"
-struct TargetRef00217D4C {void*vt;int references;};
+#include "../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
 class ArmySummaryEntry {
 public:Object*rva0040C495(Player*,int);

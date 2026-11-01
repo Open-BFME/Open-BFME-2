@@ -8,7 +8,7 @@
 #include <vector>
 #include <algorithm>
 #include "ascii_string.h"
-struct TargetRef00217D4C {void*vt;int references;};
+#include "../../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
 class ArmySummaryEntry {public: char bytes00[4];AsciiString name;char bytes08[0xAC-8];TargetRef00217D4C ref;};
 class Rva004F6093Holder {public:

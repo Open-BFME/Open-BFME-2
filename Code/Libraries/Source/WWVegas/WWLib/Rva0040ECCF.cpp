@@ -29,11 +29,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 #include <vector>
 
-struct TargetRef00217D4C
-{
-	void *m_vtbl;
-	int references;
-};
+#include "../../Apt/AptRefTarget.h"
 
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 

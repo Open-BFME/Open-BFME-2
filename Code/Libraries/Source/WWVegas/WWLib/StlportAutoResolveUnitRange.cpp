@@ -16,7 +16,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 }
 #include <vector>
-struct TargetRef00217D4C {virtual void *destroy(unsigned); int references;};
+#include "../../Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 struct Rva004F87BCElement {
  TargetRef00217D4C *m_ptr;
@@ -27,7 +27,6 @@ struct Rva004F87BCElement {
  }
 };
 typedef _STL::vector<Rva004F87BCElement> UnitVector;
-struct TreeHintRef00217D4C {void *m_ptr;};
 namespace _STL {
 template<class Input,class Output> Output __copy_ptrs(Input,Input,Output,const __false_type &);
 template<> TreeHintRef00217D4C *__copy_ptrs<TreeHintRef00217D4C *,TreeHintRef00217D4C *>(TreeHintRef00217D4C *,TreeHintRef00217D4C *,TreeHintRef00217D4C *,const __false_type &);

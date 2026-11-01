@@ -15,7 +15,7 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
                               const _Rb_tree_iterator<T, RightTraits>& b)
 { return a._M_node != b._M_node; }
 }
-struct TargetRef00217D4C { virtual void *destroy(unsigned int flags); int references; };
+#include "../../Apt/AptRefTarget.h"
 struct Rva0027EA49 {
 	~Rva0027EA49();
 	int m_00;

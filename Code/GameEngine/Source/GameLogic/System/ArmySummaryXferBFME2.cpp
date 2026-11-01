@@ -75,7 +75,7 @@ void XferArmySummaryEntryID(Xfer *xfer, void *entryID);
 // establish payload semantics. Query40CC3C proves delayed carryover object IDs.
 Xfer *Rva0040E19DXfer(Xfer *xfer, _STL::vector<ScienceType> *scalarIds);
 
-struct TargetRef00217D4C { void *vtable; int references; };
+#include "../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *ref);
 
 struct ArmySummaryEntryPrimary

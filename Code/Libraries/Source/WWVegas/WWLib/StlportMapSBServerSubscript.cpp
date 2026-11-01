@@ -35,7 +35,7 @@ inline __declspec(noinline) SBServer::SBServer(const SBServer &src) {
  if (handle) { void *slot=*(void**)handle;char *obj=(char*)((void**)slot)[1]+(unsigned int)handle;++*(int*)(obj+4); }
 }
 
-struct TargetRef00217D4C {virtual void *destroy(unsigned);int references;};
+#include "../../Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
 inline SBServer::~SBServer(){void*handle=m_handle;if(handle){void*slot=*(void**)handle;char*obj=(char*)((void**)slot)[1]+(unsigned int)handle;ReleaseTreeHintRef00217D4C((TargetRef00217D4C*)obj);}}
 
