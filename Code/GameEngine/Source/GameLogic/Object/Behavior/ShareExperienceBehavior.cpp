@@ -122,7 +122,8 @@ public:
 // Native distribution reads the byte at GameLogic +0x9F.
 struct Rva00480093GameLogicView { char m_pad[0x9F]; bool m_9F; };
 extern GameLogic *TheGameLogic;
-#include "Common/Snapshot.h"
+
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 #include <new>
 
 class Rva003623E5Filter
@@ -153,10 +154,8 @@ public:
 	Rva003623E5Filter m_objectFilter;	// +0x14 the object filter
 };
 
-#include "../../../../Include/Common/Module.h"
-#include "../../../../Include/Common/ObjectModule.h"
 
-#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
+
 
 enum UpdateSleepTime
 {
@@ -164,14 +163,6 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
 };
 
-class Rva00480093Base10
-{
-public:
-	// Retail's update interface starts at +0x10; its first slot is 0x0047FF6B.
-	virtual UpdateSleepTime update() = 0;
-private:
-	char m_pad14[0x20 - 0x14];
-};
 
 class Rva00480093Iface20
 {
@@ -236,7 +227,7 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class ShareExperienceBehavior : public ObjectModule, public BehaviorModuleInterface, public Rva00480093Base10,
+class ShareExperienceBehavior : public UpdateModule,
 	public Rva00480093Iface20
 {
 public:
