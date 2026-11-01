@@ -140,13 +140,7 @@ public:
 
 #include "../../Include/Common/ThingTemplate.h"
 
-class Thing
-{
-public:
-    bool isAnyKindOf(const BitFlags<69> &mask) const; // 0x0030ADC7
-    char m_pad000[4];
-    const ThingTemplate *m_template;
-};
+#include "Thing/thing.h"
 
 extern PartitionManager *ThePartitionManager;
 extern GameLogic *TheGameLogic;

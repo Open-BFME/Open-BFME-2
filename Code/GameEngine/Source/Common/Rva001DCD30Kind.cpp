@@ -7,11 +7,7 @@ class BitFlags
 };
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Thing.h
-class Thing
-{
-public:
-	bool isAnyKindOf(const BitFlags<69> &) const;
-};
+#include "Thing/thing.h"
 
 class Rva001DCD30
 {

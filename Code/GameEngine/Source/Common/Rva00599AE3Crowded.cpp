@@ -79,11 +79,7 @@ Rva0027231F::Rva0027231F(const BfmeFixedStorage0004543D &mask)
 // Rva001DCD30::isNotAnyKindOf (ICF); defined here, where the vftable is
 // emitted, so the slot resolves.
 template <int N> class BitFlags {};
-class Thing
-{
-public:
-	bool isAnyKindOf(const BitFlags<69> &) const;
-};
+#include "Thing/thing.h"
 
 bool Rva0027231F::allow(Object *obj)
 {

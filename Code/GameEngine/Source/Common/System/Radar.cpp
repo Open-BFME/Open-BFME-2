@@ -738,11 +738,7 @@ public:
 	int m_type;
 };
 
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
-};
+#include "../Thing/thing.h"
 
 //
 // ??0Rva002D76A6@@QAE@XZ @0x002D76A6 (17B).
