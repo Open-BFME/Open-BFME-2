@@ -153,14 +153,7 @@ public:
 };
 
 struct Coord3D;
-class Drawable
-{
-public:
-	void setPosition(const Coord3D *loc);
-	void setIndicatorColor(int color);
-	char m_pad00[0xFC];
-	Object *m_object; // +0xFC +0xFC
-};
+#include "../../../../Include/GameClient/Drawable.h"
 
 class Drawable;
 class UnicodeString;

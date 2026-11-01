@@ -41,14 +41,7 @@ public:
 	unsigned char m_sup439;
 };
 
-class Drawable
-{
-public:
-	unsigned char m_pad00[0xFC];
-	Object *m_object;
-public:
-	const Coord3D *getPosition() const;
-};
+#include "../../../Include/GameClient/Drawable.h"
 
 class Rva00270260
 {

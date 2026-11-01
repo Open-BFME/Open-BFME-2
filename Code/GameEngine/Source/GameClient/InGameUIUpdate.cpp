@@ -160,14 +160,7 @@ public:
 	CellShroudStatus getShroudStatusForPlayer(Int playerIndex) const;
 };
 
-class Drawable
-{
-public:
-	Object *getObject() const { return m_object; }
-
-	char m_pad000[0xfc];
-	Object *m_object;		// +0xFC
-};
+#include "../../Include/GameClient/Drawable.h"
 
 struct DrawableListNode
 {

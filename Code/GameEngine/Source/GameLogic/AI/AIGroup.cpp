@@ -1352,11 +1352,7 @@ private:
 	ListNode *m_head; // +0x04
 };
 
-class Drawable
-{
-public:
-	void setEmoticon(const StringBase<char> &name, int val);
-};
+#include "../../../Include/GameClient/Drawable.h"
 
 class StancesBehavior
 {

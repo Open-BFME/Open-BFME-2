@@ -35,11 +35,7 @@ public:
 	Rva0036CA00Str m_4;
 };
 
-class Drawable
-{
-public:
-	Rva002390CB rva00274CD8(const AsciiString &name);	// keyed sound lookup
-};
+#include "../../../Include/GameClient/Drawable.h"
 
 class Object
 {

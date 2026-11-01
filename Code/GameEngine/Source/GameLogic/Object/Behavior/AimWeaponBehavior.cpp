@@ -158,7 +158,7 @@ class Xfer;
 
 enum WeaponSlotType {PRIMARY_WEAPON=0};
 
-class Drawable {public:void rva00274176(bool);};
+#include "../../../../Include/GameClient/Drawable.h"
 
 #include "../../../Common/Thing/thing.h"
 

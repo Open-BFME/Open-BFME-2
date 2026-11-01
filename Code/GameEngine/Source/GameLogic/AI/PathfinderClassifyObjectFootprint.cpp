@@ -20,10 +20,7 @@ extern "C" { static float __cdecl floorf(float); }
 struct FootprintCoord2D{float x,y;};
 struct FootprintBounds{int lx,ly,hx,hy;};
 class Rva0027C36A {public:Rva0027C36A();unsigned words[0xa8/4];};
-class Drawable {public:
- bool rva0027267D(int,int,int,int);bool rva002726C3(int,int,int,int);
- int rva0027257B(int);bool rva00272C1E();void createEmbeddedPortals();
-};
+#include "../../../Include/GameClient/Drawable.h"
 class Rva00279677{public:void rva00279677();};
 struct BfmeVecVNB{float x,y,z; BfmeVecVNB(const float *v):x(v[0]),y(v[1]),z(v[2]){} };
 class BfmeXformVNB{public:void bfmeApplyVNB(BfmeVecVNB*,float);};

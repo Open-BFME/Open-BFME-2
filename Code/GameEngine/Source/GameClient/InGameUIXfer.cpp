@@ -96,12 +96,7 @@ enum DrawableID
 void XferObjectID( Xfer *xfer, ObjectID *id );
 void XferDrawableID( Xfer *xfer, int *id );
 
-class Drawable
-{
-public:
-	DrawableID getID() const;
-	void setDrawableHidden( bool hidden );
-};
+#include "../../Include/GameClient/Drawable.h"
 
 class ClientFrameSubsystem
 {

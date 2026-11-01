@@ -44,12 +44,7 @@ private:
 
 #include <new>
 
-class Drawable
-{
-public:
-	void rva002736A8();
-	void setEmoticon(const StringBase<char> &name, int val);
-};
+#include "../../Include/GameClient/Drawable.h"
 
 void Drawable::setEmoticon(const StringBase<char> &name, int val)
 {

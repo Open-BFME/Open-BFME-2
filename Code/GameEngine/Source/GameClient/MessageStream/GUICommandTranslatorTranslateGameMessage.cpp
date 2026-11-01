@@ -195,12 +195,7 @@ public:
 	ObjectID m_id;
 };
 
-class Drawable
-{
-public:
-	char m_pad[0xFC];
-	Object *m_object;
-};
+#include "../../../Include/GameClient/Drawable.h"
 
 class DrawableList;
 class PickAndPlayInfo;

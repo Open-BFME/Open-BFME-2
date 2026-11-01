@@ -26,12 +26,7 @@
 #include "../../../../reference/shims/bfme_matrix3d_sse_link/vector4.h"
 #include "../../../../reference/shims/bfme_matrix3d_sse_link/matrix3d.h"
 
-class Drawable
-{
-public:
-	const Matrix3D *getTransformMatrix() const;
-	void applyPhysicsXform(Matrix3D *mtx);
-};
+#include "../../Include/GameClient/Drawable.h"
 
 class Rva00271423
 {

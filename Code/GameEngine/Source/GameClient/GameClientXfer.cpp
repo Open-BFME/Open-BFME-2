@@ -132,21 +132,7 @@ enum DrawableStatus
 };
 
 // The drawable's snapshot sits at +0x60, after the thing.
-class Drawable : public Thing, public Snapshot
-{
-public:
-	__declspec(dllimport) __forceinline const Object *getObject() const { return m_object; }
-	Drawable *getNextDrawable() const { return m_nextDrawable; }
-	bool testDrawableStatus(DrawableStatus bit) const { return (m_status & bit) != 0; }
-
-private:
-	char m_pad064[0xFC - 0x64];
-	Object *m_object; // +0xFC
-	char m_pad100[0x104 - 0x100];
-	Drawable *m_nextDrawable; // +0x104
-	char m_pad108[0x114 - 0x108];
-	unsigned int m_status; // +0x114
-};
+#include "../../Include/GameClient/Drawable.h"
 
 // The thing factory's findTemplate (0x002D06CA) and newDrawable
 // (0x002CF21B), still rowed under their address-named classes.

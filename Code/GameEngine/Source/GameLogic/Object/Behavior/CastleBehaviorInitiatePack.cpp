@@ -10,7 +10,7 @@
 #include <vector>
 #include "ascii_string.h"
 #include "GameLogicObjectLookupView.h"
-class Drawable {public:void fadeOut(unsigned int);void rva00274176(bool);};
+#include "../../../../Include/GameClient/Drawable.h"
 struct TemplateNameView {char prefix[0x64];AsciiString name;};
 class Player {public:char prefix[0x4C];AsciiString name;};
 enum ObjectStatusTypes {STATUS3=3,STATUS5=5};

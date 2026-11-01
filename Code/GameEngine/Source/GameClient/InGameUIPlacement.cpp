@@ -32,16 +32,7 @@ private:
 	unsigned char m_kindOfBytes[0x18];				// +0x108
 };
 
-class Drawable
-{
-public:
-	float getOrientation() const { return m_cachedAngle; }
-private:
-	char m_unknown00[0x44];
-	float m_cachedAngle;							// +0x44
-public:
-	const Coord3D *getPosition() const;
-};
+#include "../../Include/GameClient/Drawable.h"
 
 // The ledger's name for Drawable's interpolated position getter 0x002763E6.
 

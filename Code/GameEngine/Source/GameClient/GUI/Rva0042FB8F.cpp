@@ -23,12 +23,7 @@ public:
 	ObjectID m_id;
 };
 
-class Drawable
-{
-public:
-	unsigned char m_pad00[0xFC];
-	Object *m_object;
-};
+#include "../../../Include/GameClient/Drawable.h"
 
 class GameMessage
 {

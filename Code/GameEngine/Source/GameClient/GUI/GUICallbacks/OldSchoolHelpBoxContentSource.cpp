@@ -115,14 +115,7 @@ extern GameTextInterface *TheGameText;
 
 struct DrawableNode;
 
-class Drawable
-{
-public:
-	Object *getObject() const { return m_object; }
-
-	char m_pad000[0xFC];
-	Object *m_object;               // +0xFC
-};
+#include "../../../../Include/GameClient/Drawable.h"
 
 struct DrawableNode
 {

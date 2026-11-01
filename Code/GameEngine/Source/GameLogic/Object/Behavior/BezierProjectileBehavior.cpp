@@ -176,14 +176,7 @@ enum UpdateSleepTime
 
 enum SleepyUpdatePhase;
 
-class Drawable
-{
-public:
-	void setDrawableHidden(bool hidden); // 0x00271601
-	void fadeOut(unsigned int frames); // 0x00270756
-	void fadeIn(unsigned int frames); // 0x002707A8
-	void rva00272D77(unsigned int a, unsigned int b); // 0x00272D77
-};
+#include "../../../../Include/GameClient/Drawable.h"
 
 class ThingTemplate
 {

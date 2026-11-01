@@ -31,7 +31,7 @@ extern PlayerList* ThePlayerList;
 class ObjectFilter { public: bool testTemplate(const ThingTemplate*,const Player*,const Player*); };
 enum ObjectStatusTypes { STATUS5=5 };
 enum ModelConditionFlagType { CONDITION218=218 };
-class Drawable { public: void fadeIn(unsigned); void rva00274176(bool); };
+#include "../../../../Include/GameClient/Drawable.h"
 class ExitInterface {
 public:
  virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3();

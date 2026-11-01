@@ -105,10 +105,7 @@ private:
 // (string, state, 1, 0.0f, 0.0f).
 class AsciiString;
 
-class Drawable {
-public:
-    void rva002724FD(const AsciiString &s, int a, int b, float c, float d);
-};
+#include "../../../../Include/GameClient/Drawable.h"
 
 struct BuildingWindowList {
     char *m_start;

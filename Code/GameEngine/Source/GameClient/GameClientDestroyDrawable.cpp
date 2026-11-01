@@ -82,18 +82,7 @@ public:
 	void friend_bindToDrawable(Drawable *draw);
 };
 
-class Drawable
-{
-public:
-	void rva00270234();
-	void removeFromList(Drawable **pListHead);
-	void friend_bindToObject(Object *obj);
-	Object *getObject() const { return m_object; }
-
-private:
-	unsigned char m_pad000[0xFC];
-	Object *m_object; // +0xFC
-};
+#include "../../Include/GameClient/Drawable.h"
 
 // The lookup-table removal 0x00239C38 is rowed as Rva00239C38::rva00239C38
 // (Rva00239C38Erase.cpp): call it by that name, not by GameClient.cpp's

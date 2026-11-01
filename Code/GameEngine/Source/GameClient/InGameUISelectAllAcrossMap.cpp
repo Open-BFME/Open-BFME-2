@@ -85,17 +85,7 @@ private:
 	unsigned char m_438; // +0x438
 };
 
-class Drawable
-{
-public:
-	Object *getObject() const { return m_object; }
-	Drawable *getNextDrawable() const { return m_next; }
-private:
-	unsigned char m_pad000[0xFC];
-	Object *m_object; // +0xFC
-	unsigned char m_pad100[0x104 - 0x100];
-	Drawable *m_next; // +0x104
-};
+#include "../../Include/GameClient/Drawable.h"
 
 #define V(n) virtual void r##n() = 0;
 

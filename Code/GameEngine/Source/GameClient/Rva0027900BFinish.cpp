@@ -194,11 +194,7 @@ public:
 	Object *m_274; // +0x274
 };
 
-class Drawable
-{
-public:
-	void drawVeterancy(bool flag, int level);
-};
+#include "../../Include/GameClient/Drawable.h"
 
 class Rva00279074Host
 {

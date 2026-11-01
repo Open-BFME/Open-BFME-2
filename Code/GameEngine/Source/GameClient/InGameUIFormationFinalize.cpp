@@ -18,7 +18,7 @@
 #include "Lib/Coord3D.h"
 #include <math.h>
 class Object {public:const Coord3D *getPosition() const {return &m_position;} private:char m_pad[0x38];Coord3D m_position;};
-class Drawable {public:Object *getObject() const {return m_object;} private:char m_pad[0xFC];Object *m_object;};
+#include "../../Include/GameClient/Drawable.h"
 struct DrawableListNode {DrawableListNode *m_next;DrawableListNode *m_prev;Drawable *m_drawable;};
 class DrawableList {public:DrawableListNode *m_head;};
 static __forceinline float sqr(float v){return v*v;}

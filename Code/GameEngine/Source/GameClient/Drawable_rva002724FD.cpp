@@ -64,13 +64,7 @@ public:
 	virtual BfmeObjectDrawForRva2724FD *getObjectDrawInterface() = 0;
 };
 
-class Drawable
-{
-public:
-	void rva002724FD(const AsciiString &a, int b, int c, float d, float e);
-	void rva00272414(const SubObjectExclusionList *arg);
-	void updateSubObjects();
-};
+#include "../../Include/GameClient/Drawable.h"
 
 void Drawable::rva002724FD(const AsciiString &asciiString, int b, int c, float d, float e)
 {

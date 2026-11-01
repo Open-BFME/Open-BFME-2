@@ -109,7 +109,7 @@ class Dict;
 class Rva0027C36A{public:Rva0027C36A();char bytes[0xa8];};
 class PolygonTrigger{public:virtual void *destroy(unsigned);void getBounds(IRegion2D*);};
 class Bridge{public:Bridge(Rva0027C36A&,Dict*,const AsciiString&,PolygonTrigger*);virtual void *destroy(unsigned);Bridge*next;char bytes[0xcc-8];};
-class Drawable{public:int rva002725E7(int);int rva002725B1(int);bool rva0027267D(int,int,int,int);bool rva002726C3(int,int,int,int);};
+#include "../../../Include/GameClient/Drawable.h"
 struct WallTemplate{char pad[0x64];AsciiString name;const AsciiString&getName()const{return name;}};
 class Object{public:Drawable*getDrawable()const;const WallTemplate*getTemplate()const{return templ;}char pad0[4];WallTemplate*templ;char pad8[0x74-8];int id;int getID()const{return id;}char pad78[0x94-0x78];unsigned status;};
 class Rva0036666B{public:bool rva0036666B();};

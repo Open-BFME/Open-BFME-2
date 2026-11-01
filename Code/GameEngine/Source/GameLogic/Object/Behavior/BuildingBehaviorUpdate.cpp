@@ -24,11 +24,7 @@ typedef bool Bool;
 enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1, UPDATE_SLEEP_FOREVER = 0x3FFFFFFF };
 enum ObjectStatusTypes { OBJECT_STATUS_NONE = 0 };
 
-class Drawable
-{
-public:
-	void updateSubObjects();
-};
+#include "../../../../Include/GameClient/Drawable.h"
 
 struct BuildingBehaviorObjectStatusBits
 {

@@ -83,12 +83,7 @@ public:
 	ThingTemplate *m_template;
 };
 
-class Drawable
-{
-public:
-	unsigned char m_pad[0xFC];
-	Object *m_object;
-};
+#include "../../Include/GameClient/Drawable.h"
 
 class InGameUI
 {

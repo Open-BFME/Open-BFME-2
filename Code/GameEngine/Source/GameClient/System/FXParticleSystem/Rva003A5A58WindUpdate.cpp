@@ -49,11 +49,7 @@ private:
 #include "../../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 
-class Drawable
-{
-public:
-	const Coord3D *getPosition() const;
-};
+#include "../../../../Include/GameClient/Drawable.h"
 
 class GameClient
 {

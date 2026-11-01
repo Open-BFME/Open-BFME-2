@@ -74,16 +74,7 @@ private:
 	Team *m_team;	// +0x304
 };
 
-class Drawable
-{
-public:
-	Object *getObject() const { return m_object; }
-	const Coord3D *getPosition() const;
-
-private:
-	char m_pad[0xFC];
-	Object *m_object;	// +0xFC
-};
+#include "../../Include/GameClient/Drawable.h"
 
 typedef _STL::list<Drawable *> DrawableList;
 typedef DrawableList::const_iterator DrawableListCIt;

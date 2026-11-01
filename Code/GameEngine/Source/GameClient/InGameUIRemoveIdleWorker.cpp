@@ -117,14 +117,7 @@ private:
 	Object *m_containedBy;
 };
 
-class Drawable
-{
-public:
-	Object *getObject() { return m_object; }
-private:
-	char m_unknown00[0xFC];
-	Object *m_object;
-};
+#include "../../Include/GameClient/Drawable.h"
 
 class GameMessage
 {

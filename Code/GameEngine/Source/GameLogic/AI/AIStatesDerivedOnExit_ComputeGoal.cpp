@@ -111,7 +111,7 @@ enum
 {
 	AI_IDLE = 0
 };
-class Drawable { public: void rva000B3FD0(); };
+#include "../../../Include/GameClient/Drawable.h"
 class Locomotor
 {
 public:

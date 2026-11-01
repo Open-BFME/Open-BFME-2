@@ -27,12 +27,7 @@ public:
 	void doFXPos(const Coord3D *pos, const Matrix3D *mtx, float speed, const Coord3D *secondary) const;
 };
 
-class Drawable
-{
-public:
-	int getCurrentClientBonePositions(const char *boneNamePrefix, int startIndex,
-		Coord3D *positions, Matrix3D *transforms, int maxBones) const;
-};
+#include "../../Include/GameClient/Drawable.h"
 
 
 class Object : public Thing

@@ -201,12 +201,7 @@ class ThingTemplate { public:
  unsigned char pad2[4]; AsciiString name;
  unsigned char pad3[0x108-0x68]; unsigned char kindFlags[24];
 };
-class Drawable { public:
- Object* getObject() const { return object; }
- DrawableID getID() const;
- bool rva00274C62(AsciiString*);
- unsigned char pad[0xfc]; Object* object;
-};
+#include "../../Include/GameClient/Drawable.h"
 class Player { public:
  Relationship getRelationship(const Team*) const;
  bool isPlayerActive() const;
