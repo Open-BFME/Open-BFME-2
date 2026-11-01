@@ -108,7 +108,7 @@ public:
 	Transform m_t;
 };
 
-struct Vector3 {float X,Y,Z;__forceinline Vector3(){} __forceinline Vector3(float x,float y,float z):X(x),Y(y),Z(z){} __forceinline Vector3(const Vector3&v){X=v.X;Y=v.Y;Z=v.Z;} __forceinline Vector3&operator=(const Vector3&v){X=v.X;Y=v.Y;Z=v.Z;return *this;}};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 __declspec(noinline) void HordeGarrisonContain::rva00479C35(Coord3D *in, Coord3D *out){
  Vector3 input(in->x,in->y,in->z);
  Transform*t=&m_object->m_t;

@@ -98,12 +98,7 @@ public:
 };
 
 // WWMath Vector3 as the WorldBuilder twin uses it (vector3.h operator*=).
-struct Vector3
-{
-	float X, Y, Z;
-	__forceinline Vector3(float x, float y, float z) { X = x; Y = y; Z = z; }
-	__forceinline Vector3 &operator*=(float k) { X *= k; Y *= k; Z *= k; return *this; }
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 class Rva003909FAObj
 {
