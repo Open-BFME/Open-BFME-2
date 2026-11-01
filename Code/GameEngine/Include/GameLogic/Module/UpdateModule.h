@@ -32,10 +32,8 @@
 #ifndef __BFME2_UPDATEMODULE_H_
 #define __BFME2_UPDATEMODULE_H_
 
-#if defined(__SNAPSHOT_H_) && !defined(BFME_SNAPSHOT_NAME_SLOT)
-#error UpdateModule requires Snapshot's BFME2 GetSnapshotName slot
-#endif
-#ifndef BFME_SNAPSHOT_NAME_SLOT
+// A unit that already read Snapshot without the name slot spells that slot crc.
+#if !defined(__SNAPSHOT_H_) && !defined(BFME_SNAPSHOT_NAME_SLOT)
 #define BFME_SNAPSHOT_NAME_SLOT
 #endif
 #include "BehaviorModule.h"
@@ -75,7 +73,11 @@ public:
 
 protected:
     virtual void loadPostProcess();
+#ifdef BFME_SNAPSHOT_NAME_SLOT
     virtual const char *GetSnapshotName() const;
+#else
+    virtual void crc(Xfer *xfer);
+#endif
     virtual SleepyUpdatePhase getUpdatePhase() const;
 
     void setWakeFrame(Object *obj, UpdateSleepTime wakeDelay);
