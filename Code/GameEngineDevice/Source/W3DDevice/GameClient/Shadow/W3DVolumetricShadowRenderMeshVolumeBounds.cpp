@@ -74,14 +74,10 @@ protected:
 };
 typedef Matrix4 Matrix4x4;
 
-class Matrix3D
-{
-public:
-	void Get_Translation(Vector3 *set) const { set->X = Row[0].W; set->Y = Row[1].W; set->Z = Row[2].W; }
-protected:
-	Vector4 Row[3];
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
+
+static __forceinline void meshBoundsTranslation(const Matrix3D &m,Vector3 *set) { set->X=m.Row[0].W;set->Y=m.Row[1].W;set->Z=m.Row[2].W; }
 class AABoxClass
 {
 public:
@@ -193,7 +189,7 @@ void W3DVolumetricShadow::RenderMeshVolumeBounds(Int meshIndex, Int lightIndex, 
 		return;
 
 	Vector3 meshPosition;
-	meshXform->Get_Translation(&meshPosition);	//current mesh position
+	meshBoundsTranslation(*meshXform,&meshPosition);	//current mesh position
 
 	geometry = m_shadowVolume[lightIndex][ meshIndex ];
 	AABoxClass &aab=geometry->getBoundingBox();

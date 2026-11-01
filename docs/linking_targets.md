@@ -1,34 +1,42 @@
 # Linking target checklist
 
 
-### Use canonical Matrix3D storage in horde siege transforms (2026-11-01)
+### Six-source containment and shadow Matrix3D batch (2026-11-01)
 
-This source adopts canonical Matrix3D storage with native code and resolved relocation targets preserved. Normal/frozen/EH/strict and owning acceptance pass. Bounded link predictions remain distinct from a census, full current selection or runtime proof.
-[Evidence](../reverse/attempt_support/horde-siege-transform-matrix3d-20261101-2150.md).
-
-
-### Use canonical Matrix3D storage in siege containment transfer (2026-11-01)
-
-This source adopts canonical Matrix3D storage with native code and resolved relocation targets preserved. Normal/frozen/EH/strict and owning acceptance pass. Bounded link predictions remain distinct from a census, full current selection or runtime proof.
-[Evidence](../reverse/attempt_support/siege-contain-transfer-matrix3d-20261101-2150.md).
-
-
-### Use canonical Matrix3D storage in slaved repair transforms (2026-11-01)
-
-This source adopts canonical Matrix3D storage with native code and resolved relocation targets preserved. Normal/frozen/EH/strict and owning acceptance pass. Bounded link predictions remain distinct from a census, full current selection or runtime proof.
-[Evidence](../reverse/attempt_support/slaved-repair-matrix3d-20261101-2150.md).
-
-
-### Use canonical Matrix3D storage in transport rider transforms (2026-11-01)
-
-This source adopts canonical Matrix3D storage with native code and resolved relocation targets preserved. Normal/frozen/EH/strict and owning acceptance pass. Bounded link predictions remain distinct from a census, full current selection or runtime proof.
-[Evidence](../reverse/attempt_support/transport-riders-matrix3d-20261101-2150.md).
+31 native rows, 223 retained external bodies and 10 retained TU-local code definitions preserved; 6 owning queue rows retired. Strict/new-variants checks pass. Outgoing audit exit 2; complete current selection and runtime remain unproved.
+[Batch evidence](../reverse/attempt_support/six-storage-adoptions-batch-20261101-2150.md).
+Refreshed strict preparation verifies all31 native rows and5 data rows. Own receipts are current; the broader audit remains INCONCLUSIVE on the differing index and CreateAHero consumer receipt. The Garrison ZH-seed Coord3D/layout TU-merge prerequisite remains separate.
 
 
 ### Use canonical Matrix3D storage in garrison removal transforms (2026-11-01)
 
 This source adopts canonical Matrix3D storage with native code and resolved relocation targets preserved. Normal/frozen/EH/strict and owning acceptance pass. Bounded link predictions remain distinct from a census, full current selection or runtime proof.
 [Evidence](../reverse/attempt_support/garrison-removal-matrix3d-20261101-2150.md).
+
+### Use canonical Matrix3D storage in transport rider transforms (2026-11-01)
+
+This source adopts canonical Matrix3D storage with native code and resolved relocation targets preserved. Normal/frozen/EH/strict and owning acceptance pass. Bounded link predictions remain distinct from a census, full current selection or runtime proof.
+[Evidence](../reverse/attempt_support/transport-riders-matrix3d-20261101-2150.md).
+
+### Use canonical Matrix3D storage in slaved repair transforms (2026-11-01)
+
+This source adopts canonical Matrix3D storage with native code and resolved relocation targets preserved. Normal/frozen/EH/strict and owning acceptance pass. Bounded link predictions remain distinct from a census, full current selection or runtime proof.
+[Evidence](../reverse/attempt_support/slaved-repair-matrix3d-20261101-2150.md).
+
+### Use canonical Matrix3D storage in siege containment transfer (2026-11-01)
+
+This source adopts canonical Matrix3D storage with native code and resolved relocation targets preserved. Normal/frozen/EH/strict and owning acceptance pass. Bounded link predictions remain distinct from a census, full current selection or runtime proof.
+[Evidence](../reverse/attempt_support/siege-contain-transfer-matrix3d-20261101-2150.md).
+
+### Use canonical Matrix3D storage in horde siege transforms (2026-11-01)
+
+This source adopts canonical Matrix3D storage with native code and resolved relocation targets preserved. Normal/frozen/EH/strict and owning acceptance pass. Bounded link predictions remain distinct from a census, full current selection or runtime proof.
+[Evidence](../reverse/attempt_support/horde-siege-transform-matrix3d-20261101-2150.md).
+
+### Use canonical Matrix3D storage in shadow mesh bounds (2026-11-01)
+
+This source adopts canonical Matrix3D storage with native code and resolved relocation targets preserved. Normal/frozen/EH/strict and owning acceptance pass. Bounded link predictions remain distinct from a census, full current selection or runtime proof.
+[Evidence](../reverse/attempt_support/shadow-mesh-bounds-matrix3d-20261101-2150.md).
 
 
 ### Six-source Matrix3D batch (2026-11-01)
