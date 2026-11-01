@@ -91,7 +91,7 @@ private:
 class PlayerList {public:char prefix[0x10];Player *m_local;char pad14[0x18-0x14];Player *neutralPlayer;};
 extern PlayerList *ThePlayerList;
 enum NameKeyType { NAMEKEY_INVALID=0 };
-class NameKeyGenerator {public:NameKeyType nameToKey(const char *);NameKeyType nameToKey(const AsciiString &);};
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 class PlayerTemplateStore {public:const PlayerTemplate *findPlayerTemplate(NameKeyType)const;};
 extern PlayerTemplateStore *ThePlayerTemplateStore;

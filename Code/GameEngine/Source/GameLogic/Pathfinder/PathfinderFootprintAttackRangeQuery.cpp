@@ -17,7 +17,7 @@ extern "C" { static float __cdecl floorf(float); }
 enum PathfindLayerEnum {OBSERVED_LAYER_1=1};
 enum WeaponSlotType {OBSERVED_SLOT_0=0};
 enum NameKeyType {NAMEKEY_INVALID=0};
-class NameKeyGenerator {public:NameKeyType nameToKey(const char*);};
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 class Object;class Module;class Weapon;
 class Rva002C9400ByteField {public:unsigned char get()const;};

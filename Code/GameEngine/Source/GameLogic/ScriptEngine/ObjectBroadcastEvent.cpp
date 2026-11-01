@@ -120,12 +120,7 @@ extern class GlobalData *TheWritableGlobalData;
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 
 class AsciiString;
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey( const char *name );
-	NameKeyType nameToKey(const AsciiString &name);
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 // One delayed Lua event argument (0x18 bytes): +0x0C an object ID (type 3),

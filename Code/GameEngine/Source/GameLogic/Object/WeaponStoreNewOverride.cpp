@@ -227,11 +227,7 @@ enum INILoadType;
 // This declaration does not assert the size or the other fields of INI.
 #include "../../../Include/Common/INI/INI.h"
 
-class NameKeyGenerator
-{
-public:
-    NameKeyType nameToKey(const AsciiString &name);
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 class WeaponTemplate

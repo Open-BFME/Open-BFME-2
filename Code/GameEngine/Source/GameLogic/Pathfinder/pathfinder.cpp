@@ -4724,7 +4724,7 @@ bool Pathfinder::adjustToMeleeDestination(Object*obj,const LocomotorSet&set,Coor
 }
 class BfmeTripleRC;
 class Gen_003D5670 {public:Gen_003D5670(int,int,int,int,int,int,unsigned char,unsigned char,int,int,BfmeTripleRC*,unsigned char);unsigned char storage[0x3c];};
-class NameKeyGenerator {public:NameKeyType nameToKey(const char*);};
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 class DynamicPortalBehaviour {public:static Module *rva004608E0(Object*);};
 class Rva004C5772CmpBoolField {public:bool get()const;};

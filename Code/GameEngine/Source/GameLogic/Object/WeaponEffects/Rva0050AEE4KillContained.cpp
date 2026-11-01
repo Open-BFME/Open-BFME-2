@@ -25,7 +25,7 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
 }
 namespace _STL { template<> _List_base<Rva0036ADF9Element,allocator<Rva0036ADF9Element> >::~_List_base(); }
 enum NameKeyType{INVALIDKEY=0};
-class NameKeyGenerator {public:NameKeyType nameToKey(const char*);};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator*TheNameKeyGenerator;
 class Rva00294D61 {public:void report(Object*,int);};
 enum DamageType{UNRESISTABLE=8};enum DeathType{NORMAL=0};

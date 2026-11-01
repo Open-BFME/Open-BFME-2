@@ -1377,12 +1377,7 @@ public:
 	~Rva00204D66();
 };
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const AsciiString &name);
-	const AsciiString &keyToName(NameKeyType key); // 0x00148C95
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

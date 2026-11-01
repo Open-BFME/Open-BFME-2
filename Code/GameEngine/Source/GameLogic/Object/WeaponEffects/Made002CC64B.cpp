@@ -84,7 +84,7 @@ class AttributeModifierPoolUpdate {public:void rva00403415(int*,int);};
 
 enum NameKeyType{KEY0=0};
 
-class NameKeyGenerator{public:NameKeyType nameToKey(const char*);};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
