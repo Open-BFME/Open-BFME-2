@@ -5394,24 +5394,7 @@ static __forceinline const ThingTemplate *finalOverride(const ThingTemplate *tt)
 {
 	return (const ThingTemplate *)((Rva0033A68A *)tt)->rva0033A68A();
 }
-class Team
-{
-public:
-	void setActive(void)
-	{
-		if (!m_active) {
-			m_created = true;
-			m_active = true;
-		}
-	}
-	unsigned int getID(void) const { return m_id; }
-private:
-	char m_pad00[0x34];
-	unsigned int m_id;                                                   // +0x34
-	char m_pad38[0x5d - 0x38];
-	bool m_active;
-	bool m_created;
-};
+#include "../../../Include/Common/TeamBFME2.h"
 extern const StaticNameKey TheKey_objectName;
 extern Rva00148F5ECache TheKey_objectPrototypeScale;
 StaticNameKey TheKey_alignToTerrain = { 0, "alignToTerrain" };
