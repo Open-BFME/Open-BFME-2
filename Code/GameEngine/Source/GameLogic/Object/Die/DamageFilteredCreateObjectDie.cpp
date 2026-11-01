@@ -13,6 +13,7 @@
 		field += ADDIMM; \
 		return base ? (int)field : 0; \
 	}
+#include "../../../../Include/GameLogic/Module/DieModule.h"
 
 // ?getModuleNameKey@DamageFilteredCreateObjectDie@@UBE?AW4NameKeyType@@XZ @0x485efd
 // (69B): cached pool-name key for DamageFilteredCreateObjectDie. The class
@@ -36,12 +37,6 @@ public:
 };
 
 extern NameKeyGenerator *TheNameKeyGenerator;
-
-class DamageFilteredCreateObjectDie
-{
-public:
-	virtual NameKeyType getModuleNameKey() const;
-};
 
 //
 // ??0DamageFilteredCreateObjectDieModuleData@@QAE@XZ, retail 0x00485F42,
@@ -91,9 +86,47 @@ public:
 
 BFME_DISP8_LEA_NEG_SBB_GETTER(Rva00485EE9LeaNegSbbField, 12, 0x08)
 
-// tu-skeleton: 0x00485EC3 32B ??1DamageFilteredCreateObjectDie@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Die/DamageFilteredCreateObjectDieDtor.cpp (not merged yet)
+// The +0x14 subobject is DamageFilteredCreateObjectDie's damage-module
+// interface (table 0x00C4AA84, per the matched ctor); its overrides live in
+// DamageFilteredCreateObjectDieDamageSlots.cpp, so this TU only declares.
+class Rva00C4AA84Iface
+{
+public:
+	virtual void onDamage(DamageInfo *damageInfo) = 0;
+	virtual void onHealing(void *arg) = 0;
+};
+
+class DamageFilteredCreateObjectDie : public DieModule, public Rva00C4AA84Iface
+{
+public:
+	virtual ~DamageFilteredCreateObjectDie();
+	virtual void onDamage(DamageInfo *damageInfo);
+	virtual void onDie(const DamageInfo *damageInfo);
+	virtual void onHealing(void *arg);
+	virtual NameKeyType getModuleNameKey() const;
+private:
+	unsigned int m_frame;		// +0x18
+	int m_playerValue;		// +0x1C
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Die/DamageFilteredCreateObjectDieDtor.cpp
+
+//
+// ??1DamageFilteredCreateObjectDie@@UAE@XZ, retail 0x00485EC3, 32 bytes.
+// Target evidence: the audited scalar deleting dtor 0x00485FC7 calls this
+// body; slot 4 -> 0x00485EFD uses class-name string
+// "DamageFilteredCreateObjectDie". Shape follows DieModuleDerived.cpp with one
+// more empty polymorphic base: vptr restores at +0x00/+0x0C/+0x10/+0x14, then
+// a tail jmp to DieModule::~DieModule 0x0045CE54. The empty bases are
+// structural stand-ins; their real types are unrecovered.
+
+DamageFilteredCreateObjectDie::~DamageFilteredCreateObjectDie()
+{
+}
 
 // tu-skeleton: 0x00485EE3 6B ?name@DamageFilteredCreateObjectDie@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Die/DamageFilteredCreateObjectDie.cpp
 
 // ---- from Code/GameEngine/Source/Common/Disp8LeaNegSbbGetters.cpp
 
@@ -109,7 +142,6 @@ BFME_DISP8_LEA_NEG_SBB_GETTER(Rva00485EE9LeaNegSbbField, 12, 0x08)
 // every name is derived from its address.
 // No // cl: line (defaults match the shape).
 
-// tu-skeleton: 0x00485EF6 7B ?onHealing@DamageFilteredCreateObjectDie@@UAEXPAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Die/DamageFilteredCreateObjectDieDamageSlots.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Die/DamageFilteredCreateObjectDie.cpp
 
@@ -135,11 +167,11 @@ DamageFilteredCreateObjectDieModuleData::DamageFilteredCreateObjectDieModuleData
 	m_vtable = reinterpret_cast<void *>(((unsigned int)__identifier("??_7ObjectHelperModuleData@@6B@")));
 }
 
+// tu-skeleton: 0x00485EF6 7B ?onHealing@DamageFilteredCreateObjectDie@@UAEXPAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Die/DamageFilteredCreateObjectDieDamageSlots.cpp (not merged yet)
+
 // tu-skeleton: 0x00485F65 34B ?buildFieldParse@DamageFilteredCreateObjectDieModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp (not merged yet)
 
 // tu-skeleton: 0x00485F87 64B ??0DamageFilteredCreateObjectDie@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Die/DamageFilteredCreateObjectDieCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00485FC7 28B ??_GDamageFilteredCreateObjectDie@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Die/DamageFilteredCreateObjectDieDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00485FE3 50B ?xfer@DamageFilteredCreateObjectDie@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Die/DamageFilteredCreateObjectDieXfer.cpp (not merged yet)
 
