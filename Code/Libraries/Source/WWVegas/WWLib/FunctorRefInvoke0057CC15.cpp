@@ -15,22 +15,41 @@ public:
 private:
 	char m_pad[0x0C - 4];
 };
+struct TargetRef00217D4C;
+void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
+
+template <class T> class RefCountPtr
+{
+public:
+	RefCountPtr() : m_p(0) {}
+	RefCountPtr(T *p) : m_p(p) { if (p) ++p->m_refs; }
+	~RefCountPtr() { if (m_p) ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)m_p); }
+	T *operator->() const { return m_p; }
+	T *get() const { return m_p; }
+
+private:
+	T *m_p;
+};
+
+
 class Rva0057CC15Op
 {
 public:
 	virtual ~Rva0057CC15Op();
 	virtual void invoke(int a);
+
+	int m_refs;	// +0x04
 };
 class Rva0057CC15Ref
 {
 public:
 	void invoke(int a);
-private:
-	Rva0057CC15Op *m_op;
+
+	RefCountPtr<Rva0057CC15Op> m_op;
 };
 void Rva0057CC15Ref::invoke(int a)
 {
-	Rva0057CC15Op *op = m_op;
+	Rva0057CC15Op *op = m_op.get();
 	if (op == 0) {
 		throw FunctorNotSet();
 	}

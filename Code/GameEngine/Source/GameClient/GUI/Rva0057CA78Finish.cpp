@@ -8,23 +8,30 @@
 // counter to edi and slot to ebx; declaring the slot pointer inside the loop
 // and keeping the compound short-circuit guard flips that to retail's ebx/edi
 // and is byte-exact.
+class GameSlot;
+class AsciiString;
+class Rva0057CC15Op;
+
 class Rva0043DA65
 {
 public:
 	int rva0043DA65();
+	int m_00; // +0x00
+	int m_refs; // +0x04 +0x04, the reference count
+	int m_08; // +0x08
 };
 
 class GameSlot
 {
 public:
-	virtual void reset();
 	bool isAI() const;
+	virtual void reset();
 	int m_state; // +0x04
-	char m_pad08[4]; // +0x08..+0x0B
-	int m_color; // +0x0C
-	int m_startPos; // +0x10
-	char m_pad14[4]; // +0x14
-	int m_playerTemplate; // +0x18
+	char m_pad08[0x4];
+	int m_color; // +0x0C +0x0C
+	int m_startPos; // +0x10 +0x10, the start region id, -1 for none
+	char m_pad14[0x4];
+	int m_playerTemplate; // +0x18 +0x18
 };
 
 class GameInfo
@@ -42,9 +49,20 @@ public:
 	virtual void v09() = 0;
 	virtual void v10() = 0;
 	virtual void v11() = 0;
-	virtual bool v30() const = 0;
-	virtual int v34() const = 0;
-	const GameSlot *getConstSlot(int slotNum) const;
+	virtual bool amIHost() const = 0;	// +0x30
+	virtual int v34() const = 0;	// +0x34
+	AsciiString getMap() const;		// 0x0023E943
+	GameSlot *getSlot(int index);		// 0x003FF29F
+	const GameSlot *getConstSlot(int slotNum) const;	// 0x003FF2BE
+
+	unsigned char m_pad04[0x10 - 0x4];
+	bool m_selectStartPoint;	// +0x10
+	unsigned char m_pad11[0x58 - 0x11];
+	int m_campaign;		// +0x58, a campaign manager index
+	unsigned char m_pad5c[0x8c - 0x5c];
+	bool m_8c;		// +0x8C, no region picks while set
+	unsigned char m_pad8d[0xc8 - 0x8d];
+	int m_c8;		// +0xC8
 };
 
 struct Rva0057CA78
@@ -59,7 +77,7 @@ int Rva0057CA78::GetNextSelectablePlayer(int start)
 	GameInfo *info = (GameInfo *)m_ptr18->rva0043DA65();
 	if (!info)
 		return -1;
-	if (!info->v30())
+	if (!info->amIHost())
 	{
 		int local = info->v34();
 		const GameSlot *slot = info->getConstSlot(local);

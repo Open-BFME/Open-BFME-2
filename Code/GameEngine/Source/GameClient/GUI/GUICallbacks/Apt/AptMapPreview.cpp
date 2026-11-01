@@ -47,6 +47,10 @@ bool less<int>::operator()(const int &a, const int &b) const
 typedef int Int;
 typedef bool Bool;
 
+class GameSlot;
+class AsciiString;
+class Rva0057CC15Op;
+
 class Rva0020E89C;
 class ModuleData;
 
@@ -273,8 +277,14 @@ enum Rva0057DB97Slot
 class GameSlot
 {
 public:
-	unsigned char m_pad00[0x10];
-	Int m_startPos;		// +0x10, the start region id, -1 for none
+	bool isAI() const;
+	virtual void reset();
+	int m_state; // +0x04
+	char m_pad08[0x4];
+	int m_color; // +0x0C +0x0C
+	int m_startPos; // +0x10 +0x10, the start region id, -1 for none
+	char m_pad14[0x4];
+	int m_playerTemplate; // +0x18 +0x18
 };
 
 // The preview's ref-counted members (+0x18, +0x6C) release their referent
@@ -299,7 +309,8 @@ private:
 class Rva0057CC15Op
 {
 public:
-	virtual void v00();
+	virtual ~Rva0057CC15Op();
+	virtual void invoke(int a);
 
 	int m_refs;	// +0x04
 };
@@ -506,10 +517,9 @@ class Rva0043DA65
 {
 public:
 	int rva0043DA65();
-
-	int m_00;
-	int m_refs;	// +0x04, the reference count
-	int m_08;
+	int m_00; // +0x00
+	int m_refs; // +0x04 +0x04, the reference count
+	int m_08; // +0x08
 };
 
 // The cached map record (ZH MapMetaData): the preview reads the player
@@ -525,6 +535,7 @@ struct Rva0057DA21Waypoint
 class MapMetaData
 {
 public:
+	UnicodeString bfme_getDescriptionFirstLine();
 	UnicodeString getDescription();		// 0x003009CD
 	UnicodeString bfme_getBaseDisplayName();	// 0x00300AEA
 
@@ -533,10 +544,10 @@ public:
 	UnicodeString m_displayName;	// +0x00
 	UnicodeString m_04;	// +0x04
 	Region3D m_extent;	// +0x08
-	Int m_numPlayers;	// +0x20
-	Bool m_isMultiplayer;	// +0x24
-	Bool m_25;	// +0x25
-	Bool m_isOfficial;	// +0x26
+	int m_numPlayers;	// +0x20
+	bool m_isMultiplayer;	// +0x24
+	bool m_25;	// +0x25
+	bool m_isOfficial;	// +0x26
 	unsigned char m_pad27[0x38 - 0x27];
 	_STL::map<AsciiString, Rva0057DA21Waypoint> m_waypoints;	// +0x38
 	unsigned char m_pad44[0x50 - 0x44];
@@ -582,8 +593,10 @@ public:
 	virtual void v10() = 0;
 	virtual void v11() = 0;
 	virtual bool amIHost() const = 0;	// +0x30
+	virtual int v34() const = 0;	// +0x34
 	AsciiString getMap() const;		// 0x0023E943
-	GameSlot *getSlot(Int index);		// 0x003FF29F
+	GameSlot *getSlot(int index);		// 0x003FF29F
+	const GameSlot *getConstSlot(int slotNum) const;	// 0x003FF2BE
 
 	unsigned char m_pad04[0x10 - 0x4];
 	bool m_selectStartPoint;	// +0x10
@@ -612,20 +625,22 @@ public:
 class Rva003EE711
 {
 public:
-	__declspec(dllimport) __forceinline Rva003EE711() {}
+	__forceinline Rva003EE711() {}
 	virtual ~Rva003EE711() {}
 	virtual void *v04(void *color, void *arg) = 0;
 };
+
+class AptMapPreview;
 
 // The preview's +0x04 callback (vtable 0x0086F31C, ctor 0x0057C50C, dtor
 // 0x0057C51E): calls back into its owner.
 class Rva0057C50C : public Rva003EE711
 {
 public:
-	Rva0057C50C(void *owner) : m_owner(owner) {}
+	Rva0057C50C(void *owner) : m_owner((AptMapPreview *)owner) {}
 	virtual void *v04(void *color, void *arg);
 
-	void *m_owner;
+	AptMapPreview *m_owner;
 };
 
 // What the listener's slot 1 hands the preview: +0x1C names the region
@@ -636,10 +651,17 @@ struct Rva0057D8F5Event
 	Rva0020E89C *m_region;	// +0x1C
 };
 
+struct Rva0057CC43Node;
+
 class AptMapPreview : public Rva0086E350Listener
 {
 public:
 	AptMapPreview(Rva0043DA65 *game);
+	~AptMapPreview();
+	void rva0057C597(bool show);
+	void rva0057CC43(Rva0057CC43Node *head);
+	void rva0057CD66();
+	int rva0057C57B(int value);
 	GameSlot *rva0057C688(Int slot);	// 0x0057C688
 	Bool IsValidStartPosition(Int index);	// may a player start at this index
 	virtual void v04(void *a, void *b);
@@ -669,6 +691,7 @@ public:
 	void UpdateStrategicStartSpots();
 
 private:
+	friend class Rva0057C50C;
 	Rva0057C50C m_field04;	// +0x04, handed to the campaign owner
 	_STL::vector<Rva0020E89C *> m_regions;	// +0x0C, a region group
 	RefCountPtr<Rva0043DA65> m_18;	// +0x18

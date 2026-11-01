@@ -1492,6 +1492,9 @@ class Rva0043DA65
 {
 public:
 	int rva0043DA65();
+	int m_00; // +0x00
+	int m_refs; // +0x04 +0x04, the reference count
+	int m_08; // +0x08
 };
 
 class AptMapPreview { public: void UpdateStrategicStartSpots(); };
