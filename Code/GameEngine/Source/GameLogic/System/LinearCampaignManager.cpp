@@ -82,6 +82,18 @@ class Rva0037EACC {public:void rva0037EACC(void*);};
 class Rva0037E421 {public:void* rva0037E421(int);};
 class Object {public:char p0[0x8c]; Object* next;char p90[0x438-0x90];unsigned char status;};
 #include "GameLogicObjectLookupView.h"
+struct Rva001EBEABElement
+{
+public:
+	Rva001EBEABElement();
+	Rva001EBEABElement(const Rva001EBEABElement&);
+	~Rva001EBEABElement();
+	Rva001EBEABElement&operator=(const Rva001EBEABElement&);
+	bool operator<(const Rva001EBEABElement&)const;
+	bool operator==(const Rva001EBEABElement&)const;
+	char bytes[172]; // +0x00
+};
+#include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
 class Rva00376A62;
 
@@ -863,6 +875,13 @@ template Rva001ED03C *_STL::__uninitialized_copy(Rva001ED03C *, Rva001ED03C *, R
 
 template Rva001ED03C *_STL::__uninitialized_fill_n(Rva001ED03C *, unsigned int, const Rva001ED03C &, const _STL::__false_type &);
 
+namespace _STL {
+template <> BfmeAssignRecord172 *vector<BfmeAssignRecord172, allocator<BfmeAssignRecord172> >::erase(BfmeAssignRecord172 *, BfmeAssignRecord172 *);
+template <> void vector<Rva001EBEABElement, allocator<Rva001EBEABElement> >::_M_fill_insert(Rva001EBEABElement *, unsigned int, const Rva001EBEABElement &);
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp
@@ -1223,6 +1242,28 @@ bool Rva001EC8C0::rva001EC8C0(int key, int tracker, int player)
 	return false;
 }
 
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_copy_rva001ED03C.cpp
+
+//
+// ??$__uninitialized_copy@PAVRva001ED03C@@PAV1@@_STL@@YAPAVRva001ED03C@@PAV1@00ABU__false_type@0@@Z @0x001ED21E 38B.
+// _STL::__uninitialized_copy<Rva001ED03C> retail 38 bytes. Dedicated TU
+// so Rva001ED03C _Construct stays out-of-line. Evidence: chain via rowed
+// _Construct 0x001ED1F1 stride 0x24 callers 0x001ED4B7 0x001ED502 same shape
+// as Rva002E0A0A copy 0x0052C203 and Rva003F1EA8 copy 0x003F1EA8.
+// The real STLport template supplies the loop; the declaration-only
+// _Construct specialization keeps each element copy a call to the row.
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_fill_n_rva001ED03C.cpp
+
+//
+// ??$__uninitialized_fill_n@PAVRva001ED03C@@IV1@@_STL@@YAPAVRva001ED03C@@PAV1@IABV1@ABU__false_type@0@@Z @0x001ED244 (37B).
+// _STL::__uninitialized_fill_n<Rva001ED03C> retail 37 bytes. Dedicated TU
+// so Rva001ED03C _Construct stays out-of-line. Evidence: chain via rowed
+// _Construct 0x001ED1F1 stride 0x24 caller 0x001ED4E4 same shape as rowed
+// Coord3D fill 0x002CA849 and Rva0052BEF0 fill 0x00565770.
+// The real STLport template supplies the loop; the declaration-only
+// _Construct specialization keeps each element copy a call to the row.
+
 // tu-skeleton: 0x001EBCC6 18B ??0?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE@ABV?$allocator@PAVObject@@@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_objectptr_insert.cpp (not merged yet)
 
 // tu-skeleton: 0x001EBCD8 62B ?rva001EBCD8@Rva001EBCD8@@QAEPAXPAX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001EBCD8Erase.cpp (not merged yet)
@@ -1257,7 +1298,26 @@ bool Rva001EC8C0::rva001EC8C0(int key, int tracker, int player)
 
 // tu-skeleton: 0x001EC63D 540B ?addCarryoverStuffToMap@LinearCampaign@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/LinearCampaign/LinearCampaignAddCarryover.cpp (not merged yet)
 
-// tu-skeleton: 0x001EC9BD 112B ?resize@Rva001EC9BDVector@@QAEXIUCarryoverUnit@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001EC9BDResize.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva001EC9BDResize.cpp
+
+void Rva001EC9BDVector::resize(unsigned int newSize, CarryoverUnit value)
+{
+	if (newSize < size()) {
+		reinterpret_cast<_STL::vector<BfmeAssignRecord172> *>(this)->erase(
+			reinterpret_cast<BfmeAssignRecord172 *>(begin() + newSize),
+			reinterpret_cast<BfmeAssignRecord172 *>(end()));
+	} else {
+		unsigned int extra = newSize - size();
+		reinterpret_cast<_STL::vector<Rva001EBEABElement> *>(this)->_M_fill_insert(
+			reinterpret_cast<Rva001EBEABElement *>(end()), extra,
+			*reinterpret_cast<Rva001EBEABElement const *>(&value));
+	}
+}
+
+void Rva001EC9BDVector::resize(unsigned int newSize)
+{
+	resize(newSize, CarryoverUnit());
+}
 
 // tu-skeleton: 0x001ECA2D 204B ?Rva001ECA2DXfer@@YAPAVXfer@@PAV1@PAX@Z -- matched in Code/GameEngine/Source/Common/System/XferScienceTypeVector.cpp (not merged yet)
 
@@ -1266,8 +1326,6 @@ bool Rva001EC8C0::rva001EC8C0(int key, int tracker, int player)
 // tu-skeleton: 0x001ECB78 25B ?rva001ECB78@Rva001ECB78@@QAEXPAUBfmeAssignRecord172@@00H@Z -- matched in Code/GameEngine/Source/Common/RvaTopByteFwds.cpp (not merged yet)
 
 // tu-skeleton: 0x001ECBAD 326B ?xfer@Rva001EBAEA@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/System/SnapshotXfersBfme.cpp (not merged yet)
-
-// tu-skeleton: 0x001ECCF3 38B ?resize@Rva001EC9BDVector@@QAEXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001EC9BDResize.cpp (not merged yet)
 
 // tu-skeleton: 0x001ECD19 25B ?rva001ECD19@Rva001ECD19@@QAEXPAUBfmeAssignRecord172@@00@Z -- matched in Code/GameEngine/Source/Common/RvaTopByteFwds.cpp (not merged yet)
 
@@ -1292,28 +1350,6 @@ bool Rva001EC8C0::rva001EC8C0(int key, int tracker, int player)
 // tu-skeleton: 0x001ED13A 183B ?_M_insert_overflow@?$vector@UBfmeRecord001ECAF9@@V?$allocator@UBfmeRecord001ECAF9@@@_STL@@@_STL@@IAEXPAUBfmeRecord001ECAF9@@ABU3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
 
 // tu-skeleton: 0x001ED1F1 45B ??$_Construct@VRva001ED03C@@V1@@_STL@@YAXPAVRva001ED03C@@ABV1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_rva001ED03C.cpp (not merged yet)
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_copy_rva001ED03C.cpp
-
-//
-// ??$__uninitialized_copy@PAVRva001ED03C@@PAV1@@_STL@@YAPAVRva001ED03C@@PAV1@00ABU__false_type@0@@Z @0x001ED21E 38B.
-// _STL::__uninitialized_copy<Rva001ED03C> retail 38 bytes. Dedicated TU
-// so Rva001ED03C _Construct stays out-of-line. Evidence: chain via rowed
-// _Construct 0x001ED1F1 stride 0x24 callers 0x001ED4B7 0x001ED502 same shape
-// as Rva002E0A0A copy 0x0052C203 and Rva003F1EA8 copy 0x003F1EA8.
-// The real STLport template supplies the loop; the declaration-only
-// _Construct specialization keeps each element copy a call to the row.
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_fill_n_rva001ED03C.cpp
-
-//
-// ??$__uninitialized_fill_n@PAVRva001ED03C@@IV1@@_STL@@YAPAVRva001ED03C@@PAV1@IABV1@ABU__false_type@0@@Z @0x001ED244 (37B).
-// _STL::__uninitialized_fill_n<Rva001ED03C> retail 37 bytes. Dedicated TU
-// so Rva001ED03C _Construct stays out-of-line. Evidence: chain via rowed
-// _Construct 0x001ED1F1 stride 0x24 caller 0x001ED4E4 same shape as rowed
-// Coord3D fill 0x002CA849 and Rva0052BEF0 fill 0x00565770.
-// The real STLport template supplies the loop; the declaration-only
-// _Construct specialization keeps each element copy a call to the row.
 
 // tu-skeleton: 0x001ED285 55B ?push_back@?$vector@UBfmeRecord001ECAF9@@V?$allocator@UBfmeRecord001ECAF9@@@_STL@@@_STL@@QAEXABUBfmeRecord001ECAF9@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorPushBackSiblings.cpp (not merged yet)
 
@@ -1343,9 +1379,27 @@ bool Rva001EC8C0::rva001EC8C0(int key, int tracker, int player)
 
 // tu-skeleton: 0x0076A651 10B __ehhandler$?addCarryoverStuffToMap@LinearCampaign@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/LinearCampaign/LinearCampaignAddCarryover.cpp (not merged yet)
 
-// tu-skeleton: 0x0076A670 8B uw_0076a670 -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001EC9BDResize.cpp (not merged yet)
+// tu-skeleton: 0x0076A682 8B $L4608 -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001EC349Dtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0076A678 10B __ehhandler$?resize@Rva001EC9BDVector@@QAEXIUCarryoverUnit@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001EC9BDResize.cpp (not merged yet)
+// tu-skeleton: 0x0076A68A 11B $L4609 -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001EC349Dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0076A695 11B $L4610 -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001EC349Dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0076A6A0 11B $L4611 -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001EC349Dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0076A6AB 11B $L4612 -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001EC349Dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0076A6B6 10B __ehhandler$??0BfmeRecord001ECAF9@@QAE@ABU0@@Z -- matched in Code/GameEngine/Source/Common/StringContainerRecordCopyBFME2.cpp (not merged yet)
+
+// tu-skeleton: 0x0076A6C0 8B $L4905 -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001ED0DEDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0076A6C8 11B $L4906 -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001ED0DEDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0076A6D3 11B $L4907 -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001ED0DEDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0076A6DE 11B $L4908 -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001ED0DEDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0076A6E9 10B __ehhandler$??1Rva001ED0DE@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001ED0DEDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0076A6F3 8B $L4048 -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001ED2C5Parse.cpp (not merged yet)
 
