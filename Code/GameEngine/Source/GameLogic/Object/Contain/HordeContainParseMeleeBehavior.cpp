@@ -26,12 +26,7 @@
 
 #include "../../../../Include/Common/INI/FieldParse.h"
 
-class INI
-{
-public:
-	static void parseIndexList(INI *ini, void *instance, void *store, const void *userData);
-	void initFromINIMulti(void *what, const MultiIniFieldParse &parseTableList);
-};
+#include "../../../../Include/Common/INI/INI.h"
 
 // Common base of the melee factory descriptors. Retail's base vtable is
 // ??_7Rva00468A46@@6B@ (0x00844890: deleting destructor, one behaviour

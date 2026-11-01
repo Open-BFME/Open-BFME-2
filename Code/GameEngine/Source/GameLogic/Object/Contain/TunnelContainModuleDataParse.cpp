@@ -12,11 +12,7 @@
 
 class MultiIniFieldParse;
 
-class INI
-{
-public:
-	static void parseDurationReal(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../../Include/Common/INI/INI.h"
 
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
 

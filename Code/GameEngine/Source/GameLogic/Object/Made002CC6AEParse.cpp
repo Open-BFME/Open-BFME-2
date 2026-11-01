@@ -29,13 +29,7 @@ public:
     char m_pad[0x84];
 };
 
-class INI
-{
-public:
-    void initFromINIMulti(void *p, const MultiIniFieldParse &m);
-    static void parseAsciiStringVector(INI *ini, void *instance, void *store, const void *userData);
-    static void parseDurationUnsignedInt(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 // The table pushed at 0x00C643D4 (.rdata): 2 16-byte records and the
 // null terminator read from retail, parsers resolved to their ledger

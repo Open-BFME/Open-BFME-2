@@ -16,11 +16,7 @@ int Rva00507552Get();
 
 #include "../../../Include/Common/INI/FieldParse.h"
 
-class INI
-{
-public:
-	void initFromINIMulti(void *p, const MultiIniFieldParse &m);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 void q4Notify002CC971(void *ini, Made002CC971 *nugget, int store, int userData)
 {

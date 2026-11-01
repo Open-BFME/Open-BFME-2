@@ -28,16 +28,7 @@ public:
     char m_pad[0x84];
 };
 
-class INI
-{
-public:
-    void initFromINIMulti(void *p, const MultiIniFieldParse &m);
-    static void parseAngleReal(INI *ini, void *instance, void *store, const void *userData);
-    static void parseBool(INI *ini, void *instance, void *store, const void *userData);
-    static void parseDurationUnsignedInt(INI *ini, void *instance, void *store, const void *userData);
-    static void parseReal(INI *ini, void *instance, void *store, const void *userData);
-    static void parseVelocityReal(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 void iniParseObjectFilter(INI *ini, void *instance, void *store, const void *userData);
 

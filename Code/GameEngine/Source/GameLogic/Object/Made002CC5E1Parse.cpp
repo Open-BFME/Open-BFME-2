@@ -12,11 +12,7 @@ class Rva005088CE
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
-class INI
-{
-public:
-	void initFromINIMulti(void *p, const MultiIniFieldParse &m);
-};
+#include "../../../Include/Common/INI/INI.h"
 void __cdecl q4Notify002CC5E1(void *ini, DamageNugget *damageNugget, int store, int userData)
 {
 	MultiIniFieldParse tmp;

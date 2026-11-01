@@ -29,15 +29,7 @@ public:
     char m_pad[0x84];
 };
 
-class INI
-{
-public:
-    void initFromINIMulti(void *p, const MultiIniFieldParse &m);
-    static void parseAngleReal(INI *ini, void *instance, void *store, const void *userData);
-    static void parseDurationUnsignedInt(INI *ini, void *instance, void *store, const void *userData);
-    static void parseFXList(INI *ini, void *instance, void *store, const void *userData);
-    static void parseReal(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 // The table pushed at 0x00C64450 (.rdata): 4 16-byte records and the
 // null terminator read from retail, parsers resolved to their ledger

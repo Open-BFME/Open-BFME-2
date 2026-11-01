@@ -16,11 +16,7 @@ class Made002CC9D4;
 
 void Rva0050AD97BuildFieldParse(MultiIniFieldParse &m);
 
-class INI
-{
-public:
-	void initFromINIMulti(void *p, const MultiIniFieldParse &m);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 void q4Notify002CC9D4(void *ini, Made002CC9D4 *nugget, int c, int d)
 {

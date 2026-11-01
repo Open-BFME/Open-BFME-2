@@ -33,12 +33,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 #include <vector>
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps = 0);
-	float dup_002EE10(const char *token);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 class Rva003623E5Filter
 {

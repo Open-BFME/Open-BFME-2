@@ -29,16 +29,7 @@ public:
     char m_pad[0x84];
 };
 
-class INI
-{
-public:
-    static void parseAsciiString(INI *, void *, void *, const void *);
-    static void parseIndexList(INI *, void *, void *, const void *);
-    static void parseReal(INI *, void *, void *, const void *);
-    static void parseAngleReal(INI *, void *, void *, const void *);
-    static void parseFXList(INI *, void *, void *, const void *);
-    void initFromINIMulti(void *p, const MultiIniFieldParse &m);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 void q4Notify002CC64B(void *ini, Made002CC64B *m, int c, int d)
 {

@@ -34,14 +34,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 class INI;
 struct FieldParse {const char *name;void (*parse)(INI*,void*,void*,const void*);const void *user;unsigned offset;};
 
-class INI
-{
-public:
-	void initFromINI(void *what, const FieldParse *parseTable);
- static void parseAsciiString(INI*,void*,void*,const void*);
- static void parseUnsignedInt(INI*,void*,void*,const void*);
- static void parseIndexList(INI*,void*,void*,const void*);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 class INIException
 {

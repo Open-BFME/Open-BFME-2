@@ -1016,14 +1016,7 @@ private:
 	bool m_hiddenState;					// +0x10C
 };
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps = 0);
-	const char *getNextTokenOrNull(const char *seps = 0);
-	int scanInt(const char *token);
-	static void parseUnsignedInt(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../../Include/Common/INI/INI.h"
 
 struct Rva00467DE6Payload
 {

@@ -22,11 +22,7 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &m);
 };
 
-class INI
-{
-public:
-	void initFromINIMulti(void *p, const MultiIniFieldParse &m);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 void q4Notify002CCA37(void *ini, Made002CCA37 *nugget, int c, int d)
 {

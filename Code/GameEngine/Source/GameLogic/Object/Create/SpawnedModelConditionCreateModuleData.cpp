@@ -38,11 +38,7 @@ class ModuleData;
 class Xfer;
 class MultiIniFieldParse;
 
-class INI
-{
-public:
-	void initFromINIMultiProc(void *what, void (__cdecl *proc)(MultiIniFieldParse &));
-};
+#include "../../../../Include/Common/INI/INI.h"
 
 // Native BF4228..BF42A4 contains the complete shared 31-slot ModuleData
 // interface. Only slot 0 differs; the three Snapshot-shaped declarations

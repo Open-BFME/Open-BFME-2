@@ -69,7 +69,7 @@ public:
 	virtual NameKeyType getModuleNameKey() const;
 };
 
-class INI {public: const char* getNextTokenOrNull(const char*);};
+#include "../../../../Include/Common/INI/INI.h"
 
 void iniParseObjectFilter(INI*,void*,void*,const void*);
 
