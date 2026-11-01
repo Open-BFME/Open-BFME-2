@@ -27,7 +27,7 @@ struct BfmeNodeLC
 	void *m_bfmeR;
 };
 
-class GameWindow { public: void *winGetUserData(); };
+#include "../../Include/GameClient/Bfme2GameWindow.h"
 
 class BfmeKeyLC
 {

@@ -40,11 +40,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 extern UpgradeCenter *TheUpgradeCenter;
 extern const char *g_Rva0107301CEmptyString;
 
-class GameWindow
-{
-public:
-	void *winGetUserData();
-};
+#include "../../../Include/GameClient/Bfme2GameWindow.h"
 
 #include "../../../Include/Common/NameKeyGenerator.h"
 

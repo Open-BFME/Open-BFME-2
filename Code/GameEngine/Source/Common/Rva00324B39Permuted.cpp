@@ -10,11 +10,7 @@
 typedef int Int;
 typedef short Short;
 
-class GameWindow
-{
-public:
-	void *winGetUserData();
-};
+#include "../../Include/GameClient/Bfme2GameWindow.h"
 
 void __cdecl Rva003249D2(GameWindow *window, bool updateSlider);
 

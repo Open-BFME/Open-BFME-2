@@ -16,7 +16,7 @@ typedef bool Bool;
 #define DEBUG_LOG(a)
 #define NEW new
 enum { LISTBOX_TEXT = 1 };
-class GameWindow { public: void *winGetUserData(); };
+#include "../../Include/GameClient/Bfme2GameWindow.h"
 class DisplayString;
 class DisplayStringManager;
 extern DisplayStringManager *TheDisplayStringManager;

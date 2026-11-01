@@ -23,16 +23,7 @@
 #include "../../../../Libraries/Include/Lib/Coord2D.h"
 #include "ascii_string.h"
 #include <string.h>
-class GameWindow
-{
-public:
- GameWindow*winGetParent();
- int winEnable(bool);int winHide(bool);bool winIsHidden();unsigned int winGetStatus();int winSetParent(int);
- int winSetWindowId(int);
-	int winGetPosition(int *x, int *y);
-	int winSetPosition(int x, int y);
-	int winSetSize(int w, int h);
-};
+#include "../../../Include/GameClient/Bfme2GameWindow.h"
 
 struct Rva004102C8Arg
 {

@@ -20,11 +20,7 @@ public:
 	Object *getGoalObject();
 };
 
-class GameWindow
-{
-public:
-	int winPrevTab();
-};
+#include "../../Include/GameClient/Bfme2GameWindow.h"
 
 class C258Holder
 {

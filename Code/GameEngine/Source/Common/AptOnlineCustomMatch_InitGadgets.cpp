@@ -34,14 +34,7 @@ void __cdecl GadgetTextEntrySetValidationFlags(GameWindow *window, int value);
 void __cdecl GadgetTextEntrySetMaxChars(BfmeKeyLC *k, unsigned short w);
 #include <string.h>
 
-class GameWindow
-{
-public:
-	void *winGetUserData();
-	void winSetUserData(void *data);
-	int winSetTooltipFunc(GameWinTooltipFunc tooltip);
-	unsigned int winSetStatus(unsigned int status);
-};
+#include "../../Include/GameClient/Bfme2GameWindow.h"
 
 struct Rva005A0C6EUserData
 {

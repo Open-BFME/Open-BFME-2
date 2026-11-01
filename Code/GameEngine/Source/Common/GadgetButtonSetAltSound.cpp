@@ -12,11 +12,7 @@
 
 #include "ascii_string.h"
 
-class GameWindow
-{
-public:
-	void *winGetUserData();
-};
+#include "../../Include/GameClient/Bfme2GameWindow.h"
 
 class OpaqueRefCounted
 {

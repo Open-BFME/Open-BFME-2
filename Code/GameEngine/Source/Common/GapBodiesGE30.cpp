@@ -117,12 +117,7 @@ BfmeFixedStorage0004543D Rva0053B975::getFlags() const
 // --- 0x0053EBF3 (46B, cdecl) / 0x0053EC21 (25B, cdecl): whether a shown
 // button's data has a positive +0xF8 count; run slot 12 of a window's user
 // data.
-class GameWindow
-{
-public:
-	bool winIsHidden();										// 0x00313CD9
-	void *winGetUserData();									// 0x005C4ACD
-};
+#include "../../Include/GameClient/Bfme2GameWindow.h"
 
 void *GadgetButtonGetData(GameWindow *window);				// 0x00327D56
 

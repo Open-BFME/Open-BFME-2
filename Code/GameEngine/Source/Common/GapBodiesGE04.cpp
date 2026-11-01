@@ -347,13 +347,7 @@ void Rva0025C7F9::rva0025C7F9(void *string)
 // enabled / disabled / hilite image of draw slot 4 or 3 of a window.
 class Image;
 
-class GameWindow
-{
-public:
-	int winSetEnabledImage(int index, const Image *image);	// 0x003143B9
-	int winSetDisabledImage(int index, const Image *image);	// 0x00314421
-	int winSetHiliteImage(int index, const Image *image);	// 0x0031448F
-};
+#include "../../Include/GameClient/Bfme2GameWindow.h"
 
 int Rva002C02A0(GameWindow *window, const Image *image) { return window->winSetEnabledImage(4, image); }
 int Rva002C02B0(GameWindow *window, const Image *image) { return window->winSetDisabledImage(4, image); }

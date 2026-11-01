@@ -34,12 +34,7 @@ public:
 
 extern FontLibrary *TheFontLibrary;
 
-class GameWindow
-{
-public:
-	GameFont *winGetFont();
-	void winSetFont(GameFont *font);
-};
+#include "../../../Include/GameClient/Bfme2GameWindow.h"
 
 // GadgetUserDataOr0032060D.cpp's 0x0032060D and the text entry's maximum
 // length setter 0x00433D07.

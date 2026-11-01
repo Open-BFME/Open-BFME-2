@@ -21,12 +21,7 @@ struct AsciiHeader
 
 #include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
-class GameWindow
-{
-public:
-	unsigned int winGetStatus();
-	int winEnable(bool enable);
-};
+#include "../../Include/GameClient/Bfme2GameWindow.h"
 
 struct Rva0045F0A0Input
 {

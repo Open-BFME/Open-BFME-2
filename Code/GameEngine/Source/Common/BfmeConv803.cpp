@@ -76,11 +76,7 @@ void __stdcall bfmeGoEBKa(BfmeObjEBK *o)
 	o->bfmeOneEBK(g_bfmeXEBK, 0);
 }
 
-class GameWindow
-{
-public:
-	void *winGetUserData();
-};
+#include "../../Include/GameClient/Bfme2GameWindow.h"
 
 // ?Rva00327E0EGet@@YADPAVGameWindow@@@Z, retail 0x00727E0E (20B).
 // Target evidence is the GameWindow user-data call and byte read at +0x34;
