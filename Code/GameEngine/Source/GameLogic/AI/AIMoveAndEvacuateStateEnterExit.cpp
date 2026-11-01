@@ -30,14 +30,7 @@ struct FprintfTarget
 extern "C" void fprintf(FprintfTarget *target, const char *format, ...);
 extern unsigned char g_00E03745;
 extern "C" void *theLogicRandomLogFile;
-class Object
-{
-public:
-	const Coord3D *getPosition() const { return &m_position; }
-private:
-	unsigned char m_pad00[0x38];
-	Coord3D m_position; // +0x38
-};
+#include "../Object/object.h"
 class StateMachine
 {
 public:

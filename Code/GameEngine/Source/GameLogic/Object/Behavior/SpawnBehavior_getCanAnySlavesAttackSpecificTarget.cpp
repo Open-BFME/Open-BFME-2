@@ -48,11 +48,7 @@ enum CommandSourceType
 	CMD_FROM_AI = 2
 };
 
-class Object
-{
-public:
-	CanAttackResult getAbleToAttackSpecificObject(AbleToAttackType t, const Object *target, CommandSourceType commandSource) const;
-};
+#include "../object.h"
 
 
 extern GameLogic *TheGameLogic;

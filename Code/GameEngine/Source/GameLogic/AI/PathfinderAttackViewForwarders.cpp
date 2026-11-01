@@ -24,11 +24,7 @@
 struct Coord3D;
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Object.h
-class Object
-{
-public:
-	bool isSignificantlyAboveTerrain(void) const;
-};
+#include "../Object/object.h"
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/AIPathfind.h
 #include "../../../Include/GameLogic/AIPathfind.h"

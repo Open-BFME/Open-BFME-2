@@ -37,15 +37,7 @@ public:
 
 #include "../../../Include/GameClient/Drawable.h"
 
-class Object
-{
-public:
-	Drawable *getDrawable() const;
-	int getID() const { return m_id; }
-private:
-	unsigned char m_pad00[0x74];
-	int m_id;								// +0x74
-};
+#include "../Object/object.h"
 
 class Rva002D9531
 {

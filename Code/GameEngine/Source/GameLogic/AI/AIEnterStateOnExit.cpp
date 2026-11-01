@@ -58,17 +58,7 @@ private:
 	unsigned char m_pad000[0x1F0];
 	Locomotor *m_curLocomotor; // +0x1F0
 };
-class Object
-{
-public:
-	ContainModuleInterface *getContain() const { return m_contain; }
-	AIUpdateInterface *getAI() { return m_ai; }
-private:
-	unsigned char m_pad000[0x250];
-	ContainModuleInterface *m_contain; // +0x250
-	unsigned char m_pad254[0x258 - 0x254];
-	AIUpdateInterface *m_ai; // +0x258
-};
+#include "../Object/object.h"
 extern GameLogic *TheGameLogic;
 class StateMachine
 {

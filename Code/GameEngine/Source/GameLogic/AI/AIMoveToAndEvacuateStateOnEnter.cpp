@@ -20,14 +20,7 @@ inline Coord3D operator-(const Coord3D &a, const Coord3D &b)
 	return result;
 }
 
-class Object
-{
-public:
-	const Coord3D *getPosition() const { return &m_pos; }
-private:
-	unsigned char m_pad000[0x38];
-	Coord3D m_pos;
-};
+#include "../Object/object.h"
 
 class Object0033FA64;
 void Rva0033FA64Do(const Object0033FA64 *obj);

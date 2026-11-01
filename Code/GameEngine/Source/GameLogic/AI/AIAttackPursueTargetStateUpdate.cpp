@@ -33,14 +33,7 @@ private:
 	unsigned char m_pad000[0x3C7];
 	Bool m_bfme3C7; // +0x3C7
 };
-class Object
-{
-public:
-	AIUpdateInterface *getAI() { return m_ai; }
-private:
-	unsigned char m_pad00[0x258];
-	AIUpdateInterface *m_ai; // +0x258
-};
+#include "../Object/object.h"
 class StateMachine
 {
 public:

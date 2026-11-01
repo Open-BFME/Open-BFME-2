@@ -35,11 +35,7 @@ enum NameKeyType
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class Object
-{
-public:
-	Player *getControllingPlayer() const;
-};
+#include "../object.h"
 
 class AsciiString;
 

@@ -63,11 +63,7 @@ int Rva00396A5C::rva00396A5C(Player *player)
     return TheNameKeyGenerator->nameToKey("kq");
 }
 
-class Object
-{
-public:
-	Player *getControllingPlayer(void) const;
-};
+#include "../object.h"
 
 class Rva00396B0D
 {

@@ -49,21 +49,7 @@ class Rva004C2095Contain : public Rva004C2095Slots<31>
 public:
 	virtual void *rvaSlot31() = 0;
 };
-class Object
-{
-public:
-	char rva00294815();
-	const Coord3D *getPosition() const { return &m_position; }
-	Object *getContainedBy() const { return m_containedBy; }
-	Rva004C2095Contain *getContain() const { return m_contain; }
-private:
-	unsigned char m_pad000[0x38];
-	Coord3D m_position;		// +0x38
-	unsigned char m_pad044[0x250 - 0x44];
-	Rva004C2095Contain *m_contain;	// +0x250
-	unsigned char m_pad254[0x274 - 0x254];
-	Object *m_containedBy;		// +0x274
-};
+#include "../object.h"
 class DamageInfo;
 struct PorcupineFormationBodyModuleData
 {

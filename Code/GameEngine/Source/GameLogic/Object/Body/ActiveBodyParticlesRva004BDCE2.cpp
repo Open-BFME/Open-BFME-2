@@ -36,12 +36,7 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_AFLAME = 0xa
 };
 
-class Object
-{
-public:
-	bool testStatus(ObjectStatusTypes status) const;	// 0x0004E536
-	unsigned char m_opaque[0x94];
-};
+#include "../object.h"
 
 class BehaviorModule
 {

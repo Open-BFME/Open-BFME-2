@@ -60,19 +60,7 @@ enum BodyDamageType
 
 #include "../../../../Include/GameLogic/Module/BodyModule.h"
 
-class Object
-{
-public:
-	const Coord3D *getPosition() const { return &m_position; }
-	// Preserve the native +0x254 inline read without a legacy external copy.
-	__declspec(dllimport) __forceinline BodyModuleInterface *getBodyModule() const { return m_body; }
-
-private:
-	unsigned char m_pad00[0x38];
-	Coord3D m_position; // +0x38
-	unsigned char m_pad44[0x254 - 0x44];
-	BodyModuleInterface *m_body; // +0x254
-};
+#include "../object.h"
 
 #include "../../../../Include/GameLogic/Weapon.h"
 

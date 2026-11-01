@@ -67,21 +67,7 @@ private:
 	unsigned char m_pad1F4[0x3B1 - 0x1F4];
 	Bool m_waitingForPath; // +0x3B1
 };
-class Object
-{
-public:
-	enum
-	{
-		EFFECTIVELY_DEAD = 1
-	};
-	AIUpdateInterface *getAI() { return m_ai; }
-	Bool isEffectivelyDead() const { return (m_privateStatus & EFFECTIVELY_DEAD) != 0; }
-private:
-	unsigned char m_pad000[0x258];
-	AIUpdateInterface *m_ai; // +0x258
-	unsigned char m_pad25C[0x438 - 0x25C];
-	unsigned char m_privateStatus; // +0x438
-};
+#include "../Object/object.h"
 #include "../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 class StateMachine

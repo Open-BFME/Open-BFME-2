@@ -54,14 +54,7 @@ public:
 	Rva0039B7AD m_3BC;		// +0x3BC
 };
 
-class Object
-{
-public:
-	Player *getControllingPlayer() const;	// 0x0028AFA9
-	int getID() const { return m_id; }
-	char m_pad000[0x74];
-	int m_id;			// +0x74
-};
+#include "../../object.h"
 
 class AudioManager;
 
