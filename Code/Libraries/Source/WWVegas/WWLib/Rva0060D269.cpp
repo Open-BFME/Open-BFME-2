@@ -6,7 +6,9 @@
 // class view; the R1 member-visibility lever needs the visible
 // __declspec(noinline) Rva0060CAEA::rva0060CB61 definition here (the
 // rowed 0x60CB61 body in stlport_string_find_0060CAEA.cpp is identical).
-namespace _STL { void __cdecl free(void *); }
+// Use the CRT declaration before STLport; a private _STL::free conflicts
+// when this fragment is composed after headers that import ::free.
+#include <stdlib.h>
 #include <string>
 #include <vector>
 #include <hash_map>

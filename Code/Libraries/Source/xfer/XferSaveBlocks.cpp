@@ -5,7 +5,9 @@
 // semantic lead. Native60D2E9..60D434 and60D435..60D4C9 establish the
 // stream4 flag8 position-vectorC and compressed-name table18. These
 // BFME2 helpers retain address names; the writer's original names unknown.
-namespace _STL { void __cdecl free(void *); }
+// Use the CRT declaration before STLport; a private _STL::free conflicts
+// when this fragment is composed after headers that import ::free.
+#include <stdlib.h>
 #include <string>
 #include <vector>
 #include <hash_map>
