@@ -12,9 +12,10 @@
 // COMDAT (one byte shape per TU flags); a file-static overload takes those
 // calls instead so this TU emits no external copy.
 #include <new>
-// Suppress this TU's non-retail copy of ?deallocate@?$allocator@U?$_Rb_tree_node@H@_STL@@@_STL@@QBEXPAU?$_Rb_tree_node@H@2@I@Z:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-namespace _STL { template <> void allocator<_Rb_tree_node<int> >::deallocate(_Rb_tree_node<int> *,unsigned int) const; }
+// Keep the int-node deallocate inline, as W3DTaint.cpp does, so this unit emits
+// no copy of it and its set<int> erase/destructor copies match that unit's
+// (it follows this one in link order). dllimport + forceinline: no __imp_ remains.
+namespace _STL { template <> __declspec(dllimport) __forceinline void allocator<_Rb_tree_node<int> >::deallocate(_Rb_tree_node<int> *p,size_t n)const { _STLP_ASSERT((p==0)==(n==0)) if(p) ::free((void*)p); } }
 namespace _STL {
 static inline void _Construct(int *__p, const int &__val)
 { new (__p) int(__val); }
@@ -118,16 +119,16 @@ public:
 class Rva00072FE1 : public Rva0072AED
 {
 public:
-	Rva00072FE1(W3DShroud *owner) : m_owner(owner) {}
+	__declspec(dllimport) __forceinline Rva00072FE1(W3DShroud *owner) : m_owner(owner) {}
 	virtual ~Rva00072FE1();
 	W3DShroud *m_owner;
 };
 
-class Rva00073320Ptr
+class Rva00087A93
 {
 public:
-	Rva00073320Ptr(Rva00072FE1 *p) : m_ptr(p) {}
-	~Rva00073320Ptr();
+	Rva00087A93(Rva00072FE1 *p) : m_ptr(p) {}
+	~Rva00087A93();
 	Rva00072FE1 *m_ptr;
 };
 
@@ -147,7 +148,7 @@ private:
 	float m_drawOriginX, m_drawOriginY;
 	unsigned char m_drawFogOfWar, m_clearDstTexture, m_borderShroudLevel, m_pad37;
 	unsigned char *m_finalFogData, *m_currentFogData;
-	Rva00073320Ptr m_method;
+	Rva00087A93 m_method;
 	int m_pad44;
 	unsigned char m_trackDirtyCells;
 	_STL::set<int, _STL::less<int>, Rva0054E8DCAllocator<int> > m_dirty;
