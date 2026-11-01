@@ -8,15 +8,16 @@
 struct RespawnRule;
 struct RespawnInsertResult
 {
-	void *m_node;
-	bool m_fresh;
-
+public:
 	RespawnInsertResult() {}
 	RespawnInsertResult(const RespawnInsertResult &other)
 	{
-		m_node = other.m_node;
-		m_fresh = other.m_fresh;
+		node = other.node;
+		inserted = other.inserted;
 	}
+	void *node; // +0x00
+	bool inserted; // +0x04
+	char m_pad05[0x3];
 };
 
 class BFME2RespawnRuleTree

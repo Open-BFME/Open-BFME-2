@@ -45,13 +45,15 @@ public:
 class FXList
 {
 public:
-	static void doFXObj(const FXList *fx, const Object *primary, const Object *secondary);
+	static void doFXObj(const FXList *,const Object *,const Object *);
 };
 
 class InGameUI
 {
 public:
 	void rva002A1283(Object *obj);
+	void rva002A123F(Object *obj);
+	void rva002A1261(Object *obj);
 };
 
 extern InGameUI *TheInGameUI;

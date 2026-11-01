@@ -54,14 +54,15 @@ public:
 class FXList
 {
 public:
-	static void doFXObj(const FXList *fx, const Object *primary, const Object *secondary);
+	static void doFXObj(const FXList *,const Object *,const Object *);
 };
 
 class InGameUI
 {
 public:
 	void rva002A1283(Object *obj);
- void rva002A123F(Object *obj);void rva002A1261(Object *obj);
+	void rva002A123F(Object *obj);
+	void rva002A1261(Object *obj);
 };
 
 extern InGameUI *TheInGameUI;
@@ -186,29 +187,31 @@ class ExitInterface { public:
  virtual void slot0()=0;virtual void slot1()=0;virtual void slot2()=0;virtual void slot3()=0;virtual void slot4()=0;virtual void slot5()=0;virtual void slot6()=0;virtual void slot7()=0;virtual void slot8()=0;
  virtual void getExitPosition(Coord3D *,bool)=0;
 };
-class BodyModuleInterface { public:
- virtual void slot0()=0;
- virtual void slot1()=0;
- virtual void slot2()=0;
- virtual void slot3()=0;
- virtual void slot4()=0;
- virtual void slot5()=0;
- virtual void slot6()=0;
- virtual void slot7()=0;
- virtual void slot8()=0;
- virtual void slot9()=0;
- virtual void slot10()=0;
- virtual void slot11()=0;
- virtual void slot12()=0;
- virtual void slot13()=0;
- virtual void slot14()=0;
- virtual void slot15()=0;
- virtual void slot16()=0;
- virtual void slot17()=0;
- virtual void slot18()=0;
- virtual void slot19()=0;
- virtual void slot20()=0;
- virtual void setInitialHealth(float,bool)=0;
+class BodyModuleInterface
+{
+public:
+	virtual void slot0()=0;
+	virtual void slot1()=0;
+	virtual void slot2()=0;
+	virtual void slot3()=0;
+	virtual void slot4()=0;
+	virtual void slot5()=0;
+	virtual void slot6()=0;
+	virtual void slot7()=0;
+	virtual void slot8()=0;
+	virtual void slot9()=0;
+	virtual void slot10()=0;
+	virtual void slot11()=0;
+	virtual void slot12()=0;
+	virtual void slot13()=0;
+	virtual void slot14()=0;
+	virtual void slot15()=0;
+	virtual void slot16()=0;
+	virtual void slot17()=0;
+	virtual void slot18()=0;
+	virtual void slot19()=0;
+	virtual void slot20()=0;
+	virtual void setInitialHealth(float,bool)=0;
 };
 class PlayerList {public:__forceinline Player *getLocalPlayer() const{return local;}char pad[0x10];Player *local;};
 extern PlayerList *ThePlayerList;

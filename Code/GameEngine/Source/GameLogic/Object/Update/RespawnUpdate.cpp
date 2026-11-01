@@ -43,31 +43,37 @@ class ExitInterface {public:
  virtual void slot3()=0;virtual void slot4()=0;virtual void slot5()=0;virtual void slot6()=0;virtual void slot7()=0;virtual void slot8()=0;
  virtual void getExitPosition(Coord3D *,bool)=0;
 };
-class BodyModuleInterface {public:
-virtual void slot0()=0;
-virtual void slot1()=0;
-virtual void slot2()=0;
-virtual void slot3()=0;
-virtual void slot4()=0;
-virtual void slot5()=0;
-virtual void slot6()=0;
-virtual void slot7()=0;
-virtual void slot8()=0;
-virtual void slot9()=0;
-virtual void slot10()=0;
-virtual void slot11()=0;
-virtual void slot12()=0;
-virtual void slot13()=0;
-virtual void slot14()=0;
-virtual void slot15()=0;
-virtual void slot16()=0;
-virtual void slot17()=0;
-virtual void slot18()=0;
-virtual void slot19()=0;
-virtual void slot20()=0;
-virtual void setInitialHealth(float,bool)=0;
+class BodyModuleInterface
+{
+public:
+	virtual void slot0()=0;
+	virtual void slot1()=0;
+	virtual void slot2()=0;
+	virtual void slot3()=0;
+	virtual void slot4()=0;
+	virtual void slot5()=0;
+	virtual void slot6()=0;
+	virtual void slot7()=0;
+	virtual void slot8()=0;
+	virtual void slot9()=0;
+	virtual void slot10()=0;
+	virtual void slot11()=0;
+	virtual void slot12()=0;
+	virtual void slot13()=0;
+	virtual void slot14()=0;
+	virtual void slot15()=0;
+	virtual void slot16()=0;
+	virtual void slot17()=0;
+	virtual void slot18()=0;
+	virtual void slot19()=0;
+	virtual void slot20()=0;
+	virtual void setInitialHealth(float,bool)=0;
 };
-class FXList {public:static void doFXObj(const FXList *,const Object *,const Object *);};
+class FXList
+{
+public:
+	static void doFXObj(const FXList *,const Object *,const Object *);
+};
 #include "../../../../Include/Common/ObjectModule.h"
 
 class BehaviorModuleInterface {public:virtual void slot0()=0;};
@@ -131,7 +137,19 @@ typedef _STL::_Rb_tree<unsigned int, RespawnRuleValue,
     _STL::_Select1st<RespawnRuleValue>, _STL::less<unsigned int>,
     _STL::allocator<RespawnRuleValue> > RespawnRuleTree;
 
-struct RespawnInsertResult { void *node; bool inserted; };
+struct RespawnInsertResult
+{
+public:
+	RespawnInsertResult() {}
+	RespawnInsertResult(const RespawnInsertResult &other)
+	{
+		node = other.node;
+		inserted = other.inserted;
+	}
+	void *node; // +0x00
+	bool inserted; // +0x04
+	char m_pad05[0x3];
+};
 
 struct BFME2RespawnRuleTree {
     void *sentinel;

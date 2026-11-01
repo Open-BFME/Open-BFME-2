@@ -21,9 +21,8 @@ class Rva00360D26Member
 {
 public:
 	~Rva00360D26Member();
-
-private:
-	unsigned m_unknown;
+	Rva00360D26Member();
+	char m_pad00[0x4];
 };
 
 struct BfmePod20
