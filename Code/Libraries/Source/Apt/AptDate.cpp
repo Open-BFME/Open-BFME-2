@@ -82,12 +82,7 @@ class AptString { public: static AptString *Create(); };
 
 #include "EAStringC.h"
 
-class BfmeAptValue006DCD20 {
-public:
-	BfmeAptValue006DCD20 *rva006DD160();
-public:
-	int toInteger() const;
-};
+#include "BfmeAptValue006DCD20.h"
 
 class AptBasePtrStack { public: BfmeAptValue006DCD20 *At(int); int count,capacity; BfmeAptValue006DCD20 **elements; };
 

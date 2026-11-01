@@ -6,11 +6,7 @@
 // tail unlinks the node (rowed free function) before finishing it. Split-TU
 // shard: the forward TU calls this body, so a same-TU definition could
 // inline and break its rows.
-class BfmeAptValue006DCD20
-{
-public:
-	bool isUndefined() const;
-};
+#include "../../../Libraries/Source/Apt/BfmeAptValue006DCD20.h"
 
 #include "../../../Libraries/Source/Apt/EAStringC.h"
 

@@ -222,16 +222,7 @@ public:
     char pad48[4];
     AptSprite *m_4C;        // +0x4C
 };
-class BfmeAptValue006DCD20
-{
-public:
-    bool isUndefined() const;  // 0x006DC010
-    int rva006E0260() const;  // 0x006E0260 isShapeInst
-    int rva006E02B0() const;  // 0x006E02B0 isTextInst
-    int rva006E0300() const;   // 0x006E0300
-    int rva006E0350() const;   // 0x006E0350
-    void *rva006E0F40() const; // 0x006E0F40
-};
+#include "BfmeAptValue006DCD20.h"
 
 struct AptActionInterpreter
 {

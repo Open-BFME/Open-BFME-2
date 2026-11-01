@@ -14,12 +14,7 @@ void __debugbreak();
 		if (g_bfmeAptBreakOnAssertAtDDC01C) __debugbreak(); \
 	}
 
-class BfmeAptValue006DCD20
-{
-public:
-	bool isUndefined() const;
-	int toInteger() const;
-};
+#include "BfmeAptValue006DCD20.h"
 
 class AptValue;
 

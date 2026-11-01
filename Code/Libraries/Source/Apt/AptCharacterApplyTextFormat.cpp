@@ -26,7 +26,7 @@ struct TextInstance {
 };
 struct FormatPrefix {char pad[0x20];};
 struct TextFormatValue:FormatPrefix,Rva006EB4B0 {};
-class BfmeAptValue006DCD20 {public:bool getIsDefined()const;int isTextFormat()const;BfmeAptValue006DCD20 *rva006DCF60(bool);BfmeAptValue006DCD20 *rva006DD1A0();void *rva006E0F40()const;};
+#include "BfmeAptValue006DCD20.h"
 class AptValue {public:bool getIsDefined()const;};
 class AptBasePtrStack {public:BfmeAptValue006DCD20 *At(int);};
 struct AptActionInterpreter {AptBasePtrStack stack;};extern AptActionInterpreter g_aptDateInterpreter;

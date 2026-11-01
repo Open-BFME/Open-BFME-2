@@ -64,14 +64,7 @@ struct AptFileRecord { int unknown0; int size; EAStringC name; };
 struct AptFileSlot { AptFileRecord *file; };
 class AptCharacterInst { public: virtual void slot0(); virtual ~AptCharacterInst(); virtual void slot8(); };
 class AptNativeHash { public: void ClearData(); };
-class BfmeAptValue006DCD20 {
-public:
- bool isUndefined() const;
- int rva006CBEE0(bool) const;
- int isScriptFunction() const;
- BfmeAptValue006DCD20 *rva006DCEE0();
- void setGCRootCount(unsigned int);
-};
+#include "BfmeAptValue006DCD20.h"
 class Rva006DBB60ShrNAndField {public:int get() const;};
 class Rva006E0DE0 {public:int rva006E0DE0(AptValue *);char data[8];};
 // 0x006E44F0 is rowed as AptAnimationPoolData::removeTimerFunctions.

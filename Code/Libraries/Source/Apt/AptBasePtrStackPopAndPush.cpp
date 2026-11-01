@@ -28,14 +28,7 @@ public:
 };
 extern Rva006DB270 *g_pChainBlockAllocator; // 0x00E176E8
 
-class BfmeAptValue006DCD20
-{
-public:
-    virtual void AddRef();
-    virtual void Release();
-    int isLookup() const;
-    int isRegister() const;
-};
+#include "BfmeAptValue006DCD20.h"
 
 class AptBasePtrStack
 {

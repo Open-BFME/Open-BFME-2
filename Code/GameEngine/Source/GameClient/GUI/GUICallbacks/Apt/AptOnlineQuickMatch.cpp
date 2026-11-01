@@ -899,11 +899,7 @@ public:
 	void rva006dbd80();
 };
 
-class BfmeAptValue006DCD20
-{
-public:
-	void * rva006E04A0() const;
-};
+#include "../../../../../../Libraries/Source/Apt/BfmeAptValue006DCD20.h"
 
 namespace Debug_Statistics
 {

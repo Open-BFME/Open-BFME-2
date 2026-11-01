@@ -15,7 +15,7 @@ extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char*,const char*,int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
 void __debugbreak();
 #pragma intrinsic(__debugbreak)
-class BfmeAptValue006DCD20{public:int isCharacterInst()const;};
+#include "BfmeAptValue006DCD20.h"
 class Rva006CFCD0{public:bool isSpriteInstBase()const;};
 struct Record{int flags;int key;void*actions;};
 struct Events{int count;Record*records;};

@@ -16,7 +16,7 @@ class Rva006DBB30SarDwordField
 public:
 	int get() const;
 };
-class BfmeAptValue006DCD20 {public:void *rva006E0F40()const;};
+#include "BfmeAptValue006DCD20.h"
 class AptBasePtrStack {public:BfmeAptValue006DCD20 *At(int);};
 struct AptActionInterpreter {AptBasePtrStack stack;};
 extern AptActionInterpreter g_aptDateInterpreter;

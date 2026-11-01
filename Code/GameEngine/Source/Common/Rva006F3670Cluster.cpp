@@ -7,12 +7,7 @@
 // unpinned; it is a DIR32 data slot copied from retail, not a call pin. Identity
 // not recovered: the function name is address-derived.
 
-class BfmeAptValue006DCD20
-{
-public:
-	int isSound() const;
-	BfmeAptValue006DCD20 *rva006DCFE0();
-};
+#include "../../../Libraries/Source/Apt/BfmeAptValue006DCD20.h"
 
 class BfmeAptSoundValue
 {

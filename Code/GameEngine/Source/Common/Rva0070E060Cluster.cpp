@@ -12,11 +12,7 @@ struct BfmeKey1279;
 
 #include "../../../Libraries/Source/Apt/EAStringC.h"
 
-class BfmeAptValue006DCD20
-{
-public:
-	BfmeAptValue006DCD20 *rva006DCFA0();
-};
+#include "../../../Libraries/Source/Apt/BfmeAptValue006DCD20.h"
 
 class BfmeLookup1279
 {

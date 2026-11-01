@@ -2581,16 +2581,7 @@ void *AptActionInterpreter::PrepareForExecution(AptActionSetup *setup) {
 // The 302-byte truth callback shares the native checked boolean getter and
 // float conversion with AptValue::toBool; no inferred fields are accessed.
 // First-argument spelling at6FF850 preserves the already pinned bank ABI.
-class BfmeAptValue006DCD20 {
-public:
-    int rva006E0350() const;
-    BfmeAptValue006DCD20 *rva006DCEA0();
-    float rva006DD460();
-    BfmeAptValue006DCD20 *rva006DD0E0();
-    BfmeAptValue006DCD20 *rva006DCEE0();
-    bool isUndefined() const;
-    int toInteger() const;
-};
+#include "BfmeAptValue006DCD20.h"
 class AptValue; extern AptValue *gpUndefinedValue;
 extern AptActionInterpreter g_aptDateInterpreter;
 void __debugbreak();

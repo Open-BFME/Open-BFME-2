@@ -6,14 +6,7 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 void __debugbreak();
 #pragma intrinsic(__debugbreak)
 
-class BfmeAptValue006DCD20
-{
-public:
-    virtual void AddRef();
-    virtual void Release();
-    int isLookup() const;
-    int isRegister() const;
-};
+#include "BfmeAptValue006DCD20.h"
 
 class AptBasePtrStack
 {

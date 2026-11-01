@@ -22,13 +22,7 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 void __debugbreak();
 #pragma intrinsic(__debugbreak)
 
-class BfmeAptValue006DCD20
-{
-public:
-	bool isUndefined() const;
-    int rva006E0350() const;
-	bool isCIH(bool bUndefinedOK) const;
-};
+#include "BfmeAptValue006DCD20.h"
 
 #include "EAStringC.h"
 

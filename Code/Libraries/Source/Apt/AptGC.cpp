@@ -37,10 +37,7 @@ public:
     void setGCMark(bool value);
 };
 
-class BfmeAptValue006DCD20 {
-public:
-    unsigned int getGCRootCount() const;
-};
+#include "BfmeAptValue006DCD20.h"
 
 class Rva006DBB40ShrAndField {
 public:

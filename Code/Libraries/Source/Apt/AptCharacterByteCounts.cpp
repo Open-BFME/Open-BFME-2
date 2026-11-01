@@ -307,7 +307,7 @@ AptValue *Rva006ED770RemoveMovieClip(AptValue *self,int){
 // tested against count > 0..3 as retail does (the lock-centre slot shifts
 // the indices); the first bound clears the other three. Returns undefined.
 // Names of the context type, its fields and the native are not proved.
-class BfmeAptValue006DCD20 {public:BfmeAptValue006DCD20 *rva006DCEA0();BfmeAptValue006DCD20 *rva006DD0E0();BfmeAptValue006DCD20 *checkedFloat();};
+#include "BfmeAptValue006DCD20.h"
 class Rva006E34D0
 {
 public:

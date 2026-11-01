@@ -9,7 +9,7 @@ class AptRenderingContext {public:void pushColourTransform();void popColourTrans
 struct BfmeS1209;
 class BfmeA1209 {public:void bfmeOp1209(const BfmeS1209*);};
 class BfmeThingDXH {public:void bfmeGoDXH(void*);};
-class BfmeAptValue006DCD20 {public:int rva006E02B0()const;};
+#include "BfmeAptValue006DCD20.h"
 class Rva006E1260 {public:void call(void*);};
 class Rva006E15C0 {public:void call(void*,void*,int);};
 class AptCIH {public:bool rva006E24E0()const;char unknown00[0x0C];char matrix[0x18];char colour[0x20];char unknown44[4];void *parent;};

@@ -72,14 +72,7 @@ public:
     AptCIH *c_cih(bool = false);
 };
 
-class BfmeAptValue006DCD20 {
-public:
-    // These call-site views follow the retail test-al instruction at 0x6FED89
-    // and 0x6FEF02; the matched predicate declarations keep their own names.
-    int rva006E0260() const;
-    int rva006DCC60(bool) const;
-    void *rva006E04A0() const;
-};
+#include "BfmeAptValue006DCD20.h"
 
 extern AptValue *g_00E180B0;
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);

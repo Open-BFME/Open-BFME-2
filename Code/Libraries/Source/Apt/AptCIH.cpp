@@ -230,25 +230,7 @@ public:
 
 class Rva006E1C40Holder;
 
-class BfmeAptValue006DCD20
-{
-public:
-	bool isUndefined() const;
-	int isCharacterInst() const;
-	void *rva006E04A0() const;
-	void *rva006E0F40() const;
-	int rva006E0260() const; // 0x006E0260 isShapeInst
-	int rva006E02B0() const; // 0x006E02B0 isTextInst
-	int rva006E0300() const; // 0x006E0300
-	int rva006E0350() const; // 0x006E0350
-	int rva006DCC60(bool) const;
-	int rva006CBEE0(bool) const;
-	int isScriptFunction() const;
-	BfmeAptValue006DCD20 *rva006DCEE0();
-	void setGCRootCount(unsigned int);
-	char m_pad00[0x4C];
-	Rva006E1C40Holder *m_4c; // +0x4C
-};
+#include "BfmeAptValue006DCD20.h"
 
 // ?rva006E0BF0@AptCIH@@QBE_NXZ, retail 0x006E0BF0, 89 bytes.
 // Ancestor float-threshold walk with !isUndefined() guard, +0x44/+0x2C check.

@@ -643,14 +643,7 @@ public:
 };
 
 class AptLinker;
-class BfmeAptValue006DCD20
-{
-private:
-	friend class AptLinker;
-	void setTypeAt006DBBC0(int type);
-public:
-	bool isUndefined() const;
-};
+#include "../../../Libraries/Source/Apt/BfmeAptValue006DCD20.h"
 
 class Rva006DBB30SarDwordField
 {

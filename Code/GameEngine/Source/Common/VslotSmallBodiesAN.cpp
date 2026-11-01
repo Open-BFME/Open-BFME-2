@@ -87,12 +87,7 @@ Rva0066D810Handle Rva0066D810::rva0066D810() const
 // 0x006CBCF0 (18 tables): virtual slot 14 (1) of this object unless it is
 // NULL.
 // 0x006E0510: whether the rowed 0x006E04A0 answers non-NULL.
-class BfmeAptValue006DCD20
-{
-public:
-	void *rva006E04A0() const;
-	Int rva006E0510() const;
-};
+#include "../../../Libraries/Source/Apt/BfmeAptValue006DCD20.h"
 Int BfmeAptValue006DCD20::rva006E0510() const
 {
 	return rva006E04A0() != 0;
