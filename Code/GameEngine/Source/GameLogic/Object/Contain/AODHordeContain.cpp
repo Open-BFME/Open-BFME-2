@@ -436,6 +436,144 @@ private:
 
 BFME_IMUL_ADD_DWORD_GETTER(Rva0047A875ImulAddField, 0x18)
 
+class HealContainModuleData
+{
+public:
+	HealContainModuleData();
+	virtual ~HealContainModuleData();
+	static void buildFieldParse(MultiIniFieldParse &parse);
+	static ModuleData *friend_newModuleData(INI *ini);
+
+private:
+	unsigned char m_pad[0x9C - 4];
+};
+
+class TransportContainModuleData
+{
+public:
+	TransportContainModuleData();
+	virtual ~TransportContainModuleData();
+	static void buildFieldParse(MultiIniFieldParse &parse);
+	static ModuleData *friend_newModuleData(INI *ini);
+
+private:
+	unsigned char m_pad[0x18C - 4];
+};
+
+class SiegeEngineContainModuleData
+{
+public:
+	SiegeEngineContainModuleData();
+	virtual ~SiegeEngineContainModuleData();
+	static void buildFieldParse(MultiIniFieldParse &parse);
+	static ModuleData *friend_newModuleData(INI *ini);
+
+private:
+	unsigned char m_pad[0x1B8 - 4];
+};
+
+class HordeSiegeEngineContainModuleData
+{
+public:
+	HordeSiegeEngineContainModuleData();
+	virtual ~HordeSiegeEngineContainModuleData();
+	static void buildFieldParse(MultiIniFieldParse &parse);
+	static ModuleData *friend_newModuleData(INI *ini);
+
+private:
+	unsigned char m_pad[0x1B4 - 4];
+};
+
+class TunnelContainModuleData
+{
+public:
+	TunnelContainModuleData();
+	virtual ~TunnelContainModuleData();
+	static void buildFieldParse(MultiIniFieldParse &parse);
+	static ModuleData *friend_newModuleData(INI *ini);
+
+private:
+	unsigned char m_pad[0xD8 - 4];
+};
+
+class HordeTransportContainModuleData
+{
+public:
+	HordeTransportContainModuleData();
+	virtual ~HordeTransportContainModuleData();
+	static void buildFieldParse(MultiIniFieldParse &parse);
+	static ModuleData *friend_newModuleData(INI *ini);
+
+private:
+	unsigned char m_pad[0x18C - 4];
+};
+
+class RiderChangeContainModuleData
+{
+public:
+	RiderChangeContainModuleData();
+	virtual ~RiderChangeContainModuleData();
+	static void buildFieldParse(MultiIniFieldParse &parse);
+	static ModuleData *friend_newModuleData(INI *ini);
+
+private:
+	unsigned char m_pad[0x284 - 4];
+};
+
+class SlaughterHordeContainModuleData
+{
+public:
+	SlaughterHordeContainModuleData();
+	virtual ~SlaughterHordeContainModuleData();
+	static void buildFieldParse(MultiIniFieldParse &parse);
+	static ModuleData *friend_newModuleData(INI *ini);
+
+private:
+	unsigned char m_pad[0xEC - 4];
+};
+
+class CitadelSlaughterHordeContainModuleData
+{
+public:
+	CitadelSlaughterHordeContainModuleData();
+	virtual ~CitadelSlaughterHordeContainModuleData();
+	static void buildFieldParse(MultiIniFieldParse &parse);
+	static ModuleData *friend_newModuleData(INI *ini);
+
+private:
+	unsigned char m_pad[0x110 - 4];
+};
+
+class ProductionQueueHordeContainModuleData
+{
+public:
+	ProductionQueueHordeContainModuleData();
+	virtual ~ProductionQueueHordeContainModuleData();
+	static void buildFieldParse(MultiIniFieldParse &parse);
+	static ModuleData *friend_newModuleData(INI *ini);
+
+private:
+	unsigned char m_pad[0xE0 - 4];
+};
+
+// Native complete dtor 47A724..47A729 forwards this unchanged to 475942.
+// Constructor 24B9BA calls HordeContainModuleData 475C9A and installs C465F8;
+// table slot 0 is deleting dtor 25361E, whose direct call proves this owner.
+// Derived identity and any extra trivial storage remain unknown. This is a
+// destructor-only view: novtable models the witnessed absence of a vptr store,
+// not a claim that the original constructor omitted its vptr initialization.
+// The separate OpaqueScalarDeletingDtorsB05.cpp still emits its vtable and ??_G.
+// The existing 0x274 factory base view supplies the proven primary-base prefix.
+// Compiler-context pattern: BF1 3ce339fbfa AIDockStateDestructors.cpp; target
+// ownership, primary-base relationship and full 5B body are independently proved.
+class __declspec(novtable) Rva0047A724 : public HordeContainModuleData
+{
+public:
+    virtual ~Rva0047A724();
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContain.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContain.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContain.cpp
@@ -757,17 +895,11 @@ void AODHordeContain::refreshTrackedLargeUnit()
 
 // ?clear@Rva000AD6F4@@QAEXXZ @0x000AD6F4 29B: owning-pointer clear via virtual slot0 with 0 plus operator delete; callers 40+ incl Rva002D3573 dtor; no donor.
 
-// tu-skeleton: 0x0047A3CB 72B ?onContaining@AODHordeContain@@UAEXPAVObject@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContainOnContaining.cpp (not merged yet)
 
-// tu-skeleton: 0x0047A69C 3B ?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z -- matched in Code/GameEngine/Source/GameClient/System/FXParticleSystem/EmissionInfoCopyCtors.cpp (not merged yet)
 
-// tu-skeleton: 0x0047A69F 5B ?j_0047a69f@@YAXXZ -- matched in Code/gen_small/gthunks_000_admitted.cpp (not merged yet)
 
-// tu-skeleton: 0x0047A6A4 5B ?ModuleFactoryHookAt0047A6A4@@YAXPAXH0@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain.cpp (not merged yet)
 
-// tu-skeleton: 0x0047A6C0 45B ??$_M_allocate_and_copy@PBUBfmePod24@@@?$vector@UBfmePod24@@V?$allocator@UBfmePod24@@@_STL@@@_STL@@IAEPAUBfmePod24@@IPBU2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pod24_allocate_copy.cpp (not merged yet)
 
-// tu-skeleton: 0x0047A724 5B ??1Rva0047A724@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/ContainModuleDataFriendNew.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Disp8ImulAddDwordGetters.cpp
 
@@ -784,6 +916,130 @@ void AODHordeContain::refreshTrackedLargeUnit()
 // (/O1 alone strength-reduces them to lea sequences). Identity is not
 // recovered: every name is derived from its address.
 
+// tu-skeleton: 0x0047A3CB 72B ?onContaining@AODHordeContain@@UAEXPAVObject@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContainOnContaining.cpp (not merged yet)
+
+// tu-skeleton: 0x0047A69C 3B ?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z -- matched in Code/GameEngine/Source/GameClient/System/FXParticleSystem/EmissionInfoCopyCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x0047A69F 5B ?j_0047a69f@@YAXXZ -- matched in Code/gen_small/gthunks_000_admitted.cpp (not merged yet)
+
+// tu-skeleton: 0x0047A6A4 5B ?ModuleFactoryHookAt0047A6A4@@YAXPAXH0@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain.cpp (not merged yet)
+
+// tu-skeleton: 0x0047A6C0 45B ??$_M_allocate_and_copy@PBUBfmePod24@@@?$vector@UBfmePod24@@V?$allocator@UBfmePod24@@@_STL@@@_STL@@IAEPAUBfmePod24@@IPBU2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pod24_allocate_copy.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/ContainModuleDataFriendNew.cpp
+
+// ?friend_newModuleData@HealContainModuleData@@SAPAVModuleData@@PAVINI@@@Z
+ModuleData *HealContainModuleData::friend_newModuleData(INI *ini)
+{
+	HealContainModuleData *data = new HealContainModuleData;
+	if (ini)
+		ini->initFromINIMultiProc(data, HealContainModuleData::buildFieldParse);
+	return reinterpret_cast<ModuleData *>(data);
+}
+
+// ?friend_newModuleData@HordeContainModuleData@@SAPAVModuleData@@PAVINI@@@Z
+ModuleData *HordeContainModuleData::friend_newModuleData(INI *ini)
+{
+	HordeContainModuleData *data = new HordeContainModuleData;
+	if (ini)
+		ini->initFromINIMultiProc(data, HordeContainModuleData::buildFieldParse);
+	return reinterpret_cast<ModuleData *>(data);
+}
+
+// ?friend_newModuleData@AODHordeContainModuleData@@SAPAVModuleData@@PAVINI@@@Z
+ModuleData *AODHordeContainModuleData::friend_newModuleData(INI *ini)
+{
+	AODHordeContainModuleData *data = new AODHordeContainModuleData;
+	if (ini)
+		ini->initFromINIMultiProc(data, AODHordeContainModuleData::buildFieldParse);
+	return reinterpret_cast<ModuleData *>(data);
+}
+
+// ?friend_newModuleData@TransportContainModuleData@@SAPAVModuleData@@PAVINI@@@Z
+ModuleData *TransportContainModuleData::friend_newModuleData(INI *ini)
+{
+	TransportContainModuleData *data = new TransportContainModuleData;
+	if (ini)
+		ini->initFromINIMultiProc(data, TransportContainModuleData::buildFieldParse);
+	return reinterpret_cast<ModuleData *>(data);
+}
+
+// ?friend_newModuleData@SiegeEngineContainModuleData@@SAPAVModuleData@@PAVINI@@@Z
+ModuleData *SiegeEngineContainModuleData::friend_newModuleData(INI *ini)
+{
+	SiegeEngineContainModuleData *data = new SiegeEngineContainModuleData;
+	if (ini)
+		ini->initFromINIMultiProc(data, SiegeEngineContainModuleData::buildFieldParse);
+	return reinterpret_cast<ModuleData *>(data);
+}
+
+// ?friend_newModuleData@HordeSiegeEngineContainModuleData@@SAPAVModuleData@@PAVINI@@@Z
+ModuleData *HordeSiegeEngineContainModuleData::friend_newModuleData(INI *ini)
+{
+	HordeSiegeEngineContainModuleData *data = new HordeSiegeEngineContainModuleData;
+	if (ini)
+		ini->initFromINIMultiProc(data, HordeSiegeEngineContainModuleData::buildFieldParse);
+	return reinterpret_cast<ModuleData *>(data);
+}
+
+// ?friend_newModuleData@TunnelContainModuleData@@SAPAVModuleData@@PAVINI@@@Z
+ModuleData *TunnelContainModuleData::friend_newModuleData(INI *ini)
+{
+	TunnelContainModuleData *data = new TunnelContainModuleData;
+	if (ini)
+		ini->initFromINIMultiProc(data, TunnelContainModuleData::buildFieldParse);
+	return reinterpret_cast<ModuleData *>(data);
+}
+
+// ?friend_newModuleData@HordeTransportContainModuleData@@SAPAVModuleData@@PAVINI@@@Z
+ModuleData *HordeTransportContainModuleData::friend_newModuleData(INI *ini)
+{
+	HordeTransportContainModuleData *data = new HordeTransportContainModuleData;
+	if (ini)
+		ini->initFromINIMultiProc(data, HordeTransportContainModuleData::buildFieldParse);
+	return reinterpret_cast<ModuleData *>(data);
+}
+
+// ?friend_newModuleData@RiderChangeContainModuleData@@SAPAVModuleData@@PAVINI@@@Z
+ModuleData *RiderChangeContainModuleData::friend_newModuleData(INI *ini)
+{
+	RiderChangeContainModuleData *data = new RiderChangeContainModuleData;
+	if (ini)
+		ini->initFromINIMultiProc(data, RiderChangeContainModuleData::buildFieldParse);
+	return reinterpret_cast<ModuleData *>(data);
+}
+
+// ?friend_newModuleData@SlaughterHordeContainModuleData@@SAPAVModuleData@@PAVINI@@@Z
+ModuleData *SlaughterHordeContainModuleData::friend_newModuleData(INI *ini)
+{
+	SlaughterHordeContainModuleData *data = new SlaughterHordeContainModuleData;
+	if (ini)
+		ini->initFromINIMultiProc(data, SlaughterHordeContainModuleData::buildFieldParse);
+	return reinterpret_cast<ModuleData *>(data);
+}
+
+// ?friend_newModuleData@CitadelSlaughterHordeContainModuleData@@SAPAVModuleData@@PAVINI@@@Z
+ModuleData *CitadelSlaughterHordeContainModuleData::friend_newModuleData(INI *ini)
+{
+	CitadelSlaughterHordeContainModuleData *data = new CitadelSlaughterHordeContainModuleData;
+	if (ini)
+		ini->initFromINIMultiProc(data, CitadelSlaughterHordeContainModuleData::buildFieldParse);
+	return reinterpret_cast<ModuleData *>(data);
+}
+
+// ?friend_newModuleData@ProductionQueueHordeContainModuleData@@SAPAVModuleData@@PAVINI@@@Z
+ModuleData *ProductionQueueHordeContainModuleData::friend_newModuleData(INI *ini)
+{
+	ProductionQueueHordeContainModuleData *data = new ProductionQueueHordeContainModuleData;
+	if (ini)
+		ini->initFromINIMultiProc(data, ProductionQueueHordeContainModuleData::buildFieldParse);
+	return reinterpret_cast<ModuleData *>(data);
+}
+
+Rva0047A724::~Rva0047A724()
+{
+}
+
 // tu-skeleton: 0x0047A881 20B ?rva0047A881@Rva0047A881@@QAEPAURva0047A881Record@@H@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE22.cpp (not merged yet)
 
 // tu-skeleton: 0x0047AC8F 1563B ?rva0047AC8F@AODHordeContain@@UAEPAUCoord3D@@PAU2@PAVObject@@H@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContainRva0047AC8F.cpp (not merged yet)
@@ -799,6 +1055,8 @@ void AODHordeContain::refreshTrackedLargeUnit()
 // tu-skeleton: 0x0047B563 197B ??1AODHordeContain@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContainDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0047B674 28B ??_GAODHordeContain@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContainDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078B58E 24B $L4502 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContainDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0078B5B0 13B $L310 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContainPoolKey.cpp (not merged yet)
 
