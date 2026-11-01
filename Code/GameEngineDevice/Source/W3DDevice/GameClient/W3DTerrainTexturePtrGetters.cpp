@@ -172,14 +172,7 @@ public:
 	RvaTextureHandleView getShroudTexture() const;
 };
 
-class GlobalData
-{
-public:
-	char m_pad00[0x3c];
-	bool m_useCloudMap;
-	char m_pad3d[0x48 - 0x3d];
-	bool m_useLightMap;
-};
+#include "../../../../GameEngine/Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;
 extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;

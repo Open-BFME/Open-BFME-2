@@ -25,7 +25,7 @@ struct Rva0008B689Element {
 };
 Rva0008B689Element Rva000897C8(CameraClass*p);
 
-class GlobalData {public:char gap[0x62];bool reflections;};
+#include "../../../../GameEngine/Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 // Native7FD57..7FD89 RET8, camera raw argument refreshes owner before
 // copying the counted camera handle at FC. WB744500 agrees on both operations.

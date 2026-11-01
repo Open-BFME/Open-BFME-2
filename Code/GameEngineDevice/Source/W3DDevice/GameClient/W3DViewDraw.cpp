@@ -67,13 +67,7 @@ extern Display *TheDisplay;
 class BaseHeightMapRenderObjClass { public: char m_pad[0x37E8]; float m_minWaterOpacity; Real getMinOpacity() const { return m_minWaterOpacity; } };
 extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
 
-class GlobalData {
-public:
-	char m_pad00[0x9B8];
-	int m_debugAI;
-	char m_pad9BC[0xD34 - 0x9BC];
-	bool m_bD34;
-};
+#include "../../../../GameEngine/Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
 class GameLODManager { public: char m_pad[0x1778]; int m_level; int getLevel() { return m_level; } };
@@ -365,7 +359,7 @@ void W3DView::draw( void )
 			if (!((char *)Rva00309E4BGet())[0x21])
 			{
 				W3DDisplay::m_3DScene->setCustomPassMode(3);
-				if (!TheWritableGlobalData->m_bD34)
+				if (!TheWritableGlobalData->field0D34)
 					W3DDisplay::m_3DScene->doRender( m_3DCamera );
 				Rva000756F1Dispatch(4, 6, (int)&delta, (int)&extra, (int)&size);
 				Rva000756F1Dispatch(4, 6, (int)&delta, (int)&extra, (int)&size);
@@ -394,7 +388,7 @@ void W3DView::draw( void )
 		}
 	}
 
-	if( TheWritableGlobalData->m_debugAI )
+	if( TheWritableGlobalData->field09B8 )
 	{
 		// setup screen clipping region
 		IRegion2D clipRegion;
@@ -472,7 +466,7 @@ void W3DView::draw( void )
 			}
 		}
 
-		if (TheWritableGlobalData->m_debugAI == 3 && TheInGameUI->getSelectCount() == 1)
+		if (TheWritableGlobalData->field09B8 == 3 && TheInGameUI->getSelectCount() == 1)
 		{
 			Object *obj = TheInGameUI->getFirstSelectedDrawable()->getObject();
 			Coord3D goalPos, pathPos;
@@ -489,7 +483,7 @@ void W3DView::draw( void )
 			}
 		}
 
-		if (TheWritableGlobalData->m_debugAI == 7)
+		if (TheWritableGlobalData->field09B8 == 7)
 		{
 			IRegion2D clipRegion;
 			clipRegion.lo.x = 0;
@@ -536,7 +530,7 @@ void W3DView::draw( void )
 			}
 		}
 
-		if (TheWritableGlobalData->m_debugAI == 2)
+		if (TheWritableGlobalData->field09B8 == 2)
 		{
 			IRegion2D clipRegion;
 			clipRegion.lo.x = 0;

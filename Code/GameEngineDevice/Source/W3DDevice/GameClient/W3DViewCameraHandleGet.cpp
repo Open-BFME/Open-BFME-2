@@ -21,11 +21,11 @@ struct Rva0008B689Element {
  __forceinline Rva0008B689Element(const Rva0008B689Element&other):pointer(other.pointer){if(pointer)pointer->Add_Ref();}
  __forceinline ~Rva0008B689Element(){CameraClass*camera=pointer;if(camera)camera->Release_Ref();}
 };
-class GlobalData {public:char gap[0x62];bool reflections;};
+#include "../../../../GameEngine/Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 class Rva0007BB79Owner {public:CameraClass *camera;Rva0008B689Element rva0007BB79();};
 Rva0008B689Element Rva0007BB79Owner::rva0007BB79(){
- if(!TheWritableGlobalData->reflections)return Rva0008B689Element();
+ if(!TheWritableGlobalData->m_useShadowMapping)return Rva0008B689Element();
  return Rva0008B689Element(camera);
 }
 

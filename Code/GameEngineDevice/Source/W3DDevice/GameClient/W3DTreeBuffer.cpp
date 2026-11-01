@@ -292,12 +292,7 @@ public:
 // set +0x44544 on change, clear +0x44546. Caller 0x000EDB60. Honest name.
 // The record constructor formerly carried this manager name. Its independent
 // record layout and lifetime now live with the EDA94 destructor.
-class GlobalData
-{
-public:
-	char m_pad00[0x40];
-	unsigned char m_allowTreeFading;
-};
+#include "../../../../GameEngine/Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;
 

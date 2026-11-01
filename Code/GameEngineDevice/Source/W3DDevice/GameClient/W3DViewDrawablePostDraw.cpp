@@ -138,12 +138,7 @@ private:
 	DebugLineDrawer *m_lineDrawer;			// +0x2C
 };
 
-class GlobalData
-{
-public:
-	unsigned char m_pad00[0x9B1];
-	Bool m_showTerrainNormals;			// +0x9B1
-};
+#include "../../../../GameEngine/Include/Common/GlobalData.h"
 
 class GameClient
 {

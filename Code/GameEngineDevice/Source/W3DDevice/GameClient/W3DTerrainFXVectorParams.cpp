@@ -243,12 +243,7 @@ void setMapSize(ID3DXEffect *effect, D3DXHANDLE handle)
 	effect->SetVector(handle, &value);
 }
 
-class GlobalData
-{
-public:
-	char m_pad000[0xC6A];
-	bool m_taintOn;
-};
+#include "../../../../GameEngine/Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;
 

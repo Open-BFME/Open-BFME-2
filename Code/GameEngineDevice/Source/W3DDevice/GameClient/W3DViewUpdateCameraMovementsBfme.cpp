@@ -15,12 +15,7 @@ typedef int Int;
 typedef bool Bool;
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/GlobalData.h
-class GlobalData
-{
-public:
-	char m_padding[0x9C1];
-	Bool m_disableCameraMovement;
-};
+#include "../../../../GameEngine/Include/Common/GlobalData.h"
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/GameLogic.h
 #include "../../../../GameEngine/Source/Common/GameLogicObjectLookupView.h"
@@ -131,7 +126,7 @@ Bool W3DView::updateCameraMovements(void)
 {
 	register Bool didUpdate = false;
 
-	if (TheWritableGlobalData->m_disableCameraMovement) {
+	if (TheWritableGlobalData->field09C1) {
 		Int frame = (Int)TheGameLogic->getFrame();
 		if (m_cameraMovementLastFrame < frame) {
 			m_cameraMovementLastFrame = frame;

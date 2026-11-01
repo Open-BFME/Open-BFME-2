@@ -14,14 +14,7 @@ enum
 	STRETCH_DRAW_WIDTH = 65,
 	STRETCH_DRAW_HEIGHT = 65
 };
-class GlobalData
-{
-public:
-	unsigned char m_pad00[0x4C];
-	Bool m_stretchTerrain;		// +0x4C
-	unsigned char m_pad4D;
-	Bool m_drawEntireTerrain;	// +0x4E
-};
+#include "../../../../GameEngine/Include/Common/GlobalData.h"
 extern class GlobalData *TheWritableGlobalData;
 class WorldHeightMap
 {

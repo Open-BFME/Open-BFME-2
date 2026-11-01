@@ -61,13 +61,7 @@ private:
 	TileData *tiles[0x1000]; // +0xB0
 };
 
-class GlobalData
-{
-	char m_pad[0x44];
-
-public:
-	Int m_use3WayTerrainBlends; // +0x44
-};
+#include "../../../../GameEngine/Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
 extern "C" UnsignedByte s_buffer[];

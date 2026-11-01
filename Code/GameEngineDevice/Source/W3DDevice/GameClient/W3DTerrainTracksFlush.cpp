@@ -44,13 +44,7 @@ struct VertexFormatXYZDUV1
 
 #include "../../../../Libraries/Include/Lib/RGBColor.h"
 
-class GlobalData
-{
-public:
-	unsigned char m_pad000[0x8D8];
-	RGBColor m_terrainAmbient[3];		// +0x8D8
-	RGBColor m_terrainDiffuse[3];		// +0x8FC
-};
+#include "../../../../GameEngine/Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
 class StringClass

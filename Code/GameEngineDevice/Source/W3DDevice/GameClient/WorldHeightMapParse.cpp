@@ -185,14 +185,7 @@ extern View *TheTacticalView;
 class Rva0030D346;
 extern Rva0030D346 WorldMapObjects;
 
-class GlobalData
-{
-public:
-	unsigned char m_pad00[0x4C];
-	Bool m_stretchTerrain;			// +0x4C
-	unsigned char m_pad4d;
-	Bool m_drawEntireTerrain;		// +0x4E
-};
+#include "../../../../GameEngine/Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
 void Rva000ABD70Clear();
