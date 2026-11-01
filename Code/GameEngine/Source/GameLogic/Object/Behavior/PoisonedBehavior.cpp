@@ -174,32 +174,8 @@ public:
 	virtual void behaviorModuleOtherAnchor();
 };
 
-#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
-
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~UpdateModule();
-protected:
-	virtual void loadPostProcess();				// slot 1
-	virtual const char *GetSnapshotName() const;		// slot 2
-public:
-	virtual void xfer(Xfer *xfer);				// slot 3
-	virtual NameKeyType getModuleNameKey() const = 0;	// slot 4
-protected:
-	UpdateSleepTime frameToSleepTime(unsigned int frame1, unsigned int frame2 = UPDATE_SLEEP_FOREVER, unsigned int frame3 = UPDATE_SLEEP_FOREVER, unsigned int frame4 = UPDATE_SLEEP_FOREVER);
-	void setWakeFrame(Object *obj, UpdateSleepTime wakeDelay);
-	unsigned m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_bfmeReserved;
-};
 
 class DamageModuleInterface
 {
@@ -284,7 +260,8 @@ UpdateSleepTime PoisonedBehavior::calcSleepTime()
 	UnsignedInt now = TheGameLogic->getFrame();
 	if (m_poisonOverallStopFrame == 0 || m_poisonOverallStopFrame == now)
 		return UPDATE_SLEEP_FOREVER;
-	return frameToSleepTime(m_poisonDamageFrame, m_poisonOverallStopFrame);
+	return frameToSleepTime(m_poisonDamageFrame, m_poisonOverallStopFrame,
+		UPDATE_SLEEP_FOREVER, UPDATE_SLEEP_FOREVER);
 }
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/PoisonedBehaviorCtor.cpp

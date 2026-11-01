@@ -120,26 +120,8 @@ public:
 
 extern WeaponStore *TheWeaponStore;
 
-#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-class UpdateModuleInterface
-{
-public:
-	virtual void update();
-};
-
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~UpdateModule();
-protected:
-	void setWakeFrame(Object *obj, UpdateSleepTime wakeDelay);
-private:
-	unsigned m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_bfmeReserved;
-};
 
 class PhysicsBehavior : public UpdateModule
 {
