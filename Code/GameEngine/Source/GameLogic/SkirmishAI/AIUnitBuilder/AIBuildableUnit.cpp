@@ -185,11 +185,7 @@ private:
 // the field table at VA 0x00C779F0 (resp. 0x00C77A98).
 struct FieldParse;
 
-class INI
-{
-public:
-	void initFromINI(void *what, const FieldParse *parseTable);
-};
+#include "../../../../Include/Common/INI/INI.h"
 
 extern const FieldParse g_rva005E16A7FieldParse[];
 

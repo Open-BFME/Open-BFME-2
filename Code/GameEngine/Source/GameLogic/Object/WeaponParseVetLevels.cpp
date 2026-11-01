@@ -19,14 +19,7 @@
 
 #include <windows.h>
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-	int scanIndexList(const char *token, const char * const *names);
-	static void parseParticleSystemTemplate(INI *ini, void *instance, void *store, const void *userData);
-	static void parseFXList(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 const char *TheVeterancyNames[] = {
 	"REGULAR",

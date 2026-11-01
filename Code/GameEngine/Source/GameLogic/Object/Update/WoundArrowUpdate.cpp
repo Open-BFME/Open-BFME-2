@@ -81,12 +81,7 @@ extern "C" const void *const __identifier("??_7EvacuateGarrisonSpecialPowerModul
 
 class MultiIniFieldParse;
 
-class INI
-{
-public:
-	static void parseReal(INI *ini, void *instance, void *store, const void *userData);
-	static void parseBitString32(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../../Include/Common/INI/INI.h"
 
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
 

@@ -225,16 +225,7 @@ extern const FieldParse g_00C00B48[125] = {
 enum INILoadType;
 // Target-only INI view: the retail parser reads its load type at +0x08.
 // This declaration does not assert the size or the other fields of INI.
-class INI
-{
-public:
-    const char *getNextToken(const char *seps = 0);
-    void initFromINI(void *object, const FieldParse *fields);
-    __declspec(dllimport) __forceinline INILoadType getLoadType() const { return m_loadType; }
-private:
-    unsigned char m_pad00[8];
-    INILoadType m_loadType;
-};
+#include "../../../Include/Common/INI/INI.h"
 
 class NameKeyGenerator
 {

@@ -886,12 +886,7 @@ class Rva00207799TreeClearForward { public: void cleanup(); };
 
 struct FieldParse;
 
-class INI
-{
-public:
-	void initFromINI(void *what, const FieldParse *table);
-	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 struct Rva003B39C7
 {

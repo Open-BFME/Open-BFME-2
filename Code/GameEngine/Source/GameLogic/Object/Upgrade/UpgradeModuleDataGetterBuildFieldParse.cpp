@@ -113,16 +113,7 @@ struct ArmorUpgradeFieldParse
 	unsigned int m_offset;
 };
 
-class INI
-{
-public:
-	static void parseBool(INI *ini, void *instance, void *store, const void *userData);
-	static void parseIndexList(INI *ini, void *instance, void *store, const void *userData);
-	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
-	static void parseReal(INI *ini, void *instance, void *store, const void *userData);
-	static void parseAsciiStringVector(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva004B60D5_ParsePercentage(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../../Include/Common/INI/INI.h"
 
 void iniParseObjectFilter(class INI *ini, void *instance, void *store, const void *userData);
 

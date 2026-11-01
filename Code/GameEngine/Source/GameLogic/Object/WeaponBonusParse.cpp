@@ -30,13 +30,7 @@
 
 typedef const char *ConstCharPtr;
 typedef const ConstCharPtr *ConstCharPtrArray;
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-	int scanIndexList(const char *token, ConstCharPtrArray nameList);
-	float dup_002EE10(const char *token);
-};
+#include "../../../Include/Common/INI/INI.h"
 class WeaponBonus
 {
 public:

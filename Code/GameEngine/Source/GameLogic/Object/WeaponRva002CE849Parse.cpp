@@ -26,12 +26,7 @@ namespace _STL { template <> void __malloc_alloc<0>::deallocate(void *, unsigned
 namespace _STL {
 template <> void _Construct<Coord3D, Coord3D>(Coord3D *, const Coord3D &);
 }
-class INI {
-public:
-  const char *getNextSubToken(const char *expected);
-  float scanReal(const char *token);
-  unsigned int scanUnsignedInt(const char *token);
-};
+#include "../../../Include/Common/INI/INI.h"
 // g_00BBE3C8 was the retail address alias (RVA 0x007BE3C8) of the constant "X"; the literal is the source.
 // g_00BBE3C4 was the retail address alias (RVA 0x007BE3C4) of the constant "Y"; the literal is the source.
 struct Rva002CE849Holder {

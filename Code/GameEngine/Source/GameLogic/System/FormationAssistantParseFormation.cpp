@@ -46,7 +46,7 @@ template<> BfmePod40 &deque<BfmePod40>::back();
 template<> void deque<Rva00423BD8Element>::push_back(const Rva00423BD8Element &);
 }
 struct Rva004251C4Table {unsigned unknown;unsigned columns;TripleDeque rows;};
-class INI {public:AsciiString getNextAsciiString();AsciiString getFilename()const;int getLineNum()const;};
+#include "../../../Include/Common/INI/INI.h"
 enum NameKeyType {NAMEKEY_INVALID=0};
 class NameKeyGenerator {public:NameKeyType nameToKey(const AsciiString &);};
 extern NameKeyGenerator *TheNameKeyGenerator;

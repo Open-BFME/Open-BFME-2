@@ -15,11 +15,7 @@ typedef float Real;
 #include <windows.h>
 #include "../../../../Libraries/Include/Lib/Coord2D.h"
 
-class INI
-{
-public:
-	static void parseCoord2D(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 struct BfmeE8;
 namespace _STL

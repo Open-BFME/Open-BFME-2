@@ -24,14 +24,7 @@
 
 typedef unsigned int UnsignedInt;
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-	int scanIndexList(const char *token, const char *const *names);
-	static void parseWeaponTemplate(INI *ini, void *instance, void *store, const void *userData);
-	static void parseBitString32(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 // KindOfMaskType self-parse (pinned 0x00256499).
 class Rva00256499

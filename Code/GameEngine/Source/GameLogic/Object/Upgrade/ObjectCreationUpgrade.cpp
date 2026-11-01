@@ -212,18 +212,7 @@ private:
 
 class MultiIniFieldParse;
 
-class INI
-{
-public:
-	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
-	static void parseBool(INI *ini, void *instance, void *store, const void *userData);
-	static void parseUnsignedInt(INI *ini, void *instance, void *store, const void *userData);
-	static void parseDurationUnsignedInt(INI *ini, void *instance, void *store, const void *userData);
-	static void parseCoord3D(INI *ini, void *instance, void *store, const void *userData);
-	static void parseAngleReal(INI *ini, void *instance, void *store, const void *userData);
-	static void parseObjectCreationList(INI *ini, void *instance, void *store, const void *userData);
-	static void iniParseAnimAndDuration(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../../Include/Common/INI/INI.h"
 
 // The rowed ExemptStatus parser 0x003B1327 (opaque owner class).
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);

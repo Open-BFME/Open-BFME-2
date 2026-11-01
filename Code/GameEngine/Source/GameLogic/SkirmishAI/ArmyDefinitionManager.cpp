@@ -54,18 +54,7 @@ struct FieldParse {
     const void *data;
     int offset;
 };
-class INI {
-public:
-    void initFromINI(void *, const FieldParse *);
-    static void parseAsciiString(INI *, void *, void *, const void *);
-    static void parseAsciiStringVector(INI *, void *, void *, const void *);
-    static void parsePercentToReal(INI *, void *, void *, const void *);
-    static void parseReal(INI *, void *, void *, const void *);
-    static void parseInt(INI *, void *, void *, const void *);
-    static void Rva0041F524_ParseArmyMember(INI *, void *, void *, const void *);
-    static void Rva002C5E8F_ParseAITargetList(INI *, void *, void *, const void *);
-    static void Rva004E8EFF_ParseDisabledSlots(INI *, void *, void *, const void *);
-};
+#include "../../../Include/Common/INI/INI.h"
 void Rva0041F316Parse(INI *, void *, void *, const void *);
 void Rva0041F32DParse(INI *, void *, void *, const void *);
 enum NameKeyType { NAMEKEY_INVALID=0, NAMEKEY_MAX=1<<23, FORCE_NAMEKEYTYPE_LONG=0x7fffffff };
