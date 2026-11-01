@@ -81,11 +81,8 @@ struct Rva00072FE6 {
 #include <new>
 #include <set>
 #include "../../../../GameEngine/Include/Common/Rva0007DF07.h"
-
 struct IDirect3DDevice8;
-
 class CameraClass;
-
 class DX8Wrapper { public:
  static IDirect3DDevice9 *_Get_D3D_Device8() { return reinterpret_cast<IDirect3DDevice9 *>(D3DDevice); }
  // retail 0x0011E670 (BFME's DXWrapper::AdjustTextureSize, two references)
@@ -93,7 +90,6 @@ class DX8Wrapper { public:
 protected:
  static IDirect3DDevice8 *D3DDevice;
 };
-
 class ShroudFilter
 {
 public:
@@ -107,21 +103,13 @@ public:
 	int u; // +0x0C
 	int v; // +0x10
 };
-
 class ShroudTexture { public: ShroudFilter *getFilter(); };
-
 class W3DRadarResetSurface {public: void *m_surface; ~W3DRadarResetSurface();};
-
 struct CursorTextureSlot { void *Ptr; W3DRadarResetSurface Get_Surface_Level(); };
-
 class Rva001166E0 { public: void *rva001166E0(int*,int,int,int,int); };
-
 class Member0C00739C70 {public: void clear();};
-
 class Rva00116680;
-
 class Rva00072B3A {public: void rva00072E84(unsigned char,Rva00116680*);};
-
 class Rva000729CC;
 class BaseHeightMapRenderObjClass
 {
@@ -132,9 +120,7 @@ public:
 	char m_pad37C4[0xB8];
 	Rva000729CC *m_387c; // +0x387C
 };
-
 extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
-
 // ?rva000729CC@Rva000729CC@@QAEX_N@Z, RVA 0x000729CC, 14B. Two-byte flag setter:
 // [ecx+0x36]=arg byte then [ecx+0x35]=1, ret 4. Evidence: adjacent to 0x000729DA,
 // callers in unclaimed 0x0046d58b/0x00444fb9/0x00444ff2; honest address name.
@@ -148,7 +134,6 @@ private:
 	bool m_flag35; // +0x35
 	bool m_flag36; // +0x36
 };
-
 // Retail 0x00727030. Store 4 or 0 at +0x28 from a bool argument.
 
 class Gen_00727030
@@ -160,7 +145,6 @@ private:
 	unsigned char m_pad[0x28];
 	int m_value;
 };
-
 // RVA 0x00072A51, 67B (vtable entries in 0x00BC655C, 0x00BC6584 and
 // 0x00BC6C40): stores a by-value ref-counted holder into the member at +8
 // through the rowed assignment ??4Rva00072A94 (0x00072A94); the argument's
@@ -174,7 +158,6 @@ public:
 protected:
 	int NumRefs;
 };
-
 class Rva00072A94
 {
 public:
@@ -188,7 +171,6 @@ public:
 private:
 	RefCountClass *m_ptr;
 };
-
 class Rva00072A51
 {
 public:
@@ -198,15 +180,10 @@ private:
 	int m_field04;
 	Rva00072A94 m_value;	// +8
 };
-
 struct IDirect3DBaseTexture8;
-
 class TextureBaseClass { public: IDirect3DBaseTexture8 *Peek_D3D_Base_Texture() const; };
-
 class BfmeResetTextureRef { public: void clear(); };
-
 class Rva00131DFC { public: void rva00131DFC(void *, void *, void *, void *, int, int); };
-
 template<class T> class Rva0054E8DCAllocator : public _STL::allocator<T>
 {
 public:
@@ -222,9 +199,7 @@ template<class T, class U> struct _Alloc_traits<T, Rva0054E8DCAllocator<U> > {
  static allocator_type create_allocator(const _Orig &a) { return allocator_type(a); }
 };
 }
-
 class W3DShroud;
-
 class __declspec(novtable) BfmeDynamicVBRefCount
 {
 public:
@@ -233,7 +208,6 @@ public:
 	virtual ~BfmeDynamicVBRefCount();
 	int m_count;
 };
-
 class __declspec(novtable) Rva0072AED : public BfmeDynamicVBRefCount
 {
 public:
@@ -241,7 +215,6 @@ public:
 	virtual ~Rva0072AED();
 	void *m_ref;
 };
-
 class Rva00072FE1 : public Rva0072AED
 {
 public:
@@ -249,7 +222,6 @@ public:
 	virtual ~Rva00072FE1();
 	W3DShroud *m_owner;
 };
-
 class Rva00087A93
 {
 public:
@@ -257,50 +229,6 @@ public:
 	~Rva00087A93();
 	Rva00072FE1 *m_ptr;
 };
-
-// The shroud. Fields to +0x3C are Zero Hour's; BFME 2 adds the counted
-// partial-rendering method object at +0x40, the dirty-tracking flag at +0x48
-// and the dirty-cell set at +0x4C (constructor 0x00073320, setShroudLevel
-// 0x000731F4).
-class W3DShroud
-{
-public:
-	W3DShroud();
-	void setShroudLevel(int x, int y, unsigned char level, bool textureOnly);
-	Bool ReAcquireResources();
- void rva00073628(void *unused);
-	void init(WorldHeightMap *map, Real worldCellSizeX,
-		Real worldCellSizeY);
-
-protected:
-	void interpolateFogLevels(RECT *rect);
-
-private:
-	int m_numCellsX;
-	int m_numCellsY;
-	int m_numMaxVisibleCellsX;
-	int m_numMaxVisibleCellsY;
-	Real m_cellWidth;
-	Real m_cellHeight;
-	unsigned short *m_shroudData;
-	ShroudTextureHandle m_dstTexture;
-	int m_dstTextureWidth;
-	int m_dstTextureHeight;
-	int m_shroudFilter;
-	Real m_drawOriginX;
-	Real m_drawOriginY;
-	unsigned char m_drawFogOfWar;
-	unsigned char m_clearDstTexture;
-	unsigned char m_borderShroudLevel;
-	unsigned char m_pad37;
-	unsigned char *m_finalFogData;
-	unsigned char *m_currentFogData;
-	Rva00087A93 m_method;					// +0x40
-	int m_pad44;
-	unsigned char m_trackDirtyCells;		// +0x48
-	_STL::set<int, _STL::less<int>, Rva0054E8DCAllocator<int> > m_dirty;	// +0x4C
-};
-
 struct Rva000731AE {
   unsigned char _00[0x18];
   char *p18;
@@ -313,19 +241,16 @@ struct Rva000731AE {
   Rva00072FE6 map4C;
   void rva000731AE();
 };
-
 // Declaration-only: retail keeps one copy of this STLport member (rowed elsewhere); this unit calls it
 // rather than emitting its own.
 namespace _STL {
 typedef _Rb_tree<int, int, _Identity<int>, less<int>, allocator<int> > Lk11RbIntSet;
 template <> pair<Lk11RbIntSet::iterator, bool> Lk11RbIntSet::insert_unique(const int &);
 }
-
 namespace _STL {
 static inline void _Construct(int *__p, const int &__val)
 { new (__p) int(__val); }
 }
-
 // map/set<int> internals otherwise instantiate the less<int>::operator()
 // COMDAT (one byte shape per TU flags); an explicit dllimport+forceinline
 // specialization takes those calls inline so this TU emits no external copy.
@@ -334,9 +259,7 @@ template <> __declspec(dllimport) __forceinline
 bool less<int>::operator()(const int &a, const int &b) const
 { return a < b; }
 }
-
 typedef _STL::set<int> Rva000732B8Set;
-
 class Rva000732B8
 {
 public:
@@ -353,14 +276,12 @@ private:
 	char m_pad49[3];
 	Rva000732B8Set m_differences;	// +0x4C
 };
-
 // Native 0x000740CE..0x00074136 is a complete 104-byte no-argument
 // method. It repeats the measured nested byte-array comparison, but the
 // completion flag is at +0x40 and the set at +0x44. Both calls independently
 // reach the existing clear (0x72FE6) and set<int>::insert (0xBC15D) providers.
 // The shared STLport operation is a source lead; the owner remains unknown.
 typedef _STL::set<int> Rva000740CESet;
-
 class Rva000740CE
 {
 public:
@@ -377,17 +298,8 @@ private:
 	char m_pad41[3];
 	Rva000740CESet m_differences;	// +0x44
 };
-
 typedef int Int;
-
 typedef unsigned int UnsignedInt;
-
-// texture-family slot at 0x0017FAFB: 0x58 bytes per entry of the +0x14
-// object's +0x10 count plus a 0x34 header, 0 without the object.
-// slot at 0x0018E6B0: whether entry i (0x24 bytes each) of the array at
-// +0x50 has a non-zero +0x1C.
-// slot at 0x00200BD9: runs the rowed 0x001E35DF on the +0x04 member of the
-// object held at VA 0x00DFF488, when there is one.
 #include "../../../../GameEngine/Include/Common/Overridable.h"
 
 // VA 0x00DFF488 is the ledger's TheWaterTransparency (data_rows.csv); its
@@ -466,6 +378,86 @@ private:
 // slots at 0x00330AD8 and 0x00330B85: the rowed setter of the +0x08 member,
 // then virtual slot 12.
 struct BfmeE8;
+
+// Keep the int-node deallocate inline, as W3DTaint.cpp does, so this unit emits
+// no copy of it and its set<int> erase/destructor copies match that unit's
+// (it follows this one in link order). dllimport + forceinline: no __imp_ remains.
+namespace _STL { template <> __declspec(dllimport) __forceinline void allocator<_Rb_tree_node<int> >::deallocate(_Rb_tree_node<int> *p,size_t n)const { _STLP_ASSERT((p==0)==(n==0)) if(p) ::free((void*)p); } }
+
+typedef unsigned char UnsignedByte;
+
+class GlobalData
+{
+	unsigned char m_pad00[0xbea];
+public:
+	UnsignedByte m_shroudAlpha;
+};
+
+extern GlobalData *TheWritableGlobalData;
+
+class BfmeTaintManager
+{
+public:
+	UnsignedByte rva006C0840(int x, int y);
+};
+
+extern BfmeTaintManager *TheTaintManager;
+
+class WorldHeightMap;
+
+unsigned short __cdecl Rva00072D5DShroudPixel(unsigned char level);
+
+// The shroud. Fields to +0x3C are Zero Hour's; BFME 2 adds the counted
+// partial-rendering method object at +0x40, the dirty-tracking flag at +0x48
+// and the dirty-cell set at +0x4C (constructor 0x00073320, setShroudLevel
+// 0x000731F4).
+class W3DShroud
+{
+public:
+	W3DShroud();
+	void setShroudLevel(int x, int y, unsigned char level, bool textureOnly);
+	Bool ReAcquireResources();
+ void rva00073628(void *unused);
+	void init(WorldHeightMap *map, Real worldCellSizeX,
+		Real worldCellSizeY);
+
+protected:
+	void interpolateFogLevels(RECT *rect);
+
+private:
+	int m_numCellsX;
+	int m_numCellsY;
+	int m_numMaxVisibleCellsX;
+	int m_numMaxVisibleCellsY;
+	Real m_cellWidth;
+	Real m_cellHeight;
+	unsigned short *m_shroudData;
+	ShroudTextureHandle m_dstTexture;
+	int m_dstTextureWidth;
+	int m_dstTextureHeight;
+	int m_shroudFilter;
+	Real m_drawOriginX;
+	Real m_drawOriginY;
+	unsigned char m_drawFogOfWar;
+	unsigned char m_clearDstTexture;
+	unsigned char m_borderShroudLevel;
+	unsigned char m_pad37;
+	unsigned char *m_finalFogData;
+	unsigned char *m_currentFogData;
+	Rva00087A93 m_method;					// +0x40
+	int m_pad44;
+	unsigned char m_trackDirtyCells;		// +0x48
+	_STL::set<int, _STL::less<int>, Rva0054E8DCAllocator<int> > m_dirty;	// +0x4C
+};
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp
+
+// texture-family slot at 0x0017FAFB: 0x58 bytes per entry of the +0x14
+// object's +0x10 count plus a 0x34 header, 0 without the object.
+// slot at 0x0018E6B0: whether entry i (0x24 bytes each) of the array at
+// +0x50 has a non-zero +0x1C.
+// slot at 0x00200BD9: runs the rowed 0x001E35DF on the +0x04 member of the
+// object held at VA 0x00DFF488, when there is one.
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp
 
@@ -722,18 +714,6 @@ void Rva000732B8::rva000732B8()
 	m_complete = 1;
 }
 
-// tu-skeleton: 0x00072988 68B ?getShroudLevel@W3DShroud@@QAEEHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x000729EB 9B ?UnInstall_Materials@W3DShroudMaterialPassClass@@UBEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudMaterialPass.cpp (not merged yet)
-
-// tu-skeleton: 0x00072D5D 179B ?Rva00072D5DShroudPixel@@YAGE@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudMaterialPass.cpp (not merged yet)
-
-// tu-skeleton: 0x00072E10 116B ?fillShroudData@Rva00072B3A@@QAEXE@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudMaterialPass.cpp (not merged yet)
-
-// tu-skeleton: 0x00072E84 103B ?rva00072E84@Rva00072B3A@@QAEXEPAVRva00116680@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudMaterialPass.cpp (not merged yet)
-
-// tu-skeleton: 0x00072EEB 94B ?Install_Materials@W3DShroudMaterialPassClass@@UBEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudMaterialPass.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/VslotSmallBodiesR.cpp
 
 //
@@ -760,6 +740,18 @@ void Rva00072F49::rva00072F64()
 	m_0C->m_44 = 0;
 }
 
+// tu-skeleton: 0x00072988 68B ?getShroudLevel@W3DShroud@@QAEEHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x000729EB 9B ?UnInstall_Materials@W3DShroudMaterialPassClass@@UBEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudMaterialPass.cpp (not merged yet)
+
+// tu-skeleton: 0x00072D5D 179B ?Rva00072D5DShroudPixel@@YAGE@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudMaterialPass.cpp (not merged yet)
+
+// tu-skeleton: 0x00072E10 116B ?fillShroudData@Rva00072B3A@@QAEXE@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudMaterialPass.cpp (not merged yet)
+
+// tu-skeleton: 0x00072E84 103B ?rva00072E84@Rva00072B3A@@QAEXEPAVRva00116680@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudMaterialPass.cpp (not merged yet)
+
+// tu-skeleton: 0x00072EEB 94B ?Install_Materials@W3DShroudMaterialPassClass@@UBEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudMaterialPass.cpp (not merged yet)
+
 // tu-skeleton: 0x00072F7C 45B ?rva00072F7C@Rva00072FE6@@QAEXPAURva00072F7CNode@@@Z -- matched in Code/GameEngine/Source/Common/System/Rva003EF14ADtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00072FA9 28B ??_GRva0072AED@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtors.cpp (not merged yet)
@@ -782,11 +774,79 @@ void Rva00072F49::rva00072F64()
 
 // tu-skeleton: 0x0007311B 147B ??1Rva0007311B@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/Rva0007311BDestructor.cpp (not merged yet)
 
-// tu-skeleton: 0x000731F4 184B ?setShroudLevel@W3DShroud@@QAEXHHE_N@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudCtor.cpp (not merged yet)
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudCtor.cpp
+
+// ?? W3DShroud::W3DShroud retail 0x00073320..0x000733D8 (184B). Identity: WB
+// 0x7FC3xx names the class (PartialShroudedRenderingMethod ref at +0x40, dirty
+// set at +0x4c); ZH W3DShroud::W3DShroud (W3DShroud.cpp:76) is the member list
+// donor. Retail target evidence: 0x10-byte counted method object stored at
+// +0x40 (vtable 0x00BC6568, count 1, owner back-pointer), border level byte
+// from GlobalData+0xBEA, dirty set via rowed 0x000D3A71 (Taint's allocator).
+
+// vector<int> fill/insert otherwise instantiates the _Construct<int,int>
+// COMDAT (one byte shape per TU flags); a file-static overload takes those
+// calls instead so this TU emits no external copy.
+
+// ?setShroudLevel@W3DShroud@@QAEXHHE_N@Z, retail 0x000731F4 (184B, RET 16).
+// Identity: W3DDisplay slot 0x00044FF2 is ZH's W3DDisplay::setShroudLevel and
+// calls it through getShroud(); Open-BFME-1's W3DShroudBfme.cpp setShroudLevel
+// is the same body (shroud floor, final fog store, dirty-set insert, 4444
+// pixel via 0x00072D5D) and BFME 2 additionally refreshes the taint cell. The
+// taint tail reads the +0x387C helper without a render-object null check and
+// reaches TheTaintManager through its real global's BfmeTaintManager view.
+void W3DShroud::setShroudLevel(int x, int y, UnsignedByte level, bool textureOnly)
+{
+	if (m_shroudData == 0)
+		return;
+
+	if (x < m_numCellsX && y < m_numCellsY)
+	{
+		if (level < TheWritableGlobalData->m_shroudAlpha)
+			level = TheWritableGlobalData->m_shroudAlpha;
+
+		if (!textureOnly)
+		{
+			int cell = x + y * m_numCellsX;
+			m_finalFogData[cell] = level;
+			if (m_trackDirtyCells)
+				m_dirty.insert(cell);
+		}
+
+		m_shroudData[x + y * m_numCellsX] = Rva00072D5DShroudPixel(level);
+
+		Rva000729CC *taintBuffer = TheTerrainRenderObject->m_387c;
+		if (taintBuffer && TheTaintManager)
+			taintBuffer->rva00073CC0(x, y,
+				TheTaintManager->rva006C0840(x, y), true);
+	}
+}
 
 // tu-skeleton: 0x000732AC 12B ?rva000732AC@Rva000732ACOwner@@QAEXXZ -- matched in Code/GameEngine/Source/Common/System/Rva003EF14ADtor.cpp (not merged yet)
 
-// tu-skeleton: 0x00073320 184B ??0W3DShroud@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudCtor_W3DShroud.cpp (not merged yet)
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudCtor_W3DShroud.cpp
+
+// ?? W3DShroud::W3DShroud retail 0x00073320..0x000733D8 (184B). Identity: WB
+// 0x7FC3xx names the class (PartialShroudedRenderingMethod ref at +0x40, dirty
+// set at +0x4c); ZH W3DShroud::W3DShroud (W3DShroud.cpp:76) is the member list
+// donor. Retail target evidence: 0x10-byte counted method object stored at
+// +0x40 (vtable 0x00BC6568, count 1, owner back-pointer), border level byte
+// from GlobalData+0xBEA, dirty set via rowed 0x000D3A71 (Taint's allocator).
+
+// vector<int> fill/insert otherwise instantiates the _Construct<int,int>
+// COMDAT (one byte shape per TU flags); a file-static overload takes those
+// calls instead so this TU emits no external copy.
+
+// ??0W3DShroud@@QAE@XZ
+W3DShroud::W3DShroud()
+ : m_numCellsX(0), m_numCellsY(0), m_numMaxVisibleCellsX(0), m_numMaxVisibleCellsY(0),
+ m_cellWidth(10.0f), m_cellHeight(10.0f), m_shroudData(0),
+ m_dstTextureWidth(0), m_dstTextureHeight(0), m_shroudFilter(4),
+ m_drawOriginX(0.0f), m_drawOriginY(0.0f), m_drawFogOfWar(0), m_clearDstTexture(1),
+ m_borderShroudLevel(TheWritableGlobalData->m_shroudAlpha),
+ m_finalFogData(0), m_currentFogData(0),
+ m_method(new Rva00072FE1(this)), m_pad44(0), m_trackDirtyCells(1)
+{
+}
 
 // tu-skeleton: 0x000733D8 73B ?rva000733D8@Rva00072FE6@@QAEIABH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0007300FErase.cpp (not merged yet)
 
@@ -813,12 +873,6 @@ void Rva00072F49::rva00072F64()
 // tu-skeleton: 0x0075EE0D 11B uw_0075ee0d -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/Rva0007311BDestructor.cpp (not merged yet)
 
 // tu-skeleton: 0x0075EE18 10B __ehhandler$??1Rva0007311B@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/Rva0007311BDestructor.cpp (not merged yet)
-
-// tu-skeleton: 0x0075EE22 11B $L4551 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudCtor_W3DShroud.cpp (not merged yet)
-
-// tu-skeleton: 0x0075EE2D 11B $L4553 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudCtor_W3DShroud.cpp (not merged yet)
-
-// tu-skeleton: 0x0075EE38 10B __ehhandler$??0W3DShroud@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudCtor_W3DShroud.cpp (not merged yet)
 
 // tu-skeleton: 0x0075EE42 8B $L6270 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudInterpolate.cpp (not merged yet)
 
