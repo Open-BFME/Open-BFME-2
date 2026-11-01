@@ -81,3 +81,6 @@ Host donor: canonical status8/phase1F4 and reverse-link1FC names; same185B draw 
 Apt ctor donor: remove protected-dtor-only private GameWindow; retain native explicit Apt table assignments and all secondary construction/EH. Canonical friendship preserves qualified destructor call. No table/default provider introduced.
 
 Owning GameWindow.cpp: remove complete private window and opaque instance-data views; retain original inline tooltip setter locally rather than adding header default bodies. Canonical WinInstanceData real virtual lifetime is used. Same full eleven-slot table including pure slot7 must verify in the strict runtime graph.
+
+Owning TU normal hooks:69rows/2EH exact; twelve shadow duplicate findings refer to pre-existing unchanged code definitions (strict full runtime graph identical), not introduced definitions. Existing one-unclaimed-definition note retained unchanged.
+Dtor donor uses shared window and real WinInstanceData lifetime; existing anchor slot14 helper stays separate. Canonical opaque input/edit pointers are cast to their existing observed deletion types, preserving native destructor/delete paths. All11 table slots and weak E-to-G deleting-dtor fallback must remain identical.

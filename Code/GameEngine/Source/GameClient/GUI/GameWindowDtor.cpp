@@ -5,14 +5,7 @@
 // anchor with lock), page 00314xxx sibling of GameWindow ctor 0x003145F0 (same vtable),
 // callers at 0x00104E33/0x0051273C (derived dtors), callees rowed 0x31468C/0x2FD60/0x11F520/0x120F50/0x3222B8.
 
-class WinInstanceData
-{
-public:
-	WinInstanceData();
-	virtual ~WinInstanceData();
-private:
-	char m_pad[ 0x1A8 - 4 ];
-};
+#include "../../../Include/GameClient/Bfme2WinInstanceData.h"
 
 class Rva0031468C
 {
@@ -86,52 +79,7 @@ class GameFont;
 enum WindowMsgHandledType { MSG_IGNORED, MSG_HANDLED };
 
 // GameWindow.cpp's virtual list, so both units emit the same ??_7GameWindow.
-class GameWindow
-{
-protected:
-  virtual ~GameWindow();
-public:
-  virtual WindowMsgHandledType input(unsigned int, unsigned int, unsigned int);
-  virtual WindowMsgHandledType bfmeGoEHCb(unsigned int, unsigned int, unsigned int);
-  virtual int draw( void * );
-  virtual int tooltip(WinInstanceData *, unsigned int);
-  virtual int rva0009FD78();
-  virtual bool vslot6() const;
-  virtual void *fetchCreateInstance() = 0;
-  virtual bool vslot8() const;
-  virtual bool vslot9() const;
-  virtual bool vslot10();
-  void winSetFont( GameFont * );
-private:
-	GameWindowAnchor *m_anchor;
-	int m_status;
-	int m_sizeX;
-	int m_sizeY;
-	int m_regionLoX;
-	int m_regionLoY;
-	int m_regionHiX;
-	int m_regionHiY;
-	int m_cursorX;
-	int m_cursorY;
-	void *m_userData;
-	WinInstanceData m_instData;
-	GameWindowInputData *m_inputData;
-	void *m_bfmeInputExtra;
-	void *m_input;
-	void *m_system;
-	void *m_draw;
-	void *m_tooltip;
-	void *m_bfmeCallbackExtra;
-	int m_bfmeCallbackExtra2;
-	void *m_next;
-	void *m_prev;
-	void *m_parent;
-	void *m_child;
-	void *m_nextLayout;
-	void *m_prevLayout;
-	void *m_layout;
-	Rva0031468C *m_editData;
-};
+#include "../../../Include/GameClient/Bfme2GameWindow.h"
 
 GameWindow::~GameWindow()
 {
@@ -139,17 +87,17 @@ GameWindow::~GameWindow()
 		TheIMEManager->m3C();
 
 	if ( m_inputData )
-		delete m_inputData;
+		delete (GameWindowInputData *)m_inputData;
 	m_inputData = 0;
 
 	if ( m_editData )
-		delete m_editData;
+		delete (Rva0031468C *)m_editData;
 	m_editData = 0;
 
-	if ( m_anchor )
+	if ( m_positionSink )
 	{
 		BFMEDX8DeviceLock guard;
-		void *p = m_anchor ? m_anchor->a14( 0 ) : 0;
+		void *p = m_positionSink ? ((GameWindowAnchor *)m_positionSink)->a14( 0 ) : 0;
 		delete p;
 	}
 }
