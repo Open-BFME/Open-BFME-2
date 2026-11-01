@@ -5,11 +5,7 @@
 // lifetime; the forbidden mask is the28-byte field64, copied through4543D.
 // BFME1 ObjectFilterResolveNames.cpp is the record/collection semantic lead.
 enum KindOfType { RVA_KIND_ZERO=0 };
-class BfmeFixedStorage0004543D {
-public:
-    __declspec(nothrow) BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &);
-    unsigned char bytes[28];
-};
+#include "../../../Include/Common/BfmeFixedStorage0004543D.h"
 class Rva00360F55 {
 public:
     Rva00360F55(); ~Rva00360F55();
@@ -34,5 +30,5 @@ bool ObjectFilter::isForbidden(KindOfType kind)
     }
     BfmeFixedStorage0004543D forbidden(reinterpret_cast<Rva00360F55 *>(g_validityBegin)[index].second);
     unsigned bit=static_cast<unsigned>(kind);
-    return (reinterpret_cast<const unsigned *>(forbidden.bytes)[bit>>5]&(1U<<(bit&31)))!=0;
+    return (reinterpret_cast<const unsigned *>(forbidden.m_bytes)[bit>>5]&(1U<<(bit&31)))!=0;
 }

@@ -17,13 +17,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include "ascii_string.h"
 #include <algorithm>
 
-class BfmeFixedStorage0004543D
-{
-public:
-	BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &other);
-private:
-	char m_bytes[0x1c];
-};
+#include "../../../../GameEngine/Include/Common/BfmeFixedStorage0004543D.h"
 
 // 0x00DFEFA4 is KINDOFMASK_NONE (ThingIsAnyKindOf.cpp); this unit copies it
 // through its storage view.

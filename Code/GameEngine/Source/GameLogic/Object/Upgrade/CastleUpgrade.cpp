@@ -128,7 +128,7 @@ private:
 // its primary-this call at4B6A28. Partition helper interfaces and 28-byte
 // masks follow the independently verified providers in BFME2.
 struct Rva0006EE7A { unsigned int words[7]; Rva0006EE7A(int,int,int,int,int); };
-class BfmeFixedStorage0004543D { unsigned char bytes[28]; };
+#include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
 class Rva000421C8
 {
 public:

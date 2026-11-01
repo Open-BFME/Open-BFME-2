@@ -186,10 +186,7 @@ extern Rva002A8F24 *TheSkirmishAIManager;
 extern Int g_bfmeSkirmishAIDebugIndex;	// the selected AI index
 extern const char *AITargetTypeNames[];
 
-class BfmeFixedStorage0004543D
-{
-	unsigned char bytes[28];
-};
+#include "../../../../GameEngine/Include/Common/BfmeFixedStorage0004543D.h"
 struct Rva00045411BitSet
 {
 	Rva00045411BitSet(int, int) throw();

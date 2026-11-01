@@ -411,10 +411,7 @@ public:
 };
 class Rva0026119DFilter:public Rva000421C8 { public: virtual bool allow(Object*); };
 struct Rva00045411BitSet { unsigned m_bits[7]; Rva00045411BitSet(int,int); };
-class BfmeFixedStorage0004543D {
-public: BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D&) throw();
-private: unsigned char bytes[28];
-};
+#include "../../../Include/Common/BfmeFixedStorage0004543D.h"
 class Rva0004584D:public Rva000421C8 {
 public:
  Rva0004584D(const BfmeFixedStorage0004543D&,const BfmeFixedStorage0004543D&) throw();

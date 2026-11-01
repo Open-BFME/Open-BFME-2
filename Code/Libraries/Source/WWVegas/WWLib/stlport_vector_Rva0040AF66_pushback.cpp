@@ -29,13 +29,7 @@ template <> inline _Vector_base<ScienceType, allocator<ScienceType> >::~_Vector_
 }
 
 
-class BfmeFixedStorage0004543D
-{
-public:
-	BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &other);
-private:
-	char m_pad[0x1C];
-};
+#include "../../../../GameEngine/Include/Common/BfmeFixedStorage0004543D.h"
 
 class Rva0040AF66
 {
