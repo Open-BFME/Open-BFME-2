@@ -172,3 +172,7 @@ provider; that unit retains its existing wrong helper and other obstacles.
 All three units remain unlinked in this bounded preview (0 -> 0). The removed
 helper chain is therefore not globally unreferenced. The broader earlier
 AIBuildable/old-index batch-audit scope remains inconclusive for the next census.
+
+## Isolated donor cleanup: findMostReadyShortcutSpecialPowerOfType
+
+The current saved audit finds no local runtime/data caller and no outside-index incoming edge. The unverified donor and its one placeholder hatch are removed; all 12 matched functions and the owned global pass the normal build. All 325 retained complete code definitions and symbolic relocations equal the preceding 326-definition control, with no additions. Unused file-local callback text is also removed where applicable. This is cleanup, not new matched coverage or census progress.

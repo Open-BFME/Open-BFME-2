@@ -1,0 +1,10 @@
+Object* Player::findMostReadyShortcutSpecialPowerOfType( SpecialPowerType spType )
+{
+	PlayerObjectFindInfo info;
+	info.player = this;
+	info.obj = NULL;
+	info.spType = spType;
+	info.lowestReadyFrame = 0xffffffff;
+	iterateObjects( doFindSpecialPowerSourceObject, &info );
+	return info.obj;
+}

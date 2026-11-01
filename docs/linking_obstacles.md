@@ -51,6 +51,8 @@ This source adopts canonical Matrix3D storage with native code/relocations prese
 
 ### Player unrowed donor-body cleanup (2026-11-01, Cortys)
 
+Unverified isolated `findMostReadyShortcutSpecialPowerOfType` is removed with its placeholder hatch; all 325 retained definitions/relocations and all native rows stay exact. See its per-method proof in the packet.
+
 Strict preparation verifies all 12 Player functions and its global, plus all
 11 rows in current ThingFactory and ProductionPrerequisite. Player's preview
 loses the science-vector COMDAT/wrong-selected blockers and retains 23 unresolved

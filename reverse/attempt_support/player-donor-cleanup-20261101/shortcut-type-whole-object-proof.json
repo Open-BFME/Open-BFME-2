@@ -1,0 +1,11 @@
+{
+  "base": "552dce9038945f869b0630a5075470f418c43083",
+  "before_definitions": 326,
+  "after_definitions": 325,
+  "added": [],
+  "removed": [
+    "?findMostReadyShortcutSpecialPowerOfType@Player@@QAEPAVObject@@W4SpecialPowerType@@@Z"
+  ],
+  "changed": [],
+  "all_retained_whole_code_and_relocations_equal": true
+}

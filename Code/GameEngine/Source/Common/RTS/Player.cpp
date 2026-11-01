@@ -974,17 +974,8 @@ static void doFindExistingObjectWithThingTemplate( Object *obj, void *userData )
 // Player::findNaturalCommandCenter: defined in PlayerO1Shard.cpp (its row's unit).
 
 //-------------------------------------------------------------------------------------------------
-// ?findMostReadyShortcutSpecialPowerOfType@Player@@QAEPAVObject@@W4SpecialPowerType@@@Z present-unmatched
-Object* Player::findMostReadyShortcutSpecialPowerOfType( SpecialPowerType spType )
-{
-	PlayerObjectFindInfo info;
-	info.player = this;
-	info.obj = NULL;
-	info.spType = spType;
-	info.lowestReadyFrame = 0xffffffff;
-	iterateObjects( doFindSpecialPowerSourceObject, &info );
-	return info.obj;
-}
+
+
 
 //-------------------------------------------------------------------------------------------------
 // ?findMostReadyShortcutWeaponForThing@Player@@QAEPAVObject@@PBVThingTemplate@@AAI@Z present-unmatched
