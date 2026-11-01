@@ -1,0 +1,23 @@
+{
+  "source": "Code/GameEngine/Source/Common/Disp8LeaNegSbbGetters.cpp",
+  "rows": 1,
+  "matched": 1,
+  "errors": [],
+  "private_object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\tu_skeleton\\7bb2704975542e70.obj",
+  "cache_object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^disp8^lea^neg^sbb^getters.obj",
+  "private": {
+    "?get@Rva0039852BLeaNegSbbField@@QBEHXZ": [
+      "0a2024dbb5ce",
+      13,
+      true
+    ]
+  },
+  "cached": {
+    "?get@Rva0039852BLeaNegSbbField@@QBEHXZ": [
+      "0a2024dbb5ce",
+      13,
+      true
+    ]
+  },
+  "identical": true
+}

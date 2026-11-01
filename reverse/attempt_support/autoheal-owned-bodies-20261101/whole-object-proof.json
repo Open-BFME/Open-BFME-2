@@ -1,0 +1,156 @@
+{
+  "base": "fda344a38d80bda8af4efef916876214e11eaede",
+  "before_definitions": 70,
+  "after_definitions": 10,
+  "added": [
+    "?getAutoHealBehaviorModuleData@AutoHealBehavior@@ABEPBVAutoHealBehaviorModuleData@@XZ",
+    "?getModuleData@Module@@IBEPBVModuleData@@XZ"
+  ],
+  "removed": [
+    "??0?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@_STL@@QAE@PAU?$_List_node@PAVObject@@@1@@Z",
+    "??0_List_iterator_base@_STL@@QAE@PAU_List_node_base@1@@Z",
+    "??1AutoHealBehavior@@MAE@XZ",
+    "??_GAutoHealBehavior@@MAEPAXI@Z",
+    "?bfmeAnchorAutoHealObjectListPushBack@@YAXPAV?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@PAVObject@@@Z",
+    "?end@?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@2@XZ",
+    "?getAIUpdateInterface@BehaviorModule@@UAEPAVAIUpdateInterface@@XZ",
+    "?getBody@BehaviorModule@@UAEPAVBodyModuleInterface@@XZ",
+    "?getBridgeBehaviorInterface@BehaviorModule@@UAEPAVBridgeBehaviorInterface@@XZ",
+    "?getBridgeScaffoldBehaviorInterface@BehaviorModule@@UAEPAVBridgeScaffoldBehaviorInterface@@XZ",
+    "?getBridgeTowerBehaviorInterface@BehaviorModule@@UAEPAVBridgeTowerBehaviorInterface@@XZ",
+    "?getCaveInterface@BehaviorModule@@UAEPAVCaveInterface@@XZ",
+    "?getClassMemoryPool@AutoHealBehavior@@CAPAVMemoryPool@@XZ",
+    "?getCollide@BehaviorModule@@UAEPAVCollideModuleInterface@@XZ",
+    "?getContain@BehaviorModule@@UAEPAVContainModuleInterface@@XZ",
+    "?getCountermeasuresBehaviorInterface@BehaviorModule@@UAEPAVCountermeasuresBehaviorInterface@@XZ",
+    "?getCountermeasuresBehaviorInterface@BehaviorModule@@UBEPBVCountermeasuresBehaviorInterface@@XZ",
+    "?getCreate@BehaviorModule@@UAEPAVCreateModuleInterface@@XZ",
+    "?getDamage@AutoHealBehavior@@UAEPAVDamageModuleInterface@@XZ",
+    "?getDestroy@BehaviorModule@@UAEPAVDestroyModuleInterface@@XZ",
+    "?getDie@BehaviorModule@@UAEPAVDieModuleInterface@@XZ",
+    "?getDisabledTypesToProcess@AutoHealBehavior@@UBE?AV?$BitFlags@$0L@@@XZ",
+    "?getDockUpdateInterface@BehaviorModule@@UAEPAVDockUpdateInterface@@XZ",
+    "?getEjectPilotDieInterface@BehaviorModule@@UAEPAVDieModuleInterface@@XZ",
+    "?getHordeUpdateInterface@BehaviorModule@@UAEPAVHordeUpdateInterface@@XZ",
+    "?getLandMineInterface@BehaviorModule@@UAEPAVLandMineInterface@@XZ",
+    "?getModuleNameKey@AutoHealBehavior@@UBE?AW4NameKeyType@@XZ",
+    "?getObjectMemoryPool@AutoHealBehavior@@EAEPAVMemoryPool@@XZ",
+    "?getOverchargeBehaviorInterface@BehaviorModule@@UAEPAVOverchargeBehaviorInterface@@XZ",
+    "?getParkingPlaceBehaviorInterface@BehaviorModule@@UAEPAVParkingPlaceBehaviorInterface@@XZ",
+    "?getPowerPlantUpdateInterface@BehaviorModule@@UAEPAVPowerPlantUpdateInterface@@XZ",
+    "?getProductionUpdateInterface@BehaviorModule@@UAEPAVProductionUpdateInterface@@XZ",
+    "?getProjectileUpdateInterface@BehaviorModule@@UAEPAVProjectileUpdateInterface@@XZ",
+    "?getRailedTransportDockUpdateInterface@BehaviorModule@@UAEPAVRailedTransportDockUpdateInterface@@XZ",
+    "?getRebuildHoleBehaviorInterface@BehaviorModule@@UAEPAVRebuildHoleBehaviorInterface@@XZ",
+    "?getSlavedUpdateInterface@BehaviorModule@@UAEPAVSlavedUpdateInterface@@XZ",
+    "?getSlowDeathBehaviorInterface@BehaviorModule@@UAEPAVSlowDeathBehaviorInterface@@XZ",
+    "?getSpawnBehaviorInterface@BehaviorModule@@UAEPAVSpawnBehaviorInterface@@XZ",
+    "?getSpecialPower@BehaviorModule@@UAEPAVSpecialPowerModuleInterface@@XZ",
+    "?getSpecialPowerUpdateInterface@BehaviorModule@@UAEPAVSpecialPowerUpdateInterface@@XZ",
+    "?getSpyVisionUpdate@BehaviorModule@@UAEPAVSpyVisionUpdate@@XZ",
+    "?getStealth@BehaviorModule@@UAEPAVStealthUpdate@@XZ",
+    "?getTransportPassengerInterface@BehaviorModule@@UAEPAVTransportPassengerInterface@@XZ",
+    "?getUpdateExitInterface@BehaviorModule@@UAEPAVExitInterface@@XZ",
+    "?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ",
+    "?getUpgrade@AutoHealBehavior@@UAEPAVUpgradeModuleInterface@@XZ",
+    "?getUpgradeActivationMasks@AutoHealBehavior@@MBEXAAV?$BitFlags@$0IA@@@0@Z",
+    "?isSubObjectsUpgrade@AutoHealBehavior@@MAE_NXZ",
+    "?loadPostProcess@AutoHealBehavior@@MAEXXZ",
+    "?onBodyDamageStateChange@AutoHealBehavior@@UAEXPBVDamageInfo@@W4BodyDamageType@@1@Z",
+    "?onCapture@ObjectModule@@UAEXPAVPlayer@@0@Z",
+    "?onDelete@Module@@UAEXXZ",
+    "?onDisabledEdge@ObjectModule@@UAEX_N@Z",
+    "?onDrawableBoundToObject@Module@@UAEXXZ",
+    "?onHealing@AutoHealBehavior@@UAEXPAVDamageInfo@@@Z",
+    "?onObjectCreated@Module@@UAEXXZ",
+    "?preloadAssets@Module@@UAEXW4TimeOfDay@@@Z",
+    "?processUpgradeRemoval@AutoHealBehavior@@MAEXXZ",
+    "?push_back@?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAEXABQAVObject@@@Z",
+    "?requiresAllActivationUpgrades@AutoHealBehavior@@MBE_NXZ",
+    "?setUpgradeExecuted@UpgradeMux@@IAEX_N@Z",
+    "?undoUpgrade@AutoHealBehavior@@QAEXXZ"
+  ],
+  "changed": [],
+  "all_retained_whole_code_and_relocations_equal": true,
+  "current_definitions": {
+    "??_H@YGXPAXIHP6EPAX0@Z@Z": {
+      "bytes": 34,
+      "raw_sha256": "020df369b760640548bbcf9316008af700d4d7b064148b929b47c1c543a0e90d",
+      "relocations": []
+    },
+    "?getModuleData@Module@@IBEPBVModuleData@@XZ": {
+      "bytes": 4,
+      "raw_sha256": "f7e0208f5e988ae39c7a45dfddbd12921d02f9c3deb5695d4c534c8ab0ccdb0f",
+      "relocations": []
+    },
+    "?getObject@ObjectModule@@IAEPAVObject@@XZ": {
+      "bytes": 4,
+      "raw_sha256": "916ae10aa3fd76a4d5b25b2fb66e9df0fd04957c7ab10930268d1ed7808be689",
+      "relocations": []
+    },
+    "?getAutoHealBehaviorModuleData@AutoHealBehavior@@ABEPBVAutoHealBehaviorModuleData@@XZ": {
+      "bytes": 4,
+      "raw_sha256": "f7e0208f5e988ae39c7a45dfddbd12921d02f9c3deb5695d4c534c8ab0ccdb0f",
+      "relocations": []
+    },
+    "?isUpgradeActive@AutoHealBehavior@@IBE_NXZ": {
+      "bytes": 7,
+      "raw_sha256": "506417eb2a948d0d8723876a51e6b72edaeaf7c449e500b275a9ad2375faf5f1",
+      "relocations": []
+    },
+    "?get@Rva004523A9LeaNegSbbField@@QBEHXZ": {
+      "bytes": 13,
+      "raw_sha256": "d8142c97a1547d1f3557af246b8b9f3989b61dc823bc0fdcedb7115990e90411",
+      "relocations": []
+    },
+    "?stopHealing@AutoHealBehavior@@QAEXXZ": {
+      "bytes": 22,
+      "raw_sha256": "cfa27aa1e2ef400632bc262a5d2ef74fecae02f083afd9a929586e3023ba0905",
+      "relocations": [
+        [
+          17,
+          20,
+          "?setWakeFrame@UpdateModule@@IAEXPAVObject@@W4UpdateSleepTime@@@Z"
+        ]
+      ]
+    },
+    "?onDamage@AutoHealBehavior@@UAEXPAVDamageInfo@@@Z": {
+      "bytes": 91,
+      "raw_sha256": "c15512b3bcfefdc9b822f9fa8f80d24b6e4b4eb892d5cf15ec9e5f30b5b4e226",
+      "relocations": [
+        [
+          61,
+          6,
+          "?TheGameLogic@@3PAVGameLogic@@A"
+        ],
+        [
+          81,
+          20,
+          "?setWakeFrame@UpdateModule@@IAEXPAVObject@@W4UpdateSleepTime@@@Z"
+        ]
+      ]
+    },
+    "?upgradeImplementation@AutoHealBehavior@@MAEXXZ": {
+      "bytes": 14,
+      "raw_sha256": "07bdee105b6da54ca9eeb6c8ca5cf674b3f8eab807d299707a972b90f73e92ed",
+      "relocations": [
+        [
+          9,
+          20,
+          "?setWakeFrame@UpdateModule@@IAEXPAVObject@@W4UpdateSleepTime@@@Z"
+        ]
+      ]
+    },
+    "?performUpgradeFX@AutoHealBehavior@@MAEXXZ": {
+      "bytes": 15,
+      "raw_sha256": "a0cbe7dcea93e526a7ea15aab3fe280fdf57bb20cb5593c20130f4663c3531d6",
+      "relocations": [
+        [
+          10,
+          20,
+          "?performUpgradeFX@UpgradeMuxData@@QBEXPAVObject@@@Z"
+        ]
+      ]
+    }
+  }
+}

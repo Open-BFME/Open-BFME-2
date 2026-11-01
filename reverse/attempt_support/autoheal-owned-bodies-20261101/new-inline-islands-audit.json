@@ -1,0 +1,105 @@
+{
+  "source": "Code/GameEngine/Source/GameLogic/Object/Behavior/AutoHealBehavior.cpp",
+  "object": "build/match/^code_^game^engine_^source_^game^logic_^object_^behavior_^auto^heal^behavior.obj",
+  "object_sha256": "ac3c1746eeddfa87551314dba4f80dfcb9236c8d0173fc6abf387bd345911f33",
+  "source_sha256": "0034e25c9d60293db8339e7ac7eac11017528341a945cdc4290b59ff0aca1c7b",
+  "reference_index": {
+    "date": "2026-11-01 14:31",
+    "commit": "86db074988",
+    "clean_tree": true,
+    "census_date": "2026-11-01 12:39",
+    "census_commit": "39dfbbdb50"
+  },
+  "symbols": [
+    {
+      "name": "?getAutoHealBehaviorModuleData@AutoHealBehavior@@ABEPBVAutoHealBehaviorModuleData@@XZ",
+      "raw_length": 4,
+      "raw_hex": "8b4104c3",
+      "outgoing_relocations": [],
+      "runtime_incoming": [],
+      "data_incoming": [],
+      "debug_incoming": [
+        {
+          "section": ".debug$F",
+          "offset": 0,
+          "type": 7,
+          "external_source_symbols": []
+        }
+      ],
+      "other_incoming": [],
+      "index_referenced": false,
+      "index_incoming_sources": [],
+      "census_comdat_provider_count": 0,
+      "census_comdat_digests": [],
+      "census_strong_provider_count": 0,
+      "current_cache_provider_examples": []
+    },
+    {
+      "name": "?getModuleData@Module@@IBEPBVModuleData@@XZ",
+      "raw_length": 4,
+      "raw_hex": "8b4104c3",
+      "outgoing_relocations": [],
+      "runtime_incoming": [],
+      "data_incoming": [],
+      "debug_incoming": [
+        {
+          "section": ".debug$F",
+          "offset": 0,
+          "type": 7,
+          "external_source_symbols": []
+        }
+      ],
+      "other_incoming": [],
+      "index_referenced": false,
+      "index_incoming_sources": [],
+      "census_comdat_provider_count": 88,
+      "census_comdat_digests": [
+        "78e4fbf1d9d9"
+      ],
+      "census_strong_provider_count": 0,
+      "current_cache_provider_examples": [
+        {
+          "object": "build/match/^code_^game^engine_^source_^game^logic_^object_^behavior_^dumb^projectile^behavior.obj",
+          "exists": true,
+          "index_digest": "78e4fbf1d9d9",
+          "defined": true,
+          "raw_hex": "8b4104c3",
+          "raw_length": 4,
+          "relocation_count": 0,
+          "identical_bytes_and_relocations": true,
+          "qualification": "Cached provider object inspected directly; provider compile-receipt currency not audited."
+        },
+        {
+          "object": "build/match/^code_^game^engine_^source_^game^logic_^object_^update_^a^i^update_^jet^a^i^update.obj",
+          "exists": true,
+          "index_digest": "78e4fbf1d9d9",
+          "defined": true,
+          "raw_hex": "8b4104c3",
+          "raw_length": 4,
+          "relocation_count": 0,
+          "identical_bytes_and_relocations": true,
+          "qualification": "Cached provider object inspected directly; provider compile-receipt currency not audited."
+        },
+        {
+          "object": "build/match/^code_^game^engine_^source_^game^logic_^object_^update_^stealth^update.obj",
+          "exists": true,
+          "index_digest": "78e4fbf1d9d9",
+          "defined": true,
+          "raw_hex": "8b4104c3",
+          "raw_length": 4,
+          "relocation_count": 0,
+          "identical_bytes_and_relocations": true,
+          "qualification": "Cached provider object inspected directly; provider compile-receipt currency not audited."
+        }
+      ]
+    }
+  ],
+  "compile_receipt_current": true,
+  "conclusion": "Both added 4-byte inline helpers have no code/data incoming relocation, no outgoing relocation, and only a SECREL debug record in the inspected AutoHeal object. The reference index marks both unreferenced and has no incoming graph edge. They do not call one another and form two isolated emitted-inline copies, not a runtime dependency chain.",
+  "qualification": "Read-only object/index audit, no compiler invoked. Local incoming-edge proof covers the inspected AutoHeal object. Census graph describes index86db074988 and is not a complete current-tree reachability proof. An initial receipt-currency observation was false while parent verification was active; the final recheck and recorded source/dependency/command fingerprint checks pass. The parent separately owns normal/strict verification; this audit does not replace it.",
+  "compile_sidecar_checks": {
+    "source_hash_matches": true,
+    "all_recorded_dependency_hashes_match": true,
+    "command_fingerprint_matches_auditor_environment": true
+  }
+}

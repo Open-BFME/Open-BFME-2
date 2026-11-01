@@ -1,0 +1,21 @@
+{
+  "symbol": "?get@Rva004523A9LeaNegSbbField@@QBEHXZ",
+  "original_control": [
+    [
+      "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\autoheal-owned-bodies-20261101\\original.obj",
+      "13134528eb16",
+      13,
+      true
+    ]
+  ],
+  "current_copies": [
+    [
+      "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^behavior_^auto^heal^behavior.obj",
+      "13134528eb16",
+      13,
+      true
+    ]
+  ],
+  "finding": [],
+  "original_and_current_hash_size_exclusivity_equal": true
+}

@@ -1,0 +1,23 @@
+{
+  "scope": "Existing objects for current matched Code .cpp/.c/.asm ledger sources; read-only scan with no compilation, network, claims or ledger/source edits by the auditor.",
+  "reference_index": {
+    "commit": "86db074988",
+    "date": "2026-11-01 14:31",
+    "clean_tree": true,
+    "census_commit": "39dfbbdb50",
+    "census_date": "2026-11-01 12:39"
+  },
+  "source_count": 18643,
+  "object_count": 18643,
+  "missing_object_count": 0,
+  "exact_symbols": [
+    "??1AutoHealBehavior@@MAE@XZ",
+    "??_GAutoHealBehavior@@MAEPAXI@Z",
+    "?loadPostProcess@AutoHealBehavior@@MAEXXZ",
+    "?undoUpgrade@AutoHealBehavior@@QAEXXZ"
+  ],
+  "object_symbol_hits": [],
+  "undefined_consumers": [],
+  "qualification": "The AutoHeal shared match object changed while the parent applied its TU-local declaration-only view. This result describes the current post-edit object population. It is not an original-source before audit, does not prove an unchanged tree during the scan, and makes no inference that the original donor bodies were unreachable.",
+  "method": "Stream current matched ledger rows to deduplicate source paths; inspect each source existing build.obj_path object; byte-search all four exact names, then COFF-parse any hits to distinguish external definitions from undefined symbols. No object contained any of the four exact names. No missing objects."
+}

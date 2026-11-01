@@ -36,7 +36,169 @@ class Snapshot;
 #include "GameClient/ParticleSys.h"
 #include "GameClient/Anim2D.h"
 #include "GameClient/InGameUI.h"
-#include "GameLogic/Module/AutoHealBehavior.h"
+/*
+**	Command & Conquer Generals Zero Hour(tm)
+**	Copyright 2025 Electronic Arts Inc.
+**
+**	This program is free software: you can redistribute it and/or modify
+**	it under the terms of the GNU General Public License as published by
+**	the Free Software Foundation, either version 3 of the License, or
+**	(at your option) any later version.
+**
+**	This program is distributed in the hope that it will be useful,
+**	but WITHOUT ANY WARRANTY; without even the implied warranty of
+**	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+**	GNU General Public License for more details.
+**
+**	You should have received a copy of the GNU General Public License
+**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+////////////////////////////////////////////////////////////////////////////////
+//																																						//
+//  (c) 2001-2003 Electronic Arts Inc.																				//
+//																																						//
+////////////////////////////////////////////////////////////////////////////////
+
+// Original shim header: AutoHealBehavior.h /////////////////////////////////////////////////////////////////////////
+// Author: Colin Day, December 2001
+// Desc:   Update that heals itself
+//------------------------------------------
+// Modified by Kris Morness, September 2002
+// Kris: Added the ability to add effects, radius healing, and restricting the type of objects
+//       subjected to the heal (or repair).
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+// TU-local view; guarded below.
+
+// TU-local view from the existing AutoHeal shim; the verified member order is
+// retained. The imported destructor, undoUpgrade and loadPostProcess bodies
+// are not native providers and are omitted. The native 39-byte destructor
+// remains owned by Rva0045232D; the 26-byte list push_back is already owned by
+// Code/Libraries/Source/WWVegas/WWLib/stlport_list_objectptr_insert.cpp.
+// Define this TU's two verified overrides out of line so their emission does
+// not depend on an imported, incompatible 15-slot UpgradeMux vtable.
+
+#ifndef __AutoHealBehavior_H_
+#define __AutoHealBehavior_H_
+
+// INCLUDES ///////////////////////////////////////////////////////////////////////////////////////
+#include "GameClient/ParticleSys.h"
+#include "GameLogic/Module/BehaviorModule.h"
+#include "GameLogic/Module/UpgradeModule.h"
+#include "GameLogic/Module/UpdateModule.h"
+#include "GameLogic/Module/DamageModule.h"
+#include "Common/BitFlagsIO.h"
+
+class ParticleSystem;
+class ParticleSystemTemplate;
+
+//-------------------------------------------------------------------------------------------------
+class AutoHealBehaviorModuleData : public UpdateModuleData
+{
+public:
+	UpgradeMuxData				m_upgradeMuxData;
+	Bool									m_initiallyActive;
+	Bool									m_singleBurst;
+	Int										m_healingAmount;
+	UnsignedInt						m_healingDelay;
+	UnsignedInt						m_startHealingDelay;	///< how long since our last damage till autoheal starts.
+	Real									m_radius; //If non-zero, then it becomes a area effect.
+	Bool									m_affectsWholePlayer; ///< I have more than a range, I try to affect everything the player owns
+	Bool									m_skipSelfForHealing; ///< Don't heal myself.
+	KindOfMaskType				m_kindOf;	//Only these types can heal -- defaults to everything.
+	KindOfMaskType				m_forbiddenKindOf;	//Only these types can heal -- defaults to everything.
+	const ParticleSystemTemplate*				m_radiusParticleSystemTmpl;					//Optional particle system meant to apply to entire effect for entire duration.
+	const ParticleSystemTemplate*				m_unitHealPulseParticleSystemTmpl;	//Optional particle system applying to each object getting healed each heal pulse.
+
+	AutoHealBehaviorModuleData();
+	static void buildFieldParse(MultiIniFieldParse& p);
+
+};
+
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+class AutoHealBehavior : public UpdateModule,
+												 public UpgradeMux,
+												 public DamageModuleInterface
+{
+
+	MEMORY_POOL_GLUE_WITH_USERLOOKUP_CREATE( AutoHealBehavior, "AutoHealBehavior" )
+	MAKE_STANDARD_MODULE_MACRO_WITH_MODULE_DATA( AutoHealBehavior, AutoHealBehaviorModuleData )
+
+public:
+
+	AutoHealBehavior( Thing *thing, const ModuleData* moduleData );
+	// virtual destructor prototype provided by memory pool declaration
+
+	// module methods
+	static Int getInterfaceMask() { return UpdateModule::getInterfaceMask() | MODULEINTERFACE_UPGRADE | MODULEINTERFACE_DAMAGE; }
+
+	// BehaviorModule
+	virtual UpgradeModuleInterface* getUpgrade() { return this; }
+	virtual DamageModuleInterface* getDamage() { return this; }
+
+	// DamageModuleInterface
+	virtual void onDamage( DamageInfo *damageInfo );
+	virtual void onHealing( DamageInfo *damageInfo ) { }
+	virtual void onBodyDamageStateChange(const DamageInfo* damageInfo, BodyDamageType oldState, BodyDamageType newState) { }
+
+	// UpdateModuleInterface
+	virtual UpdateSleepTime update();
+	virtual DisabledMaskType getDisabledTypesToProcess() const { return MAKE_DISABLED_MASK( DISABLED_HELD ); }
+
+	void stopHealing();
+	void undoUpgrade(); ///<pretend like we have not been activated yet, so we can be reactivated later
+
+protected:
+
+	virtual void upgradeImplementation();
+
+	virtual void getUpgradeActivationMasks(UpgradeMaskType& activation, UpgradeMaskType& conflicting) const
+	{
+		getAutoHealBehaviorModuleData()->m_upgradeMuxData.getUpgradeActivationMasks(activation, conflicting);
+	}
+
+	virtual void performUpgradeFX();
+
+	virtual void processUpgradeRemoval()
+	{
+		// I can't take it any more.  Let the record show that I think the UpgradeMux multiple inheritence is CRAP.
+		getAutoHealBehaviorModuleData()->m_upgradeMuxData.muxDataProcessUpgradeRemoval(getObject());
+	}
+
+	virtual Bool requiresAllActivationUpgrades() const
+	{
+		return getAutoHealBehaviorModuleData()->m_upgradeMuxData.m_requiresAllTriggers;
+	}
+
+	inline Bool isUpgradeActive() const { return isAlreadyUpgraded(); }
+
+	virtual Bool isSubObjectsUpgrade() { return false; }
+
+
+private:
+
+	void pulseHealObject( Object *obj );
+
+	UnsignedInt m_soonestHealFrame;/** I need to record this, because with multiple wake up sources,
+																		I can't rely solely on my sleeping.  So this will guard onDamage's wake up.
+																		I could guard the act of healing, but that would defeat the gain of being
+																		a sleepy module.  I never want to run update unless I am going to heal.
+																 */
+
+	Bool m_stopped;
+
+	// BFME2: retail ctor 0x452592 zeroes soonestHealFrame at +0x2C, writes the
+	// stopped byte at +0x30 and clears this id at +0x34, and stopHealing 0x4523B6
+	// stores +0x30/+0x2C, so the particle-system id follows m_stopped.
+	ParticleSystemID m_radiusParticleSystemID;
+
+};
+
+#endif // __AutoHealBehavior_H_
+
+
 #include "GameLogic/Module/BodyModule.h"
 #include "GameLogic/GameLogic.h"
 #include "GameLogic/Object.h"
@@ -145,14 +307,8 @@ public:
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-// ??1AutoHealBehavior@@ present-unmatched
-AutoHealBehavior::~AutoHealBehavior( void )
-{
 
-	if( m_radiusParticleSystemID != INVALID_PARTICLE_SYSTEM_ID )
-		TheParticleSystemManager->destroyParticleSystemByID( m_radiusParticleSystemID );
 
-}
 
 //-------------------------------------------------------------------------------------------------
 void AutoHealBehavior::stopHealing()
@@ -163,12 +319,8 @@ void AutoHealBehavior::stopHealing()
 }
 
 //-------------------------------------------------------------------------------------------------
-// ?undoUpgrade@AutoHealBehavior@@ present-unmatched
-void AutoHealBehavior::undoUpgrade()
-{
-	m_soonestHealFrame = 0;
-	setUpgradeExecuted( FALSE );
-}
+
+
 
 //-------------------------------------------------------------------------------------------------
 /** Damage has been dealt, this is an opportunity to reach to that damage */
@@ -205,9 +357,9 @@ void AutoHealBehavior::onDamage( DamageInfo *damageInfo )
 //-------------------------------------------------------------------------------------------------
 // AutoHealBehavior::update: defined in AutoHealBehaviorPlayerScan.cpp (its row's unit).
 
-// Keeps this unit's rowed list<Object*>::push_back (0x001EC03C) emitted; nothing else here calls it.
-// ?bfmeAnchorAutoHealObjectListPushBack absent-from-retail
-void bfmeAnchorAutoHealObjectListPushBack(ObjectPointerList *list, Object *obj) { list->push_back(obj); }
+
+
+
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
@@ -229,17 +381,8 @@ void bfmeAnchorAutoHealObjectListPushBack(ObjectPointerList *list, Object *obj) 
 // ------------------------------------------------------------------------------------------------
 /** Load post process */
 // ------------------------------------------------------------------------------------------------
-// ?loadPostProcess@AutoHealBehavior@@ present-unmatched
-void AutoHealBehavior::loadPostProcess( void )
-{
 
-	// extend base class
-	UpdateModule::loadPostProcess();
 
-	// extend base class
-	UpgradeMux::upgradeMuxLoadPostProcess();
-
-}
 
   // end loadPostProcess
 
@@ -290,3 +433,12 @@ void AutoHealBehavior::loadPostProcess( void )
 // tu-skeleton: 0x00789C7C 8B Unwind@00b89c7c -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/AutoHealBehaviorPlayerScan.cpp (not merged yet)
 
 // tu-skeleton: 0x00789C84 10B __ehhandler$?update@AutoHealBehavior@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/AutoHealBehaviorPlayerScan.cpp (not merged yet)
+
+void AutoHealBehavior::upgradeImplementation()
+{
+    setWakeFrame(getObject(), UPDATE_SLEEP_NONE);
+}
+void AutoHealBehavior::performUpgradeFX()
+{
+    getAutoHealBehaviorModuleData()->m_upgradeMuxData.performUpgradeFX(getObject());
+}

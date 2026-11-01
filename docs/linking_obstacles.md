@@ -4658,7 +4658,22 @@ Whole-unit clearance and census confirmation remain pending.
   wider closure into the next census. The earlier triage below remains the
   prerequisite history.
 
-- **AutoHeal current-input triage (2026-10-28, `2fd3f18efc`):**
+- **AutoHeal native-body emission repair (2026-11-01, Cortys):**
+  The current source's six unresolved UpgradeMux spellings are cleared by
+  removing unrowed donor lifetime/postload/undo bodies and its obsolete list
+  anchor, while defining the two already rowed overrides out of line in a
+  TU-local declaration view. All five rows pass strict checks; all eight
+  retained complete code definitions/relocations are unchanged. Two new
+  four-byte getter COMDATs have debug references only. Three present-unmatched
+  hatches retire through their owning counter update. The scoped 86db074988
+  preview improves LINKS 0 -> 155 bytes; census and broader UpgradeMux contract
+  repair remain separate. An initial shadow duplicate-getter warning clears
+  after strict preparation of the common provider; its fresh private control
+  confirms the current one-getter object and no common-source edit is needed.
+  Evidence:
+  `reverse/attempt_support/autoheal-owned-bodies-20261101/`.
+
+- **AutoHeal current-input triage (2026-10-28, `2fd3f18efc`, historical):**
   The four matched rows in `AutoHealBehavior.cpp` remain exact, and the
   frozen-file check passes. The ordinary preview against published index
   `14dc3d2467` still reports zero of its 142 authored bytes linked, with the
