@@ -1183,15 +1183,7 @@ const Real CLOSE_ENOUGH = 15;
 const Real CLOSE_ENOUGH_SQR = (CLOSE_ENOUGH * CLOSE_ENOUGH);
 const Real LOGICFRAMES_PER_MSEC_REAL = ((Real)30) / ((Real)1000);
 
-class Vector3
-{
-public:
-	Real X;
-	Real Y;
-	Real Z;
-	Vector3() {}
-	Vector3(Real x, Real y, Real z) { X = x; Y = y; Z = z; }
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 static __forceinline Vector3 transformSlavedPoint(const Matrix3D &matrix3D, const Vector3 &a)
 {

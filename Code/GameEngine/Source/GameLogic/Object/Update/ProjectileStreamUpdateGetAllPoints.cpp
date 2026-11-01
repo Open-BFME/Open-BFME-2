@@ -22,11 +22,7 @@ typedef float Real;
 #include "../../../Common/GameLogicObjectLookupView.h"
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
-class Vector3
-{
-public:
-	float X, Y, Z;
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 // Drawable::getPosition (0x002763E6) is rowed as Drawable::getPosition.
 class Drawable;
