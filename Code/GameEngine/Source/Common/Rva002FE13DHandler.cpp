@@ -40,12 +40,7 @@ public:
 	unsigned char m_flags438;
 };
 
-class Player
-{
-public:
-	char m_pad[0x54];
-	int m_54;
-};
+#include "../../Include/Common/Player.h"
 
 class PlayerList
 {
@@ -95,7 +90,7 @@ int Rva002FE13DFilter::getPlayerMask()
 	if (player == 0)
 		return -1;
 	if ((m_target->m_125 & 0x40) == 0) {
-		int f54 = player->m_54;
+		int f54 = player->getPlayerIndex();
 		return ThePlayerList->getPlayersWithRelationship(f54, 4, false);
 	} else {
 		return -1;
