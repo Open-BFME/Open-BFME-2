@@ -16,13 +16,7 @@
 #include <map>
 
 struct FieldParse;
-class INI
-{
-public:
-    const char *getNextToken(const char *separators = 0);
-    void initFromINI(void *what, const FieldParse *fields);
-    static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 struct FieldParse
 {

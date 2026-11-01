@@ -24,17 +24,7 @@ typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const v
 
 #include "../../../Include/Common/INI/FieldParse.h"
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps = 0);
-	void initFromINI(void *what, const FieldParse *parseTable);
-	static void parseReal(INI *ini, void *instance, void *store, const void *userData);
-	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva0033A49B_ParseDecal(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva0045A22E_ParseQuery(INI *ini, void *instance, void *store, const void *userData);
-	static void parseInt(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 class WeaponTemplate;
 

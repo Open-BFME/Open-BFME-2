@@ -5,14 +5,7 @@
 
 struct FieldParse;
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps = 0);
-	void initFromINI(void *what, const FieldParse *parseTable);
-	static void parseMultiplayerColorDefinition(INI *ini);
-	static void parseMultiplayerSettingsDefinition(INI *ini);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/MultiplayerSettings.h
 class MultiplayerColorDefinition

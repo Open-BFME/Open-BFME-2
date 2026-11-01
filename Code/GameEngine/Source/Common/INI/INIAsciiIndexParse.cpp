@@ -14,11 +14,7 @@ template <> int StringBase<char>::compare(const char *text) const throw();
 
 #include <windows.h>
 
-class INI
-{
-public:
-	AsciiString getNextAsciiString();
-};
+#include "../../../Include/Common/INI/INI.h"
 
 // The existing four-entry heuristic parser's target table, VA 0x00DCFC24.
 // Supply its previously unowned definition with the exact target strings.

@@ -20,12 +20,7 @@
 
 #include <windows.h>
 
-class INI
-{
-public:
-	const char *getNextTokenOrNull(const char *seps = 0);
-	static void Rva0033A167_ParseSoundRefList(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 #include "../../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 

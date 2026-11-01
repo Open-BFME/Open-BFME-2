@@ -11,12 +11,7 @@
 // ?Rva003393F7Parse@@YAXPAVINI@@PAX1PBX@Z 24B @0x003393F7 -> 0x0033939F
 // ?parseAudioEventRTS@INI@@SAXPAV1@PAX1PBX@Z 24B @0x00339900 -> 0x00339184
 
-class INI
-{
-public:
-	static void parseAudioEventRTS(INI *ini, void *instance, void *store, const void *userData);
-	const char *getNextToken(const char *seps = 0);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 void Rva00339235(const char *token, void *store);
 void Rva0033939F(const char *token, void *store);

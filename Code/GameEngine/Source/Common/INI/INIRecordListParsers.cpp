@@ -17,17 +17,7 @@
 
 #include <windows.h>
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps = 0);
-	const char *getNextTokenOrNull(const char *seps = 0);
-	int scanInt(const char *token);
-	float scanReal(const char *token);
-	static void Rva0033A1CE_ParseSoundList(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva0039A4FC_ParseNameCountList(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva0039A565_ParseNameNameReal(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 #include "../debug.h"
 

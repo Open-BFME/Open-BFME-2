@@ -17,15 +17,7 @@
 
 typedef float Real;
 
-class INI
-{
-public:
-	AsciiString getNextAsciiString();
-	const char *getNextTokenOrNull(const char *seps = 0);
-	Real scanReal(const char *token);
-	static void Rva003EEABF_ParseAsciiString(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva00289228_ParseRealList(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 #include <vector>
 

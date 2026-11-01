@@ -9,13 +9,7 @@
 //       must fall in 1..14, else INIException (argument count 3) "Invalid
 //       Category encountered by ModifierList::Category".
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps = 0);
-	const char *getNextTokenOrNull(const char *seps = 0);
-	float scanReal(const char *token);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 #include "../../../Include/Common/INI/FieldParse.h"
 

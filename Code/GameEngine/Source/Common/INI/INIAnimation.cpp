@@ -31,13 +31,7 @@ public:
 
 extern Anim2DCollection *TheAnim2DCollection;
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps = 0);
-	void initFromINI(void *what, const FieldParse *parseTable);
-	static void parseAnim2DDefinition(INI *ini);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 // ---- from Code/GameEngine/Source/Common/INI/INI_parseAnim2DDefinition.cpp
 

@@ -11,14 +11,7 @@
 
 struct FieldParse;
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps = 0);
-	void initFromINI(void *what, const FieldParse *parseTable);
-
-	static void parseMappedImageDefinition(INI *ini);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 extern const FieldParse m_imageFieldParseTable[];
 

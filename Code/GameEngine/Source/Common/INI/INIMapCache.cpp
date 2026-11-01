@@ -84,12 +84,7 @@ AsciiString QuotedPrintableToAsciiString(AsciiString);
 
 UnicodeString QuotedPrintableToUnicodeString(AsciiString);
 
-class INI {public:const char*getNextToken(const char*);void initFromINI(void*,const FieldParse*);static void parseMapCacheDefinition(INI*);
- static void parseBool(INI*,void*,void*,const void*);
- static void parseInt(INI*,void*,void*,const void*);
- static void parseUnsignedInt(INI*,void*,void*,const void*);
- static void parseCoord3D(INI*,void*,void*,const void*);
- static void parseAsciiString(INI*,void*,void*,const void*);};
+#include "../../../Include/Common/INI/INI.h"
 
 // Native C68AE8 is exactly24 entries plus sentinel. Offsets below are
 // read from target data rather than inferred from the reference table.

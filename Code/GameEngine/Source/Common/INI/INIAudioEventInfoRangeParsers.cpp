@@ -18,13 +18,7 @@ template <class T> inline void swapRange(T &lhs, T &rhs)
 	rhs = tmp;
 }
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps = 0);
-	Int scanInt(const char *token);
-	Real scanReal(const char *token);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 // ?parseDelay@@YAXPAVINI@@PAX1PBX@Z
 void parseDelay(INI *ini, void * /*instance*/, void *store, const void * /*userData*/)

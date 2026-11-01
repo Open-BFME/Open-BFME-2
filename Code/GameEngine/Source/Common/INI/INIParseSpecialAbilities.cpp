@@ -54,12 +54,7 @@ private:
 };
 }
 
-class INI
-{
-public:
-	const char *getNextTokenOrNull(const char *seps);
-	static void Rva00339B50_ParseSpecialAbilities(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 // ?Rva00339B50_ParseSpecialAbilities@INI@@SAXPAV1@PAX1PBX@Z
 void INI::Rva00339B50_ParseSpecialAbilities(INI *ini, void *, void *store, const void *)

@@ -19,33 +19,7 @@ class INI;
 typedef void (*FieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
 #include "../../../Include/Common/INI/FieldParse.h"
 
-class INI
-{
-public:
-	static void parseAudioEventRTS(INI *ini, void *instance, void *store, const void *userData);
-	const char *getNextToken(const char *seps);
-	const char *getNextSubToken(const char *expected);
-	float scanReal(const char *token);
-	void initFromINI(void *what, const FieldParse *parseTable);
-	static void Rva002216A6_ParseDefaultMessageColor(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva00221714_ParseDefaultOpenAudio(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva0022175F_ParseDefaultMessageFont(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva00289228_ParseRealList(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva002A8945_ParseCombatChainDefinition(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva002A898A_ParseBrutalDifficultyCheats(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva002A89D2_ParseDifficultyTuning(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva004E8EFF_ParseDisabledSlots(INI *ini, void *instance, void *store, const void *userData);
-	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
-	static void parseAsciiStringVectorAppend(INI *ini, void *instance, void *store, const void *userData);
-	static void parseBool(INI *ini, void *instance, void *store, const void *userData);
-	static void parseColorInt(INI *ini, void *instance, void *store, const void *userData);
-	static void parseCoord2D(INI *ini, void *instance, void *store, const void *userData);
-	static void parseCoord3D(INI *ini, void *instance, void *store, const void *userData);
-	static void parseInt(INI *ini, void *instance, void *store, const void *userData);
-	static void parseRGBColor(INI *ini, void *instance, void *store, const void *userData);
-	static void parseReal(INI *ini, void *instance, void *store, const void *userData);
-	static void parseUnsignedInt(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 // 0x00215C38 (16B): "PlayerAIType" (registration VA 0x00DB9B74). Forwards the
 // INI to ThePlayerAITypeSet (0x00DFE31C) through its unrowed member 0x00215B14

@@ -15,7 +15,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 #include <vector>
 extern "C" __declspec(dllimport) int __cdecl _strcmpi(const char*,const char*);
-class INI {public:const char*getNextToken(const char *seps=0);const char*getNextTokenOrNull(const char *seps=0);int getLineNum()const;AsciiString getFilename()const;};
+#include "../../../Include/Common/INI/INI.h"
 class FXList;
 class FXListStore {public:const FXList*findFXList(const char*)const;};
 extern FXListStore *TheFXListStore;

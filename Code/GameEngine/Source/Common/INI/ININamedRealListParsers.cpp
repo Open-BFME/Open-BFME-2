@@ -13,14 +13,7 @@
 
 typedef float Real;
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps = 0);
-	static void parseReal(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva00318242_ParseNamedReal(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva004C3F48_ParseNamedReal(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 struct Rva00318203Element
 {

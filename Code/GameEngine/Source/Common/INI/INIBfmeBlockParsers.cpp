@@ -15,14 +15,7 @@ typedef bool Bool;
 
 struct FieldParse;
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-	const char *getNextSubToken(const char *expected);
-	float scanReal(const char *token);
-	void initFromINI(void *what, const FieldParse *parseTable);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 // 0x00215C38 (16B): "PlayerAIType" (registration VA 0x00DB9B74). Forwards the
 // INI to ThePlayerAITypeSet (0x00DFE31C) through its unrowed member 0x00215B14
