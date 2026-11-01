@@ -36,11 +36,7 @@ protected:
 
 #include "../../../../Include/GameClient/Drawable.h"
 
-class GameWindow
-{
-public:
-	unsigned int winSetStatus(unsigned int status);
-};
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 
 class CommandButton;
 

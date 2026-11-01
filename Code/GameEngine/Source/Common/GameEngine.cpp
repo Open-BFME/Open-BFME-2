@@ -82,11 +82,7 @@ extern "C" __declspec(dllimport) BOOL __stdcall TerminateProcess(
 	HANDLE hProcess, unsigned int uExitCode);
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/GameWindow.h
-class GameWindow
-{
-public:
-	unsigned int winClearStatus(unsigned int status);
-};
+#include "../../Include/GameClient/Bfme2GameWindow.h"
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/WindowLayout.h
 class WindowLayout

@@ -483,10 +483,7 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class GameWindow {
-public:
-	int winHide(bool);
-};
+#include "../../Include/GameClient/Bfme2GameWindow.h"
 
 class GameWindowManager {
 public:

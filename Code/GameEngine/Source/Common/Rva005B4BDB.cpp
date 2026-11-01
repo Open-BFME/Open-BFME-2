@@ -4,11 +4,7 @@
 // Evidence: chain lane; callee GadgetTextEntryGetText 0x00320AAB plus trim 0x00037F70 plus rva00407A6A 0x00407A6A plus virtual slot 0x14 plus releaseBuffer 0x00036E70; callers 0x005B4CB7 0x005B4D23; EH prolog with handler code 0x0079F347.
 #include "unicode_string.h"
 template <> bool StringBase<unsigned short>::isEmpty() const throw();
-class GameWindow
-{
-public:
-	unsigned int winGetStyle();
-};
+#include "../../Include/GameClient/Bfme2GameWindow.h"
 UnicodeString GadgetTextEntryGetText(GameWindow *textEntry);
 typedef bool Bool;
 class GameTextInterface

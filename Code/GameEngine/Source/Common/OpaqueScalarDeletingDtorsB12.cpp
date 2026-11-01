@@ -44,11 +44,7 @@ struct EmitVtableTag;
 // Reuse the new base5126F5 consumed-prefix view identically; padding274
 // does not assert which portion belongs to the original base. Full owner
 // size, original name and unused fields remain unknown.
-class GameWindow {
-public: GameWindow(); // call-only default ctor: keep the shared census provider
-protected: virtual ~GameWindow();
-private: unsigned char unknown[0x218-4];
-};
+#include "../../Include/GameClient/Bfme2GameWindow.h"
 class Rva005248D0 {
 public: Rva005248D0(); // Use the full registry constructor at 0x002D2C34.
  virtual ~Rva005248D0();

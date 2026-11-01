@@ -3,7 +3,7 @@
 #define TheAptMgr0040FCC0 (*(AptPlayer **)&g_bfmeAptWindowManager)
 #define TheRvaTgt0040FCC0 (*(Rva00222A8BTarget **)&g_bfmeAptWindowManager)
 
-class GameWindow { public: int winSetSize(int,int); int winHide(bool); int winEnable(bool); };
+#include "../../../Include/GameClient/Bfme2GameWindow.h"
 
 class AptLayoutWindowCallbacks {
 public:

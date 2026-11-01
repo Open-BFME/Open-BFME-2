@@ -18,12 +18,7 @@ typedef float Real;
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
 #include "../../../../Libraries/Include/Lib/Coord2D.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
-class GameWindow
-{
-public:
-	int winGetSize(int *width, int *height);
-	int winGetScreenPosition(int *x, int *y);
-};
+#include "../../../Include/GameClient/Bfme2GameWindow.h"
 struct RadarExtent
 {
 	Real minX;

@@ -48,15 +48,7 @@ class Team;
 
 class Object;
 
-class GameWindow
-{
-public:
-    int winHide(bool);
-    int winEnable(bool);
-    unsigned int winSetStatus(unsigned int);
-    unsigned int winClearStatus(unsigned int);
-    unsigned int winGetStatus();
-};
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 
 #define RVA0053EB81_VIRTUAL(name) virtual void name();
 

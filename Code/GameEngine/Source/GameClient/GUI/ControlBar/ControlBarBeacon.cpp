@@ -159,11 +159,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 
 #include "unicode_string.h"
 
-class GameWindow
-{
-public:
-	int winHide( bool hide );
-};
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 void GadgetTextEntrySetText( GameWindow *window, UnicodeString text );
 
 class GameWindowManager

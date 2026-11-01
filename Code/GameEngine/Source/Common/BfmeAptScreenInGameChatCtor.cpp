@@ -8,15 +8,7 @@
 // LINK BONUS via 0x005E19CA.
 #include "ascii_string.h"
 
-class GameWindow
-{
-public:
-	GameWindow();
-protected:
-	virtual ~GameWindow();
-private:
-	unsigned char unknown[0x218 - 4];
-};
+#include "../../Include/GameClient/Bfme2GameWindow.h"
 
 class Rva005248D0
 {

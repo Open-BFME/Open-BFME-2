@@ -35,13 +35,7 @@ public:
     GameWindow *m_C; // +0x0C: shared window slot, used by the derived transitions.
 };
 
-class GameWindow
-{
-public:
-	int winHide(bool hide);
-	int winGetSize(int *width, int *height);
-	int winGetScreenPosition(int *x, int *y);
-};
+#include "../../Include/GameClient/Bfme2GameWindow.h"
 
 class Rva0035D47B : public Rva001DBAA4 { public: virtual ~Rva0035D47B(); };
 Rva0035D47B::~Rva0035D47B() { m_C = 0; }

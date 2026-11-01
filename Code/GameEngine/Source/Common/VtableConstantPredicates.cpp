@@ -38,22 +38,7 @@ bool Rva0050B5C6::rva0050B5C6()
 // consumers; the original name and const qualification remain unknown.
 class WinInstanceData;
 enum WindowMsgHandledType { MSG_IGNORED, MSG_HANDLED };
-class GameWindow
-{
-protected:
-	virtual ~GameWindow();
-public:
-	virtual WindowMsgHandledType input(unsigned int, unsigned int, unsigned int);
-	virtual WindowMsgHandledType bfmeGoEHCb(unsigned int, unsigned int, unsigned int);
-	virtual int draw(void *);
-	virtual int tooltip(WinInstanceData *, unsigned int);
-	virtual int rva0009FD78();
-	virtual bool vslot6() const;
-	virtual void *fetchCreateInstance() = 0;
-	virtual bool vslot8() const;
-	virtual bool vslot9() const;
-	virtual bool vslot10();
-};
+#include "../../Include/GameClient/Bfme2GameWindow.h"
 
 bool GameWindow::vslot10()
 {

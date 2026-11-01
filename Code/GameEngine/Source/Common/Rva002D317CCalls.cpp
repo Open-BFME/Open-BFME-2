@@ -10,14 +10,7 @@
 
 struct FieldParse;
 
-class GameWindow
-{
-public:
-	int winGetPosition(int *x, int *y);
-	int winSetPosition(int x, int y);
-	int winGetSize(int *w, int *h);
-	int winSetSize(int w, int h);
-};
+#include "../../Include/GameClient/Bfme2GameWindow.h"
 
 class Radar
 {

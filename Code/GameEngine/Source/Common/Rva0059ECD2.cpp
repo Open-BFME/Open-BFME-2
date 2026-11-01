@@ -6,11 +6,7 @@ class Rva00222A8BTarget;
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 int __cdecl Rva00524EF4AptCall(Rva00222A8BTarget *t, void *a1, const char *a2, const char *a3);
 
-class GameWindow
-{
-public:
-	int winEnable(bool enable);
-};
+#include "../../Include/GameClient/Bfme2GameWindow.h"
 
 class Rva0059ECD2Aux
 {

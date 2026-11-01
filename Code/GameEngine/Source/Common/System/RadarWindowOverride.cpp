@@ -9,11 +9,7 @@
 // Alert movie playback uses the canonical four-byte string handle.
 #include "ascii_string.h"
 
-class GameWindow
-{
-public:
-	int winHide(bool hide);
-};
+#include "../../../Include/GameClient/Bfme2GameWindow.h"
 
 void setHideScroll();
 

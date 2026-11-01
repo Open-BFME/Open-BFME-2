@@ -1,7 +1,7 @@
 // cl: -DNDEBUG -DWIN32 -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/GameClient/GUI/ControlBar
 // Retail 0x00405DBC /129 (BFME 1 0x004C1B60). Named UI callers establish the ControlBar
 // receiver (the BfmeConv1022 caller loads VA012F33F8/TheControlBar); the method keeps an address-derived name.
-class GameWindow { public: unsigned winGetStyle(); };
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 void *GadgetButtonGetData(GameWindow *);
 struct BfmeMsgDN;
 // The temporary is an OldSchoolHelpBoxContentSource: its constructor

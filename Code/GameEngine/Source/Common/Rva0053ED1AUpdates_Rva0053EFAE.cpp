@@ -44,14 +44,7 @@ private:
 	char m_pad04[0x38];
 };
 
-class GameWindow
-{
-public:
-	bool winIsHidden();
-	unsigned winGetStatus();
-	int winSetSize(int w, int h);
-	int winSetPosition(int x, int y);
-};
+#include "../../Include/GameClient/Bfme2GameWindow.h"
 
 enum ScienceType
 {

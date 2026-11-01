@@ -9,14 +9,7 @@
 #define _CRTIMP __declspec(dllimport)
 #include "../../../Include/GameClient/BfmeAptScreenBaseLayout.h"
 
-class GameWindow
-{
-protected:
-	virtual ~GameWindow();
-
-private:
-	unsigned char m_pad004[0x218 - 4];
-};
+#include "../../../../../Include/GameClient/Bfme2GameWindow.h"
 
 class BfmeAptWindowManager;
 

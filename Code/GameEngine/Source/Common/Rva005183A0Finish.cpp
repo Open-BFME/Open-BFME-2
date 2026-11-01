@@ -23,11 +23,7 @@ public:
 	int Rva002E432EForward();
 	bool getAllHealthBars();
 };
-class GameWindow
-{
-public:
-	int winEnable(bool v);
-};
+#include "../../Include/GameClient/Bfme2GameWindow.h"
 void GadgetCheckBoxSetChecked(GameWindow *g, bool v);
 class Rva005183A0
 {

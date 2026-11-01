@@ -54,15 +54,7 @@ public:
 };
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/GameWindow.h
-class GameWindow
-{
-public:
-	int winHide(bool hide);
-	Bool winIsHidden(void);
-	UnsignedInt winSetStatus(UnsignedInt status);
-	UnsignedInt winClearStatus(UnsignedInt status);
-	Int winEnable(Bool enable);
-};
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 
 class AsciiString;
 enum ObjectStatusTypes { MULTISELECT_SOLD = 0x13 };

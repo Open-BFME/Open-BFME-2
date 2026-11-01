@@ -2,15 +2,7 @@
 // ??1Rva0056D915@@UAE@XZ @0x0056D915 110B evidence: deleting dtor 0x0056DC2A vtable 0x00C6DB40#0; rowed base 0x005126F5 member 0x005C9B9C callee 0x002BED10; global g_00DFEF18; callers prove start
 #include "ascii_string.h"
 
-class GameWindow
-{
-public:
-	GameWindow();
-protected:
-	virtual ~GameWindow();
-private:
-	unsigned char unknown[0x218 - 4];
-};
+#include "../../Include/GameClient/Bfme2GameWindow.h"
 
 class Rva005248D0
 {

@@ -40,13 +40,7 @@ public:
 // whose ctor/dtor 0x0053ED1A/0x0053ED78 install it). WorldBuilder's twin
 // table names slot 1 ShouldButtonFlash (RadialWindowController.cpp:262..265
 // asserts); its static window helper is inlined here.
-class GameWindow
-{
-public:
-	Int winSetPosition(Int x, Int y);
-	Int winSetSize(Int width, Int height);
-	bool winIsHidden();
-};
+#include "../../Include/GameClient/Bfme2GameWindow.h"
 void *GadgetButtonGetData(GameWindow *window);
 struct Rva0053EC7DPair
 {

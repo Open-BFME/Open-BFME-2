@@ -4,12 +4,7 @@
 // store win to +0xC, winGetSize into +0x18/+0x1C, winGetScreenPosition into +0x10/+0x14,
 // clear +0x9, update(0) via slot 2, clear +0x8, set +0x9. Evidence: vtable 0x0081661C slot 1
 // plus rowed winGetSize 0x00313BC6 and winGetScreenPosition 0x00313B3C.
-class GameWindow
-{
-public:
-	int winGetSize(int *width, int *height);
-	int winGetScreenPosition(int *x, int *y);
-};
+#include "../../Include/GameClient/Bfme2GameWindow.h"
 
 class Rva001DBAA4
 {

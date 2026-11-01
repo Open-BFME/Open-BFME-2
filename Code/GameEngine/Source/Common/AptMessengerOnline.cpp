@@ -42,13 +42,7 @@ struct Rva005AE6F8Slot
 	int pad;
 };
 
-class GameWindow
-{
-protected:
-	virtual ~GameWindow();
-private:
-	unsigned char m_pad004[0x218 - 4];
-};
+#include "../../Include/GameClient/Bfme2GameWindow.h"
 
 class __multiple_inheritance FunctorTarget;
 

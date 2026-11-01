@@ -5,11 +5,7 @@
 // test-je-push-call sequences plus bool store, ret 4, callers 0x00570F41
 // 0x005713AB 0x005719F5 0x00571D22 0x00571FF8 0x00572746 0x0057284F,
 // neighbours ConstIntGetters4 and MinimizeCurrentThreadWindow.
-class GameWindow
-{
-public:
-	int winEnable(bool enabled);
-};
+#include "../../../Include/GameClient/Bfme2GameWindow.h"
 class AptOnlineLogin
 {
 public:
