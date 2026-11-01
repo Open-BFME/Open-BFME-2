@@ -78,6 +78,75 @@ public:
 	static void doFXObj(const FXList *,const Object *,const Object *);
 };
 #include "../../../../Include/Common/ObjectModule.h"
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
+#include "../../../Common/GameLogicObjectLookupView.h"
+class AIUpdateInterface;
+class INI;
+//
+// ?searchForSuitableSpawnAtObject@RespawnUpdate@@QAEPAVObject@@XZ, retail 0x004AF1CE, 143 bytes.
+// A RespawnUpdate member (layout as RespawnUpdateCtor.cpp: +0x04 the module
+// data, +0x08 the object; caller 0x004AFA17 in the unrowed 0x004AF92F): the
+// closest object within 1000000 of ours that passes the 0x00260E2A filter
+// (its controlling player) and the 0x002614EC one (the module data's +0x08,
+// that player, true), or our own object when there is none.
+//
+// The filters are BFME2's partition filter chain (the view
+// AIStructureCreepTactic.cpp documents): a vptr, the +0x04 link to the next
+// filter (PartitionFilter::link 0x00625790), then each filter's members;
+// address-derived names after allow (slot 1), the ctors being inline. The
+// inline destructors only restore the base vftable, which cl drops here.
+class Object;
+class Rva000421C8
+{
+public:
+	Rva000421C8() : m_next(0) {}
+	virtual ~Rva000421C8() {}
+	virtual bool allow(Object *obj) = 0;
+	virtual int getPlayerMask();
+	Rva000421C8 *link(Rva000421C8 *next);	// 0x00625790
+	Rva000421C8 *m_next;
+};
+// vftable 0x00BFAD04, allow 0x00260E2A, slot 2 0x00260E1E: +0x08 a player.
+class Rva00260E2AFilter : public Rva000421C8
+{
+public:
+	Rva00260E2AFilter(Player *player) : m_player(player) {}
+	virtual bool allow(Object *obj);
+	virtual int getPlayerMask();
+	Player *m_player;
+};
+// vftable 0x00BCECF0, allow 0x002614EC: +0x08 what to compare, +0x0C a
+// player, +0x10 whether a hit allows.
+class Rva002614ECFilter : public Rva000421C8
+{
+public:
+	Rva002614ECFilter(const void *what, Player *player, bool match)
+		: m_what(what), m_player(player), m_match(match) {}
+	virtual bool allow(Object *obj);
+	const void *m_what;
+	Player *m_player;
+	bool m_match;
+};
+#include "../../../Common/PartitionRangeQueryCallView.h"
+#include "ascii_string.h"
+class ThingFactory
+{
+public:
+	const ThingTemplate *findTemplate(const AsciiString &key);
+};
+extern class ThingFactory *TheThingFactory;
+struct RespawnUpdateModuleDataRef
+{
+	char m_pad[0x118];
+	AsciiString m_deadImageName;
+	AsciiString m_respawnAsTemplate;
+};
+class ThingTemplate
+{
+public:
+	unsigned char m_unknown[0x11F];
+	unsigned char m_kindOfByte;
+};
 
 class BehaviorModuleInterface {public:virtual void slot0()=0;};
 
@@ -152,11 +221,6 @@ public:
 	void *node; // +0x00
 	bool inserted; // +0x04
 	char m_pad05[0x3];
-};
-
-struct BFME2RespawnRuleTree {
-    void *sentinel;
-    RespawnInsertResult insert(const RespawnRule &);
 };
 
 enum NameKeyType
@@ -238,13 +302,108 @@ public:
 	Rva004AFB01Context *m_context;
 };
 
+class Rva001E42F2 { public: void rva001E42F2(const int *); };
+
+struct RespawnUpdateData004AF182 {
+    unsigned char before0C[0xC];
+    int conditions0C[19];
+    int conditions58[19];
+};
+
+extern PartitionManager *ThePartitionManager;
+
+class CreateAHeroHero;
+
+// The rowed lookup ?rva002197A6@CreateAHeroManager@@QAEPAVCreateAHeroData@@H@Z.
+class CreateAHeroData;
+
+class CreateAHeroManager
+{
+public:
+	CreateAHeroData *rva002197A6(int);
+	const AsciiString &GetButtonImageName(const CreateAHeroHero *);
+};
+
+class ImageCollection
+{
+public:
+	const Image *findImageByName(const AsciiString &);
+};
+
+extern CreateAHeroManager *TheCreateAHeroManager;
+
+extern ImageCollection *TheMappedImageCollection;
+
+const Image *getButtonImage(ThingTemplate *, Object *);
+
+// ?insert@BFME2RespawnRuleTree@@QAE?AURespawnInsertResult@@ABURespawnRule@@@Z,
+// retail 0x004AFB2B, 35 bytes. Hidden-result wrapper: runs the tree's unique
+// insertion worker into a stack result, then copies the node pointer and the
+// freshness flag out to the hidden return slot.
+
+struct RespawnRule;
+
+struct BFME2RespawnRuleTree {
+public:
+	void *sentinel;
+public:
+	RespawnInsertResult insert(const RespawnRule &);
+public:
+	RespawnInsertResult *insertUnique(RespawnInsertResult *out, const RespawnRule &rule);
+};
+
 // tu-skeleton: 0x004AEF46 103B ?rva004AEF46@RespawnUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateRva004AEF46.cpp (not merged yet)
 
-// tu-skeleton: 0x004AEFAD 94B ?getPercentReady@RespawnUpdate@@UAEMPAH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate_getPercentReady.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate_getPercentReady.cpp
+
+//
+// ?getPercentReady@RespawnUpdate@@UAEMPAH@Z, retail 0x004AEFAD, 94 bytes.
+// Vslot 13 (offset 0x34) of vtable 0x008556B0 (VA 0x00C556B0), class of
+// ??0RespawnUpdate@@QAE@PAVThing@@PBVModuleData@@@Z in
+// Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateCtor.cpp.
+// Layout follows that TU: UpdateModule base 0x20 (secondaries at +0x0C/+0x10),
+// RespawnUpdate m_20 at +0x20, state m_2C at +0x2C, start m_34 at +0x34,
+// duration m_38 at +0x38, out m_3C at +0x3C. No callers. Global
+// TheGameLogic at 0x00DFE78C (+0x40 frame) via GameLogicFrame::getFrame.
+// Pooled floats 0.0 at 0x007BAEAC, 1.0 at 0x007BB8D8, 2^32 at 0x007C26EC.
+// Retail dec-chain (sub 0 plus four decs) proves six consecutive states
+// 0..5: 0/2/4/5/default return 0.0, 1 returns 1.0, 3 computes
+// (frame - m_34) / m_38 with unsigned frame conversion (fild plus 2^32
+// fixup) and jle zero guard. Honest address name; identity is class plus slot.
+
+float RespawnUpdate::getPercentReady(int *out)
+{
+	if (out)
+		*out = at3C;
+	switch (state)
+	{
+	case 0:
+		return 0.0f;
+	case 1:
+		return 1.0f;
+	case 2:
+		return 0.0f;
+	case 3:
+		break;
+	case 4:
+		return 0.0f;
+	case 5:
+		return 0.0f;
+	default:
+		return 0.0f;
+	}
+	int total = at38;
+	if (total <= 0)
+		return 0.0f;
+	unsigned int frame = TheGameLogic->getFrame();
+	return ((float)frame - at34) / total;
+}
 
 // tu-skeleton: 0x004AF00B 139B ?xfer@RespawnUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateXfer.cpp (not merged yet)
 
 // tu-skeleton: 0x004AF096 128B ??0RespawnUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateCtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp
 
@@ -407,23 +566,126 @@ void RespawnUpdate::iniParseNewRuleForLevel(INI *ini, void *instance, void *stor
     rules->insert(rule);
 }
 
+// ---- from Code/GameEngine/Source/Common/Rva004AFB01.cpp
+
+int Rva004AFB01::rva004AFB01()
+{
+	return m_helper->calcCostToBuild(m_context->m_record->m_value);
+}
+
+// Native 0x004AFB16..0x004AFB2B, 21B, is the time twin of the cost
+// helper above. WB 0x0122E450 passes the same experience level to its
+// RespawnUpdateModuleData::calcTimeToBuild; the target-specific helper
+// is already verified as RespawnUpdateModuleData::calcTimeToBuild. Native callers include
+// the UnitRevivalEntry constructor at 0x0037EA88. Reuse the established
+// receiver, context and level layout rather than add another class view.
+int Rva004AFB01::rva004AFB16()
+{
+	return m_helper->calcTimeToBuild(m_context->m_record->m_value);
+}
+
 // tu-skeleton: 0x004AF15B 6B ?name@RespawnUpdate@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x004AF161 28B ??_GRva004AF17D@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAR.cpp (not merged yet)
 
 // tu-skeleton: 0x004AF17D 5B ??1Rva004AF17D@@QAE@XZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAR.cpp (not merged yet)
 
-// tu-skeleton: 0x004AF182 76B ?rva004AF182@RespawnUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateRva004AF182.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateRva004AF182.cpp
 
-// tu-skeleton: 0x004AF1CE 143B ?searchForSuitableSpawnAtObject@RespawnUpdate@@QAEPAVObject@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate_searchForSuitableSpawnAtObject.cpp (not merged yet)
+// RespawnUpdate entry RVA 0x004AF182, native [4AF182,4AF1CE), RET.
+// RespawnBody::apply's proved lookup of "RespawnUpdate" calls this entry
+// at 4C14A8 and 4C14CA. The constructor at 4AF096 independently establishes
+// the module/object pointers (+4/+8) and state/timer fields (+2C/+30).
+// Module data supplies two 0x4C-byte condition sets at +C and +58.
+// The original method name is unknown; retain its target address.
 
-// tu-skeleton: 0x004AF25D 50B ?rva004AF25D@RespawnUpdate@@QAEPAXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateRva004AF25D.cpp (not merged yet)
+void RespawnUpdate::rva004AF182()
+{
+    Object *obj = m_object;
+    const RespawnUpdateData004AF182 *md = reinterpret_cast<const RespawnUpdateData004AF182 *>(getModuleData());
+    if (state != 0) {
+        ((Rva001E42F2 *)obj)->rva001E42F2(md->conditions0C);
+        ((Rva001E42F2 *)obj)->rva001E42F2(md->conditions58);
+        obj->clearDisabled((DisabledType)4);
+        setWakeFrame(obj, UPDATE_SLEEP_FOREVER);
+        spawnAt = INVALID_OBJECT_ID;
+        state = 2;
+    }
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate_searchForSuitableSpawnAtObject.cpp
+
+Object *RespawnUpdate::searchForSuitableSpawnAtObject()
+{
+	Object *obj = m_object;
+	const RespawnUpdateModuleData *md = reinterpret_cast<const RespawnUpdateModuleData *>(getModuleData());
+	Rva00260E2AFilter player(obj->getControllingPlayer());
+	Rva002614ECFilter same(md->filter08, obj->getControllingPlayer(), true);
+	player.link(&same);
+	Object *found = ThePartitionManager->getClosestObject(&obj->position, 1000000.0f, 0, &player);
+	if (found == 0)
+		found = obj;
+	return found;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateRva004AF25D.cpp
+
+// ?rva004AF25D@RespawnUpdate@@QAEPAXXZ, retail 0x004AF25D, 50 bytes.
+// Lazy RespawnUpdate getter: cached void at +0x28 (init -1 per ctor
+// 0x004AF096) else lookup ModuleData string at +0x11C through global
+// 0x00DFF000 via rowed 0x002D06CA else Object+4 fallback. Caller at
+// 0x0029111F finds RespawnUpdate module then adds 0x64 for AsciiString.
+
+// WorldBuilder RespawnUpdate::getDeadImage, source lines 851/868. Retail
+// 4AF2DE..4AF3BD tests cached image +24, module-data string +118,
+// template KindOf byte +11F bit40 and the object's hero key +74.
+// Callees and both singleton globals retain their existing verified names.
+const Image *RespawnUpdate::getDeadImage()
+{
+	if (deadImage)
+		return deadImage;
+	const RespawnUpdateModuleDataRef *data = reinterpret_cast<const RespawnUpdateModuleDataRef *>(getModuleData());
+	Object *object = m_object;
+	const AsciiString &name = data->m_deadImageName;
+	if (!name.isEmpty()) {
+		if (object->getTemplate()->m_kindOfByte & 0x40) {
+			CreateAHeroHero *hero = (CreateAHeroHero *)(
+				TheCreateAHeroManager->rva002197A6(object->m_heroKey));
+			if (hero) {
+				deadImage = TheMappedImageCollection->findImageByName(
+					TheCreateAHeroManager->GetButtonImageName(hero));
+				if (!deadImage)
+					deadImage = TheMappedImageCollection->findImageByName(
+						AsciiString("BuildingNoArt"));
+			}
+		} else {
+			deadImage = TheMappedImageCollection->findImageByName(name);
+		}
+		if (deadImage)
+			return deadImage;
+		Object *current = m_object;
+		ThingTemplate *currentTemplate = current->getTemplate();
+		deadImage = getButtonImage(currentTemplate, current);
+	} else {
+		deadImage = getButtonImage(object->getTemplate(), object);
+	}
+	return deadImage;
+}
+
+void *RespawnUpdate::rva004AF25D()
+{
+	if (respawnTemplate == (void *)-1) {
+		void *found = (void *)TheThingFactory->findTemplate(reinterpret_cast<const RespawnUpdateModuleDataRef *>(getModuleData())->m_respawnAsTemplate);
+		respawnTemplate = found;
+		if (found == 0)
+			respawnTemplate = m_object->m_template;
+	}
+	return respawnTemplate;
+}
 
 // tu-skeleton: 0x004AF28F 45B ?_M_erase@?$_Rb_tree@UBfmePod20@@U1@U?$_Identity@UBfmePod20@@@_STL@@U?$less@UBfmePod20@@@3@V?$allocator@UBfmePod20@@@3@@_STL@@AAEXPAU?$_Rb_tree_node@UBfmePod20@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_bfmepod20_insert.cpp (not merged yet)
 
 // tu-skeleton: 0x004AF2BC 34B ?_M_create_node@?$_Rb_tree@UBfmePod20@@U1@U?$_Identity@UBfmePod20@@@_STL@@U?$less@UBfmePod20@@@3@V?$allocator@UBfmePod20@@@3@@_STL@@IAEPAU?$_Rb_tree_node@UBfmePod20@@@2@ABUBfmePod20@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_create_nodes.cpp (not merged yet)
-
-// tu-skeleton: 0x004AF2DE 223B ?getDeadImage@RespawnUpdate@@UAEPBVImage@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateRva004AF25D.cpp (not merged yet)
 
 // tu-skeleton: 0x004AF3BD 41B ?clear@?$_Rb_tree@UBfmePod20@@U1@U?$_Identity@UBfmePod20@@@_STL@@U?$less@UBfmePod20@@@3@V?$allocator@UBfmePod20@@@3@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_bfmepod20_insert.cpp (not merged yet)
 
@@ -443,25 +705,15 @@ void RespawnUpdate::iniParseNewRuleForLevel(INI *ini, void *instance, void *stor
 
 // tu-skeleton: 0x004AF79C 403B ?triggerRevival@RespawnUpdate@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateTriggerRevival.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/Rva004AFB01.cpp
+// ---- from Code/GameEngine/Source/GameLogic/Object/Body/RespawnRuleTreeInsert.cpp
 
-int Rva004AFB01::rva004AFB01()
+// ?insert@BFME2RespawnRuleTree@@QAE?AURespawnInsertResult@@ABURespawnRule@@@Z
+RespawnInsertResult BFME2RespawnRuleTree::insert(const RespawnRule &rule)
 {
-	return m_helper->calcCostToBuild(m_context->m_record->m_value);
+	RespawnInsertResult result;
+	insertUnique(&result, rule);
+	return result;
 }
-
-// Native 0x004AFB16..0x004AFB2B, 21B, is the time twin of the cost
-// helper above. WB 0x0122E450 passes the same experience level to its
-// RespawnUpdateModuleData::calcTimeToBuild; the target-specific helper
-// is already verified as RespawnUpdateModuleData::calcTimeToBuild. Native callers include
-// the UnitRevivalEntry constructor at 0x0037EA88. Reuse the established
-// receiver, context and level layout rather than add another class view.
-int Rva004AFB01::rva004AFB16()
-{
-	return m_helper->calcTimeToBuild(m_context->m_record->m_value);
-}
-
-// tu-skeleton: 0x004AFB2B 35B ?insert@BFME2RespawnRuleTree@@QAE?AURespawnInsertResult@@ABURespawnRule@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Body/RespawnRuleTreeInsert.cpp (not merged yet)
 
 // tu-skeleton: 0x004AFB4E 149B ??0RespawnUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateModuleDataConstruct.cpp (not merged yet)
 
@@ -474,16 +726,6 @@ int Rva004AFB01::rva004AFB16()
 // tu-skeleton: 0x0078E665 8B uw_0078e665 -- matched in Code/gen_small/uw_gen_011.cpp (not merged yet)
 
 // tu-skeleton: 0x0078E66D 10B __ehhandler$??0RespawnUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078E68E 8B $L497 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate_searchForSuitableSpawnAtObject.cpp (not merged yet)
-
-// tu-skeleton: 0x0078E696 8B $L498 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate_searchForSuitableSpawnAtObject.cpp (not merged yet)
-
-// tu-skeleton: 0x0078E69E 10B __ehhandler$?searchForSuitableSpawnAtObject@RespawnUpdate@@QAEPAVObject@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate_searchForSuitableSpawnAtObject.cpp (not merged yet)
-
-// tu-skeleton: 0x0078E6A8 8B Unwind@00b8e6a8 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateRva004AF25D.cpp (not merged yet)
-
-// tu-skeleton: 0x0078E6B0 10B __ehhandler$?getDeadImage@RespawnUpdate@@UAEPBVImage@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateRva004AF25D.cpp (not merged yet)
 
 // tu-skeleton: 0x0078E6BA 8B $L4712 -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_bfmepod20_insert.cpp (not merged yet)
 
