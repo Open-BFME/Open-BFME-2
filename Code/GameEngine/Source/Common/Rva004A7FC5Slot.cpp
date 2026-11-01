@@ -11,13 +11,7 @@ public:
     void Rva0027164EBroadcast(int a, int b);
 };
 
-class GlobalData
-{
-public:
-    unsigned char m_pad00[0xA5C];
-    int m_valuePerSupplyBox;
-};
-extern GlobalData *TheWritableGlobalData;
+#include "../../Include/Common/GlobalData.h"
 
 void SupplyWarehouseDockUpdate::loadPostProcess()
 {

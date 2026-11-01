@@ -171,3 +171,13 @@ one-slot ObjectConstructor.cpp provider, although retail has 31 slots.
 The mixed destructor unit still uses truncated alternate table names.
 Neither existing external contract is repaired or claimed runtime-safe.
 The clean donor merge and publication-wide consumer audit remain separate.
+
+## Consolidation B1 prerequisite
+
+The first applied merge was restored before commit when tu_ownership B1
+correctly identified the load donor's existing private GlobalData body as
+an inadmissible new private copy in the destination. No guard was bypassed.
+The donor now includes canonical GlobalData.h; its int m_valuePerSupplyBox
+at A5C agrees with both the native FILD and the INI parseInt record. Both
+rows stay exact and LINKS retains 120 -> 120 B. No header queue key owned
+this source. This prerequisite is committed before retrying the merge.
