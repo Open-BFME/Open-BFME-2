@@ -65,7 +65,7 @@ public:
 	void rva0030D773(int val);
 };
 
-class OpaqueRefCounted { public: void Release_Ref(); };
+#include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 class BfmeStringTailRecord156
 {

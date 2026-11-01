@@ -2243,11 +2243,7 @@ void DozerAIUpdate::makePhantomStructureReal()
 
 // The drawable's sound record (8 bytes, a reference at +4), as
 // DrawableKeyedLookup.cpp spells it.
-class OpaqueRefCounted
-{
-public:
-	void Release_Ref();
-};
+#include "../../../../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 class Rva0036CA00Str
 {

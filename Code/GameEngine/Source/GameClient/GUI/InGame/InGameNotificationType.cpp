@@ -63,11 +63,7 @@ struct OpaqueRefElement4
 	void *referent;
 };
 
-class OpaqueRefCounted
-{
-public:
-	void Release_Ref();
-};
+#include "../../../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 struct Rva002D9D7CRef : public OpaqueRefElement4
 {

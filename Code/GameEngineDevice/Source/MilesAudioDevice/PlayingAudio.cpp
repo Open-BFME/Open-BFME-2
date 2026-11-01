@@ -22,7 +22,7 @@ class BfmeStringTailRecord156 {public:~BfmeStringTailRecord156();protected:void 
 
 class PlayingAudioUnknown0C:public BfmeStringTailRecord156 {public:PlayingAudioUnknown0C();private:int unknown4;};
 
-class OpaqueRefCounted {public:void Release_Ref();};
+#include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 struct BfmePoolHolder88 {char unknown00[0x88];OpaqueRefCounted ref;};
 

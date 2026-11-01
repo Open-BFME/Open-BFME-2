@@ -30,7 +30,7 @@ namespace _STL { template <> void __destroy<BfmeStringTailRecord156 *,BfmeString
 
 namespace _STL { template <> void __destroy_aux<BfmeStringTailRecord156 *>(BfmeStringTailRecord156 *,BfmeStringTailRecord156 *,_STL::__false_type const &); }
 
-class OpaqueRefCounted {public:void Release_Ref();};
+#include "../../../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 struct OpaqueRefElement4 {OpaqueRefCounted *referent;OpaqueRefElement4 &operator=(const OpaqueRefElement4 &);~OpaqueRefElement4(){if(referent)referent->Release_Ref();}};
 

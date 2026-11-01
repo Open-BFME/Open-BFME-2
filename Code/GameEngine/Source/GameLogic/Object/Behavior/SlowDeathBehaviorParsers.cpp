@@ -84,11 +84,7 @@ template <> __declspec(dllimport) __forceinline void vector<Rva0005A084Element>:
 { ((vector<Rva00058BBDElement> *)this)->push_back(*(const Rva00058BBDElement *)&x); }
 }
 
-class OpaqueRefCounted
-{
-public:
-	void Release_Ref();
-};
+#include "../../../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 class Rva0045E8A9SoundRef
 {

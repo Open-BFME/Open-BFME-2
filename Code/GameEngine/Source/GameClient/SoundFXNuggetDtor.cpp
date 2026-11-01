@@ -8,11 +8,7 @@
 // BuffNugget/ParticleSystem siblings). No derived vptr store (novtable).
 // SoundFXNugget spelling is donor-carried per the audited pin.
 
-class OpaqueRefCounted
-{
-public:
-	void Release_Ref();
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 class Rva001DFEAABase
 {

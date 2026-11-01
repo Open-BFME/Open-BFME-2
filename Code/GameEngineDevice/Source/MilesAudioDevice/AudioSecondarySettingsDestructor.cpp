@@ -4,7 +4,7 @@
 // constructed four-byte owning handles, followed by five-handle arrayA8 and
 // fourteen trailing handlesBC. Each uses existing null-check Release_Ref
 // destructor10F149. No original complete-class name or field purpose claimed.
-class OpaqueRefCounted {public:void Release_Ref();};
+#include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 class BfmeStringTailRecord156 {
 public:__forceinline BfmeStringTailRecord156():referent(0){}~BfmeStringTailRecord156(){if(referent)referent->Release_Ref();}
 private:OpaqueRefCounted *referent;

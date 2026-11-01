@@ -10,11 +10,7 @@
 
 
 
-class OpaqueRefCounted
-{
-public:
-	void Release_Ref();
-};
+#include "../../../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 class Holder00497DD6
 {

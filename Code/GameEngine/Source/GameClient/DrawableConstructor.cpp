@@ -197,11 +197,7 @@ public:
 };
 
 // Rowed release worker 0x00050ED3 (the tail jump of retail's 0x0010F149).
-class OpaqueRefCounted
-{
-public:
-	void Release_Ref();
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 // The three 8-byte slots at +0x38C. The eh vector iterator takes the
 // addresses of these members, so cl emits them as COMDATs: the zeroing

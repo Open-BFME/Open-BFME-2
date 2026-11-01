@@ -16,11 +16,7 @@
 #include "../../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
 
-class OpaqueRefCounted
-{
-public:
-	void Release_Ref();
-};
+#include "../../../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 class OpaqueRefPtr
 {

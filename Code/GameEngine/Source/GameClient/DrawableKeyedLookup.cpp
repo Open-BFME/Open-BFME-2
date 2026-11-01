@@ -15,11 +15,7 @@
 // ?rva00276805@Drawable@@QAE_NH@Z, retail 0x00276805 (42B): whether that
 // lookup's record carries a reference; callers 0x004DA80E, 0x004DA81B,
 // 0x004DAA13.
-class OpaqueRefCounted
-{
-public:
-	void Release_Ref();
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 // Target-only four-byte counted-reference view. The earlier Rva0036CA00Str
 // spelling also names an unrelated StringBase buffer destructor at36410.

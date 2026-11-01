@@ -14,11 +14,7 @@
 
 #include "Common/Snapshot.h"
 
-class OpaqueRefCounted
-{
-public:
-	void Release_Ref();
-};
+#include "../../../../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 struct RefHolder
 {

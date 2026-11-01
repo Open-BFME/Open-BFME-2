@@ -80,11 +80,7 @@ private:
 	unsigned char m_data[0x30];
 };
 
-class OpaqueRefCounted
-{
-public:
-	void Release_Ref();
-};
+#include "../../../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 struct Rva0010F149Handle
 {

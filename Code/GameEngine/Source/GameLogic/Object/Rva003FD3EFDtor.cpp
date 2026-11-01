@@ -9,11 +9,7 @@
 // Unblocks ??_G at 0x002B30AE.
 #include "Common/Snapshot.h"
 
-class OpaqueRefCounted
-{
-public:
-	void Release_Ref();
-};
+#include "../../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 struct Rva000A8C9B
 {

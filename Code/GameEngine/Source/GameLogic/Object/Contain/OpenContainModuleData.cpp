@@ -16,11 +16,7 @@
 #include "../../../../Include/Common/BfmeModuleData.h"
 inline ModuleData::~ModuleData() { reinterpret_cast<Snapshot *>(this)->Snapshot::~Snapshot(); }
 
-class OpaqueRefCounted
-{
-public:
-	void Release_Ref();
-};
+#include "../../../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 struct Rva00257481RefHolder
 {

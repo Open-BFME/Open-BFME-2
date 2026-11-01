@@ -159,11 +159,7 @@ public:
 
 
 
-class OpaqueRefCounted
-{
-public:
-	void Release_Ref();
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 class Rva0036CA00Str
 {
 public:

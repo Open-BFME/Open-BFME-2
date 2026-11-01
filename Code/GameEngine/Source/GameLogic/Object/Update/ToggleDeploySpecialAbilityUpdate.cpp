@@ -89,11 +89,7 @@ private:
 	unsigned char m_pad[0xC8 - 4];
 };
 
-class OpaqueRefCounted
-{
-public:
-	void Release_Ref();
-};
+#include "../../../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 struct DeployRefHolder
 {

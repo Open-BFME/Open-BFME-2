@@ -198,11 +198,7 @@ public:
 private:
     unsigned int m_word;
 };
-class OpaqueRefCounted
-{
-public:
-    void Release_Ref();
-};
+#include "../../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 struct LivingWorldSoundEvent
 {
     LivingWorldSoundEvent() : value(0) {}

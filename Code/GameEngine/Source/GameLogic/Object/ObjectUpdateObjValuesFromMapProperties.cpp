@@ -98,11 +98,7 @@ extern LuaScriptEngine *TheLuaScriptEngine;
 #define X1_SLOTS4(p) virtual void p##0(); virtual void p##1(); virtual void p##2(); virtual void p##3();
 #define X1_SLOTS16(p) X1_SLOTS4(p##0) X1_SLOTS4(p##1) X1_SLOTS4(p##2) X1_SLOTS4(p##3)
 
-class OpaqueRefCounted
-{
-public:
-	void Release_Ref();
-};
+#include "../../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 struct Rva0010F149Handle
 {

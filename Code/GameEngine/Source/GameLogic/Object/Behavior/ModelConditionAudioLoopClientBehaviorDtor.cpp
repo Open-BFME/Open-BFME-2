@@ -16,11 +16,7 @@
 // "ModelConditionAudioLoopClientBehavior". Shape follows CastleMemberBehaviorDtor
 // (three-vptr restore plus audio plus intermediate restore plus Rva0049B47C base call).
 
-class OpaqueRefCounted
-{
-public:
-	void Release_Ref();
-};
+#include "../../../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 class Rva004CBF9A
 {

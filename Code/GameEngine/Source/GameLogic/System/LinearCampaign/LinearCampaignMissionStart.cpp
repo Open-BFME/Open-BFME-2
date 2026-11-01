@@ -12,7 +12,7 @@ extern "C" void _ReadWriteBarrier();
 #include "ascii_string.h"
 #include "unicode_string.h"
 #include "GameLogicObjectLookupView.h"
-class OpaqueRefCounted { public: void Release_Ref(); };
+#include "../../../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 struct OpaqueRefElement4 { OpaqueRefCounted *p; OpaqueRefElement4 &operator=(const OpaqueRefElement4 &); };
 struct CampaignTemporaryRef : OpaqueRefElement4 {
  CampaignTemporaryRef() { p=0; }

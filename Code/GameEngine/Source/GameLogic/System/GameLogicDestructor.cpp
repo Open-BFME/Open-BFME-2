@@ -123,11 +123,7 @@ struct Rva00243B4D { ~Rva00243B4D() {} Rva00240CAB m_member; };
 
 struct Rva00200667 { ~Rva00200667() {} _STL::list<Rva004FA1FObserver *> m_list; };
 
-class OpaqueRefCounted
-{
-public:
-	void Release_Ref();
-};
+#include "../../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 struct Rva0010F149Handle
 {

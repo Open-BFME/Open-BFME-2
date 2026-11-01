@@ -69,11 +69,7 @@ class ModuleData;
 class Object;
 enum UpdateSleepTime { UPDATE_SLEEP_FOREVER = 0x3fffffff };
 
-class OpaqueRefCounted
-{
-public:
-	void Release_Ref();
-};
+#include "../../../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 struct SoundHolder
 {

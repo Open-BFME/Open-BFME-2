@@ -69,11 +69,7 @@ private:
 	unsigned char m_25;
 };
 
-class OpaqueRefCounted
-{
-public:
-	void Release_Ref();
-};
+#include "../../../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 struct BeingBuiltSoundHolder
 {

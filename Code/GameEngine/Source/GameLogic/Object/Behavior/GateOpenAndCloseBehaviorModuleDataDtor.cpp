@@ -19,11 +19,7 @@ class Xfer;
 // Snapshot's table 0x00BBB554 (as in Rva004ABFD9Dtor.cpp).
 inline ModuleData::~ModuleData() { reinterpret_cast<Snapshot *>(this)->Snapshot::~Snapshot(); }
 
-class OpaqueRefCounted
-{
-public:
-	void Release_Ref();
-};
+#include "../../../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 struct Rva00498D46RefHolder
 {

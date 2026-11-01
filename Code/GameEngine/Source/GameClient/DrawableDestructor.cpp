@@ -158,11 +158,7 @@ namespace _STL { template <> __declspec(dllimport) __forceinline void * * vector
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> __declspec(dllimport) __forceinline void * * vector<void *,allocator<void *> >::begin() { return this->_M_start; } }
 // Rowed release worker 0x00050ED3 (the tail jump of retail's 0x0010F149).
-class OpaqueRefCounted
-{
-public:
-	void Release_Ref();
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 // Release handle; its out-of-line copy (the unwind maps' target) is the rowed
 // 0x0010F149, inline in the destructor body.

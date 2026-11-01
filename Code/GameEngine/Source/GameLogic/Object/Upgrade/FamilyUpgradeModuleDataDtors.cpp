@@ -12,7 +12,7 @@ struct FamVtableEmissionTag;
 
 class AsciiStringMember { public: ~AsciiStringMember(); char m_data[4]; };
 class ModuleDataBase { public: virtual ~ModuleDataBase() {} };
-class OpaqueRefCounted { public: void Release_Ref(); };
+#include "../../../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 struct SoundHolder { ~SoundHolder() { if (m_ptr) m_ptr->Release_Ref(); } OpaqueRefCounted *m_ptr; };
 
 class W3DBoatWakeModelDrawModuleData : public ModuleDataBase { public: W3DBoatWakeModelDrawModuleData(FamVtableEmissionTag *) {} char m_pad[0x8 - 4]; AsciiStringMember m_name; };

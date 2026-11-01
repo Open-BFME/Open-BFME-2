@@ -11,7 +11,7 @@
 // The mapped type is unused by78B AsciiString _M_find; this narrow lookup
 // view reuses its owned instantiation rather than assigning a second pin.
 #include "ascii_string.h"
-class OpaqueRefCounted { public: void Release_Ref(); };
+#include "../../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 class Rva002390CB {
 public:
  __declspec(nothrow) Rva002390CB();

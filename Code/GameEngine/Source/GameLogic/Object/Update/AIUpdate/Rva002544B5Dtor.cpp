@@ -9,11 +9,7 @@
 // 0x64 plus +0x90 zeroed; factory news 0x94). No vptr store (novtable).
 // Shape follows DeployStyle dtor 0x00255F70. Byte-exact body from banked
 // reverse/attempts/0x002544b5.cpp (score 1.00) with only the class renamed.
-class OpaqueRefCounted
-{
-public:
-	void Release_Ref();
-};
+#include "../../../../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 struct SoundHolder
 {

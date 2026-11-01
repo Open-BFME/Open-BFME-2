@@ -16,7 +16,7 @@ namespace _STL {
 template <> vector<AsciiString, allocator<AsciiString> >::~vector();
 template <> _Vector_base<AsciiString, allocator<AsciiString> >::~_Vector_base();
 }
-class OpaqueRefCounted {public:void Release_Ref();};
+#include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 struct Rva00212ED3Ref {
  OpaqueRefCounted *m_ptr;
  Rva00212ED3Ref():m_ptr(0){}

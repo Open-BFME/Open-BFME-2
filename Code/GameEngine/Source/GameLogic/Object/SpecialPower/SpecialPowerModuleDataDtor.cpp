@@ -8,11 +8,7 @@
 // Called by 27 derived dtors including PlayerUpgrade 0x004C7DD4. Layout from
 // ctor 0x004930A0 and DominateEnemy/LevelGrant dtor precedents.
 
-class OpaqueRefCounted
-{
-public:
-	void Release_Ref();
-};
+#include "../../../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 #include "ascii_string.h"
 #include "Common/Snapshot.h"
