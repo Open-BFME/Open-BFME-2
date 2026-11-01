@@ -227,6 +227,39 @@ def test_file_memo_round_trips_and_merges(repo, tmp_path):
     assert picker_cache.FileMemo("fm", [code]).get("k1", lambda: ["C"]) == ["C"]
 
 
+def test_local_cache_configuration_and_environment_precedence(repo, monkeypatch):
+    monkeypatch.delenv("BFME_PICKER_CACHE")
+    git(repo, "config", "bfme.pickerCache", "build/discovery-cache")
+    picker_cache.reset()
+    assert picker_cache.cache_dir(str(repo)) == repo / "build/discovery-cache"
+    import repair_queue
+    monkeypatch.setattr(repair_queue, "ROOT", repo)
+    assert repair_queue.cache_dir() == picker_cache.cache_dir(str(repo))
+    monkeypatch.setenv("BFME_PICKER_CACHE", str(repo / "explicit"))
+    assert repair_queue.cache_dir() == repo / "explicit"
+
+
+def test_failed_file_memo_save_reports_and_preserves_pending_entries(repo, tmp_path, monkeypatch, capsys):
+    code = tmp_path / "parser.py"
+    code.write_text("v1")
+    one = picker_cache.FileMemo("save-failure", [code])
+    one.get("key", lambda: ["result"])
+    replace = picker_cache.os.replace
+    def denied(*args):
+        raise PermissionError(13, "cache directory is read-only")
+    monkeypatch.setattr(picker_cache.os, "replace", denied)
+    assert one.save() is False
+    assert one.new == {"key": ["result"]}
+    assert one.save() is False
+    warning = capsys.readouterr().err
+    assert warning.count("picker cache: cannot save") == 1
+    assert "bfme.pickerCache" in warning
+    monkeypatch.setattr(picker_cache.os, "replace", replace)
+    assert one.save() is True
+    assert not one.new
+    assert picker_cache.FileMemo("save-failure", [code]).get("key", lambda: pytest.fail("lost save")) == ["result"]
+
+
 # ---- the algorithms made faster return what they returned
 
 def naive_inside_other(spans, rva, key):

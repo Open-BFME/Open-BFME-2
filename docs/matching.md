@@ -687,6 +687,13 @@ files each read; ledger indexes per `functions.csv` content; ZH scans and per-fi
 class and `__FILE__` checks per content across commits. A second pick on one
 commit takes a few seconds; the first on a new commit rebuilds what changed.
 `BFME_PICKER_CACHE=off` computes everything; `BFME_PICKER_CACHE=<dir>` moves it.
+For a persistent local location, `git config bfme.pickerCache build/picker-cache`
+places the cache under the worktree; an absolute path can share it across seats
+and worktrees. The environment path takes precedence. This is useful when a
+sandbox permits working-tree writes but protects `.git/`. Failed saves report
+the path and error instead of silently making every later query cold; unsaved
+per-file entries remain pending for a subsequent save. Caches are discovery
+only, never byte, identity or link approval.
 
 After the debt queues come the new-match tiers (Zero Hour packets, reloc-named,
 drift, structural, Ghidra- and string-anchored). They should have no new uncovered

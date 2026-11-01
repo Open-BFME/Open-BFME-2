@@ -66,8 +66,11 @@ def _git(*args, root=ROOT):
 
 
 def cache_dir(root=str(ROOT)):
-    """repair_queue.cache_dir() without importing it: BFME_PICKER_CACHE (a path), else
-    <git common dir>/bfme-picker-cache."""
+    """BFME_PICKER_CACHE, then bfme.pickerCache, else the clone's shared git cache.
+
+    A local git setting persists a writable location for sandboxed seats without
+    changing every command's environment. Relative configured paths use ROOT.
+    """
     if os.environ.get("BFME_PICKER_CACHE") not in (None, "", "off"):
         return Path(os.environ["BFME_PICKER_CACHE"])
     return _common_cache_dir(str(root))
@@ -75,6 +78,10 @@ def cache_dir(root=str(ROOT)):
 
 @functools.lru_cache(maxsize=4)
 def _common_cache_dir(root):
+    configured = (_git("config", "--get", "bfme.pickerCache", root=root) or b"").decode().strip()
+    if configured:
+        path = Path(configured).expanduser()
+        return path if path.is_absolute() else Path(root) / path
     common = (_git("rev-parse", "--path-format=absolute", "--git-common-dir", root=root) or b"").decode().strip()
     return Path(common or Path(root) / ".git") / "bfme-picker-cache"
 
@@ -88,6 +95,7 @@ def reset():
     _ROWS.clear()
     tracked.cache_clear()
     _common_cache_dir.cache_clear()
+    _WRITE_WARNINGS.clear()
 
 
 def file_digest(path):
@@ -316,6 +324,7 @@ def _valid(entry, root):
 
 
 KEEP = 24              # entries kept per kind: a commit's entries are dead once master moves on
+_WRITE_WARNINGS = set()
 
 
 def _write(path, value):
@@ -324,9 +333,18 @@ def _write(path, value):
         tmp = path.with_name(f"{path.name}.{os.getpid()}.{threading.get_ident()}.tmp")
         tmp.write_text(json.dumps(value, sort_keys=True), encoding="utf-8")
         os.replace(tmp, path)
-    except OSError:
-        return
+    except OSError as error:
+        # A cache miss is safe, but silently losing every save makes all future
+        # queries cold. Report a write problem once per process/error category.
+        key = (type(error), error.errno)
+        if key not in _WRITE_WARNINGS:
+            _WRITE_WARNINGS.add(key)
+            print(f"picker cache: cannot save {path}: {error}. "
+                  "Set BFME_PICKER_CACHE or git config bfme.pickerCache to a writable directory.",
+                  file=sys.stderr)
+        return False
     _prune(path.parent)
+    return True
 
 
 def _prune(directory, keep=None):
@@ -571,8 +589,10 @@ class FileMemo:
             except (OSError, ValueError):
                 merged = {}
             merged.update(self.new)
-            _write(self.path, merged)
-            self.new = {}
+            if _write(self.path, merged):
+                self.new = {}
+                return True
+            return False
 
 
 def text_key(text):

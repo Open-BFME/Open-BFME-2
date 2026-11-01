@@ -696,12 +696,9 @@ def unit_deps(source):
 
 
 def cache_dir():
-    """Where picker verdicts are cached, content-addressed (safe to share): BFME_PICKER_CACHE,
-    else <git common dir>/bfme-picker-cache, shared by every worktree of the clone."""
-    if os.environ.get("BFME_PICKER_CACHE"):
-        return Path(os.environ["BFME_PICKER_CACHE"])
-    common = _git("rev-parse", "--path-format=absolute", "--git-common-dir").stdout.strip()
-    return Path(common or ROOT / ".git") / "bfme-picker-cache"
+    """Use the same configured directory as every shared picker cache consumer."""
+    import picker_cache
+    return picker_cache.cache_dir(str(ROOT))
 
 
 def cached(kind, key, compute):
