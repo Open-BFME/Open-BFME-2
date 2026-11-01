@@ -14,7 +14,7 @@
 // the setWakeFrame tail (protected IAEX Object-uint spelling resolves via
 // the existing pin at 0x44DF71). Row supersedes the ctor pin.
 
-extern "C" const void *const __identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleOther@@@")[];  // folded vftable 0x00BEFF90 (80 classes), by its data-ledger name
+extern "C" const void *const __identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@")[];  // folded vftable 0x00BEFF90 (80 classes), by the name its definer AttributeModifierPoolUpdate.cpp emits on the canonical BehaviorModule chain (data ledger: ...@@6BBehaviorModuleOther@@@)
 
 // The retail table at RVA 0x008556B0: 16 slots, each a rowed code owner (the next
 // word is not a code address or starts another ledger datum).
@@ -122,7 +122,7 @@ RespawnUpdate::RespawnUpdate(Thing *thing, const ModuleData *moduleData)
 	m_3C = minusOne;
 	m_28 = minusOne;
 	m_vtable = (const void *)g_00C556B0;
-	m_secondary0C = (const void *)((unsigned int)__identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleOther@@@"));
+	m_secondary0C = (const void *)((unsigned int)__identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@"));
 	m_secondary10 = (const void *)g_00C556A4;
 	m_2C = zero;
 	m_30 = zero;

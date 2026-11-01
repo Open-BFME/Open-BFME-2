@@ -15687,3 +15687,80 @@ The trial-object checks are bound to retail data by the matched constructors' or
 
 
 BehaviorModule transfer and post-load definitions require declarations for their rowed overrides, and the interface's slot45(int) does not express mapLoadPostProcess(const Dict*). The particle view also needs the evidenced BodyModule primary-method prefix; replacing its 19-slot synthetic base with the 12-slot BehaviorModule moves virtual calls. ImmortalBody's private host-body method names need bindings to the canonical body interface. Per-unit causes and native table evidence are recorded under the hb1 BehaviorModule-header and BehaviorModuleInterface-header verdicts in reverse/re_attempts.log. SlowDeathBehaviorUpdate additionally has an unchanged unresolved OpaqueRefCounted::Release_Ref in the published-index preview; this batch does not clear that provider scope. No new census result is claimed.
+
+### LINK-168: canonical BehaviorModule adoption (69d7ea688b) dropped 34 census-linked module units (2026-11-01, seat halilkkaya-lk10)
+
+Status: Open (partly repaired). Updated: 2026-11-01; inspected revision `39dfbbdb50`, index `0d24c60eef` (09:19).
+Census 03:00 (`ee981931dc`) -> 07:56 (`00f3a8f97b`): LINKING 7,466,117 -> 7,457,427 B,
+unresolved 2,993 -> 3,020. 34 surviving units went from linked to not linked
+(`reverse/link_status.csv` at `74e616b469` vs `a02a086db1`; the other 59 that left
+the list are deleted TU-merge donors). All 34 trace to `69d7ea688b` ("Adopt canonical
+BehaviorModule chain in 214 units"), which replaced private `BehaviorModule` views
+(bases spelled `BehaviorModuleBase`/`BehaviorModuleOther`/`BehaviorModuleInterface`
+with a one-slot anchor) by `GameLogic/Module/BehaviorModule.h`. Four mechanisms:
+
+1. **Renamed vftables bound by explicit identifier** (LINK-157 pattern). A unit whose
+   compiled class view defined `??_7X@@6BBehaviorModuleOther@@@` (or `6BBehaviorModuleBase`)
+   now emits `??_7X@@6BBehaviorModuleInterface@@@` (`6BObjectModule`); sibling ctor units
+   that store those tables through `extern "C" __identifier(...)` lost their definer.
+   Fix: bind the name the definer now emits; scoped DIR32 proves both names sit on the
+   same retail table. `c3e8f0752f` (canonical UpdateModule, after the census) renamed
+   `6BRva0024A797_Root`/`_B2` the same way in `Rva0024A797Grandchildren.cpp`.
+2. **Canonical vs Zero Hour BehaviorModule tables.** The canonical header defines
+   `virtual ~BehaviorModule() { }` inline; a unit that defines the constructor of a class
+   derived from BehaviorModule odr-uses the base destructor (MSVC emits it even with
+   `-EHsc-`; scratch compile of DamageModuleCtor.cpp: with the ctor body the object defines
+   `??1BehaviorModule@@UAE@XZ` and both `??_7BehaviorModule@@6B...` tables, without it none,
+   and declaring `~DamageModule()` out of line does not help). Its 47-slot tables (188 B,
+   retail size of 0x00BEE9C0) then collide with the 34-slot Zero Hour copies that ten
+   ZH-header units emit (DumbProjectileBehavior.cpp is first in link order, place 67;
+   CreateModule, CreateObjectDie, BridgeTowerBehavior, SpecialPowerCompletionDie and
+   FXListDie link with it). No retail address for the name -> `first` rule -> every
+   canonical copy loses. Units: UpdateModuleCtor, RunOffMapBehaviorCtor, DamageModuleCtor,
+   SpecialPowerModuleCtor, BodyModuleCtor, FireWeaponCollide (the rows themselves stay
+   exact). A per-unit fix is impossible without a private BehaviorModule copy (refused:
+   the class is registered canonical); the remedy is in the header (owner
+   StarkillerHDX holds `class:BehaviorModule`): e.g. declare the destructor
+   `protected: virtual ~BehaviorModule();` out of line, the spelling the ZH copies
+   (`??1BehaviorModule@@MAE@XZ`, 10 identical COMDATs) provide and the pre-adoption
+   views used, or move the ZH-header units onto the canonical layout.
+3. **Implicit destructors now virtual.** Private UpdateModule/derived views without a
+   declared destructor inherit the canonical virtual one, so their ctor units emit inline
+   `??1UpdateModule@@UAE@XZ`, `??1AIGateUpdate@@UAE@XZ`, `??1DestroyEnvironmentUpdate@@UAE@XZ`
+   (retail-proven wrong, and duplicates of the rowed strong definitions), which also drags
+   in mechanism 2. Losers: AIGateUpdateCtor/Dtor, DestroyEnvironmentUpdate(+Ctor),
+   Rva0024A797DeletingDtor (duplicate of its own row `??1UpdateModule@@UAE@XZ`). Fix: the
+   ctor unit declares the rowed destructors (`virtual ~UpdateModule();`, `virtual ~X();`)
+   so it references them instead of emitting copies.
+4. **Same-name class tables with different slots.** Pairs of units for one class now both
+   spell `??_7X@@6BBehaviorModuleInterface@@@`/`6BObjectModule@@@` but one emits the
+   canonical BehaviorModule-shaped table (digest `d0dadb66`, no getUpdate override) and the
+   other a private all-`__purecall`, one-slot-anchor or ZH 34-slot table. Losers:
+   ReplenishUnitsBehavior.cpp, SiegeDockingBehaviorDtor, SpecialPowerModuleDtor_Unresolved,
+   MonitorConditionUpdate.cpp, StructureToppleUpdateCtor, AutoPickUpUpdate.cpp. Neither copy
+   is retail's (retail +0x0C tables override slot 9 with 0x002533D3 for UpdateModule
+   classes; compare the qc-11/hb1 notes above). Prerequisite: give both views the class's
+   native overrides (canonical UpdateModule.h where it applies) so the copies agree.
+
+| Unit | B | Mechanism | Status |
+|---|---:|---|---|
+| OathbreakersFadeAwayBehaviorCtor | 59 | 1 | links again: `9c6a1c1279` adopted canonical UpdateModule (compiler vptr stores) |
+| StancesBehaviorCtor, AttachUpdateCtor, BannerCarrierUpdateCtor, DamageFieldUpdateBehaviorCtor/Dtor, FadeAndDieOrnamentUpdateCtor, HordeNotify.../NotifyTargetsOfImminentProbableCrushingUpdateCtor, RespawnUpdateCtor, StrafeAreaUpdateCtor | 967 | 1 | repaired (this entry, first commit): bind `??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@` |
+| SupplyWarehouseCripplingBehaviorCtor, WallUpgradeUpdate | 1,143 | 1 | open (PoisonedBehavior + Rva004839D3/Rva004AB246 renames) |
+| BloodthirstyUpdateCtor, RainOfFireUpdateCtor | 250 | 1 | open |
+| BridgeBehaviorCtor, QueueProductionExitUpdateCtor | 302 | 1 | blocked: files held (StarkillerHDX UpdateModule adoption / QueueProductionExitUpdate.cpp TU merge) |
+| UpdateModuleCtor, RunOffMapBehaviorCtor, DamageModuleCtor, SpecialPowerModuleCtor, BodyModuleCtor, FireWeaponCollide | 1,167 | 2 | blocked on the BehaviorModule.h destructor decision (class claim held) |
+| AIGateUpdateCtor, DestroyEnvironmentUpdateCtor | 132 | 3 (+2) | blocked: files held by StarkillerHDX's UpdateModule adoption; it must also declare the rowed derived destructor |
+| AIGateUpdateDtor, DestroyEnvironmentUpdate, Rva0024A797DeletingDtor | 413 | 3 (victims) | clear when the two ctor units stop emitting the copies |
+| ReplenishUnitsBehavior, SiegeDockingBehaviorDtor, SpecialPowerModuleDtor_Unresolved, MonitorConditionUpdate, StructureToppleUpdateCtor, AutoPickUpUpdate | 3,940 | 4 | open; several first copies are in held Dtor files |
+
+Completed: group 1 rebinding of the AttributeModifierPoolUpdate folded table
+(0x00BEFF90) in ten ctor units. `./build.sh` 17/17 rows over the ten files; scoped
+DIR32 OK (65 rows, 31 symbols, including AttributeModifierPoolUpdate.cpp's own rows);
+`link_check` 0 -> 967 B for the ten units, AttributeModifierPoolUpdate.cpp 3,869 ->
+3,869 B (LINKS).
+Remaining / next check: the open rows above. Pattern: after a base-header adoption,
+grep `__identifier("??_7<Class>@@6B<old base>@@@")` in sibling units, and check whether
+any adopting unit defines a constructor (it then emits the base's inline destructor and
+tables).
+Census confirmation: awaiting.

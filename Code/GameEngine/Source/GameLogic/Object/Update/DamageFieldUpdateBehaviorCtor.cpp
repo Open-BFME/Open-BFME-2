@@ -9,7 +9,7 @@
 // at +0x2C via pinned 0x29FB3B init with the shared ebp+0xF context idiom.
 // Zero new pins (all callees rowed/pinned).
 
-extern "C" const void *const __identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleOther@@@")[];  // folded vftable 0x00BEFF90 (80 classes), by its data-ledger name
+extern "C" const void *const __identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@")[];  // folded vftable 0x00BEFF90 (80 classes), by the name its definer AttributeModifierPoolUpdate.cpp emits on the canonical BehaviorModule chain (data ledger: ...@@6BBehaviorModuleOther@@@)
 
 extern char g_00C4D964;
 extern char g_00C4D970;
@@ -48,7 +48,7 @@ DamageFieldUpdate::DamageFieldUpdate(Thing *thing, const ModuleData *moduleData)
 	Rva0029FB3BMember *member = (Rva0029FB3BMember *)((char *)this + 0x2C);
 	void *context = (void *)((char *)&moduleData + 3);
 	*(const void **)this = (const void *)(unsigned int)&g_00C4D970;
-	*(const void **)((char *)this + 0x0C) = (const void *)((unsigned int)__identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleOther@@@"));
+	*(const void **)((char *)this + 0x0C) = (const void *)((unsigned int)__identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@"));
 	*(const void **)((char *)this + 0x10) = (const void *)(unsigned int)&g_00C4D964;
 	member->init(context);
 }
