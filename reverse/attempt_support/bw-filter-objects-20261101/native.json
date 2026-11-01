@@ -1,0 +1,97 @@
+{
+  "retail": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\baselines\\bfme2\\workshop-vanilla-1.06\\files\\game.dat",
+  "objects": [
+    {
+      "name_lead": "screenBWFilter",
+      "rva": "0x009B5B54",
+      "candidate_extent": 8,
+      "words": [
+        "0x00BCF364",
+        "0x00000000"
+      ],
+      "vtable_rva": "0x007CF364",
+      "vtable_words": [
+        "0x004FB9D4",
+        "0x004FC903",
+        "0x004FBA0F",
+        "0x004FBA57",
+        "0x009CB9FA",
+        "0x004FBC67",
+        "0x004FC8B4"
+      ],
+      "absolute_operand_references": [
+        {
+          "section": ".text",
+          "operand_rva": "0x000FBA08"
+        },
+        {
+          "section": ".data",
+          "operand_rva": "0x009B4364"
+        }
+      ]
+    },
+    {
+      "name_lead": "screenBWFilterDOT3",
+      "rva": "0x009B5B5C",
+      "candidate_extent": 8,
+      "words": [
+        "0x00BCF380",
+        "0x00000000"
+      ],
+      "vtable_rva": "0x007CF380",
+      "vtable_words": [
+        "0x004FBA20",
+        "0x004910FB",
+        "0x004FBA0F",
+        "0x004FC04C",
+        "0x009CB9FA",
+        "0x004FC34F",
+        "0x004FD551"
+      ],
+      "absolute_operand_references": [
+        {
+          "section": ".text",
+          "operand_rva": "0x000FBA41"
+        },
+        {
+          "section": ".data",
+          "operand_rva": "0x009B4368"
+        }
+      ]
+    }
+  ],
+  "vtable_references": {
+    "0x00BCF364": [
+      {
+        "section": ".text",
+        "operand_rva": "0x000FBA52"
+      },
+      {
+        "section": ".data",
+        "operand_rva": "0x009B5B54"
+      }
+    ],
+    "0x00BCF380": [
+      {
+        "section": ".text",
+        "operand_rva": "0x000FC5A5"
+      },
+      {
+        "section": ".data",
+        "operand_rva": "0x009B5B5C"
+      }
+    ]
+  },
+  "following_storage_words": [
+    "0x00BBB50C",
+    "0x00BBB504",
+    "0x00BBB4FC",
+    "0x00BBB4F4",
+    "0x00000000",
+    "0x00BBB50C",
+    "0x00BBB4E4",
+    "0x00BBB4D4",
+    "0x00000000"
+  ],
+  "scope": "Read-only retail byte/absolute-operand evidence. Candidate extents are corroborated by two 13-byte native ctors zeroing +4 and installing the respective seven-slot table; donor inheritance is a separate naming/layout lead, not target source proof."
+}

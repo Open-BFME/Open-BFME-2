@@ -6433,6 +6433,18 @@ bindings remain open; no clearance or census gain is claimed.
   no source or storage change was attempted. The complete-object/vtable
   prerequisite remains open; this is an unchanged blocker, not a new regression.
 
+  Native-object follow-up (2026-11-01, control `59e3f8f825`, index
+  `0d24c60eef`): the [target-byte and provider inventory](../reverse/attempt_support/bw-filter-objects-20261101/readme.md)
+  bounds two candidate eight-byte objects, their separate seven-slot tables
+  and the already-rowed 13-byte constructors. The current whole-file preview
+  still reports 0/101 bytes with exactly the two global providers missing.
+  Several table members and both constructors currently belong to different
+  neutral class views; trivial slots also share existing ICF owners. Reconcile
+  those identities and the four-word BFME 2 post-render ABI before defining
+  complete native globals and verifying all fourteen table relocations. No
+  incomplete class object, alias, pin or data ownership was added. This records
+  a concrete prerequisite inventory, without clearance or census credit.
+
 **Assigned table-data audit (2026-10-26, inspected `2a45addda1806342ac5c52757f63be902dcd428e`):** `Rva002D22CAInit.cpp` remains blocked by its seven existing address-named table declarations. The matched row's DIR32 references agree with `reverse/data_ledger.csv` at RVAs 0x009BC890, 0x009BC998, 0x009BC9C0, 0x009BCAC8, 0x009BCBAC, 0x009BCBC4 and 0x009BCBDC, but every ledger entry is unowned. `build/link-worker-w6/row-reference-witnesses.log` records the individual native references. No alternative existing global definer was found and no data definition or hatch was added. Next check: recover and admit those table owners through the data lane. Clearance and census confirmation remain pending.
 
 **Split GameSpy pinger data repair (2026-10-27, inspected `67098f8d8b`, index
