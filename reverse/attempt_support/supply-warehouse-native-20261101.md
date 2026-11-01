@@ -181,3 +181,42 @@ The donor now includes canonical GlobalData.h; its int m_valuePerSupplyBox
 at A5C agrees with both the native FILD and the INI parseInt record. Both
 rows stay exact and LINKS retains 120 -> 120 B. No header queue key owned
 this source. This prerequisite is committed before retrying the merge.
+
+## Supported consolidation
+
+After the canonical GlobalData prerequisite, the refreshed catalogue and
+in-memory map approve 14 rows. The supported dry run accepts all six
+files (seed plus five donors), no rejection, 11 rows and passing LinkGuard.
+The real merge uses that saved composition, removes five .cpp files and
+repoints eight function/map source columns plus two data-ledger owner
+columns. The committed tu_map changes are source repoints only, not a
+regenerated map. The three mixed files remain outside the merge.
+
+Normal build and frozen/ownership checks pass; the merged four tables
+retain all 83 proven entries. Strict preparation including both constructor
+factory referrers passes 126/126 rows across seven sources. The merged
+TU previews LINKS for 767 B, including the 550 B already linking in the
+five absorbed donors. The full seven-unit prediction retains all peers
+and totals 2121 B; the batch gain remains the seed's 217 B.
+
+The local provider index was refreshed through link_check.py --update-index
+at c39a286527, rereading 10376 objects and dropping 76 retired units. Its
+census status/history remain the 39dfbbdb50 snapshot; no census is run or
+headline advanced. The first dry run's missing renamed providers were
+index age, resolved by this supported refresh.
+
+Path/consumer audit across the outgoing move batch finds no active deleted
+path/basename consumer in tools, hooks, workflows, includes or build files.
+The remaining references are source provenance, historical attempts and
+tombstones, the recorded census paths and historical Thing contract
+witnesses. Active ledgers and owner columns are repointed by the tool.
+The generic SpawnerPoolKey test fixture does not name this target.
+No header/ms-header queue key names an absorbed source after transfer.
+
+The old data-ledger local-static descriptions still carry the pre-correction
+static getter spelling. A supported fresh derivation is saved under build/;
+it produces over 30000 diff lines across unrelated addresses, so no broad
+metadata rewrite is applied from this narrow consolidation lane.
+The two owner paths transfer mechanically; this metadata prerequisite
+remains explicit. Wider selection audit and original-base verification
+are the final pending checks.
