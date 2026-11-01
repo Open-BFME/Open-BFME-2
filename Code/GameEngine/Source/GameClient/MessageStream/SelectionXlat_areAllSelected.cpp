@@ -46,7 +46,6 @@ template <> struct hash<const ThingTemplate *>
 	}
 };
 }
-typedef std::hash_map<const ThingTemplate *, Bool> SelectCountMap;
 
 // Retail's operator[] calls 0x0042FD55, the four-byte-key one-byte-value
 // _M_insert rowed in SelectionIDMap.cpp (pair<const int, bool>; same key
@@ -68,7 +67,8 @@ SelectCountTable::_M_insert(const SelectCountTable::value_type &obj)
 }
 }
 
-Bool &selectionCountFor(SelectCountMap &counts, const ThingTemplate *thingTemplate)
+Bool &selectionCountFor(std::hash_map<const ThingTemplate *, Bool> &counts,
+                       const ThingTemplate *thingTemplate)
 {
 	return counts[thingTemplate];
 }

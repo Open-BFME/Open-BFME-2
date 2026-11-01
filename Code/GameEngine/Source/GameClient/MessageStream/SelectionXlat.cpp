@@ -27,7 +27,7 @@
 #include "GameClient/GameWindowManager.h"
 #include "GameClient/Keyboard.h"
 #include "GameClient/SelectionInfo.h"
-#include "GameClient/SelectionXlat.h"
+#include "SelectionXlatNative.h"
 #include "GameClient/TerrainVisual.h"
 #ifdef _INTERNAL
 // for occasional debugging...
