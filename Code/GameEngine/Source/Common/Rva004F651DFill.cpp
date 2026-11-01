@@ -5,16 +5,8 @@
 // at 0x004F6BB3 (stride 0xC via Rva004F6B69Construct); here stride 4.
 // Evidence: push esi/edi plus test edi jle plus push-push-call pop add dec
 // pop jne plus mov eax esi; caller at 0x004F6CEE in FUN_008f6cdd.
-struct TargetRef00217D4C
-{
-	void *m_vtbl;
-	int references;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 
-struct TreeHintRef00217D4C
-{
-	TargetRef00217D4C *m_ptr;
-};
 
 void __cdecl Rva00087A5CCopy(void **dst, void **src);
 

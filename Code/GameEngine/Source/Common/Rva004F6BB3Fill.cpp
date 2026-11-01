@@ -4,11 +4,7 @@
 // STLport _Construct<Rva004F6966,Rva004F6966> at 0x004F6B69 and returns
 // the end pointer. Caller at 0x004F8AA3 walks into 0x004F8A35. Prev
 // UninitializedCopy next Rva004F6B7BInit /O1 /DNDEBUG /MD.
-struct TargetRef00217D4C
-{
-	void *m_vtbl;
-	int references;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 
 struct Rva004F6966
 {

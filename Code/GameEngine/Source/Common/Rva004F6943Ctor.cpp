@@ -6,16 +6,8 @@
 // exactly here, next copy ctor 0x004F6966 starts exactly at end.
 // Evidence: mov eax ecx save plus ref deref test store je inc plus pair copy
 // ret 8; callers at 0x004F97E6 0x004F9943 in FUN_008f971e.
-struct TargetRef00217D4C
-{
-	void *m_vtbl;
-	int references;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 
-struct TreeHintRef00217D4C
-{
-	TargetRef00217D4C *m_ptr;
-};
 
 struct Ints004F6943
 {

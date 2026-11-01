@@ -8,7 +8,7 @@
 class ThingTemplate;
 class Xfer;
 class Overridable;
-struct TargetRef00217D4C { virtual void *destroy(unsigned); int references; };
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 struct ArmySummaryEntry { char pad[8]; float experience; char rest[0xAC-0x0C]; TargetRef00217D4C reference; };
 class Rva004F6093Holder {

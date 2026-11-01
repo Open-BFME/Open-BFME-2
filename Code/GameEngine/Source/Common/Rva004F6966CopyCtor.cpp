@@ -4,11 +4,7 @@
 // shape as Rva004F692B copy ctor at 0x004F692B (8B with +4 zeroed) but with
 // +4/+8 copied. Callers at 0x004F6B75 0x004F6DFA 0x004F7171 0x004F72B2
 // 0x004F7798 0x004F98A9. Prev Rva004F692B /O1 /Ob0 next Rva004F69C3 /O1.
-struct TargetRef00217D4C
-{
-	void *m_vtbl;
-	int references;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 
 struct Rva004F6966
 {

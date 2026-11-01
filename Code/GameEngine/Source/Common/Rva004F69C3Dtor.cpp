@@ -6,11 +6,7 @@
 // Evidence: tail-jmp to Release; callers at 0x0040D05E 0x0040DC49 0x0040DCFA
 // 0x0040DF22 0x0040EDE8 plus tail-jmp callers incl Unwind funclets.
 
-struct TargetRef00217D4C
-{
-	void *m_vtbl;
-	int references;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 

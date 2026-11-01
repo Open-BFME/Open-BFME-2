@@ -6,21 +6,10 @@
 // 0x004F62DE assign 0x004F6352 and release 0x0007DEEF. Temp at ebp-0x18 with
 // EH state 0 then -1. Caller at 0x004F7840 in FUN_008f7801 stride 0xC.
 
-struct TargetRef00217D4C
-{
-	void *m_vtbl;
-	int references;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 
-struct TreeHintRef00217D4C
-{
-	TargetRef00217D4C *m_ptr;
-	TreeHintRef00217D4C(const TreeHintRef00217D4C &other);
-	TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &other);
-	~TreeHintRef00217D4C();
-};
 
 struct Rva004F6352
 {

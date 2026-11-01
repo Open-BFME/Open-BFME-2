@@ -7,7 +7,7 @@
 // Evidence: lea [eax+0x24] plus Release 0x7DEEF matches Rva005E7198 holder layout;
 // callers at 0x005E7BDC 0x005E7BED 0x005E7D33 0x005E7D65 0x005E8737; loop at 0x005E7BE2
 // destroys 4B elements with flag 0.
-struct TargetRef00217D4C { virtual void *destroy(unsigned int); int references; };
+#include "../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 #include <new>
 struct Rva005E74AAHolder { char pad[0x24]; TargetRef00217D4C target; };

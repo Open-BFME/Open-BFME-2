@@ -17,10 +17,7 @@
 // its rowed destructor has.
 #include "ascii_string.h"
 
-struct TargetRef00217D4C
-{
-	void *m_target;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *ref);	// 0x0007DEEF
 
 struct Rva00B9AC2Target

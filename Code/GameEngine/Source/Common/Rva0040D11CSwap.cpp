@@ -7,11 +7,7 @@
 // via rowed fastcall 0x0007DEEF on +0xAC target. Caller 0x0040D963.
 // Evidence: unlock lane, all callees rowed, prev/next assign and copybackward
 // prove 8-byte entry layout, EH prolog plus and/or state stores.
-struct TargetRef00217D4C
-{
-	virtual void *destroy(unsigned flags);
-	int references;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 class Rva002B2F97
 {

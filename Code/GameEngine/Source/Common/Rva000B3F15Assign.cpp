@@ -6,11 +6,7 @@
 // copy Payload* at +0, return *this. Callers 0x000B4520 (member at +0x14) and
 // 0x000C4AA1 prove this/arg are smart-pointers; +0x28/+0x2c layout from the
 // release helper TargetRef00217D4C (references at +4).
-struct TargetRef00217D4C
-{
-	virtual void *destroy(unsigned int flags);
-	int references;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 

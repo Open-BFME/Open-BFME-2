@@ -5,11 +5,7 @@
 // as well as the three holder pointers. The last two arguments are unused
 // by this worker, but remain part of its actual cdecl interface.
 
-struct TargetRef00217D4C
-{
-	void *m_vtbl;
-	int references;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 
 struct Rva002B2F97Target
 {

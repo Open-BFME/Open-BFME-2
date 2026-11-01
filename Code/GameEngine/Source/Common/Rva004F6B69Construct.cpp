@@ -19,11 +19,7 @@ inline void _Construct(_T1 *__p, const _T2 &__val)
 }
 }
 
-struct TargetRef00217D4C
-{
-	void *m_vtbl;
-	int references;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 
 struct Rva004F6966
 {

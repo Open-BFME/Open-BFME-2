@@ -451,11 +451,7 @@ public:
 // (defaults give mov [esi],0).
 // Evidence: unlock lane; callees all rowed; callers at 0x004E0902 0x004E10DB;
 // same Release pattern as Rva005EEFD2Assign (offset 0x04 there, 0xAC here).
-struct TargetRef00217D4C
-{
-	void *m_vtbl;
-	int references;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 

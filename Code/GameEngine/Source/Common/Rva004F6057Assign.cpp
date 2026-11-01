@@ -5,11 +5,7 @@
 // AddRef-before-Release keeps self-assign safe. Evidence: sole callee rowed
 // ReleaseTreeHintRef00217D4C; caller 0x004F99CC; ends exactly at next row
 // 0x004F607E; same shape as rowed TreeHintRef assign 0x002174A4 minus check.
-struct TargetRef00217D4C
-{
-	void *m_vtbl;
-	int references;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 

@@ -10,7 +10,7 @@
 // shape as ??1Rva0027EA49@@QAE@XZ (release at +4). It is an inline member:
 // LivingWorldAutoResolveBattleLeadership.cpp expands it in line and emits the
 // same select-any copy for its unwind funclet.
-struct TargetRef00217D4C { virtual void *destroy(unsigned int flags); int references; };
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 
 struct Rva004F691E

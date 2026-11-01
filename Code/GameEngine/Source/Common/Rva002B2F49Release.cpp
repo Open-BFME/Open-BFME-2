@@ -5,11 +5,7 @@
 // release its embedded TargetRef at +0xAC via rowed 0x0007DEEF, then if
 // flag&1 delete this via rowed 0x0002FD60 and return this. Evidence:
 // callers pass flag; ret 4 with eax=this; neighbours are /O1.
-struct TargetRef00217D4C
-{
-	void *m_vtbl;
-	int references;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 #include <new>
 

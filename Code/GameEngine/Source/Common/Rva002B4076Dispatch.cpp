@@ -3,7 +3,7 @@
 // WB131AA30 calls2B4076 after CanMoveArmyMember; native pointer+20 owner,
 // summary+78, entry-ref+AC and target-id+B8 accesses establish these views.
 // Rva-address names retain uncertainty about original private operation names.
-struct TargetRef00217D4C { void *vtable; int references; };
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 class ArmySummaryEntry { public: char pad00[0xAC]; TargetRef00217D4C ref; int padB4; int targetB8; };
 class Rva004F6093Holder {

@@ -3,17 +3,8 @@
 // 12-byte struct copy-assign: TreeHintRef at +0 via rowed operator= 0x002174A4 then ints at +4/+8 then return this.
 // Evidence: callers at 0x004F6C9B 0x004F6CBA 0x004F6DC0 0x004F6DE3 0x004F729E; prev assign 0x004F6352 /O1 /Ob0 next dtor 0x004F691E /O1.
 
-struct TargetRef00217D4C
-{
-	void *m_vtbl;
-	int references;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 
-struct TreeHintRef00217D4C
-{
-	TargetRef00217D4C *m_ptr;
-	TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &other);
-};
 
 struct Rva004F64FC
 {

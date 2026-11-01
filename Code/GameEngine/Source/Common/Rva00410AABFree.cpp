@@ -14,11 +14,7 @@
 #include "ascii_string.h"
 
 
-struct TargetRef00217D4C
-{
-	virtual void *destroy(unsigned flags);
-	int references;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 
 class Rva00410688
 {

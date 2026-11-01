@@ -3,16 +3,8 @@
 // Ctor for 12-byte holder (int +0, int +4, TargetRef* +8 with inline AddRef).
 // Evidence: next row dtor 0x004F691E releases +8 via rowed fastcall 0x0007DEEF;
 // Destroy stride 12 at 0x004F838C; callers at 0x004F9FE2 in 0x004F9F39.
-struct TargetRef00217D4C
-{
-	void *m_vtbl;
-	int references;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 
-struct TreeHintRef00217D4C
-{
-	TargetRef00217D4C *m_ptr;
-};
 
 struct Rva004F691E
 {

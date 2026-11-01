@@ -8,11 +8,7 @@
 // storing new pointer and AddRef at +4; loop at 0x00528309 calls this on
 // [esi+4] element member; tail-jmp target of 0x003F7F30 (lea +0x1c; jmp).
 
-struct TargetRef00217D4C
-{
-    void *m_vtbl;
-    int references;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 
 struct Rva002BED91

@@ -8,7 +8,7 @@
 // or [ebp-4] -1. Same EH shape as ??1Rva005E7529 at 0x005E7529.
 // Evidence: chain lane via just-landed 0x005E7855 plus callers 0x005E7D72
 // 0x005E7EE8 plus prev/next same /O1 flags.
-struct TargetRef00217D4C { virtual void *destroy(unsigned flags); int references; };
+#include "../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 class Rva005E7855 { public: void rva005E7855(); };
 struct Holder005E7C19 {

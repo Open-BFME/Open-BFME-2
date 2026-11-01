@@ -25,10 +25,7 @@ extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 #include "GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 
-struct TreeHintRef00217D4C
-{
-	int m_a;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 namespace _STL
 {
 template <class _Tp> class allocator
@@ -44,11 +41,6 @@ public:
 };
 }
 
-struct TargetRef00217D4C
-{
-	void *m_vtbl;
-	int references;
-};
 struct Rva002BED91
 {
 	TargetRef00217D4C *m_ptr;

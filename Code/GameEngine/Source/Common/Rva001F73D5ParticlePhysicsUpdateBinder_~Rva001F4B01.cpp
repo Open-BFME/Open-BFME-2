@@ -197,11 +197,7 @@ void __cdecl Rva001530E9Parse(const char *name, void *volatile path);
 
 typedef void (*Rva001F73D5Callback)(ID3DXEffect *effect, D3DXHANDLE handle);
 
-struct TargetRef00217D4C
-{
-	virtual void *destroy(unsigned flags);
-	int references;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 
 class Rva00080221
@@ -211,15 +207,6 @@ public:
 	TargetRef00217D4C *m_ptr;
 };
 
-struct TreeHintRef00217D4C : public Rva00080221
-{
-	TreeHintRef00217D4C(Rva001F73D5Callback callback) : Rva00080221((const int *)&callback) {}
-	~TreeHintRef00217D4C()
-	{
-		if (m_ptr)
-			ReleaseTreeHintRef00217D4C(m_ptr);
-	}
-};
 
 class FXShaderParameterBinder
 {

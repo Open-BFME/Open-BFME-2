@@ -4,11 +4,7 @@
 // into +8 with AddRef at +4. Holder arg matches prev Rva0051732A layout.
 // Caller 0x005173CB news 12B then passes its arg through; sole AddRef,
 // no other callees. Vtable immediate filled by gate.
-struct TargetRef00217D4C
-{
-	void *m_vtbl;
-	int references;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 
 struct Rva0051732A
 {

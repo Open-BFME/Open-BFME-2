@@ -4,11 +4,7 @@
 // int at +4 zeroed (not copied). Evidence: mov eax ecx then copy ptr test
 // inc and [eax+4] 0 ret 4; single caller at 0x004F9819 in FUN_008f971e.
 
-struct TargetRef00217D4C
-{
-	void *m_vtbl;
-	int references;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 
 struct Rva004F692B
 {

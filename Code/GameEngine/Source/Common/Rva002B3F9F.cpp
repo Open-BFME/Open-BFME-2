@@ -21,11 +21,7 @@ public:
 	char *m_last;
 };
 
-struct TargetRef00217D4C
-{
-	virtual void *destroy(unsigned flags);
-	int references;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 
 class Rva002B3F9FSelf
 {

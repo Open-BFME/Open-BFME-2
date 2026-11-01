@@ -4,11 +4,7 @@
 // Evidence: cmp esi edi je plus inc [eax+0x28] plus lea +0x24 fastcall Release plus
 // callers @0x005E7277 @0x005E729E @0x005E830E; same +0x28 recipe as rowed
 // Rva00427A70 assign 0x005E7184 and Rva005E71C6Assign 0x005E71C6.
-struct TargetRef00217D4C
-{
-	virtual void *destroy(unsigned int flags);
-	int references;
-};
+#include "../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 struct Rva005E7198Object
 {

@@ -18,11 +18,7 @@
 
 #include "../../../Include/Common/Rva0007DF07.h"
 
-struct TargetRef00217D4C
-{
-	virtual void *destroy(unsigned int flags);
-	int references;
-};
+#include "../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 
 template <typename T>

@@ -2,11 +2,7 @@
 //
 // ?hasListeners@@YA_NPAX@Z retail 0x005CD841 54B visit list via stack Visitor with bool result.
 // Evidence: callee 0x005CCD36 rowed visit caller 0x005CD8C2 tests al sibling of 0x005CD813 vtable 0x0087500C bool at +4.
-struct TargetRef00217D4C
-{
-	virtual void *destroy(unsigned int flags);
-	int references;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 // Slot 0 is the base visit (bound by Rva005CD813Visit.cpp to retail's row), not
 // pure, as the other Visitor005CCCD0 views declare it: one table copy.
 struct Visitor005CCCD0
