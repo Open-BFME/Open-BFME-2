@@ -1,4 +1,5 @@
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /I.
+// cl: /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /I. /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /Ireference/shims/bfmealloc
+// stlport
 // WB RespawnUpdate::triggerRevival and native 4AF79C..4AF92F.
 // BF1 RespawnUpdate rule/condition helpers (9cbfb551) guide semantics;
 // BFME2 layout from matched death helper4AF63E and native accesses.
@@ -6,7 +7,7 @@
 // ?triggerDeathBeforeRespawn@RespawnUpdate@@QAEXXZ @0x004AF63E 350B.
 // RespawnUpdate death entry called by RespawnBody::apply. State 0 or 4
 // looks the object's experience level up in the module-data rule tree at
-// +0x10C (the same RespawnRule ctor the parser uses: cost 0 time 0 health
+// +0x10C (the parser's rule initialization: cost 0 time 0 health
 // 1.0 autoSpawn false). A miss retries level 1 and otherwise sleeps forever.
 // A hit applies the +0x0C condition words, the death FX at +0xF0, the hero
 // death UI, disabled-4, effectively-dead, and status 3, then copies the
@@ -18,7 +19,8 @@ enum ObjectStatusTypes;
 
 enum UpdateSleepTime
 {
-	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
+    UPDATE_SLEEP_NONE = 1,
+    UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
 };
 
 class Object;
@@ -36,19 +38,45 @@ public:
 	int m_28;
 };
 
+enum DisabledType;
+enum ObjectStatusTypes;
+enum ObjectID;
+class Player;
+class ExitInterface;
+class BodyModuleInterface;
+class AIUpdateInterface;
+class ThingTemplate;
+class ExperienceTracker;
 class Object
 {
 public:
-	void rva001E431E(const int *conditions);
- ExitInterface *getObjectExitInterface() const;
- __forceinline const Coord3D *getPosition() const {return &m_position;}
-	void setDisabled(DisabledType type);
-	void setEffectivelyDead(bool dead);
-	void setStatus(ObjectStatusTypes bit, bool flag);
-	Player *getControllingPlayer() const;
+    ExitInterface *getObjectExitInterface() const;
+    void restoreObjectToWorld(const Coord3D *);
+    void rva001E42F2(const int *);
+    void rva001E431E(const int *);
+    void setStatus(ObjectStatusTypes, bool);
+    bool clearDisabled(DisabledType);
+    void setDisabledUntil(DisabledType, unsigned);
+    void setDisabled(DisabledType);
+    void setEffectivelyDead(bool);
+    Player *getControllingPlayer() const;
+    __forceinline const Coord3D *getPosition() const { return &position; }
+    __forceinline ThingTemplate *getTemplate() const { return m_template; }
 
-	char m_pad00[0x38];Coord3D m_position;char m_pad44[0x254-0x44];BodyModuleInterface *m_body;char m_pad258[0xC];
-	ExperienceTracker *m_experienceTracker;
+    char pad00[4];
+    ThingTemplate *m_template;
+    char pad08[0x38 - 0x08];
+    Coord3D position;
+    char pad44[0x74 - 0x44];
+    int m_heroKey;
+    ObjectID producer;
+    char pad7C[0x254 - 0x7C];
+    BodyModuleInterface *body;
+    AIUpdateInterface *ai;
+    char pad25C[0x264 - 0x25C];
+    ExperienceTracker *m_experienceTracker;
+    char pad268[0x45C - 0x268];
+    int handle;
 };
 
 class FXList
@@ -69,42 +97,34 @@ extern InGameUI *TheInGameUI;
 
 struct RespawnRule
 {
-	unsigned level;
-	unsigned cost;
-	int time;
-	float health;
-	bool autoSpawn;
-
-	RespawnRule(unsigned ruleLevel)
-		: level(ruleLevel), cost(0), time(0), health(1.0f), autoSpawn(false) {}
- RespawnRule() {}
+    unsigned level;
+    unsigned cost;
+    int time;
+    float health;
+    bool autoSpawn;
 };
 
-// The rule tree's lookup is the rowed STLport _Rb_tree<unsigned, pair<const unsigned,
-// void *> >::_M_find<unsigned> at 0x00357180 (private; reached through this TU-local
-// declaration, as RespawnUpdateParseRules.cpp does).
-class RespawnUpdate;
-namespace _STL {
-template <class _Key, class _Mapped> struct pair;
-template <class _Pair> struct _Select1st;
-template <class _Key> struct less;
-template <class _Value> class allocator;
-template <class _Value> struct _Rb_tree_node;
-template <class _Key, class _Value, class _KeyOfValue, class _Compare, class _Alloc>
-class _Rb_tree {
-	template <class _Key_arg>
-	_Rb_tree_node<_Value> *_M_find(const _Key_arg &) const;
-	friend class ::RespawnUpdate;
-};
+static __forceinline void initializeRespawnRule(RespawnRule &rule, unsigned level=1)
+{
+    rule.level=level; rule.cost=0; rule.time=0; rule.health=1.0f; rule.autoSpawn=false;
 }
+
+// The rule tree uses the rowed private STLport _Rb_tree<unsigned, pair<const unsigned,
+// void *> >::_M_find<unsigned> at 0x00357180 through public find and its iterator's node.
+class RespawnUpdate;
+#include <map>
 typedef _STL::pair<const unsigned int, void *> RespawnRuleTreeValue;
 typedef _STL::_Rb_tree<unsigned int, RespawnRuleTreeValue, _STL::_Select1st<RespawnRuleTreeValue>,
 	_STL::less<unsigned int>, _STL::allocator<RespawnRuleTreeValue> > RespawnRuleTree;
 
-class BFME2RespawnRuleTree
+struct RespawnInsertResult;
+
+struct BFME2RespawnRuleTree
 {
 public:
-	void *sentinel;
+    void *sentinel;
+    RespawnInsertResult insert(const RespawnRule &);
+    RespawnInsertResult *insertUnique(RespawnInsertResult *out, const RespawnRule &rule);
 };
 
 struct RespawnRuleNode
@@ -117,16 +137,57 @@ struct RespawnRuleNode
 	bool m_autoSpawn;
 };
 
-class RespawnUpdateModuleData
+#include "Common/Snapshot.h"
+#include "ascii_string.h"
+
+class Rva00360D26Member
 {
 public:
-	char m_pad00[0x0C];
-	int m_conditions0C[19];
-	int m_conditions58[19];
-	int m_conditionsA4[19];
-	const FXList *m_fx;
-	const FXList *m_reviveFX;const FXList *m_initialFX;unsigned atFC;unsigned m_reviveTime;unsigned m_initialTime;unsigned at108;
-	BFME2RespawnRuleTree m_rules;
+    ~Rva00360D26Member();
+    Rva00360D26Member();
+    char m_pad00[0x4];
+};
+
+struct BfmePod20
+{
+    unsigned a[5];
+};
+
+inline bool operator<(const BfmePod20 &x, const BfmePod20 &y)
+{
+    return x.a[0] < y.a[0];
+}
+
+typedef _STL::_Rb_tree<BfmePod20, BfmePod20, _STL::_Identity<BfmePod20>, _STL::less<BfmePod20>, _STL::allocator<BfmePod20> > UBfmePod20SetTree;
+
+class MultiIniFieldParse;
+class FXList;
+
+class __declspec(novtable) RespawnUpdateModuleData : public Snapshot
+{
+public:
+    RespawnUpdateModuleData();
+    virtual ~RespawnUpdateModuleData();
+    static void buildFieldParse(MultiIniFieldParse &parse);
+    int calcCostToBuild(int value);
+    int calcTimeToBuild(unsigned int value);
+
+    unsigned m_field04; // +0x04
+    Rva00360D26Member m_filter; // +0x08
+    int conditions0C[19]; // +0x0C
+    int conditions58[19]; // +0x58
+    int conditionsA4[19]; // +0xA4
+    const FXList *deathFX; // +0xF0
+    const FXList *reviveFX; // +0xF4
+    const FXList *m_initialSpawnFX; // +0xF8
+    unsigned m_fieldFC; // +0xFC
+    unsigned reviveTime; // +0x100
+    unsigned m_initialSpawnAnimationTime; // +0x104
+    unsigned char m_flag108; // +0x108
+    char m_pad109[3];
+    UBfmePod20SetTree m_rules; // +0x10C
+    AsciiString m_deadImageName; // +0x118
+    AsciiString m_respawnAsTemplate; // +0x11C
 };
 
 class UpdateModule
@@ -165,8 +226,9 @@ private:
 };
 
 
-class ExitInterface { public:
- virtual void slot0()=0;virtual void slot1()=0;virtual void slot2()=0;virtual void slot3()=0;virtual void slot4()=0;virtual void slot5()=0;virtual void slot6()=0;virtual void slot7()=0;virtual void slot8()=0;
+class ExitInterface {public:
+ virtual void slot0()=0;virtual void slot1()=0;virtual void exitObject(Object *,bool)=0;
+ virtual void slot3()=0;virtual void slot4()=0;virtual void slot5()=0;virtual void slot6()=0;virtual void slot7()=0;virtual void slot8()=0;
  virtual void getExitPosition(Coord3D *,bool)=0;
 };
 class BodyModuleInterface
@@ -206,14 +268,14 @@ void RespawnUpdate::triggerRevival(Object *at) {
  if(exit) exit->getExitPosition(&pos,true);
  unsigned time;
  if(m_41) {
-  obj->rva001E431E(data->m_conditionsA4);
-  time=data->m_initialTime;
-  FXList::doFXObj(data->m_initialFX,obj,0);
+  obj->rva001E431E(data->conditionsA4);
+  time=data->m_initialSpawnAnimationTime;
+  FXList::doFXObj(data->m_initialSpawnFX,obj,0);
   if(TheInGameUI) TheInGameUI->rva002A123F(obj);
  } else {
-  obj->rva001E431E(data->m_conditions58);
-  time=data->m_reviveTime;
-  FXList::doFXObj(data->m_reviveFX,obj,0);
+  obj->rva001E431E(data->conditions58);
+  time=data->reviveTime;
+  FXList::doFXObj(data->reviveFX,obj,0);
   if(TheInGameUI) TheInGameUI->rva002A1261(obj);
  }
  // Native loads the default health before clearing the two rule counters.
@@ -222,15 +284,15 @@ void RespawnUpdate::triggerRevival(Object *at) {
  float health=*(const volatile float *)&one;rule.cost=0;rule.time=0;
  m_2C=4;
  rule.level=(unsigned)obj->m_experienceTracker->m_level;rule.health=health;rule.autoSpawn=false;
- RespawnRuleNode *found=(RespawnRuleNode*)reinterpret_cast<const RespawnRuleTree &>(data->m_rules)._M_find<unsigned int>(rule.level);
- RespawnRuleNode *end=(RespawnRuleNode*)data->m_rules.sentinel;
+ RespawnRuleNode *found=(RespawnRuleNode*)reinterpret_cast<const RespawnRuleTree &>(data->m_rules).find<unsigned int>(rule.level)._M_node;
+ RespawnRuleNode *end=(RespawnRuleNode*)reinterpret_cast<const BFME2RespawnRuleTree &>(data->m_rules).sentinel;
  if(found==end) {
-  rule.RespawnRule::RespawnRule(1);
-  found=(RespawnRuleNode*)reinterpret_cast<const RespawnRuleTree &>(data->m_rules)._M_find<unsigned int>(rule.level);
+  initializeRespawnRule(rule, 1);
+  found=(RespawnRuleNode*)reinterpret_cast<const RespawnRuleTree &>(data->m_rules).find<unsigned int>(rule.level)._M_node;
   if(found==end) {setWakeFrame(obj,UPDATE_SLEEP_FOREVER);return;}
  }
  m_20=*(float*)&found->m_healthBits;
- obj->m_body->setInitialHealth(m_20*100.0f,false);
+ obj->body->setInitialHealth(m_20*100.0f,false);
  m_34=(unsigned)-1;m_38=(unsigned)-1;
  if(ThePlayerList->getLocalPlayer()==obj->getControllingPlayer()) TheControlBar->dirty=true;
  setWakeFrame(obj,(UpdateSleepTime)time);

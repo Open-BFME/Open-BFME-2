@@ -1,17 +1,54 @@
 // cl: /DNDEBUG /MD /GX
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
 // ?rva004AEF46@RespawnUpdate@@QAEXXZ @0x004AEF46 103B
 // Chain from Money 0x003B0D7C: RespawnUpdate state gate plus wake plus Money cond-add; layout from RespawnUpdateCtor and Rva004AEFAD.
 // Evidence: callees getControllingPlayer 0x0028AFA9 setWakeFrame 0x0044DF71 Money 0x003B0D7C rowed; touches +0x2C +0x30 +0x34 +0x3C +0x40.
 class Player;
+enum DisabledType;
+enum ObjectStatusTypes;
+enum ObjectID;
+class Player;
+class ExitInterface;
+class BodyModuleInterface;
+class AIUpdateInterface;
+class ThingTemplate;
+class ExperienceTracker;
 class Object
 {
 public:
-	Player *getControllingPlayer() const;
+    ExitInterface *getObjectExitInterface() const;
+    void restoreObjectToWorld(const Coord3D *);
+    void rva001E42F2(const int *);
+    void rva001E431E(const int *);
+    void setStatus(ObjectStatusTypes, bool);
+    bool clearDisabled(DisabledType);
+    void setDisabledUntil(DisabledType, unsigned);
+    void setDisabled(DisabledType);
+    void setEffectivelyDead(bool);
+    Player *getControllingPlayer() const;
+    __forceinline const Coord3D *getPosition() const { return &position; }
+    __forceinline ThingTemplate *getTemplate() const { return m_template; }
+
+    char pad00[4];
+    ThingTemplate *m_template;
+    char pad08[0x38 - 0x08];
+    Coord3D position;
+    char pad44[0x74 - 0x44];
+    int m_heroKey;
+    ObjectID producer;
+    char pad7C[0x254 - 0x7C];
+    BodyModuleInterface *body;
+    AIUpdateInterface *ai;
+    char pad25C[0x264 - 0x25C];
+    ExperienceTracker *m_experienceTracker;
+    char pad268[0x45C - 0x268];
+    int handle;
 };
 
 enum UpdateSleepTime
 {
-	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
+    UPDATE_SLEEP_NONE = 1,
+    UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
 };
 
 class Thing;
