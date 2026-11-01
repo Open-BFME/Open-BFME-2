@@ -19,54 +19,12 @@
 typedef unsigned int UnsignedInt;
 typedef float Real;
 
-class Matrix3D
-{
-public:
-	__forceinline Matrix3D &operator=(const Matrix3D &m)
-	{
-		Row[0] = m.Row[0];
-		Row[1] = m.Row[1];
-		Row[2] = m.Row[2];
-		return *this;
-	}
+#include "../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
-	__forceinline void Make_Identity()
-	{
-		Row[0].Set(1.0f, 0.0f, 0.0f, 0.0f);
-		Row[1].Set(0.0f, 1.0f, 0.0f, 0.0f);
-		Row[2].Set(0.0f, 0.0f, 1.0f, 0.0f);
-	}
 
-private:
-	class Vector4
-	{
-	public:
-		__forceinline void Set(Real x, Real y, Real z, Real w)
-		{
-			X = x;
-			Y = y;
-			Z = z;
-			W = w;
-		}
-
-		__forceinline Vector4 &operator=(const Vector4 &v)
-		{
-			X = v.X;
-			Y = v.Y;
-			Z = v.Z;
-			W = v.W;
-			return *this;
-		}
-
-		Real X;
-		Real Y;
-		Real Z;
-		Real W;
-	};
-
-	Vector4 Row[3];
-};
-
+static __forceinline void copyInstanceMatrix(Matrix3D &dst,const Matrix3D &src) {dst.Row[0].X=src.Row[0].X;dst.Row[0].Y=src.Row[0].Y;dst.Row[0].Z=src.Row[0].Z;dst.Row[0].W=src.Row[0].W;dst.Row[1].X=src.Row[1].X;dst.Row[1].Y=src.Row[1].Y;dst.Row[1].Z=src.Row[1].Z;dst.Row[1].W=src.Row[1].W;dst.Row[2].X=src.Row[2].X;dst.Row[2].Y=src.Row[2].Y;dst.Row[2].Z=src.Row[2].Z;dst.Row[2].W=src.Row[2].W;}
+static __forceinline void setInstanceRow(Vector4 &r,float x,float y,float z,float w) { r.X=x;r.Y=y;r.Z=z;r.W=w; }
+static __forceinline void setInstanceIdentity(Matrix3D &m) { setInstanceRow(m.Row[0],1.0f,0.0f,0.0f,0.0f);setInstanceRow(m.Row[1],0.0f,1.0f,0.0f,0.0f);setInstanceRow(m.Row[2],0.0f,0.0f,1.0f,0.0f); }
 class GameEngine
 {
 public:
@@ -111,20 +69,20 @@ private:
 // ?setInstanceMatrix@Drawable@@QAEXPBVMatrix3D@@_N@Z
 void Drawable::setInstanceMatrix(const Matrix3D *instance, bool preservePrevious)
 {
-	m_previousInstance = m_instance;
+	copyInstanceMatrix(m_previousInstance, m_instance);
 	if (instance)
 	{
-		m_instance = *instance;
+		copyInstanceMatrix(m_instance, *instance);
 		m_instanceIsIdentity = false;
 	}
 	else
 	{
-		m_instance.Make_Identity();
+		setInstanceIdentity(m_instance);
 		m_instanceIsIdentity = true;
 	}
 
 	if (preservePrevious)
-		m_previousInstance = m_instance;
+		copyInstanceMatrix(m_previousInstance, m_instance);
 
 	Real frame = (Real)TheGameEngine->m_frame;
 	frame += (Real)TheGameClient->getFrame();
