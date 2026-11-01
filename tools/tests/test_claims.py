@@ -1019,6 +1019,77 @@ def _lease(rva):
     return claims.active()[rva].get("lease")
 
 
+def test_claim_dry_run_reports_each_key_and_takes_no_claim(hosts, monkeypatch, capsys):
+    # 2026-11-01 (seat cons-o8): `--dry-run` was a gc-only flag that `claim`
+    # ignored, so a claimability scan took ~126 real file: claims that every
+    # other fleet saw as held until the scan released them.
+    hosts("b")
+    assert claims.claim([0x100, "file:Code/Held.cpp"]).refused == []
+    hosts("a")
+    origin_refs = lambda: _git(hosts.origin, "for-each-ref", "--format=%(refname) %(objectname)")
+    before = origin_refs()
+    pushes = []
+    real_git = claims._git
+
+    def traced_git(*args, **kwargs):
+        if args[:1] == ("push",):
+            pushes.append(args)
+        return real_git(*args, **kwargs)
+
+    monkeypatch.setattr(claims, "_git", traced_git)
+    keys = ["0x100", "0x200", "file:Code/Held.cpp", "file:Code/Free.cpp"]
+    assert claims.main(["claim", "--dry-run", *keys]) == 1           # some key is held
+    assert pushes == [] and origin_refs() == before                  # nothing written to origin
+    claims.active.cache_clear()
+    assert set(claims.active()) == {0x100, claims.key_of("file:Code/Held.cpp")}
+    out = capsys.readouterr().out.splitlines()
+    assert any(line.startswith("held") and "0x00000100" in line and "(b)" in line for line in out)
+    assert any(line.startswith("held") and "file:Code/Held.cpp" in line and "(b)" in line for line in out)
+    assert any(line.startswith("claimable") and "0x00000200" in line for line in out)
+    assert any(line.startswith("claimable") and "file:Code/Free.cpp" in line for line in out)
+
+    assert claims.main(["claim", "--dry-run", "0x200", "file:Code/Free.cpp"]) == 0
+    assert pushes == [] and origin_refs() == before
+    capsys.readouterr()
+
+    # the normal path is unchanged: it claims, and a dry run then sees the claim as ours
+    assert claims.main(["claim", "0x200"]) == 0 and pushes
+    assert claims.main(["claim", "--dry-run", "0x200"]) == 0
+    assert "claimable" in capsys.readouterr().out
+    hosts("b")
+    assert claims.main(["claim", "--dry-run", "0x200"]) == 1
+    assert "(a)" in capsys.readouterr().out
+
+
+def test_a_claim_dry_run_agrees_with_acquire_on_file_locks(hosts):
+    # a body whose row lies in a file a peer holds is held, as acquire refuses it
+    hosts("b")
+    assert claims.claim(["file:Code/x.cpp"]).refused == []
+    a = hosts("a")
+    _commit_ledger(a, ["?f@@YAXXZ,,0x00000100,16,Code/x.cpp,matched,",
+                       "?g@@YAXXZ,,0x00000300,16,Code/y.cpp,matched,"], "ledger")
+    found = claims.claimable(["0x100", "0x300"])
+    assert set(found[0x100]) == {claims.key_of("file:Code/x.cpp")} and found[0x300] == {}
+    assert claims.acquire(["0x100"]).refused and not claims.acquire(["0x300"]).refused
+    hosts("b")
+    found = claims.claimable(["0x300", "file:Code/y.cpp", "file:Code/x.cpp"])
+    assert set(found[0x300]) == {0x300, claims.key_of("file:Code/y.cpp")}        # a's body and its lock
+    assert set(found[claims.key_of("file:Code/y.cpp")]) == {0x300, claims.key_of("file:Code/y.cpp")}
+    assert found[claims.key_of("file:Code/x.cpp")] == {}                         # b's own claim
+
+
+def test_a_dry_run_flag_never_reaches_a_writing_release_or_renew(hosts):
+    # the same flag on release or renew would have written as well: refuse it
+    hosts("a")
+    claims.claim([0x100])
+    for action in ("release", "renew"):
+        with pytest.raises(SystemExit) as exit_info:
+            claims.main([action, "--dry-run", "0x100"])
+        assert exit_info.value.code == 2
+    claims.active.cache_clear()
+    assert set(claims.active()) == {0x100}
+
+
 def test_the_claim_command_settles_other_landed_claims(hosts):
     # 2026-10-10: 28% of live RVA claims sat on bodies origin/master already
     # held, because a seat that runs `claims.py claim` never ran a picker

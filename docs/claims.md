@@ -13,6 +13,11 @@ another worker won the race. Body edits take their RVA and an atomic per-file
 lock together; class-wide work takes `class:NAME`, file-wide work `file:PATH`
 (`claims.py claim class:NAME`).
 
+`claims.py claim --dry-run KEY...` asks without taking: it prints each key
+`claimable` or `held` (with the holder) and exits 1 if any is held. It writes
+and pushes no claim, lock or settlement. `release` and `renew` refuse
+`--dry-run`.
+
 Queues skip work whose footprint meets another seat's live claim in either claim
 namespace: `refs/claims/`, or `refs/heads/claims/` on hosts set by
 `bfme.claimNamespace`. Use one namespace per fleet. An orchestrator sets a

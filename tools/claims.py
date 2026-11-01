@@ -24,6 +24,8 @@ what they serve, settling this checkout's published landings first.
   python3 tools/claims.py list                 # live claims
   python3 tools/claims.py whoami               # this worker's owner string
   python3 tools/claims.py claim 0xRVA [...]    # claim for this worker (TTL 4 h)
+  python3 tools/claims.py claim --dry-run KEY [...]
+      # report each key claimable or held (exit 1 if any is held); takes nothing
   python3 tools/claims.py renew 0xRVA [...]    # extend your claims, keeping their lease
   python3 tools/claims.py release 0xRVA [...]  # release your own claims
   python3 tools/claims.py release --landed [SHA]
@@ -1092,6 +1094,44 @@ def acquire(targets, work=(), note="", who=None, root=None, ttl_hours=TTL_HOURS)
     _rollback(fresh, tokens, who, root, refused)
     return ClaimResult([], refused, unconfirmed=getattr(result, "unconfirmed", ()),
                        worker=getattr(result, "worker", ""))
+
+
+def claimable(targets, who=None, root=None):
+    """acquire()'s verdict on each of `targets`, taking nothing (`claim --dry-run`):
+    {key: {blocking key: info}}, empty where acquire would claim the key.
+
+    One fresh read of origin's claim refs into the local snapshot; no claim, lock
+    or settlement ref is written or pushed. A key is held when a live claim of
+    another owner meets its lock keys (conflicts()), or when another owner string
+    holds a ref acquire would write: the key itself, and for body and file work
+    the file locks it takes (claim() refuses those, a legacy owner's included).
+    Raises ClaimsUnavailable when origin cannot be read."""
+    who = who or owner(root)
+    keys = list(dict.fromkeys(key_of(t) for t in targets))
+    with pick_snapshot():               # one fetch serves the ref read and the conflict read
+        _invalidate_snapshot(root)
+        if not fetch(root):
+            raise ClaimsUnavailable("claims: cannot fetch refs/claims/* from origin; nothing checked")
+        current = live(_read_local(root))
+        blocking = []
+        if os.environ.get("BFME_CLAIMS", "on") != "off":
+            strict = getattr(_pick_state, "strict_fetch", False)
+            _pick_state.strict_fetch = True
+            try:
+                for records in _blocking_records(root, who):
+                    blocking += [(key, info, lock_keys({key}, root, records=records))
+                                 for key, info in records.items()]
+            finally:
+                _pick_state.strict_fetch = strict
+        found = {}
+        for key in keys:
+            locks = lock_keys({key}, root)
+            held = {other: info for other, info, theirs in blocking if theirs & locks}
+            written = {key} if isinstance(key, str) and key.startswith("class/") else locks
+            held.update({ref: current[ref][1] for ref in written
+                         if ref in current and current[ref][1].get("owner") != who})
+            found[key] = held
+    return found
 
 
 def _rollback(fresh, tokens, who, root, refused=()):
@@ -2634,8 +2674,12 @@ def main(argv=None):
     ap.add_argument("--max-per-minute", type=float, default=GC_MAX_PER_MINUTE,
                     help="gc: delete at most this many refs per minute (0: unpaced)")
     ap.add_argument("--sample", type=int, default=None, help="gc: a random slice of this many refs")
-    ap.add_argument("--dry-run", action="store_true", help="gc: list what would be deleted")
+    ap.add_argument("--dry-run", action="store_true",
+                    help="gc: list what would be deleted; claim: report each key claimable or held, "
+                         "taking nothing")
     args = ap.parse_args(argv)
+    if args.dry_run and args.action in ("renew", "release"):
+        ap.error(f"--dry-run applies to claim and gc only; {args.action} has none and would write")
     if args.action == "whoami":
         print(owner())
         return 0
@@ -2662,6 +2706,30 @@ def main(argv=None):
             print(f"{label(rva, info)}  {info.get('owner', '?'):30} {left:5.1f} h left  {info.get('note', '')}")
         print(f"{len(claims)} live claim(s)")
         return 0
+    if args.action == "claim" and args.dry_run:
+        # A claimability scan writes nothing: no claim, no file lock, no settlement.
+        # 2026-11-01 (seat cons-o8): --dry-run was gc-only and `claim` ignored it,
+        # so a scan really held ~126 file: claims that other fleets saw as taken.
+        try:
+            found = claimable(args.rvas)
+        except ClaimsUnavailable as error:
+            print(error, file=sys.stderr)
+            return 2
+        shown = {}
+        for text in args.rvas:
+            key = key_of(text)
+            shown.setdefault(key, label(key) if isinstance(key, int) else text)
+        for key, name in shown.items():
+            held = found[key]
+            if held:
+                by = ", ".join(f"{label(k, info)} ({info.get('owner', '?')})"
+                               for k, info in sorted(held.items(), key=lambda kv: _order(kv[0])))
+                print(f"held       {name}  by {by}")
+            else:
+                print(f"claimable  {name}")
+        count = sum(1 for held in found.values() if held)
+        print(f"dry run: {len(found) - count} claimable, {count} held; nothing claimed")
+        return 0 if not count else 1
     if args.action == "claim":
         # Each key with its file locks (acquire): a body's file is locked with it, and
         # a key whose file a peer's work holds is refused, as the pickers refuse it.
