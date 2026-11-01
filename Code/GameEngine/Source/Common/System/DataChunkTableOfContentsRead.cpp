@@ -79,11 +79,7 @@ public:
 // at 0x9FDF5. BFME1 9cbfb551fe20dae985f91f2319d8997287b6a705's Common
 // donor sweep agrees under O1/SSE/G7. Native proves this reference/tie contract;
 // the global template name comes from the already compiled semantic provider.
-template <typename T>
-inline const T &max(const T &a, const T &b)
-{
-	return a > b ? a : b;
-}
+template <class T> inline T const & max(T const & lhs, T const & rhs) { return (lhs > rhs) ? lhs : rhs; }
 
 void DataChunkTableOfContents::read(ChunkInputStream &s)
 {
