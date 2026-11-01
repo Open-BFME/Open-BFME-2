@@ -84,12 +84,7 @@ public:
 };
 extern TeamFactory *TheTeamFactory;
 
-class GlobalData
-{
-public:
-    unsigned char m_pad00[0x134];
-    int m_timeOfDay; // +0x134
-};
+#include "../../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 #define TheGlobalData TheWritableGlobalData
 

@@ -79,12 +79,7 @@ public:
 };
 extern Version *TheVersion;
 
-class GlobalData
-{
-public:
-	unsigned char m_pad000[0xB04];
-	unsigned int m_B04;
-};
+#include "../../../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
 class GameInfo
@@ -321,7 +316,7 @@ void AptSaveLoad::rva0043684C()
 					mapText = const_cast<MapMetaData *>(md)->bfme_getBaseDisplayName();
 
 				bool goodVersion = header.m_44.compare(TheVersion->getFullUnicodeVersion()) == 0
-					&& header.m_4C == TheWritableGlobalData->m_B04;
+					&& header.m_4C == TheWritableGlobalData->field0B04;
 				int color;
 				if (goodVersion) {
 					if (header.m_24 >= 0)

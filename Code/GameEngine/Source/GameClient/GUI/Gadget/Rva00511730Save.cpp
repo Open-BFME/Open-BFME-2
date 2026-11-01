@@ -56,12 +56,7 @@ extern GameLogic *TheGameLogic;
 
 // TheWritableGlobalData (0x00DFE758): a flag at +0xA44 that must be set for
 // the messenger to open in a multiplayer game.
-class GlobalData
-{
-public:
-	unsigned char m_pad000[0xA44];
-	int m_A44; // +0xA44
-};
+#include "../../../../Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;
 
@@ -117,7 +112,7 @@ void AptMessenger::OpenScreen()
 	{
 		GameLogic *logic = TheGameLogic;
 		if (logic->isInMultiplayerGame()
-			&& (logic->m_110 == 3 || !TheWritableGlobalData->m_A44))
+			&& (logic->m_110 == 3 || !TheWritableGlobalData->field0A44))
 			return;
 		TheWindowManager->v32(AsciiString("Messenger.apt"))->v00(0);
 	}

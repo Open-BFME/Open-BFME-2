@@ -53,12 +53,7 @@ public:
 	int m_index;
 };
 
-class GlobalData
-{
-public:
-	unsigned char m_pad[0x138];
-	int m_weather;
-};
+#include "../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
 struct Mask76 { unsigned char m_bytes[0x4C]; };

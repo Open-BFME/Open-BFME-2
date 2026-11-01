@@ -51,14 +51,7 @@ extern Shell *TheShell;
 
 // TheGlobalData: the +0x62 flag gates the shadow manager's calls; 0x0023611A
 // returns the pictures folder.
-class GlobalData
-{
-public:
-	AsciiString getPicturePath() const;
-
-	unsigned char m_pad00[0x62];
-	bool m_useShadowMapping; // +0x62
-};
+#include "../../../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
 // The manager at 0x00DE1FF8 (W3DShadowManagerReAcquire.cpp's view).

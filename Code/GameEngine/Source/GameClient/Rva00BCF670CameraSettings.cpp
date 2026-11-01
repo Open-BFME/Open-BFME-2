@@ -76,16 +76,7 @@ private:
 
 extern Dict g_Va00E00944;	// VA 0x00E00944
 
-class GlobalData
-{
-public:
-	char m_pad00[0x9C];
-	float m_cameraMinHeight9C;
-	float m_cameraMaxHeightA0;
-	float m_cameraPitchAngleA4;
-	float m_cameraYawAngleA8;
-	float m_cameraScrollSpeedScalarAC;
-};
+#include "../../Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;	// VA 0x00DFE758
 
@@ -176,7 +167,7 @@ void Rva00BCF670CameraSettings::loadMinHeight()
 	bool exists;
 	m_minHeight04 = g_Va00E00944.getReal(g_00DBDED4.get(), &exists);
 	if (!exists)
-		m_minHeight04 = TheWritableGlobalData->m_cameraMinHeight9C;
+		m_minHeight04 = TheWritableGlobalData->m_defaultCameraMinHeight;
 }
 
 void Rva00BCF670CameraSettings::loadMaxHeight()
@@ -184,7 +175,7 @@ void Rva00BCF670CameraSettings::loadMaxHeight()
 	bool exists;
 	m_maxHeight08 = g_Va00E00944.getReal(g_00DBDEDC.get(), &exists);
 	if (!exists)
-		m_maxHeight08 = TheWritableGlobalData->m_cameraMaxHeightA0;
+		m_maxHeight08 = TheWritableGlobalData->m_defaultCameraMaxHeight;
 }
 
 void Rva00BCF670CameraSettings::loadPitchAngle()
@@ -192,7 +183,7 @@ void Rva00BCF670CameraSettings::loadPitchAngle()
 	bool exists;
 	m_pitchAngle0C = g_Va00E00944.getReal(g_00DBDEE4.get(), &exists);
 	if (!exists)
-		m_pitchAngle0C = TheWritableGlobalData->m_cameraPitchAngleA4;
+		m_pitchAngle0C = TheWritableGlobalData->m_defaultCameraPitchAngle;
 }
 
 void Rva00BCF670CameraSettings::loadYawAngle()
@@ -200,7 +191,7 @@ void Rva00BCF670CameraSettings::loadYawAngle()
 	bool exists;
 	m_yawAngle10 = g_Va00E00944.getReal(g_00DBDEEC.get(), &exists);
 	if (!exists)
-		m_yawAngle10 = TheWritableGlobalData->m_cameraYawAngleA8;
+		m_yawAngle10 = TheWritableGlobalData->m_defaultCameraYawAngle;
 }
 
 void Rva00BCF670CameraSettings::loadScrollSpeedScalar()
@@ -208,7 +199,7 @@ void Rva00BCF670CameraSettings::loadScrollSpeedScalar()
 	bool exists;
 	m_scrollSpeedScalar14 = g_Va00E00944.getReal(g_00DBDEF4.get(), &exists);
 	if (!exists)
-		m_scrollSpeedScalar14 = TheWritableGlobalData->m_cameraScrollSpeedScalarAC;
+		m_scrollSpeedScalar14 = TheWritableGlobalData->m_defaultCameraScrollSpeedScalar;
 }
 
 void Rva00BCF670CameraSettings::reload()

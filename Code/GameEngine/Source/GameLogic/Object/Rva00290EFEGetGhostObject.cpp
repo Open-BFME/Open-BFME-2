@@ -61,12 +61,7 @@ extern GhostObjectManager *TheGhostObjectManager;
 // TheGhostObjectManager: matched references place it at VA 0xdff188 (zero-filled .bss).
 GhostObjectManager * TheGhostObjectManager;
 
-class GlobalData
-{
-public:
-	char m_pad[0xC69];
-	unsigned char m_ghostObjectsEnabled;  // +0xC69
-};
+#include "../../../Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;
 
@@ -81,7 +76,7 @@ public:
 // ?getGhostObject@Rva00290EFE@@QAEPAXXZ @0x00290EFE
 void *Rva00290EFE::getGhostObject()
 {
-	if (TheWritableGlobalData->m_ghostObjectsEnabled == 0)
+	if (TheWritableGlobalData->field0C69 == 0)
 		return 0;
 	ThingTemplate *thing = *(ThingTemplate **)((char *)this - 0x60);
 	if ((thing->m_kindOf & 4) != 0) {

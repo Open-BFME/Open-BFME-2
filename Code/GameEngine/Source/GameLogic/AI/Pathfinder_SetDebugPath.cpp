@@ -88,20 +88,7 @@ public:
 	virtual void virt19() = 0;
 };
 
-class GlobalData
-{
-public:
-	char prefix[0x9b8]; // +0x00
-	int m_flag9B8; // +0x9B8
-	char m_pad9BC[0x804];
-	unsigned int limitMs; // +0x11C0
-	char m_pad11C4[0x24];
-	int cellsPerFrame; // +0x11E8
-	char m_pad11EC[0xC];
-	int m_maxCellsAdjustTargetDestination; // +0x11F8
-	char m_pad11FC[0x20];
-	unsigned callbackLimit; // +0x121C
-};
+#include "../../../Include/Common/GlobalData.h"
 
 extern class GameInfo *TheGameInfo;
 extern GlobalData *TheWritableGlobalData;
@@ -118,7 +105,7 @@ void Pathfinder::SetDebugPath(Rva002EDEABArg *nodeList)
 {
 	if (TheGameInfo != 0)
 		(*(Rva00E02EECObj **)&TheGameInfo)->virt19();
-	if (TheWritableGlobalData->m_flag9B8 == 0)
+	if (TheWritableGlobalData->field09B8 == 0)
 		return;
 	delete m_path;
 	m_path = new Path;

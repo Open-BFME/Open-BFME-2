@@ -642,13 +642,7 @@ public:
 
 extern AI *TheAI;
 
-class GlobalData
-{
-public:
-	unsigned char m_pad000[0xAD4];
-	Real m_healthBonus[4];			// +0xAD4: by veterancy level
-	Real m_defaultStructureRubbleHeight;	// +0xAE4
-};
+#include "../../../../Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;
 

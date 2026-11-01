@@ -8,12 +8,7 @@ public:
 	void *winGetUserData();
 };
 
-class GlobalData
-{
-public:
-	char _pad[0x34];
-	int m_yResolution;
-};
+#include "../../../../Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;
 

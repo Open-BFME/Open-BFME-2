@@ -343,7 +343,8 @@ int AptSkirmish::OnUpdateData() {
 
 #include "GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
-class GlobalData {public:char pad[12];AsciiString map;};extern GlobalData *TheWritableGlobalData;
+#include "../../../../../Include/Common/GlobalData.h"
+extern GlobalData *TheWritableGlobalData;
 class Display {public:char pad[0x114];bool flag;};extern Display *TheDisplay;
 class Shell {public:void rva0035BF4C(bool);};extern Shell *TheShell;
 class AptFocusTarget;class AptPlayer {public:void PopFocus(AptFocusTarget *);};

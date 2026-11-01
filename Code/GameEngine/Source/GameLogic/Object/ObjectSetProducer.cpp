@@ -30,12 +30,7 @@ enum TimeOfDay
 	TIME_OF_DAY_NIGHT = 4
 };
 
-class GlobalData
-{
-public:
-	unsigned char m_pad000[0x134];
-	TimeOfDay m_timeOfDay; // +0x134
-};
+#include "../../../Include/Common/GlobalData.h"
 extern class GlobalData *TheWritableGlobalData;
 
 inline Color GameMakeColor(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha)

@@ -59,12 +59,7 @@ extern ThingFactory *TheThingFactory;
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class GlobalData
-{
-public:
-	unsigned char m_pad00[0x18];
-	AsciiString m_luaEventHelperName; // +0x18
-};
+#include "../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
 extern GameLogic *TheGameLogic;
@@ -143,7 +138,7 @@ private:
 
 void DamageNugget::v4(void *a, void *position)
 {
-	const AsciiString &helperName = TheWritableGlobalData->m_luaEventHelperName;
+	const AsciiString &helperName = TheWritableGlobalData->m_genericDamageWarningName;
 	if (((const StringBase<char> *)&helperName)->isEmpty())
 		return;
 	const ThingTemplate *thingTemplate = TheThingFactory->findTemplate(helperName);

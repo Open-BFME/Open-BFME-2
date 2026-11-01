@@ -49,13 +49,7 @@ public:
 
 extern Display *TheDisplay;
 
-class GlobalData
-{
-public:
-	unsigned char m_pad000[0x30];
-	unsigned int m_xResolution; // +0x30
-	unsigned int m_yResolution; // +0x34
-};
+#include "../../Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;
 

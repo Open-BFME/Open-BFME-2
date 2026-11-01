@@ -802,12 +802,7 @@ public:
 };
 // Ratios-unit externals (getMaxSpeed and its float getters).
 extern float g_secondsPerLogicFrame;
-class GlobalData
-{
-public:
-	char m_pad[0xB3C];
-	int m_movementPenaltyDamageState;
-};
+#include "../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 float GetGameLogicRandomValueReal(float,float,char*,int);
 class MineshaftPortalBehaviour

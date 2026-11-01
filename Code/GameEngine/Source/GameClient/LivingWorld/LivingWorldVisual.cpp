@@ -66,12 +66,7 @@ public:
 };
 extern W3DShadowManager *TheW3DShadowManager;
 
-class GlobalData
-{
-public:
-	unsigned char m_pad00[0x60];
-	bool m_useShadowVolumes;	// +0x60
-};
+#include "../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
 // Render-object option block (rowed copy worker 0x0013101E).

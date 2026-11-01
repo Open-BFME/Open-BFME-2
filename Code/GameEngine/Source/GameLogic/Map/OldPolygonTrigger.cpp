@@ -387,13 +387,7 @@ class Rva003291F4
 public:
 	int rva003291F4(AreaRefValueView area);
 };
-class GlobalData
-{
-public:
-	char m_pad00[0x78];
-	float m_waterExtentX;
-	float m_waterExtentY;
-};
+#include "../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 struct Rva00329663Trigger
 {

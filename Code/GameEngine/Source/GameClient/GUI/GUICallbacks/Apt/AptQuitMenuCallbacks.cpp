@@ -312,14 +312,7 @@ struct Rva0023D607Holder
 extern class LinearCampaignManager *TheLinearCampaignManager;
 
 // TheWritableGlobalData (0x009FE758): the map name and the pending file.
-class GlobalData
-{
-public:
-	unsigned char m_pad000[0x0C];
-	AsciiString m_mapName; // +0x0C
-	unsigned char m_pad010[0xAC0 - 0x10];
-	AsciiString m_pendingFile; // +0xAC0
-};
+#include "../../../../../Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;
 
@@ -853,7 +846,7 @@ void restartMissionMenu()
 	}
 	else
 	{
-		TheWritableGlobalData->m_pendingFile = mapName;
+		TheWritableGlobalData->field0AC0 = mapName;
 		GameMessage *msg = TheMessageStream->appendMessage(0x1E);
 		msg->appendIntegerArgument(gameMode);
 		msg->appendIntegerArgument(diff);

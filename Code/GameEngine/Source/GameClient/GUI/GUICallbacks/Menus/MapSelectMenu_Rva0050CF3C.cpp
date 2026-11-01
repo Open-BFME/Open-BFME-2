@@ -107,12 +107,7 @@ public:
 	virtual ~LANPreferences();
 };
 
-class GlobalData
-{
-public:
-	unsigned char m_pad000[0xAC0];
-	AsciiString m_pendingFile; // +0xAC0
-};
+#include "../../../../../Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;
 
@@ -143,7 +138,7 @@ void Rva0050CF3CStartHeadlessLanGame(void)
 	TheLAN->SetLocalIP(AsciiString("127.0.0.1"));
 
 	LANPreferences pref(0);
-	pref.rva0044DD83(AsciiStringToQuotedPrintable(TheWritableGlobalData->m_pendingFile));
+	pref.rva0044DD83(AsciiStringToQuotedPrintable(TheWritableGlobalData->field0AC0));
 	pref.write();
 
 	UnicodeString userName = pref.rva0044D330();

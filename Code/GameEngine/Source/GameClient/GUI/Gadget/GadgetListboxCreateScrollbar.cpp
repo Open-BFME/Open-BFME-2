@@ -83,13 +83,7 @@ public:
 };
 extern GameWindowManager *TheWindowManager;
 
-class GlobalData
-{
-public:
-	unsigned char m_pad00[0x30];
-	Int m_xResolution;			// +0x30
-	Int m_yResolution;			// +0x34
-};
+#include "../../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
 void Rva004BCB20(GameWindow *window, Int value);

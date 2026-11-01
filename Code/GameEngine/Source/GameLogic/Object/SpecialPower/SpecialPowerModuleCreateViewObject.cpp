@@ -81,12 +81,7 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class GlobalData
-{
-public:
-	char m_pad[0xBA4];
-	AsciiString m_specialPowerViewObjectName;
-};
+#include "../../../../Include/Common/GlobalData.h"
 
 extern class GlobalData *TheWritableGlobalData;
 
@@ -156,7 +151,7 @@ void SpecialPowerModule::createViewObject(const Coord3D *location)
 	if (visionRange == 0 || visionDuration == 0)
 		return; // We don't want a view object at all.
 
-	AsciiString objectName = TheWritableGlobalData->m_specialPowerViewObjectName;
+	AsciiString objectName = TheWritableGlobalData->m_specialPowerViewObject;
 	if (objectName.isEmpty())
 		return;
 

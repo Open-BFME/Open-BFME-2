@@ -55,11 +55,7 @@ extern GameTextInterface *TheGameText;
 
 bool GetRegistryUseLocalUserMaps();
 
-class GlobalData
-{
-public:
-	AsciiString rva002360DE() const;
-};
+#include "../../../Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;
 

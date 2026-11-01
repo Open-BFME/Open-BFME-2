@@ -19,12 +19,7 @@ char g_00BF4028;
 
 #include "../../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
-class GlobalData
-{
-public:
-	unsigned char m_pad[0x9E0];
-	AsciiString m_healingBuff;
-};
+#include "../../../../Include/Common/GlobalData.h"
 
 extern class GlobalData *TheWritableGlobalData;
 
@@ -58,7 +53,7 @@ private:
 inline StructureBodyModuleData::StructureBodyModuleData()
 {
 	*(const void **)this = reinterpret_cast<const void *>((unsigned int)&g_00BF4028);
-	AsciiString &healingDefault = TheWritableGlobalData->m_healingBuff;
+	AsciiString &healingDefault = TheWritableGlobalData->m_defaultStructureRepairBuffFxList;
 	if (!reinterpret_cast<const StringBase<char> *>(&healingDefault)->isEmpty())
 		m_healingBuffFx = TheFXListStore->findFXList(healingDefault.str());
 }

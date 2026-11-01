@@ -69,12 +69,7 @@ public:
 	virtual void gap7() = 0;
 	virtual int rva0045342FSlot8() = 0;
 };
-class GlobalData
-{
-public:
-	unsigned char m_pad000[0xA88];
-	int m_timeAfterDamageUntilRepairAllowed; // +0xA88
-};
+#include "../../../../Include/Common/GlobalData.h"
 extern class GlobalData *TheWritableGlobalData;
 // What Object::rva0028BCF4 hands back: slot 5 runs on it.
 class Rva00454501Peer : public Rva00454430Slots<5>

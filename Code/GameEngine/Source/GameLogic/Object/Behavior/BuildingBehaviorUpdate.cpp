@@ -49,12 +49,7 @@ public:
 	unsigned char m_flags438;							// +0x438
 };
 
-class GlobalData
-{
-public:
-	unsigned char m_pad000[0x134];
-	Int m_timeOfDay;											// +0x134
-};
+#include "../../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
 struct BuildingWindowList

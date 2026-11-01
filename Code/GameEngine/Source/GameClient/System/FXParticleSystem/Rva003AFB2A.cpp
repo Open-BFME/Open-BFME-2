@@ -3,12 +3,7 @@
 // Evidence: unlock lane; virtual slot 0x1c fills local Coord3D then SSE scales via TheWritableGlobalData+0x9ec g_Va00BBB8D8 g_Va007C26F0; ret 0x14; caller 0x1F5586.
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
-class GlobalData
-{
-public:
-	char m_pad[0x9EC];
-	volatile float m_particleScale;
-};
+#include "../../../../Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;
 extern float g_Va00BBB8D8;

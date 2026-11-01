@@ -118,12 +118,7 @@ private:
 
 extern AI *TheAI;
 
-class GlobalData
-{
-public:
-	unsigned char m_pad000[0xAE4];
-	Real m_defaultStructureRubbleHeight; // +0xAE4
-};
+#include "../../../../Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;
 

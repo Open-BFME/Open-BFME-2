@@ -17,7 +17,8 @@
 // All receiver/layout views cover observed prefixes, not original full extents.
 #include "Lib/Coord3D.h"
 struct Rva0087DC00Vec{int x,y,z;};class Rva0087DC00{public:void get(Rva0087DC00Vec*);char pad[4];bool flag04;char pad5[0x18-5];Rva0087DC00Vec center;};
-class GlobalData{public:char pad[0xcf8];bool showGeometry;};extern GlobalData *TheWritableGlobalData;
+#include "../../../Include/Common/GlobalData.h"
+extern GlobalData *TheWritableGlobalData;
 class View{public:virtual void slot00();
 virtual void slot04();
 virtual void slot08();
@@ -42,5 +43,5 @@ void Object::rva0028C2DD(Coord3D *out)const{
   matrix[1][0]*local.x+matrix[1][1]*local.y+matrix[1][2]*local.z+matrix[1][3],
   matrix[2][2]*local.z+matrix[2][1]*local.y+matrix[2][0]*local.x+matrix[2][3]);
  out->x=p.x;out->y=p.y;out->z=p.z;
- if(TheWritableGlobalData->showGeometry){TheTacticalView->slot30(out,3.0f,0xff00ff77);TheTacticalView->slot30(out,6.0f,0xff00ff77);TheTacticalView->slot30(out,9.0f,0xff00ff77);TheTacticalView->slot30(out,12.0f,0xff00ff77);TheTacticalView->slot30(out,15.0f,0xff00ff77);}
+ if(TheWritableGlobalData->field0CF8){TheTacticalView->slot30(out,3.0f,0xff00ff77);TheTacticalView->slot30(out,6.0f,0xff00ff77);TheTacticalView->slot30(out,9.0f,0xff00ff77);TheTacticalView->slot30(out,12.0f,0xff00ff77);TheTacticalView->slot30(out,15.0f,0xff00ff77);}
 }

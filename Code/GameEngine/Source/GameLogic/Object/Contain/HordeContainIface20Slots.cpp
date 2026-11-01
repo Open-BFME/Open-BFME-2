@@ -117,12 +117,7 @@ public:
  unsigned char m_pad000[0x234];
  int m_234;
 };
-class GlobalData
-{
-public:
- unsigned char m_pad000[0x9A6];
- bool m_useSimpleHordeDecals;
-};
+#include "../../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
 class UpdateModuleView

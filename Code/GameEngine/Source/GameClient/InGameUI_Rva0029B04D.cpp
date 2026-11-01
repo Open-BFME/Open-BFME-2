@@ -19,12 +19,7 @@
 
 #include "../Common/GameLogicObjectLookupView.h"
 
-class GlobalData
-{
-public:
-	char m_opaque000[0xDD0];
-	bool m_useHelpTextSystem;	// +0xDD0
-};
+#include "../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 #define TheGlobalData ((const GlobalData *)TheWritableGlobalData)
 

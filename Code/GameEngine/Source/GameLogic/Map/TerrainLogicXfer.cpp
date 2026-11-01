@@ -385,12 +385,7 @@ private:
 
 extern GameLogic *TheGameLogic;
 
-class GlobalData
-{
-public:
-	char m_pad00[0xA60];
-	Int m_supplyBoxesPerTree; // +0xA60
-};
+#include "../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
 struct WaterToUpdate

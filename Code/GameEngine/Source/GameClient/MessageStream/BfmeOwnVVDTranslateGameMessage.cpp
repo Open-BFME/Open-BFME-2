@@ -160,12 +160,7 @@ public:
 	int y; // +0x04
 };
 
-class GlobalData
-{
-public:
-	char m_pad00[0x2C];
-	bool m_windowed; // +0x2C
-};
+#include "../../../Include/Common/GlobalData.h"
 
 class Shell
 {

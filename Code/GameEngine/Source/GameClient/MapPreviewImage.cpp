@@ -27,7 +27,7 @@ extern FileSystem *TheFileSystem;
 // Native300F6E passes TheGameState and3010A4 uses TheWritableGlobalData's
 // existing narrow path getter. These declaration-only views preserve their
 // established ABI; no donor global address or additional pin is carried over.
-class GlobalData {public: AsciiString rva002360DE() const;};
+#include "../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 class GameState {public: AsciiString realMapPathToPortableMapPath(const AsciiString &) const;};
 extern GameState *TheGameState;

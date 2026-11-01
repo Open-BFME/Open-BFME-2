@@ -546,12 +546,7 @@ typedef char ParticleTemplateSize[sizeof(ParticleSystemTemplate) == 0xD4 ? 1 : -
 
 }
 
-class GlobalData
-{
-public:
-	char m_pad[0x9EC];
-	volatile float m_particleScale;
-};
+#include "../../../Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;
 

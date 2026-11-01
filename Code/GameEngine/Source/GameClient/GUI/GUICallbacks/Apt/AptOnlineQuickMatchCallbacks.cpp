@@ -22,7 +22,7 @@ class MultiplayerColorDefinition {public:char unknown[0x10];int color;};
 class MultiplayerSettings {public:char unknown[0x38];int colorCount;int unknown3c;int cachedColorCount;MultiplayerColorDefinition *getColor(int);};
 extern MultiplayerSettings *TheMultiplayerSettings;
 class QuickMatchPreferences {public:int getColor();};
-class GlobalData {public:char unknown[0x30];int resolutionX;};
+#include "../../../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 class Rva00323619 {public:void rva00323642();void rva00323619(int);};
 class Rva003235B8 {public:int rva003235B8(const Image*,int,int,int);};
@@ -161,7 +161,7 @@ void AptOnline::OnlineQuickMatch::rva005BA803() {
  OnlineQuickMatchWindowRef *combo=&m_color;
  ((Rva00323619*)combo)->rva00323642();
  int width,height;combo->m_window->winGetSize(&width,&height);
- int screenWidth=TheWritableGlobalData->resolutionX;
+ int screenWidth=TheWritableGlobalData->m_xResolution;
  int boxWidth=((width-(screenWidth*32)/1024)*1024)/screenWidth;
  for(int i=0;i<colors;++i) {
   MultiplayerColorDefinition *color=TheMultiplayerSettings->getColor(i);

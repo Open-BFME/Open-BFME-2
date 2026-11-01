@@ -34,20 +34,7 @@ private:
 	unsigned char m_data[0x20];
 };
 
-class GlobalData
-{
-public:
-	char prefix[0x9b8]; // +0x00
-	int m_flag9B8; // +0x9B8
-	char m_pad9BC[0x804];
-	unsigned int limitMs; // +0x11C0
-	char m_pad11C4[0x24];
-	int cellsPerFrame; // +0x11E8
-	char m_pad11EC[0xC];
-	int m_maxCellsAdjustTargetDestination; // +0x11F8
-	char m_pad11FC[0x20];
-	unsigned callbackLimit; // +0x121C
-};
+#include "../../../Include/Common/GlobalData.h"
 extern class GlobalData *TheWritableGlobalData;
 
 class Pathfinder

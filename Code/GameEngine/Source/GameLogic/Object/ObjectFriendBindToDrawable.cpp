@@ -41,16 +41,7 @@ public:
 enum { WEAPONSET_COUNT = 104 };
 extern const ModelConditionFlagType TheWeaponSetTypeToModelConditionTypeMap[WEAPONSET_COUNT];
 
-class GlobalData
-{
-public:
-	unsigned char m_pad000[0x134];
-	int m_timeOfDay;						// +0x134
-	int m_weather;							// +0x138
-	unsigned char m_pad13C[2];
-	bool m_forceModelsToFollowTimeOfDay;	// +0x13E
-	bool m_forceModelsToFollowWeather;		// +0x13F
-};
+#include "../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
 // The manager at TheGameLogic +0x178; its 0x0043846D is rowed under this owner.
