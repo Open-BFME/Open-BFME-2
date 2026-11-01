@@ -34,11 +34,7 @@ struct Rva005B5C02List
 
 // The manager's rowed hero-list fetch 0x0021F797.
 class Rva0040A3F9;
-class CreateAHeroManager
-{
-public:
-	Rva0040A3F9 *rva0021F797();
-};
+#include "../../Include/GameLogic/CreateAHeroManager.h"
 extern CreateAHeroManager *TheCreateAHeroManager;
 
 struct Rva005B5C02Box

@@ -5,11 +5,7 @@
 // the pinned arg-free callee. The int parameter is unused. Targets from
 // retail REL32/DIR32; globals carried as named externs (no pins needed).
 class CreateAHeroData;
-class CreateAHeroManager
-{
-public:
-	void rva0021A428(const CreateAHeroData &data);
-};
+#include "../../Include/GameLogic/CreateAHeroManager.h"
 
 extern CreateAHeroManager *TheCreateAHeroManager;
 extern class Shell *TheShell;

@@ -35,7 +35,8 @@ class LanguageFilter {public:void filterLine(UnicodeString&);};extern LanguageFi
 class CreateAHeroData;
 struct AppearanceHeroNameView {char unknown00[8];UnicodeString name;};
 class Rva0040A3F9 {public:CreateAHeroData*rva0040A32F(int);int size()const{return end-begin;}private:CreateAHeroData**begin,**end;};
-class CreateAHeroManager {public:Rva0040A3F9*rva0021F797();};extern CreateAHeroManager*TheCreateAHeroManager;
+#include "../../Include/GameLogic/CreateAHeroManager.h"
+extern CreateAHeroManager*TheCreateAHeroManager;
 class GameWindowManager;extern GameWindowManager*TheWindowManager;
 class Rva005B4F20WindowManagerView {public:
  virtual void slot00();

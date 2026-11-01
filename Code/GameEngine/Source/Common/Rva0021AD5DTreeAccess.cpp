@@ -17,10 +17,7 @@ public:
     static _Rb_tree_node_base *__cdecl _M_increment(_Rb_tree_node_base *);
 };
 }
-class CreateAHeroManager {
-public:
-    class CreateAHeroSubClass;
-};
+#include "../../Include/GameLogic/CreateAHeroManager.h"
 class CreateAHeroManager::CreateAHeroSubClass {
     char m_pad[0x24];
     _STL::_Rb_tree_node_base *m_header;

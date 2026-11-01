@@ -6,11 +6,7 @@ struct Rva0028F2F8Aux
 };
 // The rowed lookup ?rva002197A6@CreateAHeroManager@@QAEPAVCreateAHeroData@@H@Z.
 class CreateAHeroData;
-class CreateAHeroManager
-{
-public:
-	CreateAHeroData *rva002197A6(int v);
-};
+#include "../../Include/GameLogic/CreateAHeroManager.h"
 extern CreateAHeroManager *TheCreateAHeroManager;
 class Object
 {

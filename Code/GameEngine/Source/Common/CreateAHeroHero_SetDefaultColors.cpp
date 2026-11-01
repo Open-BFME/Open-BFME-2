@@ -1,12 +1,6 @@
 // cl: /MD
 // ?SetDefaultColors@CreateAHeroHero@@QAE_NXZ @0x00407020 94B: thiscall bool init reading +0xC +0x10 via TheCreateAHeroManager then conditional setters 0x406F12 0x406F27 0x406F3C then flag +0x39. Evidence: chain via 0x406F12 now ready; callees all rowed; callers 0x5B48BC 0x5B4CFB 0x5B56DC.
-class CreateAHeroManager
-{
-public:
-	int rva0021A016(unsigned int o, unsigned int i);
-	int rva0021A041(unsigned int o, unsigned int i);
-	int rva0021A06C(unsigned int o, unsigned int i);
-};
+#include "../../Include/GameLogic/CreateAHeroManager.h"
 class Rva00406F12
 {
 public:

@@ -11,7 +11,7 @@
 // Handles opaque; callees unproven (address-derived).
 
 
-class CreateAHeroManager { public: class CreateAHeroSubClass; };
+#include "../../Include/GameLogic/CreateAHeroManager.h"
 class Rva0021DE75;
 
 namespace _STL

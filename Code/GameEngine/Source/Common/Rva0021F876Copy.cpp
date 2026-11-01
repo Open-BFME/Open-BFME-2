@@ -14,12 +14,7 @@
 
 
 
-class CreateAHeroManager
-{
-public:
-    class CreateAHeroClass;
-    class CreateAHeroSubClass { public: int a[54]; };
-};
+#include "../../Include/GameLogic/CreateAHeroManager.h"
 
 namespace _STL
 {

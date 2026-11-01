@@ -12,12 +12,7 @@
 #include <map>
 #include <vector>
 
-class CreateAHeroManager
-{
-public:
-	struct CreateAHeroSubClass;
-	void *GetBling(unsigned int index);
-};
+#include "../../../Include/GameLogic/CreateAHeroManager.h"
 
 extern CreateAHeroManager *TheCreateAHeroManager;
 

@@ -134,11 +134,7 @@ public:
     UnicodeString m_name;                   // +0x08
 };
 
-class CreateAHeroManager
-{
-public:
-    const CreateAHeroHero *GetHeroForPlayer(const Player *player);
-};
+#include "../../Include/GameLogic/CreateAHeroManager.h"
 
 extern CreateAHeroManager *TheCreateAHeroManager;
 

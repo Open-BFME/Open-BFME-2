@@ -3,11 +3,7 @@
 // Forward to rowed 0x00219F00 via global TheCreateAHeroManager.
 // Retail: push esp+4 push ecx+10 push ecx+0c mov ecx global call.
 // Callers 0x00407EC6/0x00407F56/0x00409B30/0x005B5E64/0x005B60A7/0x005B0373. Honest-address method.
-class CreateAHeroManager
-{
-public:
-    int GetAwardNameKey(unsigned int o, unsigned int o2, unsigned int i);
-};
+#include "../../Include/GameLogic/CreateAHeroManager.h"
 extern CreateAHeroManager *TheCreateAHeroManager;
 class Rva00406E8F
 {

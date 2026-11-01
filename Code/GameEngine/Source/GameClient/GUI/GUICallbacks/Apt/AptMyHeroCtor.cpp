@@ -49,12 +49,7 @@ public:
 };
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
-class CreateAHeroManager
-{
-public:
-	char pad000[0x1D4];
-	unsigned int m_1D4; // award count
-};
+#include "../../../../../Include/GameLogic/CreateAHeroManager.h"
 extern CreateAHeroManager *TheCreateAHeroManager;
 
 const AsciiString &rva005B0A53(const char *kind, int index);
@@ -236,7 +231,7 @@ AptMyHero::AptMyHero(AptCreateAHero *holder)
 		holder140->m_externHandlers.AddExternHandler(name, 2, AptRef<AptExternHandler>(MakeDelegate(this, &Rva005B03B4::rva005B03B4)));
 	}
 	{
-		unsigned int awards = TheCreateAHeroManager->m_1D4;
+		unsigned int awards = TheCreateAHeroManager->field1D4;
 		unsigned int i = 0;
 		if (awards > 0) {
 			DelegateDesc awardHandler = MakeDelegate(this, &CreateAHeroHero::rva005B0357);

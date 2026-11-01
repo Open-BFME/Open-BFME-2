@@ -20,11 +20,7 @@ private:
 // 0x0021F47E is rowed as CreateAHeroManager::LoadMyHeroList (357B; WB
 // B7EE40) - same-this no-arg call, so this resolves to the rowed body
 // instead of the unrowed spelling (sole U on this unit).
-class CreateAHeroManager
-{
-public:
-	void LoadMyHeroList();
-};
+#include "../../Include/GameLogic/CreateAHeroManager.h"
 
 unsigned int CreateAHeroCRC::getCRC()
 {

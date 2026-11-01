@@ -16,11 +16,7 @@ struct Rva005B5C02List
 
 // The list getter 0x0021F797 is the rowed CreateAHeroManager::rva0021F797.
 class Rva0040A3F9;
-class CreateAHeroManager
-{
-public:
-	Rva0040A3F9 *rva0021F797();
-};
+#include "../../Include/GameLogic/CreateAHeroManager.h"
 extern CreateAHeroManager *TheCreateAHeroManager;
 #define TheHeroManager TheCreateAHeroManager
 #include "unicode_string.h"

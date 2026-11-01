@@ -3,11 +3,7 @@
 // Evidence: unlock lane; callees rva0021BC0D rowed rva0021BCA7 rowed; callers 0x21CB06; returns AsciiString at +4 or TheEmptyString; global g_00DFE354 out; this has map at +0x24 like Rva0021BCA7.
 #include "ascii_string.h"
 
-class CreateAHeroManager
-{
-public:
-	class CreateAHeroSubClass;
-};
+#include "../../../Include/GameLogic/CreateAHeroManager.h"
 
 class CreateAHeroManager::CreateAHeroSubClass
 {

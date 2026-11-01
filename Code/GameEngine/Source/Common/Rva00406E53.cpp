@@ -3,11 +3,7 @@
 // Unlock lane: forwards this+0xC and this+0x10 to rowed
 // CreateAHeroManager::GetStatCount on TheCreateAHeroManager; callers 0x0040891A 0x0040899F
 // 0x005B5F6D 0x005B6028. Honest-address method.
-class CreateAHeroManager
-{
-public:
-    int GetStatCount(unsigned int a, unsigned int b);
-};
+#include "../../Include/GameLogic/CreateAHeroManager.h"
 extern CreateAHeroManager *TheCreateAHeroManager;
 
 class Rva00406E53

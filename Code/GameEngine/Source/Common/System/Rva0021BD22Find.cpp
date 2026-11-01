@@ -24,11 +24,7 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
 { return a._M_node != b._M_node; }
 }
 
-class CreateAHeroManager
-{
-public:
-	struct CreateAHeroSubClass;
-};
+#include "../../../Include/GameLogic/CreateAHeroManager.h"
 
 struct CreateAHeroManager::CreateAHeroSubClass
 {

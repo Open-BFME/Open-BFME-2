@@ -14,7 +14,7 @@
 // bfme link decl-only BfmeE16
 namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
 
-class CreateAHeroManager { public: class CreateAHeroClass; };
+#include "../../Include/GameLogic/CreateAHeroManager.h"
 typedef CreateAHeroManager::CreateAHeroClass CreateAHeroClass;
 
 class CreateAHeroManager::CreateAHeroClass

@@ -4,11 +4,7 @@
 // CreateAHeroManager::GetAwardCount on TheCreateAHeroManager; sibling of 0x00406E53.
 // Callers 0x00407E9F 0x00407F2E 0x00409B1E 0x00409C20 0x005B0362 0x005B608A.
 // Honest-address method.
-class CreateAHeroManager
-{
-public:
-    int GetAwardCount(unsigned int a, unsigned int b);
-};
+#include "../../Include/GameLogic/CreateAHeroManager.h"
 extern CreateAHeroManager *TheCreateAHeroManager;
 
 class Rva00406E7D

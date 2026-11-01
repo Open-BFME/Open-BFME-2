@@ -163,12 +163,7 @@ public:
 };
 
 // TheCreateAHeroManager 0x009FE344 and its rowed 0x00219309 count.
-class CreateAHeroManager
-{
-public:
-	int GetRequiredButtonCount();
-	const class CommandButton *GetRequiredButton(unsigned int index);
-};
+#include "../../../../../Include/GameLogic/CreateAHeroManager.h"
 extern CreateAHeroManager *TheCreateAHeroManager;
 
 // Rowed in AptHeroPowerText.cpp: points the Apt image key "%s_%d" (or

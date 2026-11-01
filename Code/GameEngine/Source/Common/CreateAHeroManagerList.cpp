@@ -14,16 +14,7 @@ public:
 	void rva0021F47E();
 };
 
-class CreateAHeroManager : public CreateAHeroCRC
-{
-public:
-	Rva0040A3F9 *rva0021F797();
-	int rva002192C0();
-
-private:
-	char m_pad001[0x174];
-	Rva0040A3F9 m_entries;
-};
+#include "../../Include/GameLogic/CreateAHeroManager.h"
 
 // The exact rva0021F797 definition is owned by CreateAHeroManagerHeroList.cpp.
 

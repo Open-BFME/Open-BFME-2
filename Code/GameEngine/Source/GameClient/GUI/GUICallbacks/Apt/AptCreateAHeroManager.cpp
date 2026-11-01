@@ -20,7 +20,7 @@ extern ImageCollection *TheMappedImageCollection;
 enum NameKeyType;
 class CreateAHeroData {public:unsigned GetStatValue(const NameKeyType *);char prefix[8];UnicodeString name;unsigned major,minor;char gap[0x48-0x14];bool isDefault;};
 class Rva0040A3F9 {public:unsigned *first,*last,*limit;bool rva0040A441(CreateAHeroData *);};
-class CreateAHeroManager {public:Rva0040A3F9 *rva0021F797();const AsciiString &GetSubClassNameTag(unsigned,unsigned);};
+#include "../../../../../Include/GameLogic/CreateAHeroManager.h"
 extern CreateAHeroManager *TheCreateAHeroManager;
 class GameTextInterface {public:
 #define V(n) virtual void slot##n();

@@ -8,7 +8,7 @@
 // rides edi. Targets from retail REL32/DIR32.
 // Row spellings of the three callees.
 class CreateAHeroData;
-class CreateAHeroManager { public: void rva0021A428(const CreateAHeroData &data); };
+#include "../../Include/GameLogic/CreateAHeroManager.h"
 class Rva005B034ADwordSlot { public: void set(int v); };
 class AptCreateAHero { public: class Manager { public: void PopulateHeroList(); }; };
 

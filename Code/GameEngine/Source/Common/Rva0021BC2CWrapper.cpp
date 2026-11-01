@@ -6,7 +6,7 @@
 // this+0x24 lea-eax-&arg push mov-ecx-esi call; mov-ecx-eax cmp-ecx-[esi]
 // pop-esi je-xor else mov-eax-[ecx+0x18] sub-eax-[ecx+0x14] sar-2 ret-4
 // (int, one int arg). Map/vector identities unproven (address-derived).
-class CreateAHeroManager { public: class CreateAHeroSubClass; };
+#include "../../Include/GameLogic/CreateAHeroManager.h"
 class Rva0021DE75;
 
 namespace _STL

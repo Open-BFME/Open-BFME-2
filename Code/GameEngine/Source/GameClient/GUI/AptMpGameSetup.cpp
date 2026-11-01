@@ -366,25 +366,7 @@ struct Rva00219F8EMask
 };
 
 // TheCreateAHeroManager (0x00DFE344), spelled as Rva00406E65.cpp does.
-class CreateAHeroManager
-{
-public:
-	// Unrowed 0x0021F797 (16 bytes; runs 0x0021F47E and returns +0x174),
-	// pinned by address.
-	Rva0040A3F9 *rva0021F797();
-	void *GetFactionMaskType(unsigned int a, unsigned int b);
-
-	__forceinline bool allowsSide(unsigned int a, unsigned int b, int side)
-	{
-		return ((Rva00219F8EMask *)GetFactionMaskType(a, b))->test(side);
-	}
-	// CreateAHeroManager::GetDefaultHero 0x0021A6C8 (a hero for a side,
-	// scanning the +0x174 list).
-	CreateAHeroData *GetDefaultHero(int side);
-	// CreateAHeroManager::GetSubClassNameTag 0x0021B13A (the label for a
-	// class/subclass key, a static default when unknown).
-	const AsciiString &GetSubClassNameTag(unsigned int classIndex, unsigned int subClassIndex);
-};
+#include "../../../Include/GameLogic/CreateAHeroManager.h"
 
 class PlayerTemplate
 {

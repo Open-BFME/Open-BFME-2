@@ -265,12 +265,7 @@ public:
 	CreateAHeroData *rva0040A32F(int index);
 };
 
-class CreateAHeroManager
-{
-public:
-	Rva0040A3F9 *rva0021F797();
-	void rva0021A428(const CreateAHeroData &hero);
-};
+#include "../../../../../Include/GameLogic/CreateAHeroManager.h"
 
 // The data ledger and GameEngine::init name RVA9FE344 TheCreateAHeroManager.
 // The existing retail calls establish this manager view.

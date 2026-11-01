@@ -39,10 +39,7 @@ class Thing {
 	}
 };
 class Rva002195E6;
-class CreateAHeroManager {
-	public:
-	const Rva002195E6 *GetViewInfo(unsigned int,unsigned int);
-};
+#include "../../../../../Include/GameLogic/CreateAHeroManager.h"
 extern CreateAHeroManager *TheCreateAHeroManager;
 class Rva005B01D3 {
 	public:

@@ -149,11 +149,7 @@ public:
 	CreateAHeroData *rva0040A32F(int index);
 };
 
-class CreateAHeroManager
-{
-public:
-	Rva0040A3F9 *rva0021F797();
-};
+#include "../../Include/GameLogic/CreateAHeroManager.h"
 
 extern CreateAHeroManager *TheCreateAHeroManager;
 

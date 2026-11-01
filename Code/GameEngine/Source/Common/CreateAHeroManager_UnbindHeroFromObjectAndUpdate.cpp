@@ -39,14 +39,7 @@ public:
 
 #include "../../Include/Common/Player.h"
 
-class CreateAHeroManager
-{
-public:
-	void UnbindHeroFromObjectAndUpdate(Object *obj);
-private:
-	unsigned char m_pad[0x190];
-	AsciiString m_upgrade;
-};
+#include "../../Include/GameLogic/CreateAHeroManager.h"
 
 void CreateAHeroManager::UnbindHeroFromObjectAndUpdate(Object *obj)
 {
@@ -59,6 +52,6 @@ void CreateAHeroManager::UnbindHeroFromObjectAndUpdate(Object *obj)
 	Player *player = obj->getControllingPlayer();
 	if (!player)
 		return;
-	const UpgradeTemplate *upgrade = TheUpgradeCenter->findUpgrade(m_upgrade);
+	const UpgradeTemplate *upgrade = TheUpgradeCenter->findUpgrade(field190);
 	player->addUpgrade(upgrade, UPGRADE_STATUS_COMPLETE, 1);
 }

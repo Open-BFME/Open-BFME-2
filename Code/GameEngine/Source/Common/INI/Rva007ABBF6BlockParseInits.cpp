@@ -118,11 +118,7 @@ class CrateSystem
 public:
 	static void parseCrateTemplateDefinition(INI *);
 };
-class CreateAHeroManager
-{
-public:
-	static void iniParseCreateAHeroSystem(INI *);
-};
+#include "../../../Include/GameLogic/CreateAHeroManager.h"
 class DamageFXStore
 {
 public:

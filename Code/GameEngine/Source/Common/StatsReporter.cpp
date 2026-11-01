@@ -326,7 +326,7 @@ class Rva0021937DTarget;
 
 class Rva0021937D {public:void rva002193D9(Rva0021937DTarget*);void rva00219407(Rva0021937DTarget*);};
 
-class CreateAHeroManager {};
+#include "../../Include/GameLogic/CreateAHeroManager.h"
 
 // Canonical GameLogic supplies the frame at +0x40; this unit also reads the
 // desync byte at +0x71 and the game-result word at +0x2A4 (native 5C062E).

@@ -26,17 +26,11 @@ public:
 	const CommandButton *getCommandButton(int i) const;
 };
 
-class CreateAHeroManager
-{
-public:
-	int GetRequiredButtonCount();
-	char m_pad[0x1dc];
-	AsciiString m_name;
-};
+#include "../../Include/GameLogic/CreateAHeroManager.h"
 
 int CreateAHeroManager::GetRequiredButtonCount()
 {
-	void *p = ((Rva0031D5F8 *)(*(BfmeWorldRV **)&TheControlBar))->rva0031D5F8(&m_name);
+	void *p = ((Rva0031D5F8 *)(*(BfmeWorldRV **)&TheControlBar))->rva0031D5F8(&field1DC);
 	if (p == 0)
 		return 0;
 	CommandSet *cmdSet = (CommandSet *)p;

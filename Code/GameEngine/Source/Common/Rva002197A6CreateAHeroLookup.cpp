@@ -46,11 +46,7 @@ extern GameInfo *TheGameInfo;
 extern unsigned int g_00DFE358;
 #define g_CreateAHeroRegistry (*(_STL::vector<CreateAHeroData *> *)&g_00DFE358)
 
-class CreateAHeroManager
-{
-public:
-	CreateAHeroData *rva002197A6(int id);
-};
+#include "../../Include/GameLogic/CreateAHeroManager.h"
 
 CreateAHeroData *CreateAHeroManager::rva002197A6(int id)
 {

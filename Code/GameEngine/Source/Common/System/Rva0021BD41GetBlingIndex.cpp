@@ -33,12 +33,7 @@ bool less<int>::operator()(const int &a, const int &b) const
 { return a < b; }
 }
 
-class CreateAHeroManager
-{
-public:
-	struct CreateAHeroSubClass;
-	void *GetBling(unsigned int index);
-};
+#include "../../../Include/GameLogic/CreateAHeroManager.h"
 
 extern CreateAHeroManager *TheCreateAHeroManager;
 
