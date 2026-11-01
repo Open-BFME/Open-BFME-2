@@ -1,0 +1,16 @@
+link_check: preparing 11 explicit safe provider(s), no extra sources
+Compile: 10 of 11 TU(s) (deps-cache: 1 current)
+Source claims: OK (11 sources, scoped byte-verified)
+Data rows: OK (7 row(s) byte-verified)
+Compile: 0 of 11 TU(s) (deps-cache: 11 current)
+Funclet pins: 220 row(s) verified past a renumbered $L label
+    uw_007730cf (Code/GameEngine/Source/Common/System/Upgrade.cpp): $L48048 was renumbered; verified parent EH data places $L49162 at 0x007730CF
+    uw_0075cbc9 (Code/GameEngine/Source/Common/INI/INI.cpp): $L1203 was renumbered; verified parent EH data places $L69242 at 0x0075CBC9
+    $L1253 (Code/GameEngine/Source/Common/RTS/Team.cpp): $L1253 was renumbered; verified parent EH data places $L19808 at 0x00781AAB
+    $L1254 (Code/GameEngine/Source/Common/RTS/Team.cpp): $L1254 was renumbered; verified parent EH data places $L19809 at 0x00781AB5
+    $L3522 (Code/GameEngine/Source/Common/INI/INI.cpp): $L3522 was renumbered; verified parent EH data places $L68473 at 0x0075C98C
+Functions: OK 599/599 matched across 11 source file(s)
+String-ref verify: OK (80 literals + 19 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (16 compiler literals verified)
+Import-ref verify: OK (24 named imports verified)
+link_check: 11 explicit providers byte-verified with strict reusable receipts; census/index/status unchanged, LINK closure not yet checked

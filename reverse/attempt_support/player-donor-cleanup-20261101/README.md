@@ -245,3 +245,25 @@ without alternatives have no outside caller or alias. Six helper families
 have actual outside callers and all retain alternatives. Provider variants
 and these consumers remain subject to normal batch verification; the saved
 index audit is not a current census or a global unreferenced claim.
+
+## Final donor cleanup verification and remaining boundary
+
+The skill and kill removals plus the nine-method STL closure retire eleven
+further placeholder hatches. Strict preparation verifies 599/599 function
+rows across Player and ten explicit current providers/consumers; normal data,
+literal, float, import and native-EH checks also pass. The bounded preview
+retains all 31,738 linked bytes in the ten peer units. AIBuildable now has a
+fresh strict receipt and passes its own scope; this does not retrospectively
+clear the prior broad batch audit or make the older index current.
+
+Player has only two unresolved names, Money::deposit(unsigned,bool) and
+Money::withdraw(unsigned,bool). The science-vector losing/wrong-selected
+copy and all eight STL DLL imports are gone. The still-unverified
+transferAssetsFromThat donor introduces both remaining Money spellings. Its
+retirement remains blocked by loss of the seven-byte getDefaultTeam row, as
+proved by the earlier keeper trials; no runtime keeper or guessed getter
+contract is introduced. The native getter ownership/layout prerequisite is
+the next boundary for this TU. Preserve all twelve function rows, TheTeamFactory,
+the anchors and aliases. This pass claims debt retirement and scoped byte/peer
+verification, not new authored coverage, whole-image ownership, runtime or a
+new census. The official census still has 197 unlinked units.

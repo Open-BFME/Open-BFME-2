@@ -1,0 +1,11 @@
+Code/GameEngine/Source/Common/RTS/Player.cpp
+Code/GameEngine/Source/Common/RTS/PlayerGetRelationship.cpp
+Code/GameEngine/Source/Common/RTS/Team.cpp
+Code/GameEngine/Source/Common/RTS/TeamGetControllingPlayer.cpp
+Code/GameEngine/Source/Common/System/Upgrade.cpp
+Code/GameEngine/Source/Common/INI/INI.cpp
+Code/Libraries/Source/WWVegas/WWLib/stlport_vector_voidptr_alloc.cpp
+Code/GameEngine/Source/Common/AreaPolygonBase.cpp
+Code/GameEngine/Source/Common/AIBaseBuilder.cpp
+Code/GameEngine/Source/Common/BfmeObject476Copy.cpp
+Code/GameEngine/Source/Common/AIBuildable.cpp
