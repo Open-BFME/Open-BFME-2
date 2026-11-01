@@ -81,11 +81,6 @@ public:
 	virtual void rva000D20D6();
 };
 
-void Rva000D20D6::rva000D20D6()
-{
-	rva000D20D6_slot9();
-}
-
 // Target 5CCAB3..5CCACA RET leaf beside 5CCA98 on the same receiver: a
 // nonnull word4 answers through the slot-10 (+0x28) vcall thunk 001F34BA,
 // reached by a pointer to virtual member as the retail direct call requires.

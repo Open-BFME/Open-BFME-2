@@ -7148,7 +7148,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x000D206A,35,code,,displaced,-,N=Code/Libraries/Source/WWVegas/WW3D2/MeshModelClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/MeshModelSingleTexture.cpp
 0x000D208D,28,code,Code/GameEngine/Source/Common/System/TBuff.cpp,approved,C,C=0x000D1C83..0x000D20A9 provisional,Code/GameEngine/Source/Common/System/TBuff.cpp
 0x000D20A9,45,code,Code/GameEngine/Source/Common/System/TBuff.cpp,approved,C,C=0x000D1C83..0x000D20D6 provisional,Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp
-0x000D20D6,5,code,Code/GameEngine/Source/Common/System/TBuff.cpp,approved,C,C=0x000D1C83..0x000D20DB provisional,Code/GameEngine/Source/Common/VtableVirtualForwarders.cpp
+0x000D20D6,5,code,Code/GameEngine/Source/Common/System/TBuff.cpp,approved,C,C=0x000D1C83..0x000D20DB provisional,Code/GameEngine/Source/Common/System/TBuff.cpp
 0x000D20DB,33,code,Code/GameEngine/Source/Common/System/TBuff.cpp,approved,C,C=0x000D1C83..0x000D211D provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_o1.cpp
 0x000D20FC,28,code,,displaced,-,N=Code/Libraries/Source/WWVegas/WW3D2/UVBufferClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/MatInfoUVBufferO1Inlines.cpp
 0x000D2118,5,code,,displaced,-,S=Code/Libraries/Source/WWVegas/WW3D2/meshmatdesc.cpp N=Code/Libraries/Source/WWVegas/WW3D2/UVBufferClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/UVBufferClassDtor.cpp
