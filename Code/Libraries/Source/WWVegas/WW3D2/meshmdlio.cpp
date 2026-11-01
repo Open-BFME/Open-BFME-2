@@ -143,14 +143,6 @@ public:
 	MaterialCollectorClass		Materials;
 };
 
-class MilesAudioManager
-{
-public:
-    virtual int rva0005189D() const;
-    char m_lead[0x678 - sizeof(void *)];
-    int m_value;
-};
-
 BFME_DISP_DWORD_GETTER(Rva00188730DwordField, 0xBC)
 
 BFME_DISP_DWORD_GETTER(Rva00188740DwordField, 0xD4)
@@ -178,11 +170,6 @@ public:
 // BF1 9cbfb551fe Common/Bfme/Rva001BD660_setFlags.cpp is the clean semantic guide.
 // Complete native 0023C4CE..0023C4DB RET leaf proves: OR stack dword into receiver114; RET4.
 // Original owner and complete bounds unresolved; independent address-owned view.
-class Rva0023C4CEFields {
-public: void setFlags(unsigned int value);
-private: unsigned char unknown[0x114]; unsigned int flags;
-};
-
 class MeshMatDescClass;
 
 class MeshLoadContextClass : public W3DMPO
@@ -332,35 +319,10 @@ typedef char MeshLoadContextSizeCheck[sizeof(MeshLoadContextClass) == 0x24C ? 1 
 
 // --- 0x0015F560 (48B): four floats, returning this; 0x0015F590 (46B): set
 // them.
-class Rva0015F560
-{
-public:
-	Rva0015F560(float a, float b, float c, float d);
-	void rva0015F590(float a, float b, float c, float d);
-private:
-	float m_a;
-	float m_b;
-	float m_c;
-	float m_d;
-};
-
 // --- 0x0015F920 (57B): an identity rotation (when asked) and a zero
 // translation; 0x0015F9A0 (56B): a four-word rotation and a three-word
 // translation copied in.
 struct GapVec3;
-
-struct GapQuat
-{
- GapQuat() {}
- GapQuat(float ax,float ay,float az,float aw):x(ax),y(ay),z(az),w(aw) {}
- void assign(const GapQuat&v) {x=v.x;y=v.y;z=v.z;w=v.w;}
-
-	float x;
-	float y;
-	float z;
-	float w;
- void Rotate(const GapVec3&v,GapVec3*out) const;
-};
 
 struct GapVec3
 {
@@ -374,37 +336,7 @@ struct GapVec3
 	float z;
 };
 
-class Rva0015F920
-{
-public:
-	Rva0015F920(bool identity);
-	Rva0015F920(const GapQuat &rotation, const GapVec3 &translation);
-	static void rva0015F9E0(const Rva0015F920 &,const Rva0015F920 &,Rva0015F920 *);
-	void rva0015FE80(const GapVec3 &v);
-private:
-	GapQuat m_q;
-	GapVec3 m_t;
-};
-
 // --- 0x00167E04 (24B): copy a three-word value into +0x0C.
-struct GapWords3
-{
-	int a;
-	int b;
-	int c;
-};
-
-class Rva00167E04
-{
-public:
-	void rva00167E04(const GapWords3 &value);
-private:
-	char m_pad00[0x0C];
-	int m_0C;
-	int m_10;
-	int m_14;
-};
-
 // --- 0x0016EB50 (29B): the +0xA8 item i with a reference added.
 struct GapRefItem
 {
@@ -442,16 +374,6 @@ private:
 };
 
 // --- 0x0019AF00 (20B): three zero floats, returning this.
-class Rva0019AF00
-{
-public:
-	Rva0019AF00();
-private:
-	float m_x;
-	float m_y;
-	float m_z;
-};
-
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/MeshModelVertexColors.cpp

@@ -38,24 +38,6 @@ void Rva00042F5FByteOneSetter::enable()
 	m_enabled = 1;
 }
 
-class Rva000203AD5ByteOneSetter
-{
-public:
-	void enable();
-
-	char m_lead[0x1A4D4];
-	unsigned char m_enabled;
-};
-
-class Rva000203ADDByteZeroSetter
-{
-public:
-	void disable();
-
-	char m_lead[0x1A4D4];
-	unsigned char m_enabled;
-};
-
 class Rva0033F971ByteOneSetter
 {
 public:
@@ -223,15 +205,6 @@ void Rva000E0F16ByteOneSetter::enable()
 	m_enabled = 1;
 }
 
-class Rva000E9C15ByteOneSetter
-{
-public:
-	void enable();
-
-	char m_lead[0x4FB5C];
-	unsigned char m_enabled;
-};
-
 class Rva000EDB3FByteOneSetter
 {
 public:
@@ -274,15 +247,6 @@ void Rva001F3852ByteOneSetter::enable()
 	m_enabled = 1;
 }
 
-class Rva00203BE1ByteOneSetter
-{
-public:
-	void enable();
-
-	char m_lead[0x1A4D7];
-	unsigned char m_enabled;
-};
-
 class Rva00222479ByteOneSetter
 {
 public:
@@ -310,15 +274,6 @@ void Rva00238D7BByteOneSetter::enable()
 {
 	m_enabled = 1;
 }
-
-class Rva0023CF83ByteOneSetter
-{
-public:
-	void enable();
-
-	char m_lead[0x150];
-	unsigned char m_enabled;
-};
 
 class Rva0025C0F7ByteOneSetter
 {
@@ -417,15 +372,6 @@ void Rva0043DB66ByteOneSetter::enable()
 {
 	m_enabled = 1;
 }
-
-class Rva0047709EByteOneSetter
-{
-public:
-	void enable();
-
-	char m_lead[0x104];
-	unsigned char m_enabled;
-};
 
 class Rva004BF8EDByteOneSetter
 {
@@ -594,15 +540,6 @@ void Rva0038896BByteOneSetter::enable()
 {
 	m_enabled = 1;
 }
-
-class Rva000875CEByteZeroSetter
-{
-public:
-	void disable();
-
-	char m_lead[0x2439];
-	unsigned char m_enabled;
-};
 
 class Rva00210D0DByteZeroSetter
 {

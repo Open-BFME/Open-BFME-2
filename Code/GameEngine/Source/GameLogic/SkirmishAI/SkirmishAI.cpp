@@ -403,12 +403,6 @@ class Rva004E7B0CHolder { public: void rva004E7B0C(); void rva004E7D1D(); };
 class UnitRevivalTracker { public: void retrieveHeroesForArmySummary(ArmySummarySystem *summary); };
 
 // 0x00203595: this + 0x10 -> Rva003B24C7::rva003B24C7
-class Rva00203595Owner
-{
-public:
-	void rva00203595(bool val);
-};
-
 // 0x002C6AC3: this + 0x4 -> AIBaseBuilder::rva00506B96
 class Rva002C6AC3Owner
 {
@@ -417,54 +411,12 @@ public:
 };
 
 // 0x004EC0B9: this + 0x4 -> AIBaseBuilder::rva00506C39
-class Rva004EC0B9Owner
-{
-public:
-	bool rva004EC0B9(void *arg);
-};
-
 // 0x0030BBF9: this + 0x68 -> QuadStrip2D::rva0053892C
-class Rva0030BBF9Owner
-{
-public:
-	void rva0030BBF9(unsigned int count);
-};
-
 // 0x0030BC09: this + 0x68 -> Rva005382A6::rva005382A6
-class Rva0030BC09Owner
-{
-public:
-	void * rva0030BC09(int i, int off);
-};
-
 // 0x0057A313: this + 0x8 -> Rva005D40A6::Update
-class Rva0057A313Owner
-{
-public:
-	void update();
-};
-
 // 0x004CC594: this + 0x58C -> Rva004E7B0CHolder::rva004E7B0C
-class Rva004CC594Owner
-{
-public:
-	void rva004CC594();
-};
-
 // 0x004CC59F: this + 0x58C -> Rva004E7B0CHolder::rva004E7D1D
-class Rva004CC59FOwner
-{
-public:
-	void rva004CC59F();
-};
-
 // 0x0040C922: this + 0x738 -> UnitRevivalTracker::retrieveHeroesForArmySummary
-class Rva0040C922Owner
-{
-public:
-	void rva0040C922(ArmySummarySystem *summary);
-};
-
 // ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp
 
 #pragma optimize("t", on)

@@ -50,7 +50,6 @@ struct Rva0009D55BPair
 	Rva0009D55BPair() : a(0), b(0) {}
 };
 
-class Rva0009AB6B { public: void rva0009AB85(); };
 class TextureBaseClass { public: void Release_Ref(); };
 
 #define D55B_SLOTS4(p) virtual void p##0(); virtual void p##1(); virtual void p##2(); virtual void p##3();
@@ -200,7 +199,6 @@ void Rva0009D55BProduct::rva0009C784(unsigned int phase, unsigned int previous)
 // sets +0x134 to 1, copies the +0x104 vector to +0xF8 and runs the pinned
 // refreshes 0x0009BAA4 and 0x0009CD9B.
 class CameraClass { public: CameraClass(); void Set_Clip_Planes(float znear, float zfar); void Set_View_Plane(float hfov, float vfov); void Set_Viewport(const Vector2 &min, const Vector2 &max); void Set_Aspect_Ratio(float ratio); float Get_Aspect_Ratio() const; char m_data[0x3FC]; };
-class Rva0009AA0F { public: Rva0009AA0F(int owner); char m_data[0x10C]; };
 class LightClass { public: enum LightType { POINT = 0, DIRECTIONAL = 1 }; LightClass(LightType type); char m_data[0x120]; };
 class Matrix3D;
 class Rva0009C134Host { public: void rva0009BAA4(); void rva0009CD9B(); void rva0009AACF(int obj, float opacity); void buildCameraTransform(Matrix3D &tm, float distance, float pitch); };
@@ -282,9 +280,6 @@ extern float g_Va00DE5E2C[3];
 extern float g_Va00DE5E38[3];
 float g_Va00DB4AB4 = 0.6000000238418579f;	// retail RVA 0x009B4AB4 (.data), defined here
 static inline float Rva0009BC17Lerp(float a, float b, float t) { return (b - a) * t + a; }
-struct Rva0009BC17GlobalView { unsigned char m_pad[0xD2E]; bool m_D2E; };
-
-
 // ?rva0009BAA4@Rva0009D55BProduct@@QAEXXZ retail 0x0009BAA4 (371 bytes; the
 // refresh slots 8 and 9 and the setup 0x0009D862 run, pinned there as
 // Rva0009C134Host::rva0009BAA4): eases the +0x134 zoom through the rowed
@@ -302,18 +297,7 @@ public:
 };
 class AudioManager;
 extern AudioManager *TheAudio;
-class Rva0009BAA4AudioSlots
-{
-public:
-	D55B_SLOTS16(a0) D55B_SLOTS4(a1) virtual void a20(); virtual void a21();
-	virtual void slot22();
-};
 float __cdecl Rva0009AAA8Get(float x);
-struct Rva0009BAA4HostView { unsigned char m_pad[0x38]; float m_38; };
-struct Rva0009BAA4LivingWorldView { unsigned char m_pad[0x19]; bool m_19; };
-
-
-
 // ?rva0009C4FC@Rva0009D55BProduct@@UAEXHHHH@Z retail 0x0009C4FC (648 bytes,
 // ret 0x10; slot 9 of the product table): the viewport sibling of slot 8.
 // With the camera, the scene and both the +0x19 and +0x18 states it records
@@ -331,23 +315,12 @@ public:
 	virtual unsigned int getHeight();	// slot 17
 };
 extern Display *TheDisplay;
-struct Rva0009C4FCLivingWorldView { unsigned char m_pad[0x18]; bool m_active; bool m_19; };
-
-
 // ?rva0009C422@Rva0009D55BProduct@@UAEX_N@Z retail 0x0009C422 (218 bytes,
 // ret 4; slot 20 of the product table): remembers the camera's aspect ratio
 // once (+0x1AC) unless the +0x19 view mode is already on, stores the mode,
 // and either copies the living-world manager's +0x34 and +0x2C/+0x30 words
 // into +0x134/+0xF8/+0xFC and refreshes (0x0009BAA4), or restores the full
 // viewport and saved aspect ratio and calls the table's slot 7.
-class Rva0009C422Slots
-{
-public:
-	D55B_SLOTS4(v0) virtual void v4(); virtual void v5(); virtual void v6();
-	virtual void slot7();
-};
-
-
 // Native 0009BD98..0009BF33, RET8: camera pan and angle update at slot11
 // of BC89C8, installed by the owned397B constructor0009D55B. Native factory
 // 0004C8DD and the LivingWorld base establish the class relationship; the

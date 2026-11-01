@@ -85,13 +85,6 @@ extern const char *const BfmeThingClassNames[];
 
 // The rowed memberwise record copiers (Rva0050C2E6Copy.cpp): 0x0050C2E6
 // copies the argument into the receiver, 0x0050C395 the receiver into it.
-class Rva0050C2E6
-{
-public:
-    void rva0050C2E6(const Rva0050C2E6 &other);
-    void rva0050C395(Rva0050C2E6 &other);
-};
-
 class Rva0050CBA2
 {
 public:
@@ -109,20 +102,6 @@ public:
 class ThingFactory;
 
 extern ThingFactory *TheThingFactory;
-
-struct Rva0050CBA2Template
-{
-    unsigned char m_000[0x2F0];
-    ModuleInfo m_drawModules;
-    unsigned char m_2FC[0x484 - 0x2FC];
-    Rva0050CBA2Template *m_next;
-};
-
-struct Rva0050CBA2Factory
-{
-    unsigned char m_00[0x0C];
-    Rva0050CBA2Template *m_firstTemplate;
-};
 
 struct BfmePod252
 {
@@ -183,35 +162,11 @@ public:
 
 // RefCountClass-derived render and animation objects: slot 0 deletes, the
 // count sits at +4.
-struct Rva0050CBA2RefCounted
-{
-    virtual void Delete_This();
-    void Release_Ref() { if (--m_numRefs == 0) Delete_This(); }
-    int m_numRefs;
-};
-
-struct Rva0050CBA2RenderObj : Rva0050CBA2RefCounted
-{
-    virtual void slot01(); virtual void slot02(); virtual void slot03(); virtual void slot04();
-    virtual void slot05(); virtual void slot06(); virtual void slot07(); virtual void slot08();
-    virtual void slot09();
-    virtual int Get_Num_Polys() const;
-    virtual int Get_Num_Verts() const;
-};
-
-struct Rva0050CBA2Anim : Rva0050CBA2RefCounted
-{
-    virtual void slot01(); virtual void slot02(); virtual void slot03(); virtual void slot04();
-    virtual int Get_Num_Frames();
-};
-
 class RenderObjClass;
 
 RenderObjClass *Create_Render_Obj(const char *name);
 
 class HAnimClass;
-
-class AnimationAsset { public: static HAnimClass *GetAnim(const char *name); };
 
 // ---- from Code/GameEngine/Source/Common/Rva0050CBA2StatsDump.cpp
 

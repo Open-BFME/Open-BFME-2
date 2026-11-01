@@ -375,44 +375,9 @@ protected:
 	virtual void xfer(Xfer *xfer);
 };
 
-class BehaviorModuleInterface { public: virtual void behaviorSlot(); };
-
 class BloodthirstyTrailing { public: virtual void trailingSlot(); };
 
-struct B00 { virtual void f00(); const BloodthirstyUpdateModuleData *m_moduleData; Object *m_object; };
-
-struct B0C { virtual void f0C(); };
-
-struct B10 { virtual void f10(); unsigned char m_pad[12]; };
-
-class Iface20
-{
-public:
-	virtual void s00();
-	virtual void s01();
-	virtual void s02();
-	virtual void s03();
-	virtual void s04();
-	virtual void s05();
-	virtual void s06();
-	virtual void s07();
-	virtual void s08();
-	virtual Rva002390CB rva0044E2F7() const = 0;
-};
-
 BFME_LITERAL_NAME_GETTER(Rva0044E000Named, "BloodthirstyUpdate")
-
-class DozerActionState
-{
-public:
-	virtual const char *GetSnapshotName() const;
-};
-
-class BoneFXDamage
-{
-protected:
-	virtual const char *GetSnapshotName() const;
-};
 
 // tu-skeleton: 0x0044DFE0 32B ??1BloodthirstyUpdate@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BloodthirstyUpdateDtor.cpp (not merged yet)
 

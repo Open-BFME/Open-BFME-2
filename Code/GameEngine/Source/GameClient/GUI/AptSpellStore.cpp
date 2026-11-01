@@ -91,19 +91,9 @@ extern ScienceStore *TheScienceStore;
 // +0x110 (6 never pauses for the store) in the shared view, and the rowed
 // 0x0023C902 check.
 extern GameLogic *TheGameLogic;
-class Rva0023C902
-{
-public:
-	int rva0023C902();
-};
 class Rva005CB260;
 // The folded forwarder to vslot 3 of what TheInGameUI's 0x000CF155
 // returns (both pinned, as in AptQuitMenuCallbacks.cpp).
-class Rva005CB265
-{
-public:
-	virtual int rva005CB265();
-};
 // TheInGameUI (0x009FEDF0): vslot 94 shows or hides a menu, vslot 95 tells
 // whether one is up; the byte at +0x16 lets mode 6 use the store.
 class InGameUI
@@ -165,11 +155,6 @@ public:
 	ScienceType *m_sciences; // +0xA4
 	ScienceType *m_sciencesEnd; // +0xA8
 };
-class CommandSet
-{
-public:
-	const CommandButton *getCommandButton(int index) const;
-};
 // ThePlayerList (0x009FEEE8): the local player at +0x10.
 class PlayerList
 {
@@ -185,11 +170,6 @@ extern PlayerList *ThePlayerList;
 // player's command set.
 class ControlBar;
 extern ControlBar *TheControlBar;
-class Rva0031D5F8
-{
-public:
-	void *GetPurchaseScienceCommandSet(const void *key);
-};
 // The Apt window manager (0x009FE4CC): the rowed image binding 0x002239E2
 // (Rva002239B2.cpp) and text setter.
 class BfmeAptWindowManager
@@ -507,12 +487,6 @@ private:
 
 int Rva0043C933Get(void);
 
-class Rva0043C6EA
-{
-public:
-	bool rva0043C6EA(int science);
-};
-
 // The screen's Apt movie (rowed 0x00222547) and the window manager's
 // ActionScript call 0x00222A8B.
 class GameWindow;
@@ -596,12 +570,6 @@ public:
 	int m_vAddressMode; // +0x10
 };
 
-class ShroudTexture
-{
-public:
-	ShroudFilter *getFilter();
-};
-
 class TextureAsset
 {
 public:
@@ -618,15 +586,6 @@ typedef Rva001408C0Target *Rva001408C0Key;
 
 typedef _STL::set<Rva001408C0Key, _STL::less<Rva001408C0Key>,
 	_STL::allocator<Rva001408C0Key> > Rva001408C0Set;
-
-struct AssetList00208F90
-{
-	Rva001408C0Set m_prototypes;
-	unsigned int m_treeLayoutPad;
-	bool m_changed;
-	AssetList00208F90() : m_treeLayoutPad(0), m_changed(true) {}
-	AssetList00208F90 &operator<<(const AsciiString &name);
-};
 
 void bfmeMergeReceiverKeys(int value);
 

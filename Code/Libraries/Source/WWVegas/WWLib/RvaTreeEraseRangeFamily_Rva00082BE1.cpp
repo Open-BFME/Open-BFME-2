@@ -60,46 +60,6 @@ public:
 
 
 
-class Rva00388EAE
-{
-public:
-	void rva00389129();
-	void rva003891E8(IntPtrTree::iterator first, IntPtrTree::iterator last);
-	unsigned int rva00389913(const int &x);
-};
-
-
-
-class Rva002EE9B7
-{
-public:
-	void rva002EE9B7();
-	void rva0046A967(IntPtrTree::iterator first, IntPtrTree::iterator last);
-	unsigned int rva0046EDEF(const int &x);
-};
-
-
-
-class Rva004E7B13
-{
-public:
-	void rva004E7BAF();
-	void rva004E7BD8(IntPtrTree::iterator first, IntPtrTree::iterator last);
-	unsigned int rva004E7D29(const int &x);
-};
-
-
-
-class Rva001E6731
-{
-public:
-	void rva001E6731();
-	void rva001E675A(IntPtrTree::iterator first, IntPtrTree::iterator last);
-	unsigned int rva001E71FA(const int &x);
-};
-
-
-
 class Rva00362AB5
 {
 public:
@@ -136,13 +96,6 @@ unsigned int Rva000D3C46::rva000D3C46(const int &key)
 	return reinterpret_cast<Rva000D20A9 *>(this)->rva000D3BFD(key);
 }
 
-class Rva001E7E78
-{
-public:
-	unsigned int rva001E7E78(const int &x);
-};
-
-
 class Rva00362C9A
 {
 public:
@@ -153,24 +106,4 @@ unsigned int Rva00362C9A::rva00362C9A(const int &key)
 {
 	return reinterpret_cast<Rva00362AB5 *>(this)->rva00362B89(key);
 }
-
-class Rva003899C4
-{
-public:
-	unsigned int rva003899C4(const int &x);
-};
-
-
-class Rva0047003C
-{
-public:
-	unsigned int rva0047003C(const int &x);
-};
-
-
-class Rva004E7E19
-{
-public:
-	unsigned int rva004E7E19(const int &x);
-};
 

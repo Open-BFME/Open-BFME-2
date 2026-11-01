@@ -101,12 +101,6 @@ class BfmeAptWindowManager;
 
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
-class Rva00222479ByteOneSetter
-{
-public:
-	void enable();
-};
-
 // TheLivingWorldLogic (VA 0x00DFEF10, the ledger's g_009FEF10); its
 // unrowed 0x002B3740 returns a byte of its current entry, pinned by
 // address.
@@ -183,12 +177,6 @@ extern GameLogic *TheGameLogic;
 // 0x002401C0 is rowed (Common/Rva002401C0Forward.cpp) as an address-named
 // forward on GameLogic returning its army list as four-byte words; each
 // word is an army record pointer here.
-class Rva002401C0
-{
-public:
-	_STL::vector<unsigned int> rva002401C0();
-};
-
 class ThingTemplate
 {
 public:
@@ -206,22 +194,7 @@ public:
 
 extern ThingFactory *TheThingFactory;
 
-class Rva0020E89C
-{
-public:
-	UnicodeString rva0020E89C();
-};
-
 // One list row, sorted by its operator< (0x005EC52E) before display.
-struct Rva0051DA24Row
-{
-	Rva0051DA24Row(AptScorePersistentUnit *u, ThingTemplate *t) : unit(u), thing(t) {}
-	AptScorePersistentUnit *unit;
-	ThingTemplate *thing;
-
-	bool operator<(const Rva0051DA24Row &other) const;
-};
-
 namespace _STL
 {
 template <class RandomAccessIter> void sort(RandomAccessIter first, RandomAccessIter last);
@@ -377,8 +350,6 @@ extern GlobalData *TheWritableGlobalData;
 
 // The native query reads this float directly; no full GlobalData layout is
 // asserted. WB reads the corresponding score option at its own +0x115C.
-struct AptScoreOptionView { unsigned char prefix[0x1184]; float objectivesPerScore; };
-
 class GlobalLanguage
 {
 public:
@@ -489,23 +460,7 @@ public:
 	void push(AsciiString s, bool flag);
 };
 
-class Rva00222A8BTarget
-{
-public:
-	void rva002233A6(int mode);
-};
-
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
-
-struct State005185D8
-{
-	char m_pad[0x280];
-	unsigned char m_280;
-	unsigned char m_281;
-	unsigned char m_282;
-	unsigned char m_283;
-	unsigned char m_284;
-};
 
 struct State0051E262
 {

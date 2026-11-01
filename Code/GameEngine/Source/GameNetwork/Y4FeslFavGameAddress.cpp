@@ -1,43 +1,6 @@
 // cl: /GS
 // Retail 0x0080A9B0 copies a game address record and sends its IP through ->L.
 
-class BfmeC994
-{
-public:
-	BfmeC994( char *buffer, int capacity );
-	char *m_vft;
-	int m_04;
-	int m_08;
-	int m_0c;
-	char *m_10;
-	int m_14;
-	int m_18;
-	int m_1c;
-	int m_20;
-	int m_24;
-	int m_28;
-	int m_2c;
-	char m_30;
-};
-
-class BfmeThingCIC
-{
-public:
-	void bfmeGoCIC( void *one, void *two );
-};
-
-class Gen_007e86c0
-{
-public:
-	void m();
-};
-
-class Rva007E8760Addr
-{
-public:
-	void format( char *buffer, unsigned size );
-};
-
 struct Rva00809500Entry
 {
 	char m_pad00[ 0x10 ];
@@ -61,15 +24,6 @@ struct Rva00809500Sink
 	unsigned int m_gdatTimestamp;
 };
 
-class Rva007EFFC0Allocator
-{
-public:
-	virtual void v0();
-	virtual void v1();
-	virtual void *allocate( int size, int flags );
-	virtual void release( void *block, int flags );
-};
-
 struct Rva007EB810Diag
 {
 	virtual void v0();
@@ -78,24 +32,11 @@ struct Rva007EB810Diag
 	virtual void fail( const char *expr, const char *file, int line );
 };
 
-struct Rva007E9B70Obj
-{
-	virtual void v0();
-	virtual void v1();
-	virtual unsigned int now();
-};
-
 class GenAlloc; GenAlloc *Gen007EFFC0();
 Rva007EB810Diag *Rva007EB810Get();
 int Rva00656B60Get();
 
 // Rva00809500Sink::accept: defined in Y4FeslFavGameAddress_accept.cpp (its row's unit).
-
-class Rva00809010Finder
-{
-public:
-	Rva00809500Sink *find( Rva00809500Entry *entry );
-};
 
 void *Rva007F93E0( void *message, void *route, void *owner );
 // The copy is msvcr71's strncpy (import thunk 0x0062983E), from <string.h>

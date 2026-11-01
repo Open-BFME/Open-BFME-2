@@ -35,34 +35,10 @@ public:
 	virtual ~GODupBase();
 };
 
-class UpdateModule
-{
-protected:
-	virtual const char *GetSnapshotName() const;
-};
-
 BFME_LITERAL_NAME_GETTER(Rva003067C4Named, "BuffLogic")
-
-class BuildListInfo
-{
-public:
-	virtual const char *GetSnapshotName() const;
-};
 
 // The constructor installs Snapshot table VA 0x00C0DA88 at +0x0C.
 // Its name slot holds this getter.
-class SidesList
-{
-public:
-	virtual const char *GetSnapshotName() const;
-};
-
-class LuaScriptEngine
-{
-public:
-	virtual const char *GetSnapshotName() const;
-};
-
 // Drawable's Snapshot sub-vtable 0x00BFB0A4 (installed by ~Drawable
 // 0x002793F0 at this+0x60) holds 0x00279669 in slot 2, the canonical
 // Snapshot GetSnapshotName slot; the body returns the unique "Drawable"
@@ -83,22 +59,12 @@ protected:
 	virtual const char *GetSnapshotName() const;
 };
 
-class LivingWorldRegionManager { public: virtual const char *GetSnapshotName() const; };
-
-class LivingWorldLogic { public: virtual const char *GetSnapshotName() const; };
-
 // Slot 2 of native RadarObject table VA C035D0 returns this literal.
 // The canonical BFME2 Snapshot interface names this slot GetSnapshotName;
 // WB 1107320 and the adjacent RadarObject constructor establish its owner.
 class RadarObject
 {
 protected:
-	virtual const char *GetSnapshotName() const;
-};
-
-class TAiData
-{
-public:
 	virtual const char *GetSnapshotName() const;
 };
 
