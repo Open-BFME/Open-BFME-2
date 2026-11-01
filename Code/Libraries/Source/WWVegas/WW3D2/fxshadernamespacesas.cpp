@@ -107,21 +107,15 @@ void __cdecl Rva00153565Register(const char *name, void *source);
 
 // WWMath's Vector4 and Matrix4 (Vector4 Row[4]), only as far as the camera
 // and skeleton matrix sources inline them.
-class Vector4
-{
+#include "../WWMath/Vector4Data.h"
+namespace {
+class SasVectorRow : public Vector4 {
 public:
-	__forceinline Vector4() {}
-	__declspec(dllimport) __forceinline Vector4(float x, float y, float z, float w) { X = x; Y = y; Z = z; W = w; }
-	float &operator[](int i) { return (&X)[i]; }
-	const float &operator[](int i) const { return (&X)[i]; }
-	__forceinline Vector4 &operator=(const Vector4 &vec) { X = vec.X; Y = vec.Y; Z = vec.Z; W = vec.W; return *this; }
-	__forceinline void Set(float x, float y, float z, float w) { X = x; Y = y; Z = z; W = w; }
-
-	float X;
-	float Y;
-	float Z;
-	float W;
+    __declspec(dllimport) __forceinline SasVectorRow(float x,float y,float z,float w) { X=x;Y=y;Z=z;W=w; }
 };
+}
+static __forceinline float &vector4Component(Vector4 &row, int i) { return (&row.X)[i]; }
+static __forceinline void copyVector4(Vector4 &row,const Vector4 &other){row.X=other.X;row.Y=other.Y;row.Z=other.Z;row.W=other.W;}
 
 class Matrix4
 {
@@ -129,7 +123,7 @@ public:
 	__declspec(dllimport) __forceinline Matrix4() {}
 	__declspec(dllimport) __forceinline Matrix4(const Matrix4 &m)
 	{
-		Row[0] = m.Row[0]; Row[1] = m.Row[1]; Row[2] = m.Row[2]; Row[3] = m.Row[3];
+		copyVector4(Row[0], m.Row[0]); copyVector4(Row[1], m.Row[1]); copyVector4(Row[2], m.Row[2]); copyVector4(Row[3], m.Row[3]);
 	}
 	__forceinline explicit Matrix4(bool identity)
 	{
@@ -142,7 +136,7 @@ public:
 	}
 	__forceinline void Init(const Vector4 &vector4, const Vector4 &r1, const Vector4 &r2, const Vector4 &r3)
 	{
-		Row[0] = vector4; Row[1] = r1; Row[2] = r2; Row[3] = r3;
+		copyVector4(Row[0], vector4); copyVector4(Row[1], r1); copyVector4(Row[2], r2); copyVector4(Row[3], r3);
 	}
 	__forceinline void Make_Identity()
 	{
@@ -154,14 +148,14 @@ public:
 	__forceinline Matrix4 Transpose() const
 	{
 		return Matrix4(
-			Vector4(Row[0][0], Row[1][0], Row[2][0], Row[3][0]),
-			Vector4(Row[0][1], Row[1][1], Row[2][1], Row[3][1]),
-			Vector4(Row[0][2], Row[1][2], Row[2][2], Row[3][2]),
-			Vector4(Row[0][3], Row[1][3], Row[2][3], Row[3][3]));
+			SasVectorRow(Row[0].X, Row[1].X, Row[2].X, Row[3].X),
+			SasVectorRow(Row[0].Y, Row[1].Y, Row[2].Y, Row[3].Y),
+			SasVectorRow(Row[0].Z, Row[1].Z, Row[2].Z, Row[3].Z),
+			SasVectorRow(Row[0].W, Row[1].W, Row[2].W, Row[3].W));
 	}
 	__forceinline Matrix4 &operator=(const Matrix4 &m)
 	{
-		Row[0] = m.Row[0]; Row[1] = m.Row[1]; Row[2] = m.Row[2]; Row[3] = m.Row[3];
+		copyVector4(Row[0], m.Row[0]); copyVector4(Row[1], m.Row[1]); copyVector4(Row[2], m.Row[2]); copyVector4(Row[3], m.Row[3]);
 		return *this;
 	}
 	static void Multiply(const Matrix4 &a, const Matrix4 &b, Matrix4 *res);
@@ -352,13 +346,13 @@ public:
 	__forceinline Matrix3D() {}
 	__forceinline void Get_Translation(Vector3 *set) const
 	{
-		set->X = Row[0][3]; set->Y = Row[1][3]; set->Z = Row[2][3];
+		set->X = Row[0].W; set->Y = Row[1].W; set->Z = Row[2].W;
 	}
 	__forceinline Vector4 &operator[](int i) { return Row[i]; }
 	__forceinline const Vector4 &operator[](int i) const { return Row[i]; }
 	__forceinline Matrix3D &operator=(const Matrix3D &m)
 	{
-		Row[0] = m.Row[0]; Row[1] = m.Row[1]; Row[2] = m.Row[2];
+		copyVector4(Row[0], m.Row[0]); copyVector4(Row[1], m.Row[1]); copyVector4(Row[2], m.Row[2]);
 		return *this;
 	}
 
@@ -399,18 +393,18 @@ struct HTreePivotTransform
 		float yw = Rotation.Y * Rotation.W * 2.0f;
 		float zz = Rotation.Z * Rotation.Z * 2.0f;
 		float zw = Rotation.Z * Rotation.W * 2.0f;
-		matrix3D[0][0] = 1.0f - yy - zz;
-		matrix3D[0][1] = xy - zw;
-		matrix3D[0][2] = xz + yw;
-		matrix3D[1][0] = xy + zw;
-		matrix3D[1][1] = 1.0f - zz - xx;
-		matrix3D[1][2] = yz - xw;
-		matrix3D[2][0] = xz - yw;
-		matrix3D[2][1] = yz + xw;
-		matrix3D[2][2] = 1.0f - yy - xx;
-		matrix3D[0][3] = Translation.X;
-		matrix3D[1][3] = Translation.Y;
-		matrix3D[2][3] = Translation.Z;
+		vector4Component(matrix3D[0], 0) = 1.0f - yy - zz;
+		vector4Component(matrix3D[0], 1) = xy - zw;
+		vector4Component(matrix3D[0], 2) = xz + yw;
+		vector4Component(matrix3D[1], 0) = xy + zw;
+		vector4Component(matrix3D[1], 1) = 1.0f - zz - xx;
+		vector4Component(matrix3D[1], 2) = yz - xw;
+		vector4Component(matrix3D[2], 0) = xz - yw;
+		vector4Component(matrix3D[2], 1) = yz + xw;
+		vector4Component(matrix3D[2], 2) = 1.0f - yy - xx;
+		vector4Component(matrix3D[0], 3) = Translation.X;
+		vector4Component(matrix3D[1], 3) = Translation.Y;
+		vector4Component(matrix3D[2], 3) = Translation.Z;
 	}
 
 	Quaternion Rotation;
