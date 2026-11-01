@@ -17,7 +17,7 @@ public:
 };
 class ShroudFilter { public: char pad[12]; int u,v; };
 class ShroudTexture { public: ShroudFilter *getFilter(); };
-class Vector3 { public: Vector3() {} float X, Y, Z; };
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 // Match the owning header's typedef form so composition can diagnose a duplicate.
 typedef struct { Vector3 corners[4]; bool highlight; int color; unsigned objectID, drawableID; bool unused; } TBib;
 // ZH W3DBibBuffer.cpp (BF1 donor 575ba2b04) supplies the constructor purpose,

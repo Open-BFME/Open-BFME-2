@@ -2,12 +2,7 @@
 // ?rva000EE15B@W3DPropBuffer@@QAEXXZ @0x000EE15B 61B
 // W3DPropBuffer visible refresh via embedded check container. Evidence: 4000x0x30 props at +4 count at +0x2EE04 visible byte at +0x1C bounds at +0x20 container at +0x2EE0C calling rowed ?rva000E488F@Rva000E488F@@QAE_NPAX@Z with inversion like cull caller 0x000EE4B2.
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
-struct Vector3
-{
-	float x;
-	float y;
-	float z;
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 struct SphereClass
 {
 	Vector3 Center;

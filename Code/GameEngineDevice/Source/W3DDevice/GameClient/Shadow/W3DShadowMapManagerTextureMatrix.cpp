@@ -8,15 +8,7 @@
 
 // WWMath's Vector4 / Matrix4 / Matrix3D, only as far as this body inlines
 // them (fxshadernamespacesas.cpp's views).
-class Vector3
-{
-public:
-	__forceinline Vector3(float x, float y, float z) { X = x; Y = y; Z = z; }
-
-	float X;
-	float Y;
-	float Z;
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 class Vector4
 {

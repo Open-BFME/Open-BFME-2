@@ -119,11 +119,7 @@ struct BfmeGaussianParams
 struct IDirect3DDevice8;
 
 struct IDirect3DSurface8;
-class Vector3
-{
-public:
-	float X, Y, Z;
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 class GlobalData;
 extern GlobalData *TheWritableGlobalData;
 struct BfmeSmokeGlobalDataView

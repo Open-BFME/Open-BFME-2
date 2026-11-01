@@ -35,12 +35,7 @@ typedef bool Bool;
 #define SHADOW_DYNAMIC	0x1
 
 
-class Vector3
-{
-public:
-	Vector3(void) {}
-	Real X, Y, Z;
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 class AABoxClass
 {

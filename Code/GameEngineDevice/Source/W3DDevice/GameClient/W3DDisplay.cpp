@@ -52,14 +52,7 @@ public:
 		BFME_DX8_Thread_Assert();
 	}
 };
-class Vector3
-{
-public:
-	__declspec(dllimport) __forceinline Vector3(float x, float y, float z) : X(x), Y(y), Z(z) {}
-	float X;
-	float Y;
-	float Z;
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 class WW3D
 {
 public:

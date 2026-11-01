@@ -51,7 +51,7 @@ private:
 	void Free_String();
 };
 
-class Vector3 { public: Real X, Y, Z; };
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 class AABoxClass
 {

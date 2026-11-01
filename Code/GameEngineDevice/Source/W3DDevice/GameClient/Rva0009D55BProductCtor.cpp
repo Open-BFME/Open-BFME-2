@@ -262,13 +262,7 @@ void Rva0009D55BProduct::rva0009DB5A(bool active)
 // the three render words +0x18C/+0x190/+0x194 from +0x134 through 0x0009AACF
 // (a member that ignores this, ret 8), passes +0xE0 to scene slot 6, runs the
 // pinned refresh 0x0009BAA4 and renders the scene through 0x00118660.
-class Vector3
-{
-public:
-	float X;
-	float Y;
-	float Z;
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 class DX8Wrapper
 {
 public:

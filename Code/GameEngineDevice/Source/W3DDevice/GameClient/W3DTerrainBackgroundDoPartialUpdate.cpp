@@ -37,17 +37,7 @@ public:
 
 void bfmeReleaseQueuedDeviceInterfaces();
 
-class Vector3
-{
-public:
-	Vector3() {}
-	Vector3(Real x, Real y, Real z) { X = x; Y = y; Z = z; }
-	Vector3(const Vector3 &vec) { X = vec.X; Y = vec.Y; Z = vec.Z; }
-	Vector3 &operator=(const Vector3 &vec) { X = vec.X; Y = vec.Y; Z = vec.Z; return *this; }
-	Real X;
-	Real Y;
-	Real Z;
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 inline Vector3 operator+(const Vector3 &a, const Vector3 &b)
 {

@@ -73,22 +73,7 @@ struct Matrix3D
 	}
 };
 
-struct Vector3
-{
-	Real X;
-	Real Y;
-	Real Z;
-
-	Vector3(Real x, Real y, Real z) : X(x), Y(y), Z(z) {}
-
-	Vector3 &operator+=(const Vector3 &other)
-	{
-		X += other.X;
-		Y += other.Y;
-		Z += other.Z;
-		return *this;
-	}
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 class SphereClass
 {

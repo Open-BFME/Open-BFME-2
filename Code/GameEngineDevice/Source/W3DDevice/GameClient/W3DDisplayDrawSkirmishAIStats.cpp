@@ -36,13 +36,7 @@ public:
 	int m_color;				// +0x280
 };
 
-class Vector3
-{
-public:
-	Vector3(const Vector3 &vec) { X = vec.X; Y = vec.Y; Z = vec.Z; }
-	Vector3() {}
-	float X, Y, Z;
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 class Vector4
 {

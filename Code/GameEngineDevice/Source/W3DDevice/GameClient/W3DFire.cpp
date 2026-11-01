@@ -101,13 +101,7 @@ class Rva001F384AByteZeroSetter { public: void disable(); };
 // logic set (+0x84 of the 0xDFEC68 global) a random chance to add a scorch
 // (type 8 when global data +0x138 is 1, else 7) of random radius at a random
 // +-10 offset, one unit above the ground.
-class Vector3
-{
-public:
-	float X, Y, Z;
-	Vector3(float x, float y, float z) { X = x; Y = y; Z = z; }
-	Vector3(const Vector3 &vec) { X = vec.X; Y = vec.Y; Z = vec.Z; }
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 struct W3DFireCoord { float x, y, z; void set(float ax, float ay, float az) { x = ax; y = ay; z = az; } };
 

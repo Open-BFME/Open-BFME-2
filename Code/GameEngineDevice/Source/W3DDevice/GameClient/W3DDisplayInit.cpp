@@ -23,12 +23,7 @@ typedef bool Bool;
 
 enum ErrorCode { ERROR_INVALID_D3D = 0xDEAD0007 };
 
-class Vector3
-{
-public:
-	Vector3(Real x, Real y, Real z) { X = x; Y = y; Z = z; }
-	Real X, Y, Z;
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 class RectClass
 {

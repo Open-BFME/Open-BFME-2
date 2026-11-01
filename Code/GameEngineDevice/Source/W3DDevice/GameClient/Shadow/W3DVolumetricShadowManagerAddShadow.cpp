@@ -15,13 +15,7 @@
 // ShadowTypeInfo is smaller (m_sizeX at +0x1C), and the KINDOF test is an
 // inline bit check (no isKindOf call in retail).
 
-class Vector3
-{
-public:
-	float X;
-	float Y;
-	float Z;
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 struct SphereClass
 {
