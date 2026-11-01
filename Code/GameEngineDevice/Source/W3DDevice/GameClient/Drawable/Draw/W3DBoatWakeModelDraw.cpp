@@ -108,12 +108,7 @@ typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const v
 
 #include "../../../../../../GameEngine/Include/Common/INI/FieldParse.h"
 
-class INI
-{
-public:
-	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
-	static void parseCoord3D(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../../../../GameEngine/Include/Common/INI/INI.h"
 
 
 extern "C" const unsigned char __identifier("??_7W3DBoatWakeModelDrawModuleData@@6B@")[];

@@ -186,15 +186,7 @@ typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const v
 
 #include "../../../../../../GameEngine/Include/Common/INI/FieldParse.h"
 
-class INI
-{
-public:
-	static void parseUnsignedInt(INI *ini, void *instance, void *store, const void *userData);
-	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
-	static void parseBool(INI *ini, void *instance, void *store, const void *userData);
-	static void parseRGBColor(INI *ini, void *instance, void *store, const void *userData);
-	static void parseReal(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../../../../GameEngine/Include/Common/INI/INI.h"
 
 void Rva000D06C6Parse(INI *ini, void *instance, void *store, const void *userData);
 

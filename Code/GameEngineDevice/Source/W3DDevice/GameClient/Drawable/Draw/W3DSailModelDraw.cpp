@@ -23,12 +23,7 @@ typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const v
 
 #include "../../../../../../GameEngine/Include/Common/INI/FieldParse.h"
 
-class INI
-{
-public:
-	static void parseAngleReal(INI *ini, void *instance, void *store, const void *userData);
-	static void parseReal(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../../../../GameEngine/Include/Common/INI/INI.h"
 
 // Retail VA 0x00BCDC20 (.rdata): 3 field records and a zero sentinel.
 extern const FieldParse g_00BCDC20[] = {

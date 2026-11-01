@@ -578,12 +578,7 @@ AsciiString W3DScriptedModelDraw::rva000C2E3A(const AsciiString &modelName)
 // ZH W3DModelDraw.cpp parseBoneNameKey is the semantic guide; WB925020
 // and retail C2BD1 independently prove the token/registration/key path.
 #include <vector>
-class INI {
-public:
- const char *getNextToken(const char *separators = 0);
- static void Rva000C2C5FParseBoneRecord(INI *, void *, void *, const void *);
- static void Rva000C2CA4ParseTurretPitch(INI *, void *, void *, const void *);
-};
+#include "../../../../../../GameEngine/Include/Common/INI/INI.h"
 class Rva000C2AA4 {
 public: void rva000C2AA4(const AsciiString &);
 private: char unmodelled[0x78]; AsciiString *begin; AsciiString *end; void *storage;

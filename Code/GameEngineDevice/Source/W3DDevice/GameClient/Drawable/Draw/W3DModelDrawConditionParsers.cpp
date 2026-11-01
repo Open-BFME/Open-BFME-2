@@ -25,21 +25,7 @@
 
 typedef float Real;
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps = 0);
-	Real scanReal(const char *token);
-	static void parseReal(INI *ini, void *instance, void *store, const void *userData);
-	static void parseBool(INI *ini, void *instance, void *store, const void *userData);
-	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
-	static void parseAngleReal(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva000B2D93_ParseShadowReal(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva000B2DBB_ParseShadowAsciiString(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva000B2DE3_ParseShadowBool(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva000B6E9E_ParseTurretArtAngle(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva000B6EBE_ParseTurretArtPitch(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../../../../GameEngine/Include/Common/INI/INI.h"
 
 struct TurretInfo
 {

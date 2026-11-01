@@ -3,11 +3,7 @@
 struct FieldParse;
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/INI.h
-class INI
-{
-public:
-	void initFromINI(void *object, const FieldParse *fields);
-};
+#include "../../../../../../GameEngine/Include/Common/INI/INI.h"
 
 // Native 0x306A6E..0x306A9B allocates eight bytes and only writes
 // vptr VA 0xC4ED70. This differs from the recovered 0x14-byte ModuleData

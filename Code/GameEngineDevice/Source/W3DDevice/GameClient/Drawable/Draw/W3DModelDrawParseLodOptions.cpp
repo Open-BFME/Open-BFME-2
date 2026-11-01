@@ -19,15 +19,7 @@ struct FieldParse
 	int offset;
 };
 
-class INI
-{
-public:
-	static void parseBool(INI *ini, void *instance, void *store, const void *userData);
-	static void parseInt(INI *ini, void *instance, void *store, const void *userData);
-	static void parseReal(INI *ini, void *instance, void *store, const void *userData);
-	AsciiString getNextAsciiString();
-	void initFromINI(void *store, const FieldParse *fields);
-};
+#include "../../../../../../GameEngine/Include/Common/INI/INI.h"
 
 // Retail's LOD-options table at RVA 0x007C6B00 (.rdata, five records and the zero sentinel), transcribed from retail's bytes.
 extern const FieldParse TheLodOptionsFieldParse[] =

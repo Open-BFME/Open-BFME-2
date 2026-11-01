@@ -95,11 +95,7 @@ public:
 
 using _STL::Rva007719C0Element;
 
-class INI
-{
-public:
-    AsciiString getNextAsciiString();
-};
+#include "../../../../../../GameEngine/Include/Common/INI/INI.h"
 
 class W3DModelDrawModuleData
 {

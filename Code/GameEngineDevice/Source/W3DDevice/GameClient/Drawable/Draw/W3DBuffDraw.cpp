@@ -57,12 +57,7 @@ typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const v
 
 #include "../../../../../../GameEngine/Include/Common/INI/FieldParse.h"
 
-class INI
-{
-public:
-	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
-	static void parseBool(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../../../../GameEngine/Include/Common/INI/INI.h"
 
 // Retail VA 0x00BCD2F4 (.rdata): 2 field records and a zero sentinel.
 extern const FieldParse g_00BCD2F4[] = {

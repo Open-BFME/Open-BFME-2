@@ -249,7 +249,7 @@ void W3DScriptedModelDraw::rva000BB3E6(Rva000BB491 event)
 // token separator is at +420, the name buffer is 64 bytes, and both callers
 // require the common B6D26 constructor to remain a strong definition here.
 #include <string.h>
-class INI {public: const char*getNextTokenOrNull(const char*);int scanInt(const char*);};
+#include "../../../../../../GameEngine/Include/Common/INI/INI.h"
 class FXList;
 class FXListStore {public:const FXList*findFXList(const char*)const;};extern FXListStore*TheFXListStore;
 #include "../../../../../../Libraries/Source/Apt/AptRefTarget.h"
