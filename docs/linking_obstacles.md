@@ -10558,6 +10558,13 @@ hatches. Conservative dependency checks cover 29 units. The repaired cohort's
 3,456-byte prediction is retained; the menu unit stays nonlinking with its
 existing prerequisites. The refused identity-key retirement and Snapshot queue
 entry remain open. Full receipt currency is not claimed for every unhit object.
+
+Post-publication follow-up: once 0a5c6b4a4d is upstream, the ordinary owning
+identity retirement command can remove the retained Money-copy key against
+the already-published new symbol. No function row or source changes in this
+follow-up. The range guard's earlier refusal is a publication-order prerequisite;
+the earlier false-reject label is voided, and no checker change is needed.
+The Snapshot header queue row remains pending its supported retirement path.
 Clearance: pending.
 
 **Header-adoption prerequisite (2026-10-28, base `fa53c16f5f`):** the default

@@ -63,8 +63,8 @@ The owning identity retirement command initially passed with zero remaining
 findings, but the outgoing-range guard refused its proposed key removal:
 it treats the withdrawn Money symbol name as lost coverage despite the
 separate retraction and exact same-RVA replacement. The old register key is
-therefore retained, and the false-reject evidence is banked for a separate
-tooling repair. These are scoped predictions, not a new census result,
+therefore retained in the source publication, and the refusal evidence is
+banked. These are scoped predictions, not a new census result,
 additional byte coverage or a completed identity-debt retirement.
 
 The Snapshot acceptance command refuses because the replacement does not
@@ -106,3 +106,16 @@ zero linking bytes and existing unresolved prerequisites; its preview is
 not clean, and no menu-unit repair is claimed. The outgoing consumer audit
 still supplies the broader publication verdict. The retained identity key and
 header queue row are unchanged by this pin retirement.
+
+## Debt retirement after the source publication
+
+After 0a5c6b4a4d landed the verified replacement, the ordinary owning identity
+retirement command passes again. This time the register-only change compares
+against an upstream state that already holds the new symbol, so it removes
+no function identity from its outgoing range. The source and 59-byte row are
+unchanged. This resolves the earlier range-guard sequencing prerequisite
+without a checker change or bypass. The earlier false-reject label is voided:
+the safe path is source publication followed by register retirement.
+
+Only this follow-up retires the old Money-copy key. The Snapshot header queue
+entry and the menu unit's unrelated link prerequisites remain open.
