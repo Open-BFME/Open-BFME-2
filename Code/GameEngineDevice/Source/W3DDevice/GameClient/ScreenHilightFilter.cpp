@@ -10,13 +10,8 @@ public:
 	float Y;
 	float Z;
 };
-class Vector4
-{
-public:
-	__declspec(dllimport) __forceinline Vector4(void) {}
-	__declspec(dllimport) __forceinline Vector4(float x, float y, float z, float w) : X(x), Y(y), Z(z), W(w) {}
-	float X, Y, Z, W;
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
+static __forceinline void setHilightConstant(Vector4 &row,float x,float y,float z,float w) { row.X=x;row.Y=y;row.Z=z;row.W=w; }
 #include "../../../../Libraries/Include/Lib/Coord2D.h"
 class Vector2;
 #include <d3d9.h>
@@ -552,7 +547,7 @@ bool ScreenHilightFilter::postRender(int mode, Coord2D &scrollDelta, bool &doExt
 		{
 			float r, g, b;
 			rva000ABBEF(&r, &g, &b, -1);
-			Vector4 constant(r - 1.0f, g - 1.0f, b - 1.0f, 0.0f);
+			Vector4 constant; setHilightConstant(constant, r - 1.0f, g - 1.0f, b - 1.0f, 0.0f);
 			DX8Wrapper::Set_Pixel_Shader_Constant(0, &constant, 1);
 		}
 		DX8Wrapper::Set_DX8_Render_State(D3DRS_ALPHABLENDENABLE, FALSE);

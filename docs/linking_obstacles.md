@@ -1,35 +1,5 @@
 ### FXList.cpp unit-link prerequisites (2026-10-31)
 
-
-### Use canonical Vector4 rows in shader sas matrices (2026-11-01)
-
-This source uses canonical Vector4 rows; complete normal/frozen/EH/strict and owning acceptance pass. Existing native bodies and retained code/relocations are preserved. No authored-byte, new census or runtime gain is claimed.
-[Evidence](../reverse/attempt_support/shader-sas-matrices-vector4-20261101-1501.md).
-
-
-### Use canonical Vector4 rows in current bone positions (2026-11-01)
-
-This source uses canonical Vector4 rows; complete normal/frozen/EH/strict and owning acceptance pass. Existing native bodies and retained code/relocations are preserved. No authored-byte, new census or runtime gain is claimed.
-[Evidence](../reverse/attempt_support/current-bone-positions-vector4-20261101-1501.md).
-
-
-### Use canonical Vector4 rows in apt 3d setup (2026-11-01)
-
-This source uses canonical Vector4 rows; complete normal/frozen/EH/strict and owning acceptance pass. Existing native bodies and retained code/relocations are preserved. No authored-byte, new census or runtime gain is claimed.
-[Evidence](../reverse/attempt_support/apt-3d-setup-vector4-20261101-1501.md).
-
-
-### Use canonical Vector4 rows in debris draw (2026-11-01)
-
-This source uses canonical Vector4 rows; complete normal/frozen/EH/strict and owning acceptance pass. Existing native bodies and retained code/relocations are preserved. No authored-byte, new census or runtime gain is claimed.
-[Evidence](../reverse/attempt_support/debris-draw-vector4-20261101-1501.md).
-
-
-### Use canonical Vector4 rows in pristine query (2026-11-01)
-
-This source uses canonical Vector4 rows; complete normal/frozen/EH/strict and owning acceptance pass. Existing native bodies and retained code/relocations are preserved. No authored-byte, new census or runtime gain is claimed.
-[Evidence](../reverse/attempt_support/pristine-query-vector4-20261101-1501.md).
-
 FXList.cpp (7 matched rows, 620B own bytes) does not link. Three prerequisites:
 1. Two unresolved callees are retail overloads with no provider: 
    `?createParticleSystem@ParticleSystemManager@@QAEPAVParticleSystem@@PBVParticleSystemTemplate@@_N@Z`
@@ -42,6 +12,42 @@ FXList.cpp (7 matched rows, 620B own bytes) does not link. Three prerequisites:
 Recorded `blocked` in reverse/re_attempts.log.
 
 # Linking obstacle register
+
+
+### Six-source Vector4 batch (2026-11-01)
+
+104 existing rows and 404 retained code/relocation instances remain exact; six owning queue keys retired. Bounded preview is not a census. Outgoing audit exit 2; complete current selection and runtime remain unproved.
+[Batch evidence](../reverse/attempt_support/six-adoptions-batch-20261101-1501.md).
+
+### Use canonical Vector4 rows in pristine query (2026-11-01)
+
+This source uses canonical Vector4 rows; complete normal/frozen/EH/strict and owning acceptance pass. Existing native bodies and retained code/relocations are preserved. No authored-byte, new census or runtime gain is claimed.
+[Evidence](../reverse/attempt_support/pristine-query-vector4-20261101-1501.md).
+
+### Use canonical Vector4 rows in debris draw (2026-11-01)
+
+This source uses canonical Vector4 rows; complete normal/frozen/EH/strict and owning acceptance pass. Existing native bodies and retained code/relocations are preserved. No authored-byte, new census or runtime gain is claimed.
+[Evidence](../reverse/attempt_support/debris-draw-vector4-20261101-1501.md).
+
+### Use canonical Vector4 rows in apt 3d setup (2026-11-01)
+
+This source uses canonical Vector4 rows; complete normal/frozen/EH/strict and owning acceptance pass. Existing native bodies and retained code/relocations are preserved. No authored-byte, new census or runtime gain is claimed.
+[Evidence](../reverse/attempt_support/apt-3d-setup-vector4-20261101-1501.md).
+
+### Use canonical Vector4 rows in current bone positions (2026-11-01)
+
+This source uses canonical Vector4 rows; complete normal/frozen/EH/strict and owning acceptance pass. Existing native bodies and retained code/relocations are preserved. No authored-byte, new census or runtime gain is claimed.
+[Evidence](../reverse/attempt_support/current-bone-positions-vector4-20261101-1501.md).
+
+### Use canonical Vector4 rows in shader sas matrices (2026-11-01)
+
+This source uses canonical Vector4 rows; complete normal/frozen/EH/strict and owning acceptance pass. Existing native bodies and retained code/relocations are preserved. No authored-byte, new census or runtime gain is claimed.
+[Evidence](../reverse/attempt_support/shader-sas-matrices-vector4-20261101-1501.md).
+
+### Use canonical Vector4 storage in screen highlight filter (2026-11-01)
+
+This source uses canonical Vector4 rows; complete normal/frozen/EH/strict and owning acceptance pass. Existing native bodies and retained code/relocations are preserved. No authored-byte, new census or runtime gain is claimed.
+[Evidence](../reverse/attempt_support/screen-hilight-vector4-20261101-1501.md).
 
 
 ### Use canonical Vector4 rows in horde movement transforms (2026-11-01)
