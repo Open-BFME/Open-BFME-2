@@ -115,16 +115,7 @@ private:
 
 extern MessageStream *TheMessageStream;
 
-class View
-{
-public:
-#define V(n) virtual void r##n() = 0;
-	V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7)
-	V(8) V(9) V(10) V(11) V(12) V(13) V(14) V(15)
-	V(16) V(17) V(18) V(19) V(20)
-#undef V
-	virtual void lookAt(const Coord3D *o) = 0;
-};
+#include "../../Include/GameClient/View.h"
 
 extern View *TheTacticalView;
 

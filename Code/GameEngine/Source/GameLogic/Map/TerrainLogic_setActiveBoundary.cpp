@@ -111,11 +111,7 @@ public:
 	virtual void unused(char (*)[N]) = 0;
 };
 template <> class __declspec(novtable) ViewSlots<0> {};
-class __declspec(novtable) View : public ViewSlots<110>
-{
-public:
-	virtual void forceCameraConstraintRecalc() = 0;
-};
+#include "../../../Include/GameClient/View.h"
 
 extern Radar *TheRadar;
 extern PartitionManager *ThePartitionManager;

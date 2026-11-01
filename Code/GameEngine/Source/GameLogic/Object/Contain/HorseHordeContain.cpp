@@ -193,7 +193,7 @@ class Locomotor {public:float getMaxSpeed(Object*)const;bool rva001E4194(Object*
 
 class Rva001E46E1 {public:float rva001E4845(Object*);float rva001E46E1(Object*);};
 
-class View {public:virtual void setHeightAboveGround(float);};
+#include "../../../../Include/GameClient/View.h"
 
 #include "../../../Common/Thing/thing.h"
 

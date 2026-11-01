@@ -28,19 +28,7 @@ struct BfmeRadarMapPoint : Coord2D {
 	BFME_PAD_VIRTUAL(n##2) BFME_PAD_VIRTUAL(n##3) BFME_PAD_VIRTUAL(n##4) \
 	BFME_PAD_VIRTUAL(n##5) BFME_PAD_VIRTUAL(n##6) BFME_PAD_VIRTUAL(n##7)
 
-class View
-{
-public:
-	BFME_PAD_VIRTUAL8(0) BFME_PAD_VIRTUAL8(1)
-	BFME_PAD_VIRTUAL(20) BFME_PAD_VIRTUAL(21) BFME_PAD_VIRTUAL(22)
-	virtual void getOrigin(int *x, int *y);	// slot 19
-	BFME_PAD_VIRTUAL8(3) BFME_PAD_VIRTUAL8(4) BFME_PAD_VIRTUAL8(5)
-	BFME_PAD_VIRTUAL8(6) BFME_PAD_VIRTUAL8(7) BFME_PAD_VIRTUAL8(8)
-	BFME_PAD_VIRTUAL8(9) BFME_PAD_VIRTUAL8(a) BFME_PAD_VIRTUAL(b0) BFME_PAD_VIRTUAL(b1)
-	BFME_PAD_VIRTUAL(b2) BFME_PAD_VIRTUAL(b3) BFME_PAD_VIRTUAL(b4) BFME_PAD_VIRTUAL(b5)
-	BFME_PAD_VIRTUAL(b6)
-	virtual void screenToWorldAtZ(const ICoord2D *s, Coord3D *w, float z);	// slot 91
-};
+#include "../../../../../GameEngine/Include/GameClient/View.h"
 
 extern View *TheTacticalView;
 

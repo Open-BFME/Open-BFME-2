@@ -36,11 +36,7 @@ private:
 
 // The ledger's name for Drawable's interpolated position getter 0x002763E6.
 
-class View
-{
-public:
-	bool worldToScreen( const Coord3D *w, ICoord2D *s );	// 0x00050F29, the inline ZH wrapper over slot 88
-};
+#include "../../Include/GameClient/View.h"
 
 extern View *TheTacticalView;
 

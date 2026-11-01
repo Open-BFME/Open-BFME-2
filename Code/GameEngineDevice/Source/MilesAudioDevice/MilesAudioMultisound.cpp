@@ -92,7 +92,7 @@ namespace _STL { template <> pair<ResumeHandles::iterator,bool> ResumeHandles::_
 union Rva006AD590Slot {int m_asInt;float m_asFloat;};
 class Rva006AD590Entry {public:Rva006AD590Slot*find(int);char opaque[0x1c4];};
 class Rva003EF5DA {public:void rva003EF5DA(float);};
-class View {public:virtual void setAngle(float);};
+#include "../../../GameEngine/Include/GameClient/View.h"
 struct Rva0005E13CInner1;
 class Rva0005E13CHost {public:bool helper(const Rva0005E13CInner1*);};
 class Rva002D9BDC {public:void rva002D9BDC(float,float);};

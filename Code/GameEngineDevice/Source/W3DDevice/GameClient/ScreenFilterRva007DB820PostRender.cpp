@@ -175,19 +175,7 @@ public:
 		IDirect3DTexture8 *target, IDirect3DSurface8 *targetSurface);
 };
 
-class View
-{
-public:
-#define SLOT(n) virtual void slot##n() = 0;
-	SLOT(00) SLOT(04) SLOT(08) SLOT(0C) SLOT(10) SLOT(14) SLOT(18) SLOT(1C) SLOT(20) SLOT(24)
-	SLOT(28) SLOT(2C) SLOT(30) SLOT(34) SLOT(38)
-	virtual int getWidth() = 0;	// +0x3C
-	SLOT(40)
-	virtual int getHeight() = 0;	// +0x44
-	SLOT(48)
-	virtual void getOrigin(int *x, int *y) = 0;	// +0x4C
-#undef SLOT
-};
+#include "../../../../GameEngine/Include/GameClient/View.h"
 extern View *TheTacticalView;
 
 enum FilterModes { FM_NULL_MODE = 0 };

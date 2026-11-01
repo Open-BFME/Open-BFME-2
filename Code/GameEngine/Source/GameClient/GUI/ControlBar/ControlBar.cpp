@@ -873,15 +873,7 @@ public:
     Rva00359302Result addHotKey(const TreeHintRef00217D4C &,const AsciiString &,bool);
 };
 extern HotKeyManager *TheHotKeyManager;
-class View
-{
-public:
-#define V(n) virtual void v##n();
-	V(00) V(01) V(02) V(03) V(04) V(05) V(06) V(07) V(08) V(09)
-	V(10) V(11) V(12) V(13) V(14) V(15)
-#undef V
-	virtual void setHeight(Int height);	// +0x40
-};
+#include "../../../../Include/GameClient/View.h"
 extern View *TheTacticalView;
 typedef void (*GameWinTooltipFunc)(GameWindow *, WinInstanceData *, unsigned int);
 #include "../../../../Include/GameLogic/ScriptEngine.h"

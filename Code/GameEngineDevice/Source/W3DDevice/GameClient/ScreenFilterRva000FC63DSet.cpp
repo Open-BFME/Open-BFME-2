@@ -88,15 +88,7 @@ public:
 };
 extern GameClient *TheGameClient;
 
-class View
-{
-public:
-	PAD_VIRTUALS10(s0) PAD_VIRTUALS10(s1) PAD_VIRTUALS10(s2) PAD_VIRTUALS10(s3)
-	virtual void s40(); virtual void s41(); virtual void s42(); virtual void s43(); virtual void s44();
-	virtual void setViewFilterMode(FilterModes mode);	// slot 45 (+0xB4)
-	virtual void s46();
-	virtual void setViewFilter(FilterTypes filter);	// slot 47 (+0xBC)
-};
+#include "../../../../GameEngine/Include/GameClient/View.h"
 extern View *TheTacticalView;
 
 class VertexMaterialClass

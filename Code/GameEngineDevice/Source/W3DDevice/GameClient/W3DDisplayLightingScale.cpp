@@ -86,29 +86,8 @@ static __declspec(noinline) void rva0004457C(const Rva000443BARow*rows,const Rva
  }
 }
 class BaseHeightMapRenderObjClass {public:void rva0006846A(int);};extern BaseHeightMapRenderObjClass*TheTerrainRenderObject;
-class View {public:
-virtual void v0();
-virtual void v1();
-virtual void v2();
-virtual void v3();
-virtual void v4();
-virtual void v5();
-virtual void v6();
-virtual void v7();
-virtual void v8();
-virtual void v9();
-virtual void v10();
-virtual void v11();
-virtual void v12();
-virtual void v13();
-virtual void v14();
-virtual void v15();
-virtual void v16();
-virtual void v17();
-virtual void v18();
-virtual void v19();
-
-virtual void forceRedraw();};extern View*TheTacticalView;
+#include "../../../../GameEngine/Include/GameClient/View.h"
+extern View*TheTacticalView;
 int bfmeRva0011F600();
 void Rva0004443E::rva00044688(const Rva000443BAVec*direction){
  const Rva000443BARow*rows=&TheWritableGlobalData->terrain[1][0];

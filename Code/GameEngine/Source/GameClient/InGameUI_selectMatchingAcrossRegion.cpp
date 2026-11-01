@@ -172,12 +172,7 @@ class Rva0029B667 : public TemplatePointerSet { public: ~Rva0029B667(); };
 class DrawableList : public _STL::list<Drawable*> {public: ~DrawableList() throw();};
 class Rva002A1B07 {public: Rva002A1B07(); const ThingTemplate *type; DrawableList selected; bool includeContained;};
 int Rva002A1EF5(Drawable*,void*);
-class View {public:
-#define V(n) virtual void slot##n();
- V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9)
-#undef V
- virtual int iterateDrawablesInRegion(IRegion2D*,int(*)(Drawable*,void*),void*);
-};
+#include "../../Include/GameClient/View.h"
 extern View *TheTacticalView;
 class GameClient {public:
 #define V(n) virtual void slot##n();

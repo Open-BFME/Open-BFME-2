@@ -113,32 +113,7 @@ public:
 	static IDirect3DTexture8 *endRenderToTexture();
 };
 
-class View
-{
-public:
-	// Retail call offsets are 0x3c, 0x44 and 0x4c. BFME1's filter donor
-	// identifies the respective operations as width, height and origin.
-	virtual void slot00() = 0;
-	virtual void slot04() = 0;
-	virtual void slot08() = 0;
-	virtual void slot0C() = 0;
-	virtual void slot10() = 0;
-	virtual void slot14() = 0;
-	virtual void slot18() = 0;
-	virtual void slot1C() = 0;
-	virtual void slot20() = 0;
-	virtual void slot24() = 0;
-	virtual void slot28() = 0;
-	virtual void slot2C() = 0;
-	virtual void slot30() = 0;
-	virtual void slot34() = 0;
-	virtual void slot38() = 0;
-	virtual int getWidth() = 0;
-	virtual void slot40() = 0;
-	virtual int getHeight() = 0;
-	virtual void slot48() = 0;
-	virtual void getOrigin(int *, int *) = 0;
-};
+#include "../../../../GameEngine/Include/GameClient/View.h"
 
 extern View *TheTacticalView;
 

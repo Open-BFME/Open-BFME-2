@@ -8,15 +8,7 @@
 // the header body is emitted out-of-line here, donor's other bodies omitted.
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-class View
-{
-public:
-	virtual void getPosition( Coord3D *pos );
-
-private:
-	char m_pad[8];		// implicit vptr; m_pos lands at this+0xC
-	Coord3D m_pos;
-};
+#include "../../../../GameEngine/Include/GameClient/View.h"
 
 // Select-any like the GameClient/View.cpp copy (this retail body comes first in
 // link order, so it is the copy the link keeps); the anchor keeps the body emitted.

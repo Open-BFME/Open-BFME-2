@@ -210,12 +210,7 @@ public:
 	virtual void reacquireResources();
 };
 
-class View
-{
-public:
-	SLOT_ROW(0) SLOT_ROW(1)
-	virtual void forceRedraw();
-};
+#include "../../../../GameEngine/Include/GameClient/View.h"
 
 extern View *TheTacticalView;
 

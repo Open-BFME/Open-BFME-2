@@ -119,19 +119,7 @@ struct Rva000F9F82Settings
 	float m_glowStrength; // +0x08
 };
 
-class View
-{
-public:
-#define SLOT(n) virtual void slot##n() = 0;
-	SLOT(00) SLOT(04) SLOT(08) SLOT(0C) SLOT(10) SLOT(14) SLOT(18) SLOT(1C) SLOT(20) SLOT(24)
-	SLOT(28) SLOT(2C) SLOT(30) SLOT(34) SLOT(38)
-	virtual int getWidth() = 0;
-	SLOT(40)
-	virtual int getHeight() = 0;
-	SLOT(48)
-#undef SLOT
-	virtual void getOrigin(int *x, int *y) = 0;
-};
+#include "../../../../GameEngine/Include/GameClient/View.h"
 extern View *TheTacticalView;
 
 class GlobalData;
