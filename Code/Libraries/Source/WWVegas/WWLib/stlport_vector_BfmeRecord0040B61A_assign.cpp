@@ -58,7 +58,20 @@ struct BfmeRecord0040B61A
 // The retail tail calls the existing 16-byte copy worker at 0x0040B2FD.
 // Its row retains the opaque Rva0040AEE3 spelling; do not emit a second
 // template copy using this unit's provisional element view.
-class Rva0040AEE3 { char data[16]; public: Rva0040AEE3(const Rva0040AEE3 &); };
+enum ScienceType
+{
+	SCIENCE_NONE = 0
+};
+
+class Rva0040AEE3
+{
+public:
+	Rva0040AEE3(const Rva0040AEE3 &other);
+	Rva0040AEE3 &operator=(const Rva0040AEE3 &other);
+private:
+	_STL::vector<ScienceType> m_0000;
+	int m_000C;
+};
 struct DestroyElem0040B52E;
 void Rva0040B52EDestroy(DestroyElem0040B52E *, DestroyElem0040B52E *);
 namespace _STL {

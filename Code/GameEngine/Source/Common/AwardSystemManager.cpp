@@ -154,6 +154,7 @@ class Rva0040AF66
 {
 public:
 	Rva0040AF66(const Rva0040AF66 &other);
+	Rva0040AF66 &operator=(const Rva0040AF66 &other);
 	int m_00;
 private:
 	_STL::vector<ScienceType, _STL::allocator<ScienceType> > m_04;
@@ -211,6 +212,7 @@ private:
 // providers independently establish the40B record extent and string homes.
 class Rva0040B77E {
 public:
+ __forceinline Rva0040B77E() : name(NAMEKEY_INVALID) {}
  ~Rva0040B77E();
  NameKeyType name;
  _STL::vector<NameKeyType> upgradeAwards;

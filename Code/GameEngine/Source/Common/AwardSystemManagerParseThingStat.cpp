@@ -1,4 +1,5 @@
-// cl: /O1 /G7 /arch:SSE /EHsc /DNDEBUG /MD /Ireference/shims/bfme2_ascii
+// cl: /Ob2 /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_CSTD_FUNCTION_IMPORTS /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii /Ireference/shims/subsystem_bfme2 /ICode/Libraries/Source/debug
+// stlport
 // ?parseThingStat@AwardSystemManager@@SAXPAVINI@@PAX1PBX@Z
 // Retail 0x0040BC7C..0x0040BEA0 (548 bytes; the compiled body also emits the
 // int3 after the final throw, which matches retail).
@@ -15,19 +16,25 @@
 // WB twin 0x010851A0 (ThingStatistic::GetIncluded/ExcludedTemplateNameKey,
 // ThingFactory::findTemplateInternal). The %s arguments use StringBase's
 // str() (its TheNullChr static), not the shared header's inline "" select.
+#include <vector>
 #include "ascii_string.h"
+typedef bool Bool;
+#include "subsystem_interface.h"
 
 typedef int Int;
 typedef unsigned int UnsignedInt;
 
 enum NameKeyType { NAMEKEY_INVALID=0 };
 
+class INI;
+
 class NameKeyGenerator
 {
 public:
-	NameKeyType nameToKey(const char *name);
-	const AsciiString &keyToName(NameKeyType key);
-	static void parseStringAsNameKeyType(class INI *, void *, void *, const void *);
+	const AsciiString &keyToName(NameKeyType);
+	NameKeyType nameToKey(const char *);
+	static void parseStringAsNameKeyType(INI *,void *,void *,const void *);
+	NameKeyType nameToKey(const AsciiString &name);
 };
 extern NameKeyGenerator *TheNameKeyGenerator;
 
@@ -87,7 +94,16 @@ public:
 	UnsignedInt getIncludedCount() const { return UnsignedInt(m_includedEnd - m_includedBegin); }
 	UnsignedInt getExcludedCount() const { return UnsignedInt(m_excludedEnd - m_excludedBegin); }
 };
-class Rva0040B4F9 { public: void rva0040B4F9(); };		// finishes the parsed lists
+// finishes the parsed lists
+class Rva0040B4F9
+{
+public:
+	void rva0040B4F9();
+private:
+	int m_00;
+	_STL::vector<int> m_04;
+	_STL::vector<int> m_10;
+};
 class Rva0040A7F1 { public: int rva0040A7F1(int index) const; };	// included template key
 class Rva0040A80F { public: int rva0040A80F(int index) const; };	// excluded template key
 class Rva0040AF66;
@@ -95,8 +111,11 @@ class Rva0040AF66;
 class Rva0040BAD0
 {
 public:
-	int rva0040AAF8(int nameKey);				// finds a statistic by name
-	bool rva0040BAD0(Rva0040AF66 *stat);			// adds a statistic
+    bool rva0040BAD0(Rva0040AF66 *arg);			// adds a statistic
+    int rva0040AAF8(int key);				// finds a statistic by name
+private:
+    char m_pad00[0x18];
+    _STL::vector<Rva0040AF66> m_vec18;
 };
 class Rva0040AAD5;
 extern Rva0040AAD5 *TheAwardSystemManager;					// the award system
@@ -140,10 +159,63 @@ extern const FieldParse g_00DC1DD8[11] = {
 // folds onto the shared empty literal).
 #define STR(s) (((const StringBase<char> *)&(s))->str())				// the ThingStat field table
 
-class AwardSystemManager
+enum ScienceType
+{
+	SCIENCE_NONE = 0
+};
+
+class BfmeFixedStorage0004543D
 {
 public:
-	static void parseThingStat(INI *ini, void *instance, void *store, const void *userData);
+	BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &other);
+private:
+	char m_pad[0x1C];
+};
+
+class Rva0040AF66
+{
+public:
+	Rva0040AF66(const Rva0040AF66 &other);
+	Rva0040AF66 &operator=(const Rva0040AF66 &other);
+	int m_00;
+private:
+	_STL::vector<ScienceType, _STL::allocator<ScienceType> > m_04;
+	_STL::vector<ScienceType, _STL::allocator<ScienceType> > m_10;
+	BfmeFixedStorage0004543D m_1C;
+	BfmeFixedStorage0004543D m_38;
+	AsciiString m_54;
+	AsciiString m_58;
+	int m_5C;
+	int m_60;
+	unsigned char m_64;
+};
+
+struct Rva0040C0C7Element {char bytes[40];};
+
+struct Rva0040C0C7Element;
+
+struct Rva0040BEBA : public _STL::vector<Rva0040C0C7Element> {
+ __forceinline Rva0040BEBA() : _STL::vector<Rva0040C0C7Element>() {}
+ ~Rva0040BEBA();
+};
+
+struct Rva0040B59F : public _STL::vector<Rva0040AF66> {
+ __forceinline Rva0040B59F() : _STL::vector<Rva0040AF66>() {}
+ ~Rva0040B59F();
+};
+
+class AwardSystemManager : public SubsystemInterface {public:
+ AwardSystemManager();
+ virtual ~AwardSystemManager();
+ virtual void init();
+ virtual Bool loadIniFilesFromLegend() { return true; }
+ virtual void reset() {}
+ virtual void update() {}
+ static void parseTrigger(INI *,void *,void *,const void *);
+ static void parseThingStat(INI *,void *,void *,const void *);
+private:
+ Rva0040BEBA awards;
+ Rva0040B59F statistics;
 };
 
 void AwardSystemManager::parseThingStat(INI *ini, void *, void *, const void *)
