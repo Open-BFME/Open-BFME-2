@@ -32,16 +32,7 @@ public:
 
 extern void W3DLogicalScreenToPixelScreen(float, float, Int *, Int *, Int, Int);
 
-class View
-{
-public:
-	enum WorldToScreenReturn
-	{
-		WTS_INSIDE_FRUSTUM,
-		WTS_OUTSIDE_FRUSTUM,
-		WTS_INVALID
-	};
-};
+#include "../../../../GameEngine/Include/GameClient/View.h"
 
 class W3DView
 {

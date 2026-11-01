@@ -438,18 +438,7 @@ public:
 extern GlobalData *TheWritableGlobalData;
 #define TheGlobalData TheWritableGlobalData
 
-class View
-{
-public:
-	virtual void unused00(void); virtual void unused01(void); virtual void unused02(void);
-	virtual void unused03(void); virtual void unused04(void); virtual void unused05(void);
-	virtual void unused06(void); virtual void unused07(void); virtual void unused08(void);
-	virtual void unused09(void); virtual void unused10(void); virtual void unused11(void);
-	virtual void unused12(void); virtual void unused13(void); virtual void unused14(void);
-	virtual Int getWidth(void);
-	virtual void unused16(void);
-	virtual Int getHeight(void);
-};
+#include "../../../../GameEngine/Include/GameClient/View.h"
 
 extern View *TheTacticalView;
 

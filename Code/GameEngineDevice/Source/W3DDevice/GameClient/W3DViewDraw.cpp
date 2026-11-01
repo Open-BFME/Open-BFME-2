@@ -200,17 +200,7 @@ public:
 	float m_2408; // +0x2408
 };
 
-class View {
-public:
-	SLOTS4(a) SLOTS4(b) SLOTS4(c) virtual void d0(); virtual void d1(); virtual void d2();
-	virtual Int getWidth();
-	virtual void d4();
-	virtual Int getHeight();
-	SLOTS16(e) SLOTS16(f) SLOTS16(g) SLOTS16(h)
-	SLOTS4(i) virtual void k0(); virtual void k1();
-	virtual Int worldToScreenTriReturn(const Coord3D *w, ICoord2D *s);
-	char m_pad04[0xB4 - 4];
-};
+#include "../../../../GameEngine/Include/GameClient/View.h"
 
 class ViewDrawInterface {
 public:

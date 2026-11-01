@@ -150,7 +150,7 @@ static void normAngle(Real &angle)
 class GameClient;
 extern GameClient *TheGameClient;
 struct GameClientCameraLocks { char m_pad00[0xC0]; bool m_lockC0; bool m_lockC1; };
-class View { public: virtual void setAngle(Real angle); };
+#include "../../../../GameEngine/Include/GameClient/View.h"
 #define W3DVIEW_UNUSED_8(n) virtual void n##0(); virtual void n##1(); virtual void n##2(); virtual void n##3(); 	virtual void n##4(); virtual void n##5(); virtual void n##6(); virtual void n##7()
 struct W3DViewAngleSlots
 {
