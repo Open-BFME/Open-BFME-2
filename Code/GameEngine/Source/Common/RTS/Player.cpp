@@ -819,36 +819,7 @@ static void doCountSpecialPowersReady( Object *obj, void *userData )
 }
 
 //-------------------------------------------------------------------------------------------------
-static void doFindMostReadyWeaponForThing( Object *obj, void *userData )
-{
-	PlayerObjectFindInfo* info = (PlayerObjectFindInfo*)userData;
 
-	if( info->highestPercentage >= 100 )
-	{
-		//We already found the best case scenario, so no need to iterate any more.
-		return;
-	}
-	
-	if( info->thing->isEquivalentTo( obj->getTemplate() ) )
-	{
-		if( !obj->testStatus( OBJECT_STATUS_UNDER_CONSTRUCTION ) 
-				&& !obj->testStatus( OBJECT_STATUS_SOLD ) 
-				&& !obj->isEffectivelyDead() )
-		{
-			if( obj->hasAnyWeapon() )
-			{
-				UnsignedInt percentage = obj->getMostPercentReadyToFireAnyWeapon();
-				if( percentage > info->highestPercentage )
-				{
-					//This weapon is more ready than any others we've checked.
-					info->obj = obj;
-					info->highestPercentage = percentage;
-					return;
-				}
-			}
-		}
-	}
-}
 
 //-------------------------------------------------------------------------------------------------
 static void doFindMostReadySpecialPowerForThing( Object *obj, void *userData )
@@ -917,18 +888,8 @@ static void doFindExistingObjectWithThingTemplate( Object *obj, void *userData )
 
 
 //-------------------------------------------------------------------------------------------------
-// ?findMostReadyShortcutWeaponForThing@Player@@QAEPAVObject@@PBVThingTemplate@@AAI@Z present-unmatched
-Object* Player::findMostReadyShortcutWeaponForThing( const ThingTemplate *thing, UnsignedInt &mostReadyPercentage )
-{
-	PlayerObjectFindInfo info;
-	info.player = this;
-	info.obj = NULL;
-	info.thing = thing;
-	info.highestPercentage = 0;
-	iterateObjects( doFindMostReadyWeaponForThing, &info );
-	mostReadyPercentage = info.highestPercentage;
-	return info.obj;
-}
+
+
 
 //-------------------------------------------------------------------------------------------------
 // ?findMostReadyShortcutSpecialPowerForThing@Player@@QAEPAVObject@@PBVThingTemplate@@AAI@Z present-unmatched

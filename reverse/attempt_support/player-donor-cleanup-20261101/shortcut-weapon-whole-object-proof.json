@@ -1,0 +1,11 @@
+{
+  "base": "e6cdd9e17e30bb6e56cc77356258f966bd725bf3",
+  "before_definitions": 322,
+  "after_definitions": 321,
+  "added": [],
+  "removed": [
+    "?findMostReadyShortcutWeaponForThing@Player@@QAEPAVObject@@PBVThingTemplate@@AAI@Z"
+  ],
+  "changed": [],
+  "all_retained_whole_code_and_relocations_equal": true
+}
