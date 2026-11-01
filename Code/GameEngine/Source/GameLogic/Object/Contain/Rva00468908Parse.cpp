@@ -31,7 +31,7 @@ public:
 	unsigned count;
 };
 
-struct BfmeStringRecord00466E64 { int a[3]; };
+struct BfmeStringRecord00466E64 { AsciiString upgrade; AsciiString object; unsigned count; };
 template <> void _STL::vector<BfmeStringRecord00466E64, _STL::allocator<BfmeStringRecord00466E64> >::push_back(const BfmeStringRecord00466E64 &);
 
 class Rva00468908Owner

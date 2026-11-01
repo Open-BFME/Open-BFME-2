@@ -37,7 +37,8 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 #include "../../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 struct NoCaseTreeValue4
 {
-	char m_body[4];
+public:
+	char m_body[4]; // +0x00
 };
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 enum ScienceType
@@ -249,7 +250,7 @@ public:
 };
 
 // ??1Rva00466E23@@QAE@XZ retail 0x00466E23 53B
-// Non-virtual dtor destroying two StringBase<char> members at +0 and +4
+// Non-virtual dtor destroying two string members at +0 and +4
 // via rowed releaseBuffer 0x00036410 (reverse order +4 then +0) with
 // __EH_prolog frame 0x00629188. Evidence: two releaseBuffer calls with
 // lea ecx,[esi+4] then mov ecx,esi plus and/or EH states; no vptr store;
@@ -264,16 +265,16 @@ void __cdecl Rva00467763Construct(void *dest, const void *source);
 class Rva00466E23
 {
 public:
+	Rva00466E23() : count(99999) {}
 	~Rva00466E23();
-private:
-	StringBase<char> m_00;
-	StringBase<char> m_04;
+	AsciiString upgrade;
+	AsciiString object;
+	unsigned count;
 };
 
 struct Elem00467DCD
 {
 	Rva00466E23 m_rva;
-	int m_08;
 };
 
 // ?rva0046800B@Rva0046800B@@QAEXXZ retail 0x0046800B 30B

@@ -58,7 +58,8 @@ struct BfmeStringNoCaseLess
 // below rather than baked into the identifier.
 struct NoCaseTreeValue4
 {
-	char m_body[ 4 ];
+public:
+	char m_body[4]; // +0x00
 };
 
 typedef _STL::pair<const AsciiString, NoCaseTreeValue4> NoCaseTreePair4;
