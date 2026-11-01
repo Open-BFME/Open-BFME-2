@@ -216,3 +216,4 @@ CreateAHeroManager,Code/GameEngine/Include/GameLogic/CreateAHeroManager.h,existi
 MessageStream,Code/GameEngine/Include/Common/MessageStream.h,existing header; contract class_contracts/MessageStream.json; 49/109 sampled units adopt
 ThingFactory,Code/GameEngine/Include/Common/ThingFactory.h,existing header; contract class_contracts/ThingFactory.json; 149/193 sampled units adopt
 XferException,Code/GameEngine/Include/Common/XferException.h,existing header; contract class_contracts/XferException.json; 50/111 sampled units adopt
+TreeHintRef00217D4C,Code/Libraries/Source/Apt/AptRefTarget.h,existing header; contract class_contracts/TreeHintRef00217D4C.json; 69/156 sampled units adopt
