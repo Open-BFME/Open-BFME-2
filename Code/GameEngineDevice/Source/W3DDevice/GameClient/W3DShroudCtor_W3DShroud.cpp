@@ -46,7 +46,12 @@ extern GlobalData *TheWritableGlobalData;
 class Rva000729CC
 {
 public:
-	void rva00073CC0(int x, int y, UnsignedByte level, bool textureOnly);
+	void rva000729CC(bool on);
+	void rva00073CC0(int x, int y, unsigned char level, bool textureOnly);
+	char m_pad00[0x35];
+private:
+	bool m_flag35; // +0x35
+	bool m_flag36; // +0x36
 };
 class BfmeTaintManager
 {
@@ -54,11 +59,15 @@ public:
 	UnsignedByte rva006C0840(int x, int y);
 };
 extern BfmeTaintManager *TheTaintManager;
+class WorldHeightMap;
 class BaseHeightMapRenderObjClass
 {
 public:
-	char m_pad00[0x387c];
-	Rva000729CC *m_387c;
+	WorldHeightMap *getMap() const {return m_map;}
+	char m_pad00[0x37C0];
+	WorldHeightMap *m_map; // +0x37C0
+	char m_pad37C4[0xB8];
+	Rva000729CC *m_387c; // +0x387C
 };
 extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
 unsigned short __cdecl Rva00072D5DShroudPixel(unsigned char level);
