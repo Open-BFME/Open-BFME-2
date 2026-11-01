@@ -85,7 +85,7 @@ struct Rva00598961Config {char pad00[4]; _STL::vector<AsciiString *> unitNames; 
 struct Rva002A8AB1Record {char pad00[0x160];Rva00598961Config *config160;};
 class Player;
 #include "../../../../Include/Common/ThingTemplate.h"
-class ThingFactory {public:const ThingTemplate *findTemplate(const AsciiString &name);};
+#include "../../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 struct Rva00598961Template {char pad00[0x113];unsigned char field113;};
 class Rva00506FE9Hit {public:void unRegisterWithBuilder(void*);};

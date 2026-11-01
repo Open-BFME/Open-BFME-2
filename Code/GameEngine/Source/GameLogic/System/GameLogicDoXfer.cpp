@@ -122,12 +122,7 @@ struct CreateMask
 	unsigned int m_bits[4];
 };
 
-class ThingFactory
-{
-public:
-	Object *newObject(const ThingTemplate *tt, Team *team, const CreateMask *mask, ObjectID id);
-	const ThingTemplate *findTemplate(const AsciiString &name);
-};
+#include "../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 
 class Player { public: char m_pad00[0x2ec]; Team *m_defaultTeam; };

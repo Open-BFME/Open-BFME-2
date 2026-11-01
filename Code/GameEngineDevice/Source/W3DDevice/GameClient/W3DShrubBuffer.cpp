@@ -735,11 +735,7 @@ public:
 	ModuleInfo m_drawModuleInfo;
 };
 
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &name);
-};
+#include "../../../../GameEngine/Include/Common/ThingFactory.h"
 
 extern ThingFactory *TheThingFactory;
 

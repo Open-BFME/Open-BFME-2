@@ -48,11 +48,7 @@ private:
 	unsigned int m_kindOf[7];			// +0x118
 };
 class Drawable;
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &name);
-};
+#include "../../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 #include "../../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;

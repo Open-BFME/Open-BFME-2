@@ -37,11 +37,7 @@ struct Rva002A8AB1Record;
 extern Rva002A8F24 *TheSkirmishAIManager;
 
 class ThingTemplate;
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &name);
-};
+#include "../../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 
 

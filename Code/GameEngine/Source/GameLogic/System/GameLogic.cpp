@@ -167,17 +167,7 @@ struct CreateMask
 {
 	char m_data[0x10];
 };
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &name);	// 0x002D06CA
-	Object *newObject(const ThingTemplate *tmpl, Team *team, const CreateMask *mask, ObjectID flag);
-	void *newDrawable(void *tmplate, int status, int random);
-	const ThingTemplate *firstTemplate() const { return m_firstTemplate; }
-
-	char m_pad00[0xC];
-	const ThingTemplate *m_firstTemplate; // +0x0C
-};
+#include "../../../Include/Common/ThingFactory.h"
 #include "../../Common/Thing/thing.h"
 class ModuleData;
 class ModuleInfo

@@ -21,7 +21,7 @@ public:
 #undef SLOT
 };
 class Object { public: char pad[0x74]; ObjectID id; char pad78[0x258-0x78]; AIUpdateView *ai; };
-class ThingFactory { public: const ThingTemplate *findTemplate(const AsciiString &name); };
+#include "../../../Include/Common/ThingFactory.h"
 class ThingFactory;
 extern ThingFactory *TheThingFactory;
 class Rva0055ADD8 { public: int failBuild(int); };

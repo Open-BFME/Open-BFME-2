@@ -40,7 +40,7 @@ struct Rva002BC1DAArmy {char bytes[0x38];};
 class LivingWorldBattle {public:int rva003F4752(void*);int rva003F4FAA(int,void*);int rva003F48FE(int,int,int);int rva003F4921(int,int,int);};
 class Rva003F4DCA {public:int rva003F4DCA(int,int);};
 class ThingTemplate {public:char pad00[0x113];unsigned char heroFlags;char pad114[0x5C4-0x114];int kind;};
-class ThingFactory {public:const ThingTemplate*findTemplate(const AsciiString&);};
+#include "../../../../Include/Common/ThingFactory.h"
 extern ThingFactory*TheThingFactory;
 class Rva002B6066 {public:Rva0040DC56Element*rva002B6066(Rva0040DC56Element*);};
 struct Rva002BBC1CCmp {bool operator()(const Rva004F6093Holder&,const Rva004F6093Holder&)const;};

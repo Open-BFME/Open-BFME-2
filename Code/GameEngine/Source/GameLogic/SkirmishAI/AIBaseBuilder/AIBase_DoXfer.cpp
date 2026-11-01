@@ -212,11 +212,7 @@ extern PlayerTemplateStore *ThePlayerTemplateStore;
 
 class ThingTemplate;
 
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &key);
-};
+#include "../../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 
 class Player

@@ -29,11 +29,7 @@ class Drawable;
 class ModuleData;
 class ThingTemplate;
 
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &name);
-};
+#include "../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 
 _STLP_BEGIN_NAMESPACE

@@ -77,11 +77,7 @@ private:
 	ModuleInfo m_behaviorModuleInfo;	// +0x2E4
 };
 
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &name);
-};
+#include "../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 
 class Rva0031D5F8

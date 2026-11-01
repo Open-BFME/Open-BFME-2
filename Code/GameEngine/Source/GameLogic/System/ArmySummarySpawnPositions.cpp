@@ -20,7 +20,7 @@ void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
 struct Rva004F69C3Target { unsigned char unknown0[4]; AsciiString templateName; unsigned char opaque[0xAC-8]; TargetRef00217D4C ref; };
 // Target lookup2D06CA and the following byte test prove only this flag offset.
 #include "../../../Include/Common/ThingTemplate.h"
-class ThingFactory { public: const ThingTemplate* findTemplate(const AsciiString&); };
+#include "../../../Include/Common/ThingFactory.h"
 extern ThingFactory* TheThingFactory;
 struct Rva004F69C3 { int key; Rva004F69C3Target* value; ~Rva004F69C3(); };
 namespace _STL { template<> vector<Rva004F69C3>::iterator vector<Rva004F69C3>::erase(iterator); }

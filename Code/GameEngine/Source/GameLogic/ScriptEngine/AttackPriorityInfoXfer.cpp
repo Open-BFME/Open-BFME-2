@@ -77,11 +77,7 @@ typedef unsigned short UnsignedShort;
 
 #include "../../../Include/Common/ThingTemplate.h"
 
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate( const AsciiString &name );
-};
+#include "../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 
 typedef _STL::map< const ThingTemplate *, Int, _STL::less< const ThingTemplate * > > AttackPriorityMap;

@@ -142,7 +142,7 @@ extern Rva00E02D6C *TheCampaignManager;
 class Rva0040CB2CIndexedField { public: int get(int) const; };
 struct Rva005E7322MidRet { char pad[4]; AsciiString text; };
 class ThingTemplate { public: char pad00[0x5C4]; int kind; };
-class ThingFactory { public: const ThingTemplate *findTemplate(const AsciiString &name); };
+#include "../../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 
 class Rva0059DA34

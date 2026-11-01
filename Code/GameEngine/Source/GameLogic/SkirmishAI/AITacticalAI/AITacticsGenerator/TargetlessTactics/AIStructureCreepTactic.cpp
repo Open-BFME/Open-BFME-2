@@ -343,11 +343,7 @@ struct Rva005AC0B5Template
 };
 
 class ThingTemplate;
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &key);	// the thing template by name
-};
+#include "../../../../../../Include/Common/ThingFactory.h"
 // Use the ledger-defined factory view at DFF000; avoid a second
 // external spelling of the same factory pointer.
 extern ThingFactory *TheThingFactory;

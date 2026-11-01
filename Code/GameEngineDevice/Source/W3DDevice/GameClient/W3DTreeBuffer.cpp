@@ -789,11 +789,7 @@ public:
 	char m_pad2F1[0x3];
 };
 
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &name);
-};
+#include "../../../../GameEngine/Include/Common/ThingFactory.h"
 
 extern ThingFactory *TheThingFactory;
 

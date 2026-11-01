@@ -88,11 +88,7 @@ private:
 	AsciiString *m_end;	// +0x0C
 };
 
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &name);	// 0x002D06CA
-};
+#include "../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 
 #include "../../Common/PartitionRangeQueryCallView.h"

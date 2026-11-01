@@ -33,11 +33,7 @@ public:
 	bool getProductionObject() const;
 };
 
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &s);
-};
+#include "../../../../GameEngine/Include/Common/ThingFactory.h"
 
 class SuffixObj
 {

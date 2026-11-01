@@ -61,7 +61,7 @@ void BuildPhase::update(){
 class ThingTemplate;
 class ThingFactory;
 extern ThingFactory*TheThingFactory;
-class ThingFactory {public:const ThingTemplate *findTemplate(const AsciiString &name);};
+#include "../../../../Include/Common/ThingFactory.h"
 class BuildAssistant {public:bool rva00391AA1(const ThingTemplate*,const ThingTemplate*);};
 extern BuildAssistant*TheBuildAssistant;
 // Native5DCC86..5DCCFB full117 RET4; BuildPhase vector4/8 and

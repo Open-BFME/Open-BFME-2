@@ -188,11 +188,7 @@ private:
 	AsciiString m_name;																												///< 0x64
 };
 
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &name);
-};
+#include "../../../Include/Common/ThingFactory.h"
 
 extern ThingFactory *TheThingFactory;
 

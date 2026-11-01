@@ -20,11 +20,7 @@ public:
 	void setPriority(const class ThingTemplate *, int);
 };
 class ThingTemplate;
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &name);
-};
+#include "../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 
 // BFME 2 keeps the AI's attack priority sets in a list under TheAI's data

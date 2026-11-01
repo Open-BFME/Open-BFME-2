@@ -12,7 +12,7 @@
 #include "ArmySummary.h"
 // Target lookup2D06CA and the following byte test prove only this flag offset.
 class ThingTemplate { public: unsigned char opaque[0x113]; unsigned char flags113; };
-class ThingFactory { public: const ThingTemplate* findTemplate(const AsciiString&); };
+#include "../../../Include/Common/ThingFactory.h"
 extern ThingFactory* TheThingFactory;
 
 Rva0040DD3ARef ArmySummary::RemoveEntry(int index) {

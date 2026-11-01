@@ -306,11 +306,7 @@ struct LWAIArmyView
 };
 
 class ThingTemplate;
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &name);
-};
+#include "../../../../GameEngine/Include/Common/ThingFactory.h"
 
 struct LWAIThingTemplateView
 {

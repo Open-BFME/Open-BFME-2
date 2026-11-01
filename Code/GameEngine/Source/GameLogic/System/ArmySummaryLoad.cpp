@@ -101,7 +101,7 @@ public:char bytes00[0x64];AsciiString name;
  char bytes68[0x110-0x68];unsigned flags110;
  char bytes114[0x618-0x114];int commandPoints;
 };
-class ThingFactory {public:const ThingTemplate*findTemplate(const AsciiString&);};
+#include "../../../Include/Common/ThingFactory.h"
 extern ThingFactory*TheThingFactory;
 #include "../../Common/GameLogicObjectLookupView.h"
 // bfme link decl-only begin

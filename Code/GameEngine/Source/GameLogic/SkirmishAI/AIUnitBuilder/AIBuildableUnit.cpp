@@ -52,11 +52,7 @@ extern GameLogic *TheGameLogic;
 
 // Use the verified 2D06CA owner rather than a declaration with no definition.
 // Its target payload is the template consumed by the production interface.
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &name);
-};
+#include "../../../../Include/Common/ThingFactory.h"
 
 extern ThingFactory *TheThingFactory;
 

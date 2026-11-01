@@ -28,7 +28,7 @@ public:
 class LivingWorldAutoResolveUnit;
 class ExperienceTrackerAutoResolve {public:ExperienceTrackerAutoResolve(LivingWorldAutoResolveUnit *,const Rva004F6093Holder &); char opaque[0x3C];};
 class Rva005DB023 {public:void rva005DB023();};
-class ThingFactory {public:const ThingTemplate *findTemplate(const AsciiString &);};
+#include "../../../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 #include "../../../../../Include/Common/Rva0007DF07.h"
 struct AutoResolveTargetHolder {
