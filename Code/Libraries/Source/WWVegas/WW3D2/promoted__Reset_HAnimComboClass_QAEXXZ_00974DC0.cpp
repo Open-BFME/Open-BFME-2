@@ -25,24 +25,7 @@
 typedef int Int;
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib/refcount.h
-class RefCountClass
-{
-public:
-	// Always inlined here, so this unit emits no copy of the rowed 0x5D1A7D body.
-	__declspec(dllimport) __forceinline void Release_Ref(void)
-	{
-		NumRefs--;
-		if (NumRefs == 0)
-		{
-			Delete_This();
-		}
-	}
-
-protected:
-	virtual void Delete_This(void);						///< vtable +0x00
-
-	Int NumRefs;										///< retail this+0x04
-};
+#include "../WWLib/RefCountData.h"
 
 class HAnimClass : public RefCountClass {};
 

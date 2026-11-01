@@ -11,13 +11,7 @@
 #include <new.h>
 #include <string.h>
 
-class RefCountClass
-{
-public:
-	virtual void Delete_This();
-protected:
-	int m_refCount;
-};
+#include "../WWLib/RefCountData.h"
 
 class ShareBufferClassBase : public RefCountClass
 {

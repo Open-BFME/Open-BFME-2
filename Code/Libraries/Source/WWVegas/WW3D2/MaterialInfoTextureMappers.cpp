@@ -24,17 +24,7 @@ class W3DMPO
 {
 };
 
-class RefCountClass
-{
-public:
-	virtual void Delete_This()
-	{
-		delete this;
-	}
-
-protected:
-	int m_refCount;
-};
+#include "../WWLib/RefCountData.h"
 
 class TextureMapperClass : public W3DMPO, public RefCountClass
 {

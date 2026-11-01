@@ -55,14 +55,7 @@ private:
 template <> RefCountPtr<TextureClass>::RefCountPtr();
 // bfme link decl-only end
 
-class RefCountClass {
-public:
-    __declspec(dllimport) void Add_Ref() { ++NumRefs; }
-    __declspec(dllimport) __forceinline void Release_Ref() { --NumRefs; if (NumRefs == 0) Delete_This(); }
-    virtual void Delete_This();
-protected:
-    int NumRefs;
-};
+#include "../WWLib/RefCountData.h"
 // Init_Alternate (0x15A1B0) allocates 0x6C bytes and copies a material with
 // the out-of-line copy constructor at 0x13DAE0.
 class VertexMaterialClass : public RefCountClass {

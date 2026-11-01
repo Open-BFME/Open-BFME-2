@@ -17,12 +17,7 @@
 // constructor copies exactly those members after RenderObjClass's default
 // constructor, as Zero Hour's light.cpp writes it.
 
-class RefCountClass
-{
-public:
-	virtual ~RefCountClass();
-	int NumRefs;
-};
+#include "../WWLib/RefCountData.h"
 
 class PersistClass
 {

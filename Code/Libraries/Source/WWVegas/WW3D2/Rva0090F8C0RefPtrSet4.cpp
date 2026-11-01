@@ -5,22 +5,7 @@
 // Delete_This at vtable slot 0 when the count hits zero.
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib/refcount.h
-class RefCountClass
-{
-public:
-	virtual void Delete_This(void);
-	void Add_Ref(void) { NumRefs++; }
-	void Release_Ref(void)
-	{
-		NumRefs--;
-		if (NumRefs == 0) {
-			Delete_This();
-		}
-	}
-
-private:
-	int NumRefs;
-};
+#include "../WWLib/RefCountData.h"
 
 #define REF_PTR_SET(dst,src)	{ if (src) (src)->Add_Ref(); if (dst) (dst)->Release_Ref(); (dst) = (src); }
 

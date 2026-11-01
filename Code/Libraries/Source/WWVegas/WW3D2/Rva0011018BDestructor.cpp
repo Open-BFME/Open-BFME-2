@@ -10,7 +10,7 @@
 // The material counter is32-bit at+4 and Delete_This slot0; texture releases
 // through the existing TextureBaseClass provider61ED10. No new pins.
 class TextureBaseClass {public: void Release_Ref();};
-class RefCountClass {public: virtual void Delete_This(); int refs; __forceinline void Release_Ref(){if(--refs==0)Delete_This();}};
+#include "../WWLib/RefCountData.h"
 class RendererTextureHandle {public: TextureBaseClass *p; ~RendererTextureHandle(){if(p)p->Release_Ref();}};
 class RendererMaterialHandle {public: RefCountClass *p; __forceinline void clear(){if(p){ p->Release_Ref(); p=0; }}};
 class Rva00785FD0Renderer {

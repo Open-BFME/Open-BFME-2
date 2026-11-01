@@ -8,14 +8,7 @@
 // The reader at188AF0 installs these per-pass references at descriptor+B8.
 // Its call at188B54 passes a context entry and the current pass. The pointee's
 // original type is unknown; its RefCountClass prefix is established by target.
-class RefCountClass {
-public:
-    __declspec(dllimport) __forceinline void Add_Ref() { ++NumRefs; }
-    __declspec(dllimport) __forceinline void Release_Ref() { if (--NumRefs == 0) Delete_This(); }
-    virtual void Delete_This();
-private:
-    int NumRefs;
-};
+#include "../WWLib/RefCountData.h"
 class MeshMatDescClass {
     char prefix[0xB8];
     RefCountClass *OpaquePassBuffers[4];

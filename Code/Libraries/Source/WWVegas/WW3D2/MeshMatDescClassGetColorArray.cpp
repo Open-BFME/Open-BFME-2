@@ -14,19 +14,7 @@
 // Like its ctor dependency, this unit builds at /O1 for the ebp-frame
 // __EH_prolog prologue.
 
-class RefCountClass
-{
-public:
-	RefCountClass() : m_refs(1) {}
-	RefCountClass(const RefCountClass &) : m_refs(1) {}
-	virtual void Delete_This();
-
-protected:
-	virtual ~RefCountClass() {}
-
-private:
-	int m_refs;
-};
+#include "../WWLib/RefCountData.h"
 
 template <class T>
 class ShareBufferClass : public RefCountClass

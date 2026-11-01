@@ -43,12 +43,7 @@ protected:
 	MultiListNode Head; // +0x04
 };
 
-class RefCountClass
-{
-public:
-	virtual void Delete_This(void);
-	int RefCount;
-};
+#include "RefCountData.h"
 
 class RenderObjClass : public RefCountClass, public MultiListObjectClass
 {

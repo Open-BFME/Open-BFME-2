@@ -29,18 +29,7 @@ public:
 
 class FXShaderSetup;
 
-class RefCountClass
-{
-	friend struct BfmeFXShaderRefOps;
-public:
-	RefCountClass() : NumRefs(1) {}
-	virtual void Delete_This();
-
-protected:
-	virtual ~RefCountClass() {}
-
-	int NumRefs;
-};
+#include "../WWLib/RefCountData.h"
 
 // TU-local copies of refcount.h's RefCountClass::Add_Ref and Release_Ref, which retail's reader
 // inlines. As members of this view they emitted this /O2 unit's COMDAT copies, which are not the

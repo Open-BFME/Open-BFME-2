@@ -11,19 +11,7 @@ class Vector4;
 
 // The existing shared-buffer body uses only count-at-4 and Delete_This slot 0.
 // Its element classes are template identities here; no element layout is used.
-class RefCountClass
-{
-public:
-	void Add_Ref() { NumRefs++; }
-	void Release_Ref() { if (--NumRefs == 0) Delete_This(); }
-	RefCountClass() : NumRefs(1) {}
-	RefCountClass(const RefCountClass &) : NumRefs(1) {}
-	virtual void Delete_This();
-protected:
-	virtual ~RefCountClass() {}
-private:
-	int NumRefs; // +0x04
-};
+#include "../WWLib/RefCountData.h"
 
 template <class Type>
 class ShareBufferClass : public RefCountClass

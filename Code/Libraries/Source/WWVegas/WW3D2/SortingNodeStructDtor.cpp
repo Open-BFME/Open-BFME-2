@@ -45,25 +45,7 @@ class TextureClass;
 // refcount lives at +4 behind the vptr, Release_Ref inlines to a decrement
 // with a virtual Delete_This call (slot 0) on reaching zero, and the virtual
 // dtor sits at slot 1. Only this shape reproduces the retail releases.
-class RefCountClass
-{
-public:
-	__forceinline void Add_Ref(void) const { NumRefs++; }
-	__forceinline void Release_Ref(void) const
-	{
-		NumRefs--;
-		if (NumRefs == 0) {
-			const_cast<RefCountClass *>(this)->Delete_This();
-		}
-	}
-	virtual void Delete_This(void) { delete this; }
-
-protected:
-	virtual ~RefCountClass(void) {}
-
-private:
-	mutable int NumRefs;
-};
+#include "../WWLib/RefCountData.h"
 
 class VertexMaterialClass : public RefCountClass
 {

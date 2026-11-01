@@ -26,13 +26,7 @@ public:
         return *this;
     }
 };
-class RefCountClass {
-public:
-    virtual void Delete_This();
-    int RefCount;
-    __declspec(dllimport) __forceinline void Add_Ref() { ++RefCount; }
-    __declspec(dllimport) __forceinline void Release_Ref() { if(--RefCount==0) Delete_This(); }
-};
+#include "../WWLib/RefCountData.h"
 class MeshModelClass : public RefCountClass {
 public: void Replace_Texture(const RefCountPtr<TextureClass>&, const RefCountPtr<TextureClass>&);
 };

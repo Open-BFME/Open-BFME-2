@@ -14,16 +14,7 @@
 // lets cl drop the main-path null test of the mesh release exactly as retail does.
 #include <vector>
 
-class RefCountClass
-{
-public:
-	virtual void Delete_This(void);
-	__forceinline void Add_Ref(void) { ++NumRefs; }
-	__forceinline void Release_Ref(void) { --NumRefs; if (NumRefs == 0) Delete_This(); }
-
-protected:
-	int NumRefs;
-};
+#include "../WWLib/RefCountData.h"
 
 template <class T>
 class RefCountPtr

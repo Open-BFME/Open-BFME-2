@@ -16,13 +16,7 @@ class ChunkSaveClass;
 class ChunkLoadClass;
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib/refcount.h
-class RefCountClass
-{
-public:
-	virtual void Delete_This(void);
-	virtual ~RefCountClass(void);
-	int NumRefs;
-};
+#include "../WWLib/RefCountData.h"
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/shader.h
 class ShaderClass

@@ -27,15 +27,7 @@ class W3DMPO
 {
 };
 
-class RefCountClass
-{
-public:
-	virtual void Delete_This();
-	virtual ~RefCountClass();
-
-private:
-	int NumRefs;
-};
+#include "../WWLib/RefCountData.h"
 
 class MultiListNodeClass
 {

@@ -12,13 +12,7 @@
 // Match the retail RefCountClass release helper at 0x5D1A7D.
 // Its declaration uses the verified provider's size context; callers retain theirs.
 #pragma optimize("gsy", on)
-class RefCountClass {
-public:
-    void Release_Ref() { --NumRefs; if (NumRefs == 0) Delete_This(); }
-    virtual void Delete_This();
-private:
-    int NumRefs;
-};
+#include "../WWLib/RefCountData.h"
 #pragma optimize("", on)
 class TextureClass;
 template <class T> class RefCountPtr {

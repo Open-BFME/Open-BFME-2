@@ -25,18 +25,7 @@ class BFMEDX8DeviceLock { public: BFMEDX8DeviceLock(){BFME_DX8_Thread_Lock();} ~
 // Release_Ref inlines to dec/test/Delete_This; the virtual Delete_This call
 // itself is never inlined, which is exactly the retail shape. Neither virtual
 // is defined here and none is ever ODR-used, so this TU emits no symbols.
-class RefCountClass
-{
-public:
-	__declspec(dllimport) __forceinline void Release_Ref() { m_refs--; if (m_refs == 0) { Delete_This(); } }
-	virtual void Delete_This();
-
-protected:
-	virtual ~RefCountClass();
-
-private:
-	int m_refs;
-};
+#include "../WWLib/RefCountData.h"
 
 class FontCharsClass : public RefCountClass
 {

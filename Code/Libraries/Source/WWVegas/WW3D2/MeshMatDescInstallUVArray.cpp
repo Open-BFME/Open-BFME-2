@@ -30,19 +30,7 @@ unsigned long CRC_Memory(const unsigned char *data, unsigned long length, unsign
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib/refcount.h
 // (sharebuf_vector2_copy_ctor.cpp precedent).
-class RefCountClass
-{
-public:
-	RefCountClass() : NumRefs(1) {}
-	RefCountClass(const RefCountClass &) : NumRefs(1) {}
-	virtual void Delete_This();
-
-protected:
-	virtual ~RefCountClass();
-
-private:
-	int NumRefs;
-};
+#include "../WWLib/RefCountData.h"
 
 // upstream layout: reference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib/sharebuf.h,
 // with BFME's RawBuffer/Alignment pair around Zero Hour's Array and Count

@@ -90,16 +90,7 @@ bool DynamicVectorClass<T>::Resize(int newsize, T const *array)
     return(false);
 }
 
-class RefCountClass
-{
-public:
-    RefCountClass() : m_refs(1) {}
-    virtual void Delete_This();
-protected:
-    virtual ~RefCountClass() {}
-private:
-    int m_refs;
-};
+#include "../WWLib/RefCountData.h"
 
 template <class T> class ShareBufferClass : public RefCountClass
 {
