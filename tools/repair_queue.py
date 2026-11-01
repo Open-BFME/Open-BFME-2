@@ -1263,6 +1263,7 @@ def data_identity_items():
 
 
 HEADER_ESTABLISH_LIMIT = 30   # classes without a header served at once, by merge donors unblocked
+HEADER_BATCH_LIMIT = 25       # bounded class cohorts; all chunks stay selectable
 
 
 HEADER_DECISIONS = "reverse/header_decisions.jsonl"
@@ -1339,7 +1340,7 @@ def header_items():
     `merge_donors` carry that order into the draw. After them, up to HEADER_ESTABLISH_LIMIT
     classes without a header whose private views block queued merges
     (`class-header-establish`: contract, generate, apply through the lane).
-    Each item claims `class:NAME` and includes every queued source of that class in
+    Each bounded class batch claims `class:NAME` and includes every queued source of that class in
     its work footprint, even private views without member rows in the ledger. The
     first diagnostic is often a member the header lacks, so the fix is class-wide. An
     establish item claims the class, its header destination and its merge donors; `run
@@ -1393,6 +1394,45 @@ def header_items():
             "pass_test": (header_adopt_lane.acceptance_command(name, source) + ": the unit #includes the header, "
                           "declares no private body and byte-matches; the command then retires the row"),
         })
+    # Keep the existing class-wide safety footprint, but use it for a bounded
+    # cohort rather than just its anchor file. Expose every chunk so a stubborn
+    # first cohort cannot starve the rest of a large class. Never mix headers.
+    grouped = collections.defaultdict(list)
+    for item in items:
+        grouped[item["class"], item["header"]].append(item)
+    batches = []
+    for (name, header), group in grouped.items():
+        unique = {item["source"]: item for item in group}
+        chunk, chars = [], 0
+        chunks = []
+        for item in sorted(unique.values(), key=lambda i: i["source"]):
+            cost = len(item["source"]) + 3
+            if chunk and (len(chunk) >= HEADER_BATCH_LIMIT or chars + cost > 6000):
+                chunks.append(chunk)
+                chunk, chars = [], 0
+            chunk.append(item)
+            chars += cost
+        if chunk:
+            chunks.append(chunk)
+        for chunk in chunks:
+            batch = dict(chunk[0])  # source/target_rva remain the legacy anchor
+            sources = [i["source"] for i in chunk]
+            files = " ".join(sources)
+            batch.update(sources=sources, batch_size=len(sources), class_units=len(unique),
+                         credit=sum(i["credit"] for i in chunk),
+                         debt_lines=[line for i in chunk for line in i["debt_lines"]])
+            if len(sources) > 1:
+                batch["why"] = (f"adopt {header or 'the canonical header'} for {name} in {len(sources)} "
+                                f"of {len(unique)} queued units; sources: {files}")
+                batch["pass_test"] = (header_adopt_lane.acceptance_command(name, files)
+                                      + ": every accepted unit includes the header, declares no private body, "
+                                      "byte-matches and preserves census-linked bytes; retire passing rows only")
+            if header:
+                batch["start"] = (f"python3 tools/header_adopt_lane.py adopt --class {name} "
+                                  f"--header {header} --apply {files}; then {batch['pass_test']}")
+            batches.append(batch)
+    units = len(items)
+    items = batches
     queued_classes = {i["class"] for i in items}
     # Classes the bulk pass (`run --all`) already tried are served as decisions, in
     # place of establish items: the mechanical part is done, a judgement remains.
@@ -1457,7 +1497,7 @@ def header_items():
     establish.sort(key=lambda i: (-i["merge_donors"], i["class"]))
     classes = len({i["class"] for i in items})
     return vanished_items("header", gone, HEADER_QUEUE) + items + decided + establish, (
-        f"{len(items)} unit(s) of {classes} class(es) from {HEADER_QUEUE}" + gone_note(gone, "rows")
+        f"{units} unit(s) in {len(items)} batch(es) of {classes} class(es) from {HEADER_QUEUE}" + gone_note(gone, "rows")
         + (f"; {len(decided)} class decision(s) from {HEADER_DECISIONS}" if decided else "")
         + f"; {len(establish)} class(es) without a header ranked by merge donors unblocked "
           "(header_adopt_lane.py order --merges)" + merge_note)

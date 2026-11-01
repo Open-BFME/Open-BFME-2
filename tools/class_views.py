@@ -43,12 +43,12 @@ unit's link status and matched bytes: the work list for reconciling it.
 import argparse
 import collections
 import csv
-import hashlib
 import re
 import sys
 from pathlib import Path
 
 from class_layouts import class_body_spans
+import class_inventory
 
 ROOT = Path(__file__).resolve().parent.parent
 CANONICAL = ROOT / "reverse" / "canonical_classes.csv"
@@ -103,17 +103,10 @@ def class_bodies(text):
     return found
 
 
-def survey():
+def survey(wanted=None):
     sizes = ledger_sources()
     status = link_status()
-    views = collections.defaultdict(dict)  # class -> {source: digest}
-    for source in sizes:
-        try:
-            text = (ROOT / source).read_text(encoding="latin-1")
-        except OSError:
-            continue
-        for name, body in class_bodies(text).items():
-            views[name][source] = hashlib.sha1(body.encode("latin-1")).hexdigest()[:10]
+    views = class_inventory.inventory(sizes, ROOT, wanted)
     return views, sizes, status
 
 
@@ -185,7 +178,7 @@ def main(argv=None):
         for owner, value in weight.most_common(args.top):
             print(f"{int(value):9} {len(units[owner]):6}  {owner}  {canon.get(owner, '')}")
         return 0
-    views, sizes, status = survey()
+    views, sizes, status = survey({args.name} if args.name else None)
     canon = canonical_classes()
     if args.name:
         units = views.get(args.name, {})

@@ -98,7 +98,19 @@ unit and queues the rest in `reverse/header_queue.tsv`. The swap renames a unit'
 private field names to the header's (one offset and size is one field). For a
 class whose merge donors still mostly carry private views, adopt unit by unit
 without registering: `header_adopt_lane.py adopt --class X --header PATH FILE...`
-(`--apply` writes the units that byte-match). The header tier serves
+(`--apply` writes the units that byte-match). Trials share one scoped byte-verifier
+process per cohort/header variant, splitting a failed cohort to retain individual
+diagnostics. `accept --class X FILE...` also shares the byte setup and previews all
+byte-passing objects together; only individually passing rows leave the queue.
+The header tier serves bounded class batches (up to 25 files and about 6,000 path
+characters), with every chunk of a larger class available. Its `sources` field
+and start/accept commands name the whole batch; `source` remains its anchor for
+older consumers. Class-wide claims still protect the shared definition.
+`class_views.py`, contract discovery and bulk adoption share a content-keyed
+private-declaration inventory: every query reads current contents, but unchanged
+contents reuse their parsed declarations. A first single-class query prefilters
+class heads instead of building the whole inventory. Compiled layout, byte and
+link checks remain required. The header tier serves
 classes by the queued TU-merge donors their header unblocks:
 `header_adopt_lane.py order --merges [N]` lists them (private views in one
 approved TU that tu_views cannot reconcile, or private copies of a registered

@@ -25,6 +25,126 @@ class AsciiString : public StringBase<char> { char *m_data; };
 void use(Coord3D *c) { c->zero(); }
 """
 
+
+def test_batch_byte_gate_shares_one_successful_process(monkeypatch):
+    calls = []
+    monkeypatch.setattr(lane, "BFME2", True)
+    monkeypatch.setattr(lane.subprocess, "run", lambda command, **kwargs:
+                        calls.append(command) or SimpleNamespace(returncode=0, stdout="Functions: OK 2/2", stderr=""))
+    assert lane.gate_many(["a.cpp", "b.cpp", "a.cpp"]) == {"a.cpp": None, "b.cpp": None}
+    assert calls == [[sys.executable, "tools/build.py", "a.cpp", "b.cpp"]]
+
+
+def test_batch_byte_failure_is_isolated_without_trusting_diagnostic_names(monkeypatch):
+    calls = []
+    monkeypatch.setattr(lane, "BFME2", True)
+    def run(command, **kwargs):
+        files = command[2:]
+        calls.append(files)
+        failed = "bad.cpp" in files
+        return SimpleNamespace(returncode=int(failed), stdout="Functions: OK" if not failed else "a.cpp mentioned here", stderr="")
+    monkeypatch.setattr(lane.subprocess, "run", run)
+    monkeypatch.setattr(lane, "gate_one", lambda source: "real failure" if source == "bad.cpp" else None)
+    sources = ["a.cpp", "b.cpp", "c.cpp", "d.cpp", "e.cpp", "f.cpp", "g.cpp", "bad.cpp"]
+    assert lane.gate_many(sources) == {s: "real failure" if s == "bad.cpp" else None for s in sources}
+    assert calls == [sources, sources[:4], sources[4:]]
+
+
+def test_batch_gate_rejects_exit_zero_without_explicit_success(monkeypatch):
+    monkeypatch.setattr(lane, "BFME2", True)
+    monkeypatch.setattr(lane.subprocess, "run", lambda *a, **kw: SimpleNamespace(returncode=0, stdout="", stderr=""))
+    assert lane.gate_many(["a.cpp", "b.cpp"]) == {"a.cpp": "gate exited 0", "b.cpp": "gate exited 0"}
+
+
+def test_batch_gate_bounds_windows_command_size(monkeypatch):
+    monkeypatch.setattr(lane, "BFME2", True)
+    calls = []
+    monkeypatch.setattr(lane.subprocess, "run", lambda command, **kw:
+                        calls.append(command) or SimpleNamespace(returncode=0, stdout="Functions: OK", stderr=""))
+    sources = [f"Code/{'x' * 180}/{i}.cpp" for i in range(80)]
+    assert lane.gate_many(sources) == dict.fromkeys(sources)
+    assert len(calls) > 1
+    assert all(sum(len(s) + 3 for s in command[2:]) <= 6000 for command in calls)
+
+
+def test_wholly_failing_variant_has_bounded_bisection_overhead(monkeypatch):
+    monkeypatch.setattr(lane, "BFME2", True)
+    calls = []
+    monkeypatch.setattr(lane.subprocess, "run", lambda command, **kw:
+                        calls.append(command) or SimpleNamespace(returncode=1, stdout="FAIL", stderr=""))
+    sources = [f"Code/Unit{i}.cpp" for i in range(25)]
+    assert all(lane.gate_many(sources).values())
+    assert len(calls) == len(sources) + 7
+
+
+@pytest.mark.parametrize("raise_gate", [False, True])
+def test_trial_batch_shares_ledger_and_restores_sources_even_on_exception(tmp_path, monkeypatch, raise_gate):
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    ledger = tmp_path / "functions.csv"
+    ledger.write_bytes(b"old,row\r\n")
+    monkeypatch.setattr(lane, "LEDGER", ledger)
+    originals = {s: f"original {s}\r\n".encode() for s in ["a.cpp", "b.cpp", "blocked.cpp"]}
+    for s, content in originals.items():
+        (tmp_path / s).write_bytes(content)
+    monkeypatch.setattr(lane, "prepare_unit", lambda s, *args:
+                        (s, "preparation error", None, []) if s == "blocked.cpp" else
+                        (s, None, f"candidate {s}", [("old", "new")] if s == "a.cpp" else []))
+    def gate(sources):
+        assert sources == ["a.cpp", "b.cpp"]
+        assert ledger.read_text() == "new,row\n"
+        assert (tmp_path / "a.cpp").read_text() == "candidate a.cpp"
+        assert (tmp_path / "b.cpp").read_text() == "candidate b.cpp"
+        assert (tmp_path / "blocked.cpp").read_bytes() == originals["blocked.cpp"]
+        if raise_gate:
+            raise RuntimeError("interrupted")
+        return {"a.cpp": None, "b.cpp": "byte mismatch"}
+    monkeypatch.setattr(lane, "gate_many", gate)
+    if raise_gate:
+        with pytest.raises(RuntimeError, match="interrupted"):
+            lane.try_units(list(originals), ["C"], "C.h", "class")
+    else:
+        got = lane.try_units(list(originals), ["C"], "C.h", "class")
+        assert [g[1] for g in got] == [None, "byte mismatch", "preparation error"]
+    assert ledger.read_bytes() == b"old,row\r\n"
+    assert {s: (tmp_path / s).read_bytes() for s in originals} == originals
+
+
+def test_batch_acceptance_shares_setup_and_requires_individual_link_results(tmp_path, monkeypatch):
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    (tmp_path / "C.h").write_text("class C {};\n")
+    sources = ["ok.cpp", "byte.cpp", "unknown.cpp", "loss.cpp", "private.cpp"]
+    for s in sources:
+        (tmp_path / s).write_text('#include "C.h"\n' + ("class C {};" if s == "private.cpp" else ""))
+    calls = []
+    monkeypatch.setattr(lane, "gate_many", lambda ss: calls.append(("build", list(ss))) or
+                        {s: "byte mismatch" if s == "byte.cpp" else None for s in ss})
+    monkeypatch.setattr(lane, "link_ok", lambda ss: calls.append(("link", list(ss))) or
+                        {"ok.cpp": True, "loss.cpp": False, "private.cpp": True})
+    retired = []
+    monkeypatch.setattr(lane, "retire_rows", lambda done: retired.append(done) or 0)
+    assert lane.accept("C", sources, "C.h") == 1
+    assert calls == [("build", sources), ("link", [s for s in sources if s != "byte.cpp"])]
+    assert retired == [{("C", "ok.cpp")}]
+
+
+@pytest.mark.parametrize("existing", [False, True])
+def test_variant_failure_restores_the_trial_header(tmp_path, monkeypatch, existing):
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    monkeypatch.setattr(lane, "registered", lambda: {})
+    monkeypatch.setattr(lane, "view_methods", lambda *args: {})
+    monkeypatch.setattr(lane, "generate", lambda *args: "candidate header\n")
+    header = tmp_path / "C.h"
+    original = b"original\r\n"
+    if existing:
+        header.write_bytes(original)
+    def fail(*args):
+        assert header.read_text() == "candidate header\n"
+        raise RuntimeError("interrupted")
+    monkeypatch.setattr(lane, "try_units", fail)
+    with pytest.raises(RuntimeError, match="interrupted"):
+        lane.tournament("C", {"fields": [], "key": "class"}, ["a.cpp", "b.cpp"], "C.h", ["data"], 1)
+    assert header.read_bytes() == original if existing else not header.exists()
+
 CONTRACT = {"class": "Coord3D", "key": "struct", "key_by": "bytes", "size": 12, "size_by": "zh", "bases": [],
             "fields": [{"offset": o, "size": 4, "kind": "f4", "type": "float", "name": n}
                        for o, n in ((0, "x"), (4, "y"), (8, "z"))]}

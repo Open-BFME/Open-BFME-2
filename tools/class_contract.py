@@ -92,18 +92,10 @@ def ledger_rows():
 
 def census(name, rows=None):
     """Ledger sources (authored) that declare their own body for `name`."""
+    import class_inventory
     sources = sorted({r["source"] for r in (rows or ledger_rows())
                       if r["source"].lower().endswith((".cpp", ".c")) and not r["source"].startswith(GENERATED)})
-    head = re.compile(r"^[ \t]*(?:class|struct)[ \t]+(?:__declspec\([^)]*\)\s+)?" + re.escape(name) + r"\s*(?::(?!:)[^{;]*)?\{", re.M)
-    out = []
-    for source in sources:
-        try:
-            text = (ROOT / source).read_text(encoding="latin-1")
-        except OSError:
-            continue
-        if head.search(text) and name in class_layouts.class_bodies(text):
-            out.append(source)
-    return out
+    return sorted(class_inventory.inventory(sources, ROOT, {name}).get(name, {}))
 
 
 def views(name, sources, jobs=8):

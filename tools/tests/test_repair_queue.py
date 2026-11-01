@@ -2637,6 +2637,26 @@ def test_header_items_on_a_cache_miss_rank_by_dependency_order_only(tmp_path, mo
     assert "DEPENDENCY_ORDER only" in note
 
 
+def test_header_picker_serves_bounded_class_batches_without_starving_later_chunks(tmp_path, monkeypatch):
+    sources = [f"Code/Unit{i:02}.cpp" for i in range(58)]
+    files = [(s, "// private view\n") for s in sources]
+    files.append(("reverse/header_queue.tsv", "class\tsource\theader\tfailure\n" +
+                  "".join(f"Coord3D\t{s}\tCoord3D.h\tmissing member\n" for s in sources)))
+    rq, _, _ = load(tmp_path, "bfme2", LEDGER, files)
+    items, note = rq.header_items()
+    batches = [i for i in items if i["check"] == "class-header"]
+    assert [len(i["sources"]) for i in batches] == [25, 25, 8]
+    assert [s for i in batches for s in i["sources"]] == sources
+    assert "58 unit(s) in 3 batch(es)" in note
+    for item in batches:
+        assert item["source"] == item["sources"][0]
+        assert item["class_units"] == 58
+        assert item["claim"] == ["class:Coord3D"] + [f"file:{s}" for s in sources]
+        assert item["debt_lines"] == [f"Coord3D\t{s}" for s in item["sources"]]
+        assert "adopt --class Coord3D --header Coord3D.h --apply" in item["start"]
+        assert all(s in item["start"] and s in item["pass_test"] for s in item["sources"])
+
+
 def test_header_claim_includes_queued_private_views_without_member_rows(tmp_path, monkeypatch, seats):
     import claims
     import next_work
@@ -2645,7 +2665,7 @@ def test_header_claim_includes_queued_private_views_without_member_rows(tmp_path
     with queue.open("a") as handle:
         handle.write("Coord3D\tCode/Bar.cpp\t\tCoord3D.h\tprivate view\t3\tx\n")
     header = next(i for i in rq.header_items()[0] if i.get("class") == "Coord3D"
-                  and i["source"] == "Code/GameEngine/Body.cpp")
+                  and "Code/GameEngine/Body.cpp" in i["sources"])
     assert claims.file_key("Code/Bar.cpp") in next_work.claim_keys(header)
     seats("header")
     assert claims.acquire(next_work.claim_targets(header), next_work.claim_keys(header)).claimed

@@ -23,8 +23,8 @@ PIPELINE (per class, in DEPENDENCY_ORDER):
                 names to the header's (field_renames: one offset and size is
                 one field), and rename the unit's ledger rows when its view
                 spelled the other class-key (`U`/`V` mangling).
-  5. gate       tools/build.py (BFME2) / build.sh (BFME1) on that one unit,
-                in parallel. A batch gate stops at the first compile error.
+  5. gate       tools/build.py (BFME2) / build.sh (BFME1) on the cohort;
+                split a failed cohort to retain individual failure diagnostics.
   6. queue      every unit that does not pass gets an item with its first
                 diagnostic and the acceptance command below.
 
@@ -1436,6 +1436,43 @@ def gate_one(source):
                 f"gate exited {done.returncode}")
 
 
+def gate_many(sources, _depth=0):
+    """One ordinary scoped build per bounded cohort; isolate failures by bisection.
+
+    A successful build verifies the union of the same rows/local checks as separate
+    builds. Never infer which source failed from a diagnostic mentioning its name.
+    Keep link admission separate: it must see all changed objects together.
+    """
+    sources = list(dict.fromkeys(sources))
+    if not sources:
+        return {}
+    if len(sources) == 1 or not BFME2:
+        return {s: gate_one(s) for s in sources}
+    # Leave ample room for the interpreter, tool path and Windows quoting.
+    chunks, chunk, size = [], [], 0
+    for source in sources:
+        cost = len(source) + 3
+        if chunk and size + cost > 6000:
+            chunks.append(chunk)
+            chunk, size = [], 0
+        chunk.append(source)
+        size += cost
+    chunks.append(chunk)
+    if len(chunks) > 1:
+        return {s: why for group in chunks for s, why in gate_many(group).items()}
+    done = subprocess.run([sys.executable, "tools/build.py", *sources], cwd=ROOT, capture_output=True,
+                          text=True, errors="replace", env=dict(os.environ, MSYS_NO_PATHCONV="1"))
+    if done.returncode == 0 and "Functions: OK" in done.stdout:
+        return dict.fromkeys(sources)
+    # Sparse failures benefit from bisection; a wholly broken variant must not
+    # pay for a complete binary tree of failing process launches as well as all
+    # singleton checks. Two levels cap that overhead at seven group launches.
+    if len(sources) <= 4 or _depth >= 2:
+        return {s: gate_one(s) for s in sources}
+    middle = len(sources) // 2
+    return {**gate_many(sources[:middle], _depth + 1), **gate_many(sources[middle:], _depth + 1)}
+
+
 def ledger_renames(source, name, want_key):
     """[(old, new)] for the unit's row names that mangle the other class-key."""
     have, other = ("U", "V") if want_key == "struct" else ("V", "U")
@@ -1462,9 +1499,8 @@ def rewrite_ledger(renames):
 FIELD_RENAMES = {}     # source -> {Class::private field: canonical field} of its last swap, for reports
 
 
-def try_unit(source, strip, header, key):
-    """(source, None | why, new text, renames). Restores the unit before returning. The
-    new text spells the header's field names (field_renames)."""
+def prepare_unit(source, strip, header, key):
+    """Prepare a swap without writing source/ledger files or running the byte gate."""
     path = ROOT / source
     original = path.read_bytes()
     text = original.decode("latin-1")
@@ -1485,12 +1521,55 @@ def try_unit(source, strip, header, key):
     renames = ledger_renames(source, strip[0], key) if view_key != key else []
     if renames:
         return source, f"class-key {view_key}: {len(renames)} ledger rename(s) needed", swapped, renames
+    return source, None, swapped, []
+
+
+def try_unit(source, strip, header, key):
+    """Prepare and verify one swap, restoring the source before returning."""
+    result = prepare_unit(source, strip, header, key)
+    _, why, swapped, renames = result
+    if why:
+        return result
+    path = ROOT / source
+    original = path.read_bytes()
     try:
         path.write_bytes(swapped.encode("latin-1"))
         why = gate_one(source)
     finally:
         path.write_bytes(original)
     return source, why, swapped, renames
+
+
+def try_units(sources, strip, header, key, jobs=1):
+    """Trial a whole variant in one source/ledger state, always restoring both.
+
+    Preparation errors remain per-file failures. Byte failures are isolated by
+    gate_many; class-key renames share one temporary ledger instead of races.
+    """
+    sources = list(dict.fromkeys(sources))
+    if len(sources) == 1 or not BFME2:
+        with cf.ThreadPoolExecutor(jobs) as pool:
+            got = list(pool.map(lambda s: try_unit(s, strip, header, key), sources))
+        fixed = try_renamed([g for g in got if g[3]], jobs)
+        return [(s, fixed.get(s, why), text, renames) for s, why, text, renames in got]
+    with cf.ThreadPoolExecutor(jobs) as pool:
+        got = list(pool.map(lambda s: prepare_unit(s, strip, header, key), sources))
+    ready = [g for g in got if g[2] is not None and (g[1] is None or g[3])]
+    originals = {s: (ROOT / s).read_bytes() for s, _, _, _ in ready}
+    renames = [r for _, _, _, names in ready for r in names]
+    backup = LEDGER.read_bytes() if renames else None
+    try:
+        rewrite_ledger(renames)
+        for source, _, text, _ in ready:
+            (ROOT / source).write_bytes(text.encode("latin-1"))
+        verdicts = gate_many([s for s, _, _, _ in ready])
+        return [(s, verdicts[s] if s in originals else why, text, names)
+                for s, why, text, names in got]
+    finally:
+        for source, original in originals.items():
+            (ROOT / source).write_bytes(original)
+        if backup is not None:
+            LEDGER.write_bytes(backup)
 
 
 def try_renamed(items, jobs):
@@ -1552,27 +1631,26 @@ def tournament(name, contract, sources, header, variants, jobs, fixed_header=Fal
         slots = (own, overrides)
     results = {}
     keep = (ROOT / header).read_bytes() if (ROOT / header).exists() else None
-    for variant in variants:
+    try:
+        for variant in variants:
+            if not fixed_header:
+                (ROOT / header).parent.mkdir(parents=True, exist_ok=True)
+                (ROOT / header).write_text(generate(contract, variant, methods, header, slots), encoding="utf-8",
+                                           newline="\n")
+            started = time.time()
+            got = try_units(sources, strip, header, contract["key"], jobs)
+            verdicts = {s: why for s, why, _, _ in got}
+            results[variant] = {"verdicts": verdicts, "texts": {s: t for s, _, t, _ in got},
+                                "renames": {s: r for s, _, _, r in got if r}, "seconds": time.time() - started,
+                                "header": (ROOT / header).read_text(encoding="utf-8") if (ROOT / header).exists() else ""}
+            passes = sum(v is None for v in verdicts.values())
+            print(f"  variant {variant:<14} {passes}/{len(sources)} pass  ({results[variant]['seconds']:.0f}s)", flush=True)
+    finally:
         if not fixed_header:
-            (ROOT / header).parent.mkdir(parents=True, exist_ok=True)
-            (ROOT / header).write_text(generate(contract, variant, methods, header, slots), encoding="utf-8",
-                                       newline="\n")
-        started = time.time()
-        with cf.ThreadPoolExecutor(jobs) as pool:
-            got = list(pool.map(lambda s: try_unit(s, strip, header, contract["key"]), sources))
-        renamed = [g for g in got if g[3]]
-        fixed = try_renamed(renamed, jobs)
-        verdicts = {s: (fixed[s] if s in fixed else why) for s, why, _, _ in got}
-        results[variant] = {"verdicts": verdicts, "texts": {s: t for s, _, t, _ in got},
-                            "renames": {s: r for s, _, _, r in got if r}, "seconds": time.time() - started,
-                            "header": (ROOT / header).read_text(encoding="utf-8") if (ROOT / header).exists() else ""}
-        passes = sum(v is None for v in verdicts.values())
-        print(f"  variant {variant:<14} {passes}/{len(sources)} pass  ({results[variant]['seconds']:.0f}s)", flush=True)
-    if not fixed_header:
-        if keep is None:
-            (ROOT / header).unlink(missing_ok=True)
-        else:
-            (ROOT / header).write_bytes(keep)
+            if keep is None:
+                (ROOT / header).unlink(missing_ok=True)
+            else:
+                (ROOT / header).write_bytes(keep)
     return results
 
 
@@ -1667,6 +1745,8 @@ def link_ok(sources):
     including a source merely mentioned in a compile error, is no verdict.
     This preview is a retirement guard, never a new census measurement.
     """
+    if not sources:
+        return {}
     if not (ROOT / "tools" / "link_check.py").exists():
         return {s: None for s in sources}
     done = subprocess.run([sys.executable, "tools/link_check.py", *sources], cwd=ROOT, capture_output=True,
@@ -1791,7 +1871,7 @@ def misclassified(name, source, queued=None, layouts=None):
     return name not in found
 
 
-def verdict(name, source, header=None, gate=None):
+def adoption_problems(name, source, header=None, gate=None):
     """[problems] of one unit's adoption of `name`'s canonical header ([] = adopted, or
     a proven misclassified row: see misclassified)."""
     header = header or registered().get(name)
@@ -1811,6 +1891,12 @@ def verdict(name, source, header=None, gate=None):
     why = (gate or gate_one)(source)
     if why:
         problems.append(why)
+    return problems
+
+
+def verdict(name, source, header=None, gate=None):
+    """Structural, byte and link verdict for one adoption (legacy single-unit API)."""
+    problems = adoption_problems(name, source, header, gate)
     if not problems:
         linked = link_ok([source])[source]
         if linked is False:
@@ -1840,9 +1926,23 @@ def retire_rows(done):
 def accept(name, sources, header=None, gate=None):
     """Judge each unit (verdict) and retire every passing unit's queue row: the row
     leaves only on this verdict, never by a hand deletion."""
+    sources = list(dict.fromkeys(sources))
+    judged = None
+    if len(sources) > 1:
+        builds = {s: gate(s) for s in sources} if gate else gate_many(sources)
+        judged = {s: adoption_problems(name, s, header, lambda s: builds[s]) for s in sources}
+        # Refresh every byte-passing object together, including structurally rejected
+        # ones: they may still provide symbols to an accepted member of the cohort.
+        linked = link_ok([s for s in sources if builds[s] is None])
+        for source, problems in judged.items():
+            if not problems:
+                if linked.get(source) is False:
+                    problems.append("link_check predicts a loss of census-linked bytes")
+                elif linked.get(source) is not True:
+                    problems.append("link_check produced no usable per-unit verdict")
     bad, done = 0, set()
     for source in sources:
-        problems = verdict(name, source, header, gate)
+        problems = judged[source] if judged is not None else verdict(name, source, header, gate)
         print(f"  {'PASS' if not problems else 'FAIL'} {source}" + ("" if not problems else ": " + "; ".join(problems)))
         bad |= bool(problems)
         if not problems:
@@ -1867,12 +1967,9 @@ def adopt(name, header, sources, apply=False, jobs=1):
         raise SystemExit(f"{header} does not define {name}")
     strip = [name] + STRIP_WITH.get(name, [])
     strip += [c for c in header_classes(header) if c not in strip]
-    with cf.ThreadPoolExecutor(jobs) as pool:
-        got = list(pool.map(lambda s: try_unit(s, strip, header, span[2]), sources))
-    fixed = try_renamed([g for g in got if g[3]], jobs)
+    got = try_units(sources, strip, header, span[2], jobs)
     failed = 0
     for source, why, text, renames in got:
-        why = fixed.get(source, why)
         fields = FIELD_RENAMES.get(source, {})
         print(f"  {'PASS' if why is None else 'FAIL'} {source}" + (f": {why}" if why else "")
               + (" (fields: " + ", ".join(f"{a} -> {b}" for a, b in sorted(fields.items())) + ")" if fields else ""))
@@ -2826,16 +2923,13 @@ def bulk_guard():
 def census_index(rows, names):
     """{class: {sources}} for `names` in one read of every authored ledger source
     (class_contract.census's sources, class_layouts.class_bodies' views)."""
+    import class_inventory
     wanted, out = set(names), {n: {n} for n in names}
     sources = sorted({r["source"] for r in rows if r["source"].lower().endswith((".cpp", ".c"))
                       and not r["source"].startswith(class_contract.GENERATED)})
-    for source in sources:
-        try:
-            text = (ROOT / source).read_text(encoding="latin-1")
-        except OSError:
-            continue
-        for name in set(class_layouts.class_bodies(text)) & wanted:
-            out[name].add(source)
+    inventory = class_inventory.inventory(sources, ROOT, wanted)
+    for name, found in inventory.items():
+        out[name].update(found)
     return out
 
 
