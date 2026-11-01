@@ -278,7 +278,6 @@ Code/GameEngine/Source/GameClient/VideoPlayerRemoveVideo.cpp,,1,1,region default
 Code/GameEngine/Source/GameLogic/AI/AIAttackMeleeHordeWaitStateUpdate.cpp,-O1 -G7,1,1,region default loses rows
 Code/GameEngine/Source/GameLogic/Object/Behavior/FlightDeckInfoVectorInsertOverflow.cpp,,4,4,region default loses rows
 Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainParseBannerCarrierPosition.cpp,-O1,1,1,region default loses rows
-Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,-O1,5,1,region default loses rows
 Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate.cpp,-G7 -arch:SSE,9,3,region default loses rows
 Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/RailroadGuideAIUpdate.cpp,-G7 -arch:SSE,2,1,region default loses rows
 Code/GameEngine/Source/GameLogic/Object/Update/AngleFXInfoVectorInsertOverflow.cpp,,3,2,region default loses rows
