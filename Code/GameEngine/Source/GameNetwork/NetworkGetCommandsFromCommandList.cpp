@@ -151,11 +151,7 @@ public:
 	unsigned int size() const { return m_count; }
 };
 
-class LivingWorldLogic
-{
-public:
-	void rva002B693F(void *keys);		// 0x002B693F
-};
+#include "../../Include/GameLogic/LivingWorldLogic.h"
 extern LivingWorldLogic *TheLivingWorldLogic;
 extern GameLogic *TheGameLogic;
 

@@ -33,7 +33,7 @@ LivingWorldBattle *LivingWorldRegionManager::SelectPendingBattle()
 	return 0;
 }
 
-class LivingWorldLogic {public:void AutoResolveBattle(int);};
+#include "../../../../GameEngine/Include/GameLogic/LivingWorldLogic.h"
 extern LivingWorldLogic *TheLivingWorldLogic;
 // Native0020E4C8..0020E501 complete57 RET0; WB B56850/134 supplies
 // the restart flag. AutoResolveBattle mutates the pending vector, so restart
