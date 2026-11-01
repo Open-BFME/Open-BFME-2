@@ -20853,3 +20853,13 @@ Code/GameEngine/Source/Common/PathfindCell_CalcCostSoFar.cpp|local|PathfindCell:
 Code/GameEngine/Source/Common/PathfindCell_CalcCostSoFar.cpp|local|PathfindCell::CalcCostSoFar|dy2,558db829068ecac68ccb8294,drz-k11,n33h-k11,w-eba6c619cb9e,2026-11-01
 Code/GameEngine/Source/Common/GapBodiesGE04.cpp|function|0x0025C7F9|rva0025C7F9,d46b133e2fed41aa151af65f,claude-haiku-5-5,drz-k9-n33b2-review,w-2a58b1ead41e,2026-11-01
 Code/GameEngine/Source/Common/GapBodiesGE12.cpp|function|0x00524F6A|rva00524F6A,3ff434cf55824c42dcca7c2d,claude-haiku-5-5,drz-k9-n33b2-review,w-2a58b1ead41e,2026-11-01
+Code/GameEngine/Source/Common/GapBodiesGE23.cpp|function|0x00030A80|rva00030A80,cc4b98cde489e4f302d0ab07,claude-haiku-5-5,drz-k3-n33c2-review,w-a3d394d58042,2026-11-01
+Code/GameEngine/Source/Common/GapBodiesGE23.cpp|function|0x00030A90|rva00030A90,9280e3f858e317383260ba07,claude-haiku-5-5,drz-k3-n33c2-review,w-a3d394d58042,2026-11-01
+Code/GameEngine/Source/Common/GapBodiesGE23.cpp|function|0x00030AA0|rva00030AA0,6e261437c93031bb9f8fa505,claude-haiku-5-5,drz-k3-n33c2-review,w-a3d394d58042,2026-11-01
+Code/GameEngine/Source/Common/GapBodiesGE26.cpp|function|0x004F5F96|rva004F5F96,c8db98d2e698bb16a2ff60db,claude-haiku-5-5,drz-k3-n33c2-review,w-a3d394d58042,2026-11-01
+Code/GameEngine/Source/Common/GapBodiesGE30.cpp|function|0x0056FD88|rva0056FD88,d919b81bab0628ccf4d9a3fa,claude-haiku-5-5,drz-k3-n33c2-review,w-a3d394d58042,2026-11-01
+Code/GameEngine/Source/Common/GapBodiesGE30.cpp|function|0x0056FDB1|rva0056FDB1,e34b68ac5d88e08ac426f093,claude-haiku-5-5,drz-k3-n33c2-review,w-a3d394d58042,2026-11-01
+Code/GameEngine/Source/Common/GapBodiesGE35.cpp|function|0x000B2308|rva000B2308,9b33ae9c7b1d443c3ca5dafc,claude-haiku-5-5,drz-k3-n33c2-review,w-a3d394d58042,2026-11-01
+Code/GameEngine/Source/Common/GapBodiesGE37.cpp|function|0x00104E8E|rva00104E8E,2aa8110bd28ddb30f55f7618,claude-haiku-5-5,drz-k3-n33c2-review,w-a3d394d58042,2026-11-01
+Code/GameEngine/Source/Common/GapBodiesGE37.cpp|function|0x001084B5|rva001084B5,f4a90a0615e4d115ed842afd,claude-haiku-5-5,drz-k3-n33c2-review,w-a3d394d58042,2026-11-01
+Code/GameEngine/Source/Common/GapBodiesGE37.cpp|function|0x001084FD|rva001084FD,1809b0482b2fc1a3fa8ed82f,claude-haiku-5-5,drz-k3-n33c2-review,w-a3d394d58042,2026-11-01
