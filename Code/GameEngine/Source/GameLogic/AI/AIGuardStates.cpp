@@ -218,16 +218,7 @@ struct TAiData
 	UnsignedInt m_guardEnemyScanRate; // +0x40
 	UnsignedInt m_guardEnemyReturnScanRate; // +0x44
 };
-class AI
-{
-public:
-	const TAiData *getAiData() const { return m_aiData; }
-	static Real getAdjustedVisionRangeForObject(const Object *object, int factorsToConsider);
-	static Bool rva002FE193(Object *obj, Object *nemesis);
-private:
-	unsigned char m_pad00[0x18];
-	TAiData *m_aiData; // +0x18
-};
+#include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 extern GameLogic *TheGameLogic;
 typedef UnsignedInt StateID;
