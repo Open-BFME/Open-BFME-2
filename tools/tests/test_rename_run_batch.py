@@ -586,3 +586,167 @@ def test_individual_pin_conflict_blocks_one_plan_without_replanning_clean_names(
     assert "readFirst(a2)" in (repo / B).read_text()
     assert "int Rva00402000(" in (repo / B).read_text()
     assert "conflict" not in (repo / rename.SYMBOLS).read_text()
+
+
+def preparation_source(repo):
+    extra = "Code/Game/Extra.cpp"
+    (repo / extra).write_text("int extra() { return 7; }\n")
+    p = repo / rename.FUNCTIONS
+    p.write_text(p.read_text() + f"?extra@@YAHXZ,,0x00403000,6,{extra},matched,existing\n")
+    subprocess.run(["git", "-C", str(repo), "add", "--", extra], check=True)
+    return extra
+
+
+@pytest.mark.parametrize("success", [False, True])
+def test_owned_cpp_preparation_is_journaled_claimed_and_verified_with_names(repo, monkeypatch, success):
+    extra = preparation_source(repo)
+    before = tracked_snapshot(repo)
+    seen, claimed = [], []
+    original_claim_keys = rename.claim_keys
+
+    def claim_keys(plan):
+        keys = original_claim_keys(plan)
+        if plan.kind == "run-batch":
+            claimed.append(keys)
+        return keys
+
+    monkeypatch.setattr(rename, "claim_keys", claim_keys)
+    prepared = b"// owned cleanup\nint extra() { return 7; }\n"
+    def verify(ctx, sources):
+        seen.append(sources)
+        assert (repo / extra).read_bytes() == prepared
+        assert "readFirst(a2)" in (repo / B).read_text()
+        return success
+    checked = []
+    def checks(ctx, plan):
+        if plan.after:
+            checked.append(set(plan.after))
+            assert extra in plan.after and plan.before[extra] == before[extra]
+        return []
+    result = rename.run_batch(context(repo), requests(), claim=False, verify=verify, checks=checks,
+                              source_edits={extra: prepared})
+    assert not result.refused and bool(result.failure) != success
+    assert seen == [[A, B, extra]]
+    assert any("file:" + extra in keys for keys in claimed)
+    if success:
+        assert len(checked) == 1 and extra in checked[0]
+    else:
+        assert tracked_snapshot(repo) == before
+
+
+def test_cpp_preparation_is_visible_to_name_planning_without_early_disk_writes(repo, monkeypatch):
+    original = (repo / A).read_bytes()
+    prepared = original.replace(b"return a1 + 1", b"return a1 + 2")
+    ordinary = rename.plan_rename
+    def planner(kind, *, ctx, **kwargs):
+        assert ctx.read(A) == prepared
+        assert (repo / A).read_bytes() == original
+        return ordinary(kind, ctx=ctx, **kwargs)
+    monkeypatch.setattr(rename, "plan_rename", planner)
+    result = rename.run_batch(context(repo), requests()[:1], claim=False,
+                              source_edits={A: prepared}, verify=lambda *_: True, checks=lambda *_: [])
+    assert result.failure is None
+    assert "readFirst" in (repo / A).read_text() and "a1 + 2" in (repo / A).read_text()
+
+
+def test_cpp_preparation_is_part_of_the_reviewed_resolution_fingerprint(repo, monkeypatch):
+    import hashlib
+    original = (repo / A).read_bytes()
+    prepared = original.replace(b"a1 + 1", b"a1 + 2")
+    checks = []
+    def agreement(ctx, *args):
+        checks.append(ctx.resolution_source_sha(A))
+        assert checks[-1] == hashlib.sha256(prepared).hexdigest()
+        assert (repo / A).read_bytes() == original
+    monkeypatch.setattr(rename, "check_agreement", agreement)
+    result = rename.run_batch(context(repo), requests()[:1], claim=False, source_edits={A: prepared},
+                              verify=lambda *_: True, checks=lambda *_: [])
+    assert result.failure is None and checks
+
+
+def test_one_refused_name_prevents_all_coupled_cpp_preparations(repo, monkeypatch):
+    extra = preparation_source(repo)
+    before = tracked_snapshot(repo)
+    ordinary = rename.plan_rename
+    def planner(kind, *, ctx, **kwargs):
+        if kwargs["new"] == "readSecond":
+            raise rename.Refusal("unsupported second declaration")
+        return ordinary(kind, ctx=ctx, **kwargs)
+    monkeypatch.setattr(rename, "plan_rename", planner)
+    result = rename.run_batch(context(repo), requests(), claim=False,
+                              source_edits={extra: b"// preparation\n" + before[extra]},
+                              verify=lambda *_: pytest.fail("must not verify a partial prepared batch"))
+    assert result.failure and result.refused == {1: "unsupported second declaration"}
+    assert tracked_snapshot(repo) == before
+
+
+@pytest.mark.parametrize("path", ["reverse/functions.csv", "../Code/Game/A.cpp", "Code/Game/../A.cpp",
+                                  "Code/Game/New.cpp", "Code/Game/Widget.h"])
+def test_cpp_preparation_rejects_non_source_or_unowned_paths(repo, path):
+    before = tracked_snapshot(repo)
+    with pytest.raises(rename.Refusal):
+        rename.run_batch(context(repo), requests(), claim=False, source_edits={path: b"anything"})
+    assert tracked_snapshot(repo) == before
+
+
+def test_cpp_preparation_rejects_dirty_sources(repo):
+    (repo / A).write_text((repo / A).read_text() + "// existing user work\n")
+    before = tracked_snapshot(repo)
+    with pytest.raises(rename.Refusal, match="clean source paths"):
+        rename.run_batch(context(repo), requests(), claim=False, source_edits={A: b"replacement"})
+    assert tracked_snapshot(repo) == before
+
+
+def test_cpp_preparation_rejects_untracked_matched_source(repo):
+    extra = preparation_source(repo)
+    subprocess.run(["git", "-C", str(repo), "rm", "--cached", "--", extra], check=True, capture_output=True)
+    before = tracked_snapshot(repo)
+    with pytest.raises(rename.Refusal, match="untracked"):
+        rename.run_batch(context(repo), requests(), claim=False, source_edits={extra: b"replacement"})
+    assert tracked_snapshot(repo) == before
+
+
+def test_claim_refusal_writes_no_cpp_preparation(repo, monkeypatch):
+    extra = preparation_source(repo)
+    before = tracked_snapshot(repo)
+    session = rename.RunBatchSession(context(repo))
+    monkeypatch.setattr(session, "acquire", lambda *_: (_ for _ in ()).throw(rename.Refusal("held")))
+    try:
+        result = rename.run_batch(session.ctx, requests(), session=session,
+                                  source_edits={extra: b"// preparation\n" + before[extra]})
+        assert result.failure and "held" in str(result.failure)
+        assert tracked_snapshot(repo) == before
+    finally:
+        session.close()
+
+
+@pytest.mark.parametrize("path,has_row,message", [
+    ("Code/gen_small/Prepared.cpp", True, "generated"),
+    ("Code/Libraries/Source/CRT/Prepared.cpp", True, "vendored|library"),
+    ("Code/Game/Unrowed.cpp", False, "no matched rows"),
+])
+def test_cpp_preparation_keeps_generation_vendor_and_coverage_guards(repo, path, has_row, message):
+    p = repo / path
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_text("int prepared() { return 0; }\n")
+    subprocess.run(["git", "-C", str(repo), "add", "--", path], check=True)
+    if has_row:
+        rows = repo / rename.FUNCTIONS
+        rows.write_text(rows.read_text() + f"?prepared@@YAHXZ,,0x00403000,3,{path},matched,existing\n")
+    before = tracked_snapshot(repo)
+    with pytest.raises(rename.Refusal, match=message):
+        rename.run_batch(context(repo), requests(), claim=False, source_edits={path: b"replacement"})
+    assert tracked_snapshot(repo) == before
+
+
+def test_cpp_preparation_does_not_overwrite_preexisting_staged_source(repo):
+    subprocess.run(["git", "-C", str(repo), "-c", "user.name=t", "-c", "user.email=t@t",
+                    "commit", "-q", "-m", "base"], check=True)
+    (repo / A).write_text((repo / A).read_text() + "// staged user work\n")
+    subprocess.run(["git", "-C", str(repo), "add", "--", A], check=True)
+    before = tracked_snapshot(repo)
+    index = subprocess.check_output(["git", "-C", str(repo), "show", ":" + A])
+    with pytest.raises(rename.Refusal, match="clean source paths"):
+        rename.run_batch(context(repo), requests(), claim=False, source_edits={A: b"replacement"})
+    assert tracked_snapshot(repo) == before
+    assert subprocess.check_output(["git", "-C", str(repo), "show", ":" + A]) == index

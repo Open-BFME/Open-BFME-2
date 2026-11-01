@@ -345,6 +345,18 @@ build and every file is restored. Run `tools/link_check.py` over the touched
 units before and after: a view that emits the class's vtable now carries the
 new slot, and every view emitting that table must agree.
 
+The library API `run_batch(..., source_edits={path: proposed_cpp_bytes})` can
+couple source preparations, such as preserving an overload block or removing a
+duplicate emitter, to the ordinary rename plans. Supply the bytes in memory;
+do not edit the files first. Up to32 tracked, clean, non-generated/non-vendored
+`Code/*.cpp` paths with matched rows are supported. The complete source
+preparation joins the journal, file claims, normal byte verification and staged
+footprint. Every coupled rename must plan successfully; a refusal applies
+nothing. Failed verification restores both source preparations and ledgers.
+Reviewed name-resolution fingerprints cover the prepared starting source.
+The unstaged-dependent guard remains active; adding a file only to the byte
+verification list does not put its edits in the transaction.
+
 A function rename also respells a base class's declaration of the same virtual
 function, but only when the unit itself proves the pair: the renamed class
 derives from that base through classes the unit declares, the base declares the

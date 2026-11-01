@@ -8139,6 +8139,11 @@ Remaining / next check (each needs a decision, a row or a shared change; none is
   journal/claim/stage/verify owned C++ preparations in the normal transaction,
   retaining that guard. No linking clearance or gain; exact candidate and full
   refusal: `reverse/attempt_support/debug-stream-providers-20261101/readme.md`.
+  **Preparation API follow-up:** owned CPP edits can now enter the same in-memory
+  plan, claims, normal verification, staged footprint and rollback.177 targeted
+  tests pass; the broad21 failures reproduce the unchanged control. No Code/row
+  change yet. Retry the exact provider candidate through this API; the unstaged
+  guard is unchanged. See `reverse/attempt_support/rename-source-preparation-20261101/readme.md`.
 - `??_7GameWindow@@6B@` (L in `GameWindowDtor.cpp`): the 0x0080BBCC table is shared with
   `BfmeAptScreenBase`. This needs a class-view reconcile.
 - `VectorClass<Vector3>` deleting destructor (S in `vector_class_vector3_ctor.cpp`): see LINK-015.

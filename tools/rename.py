@@ -234,7 +234,7 @@ import threading
 import time
 import uuid
 from dataclasses import dataclass, field
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
@@ -6137,13 +6137,62 @@ class RunBatchResult:
     apply_verify_seconds: float = 0.0
 
 
-def run_batch(ctx, requests, *, claim=True, verify=build_verify, checks=ledger_checks, session=None):
+def _batch_source_edits(ctx, plan, edits):
+    """Journal owned C++ preparations before name planning, without writing.
+
+    This does not admit new sources or ledger edits. Every prepared source has
+    matched rows, is claimed with the union and goes through its normal gates.
+    """
+    if edits is None:
+        return False
+    if not isinstance(edits, dict) or len(edits) > 32:
+        raise Refusal("source_edits must map at most 32 existing Code C++ paths to bytes")
+    if not edits:
+        return False
+    if any(not isinstance(rel, str) or not isinstance(data, bytes) for rel, data in edits.items()):
+        raise Refusal("source_edits needs repository-relative string paths and bytes")
+    paths = sorted(edits)
+    for rel in paths:
+        parsed = PurePosixPath(rel)
+        if (not rel.startswith("Code/") or not rel.endswith(".cpp") or ".." in parsed.parts
+                or parsed.as_posix() != rel or "\\" in rel):
+            raise Refusal(f"source preparation must be an existing Code C++ source: {rel}")
+        path = ctx.path(rel)
+        if (path.is_symlink() or not path.is_file()
+                or not path.resolve().is_relative_to((ctx.root / "Code").resolve())):
+            raise Refusal(f"source preparation is missing or outside the Code tree: {rel}")
+        if is_generated(rel):
+            raise Refusal(f"generated source {rel} cannot be prepared by a rename")
+        refuse_vendored(ctx, [rel], "preparing a rename source")
+        if rel not in ctx.ledger_sources():
+            raise Refusal(f"source preparation has no matched rows to verify: {rel}")
+    tracked = set(ctx.git("ls-files", "--", *paths).splitlines())
+    if set(paths) - tracked:
+        raise Refusal("source preparation is untracked: " + ", ".join(sorted(set(paths) - tracked)))
+    # A source preparation is supplied in memory, not layered over somebody's
+    # existing staged or unstaged edit. New miniature test trees have no HEAD.
+    base = ["HEAD"] if ctx.git("rev-parse", "--verify", "--quiet", "HEAD").strip() else []
+    dirty = ctx.git("diff", "--name-only", *base, "--", *paths).splitlines()
+    if dirty:
+        raise Refusal("source preparation requires clean source paths: " + ", ".join(dirty))
+    for rel in paths:
+        plan.edit(ctx, rel, edits[rel])
+        plan.source_counts[rel] = {"prepared": 1}
+        plan.claims.append("file:" + rel)
+    plan.verify = sorted(set(plan.verify) | set(paths))
+    return True
+
+
+def run_batch(ctx, requests, *, claim=True, verify=build_verify, checks=ledger_checks, session=None,
+              source_edits=None):
     """Plan each name normally, then claim/apply/verify the complete union.
 
     Planning refusals affect only their request. A failed combined transaction
     is restored by apply_rename and returned to the caller for smaller retries.
     Unexpected errors and interrupts propagate after recovery and claim release.
-    Source moves are excluded: this API batches identifier changes only.
+    Source moves are excluded. Optional source_edits puts owned preparatory C++
+    changes in the same journal, claims, staging and normal byte verification.
+    Such preparations require every coupled request to plan successfully.
     """
     from portable_lock import lock, unlock
 
@@ -6157,6 +6206,7 @@ def run_batch(ctx, requests, *, claim=True, verify=build_verify, checks=ledger_c
     searches = {}
     git_searches = {}
     combined = Plan("run-batch", "approved names", "readable names", "inferred", "", None, None)
+    prepared_base = {}
 
     class View(Context):
         def read(self, rel):
@@ -6165,7 +6215,9 @@ def run_batch(ctx, requests, *, claim=True, verify=build_verify, checks=ledger_c
             return data
 
         def resolution_source_sha(self, rel):
-            data = ctx.read(rel)
+            # Approval fingerprints must cover the proposed starting source,
+            # not the older disk bytes, before this batch's identifier edits.
+            data = prepared_base[rel] if rel in prepared_base else ctx.read(rel)
             reads[rel] = data
             return hashlib.sha256(data).hexdigest() if data is not None else ""
 
@@ -6201,6 +6253,9 @@ def run_batch(ctx, requests, *, claim=True, verify=build_verify, checks=ledger_c
         with ctx.path(LOCK).open("a") as handle:
             lock(handle, exclusive=True, wait_notice="rename: waiting for the ledger lock...")
             try:
+                prepared_sources = _batch_source_edits(ctx, combined, source_edits)
+                if prepared_sources:
+                    prepared_base.update({rel: combined.after[rel] for rel in source_edits})
                 session.refresh_object_stamp()
                 terms, symbols = _planning_names(ctx, requests)
                 batch_searches = _PlanningSearches(ctx, terms)
@@ -6265,6 +6320,11 @@ def run_batch(ctx, requests, *, claim=True, verify=build_verify, checks=ledger_c
                             target[label] = target.get(label, 0) + count
                     result.plans.append((index, plan))
                     view._cache.clear()
+                if prepared_sources and (result.refused or not result.plans):
+                    result.failure = Refusal("source preparations require every coupled rename to plan; "
+                                             "nothing was applied")
+                    result.planning_seconds = time.perf_counter() - batch_started
+                    return result
                 if not result.plans:
                     result.planning_seconds = time.perf_counter() - batch_started
                     return result
