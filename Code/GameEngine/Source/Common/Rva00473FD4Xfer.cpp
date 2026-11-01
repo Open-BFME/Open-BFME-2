@@ -57,16 +57,7 @@ struct XferVersion
 
 // Retail ThrowInfo names the 8-byte XferException class and its rowed
 // copy constructor and destructor (see System/XferException.cpp).
-class XferException
-{
-public:
-	XferException(int tag, const char *format, ...);
-	XferException(const XferException &that);
-	~XferException();
-
-	char *text;
-	int tag;
-};
+#include "../../Include/Common/XferException.h"
 
 
 // Same tag as the rowed pair helper so the call resolves, but the value is

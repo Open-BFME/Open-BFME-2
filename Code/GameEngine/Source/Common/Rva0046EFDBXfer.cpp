@@ -49,16 +49,7 @@ struct RGBAColorInt;
 
 // Retail ThrowInfo names the 8-byte XferException class and its rowed
 // copy constructor and destructor (see System/XferException.cpp).
-class XferException
-{
-public:
-	XferException(int tag, const char *format, ...);
-	XferException(const XferException &that);
-	~XferException();
-
-	char *text;
-	int tag;
-};
+#include "../../Include/Common/XferException.h"
 
 
 typedef _STL::vector<const ModuleData *> ModuleDataVector;

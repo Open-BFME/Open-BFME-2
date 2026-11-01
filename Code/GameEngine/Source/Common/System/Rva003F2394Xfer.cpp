@@ -34,16 +34,7 @@ struct XferVersion
 	UnsignedByte m_currentVersion;
 };
 
-class XferException
-{
-public:
-	XferException(int tag, const char *format, ...);
-	XferException(const XferException &that);
-	~XferException();
-
-	char *text;
-	int tag;
-};
+#include "../../../Include/Common/XferException.h"
 
 extern void __cdecl XferLivingWorldArmyID(Xfer *xfer, int *value);
 
