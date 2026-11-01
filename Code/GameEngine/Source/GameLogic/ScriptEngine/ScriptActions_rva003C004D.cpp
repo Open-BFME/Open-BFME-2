@@ -11,9 +11,7 @@ extern class AudioManager *TheAudio;
 
 #include "ascii_string.h"
 
-class PolygonTrigger
-{
-};
+#include "../../../Include/GameLogic/PolygonTrigger.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;

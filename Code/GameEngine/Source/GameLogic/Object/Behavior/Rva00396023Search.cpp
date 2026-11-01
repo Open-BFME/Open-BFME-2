@@ -3,7 +3,7 @@
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 #include "../../../../Include/Common/Module.h"
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
-class PolygonTrigger { public: bool rva002E3A39(const Coord3D &p); };
+#include "../../../../Include/GameLogic/PolygonTrigger.h"
 class Rva00395E53 { public: void *rva00395E53(unsigned int i); };
 class CastleBehavior { public: static NameKeyType rva0003955DA(); char m_pad[0x80]; void *m_80; void *m_84; };
 class Object { public: char m_pad00[4]; void *m_04; protected: Module *findModule(NameKeyType key) const; };

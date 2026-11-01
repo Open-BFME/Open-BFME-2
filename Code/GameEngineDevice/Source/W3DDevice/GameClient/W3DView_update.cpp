@@ -93,7 +93,7 @@ public:
 	bool ready; // +0x1C
 	char m_pad1D[0x3];
 };
-class PolygonTrigger { public: bool rva002E3A39(const Coord3D&); };
+#include "../../../../GameEngine/Include/GameLogic/PolygonTrigger.h"
 class CameraShakeSystemClass;class Rva00065E21{public:bool rva00065E21();};
 extern CameraShakeSystemClass CameraShakerSystem;
 float W3DViewFollowFactor=-1.0f;
