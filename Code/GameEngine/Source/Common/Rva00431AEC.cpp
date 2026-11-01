@@ -11,14 +11,7 @@ union GameMessageArgumentType
 	struct Pix { int x; int y; } pixel;
 };
 
-class GameMessage
-{
-public:
-	const GameMessageArgumentType *getArgument(int argIndex) const;
-private:
-	char m_pad[0x10];
-	int m_10;
-};
+#include "../../Include/Common/MessageStream.h"
 
 class Rva00431920
 {

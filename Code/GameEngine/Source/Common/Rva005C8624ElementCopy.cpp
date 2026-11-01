@@ -38,7 +38,7 @@ private:
 struct Rva004E1D4EElement { char bytes[12]; };
 class HostClass005C8E0A { public: void method_005C9069(); };
 class GameMessageList;
-class GameMessage { public: void friend_setList(GameMessageList *); };
+#include "../../Include/Common/MessageStream.h"
 
 class AudioManager
 {

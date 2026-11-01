@@ -14,14 +14,7 @@ union GameMessageArgumentType
 		int hiY;
 	} pixelRegion;
 };
-class GameMessage
-{
-public:
-	const GameMessageArgumentType *getArgument(int argIndex) const;
-	int getType() const;
-	unsigned char m_pad[0x10];
-	int m_type;
-};
+#include "../../Include/Common/MessageStream.h"
 class Rva005D1F45
 {
 public:

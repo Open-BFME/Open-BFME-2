@@ -9,10 +9,7 @@
 extern class MessageStream *TheMessageStream;
 
 #include <vector>
-class GameMessage {
-public:
-    void appendIntegerArgument(int arg);
-};
+#include "../../Include/Common/MessageStream.h"
 class Rva002B4280Factory {
 public:
     virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03();

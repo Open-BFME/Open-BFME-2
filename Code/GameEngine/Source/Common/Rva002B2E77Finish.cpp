@@ -9,7 +9,7 @@
 // the former stdcall Rva002B2E77Append row is byte-identical under the
 // member name; the callee-clean ABI is what lets MSVC tail-jmp with the
 // argument still in place.
-class GameMessage { public: void appendIntegerArgument(int v); };
+#include "../../Include/Common/MessageStream.h"
 class GlobalHolder {
 public:
 	virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03();

@@ -21,13 +21,7 @@ union GameMessageArgumentType
 	struct Pix { int x; int y; } pixel;
 };
 
-class GameMessage
-{
-public:
-	char m_pad[0x10];
-	int m_10;
-	const GameMessageArgumentType *getArgument(int i) const;
-};
+#include "../../Include/Common/MessageStream.h"
 
 class Rva00431A4D
 {
@@ -269,7 +263,7 @@ public:
 
 void Rva00431A4D::EatNextClickMessage(GameMessage *msg)
 {
-	if (msg->m_10 == 6)
+	if (msg->m_type == 6)
 		m_04 = 1;
 	else
 		m_05 = 1;
@@ -277,7 +271,7 @@ void Rva00431A4D::EatNextClickMessage(GameMessage *msg)
 
 int Rva004320B1::rva004320B1(GameMessage *msg)
 {
-	switch (msg->m_10)
+	switch (msg->m_type)
 	{
 	case 3:
 	{

@@ -21,11 +21,7 @@ union GameMessageArgumentType
 	unsigned short wChar;
 };
 
-class GameMessage
-{
-public:
-	const GameMessageArgumentType *getArgument(int argIndex) const;
-};
+#include "../../Include/Common/MessageStream.h"
 
 struct Rva00432A3BEntry
 {
