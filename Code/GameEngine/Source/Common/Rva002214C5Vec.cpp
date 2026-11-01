@@ -79,11 +79,7 @@ void Rva002214C5Get(_STL::vector<BfmeE16, _STL::allocator<BfmeE16> > *out)
 // then frees the table. Kept beside its builder: retail holds the table
 // buffer in ESI across the parse and frees it from there, which cl only does
 // when the builder (and the vector swap it ends with) are visible.
-class INI
-{
-public:
-    void initFromINI(void *what, const FieldParse *parseTable);
-};
+#include "../../Include/Common/INI/INI.h"
 char g_00DFE4BC;	// retail RVA 0x009FE4BC (.bss), defined here
 
 // WorldBuilder StrategicHUD::ParseSettings, WB VA 0x00B8C2B0 (callgraph lead, score 1.0).

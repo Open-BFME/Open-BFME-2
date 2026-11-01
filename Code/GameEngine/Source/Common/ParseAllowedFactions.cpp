@@ -36,7 +36,7 @@ void __malloc_alloc<0>::deallocate(void *__p, size_t)
 { free((char *)__p); }
 }
 bool operator<(const AsciiString &, const AsciiString &);
-class INI { public: static void parseAsciiStringVector(INI *,void *,void *,const void *); };
+#include "../../Include/Common/INI/INI.h"
 struct SideFlags { unsigned char human,computer,ai; int team; _STL::set<AsciiString> factions; };
 void parseAllowedFactions(INI *ini, void *instance, void *, const void *)
 {

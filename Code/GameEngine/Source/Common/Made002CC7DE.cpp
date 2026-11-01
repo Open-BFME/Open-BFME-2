@@ -48,15 +48,7 @@ struct FieldParse
     const void *userData;
     unsigned int offset;
 };
-class INI
-{
-public:
-    void initFromINIMulti(void *p, const MultiIniFieldParse &m);
-    static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
-    static void parseCoord3D(INI *ini, void *instance, void *store, const void *userData);
-    static void parseBool(INI *ini, void *instance, void *store, const void *userData);
-    static void Rva005096FF_ParseWeaponSlot(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../Include/Common/INI/INI.h"
 extern const char BfmeProjectileWarheadTemplateNameField[];
 const char BfmeProjectileWarheadTemplateNameField[] = "WarheadTemplateName";
 extern const char BfmeProjectileTemplateNameField[];

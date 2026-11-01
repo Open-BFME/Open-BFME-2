@@ -6,14 +6,7 @@ class INI;
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
 #include "../../Include/Common/INI/FieldParse.h"
 
-class INI
-{
-public:
-	static void parseUnsignedInt(INI *ini, void *instance, void *store, const void *userData);
-	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
-	static void parseDurationUnsignedInt(INI *ini, void *instance, void *store, const void *userData);
-	static void parsePercentToReal(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../Include/Common/INI/INI.h"
 
 // Retail VA 0x00BED3E0 (.rdata): 15 field records and a zero sentinel.
 extern const FieldParse g_00BED3E0[] = {

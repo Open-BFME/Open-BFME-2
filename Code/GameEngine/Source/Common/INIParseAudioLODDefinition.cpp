@@ -47,13 +47,7 @@ template <typename T> struct BfmeStringData
 
 #include "../../Include/Common/INI/FieldParse.h"
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-	void initFromINI(void *dst, const FieldParse *table);
-	static void parseAudioLODDefinition(INI *ini);
-};
+#include "../../Include/Common/INI/INI.h"
 
 class GameLODManager
 {

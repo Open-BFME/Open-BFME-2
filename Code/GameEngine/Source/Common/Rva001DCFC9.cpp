@@ -3,14 +3,7 @@
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
 #include "../../Include/Common/INI/FieldParse.h"
 
-class INI
-{
-public:
-	void initFromINI(void *what, const FieldParse *parseTable);
-	static void parseUnsignedInt(INI *, void *, void *, const void *);
-	static void parseDurationUnsignedInt(INI *, void *, void *, const void *);
-	static void parseBool(INI *, void *, void *, const void *);
-};
+#include "../../Include/Common/INI/INI.h"
 
 void Rva001DEA65Parse(INI *, void *, void *, const void *);
 class Rva004255F0 { public: static void parseRecordIntoMap(INI *, void *, void *, const void *); };

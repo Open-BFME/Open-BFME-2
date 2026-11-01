@@ -5,11 +5,7 @@
 // else throws INIException 3. Honest address name.
 #include "ascii_string.h"
 
-class INI
-{
-public:
-	AsciiString getNextAsciiString();
-};
+#include "../../Include/Common/INI/INI.h"
 
 #include "../../Include/Common/INI/FieldParse.h"
 

@@ -15,13 +15,7 @@ struct FieldParse
 	const void *userData;
 	int offset;
 };
-class INI
-{
-public:
-	void initFromINI(void *what, const FieldParse *table);
-	static void parseInt(INI *ini, void *instance, void *store, const void *userData);
-	static void parseReal(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../Include/Common/INI/INI.h"
 // Retail's field table at VA 0x00C39E58 (.rdata, 64 bytes), transcribed from
 // retail's own bytes: three records plus the null terminator.
 extern const FieldParse ResourceBonusFieldParse[] =

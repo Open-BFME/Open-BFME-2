@@ -13,11 +13,7 @@
 // are the canonical AsciiString.
 #include "ascii_string.h"
 
-class INI
-{
-public:
-	const char *rva0002DFE2(const char *seps, bool *substituted);
-};
+#include "../../Include/Common/INI/INI.h"
 
 class Rva002C82C8
 {

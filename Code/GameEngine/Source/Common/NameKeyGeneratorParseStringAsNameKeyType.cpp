@@ -17,11 +17,7 @@ enum NameKeyType
 	NAMEKEY_INVALID = 0
 };
 
-class INI
-{
-public:
-	AsciiString getNextAsciiString();
-};
+#include "../../Include/Common/INI/INI.h"
 
 #include "../../Include/Common/NameKeyGenerator.h"
 

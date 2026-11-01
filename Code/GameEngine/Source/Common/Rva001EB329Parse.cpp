@@ -17,15 +17,7 @@ struct FieldParse
 	int offset;
 };
 
-class INI
-{
-public:
-	static void parseAudioEventRTS(INI *ini, void *instance, void *store, const void *userData);
-	void initFromINI(void *what, const FieldParse *table);
-	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
-	static void parseDurationUnsignedInt(INI *ini, void *instance, void *store, const void *userData);
-	static void parseAsciiStringVectorAppend(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../Include/Common/INI/INI.h"
 
 
 // Retail's campaign mission field table at VA 0x00BDF0E8 (.rdata, 112 bytes:

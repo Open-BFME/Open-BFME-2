@@ -22,16 +22,7 @@
 
 struct FieldParse;
 
-class INI
-{
-public:
-	AsciiString getNextQuotedAsciiString();
-	void initFromINI(void *what, const FieldParse *parseTable);
-	static void parseBool(INI *ini, void *instance, void *store, const void *userData);
-	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
-	static void parseInt(INI *ini, void *instance, void *store, const void *userData);
-	static void parseIndexList(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../Include/Common/INI/INI.h"
 
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
 

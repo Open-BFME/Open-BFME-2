@@ -13,14 +13,7 @@ typedef int Color;
 #define _MULTIPLAYERSETTINGS_H_
 // Only static parser callbacks are needed here; no INI object is constructed.
 // Signatures and FieldParse's four-word layout are the existing INI contract.
-class INI
-{
-public:
-    static void parseAsciiString(INI *, void *, void *, const void *);
-    static void parseRGBColor(INI *, void *, void *, const void *);
-    static void parseInt(INI *, void *, void *, const void *);
-    static void parseBool(INI *, void *, void *, const void *);
-};
+#include "../../Include/Common/INI/INI.h"
 typedef void (*INIFieldParseProc)(INI *, void *, void *, const void *);
 #include "../../Include/Common/INI/FieldParse.h"
 // The existing GameInfo constants, also selected by getColor's retail tests.

@@ -16,20 +16,7 @@ enum INILoadType
 	INI_LOAD_CREATE_OVERRIDES = 2
 };
 
-class INI
-{
-public:
-	void initFromINI(void *what, const FieldParse *table);
-	__declspec(dllimport) __forceinline INILoadType getLoadType() const { return m_loadType; }
-	static void parseMiscEvaData(INI *ini);
-	static void parseReal(INI *ini, void *instance, void *store, const void *userData);
-	static void parseUnsignedInt(INI *ini, void *instance, void *store, const void *userData);
-	static void parseDurationUnsignedInt(INI *ini, void *instance, void *store, const void *userData);
-
-private:
-	unsigned char m_pad[8];
-	INILoadType m_loadType;
-};
+#include "../../Include/Common/INI/INI.h"
 
 class INIException
 {

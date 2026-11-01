@@ -33,13 +33,7 @@ class INI;
 typedef void (*INIFieldParseProc)(INI *, void *, void *, const void *);
 #include "../../Include/Common/INI/FieldParse.h"
 
-class INI
-{
-public:
-	void initFromINI(void *what, const FieldParse *parseTable);
-	static void parseInt(INI *, void *, void *, const void *);
-	static void parseReal(INI *, void *, void *, const void *);
-};
+#include "../../Include/Common/INI/INI.h"
 
 // Complete native .rdata table VA BC6BA8..BC6BE8; the next word is an
 // independent float constant. Tokens, callbacks and field offsets are target

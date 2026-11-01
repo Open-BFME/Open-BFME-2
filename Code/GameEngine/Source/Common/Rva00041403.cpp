@@ -116,17 +116,7 @@ extern AudioManager *TheAudio;
 
 extern const FieldParse g_00BC16E8[];
 
-class INI
-{
-public:
- static void parseAudioSettingsDefinition(INI *ini);
- void initFromINIMulti(void *what, const MultiIniFieldParse &parseTableList);
- int getLoadType() const { return m_loadType; }
-private:
- int m_pad00;
- int m_pad04;
- int m_loadType; // +0x08
-};
+#include "../../Include/Common/INI/INI.h"
 
 void INI::parseAudioSettingsDefinition(INI *ini)
 {
