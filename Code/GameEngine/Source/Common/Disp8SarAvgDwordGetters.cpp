@@ -53,11 +53,7 @@ BFME_DISP8_SAR_AVG_DWORD_GETTER(Rva005D1397SarAvgField, 0x0C, 0x08, 2)
 // actual one-byte empty string. Original driver name remains unknown.
 #include "ascii_string.h"
 
-class INI
-{
-public:
-	const char *rva0002DFE2(const char *seps, bool *substituted);
-};
+#include "../../Include/Common/INI/INI.h"
 
 __forceinline const char *GetStr003B1017(const AsciiString &asciiString)
 {

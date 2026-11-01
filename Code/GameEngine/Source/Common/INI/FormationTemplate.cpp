@@ -37,14 +37,7 @@ struct FieldParse
 	const void *userData;
 	int offset;
 };
-class INI
-{
-public:
-	AsciiString getNextQuotedAsciiString();
-	AsciiString getFilename() const;
-	int getLineNum() const;
-	void initFromINI(void *what, const FieldParse *table);
-};
+#include "../../../Include/Common/INI/INI.h"
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;

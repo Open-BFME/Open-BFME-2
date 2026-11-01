@@ -10,16 +10,7 @@ typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const v
 
 #include "../../Include/Common/INI/FieldParse.h"
 
-class INI
-{
-public:
-	void initFromINI(void *what, const FieldParse *parseTable);	// 0x0002DE78
-	static void parseReal(INI *ini, void *instance, void *store, const void *userData);	// 0x0002EFC0
-	static void parseThingTemplate(INI *ini, void *instance, void *store, const void *userData);	// 0x0033940F
-	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);	// 0x0002F11E
-	static void parseColorInt(INI *ini, void *instance, void *store, const void *userData);		// 0x0002F3FE
-	static void parseInt(INI *ini, void *instance, void *store, const void *userData);			// 0x0002EF56
-};
+#include "../../Include/Common/INI/INI.h"
 
 void rva00423FD8(INI *ini, void *instance, void *store, const void *userData);	// 0x00423FD8
 void rva00425842(INI *ini, void *instance, void *store, const void *userData);	// 0x00425842

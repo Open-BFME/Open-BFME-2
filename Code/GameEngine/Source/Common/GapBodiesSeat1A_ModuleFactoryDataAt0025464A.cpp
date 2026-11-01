@@ -82,13 +82,7 @@ public:
 	void add(const FieldParse *table, unsigned int offset);	// 0x0002BC6E
 };
 
-class INI
-{
-public:
-    static void parseBool(INI *, void *, void *, const void *);
-    static void parseDurationUnsignedInt(INI *, void *, void *, const void *);
-	void initFromINIMultiProc(void *what, void (*proc)(MultiIniFieldParse &p));	// 0x0002DEB5
-};
+#include "../../Include/Common/INI/INI.h"
 
 int Rva004CE29DGet(void);
 extern const FieldParse s_Rva00254628FieldParse[];			// VA 0x00BF247C

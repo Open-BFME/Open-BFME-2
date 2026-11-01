@@ -103,7 +103,7 @@ const FieldParse *DamageFX::getFieldParse() const
 enum NameKeyType { NAMEKEY_INVALID=0, FORCE_NAMEKEY_LONG=0x7fffffff };
 #include "../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
-class INI { public: const char *getNextToken(const char*); void initFromINI(void*,const FieldParse*); };
+#include "../../Include/Common/INI/INI.h"
 class Rva003605AF { public: void rva003605AF(); };
 class DamageFXStore { public: static void parseDamageFXDefinition(INI*); char base[0xC]; Rva00360A92 map; };
 extern DamageFXStore *TheDamageFXStore;

@@ -31,11 +31,7 @@ class Object;
 class ObjectCreationList;
 struct FieldParse;
 
-class INI
-{
-public:
-	void initFromINI(void *what, const FieldParse *table);	// 0x0002DE78
-};
+#include "../../Include/Common/INI/INI.h"
 
 // --- 0x0043DA87 (14B): the indexed +0x8C word.
 class Rva0043DA87

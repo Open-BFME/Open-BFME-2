@@ -75,11 +75,7 @@ void setLODMeshCacheSetting(unsigned char value)
 
 // --- 0x00201DAA (26B): an INI field parser indexing rva00202B6CNames
 // through the rowed INI::parseIndexList.
-class INI
-{
-public:
-	static void parseIndexList(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../Include/Common/INI/INI.h"
 
 extern const char *rva00202B6CNames[];
 

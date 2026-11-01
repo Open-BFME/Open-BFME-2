@@ -13,13 +13,7 @@ typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const v
 #include "../../Include/Common/INI/FieldParse.h"
 
 
-class INI
-{
-public:
-	static void parsePercentToReal(INI *ini, void *instance, void *store, const void *userData);
-	static void parseInt(INI *ini, void *instance, void *store, const void *userData);
-	void initFromINIMultiProc(void *what, void (*proc)(MultiIniFieldParse &p));	// 0x0002DEB5
-};
+#include "../../Include/Common/INI/INI.h"
 
 // Retail's field table at VA 0x00BF00A0 (RVA 0x007F00A0, .rdata, two records and the zero sentinel), transcribed from retail's bytes.
 extern const FieldParse s_Rva002534B1FieldParse[] =

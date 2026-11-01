@@ -15,16 +15,7 @@
 
 struct FieldParse;
 
-class INI
-{
-public:
-	int getLoadType() { return m_loadType; }
-	const char *getNextToken(const char *seps = 0);
-	void initFromINI(void *what, const struct FieldParse *table);
-private:
-	char m_pad00[8];
-	int m_loadType;
-};
+#include "../../../Include/Common/INI/INI.h"
 
 extern const struct FieldParse g_00BD9D68[];
 extern const float g_00BDA3E4;

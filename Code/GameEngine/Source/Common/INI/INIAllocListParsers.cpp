@@ -19,15 +19,7 @@ typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const v
 
 class ModuleData;
 
-class INI
-{
-public:
-	void initFromINI(void *what, const FieldParse *parseTable);
-	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);	// rowed 0x002F11E
-	static void parseCoord3D(INI *ini, void *instance, void *store, const void *userData);	// rowed 0x002F507
-	static void parseReal(INI *ini, void *instance, void *store, const void *userData);		// rowed 0x002EFC0
-	static void Rva0041F524_ParseArmyMember(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 // Retail's FloodMember field table at RVA 0x0084C850 (.rdata, 112 bytes = six 16-byte records and the zero
 // sentinel), transcribed from retail's own bytes; the member record is the 0x38-byte one allocated below.

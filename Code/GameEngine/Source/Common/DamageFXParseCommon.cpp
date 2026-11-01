@@ -15,15 +15,7 @@ typedef int Int;
 typedef float Real;
 typedef unsigned int UnsignedInt;
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-	int scanIndexList(const char *token, ConstCharPtrArray nameList);
-	float scanReal(const char *token);
-	static void parseFXList(INI *ini, void *instance, void *store, const void *userData);
-	static void parseDurationUnsignedInt(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../Include/Common/INI/INI.h"
 
 #include <string.h>
 

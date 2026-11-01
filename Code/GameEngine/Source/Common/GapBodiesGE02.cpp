@@ -58,13 +58,7 @@ class INI;
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
 #include "../../Include/Common/INI/FieldParse.h"
 
-class INI
-{
-public:
-	static void parseColorInt(INI *ini, void *instance, void *store, const void *userData);
-	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
-	void initFromINI(void *what, const FieldParse *parseTable);	// 0x0002DE78
-};
+#include "../../Include/Common/INI/INI.h"
 
 // Retail's field table at VA 0x00C77E98 (RVA 0x00877E98, .rdata, two records and the zero sentinel), transcribed from retail's bytes.
 extern const FieldParse s_Rva005E7037FieldParse[] =

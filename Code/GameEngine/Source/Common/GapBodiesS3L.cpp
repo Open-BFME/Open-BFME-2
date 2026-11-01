@@ -5,15 +5,7 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);				// 0x0002DF97
-	static void parseInt(INI *ini, void *instance, void *store, const void *userData);	// 0x0002EF56
-	static void parseBool(INI *ini, void *instance, void *store, const void *userData);	// 0x0002E850
-	static void parseReal(INI *ini, void *instance, void *store, const void *userData);	// 0x0002EFC0
-	static void parseDurationUnsignedInt(INI *ini, void *instance, void *store, const void *userData);	// 0x00338B30
-};
+#include "../../Include/Common/INI/INI.h"
 
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 

@@ -6,11 +6,7 @@
 // BlockParse entry at 0x009B8938 (theAIDataBlockParse) holds this address in
 // its parse slot.
 
-class INI
-{
-public:
-	static void parseAIDataDefinition(INI *ini);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 #include "../../../Include/GameLogic/AI.h"
 

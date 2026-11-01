@@ -394,11 +394,7 @@ class ModuleData;
 
 #include "../../Include/Common/INI/FieldParse.h"
 
-class INI
-{
-public:
-	void initFromINIMultiProc(void *what, void (*proc)(MultiIniFieldParse &p));	// 0x0002DEB5
-};
+#include "../../Include/Common/INI/INI.h"
 
 int Rva004CE29DGet(void);
 extern const FieldParse s_Rva00254628FieldParse[];			// VA 0x00BF247C

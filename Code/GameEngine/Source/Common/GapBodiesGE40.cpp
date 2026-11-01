@@ -198,11 +198,7 @@ int Rva005ED291::rva005F05D7() const
 // --- 0x005EFF68 (31B) / 0x005EFF87 (31B): field-parse callbacks reading the
 // string the user data indexes in the +0x08 / +0x1C string arrays (rowed
 // INI::parseAsciiString).
-class INI
-{
-public:
-	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);	// 0x0002F11E
-};
+#include "../../Include/Common/INI/INI.h"
 
 struct Rva005EFF68Store
 {

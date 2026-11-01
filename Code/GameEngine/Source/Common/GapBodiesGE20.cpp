@@ -311,13 +311,7 @@ Rva00416072::Rva00416072() : m_00(-1), m_04(-1), m_08(0), m_0C(0), m_10(-1)
 struct FieldParse;
 
 
-class INI
-{
-public:
-	void initFromINI(void *what, const FieldParse *table);	// 0x0002DE78
-	static void parseInt(INI *, void *, void *, const void *);
-	static void parsePercentToReal(INI *, void *, void *, const void *);
-};
+#include "../../Include/Common/INI/INI.h"
 
 // Native BonusForLevel table C3A658..C3A6C8. The target supplies all six
 // field names, parser addresses and offsets in the 24-byte level record.

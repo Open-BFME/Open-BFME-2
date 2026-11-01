@@ -28,14 +28,7 @@ bool less<int>::operator()(const int &a, const int &b) const
 class INI;
 typedef void (*Parser)(INI*,void*,void*,const void*);
 struct FieldParse {const char* name;Parser parse;const void* data;unsigned offset;};
-class INI {public:
- AsciiString getNextQuotedAsciiString();
- AsciiString getFilename()const;
- int getLineNum()const;
- void initFromINI(void*,const FieldParse*);
- static void parseReal(INI*,void*,void*,const void*);
- static void parseInt(INI*,void*,void*,const void*);
-};
+#include "../../../Include/Common/INI/INI.h"
 enum NameKeyType {NAMEKEY_INVALID=0};
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator* TheNameKeyGenerator;

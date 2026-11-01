@@ -12,17 +12,7 @@
 typedef const char *ConstCharPtr;
 typedef const ConstCharPtr *ConstCharPtrArray;
 
-class INI
-{
-public:
-	const char *getNextTokenOrNull(const char *seps);
-	const char *getNextToken(const char *seps);
-	int scanIndexList(const char *token, ConstCharPtrArray nameList);
-	float dup_002EE10(const char *token);
-
-	char _pad[0x420];
-	const char *m_sepsColon;
-};
+#include "../../../Include/Common/INI/INI.h"
 
 extern const char *theSubmixSliderNames[];
 
