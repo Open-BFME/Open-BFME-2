@@ -76,12 +76,7 @@ class CommandSet { public: const class CommandButton *getCommandButton(int) cons
 
 struct CommandInventoryData { int current,last; GameWindow **windows; Object *transport; };
 
-class GameWindow {
-public:
-    int winHide(bool); bool winIsHidden(); int winEnable(bool);
-    unsigned int winSetStatus(unsigned int); unsigned int winClearStatus(unsigned int);
-    unsigned int winGetStatus();
-};
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 

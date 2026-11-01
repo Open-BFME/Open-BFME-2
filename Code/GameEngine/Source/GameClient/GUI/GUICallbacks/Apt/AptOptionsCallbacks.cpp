@@ -293,11 +293,7 @@ static inline bool TextIsEmpty(const UnicodeString &text)
 	return view.m_data == 0 || view.m_data->length == 0;
 }
 
-class GameWindow
-{
-public:
-	void *winGetUserData();
-};
+#include "../../../../../Include/GameClient/Bfme2GameWindow.h"
 
 // A slider's user data: its range.
 struct SliderData

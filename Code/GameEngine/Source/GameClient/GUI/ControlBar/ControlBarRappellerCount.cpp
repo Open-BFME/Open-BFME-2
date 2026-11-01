@@ -430,7 +430,7 @@ public:
 	AsciiString *m_chainEnd;
 };
 
-class GameWindow { public: UnsignedInt winGetStatus(); };
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 class BuildAssistant {
 public:
 	SLOTS10(v0) SLOTS10(v1)

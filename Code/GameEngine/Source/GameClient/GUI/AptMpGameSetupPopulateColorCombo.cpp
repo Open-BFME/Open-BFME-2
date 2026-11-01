@@ -43,7 +43,7 @@ class GameInfo {public:
  GameSlot*getSlot(int);const GameSlot*getConstSlot(int)const;};
 class Rva0043DA65 {public:int rva0043DA65();};
 class ColorSetupOwner {public:virtual void v00();virtual bool amIHost();};
-class GameWindow {public:void *winGetUserData();};
+#include "../../../Include/GameClient/Bfme2GameWindow.h"
 class MpGameSetupComboRef {public:MpGameSetupComboRef(const MpGameSetupComboRef&);~MpGameSetupComboRef();GameWindow*window;};
 class Image;
 class ImageCollection {public:const Image*findImageByName(const AsciiString&);};

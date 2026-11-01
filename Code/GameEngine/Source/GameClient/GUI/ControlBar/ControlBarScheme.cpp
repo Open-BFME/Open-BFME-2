@@ -493,15 +493,7 @@ struct BfmeControlBarSchemeInitBar {
  unsigned char pad230[0x26c-0x230]; const Image *m_genArrow;
 };
 
-class GameWindow {
-public:
- GameWindow *winGetParent();
- int winGetScreenPosition(int *,int *);
- int winSetPosition(int,int);
- int winSetSize(int,int);
- int winSetEnabledImage(int,const Image *);
- int winSetDisabledImage(int,const Image *);
-};
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 
 void GadgetButtonSetEnabledImage_Rva002C0433(GameWindow *, const Image *);
 

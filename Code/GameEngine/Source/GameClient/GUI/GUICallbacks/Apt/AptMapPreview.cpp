@@ -280,18 +280,7 @@ public:
 	void *GetCampaign(int index);	// the campaign at an index
 };
 class Image;
-class GameWindow
-{
-public:
-	int winHide(bool hide);
-	int winEnable(bool enable);
-	unsigned int winSetStatus(unsigned int status);
-	unsigned int winClearStatus(unsigned int status);
-	void winSetUserData(void *data);
-	int winSetEnabledImage(int index, const Image *image);
-	GameWindow *winGetChild();
-	GameWindow *winGetNext();
-};
+#include "../../../../../Include/GameClient/Bfme2GameWindow.h"
 class BfmeObjENK;
 void bfmeGoENK(BfmeObjENK *o, char v);
 void BfmeGadgetListBoxSetAudioFeedback(GameWindow *listbox, bool enable);

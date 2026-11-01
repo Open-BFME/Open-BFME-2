@@ -152,7 +152,7 @@ extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 struct AptOnlineLoginOwner { unsigned char pad[0x274]; void *movie; };
 
-class GameWindow { public: void *winGetUserData(); };
+#include "../../../../../Include/GameClient/Bfme2GameWindow.h"
 
 // The country callback reads only this ledger-owned first word.
 extern int GameSpyColor[];

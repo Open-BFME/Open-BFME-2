@@ -213,17 +213,7 @@ struct Rva005AFC4CClass
 // shape as siblings.
 void __cdecl Rva00381C2DClear(unsigned int value);
 
-class GameWindow
-{
-public:
-	void *winGetUserData();
-public:
-	void winSetUserData(void *data);
-public:
-	int winEnable(bool enable);
-public:
-	bool winIsHidden();
-};
+#include "../../../Include/GameClient/Bfme2GameWindow.h"
 
 void __cdecl GadgetListBoxReset(GameWindow *win);
 
