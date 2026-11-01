@@ -36,6 +36,10 @@ public:
 // 0x00112898 is rowed as W3DTerrainBackground::setFlipRecursive and
 // 0x00113DE0 as its rva00113DE0 index builder; the fields are the ones
 // calcBlendHeight (0x00115A5B) reads.
+// Native blend records are three unconstructed floats. This POD storage
+// view preserves the allocation behavior when the shared Vector3 has a ctor.
+struct Rva001159F1Sample { float X, Y, Z; };
+
 class WorldHeightMap;
 class W3DTerrainBackground
 {
@@ -166,7 +170,7 @@ void W3DTerrainBackground::calcBlendHeight(Real param, Int mode, Real *maxDelta)
 	if (param == 0.0f) {
 		((Rva0011216CSlotQuartet *)this)->rva00112153();
 		Int count = (m_width + 1) * (m_width + 1);
-		m_heights = new Vector3[count];
+		m_heights = (Vector3 *)new Rva001159F1Sample[count];
 		for (y = yOrigin; y <= yLimit; y++) {
 			for (gridX = xOrigin; gridX <= xLimit; gridX++) {
 				Int cx = gridX < mapXMax ? gridX : mapXMax;
