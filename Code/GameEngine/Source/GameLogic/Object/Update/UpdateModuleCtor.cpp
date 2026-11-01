@@ -40,6 +40,7 @@ class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 
 public:
 	UpdateModule(Thing *thing, const ModuleData *moduleData);
+	virtual ~UpdateModule();
 	virtual BitFlags<13> getDisabledTypesToProcess() const;
 };
 

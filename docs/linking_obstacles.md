@@ -16132,9 +16132,9 @@ with a one-slot anchor) by `GameLogic/Module/BehaviorModule.h`. Four mechanisms:
 | SupplyWarehouseCripplingBehaviorCtor, WallUpgradeUpdate | 1,143 | 1 | repaired (second commit): `??_7PoisonedBehavior@@6BBehaviorModuleInterface@@@` (0x00C49800) and the `c3e8f0752f` renames `??_7Rva004839D3@@6BRva004839D3_E1/UpdateModule/ObjectModule@@@`, `??_7Rva004AB246@@6BUpdateModule/ObjectModule@@@` |
 | BloodthirstyUpdateCtor, RainOfFireUpdateCtor | 250 | 1 | repaired (second commit): `6BObjectModule`/`6BBehaviorModuleInterface` tables their Dtor units emit |
 | BridgeBehaviorCtor, QueueProductionExitUpdateCtor | 302 | 1 | blocked: files held (StarkillerHDX UpdateModule adoption / QueueProductionExitUpdate.cpp TU merge) |
-| UpdateModuleCtor, RunOffMapBehaviorCtor, DamageModuleCtor, SpecialPowerModuleCtor, BodyModuleCtor, FireWeaponCollide | 1,167 | 2 | blocked on the BehaviorModule.h destructor change (`class:BehaviorModule` held by StarkillerHDX); tested proposal below; re_attempts verdicts on the six ctor rows |
+| UpdateModuleCtor, RunOffMapBehaviorCtor, DamageModuleCtor, SpecialPowerModuleCtor, BodyModuleCtor, FireWeaponCollide | 1,167 | 2 | UpdateModuleCtor's implicit own destructor is removed, but its two BehaviorModule table COMDATs still need the shared-header contract repair; historical class reservation and tested proposal below |
 | AIGateUpdateCtor, DestroyEnvironmentUpdateCtor | 132 | 3 (+2) | Both corrected by explicit existing destructor declarations (2026-11-01, Cortys). Historical held-scope blocker retained below. |
-| AIGateUpdateDtor, DestroyEnvironmentUpdate, Rva0024A797DeletingDtor | 413 | 3 (victims) | AIGate and DestroyEnvironment now predict LINKS; the common base unit still needs UpdateModuleCtor's implicit copy removed |
+| AIGateUpdateDtor, DestroyEnvironmentUpdate, Rva0024A797DeletingDtor | 413 | 3 (victims) | All three now predict LINKS after the three constructor units reference their existing destructors |
 | ReplenishUnitsBehavior, SiegeDockingBehaviorDtor, SpecialPowerModuleDtor_Unresolved, MonitorConditionUpdate, StructureToppleUpdateCtor, AutoPickUpUpdate | 3,940 | 4 | open; several first copies are in held Dtor files |
 
 **AIGate scoped repair (2026-11-01, Cortys):** the constructor now declares the
@@ -16157,6 +16157,15 @@ The common base unit still has UpdateModuleCtor's copy. The prior AIGate push
 audit remains inconclusive on the older index and an AICowerState_onEnter.cpp
 receipt; carry that broader scope into the next census. Evidence:
 `reverse/attempt_support/destroy-environment-declarations-20261101/`.
+
+**Remaining base-copy repair (2026-11-01, Cortys):** UpdateModuleCtor now declares
+its existing destructor out of line. Three strict rows pass and all 59 retained
+complete definitions/relocations are unchanged; only its implicit destructor
+copy disappears. The current six-source cohort predicts 545 linking bytes over
+five units, including the common base unit's new 52 bytes. UpdateModuleCtor
+itself still has the two BehaviorModule vtable COMDAT obstacles, requiring the
+separate canonical destructor-contract repair. No census gain is claimed.
+Evidence: `reverse/attempt_support/update-module-destructor-declaration-20261101/`.
 
 Completed: group 1 rebinding of the AttributeModifierPoolUpdate folded table
 (0x00BEFF90) in ten ctor units. `./build.sh` 17/17 rows over the ten files; scoped

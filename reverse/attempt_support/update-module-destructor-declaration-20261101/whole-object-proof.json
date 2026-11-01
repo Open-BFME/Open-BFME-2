@@ -1,0 +1,10 @@
+{
+  "before_definitions": 60,
+  "after_definitions": 59,
+  "added": [],
+  "removed": [
+    "??1UpdateModule@@UAE@XZ"
+  ],
+  "changed": [],
+  "all_retained_whole_code_and_relocations_equal": true
+}
