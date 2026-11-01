@@ -17,7 +17,7 @@ class MultiIniFieldParse;
 
 struct FieldParse { const char *token; void (*parse)(class INI *, void *, void *, const void *); const void *userData; int offset; };
 
-extern const int s_transportAiFieldTable[];
+extern const FieldParse s_transportAiFieldTable[];
 extern const FieldParse s_supplyTruckAiFieldTable[];
 extern const FieldParse s_deployStyleFieldTable[];
 extern const FieldParse s_assaultTransportFieldTable[];
@@ -38,7 +38,7 @@ public:
 // ?buildFieldParse@TransportAIUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z
 void TransportAIUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
-	parse.add(reinterpret_cast<const FieldParse *>(s_transportAiFieldTable), 0);
+	parse.add(s_transportAiFieldTable, 0);
 }
 
 class SupplyTruckAIUpdateModuleData

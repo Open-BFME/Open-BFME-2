@@ -13864,6 +13864,16 @@ relocation to a TU-local symbol. The ten words and what each needs:
 The patch lands once the ten lists have real external names, each with a data row. The 14 `mov eax,imm32` getters are unchanged (see "Hard-coded
 image addresses: name_globals has no candidates").
 
+Update (2026-11-01, seat halilkkaya-ad-o1, later): 0xDBB4C4 is now named. Retail's list there is
+YES/STEALTHED/NO/NOTWHILEATTACKING/ATTACK_BUILDINGS plus the null terminator, passed by
+AutoAcquireEnemiesWhenIdle to parseBitString32. Zero Hour's AIUpdate.h spells this exact list
+TheAutoAcquireEnemiesNames, and no data row held that name. It is defined once, external, in
+ConstIntGettersAddr.cpp with a data row, and s_transportAiFieldTable is typed with a data row (both
+userData lists named). link_check at index 987ee56fdc: ConstIntGettersAddr.cpp addresses 254 -> 214.
+TransportAIUpdateModuleDataBuildFieldParse.cpp still LINKS 152 B. AIUpdate.cpp (ZH-donor, TU-local
+`static` copy) was not linking at census and still does not, LINKED 0 B both before and after. The
+other four tables of the banked patch still wait on 0xC1B6D8, 0xDB960C, 0xDCD4D0/0xDCD550 and 0xDBE6F0.
+
 ### MissileUpdate composition (2026-10-29, seat yasinschroeder-claudeb2)
 
 - Landed: 2a7a171df8 merged 4 files into `MissileUpdate.cpp` (13 rows).

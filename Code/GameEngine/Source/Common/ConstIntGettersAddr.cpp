@@ -80,6 +80,8 @@ void __identifier("?parseInitialCrew@SiegeEngineContainModuleData@@SAXPAVINI@@PA
 void __identifier("?Rva004CA798Parse@@YAXPAVINI@@PAX1@Z")();
 void __identifier("?parsePositiveNonZeroReal@INI@@SAXPAV1@PAX1PBX@Z")();
 void __identifier("?parseLodOptions@W3DModelDrawModuleData@@SAXPAVINI@@PAX1PBX@Z")();
+void __identifier("?parseBitString32@INI@@SAXPAV1@PAX1PBX@Z")();
+void __identifier("?parseTurret@AIUpdateModuleData@@CAXPAVINI@@PAX1PBX@Z")();
 }
 
 extern const char *TheLocomotorSetNames[];
@@ -477,28 +479,35 @@ extern const FieldParse s_veterancyCrateFieldTable[5] = {
     { 0, 0, 0, 0 },
 };
 
+// Retail VA 0x00DBB4C4 (.data): the auto-acquire names AutoAcquireEnemiesWhenIdle parses with
+// INI::parseBitString32 (s_transportAiFieldTable below); five names and the null terminator,
+// read from retail. Zero Hour's AIUpdate.h spells this exact list TheAutoAcquireEnemiesNames.
+extern const char *TheAutoAcquireEnemiesNames[] = {
+    "YES", "STEALTHED", "NO", "NOTWHILEATTACKING", "ATTACK_BUILDINGS", 0
+};
+
 // Retail VA 0x00bf9378: 19 entries + terminator (320B).
-extern const int s_transportAiFieldTable[80] = {
-    0x00BCA7FC, 0x006623C1, 0x00000000, 0x00000014,
-    0x00BF9368, 0x0042F11E, 0x00000000, 0x00000044,
-    0x00BF934C, 0x0042EB38, 0x00DBB4C4, 0x0000001C,
-    0x00BF9338, 0x0042EFC0, 0x00000000, 0x00000020,
-    0x00BF932C, 0x0042E850, 0x00000000, 0x00000024,
-    0x00BF9318, 0x00738B30, 0x00000000, 0x00000018,
-    0x00BF9300, 0x0042E850, 0x00000000, 0x00000025,
-    0x00BF92E0, 0x0042EFC0, 0x00000000, 0x00000028,
-    0x00BF92D0, 0x0042F11E, 0x00000000, 0x0000002C,
-    0x00BF92C0, 0x00738B30, 0x00000000, 0x00000034,
-    0x00BF92B0, 0x00738B30, 0x00000000, 0x00000030,
-    0x00BF92A4, 0x00738B30, 0x00000000, 0x00000038,
-    0x00BF928C, 0x0042E850, 0x00000000, 0x0000003C,
-    0x00BF9278, 0x00738B30, 0x00000000, 0x00000040,
-    0x00BF9258, 0x00738B30, 0x00000000, 0x00000048,
-    0x00BF9244, 0x0042EC4E, 0x00DBB4F0, 0x00000050,
-    0x00BF922C, 0x0042EFC0, 0x00000000, 0x0000004C,
-    0x00BF9214, 0x0042E896, 0x00000000, 0x00000058,
-    0x00BF9204, 0x0042E850, 0x00000000, 0x00000054,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+extern const FieldParse s_transportAiFieldTable[20] = {
+    { "Turret", (FieldParseProc)&__identifier("?parseTurret@AIUpdateModuleData@@CAXPAVINI@@PAX1PBX@Z"), 0, 0x14 },
+    { "AttackPriority", (FieldParseProc)&__identifier("?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x44 },
+    { "AutoAcquireEnemiesWhenIdle", (FieldParseProc)&__identifier("?parseBitString32@INI@@SAXPAV1@PAX1PBX@Z"), TheAutoAcquireEnemiesNames, 0x1C },
+    { "StopChaseDistance", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x20 },
+    { "StandGround", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x24 },
+    { "MoodAttackCheckRate", (FieldParseProc)&__identifier("?parseDurationUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x18 },
+    { "CanAttackWhileContained", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x25 },
+    { "HoldGroundCloseRangeDistance", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x28 },
+    { "AILuaEventsList", (FieldParseProc)&__identifier("?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x2C },
+    { "MinCowerTime", (FieldParseProc)&__identifier("?parseDurationUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x34 },
+    { "MaxCowerTime", (FieldParseProc)&__identifier("?parseDurationUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x30 },
+    { "RampageTime", (FieldParseProc)&__identifier("?parseDurationUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x38 },
+    { "RampageRequiresAflame", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x3C },
+    { "BurningDeathTime", (FieldParseProc)&__identifier("?parseDurationUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x40 },
+    { "TimeToEjectPassengersOnRampage", (FieldParseProc)&__identifier("?parseDurationUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x48 },
+    { "ComboLocomotorSet", (FieldParseProc)&__identifier("?parseIndexList@INI@@SAXPAV1@PAX1PBX@Z"), TheLocomotorSetNames, 0x50 },
+    { "ComboLocoAttackDistance", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x4C },
+    { "SpecialContactPoints", (FieldParseProc)&__identifier("?parseAsciiStringVectorAppend@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x58 },
+    { "FadeOnPortals", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x54 },
+    { 0, 0, 0, 0 },
 };
 
 // Retail VA 0x00bef4b0: 8 entries + terminator (144B).
