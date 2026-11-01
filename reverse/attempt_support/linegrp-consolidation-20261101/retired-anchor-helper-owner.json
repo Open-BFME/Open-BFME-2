@@ -1,0 +1,19 @@
+{
+  "meta": {
+    "date": "2026-11-01 14:31",
+    "commit": "86db074988",
+    "clean_tree": true,
+    "census_date": "2026-11-01 12:39",
+    "census_commit": "39dfbbdb50"
+  },
+  "helper": "??_H@YGXPAXIHP6EPAX0@Z@Z",
+  "outside_copies": 994,
+  "outside_retail_copies": 958,
+  "first_outside": {
+    "object": "^code_^libraries_^source_^a^t^l_atl_vector_constructor_iterator.obj",
+    "digest": "6246c280fc30",
+    "verdict": "retail"
+  },
+  "known_native_owner": "Code/Libraries/Source/ATL/atl_vector_constructor_iterator.cpp",
+  "qualification": "Published index selection, not a current whole-tree census. The native owner and seed receive fresh strict receipts."
+}

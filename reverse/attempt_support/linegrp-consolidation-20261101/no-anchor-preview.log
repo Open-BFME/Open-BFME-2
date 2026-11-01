@@ -1,0 +1,4 @@
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp: LINKS  LINKED 520 -> 520 bytes (census 2026-11-01 14:31 at 86db074988; file's own bytes 520)
+  diagnostic  ?Add_Ref@RefCountClass@@QAEXXZ  (codegen-like: 5 bytes against the majority copy's 4; unreferenced, not a blocker)
+link_check: 1 of 1 link cleanly; LINKED 520 -> 520 bytes (5.9s)

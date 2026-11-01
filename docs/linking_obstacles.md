@@ -16619,3 +16619,15 @@ mandatory wider batch audit remains INCONCLUSIVE: index86db074988 predates
 base211c10aca2 and affected Common/0CreateAHeroManager21FE49.cpp lacks a current
 receipt in that checkout. Carry that consumer and HeaderTemplate provider scope
 into the next scheduled census; this source-level cleanup does not clear it.
+
+### LineGroup consolidation context (2026-11-01, Cortys)
+
+The approved linegrp TU still needs verified composition. Initial dry-run
+rejects its destructor flag override and mismatched buffer declarations.
+Removing nine unused seed includes clears compilation while preserving all15
+rows and all29 complete code definitions/relocations. Removing the old array
+anchor then preserves all28 remaining definitions and retires two optimization
+hatches. The native ATL iterator owner is strictly verified; seed preview
+retains520 bytes. Render and its cleanup remain for the supported merge to
+verify; no file-count or new linked-byte gain is claimed yet. Evidence:
+reverse/attempt_support/linegrp-consolidation-20261101/.
