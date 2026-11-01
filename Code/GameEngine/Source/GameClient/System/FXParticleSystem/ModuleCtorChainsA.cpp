@@ -444,15 +444,10 @@ struct Rva005641EDInput;
 struct DrawInfo2;
 class Rva005634F7 { public: Rva005634F7(void *a, DrawInfo2 *b); };
 class Rva003AE94E { public: Rva003AE94E(void *a, void *b); };
-class Rva003AEA42 { public: Rva003AEA42(const RvaSmartPtr12 &a, int b); };
-class Rva003AEF9B { public: Rva003AEF9B(const RvaSmartPtr12 &a, int b); };
 class Rva003AF076 { public: Rva003AF076(const RvaSmartPtr12 &a, const Rva005648FEInput &b); };
 
 class Rva003AE50B { public: Rva003AE50B(void *a, void *b); };
-class Rva00560A1B { public: Rva00560A1B(void *a, void *b); };
-class Rva003AE61F { public: Rva003AE61F(void *a, void *b); };
 class Rva003ACC7C { public: Rva003ACC7C(void *a, void *b); };
-class Rva0055BF4B { public: Rva0055BF4B(const RvaSmartPtr12 &a, const Rva0055BF4BSrc *b); };
 class Rva003ABD20 { public: Rva003ABD20(const RvaSmartPtr12 &a, int b); };
 class Rva003ABD81 { public: Rva003ABD81(const RvaSmartPtr12 &a, int b); };
 struct Rva005641EDInput;
@@ -491,25 +486,10 @@ Rva003ABAC3::Rva003ABAC3(void *a, void *b)
 	STAMP(0x18, __identifier("??_7Rva003AE4E5@@6B@"));
 }
 
-class Rva003ABAF3 : public Rva00560A1B
-{
-public:
-	Rva003ABAF3(void *a, void *b);
-};
 
 
-class Rva003ABB23 : public Rva003AE61F
-{
-public:
-	Rva003ABB23(void *a, void *b);
-};
 
 
-class Rva003ABCB5 : public Rva0055BF4B
-{
-public:
-	Rva003ABCB5(void *a, void *b);
-};
 
 
 class Rva003ABDC8 : public FXParticleSystem::Rva005FEAD0DefaultModule7
@@ -548,11 +528,6 @@ Rva003ABDF9::Rva003ABDF9(void *a, void *b)
     STAMP(0x20, __identifier("??_7Rva003AEDE9@@6B@"));
 }
 
-class Rva003ABECC : public FXParticleSystem::LightningEmissionModule
-{
-public:
-	Rva003ABECC(void *a, void *b);
-};
 
 
 // ---- module constructors the template factories call ----
@@ -573,27 +548,12 @@ Rva003ACDA0Module::Rva003ACDA0Module(void *a, Rva003AD71BTemplate *b)
 }
 
 class Rva003AD757Template;
-class Rva003ACDCFModule : public Rva003ABAF3
-{
-public:
-	Rva003ACDCFModule(void *a, Rva003AD757Template *b);
-};
 
 
 class Rva003AD793Template;
-class Rva003ACDFEModule : public Rva003ABB23
-{
-public:
-	Rva003ACDFEModule(void *a, Rva003AD793Template *b);
-};
 
 
 class Rva003AD8C5Template;
-class Rva003ACF32Module : public Rva003ABCB5
-{
-public:
-	Rva003ACF32Module(void *a, Rva003AD8C5Template *b);
-};
 
 
 class Rva003AD904Template;
@@ -678,20 +638,10 @@ Rva003AD2B3Module::Rva003AD2B3Module(void *a, Rva003ADB44Template *b)
 }
 
 class Rva003ADBD0Template;
-class Rva003AD38BModule : public Rva003ABECC
-{
-public:
-	Rva003AD38BModule(void *a, Rva003ADBD0Template *b);
-};
 
 
 // ---- five more intermediate constructors (same shape, rowed bases) ----
 
-class Rva003ABB93 : public FXParticleSystem::LightningDrawModule
-{
-public:
-	Rva003ABB93(void *a, void *b);
-};
 
 
 class Rva003ABBCB : public Rva003AE94E
@@ -708,18 +658,8 @@ Rva003ABBCB::Rva003ABBCB(void *a, void *b)
 	STAMP(0x18, __identifier("??_7Rva003AE928@@6B@"));
 }
 
-class Rva003ABC6E : public Rva003AEA42
-{
-public:
-	Rva003ABC6E(void *a, void *b);
-};
 
 
-class Rva003ABE40 : public Rva003AEF9B
-{
-public:
-	Rva003ABE40(void *a, void *b);
-};
 
 
 class Rva003ABE8D : public Rva003AF076
@@ -741,11 +681,6 @@ Rva003ABE8D::Rva003ABE8D(void *a, void *b)
 // names their factory call sites (0x003AD80B, 0x003AD84A) pin ----
 
 class Rva003AD80BTemplate;
-class Rva003ACE5CModule : public Rva003ABB93
-{
-public:
-	Rva003ACE5CModule(void *a, Rva003AD80BTemplate *b);
-};
 
 
 class V3HostRva005E76E0;
@@ -796,11 +731,6 @@ Rva005E7420Object::Rva005E7420Object(void *a, V3HostRva005E7420 *b)
 }
 
 class Rva003AD886Template;
-class Rva003ACEFCModule : public Rva003ABC6E
-{
-public:
-	Rva003ACEFCModule(void *a, Rva003AD886Template *b);
-};
 
 
 class Rva003AD9BBTemplate;
@@ -820,11 +750,6 @@ Rva003AD0CAModule::Rva003AD0CAModule(void *a, Rva003AD9BBTemplate *b)
 }
 
 class Rva003AD9F7Template;
-class Rva003AD100Module : public Rva003ABE40
-{
-public:
-	Rva003AD100Module(void *a, Rva003AD9F7Template *b);
-};
 
 
 class V3HostRva005E7AD0;

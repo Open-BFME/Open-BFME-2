@@ -416,46 +416,18 @@ public:
 struct Rva005648FEInput;
 struct Rva005641EDInput;
 struct DrawInfo2;
-class Rva005634F7 { public: Rva005634F7(void *a, DrawInfo2 *b); };
-class Rva003AE94E { public: Rva003AE94E(void *a, void *b); };
-class Rva003AEA42 { public: Rva003AEA42(const RvaSmartPtr12 &a, int b); };
-class Rva003AEF9B { public: Rva003AEF9B(const RvaSmartPtr12 &a, int b); };
-class Rva003AF076 { public: Rva003AF076(const RvaSmartPtr12 &a, const Rva005648FEInput &b); };
 
-class Rva003AE50B { public: Rva003AE50B(void *a, void *b); };
 class Rva00560A1B { public: Rva00560A1B(void *a, void *b); };
 class Rva003AE61F { public: Rva003AE61F(void *a, void *b); };
-class Rva003ACC7C { public: Rva003ACC7C(void *a, void *b); };
-class Rva0055BF4B { public: Rva0055BF4B(const RvaSmartPtr12 &a, const Rva0055BF4BSrc *b); };
-class Rva003ABD20 { public: Rva003ABD20(const RvaSmartPtr12 &a, int b); };
-class Rva003ABD81 { public: Rva003ABD81(const RvaSmartPtr12 &a, int b); };
 struct Rva005641EDInput;
 // Borrowed footprint of the existing constructor/copy owner. Its native
 // fields extend through byte+0x3C; four-byte alignment gives a0x40 footprint.
 // this declaration only calls that provider and emits no base lifetime code.
-class Rva003AEE16
-{
-public:
-    Rva003AEE16(const RvaSmartPtr12 &, const Rva005641EDInput &);
-private:
-    unsigned int m_unmodeled[0x40 / 4];
-};
-class Rva003ACC4B
-{
-public:
-	Rva003ACC4B(FXParticleSystem::TrackingPtr<FXParticleSystem::ParticleSystem> &system,
-		const FXParticleSystem::PointEmissionVolumeModuleTemplate *moduleTemplate);
-};
 
 #define STAMP(off, vtable) (*(const void **)((char *)this + (off)) = (const void *)(vtable))
 
 // ---- intermediate constructors over rowed module constructors ----
 
-class Rva003ABAC3 : public Rva003AE50B
-{
-public:
-	Rva003ABAC3(void *a, void *b);
-};
 
 
 class Rva003ABAF3 : public Rva00560A1B
@@ -486,18 +458,8 @@ Rva003ABB23::Rva003ABB23(void *a, void *b)
 	STAMP(0x18, __identifier("??_7Rva003AE5F9@@6B@"));
 }
 
-class Rva003ABCB5 : public Rva0055BF4B
-{
-public:
-	Rva003ABCB5(void *a, void *b);
-};
 
 
-class Rva003ABDC8 : public FXParticleSystem::Rva005FEAD0DefaultModule7
-{
-public:
-	Rva003ABDC8(void *a, void *b);
-};
 
 
 // Native 0x003ABDF9..0x003ABE2A,49B RET8: forwards both arguments to the
@@ -505,11 +467,6 @@ public:
 // four target vtables at+0/+0x14/+0x18/+0x20. The neighbouring ctor pattern
 // is a structural guide; the target call and stores establish this relation.
 // The derived class identity remains address-derived. No donor name is claimed.
-class Rva003ABDF9 : public Rva003AEE16
-{
-public:
-    Rva003ABDF9(void *a, void *b);
-};
 
 
 class Rva003ABECC : public FXParticleSystem::LightningEmissionModule
@@ -531,11 +488,6 @@ Rva003ABECC::Rva003ABECC(void *a, void *b)
 // ---- module constructors the template factories call ----
 
 class Rva003AD71BTemplate;
-class Rva003ACDA0Module : public Rva003ABAC3
-{
-public:
-	Rva003ACDA0Module(void *a, Rva003AD71BTemplate *b);
-};
 
 
 class Rva003AD757Template;
@@ -569,51 +521,21 @@ Rva003ACDFEModule::Rva003ACDFEModule(void *a, Rva003AD793Template *b)
 }
 
 class Rva003AD8C5Template;
-class Rva003ACF32Module : public Rva003ABCB5
-{
-public:
-	Rva003ACF32Module(void *a, Rva003AD8C5Template *b);
-};
 
 
 class Rva003AD904Template;
-class Rva003ACFCFModule : public Rva003ABD20
-{
-public:
-	Rva003ACFCFModule(void *a, Rva003AD904Template *b);
-};
 
 
 class Rva003AD940Template;
-class Rva003AD005Module : public Rva003ABD81
-{
-public:
-	Rva003AD005Module(void *a, Rva003AD940Template *b);
-};
 
 
 class Rva003AD97FTemplate;
-class Rva003AD094Module : public Rva003ABDC8
-{
-public:
-	Rva003AD094Module(void *a, Rva003AD97FTemplate *b);
-};
 
 
 class Rva003ADB21Template;
-class Rva003AD278Module : public Rva003ACC4B
-{
-public:
-	Rva003AD278Module(void *a, Rva003ADB21Template *b);
-};
 
 
 class Rva003ADB44Template;
-class Rva003AD2B3Module : public Rva003ACC7C
-{
-public:
-	Rva003AD2B3Module(void *a, Rva003ADB44Template *b);
-};
 
 
 class Rva003ADBD0Template;
@@ -634,106 +556,41 @@ Rva003AD38BModule::Rva003AD38BModule(void *a, Rva003ADBD0Template *b)
 
 // ---- five more intermediate constructors (same shape, rowed bases) ----
 
-class Rva003ABB93 : public FXParticleSystem::LightningDrawModule
-{
-public:
-	Rva003ABB93(void *a, void *b);
-};
 
 
-class Rva003ABBCB : public Rva003AE94E
-{
-public:
-	Rva003ABBCB(void *a, void *b);
-};
 
 
-class Rva003ABC6E : public Rva003AEA42
-{
-public:
-	Rva003ABC6E(void *a, void *b);
-};
 
 
-class Rva003ABE40 : public Rva003AEF9B
-{
-public:
-	Rva003ABE40(void *a, void *b);
-};
 
 
-class Rva003ABE8D : public Rva003AF076
-{
-public:
-	Rva003ABE8D(void *a, void *b);
-};
 
 
 // ---- the two module constructors over 0x003ABB93 and 0x003ABBCB, under the
 // names their factory call sites (0x003AD80B, 0x003AD84A) pin ----
 
 class Rva003AD80BTemplate;
-class Rva003ACE5CModule : public Rva003ABB93
-{
-public:
-	Rva003ACE5CModule(void *a, Rva003AD80BTemplate *b);
-};
 
 
 class V3HostRva005E76E0;
-class Rva005E76E0Object : public Rva003ABBCB
-{
-public:
-	Rva005E76E0Object(void *a, V3HostRva005E76E0 *b);
-};
 
 
 // ---- two more intermediates over rowed bases, then the five module
 // constructors their factory call sites pin ----
 
-class Rva003ABB53 : public Rva005634F7
-{
-public:
-	Rva003ABB53(void *a, void *b);
-};
 
 
 class V3HostRva005E7420;
-class Rva005E7420Object : public Rva003ABB53
-{
-public:
-	Rva005E7420Object(void *a, V3HostRva005E7420 *b);
-};
 
 
 class Rva003AD886Template;
-class Rva003ACEFCModule : public Rva003ABC6E
-{
-public:
-	Rva003ACEFCModule(void *a, Rva003AD886Template *b);
-};
 
 
 class Rva003AD9BBTemplate;
-class Rva003AD0CAModule : public Rva003ABDF9
-{
-public:
-	Rva003AD0CAModule(void *a, Rva003AD9BBTemplate *b);
-};
 
 
 class Rva003AD9F7Template;
-class Rva003AD100Module : public Rva003ABE40
-{
-public:
-	Rva003AD100Module(void *a, Rva003AD9F7Template *b);
-};
 
 
 class V3HostRva005E7AD0;
-class Rva005E7AD0Object : public Rva003ABE8D
-{
-public:
-	Rva005E7AD0Object(void *a, V3HostRva005E7AD0 *b);
-};
 
