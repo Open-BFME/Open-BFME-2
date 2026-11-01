@@ -33,12 +33,7 @@ class AI
 public:
 	AIGroup *createGroup();
 };
-class AIGroup
-{
-public:
-	void rva0036FBC5(const Waypoint *wp, CommandSourceType src);
-	void rva0036FA56(const Waypoint *wp, CommandSourceType src);
-};
+#include "../../../Include/GameLogic/AIGroup.h"
 class TerrainLogic
 {
 public:

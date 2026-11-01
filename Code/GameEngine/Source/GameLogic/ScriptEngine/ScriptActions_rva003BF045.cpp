@@ -38,11 +38,7 @@ class AI
 public:
 	AIGroup *createGroup();
 };
-class AIGroup
-{
-public:
-	void rva0036F9FE(const Waypoint *wp, CommandSourceType src, int x);
-};
+#include "../../../Include/GameLogic/AIGroup.h"
 class Rva0036FAF8
 {
 public:

@@ -49,11 +49,7 @@ public:
 
 #include "../../../Include/Common/TeamBFME2.h"
 
-class AIGroup
-{
-public:
-	void groupGuardPosition(const Coord3D *pos, GuardMode mode, CommandSourceType src);
-};
+#include "../../../Include/GameLogic/AIGroup.h"
 
 extern TerrainLogic *TheTerrainLogic;
 extern ScriptEngine *TheScriptEngine;

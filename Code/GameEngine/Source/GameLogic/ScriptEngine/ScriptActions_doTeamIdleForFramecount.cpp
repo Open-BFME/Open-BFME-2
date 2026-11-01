@@ -37,12 +37,7 @@ enum CommandSourceType
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 
-class AIGroup
-{
-public:
-	Bool getCenter(Coord3D *center);			// 0x0036D035
-	void groupIdle(CommandSourceType cmdSource);		// 0x0036FC23
-};
+#include "../../../Include/GameLogic/AIGroup.h"
 
 class AI
 {
