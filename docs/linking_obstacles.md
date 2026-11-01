@@ -9894,11 +9894,12 @@ Census confirmation: not claimed.
 
 ### LINK-057: valarray sweep copy reaches a record assignment instead of a gslice copy
 
-Status: Blocked on row identity reconciliation. Updated: 2026-10-26; inspected revision: `896af216804e`.
+Status: Repair verified in bounded preview; awaiting census. Updated: 2026-11-01; inspected index: `4a490aa2e4`.
 Evidence / affected units: `stlport_valarray_int.cpp`, row 0x000B68F0 (27 B), named `gslice_array<int>` copy construction. Retail calls 0x000B43E5, the 47-byte `BfmeRecord000B43E5::operator=` in `Rva000B43E5Assign.cpp`. That worker copies three scalar dwords, a byte at +0x0C and a string at +0x10 through `StringBase<char>::set`; the native wrapper then copies +0x14. STLport gslice instead contains two owned valarrays.
-Completed: diagnosis only. Supplying the actual assignment provider leaves the sweep at U1/L2/S1 while the provider LINKS. No valarray or shared-header trial was applied. Raw evidence: `build/link-worker-w5/retail-probe-final.log`, `before-extra-providers.log` and `after-cohort.log`.
-Remaining / next check: identify and rename the wrapper and record operation together, including `StlHelperRva000B978A.cpp`, whose existing alias binds the sweep name. The exception/bad_alloc emissions are consequences of whole-valarray instantiation; removing those emissions alone cannot correct the gslice body identity. No new body or pin is supported by this call site.
-Clearance: pending.
+History (2026-10-26): diagnosis only. Supplying the actual assignment provider left the sweep at U1/L2/S1 while the provider LINKS. No valarray or shared-header trial was applied. Raw evidence: `build/link-worker-w5/retail-probe-final.log`, `before-extra-providers.log` and `after-cohort.log`.
+Completed (2026-11-01): privately prove the actual24B record assignment and its50B caller, retract the false real claim in its required own commit, then restore the SAME source path with clean27B C++ and plain add_match admission. Native code calls the real47B provider then copiesdword14; application type/name remains unknown. The caller alias and two superseded pins are retired with their three hatch keys. No shared-header edit, new pin or source move. Strict3/3rows and preview3/3LINKS pass:97->124B, with both previously linking peers retained.
+Remaining / next check: scheduled census/consumer confirmation and proper TU/name recovery for the historically misleading source path; no unapproved move is made. Earlier49dd6410af broader audit lacked current AIBuildable receipt. Evidence: `reverse/attempt_support/valarray-record-identity-20261101/readme.md` and strict/preview receipts.
+Clearance: bounded three-source preview only; prospective27B linked gain, matched coverage preserved across the published pair.
 Census confirmation: not claimed.
 
 ### LINK-058: narrow istream find_if sweep row calls a record-construction worker

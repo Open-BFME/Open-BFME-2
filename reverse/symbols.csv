@@ -1706,7 +1706,6 @@ name,address,notes
 ??0WorkerAIUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x004AA3AB,(Thing*;ModuleData*) ctor called by WorkerAIUpdate::friend_newModuleInstance (0x0024F2B4); class from the ModuleFactory registration literal
 ??0WriteLock@BfmeSortingIBAccess@@QAE@PAU1@@Z,0x00138CA0,Recovered dynamic index write-lock view; 218-byte constructor and EH member cleanup prove owner+0 data+4 device guard+8
 ??0WriteLock@BfmeSortingVBAccess@@QAE@PAU1@@Z,0x0013AA00,Recovered dynamic vertex write-lock view; 247-byte constructor and EH member cleanup prove owner+0 data+4 device guard+8
-??0gslice@_STL@@QAE@ABV01@@Z,0x000B43E5,harvested from retail REL32 displacement at 0x000B68F0
 ??0stdio_streambuf_base@_SgI@@QAE@PAU_iobuf@@@Z,0x0001CDB0,retail RTTI stdio base vtable and constructor FILE* store at +0x54; eight independent ios_base init/sync call sites; ABI matches held bfmeInitTL body; link binding in its owner
 ??1?$DefaultModuleTemplate@$06@FXParticleSystem@@UAE@XZ,0x003A6201,BFME2 export shares the 5-byte stub at 0x003A9397 with its concrete wrapper; calls to this destructor resolve to the 41-byte fold like its five siblings
 ??1?$DynamicVectorClass@PAVHAnimComboDataClass@@@@UAE@XZ,0x00196B50,ICF twin of rowed VectorClass dtor at same address; called by DynamicVectorClass deleting dtor 0x197470
@@ -3405,7 +3404,6 @@ name,address,notes
 ??4RenderDeviceDescClass@@QAEAAV0@ABV0@@Z,0x00122450,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
 ??4Rva00087750Ref@@QAEAAV0@ABV0@@Z,0x00239099,callee of ??4LivingWorldSound@@QAEAAV0@ABV0@@Z at retail 0x003FB00B read from its REL32 displacement at call 0x003FB03A; body unrowed; the donor comment naming 0x00087750 is stale in BFME 2 (that address is mid-instruction x87 code)
 ??4Rva000A8490Mid10@@QAEAAV0@ABV0@@Z,0x0021C21B,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
-??4Rva000B978ARecord@@QAEAAU0@ABU0@@Z,0x000B68F0
 ??4Rva003371B1@@QAEAAV0@ABV0@@Z,0x003372EC,assignment called by retail __adjust_heap 0x0033758C and __push_heap 0x00337479; ICF alias of the body rowed as ??0Rva002E9E70 at this address
 ??4Rva00385B78SavedMap@@QAEAAV0@ABV0@@Z,0x0038407F,native loadSavedIgnoreList100 115B assign at call385BB2; complete rowed provider independently verified; address-derived consumed tree view and hidden-return ABI
 ??4Rva003F61C6Record@@QAEAAU0@ABU0@@Z,0x003F554C,Native258Bfill3F61C6 directcall or fullgenericdispatch provider; separatelyrowed fullbody; scoped48Bnontrivial vector element ABI no originalapplicationtypename claimed
