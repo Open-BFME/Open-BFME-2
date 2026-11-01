@@ -111,15 +111,7 @@ private:
 
 #include "Common/Snapshot.h"
 
-class TeamPrototype
-{
-public:
-	int countTeamInstances();
-	DLINK_ITERATOR<Team> iterate_TeamInstanceList() const;
-private:
-	unsigned char m_pad00[0x334];
-	Team *m_dlinkhead_TeamInstanceList;	// +0x334
-};
+#include "../../../Include/Common/Team.h"
 
 #include "../../../Include/Common/TeamBFME2.h"
 

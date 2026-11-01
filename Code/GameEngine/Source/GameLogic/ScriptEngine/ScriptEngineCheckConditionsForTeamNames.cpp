@@ -81,17 +81,7 @@ private:
 	UnsignedInt m_frame;
 };
 
-class TeamPrototype
-{
-private:
-	char m_beforeFlags[0x18];
-public:
-	UnsignedInt m_flags;
-private:
-	char m_beforeMax[0x218 - 0x1C];
-public:
-	Int m_maxInstances;
-};
+#include "../../../Include/Common/Team.h"
 
 class Rva002046C0Owner
 {

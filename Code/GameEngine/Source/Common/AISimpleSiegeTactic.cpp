@@ -129,11 +129,7 @@ public:
 	int m_14;
 };
 
-class TeamPrototype
-{
-public:
-	void addUnitInfo(const Rva0039D769 &order);
-};
+#include "../../Include/Common/Team.h"
 
 struct Rva005A9CB3Request
 {

@@ -58,24 +58,7 @@ struct Rva002A991D
 
 Int __cdecl Rva002AA3D4Closest(Object *obj, void *userData);
 
-class TeamPrototype
-{
-public:
-	void countObjectsByThingTemplate(Int numTmplates, const ThingTemplate* const* things, Bool ignoreDead, Int *counts, Bool ignoreUnderConstruction) const;
-	Int countBuildings();
-	Int countObjects(KindOfMaskType setMask, KindOfMaskType clearMask);
-	void healAllObjects();
-	Int rva0039ED9C(ObjectIterateFunc func, void *userData);
-	void updateState();
-	Bool rva0039EDE1(Bool flag);
-	Bool rva0039EE21(Rva0039DDC2Filter filter, Bool flag);
-	Bool rva0039EE70(BfmeTab1026 *tab, Bool flag);
-	Bool hasAnyUnits() const;
-	Bool hasAnyBuildings(Rva0039DF1CFilter filter1, Rva0039DF1CFilter filter2);
-	Bool rva0039EF46(BfmeTab1026 *tab);
-	Bool hasAnyObjects(Bool flag);
-	Bool hasAnyBuildFacility() const;
-};
+#include "../../../Include/Common/Team.h"
 
 // The player's team prototype list (an STL list node: next, prev, value).
 struct PlayerTeamNode

@@ -380,12 +380,7 @@ private:
 	Coord3D m_position; // +0x38
 };
 
-class TeamPrototype
-{
-public:
-	unsigned char m_pad00[0x216];
-	Bool m_216; // +0x216
-};
+#include "../../../Include/Common/Team.h"
 
 #include "../../../Include/Common/TeamBFME2.h"
 

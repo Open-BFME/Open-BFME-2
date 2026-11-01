@@ -88,12 +88,7 @@ class Team;
 
 // TeamPrototype view: instance-list head is TeamFactory's +0x334 pattern
 // (TeamFactoryFindTeam/TeamPrototypeTeamIterators precedent).
-class TeamPrototype
-{
-public:
-	unsigned char m_pad[0x334];
-	Team *m_firstTeam;				// +0x334
-};
+#include "../../../Include/Common/Team.h"
 
 struct ListNode
 {
@@ -584,7 +579,7 @@ void SkirmishAI::transferUnitsToPlayer(Player *player)
 	do
 	{
 		TeamPrototype *proto = cur->m_value;
-		Team *team = proto->m_firstTeam;
+		Team *team = proto->m_dlinkhead_TeamInstanceList;
 		while (team != 0)
 		{
 			team->transferKindOfUnitsTo(newTeam, kinds);

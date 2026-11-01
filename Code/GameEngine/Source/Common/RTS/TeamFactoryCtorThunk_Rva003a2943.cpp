@@ -113,19 +113,7 @@ extern PlayerList *ThePlayerList;
 
 // The two AsciiStrings the key is built from sit at +0x10 and +0x14.
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Team.h
-class TeamPrototype
-{
-public:
-	virtual ~TeamPrototype();
-	// Seven parameters: 0x000F81FB-0x000F8210 pushes owner and name as two
-	// separate strings, in that order, exactly like findTeamPrototype.
-	TeamPrototype(TeamFactory *tf, const AsciiString &owner, const AsciiString &name,
-				Player *pOwner, bool isSingleton, Dict *d, int id);
-	char m_pad[0xc];
-	AsciiString m_first;
-	AsciiString m_second;
-	char m_tail[0x278 - 0x18];
-};
+#include "../../../Include/Common/Team.h"
 typedef std::pair<int, int> BfmeTeamPrototypeKey;
 // insert_unique is called out of line: bind it to StlSweepR3Rva0039F692.cpp's rowed
 // retail specialization instead of emitting a competing (duplicate) copy here.
