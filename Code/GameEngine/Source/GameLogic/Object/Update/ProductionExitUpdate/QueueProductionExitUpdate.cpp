@@ -57,6 +57,8 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 	}
 #define Matrix4x4 Matrix4
 #include "PreRTS.h"
+#define Matrix4x4 Matrix4
+#include "Common/NameKeyGenerator.h"
 
 BFME_DISP8_BYTECHASE_BEFORE_GETTER(Rva004A0107ByteChaseField, 0x1C, 0x31)
 
@@ -76,6 +78,8 @@ Object *bfmeQueryRallyOverride(Object *obj, const Coord3D *pos);
 // tu-skeleton: 0x0049FFF7 32B ??1QueueProductionExitUpdate@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/QueueProductionExitUpdateDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004A0017 6B ?name@QueueProductionExitUpdate@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/QueueProductionExitUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/QueueProductionExitUpdate.cpp
 
@@ -266,17 +270,11 @@ void QueueProductionExitUpdate::loadPostProcess( void )
 // backward cast, which MSVC folds to `mov eax,[ecx-BACK]`; same shape and
 // reading as BFME1's ChainedFieldGetters.
 
-// tu-skeleton: 0x004A0057 107B ?xfer@QueueProductionExitUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/QueueProductionExitUpdateXfer.cpp (not merged yet)
 
-// tu-skeleton: 0x004A00C2 69B ?getModuleNameKey@QueueProductionExitUpdate@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/QueueProductionExitUpdatePoolKey.cpp (not merged yet)
 
-// tu-skeleton: 0x004A010E 106B ??0QueueProductionExitUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/QueueProductionExitUpdateCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x004A0194 212B ?getExitPosition@QueueProductionExitUpdate@@UBE_NAAUCoord3D@@AAM@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/QueueProductionExitUpdateExitObjectViaDoor.cpp (not merged yet)
 
-// tu-skeleton: 0x004A027A 393B ?getNaturalRallyPoint@QueueProductionExitUpdate@@UBE_NAAUCoord3D@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/QueueProductionExitUpdateExitObjectViaDoor.cpp (not merged yet)
 
-// tu-skeleton: 0x004A0403 280B ?bfmeQueryRallyOverride@@YAPAVObject@@PAV1@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/QueueProductionExitUpdateQueryRallyOverride.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/QueueProductionExitUpdateSetRallyPoint.cpp
 
@@ -298,15 +296,41 @@ void QueueProductionExitUpdate::setRallyPoint(const Coord3D *pos)
 	m_rallyPointExists = true;
 }
 
+// tu-skeleton: 0x004A0057 107B ?xfer@QueueProductionExitUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/QueueProductionExitUpdateXfer.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/QueueProductionExitUpdatePoolKey.cpp
+
+// ?getModuleNameKey@QueueProductionExitUpdate@@UBE?AW4NameKeyType@@XZ @0x4a00c2
+// (69B): cached pool-name key for QueueProductionExitUpdate. The class
+// identity comes from the pool-name string the body pushes
+// ("QueueProductionExitUpdate"); the body guards a function-local static
+// key fetched once through TheNameKeyGenerator. It is NOT getClassMemoryPool:
+// retail stores nameToKey's return (a key, not a pool pointer) and returns it,
+// and the address carries no getClassMemoryPool row anywhere. /EHsc for the
+// static-guard EH prologue; globals are TU-local externs (DIR32 slots patch
+// from retail, no pins; nameToKey resolves via its matched row).
+
+// ?getModuleNameKey@QueueProductionExitUpdate@@UBE?AW4NameKeyType@@XZ
+NameKeyType QueueProductionExitUpdate::getModuleNameKey() const
+{
+	static NameKeyType TheQueueProductionExitUpdatePoolKey =
+		TheNameKeyGenerator->nameToKey("QueueProductionExitUpdate");
+	return TheQueueProductionExitUpdatePoolKey;
+}
+
+// tu-skeleton: 0x004A010E 106B ??0QueueProductionExitUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/QueueProductionExitUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004A0194 212B ?getExitPosition@QueueProductionExitUpdate@@UBE_NAAUCoord3D@@AAM@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/QueueProductionExitUpdateExitObjectViaDoor.cpp (not merged yet)
+
+// tu-skeleton: 0x004A027A 393B ?getNaturalRallyPoint@QueueProductionExitUpdate@@UBE_NAAUCoord3D@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/QueueProductionExitUpdateExitObjectViaDoor.cpp (not merged yet)
+
+// tu-skeleton: 0x004A0403 280B ?bfmeQueryRallyOverride@@YAPAVObject@@PAV1@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/QueueProductionExitUpdateQueryRallyOverride.cpp (not merged yet)
+
 // tu-skeleton: 0x004A0547 297B ?notifyProductionBurstFinished@QueueProductionExitUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/QueueProductionExitUpdate_notifyProductionBurstFinished.cpp (not merged yet)
 
 // tu-skeleton: 0x004A0670 153B ?exitObjectByBudding@Rva004A0670@@QAEXPAVObject@@0@Z -- matched in Code/GameEngine/Source/Common/Rva004A0670Copy.cpp (not merged yet)
 
 // tu-skeleton: 0x004A0709 1285B ?exitObjectViaDoor@QueueProductionExitUpdate@@UAEXPAVObject@@W4ExitDoorType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/QueueProductionExitUpdateExitObjectViaDoor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078DABF 13B $L306 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/QueueProductionExitUpdatePoolKey.cpp (not merged yet)
-
-// tu-skeleton: 0x0078DACC 10B __ehhandler$?getModuleNameKey@QueueProductionExitUpdate@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/QueueProductionExitUpdatePoolKey.cpp (not merged yet)
 
 // tu-skeleton: 0x0078DAD6 8B $L567 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/QueueProductionExitUpdateQueryRallyOverride.cpp (not merged yet)
 
