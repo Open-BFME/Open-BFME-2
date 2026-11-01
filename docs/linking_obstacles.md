@@ -17367,3 +17367,15 @@ units. No new body, pin, source-path move or census gain. The placeholder
 receiver identity and pre-existing d_0094d450 pin remain open; broader outgoing
 consumer selection is not proved by this cohort preview.
 [WB review, transaction and scoped receipts](../reverse/attempt_support/texture-update-name-20261101/readme.md).
+
+Source tip42612765aa's full batch audit returns2 INCONCLUSIVE: published
+index0156fc269e predates basede75f363a4, and affected
+Common/AIBaseBuilder.cpp lacks a current receipt. The shadow identity scan
+also retains wrong/unknown on the parent's offset161 call to typed
+insert_equal at00170E3D. A private actual-options compile of the unchanged
+pre-rename source proves its892B parent exact/resolved and its suspect59B
+definition byte-and-relocation identical to the current definition. The
+definition is not a new rename regression; the selected callee/provider graph
+remains unproved. Do not call this finding a proven retail-byte mismatch or
+remove a register key without its owning path. Carry this binding and all four
+providers/affected consumers into the next census; no broad clearance claimed.

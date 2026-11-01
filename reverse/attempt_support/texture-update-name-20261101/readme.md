@@ -36,3 +36,31 @@ against published index0156fc269e retains LINKS 1215 -> 1215 bytes:
 These are existing preview bytes; no new unique match, census credit or
 runtime claim is made. The broader outgoing consumer audit is recorded
 separately after the source commit exists.
+
+## Shadow binding and consumer boundary, additional t=4min
+
+Source commit42612765aa4f0e03e788d11ec06aaab9ff4d2a55 passes all normal
+commit gates and EXACT1 EH graph. Its shadow identity gate reports one
+wrong/unknown reference: the parent's offset161 call to the typed
+_Rb_tree<unsigned,AssetReference>::insert_equal pinned at00170E3D.
+The detailed scoped scan reports46 references (37 owner, 6 fold, 1 EH,
+1 alias, 1 wrong/unknown). Unknown is not a proven byte mismatch, but it is
+not a certified binding either. No register or tool was changed to hide it.
+
+To distinguish this boundary from a rename regression, the exact pre-change
+source atde75f363a4 was compiled in an isolated official permute.Scorer
+directory. Its source directive is flattened to the production's effective
+options, and complete compiler-option equality is asserted before compilation.
+The old892B parent is exact with no unresolved relocations. Its suspect59B
+insert_equal definition has precisely the same raw bytes and external
+_M_insert relocation (offset47) as the current production object. This proves
+that definition did not change; it does not certify the entire selected
+callee/provider graph. The real raw-element owner and the counted typed
+provider still need identity reconciliation. The private compile never writes
+build/match. Reproducer and result JSON are retained here.
+
+The explicit outgoing batch audit at base de75f363a4 and source tip42612765aa
+returns2 INCONCLUSIVE: index0156fc269e predates the base, and affected consumer
+Common/AIBaseBuilder.cpp lacks a current strict receipt. Carry all four
+providers, the shadow binding and their affected consumers into the scheduled
+census. The4/4 LINKS1215 preview is only scoped evidence, not broader clearance.
