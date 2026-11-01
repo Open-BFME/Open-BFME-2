@@ -40,15 +40,7 @@ class Snapshot;
 #pragma optimize("t", on)
 #pragma optimize("", on)
 
-class Xfer::Version
-{
-public:
-	Version(unsigned char current, unsigned char minimum)
-		: m_current(current), m_minimum(minimum) {}
-
-	unsigned char m_current;
-	unsigned char m_minimum;
-};
+#include "../../../../../Include/Common/XferVersion.h"
 
 // Elements of the four vectors at +0x10/+0x28/+0x40/+0x58: each gets
 // 0x004EDF03 then 0x004ECE1C from the 0x00505924 pass (both in the

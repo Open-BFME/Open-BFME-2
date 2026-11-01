@@ -141,12 +141,7 @@ class RGBAColorReal;
 class RGBAColorInt;
 class Snapshot;
 #include "../../../../GameEngine/Include/Common/BfmeXfer.h"
-class Xfer::Version {
-public:
-	Version(unsigned char current, unsigned char minimum) : m_current(current), m_minimum(minimum) {}
-	unsigned char m_current;
-	unsigned char m_minimum;
-};
+#include "../../../../GameEngine/Include/Common/XferVersion.h"
 // Rowed helpers: base xfer, three-float and matrix transfers, drawable id, topple state.
 class Rva000E63DCObj;
 void __stdcall Rva000E63DCDo(Rva000E63DCObj *obj);

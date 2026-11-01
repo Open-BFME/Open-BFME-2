@@ -481,15 +481,7 @@ class Rva004FB222Owner {public:void rva004FB222(Rva004FB303Target*,int);};
 
 typedef char PlayerSize[sizeof(Rva002E2AAE)==0x3c8?1:-1];
 
-class Xfer::Version
-{
-public:
-	Version(unsigned char current, unsigned char minimum)
-		: m_current(current), m_minimum(minimum) {}
-
-	unsigned char m_current;
-	unsigned char m_minimum;
-};
+#include "../../../../Include/Common/XferVersion.h"
 
 Xfer *Rva002E07FAXfer(Xfer*,unsigned int*);
 

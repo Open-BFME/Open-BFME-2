@@ -108,15 +108,7 @@ struct XferUnknown11;
 
 #include "../../Include/Common/BfmeXfer.h"
 
-class Xfer::Version
-{
-public:
-	Version(unsigned char current, unsigned char minimum)
-		: m_current(current), m_minimum(minimum) {}
-
-	unsigned char m_current;
-	unsigned char m_minimum;
-};
+#include "../../Include/Common/XferVersion.h"
 
 // Slot-3 xfer shape: the slot elements persist themselves through their own
 // virtual (retail calls [eax+0x0C] on each element), so only the slot layout

@@ -201,15 +201,7 @@ struct RGBAColorInt
 #pragma comment(linker, "/alternatename:?rva000E5EE5@Rva000E5EE5@@QAEXPBVRva0055A88BDwordField@@VAsciiString@@@Z=?rva000E5EE5@Rva000E5EE5@@QAEXPBVRva0055A88BDwordField@@V?$StringBase@D@@@Z")
 #include <windows.h>
 
-class Xfer::Version
-{
-public:
-	Version(unsigned char current, unsigned char minimum)
-		: m_current(current), m_minimum(minimum) {}
-
-	unsigned char m_current;
-	unsigned char m_minimum;
-};
+#include "../../../../GameEngine/Include/Common/XferVersion.h"
 
 class Drawable;
 

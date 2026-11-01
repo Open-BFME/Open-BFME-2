@@ -6,15 +6,7 @@
 class Thing;
 class ModuleData;
 class Object;
-class Xfer::Version
-{
-public:
-	Version(unsigned char current, unsigned char minimum)
-		: m_current(current), m_minimum(minimum) {}
-
-	unsigned char m_current;
-	unsigned char m_minimum;
-};
+#include "../../../../../../GameEngine/Include/Common/XferVersion.h"
 class DrawModule;
 #include "../../../../../../GameEngine/Include/Common/ObjectModule.h"
 typedef int Int;

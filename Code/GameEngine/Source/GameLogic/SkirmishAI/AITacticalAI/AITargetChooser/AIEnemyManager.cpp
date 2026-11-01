@@ -32,15 +32,7 @@ class Object;
 #include "../../../../../Include/Common/BfmeXfer.h"
 #include "../../../../../../Libraries/Include/Lib/BfmeE16.h"
 
-class Xfer::Version
-{
-public:
-	Version(unsigned char current, unsigned char minimum)
-		: m_current(current), m_minimum(minimum) {}
-
-	unsigned char m_current;
-	unsigned char m_minimum;
-};
+#include "../../../../../Include/Common/XferVersion.h"
 
 class Player;
 

@@ -37,15 +37,7 @@ class Snapshot;
 #include "../../../Include/Common/BfmeXfer.h"
 #pragma pointers_to_members(full_generality, multiple_inheritance)
 
-class Xfer::Version
-{
-public:
-	Version(unsigned char current, unsigned char minimum)
-		: m_current(current), m_minimum(minimum) {}
-
-	unsigned char m_current;
-	unsigned char m_minimum;
-};
+#include "../../../Include/Common/XferVersion.h"
 
 // The +0x17C AsciiString -> int variable map; its rowed STLport spelling
 // (clear 0x001F8927, operator[] 0x002C6F8C) keeps the established payload

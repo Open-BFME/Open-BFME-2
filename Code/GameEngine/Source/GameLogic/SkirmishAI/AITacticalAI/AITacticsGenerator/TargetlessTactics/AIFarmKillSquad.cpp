@@ -40,15 +40,7 @@ class RGBAColorReal;
 class RGBAColorInt;
 class Snapshot;
 #include "../../../../../../Include/Common/BfmeXfer.h"
-class Xfer::Version
-{
-public:
-	Version(unsigned char current, unsigned char minimum)
-		: m_current(current), m_minimum(minimum) {}
-
-	unsigned char m_current;
-	unsigned char m_minimum;
-};
+#include "../../../../../../Include/Common/XferVersion.h"
 #include "../../../../../Common/GameLogicObjectLookupView.h"
 // AIFarmKillSquad.cpp defines these statics and owns their initializers
 // (0x007B461B, 0x007B4636, 0x007B4651, 0x007B4662, 0x007B4670).
