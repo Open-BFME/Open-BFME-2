@@ -46,12 +46,7 @@ enum ObjectStatusTypes
 
 class Parameter;
 
-class Object
-{
-public:
-	// Rowed Object::setStatus(ObjectStatusTypes, bool), 0x0023DB0E.
-	void setStatus(ObjectStatusTypes status, bool value);
-};
+#include "../GameLogic/Object/object.h"
 
 #include "../../Include/GameLogic/ScriptEngine.h"
 

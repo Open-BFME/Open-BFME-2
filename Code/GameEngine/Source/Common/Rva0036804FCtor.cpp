@@ -30,12 +30,7 @@ public:
 	Object *m_owner;
 };
 #include "../../Include/GameLogic/Module/AIUpdate.h"
-class Object
-{
-public:
-	unsigned char m_pad00[0x258];
-	AIUpdateInterface *m_ai;
-};
+#include "../GameLogic/Object/object.h"
 class Rva00340C5F
 {
 public:

@@ -4,14 +4,7 @@
 
 class CommandButton;
 class AsciiString;
-class Object
-{
-public:
-	void doCommandButton(const CommandButton *commandButton, int cmdSource, bool flags);
-	void *rva0028BC58(int which);
-	const AsciiString *rva00290E67() const;
-	char m_pad00[0x4];
-};
+#include "../GameLogic/Object/object.h"
 
 
 extern GameLogic *TheGameLogic;

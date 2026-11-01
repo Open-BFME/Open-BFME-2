@@ -68,11 +68,7 @@ private:
 	int m_key34; // +0x34
 };
 
-class Object
-{
-public:
-	Player *getControllingPlayer() const;
-};
+#include "../../GameLogic/Object/object.h"
 
 Relationship Player::getRelationship(const Player *that) const
 {

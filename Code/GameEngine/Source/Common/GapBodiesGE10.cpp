@@ -35,13 +35,7 @@ public:
 	virtual int s73();
 };
 
-class Object
-{
-public:
-	bool rva002943B2(const Player *player);					// 0x002943B2
-	char m_pad[0x250];
-	Rva004A2BF0Interface *m_250;
-};
+#include "../GameLogic/Object/object.h"
 
 class Rva004A2BF0
 {

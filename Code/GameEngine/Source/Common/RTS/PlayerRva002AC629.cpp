@@ -12,15 +12,7 @@ public:
 	unsigned char m_flags117;
 };
 
-class Object
-{
-public:
-	char m_pad0[4];
-	ThingTemplate *m_template;
-	char m_pad[0x74 - 8];
-	ObjectID m_id;
-	Player *getControllingPlayer() const;
-};
+#include "../../GameLogic/Object/object.h"
 
 extern GameLogic *TheGameLogic;
 

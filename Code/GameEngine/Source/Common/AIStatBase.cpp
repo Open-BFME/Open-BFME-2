@@ -138,11 +138,7 @@ public:
 	void *get() const;
 };
 
-class Object
-{
-public:
-	Player *getControllingPlayer() const;
-};
+#include "../GameLogic/Object/object.h"
 
 extern GameLogic *TheGameLogic;
 

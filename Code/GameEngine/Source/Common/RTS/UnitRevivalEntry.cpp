@@ -224,11 +224,7 @@ public:
 // *(TheSkirmishAIManager+0x854)), return (int)(t*(1.0f-scale)). No donor; recipe follows
 // UpgradeTemplate::rva0026EE30 precedent for (int)void* plus TheSkirmishAIManager plus void* args.
 // Honest-address name: owner unknown so Rva0037E6E8 class, void* void* args (PAX0 compression).
-class Object
-{
-public:
-    Player *getControllingPlayer() const;
-};
+#include "../../GameLogic/Object/object.h"
 
 class Rva002A9BF2
 {

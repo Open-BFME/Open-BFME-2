@@ -18,9 +18,7 @@ private:
 
 #include "../Thing/thing.h"
 
-class Object : public Thing
-{
-};
+#include "../../GameLogic/Object/object.h"
 
 struct Rva002AA0DEKindFilter
 {

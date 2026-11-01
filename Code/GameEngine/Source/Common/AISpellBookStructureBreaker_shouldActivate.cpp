@@ -9,11 +9,7 @@ class Player;
 
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 
-class Object
-{
-public:
-	Player *getControllingPlayer() const;
-};
+#include "../GameLogic/Object/object.h"
 
 struct Rva002A8AB1Record
 {

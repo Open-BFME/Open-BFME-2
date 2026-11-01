@@ -48,9 +48,7 @@ class Drawable : public Rva00271C68
 
 #include "Thing/thing.h"
 
-class Object : public Thing
-{
-};
+#include "../GameLogic/Object/object.h"
 
 // map/set<int> internals otherwise instantiate the less<int>::operator()
 // COMDAT (one byte shape per TU flags); an explicit dllimport+forceinline

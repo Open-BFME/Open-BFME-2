@@ -29,11 +29,7 @@ public:
 	void *get() const;
 };
 
-class Object
-{
-public:
-	bool testStatus(ObjectStatusTypes bit) const;
-};
+#include "../GameLogic/Object/object.h"
 
 extern GameLogic *TheGameLogic;
 

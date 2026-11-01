@@ -31,11 +31,7 @@ public:
 	virtual void method250();
 };
 
-class Object
-{
-public:
-	void *rva0028C197() const;
-};
+#include "../GameLogic/Object/object.h"
 
 class StateMachine
 {

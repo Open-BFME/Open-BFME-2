@@ -10,11 +10,7 @@ public:
 	char m_pad00[0x54];
 	Int m_playerIndex;
 };
-class Object
-{
-public:
-	Player *getControllingPlayer() const;
-};
+#include "../GameLogic/Object/object.h"
 class Rva000421C8
 {
 public:

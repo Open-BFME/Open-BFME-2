@@ -6,11 +6,7 @@
 // jmp ret; skip2: xor eax,eax; cmp [esi+12],al; sete al; pop esi; ret 4.
 // Object* arg, bool return; no EH; real Object view for rowed mangling;
 // 97-virtual inner for slot 96.
-class Object
-{
-public:
-	void *rva0028C197() const;
-};
+#include "../GameLogic/Object/object.h"
 
 class Rva00260F9EInner
 {

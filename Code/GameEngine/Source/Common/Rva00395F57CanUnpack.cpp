@@ -16,15 +16,7 @@
 extern "C" int __cdecl fprintf(void *stream, const char *format, ...);
 
 class Player;
-class Object
-{
-public:
-	Player *getControllingPlayer() const;
-	void *m_pad00;
-	void *m_chain;
-	char m_pad08[0x6C];
-	int m_id;
-};
+#include "../GameLogic/Object/object.h"
 class Player
 {
 public:
@@ -64,7 +56,7 @@ bool Rva00395F57::canUnpack(bool checkTimer)
 			Player *player = object->getControllingPlayer();
 			const char *textA = player->m_name.str();
 			int id = object->m_id;
-			ChainValue *chain = (ChainValue *)object->m_chain;
+			ChainValue *chain = (ChainValue *)object->m_template;
 			const char *textB = chain->m_value.str();
 			fprintf(theLogicRandomLogFile,
 				"CAMP: Frame %d: Castle %s(%d) %s ::canUnpack() -- m_needInstantBuild=%d, m_currentState=%d, checkTimer=%d, m_timer=%g",

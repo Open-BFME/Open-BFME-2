@@ -10,12 +10,7 @@ struct FprintfTarget;
 
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 
-class Object
-{
-public:
-	char m_pad[0x438];
-	unsigned char m_deadFlags;
-};
+#include "../GameLogic/Object/object.h"
 
 struct TurretStateMachine
 {

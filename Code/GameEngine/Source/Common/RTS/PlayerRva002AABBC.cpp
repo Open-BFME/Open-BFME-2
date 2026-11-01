@@ -14,12 +14,7 @@ enum NameKeyType
 	FORCE_NAMEKEYTYPE_LONG = 0x7fffffff
 };
 
-class Object
-{
-public:
-	char m_pad[0x74];
-	int m_id;
-};
+#include "../../GameLogic/Object/object.h"
 
 typedef _STL::vector<Object *> VecObjectPtr;
 

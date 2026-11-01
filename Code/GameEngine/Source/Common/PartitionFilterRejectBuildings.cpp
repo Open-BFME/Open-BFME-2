@@ -15,11 +15,7 @@ public:
 	char m_pad[0x5C];
 	int m_field5C;
 };
-class Object
-{
-public:
-	Player *getControllingPlayer() const;
-};
+#include "../GameLogic/Object/object.h"
 class Rva000421C8 {
 public:
  Rva000421C8():m_next(0){}

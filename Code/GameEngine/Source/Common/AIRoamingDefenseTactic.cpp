@@ -148,15 +148,7 @@ public:
 	virtual void v109();
 	virtual bool isIdle();		// slot 110 (+0x1B8)
 };
-class Object
-{
-public:
-	bool testStatus(ObjectStatusTypes status) const;
-	char m_pad000[0x258];
-	Rva005AAB91AI *m_ai;		// +0x258
-	char m_pad25C[0x304 - 0x25C];
-	int m_304;			// +0x304
-};
+#include "../GameLogic/Object/object.h"
 #include "GameLogicObjectLookupView.h"
 
 extern GameLogic *TheGameLogic;

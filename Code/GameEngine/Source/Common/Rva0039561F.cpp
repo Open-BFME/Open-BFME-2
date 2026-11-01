@@ -6,11 +6,7 @@
 // 0x003B0CB3 drive the value; stores (float)(unsigned)v to +0x4c (2^32 fadd
 // for negative) and returns v. Caller 0x00399CD2. Prev/next /O1.
 class Player;
-class Object
-{
-public:
-	Player *getControllingPlayer() const;
-};
+#include "../GameLogic/Object/object.h"
 
 #include "../../Include/Common/ThingTemplate.h"
 

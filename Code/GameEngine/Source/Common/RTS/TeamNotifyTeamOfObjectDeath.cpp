@@ -18,18 +18,7 @@
 // AIUpdateInterface::setCompletedWaypoint raises event 2.
 #include "ascii_string.h"
 
-class Object
-{
-public:
-	bool isEffectivelyDead() const { return (m_privateStatus & 0x01) != 0; }
-	void *getAIUpdateInterface() const { return m_ai; }
-
-private:
-	char m_pad[0x258];
-	void *m_ai; // +0x258
-	char m_pad25C[0x438 - 0x25C];
-	unsigned char m_privateStatus; // +0x438
-};
+#include "../../GameLogic/Object/object.h"
 
 template<class OBJCLASS>
 class DLINK_ITERATOR

@@ -12,11 +12,7 @@ class Player;
 // stand-in keeps that spelling; the call this body makes is retail's real
 // Object::getControllingPlayer (0x001BE3F0, pinned), named on the retail type
 // through a no-op pointer cast.
-class Object
-{
-public:
-	Player *getControllingPlayer() const;
-};
+#include "../GameLogic/Object/object.h"
 
 class BfmeObjESA
 {

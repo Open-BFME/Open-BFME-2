@@ -56,12 +56,7 @@ public:
 	bool rva0039B4EC(int levels, bool flag1, bool flag2); // 0x0039B4EC pin-only
 };
 
-class Object
-{
-public:
-	char m_pad00[0x264];
-	ExperienceTracker *m_tracker264; // +0x264
-};
+#include "../GameLogic/Object/object.h"
 
 struct Rva004051BCEntry
 {
@@ -88,7 +83,7 @@ void Rva004051BC::rva004051BC(int playerIndex, const Coord3D *pos)
 	Rva004051BCFilter filter(player);
 	BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(pos, m_radius20, 1, &filter, 0);
 	for (Object *other = hits.next(); other != 0; other = hits.next()) {
-		ExperienceTracker *tracker = other->m_tracker264;
+		ExperienceTracker *tracker = other->m_experienceTracker;
 		if (tracker == 0)
 			continue;
 		tracker->rva0039B4EC(1, true, false);

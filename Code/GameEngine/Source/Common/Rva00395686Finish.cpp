@@ -15,11 +15,7 @@
 // movzx on the sbb/inc tail, which an int return also spells as a full-width
 // zero, so both ends of the body are byte-width only under bool.
 class Player;
-class Object
-{
-public:
-	Player *getControllingPlayer() const;
-};
+#include "../GameLogic/Object/object.h"
 
 #include "../../Include/Common/ThingTemplate.h"
 

@@ -440,13 +440,7 @@ private:
 // add its position (+0x38) with the float and its indicator colour through
 // the rowed ResourceEntryCollector 0x004E5559.
 
-class Object
-{
-public:
-	int getIndicatorColor() const;							// 0x0028B026
-	char m_pad000[0x38];
-	char m_position[0x0C];									// +0x38
-};
+#include "../GameLogic/Object/object.h"
 
 
 

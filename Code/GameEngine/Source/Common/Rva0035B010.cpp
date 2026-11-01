@@ -23,12 +23,7 @@ public:
 
 #include "../../Include/Common/TeamBFME2.h"
 
-class Object
-{
-public:
-	char m_pad[0x304];
-	Team *m_team;
-};
+#include "../GameLogic/Object/object.h"
 
 class Rva0035AFE4
 {

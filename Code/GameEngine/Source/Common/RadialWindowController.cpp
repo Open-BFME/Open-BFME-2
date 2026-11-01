@@ -113,13 +113,7 @@ private:
 	UnsignedInt m_words[20];
 };
 
-class Object
-{
-public:
-	void rva0028AE6D();
-	char m_pad00[0x10C];
-	Rva0010CConditionBits m_conditionBits; // +0x10C
-};
+#include "../GameLogic/Object/object.h"
 
 // 0x00545222: whether the +0x04 object's +0x04 count (999999 without the
 // object) is zero.

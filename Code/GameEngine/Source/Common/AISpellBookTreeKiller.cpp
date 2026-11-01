@@ -13,11 +13,7 @@ struct Rva005D772DEntry
 	int *m_end;
 };
 
-class Object
-{
-public:
-	Player *getControllingPlayer() const;
-};
+#include "../GameLogic/Object/object.h"
 
 class PartitionManager;
 

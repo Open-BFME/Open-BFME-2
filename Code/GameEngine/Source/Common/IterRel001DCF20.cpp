@@ -11,11 +11,7 @@ enum Relationship
 	Relationship_Zero = 0
 };
 
-class Object
-{
-public:
-	Relationship getRelationship(const Object *other) const;
-};
+#include "../GameLogic/Object/object.h"
 
 struct IterUser001DCF20
 {

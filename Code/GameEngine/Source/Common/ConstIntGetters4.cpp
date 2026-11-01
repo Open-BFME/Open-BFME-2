@@ -287,11 +287,7 @@ int Rva0028C933Get(void)
 }
 
 // Object Snapshot table VA 0x00BFC2F0 slot 2 returns its class name.
-class Object
-{
-public:
-	virtual const char *GetSnapshotName() const;
-};
+#include "../GameLogic/Object/object.h"
 
 const char *Object::GetSnapshotName() const
 {

@@ -29,11 +29,7 @@ public:
 	int m_field94;
 };
 
-class Object
-{
-public:
-	Player *getControllingPlayer(void) const;
-};
+#include "../GameLogic/Object/object.h"
 
 class Rva0039718B
 {

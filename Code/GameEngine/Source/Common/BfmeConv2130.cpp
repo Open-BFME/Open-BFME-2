@@ -9,11 +9,7 @@ class BfmeR1094;
 
 // The probe is the rowed Object::getControllingPlayer.
 class Player;
-class Object
-{
-public:
-	Player *getControllingPlayer() const;
-};
+#include "../GameLogic/Object/object.h"
 
 class BfmeK1094
 {

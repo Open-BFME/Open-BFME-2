@@ -17,10 +17,7 @@ template <int NUMBITS> class BitFlags
 typedef BitFlags<116> KindOfMaskType;
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../Thing/thing.h"
-class Object : public Thing
-{
-public:
-};
+#include "../../GameLogic/Object/object.h"
 struct Rva002AA3D4Search
 {
 	KindOfMaskType m_mustBeSet;	// +0x00

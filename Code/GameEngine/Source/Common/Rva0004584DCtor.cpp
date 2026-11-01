@@ -91,9 +91,7 @@ public:
 
 #include "Thing/thing.h"
 
-class Object : public Thing
-{
-};
+#include "../GameLogic/Object/object.h"
 
 // ?allow@Rva002FDF47@@UAE_NPAVObject@@@Z @0x00261102 46B slot 1 of
 // vtable VA 0xc071d8. First mask at +0x24, second at +0x08 via FixedStorage
