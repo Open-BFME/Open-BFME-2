@@ -806,10 +806,6 @@ public:
 	virtual ~Rva00740555();
 };
 
-Rva00740555::~Rva00740555()
-{
-}
-
 struct Coord3D;
 
 #include "Thing/thing.h"
