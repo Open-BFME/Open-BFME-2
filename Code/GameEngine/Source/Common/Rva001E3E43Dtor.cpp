@@ -17,10 +17,24 @@ class Xfer;
 #include "../../../../reference/shims/moduledata/Common/Snapshot.h"
 
 
+// Rva001E3E43CopyCtor.cpp's view of the class and its 16-byte +0x68 elements
+// (spelled identically so a merged unit emits one).
+class Rva001E3E43Element
+{
+public:
+	Rva001E3E43Element();
+private:
+	int m_00;
+	int m_04;
+	int m_08;
+	int m_0C;
+};
+
 class Rva001E3E43 : public Snapshot
 {
 public:
-	virtual ~Rva001E3E43();
+	~Rva001E3E43();
+	Rva001E3E43(const Rva001E3E43 &rhs);
 	Rva001E3E43 &operator=(const Rva001E3E43 &rhs);
 private:
 	int m_04;
@@ -28,9 +42,7 @@ private:
 	int m_20, m_24, m_28, m_2C;
 	int m_30, m_34, m_38, m_3C, m_40, m_44, m_48, m_4C;
 	int m_50, m_54, m_58, m_5C, m_60, m_64;
-	struct Reg16 {
-		int a, b, c, d;
-	} m_68, m_78, m_88;
+	Rva001E3E43Element m_68[3];
 	unsigned char m_98, m_99, m_9A;
 	int m_9C, m_A0, m_A4, m_A8, m_AC;
 };
@@ -75,21 +87,25 @@ Rva001E3E43 &Rva001E3E43::operator=(const Rva001E3E43 &rhs)
 		m_5C = rhs.m_5C;
 		m_60 = rhs.m_60;
 		m_64 = rhs.m_64;
-		m_68.a = rhs.m_68.a;
-		m_68.b = rhs.m_68.b;
-		m_68.c = rhs.m_68.c;
-		m_68.d = rhs.m_68.d;
 		{
-			const int *src = (const int *)&rhs.m_78;
-			int *dst = (int *)&m_78;
+			const int *src = (const int *)&rhs.m_68[0];
+			int *dst = (int *)&m_68[0];
 			dst[0] = src[0];
 			dst[1] = src[1];
 			dst[2] = src[2];
 			dst[3] = src[3];
 		}
 		{
-			const int *src = (const int *)&rhs.m_88;
-			int *dst = (int *)&m_88;
+			const int *src = (const int *)&rhs.m_68[1];
+			int *dst = (int *)&m_68[1];
+			dst[0] = src[0];
+			dst[1] = src[1];
+			dst[2] = src[2];
+			dst[3] = src[3];
+		}
+		{
+			const int *src = (const int *)&rhs.m_68[2];
+			int *dst = (int *)&m_68[2];
 			dst[0] = src[0];
 			dst[1] = src[1];
 			dst[2] = src[2];
