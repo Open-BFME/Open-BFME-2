@@ -60,11 +60,7 @@ public:
 };
 extern TeamFactory *TheTeamFactory;
 extern GameLogic *TheGameLogic;
-class TerrainLogic
-{
-public:
-	PathfindLayerEnum getLayerForDestination(Object *obj, const Coord3D *pos);
-};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 template <int N> class VSlots : public VSlots<N - 1>
 {

@@ -274,11 +274,7 @@ struct TBridgeAttackInfo
 	Coord3D attackPoint2;
 };
 
-class TerrainLogic
-{
-public:
-	void getBridgeAttackPoints(const Object *bridge, TBridgeAttackInfo *info);
-};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 
 Real normalizeAngle(Real angle);

@@ -182,12 +182,7 @@ public:
  virtual void slot234(Pathfinder *);
 };
 struct QueueObjectView {char pad00[0x258];AIUpdateInterface *ai;};
-class TerrainLogic {
-public:
- virtual void slot0();virtual void slot4();virtual void slot8();virtual void slotC();
- virtual void slot10();virtual void slot14();virtual void slot18();virtual void slot1C();
- virtual void getExtent(Region3D *);
-};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 class GlobalData
 {
 public:

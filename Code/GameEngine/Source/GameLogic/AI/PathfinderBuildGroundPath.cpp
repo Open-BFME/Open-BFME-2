@@ -139,7 +139,7 @@ struct PathfinderDebugWaypoint {
 };
 template<int N> class PathfinderNativeSlots : public PathfinderNativeSlots<N-1> { public: virtual void unusedSlot(PathfinderNativeSlots<N> *); };
 template<> class PathfinderNativeSlots<0> {};
-class TerrainLogic { public: virtual void slot00(); virtual void slot04(); virtual void slot08(); virtual void slot0C(); virtual void slot10(); virtual void slot14(); virtual float getGroundHeight(float,float,Coord3D *); };
+#include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 class PathfinderTerrainWaypoints : public PathfinderNativeSlots<33> { public: virtual PathfinderDebugWaypoint *slot84(); };
 class Rva0052DB4D

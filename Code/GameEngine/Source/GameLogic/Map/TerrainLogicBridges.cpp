@@ -411,29 +411,7 @@ public:
 	virtual Real getGroundHeight(Real x, Real y, Coord3D *normal = NULL) const; // +0x18
 };
 
-class TerrainLogic : public TerrainLogicSlots<TerrainLogicGround, 33>
-{
-public:
-	PathfindLayerEnum getLayerForDestination(Object *obj, const Coord3D *pos);
-	PathfindLayerEnum getHighestLayerForDestination(const Coord3D *pos, Bool onlyHealthyBridges = false);
-
-	virtual Bridge *getFirstBridge() const; // +0xA0
-	virtual Bridge *findBridgeAt(const Coord3D *pLoc) const; // +0xA4
-	virtual Bridge *findBridgeLayerAt(const Coord3D *pLoc, PathfindLayerEnum layer, Bool clip = false) const; // +0xA8
-	virtual Bool objectInteractsWithBridgeLayer(Object *obj, Int layer, Bool considerBridgeHealth = true) const; // +0xAC
-	virtual Bool objectInteractsWithBridgeEnd(Object *obj, Int layer) const; // +0xB0
-	virtual Bool pickBridge(const Vector3 &from, const Vector3 &to, Vector3 *pos); // +0xB4
-	virtual void slot46();
-	virtual void slot47();
-	virtual void deleteBridge(Bridge *bridge); // +0xC0
-	virtual void updateBridgeDamageStates(void); // +0xC4
-protected:
-	virtual void loadPostProcess(void); // +0x04
-private:
-	char m_pad04[0x40 - 0x04];
-	Bridge *m_bridgeListHead; // +0x40
-	Bool m_bridgeDamageStatesChanged; // +0x44
-};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 
 // ?findBridgeAt@TerrainLogic@@UBEPAVBridge@@PBUCoord3D@@@Z @0x0027F30A
 Bridge * TerrainLogic::findBridgeAt( const Coord3D *pLoc) const
@@ -506,10 +484,10 @@ void TerrainLogic::deleteBridge( Bridge *bridge )
 		return;
 
 	// check for removing the head
-	if( m_bridgeListHead == bridge )
+	if( field40 == bridge )
 	{
 
-		m_bridgeListHead = bridge->getNext();
+		field40 = bridge->getNext();
 
 	}  // end if
 	else

@@ -43,11 +43,7 @@ enum PathfindLayerEnum
 	LAYER_GROUND = 1
 };
 class Object;
-class TerrainLogic
-{
-public:
-	PathfindLayerEnum getLayerForDestination(Object *obj, const Coord3D *pos);
-};
+#include "../../Include/GameLogic/TerrainLogic.h"
 void alignToTerrain(float angle, const Coord3D &pos, const Coord3D &normal, Matrix3D &mtx);
 class W3DTerrainLogic
 {

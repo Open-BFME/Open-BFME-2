@@ -155,17 +155,7 @@ typedef unsigned int UnsignedInt;
 #include "../../../../Libraries/Include/Lib/Region3D.h"
 // TheTerrainLogic's getGroundHeight is virtual slot 6 (+0x18) and
 // getMaximumPathfindExtent slot 12 (+0x30) at the computeGoal call sites.
-class TerrainLogic
-{
-public:
-	virtual ~TerrainLogic();
-	virtual void slot01(); virtual void slot02(); virtual void slot03();
-	virtual void slot04(); virtual void slot05();
-	virtual Real getGroundHeight(Real x, Real y, Coord3D *normal = 0) const;
-	virtual void slot07(); virtual void slot08(); virtual void slot09();
-	virtual void slot10(); virtual void slot11();
-	virtual void getMaximumPathfindExtent(Region3D *extent) const;
-};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 // Rotates a group offset into the frame of the from->to direction; cdecl
 // helper at 0x0036CBF9 (AIGroup code region, also called at 0x36D744 and

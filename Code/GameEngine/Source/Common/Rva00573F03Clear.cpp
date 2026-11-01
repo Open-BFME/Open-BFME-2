@@ -18,17 +18,7 @@ struct Coord3DBase
 
 // Dispatch-only view: the native ground-height call uses byte slot 0x18.
 // The preceding slots are opaque and this unit emits no TerrainLogic vtable.
-class TerrainLogic
-{
-public:
-	virtual void v0();
-	virtual void v1();
-	virtual void v2();
-	virtual void v3();
-	virtual void v4();
-	virtual void v5();
-	virtual float getGroundHeight(float x, float y, int dummy) const;
-};
+#include "../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 
 class Rva0055B0CC

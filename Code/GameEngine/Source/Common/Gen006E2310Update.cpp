@@ -76,13 +76,7 @@ public:
 #include "../../../Libraries/Include/Lib/Region3D.h"
 
 // TheTerrainLogic's slot 8 is the map extent.
-class TerrainLogic
-{
-public:
-	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
-	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
-	virtual void getExtent(Region3D *extent);
-};
+#include "../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 
 // TheTerrainRenderObject's slot 137, handed 0 every tenth frame of a fade.

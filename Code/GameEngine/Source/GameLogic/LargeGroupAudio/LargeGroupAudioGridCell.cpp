@@ -13,12 +13,7 @@
 // No BFME1/ZH clean donor for this BFME-specific grid method was found.
 #include <math.h>
 #include "Lib/Coord3D.h"
-class TerrainLogic {
-public:
- virtual void slot0(); virtual void slot1(); virtual void slot2();
- virtual void slot3(); virtual void slot4(); virtual void slot5();
- virtual float getGroundHeight(float,float,Coord3D *) const;
-};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 struct Rva005C8876Grid { char unknown00[0x10]; float cellWidth; float speed; };
 struct Rva005C8876Position { float x,y,z; Rva005C8876Position() {} Rva005C8876Position(const Rva005C8876Position &p):x(p.x),y(p.y),z(p.z) {} };

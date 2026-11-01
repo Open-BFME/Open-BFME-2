@@ -55,23 +55,7 @@ public:
 	const Object *relationshipObject; // +0x1C
 };
 
-class TerrainLogic
-{
-public:
-	virtual void slot00();
-	virtual void slot04();
-	virtual void slot08();
-	virtual void slot0c();
-	virtual void slot10();
-	virtual void slot14();
-	virtual void slot18();
-	virtual void slot1c();
-	virtual void slot20();
-	virtual void slot24();
-	virtual void slot28();
-	virtual void slot2c();
-	virtual void getMaximumPathfindExtent( Region3D *extent );
-};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 
 extern GameLogic *TheGameLogic;

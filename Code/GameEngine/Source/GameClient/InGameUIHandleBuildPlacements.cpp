@@ -488,17 +488,7 @@ public:
     bool rva0032BD25(int, int, BuildListInfo*);
 };
 extern SidesList* TheSidesList;
-class TerrainLogic
-{
-public:
-    virtual void slot0();
-    virtual void slot4();
-    virtual void slot8();
-    virtual void slotC();
-    virtual void slot10();
-    virtual void slot14();
-    virtual float getGroundHeight(float, float, void*);
-};
+#include "../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic* TheTerrainLogic;
 class G00DFF080Obj
 {

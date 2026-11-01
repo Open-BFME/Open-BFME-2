@@ -1180,22 +1180,7 @@ public:
 extern GameTextInterface *TheGameText;
 #include "../../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
-class TerrainLogic
-{
-public:
-	virtual void t00(); virtual void t01(); virtual void t02(); virtual void t03();
-	virtual void t04(); virtual void t05();
-	virtual Real getGroundHeight(Real x, Real y, Coord3D *normal = 0) const;	// +0x18
-	virtual void t07();
-	virtual void getExtent(Region3D *extent) const;		// +0x20
-	virtual void t09(); virtual void t10(); virtual void t11();
-	virtual void getMaximumPathfindExtent(Region3D *extent) const;	// +0x30
-	virtual void t13(); virtual void t14(); virtual void t15();
-	virtual void t16(); virtual void t17(); virtual void t18();
-	virtual Bool isUnderwater(Real x, Real y, Real *waterZ = NULL, Real *terrainZ = NULL, Int unused = 0);	// +0x4C
-	PathfindLayerEnum getLayerForDestination(Object *obj, const Coord3D *pos);
-	PathfindLayerEnum getHighestLayerForDestination(const Coord3D *pos, Bool onlyHealthyBridges);
-};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 class Pathfinder
 {

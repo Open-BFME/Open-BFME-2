@@ -82,20 +82,7 @@ class RGBAColorInt;
 class Snapshot;
 #include "../../../Include/Common/BfmeXfer.h"
 
-class TerrainLogic
-{
-public:
-	virtual void _00(); virtual void _01(); virtual void _02(); virtual void _03();
-	virtual void _04(); virtual void _05(); virtual void _06(); virtual void _07();
-	virtual void _08(); virtual void _09(); virtual void _10(); virtual void _11();
-	virtual void _12(); virtual void _13(); virtual void _14(); virtual void _15();
-	virtual void _16(); virtual void _17(); virtual void _18(); virtual void _19();
-	virtual void _20(); virtual void _21(); virtual void _22(); virtual void _23();
-	virtual void _24(); virtual void _25(); virtual void _26(); virtual void _27();
-	virtual void _28(); virtual void _29(); virtual void _30(); virtual void _31();
-	virtual void _32(); virtual void _33(); virtual void _34();
-	virtual const Waypoint *getWaypointByID(unsigned int id);
-};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 class AIGroup
 {

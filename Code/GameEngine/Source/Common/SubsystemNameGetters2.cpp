@@ -97,11 +97,7 @@ const char *Drawable::GetSnapshotName() const
 // returning the unique TerrainLogic literal. The canonical Snapshot header
 // names that slot GetSnapshotName. Replace the placeholder owner directly;
 // retain the same six-byte body and the existing source unit.
-class TerrainLogic
-{
-protected:
-	virtual const char *GetSnapshotName() const;
-};
+#include "../../Include/GameLogic/TerrainLogic.h"
 
 const char *TerrainLogic::GetSnapshotName() const
 {

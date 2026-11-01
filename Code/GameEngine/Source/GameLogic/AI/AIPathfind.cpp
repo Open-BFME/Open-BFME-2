@@ -1066,11 +1066,7 @@ public:
 	int y; // +0x04
 };
 
-class TerrainLogic
-{
-public:
-	PathfindLayerEnum getLayerForDestination(Object *obj, const Coord3D *pos);
-};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 
 extern TerrainLogic *TheTerrainLogic;
 

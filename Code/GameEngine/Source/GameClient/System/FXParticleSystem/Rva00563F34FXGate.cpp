@@ -92,13 +92,7 @@ struct Rva0056405CSystemView
 	int m_fired; // +0x128
 };
 
-class TerrainLogic
-{
-public:
-	virtual void slot00(); virtual void slot04(); virtual void slot08(); virtual void slot0C();
-	virtual void slot10(); virtual void slot14();
-	virtual float getGroundHeight(float x, float y, Coord3D *normal) const;
-};
+#include "../../../../Include/GameLogic/TerrainLogic.h"
 
 extern TerrainLogic *TheTerrainLogic;
 

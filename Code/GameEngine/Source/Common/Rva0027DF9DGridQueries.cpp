@@ -712,15 +712,7 @@ public:
 };
 extern ThingFactory *TheThingFactory;
 
-class TerrainLogic
-{
-public:
-
-	void rva00283CE7(unsigned int id);	// 0x00283CE7
-	Object *rva00283D70(const Coord3D *pos);
-
-
-};
+#include "../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 
 Object *TerrainLogic::rva00283D70(const Coord3D *pos)

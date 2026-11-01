@@ -360,25 +360,7 @@ private:
 	AsciiString m_name;			// +0x10
 };
 
-class TerrainLogic
-{
-public:
-	virtual void tl00(); virtual void tl01(); virtual void tl02();
-	virtual void tl03(); virtual void tl04(); virtual void tl05();
-	virtual Real getGroundHeight(Real x, Real y, Coord3D *normal = NULL) const;	// +0x18
-	virtual void tl07(); virtual void tl08(); virtual void tl09();
-	virtual void tl10(); virtual void tl11();
-	virtual void getMaximumPathfindExtent(Region3D *extent) const;	// +0x30
-	virtual void tl13(); virtual void tl14(); virtual void tl15();
-	virtual void tl16(); virtual void tl17(); virtual void tl18();
-	virtual void tl19(); virtual void tl20(); virtual void tl21();
-	virtual void tl22(); virtual void tl23(); virtual void tl24();
-	virtual void tl25(); virtual void tl26(); virtual void tl27();
-	virtual void tl28(); virtual void tl29(); virtual void tl30();
-	virtual void tl31(); virtual void tl32(); virtual void tl33();
-	virtual void tl34(); virtual void tl35();
-	virtual Waypoint *getClosestWaypointOnPath(const Coord3D *pos, const AsciiString &label);	// +0x90
-};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 
 extern TerrainLogic *TheTerrainLogic;
 

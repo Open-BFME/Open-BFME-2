@@ -18,7 +18,7 @@ ICoord2D *Rva002E7875WorldToCell(ICoord2D*,bool,const Coord3D*);
 class Object;class LocomotorSet;class Rva002E8BCF;class Pathfinder;
 struct Rva002E7261Info {Pathfinder *pathfinder;int structure;int zone;int x,y;};
 enum PathfindLayerEnum {OBSERVED_LAYER=1};
-class TerrainLogic {public:PathfindLayerEnum getLayerForDestination(Object*,const Coord3D*);};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 class Rva002E99F9Sub460
 {

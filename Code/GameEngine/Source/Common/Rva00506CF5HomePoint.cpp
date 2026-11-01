@@ -57,12 +57,7 @@ private:
 };
 
 class Region3D;
-class TerrainLogic
-{
-public:
-	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
-	virtual void v04(); virtual void v05(); virtual float getGroundHeight(float,float,Coord3D*); virtual void v07();
-};
+#include "../../Include/GameLogic/TerrainLogic.h"
 
 extern TerrainLogic *TheTerrainLogic;
 

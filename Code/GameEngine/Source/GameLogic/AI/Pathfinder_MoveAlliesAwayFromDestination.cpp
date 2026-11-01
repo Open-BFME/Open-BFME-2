@@ -34,11 +34,7 @@ public:
 	Rva0006E009DwordField *m_ai;
 };
 
-class TerrainLogic
-{
-public:
-	PathfindLayerEnum getLayerForDestination(Object *obj, const Coord3D *pos);
-};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 
 extern TerrainLogic *TheTerrainLogic;
 

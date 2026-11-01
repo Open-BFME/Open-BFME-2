@@ -10,11 +10,7 @@ enum PathfindLayerEnum
 {
 	PATHFIND_LAYER_GROUND = 0
 };
-class TerrainLogic
-{
-public:
-	PathfindLayerEnum getLayerForDestination(Object *obj, const Coord3D *pos);
-};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 class PathfindCell
 {
