@@ -28,11 +28,7 @@ struct BfmeStringRecord00426A5B
 namespace _STL { template <> BfmeStringRecord00426A5B * vector<BfmeStringRecord00426A5B,allocator<BfmeStringRecord00426A5B> >::erase(BfmeStringRecord00426A5B *,BfmeStringRecord00426A5B *); }
 namespace _STL { template <> void _Destroy<BfmeStringRecord00426A5B *>(BfmeStringRecord00426A5B *, BfmeStringRecord00426A5B *); }
 
-class INI
-{
-public:
-	const char *getNextTokenOrNull(const char *seps);
-};
+#include "../../Include/Common/INI/INI.h"
 
 typedef _STL::vector<BfmeStringRecord00426A5B> BfmeVec00426A5B;
 

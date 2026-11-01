@@ -23,13 +23,7 @@ namespace _STL
 template <> void vector<const ModuleData *, allocator<const ModuleData *> >::push_back(const ModuleData *const &value);
 }
 
-class INI
-{
-public:
-	int scanInt(const char *token);
-	const char *getNextTokenOrNull(const char *seps);
-	static void Rva001FDD33_ParseResourceModifierValues(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 // ?Rva001FDD33_ParseResourceModifierValues@INI@@SAXPAV1@PAX1PBX@Z
 void INI::Rva001FDD33_ParseResourceModifierValues(INI *ini, void *instance, void *store, const void *userData)

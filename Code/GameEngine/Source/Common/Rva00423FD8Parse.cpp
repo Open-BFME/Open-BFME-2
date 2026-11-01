@@ -61,15 +61,7 @@ struct FieldParse
 	int offset;
 };
 
-class INI
-{
-public:
-	AsciiString getNextQuotedAsciiString();
-	AsciiString getFilename() const;
-	int getLineNum() const;
-	void initFromINI(void *what, const FieldParse *parseTable);
-	static void parseThingTemplate(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../Include/Common/INI/INI.h"
 
 void rva00421749(INI *ini, void *instance, void *store, const void *userData);
 

@@ -26,12 +26,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 namespace _STL { template <> void vector<AsciiString, allocator<AsciiString> >::reserve(unsigned int); }
 // bfme link decl-only end
 
-class INI
-{
-public:
-	void initFromINI(void *what, const struct FieldParse *parseTable);
-	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../Include/Common/INI/INI.h"
 
 // The table's native record. Its vector retains the ledger's BfmeE16 storage
 // identity; only the field accesses use this parser view of the 16 bytes.

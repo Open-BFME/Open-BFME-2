@@ -4,11 +4,7 @@ class INI;
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
 #include "../../Include/Common/INI/FieldParse.h"
 
-class INI
-{
-public:
-	void initFromINI(void *p, const struct FieldParse *fields);
-};
+#include "../../Include/Common/INI/INI.h"
 
 extern "C" {
 void __identifier("?Rva0042700FParse@@YAXPAVINI@@HPAV?$vector@UBfmeStringRecord00426A5B@@V?$allocator@UBfmeStringRecord00426A5B@@@_STL@@@_STL@@H@Z")();

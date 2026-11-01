@@ -8,11 +8,7 @@
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
 struct FieldParse { const char *token; FieldParseProc parse; const void *userData; int offset; };
 
-class INI
-{
-public:
-	void initFromINI(void *what, const FieldParse *parseTable);
-};
+#include "../../Include/Common/INI/INI.h"
 
 struct INIException
 {

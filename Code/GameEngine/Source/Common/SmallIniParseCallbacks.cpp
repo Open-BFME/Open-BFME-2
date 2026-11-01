@@ -2,13 +2,7 @@
 // Six small INI parse callbacks (trimmed to the placed
 // GeometryRotationAnchorOffset body; the other seven are declared-only here).
 
-class INI
-{
-public:
-	const char *getNextToken( const char *seps = 0 );
-	static void parseCoord2D( INI *, void *, void *, const void * );
-	static void parseUnsignedInt( INI *, void *, void *, const void * );
-};
+#include "../../Include/Common/INI/INI.h"
 
 // ?parseGeometryRotationAnchorOffset@@YAXPAVINI@@PAX1PBX@Z
 void parseGeometryRotationAnchorOffset( INI *ini, void *instance, void *store, const void *userData )

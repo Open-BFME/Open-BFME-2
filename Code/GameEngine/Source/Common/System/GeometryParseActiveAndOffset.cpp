@@ -21,12 +21,7 @@ typedef float Real;
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-class INI
-{
-public:
-	static void parseBool(INI *ini, void *instance, void *store, const void *userData);
-	static void parseCoord3D(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 struct GeometryShape
 {

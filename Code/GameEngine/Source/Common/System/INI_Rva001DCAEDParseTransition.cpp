@@ -36,12 +36,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 // ?Rva00DFDC14Object@@3PAXA: the global at this VA is ?theBfmeDfdc14@@3PAVAudioManager@@A; this name is an alias for it.
 extern class GameWindowTransitionsHandler *TheTransitionHandler;
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-	static void Rva001DCAED_ParseTransition(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 // ?Rva001DCAED_ParseTransition@INI@@SAXPAV1@PAX1PBX@Z
 void INI::Rva001DCAED_ParseTransition(INI *ini, void *instance, void *store, const void *userData)

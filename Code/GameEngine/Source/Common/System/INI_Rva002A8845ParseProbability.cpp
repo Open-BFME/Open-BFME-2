@@ -11,14 +11,7 @@
 // (pinned). The struct name is address-derived; the owning struct is
 // BFME2-new (no BFME1 donor).
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-	const char *getNextTokenOrNull(const char *seps);
-	int scanInt(const char *token);
-	static void Rva002A8845_ParseProbability(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 class INIException
 {

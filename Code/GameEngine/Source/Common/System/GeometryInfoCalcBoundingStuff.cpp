@@ -256,7 +256,7 @@ void GeometryInfo::rva0087E650(Rva0087E650Bounds *bounds)
 // Placement construction ends only the unused local pointer object's lifetime.
 #include <new>
 extern const char *const GeometryNames[];
-class INI { public: const char *getNextToken(const char *);int scanIndexList(const char *,const char *const *); };
+#include "../../../Include/Common/INI/INI.h"
 static const volatile float kDefaultDimension=1.0f;
 struct DimensionTriple { float height,major,minor;DimensionTriple(){double value=kDefaultDimension;height=(float)value;major=(float)value;minor=(float)value;} };
 struct GeometryAdditionalShape { int type;DimensionTriple dimensions;float x,y,z;AsciiString name;unsigned char active,flag21;GeometryAdditionalShape(int t):type(t),dimensions(),x(0),y(0),z(0),active(1),flag21(1){} };

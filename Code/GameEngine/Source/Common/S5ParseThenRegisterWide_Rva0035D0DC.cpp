@@ -13,14 +13,7 @@ struct FieldParse
     const void *userData;
     int offset;
 };
-class INI
-{
-public:
-    void initFromINI(void *, const FieldParse *);
-    static void parseInt(INI *, void *, void *, const void *);
-    static void parseBool(INI *, void *, void *, const void *);
-    static void parseBitString32(INI *, void *, void *, const void *);
-};
+#include "../../Include/Common/INI/INI.h"
 struct Gen_00489270 { void m(int); };
 
 class Rva001DBAA4

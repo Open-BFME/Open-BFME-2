@@ -4,12 +4,7 @@
 // PC FieldParse C0EC00 identifies GeometryMajorRadius -> ABEA60.
 // Same 24-byte shape vector at +2C; PC scanReal is a member, not static.
 #include <vector>
-class INI {
-public:
-    const char *getNextToken(const char *);
-    bool scanBool(const char *);
-    float scanReal(const char *);
-};
+#include "../../../Include/Common/INI/INI.h"
 struct GeometryShape {
     int type; float height, majorRadius, minorRadius, x, y, z;
     char *name; bool active; bool usedForHealthBox; char padding[2];

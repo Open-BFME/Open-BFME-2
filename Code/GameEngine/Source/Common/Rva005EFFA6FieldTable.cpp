@@ -10,11 +10,7 @@ class INI;
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
 #include "../../Include/Common/INI/FieldParse.h"
 
-class INI
-{
-public:
-	void initFromINI(void *what, const FieldParse *parseTable);
-};
+#include "../../Include/Common/INI/INI.h"
 
 void Rva005EFF68(INI *ini, void *instance, void *store, const void *userData);	// rowed 0x005EFF68
 void Rva005EFF87(INI *ini, void *instance, void *store, const void *userData);	// rowed 0x005EFF87

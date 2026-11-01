@@ -8,11 +8,7 @@ struct FieldParse
 	int offset;
 };
 
-class INI
-{
-public:
-	void initFromINI(void *what, const FieldParse *parseTable);
-};
+#include "../../Include/Common/INI/INI.h"
 
 // The row parser is the rowed Rva004251C4Parse(INI *, Rva004251C4Table *)
 // (FormationAssistantParseFormation.cpp); the table stores it as a field parser.

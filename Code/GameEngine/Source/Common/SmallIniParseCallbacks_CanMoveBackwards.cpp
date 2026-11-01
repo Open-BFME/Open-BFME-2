@@ -14,12 +14,7 @@
 
 #include <stdlib.h>
 
-class INI
-{
-public:
-	const char *getNextToken( const char *seps = 0 );
-	bool scanBool( const char *token );
-};
+#include "../../Include/Common/INI/INI.h"
 
 // ?parseCanMoveBackwards@@YAXPAVINI@@PAX1PBX@Z
 void parseCanMoveBackwards( INI *ini, void *, void *store, const void * )

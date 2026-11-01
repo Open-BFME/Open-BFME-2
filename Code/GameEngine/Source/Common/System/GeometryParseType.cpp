@@ -26,12 +26,7 @@ class Xfer;
 // begin at9DBFF0, establishing the complete16B extent.
 extern const char *const GeometryNames[] = { "SPHERE", "CYLINDER", "BOX", 0 };
 
-class INI
-{
-public:
-	const char *getNextToken(const char *separators) throw();
-	int scanIndexList(const char *token, const char *const *names) throw();
-};
+#include "../../../Include/Common/INI/INI.h"
 
 struct BfmeCoord3D
 {

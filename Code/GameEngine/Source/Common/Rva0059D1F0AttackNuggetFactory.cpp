@@ -18,13 +18,7 @@ struct FieldParse
 	int offset;
 };
 
-class INI
-{
-public:
-	void initFromINI(void *what, const FieldParse *table);
-	static void parseInt(INI *, void *, void *, const void *);
-	static void parseBool(INI *, void *, void *, const void *);
-};
+#include "../../Include/Common/INI/INI.h"
 
 // Retail VA 0x00C164B0: three 16-byte records followed by the null record.
 // The native table supplies the callback identities and target field offsets;

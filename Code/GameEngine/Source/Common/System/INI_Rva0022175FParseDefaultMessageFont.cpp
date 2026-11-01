@@ -30,12 +30,7 @@ struct FontDesc
 	FontDesc &operator=(const FontDesc &other);
 };
 
-class INI
-{
-public:
-	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva0022175F_ParseDefaultMessageFont(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 class GlobalLanguage
 {

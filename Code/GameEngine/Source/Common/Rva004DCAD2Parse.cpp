@@ -3,21 +3,7 @@
 #include <stddef.h>
 #include <new>
 struct FieldParse;
-class INI {
-public:
- void initFromINI(void *, const FieldParse *);
- const char *getNextToken(const char * = 0);
- unsigned char m_beforeLoadType[8];
- int getLoadType() const { return m_loadType; }
- int m_loadType;
- static void parseBool(INI *ini, void *instance, void *store, const void *userData);
- static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
- static void parseDurationUnsignedInt(INI *ini, void *instance, void *store, const void *userData);
- static void parseFXList(INI *ini, void *instance, void *store, const void *userData);
- static void Rva004DC64F_ParseThreatAbove(INI *ini, void *instance, void *store, const void *userData);
- static void Rva004DC625_ParseThreatBelow(INI *ini, void *instance, void *store, const void *userData);
- static void Rva004DC745_ParseAIState(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../Include/Common/INI/INI.h"
 // Free-function field parsers the table calls; each is rowed in its own unit.
 void parseEmotionNuggetCopyFrom(INI *ini, void *instance, void *store, const void *userData);
 void Rva004DC674Parse(INI *ini, void *instance, void *store, const void *userData);

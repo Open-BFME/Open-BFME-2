@@ -9,12 +9,7 @@
 // callees (default ctor 0x00415688, copy ctor 0x0041573F, dtor 0x004156BC). Names stay address-derived.
 #include "Common/INIException.h"
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-	int scanInt(const char *token);
-};
+#include "../../Include/Common/INI/INI.h"
 
 class Rva0041573F
 {

@@ -44,13 +44,7 @@ template <> void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(ch
 typedef const char *ConstCharPtr;
 typedef const ConstCharPtr *ConstCharPtrArray;
 
-class INI
-{
-public:
-	const char *getNextTokenOrNull(const char *seps);
-	int scanIndexList(const char *token, ConstCharPtrArray nameList);
-	int scanInt(const char *token);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 struct BfmeNarrowRecord00079C23
 {

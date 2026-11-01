@@ -10,12 +10,7 @@
 // Xbox schema correspondence is a discovery aid only; PC bytes prove these
 // offsets, callback ABI and calls to already verified INI scalar parsers.
 
-class INI
-{
-public:
-    static void parseBool(INI *, void *, void *, const void *);
-    static void parseInt(INI *, void *, void *, const void *);
-};
+#include "../../Include/Common/INI/INI.h"
 
 struct SideFlags
 {

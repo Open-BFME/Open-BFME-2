@@ -29,14 +29,7 @@ public:
 	void rva000C32D9(unsigned int n, AsciiString x);
 };
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-	int scanIndexList(const char *token, const char *const *nameList);
-	AsciiString getNextAsciiString();
-	static void Rva000C3AB3Parse(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 void INI::Rva000C3AB3Parse(INI *ini, void *instance, void *store, const void *userData)
 {

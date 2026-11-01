@@ -20,14 +20,7 @@
 
 struct FieldParse;
 
-class INI
-{
-public:
-	const char *getNextToken(const char *separators = 0);
-	void initFromINI(void *what, const FieldParse *parseTable);
-
-	static void parseVideoDefinition(INI *ini);
-};
+#include "../../Include/Common/INI/INI.h"
 
 class Video
 {

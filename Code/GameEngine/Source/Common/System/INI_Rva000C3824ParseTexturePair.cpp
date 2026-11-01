@@ -26,12 +26,7 @@ namespace _STL
 template <> void vector<BfmeStringRecord000B94D2, allocator<BfmeStringRecord000B94D2> >::push_back(const BfmeStringRecord000B94D2 &value);
 }
 
-class INI
-{
-public:
-	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva000C3824_ParseTexturePair(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 // ?Rva000C3824_ParseTexturePair@INI@@SAXPAV1@PAX1PBX@Z
 void INI::Rva000C3824_ParseTexturePair(INI *ini, void *instance, void *store, const void *userData)

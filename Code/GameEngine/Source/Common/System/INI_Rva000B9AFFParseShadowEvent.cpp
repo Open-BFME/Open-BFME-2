@@ -41,12 +41,7 @@ struct Rva000B9AFF_Store
 	Shadow::ShadowTypeInfo *m_shadowInfo;
 };
 
-class INI
-{
-public:
-	static void parseBitString16(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva000B9AFF_ParseShadowEvent(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 // ?Rva000B9AFF_ParseShadowEvent@INI@@SAXPAV1@PAX1PBX@Z
 void INI::Rva000B9AFF_ParseShadowEvent(INI *ini, void *instance, void *store, const void *userData)

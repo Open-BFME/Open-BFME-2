@@ -5,11 +5,7 @@
 
 struct FieldParse;
 
-class INI
-{
-public:
-	void initFromINI( void *what, const FieldParse *table );
-};
+#include "../../Include/Common/INI/INI.h"
 
 struct Gen_00489270
 {

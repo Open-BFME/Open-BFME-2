@@ -10,12 +10,7 @@
 
 #include "ascii_string.h"
 
-class INI
-{
-public:
-	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva00221714_ParseDefaultOpenAudio(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 // ?Rva00221714_ParseDefaultOpenAudio@INI@@SAXPAV1@PAX1PBX@Z
 void INI::Rva00221714_ParseDefaultOpenAudio(INI *ini, void *instance, void *store, const void *userData)

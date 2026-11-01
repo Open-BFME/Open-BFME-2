@@ -22,11 +22,7 @@ class MultiIniFieldParse {
  const FieldParse* fields[16]; unsigned offsets[16]; int count;
  public:MultiIniFieldParse();void add(const FieldParse*,unsigned);
 };
-class INI {
- public:const char*getNextTokenOrNull(const char*);
- void initFromINIMulti(void*,const MultiIniFieldParse&);
- static void parseAsciiStringVectorAppend(INI*,void*,void*,const void*);
-};
+#include "../../Include/Common/INI/INI.h"
 class ModelConditionFlags { unsigned bits[19];public:bool rva000B3EB3()const; };
 class Rva001EAE6FHelper { char bytes[128];public:Rva001EAE6FHelper(){clear80();}Rva001EAE6FHelper*clear80(); };
 struct UpgradeMaskType: Rva001EAE6FHelper {};

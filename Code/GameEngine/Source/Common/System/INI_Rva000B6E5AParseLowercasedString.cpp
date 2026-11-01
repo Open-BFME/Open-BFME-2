@@ -15,12 +15,7 @@ template <typename T> struct BfmeStringData;
 #include "ascii_string.h"
 
 
-class INI
-{
-public:
-	AsciiString getNextAsciiString();
-	static void Rva000B6E5A_ParseLowercasedString(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 // ?Rva000B6E5A_ParseLowercasedString@INI@@SAXPAV1@PAX1PBX@Z
 void INI::Rva000B6E5A_ParseLowercasedString(INI *ini, void * /*instance*/, void *store, const void * /*userData*/)

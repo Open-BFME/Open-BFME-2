@@ -7,12 +7,7 @@
 // NotificationType). The callback name stays address-derived; the owning
 // class is BFME2-new (no BFME1 donor).
 
-class INI
-{
-public:
-	static void parseColorInt(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva002216A6_ParseDefaultMessageColor(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 // ?Rva002216A6_ParseDefaultMessageColor@INI@@SAXPAV1@PAX1PBX@Z
 void INI::Rva002216A6_ParseDefaultMessageColor(INI *ini, void *instance, void *store, const void *userData)

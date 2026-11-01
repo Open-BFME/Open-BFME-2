@@ -31,18 +31,7 @@ public:
 };
 }
 
-class INI
-{
-public:
-	const char *getNextTokenOrNull(const char *seps);
-	static void parseInt(INI *ini, void *instance, void *store, const void *userData);
-	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva000C3B6EParse(INI *ini, void *instance, void *store, const void *userData);
-
-private:
-	char _pad[0x420];
-	const char *m_sepsColon;
-};
+#include "../../../Include/Common/INI/INI.h"
 
 #include <string.h>
 

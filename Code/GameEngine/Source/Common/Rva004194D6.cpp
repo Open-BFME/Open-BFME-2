@@ -103,13 +103,7 @@ float Rva004194D6::rva00419561(int key, float numerator, float denominator, int 
 
 // Retail table neighbour "LevelBonus": INI field parser for the +4 curve, one
 // "Level <int> Bonus <real>" pair per call. A repeated level is an INI error.
-class INI
-{
-public:
-	const char *getNextSubToken(const char *expected);
-	int scanInt(const char *token);
-	float dup_002EE10(const char *token);
-};
+#include "../../Include/Common/INI/INI.h"
 
 class INIException
 {

@@ -53,11 +53,7 @@ bool less<int>::operator()(const int &a, const int &b) const
 struct FieldParse;
 extern const FieldParse BfmeBonusForLevelFieldTable[];
 
-class INI
-{
-public:
-	void initFromINI(void *what, const FieldParse *table);
-};
+#include "../../Include/Common/INI/INI.h"
 
 class Rva00417AB8
 {

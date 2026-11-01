@@ -48,13 +48,7 @@ struct BfmeNarrowRecord00079C23
 	unsigned int word1;
 };
 
-class INI
-{
-public:
-	const char *getNextTokenOrNull(const char *seps);
-	int scanInt(const char *token);
-	static void Rva000C3C59Parse(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 void INI::Rva000C3C59Parse(INI *ini, void *instance, void *store, const void *userData)
 {
