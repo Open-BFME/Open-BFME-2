@@ -88,10 +88,7 @@ struct ObjectHack : public Object {
 	static Module *find(const Object *object, NameKeyType k) { return ((ObjectHack*)object)->findModule(k); }
 };
 
-class NameKeyGenerator {
-public:
-	NameKeyType nameToKey(const char *str);
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 extern unsigned int g_00DFDCD4;

@@ -13,12 +13,7 @@ enum ObjectStatusTypes{STATUS79=79};
 enum DamageType{DAMAGE8=8};enum DeathType{DEATH0=0};
 class Module;class Object{friend class CastleBehavior;protected:Module*findModule(NameKeyType)const;public:void kill(DamageType,DeathType);};
 class AsciiString;
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-	NameKeyType nameToKey(const AsciiString &name);
-};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator*TheNameKeyGenerator;
 class FXList
 {

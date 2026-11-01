@@ -108,11 +108,7 @@ struct BfmePod128 { int a[32]; };
 
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);		// 0x00148E1A
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

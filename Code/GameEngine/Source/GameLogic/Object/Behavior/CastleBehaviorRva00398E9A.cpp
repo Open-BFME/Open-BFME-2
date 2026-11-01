@@ -22,12 +22,7 @@ enum Relationship {ENEMY=0,NEUTRAL=1,ALLY=2};
 class Player {public:void *getState() const{return state;}int getIndex() const{return index;}Relationship getRelationship(const Team*) const;char pad[0x54];int index;char pad58[4];void *state;char pad60[0x2ec-0x60];Team *team;};
 enum NameKeyType {INVALID_KEY=0};
 class AsciiString;
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-	NameKeyType nameToKey(const AsciiString &name);
-};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 class PlayerList
 {

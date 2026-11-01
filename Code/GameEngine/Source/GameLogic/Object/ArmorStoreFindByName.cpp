@@ -49,11 +49,7 @@ public:
 	char m_padC[0x70];
 };
 #include "ascii_string.h"
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const AsciiString &name);
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 #include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 typedef std::hash_map<

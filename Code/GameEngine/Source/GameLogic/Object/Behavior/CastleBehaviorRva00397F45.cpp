@@ -16,12 +16,7 @@
 typedef int Int;
 enum NameKeyType { NK_UNKNOWN = 0 };
 class AsciiString;
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-	NameKeyType nameToKey(const AsciiString &name);
-};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 class Module;
 class Rva00397FEBInterface;

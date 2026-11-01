@@ -33,7 +33,7 @@ class CastleBehavior:public CastleObjectModule,public CastleBehaviorInterface,pu
  _STL::vector<ObjectID>owned50,owned5C,owned68,owned74;char pad80[0x20];Rva00395CEB mapA0;
 };
 enum NameKeyType{NAMEKEY_INVALID=0};
-class NameKeyGenerator{public:NameKeyType nameToKey(const char*);};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator*TheNameKeyGenerator;
 class PlayerList{public:Player*findPlayerWithNameKey(NameKeyType);};
 extern PlayerList*ThePlayerList;

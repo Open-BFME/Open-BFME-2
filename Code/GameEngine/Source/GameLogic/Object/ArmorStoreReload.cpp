@@ -52,7 +52,7 @@ namespace rts { template <class T> struct hash { size_t operator()(const T &valu
 // rts::hash<NameKeyType>::operator() otherwise emits a per-TU COMDAT that loses to
 // another unit's copy; this explicit dllimport+forceinline specialization keeps it inline.
 namespace rts { template <> __declspec(dllimport) __forceinline size_t hash<NameKeyType>::operator()(const NameKeyType &value) const { return (size_t)value; } }
-class NameKeyGenerator { public: NameKeyType nameToKey(const AsciiString &nameString); };
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 class ModuleData;
 class Object;

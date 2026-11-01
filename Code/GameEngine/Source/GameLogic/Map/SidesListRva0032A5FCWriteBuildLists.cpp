@@ -141,12 +141,7 @@ public:
 	void writeDict(const Dict &d); // 0x00307D85
 };
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const AsciiString &name); // 0x0009FA65
-	NameKeyType nameToKey(const char *name); // 0x00148E1A
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

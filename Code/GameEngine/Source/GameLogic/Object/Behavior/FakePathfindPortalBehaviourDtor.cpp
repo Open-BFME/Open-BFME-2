@@ -134,11 +134,7 @@ Waypoint *FakePathfindPortalBehaviour::rva00461A46(const Coord3D *point)
 // object's behaviour list (+0x244, null-terminated) whose module name key
 // (slot 4) matches. Identity of the owner function is unproven.
 enum NameKeyType { NAMEKEY_INVALID = 0 };
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 

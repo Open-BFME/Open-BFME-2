@@ -96,11 +96,7 @@ namespace _STL { template <> void vector<void *, allocator<void *> >::reserve(un
 // Inline STLport's const access while leaving the external copy to its owner.
 namespace _STL { template <> __declspec(dllimport) __forceinline void *const &vector<void *>::operator[](size_t n) const { return *(begin() + n); } }
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const AsciiString &name);
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

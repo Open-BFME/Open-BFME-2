@@ -184,11 +184,7 @@ struct AbilityStateVector : public Coord3DBase
 // No donor establishes the original public name of this lookup.
 enum NameKeyType { NK_UNKNOWN = 0 };
 
-class NameKeyGenerator
-{
-public:
-    NameKeyType nameToKey(const char *name);
-};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
