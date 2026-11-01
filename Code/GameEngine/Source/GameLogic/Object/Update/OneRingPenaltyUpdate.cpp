@@ -57,9 +57,6 @@ const float PI = 3.14159265359f;
 float GetGameLogicRandomValueReal(float lo, float hi, char *file, int line);
 float Cos(float value);
 float Sin(float value);
-// memset is msvcr71's, called through its import thunk at 0x006291AE
-// rather than expanded inline: <string.h>'s memset with
-// #pragma function(memset).
 #include <string.h>
 #pragma function(memset)
 class ModuleData
@@ -70,6 +67,21 @@ public:
 #include "../../../../Include/Common/ObjectModule.h"
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "OneRingPenaltyModuleDataView.h"
+#include "Common/BfmeAudioEventPrefix136.h"
+class AudioManager;
+extern AudioManager *TheAudio;
+enum ObjectStatusTypes
+{
+	OBJECT_STATUS_NONE = 0
+};
+class Rva00373EC6
+{
+public:
+	void rva00374815();
+	char m_pad00[0x31];
+	bool m_31; // +0x31 +0x31
+};
+
 // ??0OneRingPenaltyUpdateModuleData@@QAE@XZ at retail 0x004999F1 (37 bytes).
 // The module-data half of OneRingPenaltyUpdate: vtable immediate 0x00C50298
 // supplied by Snapshot at +0x00, an unstored
@@ -113,11 +125,12 @@ enum DamageType { DAMAGE_SNIPER = 8 };
 
 enum DeathType { DEATH_NORMAL = 0 };
 
-enum ObjectID;
 enum ObjectStatusTypes;
-class Team;
+
 class AIUpdateInterface;
+
 class Rva00373EC6;
+
 class Object : public Thing
 {
 public:
@@ -234,9 +247,65 @@ private:
 	void rva00499AFD();
 };
 
+class Rva00499C6CAudio
+{
+public:
+	virtual void s0();
+	virtual void s1();
+	virtual void s2();
+	virtual void s3();
+	virtual void s4();
+	virtual void s5();
+	virtual void s6();
+	virtual void s7();
+	virtual void s8();
+	virtual void s9();
+	virtual void s10();
+	virtual void s11();
+	virtual void s12();
+	virtual void s13();
+	virtual void s14();
+	virtual void s15();
+	virtual void s16();
+	virtual void s17();
+	virtual void s18();
+	virtual void s19();
+	virtual void s20();
+	virtual void s21();
+	virtual void s22();
+	virtual void s23();
+	virtual void s24();
+	virtual int addAudioEvent(const BfmeAudioEventPrefix136 *evt);
+};
+
+struct Rva00499C6CHolder
+{
+	char m_pad[0x20];
+	OpaqueRefElement4 m_ref;
+};
+
+class Rva00499C6C
+{
+public:
+	void rva00499C6C();
+	char m_pad[4];
+	Rva00499C6CHolder *m_holder;
+	Object *m_obj;
+	char m_gap[0x1C];
+	int m_28;
+	char m_gap2[4];
+	unsigned int m_30;
+};
+
 // tu-skeleton: 0x0049995A 82B ?xfer@OneRingPenaltyUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/OneRingPenaltyUpdateXfer.cpp (not merged yet)
 
 // tu-skeleton: 0x004999AC 69B ?getModuleNameKey@OneRingPenaltyUpdate@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/OneRingPenaltyUpdatePoolKey.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/OneRingPenaltyUpdate.cpp
+
+// memset is msvcr71's, called through its import thunk at 0x006291AE
+// rather than expanded inline: <string.h>'s memset with
+// #pragma function(memset).
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/OneRingPenaltyUpdateModuleDataCtor.cpp
 
@@ -252,10 +321,6 @@ OneRingPenaltyUpdateModuleData::OneRingPenaltyUpdateModuleData()
 	m_ringTimeBeforeSpawning = 0;
 	m_timeFrozenFromPenalty = 0;
 }
-
-// tu-skeleton: 0x00499A16 73B ??1OneRingPenaltyUpdateModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/OneRingPenaltyUpdateModuleDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00499A5F 17B ?buildFieldParse@OneRingPenaltyUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/OneRingPenaltyUpdate.cpp
 
@@ -374,9 +439,30 @@ void BfmeC987::bfmeGo987C()
 	}
 }
 
-// tu-skeleton: 0x00499AE1 28B ??_GRva00499934@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/OneRingPenaltyUpdateModuleDataDtor.cpp
 
-// tu-skeleton: 0x00499C19 28B ??_GOneRingPenaltyUpdateModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/OneRingPenaltyUpdateModuleDataDtor.cpp (not merged yet)
+//
+// ??1OneRingPenaltyUpdateModuleData@@UAE@XZ, retail 0x00499A16, 73 bytes.
+// OneRingPenaltyUpdate ModuleData dtor over Snapshot base (0x00BBB554).
+// Restores own vtable 0x00C50298, releases the +0x20 holder through the rowed
+// Release_Ref at 0x00050ED3 when non-null, destroys the AsciiString at +0x08
+// through the folded 0x00036410, then restores the Snapshot base vtable.
+// Layout follows the verified ctor at 0x004999F1 in
+// OneRingPenaltyUpdateModuleDataCtor.cpp (vptr +0, unused +0x04, string +0x08,
+// scalars +0x0C..+0x1C, holder +0x20, size 0x24 from factory 0x0024E42C).
+// Called by the audited ??_G wrapper at 0x00499C19 (slot 0 of 0x00C50298).
+// Shape follows FlammableUpdateModuleDataDtor (shared Snapshot base with its
+// BBB554 restore, entry derived store, empty derived body). BFME1 donor
+// OneRingPenaltyUpdateModuleDataDestructorThunk.cpp:82 proves the member
+// order and Snapshot base; retail followed.
+
+OneRingPenaltyUpdateModuleData::~OneRingPenaltyUpdateModuleData()
+{
+}
+
+// tu-skeleton: 0x00499A5F 17B ?buildFieldParse@OneRingPenaltyUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
+
+// tu-skeleton: 0x00499AE1 28B ??_GRva00499934@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp (not merged yet)
 
 // tu-skeleton: 0x00499C35 17B ?rva00499C35@OneRingPenaltyUpdate@@AAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/OneRingPenaltyUpdateUpdate.cpp (not merged yet)
 
@@ -388,18 +474,37 @@ void BfmeC987::bfmeGo987C()
 
 // tu-skeleton: 0x00499E98 173B ?update@OneRingPenaltyUpdate@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/OneRingPenaltyUpdateUpdate.cpp (not merged yet)
 
-// tu-skeleton: 0x0078D53A 13B ?Rva0078D53AClearFlag@@YAIXZ -- matched in Code/GameEngine/Source/Common/GlobalFlagClearers_E03Bxx.cpp (not merged yet)
+// tu-skeleton: 0x0078D53A 13B $L310 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/OneRingPenaltyUpdatePoolKey.cpp (not merged yet)
 
 // tu-skeleton: 0x0078D547 10B __ehhandler$?getModuleNameKey@OneRingPenaltyUpdate@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/OneRingPenaltyUpdatePoolKey.cpp (not merged yet)
 
-// tu-skeleton: 0x0078D551 8B Unwind@00b8d551 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/OneRingPenaltyUpdateModuleDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078D559 11B Unwind@00b8d559 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/OneRingPenaltyUpdateModuleDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078D564 10B __ehhandler$??1OneRingPenaltyUpdateModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/OneRingPenaltyUpdateModuleDataDtor.cpp (not merged yet)
-
 // tu-skeleton: 0x0078D56E 8B uw_0078d56e -- matched in Code/gen_small/uw_gen_011.cpp (not merged yet)
 
-// tu-skeleton: 0x0078D580 11B uw_0078d580 -- matched in Code/gen_small/uw_gen_001.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva00499C6CWake.cpp
 
-// tu-skeleton: 0x0078D58B 10B __ehhandler$?rva00499C6C@Rva00499C6C@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva00499C6CWake.cpp (not merged yet)
+//
+// ?rva00499C6C@Rva00499C6C@@QAEXXZ @0x00499C6C 172B.
+// Clears +0x28, stores the logic frame at +0x30, and if the object's
+// module reports byte +0x31, marks status 0x12 and plays the ref at +0x20.
+
+void Rva00499C6C::rva00499C6C()
+{
+	unsigned int frame = TheGameLogic->getFrame();
+	Rva00499C6CHolder *holder = m_holder;
+	m_28 = 0;
+	Object *obj = m_obj;
+	m_30 = frame;
+	Rva00373EC6 *mod = obj->rva0028F4BC();
+	if (mod != 0 && mod->m_31 != 0)
+	{
+		mod->rva00374815();
+		obj->setStatus((ObjectStatusTypes)0x12, false);
+		obj->rva0028EC68(5, 0, 1);
+		if (holder->m_ref.referent != 0)
+		{
+			BfmeAudioEventPrefix136 evt(holder->m_ref, obj->m_id74);
+			reinterpret_cast<Rva00499C6CAudio *>(TheAudio)->addAudioEvent(&evt);
+		}
+	}
+	reinterpret_cast<BfmeC987 *>(this)->bfmeGo987C();
+}
