@@ -49,7 +49,7 @@ typedef _STL::list<Drawable *> BfmeDrawableList;
 
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 
-class NameKeyGenerator { public: NameKeyType nameToKey(const char *); };
+#include "../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 struct BfmeSelectTemplateView

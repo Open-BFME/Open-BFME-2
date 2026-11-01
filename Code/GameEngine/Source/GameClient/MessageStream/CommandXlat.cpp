@@ -129,7 +129,7 @@ class Rva003968A0 { public: bool test(); };
 enum RecorderModeType { RECORDER_NONE };
 class RecorderClass { public: RecorderModeType getMode(); };
 enum NameKeyType { NAMEKEY_NONE };
-class NameKeyGenerator { public: NameKeyType nameToKey(const AsciiString&); };
+#include "../../../Include/Common/NameKeyGenerator.h"
 class GameWindow { public: bool winIsHidden(); };
 class ThingFactory { public: const ThingTemplate* findTemplate(const AsciiString&); };
 class MultiplayerSettings { public: char pad00[0x14]; int m_maxBeaconsPerPlayer; int getMaxBeaconsPerPlayer() { return m_maxBeaconsPerPlayer; } };

@@ -25,11 +25,7 @@ enum NameKeyType
 
 #include "ascii_string.h"
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType Rva002D91AF(const AsciiString &nameString);
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

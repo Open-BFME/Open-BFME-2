@@ -276,7 +276,7 @@ public:
  unsigned char pad3[0x250-0x78]; ContainModuleInterface* contain;
  unsigned char pad4[0x304-0x254]; const Team* team;
 };
-class NameKeyGenerator { public: NameKeyType nameToKey(const char*); };
+#include "../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator* TheNameKeyGenerator;
 
 class GameTextInterface { public:

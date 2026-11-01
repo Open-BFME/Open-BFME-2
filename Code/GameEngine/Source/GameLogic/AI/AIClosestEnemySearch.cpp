@@ -255,7 +255,7 @@ class BodyModuleInterface : public QuerySlots<6> { public: virtual float getHeal
 class GatePrimary : public QuerySlots<6> { public: virtual bool isOpen() const = 0; };
 #include "../../../Include/Common/Module.h"
 class GateBehavior : public GatePrimary, public Module {};
-class NameKeyGenerator { public: NameKeyType nameToKey(const char *); };
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 class Player
 {

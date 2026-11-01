@@ -42,11 +42,7 @@ enum { MAX_SLOTS = 8 };
 
 // Views for init (0x00356B78).
 enum NameKeyType { NAMEKEY_INVALID = 0 };
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const AsciiString &name);
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 class Image;

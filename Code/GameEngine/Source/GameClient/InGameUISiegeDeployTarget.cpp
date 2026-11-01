@@ -269,7 +269,7 @@ extern InGameUI *TheInGameUI;
 class CommandButton { public: bool isReady(const Object*) const; };
 class ControlBar { public: const CommandButton *findCommandButton(const AsciiString&); };
 extern ControlBar *TheControlBar;
-class NameKeyGenerator { public: NameKeyType nameToKey(const char*); };
+#include "../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 #include "../../Include/GameLogic/Module/AIUpdate.h"
 class SiegeDockInterface { public: virtual void slot0(); virtual bool slot1(ObjectID,Coord3D*); };

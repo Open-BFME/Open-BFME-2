@@ -947,11 +947,7 @@ Bool AIMoveToStateSA::computePath()
 	return AIInternalMoveToState::computePath();
 }
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 class DynamicPortalBehaviour

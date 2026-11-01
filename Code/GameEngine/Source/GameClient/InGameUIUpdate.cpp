@@ -85,11 +85,7 @@ public:
 	virtual UnsignedInt getFrame();	// +0x7C
 };
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../Include/Common/NameKeyGenerator.h"
 
 class GameWindow
 {

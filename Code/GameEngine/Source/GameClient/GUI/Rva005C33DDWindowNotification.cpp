@@ -195,7 +195,8 @@ extern GameLogic *TheGameLogic;
 class PlayerList;extern PlayerList *ThePlayerList;
 class BfmeMemberRV {public:bool bfmeAskRV();};
 struct ParasiticPlayerView {char prefix[0x10];BfmeMemberRV *local;};
-class NameKeyGenerator {public:NameKeyType nameToKey(const char *);};extern NameKeyGenerator *TheNameKeyGenerator;
+#include "../../../Include/Common/NameKeyGenerator.h"
+extern NameKeyGenerator *TheNameKeyGenerator;
 class Overridable {public:const Overridable *friend_getFinalOverride()const;};
 class AsciiString;
 struct Rva0045A63FObject;class Rva0045A63FModule;

@@ -15,7 +15,7 @@
 #undef private
 #include "ascii_string.h"
 enum NameKeyType {NAMEKEY_INVALID=0};
-class NameKeyGenerator {public:NameKeyType nameToKey(const AsciiString&);};
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator*TheNameKeyGenerator;
 class INI;
 struct FieldParse {const char*name;void(*parse)(INI*,void*,void*,const void*);const void*data;int offset;};

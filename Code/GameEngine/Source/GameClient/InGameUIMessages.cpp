@@ -260,11 +260,7 @@ public:
 struct WindowLayoutInfo;
 
 enum NameKeyType { NAMEKEY_INVALID = 0 };
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey( const AsciiString &name );
-};
+#include "../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 class GameWindowManager

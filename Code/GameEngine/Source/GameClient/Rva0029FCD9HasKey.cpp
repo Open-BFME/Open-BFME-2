@@ -17,7 +17,7 @@ template <> __declspec(dllimport) __forceinline void *const &vector<void *>::ope
 }
 
 enum NameKeyType { NAMEKEY_INVALID = 0 };
-class NameKeyGenerator { public: NameKeyType nameToKey(const char *name); };
+#include "../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 enum Relationship { ENEMIES = 0, NEUTRAL = 1, ALLIES = 2 };

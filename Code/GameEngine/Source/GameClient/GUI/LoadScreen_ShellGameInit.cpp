@@ -57,11 +57,7 @@ public:
 
 extern GameWindowManager *TheWindowManager;
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const AsciiString &name);
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 class ImageCollection

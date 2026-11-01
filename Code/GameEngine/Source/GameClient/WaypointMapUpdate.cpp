@@ -13,7 +13,7 @@
 enum NameKeyType;
 class StaticNameKey { public: mutable int key; const char *name; };
 class Rva00148F5ECache { public: NameKeyType get(); };
-class NameKeyGenerator { public: const AsciiString &keyToName(NameKeyType); };
+#include "../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 extern const StaticNameKey TheKey_InitialCameraPosition;
 

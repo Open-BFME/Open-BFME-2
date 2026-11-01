@@ -124,11 +124,7 @@ template <class T> struct hash {
 // Import-inline: every use here is inlined, and this unit's unreferenced copy is not retail's.
 template <> __declspec(dllimport) __forceinline size_t hash<NameKeyType>::operator()(const NameKeyType &value) const { return (size_t)value; }
 }
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const AsciiString &name);
-};
+#include "../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 class DebugStream

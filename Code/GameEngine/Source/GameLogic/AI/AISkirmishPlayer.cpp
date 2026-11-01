@@ -88,11 +88,7 @@ private:
 	Int m_playerCount;			// +0x14
 };
 extern PlayerList *ThePlayerList;
-class NameKeyGenerator
-{
-public:
-	const AsciiString &keyToName(NameKeyType key);
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 class ScriptEngine
 {

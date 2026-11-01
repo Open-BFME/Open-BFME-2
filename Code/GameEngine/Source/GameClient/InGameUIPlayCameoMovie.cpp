@@ -39,7 +39,7 @@ class GameWindowManager { public:
 };
 extern GameWindowManager *TheWindowManager;
 enum NameKeyType { INVALID_KEY=0 };
-class NameKeyGenerator { public: NameKeyType nameToKey(const AsciiString&); };
+#include "../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 class InGameUI { public:
 #define V(n) virtual void slot##n();
