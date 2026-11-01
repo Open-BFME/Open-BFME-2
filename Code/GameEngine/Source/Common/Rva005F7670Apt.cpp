@@ -6,9 +6,7 @@
 
 #include "../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 
-class Rva00222A8BTarget
-{
-};
+#include "../../Include/Common/Rva00222A8BTarget.h"
 
 class Rva00222A8BTarget;
 class BfmeAptWindowManager;

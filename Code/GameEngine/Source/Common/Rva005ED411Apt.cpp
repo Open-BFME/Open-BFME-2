@@ -38,11 +38,7 @@ private:
 	int m_state24;
 };
 
-class Rva00222A8BTarget
-{
-public:
-	int rva00222B19(void *level, const char *prefix, const char *function, int argc, const char *a0, void *a1, void *a2, void *a3, void *a4);
-};
+#include "../../Include/Common/Rva00222A8BTarget.h"
 
 void StrategicHUD::RegionAwardMovieClip::Impl::rva005ED411()
 {

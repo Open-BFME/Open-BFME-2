@@ -2,9 +2,7 @@
 // ?rva005FC02A@Rva005FC02A@@QAEXXZ @0x005FC02A 58B
 // Apt FadeOut call with level at +4 and prefix from +8 (+8 name) then state 2 at +0x1c, tail-jmp to rowed 0x005FBEBA audio remove.
 // Evidence: calls rowed 0x00524EF4 AptCall; tail jmp to rowed 0x005FBEBA; caller thunk 0x005FC1A6 loads ecx+4; same +4 level and +8 outer layout as Rva005FBFE5 neighbour; FadeOut literal; empty-string and TheTarget globals.
-class Rva00222A8BTarget
-{
-};
+#include "../../Include/Common/Rva00222A8BTarget.h"
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 int __cdecl Rva00524EF4AptCall(Rva00222A8BTarget *t, void *a1, const char *a2, const char *a3);
 

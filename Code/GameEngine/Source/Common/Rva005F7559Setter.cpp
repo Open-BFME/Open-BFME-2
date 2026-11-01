@@ -1,11 +1,7 @@
 // cl: /MD /EHsc
 // ?DoSetState@QueuedIconSlot@Impl@BuildQueueDetailsMovieClip@StrategicHUD@@UAEXH@Z retail 0x005F7559 85 bytes.
 // Evidence: vslot 9 offset 0x24 of vtable 0x00879828 class Rva005F6AB0; cached index at +0x14 vs array at 0x00C78D64; owner at +0x1c with level at +4 and team at +8 with name at +8 plus empty fallback g_Rva0107301CEmptyString 0x007BAC1C; rowed Rva005252CDInvoke 0x005252CD with SetQueuedIconSlotState plus TheRva00222A8BTarget 0x009FE4CC; int at +0x20.
-class Rva00222A8BTarget
-{
-public:
-	int rva00222B19(void *level, const char *prefix, const char *name, int argc, const char *a0, void *a1, void *a2, void *a3, void *a4);
-};
+#include "../../Include/Common/Rva00222A8BTarget.h"
 
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 extern const char *const s_iconSlotStateNames[];

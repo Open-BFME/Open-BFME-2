@@ -4,9 +4,7 @@
 // Evidence: chain via rowed 0x0050E9FE AptCall; caller 0x0050FF48; sibling Rva0050F041;
 // prefix empty g_Rva0107301CEmptyString else +8; function "SetState"; table 0x00C6556C;
 // target TheRva00222A8BTarget 0x009FE4CC.
-class Rva00222A8BTarget
-{
-};
+#include "../../../Include/Common/Rva00222A8BTarget.h"
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 // SetState's state-suffix table, retail .rdata VA 0xC6556C: three pointers to
 // the literals "_default", "_player" and "_na" (read from the image). Only

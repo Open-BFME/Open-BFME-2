@@ -17,10 +17,7 @@ public:
 	void rva002239E2(const AsciiString &key, const Image *image);
 };
 
-class Rva00222A8BTarget
-{
-public:
-};
+#include "../../Include/Common/Rva00222A8BTarget.h"
 
 class Rva00222A8BTarget;
 class BfmeAptWindowManager;

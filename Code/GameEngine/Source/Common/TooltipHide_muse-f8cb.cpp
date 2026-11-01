@@ -6,11 +6,7 @@
 // DisplayStringManager slot 0x3c (new at 0x38 per WinInstanceDataDisplayStrings) and clears it.
 // Callers 0x001EE618 0x001EEC73 0x001EF276 0x00380902; unblocks 0x003808F0 0x001EEC4B 0x001EE5EE.
 // String "HideToolTip" at 0x00818EE4 proves Hide verb; free-function honest-address name.
-class Rva00222A8BTarget
-{
-public:
-	void invoke(void *owner, const char *name, int flag, const char *value, void *a4, void *a5, void *a6, void *a7);
-};
+#include "../../Include/Common/Rva00222A8BTarget.h"
 
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 // TheRva00222A8BOwner: VA 0x00DC06A0 (.data), retail initial value -1.

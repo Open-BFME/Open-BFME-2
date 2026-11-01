@@ -9,9 +9,7 @@
 // precedent Rva005F7670::rva005F7670 cached compare plus once flag.
 #include "unicode_string.h"
 
-class Rva00222A8BTarget
-{
-};
+#include "../../Include/Common/Rva00222A8BTarget.h"
 
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 

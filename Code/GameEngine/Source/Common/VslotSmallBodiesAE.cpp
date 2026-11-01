@@ -309,11 +309,7 @@ void Rva005C392A::rva005C392A()
 // the object at VA 0x00DFE4CC when TheGameLogic and the object at VA
 // 0x00E01E48 exist, TheGameLogic's +0x110 is not 4 and that object's
 // pinned 0x0035C194(true, false) agrees; else true.
-class Rva00222A8BTarget
-{
-public:
-	void rva002233A6(Int a);
-};
+#include "../../Include/Common/Rva00222A8BTarget.h"
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 // Retail 0x0035C194 is the verified Shell::showShellMap provider.
 class Shell

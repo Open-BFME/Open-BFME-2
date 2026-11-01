@@ -235,11 +235,7 @@ extern ImageCollection *TheMappedImageCollection;
 
 // Native image-store calls use the same manager pointer and target 0x2239E2.
 // The verified provider takes a string name and an image pointer.
-class Rva00222A8BTarget
-{
-public:
-	int invoke(void *owner, const char *name, int flag, const char *value, void *a4, void *a5, void *a6, void *a7);
-};
+#include "../../../Include/Common/Rva00222A8BTarget.h"
 
 // The owning screen's interface at +0x58, by vslot.
 class MpGameSetupOwner

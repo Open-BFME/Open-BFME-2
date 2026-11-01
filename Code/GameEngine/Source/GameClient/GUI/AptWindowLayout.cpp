@@ -148,12 +148,7 @@ public:
 	void PopFocus(AptFocusTarget *t);
 };
 
-class Rva00222A8BTarget
-{
-public:
-	// Native provider compares the incoming 32-bit index with 14 and returns AL.
-
-};
+#include "../../../Include/Common/Rva00222A8BTarget.h"
 
 class WindowLayout;
 

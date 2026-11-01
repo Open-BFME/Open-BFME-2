@@ -67,7 +67,7 @@ class VictoryConditionsInterface;
 // ?Rva00420353CreateVictoryConditions@@YAPAVVictoryConditionsInterface@@XZ is rowed in its own unit; this copy collided with it.
 
 class BfmeAptWindowManager {public:void bfmeSetText(const AsciiString &,const UnicodeString &,bool);};
-class Rva00222A8BTarget {public:int invoke(void *,const char *,int,const char *,void *,void *,void *,void *);};
+#include "../../Include/Common/Rva00222A8BTarget.h"
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 class GameTextInterface;extern GameTextInterface *TheGameText;
 class VictoryTextPrefix {public:

@@ -1225,13 +1225,7 @@ void Rva00511730(Int a);
 
 // 0x005127F3: messages 0x4014 and 0x4031 answer 1; the rest go to the pinned
 // base handler.
-class Rva00222A8BTarget
-{
-public:
-	int rva00222B19(void *level, const char *prefix, const char *function, int argc, const char *a0, void *a1, void *a2, void *a3, void *a4);
-public:
-	void rva00222F55(bool b);
-};
+#include "../../Include/Common/Rva00222A8BTarget.h"
 
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 

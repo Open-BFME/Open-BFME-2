@@ -119,11 +119,7 @@ void Rva0050962B::rva0050965A(const Rva0050962BArg *creationArgs, void *b)
 // 0x00513838: false after the rowed 0x002233A6(1) on the object at VA
 // 0x00DFE4CC when TheGameLogic and the object at VA 0x00E01E48 exist and
 // TheGameLogic's +0x110 is not 7; else true.
-class Rva00222A8BTarget
-{
-public:
-	void rva002233A6(Int a);
-};
+#include "../../Include/Common/Rva00222A8BTarget.h"
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 struct GlobalA01E48;
 extern class Shell *TheShell;

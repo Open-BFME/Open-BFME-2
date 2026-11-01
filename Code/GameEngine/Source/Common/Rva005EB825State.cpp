@@ -8,11 +8,7 @@ class AptPlayer { public: bool HideLevel(int); };
 // Evidence: string literals _fadeOut SetState, extern TheRva00222A8BTarget,
 // rowed 0x00516F21 plus pinned 0x0022277D, caller jmp at 0x005EB8C5,
 // offsets +0 +0x4 +0x8 +0xC from retail.
-class Rva00222A8BTarget
-{
-public:
-
-};
+#include "../../Include/Common/Rva00222A8BTarget.h"
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 void __cdecl Rva00516F21Invoke(Rva00222A8BTarget *t, void *p, const char *a, const char *b);
 

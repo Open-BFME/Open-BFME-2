@@ -11,12 +11,7 @@ class GameWindow;
 // Native 0x00222547 returns the integer Apt movie level for this window.
 class AptPlayer { public: static int GetLevelIndex(GameWindow *window); };
 
-class Rva00222A8BTarget
-{
-public:
-	int invoke(void *level, const char *function, int argc, const char *a0,
-		void *a1, void *a2, void *a3, void *a4);
-};
+#include "../../../../../Include/Common/Rva00222A8BTarget.h"
 
 class Rva00222A8BTarget;
 class BfmeAptWindowManager;

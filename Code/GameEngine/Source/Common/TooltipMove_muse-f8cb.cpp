@@ -7,11 +7,7 @@
 // 0x001EF23A. Prev Hide proves target owner globals and invoker pin; honest-address
 // free-function name with float params MM.
 #include <stdio.h>
-class Rva00222A8BTarget
-{
-public:
-	void invoke(void *owner, const char *name, int flag, const char *value, void *a4, void *a5, void *a6, void *a7);
-};
+#include "../../Include/Common/Rva00222A8BTarget.h"
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 extern void *TheRva00222A8BOwner;
 

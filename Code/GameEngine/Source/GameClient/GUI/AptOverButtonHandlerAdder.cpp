@@ -40,11 +40,7 @@ public:
 	void rva002239E2(const AsciiString &key, const Image *image);
 };
 
-class Rva00222A8BTarget : public Rva00223A94
-{
-public:
-	void rva002239FA(const AsciiString &key, const AsciiString &imageName);
-};
+#include "../../../Include/Common/Rva00222A8BTarget.h"
 
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 

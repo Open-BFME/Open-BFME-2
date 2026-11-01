@@ -4,9 +4,7 @@
 // Evidence: chain via rowed 0x0050E9FE AptCall; caller 0x005FC1A1; prev 0x005FBEBA;
 // prefix empty g_Rva0107301CEmptyString else +8; function SetResultState;
 // table 0x00C7A05C; target TheRva00222A8BTarget 0x009FE4CC.
-class Rva00222A8BTarget
-{
-};
+#include "../../Include/Common/Rva00222A8BTarget.h"
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 // The retail table at RVA 0x0087A05C: 2 string pointers.
 extern const char *g_00C7A05C[2] = { "_win", "_lose" };

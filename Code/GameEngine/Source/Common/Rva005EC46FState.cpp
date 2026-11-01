@@ -9,11 +9,7 @@ class AptPlayer { public: bool HideLevel(int); };
 // rowed ?FadeOut@StrategicVeterancy@@QAEXXZ on the +0 member. Layout follows
 // Rva005EC23EWindow (+0 ptr +4 owner +8 state) plus inline +0x10 object.
 
-class Rva00222A8BTarget
-{
-public:
-
-};
+#include "../../Include/Common/Rva00222A8BTarget.h"
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 class Rva005FA854

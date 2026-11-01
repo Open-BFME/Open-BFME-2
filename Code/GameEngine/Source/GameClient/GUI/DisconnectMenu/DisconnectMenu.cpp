@@ -211,15 +211,7 @@ extern int g_00DD1488;
 
 int GadgetListBoxAddEntryText(GameWindow *listbox, UnicodeString text, int color, int row, int column, bool overwrite);
 
-class Rva00222A8BTarget
-{
-public:
-	void rva00222F55(bool show);
-public:
-	void rva002233A6(int mode);
-public:
-	void invoke(void *owner, const char *name, int flag, const char *value, void *a4, void *a5, void *a6, void *a7);
-};
+#include "../../../../Include/Common/Rva00222A8BTarget.h"
 
 class Rva00222A8BTarget;
 

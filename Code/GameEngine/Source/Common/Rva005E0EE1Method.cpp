@@ -12,9 +12,7 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 
-class Rva00222A8BTarget
-{
-};
+#include "../../Include/Common/Rva00222A8BTarget.h"
 void __cdecl Rva005277D9Fire(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, bool *flagPtr);
 
 #include "../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
