@@ -16360,7 +16360,7 @@ with a one-slot anchor) by `GameLogic/Module/BehaviorModule.h`. Four mechanisms:
 | StancesBehaviorCtor, AttachUpdateCtor, BannerCarrierUpdateCtor, DamageFieldUpdateBehaviorCtor/Dtor, FadeAndDieOrnamentUpdateCtor, HordeNotify.../NotifyTargetsOfImminentProbableCrushingUpdateCtor, RespawnUpdateCtor, StrafeAreaUpdateCtor | 967 | 1 | repaired (this entry, first commit): bind `??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@` |
 | SupplyWarehouseCripplingBehaviorCtor, WallUpgradeUpdate | 1,143 | 1 | repaired (second commit): `??_7PoisonedBehavior@@6BBehaviorModuleInterface@@@` (0x00C49800) and the `c3e8f0752f` renames `??_7Rva004839D3@@6BRva004839D3_E1/UpdateModule/ObjectModule@@@`, `??_7Rva004AB246@@6BUpdateModule/ObjectModule@@@` |
 | BloodthirstyUpdateCtor, RainOfFireUpdateCtor | 250 | 1 | repaired (second commit): `6BObjectModule`/`6BBehaviorModuleInterface` tables their Dtor units emit |
-| BridgeBehaviorCtor, QueueProductionExitUpdateCtor | 302 | 1 | blocked. BridgeBehaviorCtor was claimable at 2026-11-01 15:50 UTC (lk11). `6BMiBase1` (0x00C40920) is now BridgeBehaviorDtor.cpp's `6BBehaviorModuleInterface` (retail DIR32 pair), but the unit's own view derives from BehaviorModuleInterface, so rebinding is C2373. It needs canonical UpdateModule with compiler vptr stores (re_attempts 0x00457472). QueueProductionExitUpdateCtor is held by StarkillerHDX's TU work |
+| BridgeBehaviorCtor, QueueProductionExitUpdateCtor | 302 | 1 | QueueProductionExitUpdateCtor links again (2026-11-01, lk12, below). BridgeBehaviorCtor still blocked: `6BMiBase1` (0x00C40920) is now BridgeBehaviorDtor.cpp's `6BBehaviorModuleInterface` (retail DIR32 pair), but the unit's own view derives from BehaviorModuleInterface, so rebinding is C2373. Moving the ctor to canonical UpdateModule with compiler vptr stores is not enough either: BridgeBehaviorDtor.cpp (first in link order, held by StarkillerHDX) emits a primary `6BObjectModule` table whose slots 1-4 are UpdateModule's defaults, while retail 0x00C409DC (the ctor's byte-verified `_vtbl_00C409DC` data row) holds 0x00497805, BridgeBehavior::GetSnapshotName, ::xfer and ::getModuleNameKey; the Dtor's view needs those overrides first |
 | UpdateModuleCtor, RunOffMapBehaviorCtor, DamageModuleCtor, SpecialPowerModuleCtor, BodyModuleCtor, FireWeaponCollide | 1,167 | 2 | UpdateModuleCtor's implicit own destructor is removed, but its two BehaviorModule table COMDATs still need the shared-header contract repair; historical class reservation and tested proposal below |
 | AIGateUpdateCtor, DestroyEnvironmentUpdateCtor | 132 | 3 (+2) | Both corrected by explicit existing destructor declarations (2026-11-01, Cortys). Historical held-scope blocker retained below. |
 | AIGateUpdateDtor, DestroyEnvironmentUpdate, Rva0024A797DeletingDtor | 413 | 3 (victims) | All three now predict LINKS after the three constructor units reference their existing destructors |
@@ -16528,6 +16528,22 @@ Remaining / next check: the open rows above. Pattern: after a base-header adopti
 grep `__identifier("??_7<Class>@@6B<old base>@@@")` in sibling units, and check whether
 any adopting unit defines a constructor (it then emits the base's inline destructor and
 tables).
+Repair (2026-11-01, seat halilkkaya-lk12, base `6b1a8fb85c`): a current-object
+`link_check --refresh` over all 18,636 sources of the 12:39 census (`39dfbbdb50`) finds 14
+census-linked units that no longer link. Two are this entry's mechanism 1, after the
+held-file renames since the census: QueueProductionExitUpdateCtor.cpp (106 B) bound
+`??_7QueueProductionExitUpdate@@6BBehaviorModuleBase@@@` (0x00C519C8) and
+`??_7SpawnPointProductionExitUpdate@@6BSpawnB2@@@` (0x00C4B1F0); QueueProductionExitUpdateDtor.cpp
+now emits the first as `6BObjectModule@@@` and SpawnPointProductionExitUpdate.cpp the second as
+`6BBehaviorModuleInterface@@@` (the name lk10 bound for DefaultProductionExitUpdateCtor).
+TerrainResourceBehaviorCtor.cpp (135 B) bound `??_7FakePathfindPortalBehaviour@@6BMiBase1@@@`
+(0x00C42B60), which FakePathfindPortalBehaviourDtor.cpp now emits as `6BBehaviorModuleInterface@@@`.
+Both bind the emitted names. `./build.sh` 1/1 and 2/2 rows (+1 data row); scoped DIR32 OK
+(16 rows/18 symbols with QueueProductionExitUpdateDtor and SpawnPointProductionExitUpdate;
+18 rows/17 symbols with FakePathfindPortalBehaviourDtor); `link_check --refresh`
+QueueProductionExitUpdateCtor 0 -> 106 B, TerrainResourceBehaviorCtor 0 -> 135 B (current
+objects), definers QueueProductionExitUpdateDtor 60, SpawnPointProductionExitUpdate 717,
+FakePathfindPortalBehaviourDtor 624 B unchanged LINKS.
 Census confirmation: awaiting.
 
 ### W3DTerrainBackground seed reconciliation (2026-11-01, halilkkaya-codex)

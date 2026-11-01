@@ -11,11 +11,11 @@
 // (news 0x44) is the sole caller. Row supersedes the ctor pin.
 
 extern "C" const void *const __identifier("??_7ContainIface30@@6B@")[];  // folded vftable 0x00C430B4 (2 classes), by its data-ledger name
-extern "C" const void *const __identifier("??_7SpawnPointProductionExitUpdate@@6BSpawnB2@@@")[];  // folded vftable 0x00C4B1F0 (4 classes), by its data-ledger name
+extern "C" const void *const __identifier("??_7SpawnPointProductionExitUpdate@@6BBehaviorModuleInterface@@@")[];  // folded vftable 0x00C4B1F0 (4 classes), the name SpawnPointProductionExitUpdate.cpp emits
 
 extern "C" const void *const __identifier("??_7QueueProductionExitUpdate@@6BExitInterface@@@")[];  // vftable 0x00C5198C
 extern "C" const void *const __identifier("??_7QueueProductionExitUpdate@@6BUpdateModule@@@")[];  // vftable 0x00C519BC
-extern "C" const void *const __identifier("??_7QueueProductionExitUpdate@@6BBehaviorModuleBase@@@")[];  // vftable 0x00C519C8
+extern "C" const void *const __identifier("??_7QueueProductionExitUpdate@@6BObjectModule@@@")[];  // vftable 0x00C519C8, the name QueueProductionExitUpdateDtor.cpp emits
 
 class Thing;
 class ModuleData;
@@ -70,8 +70,8 @@ QueueProductionExitUpdate::QueueProductionExitUpdate(Thing *thing, const ModuleD
 	int *slot20 = (int *)&m_secondary20;
 	*slot20 = (int)((unsigned int)__identifier("??_7ContainIface30@@6B@"));
 	int zero = 0;
-	m_vtable = (const void *)((unsigned int)__identifier("??_7QueueProductionExitUpdate@@6BBehaviorModuleBase@@@"));
-	m_p0C = (const void *)((unsigned int)__identifier("??_7SpawnPointProductionExitUpdate@@6BSpawnB2@@@"));
+	m_vtable = (const void *)((unsigned int)__identifier("??_7QueueProductionExitUpdate@@6BObjectModule@@@"));
+	m_p0C = (const void *)((unsigned int)__identifier("??_7SpawnPointProductionExitUpdate@@6BBehaviorModuleInterface@@@"));
 	m_p10 = (const void *)((unsigned int)__identifier("??_7QueueProductionExitUpdate@@6BUpdateModule@@@"));
 	m_secondary20 = (const void *)((unsigned int)__identifier("??_7QueueProductionExitUpdate@@6BExitInterface@@@"));
 	m_24 = zero;

@@ -15,7 +15,7 @@
 // tail (protected IAEX Object-uint spelling resolves via the existing pin
 // at 0x44DF71). Row supersedes the ctor pin.
 
-extern "C" const void *const __identifier("??_7FakePathfindPortalBehaviour@@6BMiBase1@@@")[];  // folded vftable 0x00C42B60 (3 classes), by its data-ledger name
+extern "C" const void *const __identifier("??_7FakePathfindPortalBehaviour@@6BBehaviorModuleInterface@@@")[];  // folded vftable 0x00C42B60 (3 classes), the name FakePathfindPortalBehaviourDtor.cpp emits
 extern "C" const void *const __identifier("??_7GhostObject@@6BRva001B3E60SecondBaseCore@@@")[];  // folded vftable 0x00C4EF80 (7 classes), by its data-ledger name
 
 extern "C" const void *const __identifier("??_7Rva00481F82@@6BRva00481F82_S4@@@")[];  // vftable 0x00C493E8
@@ -104,7 +104,7 @@ TerrainResourceBehavior::TerrainResourceBehavior(Thing *thing, const ModuleData 
 	*slot20 = (int)((unsigned int)__identifier("??_7SecondaryModuleBase@FXParticleSystem@@6B@"));
 	*slot24 = (int)((unsigned int)__identifier("??_7GhostObject@@6BRva001B3E60SecondBaseCore@@@"));
 	m_vtable = (const void *)((unsigned int)vtbl_00C49408);
-	m_secondary0C = (const void *)((unsigned int)__identifier("??_7FakePathfindPortalBehaviour@@6BMiBase1@@@"));
+	m_secondary0C = (const void *)((unsigned int)__identifier("??_7FakePathfindPortalBehaviour@@6BBehaviorModuleInterface@@@"));
 	m_secondary10 = (const void *)((unsigned int)__identifier("??_7Rva00481F82@@6BRva00481F82_S2@@@"));
 	m_20 = (const void *)((unsigned int)__identifier("??_7Rva00481F82@@6BRva00481F82_S3@@@"));
 	m_24 = (const void *)((unsigned int)__identifier("??_7Rva00481F82@@6BRva00481F82_S4@@@"));
