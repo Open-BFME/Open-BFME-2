@@ -1,0 +1,2067 @@
+{
+ "bases": [
+  "SubsystemInterface"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "ControlBar",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 125,
+  "inherited": {
+   "base_views": 10,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x1c": {
+    "4": 3
+   },
+   "0x20": {
+    "4": 2
+   },
+   "0x218": {
+    "4": 1
+   },
+   "0x21c": {
+    "4": 1
+   },
+   "0x220": {
+    "4": 1
+   },
+   "0x224": {
+    "4": 1
+   },
+   "0x228": {
+    "4": 1
+   },
+   "0x230": {
+    "4": 1
+   },
+   "0x24": {
+    "4": 7
+   },
+   "0x250": {
+    "4": 2
+   },
+   "0x254": {
+    "4": 2
+   },
+   "0x258": {
+    "4": 2
+   },
+   "0x25c": {
+    "4": 1
+   },
+   "0x260": {
+    "4": 1
+   },
+   "0x264": {
+    "4": 1
+   },
+   "0x270": {
+    "4": 1
+   },
+   "0x274": {
+    "4": 1
+   },
+   "0x278": {
+    "1": 2
+   },
+   "0x27c": {
+    "4": 2
+   },
+   "0x28": {
+    "1": 1
+   },
+   "0x280": {
+    "4": 1
+   },
+   "0x284": {
+    "4": 1
+   },
+   "0x288": {
+    "4": 1
+   },
+   "0x28c": {
+    "4": 1
+   },
+   "0x290": {
+    "1": 1
+   },
+   "0x294": {
+    "4": 1
+   },
+   "0x298": {
+    "4": 2
+   },
+   "0x2c": {
+    "4": 1
+   },
+   "0x30": {
+    "4": 1
+   },
+   "0x44": {
+    "4": 3
+   },
+   "0x48": {
+    "4": 7
+   },
+   "0x6c": {
+    "4": 6
+   },
+   "0x70": {
+    "4": 2
+   },
+   "0x84": {
+    "4": 2
+   },
+   "0x88": {
+    "4": 1
+   },
+   "0xa0": {
+    "4": 1
+   },
+   "0xa4": {
+    "4": 1
+   },
+   "0xa8": {
+    "4": 2
+   },
+   "0xd0": {
+    "4": 2
+   },
+   "0xd8": {
+    "4": 4
+   },
+   "0xdc": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x2b4": 1
+     }
+    },
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x31e94c"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "SubsystemInterface",
+       "offset": 0,
+       "own_vftable": "0x80cc88",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x31e94c"
+     ],
+     "value": 680
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x31e94c"
+     ],
+     "value": {
+      "0x10": [
+       4
+      ],
+      "0x14": [
+       4
+      ],
+      "0x18": [
+       4
+      ],
+      "0x1c": [
+       4
+      ],
+      "0x1dc": [
+       1
+      ],
+      "0x1e0": [
+       4
+      ],
+      "0x1e4": [
+       4
+      ],
+      "0x1e8": [
+       4
+      ],
+      "0x1ec": [
+       4
+      ],
+      "0x1f0": [
+       4
+      ],
+      "0x1f4": [
+       4
+      ],
+      "0x1f8": [
+       4
+      ],
+      "0x1fc": [
+       4
+      ],
+      "0x20": [
+       4
+      ],
+      "0x200": [
+       4
+      ],
+      "0x204": [
+       4
+      ],
+      "0x208": [
+       4
+      ],
+      "0x20c": [
+       1
+      ],
+      "0x210": [
+       4
+      ],
+      "0x214": [
+       1
+      ],
+      "0x22c": [
+       4
+      ],
+      "0x248": [
+       4
+      ],
+      "0x24c": [
+       4
+      ],
+      "0x250": [
+       4
+      ],
+      "0x254": [
+       4
+      ],
+      "0x258": [
+       4
+      ],
+      "0x25c": [
+       4
+      ],
+      "0x260": [
+       4
+      ],
+      "0x264": [
+       4
+      ],
+      "0x26c": [
+       4
+      ],
+      "0x270": [
+       4
+      ],
+      "0x274": [
+       4
+      ],
+      "0x278": [
+       1
+      ],
+      "0x28": [
+       1
+      ],
+      "0x290": [
+       1
+      ],
+      "0x294": [
+       4
+      ],
+      "0x298": [
+       4
+      ],
+      "0x29c": [
+       4
+      ],
+      "0x2a0": [
+       4
+      ],
+      "0x2a4": [
+       4
+      ],
+      "0x2c": [
+       4
+      ],
+      "0x44": [
+       4
+      ],
+      "0x6c": [
+       4
+      ],
+      "0x70": [
+       4
+      ],
+      "0x74": [
+       4
+      ],
+      "0x78": [
+       4
+      ],
+      "0x7c": [
+       4
+      ],
+      "0x80": [
+       4
+      ],
+      "0x84": [
+       4
+      ],
+      "0x88": [
+       4
+      ],
+      "0xa0": [
+       4
+      ],
+      "0xa4": [
+       4
+      ],
+      "0xa8": [
+       4
+      ],
+      "0xbc": [
+       4
+      ],
+      "0xc": [
+       4
+      ],
+      "0xd4": [
+       4
+      ],
+      "0xd8": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x31e94c"
+     ],
+     "value": {
+      "0x0": [
+       "?rva0053B914@Rva0053B914@@QAEXXZ"
+      ],
+      "0x230": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x23c": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x2a8": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x30": [
+       "??0?$hash_map@HURva0031DBFCElement@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHURva0031DBFCElement@@@_STL@@@3@@_STL@@QAE@XZ"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x31e94c"
+     ],
+     "value": {
+      "0x0": "0x80cc88"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x80cc88"
+     ],
+     "value": {
+      "count": 15,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GRva0031DCF0@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x31eb7a"
+       },
+       {
+        "name": "?init@ControlBar@@UAEXXZ",
+        "slot": 1,
+        "target": "0x31c83d"
+       },
+       {
+        "name": "?rva0031B53D@Rva0031B53D@@QAEEXZ",
+        "slot": 2,
+        "target": "0x31b53d"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 3,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva0031E7F0@Rva0031DCF0@@QAE_NPA_N@Z",
+        "slot": 4,
+        "target": "0x31e7f0"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 5,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 6,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 7,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?reset@ControlBar@@UAEXXZ",
+        "slot": 9,
+        "target": "0x31e09e"
+       },
+       {
+        "name": "?update@ControlBar@@UAEXXZ",
+        "slot": 10,
+        "target": "0x31e25e"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 11,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 12,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 13,
+        "target": "0x47a69c"
+       },
+       {
+        "name": null,
+        "slot": 14,
+        "target": "0x90052"
+       }
+      ],
+      "table": "0x80cc88"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 77,
+  "retail_vtables": {
+   "0x80cc88": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GRva0031DCF0@@UAEPAXI@Z",
+     "1": "?init@ControlBar@@UAEXXZ",
+     "2": "?rva0031B53D@Rva0031B53D@@QAEEXZ",
+     "3": "??1Region2D@@QAE@XZ",
+     "4": "?rva0031E7F0@Rva0031DCF0@@QAE_NPA_N@Z",
+     "5": "?IsCRC@Xfer@@UBE_NXZ",
+     "6": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "7": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "8": "??1Region2D@@QAE@XZ",
+     "9": "?reset@ControlBar@@UAEXXZ",
+     "10": "?update@ControlBar@@UAEXXZ",
+     "11": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "12": "??1Region2D@@QAE@XZ",
+     "13": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "14": "0x90052"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 8,
+  "view_sizes": {
+   "1": 71,
+   "4": 2,
+   "12": 1,
+   "41": 17,
+   "48": 1,
+   "116": 1,
+   "128": 1,
+   "524": 1,
+   "532": 4,
+   "560": 1,
+   "624": 1,
+   "672": 1,
+   "676": 3,
+   "692": 12
+  },
+  "views": 117,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_ControlBar.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/ControlBar.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 18,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 1
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIDtor.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIMessages.cpp"
+   ],
+   "views": 11
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIDtor.cpp"
+   ],
+   "views": 10
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/ControlBarVisibility.cpp"
+   ],
+   "views": 10
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/Rva002B212A_Rva002ADC03.cpp",
+    "Code/GameEngine/Source/Common/Rva004B3AFFNotify.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommandProcessing.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehaviorRva00453652.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/RiderChangeContainOnContaining.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHero.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/HordeAIUpdatePrivateCommands.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/MonitorConditionUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/MonitorConditionUpdateUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateTriggerRevival.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdateLogic.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/ToggleMountedSpecialAbilityUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Upgrade/BuildableHeroListUpgrade.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Upgrade/CommandSetUpgrade.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Upgrade/TooltipUpgradeRemoval.cpp",
+    "Code/GameEngine/Source/GameLogic/System/GameLogicDispatchDoSetRallyPoint.cpp"
+   ],
+   "views": 27
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHeroReset.cpp"
+   ],
+   "views": 10
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 49,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 50,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 64,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 68,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/GUICallbacks/W3DControlBar.cpp"
+   ],
+   "views": 10
+  },
+  {
+   "offset": 72,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 80,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommand.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIPlanningPhaseBuildingSelectionCtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 100,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarOCLTimer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 108,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva005399D0Check.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommand.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommandProcessing.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarMultiSelect.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarOCLTimer.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateConstruction.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateConstruction_Rva0053E4B1.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIPlanningPhaseBuildingSelectionCtor.cpp"
+   ],
+   "views": 17
+  },
+  {
+   "offset": 112,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva005399D0Check.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommandProcessing.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarMultiSelect.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 12
+  },
+  {
+   "offset": 116,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 120,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateConstruction.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateConstruction_Rva0053E4B1.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 11
+  },
+  {
+   "offset": 124,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarOCLTimer.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 10
+  },
+  {
+   "offset": 128,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommand.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateConstruction.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateConstruction_Rva0053E4B1.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIPlanningPhaseBuildingSelectionCtor.cpp"
+   ],
+   "views": 13
+  },
+  {
+   "offset": 132,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 136,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 140,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 160,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 164,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 168,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 188,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 208,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 212,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 216,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 220,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommand.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarMultiSelect.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateConstruction.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateConstruction_Rva0053E4B1.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIPlanningPhaseBuildingSelectionCtor.cpp"
+   ],
+   "views": 14
+  },
+  {
+   "offset": 348,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarMultiSelect.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 10
+  },
+  {
+   "offset": 476,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarMultiSelect.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 10
+  },
+  {
+   "offset": 480,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 484,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 488,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 492,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 496,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 500,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 504,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 508,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 512,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 516,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 520,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommand.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarMultiSelect.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIPlanningPhaseBuildingSelectionCtor.cpp"
+   ],
+   "views": 12
+  },
+  {
+   "offset": 524,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 528,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerList.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerList_getNthPlayer.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/Rva0050DE39Observer.cpp",
+    "Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp"
+   ],
+   "views": 13
+  },
+  {
+   "offset": 532,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 536,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 540,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 544,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 548,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 552,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 556,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/GUICallbacks/W3DControlBar.cpp"
+   ],
+   "views": 10
+  },
+  {
+   "offset": 560,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 564,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 568,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 572,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 576,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 580,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 584,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 588,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 592,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 596,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 600,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 604,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 608,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 612,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 620,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/TransitionStyleSlotsBfme2.cpp"
+   ],
+   "views": 10
+  },
+  {
+   "offset": 624,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 628,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 632,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 636,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 640,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 644,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 648,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 652,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 656,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 660,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 664,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 668,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/ControlBarVisibility.cpp"
+   ],
+   "views": 10
+  },
+  {
+   "offset": 672,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarMultiSelect.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateConstruction.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateConstruction_Rva0053E4B1.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIPlanningPhaseBuildingSelectionCtor.cpp"
+   ],
+   "views": 13
+  },
+  {
+   "offset": 676,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 680,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommandProcessing.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIPlanningPhaseBuildingSelectionCtor.cpp"
+   ],
+   "views": 11
+  },
+  {
+   "offset": 684,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommandProcessing.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIPlanningPhaseBuildingSelectionCtor.cpp"
+   ],
+   "views": 11
+  },
+  {
+   "offset": 688,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommandProcessing.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIPlanningPhaseBuildingSelectionCtor.cpp"
+   ],
+   "views": 11
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "base-slots",
+   "candidates": {
+    "1": 1,
+    "14": 9
+   },
+   "class": "ControlBar"
+  },
+  {
+   "attribute": "slot1",
+   "candidates": {
+    "init()": 1,
+    "slot1()": 1
+   },
+   "class": "ControlBar"
+  }
+ ],
+ "size": 41,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  },
+  "10": {
+   "decided_by": "bytes",
+   "member": "slot10()"
+  },
+  "2": {
+   "decided_by": "bytes",
+   "member": "slot2()"
+  },
+  "3": {
+   "decided_by": "bytes",
+   "member": "slot3()"
+  },
+  "4": {
+   "decided_by": "bytes",
+   "member": "slot4()"
+  },
+  "5": {
+   "decided_by": "bytes",
+   "member": "slot5()"
+  },
+  "6": {
+   "decided_by": "bytes",
+   "member": "slot6()"
+  },
+  "7": {
+   "decided_by": "bytes",
+   "member": "slot7()"
+  },
+  "8": {
+   "decided_by": "bytes",
+   "member": "slot8()"
+  },
+  "9": {
+   "decided_by": "bytes",
+   "member": "slot9()"
+  }
+ }
+}

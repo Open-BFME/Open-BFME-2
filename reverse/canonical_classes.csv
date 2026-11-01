@@ -202,3 +202,4 @@ InGameUI,Code/GameEngine/Include/GameClient/InGameUI.h,existing header; contract
 GeometryInfo,Code/GameEngine/Include/Common/Geometry.h,existing header; contract class_contracts/GeometryInfo.json; 30/127 sampled units adopt
 TerrainLogic,Code/GameEngine/Include/GameLogic/TerrainLogic.h,existing header; contract class_contracts/TerrainLogic.json; 130/287 sampled units adopt
 Pathfinder,Code/GameEngine/Include/GameLogic/AIPathfind.h,existing header; contract class_contracts/Pathfinder.json; 211/267 sampled units adopt
+ControlBar,Code/GameEngine/Include/GameClient/ControlBar.h,existing header; contract class_contracts/ControlBar.json; 65/125 sampled units adopt
