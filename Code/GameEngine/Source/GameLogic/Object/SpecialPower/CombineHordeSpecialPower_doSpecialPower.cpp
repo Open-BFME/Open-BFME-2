@@ -165,19 +165,7 @@ public:
 };
 
 class ModuleData;
-class BehaviorModule
-{
-public:
-	virtual ~BehaviorModule();
-protected:
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-};
-class BehaviorModuleInterface
-{
-public:
-	virtual void behaviorModuleInterfaceAnchor();
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 template <int N> class Rva004C888DSPSlots : public Rva004C888DSPSlots<N - 1>
 {
 public:
@@ -198,7 +186,7 @@ public:
 	virtual void slot14() = 0;
 	virtual void rva004C888DSlot15(float amount) = 0;
 };
-class SpecialPowerModule : public BehaviorModule, public BehaviorModuleInterface, public Rva004C888DIface10
+class SpecialPowerModule : public BehaviorModule, public Rva004C888DIface10
 {
 };
 
