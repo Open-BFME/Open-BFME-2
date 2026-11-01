@@ -3931,7 +3931,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0006C790,443,code,,,-,,Code/GameEngine/Source/GameLogic/Object/StlO1Instantiations.cpp
 0x0006C94B,5,code,Code/Libraries/Source/assetmanager/Q1ReceiverLocalSet.cpp,proposed,N,N=Code/Libraries/Source/assetmanager/Q1ReceiverLocalSet.cpp,Code/Libraries/Source/assetmanager/assetmanager_impl.cpp
 0x0006C950,69,code,,,-,,Code/GameEngine/Source/Common/Rva00208F90AssetWalk_Rva0006C950.cpp
-0x0006C995,58,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/Rva0006C995Insert.cpp
+0x0006C995,58,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp
 0x0006C9CF,1160,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp,approved,Z,Z=Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp S=Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapRenderObjClass.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp
 0x0006CE57,20,code,Code/GameEngine/Source/Common/BfmeDynamicVBRefCount.cpp,proposed,N,N=Code/GameEngine/Source/Common/BfmeDynamicVBRefCount.cpp,Code/GameEngine/Source/Common/BfmeDynamicVBRefCountRva0006CE57.cpp
 0x0006CE6B,6,code,,,-,,Code/GameEngine/Source/Common/SubsystemNameGetters.cpp
@@ -3974,7 +3974,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0006D0D7,735,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp,approved,Z,Z=Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp S=Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapRenderObjClass.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0006D0D7Dtor.cpp
 0x0006D3B6,186,code,,,-,,Code/GameEngine/Source/Common/Rva0006ACBDMethod.cpp
 0x0006D470,186,code,,,-,,Code/GameEngine/Source/Common/Rva0006ACBDMethod.cpp
-0x0006D52A,44,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_bool_clear.cpp
+0x0006D52A,44,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp
 0x0006D556,33,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdateCtor.cpp
 0x0006D577,20,code,Code/GameEngine/Source/GameLogic/System/AssetList.cpp,proposed,N,N=Code/GameEngine/Source/GameLogic/System/AssetList.cpp,Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp
 0x0006D58B,28,code,,displaced,-,N=Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapRenderObjClass.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0006D0D7Dtor.cpp
