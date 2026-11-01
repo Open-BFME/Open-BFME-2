@@ -68,13 +68,7 @@ enum INILoadType
 	INI_LOAD_UNK5
 };
 
-class File
-{
-public:
-	virtual ~File();
-	virtual bool open(const char *name, int flags);
-	virtual void close();
-};
+#include "../../../Include/Common/File.h"
 
 class FileSystem
 {

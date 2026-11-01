@@ -191,13 +191,7 @@ private:
 	int tag;
 };
 
-class File
-{
-public:
-	virtual ~File();
-	virtual bool open(const char *filename, int access);
-	virtual void close();
-};
+#include "../../../../Include/Common/File.h"
 
 // TheFileSystem (VA 0x00E06A48); 0x00600676 forwards to the archive file
 // system's slot 2 without reading this.

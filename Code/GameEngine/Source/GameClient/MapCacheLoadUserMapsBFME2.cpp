@@ -35,7 +35,7 @@ namespace _STL{template<>TreeHintPayload00207343&SeenMap::operator[](const Ascii
 class Rva00206667{public:void rva00206F6B();};
 class MapMetaData{char storage[256];};
 struct FileInfo{unsigned sizeHigh,sizeLow,timestampHigh,timestampLow;};
-class File{public:virtual void slot0();virtual void slot1();virtual void close();};
+#include "../../Include/Common/File.h"
 class FileSystem{public:File*openFile(const char*,int,int);void getFileListInDirectory(const AsciiString&,const AsciiString&,FilenameList&,bool)const;bool getFileInfo(const AsciiString&,FileInfo*)const;};extern FileSystem*TheFileSystem;
 class GlobalData{public:char pad[0xAB5];bool buildMapCache;};extern GlobalData*TheWritableGlobalData;
 class Xfer;enum INILoadType{INI_LOAD_INVALID,INI_LOAD_OVERWRITE,INI_LOAD_CREATE_OVERRIDES,INI_LOAD_MULTIFILE};

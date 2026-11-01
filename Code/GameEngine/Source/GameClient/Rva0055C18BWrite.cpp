@@ -59,14 +59,7 @@ void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(char *__p, siz
 { allocator<char>::deallocate(__p, __n); }
 }
 
-class File {
-public:
-	virtual ~File();
-	virtual bool open(const char *n, int a = 0);
-	virtual void close();
-	virtual int read(void *b, int bsz);
-	virtual int write(const void *b, int bsz);
-};
+#include "../../Include/Common/File.h"
 struct Rva001F458BText {
 	const char *m_start;
 	const char *m_finish;

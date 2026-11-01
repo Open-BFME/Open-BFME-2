@@ -60,25 +60,7 @@ void Rva0060126D::rva00601522(NativeNestedTree *group,const char *name)
 // ZH File.h at donor9cbfb55 and the existing BFME2 File.cpp establish
 // nextLine slot6 and convertToRAMFile slot14; native calls are +18/+38.
 class AsciiString;
-class File {
-public:
- virtual ~File();
- virtual bool open(const char *,int);
- virtual void close();
- virtual int read(void *,int);
- virtual int write(const void *,int);
- virtual int seek(int,int);
- virtual void nextLine(char *,int);
- virtual bool scanInt(int &);
- virtual bool scanReal(float &);
- virtual bool scanString(AsciiString &);
- virtual bool print(const char *,...);
- virtual int size();
- virtual int position();
- virtual char *readEntireAndClose();
- virtual File *convertToRAMFile();
- bool eof();
-};
+#include "../../../Include/Common/File.h"
 class FileSystem {
 public:
  File *openFile(const char *,int,int);

@@ -36,31 +36,7 @@ typedef _STL::pair<const UnicodeString, bool> LanguageFilterValue;
 typedef _STL::map<UnicodeString, bool, UnicodeStringLessThan,
     _STL::allocator<LanguageFilterValue> > LanguageFilterMap;
 
-class File {
-public:
-    enum { READ = 1, BINARY = 0x40 };
-    virtual void slot0();
-    virtual void slot1();
-    virtual void close();
-    virtual Int read(void *buffer, Int bytes);
-    virtual Int write(const void *buffer, Int bytes);
-    virtual Int seek(Int bytes, Int mode);
-    virtual void nextLine(char *buf, Int bufSize);
-    virtual bool scanInt(Int &value);
-    virtual bool scanReal(float &value);
-    virtual bool scanString(void *value);
-    virtual bool print(const char *format, ...);
-    virtual Int size();
-    virtual Int position();
-    virtual char *readEntireAndClose();
-    virtual File *convertToRAMFile();
-    void deleteOnClose() { m_deleteOnClose = true; }
-private:
-    void *m_nameStr;
-    Int m_access;
-    bool m_open;
-    bool m_deleteOnClose;
-};
+#include "../../Include/Common/File.h"
 class FileSystem {
 public:
     File *openFile(const char *filename, Int access, Int extra);

@@ -6,14 +6,7 @@
 typedef bool Bool;
 typedef unsigned short UnsignedShort;
 
-class File
-{
-public:
-	virtual void unused0();
-	virtual void unused1();
-	virtual void unused2();
-	virtual int read(void *, unsigned int);
-};
+#include "../../Include/Common/File.h"
 
 class LanguageFilter
 {

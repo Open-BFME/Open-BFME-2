@@ -19,14 +19,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 // basic_streambuf<char> constructor is not retail's.
 namespace _STL { template <> basic_ostringstream<char, char_traits<char>, allocator<char> >::basic_ostringstream(int); }
 
-class File {
-public:
-	virtual ~File();
-	virtual bool open(const char *n, int a = 0);
-	virtual void close();
-	virtual int read(void *b, int bsz);
-	virtual int write(const void *b, int bsz);
-};
+#include "../../Include/Common/File.h"
 struct Rva001F458BText {
 	const char *m_start;
 	const char *m_finish;

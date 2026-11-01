@@ -8,24 +8,7 @@
 // File virtual slot34 is readEntireAndClose: the matched RAMFile provider
 // at605682 independently proves the char* result and slot13. NativeAA557
 // saves that entire-file buffer at owner+4.
-class File {
-public:
-    virtual void v0();
-    virtual void v1();
-    virtual void close();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual void nextLine(char *, int);
-    virtual void v7();
-    virtual void v8();
-    virtual void v9();
-    virtual void v10();
-    virtual void v11();
-    virtual void v12();
-    virtual char *readEntireAndClose();
-    bool eof();
-};
+#include "../../Include/Common/File.h"
 class FileSystem
 {
 public:

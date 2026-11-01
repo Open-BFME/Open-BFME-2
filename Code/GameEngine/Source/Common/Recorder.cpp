@@ -149,7 +149,7 @@ public:
  unsigned int crc4C;bool flag50;char pad51[3];int word54;UnicodeString str58;
 };
 
-class File {public:virtual void p0();virtual void p1();virtual void close();};
+#include "../../Include/Common/File.h"
 
 File*createMemoryReadFile(char*,int);
 

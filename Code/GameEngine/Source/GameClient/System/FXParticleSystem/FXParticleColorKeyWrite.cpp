@@ -23,7 +23,7 @@ namespace _STL { template <> basic_ostringstream<char, char_traits<char>, alloca
 namespace _STL {
 template <> char *_STLP_alloc_proxy<char*, char, allocator<char> >::allocate(size_t);
 }
-class File {public: virtual ~File(); virtual bool open(const char*,int=0); virtual void close(); virtual int read(void*,int); virtual int write(const void*,int);};
+#include "../../../../Include/Common/File.h"
 #include "../../../../../Libraries/Include/Lib/RGBColor.h"
 // Declared, not defined here: the link keeps the rowed retail copy (this unit's own copy differs).
 namespace _STL { template <> basic_ostream<char,char_traits<char> > & _M_put_num<char,char_traits<char>,unsigned long>(basic_ostream<char,char_traits<char> > &,unsigned long); }

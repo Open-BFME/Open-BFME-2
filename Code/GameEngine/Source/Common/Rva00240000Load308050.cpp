@@ -148,22 +148,7 @@ inline void vector<char, allocator<char> >::_M_fill_insert(char *position, size_
 }
 }
 
-class File
-{
-public:
-	virtual ~File();
-	virtual bool open(const char *filename, int access);
-	virtual void close();
-	virtual int read(void *buffer, int bytes);
-	virtual int write(const void *buffer, int bytes);
-	virtual int seek(int bytes, int mode);
-	virtual bool nextLine(char *buf, int bufSize);
-	virtual bool scanInt(int &newInt);
-	virtual bool scanReal(float &newReal);
-	virtual bool scanString(AsciiString &newString);
-	virtual bool print(const char *format, ...);
-	virtual int size();
-};
+#include "../../Include/Common/File.h"
 
 class FileSystem
 {

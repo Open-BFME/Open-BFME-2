@@ -28,7 +28,7 @@ void __cdecl Rva00180CCBRegister(const char *name,AggregatePayload *payload) {
 
 class BFMEChunkInput;
 class ChunkLoadClass {char buffer[0xC18];public:ChunkLoadClass(BFMEChunkInput*);bool Open_Chunk();unsigned long Cur_Chunk_ID();};
-class File {public:virtual void slot0();virtual void slot1();virtual void close();};
+#include "../../Include/Common/File.h"
 File * __cdecl GetGameFilePart(const char*,int,int);
 class AggregateDefClass {
  char pad[0x58];

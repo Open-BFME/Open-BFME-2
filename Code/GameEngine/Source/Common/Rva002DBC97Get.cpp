@@ -89,13 +89,7 @@ protected:
 	virtual void XferData(unsigned int type, void *data, unsigned int size);
 };
 
-class File
-{
-public:
-	virtual ~File();
-	virtual bool open(const WideChar *filename, int access);
-	virtual void close();
-};
+#include "../../Include/Common/File.h"
 
 // TheFileSystem (0x00E06A48): rowed 0x00600676 opens a file and 0x006006A9
 // (renamed in the same change from the free Rva006006A9Get) makes the save

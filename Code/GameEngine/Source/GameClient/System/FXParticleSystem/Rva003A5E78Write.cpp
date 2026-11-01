@@ -70,14 +70,7 @@ namespace _STL { template <> int basic_stringbuf<char,char_traits<char>,allocato
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL { template <> char * uninitialized_copy<char *,char *>(char *,char *,char *); }
 
-class File {
-public:
-    virtual ~File();
-    virtual bool open(const char *n, int a = 0);
-    virtual void close();
-    virtual int read(void *b, int bsz);
-    virtual int write(const void *b, int bsz);
-};
+#include "../../../../Include/Common/File.h"
 struct Rva001F458BText {
     const char *m_start;
     const char *m_finish;
