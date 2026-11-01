@@ -54,19 +54,7 @@ public:
 class Rva0007DA23ResourceManager;
 extern Rva0007DA23ResourceManager *Rva00DE1FF8Manager;
 class Object;
-class Drawable
-{
-public:
-	const Coord3D *getPosition() const;
-	Drawable *getNextDrawable() const { return m_nextDrawable; }
-	__declspec(dllimport) __forceinline Object *getObject() { return m_object; }
-	void rva0023998E(int layer);
-	char m_pad00[0xFC];
-	Object *m_object; // +0xFC
-	char m_pad100[0x4];
-private:
-	Drawable *m_nextDrawable; // +0x104 +0x104
-};
+#include "../../../../GameEngine/Include/GameClient/Drawable.h"
 class Object
 {
 public:
