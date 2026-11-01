@@ -92,24 +92,6 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-class CostModifierUpgradeModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class SpellRechargeModifierUpgradeModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class ArmorUpgradeModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
 // ArmorUpgrade own table (retail VA 0x00DBA870, 16-byte entries
 // {label, parse, userData, offset} per the landed RiderChange precedent).
 // Target facts from read-only image dump: entry0 label "KillArmorUpgrade"
@@ -130,14 +112,6 @@ public:
 class INI;
 
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
-
-struct ArmorUpgradeFieldParse
-{
-	const char *m_name;
-	INIFieldParseProc m_parser;
-	const void *m_userData;
-	unsigned int m_offset;
-};
 
 class INI
 {

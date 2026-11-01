@@ -215,32 +215,7 @@ public:
     int m_owner;
 };
 
-struct Rva004FC807PlayerTemplate
-{
-    char m_unrecovered[0x28];
-    AsciiString m_iconName;
-};
-
-class Rva002E2903Player
-{
-public:
-    char m_unrecovered[0x40];
-    Rva004FC807PlayerTemplate *m_template;
-};
-
-class Rva002BA8F1Logic
-{
-public:
-    Rva002E2903Player *find(int id, unsigned int *index);
-};
-
 struct Rva002BA8F1Listener;
-
-class Rva005A0B4CList
-{
-public:
-    void append(Rva002BA8F1Listener *listener);
-};
 
 class Rva004E0B60
 {

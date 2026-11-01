@@ -324,11 +324,6 @@ private:
 	int m_00; // +0x00
 	AsciiString m_04; // +0x04
 };
-class Rva002AAE81
-{
-public:
-	void rva002AAE81(AsciiString name);
-};
 class Rva0032A46C
 {
 public:
@@ -340,8 +335,6 @@ private:
 
 // The by-value getter of the AsciiString at +0x04, folded with other classes'
 // name getters at 0x00564DF2.
-class Rva00564DF2NameView { public: AsciiString rva00564DF2() const; };
-
 class BuildListInfo
 {
 	friend class SidesList;

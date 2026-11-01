@@ -194,30 +194,6 @@ public:
 };
 
 // Members with rowed constructors taking the Apt level.
-class Rva00529FABClearForward
-{
-public:
-	void clear();
-};
-
-class Rva005288B8
-{
-public:
-	void rva005288B8();
-};
-
-class Rva0052AC0A
-{
-public:
-	void rva0052AC0A();
-};
-
-class Rva00526F80
-{
-public:
-	void rva00526F80();
-};
-
 class Rva00529B34 {public:void rva00529B34();};
 
 class Rva0052A244

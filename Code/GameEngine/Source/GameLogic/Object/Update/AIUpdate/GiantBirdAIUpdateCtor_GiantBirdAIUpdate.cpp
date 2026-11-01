@@ -153,12 +153,6 @@ class AIStateMachine
 {
 	unsigned char m_unmodelled_00[0x68];
 };
-class Rva00367E26 : public AIStateMachine
-{
-public:
-	Rva00367E26(Object *owner, UnsignedInt nameKey);
-};
-
 class GiantBirdAIUpdate : public AIUpdateInterface
 {
 public:
@@ -255,13 +249,10 @@ public:
 	unsigned char m_pad000[0x5C];
 	Int m_5C;
 };
-struct GiantBirdObjectView { unsigned char m_pad000[0x74]; Int m_id; };
 class Object { public: Player *getControllingPlayer() const; };
-class Rva0023C6A4 { public: Bool rva00200084(); };
 class GameLogic;
 extern GameLogic *TheGameLogic;
 enum NameKeyType { NAMEKEY_INVALID = 0 };
-class Rva00355B61 { public: Bool rva003552C2(NameKeyType key); };
 class AiOrdersManager;
 extern AiOrdersManager *TheAiOrdersManager;
 

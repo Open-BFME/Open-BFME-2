@@ -244,21 +244,7 @@ private:
 	bool m_24; // +0x24
 };
 
-class BehaviorModuleBase
-{
-public:
-	virtual void behaviorModuleBaseAnchor();
-	const ModuleData *m_moduleData;
-	Object *m_object;
-};
-
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-
-class UpdateModuleInterface
-{
-public:
-	virtual void update();
-};
 
 // The +0x20 interface's vftable 0x00C52518 opens with the rowed 0x004A3A09.
 class TrailingModuleInterface

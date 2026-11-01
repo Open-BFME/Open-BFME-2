@@ -151,10 +151,6 @@ void PathfindLayer::rva003667D4()
 // are read from native stores and the already verified setter providers.
 // Native tests nonzero in the branch reached when the count is not positive.
 // Bitfield setter providers are already verified under their ledger owner.
-class Rva00366500 { public: bool rva00366500(int);bool rva0036652D(int);};
-class Rva00366B30 { public: bool rva00366B30(const Coord3D*);};
-
-
 // Native array cleanup callback367369 in Pathfinder destructor2F213F;
 // target tail-jumps the already verified66B layer release wrapper.
 PathfindLayer::~PathfindLayer(){rva00366DEC();}
@@ -167,8 +163,6 @@ PathfindLayer::~PathfindLayer(){rva00366DEC();}
 enum PathfindLayerEnum{LAYER_INVALID=-1,LAYER_GROUND=1,LAYER_FIRST_BRIDGE=16};
 int isGroundOrBridgeLayer(int);
 class LocomotorSet{public:char pad0[0x10];int m_surfaces;char pad14;unsigned char m_15;int getValidSurfaces()const{return m_surfaces;}};
-struct PathfindMovementProfile{int m_surfaces;bool m_crusher,m_terrainOnly;char pad6[2];int m_layer;unsigned char m_C;PathfindMovementProfile(int s):m_surfaces(s),m_crusher(false),m_terrainOnly(false),m_layer(-1){} };
-class Rva002E99F9Sub460{public:unsigned short rva0053241F(void *,unsigned short);unsigned short rva00531FD4(void *,unsigned short);};
 class PathfindZoneManager{public: void MarkDirty(int,int);};
 class Pathfinder{public:PathfindCell *getCell(PathfindLayerEnum,int,int);};
 class AI{public:char pad0[0x10];Pathfinder *m_pathfinder;Pathfinder *pathfinder()const{return m_pathfinder;}};extern AI *TheAI;

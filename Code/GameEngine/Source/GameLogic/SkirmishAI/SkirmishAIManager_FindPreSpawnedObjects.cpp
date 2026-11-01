@@ -244,12 +244,7 @@ void Rva002A8F24::rva002A95F9() {
 
 // Native manager snapshot pass; version min1/current2, CRC bail then farm/wall
 // shared libraries, every owned team, and every collector with version pointer.
-struct ManagerVersion { ManagerVersion(unsigned char a,unsigned char b):min(a),current(b){} unsigned char min,current; };
 struct ManagerXferHead {virtual void slot00();virtual void slot04();virtual void slot08();virtual void slot0c();virtual bool slot10() const;};
 template<int N>struct ManagerXferSlots:ManagerXferSlots<N-1>{virtual void gap(char(*)[N]);};
 template<>struct ManagerXferSlots<0>:ManagerXferHead{};
-struct ManagerXferView:ManagerXferSlots<5>{virtual void version(ManagerVersion*);};
-class AIEconomyBuilder {public:static void DoXferFarmLibrary(Xfer*);};
 void Rva004E99F1Xfer(Xfer*);
-class Rva004DFA0E {public:void rva004DFA0E(void*,void*);};
-

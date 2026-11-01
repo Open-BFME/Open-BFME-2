@@ -64,47 +64,11 @@ class Drawable
  
 }
 ;
-class ObjectModuleBase
-
-{
- public:
- virtual void objectModuleBaseAnchor();
- const ModuleData *m_moduleData;
- Object *m_object;
- 
-}
-;
-class BehaviorModuleInterface
-
-{
- public:
- virtual void getBehaviorModuleInterface() = 0;
- 
-}
-;
-class BehaviorModule : public ObjectModuleBase, public BehaviorModuleInterface
-
-{
- 
-}
-;
 class UpdateModuleInterface
 
 {
  public:
  virtual UpdateSleepTime update() = 0;
- 
-}
-;
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-
-{
- public:
- virtual ~UpdateModule();
- private:
- UnsignedInt m_nextCallFrameAndPhase;
- Int m_indexInLogic;
- UnsignedInt m_updateState;
  
 }
 ;

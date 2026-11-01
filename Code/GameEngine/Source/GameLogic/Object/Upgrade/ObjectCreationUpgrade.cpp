@@ -226,12 +226,6 @@ public:
 };
 
 // The rowed ExemptStatus parser 0x003B1327 (opaque owner class).
-class Rva003B1017
-{
-public:
-	static void parseFromINI(INI *ini, void *instance, void *store, const void *userData);
-};
-
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
 
 struct FieldParse
@@ -307,12 +301,6 @@ BFME_DISP8_BYTECHASE_GETTER(Rva004B406BByteChase32Field, 0xC, 0x11D)
 
 // 0x004543A9 is also reached through the this-0x14 thunk 0x004543E3 in four
 // vtables, so it is virtual (same body).
-class Rva004543A9LeaNegSbbField
-{
-public:
-	virtual int get() const;
-};
-
 BFME_DISP8_LEA_NEG_SBB_GETTER(Rva004B3FBALeaNegSbbField, 20, 0x04)
 
 BFME_DISP8_NEG_LEA_GETTER(Rva004B3FC7LeaField, 20)
@@ -327,13 +315,6 @@ BFME_DISP8_NEG_LEA_GETTER(Rva004B3FC7LeaField, 20)
 // Native 006C03C0..006C03CB is a complete independently bounded RET leaf.
 // Target behavior: receiver8 plus eight-byte element stride; RET4.
 // Original owner and full array bounds remain unknown; address-owned view only.
-struct Rva006C03C0Slot { unsigned char bytes[8]; };
-
-class Rva006C03C0Fields {
-public: void *at(int index);
-private: unsigned char unknown[8]; Rva006C03C0Slot entries[1];
-};
-
 // tu-skeleton: 0x004B3F90 36B ??1ObjectCreationUpgrade@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004B3FB4 6B ?name@ObjectCreationUpgrade@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)

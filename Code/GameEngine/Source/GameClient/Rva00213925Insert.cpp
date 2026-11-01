@@ -59,45 +59,9 @@ InsertRet00212A5A Rva00213DFD::insert(const void *key)
 // Keep the name/pointer pair temporary: its full-expression lifetime lets the
 // compiler reuse the allocation slot. InsertRet has native alignment and size 12.
 
-class Rva003F9FA9
-{
-public:
-	Rva003F9FA9(const AsciiString &name);
-private:
-	char m_unmodelled[0x30];
-};
-
-class Rva00402BE3
-{
-public:
-	Rva00402BE3(const AsciiString &name);
-private:
-	char m_unmodelled[0x1C];
-};
-
-class Rva00402EFA
-{
-public:
-	Rva00402EFA(const AsciiString &name);
-private:
-	char m_unmodelled[0x18];
-};
-
 template<class T> struct LivingWorldIconPair
 {
     AsciiString first;
     T *second;
     LivingWorldIconPair(const AsciiString &name, T *icon) : first(name), second(icon) {}
-};
-class LivingWorldManager
-{
-public:
-    Rva003F9FA9 *rva00214060(const AsciiString &name);
-    Rva00402BE3 *rva002140DB(const AsciiString &name);
-    Rva00402EFA *rva00214156(const AsciiString &name);
-private:
-    char m_unmodelled[0x26c];
-    Rva000427195 m_armyIcons;
-    Rva000427195 m_buildingIcons;
-    Rva000427195 m_buildPlotIcons;
 };

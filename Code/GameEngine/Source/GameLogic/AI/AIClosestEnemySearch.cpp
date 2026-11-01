@@ -77,36 +77,8 @@ public:
 
 // vftable 0x00BFBC90, allow 0x00260EB1, getPlayerMask 0x00260E6A: the object,
 // relationship flags and whether a hit allows.
-class Rva00260EB1Filter : public Rva000421C8
-{
-public:
-	Rva00260EB1Filter(const Object *obj, int flags, bool match)
-		: m_obj(obj), m_flags(flags), m_match(match) {}
-	virtual bool allow(Object *obj);
-	virtual int getPlayerMask();
-	const Object *m_obj;
-	int m_flags;
-	bool m_match;
-};
-
 // vftable 0x00BF91BC, allow 0x002611BF.
-class Rva002611BFFilter : public Rva000421C8
-{
-public:
-	Rva002611BFFilter(const Object *obj) : m_obj(obj) {}
-	virtual bool allow(Object *obj);
-	const Object *m_obj;
-};
-
 // vftable 0x00C07190, allow 0x002614DF.
-class Rva002614DFFilter : public Rva000421C8
-{
-public:
-	Rva002614DFFilter(const Object *obj) : m_obj(obj) {}
-	virtual bool allow(Object *obj);
-	const Object *m_obj;
-};
-
 // vftable 0x00C07150, allow 0x002619C1.
 class Rva002619C1Filter : public Rva000421C8
 {
@@ -118,14 +90,6 @@ public:
 
 // vftable 0x00C07178, allow 0x00261BFB: the repulsor filter of
 // AI::findClosestRepulsor (ZH's PartitionFilterRepulsor).
-class Rva00261BFBFilter : public Rva000421C8
-{
-public:
-	Rva00261BFBFilter(const Object *obj) : m_obj(obj) {}
-	virtual bool allow(Object *obj);
-	const Object *m_obj;
-};
-
 // vftable 0x00C071B4, allow 0x002FE13D, getPlayerMask 0x002FE108: the live
 // map enemies of +0x08 (ZH's PartitionFilterLiveMapEnemies, AI.cpp-local).
 class Rva002FE13DFilter : public Rva000421C8

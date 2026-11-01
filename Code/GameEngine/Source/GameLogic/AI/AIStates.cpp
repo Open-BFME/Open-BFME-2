@@ -509,11 +509,6 @@ class Rva002C9400ByteField
 public:
 	unsigned char get() const;
 };
-class Rva002C9407ByteField
-{
-public:
-	unsigned char get() const;
-};
 class Rva002C940EByteField
 {
 public:
@@ -548,16 +543,6 @@ private:
 };
 
 // The line-of-sight partition filter (vtable 0x00C07150).
-class Rva002619C1Filter : public Rva000421C8
-{
-public:
-	Rva002619C1Filter(Object *owner) : m_owner(owner) {}
-	virtual ~Rva002619C1Filter() {}
-	virtual Bool allow(Object *other);
-
-	Object *m_owner;
-};
-
 template <int N> class StateMachineSlots : public StateMachineSlots<N - 1>
 {
 public:
@@ -735,13 +720,6 @@ private:
 
 // The pathfinder's melee engagement-spot search (0x002F23A6), pinned under
 // this name.
-class Rva002F23A6
-{
-public:
-	Bool rva002F23A6(Object *source, int weapon, int locomotorSet, Coord3D *goalPos,
-		Object *victim);
-};
-
 // TheGameLogic's BFME debug level (+0x1B4), private padding in the shared
 // GameLogic view.
 static __forceinline Int gameLogicDebugLevel()
@@ -758,12 +736,6 @@ static __forceinline void debugTrace(const char *text)
 
 // The object behind Object::rva0029439D; its slot 68 yields the object a
 // melee squish should really target.
-class Rva0029439DView : public VirtualSlots<68>
-{
-public:
-	virtual Object *slot68();
-};
-
 // AIAttackMeleeSquishState, vtable 0x00C12868 (rowed xfer 0x00340A92, onExit
 // 0x003497C7).
 class AIAttackMeleeSquishState : public AIInternalMoveToState

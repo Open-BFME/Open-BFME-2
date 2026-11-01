@@ -126,48 +126,12 @@ private:
 
 
 
-class Rva000454F3
-{
-public:
-	void *rva000454F3(unsigned int idx);
-
-private:
-	unsigned int m_bits[8];
-};
-
-class Rva0028C783
-{
-public:
-	void *rva0028C783(unsigned int idx);
-
-private:
-	unsigned int m_bits[8];
-};
-
-class Rva002AA2CF
-{
-public:
-	void *rva002AA2CF(unsigned int idx);
-
-private:
-	unsigned int m_bits[8];
-};
-
 extern const char *CommandSetNames[];
 
 class Rva0031852F
 {
 public:
 	void *rva0031852F(unsigned int idx);
-
-private:
-	unsigned int m_bits[8];
-};
-
-class Rva004BE0C7
-{
-public:
-	void *rva004BE0C7(unsigned int idx);
 
 private:
 	unsigned int m_bits[8];

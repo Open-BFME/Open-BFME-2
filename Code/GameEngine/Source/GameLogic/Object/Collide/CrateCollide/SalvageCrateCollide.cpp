@@ -240,29 +240,6 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 
 #include "../../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class InlineCollideModuleInterface
-{
-public:
-    virtual void collideModuleInterfaceAnchor();
-};
-
-class ModuleInterface
-{
-public:
-    virtual void moduleInterfaceAnchor();
-};
-
-class CollideModule : public BehaviorModule,
-    public InlineCollideModuleInterface,
-    public ModuleInterface
-{
-public:
-    CollideModule(Thing *thing, const ModuleData *moduleData);
-    void xfer(Xfer *xfer);
-};
-
-
-
 class CrateCollide
 {
 public:

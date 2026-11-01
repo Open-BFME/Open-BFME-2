@@ -408,32 +408,8 @@ class Rva004D759C : public StateMachine
 }
 ;
 // ZH's SupplyTruckBusyState (rowed ctor 0x004A6BCA).
-class Rva004A6BCA : public State
-
-{
- public:
- Rva004A6BCA(StateMachine *machine);
- 
-}
-;
 // ZH's SupplyTruckIdleState (rowed ctor 0x004A6C13).
-class Rva004A6C13 : public State
-
-{
- public:
- Rva004A6C13(StateMachine *machine);
- 
-}
-;
 // ZH's SupplyTruckWantsToPickUpOrDeliverBoxesState (rowed ctor 0x004A6933).
-class Rva004A6933 : public State
-
-{
- public:
- Rva004A6933(StateMachine *machine);
- 
-}
-;
 // ZH's RegroupingState (rowed ctor 0x004A6956).
 class Rva004A6956 : public State
 
@@ -464,14 +440,6 @@ class Rva004A6979 : public State
 ;
 // BFME 2's sixth supply truck state (rowed ctor 0x004A699C); it shares the
 // docking state's onEnter.
-class Rva004A699C : public State
-
-{
- public:
- Rva004A699C(StateMachine *machine);
- 
-}
-;
 class SupplyTruckStateMachine : public Rva004D759C
 
 {

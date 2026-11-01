@@ -7,42 +7,14 @@ public:
 	bool any() const;
 };
 
-struct VirtBase
-{
-	virtual void vf(void *a, int b, int c, int d, int e);
-};
-
 #include "../../../../Include/Common/Overridable.h"
 
 class SpecialPowerTemplate;
 class Player;
 
-class Object
-{
-public:
-	Player *getControllingPlayer() const;
-};
-
-class Rva002AC6B1PlayerTimers
-{
-public:
-	unsigned int getOrStart(const SpecialPowerTemplate *tmpl);
-};
-
 #include "../../../Common/GameLogicObjectLookupView.h"
 
 extern GameLogic *TheGameLogic;
-
-struct VirtPrimary
-{
-	virtual void f0();
-	virtual void f1();
-	virtual void f2();
-	virtual void f3();
-	virtual void f4();
-	virtual void f5();
-	virtual const Overridable *f6() const;
-};
 
 class WeaponModeSpecialPowerUpdateBase
 {
