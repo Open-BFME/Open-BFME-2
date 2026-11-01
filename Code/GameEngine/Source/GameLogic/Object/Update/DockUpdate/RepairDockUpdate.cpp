@@ -104,28 +104,13 @@ void *__stdcall createAptScreenObjectives(void *);
 void *__stdcall createAptScreenQuickMatchMenu(void *);
 
 // Object Snapshot table VA 0x00BFC2F0 slot 2 returns its class name.
-class Object
-{
-public:
-	virtual const char *GetSnapshotName() const;
-};
 
 // ?GetSnapshotName@Rva004885DE@@MBEPBDXZ @ 0x004886c1 (6B): returns 0x00c4b550.
 // Follows a ret-8 (prev C2-08-00), carried by 1 .rdata vtable slot,
 // no direct callers, no branch sources. Opaque address-derived name.
-class Rva004885DE
-{
-protected:
-	virtual const char *GetSnapshotName() const;
-};
 
 // Retail table C4C3D4 selects this Snapshot name getter in slot 2.
 // Snapshot slot 2 of retail DamageModule table RVA 0x008598E4 selects this getter.
-class DamageModule
-{
-protected:
-	virtual const char *GetSnapshotName() const;
-};
 
 class Xfer;
 

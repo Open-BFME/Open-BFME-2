@@ -627,13 +627,6 @@ static __forceinline void critterDesyncLog(const char *text)
 	}
 }
 
-class AIFollowWaypointPathStateAndEvacuate : public AIFollowWaypointPathState
-{
-public:
-	virtual StateReturnType onEnter();
-	virtual void onExit(StateExitType status);
-	virtual StateReturnType update();
-};
 
 // ?isSamePosition@@YA_NPBUCoord3D@@00@Z present-unmatched
 // AIStates.cpp's static helper (rowed at 0x0033FA8E from the computePath

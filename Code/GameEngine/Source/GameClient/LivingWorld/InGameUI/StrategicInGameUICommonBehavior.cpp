@@ -149,8 +149,6 @@ class Rva005A0B4CList { public: void append(Rva002BA8F1Listener *p); };
 class Rva002B7250 { public: void rva002B7250(CreateAHeroData *); };
 struct Rva002BED91;
 class Rva0042D6FDPtrChaseField { public: int get() const; };
-class Rva00574CC1Part1 { public: virtual void vslot0(); virtual void vslot1(int); };
-class Rva00574CC1Part2 { public: virtual void vslot0(); virtual void vslot1(); virtual void vslot2(); virtual void vslot3(); };
 // An owner whose observer list sits at +4.
 struct Rva00574CC1OwnerBase { virtual void vslot0(); };
 struct Rva00574CC1Owner : public Rva00574CC1OwnerBase, public Rva002B7250 {};

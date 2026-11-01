@@ -201,7 +201,6 @@ void BfmeThingUNC::rva0080A3C0( Rva0080A3C0Input *input )
 // BFME 2: the PDAT/TADP router below is Open-BFME-1's (submodule 10af19f44a),
 // byte-identical in game.dat at 0x00676580. The BFME 1 addresses in its
 // comments are the donor's.
-class Gen_007e86c0 { public: void m(); };
 class Rva007E8810Message
 {
 public:
