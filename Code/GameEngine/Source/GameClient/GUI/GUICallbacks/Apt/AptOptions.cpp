@@ -252,12 +252,7 @@ public:
 	int rva0051274F(int message, unsigned int data1, unsigned int data2);
 };
 
-class Rva00222A8BTarget
-{
-public:
-	int invoke(void *level, const char *function, int argc, const char *a0,
-		void *a1, void *a2, void *a3, void *a4);
-};
+#include "../../../../../Include/Common/Rva00222A8BTarget.h"
 
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
 

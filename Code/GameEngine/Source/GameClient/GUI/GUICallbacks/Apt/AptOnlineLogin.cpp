@@ -142,9 +142,7 @@ public: GameSpyMiscPreferences(); virtual ~GameSpyMiscPreferences();
     unsigned char rest[0x10];
 };
 
-class Rva00222A8BTarget { public:
-    int invoke(void *,const char *,int,const char *,void *,void *,void *,void *);
-};
+#include "../../../../../Include/Common/Rva00222A8BTarget.h"
 
 class BfmeAptWindowManager;
 

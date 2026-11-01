@@ -100,12 +100,7 @@ private:
 
 extern Mouse *TheMouse;
 
-class Rva00222A8BTarget
-{
-public:
-	int invoke(void *level, const char *function, int argc, const char *a0,
-		void *a1, void *a2, void *a3, void *a4);
-};
+#include "../../../../../Include/Common/Rva00222A8BTarget.h"
 
 class Rva00222A8BTarget;
 class BfmeAptWindowManager;

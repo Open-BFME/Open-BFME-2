@@ -56,9 +56,7 @@ public:
  void clear();
  Rva004E6A37 rva004E6BF6();
 };
-class Rva00222A8BTarget {public:
- int invoke(void*,const char*,int,const char*,void*,void*,void*,void*);
-};
+#include "../../../../Include/Common/Rva00222A8BTarget.h"
 AsciiString Rva002228E8Get(float);
 char **Rva004E678BGet(char**,bool);
 static __forceinline int invokeFormatted(Rva00222A8BTarget *target,void *owner,const char *method,

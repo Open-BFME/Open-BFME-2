@@ -172,13 +172,7 @@ private:
 extern "C" __declspec(dllimport) int __cdecl sprintf(char *buffer, const char *format, ...);
 #include "../../../../Common/GameLogicObjectLookupView.h"
 #pragma pointers_to_members(full_generality, multiple_inheritance)
-class Rva00222A8BTarget
-{
-public:
-	void rva002233A6(int mode);
-public:
-	void rva00222F55(bool show);
-};
+#include "../../../../../Include/Common/Rva00222A8BTarget.h"
 class Shell
 {
 public:

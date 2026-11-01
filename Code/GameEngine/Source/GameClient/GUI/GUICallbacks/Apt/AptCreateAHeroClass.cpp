@@ -12,9 +12,7 @@ class Rva00219251 { public:
 class CreateAHeroHero { public: bool SetDefaultColors(); };
 class ModuleData;
 class Rva00423A68 { public: void rva00423A68(const ModuleData *); };
-class Rva00222A8BTarget { public:
- void rva002239FA(const AsciiString &,const AsciiString &);
-};
+#include "../../../../../Include/Common/Rva00222A8BTarget.h"
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 #include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"

@@ -133,11 +133,7 @@ extern GameTextInterface *TheGameText;
 
 // The Apt player (0x00DFE4CC, the ledger's g_bfmeAptWindowManager): calls an ActionScript function on a movie
 // level (rowed 0x00222A8B).
-class Rva00222A8BTarget
-{
-public:
-	int invoke(void *level, const char *function, int argc, const char *a0, void *a1, void *a2, void *a3, void *a4);
-};
+#include "../../../../../Include/Common/Rva00222A8BTarget.h"
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 

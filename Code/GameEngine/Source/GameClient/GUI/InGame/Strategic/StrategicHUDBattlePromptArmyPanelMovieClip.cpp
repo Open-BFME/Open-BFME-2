@@ -26,10 +26,7 @@ public:
 	void bfmeSetText(const AsciiString &key, const UnicodeString &value, bool b);
 };
 
-class Rva00222A8BTarget
-{
-	char m_pad;
-};
+#include "../../../../../Include/Common/Rva00222A8BTarget.h"
 
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 

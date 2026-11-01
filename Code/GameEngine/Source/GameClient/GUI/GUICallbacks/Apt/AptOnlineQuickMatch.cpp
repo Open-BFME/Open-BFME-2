@@ -103,7 +103,7 @@ struct NAT {void processGlobalMessage(int,const char *);	// 0x005A8ABF, rowed
  void attachSlotList(GameInfo*,int,unsigned,unsigned,bool);};
 extern NAT *TheNAT;
 struct Rva005BA3AD {bool rva005BA3AD();};
-class Rva00222A8BTarget {public:int invoke(void *,const char *,int,const char *,void *,void *,void *,void *);};
+#include "../../../../../Include/Common/Rva00222A8BTarget.h"
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 extern int g_Va00E06550;

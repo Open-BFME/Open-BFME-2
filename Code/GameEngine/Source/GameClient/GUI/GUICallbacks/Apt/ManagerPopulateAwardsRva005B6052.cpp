@@ -9,11 +9,7 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 
-class Rva00222A8BTarget
-{
-public:
-    void rva002239FA(const AsciiString &, const AsciiString &);
-};
+#include "../../../../../Include/Common/Rva00222A8BTarget.h"
 int Rva0043DB23(Rva00222A8BTarget *, void *, const char *);
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
 

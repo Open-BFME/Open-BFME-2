@@ -695,7 +695,7 @@ void AptSkirmish::InitCreateAHeroOnStartGame()
 	}
 }
 
-class Rva00222A8BTarget {public:void rva00222F55(bool);int invoke(void*,const char*,int,const char*,void*,void*,void*,void*);};
+#include "../../../../../Include/Common/Rva00222A8BTarget.h"
 
 
 // WB1466C00 names this output callback. Retail521720..521741 RET4 and the

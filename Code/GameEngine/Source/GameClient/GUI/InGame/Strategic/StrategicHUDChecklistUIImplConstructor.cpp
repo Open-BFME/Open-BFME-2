@@ -64,11 +64,7 @@ template<class T>class AptRef;
 template<>class AptRef<AptExternHandler>:public Rva0057ACEB {public:__forceinline AptRef(Rva005D4E22 data):Rva0057ACEB(reinterpret_cast<const Rva0057ACEBData*>(&data)){}AptRef(const AptRef& other):Rva0057ACEB(other){if(impl)++reinterpret_cast<int*>(impl)[1];}~AptRef(){if(impl)ReleaseTreeHintRef00217D4C(reinterpret_cast<TargetRef00217D4C*>(impl));}};
 class AptSingleExternHandlerAdder {public:AptSingleExternHandlerAdder(const AsciiString&,int,AptRef<AptExternHandler>);~AptSingleExternHandlerAdder();AsciiString name;};
 struct Rva00222A8BScale {float x,y;};
-class Rva00222A8BTarget {public:
-virtual void slot00();virtual void slot04();virtual void slot08();virtual void slot0C();
-virtual void slot10();virtual void slot14();virtual void slot18();virtual void slot1C();
-virtual void slot20();virtual void slot24();virtual void slot28();virtual void slot2C();
-virtual void slot30();virtual void slot34();virtual void slot38();virtual Rva00222A8BScale *slot3C();};
+#include "../../../../../Include/Common/Rva00222A8BTarget.h"
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
 int __cdecl Rva00524EF4AptCall(Rva00222A8BTarget*,void*,const char*,const char*);
 static __declspec(noinline) float ChecklistViewHeight(const AsciiString& path,int level)

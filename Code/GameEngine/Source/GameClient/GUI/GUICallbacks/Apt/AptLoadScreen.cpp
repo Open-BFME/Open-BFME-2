@@ -68,11 +68,7 @@ public:
 	int rva00223A94(const AsciiString *);
 };
 
-class Rva00222A8BTarget
-{
-public:
-	void rva00222F55(bool);
-};
+#include "../../../../../Include/Common/Rva00222A8BTarget.h"
 
 template <int N> struct LoadSlotTag;
 

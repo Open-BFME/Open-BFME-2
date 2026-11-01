@@ -81,9 +81,7 @@ public:
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 extern void *TheRva00222A8BOwner;
-class Rva00222A8BTarget {
-public: int invoke(void *,const char *,int,const char *,void *,void *,void *,void *);
-};
+#include "../../../../../Include/Common/Rva00222A8BTarget.h"
 void HideToolTip();
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)

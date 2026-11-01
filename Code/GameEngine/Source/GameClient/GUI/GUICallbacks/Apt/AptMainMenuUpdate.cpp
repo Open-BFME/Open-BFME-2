@@ -93,12 +93,7 @@ public:
 extern class BfmeSinkBOE *g_bfmeSinkBOE;
 #define TheMainMenuCredits (*(AptMainMenuCredits **)&g_bfmeSinkBOE)
 
-class Rva00222A8BTarget
-{
-public:
-	int invoke(void *level, const char *name, int a, const char *b, void *c, void *d, void *e, void *f);
-	void rva00222F55(bool hide);	// hide the background
-};
+#include "../../../../../Include/Common/Rva00222A8BTarget.h"
 // The Apt player global is the owned g_bfmeAptWindowManager (VA 0x009FE4CC);
 // this unit reads it through its own view type.
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;

@@ -488,13 +488,7 @@ private:
 
 // Existing target-owned background dispatchers; their address names preserve
 // the unresolved original class/method identity carried by the donor aliases.
-class Rva00222A8BTarget
-{
-public:
-	void rva002233A6(int kind);
-	void rva00222F55(bool flag);
-	int invoke(void *,const char *,int,const char *,void *,void *,void *,void *);
-};
+#include "../../../../../Include/Common/Rva00222A8BTarget.h"
 
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 

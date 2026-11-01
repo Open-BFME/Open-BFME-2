@@ -61,11 +61,7 @@ int __cdecl Rva005DB335Get(int ping);
 
  // ping band 0..3 against TheGameSpyConfig
 
-class Rva00222A8BTarget
-{
-public:
-	int invoke(void *level, const char *name, int count, const char *arg, void *a4, void *a5, void *a6, void *a7);
-};
+#include "../../../../../Include/Common/Rva00222A8BTarget.h"
 
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
 

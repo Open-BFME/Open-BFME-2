@@ -641,13 +641,7 @@ public:
 	void push(AsciiString s, bool flag);
 };
 
-class Rva00222A8BTarget
-{
-public:
-	int invoke(void *owner, const char *name, int flag, const char *value, void *a4, void *a5, void *a6, void *a7);
-public:
-	void rva002233A6(int mode);
-};
+#include "../../../../../Include/Common/Rva00222A8BTarget.h"
 
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 

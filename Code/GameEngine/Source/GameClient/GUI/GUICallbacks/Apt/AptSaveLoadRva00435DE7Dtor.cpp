@@ -86,22 +86,7 @@ public:
 	int RemoveExternHandler(const AsciiString *name);
 };
 
-class Rva00222A8BTarget
-{
-public:
-	void rva00222F55(bool showBackground);
-	virtual void slot00();
-	virtual void slot04();
-	virtual void slot08();
-	virtual void slot0C();
-	virtual void slot10();
-	virtual void slot14();
-	virtual void slot18();
-	virtual void slot1C();
-	virtual void slot20();
-	virtual void slot24();
-	virtual void slot28();
-};
+#include "../../../../../Include/Common/Rva00222A8BTarget.h"
 
 class GameState
 {

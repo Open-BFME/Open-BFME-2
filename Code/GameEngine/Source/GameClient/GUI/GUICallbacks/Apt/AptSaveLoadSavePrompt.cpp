@@ -204,7 +204,7 @@ void AptSaveLoad::rva00435224()
 // the Load/Save/Delete/ReplayVersionMismatch box, 3 closes, 4 and 5 open the
 // "saving" prompt with the confirmation callback 0x00434337, 7 and 13 run theirs.
 #include "../../../../../Include/GameClient/Bfme2GameWindow.h"
-class Rva00222A8BTarget { public: int invoke(void *owner, const char *function, int argc, const char *a0, void *a1, void *a2, void *a3, void *a4); };
+#include "../../../../../Include/Common/Rva00222A8BTarget.h"
 // One native manager datum at VA DFE4CC; cast to this unit's receiver view.
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;

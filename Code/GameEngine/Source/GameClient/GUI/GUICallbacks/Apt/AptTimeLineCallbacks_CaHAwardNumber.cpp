@@ -176,11 +176,7 @@ public:
 	void enable();
 };
 
-class Rva00222A8BTarget
-{
-public:
-	void rva00222F55(bool value);
-};
+#include "../../../../../Include/Common/Rva00222A8BTarget.h"
 
 
 

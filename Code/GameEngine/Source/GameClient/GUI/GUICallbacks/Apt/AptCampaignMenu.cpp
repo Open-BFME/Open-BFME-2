@@ -17,11 +17,7 @@ extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 #include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 
-class Rva00222A8BTarget
-{
-public:
-	void rva002239FA(const AsciiString &name, const AsciiString &value);
-};
+#include "../../../../../Include/Common/Rva00222A8BTarget.h"
 
 class __multiple_inheritance FunctorTarget;
 

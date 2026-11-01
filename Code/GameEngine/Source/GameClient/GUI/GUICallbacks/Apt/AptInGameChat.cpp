@@ -438,12 +438,7 @@ void __cdecl GadgetTextEntrySetText(GameWindow *window, UnicodeString text);
 
 UnicodeString __cdecl GadgetTextEntryGetText(GameWindow *textentry);
 
-class Rva00222A8BTarget
-{
-public:
-	int invoke(void *level, const char *function, int argc, const char *a0,
-		void *a1, void *a2, void *a3, void *a4);
-};
+#include "../../../../../Include/Common/Rva00222A8BTarget.h"
 
 struct Rva004E855CState
 {

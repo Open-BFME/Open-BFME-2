@@ -73,15 +73,7 @@ public:
 	virtual void g18();
 };
 
-class Rva00222A8BTarget
-{
-public:
-	void invoke(void *owner, const char *name, int flag, const char *value, void *a4, void *a5, void *a6, void *a7);
-	void rva002233A6(int mode);
-
-	char m_pad000[0x31C];
-	int m_31C; // +0x31C
-};
+#include "../../../../../Include/Common/Rva00222A8BTarget.h"
 
 #define TheGlobal004443E7958 (*(Global004443E7958View **)&TheLAN)
 #define TheGameEngine004443E7 (*(class GameEngine **)&TheGameEngine)

@@ -486,11 +486,7 @@ public:
 extern ImageCollection *TheMappedImageCollection;
 
 // The Apt window manager (0x00DFE4CC) and its background switch 0x002233A6.
-class Rva00222A8BTarget
-{
-public:
-	void rva002233A6(int);
-};
+#include "../../../../../Include/Common/Rva00222A8BTarget.h"
 
 class BfmeAptWindowManager;
 

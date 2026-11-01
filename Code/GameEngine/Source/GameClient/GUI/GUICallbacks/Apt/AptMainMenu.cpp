@@ -147,11 +147,7 @@ public:
 
 class AptScreenInitGadgets;
 
-class Rva00222A8BTarget
-{
-public:
-	void rva002239FA(const AsciiString &window, const AsciiString &image);
-};
+#include "../../../../../Include/Common/Rva00222A8BTarget.h"
 
 #include "../../../../../Include/GameClient/GameText.h"
 

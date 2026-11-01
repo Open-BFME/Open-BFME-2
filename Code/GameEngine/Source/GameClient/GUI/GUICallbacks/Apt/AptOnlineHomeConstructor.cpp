@@ -103,11 +103,7 @@ private:
 	unsigned char m_pad1C[0x60 - 0x1C];
 };
 
-class Rva00222A8BTarget
-{
-public:
-	void rva002239FA(const AsciiString &window, const AsciiString &image);
-};
+#include "../../../../../Include/Common/Rva00222A8BTarget.h"
 
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
 

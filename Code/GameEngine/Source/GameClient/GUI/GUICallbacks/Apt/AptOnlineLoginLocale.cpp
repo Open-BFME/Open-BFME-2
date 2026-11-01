@@ -31,11 +31,7 @@ public:
 	unsigned char m_rest[0x14 - 0x04];
 };
 
-class Rva00222A8BTarget
-{
-public:
-	int invoke(void *owner, const char *name, int flag, const char *value, void *a4, void *a5, void *a6, void *a7);
-};
+#include "../../../../../Include/Common/Rva00222A8BTarget.h"
 
 class Rva00222A8BTarget;
 class BfmeAptWindowManager;

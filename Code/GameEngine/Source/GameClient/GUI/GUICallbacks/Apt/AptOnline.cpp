@@ -424,13 +424,7 @@ class Rva005B8EBB {
 public: void rva00517F31();
 };
 
-class Rva00222A8BTarget
-{
-public:
-	void invoke(void *owner, const char *name, int flag, const char *value, void *a4, void *a5, void *a6, void *a7);
-public:
-	void rva002233A6(int mode);
-};
+#include "../../../../../Include/Common/Rva00222A8BTarget.h"
 
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
 

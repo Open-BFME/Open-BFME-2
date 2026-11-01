@@ -118,11 +118,7 @@ class Rva005B35E8
 public:
 	void rva005B35E8();
 };
-class Rva00222A8BTarget
-{
-public:
-	int invoke(void *owner, const char *name, int argc, const char *a0, void *a1, void *a2, void *a3, void *a4);
-};
+#include "../../../../../Include/Common/Rva00222A8BTarget.h"
 AsciiString Rva00222834Get(int value);
 static inline const char *Rva005B2F42Str(const AsciiString &value)
 {
