@@ -10,8 +10,6 @@
 // matched Bfme5CeilCellExtent.cpp helper writes it.
 // Structural inference: each scaled axis is its own float local before the
 // floor call, which pops the argument before the fstp as retail does.
-// Keep math.h's inline floorf local: retail's object exposes no _floorf.
-extern "C" { static float __cdecl floorf(float); }
 #include <math.h>
 
 struct FloatPair
