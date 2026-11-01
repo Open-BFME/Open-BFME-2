@@ -35,22 +35,13 @@ public:
 	float Z;
 };
 
-class Vector4
-{
-public:
-	__forceinline void Set(float x, float y, float z, float w) { X = x; Y = y; Z = z; W = w; }
-	float &operator[](int i) { return (&X)[i]; }
-	float X;
-	float Y;
-	float Z;
-	float W;
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
 class Matrix3D
 {
 public:
-	// Inlined at every use; retail's out-of-line copy (0x0004C91A) builds Row[] through
-	// a Vector4 ctor iterator this view lacks, so emit none here.
+	// Keep this identity body visible for inlining while the native constructor
+	// provider (0x0004C91A) remains the out-of-line owner.
 	__declspec(dllimport) __forceinline explicit Matrix3D(bool init) { if (init) Make_Identity(); }
 	__forceinline void Make_Identity()
 	{
@@ -58,8 +49,8 @@ public:
 		Row[1].Set(0.0f, 1.0f, 0.0f, 0.0f);
 		Row[2].Set(0.0f, 0.0f, 1.0f, 0.0f);
 	}
-	__forceinline void Set_Translation(const Vector3 &t) { Row[0][3] = t[0]; Row[1][3] = t[1]; Row[2][3] = t[2]; }
-	__forceinline void Rotate_Z(float theta)
+	__forceinline void Set_Translation(const Vector3 &t) { Row[0].W = t[0]; Row[1].W = t[1]; Row[2].W = t[2]; }
+	__declspec(dllimport) __forceinline void Rotate_Z(float theta)
 	{
 		float tmp1, tmp2;
 		float cosTheta, s;
@@ -67,17 +58,17 @@ public:
 		cosTheta = cosf(theta);
 		s = sinf(theta);
 
-		tmp1 = Row[0][0]; tmp2 = Row[0][1];
-		Row[0][0] = (float)( cosTheta*tmp1 + s*tmp2);
-		Row[0][1] = (float)(-s*tmp1 + cosTheta*tmp2);
+		tmp1 = Row[0].X; tmp2 = Row[0].Y;
+		Row[0].X = (float)( cosTheta*tmp1 + s*tmp2);
+		Row[0].Y = (float)(-s*tmp1 + cosTheta*tmp2);
 
-		tmp1 = Row[1][0]; tmp2 = Row[1][1];
-		Row[1][0] = (float)( cosTheta*tmp1 + s*tmp2);
-		Row[1][1] = (float)(-s*tmp1 + cosTheta*tmp2);
+		tmp1 = Row[1].X; tmp2 = Row[1].Y;
+		Row[1].X = (float)( cosTheta*tmp1 + s*tmp2);
+		Row[1].Y = (float)(-s*tmp1 + cosTheta*tmp2);
 
-		tmp1 = Row[2][0]; tmp2 = Row[2][1];
-		Row[2][0] = (float)( cosTheta*tmp1 + s*tmp2);
-		Row[2][1] = (float)(-s*tmp1 + cosTheta*tmp2);
+		tmp1 = Row[2].X; tmp2 = Row[2].Y;
+		Row[2].X = (float)( cosTheta*tmp1 + s*tmp2);
+		Row[2].Y = (float)(-s*tmp1 + cosTheta*tmp2);
 	}
 private:
 	Vector4 Row[3];
