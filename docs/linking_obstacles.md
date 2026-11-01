@@ -17125,4 +17125,80 @@ Seven units including both factory referrers pass strict 126/126 and link
 for 2121 B total. No census/runtime gain is asserted. Active path consumers
 are audited; the three mixed owners, the shared truncated ObjectHelper
 table and two stale local-static metadata descriptions remain outside
-this merge. Wider selection audit is pending in the same handoff.
+
+### SupplyWarehouseDockUpdate wider consumer audit: lost DockUpdateModuleData destructor provider repaired (2026-11-01, halilkkaya-cx-o1)
+
+Base `8aed0a4001` (stack rebased). The wider audit compared every unit the
+stack's changed objects and 22 changed identities touch (3,684 units, from
+`link_batch_audit.py`'s scope/consumer rules) between a worktree at the base
+(its own objects, index brought to the base with `--update-index`) and the
+rebased tip. The native seed no longer emits the unrowed Zero Hour COMDAT
+`??1DockUpdateModuleData@@UAE@XZ`, its sole provider at the base, so
+`SupplyCenterDockUpdate.cpp` (799 B) and `MonsterDockUpdateModuleDataCtor.cpp`
+(97 B) went LINKS -> unresolved. Retail folds that destructor into the
+Snapshot teardown 0x0049B47C (Monster ctor funclet 0x0078DB70 jumps there);
+no BFME 2 unit spells it out of line. `MonsterDockUpdateModuleDataCtor.cpp`
+now defines it inline in its existing private view (no row, no table or
+ctor byte change; nothing else touches the new `??_7`/`??_G` COMDATs).
+After the repair the same 3,684-unit comparison shows only the merge: the
+seed goes 0 -> 767 B, the five absorbed donors' 550 B move into it, and no
+unit loses its link (net +217 predicted bytes). The exact-base
+`link_batch_audit.py` stays inconclusive only because ~3,600 consumers lack
+strict receipts. Remaining: a retail-proven fold row for this destructor
+needs a Snapshot-derived DockUpdateModuleData view (the native seed and
+DockUpdate.cpp both model its table pointer explicitly).
+
+### Morning handoff: next ZH-seed link/consolidation candidates (2026-11-01, halilkkaya-cx-o1)
+
+State: the SupplyWarehouseDockUpdate stack (12 native-view/merge commits
+plus the DockUpdateModuleData provider fix above) is verified at base
+`8aed0a4001`. Only analysis was done on the candidates below; nothing is
+started in source.
+
+1. **BoneFXDamage** (290 B, seed `Object/Damage/BoneFXDamage.cpp` is a ZH
+   port; class and file claimable 2026-11-01, `class:DamageModule` held by
+   StarkillerHDX, so use the canonical header only). Blockers: U
+   `DamageModule::crc/xfer/loadPostProcess` (the seed's present-unmatched ZH
+   crc/xfer/loadPostProcess/dtor bodies call them), and the seed's inline ZH
+   `??0DamageModule` copy differs from the rowed 0x004B9704
+   (`DamageModuleCtor.cpp`). Target facts: ctor 0x004B979C calls 0x004B9704,
+   then installs 0x008598B4/+0, 0x008597F8/+0C, 0x008597E8/+10. Primary
+   slots: [0] `??_GRva004B96E5` (`Rva004B96CCDerived.cpp`, so ~BoneFXDamage
+   is the placeholder Rva004B96E5; candidate `rename.py class --fold`),
+   [1] folded loadPostProcess 0x00497805, [2] `GetSnapshotName@BoneFXDamage`,
+   [3] folded xfer 0x0045CE8C, [4] static pool key 0x004B9757 (the
+   static-to-virtual `getModuleNameKey` fix, as for the warehouse), [5]
+   `onObjectCreated`; +10 slot 2 is `onBodyDamageStateChange`. No merge is
+   possible: `BoneFXDamagePoolKey.cpp` is refused (rows not approved) and the
+   seed is the only eligible file.
+2. **CrateSystem TU** (ZH seed; six eligible donors, all linking;
+   `CrateCreationEntryList.cpp` is mixed and does not link, 377 B). A dry run
+   at `d385efd253` accepts no donor: `CrateSystemLifetime.cpp` fails on ZH
+   `Science.h` (`Overridable` undefined, adopt_first `Overridable`), and
+   `tu_views.py` must reconcile `CrateTemplate` and
+   `BfmeStringRecord000B757D` first. Prior blocks: re_attempts
+   `??1CrateTemplate` 0x0035CCCA and `??4CrateTemplate` 0x0035CE52. The crate
+   list blockers are names retail rows under placeholders:
+   `_S_merge<crateCreationEntry>` is pinned to 0x00288874, rowed as
+   `_S_merge<Rva00288874Record>` (`ExperienceLevelSystem.cpp`), and the
+   `_List_base` allocator ctor is pinned to 0x00288978, rowed as
+   `BfmePod264` (`stlport_pod_list_bodies.cpp`). Unresolved `operator<`
+   follows from the unit's own wrong `_S_merge` copy. This needs the
+   placeholder-into-existing-name decision (LINK-063/LINK-175).
+3. **ProductionPrerequisite TU** (429 + 183 B, ZH-header seed, five
+   eligible donors). The blockers are wrong STL `vector<PrereqUnitRec>`
+   copies, ZH `AsciiString::freeBytes/set`, and the
+   `__imp_?allocate/deallocate@__new_alloc` imports from the STLport 4.6
+   move. This overlaps the shared-name seat and the STLport lane.
+4. **Held, skipped:** BridgeScaffoldBehavior (its U `??_7Rva00458402` tables;
+   0x00458402 is the dtor right after its ctor 0x0045831C, a fold candidate,
+   but `class:Rva00458402` and `Rva0024A797Grandchildren.cpp` are held),
+   StructureTopple/QueueProductionExit/SupplyTruckAI/SpecialPowerModule and
+   most other UpdateModule children (StarkillerHDX).
+
+Method note: cohort previews missed the lost provider above. Before a seed
+replacement, A/B the full touched-consumer set: `link_check` in a base
+worktree (`worktree_setup.py create`, copy a fetched index, `--update-index`)
+against the tip, then diff per unit. The exact-base `link_batch_audit.py`
+cannot conclude while most consumers lack strict receipts.
+>>>>>>> 432ae046db (Record the ZH-seed link lane handoff and next candidates)
