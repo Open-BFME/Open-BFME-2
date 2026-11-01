@@ -1337,9 +1337,9 @@ def header_items():
     `merge_donors` carry that order into the draw. After them, up to HEADER_ESTABLISH_LIMIT
     classes without a header whose private views block queued merges
     (`class-header-establish`: contract, generate, apply through the lane).
-    Each bounded class batch claims `class:NAME` and includes every queued source of that class in
-    its work footprint, even private views without member rows in the ledger. The
-    first diagnostic is often a member the header lacks, so the fix is class-wide. An
+    Each bounded adoption batch claims `class:NAME`, its frozen header and its
+    selected sources, even private views without member rows in the ledger.
+    Changing that header requires its broader dependent scope. An
     establish item claims the class, its header destination and its merge donors; `run
     --apply` claims the other census units it rewrites right before rewriting them. It is
     sent to `run --generate` first, and to a hand-written header only when the contract
@@ -1367,10 +1367,6 @@ def header_items():
     credit = sources_bytes()
     items, gone = [], {}
     queued = list(csv.DictReader(io.StringIO(_read(HEADER_QUEUE)), delimiter="\t"))
-    class_sources = {}
-    for row in queued:
-        if row.get("class") and row.get("source"):
-            class_sources.setdefault(row["class"], set()).add(row["source"])
     for row in queued:
         name, source = row.get("class") or "", row.get("source") or ""
         if not name or name == "class" or not source:
@@ -1385,15 +1381,14 @@ def header_items():
             "header": row.get("header", ""), "rank": rank.get(name, len(rank)), "ranks": len(rank) + 1,
             "merge_donors": merges.get(name, 0),
             "why": f"adopt {row.get('header') or 'the canonical header'} for {name}: {row.get('failure', '')}",
-            "claim": [f"class:{name}"] + [f"file:{s}" for s in sorted(class_sources[name])],
             "baseline": HEADER_QUEUE,
             "debt_lines": [f"{name}\t{source}"],
             "pass_test": (header_adopt_lane.acceptance_command(name, source) + ": the unit #includes the header, "
                           "declares no private body and byte-matches; the command then retires the row"),
         })
-    # Keep the existing class-wide safety footprint, but use it for a bounded
-    # cohort rather than just its anchor file. Expose every chunk so a stubborn
-    # first cohort cannot starve the rest of a large class. Never mix headers.
+    # Protect the class/header plus the files this frozen-header cohort edits.
+    # Reserving every queued consumer made one unrelated peer-held file block
+    # every cohort. Expose all chunks; never mix headers.
     grouped = collections.defaultdict(list)
     for item in items:
         grouped[item["class"], item["header"]].append(item)
@@ -1417,6 +1412,8 @@ def header_items():
             files = " ".join(sources)
             batch.update(sources=sources, batch_size=len(sources), class_units=len(unique),
                          credit=sum(i["credit"] for i in chunk),
+                         claim=[f"class:{name}"] + ([f"file:{header}"] if header else [])
+                               + [f"file:{s}" for s in sources],
                          debt_lines=[line for i in chunk for line in i["debt_lines"]])
             if len(sources) > 1:
                 batch["why"] = (f"adopt {header or 'the canonical header'} for {name} in {len(sources)} "

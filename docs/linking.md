@@ -125,7 +125,10 @@ byte-passing objects together; only individually passing rows leave the queue.
 The header tier serves bounded class batches (up to 25 files and about 6,000 path
 characters), with every chunk of a larger class available. Its `sources` field
 and start/accept commands name the whole batch; `source` remains its anchor for
-older consumers. Class-wide claims still protect the shared definition.
+older consumers. Adoption claims the class, the frozen header and this cohort's
+source files. A peer-held private-view-only consumer in another cohort does not
+block this one. The class claim still protects the shared definition and its member
+providers; establishing or changing a header keeps its broader dependent scope.
 `class_views.py`, contract discovery and bulk adoption share a content-keyed
 private-declaration inventory: every query reads current contents, but unchanged
 contents reuse their parsed declarations. A first single-class query prefilters

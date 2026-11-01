@@ -1152,7 +1152,7 @@ def test_debt_queues_serve_one_key_each_with_the_tools_verdict_as_pass_test(tmp_
     assert [(i["check"], i["source"]) for i in items] == [
         ("vanished-source", "Code/Gone.cpp"),
         ("class-header", "Code/GameEngine/Body.cpp"), ("class-header", "Code/GameEngine/Loco.cpp")]
-    assert items[1]["claim"] == ["class:Coord3D", "file:Code/GameEngine/Body.cpp", "file:Code/Gone.cpp"]
+    assert items[1]["claim"] == ["class:Coord3D", "file:Coord3D.h", "file:Code/GameEngine/Body.cpp"]
     assert "accept --class Coord3D Code/GameEngine/Body.cpp" in items[1]["pass_test"]
     assert items[1]["rank"] < items[2]["rank"]                              # DEPENDENCY_ORDER carried
 
@@ -2651,7 +2651,7 @@ def test_header_picker_serves_bounded_class_batches_without_starving_later_chunk
     for item in batches:
         assert item["source"] == item["sources"][0]
         assert item["class_units"] == 58
-        assert item["claim"] == ["class:Coord3D"] + [f"file:{s}" for s in sources]
+        assert item["claim"] == ["class:Coord3D", "file:Coord3D.h"] + [f"file:{s}" for s in item["sources"]]
         assert item["debt_lines"] == [f"Coord3D\t{s}" for s in item["sources"]]
         assert "adopt --class Coord3D --header Coord3D.h --apply" in item["start"]
         assert all(s in item["start"] and s in item["pass_test"] for s in item["sources"])
@@ -2672,6 +2672,30 @@ def test_header_claim_includes_queued_private_views_without_member_rows(tmp_path
     seats("body")
     body = {"source": "Code/Bar.cpp", "target_rva": "0x9000", "function": "?f@@YAXXZ"}
     assert next_work.claim_choice([body], "test") == (None, [])
+
+
+def test_header_cohort_ignores_unselected_peer_work_but_fences_header_and_selected_files(tmp_path, monkeypatch, seats):
+    import claims
+    import next_work
+    sources = [f"Code/Unit{i:02}.cpp" for i in range(58)]
+    files = [(s, "// private view\n") for s in sources]
+    files.append(("reverse/header_queue.tsv", "class\tsource\theader\tfailure\n" +
+                  "".join(f"Coord3D\t{s}\tCoord3D.h\tmissing member\n" for s in sources)))
+    rq, _, _ = load(tmp_path / "queue", "bfme2", LEDGER, files)
+    cohort = next(i for i in rq.header_items()[0] if i.get("sources", [None])[0] == sources[0])
+    seats("peer")
+    assert claims.acquire(["file:" + sources[-1]]).claimed
+    seats("adopter")
+    got, taken = next_work.claim_choice([cohort], "test")
+    assert got == cohort and taken
+    seats("header-writer")
+    assert not claims.acquire(["file:Coord3D.h"]).claimed
+    seats("selected-body")
+    assert not claims.acquire(["file:" + sources[0]]).claimed
+    seats("member-provider")
+    assert not claims.acquire(["file:Code/GameEngine/Body.cpp"]).claimed
+    seats("other-cohort-body")
+    assert claims.acquire(["file:" + sources[30]]).claimed
 
 
 def test_header_verdict_uses_head_helpers_despite_worktree_edits(tmp_path, monkeypatch):
