@@ -1878,6 +1878,10 @@ public:
 public:
 	int getPartitionBucket(float *src);
 public:
+	void rva00283CE7(unsigned int id);
+public:
+	Object *rva00283D70(const Coord3D *pos);
+public:
 	void rva0027F28E(const Coord3D *pos, float radius, int arg);
 public:
 	unsigned char m_pad04[0x24 - 0x04];
