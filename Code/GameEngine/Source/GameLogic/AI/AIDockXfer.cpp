@@ -51,13 +51,7 @@ typedef bool Bool;
 typedef int Int;
 typedef unsigned int UnsignedInt;
 
-class Coord3DBase
-{
-public:
-	float x;
-	float y;
-	float z;
-};
+#include "../../../../Libraries/Include/Lib/Coord3DBase.h"
 
 // The state base: only its virtual table matters to these bodies.
 #include "../../../Include/Common/StateMachine.h"

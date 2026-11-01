@@ -411,13 +411,7 @@ enum
 
 #include "../../../Include/Common/XferVersion.h"
 
-class Coord3DBase
-{
-public:
-	float x;
-	float y;
-	float z;
-};
+#include "../../../../Libraries/Include/Lib/Coord3DBase.h"
 
 // The state base: only its virtual table matters to these bodies. The
 // ledger spells it struct (U), as the transition conditions' rows do.

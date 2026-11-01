@@ -33,13 +33,7 @@ class Object;
 
 #include "../../../../../Include/Common/XferVersion.h"
 
-class Coord3DBase
-{
-public:
-	float x;
-	float y;
-	float z;
-};
+#include "../../../../../../Libraries/Include/Lib/Coord3DBase.h"
 
 enum ObjectID
 {

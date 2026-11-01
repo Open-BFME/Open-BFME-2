@@ -109,13 +109,7 @@ public:
 #include "../../../../../Include/GameLogic/Module/UpdateModule.h"
 struct AICommandParms;
 struct Coord3D;
-class Coord3DBase
-{
-public:
-    float x;
-    float y;
-    float z;
-};
+#include "../../../../../../Libraries/Include/Lib/Coord3DBase.h"
 enum AssaultStateTypes
 {
     IDLE

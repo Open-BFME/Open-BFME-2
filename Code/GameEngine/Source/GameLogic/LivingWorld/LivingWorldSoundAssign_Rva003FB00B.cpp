@@ -47,12 +47,7 @@ public:
 	Rva00087750Counted *m_ptr;
 };
 
-struct Coord3DBase
-{
-	float x;
-	float y;
-	float z;
-};
+#include "../../../../Libraries/Include/Lib/Coord3DBase.h"
 
 struct Region2DBase
 {

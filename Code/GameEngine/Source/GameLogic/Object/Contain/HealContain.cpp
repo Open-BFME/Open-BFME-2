@@ -257,13 +257,7 @@ typedef int Int;
 
 typedef unsigned int UnsignedInt;
 
-class Coord3DBase
-{
-public:
-	float x;
-	float y;
-	float z;
-};
+#include "../../../../../Libraries/Include/Lib/Coord3DBase.h"
 
 // Opaque OpenContain base; ctor resolves to its pin. novtable leaves the
 // ctor's explicit primary vtable store in source order and emits no

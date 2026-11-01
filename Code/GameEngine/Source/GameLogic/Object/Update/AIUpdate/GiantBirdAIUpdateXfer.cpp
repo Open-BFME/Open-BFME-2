@@ -52,13 +52,7 @@ enum ObjectID
 
 void XferObjectID( Xfer *xfer, ObjectID *value );
 
-class Coord3DBase
-{
-public:
-	float x;
-	float y;
-	float z;
-};
+#include "../../../../../../Libraries/Include/Lib/Coord3DBase.h"
 
 // The real STLport list provides the mangled name and 4-byte size.
 #include <list>

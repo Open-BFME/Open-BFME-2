@@ -56,13 +56,7 @@ class Object;
 #include "../../../../Include/Common/BfmeXfer.h"
 void XferObjectID(Xfer *xfer, ObjectID *objectID);
 void XferSiegeTypeEnum(Xfer *xfer, int *value);
-class Coord3DBase
-{
-public:
-	float x;
-	float y;
-	float z;
-};
+#include "../../../../../Libraries/Include/Lib/Coord3DBase.h"
 
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 

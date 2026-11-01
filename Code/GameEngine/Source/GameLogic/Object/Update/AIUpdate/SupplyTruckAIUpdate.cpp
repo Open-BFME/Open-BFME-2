@@ -312,13 +312,7 @@ enum ObjectID
 
 void XferObjectID(Xfer *xfer, ObjectID *id);
 
-class Coord3DBase
-{
-public:
-	float x;
-	float y;
-	float z;
-};
+#include "../../../../../../Libraries/Include/Lib/Coord3DBase.h"
 
 class Xfer;
 

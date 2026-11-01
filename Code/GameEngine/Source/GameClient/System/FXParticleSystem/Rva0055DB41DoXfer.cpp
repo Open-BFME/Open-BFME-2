@@ -23,12 +23,7 @@ class RGBAColorReal;
 class RGBAColorInt;
 class Rva0055DB41SnapshotView;
 
-struct Coord3DBase
-{
-	float x;
-	float y;
-	float z;
-};
+#include "../../../../../Libraries/Include/Lib/Coord3DBase.h"
 
 class Snapshot;
 #include "../../../../Include/Common/BfmeXfer.h"

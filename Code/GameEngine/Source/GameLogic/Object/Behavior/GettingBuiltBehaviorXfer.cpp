@@ -43,13 +43,7 @@ enum ObjectID
 
 void XferObjectID( Xfer *xfer, ObjectID *value );
 
-class Coord3DBase
-{
-public:
-	float x;
-	float y;
-	float z;
-};
+#include "../../../../../Libraries/Include/Lib/Coord3DBase.h"
 
 typedef unsigned int AudioHandle;
 

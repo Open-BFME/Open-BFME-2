@@ -3,12 +3,7 @@
 // Object +0x240 tail-forwarding wrapper over rowed Rva004DEA70::rva004DEA70.
 // Evidence: neighbours ObjectFindSpecialPowerCompletionDie/ObjectGetSingleLogicalBonePosition;
 // retail mov ecx,[ecx+0x240] test je xor ret plus jmp to rowed 0x004DEA70; caller 0x002CCFF0 passes Object this plus two ptr args.
-struct Coord3DBase
-{
-	float x;
-	float y;
-	float z;
-};
+#include "../../../../Libraries/Include/Lib/Coord3DBase.h"
 struct Arg1_004DEA70
 {
 	char m_pad[0x74];

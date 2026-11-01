@@ -10,12 +10,7 @@ class ModuleData;
 class UnicodeString;
 class PooledString;
 struct XferUnknown11;
-struct Coord3DBase
-{
-	float x;
-	float y;
-	float z;
-};
+#include "../../../../../Libraries/Include/Lib/Coord3DBase.h"
 class ICoord3D;
 class Region3D;
 class IRegion3D;

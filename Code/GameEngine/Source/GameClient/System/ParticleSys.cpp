@@ -76,13 +76,7 @@ class Object;
 		((Rva001F43BD *)(owner + DISP))->rva001F43BD(p); \
 	}
 
-struct Coord3DBase
-{
-public:
-	float x; // +0x00
-	float y; // +0x04
-	float z; // +0x08
-};
+#include "../../../../Libraries/Include/Lib/Coord3DBase.h"
 
 float __cdecl ACos(float);
 
