@@ -144,12 +144,7 @@ private:
 // --- 0x00406D95 (14B): the rowed ControlBar lookup with 1.
 class CommandSet;
 
-class ControlBar
-{
-public:
-	CommandSet *rva0031E8D5(const AsciiString &name, int flag);	// 0x0031E8D5
-	CommandSet *rva00406D95(const AsciiString &name);
-};
+#include "../../Include/GameClient/ControlBar.h"
 
 CommandSet *ControlBar::rva00406D95(const AsciiString &name)
 {

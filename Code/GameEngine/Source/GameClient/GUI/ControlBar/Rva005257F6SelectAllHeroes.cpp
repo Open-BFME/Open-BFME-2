@@ -13,12 +13,7 @@
 class CommandButton;
 class GameWindow;
 
-class ControlBar
-{
-public:
-    const CommandButton *findCommandButton(const AsciiString &name);
-    void rva004C1B60(GameWindow *window, void *entry);
-};
+#include "../../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
 
 // ?rva005257F6@@YGXH@Z

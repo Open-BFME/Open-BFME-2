@@ -9,7 +9,7 @@ class GameWindow;
 extern GameLogic *TheGameLogic;
 struct ControlBarInventoryEntry { GameWindow *window; int objectID; };
 extern ControlBarInventoryEntry ControlBarInventoryEntries[32];
-class ControlBar {public:Object *rva0053E754(GameWindow *);};
+#include "../../../../Include/GameClient/ControlBar.h"
 Object *ControlBar::rva0053E754(GameWindow *window)
 {
  int mapped=0;

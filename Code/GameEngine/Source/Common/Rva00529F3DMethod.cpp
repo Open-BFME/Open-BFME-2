@@ -65,11 +65,7 @@ inline Rva004E7392::Rva004E7392(int objectID, int b)
 }
 inline Rva004E7392::~Rva004E7392() {}
 
-class ControlBar
-{
-public:
-	void bfmeShowDN(BfmeMsgDN *msg);
-};
+#include "../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
 class BfmeThingGX;
 class Rva00405A50

@@ -20,12 +20,7 @@ extern class ControlBar *TheControlBar;
 class GameWindow;
 class CommandButton;
 
-class ControlBar
-{
-public:
-	const CommandButton *findCommandButton(const AsciiString &s);
-	void rva004C1B60(GameWindow *window, void *data);
-};
+#include "../../Include/GameClient/ControlBar.h"
 
 struct Rva002D3AB5State
 {

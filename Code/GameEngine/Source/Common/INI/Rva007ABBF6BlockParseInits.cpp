@@ -112,12 +112,7 @@ class BannerUI
 public:
 	static void ParseBannerTypeInfo(INI *);
 };
-class ControlBar
-{
-public:
-	static void parseCommandButtonDefinition(INI *);
-	static void parseCommandSetDefinition(INI *);
-};
+#include "../../../Include/GameClient/ControlBar.h"
 class CrateSystem
 {
 public:

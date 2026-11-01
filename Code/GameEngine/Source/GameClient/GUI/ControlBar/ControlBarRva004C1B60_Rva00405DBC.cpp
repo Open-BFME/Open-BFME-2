@@ -43,11 +43,7 @@ public:
  virtual int bfmeEquals(const BfmeThingGX *other) const;
  ControlBar *m_owner;GameWindow *m_window;void *m_data;
 };
-class ControlBar {
-public:
- void rva004C1B60(GameWindow *,void *);
- void bfmeShowDN(BfmeMsgDN *);
-};
+#include "../../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
 class WinInstanceData;
 void commandButtonTooltip(GameWindow *window, WinInstanceData *, unsigned int)

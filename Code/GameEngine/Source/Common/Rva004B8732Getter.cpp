@@ -123,11 +123,7 @@ struct XLogicFrameView
 	unsigned int m_frame;
 };
 
-class ControlBar
-{
-public:
-	const CommandButton *findCommandButton(const AsciiString &name);
-};
+#include "../../Include/GameClient/ControlBar.h"
 class ThingFactory
 {
 public:

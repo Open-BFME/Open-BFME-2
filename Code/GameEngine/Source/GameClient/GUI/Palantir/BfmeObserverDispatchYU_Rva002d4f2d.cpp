@@ -20,12 +20,7 @@
 // The global at 0x012F33F8 is the ControlBar singleton; only the accessor
 // spellings the method pins carry are declared here.
 class GameWindow;
-class ControlBar
-{
-public:
-	const CommandButton *findCommandButton(const AsciiString &name);
-	void rva004C1B60(GameWindow *window, void *entry);
-};
+#include "../../../../Include/GameClient/ControlBar.h"
 extern GameLogic *TheGameLogic;				// retail 0x012F0898
 extern ControlBar *TheControlBar;			// retail 0x012F33F8
 

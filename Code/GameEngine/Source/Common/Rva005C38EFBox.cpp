@@ -9,7 +9,7 @@
 class GameWindow;
 class Rva002A7DDEArg;
 class Rva002A7DDE { public: bool rva002A7DDE(Rva002A7DDEArg *h); };
-class ControlBar { public: void rva004C1B60(GameWindow *window, void *data); };
+#include "../../Include/GameClient/ControlBar.h"
 
 extern GameLogic *TheGameLogic;
 extern class PlayerList *ThePlayerList;

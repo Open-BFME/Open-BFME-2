@@ -653,7 +653,7 @@ struct RadarInfiltrationPlayer
 // case), 7 and 37 (structure), else the generic message, and plays the sound
 // for the local player. Retail tests every kind bit as its own byte test;
 // the early-return spelling of the test keeps MSVC from merging bits 8 and 9.
-class ControlBar {public: void rva0031AEC9();};
+#include "../../../Include/GameClient/ControlBar.h"
 
 extern ControlBar *TheControlBar;
 

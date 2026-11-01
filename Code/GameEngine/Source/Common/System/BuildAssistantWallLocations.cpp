@@ -285,14 +285,7 @@ class Rva0031D5F8
 public:
 void*rva0031D5F8(const AsciiString*key);
 };
-class ControlBar : public Rva0031D5F8
-{
-public:
-const CommandSet*findCommandSet(const AsciiString*name)
-{
-return(const CommandSet*)rva0031D5F8(name);
-}
-};
+#include "../../../Include/GameClient/ControlBar.h"
 extern ControlBar*TheControlBar;
 #include "../../../Include/GameLogic/Module/BehaviorModule.h"
 class ProductionUpdateInterface

@@ -176,7 +176,7 @@ virtual ButtonDrawable *selected();};
 extern InGameUI *TheInGameUI;
 class CommandButton {public:char unknown[0x14]; int command; char unknown18[12];void *upgrade; const ThingTemplate *rva0035B570()const;};
 struct ButtonUserData {char unknown[0x28];bool update;};
-class ControlBar {public:Object *rva0053E754(GameWindow*);};
+#include "../../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
 void *GadgetButtonGetData(GameWindow*);
 void Rva00328354Update(GameWindow*);

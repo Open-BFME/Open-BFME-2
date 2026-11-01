@@ -10,11 +10,7 @@ public:
 	const AsciiString &rva0035B1E9() const;
 };
 
-class ControlBar
-{
-public:
-	const CommandButton *findCommandButton(const AsciiString &name);
-};
+#include "../../../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
 
 struct TargetRef00217D4C;

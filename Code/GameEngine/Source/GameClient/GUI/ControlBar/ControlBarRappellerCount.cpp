@@ -461,12 +461,7 @@ public:
 };
 extern InGameUI *TheInGameUI;
 
-class ControlBar {
-public:
-	CommandAvailability getCommandAvailability(const CommandButton *command, GameWindow *win, Object *obj, Real *percent, Bool forceDisabledEvaluation) const;
-	Int rva0053BA87(const CommandButton *command, Object *obj) const;
-	const CommandButton *findCommandButton(const AsciiString &name);
-};
+#include "../../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
 
 class GateBehaviorBase { public: virtual void g00(); };

@@ -14,11 +14,7 @@ public:
 };
 
 class Player;
-class ControlBar
-{
-public:
-	void rva0031B5A3(const Player *player);
-};
+#include "../../Include/GameClient/ControlBar.h"
 
 struct BfmeWorldRV;
 extern class ControlBar *TheControlBar;

@@ -127,12 +127,7 @@ public:
 	Drawable *getDrawable() const;
 };
 
-class ControlBar
-{
-public:
-	void populateBeacon( Object *beacon );
-	void setPortraitByObject( Object *obj );
-};
+#include "../../../../Include/GameClient/ControlBar.h"
 
 void ControlBar::populateBeacon( Object *beacon )
 {

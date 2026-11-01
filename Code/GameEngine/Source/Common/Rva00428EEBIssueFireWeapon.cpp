@@ -406,7 +406,7 @@ public:
 extern AudioManager *TheAudio;
 
 
-class ControlBar { public: const CommandButton* findCommandButton(const AsciiString&); };
+#include "../../Include/GameClient/ControlBar.h"
 extern ControlBar* TheControlBar;
 // ZH CommandXlat.cpp::issueSpecialPowerCommand, BFME1 reference34f59164f6.
 // Native0042994D..00429CBB and WB00E78250 establish the three message arms

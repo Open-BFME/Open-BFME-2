@@ -25,11 +25,7 @@ class BfmeThingRV
 public:
     BfmeMemberRV *bfmePickRV();
 };
-class ControlBar
-{
-public:
-    bool rva0031E068(Player *, int);
-};
+#include "../../../../../Include/GameClient/ControlBar.h"
 extern PlayerList *ThePlayerList;
 extern ControlBar *TheControlBar;
 void playPlayerLevelUpEffect();

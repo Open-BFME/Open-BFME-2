@@ -33,12 +33,7 @@ public:
 	AsciiString m_name;
 };
 
-class ControlBar
-{
-public:
-	char m_pad[0x28];
-	unsigned char m_flag28;
-};
+#include "../../Include/GameClient/ControlBar.h"
 
 extern Rva002A8F24 *TheSkirmishAIManager;
 extern ControlBar *TheControlBar;
@@ -57,5 +52,5 @@ void Rva004B3AFF::upgradeImplementation()
 	obj->setCommandSetStringOverride(holder->m_name);
 	TheSkirmishAIManager->UnRegister(obj);
 	TheSkirmishAIManager->rva002A9365(obj);
-	TheControlBar->m_flag28 = 1;
+	TheControlBar->field28 = 1;
 }

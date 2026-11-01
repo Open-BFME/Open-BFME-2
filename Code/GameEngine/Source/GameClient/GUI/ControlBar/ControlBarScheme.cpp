@@ -110,16 +110,7 @@ extern GameWindowManager *TheWindowManager;
 class CommandButton;
 enum ControlBarStages { CONTROL_BAR_STAGE_DEFAULT=0 };
 class Image;
-class ControlBar
-{
-public:
-	const CommandButton *findCommandButton(const AsciiString &name);
-	void setControlCommand(GameWindow *window, const CommandButton *button);
-	void switchControlBarStage(ControlBarStages);
-	void updateRightHUDImage(const Image *);
-	void rva0031AD14(int,int,int,int,int);
-	void rva0031B1BC(const Image *,const Image *,const Image *,const Image *,const Image *,const Image *,const Image *,const Image *);
-};
+#include "../../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
 class RecorderClass
 {

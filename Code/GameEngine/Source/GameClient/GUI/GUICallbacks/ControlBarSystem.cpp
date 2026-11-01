@@ -58,15 +58,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 
 #define NAMEKEY(x) TheNameKeyGenerator->nameToKey(x)
 
-class ControlBar
-{
-public:
-	CBCommandStatus processContextSensitiveButtonClick(GameWindow *button, GadgetGameMessage gadgetMessage);
-	CBCommandStatus processContextSensitiveButtonTransition(GameWindow *button, GadgetGameMessage gadgetMessage);
-	const CommandButton *findCommandButton(const AsciiString &commandName);
-	void rva0031AD94();
-	void rva0031BAB1();
-};
+#include "../../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
 
 #include "../../../Common/GameLogicObjectLookupView.h"

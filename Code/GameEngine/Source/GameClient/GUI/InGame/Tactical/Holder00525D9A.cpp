@@ -90,13 +90,7 @@ class GameWindow;
 
 struct BfmeMsgDN;
 
-class ControlBar
-{
-public:
-	const CommandButton *findCommandButton(const AsciiString &name);
-	void rva004C1B60(GameWindow *window, void *button);
-	void bfmeShowDN(BfmeMsgDN *msg);
-};
+#include "../../../../../Include/GameClient/ControlBar.h"
 
 extern ControlBar *TheControlBar;
 

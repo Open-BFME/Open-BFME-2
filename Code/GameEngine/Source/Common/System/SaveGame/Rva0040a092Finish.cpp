@@ -17,11 +17,7 @@ class CommandButton
 {
 };
 
-class ControlBar
-{
-public:
-    const CommandButton *findCommandButton(const AsciiString &name);
-};
+#include "../../../../Include/GameClient/ControlBar.h"
 
 struct BfmeWorldRV;
 extern class ControlBar *TheControlBar;

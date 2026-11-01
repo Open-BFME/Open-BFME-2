@@ -12,10 +12,7 @@ struct Out0052A36A {
     int m_i;
 };
 class GameWindow;
-class ControlBar {
-public:
-    void rva004C1B60(GameWindow *win, void *data);
-};
+#include "../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
 
 class Rva0052A36A {

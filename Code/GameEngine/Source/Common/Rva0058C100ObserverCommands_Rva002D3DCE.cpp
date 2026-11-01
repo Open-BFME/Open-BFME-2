@@ -6,12 +6,7 @@
 // Use their real definitions rather than the retired command-manager aliases.
 class CommandButton;
 class GameWindow;
-class ControlBar
-{
-public:
- const CommandButton *findCommandButton(const AsciiString &name);
- void rva004C1B60(GameWindow *window, void *command);
-};
+#include "../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
 
 void __stdcall rva0058C100ObserveNext( void * )

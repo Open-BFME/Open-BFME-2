@@ -14,10 +14,7 @@ public:
     virtual void slot0();
     virtual bool rva0038037C(int);
 };
-class ControlBar {
-public:
-    void rva0031B5A3(const Player *);
-};
+#include "../../../Include/GameClient/ControlBar.h"
 enum EvaEventID { EVA_EVENT_STUB = 0 };
 class Eva {
 public:

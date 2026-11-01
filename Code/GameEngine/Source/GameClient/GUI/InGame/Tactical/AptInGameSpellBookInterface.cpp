@@ -58,7 +58,7 @@ class CommandButton;
 enum CBCommandStatus { CBC_COMMAND_NOT_USED };
 enum CommandAvailability { COMMAND_AVAILABLE=1 };
 class GameWindow;
-class ControlBar { public: CBCommandStatus processCommandUI(const CommandButton *,bool,bool); CommandAvailability getCommandAvailability(const CommandButton *,GameWindow *,Object *,float *,bool) const; };
+#include "../../../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
 
 class CommandSet 

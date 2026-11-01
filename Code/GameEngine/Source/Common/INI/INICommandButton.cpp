@@ -49,11 +49,7 @@ public:
  Rva0031AB1ENode *rva0031EB96(Rva0031AB1ENode*);
 };
 
-class ControlBar {
-public:
- static void parseCommandButtonDefinition(INI*);
- void rva0031AB77SetFlag();
-};
+#include "../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
 struct LookupListRec { const char *name; int value; };
 // The retail lookup list at RVA 0x009BFB68 (16 names and the null terminator).
