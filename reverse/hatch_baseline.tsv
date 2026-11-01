@@ -12045,7 +12045,6 @@ present_unmatched	Code/GameEngine/Source/Common/RTS/Gen_guarded_list_push_back.c
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	0ClosestKindOfData@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	Player::Player	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	Player::getPlayerDifficulty	1
-present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	Player::getSquadNumberForObject	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	Player::guardSupplyCenter	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	Player::hasAnyBuildFacility	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	Player::hasAnyUnits	1

@@ -2274,24 +2274,8 @@ Squad *Player::getHotkeySquad(Int squadNumber)
 //-------------------------------------------------------------------------------------------------
 /** return the hotkey squad that a unit is in, or NO_HOTKEY_SQUAD if it isn't in one */
 //-------------------------------------------------------------------------------------------------
-// ?Player::getSquadNumberForObject present-unmatched
-Int Player::getSquadNumberForObject(const Object *objToFind) const
-{
-	#pragma pack(push, 1)
-	struct RetailPlayerHotkeyLayout {
-		char padding[0x654];
-		Squad *squads[NUM_HOTKEY_SQUADS];
-	};
-	#pragma pack(pop)
-	const RetailPlayerHotkeyLayout *retail = reinterpret_cast<const RetailPlayerHotkeyLayout *>(this);
-	for (Int i = 0; i < NUM_HOTKEY_SQUADS; ++i) {
-		if (retail->squads[i]->isOnSquad(objToFind)) {
-			return i;
-		}
-	}
 
-	return NO_HOTKEY_SQUAD;
-}
+
 
 //-------------------------------------------------------------------------------------------------
 /** Remove an object from any hotkey squads its on. (Should never be more than one, but do them */

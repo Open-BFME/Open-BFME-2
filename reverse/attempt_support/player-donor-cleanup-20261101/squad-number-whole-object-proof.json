@@ -1,0 +1,11 @@
+{
+  "base": "24b87dda22f7bb47f7eea6e40c381e1861fafc86",
+  "before_definitions": 324,
+  "after_definitions": 323,
+  "added": [],
+  "removed": [
+    "?getSquadNumberForObject@Player@@QBEHPBVObject@@@Z"
+  ],
+  "changed": [],
+  "all_retained_whole_code_and_relocations_equal": true
+}
