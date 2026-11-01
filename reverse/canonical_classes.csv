@@ -237,3 +237,4 @@ ContainModuleInterface,Code/GameEngine/Include/GameLogic/Module/ContainModule.h,
 File,Code/GameEngine/Include/Common/File.h,existing header; contract class_contracts/File.json; 71/98 sampled units adopt
 ImageCollection,Code/GameEngine/Include/GameClient/Image.h,existing header; contract class_contracts/ImageCollection.json; 24/88 sampled units adopt
 BaseHeightMapRenderObjClass,Code/GameEngineDevice/Include/W3DDevice/GameClient/BaseHeightMap.h,existing header; contract class_contracts/BaseHeightMapRenderObjClass.json; 17/101 sampled units adopt
+AptCommandMapAdder,Code/Libraries/Source/Apt/AptCommandMapAdder.h,existing header; contract class_contracts/AptCommandMapAdder.json; 22/102 sampled units adopt
