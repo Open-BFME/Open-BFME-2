@@ -17077,6 +17077,7 @@ Follows LINK-175's GlobalWeatherSystem row.
   link_check: `GlobalWeatherSystemCtorDeferred.cpp` 0 -> 155 B LINKS; `GlobalWeatherSystem.cpp`
   (303), `CreateAHeroParseBlingBinder.cpp` (419), `Rva007ABBF6BlockParseInits.cpp` (2,728) and
   `SubsystemInterface.cpp` (22,023) keep linking. Census confirmation: pending.
+<<<<<<< HEAD
 =======
 
 
@@ -17202,3 +17203,45 @@ worktree (`worktree_setup.py create`, copy a fetched index, `--update-index`)
 against the tip, then diff per unit. The exact-base `link_batch_audit.py`
 cannot conclude while most consumers lack strict receipts.
 >>>>>>> 432ae046db (Record the ZH-seed link lane handoff and next candidates)
+=======
+- `DieModule.cpp` (19 B; LINK-175's `scanIndexList`/`s_bitNameList` unit): both blockers came
+  from Zero Hour's DieMuxData field table, which reached `BitFlags<45>::parse` through
+  `ObjectStatusMaskType::parseFromINI`. Retail's table (0x00C5FFA0, returned by the
+  `getFieldParse` twin 0x004CE52E) is different: DeathTypes, ExemptStatus, RequiredStatus,
+  DamageAmountRequired, MinKillerAngle, MaxKillerAngle at +0/+4/+0x14/+0x24/+0x28/+0x2C (BFME2's
+  DieMuxData, DieMuxDataInit.cpp), parsed by rowed `INI::parseDeathTypeFlags` 0x00338D91,
+  `?parseFromINI@Rva003B1017@@...` 0x003B1327, `INI::parseReal` 0x0002EFC0 and
+  `INI::parseAngleReal` 0x0002F0D5. The unit now carries retail's table; the
+  `_Base_bitset<2>::_S_maskbit` row 0x004D051E (no retail caller) it emitted only through
+  that template is kept by an explicit instantiation. link_check: 0 -> 19 B LINKS; the 95
+  census objects touching a dropped definition: 85 link, the other 10 did not link before.
+  Remaining: retail's DieMuxData rows (init, isDieApplicable) sit in `DieMuxDataInit.cpp`
+  while the approved TU is `DieModule.cpp` (consolidation).
+- Shared-blocker names (LINK-175), traced on current objects:
+  - `?scanIndexList@INI@@SAHPBDPBQBD@Z`: BFME2's is a thiscall member,
+    `?scanIndexList@INI@@QAEHPBDPBQBD@Z` 0x0002BD39 (INI.cpp). Only Zero Hour code compiled
+    against Zero Hour's `INI.h` spells the static form, all of it unrowed: `BitFlags<N>::parse`
+    instances in WeaponSet.cpp (<17>), ThingTemplate.cpp (<11>), DieModule.cpp (<45>, fixed
+    above) and `BitFlags<38>/<45>::parseSingleBitFromINI` plus a non-COMDAT body in Weapon.cpp.
+    No definer should be added (the calling conventions differ); each unit needs its retail
+    table/parsers or the unrowed bodies dropped.
+  - `?set@UnicodeString@@QAEXABV1@@Z`: BFME2's UnicodeString is a `StringBase<unsigned short>`
+    subclass; the copy set is exported `?set@?$StringBase@G@@QAEXABV1@@Z` 0x00037150 and
+    retail inlines `UnicodeString::operator=`. All references (MapUtil, SkirmishGameOptionsMenu,
+    LanGameOptionsMenu, WOLBuddyOverlay, WOLGameSetupMenu) come from unrowed Zero Hour bodies
+    and Zero Hour's inline `operator=`. Route: `/Ireference/shims/bfme2_ascii_common` (maps
+    `Common/UnicodeString.h` to BFME2's class) where the rowed bodies still match, and dropping
+    the unrowed bodies; the five units have 12-47 other blockers of the same kind.
+  - `AudioEventRTS` `??0/??1/??4`: retail's AudioEventRTS is the 136-byte
+    `BfmeAudioEventPrefix136` (ctors 0x002D97D6..., virtual dtor 0x002D9A43 rowed as
+    `??1BfmeStringTailRecord144@@UAE@XZ`, operator= 0x002D9A31 as `??4Rva002D9893`). Nearly all
+    references are unrowed Zero Hour bodies. Two rows reach the names only through wrong-identity
+    pins: `??1?$pair@VAsciiString@@VAudioEventRTS@@@_STL@@QAE@XZ` 0x002A12E1 (ThingTemplate.cpp)
+    destroys its +4 member with the `_List_base` dtor 0x004EC395 (symbols.csv pins
+    `??1AudioEventRTS@@UAE@XZ` there), so retail's pair holds a list, not an AudioEventRTS; and
+    `??4DynamicAudioEventRTS@@QAEAAV0@ABV0@@Z` 0x00200BC0 (ThingFactory.cpp) assigns its +4
+    member with `StringBase<char>::set` 0x000366F0 (pin `??4AudioEventRTS...` there), so that
+    member is an AsciiString. Both identities need a naming decision before the units can drop
+    the AudioEventRTS spelling; neither unit is near linking (ThingTemplate 16, ThingFactory 13
+    blockers).
+>>>>>>> 27d0e3de15 (Link DieModule.cpp: give DieMuxData retail's field table)

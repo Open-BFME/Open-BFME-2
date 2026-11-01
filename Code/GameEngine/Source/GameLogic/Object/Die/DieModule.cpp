@@ -56,19 +56,34 @@
 
 
 //-------------------------------------------------------------------------------------------------
-// byte-exact reconstruction: Code/GameEngine/Source/GameLogic/Module/DieMuxDataGetFieldParseThunk.cpp
-const FieldParse* DieMuxData::getFieldParse() 
+// BFME2's table (retail 0x00C5FFA0, the address getFieldParse 0x004CE52E
+// returns) differs from Zero Hour's: no VeterancyLevels, three damage fields
+// added. Its layout is BFME2's DieMuxData (DieMuxDataInit.cpp: init 0x004CE534
+// and isDieApplicable 0x004CE588), not the Zero Hour header's, so the offsets
+// are retail's: death-type word +0x00, exempt/required 128-bit status masks
+// +0x04/+0x14, damage threshold +0x24, killer angles +0x28/+0x2C. The status
+// masks parse through 0x003B1327, rowed ?parseFromINI@Rva003B1017@@...
+class Rva003B1017 { public: static void parseFromINI( INI *ini, void *instance, void *store, const void *userData ); };
+
+const FieldParse* DieMuxData::getFieldParse()
 {
-	static const FieldParse dataFieldParse[] = 
+	static const FieldParse dataFieldParse[] =
 	{
-		{ "DeathTypes",				INI::parseDeathTypeFlags,						NULL, offsetof( DieMuxData, m_deathTypes ) },
-		{ "VeterancyLevels",	INI::parseVeterancyLevelFlags,			NULL, offsetof( DieMuxData, m_veterancyLevels ) },
-		{ "ExemptStatus",			ObjectStatusMaskType::parseFromINI,	NULL,	offsetof( DieMuxData, m_exemptStatus ) },
-		{ "RequiredStatus",		ObjectStatusMaskType::parseFromINI, NULL,	offsetof( DieMuxData, m_requiredStatus ) },
+		{ "DeathTypes",						INI::parseDeathTypeFlags,		NULL, 0x00 },
+		{ "ExemptStatus",					Rva003B1017::parseFromINI,	NULL, 0x04 },
+		{ "RequiredStatus",				Rva003B1017::parseFromINI,	NULL, 0x14 },
+		{ "DamageAmountRequired",	INI::parseReal,							NULL, 0x24 },
+		{ "MinKillerAngle",				INI::parseAngleReal,				NULL, 0x28 },
+		{ "MaxKillerAngle",				INI::parseAngleReal,				NULL, 0x2C },
 		{ 0, 0, 0, 0 }
 	};
   return dataFieldParse;
 }
+
+// Rowed here at 0x004D051E (13B, no retail caller; placed by a unique masked
+// search): Zero Hour's table reached it through BitFlags<>::parse, which the
+// retail table above no longer instantiates.
+template unsigned long _STL::_Base_bitset<2>::_S_maskbit(size_t);
 
 //-------------------------------------------------------------------------------------------------
 // Target-specific applicability is owned by DieMuxDataInit.cpp.
