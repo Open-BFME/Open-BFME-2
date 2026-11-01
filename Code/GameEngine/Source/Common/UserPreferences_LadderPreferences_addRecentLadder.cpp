@@ -183,13 +183,6 @@ struct BfmeAsciiStringView
 // destructor, and the map pointer is formed only after the key is built, which
 // is why retail keeps plain `this` in esi across the constructor and only then
 // does `add esi,4`. The map's header node doubles as its end sentinel.
-struct CustomAsciiStringShim
-{
-	void *m_data;
-	void init( const char *s );
-	void destroy( void );
-};
-
 struct CustomStringDataShim
 {
 	UnsignedByte m_header[8];					///< characters follow at +8
@@ -199,12 +192,6 @@ struct CustomMapNodeShim
 {
 	UnsignedByte m_unreconstructed_00[0x14];
 	CustomStringDataShim *m_value;				///< retail node+0x14
-};
-
-struct CustomPreferenceMapShim
-{
-	CustomMapNodeShim *m_header;
-	CustomMapNodeShim *find( CustomAsciiStringShim *key );
 };
 
 static AsciiString intAsStr(Int val)

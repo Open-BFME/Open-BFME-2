@@ -488,13 +488,6 @@ struct Rva005F1B75 : Rva002226E5TextPlusString
 // The caller at 0x005F1DB0 materializes this four-part expression for the
 // region bonus label: the rowed three-part writer followed by the final text
 // pair. The class layout follows Rva005F1B75 plus the pair at +0x10.
-struct Rva005F1D06 : Rva005F1B75
-{
-	int write(char *dst);
-	Rva000B3F84Pair m_fourth;
-	operator AsciiString();
-};
-
 // Target bytes at 0x0059B115 call the rowed AsciiStringPlusText::length
 // body at 0x002DBF50, then add the dword at this+0x10. The four bytes at
 // this+0x0C are only layout padding here; the containing type is unresolved.
@@ -505,14 +498,6 @@ struct AsciiStringPlusText : AsciiStringRef
 	int write(char *dst);
 	operator AsciiString();
 	Rva000B3F84Pair m_right;
-};
-
-struct Rva0059B115 : AsciiStringPlusText
-{
-	int rva0059B115() const;
-
-	char m_opaque_0C[4];
-	int m_opaque_10;
 };
 
 // ?length@Rva005F1BAA@@QBEHXZ @0x005F1BAA 13B: four-part extension (three-part string base at 0x005F1B75 plus fourth pair len at +0x14); chain from 0x005F1B75 landing.

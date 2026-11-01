@@ -12,19 +12,6 @@ enum WeaponStatus
 	PRE_ATTACK,
 	WEAPON_STATUS_5
 };
-class ObjectFilter
-{
-public:
-	bool isValid() const;
-};
-class WeaponTemplate
-{
-public:
-	char m_pad00[0x78];
-	int m_flag78;
-	char m_pad7C[0x120 - 0x78 - 4];
-	ObjectFilter m_ammo;
-};
 #include "GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 #include "../../Include/GameLogic/Weapon.h"

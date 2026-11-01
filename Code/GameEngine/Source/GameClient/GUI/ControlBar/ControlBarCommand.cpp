@@ -447,24 +447,6 @@ public:
 // ControlBarCommand.cpp; this split unit must not allocate a second copy.
 extern ControlBarInventoryEntry ControlBarInventoryEntries[32];
 
-class Rva00225A79StringField
-{
-public:
-	void set(const UnicodeString &s);
-private:
-	char m_pad[0x30];
-	UnicodeString m_str;
-};
-
-class Rva0023DC86StringField
-{
-public:
-	~Rva0023DC86StringField();
-private:
-	char m_pad[0x18];
-	AsciiString m_str;
-};
-
 BFME_ASCII_FIELD_CLEAR(Rva0053BB0EStringField, 0x7C)
 
 class XferException

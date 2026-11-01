@@ -66,16 +66,3 @@ void Rva000AF012Forwarder::rva000AF012()
 	m_inner->slot2();
 }
 
-class Rva00240045Lead
-{
-public:
-	virtual void lead0();
-private:
-	char m_lead[0xC];
-};
-
-class Rva00240045Forwarder : public Rva00240045Lead, public SizedForwarderSlots
-{
-public:
-	void rva00240045();
-};

@@ -16,7 +16,7 @@ class Transport;
 struct Coord3D;
 struct BuffInfoView;
 class TBuff;
-class W3DTreeBuffer { public: Bool rva000EA644(void *firstValue); };		// 0x000EA644
+		// 0x000EA644
 class Rva000680B3Host { public: void rva000680B3(); };			// 0x000680B3
 class Rva000664F4
 {
@@ -65,15 +65,6 @@ void Rva000B31B9NullForwarder::rva000B31B9(Int firstValue)
 	if (m_member)
 		m_member->setColor(firstValue);
 }
-
-class Rva0006820FNullForwarder
-{
-public:
-	Bool rva0006820F(Int firstValue);
-private:
-	char m_lead[0x3850];
-	W3DTreeBuffer *m_member;
-};
 
 class Rva00091E38NullForwarder
 {

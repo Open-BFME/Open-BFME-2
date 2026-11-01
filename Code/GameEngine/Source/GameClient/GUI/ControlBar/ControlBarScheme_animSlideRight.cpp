@@ -185,18 +185,6 @@ struct BfmeControlBarSchemeInitBar
 
 // updateBuildUpClockColor and the five-colour updateCommanBarBorderColors,
 // under the names their matched bodies carry (0x0049D010, 0x0049D020).
-class Rva0049D010DwordSlot
-{
-public:
-	void set(Int value);
-};
-
-class Gen_0049D020
-{
-public:
-	void bfmeSet(Int build, Int action, Int upgrade, Int system, Int fifth);
-};
-
 // addAnimation
 
 // addImage

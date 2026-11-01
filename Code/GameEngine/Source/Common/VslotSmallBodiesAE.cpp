@@ -205,10 +205,6 @@ struct Rva00584A7DVector
 	UnsignedInt size() const { return _M_finish - _M_start; }
 	void grow(UnsignedInt count);
 };
-struct Rva00584A7DEntry
-{
-	char m_pad00[0x1C];
-};
 struct Rva00587057Entry
 {
 	char m_pad00[0x54];
@@ -218,15 +214,6 @@ void Rva00584A7DVector<Rva00587057Entry>::grow(UnsignedInt count)
 {
 	((Rva00586FC0 *)this)->rva00586FC0(count, Rva00585B16());
 }
-class Rva00584A7D
-{
-public:
-	void rva00584A7D(UnsignedInt count);
-private:
-	Int m_00;
-	Int m_04;
-	Rva00584A7DVector<Rva00584A7DEntry> m_08;
-};
 class Rva00587057
 {
 public:

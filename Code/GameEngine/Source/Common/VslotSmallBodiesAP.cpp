@@ -8,25 +8,6 @@
 
 typedef int Int;
 
-class Rva00078AE3
-{
-public:
-	__declspec(noinline) Rva00078AE3& rva00078AE3(const Rva00078AE3 *other);
-private:
-	unsigned int bits00 : 3;
-	unsigned int bits03 : 27;
-	unsigned int bit30 : 1;
-	unsigned int word04, word08, word0C;
-};
-class Rva00078ADB
-{
-public:
-	void rva00078ADB(Int firstValue);
-private:
-	char m_pad00[0x1C];
-	Rva00078AE3 m_1C;
-};
-
 class DataChunkInput;
 struct DataChunkInfo;
 class WorldHeightMap

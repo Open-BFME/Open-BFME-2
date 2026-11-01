@@ -129,21 +129,6 @@ void Rva0050959C::rva0050959C(void *a, void *b)
 
 // slot at VA 0x00C66420: for argument 1, runs the rowed 0x0044BD79 on the
 // +0x08 member when its first word is set.
-class BfmeA1042N
-{
-public:
-	void bfmeGo1042D();
-	Int m_00;
-};
-class Rva00517364
-{
-public:
-	void rva00517364(Int which);
-private:
-	char m_pad00[0x08];
-	BfmeA1042N m_08;
-};
-
 // slots at VA 0x00C1AEC4, 0x00C6B90C, 0x00C6E27C and more: appends the
 // argument to the int list at +0x14 (rowed list<int>::push_back).
 class AIBuildable

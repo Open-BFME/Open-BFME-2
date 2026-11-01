@@ -202,22 +202,6 @@ Bool Rva003F7133::rva003F7133(Int lhs, Int rhs) { return lhs == rhs ? true : fal
 
 // vtable 0x00BF6040#32 and #33: set or clear the byte at +0x12134 of the
 // object at +0xC, if any.
-class Rva0025DC38Target
-{
-public:
-	char m_pad00[0x12134];
-	Bool m_12134;
-};
-class Rva0025DC38
-{
-public:
-	void rva0025DC38();
-	void rva0025DC47();
-private:
-	char m_pad00[0x0C];
-	Rva0025DC38Target *m_0C;
-};
-
 // Independent installed-table and unnamed WB evidence: pointer at receiver-4,
 // raw32-bit words at owner8/C, signed difference divided by88, then unsigned
 // quotient greater than zero. Original owner/container identity is unknown.
