@@ -1,0 +1,122 @@
+[
+  {
+    "symbol": "??6Debug@@UAEAAV0@PBX@Z",
+    "rva": "0x00038950",
+    "size": "101",
+    "score": 1.0,
+    "exact": true,
+    "unresolved": false
+  },
+  {
+    "symbol": "??6Debug@@UAEAAV0@M@Z",
+    "rva": "0x000388B0",
+    "size": "68",
+    "score": 1.0,
+    "exact": true,
+    "unresolved": false
+  },
+  {
+    "symbol": "??6Debug@@UAEAAV0@N@Z",
+    "rva": "0x00038900",
+    "size": "68",
+    "score": 1.0,
+    "exact": true,
+    "unresolved": false
+  },
+  {
+    "symbol": "??0Format@Debug@@QAA@PBDZZ",
+    "rva": "0x000386E0",
+    "size": "35",
+    "score": 1.0,
+    "exact": true,
+    "unresolved": false
+  },
+  {
+    "symbol": "?EnumThreadWndProc@@YGHPAXJ@Z",
+    "rva": "0x0003D380",
+    "size": "17",
+    "score": 1.0,
+    "exact": true,
+    "unresolved": false
+  },
+  {
+    "symbol": "?WriteBuildInfo@Debug@@UAEXXZ",
+    "rva": "0x000395D0",
+    "size": "137",
+    "score": 1.0,
+    "exact": true,
+    "unresolved": false
+  },
+  {
+    "symbol": "??6Debug@@UAEAAV0@PBD@Z",
+    "rva": "0x0003B340",
+    "size": "137",
+    "score": 1.0,
+    "exact": true,
+    "unresolved": false
+  },
+  {
+    "symbol": "??6Debug@@UAEAAV0@ABVMemDump@0@@Z",
+    "rva": "0x000389C0",
+    "size": "620",
+    "score": 1.0,
+    "exact": true,
+    "unresolved": false
+  },
+  {
+    "symbol": "?FlushOutput@Debug@@EAEX_N@Z",
+    "rva": "0x00039300",
+    "size": "217",
+    "score": 1.0,
+    "exact": true,
+    "unresolved": false
+  },
+  {
+    "symbol": "?StartOutput@Debug@@EAAXW4StringType@DebugIOInterface@@PBDZZ",
+    "rva": "0x00039B30",
+    "size": "58",
+    "score": 1.0,
+    "exact": true,
+    "unresolved": false
+  },
+  {
+    "symbol": "?AddOutput@Debug@@EAEXPBDI@Z",
+    "rva": "0x00039B70",
+    "size": "675",
+    "score": 1.0,
+    "exact": true,
+    "unresolved": false
+  },
+  {
+    "symbol": "?LocalSETranslator@@YAXIPAU_EXCEPTION_POINTERS@@@Z",
+    "rva": "0x00038760",
+    "size": "14",
+    "score": 1.0,
+    "exact": true,
+    "unresolved": false
+  },
+  {
+    "symbol": "?InstallExceptionHandler@Debug@@SAXXZ",
+    "rva": "0x00038770",
+    "size": "13",
+    "score": 1.0,
+    "exact": true,
+    "unresolved": false
+  },
+  {
+    "symbol": "??6Debug@@UAEAAV0@VHResult@0@@Z",
+    "rva": "0x00038C30",
+    "size": "117",
+    "score": 1.0,
+    "exact": true,
+    "unresolved": false
+  },
+  {
+    "symbol": "??0RepeatChar@Debug@@QAE@DH@Z",
+    "rva": "0x00038310",
+    "size": "18",
+    "score": 1.0,
+    "exact": true,
+    "unresolved": false
+  }
+]

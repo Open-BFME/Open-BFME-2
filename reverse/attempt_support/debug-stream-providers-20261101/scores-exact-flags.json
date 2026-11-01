@@ -1,0 +1,32 @@
+[
+  {
+    "symbol": "??6Debug@@UAEAAV0@_N@Z",
+    "rva": "0x00038890",
+    "size": 30,
+    "score": 1.0,
+    "exact": true,
+    "unresolved": false,
+    "compiled": "558bec8a450884c0b808c4bb007505b810c4bb008b1150ff52385dc20400",
+    "native": "558bec8a450884c0b808c4bb007505b810c4bb008b1150ff52385dc20400"
+  },
+  {
+    "symbol": "??6Debug@@UAEAAV0@_J@Z",
+    "rva": "0x0003B510",
+    "size": 83,
+    "score": 1.0,
+    "exact": true,
+    "unresolved": false,
+    "compiled": "558bec83ec44568bf18d967c9e00008bc2578d78018a084084c975f92bc750528bcee839e6ffff8b868c9e00008b550c8b3e508b45088d4dbc515250ff1594a5bb0083c410508bceff57385f5e8be55dc20800",
+    "native": "558bec83ec44568bf18d967c9e00008bc2578d78018a084084c975f92bc750528bcee839e6ffff8b868c9e00008b550c8b3e508b45088d4dbc515250ff1594a5bb0083c410508bceff57385f5e8be55dc20800"
+  },
+  {
+    "symbol": "??6Debug@@UAEAAV0@_K@Z",
+    "rva": "0x0003B570",
+    "size": 83,
+    "score": 1.0,
+    "exact": true,
+    "unresolved": false,
+    "compiled": "558bec83ec44568bf18d967c9e00008bc2578d78018a084084c975f92bc750528bcee8d9e5ffff8b868c9e00008b550c8b3e508b45088d4dbc515250ff1590a5bb0083c410508bceff57385f5e8be55dc20800",
+    "native": "558bec83ec44568bf18d967c9e00008bc2578d78018a084084c975f92bc750528bcee8d9e5ffff8b868c9e00008b550c8b3e508b45088d4dbc515250ff1590a5bb0083c410508bceff57385f5e8be55dc20800"
+  }
+]

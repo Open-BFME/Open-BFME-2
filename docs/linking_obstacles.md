@@ -8131,6 +8131,14 @@ Remaining / next check (each needs a decision, a row or a shared change; none is
   pass dry-run planning. The21 broader failures reproduce on the untouched module.
   No game source/row changed; native prefix/provider/table recovery remains open.
   See `reverse/attempt_support/debug-stream-virtual-tooling-20261101/readme.md`.
+  **Provider source follow-up:** all3 actual UAE stream bodies now match privately
+  and normal verification passes18/18 own plus1345/1345 dependent rows (49 sources,
+  57 data rows). The final unstaged-dependent guard correctly refuses because
+  debug_debug.cpp's duplicate-emitter cleanup is outside the rename Plan.after
+  footprint. Metadata and all3 source files are restored. The next change must
+  journal/claim/stage/verify owned C++ preparations in the normal transaction,
+  retaining that guard. No linking clearance or gain; exact candidate and full
+  refusal: `reverse/attempt_support/debug-stream-providers-20261101/readme.md`.
 - `??_7GameWindow@@6B@` (L in `GameWindowDtor.cpp`): the 0x0080BBCC table is shared with
   `BfmeAptScreenBase`. This needs a class-view reconcile.
 - `VectorClass<Vector3>` deleting destructor (S in `vector_class_vector3_ctor.cpp`): see LINK-015.

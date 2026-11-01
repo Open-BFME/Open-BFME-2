@@ -1,0 +1,31 @@
+{
+  "failure": "the commit hooks would refuse approved names -> readable names [name_dependents] (name_dependents: unstaged edits in Code/Libraries/Source/debug/debug_debug.cpp, which call a name this change removes: the hook refuses them); every file restored",
+  "refused": {},
+  "plans": [
+    {
+      "rva": 231568,
+      "old": "??6Debug@@QAEAAV0@_N@Z",
+      "new": "??6Debug@@UAEAAV0@_N@Z",
+      "verify": [
+        "Code/Libraries/Source/WWVegas/WWDebug/debug_operator_bool.cpp"
+      ]
+    },
+    {
+      "rva": 242960,
+      "old": "??6Debug@@QAEAAV0@_J@Z",
+      "new": "??6Debug@@UAEAAV0@_J@Z",
+      "verify": [
+        "Code/Libraries/Source/WWVegas/WWDebug/debug_operator_long.cpp"
+      ]
+    },
+    {
+      "rva": 243056,
+      "old": "??6Debug@@QAEAAV0@_K@Z",
+      "new": "??6Debug@@UAEAAV0@_K@Z",
+      "verify": [
+        "Code/Libraries/Source/WWVegas/WWDebug/debug_operator_long.cpp"
+      ]
+    }
+  ],
+  "diagnostics": ""
+}
