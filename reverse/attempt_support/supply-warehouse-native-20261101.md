@@ -130,3 +130,11 @@ radius and 258 interface offsets remain target-measured. All 273 bytes
 match, frozen checks pass and the preview remains LINKS 273 -> 273 B.
 `header_adopt_lane.py accept --class Thing` passes and retires exactly
 one queue key for this source. No header owner is modified.
+
+## Load/setter donor
+
+Rva004A7FC5Slot.cpp adopts the native warehouse view for both its 43-byte
+loadPostProcess and 77-byte setter. Native module/object/boxes fields
+replace the private six-slot view; the canonical Thing getter remains.
+Both rows are exact, declaration checks are clean and the unit retains
+120 -> 120 predicted linking bytes. No symbol or compiler flags change.
