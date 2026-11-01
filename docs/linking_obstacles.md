@@ -16136,3 +16136,18 @@ reverse/attempt_support/w3dterrainbackground-consolidation-20261101/.
 The remaining constructor and destructor scaffolds are restored and remain queued. Their native secondary tables require derived getter and dispatch overrides alongside the layout repair. BehaviorModule also needs declarations for its rowed GetSnapshotName, xfer and loadPostProcess overrides; UpdateModule xfer has a virtual versus nonvirtual row-name conflict. SupplyCenterDockUpdateConstructor additionally owns legacy anchor providers whose consumers must be reconciled before those providers can retire. AutoPickUpUpdate has an existing COMDAT conflict, an incompatible Snapshot profile and a native slot-27 getter that the base default does not express. Per-unit blocked verdicts are recorded in reverse/re_attempts.log.
 
 CastleUpgrade_upgradeImplementation retains an existing data-identity shadow finding on its local static guard; an original-source control reproduces the same symbol and address. Full source scope, native table probes, before and after results, acceptance outputs and verification logs are in the local [hb3 handoff](../build/header-report.md). The linking evidence is a per-unit preview against the published census.
+
+### ScriptActions data index and publication boundary (2026-11-01, Cortys)
+
+`ScriptActions_rva003C31F3.cpp` already uses the correct ControlBar owner and
+passes all three rows. Its two stale data keys cannot retire until the derived
+index names its compiler-local cache A02DD0 with the current member spelling.
+A fresh full-index derivation confirms that name but changes thousands of
+unrelated entries; no manual index edit or ownership admission was made.
+Evidence: `reverse/attempt_support/script-actions-data-index-20261101.md`.
+
+The preceding browser GUID / Selection prerequisite push retained its scoped
+checks and predictions, but the batch consumer audit remains INCONCLUSIVE:
+the published index predates its base and an affected AIBaseBuilder.cpp strict
+receipt is not current. Carry this affected scope into the next census; the
+scoped checks do not establish complete consumer clearance.
