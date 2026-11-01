@@ -99,7 +99,7 @@ int __cdecl Rva002E8C4DCall(int,unsigned char,Rva002E8C23Pair *,int);
 bool Rva002EBBFBIsOdd(void *);
 struct ICoord2D;
 ICoord2D *Rva002E7875WorldToCell(ICoord2D *,bool,const Coord3D *);
-class GlobalData { public: char pad[0x11F0];Int searchRadius; char pad11f4[0x1218-0x11f4]; unsigned sidewaysAttackLimit; };
+#include "../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 extern "C" double __cdecl fabs(double);
 struct PathfinderCostCellInfo { Int x,y; };
@@ -946,7 +946,7 @@ Path *Pathfinder::FindAttackPathSideways(Object *obj, const LocomotorSet &locos,
 			}
 		}
 		parent->PutOnClosedList(&m_closedList);
-		if (count < TheWritableGlobalData->sidewaysAttackLimit)
+		if (count < TheWritableGlobalData->m_maxCellsFindAttackPathSideways)
 		{
 			CheckChangeLayers(parent, obj);
 			count += ExamineNeighboringCellsForSidewaysAttack(parent, &goalIndex, sideOffset, locos, isHuman, center, radius, &startIndex, obj, attackDistance);

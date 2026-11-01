@@ -191,7 +191,7 @@ void PhysicsBehavior::rva00390E61(bool skipWake)
  dirty=true;
 }
 
-class GlobalData { public: char pad00[0xC4]; float gravity; };
+#include "../../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 #include "../../../../Include/GameLogic/AIPathfind.h"
 class AI { public: char pad00[0x10]; Pathfinder *pathfinder; };
@@ -226,7 +226,7 @@ inline UpdateSleepTime PhysicsBehavior::update()
  if(physicsTrajectoryConfig->at41 && !physicsTrajectoryConfig->at40 && index>0) {
   const Coord3D *previous=&points[index-1];
   Vector3 direction(current->x-previous->x,current->y-previous->y,current->z-previous->z);
-  if(bounces>0) direction.Z=TheWritableGlobalData->gravity*physicsTrajectoryConfig->at4C*100.0f;
+  if(bounces>0) direction.Z=TheWritableGlobalData->m_gravity*physicsTrajectoryConfig->at4C*100.0f;
   direction.bfme_Normalize_05402();
   Vector3 position(current->x,current->y,current->z);
   Matrix3D transform;

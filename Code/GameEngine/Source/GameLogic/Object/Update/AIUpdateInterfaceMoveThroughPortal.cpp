@@ -18,7 +18,7 @@ struct Rva002EDEABArg;
 class Pathfinder {public:void SetDebugPath(Rva002EDEABArg*);};
 #include "../../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
-class GlobalData {public:char before[0x9b8];int debugPath;};
+#include "../../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 void AIUpdateInterface::moveThroughPortalWithMicropath(const Coord3D *portalStart,const Coord3D *portalEnd,int id,PathfindLayerEnum layer,const Coord3D *midPos,const Coord3D *finalPos) {
@@ -30,6 +30,6 @@ void AIUpdateInterface::moveThroughPortalWithMicropath(const Coord3D *portalStar
  Coord3D position;position.x=m_object->position.x;position.y=m_object->position.y;position.z=m_object->position.z;
  m_path->prependNode(&position,TheTerrainLogic->getLayerForDestination(getObject(),&position),0x7fffffff);
  m_path->optimized=true;
- if(TheWritableGlobalData->debugPath==1)TheAI->m_pathfinder->SetDebugPath(reinterpret_cast<Rva002EDEABArg*>(m_path));
+ if(TheWritableGlobalData->field09B8==1)TheAI->m_pathfinder->SetDebugPath(reinterpret_cast<Rva002EDEABArg*>(m_path));
  m_field1FC=4;m_field200=*finalPos;
 }

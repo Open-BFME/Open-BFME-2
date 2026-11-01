@@ -31,12 +31,7 @@ public:
 	~UpdateModuleData();
 };
 
-class GlobalData
-{
-public:
-	unsigned char m_pad[0x9DC];
-	AsciiString m_healingBuff;
-};
+#include "../../../../../Include/Common/GlobalData.h"
 
 extern class GlobalData *TheWritableGlobalData;
 
@@ -111,7 +106,7 @@ ActiveBodyModuleData::ActiveBodyModuleData()
 	m_grabOffsetY = 0.0f;
 	m_damagedAttr.clear();
 	m_reallyDamagedAttr.clear();
-	AsciiString &healingDefault = TheWritableGlobalData->m_healingBuff;
+	AsciiString &healingDefault = TheWritableGlobalData->m_defaultUnitHealingBuffFxList;
 	if (!reinterpret_cast<const StringBase<char> *>(&healingDefault)->isEmpty())
 		m_healingBuffFx = TheFXListStore->findFXList(healingDefault.str());
 }

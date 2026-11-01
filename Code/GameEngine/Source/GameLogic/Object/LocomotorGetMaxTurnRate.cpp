@@ -51,12 +51,7 @@ public:
 	UnsignedInt m_damagedTurnPeriod;
 };
 
-class GlobalData
-{
-public:
-	char m_pad[0xB3C];
-	BodyDamageType m_movementPenaltyDamageState;
-};
+#include "../../../Include/Common/GlobalData.h"
 
 #define TheGlobalData TheWritableGlobalData
 
