@@ -32,20 +32,7 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_FOREVER = 0x3fffffff
 };
 // Retail table 0x00856D50 (+0x10) slot 0 is the rowed override 0x004B327F.
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-public:
-	virtual ~UpdateModule();
-protected:
-	unsigned m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_bfmeReserved;
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 class AISpecialPowerUpdatePointee
 {
 public:

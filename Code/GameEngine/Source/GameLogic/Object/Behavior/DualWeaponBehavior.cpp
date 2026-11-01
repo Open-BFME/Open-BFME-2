@@ -37,24 +37,7 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_NONE = 1,
 	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
 };
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update();
-};
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~UpdateModule();
-	void xfer(Xfer *xfer);
-protected:
-	void setWakeFrame(Object *obj, UpdateSleepTime frame);
-private:
-	unsigned m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_bfmeReserved;
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 enum NameKeyType;
 class DualWeaponBehavior : public UpdateModule
 {

@@ -49,25 +49,11 @@ extern AudioManager *TheAudio;
 
 #include "../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class UpdateModuleInterface
-{
-public:
-	virtual void updateModuleInterface() = 0;
-};
+#include "../../../Include/GameLogic/Module/UpdateModule.h"
 
 #include "../../../Include/Common/ObjectModule.h"
 
 
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-public:
-	virtual ~UpdateModule();
-
-private:
-	unsigned int m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	unsigned int m_updateState;
-};
 
 class FiringTracker : public UpdateModule
 {

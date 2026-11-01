@@ -145,11 +145,7 @@ class ModuleData;
 
 class AIUpdateInterface;
 
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
+#include "../../Include/GameLogic/Module/UpdateModule.h"
 
 class Xfer::Version
 {
@@ -331,18 +327,6 @@ protected:
 	Object *m_object;		// +0x08
 };
 
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);	// 0x00253390
-	virtual ~UpdateModule();
-	void xfer(Xfer *xfer);						// 0x0044DF9F
-
-private:
-	unsigned int m_nextCallFrameAndPhase;	// +0x14
-	int m_indexInLogic;			// +0x18
-	int m_updateState;			// +0x1C
-};
 
 // +0x20 is set once moveToStuff sends the AI after a find and cleared by
 // 0x00491EE6 when the AI is idle again; +0x24 is the frame of the last scan.

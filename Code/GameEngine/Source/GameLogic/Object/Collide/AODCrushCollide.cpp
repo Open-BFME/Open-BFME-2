@@ -16,23 +16,7 @@ class Xfer;
 class Object;
 struct Coord3D;
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~UpdateModule();
-	void xfer(Xfer *xfer);
-
-private:
-	unsigned int m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_updateState;
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 static int s_crush20;
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)

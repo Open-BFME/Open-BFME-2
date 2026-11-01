@@ -31,21 +31,8 @@ public:
 
 enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
 
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-public:
-	virtual ~UpdateModule();
-protected:
-	unsigned m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_bfmeReserved;
-};
 
 class AutoPickUpUpdateInterface
 {
