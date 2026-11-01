@@ -15,12 +15,7 @@ typedef unsigned int Uint;
 typedef unsigned short UShort;
 #include <new>
 
-class RefCountClass
-{
-public:
-	virtual void Delete_This() {}
-	int m_refs; // +0x04
-};
+#include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 
 class BfmeDynamicNativeVB : public RefCountClass
 {

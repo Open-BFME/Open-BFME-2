@@ -14,7 +14,7 @@
 // owner/method and gate purpose remain unknown; preserve existing opaque names.
 // Raw constructor must be forceinline to match the return-buffer sequence.
 // cl: /O1 /G7 /DNDEBUG /MD /EHsc /Oy
-class RefCountClass {public:virtual void Delete_This();int refs;__forceinline void Add_Ref(){refs++;}__forceinline void Release_Ref(){refs--;if(refs==0)Delete_This();}};
+#include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 class CameraClass : public RefCountClass {char opaque[0x3f4];};
 struct Rva0008B689Element {
  CameraClass *pointer;

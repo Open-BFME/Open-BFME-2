@@ -14,21 +14,7 @@
 // dtor 0x0049B47C, as in W3DLaserDrawDestructor.cpp. The host's identity
 // is unproven, so it keeps an address name.
 
-class RefCountClass
-{
-public:
-	virtual void Delete_This();
-
-	void Release_Ref()
-	{
-		NumRefs--;
-		if (NumRefs == 0)
-			Delete_This();
-	}
-
-private:
-	int NumRefs; // +0x04
-};
+#include "../../../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 
 class Rva0007E971
 {

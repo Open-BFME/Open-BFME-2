@@ -39,15 +39,7 @@ public:
 };
 // Primary counter+4 / virtual disposal-slot0 proven by native561543.
 // Total native new extent19C is preserved; the remaining fields stay opaque.
-class RefCountClass
-{
-public:
-    virtual void Delete_This();
-    virtual ~RefCountClass();
-    int NumRefs;
-    // Same donor inline operation; emitted10B also matches native5D1A7D.
-    void Release_Ref() { NumRefs--; if (NumRefs == 0) Delete_This(); }
-};
+#include "../../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 class StreakLineClass : public RefCountClass
 {
 public:

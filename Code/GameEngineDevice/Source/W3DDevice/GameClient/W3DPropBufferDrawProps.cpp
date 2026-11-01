@@ -84,15 +84,7 @@ private:
 	char m_storage[0x228];
 };
 
-class RefCountClass
-{
-public:
-	virtual void Delete_This(void);
-	void Add_Ref(void) { NumRefs++; }
-	void Release_Ref(void) { NumRefs--; if (NumRefs == 0) Delete_This(); }
-protected:
-	int NumRefs;
-};
+#include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 
 template <class T>
 class RefCountPtr

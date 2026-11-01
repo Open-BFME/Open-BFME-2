@@ -185,11 +185,7 @@ public:
 
 struct Rva0007BB16Record;
 
-class RefCountClass {
-public:
-virtual void Delete_This();
- void Add_Ref(){++NumRefs;}void Release_Ref(){--NumRefs;if(!NumRefs)Delete_This();}private:int NumRefs;
-};
+#include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 
 class FXShaderSetup:public RefCountClass {};
 

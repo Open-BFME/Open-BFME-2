@@ -5,7 +5,7 @@
 // Preserve the established address-derived owner used by deleting-dtor callers.
 #include <new>
 class RenderObjClass;
-class RefCountClass{public:virtual void Delete_This();void Release_Ref(){if(--refs==0)Delete_This();}int refs;};
+#include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 class LightClass:public RefCountClass{};
 class MaterialPassClass:public RefCountClass{};
 class W3DShroudMaterialPassClass:public RefCountClass{};

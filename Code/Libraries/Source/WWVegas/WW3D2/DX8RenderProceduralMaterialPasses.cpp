@@ -26,17 +26,7 @@
 #include <stddef.h>
 
 class IndexBufferClass;
-class RefCountClass
-{
-public:
-    void Add_Ref() { ++references; }
-    __declspec(dllimport) __forceinline void Release_Ref() { if (--references == 0) Delete_This(); }
-    virtual void Delete_This();
-protected:
-    virtual ~RefCountClass();
-public:
-    int references;
-};
+#include "../WWLib/RefCountData.h"
 
 class MaterialPassClass : public RefCountClass
 {

@@ -20,14 +20,7 @@
 #include <vector>
 #include "ascii_string.h"
 
-class RefCountClass
-{
-public:
-	virtual void Delete_This();
-	void Release_Ref() { --NumRefs; if (!NumRefs) Delete_This(); }
-private:
-	int NumRefs;
-};
+#include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 class FXShaderSetup : public RefCountClass {};
 template <class T> class RefCountPtr
 {

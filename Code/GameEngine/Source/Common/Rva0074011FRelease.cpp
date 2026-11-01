@@ -2,17 +2,7 @@
 // ?rva0074011F@Rva0074011F@@QAEXXZ, retail 0x0074011F, 43 bytes.
 // Releases two RefCount holders via inlined Release_Ref then nulls holder.
 // Evidence: callers at 0x00066817 0x00066835 0x000D1C9F 0x007402A3; pattern matches TerrainTracks free precedent; container in 0x000D1C83 holds VB+IB pair.
-class RefCountClass
-{
-public:
-	virtual void Delete_This() = 0;
-	void Release_Ref()
-	{
-		if (--m_refs == 0)
-			Delete_This();
-	}
-	int m_refs;
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 class Rva0074011F
 {
 public:

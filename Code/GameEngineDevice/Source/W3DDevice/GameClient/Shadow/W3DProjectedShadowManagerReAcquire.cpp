@@ -11,17 +11,7 @@ typedef unsigned int Uint;
 typedef unsigned short UShort;
 void *__cdecl operator new(Uint s);
 #include <new>
-class RefCountClass
-{
-public:
-	virtual void Delete_This() {}
-	void Release_Ref()
-	{
-		if (--m_refs == 0)
-			Delete_This();
-	}
-	int m_refs;
-};
+#include "../../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 class BfmeDynamicNativeVB : public RefCountClass
 {
 public:

@@ -85,20 +85,7 @@ public:
 	Vector3 Extent;
 };
 
-class RefCountClass
-{
-public:
-	virtual void Delete_This();
-	void Add_Ref() { m_numRefs++; }
-	void Release_Ref()
-	{
-		if (--m_numRefs == 0)
-			Delete_This();
-	}
-
-private:
-	Int m_numRefs;
-};
+#include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 
 class VertexBufferClass : public RefCountClass
 {

@@ -46,22 +46,7 @@ protected:
 
 // RefCountClass inline copies take the size form retail links (0x005D1A7D).
 #pragma optimize("s", on)
-class RefCountClass
-{
-public:
-	void Add_Ref() const { NumRefs++; }
-	void Release_Ref() const
-	{
-		NumRefs--;
-		if (NumRefs == 0)
-			const_cast<RefCountClass *>(this)->Delete_This();
-	}
-	virtual void Delete_This();
-protected:
-	virtual ~RefCountClass() {}
-private:
-	mutable int NumRefs;
-};
+#include "../WWLib/RefCountData.h"
 #pragma optimize("", on)
 
 class VertexMaterialClass : public RefCountClass

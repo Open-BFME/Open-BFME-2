@@ -72,17 +72,7 @@ public:
 	char m_data[0x228];
 };
 
-class RefCountClass
-{
-public:
-	virtual void Delete_This();
-	void Release_Ref()
-	{
-		if (--m_numRefs == 0)
-			Delete_This();
-	}
-	Int m_numRefs;
-};
+#include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 
 class LightClass : public RefCountClass
 {

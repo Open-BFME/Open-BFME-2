@@ -65,16 +65,7 @@ template <> __declspec(dllimport) __forceinline bool DynamicVectorClass<Vector3>
 // Retail's DynamicVectorClass<Vector3> deleting destructor is the size-optimised
 // FXShaderRendererSkin.cpp body; this TU emits its copy in RefCountClass's context.
 #pragma optimize("s", on)
-class RefCountClass
-{
-public:
-    RefCountClass() : NumRefs(1) {}
-    virtual void Delete_This();
-protected:
-    virtual ~RefCountClass();
-private:
-    int NumRefs;
-};
+#include "../WWLib/RefCountData.h"
 
 #pragma optimize("", on)
 

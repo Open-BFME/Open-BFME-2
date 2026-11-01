@@ -82,15 +82,7 @@ public:
 class Vector3;
 class RenderObjClass;
 class SceneIterator;
-class RefCountClass
-{
-public:
-	virtual void Delete_This();
-protected:
-	virtual ~RefCountClass();
-private:
-	int NumRefs;
-};
+#include "../../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 class SceneClass : public RefCountClass
 {
 public:

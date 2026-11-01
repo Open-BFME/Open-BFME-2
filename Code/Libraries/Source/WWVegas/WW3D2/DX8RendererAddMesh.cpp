@@ -50,16 +50,7 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // Use the same BFME aligned-buffer view as DX8SkinClearVisibleList.cpp.
 // Destruction binds to the rowed providers; the visible imported constructor
 // retains Add_Mesh's inline allocation without emitting an /O2 standalone copy.
-class RefCountClass
-{
-public:
- RefCountClass() : NumRefs(1) {}
- virtual void Delete_This();
-protected:
- virtual ~RefCountClass();
-private:
- int NumRefs;
-};
+#include "../WWLib/RefCountData.h"
 template <class T> class ShareBufferClass : public RefCountClass
 {
 public:

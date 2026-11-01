@@ -8,14 +8,7 @@
 // holder offset and relocated literals. The owning class name is unknown.
 // RefCountClass, RefCountPtr and lock ABI follow that existing provider view;
 // native accesses independently establish the referent count at +4.
-class RefCountClass {
-public:
- virtual void Delete_This();
- void Add_Ref() { ++NumRefs; }
- void Release_Ref() { --NumRefs; if (!NumRefs) Delete_This(); }
-private:
- int NumRefs;
-};
+#include "../../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 
 class FXShaderSetup : public RefCountClass {};
 

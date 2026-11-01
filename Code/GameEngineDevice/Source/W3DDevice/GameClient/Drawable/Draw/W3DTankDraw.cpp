@@ -138,17 +138,7 @@ protected:
 // conditional destroy). Evidence: deleting wrapper 0xCEB2C slot 0 of
 // 0xBCCBE8 calls here; slot 4 pool key 0xCE9EE uses "W3DTankDraw" string.
 
-class RefCountClass
-{
-public:
-	virtual void Delete_This();
-	void Release_Ref()
-	{
-		if (--NumRefs == 0)
-			Delete_This();
-	}
-	int NumRefs;
-};
+#include "../../../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 class RenderObjClass : public RefCountClass
 {
 };

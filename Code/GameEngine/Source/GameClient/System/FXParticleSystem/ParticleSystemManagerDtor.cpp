@@ -37,15 +37,7 @@ struct DX8ThreadLockScope
 
 #include "../../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
-class RefCountClass
-{
-public:
-	virtual void Delete_This(void);
-	void Release_Ref(void) { NumRefs--; if (NumRefs == 0) Delete_This(); }
-
-protected:
-	int NumRefs;
-};
+#include "../../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 
 template <class T>
 class Rva0007B724RefCountPtr

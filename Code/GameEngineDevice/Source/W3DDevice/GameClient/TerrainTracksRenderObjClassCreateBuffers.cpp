@@ -14,17 +14,7 @@ typedef unsigned int Uint;
 typedef unsigned short UShort;
 typedef unsigned char Bool;
 #include <new>
-class RefCountClass
-{
-public:
-	virtual void Delete_This() {}
-	void Release_Ref()
-	{
-		if (--m_refs == 0)
-			Delete_This();
-	}
-	int m_refs;
-};
+#include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 class BFMEDX8DeviceLock
 {
 public:

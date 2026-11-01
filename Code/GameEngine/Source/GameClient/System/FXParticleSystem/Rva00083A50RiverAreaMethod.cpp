@@ -12,16 +12,7 @@
 // RenderInfoClass::Push_Rendering_Method (0x001431B0) by value.
 // WB twin 0x00742590 has the same flag test and copy.
 // Method names are address-derived; class from the shared +0x40 holder.
-class RefCountClass
-{
-public:
-	virtual void Delete_This(void);
-	void Add_Ref(void) { NumRefs++; }
-	void Release_Ref(void) { NumRefs--; if (NumRefs == 0) Delete_This(); }
-
-protected:
-	int NumRefs;
-};
+#include "../../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 
 namespace FXShader {
 class RenderingMethod : public RefCountClass

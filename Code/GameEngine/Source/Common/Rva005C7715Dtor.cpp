@@ -9,21 +9,7 @@
 class Vector3;
 class Vector4;
 
-class RefCountClass
-{
-public:
-	virtual void Delete_This();
-protected:
-	virtual ~RefCountClass() {}
-private:
-	int NumRefs;
-public:
-	void Release_Ref()
-	{
-		if (--NumRefs == 0)
-			Delete_This();
-	}
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 
 template <class T> class ShareBufferClass : public RefCountClass
 {

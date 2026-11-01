@@ -9,15 +9,7 @@
 // through slot 0). The conditional's two temporaries give the flag-guarded
 // cleanup retail shows. WorldBuilder's twin (0x00FAA240) is unnamed.
 
-class RefCountClass
-{
-public:
-	virtual void Delete_This();
-	void Add_Ref() { ++NumRefs; }
-	void Release_Ref() { --NumRefs; if (!NumRefs) Delete_This(); }
-private:
-	int NumRefs;
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 
 class FXShaderSetup : public RefCountClass {};
 

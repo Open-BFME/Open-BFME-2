@@ -28,15 +28,7 @@ class StreakDrawModuleTemplate;
 }
 void __cdecl Rva005C7889Init(void);
 #include <new>
-class RefCountClass
-{
-public:
-    virtual void Delete_This();
-    virtual ~RefCountClass();
-    int NumRefs;
-    // Same donor inline operation; emitted10B also matches native5D1A7D.
-    void Release_Ref() { NumRefs--; if (NumRefs == 0) Delete_This(); }
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 class MultiListObjectClass
 {
 public:

@@ -39,19 +39,7 @@ public:
 	virtual ~Rva002DAB18();
 };
 
-class RefCountClass
-{
-public:
-	virtual void Delete_This(void) = 0;
-
-	void Release_Ref(void)
-	{
-		if (--NumRefs == 0)
-			Delete_This();
-	}
-
-	int NumRefs;
-};
+#include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 
 class BaseHeightMapRenderObjClass : public RefCountClass
 {

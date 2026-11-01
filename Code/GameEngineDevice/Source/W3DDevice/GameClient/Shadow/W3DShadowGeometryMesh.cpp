@@ -136,14 +136,7 @@ struct TriIndex
 	UnsignedShort I, J, K;
 };
 
-class RefCountClass
-{
-public:
-	void Release_Ref(void) { NumRefs--; if (NumRefs == 0) Delete_This(); }
-	virtual void Delete_This(void);
-protected:
-	int NumRefs;
-};
+#include "../../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 
 template<class T> class ShareBufferClass : public RefCountClass
 {

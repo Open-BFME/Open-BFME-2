@@ -9,20 +9,7 @@
 // BfmeAssignRecord32 operator= at 0x173499 calls it 7 times. Shape follows
 // OpaqueRefElement4::operator= at 0x239099 and Rva005EEFD2::operator= at
 // 0x5EEFD2 with inlined non-atomic counting.
-class RefCountClass
-{
-public:
-	virtual void Delete_This();
-	void Add_Ref() { ++NumRefs; }
-	void Release_Ref()
-	{
-		--NumRefs;
-		if (NumRefs == 0)
-			Delete_This();
-	}
-private:
-	int NumRefs;
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 class Rva00072A94
 {
 public:

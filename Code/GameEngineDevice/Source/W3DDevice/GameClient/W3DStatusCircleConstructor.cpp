@@ -9,14 +9,7 @@
 // buffer pointers; the -1.0f pair and +0xD4 are BFME 2 additions whose
 // names are unknown (fieldCC/fieldD0/fieldD4).
 
-class RefCountClass
-{
-public:
-	RefCountClass();
-	virtual void Delete_This();
-	virtual ~RefCountClass();
-	int NumRefs;
-};
+#include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 
 class MultiListObjectClass
 {

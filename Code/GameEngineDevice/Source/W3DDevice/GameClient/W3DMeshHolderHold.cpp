@@ -3,7 +3,7 @@
 // copy into the hidden return, release" sequence (see W3DViewCameraHandleGet.cpp, 0x000897C8): 0x00136090 (pinned
 // ?Rva00136090MeshHold, MeshModelClass holder) and 0x001007D5 (same body, own EH map). Target evidence: both retail
 // bodies are byte-identical to 0x000897C8 apart from the EH map reloc; REL32 0x001007B0 is the named setter.
-class RefCountClass {public:virtual void Delete_This();int refs;__forceinline void Add_Ref(){refs++;}__forceinline void Release_Ref(){refs--;if(refs==0)Delete_This();}};
+#include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 class HAnimClass:public RefCountClass {};
 class HAnimComboDataClass {HAnimClass*HAnim;public: __declspec(noinline) void Set_HAnim(HAnimClass*motion){if(motion)motion->Add_Ref();if(HAnim)HAnim->Release_Ref();HAnim=motion;}};
 class MeshModelClass : public RefCountClass {char opaque[0x20];};
