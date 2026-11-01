@@ -284,27 +284,6 @@ private:
 
 // Zero-displacement members: the compared dword is the first field, so no
 // lead padding is emitted (a zero-length pad array is not legal C++).
-class Rva004CB73CmpBoolField
-{
-public:
-	bool get() const;
-	int m_value;
-};
-
-class Rva0050D3ECmpBoolField
-{
-public:
-	bool get() const;
-	int m_value;
-};
-
-class Rva002620FECmpBoolField
-{
-public:
-	bool get() const;
-	int m_value;
-};
-
 // 0x004A8125 is ToppleUpdate::isAbleToBeToppled (pinned under that name from
 // Object::topple 0x0028CF37; ZH: m_toppleState == TOPPLE_UPRIGHT, state at +0x38).
 class ToppleUpdate
@@ -313,28 +292,6 @@ public:
 	bool isAbleToBeToppled() const;
 	char m_lead[0x38];
 	int m_toppleState;
-};
-
-struct Rva0036CC89Inner
-{
-	char m_pad[0x1C];
-	unsigned int m_flags;
-};
-
-class Rva0036CC89CmpBoolField
-{
-public:
-	bool get() const;
-	char m_lead[4];
-	Rva0036CC89Inner *m_ptr;
-};
-
-class Rva00368594CmpBoolField
-{
-public:
-	bool get() const;
-	char m_lead[0x558];
-	unsigned char m_byte;
 };
 
 // ?rva00050D86@Rva00050D86@@QAE_NE@Z @0x00050D86 55B mask-covered set-field check.
@@ -352,58 +309,15 @@ public:
 	unsigned char m_4C;
 };
 
-class Rva00050D6C
-{
-public:
-	int rva00050D6C();
-	char m_lead[0x49];
-	unsigned char m_49;
-	unsigned char m_4A;
-	unsigned char m_4B;
-	unsigned char m_4C;
-};
-
 // Native 0x0026FFF7..0x0027000E RET: int at +B8 equals either 1 or 2.
 // Full EAX returns 0/1; field signedness and enum meaning remain unknown.
-class Rva0026FFF7 {
-    char m_pad[0xB8];
-    int m_value;
-public:
-    int get() const;
-};
-
 // BF1 9cbfb551fe Common/Rva00694830Accessors.cpp is the clean semantic guide.
 // Complete native 00050D53..00050D60 RET leaf proves: receiver0 pointer returns null or pointed address plus8.
 // Original owner and complete bounds unresolved; independent address-owned view.
-class Rva00050D53Fields {
-public: char *get();
-private: char *value;
-};
-
 // 0x0023C4F8 (14B): both flag bytes at +0x15 and +0x16 set (the
 // xor/cmp-je/cmp-je/inc shape of HordeUpdate::isTrueHordeMember 0x0049001F).
 // Owner unresolved; address-derived name.
-class Rva0023C4F8BothFlags
-{
-public:
-	bool get() const;
-	char m_lead[0x15];
-	bool m_first;
-	bool m_second;
-};
-
 // --- 0x0059EE87 (15B): clear the +0x4A8 id and mark +0x4A0.
-class Rva0059EE87
-{
-public:
-	void rva0059EE87();
-private:
-	char m_pad[0x4A0];
-	bool m_4A0;
-	char m_pad4A1[0x4A8 - 0x4A1];
-	int m_4A8;
-};
-
 // --- 0x0059F9D7 (18B) / 0x0059F9E9 (18B), cdecl: open the custom-match
 // connection screen of the 0x00E063EC instance (rowed 0x0059F37C with true,
 // false).
@@ -441,28 +355,8 @@ private:
 // one.
 struct Rva005AE659Node;
 
-class Rva005AE659
-{
-public:
-	int rva005AE659(Rva005AE659Node **const *cursor) const;
-private:
-	Rva005AE659Node *m_node;
-};
-
 // --- 0x005B0207 (21B) / 0x005B021C (14B): a zero float and the value; the
 // indexed +0x418 word.
-class Rva005B0207
-{
-public:
-	void rva005B0207(float value);
-	int rva005B021C(int index) const;
-private:
-	float m_00;
-	float m_04;
-	char m_pad08[0x418 - 0x08];
-	int m_418[1];
-};
-
 // --- 0x005B0357 (93B): text callback writing "1" / "0" for whether the hero
 // earned the indexed award (rowed 0x00406E7D count, 0x00406E8F id, award
 // table 0x00E02F74 lookup 0x0040AAD5, CreateAHeroHero::HasEarnedAward).
@@ -508,60 +402,14 @@ extern int g_00E06450;
 
 extern unsigned char g_rva005B5C02Flag;
 
-struct Rva005B03B4Manager
-{
-	char m_pad[0x1D4];
-	int m_1D4;
-};
-
-class Rva005B03B4
-{
-public:
-	void rva005B03B4(int field, char *buffer, int unused);
-private:
-	char m_pad[0x48];
-	bool m_48;
-};
-
 // --- 0x005B0608 (64B) / 0x005B0648 (70B) / 0x005B068E (64B) / 0x005B06CE
 // (87B): text callbacks writing one more than the indexed +0x174 record's
 // +0x08 / rowed-0x00407E28-mapped +0x00 / +0x0C value, and (after "0" unless
 // skipped) the indexed +0x180 record's +0x04 value.
-struct Rva005B0608Record
-{
-	int m_00;
-	int m_04;
-	int m_08;
-	int m_0C;
-	int m_10;
-};
-
-struct Rva005B0608Vector
-{
-	__forceinline unsigned size() const { return m_end - m_begin; }
-	__forceinline const Rva005B0608Record &operator[](unsigned i) const { return m_begin[i]; }
-	Rva005B0608Record *m_begin;
-	Rva005B0608Record *m_end;
-	Rva005B0608Record *m_storage;
-};
-
 class Rva00407E28
 {
 public:
 	int rva00407E28(int key);								// 0x00407E28
-};
-
-class Rva005B0608
-{
-public:
-	void rva005B0608(unsigned index, char *buffer, int unused);
-	void rva005B0648(unsigned index, char *buffer, int unused);
-	void rva005B068E(unsigned index, char *buffer, int unused);
-	void rva005B06CE(unsigned index, char *buffer, bool skip);
-private:
-	char m_pad[0x174];
-	Rva005B0608Vector m_174;
-	Rva005B0608Vector m_180;
 };
 
 // ---- from Code/GameEngine/Source/GameNetwork/NAT.cpp

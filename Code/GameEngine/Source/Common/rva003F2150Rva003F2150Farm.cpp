@@ -114,12 +114,6 @@ public:
 	Rva002E2903Player *find(Int id, UnsignedInt *outIndex);	// 0x002B51F8
 };
 
-class Rva002E071E
-{
-public:
-    bool rva002E071E(const Rva002E071E *other) const;
-};
-
 class Rva00318C32Ret;
 class Rva0020E89C;
 struct Pair8;
@@ -141,11 +135,6 @@ public:
     LivingWorldRegionManager *regions;
 };
 
-class Rva00318FBE
-{
-public:
-    Int rva00318FBE();
-};
 extern LivingWorldLogic *TheLivingWorldLogic;
 
 // Native3F0F48/91 and WB103E4A0 preserve a nested12-byte range of
@@ -153,7 +142,6 @@ extern LivingWorldLogic *TheLivingWorldLogic;
 // void-pointer vector erase1FF51F. Original element types remain unknown.
 struct PlacementSlot {void **first,**finish,**end;};
 struct PlacementRange {PlacementSlot *first,*finish,*end;};
-struct PlacementArmyPrefix {char unknown00[0x18];AsciiString name18;};
 class LivingWorldRegion
 {
 	friend class Rva003F2A8C;
@@ -223,45 +211,15 @@ private:
 // +0xE4 and +0xF0 position counts (rowed resize 0x003F3B28) and empty every
 // slot's army vector (the folded pointer-vector erase 0x0031BD55). Callers
 // 0x003F3F27/0x003F3F03 and DoXfer reach it under this view's pinned spelling.
-class Rva003F3F27 { public: void rva003F3B4F();
-    char prefix[0xe4];
-    _STL::vector<Coord2D> positions,enemyPositions;
-    char before180[0x180-0xfc];
-    _STL::vector<RegionHeroSlot> heroes,enemyHeroes;
-};
 // 0x003F2106 is rowed as Rva003F2106::rva003F2106 (Rva002B7B71DeleteAll.cpp).
 class Rva003F2106 { public: void rva003F2106(); };
-class Rva002B3166BumpCounter { public: int bump(); };
-
-
-
 int Rva003F1E2EHook(int,int);
-class Gen_00528EC0 {
-public:
-    Gen_00528EC0(short index) { rva003F2968(index); }
-    void rva003F2968(short);
-    bool bfmeDiffers(const Gen_00528EC0 &) const;
-    Gen_00528EC0 rva003F3133();
-    int index() const { return (short)Rva003F1E2EHook(value,value); }
-private:
-    int head;
-    int value;
-};
 class GameSlot;
-class GameInfo { public: GameSlot *getSlot(int); };
 // PrepareSkirmishOpponents reads native VA E02EF0, the existing owned
 // TheSkirmishGameInfo global. TheGameInfo is a different pointer at E02EEC.
 class SkirmishGameInfo; extern SkirmishGameInfo *TheSkirmishGameInfo;
-struct RegionGameSlotPrefix {
-    char before4C[0x4c];
-    int armyID;
-    char before1A4[0x1a4-0x50];
-    bool participating;
-};
 class LivingWorldBattle { public: bool rva003F486C(int); };
 struct Rva003EFDDBOut;
-class Rva003EFDDBHolder { public: void rva003EFDDB(int,Rva003EFDDBOut *); };
-
 // 0x003F0E8A..0x003F0F13: thiscall, index and output arguments, ret 8.
 // Target evidence proves the pair vector at +0x74/+0x78, the +0xB0
 // singleton helper and both call targets. The receiver's identity remains
@@ -271,26 +229,6 @@ struct Pair8
 	Pair8 &operator+=(const Pair8 &other) { x += other.x; y += other.y; return *this; }
 	float x;
 	float y;
-};
-
-class Pair8Vector
-{
-public:
-	unsigned int size() const { return end - begin; }
-	Pair8 &operator[](unsigned int i) { return begin[i]; }
-private:
-	Pair8 *begin;
-	Pair8 *end;
-	Pair8 *endOfStorage;
-};
-
-class Rva003F0E8A
-{
-public:
-	bool rva003F0E8A(int index, Pair8 *out);
-private:
-	unsigned char pad00[0x74];
-	Pair8Vector positions;
 };
 
 struct RegionXferVersionFields { unsigned char minimum,current; };
@@ -319,12 +257,10 @@ void XferLivingWorldPlayerID(Xfer *,int *);
 Xfer *Rva003F2394Xfer(Xfer *,_STL::vector<ScienceType> *);
 class Rva004E075FObj;
 int Rva004E075FGet(Rva004E075FObj *,int);
-class Rva003F1093 { public: CreateAHeroData *rva003F083A(void *); void rva003F1CA2(CreateAHeroData *,bool); void rva003F1CFE(void *,bool); char prefix[0x170]; BuildPlotVector plots; };
 class Rva003F3B28View { public: void rva003F3B28(int); };
 // Native construction tracks an eight-byte zero coordinate temporary in the
 // EH bitmap and then clears its bit without a cleanup call. Keep that lifetime
 // here while using the canonical Coord2D layout and plot-constructor ABI.
-class RegionPlacementCoordTemporary : public Coord2D { public: RegionPlacementCoordTemporary() { x=0; y=0; } ~RegionPlacementCoordTemporary() {} };
 // The region's ownership listeners, told (region, old owner, new owner)
 // through their slot 1 (vcall thunk 0x005CB260) by the rowed walk
 // 0x003F1A03; a plot's rowed owner setter 0x004FC176 and the region's
@@ -335,10 +271,6 @@ public:
 	virtual void slot00();
 	virtual void onOwnerChanged(void *region, Int oldOwner, Int newOwner);	// +0x04
 };
-class Rva003F1A03 { public: void rva003F1A03(void (Rva003F119CListener::*notify)(void *, Int, Int), void *region, Int oldOwner, Int newOwner); };
-class Rva003F1AFF { public: void rva003F1AFF(Int owner); };
-class Rva004FC176 { public: void rva004FC176(Int owner); };
-
 // Retail 0x003F2A8C, 127 bytes (RET 4; callers RemovePlayer, spawnBuilding,
 // 0x0020F832 and 0x003F300A): the region's owner change. Unless the owner
 // is unchanged it notifies the listeners, hands each build plot the new
@@ -354,21 +286,6 @@ public:
 // Native 2B3769..2B37B4 RET4: the rva003F088C search shape over another
 // owner's pointer vector at +0xBC, matching the entry's +0x08 id. No direct
 // caller; owner and entry types unknown (address-derived names).
-struct Rva002B3769Entry
-{
-    unsigned char m_pad00[8];
-    Int m_id;
-};
-
-class Rva002B3769
-{
-public:
-    Rva002B3769Entry *rva002B3769(Int id) const;
-private:
-    unsigned char m_pad00[0xBC];
-    _STL::vector<Rva002B3769Entry *> m_entries;
-};
-
 // ?rva003F2150@LivingWorldRegion@@QAEXPAVRva003F7BB4@@@Z, retail 0x003F2150
 // (480 bytes, EH, RET4). Native evidence: every visible building of the
 // +0x170 plots adds to the bonus record through the rowed 0x004E0860; when

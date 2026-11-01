@@ -24,36 +24,6 @@ namespace ATL
 	};
 }
 
-class BfmeStringTailRecord144
-{
-public:
-	virtual ~BfmeStringTailRecord144();
-};
-
-class TerrainFXShaderParameterSourceNamespace
-{
-public:
-	virtual ~TerrainFXShaderParameterSourceNamespace();
-};
-
-class Rva00049C38ADwordImmSetter
-{
-public:
-	void apply();
-};
-
-class Rva000AD6F4
-{
-public:
-	void clear();
-};
-
-class Rva00221027
-{
-public:
-	virtual ~Rva00221027();
-};
-
 class Rva0023DBC3
 {
 public:
@@ -69,94 +39,10 @@ namespace FXParticleSystem
 	};
 }
 
-class Rva004E5654
-{
-public:
-	virtual ~Rva004E5654();
-};
-
-class PlayerPosition
-{
-public:
-	~PlayerPosition();
-};
-
-class Rva002390CB
-{
-public:
-	~Rva002390CB();
-};
-
-class Rva00574499
-{
-public:
-	~Rva00574499();
-};
-
-class Rva00579731
-{
-public:
-	virtual ~Rva00579731();
-};
-
-class Rva0057A4E7
-{
-public:
-	~Rva0057A4E7();
-};
-
-class Rva0005970E6DwordImmSetter
-{
-public:
-	void apply();
-};
-
-class Rva005CB3BE
-{
-public:
-	~Rva005CB3BE();
-};
-
 class Rva005E16DA
 {
 public:
 	virtual ~Rva005E16DA();
-};
-
-class Rva005E3DE8
-{
-public:
-	~Rva005E3DE8();
-};
-
-class Rva005E7529
-{
-public:
-	~Rva005E7529();
-};
-
-class SimpleFileFactoryClass
-{
-public:
-	virtual ~SimpleFileFactoryClass();
-};
-
-class CDCCache
-{
-public:
-	~CDCCache();
-};
-
-class BfmeThingDXB
-{
-public:
-	void bfmeGoDXB();
-};
-
-class GeometryInfo
-{
-public:
-	virtual ~GeometryInfo();
 };
 
 extern unsigned int g_00DDE0AC;

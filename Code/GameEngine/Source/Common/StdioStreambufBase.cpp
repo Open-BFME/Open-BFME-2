@@ -87,51 +87,12 @@ BFME_DISP8_PTRCHASE_DWORD_GETTER(Rva0001CD60PtrChaseField, 0x04, 0x08)
 BFME_DISP8_PTRCHASE_DWORD_GETTER(Rva0001CD90PtrChaseField, 0x08, 0x08)
 
 // Address-named indexed pointer-chase getter at retail 0x005F6B12.
-class Rva005F6B12
-{
-public:
-	int rva005F6B12(int index) const;
-private:
-	char m_pad00[4];
-	int *m_values;
-};
-
 // Byte bit-7 getters: ptr-chase byte read plus shr to LSB (bool from high bit).
 // Retail 0x005FC73B is mov eax,[ecx+0x18] / mov al,[eax+0x34] / shr al,7 / ret.
-struct Rva005FC73BPtrChaseInner
-{
-	char m_pad[0x34];
-	unsigned char m_byte;
-};
-
-class Rva005FC73BPtrChaseField
-{
-public:
-	bool get() const;
-	char m_lead[0x18];
-	Rva005FC73BPtrChaseInner *m_ptr;
-};
-
 // Virtual-fallback ptr-chase getter: if bit 3 of the chased byte is set,
 // tail-jump to virtual slot 1; else return the chased pointer.
 // Retail 0x005FC745 is mov eax,[ecx+0x18] / test byte [eax+0x34],8 /
 // je ret / mov eax,[ecx] / jmp [eax+4] / ret.
-struct Rva005FC745PtrChaseInner
-{
-	char m_pad[0x34];
-	unsigned char m_flag;
-};
-
-class Rva005FC745PtrChaseField
-{
-	virtual ~Rva005FC745PtrChaseField() {}
-	virtual void *fetch() const = 0;
-	char m_lead[0x18 - 4];
-public:
-	void *get() const;
-	Rva005FC745PtrChaseInner *m_ptr;
-};
-
 // Clean BFME1 9cbfb551 donor structural leads; native instructions independently
 // establish complete RET boundaries and each raw field operation and ABI.
 // Address-owned carriers retain unknown original receiver identity and bounds.
@@ -160,13 +121,6 @@ class Rva0001CDA0Word
 public:
  unsigned int get() const;
  char m_pad00[8];
- unsigned int *m_ptr;
-};
-
-class Rva006F6830Word
-{
-public:
- unsigned int get() const;
  unsigned int *m_ptr;
 };
 
@@ -282,67 +236,14 @@ void LoadRegistryValues();
 // Unreferenced leaves from the /O2 regions (twins.tsv leads): the full
 // dword store and the load-then-test byte read are /O2 forms.
 // 0x000657B3 (9B): constructor zeroing the word at +0.
-class Rva000657B3
-{
-public:
-	Rva000657B3();
-private:
-	int m_00;
-};
-
 // 0x0001D1D0 (11B): whether the byte at +0x0E is set.
-class Rva0001D1D0
-{
-public:
-	bool rva0001D1D0() const;
-private:
-	char m_pad[0x0E];
-	unsigned char m_0E;
-};
-
 // 0x00030E10 (8B): the word at +0x18 of a record passed by pointer (the
 // shape of STLport's _FILE_I_begin over a stdio FILE).
-struct Rva00030E10Record
-{
-	char m_pad[0x18];
-	int m_18;
-};
-
 // Unreferenced virtual-slot forwarders: each calls one slot of its own
 // object with no arguments, a tail jump through the vtable (mov eax,[ecx];
 // jmp [eax+4*slot]). Owners are address-derived views of the slots used.
 // 0x00013280: slot 6.
-class Rva00013280Slots
-{
-public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
-	virtual void slot06();
-	void rva00013280();
-};
-
 // 0x00013290: slot 10.
-class Rva00013290Slots
-{
-public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
-	virtual void slot06();
-	virtual void slot07();
-	virtual void slot08();
-	virtual void slot09();
-	virtual void slot10();
-	void rva00013290();
-};
-
 // 0x00013380, 0x00013390, 0x000133A0: slots 4, 5 and 7, three CC-padded
 // forwarders in the STLport fstream run. Lead only: slots 4/5/7 of the
 // codecvt vftables (0x007BBB08, 0x007BBB2C) are do_encoding,
@@ -350,58 +251,8 @@ public:
 // always_noconv() and max_length(); the char and wchar_t instantiations are
 // byte-identical and nothing references these copies, so the owner stays an
 // address-derived view.
-class Rva00013380Slots
-{
-public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
-	virtual void slot06();
-	virtual void slot07();
-	void rva00013380();
-	void rva00013390();
-	void rva000133A0();
-};
-
 // 0x000184E0: slot 8.
-class Rva000184E0Slots
-{
-public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
-	virtual void slot06();
-	virtual void slot07();
-	virtual void slot08();
-	void rva000184E0();
-};
-
 // 0x000184F0: slot 12.
-class Rva000184F0Slots
-{
-public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
-	virtual void slot06();
-	virtual void slot07();
-	virtual void slot08();
-	virtual void slot09();
-	virtual void slot10();
-	virtual void slot11();
-	virtual void slot12();
-	void rva000184F0();
-};
-
 // 0x0001C8B0: slot 11.
 class Rva0001C8B0Slots
 {
@@ -422,34 +273,8 @@ public:
 };
 
 // 0x0001D170: slot 3.
-class Rva0001D170Slots
-{
-public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	void rva0001D170();
-};
-
 // 0x00035790: slot 0.
-class Rva00035790Slots
-{
-public:
-	virtual void slot00();
-	void rva00035790();
-};
-
 // 0x000357F0: slot 2.
-class Rva000357F0Slots
-{
-public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
-	void rva000357F0();
-};
-
 // ---- from Code/GameEngine/Source/Common/StdioStreambufBase.cpp
 
 // ---- from Code/GameEngine/Source/Common/StdioStreambufBase.cpp

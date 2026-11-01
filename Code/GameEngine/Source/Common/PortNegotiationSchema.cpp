@@ -178,36 +178,8 @@ struct GapPair
 };
 
 // --- 0x002E7334 (26B): a word and a pair; 0x002E734E (58B): cell callback.
-struct Rva002E734ECell { int m_pad00[3]; unsigned int m_flags; };
-
-struct Rva002E7334
-{
-	Rva002E7334(int value, const GapPair &pair);
-	int rva002E734E(Rva002E734ECell *from, Rva002E734ECell *to, int cellColumn, int cellRow);
-	int m_00;
-	int m_04;
-	int m_08;
-};
-
 // --- 0x004E4E05 (37B): copy five settings from another record;
 // 0x004E4E2A (48B): the +0x08 value clamped to [0, 1].
-class Rva004E4E05
-{
-public:
-	void rva004E4E05(const Rva004E4E05 *that);
-	void rva004E4E2A(float value);
-private:
-	char m_pad[8];
-	float m_08;
-	char m_pad0C[0x18 - 0x0C];
-	int m_18;
-	char m_pad1C[0x24 - 0x1C];
-	int m_24;
-	int m_28;
-	int m_2C;
-	int m_30;
-};
-
 // --- 0x0030F642 (55B): unlink a node (+0x04 previous, +0x08 next) from the
 // list with tail +0x0C and head +0x10, clearing its +0x0C; 0x0030F679 (30B):
 // whether a node from the tail back carries the id (+0x10).
@@ -240,16 +212,6 @@ public:
 	void rva0052A387(int value);							// 0x0052A387
 };
 
-class Rva0052A621
-{
-public:
-	Out0052A36A *rva0052A621(Out0052A36A *out);
-	void rva0052A652(int value);
-private:
-	char m_pad[8];
-	Rva0052A36A m_08;
-};
-
 // --- 0x005DBB4D (45B): the 8x8 short table at +0x838, 0 out of range.
 class Rva005DBB4D
 {
@@ -279,18 +241,6 @@ typedef void (GapReceiver::*GapCallback2)(int, int);
 
 typedef void (GapReceiver::*GapCallback3)(int, int, int);
 
-class Rva00318DC0
-{
-public:
-	Rva00318DC0 &operator=(const Rva00318DC0 &that);
-	void invoke(GapReceiver *receiver);
-private:
-	GapCallback2 m_callback;
-	int m_a;
-	int m_b;
-	int m_0C;
-};
-
 class Rva005DBD10
 {
 public:
@@ -306,127 +256,11 @@ private:
 
 // --- 0x004A6BE7 (44B): through the +0x18 owner's object (+0x14) and its
 // +0x258 interface (virtual slot 95), virtual slot 13 with 0; returns 0.
-class Rva004A6BE7Target
-{
-public:
-	virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3();
-	virtual void s4(); virtual void s5(); virtual void s6(); virtual void s7();
-	virtual void s8(); virtual void s9(); virtual void s10(); virtual void s11();
-	virtual void s12();
-	virtual void s13(int value);
-};
-
-class Rva004A6BE7Source
-{
-public:
-	virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3();
-	virtual void s4(); virtual void s5(); virtual void s6(); virtual void s7();
-	virtual void s8(); virtual void s9(); virtual void s10(); virtual void s11();
-	virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15();
-	virtual void s16(); virtual void s17(); virtual void s18(); virtual void s19();
-	virtual void s20(); virtual void s21(); virtual void s22(); virtual void s23();
-	virtual void s24(); virtual void s25(); virtual void s26(); virtual void s27();
-	virtual void s28(); virtual void s29(); virtual void s30(); virtual void s31();
-	virtual void s32(); virtual void s33(); virtual void s34(); virtual void s35();
-	virtual void s36(); virtual void s37(); virtual void s38(); virtual void s39();
-	virtual void s40(); virtual void s41(); virtual void s42(); virtual void s43();
-	virtual void s44(); virtual void s45(); virtual void s46(); virtual void s47();
-	virtual void s48(); virtual void s49(); virtual void s50(); virtual void s51();
-	virtual void s52(); virtual void s53(); virtual void s54(); virtual void s55();
-	virtual void s56(); virtual void s57(); virtual void s58(); virtual void s59();
-	virtual void s60(); virtual void s61(); virtual void s62(); virtual void s63();
-	virtual void s64(); virtual void s65(); virtual void s66(); virtual void s67();
-	virtual void s68(); virtual void s69(); virtual void s70(); virtual void s71();
-	virtual void s72(); virtual void s73(); virtual void s74(); virtual void s75();
-	virtual void s76(); virtual void s77(); virtual void s78(); virtual void s79();
-	virtual void s80(); virtual void s81(); virtual void s82(); virtual void s83();
-	virtual void s84(); virtual void s85(); virtual void s86(); virtual void s87();
-	virtual void s88(); virtual void s89(); virtual void s90(); virtual void s91();
-	virtual void s92(); virtual void s93(); virtual void s94();
-	virtual Rva004A6BE7Target *s95();
-};
-
-struct Rva004A6BE7Object
-{
-	char m_pad[0x258];
-	Rva004A6BE7Source *m_258;
-};
-
-struct Rva004A6BE7Owner
-{
-	char m_pad[0x14];
-	Rva004A6BE7Object *m_14;
-};
-
-class Rva004A6BE7
-{
-public:
-	int rva004A6BE7();
-private:
-	char m_pad[0x18];
-	Rva004A6BE7Owner *m_18;
-};
-
 // --- 0x00583A07 (11B): set the +0x04 object's +0x120 flag.
-struct Rva00583A07Target
-{
-	char m_pad[0x120];
-	bool m_120;
-};
-
-class Rva00583A07
-{
-public:
-	void rva00583A07();
-private:
-	Rva00583A07Target *m_00;
-	Rva00583A07Target *m_04;
-};
-
 // --- 0x005F273B / 0x005F2744 / 0x005F274F / 0x005F275B: bits 0..3 of the
 // +0x04 object's +0x58 flags.
-struct Rva005F273BFlags
-{
-	char m_pad[0x58];
-	unsigned char m_bit0 : 1;
-	unsigned char m_bit1 : 1;
-	unsigned char m_bit2 : 1;
-	unsigned char m_bit3 : 1;
-};
-
-class Rva005F273B
-{
-public:
-	bool rva005F273B() const;
-	bool rva005F2744() const;
-	bool rva005F274F() const;
-	bool rva005F275B() const;
-private:
-	int m_00;
-	Rva005F273BFlags *m_04;
-};
-
 // --- 0x004A9B51 / 0x004A9B60 / 0x004A9B6F (15B each): null-preserving
 // pointers to the +0x3E4 / +0x3E8 / +0x3EC subobjects.
-class Rva004A9B51Sub
-{
-public:
-	int m_00;
-};
-
-class Rva004A9B51
-{
-public:
-	Rva004A9B51Sub *rva004A9B51();
-	Rva004A9B51Sub *rva004A9B60();
-	Rva004A9B51Sub *rva004A9B6F();
-private:
-	char m_pad[0x3E4];
-	Rva004A9B51Sub m_3E4;
-	Rva004A9B51Sub m_3E8;
-	Rva004A9B51Sub m_3EC;
-};
-
 // --- 0x0052AC16 / 0x0052AC29 (19B each): assign a by-value delegate
 // description through the rowed assignments; return this.
 struct DelegateDesc
@@ -477,12 +311,6 @@ class Rva0057BC63FunctorHolder
 public:
 	Rva0057BC63FunctorHolder(const FunctorBinding &binding);	// 0x0057BC63
 	void *m_ptr;
-};
-
-class Rva00518756 : public Rva0057BC63FunctorHolder
-{
-public:
-	Rva00518756(FunctorBinding binding);
 };
 
 // ---- from Code/GameEngine/Source/Common/PortNegotiationSchema.cpp

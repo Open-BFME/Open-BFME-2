@@ -180,18 +180,7 @@ void CastleBehavior::registerOwnedObject(Object* object) {
 // passes two native callbacks with an opaque zero context. The helper visits
 // owner +8, factory +0x20 slot +0x18, then ID vectors +0x74/+0x50/+0x68/+0x5c.
 // Callback and helper source identities remain address-derived.
-class Rva003974CEFactory {
-public:
- virtual void unused0(); virtual void unused1(); virtual void unused2();
- virtual void unused3(); virtual void unused4(); virtual void unused5();
- virtual Object* getObject();
-};
 typedef int (__cdecl *CastleObjectCallback)(Object*,int);
-class Rva003974CE {
-public:
- Object* getOwner() const { return *(Object* const*)((const char*)this+8); }
- int apply(CastleObjectCallback callback,int context);
-};
 static __forceinline bool applyCastleRange(const _STL::vector<ObjectID>& ids,CastleObjectCallback callback,int context) {
  for(_STL::vector<ObjectID>::const_iterator it=ids.begin(); it!=ids.end(); ++it) {
   Object* object=TheGameLogic->findObjectByID(*it);
@@ -205,12 +194,6 @@ int Rva00395AD2Destroy(Object* object,int context);
 // Native cdecl callback VA795A9F..795AD2 (51B), embedded at 0x0039762F.
 // The template flag redirects the kill to the module slot-6 object; retail
 // assumes the module exists on that path. Callback context is unused.
-class Rva00395A9FInterface {
-public:
- virtual void unused0(); virtual void unused1(); virtual void unused2();
- virtual void unused3(); virtual void unused4(); virtual void unused5();
- virtual Object* getObject();
-};
 int Rva00395A9FKill(Object* object,int context);
 
 // CastleBehavior::checkForAutoPack, native RVA003975B7, 415 bytes.
@@ -245,8 +228,6 @@ static __forceinline bool anyCastleProjectile(const _STL::vector<ObjectID>& ids)
 // WB leaves the method unnamed, so retain an address-derived identity.
 class ScriptEngine;
 extern ScriptEngine* TheScriptEngine;
-class Rva002039B6Host { public: void rva002039B6(); };
-
 // WB names CastleBehavior::mapLoadPostProcess; native 0x0039585A is a
 // 156B interface method whose owner is at this-4, so keep the receiver
 // address-derived until its exact base type is established. The RET4
@@ -258,14 +239,6 @@ extern PartitionManager* TheShroudManager;
 class PlayerList;
 extern PlayerList* ThePlayerList;
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
-class Rva00395561 {
- int count;
-public:
- Rva00395561();
- ~Rva00395561();
-};
-class Rva0039585A { public: void mapLoadPostProcess(int context); };
-
 // CastleBehavior::DoXfer: WB named identity and native630B boundary.
 // Existing vector<ScienceType> serialization provider is a measured 4-byte
 // ABI view: these caller fields contain ObjectIDs, not established sciences.
@@ -485,107 +458,9 @@ public:
 	void rva00274176(bool);
 	void fadeIn(unsigned);
 };
-struct FindPositionOptions {
- FindPositionOptions() { flags=0;minRadius=0;maxRadius=0;startAngle=-99999.9f;maxZDelta=1e10f;ignoreObject=0;sourceToPathToDest=0;relationshipObject=0; }
- unsigned flags; float minRadius,maxRadius,startAngle,maxZDelta;
- const void *ignoreObject,*sourceToPathToDest,*relationshipObject;
-};
-class Rva000421C8 {
-public:
- Rva000421C8():m_next(0) {}
- virtual ~Rva000421C8() {}
- virtual bool allow(Object*)=0;
- virtual int getPlayerMask();
- Rva000421C8* link(Rva000421C8*);
- Rva000421C8* m_next;
-};
-class Rva0026119DFilter:public Rva000421C8 { public: virtual bool allow(Object*); };
-struct Rva00045411BitSet { unsigned m_bits[7]; Rva00045411BitSet(int,int); };
-class BfmeFixedStorage0004543D {
-public: BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D&) throw();
-private: unsigned char bytes[28];
-};
-class Rva0004584D:public Rva000421C8 {
-public:
- Rva0004584D(const BfmeFixedStorage0004543D&,const BfmeFixedStorage0004543D&) throw();
- virtual bool allow(Object*);
- BfmeFixedStorage0004543D m08,m24;
-};
 template <int N> class BitFlags;
 extern BitFlags<116> KINDOFMASK_NONE;
 extern PartitionManager* ThePartitionManager;
-class CastleContainListView {
-public:
- virtual void slot0();
- virtual void slot1();
- virtual void slot2();
- virtual void slot3();
- virtual void slot4();
- virtual void slot5();
- virtual void slot6();
- virtual void slot7();
- virtual void slot8();
- virtual void slot9();
- virtual void slot10();
- virtual void slot11();
- virtual void slot12();
- virtual void slot13();
- virtual void slot14();
- virtual void slot15();
- virtual void slot16();
- virtual void slot17();
- virtual void slot18();
- virtual void slot19();
- virtual void slot20();
- virtual void slot21();
- virtual void slot22();
- virtual void slot23();
- virtual void slot24();
- virtual void slot25();
- virtual void slot26();
- virtual void slot27();
- virtual void slot28();
- virtual void slot29();
- virtual void slot30();
- virtual void slot31();
- virtual void slot32();
- virtual void slot33();
- virtual void slot34();
- virtual void slot35();
- virtual void slot36();
- virtual void slot37();
- virtual void slot38();
- virtual void slot39();
- virtual void slot40();
- virtual void slot41();
- virtual void slot42();
- virtual void slot43();
- virtual void slot44();
- virtual void slot45();
- virtual void slot46();
- virtual void slot47();
- virtual void slot48();
- virtual void slot49();
- virtual void slot50();
- virtual void slot51();
- virtual void slot52();
- virtual void slot53();
- virtual void slot54();
- virtual void slot55();
- virtual void slot56();
- virtual void slot57();
- virtual void slot58();
- virtual void slot59();
- virtual void slot60();
- virtual void slot61();
- virtual void slot62();
- virtual void slot63();
- virtual void slot64();
- virtual void slot65();
- virtual void slot66();
- virtual void listObjects(_STL::list<const Object*>&);
-};
-
 // WB 0x00EB85E0 names CastleBehavior::unpack; native00399959..00399C6C,
 // 787B. Keep the previously admitted address-derived receiver spelling.
 // Player+0x3BC is an unresolved build-control object; the existing W3DBridge
@@ -603,7 +478,6 @@ public:
 	int getPlayerIndex() const { return *(const int *)((const char *)this + 0x54); }
 	W3DBridge* getBuildControl() { return (W3DBridge*)((char*)this+0x3bc); }
 };
-class Rva00395A60 { public: __declspec(noinline) float rva00395A60(); };
 class TerrainLogic { public: void rva00283262(const Coord3D*,float); };
 extern TerrainLogic* TheTerrainLogic;
 #include "../../../Include/GameLogic/ScriptEngine.h"
@@ -644,10 +518,6 @@ void CastleBehavior::rva003993F2(bool instant) {
 // establish the ASCII name at +98, state at +34, condition bit 218 and
 // type-dependent payment helpers; those differ from the donor layout/flow.
 // Calls retain the already-rowed address-derived provider identities.
-class Rva0039561F { public: int rva0039561F(ThingTemplate*); };
-class Rva00396B25 { public: void rva00396B25(); };
-class Rva00395CEB { public: void rva0039611E(); };
-
 // Native00399370..003993F2,130B; WB00EB9110 unnamed CastleSystem helper.
 // Native allocates100B PolygonTrigger with explicit initialAllocation1 and
 // MSVC's hidden virtual-base-construction flag. The virtual interface below

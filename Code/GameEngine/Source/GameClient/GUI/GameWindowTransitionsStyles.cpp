@@ -853,31 +853,15 @@ public:
 // (ledger g_flag2) was set, clearing it (vtable 0x00BC4858 slot 5).
 extern Bool g_flag2;
 
-class Rva002CEF14FlagTest
-{
-public:
-	Bool rva002CEF14();
-};
-
 // The callees below are rowed; they are called by their row names.
-class MilesAudioManager { public: void rva0005BBE2(Int value); virtual void rva0005BD20(); virtual void rva0005BD28(); };
-
 	// 0x0005BBE2
-class W3DVolumetricShadow { public: void Update(Bool force); };
-
 	// 0x000F4017
 enum StateReturnType { STATE_CONTINUE = 0 };
 
-class AIAttackAimAtTargetState { public: StateReturnType updateInternal(Bool flag); };
-
 	// 0x003508C5
-
-class Rva000F42F7Host { public: void rva000F42F7(); };
 
 	// vtable 0x00BCEFC8 slot 1
 // AIAttackPositionAimAtTargetState::update is owned with updateInternal in AIStates.cpp.
-class Rva00351949Host { public: void rva00351949(); };
-
 // --- Hand `this` to a manager singleton's member.
 // Callee evidence (retail bytes): 0x000F0A75 walks the manager head at
 // +0x0 with node next at +0x68, unlinks the matching owner, then deletes
@@ -896,12 +880,6 @@ private:
 	char m_pad[0x64];
 public:
 	Rva000F0A75Node *m_next;
-};
-
-class Rva0010713ANode
-{
-public:
-	virtual void *rvaFoo(int x);
 };
 
 class W3DVolumetricShadowManager
@@ -926,8 +904,6 @@ public:
 
 struct Node;
 
-class Rva0010B9E5 { public: void rva0010B9E5(Node *node); };
-
 	// rowed 0x0010B9E5
 extern W3DVolumetricShadowManager *TheW3DVolumetricShadowManager;
 
@@ -935,17 +911,9 @@ extern W3DProjectedShadowManager *TheW3DProjectedShadowManager;
 
 extern Rva00108660ResourceManager *Rva00DEC2D8Manager;
 
-class Rva000F168BHost { public: void rva000F168B(); };
-
 		// vtable 0x00BCEFC8 slot 2
-class Rva001074C8Host { public: void rva001074C8(); };
-
 		// vtable 0x00BCF964 slot 2
-class Rva00109DA6Host { public: void rva00109DA6(); };
-
 		// vtable 0x00BCF9E0 slot 2
-class Rva0010BB04Host { public: void rva0010BB04(); };
-
 // --- Call this object's own vtable slot 2 with a constant.
 class Rva0035D781Self
 {
@@ -980,8 +948,6 @@ public:
 };
 
 // 0x000B3FD0 is the shared one-byte empty `ret` body; its neutral row name.
-class Rva000B3FD0 { public: void rva000B3FD0(); };
-
 class Rva003FDD05Host
 {
 public:
@@ -1006,36 +972,12 @@ public:
 	void rva0009BAA4();
 };
 
-class Rva0009C134Host
-{
-public:
-	void rva0009C134();
-};
-
-class LivingWorldArmyIcon { public: void rva003FE342(); };
-
 	// rowed 0x003FE342
-class Rva0053947D { public: virtual void rva005392EC(); };
-
 	// rowed 0x005392EC (vtable slot)
-class Rva003FE402Host { public: void rva003FE402(); };
-
 // ?rva003FDD15@Rva003FDD15Host@@QAEXXZ @0x003FDD15 16B: chain after 0x003FDC46;
 // calls rowed 0x003FDC46 then tail-jmps to rowed 0x003FBA58. Callees carry
 // their own row names so they are declared only here. Evidence: lane=chain,
 // prev 0x003FDD05 in this file, same 16B two-call tail-jmp shape.
-class Rva003FDC46
-{
-public:
-	void rva003FDC46();
-};
-
-class Rva003FBA58
-{
-public:
-	void rva003FBA58();
-};
-
 class Rva003FDD15Host
 {
 public:

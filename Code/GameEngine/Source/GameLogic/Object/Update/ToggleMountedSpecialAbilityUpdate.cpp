@@ -518,42 +518,8 @@ struct Rva00452EDDData
 	void *m_1C; // AsciiString
 };
 
-class Rva00452EDDIface
-{
-public:
-	virtual void *rva00452EDD() = 0;
-	virtual void *rva00452EF5() = 0;
-	virtual void *rva00452F0D() = 0;
-};
-
-class Rva00452EDD : public Rva00452EDDPrimary<0x20>, public Rva00452EDDIface
-{
-public:
-	void *rva00452EDD();
-	void *rva00452EF5();
-	void *rva00452F0D();
-};
-
 // 0x0044F09F (interface at +0x20, beside WeaponFireSpecialAbilityUpdate's
 // slots): whether the module data's +0x38 equals the argument.
-struct Rva0044F09FData
-{
-	char m_pad00[0x38];
-	Int m_38;
-};
-
-class Rva0044F09FIface
-{
-public:
-	virtual bool rva0044F09F(Int value) = 0;
-};
-
-class Rva0044F09F : public Rva00452EDDPrimary<0x20>, public Rva0044F09FIface
-{
-public:
-	bool rva0044F09F(Int value);
-};
-
 // UpgradeMux slots: the activation and conflicting masks (0x80 bytes each)
 // at the module data's mux data, and the pinned UpgradeMuxData FX call with
 // the object. Interface at +0x20 (0x00452460, beside the rowed
@@ -601,13 +567,6 @@ public:
 	virtual bool requiresAllConflictingUpgrades() const = 0;
 };
 
-class Rva00452460 : public Rva00452EDDPrimary<0x20>, public Rva00452460Iface
-{
-public:
-	void getUpgradeActivationMasks(UpgradeMaskType &activation, UpgradeMaskType &conflicting) const;
-	void performUpgradeFX();
-};
-
 // UpgradeModule (BehaviorModule at +0x00, UpgradeMux at +0x10): slots 11 and
 // 12 of ??_7UpgradeModule@@6BUpgradeMux@@@ (0x00842720), inherited unchanged
 // by the UpgradeMux table of every UpgradeModule subclass that does not
@@ -626,52 +585,8 @@ protected:
 	bool requiresAllConflictingUpgrades() const;
 };
 
-class Rva0045F46A : public Rva00452EDDPrimary<0x30>, public Rva00452460Iface
-{
-public:
-	void getUpgradeActivationMasks(UpgradeMaskType &activation, UpgradeMaskType &conflicting) const;
-	void performUpgradeFX();
-};
-
 // 0x004839F9 (interface at +0x20): virtual slot 14 of the complete object
 // when the third argument is 2, else slot 15 when the second is 2.
-class Rva004839F9Primary
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void v03();
-	virtual void v04();
-	virtual void v05();
-	virtual void v06();
-	virtual void v07();
-	virtual void v08();
-	virtual void v09();
-	virtual void v10();
-	virtual void v11();
-	virtual void v12();
-	virtual void v13();
-	virtual void v14();
-	virtual void v15();
-	virtual void v16();
-	virtual void v17();
-private:
-	char m_pad04[0x1C];
-};
-
-class Rva004839F9Iface
-{
-public:
-	virtual void rva004839F9(Int a, Int b, Int c) = 0;
-};
-
-class Rva004839F9 : public Rva004839F9Primary, public Rva004839F9Iface
-{
-public:
-	void rva004839F9(Int a, Int b, Int c);
-};
-
 // 0x004ADBD7 (interface at +0x88): virtual slot 17 of the complete object
 // while the module data's +0xCC flag is set.
 struct Rva004ADBD7Data
@@ -714,60 +629,12 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_FOREVER = 0x3fffffff
 };
 
-class Rva004DF897Iface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
-
-class Rva004DF897 : public Rva00452EDDPrimary<0x10>, public Rva004DF897Iface
-{
-public:
-	UpdateSleepTime update();
-};
-
 // 0x005E1CF8 (interface at +0x08): the rowed 0x005E1C6F of the +0x10 object
 // with the complete object (the argument is unused).
-class Rva005E1C6F
-{
-public:
-	void rva005E1C6F(void *owner);
-};
-
-class Rva005E1CF8Primary
-{
-public:
-	virtual void primarySlot();
-private:
-	Int m_04;
-};
-
-class Rva005E1CF8Iface
-{
-public:
-	virtual void rva005E1CF8(Int unused) = 0;
-private:
-	Int m_0C;
-};
-
-class Rva005E1CF8 : public Rva005E1CF8Primary, public Rva005E1CF8Iface
-{
-public:
-	void rva005E1CF8(Int unused);
-private:
-	Rva005E1C6F *m_10;
-};
-
 // 0x00497805: a module's loadPostProcess that only chains to the rowed
 // UpdateModule::loadPostProcess (the slot after the scalar destructor in
 // many module tables).
 class UpdateModule
-{
-protected:
-	virtual void loadPostProcess();
-};
-
-class Rva00497805 : public UpdateModule
 {
 protected:
 	virtual void loadPostProcess();

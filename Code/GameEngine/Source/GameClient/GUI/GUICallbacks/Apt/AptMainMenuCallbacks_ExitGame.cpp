@@ -19,12 +19,6 @@ extern "C" int __cdecl strcmp(const char *left, const char *right);
 class GameState;
 extern GameState *TheGameState;
 
-class Rva002DCCFB
-{
-public:
-	bool rva002DCCFB(UnicodeString filename);
-};
-
 #include "ascii_string.h"
 
 // The script event the exit button fires: the .data pointer at 0x009C108C to
@@ -66,24 +60,6 @@ struct AptMainMenuMiscAudio
 	OpaqueRefElement4 m_credits; // +0xA4
 };
 
-class AptMainMenuAudioView
-{
-public:
-#define V(n) virtual void pad##n();
-	V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9)
-	V(10) V(11) V(12) V(13) V(14) V(15) V(16) V(17) V(18) V(19)
-	V(20) V(21) V(22) V(23) V(24)
-	virtual void addAudioEvent(const BfmeAudioEventPrefix136 *event);
-	V(26) V(27) V(28) V(29)
-	V(30) V(31) V(32) V(33) V(34) V(35) V(36) V(37) V(38) V(39)
-	V(40) V(41) V(42) V(43) V(44) V(45) V(46) V(47) V(48) V(49)
-	V(50) V(51) V(52) V(53) V(54) V(55) V(56) V(57) V(58) V(59)
-	V(60) V(61) V(62) V(63) V(64) V(65) V(66) V(67) V(68) V(69)
-	V(70) V(71) V(72) V(73) V(74) V(75) V(76) V(77)
-#undef V
-	virtual AptMainMenuMiscAudio *getMiscAudio();
-};
-
 // The event's +0x49 flag is set through the rowed Weapon::setLeechRangeActive
 // body it folds with (as Rva0043A278Slot2.cpp's Weapon-cast).
 #include "../../../../../Include/GameLogic/Weapon.h"
@@ -105,12 +81,6 @@ public:
 };
 
 // The shell's rowed 0x0035BD3F (its own address class).
-class Rva0035BD3F
-{
-public:
-	void rva0035BD3F();
-};
-
 class GameWindowTransitionsHandler
 {
 public:
@@ -120,25 +90,8 @@ public:
 
 extern GameWindowTransitionsHandler *TheTransitionHandler;
 
-class UserPreferences
-{
-public:
-	virtual ~UserPreferences();
-	virtual void setBool(const AsciiString &key, bool value);
-	virtual bool write();
-};
-
 // The options file (its destructor is rowed as ??1Rva002E4272, pinned
 // here under this name).
-class OptionPreferences : public UserPreferences
-{
-public:
-	OptionPreferences();
-	virtual ~OptionPreferences();
-
-	unsigned char m_rest[0x14 - 0x04];
-};
-
 extern Shell *TheShell;
 
 // TheGameEngine: vslot 20 (Zero Hour's setQuitting position moved).
@@ -173,40 +126,10 @@ struct AptMainMenuGlobalData
 	bool m_af4; // +0xAF4, cleared when the map roll starts or ends
 };
 
-class GameEngineRate
-{
-public:
-	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
-	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
-	virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
-	virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
-	virtual void v16(); virtual void v17();
-	virtual void v18(int value);
-};
-
 // The credits roll (0x00E06474): vslot 9 stops it; deleted through vslot 0
 // and a separate operator delete.
-class AptMainMenuCredits
-{
-public:
-	virtual void *deleteInstance(int flags);
-	virtual void v01(); virtual void v02(); virtual void v03(); virtual void v04();
-	virtual void v05(); virtual void v06(); virtual void v07(); virtual void v08();
-	virtual void v09();
-};
-
-
 // The credits roll's class (0x48 bytes; Rva005B77F1Dtor.cpp's rowed
 // constructor 0x005B776E).
-class Rva005B77F1
-{
-public:
-	Rva005B77F1();
-
-private:
-	unsigned char m_pad00[0x48];
-};
-
 // Zero Hour's GameMessage; appendIntegerArgument is rowed (0x0030F936).
 class GameMessage
 {
@@ -538,53 +461,10 @@ extern "C" int __cdecl abs(int value);
 // neither original field names nor that receiver's class identity are known.
 // BFME1 10b888 main-menu callbacks provide subsystem/API context only;
 // this BFME2-specific callback is reconstructed from retail and WB evidence.
-class LivingWorldCampaignManager {public:int rva003B8F20();};
 class Rva00E02D6C;extern Rva00E02D6C *TheCampaignManager;
 class LivingWorldManager {public:void rva0021427A();};
 extern LivingWorldManager *TheLivingWorldManager;
 class Rva002D3627Host;class LivingWorld; extern LivingWorld *TheLivingWorld;
-class TutorialControlView {public:
-#define V(n) virtual void pad##n();
- V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9)
-#undef V
- virtual void slot10(int);
-};
-class TutorialShellView {public:
-#define V(n) virtual void pad##n();
- V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9)
-#undef V
- virtual void slot10();
-};
-class AudioEventInfoRef {public:
- AudioEventInfoRef(){value.referent=0;}
- ~AudioEventInfoRef(){if(value.referent)value.referent->Release_Ref();}
- AudioEventInfoRef &operator=(const AudioEventInfoRef &other){value=other.value;return *this;}
- private:OpaqueRefElement4 value;
-};
-class TutorialAudioView {public:
-#define V(n) virtual void pad##n();
- V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9)
- V(10) V(11) V(12) V(13) V(14) V(15) V(16) V(17) V(18) V(19)
- V(20) V(21) V(22) V(23) V(24) V(25) V(26) V(27) V(28) V(29)
- V(30) V(31) V(32) V(33) V(34) V(35) V(36) V(37) V(38) V(39)
- V(40) V(41) V(42) V(43) V(44) V(45) V(46) V(47) V(48) V(49)
- V(50) V(51) V(52) V(53) V(54) V(55) V(56) V(57) V(58) V(59)
- V(60) V(61) V(62) V(63) V(64) V(65) V(66) V(67) V(68) V(69)
- V(70) V(71) V(72) V(73) V(74)
-#undef V
- virtual AudioEventInfoRef findInfo(const AsciiString &);
-};
-struct TutorialConfig {AsciiString mapName,field4,field8,soundC,sound10;char unknown14[12];int field20;};
-struct TutorialGlobalView {
- char unknown0[0xAC0];AsciiString mapAC0;
- char unknownAC4[0x1114-0xAC4];TutorialConfig basic,advanced;
- TutorialConfig *selected;
-};
-class Rva0023DC8E {public:void rva0023DC8E(const AsciiString &);};
-class Rva0023DCCE {public:void rva0023DCCE(const AsciiString &,const OpaqueRefElement4 &,const OpaqueRefElement4 &);};
-struct TutorialLogicView {char unknown0[0x90];int field90;};
-
-
 // Retail 0x00515980..0x00515B0A (394 bytes, RET0; EH). Name unknown: the
 // screen's leave/shutdown step (WB 1457450 is its unnamed debug twin).
 // TheGameInfo is dropped and TheSkirmishGameInfo deleted; unless the menu
