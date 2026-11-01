@@ -137,11 +137,7 @@ void Rva005DAA9E::rva005DAA9E(Rva005DAA9ETriple *out) const
 // 0x005E16A7 and 0x005E2126: the pinned INI::initFromINI on this object with
 // the field table at VA 0x00C779F0 (resp. 0x00C77A98).
 struct FieldParse;
-class INI
-{
-public:
-	void initFromINI(void *what, const FieldParse *parseTable);
-};
+#include "../../Include/Common/INI/INI.h"
 extern const FieldParse g_rva005E16A7FieldParse[];
 extern const FieldParse g_rva005E2126FieldParse[];
 // 0x005F84F7: clears entry i (8 bytes each) of the +0x20 vector through the

@@ -17,7 +17,7 @@ class NameKeyGenerator {public:NameKeyType nameToKey(const AsciiString&);};
 extern NameKeyGenerator*TheNameKeyGenerator;
 class INI;
 struct FieldParse {const char*name;void(*parse)(INI*,void*,void*,const void*);const void*data;int offset;};
-class INI {public:void initFromINI(void*,const FieldParse*);static void parseAsciiString(INI*,void*,void*,const void*);static void parseBool(INI*,void*,void*,const void*);static void Rva004E8EFF_ParseDisabledSlots(INI*,void*,void*,const void*);};
+#include "../../../Include/Common/INI/INI.h"
 // Native table is exactly five entries at C3AF18..C3AF68; the following
 // bytes are unrelated code pointers and the Unnamed string, not a zero
 // terminator. Preserve that observed extent instead of adding a sentinel.

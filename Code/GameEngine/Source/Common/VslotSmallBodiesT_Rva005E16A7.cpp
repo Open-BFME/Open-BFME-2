@@ -66,13 +66,7 @@ struct FieldParse
 	const void *userData;
 	int offset;
 };
-class INI
-{
-public:
-	void initFromINI(void *what, const FieldParse *parseTable);
-	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
-	static void parseColorInt(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../Include/Common/INI/INI.h"
 // The two tables (retail .rdata): Image/Title/Help strings at +8/+0xC/+0x10
 // through the rowed INI::parseAsciiString (0x0002F11E), and
 // ProgressOverlayColor at +8 through the rowed INI::parseColorInt (0x0002F3FE),

@@ -24,11 +24,7 @@ typedef int Int;
 #include "../../../../Include/Common/INI/FieldParse.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/INI.h
-class INI
-{
-public:
-	const char *getNextToken(const char *seps = 0);		///< ILT thunk at 0x00850970
-};
+#include "../../../../Include/Common/INI/INI.h"
 
 // BFME1 donor9e3be919 retains the table role/name; BFME2 native entries
 // independently prove this 62-pointer table ending at its first nullDBFCE4.

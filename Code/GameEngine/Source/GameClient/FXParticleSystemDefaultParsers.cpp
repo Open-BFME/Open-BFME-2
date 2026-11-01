@@ -13,11 +13,7 @@ extern const FieldParse s_fxpsSizeAngleTable[];
 extern const FieldParse s_fxpsPhysicsTable[];
 extern const FieldParse s_fxpsColorTable[];
 
-class INI
-{
-public:
-    void initFromINI(void *what, const FieldParse *parseTable);
-};
+#include "../../Include/Common/INI/INI.h"
 
 namespace FXParticleSystem
 {

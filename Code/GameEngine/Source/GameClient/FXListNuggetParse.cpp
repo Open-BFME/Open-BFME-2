@@ -32,31 +32,7 @@ private:
 	char m_storage[0x84];
 };
 
-class INI
-{
-public:
-	static void parseAudioEventRTS(INI *ini, void *instance, void *store, const void *userData);
-	void initFromINIMulti(void *what, const MultiIniFieldParse &parse);
-	const char *getNextTokenOrNull(const char *seps);
-	const char *getNextToken(const char *seps);
-	float scanReal(const char *token);
-	unsigned int scanUnsignedInt(const char *token);
-	static void parseAngleReal(INI *ini, void *instance, void *store, const void *userData);
-	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
-	static void parseBool(INI *ini, void *instance, void *store, const void *userData);
-	static void parseCoord2D(INI *ini, void *instance, void *store, const void *userData);
-	static void parseCoord3D(INI *ini, void *instance, void *store, const void *userData);
-	static void parseDurationUnsignedInt(INI *ini, void *instance, void *store, const void *userData);
-	static void parseFXList(INI *ini, void *instance, void *store, const void *userData);
-	static void parseGameClientRandomVariable(INI *ini, void *instance, void *store, const void *userData);
-	static void parseICoord2D(INI *ini, void *instance, void *store, const void *userData);
-	static void parseIndexList(INI *ini, void *instance, void *store, const void *userData);
-	static void parseInt(INI *ini, void *instance, void *store, const void *userData);
-	static void parsePercentToReal(INI *ini, void *instance, void *store, const void *userData);
-	static void parseRGBColor(INI *ini, void *instance, void *store, const void *userData);
-	static void parseReal(INI *ini, void *instance, void *store, const void *userData);
-	static void parseUnsignedInt(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../Include/Common/INI/INI.h"
 
 typedef int Int;
 class INIException

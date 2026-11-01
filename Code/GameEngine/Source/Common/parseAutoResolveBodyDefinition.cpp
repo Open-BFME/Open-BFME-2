@@ -24,13 +24,7 @@ class INI;
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
 #include "../../Include/Common/INI/FieldParse.h"
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-	void initFromINI(void *what, const FieldParse *parseTable);
-	static void parseBool(INI *ini, void *instance, void *store, const void *userData);	// rowed 0x002E850
-};
+#include "../../Include/Common/INI/INI.h"
 
 void Rva004185E4HitpointsAtLevel(INI *ini, void *instance, void *store, const void *userData);	// rowed 0x004185E4
 void Rva0041865FRegenerateAtLevel(INI *ini, void *instance, void *store, const void *userData);	// rowed 0x0041865F

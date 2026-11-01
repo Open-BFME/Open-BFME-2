@@ -4,12 +4,7 @@
 // instance + 0xB0, filled through initFromINI with the table at 0x00C68D78.
 #include <stdlib.h>
 struct FieldParse;
-class INI
-{
-public:
-	const char *getNextToken(const char *seps = 0);
-	void initFromINI(void *what, const FieldParse *parseTable);
-};
+#include "../../Include/Common/INI/INI.h"
 
 // The five side-flag parsers retail's PlayerPosition table reaches, all
 // already-rowed bodies in Code/GameEngine/Source/Common/SideFlagsParseCallbacks.cpp

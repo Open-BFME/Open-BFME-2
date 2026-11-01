@@ -79,12 +79,7 @@ class INI;
 typedef void (*INIFieldParseProc)(INI *, void *, void *, const void *);
 #include "../../../Include/Common/INI/FieldParse.h"
 
-class INI
-{
-public:
-	void initFromINI(void *what, const FieldParse *table);
-	static void parseInt(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 extern const FieldParse CountUpTransitionFields[] = {
 	{ "StartFrame", &INI::parseInt, 0, 0x10 },

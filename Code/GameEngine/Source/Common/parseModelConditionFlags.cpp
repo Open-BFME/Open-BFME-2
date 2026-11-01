@@ -20,11 +20,7 @@ public:
     void set(unsigned index) { words[index >> 5] |= 1u << (index & 31); }
     void rva000B3FA5(int, int);
 };
-class INI {
-public:
-    const char *getNextTokenOrNull(const char * = 0);
-    int scanIndexList(const char *, const char *const *);
-};
+#include "../../Include/Common/INI/INI.h"
 extern const char *const ModelConditionNames[];
 #include <string.h>
 void parseModelConditionFlags(INI *ini, WeaponTemplateSetHead *all, WeaponTemplateSetHead *positive)

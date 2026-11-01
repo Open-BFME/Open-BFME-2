@@ -8,19 +8,7 @@ typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const v
 #include "../../Include/Common/INI/FieldParse.h"
 extern const int g_emptyFieldParseTable[4];
 
-class INI
-{
-public:
-    void initFromINI(void *what, const FieldParse *parseTable);
-    static void Rva00563EA8_ParseEventFX(INI *ini, void *instance, void *store, const void *userData);
-    static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
-    static void parseBool(INI *ini, void *instance, void *store, const void *userData);
-    static void parseCoord3D(INI *ini, void *instance, void *store, const void *userData);
-    static void parseGameClientRandomVariable(INI *ini, void *instance, void *store, const void *userData);
-    static void parseIndexList(INI *ini, void *instance, void *store, const void *userData);
-    static void parseInt(INI *ini, void *instance, void *store, const void *userData);
-    static void parseReal(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../Include/Common/INI/INI.h"
 
 // Retail VA 0x00C1B6D8 (.rdata): the particle rotation names the
 // RenderObjectUpdate table (0x00C6C710) parses through INI::parseIndexList,

@@ -706,19 +706,7 @@ unsigned int g_Va00E01D34;
 extern unsigned int g_Va00E01D3C;
 // g_Va00E01D3C: matched references place it at VA 0xe01d3c (zero-filled .bss).
 unsigned int g_Va00E01D3C;
-class INI
-{
-public:
-    INI();
-    ~INI();
-    unsigned char loadFile(AsciiString s, INILoadType t, Xfer *x);
-    const char *getNextToken(const char *separators = 0);
-    void initFromINI(void *, const FieldParse *);
-    static void parseInt(INI *, void *, void *, const void *);
-    char m_pad00[8];
-    int m_loadType;
-    char m_pad0C[0x87C - 0x0C];
-};
+#include "../../../../Include/Common/INI/INI.h"
 class Rva0031B53D {
 public:
   unsigned char rva0031B53D();

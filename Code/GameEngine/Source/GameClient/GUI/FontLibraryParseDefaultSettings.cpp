@@ -10,7 +10,7 @@ struct FieldParse { const char *token; FieldParseProc parse; const void *userDat
 // ??_7Rva00217497) and clears the count, as the rowed ctor does.
 extern "C" const void *const __identifier("??_7Rva00217497@@6B@")[];
 class INIException {public:INIException(int,const char*,...);INIException(const INIException&);~INIException();private:char *message;int count;};
-class INI {public:AsciiString getNextQuotedAsciiString();const char*getNextTokenOrNull(const char*);void initFromINI(void*,const FieldParse*);static void parseBool(INI*,void*,void*,const void*);};
+#include "../../../Include/Common/INI/INI.h"
 // Retail's one-entry table at 0x007E5B30 (VA 0x00BE5B30) passed to initFromINI:
 // "Antialiased" -> INI::parseBool (rowed 0x0002E850) at +8, then the null
 // terminator.

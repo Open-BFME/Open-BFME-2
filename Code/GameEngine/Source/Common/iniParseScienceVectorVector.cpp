@@ -87,12 +87,7 @@ private:
 
 typedef _STL::vector<SciVec, _STL::allocator<SciVec> > SciVecVec;
 
-class INI
-{
-public:
-	const char *getNextTokenOrNull(const char *separators = 0);
-	static ScienceType scanScience(const char *token);
-};
+#include "../../Include/Common/INI/INI.h"
 
 void iniParseScienceVectorVector(INI *ini, void *, void *store, const void *)
 {

@@ -33,11 +33,7 @@ struct PlayerPosition
 	void rva003023B8(const AsciiString &name);
 };
 
-class INI
-{
-public:
-	static void parseAsciiStringVector(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../Include/Common/INI/INI.h"
 
 // ?parseAsciiStringSetForPositionInfo@@YAXPAX00@Z
 void parseAsciiStringSetForPositionInfo(void *ini, void *unused, void *store)
