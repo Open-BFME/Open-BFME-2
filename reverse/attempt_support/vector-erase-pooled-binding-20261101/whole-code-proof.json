@@ -1,0 +1,27 @@
+{
+  "named_external_code_definitions_before": 80,
+  "after": 80,
+  "added_code_names": [],
+  "removed_code_names": [],
+  "changed_definitions": [
+    {
+      "function": "??$__copy_ptrs@PAURva004758F4Element@@PAU1@@_STL@@YAPAURva004758F4Element@@PAU1@00ABU__false_type@0@@Z",
+      "raw_bytes_identical": true,
+      "old_relocations": [
+        [
+          20,
+          20,
+          "??$__copy@PAV?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@PAV12@H@_STL@@YAPAV?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@0@PAV10@00ABUrandom_access_iterator_tag@0@PAH@Z"
+        ]
+      ],
+      "new_relocations": [
+        [
+          20,
+          20,
+          "??$__copy@PAV?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@PAV12@H@_STL@@YAPAV?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@0@PAV10@00ABUrandom_access_iterator_tag@0@PAH@Z"
+        ]
+      ]
+    }
+  ],
+  "method": "Both source versions compiled privately with the current source flags; shared match cache untouched."
+}

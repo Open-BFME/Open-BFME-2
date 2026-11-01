@@ -258,8 +258,12 @@ struct Rva005F8620Element;
 class BfmeStringTailRecord156;
 class BuildListInfo;
 class DynamicAudioEventRTS;
-class GameWindow;
+class Object;
+template <class T> class Rva001EB984PoolAllocator;
 namespace _STL { template <class _Tp, class _Alloc> class list; }
+// Native 4758F4 -> 474125 -> 4703B1 reaches the pooled Object-list copy,
+// not the withdrawn GameWindow view. Keep the existing opaque element ABI.
+typedef _STL::list<Object *,Rva001EB984PoolAllocator<Object *> > Rva004758F4PoolList;
 class Rva0004CCFF;
 class Rva000A8CAE;
 class Rva000B9AAA;
@@ -356,7 +360,7 @@ Rva002DBF66Elem * __cdecl Rva002DBF66Copy(Rva002DBF66Elem *,Rva002DBF66Elem *,Rv
 Rva002E0D93 * __cdecl Rva002E17A0Copy(Rva002E0D93 *,Rva002E0D93 *,Rva002E0D93 *);
 char * __cdecl Rva003F58F8Copy(char *,char *,char *);
 namespace _STL { template <> Rva00403927 * __copy<class Rva00403927 *,class Rva00403927 *,int>(Rva00403927 *,Rva00403927 *,Rva00403927 *,_STL::random_access_iterator_tag const &,int *); }
-namespace _STL { template <> _STL::list<GameWindow *,_STL::allocator<GameWindow *> > * __copy<class _STL::list<class GameWindow *,class _STL::allocator<class GameWindow *> > *,class _STL::list<class GameWindow *,class _STL::allocator<class GameWindow *> > *,int>(_STL::list<GameWindow *,_STL::allocator<GameWindow *> > *,_STL::list<GameWindow *,_STL::allocator<GameWindow *> > *,_STL::list<GameWindow *,_STL::allocator<GameWindow *> > *,_STL::random_access_iterator_tag const &,int *); }
+namespace _STL { template <> Rva004758F4PoolList * __copy<Rva004758F4PoolList *,Rva004758F4PoolList *,int>(Rva004758F4PoolList *,Rva004758F4PoolList *,Rva004758F4PoolList *,_STL::random_access_iterator_tag const &,int *); }
 namespace _STL { template <> Rva0051FC54Element * __copy<struct Rva0051FC54Element *,struct Rva0051FC54Element *,int>(Rva0051FC54Element *,Rva0051FC54Element *,Rva0051FC54Element *,_STL::random_access_iterator_tag const &,int *); }
 DynamicAudioEventRTS * __cdecl Rva00564CA5Copy(DynamicAudioEventRTS *,DynamicAudioEventRTS *,DynamicAudioEventRTS *);
 Rva003B3080 * __cdecl Rva00564D06Copy(Rva003B3080 *,Rva003B3080 *,Rva003B3080 *);
@@ -437,7 +441,7 @@ namespace _STL { template <> __declspec(dllimport) __forceinline Rva003F610FElem
 namespace _STL { template <> __declspec(dllimport) __forceinline Rva004043AEElement * __copy<struct Rva004043AEElement *,struct Rva004043AEElement *,int>(Rva004043AEElement * a0, Rva004043AEElement * a1, Rva004043AEElement * a2, _STL::random_access_iterator_tag const & a3, int * a4)
 { return ((Rva004043AEElement * (__cdecl *)(Rva004043AEElement *,Rva004043AEElement *,Rva004043AEElement *,_STL::random_access_iterator_tag const &,int *))(Rva00403927 * (__cdecl *)(Rva00403927 *,Rva00403927 *,Rva00403927 *,_STL::random_access_iterator_tag const &,int *))&_STL::__copy<Rva00403927 *,Rva00403927 *,int>)(a0, a1, a2, a3, a4); } }
 namespace _STL { template <> __declspec(dllimport) __forceinline Rva004758F4Element * __copy<struct Rva004758F4Element *,struct Rva004758F4Element *,int>(Rva004758F4Element * a0, Rva004758F4Element * a1, Rva004758F4Element * a2, _STL::random_access_iterator_tag const & a3, int * a4)
-{ return ((Rva004758F4Element * (__cdecl *)(Rva004758F4Element *,Rva004758F4Element *,Rva004758F4Element *,_STL::random_access_iterator_tag const &,int *))(_STL::list<GameWindow *,_STL::allocator<GameWindow *> > * (__cdecl *)(_STL::list<GameWindow *,_STL::allocator<GameWindow *> > *,_STL::list<GameWindow *,_STL::allocator<GameWindow *> > *,_STL::list<GameWindow *,_STL::allocator<GameWindow *> > *,_STL::random_access_iterator_tag const &,int *))&_STL::__copy<_STL::list<GameWindow *,_STL::allocator<GameWindow *> > *,_STL::list<GameWindow *,_STL::allocator<GameWindow *> > *,int>)(a0, a1, a2, a3, a4); } }
+{ return ((Rva004758F4Element * (__cdecl *)(Rva004758F4Element *,Rva004758F4Element *,Rva004758F4Element *,_STL::random_access_iterator_tag const &,int *))(Rva004758F4PoolList * (__cdecl *)(Rva004758F4PoolList *,Rva004758F4PoolList *,Rva004758F4PoolList *,_STL::random_access_iterator_tag const &,int *))&_STL::__copy<Rva004758F4PoolList *,Rva004758F4PoolList *,int>)(a0, a1, a2, a3, a4); } }
 namespace _STL { template <> __declspec(dllimport) __forceinline Rva00520211Element * __copy<struct Rva00520211Element *,struct Rva00520211Element *,int>(Rva00520211Element * a0, Rva00520211Element * a1, Rva00520211Element * a2, _STL::random_access_iterator_tag const & a3, int * a4)
 { return ((Rva00520211Element * (__cdecl *)(Rva00520211Element *,Rva00520211Element *,Rva00520211Element *,_STL::random_access_iterator_tag const &,int *))(Rva0051FC54Element * (__cdecl *)(Rva0051FC54Element *,Rva0051FC54Element *,Rva0051FC54Element *,_STL::random_access_iterator_tag const &,int *))&_STL::__copy<Rva0051FC54Element *,Rva0051FC54Element *,int>)(a0, a1, a2, a3, a4); } }
 namespace _STL { template <> __declspec(dllimport) __forceinline Rva00565865Element * __copy<struct Rva00565865Element *,struct Rva00565865Element *,int>(Rva00565865Element * a0, Rva00565865Element * a1, Rva00565865Element * a2, _STL::random_access_iterator_tag const & a3, int * a4)

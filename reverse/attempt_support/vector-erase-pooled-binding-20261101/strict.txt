@@ -1,0 +1,14 @@
+link_check: preparing 3 explicit safe provider(s), no extra sources
+Compile: 1 of 3 TU(s) (deps-cache: 2 current)
+Source claims: OK (3 sources, scoped byte-verified)
+Compile: 0 of 3 TU(s) (deps-cache: 3 current)
+Funclet pins: 4 row(s) verified past a renumbered $L label
+    $L22651 (Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainRva00475F61.cpp): $L22651 was renumbered; verified parent EH data places $L22903 at 0x0078B3C5
+    $L22652 (Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainRva00475F61.cpp): $L22652 was renumbered; verified parent EH data places $L22904 at 0x0078B3CD
+    $L22653 (Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainRva00475F61.cpp): $L22653 was renumbered; verified parent EH data places $L22905 at 0x0078B3D5
+    $L22654 (Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainRva00475F61.cpp): $L22654 was renumbered; verified parent EH data places $L22906 at 0x0078B3DD
+Functions: OK 71/71 matched across 3 source file(s)
+String-ref verify: OK (0 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (2 compiler literals verified)
+Import-ref verify: OK (0 named imports verified)
+link_check: 3 explicit providers byte-verified with strict reusable receipts; census/index/status unchanged, LINK closure not yet checked

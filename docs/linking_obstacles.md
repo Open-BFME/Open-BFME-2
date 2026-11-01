@@ -8559,7 +8559,7 @@ LINKS against index d1f046749a with current objects. Census confirmation: all si
 **Assigned `_M_clear` recheck (2026-10-26, inspected `2a45addda1806342ac5c52757f63be902dcd428e`):** `StlSweepR3Rva000B0298.cpp` remains U5/L1/S1 with current providers. Its 30-byte row still calls 0x000AFF52, whose 25-byte owner remains spelled `__destroy_aux<Rva00111B25Record*>`; the second 0x000B0298 row in Rva000B0298Clear.cpp remains present. Both provider and duplicate owner preview LINKS. No source edit or repeat of the failed forced-inline forwarding recipe was made. Raw native evidence and paired previews are in `build/c136-r3sweep/`; `build/link-report.md` maps the receipts. Resolve the duplicate row and destroy signature together before the next repair; clearance and census confirmation remain pending.
 
 ### LINK-036: StlportVectorEraseRangeDeferred historical blockers resolved by landed providers
-Status: Cleared. Updated: 2026-10-26; inspected revision: 6fced2088a.
+Status: Repair verified after later consumer-identity regression; awaiting census. Updated: 2026-11-01; inspected index: 0d24c60eef.
 Evidence / affected units: `Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp`,
 `reverse/link_status.csv` reported unresolved blockers from census `2026-10-25 13:53 at 51fde01dff`.
 Completed: Verified unit against current objects; external callee dependencies have landed on master.
@@ -8567,6 +8567,8 @@ Remaining / next check: None.
 Clearance: `tools/link_check.py Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp`
 reports: LINKS (0 -> 2,464 bytes). Full 59/59 matched rows verified.
 Census confirmation: awaiting the next census.
+
+Later identity-regression repair (2026-11-01): the unit's sole blocker was its stale GameWindow-list copy4703B1 declaration after that false identity was retracted and the pooled Object-list family readmitted. Native4758F4->474125->4703B1->46F0C2 proves the pooled target. Bind its existing global Rva001EB984PoolAllocator<Object*> specialization, retaining the opaque caller element view. All59rows and strict71/71provider rows pass; all80 emitted code definitions retain identical bytes with only the one intended relocation renamed. Preview3/3LINKS restores0->2464B while copy76B and Horde1761B remain linked (1837->4301). No new row/pin/hatch/path move or original allocator-name claim. This is prospective scope, not a new census result. Evidence: reverse/attempt_support/vector-erase-pooled-binding-20261101/readme.md and receipts. Earlier fb1a2e8d59 broad audit remains INCONCLUSIVE on missing0CreateAHeroManager21FE49 receipt; carry affected consumers into the next census.
 
 **Original-family identity follow-up (2026-10-27, inspected `f643d446a0`):**
 [The whole-source check](../reverse/attempt_support/vector-erase-family-identity-20261027.md)
