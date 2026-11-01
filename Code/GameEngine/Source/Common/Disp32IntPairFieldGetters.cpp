@@ -16,18 +16,7 @@ struct Disp32IntPair
 	int m_secondValue;
 };
 
-#define BFME_DISP32_INT_PAIR_GETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		void get(Disp32IntPair &result); \
-		char m_leadingPadding[DISP]; \
-		Disp32IntPair m_pairValue; \
-	}; \
-	void NAME::get(Disp32IntPair &result) \
-	{ \
-		result = m_pairValue; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 BFME_DISP32_INT_PAIR_GETTER(Rva002620DBIntPairField, 0x414)
 BFME_DISP32_INT_PAIR_GETTER(Rva005315B0IntPairField, 0x1BA3C)

@@ -3,54 +3,7 @@
 #include <string.h>
 #pragma function(memset)
 #include <new>
-#define BFME_DISP8_BYTE_ONE_SETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		void enable(); \
-		char m_lead[DISP]; \
-		unsigned char m_enabled; \
-	}; \
-	void NAME::enable() \
-	{ \
-		m_enabled = 1; \
-	}
-#define BFME_DISP8_BYTE_ZERO_SETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		void disable(); \
-		char m_lead[DISP]; \
-		unsigned char m_enabled; \
-	}; \
-	void NAME::disable() \
-	{ \
-		m_enabled = 0; \
-	}
-#define BFME_DISP8_BYTE_TWO_SETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		void set(); \
-		char m_lead[DISP]; \
-		unsigned char m_value; \
-	}; \
-	void NAME::set() \
-	{ \
-		m_value = 2; \
-	}
-#define BFME_DISP8_BYTE_GETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		unsigned char get() const; \
-		char m_lead[DISP]; \
-		unsigned char m_value; \
-	}; \
-	unsigned char NAME::get() const \
-	{ \
-		return m_value; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 class BooleanBitmapSet
 {

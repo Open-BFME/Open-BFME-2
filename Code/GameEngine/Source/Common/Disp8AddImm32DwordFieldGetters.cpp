@@ -13,28 +13,7 @@
 // Backward variant: the field sits at a NEGATIVE displacement from `this`.
 // Spelled as an explicit backward read, which MSVC folds to
 // `mov eax,[ecx-BACK]`.
-#define BFME_DISP8_ADD_IMM32_BEFORE_DWORD_GETTER(NAME, BACK, IMM) \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-	}; \
-	int NAME::get() const \
-	{ \
-		return *(const int *)((const char *)this - (BACK)) + (IMM); \
-	}
-#define BFME_DISP8_ADD_IMM32_DWORD_GETTER(NAME, DISP, IMM) \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-		char m_lead[DISP]; \
-		int m_value; \
-	}; \
-	int NAME::get() const \
-	{ \
-		return m_value + IMM; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 BFME_DISP8_ADD_IMM32_DWORD_GETTER(Rva002D371DAddImm32Field, 0x10, 0xF8)
 BFME_DISP8_ADD_IMM32_DWORD_GETTER(Rva0044E642AddImm32Field, 0x04, 0xC0)

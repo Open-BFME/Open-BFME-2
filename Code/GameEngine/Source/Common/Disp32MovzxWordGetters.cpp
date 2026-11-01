@@ -9,17 +9,6 @@
 // sibling of the disp8 Disp8MovzxFieldGetters word family and the disp32-byte
 // Disp32MovzxByteGetters family.
 // No // cl: line (defaults match the frameless eight-byte shape).
-#define BFME_DISP32_MOVZX_WORD_GETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		unsigned int get() const; \
-		char m_lead[DISP]; \
-		unsigned short m_value; \
-	}; \
-	unsigned int NAME::get() const \
-	{ \
-		return m_value; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 BFME_DISP32_MOVZX_WORD_GETTER(Rva0039160CMovzxWordField, 0x5E0)

@@ -11,39 +11,8 @@
 // total size. Identity is not recovered: every name is derived from its
 // address.
 // No // cl: line (defaults match the frameless ten-byte shapes).
-#define BFME_DISP32_FIRST_PTRCHASE_GETTER(NAME, DISP1, DISP2) \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-		char m_lead[DISP1]; \
-		void *m_ptr; \
-	}; \
-	int NAME::get() const \
-	{ \
-		return *(int *)((char *)m_ptr + DISP2); \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
-#define BFME_DISP32_FIRST_WORDCHASE_ZERO_GETTER(NAME, DISP1) \
-	class Inner##NAME \
-	{ \
-	public: \
-		short m_value; \
-	}; \
-	class Sub##NAME \
-	{ \
-	public: \
-		Inner##NAME *m_holder; \
-	}; \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-	}; \
-	int NAME::get() const \
-	{ \
-		return ((const Sub##NAME *)((const char *)this + (DISP1)))->m_holder->m_value; \
-	}
 
 BFME_DISP32_FIRST_PTRCHASE_GETTER(Rva00149960PtrChaseField, 0xC4, 0x20)
 BFME_DISP32_FIRST_WORDCHASE_ZERO_GETTER(Rva002AAE4FWordChaseField, 0xF6C)
@@ -53,38 +22,8 @@ BFME_DISP32_FIRST_WORDCHASE_ZERO_GETTER(Rva002AAE4FWordChaseField, 0xF6C)
 // A plain lead array cannot model a negative offset, so the outer load is
 // spelled as pointer arithmetic off `(char *)this - BACK`, which folds to
 // the same disp32-neg addressing (lea-BEFORE precedent).
-#define BFME_DISP32_BACK_PTRCHASE_GETTER(NAME, BACK, DISP2) \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-	}; \
-	int NAME::get() const \
-	{ \
-		return *(int *)((char *)*(void *const *)((char *)this - (BACK)) + (DISP2)); \
-	}
 
-#define BFME_DISP32_BACK_BYTECHASE_GETTER(NAME, BACK, DISP2) \
-	class NAME \
-	{ \
-	public: \
-		unsigned char get() const; \
-	}; \
-	unsigned char NAME::get() const \
-	{ \
-		return *(unsigned char *)((char *)*(void *const *)((char *)this - (BACK)) + (DISP2)); \
-	}
 
-#define BFME_DISP32_BACK_FLOATCHASE_GETTER(NAME, BACK, DISP2) \
-	class NAME \
-	{ \
-	public: \
-		float get() const; \
-	}; \
-	float NAME::get() const \
-	{ \
-		return *(float *)((char *)*(void *const *)((char *)this - (BACK)) + (DISP2)); \
-	}
 
 BFME_DISP32_BACK_PTRCHASE_GETTER(Rva004A9B85PtrChaseField, 0x3E4, 0x64)
 BFME_DISP32_BACK_FLOATCHASE_GETTER(Rva00488C34FloatChaseField, 0x3E0, 0x64)

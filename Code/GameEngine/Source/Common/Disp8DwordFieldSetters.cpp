@@ -9,18 +9,7 @@
 // Identity is not recovered: every name is derived from its address,
 // following DispDwordFieldSetters.cpp.
 // No // cl: line (defaults match the frameless ten-byte shape).
-#define BFME_DISP8_DWORD_SETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		void set(int value); \
-		char m_lead[DISP]; \
-		int m_value; \
-	}; \
-	void NAME::set(int value) \
-	{ \
-		m_value = value; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 BFME_DISP8_DWORD_SETTER(Rva002D94FEDwordSlot, 0x74)
 BFME_DISP8_DWORD_SETTER(Rva0033F15DDwordSlot, 0x6C)

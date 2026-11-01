@@ -5,26 +5,7 @@
 #include <map>
 #pragma comment(linker, "/alternatename:?rva0043B30F@Rva0043B2E2@@QAEPAXPBX@Z=?Rva0043B30FNewNode@@YGPAXPBX@Z")
 #pragma comment(linker, "/alternatename:?rva0043B3A1Hidden@Rva0043B2E2@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHPAX@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@PAURva0043B2E2Node@@0PBH0@Z=?rva0043B3A1@Rva0043B2E2@@QAEXAAPAURva0043B2E2Node@@PAU2@1PBH1@Z")
-#define BFME_SNAPSHOT_NAME_GETTER(NAME, TEXT) \
-	class NAME \
-	{ \
-	protected: \
-		virtual const char *GetSnapshotName() const; \
-	}; \
-	const char *NAME::GetSnapshotName() const \
-	{ \
-		return TEXT; \
-	}
-#define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
-	class NAME \
-	{ \
-	public: \
-		const char *name() const; \
-	}; \
-	const char *NAME::name() const \
-	{ \
-		return TEXT; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 #include "../GameLogic/AI/WorkOrder.h"
 #include "../GameLogic/AI/TeamInQueue.h"
 #define _STLP_BFME_RB_MINMAX_IMPORT  // inline _Rb_tree_node_base::_S_minimum/_S_maximum without a COMDAT copy (vendor/stlport/stl/_tree.h)

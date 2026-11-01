@@ -8,44 +8,12 @@
 // `8B 41 XX` + `8A 40 XX`, plus `ret`, for seven bytes total.
 // Identity is not recovered: every name is derived from its address.
 // No // cl: line (defaults match the frameless seven-byte shape).
-#define BFME_DISP8_BYTECHASE_GETTER(NAME, DISP1, DISP2) \
-	class NAME \
-	{ \
-	public: \
-		unsigned char get() const; \
-		char m_lead[DISP1]; \
-		void *m_ptr; \
-	}; \
-	unsigned char NAME::get() const \
-	{ \
-		return *(unsigned char *)((char *)m_ptr + DISP2); \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 // Backward variant: the holder sits at a NEGATIVE displacement from `this`
 // (a sub-object `this` pointing into a larger object). Spelled as an explicit
 // backward cast, which MSVC folds to `mov eax,[ecx-BACK]`; same shape and
 // reading as BFME1's ChainedFieldGetters.
-#define BFME_DISP8_BYTECHASE_BEFORE_GETTER(NAME, BACK, INNER) \
-	class Inner##NAME \
-	{ \
-	public: \
-		char m_lead[INNER]; \
-		unsigned char m_value; \
-	}; \
-	class Sub##NAME \
-	{ \
-	public: \
-		Inner##NAME *m_holder; \
-	}; \
-	class NAME \
-	{ \
-	public: \
-		unsigned char get() const; \
-	}; \
-	unsigned char NAME::get() const \
-	{ \
-		return ((const Sub##NAME *)((const char *)this - (BACK)))->m_holder->m_value; \
-	}
 
 BFME_DISP8_BYTECHASE_GETTER(Rva0007E05FByteChaseField, 0x0C, 0x2C)
 BFME_DISP8_BYTECHASE_GETTER(Rva0033F988ByteChaseField, 0x04, 0x24)

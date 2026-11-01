@@ -8,18 +8,7 @@
 // MSVC 7.1 emits the RMW form for `m_counter = 0` (defaults emit the longer
 // MOV-imm form). The displacements here fit in a signed byte, hence disp8.
 // Identity is not recovered: every name is derived from its address.
-#define BFME_DISP8_DWORD_CLEAR(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		void clear(); \
-		char m_lead[DISP]; \
-		int m_counter; \
-	}; \
-	void NAME::clear() \
-	{ \
-		m_counter = 0; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 BFME_DISP8_DWORD_CLEAR(Rva0010034FDwordClearer, 0xC)
 BFME_DISP8_DWORD_CLEAR(Rva0020E34FDwordClearer, 0x8)
 BFME_DISP8_DWORD_CLEAR(Rva0023D2D8DwordClearer, 0x38)
@@ -42,18 +31,6 @@ BFME_DISP8_DWORD_CLEAR(Rva004C12CBDwordClearer, 0x2C)
 BFME_DISP8_DWORD_CLEAR(Rva0055059ADwordClearer, 0x4)
 BFME_DISP8_DWORD_CLEAR(Rva005B5B07DwordClearer, 0x10)
 BFME_DISP8_DWORD_CLEAR(Rva005C494DDwordClearer, 0x14)
-#define BFME_DISP8_DWORD_MASK(NAME, DISP, MASK) \
-	class NAME \
-	{ \
-	public: \
-		void clear(); \
-		char m_lead[DISP]; \
-		int m_counter; \
-	}; \
-	void NAME::clear() \
-	{ \
-		m_counter &= MASK; \
-	}
 BFME_DISP8_DWORD_MASK(Rva006DBD90DwordMask, 0x04, ~0x08)
 BFME_DISP8_DWORD_MASK(Rva006DBDC0DwordMask, 0x04, ~0x04)
 

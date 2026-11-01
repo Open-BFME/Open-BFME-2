@@ -15,31 +15,8 @@
 // disp8 dword-getter family pioneered the same opaque-holder pattern in
 // Disp8DwordFieldGetters.cpp).
 // No // cl: line (defaults match the frameless four-byte shape).
-#define BFME_DISP8_DWORD_INC(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		void inc(); \
-		char m_lead[DISP]; \
-		int m_counter; \
-	}; \
-	void NAME::inc() \
-	{ \
-		++m_counter; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
-#define BFME_DISP8_DWORD_DEC(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		void dec(); \
-		char m_lead[DISP]; \
-		int m_counter; \
-	}; \
-	void NAME::dec() \
-	{ \
-		--m_counter; \
-	}
 
 // WB1107620 RadarMarker::AddReference increments its +8 reference count.
 // Native smart-pointer assignment4C9B8F calls this four-byte body before

@@ -17,31 +17,8 @@
 // Identity is not recovered: every name is derived from its address (the
 // disp8 dword-counter family pioneered the same opaque-holder pattern).
 // No // cl: line (defaults match the frameless seven-byte shape).
-#define BFME_DISP32_DWORD_INC(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		void inc(); \
-		char m_lead[DISP]; \
-		int m_counter; \
-	}; \
-	void NAME::inc() \
-	{ \
-		++m_counter; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
-#define BFME_DISP32_DWORD_DEC(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		void dec(); \
-		char m_lead[DISP]; \
-		int m_counter; \
-	}; \
-	void NAME::dec() \
-	{ \
-		--m_counter; \
-	}
 
 BFME_DISP32_DWORD_INC(Rva002AA0BFDwordCounter, 0x6FC)
 BFME_DISP32_DWORD_DEC(Rva002AA0C6DwordCounter, 0x6FC)

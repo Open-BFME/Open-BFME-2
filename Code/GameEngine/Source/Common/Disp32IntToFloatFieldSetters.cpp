@@ -13,18 +13,7 @@
 // Identity is not recovered: every name is derived from its
 // address.
 // cl: /MD /DNDEBUG
-#define BFME_DISP32_INT_TO_FLOAT_SETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		void set(int newValue); \
-		char m_leadingPadding[DISP]; \
-		float m_floatValue; \
-	}; \
-	void NAME::set(int newValue) \
-	{ \
-		m_floatValue = (float)newValue; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 BFME_DISP32_INT_TO_FLOAT_SETTER(Rva0030C882IntFloatField, 0x78)
 BFME_DISP32_INT_TO_FLOAT_SETTER(Rva0030C8BBIntFloatField, 0x88)
 BFME_DISP32_INT_TO_FLOAT_SETTER(Rva0030C8D5IntFloatField, 0x8C)

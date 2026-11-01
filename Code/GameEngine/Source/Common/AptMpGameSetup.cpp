@@ -5,18 +5,7 @@
 #include <string.h>
 #include "ascii_string.h"
 #define TheGlobalData TheWritableGlobalData
-#define BFME_DISP_DWORD_GETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-		char m_lead[DISP]; \
-		int m_value; \
-	}; \
-	int NAME::get() const \
-	{ \
-		return m_value; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 // A declaration-only specialization stops this TU emitting its own
 // vector<AsciiString> dtor COMDAT, so the call binds the kept copy.

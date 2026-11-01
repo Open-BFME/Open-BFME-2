@@ -10,18 +10,7 @@
 // translation units. Identity is not recovered: every name is derived from
 // its address.
 // No // cl: line (defaults match the frameless seven-byte shape).
-#define BFME_DISP32_DWORD_GETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-		char m_lead[DISP]; \
-		int m_value; \
-	}; \
-	int NAME::get() const \
-	{ \
-		return m_value; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 BFME_DISP32_DWORD_GETTER(Rva000515C7DwordField, 0x68C)
 BFME_DISP32_DWORD_GETTER(Rva0007E00FDwordField, 0x1784)

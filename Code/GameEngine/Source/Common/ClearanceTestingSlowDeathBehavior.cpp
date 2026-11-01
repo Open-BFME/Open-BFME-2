@@ -36,41 +36,7 @@ class RGBAColorInt;
 struct XferUnknown11;
 #include "../../Include/Common/BfmeXfer.h"
 #include "../../../Libraries/Include/Lib/Coord3D.h"
-#define BFME_DISP8_ADD_IMM32_BEFORE_DWORD_GETTER(NAME, BACK, IMM) \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-	}; \
-	int NAME::get() const \
-	{ \
-		return *(const int *)((const char *)this - (BACK)) + (IMM); \
-	}
-#define BFME_DISP8_ADD_IMM32_DWORD_GETTER(NAME, DISP, IMM) \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-		char m_lead[DISP]; \
-		int m_value; \
-	}; \
-	int NAME::get() const \
-	{ \
-		return m_value + IMM; \
-	}
-#define BFME_DISP8_LEA_NEG_SBB_GETTER(NAME, LEADISP, ADDIMM) \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-	}; \
-	int NAME::get() const \
-	{ \
-		const char *field = (const char *)this; \
-		const void *base = field - LEADISP; \
-		field += ADDIMM; \
-		return base ? (int)field : 0; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 #include <vector>
 #include <list>
 #include "GameLogicObjectLookupView.h"

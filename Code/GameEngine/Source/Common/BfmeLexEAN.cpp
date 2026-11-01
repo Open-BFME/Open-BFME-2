@@ -3,21 +3,7 @@
 #pragma comment(linker, "/alternatename:?bfmeExpandEAN@BfmeLexEAN@@QAEDPAD@Z=?rva005426DB@Rva005426DB@@QAE_NPAE@Z")
 #include <string.h>
 #pragma function(memset)
-#define BFME_TWO_DWORD_SETTER( NAME, LEAD )                                   \
-	class NAME                                                                \
-	{                                                                         \
-	public:                                                                   \
-		void set( int first, int second );                                    \
-                                                                              \
-		char m_lead[ LEAD ];                                                  \
-		int  m_first;                                                         \
-		int  m_second;                                                        \
-	};                                                                        \
-	void NAME::set( int first, int second )                                   \
-	{                                                                         \
-		m_first = first;                                                      \
-		m_second = second;                                                    \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 // Donor1281192f68 BfmeConv2008.cpp /O1 supplies this complete107B body.
 // Target Ghidra542459 and rowed scanner542791 establish the same lexer;

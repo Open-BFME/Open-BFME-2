@@ -10,18 +10,7 @@
 // translation unit. Other than the worker flag getter, owner identities
 // remain address-derived.
 // No // cl: line (defaults match the frameless seven-byte shape).
-#define BFME_DISP32_BYTE_GETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		unsigned char get() const; \
-		char m_lead[DISP]; \
-		unsigned char m_value; \
-	}; \
-	unsigned char NAME::get() const \
-	{ \
-		return m_value; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 BFME_DISP32_BYTE_GETTER(Rva00203BDAByteField, 0x1A4D7)
 BFME_DISP32_BYTE_GETTER(Rva002259E8ByteField, 0x9D)
 BFME_DISP32_BYTE_GETTER(Rva0023C411ByteField, 0x11D)

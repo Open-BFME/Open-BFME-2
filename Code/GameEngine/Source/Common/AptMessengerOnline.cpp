@@ -5,18 +5,7 @@
 #include "unicode_string.h"
 #include "ascii_string.h"
 #pragma pointers_to_members(full_generality, multiple_inheritance)
-#define BFME_DISP8_SAR_AVG_DWORD_GETTER(NAME, DISP1, DISP2, IMM) \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-		char m_lead[DISP1]; \
-		int m_first; \
-	}; \
-	int NAME::get() const \
-	{ \
-		return (m_first - *(int *)((char *)this + DISP2)) >> IMM; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 BFME_DISP8_SAR_AVG_DWORD_GETTER(Rva005AE6EFSarAvgField, 0x04, 0x00, 3)
 
 // ??1AptMessengerOnline@@UAE@XZ @0x005AE66B 36B evidence: vtable 0x00872760 store at [this] plus second vtable 0x0087275C store at +0x218 plus singleton clear of g_00E0644C when equal to this plus tail-jmp to pinned base dtor ??1AptMessenger@@UAE@XZ @0x005125ED; caller scalar deleting dtor; ghidra 36B vs 132B trust ret plus int3 gate

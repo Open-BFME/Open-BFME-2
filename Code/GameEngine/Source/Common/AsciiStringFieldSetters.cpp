@@ -8,19 +8,7 @@
 // referencing site was found for these in this pass.
 #include "ascii_string.h"
 
-#define BFME_ASCII_FIELD_SETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		void set(const AsciiString &s); \
-	private: \
-		char m_pad[DISP]; \
-		AsciiString m_str; \
-	}; \
-	void NAME::set(const AsciiString &s) \
-	{ \
-		return ((StringBase<char> &)m_str).set((const StringBase<char> &)s); \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 BFME_ASCII_FIELD_SETTER(Rva001ED634StringField, 0x4)
 BFME_ASCII_FIELD_SETTER(Rva0023D467StringField, 0x34)

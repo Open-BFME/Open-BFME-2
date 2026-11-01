@@ -18,18 +18,7 @@ typedef unsigned short WideChar;
 #include <windows.h>
 #include "ascii_string.h"
 #include "unicode_string.h"
-#define BFME_DISP_FLOAT_GETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		float get() const; \
-		char m_lead[DISP]; \
-		float m_value; \
-	}; \
-	float NAME::get() const \
-	{ \
-		return m_value; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 //
 // ?rva00094CEA@Rva009519B@@UAEXXZ, retail 0x00094CEA (80 bytes): slot 44

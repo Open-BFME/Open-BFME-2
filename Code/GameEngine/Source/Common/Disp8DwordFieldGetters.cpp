@@ -16,18 +16,7 @@
 // pioneered the same opaque-holder pattern in
 // reference/open-bfme-1/Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp).
 // No // cl: line (defaults match the frameless four-byte shape).
-#define BFME_DISP8_DWORD_GETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-		char m_lead[DISP]; \
-		int m_value; \
-	}; \
-	int NAME::get() const \
-	{ \
-		return m_value; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 BFME_DISP8_DWORD_GETTER(Rva0013E9F0DwordField, 0x10)
 BFME_DISP8_DWORD_GETTER(Rva0013EDC0DwordField, 0x2C)
@@ -71,16 +60,6 @@ BFME_DISP8_DWORD_GETTER(Rva005C4AF9DwordField, 0x44)
 // Spelled as a negative word index from `this`, which MSVC 7.1 folds to the
 // same `8B 41 XX` disp8 load. Identity is not recovered: names stay
 // address-derived like the forward getters above.
-#define BFME_DISP8_NEG_DWORD_GETTER(NAME, INDEX) \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-	}; \
-	int NAME::get() const \
-	{ \
-		return ((const int *)this)[INDEX]; \
-	}
 
 BFME_DISP8_DWORD_GETTER(Rva001DB09DDwordField, 0x10)
 BFME_DISP8_DWORD_GETTER(Rva002A98A7DwordField, 0x4C)

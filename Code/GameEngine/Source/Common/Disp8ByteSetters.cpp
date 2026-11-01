@@ -7,18 +7,7 @@
 // MSVC 7.1 emits `C6 41 XX YY`, plus `ret`, for five bytes total. Identity
 // is not recovered: every name is derived from its address.
 // No // cl: line (defaults match the frameless five-byte shape).
-#define BFME_DISP8_BYTE_SETTER(NAME, METHOD, DISP, IMM) \
-	class NAME \
-	{ \
-	public: \
-		void METHOD(); \
-		char m_lead[DISP]; \
-		unsigned char m_flag; \
-	}; \
-	void NAME::METHOD() \
-	{ \
-		m_flag = IMM; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 BFME_DISP8_BYTE_SETTER(Rva00042687ByteSetter, disable, 0x48, 0x0)
 BFME_DISP8_BYTE_SETTER(Rva0006E293ByteSetter, enable, 0x42, 0x1)
 BFME_DISP8_BYTE_SETTER(Rva0008BB6AByteSetter, enable, 0x76, 0x1)

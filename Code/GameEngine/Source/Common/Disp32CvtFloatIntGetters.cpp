@@ -9,18 +9,7 @@
 // encoding. Identity is not recovered: every name is derived from
 // its address.
 // cl: /MD /EHsc /DNDEBUG
-#define BFME_DISP32_CVT_FLOAT_INT_GETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-		char m_lead[DISP]; \
-		float m_value; \
-	}; \
-	int NAME::get() const \
-	{ \
-		return (int)m_value; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 BFME_DISP32_CVT_FLOAT_INT_GETTER(Rva0030C8CCIntGetter, 0x88)
 BFME_DISP32_CVT_FLOAT_INT_GETTER(Rva0030C8E6IntGetter, 0x8C)

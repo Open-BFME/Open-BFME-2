@@ -58,30 +58,7 @@ public:
 	int getPlayerIndex() const { return m_2EC; }
 };
 #include "../../Include/Common/TeamBFME2.h"
-#define BFME_DISP8_DWORD_CLEAR(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		void clear(); \
-		char m_lead[DISP]; \
-		int m_counter; \
-	}; \
-	void NAME::clear() \
-	{ \
-		m_counter = 0; \
-	}
-#define BFME_DISP8_DWORD_MASK(NAME, DISP, MASK) \
-	class NAME \
-	{ \
-	public: \
-		void clear(); \
-		char m_lead[DISP]; \
-		int m_counter; \
-	}; \
-	void NAME::clear() \
-	{ \
-		m_counter &= MASK; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 struct Rva005A9CB3Record
 {

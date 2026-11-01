@@ -14,18 +14,7 @@
 // here, only their total size. Identity is not recovered: every name is
 // derived from its address.
 // No // cl: line (defaults match the frameless four-byte shape).
-#define BFME_DISP8_BYTE_GETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		unsigned char get() const; \
-		char m_lead[DISP]; \
-		unsigned char m_value; \
-	}; \
-	unsigned char NAME::get() const \
-	{ \
-		return m_value; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 BFME_DISP8_BYTE_GETTER(Rva000CB12FByteField, 0x49)
 BFME_DISP8_BYTE_GETTER(Rva0001BC70ByteField, 0x54)

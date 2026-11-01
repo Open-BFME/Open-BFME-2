@@ -7,16 +7,7 @@
 // `ret`, for seven bytes total.
 // Identity is not recovered: every name is derived from its address.
 // No // cl: line (defaults match the frameless seven-byte shape).
-#define BFME_DISP8_BINARY_ADD_GETTER(NAME, DISP1, DISP2) \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-	}; \
-	int NAME::get() const \
-	{ \
-		return *(const int *)((const char *)this + (DISP1)) + *(const int *)((const char *)this + (DISP2)); \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 BFME_DISP8_BINARY_ADD_GETTER(Rva00108B46BinaryAddField, 0x0C, 0x04)
 

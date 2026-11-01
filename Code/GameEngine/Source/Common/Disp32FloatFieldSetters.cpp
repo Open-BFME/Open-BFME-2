@@ -7,18 +7,7 @@
 // `C2 04 00` for seventeen bytes total with /arch:SSE. Identity is not
 // recovered: every name is derived from its address.
 // cl: /MD /DNDEBUG
-#define BFME_DISP32_FLOAT_SETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		void set(float newValue); \
-		char m_leadingPadding[DISP]; \
-		float m_floatValue; \
-	}; \
-	void NAME::set(float newValue) \
-	{ \
-		m_floatValue = newValue; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 BFME_DISP32_FLOAT_SETTER(Rva00167F15FloatField, 0xFC)
 BFME_DISP32_FLOAT_SETTER(Rva00167F37FloatField, 0x100)
 // Native210C91..210CA2 stores a float at ECX+98 and returns with RET4.

@@ -31,12 +31,7 @@ public:
 		~Rva##ADDR();                                                     \
 	};
 
-#define BFME_CHAIN_DTOR( NAME, SECOND )                                   \
-	class NAME : public BigChainHold, public SECOND                       \
-	{                                                                     \
-	public:                                                               \
-		__declspec(noinline) ~NAME();                                     \
-	};
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 BFME_CHAIN_SECOND_BASE( 005C67C0 )
 

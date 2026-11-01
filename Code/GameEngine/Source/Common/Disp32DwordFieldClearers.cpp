@@ -12,18 +12,7 @@
 // precedented). Identity is not recovered: every name is derived from its
 // address.
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
-#define BFME_DISP32_DWORD_CLEAR(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		void clear(); \
-		char m_lead[DISP]; \
-		int m_counter; \
-	}; \
-	void NAME::clear() \
-	{ \
-		m_counter = 0; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 BFME_DISP32_DWORD_CLEAR(Rva00085285DwordClearer, 0xC4)
 BFME_DISP32_DWORD_CLEAR(Rva00210D15DwordClearer, 0x264)

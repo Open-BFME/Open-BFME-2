@@ -10,18 +10,7 @@
 // disp32. Sibling TU to the field-clearer family, kept separate to avoid
 // churning a live file. Identity is not recovered: every name is derived
 // from its address.
-#define BFME_DISP32_DWORD_CLEAR(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		void clear(); \
-		char m_lead[DISP]; \
-		int m_counter; \
-	}; \
-	void NAME::clear() \
-	{ \
-		m_counter = 0; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 BFME_DISP32_DWORD_CLEAR(Rva00262CB6DwordClearer, 0x1FC)
 BFME_DISP32_DWORD_CLEAR(Rva002A9F0FDwordClearer, 0x31C)
 BFME_DISP32_DWORD_CLEAR(Rva00381DB5DwordClearer, 0x1638)

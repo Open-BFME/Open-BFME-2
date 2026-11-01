@@ -9,18 +9,7 @@
 // disp8 (every offset is below 0x80). Identity is not recovered: every name
 // is derived from its address.
 // cl: /MD /EHsc /DNDEBUG
-#define BFME_DISP8_BUMP_COUNTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		int bump(); \
-		char m_lead[DISP]; \
-		int m_counter; \
-	}; \
-	int NAME::bump() \
-	{ \
-		return ++m_counter; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 BFME_DISP8_BUMP_COUNTER(Rva002B315BBumpCounter, 0xA0)
 BFME_DISP8_BUMP_COUNTER(Rva002B3166BumpCounter, 0xA4)

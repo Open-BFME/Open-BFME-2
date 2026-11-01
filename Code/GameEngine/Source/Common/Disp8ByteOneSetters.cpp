@@ -11,44 +11,9 @@
 // only their total size. Identity is not recovered: every name is derived
 // from its address.
 // No // cl: line (defaults match the frameless five-byte shape).
-#define BFME_DISP8_BYTE_ONE_SETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		void enable(); \
-		char m_lead[DISP]; \
-		unsigned char m_enabled; \
-	}; \
-	void NAME::enable() \
-	{ \
-		m_enabled = 1; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
-#define BFME_DISP8_BYTE_ZERO_SETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		void disable(); \
-		char m_lead[DISP]; \
-		unsigned char m_enabled; \
-	}; \
-	void NAME::disable() \
-	{ \
-		m_enabled = 0; \
-	}
 
-#define BFME_DISP8_BYTE_TWO_SETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		void set(); \
-		char m_lead[DISP]; \
-		unsigned char m_value; \
-	}; \
-	void NAME::set() \
-	{ \
-		m_value = 2; \
-	}
 
 BFME_DISP8_BYTE_ONE_SETTER(Rva000D4A7COneSetter, 0x4D)
 BFME_DISP8_BYTE_ONE_SETTER(Rva001DBB82OneSetter, 0x69)

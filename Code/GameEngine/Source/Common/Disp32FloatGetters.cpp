@@ -9,18 +9,7 @@
 // its own translation unit. Identity is not recovered: every name is
 // derived from its address.
 // No // cl: line (defaults match the frameless seven-byte shape).
-#define BFME_DISP32_FLOAT_GETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		float get() const; \
-		char m_lead[DISP]; \
-		float m_value; \
-	}; \
-	float NAME::get() const \
-	{ \
-		return m_value; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 BFME_DISP32_FLOAT_GETTER(Rva0006659DFloatField, 0x37DC)
 BFME_DISP32_FLOAT_GETTER(Rva0008BC5DFloatField, 0x9C)
 BFME_DISP32_FLOAT_GETTER(Rva0009ACA0FloatField, 0x11C)

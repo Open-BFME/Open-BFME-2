@@ -11,112 +11,7 @@
 // compare-plus-setcc with no xor (probe-proven). Identity is not recovered:
 // every name is derived from its address.
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
-#define BFME_DISP8_CMP_IMM_BOOL_GETTER(NAME, DISP, IMM, OP) \
-	class NAME \
-	{ \
-	public: \
-		bool get() const; \
-		char m_lead[DISP]; \
-		int m_value; \
-	}; \
-	bool NAME::get() const \
-	{ \
-		return m_value OP IMM; \
-	}
-#define BFME_DISP8_CMP_ZERO_BOOL_GETTER(NAME, DISP, OP) \
-	class NAME \
-	{ \
-	public: \
-		bool get() const; \
-		char m_lead[DISP]; \
-		int m_value; \
-	}; \
-	bool NAME::get() const \
-	{ \
-		return m_value OP 0; \
-	}
-#define BFME_DISP8_TERNARY_BOOL_GETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		bool get() const; \
-		char m_lead[DISP]; \
-		int m_value; \
-	}; \
-	bool NAME::get() const \
-	{ \
-		return m_value ? true : false; \
-	}
-#define BFME_DISP8_TERNARY_CMP_BOOL_GETTER(NAME, DISP, IMM, OP) \
-	class NAME \
-	{ \
-	public: \
-		bool get() const; \
-		char m_lead[DISP]; \
-		int m_value; \
-	}; \
-	bool NAME::get() const \
-	{ \
-		return m_value OP IMM ? true : false; \
-	}
-#define BFME_DISP8_PTR_TERNARY_CMP_BOOL_GETTER(NAME, DISP, INNER_DISP, IMM, OP) \
-	struct NAME##Inner \
-	{ \
-		char m_pad[INNER_DISP]; \
-		int m_inner; \
-	}; \
-	class NAME \
-	{ \
-	public: \
-		bool get() const; \
-		char m_lead[DISP]; \
-		NAME##Inner *m_ptr; \
-	}; \
-	bool NAME::get() const \
-	{ \
-		return m_ptr->m_inner OP IMM ? true : false; \
-	}
-#define BFME_DISP8_PTR_TERNARY_BOOL_GETTER(NAME, DISP, INNER_DISP) \
-	struct NAME##Inner \
-	{ \
-		char m_pad[INNER_DISP]; \
-		int m_inner; \
-	}; \
-	class NAME \
-	{ \
-	public: \
-		bool get() const; \
-		char m_lead[DISP]; \
-		NAME##Inner *m_ptr; \
-	}; \
-	bool NAME::get() const \
-	{ \
-		return m_ptr->m_inner ? true : false; \
-	}
-#define BFME_DISP8_BYTE_CMP_BOOL_GETTER(NAME, DISP, OP) \
-	class NAME \
-	{ \
-	public: \
-		bool get() const; \
-		char m_lead[DISP]; \
-		unsigned char m_byte; \
-	}; \
-	bool NAME::get() const \
-	{ \
-		return m_byte OP 0; \
-	}
-#define BFME_DISP8_BYTE_TERNARY_BOOL_GETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		bool get() const; \
-		char m_lead[DISP]; \
-		unsigned char m_byte; \
-	}; \
-	bool NAME::get() const \
-	{ \
-		return m_byte ? true : false; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 BFME_DISP8_CMP_ZERO_BOOL_GETTER(Rva006105E0CmpBoolField, 0x48, !=)
 BFME_DISP8_TERNARY_BOOL_GETTER(Rva000D1AABCmpBoolField, 0x0C)
@@ -248,28 +143,6 @@ BFME_DISP8_CMP_IMM_BOOL_GETTER(Rva001FF347CmpBoolField, 0x110, 2, ==)
 // container, so the pointer member is read at a negative displacement from
 // `this` and the inner byte is tested through it (probe-proven; a direct
 // backward cast would fold the two offsets into one read).
-#define BFME_DISP8_BACK_PTR_TERNARY_BOOL_GETTER(NAME, BACK, INNER_DISP) \
-	struct NAME##Inner \
-	{ \
-		char m_pad[INNER_DISP]; \
-		unsigned char m_b; \
-	}; \
-	struct NAME##Outer; \
-	class NAME##Sub \
-	{ \
-	public: \
-		bool get() const; \
-	}; \
-	struct NAME##Outer \
-	{ \
-		NAME##Inner *m_ptr; \
-		char m_fill[BACK - 4]; \
-		NAME##Sub m_sub; \
-	}; \
-	bool NAME##Sub::get() const \
-	{ \
-		return ((NAME##Outer *)((char *)this - BACK))->m_ptr->m_b ? true : false; \
-	}
 BFME_DISP8_BACK_PTR_TERNARY_BOOL_GETTER(Rva00462CD3, 0x1C, 0x86)
 BFME_DISP8_BACK_PTR_TERNARY_BOOL_GETTER(Rva0047CB3F, 0x1C, 0x1A0)
 BFME_DISP8_BACK_PTR_TERNARY_BOOL_GETTER(Rva0049CF9E, 0x1C, 0x4C)
