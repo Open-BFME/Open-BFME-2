@@ -44,7 +44,7 @@ static inline void copyCoord(Coord3D *dst, const Coord3D *src)
 
 enum NameKeyType { NAMEKEY_NONE = 0 };
 
-class NameKeyGenerator { public: NameKeyType nameToKey(const char *name); };
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 class LocomotorTemplate;

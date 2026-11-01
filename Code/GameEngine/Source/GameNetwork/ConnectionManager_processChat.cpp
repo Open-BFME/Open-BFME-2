@@ -74,11 +74,7 @@ public:
 	const GameSlot *getConstSlot(Int index) const;
 };
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const AsciiString &name);
-};
+#include "../../Include/Common/NameKeyGenerator.h"
 
 class Player
 {

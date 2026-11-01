@@ -48,7 +48,7 @@ template<> void deque<Rva00423BD8Element>::push_back(const Rva00423BD8Element &)
 struct Rva004251C4Table {unsigned unknown;unsigned columns;TripleDeque rows;};
 #include "../../../Include/Common/INI/INI.h"
 enum NameKeyType {NAMEKEY_INVALID=0};
-class NameKeyGenerator {public:NameKeyType nameToKey(const AsciiString &);};
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 #include "../../../Include/Common/INI/FieldParse.h"
 void Rva004251C4Parse(INI *ini,Rva004251C4Table *table)

@@ -120,11 +120,7 @@ class W3DModelDrawModuleData {public:
  const ModelConditionInfo*rva00765DC0(const ModelConditionFlags&modelConditionFlags)const{return (const ModelConditionInfo*)((Rva000B4BED*)this)->rva000B4BED(&modelConditionFlags);}
  UnsignedByte m_unmodelled00[0x30];_STL::vector<AsciiString>m_extraPublicBones;
 };
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../../../../GameEngine/Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 #define NAMEKEY(s) TheNameKeyGenerator->nameToKey(s)
 

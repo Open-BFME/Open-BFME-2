@@ -61,7 +61,7 @@ enum NameKeyType { NAMEKEY_INVALID=0, NAMEKEY_MAX=1<<23, FORCE_NAMEKEYTYPE_LONG=
 namespace rts { template<class T> struct hash {
     size_t operator()(const T &key) const { return (size_t)key; }
 }; }
-class NameKeyGenerator { public: NameKeyType nameToKey(const AsciiString &); };
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 class ArmyDefinition {
 public:

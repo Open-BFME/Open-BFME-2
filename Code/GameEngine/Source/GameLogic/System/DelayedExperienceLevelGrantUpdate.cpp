@@ -21,7 +21,7 @@ static inline bool operator!=(const _List_iterator<T,L> &a, const _List_iterator
 }
 #include "Common/Snapshot.h"
 enum NameKeyType { NAMEKEY_INVALID = 0 };
-class NameKeyGenerator { public: NameKeyType nameToKey(const AsciiString &); };
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 class Overridable;
 class ExperienceLevelSystem;

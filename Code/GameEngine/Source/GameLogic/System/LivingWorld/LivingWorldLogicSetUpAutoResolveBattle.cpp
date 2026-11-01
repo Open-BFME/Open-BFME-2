@@ -36,7 +36,8 @@ extern Rva0022C316Subsystem *TheLivingWorldAutoResolveResourceBonusScheduleStore
 extern Rva0022C38BSubsystem *TheLivingWorldAutoResolveSciencePurchasePointBonusScheduleStore;
 struct HandicapStore; extern HandicapStore *TheLivingWorldAutoResolveHandicapStore;
 enum NameKeyType { NAMEKEY_INVALID=0 };
-class NameKeyGenerator {public:NameKeyType nameToKey(const AsciiString&);};extern NameKeyGenerator*TheNameKeyGenerator;
+#include "../../../../Include/Common/NameKeyGenerator.h"
+extern NameKeyGenerator*TheNameKeyGenerator;
 class PlayerTemplate {public:char gap[0x154];};
 class PlayerTemplateStore {public:const PlayerTemplate*findPlayerTemplate(NameKeyType)const;};extern PlayerTemplateStore*ThePlayerTemplateStore;
 struct SetupPlayer {

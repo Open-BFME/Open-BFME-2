@@ -15,7 +15,7 @@ extern "C" { static float __cdecl floorf(float); }
 #include "TerrainResourceVisitorView.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 enum NameKeyType { NAMEKEY_INVALID=0 };
-class NameKeyGenerator {public: NameKeyType nameToKey(const char*);};
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 class Module;
 class Rva0035A238;

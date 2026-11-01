@@ -55,11 +55,7 @@ enum NameKeyType
     FORCE_NAMEKEYTYPE_LONG = 0x7fffffff
 };
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToLowercaseKey(const char *prototypeName);
-};
+#include "../../../../GameEngine/Include/Common/NameKeyGenerator.h"
 
 // Prototype template handed to Add_Prototype_Impl. The allocating caller
 // (Create_Rva00972880_Prototype at 0x00181130) builds a 20-byte

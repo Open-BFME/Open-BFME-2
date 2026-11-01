@@ -180,12 +180,7 @@ class Rva0030D808 {public:AsciiString rva0030D808();};
 
 class Rva0030D631 {public:BfmeRetBWF *rva0030D631();};
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const AsciiString &);
-	const AsciiString &keyToName(NameKeyType);
-};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

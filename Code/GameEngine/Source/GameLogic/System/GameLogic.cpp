@@ -103,11 +103,7 @@ public:
 	void hidePurchaseScience(void);
 	void hideSpecialPowerShortcut(void);
 };
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 #include "GameLogicObjectLookupView.h"
 #include "ascii_string.h"
 #include <math.h>

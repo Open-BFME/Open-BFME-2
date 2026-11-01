@@ -381,7 +381,7 @@ enum NameKeyType { NAMEKEY_INVALID = 0 };
 
 class Module;
 
-class NameKeyGenerator { public: NameKeyType nameToKey(const char *); };
+#include "../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

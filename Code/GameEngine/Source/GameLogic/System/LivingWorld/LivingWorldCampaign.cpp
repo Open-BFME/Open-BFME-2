@@ -57,7 +57,7 @@ static __declspec(noinline) int GetRandomPlayablePlayerTemplateIndex(const GameS
  return index;
 }
 #include "unicode_string.h"
-class NameKeyGenerator { public: NameKeyType nameToKey(const char *); };
+#include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 class GameSlot {
 public:
