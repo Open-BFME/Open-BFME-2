@@ -16,11 +16,6 @@ void BfmeThing936B::bfmeGo936B(void)
 	bfmeVecDtor936B(this, 4, 0x80, bfmeElem936B);
 }
 
-class BfmeThing936F
-{
-public:
-	void bfmeGo936F(void);
-};
 
 void bfmeGo936C(void);
 

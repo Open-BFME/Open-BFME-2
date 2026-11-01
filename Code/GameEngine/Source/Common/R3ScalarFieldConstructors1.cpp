@@ -15,14 +15,6 @@ extern int Gen00C1F470;
 // Gen00C1F470: matched references place it at VA 0xc1f470 (retail .rdata value 8079904).
 int Gen00C1F470 = 8079904;
 
-class Rva00352900
-{
-public:
-	Rva00352900();
-	int *m_00;
-	int m_04, m_08;
-	char m_0C, m_0D, m_0E;
-};
 // Retail constructor is owned by ScriptListSubrecordAddRva003B7EC2.cpp,
 // which needs its definition ahead of the caller for VC7.1 register analysis.
 

@@ -21,15 +21,6 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class Rva00148F5ECache
-{
-public:
-	NameKeyType get();
-
-private:
-	NameKeyType m_key;
-	const char *m_name;
-};
 
 // ?key@StaticNameKey@@QBE?AW4NameKeyType@@XZ
 // ICF twin of the rowed Rva00148F5ECache::get at 0x00148F5E: Zero Hour's

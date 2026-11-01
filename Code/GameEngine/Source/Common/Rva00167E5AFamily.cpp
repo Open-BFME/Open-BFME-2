@@ -5,11 +5,6 @@
 // 0x167ED8 clamps a float at >= 0, clears a flag bit and stores it;
 // 0x167EF8 copies a 12-byte record into +0xF0. Address-derived names.
 
-class Rva000D6A3F
-{
-public:
-	void rva000D6A3F(int n);
-};
 class Rva00167ED8
 {
 public:

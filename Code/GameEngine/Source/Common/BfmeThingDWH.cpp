@@ -16,22 +16,11 @@ struct BfmeThingDWH
 	char m_bfmeFlag;
 };
 
-struct BfmeThingDWJ
-{
-	void bfmeGoDWJ();
-	unsigned char m_bfmeHead[0x4e0c];
-	char m_bfmeFlag;
-};
 
 void bfmeGoDWI();
 
 char bfmeGoDWK(const char *s);
 
-struct BfmeThingDWL
-{
-	void *bfmeGoDWL(void *a);
-	void *m_bfmeVft;
-};
 
 // ---- from Code/GameEngine/Source/Common/BfmeConv792.cpp
 

@@ -28,11 +28,6 @@ public:
 	Int countVoters(void *connectionManager);
 };
 
-class BFMEConnectionManager : public ConnectionManager
-{
-public:
-	Bool isPlayerInGame(Int slot);
-};
 
 Bool BFMEDisconnectManager::hasPlayerConnectionTimedOut(int slot, void *connectionManager)
 {

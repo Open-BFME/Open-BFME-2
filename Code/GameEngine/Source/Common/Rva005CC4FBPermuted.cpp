@@ -9,17 +9,9 @@ struct PageContext {
  PageContext(void *r,void *p,void *o):region(r),page(p),owner(o){}
 };
 class PageBase { public: virtual ~PageBase(); int refs; char state; char padding[3]; };
-class Rva005E1FBC : public PageBase {
-public:Rva005E1FBC(void *,void *,const PageContext &); virtual ~Rva005E1FBC();
-private:void *impl;
-};
 class Rva005E21EB : public PageBase {
 public:Rva005E21EB(void *,void *,const PageContext &);virtual ~Rva005E21EB();
 private:void *impl;
-};
-class Rva005CC656 : public Rva005E1FBC {
-public:Rva005CC656(void *,void *,void *,const PageContext &);virtual ~Rva005CC656();
-private:void *owner;
 };
 class Rva005CC677 : public Rva005E21EB {
 public:Rva005CC677(void *,void *,void *,const PageContext &);virtual ~Rva005CC677();

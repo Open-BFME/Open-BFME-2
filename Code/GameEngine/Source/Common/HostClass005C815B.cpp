@@ -47,10 +47,6 @@ void HostClass005C815B::method_005C836F(int a0, float a1)
 	}
 }
 
-class HostClass005C8E0A {
-public:
-	void rva005C8F17();
-};
 
 void HostClass005C815B::method_005C839B(int a0, int a1)
 {

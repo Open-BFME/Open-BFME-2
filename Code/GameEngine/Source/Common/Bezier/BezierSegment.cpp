@@ -21,17 +21,6 @@ class BezierSegment
 		void splitSegmentAtT(Real tValue, BezierSegment &outSeg1, BezierSegment &outSeg2) const;
 };
 
-class Rva000B6D50BezierSegment
-{
-public:
-	Rva000B6D50BezierSegment(Real x0, Real y0, Real z0,
-											 Real x1, Real y1, Real z1,
-											 Real x2, Real y2, Real z2,
-											 Real x3, Real y3, Real z3);
-	Rva000B6D50BezierSegment(Real cp[12]);
-	Rva000B6D50BezierSegment(const Coord3D& cp0, const Coord3D& cp1,
-											 const Coord3D& cp2, const Coord3D& cp3);
-};
 
 // ---- from Code/GameEngine/Source/Common/Bezier/BezierSegmentConstructionAndLength.cpp
 

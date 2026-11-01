@@ -6,10 +6,6 @@
 // otherwise returns null. Honest address-derived names; boundary
 // verified (frameless at 0xB4653, ret 4 at end).
 
-struct Rva000B2361Slot
-{
-	void *ptr;
-};
 
 class Rva000B2361 { public: int *rva000B2361(int a); }; // rowed 0x000B2361 int*(int)
 class Rva000B4653

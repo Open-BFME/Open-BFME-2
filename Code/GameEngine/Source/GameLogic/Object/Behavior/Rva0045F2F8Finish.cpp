@@ -9,11 +9,6 @@
 // virtual call slot 0x23C; BfmeZeroRange extern; g_00BC26EC via unsigned casts.
 
 
-class Helper0045F2F8
-{
-public:
-    virtual int helper00();
-};
 
 class Rva0045F2F8
 {

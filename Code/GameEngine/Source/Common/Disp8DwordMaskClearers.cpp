@@ -14,23 +14,7 @@
 // lea getter 0x001D96F8 and float setter 0x001D972B.
 // ?rva001D96FF@Rva001D96FF@@QAEXH@Z retail 0x001D96FF 10 bytes.
 // Evidence: same +0x4C word and same 2 callers at 0x0043329B/0x00433444.
-class Rva001D9709
-{
-public:
-	void rva001D9709(int mask);
 
-	char m_lead[0x4C];
-	int m_flags4C;
-};
-
-class Rva001D96FF
-{
-public:
-	void rva001D96FF(int mask);
-
-	char m_lead[0x4C];
-	int m_flags4C;
-};
 
 // BF1 f98983a7d3 WW3D2/w3d_util_convert_shader.cpp and shader.h are the clean
 // clear-and-shift expression guide, compiled /O1 /x87 /G7 in discovery.

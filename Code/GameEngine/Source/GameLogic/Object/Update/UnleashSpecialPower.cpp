@@ -36,13 +36,6 @@ protected:
 	unsigned char m_pad[0xC8 - 4];
 };
 
-class EvacuateGarrisonSpecialPowerModuleData : public SpecialAbilityUpdateModuleData
-{
-public:
-	EvacuateGarrisonSpecialPowerModuleData();
-	virtual ~EvacuateGarrisonSpecialPowerModuleData();
-	static void buildFieldParse(MultiIniFieldParse &p);
-};
 
 class UnleashSpecialPowerModuleData : public SpecialAbilityUpdateModuleData
 {

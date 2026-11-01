@@ -13,24 +13,7 @@ void __debugbreak();
 
 void *__cdecl Rva006CD440Alloc(int size);
 
-struct Rva006E3230Action
-{
-	char data[24];
-};
 
-class AptActionQueueC
-{
-	Rva006E3230Action *m_aActionPool;
-	Rva006E3230Action *m_pCurrent;
-	Rva006E3230Action *m_pEnd;
-	char _padC[4];
-	int m_iActionPoolSize;
-
-public:
-	void rva006E3230(Rva006E3230Action *pCur);
-	void ClearActions();
-	AptActionQueueC(int nSize);
-};
 
 
 struct Rva006E58D0ConstFile

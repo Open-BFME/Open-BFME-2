@@ -7,14 +7,6 @@
 // Code/GameEngine/Source/GameLogic/Object/Update/Rva0049D67F.cpp).
  ///< retail [0x00DC828C]
 
-class Rva0028C6FB
-{
-public:
-	void *rva0028C6FB(unsigned int idx);
-
-private:
-	unsigned int m_bits[8];
-};
 
 // Five more copies of this lookup, each over a named BitFlags name table (the
 // operand the load reads), otherwise the same 42 bytes. Owners keep addresses.

@@ -11,11 +11,6 @@ public:
 	BfmeHandleUZA bfmeGetAUZA(int a, int b) const;
 };
 
-class BfmeSubBUZA
-{
-public:
-	BfmeHandleUZA bfmeGetBUZA(int a, int b) const;
-};
 
 class BfmeThingAUZA
 {
@@ -31,13 +26,6 @@ BfmeHandleUZA BfmeThingAUZA::bfmeGoAUZA(int a, int b) const
 	return m_bfmeSub->bfmeGetAUZA(a, b);
 }
 
-class BfmeThingBUZA
-{
-public:
-	BfmeHandleUZA bfmeGoBUZA(int a, int b) const;
-	char m_bfmePad[0x9c];
-	BfmeSubBUZA *m_bfmeSub;
-};
 
 // The retail call in this body reads 0x0015A180, an address the ledger already
 // carries as ?Get_Single_Texture@MeshMatDescClass@@QBE?AV?$RefCountPtr@VTextureClass@@@@HH@Z. Bind the donor spelling to that rowed owner so one

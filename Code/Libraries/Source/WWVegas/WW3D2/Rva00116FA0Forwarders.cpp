@@ -8,11 +8,6 @@
 // No direct caller reaches them in retail; names stay address-derived.
 int Rva00120130Get(void);
 int Rva0011CDB0Get(void);
-class BoxRenderObjClass
-{
-public:
-	static int Get_Box_Display_Mask(void);
-};
 
 struct TempIndexStruct;
 void Sort(TempIndexStruct *begin, TempIndexStruct *end);

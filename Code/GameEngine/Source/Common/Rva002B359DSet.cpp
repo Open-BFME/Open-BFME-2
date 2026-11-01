@@ -6,10 +6,6 @@ public:
 	void rva00318C05(bool v);
 };
 
-struct Rva002B359DInner
-{
-	char m_pad[0x1];
-};
 
 struct Rva002B359DOuter
 {

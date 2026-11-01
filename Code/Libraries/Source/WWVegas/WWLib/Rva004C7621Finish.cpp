@@ -11,13 +11,6 @@ struct BfmeE8
 	void *m_item;
 };
 
-struct Rva004C7621Rec
-{
-	float *m_vals;
-	void *m_item;
-	int m_f8;
-	int m_fC;
-};
 
 namespace _STL {
 

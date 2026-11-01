@@ -13,21 +13,6 @@ void bfmeStepA991(void);
 void bfmeStepB991(void);
 void bfmeFinish991(void);
 
-class BfmeA991
-{
-public:
-	virtual void bfmeVA0991();
-	virtual void bfmeVA1991();
-	virtual void bfmeVA2991();
-	virtual void bfmeVA3991();
-	virtual void bfmeVA4991();
-	virtual void bfmeStop991A();
-
-	void bfmeGo991A();
-
-	char m_bfmePad[0x1c0];
-	char m_bfmeOn;
-};
 
 
 class BfmeB991
@@ -65,25 +50,5 @@ void bfmeGo991B(int a)
 	g_bfmeB991->m_bfmeSlot = g_bfmeVal991;
 }
 
-class BfmeDev991
-{
-public:
-	virtual void bfmeVD0991();
-	virtual void bfmeVD1991();
-	virtual void bfmeVD2991();
-	virtual void bfmeVD3991();
-	virtual void bfmeVD4991();
-	virtual void bfmeReset991(int a, int b);
-};
 
-class BfmeC991
-{
-public:
-	char bfmeGo991C(int a, int b);
-	char bfmeSend991(int a, int b);
-
-	char m_bfmePad[4];
-	BfmeDev991 *m_bfmeDev;
-	int m_bfmeKind;
-};
 

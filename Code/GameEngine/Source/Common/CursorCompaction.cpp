@@ -36,14 +36,6 @@ void *Rva004ED3A2::rva004ED3A2(void *position)
 struct Rva005412E2Tag {};
 void rva00541214(char *dst, char *cur, void *p, const Rva005412E2Tag &tag);
 
-class Rva005412E2
-{
-public:
-	void *rva005412E2(void *p);
-private:
-	char m_00[4];
-	char *m_cursor;
-};
 
 
 struct Rva00541311Tag {};

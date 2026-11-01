@@ -33,8 +33,3 @@ void Rva005CCB23NullForwarder::rva005CCB23()
 		m_member->rva0004232F();
 }
 
-class Rva000B3FD0NullTarget
-{
-public:
-	void rva000B3FD0();
-};

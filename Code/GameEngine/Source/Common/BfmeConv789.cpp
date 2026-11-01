@@ -15,13 +15,6 @@ extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(BfmeCsDWA *
 extern "C" __declspec(dllimport) void __stdcall InterlockedIncrement(BfmeCsDWA *cs);
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(BfmeCsDWA *cs);
 
-struct BfmeThingDWB
-{
-	void bfmeGoDWB();
-	void bfmeOneDWB();
-	unsigned char m_bfmeHead[4];
-	BfmeCsDWA m_bfmeCs;
-};
 
 
 // The critical section is the DebugCriticalSection the debug manager owns at

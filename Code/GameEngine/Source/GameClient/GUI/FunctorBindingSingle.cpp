@@ -19,9 +19,7 @@
 // method pointer carries no vtable-offset adjustment: the null single-inheritance
 // base class the donor uses costs the field nothing.
 
-class __single_inheritance FunctorTargetSingle
-{
-};
+class __single_inheritance FunctorTargetSingle;
 
 typedef void (FunctorTargetSingle::*FunctorMethodSingle)(void);
 

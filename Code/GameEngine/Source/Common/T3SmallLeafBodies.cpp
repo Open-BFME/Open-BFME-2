@@ -28,8 +28,3 @@ Int Rva00063E50Node::isLessThan(const Rva00063E50Node *other) const
 	return m_key < other->m_key;
 }
 
-class Rva00069410Record
-{
-public:
-	Rva00069410Record(void *owner);
-};

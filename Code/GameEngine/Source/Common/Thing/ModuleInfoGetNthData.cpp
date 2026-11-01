@@ -20,14 +20,6 @@ public:
 
 class AIUpdateModuleData;
 
-struct BfmeModuleNugget
-{
-	char m_name[4];
-	char m_tag[4];
-	const ModuleData *m_data;
-	int m_interfaceMask;
-	int m_tail;
-};
 
 class ModuleInfo
 {

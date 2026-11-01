@@ -8,10 +8,6 @@ public:
 	void *destroyDelete(unsigned int flags);
 };
 
-struct Rva0004CD49Elem
-{
-	char m_pad[0xC];
-};
 
 void __cdecl Rva0004CD49Destroy(Rva0004CCFF *first, Rva0004CCFF *last)
 {

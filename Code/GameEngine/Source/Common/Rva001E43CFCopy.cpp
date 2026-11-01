@@ -3,10 +3,6 @@
 // ?rva001E43CF@Rva001E43CF@@QAEXPAX@Z @0x001E43CF 87B
 // __thiscall 12-dword copy from src to +0x68..+0x94; same matrix as 0x001E41FA
 // blocked wall; caller 0x001E5BA6 in 0x001E56DC/2113.
-struct Rva001E43CFMatrix
-{
-	int m00, m04, m08, m0c, m10, m14, m18, m1c, m20, m24, m28, m2c;
-};
 class Rva001E43CF
 {
 public:

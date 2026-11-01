@@ -57,14 +57,3 @@ Bool GameSlot::isPlayer(UnicodeString userName) const
 // retail calls compareNoCase on the by-value param with m_name as the
 // argument (add ecx,0x30 then push, lea ecx,[esp+0xc]), where the 0x3FFF62
 // twin calls it on m_name. Frameless 45B with the by-value releaseBuffer, ret 4.
-class Rva004481A7
-{
-public:
-	virtual void reset(void) = 0;
-	Bool isPlayer(UnicodeString userName) const;
-
-protected:
-	Int m_state;
-	unsigned char m_gap08[0x30 - 0x08];
-	UnicodeString m_name;
-};

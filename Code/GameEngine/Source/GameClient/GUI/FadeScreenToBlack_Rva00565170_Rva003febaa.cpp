@@ -26,25 +26,8 @@ public:
 };
 extern GameWindowTransitionsHandler *TheTransitionHandler;
 
-class BfmeRankTransitionHandler
-{
-public:
-	void setGroup(AsciiString name, int immediate);
-};
 
-struct Rva004893C0ByteSetter
-{
-	char m_padding[0x55];
-	unsigned char m_flag;
 
-	void set();
-};
-
-class BfmeZ1100
-{
-public:
-	void bfmeEnd1100(int h);
-};
 // Retail's singleton at 0x012F4C5C is EA's Mouse *TheMouse; (defined once in
 // GameClient/Input/Mouse.cpp).  This TU keeps its own view of the layout and
 // casts at the use so the reference links to the one global.

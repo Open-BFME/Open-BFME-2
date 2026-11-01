@@ -53,13 +53,6 @@ private:
 // --- 0x00120670 / 0x00120690 (29B each), 0x001206B0 (26B): primitive draws
 // through the rowed DX8Wrapper::Draw 0x001203C0: types 2, 3 and 1 with
 // counts n*2, n+1 and n. Draw is private (as in ZH), so the callers are friends.
-class DX8Wrapper
-{
-	friend void rva00120670(unsigned int start, unsigned int count);
-	friend void rva00120690(unsigned int start, unsigned int count);
-	friend void rva001206B0(unsigned int start, unsigned int count);
-	static void Draw(unsigned int type, unsigned int a, unsigned int count, unsigned int start, unsigned int vertices, bool flag);
-};
 void rva00120670(unsigned int start, unsigned int count);
 
 void rva00120690(unsigned int start, unsigned int count);
@@ -69,11 +62,6 @@ void rva001206B0(unsigned int start, unsigned int count);
 
 // --- 0x0011F620 (19B): the DX8 device recursion depth when this thread
 // owns the device, else the calling thread's id (rowed ThreadClass call).
-class ThreadClass
-{
-public:
-	static unsigned int _Get_Current_Thread_ID();
-};
 
 extern volatile unsigned long bfmeDX8DeviceOwner;
 extern volatile int bfmeDX8DeviceRecursion;

@@ -9,11 +9,6 @@ public:
 	AsciiString getNextQuotedAsciiString();
 };
 
-class BfmeObjD540
-{
-public:
-	void bfmeGoD540(AsciiString s);
-};
 
 // 0x005B7E02 is rowed as CreditsManager::addText (343B, Credits.cpp; WB
 // CreditsManager::addText); same member + AsciiString shape, so this

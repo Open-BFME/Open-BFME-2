@@ -38,11 +38,6 @@ struct BfmeIterator
 };
 
 
-class Gen_000CBB80
-{
-public:
-	BfmeIterator bfmeMake(void);
-};
 
 
 class Gen_00161290
@@ -66,11 +61,6 @@ private:
 	void *m_bfmeNode;					// +0x8
 };
 
-class Gen_004C14F0
-{
-public:
-	BfmeIterator bfmeMake(void);
-};
 
 // ?bfmeMake@Gen_00161290@@QAE?AUBfmeIterator@@XZ
 BfmeIterator Gen_00161290::bfmeMake(void)

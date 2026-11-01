@@ -26,20 +26,5 @@ void Gen_00350E60::bfmeSwap(Gen_00350E60 *other)
 	bfmeSwapIntCT(&m_bfmeSecond, &other->m_bfmeSecond);
 }
 
-class Gen_003837A0
-{
-public:
-	int bfmeDepth(void) const;
-};
 
-class Gen_003CD2A0
-{
-public:
-	int bfmeSize(void) const;
-};
 
-class Gen_003D4A20
-{
-public:
-	void bfmeSetFlag(unsigned char value);
-};

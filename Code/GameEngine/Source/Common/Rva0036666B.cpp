@@ -10,11 +10,6 @@ public:
  void ClassifyBridgeCells();
 };
 
-class Rva00366E2E
-{
-public:
-	void rva00366E2E();
-};
 
 class Rva0036666B
 {

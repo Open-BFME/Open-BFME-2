@@ -5,11 +5,6 @@
 // Callee bfmeInitUBB resolves via the new ledger pin at 0x00313581 (the
 // donor's own family name; Ghidra 30B body, not a thunk).
 
-class BfmeThingUBA
-{
-public:
-	BfmeThingUBA();
-};
 
 class BfmeSubUBB
 {

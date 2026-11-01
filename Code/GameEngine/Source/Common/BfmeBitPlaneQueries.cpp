@@ -89,20 +89,6 @@ bool Gen_0074BA50::bfmeBitA(int x, int y) const
 	return result;
 }
 
-class Gen_0074BAC0
-{
-public:
-	bool bfmeBitA(int x, int y) const;
-
-private:
-	unsigned char m_opaque00[0x08];
-	int m_width;
-	int m_height;
-	unsigned char m_opaque10[0x24];
-	int m_stride;
-	unsigned char m_opaque38[0x30];
-	BfmeBitPlaneBytes0074 m_bits;
-};
 
 
 class Gen_0074BB30

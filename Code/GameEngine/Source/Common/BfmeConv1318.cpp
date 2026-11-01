@@ -36,27 +36,6 @@ void BfmeThingTMB::bfmeGoTMB()
 	bfmeFreeTMB(m_bfmeItem);
 }
 
-struct BfmeVecTMA
-{
-	float m_bfmeX;
-	float m_bfmeY;
-	float m_bfmeZ;
-};
 
-class BfmeThingTMA
-{
-public:
-	void bfmeGoTMA(BfmeVecTMA *out);
-};
 
-class BfmeThingTMC
-{
-public:
-	int bfmeGoTMC(int unused);
-};
 
-class BfmeThingTMD
-{
-public:
-	void bfmeGoTMD(int x, int y, int w, int h);
-};

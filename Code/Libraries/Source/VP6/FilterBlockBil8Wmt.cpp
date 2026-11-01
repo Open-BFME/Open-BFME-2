@@ -11,10 +11,6 @@ extern "C" void __cdecl FilterBlock1d_hb8_wmt(const void *, void *, int, int, in
 extern "C" void __cdecl FilterBlock1d_vb8_wmt(const void *, void *, int, int, int, int, const void *);
 extern "C" void __cdecl FilterBlock2dBil_wmt(const void *, void *, int, const void *, const void *);
 
-struct Rva009C7380WeightPair
-{
-	unsigned int coefficient[8];
-};
 
 // The 768-byte weight table retail places at VA 0x00DB84E0 (RVA 0x009B84E0):
 // eight 32-byte bilinear banks (one per sub-pixel phase) followed by eight
