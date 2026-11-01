@@ -164,7 +164,7 @@ class Rva002BE7FA { public: void rva002BE7FA(unsigned int a, unsigned int b); };
 class GameWindowTransitionsHandler { public: void setGroup(AsciiString name, bool immediate); };
 extern GameWindowTransitionsHandler *TheTransitionHandler;
 class Rva001DBB82OneSetter { public: void enable(); };
-class Mouse { public: void _bfme_setEngineVisibility(bool visible); };
+#include "../../../../GameEngine/Include/GameClient/Mouse.h"
 extern Mouse *TheMouse;
 class Rva0009C784Slots
 {

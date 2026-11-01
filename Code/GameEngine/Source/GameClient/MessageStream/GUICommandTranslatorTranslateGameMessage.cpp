@@ -319,11 +319,7 @@ public:
 
 extern GlobalData *TheWritableGlobalData;
 
-class Mouse
-{
-public:
-	bool rva001EDD80(const Rva001EDD80Pair *a, const Rva001EDD80Pair *b);
-};
+#include "../../../Include/GameClient/Mouse.h"
 
 extern Mouse *TheMouse;
 

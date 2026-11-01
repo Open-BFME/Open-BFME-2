@@ -129,7 +129,8 @@ public:
  void rva002D4240(bool);
 };
 struct RGBColor;
-class Mouse { public: void _bfme_setEngineVisibility(bool); void rva001EEA6D(UnicodeString,int,const RGBColor*,float); }; extern Mouse *TheMouse;
+#include "../../../Include/GameClient/Mouse.h"
+extern Mouse *TheMouse;
 struct UpdateReceiverView21123 {
  char pad[0x218];
  UpdateMapView map218;

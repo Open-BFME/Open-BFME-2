@@ -16,7 +16,8 @@ template<int N>class MovieSlots:public MovieSlots<N-1>{public:virtual void gap(c
 class AudioManager:public MovieSlots<69>{public:virtual void suspend()=0;virtual void resume()=0;virtual void pump()=0;};extern AudioManager*TheAudio;
 class GlobalData;extern GlobalData*TheWritableGlobalData;struct MovieSettings{char pad0[0x11c8];bool enabled;};
 class GameWindowManager:public MovieSlots<10>{public:virtual void pump()=0;};extern GameWindowManager*TheWindowManager;
-class Mouse{public:void _bfme_setEngineVisibility(bool);};extern Mouse*TheMouse;
+#include "../../Include/GameClient/Mouse.h"
+extern Mouse*TheMouse;
 class GameWindowTransitionsHandler:public MovieSlots<9>{public:virtual void reset()=0;virtual void pump()=0;};extern GameWindowTransitionsHandler*TheTransitionHandler;
 class Keyboard:public MovieSlots<10>{public:virtual void pump()=0;};extern Keyboard*TheKeyboard;
 class GameEngine:public MovieSlots<23>{public:virtual void pump()=0;};extern GameEngine*TheGameEngine;

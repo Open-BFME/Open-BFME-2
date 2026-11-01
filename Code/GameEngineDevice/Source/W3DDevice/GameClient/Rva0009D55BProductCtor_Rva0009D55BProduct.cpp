@@ -189,7 +189,7 @@ Rva0009D55BProduct::~Rva0009D55BProduct()
 // calls the table's slot 10 with true.
 class GameWindowTransitionsHandler { public: void setGroup(AsciiString name, bool immediate); };
 extern GameWindowTransitionsHandler *TheTransitionHandler;
-class Mouse { public: void _bfme_setEngineVisibility(bool visible); };
+#include "../../../../GameEngine/Include/GameClient/Mouse.h"
 extern Mouse *TheMouse;
 // ?rva0009D862@Rva0009D55BProduct@@UAEXXZ retail 0x0009D862 (319 bytes, EH;
 // slot 4 of the product table): after the rowed shutdown 0x0009AB85 it

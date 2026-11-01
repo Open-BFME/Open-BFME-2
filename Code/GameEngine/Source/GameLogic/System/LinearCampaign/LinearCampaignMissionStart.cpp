@@ -34,7 +34,7 @@ struct Bfme939Helper;
 class RecorderClass; extern RecorderClass *TheRecorder;
 extern GameLogic *TheGameLogic;
 struct RGBColor;
-class Mouse { public: void _bfme_setEngineVisibility(bool); void rva001EEA6D(UnicodeString,int,const RGBColor *,float); };
+#include "../../../../Include/GameClient/Mouse.h"
 extern Mouse *TheMouse;
 class GlobalData;
 extern GlobalData *TheWritableGlobalData;

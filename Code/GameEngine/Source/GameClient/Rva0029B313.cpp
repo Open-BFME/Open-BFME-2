@@ -1,10 +1,6 @@
 // cl: /MD
 // ?rva0029B313@Rva0029B313@@QAEXH@Z @0x0029B313 26B. Two flag bytes at +0x7F9 +0x7F8 then tail-jmp to rowed InGameUI::setMouseCursor (0x0029A5D6). Evidence: callees rowed, callers in 0x002A3273, offsets match ZH InGameUI's m_isSelecting/m_isScrolling before m_mouseMode at +0x7FC.
-class Mouse
-{
-public:
-	enum MouseCursor { NONE = 0 };
-};
+#include "../../Include/GameClient/Mouse.h"
 class InGameUI
 {
 	friend class Rva0029B313;

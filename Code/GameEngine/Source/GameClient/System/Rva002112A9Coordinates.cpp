@@ -6,7 +6,7 @@ class Mouse;
 #include "ascii_string.h"
 #include "unicode_string.h"
 struct RGBAColorInt { int v[4]; };
-class Mouse { public: void setMouseText(UnicodeString,const RGBAColorInt*,const RGBAColorInt*); };
+#include "../../../Include/GameClient/Mouse.h"
 extern Mouse *TheMouse;
 struct CoordinatePair2112 { int x,y; };
 struct CoordinateVector2112 { float x,y,z; };
