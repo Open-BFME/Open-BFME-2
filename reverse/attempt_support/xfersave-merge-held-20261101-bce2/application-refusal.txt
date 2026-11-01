@@ -1,0 +1,8 @@
+tu: Code/GameEngine/Source/Common/System/XferSave.cpp
+approved: 57
+mixed: {'Code/GameEngine/Source/Common/GapBodiesSeat10O1.cpp': 83, 'Code/GameEngine/Source/GameClient/FXList.cpp': 4, 'Code/GameEngine/Source/GameLogic/Object/Armor.cpp': 4, 'Code/Libraries/Source/WWVegas/WWLib/Rva002EF239CreateNode.cpp': 1, 'Code/Libraries/Source/WWVegas/WWLib/Rva009D7350BktNumKey_Rva0060c9a7.cpp': 1, 'Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_string_uint_resize.cpp': 2}
+refused: {'Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva0060CBAC.cpp': "vendored or SDK source: its names are upstream's"}
+accepted: []
+rejected: {}
+adopt_first: {'Code/Libraries/Source/xfer/XferSaveOpen.cpp': ['Xfer']}
+blocked: held by another worker: 0x0007FAB3

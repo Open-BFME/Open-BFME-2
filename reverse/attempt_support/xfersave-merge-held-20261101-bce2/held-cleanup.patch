@@ -1,0 +1,8 @@
+diff --git a/Code/GameEngine/Source/Common/System/XferSave.cpp b/Code/GameEngine/Source/Common/System/XferSave.cpp
+index d7f63e94f3f..4b03bda7aa2 100644
+--- a/Code/GameEngine/Source/Common/System/XferSave.cpp
++++ b/Code/GameEngine/Source/Common/System/XferSave.cpp
+@@ -484 +484,2 @@ namespace _STL { template <> _String_base<char, allocator<char> >::~_String_base
+-namespace _STL { template <> basic_string<char, char_traits<char>, allocator<char> >::~basic_string(); }
++// Keep the STLport primary string destructor visible: composition needs its
++// inline cleanup path, not an extra call to an outlined specialization.
