@@ -168,16 +168,7 @@ struct SiegeDeployHordeSpecialPowerModuleData
 	Bool m_deployHorde;													// +0x18
 };
 
-class UpdateModule
-{
-protected:
-	virtual ~UpdateModule();
-	void setWakeFrame(Object *obj, UpdateSleepTime wakeDelay);
-	Object *getObject() const { return m_object; }
-	const void *m_moduleData;												// +0x04
-	Object *m_object;														// +0x08
-	unsigned char m_pad0C[0x20 - 0x0C];
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class SpecialPowerUpdateInterface
 {

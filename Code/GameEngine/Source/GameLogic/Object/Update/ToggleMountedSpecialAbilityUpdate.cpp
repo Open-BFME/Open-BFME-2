@@ -634,11 +634,7 @@ enum UpdateSleepTime
 // 0x00497805: a module's loadPostProcess that only chains to the rowed
 // UpdateModule::loadPostProcess (the slot after the scalar destructor in
 // many module tables).
-class UpdateModule
-{
-protected:
-	virtual void loadPostProcess();
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/ToggleMountedSpecialAbilityUpdate.cpp
 

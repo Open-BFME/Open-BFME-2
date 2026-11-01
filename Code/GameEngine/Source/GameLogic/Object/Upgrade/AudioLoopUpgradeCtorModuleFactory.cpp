@@ -30,21 +30,7 @@ class ALU_Iface2 { public: virtual void slot() = 0; };
 // The base is retail's UpdateModule: its constructor (0x00253390),
 // destructor and setWakeFrame are rowed elsewhere, so they are declared,
 // never defined here.
-class UpdateModule : public ALU_DeepBase, public ALU_Iface1, public ALU_Iface2
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~UpdateModule();
-
-protected:
-	void setWakeFrame(Object *, UpdateSleepTime);
-	Object *getObject(void) const { return m_object; }
-
-private:
-	unsigned int m_f14;
-	int m_f18;
-	int m_f1c;
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class UpgradeMux
 {

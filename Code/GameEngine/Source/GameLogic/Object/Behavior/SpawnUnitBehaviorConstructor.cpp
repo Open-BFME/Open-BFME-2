@@ -47,17 +47,7 @@ public:
 
 // The base is retail's UpdateModule: its constructor (0x00253390) and
 // destructor are rowed elsewhere, so they are declared, never defined here.
-class UpdateModule : public SpawnUnitBehaviorGrandBase, public SpawnUnitBehaviorIface1, public SpawnUnitBehaviorIface2
-{
-public:
-    UpdateModule(Thing *t, const ModuleData *m);
-    virtual ~UpdateModule();
-
-private:
-    unsigned int m_14;
-    int m_18;
-    int m_1C;
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class SpawnUnitBehavior : public UpdateModule, public SpawnUnitBehaviorIface3
 {

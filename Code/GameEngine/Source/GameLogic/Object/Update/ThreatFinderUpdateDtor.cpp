@@ -46,11 +46,7 @@ private:
 	char m_pad08[12];
 };
 
-class UpdateModule : public PrimaryP451F45, public Rva0024A797_B2
-{
-public:
-	virtual ~UpdateModule();
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class ThreatFinderUpdate : public UpdateModule
 {

@@ -96,28 +96,9 @@ enum UpdateSleepTime
 
 class ModuleData;
 
-class BehaviorModule
-{
-public:
-	virtual ~BehaviorModule();
-	const ModuleData *getModuleData() const { return m_moduleData; }
-	Object *getObject() const { return m_object; }
-protected:
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-class BehaviorModuleInterface
-{
-public:
-	virtual void behaviorModuleInterfaceAnchor();
-};
 
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
 
 class Xfer;
 
@@ -131,19 +112,6 @@ enum NameKeyType
 // 1 loadPostProcess (0x0058B03E in UpdateModule's), 2 GetSnapshotName
 // (0x002533CD), 3 xfer (0x0044DF9F), 4 getModuleNameKey (__purecall in
 // UpdateModule's, 0x0049FE9A in ProneUpdate's).
-class UpdateModule : public BehaviorModule, public BehaviorModuleInterface, public UpdateModuleInterface
-{
-protected:
-	virtual void loadPostProcess();				// slot 1
-	virtual const char *GetSnapshotName() const;		// slot 2
-public:
-	virtual void xfer(Xfer *xfer);				// slot 3
-	virtual NameKeyType getModuleNameKey() const = 0;	// slot 4
-protected:
-	unsigned int m_14;
-	int m_18;
-	int m_1C;
-};
 
 class NameKeyGenerator
 {

@@ -44,19 +44,7 @@ public:
 };
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/UpdateModule.h
-class UpdateModule : public PB_DeepBase, public PB_Iface1, public PB_Iface2
-{
-public:
-    // Defined once, out of line, in UpdateModuleCtor.cpp (retail 0x00253390): derived
-    // ctors call it, and a copy here would offer the link a second, non-retail body.
-    UpdateModule(Thing *thing, const ModuleData *moduleData);
-    virtual ~UpdateModule();
-
-protected:
-    unsigned int m_nextCallFrameAndPhase;
-    int m_indexInLogic;
-    int m_indexInUpdate;
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class CivilianSpawnUpdate : public UpdateModule
 {

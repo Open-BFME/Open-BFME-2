@@ -84,14 +84,7 @@ public:
 	virtual UnsignedInt getContainMax() const; // slot 0x70
 };
 
-class UpdateModule
-{
-public:
-	virtual ~UpdateModule();
-
-private:
-	unsigned char m_pad04[0x20 - 0x04];
-};
+#include "../../../Include/GameLogic/Module/UpdateModule.h"
 
 class TransportContain : public UpdateModule, public ContainModuleInterface
 {

@@ -179,11 +179,7 @@ public:
 
 enum UpdateSleepTime { UPDATE_SLEEP_NONE = 0 };
 
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update();
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 // Opaque UpdateModule-derived intermediate.
 class Rva0044EF5E : public BehaviorModule, public UpdateModuleInterface

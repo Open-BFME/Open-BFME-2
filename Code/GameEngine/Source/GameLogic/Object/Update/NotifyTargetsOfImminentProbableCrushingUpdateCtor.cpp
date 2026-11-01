@@ -49,11 +49,7 @@ extern "C" const void *const vtbl_00BF186C[13] = {
 class Thing;
 class ModuleData;
 
-class UpdateModule
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class NotifyTargetsOfImminentProbableCrushingUpdate : public UpdateModule
 {

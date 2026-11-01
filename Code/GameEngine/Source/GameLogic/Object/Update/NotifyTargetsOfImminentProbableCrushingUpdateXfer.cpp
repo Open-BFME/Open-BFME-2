@@ -12,11 +12,7 @@ public:
 };
 class Thing;
 class ModuleData;
-class UpdateModule {
-public:
-    virtual ~UpdateModule();
-    void xfer(Xfer *xfer);
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 class Rva004CE6E4 {
 public:
     void rva004CE6E4(Xfer *xfer);

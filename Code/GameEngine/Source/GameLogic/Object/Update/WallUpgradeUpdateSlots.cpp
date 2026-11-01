@@ -81,25 +81,8 @@ enum UpdateSleepTime
 
 class ModuleData;
 
-class BehaviorModule
-{
-public:
-	virtual ~BehaviorModule();
-protected:
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-};
-struct BehaviorModuleInterface { virtual void f0C(); };
-struct UpdateModuleInterface { virtual UpdateSleepTime update() = 0; };
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-class UpdateModule : public BehaviorModule, public BehaviorModuleInterface, public UpdateModuleInterface
-{
-protected:
-	void setWakeFrame(Object *obj, UpdateSleepTime wakeDelay);
-	unsigned int m_14;
-	int m_18;
-	int m_1C;
-};
 
 class DamageInfo;
 enum BodyDamageType

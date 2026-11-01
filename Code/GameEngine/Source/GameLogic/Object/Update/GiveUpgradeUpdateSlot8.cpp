@@ -16,15 +16,7 @@ public:
 };
 extern GameLogic *TheGameLogic;
 class ModuleData;
-class UpdateModule
-{
-public:
-	virtual ~UpdateModule();
-protected:
-	const ModuleData *m_moduleData;	// +0x04
-	Object *m_object;		// +0x08
-	unsigned char m_pad0C[0x20 - 0x0C];
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 class SpecialPowerUpdateInterface
 {
 public:

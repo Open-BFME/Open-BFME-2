@@ -338,11 +338,7 @@ struct Rva002D76C6Owner
 	{ \
 		return TEXT; \
 	}
-class UpdateModule
-{
-protected:
-	virtual const char *GetSnapshotName() const;
-};
+#include "../../../Include/GameLogic/Module/UpdateModule.h"
 #include "../../../Include/GameLogic/Bfme2BuildListInfo.h"
 
 class BfmeTerrainHeightView

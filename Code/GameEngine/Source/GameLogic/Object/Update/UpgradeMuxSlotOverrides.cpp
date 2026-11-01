@@ -205,16 +205,7 @@ struct GameLogicFrameView
 	unsigned int m_frame;
 };
 
-class UpdateModule
-{
-public:
-	virtual ~UpdateModule();
-protected:
-	void setWakeFrame(Object *obj, UpdateSleepTime wakeDelay);
-	const ModuleData *m_moduleData; // +0x04 (+0x0C in ObjectCreationUpgrade)
-	Object *m_object; // +0x08 (+0x10 in ObjectCreationUpgrade)
-	unsigned char m_pad0C[0x20 - 0x0C];
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 struct ObjectCreationUpgradeModuleData
 {

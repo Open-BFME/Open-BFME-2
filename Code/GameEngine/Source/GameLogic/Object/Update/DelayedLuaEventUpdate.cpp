@@ -142,22 +142,7 @@ public:
 	virtual UpdateSleepTime update() = 0;
 };
 
-class UpdateModule : public UpdateModuleBase,
-		     public UpdateModuleInterface1,
-		     public UpdateModuleInterface2
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~UpdateModule();
-	void xfer(Xfer *xfer);
-
-protected:
-	void setWakeFrame(Object *object, UpdateSleepTime frame);
-
-	unsigned int m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_reserved1C;
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class DelayedLuaEventList
 {

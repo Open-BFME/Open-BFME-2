@@ -64,21 +64,7 @@ public:
 	bool m_killOnDeath; // +0x10
 };
 
-class UpdateModule
-{
-public:
-	virtual ~UpdateModule();
-
-protected:
-	void setWakeFrame(Object *obj, UpdateSleepTime wakeDelay);
-	const ModuleData *getModuleData() const { return m_moduleData; }
-	Object *getObject() const { return m_object; }
-
-private:
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-	unsigned char m_pad0C[0x20 - 0x0C];
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 template <int N> class UpgradeMuxSlots : public UpgradeMuxSlots<N - 1>
 {

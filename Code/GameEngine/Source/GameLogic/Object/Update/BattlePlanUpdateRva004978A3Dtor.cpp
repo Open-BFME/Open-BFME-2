@@ -41,11 +41,7 @@ private:
 	char m_pad04[12];
 };
 
-class UpdateModule : public PrimaryP004978A3, public Rva0024A797_B2004978A3
-{
-public:
-	virtual ~UpdateModule();
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class __declspec(novtable) SecondBase004978A3
 {

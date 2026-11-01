@@ -197,35 +197,10 @@ struct GettingBuiltBehaviorModuleData
 	OpaqueRefElement4 m_rubbleRepairSound;	// +0x10
 };
 
-class BehaviorModule
-{
-public:
-	virtual ~BehaviorModule();
-protected:
-	const ModuleData *m_moduleData;	// +0x04
-	Object *m_object;	// +0x08
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-class BehaviorModuleInterface
-{
-public:
-	virtual void behaviorModuleInterfaceAnchor();
-};
 
-class UpdateModuleInterface
-{
-public:
-	virtual void updateModuleInterfaceAnchor();
-};
 
-class UpdateModule : public BehaviorModule, public BehaviorModuleInterface, public UpdateModuleInterface
-{
-protected:
-	void setWakeFrame(Object *obj, UpdateSleepTime wakeDelay);	// 0x0044DF71
-	unsigned int m_nextCallFrameAndPhase;	// +0x14
-	int m_indexInLogic;	// +0x18
-	int m_updateState;	// +0x1C
-};
 
 class GettingBuiltBehaviorInterface : public Rva00453652Slots<4>
 {

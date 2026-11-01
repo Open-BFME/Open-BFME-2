@@ -105,19 +105,8 @@ struct Rva0046247DPair
 	const _STL::list<Object *> *m04;
 };
 
-class UpdateModule : public Rva0046C7A4Slots<1>
-{
-protected:
-	const void *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-class UpdateModuleInterface
-{
-public:
-	virtual void updateModuleInterfaceAnchor();
-	unsigned char m_pad14[0x20 - 0x14];
-};
 // The +0x20 contain interface (vtable 0x00C44EC8): slot 70 fills the
 // contained-items pair.
 class ContainModuleInterface : public Rva0046C7A4Slots<70>

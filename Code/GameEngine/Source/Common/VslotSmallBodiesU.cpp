@@ -323,11 +323,7 @@ void Rva005E1CF8::rva005E1CF8(Int)
 // 0x00497805: a module's loadPostProcess that only chains to the rowed
 // UpdateModule::loadPostProcess (the slot after the scalar destructor in
 // many module tables).
-class UpdateModule
-{
-protected:
-	virtual void loadPostProcess();
-};
+#include "../../Include/GameLogic/Module/UpdateModule.h"
 class Rva00497805 : public UpdateModule
 {
 protected:

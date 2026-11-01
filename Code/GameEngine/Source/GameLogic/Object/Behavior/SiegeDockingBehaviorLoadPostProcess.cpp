@@ -5,11 +5,7 @@
 // a no-argument member at 0x00459E05 (identity not recovered; address-named
 // and pinned) and then tail-calls the rowed UpdateModule::loadPostProcess.
 
-class UpdateModule
-{
-protected:
-	virtual void loadPostProcess();
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class Rva0045A1B6;
 

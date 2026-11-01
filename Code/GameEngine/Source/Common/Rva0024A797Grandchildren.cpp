@@ -38,11 +38,7 @@ private:
 	char m_pad08[12];
 };
 
-class UpdateModule : public Rva0024A797_Root, public Rva0024A797_Mid, public Rva0024A797_B2
-{
-public:
-	virtual ~UpdateModule();
-};
+#include "../../Include/GameLogic/Module/UpdateModule.h"
 
 class Rva00452D52_E1
 {

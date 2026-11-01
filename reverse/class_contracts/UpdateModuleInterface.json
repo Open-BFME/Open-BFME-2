@@ -1,0 +1,63 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "UpdateModuleInterface",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 40,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {},
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 1,
+  "view_sizes": {
+   "4": 39
+  },
+  "views": 39,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_UpdateModuleInterface.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/UpdateModule.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 39,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 4,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "update()"
+  },
+  "1": {
+   "decided_by": "bytes",
+   "member": "getDisabledTypesToProcess()"
+  },
+  "2": {
+   "decided_by": "bytes",
+   "member": "rva0044DF8D(enum)"
+  }
+ }
+}

@@ -40,15 +40,7 @@ public:
 	unsigned char m_minimum;
 };
 
-class UpdateModule
-{
-public:
-	virtual ~UpdateModule();
-	void xfer(Xfer *xfer);
-
-private:
-	unsigned char m_pad[0x1C];
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class AutoHealBehavior;
 

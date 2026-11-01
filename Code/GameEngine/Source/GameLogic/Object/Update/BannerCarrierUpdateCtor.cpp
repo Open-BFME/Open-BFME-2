@@ -47,11 +47,7 @@ extern "C" const void *const vtbl_00C4F838[13] = {
 class Thing;
 class ModuleData;
 
-class UpdateModule
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class BannerCarrierUpdate : public UpdateModule
 {

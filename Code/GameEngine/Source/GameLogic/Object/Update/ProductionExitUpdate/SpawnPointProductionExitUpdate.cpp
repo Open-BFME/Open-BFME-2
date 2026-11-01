@@ -105,15 +105,7 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
 };
 
-class UpdateModule : public SpawnB1, public SpawnB2, public SpawnB3
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~UpdateModule();
-
-protected:
-	void setWakeFrame(Object *object, UpdateSleepTime frame);
-};
+#include "../../../../../Include/GameLogic/Module/UpdateModule.h"
 
 // +0x20: the exit interface (ExitInterface; slot 0 is not recovered here, and the
 // placeholder name keeps its vtable apart from the other units' ExitInterface views).

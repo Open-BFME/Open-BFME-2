@@ -7,11 +7,7 @@
 // recovered; address-named and pinned), the usual ZH loadPostProcess override
 // shape: base first, then rebuild transient state.
 
-class UpdateModule
-{
-protected:
-	virtual void loadPostProcess();
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class DynamicPortalBehaviour : public UpdateModule
 {

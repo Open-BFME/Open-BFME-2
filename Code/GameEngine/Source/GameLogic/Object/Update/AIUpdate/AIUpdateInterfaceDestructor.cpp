@@ -36,11 +36,7 @@ private:
 	char m_pad14[12];
 };
 
-class UpdateModule : public UpdateModuleRoot, public UpdateModuleSecond, public UpdateModuleThird
-{
-public:
-	virtual ~UpdateModule();
-};
+#include "../../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class AIUpdateInterfaceFourth
 {

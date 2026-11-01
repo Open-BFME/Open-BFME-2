@@ -49,11 +49,7 @@ extern "C" const void *const vtbl_00BF17F8[13] = {
 class Thing;
 class ModuleData;
 
-class UpdateModule
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class HordeNotifyTargetsOfImminentProbableCrushingUpdate : public UpdateModule
 {

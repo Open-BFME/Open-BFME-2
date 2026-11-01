@@ -79,40 +79,15 @@ extern GameLogic *TheGameLogic;
 
 class ModuleData;
 
-class BehaviorModule
-{
-public:
-	virtual ~BehaviorModule();
-protected:
-	virtual void loadPostProcess();
-	const ModuleData *m_moduleData; // +0x04 +0x04
-	Object *m_object; // +0x08 +0x08
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-class BehaviorModuleInterface
-{
-public:
-	virtual void behaviorModuleInterfaceAnchor();
-};
 
 enum UpdateSleepTime
 {
 	UPDATE_SLEEP_NONE = 1
 };
 
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
 
-class UpdateModule : public BehaviorModule, public BehaviorModuleInterface, public UpdateModuleInterface
-{
-protected:
-	unsigned int m_14;
-	int m_18;
-	int m_1C;
-};
 
 class DockUpdateInterface
 {

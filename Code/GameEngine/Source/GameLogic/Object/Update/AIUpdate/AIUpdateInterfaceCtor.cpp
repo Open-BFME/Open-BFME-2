@@ -49,15 +49,7 @@ private:
 	char m_pad14[12];
 };
 
-class UpdateModule : public UpdateModuleRoot, public UpdateModuleSecond, public UpdateModuleThird
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~UpdateModule();
-protected:
-	Object *getObject() const { return m_object; }
-	void setWakeFrame(Object *obj, UpdateSleepTime wakeDelay);
-};
+#include "../../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class AIUpdateInterfaceFourth
 {

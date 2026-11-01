@@ -21,7 +21,7 @@
 //  0x006022AE via dtor 0x006022CA
 
 // ABI-only declaration: no UpdateModule layout or local provider is emitted.
-class UpdateModule { public: virtual ~UpdateModule(); };
+#include "../../Include/GameLogic/Module/UpdateModule.h"
 
 // Each dtor is rowed at its address under another name (a virtual dtor, or an
 // ICF-folded setter/cleanup); forward to it so ??_G calls the rowed symbol.

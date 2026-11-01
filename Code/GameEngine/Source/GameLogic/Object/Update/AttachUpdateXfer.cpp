@@ -44,14 +44,7 @@ public:
 	void xferEvaEventID(Xfer *xfer, int *handle);	// row 0x001DEC48
 };
 extern Eva *TheEva;
-class UpdateModule
-{
-public:
-	virtual ~UpdateModule();
-	void xfer(Xfer *xfer);
-protected:
-	unsigned char m_pad04[0x20 - 0x04];
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 class AttachUpdate : public UpdateModule
 {
 protected:

@@ -60,15 +60,7 @@ public:
 	AsciiString m_name;
 };
 
-class UpdateModule
-{
-public:
-	virtual ~UpdateModule();
-	void xfer(Xfer *xfer);
-
-private:
-	unsigned char m_pad[0x1C];
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class StealthUpdate : public UpdateModule
 {

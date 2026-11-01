@@ -1,0 +1,418 @@
+{
+ "bases": [
+  "BehaviorModule",
+  "UpdateModuleInterface"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "UpdateModule",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 40,
+  "inherited": {
+   "base_views": 13,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x14": {
+    "4": 3
+   },
+   "0x18": {
+    "4": 2
+   },
+   "0x1c": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "conflict",
+   "conflicts": [
+    {
+     "candidates": {
+      "ctor": {
+       "0x0": "0x7f004c",
+       "0x10": "0x7fbce4"
+      },
+      "dtor": {
+       "0x0": "0x7eea7c",
+       "0x10": "0x7fbce4"
+      }
+     },
+     "dtor": "0x24a797",
+     "fact": "dtor-vftables"
+    }
+   ],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x253390"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "BehaviorModule",
+       "offset": 0,
+       "own_vftable": "0x7f004c",
+       "rule": "retail-ctor-call"
+      },
+      {
+       "kind": "inference",
+       "name": "<vftable 0x7e2b78>",
+       "offset": 16,
+       "own_vftable": "0x7fbce4",
+       "rule": "retail-inlined-base-vptr(unnamed)"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x253390"
+     ],
+     "value": 20
+    },
+    "unknown_subobject_vptrs": {
+     "kind": "inference",
+     "rule": "retail-ctor-vptr-after-own",
+     "sites": [
+      "0x253390"
+     ],
+     "value": {
+      "0xc": [
+       "0x7eff90"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x253390"
+     ],
+     "value": {
+      "0x0": "0x7f004c",
+      "0x10": "0x7fbce4"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7f004c"
+     ],
+     "value": {
+      "count": 13,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GUpdateModule@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x2533e0"
+       },
+       {
+        "name": "?loadPostProcess@UpdateModule@@MAEXXZ",
+        "slot": 1,
+        "target": "0x58b03e"
+       },
+       {
+        "name": "?GetSnapshotName@UpdateModule@@MBEPBDXZ",
+        "slot": 2,
+        "target": "0x2533cd"
+       },
+       {
+        "name": "?xfer@UpdateModule@@QAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x44df9f"
+       },
+       {
+        "name": "__purecall",
+        "slot": 4,
+        "target": "0x3b810"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 5,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 6,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 7,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 9,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 10,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 11,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ",
+        "slot": 12,
+        "target": "0x22c4cb"
+       }
+      ],
+      "table": "0x7f004c"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 6,
+  "retail_vtables": {
+   "0x7f004c": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GUpdateModule@@UAEPAXI@Z",
+     "1": "?loadPostProcess@UpdateModule@@MAEXXZ",
+     "2": "?GetSnapshotName@UpdateModule@@MBEPBDXZ",
+     "3": "?xfer@UpdateModule@@QAEXPAVXfer@@@Z",
+     "4": "__purecall",
+     "5": "??1Region2D@@QAE@XZ",
+     "6": "??1Region2D@@QAE@XZ",
+     "7": "??1Region2D@@QAE@XZ",
+     "8": "??1Region2D@@QAE@XZ",
+     "9": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "10": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "11": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "12": "?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ"
+    },
+    "stores": 1
+   },
+   "0x7fbce4": {
+    "offset": 16,
+    "slots": {},
+    "stores": 1
+   }
+  },
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 2,
+   "4": 4,
+   "32": 33
+  },
+  "views": 39,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_UpdateModule.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/UpdateModule.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 37,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_moduleData",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "ModuleData*",
+   "views": 31,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_object",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 4,
+   "type": "Object*",
+   "views": 29,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 30,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 16,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 31,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_nextCallFrameAndPhase",
+   "name_by": "majority",
+   "offset": 20,
+   "retail_widths": {
+    "4": 3
+   },
+   "size": 4,
+   "type": "uint",
+   "views": 26,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_indexInLogic",
+   "name_by": "majority",
+   "offset": 24,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "int",
+   "views": 26,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_bfmeReserved",
+   "name_by": "majority",
+   "offset": 28,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "int",
+   "views": 20,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 6
+ },
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "retail-dtor-vftables",
+   "candidates": {
+    "ctor": {
+     "0x0": "0x7f004c",
+     "0x10": "0x7fbce4"
+    },
+    "dtor": {
+     "0x0": "0x7eea7c",
+     "0x10": "0x7fbce4"
+    }
+   },
+   "class": "UpdateModule",
+   "why": "the class's retail constructors or destructors disagree"
+  },
+  {
+   "attribute": "base-slots",
+   "candidates": {
+    "1": 2,
+    "12": 11
+   },
+   "class": "UpdateModule"
+  }
+ ],
+ "size": 32,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  },
+  "10": {
+   "decided_by": "bytes",
+   "member": "slot28()"
+  },
+  "11": {
+   "decided_by": "bytes",
+   "member": "slot2C()"
+  },
+  "12": {
+   "decided_by": "bytes",
+   "member": "getUpdatePhase()"
+  },
+  "2": {
+   "decided_by": "bytes",
+   "member": "slot08()"
+  },
+  "3": {
+   "decided_by": "bytes",
+   "member": "slot0C()"
+  },
+  "4": {
+   "decided_by": "bytes",
+   "member": "slot10()"
+  },
+  "5": {
+   "decided_by": "bytes",
+   "member": "slot14()"
+  },
+  "6": {
+   "decided_by": "bytes",
+   "member": "slot18()"
+  },
+  "7": {
+   "decided_by": "bytes",
+   "member": "slot1C()"
+  },
+  "8": {
+   "decided_by": "bytes",
+   "member": "slot20()"
+  },
+  "9": {
+   "decided_by": "bytes",
+   "member": "slot24()"
+  }
+ }
+}

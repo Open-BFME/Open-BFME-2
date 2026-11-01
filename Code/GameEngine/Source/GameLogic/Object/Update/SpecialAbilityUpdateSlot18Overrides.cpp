@@ -26,31 +26,7 @@ public:
 	void clearWeaponSetFlag(WeaponSetType wst);
 };
 class ModuleData;
-class BehaviorModule
-{
-public:
-	virtual ~BehaviorModule();
-protected:
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-};
-class BehaviorModuleInterface
-{
-public:
-	virtual void behaviorModuleInterfaceAnchor();
-};
-class UpdateModuleInterface
-{
-public:
-	virtual int update() = 0;
-};
-class UpdateModule : public BehaviorModule, public BehaviorModuleInterface, public UpdateModuleInterface
-{
-protected:
-	unsigned int m_14;
-	int m_18;
-	int m_1C;
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 class SpecialPowerUpdateInterface
 {
 public:

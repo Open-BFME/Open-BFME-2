@@ -245,23 +245,7 @@ public:
 	virtual unsigned char slot10() const = 0;
 };
 
-class BehaviorModule
-{
-public:
-	virtual ~BehaviorModule();
-protected:
-	const ModuleData *m_moduleData;
-	Object *m_object;
-};
-struct BehaviorModuleInterface { virtual void f0C() {} };
-struct UpdateModuleInterface { virtual UpdateSleepTime update() = 0; };
-class UpdateModule : public BehaviorModule, public BehaviorModuleInterface, public UpdateModuleInterface
-{
-protected:
-	unsigned int m_14;
-	int m_18;
-	int m_1C;
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class GateOpenAndCloseBehavior : public GatePrimary, public UpdateModule
 {

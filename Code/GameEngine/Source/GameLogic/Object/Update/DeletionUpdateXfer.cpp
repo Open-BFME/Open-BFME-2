@@ -15,13 +15,7 @@
 // rowed poolkey@0x48838B; table 0xBF17BC and factory news fit the class.
 #include "UpdateXferTypes.h"
 #include "../../../../Include/Common/BfmeXfer.h"
-class __declspec(novtable) UpdateModule
-{
-public:
-	char m_pad[0x1C];
-	virtual ~UpdateModule();
-	void xfer(Xfer *xfer);
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 class __declspec(novtable) DeletionUpdate : public UpdateModule
 {
 public:

@@ -241,11 +241,7 @@ protected:
 	char m_pad0C[0x10 - 0x0C];
 };
 
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
+#include "../../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class UpdateModuleView : public AIUpdatePrimary, public UpdateModuleInterface
 {
