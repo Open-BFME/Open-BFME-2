@@ -55,21 +55,9 @@ public:
 extern unsigned char g_00DFE7A8;
 class AICommandInterface { public: virtual void aiDoCommand(const AICommandParms *)=0; };
 class AIUpdateInterface24 { public: virtual void slot0(); };
-class UpdateModule {
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
+class AIUpdateInterface : public UpdateModule, public AICommandInterface, public AIUpdateInterface24 {
 public:
- virtual void slot0();
- virtual void slot1();
- virtual void slot2();
- virtual void slot3();
- virtual void slot4();
- virtual void slot5();
- virtual void slot6();
- virtual void slot7();
- virtual void slot8();
- virtual void slot9();
- virtual void slot10();
- virtual void slot11();
- virtual void slot12();
  virtual void slot13(const Coord3D *, float, CommandSourceType);
  virtual void slot14(const Coord3D *, float, int, CommandSourceType);
  virtual void slot15(Object *, CommandSourceType);
@@ -206,10 +194,6 @@ public:
  virtual void slot146();
  virtual void slot147();
  virtual bool isAllowedToRespondToAiCommands(const AICommandParms *) const;
- char m_unknown04[4]; Object *m_object; char m_unknown0C[0x20-0x0C];
-};
-class AIUpdateInterface : public UpdateModule, public AICommandInterface, public AIUpdateInterface24 {
-public:
  virtual void aiDoCommand(const AICommandParms *);
  __forceinline void storeCommand(const AICommandParms *parms) { m_lastOutsideCommand.rva00351570(*reinterpret_cast<const Rva00351570Src *>(parms)); }
  void rva0026331C();

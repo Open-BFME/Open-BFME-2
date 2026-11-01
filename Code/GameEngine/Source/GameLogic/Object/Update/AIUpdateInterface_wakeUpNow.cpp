@@ -20,13 +20,7 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_NONE = 1
 };
 
-class UpdateModule
-{
-	friend class AIUpdateInterface;
-protected:
-	UpdateSleepTime getWakeFrame() const;
-	void setWakeFrame(Object *obj, UpdateSleepTime when);
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 extern class GameLogic *TheGameLogic;
 
@@ -38,11 +32,9 @@ struct GameLogicFrame
 
 #define TheGameLogic (*(GameLogicFrame **)&TheGameLogic)
 
-class AIUpdateInterface
+class AIUpdateInterface : public UpdateModule
 {
-	char m_pad00[8];
-	Object *m_object;
-	char m_pad0C[0x1A8 - 0x0C];
+	char m_pad20[0x1A8 - 0x20];
 	unsigned int m_vals1A8[4];
 	unsigned int m_frames1B8[4];
 	unsigned int m_count1C8;
@@ -59,9 +51,8 @@ protected:
 
 void AIUpdateInterface::wakeUpNow()
 {
-	UpdateModule *base = (UpdateModule *)this;
-	if (base->getWakeFrame() > UPDATE_SLEEP_NONE && !m_isInUpdate)
-		base->setWakeFrame(m_object, UPDATE_SLEEP_NONE);
+	if (getWakeFrame() > UPDATE_SLEEP_NONE && !m_isInUpdate)
+		setWakeFrame(m_object, UPDATE_SLEEP_NONE);
 }
 
 // ?markAsDead@AIUpdateInterface@@QAEXXZ, retail 0x0026296D, 28 bytes.

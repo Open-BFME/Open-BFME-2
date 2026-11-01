@@ -13,6 +13,7 @@ enum NameKeyType
 	NK_UNKNOWN = 0
 };
 #include "../../../Common/GameLogicObjectLookupView.h"
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 class AsciiString;
 class UnicodeString;
@@ -150,24 +151,7 @@ enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1, UPDATE_SLEEP_FOREVER = 0x3fffffff 
 
 template <int N> class BitFlags;
 
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-	virtual BitFlags<13> getDisabledTypesToProcess() const = 0;
-};
-
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~UpdateModule();
-	virtual BitFlags<13> getDisabledTypesToProcess() const;
-private:
-	unsigned int m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_bfmeReserved;
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class WoundArrowUpdateInterface
 {
@@ -183,7 +167,7 @@ public:
 	SpecialAbilityUpdate(Thing *thing, const ModuleData *moduleData);
 	virtual ~SpecialAbilityUpdate();
 	virtual NameKeyType getModuleNameKey() const;
-	virtual void s12();
+
 protected:
 	virtual void xfer(Xfer *xfer);
 	virtual void onExit(bool a, bool b);	// slot 13 (+0x34), 0x004502CE

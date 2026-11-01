@@ -68,18 +68,7 @@ public:
 	virtual void xfer(Xfer *xfer);
 };
 
-class UpdateModule
-{
-public:
-	virtual ~UpdateModule();
-	void xfer(Xfer *xfer);
-protected:
-	Object *getObject() const { return m_object; }
-private:
-	void *m_moduleData;
-	Object *m_object;
-	char m_unrecovered0C[0x20 - 0x0C];
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class AISpecialPowerUpdate : public UpdateModule
 {

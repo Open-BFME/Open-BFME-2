@@ -26,11 +26,7 @@ public:
 	void setDisabled(DisabledType t);
 };
 
-class UpdateModule
-{
-protected:
-	void setWakeFrame(Object *obj, UpdateSleepTime t);
-};
+#include "../../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class Rva001E431E
 {
@@ -57,19 +53,15 @@ class DetachableRiderUpdate : public UpdateModule
 public:
 	void killRider();
 private:
-	unsigned char m_pad00[4];
-	ArrayHolder *m_04;
-	Object *m_08;
-	unsigned char m_pad0C[0x20 - 0x0C];
 	unsigned char m_20;
 	unsigned char m_21;
 };
 
 void DetachableRiderUpdate::killRider()
 {
-	ArrayHolder *arrayHolder = m_04;
+	const ArrayHolder *arrayHolder = (const ArrayHolder *)getModuleData();
 	int count = (int)(((char *)arrayHolder->m_end - (char *)arrayHolder->m_base) / 0x54);
-	Object *obj = m_08;
+	Object *obj = m_object;
 	if (count < 1)
 		return;
 	int randomIndex = GetGameLogicRandomValue(0, count - 1, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\DetachableRiderUpdate.cpp", 0x114);

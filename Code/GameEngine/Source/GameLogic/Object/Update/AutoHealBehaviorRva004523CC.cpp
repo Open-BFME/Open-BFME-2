@@ -14,7 +14,7 @@ class Thing;
 class ModuleData;
 class Object;
 
-typedef unsigned int UpdateSleepTime;
+enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
 
 class UpgradeMux
 {
@@ -27,23 +27,7 @@ private:
 	unsigned int m_executed;
 };
 
-class UpdateModule
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-
-protected:
-	void setWakeFrame(Object *object, UpdateSleepTime frame);
-
-	const void *m_vtable;
-	const ModuleData *m_moduleData;
-	Object *m_object;
-	const void *m_secondary0C;
-	const void *m_secondary10;
-	unsigned int m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_reserved1C;
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class AutoHealBehavior : public UpdateModule
 {
@@ -62,5 +46,5 @@ void AutoHealBehavior::rva004523CC()
 {
 	m_30 = 0;
 	m_20.giveSelfUpgrade();
-	setWakeFrame(m_object, 1);
+	setWakeFrame(m_object, UPDATE_SLEEP_NONE);
 }

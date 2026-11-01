@@ -84,12 +84,7 @@ public:
 };
 
 
-class UpdateModule {
-public:
- virtual void v00(); virtual void v01(); virtual void v02();
- void xfer(Xfer *);
- char m_base04[0x20-4];
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 class AIUpdateSnapshotMember : public Snapshot {
 public:
  virtual void loadPostProcess(); virtual void crc(Xfer *); virtual void xfer(Xfer *);
@@ -173,15 +168,6 @@ extern TerrainLogic *TheTerrainLogic;
 class AIUpdateInterface : public UpdateModule {
 public:
  virtual void xfer(Xfer *);
- virtual void gap4();
- virtual void gap5();
- virtual void gap6();
- virtual void gap7();
- virtual void gap8();
- virtual void gap9();
- virtual void gap10();
- virtual void gap11();
- virtual void gap12();
  virtual void gap13();
  virtual void gap14();
  virtual void gap15();

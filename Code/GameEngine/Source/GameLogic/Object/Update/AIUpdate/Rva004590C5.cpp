@@ -11,12 +11,7 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_FOREVER = 0x3fffffff
 };
 
-class UpdateModule
-{
-	friend class Rva004590C5;
-protected:
-	void setWakeFrame(Object *obj, UpdateSleepTime delay);
-};
+#include "../../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class Rva0045906E
 {
@@ -30,24 +25,20 @@ struct Rva004590C5Helper
 	float m_v8;
 };
 
-class Rva004590C5
+class Rva004590C5 : public UpdateModule
 {
 public:
 	void rva004590C5();
 	void rva004590E6();
 private:
-	unsigned char m_pad00[4];
-	Rva004590C5Helper *m_04;
-	Object *m_08;
-	unsigned char m_pad0C[0x20 - 0x0C];
 	float m_20;
 };
 
 void Rva004590C5::rva004590C5()
 {
-	m_20 = m_04->m_v8;
+	m_20 = ((const Rva004590C5Helper *)getModuleData())->m_v8;
 	((Rva0045906E *)this)->rva0045906E(true);
-	((UpdateModule *)this)->setWakeFrame(m_08, UPDATE_SLEEP_NONE);
+	setWakeFrame(m_object, UPDATE_SLEEP_NONE);
 }
 
 // ?rva004590E6@Rva004590C5@@QAEXXZ, retail 0x004590E6 35B. Chain via 0x0045906E.
@@ -57,5 +48,5 @@ void Rva004590C5::rva004590E6()
 {
 	m_20 = 0.0f;
 	((Rva0045906E *)this)->rva0045906E(false);
-	((UpdateModule *)this)->setWakeFrame(m_08, UPDATE_SLEEP_FOREVER);
+	setWakeFrame(m_object, UPDATE_SLEEP_FOREVER);
 }

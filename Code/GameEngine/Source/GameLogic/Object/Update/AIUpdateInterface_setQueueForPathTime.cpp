@@ -19,23 +19,15 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_NONE = 1
 };
 
-class UpdateModule
-{
-	friend class AIUpdateInterface;
-protected:
-	UpdateSleepTime getWakeFrame() const;
-	void setWakeFrame(Object *obj, UpdateSleepTime when);
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 #include "../../../Common/GameLogicObjectLookupView.h"
 
 extern GameLogic *TheGameLogic;
 
-class AIUpdateInterface
+class AIUpdateInterface : public UpdateModule
 {
-	char m_pad00[8];
-	Object *m_object;
-	char m_pad0C[0x17C - 0x0C];
+	char m_pad20[0x17C - 0x20];
 	UnsignedInt m_queueForPathFrame;
 	char m_pad180[0x3C2 - 0x180];
 	bool m_isInUpdate;
@@ -45,11 +37,10 @@ public:
 
 void AIUpdateInterface::setQueueForPathTime(Int frames)
 {
-	UpdateModule *base = (UpdateModule *)this;
-	if (frames >= UPDATE_SLEEP_NONE && base->getWakeFrame() > (UpdateSleepTime)frames)
+	if (frames >= UPDATE_SLEEP_NONE && getWakeFrame() > (UpdateSleepTime)frames)
 	{
 		if (!m_isInUpdate)
-			base->setWakeFrame(m_object, (UpdateSleepTime)frames);
+			setWakeFrame(m_object, (UpdateSleepTime)frames);
 	}
 	m_queueForPathFrame = frames ? TheGameLogic->getFrame() + frames : 0;
 }

@@ -187,40 +187,13 @@ private:
 	bool m_executed;
 };
 
-class BehaviorModule
-{
-public:
-	virtual ~BehaviorModule();
-protected:
-	const ObjectCreationUpgradeModuleData *m_moduleData;
-	Object *m_object;
-};
-
-class BehaviorModuleInterface
-{
-public:
-	virtual void behaviorSlot0();
-};
-
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
-
-class UpdateModule : public BehaviorModule, public BehaviorModuleInterface, public UpdateModuleInterface
-{
-public:
-	virtual ~UpdateModule();
-private:
-	unsigned int m_1C[3];
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class ObjectCreationUpgrade : public UpgradeMux, public UpdateModule
 {
 protected:
 	virtual UpdateSleepTime update();
-	const ObjectCreationUpgradeModuleData *getObjectCreationUpgradeModuleData() const { return m_moduleData; }
+	const ObjectCreationUpgradeModuleData *getObjectCreationUpgradeModuleData() const { return (const ObjectCreationUpgradeModuleData *)getModuleData(); }
 	Object *getObject() const { return m_object; }
 private:
 	UnsignedInt m_28;
