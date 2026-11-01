@@ -194,11 +194,7 @@ inline AptTextPlusStringPlusStringText operator+(const AptTextPlusStringPlusStri
 	return r;
 }
 
-class BfmeAptWindowManager
-{
-public:
-	void bfmeSetText(const AsciiString &key, const UnicodeString &text, bool flag); // 0x00225301
-};
+#include "../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 // The Apt window manager's +0x318 mode (0: idle).

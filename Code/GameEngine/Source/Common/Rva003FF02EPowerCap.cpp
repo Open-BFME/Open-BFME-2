@@ -12,11 +12,7 @@
 
 #include "unicode_string.h"
 
-class BfmeAptWindowManager
-{
-public:
-	void bfmeSetText(const AsciiString &, const UnicodeString &, bool);
-};
+#include "../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 extern const unsigned short g_Va007C9260[];

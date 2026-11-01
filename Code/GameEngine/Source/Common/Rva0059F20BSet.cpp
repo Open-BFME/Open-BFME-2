@@ -14,11 +14,7 @@ class UnicodeString;
 
 #include "ascii_string.h"
 
-class BfmeAptWindowManager
-{
-public:
-	void bfmeSetText(const AsciiString &a, const UnicodeString &u, bool flag);
-};
+#include "../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 

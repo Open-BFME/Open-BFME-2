@@ -433,7 +433,7 @@ inline AptTextPlusStringPlusStringText operator+(const AptTextPlusStringPlusStri
 	return r;
 }
 
-class BfmeAptWindowManager {public:void bfmeSetText(const AsciiString&,const UnicodeString&,bool);};
+#include "../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 class AptCommandMapAdder {public:AptCommandMapAdder();~AptCommandMapAdder();void AddCommandMap(const AsciiString&,AptRef<AptCommandMap>);
  private:char storage[12];};
 static __forceinline void BindArmyDetailsCommand(AptCommandMapAdder &adder,const AsciiString &name,DelegateDesc desc){adder.AddCommandMap(name,(const DelegateDesc *)&desc);}

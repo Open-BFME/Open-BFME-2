@@ -19,11 +19,7 @@ typedef bool Bool;
 #include "../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 
-class BfmeAptWindowManager
-{
-public:
-    void bfmeSetText(const AsciiString &a, const UnicodeString &u, bool b);
-};
+#include "../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 
 struct BfmePod40
 {

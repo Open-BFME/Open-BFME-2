@@ -3,11 +3,7 @@
 // Evidence: format APT:_level%u.%s_LeaderQuantity via rowed 0x00038150; pinned bfmeSetText 0x00225301; rowed releaseBuffer 0x00036410; globals 0x009FE4CC 0x007BAC1C; caller 0x005F67CA; precedent Rva005FB770 103B method Rva005FDF1C
 #include "ascii_string.h"
 
-class BfmeAptWindowManager
-{
-public:
-	void bfmeSetText(const AsciiString &, const UnicodeString &, bool);
-};
+#include "../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 
 class Rva00222A8BTarget
 {

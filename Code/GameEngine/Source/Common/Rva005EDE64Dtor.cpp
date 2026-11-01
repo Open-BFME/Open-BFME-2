@@ -10,7 +10,7 @@
 #include "unicode_string.h"
 #include <ctype.h>
 #include <stdlib.h>
-class BfmeAptWindowManager {public:char gap[0x318];int mode;};
+#include "../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 extern BfmeAptWindowManager*g_bfmeAptWindowManager;
 namespace StrategicHUD {
 class RegionAwardMovieClip {public:class Impl;};
@@ -127,11 +127,11 @@ Rva005EDE64::Rva005EDE64(RegionAwardOwner*owner,int level,const AsciiString&name
 Rva005EDE64::~Rva005EDE64(){}
 void Rva005EDE64::OnOpen(const char*){if(m_state==0)m_state=1;}
 void Rva005EDE64::OnClosed(const char*){if(m_state==2){m_state=3;m_owner->closed();}}
-void Rva005EDE64::OnCancelButtonClicked(const char*){if(m_state==1&&!g_bfmeAptWindowManager->mode)m_owner->cancelClicked();}
-void Rva005EDE64::OnSelectButtonClicked(const char*){if(m_state==1&&!g_bfmeAptWindowManager->mode)m_owner->selectClicked();}
+void Rva005EDE64::OnCancelButtonClicked(const char*){if(m_state==1&&!g_bfmeAptWindowManager->field318)m_owner->cancelClicked();}
+void Rva005EDE64::OnSelectButtonClicked(const char*){if(m_state==1&&!g_bfmeAptWindowManager->field318)m_owner->selectClicked();}
 void Rva005EDE64::OnPlayerClicked(const char*text){
  if(text&&isdigit(*text)){
   int i=atoi(text);
-  if(i>=0&&(unsigned int)i<m_players.size()&&m_state==1&&!g_bfmeAptWindowManager->mode)m_owner->playerClicked(i);
+  if(i>=0&&(unsigned int)i<m_players.size()&&m_state==1&&!g_bfmeAptWindowManager->field318)m_owner->playerClicked(i);
  }
 }

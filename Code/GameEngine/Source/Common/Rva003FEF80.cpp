@@ -6,11 +6,7 @@
 extern float g_Va00BBB8D8;
 extern const unsigned short g_00BC26DC[];
 
-class BfmeAptWindowManager
-{
-public:
-	void bfmeSetText(const AsciiString &, const UnicodeString &, bool);
-};
+#include "../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 
 class Rva00222A8BTarget
 {

@@ -5,11 +5,7 @@
 
 extern const unsigned short g_Va007C9260[];
 
-class BfmeAptWindowManager
-{
-public:
-	void bfmeSetText(const AsciiString &, const UnicodeString &, bool);
-};
+#include "../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 
 class Rva00222A8BTarget
 {

@@ -20,11 +20,7 @@ struct Rva005EF02FOuter
 	Rva005EF02FInner *m_ptr;
 };
 
-class BfmeAptWindowManager
-{
-public:
-	void bfmeSetText(const AsciiString &, const UnicodeString &, bool);
-};
+#include "../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 
 class Rva00222A8BTarget
 {

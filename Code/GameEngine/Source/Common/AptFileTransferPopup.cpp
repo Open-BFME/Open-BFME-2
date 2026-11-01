@@ -24,12 +24,7 @@ class AsciiString;
 // 0x0044C60C; callees all rowed; releaseBuffer 0x00036410; StringBase ctor 0x00037BA0.
 #include "../../Include/Common/BfmeStringData.h"
 
-class BfmeAptWindowManager
-{
-public:
-	void bfmeSetText(const AsciiString &, const UnicodeString &, bool);
-	void rva00225375(const AsciiString &, const AsciiString &, bool);
-};
+#include "../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 
 #include "../../Include/GameClient/GameText.h"
 

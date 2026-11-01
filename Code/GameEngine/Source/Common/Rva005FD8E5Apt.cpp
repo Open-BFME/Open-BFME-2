@@ -14,11 +14,7 @@ struct Rva005FD788Inner
 	char m_pad8[8];
 	char m_name[1];
 };
-class BfmeAptWindowManager
-{
-public:
-	void bfmeSetText(const AsciiString &, const UnicodeString &, bool);
-};
+#include "../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 extern const char *g_Va0087A290[];
 struct ArmyUnitSwapperSlot

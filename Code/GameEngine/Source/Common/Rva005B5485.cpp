@@ -70,7 +70,7 @@ class AptMyHero { public: void rva005B21DA(CreateAHeroData *, bool, int); };
 struct ClassScreenPrefix { char prefix[0x27C]; AptMyHero hero; };
 class ModuleData;
 class Rva00423A68 { public: void rva00423A68(const ModuleData *); };
-class BfmeAptWindowManager { public: void bfmeSetText(const AsciiString &, const UnicodeString &, bool); };
+#include "../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 #include "../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;

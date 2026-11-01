@@ -103,7 +103,8 @@ class AptCommandMapAdder {public:void AddCommandMap(const AsciiString&,AptRef<Ap
 class AptExternHandlerAdder {public:void AddExternHandler(const AsciiString&,int,AptRef<AptExternHandler>);char storage[12];};
 struct AppearanceOwner {char unknown00[0x21C];AptCommandMapAdder maps;AptExternHandlerAdder externs;char unknown234[0x414-0x234];Rva005B5C02Box *current414,*selected418;};
 void _bfme_setAptScreenRef(const AsciiString&,AptRef<AptScreenInitGadgets>);
-class BfmeAptWindowManager {public:void rva00225375(const AsciiString&,const AsciiString&,bool);};extern BfmeAptWindowManager *g_bfmeAptWindowManager;
+#include "../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
+extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 
 void _bfme_closeAptScreen(const AsciiString &name);

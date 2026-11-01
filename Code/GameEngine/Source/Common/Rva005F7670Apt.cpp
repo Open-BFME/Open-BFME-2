@@ -4,11 +4,7 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 
-class BfmeAptWindowManager
-{
-public:
-	void bfmeSetText(const AsciiString &key, const UnicodeString &value, bool b);
-};
+#include "../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 
 class Rva00222A8BTarget
 {

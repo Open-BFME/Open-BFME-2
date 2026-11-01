@@ -66,7 +66,7 @@ class Rva000B3F84Pair { public: const char *m_ptr; int m_len; };
 struct AsciiStringRef { const AsciiString *m_string; };
 struct AsciiStringPlusText : AsciiStringRef { operator AsciiString(); Rva000B3F84Pair m_right; };
 AsciiStringPlusText operator+(const AsciiString &,const char *);
-class BfmeAptWindowManager {public: void bfmeSetText(const AsciiString &,const UnicodeString &,bool);};
+#include "../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 class Rva0054D222Prompt {
 public: bool prompt(int,const UnicodeString &,const UnicodeString &,TreeHintRef00217D4C);

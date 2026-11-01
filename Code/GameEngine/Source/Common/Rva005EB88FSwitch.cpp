@@ -8,7 +8,7 @@ public:
 	// Native provider compares the incoming 32-bit index with 14 and returns AL.
 
 };
-class BfmeAptWindowManager : public Rva00222A8BTarget {};
+#include "../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 class Rva005FA854
 {

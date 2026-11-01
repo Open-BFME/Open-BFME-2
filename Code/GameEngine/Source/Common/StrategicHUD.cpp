@@ -742,11 +742,7 @@ namespace StrategicHUD
 	void __cdecl SetTurnNumberString(int level, Rva0057A51CTeam **ppTeam, int turn);
 }
 
-class BfmeAptWindowManager
-{
-public:
-	void bfmeSetText(const AsciiString &, const UnicodeString &, bool);
-};
+#include "../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 
 class Rva00222A8BTarget;
 

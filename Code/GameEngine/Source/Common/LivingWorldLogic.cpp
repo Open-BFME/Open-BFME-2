@@ -31,11 +31,7 @@ extern PlayerTemplateStore *ThePlayerTemplateStore;
 
 extern GameTextInterface *TheGameText;
 
-class BfmeAptWindowManager
-{
-public:
-	void bfmeSetText(const AsciiString &key, const UnicodeString &text, bool usePlaceholder);
-};
+#include "../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 
 class Rva00222A8BTarget
 {

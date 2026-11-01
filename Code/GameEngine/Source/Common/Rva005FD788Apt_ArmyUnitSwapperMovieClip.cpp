@@ -16,11 +16,7 @@ struct Rva005FD788Inner
 	char m_name[1];
 };
 
-class BfmeAptWindowManager
-{
-public:
-	void bfmeSetText(const AsciiString &, const UnicodeString &, bool);
-};
+#include "../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 // The two slot-side names at RVA 0x0087A290 (.rdata): "Top", "Bottom".
