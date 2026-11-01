@@ -9,13 +9,7 @@
 // call 0x003F2F24 / mov ecx,esi / call 0x003F3B4F / pop esi / ret 4.
 class INI;
 typedef void (*FieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
-struct FieldParse
-{
-	const char *token;
-	FieldParseProc parse;
-	const void *userData;
-	int offset;
-};
+#include "../../Include/Common/INI/FieldParse.h"
 
 class INI
 {

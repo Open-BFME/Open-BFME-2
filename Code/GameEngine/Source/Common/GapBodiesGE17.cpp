@@ -10,19 +10,8 @@
 // 0x002534C2 (60B): the INI factory building one with that table.
 class INI;
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
-struct FieldParse
-{
-	const char *token;
-	INIFieldParseProc parse;
-	const void *userData;
-	int offset;
-};
+#include "../../Include/Common/INI/FieldParse.h"
 
-class MultiIniFieldParse
-{
-public:
-	void add(const FieldParse *table, unsigned int offset);	// 0x0002BC6E
-};
 
 class INI
 {

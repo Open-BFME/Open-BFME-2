@@ -5,13 +5,7 @@
 
 class INI;
 
-struct FieldParse
-{
-	const char *token;
-	void (__cdecl *parse)(INI *ini, void *instance, void *store, const void *userData);
-	const void *userData;
-	int offset;
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 
 enum INILoadType
 {
@@ -39,16 +33,6 @@ private:
 	INILoadType m_loadType; // +0x08 +0x08
 };
 
-class INIException
-{
-public:
-	INIException(const char *errorMessage);
-	INIException(int argCount, const char *errorMessage, ...);
-	INIException(const INIException &that);
-	~INIException();
-	char *mFailureMessage; // +0x00
-	int m_argCount; // +0x04
-};
 
 // Target: WaterSettingsArray.cpp's rowed initializer constructs six 0x7C-byte
 // elements. Only the virtual destructor, stride and field table are used here.

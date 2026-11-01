@@ -22,13 +22,7 @@ public:
     static void parseBool(INI *, void *, void *, const void *);
 };
 typedef void (*INIFieldParseProc)(INI *, void *, void *, const void *);
-struct FieldParse
-{
-    const char *token;
-    INIFieldParseProc parse;
-    const void *userData;
-    Int offset;
-};
+#include "../../Include/Common/INI/FieldParse.h"
 // The existing GameInfo constants, also selected by getColor's retail tests.
 enum { PLAYERTEMPLATE_RANDOM = -1, PLAYERTEMPLATE_OBSERVER = -2 };
 class MultiplayerColorDefinition

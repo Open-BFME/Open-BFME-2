@@ -14,20 +14,8 @@ typedef int Int;
 typedef float Real;
 
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
-struct FieldParse { const char *token; FieldParseProc parse; const void *userData; int offset; };
+#include "../../../Include/Common/INI/FieldParse.h"
 
-class INIException
-{
-public:
-	INIException( Int code, const char *msg, ... );
-	INIException( const INIException &other );
-	~INIException();
-
-private:
-	// The rowed copy constructor and destructor own the message at +0.
-	char *m_msg;
-	Int m_code;
-};
 
 class INI
 {

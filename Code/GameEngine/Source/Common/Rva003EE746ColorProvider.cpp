@@ -51,7 +51,7 @@ typedef char S3RegionRecordSize[sizeof(LivingWorldRegionEffectsManager)==88?1:-1
 // ?rva003EF13E@LivingWorldRegionEffectsManager@@UAEXHHH@Z
 void LivingWorldRegionEffectsManager::rva003EF13E(int regionId,int,int){SyncRegion(regionId);}
 
-struct FieldParse { const char *token;void (__cdecl *parse)(INI*,void*,void*,const void*); const void*userData; int offset; };
+#include "../../Include/Common/INI/FieldParse.h"
 class INI {
 public:
  const char *getNextToken(const char *seps);
@@ -61,10 +61,6 @@ public:
  static void parseRGBColor(INI*,void*,void*,const void*);
  static void parseBool(INI*,void*,void*,const void*);
 private:char pad[8];int loadType;
-};
-class INIException {
-public:char*message;int code;
- INIException(int,const char*,...);INIException(const INIException&);~INIException();
 };
 // Retail startup body7AF9D6 fills nine dynamic effect-key entries after the
 // five constant entries. Each uses the same AsciiString for token/user data.

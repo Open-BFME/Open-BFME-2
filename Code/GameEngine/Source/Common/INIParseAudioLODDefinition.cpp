@@ -45,10 +45,7 @@ template <typename T> struct BfmeStringData
 #include "ascii_string.h"
 
 
-struct FieldParse
-{
-	unsigned long m_words[4];
-};
+#include "../../Include/Common/INI/FieldParse.h"
 
 class INI
 {
@@ -68,15 +65,6 @@ extern GameLODManager *TheGameLODManager;  // defined in GameLOD.cpp
 
 static const FieldParse audioLODFieldParseTable[4] = { { 0 }, { 0 }, { 0 }, { 0 } };
 
-class INIException
-{
-public:
-	INIException(int argCount, const char *format, ...);
-	char *mFailureMessage;
-	int mErrorCode;
-	INIException(const INIException &that);
-	~INIException();
-};
 
 
 

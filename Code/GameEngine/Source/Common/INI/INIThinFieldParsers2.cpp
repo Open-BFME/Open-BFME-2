@@ -21,16 +21,8 @@
 //   Rva004E8EFF_ParseDisabledSlots int list, then every entry made zero-based.
 
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
-struct FieldParse { const char *token; FieldParseProc parse; const void *userData; int offset; };
+#include "../../../Include/Common/INI/FieldParse.h"
 
-class MultiIniFieldParse
-{
-public:
-	MultiIniFieldParse();
-	void add(const FieldParse *parseTable, unsigned int extraOffset);
-private:
-	unsigned char m_unreconstructed_00[0x84];
-};
 
 class INI
 {

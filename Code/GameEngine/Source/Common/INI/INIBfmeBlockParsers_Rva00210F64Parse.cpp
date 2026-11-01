@@ -17,13 +17,7 @@ typedef bool Bool;
 
 class INI;
 typedef void (*FieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
-struct FieldParse
-{
-	const char *token;
-	FieldParseProc parse;
-	const void *userData;
-	int offset;
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 
 class INI
 {

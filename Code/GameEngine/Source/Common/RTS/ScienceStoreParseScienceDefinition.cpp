@@ -56,7 +56,7 @@ enum
 };
 
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
-struct FieldParse { const char *token; FieldParseProc parse; const void *userData; int offset; };
+#include "../../../Include/Common/INI/FieldParse.h"
 
 class INI
 {
@@ -72,16 +72,6 @@ private:
 	int m_loadType;
 };
 
-class INIException
-{
-public:
-	INIException(int code, const char *format, ...);
-	INIException(const INIException &other);
-	~INIException();
-private:
-	char *m_msg;
-	int m_code;
-};
 
 class NameKeyGenerator
 {

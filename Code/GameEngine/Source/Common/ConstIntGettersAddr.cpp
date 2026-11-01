@@ -15,7 +15,7 @@
 // No // cl: line (defaults match the frameless 6-byte shape).
 
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
-struct FieldParse { const char *token; FieldParseProc parse; const void *userData; int offset; };
+#include "../../Include/Common/INI/FieldParse.h"
 
 struct LookupListRec { const char *name; int value; };
 extern const LookupListRec TheWeaponSlotTypeNamesLookupList[];

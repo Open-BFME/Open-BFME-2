@@ -6,17 +6,10 @@
 // ModuleDataBuildFieldParse family. Caller at 0x002D1D16 constructs a
 // MultiIniFieldParse and passes it here. Opaque Rva class: owning ModuleData
 // behind these tables is unproven.
-struct FieldParse
-{
-};
+#include "../../Include/Common/INI/FieldParse.h"
 
 extern const FieldParse s_rva0033A8FCFieldTableB[];
 
-class MultiIniFieldParse
-{
-public:
-	void add(const FieldParse *entry, unsigned int extra);
-};
 
 class Rva0033A8FC
 {

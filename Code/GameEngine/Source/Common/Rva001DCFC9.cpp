@@ -1,7 +1,7 @@
 // cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD
 // ?rva001DCFC9@Eva@@QAEXPAVINI@@PAX@Z @0x001DCFC9 28B evidence: callers 0x001DEB43 0x001DF688; FieldParse table VA 0x00BDC078; callee initFromINI 0x0002DE78 rowed
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
-struct FieldParse { const char *token; FieldParseProc parse; const void *userData; int offset; };
+#include "../../Include/Common/INI/FieldParse.h"
 
 class INI
 {

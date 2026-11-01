@@ -16,7 +16,7 @@
 
 #include "ascii_string.h"
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
-struct FieldParse { const char *token; FieldParseProc parse; const void *userData; int offset; };
+#include "../../../Include/Common/INI/FieldParse.h"
 class INI {
 public:
  const char *getNextToken(const char *separators=0);

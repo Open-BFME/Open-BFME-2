@@ -14,7 +14,7 @@
 // string-list ConnectsTo callback; compile/placement found no matching bodies.
 #include "ascii_string.h"
 class INI;typedef void(*Parser)(INI*,void*,void*,const void*);
-struct FieldParse {const char*name;Parser parse;const void*data;unsigned offset;};
+#include "../../../Include/Common/INI/FieldParse.h"
 class INI {public:void initFromINI(void*,const FieldParse*);
  static void parseAsciiString(INI*,void*,void*,const void*);
  static void Rva002F592_ParseArmyPlacementPos(INI*,void*,void*,const void*);

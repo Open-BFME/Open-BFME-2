@@ -9,13 +9,7 @@
 
 // The address-valued constants below name the globals the ledger defines there
 // (reverse/data_ledger.csv), so the unit carries no hard-coded image address.
-struct FieldParse
-{
-	const char *token;
-	void *parse;
-	const void *userData;
-	int offset;
-};
+#include "../../Include/Common/INI/FieldParse.h"
 class FireEffect
 {
 public:

@@ -31,13 +31,7 @@ Db12 g_shadowMapSettings = { 1024, 0x447A0000, 0 };
 
 class INI;
 typedef void (*INIFieldParseProc)(INI *, void *, void *, const void *);
-struct FieldParse
-{
-	const char *token;
-	INIFieldParseProc parse;
-	const void *userData;
-	int offset;
-};
+#include "../../Include/Common/INI/FieldParse.h"
 
 class INI
 {

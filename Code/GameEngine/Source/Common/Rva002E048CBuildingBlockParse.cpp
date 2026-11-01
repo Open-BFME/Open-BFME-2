@@ -35,13 +35,7 @@ public:
 
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
 
-struct FieldParse
-{
-	const char *token;
-	INIFieldParseProc parse;
-	const void *userData;
-	int offset;
-};
+#include "../../Include/Common/INI/FieldParse.h"
 
 // Rowed field parsers of the BuildingNugget and AvailableTo tokens.
 void Rva002E012DParse(INI *ini, void *instance, void *store, const void *userData);
@@ -138,12 +132,6 @@ public:
 
 extern Rva0022C0CDSubsystem *TheLivingWorldBuildingTemplateStore;
 
-struct INIException
-{
-	char *mFailureMessage;
-	int mErrorCode;
-	INIException(int argCount, const char *format, ...);
-};
 
 struct _s__ThrowInfo;
 extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);

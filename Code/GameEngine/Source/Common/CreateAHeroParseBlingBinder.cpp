@@ -34,13 +34,7 @@ public:
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
-struct FieldParse
-{
-	const char *token;
-	INIFieldParseProc parse;
-	const void *userData;
-	int offset;
-};
+#include "../../Include/Common/INI/FieldParse.h"
 
 class INI
 {
@@ -49,15 +43,6 @@ public:
 	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);	// rowed 0x002F11E
 };
 
-class INIException
-{
-public:
-	char *mFailureMessage;
-	int mErrorCode;
-	INIException(int argCount, const char *format, ...);
-	INIException(const INIException &that);
-	~INIException();
-};
 
 // The bling binder record: a group key and three upgrade names.
 struct BfmeStringRecord00219B0B

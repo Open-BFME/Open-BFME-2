@@ -56,13 +56,7 @@ Rva00545393::Rva00545393() : m_04(0), m_18(0)
 // table at VA 0x00C77E98; 0x005E7049 (5B): forward to the rowed 0x004E0625.
 class INI;
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
-struct FieldParse
-{
-	const char *token;
-	INIFieldParseProc parse;
-	const void *userData;
-	int offset;
-};
+#include "../../Include/Common/INI/FieldParse.h"
 
 class INI
 {

@@ -79,13 +79,7 @@ class INI;
 
 typedef void (*INIFieldParseProc)( INI *ini, void *instance, void *store, const void *userData );
 
-struct FieldParse
-{
-	const char *token;
-	INIFieldParseProc parse;
-	const void *userData;
-	int offset;
-};
+#include "../../Include/Common/INI/FieldParse.h"
 
 enum INILoadType
 {
@@ -109,15 +103,6 @@ private:
 	INILoadType m_loadType;	// +0x08
 };
 
-class INIException
-{
-public:
-	char *mFailureMessage;
-	int m_argCount;
-	INIException(int argCount, const char *errorMessage, ...);
-	INIException(const INIException &that);
-	~INIException();
-};
 
 // The retail table at 0x0083CA88: 1 entry and the null terminator.
 const FieldParse AnimationSoundClientBehaviorGlobalSetting::m_fieldParseTable[2] = {

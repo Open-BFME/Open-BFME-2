@@ -21,10 +21,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #define _STLP_BFME_COPY_TRIVIAL_EXTERN  // call retail's one __copy_trivial (vendor/stlport/stl/_algobase.h)
 #include <vector>
 
-class INIException {
-public: INIException(int,const char*,...); INIException(const INIException&); ~INIException();
-char *mFailureMessage; int m_argumentCount;
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 #include "string_base.h"
 
 typedef unsigned int UnsignedInt;
@@ -76,13 +73,6 @@ private:
 enum { INI_LOAD_CREATE_OVERRIDES = 2 };
 
 typedef void (*INIFieldParseProc)( INI *ini, void *instance, void *store, const void *userData );
-struct FieldParse
-{
-	const char *token;
-	INIFieldParseProc parse;
-	const void *userData;
-	int offset;
-};
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Overridable.h
 class Overridable

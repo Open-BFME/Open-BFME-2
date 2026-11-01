@@ -14,24 +14,8 @@
 #include "ascii_string.h"
 
 class INI;
-struct FieldParse
-{
-	const char *token;
-	void (__cdecl *parse)(INI *ini, void *instance, void *store, const void *userData);
-	const void *userData;
-	int offset;
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 
-class INIException
-{
-public:
-	INIException(const char *errorMessage);
-	INIException(int argCount, const char *errorMessage, ...);
-	INIException(const INIException &that);
-	~INIException();
-	char *mFailureMessage; // +0x00
-	int m_argCount; // +0x04
-};
 
 enum INILoadType
 {

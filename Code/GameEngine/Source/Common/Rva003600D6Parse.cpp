@@ -6,13 +6,7 @@
 // as 0x0035F6E2. Opaque address-derived names; layout from Rva0035FF76Ctor.cpp.
 class INI;
 typedef void (*INIFieldParseProc)(INI *, void *, void *, const void *);
-struct FieldParse
-{
-	const char *token;
-	INIFieldParseProc parse;
-	const void *userData;
-	int offset;
-};
+#include "../../Include/Common/INI/FieldParse.h"
 
 class INI
 {
