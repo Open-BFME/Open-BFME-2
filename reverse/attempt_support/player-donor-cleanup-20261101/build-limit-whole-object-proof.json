@@ -1,0 +1,15 @@
+{
+  "base": "83e9e9a4c7b28a143887cbbd230b7ab6b3860759",
+  "before_definitions": 320,
+  "after_definitions": 315,
+  "added": [],
+  "removed": [
+    "?TEST_KINDOFMASK@@YA_NABV?$BitFlags@$0HE@@@W4KindOfType@@@Z",
+    "?canBuildMoreOfType@Player@@QBE_NPBVThingTemplate@@@Z",
+    "?getMaxSimultaneousLinkKey@ThingTemplate@@QBE?AW4NameKeyType@@XZ",
+    "?isKindOf@ThingTemplate@@QBE_NW4KindOfType@@@Z",
+    "?test@?$BitFlags@$0HE@@@QBE_NH@Z"
+  ],
+  "changed": [],
+  "all_retained_whole_code_and_relocations_equal": true
+}

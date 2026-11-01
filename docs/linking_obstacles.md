@@ -51,6 +51,8 @@ This source adopts canonical Matrix3D storage with native code/relocations prese
 
 ### Player unrowed donor-body cleanup (2026-11-01, Cortys)
 
+Unverified isolated `canBuildMoreOfType` is removed with its placeholder hatch; all 315 retained definitions/relocations and all native rows stay exact. See its per-method proof in the packet.
+
 Unverified isolated `hasAnyBuildings` is removed with its placeholder hatch; all 320 retained definitions/relocations and all native rows stay exact. See its per-method proof in the packet.
 
 Unverified isolated `findMostReadyShortcutWeaponForThing` is removed with its placeholder hatch; all 321 retained definitions/relocations and all native rows stay exact. See its per-method proof in the packet.

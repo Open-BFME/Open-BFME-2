@@ -1606,31 +1606,8 @@ static void countExisting( Object *obj, void *userData )
 
 //=============================================================================
 // Make sure that building another of this unit/structure/object won't exceed MaxSimultaneousOfType()
-// ?canBuildMoreOfType@Player@@QBE_NPBVThingTemplate@@@Z present-unmatched
-Bool Player::canBuildMoreOfType( const ThingTemplate *whatToBuild ) const
-{
-  // make sure we're not maxed out for this type of unit.
-  UnsignedInt maxSimultaneousOfType = whatToBuild->getMaxSimultaneousOfType();
-  if (maxSimultaneousOfType != 0)
-  {
 
-    TypeCountData typeCountData;
-    typeCountData.count = 0;
-    typeCountData.type = whatToBuild;
-    typeCountData.linkKey = whatToBuild->getMaxSimultaneousLinkKey();
-    // Assumption: Things with a KINDOF_STRUCTURE flag can never be built from 
-    // a factory (ProductionUpdateInterface), because the building can't move
-    // out of the factory. When we do our Starcraft port and have flying Terran
-    // buildings, we'll have to change this ;-)
-    // Remember: To ASSUME makes an ASS out of U and ME. 
-    typeCountData.checkProductionInterface = !whatToBuild->isKindOf( KINDOF_STRUCTURE );
 
-    iterateObjects( countExisting, &typeCountData );
-    if( typeCountData.count >= maxSimultaneousOfType )
-      return false;
-  }
-  return true;
-}
 
 //=============================================================================
 // Player::canBuild is defined with its retail-matched body in Code/GameEngine/Source/Common/RTS/PlayerCanBuild.cpp (0x002ABEF1).

@@ -1,0 +1,655 @@
+{
+  "candidate_object": "build/tu_skeleton/3c1a4db944aebd35.obj",
+  "candidate_sha256": "4c0c231de0798da08a95f460aaf6cfa3b552b1b484d6332c579d80a7a7082e14",
+  "parent_whole_code_proof": "build/player-donor-cleanup-20261101/next-six-private-whole-code.json",
+  "parent_verification": "Six sequential private probes report 12/12 owned rows exact; 321->305 external definitions, sixteen removed, zero added or changed. This audit invokes no compiler.",
+  "index_meta": {
+    "date": "2026-11-01 14:31",
+    "commit": "86db074988",
+    "clean_tree": true,
+    "census_date": "2026-11-01 12:39",
+    "census_commit": "39dfbbdb50"
+  },
+  "helper_count": 10,
+  "retained_local_runtime_data_incoming_count": 0,
+  "helpers_with_alternate_provider_count": 8,
+  "helpers": [
+    {
+      "step": "build-limit",
+      "helper": "?TEST_KINDOFMASK@@YA_NABV?$BitFlags@$0HE@@@W4KindOfType@@@Z",
+      "defined_in_latest_candidate": false,
+      "retained_local_runtime_data_incoming": [],
+      "index_referenced": false,
+      "index_callers": [],
+      "outside_index_comdat_providers": [
+        {
+          "object": "^code_^game^engine_^source_^common_^thing_^thing.obj",
+          "index_source": "Code/GameEngine/Source/Common/Thing/Thing.cpp",
+          "digest": "6a5b86f6b381",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine^device_^source_^w3^d^device_^game^client_^drawable_^draw_^w3^d^model^draw.obj",
+          "index_source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDraw.cpp",
+          "digest": "3cf3d6e9b909",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^map^util.obj",
+          "index_source": "Code/GameEngine/Source/GameClient/MapUtil.cpp",
+          "digest": "3cf3d6e9b909",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^score^keeper.obj",
+          "index_source": "Code/GameEngine/Source/Common/RTS/ScoreKeeper.cpp",
+          "digest": "3cf3d6e9b909",
+          "index_verdict": null
+        }
+      ],
+      "outside_index_strong_providers": [],
+      "incoming_index_aliases": []
+    },
+    {
+      "step": "build-limit",
+      "helper": "?getMaxSimultaneousLinkKey@ThingTemplate@@QBE?AW4NameKeyType@@XZ",
+      "defined_in_latest_candidate": false,
+      "retained_local_runtime_data_incoming": [],
+      "index_referenced": false,
+      "index_callers": [],
+      "outside_index_comdat_providers": [],
+      "outside_index_strong_providers": [],
+      "incoming_index_aliases": []
+    },
+    {
+      "step": "build-limit",
+      "helper": "?isKindOf@ThingTemplate@@QBE_NW4KindOfType@@@Z",
+      "defined_in_latest_candidate": false,
+      "retained_local_runtime_data_incoming": [],
+      "index_referenced": true,
+      "index_callers": [
+        {
+          "name": "?isKindOf@Drawable@@QBEEW4KindOfType@@@Z",
+          "provider_objects": [
+            "^code_^game^engine_^source_^game^client_^in^game^u^i^selection.obj"
+          ],
+          "index_source_paths": [
+            "Code/GameEngine/Source/GameClient/InGameUISelection.cpp"
+          ],
+          "outside_player_source_paths": [
+            "Code/GameEngine/Source/GameClient/InGameUISelection.cpp"
+          ]
+        },
+        {
+          "name": "?isKindOf@ThingTemplate@@QBEEH@Z",
+          "provider_objects": [
+            "^code_^game^engine_^source_^game^logic_^script^engine_^lua^script^engine.obj"
+          ],
+          "index_source_paths": [
+            "Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine.cpp"
+          ],
+          "outside_player_source_paths": [
+            "Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine.cpp"
+          ]
+        }
+      ],
+      "outside_index_comdat_providers": [
+        {
+          "object": "^code_^game^engine_^source_^common_^thing_^thing^template^rva000456^a^c.obj",
+          "index_source": "Code/GameEngine/Source/Common/Thing/ThingTemplateRva000456AC.cpp",
+          "digest": "a58f23530404",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine^device_^source_^w3^d^device_^game^client_^drawable_^draw_^w3^d^model^draw.obj",
+          "index_source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDraw.cpp",
+          "digest": "cb96e27dd4ef",
+          "index_verdict": "wrong"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^map^util.obj",
+          "index_source": "Code/GameEngine/Source/GameClient/MapUtil.cpp",
+          "digest": "cb96e27dd4ef",
+          "index_verdict": "wrong"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^object_^contain_^horde^contain^iface11^c^slots.obj",
+          "index_source": "Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp",
+          "digest": "0e552320b1d8",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^score^keeper.obj",
+          "index_source": "Code/GameEngine/Source/Common/RTS/ScoreKeeper.cpp",
+          "digest": "cb96e27dd4ef",
+          "index_verdict": "wrong"
+        }
+      ],
+      "outside_index_strong_providers": [],
+      "incoming_index_aliases": []
+    },
+    {
+      "step": "build-limit",
+      "helper": "?test@?$BitFlags@$0HE@@@QBE_NH@Z",
+      "defined_in_latest_candidate": false,
+      "retained_local_runtime_data_incoming": [],
+      "index_referenced": false,
+      "index_callers": [],
+      "outside_index_comdat_providers": [
+        {
+          "object": "^code_^game^engine_^source_^common_^thing_^thing.obj",
+          "index_source": "Code/GameEngine/Source/Common/Thing/Thing.cpp",
+          "digest": "5390678b258e",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine^device_^source_^w3^d^device_^game^client_^drawable_^draw_^w3^d^model^draw.obj",
+          "index_source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDraw.cpp",
+          "digest": "4c87f8961856",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^map^util.obj",
+          "index_source": "Code/GameEngine/Source/GameClient/MapUtil.cpp",
+          "digest": "4c87f8961856",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^score^keeper.obj",
+          "index_source": "Code/GameEngine/Source/Common/RTS/ScoreKeeper.cpp",
+          "digest": "4c87f8961856",
+          "index_verdict": null
+        }
+      ],
+      "outside_index_strong_providers": [],
+      "incoming_index_aliases": []
+    },
+    {
+      "step": "skill-points",
+      "helper": "?fast_float2long_round@@YAJM@Z",
+      "defined_in_latest_candidate": false,
+      "retained_local_runtime_data_incoming": [],
+      "index_referenced": true,
+      "index_callers": [],
+      "outside_index_comdat_providers": [
+        {
+          "object": "^code_^game^engine^device_^source_^w3^d^device_^common_^system_^w3^d^radar^render^object^list.obj",
+          "index_source": "Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarRenderObjectList.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine^device_^source_^w3^d^device_^game^client_^drawable_^draw_^w3^d^model^draw.obj",
+          "index_source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDraw.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine^device_^source_^w3^d^device_^game^logic_^w3^d^terrain^logic^cell^queries.obj",
+          "index_source": "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicCellQueries.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^is^clear^line^of^sight.obj",
+          "index_source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapIsClearLineOfSight.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^estimate^max^height^along^line.obj",
+          "index_source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapEstimateMaxHeightAlongLine.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^rva000687^e^f.obj",
+          "index_source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapRva000687EF.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^get^height^map^height.obj",
+          "index_source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapGetHeightMapHeight.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^map_^polygon^trigger.obj",
+          "index_source": "Code/GameEngine/Source/GameLogic/Map/PolygonTrigger.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine^device_^source_^w3^d^device_^game^client_^w3^d^view^rotate^camera.obj",
+          "index_source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRotateCamera.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine^device_^source_^w3^d^device_^game^client_^rva00086761^camera^move.obj",
+          "index_source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00086761CameraMove.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine^device_^source_^w3^d^device_^game^client_^w3^d^view^move^along^waypoint^path.obj",
+          "index_source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewMoveAlongWaypointPath.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine^device_^source_^w3^d^device_^game^client_^world^height^map^get^terrain^color^at.obj",
+          "index_source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapGetTerrainColorAt.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva00749^a10^mask^a^x.obj",
+          "index_source": "Code/GameEngine/Source/Common/Rva00749A10MaskAX.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^object_^update_^a^i^update_^deliver^payload^a^i^update.obj",
+          "index_source": "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DeliverPayloadAIUpdate.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine^device_^source_^w3^d^device_^game^client_^w3^d^bridge^get^model^vertices^fixed.obj",
+          "index_source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBridgeGetModelVerticesFixed.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine^device_^source_^w3^d^device_^game^client_^flat^height^map^do^partial^update.obj",
+          "index_source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/FlatHeightMapDoPartialUpdate.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine^device_^source_^w3^d^device_^game^client_^w3^d^shrub^buffer.obj",
+          "index_source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine^device_^source_^w3^d^device_^game^client_^shadow_^w3^d^projected^shadow^decal^helpers.obj",
+          "index_source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowDecalHelpers.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine^device_^source_^w3^d^device_^game^client_^shadow_^rva0010^c785^timed^decals.obj",
+          "index_source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/Rva0010C785TimedDecals.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^object_^update_^a^i^update.obj",
+          "index_source": "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^object_^update_^topple^update.obj",
+          "index_source": "Code/GameEngine/Source/GameLogic/Object/Update/ToppleUpdate.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^global^language.obj",
+          "index_source": "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine^device_^source_^w3^d^device_^game^client_^w3^d^terrain^visual.obj",
+          "index_source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisual.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^input_^mouse.obj",
+          "index_source": "Code/GameEngine/Source/GameClient/Input/Mouse.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^script^engine_^script^engine_set^counter.obj",
+          "index_source": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_setCounter.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^script^engine_^script^engine^set^timer.obj",
+          "index_source": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineSetTimer.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^script^engine_^script^engine^adjust^timer.obj",
+          "index_source": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineAdjustTimer.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva0027^d^f9^d^grid^queries.obj",
+          "index_source": "Code/GameEngine/Source/Common/Rva0027DF9DGridQueries.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^map_^terrain^logic^rva0028449^f.obj",
+          "index_source": "Code/GameEngine/Source/GameLogic/Map/TerrainLogicRva0028449F.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^map_^terrain^logic^iterate^trees^near^a^point.obj",
+          "index_source": "Code/GameEngine/Source/GameLogic/Map/TerrainLogicIterateTreesNearAPoint.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^map_^terrain^logic^find^position^around.obj",
+          "index_source": "Code/GameEngine/Source/GameLogic/Map/TerrainLogicFindPositionAround.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^in^game^u^i^messages.obj",
+          "index_source": "Code/GameEngine/Source/GameClient/InGameUIMessages.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^in^game^u^i^post^draw.obj",
+          "index_source": "Code/GameEngine/Source/GameClient/InGameUIPostDraw.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^thing^template^build^facility.obj",
+          "index_source": "Code/GameEngine/Source/Common/ThingTemplateBuildFacility.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^player^rva002^a^c^e2^b.obj",
+          "index_source": "Code/GameEngine/Source/Common/RTS/PlayerRva002ACE2B.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^object_^weapon.obj",
+          "index_source": "Code/GameEngine/Source/GameLogic/Object/Weapon.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^object_^weapon^private^fire^weapon.obj",
+          "index_source": "Code/GameEngine/Source/GameLogic/Object/WeaponPrivateFireWeapon.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^object_^weapon^template^clip^reload^time.obj",
+          "index_source": "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateClipReloadTime.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^pathfinder_^pathfinder^new^map.obj",
+          "index_source": "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderNewMap.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^pathfinder_^rva002^e^c^e6^a^info^ctor.obj",
+          "index_source": "Code/GameEngine/Source/GameLogic/Pathfinder/Rva002ECE6AInfoCtor.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^a^i_^pathfinder^process^pathfind^queue.obj",
+          "index_source": "Code/GameEngine/Source/GameLogic/AI/PathfinderProcessPathfindQueue.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^a^i_^rva003641^a^e^finish.obj",
+          "index_source": "Code/GameEngine/Source/GameLogic/AI/Rva003641AEFinish.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^pathfinder_^pathfind^layer^allocate^cells.obj",
+          "index_source": "Code/GameEngine/Source/GameLogic/Pathfinder/PathfindLayerAllocateCells.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^pathfinder_^pathfind^layer^reset_~^pathfind^layer_^classify^bridge^cells.obj",
+          "index_source": "Code/GameEngine/Source/GameLogic/Pathfinder/PathfindLayerReset_~PathfindLayer_ClassifyBridgeCells.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva00380200^getter.obj",
+          "index_source": "Code/GameEngine/Source/Common/Rva00380200Getter.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^script^engine_^script^actions_do^team^partial^use^command^button.obj",
+          "index_source": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doTeamPartialUseCommandButton.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^script^engine_^script^conditions.obj",
+          "index_source": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^object_^behavior_^getting^built^behavior.obj",
+          "index_source": "Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehavior.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^object_^contain_^slaughter^horde^contain^add^horde^member.obj",
+          "index_source": "Code/GameEngine/Source/GameLogic/Object/Contain/SlaughterHordeContainAddHordeMember.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^object_^behavior_^terrain^resource^behavior.obj",
+          "index_source": "Code/GameEngine/Source/GameLogic/Object/Behavior/TerrainResourceBehavior.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^object_^die_^refund^die.obj",
+          "index_source": "Code/GameEngine/Source/GameLogic/Object/Die/RefundDie.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^supply^center^dock^update.obj",
+          "index_source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdate.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^a^i_^a^i^player.obj",
+          "index_source": "Code/GameEngine/Source/GameLogic/AI/AIPlayer.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva005394^f0^draw^lines.obj",
+          "index_source": "Code/GameEngine/Source/Common/Rva005394F0DrawLines.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^a^i_^a^i^guard.obj",
+          "index_source": "Code/GameEngine/Source/GameLogic/AI/AIGuard.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva005^f2^c^b^a^progress.obj",
+          "index_source": "Code/GameEngine/Source/Common/Rva005F2CBAProgress.cpp",
+          "digest": "975c9cad6d6e",
+          "index_verdict": "retail"
+        }
+      ],
+      "outside_index_strong_providers": [],
+      "incoming_index_aliases": []
+    },
+    {
+      "step": "skill-points",
+      "helper": "?fast_float_ceil@@YAMM@Z",
+      "defined_in_latest_candidate": false,
+      "retained_local_runtime_data_incoming": [],
+      "index_referenced": false,
+      "index_callers": [],
+      "outside_index_comdat_providers": [
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^object_^update_^a^i^update_^deliver^payload^a^i^update.obj",
+          "index_source": "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DeliverPayloadAIUpdate.cpp",
+          "digest": "f46b98dc6ccb",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^object_^weapon.obj",
+          "index_source": "Code/GameEngine/Source/GameLogic/Object/Weapon.cpp",
+          "digest": "f46b98dc6ccb",
+          "index_verdict": null
+        }
+      ],
+      "outside_index_strong_providers": [],
+      "incoming_index_aliases": []
+    },
+    {
+      "step": "skill-points",
+      "helper": "?fast_float_trunc@@YAMM@Z",
+      "defined_in_latest_candidate": false,
+      "retained_local_runtime_data_incoming": [],
+      "index_referenced": false,
+      "index_callers": [],
+      "outside_index_comdat_providers": [
+        {
+          "object": "^code_^game^engine^device_^source_^w3^d^device_^game^client_^drawable_^draw_^w3^d^model^draw.obj",
+          "index_source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDraw.cpp",
+          "digest": "7c0b0b35ee84",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^object_^update_^a^i^update_^deliver^payload^a^i^update.obj",
+          "index_source": "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DeliverPayloadAIUpdate.cpp",
+          "digest": "7c0b0b35ee84",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^object_^update_^a^i^update.obj",
+          "index_source": "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate.cpp",
+          "digest": "7c0b0b35ee84",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine^device_^source_^w3^d^device_^game^client_^w3^d^terrain^visual.obj",
+          "index_source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisual.cpp",
+          "digest": "7c0b0b35ee84",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^input_^mouse.obj",
+          "index_source": "Code/GameEngine/Source/GameClient/Input/Mouse.cpp",
+          "digest": "7c0b0b35ee84",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^object_^weapon.obj",
+          "index_source": "Code/GameEngine/Source/GameLogic/Object/Weapon.cpp",
+          "digest": "7c0b0b35ee84",
+          "index_verdict": null
+        }
+      ],
+      "outside_index_strong_providers": [],
+      "incoming_index_aliases": []
+    },
+    {
+      "step": "skill-points",
+      "helper": "?getRankLevelLimit@GameLogic@@QBEHXZ",
+      "defined_in_latest_candidate": false,
+      "retained_local_runtime_data_incoming": [],
+      "index_referenced": false,
+      "index_callers": [],
+      "outside_index_comdat_providers": [],
+      "outside_index_strong_providers": [],
+      "incoming_index_aliases": []
+    },
+    {
+      "step": "kill-player",
+      "helper": "?getPlayerType@Player@@QBE?AW4PlayerType@@XZ",
+      "defined_in_latest_candidate": false,
+      "retained_local_runtime_data_incoming": [],
+      "index_referenced": false,
+      "index_callers": [],
+      "outside_index_comdat_providers": [
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^system_^game^logic^init.obj",
+          "index_source": "Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp",
+          "digest": "cb51bb0e33d1",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^object_^update_^spectre^gunship^update.obj",
+          "index_source": "Code/GameEngine/Source/GameLogic/Object/Update/SpectreGunshipUpdate.cpp",
+          "digest": "77736ef957c2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^object_^update_^a^i^update_^worker^a^i^update.obj",
+          "index_source": "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdate.cpp",
+          "digest": "77736ef957c2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^object_^update_^a^i^update_^dozer^a^i^update.obj",
+          "index_source": "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DozerAIUpdate.cpp",
+          "digest": "77736ef957c2",
+          "index_verdict": null
+        }
+      ],
+      "outside_index_strong_providers": [],
+      "incoming_index_aliases": []
+    },
+    {
+      "step": "kill-player",
+      "helper": "?isInShellGame@GameLogic@@QAE_NXZ",
+      "defined_in_latest_candidate": false,
+      "retained_local_runtime_data_incoming": [],
+      "index_referenced": false,
+      "index_callers": [],
+      "outside_index_comdat_providers": [
+        {
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_^g^u^i^callbacks_^menus_^skirmish^game^options^menu.obj",
+          "index_source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/SkirmishGameOptionsMenu.cpp",
+          "digest": "a7cf11257d34",
+          "index_verdict": null
+        }
+      ],
+      "outside_index_strong_providers": [],
+      "incoming_index_aliases": []
+    }
+  ],
+  "candidate_unchanged_during_audit": true,
+  "qualification": "Index provider verdicts and caller paths describe published index86db074988, not refreshed provider receipts. Empty incoming lists do not assert globally unreferenced when index_referenced is true. The parent batch/provider audit still decides publication; preserve all twelve owned rows, global, anchors and aliases."
+}
