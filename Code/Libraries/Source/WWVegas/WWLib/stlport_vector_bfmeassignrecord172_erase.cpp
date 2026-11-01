@@ -9,9 +9,13 @@
 // finish and returns first. Follows BfmeAssignRecord32 erase (0x00173FB6 51B)
 // and VectorAsciiStringErase shape: prvalue __false_type tag forces
 // the EBP frame with tag at [ebp+0xb].
-struct BfmeAssignRecord172 {
+struct BfmeAssignRecord172
+{
+public:
+	BfmeAssignRecord172(const BfmeAssignRecord172 &);
 	~BfmeAssignRecord172();
-	unsigned char m_pad[172];
+	BfmeAssignRecord172 &operator=(const BfmeAssignRecord172 &);
+	int a[43];
 };
 
 namespace _STL {

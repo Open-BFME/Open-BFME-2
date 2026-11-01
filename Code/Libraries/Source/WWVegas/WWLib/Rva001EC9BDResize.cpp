@@ -7,7 +7,14 @@
 // The one-argument wrapper at 0x001ECCF3 constructs a 0xAC temporary through
 // 0x0037DF2C before forwarding. Resize semantics and element size are target
 // evidence; original vector and record identities remain unresolved.
-struct BfmeAssignRecord172 { unsigned char bytes[172]; };
+struct BfmeAssignRecord172
+{
+public:
+	BfmeAssignRecord172(const BfmeAssignRecord172 &);
+	~BfmeAssignRecord172();
+	BfmeAssignRecord172 &operator=(const BfmeAssignRecord172 &);
+	int a[43];
+};
 struct Rva001EBEABElement
 {
 public:
@@ -20,36 +27,33 @@ public:
 	char bytes[172]; // +0x00
 };
 
+#include <vector>
+#include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
+
 namespace _STL {
-template <class T> class allocator {};
-template <class T, class A = allocator<T> > class vector
-{
-public:
-	typedef T *iterator;
-	iterator erase(iterator first, iterator last);
-	void _M_fill_insert(iterator position, unsigned int count, const T &value);
-};
+template <> BfmeAssignRecord172 *vector<BfmeAssignRecord172, allocator<BfmeAssignRecord172> >::erase(BfmeAssignRecord172 *, BfmeAssignRecord172 *);
+template <> void vector<Rva001EBEABElement, allocator<Rva001EBEABElement> >::_M_fill_insert(Rva001EBEABElement *, unsigned int, const Rva001EBEABElement &);
 }
 
-struct CarryoverUnit {
-	CarryoverUnit();
-	virtual ~CarryoverUnit();
-	unsigned char body[0xA8];
-};
-
-class Rva001EC9BDVector
+class Object;
+class Player;
+struct CarryoverUnit
 {
 public:
-	unsigned int size() const { return (unsigned int)(m_finish - m_start); }
-	CarryoverUnit *begin() { return m_start; }
-	CarryoverUnit *end() { return m_finish; }
+	CarryoverUnit();
+	virtual ~CarryoverUnit();
+	Object *createSingleObject(Player *player);
+	AsciiString m_name; // +0x04
+	char m_pad08[0x90 - 0x08];
+	int m_quantity; // +0x90
+	char m_pad94[0xAC - 0x94];
+};
+
+class Rva001EC9BDVector : public _STL::vector<CarryoverUnit>
+{
+public:
 	void resize(unsigned int newSize, CarryoverUnit value);
 	void resize(unsigned int newSize);
-
-private:
-	CarryoverUnit *m_start;
-	CarryoverUnit *m_finish;
-	CarryoverUnit *m_endOfStorage;
 };
 
 void Rva001EC9BDVector::resize(unsigned int newSize, CarryoverUnit value)

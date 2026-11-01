@@ -53,8 +53,18 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 }
 #include <vector>
-struct BfmeAssignRecord172 { unsigned char bytes[172]; BfmeAssignRecord172(const BfmeAssignRecord172&);~BfmeAssignRecord172();BfmeAssignRecord172&operator=(const BfmeAssignRecord172&); };
-struct BfmePod172 { unsigned char bytes[172]; };
+struct BfmeAssignRecord172
+{
+public:
+	BfmeAssignRecord172(const BfmeAssignRecord172 &);
+	~BfmeAssignRecord172();
+	BfmeAssignRecord172 &operator=(const BfmeAssignRecord172 &);
+	int a[43];
+};
+struct BfmePod172
+{
+	int a[43];
+};
 struct Rva001EB831Element { unsigned char bytes[172]; Rva001EB831Element&operator=(const Rva001EB831Element&); };
 namespace _STL {
 template<> void _Destroy<BfmeAssignRecord172*>(BfmeAssignRecord172*,BfmeAssignRecord172*);

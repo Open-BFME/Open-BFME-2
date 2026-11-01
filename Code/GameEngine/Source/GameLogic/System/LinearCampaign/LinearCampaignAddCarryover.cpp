@@ -1,3 +1,4 @@
+#include "../../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 // cl: /O1 /G7 /arch:SSE /EHsc /DNDEBUG /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?addCarryoverStuffToMap@LinearCampaign@@QAEXXZ @0x001EC63D 540B.
@@ -154,18 +155,31 @@ public:
 };
 extern UpgradeCenter *TheUpgradeCenter;
 
-class CarryoverUnit
+struct CarryoverUnit
 {
 public:
+	CarryoverUnit();
+	virtual ~CarryoverUnit();
 	Object *createSingleObject(Player *player);
-	char pad00[0x90];
-	int m_quantity;
-	char pad94[0xac - 0x94];
+	AsciiString m_name; // +0x04
+	char m_pad08[0x90 - 0x08];
+	int m_quantity; // +0x90
+	char m_pad94[0xAC - 0x94];
 };
 
 struct BfmeAssignRecord36;
-struct BfmeAssignRecord172 { int a[43]; };
-struct BfmePod172 { int a[43]; };
+struct BfmeAssignRecord172
+{
+public:
+	BfmeAssignRecord172(const BfmeAssignRecord172 &);
+	~BfmeAssignRecord172();
+	BfmeAssignRecord172 &operator=(const BfmeAssignRecord172 &);
+	int a[43];
+};
+struct BfmePod172
+{
+	int a[43];
+};
 // _Construct<BfmePod172> and the two range helpers built on it are rowed in
 // the pod172 STLport units; declare them so this unit calls those copies
 // instead of emitting its own.

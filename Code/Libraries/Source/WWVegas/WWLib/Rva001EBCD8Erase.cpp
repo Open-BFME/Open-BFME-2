@@ -11,7 +11,11 @@
 
 struct BfmeAssignRecord172
 {
-	char m_data[172];
+public:
+	BfmeAssignRecord172(const BfmeAssignRecord172 &);
+	~BfmeAssignRecord172();
+	BfmeAssignRecord172 &operator=(const BfmeAssignRecord172 &);
+	int a[43];
 };
 
 namespace _STL

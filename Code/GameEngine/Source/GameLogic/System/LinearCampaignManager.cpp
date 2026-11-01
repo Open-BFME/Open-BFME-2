@@ -59,10 +59,23 @@ struct BfmeAssignRecord172;
 namespace _STL { template <> void _Destroy<BfmeAssignRecord172 *>(BfmeAssignRecord172 *,BfmeAssignRecord172 *); }
 #include <stdlib.h>
 #include <string.h>
-struct BfmePod172 {int a[43];};
+struct BfmePod172
+{
+	int a[43];
+};
 class Object;
 class Player;
-class CarryoverUnit {public: CarryoverUnit(); virtual ~CarryoverUnit(); Object *createSingleObject(Player *player); private: char m_pad[168];};
+struct CarryoverUnit
+{
+public:
+	CarryoverUnit();
+	virtual ~CarryoverUnit();
+	Object *createSingleObject(Player *player);
+	AsciiString m_name; // +0x04
+	char m_pad08[0x90 - 0x08];
+	int m_quantity; // +0x90
+	char m_pad94[0xAC - 0x94];
+};
 struct Rva00291198Dest;
 class Rva00291198Host {public:void rva002910B7(Rva00291198Dest*);};
 class Rva0037EACC {public:void rva0037EACC(void*);};
@@ -171,7 +184,11 @@ struct AsciiStringLike
 
 struct BfmeAssignRecord172
 {
+public:
+	BfmeAssignRecord172(const BfmeAssignRecord172 &);
 	~BfmeAssignRecord172();
+	BfmeAssignRecord172 &operator=(const BfmeAssignRecord172 &);
+	int a[43];
 };
 
 class __declspec(novtable) Rva001EBFE5 : public Snapshot
@@ -245,12 +262,30 @@ public:
 
 extern UpgradeCenter*TheUpgradeCenter;
 
+class OpaqueRefCounted
+{
+public:
+	void Release_Ref();
+};
+
+struct OpaqueRefElement4
+{
+	OpaqueRefCounted *referent;
+	~OpaqueRefElement4() { if (referent) referent->Release_Ref(); }
+};
+
 class Rva001EC349
 {
 public:
 	~Rva001EC349();
 private:
-	unsigned char m_pad[0x24];
+	AsciiString m_00; // +0x00
+	AsciiString m_04; // +0x04
+	AsciiString m_08; // +0x08
+	AsciiString m_0C; // +0x0C
+	OpaqueRefElement4 m_10; // +0x10
+	int m_14; // +0x14
+	_STL::vector<AsciiString, _STL::allocator<AsciiString> > m_18; // +0x18
 };
 
 class Rva001ED01E
@@ -693,16 +728,12 @@ public:
 	void *GetThingTemplate();	// 0x0037DC52, WB CarryoverUnit::GetThingTemplate
 };
 
-struct CarryoverUnitRecord
+class Rva001EC9BDVector : public _STL::vector<CarryoverUnit>
 {
-	void *m_vtable;
-	AsciiString m_name;		// +0x04
-	unsigned char m_pad08[0x90 - 0x08];
-	int m_90;
-	unsigned char m_pad94[0xAC - 0x94];
+public:
+	void resize(unsigned int newSize, CarryoverUnit value);
+	void resize(unsigned int newSize);
 };
-
-class Rva001EC9BDVector: public _STL::vector<CarryoverUnitRecord> {public:void resize(unsigned);};
 
 // The history vector calls the verified reserve implementation at 0x001EBE2D.
 // Its record stays opaque here; the provider owns its copy and lifetime logic.
@@ -1096,7 +1127,7 @@ void LinearCampaign::beginCampaign()
 	{
 		const AsciiString &name = m_campaign->rva001EAFFE(i);
 		carryovers[i].m_name = name;
-		carryovers[i].m_90 = 1;
+		carryovers[i].m_quantity = 1;
 		const CarryoverThingTemplateView *thing = static_cast<const CarryoverThingTemplateView *>(
 			reinterpret_cast<Rva0037DCA5 *>(&carryovers[i])->GetThingTemplate());
 		if (thing && (thing->m_kindOf[0x5A >> 3] & (1 << (0x5A & 7))))
