@@ -188,3 +188,4 @@ FieldParse,Code/GameEngine/Include/Common/INI/FieldParse.h,existing header; cont
 MultiIniFieldParse,Code/GameEngine/Include/Common/INI/FieldParse.h,existing header; contract class_contracts/MultiIniFieldParse.json; 110/159 sampled units adopt
 AICommandInterface,Code/GameEngine/Include/GameLogic/Module/AIUpdate.h,existing header; contract class_contracts/AICommandInterface.json; 32/208 sampled units adopt
 INI,Code/GameEngine/Include/Common/INI/INI.h,existing header; contract class_contracts/INI.json; 663/760 sampled units adopt
+INIException,Code/GameEngine/Include/Common/INI/FieldParse.h,existing header; contract class_contracts/INIException.json; 110/156 sampled units adopt
