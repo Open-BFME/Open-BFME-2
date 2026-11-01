@@ -4,11 +4,10 @@
 // (pinned; rowed deleting wrapper 0x00461C03). Stores
 // five vtables (+0x00/+0x0C/+0x10/+0x20/+0x24), calls the helper 0x0046183B
 // on this in EH state 0, then the opaque MI base dtor 0x0024A797, the only
-// entry in retail's unwind map. The helper is pinned here under an address
-// name from this call; its other caller 0x0046190A reaches it from the
-// +0x20 interface. The +0x14..+0x1F words sit in the third base so the
-// fourth and fifth vptrs land at +0x20/+0x24 (base layout as in
-// Rva0024A797Derived.cpp; members after +0x28 follow the rowed ctor).
+// entry in retail's unwind map. The helper's other caller 0x0046190A
+// reaches it from the +0x20 interface.
+// UpdateModule owns +0x14..+0x1F; trailing interfaces land at +0x20/+0x24.
+// Members after +0x28 follow the rowed constructor.
 #include "ascii_string.h"
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 class Waypoint { public:
@@ -18,30 +17,9 @@ class Waypoint { public:
 };
 struct FakePortalDataView { char pad[0x118];bool flag118,flag119; };
 struct FakePortalOwnerView { char pad[0x74];unsigned id; };
-class UpdateModule
-{
-public:
-	virtual ~UpdateModule();
-protected:
- const FakePortalDataView *m_data;
- FakePortalOwnerView *m_owner;
-};
 
-class MiBase1
-{
-public:
-	virtual void f1();
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-class FakePathfindPortalBehaviour_B2
-{
-public:
-	virtual void f2();
-private:
-	int m_14;
-	int m_18;
-	int m_1C;
-};
 
 class FakePathfindPortalBehaviour_B3
 {
@@ -55,11 +33,12 @@ public:
 	virtual void f4();
 };
 
-class FakePathfindPortalBehaviour : public UpdateModule, public MiBase1, public FakePathfindPortalBehaviour_B2,
+class FakePathfindPortalBehaviour : public UpdateModule,
 	public FakePathfindPortalBehaviour_B3, public FakePathfindPortalBehaviour_B4
 {
 public:
 	virtual ~FakePathfindPortalBehaviour();
+	virtual UpdateSleepTime update();
 	void rva0046183B();
 	void rva004618D4();
  Waypoint *rva00461A46(const Coord3D *point);
@@ -139,11 +118,11 @@ void FakePathfindPortalBehaviour::rva0046183B()
 // target fake-name literal and ownerB0/flagsA8/A9 establish this factory's role.
 Waypoint *FakePathfindPortalBehaviour::rva00461A46(const Coord3D *point)
 {
- const FakePortalDataView *data=m_data;
+ const FakePortalDataView *data=reinterpret_cast<const FakePortalDataView *>(m_moduleData);
  Waypoint *wp=new Waypoint(0x7ffffffe,AsciiString("#fakepathfindportal_wp"),point,
   AsciiString::TheEmptyString,AsciiString::TheEmptyString,AsciiString::TheEmptyString,
   false,7,AsciiString::TheEmptyString);
- wp->ownerID=m_owner->id;
+ wp->ownerID=reinterpret_cast<FakePortalOwnerView *>(m_object)->id;
  wp->flagA8=data->flag118;
  wp->flagA9=data->flag119;
  return wp;
@@ -162,7 +141,6 @@ public:
 };
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 struct FakePortalObjectView
 {
@@ -184,5 +162,4 @@ BehaviorModule *Rva004617CFFind(FakePortalObjectView *obj)
 // Placeholder virtuals this unit's vftables hold.  In retail each such slot
 // holds a rowed function; the vftable's address is proven by the vptr stores in
 // the matched destructors, so bind the placeholder to that row's name.
-#pragma comment(linker, "/alternatename:?f2@FakePathfindPortalBehaviour_B2@@UAEXXZ=?update@FakePathfindPortalBehaviour@@UAE?AW4UpdateSleepTime@@XZ")
 #pragma comment(linker, "/alternatename:?f3@FakePathfindPortalBehaviour_B3@@UAEXXZ=?rva0046190A@FakePathfindPortalBehaviour@@UAEXPAX@Z")

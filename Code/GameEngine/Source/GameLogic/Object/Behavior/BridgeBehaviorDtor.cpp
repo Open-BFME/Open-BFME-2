@@ -26,27 +26,8 @@ enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
 template <int NUMBITS> class BitFlags;
 typedef BitFlags<11> DisabledMaskType;
 
-#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-	virtual DisabledMaskType getDisabledTypesToProcess() const = 0;
-	virtual void rva0044DF8D(UpdateSleepTime) = 0;
-};
-
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-public:
-	virtual ~UpdateModule();
-	virtual DisabledMaskType getDisabledTypesToProcess() const;
-	virtual void rva0044DF8D(UpdateSleepTime);
-private:
-	int m_14;
-	int m_18;
-	int m_1C;
-};
 
 class BridgeBehaviorInterface
 {
