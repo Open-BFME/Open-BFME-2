@@ -49,6 +49,8 @@ public:
 	void *GetDisplayNameStrategicGame(int v);
 };
 #include "unicode_string.h"
+#pragma intrinsic(memcpy)
+#define BFME_SNAPSHOT_NAME_SLOT
 
 // The 0x18-byte record at +0x94 (UnitRevivalEntry holds the same record at
 // +0xB0): its zeroing ctor 0x004E04FD and its out-of-line dtor 0x001EB05E
@@ -99,7 +101,34 @@ public:
 
 class Rva002E2903Player;
 
+class UnitRevivalEntry
+{
+public:
+	void setThingTemplateName(const AsciiString &arg);
+};
+
+class Rva001EAFC1
+{
+public:
+	Rva001EAFC1 &operator=(const Rva001EAFC1 &other);
+};
+
+class Rva0037DE0E
+{
+	char m_pad00[4];
+	AsciiString m_s04;
+	int m_08;
+	int m_0C;
+	char m_block10[128];
+	char m_pad90[4];
+	Rva001EAFC1 m_94;
+public:
+	unsigned char rva0037DE0E(void *dest);
+};
+
 // tu-skeleton: 0x0037DC84 6B ?name@CarryoverUnit@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/CarryoverUnit.cpp
 
 // ---- from Code/GameEngine/Source/Common/CarryoverUnit.cpp
 
@@ -154,7 +183,30 @@ int Rva0037DCA5::GetCommandPointSize()
 
 // tu-skeleton: 0x0037DCE8 294B ?createSingleObject@CarryoverUnit@@QAEPAVObject@@PAVPlayer@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/CarryoverUnit.cpp (not merged yet)
 
-// tu-skeleton: 0x0037DE0E 85B ?rva0037DE0E@Rva0037DE0E@@QAEEPAX@Z -- matched in Code/GameEngine/Source/Common/Rva0037DE0ECopy.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva0037DE0ECopy.cpp
+
+// ?rva0037DE0E@Rva0037DE0E@@QAEEPAX@Z @0x0037DE0E 85B. Copy-to via rowed
+// 0x0037E3D9 plus dwords +8 +C, 128B block +0x10 to dest +0x14 via rep movsd,
+// Rva001EAFC1 +0x94 to dest +0xB0 via rowed operator= 0x001EAFC1, zero +0xB4
+// and byte +0xC4, return 1. Evidence: two rowed calls, ret 4, test al in
+// caller 0x0040C4D9, neighbours Rva0037DCA5Get and Rva0037DF2CCtor.
+
+// The 128-byte copy is retail's inline rep movsd: memcpy is an intrinsic here
+// (a unit-wide /Oi would also inline a TU neighbour's memcmp call).
+
+unsigned char Rva0037DE0E::rva0037DE0E(void *destPtr)
+{
+	char *dest = (char *)destPtr;
+	char *src = (char *)this;
+	((UnitRevivalEntry *)dest)->setThingTemplateName(*(const AsciiString *)(src + 4));
+	*(int *)(dest + 8) = *(int *)(src + 8);
+	*(int *)(dest + 0xC) = *(int *)(src + 0xC);
+	memcpy(dest + 0x14, src + 0x10, 128);
+	*(Rva001EAFC1 *)(dest + 0xB0) = *(Rva001EAFC1 *)(src + 0x94);
+	*(int *)(dest + 0xB4) = 0;
+	*(unsigned char *)(dest + 0xC4) = 0;
+	return 1;
+}
 
 // tu-skeleton: 0x0037DE63 13B ??0Rva0037DE63@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
 
@@ -162,4 +214,21 @@ int Rva0037DCA5::GetCommandPointSize()
 
 // tu-skeleton: 0x0037DE79 107B ?xfer@CarryoverUnit@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/System/SnapshotXfersBfme.cpp (not merged yet)
 
-// tu-skeleton: 0x0037DF2C 97B ??0CarryoverUnit@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0037DF2CCtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva0037DF2CCtor.cpp
+
+// ??0CarryoverUnit@@QAE@XZ @0x0037DF2C (97B).
+// Ctor with vtable 0x00BDF158 at +0x0, AsciiString at +0x4 from TheEmptyString
+// 0x00DE0878 via pinned StringBase copy 0x000365F0, float 0 at +0x8 via xorps
+// plus movss, int 0 at +0xC, 0x80-byte block at +0x10 via inline helper ctor
+// calling rowed clear80 0x001EAE6F, int 0 at +0x90, record at +0x94 via rowed
+// zeroing ctor 0x004E04FD. The Snapshot base (inline ctor, inline virtual
+// dtor) arms EH state 0 before the first member call; the dtor 0x0037DEE4
+// shares this unit's EH handler 0x0077F0BE and restores Snapshot's vtable
+// 0x00BBB554. The class is the CarryoverUnit.cpp TU's view.
+// Callers at 0x001EC15F 0x001EC3FA 0x001EC491 0x001ECD05 0x0040C354.
+
+CarryoverUnit::CarryoverUnit() : name(AsciiString::TheEmptyString), m_f08(0.0f), m_c0C(0), m_90(0)
+{
+}
+
+// tu-skeleton: 0x0077F0AB 8B uw_0077f0ab -- matched in Code/gen_small/uw_gen_013.cpp (not merged yet)

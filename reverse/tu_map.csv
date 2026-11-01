@@ -28179,12 +28179,12 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0037DCA5,39,code,Code/GameEngine/Source/Common/CarryoverUnit.cpp,approved,C,W=Code/GameEngine/Source/GameLogic/System/CarryoverUnit.cpp C=0x0037DC84..0x0037DCCC provisional,Code/GameEngine/Source/Common/CarryoverUnit.cpp
 0x0037DCCC,28,code,Code/GameEngine/Source/Common/CarryoverUnit.cpp,approved,C,C=0x0037DC84..0x0037DCE8 provisional,Code/GameEngine/Source/Common/CarryoverUnit.cpp
 0x0037DCE8,294,code,Code/GameEngine/Source/Common/CarryoverUnit.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/System/CarryoverUnit.cpp W=Code/GameEngine/Source/GameLogic/System/CarryoverUnit.cpp provisional,Code/GameEngine/Source/GameLogic/System/CarryoverUnit.cpp
-0x0037DE0E,85,code,Code/GameEngine/Source/Common/CarryoverUnit.cpp,approved,C,C=0x0037DCE8..0x0037DE63 provisional,Code/GameEngine/Source/Common/Rva0037DE0ECopy.cpp
+0x0037DE0E,85,code,Code/GameEngine/Source/Common/CarryoverUnit.cpp,approved,C,C=0x0037DCE8..0x0037DE63 provisional,Code/GameEngine/Source/Common/CarryoverUnit.cpp
 0x0037DE63,13,code,Code/GameEngine/Source/Common/CarryoverUnit.cpp,approved,C,C=0x0037DCE8..0x0037DE70 provisional,Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp
 0x0037DE70,9,code,Code/GameEngine/Source/Common/CarryoverUnit.cpp,approved,C,C=0x0037DCE8..0x0037DE79 provisional,Code/GameEngine/Source/GameLogic/System/CarryoverUnit.cpp
 0x0037DE79,107,code,Code/GameEngine/Source/Common/CarryoverUnit.cpp,approved,U,N=Code/GameEngine/Source/Common/System/CarryoverUnit.cpp provisional,Code/GameEngine/Source/Common/System/SnapshotXfersBfme.cpp
 0x0037DEE4,72,code,Code/GameEngine/Source/Common/CarryoverUnit.cpp,approved,N,N=Code/GameEngine/Source/Common/CarryoverUnit.cpp provisional,Code/GameEngine/Source/Common/CarryoverUnit.cpp
-0x0037DF2C,97,code,Code/GameEngine/Source/Common/CarryoverUnit.cpp,approved,N,N=Code/GameEngine/Source/Common/CarryoverUnit.cpp provisional,Code/GameEngine/Source/Common/Rva0037DF2CCtor.cpp
+0x0037DF2C,97,code,Code/GameEngine/Source/Common/CarryoverUnit.cpp,approved,N,N=Code/GameEngine/Source/Common/CarryoverUnit.cpp provisional,Code/GameEngine/Source/Common/CarryoverUnit.cpp
 0x0037DF8D,239,code,,,-,W=Code/GameEngine/Source/GameLogic/System/CarryoverUnit.cpp,Code/GameEngine/Source/Common/Rva0037DF8DIterate.cpp
 0x0037E07C,30,code,,,-,,Code/GameEngine/Source/GameLogic/System/CarryoverUnit.cpp
 0x0037E09A,82,code,,,-,,Code/GameEngine/Source/Common/Rva0037E09A.cpp
@@ -74746,8 +74746,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0077F099,8,code,Code/GameEngine/Source/Common/Recorder.cpp,approved,P,P=0x0037D96B@FuncInfo0x009295A0,Code/GameEngine/Source/Common/Recorder.cpp
 0x0077F0A1,10,code,Code/GameEngine/Source/Common/Recorder.cpp,approved,P,P=0x0037D96B@FuncInfo0x009295A0,Code/GameEngine/Source/Common/Recorder.cpp
 0x0077F0AB,8,code,,,-,,Code/gen_small/uw_gen_013.cpp
-0x0077F0B3,11,code,,,-,,Code/GameEngine/Source/Common/Rva0037DF2CCtor.cpp
-0x0077F0BE,10,code,,,-,,Code/GameEngine/Source/Common/Rva0037DF2CCtor.cpp
+0x0077F0B3,11,code,,,-,,Code/GameEngine/Source/Common/CarryoverUnit.cpp
+0x0077F0BE,10,code,,,-,,Code/GameEngine/Source/Common/CarryoverUnit.cpp
 0x0077F0C8,14,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,P,P=0x0037E289@FuncInfo0x009295F8 provisional,Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp
 0x0077F0D6,14,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,P,P=0x0037E289@FuncInfo0x009295F8 provisional,Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp
 0x0077F0E4,10,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,P,P=0x0037E289@FuncInfo0x009295F8 provisional,Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp
