@@ -14,40 +14,7 @@ struct Rva005B5C02Entry
 	unsigned int _pad[0x50];
 };
 
-class GameSlot {
-public:
-	virtual ~GameSlot();
-	unsigned int word04;
-	unsigned char flag08;
-	unsigned char flag09;
-	unsigned char flag0A;
-	unsigned int word0C;
-	unsigned int word10;
-	unsigned int word14;
-	unsigned int word18;
-	unsigned int word1C;
-	unsigned int word20;
-	unsigned int word24;
-	unsigned int word28;
-	unsigned int word2C;
-	UnicodeString text30;
-	AsciiString text34;
-	unsigned int word38;
-	unsigned int word3C;
-	unsigned int word40;
-	unsigned int word44;
-	unsigned char flag48;
-	unsigned int word4C;
-	unsigned int word50;
-	unsigned int word54;
-	unsigned int word58;
-	unsigned int word5C;
-	unsigned char flag60;
-	Rva005B5C02Entry hero64;
-	unsigned char flag1A4;
-	AsciiString text1A8;
-	GameSlot &rva002DBAB9(const GameSlot &other);
-};
+#include "../../../../Include/GameNetwork/GameInfo.h"
 
 struct BfmeSubobject00229875
 {

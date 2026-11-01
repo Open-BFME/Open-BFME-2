@@ -2,12 +2,7 @@
 // ?rva003824A5@Rva00382398@@QAEAAV1@ABV1@@Z @0x003824A5 207B: assign twin of copy 0x003830EA over GameSlot base via rowed 0x002DBAB9 plus int at +0x1AC three AsciiStrings +0x1B0/+0x1B4/+0x1B8 seven ints +0x1BC..+0x1D4 two AsciiStrings +0x1D8/+0x1DC return this. Evidence: same layout as Rva00382398Copy.cpp plus Rva00447B58Assign.cpp recipe plus caller 0x00382E9B plus rowed set 0x000366F0.
 #include "ascii_string.h"
 
-class GameSlot {
-public:
-	virtual ~GameSlot();
-	unsigned char m_pad04[0x1AC - 4];
-	GameSlot &rva002DBAB9(const GameSlot &o);
-};
+#include "../../../../Include/GameNetwork/GameInfo.h"
 
 class Rva00382398 : public GameSlot
 {

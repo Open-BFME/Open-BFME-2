@@ -99,7 +99,7 @@ void Rva004E14A5::rva004E14A5(unsigned char value)
 }
 
 // ?rva005216DB@Rva005216DB@@QAE_NPAVGameSlot@@H@Z @0x005216DB (18B)
-class GameSlot { public: void setPlayerTemplate(int value); };
+#include "../../Include/GameNetwork/GameInfo.h"
 class Rva005216DB { public: bool rva005216DB(GameSlot *target, int value); };
 bool Rva005216DB::rva005216DB(GameSlot *target, int value)
 {

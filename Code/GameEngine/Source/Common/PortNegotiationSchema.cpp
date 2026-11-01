@@ -36,11 +36,7 @@ struct Elem005DB98E
 	char m_data[20];
 };
 
-class GameSlot
-{
-public:
-	bool isHuman() const;
-};
+#include "../../Include/GameNetwork/GameInfo.h"
 
 class PortNegotiationSchema
 {

@@ -30,7 +30,7 @@ struct Rva005DB86EPingStats {
     void reset() { sampleA = 0.0f; sampleB = 0.0f; sampleC = 0.0f; count = 0; }
 };
 
-class GameSlot { public: bool isHuman() const; };
+#include "../../Include/GameNetwork/GameInfo.h"
 
 class PortNegotiationSchema
 {

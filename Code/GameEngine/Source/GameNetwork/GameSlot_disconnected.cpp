@@ -9,16 +9,7 @@
 // calls slot->disconnected(). The && expression is what gives retail's
 // xor eax,eax / inc eax result; the field name is carried from Zero Hour.
 
-class GameSlot
-{
-public:
-	bool isHuman() const;
-	bool disconnected() const;
-
-private:
-	char m_pad00[0x48];
-	bool m_disconnected;				// +0x48
-};
+#include "../../Include/GameNetwork/GameInfo.h"
 
 bool GameSlot::disconnected() const
 {

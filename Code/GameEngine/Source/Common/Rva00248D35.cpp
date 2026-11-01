@@ -5,11 +5,7 @@
 // Evidence: imul 0x1D0 plus lea plus call isHuman plus ret 8,
 // callers at 0x0024A4CA 0x0024A4E1 0x005820C1.
 
-class GameSlot
-{
-public:
-	bool isHuman() const;
-};
+#include "../../Include/GameNetwork/GameInfo.h"
 
 class Rva00248D35
 {

@@ -219,7 +219,7 @@ void NAT::notifyConnectionFromTargetDone() {
 }
 
 extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime();
-class GameSlot { public: bool isHuman() const; };
+#include "../../Include/GameNetwork/GameInfo.h"
 // Native data9D35D4 is4000, referenced only by this host-update loop.
 // Its original symbol name is unknown; this label describes its role.
 unsigned NAT::s_hostUpdateInterval=4000;

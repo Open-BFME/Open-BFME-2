@@ -284,19 +284,7 @@ struct GameSlotConnectInfo
 
 class CreateAHeroData;
 
-class GameSlot
-{
-public:
-	void setState(SlotState state, UnicodeString name, const GameSlotConnectInfo *connectInfo);
-	bool isOccupied() const;
-	void rva0037AD8D(const CreateAHeroData &data);
-	void *m_vtable; // +0x00
-	char m_pad04[0x4C];
-	int m_heroKind; // +0x50, nonzero before this screen assigns a hero
-	int m_hero0c; // +0x54
-	int m_hero10; // +0x58
-	int m_hero; // +0x5C, CreateAHeroData list index
-};
+#include "../../../../../Include/GameNetwork/GameInfo.h"
 
 // ?Rva00521CBAAdvance@@YAXPAPAURva00521CBANode@@HPAX@Z retail 0x00521CBA 41B
 // Evidence: caller 0x00521EC2 pushes 3 args; no callees; walks a doubly-linked

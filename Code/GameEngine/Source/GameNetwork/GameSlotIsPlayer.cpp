@@ -28,17 +28,7 @@ enum
 
 #include "../../../../reference/shims/bfme2_ascii/unicode_string.h"
 
-class GameSlot
-{
-public:
-	virtual void reset(void) = 0;
-	Bool isPlayer(UnicodeString userName) const;
-
-protected:
-	Int m_state;
-	unsigned char m_gap08[0x30 - 0x08];
-	UnicodeString m_name;
-};
+#include "../../Include/GameNetwork/GameInfo.h"
 
 // ?isPlayer@GameSlot@@QBE_NVUnicodeString@@@Z
 Bool GameSlot::isPlayer(UnicodeString userName) const

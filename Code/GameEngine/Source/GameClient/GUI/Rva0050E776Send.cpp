@@ -44,11 +44,7 @@ int __cdecl Rva0050E776Send(GameWindow *window, int data)
 // only forces cl to emit it in that convention. Identity unproven.
 typedef bool Bool;
 
-class GameSlot
-{
-public:
-	Bool isAI() const;
-};
+#include "../../../Include/GameNetwork/GameInfo.h"
 
 class Rva0050E794Network
 {

@@ -7,14 +7,7 @@
 typedef int Int;
 typedef unsigned int UnsignedInt;
 
-class GameSlot
-{
-public:
-	char m_pad00[0x34];
-	AsciiString m_name34;
-	char m_pad38[0x50 - 0x38];
-	Int m_50;
-};
+#include "../../../Include/GameNetwork/GameInfo.h"
 
 class Player;
 class UpgradeTemplate;
@@ -74,7 +67,7 @@ void Rva0021B3FA::rva0021B3FA()
 		GameSlot *slot = Rva0021B37AFind(player);
 		if (slot == 0)
 			continue;
-		if (slot->m_50 == 0)
+		if (slot->m_field50 == 0)
 			continue;
 		if (((const StringBase<char> *)&m_str190)->isEmpty())
 			continue;

@@ -10,12 +10,7 @@
 // declared, bound to the rowed provider.
 #include "string_base.h"
 
-class GameSlot {
-public:
-	virtual ~GameSlot();
-	char _pad[0x1AC - 4];
-	GameSlot &rva002DBAB9(const GameSlot &other);
-};
+#include "../../Include/GameNetwork/GameInfo.h"
 
 struct Rva004479FD
 {

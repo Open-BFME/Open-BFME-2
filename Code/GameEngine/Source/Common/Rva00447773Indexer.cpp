@@ -20,11 +20,7 @@ void *Rva00447773::getLANSlot(int index)
 
 typedef bool Bool;
 
-class GameSlot
-{
-public:
-	Bool isHuman() const;
-};
+#include "../../Include/GameNetwork/GameInfo.h"
 
 // Retail 0x00449522, 43 bytes. Human-gated row pointer over 0x1D0 records:
 // the GameSlot at row+0xDC must be human, then the pointer at row+0x2A8 is
