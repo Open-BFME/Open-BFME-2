@@ -33,16 +33,7 @@ extern GameTextInterface *TheGameText;
 
 #include "../../../Include/Common/INI/INI.h"
 
-class INIException
-{
-public:
-	INIException(int argumentCount, const char *format, ...);
-	INIException(const INIException &other);
-	~INIException();
-
-	char *mFailureMessage;
-	int m_argumentCount;
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 
 // ?parseAndTranslateLabel@INI@@SAXPAV1@PAX1PBX@Z
 void INI::parseAndTranslateLabel(INI *ini, void *, void *store, const void *)

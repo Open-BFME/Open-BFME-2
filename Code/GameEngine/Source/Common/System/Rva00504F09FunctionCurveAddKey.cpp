@@ -7,15 +7,7 @@
 // at 0x00504EAD takes the two tangents as floats (fld/fstp), not as bits.
 typedef int Int;
 
-class INIException
-{
-public:
-	INIException(int argCount, const char *format, ...);
-	char *mFailureMessage;
-	int mErrorCode;
-	INIException(const INIException &that);
-	~INIException();
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 
 struct Rva00504EADCurvePoint { float time,value;unsigned char reserved[8]; };
 

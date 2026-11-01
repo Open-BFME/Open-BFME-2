@@ -29,15 +29,7 @@ extern const char *BodyStateNames[];
 extern const char *VeterancyNames104[];
 extern const char *const ModelConditionNames[];
 
-class INIException
-{
-public:
-	INIException(int argCount, const char *format, ...);
-	char *mFailureMessage;
-	int mErrorCode;
-	INIException(const INIException &that);
-	~INIException();
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 
 class Rva003339CE
 {

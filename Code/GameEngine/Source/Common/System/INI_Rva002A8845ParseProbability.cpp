@@ -13,16 +13,7 @@
 
 #include "../../../Include/Common/INI/INI.h"
 
-class INIException
-{
-public:
-	INIException(int argumentCount, const char *format, ...);
-
-	char *mFailureMessage;
-	int m_argumentCount;
-	INIException(const INIException &that);
-	~INIException();
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 
 
 // ?Rva002A8845_ParseProbability@INI@@SAXPAV1@PAX1PBX@Z

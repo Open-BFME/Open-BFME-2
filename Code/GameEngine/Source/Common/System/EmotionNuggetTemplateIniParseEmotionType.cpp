@@ -14,12 +14,7 @@
 
 #include <string.h>
 
-struct INIException
-{
-	INIException(int argCount, const char *format, ...);
-	char *mFailureMessage;
-	int mErrorCode;
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 
 extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
 

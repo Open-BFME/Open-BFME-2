@@ -78,7 +78,7 @@ extern const char *const BFME2DeathTypeNames[] = {
     0
 };
 #include <string.h>
-struct INIException { char *message; int code; INIException(int argCount, const char *format, ...); };
+#include "../../../Include/Common/INI/FieldParse.h"
 extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
 struct FlagsThrowInfoAnchor { int a,b,c,d; };
 static const FlagsThrowInfoAnchor flagsThrowInfoAnchor = {0,0,0,0};

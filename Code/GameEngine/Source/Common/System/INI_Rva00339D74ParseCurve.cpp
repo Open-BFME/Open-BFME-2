@@ -31,15 +31,7 @@ public:
 	void parse(INI *ini);
 	_STL::vector<BfmePod16, _STL::allocator<BfmePod16> > m_keys;
 };
-class INIException
-{
-public:
-	INIException(int argCount, const char *format, ...);
-	char *mFailureMessage;
-	int mErrorCode;
-	INIException(const INIException &that);
-	~INIException();
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 // ?Rva00339D74ParseCurve@@YAXPAVINI@@PAX1PBX@Z
 void Rva00339D74ParseCurve(INI *ini, void *instance, void *store, const void *userData)
 {

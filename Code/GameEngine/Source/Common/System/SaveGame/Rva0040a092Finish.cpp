@@ -33,16 +33,7 @@ struct BfmeWorldRV;
 extern class ControlBar *TheControlBar;
 extern const char g_00C39070[] = "Unknown command '%s' found in command set. File: %s Line: %d\n";
 
-class INIException
-{
-public:
-    char *mFailureMessage;
-    int m_argCount;
-    INIException(int argCount, const char *format, ...);
-    INIException(const INIException &that);
-    ~INIException();
-    INIException &operator=(const INIException &that);
-};
+#include "../../../../Include/Common/INI/FieldParse.h"
 
 class CommandSet
 {

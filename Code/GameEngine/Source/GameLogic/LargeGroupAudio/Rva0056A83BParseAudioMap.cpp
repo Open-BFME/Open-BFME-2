@@ -20,13 +20,7 @@ public:
  float dup_002EE10(const char *);
  char pad[0x420]; const char *seps;
 };
-class INIException {
-public:
- INIException(int,const char *,...);
- INIException(const INIException &);
- ~INIException();
- char *message; int code;
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 struct BfmeStringRecord00568CE0;
 namespace _STL { template<class T> class allocator {}; template<class T,class A=allocator<T> > class vector {public:void push_back(const T &);}; }
 class Rva00568C4E {

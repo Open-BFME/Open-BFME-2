@@ -16,15 +16,7 @@ public:
 	void *m_begin;
 	void *m_end;
 };
-class INIException
-{
-public:
-	INIException(int argCount, const char *format, ...);
-	INIException(const INIException &other);
-	~INIException();
-	char *mFailureMessage;
-	int m_argCount;
-};
+#include "../../Include/Common/INI/FieldParse.h"
 #include <string.h>
 class Eva
 {

@@ -69,12 +69,7 @@ public:
 
 extern UpgradeCenter *TheUpgradeCenter;	// Upgrade.cpp's global (0x009FEB60)
 
-struct INIException
-{
-	INIException(int argCount, const char *format, ...);
-	char *mFailureMessage;
-	int mErrorCode;
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 
 __declspec(noreturn) void __stdcall _CxxThrowException(void *pExc, void *pInfo);
 

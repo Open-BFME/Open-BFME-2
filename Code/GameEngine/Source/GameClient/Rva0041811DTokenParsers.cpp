@@ -29,15 +29,7 @@ public:
 	int scanIndexList(const char *token, const char *const *names);
 };
 
-class INIException
-{
-public:
-	char *mFailureMessage;
-	int m_argCount;
-	INIException(int argCount, const char *format, ...);
-	INIException(const INIException &other);
-	~INIException();
-};
+#include "../../Include/Common/INI/FieldParse.h"
 
 class Rva0041811D
 {

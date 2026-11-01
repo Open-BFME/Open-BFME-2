@@ -17,15 +17,7 @@ public:
 	const char *rva0002E03D(const char *seps, bool *substituted);
 };
 
-class INIException
-{
-public:
-	INIException(int argCount, const char *format, ...);
-	char *mFailureMessage;
-	int mErrorCode;
-	INIException(const INIException &that);
-	~INIException();
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 
 typedef int NameKeyType;
 

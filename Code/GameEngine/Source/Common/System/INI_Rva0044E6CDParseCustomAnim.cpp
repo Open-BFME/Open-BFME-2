@@ -29,15 +29,7 @@ typedef int Int;
 
 #include "../../../Include/Common/INI/INI.h"
 
-class INIException
-{
-public:
-	INIException(int argCount, const char *format, ...);
-	char *mFailureMessage;
-	int mErrorCode;
-	INIException(const INIException &that);
-	~INIException();
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 
 template <unsigned int NUMBITS>
 class BitFlags

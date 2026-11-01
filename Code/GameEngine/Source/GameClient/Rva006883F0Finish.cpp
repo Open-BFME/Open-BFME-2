@@ -74,15 +74,7 @@ extern "C" const struct _s__ThrowInfo __identifier("_TI1?AVINIException@@");
 // ??0INIException@@QAA@HPBDZZ 0x0002F681). Consumer only: throws via the
 // filler plus _CxxThrowException with the extern TI1, so this TU emits no
 // __TI1 COMDAT of its own (the kept retail copy links).
-class INIException
-{
-public:
-	INIException(int argumentCount, const char *format, ...);
-	INIException(const INIException &other);
-	~INIException();
-	char *mFailureMessage;
-	int m_argumentCount;
-};
+#include "../../Include/Common/INI/FieldParse.h"
 
 // The parser is registered directly in SubtitleManager's FieldParse table.
 void parseSubtitleLineTable(INI *ini, void *instance, void *store, const void *userData)

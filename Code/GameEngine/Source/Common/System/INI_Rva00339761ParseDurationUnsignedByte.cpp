@@ -11,15 +11,7 @@
 
 #include "../../../Include/Common/INI/INI.h"
 
-class INIException
-{
-public:
-	char *mFailureMessage;
-	int m_argCount;
-	INIException(int argCount, const char *format, ...);
-	INIException(const INIException &other);
-	~INIException();
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 
 // Retail value at 0x00DBA4EC owned by INI_parseDurationUnsignedShort.cpp.
 extern float g_parseDurationMsecScale;

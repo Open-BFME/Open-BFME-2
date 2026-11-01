@@ -65,15 +65,7 @@ extern "C" const struct _s__ThrowInfo __identifier("_TI1?AVINIException@@");
 // 0x004588C5, filler ??0INIException@@QAA@HPBDZZ 0x0002F681). The throw object
 // below is this class's storage filled by the filler; destruction at unwind is
 // via the ThrowInfo's pmfnUnwind, preserved by keeping size 8.
-class INIException
-{
-public:
-	INIException(int argumentCount, const char *format, ...);
-	INIException(const INIException &other);
-	~INIException();
-	char *mFailureMessage;
-	int m_argumentCount;
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 
 class ModuleData
 {

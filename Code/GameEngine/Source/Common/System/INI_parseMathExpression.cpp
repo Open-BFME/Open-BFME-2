@@ -40,15 +40,7 @@ public:
 	Real parseMathExpression(const char *text, Real (INI::*valueParser)(const char *token));
 };
 
-class INIException
-{
-public:
-	INIException(int argCount, const char *format, ...);
-	char *mFailureMessage;
-	int mErrorCode;
-	INIException(const INIException &that);
-	~INIException();
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 
 // ?parseIntMathExpression@INI@@QAEHPBDP81@AEH0@Z@Z
 Int INI::parseIntMathExpression(const char *text, Int (INI::*valueParser)(const char *token))

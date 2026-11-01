@@ -19,15 +19,7 @@ typedef const ConstCharPtr *ConstCharPtrArray;
 
 extern const char *TheKindOfBitNames[]; ///< retail [0x00DBBE18]
 
-class INIException
-{
-public:
-	INIException(int argCount, const char *format, ...);
-	char *mFailureMessage;
-	int mErrorCode;
-	INIException(const INIException &that);
-	~INIException();
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 
 class Rva00255D58
 {
