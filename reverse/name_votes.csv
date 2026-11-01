@@ -20661,3 +20661,7 @@ Code/GameEngine/Source/Common/calc.cpp|function|0x00503DEB|rva00503DEB,40805c7aa
 Code/GameEngine/Source/Common/calc.cpp|function|0x00503E17|rva00503E17,d4a11618b46ff8e1968d202d,haiku-5.5,drz-k3-n32e2-review,w-a3d394d58042,2026-11-01
 Code/GameEngine/Source/Common/calc.cpp|function|0x00503D4E|Rva00503D4ECubic,2d8181b94e3a5576aa393105,haiku-5.5,drz-k3-n32e2-review,w-a3d394d58042,2026-11-01
 Code/GameEngine/Source/Common/canPlayersTransferMoneyYet.cpp|member|Rva0023D339B|m_40,28502b82ddbe404be1e9ef7d,haiku-5.5,drz-k3-n32e2-review,w-a3d394d58042,2026-11-01
+Code/GameEngine/Source/Common/CarryoverUnit.cpp|function|0x0037DC8A|Rva0037DC8AEqual,ae8fdd7518d948696784b9ae,haiku-5-5,k9-n32f2-review,w-2a58b1ead41e,2026-11-01
+Code/GameEngine/Source/Common/CarryoverUnit.cpp|function|0x0037DCCC|rva0037DCCC,8b8688bf9ab9afb54600e9eb,haiku-5-5,k9-n32f2-review,w-2a58b1ead41e,2026-11-01
+Code/GameEngine/Source/Common/ConstIntGetters2.cpp|function|0x0018026E|Rva0018026EGet,35e775c18dffee6402466994,haiku-5-5,k9-n32f2-review,w-2a58b1ead41e,2026-11-01
+Code/GameEngine/Source/Common/ConstIntGetters.cpp|function|0x00201095|Rva00201095Get,24cca23babb26018546e68f1,haiku-5-5,k9-n32f2-review,w-2a58b1ead41e,2026-11-01
