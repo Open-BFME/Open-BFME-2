@@ -1,0 +1,13 @@
+{
+  "before_definitions": 60,
+  "after_definitions": 56,
+  "added": [],
+  "removed": [
+    "??1AIGateUpdate@@UAE@XZ",
+    "??1BehaviorModule@@UAE@XZ",
+    "??1UpdateModule@@UAE@XZ",
+    "??_GBehaviorModule@@UAEPAXI@Z"
+  ],
+  "changed": [],
+  "all_retained_whole_code_and_relocations_equal": true
+}

@@ -42,6 +42,7 @@ class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 
 public:
 	UpdateModule(Thing *thing, const ModuleData *moduleData);
+	virtual ~UpdateModule();
 	virtual void update();
 };
 
@@ -49,6 +50,7 @@ class AIGateUpdate : public UpdateModule
 {
 public:
 	AIGateUpdate(Thing *thing, const ModuleData *moduleData);
+	virtual ~AIGateUpdate();
 
 private:
 	unsigned int m_reserved20;

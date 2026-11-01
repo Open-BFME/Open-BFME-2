@@ -16133,9 +16133,20 @@ with a one-slot anchor) by `GameLogic/Module/BehaviorModule.h`. Four mechanisms:
 | BloodthirstyUpdateCtor, RainOfFireUpdateCtor | 250 | 1 | repaired (second commit): `6BObjectModule`/`6BBehaviorModuleInterface` tables their Dtor units emit |
 | BridgeBehaviorCtor, QueueProductionExitUpdateCtor | 302 | 1 | blocked: files held (StarkillerHDX UpdateModule adoption / QueueProductionExitUpdate.cpp TU merge) |
 | UpdateModuleCtor, RunOffMapBehaviorCtor, DamageModuleCtor, SpecialPowerModuleCtor, BodyModuleCtor, FireWeaponCollide | 1,167 | 2 | blocked on the BehaviorModule.h destructor change (`class:BehaviorModule` held by StarkillerHDX); tested proposal below; re_attempts verdicts on the six ctor rows |
-| AIGateUpdateCtor, DestroyEnvironmentUpdateCtor | 132 | 3 (+2) | blocked: files held by StarkillerHDX's UpdateModule adoption; it must also declare the rowed derived destructor |
-| AIGateUpdateDtor, DestroyEnvironmentUpdate, Rva0024A797DeletingDtor | 413 | 3 (victims) | clear when the two ctor units stop emitting the copies |
+| AIGateUpdateCtor, DestroyEnvironmentUpdateCtor | 132 | 3 (+2) | AIGate corrected by explicit existing destructor declarations (2026-11-01, Cortys); DestroyEnvironment remains separate. Historical held-scope blocker retained below. |
+| AIGateUpdateDtor, DestroyEnvironmentUpdate, Rva0024A797DeletingDtor | 413 | 3 (victims) | AIGate now predicts LINKS; remaining victims need DestroyEnvironment's implicit copies removed |
 | ReplenishUnitsBehavior, SiegeDockingBehaviorDtor, SpecialPowerModuleDtor_Unresolved, MonitorConditionUpdate, StructureToppleUpdateCtor, AutoPickUpUpdate | 3,940 | 4 | open; several first copies are in held Dtor files |
+
+**AIGate scoped repair (2026-11-01, Cortys):** the constructor now declares the
+existing UpdateModule and AIGateUpdate destructors out of line. All five strict
+rows pass, all 56 retained complete code definitions/relocations are identical
+to the original-source control, and four implicit destructor definitions
+disappear. Against index86db074988, the constructor improves 0 -> 62 linking
+bytes and its destructor unit 0 -> 154. The common UpdateModule destructor
+unit still has another duplicate; no census or shared-header closure is claimed.
+Evidence: `reverse/attempt_support/aigate-destructor-declarations-20261101/`.
+Earlier file reservations prevented this repair; its constructor scope is now
+available and claimed. No claim is taken over from another worker.
 
 Completed: group 1 rebinding of the AttributeModifierPoolUpdate folded table
 (0x00BEFF90) in ten ctor units. `./build.sh` 17/17 rows over the ten files; scoped
