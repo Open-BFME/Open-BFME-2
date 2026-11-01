@@ -130,7 +130,7 @@ typedef char ScriptedModelTreeHeaderSizeCheck[sizeof(Rva000C0DD8TreeHeader) == 1
 
 // Pointer-chain handle at +0x1C: unlinked through 0x0004CBC0 when set.
 // 0x0004CBC0 is the handle unlink (row ?rva0004CBC0@RvaSmartPtr12@@QAEXXZ); the dtor is the inline null test around it.
-class RvaSmartPtr12 { public: void rva0004CBC0(); };
+#include "../../../../../../GameEngine/Include/Common/RvaSmartPtr12.h"
 struct W3DScriptedModelDrawHandle
 {
 	W3DScriptedModelDrawHandle() : m_system(0), m_previous(0), m_next(0) {}

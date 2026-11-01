@@ -140,10 +140,7 @@ void Rva002141D1::rva002118C2()
 // The rowed 0x0004CC19 copy only stores pointers and calls the attach at
 // 0x0004CB9A, which cannot throw either; declaring that keeps the 2115EC
 // handle copies out of an unwind state and its frame at 0x30.
-class RvaSmartPtr12 { public:
- RvaSmartPtr12(const RvaSmartPtr12 &) throw();
- void rva0004CBC0() throw();
-};
+#include "../../../Include/Common/RvaSmartPtr12.h"
 class BfmeParticleSystemHandle {
 public:
  ParticleSystem *system;void *previous,*next;

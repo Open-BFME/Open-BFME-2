@@ -13,7 +13,7 @@
 // EBX=object then XOR EBX zero, and EDI->EAX fallback branches; assignment to
 // a local fallback pointer instead grew the frame and commuted those roles.
 #include "ascii_string.h"
-class RvaSmartPtr12 { public: RvaSmartPtr12& operator=(const RvaSmartPtr12&) throw(); void rva0004CBC0() throw(); };
+#include "../../../../../../GameEngine/Include/Common/RvaSmartPtr12.h"
 class Rva00270260 { public: bool rva00270260(); };
 struct Rva001F3C43Arg;
 struct DrawableTruckView { char pad[0xfc]; Rva001F3C43Arg *object; };

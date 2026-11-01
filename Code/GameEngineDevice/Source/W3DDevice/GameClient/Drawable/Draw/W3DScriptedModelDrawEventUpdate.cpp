@@ -93,7 +93,7 @@ namespace _STL {
  template<class T,class A=allocator<T> >class vector {public:void push_back(const T&);};
 }
 class Rva000B9A0E {public:void rva000B9A0E(void*,int,int);};
-class RvaSmartPtr12 {public:void rva0004CBC0();};
+#include "../../../../../../GameEngine/Include/Common/RvaSmartPtr12.h"
 class BfmeParticleSystemHandle {
 public:
  __forceinline ~BfmeParticleSystemHandle(){if(system)reinterpret_cast<RvaSmartPtr12*>(this)->rva0004CBC0();}

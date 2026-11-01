@@ -46,13 +46,7 @@ public:
 	void destroy();
 };
 ParticleSystem *Make001FCBD7();
-class RvaSmartPtr12
-{
-public:
-	RvaSmartPtr12 &operator=(const RvaSmartPtr12 &) throw();
-	void rva0004CBC0() throw();
-	char bytes[12];
-};
+#include "../../../../../../GameEngine/Include/Common/RvaSmartPtr12.h"
 class BfmeParticleSystemHandle
 {
 public:

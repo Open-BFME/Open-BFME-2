@@ -56,12 +56,7 @@ public:
 	char m_pad00[0xA8];
 	ParticleSystemID m_systemID; // +0xA8 +0xA8, verified by native initLaser loads.
 };
-class RvaSmartPtr12
-{
-public:
-	void rva0004CBC0() throw(); // 0x0004CBC0, the unlink the inline dtor null test calls
-	RvaSmartPtr12 &operator=(const RvaSmartPtr12 &) throw();
-};
+#include "../../../../Include/Common/RvaSmartPtr12.h"
 class BfmeParticleSystemHandle
 {
 public:

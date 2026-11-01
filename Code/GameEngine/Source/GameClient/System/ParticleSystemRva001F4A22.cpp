@@ -6,7 +6,7 @@
 // Evidence: rowed ??1BfmeParticleSystemHandle@@QAE@XZ callee and caller
 // at 0x001FBD17 range; class unproven so honest address name.
 // 0x0004CBC0 is the handle unlink (row ?rva0004CBC0@RvaSmartPtr12@@QAEXXZ); the dtor is the inline null test around it.
-class RvaSmartPtr12 { public: void rva0004CBC0(); };
+#include "../../../Include/Common/RvaSmartPtr12.h"
 struct BfmeParticleSystemHandle
 {
 	~BfmeParticleSystemHandle();

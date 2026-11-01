@@ -29,7 +29,7 @@
 struct ParticleSystem { void destroy(); };
 enum ParticleSystemID { INVALID_PARTICLE_SYSTEM_ID=0 };
 // 0x0004CBC0 is the handle unlink (row ?rva0004CBC0@RvaSmartPtr12@@QAEXXZ); the dtor is the inline null test around it.
-class RvaSmartPtr12 { public: void rva0004CBC0(); };
+#include "../../../../../../GameEngine/Include/Common/RvaSmartPtr12.h"
 struct BfmeW3DParticleHandle {
  ParticleSystem *system; void *previous; void *next;
  // ?BfmeW3DParticleHandle::~BfmeW3DParticleHandle absent-from-retail

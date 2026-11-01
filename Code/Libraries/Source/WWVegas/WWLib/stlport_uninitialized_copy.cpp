@@ -102,15 +102,7 @@ public:
 
 #include "../../../../GameEngine/Source/Common/BfmeStringRecord005F93E3.h"
 
-class RvaSmartPtr12
-{
-public:
-	RvaSmartPtr12();
-	RvaSmartPtr12(const RvaSmartPtr12 &other);
-
-private:
-	char m_pad[12];
-};
+#include "../../../../GameEngine/Include/Common/RvaSmartPtr12.h"
 
 // Sixteen-byte string record at 0x002199C8: same 38-byte copy shape,
 // striding 0x10 per element through its own rowed _Construct at 0x0021A95D.

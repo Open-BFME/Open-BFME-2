@@ -46,7 +46,7 @@ void __cdecl Rva004C3A9FConstruct(void *, const void *);
 
 
 // 12-byte element; push_back 0x0004CF63.
-class RvaSmartPtr12 { char m_pad[12]; public: RvaSmartPtr12(const RvaSmartPtr12 &); ~RvaSmartPtr12(); };
+#include "../../../../GameEngine/Include/Common/RvaSmartPtr12.h"
 // 8-byte element; push_back 0x000CF83C.
 struct Rva000CF83CElement { char m_pad[8]; public: Rva000CF83CElement(const Rva000CF83CElement &); ~Rva000CF83CElement(); };
 // 8-byte element; push_back 0x00153A27.

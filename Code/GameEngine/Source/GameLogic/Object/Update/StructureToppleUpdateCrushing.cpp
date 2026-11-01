@@ -361,11 +361,7 @@ ParticleSystem *Make001FCBD7();
 
 // The 12-byte handle: the out-of-line unlink is 0x0004CBC0, which the
 // handle's destructor calls only for a live system.
-class RvaSmartPtr12
-{
-public:
-	void rva0004CBC0() throw();
-};
+#include "../../../../Include/Common/RvaSmartPtr12.h"
 class BfmeParticleSystemHandleBase
 {
 public:

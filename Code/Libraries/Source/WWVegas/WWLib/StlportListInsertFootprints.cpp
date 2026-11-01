@@ -43,7 +43,7 @@ struct BfmeStringRecord00415F34 { char m_pad[24]; public: BfmeStringRecord00415F
 // 4-byte element; layout owner stlport_list_create_nodes.cpp.
 class Rva0036CA00Str { char m_pad[4]; public: Rva0036CA00Str(const Rva0036CA00Str &); ~Rva0036CA00Str(); };
 // 12-byte element; layout owner stlport_list_create_nodes.cpp.
-class RvaSmartPtr12 { char m_pad[12]; public: RvaSmartPtr12(const RvaSmartPtr12 &); ~RvaSmartPtr12(); };
+#include "../../../../GameEngine/Include/Common/RvaSmartPtr12.h"
 // 3572-byte element; layout owner stlport_list_treehintopaque_00436e3b.cpp.
 struct TreeHintOpaque0043671B { char m_pad[3572]; public: TreeHintOpaque0043671B(const TreeHintOpaque0043671B &); ~TreeHintOpaque0043671B(); };
 // 8-byte element; layout owner stlport_list_treekey00242f5e_create_node.cpp.

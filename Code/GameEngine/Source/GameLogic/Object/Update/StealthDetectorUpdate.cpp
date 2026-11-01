@@ -294,7 +294,7 @@ class ParticleSystem;
 
 ParticleSystem *Make001FCBD7();
 
-class RvaSmartPtr12{public:void rva0004CBC0() throw();};
+#include "../../../../Include/Common/RvaSmartPtr12.h"
 
 class BfmeParticleSystemHandle{public:__forceinline ~BfmeParticleSystemHandle(){if(m_system)((RvaSmartPtr12*)this)->rva0004CBC0();}ParticleSystem *m_system;void *m_prev,*m_next;
  operator bool()const{return m_system!=0;}ParticleSystem *operator->()const{return m_system?m_system:Make001FCBD7();}};

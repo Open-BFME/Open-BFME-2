@@ -10,7 +10,7 @@
 class ParticleSystem {public:void destroy();};
 ParticleSystem *Make001FCBD7();
 class Rva001F3852ByteOneSetter {public:void enable();};
-class RvaSmartPtr12 {public:void rva0004CBC0() throw();};
+#include "../../../Include/Common/RvaSmartPtr12.h"
 class BfmeParticleSystemHandle {
 public:
  __forceinline ~BfmeParticleSystemHandle(){if(system)((RvaSmartPtr12 *)this)->rva0004CBC0();}

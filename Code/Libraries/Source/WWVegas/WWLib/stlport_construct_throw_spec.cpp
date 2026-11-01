@@ -10,11 +10,7 @@
 #include <memory>
 #include <new>
 
-class RvaSmartPtr12
-{
-public:
-	RvaSmartPtr12(const RvaSmartPtr12 &other);
-};
+#include "../../../../GameEngine/Include/Common/RvaSmartPtr12.h"
 
 class AssetReference
 {

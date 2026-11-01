@@ -3,12 +3,7 @@
 #include "ascii_string.h"
 #define W3DFIRE_FILE "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\W3DFire.cpp"
 
-class RvaSmartPtr12
-{
-public:
-    RvaSmartPtr12 &operator=(const RvaSmartPtr12 &) throw();
-    void rva0004CBC0() throw();
-};
+#include "../../../../GameEngine/Include/Common/RvaSmartPtr12.h"
 
 class ParticleSystem
 {

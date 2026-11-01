@@ -53,14 +53,7 @@ public:
  float getCost() const{return costAC;}
 };
 ParticleSystem *Make001FCBD7();
-class RvaSmartPtr12 {
-public:
- ParticleSystem *particle;void *previous,*next;
- RvaSmartPtr12(const RvaSmartPtr12&);
- ~RvaSmartPtr12();
- __forceinline ParticleSystem *get() const { return particle; }
- ParticleSystem *operator->() const { return particle ? particle : Make001FCBD7(); }
-};
+#include "../../../Include/Common/RvaSmartPtr12.h"
 class Rva0004CCFF {public:void *destroyDelete(unsigned int);};
 namespace _STL {static __forceinline void _Destroy(RvaSmartPtr12 *p){((Rva0004CCFF *)p)->destroyDelete(0);}}
 #include <list>

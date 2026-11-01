@@ -6,13 +6,7 @@
 #define _STLP_NO_EXCEPTIONS 1
 #include <list>
 
-class RvaSmartPtr12
-{
-	char m_pad[12];
-public:
-	RvaSmartPtr12(const RvaSmartPtr12 &);
-	~RvaSmartPtr12();
-};
+#include "../../../../GameEngine/Include/Common/RvaSmartPtr12.h"
 
 namespace _STL {
 template<> void _Construct<RvaSmartPtr12, RvaSmartPtr12>(RvaSmartPtr12 *dest, const RvaSmartPtr12 &source) throw();

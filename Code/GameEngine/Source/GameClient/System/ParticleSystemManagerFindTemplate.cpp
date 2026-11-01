@@ -72,7 +72,7 @@ void XferParticleSystemID(Xfer*,int*);
 namespace FXParticleSystem { class ParticleSystemTemplate {public:AsciiString getName()const;}; }
 class ParticleSystem {public:char pad[0x198];FXParticleSystem::ParticleSystemTemplate *sysTemplate;char pad19C[8];bool destroyed;char pad1A5;bool saveable;};
 ParticleSystem *Make001FCBD7();
-class RvaSmartPtr12 {public:RvaSmartPtr12(const RvaSmartPtr12&)throw();void rva0004CBC0()throw();};
+#include "../../../Include/Common/RvaSmartPtr12.h"
 class BfmeParticleSystemHandle {
 public:
  __forceinline BfmeParticleSystemHandle(const BfmeParticleSystemHandle &that) {((RvaSmartPtr12*)this)->RvaSmartPtr12::RvaSmartPtr12(*(const RvaSmartPtr12*)&that);}
