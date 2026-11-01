@@ -108,12 +108,7 @@ public:
 extern FXShaderParameterSourceNamespaceSAS *g_00DF36B4;
 
 // TheGlobalData: the +0x62 flag turns the shadow map on.
-class GlobalData
-{
-public:
-	unsigned char m_pad00[0x62];
-	bool m_useShadowMapping; // +0x62
-};
+#include "../../../../../GameEngine/Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
 class Rva0007DA23ResourceManager

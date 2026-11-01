@@ -1873,14 +1873,7 @@ void DozerAIUpdate::rva00488CF0()
 		goal->kill(DAMAGE_08, DEATH_NORMAL);
 }
 
-class GlobalData
-{
-public:
-	unsigned char m_pad0000[0x11DC];
-	UnsignedInt m_builderFadeOutTime; // +0x11DC, the frames a dozer takes to fade out into a site
-	UnsignedInt m_builderFadeInTime; // +0x11E0, the frames a dozer takes to fade back in
-	Real m_builderMoveFromNewStructureDistance; // +0x11E4, how far it steps away from the structure it leaves
-};
+#include "../../../../../Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;
 

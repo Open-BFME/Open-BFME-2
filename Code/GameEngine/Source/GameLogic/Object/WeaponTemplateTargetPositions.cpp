@@ -64,12 +64,7 @@ public:
 	float get() const;
 };
 
-class GlobalData
-{
-public:
-	char m_pad00[0x11C4];
-	float m_clampedLOSHeightForCastleStructures;
-};
+#include "../../../Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;
 

@@ -56,9 +56,8 @@ public:
 	TextureBaseClass *p; // +0x00
 };
 void BFME2Set_Texture(unsigned,const BFME2TextureRef&);void bfmeSetProjectionDepthBias(float);
-class GlobalData {public:
- char pad[0x61];bool drawAux;
-};extern GlobalData*TheWritableGlobalData;
+#include "../../../../GameEngine/Include/Common/GlobalData.h"
+extern GlobalData*TheWritableGlobalData;
 class Rva00069DB1 {public:
  void draw();
  virtual void slot0();
@@ -164,7 +163,7 @@ class Rva00069DB1 {public:
  virtual int IsHidden();char pad[0x37A4-4];VertexBufferClass*vb;IndexBufferClass*ib;int ready,vertices,indices;char gap[0x3850-0x37B8];Rva00069322*texture;
 };
 void Rva00069DB1::draw(){
- if(!TheWritableGlobalData->drawAux||!ready||!vertices||!indices||IsHidden())return;
+ if(!TheWritableGlobalData->m_useShadowDecals||!ready||!vertices||!indices||IsHidden())return;
  ShaderClass shader=ShaderClass::_PresetMultiplicativeShader;
  if(DX8Wrapper::FogEnable)shader.Enable_Fog("HardwareFog");
  VertexMaterialClass*material=VertexMaterialClass::Get_Preset(VertexMaterialClass::PRELIT_DIFFUSE);

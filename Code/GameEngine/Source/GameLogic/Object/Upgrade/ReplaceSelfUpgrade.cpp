@@ -61,12 +61,7 @@ public:
 	virtual Real getGroundHeight(Real x, Real y, Coord3D *normal);	// slot 6
 };
 extern TerrainLogic *TheTerrainLogic;
-class GlobalData
-{
-public:
-	unsigned char m_pad000[0xA70];
-	Real m_allowedHeightVariationForBuilding;					// +0xA70
-};
+#include "../../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 // Footprint shapes of a GeometryInfo (0x24-byte records at +0x2C..+0x30).
 struct Rva0087E900Coord

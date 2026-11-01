@@ -152,12 +152,7 @@ private:
 };
 #include "../../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
-class GlobalData
-{
-public:
-	unsigned char m_pad000[0xC4];
-	Real m_gravity; // +0xC4
-};
+#include "../../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 #define TheGlobalData ((const GlobalData *)TheWritableGlobalData)
 class TerrainLogic

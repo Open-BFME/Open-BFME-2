@@ -263,14 +263,7 @@ private:
 extern GameClient *TheGameClient;
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/GlobalData.h
-class GlobalData
-{
-public:
-	char unknown[0xCB4];
-	unsigned int m_networkRunAheadSlack;
-	char unknownCB8[0xF4];
-	Bool commandIDFiltering; // retail flag at +0xDAC; INI key not recovered here
-};
+#include "../../Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;
 extern unsigned int g_dword010EAD50;

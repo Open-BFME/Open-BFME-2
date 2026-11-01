@@ -77,12 +77,7 @@ private:
 	UnsignedInt m_lastFrame;
 };
 
-class GlobalData
-{
-public:
-	char m_pad000[0xc18];
-	UnsignedInt m_networkRunAheadSlack;
-};
+#include "../../Include/Common/GlobalData.h"
 
 #include "../Common/GameLogicObjectLookupView.h"
 

@@ -36,12 +36,7 @@ public:
 
 extern TerrainLogic *TheTerrainLogic;
 
-class GlobalData
-{
-public:
-	unsigned char m_pad00[0x60];
-	bool m_useShadowVolumes;
-};
+#include "../../../../../../GameEngine/Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;
 

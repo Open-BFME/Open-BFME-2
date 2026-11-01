@@ -66,14 +66,7 @@ public:
 
 // Alpha bytes +0xBE8/+0xBE9/+0xBEA: clear, fogged and shrouded levels (ZH
 // clearAlpha/fogAlpha/shroudAlpha order, as the caller's 0/1/2 selector shows).
-class GlobalData
-{
-public:
-	char m_padBE8[0xbe8];
-	unsigned char m_clearAlpha;
-	unsigned char m_fogAlpha;
-	unsigned char m_shroudAlpha;
-};
+#include "../../../../GameEngine/Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
 class BaseHeightMapRenderObjClass

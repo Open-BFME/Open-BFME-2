@@ -43,14 +43,7 @@ public:
 
 #include "Lib/Coord3D.h"
 
-class GlobalData
-{
-public:
-	char m_pad000[0x920];
-	Coord3D m_terrainLightPos[3];		// +0x920
-	char m_pad944[0x988 - 0x944];
-	Int m_numGlobalLights;			// +0x988
-};
+#include "../../../../GameEngine/Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
 class Rva0006653B
@@ -259,7 +252,7 @@ Int BaseHeightMapRenderObjClass::getStaticDiffuse(Int x, Int y, Bool skipFirstLi
 	}
 
 	Vector3 lightRay[3];
-	Int numLights = TheWritableGlobalData->m_numGlobalLights;
+	Int numLights = TheWritableGlobalData->m_numberGlobalLights;
 	for (Int lightIndex = 0; lightIndex < numLights; lightIndex++)
 	{
 		const Coord3D *lightPos = &TheWritableGlobalData->m_terrainLightPos[lightIndex];

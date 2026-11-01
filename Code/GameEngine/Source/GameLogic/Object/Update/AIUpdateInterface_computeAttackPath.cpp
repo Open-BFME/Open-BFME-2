@@ -276,7 +276,8 @@ private:
  Bool m_attackFlag; //3cd
 };
 
-class GlobalData { public: char pad[0x9b8]; int debugAI; }; extern GlobalData *TheWritableGlobalData;
+#include "../../../../Include/Common/GlobalData.h"
+extern GlobalData *TheWritableGlobalData;
 
 
 class Rva00265254 {

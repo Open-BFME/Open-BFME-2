@@ -191,12 +191,7 @@ public:
 	static bool Has_Stencil();
 };
 
-class GlobalData
-{
-public:
-	char m_pad00[0x60];
-	unsigned char m_useShadowVolumes; // +0x60
-};
+#include "../../../../../GameEngine/Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData; // 0x00DFE758
 #define TheGlobalData TheWritableGlobalData
 

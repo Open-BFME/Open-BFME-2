@@ -46,11 +46,7 @@ public:
 };
 extern FileSystem *TheFileSystem;
 
-class GlobalData
-{
-public:
-	AsciiString getPicturePath() const;
-};
+#include "../../../../GameEngine/Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
 

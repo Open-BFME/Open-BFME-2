@@ -31,12 +31,7 @@ struct Rva0005C8BBElem
 	char m_data[0x1C4];
 };
 
-class GlobalData
-{
-public:
-	char m_pad00[0x9C5];
-	bool m_flag9C5;
-};
+#include "../../../GameEngine/Include/Common/GlobalData.h"
 
 extern class GlobalData *TheWritableGlobalData;
 
@@ -80,7 +75,7 @@ void MilesAudioManager::rva0005C8BB(float volume, int flags)
 void MilesAudioManager::rva0005CAE2()
 {
 	MilesMutexGuard guard(&m_mutex9D4, 0);
-	if (TheWritableGlobalData->m_flag9C5)
+	if (TheWritableGlobalData->field09C5)
 	{
 		rva000524D6();
 		((Rva0005C892 *)this)->rva0005C892();
@@ -90,7 +85,7 @@ void MilesAudioManager::rva0005CAE2()
 void MilesAudioManager::rva0005CB39()
 {
 	MilesMutexGuard guard(&m_mutex9D4, 0);
-	if (TheWritableGlobalData->m_flag9C5)
+	if (TheWritableGlobalData->field09C5)
 	{
 		rva000524E2();
 		((Rva0005C892 *)this)->rva0005C892();

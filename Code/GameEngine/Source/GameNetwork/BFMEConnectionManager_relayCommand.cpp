@@ -73,12 +73,7 @@ public:
 
 extern GameLogic *TheGameLogic;
 
-class GlobalData
-{
-public:
-	char m_pad000[0xC18];
-	unsigned int m_networkRunAheadSlack;
-};
+#include "../../Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;
 

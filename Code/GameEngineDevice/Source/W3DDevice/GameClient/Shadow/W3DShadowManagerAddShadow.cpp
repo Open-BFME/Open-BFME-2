@@ -69,12 +69,7 @@ extern Rva00108660ResourceManager *Rva00DEC2D8Manager;
 // (the data ledger's name there); this unit calls the V2 manager's rva0010837F through it.
 extern W3DProjectedShadowManager *TheW3DProjectedShadowManager;
 
-class GlobalData
-{
-public:
-	unsigned char m_pad00[0x60];
-	bool m_useShadowVolumes; // +0x60
-};
+#include "../../../../../GameEngine/Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
 class W3DShadowManager

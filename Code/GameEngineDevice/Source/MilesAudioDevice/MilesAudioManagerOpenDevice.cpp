@@ -22,7 +22,7 @@ extern "C" __declspec(dllimport) void __stdcall AIL_set_redist_directory(const c
 extern "C" __declspec(dllimport) void __stdcall AIL_startup();
 extern "C" __declspec(dllimport) int __stdcall AIL_quick_startup(int,int,int,int,int);
 extern "C" __declspec(dllimport) int __stdcall AIL_quick_handles(void **,void *,void *);
-class GlobalData { public: char unknown[0x99c]; Bool m_audioOn; };
+#include "../../../GameEngine/Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 struct AudioSettings {
  char unknown[0x54]; Bool m_useDigital; Bool m_useMidi; char pad[2];

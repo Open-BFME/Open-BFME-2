@@ -7,12 +7,7 @@
 // (opaque-holder precedent). The /arch:SSE flag reproduces the movss pair
 // (RadiusDecal_setOpacity precedent).
 
-class GlobalData
-{
-public:
-	unsigned char pad[0xD40];
-	float float0D40;
-};
+#include "../../../Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;
 
@@ -24,7 +19,7 @@ struct Rva003BC37CHolder
 // ?set@Rva003BC37CHolder@@QAEXM@Z
 void Rva003BC37CHolder::set(float value)
 {
-	TheWritableGlobalData->float0D40 = value;
+	TheWritableGlobalData->field0D40 = value;
 }
 // Retail operand VA 0x00DFE758 is TheWritableGlobalData, defined in
 // GameClient.cpp. GameLogic is a different global at VA 0x00DFE78C.

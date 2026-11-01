@@ -97,12 +97,7 @@ public:
 #include "../../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 
-class GlobalData
-{
-public:
-	unsigned char m_pad000[0xE9C];
-	Bool m_debugAI_E9C; // +0xE9C
-};
+#include "../../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
 #include "../../../../Include/GameLogic/TerrainLogic.h"
@@ -505,7 +500,7 @@ Object *AIUpdateInterface::getNextMoodTarget(Bool calledByAI, Bool calledDuringI
 
 	if (!target)
 	{
-	if (TheWritableGlobalData->m_debugAI_E9C)
+	if (TheWritableGlobalData->field0E9C)
 	{
 		Coord3D pos;
 		pos.x = obj->getPosition()->x;

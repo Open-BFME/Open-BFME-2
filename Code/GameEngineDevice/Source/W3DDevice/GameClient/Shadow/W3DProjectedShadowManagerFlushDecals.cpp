@@ -242,13 +242,7 @@ protected:
 
 void bfmeSetProjectionDepthBias(float bias);
 
-class GlobalData
-{
-public:
-	char m_pad[0x9A7];
-	Bool m_useSimpleMergeDecals;	// +0x9A7
-	Real m_opacityOfSimpleMergeDecals;	// +0x9A8
-};
+#include "../../../../../GameEngine/Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
 enum ShadowType

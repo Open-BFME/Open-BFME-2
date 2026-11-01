@@ -532,12 +532,7 @@ enum TimeOfDay
 	TIME_OF_DAY_NIGHT = 4
 };
 
-class GlobalData
-{
-public:
-	char m_pad00[0x134];
-	TimeOfDay m_timeOfDay; // +0x134
-};
+#include "../../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 #define TheGlobalData TheWritableGlobalData
 

@@ -92,12 +92,7 @@ public:
 };
 extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
 
-class GlobalData
-{
-public:
-	char m_pad[0x60];
-	Bool m_useShadowVolumes;
-};
+#include "../../../../../GameEngine/Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
 class W3DShadowManager

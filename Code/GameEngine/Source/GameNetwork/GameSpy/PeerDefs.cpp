@@ -491,11 +491,7 @@ public:
 
 // GlobalData's user-data path getter and FileSystem::createDirectory, both
 // rowed by address.
-class GlobalData
-{
-public:
-	AsciiString rva002360DE(void) const;
-};
+#include "../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 class FileSystem;
 extern FileSystem *TheFileSystem;

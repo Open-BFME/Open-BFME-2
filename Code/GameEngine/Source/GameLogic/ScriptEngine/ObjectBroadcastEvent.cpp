@@ -109,12 +109,7 @@ public:
 };
 extern View *TheTacticalView;
 
-class GlobalData
-{
-public:
-	char m_pad000[0xE9C];
-	bool m_E9C;		// +0xE9C
-};
+#include "../../../Include/Common/GlobalData.h"
 extern class GlobalData *TheWritableGlobalData;
 
 enum NameKeyType { NAMEKEY_INVALID = 0 };
@@ -190,7 +185,7 @@ int ObjectBroadcastEventToEnemies(lua_State *state)
 	Rva00261058 player(object, false);
 	enemies.link(&player);
 
-	if (TheWritableGlobalData->m_E9C) {
+	if (TheWritableGlobalData->field0E9C) {
 		Coord3D pos;
 		pos.x = object->getPosition()->x;
 		pos.y = object->getPosition()->y;

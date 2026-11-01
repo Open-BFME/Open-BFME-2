@@ -67,12 +67,7 @@ public:
 #include "../../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 
-class GlobalData
-{
-public:
-	unsigned char m_pad0000[0x9B8];
-	Int m_debugAI; // +0x9B8
-};
+#include "../../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
 struct Rva0028AC4EValue
@@ -196,7 +191,7 @@ Bool AIUpdateInterface::computeQuickPath(const Coord3D *destination)
 		pos.y = getObject()->getPosition()->y;
 		pos.z = destination->z;
 		m_path->prependNode(&pos, (PathfindLayerEnum)getObject()->rva0028B511(), 0x7FFFFFFF);
-		if (TheWritableGlobalData->m_debugAI == 1)
+		if (TheWritableGlobalData->field09B8 == 1)
 			TheAI->pathfinder()->SetDebugPath((Rva002EDEABArg *)m_path);
 	}
 	Coord3D direction;

@@ -237,12 +237,7 @@ public:
 
 extern MapCache *TheMapCache;
 
-class GlobalData
-{
-public:
-	char m_pad00[0x0C];
-	AsciiString m_mapName;	// +0x0C
-};
+#include "../../../../Include/Common/GlobalData.h"
 
 extern class GlobalData *TheWritableGlobalData;
 

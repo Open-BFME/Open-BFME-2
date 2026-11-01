@@ -255,16 +255,7 @@ public:
 };
 extern W3DShadowManager *TheW3DShadowManager;
 
-class GlobalData
-{
-public:
-	char m_pad000[0x60];
-	Bool m_useShadowVolumes;
-	char m_pad061[0x68 - 0x61];
-	Bool m_useBehindBuildingMarker;
-	char m_pad069[0x984 - 0x69];
-	Real m_occludedLuminanceScale;
-};
+#include "../../../../GameEngine/Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
 class GameLogic;
@@ -374,7 +365,7 @@ void RTS3DScene::flushOccludedObjectsIntoStencil(RenderInfoClass &rinfo)
 				Object *object = draw->getObject();
 				Int color = object->getControllingPlayer()->getPlayerColor();
 				RGB_To_HSV(hsv, Vector3(((color >> 16) & 0xff) / 255.0f, ((color >> 8) & 0xff) / 255.0f, (color & 0xff) / 255.0f));
-				hsv.Z *= TheWritableGlobalData->m_occludedLuminanceScale;
+				hsv.Z *= TheWritableGlobalData->m_occludedColorLuminanceScale;
 				HSV_To_RGB(rgb, hsv);
 				visiblePlayerColors[numVisiblePlayerColors++] = DX8Wrapper::Convert_Color(rgb, 0.5f);
 			}

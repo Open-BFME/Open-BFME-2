@@ -184,12 +184,7 @@ extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
 class GameClient;
 extern GameClient *TheGameClient;
 
-class GlobalData
-{
-public:
-	unsigned char m_pad00[0x49];
-	bool m_secondTerrainTexture;
-};
+#include "../../../../GameEngine/Include/Common/GlobalData.h"
 
 extern GlobalData *TheGlobalData;
 

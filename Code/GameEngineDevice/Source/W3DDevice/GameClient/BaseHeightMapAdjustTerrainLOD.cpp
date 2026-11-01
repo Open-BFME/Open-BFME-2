@@ -99,12 +99,7 @@ public:
 };
 extern View *TheTacticalView;
 
-class GlobalData
-{
-public:
-	char m_pad00[0x50];
-	Int m_terrainLOD;
-};
+#include "../../../../GameEngine/Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
 class BaseHeightMapRenderObjClass;

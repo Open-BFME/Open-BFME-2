@@ -275,7 +275,8 @@ private:
  Bool m_attackFlag; //3cd
 };
 
-class GlobalData { public: char pad[0x9b8]; int debugAI; }; extern GlobalData *TheWritableGlobalData;
+#include "../../../../Include/Common/GlobalData.h"
+extern GlobalData *TheWritableGlobalData;
 
 
 #define PATH_TRACE(s) if(g_00E03745 && theLogicRandomLogFile) { fprintf(theLogicRandomLogFile,s,m_requestedDestination.x,m_requestedDestination.y,m_requestedDestination.z); }

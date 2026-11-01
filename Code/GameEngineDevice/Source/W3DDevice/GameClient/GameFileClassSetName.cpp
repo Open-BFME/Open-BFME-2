@@ -24,7 +24,7 @@ extern "C" char *__cdecl _mbscat(char *,const char *);
 extern "C" __declspec(dllimport) int __cdecl sprintf(char *,const char *,...);
 class FileSystem { public: bool doesFileExist(const char *) const; };
 extern FileSystem *TheFileSystem;
-class GlobalData { public: AsciiString rva002360DE() const; };
+#include "../../../../GameEngine/Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 class GameFileClass {
 public:
