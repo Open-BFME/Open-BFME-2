@@ -16572,6 +16572,18 @@ Rva0024A797Grandchildren.cpp's current object defines. `./build.sh` 23/23 rows; 
 (106 symbols, with Grandchildren and PropagandaTowerBehaviorConstructor); `link_check --refresh`
 BridgeScaffoldBehavior 0 -> 1,021 B, OneRingPenaltyUpdate 0 -> 765 B, Grandchildren 1,280 B and
 PropagandaTowerBehaviorConstructor 115 B LINKS.
+Second sweep (lk12, base `dd39597a0f` with the above, census 18:30 `dae306bc9d`, its index): all
+18,635 census sources with current objects, 18,472 link. Of the census-linked units, eight fail,
+none from the Zero Hour body drops landed after that census (their lost definitions' outside users
+are all census-unlinked: JetAIUpdate, FlightDeckBehavior, DeliverPayloadAIUpdate, PhysicsUpdate,
+W3DTankTruckDraw): RelationMapXfer (LINK-170) and GettingBuiltBehaviorDtor (recipe above), both held;
+HordeMeleeSwarm (index artifact above; `ab58bb88df` landed after `dae306bc9d` too);
+BfmeStringTailRecord180Ctor, Rva00236285Ctor, DisplayRegisterVideoBuffer and BaseHeightMap_Rva00069F4F
+(`__imp_` STLport node-allocator/range-error imports) and atlbasemodule (`___ImageBase`), the
+known `link_check` modelling gaps. Other blockers checked and left: BridgeBehaviorCtor (row above),
+DebugDestructorThunk (`??_7Debug@@6B@`, 1-slot view vs the 35-slot shim; retail 46 slots with a
+virtual destructor, see the Debug entry; class:Debug held), W3DPropDraw (32-slot Zero Hour
+`??_7DrawModule@@6B@` vs the 1-slot copies of eight other units).
 Census confirmation: awaiting.
 
 ### W3DTerrainBackground seed reconciliation (2026-11-01, halilkkaya-codex)
