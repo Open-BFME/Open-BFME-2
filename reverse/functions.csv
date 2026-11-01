@@ -20446,7 +20446,7 @@ _$E5,,0x007B7060,10,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsRecordTex
 ?Compute_Ram_Size@MeshMatDescClass@@QAEHXZ,,0x0015CAE0,430,Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescComputeRamSize.cpp,matched,BFME1 donor MeshMatDescClass ComputeRamSize plus MeshModel callers
 ??1AerialPathfinder@@UAE@XZ,,0x0022C9F6,59,Code/GameEngine/Source/Common/System/SaveGame/Rva0022C9F6Dtor.cpp,matched,opaque virtual dtor with list base via replica pattern
 ??_GAerialPathfinder@@UAEPAXI@Z,,0x0022C9DA,28,Code/GameEngine/Source/Common/System/SaveGame/Rva0022C9F6Dtor.cpp,matched,scalar deleting dtor via TU vtable emission
-?rva004A7E43@SupplyWarehouseDockUpdate@@UAEXXZ,,0x004A7E43,36,Code/GameEngine/Source/Common/Rva004A7E43Slot.cpp,matched,vtable 0x00853790 slot5 broadcast via rowed 0x27164E
+?onObjectCreated@SupplyWarehouseDockUpdate@@UAEXXZ,,0x004A7E43,36,Code/GameEngine/Source/Common/Rva004A7E43Slot.cpp,matched,vtable 0x00853790 slot5 broadcast via rowed 0x27164E
 ?Rva0035E327Parse@@YAXPAVINI@@PAVRva0035E327Holder@@@Z,,0x0035E327,81,Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp,matched,gap factory news 0x34 ctor 0x35E2E6 empty table 0xC6BB18 setter 0x5F69CE
 ??0MeshMatDescRendererState@@QAE@XZ,,0x0015B5B0,41,Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescDefaultCtor.cpp,matched,RendererState ctor nulls Textures sets 0x10441b
 ?isDate@BfmeAptValue006DCD20@@QBEHXZ,,0x006DC680,78,Code/Libraries/Source/Apt/AptValue/AptValueTypePredicatesBFME2.cpp,matched,caller 0x006DD163 asserts isDate; type 29 with undefined exclusion

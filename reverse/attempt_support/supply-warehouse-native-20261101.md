@@ -86,3 +86,15 @@ emit it. The final pair keeps the real out-of-line provider and removes
 only the seed's competing key body/static guard. Both constructors and
 setDockCrippled remain exact: paired byte gate 6/6, key LINKS 79 -> 79 B,
 seed unchanged U7/L2 and 0 -> 0 B. No rejected inline-only trial remains.
+
+## Created-slot donor
+
+004A7E43 adopts the native header and canonical Thing getter. Its slot-5
+identity binds the existing Module::onObjectCreated contract. The old row
+is tombstoned. The seed's competing unrowed body is removed in the same
+change; no outside consumer requires that copy. Paired byte check 4/4
+and frozen checks pass; the real 36-byte provider previews LINKS again.
+The standalone preview uses the old census seed and reports an expected
+duplicate; the paired current preview removes it. Include all changed
+providers together for subsequent previews, especially the renamed key.
+One present-unmatched counter can tighten in the separate hatch commit.

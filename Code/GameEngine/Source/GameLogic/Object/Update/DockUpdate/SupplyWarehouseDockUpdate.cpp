@@ -104,21 +104,7 @@ public:
 	Int m_startingBoxes;
 };
 
-// ?onObjectCreated@SupplyWarehouseDockUpdate@@MAEXXZ present-unmatched
-void SupplyWarehouseDockUpdate::onObjectCreated()
-{
-	char *rawThis = reinterpret_cast<char *>( this );
-	SupplyWarehouseCreatedObject *object =
-		*reinterpret_cast<SupplyWarehouseCreatedObject **>( rawThis + 8 );
-	Drawable *draw = object->getDrawable();
-	if( draw )
-	{
-		SupplyWarehouseCreatedModuleData *moduleData =
-			*reinterpret_cast<SupplyWarehouseCreatedModuleData **>( rawThis + 4 );
-		draw->updateDrawableSupplyStatus( moduleData->m_startingBoxes,
-			*reinterpret_cast<Int *>( rawThis + 0x88 ) );
-	}
-}
+// Native onObjectCreated is the rowed 004A7E43 owner in Rva004A7E43Slot.cpp.
 
 class SupplyWarehouseActionTruckAI
 {
