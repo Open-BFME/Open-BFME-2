@@ -197,11 +197,6 @@ public:
     CreateAHeroData *rva0040A32F(int index);
 };
 class ModuleData;
-class Rva00423A68
-{
-public:
-    void rva00423A68(const ModuleData *p);
-};
 struct CreateAHeroFileEntry
 {
     AsciiString filename;

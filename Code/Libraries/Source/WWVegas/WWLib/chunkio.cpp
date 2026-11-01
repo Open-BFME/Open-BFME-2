@@ -227,20 +227,6 @@ class FileClass;
 
 BFME_DISP8_BYTE_GETTER(Rva00614DA0ByteField, 0x01)
 
-class Rva001DCD05
-{
-public:
-	void *rva001DCD05();
-private:
-	char m_pad[8];
-	char m_08;
-	char m_pad2[0x14 - 0x09];
-	char m_14;
-	char m_pad3[0x20 - 0x15];
-	unsigned char m_20;
-	bool m_21;
-};
-
 // Clean BFME1 9cbfb551 donor structural leads; native instructions independently
 // establish complete RET boundaries and each raw field operation and ABI.
 // Address-owned carriers retain unknown original receiver identity and bounds.
@@ -257,14 +243,6 @@ struct Rva0056AB88Fields { char pad[0xC]; unsigned int wordC; bool matches(unsig
 
 // Disp8 byte setter: mov al,[esp+4] / mov [ecx+<DISP>],al / ret 4 (10 bytes).
 // Address-derived class; the stored byte's meaning is unproven.
-class Rva0065D7C0ByteSetter
-{
-public:
-	void set(unsigned char value);
-	char m_lead[0x1D];
-	unsigned char m_value;
-};
-
 // ?rva002259F3@Rva002259F3@@QBEHXZ, retail 0x002259F3 (25B): three flag bytes at
 // +0x44 (must be set), +0xA8 and +0x9D (must be clear).
 class Rva002259F3

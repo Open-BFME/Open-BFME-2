@@ -14,11 +14,6 @@ public:
 public:
 	bool test(const void *kindOf) const;
 };
-struct ThingTemplate
-{
-    char m_pad[0x108];
-    int m_kindOf;
-};
 struct Thing
 {
     bool isAnyKindOf(const BitFlags<69> &mask) const;

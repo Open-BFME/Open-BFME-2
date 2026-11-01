@@ -16,17 +16,6 @@ struct BfmeNode_00161220
 	void rva004F03AF(BfmeNode_00161220 **head);
 };
 
-class Rva00160530
-{
-	Rva00160530 *m_00;
-	Rva00160530 *m_04;
-	Rva00160530 *m_08;
-
-public:
-	void rva004F0372(Rva00160530 **p);
-	void set(Rva00160530 **p);
-};
-
 // 0x004EF383 is AIPlayer::prependTo_TeamReadyQueue: WorldBuilder's AIPlayer.h inline (score 4)
 // and Zero Hour's checkQueuedTeams call it with the entry right after removeFrom_TeamBuildQueue.
 class TeamInQueue;

@@ -279,12 +279,6 @@ typedef unsigned int UnsignedInt;
 #include "AIXferTypes.h"
 #include "../../Include/Common/BfmeXfer.h"
 
-struct XferVersion
-{
-	unsigned char m_version;
-	unsigned char m_currentVersion;
-};
-
 class AIHarvestPrepareSiteState : public State
 {
 public:

@@ -11,25 +11,12 @@ struct BfmeE8
 	void *m_item;
 };
 
-struct Rva004C7621Pos
-{
-	char m_pad[0x38];
-	float m_x;
-	float m_y;
-};
-
 struct Rva004C7621Rec
 {
 	float *m_vals;
 	void *m_item;
 	int m_f8;
 	int m_fC;
-};
-
-struct Rva004C7621Range
-{
-	Rva004C7621Rec *m_first;
-	Rva004C7621Rec *m_last;
 };
 
 namespace _STL {

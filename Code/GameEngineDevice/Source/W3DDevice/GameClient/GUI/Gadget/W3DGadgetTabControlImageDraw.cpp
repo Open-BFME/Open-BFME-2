@@ -54,23 +54,7 @@ private:
 	BfmeWinDrawData m_hiliteDrawData[ 9 ];
 };
 
-class BfmeGameWindowDrawSub
-{
-public:
-	virtual void unused( void );
-	virtual void draw( GameWindow *window, WinInstanceData *instData );
-};
-
 typedef void (__cdecl *BfmeGameWinDrawFunc)( GameWindow *, WinInstanceData * );
-
-class BfmeGameWindowDispatch
-{
-public:
-	unsigned char m_unreconstructed_00[ 0x1e8 ];
-	BfmeGameWinDrawFunc m_draw;
-	unsigned char m_unreconstructed_1ec[ 0x218 - 0x1ec ];
-	BfmeGameWindowDrawSub m_drawSub;
-};
 
 class GameWindowManager
 {

@@ -9,16 +9,6 @@ class ModuleData;
 
 #include "../../../Include/Lib/BfmeE16.h"
 
-struct BfmePod104
-{
-	int a[26];
-};
-
-struct BfmeAssignRecord104
-{
-	int a[26];
-};
-
 struct Rva003F5254Vector104
 {
 	void *m_00;

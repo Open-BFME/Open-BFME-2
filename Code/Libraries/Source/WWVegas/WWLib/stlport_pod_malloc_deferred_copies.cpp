@@ -133,9 +133,6 @@ struct BfmePod68 { int a[17]; };
 
 // MilesAudioManager's 8-byte trigger-area records: retail folds their erase
 // onto the BfmePod8 body (0x003FA4DB, called twice by 0x000587C6).
-struct AudioTriggerArea { int a[2]; };
-struct AudioTriggerAreaSave { int a[2]; };
-
 // Instantiate the matched members without unrelated container operations.
 
 template _STL::vector<BfmePod8,_STL::allocator<BfmePod8> > & _STL::vector<BfmePod8,_STL::allocator<BfmePod8> >::operator=(_STL::vector<BfmePod8,_STL::allocator<BfmePod8> > const &);

@@ -65,23 +65,6 @@ AptActionQueueC::AptActionQueueC(int nSize)
 	ClearActions();
 }
 
-struct Rva006E58D0ConstFile
-{
-	char _pad0[0x1c];
-	unsigned int aConstants;
-};
-
-class Rva006E58D0
-{
-	char _pad0[0x30];
-	int m_field30;
-
-public:
-	void rva006E5050(void *a, void *b, void *c);
-	void rva006E58D0Body(void *a, void *b, void *c);
-};
-
-
 // AptActionQueueC::ClearActions (WorldBuilder name, its __FUNCTION__ string) @0x006E4A90 (239B). Drains the action pool
 // from m_pCurrent to m_pEnd: validates the cursor via rowed rva006E3230, then
 // per action releases the slot-1 virtual of values[2] (type 1) or values[0]

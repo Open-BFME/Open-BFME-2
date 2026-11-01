@@ -50,13 +50,6 @@ BFME_DISP8_LEA_GETTER(Rva00723140LeaField, 0x04)
 // Native 006C03C0..006C03CB is a complete independently bounded RET leaf.
 // Target behavior: receiver8 plus eight-byte element stride; RET4.
 // Original owner and full array bounds remain unknown; address-owned view only.
-struct Rva006C03C0Slot { unsigned char bytes[8]; };
-
-class Rva006C03C0Fields {
-public: void *at(int index);
-private: unsigned char unknown[8]; Rva006C03C0Slot entries[1];
-};
-
 // ---- from Code/Libraries/Source/WWVegas/WWMath/v3_rnd.cpp
 
 // ---- from Code/Libraries/Source/WWVegas/WWMath/v3_rnd.cpp

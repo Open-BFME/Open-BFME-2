@@ -277,12 +277,6 @@ public:
 	int m_pad[0x0B]; // no /GS cookie in retail frames holding this object
 };
 
-class Rva00800290Buffer
-{
-public:
-	void append(const char *text);
-};
-
 class Rva007F5C30HostedPlayer
 {
 public:
@@ -620,15 +614,6 @@ BFME_DISP8_DWORD_GETTER(Rva00661FD0DwordField, 0x40)
 // then RET0. Unsigned __int64 expresses the returned raw64 pair; the original
 // receiver, value purpose and source signedness remain unknown. Only the
 // accessed prefix is represented, without asserting the full object layout.
-class Rva0066D640QwordField
-{
-public:
-    unsigned __int64 get() const;
-private:
-    char m_lead[0x70];
-    unsigned __int64 m_bits;
-};
-
 class W3DVideoBuffer { public: virtual bool valid(); };
 
 class Gen_007e88b0 { public: int m(); };

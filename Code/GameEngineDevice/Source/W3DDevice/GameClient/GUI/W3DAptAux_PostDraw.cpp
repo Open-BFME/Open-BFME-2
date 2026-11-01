@@ -212,7 +212,6 @@ void w3dCustomControlRender(const char *name, Int arg1, AptRenderingUnit *render
 namespace _STL {
 template list<AptShapeContainer*>::_Node *list<AptShapeContainer*>::_M_create_node(AptShapeContainer*const&);
 }
-class Rva00785FD0Item { public:void cleanup(); };
 struct Rva00785FD0Node;
 // g_rva00785FD0Queue is only an alias of the owned global g_Va00DE6194 (ledger names column); this unit reads the owner through its own view type.
 extern unsigned int g_Va00DE6194;
@@ -287,9 +286,6 @@ static __forceinline bool aptFar(float value) {
 void Rva000A92B0SetMatrix(const AptRenderTransform *input);
 
 unsigned long Rva000A90B0(unsigned long color);
-
-
-class W3DAptRenderer {public:void *__fastcall BeginTriangleList(int count);};
 
 
 // Native A9192..A91D3 (65B, RET 0), between A90B0 and A91D3: a 2D affine

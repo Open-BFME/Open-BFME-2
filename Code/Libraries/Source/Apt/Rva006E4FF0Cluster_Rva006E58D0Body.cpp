@@ -18,20 +18,6 @@ struct Rva006E3230Action
 	char data[24];
 };
 
-class AptValue
-{
-public:
-	virtual void unused0();
-	virtual void unused1();
-};
-
-struct Rva006E3230ActionFull
-{
-	int eActionType;
-	char _pad4[8];
-	AptValue *m_pValues[3];
-};
-
 class AptActionQueueC
 {
 	Rva006E3230Action *m_aActionPool;
