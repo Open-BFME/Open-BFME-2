@@ -78,14 +78,7 @@ struct TAiData
 	UnsignedInt m_guardEnemyReturnScanRate; // +0x44
 };
 
-class AI
-{
-public:
-	const TAiData *getAiData() const { return m_aiData; }
-private:
-	unsigned char m_pad00[0x18];
-	TAiData *m_aiData; // +0x18
-};
+#include "../../../../../Include/GameLogic/AI.h"
 
 extern AI *TheAI;
 extern GameLogic *TheGameLogic;

@@ -190,12 +190,7 @@ public:
 
 #include "../../../Include/GameLogic/AIPathfind.h"
 
-class AI
-{
-public:
-	char pad00[0x10];
-	Pathfinder *m_pathfinder;	// +0x10
-};
+#include "../../../Include/GameLogic/AI.h"
 
 // DelayedLuaEventList: ctor 0x000B6D8B and virtual dtor 0x000B6DD2 (slot 0 of its
 // vftable 0x007C9CF0 is the scalar deleting dtor 0x000B6E0C); the vptr is the +0 word.
