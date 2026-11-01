@@ -226,11 +226,6 @@ public:
 	Bool getCenter(Coord3D *center);
 };
 // The rowed group member count runs on the AIGroup (address-derived name).
-class Rva0036E346
-{
-public:
-	Int rva0036E346();
-};
 #include "../../../Include/Common/TeamBFME2.h"
 class Player
 {
@@ -311,11 +306,6 @@ class Rva00352F2FOpaque
 {
 public:
 	void invoke(const Waypoint *way, int maxShots, CommandSourceType cmdSource);
-};
-class Rva001E46E1
-{
-public:
-	Bool rva001E543F(Object *obj);
 };
 class AIUpdateInterface : public AIDeadStateAISlots<131>
 {

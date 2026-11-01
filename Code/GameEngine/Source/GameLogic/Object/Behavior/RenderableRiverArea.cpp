@@ -183,13 +183,6 @@ template <> __declspec(dllimport) __forceinline vector<BfmeE16, allocator<BfmeE1
 { _Destroy(this->_M_start, this->_M_finish); }
 }
 
-struct BfmePod44 { int a[11]; };
-
-struct BfmeWordVec : _STL::vector<unsigned short, _STL::allocator<unsigned short> >
-{
-	void resize(unsigned int n, unsigned short x);
-};
-
 class Rva00082A53
 {
 	int m_unk00;

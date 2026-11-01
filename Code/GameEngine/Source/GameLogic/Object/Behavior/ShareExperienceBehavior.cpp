@@ -223,12 +223,6 @@ extern Debug *theDebug;
 Bool bfmeRva000387C0(void);
 
 
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
-
 enum NameKeyType
 {
 	NK_UNKNOWN = 0

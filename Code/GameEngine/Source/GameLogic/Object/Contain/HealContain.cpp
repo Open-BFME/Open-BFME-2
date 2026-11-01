@@ -175,26 +175,11 @@ protected:
 };
 
 // Retail table C4C3D4 selects this Snapshot name getter in slot 2.
-class FlammableUpdate
-{
-protected:
-	virtual const char *GetSnapshotName() const;
-};
-
 // Snapshot slot 2 of retail DamageModule table RVA 0x008598E4 selects this getter.
 class DamageModule
 {
 protected:
 	virtual const char *GetSnapshotName() const;
-};
-
-class LivingWorldCampaign
-{
-public:
-	virtual ~LivingWorldCampaign();
-	virtual void loadPostProcess();
-	virtual const char *GetSnapshotName() const;
-	virtual void xfer(Xfer *);
 };
 
 // Existing verified getters rehomed after naming their actual providers.

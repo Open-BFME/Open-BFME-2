@@ -84,24 +84,6 @@ struct Rva0005A084Element { int a[1]; };
 // Use the complete retail push_back at 0x0005A084 from StlportVectorPushBackFamily.
 namespace _STL { template<> void vector<Rva0005A084Element>::push_back(const Rva0005A084Element &); }
 
-class OpaqueRefCounted
-{
-public:
-	void Release_Ref();
-};
-
-class Rva0045E8A9SoundRef
-{
-public:
-	Rva0045E8A9SoundRef() : m_ref(NULL) {}
-	~Rva0045E8A9SoundRef()
-	{
-		if (m_ref)
-			m_ref->Release_Ref();
-	}
-	OpaqueRefCounted *m_ref;
-};
-
 void Rva00339184(const char *token, void *store);
 
 // The death-flag masks under the names the ledger gives their rowed

@@ -37,15 +37,6 @@
 
 class BridgeTowerBehaviorInterface;
 
-class BfmeObjectModule
-{
-public:
-	virtual void slot0() = 0;
-
-private:
-	unsigned int m_data[2];
-};
-
 class Object;
 
 // These views expose only the measured template/module pointers and kind-of byte.
@@ -67,12 +58,6 @@ struct BridgeTowerObjectTemplateView
 
 // 0x004543A9 is also reached through the this-0x14 thunk 0x004543E3 in four
 // vtables, so it is virtual (same body).
-class Rva004543A9LeaNegSbbField
-{
-public:
-	virtual int get() const;
-};
-
 BFME_DISP8_LEA_NEG_SBB_GETTER(Rva0045875FLeaNegSbbField, 12, 0x0C)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeTowerBehavior.cpp

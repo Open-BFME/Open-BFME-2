@@ -167,8 +167,6 @@ bool HealCrateCollide::executeCrateBehavior(Object *other)
 // 138/64, and calls the existing shroud thunk739780 and conditional ID setter.
 class PartitionManager;
 extern PartitionManager *TheShroudManager;
-class Rva00739780 { public: void rva00739780(int); };
-class Rva002D9531 { public: void rva002D9531(int); };
 class ShroudCrateCollide : public CrateCollide
 {
 protected:

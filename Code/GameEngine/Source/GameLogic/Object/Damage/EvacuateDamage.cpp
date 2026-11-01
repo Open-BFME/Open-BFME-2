@@ -152,12 +152,6 @@ public:
 	Holder *m_holder;
 };
 
-struct EvacuationRecord
-{
-	float m_amount;
-	int m_frame;
-};
-
 class EvacuateDamage : public DamageModule
 {
 public:
@@ -222,12 +216,6 @@ void iniParseObjectFilter(INI *ini, void *instance, void *store, const void *use
 // references 0x004BACAF and it writes that class's +8 field, so nothing ties it
 // to class INI: it is declared at file scope.
 void Rva004BACAF_ParseWeaponName(INI *ini, void *instance, void *store, const void *userData);
-
-struct Rva0045A22EQuery
-{
-	int m_count;
-	int m_filter;
-};
 
 struct Rva004BACAFOwner
 {

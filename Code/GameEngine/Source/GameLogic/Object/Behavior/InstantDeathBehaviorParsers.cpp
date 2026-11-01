@@ -55,25 +55,7 @@ extern WeaponStore *TheWeaponStore;
 // Same 4-byte element the rowed push_back 0x0005A084 is instantiated on.
 struct Rva0005A084Element { int a[1]; };
 
-class OpaqueRefCounted
-{
-public:
-	void Release_Ref();
-};
-
 // Audio handle the Sound proc fills: one ref-counted pointer, released on exit.
-class Rva0045D2F6SoundRef
-{
-public:
-	Rva0045D2F6SoundRef() : m_ref(NULL) {}
-	~Rva0045D2F6SoundRef()
-	{
-		if (m_ref)
-			m_ref->Release_Ref();
-	}
-	OpaqueRefCounted *m_ref;
-};
-
 void Rva00339184(const char *token, void *store);
 
 class InstantDeathBehaviorModuleData

@@ -10,7 +10,6 @@ struct Rva0028AC4EEntry;class Rva001E3591 {public:bool rva001E3591();};class Rva
 struct Rva001E4194A;bool __stdcall Rva001E4194Get(Rva001E4194A*);
 float normalizeAngle(float);
 class Rva0008BB38FloatField {public:float get()const;};
-class Rva00363D20 {public:double rva00363D20();};
 struct Rva003642DFNode;
 struct Rva003642DFResult {Rva003642DFNode*m_node;Coord3D m_pos;};
 class Path {public:Rva003642DFResult rva00364521(const Rva0008BB38FloatField*);};
@@ -161,7 +160,6 @@ AICommandInterface*command(){return (AICommandInterface*)((char*)this+0x20);}
 struct LocoTemplate {char pad[0x70];int appearance;};
 class Locomotor {public:float getMaxTurnRate(Object*)const;char pad[4];const LocoTemplate*data;};
 class Rva001E46E1 {public:bool rva001E543F(Object*);float rva001E4845(Object*);};
-class View {public:virtual void setHeightAboveGround(float);};
 #include "../../../Common/Thing/thing.h"
 enum ObjectStatusTypes {STATUS_75=75};
 enum KindOfType {KINDOF_0088=0x88};
