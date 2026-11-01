@@ -50,11 +50,20 @@ public:
 };
 #include "unicode_string.h"
 
-class Rva001EB05E{public:~Rva001EB05E();private:char bytes[0x20];};
+// The 0x18-byte record at +0x94 (UnitRevivalEntry holds the same record at
+// +0xB0): its zeroing ctor 0x004E04FD and its out-of-line dtor 0x001EB05E
+// are both rowed under Rva001EB15A.
+class Rva001EB15A{public:Rva001EB15A();~Rva001EB15A();private:int m_00;int m_04;int m_08;UnicodeString m_wstr0C;AsciiString m_str10;unsigned char m_14;};
+
+// The 0x80-byte block at +0x10; its inline ctor clears it through 0x001EAE6F.
+class Rva001EAE6FHelper{public:Rva001EAE6FHelper(){clear80();}Rva001EAE6FHelper*clear80();private:char m_pad[0x80];};
 
 class Xfer;
 
-class CarryoverUnit:public Snapshot{public:virtual ~CarryoverUnit();virtual void loadPostProcess();virtual const char*GetSnapshotName()const;virtual void xfer(Xfer*);private:AsciiString name;char fields08[0x94-8];Rva001EB05E member;};
+// Layout from the ctor 0x0037DF2C: name +0x04 (copied from TheEmptyString),
+// float +0x08 (xorps/movss), int +0x0C, the cleared block +0x10, int +0x90,
+// the record +0x94; the dtor 0x0037DEE4 tears down +0x94 then +0x04.
+class CarryoverUnit:public Snapshot{public:CarryoverUnit();virtual ~CarryoverUnit();virtual void loadPostProcess();virtual const char*GetSnapshotName()const;virtual void xfer(Xfer*);private:AsciiString name;float m_f08;int m_c0C;Rva001EAE6FHelper m_h10;int m_90;Rva001EB15A member;};
 
 //
 // ?rva0037DCCC@@YAXPAVObject@@H@Z @0x0037DCCC 28B
