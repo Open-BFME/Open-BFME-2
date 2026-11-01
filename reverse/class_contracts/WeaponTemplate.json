@@ -1,0 +1,1071 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "WeaponTemplate",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 69,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x138": {
+    "4": 1
+   },
+   "0x144": {
+    "4": 1
+   },
+   "0x160": {
+    "1": 1
+   },
+   "0x18": {
+    "4": 1
+   },
+   "0xe8": {
+    "4": 1
+   },
+   "0xec": {
+    "4": 1
+   },
+   "0xf0": {
+    "4": 1
+   },
+   "0xf4": {
+    "4": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 12,
+  "retail_vtables": {},
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 17,
+   "8": 1,
+   "12": 5,
+   "28": 1,
+   "48": 1,
+   "52": 1,
+   "76": 2,
+   "128": 1,
+   "224": 1,
+   "232": 1,
+   "240": 1,
+   "248": 1,
+   "264": 1,
+   "268": 1,
+   "289": 1,
+   "294": 1,
+   "308": 1,
+   "316": 1,
+   "328": 3,
+   "332": 1,
+   "336": 1,
+   "340": 1,
+   "344": 3,
+   "363": 1,
+   "364": 7,
+   "365": 1,
+   "368": 3,
+   "372": 1,
+   "376": 1,
+   "380": 1,
+   "384": 4,
+   "1240": 1
+  },
+  "views": 68,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_WeaponTemplate.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Weapon.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "A",
+   "name": "m_unrecovered00",
+   "name_by": "tie",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 8,
+   "type": "char[8]",
+   "views": 8,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 43
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponStoreNewOverride.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponStoreReset.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackStateLoadPostProcess.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackStateOnExit.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehavior.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Damage/EvacuateDamageRva004BAF55.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponStoreNewOverride.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponXfer.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherAnimationDebuggingInfo.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/WeaponGetStatus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetSetWeaponLock.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponStoreNewOverride.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateMinimumRange.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponPrivateFireWeapon.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackAimAtTargetStateUpdateInternal.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachComputePath.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_OnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_Unresolved.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStates.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesBfmeOnExit.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetSetWeaponLock.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackAimAtTargetStateUpdateInternal.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachComputePath.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_OnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_Unresolved.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStates.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateScatterTargetPos.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponPrivateFireWeapon.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponPrivateFireWeapon.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 61,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponPrivateFireWeapon.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 64,
+   "sources": [
+    "Code/GameEngine/Source/Common/WeaponRebuildScatterTargets.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponPrivateFireWeapon.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateParseScatterTarget.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 68,
+   "sources": [
+    "Code/GameEngine/Source/Common/WeaponRebuildScatterTargets.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponPrivateFireWeapon.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateParseScatterTarget.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 72,
+   "sources": [
+    "Code/GameEngine/Source/Common/WeaponRebuildScatterTargets.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponPrivateFireWeapon.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateParseScatterTarget.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 76,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponPrivateFireWeapon.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 80,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponPrivateFireWeapon.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 84,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponPrivateFireWeapon.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 88,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetSetWeaponLock.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 92,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 96,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 100,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 104,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehavior.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIGiantBirdAttackStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponPrivateFireWeapon.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponReloadWithBonus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 108,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehavior.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 112,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehavior.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 116,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehavior.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 117,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponPrivateFireWeapon.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 120,
+   "sources": [
+    "Code/GameEngine/Source/Common/WeaponGetStatus.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesBfmeComputePath.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectAdjustModelConditionForWeaponStatus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectFireCurrentWeapon.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetSetWeaponLock.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 124,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesBfmeComputePath.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectAdjustModelConditionForWeaponStatus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 128,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/ObjectAdjustModelConditionForWeaponStatus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponReloadWithBonus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 129,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/ObjectAdjustModelConditionForWeaponStatus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 130,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Rva002C96D8Finish.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 131,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 132,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponPrivateFireWeapon.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 136,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponAssign.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 140,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponAssign.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 144,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 148,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 164,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIGiantBirdAttackStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponPrivateFireWeapon.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 180,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponPrivateFireWeapon.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 184,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponReloadWithBonus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 200,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/FiringTrackerXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 204,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/FiringTrackerXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 208,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Drawable/PickAndPlayUnitVoiceResponse.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/FiringTrackerXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 212,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Drawable/PickAndPlayUnitVoiceResponse.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 216,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Drawable/PickAndPlayUnitVoiceResponse.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 220,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Drawable/PickAndPlayUnitVoiceResponse.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 224,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponPrivateFireWeapon.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 228,
+   "sources": [
+    "Code/GameEngine/Source/Common/WeaponGetStatus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectAdjustModelConditionForWeaponStatus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIGiantBirdSwoopStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponGetPreAttackDelay.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponReloadWithBonus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 232,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/ObjectAdjustModelConditionForWeaponStatus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateClipReloadTime.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 236,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRappellerCount.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateClipReloadTime.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 240,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponPrivateFireWeapon.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateClipReloadTime.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 244,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponPrivateFireWeapon.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateClipReloadTime.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 248,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/FiringTrackerXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 252,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/FiringTrackerXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 256,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/FiringTrackerXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 260,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/FiringTrackerXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 264,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponAssign.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponPrivateFireWeapon.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 268,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetSetWeaponLock.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 272,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 276,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponNuggetParse.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetSetWeaponLock.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 280,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponPrivateFireWeapon.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 284,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponPrivateFireWeapon.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 288,
+   "sources": [
+    "Code/GameEngine/Source/Common/WeaponGetStatus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponPrivateFireWeapon.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Weapon_getRemainingAmmo.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 292,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 293,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponRva002CB2D1Range.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 294,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 296,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponPrivateFireWeapon.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetSetWeaponLock.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 300,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponGetPreAttackDelay.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 304,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponPrivateFireWeapon.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponReloadWithBonus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 305,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehavior.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 306,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 307,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 308,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 309,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponPrivateFireWeapon.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 312,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponGetPreAttackDelay.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponReloadWithBonus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplatePreAttackDelay.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 316,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Rva002C96D8Finish.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponReloadWithBonus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 320,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 321,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 324,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponPrivateFireWeapon.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponReloadWithBonus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplatePreAttackDelay.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateRva002C93F7.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 328,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachComputePath.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_OnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_Unresolved.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 332,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponPrivateFireWeapon.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateScatterTargetPos.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 336,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 340,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponPrivateFireWeapon.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 341,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Rva002C96D8Finish.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 342,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 343,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Rva002C96D8Finish.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIGiantBirdAttackStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponNuggetParse.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 344,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponPrivateFireWeapon.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 348,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponPrivateFireWeapon.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 352,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponStoreNewOverride.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateRva002CBA59.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 353,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachComputePath.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_OnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_Unresolved.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 356,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 360,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 361,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/ObjectAdjustModelConditionForWeaponStatus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 362,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIGroupAttackTeam.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 363,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachComputePath.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_OnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_Unresolved.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStates.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/Rva00343FB0.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetSetWeaponLock.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 364,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponProjectileLaunch.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 365,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 366,
+   "sources": [
+    "Code/GameEngine/Source/Common/WeaponGetStatus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 367,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/ObjectFireCurrentWeapon.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectPreFireCurrentWeapon.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 368,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetSetWeaponLock.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 369,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 372,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/ObjectRva0028C428.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponStoreNewOverride.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 376,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Weapon_prepareProjectileStreamForFiring.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 380,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponPrivateFireWeapon.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateRva002CBA59.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1236,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp"
+   ],
+   "views": 5
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "name@0x0",
+   "candidates": {
+    "__vfptr": 1,
+    "m00": 1,
+    "m_unmodelled00": 1,
+    "m_unmodelled_00": 1,
+    "m_unreconstructed_00": 1,
+    "m_unreconstructed_000": 1,
+    "m_unrecovered00": 1,
+    "p0": 1
+   },
+   "class": "WeaponTemplate"
+  }
+ ],
+ "size": 364,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
