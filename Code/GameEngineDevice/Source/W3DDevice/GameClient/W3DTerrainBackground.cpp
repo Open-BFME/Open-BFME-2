@@ -40,6 +40,73 @@ public:
     void rva000AD9AB(int x, int y, bool value);
     void rva000AD9FE();
 };
+// Native grid and scan prefixes already used by the rowed terrain donors.
+class BoundedShortGrid
+{
+public:
+	short load(int a, int b);
+private:
+	unsigned char m_unknown00[0x08];
+	int m_stride;
+	unsigned char m_unknown0C[0x20 - 0x0C];
+	int m_capacity;
+	short *m_data;
+};
+typedef unsigned char Byte;
+struct Rva00729300Bytes
+{
+ Byte *m_begin;
+ Byte *m_end;
+ unsigned size() const 
+ {
+  return (unsigned)(m_end - m_begin);
+ }
+ Byte operator[]( int index ) const 
+ {
+  return m_begin[index];
+ }
+};
+class Rva00729300BitPlane
+{
+ public:
+ bool test( int x, int y ) const;
+ public:
+ Byte m_opaque00[0x08];
+ int m_width;
+ int m_height;
+ Byte m_opaque10[0x24];
+ int m_stride;
+ Byte m_opaque38[0x0c];
+ Rva00729300Bytes m_bits;
+};
+class Rva001127F2TerrainPrefix
+{
+public:
+	bool advanceScan( ICoord2D &right, int xOffset, int yOffset, int width, int height );
+	bool advanceYThenX(ICoord2D &point,int xOffset,int yOffset,int width,int height);
+	char m_pad00[0x50];
+private:
+	int m_xOrigin; // +0x50
+	int m_yOrigin; // +0x54
+	int m_unmodelled58; // +0x58
+	Rva00729300BitPlane *m_map; // +0x5C
+};
+class Rva0006AB49BitPlane
+{
+public:
+    bool test(int x, int y) const;
+};
+class Rva000ABD19
+{
+public:
+    bool rva000ABD19(int x, int y);
+    bool rva000AF841(int x, int y);
+};
+class Rva007497A0
+{
+public:
+    void setBit(int x, int y, bool value);
+};
 template <class T> class RefCountPtr;
 class WorldHeightMap;
 class TerrainTextureClass : public TextureClass {};
@@ -49,7 +116,22 @@ public:
     int getXExtent() { return m_width; }
     int getYExtent() { return m_height; }
     int getBorderSizeInline() { return m_borderSize; }
-    unsigned char getHeight(int x, int y);
+    __declspec(dllimport) __forceinline unsigned short getHeight(int x, int y)
+    { return ((BoundedShortGrid *)this)->load(x, y); }
+    __forceinline void refreshBitPlane() { ((Rva000AD9AB *)this)->rva000AD9FE(); }
+    __forceinline int getBorderSize() { return m_borderSize; }
+    __forceinline bool isInMesh(int x, int y)
+    { return ((const Rva00729300BitPlane *)this)->test(x, y); }
+    __forceinline bool isCellPresent(int x, int y)
+    { return ((const Rva0006AB49BitPlane *)this)->test(x, y); }
+    __forceinline bool getFlag(int x, int y)
+    { return ((const Rva0006AB49BitPlane *)this)->test(x, y); }
+    __forceinline bool hasDetail(int x, int y)
+    { return ((Rva000ABD19 *)this)->rva000ABD19(x, y); }
+    __forceinline bool getFlipState(int x, int y)
+    { return ((Rva000ABD19 *)this)->rva000AF841(x, y); }
+    __declspec(dllimport) __forceinline void setFlipState(int x, int y, bool value)
+    { ((Rva007497A0 *)this)->setBit(x, y, value); }
     TerrainTextureClass *getFlatTexture(int x, int y, int width, int pixels);
     RefCountPtr<TextureClass> getFlatTexture(int x, int y, int width, int pixels, int format, int tileKind);
     int m_width, m_height, m_borderSize;
@@ -61,8 +143,8 @@ public:
 };
 extern HeightMapRenderObjClass *TheTerrainRenderObject;
 class RayCollisionTestClass;
-const float MAP_XY_FACTOR = 10.0f;
-const float MAP_HEIGHT_SCALE = (10.0f / 256.0f);
+#define MAP_XY_FACTOR 10.0f
+#define MAP_HEIGHT_SCALE (10.0f / 256.0f)
 
 struct BfmeResetResource {
 public: void Release_Ref();
@@ -84,10 +166,12 @@ private: BfmeResetResource *pointer;
 // nonpolymorphic terrain tile. Three culling statuses occupy 00..08;
 // bounds start at 0C, origins at 50/54, width at 58 and map at 5C.
 // The rowed lifetime view below independently proves the D4-byte extent.
+class Rva00111F0E;
 class Rva00112230CameraGroup;
 class W3DTerrainBackground
 {
 public:
+    enum { MAX_CULLING_CAMERAS = 3 };
     void rva00111FCF();
     bool isEdgeAligned(int x, int y, int requested);
     void updateCenter(const Rva00112230CameraGroup &cameraGroup);
@@ -101,6 +185,14 @@ public:
     void doPartialUpdate(const IRegion2D &, WorldHeightMap *, bool, bool);
     void rva00115791(bool flat, float height);
     void rva00115DD2();
+    __forceinline bool advanceLeft(ICoord2D &point, int x, int y, int width, int height)
+    { return ((Rva001127F2TerrainPrefix *)this)->advanceYThenX(point, x, y, width, height); }
+    __forceinline bool advanceRight(ICoord2D &point, int x, int y, int width, int height)
+    { return ((Rva001127F2TerrainPrefix *)this)->advanceScan(point, x, y, width, height); }
+    __forceinline bool advanceLeft(ICoord2D &point, int x, int y, int width)
+    { return ((Rva001127F2TerrainPrefix *)this)->advanceYThenX(point, x, y, width, width); }
+    __forceinline bool advanceRight(ICoord2D &point, int x, int y, int width)
+    { return ((Rva001127F2TerrainPrefix *)this)->advanceScan(point, x, y, width, width); }
     __forceinline bool isCulled()
     {
         for (int i = 0; i < 3; ++i) {
