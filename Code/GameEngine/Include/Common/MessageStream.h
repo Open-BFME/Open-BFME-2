@@ -2,6 +2,12 @@
 // Target facts: getArgument (0x0030F4EA) walks +0x1C through argument +4 and returns data +8; getArgumentDataType (0x0030F50C) reads argument +0x18. allocArg (0x0030F8FF) allocates 0x1C bytes and updates count/head/tail. The append bodies (0x0030F936..0x0030FA44) prove their parameter types and tags; the copy constructor and void copy (0x0031123E) call these bodies out of line. getCommandAsAsciiString (0x003113DD) forwards type +0x10 to getCommandTypeAsAsciiString (0x0030FA44), whose matched cases and strings prove the Type enumerators below. The existing wb00EC9680 row aliases the integer append at 0x0030F936. The out-of-line friend_setList setter at 0x005F69C4 writes +0x0C and is called at 0x005C92F2. Numeric placeholders are proved by native immediates at 0x00429641, 0x00429688, 0x004294CF, 0x004295AD, 0x00429637, 0x0042952C, 0x0041C6B5, 0x0041C6C8, 0x002B5FA8, 0x0043145C, 0x004313B8, 0x00352E95, 0x00398DEE, 0x00298E10.
 // Donor facts: Zero Hour GeneralsMD Common/MessageStream.h names the links, list, type, player index, argument count/head/tail and inline accessors. BFME2's stores and argument traversal above establish their offsets; the destructor (0x0030F4AF) tears down the argument chain and removes this message through list slot +0x40. The special members are declarations so consumers call the rowed bodies.
 
+// Target facts: MessageStream constructor RVA 0x0030F697 calls GameMessageList's 0x0030F562, clears +0x14/+0x18, stores VA 0x00C09890 at +0 (0x0030F6A7), and sets +0x1C to 1. Destructor 0x00310FA1 restores that same table at 0x00310FB3 and calls GameMessageList's destructor 0x0030F57C at 0x00310FE2. GameMessageList's constructor/destructor store their own table 0x00C09848 at 0x0030F572/0x0030F58D and call SubsystemInterface's 0x001B4E63/0x001B4E74. These are successive base lifetimes at +0, with no secondary table. The factory 0x00225F12 pushes 0x20 at 0x00225F1D and calls MessageStream's constructor at 0x00225F33: sizeof MessageStream is 0x20, with GameMessageList occupying 0x14 bytes.
+// Target facts: GameMessageList's table 0x00C09848 has 18 slots, ending at MessageStream's 0x00C09890. MessageStream has 20 slots, ending at CommandList's table 0x00C098E0. Slot 0 is deleting destructor 0x003113F9, which calls 0x00310FA1; slots 1/3/8/9/10/12 are empty 0x000B3FD0, slot 2 is SubsystemInterface::loadIniFilesFromLegend 0x001B5384, slots 4/11 are false-ret-4 0x005CB9FF, slot 5 is false-ret 0x0047A699, slot 6 is zero-ret 0x000D43D0, and slots 7/13 are ret-4 0x0047A69C. Slots 14/15 are GameMessageList::appendMessage/insertMessage (0x0030F5D2/0x0030F604); slots 16/17 unlink a message (0x0030F642) and test its type (0x0030F679); slots 18/19 are the rowed MessageStream::appendMessage/insertMessage overloads (0x0030F6D4/0x0030F704). SubsystemInterface's registered header supplies slots 0-13 through BFME_SUBSYSTEM_SLOTS.
+// Target facts: GameMessageList's constructor clears dwords +0x0C/+0x10, and append/insert (0x0030F5D2/0x0030F604) maintain these message links. propagateMessages (0x00310FF5) reads the translator head +0x14 and message head +0x0C, then clears +0x0C/+0x10. attachTranslator (0x0030F738) allocates 0x14-byte nodes, initializes next/prev/id/translator/priority at +0/+4/+8/+0x0C/+0x10, increments stream +0x1C, and updates stream head/tail +0x14/+0x18. findTranslator (0x0030F7D7) and removeTranslator (0x0030F7F3) prove the same offsets. TranslatorData's out-of-line destructor 0x0030F463 destroys its +0x0C translator through slot 1; MessageStream's destructor calls this body, then operator delete. All rowed lifetime and translator methods below are declarations.
+// Donor facts: Zero Hour GeneralsMD Common/MessageStream.h names GameMessageList, its list fields and four list methods, MessageStream's three translator fields, TranslatorData's five fields, and the init/reset/update/getFirstMessage methods. Retail's base calls, tables, accesses and rowed method signatures above establish their BFME2 placement; the empty init/reset/update slots use the proven empty bodies.
+// Target facts: the call at 0x00513879 dispatches slot 18 after pushing integer 29 at 0x00513877. The nonvirtual integer overload converts such message IDs to the rowed enum overload without adding a virtual slot.
+
 #pragma once
 #ifndef CANONICAL_GAMEMESSAGE_H
 #define CANONICAL_GAMEMESSAGE_H
@@ -440,6 +446,69 @@ public:
 
 private:
     GameMessageArgument *allocArg();
+};
+
+#if defined(CANONICAL_SUBSYSTEMINTERFACE_H) && !defined(BFME_SUBSYSTEM_SLOTS)
+#error Include MessageStream.h before the short SubsystemInterface definition.
+#endif
+#ifndef BFME_SUBSYSTEM_SLOTS
+#define BFME_SUBSYSTEM_SLOTS
+#endif
+#include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
+
+class GameMessageTranslator;
+
+class GameMessageList : public SubsystemInterface
+{
+public:
+    GameMessageList();
+    virtual ~GameMessageList();
+    virtual void init() {}
+    virtual void reset() {}
+    virtual void update() {}
+    virtual void appendMessage(GameMessage *message);
+    virtual void insertMessage(GameMessage *message, GameMessage *messageToInsertAfter);
+    virtual void removeMessage(GameMessage *message);
+    virtual bool containsMessageOfType(GameMessage::Type type);
+
+    GameMessage *getFirstMessage() { return m_firstMessage; }
+
+    GameMessage *m_firstMessage;
+    GameMessage *m_lastMessage;
+};
+
+class MessageStream : public GameMessageList
+{
+public:
+    MessageStream();
+    virtual ~MessageStream();
+    virtual void init() {}
+    virtual void reset() {}
+    virtual void update() {}
+    virtual GameMessage *appendMessage(GameMessage::Type type);
+    virtual GameMessage *insertMessage(GameMessage::Type type, GameMessage *messageToInsertAfter);
+
+    GameMessage *appendMessage(int type) { return appendMessage(static_cast<GameMessage::Type>(type)); }
+
+    void propagateMessages();
+    unsigned int attachTranslator(GameMessageTranslator *translator, unsigned int priority);
+    GameMessageTranslator *findTranslator(unsigned int id);
+    void removeTranslator(unsigned int id);
+
+    struct TranslatorData
+    {
+        TranslatorData() : m_next(0), m_prev(0), m_id(0), m_translator(0), m_priority(0) {}
+        ~TranslatorData();
+        TranslatorData *m_next;
+        TranslatorData *m_prev;
+        unsigned int m_id;
+        GameMessageTranslator *m_translator;
+        unsigned int m_priority;
+    };
+
+    TranslatorData *m_firstTranslator;
+    TranslatorData *m_lastTranslator;
+    unsigned int m_nextTranslatorID;
 };
 
 #endif
