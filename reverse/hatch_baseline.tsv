@@ -14895,6 +14895,7 @@ present_unmatched	Code/Libraries/Source/WWVegas/WWDebug/debug_stack.cpp	GetSymbo
 present_unmatched	Code/Libraries/Source/WWVegas/WWDownload/FTP.CPP	Rva00885980Class::d_00885980	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/AsciiStringLess.cpp	bfmeEmitAsciiStringLess@@YAXPBVAsciiString@@0@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/BadAllocDestructor.cpp	bfmeEmitBadAllocDestructor@@YAXPAVbad_alloc@std@@@Z	1
+present_unmatched	Code/Libraries/Source/WWVegas/WWLib/HordeMeleeSwarm.cpp	$__copy_ptrs@PAUBfmePod28@@PAU1@@_STL@@YAPAUBfmePod28@@PAU1@00ABU__false_type@0@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/INIClassShutdown.cpp	verbatim	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/LightPointDtor.cpp	anchorDeleteLightPoint@@YAXPAVLightPoint@@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/LocaleComposeName.c	_Locale_extract_collate_name	1
@@ -14934,7 +14935,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva0054F434Dtor.cpp	1Rva00
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva0054F434Vslot1.cpp	1Rva0054F434Base@@UAE@XZ	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva00567BD7Copy.cpp	Rva00567BD7::Rva00567BD7	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva00567BD7Copy.cpp	Rva00567BD7::~Rva00567BD7	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva005842F7Finish.cpp	$__copy_ptrs@PAUBfmePod28@@PAU1@@_STL@@YAPAUBfmePod28@@PAU1@00ABU__false_type@0@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva005FE750.cpp	_bfmeRva005FE750DestroyAnchor@@YAXPAUBfmeContainerRecord005FDEC7@@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp	1Rva004E14E1FlashRecord@@UAE@XZ	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva000556AB.cpp	Rva000556ABRecord::operator<	1
