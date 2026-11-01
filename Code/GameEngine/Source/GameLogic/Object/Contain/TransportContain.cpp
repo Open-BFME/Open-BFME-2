@@ -76,6 +76,7 @@ template void _STL::_Construct<ConstructProbeSciVec, ConstructProbeSciVec>(Const
 template void _STL::_Construct<ConstructProbeCoordList, ConstructProbeCoordList>(ConstructProbeCoordList *, const ConstructProbeCoordList &);
 template void _STL::_Construct<ConstructProbePairC, ConstructProbePairC>(ConstructProbePairC *, const ConstructProbePairC &);
 #include "../../../../Include/Common/Rva0007DF07.h"
+#include "Common/INIException.h"
 
 enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
 
@@ -1068,11 +1069,24 @@ private:
 	ConstructProbePair m_value;
 };
 
+struct BfmeStringRecord00466E64 { AsciiString upgrade; AsciiString object; unsigned count; };
+
+template <> void _STL::vector<BfmeStringRecord00466E64, _STL::allocator<BfmeStringRecord00466E64> >::push_back(const BfmeStringRecord00466E64 &);
+
+class Rva00468908Owner
+{
+public:
+	char pad00[0x180];
+	_STL::vector<BfmeStringRecord00466E64> triggers;
+};
+
 // tu-skeleton: 0x00466DA9 19B ?isExitBusy@TransportContain@@UBE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/Rva00466D93ExitReserve.cpp (not merged yet)
 
 // tu-skeleton: 0x00466DBC 73B ?xfer@TransportContain@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainXfer.cpp (not merged yet)
 
 // tu-skeleton: 0x00466E05 5B ?rva00466E05@Rva00466E05@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/TransportContain.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/TransportContain.cpp
 
@@ -1620,31 +1634,18 @@ void __cdecl rva00467DE6(INI *ini, void *instance, void *store, const void *user
 // reference/open-bfme-1/Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp).
 // No // cl: line (defaults match the frameless 7-byte shape).
 
-// tu-skeleton: 0x00466E12 17B ??0Rva00466E12@@QAE@XZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE22.cpp (not merged yet)
 
-// tu-skeleton: 0x00466E58 12B ?rva00466E58@Rva00466E58@@QBEEH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAM.cpp (not merged yet)
 
-// tu-skeleton: 0x00466E64 67B ??0BfmeStringRecord00466E64@@QAE@ABU0@@Z -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)
 
-// tu-skeleton: 0x00466EA7 27B ??0?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@QAE@ABU01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_insert_unique_nocase.cpp (not merged yet)
 
-// tu-skeleton: 0x00466EDE 258B ?slot38@TransportContain@@UAE_NPAVObject@@HH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/slot38Rva00466EDEFarm.cpp (not merged yet)
 
-// tu-skeleton: 0x004670D6 214B ?createPayload@TransportContain@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TransportContain_createPayload.cpp (not merged yet)
 
-// tu-skeleton: 0x004671AC 267B ?isSpecificRiderFreeToExit@TransportContain@@MAE_NPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainRiders.cpp (not merged yet)
 
-// tu-skeleton: 0x0046731A 166B ?rva0046731A@Rva0046731A@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainRiders.cpp (not merged yet)
 
-// tu-skeleton: 0x0046740C 344B ?rva0046740C@TransportContain@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainRiders_Rva0046740C.cpp (not merged yet)
 
-// tu-skeleton: 0x0046760D 222B ?letRidersUpgradeWeaponSet@TransportContain@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainRiders.cpp (not merged yet)
 
-// tu-skeleton: 0x004676EB 45B ??$_Construct@UBfmeStringRecord00466E64@@U1@@_STL@@YAXPAUBfmeStringRecord00466E64@@ABU1@@Z -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)
 
-// tu-skeleton: 0x00467718 38B ??$__uninitialized_copy@PBUBfmeStringRecord00466E64@@PAU1@@_STL@@YAPAUBfmeStringRecord00466E64@@PBU1@0PAU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_uninitialized_copy.cpp (not merged yet)
 
-// tu-skeleton: 0x0046773E 37B ??$__uninitialized_fill_n@PAUBfmeStringRecord00466E64@@IU1@@_STL@@YAPAUBfmeStringRecord00466E64@@PAU1@IABU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_uninitialized_fill_n12.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp
 
@@ -1672,6 +1673,32 @@ void Rva00467763Construct(void *dest, const void *source)
 {
     ::new (dest) ConstructProbePair(*static_cast<const ConstructProbePair *>(source));
 }
+
+// tu-skeleton: 0x00466E12 17B ??0Rva00466E12@@QAE@XZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE22.cpp (not merged yet)
+
+// tu-skeleton: 0x00466E58 12B ?rva00466E58@Rva00466E58@@QBEEH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAM.cpp (not merged yet)
+
+// tu-skeleton: 0x00466E64 67B ??0BfmeStringRecord00466E64@@QAE@ABU0@@Z -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)
+
+// tu-skeleton: 0x00466EA7 27B ??0?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@QAE@ABU01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_insert_unique_nocase.cpp (not merged yet)
+
+// tu-skeleton: 0x00466EDE 258B ?slot38@TransportContain@@UAE_NPAVObject@@HH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/slot38Rva00466EDEFarm.cpp (not merged yet)
+
+// tu-skeleton: 0x004670D6 214B ?createPayload@TransportContain@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TransportContain_createPayload.cpp (not merged yet)
+
+// tu-skeleton: 0x004671AC 267B ?isSpecificRiderFreeToExit@TransportContain@@MAE_NPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainRiders.cpp (not merged yet)
+
+// tu-skeleton: 0x0046731A 166B ?rva0046731A@Rva0046731A@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainRiders.cpp (not merged yet)
+
+// tu-skeleton: 0x0046740C 344B ?rva0046740C@TransportContain@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainRiders_Rva0046740C.cpp (not merged yet)
+
+// tu-skeleton: 0x0046760D 222B ?letRidersUpgradeWeaponSet@TransportContain@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainRiders.cpp (not merged yet)
+
+// tu-skeleton: 0x004676EB 45B ??$_Construct@UBfmeStringRecord00466E64@@U1@@_STL@@YAXPAUBfmeStringRecord00466E64@@ABU1@@Z -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)
+
+// tu-skeleton: 0x00467718 38B ??$__uninitialized_copy@PBUBfmeStringRecord00466E64@@PAU1@@_STL@@YAPAUBfmeStringRecord00466E64@@PBU1@0PAU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_uninitialized_copy.cpp (not merged yet)
+
+// tu-skeleton: 0x0046773E 37B ??$__uninitialized_fill_n@PAUBfmeStringRecord00466E64@@IU1@@_STL@@YAPAUBfmeStringRecord00466E64@@PAU1@IABU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_uninitialized_fill_n12.cpp (not merged yet)
 
 // tu-skeleton: 0x00467790 9B ??$_Destroy@VRva00466E23@@@_STL@@YAXPAVRva00466E23@@@Z -- matched in Code/GameEngine/Source/Common/DestroyInstances.cpp (not merged yet)
 
@@ -1705,7 +1732,41 @@ void Rva00467763Construct(void *dest, const void *source)
 
 // tu-skeleton: 0x004688D1 55B ?push_back@?$vector@UBfmeStringRecord00466E64@@V?$allocator@UBfmeStringRecord00466E64@@@_STL@@@_STL@@QAEXABUBfmeStringRecord00466E64@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorPushBackFamily.cpp (not merged yet)
 
-// tu-skeleton: 0x00468908 215B ?Rva00468908Parse@@YAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/Rva00468908Parse.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/Rva00468908Parse.cpp
+
+//
+// Rva00468908Parse, retail 0x00468908 (215 B). INI field callback of the transport upgrade-creation
+// trigger list (WorldBuilder twin 0x01158200, "iniParseQuery: Too many triggers, can only have %d."):
+// refuses a fifth trigger, reads two tokens, and when both are present builds a trigger record
+// {upgrade name, object name, count (default 99999)}, lets INI::parseUnsignedInt fill the count and
+// appends the record to the owner's trigger vector at +0x180. Evidence: target bytes, the WorldBuilder
+// twin, rowed callees (record dtor 0x00466E23, push_back 0x004688D1, parseUnsignedInt 0x0002EF72) and
+// the record layout used by TransportContain::UpdateUpgradeCreationTriggers (0x00468045).
+
+void Rva00468908Parse(INI *ini, void *instance, void *store, const void *userData)
+{
+	Rva00468908Owner *owner = (Rva00468908Owner *)instance;
+	if (owner->triggers.size() >= 4)
+		throw INIException(1, "iniParseQuery: Too many triggers, can only have %d.", 4);
+	const char *first = ini->getNextTokenOrNull(0);
+	const char *second = ini->getNextTokenOrNull(0);
+	if (first != 0 && *first != 0 && second != 0 && *second != 0)
+	{
+		Rva00466E23 record;
+		record.upgrade.set(first);
+		record.object.set(second);
+		INI::parseUnsignedInt(ini, instance, &record.count, userData);
+		owner->triggers.push_back(*(const BfmeStringRecord00466E64 *)&record);
+	}
+}
+
+// tu-skeleton: 0x0078AD49 8B $L6578 -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)
+
+// tu-skeleton: 0x0078AD51 10B __ehhandler$??0BfmeStringRecord00466E64@@QAE@ABU0@@Z -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)
+
+// tu-skeleton: 0x0078AD5B 14B uw_0078ad5b -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)
+
+// tu-skeleton: 0x0078AD69 10B __ehhandler$??$_Construct@UBfmeStringRecord00466E64@@U1@@_STL@@YAXPAUBfmeStringRecord00466E64@@ABU1@@Z -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)
 
 // tu-skeleton: 0x0078AD73 8B uw_0078ad73 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainOnContaining.cpp (not merged yet)
 
@@ -1748,7 +1809,3 @@ void Rva00467763Construct(void *dest, const void *source)
 // tu-skeleton: 0x0078AEA4 8B Unwind@00b8aea4 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainRva00468657.cpp (not merged yet)
 
 // tu-skeleton: 0x0078AEAC 10B __ehhandler$?rva00468657@Rva00468657@@QAEXPAVObject@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainRva00468657.cpp (not merged yet)
-
-// tu-skeleton: 0x0078AEB6 8B uw_0078aeb6 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/Rva00468908Parse.cpp (not merged yet)
-
-// tu-skeleton: 0x0078AEBE 10B __ehhandler$?Rva00468908Parse@@YAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/Rva00468908Parse.cpp (not merged yet)
