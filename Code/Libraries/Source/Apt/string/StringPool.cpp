@@ -95,14 +95,7 @@ public:
 // in both subtract paths. Flags are the region default (/O2 /arch:SSE).
 extern void(__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);
 
-class BfmeAptValue006DCD20 {
-  virtual void slot0();
-
-public:
-  unsigned int getGCRootCount() const;
-  void incrementGCRootCount();
-  void decrementGCRootCount();
-};
+#include "../BfmeAptValue006DCD20.h"
 
 extern StringNode0070D9F0 **g_00E18368;
 

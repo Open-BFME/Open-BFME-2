@@ -17,14 +17,7 @@ extern Rva006DB270 *g_pChainBlockAllocator;
 
 #include "../../Apt/AptValue.h"
 
-class BfmeAptValue006DCD20 {
-  virtual void slot0();
-
-public:
-  unsigned int getGCRootCount() const;
-  void incrementGCRootCount();
-  void decrementGCRootCount();
-};
+#include "../../Apt/BfmeAptValue006DCD20.h"
 
 class AptValueVector {
 public:
