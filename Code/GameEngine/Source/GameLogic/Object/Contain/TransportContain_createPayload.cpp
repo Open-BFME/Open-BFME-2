@@ -10,11 +10,7 @@
 #include "ascii_string.h"
 
 class ThingTemplate;
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &key);
-};
+#include "../../../../Include/Common/ThingFactory.h"
 
 class ThingFactory;
 extern ThingFactory *TheThingFactory;

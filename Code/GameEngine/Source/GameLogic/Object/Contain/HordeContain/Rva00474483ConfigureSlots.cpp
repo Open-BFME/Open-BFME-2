@@ -59,7 +59,7 @@ void _Construct<int, int>(int *p, const int &value) { new (p) int(value); }
 class ThingTemplate;
 class ThingFactory;
 extern ThingFactory *TheThingFactory;
-class ThingFactory { public: const ThingTemplate *findTemplate(const AsciiString &name); };
+#include "../../../../../Include/Common/ThingFactory.h"
 struct Rva00474431Pair { int m_00, m_04; };
 struct Rva00474483Input { AsciiString name; Rva00474431Pair position; };
 // Native474519..474842 RET4 views. Target offsets come from retail; no original

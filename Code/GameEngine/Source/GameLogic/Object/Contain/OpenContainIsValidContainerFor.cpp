@@ -35,7 +35,7 @@ class Object { public:
     char unknown00[4]; const ThingTemplate *type;
     char unknown08[0x254-8]; Rva00462977Body *body;
 };
-class ThingFactory { public: const ThingTemplate *findTemplate(const AsciiString &); };
+#include "../../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 class ObjectFilter { public:
     bool isForbidden(KindOfType);

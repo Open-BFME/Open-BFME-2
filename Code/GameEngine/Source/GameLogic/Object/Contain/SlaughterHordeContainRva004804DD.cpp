@@ -39,11 +39,7 @@ public:
 #include "../object.h"
 
 class ThingTemplate;
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &s);
-};
+#include "../../../../Include/Common/ThingFactory.h"
 
 extern class ThingFactory *TheThingFactory;
 

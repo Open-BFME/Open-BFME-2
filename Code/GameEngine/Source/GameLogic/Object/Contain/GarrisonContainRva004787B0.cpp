@@ -77,12 +77,7 @@ struct CreateMask
 {
 	unsigned char m_data[0x10];
 };
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &name);
-	Object *newObject(const ThingTemplate *tmpl, Team *team, const CreateMask *mask, ObjectID flag);
-};
+#include "../../../../Include/Common/ThingFactory.h"
 #include <string.h>
 struct HolderData
 {

@@ -326,12 +326,7 @@ struct CreateMask;
 
 enum ObjectID;
 
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &name);
-	Object *newObject(const ThingTemplate *, Team *, const CreateMask *, ObjectID);	// 0x002D0A23
-};
+#include "../../../../Include/Common/ThingFactory.h"
 
 extern ThingFactory *TheThingFactory;
 

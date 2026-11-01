@@ -127,11 +127,7 @@ public:
 };
 #include "../../../Common/PartitionRangeQueryCallView.h"
 #include "ascii_string.h"
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &key);
-};
+#include "../../../../Include/Common/ThingFactory.h"
 extern class ThingFactory *TheThingFactory;
 struct RespawnUpdateModuleDataRef
 {

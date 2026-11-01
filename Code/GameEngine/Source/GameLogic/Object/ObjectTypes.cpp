@@ -62,11 +62,7 @@ public:
 // 0x002D06CA is rowed as ThingFactory::findTemplate (ThingFactory.cpp);
 // the facade view is replaced so the call resolves to the rowed body
 // instead of the unrowed BfmeThingFactory spelling (sole U on this unit).
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate( const AsciiString &name );
-};
+#include "../../../Include/Common/ThingFactory.h"
 
 extern ThingFactory *TheThingFactory;
 

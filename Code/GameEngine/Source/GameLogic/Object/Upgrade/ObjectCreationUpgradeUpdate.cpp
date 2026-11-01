@@ -39,11 +39,7 @@ class ModuleData;
 
 #include "../../../../Include/Common/NameKeyGenerator.h"
 
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &name);
-};
+#include "../../../../Include/Common/ThingFactory.h"
 
 class UpgradeCenter
 {

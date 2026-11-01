@@ -682,11 +682,7 @@ inline Object *GameLogic::findObjectByID(ObjectID id)
 	return (*it).second;
 }
 extern GameLogic *TheGameLogic;
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &name);
-};
+#include "../../../../Include/Common/ThingFactory.h"
 extern class ThingFactory *TheThingFactory;
 struct Rva0046247DPair
 {

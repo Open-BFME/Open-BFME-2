@@ -1943,11 +1943,7 @@ struct CreateMask : public _STL::_Base_bitset<4>
 
 class Team;
 
-class ThingFactory
-{
-public:
-	Object *newObject(const ThingTemplate *tmplate, Team *team, const CreateMask *statusBits, ObjectID flag);
-};
+#include "../../../../../Include/Common/ThingFactory.h"
 
 extern ThingFactory *TheThingFactory;
 

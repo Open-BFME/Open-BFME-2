@@ -453,7 +453,7 @@ class ScoreKeeper {public:void addObjectBuilt(Object*,int);};
 
 class Player {public:char pad[0x3BC];ScoreKeeper score;};
 
-class ThingFactory {public:const ThingTemplate *findTemplate(const AsciiString&);};
+#include "../../../../Include/Common/ThingFactory.h"
 
  extern ThingFactory *TheThingFactory;
 

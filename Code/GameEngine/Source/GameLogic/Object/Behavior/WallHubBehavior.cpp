@@ -217,11 +217,7 @@ class Rva00452F51 {public:__declspec(noinline) const AsciiString&rva00452F51(uns
 
 class ThingTemplate;
 
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &name);
-};
+#include "../../../../Include/Common/ThingFactory.h"
 
 extern ThingFactory *TheThingFactory;
 

@@ -33,7 +33,7 @@ public:
     const ModuleData *rva0033B3D7() const;
     char pad00[0x108]; unsigned int kind108[8]; char pad128[0x2e4-0x128]; ModuleInfo info;
 };
-class ThingFactory { public: const ThingTemplate *findTemplate(const AsciiString &); };
+#include "../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 class BuildListInfo {
     friend class GenericObjectCreationNugget;

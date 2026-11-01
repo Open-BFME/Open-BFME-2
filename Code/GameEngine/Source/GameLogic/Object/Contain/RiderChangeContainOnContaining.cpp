@@ -69,11 +69,7 @@ struct ObjectStatusMask
 
 #include "../../../../Include/Common/ThingTemplate.h"
 
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &name);	// 0x002D06CA
-};
+#include "../../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 
 class Drawable

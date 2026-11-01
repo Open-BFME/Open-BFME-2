@@ -48,12 +48,7 @@ enum ObjectID;
 #include <string.h>
 #pragma function(memset)
 
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &name);
-	Object *newObject(const ThingTemplate *tmplate, Team *team, const CreateMask *mask, ObjectID flag);	// 0x002D0A23 pin
-};
+#include "../../../../../Include/Common/ThingFactory.h"
 
 #include "../../../../Common/PartitionRangeQueryCallView.h"
 

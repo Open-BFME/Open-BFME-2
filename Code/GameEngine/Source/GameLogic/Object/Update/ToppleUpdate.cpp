@@ -72,7 +72,7 @@ struct CreateMask {unsigned words[4];};
 
 enum ObjectID;
 
- class ThingFactory {public:const ThingTemplate *findTemplate(const AsciiString &);Object *newObject(const ThingTemplate *,Team *,const CreateMask *,ObjectID);};
+#include "../../../../Include/Common/ThingFactory.h"
 
 extern ThingFactory *TheThingFactory;
 

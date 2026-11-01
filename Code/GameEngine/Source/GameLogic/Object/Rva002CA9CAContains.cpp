@@ -150,11 +150,7 @@ public:
 
 class AsciiString;
 class ThingTemplate;
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &key);
-};
+#include "../../../Include/Common/ThingFactory.h"
 
 extern class ThingFactory *TheThingFactory;
 

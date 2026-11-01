@@ -709,11 +709,7 @@ typedef char CaveContainSizeMustBe10C[(sizeof(CaveContain) == 0x10C) ? 1 : -1];
 // and ask it for its asset list.
 #include "../../../../Include/Common/ThingTemplate.h"
 
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &name);	// 0x002D06CA
-};
+#include "../../../../Include/Common/ThingFactory.h"
 
 struct Rva001E0301Name
 {

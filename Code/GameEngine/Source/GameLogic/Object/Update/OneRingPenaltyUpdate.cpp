@@ -46,12 +46,7 @@ public:
 };
 extern TerrainLogic *TheTerrainLogic;
 enum ObjectID;
- class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &key);
-	Object *newObject(const ThingTemplate *tmplate, Team *team, const CreateMask *mask, ObjectID flag);
-};
+#include "../../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 const float PI = 3.14159265359f;
 float GetGameLogicRandomValueReal(float lo, float hi, char *file, int line);

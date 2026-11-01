@@ -180,7 +180,7 @@ class Rva00739830 { public: int rva00739830(const BfmePointFD *,int,unsigned int
 class EmotionSystem { public: const _STL::vector<ObjectID> &getObjects() const { return objects; } char pad[0x24]; _STL::vector<ObjectID> objects; };
 class GlobalData;
 class TerrainLogic;
-class ThingFactory { public: const ThingTemplate *findTemplate(const AsciiString &); };
+#include "../../../../Include/Common/ThingFactory.h"
 class TerrainView {
 public:
     virtual void v0(); virtual void v1(); virtual void v2();

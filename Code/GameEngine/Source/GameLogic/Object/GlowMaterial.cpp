@@ -155,7 +155,7 @@ struct Snapshot003628D3 {
 class ThingTemplate;
 // Callable view of the rowed template lookup; its argument is a string pointer.
 class ThingFactory;
-class ThingFactory {public:const ThingTemplate *findTemplate(const AsciiString &name);};
+#include "../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 class BuffLogic {public:void *addBuff(void*,void*);};
 extern BuffLogic *TheBuffLogic;

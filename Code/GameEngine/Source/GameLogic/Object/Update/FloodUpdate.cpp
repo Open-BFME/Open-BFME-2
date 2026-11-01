@@ -170,12 +170,7 @@ extern TerrainLogic *TheTerrainLogic;
 
 enum ObjectID;
 
- class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &name);
-	Object *newObject(const ThingTemplate *tmplate, Team *team, const CreateMask *mask, ObjectID b);
-};
+#include "../../../../Include/Common/ThingFactory.h"
 
 extern ThingFactory *TheThingFactory;
 

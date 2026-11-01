@@ -534,11 +534,7 @@ enum DrawableStatus
 };
 
 // newDrawable is the rowed three-argument create 0x002CF21B.
-class ThingFactory
-{
-public:
-	void *newDrawable(void *tmplate, Int statusBits, Int a);
-};
+#include "../../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 
 enum TimeOfDay

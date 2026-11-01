@@ -85,12 +85,7 @@ public:
 	int m_44C; // +0x44C
 };
 class ThingTemplate;
-class ThingFactory
-{
-public:
-	void *newDrawable(void *tmplate, int a, int b); // 0x002CF21B
-	const ThingTemplate *findTemplate(const AsciiString &key);
-};
+#include "../../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 extern GameLogic *TheGameLogic;
 class GameClient

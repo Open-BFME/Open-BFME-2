@@ -12,7 +12,7 @@
 #include "Lib/Coord2D.h"
 #include "ascii_string.h"
 class ThingTemplate;
-class ThingFactory {public: const ThingTemplate *findTemplate(const AsciiString&);};
+#include "../../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 struct Rva004693D9Input { float x,y; int partner,localIndex; };
 template<class T> struct Rva004693D9Range {

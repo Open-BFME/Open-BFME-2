@@ -833,11 +833,7 @@ unsigned int ProductionDoorWaitingOpenFlags[4] = {
 	0x17, 0x1b, 0x1f, 0x23,
 };
 
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &key);
-};
+#include "../../../../Include/Common/ThingFactory.h"
 
 extern class ThingFactory *TheThingFactory;
 

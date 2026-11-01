@@ -141,12 +141,7 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_0x54 = 0x54
 };
 enum ObjectID;
- class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &name);
-	Object *newObject(const ThingTemplate *tmpl, Team *team, const CreateMask *mask, ObjectID flag);
-};
+#include "../../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 #include <string.h>
 namespace _STL {
