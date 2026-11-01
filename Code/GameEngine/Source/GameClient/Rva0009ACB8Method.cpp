@@ -1,14 +1,10 @@
-// cl: /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG /ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // ?rva0009ACB8@Rva0009ACB8@@QAEXPAM@Z @0x0009ACB8 78B: slot 32 of the vtable
 // at VA 0x00BC89C8. Copies the +0xC0 RenderObjClass position into the
 // caller's three floats, or zeroes them when the subobject is null (shared
 // third-store tail). Honest address-derived names; the Get_Position pin is
 // rowed at 0x0013B8A0. Boundary verified (frame at 0x9ACB8, leave + ret 4).
-class Vector3 { public: float x; float y; float z; };
-class RenderObjClass {
-public:
-	Vector3 Get_Position() const;
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"
 class Rva0009ACB8 {
 public:
 	virtual void vslot000();
@@ -54,9 +50,9 @@ void Rva0009ACB8::rva0009ACB8(float *out)
 	RenderObjClass *sub = m_pC0;
 	if (sub) {
 		Vector3 v = sub->Get_Position();
-		out[0] = v.x;
-		out[1] = v.y;
-		out[2] = v.z;
+		out[0] = v.X;
+		out[1] = v.Y;
+		out[2] = v.Z;
 	} else {
 		out[0] = 0.0f;
 		out[1] = 0.0f;

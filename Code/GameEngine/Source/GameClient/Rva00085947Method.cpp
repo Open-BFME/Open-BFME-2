@@ -1,4 +1,4 @@
-// cl: /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG /ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // ?rva00085947@Rva00085947@@UAEXXZ @0x00085947 174B thiscall method.
 // Vtable slot 26 of the 187-slot vtable at VA 0x00BC7514 (same vtable as range-2
 // neighbours 0x86245/0x8B1E5/0x8CE2E/0x8A2EF/0x89E2A/0x86BC5/0x865DB/0x8691F).
@@ -16,11 +16,7 @@ class BfmeThingBFG { public: void rva0025F3F3(); };
 class Rva0030E8DF { public: void rva0030E8DF(); };
 struct RvaFloatPair { float a; float b; };
 struct RvaLoc12 { int a; int b; int c; };
-class Vector3 { public: float x; float y; float z; };
-class RenderObjClass {
-public:
-	Vector3 Get_Position() const;
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"
 class W3DView {
 	void setCameraTransform();
 	friend class Rva00085947;
@@ -410,9 +406,9 @@ Vector3 *Rva00085947::rva00087D42()
 		g_00DE2074 |= 1;
 		atexit(rva00BB6C15Cleanup);
 	}
-	g_00DE2068.x = pos.x;
-	g_00DE2068.y = pos.y;
-	g_00DE2068.z = pos.z;
+	g_00DE2068.X = pos.X;
+	g_00DE2068.Y = pos.Y;
+	g_00DE2068.Z = pos.Z;
 	return &g_00DE2068;
 }
 extern "C" void rva00BB6C15Cleanup() {}
