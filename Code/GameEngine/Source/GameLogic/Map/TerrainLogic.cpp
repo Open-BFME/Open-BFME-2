@@ -462,7 +462,9 @@ public:
 	virtual ~GeometryInfo();
 	Bool CollidesWith(const Coord3D &pos, Real angle, const GeometryInfo &other, const Coord3D &otherPos, Real otherAngle) const;
 	__declspec(dllimport) __forceinline Real getMinorRadius() const { return m_minorRadius; }
-	char m_pad04[0x10 - 0x04];
+	bool terrainShapeIsSmall() const { return m_isSmall; }
+	Bool m_isSmall; // +0x04 (rva0028449F/flattenTerrain read it)
+	char m_pad05[0x10 - 0x05];
 	Real m_minorRadius; // +0x10
 	char m_pad14[0x5C - 0x14];
 };
@@ -1921,6 +1923,10 @@ public:
 	void rva00283CE7(unsigned int id);
 public:
 	Object *rva00283D70(const Coord3D *pos);
+public:
+	void rva0028449F(const Coord3D *pos, const GeometryInfo &geom, Real angle);
+public:
+	void flattenTerrain(Object *obj);
 public:
 	void rva0027F28E(const Coord3D *pos, float radius, int arg);
 public:

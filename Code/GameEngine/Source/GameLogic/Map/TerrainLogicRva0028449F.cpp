@@ -144,8 +144,8 @@ public:
 
 private:
 	char unknown04[0x578 - 4];
-	Rva0027D098 **first;
-	Rva0027D098 **last;
+	Rva0027D098 **begin;
+	Rva0027D098 **end;
 	char unknown580[0x1910 - 0x580];
 	unsigned int stamp;
 };
@@ -153,7 +153,7 @@ private:
 void TerrainLogic::rva0028449F(const Coord3D *pos, const GeometryInfo &geom, Real angle)
 {
 	GeometryInfo shape(GEOMETRY_CYLINDER, false, 35.0f, 14.0f, 14.0f);
-	for (Rva0027D098 **i = first; i != last; ++i)
+	for (Rva0027D098 **i = begin; i != end; ++i)
 	{
 		Rva0028449FRecordView *record = reinterpret_cast<Rva0028449FRecordView *>(*i);
 		if (record->key == 0)
