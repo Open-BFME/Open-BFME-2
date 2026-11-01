@@ -221,7 +221,7 @@ def test_a_relocation_to_a_tu_local_cannot_be_placed(tmp_path, monkeypatch):
 
 
 LITERAL = "??_C@_05MGDGCKO@Unini?$AA@"  # a 6-byte literal: five characters and the terminator
-NAMES = "?names@@3PAPBDA"  # static const char *names[] = { "Unini", 0 }; this TU's own copy
+NAMES = "_names"  # static const char *names[] = { "Unini", 0 }; MSVC 7.1 names a file static so
 
 
 class Ledger:
@@ -266,12 +266,13 @@ def test_a_tu_local_data_copy_is_placed_by_its_content(tmp_path, monkeypatch):
     # header statics (Zero Hour's DEFINE_*_NAMES lists) give each including TU
     # its own copy under one name, so no ledger can name it: retail's pointer
     # must land on the static's own bytes, its own relocations placed in turn
-    ok, message = static_copy_row(tmp_path, monkeypatch, RETAIL_COPY)
-    assert ok, message
+    for names in (NAMES, "?names@?1??f@@YAXXZ@4PAPBDA"):    # a file static, a function-local one
+        ok, message = static_copy_row(tmp_path, monkeypatch, RETAIL_COPY, names=names)
+        assert ok, message
     ok, message = static_copy_row(tmp_path, monkeypatch, struct.pack("<2I", BASE + 0x2000, 1))
-    assert not ok and "differs from TU-local ?names@@3PAPBDA at +0x4" in message
+    assert not ok and "differs from TU-local _names at +0x4" in message
     ok, message = static_copy_row(tmp_path, monkeypatch, struct.pack("<2I", BASE + 0x2001, 0))
-    assert not ok and "TU-local ?names@@3PAPBDA at 0x00403010" in message and "retail holds" in message
+    assert not ok and "TU-local _names at 0x00403010" in message and "retail holds" in message
 
 
 def test_a_tu_local_copy_is_never_code_a_rowed_global_or_unsized(tmp_path, monkeypatch):
@@ -289,7 +290,8 @@ def test_a_tu_local_copy_is_never_code_a_rowed_global_or_unsized(tmp_path, monke
 def test_only_an_initialised_static_data_object_is_placed_by_content(tmp_path, monkeypatch):
     for kwargs in ({"names_type": FUNCTION},                  # a static function
                    {"names": "$SG1234"},                      # a C compiler label
-                   {"names": "??_C@_05MGDGCKO@Unixi?$AA@"}):  # a compiler-emitted name
+                   {"names": "??_C@_05MGDGCKO@Unixi?$AA@"},   # a compiler-emitted name
+                   {"names": "__real@3f800000"}):            # a compiler constant
         ok, message = static_copy_row(tmp_path, monkeypatch, RETAIL_COPY, **kwargs)
         assert not ok and "cannot be placed" in message, kwargs
     ok, message = static_copy_row(tmp_path, monkeypatch, bytes(8), zero_filled=True)

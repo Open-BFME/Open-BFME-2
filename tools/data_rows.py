@@ -48,8 +48,9 @@ Verification (build.py, per source and in the full gate), per row:
             form); for data, as whichever reading lands in data, and a pin
             with two such readings places nothing. DIR32 holds the target's
             VA, DIR32NB its RVA.
-            A TU-local data object (a file-scope or function-local `static`,
-            whose own mangled `?name` the object defines with static storage)
+            A TU-local data object (a file-scope `static`, which MSVC 7.1
+            names `_name` with static storage, or a function-local one's
+            `?name` mangling)
             has no ledger name either: header statics such as Zero Hour's
             DEFINE_*_NAMES lists give every including TU its own copy, at its
             own retail address. It is placed by content too, against this
@@ -748,9 +749,10 @@ def verify_row(row, img, resolve, compile=True, sizer=compiled_size):
     return True, f"{size} B at 0x{va:08X} equal to retail, {len(relocs)} relocation(s) on target ({why})"
 
 
-# a C++ static object's own mangled name (`?TheShadowNames@@3PAPBDA`, a static local's
-# `?d@?BC@??f@@YAHH@Z@4PAHA`); never a `??_` compiler name, a C `_x`, nor a `$SG`/`.` label
-TU_LOCAL_DATA = re.compile(r"^\?[A-Za-z_]")
+# a static object's own name: MSVC 7.1 spells a file-scope static `_TheShadowNames` (a C
+# name, also in C++) and a function-local one `?d@?BC@??f@@YAHH@Z@4PAHA`; never a `??_`
+# compiler name, a `$SG`/`.` label or a `__real@`-style constant
+TU_LOCAL_DATA = re.compile(r"^(?:\?[A-Za-z_]|_[A-Za-z_][A-Za-z0-9_]*$)")
 
 
 def _relocation_problem(data, sections, symbols, sec, lo, relocs, va, retail, img, resolve, source, sizer, placed):
