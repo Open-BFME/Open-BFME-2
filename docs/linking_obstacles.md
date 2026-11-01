@@ -11354,6 +11354,22 @@ only changed relocation names the canonical Snapshot table already verified
 by the owned native destructor row. This does not clear the full ModuleData
 contract or broader consumer selection.
 
+**2026-11-01 base identity follow-up (halilkkaya-tool-o4):** the post-effect
+base now has one name. `rename.py class --fold BfmeModuleDataSnapshotBase
+--into Rva001164B6` (bfa1fe66bf; retail vftable 0x00BCFB24 is the ctor's only
++0 install and is named `??_7Rva001164B6@@6B@`) renamed the 0x0011646E ctor
+row to `??0Rva001164B6@@QAE@XZ` and dropped the alias pin
+`??1BfmeModuleDataSnapshotBase@@UAE@XZ`; 4aff2b39fb put the seed and both
+LookupTablePostEffect donors on one view (12/12 exact). Joint link_check of the
+provider, the three units, InlineDtorDeletingDtorsC01.cpp and
+Rva00101FD8Create.cpp: 6 of 6 LINKS, 1,621 -> 1,621 B. Remaining prerequisite
+for the `LookupTablePostEffect.cpp` merge: the census index (39dfbbdb50) still
+records the provider defining the pre-fold `??0BfmeModuleDataSnapshotBase`, so
+tu_skeleton's link guard reads `unresolved ??0Rva001164B6@@QAE@XZ` for the
+merged object (its `moved_provider` exemption covers merged-away providers,
+not renamed ones). Re-run `tu_skeleton.py --merge` after the next scheduled
+census indexes the renamed provider. Census confirmation: pending.
+
 Status: Blocked on shared ModuleData interface and slot-owner reconciliation. Updated: 2026-10-27; inspected revision: 97c23353111e60304b56434c02d20bee3465d83f.
 Evidence / affected units: W3DPropDrawModuleDataCtor.cpp emits a four-slot Snapshot table while W3DPropDraw.cpp emits a nine-slot Zero Hour ModuleData table. The constructor's sole ordinary-preview blocker is `??_7W3DPropDrawModuleData@@6B@`. Retail at RVA 0x007CD420 has 31 function pointers; the next word at 0x007CD49C begins the DistanceFog string, so the data ledger's 136-byte span includes that following literal. Native slot 14 reaches 0x000CED14, already rowed under W3DTreeDrawModuleData; slot 19 reaches the return-this body at 0x0047A6A9. The existing Common/BfmeModuleData.h models 31 generic slots, while the update_modules_bfme2/Common/Module.h view used by the destructor still models the short interface.
 Completed: inspected both emitted tables, native slots, existing row owners and the shared headers. Both constructor-unit rows are exact. Current paired preview retains the constructor L1 and the destructor unit's independent ModuleData/DrawModule blockers. No source trial or shared-header edit is retained.
