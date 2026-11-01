@@ -341,7 +341,6 @@ template <> ConstructProbePairC::pair(const ConstructProbePairC &);
 // vector::push_back at 0x39A48E and both uninitialized workers. Its complete
 // construction delegates to the existing pair copy at 0x466EA7. Preserve
 // that witnessed storage operation without asserting an application identity.
-struct Rva0039A48EElement { int a[2]; };
 namespace _STL {
 }
 template void _STL::_Construct<ConstructProbeVec, ConstructProbeVec>(ConstructProbeVec *, const ConstructProbeVec &);
@@ -842,15 +841,6 @@ private:
 // the same range-erase body as vector<TreeHintRef00217D4C>::clear at 0x002B8134.
 // Keep an address-derived owner: the shared bytes do not prove the original
 // class or template instantiation behind this second entry.
-class Rva004F8871
-{
-public:
-    void rva004F8871();
-private:
-    TreeHintRef00217D4C *m_begin;
-    TreeHintRef00217D4C *m_end;
-};
-
 class Rva0023FD06 : public Rva0007DF07
 {
 public:

@@ -62,8 +62,6 @@ template<> __declspec(noinline) TargetListAt0073EEE0::iterator TargetListAt0073E
 
 class MilesMutexGuard {public: MilesMutexGuard(void*,int);~MilesMutexGuard();void *mutex;bool held;};
 class Rva0040F9D {public:bool set();bool reset();char bytes[8];};
-class Rva0073EE21 {public:Rva0073EE21();char bytes[16];};
-struct OpaqueRefElement4 {void *item;OpaqueRefElement4 &operator=(const OpaqueRefElement4&);};
 class AsyncServiceQueue {
  public:
  TargetListAt0073EEE0::iterator enqueue(Rva0036CA00Str item);

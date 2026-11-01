@@ -723,15 +723,6 @@ private:
 	StringBase<char> m_84;
 };
 
-class Rva00051C3F : public Rva002D9893
-{
-	int m_88;
-	unsigned char m_8C;
-
-public:
-	Rva00051C3F &operator=(const Rva00051C3F &other);
-};
-
 int GetGameAudioRandomValue(int lo, int hi, char *file, int line);
 
 float GetGameAudioRandomValueReal(float lo, float hi, char *file, int line);

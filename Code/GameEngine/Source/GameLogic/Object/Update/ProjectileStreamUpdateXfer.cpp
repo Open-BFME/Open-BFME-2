@@ -40,18 +40,6 @@ class Thing;
 class ModuleData;
 class Object;
 
-class BehaviorModuleBase
-{
-	virtual void unused();
-	int a;
-	int b;
-};
-
-class BehaviorModuleOther
-{
-	virtual void unused();
-};
-
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class UpdateModuleInterface
