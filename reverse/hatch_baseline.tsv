@@ -11550,9 +11550,6 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva005DFCA9.cpp	"t
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00620A00.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00620A00.cpp	"s",off	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00620A00.cpp	"t",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00759B40.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00759B40.cpp	"s",off	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00759B40.cpp	"t",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva00056BFE.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva00056BFE.cpp	"y",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlVectorRva0023AD91.cpp	"",on	1
@@ -11854,6 +11851,9 @@ pragma_optimize	Code/Libraries/Source/assetmanager/AssetManagerImplUpdate.cpp	""
 pragma_optimize	Code/Libraries/Source/assetmanager/AssetManagerImplUpdate.cpp	"s",on	1
 pragma_optimize	Code/Libraries/Source/assetmanager/assetmanager_impl.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/assetmanager/assetmanager_impl.cpp	"gsy",on	1
+pragma_optimize	Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp	"",on	1
+pragma_optimize	Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp	"s",off	1
+pragma_optimize	Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp	"t",on	1
 pragma_optimize	Code/Libraries/Source/debug/debug_cmd.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/debug/debug_cmd.cpp	"y",on	1
 pragma_optimize	Code/Libraries/Source/debug/debug_except.cpp	"",on	1
