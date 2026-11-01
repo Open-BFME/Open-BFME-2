@@ -11948,11 +11948,8 @@ present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	Player::guardSupp
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	Player::hasAnyBuildFacility	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	Player::hasAnyUnits	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	Player::preTeamDestroy	1
-present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	Player::removeTeamRelationship	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	Player::setAttackedBy	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	Player::setTeamDelaySeconds	1
-present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	addKindOfProductionCostChange@Player@@QAEXV?$BitFlags@$0HE@@@M@Z	1
-present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	addNewSharedSpecialPowerTimer@Player@@QAEXPBVSpecialPowerTemplate@@I@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	addUpgrade@Player@@QAEPAVUpgrade@@PBVUpgradeTemplate@@W4UpgradeStatusType@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	buildBaseDefense@Player@@QAEX_N@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	buildBaseDefenseStructure@Player@@QAEXABVAsciiString@@_N@Z	1
@@ -11961,7 +11958,6 @@ present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	buildSpecificTeam
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	buildUpgrade@Player@@QAEXABVAsciiString@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	canAffordBuild@Player@@QBE_NPBVThingTemplate@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	countReadyShortcutSpecialPowersOfType@Player@@QAEHW4SpecialPowerType@@@Z	1
-present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	expressSpecialPowerReadyFrame@Player@@QAEXPBVSpecialPowerTemplate@@I@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	findAnyExistingObjectWithThingTemplate@Player@@QAEPAVObject@@PBVThingTemplate@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	findMostReadyShortcutSpecialPowerForThing@Player@@QAEPAVObject@@PBVThingTemplate@@AAI@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	friend_setSkillset@Player@@QAEXH@Z	1
@@ -11970,7 +11966,6 @@ present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	getBattlePlansAct
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	getCurrentEnemy@Player@@QAEPAV1@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	getHotkeySquad@Player@@QAEPAVSquad@@H@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	getListInScoreScreen@Player@@QAE_NXZ	1
-present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	getOrStartSpecialPowerReadyFrame@Player@@QAEIPBVSpecialPowerTemplate@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	getProductionCostChangeBasedOnKindOf@Player@@QBEMV?$BitFlags@$0HE@@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	getProductionTimeChangePercent@Player@@QBEMVAsciiString@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	getProductionVeterancyLevel@Player@@QBE?AW4VeterancyLevel@@VAsciiString@@@Z	1
@@ -11985,14 +11980,10 @@ present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	isSupplySourceAtt
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	loadPostProcess@Player@@MAEXXZ	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	onUpgradeCompleted@Player@@QAEXPBVUpgradeTemplate@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	recruitSpecificTeam@Player@@QAEXPAVTeamPrototype@@M@Z	1
-present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	removeKindOfProductionCostChange@Player@@QAEXV?$BitFlags@$0HE@@@M@Z	1
-present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	removePlayerRelationship@Player@@QAE_NPBV1@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	removeUpgrade@Player@@QAEXPBVUpgradeTemplate@@@Z	1
-present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	resetOrStartSpecialPowerReadyFrame@Player@@QAEXPBVSpecialPowerTemplate@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	sellEverythingUnderTheSun@Player@@QAEXXZ	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	setBuildList@Player@@QAEXPAVBuildListInfo@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	setListInScoreScreen@Player@@QAEX_N@Z	1
-present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	setTeamRelationship@Player@@QAEXPBVTeam@@W4Relationship@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	transferAssetsFromThat@Player@@QAEXPAV1@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/PlayerList.cpp	PlayerList::crc	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/PlayerList.cpp	PlayerList::loadPostProcess	1

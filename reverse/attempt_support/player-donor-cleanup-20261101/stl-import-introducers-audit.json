@@ -1,0 +1,566 @@
+{
+  "source": "Code/GameEngine/Source/Common/RTS/Player.cpp",
+  "source_sha256": "9e546bfc13ab67e6c600d7fe4c27c5b3f3e28deab448c8ed7737219cbc60c7e0",
+  "object_sha256": "54d3ee2e99d6cfbfa0a264cfb674ddf3bef904a23c61d30029e5c47bc8e47798",
+  "compile_receipt_current": true,
+  "index_meta": {
+    "date": "2026-11-01 14:31",
+    "commit": "86db074988",
+    "clean_tree": true,
+    "census_date": "2026-11-01 12:39",
+    "census_commit": "39dfbbdb50"
+  },
+  "import_count": 8,
+  "imports": [
+    {
+      "import": "__imp_??0?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAE@IABQAXABV?$allocator@PAX@1@@Z",
+      "direct_sites": [
+        {
+          "section": ".text",
+          "offset": 94,
+          "type": 6,
+          "sources": [
+            "?resize@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@QAEXI@Z"
+          ]
+        }
+      ],
+      "direct_source_player_roots": [
+        "?setTeamRelationship@Player@@QAEXPBVTeam@@W4Relationship@@@Z"
+      ],
+      "reverse_graph_nodes": [
+        "??A?$hash_map@IW4Relationship@@U?$hash@I@_STL@@U?$equal_to@I@3@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@3@@_STL@@QAEAAW4Relationship@@ABI@Z",
+        "?_M_insert@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@QAEAAU?$pair@$$CBIW4Relationship@@@2@ABU32@@Z",
+        "?resize@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@QAEXI@Z",
+        "?setTeamRelationship@Player@@QAEXPBVTeam@@W4Relationship@@@Z"
+      ]
+    },
+    {
+      "import": "__imp_??1?$allocator@PAX@_STL@@QAE@XZ",
+      "direct_sites": [
+        {
+          "section": ".text$x",
+          "offset": 5,
+          "type": 6,
+          "sources": [
+            "?resize@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@QAEXI@Z"
+          ]
+        }
+      ],
+      "direct_source_player_roots": [
+        "?setTeamRelationship@Player@@QAEXPBVTeam@@W4Relationship@@@Z"
+      ],
+      "reverse_graph_nodes": [
+        "??A?$hash_map@IW4Relationship@@U?$hash@I@_STL@@U?$equal_to@I@3@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@3@@_STL@@QAEAAW4Relationship@@ABI@Z",
+        "?_M_insert@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@QAEAAU?$pair@$$CBIW4Relationship@@@2@ABU32@@Z",
+        "?resize@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@QAEXI@Z",
+        "?setTeamRelationship@Player@@QAEXPBVTeam@@W4Relationship@@@Z"
+      ]
+    },
+    {
+      "import": "__imp_??1?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAE@XZ",
+      "direct_sites": [
+        {
+          "section": ".text",
+          "offset": 191,
+          "type": 6,
+          "sources": [
+            "?resize@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@QAEXI@Z"
+          ]
+        },
+        {
+          "section": ".text$x",
+          "offset": 14,
+          "type": 6,
+          "sources": [
+            "?resize@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@QAEXI@Z"
+          ]
+        }
+      ],
+      "direct_source_player_roots": [
+        "?setTeamRelationship@Player@@QAEXPBVTeam@@W4Relationship@@@Z"
+      ],
+      "reverse_graph_nodes": [
+        "??A?$hash_map@IW4Relationship@@U?$hash@I@_STL@@U?$equal_to@I@3@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@3@@_STL@@QAEAAW4Relationship@@ABI@Z",
+        "?_M_insert@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@QAEAAU?$pair@$$CBIW4Relationship@@@2@ABU32@@Z",
+        "?resize@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@QAEXI@Z",
+        "?setTeamRelationship@Player@@QAEXPBVTeam@@W4Relationship@@@Z"
+      ]
+    },
+    {
+      "import": "__imp_?_M_list@?$_Stl_prime@_N@_STL@@2QBIB",
+      "direct_sites": [
+        {
+          "section": ".text",
+          "offset": 4,
+          "type": 6,
+          "sources": [
+            "?_M_next_size@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@ABEII@Z"
+          ]
+        }
+      ],
+      "direct_source_player_roots": [
+        "?setTeamRelationship@Player@@QAEXPBVTeam@@W4Relationship@@@Z"
+      ],
+      "reverse_graph_nodes": [
+        "??A?$hash_map@IW4Relationship@@U?$hash@I@_STL@@U?$equal_to@I@3@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@3@@_STL@@QAEAAW4Relationship@@ABI@Z",
+        "?_M_insert@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@QAEAAU?$pair@$$CBIW4Relationship@@@2@ABU32@@Z",
+        "?_M_next_size@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@ABEII@Z",
+        "?resize@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@QAEXI@Z",
+        "?setTeamRelationship@Player@@QAEXPBVTeam@@W4Relationship@@@Z"
+      ]
+    },
+    {
+      "import": "__imp_?allocate@__new_alloc@_STL@@SAPAXI@Z",
+      "direct_sites": [
+        {
+          "section": ".text",
+          "offset": 14,
+          "type": 6,
+          "sources": [
+            "?allocate@?$allocator@U?$_List_node@PAVKindOfPercentProductionChange@@@_STL@@@_STL@@QBEPAU?$_List_node@PAVKindOfPercentProductionChange@@@2@IPBX@Z"
+          ]
+        },
+        {
+          "section": ".text",
+          "offset": 14,
+          "type": 6,
+          "sources": [
+            "?allocate@?$allocator@U?$_List_node@USpecialPowerReadyTimerType@@@_STL@@@_STL@@QBEPAU?$_List_node@USpecialPowerReadyTimerType@@@2@IPBX@Z"
+          ]
+        },
+        {
+          "section": ".text",
+          "offset": 14,
+          "type": 6,
+          "sources": [
+            "?allocate@?$allocator@U?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@_STL@@@_STL@@QBEPAU?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@2@IPBX@Z"
+          ]
+        },
+        {
+          "section": ".text",
+          "offset": 4,
+          "type": 6,
+          "sources": [
+            "?_M_create_node@?$list@PAVKindOfPercentProductionChange@@V?$allocator@PAVKindOfPercentProductionChange@@@_STL@@@_STL@@IAEPAU?$_List_node@PAVKindOfPercentProductionChange@@@2@ABQAVKindOfPercentProductionChange@@@Z"
+          ]
+        },
+        {
+          "section": ".text",
+          "offset": 5,
+          "type": 6,
+          "sources": [
+            "?_M_create_node@?$list@USpecialPowerReadyTimerType@@V?$allocator@USpecialPowerReadyTimerType@@@_STL@@@_STL@@IAEPAU?$_List_node@USpecialPowerReadyTimerType@@@2@ABUSpecialPowerReadyTimerType@@@Z"
+          ]
+        },
+        {
+          "section": ".text",
+          "offset": 5,
+          "type": 6,
+          "sources": [
+            "?_M_new_node@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@AAEPAU?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@2@ABU?$pair@$$CBIW4Relationship@@@2@@Z"
+          ]
+        }
+      ],
+      "direct_source_player_roots": [
+        "?addKindOfProductionCostChange@Player@@QAEXV?$BitFlags@$0HE@@@M@Z",
+        "?addNewSharedSpecialPowerTimer@Player@@QAEXPBVSpecialPowerTemplate@@I@Z",
+        "?setTeamRelationship@Player@@QAEXPBVTeam@@W4Relationship@@@Z"
+      ],
+      "reverse_graph_nodes": [
+        "??A?$hash_map@IW4Relationship@@U?$hash@I@_STL@@U?$equal_to@I@3@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@3@@_STL@@QAEAAW4Relationship@@ABI@Z",
+        "?_M_create_node@?$list@PAVKindOfPercentProductionChange@@V?$allocator@PAVKindOfPercentProductionChange@@@_STL@@@_STL@@IAEPAU?$_List_node@PAVKindOfPercentProductionChange@@@2@ABQAVKindOfPercentProductionChange@@@Z",
+        "?_M_create_node@?$list@USpecialPowerReadyTimerType@@V?$allocator@USpecialPowerReadyTimerType@@@_STL@@@_STL@@IAEPAU?$_List_node@USpecialPowerReadyTimerType@@@2@ABUSpecialPowerReadyTimerType@@@Z",
+        "?_M_insert@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@QAEAAU?$pair@$$CBIW4Relationship@@@2@ABU32@@Z",
+        "?_M_new_node@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@AAEPAU?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@2@ABU?$pair@$$CBIW4Relationship@@@2@@Z",
+        "?addKindOfProductionCostChange@Player@@QAEXV?$BitFlags@$0HE@@@M@Z",
+        "?addNewSharedSpecialPowerTimer@Player@@QAEXPBVSpecialPowerTemplate@@I@Z",
+        "?allocate@?$_STLP_alloc_proxy@IU?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@_STL@@V?$allocator@U?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@_STL@@@2@@_STL@@QAEPAU?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@2@I@Z",
+        "?allocate@?$_STLP_alloc_proxy@PAU?$_List_node@PAVKindOfPercentProductionChange@@@_STL@@U12@V?$allocator@U?$_List_node@PAVKindOfPercentProductionChange@@@_STL@@@2@@_STL@@QAEPAU?$_List_node@PAVKindOfPercentProductionChange@@@2@I@Z",
+        "?allocate@?$_STLP_alloc_proxy@PAU?$_List_node@USpecialPowerReadyTimerType@@@_STL@@U12@V?$allocator@U?$_List_node@USpecialPowerReadyTimerType@@@_STL@@@2@@_STL@@QAEPAU?$_List_node@USpecialPowerReadyTimerType@@@2@I@Z",
+        "?allocate@?$allocator@U?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@_STL@@@_STL@@QBEPAU?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@2@IPBX@Z",
+        "?allocate@?$allocator@U?$_List_node@PAVKindOfPercentProductionChange@@@_STL@@@_STL@@QBEPAU?$_List_node@PAVKindOfPercentProductionChange@@@2@IPBX@Z",
+        "?allocate@?$allocator@U?$_List_node@USpecialPowerReadyTimerType@@@_STL@@@_STL@@QBEPAU?$_List_node@USpecialPowerReadyTimerType@@@2@IPBX@Z",
+        "?insert@?$list@PAVKindOfPercentProductionChange@@V?$allocator@PAVKindOfPercentProductionChange@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVKindOfPercentProductionChange@@U?$_Nonconst_traits@PAVKindOfPercentProductionChange@@@_STL@@@2@U32@ABQAVKindOfPercentProductionChange@@@Z",
+        "?insert@?$list@USpecialPowerReadyTimerType@@V?$allocator@USpecialPowerReadyTimerType@@@_STL@@@_STL@@QAE?AU?$_List_iterator@USpecialPowerReadyTimerType@@U?$_Nonconst_traits@USpecialPowerReadyTimerType@@@_STL@@@2@U32@ABUSpecialPowerReadyTimerType@@@Z",
+        "?push_back@?$list@PAVKindOfPercentProductionChange@@V?$allocator@PAVKindOfPercentProductionChange@@@_STL@@@_STL@@QAEXABQAVKindOfPercentProductionChange@@@Z",
+        "?push_back@?$list@USpecialPowerReadyTimerType@@V?$allocator@USpecialPowerReadyTimerType@@@_STL@@@_STL@@QAEXABUSpecialPowerReadyTimerType@@@Z",
+        "?setTeamRelationship@Player@@QAEXPBVTeam@@W4Relationship@@@Z"
+      ]
+    },
+    {
+      "import": "__imp_?deallocate@__new_alloc@_STL@@SAXPAXI@Z",
+      "direct_sites": [
+        {
+          "section": ".text",
+          "offset": 21,
+          "type": 6,
+          "sources": [
+            "?deallocate@?$allocator@U?$_List_node@PAVKindOfPercentProductionChange@@@_STL@@@_STL@@QBEXPAU?$_List_node@PAVKindOfPercentProductionChange@@@2@I@Z"
+          ]
+        },
+        {
+          "section": ".text",
+          "offset": 21,
+          "type": 6,
+          "sources": [
+            "?deallocate@?$allocator@U?$_List_node@USpecialPowerReadyTimerType@@@_STL@@@_STL@@QBEXPAU?$_List_node@USpecialPowerReadyTimerType@@@2@I@Z"
+          ]
+        },
+        {
+          "section": ".text",
+          "offset": 21,
+          "type": 6,
+          "sources": [
+            "?deallocate@?$allocator@U?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@_STL@@@_STL@@QBEXPAU?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@2@I@Z"
+          ]
+        },
+        {
+          "section": ".text",
+          "offset": 21,
+          "type": 6,
+          "sources": [
+            "?deallocate@?$allocator@U?$_Hashtable_node@U?$pair@$$CBHW4Relationship@@@_STL@@@_STL@@@_STL@@QBEXPAU?$_Hashtable_node@U?$pair@$$CBHW4Relationship@@@_STL@@@2@I@Z"
+          ]
+        }
+      ],
+      "direct_source_player_roots": [
+        "?removeKindOfProductionCostChange@Player@@QAEXV?$BitFlags@$0HE@@@M@Z",
+        "?removePlayerRelationship@Player@@QAE_NPBV1@@Z",
+        "?removeTeamRelationship@Player@@QAE_NPBVTeam@@@Z",
+        "?setTeamRelationship@Player@@QAEXPBVTeam@@W4Relationship@@@Z"
+      ],
+      "reverse_graph_nodes": [
+        "??A?$hash_map@IW4Relationship@@U?$hash@I@_STL@@U?$equal_to@I@3@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@3@@_STL@@QAEAAW4Relationship@@ABI@Z",
+        "?_M_delete_node@?$hashtable@U?$pair@$$CBHW4Relationship@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHW4Relationship@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@2@@_STL@@AAEXPAU?$_Hashtable_node@U?$pair@$$CBHW4Relationship@@@_STL@@@2@@Z",
+        "?_M_delete_node@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@AAEXPAU?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@Z",
+        "?_M_insert@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@QAEAAU?$pair@$$CBIW4Relationship@@@2@ABU32@@Z",
+        "?clear@?$hash_map@HW4Relationship@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@3@@_STL@@QAEXXZ",
+        "?clear@?$hash_map@IW4Relationship@@U?$hash@I@_STL@@U?$equal_to@I@3@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@3@@_STL@@QAEXXZ",
+        "?clear@?$hashtable@U?$pair@$$CBHW4Relationship@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHW4Relationship@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@2@@_STL@@QAEXXZ",
+        "?clear@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@QAEXXZ",
+        "?deallocate@?$_STLP_alloc_proxy@IU?$_Hashtable_node@U?$pair@$$CBHW4Relationship@@@_STL@@@_STL@@V?$allocator@U?$_Hashtable_node@U?$pair@$$CBHW4Relationship@@@_STL@@@_STL@@@2@@_STL@@QAEXPAU?$_Hashtable_node@U?$pair@$$CBHW4Relationship@@@_STL@@@2@I@Z",
+        "?deallocate@?$_STLP_alloc_proxy@IU?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@_STL@@V?$allocator@U?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@_STL@@@2@@_STL@@QAEXPAU?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@2@I@Z",
+        "?deallocate@?$_STLP_alloc_proxy@PAU?$_List_node@PAVKindOfPercentProductionChange@@@_STL@@U12@V?$allocator@U?$_List_node@PAVKindOfPercentProductionChange@@@_STL@@@2@@_STL@@QAEXPAU?$_List_node@PAVKindOfPercentProductionChange@@@2@I@Z",
+        "?deallocate@?$_STLP_alloc_proxy@PAU?$_List_node@USpecialPowerReadyTimerType@@@_STL@@U12@V?$allocator@U?$_List_node@USpecialPowerReadyTimerType@@@_STL@@@2@@_STL@@QAEXPAU?$_List_node@USpecialPowerReadyTimerType@@@2@I@Z",
+        "?deallocate@?$allocator@U?$_Hashtable_node@U?$pair@$$CBHW4Relationship@@@_STL@@@_STL@@@_STL@@QBEXPAU?$_Hashtable_node@U?$pair@$$CBHW4Relationship@@@_STL@@@2@I@Z",
+        "?deallocate@?$allocator@U?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@_STL@@@_STL@@QBEXPAU?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@2@I@Z",
+        "?deallocate@?$allocator@U?$_List_node@PAVKindOfPercentProductionChange@@@_STL@@@_STL@@QBEXPAU?$_List_node@PAVKindOfPercentProductionChange@@@2@I@Z",
+        "?deallocate@?$allocator@U?$_List_node@USpecialPowerReadyTimerType@@@_STL@@@_STL@@QBEXPAU?$_List_node@USpecialPowerReadyTimerType@@@2@I@Z",
+        "?erase@?$hash_map@HW4Relationship@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@3@@_STL@@QAEXU?$_Ht_iterator@U?$pair@$$CBHW4Relationship@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHW4Relationship@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHW4Relationship@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@2@@2@@Z",
+        "?erase@?$hash_map@IW4Relationship@@U?$hash@I@_STL@@U?$equal_to@I@3@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@3@@_STL@@QAEXU?$_Ht_iterator@U?$pair@$$CBIW4Relationship@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIW4Relationship@@@_STL@@@2@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@2@@Z",
+        "?erase@?$hashtable@U?$pair@$$CBHW4Relationship@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHW4Relationship@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@2@@_STL@@QAEXABU?$_Ht_iterator@U?$pair@$$CBHW4Relationship@@@_STL@@U?$_Const_traits@U?$pair@$$CBHW4Relationship@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHW4Relationship@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@2@@2@@Z",
+        "?erase@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@QAEXABU?$_Ht_iterator@U?$pair@$$CBIW4Relationship@@@_STL@@U?$_Const_traits@U?$pair@$$CBIW4Relationship@@@_STL@@@2@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@2@@Z",
+        "?erase@?$list@PAVKindOfPercentProductionChange@@V?$allocator@PAVKindOfPercentProductionChange@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVKindOfPercentProductionChange@@U?$_Nonconst_traits@PAVKindOfPercentProductionChange@@@_STL@@@2@U32@@Z",
+        "?removeKindOfProductionCostChange@Player@@QAEXV?$BitFlags@$0HE@@@M@Z",
+        "?removePlayerRelationship@Player@@QAE_NPBV1@@Z",
+        "?removeTeamRelationship@Player@@QAE_NPBVTeam@@@Z",
+        "?resize@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@QAEXI@Z",
+        "?setTeamRelationship@Player@@QAEXPBVTeam@@W4Relationship@@@Z"
+      ]
+    },
+    {
+      "import": "__imp_?get_allocator@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBE?AV?$allocator@PAX@2@XZ",
+      "direct_sites": [
+        {
+          "section": ".text",
+          "offset": 74,
+          "type": 6,
+          "sources": [
+            "?resize@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@QAEXI@Z"
+          ]
+        }
+      ],
+      "direct_source_player_roots": [
+        "?setTeamRelationship@Player@@QAEXPBVTeam@@W4Relationship@@@Z"
+      ],
+      "reverse_graph_nodes": [
+        "??A?$hash_map@IW4Relationship@@U?$hash@I@_STL@@U?$equal_to@I@3@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@3@@_STL@@QAEAAW4Relationship@@ABI@Z",
+        "?_M_insert@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@QAEAAU?$pair@$$CBIW4Relationship@@@2@ABU32@@Z",
+        "?resize@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@QAEXI@Z",
+        "?setTeamRelationship@Player@@QAEXPBVTeam@@W4Relationship@@@Z"
+      ]
+    },
+    {
+      "import": "__imp_?swap@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEXAAV12@@Z",
+      "direct_sites": [
+        {
+          "section": ".text",
+          "offset": 178,
+          "type": 6,
+          "sources": [
+            "?resize@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@QAEXI@Z"
+          ]
+        }
+      ],
+      "direct_source_player_roots": [
+        "?setTeamRelationship@Player@@QAEXPBVTeam@@W4Relationship@@@Z"
+      ],
+      "reverse_graph_nodes": [
+        "??A?$hash_map@IW4Relationship@@U?$hash@I@_STL@@U?$equal_to@I@3@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@3@@_STL@@QAEAAW4Relationship@@ABI@Z",
+        "?_M_insert@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@QAEAAU?$pair@$$CBIW4Relationship@@@2@ABU32@@Z",
+        "?resize@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@QAEXI@Z",
+        "?setTeamRelationship@Player@@QAEXPBVTeam@@W4Relationship@@@Z"
+      ]
+    }
+  ],
+  "direct_root_checks": [
+    {
+      "method": "?addKindOfProductionCostChange@Player@@QAEXV?$BitFlags@$0HE@@@M@Z",
+      "raw_bytes": 142,
+      "local_runtime_data_incoming": [],
+      "all_index_incoming_sources": [],
+      "index_referenced": false,
+      "incoming_index_aliases": [],
+      "dependencies_within_closure": [],
+      "exact_source_signature": "void Player::addKindOfProductionCostChange(\tKindOfMaskType kindOf, Real percent )",
+      "adjacent_marker": "// ?addKindOfProductionCostChange@Player@@QAEXV?$BitFlags@$0HE@@@M@Z present-unmatched"
+    },
+    {
+      "method": "?addNewSharedSpecialPowerTimer@Player@@QAEXPBVSpecialPowerTemplate@@I@Z",
+      "raw_bytes": 48,
+      "local_runtime_data_incoming": [
+        {
+          "section": ".text",
+          "offset": 55,
+          "type": 20,
+          "sources": [
+            "?resetOrStartSpecialPowerReadyFrame@Player@@QAEXPBVSpecialPowerTemplate@@@Z"
+          ]
+        },
+        {
+          "section": ".text",
+          "offset": 49,
+          "type": 20,
+          "sources": [
+            "?expressSpecialPowerReadyFrame@Player@@QAEXPBVSpecialPowerTemplate@@I@Z"
+          ]
+        },
+        {
+          "section": ".text",
+          "offset": 54,
+          "type": 20,
+          "sources": [
+            "?getOrStartSpecialPowerReadyFrame@Player@@QAEIPBVSpecialPowerTemplate@@@Z"
+          ]
+        }
+      ],
+      "all_index_incoming_sources": [],
+      "index_referenced": true,
+      "incoming_index_aliases": [],
+      "dependencies_within_closure": [],
+      "exact_source_signature": "void Player::addNewSharedSpecialPowerTimer( const SpecialPowerTemplate *specialPowerTemplate, UnsignedInt frame )",
+      "adjacent_marker": "// ?addNewSharedSpecialPowerTimer@Player@@QAEXPBVSpecialPowerTemplate@@I@Z present-unmatched"
+    },
+    {
+      "method": "?expressSpecialPowerReadyFrame@Player@@QAEXPBVSpecialPowerTemplate@@I@Z",
+      "raw_bytes": 68,
+      "local_runtime_data_incoming": [],
+      "all_index_incoming_sources": [],
+      "index_referenced": false,
+      "incoming_index_aliases": [],
+      "dependencies_within_closure": [
+        "?addNewSharedSpecialPowerTimer@Player@@QAEXPBVSpecialPowerTemplate@@I@Z"
+      ],
+      "exact_source_signature": "void Player::expressSpecialPowerReadyFrame( const SpecialPowerTemplate *specialPowerTemplate, UnsignedInt frame )",
+      "adjacent_marker": "// ?expressSpecialPowerReadyFrame@Player@@QAEXPBVSpecialPowerTemplate@@I@Z present-unmatched"
+    },
+    {
+      "method": "?getOrStartSpecialPowerReadyFrame@Player@@QAEIPBVSpecialPowerTemplate@@@Z",
+      "raw_bytes": 70,
+      "local_runtime_data_incoming": [],
+      "all_index_incoming_sources": [],
+      "index_referenced": true,
+      "incoming_index_aliases": [],
+      "dependencies_within_closure": [
+        "?addNewSharedSpecialPowerTimer@Player@@QAEXPBVSpecialPowerTemplate@@I@Z"
+      ],
+      "exact_source_signature": "UnsignedInt Player::getOrStartSpecialPowerReadyFrame( const SpecialPowerTemplate *specialPowerTemplate)",
+      "adjacent_marker": "// ?getOrStartSpecialPowerReadyFrame@Player@@QAEIPBVSpecialPowerTemplate@@@Z present-unmatched"
+    },
+    {
+      "method": "?removeKindOfProductionCostChange@Player@@QAEXV?$BitFlags@$0HE@@@M@Z",
+      "raw_bytes": 97,
+      "local_runtime_data_incoming": [],
+      "all_index_incoming_sources": [],
+      "index_referenced": false,
+      "incoming_index_aliases": [],
+      "dependencies_within_closure": [],
+      "exact_source_signature": "void Player::removeKindOfProductionCostChange(\tKindOfMaskType kindOf, Real percent )",
+      "adjacent_marker": "// ?removeKindOfProductionCostChange@Player@@QAEXV?$BitFlags@$0HE@@@M@Z present-unmatched"
+    },
+    {
+      "method": "?removePlayerRelationship@Player@@QAE_NPBV1@@Z",
+      "raw_bytes": 97,
+      "local_runtime_data_incoming": [],
+      "all_index_incoming_sources": [],
+      "index_referenced": false,
+      "incoming_index_aliases": [],
+      "dependencies_within_closure": [],
+      "exact_source_signature": "Bool Player::removePlayerRelationship(const Player *that)",
+      "adjacent_marker": "// ?removePlayerRelationship@Player@@QAE_NPBV1@@Z present-unmatched"
+    },
+    {
+      "method": "?removeTeamRelationship@Player@@QAE_NPBVTeam@@@Z",
+      "raw_bytes": 95,
+      "local_runtime_data_incoming": [],
+      "all_index_incoming_sources": [],
+      "index_referenced": true,
+      "incoming_index_aliases": [],
+      "dependencies_within_closure": [],
+      "exact_source_signature": "Bool Player::removeTeamRelationship(const Team *that)",
+      "adjacent_marker": "// ?Player::removeTeamRelationship present-unmatched"
+    },
+    {
+      "method": "?resetOrStartSpecialPowerReadyFrame@Player@@QAEXPBVSpecialPowerTemplate@@@Z",
+      "raw_bytes": 83,
+      "local_runtime_data_incoming": [],
+      "all_index_incoming_sources": [],
+      "index_referenced": true,
+      "incoming_index_aliases": [],
+      "dependencies_within_closure": [
+        "?addNewSharedSpecialPowerTimer@Player@@QAEXPBVSpecialPowerTemplate@@I@Z"
+      ],
+      "exact_source_signature": "void Player::resetOrStartSpecialPowerReadyFrame( const SpecialPowerTemplate *specialPowerTemplate )",
+      "adjacent_marker": "// ?resetOrStartSpecialPowerReadyFrame@Player@@QAEXPBVSpecialPowerTemplate@@@Z present-unmatched"
+    },
+    {
+      "method": "?setTeamRelationship@Player@@QAEXPBVTeam@@W4Relationship@@@Z",
+      "raw_bytes": 43,
+      "local_runtime_data_incoming": [],
+      "all_index_incoming_sources": [],
+      "index_referenced": false,
+      "incoming_index_aliases": [],
+      "dependencies_within_closure": [],
+      "exact_source_signature": "void Player::setTeamRelationship(const Team *that, Relationship r)",
+      "adjacent_marker": "// ?setTeamRelationship@Player@@QAEXPBVTeam@@W4Relationship@@@Z present-unmatched"
+    }
+  ],
+  "direct_helper_index_checks": [
+    {
+      "helper": "?_M_create_node@?$list@PAVKindOfPercentProductionChange@@V?$allocator@PAVKindOfPercentProductionChange@@@_STL@@@_STL@@IAEPAU?$_List_node@PAVKindOfPercentProductionChange@@@2@ABQAVKindOfPercentProductionChange@@@Z",
+      "index_incoming_sources": [
+        "?insert@?$list@PAVKindOfPercentProductionChange@@V?$allocator@PAVKindOfPercentProductionChange@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVKindOfPercentProductionChange@@U?$_Nonconst_traits@PAVKindOfPercentProductionChange@@@_STL@@@2@U32@ABQAVKindOfPercentProductionChange@@@Z"
+      ],
+      "other_index_provider_objects": []
+    },
+    {
+      "helper": "?_M_create_node@?$list@USpecialPowerReadyTimerType@@V?$allocator@USpecialPowerReadyTimerType@@@_STL@@@_STL@@IAEPAU?$_List_node@USpecialPowerReadyTimerType@@@2@ABUSpecialPowerReadyTimerType@@@Z",
+      "index_incoming_sources": [
+        "?insert@?$list@USpecialPowerReadyTimerType@@V?$allocator@USpecialPowerReadyTimerType@@@_STL@@@_STL@@QAE?AU?$_List_iterator@USpecialPowerReadyTimerType@@U?$_Nonconst_traits@USpecialPowerReadyTimerType@@@_STL@@@2@U32@ABUSpecialPowerReadyTimerType@@@Z"
+      ],
+      "other_index_provider_objects": []
+    },
+    {
+      "helper": "?_M_new_node@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@AAEPAU?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@2@ABU?$pair@$$CBIW4Relationship@@@2@@Z",
+      "index_incoming_sources": [
+        "?_M_insert@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@QAEAAU?$pair@$$CBIW4Relationship@@@2@ABU32@@Z"
+      ],
+      "other_index_provider_objects": []
+    },
+    {
+      "helper": "?_M_next_size@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@ABEII@Z",
+      "index_incoming_sources": [
+        "?resize@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@QAEXI@Z"
+      ],
+      "other_index_provider_objects": []
+    },
+    {
+      "helper": "?allocate@?$allocator@U?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@_STL@@@_STL@@QBEPAU?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@2@IPBX@Z",
+      "index_incoming_sources": [
+        "?allocate@?$_STLP_alloc_proxy@IU?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@_STL@@V?$allocator@U?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@_STL@@@2@@_STL@@QAEPAU?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@2@I@Z"
+      ],
+      "other_index_provider_objects": []
+    },
+    {
+      "helper": "?allocate@?$allocator@U?$_List_node@PAVKindOfPercentProductionChange@@@_STL@@@_STL@@QBEPAU?$_List_node@PAVKindOfPercentProductionChange@@@2@IPBX@Z",
+      "index_incoming_sources": [
+        "?allocate@?$_STLP_alloc_proxy@PAU?$_List_node@PAVKindOfPercentProductionChange@@@_STL@@U12@V?$allocator@U?$_List_node@PAVKindOfPercentProductionChange@@@_STL@@@2@@_STL@@QAEPAU?$_List_node@PAVKindOfPercentProductionChange@@@2@I@Z"
+      ],
+      "other_index_provider_objects": []
+    },
+    {
+      "helper": "?allocate@?$allocator@U?$_List_node@USpecialPowerReadyTimerType@@@_STL@@@_STL@@QBEPAU?$_List_node@USpecialPowerReadyTimerType@@@2@IPBX@Z",
+      "index_incoming_sources": [
+        "?allocate@?$_STLP_alloc_proxy@PAU?$_List_node@USpecialPowerReadyTimerType@@@_STL@@U12@V?$allocator@U?$_List_node@USpecialPowerReadyTimerType@@@_STL@@@2@@_STL@@QAEPAU?$_List_node@USpecialPowerReadyTimerType@@@2@I@Z"
+      ],
+      "other_index_provider_objects": []
+    },
+    {
+      "helper": "?deallocate@?$allocator@U?$_Hashtable_node@U?$pair@$$CBHW4Relationship@@@_STL@@@_STL@@@_STL@@QBEXPAU?$_Hashtable_node@U?$pair@$$CBHW4Relationship@@@_STL@@@2@I@Z",
+      "index_incoming_sources": [
+        "?deallocate@?$_STLP_alloc_proxy@IU?$_Hashtable_node@U?$pair@$$CBHW4Relationship@@@_STL@@@_STL@@V?$allocator@U?$_Hashtable_node@U?$pair@$$CBHW4Relationship@@@_STL@@@_STL@@@2@@_STL@@QAEXPAU?$_Hashtable_node@U?$pair@$$CBHW4Relationship@@@_STL@@@2@I@Z",
+        "?_M_delete_node@?$hashtable@U?$pair@$$CBHW4Relationship@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHW4Relationship@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@2@@_STL@@AAEXPAU?$_Hashtable_node@U?$pair@$$CBHW4Relationship@@@_STL@@@2@@Z",
+        "?erase@?$hashtable@U?$pair@$$CBHW4Relationship@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHW4Relationship@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@2@@_STL@@QAEXABU?$_Ht_iterator@U?$pair@$$CBHW4Relationship@@@_STL@@U?$_Const_traits@U?$pair@$$CBHW4Relationship@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHW4Relationship@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@2@@2@@Z",
+        "?clear@?$hashtable@U?$pair@$$CBHW4Relationship@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHW4Relationship@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@2@@_STL@@QAEXXZ"
+      ],
+      "other_index_provider_objects": []
+    },
+    {
+      "helper": "?deallocate@?$allocator@U?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@_STL@@@_STL@@QBEXPAU?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@2@I@Z",
+      "index_incoming_sources": [
+        "?deallocate@?$_STLP_alloc_proxy@IU?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@_STL@@V?$allocator@U?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@_STL@@@2@@_STL@@QAEXPAU?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@2@I@Z",
+        "?_M_delete_node@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@AAEXPAU?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@Z",
+        "?resize@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@QAEXI@Z",
+        "?erase@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@QAEXABU?$_Ht_iterator@U?$pair@$$CBIW4Relationship@@@_STL@@U?$_Const_traits@U?$pair@$$CBIW4Relationship@@@_STL@@@2@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@2@@Z",
+        "?clear@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@QAEXXZ"
+      ],
+      "other_index_provider_objects": []
+    },
+    {
+      "helper": "?deallocate@?$allocator@U?$_List_node@PAVKindOfPercentProductionChange@@@_STL@@@_STL@@QBEXPAU?$_List_node@PAVKindOfPercentProductionChange@@@2@I@Z",
+      "index_incoming_sources": [
+        "?deallocate@?$_STLP_alloc_proxy@PAU?$_List_node@PAVKindOfPercentProductionChange@@@_STL@@U12@V?$allocator@U?$_List_node@PAVKindOfPercentProductionChange@@@_STL@@@2@@_STL@@QAEXPAU?$_List_node@PAVKindOfPercentProductionChange@@@2@I@Z",
+        "?erase@?$list@PAVKindOfPercentProductionChange@@V?$allocator@PAVKindOfPercentProductionChange@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVKindOfPercentProductionChange@@U?$_Nonconst_traits@PAVKindOfPercentProductionChange@@@_STL@@@2@U32@@Z"
+      ],
+      "other_index_provider_objects": []
+    },
+    {
+      "helper": "?deallocate@?$allocator@U?$_List_node@USpecialPowerReadyTimerType@@@_STL@@@_STL@@QBEXPAU?$_List_node@USpecialPowerReadyTimerType@@@2@I@Z",
+      "index_incoming_sources": [
+        "?deallocate@?$_STLP_alloc_proxy@PAU?$_List_node@USpecialPowerReadyTimerType@@@_STL@@U12@V?$allocator@U?$_List_node@USpecialPowerReadyTimerType@@@_STL@@@2@@_STL@@QAEXPAU?$_List_node@USpecialPowerReadyTimerType@@@2@I@Z",
+        "?clear@?$_List_base@USpecialPowerReadyTimerType@@V?$allocator@USpecialPowerReadyTimerType@@@_STL@@@_STL@@QAEXXZ"
+      ],
+      "other_index_provider_objects": []
+    },
+    {
+      "helper": "?resize@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@QAEXI@Z",
+      "index_incoming_sources": [
+        "?_M_insert@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@QAEAAU?$pair@$$CBIW4Relationship@@@2@ABU32@@Z"
+      ],
+      "other_index_provider_objects": []
+    }
+  ],
+  "minimal_complete_source_method_closure": [
+    "?addKindOfProductionCostChange@Player@@QAEXV?$BitFlags@$0HE@@@M@Z",
+    "?addNewSharedSpecialPowerTimer@Player@@QAEXPBVSpecialPowerTemplate@@I@Z",
+    "?expressSpecialPowerReadyFrame@Player@@QAEXPBVSpecialPowerTemplate@@I@Z",
+    "?getOrStartSpecialPowerReadyFrame@Player@@QAEIPBVSpecialPowerTemplate@@@Z",
+    "?removeKindOfProductionCostChange@Player@@QAEXV?$BitFlags@$0HE@@@M@Z",
+    "?removePlayerRelationship@Player@@QAE_NPBV1@@Z",
+    "?removeTeamRelationship@Player@@QAE_NPBVTeam@@@Z",
+    "?resetOrStartSpecialPowerReadyFrame@Player@@QAEXPBVSpecialPowerTemplate@@@Z",
+    "?setTeamRelationship@Player@@QAEXPBVTeam@@W4Relationship@@@Z"
+  ],
+  "closure_method_count": 9,
+  "closure_excludes_owned_rows": true,
+  "source_snapshot_unchanged": true,
+  "object_snapshot_unchanged": true,
+  "shared_explanation": "Unverified donor relationship-hash-map and two donor list families instantiate DLL-form STLport operations. Six of eight imports belong only to setTeamRelationship through the unsigned-Relationship hashtable resize/prime path; new_alloc allocate/free remain shared across the relationship removals, production-cost list add/remove and timer insertion family.",
+  "minimal_closure_note": "Nine source methods: relationship set/removePlayer/removeTeam; production-cost add/remove; timer insertion plus its three local callers resetOrStart, express and getOrStart. Remove caller wrappers before timer inserter or as one verified homogeneous unit. Its timer-node deallocator is an emitted-inline island with no relocation path to a source body, structurally instantiated with the insertion family; a private whole-object proof must establish that it vanishes.",
+  "preserve": [
+    "all 12 matched rows",
+    "existing getter anchors",
+    "ScienceType copy and erase anchor",
+    "TheTeamFactory native storage definition",
+    "six existing linker aliases and required target providers"
+  ],
+  "qualification": "Read-only current COFF and existing index, no compiler or network. Nine-method closure is an evidenced probe proposal, not a verified application. Some names are marked referenced by the index despite having no graph incoming edge; retain that distinction. Outside-provider and batch guards still decide what may land.",
+  "exact_signatures_source_sha256": "9e546bfc13ab67e6c600d7fe4c27c5b3f3e28deab448c8ed7737219cbc60c7e0",
+  "exact_signatures_same_source_snapshot_as_graph": true,
+  "timer_wrapper_checks_included": [
+    "?resetOrStartSpecialPowerReadyFrame@Player@@QAEXPBVSpecialPowerTemplate@@@Z",
+    "?expressSpecialPowerReadyFrame@Player@@QAEXPBVSpecialPowerTemplate@@I@Z",
+    "?getOrStartSpecialPowerReadyFrame@Player@@QAEIPBVSpecialPowerTemplate@@@Z"
+  ],
+  "emitted_inline_island_limit": "The reverse relocation graph cannot attribute every emitted template body to a source root: notably timer-node allocator::deallocate has no runtime call path to a source method. Header instantiation provenance suggests the timer insertion family, but only the parent private whole-object probe can prove the complete disappearing definition set. Preserve native rows, existing explicit anchors, global and aliases; do not hand-suppress these islands."
+}

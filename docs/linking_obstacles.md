@@ -51,6 +51,13 @@ This source adopts canonical Matrix3D storage with native code/relocations prese
 
 ### Player unrowed donor-body cleanup (2026-11-01, Cortys)
 
+The nine-method donor-STL closure is removed with nine placeholder hatches.
+All 181 retained complete definitions/relocations, all 12 functions and the
+global stay exact; the eight former DLL imports disappear from the private
+object. Six removed-helper families have outside callers with alternate
+providers, recorded in the compact audit. Existing publication-wide
+AIBuildable/older-index consumer uncertainty remains for the next census.
+
 Unverified isolated `killPlayer` is removed with its placeholder hatch; all 305 retained definitions/relocations and all native rows stay exact. See its per-method proof in the packet.
 
 Unverified isolated `addSkillPoints` is removed with its placeholder hatch; all 308 retained definitions/relocations and all native rows stay exact. See its per-method proof in the packet.

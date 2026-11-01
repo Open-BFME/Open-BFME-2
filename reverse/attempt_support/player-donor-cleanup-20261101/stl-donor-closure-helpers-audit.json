@@ -1,0 +1,1204 @@
+{
+  "candidate_object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\tu_skeleton\\69937cbfd43405d7.obj",
+  "candidate_sha256": "ad6c1454c8364710dc08a9cf3857665c59605b77463134682d3be66b2d1efa94",
+  "index_meta": {
+    "date": "2026-11-01 14:31",
+    "commit": "86db074988",
+    "clean_tree": true,
+    "census_date": "2026-11-01 12:39",
+    "census_commit": "39dfbbdb50"
+  },
+  "parent_whole_code_proof": "build/player-donor-cleanup-20261101/stl-donor-closure-private-whole-code.json",
+  "parent_verification": {
+    "rows": 12,
+    "matched": 12,
+    "before": 305,
+    "after": 181,
+    "added": [],
+    "changed": []
+  },
+  "aggregate": {
+    "removed_helpers": 115,
+    "with_outside_provider": 39,
+    "without_outside_provider": 76,
+    "index_referenced": 39,
+    "with_outside_index_callers": 6,
+    "retained_local_runtime_data_incoming_count": 0,
+    "sole_provider_outside_reference_risks": 0
+  },
+  "critical_exceptions": [],
+  "candidate_stable_during_audit": true,
+  "qualification": "Read-only private-object/index audit, no compile, source, Git, claim or network operation. Outside callers are graph names with a definition outside Player in the published index; alternate providers are index evidence, not refreshed compile receipts. Internal deleted-table/COMDAT edges are separated from genuine outside providers. Parent batch/provider guards remain required.",
+  "outside_reference_exceptions": [
+    {
+      "helper": "??$_M_find@H@?$hashtable@U?$pair@$$CBHW4Relationship@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHW4Relationship@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBHW4Relationship@@@_STL@@@1@ABH@Z",
+      "outside_provider_count": 4,
+      "outside_provider_source_examples": [
+        "Code/GameEngine/Source/Common/RTS/PlayerGetRelationship.cpp",
+        "Code/GameEngine/Source/Common/RTS/Team.cpp",
+        "Code/GameEngine/Source/Common/RTS/TeamGetControllingPlayer.cpp"
+      ],
+      "alternate_digest_counts": {
+        "19c037c11543": 4
+      },
+      "alternate_index_verdict_counts": {
+        "retail": 4
+      },
+      "outside_index_caller_count": 1,
+      "outside_index_caller_examples": [
+        {
+          "caller": "??$find@H@?$hashtable@U?$pair@$$CBHW4Relationship@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHW4Relationship@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@2@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBHW4Relationship@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHW4Relationship@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHW4Relationship@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@2@@1@ABH@Z",
+          "provider_object_count": 4,
+          "source_examples": [
+            "Code/GameEngine/Source/Common/RTS/PlayerGetRelationship.cpp",
+            "Code/GameEngine/Source/Common/RTS/Team.cpp",
+            "Code/GameEngine/Source/Common/RTS/TeamGetControllingPlayer.cpp"
+          ]
+        }
+      ],
+      "outside_alias_count": 1,
+      "local_runtime_data_incoming_count": 0
+    },
+    {
+      "helper": "??$__less@I@_STL@@YA?AU?$less@I@0@PAI@Z",
+      "outside_provider_count": 97,
+      "outside_provider_source_examples": [
+        "Code/GameEngine/Source/Common/BfmeConv881O1.cpp",
+        "Code/GameEngine/Source/Common/BfmeObject476Copy.cpp",
+        "Code/GameEngine/Source/Common/DamageFX_hashtableNewNode.cpp"
+      ],
+      "alternate_digest_counts": {
+        "341dc3ec187f": 97
+      },
+      "alternate_index_verdict_counts": {
+        "None": 97
+      },
+      "outside_index_caller_count": 3,
+      "outside_index_caller_examples": [
+        {
+          "caller": "?_M_next_size@?$hashtable@U?$pair@$$CBHURva0002D281Element@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva0002D281Element@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva0002D281Element@@@_STL@@@2@@_STL@@ABEII@Z",
+          "provider_object_count": 1,
+          "source_examples": [
+            "Code/GameEngine/Source/Common/INI/INI.cpp"
+          ]
+        },
+        {
+          "caller": "?_M_next_size@?$hashtable@PAURva00051107AudioRequest@@PAU1@URva00051B89Hash@@U?$_Identity@PAURva00051107AudioRequest@@@_STL@@URva00050E1CEqualTo@@V?$allocator@PAURva00051107AudioRequest@@@4@@_STL@@ABEII@Z",
+          "provider_object_count": 2,
+          "source_examples": [
+            "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+            "Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva00056BFE.cpp"
+          ]
+        },
+        {
+          "caller": "?_M_next_size@?$hashtable@U?$pair@$$CBHURva003609F7Element@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva003609F7Element@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva003609F7Element@@@_STL@@@2@@_STL@@ABEII@Z",
+          "provider_object_count": 1,
+          "source_examples": [
+            "Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva003609F7.cpp"
+          ]
+        }
+      ],
+      "outside_alias_count": 0,
+      "local_runtime_data_incoming_count": 0
+    },
+    {
+      "helper": "??$find@H@?$hashtable@U?$pair@$$CBHW4Relationship@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHW4Relationship@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@2@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBHW4Relationship@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHW4Relationship@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHW4Relationship@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@2@@1@ABH@Z",
+      "outside_provider_count": 4,
+      "outside_provider_source_examples": [
+        "Code/GameEngine/Source/Common/RTS/PlayerGetRelationship.cpp",
+        "Code/GameEngine/Source/Common/RTS/Team.cpp",
+        "Code/GameEngine/Source/Common/RTS/TeamGetControllingPlayer.cpp"
+      ],
+      "alternate_digest_counts": {
+        "8bbcba862ffc": 4
+      },
+      "alternate_index_verdict_counts": {
+        "None": 4
+      },
+      "outside_index_caller_count": 1,
+      "outside_index_caller_examples": [
+        {
+          "caller": "?find@?$hash_map@HW4Relationship@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@3@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBHW4Relationship@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHW4Relationship@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHW4Relationship@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@2@@2@ABH@Z",
+          "provider_object_count": 4,
+          "source_examples": [
+            "Code/GameEngine/Source/Common/RTS/PlayerGetRelationship.cpp",
+            "Code/GameEngine/Source/Common/RTS/Team.cpp",
+            "Code/GameEngine/Source/Common/RTS/TeamGetControllingPlayer.cpp"
+          ]
+        }
+      ],
+      "outside_alias_count": 0,
+      "local_runtime_data_incoming_count": 0
+    },
+    {
+      "helper": "??1MemoryPoolObject@@MAE@XZ",
+      "outside_provider_count": 8,
+      "outside_provider_source_examples": [
+        "Code/GameEngine/Source/Common/System/Upgrade.cpp",
+        "Code/GameEngine/Source/GameClient/FXList.cpp",
+        "Code/GameEngine/Source/GameClient/InGameUI.cpp"
+      ],
+      "alternate_digest_counts": {
+        "be572856e30e": 8
+      },
+      "alternate_index_verdict_counts": {
+        "None": 8
+      },
+      "outside_index_caller_count": 5,
+      "outside_index_caller_examples": [
+        {
+          "caller": "??1State@@MAE@XZ",
+          "provider_object_count": 3,
+          "source_examples": [
+            "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DeliverPayloadAIUpdate.cpp",
+            "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/JetAIUpdate.cpp",
+            "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdate.cpp"
+          ]
+        },
+        {
+          "caller": "??1SuperweaponInfo@@MAE@XZ",
+          "provider_object_count": 1,
+          "source_examples": [
+            "Code/GameEngine/Source/GameClient/InGameUI.cpp"
+          ]
+        },
+        {
+          "caller": "??0WeaponBonusSet@@QAE@XZ",
+          "provider_object_count": 1,
+          "source_examples": [
+            "Code/GameEngine/Source/GameLogic/Object/Weapon.cpp"
+          ]
+        }
+      ],
+      "outside_alias_count": 0,
+      "local_runtime_data_incoming_count": 0
+    },
+    {
+      "helper": "??2@YAPAXIPAX@Z",
+      "outside_provider_count": 1103,
+      "outside_provider_source_examples": [
+        "Code/GameEngine/Source/Common/AIBaseBuilder.cpp",
+        "Code/GameEngine/Source/Common/AIGameTeam.cpp",
+        "Code/GameEngine/Source/Common/AINavyUnitBattleShip.cpp"
+      ],
+      "alternate_digest_counts": {
+        "28288ba0e70f": 1096,
+        "6df3a864d1e4": 7
+      },
+      "alternate_index_verdict_counts": {
+        "retail": 1096,
+        "wrong": 7
+      },
+      "outside_index_caller_count": 14,
+      "outside_index_caller_examples": [
+        {
+          "caller": "?insert@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEPAPAXPAPAXABQAX@Z",
+          "provider_object_count": 1,
+          "source_examples": [
+            "Code/Libraries/Source/WWVegas/WWLib/stlport_vector_voidptr_alloc.cpp"
+          ]
+        },
+        {
+          "caller": "?_M_insert_overflow@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@IAEXPAPAXABQAXABU__false_type@2@I_N@Z",
+          "provider_object_count": 1,
+          "source_examples": [
+            "Code/Libraries/Source/WWVegas/WWLib/stlport_vector_voidptr_alloc.cpp"
+          ]
+        },
+        {
+          "caller": "?push_back@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEXABQAX@Z",
+          "provider_object_count": 1,
+          "source_examples": [
+            "Code/Libraries/Source/WWVegas/WWLib/stlport_vector_voidptr_alloc.cpp"
+          ]
+        }
+      ],
+      "outside_alias_count": 3,
+      "local_runtime_data_incoming_count": 0
+    },
+    {
+      "helper": "??3@YAXPAX0@Z",
+      "outside_provider_count": 539,
+      "outside_provider_source_examples": [
+        "Code/GameEngine/Source/Common/AreaPolygonBase.cpp",
+        "Code/GameEngine/Source/Common/AttributeModifierStore.cpp",
+        "Code/GameEngine/Source/Common/AwardSystemManager.cpp"
+      ],
+      "alternate_digest_counts": {
+        "8bf7b464aaa2": 537,
+        "74c0a4a36986": 2
+      },
+      "alternate_index_verdict_counts": {
+        "retail": 537,
+        "unknown": 2
+      },
+      "outside_index_caller_count": 297,
+      "outside_index_caller_examples": [
+        {
+          "caller": "??$_Construct@VAsciiString@@V1@@_STL@@YAXPAVAsciiString@@ABV1@@Z",
+          "provider_object_count": 18,
+          "source_examples": [
+            "Code/GameEngine/Source/Common/BfmeObject476Copy.cpp",
+            "Code/GameEngine/Source/Common/INI/INI.cpp",
+            "Code/GameEngine/Source/Common/Rva001ED03CCopy.cpp"
+          ]
+        },
+        {
+          "caller": "??$_Construct@URva0002C4D8Element@@U1@@_STL@@YAXPAURva0002C4D8Element@@ABU1@@Z",
+          "provider_object_count": 1,
+          "source_examples": [
+            "Code/GameEngine/Source/Common/INI/INI.cpp"
+          ]
+        },
+        {
+          "caller": "??$_Construct@U?$pair@$$CBVAsciiString@@V1@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBVAsciiString@@V1@@0@ABU10@@Z",
+          "provider_object_count": 2,
+          "source_examples": [
+            "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+            "Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_asciistring_pair.cpp"
+          ]
+        }
+      ],
+      "outside_alias_count": 0,
+      "local_runtime_data_incoming_count": 0
+    }
+  ],
+  "summary_columns": [
+    "parent_removed_record_index",
+    "outside_provider_count",
+    "index_referenced",
+    "outside_index_caller_count",
+    "retained_local_incoming_count",
+    "outside_alias_count"
+  ],
+  "helper_summary_rows": [
+    [
+      0,
+      0,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      1,
+      6,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      2,
+      1,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      3,
+      0,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      4,
+      0,
+      true,
+      0,
+      0,
+      0
+    ],
+    [
+      5,
+      0,
+      true,
+      0,
+      0,
+      0
+    ],
+    [
+      6,
+      0,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      7,
+      0,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      8,
+      0,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      9,
+      4,
+      true,
+      1,
+      0,
+      1
+    ],
+    [
+      10,
+      0,
+      true,
+      0,
+      0,
+      0
+    ],
+    [
+      11,
+      97,
+      true,
+      3,
+      0,
+      0
+    ],
+    [
+      12,
+      0,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      13,
+      0,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      14,
+      0,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      15,
+      0,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      16,
+      4,
+      true,
+      1,
+      0,
+      0
+    ],
+    [
+      17,
+      0,
+      true,
+      0,
+      0,
+      0
+    ],
+    [
+      18,
+      6,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      19,
+      1,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      20,
+      2,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      21,
+      0,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      22,
+      6,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      23,
+      0,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      24,
+      0,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      25,
+      1,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      26,
+      0,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      27,
+      0,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      28,
+      0,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      29,
+      0,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      30,
+      0,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      31,
+      0,
+      true,
+      0,
+      0,
+      0
+    ],
+    [
+      32,
+      4,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      33,
+      0,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      34,
+      35,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      35,
+      0,
+      true,
+      0,
+      0,
+      0
+    ],
+    [
+      36,
+      8,
+      true,
+      5,
+      0,
+      0
+    ],
+    [
+      37,
+      1103,
+      true,
+      14,
+      0,
+      3
+    ],
+    [
+      38,
+      0,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      39,
+      539,
+      true,
+      297,
+      0,
+      0
+    ],
+    [
+      40,
+      0,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      41,
+      0,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      42,
+      0,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      43,
+      0,
+      true,
+      0,
+      0,
+      0
+    ],
+    [
+      44,
+      1,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      45,
+      0,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      46,
+      0,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      47,
+      6,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      48,
+      1,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      49,
+      32,
+      true,
+      0,
+      0,
+      0
+    ],
+    [
+      50,
+      6,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      51,
+      53,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      52,
+      15,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      53,
+      0,
+      true,
+      0,
+      0,
+      0
+    ],
+    [
+      54,
+      8,
+      true,
+      0,
+      0,
+      0
+    ],
+    [
+      55,
+      2,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      56,
+      1,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      57,
+      0,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      58,
+      2,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      59,
+      2,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      60,
+      1,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      61,
+      1,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      62,
+      0,
+      true,
+      0,
+      0,
+      0
+    ],
+    [
+      63,
+      0,
+      true,
+      0,
+      0,
+      0
+    ],
+    [
+      64,
+      0,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      65,
+      0,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      66,
+      0,
+      true,
+      0,
+      0,
+      0
+    ],
+    [
+      67,
+      0,
+      true,
+      0,
+      0,
+      0
+    ],
+    [
+      68,
+      0,
+      true,
+      0,
+      0,
+      0
+    ],
+    [
+      71,
+      0,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      72,
+      0,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      73,
+      0,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      74,
+      0,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      75,
+      0,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      76,
+      0,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      77,
+      0,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      78,
+      0,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      79,
+      0,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      80,
+      0,
+      true,
+      0,
+      0,
+      0
+    ],
+    [
+      81,
+      0,
+      true,
+      0,
+      0,
+      0
+    ],
+    [
+      82,
+      0,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      83,
+      0,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      84,
+      0,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      85,
+      0,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      86,
+      0,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      87,
+      0,
+      true,
+      0,
+      0,
+      0
+    ],
+    [
+      88,
+      0,
+      true,
+      0,
+      0,
+      0
+    ],
+    [
+      89,
+      0,
+      true,
+      0,
+      0,
+      0
+    ],
+    [
+      90,
+      0,
+      true,
+      0,
+      0,
+      0
+    ],
+    [
+      91,
+      2,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      92,
+      0,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      93,
+      2,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      94,
+      0,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      95,
+      6,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      96,
+      1,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      97,
+      6,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      98,
+      1,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      99,
+      0,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      100,
+      0,
+      true,
+      0,
+      0,
+      0
+    ],
+    [
+      101,
+      0,
+      true,
+      0,
+      0,
+      0
+    ],
+    [
+      102,
+      0,
+      true,
+      0,
+      0,
+      0
+    ],
+    [
+      103,
+      0,
+      true,
+      0,
+      0,
+      0
+    ],
+    [
+      104,
+      0,
+      true,
+      0,
+      0,
+      0
+    ],
+    [
+      106,
+      4,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      107,
+      0,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      108,
+      0,
+      true,
+      0,
+      0,
+      0
+    ],
+    [
+      109,
+      0,
+      true,
+      0,
+      0,
+      0
+    ],
+    [
+      111,
+      1,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      112,
+      0,
+      true,
+      0,
+      0,
+      0
+    ],
+    [
+      113,
+      0,
+      true,
+      0,
+      0,
+      0
+    ],
+    [
+      114,
+      0,
+      true,
+      0,
+      0,
+      0
+    ],
+    [
+      115,
+      0,
+      true,
+      0,
+      0,
+      0
+    ],
+    [
+      120,
+      0,
+      true,
+      0,
+      0,
+      0
+    ],
+    [
+      122,
+      3,
+      false,
+      0,
+      0,
+      0
+    ],
+    [
+      123,
+      1,
+      false,
+      0,
+      0,
+      0
+    ]
+  ],
+  "parent_proof_sha256": "1dfef0b17cbee8da136bc543c240f8276ddd94aab6f71ac3d8c3124b041f122e",
+  "no_alternate_helper_summary": {
+    "count": 76,
+    "index_referenced_count": 31,
+    "with_outside_index_caller_count": 0,
+    "with_outside_alias_count": 0
+  },
+  "summary_key_note": "Each summary row names a helper by its zero-based index in the parent proof removed list; all nine source methods are excluded, leaving exactly115helpers. Names are not duplicated into a large provider catalog."
+}

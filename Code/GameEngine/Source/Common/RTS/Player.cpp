@@ -559,75 +559,14 @@ static TeamPrototypeID getRetailTeamPrototypeID( const TeamPrototype *proto ) { 
 // not +0x28c, so this unit takes the declaration and calls that body.
 
 // ------------------------------------------------------------------------
-// ?removePlayerRelationship@Player@@QAE_NPBV1@@Z present-unmatched
-Bool Player::removePlayerRelationship(const Player *that)
-{
-	if (!m_playerRelations->m_map.empty())
-	{
-		if (that == NULL)
-		{
-			m_playerRelations->m_map.clear();
-			return true;
-		}
-		else
-		{
-			PlayerRelationMapType::iterator it = m_playerRelations->m_map.find(that->m_playerIndex);
-			if (it != m_playerRelations->m_map.end())
-			{
-				m_playerRelations->m_map.erase(it);
-				return true;
-			}
-		}
-	}
-	return false;
-}
+
 
 //=============================================================================
 // byte-exact reconstruction: Code/GameEngine/Source/Common/RTS/Player_setTeamRelationship.cpp
-// ?setTeamRelationship@Player@@QAEXPBVTeam@@W4Relationship@@@Z present-unmatched
-// Cannot come home yet, and not for a layout reason: with teamRelationsOf and
-// getRetailTeamID (the same two offsets removeTeamRelationship reads) and the
-// map bound to a reference so it is loaded before the key, the body reaches
-// retail's exact call and differs only in register assignment -- retail keeps
-// `that' in eax and drops m_teamRelations into ecx, this TU uses edx and eax.
-// The callee needs ??A?$hash_map@IW4Relationship@@... (the TeamID-keyed
-// spelling this tree compiles) pinned at 0x000d6280, which retail reaches via
-// ILT 0x0002a1da; that half is proven, the register half is not steerable from
-// the source shapes tried.
-void Player::setTeamRelationship(const Team *that, Relationship r)
-{
-	if (that != NULL)
-	{
-		// note that this creates the entry if it doesn't exist.
-		m_teamRelations->m_map[getRetailTeamID(that)] = r;
-	}
-}
+
 
 // ------------------------------------------------------------------------
-// ?Player::removeTeamRelationship present-unmatched
-Bool Player::removeTeamRelationship(const Team *that)
-{
-	// The same two BFME offsets getRelationship above casts for: m_teamRelations
-	// at Player+0x290, and its m_map at +0x04 of that.
-	if (!teamRelationsOf(this)->m_map.empty())
-	{
-		if (that == NULL)
-		{
-			teamRelationsOf(this)->m_map.clear();
-			return true;
-		}
-		else
-		{
-			TeamRelationMapType::iterator it = teamRelationsOf(this)->m_map.find(getRetailTeamID(that));
-			if (it != teamRelationsOf(this)->m_map.end())
-			{
-				teamRelationsOf(this)->m_map.erase(it);
-				return true;
-			}
-		}
-	}
-	return false;
-}
+
 
 //=============================================================================
 // ?setBuildList@Player@@QAEXPAVBuildListInfo@@@Z present-unmatched
@@ -1804,94 +1743,19 @@ static void doPowerDisable( Object *obj, void *userData )
 // SEVERAL OBJECTS (LIKE MULTIPLE COMMAND CENTERS) MAY HAVE MATCHING SETS OF SPECIAL POWERS 
 // THIS KEEPS THEM IN SYNC SO IT LOOKS LIKE EACH SPECIAL POWER IS SHARED BETWEEN ALL
 
-// ?addNewSharedSpecialPowerTimer@Player@@QAEXPBVSpecialPowerTemplate@@I@Z present-unmatched
-void Player::addNewSharedSpecialPowerTimer( const SpecialPowerTemplate *specialPowerTemplate, UnsignedInt frame )
-{
-
-	SpecialPowerReadyTimerType newTimer;
-	newTimer.m_templateID = getRetailSpecialPowerID( specialPowerTemplate );
-	newTimer.m_readyFrame = frame;
-	m_specialPowerReadyTimerList.push_back( newTimer );
-
-}
-
-// ?resetOrStartSpecialPowerReadyFrame@Player@@QAEXPBVSpecialPowerTemplate@@@Z present-unmatched
-void Player::resetOrStartSpecialPowerReadyFrame( const SpecialPowerTemplate *specialPowerTemplate )
-{
-
-	UnsignedInt lookupID = getRetailSpecialPowerID( specialPowerTemplate );
-	UnsignedInt now = TheGameLogic->getFrame();
-
-	SpecialPowerReadyTimerType *timer;
-	SpecialPowerReadyTimerListIterator it;
-	for( it = m_specialPowerReadyTimerList.begin(); it != m_specialPowerReadyTimerList.end(); ++it )
-	{
-		timer = &(*it);
-		if ( timer->m_templateID == lookupID )
-		{
-			timer->m_readyFrame = now + specialPowerTemplate->getReloadTime();
-			return;
-		}
-	}
-
-	addNewSharedSpecialPowerTimer( specialPowerTemplate, now );
-}
 
 
-// ?expressSpecialPowerReadyFrame@Player@@QAEXPBVSpecialPowerTemplate@@I@Z present-unmatched
-void Player::expressSpecialPowerReadyFrame( const SpecialPowerTemplate *specialPowerTemplate, UnsignedInt frame )
-{
-	SpecialPowerReadyTimerType *timer;
-	SpecialPowerReadyTimerListIterator it;
-	for( it = m_specialPowerReadyTimerList.begin(); it != m_specialPowerReadyTimerList.end(); ++it )
-	{
-		timer = &(*it);
-		if ( timer->m_templateID == getRetailSpecialPowerID( specialPowerTemplate ) )
-		{
-			timer->m_readyFrame = frame;
-			return;
-		}
-	}
 
-	addNewSharedSpecialPowerTimer( specialPowerTemplate, frame );
-}
+
+
+
 
 
 
 
 
 //-------------------------------------------------------------------------------------------------
-// ?getOrStartSpecialPowerReadyFrame@Player@@QAEIPBVSpecialPowerTemplate@@@Z present-unmatched
-UnsignedInt Player::getOrStartSpecialPowerReadyFrame( const SpecialPowerTemplate *specialPowerTemplate)
-{
 
-	UnsignedInt lookupID = getRetailSpecialPowerID( specialPowerTemplate );
-	UnsignedInt now = TheGameLogic->getFrame();
-
-	SpecialPowerReadyTimerType *timer;
-	SpecialPowerReadyTimerListIterator it;
-
-
-	UnsignedInt count = 0;
-	UnsignedInt timerID = 0xfacade;
-
-	for( it = m_specialPowerReadyTimerList.begin(); it != m_specialPowerReadyTimerList.end(); ++it )
-	{
-		timer = &(*it);
-		++count;
-
-		timerID = timer->m_templateID;
-
-		if ( timerID == lookupID )
-		{
-			return timer->m_readyFrame;
-		}
-	}
-
-	addNewSharedSpecialPowerTimer( specialPowerTemplate, now );
-	return now;
-
-}
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
@@ -2099,56 +1963,12 @@ Squad *Player::getHotkeySquad(Int squadNumber)
 //-------------------------------------------------------------------------------------------------
 /** addTypeOfProductionCostChange adds a production change to the typeof list */
 //-------------------------------------------------------------------------------------------------
-// ?addKindOfProductionCostChange@Player@@QAEXV?$BitFlags@$0HE@@@M@Z present-unmatched
-void Player::addKindOfProductionCostChange(	KindOfMaskType kindOf, Real percent )
-{
-	KindOfPercentProductionChangeListIt it = m_kindOfPercentProductionChangeList.begin();
-	while(it != m_kindOfPercentProductionChangeList.end())
-	{
-		
-		KindOfPercentProductionChange *tof = *it;
-		if( tof->m_percent == percent && tof->m_kindOf == kindOf)
-		{
-			tof->m_ref++;
-			return;
-		}
-		++it;
-	}	
 
-	KindOfPercentProductionChange *newTof = newInstance( KindOfPercentProductionChange );
-	newTof->m_kindOf = kindOf;
-	newTof->m_percent = percent;
-	newTof->m_ref = 1;
-	m_kindOfPercentProductionChangeList.push_back(newTof);
-
-}
 
 //-------------------------------------------------------------------------------------------------
 /** addTypeOfProductionCostChange adds a production change to the typeof list */
 //-------------------------------------------------------------------------------------------------
-// ?removeKindOfProductionCostChange@Player@@QAEXV?$BitFlags@$0HE@@@M@Z present-unmatched
-void Player::removeKindOfProductionCostChange(	KindOfMaskType kindOf, Real percent )
-{
-	KindOfPercentProductionChangeListIt it = m_kindOfPercentProductionChangeList.begin();
-	while(it != m_kindOfPercentProductionChangeList.end())
-	{
-		
-		KindOfPercentProductionChange* tof = *it;
-		if( tof->m_percent == percent && tof->m_kindOf == kindOf)
-		{
-			tof->m_ref--;
-			if(tof->m_ref == 0)
-			{
-				m_kindOfPercentProductionChangeList.erase( it );
-				if(tof)
-					tof->deleteInstance();
-			}
-			return;
-		}
-		++it;
-	}
-	DEBUG_ASSERTCRASH(FALSE, ("removeKindOfProductionCostChange was called with kindOf=%d and percent=%f. We could not find the entry in the list with these variables. CLH.",kindOf, percent));
-}
+
 
 //-------------------------------------------------------------------------------------------------
 /** getProductionCostChangeBasedOnKindOf gets the cost percentage change based off of Kindof Mask */

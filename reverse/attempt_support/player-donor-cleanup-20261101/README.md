@@ -227,3 +227,21 @@ The current saved audit finds no local runtime/data caller and no outside-index 
 ## Isolated donor cleanup: killPlayer
 
 The current saved audit finds no local runtime/data caller and no outside-index incoming edge. The unverified donor and its one placeholder hatch are removed; all 12 matched functions and the owned global pass the normal build. All 305 retained complete code definitions and symbolic relocations equal the preceding 308-definition control, with no additions. Unused file-local callback text is also removed where applicable. This is cleanup, not new matched coverage or census progress.
+
+## Legacy STL dependency closure
+
+Nine unverified methods from the relationship, production-cost and timer
+families are removed together under their shared donor-STL dependency
+explanation. All 12 native functions and the owned global still pass. The
+normal complete-object proof removes the same 124 definitions as the private
+trial (nine methods, 115 incidental helpers), adds none, changes none and
+preserves all 181 remaining definitions and symbolic relocations. All nine
+placeholder hatches retire through the owning counter. The copy/erase and
+getter anchors, six aliases, native global and compiler profile stay in place.
+
+The private object has none of the eight former STL DLL imports. In the
+published index, 39 removed helper families have outside providers and 76
+without alternatives have no outside caller or alias. Six helper families
+have actual outside callers and all retain alternatives. Provider variants
+and these consumers remain subject to normal batch verification; the saved
+index audit is not a current census or a global unreferenced claim.
