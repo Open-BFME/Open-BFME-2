@@ -1,0 +1,11 @@
+Source claims: OK (6 sources, scoped byte-verified)
+Compile: 2 of 6 TU(s) (deps-cache: 4 current)
+Funclet pins: 4 row(s) verified past a renumbered $L label
+    ?rva0078a463@@YAXXZ (Code/GameEngine/Source/Common/Rva0055A246Ctor.cpp): $L6442 was renumbered; verified parent EH data places $L6433 at 0x0078A463
+    Unwind@00b99694 (Code/GameEngine/Source/Common/Rva0055A246Ctor.cpp): $L6393 was renumbered; verified parent EH data places $L6384 at 0x00799694
+    Unwind@00b9969f (Code/GameEngine/Source/Common/Rva0055A246Ctor.cpp): $L6394 was renumbered; verified parent EH data places $L6385 at 0x0079969F
+    Unwind@00b8a476 (Code/GameEngine/Source/Common/Rva0055A246Ctor.cpp): $L6443 was renumbered; verified parent EH data places $L6434 at 0x0078A476
+Functions: OK 113/113 matched across 6 source file(s)
+String-ref verify: OK (3 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (23 compiler literals verified)
+Import-ref verify: OK (1 named imports verified)

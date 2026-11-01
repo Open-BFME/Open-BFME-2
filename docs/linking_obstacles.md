@@ -7814,6 +7814,8 @@ this scope into the next census; no linking gain is claimed.
 
 ### LINK-018: canonical `Coord3D` member growth blocks header-adoption until dependents are recomputed
 
+**Weapon hidden-result profile check (2026-11-01; base `8c6bd6ae65d`):** All six remaining units pass 113/113 control rows. Replacing the weapon-specific Coord3D constructor with the existing non-POD companion and a named output grows native 30 bytes to 63 (temporary allocation and result copy). The trial is fully reverted; restored external object facts are identical. No queue/header/source change or census gain is retained. The five other units keep their documented class-key/interface prerequisites; shared-member growth is not retried. [Rejected patch, controls and next prerequisite](../reverse/attempt_support/coord3d-weapon-return-profile-20261101-bce2/README.md).
+
 **Wrapper adoption and deferred retirements (2026-10-29; base `a2e9c2b5b2`):**
 The existing constructor companion replaces the private Coord3D/Base view
 and tagged return constructor in Rva004EBF4BCopy.cpp; its 72-byte row stays

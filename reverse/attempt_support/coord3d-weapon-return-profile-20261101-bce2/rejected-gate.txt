@@ -1,0 +1,6 @@
+Source claims: OK (1 sources, scoped byte-verified)
+  FAIL ?bfmeGetLOSVictimPos@Weapon@@QBE?AUCoord3D@@PBVObject@@0H@Z (Code/GameEngine/Source/GameLogic/Object/Weapon_bfmeGetLOSVictimPos.cpp)
+    target:   55 8b ec ff 75 14 8b 49 04 ff 75 10 ff 75 0c ff 75 08 e8 c8 f4 ff ff 8b 45 08 5d c2 10 00
+    compiled: 55 8b ec 83 ec 0c ff 75 14 8b 49 04 ff 75 10 8d 45 f4 ff 75 0c 50 e8 c4 f4 ff ff 8b 45 08
+Functions: FAIL 1/1
+1 function(s) failed byte comparison
