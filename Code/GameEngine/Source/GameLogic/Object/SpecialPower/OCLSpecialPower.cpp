@@ -26,8 +26,8 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "Lib/Coord3D.h"
-#include "../../../../Include/Common/Module.h"
-#include "../../../../Include/Common/ObjectModule.h"
+// First: BehaviorModule.h selects the Snapshot name-slot surface that
+// Common/Player.h requires before Snapshot's first inclusion.
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 // BFME 2's list (retail VA 0x00DCDFD0, .data, read from retail): the
@@ -80,6 +80,8 @@ class __declspec(novtable) OCLSpecialPower : public SpecialPowerModule
 {
 public:
 	OCLSpecialPower( Thing *thing, const ModuleData *moduleData );
+
+	static NameKeyType rva0004C3147();
 
 	virtual void doSpecialPower( unsigned commandOptions );
 	virtual void doSpecialPowerAtLocation( const Coord3D *loc, unsigned commandOptions );

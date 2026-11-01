@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /ICode/Libraries/Include /ICode/GameEngine/Source
+// cl: /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /ICode/Libraries/Include /ICode/GameEngine/Source
 // stlport
 // OCLSpecialPower::doSpecialPowerAtLocation, native RVA 004C3365.
 // The code is 1051 bytes through 004C3780; the nine-entry switch table
@@ -9,6 +9,8 @@
 // the no-angle ABI, creation arguments, adjustment and upgrade behavior.
 // Keeping the real length helper visible lets cl reuse the distance local's
 // storage for the object filter, restoring the 8C frame without barriers.
+#define _STLP_BFME_COPY_TRIVIAL_EXTERN
+#include "../../../../../../vendor/stlport/stl/_algobase.h"
 #include <vector>
 #include <float.h>
 #include <math.h>
@@ -70,10 +72,41 @@ struct OCLData { char pad[0x8C]; int location; _STL::vector<AsciiString> upgrade
 #include "../../../../Include/Common/Module.h"
 #include "../../../../Include/Common/ObjectModule.h"
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-class SpecialPowerModuleInterface {public:virtual void doSpecialPower(unsigned)=0; virtual void doSpecialPowerAtObject(Object*,unsigned)=0; virtual void doSpecialPowerAtLocation(const Coord3D*,unsigned)=0;};
-class SpecialPowerModule:public BehaviorModule,public SpecialPowerModuleInterface {public:virtual void doSpecialPower(unsigned);virtual void doSpecialPowerAtObject(Object*,unsigned);virtual void doSpecialPowerAtLocation(const Coord3D*,unsigned);};
+//-------------------------------------------------------------------------------------------------
+class SpecialPowerModuleInterface
+{
+public:
+	virtual void doSpecialPower( unsigned commandOptions ) = 0;
+	virtual void doSpecialPowerAtObject( Object *obj, unsigned commandOptions ) = 0;
+	virtual void doSpecialPowerAtLocation( const Coord3D *loc, unsigned commandOptions ) = 0;
+	virtual bool rva0049466D( const Coord3D *loc ) = 0;
+};
+
+//-------------------------------------------------------------------------------------------------
+class SpecialPowerModule : public BehaviorModule, public SpecialPowerModuleInterface
+{
+public:
+	SpecialPowerModule( Thing *thing, const ModuleData *moduleData );
+	virtual ~SpecialPowerModule();											// rowed 0x00493DEF
+
+	virtual void doSpecialPower( unsigned commandOptions );
+	virtual void doSpecialPowerAtObject( Object *obj, unsigned commandOptions );
+	virtual void doSpecialPowerAtLocation( const Coord3D *loc, unsigned commandOptions );
+	virtual bool rva0049466D( const Coord3D *loc );
+};
 class Rva004C31A8ScienceSelector {public:unsigned select() const;};
-class OCLSpecialPower:public SpecialPowerModule {public:virtual void doSpecialPowerAtLocation(const Coord3D*,unsigned);};
+//-------------------------------------------------------------------------------------------------
+class __declspec(novtable) OCLSpecialPower : public SpecialPowerModule
+{
+public:
+	OCLSpecialPower( Thing *thing, const ModuleData *moduleData );
+
+	static NameKeyType rva0004C3147();
+
+	virtual void doSpecialPower( unsigned commandOptions );
+	virtual void doSpecialPowerAtLocation( const Coord3D *loc, unsigned commandOptions );
+	virtual bool rva0049466D( const Coord3D *loc );
+};
 void OCLSpecialPower::doSpecialPowerAtLocation(const Coord3D *location,unsigned flags)
 {
  if(!location)return;
