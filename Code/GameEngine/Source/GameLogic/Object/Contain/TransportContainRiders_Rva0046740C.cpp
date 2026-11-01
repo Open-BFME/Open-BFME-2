@@ -118,11 +118,8 @@ public:
 	void *get() const;
 };
 
-class Matrix3D
-{
-public:
-	Real Row[3][4];
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
+
 
 class Vector3
 {
@@ -139,14 +136,14 @@ public:
 static inline Vector3 operator*(const Matrix3D &A, const Vector3 &a)
 {
 	return Vector3(
-		(A.Row[0][0] * a.X + A.Row[0][1] * a.Y + A.Row[0][2] * a.Z + A.Row[0][3]),
-		(A.Row[1][0] * a.X + A.Row[1][1] * a.Y + A.Row[1][2] * a.Z + A.Row[1][3]),
-		(A.Row[2][0] * a.X + A.Row[2][1] * a.Y + A.Row[2][2] * a.Z + A.Row[2][3]));
+		(A.Row[0].X * a.X + A.Row[0].Y * a.Y + A.Row[0].Z * a.Z + A.Row[0].W),
+		(A.Row[1].X * a.X + A.Row[1].Y * a.Y + A.Row[1].Z * a.Z + A.Row[1].W),
+		(A.Row[2].X * a.X + A.Row[2].Y * a.Y + A.Row[2].Z * a.Z + A.Row[2].W));
 }
 
 static inline Vector3 getTranslation(const Matrix3D &matrix3D)
 {
-	return Vector3(matrix3D.Row[0][3], matrix3D.Row[1][3], matrix3D.Row[2][3]);
+	return Vector3(matrix3D.Row[0].W, matrix3D.Row[1].W, matrix3D.Row[2].W);
 }
 
 // Coord3D::set; its arguments are evaluated right to left.
