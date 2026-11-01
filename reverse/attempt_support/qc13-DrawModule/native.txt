@@ -1,0 +1,246 @@
+RVA 0x306b19
+00306b19 mov eax, 0xb79b7c
+00306b1e call 0x629188
+00306b23 sub esp, 0xc
+00306b26 mov eax, dword ptr [ebp + 0xc]
+00306b29 push esi
+00306b2a mov esi, ecx
+00306b2c mov dword ptr [ebp - 0x10], esi
+00306b2f mov dword ptr [esi + 4], eax
+00306b32 and dword ptr [ebp - 4], 0
+00306b36 test eax, eax
+00306b38 mov dword ptr [esi], 0xc07e54
+00306b3e jne 0x306b61
+00306b40 push 0xc07dfc
+00306b45 lea eax, [ebp - 0x18]
+00306b48 push 3
+00306b4a push eax
+00306b4b call 0x2f681
+00306b50 add esp, 0xc
+00306b53 push 0xcfe2fc
+00306b58 lea eax, [ebp - 0x18]
+00306b5b push eax
+00306b5c call 0x629094
+00306b61 mov ecx, dword ptr [ebp + 8]
+00306b64 test ecx, ecx
+00306b66 je 0x306b6f
+RVA 0xb19a1
+000b19a1 push esi
+000b19a2 push dword ptr [esp + 0xc]
+000b19a6 mov esi, ecx
+000b19a8 push dword ptr [esp + 0xc]
+000b19ac call 0x306b19
+000b19b1 mov dword ptr [esi], 0xbc9690
+000b19b7 mov eax, esi
+000b19b9 pop esi
+000b19ba ret 8
+RVA 0xd1370
+000d1370 mov eax, 0xb62988
+000d1375 call 0x629188
+000d137a push ecx
+000d137b push ebx
+000d137c push esi
+000d137d push edi
+000d137e push dword ptr [ebp + 0xc]
+000d1381 mov esi, ecx
+000d1383 push dword ptr [ebp + 8]
+000d1386 mov dword ptr [ebp - 0x10], esi
+000d1389 call 0xb19a1
+000d138e xor ebx, ebx
+000d1390 lea edi, [esi + 0xc]
+000d1393 mov dword ptr [esi], 0xbce010
+000d1399 mov dword ptr [ebp - 4], ebx
+000d139c mov dword ptr [edi], ebx
+000d139e mov eax, dword ptr [esi + 4]
+000d13a1 mov eax, dword ptr [eax + 8]
+000d13a4 cmp eax, ebx
+000d13a6 mov byte ptr [ebp - 4], 1
+000d13aa je 0xd13b1
+000d13ac add eax, 8
+000d13af jmp 0xd13b6
+000d13b1 mov eax, 0xbbac1c
+000d13b6 push ebx
+000d13b7 push ebx
+000d13b8 push eax
+000d13b9 lea eax, [ebp + 0xc]
+000d13bc push eax
+000d13bd call 0x132d89
+000d13c2 add esp, 0x10
+000d13c5 push eax
+000d13c6 mov ecx, edi
+000d13c8 mov byte ptr [ebp - 4], 2
+000d13cc call 0x424d0
+000d13d1 mov ecx, dword ptr [ebp + 0xc]
+000d13d4 cmp ecx, ebx
+000d13d6 mov byte ptr [ebp - 4], 1
+000d13da je 0xd13e1
+000d13dc call 0x61ed10
+000d13e1 push 0x14
+000d13e3 pop ecx
+000d13e4 lea edi, [esi + 0x10]
+000d13e7 xor eax, eax
+000d13e9 rep stosd dword ptr es:[edi], eax
+000d13eb mov ecx, dword ptr [ebp - 0xc]
+000d13ee mov dword ptr [esi + 0x60], ebx
+000d13f1 pop edi
+000d13f2 mov eax, esi
+000d13f4 pop esi
+000d13f5 pop ebx
+000d13f6 mov dword ptr fs:[0], ecx
+000d13fd leave 
+000d13fe ret 8
+RVA 0xcfc0c
+000cfc0c push ebp
+000cfc0d mov ebp, esp
+000cfc0f sub esp, 0x3c
+000cfc12 cvtsi2ss xmm0, dword ptr [0xdba4e4]
+000cfc1a movss xmm1, dword ptr [0xbbb8d8]
+000cfc22 push esi
+000cfc23 push edi
+000cfc24 mov edi, ecx
+000cfc26 mov esi, dword ptr [edi + 0xc]
+000cfc29 test esi, esi
+000cfc2b divss xmm1, xmm0
+000cfc2f addss xmm1, dword ptr [edi + 0x10]
+000cfc34 movss dword ptr [edi + 0x10], xmm1
+000cfc39 je 0xcfdd9
+000cfc3f push ebx
+000cfc40 mov ebx, dword ptr [edi + 4]
+000cfc43 test ebx, ebx
+000cfc45 je 0xcfdd8
+000cfc4b mov eax, dword ptr [edi + 8]
+000cfc4e test eax, eax
+000cfc50 movss xmm0, dword ptr [ebx + 0x30]
+000cfc55 movss dword ptr [ebp - 4], xmm0
+000cfc5a mov dword ptr [ebp - 8], eax
+000cfc5d je 0xcfd13
+000cfc63 mov eax, dword ptr [esi]
+000cfc65 mov ecx, esi
+000cfc67 call dword ptr [eax + 0x50]
+000cfc6a movss xmm0, dword ptr [esi + 0x18]
+table VA 0xbc9690
+0: 004cef83
+1: 004b3fd0
+2: 004b19bd
+3: 008cbf58
+4: 0043b810
+5: 004b3fd0
+6: 004b3fd0
+7: 004b3fd0
+8: 004b3fd0
+9: 004d43d0
+10: 004d43d0
+11: 0043b810
+12: 0043b810
+13: 0043b810
+14: 0043b810
+15: 004b3fd0
+16: 0087a69c
+17: 0087a699
+18: 0087a69c
+19: 0087a69c
+20: 0087a69c
+21: 0090b238
+22: 0087a69c
+23: 0087a69c
+24: 0087a69c
+25: 0090b238
+26: 0087a69c
+27: 0090b238
+28: 004b3fd0
+29: 0087a69c
+30: 0087a69c
+31: 0087a69c
+32: 0087a69c
+33: 004d1407
+34: 004b3fd0
+35: 0043b810
+36: 004b3fd0
+37: 0090b5c6
+38: 0043b810
+39: 0043b810
+40: 0087a699
+41: 004d43d0
+42: 004d43d0
+43: 004d43d0
+44: 004d43d0
+45: 004d43d0
+46: 004d43d0
+47: 004d43d0
+48: 004d43d0
+49: 004d43d0
+50: 006bfbf0
+51: 004d43d0
+52: 004d43d0
+53: 0087a69c
+54: 0090b238
+55: 0087a699
+56: 0090b238
+57: 004b3fd0
+58: 0087a69c
+59: 0087a69c
+60: 0090b5c6
+61: 004b3fd0
+table VA 0xbce010
+0: 004d144f
+1: 0098b03e
+2: 004d1401
+3: 004d11a6
+4: 004d140a
+5: 004b3fd0
+6: 004b3fd0
+7: 004b3fd0
+8: 004b3fd0
+9: 004d43d0
+10: 004d43d0
+11: 004d14f9
+12: 0087a69c
+13: 004b3fd0
+14: 004b3fd0
+15: 004b3fd0
+16: 0087a69c
+17: 0087a699
+18: 0087a69c
+19: 0087a69c
+20: 0087a69c
+21: 0090b238
+22: 0087a69c
+23: 0087a69c
+24: 0087a69c
+25: 0090b238
+26: 0087a69c
+27: 0090b238
+28: 004b3fd0
+29: 0087a69c
+30: 0087a69c
+31: 0087a69c
+32: 0087a69c
+33: 004d1407
+34: 004b3fd0
+35: 004d1124
+36: 004b3fd0
+37: 0090b5c6
+38: 004d1407
+39: 004b3fd0
+40: 0087a699
+41: 004d43d0
+42: 004d43d0
+43: 004d43d0
+44: 004d43d0
+45: 004d43d0
+46: 004d43d0
+47: 004d43d0
+48: 004d43d0
+49: 004d43d0
+50: 006bfbf0
+51: 004d43d0
+52: 004d43d0
+53: 0087a69c
+54: 0090b238
+55: 0087a699
+56: 0090b238
+57: 004b3fd0
+58: 0087a69c
+59: 0087a69c
+60: 0090b5c6
+61: 004b3fd0

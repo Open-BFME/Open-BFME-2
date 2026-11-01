@@ -1,0 +1,37 @@
+00306b19 mov eax, 0xb79b7c
+00306b1e call 0x629188
+00306b23 sub esp, 0xc
+00306b26 mov eax, dword ptr [ebp + 0xc]
+00306b29 push esi
+00306b2a mov esi, ecx
+00306b2c mov dword ptr [ebp - 0x10], esi
+00306b2f mov dword ptr [esi + 4], eax
+00306b32 and dword ptr [ebp - 4], 0
+00306b36 test eax, eax
+00306b38 mov dword ptr [esi], 0xc07e54
+00306b3e jne 0x306b61
+00306b40 push 0xc07dfc
+00306b45 lea eax, [ebp - 0x18]
+00306b48 push 3
+00306b4a push eax
+00306b4b call 0x2f681
+00306b50 add esp, 0xc
+00306b53 push 0xcfe2fc
+00306b58 lea eax, [ebp - 0x18]
+00306b5b push eax
+00306b5c call 0x629094
+00306b61 mov ecx, dword ptr [ebp + 8]
+00306b64 test ecx, ecx
+00306b66 je 0x306b6f
+00306b68 mov eax, dword ptr [ecx]
+00306b6a call dword ptr [eax + 0x10]
+00306b6d jmp 0x306b71
+00306b6f xor eax, eax
+00306b71 mov ecx, dword ptr [ebp - 0xc]
+00306b74 mov dword ptr [esi + 8], eax
+00306b77 mov eax, esi
+00306b79 pop esi
+00306b7a mov dword ptr fs:[0], ecx
+00306b81 leave 
+00306b82 ret 8
+00306b85 mov eax, dword ptr [esp + 4]

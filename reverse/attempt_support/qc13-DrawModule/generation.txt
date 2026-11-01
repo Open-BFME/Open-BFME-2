@@ -1,0 +1,2 @@
+DrawModule: 55 units, header Code/GameEngine/Include/Common/DrawModule.h (generated)
+  contract has 2 undecided attribute(s); refusing to generate: ['name@0x8', 'slot0']
