@@ -298,21 +298,7 @@ public:
 };
 
 // OpenContain's ContainModuleInterface at +0x20.
-class ContainModuleInterface : public ContainSlots<69>
-{
-public:
-	virtual unsigned int getContainCount(Int unused) const; // +0x114
-	virtual void gap70();
-	virtual void gap71();
-	virtual void gap72();
-	virtual void gap73();
-	virtual void gap74();
-	virtual void gap75();
-	virtual void gap76();
-	virtual void gap77();
-	virtual void gap78();
-	virtual Object *rvaSlot79(Int unused); // +0x13C, hands out the next rider
-};
+#include "../../../../Include/GameLogic/Module/ContainModule.h"
 
 class TransportContainBase : public RiderSlots<25>
 {

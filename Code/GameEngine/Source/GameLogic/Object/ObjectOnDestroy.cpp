@@ -30,11 +30,7 @@ public:
 	virtual void s40();
 };
 
-class ContainModuleInterface : public ContainModuleInterfaceSlots
-{
-public:
-	virtual void removeFromContain(Object *obj, Bool exposeStealthUnits) = 0; // slot 41
-};
+#include "../../../Include/GameLogic/Module/ContainModule.h"
 
 #include "../../../Include/GameLogic/Module/BehaviorModule.h"
 

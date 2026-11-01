@@ -120,19 +120,7 @@ private:
 	UnsignedInt m_kindOf[4]; // +0x108
 };
 
-class ContainModuleInterface
-{
-public:
-	virtual void c00(); virtual void c01(); virtual void c02(); virtual void c03();
-	virtual void c04(); virtual void c05(); virtual void c06(); virtual void c07();
-	virtual void c08(); virtual void c09(); virtual void c10(); virtual void c11();
-	virtual void c12(); virtual void c13(); virtual void c14(); virtual void c15();
-	virtual void c16(); virtual void c17(); virtual void c18(); virtual void c19();
-	virtual void c20(); virtual void c21(); virtual void c22(); virtual void c23();
-	virtual void c24(); virtual void c25(); virtual void c26(); virtual void c27();
-	virtual void c28(); virtual void c29(); virtual void c30();
-	virtual void *slot31(); // +0x7C
-};
+#include "../../../../../Include/GameLogic/Module/ContainModule.h"
 
 template <int N> class GiantBirdSwoopAISlots : public GiantBirdSwoopAISlots<N - 1>
 {

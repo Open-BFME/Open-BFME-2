@@ -62,23 +62,7 @@ private:
 	unsigned char m_kindOf[0x20];
 };
 
-class ContainModuleInterface
-{
-public:
-#define CONTAIN_SLOT(n) virtual void slot##n();
-	CONTAIN_SLOT(0) CONTAIN_SLOT(1) CONTAIN_SLOT(2) CONTAIN_SLOT(3) CONTAIN_SLOT(4)
-	CONTAIN_SLOT(5) CONTAIN_SLOT(6) CONTAIN_SLOT(7) CONTAIN_SLOT(8) CONTAIN_SLOT(9)
-	CONTAIN_SLOT(10) CONTAIN_SLOT(11) CONTAIN_SLOT(12) CONTAIN_SLOT(13) CONTAIN_SLOT(14)
-	CONTAIN_SLOT(15) CONTAIN_SLOT(16) CONTAIN_SLOT(17) CONTAIN_SLOT(18) CONTAIN_SLOT(19)
-	CONTAIN_SLOT(20) CONTAIN_SLOT(21) CONTAIN_SLOT(22) CONTAIN_SLOT(23) CONTAIN_SLOT(24)
-	CONTAIN_SLOT(25) CONTAIN_SLOT(26) CONTAIN_SLOT(27)
-	virtual unsigned int getContainMax() const; // 0x70
-	CONTAIN_SLOT(29) CONTAIN_SLOT(30) CONTAIN_SLOT(31) CONTAIN_SLOT(32) CONTAIN_SLOT(33)
-	CONTAIN_SLOT(34) CONTAIN_SLOT(35) CONTAIN_SLOT(36) CONTAIN_SLOT(37)
-	virtual bool isValidContainerFor(const class Object *obj, bool checkCapacity, bool flag) const; // 0x98
-	virtual void addToContain(class Object *obj); // 0x9C
-#undef CONTAIN_SLOT
-};
+#include "../../../Include/GameLogic/Module/ContainModule.h"
 
 class LocomotorSet;
 class Object;

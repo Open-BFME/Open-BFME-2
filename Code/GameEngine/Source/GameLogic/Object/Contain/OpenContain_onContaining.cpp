@@ -36,7 +36,7 @@ virtual void d22();
 virtual void d23();
 virtual void d24(); virtual void add(BfmeAudioEventPrefix136*);};
 extern AudioManager*TheAudio;
-struct ContainModuleInterface {virtual void onContaining(Object*,bool)=0;};
+#include "../../../../Include/GameLogic/Module/ContainModule.h"
 class OpenContain:public ContainModuleInterface {public:virtual void onContaining(Object*,bool);private:__forceinline Object*owner(){return *reinterpret_cast<Object**>(reinterpret_cast<char*>(this)-0x18);}char pad[0xBD-4];bool flag;};
 void OpenContain::onContaining(Object*,bool){if(flag&&owner()->getDrawable()){
  BfmeAudioEventPrefix136 event(owner()->getDrawable()->rva00462D95(),0);

@@ -51,20 +51,7 @@ class Object;
 
 typedef void (*ContainIterateFunc)(Object *obj, void *userData);
 
-class ContainModuleInterface
-{
-public:
-	SLOT08(s00,s01,s02,s03,s04,s05,s06,s07)
-	SLOT08(s08,s09,s0A,s0B,s0C,s0D,s0E,s0F)
-	SLOT08(s10,s11,s12,s13,s14,s15,s16,s17)
-	SLOT08(s18,s19,s1A,s1B,s1C,s1D,s1E,s1F)
-	SLOT08(s20,s21,s22,s23,s24,s25,s26,s27)
-	SLOT08(s28,s29,s2A,s2B,s2C,s2D,s2E,s2F)
-	SLOT08(s30,s31,s32,s33,s34,s35,s36,s37)
-	SLOT08(s38,s39,s3A,s3B,s3C,s3D,s3E,s3F)
-	virtual void s40(); virtual void s41(); virtual void s42(); virtual void s43();
-	virtual void iterateContained(ContainIterateFunc func, void *userData, int flags);
-};
+#include "../../../../Include/GameLogic/Module/ContainModule.h"
 
 class AICommandInterface
 {

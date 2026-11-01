@@ -68,16 +68,7 @@ public:
 	virtual ExitDoorType reserveDoorForExit(const ThingTemplate *objType, Object *specificObject) = 0;
 	virtual void exitObjectViaDoor(Object *newObj, ExitDoorType exitDoor) = 0;
 };
-class ContainModuleInterface : public VSlots<17>
-{
-public:
-	virtual void onObjectWantsToEnterOrExit(Object *obj, ObjectEnterExitType wants) = 0;
-	virtual void slot18() = 0; virtual void slot19() = 0; virtual void slot20() = 0;
-	virtual void slot21() = 0; virtual void slot22() = 0; virtual void slot23() = 0;
-	virtual void slot24() = 0; virtual void slot25() = 0; virtual void slot26() = 0;
-	virtual void slot27() = 0; virtual void slot28() = 0;
-	virtual ExitInterface *getContainExitInterface() = 0;
-};
+#include "../../../Include/GameLogic/Module/ContainModule.h"
 class AIUpdateInterface : public VSlots<106>
 {
 public:

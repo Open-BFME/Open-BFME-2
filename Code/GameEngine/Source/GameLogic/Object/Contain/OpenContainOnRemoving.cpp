@@ -77,7 +77,7 @@ template<> class Rva00464D02Slots<0> {};
 class AudioManager:public Rva00464D02Slots<25> { public: virtual void event(const BfmeAudioEventPrefix136 *); };
 extern AudioManager *TheAudio;
 struct Rva00464D02Data { char unknown00[0x88]; AsciiString *bonusBegin; AsciiString *bonusEnd; void *capacity; unsigned minimumFrames; };
-struct ContainModuleInterface { virtual void onRemoving(Object *) = 0; };
+#include "../../../../Include/GameLogic/Module/ContainModule.h"
 class OpenContain:public ContainModuleInterface {
 public:
     virtual void onRemoving(Object *);

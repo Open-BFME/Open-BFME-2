@@ -58,14 +58,7 @@ public:
 	bool m_transformFlagB;
 };
 
-class ContainModuleInterface
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void containReactToTransformChange();
-};
+#include "../../../Include/GameLogic/Module/ContainModule.h"
 
 struct Rva00287C21Other;
 

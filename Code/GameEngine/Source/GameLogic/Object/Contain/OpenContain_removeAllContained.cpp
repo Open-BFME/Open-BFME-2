@@ -32,11 +32,7 @@ private:
 	char m_pad04[0x20 - 0x04];
 };
 
-class ContainModuleInterface
-{
-public:
-	virtual void removeAllContained(bool exposeStealthUnits) = 0;
-};
+#include "../../../../Include/GameLogic/Module/ContainModule.h"
 
 class OpenContain : public OpenContainModuleBase, public ContainModuleInterface
 {

@@ -36,14 +36,7 @@ public:
 	int m_04[7];
 };
 
-class ContainModuleInterface
-{
-public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void containReactToTransformChange() = 0;
-};
+#include "../../../../Include/GameLogic/Module/ContainModule.h"
 
 class OpenContain : public OpenContainPrimaryView, public ContainModuleInterface
 {

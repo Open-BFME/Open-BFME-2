@@ -39,11 +39,7 @@ public:
 };
 
 // Object +0x250: slot 68 walks the contained Objects.
-class ContainModuleInterface : public Rva0054711ASlots<67>
-{
-public:
-	virtual void iterateContained(ContainIterateFunc func, void *userData, bool reverse) = 0;
-};
+#include "../../../Include/GameLogic/Module/ContainModule.h"
 
 struct Rva0054711ATemplate
 {

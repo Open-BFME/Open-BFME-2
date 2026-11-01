@@ -150,12 +150,7 @@ public:
 // ContainModuleInterface view for allow 0x0026144C: isGarrisonable is
 // vtable slot 4 (the +0x10 call); the preceding slots are never called here.
 #define CONTAIN_GAP(n) virtual void gap##n();
-class ContainModuleInterface
-{
-public:
-	CONTAIN_GAP(0) CONTAIN_GAP(1) CONTAIN_GAP(2) CONTAIN_GAP(3)
-	virtual bool isGarrisonable() const;	// slot 4
-};
+#include "../../../Include/GameLogic/Module/ContainModule.h"
 
 class Object
 {

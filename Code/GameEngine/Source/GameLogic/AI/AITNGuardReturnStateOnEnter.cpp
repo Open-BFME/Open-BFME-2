@@ -90,11 +90,7 @@ public:
 template <> class VSlotsC<0>
 {
 };
-class ContainModuleInterface : public VSlotsC<29>
-{
-public:
-	virtual ExitInterface *getContainExitInterface() = 0;	// +0x74
-};
+#include "../../../Include/GameLogic/Module/ContainModule.h"
 class Object
 {
 public:

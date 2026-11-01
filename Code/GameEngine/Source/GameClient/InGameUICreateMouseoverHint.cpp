@@ -216,30 +216,7 @@ extern PlayerList* ThePlayerList;
 
 class Rva002A7DD0 { public: bool rva002A7DD0(); };
 
-class ContainModuleInterface { public:
- virtual void slot00();
- virtual void slot01();
- virtual void slot02();
- virtual void slot03();
- virtual bool isGarrisonable() const;
- virtual void slot05();
- virtual void slot06();
- virtual void slot07();
- virtual void slot08();
- virtual void slot09();
- virtual void slot10();
- virtual void slot11();
- virtual void slot12();
- virtual void slot13();
- virtual void slot14();
- virtual void slot15();
- virtual void slot16();
- virtual void slot17();
- virtual void slot18();
- virtual const Player* getApparentControllingPlayer(const Player*) const;
-
-
-};
+#include "../../Include/GameLogic/Module/ContainModule.h"
 class Rva00373EC6 { public: unsigned char pad[0x38]; int playerIndex; const ThingTemplate* thingTemplate; };
 #include "../../Include/Common/Module.h"
 class SpecialDisguiseUpdate : public Module { public: void* rva004B031E(); };

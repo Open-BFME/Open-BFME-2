@@ -29,11 +29,7 @@ public:
 	virtual void gap(char (*)[1]) = 0;
 };
 
-class ContainModuleInterface : public ObjectReleaseWeaponLockContainSlots<90>
-{
-public:
-	virtual void releaseWeaponLock(WeaponLockType lockType) = 0; // slot 91
-};
+#include "../../../Include/GameLogic/Module/ContainModule.h"
 
 class WeaponSet
 {

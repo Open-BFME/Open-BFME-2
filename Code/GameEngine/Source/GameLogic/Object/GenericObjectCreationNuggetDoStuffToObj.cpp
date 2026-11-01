@@ -157,12 +157,7 @@ template <> class OclContainSlots<0>
 {
 };
 
-class ContainModuleInterface : public OclContainSlots<38>
-{
-public:
-	virtual bool isValidContainerFor(const Object *obj, bool checkCapacity, Int unused) = 0; // +0x98
-	virtual void addToContain(Object *obj) = 0; // +0x9C
-};
+#include "../../../Include/GameLogic/Module/ContainModule.h"
 
 // Coord3D::scale is retail's out-of-line 0x000036D1 (region.cpp); this body
 // inlines it. Scaling through this TU-local helper keeps the inline expansion

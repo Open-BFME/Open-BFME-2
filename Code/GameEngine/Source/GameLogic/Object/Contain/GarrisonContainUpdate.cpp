@@ -119,17 +119,7 @@ public:
 };
 
 #define SLOT08(a,b,c,d,e,f,g,h) virtual void a(); virtual void b(); virtual void c(); virtual void d(); virtual void e(); virtual void f(); virtual void g(); virtual void h();
-class ContainModuleInterface
-{
-public:
-	SLOT08(s00,s01,s02,s03,s04,s05,s06,s07)
-	SLOT08(s08,s09,s0A,s0B,s0C,s0D,s0E,s0F)
-	SLOT08(s10,s11,s12,s13,s14,s15,s16,s17)
-	SLOT08(s18,s19,s1A,s1B,s1C,s1D,s1E,s1F)
-	SLOT08(s20,s21,s22,s23,s24,s25,s26,s27)
-	virtual void s28();
-	virtual void removeFromContain(Object *obj, bool exposeStealthUnits) = 0;	// slot 41
-};
+#include "../../../../Include/GameLogic/Module/ContainModule.h"
 #undef SLOT08
 
 class GarrisonContain : public GarrisonContainUpdateModule, public ContainModuleInterface

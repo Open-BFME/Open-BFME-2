@@ -327,7 +327,7 @@ template<>class Slots<0>{};
 
 extern AudioManager *TheAudio;
 
-class ContainModuleInterface:public Slots<4>{public:virtual bool isGarrisonable();};
+#include "../../../../Include/GameLogic/Module/ContainModule.h"
 
 class ContainListInterface:public Slots<70>{public:virtual Rva0036AE51ListView rva70();virtual void gap71();virtual void gap72();virtual int getStealthUnitsContained();};
 

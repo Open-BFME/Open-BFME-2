@@ -531,25 +531,7 @@ class UpgradeTemplate;
 // ContainModuleInterface::getContainCount(0) is vtable slot +0x114 (as in
 // Object/Contain/Rva00478231Contain.cpp).
 #define BFME_SLOT(n) virtual void slot##n() = 0
-class ContainModuleInterface
-{
-public:
-	BFME_SLOT(00); BFME_SLOT(01); BFME_SLOT(02); BFME_SLOT(03); BFME_SLOT(04);
-	BFME_SLOT(05); BFME_SLOT(06); BFME_SLOT(07); BFME_SLOT(08); BFME_SLOT(09);
-	BFME_SLOT(10); BFME_SLOT(11); BFME_SLOT(12); BFME_SLOT(13); BFME_SLOT(14);
-	BFME_SLOT(15); BFME_SLOT(16); BFME_SLOT(17); BFME_SLOT(18); BFME_SLOT(19);
-	BFME_SLOT(20); BFME_SLOT(21); BFME_SLOT(22); BFME_SLOT(23); BFME_SLOT(24);
-	BFME_SLOT(25); BFME_SLOT(26); BFME_SLOT(27); BFME_SLOT(28); BFME_SLOT(29);
-	BFME_SLOT(30); BFME_SLOT(31); BFME_SLOT(32); BFME_SLOT(33); BFME_SLOT(34);
-	BFME_SLOT(35); BFME_SLOT(36); BFME_SLOT(37); BFME_SLOT(38); BFME_SLOT(39);
-	BFME_SLOT(40); BFME_SLOT(41); BFME_SLOT(42); BFME_SLOT(43); BFME_SLOT(44);
-	BFME_SLOT(45); BFME_SLOT(46); BFME_SLOT(47); BFME_SLOT(48); BFME_SLOT(49);
-	BFME_SLOT(50); BFME_SLOT(51); BFME_SLOT(52); BFME_SLOT(53); BFME_SLOT(54);
-	BFME_SLOT(55); BFME_SLOT(56); BFME_SLOT(57); BFME_SLOT(58); BFME_SLOT(59);
-	BFME_SLOT(60); BFME_SLOT(61); BFME_SLOT(62); BFME_SLOT(63); BFME_SLOT(64);
-	BFME_SLOT(65); BFME_SLOT(66); BFME_SLOT(67); BFME_SLOT(68);
-	virtual unsigned int getContainCount(int unused) = 0; // +0x114
-};
+#include "../../../Include/GameLogic/Module/ContainModule.h"
 
 // The interface rowed Object::rva0028C197 returns (the +0x250 module's slot
 // +0x7C answer); slots +0x17C, +0x180 and +0x188 return unsigned counts.

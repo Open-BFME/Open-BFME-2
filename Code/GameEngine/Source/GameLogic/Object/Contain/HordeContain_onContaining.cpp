@@ -57,7 +57,7 @@ class Object:public Thing {public:
 };
 class Drawable {public:char p000[0x43c];bool flag43c;void rva00272945(int);void rva00272BAB(int,int);};
 class Rva0028B525DwordSlot {public:void set(int);};
-struct ContainModuleInterface {virtual void onContaining(Object*,bool)=0;};
+#include "../../../../Include/GameLogic/Module/ContainModule.h"
 class OpenContain:public ContainModuleInterface {public:virtual void onContaining(Object*,bool);};
 struct Rva0046E6EAObject;struct Rva0046E6EACoord;
 class Rva0046E6EA {public:bool rva0046E6EA(Rva0046E6EAObject*,const Rva0046E6EACoord*,Rva0046E6EACoord*,bool);};
