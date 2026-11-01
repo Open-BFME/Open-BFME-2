@@ -35,21 +35,8 @@ class Object;
 #include "../../Include/Common/ObjectModule.h"
 
 #include "../../Include/GameLogic/Module/BehaviorModule.h"
-class UpdateModuleInterface { public: virtual void updateSlot(); };
+#include "../../Include/GameLogic/Module/UpdateModule.h"
 
-class UpdateModule : public ObjectModule,
-	public BehaviorModuleInterface, public UpdateModuleInterface
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *data);
-	virtual ~UpdateModule();
-	void xfer(Xfer *xfer);
-
-private:
-	unsigned int m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_updateState;
-};
 
 class Rva004839D3_E1
 {
