@@ -20,25 +20,7 @@ class BuildListDeleteSlot
 public:
     virtual void *deleteInstance(int flags) = 0;
 };
-class BuildListInfo : public Snapshot
-{
-public:
-    void setNextBuildList(BuildListInfo *next)
-    {
-        m_nextBuildList = next;
-    }
-    AsciiString m_buildingName;
-    AsciiString m_templateName;
-    unsigned char m_padding[32];
-    BuildListInfo *m_nextBuildList;
-    AsciiString m_script;
-protected:
-    virtual ~BuildListInfo();
-    virtual void loadPostProcess();
-    virtual void xfer(Xfer *);
-public:
-    virtual const char *GetSnapshotName() const;
-};
+#include "../../../Include/GameLogic/Bfme2BuildListInfo.h"
 BuildListInfo::~BuildListInfo()
 {
     register BuildListInfo *next;
