@@ -92,12 +92,7 @@ struct Rva0044BF40 {
  ~Rva0044BF40(){if(ptr)ReleaseTreeHintRef00217D4C(ptr);}
 };
 extern "C" void __cdecl Rva00437F61(int,const UnicodeString &,const UnicodeString &,Rva0044BF40);
-class GameTextInterface {public:
-#define V(n) virtual void slot##n();
- V(0)V(1)V(2)V(3)V(4)V(5)V(6)V(7)V(8)V(9)V(10)V(11)V(12)V(13)V(14)
-#undef V
- virtual UnicodeString fetch(const char *,bool *exists=0);
-};
+#include "../../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 class Rva00514B66 {public:unsigned char rva00514B66();};
 static __forceinline FunctorBinding MenuBinding(FunctorMethod method,FunctorTarget *target){return FunctorBinding(method,target);}

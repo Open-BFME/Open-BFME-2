@@ -75,14 +75,7 @@ int Rva005148FD();
 
 class Rva00690CB0Owner { public: bool init(); };
 
-class GameTextInterface
-{
-public:
-#define V(n) virtual void v##n();
-	V(00) V(01) V(02) V(03) V(04) V(05) V(06) V(07) V(08) V(09) V(10) V(11) V(12) V(13) V(14)
-#undef V
-	virtual UnicodeString fetch(const char *label, bool *exists = 0);	// +0x3C
-};
+#include "../../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 
 class AptMainMenuCredits

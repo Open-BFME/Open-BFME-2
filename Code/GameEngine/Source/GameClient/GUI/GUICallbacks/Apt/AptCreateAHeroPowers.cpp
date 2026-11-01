@@ -657,15 +657,7 @@ void AptCreateAHero::Powers::rva005B455D(bool active)
 }
 
 class BfmeAptWindowManager {public:void bfmeSetText(const AsciiString&,const UnicodeString&,bool);};
-class GameTextInterface
-{
-public:
- virtual void slot00();virtual void slot04();virtual void slot08();virtual void slot0C();virtual void slot10();virtual void slot14();
- virtual void slot18();virtual void slot1C();virtual void slot20();virtual void slot24();virtual void slot28();virtual void slot2C();
- virtual void slot30();virtual void slot34();
- virtual UnicodeString fetch(const char *label,bool *exists=0);
- virtual UnicodeString fetch(const AsciiString &label,bool *exists=0);
-};
+#include "../../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 // Native writable seven-entry label table DD3A9C: zero followed by the six
 // availability/error labels. Its original name is unknown.

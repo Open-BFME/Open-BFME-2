@@ -12,14 +12,7 @@ class LANAPI:public LanSlots<56> {public:virtual GameInfo *slotE0()=0;};
 extern LANAPI *TheLAN;
 class BfmeAptWindowManager {public:void bfmeSetText(const AsciiString &,const UnicodeString &,bool);};
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
-class GameTextInterface {
-public:
-#define S(N) virtual void slot##N()=0;
- S(0) S(1) S(2) S(3) S(4) S(5) S(6) S(7) S(8) S(9) S(10) S(11) S(12) S(13)
-#undef S
- virtual UnicodeString fetch(const char *,bool * =0)=0;
- virtual UnicodeString fetch(const AsciiString &,bool * =0)=0;
-};
+#include "../../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 class AptMessenger {
 public: virtual ~AptMessenger(); int rva00511E6D();

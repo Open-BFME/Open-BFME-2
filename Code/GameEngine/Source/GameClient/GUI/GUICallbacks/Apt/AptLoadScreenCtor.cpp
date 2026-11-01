@@ -143,11 +143,7 @@ public:
 };
 extern GameWindowManager *TheWindowManager;
 
-class GameTextInterface : public AptLoadScreenSlots<15>
-{
-public:
-	virtual UnicodeString fetch(const char *label, Bool *exists = 0);	// +0x3C
-};
+#include "../../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 
 class GameInfo;

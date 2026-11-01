@@ -46,26 +46,7 @@ extern "C" void _ReadWriteBarrier(void);
 
 class LANGameInfo;
 
-class GameTextInterface
-{
-public:
-	virtual ~GameTextInterface() {}
-	virtual void slot01() = 0;
-	virtual void slot02() = 0;
-	virtual void slot03() = 0;
-	virtual void slot04() = 0;
-	virtual void slot05() = 0;
-	virtual void slot06() = 0;
-	virtual void slot07() = 0;
-	virtual void slot08() = 0;
-	virtual void slot09() = 0;
-	virtual void slot10() = 0;
-	virtual void slot11() = 0;
-	virtual void slot12() = 0;
-	virtual void slot13() = 0;
-	virtual void slot14() = 0;
-	virtual UnicodeString fetch(const char *label, bool *exists = 0) = 0;
-};
+#include "../../../../../Include/GameClient/GameText.h"
 
 extern GameTextInterface *TheGameText;
 

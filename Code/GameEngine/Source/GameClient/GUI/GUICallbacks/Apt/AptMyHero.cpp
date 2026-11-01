@@ -8,13 +8,7 @@ class ImageCollection {public: const Image *findImageByName(const AsciiString &)
 extern ImageCollection *TheMappedImageCollection;
 class BfmeAptWindowManager {public: void bfmeSetText(const AsciiString &,const UnicodeString &,bool);};
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
-class GameTextInterface {
-public:
- virtual void slot00();virtual void slot04();virtual void slot08();virtual void slot0C();virtual void slot10();virtual void slot14();
- virtual void slot18();virtual void slot1C();virtual void slot20();virtual void slot24();virtual void slot28();virtual void slot2C();
- virtual void slot30();virtual void slot34();
- virtual UnicodeString fetch(const AsciiString &label,bool *exists=0);
-};
+#include "../../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 // CreateAHeroData's bling value get/set pair, rowed under this owner.
 class Rva00407E28 {public: int rva00407E28(int id);bool rva00407E53(int id);bool rva00407DE0(int id,int value);};

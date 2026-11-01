@@ -112,13 +112,7 @@ struct PlayerInfo { unsigned char reserved[0xC]; int wins, losses; };
 struct RGBColor;
 class Mouse { public: void rva001EEA6D(UnicodeString, int, const RGBColor *, float); };
 extern Mouse *TheMouse;
-class GameTextInterface {
-public:
-#define T(n) virtual void t##n();
- T(0) T(1) T(2) T(3) T(4) T(5) T(6) T(7) T(8) T(9) T(10) T(11) T(12) T(13) T(14)
-#undef T
- virtual UnicodeString fetch(const char *, bool *exists = 0);
-};
+#include "../../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 extern int g_currentAptOnlineCustomMatch;
 class Rva003FF1C2 { public: bool rva003FF1C2() const; };

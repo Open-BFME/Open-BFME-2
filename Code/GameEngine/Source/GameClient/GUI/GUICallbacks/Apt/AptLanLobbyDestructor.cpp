@@ -225,13 +225,7 @@ void AptLanLobby::rva004443E7() {
 }
 
 class BfmeAptWindowManager { public: void bfmeSetText(const AsciiString&,const UnicodeString&,bool); };
-class GameTextInterface { public:
-#define SLOT(N) virtual void slot##N();
- SLOT(00) SLOT(01) SLOT(02) SLOT(03) SLOT(04) SLOT(05) SLOT(06) SLOT(07)
- SLOT(08) SLOT(09) SLOT(10) SLOT(11) SLOT(12) SLOT(13) SLOT(14)
-#undef SLOT
- virtual UnicodeString fetch(const char*,bool *exists=0);
-};
+#include "../../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 void Rva00512069Register();
 // Native445EE3..446386: complete1187B constructor. Target callback strings,

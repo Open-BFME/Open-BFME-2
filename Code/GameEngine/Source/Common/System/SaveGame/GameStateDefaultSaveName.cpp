@@ -32,15 +32,7 @@ public:
 	bool rva002DCCFB(UnicodeString filename);
 };
 
-class GameTextInterface
-{
-public:
-	virtual void v00(); virtual void v04(); virtual void v08(); virtual void v0c();
-	virtual void v10(); virtual void v14(); virtual void v18(); virtual void v1c();
-	virtual void v20(); virtual void v24(); virtual void v28(); virtual void v2c();
-	virtual void v30(); virtual void v34(); virtual void v38();
-	virtual UnicodeString fetch(const char *label, bool *exists = 0);
-};
+#include "../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 
 class GameState

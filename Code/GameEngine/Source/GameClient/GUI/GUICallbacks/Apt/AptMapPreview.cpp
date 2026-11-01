@@ -63,32 +63,7 @@ public:
 	unsigned char m_pad00[8];
 	AsciiString m_descKey;		// +0x08, passed to TheGameText->fetch
 };
-class GameTextInterface
-{
-public:
-	virtual ~GameTextInterface() {}
-	virtual void slot04() = 0;
-	virtual void slot08() = 0;
-	virtual void slot0C() = 0;
-	virtual void slot10() = 0;
-	virtual void slot14() = 0;
-	virtual void slot18() = 0;
-	virtual void slot1C() = 0;
-	virtual void slot20() = 0;
-	virtual void reset() = 0;
-	virtual void slot28() = 0;
-	virtual void slot2C() = 0;
-	virtual void slot30() = 0;
-	virtual void slot34() = 0;
-	// cl groups the overloads in reverse: the AsciiString one is slot 0x38,
-	// the const char * one 0x3C.
-	virtual UnicodeString fetch(const char *label, bool *exists = 0) = 0;
-	virtual UnicodeString fetch(const AsciiString &label, bool *exists = 0) = 0;
-	virtual void slot40() = 0;
-	virtual void slot44() = 0;
-	virtual void slot48() = 0;
-	virtual void initMapStringFile(const AsciiString &filename) = 0;
-};
+#include "../../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 struct AptMapPreviewMapInfo
 {

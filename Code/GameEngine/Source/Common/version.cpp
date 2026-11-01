@@ -14,26 +14,7 @@ class AsciiString;
 
 // Retail fetch call uses vtable offset 0x3c. The fourteen preceding
 // non-destructor methods have not yet been reconstructed in this TU.
-class GameTextInterface
-{
-public:
-    virtual ~GameTextInterface() {}
-    virtual void slot00() = 0;
-    virtual void slot04() = 0;
-    virtual void slot08() = 0;
-    virtual void slot0c() = 0;
-    virtual void slot10() = 0;
-    virtual void slot14() = 0;
-    virtual void slot18() = 0;
-    virtual void slot1c() = 0;
-    virtual void slot20() = 0;
-    virtual void slot24() = 0;
-    virtual void slot28() = 0;
-    virtual void slot2c() = 0;
-    virtual void slot30() = 0;
-    virtual void slot34() = 0;
-    virtual UnicodeString fetch(const char *label, bool *exists = 0) = 0;
-};
+#include "../../Include/GameClient/GameText.h"
 
 // The engine initializer at RVA 0x22E6A6 passes this address to the GameText
 // factory, and the retail accessor bodies load the singleton from this VA.

@@ -254,15 +254,7 @@ void AptLanLobby::rva004442DB()
 // "GUI:HostLeftTitle" / "GUI:HostLeft" message box (Zero Hour's LAN
 // host-left notice). Method name unrecovered.
 
-class GameTextInterface
-{
-public:
-	virtual void s00(); virtual void s04(); virtual void s08(); virtual void s0C();
-	virtual void s10(); virtual void s14(); virtual void s18(); virtual void s1C();
-	virtual void s20(); virtual void s24(); virtual void s28(); virtual void s2C();
-	virtual void s30(); virtual void s34(); virtual void s38();
-	virtual UnicodeString fetch(const char *label, bool *exists = 0);	// +0x3C
-};
+#include "../../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 
 class GameWindow;

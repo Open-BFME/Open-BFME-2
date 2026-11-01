@@ -76,14 +76,7 @@ public:
 #undef V10
 #undef V
 };
-class GameTextInterface {
-public:
-#define V(n) virtual void slot##n();
-    V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7)
-    V(8) V(9) V(10) V(11) V(12) V(13) V(14)
-#undef V
-    virtual UnicodeString fetch(const char *, bool *);
-};
+#include "../../../Include/GameClient/GameText.h"
 extern LANAPI *TheLAN;
 extern GameTextInterface *TheGameText;
 extern int GameSpyColor[];
