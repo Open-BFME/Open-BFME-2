@@ -62,6 +62,12 @@ class RGBAColorInt;
 #define _CRTIMP
 #define _STLP_NO_EXCEPTIONS 1
 #define _STLP_USE_STATIC_LIB 1
+#define _CRTIMP
+#define _STLP_NO_EXCEPTIONS 1
+#define _STLP_USE_STATIC_LIB 1
+#define _CRTIMP
+#define _STLP_NO_EXCEPTIONS 1
+#define _STLP_USE_STATIC_LIB 1
 
 typedef bool Bool;
 
@@ -775,6 +781,8 @@ public:
 		const Matrix3D *primaryMtx, Real primarySpeed, const Coord3D *secondary);
 };
 
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehavior.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorSlots.cpp
 
 //
@@ -934,10 +942,6 @@ void BezierProjectileBehavior::rva0045B9FB(Object *other)
 	cur.sub(delta);
 	obj->setPosition(&cur);
 }
-
-// tu-skeleton: 0x0045B5E3 17B ?buildFieldParse@BezierProjectileBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
-
-// tu-skeleton: 0x0045B5F4 813B ?calcFlightPath@BezierProjectileBehavior@@AAE_N_N@Z -- matched in Code/GameEngine/Source/Common/Rva0055A246Ctor.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehavior.cpp
 
@@ -1202,12 +1206,6 @@ void BezierProjectileBehavior::projectileFireAtObjectOrPosition(Object *victim, 
 	getObject()->updateShroudNow();
 }
 
-// tu-skeleton: 0x0045BF6E 101B ??1BezierProjectileBehavior@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0045BFD3 6B ?name@BezierProjectileBehavior@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0045C01E 8B ?rva0045BF06@BezierProjectileBehavior@@W3AE_NPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorDtor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorUpdate.cpp
 
 // ?update@BezierProjectileBehavior@@UAE?AW4UpdateSleepTime@@XZ
@@ -1399,10 +1397,6 @@ void BezierProjectileBehavior::rva0045C812(const Object *obj)
 	ObjectID id = obj->m_id;
 	((Rva002A1B6FNativeList *)&m_list7C)->append(*(void *const *)&id);
 }
-
-// tu-skeleton: 0x0045C850 265B ??0BezierProjectileBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0045C959 28B ??_GBezierProjectileBehavior@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorDtor.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorRva0045C975.cpp
 
@@ -1659,20 +1653,101 @@ bool BezierProjectileBehavior::rva0045CD6E( Object *other )
 	return true;
 }
 
+// tu-skeleton: 0x0045B5E3 17B ?buildFieldParse@BezierProjectileBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
+
+// tu-skeleton: 0x0045B5F4 813B ?calcFlightPath@BezierProjectileBehavior@@AAE_N_N@Z -- matched in Code/GameEngine/Source/Common/Rva0055A246Ctor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorDtor.cpp
+
+//
+// ??1BezierProjectileBehavior@@UAE@XZ, retail 0x0045BF6E, 101 bytes.
+// ?rva0045BF06@BezierProjectileBehavior@@W3AE_NPAVObject@@@Z, retail
+// 0x0045C01E, 8 bytes: the compiler's this-4 adjustor thunk in slot 1 of the
+// +0x24 vtable 0x00C41DC8, jumping to +0x20 slot 4 (0x0045BF06).
+// Target evidence: vtable 0x00C41E04 slot 0 = deleting dtor 0x0045C959 which
+// calls here; donor BFME1 BezierProjectileBehaviorDestructorThunk proves the
+// vector at +0x44 plus list member at +0x7C; ctor 0x0045C850 installs vtables
+// 0x00C41E04/+0x0C 0x00C53570/+0x10 0x00C41DF8/+0x20 0x00C41DE0/+0x24 0x00C41DC8
+// with vector base at +0x44 and init at +0x7C. Teardown restores 5 vptrs then
+// pool-free of +0x7C via pinned 0x00268902 then inline null-checked free of
+// +0x44 via rowed _free 0x00030830 then base ??1Rva0024A797 at 0x0024A797.
+// Layout follows SiegeDockingBehaviorDtor MI base with 3 vptrs to 0x20 plus
+// two secondary bases at +0x20/+0x24. The vector member through bfmealloc earns
+// retail free; the ObjectIDList member earns the lea plus call.
+
+// BezierProjectileBehavior's class views: one spelling shared by every file of this TU.
+// Retail calls free directly (the game allocator), not through the CRT
+// import: read the CRT headers without dllimport.
+// two secondary bases at +0x20/+0x24. Manual 3-pointer view earns retail free;
+// explicit PoolMember call earns the lea plus call.
+// Slot 0 of each module's primary vftable is its deleting destructor
+// (0x0045C959 in 0x00C41E04), so the base's first virtual is the destructor.
+
+// LINK: 0x002CBA7C is rowed as WeaponTemplate::shouldProjectileCollideWith (WeaponTemplateShouldProjectileCollideWith.cpp)
+// and 0x002CA753 as Weapon::positionProjectileForLaunch (Weapon_positionProjectileForLaunch_Rva002CA753.cpp).
+
+BezierProjectileBehavior::~BezierProjectileBehavior()
+{
+}
+
+// tu-skeleton: 0x0045BFD3 6B ?name@BezierProjectileBehavior@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorCtor.cpp
+
+//
+// ??0BezierProjectileBehavior@@QAE@PAVThing@@PBVModuleData@@@Z, retail
+// 0x0045C850, 265 bytes. Donor: BFME 1's matched
+// BezierProjectileBehaviorConstructor.cpp (BFME 1 retail 0x001F1470); member
+// names below are carried from it. Target evidence: the body runs the rowed
+// UpdateModule ctor 0x00253390, the implicit ctors of the two abstract
+// interfaces at +0x20/+0x24 (both vtable 0x00840818), then stores the five
+// vtables the rowed dtor 0x0045BF6E restores (0x00841E04 primary, whose
+// slot 0 is the rowed ??_GBezierProjectileBehavior 0x0045C959 and slot 3
+// the rowed xfer 0x0045CA8E). As in BFME 1 the +0x44 Coord3D vector is
+// built and cleared (STLport's out-of-line vector<Coord3D> base ctor and
+// erase, both pinned: ICF-folded 0x00211E58 and 0x002A133B),
+// the +0x7C list is built through the rowed list-base ctor 0x0029FB3B with
+// a stack allocator, the remaining members are zeroed, +0x84 is 1.0 and
+// the module sleeps forever. Offsets agree with the rowed xfer.
+
+// BezierProjectileBehavior's class views: one spelling shared by every file of this TU.
+// Retail calls free directly (the game allocator), not through the CRT
+// import: read the CRT headers without dllimport.
+
+// LINK: 0x002CBA7C is rowed as WeaponTemplate::shouldProjectileCollideWith (WeaponTemplateShouldProjectileCollideWith.cpp)
+// and 0x002CA753 as Weapon::positionProjectileForLaunch (Weapon_positionProjectileForLaunch_Rva002CA753.cpp).
+
+inline void zeroCoord(Coord3D &c)
+{
+	c.x = 0.0f;
+	c.y = 0.0f;
+	c.z = 0.0f;
+}
+
+BezierProjectileBehavior::BezierProjectileBehavior(Thing *thing, const ModuleData *moduleData)
+	: UpdateModule(thing, moduleData)
+{
+	m_launcherID = INVALID_OBJECT_ID;
+	zeroCoord(m_launchPos);
+	m_victimID = INVALID_OBJECT_ID;
+	m_weapon = 0;
+	m_detonationWeaponTmpl = 0;
+	_STL::vector<Gen_p12pod> *path = reinterpret_cast<_STL::vector<Gen_p12pod> *>(&m_flightPath);
+	path->erase(path->begin(), path->end());
+	m_flightPathSegments = 0;
+	m_flightPathSpeed = 0;
+	zeroCoord(m_flightPathStart);
+	zeroCoord(m_flightPathEnd);
+	m_currentFlightPathStep = 0;
+	m_extraBonusFlags = 0;
+	m_hasDetonated = false;
+	m_bounceCount = 0;
+	m_heightScale = 1.0f;
+	setWakeFrame(getObject(), UPDATE_SLEEP_FOREVER);
+}
+
 // tu-skeleton: 0x0078A463 19B (unledgered) -- unmatched, no code, never credited
 
 // tu-skeleton: 0x0078A476 8B Unwind@00b8a476 -- matched in Code/GameEngine/Source/Common/Rva0055A246Ctor.cpp (not merged yet)
 
 // tu-skeleton: 0x0078A47E 10B __ehhandler$?calcFlightPath@BezierProjectileBehavior@@AAE_N_N@Z -- matched in Code/GameEngine/Source/Common/Rva0055A246Ctor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078A488 8B Unwind@00b8a488 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078A490 10B __ehhandler$??1BezierProjectileBehavior@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078A505 8B Unwind@00b8a505 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078A50D 11B Unwind@00b8a50d -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078A518 11B $L5269 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078A523 10B __ehhandler$??0BezierProjectileBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorCtor.cpp (not merged yet)
