@@ -19842,3 +19842,7 @@ Code/GameEngine/Source/Common/Rva003833BBErase.cpp|class||Rva00383380,085388fe34
 Code/GameEngine/Source/Common/Rva002D2DF6Init.cpp|function|0x002D2DF6|rva002D2DF6,48970b434fa1fd356cbbadea,drz-k9,n29h2-k9,w-4d4d8f8584bc,2026-10-31
 Code/GameEngine/Source/Common/Rva002B2757.cpp|member|Rva002B2757|m_b0,72021707d77978108536899a,drz-k9,n29h2-k9,w-4d4d8f8584bc,2026-10-31
 Code/GameEngine/Source/GameLogic/Map/StandingWaterAreaLoadPCA.cpp|function|0x00199FCC|rva00199FCC,1269b7e7ff1fdb9ff90bc17b,claude-sonnet-5-5,halilkkaya-hdr-s2-n2,w-b2cdd93d26f5,2026-10-31
+Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva00054839.cpp|param|MilesAudioManager::rva00054899|arg1,ef9d57aa3c27d6709607d70a,drz-k1,n30a-k1,w-d29055ee9848,2026-11-01
+Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerSmallSlots.cpp|function|0x00053281|rva00053281,4e76b2d8a7d0d95197daf86d,drz-k1,n30a-k1,w-d29055ee9848,2026-11-01
+Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerSmallSlots.cpp|function|0x0005329C|rva0005329C,cd389ee89a7a665ac16708fb,drz-k1,n30a-k1,w-d29055ee9848,2026-11-01
+Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerSmallSlots_Rva0005DABB.cpp|param|MilesAudioManager::addAudioEvent|a,2ad3763459fff99952c206c6,drz-k1,n30a-k1,w-d29055ee9848,2026-11-01
