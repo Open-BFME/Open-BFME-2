@@ -31,7 +31,7 @@ class Thing;
 class ModuleData;
 class Object;
 
-#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 enum UpdateSleepTime
 {
@@ -40,25 +40,7 @@ enum UpdateSleepTime
 };
 
 // Retail table 0x00C40434 (+0x10) slot 0 is the rowed override 0x00454DF9.
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
 
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~UpdateModule();
-protected:
-	void setWakeFrame(Object *obj, UpdateSleepTime frame);
-	Object *getObject(void) const { return m_object; }
-private:
-	unsigned m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_bfmeReserved;
-};
 
 class GettingBuiltBehaviorInterface
 {
