@@ -8,7 +8,7 @@ struct EmitVtableTag;
 class Thing;
 class ModuleData;
 enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
-template<int N> class BitFlags;
+
 
 #include "ascii_string.h"
 
@@ -17,28 +17,9 @@ template<int N> class BitFlags;
 // unrelated virtual here shifted the destructor into slot 1 and emitted
 // a wrong first virtual slot. The deleting-wrapper unit uses these same
 // base views, including the native three-entry update interface.
-#include "../../Include/GameLogic/Module/BehaviorModule.h"
+#include "../../Include/GameLogic/Module/UpdateModule.h"
 
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-	virtual BitFlags<11> getDisabledTypesToProcess() const = 0;
-	virtual void rva0044DF8D(UpdateSleepTime sleep) = 0;
-};
 
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-	unsigned m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_bfmeReserved;
-
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~UpdateModule();
-	virtual BitFlags<11> getDisabledTypesToProcess() const;
-	virtual void rva0044DF8D(UpdateSleepTime sleep);
-};
 
 class MonitorConditionUpdate : public UpdateModule
 {

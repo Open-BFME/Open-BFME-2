@@ -34,7 +34,7 @@ public:
 };
 #define LogicFramesPerSecond BfmeLogicFramesPerSecond
 extern "C" const void *const __identifier("??_7EntEnragedUpdateModuleData@@6B@")[];
-#include "Common/Snapshot.h"
+#include "../../Include/GameLogic/Module/UpdateModule.h"
 #define BFME_SNAPSHOT_NAME_GETTER(NAME, TEXT) \
 	class NAME \
 	{ \
@@ -145,37 +145,10 @@ class BodyModuleInterface;
 
 class Xfer;
 
-class PB_DeepBase
-{
-public:
-	PB_DeepBase(Thing *, const ModuleData *);
-	virtual ~PB_DeepBase();
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-};
 
 #include "../../Include/GameLogic/Module/BehaviorModule.h"
 
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
 
-class UpdateModule : public PB_DeepBase, public BehaviorModuleInterface, public UpdateModuleInterface
-{
-public:
-	// Defined once, out of line, in UpdateModuleCtor.cpp (retail 0x00253390): derived
-	// ctors call it, and a copy here would offer the link a second, non-retail body.
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~UpdateModule();
-	void xfer(Xfer *xfer);
-
-private:
-	unsigned int m_field14;
-	int m_field18;
-	int m_field1C;
-};
 
 class EntEnragedUpdate : public UpdateModule
 {
