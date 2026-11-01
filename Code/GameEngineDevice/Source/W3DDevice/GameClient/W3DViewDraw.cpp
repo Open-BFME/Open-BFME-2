@@ -130,15 +130,7 @@ public:
 	Bridge *getFirstBridge() { return m_firstBridge; }
 };
 class AIData007446A0;
-class AI
-{
-public:
-	Pathfinder *pathfinder() { return m_pathfinder; }
-	char m_pad00[0x10];
-	Pathfinder *m_pathfinder; // +0x10
-	char m_pad14[0x4];
-	AIData007446A0 * field0014; // +0x18 +0x14
-};
+#include "../../../../GameEngine/Include/GameLogic/AI.h"
 extern AI *TheAI;
 
 class Object

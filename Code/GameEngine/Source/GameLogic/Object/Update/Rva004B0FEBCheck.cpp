@@ -99,7 +99,7 @@ struct Rva004B0FEBData
 	EmotionNugget **m_end;
 };
 
-class AI {public:char pad[0x10];Pathfinder *pathfinder;};
+#include "../../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 
 class Rva000421C8 {public:virtual ~Rva000421C8();virtual bool Allow(Object*)=0;virtual int getPlayerMask();Rva000421C8 *next;};
@@ -176,7 +176,7 @@ body:
 	if (((RvaFilterHolder10 *)holder)->m_filter.accepts(other, 0))
 		return false;
 
-	Pathfinder *path = TheAI->pathfinder;
+	Pathfinder *path = TheAI->m_pathfinder;
 	if (path->IsPointOnWall((int)(void *)&other->m_pos, false))
 		return false;
 
@@ -191,12 +191,12 @@ body:
 	if (it == m_8->m_end)
 		return false;
 
-	path = TheAI->pathfinder;
+	path = TheAI->m_pathfinder;
 	if (!path->IsPointOnWall((int)(void *)&m_c->m_pos, false))
 	{
 		if (other->rva0028B511() == 1)
 		{
-			path = TheAI->pathfinder;
+			path = TheAI->m_pathfinder;
 			if (!path->IsGroundLineOnly(&m_c->m_pos, &other->m_pos))
 				return false;
 		}

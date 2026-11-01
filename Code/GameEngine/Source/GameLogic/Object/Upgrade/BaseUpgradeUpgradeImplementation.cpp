@@ -161,14 +161,7 @@ public:
 	void AddObjectToPathfindMap(Object *object);
 };
 
-class AI
-{
-private:
-	unsigned char m_pad[0x10];
-
-public:
-	Pathfinder *m_pathfinder;
-};
+#include "../../../../Include/GameLogic/AI.h"
 
 extern ThingFactory *TheThingFactory;
 extern AI *TheAI;

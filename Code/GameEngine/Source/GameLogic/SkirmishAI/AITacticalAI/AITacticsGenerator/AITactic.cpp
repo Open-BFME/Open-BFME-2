@@ -172,12 +172,7 @@ public:
 
 class BfmeC986 { public: void groupGatherAndAttackInFormationToPosition(int, int, int, int); };
 
-class AI
-{
-public:
-	AIGroup *createGroup();
-	void destroyGroup(AIGroup *);
-};
+#include "../../../../../Include/GameLogic/AI.h"
 
 extern AI *TheAI;
 

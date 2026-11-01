@@ -54,13 +54,7 @@ public:
 };
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/AI.h
-class AI
-{
-public:
-	Pathfinder *pathfinder(void) { return m_pathfinder; }
-	char m_pad00[0x10];
-	Pathfinder *m_pathfinder; // +0x10
-};
+#include "../../../../GameEngine/Include/GameLogic/AI.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/TerrainLogic.h
 // Only the getLayerHeight slot (+0x1C) is used; the others stay pure so this

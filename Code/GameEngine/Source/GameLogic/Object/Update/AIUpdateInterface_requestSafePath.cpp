@@ -50,15 +50,7 @@ public:
 	bool queueForPath(ObjectID id);
 };
 
-class AI
-{
-public:
-	// Native +0x10 accessor is inlined in the recovered callers.
-	__declspec(dllimport) __forceinline Pathfinder *pathfinder() { return m_pathfinder; }
-private:
-	char m_pad00[0x10];
-	Pathfinder *m_pathfinder;
-};
+#include "../../../../Include/GameLogic/AI.h"
 extern class AI *TheAI;
 
 class Path;

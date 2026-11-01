@@ -102,7 +102,7 @@ public:
 	Bool QuickDoesPathExist(Object *obj, const Coord3D *from, const Coord3D *to, Int locomotorSet);
 	Bool rva002E9442(const Vector3 &from, const Vector3 &to, Vector3 *result);
 };
-class AI { public: Pathfinder *pathfinder() const { return m_pathfinder; } unsigned char m_pad00[0x10]; Pathfinder *m_pathfinder; };
+#include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 
 Bool Rva0037711ADoSetRallyPoint(Object *object, const Coord3D *position, Bool showFeedback, Object *positionSource);

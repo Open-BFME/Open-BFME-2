@@ -806,11 +806,7 @@ public:
     bool QuickDoesPathExist(Object *, const Coord3D *, const Coord3D *, int);
 };
 
-class AI {
-public:
-    char m_pad00[0x10];
-    Pathfinder *m_pathfinder;
-};
+#include "../../../../Include/GameLogic/AI.h"
 
 extern AI *TheAI;
 

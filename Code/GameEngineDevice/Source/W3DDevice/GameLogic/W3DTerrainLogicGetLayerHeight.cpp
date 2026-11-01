@@ -33,14 +33,7 @@ public:
 	float GetWallHeight(PathfindLayerEnum layer, const Coord3D *loc, Coord3D *normal);
 };
 
-class AI
-{
-public:
-	Pathfinder *pathfinder() { return m_pathfinder; }
-private:
-	char m_pad00[0x10];
-	Pathfinder *m_pathfinder; // +0x10
-};
+#include "../../../../GameEngine/Include/GameLogic/AI.h"
 extern AI *TheAI;
 
 class BaseHeightMapRenderObjClass

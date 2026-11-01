@@ -187,7 +187,8 @@ struct PathfindMovementProfile{int m_surfaces;bool m_crusher,m_terrainOnly;char 
 class Rva002E99F9Sub460{public:unsigned short rva0053241F(void *,unsigned short);unsigned short rva00531FD4(void *,unsigned short);};
 class PathfindZoneManager{public: void MarkDirty(int,int);};
 class Pathfinder{public:PathfindCell *getCell(PathfindLayerEnum,int,int);};
-class AI{public:char pad0[0x10];Pathfinder *m_pathfinder;Pathfinder *pathfinder()const{return m_pathfinder;}};extern AI *TheAI;
+#include "../../../Include/GameLogic/AI.h"
+extern AI *TheAI;
  bool PathfindLayer::ConnectsZones(PathfindZoneManager *zoneManager,const LocomotorSet &locomotorSet,int zone1,int zone2)
 {
  if(!m_destroyed)return false;

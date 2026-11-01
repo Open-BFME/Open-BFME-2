@@ -113,13 +113,7 @@ class Pathfinder
 public:
 	bool queueForPath(ObjectID id);
 };
-class AI
-{
-public:
-	Pathfinder *pathfinder() const { return m_pathfinder; }
-	char m_pad00[0x10];
-	Pathfinder *m_pathfinder;
-};
+#include "../../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 
 int Rva002EDE5B(void *object, Coord3D *pos);

@@ -23,7 +23,7 @@ class Pathfinder {public:
  int IsLinePassableForOptimize(void *,void *,PathfindLayerEnum,const Coord3D *,const Coord3D *,void *);
  bool IsGroundLineOnly(const Coord3D *,const Coord3D *);
 };
-class AI {public:char pad00[0x10];Pathfinder *m_pathfinder;Pathfinder *pathfinder()const{return m_pathfinder;}};
+#include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 int isGroundOrBridgeLayer(int);
 class Path {public:

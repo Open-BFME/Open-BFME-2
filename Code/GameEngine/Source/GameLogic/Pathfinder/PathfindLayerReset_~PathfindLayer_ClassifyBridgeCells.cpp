@@ -122,7 +122,8 @@ int isGroundOrBridgeLayer(int);
 class LocomotorSet{public:char pad0[0x10];int m_surfaces;char pad14;unsigned char m_15;int getValidSurfaces()const{return m_surfaces;}};
 class PathfindZoneManager{public: void MarkDirty(int,int);};
 class Pathfinder{public:PathfindCell *getCell(PathfindLayerEnum,int,int);};
-class AI{public:char pad0[0x10];Pathfinder *m_pathfinder;Pathfinder *pathfinder()const{return m_pathfinder;}};extern AI *TheAI;
+#include "../../../Include/GameLogic/AI.h"
+extern AI *TheAI;
 
 
 // Native 0x00366E2E..0x00367369, RET 0. ZH AIPathfind.cpp PathfindLayer::classifyCells

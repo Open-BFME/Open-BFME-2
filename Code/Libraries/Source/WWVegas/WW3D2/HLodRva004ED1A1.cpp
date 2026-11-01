@@ -61,12 +61,7 @@ private:
 public:
 	void rva00372BB9(const void *a, int b);
 };
-class AI
-{
-public:
-	AIGroup *createGroup();
-	void destroyGroup(AIGroup *);
-};
+#include "../../../../GameEngine/Include/GameLogic/AI.h"
 #include "../../../../GameEngine/Include/Common/TeamBFME2.h"
 class AITactic
 {
