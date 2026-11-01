@@ -1,0 +1,29 @@
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Code/GameEngine/Source/Common/RTS/Player.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-11-01 14:31 at 86db074988; file's own bytes 112)
+  unresolved  ?deposit@Money@@QAEXI_N@Z
+  unresolved  ?evacuateTeam@Team@@QAEXXZ
+  unresolved  ?getRankInfo@RankInfoStore@@QBEPBVRankInfo@@H@Z
+  unresolved  ?getRankLevelCount@RankInfoStore@@QBEHXZ
+  unresolved  ?isInSinglePlayerGame@GameLogic@@QAE_NXZ
+  unresolved  ?setRankLevel@Player@@QAE_NH@Z
+  unresolved  ?withdraw@Money@@QAEII_N@Z
+  unresolved  __imp_??0?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAE@IABQAXABV?$allocator@PAX@1@@Z
+  unresolved  __imp_??1?$allocator@PAX@_STL@@QAE@XZ
+  unresolved  __imp_??1?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAE@XZ
+  unresolved  __imp_?_M_list@?$_Stl_prime@_N@_STL@@2QBIB
+  unresolved  __imp_?allocate@__new_alloc@_STL@@SAPAXI@Z
+  unresolved  __imp_?deallocate@__new_alloc@_STL@@SAXPAXI@Z
+  unresolved  __imp_?get_allocator@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBE?AV?$allocator@PAX@2@XZ
+  unresolved  __imp_?swap@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEXAAV12@@Z
+  diagnostic  ?getPlayerTemplate@Player@@QBEPBVPlayerTemplate@@XZ  (layout-like: 1 byte(s) differ from the majority copy, same length -- a stale private class view?; unreferenced, not a blocker)
+  diagnostic  ?isPlayableSide@PlayerTemplate@@QBE_NXZ  (layout-like: 2 byte(s) differ from the majority copy, same length -- a stale private class view?; unreferenced, not a blocker)
+  diagnostic  ?_M_do_flip@?$_Base_bitset@$03@_STL@@QAEXXZ  (codegen-like: 12 bytes against the majority copy's 31; unreferenced, not a blocker)
+Code/GameEngine/Source/Common/Thing/ThingTemplateRva000456AC.cpp: LINKS  LINKED 29 -> 29 bytes (census 2026-11-01 14:31 at 86db074988; file's own bytes 29)
+Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp: LINKS  LINKED 23,871 -> 23,871 bytes (census 2026-11-01 14:31 at 86db074988; file's own bytes 23,871)
+Code/GameEngine/Source/GameClient/InGameUISelection.cpp: LINKS  LINKED 171 -> 171 bytes (census 2026-11-01 14:31 at 86db074988; file's own bytes 171)
+Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine.cpp: LINKS  LINKED 16,504 -> 16,504 bytes (census 2026-11-01 14:31 at 86db074988; file's own bytes 16,504)
+link_check: 4 of 5 link cleanly; LINKED 40,575 -> 40,575 bytes (4.2s)

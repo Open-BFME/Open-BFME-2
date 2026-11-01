@@ -1,0 +1,15 @@
+link_check: preparing 5 explicit safe provider(s), no extra sources
+Source claims: OK (5 sources, scoped byte-verified)
+Data rows: OK (3 row(s) byte-verified)
+Compile: 0 of 5 TU(s) (deps-cache: 5 current)
+Funclet pins: 61 row(s) verified past a renumbered $L label
+    $L1214 (Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine.cpp): $L1214 was renumbered; verified parent EH data places $L17448 at 0x0077C0E4
+    $L1165 (Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine.cpp): $L1165 was renumbered; verified parent EH data places $L17356 at 0x0077C003
+    $L5169 (Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine.cpp): $L5169 was renumbered; verified parent EH data places $L17902 at 0x0077C2D2
+    uw_0077c0b4 (Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine.cpp): $L1414 was renumbered; verified parent EH data places $L17594 at 0x0077C0B4
+    uw_0077c0c8 (Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine.cpp): $L1411 was renumbered; verified parent EH data places $L17644 at 0x0077C0C8
+Functions: OK 384/384 matched across 5 source file(s)
+String-ref verify: OK (67 literals + 18 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (50 compiler literals verified)
+Import-ref verify: OK (7 named imports verified)
+link_check: 5 explicit providers byte-verified with strict reusable receipts; census/index/status unchanged, LINK closure not yet checked

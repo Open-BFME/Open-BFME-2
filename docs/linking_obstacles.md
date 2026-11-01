@@ -51,6 +51,17 @@ This source adopts canonical Matrix3D storage with native code/relocations prese
 
 ### Player unrowed donor-body cleanup (2026-11-01, Cortys)
 
+The subsequent four-donor batch (masked building query, build limit, difficulty
+bonus wrapper and now-unused difficulty getter) retires four further hatches.
+All 313 retained complete definitions/relocations stay unchanged. Strict
+preparation verifies 384/384 rows across Player, both current retail isKindOf
+providers and its InGameUISelection/LuaScriptEngine consumers. The bounded
+five-source preview retains all 40,575 linking bytes in the four peer units;
+Player remains unlinked with 15 unresolved names. Its seven non-STL names are
+rooted in the still-present skill, kill and asset-transfer donors; eight STL
+imports remain. This scope does not clear the older-index/AIBuildable wider
+audit, and is not a new census.
+
 Unverified isolated `getPlayerDifficulty` is removed with its placeholder hatch; all 313 retained definitions/relocations and all native rows stay exact. See its per-method proof in the packet.
 
 Unverified isolated `friend_applyDifficultyBonusesForObject` is removed with its placeholder hatch; all 314 retained definitions/relocations and all native rows stay exact. See its per-method proof in the packet.
