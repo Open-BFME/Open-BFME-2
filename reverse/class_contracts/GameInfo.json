@@ -1,0 +1,642 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "GameInfo",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 40,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 1
+   },
+   "0x10": {
+    "1": 2
+   },
+   "0x11": {
+    "1": 2
+   },
+   "0x18": {
+    "4": 6
+   },
+   "0x4c": {
+    "4": 1
+   },
+   "0x50": {
+    "4": 1
+   },
+   "0x5c": {
+    "4": 2
+   },
+   "0x8": {
+    "4": 2
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x382fa7",
+      "0x400a07"
+     ],
+     "value": 208
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x382fa7",
+      "0x400a07"
+     ],
+     "value": {
+      "0x10": [
+       1
+      ],
+      "0x11": [
+       1
+      ],
+      "0x12": [
+       1
+      ],
+      "0x14": [
+       4
+      ],
+      "0x38": [
+       4
+      ],
+      "0x3c": [
+       2,
+       4
+      ],
+      "0x4": [
+       4
+      ],
+      "0x40": [
+       4
+      ],
+      "0x44": [
+       4
+      ],
+      "0x48": [
+       4
+      ],
+      "0x4c": [
+       4
+      ],
+      "0x50": [
+       4
+      ],
+      "0x54": [
+       4
+      ],
+      "0x58": [
+       4
+      ],
+      "0x5c": [
+       4
+      ],
+      "0x8": [
+       4
+      ],
+      "0x88": [
+       4
+      ],
+      "0x8c": [
+       1
+      ],
+      "0xc": [
+       4
+      ],
+      "0xc0": [
+       4
+      ],
+      "0xc4": [
+       4
+      ],
+      "0xc8": [
+       4
+      ],
+      "0xcc": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x382fa7",
+      "0x400a07"
+     ],
+     "value": {
+      "0x0": [
+       "?reset@GameInfo@@UAEXXZ"
+      ],
+      "0x4": [
+       "??0?$StringBase@G@@AAE@ABV0@@Z"
+      ],
+      "0x40": [
+       "??0?$StringBase@D@@AAE@ABV0@@Z"
+      ],
+      "0x90": [
+       "??0Rva00382574@@QAE@ABU0@@Z",
+       "??0Version@@QAE@XZ"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x382fa7",
+      "0x400a07"
+     ],
+     "value": {
+      "0x0": "0x8193c8"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x8193c8"
+     ],
+     "value": {
+      "count": 23,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GGameInfo@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x3830ce"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 1,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?name@Rva0037BB4DNamed@@QBEPBDXZ",
+        "slot": 2,
+        "target": "0x37bb4d"
+       },
+       {
+        "name": "?xfer@SkirmishGameInfo@@UAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x3ffa3c"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 4,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 5,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?rva00401015@GameInfo@@UAEPBVImage@@H@Z",
+        "slot": 6,
+        "target": "0x401015"
+       },
+       {
+        "name": "?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ",
+        "slot": 7,
+        "target": "0x22c4cb"
+       },
+       {
+        "name": "?rva0022C4CF@Rva0022C4CF@@QBEHXZ",
+        "slot": 8,
+        "target": "0x22c4cf"
+       },
+       {
+        "name": "?rva0022C4D4@Rva0022C4D4@@QBEHXZ",
+        "slot": 9,
+        "target": "0x22c4d4"
+       },
+       {
+        "name": "?reset@GameInfo@@UAEXXZ",
+        "slot": 10,
+        "target": "0x3fff8f"
+       },
+       {
+        "name": "?rva003FF271@Rva003FF271@@QAEXH@Z",
+        "slot": 11,
+        "target": "0x3ff271"
+       },
+       {
+        "name": "?amIHost@GameInfo@@UBE_NXZ",
+        "slot": 12,
+        "target": "0x3ff312"
+       },
+       {
+        "name": "?getLocalSlotNum@GameInfo@@UBEHXZ",
+        "slot": 13,
+        "target": "0x3ff2d6"
+       },
+       {
+        "name": "?resetAccepted@GameInfo@@UAEXXZ",
+        "slot": 14,
+        "target": "0x3ff9b4"
+       },
+       {
+        "name": "?resetStartSpots@GameInfo@@UAEXXZ",
+        "slot": 15,
+        "target": "0x3ff39e"
+       },
+       {
+        "name": "?adjustSlotsForMap@GameInfo@@UAEXXZ",
+        "slot": 16,
+        "target": "0x40052c"
+       },
+       {
+        "name": "?closeOpenSlots@GameInfo@@UAEXXZ",
+        "slot": 17,
+        "target": "0x3ffe51"
+       },
+       {
+        "name": "?isSkirmish@GameInfo@@UAE_NXZ",
+        "slot": 18,
+        "target": "0x3ff9e2"
+       },
+       {
+        "name": "?isMultiPlayer@GameInfo@@UAE_NXZ",
+        "slot": 19,
+        "target": "0x3ff3b5"
+       },
+       {
+        "name": "?isSandbox@GameInfo@@UAE_NXZ",
+        "slot": 20,
+        "target": "0x3ff3e3"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 21,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?rva0022C4DF@Rva0022C4DF@@QBE?AVUnicodeString@@XZ",
+        "slot": 22,
+        "target": "0x22c4df"
+       }
+      ],
+      "table": "0x8193c8"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 27,
+  "retail_vtables": {
+   "0x8193c8": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "??_GGameInfo@@UAEPAXI@Z",
+     "1": "??1Region2D@@QAE@XZ",
+     "2": "?name@Rva0037BB4DNamed@@QBEPBDXZ",
+     "3": "?xfer@SkirmishGameInfo@@UAEXPAVXfer@@@Z",
+     "4": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "5": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "6": "?rva00401015@GameInfo@@UAEPBVImage@@H@Z",
+     "7": "?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ",
+     "8": "?rva0022C4CF@Rva0022C4CF@@QBEHXZ",
+     "9": "?rva0022C4D4@Rva0022C4D4@@QBEHXZ",
+     "10": "?reset@GameInfo@@UAEXXZ",
+     "11": "?rva003FF271@Rva003FF271@@QAEXH@Z",
+     "12": "?amIHost@GameInfo@@UBE_NXZ",
+     "13": "?getLocalSlotNum@GameInfo@@UBEHXZ",
+     "14": "?resetAccepted@GameInfo@@UAEXXZ",
+     "15": "?resetStartSpots@GameInfo@@UAEXXZ",
+     "16": "?adjustSlotsForMap@GameInfo@@UAEXXZ",
+     "17": "?closeOpenSlots@GameInfo@@UAEXXZ",
+     "18": "?isSkirmish@GameInfo@@UAE_NXZ",
+     "19": "?isMultiPlayer@GameInfo@@UAE_NXZ",
+     "20": "?isSandbox@GameInfo@@UAE_NXZ",
+     "21": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "22": "?rva0022C4DF@Rva0022C4DF@@QBE?AVUnicodeString@@XZ"
+    },
+    "stores": 2
+   }
+  },
+  "view_errors": 3,
+  "view_sizes": {
+   "1": 15,
+   "4": 14,
+   "68": 1,
+   "80": 2,
+   "136": 2,
+   "140": 1,
+   "204": 1,
+   "220": 1
+  },
+  "views": 37,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_GameInfo.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork/GameInfo.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 18,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 61
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameInfo.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMapPreview.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameInfo.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameInfoSetMapCRC.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 17,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCallbacks.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameInfo.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCallbacks.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameInfo.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCallbacks.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameInfo.cpp",
+    "Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCallbacks.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameInfo.cpp",
+    "Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 64,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameInfo.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameInfoGetMap.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameInfoSetMapCRC.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 68,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameInfo.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameInfoSetMapCRC.cpp",
+    "Code/GameEngine/Source/GameNetwork/GenerateGameOptionsString.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 72,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameInfo.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameInfoSetMapCRC.cpp",
+    "Code/GameEngine/Source/GameNetwork/GenerateGameOptionsString.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 76,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameInfo.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameInfoSetMapCRC.cpp",
+    "Code/GameEngine/Source/GameNetwork/GenerateGameOptionsString.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 80,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GenerateGameOptionsString.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 84,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GenerateGameOptionsString.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 88,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMapPreview.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/PeerDefsGameOptions.cpp",
+    "Code/GameEngine/Source/GameNetwork/GenerateGameOptionsString.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 92,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCallbacks.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/PeerDefsGameOptions.cpp",
+    "Code/GameEngine/Source/GameNetwork/GenerateGameOptionsString.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 96,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCallbacks.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/PeerDefsGameOptions.cpp",
+    "Code/GameEngine/Source/GameNetwork/GenerateGameOptionsString.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 136,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GenerateGameOptionsString.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 140,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMapPreview.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 200,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMapPreview.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "slot15",
+   "candidates": {
+    "g15()": 1,
+    "resetStartSpots()": 2,
+    "s15()": 2,
+    "slot15()": 1,
+    "slot3c()": 1
+   },
+   "class": "GameInfo"
+  },
+  {
+   "attribute": "slot16",
+   "candidates": {
+    "adjustSlotsForMap()": 2,
+    "g16()": 1,
+    "s16()": 2,
+    "slot16()": 1,
+    "slot40()": 1
+   },
+   "class": "GameInfo"
+  },
+  {
+   "attribute": "slot20",
+   "candidates": {
+    "s20()": 1,
+    "slot20()": 1
+   },
+   "class": "GameInfo"
+  }
+ ],
+ "size": 4,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "v00()"
+  },
+  "1": {
+   "decided_by": "majority",
+   "member": "v01()"
+  },
+  "10": {
+   "decided_by": "majority",
+   "member": "v10()"
+  },
+  "11": {
+   "decided_by": "majority",
+   "member": "v11()"
+  },
+  "12": {
+   "decided_by": "majority",
+   "member": "amIHost()"
+  },
+  "13": {
+   "decided_by": "majority",
+   "member": "getLocalSlotNum()"
+  },
+  "14": {
+   "decided_by": "majority",
+   "member": "resetAccepted()"
+  },
+  "17": {
+   "decided_by": "majority",
+   "member": "s17()"
+  },
+  "18": {
+   "decided_by": "majority",
+   "member": "s18()"
+  },
+  "19": {
+   "decided_by": "majority",
+   "member": "s19()"
+  },
+  "2": {
+   "decided_by": "majority",
+   "member": "v02()"
+  },
+  "3": {
+   "decided_by": "majority",
+   "member": "v03()"
+  },
+  "4": {
+   "decided_by": "majority",
+   "member": "v04()"
+  },
+  "5": {
+   "decided_by": "majority",
+   "member": "v05()"
+  },
+  "6": {
+   "decided_by": "majority",
+   "member": "v06()"
+  },
+  "7": {
+   "decided_by": "majority",
+   "member": "v07()"
+  },
+  "8": {
+   "decided_by": "majority",
+   "member": "v08()"
+  },
+  "9": {
+   "decided_by": "majority",
+   "member": "v09()"
+  }
+ }
+}
