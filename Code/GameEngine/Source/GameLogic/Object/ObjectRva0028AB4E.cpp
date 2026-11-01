@@ -8,24 +8,7 @@ public:
 	virtual void slot01();
 	virtual void slot02();
 };
-class Rva0028AB4EFace
-{
-public:
-	virtual void s00();
-	virtual void s01();
-	virtual void s02();
-	virtual Rva0028AB4EResult *slot03();
-};
-class BfmeObjectModule
-{
-public:
-	virtual void slot0();
-private:
-	unsigned int m_data[2];
-};
-class BehaviorModule : public BfmeObjectModule, public Rva0028AB4EFace
-{
-};
+#include "../../../Include/GameLogic/Module/BehaviorModule.h"
 class Object
 {
 	char m_pad[0x244];
@@ -37,7 +20,7 @@ void Object::rva0028AB4E() const
 {
 	for (BehaviorModule **behaviorModule = m_modules244; *behaviorModule; ++behaviorModule)
 	{
-		Rva0028AB4EResult *r = (*behaviorModule)->slot03();
+		Rva0028AB4EResult *r = reinterpret_cast<Rva0028AB4EResult *>((*behaviorModule)->getCreate());
 		if (r != 0)
 			r->slot02();
 	}

@@ -16,25 +16,9 @@ public:
 	virtual bool slot05();
 };
 
-class BehaviorModuleInterface
-{
-public:
-	virtual void slot00();
-	virtual Rva0028B3A6Inner *slot01();
-};
+#include "../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class BfmeObjectModule
-{
-public:
-	virtual void slot0();
 
-private:
-	unsigned int m_data[2];
-};
-
-class BehaviorModule : public BfmeObjectModule, public BehaviorModuleInterface
-{
-};
 
 class Object
 {
@@ -49,7 +33,7 @@ bool Object::rva0028B3A6() const
 {
 	for (BehaviorModule **behaviorModule = m_modules244; *behaviorModule; ++behaviorModule)
 	{
-		Rva0028B3A6Inner *r = (*behaviorModule)->slot01();
+		Rva0028B3A6Inner *r = reinterpret_cast<Rva0028B3A6Inner *>((*behaviorModule)->getCollide());
 		if (r != 0 && r->slot05())
 			return true;
 	}

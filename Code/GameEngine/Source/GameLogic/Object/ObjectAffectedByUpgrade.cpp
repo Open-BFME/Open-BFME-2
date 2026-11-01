@@ -54,33 +54,9 @@ public:
 	virtual bool wouldUpgrade(const BfmeFixedStorage128 &mask) const;
 };
 
-class BehaviorInterface
-{
-public:
-	virtual void s00();
-	virtual void s01();
-	virtual void s02();
-	virtual void s03();
-	virtual void s04();
-	virtual void s05();
-	virtual void s06();
-	virtual void s07();
-	virtual void s08();
-	virtual void s09();
-	virtual BehaviorUpgrade *getUpgrade();
-};
+#include "../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class BfmeObjectModule
-{
-public:
-	virtual void slot0();
-private:
-	unsigned int m_data[2];
-};
 
-class BehaviorModule : public BfmeObjectModule, public BehaviorInterface
-{
-};
 
 struct Out
 {
@@ -162,7 +138,7 @@ haveMask:
 		((unsigned int *)&mask)[bit >> 5] |= 1u << (bit & 31);
 		for (BehaviorModule **behaviorModule = self->m_modules244; *behaviorModule; ++behaviorModule)
 		{
-			BehaviorUpgrade *up = (*behaviorModule)->getUpgrade();
+			BehaviorUpgrade *up = reinterpret_cast<BehaviorUpgrade *>((*behaviorModule)->getUpgrade());
 			if (up == 0)
 				continue;
 			if (up->wouldUpgrade(mask))
