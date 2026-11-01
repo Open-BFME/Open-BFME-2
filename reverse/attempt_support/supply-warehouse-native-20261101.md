@@ -138,3 +138,36 @@ loadPostProcess and 77-byte setter. Native module/object/boxes fields
 replace the private six-slot view; the canonical Thing getter remains.
 Both rows are exact, declaration checks are clean and the unit retains
 120 -> 120 predicted linking bytes. No symbol or compiler flags change.
+
+## Native seed verified
+
+The seed now compiles against its TU-scoped native view and canonical
+AIUpdateInterface, GameLogic and Thing, with ordinary /O1 /MD /EHsc flags.
+Its two constructors and 127-byte cripple handler are all byte-exact;
+no unrowed donor bodies or present-unmatched markers remain.
+
+The four emitted tables have 13/47/3/20 entries.
+[supply-warehouse-native-slots-20261101.tsv](supply-warehouse-native-slots-20261101.tsv)
+records every target, emitted name and proof: 83/83 entries are existing
+row/pin targets or exact emitted folds, with no purecall. Compiler weak
+_E-to-_G destructor aliasing resolves to the existing real 28-byte row.
+
+[supply-warehouse-external-providers-20261101.tsv](supply-warehouse-external-providers-20261101.tsv)
+lists every one of the old seed's 603 outside-touched definitions. No name
+lacks a current-cohort or unchanged indexed provider after rewriting;
+the two old sole outside providers, both constructors, stay in the seed.
+This conservative touches inventory includes definitions as well as uses.
+An indexed alternative does not itself prove current whole-image selection.
+The original object and full provider/object list remain in
+build/link_seed_pass/warehouse-before.obj and warehouse-external-providers.json.
+
+Strict preparation: 124/124 rows in ten explicit sources. Ordinary paired
+preview: 10/10 LINKS, 1764 -> 1981 B; seed 0 -> 217 B and all peers retain
+their census-linked bytes. Raw seed-native-build.log, native-cohort-strict.log
+and seed-native-cohort-link.log are under build/link_seed_pass/.
+
+The shared external ObjectHelperModuleData table at 0084ED70 is still the
+one-slot ObjectConstructor.cpp provider, although retail has 31 slots.
+The mixed destructor unit still uses truncated alternate table names.
+Neither existing external contract is repaired or claimed runtime-safe.
+The clean donor merge and publication-wide consumer audit remain separate.
