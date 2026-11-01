@@ -16,7 +16,8 @@ enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-#include "../../../../Include/Common/ObjectModule.h"
+
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 enum WeaponSlotType { BFME_WEAPON_SLOT_0 };
 #include "../../../../Include/GameLogic/Weapon.h"
 enum Relationship
@@ -418,7 +419,6 @@ template <int NUMBITS> class BitFlags;
 
 typedef BitFlags<11> DisabledMaskType;
 
-#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 // Slots 10 and 11 of each module's primary vftable hold 0x000D43D0
 // (xor eax,eax; ret); their names are not recovered.
@@ -426,30 +426,7 @@ typedef BitFlags<11> DisabledMaskType;
 // Retail's UpdateModule-interface vftable (0x00841DF8 for this class) holds
 // update, then UpdateModule's getDisabledTypesToProcess (0x00253376) and
 // 0x0044DF8D.
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-	virtual DisabledMaskType getDisabledTypesToProcess() const = 0;
-	virtual void rva0044DF8D(UpdateSleepTime sleep) = 0;
-};
 
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~UpdateModule();	// 0x0024A797
-	virtual DisabledMaskType getDisabledTypesToProcess() const;
-	virtual void rva0044DF8D(UpdateSleepTime sleep);
-	virtual void xfer(Xfer *xfer);	// 0x0044DF9F, Snapshot's slot 3
-protected:
-	virtual SleepyUpdatePhase getUpdatePhase() const;	// primary slot 12, 0x0022C4CB
-	void setWakeFrame(Object *obj, UpdateSleepTime wakeDelay);	// 0x0044DF71
-private:
-	UnsignedInt m_nextCallFrameAndPhase; // +0x14
-	Int m_indexInLogic; // +0x18
-	Int m_reserved1C; // +0x1C
-};
 
 struct Rva0045B936Arg;
 

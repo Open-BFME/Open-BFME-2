@@ -358,21 +358,9 @@ struct AutoAbilityData
 	bool m_meleeAdjust;		// +0x5E
 };
 
-#include "../../../../Include/Common/ObjectModule.h"
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
-
-class UpdateModule : public ObjectModule, public BehaviorModuleInterface, public UpdateModuleInterface
-{
-protected:
-	char m_pad14[0x20 - 0x14];
-};
 
 struct Rva0045A8C2Options;
 struct WideRange
