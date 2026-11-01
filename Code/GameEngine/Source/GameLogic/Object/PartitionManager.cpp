@@ -13,6 +13,13 @@ template unsigned char *allocator<unsigned char>::allocate(unsigned int, const v
 }
 #include "Common/ActionManager.h"
 #include "Common/DiscreteCircle.h"
+namespace _STL {
+// DiscreteCircle.cpp declares these instead of emitting them and links against
+// this unit's copies, which the DiscreteCircle locals of 80937ddbf9's removed
+// shroud bodies instantiated.
+template vector<HorzLine, allocator<HorzLine> >::~vector();
+template void allocator<HorzLine>::deallocate(HorzLine *, unsigned int) const;
+}
 #include "Common/GameEngine.h"
 #include "Common/GameState.h"
 #include "GameLogic/WeaponSetType.h"
