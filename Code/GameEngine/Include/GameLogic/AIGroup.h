@@ -7,16 +7,14 @@
 #ifndef CANONICAL_AIGROUP_H
 #define CANONICAL_AIGROUP_H
 
-#if defined(__SNAPSHOT_H_) && !defined(BFME_SNAPSHOT_NAME_SLOT)
-#error AIGroup requires Snapshot's named slot 2 before Snapshot is included
-#endif
 #if defined(BFME_SNAPSHOT_CAPITALIZED_SLOTS) || defined(BFME_SNAPSHOT_NONCONST_NAME_SLOT)
 #error AIGroup requires loadPostProcess, a const GetSnapshotName, and xfer slots
 #endif
-#ifndef BFME_SNAPSHOT_NAME_SLOT
+#if !defined(__SNAPSHOT_H_) && !defined(BFME_SNAPSHOT_NAME_SLOT)
 #define BFME_SNAPSHOT_NAME_SLOT
 #endif
 #include "../../../../reference/shims/moduledata/Common/Snapshot.h"
+class Xfer;
 
 class AI;
 class CommandButton;
@@ -56,7 +54,11 @@ protected:
     virtual ~AIGroup(); // 0x0036E564
 public:
     virtual void loadPostProcess(); // slot 1, 0x000B3FD0
+#ifdef BFME_SNAPSHOT_NAME_SLOT
     virtual const char *GetSnapshotName() const; // slot 2, 0x0036E55E
+#else
+    virtual void crc(Xfer *xfer);
+#endif
 protected:
     virtual void xfer(Xfer *); // slot 3, 0x0036E3C6
 public:
