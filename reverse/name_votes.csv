@@ -19846,3 +19846,17 @@ Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva00054839.cpp|p
 Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerSmallSlots.cpp|function|0x00053281|rva00053281,4e76b2d8a7d0d95197daf86d,drz-k1,n30a-k1,w-d29055ee9848,2026-11-01
 Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerSmallSlots.cpp|function|0x0005329C|rva0005329C,cd389ee89a7a665ac16708fb,drz-k1,n30a-k1,w-d29055ee9848,2026-11-01
 Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerSmallSlots_Rva0005DABB.cpp|param|MilesAudioManager::addAudioEvent|a,2ad3763459fff99952c206c6,drz-k1,n30a-k1,w-d29055ee9848,2026-11-01
+Code/GameEngineDevice/Source/W3DDevice/GameClient/CameraPathAnglesBFME2.cpp|param|cameraSqrt|f,bed438bb79f0d9288192ce72,drz-k2,n30b-k2,w-ded32b2e2c5e,2026-11-01
+Code/GameEngineDevice/Source/W3DDevice/GameClient/CameraPathAnglesBFME2.cpp|local|Rva00089510::rva00089510|p,fbf5c5e3c243b58d3ecdc841,drz-k2,n30b-k2,w-ded32b2e2c5e,2026-11-01
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawDoDrawModule.cpp|local|W3DModelDraw::doDrawModule|v,274a677eaf5526dcc4e2804c,drz-k2,n30b-k2,w-ded32b2e2c5e,2026-11-01
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawSubObjectVisibility.cpp|member|Rva000C445D|at68,fd9f4b5d24fea057e4cb3c81,drz-k2,n30b-k2,w-ded32b2e2c5e,2026-11-01
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawSubObjectVisibility.cpp|member|Rva000C445D|at1bc,790d2c042329eb7343cbb5ef,drz-k2,n30b-k2,w-ded32b2e2c5e,2026-11-01
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawSubObjectVisibility.cpp|member|Rva000C445D|at1bd,02ada907ba9ee4343d6eabdb,drz-k2,n30b-k2,w-ded32b2e2c5e,2026-11-01
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawSubObjectVisibility.cpp|param|Rva000C445D::rva000C445D|value08,9d464417bf7f3750848595c7,drz-k2,n30b-k2,w-ded32b2e2c5e,2026-11-01
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawSubObjectVisibility.cpp|param|Rva000C445D::rva000C445D|value10,1cb6f3089d07774c6a5cab36,drz-k2,n30b-k2,w-ded32b2e2c5e,2026-11-01
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DSailModelDrawCtor.cpp|local|Rotate_Z|c,b4ad866eed140285a50af368,drz-k2,n30b-k2,w-ded32b2e2c5e,2026-11-01
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawAnimationBlend.cpp|class||Rva000B5D7FSlot,d7989ab8a19adfdc3f6ffdec,drz-k2,n30b-k2,w-ded32b2e2c5e,2026-11-01
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawAnimationBlend.cpp|local|BlendClamp|v,d179d57a04905663f86bace8,drz-k2,n30b-k2,w-ded32b2e2c5e,2026-11-01
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawCtor.cpp|param|vector|a,4a7358a0264e93fee31385d2,drz-k2,n30b-k2,w-ded32b2e2c5e,2026-11-01
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawCtor.cpp|param|Rva000C04D4|a,fe51bc12e98191dbdc04d869,drz-k2,n30b-k2,w-ded32b2e2c5e,2026-11-01
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawCtor.cpp|param|Rva000C055C|a,a7e3cc9057bd98de28e9db60,drz-k2,n30b-k2,w-ded32b2e2c5e,2026-11-01
