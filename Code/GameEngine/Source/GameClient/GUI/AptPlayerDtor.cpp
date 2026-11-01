@@ -66,6 +66,13 @@ public:
     char m_pad[0x14];
 };
 
+// The +5C/+70/+90 members are a wrapper over the hash table: its destructor
+// is the retail 5-byte `jmp` 0x002239AD that the unwind funclets call; the
+// implicit destructor expands on the normal path into ~Rva0022366C.
+class Rva002239AD : public Rva0022366C
+{
+};
+
 class Rva00224163
 {
 public:
@@ -102,10 +109,10 @@ private:
     FileInfoTree m_20;
     FileInfoTree m_34;
     Rva00224163 m_48;
-    Rva0022366C m_5C;
-    Rva0022366C m_70;
+    Rva002239AD m_5C;
+    Rva002239AD m_70;
     TargetSet m_84;
-    Rva0022366C m_90;
+    Rva002239AD m_90;
     FileInfoTree m_A4;
     FileInfoTree m_B8;
     DetailedArchivedDirectoryInfo m_levels[14];
