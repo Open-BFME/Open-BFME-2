@@ -69,11 +69,7 @@ public:
 	void *rva002A9BF2(); // 0x002A9BF2, called on the Player
 };
 
-class Player
-{
-public:
-	float getProductionCostChangeBasedOnUpgradeDiscount(AsciiString upgradeName) const; // 0x002ADC82
-};
+#include "../../../Include/Common/Player.h"
 
 struct Rva002A8AB1Record;
 
