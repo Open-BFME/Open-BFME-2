@@ -245,13 +245,6 @@ private:
 
 // The image-key list's set (0x00524725) and clear (0x00524306), rowed under
 // this address-named view (Common/AptImageKeySetters.cpp).
-class Rva00524306
-{
-public:
-	void rva00524306(const StringBase<char> &key);
-	void rva00524725(const AsciiString &key, const Image *image);
-};
-
 class AptMovieClipFrame
 {
 public:

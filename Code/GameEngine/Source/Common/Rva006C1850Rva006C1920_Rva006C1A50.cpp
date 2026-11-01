@@ -88,14 +88,3 @@ void Rva006C1A50Owner::rva006C1A50(int v)
 // the result bReturnValue) and removed through 0x006C18A0; the lookup result is
 // the return value. The found path knows the result is true, which is where
 // retail's `mov bl,1` before the call and `mov al,bl` after it come from.
-class Rva006C1D60
-{
-public:
-	bool rva006C1D60(unsigned int key, bool freeValue);
-private:
-	unsigned char m_pad[0x680];
-	bool m_enabled;
-	unsigned char m_pad681[3];
-	Rva006C1850 m_table;
-};
-

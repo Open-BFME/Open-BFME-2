@@ -76,12 +76,6 @@ struct CodecState;
 extern "C" int __cdecl VP6_StopDecoder(CodecState **p);
 void Rva00090714Free(void **p);
 
-class BfmeB996
-{
-public:
-	char movePair(int *output, int *first, unsigned int *second, unsigned int limit);
-};
-
 struct VP6Instance;
 struct VP6YUVConfig
 {

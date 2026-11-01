@@ -16,26 +16,6 @@ class Object;
 
 #include "GameLogicObjectLookupView.h"
 
-class Rva00A027B8
-{
-public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
-	virtual void slot06();
-	virtual void slot07();
-	virtual void slot08();
-	virtual void slot09();
-	virtual void slot10();
-	virtual void slot11();
-	virtual void slot12();
-	virtual void slot13();
-	virtual int slot14(Object *a1, void *a2, void *a3, float a4, bool a5);
-};
-
 class Xfer;
 
 class Rva0055B0CC

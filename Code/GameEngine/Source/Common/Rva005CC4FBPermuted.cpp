@@ -17,10 +17,6 @@ class Rva005E21EB : public PageBase {
 public:Rva005E21EB(void *,void *,const PageContext &);virtual ~Rva005E21EB();
 private:void *impl;
 };
-class Rva005E362F : public PageBase {
-public:Rva005E362F(void *,void *,void *);virtual ~Rva005E362F();
-private:void *impl;
-};
 class Rva005CC656 : public Rva005E1FBC {
 public:Rva005CC656(void *,void *,void *,const PageContext &);virtual ~Rva005CC656();
 private:void *owner;

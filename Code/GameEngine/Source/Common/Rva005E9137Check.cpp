@@ -14,11 +14,6 @@ public:
 	char m_pad[0x20];
 	int m_20;
 };
-class Mbr002E0B30
-{
-public:
-	unsigned char pred();
-};
 class Rva002B280C
 {
 public:

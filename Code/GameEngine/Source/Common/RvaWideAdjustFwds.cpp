@@ -43,12 +43,6 @@ public:
 	int method(int value);
 };
 
-class Rva002C7474
-{
-public:
-	void rva002C7474();
-};
-
 class Rva002E2D10Sub
 {
 public:

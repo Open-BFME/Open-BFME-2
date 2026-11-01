@@ -110,16 +110,6 @@ struct Rva003027F5Holder
 Rva003027F5Holder::Rva003027F5Holder() : m_0c(0) {}
 
 // Native 0x0023FD63, 14B: clear the int->int tree at +0, then set +0x10.
-struct Rva0023FD63Holder
-{
-	void reset();
-	_STL::_Rb_tree<int, _STL::pair<const int, int>,
-		_STL::_Select1st<_STL::pair<const int, int> >, _STL::less<int>,
-		_STL::allocator<_STL::pair<const int, int> > > m_tree;
-	bool m_dirty;
-};
-
-
 class PSPlayerAllStats
 {
 public:

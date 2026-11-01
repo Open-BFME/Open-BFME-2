@@ -110,12 +110,6 @@ public:
 	Rva000F9C3C();
 };
 
-class Rva0023DBF9
-{
-public:
-	Rva0023DBF9();
-};
-
 class Rva005EA635
 {
 public:

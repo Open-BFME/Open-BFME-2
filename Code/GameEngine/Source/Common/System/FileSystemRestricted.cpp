@@ -35,7 +35,6 @@ private:
 };
 }
 typedef _STL::_Rb_tree<const char*,_STL::pair<const char *const,Rva00603A00Mapped>,_STL::_Select1st<_STL::pair<const char *const,Rva00603A00Mapped> >,Rva006038D4Less,_STL::allocator<_STL::pair<const char *const,Rva00603A00Mapped> > > FindTree;
-struct Rva006013B7Pair { void *first; bool second; Rva006013B7Pair(void *p,bool b) : first(p),second(b) {} };
 struct Rva006054AF { void *rva006054AF(const char *); };
 extern unsigned int g_Va00E06E60;
 struct Rva0060126D {

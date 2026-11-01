@@ -6200,11 +6200,6 @@ class Rva001F4B01
 public:
 	virtual ~Rva001F4B01();
 };
-class ParticleSystem
-{
-public:
-	virtual ~ParticleSystem();
-};
 // 0x001FBF4D is the rowed FXParticleSystem::ParticleSystemTemplate destructor.
 namespace FXParticleSystem
 {

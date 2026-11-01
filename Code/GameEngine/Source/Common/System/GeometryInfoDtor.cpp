@@ -42,13 +42,6 @@ struct GeometryRecord
 	AsciiString m_name;
 };
 
-struct GeometryShape
-{
-	~GeometryShape();
-
-	char m_pad[0x24];
-};
-
 namespace _STL
 {
 

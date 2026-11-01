@@ -80,12 +80,3 @@ Rva007E3A20::Rva007E3A20()
 // raw words at +8/+0xC/+0x10 and returns the incoming receiver address.
 // This minimum ABI view preserves the operation without asserting an
 // original class name, field meaning, full class definition or lifetime.
-class Rva000724A0ZeroView
-{
-public:
-	Rva000724A0ZeroView *rva000724A0();
-private:
-	unsigned char head[8];
-	unsigned int a, b, c;
-};
-

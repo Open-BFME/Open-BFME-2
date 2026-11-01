@@ -6,12 +6,6 @@ public:
 	static unsigned int increment(unsigned int *value);
 };
 
-class Rva00894D90Accessor
-{
-public:
-	static unsigned int decrement(unsigned int *value);
-};
-
 unsigned int bfmeDecVGO(unsigned int *value);
 void bfmeDropVGO(void *value);
 

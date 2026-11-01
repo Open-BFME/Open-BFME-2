@@ -56,21 +56,6 @@ struct DelayedChunk
 	DelayedChunk *prev, *next;
 };
 
-struct Guard
-{
-	Guard(Rva00030DD0Lock *p) : lock(p)
-	{
-		if (lock)
-			Rva00030DD0AddRef(lock);
-	}
-	~Guard()
-	{
-		if (lock)
-			Rva00030DF0Release(lock);
-	}
-	Rva00030DD0Lock *lock;
-};
-
 class Rva006C1F60 : public GeneralAllocatorDebug
 {
 public:

@@ -126,19 +126,6 @@ public:
 	void rva000338F0(int v);
 };
 
-class Rva006C1A50Owner
-{
-public:
-	void rva006C1A50(int v);
-
-private:
-	char m_pad00[0x510];
-	unsigned char m_510;
-	char m_pad511[0x678 - 0x511];
-	void *m_678;
-};
-
-
 // Retail 0x006C1D60 93B (WB 0x70CEC0): the owner's guarded unlock lane. When the
 // table at +0x684 is enabled (+0x680) the key is looked up (find inlined; WB names
 // the result bReturnValue) and removed through 0x006C18A0; the lookup result is

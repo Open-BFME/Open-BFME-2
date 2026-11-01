@@ -4,12 +4,6 @@ class AptPlayer { public: bool HideLevel(int); };
 // +0xC word, then, when the +0 slot's +8 word is set, forwards its +4 word
 // through the Apt window manager's pinned 0x0022277D slot and clears it.
 // Same extern recipe as Rva002B29BDFire.cpp. All identities unproven.
-class Rva00222A8BTarget
-{
-public:
-
-};
-
 // Bind to the existing data-ledger owner; keep the retail access view local.
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
