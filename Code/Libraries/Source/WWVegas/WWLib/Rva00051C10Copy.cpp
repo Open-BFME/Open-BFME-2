@@ -18,11 +18,7 @@ struct OpaqueRefElement4
 	OpaqueRefElement4 &operator=(const OpaqueRefElement4 &other);
 };
 
-struct TreeHintRef00217D4C
-{
-	void *m_target;
-	TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &other);
-};
+#include "../../Apt/AptRefTarget.h"
 
 class Rva005EEFD2
 {

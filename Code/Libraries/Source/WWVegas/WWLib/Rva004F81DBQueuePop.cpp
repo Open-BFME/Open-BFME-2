@@ -12,13 +12,7 @@
 #include <algorithm>
 #include <vector>
 
-struct TreeHintRef00217D4C
-{
-	void *m_ptr;
-	TreeHintRef00217D4C(const TreeHintRef00217D4C &other);
-	TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &other);
-	~TreeHintRef00217D4C();
-};
+#include "../../Apt/AptRefTarget.h"
 
 struct Rva004F6966
 {

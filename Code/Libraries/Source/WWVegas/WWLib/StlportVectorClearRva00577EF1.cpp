@@ -7,7 +7,7 @@
 // plus free row 0x00030830; same 30B Destroy-plus-free shape as rowed sibling _M_clear
 // 0x004758D6 for Rva00475F2AElement.
 struct Rva002B9062Element { char m_pad[4]; };
-struct TreeHintRef00217D4C { char m_pad[4]; };
+#include "../../Apt/AptRefTarget.h"
 
 namespace _STL {
 template <class _Tp> class allocator { };

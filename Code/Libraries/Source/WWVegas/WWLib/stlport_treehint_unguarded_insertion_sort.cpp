@@ -6,10 +6,7 @@
 // Evidence: same 23B push-push0-push-push-call-add-ret shape as rowed pop_heap 0x00424637 and landed pop_heap 0x004F7AA6;
 // caller 0x004F83D6 in final_insertion_sort TU PAUTreeHintRef00217D4CRva004F9565.cpp; unblocks sort chain.
 
-struct TreeHintRef00217D4C
-{
-	void *m_ptr;
-};
+#include "../../Apt/AptRefTarget.h"
 
 struct Rva004F9185Cmp
 {

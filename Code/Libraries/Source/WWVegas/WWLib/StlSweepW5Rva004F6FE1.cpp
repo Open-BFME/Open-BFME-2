@@ -11,11 +11,7 @@
 // assignment matters here (it makes the copy non-trivial).
 #include <algorithm>
 
-struct TreeHintRef00217D4C
-{
-	void *m_ptr;
-	TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &other);
-};
+#include "../../Apt/AptRefTarget.h"
 
 // The dispatcher is rowed in Rva004F6D2ECopyBackward.cpp; declare it so this
 // TU calls that body instead of emitting its own copy.

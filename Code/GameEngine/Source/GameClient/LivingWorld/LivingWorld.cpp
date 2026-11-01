@@ -285,10 +285,7 @@ class Rva002BF4F3 {public: bool rva002BF5B0(const Vector3 *,Vector3 *);};
 
 class Rva002D3627Host {public:void rva002BF09E(const Coord3D *);};
 
-struct TreeHintRef00217D4C
-{
-	char m_body[4];
-};
+#include "../../../../Libraries/Source/Apt/AptRefTarget.h"
 
 void __cdecl Rva002BF35BConstruct(void *dest, const void *source);
 

@@ -6,10 +6,7 @@
 // caller 0x005C97EF; neighbours Rva0020E89CFetch and treehint setter.
 #include "ascii_string.h"
 
-struct TreeHintRef00217D4C
-{
-	TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &other);
-};
+#include "../../Apt/AptRefTarget.h"
 
 struct Rva005C962C
 {

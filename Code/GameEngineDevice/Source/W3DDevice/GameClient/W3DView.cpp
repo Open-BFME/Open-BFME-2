@@ -382,7 +382,7 @@ public:
 struct Rva0008B4AFElement { char m_pad[4]; };
 struct Rva00577EF1Element { char m_pad[4]; };
 struct Rva005C84D3Element { char m_pad[4]; };
-struct TreeHintRef00217D4C { char m_pad[4]; };
+#include "../../../../Libraries/Source/Apt/AptRefTarget.h"
 namespace _STL {
 template <class _ForwardIterator> void _Destroy(_ForwardIterator __first, _ForwardIterator __last);
 template <> void _Destroy<Rva0008B4AFElement *>(Rva0008B4AFElement *__first, Rva0008B4AFElement *__last);

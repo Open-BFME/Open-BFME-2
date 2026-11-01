@@ -123,7 +123,7 @@ struct WaterCountedRef {
  WaterCountedRef(RefCountClass *refCount):ptr(refCount){}
  __forceinline ~WaterCountedRef(){ RefCountClass *refCount=ptr; if(refCount && --refCount->refs==0)refCount->Delete_This(); }
 };
-struct TreeHintRef00217D4C { ~TreeHintRef00217D4C(); };
+#include "../../../../../Libraries/Source/Apt/AptRefTarget.h"
 // The unit's vectors use STLport's own empty construction; their destructor
 // is the existing out-of-line instantiation.
 namespace _STL {

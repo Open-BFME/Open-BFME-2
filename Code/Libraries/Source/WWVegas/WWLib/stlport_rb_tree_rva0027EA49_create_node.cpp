@@ -12,10 +12,7 @@
 // /I shim so allocator<char> specialization compiles). this is unused (static
 // allocate plus free wrapper) so the body is identical to a free stdcall.
 #include <map>
-struct TargetRef00217D4C { virtual void *destroy(unsigned int flags); int references; };
-struct TreeHintRef00217D4C {
-	TargetRef00217D4C *m_ptr;
-};
+#include "../../Apt/AptRefTarget.h"
 typedef _STL::pair<const int, TreeHintRef00217D4C> TreeHintPair;
 typedef _STL::_Rb_tree<int, TreeHintPair, _STL::_Select1st<TreeHintPair>, _STL::less<int>, _STL::allocator<TreeHintPair> > TreeHintTree;
 namespace _STL {

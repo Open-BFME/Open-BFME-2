@@ -134,14 +134,7 @@ void * Rva000427195::rva004112A0(const AsciiString *key) {
 // The 5808E family's verified node allocation/copy proves its four-byte
 // opaque payload; only the actual FloatSlotPair temporary is constructed here.
 struct TargetRef00217D4C;
-struct TreeHintRef00217D4C
-{
-    TargetRef00217D4C *m_ptr;
-    TreeHintRef00217D4C();
-    TreeHintRef00217D4C(const TreeHintRef00217D4C &);
-    TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &);
-    ~TreeHintRef00217D4C();
-};
+#include "../../Apt/AptRefTarget.h"
 struct TreeHintPayload0005808E { char m_body[4]; };
 typedef _STL::pair<const AsciiString, TreeHintRef00217D4C> RefLookupPair;
 typedef _STL::_Rb_tree<AsciiString, RefLookupPair, _STL::_Select1st<RefLookupPair>, _STL::less<AsciiString>, _STL::allocator<RefLookupPair> > RefLookupTree;

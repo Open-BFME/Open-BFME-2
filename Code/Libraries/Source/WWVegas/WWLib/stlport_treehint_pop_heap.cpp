@@ -6,10 +6,7 @@
 // Evidence: same 23B push-push0-push-push-call-add-ret shape as rowed pop_heap 0x00424637;
 // caller 0x004F8181 in sort_heap loop 0x004F8162/58 decrements by 4; unblocks 0x004F8162.
 
-struct TreeHintRef00217D4C
-{
-	void *m_ptr;
-};
+#include "../../Apt/AptRefTarget.h"
 
 struct Rva004F9185Cmp
 {

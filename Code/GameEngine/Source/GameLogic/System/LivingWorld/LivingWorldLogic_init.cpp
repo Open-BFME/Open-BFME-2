@@ -20,7 +20,7 @@ struct Gen_p12pod { int m_a, m_b, m_c; };
 namespace _STL {
 template <> Gen_p12pod *vector<Gen_p12pod, allocator<Gen_p12pod> >::erase(Gen_p12pod *, Gen_p12pod *);
 }
-struct TreeHintRef00217D4C { void *m_ptr; };
+#include "../../../../../Libraries/Source/Apt/AptRefTarget.h"
 // Use the byte-verified out-of-line erase owner at 0x000819EC
 // (StlportVectorEraseRangeFamily.cpp) instead of emitting this unit's copy.
 namespace _STL {

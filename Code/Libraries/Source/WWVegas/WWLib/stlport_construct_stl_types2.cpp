@@ -35,10 +35,7 @@ struct TreeHintPayload003012F0
 };
 
 struct TargetRef00217D4C;
-struct TreeHintRef00217D4C
-{
-    TargetRef00217D4C *m_ptr;
-};
+#include "../../Apt/AptRefTarget.h"
 
 typedef _STL::vector<BfmePod88> ConstructPodVec;
 typedef _STL::pair<const int, MultiplayerColorDefinition> ConstructPairMP;

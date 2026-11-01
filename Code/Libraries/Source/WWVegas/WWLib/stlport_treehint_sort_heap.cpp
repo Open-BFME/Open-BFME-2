@@ -6,10 +6,7 @@
 // Evidence: chain via just-landed pop_heap 0x004F7AA6; caller 0x004F8752 in 178B unclaimed; same flags and minimal structs as landed pop_heap TU; same 58B shape as int __sort_heap 0x002082B7.
 #include <algorithm>
 
-struct TreeHintRef00217D4C
-{
-	void *m_ptr;
-};
+#include "../../Apt/AptRefTarget.h"
 
 struct Rva004F9185Cmp
 {
