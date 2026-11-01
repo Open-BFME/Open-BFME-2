@@ -71,12 +71,7 @@ class Object
  
 }
 ;
-class Thing
-{
- public:Drawable*getDrawable()const;
- 
-}
-;
+#include "../Common/Thing/thing.h"
 enum EvaEventID 
 {
  EVA_INVALID=-1

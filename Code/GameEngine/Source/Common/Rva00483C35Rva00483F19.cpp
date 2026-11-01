@@ -34,18 +34,11 @@ public:
 	unsigned char m_pad18[0x5C - 0x18];
 };
 
-class Thing
-{
-public:
-	void transformPoint(const Coord3D *in, Coord3D *out);
-};
+#include "Thing/thing.h"
 
 class Object : public Thing
 {
 public:
-	unsigned char m_pad[0x40];
-	float m_z;
-	float m_angle;
 	char rva00294815();
 };
 
@@ -159,15 +152,15 @@ bool ClearanceTestingSlowDeathBehavior::rva00483F19()
 	float radius = base * 1.1f;
 	if (ThePartitionManager->getClosestObject(&center, radius, 3,
 			Rva00483C9FFilter(obj, obj->rva00294815()).link(&
-				Rva00261603Filter(center, md->m_geometry, obj->m_angle, true))))
+				Rva00261603Filter(center, md->m_geometry, obj->m_cachedAngle, true))))
 		return false;
 	if (1.0f >= md->m_clearanceMaxHeightFraction || 1.0f >= md->m_clearanceMinHeightFraction)
 	{
 		if (TheTerrainLogic != 0)
 		{
 			int total = 0, high = 0, low = 0;
-			float z = obj->m_z;
-			Rva004DC1BF sampler(md->m_geometry, obj->m_angle, *(const Vector3 *)&center);
+			float z = obj->m_cachedPos.z;
+			Rva004DC1BF sampler(md->m_geometry, obj->m_cachedAngle, *(const Vector3 *)&center);
 			Coord2D pt;
 			while (sampler.rva004DC096(&pt))
 			{

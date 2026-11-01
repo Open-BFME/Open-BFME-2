@@ -26,16 +26,7 @@ struct Rva0030AD8BTemplate
 	unsigned char m_kindOfByte11F; // +0x11F
 };
 
-class Thing
-{
-public:
-	Real getHeightAboveTerrain() const;
-	Bool rva0030AD8B(Real offset) const;
-
-protected:
-	void *m_vptr;
-	const Rva0030AD8BTemplate *m_template; // +0x04
-};
+#include "thing.h"
 
 class Object : public Thing
 {
@@ -45,7 +36,7 @@ public:
 
 Bool Thing::rva0030AD8B(Real offset) const
 {
-	if ((m_template->m_kindOfByte11F & 0x81) == 0)
+	if ((((const Rva0030AD8BTemplate *)m_template)->m_kindOfByte11F & 0x81) == 0)
 		return getHeightAboveTerrain() + offset > -(3 * 3) * TheWritableGlobalData->m_gravity;
 	return false;
 }

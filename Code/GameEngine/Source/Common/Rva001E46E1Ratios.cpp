@@ -268,7 +268,7 @@ struct Rva001E546BFlags {
     __forceinline void set(unsigned i){m_bits[i>>5]|=1u<<(i&31);}
     __forceinline void reset(unsigned i){m_bits[i>>5]&=~(1u<<(i&31));}
 };
-class Thing { public: float getHeightAboveTerrainOrWater()const; void setOrientation(float); const Coord3D *getUnitDirectionVector2D()const; void setPositionZ(float); };
+#include "Thing/thing.h"
 float normalizeAngle(float);
 float GetGameLogicRandomValueReal(float,float,char*,int);
 class Object : public Thing
@@ -282,11 +282,7 @@ public:
 	void rva0028AE6D();
     void rva0028CFB2(const int*,const int*);
 	__forceinline int getID()const {return m_id74;}
-	char m_pad00[8]; Matrix3D m_matrix08;
-	float m_38;
-	float m_3C;
-	float m_40,m_44;
-	char m_pad48[0x74-0x48];
+	char m_pad60[0x74-0x60];
 	int m_id74;
 	char m_pad78[0xB8-0x78]; float m_B8;
 	float m_BC;
@@ -400,7 +396,7 @@ float Locomotor::getMaxSpeed(Object *obj) const
 		f = tmp * f;
 	if (m_data->m_14C != 1.0f) {
 		unsigned char flag = 0;
-		if (TheTerrainLogic->s19(obj->m_38, obj->m_3C, 0, 0, &flag) && flag != 0)
+		if (TheTerrainLogic->s19(obj->m_cachedPos.x, obj->m_cachedPos.y, 0, 0, &flag) && flag != 0)
 			f = m_data->m_14C * f;
 	}
 	if (m_2c != -1.0f) {
@@ -471,7 +467,7 @@ void Rva001E46E1::rva001E546B(Object *obj)
             obj->rva0028AE6D();
         }
     }
-    ((Thing*)obj)->setPositionZ(obj->m_40+m_A0);
+    ((Thing*)obj)->setPositionZ(obj->m_cachedPos.z+m_A0);
     if(obj->m_flags10C.test(155)) {
         obj->m_flags10C.reset(155);
         obj->rva0028AE6D();
@@ -480,7 +476,7 @@ void Rva001E46E1::rva001E546B(Object *obj)
         "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Locomotor.cpp",1831);
     if(m_A4>0.06283185631036758f) m_A4=0.06283185631036758f;
     if(m_A4< -0.06283185631036758f) m_A4=-0.06283185631036758f;
-    float angle=obj->m_44+m_A4;
+    float angle=obj->m_cachedAngle+m_A4;
     float normalized=normalizeAngle(angle);
     obj->setOrientation(normalized);
 }

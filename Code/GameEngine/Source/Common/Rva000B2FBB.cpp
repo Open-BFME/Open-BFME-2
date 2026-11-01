@@ -1,23 +1,13 @@
 // cl: /DNDEBUG /MD
 // ?rva000B2FBB@Rva000B2FBB@@QAEXMPBVMatrix3D@@@Z 0x000B2FBB 144B evidence: float to +0x2c0 48B Matrix3D copy +0x290 Thing at +8 setTransformMatrix rowed TheGameClient slot0x7c int to +0x2c4; neighbours 0x000B2F38/0x000B304B
-class Matrix3D
-{
-public:
-	int m00; int m01; int m02; int m03;
-	int m10; int m11; int m12; int m13;
-	int m20; int m21; int m22; int m23;
-};
+#include "../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
 struct M16
 {
 	int a; int b; int c; int d;
 };
 
-class Thing
-{
-public:
-	void setTransformMatrix(const Matrix3D *m);
-};
+#include "Thing/thing.h"
 
 class ClientFrameSubsystem
 {
@@ -50,20 +40,20 @@ public:
 void Rva000B2FBB::rva000B2FBB(float f, const Matrix3D *matrix3D)
 {
 	m_f2c0 = f;
-	m_mat.m00 = matrix3D->m00;
-	m_mat.m01 = matrix3D->m01;
-	m_mat.m02 = matrix3D->m02;
-	m_mat.m03 = matrix3D->m03;
-	int *d1 = &m_mat.m10;
-	d1[0] = matrix3D->m10;
-	d1[1] = matrix3D->m11;
-	d1[2] = matrix3D->m12;
-	d1[3] = matrix3D->m13;
-	int *d2 = &m_mat.m20;
-	d2[0] = matrix3D->m20;
-	d2[1] = matrix3D->m21;
-	d2[2] = matrix3D->m22;
-	d2[3] = matrix3D->m23;
+	*(int *)&m_mat.Row[0].X = *(const int *)&matrix3D->Row[0].X;
+	*(int *)&m_mat.Row[0].Y = *(const int *)&matrix3D->Row[0].Y;
+	*(int *)&m_mat.Row[0].Z = *(const int *)&matrix3D->Row[0].Z;
+	*(int *)&m_mat.Row[0].W = *(const int *)&matrix3D->Row[0].W;
+	int *d1 = (int *)&m_mat.Row[1].X;
+	d1[0] = *(const int *)&matrix3D->Row[1].X;
+	d1[1] = *(const int *)&matrix3D->Row[1].Y;
+	d1[2] = *(const int *)&matrix3D->Row[1].Z;
+	d1[3] = *(const int *)&matrix3D->Row[1].W;
+	int *d2 = (int *)&m_mat.Row[2].X;
+	d2[0] = *(const int *)&matrix3D->Row[2].X;
+	d2[1] = *(const int *)&matrix3D->Row[2].Y;
+	d2[2] = *(const int *)&matrix3D->Row[2].Z;
+	d2[3] = *(const int *)&matrix3D->Row[2].W;
 	m_thing->setTransformMatrix(matrix3D);
 	m_i2c4 = ((ClientFrameSubsystem *)TheGameClient)->s31();
 }

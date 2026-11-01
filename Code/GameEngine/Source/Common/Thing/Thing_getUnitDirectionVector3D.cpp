@@ -7,25 +7,14 @@
 // Evidence: movss/movsd/fstp shape; SSE flags from next Rva0030A92C.
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-class Thing
-{
-public:
-    void getUnitDirectionVector3D(Coord3D &dir) const;
-private:
-    unsigned char m_pad00[8];
-    float m_08;
-    unsigned char m_pad0C[12];
-    float m_18;
-    unsigned char m_pad1C[12];
-    float m_28;
-};
+#include "thing.h"
 
 void Thing::getUnitDirectionVector3D(Coord3D &dir) const
 {
     Coord3D tmp;
-    tmp.x = m_08;
-    tmp.y = m_18;
-    tmp.z = m_28;
+    tmp.x = m_transform.Row[0].X;
+    tmp.y = m_transform.Row[1].X;
+    tmp.z = m_transform.Row[2].X;
     dir = tmp;
     dir.Normalize();
 }

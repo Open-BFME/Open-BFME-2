@@ -114,18 +114,7 @@ private:
 	AsciiString m_name; // +0x64
 };
 
-class Thing
-{
-public:
-	virtual ~Thing();
-
-	const ThingTemplate *getTemplate() const { return m_template; }
-	Drawable *getDrawable() const; // 0x005508E2
-
-private:
-	const ThingTemplate *m_template; // +0x04
-	char m_pad008[0x60 - 0x08];
-};
+#include "../Common/Thing/thing.h"
 
 class Object : public Thing
 {
@@ -537,7 +526,7 @@ void GameClient::xfer(Xfer *xfer)
 			if (!shouldSaveDrawable(draw))
 				continue;
 
-			tocEntry = findTOCEntryByName(draw->getTemplate()->getName());
+			tocEntry = findTOCEntryByName(draw->m_template->getName());
 			if (tocEntry == 0)
 				throw XferException(5, 0);
 
@@ -579,7 +568,7 @@ void GameClient::xfer(Xfer *xfer)
 				if (draw == 0)
 					throw XferException(5, 0);
 
-				const ThingTemplate *drawTemplate = draw->getTemplate();
+				const ThingTemplate *drawTemplate = draw->m_template;
 				if (drawTemplate->getFinalOverride() != thingTemplate->getFinalOverride())
 				{
 					TheGameClient->destroyDrawable(draw);

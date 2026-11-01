@@ -32,6 +32,7 @@ class HelpHealth { public:
  virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3();
  virtual void slot4(); virtual void slot5(); virtual float maxHealth();
 };
+#include "../../../Common/Thing/thing.h"
 #include "../../../../Include/GameClient/DrawableBFME2.h"
 
 

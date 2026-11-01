@@ -353,11 +353,7 @@ public:
 };
 #include "../../Include/Common/Overridable.h"
 
-class Thing
-{
-public:
-	void transformPoint(const Coord3D *in, Coord3D *out);
-};
+#include "Thing/thing.h"
 
 struct Rva00483C35ModuleData
 {

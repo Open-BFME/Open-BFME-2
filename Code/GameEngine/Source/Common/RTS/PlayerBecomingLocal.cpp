@@ -22,7 +22,7 @@ extern Radar *TheRadar;
 class NameKeyGenerator {public:NameKeyType nameToKey(const char*);};
 extern NameKeyGenerator *TheNameKeyGenerator;
 class Drawable {public:void setIndicatorColor(int);};
-class Thing {public:Drawable *getDrawable()const;};
+#include "../Thing/thing.h"
 class Module;
 class Team;
 class Player;
@@ -33,7 +33,7 @@ class Rva00373EC6 {public:unsigned char pad[0x38];int playerIndex;unsigned disgu
 class Object:public Thing {
 friend class Player;protected:Module *findModule(NameKeyType)const;
 public:bool isKindOf(KindOfType)const;Rva00373EC6 *rva0028F4BC();int getIndicatorColor()const;int getNightIndicatorColor()const;
- unsigned vptr;ThingTemplate *tmplate;unsigned char pad8[0x250-8];ContainLocalView *contain;unsigned char pad254[0x304-0x254];Team *team;
+ unsigned char pad60[0x250-0x60];ContainLocalView *contain;unsigned char pad254[0x304-0x254];Team *team;
 };
 class PlayerList {public:Player *getNthPlayer(int);};
 extern PlayerList *ThePlayerList;
@@ -62,7 +62,7 @@ void Player::becomingLocalPlayer(bool yes)
      SpecialDisguiseUpdate *module=(SpecialDisguiseUpdate*)object->findModule(key);
      if(module)module->rva004B04B2(getRelationship(object->team)==ALLIES && ((BfmeMemberRV*)this)->bfmeAskRV());
     }
-    if(object->tmplate->kind&1){
+    if(object->m_template->kind&1){
      Drawable *draw=object->getDrawable();
      if(draw){
       Rva00373EC6 *update=object->rva0028F4BC();
