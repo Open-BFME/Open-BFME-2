@@ -199,58 +199,8 @@ struct BfmeW3DViewViewportFields
 
 // BFME inserted view state that the shared Zero Hour header does not expose;
 // keeping its witnessed offsets here prevents that ABI from leaking to other TUs.
-struct BfmeCameraCoord2D
-{
-	Real x;
-	Real y;
-};
-
-struct BfmeCameraCoord3D
-{
-	Real x;
-	Real y;
-	Real z;
-};
-
-struct BfmeCameraRegion2D
-{
-	BfmeCameraCoord2D lo;
-	BfmeCameraCoord2D hi;
-};
-
-struct BfmeW3DViewCameraFields
-{
-	unsigned char m_padding0000[0x0C];
-	BfmeCameraCoord3D m_pos;
-	unsigned char m_padding0018[0x44 - 0x18];
-	bool m_applyCameraConstraints;
-	unsigned char m_padding0045[0x6C - 0x45];
-	Real m_FOV;
-	unsigned char m_padding0070[0x104 - 0x70];
-	CameraClass *m_3DCamera;
-	unsigned char m_padding0108[0x23C8 - 0x108];
-	bool m_cameraHasMovedSinceRequest;
-	unsigned char m_padding23C9[0x23FC - 0x23C9];
-	BfmeCameraRegion2D m_cameraConstraint;
-	bool m_cameraConstraintValid;
-
-	const BfmeCameraCoord3D *getPosition() const { return &m_pos; }
-	void setPosition(const BfmeCameraCoord3D *position) { m_pos = *position; }
-};
-
 // These debug-camera fields are present in BFME but absent from the shared
 // Zero Hour GlobalData definition used by this translation unit.
-struct BfmeGlobalDataCameraFields
-{
-	unsigned char m_padding0000[0xA28];
-	Real m_maxCameraHeight;
-	unsigned char m_padding0A2C[0xED0 - 0xA2C];
-	bool m_debugCamera;
-	unsigned char m_padding0ED1[3];
-	Real m_debugCameraFOV;
-	Real m_debugCameraAngle;
-};
-
 #define BFME_UNUSED_VIRTUALS_16(prefix) \
 	virtual void prefix##0(); virtual void prefix##1(); virtual void prefix##2(); virtual void prefix##3(); \
 	virtual void prefix##4(); virtual void prefix##5(); virtual void prefix##6(); virtual void prefix##7(); \
@@ -259,27 +209,6 @@ struct BfmeGlobalDataCameraFields
 
 // BFME's terrain primary vtable places updateCenter at slot 0x21c, three
 // entries after the Zero Hour declaration included above.
-class BfmeTerrainCameraUpdateVtable
-{
-public:
-	BFME_UNUSED_VIRTUALS_16(slot000_);
-	BFME_UNUSED_VIRTUALS_16(slot040_);
-	BFME_UNUSED_VIRTUALS_16(slot080_);
-	BFME_UNUSED_VIRTUALS_16(slot0c0_);
-	BFME_UNUSED_VIRTUALS_16(slot100_);
-	BFME_UNUSED_VIRTUALS_16(slot140_);
-	BFME_UNUSED_VIRTUALS_16(slot180_);
-	BFME_UNUSED_VIRTUALS_16(slot1c0_);
-	virtual void slot200();
-	virtual void slot204();
-	virtual void slot208();
-	virtual void slot20c();
-	virtual void slot210();
-	virtual void slot214();
-	virtual void slot218();
-	virtual void updateCenter(CameraClass *camera, RefRenderObjListIterator *lights);
-};
-
 #undef BFME_UNUSED_VIRTUALS_16
 
 #ifdef _INTERNAL
@@ -326,30 +255,6 @@ static const Real DRAWABLE_OVERSCAN = 75.0f;
 	and ending at the far clip plane for current camera.  Screen coordinates
 	assumed in absolute values relative to full display resolution.*/
 //-------------------------------------------------------------------------------------------------
-class BFMERetailW3DViewInterface
-{
-public:
-	virtual void unused00(void) = 0;
-	virtual void unused04(void) = 0;
-	virtual void unused08(void) = 0;
-	virtual void unused0C(void) = 0;
-	virtual void unused10(void) = 0;
-	virtual void unused14(void) = 0;
-	virtual void unused18(void) = 0;
-	virtual void unused1C(void) = 0;
-	virtual void unused20(void) = 0;
-	virtual void unused24(void) = 0;
-	virtual void unused28(void) = 0;
-	virtual void unused2C(void) = 0;
-	virtual void unused30(void) = 0;
-	virtual void unused34(void) = 0;
-	virtual void unused38(void) = 0;
-	virtual Int getWidth(void) = 0;
-	virtual void unused40(void) = 0;
-	virtual Int getHeight(void) = 0;
-};
-
-
 #if defined(_DEBUG) || defined(_INTERNAL)
 
 
@@ -427,25 +332,9 @@ void W3DView::setOrigin( Int x, Int y)
 // BFME's CameraClass keeps ZFar (what Get_Depth returns) at +0xF0, where
 // CameraClass::Set_Clip_Planes (0x00133D00) stores it; the shared Zero Hour
 // header places it four bytes later.
-struct BfmeCameraDepthFields
-{
-	unsigned char m_padding0000[0xF0];
-	float m_zFar;
-};
-
-
-
 // BFME moved the shake state and the GlobalData shake tuning; retail reads
 // the angle pair and intensity at W3DView +0x120..+0x128 and the six
 // intensities, the intensity cap and the range at GlobalData +0xB74..+0xB90.
-struct BfmeW3DViewShakeFields
-{
-	unsigned char m_padding0000[0x120];
-	Real m_shakeAngleCos;
-	Real m_shakeAngleSin;
-	Real m_shakeIntensity;
-};
-
 struct BfmeGlobalDataShakeFields
 {
 	unsigned char m_padding0000[0xB74];

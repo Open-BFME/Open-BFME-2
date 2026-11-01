@@ -185,52 +185,9 @@ public:
 };
 
 // --- 0x002B5C93 (40B): any mapped entry (of the +0x130 map) whose +0x1C flag is clear.
-struct Rva002B5C93Entry
-{
-	char m_pad[0x1C];
-	bool m_1C;
-};
-
-class Rva002B5C93
-{
-public:
-	bool rva002B5C93() const;
-private:
-	char m_pad[0x130];
-	_STL::map<int, Rva002B5C93Entry *> m_130;
-};
-
 // --- 0x005ED583 (16B): the indexed record; 0x005ED593..0x005ED5D7 (20B
 // each): fields +0x04 / +0x08 / +0x0C / +0x10 of the indexed
 // 0x14-byte record in the +0x44 table of the +0x04 object.
-struct Rva005ED5C3Record
-{
-	int m_00;
-	int m_04;
-	int m_08;
-	int m_0C;
-	int m_10;
-};
-
-struct Rva005ED5C3Table
-{
-	char m_pad[0x44];
-	Rva005ED5C3Record *m_records;
-};
-
-class Rva005ED5C3
-{
-public:
-	Rva005ED5C3Record *rva005ED583(int index) const;
-	int rva005ED593(int index) const;
-	int rva005ED5A7(int index) const;
-	int rva005ED5C3(int index) const;
-	int rva005ED5D7(int index) const;
-private:
-	int m_00;
-	Rva005ED5C3Table *m_04;
-};
-
 // --- 0x0022D834 / 0x003F2BC2 / 0x004360F6 (41B each): one three-argument
 // shape over three classes: kind 2 stores the third argument at +0x04, kind 1
 // passes the second to the class's rowed setter; returns this.
@@ -314,30 +271,6 @@ private:
 
 // --- 0x005EA266 (41B): in both 0x0C-byte vectors at +0x1C of the +0x04
 // object, every 0x24-byte element copies +0x0C into +0x08.
-struct Rva005EA266Element
-{
-	int m_00;
-	int m_04;
-	int m_08;
-	int m_0C;
-	char m_pad[0x24 - 0x10];
-};
-
-struct Rva005EA266Holder
-{
-	char m_pad[0x1C];
-	GapVectorView<Rva005EA266Element> m_lists[2];
-};
-
-class Rva005EA266
-{
-public:
-	void rva005EA266();
-private:
-	int m_00;
-	Rva005EA266Holder *m_04;
-};
-
 // --- 0x00426A15 (42B): every 8-byte element of the +0x04 vector gets +5 = 1, +6 = 0.
 struct Rva00426A15Element
 {

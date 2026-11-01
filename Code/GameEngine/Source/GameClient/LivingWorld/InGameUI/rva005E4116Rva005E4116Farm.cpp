@@ -53,8 +53,6 @@ private: Rva005E4300Context *m_context;
 };
 // Rva005E4300Cmp::operator() is rowed in StrategicInGameUIHeroComparator.cpp;
 // this copy was a duplicate definition.
-class Rva005E549E {public:virtual void rva005E549E();};
-class Rva005F6022ByteChaseField {public:unsigned char get()const;};
 namespace StrategicInGameUI {UnicodeString GetTooltipText(int);}
 struct RGBColor;class Mouse {public:void rva001EEA6D(UnicodeString,int,const RGBColor*,float);};extern Mouse*TheMouse;
 class Rva005E6B3E {public:void updateTooltip();char unknown0[4];void*clip;char unknown8[0x10];Rva005E4300Entry*entry;};
@@ -69,7 +67,6 @@ struct TreeHintRef00217D4C {
 };
 namespace StrategicInGameUI {TreeHintRef00217D4C Rva005E6A23(const Rva005E4300Entry*);}
 class Rva003FE20FBase {public:virtual void slot1(void*);};
-class Rva005E4157 {public:void rva005E4157(int);};
 class Rva005E6AD8 {public:void rva005E6AD8();char pad0[4];void*clip;Rva003FE20FBase*owner;char padC[8];int value;Rva005E4300Entry*entry;TreeHintRef00217D4C held;};
 // Rva005E6AD8::rva005E6AD8 is rowed in its home unit; this copy was a duplicate definition.
 
@@ -78,16 +75,6 @@ class Rva005E6AD8 {public:void rva005E6AD8();char pad0[4];void*clip;Rva003FE20FB
 // Context+78 is a summary whose8B entries begin40/end44; the two existing
 // indexed providers yield its entry pointer and count. Field names describe
 // target accesses; the original pair/context/summary class names are unknown.
-class Rva0040CB2CIndexedField {public:int get(int) const;};
-class Rva0040CC0EIndexedField {public:int get(int) const;};
-struct HeroDetailsArmyEntry {int count;Rva005E4300Entry *entry;};
-struct HeroDetailsArmySummary {char pad[0x40];HeroDetailsArmyEntry *begin,*end;};
-struct HeroDetailsPair {
- HeroDetailsPair(){}
- HeroDetailsPair(const HeroDetailsPair &heroDetailsPair):count(heroDetailsPair.count),entry(heroDetailsPair.entry){}
- HeroDetailsPair(const int &c,Rva005E4300Entry *const &e):count(c),entry(e){}
- int count;Rva005E4300Entry *entry;
-};
 // StrategicInGameUI::Rva005E6CA1 is rowed in StrategicInGameUIHeroComparator.cpp;
 // this copy was a duplicate definition.
 
@@ -120,7 +107,6 @@ static float Rva005E3F0A(const Rva005E4300Entry *entry) {
  return (entry->metric-low)/(high-low);
 }
 }
-class Rva0037DCA5 {public:void *GetDisplayNameStrategicGame(int);};
 class Rva005F2A32 {public:
  void rva005F3272(const UnicodeString &);
  void rva005F2F41(int);

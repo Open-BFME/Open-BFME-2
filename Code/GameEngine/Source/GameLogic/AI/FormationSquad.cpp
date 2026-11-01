@@ -12,14 +12,6 @@
 		return m_value; \
 	}
 
-class MilesAudioManager
-{
-public:
-    virtual int rva0005189D() const;
-    char m_lead[0x678 - sizeof(void *)];
-    int m_value;
-};
-
 // ?rva00524F35@Rva00524F35@@QAEAAV1@H@Z @0x00524F35 37B
 class Rva00524F35
 {
@@ -43,11 +35,6 @@ BFME_DISP_DWORD_GETTER(Rva0054902CDwordField, 0x568)
 // BF1 9cbfb551fe Common/Bfme/Rva001BD660_setFlags.cpp is the clean semantic guide.
 // Complete native 0023C4CE..0023C4DB RET leaf proves: OR stack dword into receiver114; RET4.
 // Original owner and complete bounds unresolved; independent address-owned view.
-class Rva0023C4CEFields {
-public: void setFlags(unsigned int value);
-private: unsigned char unknown[0x114]; unsigned int flags;
-};
-
 // Small unrowed .text bodies from the 0x0051xxxx..0x005Fxxxx (/O1) region.
 // Retail bytes establish every shape; the owning classes are not recovered,
 // so each keeps an address-derived name and a view of only the fields it
@@ -787,36 +774,6 @@ private:
 
 // cdecl destroy helpers: ecx = the argument, then a tail jump to the rowed
 // destructor (or reset member) of the pointee.
-class Rva004E1A04
-{
-public:
-	~Rva004E1A04();
-};
-
-class Rva004E366E
-{
-public:
-	void rva004E366E();
-};
-
-class Rva005344C0
-{
-public:
-	~Rva005344C0();
-};
-
-class Rva00568C4E
-{
-public:
-	~Rva00568C4E();
-};
-
-class BfmePoolRef10
-{
-public:
-	~BfmePoolRef10();
-};
-
 // Bare tail jumps to a rowed member of the object at +0.
 class Rva0038201D { public: void rva003828B6(); };
 
@@ -1127,10 +1084,6 @@ private:
 // three and calls (the shape of STLport's __uninitialized_fill_n dispatch).
 float *Rva005EA1B1Fill(float *dest, int count, const int &value);
 
-struct Rva005EA5CETag
-{
-};
-
 // ?rva005C6D48@Rva005C6D48@@QAEIABURva0027EA49@@@Z @0x005C6D48 5B and
 // ?rva005CABBB@Rva005CABBB@@QAEIABVAsciiString@@@Z @0x005CABBB 5B: erase a key
 // from the set tree at +0 through its rowed _Rb_tree::erase(const key &).
@@ -1249,15 +1202,6 @@ private:
 // provider at 0047A6A9. Native565402 and WB12CAB90 independently establish
 // that provider's borrow role; the original owner of this unused outline
 // remains unknown. Keep it separate from the neighboring assignment view.
-class Rva00564B0A
-{
-public:
-    Rva005045DBTree &rva00564B0A();
-private:
-    char m_unknown00[0x0c];
-    Rva005045DBTree m_0c;
-};
-
 // tu-skeleton: 0x00548FD4 45B ?AddUnit@FormationSquad@@QAEXPAUMid005490D2@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupFormations.cpp (not merged yet)
 
 // tu-skeleton: 0x00549001 43B ?_M_subtract@?$_Deque_iterator_base@UBfmeE8@@@_STL@@QBEHABU12@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e8_o1.cpp (not merged yet)

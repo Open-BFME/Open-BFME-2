@@ -26,7 +26,6 @@ public:
 };
 extern GameTextInterface *TheGameText;
 // CreateAHeroData's bling value get/set pair, rowed under this owner.
-class Rva00407E28 {public: int rva00407E28(int id);bool rva00407E53(int id);bool rva00407DE0(int id,int value);};
 class CreateAHeroHero {public: void ConstructHeroBlingList();const class CommandButton *GetButtonForLevel(int);};
 // A bling binder (20 bytes): its name key, the game-text label, and the
 // slot and category it fills.
@@ -35,8 +34,6 @@ struct BlingBinderList {unsigned int size() const {return last-first;}BlingBinde
 class Rva00222A8BTarget;
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 int __cdecl Rva0043DB23(Rva00222A8BTarget *,void *,const char *);
-class AptPlayer {public: const Image *FindRenderImage(const char *,const char *);};
-class Rva002239B2 {public: void rva002239E2(const AsciiString &,const Image *);};
 // AptMyHero's base: vtable 0x00C38D88's five slots, the rowed assignment
 // and destructor, and the fields the screen reads.
 class CreateAHeroData {
@@ -62,7 +59,6 @@ extern "C" void __cdecl free(void *) throw(...);
 struct BfmePod8 {int a;float b;};
 // The rowed by-value resize 0x005FF96A is spelled on this vector view.
 class BfmePod8Vector {public: ~BfmePod8Vector(){if(first)free(first);}void resize(unsigned int,BfmePod8);unsigned int size() const {return last-first;}BfmePod8 *first,*last,*capacity;};
-class Rva00406E47 {public: bool rva00406E47(int);};
 struct Rva005B0473View {char opaque[0x60];float field60;int field64,field68;};
 struct CreateAHeroClassRecord {char opaque[0x20];};
 struct CreateAHeroClassList {unsigned int size() const {return last-first;}CreateAHeroClassRecord *first,*last,*capacity;};
@@ -110,7 +106,6 @@ bool __cdecl rva005B2295(const CommandButton *button,const char *prefix,int inde
 class Rva00223A94 {public: int rva00223A94(const AsciiString *);};
 class Rva005241DF {public: void rva005241DF(const StringBase<char> &);};
 class Rva005B1830 {public: void rva005B1830();};
-class Rva005B1A07 {public: void rva005B1B26(unsigned int);};
 // Sun-direction helper views (retail 0x005B0A95): the WWMath Vector3/Vector4/
 // Matrix3D inlines are carried from ZH's vector3.h/vector4.h/matrix3d.h shapes
 // (axis-angle Set with cosf/sinf locals, mul via submul); Rotate_Vector is the
@@ -181,22 +176,10 @@ public:
 extern View *TheTacticalView;
 class GlobalData;
 extern GlobalData *TheWritableGlobalData;
-struct GlobalDataLightView {char pad000[0x920];Coord3D terrainLightPos0;};
 // Coord3D::set is out of line in the canonical header; retail inlines the three stores.
 __forceinline void SetLightPos(Coord3D *pos,float x,float y,float z){pos->x=x;pos->y=y;pos->z=z;}
-class DisplayLightView {
-public:
- virtual void slot00();virtual void slot04();virtual void slot08();virtual void slot0C();virtual void slot10();virtual void slot14();virtual void slot18();virtual void slot1C();
- virtual void slot20();virtual void slot24();virtual void slot28();virtual void slot2C();virtual void slot30();virtual void slot34();virtual void slot38();virtual void slot3C();
- virtual void slot40();virtual void slot44();virtual void slot48();virtual void slot4C();virtual void slot50();virtual void slot54();virtual void slot58();virtual void slot5C();
- virtual void slot60();virtual void slot64();virtual void slot68();virtual void slot6C();virtual void slot70();virtual void slot74();virtual void slot78();virtual void slot7C();
- virtual void slot80();virtual void slot84();virtual void slot88();virtual void slot8C();virtual void slot90();virtual void slot94();virtual void slot98();virtual void slot9C();
- virtual void slotA0();virtual void slotA4();virtual void slotA8();virtual void slotAC();virtual void slotB0();virtual void slotB4();
- virtual void setLightDirection(const Vector3 *dir);
-};
 class W3DShadowManager;
 extern W3DShadowManager *TheW3DShadowManager;
-class W3DGameClientShadowShim {public:void setLightPosition(int,float,float,float);};
 const AsciiString &rva005B0A53(const char *kind,int index);
 class AptMyHero : public CreateAHeroData {
 public:

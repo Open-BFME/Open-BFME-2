@@ -10,41 +10,7 @@
 		return TEXT; \
 	}
 
-class ModuleData
-{
-public:
-	virtual const char *GetSnapshotName() const;
-};
-
-class Eva
-{
-public:
-	virtual const char *GetSnapshotName() const;
-};
-
-class W3DDebrisDraw
-{
-protected:
-	virtual const char *GetSnapshotName() const;
-};
-
-class FireLogicSystem
-{
-public:
-	virtual const char *GetSnapshotName() const;
-};
-
-class LivingWorldBuilding { public: virtual const char *GetSnapshotName(); };
-
-class SequentialScript { public: virtual const char *GetSnapshotName(); };
-
 // LargeGroupAudio getter is owned by the complete subsystem unit.
-class GeometryInfo
-{
-public:
-	virtual const char *GetSnapshotName();
-};
-
 class DrawModule
 {
 protected:

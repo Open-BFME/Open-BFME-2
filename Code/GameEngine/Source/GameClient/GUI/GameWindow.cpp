@@ -687,16 +687,6 @@ class Rva003141BCAudioView { public:
 
 // Native2C1629-2C176C; capture/grab/modal precedence and three status passes
 // follow ZH GameWindowManager donor; manager accessed prefix only.
-struct CursorModalView { void*unknown0; Rva003141BCWindowView*window; };
-
-class CursorManagerView {
-public:
- unsigned char opaque0[12]; Rva003141BCWindowView*m_windowList;
- unsigned char opaque10[12]; Rva003141BCWindowView*m_mouseCaptor;
- void*unknown20; CursorModalView*m_modalHead; Rva003141BCWindowView*m_grabWindow;
- Rva003141BCWindowView*getWindowUnderCursor(int,int,bool);
-};
-
 struct WindowBlockTail
 {
 	unsigned char m_pad[0x19C];
@@ -819,25 +809,12 @@ BFME_DISP_DWORD_SETTER(Rva0031417CDwordSlot, 0x1F0)
 // Native 0027C2A4..0027C2AE is a complete independently bounded RET leaf.
 // Target behavior: receiver28 dword subtracts stack argument modulo32; RET4.
 // Original owner and full array bounds remain unknown; address-owned view only.
-class Rva0027C2A4Fields {
-public: void subtract(unsigned int value);
-private: unsigned char unknown[0x28]; unsigned int value28;
-};
-
 // BF1 9cbfb551fe Common/Rva005BD470ZeroTest.cpp is the clean semantic guide.
 // Complete native 001F34FE..001F350B RET leaf proves: cdecl pointer argument; byte1C equals zero; full EAX result0 or1.
 // Original owner and complete bounds unresolved; independent address-owned view.
-struct Rva001F34FEFields { unsigned char unknown[0x1C]; unsigned char value; };
-
 // BF1 9cb Rva005FC2B0Set.cpp guides the raw store/receiver-return pattern.
 // Target 563E5F..563E65 follows RET8 and writes byte0=1, returning this.
 // Original owner and complete class bounds remain unknown.
-struct Rva00563E5FFields
-{
-    unsigned char flag;
-    Rva00563E5FFields *enable();
-};
-
 // Clean BFME1 9cbfb551 donor structural leads; native instructions independently
 // establish complete RET boundaries and each raw field operation and ABI.
 // Address-owned carriers retain unknown original receiver identity and bounds.
@@ -857,21 +834,6 @@ BFME_DISP8_LEA_GETTER(Rva00314046LeaField, 0x30)
 // Native 006C03C0..006C03CB is a complete independently bounded RET leaf.
 // Target behavior: receiver8 plus eight-byte element stride; RET4.
 // Original owner and full array bounds remain unknown; address-owned view only.
-struct Rva006C03C0Slot { unsigned char bytes[8]; };
-
-class Rva006C03C0Fields {
-public: void *at(int index);
-private: unsigned char unknown[8]; Rva006C03C0Slot entries[1];
-};
-
-class MilesAudioManager
-{
-public:
-    virtual int rva0005189D() const;
-    char m_lead[0x678 - sizeof(void *)];
-    int m_value;
-};
-
 BFME_DISP_DWORD_GETTER(Rva0031412DDwordField, 0x20C)
 
 // ?rva00524F35@Rva00524F35@@QAEAAV1@H@Z @0x00524F35 37B
@@ -905,11 +867,6 @@ BFME_DISP_DWORD_GETTER(Rva00314105DwordField, 0x1FC)
 // BF1 9cbfb551fe Common/Bfme/Rva001BD660_setFlags.cpp is the clean semantic guide.
 // Complete native 0023C4CE..0023C4DB RET leaf proves: OR stack dword into receiver114; RET4.
 // Original owner and complete bounds unresolved; independent address-owned view.
-class Rva0023C4CEFields {
-public: void setFlags(unsigned int value);
-private: unsigned char unknown[0x114]; unsigned int flags;
-};
-
 // tu-skeleton: 0x00313913 16B ?vslot6@GameWindow@@UBE_NXZ -- matched in Code/GameEngine/Source/Common/Disp8CmpBoolGettersFuncPtr.cpp (not merged yet)
 
 // tu-skeleton: 0x00313923 23B ?rva00313923@Rva00313923@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/GapForwardersSeat8.cpp (not merged yet)

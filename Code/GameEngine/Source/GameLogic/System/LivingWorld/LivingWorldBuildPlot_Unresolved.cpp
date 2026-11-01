@@ -28,11 +28,6 @@ private:
 class Object;
 class LivingWorldManager;
 extern LivingWorldManager *TheLivingWorldManager;
-class Rva00213148
-{
-public:
-    void *rva00213148(const AsciiString *key);
-};
 class LivingWorldBuildPlot;
 class LivingWorldBuildPlotIconTemplate;
 class LivingWorldRegion;
@@ -106,66 +101,7 @@ struct Rva003F1BD3TemplateView
 class LivingWorldRegion;
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
-class Rva002B315BBumpCounter
-{
-public:
-    int bump();
-};
-class LivingWorldBuilding
-{
-public:
-    LivingWorldBuilding(LivingWorldRegion *region, const Coord2D &position,
-                       const Rva003F1BD3TemplateView *templ, int id);
-private:
-    char m_unrecovered[0x54];
-};
-class Rva004E0705
-{
-public:
-    bool rva004E0A58();
-};
-class Rva004FC320Listener
-{
-public:
-    virtual void notify(void *arg);
-};
-class Rva004FC320List
-{
-public:
-    void forEach(void (Rva004FC320Listener::*notify)(void *), void *arg);
-private:
-    char m_storage[0x10];
-};
 struct TreeHintRef00217D4C;
-class Rva001FF3A9
-{
-public:
-    void rva001FF3A9(const TreeHintRef00217D4C &arg);
-};
-class Rva003F1C56Plot
-{
-public:
-    void rva004FC33E(const Rva003F1BD3TemplateView *templ);
-private:
-    char m_unknown00[8];
-    Rva004FC320List m_listeners;
-    int m_unknown18;
-    LivingWorldRegion *m_region;
-    Rva00575674 m_building;
-    Rva00575674 m_icon;
-    Coord2D m_position;
-    int m_buildFrames;
-    bool m_hidden;
-};
-
-
-class Rva004E0B60
-{
-public:
-    void rva004E0CB6();
-};
-
-
 class LivingWorldRegion
 {
 public:

@@ -168,12 +168,6 @@ class FoundationAIUpdate
 };
 
 // --- 0x004D8717 (8B): the TurretAI sub-object at +4.
-class Rva004D8717
-{
-public:
-	Bool rva004D8717(WeaponSlotType wslot) const;
-};
-
 // --- 0x003F59FE (8B): the LivingWorldBattle sub-object at +4.
 class Rva003F59FE
 {
@@ -211,33 +205,9 @@ struct Rva004FB128Owner
 	Rva004FB0C7Registry *m_registry;	// +0
 };
 
-class Rva004FB128
-{
-public:
-	Bool rva004FB128(int key, Rva004FAFF2 *out);
-};
-
 // --- 0x0042C07B (8B) / 0x0043DA9D (8B): clear one flag byte (+0x94,
 // +0x2C3); the shape of the rowed Reset bodies such as
 // AABTreeIterator::Reset 0x0065D1C0.
-class Rva0042C07B
-{
-public:
-	void reset();
-private:
-	char m_pad00[0x94];
-	bool m_94;
-};
-
-class Rva0043DA9D
-{
-public:
-	void reset();
-private:
-	char m_pad00[0x2C3];
-	bool m_2C3;
-};
-
 // --- 0x004B96C4 (8B): the slot after onBuildComplete (0x004B96A9) in
 // InheritUpgradeCreate's +0x10 interface table (VA 0x00C596EC): forwards to
 // the pinned create work 0x004B959C on the primary this, the same call
@@ -248,12 +218,6 @@ public:
 	void rva004B959C();									// 0x004B959C (pinned)
 };
 
-class Rva004B96C4
-{
-public:
-	void rva004B96C4();
-};
-
 // --- 0x004F68A8 (8B): assign the TreeHintRef member at +0x20 through the
 // rowed TreeHintRef00217D4C::operator= 0x002174A4 (add ecx, 0x20; jmp), the
 // positive-offset member forward of ~PlayerPosition 0x0022D920.
@@ -262,30 +226,12 @@ struct TreeHintRef00217D4C
 	TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &other);	// 0x002174A4
 };
 
-class Rva004F68A8
-{
-public:
-	void rva004F68A8(const TreeHintRef00217D4C &ref);
-private:
-	char m_pad00[0x20];
-	TreeHintRef00217D4C m_20;
-};
-
 // --- 0x004F68B0 (8B): clear the member at +0x20 through the rowed
 // Rva002BED91::clear 0x002BED91 (add ecx, 0x20; jmp).
 class Rva002BED91
 {
 public:
 	void clear();										// 0x002BED91
-};
-
-class Rva004F68B0
-{
-public:
-	void rva004F68B0();
-private:
-	char m_pad00[0x20];
-	Rva002BED91 m_20;
 };
 
 // --- 0x004EC062 / 0x004EC06A (8B each): two forwards into the AI unit
@@ -302,16 +248,6 @@ class Rva00598149
 {
 public:
 	void rva00598149(void *p);							// 0x00598149
-};
-
-class Rva004EC062
-{
-public:
-	void rva004EC062(ObjectID id);
-	void rva004EC06A(void *p);
-private:
-	char m_pad00[0x38];
-	AIUnitBuilder m_unitBuilder;
 };
 
 // tu-skeleton: 0x004CBECA 67B ??0ModelConditionAudioLoopClientBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/ModelConditionAudioLoopClientBehaviorCtor.cpp (not merged yet)

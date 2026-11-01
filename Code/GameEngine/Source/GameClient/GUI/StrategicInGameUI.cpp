@@ -406,8 +406,6 @@ class Rva0005CB9F3DwordImmSetter { public:void apply(); };
 
 class Rva005E5A38 { public:Rva005E5A38(int);__forceinline ~Rva005E5A38(){((Rva0005CB9F3DwordImmSetter*)this)->apply();} private:unsigned storage[3]; };
 
-class Rva00574815 { public:void rva005CBB4A(int,int,int); };
-
 class Rva005CBB4A { public:void rva005CBB4A(void*,int,int); };
 
  // rowed 0x005CBB4A
@@ -697,15 +695,6 @@ public:
 	virtual void slot1(int a, int b);
 };
 
-class Rva005E3AA2Outer
-{
-public:
-	virtual void slot0();
-	virtual void slot1();
-	virtual void slot2();
-	virtual void slot3();
-};
-
 class Rva005E6817Mid
 {
 public:
@@ -766,12 +755,6 @@ private:
 	Rva005E683EOuter *m_outer;
 };
 
-class Rva005E3AA2Mid
-{
-public:
-	void fwd();
-};
-
 // ?Rva000DFB80@@YAPAVR1DwordPair@@PAV1@HH@Z, retail 0x005E6A11 (18B).
 // Ported from Open-BFME-1 Code/GameEngine/Source/Common/R1SmallFieldInitialisers.cpp
 // (BFME1 0x000DFB80), recompiled /Os by the bfme1_csweep placement.
@@ -812,41 +795,16 @@ public:
 // word04=all ones. Complete class bounds and field purposes remain unknown.
 // Ordinary address-owned initialize methods preserve this uncertainty.
 // Fixed-field initializer proof; native names remain unknown.
-struct Rva001D976EFields {
-    unsigned int word00; float value04;
-    Rva001D976EFields *initialize();
-};
-
-struct Rva004689FAFields {
-    unsigned int word00; unsigned int word04;
-    Rva004689FAFields *initialize();
-};
-
 // BF1 9cbfb551fe Common/Q1ConstantFieldConstructors.cpp is the clean
 // zero-field/receiver-return semantic guide only. The target bodies are
 // independently RET-bounded: 23DC7F..23DC86 writes dword18=0 after RET23DC7E;
 // 85524..8552B writes dword28=0 after RET85523. Incoming ECX is returned in
 // EAX. Constructor-versus-reset, owner identity and complete bounds are unknown.
-struct Rva0023DC7FFields {
-    unsigned char unknown[0x18]; unsigned int word18;
-    Rva0023DC7FFields *clear();
-};
-
-struct Rva00085524Fields {
-    unsigned char unknown[0x28]; unsigned int word28;
-    Rva00085524Fields *clear();
-};
-
 // BF1 9cbfb551fe Common/RTS/Player_resetOrStartSpecialPowerReadyFrame.cpp
 // emits the SpecialPowerReadyTimerType constructor, a two-field initialization
 // semantic guide only. The target 2AA3B5..2AA3BF follows RET2AA3B4 and stores
 // raw word04=all ones BEFORE word00=zero, returning incoming ECX in EAX.
 // Original timer/class identity, constructor-versus-reset and bounds unknown.
-struct Rva002AA3B5Fields {
-    unsigned int word00, word04;
-    Rva002AA3B5Fields *initialize();
-};
-
 // tu-skeleton: 0x005E5DF5 133B ?SendSwapArmyMembersMessage@StrategicInGameUI@@YAXHPBURva005FSelectionView@@HABU2@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/StrategicUiArmyDragDrop.cpp (not merged yet)
 
 // tu-skeleton: 0x005E5E7A 67B ?clone@Rva005E5E7A@@QBE?AURvaF1Handle@@XZ -- matched in Code/GameEngine/Source/Common/RvaFamily1Clones.cpp (not merged yet)

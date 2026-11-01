@@ -62,17 +62,6 @@ public:
 
 // Retail constructs the thrown object through bfmeFormatText, the varargs
 // constructor, and throws it with __TI1?AVXferException@@.
-class XferException
-{
-public:
-	XferException(int tag, const char *format, ...);
-	XferException(const XferException &that);
-	~XferException(void);
-
-	char *m_text;
-	int m_tag;
-};
-
 enum ObjectID
 {
 	INVALID_ID = 0
@@ -132,27 +121,6 @@ struct Rva0010F149Handle
 };
 
 class Rva001DA2D5;
-class Rva004333C0
-{
-public:
-	virtual ~Rva004333C0();
-	Rva004333C0(int);
-	Rva004333C0(const Rva001DA2D5 &, int);
-	char unknown[0xD0 - 4];
-};
-
-class DynamicAudioEventInfo
-{
-public:
-	void xferNoName(Xfer *xfer);
-};
-
-class Rva000B56F0Object
-{
-public:
-	void *selectStorage();
-};
-
 // TheAudio's slots 74, 75 and 88.
 class DrawableXferAudioView
 {
@@ -257,12 +225,6 @@ class Anim2DCollection;
 extern Anim2DCollection *TheAnim2DCollection;
 
 struct Rva002D752DNode;
-class Rva002D752D
-{
-public:
-	Rva002D752DNode *rva002D752D(const StringBase<char> &name);
-};
-
 class Anim2D
 {
 public:
@@ -282,12 +244,6 @@ public:
 };
 
 class Rva00270BA8 { public: Rva00270025 *rva00270BA8(); };
-class Rva002716Holder { public: void rva00271547(); };
-class Rva0027974B { public: void rva0027974B(); };
-class Rva00279354Host { public: void rva00279354(bool); };
-
-
-
 class ThingTemplate
 {
 public:

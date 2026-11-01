@@ -71,60 +71,12 @@ public:
 	RefCountPtr();
 };
 
-class INIMacroTable
-{
-public:
-	INIMacroTable();
-};
-
-class WaterDrawFXShaderParameterSourceNamespace
-{
-public:
-	WaterDrawFXShaderParameterSourceNamespace();
-};
-
-class Rva003818F4
-{
-public:
-	Rva003818F4();
-};
-
-class Rva005114BDHolder
-{
-public:
-	Rva005114BDHolder();
-};
-
-class Rva005D00A6
-{
-public:
-	Rva005D00A6();
-};
-
-class Rva000F8348
-{
-public:
-	Rva000F8348();
-};
-
-class Rva000F9C3C
-{
-public:
-	Rva000F9C3C();
-};
-
 class Rva0023C641 { public: Rva0023C641(); };
 class Rva0023DBF9
 {
 public:
 	// Construction is the rowed ??0Rva0023C641, reached by a qualified call.
 	__declspec(dllimport) __forceinline Rva0023DBF9() { ((Rva0023C641 *)this)->Rva0023C641::Rva0023C641(); }
-};
-
-class Rva005EA635
-{
-public:
-	Rva005EA635();
 };
 
 void __cdecl rva007B6A6E();

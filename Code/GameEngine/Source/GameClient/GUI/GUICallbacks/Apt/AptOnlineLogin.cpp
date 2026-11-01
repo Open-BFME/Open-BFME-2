@@ -625,34 +625,6 @@ private:
 
 // --- 0x00367E31 / 0x00545393 (40B each): a vtable (0x00C17640 / 0x00C69F34)
 // over two cleared words (+0x04, +0x18) and four zero floats (+0x08..+0x14).
-class Rva00367E31
-{
-public:
-	Rva00367E31();
-	virtual ~Rva00367E31() {}
-private:
-	int m_04;
-	float m_progressOverlayColor;
-	float m_backButtonTooltip;
-	float m_10;
-	float m_14;
-	int m_18;
-};
-
-class Rva00545393
-{
-public:
-	Rva00545393();
-	virtual ~Rva00545393() {}
-private:
-	int m_04;
-	float m_progressOverlayColor;
-	float m_backButtonTooltip;
-	float m_10;
-	float m_14;
-	int m_18;
-};
-
 // --- 0x005E7026 (17B): clamp the second argument at zero and forward both to
 // virtual slot 12; 0x005E7037 (18B): parse this from INI with the field
 // table at VA 0x00C77E98; 0x005E7049 (5B): forward to the rowed 0x004E0625.
@@ -682,28 +654,6 @@ public:
 	int rva004E0625() const;								// 0x004E0625
 };
 
-class Rva005E7026
-{
-public:
-	virtual void s0();
-	virtual void s1();
-	virtual void s2();
-	virtual void s3();
-	virtual void s4();
-	virtual void s5();
-	virtual void s6();
-	virtual void s7();
-	virtual void s8();
-	virtual void s9();
-	virtual void s10();
-	virtual void s11();
-	virtual void s12(int a, int b);
-
-	void rva005E7026(int a, int b);
-	void rva005E7037(INI *ini);
-	int rva005E7049() const;
-};
-
 // --- 0x00428DC1 (41B, cdecl): when the player list's +0x10 player has a
 // rowed 0x002ABCF0(1, 0) result, the tactical view takes its +0x38 point
 // (virtual slot 21).
@@ -712,12 +662,6 @@ public:
 class PlayerList;
 
 extern PlayerList *ThePlayerList;
-
-struct PlayerListView
-{
-	char m_pad[0x10];
-	Player *m_10;
-};
 
 class View
 {
@@ -782,21 +726,6 @@ public:
 
 // --- 0x005C8774 (19B): +0x00 = 1.0f, +0x04 = 0; 0x005C8787 (23B): +0x00 and
 // +0x04 cleared, +0x08 = 1.0f.
-struct Rva005C8774
-{
-	Rva005C8774();
-	float m_00;
-	int m_04;
-};
-
-struct Rva005C8787
-{
-	Rva005C8787();
-	int m_00;
-	int m_04;
-	float m_progressOverlayColor;
-};
-
 template <class T> struct GapClassVector
 {
 	T *m_begin;
@@ -824,23 +753,6 @@ private:
 };
 
 // --- 0x002C902A (43B): five zero floats, then FLT_MAX at +0x14.
-struct Rva002C902A
-{
-	Rva002C902A();
-	float m_00;
-	float m_04;
-	float m_progressOverlayColor;
-	float m_backButtonTooltip;
-	float m_10;
-	float m_14;
-};
-
-struct Rva0058C475Arg
-{
-	char m_pad[0x28];
-	int m_28;
-};
-
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineLogin.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineLogin.cpp
