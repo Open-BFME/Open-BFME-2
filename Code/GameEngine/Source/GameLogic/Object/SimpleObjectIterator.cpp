@@ -58,8 +58,12 @@ typedef _STL::_Deque_iterator<BfmeCopyRecord8,_STL::_Nonconst_traits<BfmeCopyRec
 namespace _STL {
 template<> void sort(CopyRecord8Iterator,CopyRecord8Iterator,BfmeCopyRecord8Cmp);
 template<> void sort(CopyRecord8Iterator,CopyRecord8Iterator,BfmeCopyRecord8CmpDescending);
-template<> void sort(CopyRecord8Iterator,CopyRecord8Iterator,BfmeCopyRecord8KeyAscending);
-template<> void sort(CopyRecord8Iterator,CopyRecord8Iterator,BfmeCopyRecord8KeyDescending);
+// Let the primary key-sort templates join their explicit instantiations here.
+// Their native linear-insert and push-heap providers remain external.
+template <> void __linear_insert<CopyRecord8Iterator,BfmeCopyRecord8,BfmeCopyRecord8KeyAscending>(CopyRecord8Iterator,CopyRecord8Iterator,BfmeCopyRecord8,BfmeCopyRecord8KeyAscending);
+template <> void __push_heap<CopyRecord8Iterator,int,BfmeCopyRecord8,BfmeCopyRecord8KeyAscending>(CopyRecord8Iterator,int,int,BfmeCopyRecord8,BfmeCopyRecord8KeyAscending);
+template <> void __linear_insert<CopyRecord8Iterator,BfmeCopyRecord8,BfmeCopyRecord8KeyDescending>(CopyRecord8Iterator,CopyRecord8Iterator,BfmeCopyRecord8,BfmeCopyRecord8KeyDescending);
+template <> void __push_heap<CopyRecord8Iterator,int,BfmeCopyRecord8,BfmeCopyRecord8KeyDescending>(CopyRecord8Iterator,int,int,BfmeCopyRecord8,BfmeCopyRecord8KeyDescending);
 }
 
 // Zero Hour ObjectIter.h supplies the order names. Native 54C64A dispatches

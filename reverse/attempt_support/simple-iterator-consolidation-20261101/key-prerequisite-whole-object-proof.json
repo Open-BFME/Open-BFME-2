@@ -1,0 +1,288 @@
+{
+  "before_definitions": 59,
+  "after_definitions": 115,
+  "removed": [],
+  "changed": [],
+  "added": [
+    {
+      "name": "??$?9UBfmeCopyRecord8@@@_STL@@YA_NABU?$_Deque_iterator_base@UBfmeCopyRecord8@@@0@0@Z",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "??$?MUBfmeCopyRecord8@@@_STL@@YA_NABU?$_Deque_iterator_base@UBfmeCopyRecord8@@@0@0@Z",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "??$__adjust_heap@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@HUBfmeCopyRecord8@@UBfmeCopyRecord8KeyAscending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@HHUBfmeCopyRecord8@@UBfmeCopyRecord8KeyAscending@@@Z",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "??$__adjust_heap@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@HUBfmeCopyRecord8@@UBfmeCopyRecord8KeyDescending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@HHUBfmeCopyRecord8@@UBfmeCopyRecord8KeyDescending@@@Z",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "??$__final_insertion_sort@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8KeyAscending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0UBfmeCopyRecord8KeyAscending@@@Z",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "??$__final_insertion_sort@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8KeyDescending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0UBfmeCopyRecord8KeyDescending@@@Z",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "??$__insertion_sort@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8KeyAscending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0UBfmeCopyRecord8KeyAscending@@@Z",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "??$__insertion_sort@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8KeyDescending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0UBfmeCopyRecord8KeyDescending@@@Z",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "??$__introsort_loop@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8@@HUBfmeCopyRecord8KeyAscending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0PAUBfmeCopyRecord8@@HUBfmeCopyRecord8KeyAscending@@@Z",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "??$__introsort_loop@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8@@HUBfmeCopyRecord8KeyDescending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0PAUBfmeCopyRecord8@@HUBfmeCopyRecord8KeyDescending@@@Z",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "??$__lg@H@_STL@@YAHH@Z",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "??$__make_heap@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8KeyAscending@@UBfmeCopyRecord8@@H@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0UBfmeCopyRecord8KeyAscending@@PAUBfmeCopyRecord8@@PAH@Z",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "??$__make_heap@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8KeyDescending@@UBfmeCopyRecord8@@H@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0UBfmeCopyRecord8KeyDescending@@PAUBfmeCopyRecord8@@PAH@Z",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "??$__median@UBfmeCopyRecord8@@UBfmeCopyRecord8KeyAscending@@@_STL@@YAABUBfmeCopyRecord8@@ABU1@00UBfmeCopyRecord8KeyAscending@@@Z",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "??$__median@UBfmeCopyRecord8@@UBfmeCopyRecord8KeyDescending@@@_STL@@YAABUBfmeCopyRecord8@@ABU1@00UBfmeCopyRecord8KeyDescending@@@Z",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "??$__partial_sort@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8@@UBfmeCopyRecord8KeyAscending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@00PAUBfmeCopyRecord8@@UBfmeCopyRecord8KeyAscending@@@Z",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "??$__partial_sort@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8@@UBfmeCopyRecord8KeyDescending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@00PAUBfmeCopyRecord8@@UBfmeCopyRecord8KeyDescending@@@Z",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "??$__pop_heap@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8@@UBfmeCopyRecord8KeyAscending@@H@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@00UBfmeCopyRecord8@@UBfmeCopyRecord8KeyAscending@@PAH@Z",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "??$__pop_heap@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8@@UBfmeCopyRecord8KeyDescending@@H@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@00UBfmeCopyRecord8@@UBfmeCopyRecord8KeyDescending@@PAH@Z",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "??$__pop_heap_aux@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8@@UBfmeCopyRecord8KeyAscending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0PAUBfmeCopyRecord8@@UBfmeCopyRecord8KeyAscending@@@Z",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "??$__pop_heap_aux@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8@@UBfmeCopyRecord8KeyDescending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0PAUBfmeCopyRecord8@@UBfmeCopyRecord8KeyDescending@@@Z",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "??$__unguarded_insertion_sort@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8KeyAscending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0UBfmeCopyRecord8KeyAscending@@@Z",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "??$__unguarded_insertion_sort@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8KeyDescending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0UBfmeCopyRecord8KeyDescending@@@Z",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "??$__unguarded_insertion_sort_aux@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8@@UBfmeCopyRecord8KeyAscending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0PAUBfmeCopyRecord8@@UBfmeCopyRecord8KeyAscending@@@Z",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "??$__unguarded_insertion_sort_aux@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8@@UBfmeCopyRecord8KeyDescending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0PAUBfmeCopyRecord8@@UBfmeCopyRecord8KeyDescending@@@Z",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "??$__unguarded_linear_insert@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8@@UBfmeCopyRecord8KeyAscending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@UBfmeCopyRecord8@@UBfmeCopyRecord8KeyAscending@@@Z",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "??$__unguarded_linear_insert@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8@@UBfmeCopyRecord8KeyDescending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@UBfmeCopyRecord8@@UBfmeCopyRecord8KeyDescending@@@Z",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "??$__unguarded_partition@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8@@UBfmeCopyRecord8KeyAscending@@@_STL@@YA?AU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@U10@0UBfmeCopyRecord8@@UBfmeCopyRecord8KeyAscending@@@Z",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "??$__unguarded_partition@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8@@UBfmeCopyRecord8KeyDescending@@@_STL@@YA?AU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@U10@0UBfmeCopyRecord8@@UBfmeCopyRecord8KeyDescending@@@Z",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "??$iter_swap@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@U12@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0@Z",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "??$make_heap@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8KeyAscending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0UBfmeCopyRecord8KeyAscending@@@Z",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "??$make_heap@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8KeyDescending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0UBfmeCopyRecord8KeyDescending@@@Z",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "??$partial_sort@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8KeyAscending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@00UBfmeCopyRecord8KeyAscending@@@Z",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "??$partial_sort@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8KeyDescending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@00UBfmeCopyRecord8KeyDescending@@@Z",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "??$pop_heap@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8KeyAscending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0UBfmeCopyRecord8KeyAscending@@@Z",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "??$pop_heap@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8KeyDescending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0UBfmeCopyRecord8KeyDescending@@@Z",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "??$sort@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8KeyAscending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0UBfmeCopyRecord8KeyAscending@@@Z",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "??$sort@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8KeyDescending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0UBfmeCopyRecord8KeyDescending@@@Z",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "??$sort_heap@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8KeyAscending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0UBfmeCopyRecord8KeyAscending@@@Z",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "??$sort_heap@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8KeyDescending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0UBfmeCopyRecord8KeyDescending@@@Z",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "??$swap@UBfmeCopyRecord8@@@_STL@@YAXAAUBfmeCopyRecord8@@0@Z",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "??0BfmeCopyRecord8@@QAE@ABU0@@Z",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "??D?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@QBEAAUBfmeCopyRecord8@@XZ",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "??E?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@QAEAAU01@XZ",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "??F?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@QAE?AU01@H@Z",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "??F?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@QAEAAU01@XZ",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "??G?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@QBE?AU01@H@Z",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "??G?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@QBEHABU01@@Z",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "??H?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@QBE?AU01@H@Z",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "??Y?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@QAEAAU01@H@Z",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "??Z?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@QAEAAU01@H@Z",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "?_M_advance@?$_Deque_iterator_base@UBfmeCopyRecord8@@@_STL@@QAEXH@Z",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "?_M_decrement@?$_Deque_iterator_base@UBfmeCopyRecord8@@@_STL@@QAEXXZ",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "?_M_increment@?$_Deque_iterator_base@UBfmeCopyRecord8@@@_STL@@QAEXXZ",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "?_M_set_node@?$_Deque_iterator_base@UBfmeCopyRecord8@@@_STL@@QAEXPAPAUBfmeCopyRecord8@@@Z",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    },
+    {
+      "name": "?_M_subtract@?$_Deque_iterator_base@UBfmeCopyRecord8@@@_STL@@QBEHABU12@@Z",
+      "has_existing_donor_body": true,
+      "whole_body_and_relocations_equal_donor": true
+    }
+  ]
+}
