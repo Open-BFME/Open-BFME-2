@@ -278,11 +278,7 @@ struct Rva00372571Params
 	bool m_1C;
 };
 
-class AIGroup
-{
-public:
-	void groupMoveToPosition(Rva00372571Params *params, int source);
-};
+#include "../../../Include/GameLogic/AIGroup.h"
 
 class AI
 {

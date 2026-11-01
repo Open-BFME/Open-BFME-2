@@ -466,16 +466,7 @@ struct Rva00372571Params
 	bool m_1C;
 };
 
-class AIGroup
-{
-public:
-	void groupMoveToPosition(Rva00372571Params *params, int source);
-	void groupIdle(CommandSourceType cmdSource);
-	bool getCenter(Coord3D *pos);
-	void groupAttackMoveToPosition(const Coord3D *pos, int maxShots, CommandSourceType cmdSource);
-	void rva0036F9FE(const Waypoint *way, CommandSourceType cmdSource, int mode);
-	void rva0036FB57(const Waypoint *way, CommandSourceType cmdSource, int mode);
-};
+#include "../../../Include/GameLogic/AIGroup.h"
 
 class Rva0036FAF8
 {
