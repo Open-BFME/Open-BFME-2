@@ -69,13 +69,7 @@ public:
 
 struct Rva002A8AB1Record;
 
-class Rva002A8F24
-{
-public:
-	Rva002A8AB1Record *rva002A8AB1(void *player); // 0x002A8AB1
-	char m_pad000[0x850];
-	float m_850; // +0x850
-};
+#include "../../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
 
 class UpgradeTemplate
@@ -130,7 +124,7 @@ unsigned int UpgradeTemplate::calcCostToBuild(Player *player, unsigned int reque
 	if ((int)((Rva002A9BF2 *)player)->rva002A9BF2() == 3 && TheSkirmishAIManager->rva002A8AB1(player))
 	{
 		const float one = 1.0f;
-		float change = TheSkirmishAIManager->m_850 < one ? TheSkirmishAIManager->m_850 : one;
+		float change = TheSkirmishAIManager->field_850 < one ? TheSkirmishAIManager->field_850 : one;
 		return (int)((1.0f - change) * (float)scaled);
 	}
 	return scaled;

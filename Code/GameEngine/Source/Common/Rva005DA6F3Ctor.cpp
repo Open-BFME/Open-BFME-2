@@ -163,7 +163,7 @@ AIUpgradeHeuristicFactoryUnlock::AIUpgradeHeuristicFactoryUnlock(void *held)
 class Rva0041F449 { public: StringBase<char>*rva0041F449(const StringBase<char>&); };
 class ArmyMemberDefinition {public:float*getPercentageOfArmy(int);};
 struct Rva002A8AB1Record {char pad[0x160]; Rva0041F449*members;char pad164[8];int mode;};
-class Rva002A8F24 {public:Rva002A8AB1Record*rva002A8AB1(void*);};
+#include "../../Include/GameLogic/Rva002A8F24.h"
 // Native DFEEF8 is the existing single datum owned by Rva005EEA20Find.cpp.
 extern Rva002A8F24*TheSkirmishAIManager;
 int AIUpgradeHeuristicFactoryUnlock::rva005DA67F(int unused) {

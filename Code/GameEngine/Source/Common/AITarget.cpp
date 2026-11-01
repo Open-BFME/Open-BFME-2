@@ -110,11 +110,7 @@ struct InterestZone
 	float m_18;
 };
 
-class Rva002A8F24
-{
-public:
-	Rva002A8AB1Record *rva002A8AB1(void *p);
-};
+#include "../../Include/GameLogic/Rva002A8F24.h"
 
 struct Coord3DBase
 {

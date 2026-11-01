@@ -7,11 +7,7 @@ public:
 };
 
 struct Rva002A8AB1Record;
-class Rva002A8F24
-{
-public:
-	struct Rva002A8AB1Record *rva002A8AB1(void *);
-};
+#include "../../../Include/GameLogic/Rva002A8F24.h"
 
 extern class Rva002A8F24 *TheSkirmishAIManager;
 extern float g_Va00BBB8D8;

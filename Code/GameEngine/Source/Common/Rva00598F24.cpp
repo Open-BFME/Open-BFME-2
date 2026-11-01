@@ -3,11 +3,7 @@
 // Evidence: thiscall void; pushes Player at this+0x2C; rowed rva002A8F24 0x002A8F24 via global TheSkirmishAIManager; rowed addInfoReceiver 0x004DFEC8 with this as ModuleData; caller 0x004EBFBA
 class Player;
 class ModuleData;
-class Rva002A8F24
-{
-public:
-	void *rva002A8F24(Player *player);
-};
+#include "../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
 class AIStatCollector
 {

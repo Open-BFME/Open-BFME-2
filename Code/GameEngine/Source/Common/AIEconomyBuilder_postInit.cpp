@@ -10,11 +10,7 @@
 class Player;
 class ModuleData;
 
-class Rva002A8F24
-{
-public:
-	void *rva002A8F24(Player *p);
-};
+#include "../../Include/GameLogic/Rva002A8F24.h"
 
 extern Rva002A8F24 *TheSkirmishAIManager;
 

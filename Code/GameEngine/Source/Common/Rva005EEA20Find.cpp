@@ -17,11 +17,7 @@ class AIUpdateInterface;
 
 extern GameLogic *TheGameLogic;
 
-class Rva002A8F24
-{
-public:
-	void *rva002A8F24(Player *player);
-};
+#include "../../Include/GameLogic/Rva002A8F24.h"
 
 extern Rva002A8F24 *TheSkirmishAIManager;
 // TheSkirmishAIManager: matched references place it at VA 0xdfeef8 (zero-filled .bss).

@@ -1054,11 +1054,7 @@ public:
 // (rowed 0x002A8AB1).
 struct Rva002A8AB1Record;
 
-class Rva002A8F24
-{
-public:
-	Rva002A8AB1Record *rva002A8AB1(void *key);				// 0x002A8AB1
-};
+#include "../../Include/GameLogic/Rva002A8F24.h"
 
 extern Rva002A8F24 *TheSkirmishAIManager;
 

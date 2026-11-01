@@ -301,11 +301,7 @@ class Rva0039D5A9
 public:
     int rva0039D5A9();
 };
-class Rva002A8F24
-{
-public:
-    void *rva002A8F24(Player *);
-};
+#include "../../Include/GameLogic/Rva002A8F24.h"
 // ABI-only view of the existing rowed cardinality helper at 2BEDAB. Its
 // target body subtracts the range words at +4/+8 and divides by four;
 // no actual hash-table identity is assigned to the statistics pointee.

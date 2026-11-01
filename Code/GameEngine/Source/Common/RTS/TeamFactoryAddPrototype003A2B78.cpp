@@ -106,11 +106,7 @@ public:
 	RetailPlayerRelationMap *m_teamRelations; // +0x334 +0x334
 };
 struct Rva002A8AB1Record;
-class Rva002A8F24
-{
-public:
-	Rva002A8AB1Record *rva002A8AB1(void *);
-};
+#include "../../../Include/GameLogic/Rva002A8F24.h"
 extern class Rva002A8F24 *TheSkirmishAIManager;
 // The +0x90 forwarder rowed at 0x004EC072 (RvaWideAdjustFwds.cpp).
 class Rva004EC072Owner

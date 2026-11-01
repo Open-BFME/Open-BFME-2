@@ -82,12 +82,7 @@ struct StatCollector
 
 struct Rva002A8AB1Record;
 
-class Rva002A8F24
-{
-public:
-	Rva002A8AB1Record *rva002A8AB1(void *owner);
-	void *rva002A8F24(Player *owner);
-};
+#include "../../../Include/GameLogic/Rva002A8F24.h"
 
 extern Rva002A8F24 *TheSkirmishAIManager;
 

@@ -80,12 +80,7 @@ struct Inner520
 
 struct Rva002A8AB1Record;
 
-class Rva002A8F24
-{
-public:
-	void *rva002A8F24(Player *player);
-	Rva002A8AB1Record*rva002A8AB1(void*);
-};
+#include "../../Include/GameLogic/Rva002A8F24.h"
 
 extern Rva002A8F24 *TheSkirmishAIManager;
 

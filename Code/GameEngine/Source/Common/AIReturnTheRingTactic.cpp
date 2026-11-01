@@ -17,11 +17,7 @@ enum ObjectStatusTypes
 	STATUS_5E = 0x5e
 };
 
-class Rva002A8F24
-{
-public:
-	void *rva002A8F24(Player *player);
-};
+#include "../../Include/GameLogic/Rva002A8F24.h"
 
 class Rva005C4AD1LeaField
 {

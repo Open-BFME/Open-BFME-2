@@ -128,12 +128,7 @@ struct Rva005AD6C3Holder
 	Rva005C4AD1LeaField *m_08;	// +0x08
 };
 
-class Rva002A8F24
-{
-public:
-	Rva002A8AB1Record *rva002A8AB1(void *owner);
-	void *rva002A8F24(Player *player);
-};
+#include "../../Include/GameLogic/Rva002A8F24.h"
 
 extern Rva002A8F24 *TheSkirmishAIManager;
 

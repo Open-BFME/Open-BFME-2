@@ -50,10 +50,7 @@ class Player { public:
 class Rva002AD5ED { public: float rva002AD5ED(const AsciiString&); };
 class Rva002A9BF2 { public: void* rva002A9BF2(); };
 struct Rva002A8AB1Record;
-class Rva002A8F24 { public:
- unsigned char gap00[0x850]; float discount;
- Rva002A8AB1Record* rva002A8AB1(void*);
-};
+#include "../../../Include/GameLogic/Rva002A8F24.h"
 // Reuse the data-ledger provider, defined by Rva005EEA20Find.cpp.
 extern Rva002A8F24* TheSkirmishAIManager;
 class Overridable;
@@ -78,7 +75,7 @@ int ThingTemplate::rva0033A69A(const Player*player,int builderAddress,int price)
  factionFactor*=((Player*)player)->getProductionCostChangeBasedOnTemplate(this,false);
  float handicap=player->handicap.getHandicap(Handicap::BUILDCOST,this); float cost=baseCost; cost*=handicap;cost*=factionFactor;cost*=builderFactor;
  if((int)((Rva002A9BF2*)player)->rva002A9BF2()==3 && TheSkirmishAIManager->rva002A8AB1((void*)player)) {
-  return (int)(cost*(1.0f-CappedDiscount(TheSkirmishAIManager->discount)));
+  return (int)(cost*(1.0f-CappedDiscount(TheSkirmishAIManager->field_850)));
  }
  return (int)cost;
 }

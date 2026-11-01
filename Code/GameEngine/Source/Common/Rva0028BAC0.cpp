@@ -33,11 +33,7 @@ class LuaDrawableState
 public:
 	void rva00333F37(Object *p);
 };
-class Rva002A8F24
-{
-public:
-	void UnRegister(Object *p);
-};
+#include "../../Include/GameLogic/Rva002A8F24.h"
 // Bind to the existing data-ledger owner; keep the retail access view local.
 class PartitionManager;
 extern PartitionManager *ThePartitionManager;

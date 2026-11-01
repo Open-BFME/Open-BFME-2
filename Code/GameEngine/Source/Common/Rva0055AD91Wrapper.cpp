@@ -1,11 +1,7 @@
 // cl: /MD
 // ?registerWithBuilder@AIBuildable@@UAEXPAX_N@Z retail 0x0055AD91 41B: wrapper loads global 0x00DFEEF8 to get record for arg then clears +0x10 when flag byte 0 then adds this via rowed 0x004EC83F; evidence vtable slot 6 plus pin-rowed callees plus sibling 0x0055ADBA
 struct Rva002A8AB1Record;
-class Rva002A8F24
-{
-public:
-	Rva002A8AB1Record *rva002A8AB1(void *x);
-};
+#include "../../Include/GameLogic/Rva002A8F24.h"
 
 class AIBuildable;
 class AIBuilder

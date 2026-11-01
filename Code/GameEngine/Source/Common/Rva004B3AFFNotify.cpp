@@ -19,12 +19,7 @@ public:
 	void rva004CE4A0();
 };
 
-class Rva002A8F24
-{
-public:
-	void UnRegister(Object *obj);
-	void rva002A9365(Object *obj);
-};
+#include "../../Include/GameLogic/Rva002A8F24.h"
 
 class StringHolder
 {

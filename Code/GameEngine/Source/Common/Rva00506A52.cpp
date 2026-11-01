@@ -62,11 +62,7 @@ struct Rva005DCC4BSource
 	int m_field74;
 };
 
-class Rva002A8F24
-{
-public:
-	void *rva002A8F24(Player *p);
-};
+#include "../../Include/GameLogic/Rva002A8F24.h"
 
 class Rva0025BFF8
 {

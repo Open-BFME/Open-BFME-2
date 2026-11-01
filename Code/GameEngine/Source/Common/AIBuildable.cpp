@@ -14,12 +14,7 @@ struct Rva002A8AB1Record;
 
 class Player;
 
-class Rva002A8F24
-{
-public:
-	Rva002A8AB1Record *rva002A8AB1(void *x);
-	void *rva002A8F24(Player *player);
-};
+#include "../../Include/GameLogic/Rva002A8F24.h"
 
 class Rva004EC276
 {

@@ -10,7 +10,7 @@
 class Player;struct Coord3D;
 class Rva005D7A42Body {public:virtual void slot0();virtual void slot1();virtual void slot2();virtual void slot3();virtual void slot4();virtual float value14();};
 class Object {public:Player *getControllingPlayer()const;char pad[0x254];Rva005D7A42Body*body;};
-class Rva002A8F24 {public:void *rva002A8F24(Player*);};
+#include "../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
 extern GameLogic *TheGameLogic;
 class Rva005C4AD1LeaField {public:void *get()const;};

@@ -16,11 +16,7 @@ struct Rva002A8B59Data
 	AsciiString m_28;
 };
 
-class Rva002A8F24
-{
-public:
-	Rva002A8B59Data *rva002A8B59(void *key);
-};
+#include "../../Include/GameLogic/Rva002A8F24.h"
 
 extern Rva002A8F24 *TheSkirmishAIManager;
 

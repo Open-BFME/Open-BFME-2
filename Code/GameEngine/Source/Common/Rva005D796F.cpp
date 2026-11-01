@@ -67,11 +67,7 @@ public:
 	int m_74;
 };
 
-class Rva002A8F24
-{
-public:
-	void *rva002A8F24(Player *player);
-};
+#include "../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
 
 class Rva005C4AD1LeaField
