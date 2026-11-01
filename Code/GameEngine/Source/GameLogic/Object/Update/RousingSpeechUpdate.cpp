@@ -98,6 +98,7 @@ enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 enum UpdateSleepTime
 {

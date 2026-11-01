@@ -10578,6 +10578,22 @@ Three current previews retain LINKS for 1,435 bytes against index 86db074988.
 The shared view needs reconciliation before consolidation; a mixed constant
 getter remains outside the merge. Current dry-run and preview evidence:
 `reverse/attempt_support/geometry-upgrade-current-prerequisites-20261101/`.
+
+### RousingSpeechUpdate TU prerequisites (2026-11-01, Cortys)
+
+The supported consolidation dry run currently accepts none of four donors:
+constructor/base declarations and trigger fields differ, and the behavior
+destructor changes bytes. The seed's two stale behavior-header queue rows
+are cleared independently: it already inherited the canonical types through
+UpdateModule, and its direct BehaviorModule include preserves all 66 emitted
+code definitions and relocations, 25 verified rows and a 1,181-byte prediction.
+Both owning acceptance commands pass. Duplicate-destructor debt stays intact.
+
+The constructor's +E4 vector element remains a separate concrete correction:
+the native ModifierName parser entry and current destructor/trigger establish
+AsciiString, while the constructor still names BfmeE16. A private correction
+passes its three existing rows; it has not yet been applied. Evidence:
+`reverse/attempt_support/rousing-speech-tu-prerequisites-20261101/`.
 Clearance: pending.
 
 **Header-adoption prerequisite (2026-10-28, base `fa53c16f5f`):** the default
