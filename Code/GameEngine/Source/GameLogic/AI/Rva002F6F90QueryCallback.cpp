@@ -4,11 +4,6 @@
 // Clean BFME1 IsCheckForAdjust003F2B60 donor revision 9cbfb551 supplies the
 // predicate control flow; field offsets, kind bit and ABI come from retail.
 struct Rva002F600CCoord { float x, y, z; };
-struct Rva002F600CMetadata
-{
-    unsigned char prefix0C[12];
-    unsigned int packed;
-};
 class Object;
 class LocomotorSet;
 struct Coord3D;

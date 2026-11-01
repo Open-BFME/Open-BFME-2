@@ -175,23 +175,8 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-class DockUpdateModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
 
-class TeleportToCasterSpecialPowerModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
 
-class StoreObjectsSpecialPowerModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
 
 class __declspec(novtable) CurseSpecialPowerModuleData : public SpecialAbilityUpdateModuleData
 {
@@ -209,37 +194,17 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-class SupplyWarehouseDockUpdateModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
 
-class DelayedDeathBodyModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
 
 int Rva004CE29DGet(void);
 
 int Rva004CE52EGet(void);
 
-class DominateEnemySpecialPowerModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
 
 int Rva0033A495Get(void);
 
 void Rva0033DC9CParse(INI *, void *, void *, const void *);
 
-class GiveUpgradeUpdateModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
 
 // ?buildFieldParse@WeaponSetUpgradeModuleData@@SAXAAVMultiIniFieldParse@@@Z
 // retail 0x004B56F6 (34 bytes): double-add on the rowed ModuleData getter
@@ -251,11 +216,6 @@ public:
 // theory that the WeaponSetUpgrade pool key ending at this address was
 // packing coincidence. HealContain is a real, separate module (data factory
 // 0x24B80D, ctor 0x466D37).
-class WeaponSetUpgradeModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/CurseSpecialPower.cpp
 

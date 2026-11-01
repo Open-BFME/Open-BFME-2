@@ -3,22 +3,7 @@
 
 // ?rva005C9AB4@Rva005C9B76@@QAEXXZ @ 0x005C9AB4 41B
 // Evidence: layout from Rva005C9B76Ctor +0x4 list +0x14 arg +0x18 flag +0x1C int; rowed forEach 0x005C9A64 and forwarder 0x005CB260; caller 0x00575038.
-class Rva005C9A64Listener
-{
-public:
-	virtual void notify(void *, int);
-};
 
-class Rva005C9A64List
-{
-public:
-	void forEach(void (Rva005C9A64Listener::*notify)(void *, int), void *arg, int value);
-private:
-	Rva005C9A64Listener **m_begin;
-	Rva005C9A64Listener **m_end;
-	Rva005C9A64Listener **m_capacity;
-	unsigned int m_index;
-};
 
 class Rva005C98C0
 {
@@ -26,20 +11,6 @@ public:
 	void *rva005C98C0(int id);
 };
 
-class Rva005C9B76
-{
-public:
-	void rva005C9AB4();
-	int rva005C9ADD(int id, int);
-	void rva005C9B56(int v);
-	virtual ~Rva005C9B76();
-private:
-	Rva005C9A64List m_list;
-	void *m_arg14;
-	unsigned char m_b18;
-	char m_pad19[3];
-	int m_i1C;
-};
 
 class Rva005C9A89Listener
 {

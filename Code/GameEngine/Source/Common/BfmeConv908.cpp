@@ -12,28 +12,8 @@ void bfmeTwoRB(int k, int f);
 
 void bfmeGoRB(void);
 
-class BfmeThingRC
-{
-public:
-	void bfmeGoRC();
-	char m_bfmePad[0x24];
-	void *m_bfmeP;
-	int m_bfmeN;
-};
 
-class BfmeSubRD
-{
-public:
-	void bfmeFillRD(void **out);
-};
 
-class BfmeThingRD
-{
-public:
-	void **bfmeGoRD(void **out);
-	char m_bfmePad[0x18];
-	BfmeSubRD *m_bfmeSub;
-};
 
 class BfmeOtherRE
 {

@@ -54,9 +54,3 @@ void *bfmeGoEMEb(void *item)
 void __stdcall bfmeGoEMGa(void *a);
 void __stdcall bfmeGoEMGb(void *a);
 
-class BfmeThingEMH
-{
-public:
-	void bfmeGoEMHa(void);
-	void bfmeGoEMHb(void);
-};

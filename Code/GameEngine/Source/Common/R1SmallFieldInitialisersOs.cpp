@@ -23,12 +23,6 @@
 // R1DwordPair is a shape name, not a recovered identity: the two stores at
 // +0x00 and +0x04 establish two consecutive dwords and nothing more.
 
-class R1DwordPair
-{
-public:
-	int m_first;
-	int m_second;
-};
 // Clean BF1 9cbfb551fe Common/MidTwoStoreCtors.cpp supplies two-field
 // initialization semantics only; donor constructor/class identity is not
 // asserted for these target bodies. Actual native ECX receiver/EAX return,

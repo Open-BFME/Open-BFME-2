@@ -78,11 +78,6 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-class W3DSupplyDrawModuleData : public W3DModelDrawModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
 
 class W3DTruckDrawModuleData : public W3DModelDrawModuleData
 {

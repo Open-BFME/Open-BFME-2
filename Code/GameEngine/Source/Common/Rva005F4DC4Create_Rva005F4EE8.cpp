@@ -17,21 +17,7 @@
 
 // The two actions, as Rva005FAB16Ctor.cpp lays them out; their constructors
 // are inlined here.
-struct Rva005F4C52
-{
-	virtual void _vf() {}
-	int m_ref;
-	Payload005FAB16 m8;
-	__declspec(dllimport) __forceinline Rva005F4C52(const Payload005FAB16 &o) : m_ref(0), m8(o) {}
-};
 
-struct Rva005F4C70
-{
-	virtual void _vf() {}
-	int m_ref;
-	Payload005FAB16 m8;
-	__declspec(dllimport) __forceinline Rva005F4C70(const Payload005FAB16 &o) : m_ref(0), m8(o) {}
-};
 
 // A counted handle to either action (count at +4), released through the
 // rowed ReleaseTreeHintRef00217D4C and passed on as a TreeHintRef00217D4C,

@@ -103,11 +103,6 @@ struct TextureRemapStruct
 	BfmeHandleCX Dest;
 };
 
-class Gen_007A0340
-{
-public:
-	BfmeHandleCX bfmeGet(int index) const;
-};
 
 // BFME MeshMatDesc fields used by the original matinfo.cpp traversal.
 class MeshMatDescClass {

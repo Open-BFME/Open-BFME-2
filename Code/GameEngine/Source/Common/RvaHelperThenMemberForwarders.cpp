@@ -74,11 +74,6 @@ void Rva005E6A00::rva005E6A00()
     m_20->rva005E69AC();
 }
 // 0x005E590F is rowed as ?step@Rva005E590F@@QAEXXZ (RvaHelperMemberSteps.cpp).
-class Rva005E590F
-{
-public:
-	void step();
-};
 template <typename T> class StringBase
 {
 	friend class Rva005CDDF0;

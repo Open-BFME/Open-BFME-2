@@ -33,15 +33,6 @@ public:
 };
 
 
-class Rva00057D38
-{
-	char m_pad[0x10];
-	int m_count10;
-public:
-	int rva0053F1EC(unsigned int n);
-	void rva000556AB(unsigned int a, unsigned int b);
-	int rva00057D38(unsigned int a, unsigned int b);
-};
 
 
 class Rva000E0536
@@ -56,26 +47,8 @@ public:
 };
 
 
-class Rva003EF34A
-{
-	char m_pad[0x10];
-	int m_count10;
-public:
-	int rva00212858(unsigned int n);
-	void rva003EF264(unsigned int a, unsigned int b);
-	int rva003EF34A(unsigned int a, unsigned int b);
-};
 
 
-class Rva0052B7F8
-{
-	char m_pad[0x10];
-	int m_count10;
-public:
-	int rva00212858(unsigned int n);
-	void rva0052B737(unsigned int a, unsigned int b);
-	int rva0052B7F8(unsigned int a, unsigned int b);
-};
 
 
 // 0x00058913 42B: fills a 9-byte (int int byte) temp via rowed reserve-then-set
@@ -119,15 +92,4 @@ void Rva000E0536::rva000E055A(void *dst, unsigned int b)
 // the SAME incoming this (no mov ecx: the callee's owner view is reused
 // here, owner identity unproven) with a stack 9-byte out-slot and the index,
 // then copies the slot (dword, dword, byte) to the caller's out pointer.
-struct Rva00058913Out
-{
-	int m_0;
-	int m_4;
-	char m_8;
-};
 
-class Rva00058913
-{
-public:
-	void rva00058913(Rva00058913Out *o, unsigned int b);
-};

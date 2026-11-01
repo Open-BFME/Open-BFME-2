@@ -32,13 +32,6 @@ public:
 	float b;
 };
 
-class AsciiStringFull
-{
-public:
-	AsciiStringFull() { m_text = 0; }
-private:
-	char *m_text;
-};
 
 class RGBColorKey
 {

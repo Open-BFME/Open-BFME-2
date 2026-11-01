@@ -28,18 +28,7 @@ Rva00210EF1::Rva00210EF1(const AsciiString &name) : Rva003FAFB9(name)
 {
 }
 
-class Rva003B0454Base
-{
-public:
-	Rva003B0454Base(int a);
-	virtual void f0() = 0;
-};
 
-class Rva003B0835 : public Rva003B0454Base
-{
-public:
-	Rva003B0835(int a);
-};
 
 
 // The rowed chain constructor 0x005AFE86 (Rva005AFE86Ctor.cpp).
