@@ -1,0 +1,11 @@
+{
+  "base": "5bff310467b9d81508bcb92bf5102054277c4cd3",
+  "before_definitions": 407,
+  "after_definitions": 406,
+  "added": [],
+  "removed": [
+    "?crc@Player@@MAEXPAVXfer@@@Z"
+  ],
+  "changed": [],
+  "all_retained_whole_code_and_relocations_equal": true
+}

@@ -33,6 +33,10 @@ The obsolete relation-map CRC is removed separately: the native four-slot
 contract has no CRC slot, all 407 retained complete definitions/relocations
 are unchanged, and all native rows/global remain verified. Its single
 placeholder hatch retires; rowed loadPostProcess stays in place.
+The unrowed Player CRC is removed under the native name-slot contract as a
+separate change. All 406 retained definitions/relocations and all native rows
+remain unchanged, and one more placeholder hatch retires. The legacy xfer
+body and other donor dependencies remain at this step.
 
 
 ### Six-source Vector4 batch (2026-11-01)

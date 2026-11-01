@@ -57,3 +57,13 @@ All 12 functions and the global still verify. Only the CRC definition is lost:
 407 complete code definitions/relocations remain identical to the preceding
 408-definition control. The owning counter retires its one placeholder hatch.
 The preview has no new unresolved CRC and retains the remaining blockers.
+
+## Player donor CRC
+
+The unrowed Player::crc body is removed in its own commit. The canonical
+native primary contract has loadPostProcess, GetSnapshotName and xfer, without
+a CRC slot; the imported CRC has no runtime/data incoming edge in the object
+or outside incoming edge in the published index. All 12 functions and the
+global still verify. Only this definition disappears, leaving all 406 complete
+code definitions/relocations identical to the preceding 407-definition control.
+Its one present-unmatched hatch retires through the owning counter.

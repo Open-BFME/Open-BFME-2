@@ -12072,7 +12072,6 @@ present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	calcClosestConstr
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	canAffordBuild@Player@@QBE_NPBVThingTemplate@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	canBuildMoreOfType@Player@@QBE_NPBVThingTemplate@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	countReadyShortcutSpecialPowersOfType@Player@@QAEHW4SpecialPowerType@@@Z	1
-present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	crc@Player@@MAEXPAVXfer@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	expressSpecialPowerReadyFrame@Player@@QAEXPBVSpecialPowerTemplate@@I@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	findAnyExistingObjectWithThingTemplate@Player@@QAEPAVObject@@PBVThingTemplate@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	findMostReadyShortcutSpecialPowerForThing@Player@@QAEPAVObject@@PBVThingTemplate@@AAI@Z	1
