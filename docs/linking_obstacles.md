@@ -10885,10 +10885,19 @@ three distinct constructors (0x000F0F19, 0x58 bytes; 0x000F0F2B, 0x68 bytes;
 `BfmeShadowBufferOwnerBase`. Trial: that view in W3DProjectedShadow.cpp and
 Rva00109610Dtor.cpp gave `./build.sh` 58/58 exact. But `link_check` dropped them
 3,266 -> 0 and 79 -> 0 B: the emitted `??1Rva000F0F2B` COMDAT differs from the
-volumetric copy, which is first in link order. Reverted. Prerequisite: make every
-`??1Rva000F0F2B` copy the inline vptr reset (W3DVolumetricShadowCtor.cpp and
-W3DVolumetricShadowV2Constructor.cpp) together with the uw_00763a58/uw_007644e3
-repoints. Then the Rva00109610 base clause in the W3DProjectedShadow TU unifies.
+volumetric copy, which is first in link order. Reverted.
+Repaired in `5a3ef66578`: W3DVolumetricShadowCtor.cpp, W3DProjectedShadow.cpp and
+Rva00109610Dtor.cpp now all declare `Rva000F0F2B : public BfmeShadowBufferOwnerBase`
+with no destructor of their own, so every emitted `??1Rva000F0F2B` is the same
+inline reset. V2Constructor only declares it. Verification: `./build.sh` 60/60;
+current-object `link_check` over the ten users is unchanged at 5,862 B, all LINKS;
+scoped DIR32 OK (110 rows). Remaining: `tu_skeleton --merge`'s link guard reads the
+census copy of W3DVolumetricShadowCtor.cpp (the old call body), so it still refuses
+even the seed (`comdat ??1Rva000F0F2B@@UAE@XZ (first)`) until a census records
+`5a3ef66578`. After that, Rva00109610Dtor.cpp should compose. The other 11 donors
+still fail to compile (see the W3DProjectedShadow.cpp rows in
+`reverse/re_attempts.log`). The uw_00763a58/uw_007644e3 funclet repoints are not
+retried: they still name `??1Rva000F0F2B`, which has no row or pin.
 
 ### LINK-096: placeholder `Rva0015E640` hid `SimpleDynVecClass<Vector3>` from its copy-ctor consumers
 Status: Repair landed / awaiting verification for the WW3D2 subset; Blocked for
