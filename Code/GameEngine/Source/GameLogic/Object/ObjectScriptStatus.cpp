@@ -82,13 +82,6 @@ enum ObjectStatusTypes
 // Native 0x23DA79 consumes two arguments (RET8) and builds four words.
 // The boolean is already on the outer 0x28CDEB call stack while the mask
 // is constructed; it belongs to that setter, whose own RET8 consumes it.
-class Rva0023DA79
-{
-public:
-	Rva0023DA79 *rva0023DA79(int ignored, int index);
-	unsigned int m_bits[4];
-};
-
 class Rva00346BC0
 {
 public:

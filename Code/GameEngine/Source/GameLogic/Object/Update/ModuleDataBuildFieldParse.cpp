@@ -321,11 +321,6 @@ FIELD_PROC(PickupStuffUpdateModuleData, BfmePickupStuffUpdateFields, PickupStuff
 FIELD_PROC(HeightDieUpdateModuleData, (unsigned int)&g_00C4CFC8, HeightTable)
 FIELD_PROC(FloatUpdateModuleData, (unsigned int)&g_00C4C7A4, EnabledTable)
 FIELD_PROC(AutoAbilityBehaviorModuleData, (unsigned int)&g_00C41690, ScanTable)
-class AimWeaponBehaviorModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
 FIELD_PROC(AutoFindHealingUpdateModuleData, (unsigned int)&g_00C4EC68, HealScanTable)
 FIELD_PROC(FloodUpdateModuleData, BfmeFloodUpdateFields, FloodTable)
 FIELD_PROC(StrafeAreaUpdateModuleData, BfmeStrafeAreaUpdateFields, StrafeTable)

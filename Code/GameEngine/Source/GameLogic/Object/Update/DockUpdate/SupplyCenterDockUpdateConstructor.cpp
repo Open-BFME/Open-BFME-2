@@ -604,11 +604,6 @@ void RadarUpdate::updateAnchor()
 {
 }
 
-struct Rva0056B218B1
-{
-	virtual void b1Anchor();
-};
-
 struct SiegeAIUpdateIface1
 {
 	virtual void siegeAIUpdateIface1Anchor();

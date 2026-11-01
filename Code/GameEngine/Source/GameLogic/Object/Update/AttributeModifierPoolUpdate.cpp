@@ -15,11 +15,6 @@ enum NameKeyType { NAMEKEY_INVALID=-1 };
 #include "../../../../../Libraries/Include/Lib/BfmeE16.h"
 #pragma comment(linker, "/alternatename:?unused@BehaviorModuleOther@@EAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
 typedef unsigned int UnsignedInt;
-struct XferException
-{
-	char *text;
-	int tag;
-};
 class Snapshot;
 class AsciiString;
 class UnicodeString;
@@ -93,15 +88,6 @@ public:
 	Rva00297360Element *m_start;
 	Rva00297360Element *m_finish;
 	Rva00297360Element *m_end;
-};
-
-class BehaviorModuleBase
-{
-	virtual void unused();
-public:
-	Object *getObject() const { return m_object; }
-	const ModuleData *m_moduleData;
-	Object *m_object;
 };
 
 class BehaviorModuleOther

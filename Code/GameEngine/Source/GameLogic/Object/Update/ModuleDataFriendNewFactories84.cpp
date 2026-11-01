@@ -35,13 +35,6 @@ private:
 	unsigned char m_pad[0x80 - 4];
 };
 
-class ScavengerSpecialPowerModuleData
-{
-public:
-	static ModuleData *friend_newModuleData(INI *ini);
-};
-
-
 // 0x002531B0 / 0x0025327A: both news 0xC8 with the one folded ctor
 // ??0EvacuateGarrisonSpecialPowerModuleData (rowed 0x4CDFD9); parse procs
 // 0x8CDBE1 and 0x8CDFEB.

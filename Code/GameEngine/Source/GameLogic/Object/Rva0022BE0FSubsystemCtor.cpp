@@ -56,11 +56,6 @@ struct Rva003ED321Element
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
-class BFME2NativeNetwork
-{
-public:
-};
-
 // 0x001B4E63 is the rowed SubsystemInterface ctor.
 #include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 

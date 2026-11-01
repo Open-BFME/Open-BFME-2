@@ -536,12 +536,6 @@ struct BFMEObjectStatusWord
 	UnsignedInt m_status;					///< retail this+0x90
 };
 
-class BFMEDeletablePath : public Path
-{
-public:
-	void destroy(void) { Path::~Path(); }
-};
-
 #define BFME_AIUPDATE_SLOT(N) virtual void slot##N() = 0
 
 class BFMEDestroyPathAIUpdate

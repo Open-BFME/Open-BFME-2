@@ -128,12 +128,6 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &p);
 };
 
-class UnleashSpecialPowerModuleData : public SpecialAbilityUpdateModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &p);
-};
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/EvacuateGarrisonSpecialPowerModuleDataCtor.cpp
 
 EvacuateGarrisonSpecialPowerModuleData::EvacuateGarrisonSpecialPowerModuleData()

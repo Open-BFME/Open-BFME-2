@@ -68,11 +68,3 @@ private:
 	unsigned char m_pad[0xC8 - 4];
 };
 
-class UnleashSpecialPowerModuleData
-{
-public:
-	static ModuleData *friend_newModuleData(INI *ini);
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-

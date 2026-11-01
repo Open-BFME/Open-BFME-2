@@ -539,12 +539,6 @@ public:
 // Pathfinder::addObjectToPathfindMap OUT OF LINE (0x003D57F0, which forwards to
 // classifyObjectFootprint with a third argument) where ZH inlines it -- so the
 // call site goes through a TU-local shim to emit the REL32.
-class BFMEPathfinderMapShim
-{
-public:
-	void addObjectToPathfindMap( Object *obj );
-};
-
 //-------------------------------------------------------------------------------------------------
 class BfmeMassSelectableUIResult;
 

@@ -10,16 +10,6 @@
 typedef bool Bool;
 typedef unsigned int UnsignedInt;
 
-class Rva0028D891Owner
-{
-public:
-	Bool testBit(int bit) const;
-
-private:
-	unsigned char m_pre[0x370];
-	unsigned int m_flagBits[4];
-};
-
 class Rva002AA8BF
 {
 public:

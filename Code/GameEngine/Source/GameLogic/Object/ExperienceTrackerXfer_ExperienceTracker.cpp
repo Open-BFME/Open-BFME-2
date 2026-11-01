@@ -99,13 +99,6 @@ public:
 };
 // An experience level as read here: required experience at +0x18 and the
 // value at +0xFC this tracker reports.
-struct ExperienceTrackerLevelView
-{
-	char m_unrecovered00[ 0x18 ];
-	int m_18;
-	char m_unrecovered1C[ 0xFC - 0x1C ];
-	int m_FC;
-};
 class ExperienceLevelSystem;
 extern ExperienceLevelSystem *TheExperienceLevelSystem;
 

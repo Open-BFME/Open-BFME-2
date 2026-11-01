@@ -167,7 +167,6 @@ enum ObjectStatusTypes { STATUS_CONSTRUCTION=2, STATUS_39=0x39, STATUS_32=0x32 }
 enum KindOfType { KINDOF_84=0x84 };
 enum Relationship { ENEMIES=0,NEUTRAL=1,ALLIES=2 };
 enum WeaponSlotType { PRIMARY=0 };
-class Rva002C9400ByteField { public: unsigned char get() const; };
 #include "../../../Include/GameLogic/Weapon.h"
 struct ObjectExperienceTemplate { char pad[0x11f]; unsigned char flags11f; };
 class Object {

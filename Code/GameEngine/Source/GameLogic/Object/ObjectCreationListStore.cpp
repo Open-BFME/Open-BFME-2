@@ -39,12 +39,6 @@ namespace _STL { template <> __declspec(dllimport) __forceinline void * * vector
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> __declspec(dllimport) __forceinline void * * vector<void *,allocator<void *> >::begin() { return this->_M_start; } }
 
-class AsciiStringMember
-{
-public:
-	~AsciiStringMember();
-};
-
 // The base destructor 0x001B4E74 is rowed as ??1SubsystemInterface@@UAE@XZ.
 // Rva001F092ACtor.cpp declares the same single destructor slot, so both units
 // emit the same ObjectCreationListStore vftable.

@@ -12,12 +12,6 @@
 struct Rva00414BDBElement { unsigned char m_data[0x30]; ~Rva00414BDBElement(); };
 namespace _STL { template <> vector<Rva00414BDBElement, allocator<Rva00414BDBElement> >::~vector(); }
 
-class AsciiStringMember
-{
-public:
-	~AsciiStringMember();
-};
-
 // Base ctor 0x001B4E63 / dtor 0x001B4E74 by their row names ??0/??1SubsystemInterface (SubsystemInterface.cpp).
 #include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 

@@ -308,12 +308,6 @@ public:
 	virtual NameKeyType getModuleNameKey() const;
 };
 
-class SlowDeathBehavior
-{
-protected:
-	virtual const char *GetSnapshotName() const;
-};
-
 BFME_LITERAL_NAME_GETTER(Rva0047EBA9Named, "AnimalAIUpdate")
 
 // tu-skeleton: 0x0047EB78 49B ??1AnimalAIUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0026E836Derived.cpp (not merged yet)
