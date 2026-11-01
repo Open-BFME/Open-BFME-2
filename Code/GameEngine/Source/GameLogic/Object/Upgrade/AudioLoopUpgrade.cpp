@@ -38,6 +38,128 @@
 	}
 #pragma inline_depth(0)
 #pragma inline_depth()
+//
+// ??1AudioLoopUpgrade@@MAE@XZ, retail 0x004B7B20, 97 bytes.
+// AudioLoopUpgrade behavior dtor: restores the five vptrs (+0x00 0xC58CC4,
+// +0x0C 0xC496F8, +0x10 0xC58CB8, +0x20 0xC58C70, +0x28 0xC58C68, DIR32),
+// stops the loop sound through TheAudio (data 0x009FE6E8) at AudioManager
+// slot 0x6c (removeAudioEvent) with the +0x2c handle when present (state 0),
+// then calls the primary base dtor (rowed ??1UpdateModule@@UAE@XZ at
+// 0x0024A797, state -1). Layout from the rowed ctor 0x004B7CBC (size 0x30
+// via factory, m_x2c/audio handle at +0x2c) and the UpdateModule/STL pad
+// shape of the ALU donor TU. Caller is the slot-0 ??_G at 0x004B7D37.
+// Shape follows ArmorUpgradeDtor/PoisonedBehaviorDtor (multi-vptr restore
+// plus UpgradeModule-family base call) plus FoundationAIUpdateSlot14
+// (TheAudio slot-0x6c remove).
+typedef unsigned int AudioHandle;
+struct BfmeAudioEventPrefix136;
+class Xfer;
+class AudioManager
+{
+public:
+	virtual void _pad00() = 0;
+	virtual void _pad01() = 0;
+	virtual void _pad02() = 0;
+	virtual void _pad03() = 0;
+	virtual void _pad04() = 0;
+	virtual void _pad05() = 0;
+	virtual void _pad06() = 0;
+	virtual void _pad07() = 0;
+	virtual void _pad08() = 0;
+	virtual void _pad09() = 0;
+	virtual void _pad10() = 0;
+	virtual void _pad11() = 0;
+	virtual void _pad12() = 0;
+	virtual void _pad13() = 0;
+	virtual void _pad14() = 0;
+	virtual void _pad15() = 0;
+	virtual void _pad16() = 0;
+	virtual void _pad17() = 0;
+	virtual void _pad18() = 0;
+	virtual void _pad19() = 0;
+	virtual void _pad20() = 0;
+	virtual void _pad21() = 0;
+	virtual void _pad22() = 0;
+	virtual void _pad23() = 0;
+	virtual void _pad24() = 0;
+	virtual AudioHandle addAudioEvent(const BfmeAudioEventPrefix136 *eventToAdd) = 0;
+	virtual void _pad26() = 0;
+	virtual void removeAudioEvent(AudioHandle handle) = 0;
+	virtual void _pad28() = 0;
+	virtual void _pad29() = 0;
+	virtual void _pad30() = 0;
+	virtual void _pad31() = 0;
+	virtual void _pad32() = 0;
+	virtual void _pad33() = 0;
+	virtual void _pad34() = 0;
+	virtual void _pad35() = 0;
+	virtual void _pad36() = 0;
+	virtual void _pad37() = 0;
+	virtual void _pad38() = 0;
+	virtual void _pad39() = 0;
+	virtual void _pad40() = 0;
+	virtual void _pad41() = 0;
+	virtual void _pad42() = 0;
+	virtual void _pad43() = 0;
+	virtual void _pad44() = 0;
+	virtual void _pad45() = 0;
+	virtual void _pad46() = 0;
+	virtual void _pad47() = 0;
+	virtual void _pad48() = 0;
+	virtual void _pad49() = 0;
+	virtual void _pad50() = 0;
+	virtual void _pad51() = 0;
+	virtual void _pad52() = 0;
+	virtual void _pad53() = 0;
+	virtual void _pad54() = 0;
+	virtual void _pad55() = 0;
+	virtual void _pad56() = 0;
+	virtual void _pad57() = 0;
+	virtual void _pad58() = 0;
+	virtual void _pad59() = 0;
+	virtual void _pad60() = 0;
+	virtual void _pad61() = 0;
+	virtual void _pad62() = 0;
+	virtual void _pad63() = 0;
+	virtual void _pad64() = 0;
+	virtual void _pad65() = 0;
+	virtual void _pad66() = 0;
+	virtual void _pad67() = 0;
+	virtual void _pad68() = 0;
+	virtual void _pad69() = 0;
+	virtual void _pad70() = 0;
+	virtual void _pad71() = 0;
+	virtual void _pad72() = 0;
+	virtual void _pad73() = 0;
+	virtual void _pad74() = 0;
+	virtual void _pad75() = 0;
+	virtual void _pad76() = 0;
+	virtual void _pad77() = 0;
+	virtual void _pad78() = 0;
+	virtual void _pad79() = 0;
+	virtual void _pad80() = 0;
+	virtual void _pad81() = 0;
+	virtual void _pad82() = 0;
+	virtual void _pad83() = 0;
+	virtual void _pad84() = 0;
+	virtual void _pad85() = 0;
+	virtual void _pad86() = 0;
+	virtual void _pad87() = 0;
+	virtual void xferAudioHandle(Xfer *xfer, AudioHandle *handle) = 0;
+};
+extern AudioManager *TheAudio;
+// Open-BFME5: ModuleFactory's create proc 0x0011E0B0 allocates 0x30 and
+// reaches this body, which identifies AudioLoopUpgrade.
+//
+// Four vftable slots: the UpdateModule base is inline (+0x0C/+0x10 and the
+// three member inits), the UpgradeMux base at +0x20 is a real call to the
+// independently matched constructor ILT 0x0003D24E, and the interface base at
+// +0x28 is inline. The most-derived class then overwrites all four.
+
+class Thing;
+class ModuleData;
+class Object;
+enum UpdateSleepTime { UPDATE_SLEEP_FOREVER = 0x3fffffff };
 
 class OpaqueRefCounted
 {
@@ -104,7 +226,6 @@ class BfmeFixedStorage002CF0F0
 public:
 	__declspec(nothrow) BfmeFixedStorage002CF0F0(const BfmeFixedStorage002CF0F0 &other);
 };
-
 
 class UpgradeMux
 {
@@ -384,13 +505,25 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-// tu-skeleton: 0x004B7B20 97B ??1AudioLoopUpgrade@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/AudioLoopUpgradeDtor.cpp (not merged yet)
+enum NameKeyType;
+
+class BfmeFixedStorage002CF0F0;
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/AudioLoopUpgradeDtor.cpp
+
+AudioLoopUpgrade::~AudioLoopUpgrade()
+{
+	if (TheAudio != 0)
+		TheAudio->removeAudioEvent(m_soundHandle);
+}
 
 // tu-skeleton: 0x004B7B81 6B ?name@AudioLoopUpgrade@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x004B7B87 35B ?update@AudioLoopUpgrade@@QAEHXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/AudioLoopUpgradeUpdate.cpp (not merged yet)
 
 // tu-skeleton: 0x004B7BAA 17B ?loadPostProcess@AudioLoopUpgrade@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/AudioLoopUpgradeLoadPostProcess.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/AudioLoopUpgrade.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/AudioLoopUpgrade.cpp
 
@@ -450,7 +583,6 @@ BfmeFixedStorage002CF0F0 *AudioLoopUpgrade::getDisabledTypesToProcess(BfmeFixedS
 // backward cast, which MSVC folds to `mov eax,[ecx-BACK]`; same shape and
 // reading as BFME1's ChainedFieldGetters.
 
-// tu-skeleton: 0x004B7C00 76B ??0AudioLoopUpgradeModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/AudioLoopUpgradeModuleDataCtor.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp
 
@@ -468,9 +600,41 @@ void AudioLoopUpgradeModuleData::buildFieldParse(MultiIniFieldParse &parse)
 // collided with select-any copies. The anchor keeps this unit's row copies;
 // it is not retail code.
 
-// tu-skeleton: 0x004B7CBC 123B ??0AudioLoopUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/AudioLoopUpgradeCtorModuleFactory.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/AudioLoopUpgradeModuleDataCtor.cpp
 
-// tu-skeleton: 0x004B7D37 28B ??_GAudioLoopUpgrade@@MAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/AudioLoopUpgradeDtor.cpp (not merged yet)
+//
+// ??0AudioLoopUpgradeModuleData@@QAE@XZ, retail 0x004B7C00, 76 bytes.
+// Audio-side upgrade ModuleData: vtable 0x00C58CF8, size 0x154 (factory
+// 0x250798 news 0x154, sole caller). Members: sound holder at +0x08,
+// kill-after at +0x0C, kill-on-death at +0x10, Rva0025342C member at +0x14
+// (0x110 bytes, via rowed construct 0x25342C), DieMuxData at +0x124 (via
+// rowed init 0x4CE534).
+// Retail unwind state 0 calls Snapshot destruction at 0x0049B47C,
+// which restores vtable 0x00BBB554 at +0.
+
+// ??0AudioLoopUpgradeModuleData@@QAE@XZ @0x004B7C00
+AudioLoopUpgradeModuleData::AudioLoopUpgradeModuleData()
+	: m_soundToPlay()
+{
+	m_killAfterMS = 0;
+	m_killOnDeath = true;
+	m_member14.construct();
+	m_die124.init();
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/AudioLoopUpgradeCtorModuleFactory.cpp
+
+// The base is retail's UpdateModule: its constructor (0x00253390),
+// destructor and setWakeFrame are rowed elsewhere, so they are declared,
+// never defined here.
+
+// ??0AudioLoopUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z
+AudioLoopUpgrade::AudioLoopUpgrade(Thing *thing, const ModuleData *moduleData)
+	: UpdateModule(thing, moduleData), UpgradeMux()
+{
+	m_soundHandle = 1;
+	setWakeFrame(getObject(), UPDATE_SLEEP_FOREVER);
+}
 
 // tu-skeleton: 0x004B7D53 141B ?upgradeImplementation@AudioLoopUpgrade@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/AudioLoopUpgradeUpgradeImplementation.cpp (not merged yet)
 
@@ -482,7 +646,34 @@ void AudioLoopUpgradeModuleData::buildFieldParse(MultiIniFieldParse &parse)
 
 // tu-skeleton: 0x004B7E2D 15B ?performUpgradeFX@AudioLoopUpgrade@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxSlotOverrides.cpp (not merged yet)
 
-// tu-skeleton: 0x004B7E3C 57B ?rva004B7E3C@AudioLoopUpgrade@@UAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/AudioLoopUpgradeRva004B7E3C.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/AudioLoopUpgradeRva004B7E3C.cpp
+
+//
+// ?rva004B7E3C@AudioLoopUpgrade@@UAEXH@Z, retail 0x004B7E3C, 57 bytes.
+// Sits between the Disp8 getter at 0x004B7E23 and the rowed
+// ?xfer@AudioLoopUpgrade@@MAEXPAVXfer@@@Z at 0x004B7E75: checks the
+// AudioLoopUpgradeModuleData kill-on-death flag at +0x10 via the module
+// data at primary+0x04, stops the loop sound through TheAudio (data
+// 0x009FE6E8) at AudioManager slot 0x6c (removeAudioEvent) with the +0x2C
+// handle when present, marks it 1, then setWakeFrame via rowed 0x44DF71
+// to UPDATE_SLEEP_FOREVER. The secondary this at +0x28 gives primary via
+// -0x28, module data via -0x24, object via -0x20 and handle via +0x04
+// (primary+0x2C). Shape follows the rowed upgradeRemovalImplementation secondary helper
+// plus the FoundationAIUpdateSlot14 TheAudio remove. Honest address name:
+// method identity unproven.
+
+void AudioLoopUpgrade::rva004B7E3C(int unused)
+{
+	const AudioLoopUpgradeModuleData *data = (const AudioLoopUpgradeModuleData *)getModuleData();
+	if (!data->m_killOnDeath)
+		return;
+	if (TheAudio != 0) {
+		TheAudio->removeAudioEvent(m_soundHandle);
+		m_soundHandle = 1;
+	}
+	setWakeFrame(getObject(), UPDATE_SLEEP_FOREVER);
+	(void)unused;
+}
 
 // tu-skeleton: 0x004B7E75 72B ?xfer@AudioLoopUpgrade@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/AudioLoopUpgradeXfer.cpp (not merged yet)
 
@@ -490,7 +681,7 @@ void AudioLoopUpgradeModuleData::buildFieldParse(MultiIniFieldParse &parse)
 
 // tu-skeleton: 0x0078F0CE 11B uw_0078f0ce -- matched in Code/gen_small/uw_gen_010.cpp (not merged yet)
 
-// tu-skeleton: 0x0078F0D9 10B __ehhandler$??0AudioLoopUpgradeModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/AudioLoopUpgradeModuleDataCtor.cpp (not merged yet)
+// tu-skeleton: 0x0078F0F5 8B uw_0078f0f5 -- matched in Code/gen_small/uw_gen_011.cpp (not merged yet)
 
 // tu-skeleton: 0x0078F107 11B $L1611 -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/AudioLoopUpgradeUpgradeImplementation.cpp (not merged yet)
 
