@@ -1,0 +1,412 @@
+{
+ "bases": [
+  "SubsystemInterface",
+  "Snapshot"
+ ],
+ "bases_by": "retail-ctor and retail-dtor, manually reconciled",
+ "class": "AI",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 40,
+  "inherited": {
+   "base_views": 1,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x14": {
+    "4": 1
+   },
+   "0x18": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x24": 1
+     }
+    },
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x2fea85"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "SubsystemInterface",
+       "offset": 0,
+       "own_vftable": "0x8073d0",
+       "rule": "retail-ctor-call"
+      },
+      {
+       "kind": "target",
+       "name": "Snapshot",
+       "offset": 12,
+       "own_vftable": "0x8073c0",
+       "rule": "retail-inlined-base-vptr"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x2fea85"
+     ],
+     "value": 36
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x2fea85"
+     ],
+     "value": {
+      "0x10": [
+       4
+      ],
+      "0x18": [
+       4
+      ],
+      "0x1c": [
+       4
+      ],
+      "0x20": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x2fea85"
+     ],
+     "value": {
+      "0x14": [
+       "??0?$_List_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x2fea85"
+     ],
+     "value": {
+      "0x0": "0x8073d0",
+      "0xc": "0x8073c0"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x8073d0"
+     ],
+     "value": {
+      "count": 14,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GAI@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x2fed37"
+       },
+       {
+        "name": "?init@AI@@UAEXXZ",
+        "slot": 1,
+        "target": "0x2fd7d7"
+       },
+       {
+        "name": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+        "slot": 2,
+        "target": "0x1b5384"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 3,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 4,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 5,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 6,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 7,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?reset@AI@@UAEXXZ",
+        "slot": 9,
+        "target": "0x2feb3a"
+       },
+       {
+        "name": "?update@AI@@UAEXXZ",
+        "slot": 10,
+        "target": "0x2fd7dc"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 11,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 12,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 13,
+        "target": "0x47a69c"
+       }
+      ],
+      "table": "0x8073d0"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 9,
+  "retail_vtables": {
+   "0x8073c0": {
+    "offset": 12,
+    "slots": {},
+    "stores": 1
+   },
+   "0x8073d0": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "??_GAI@@UAEPAXI@Z",
+     "1": "?init@AI@@UAEXXZ",
+     "10": "?update@AI@@UAEXXZ",
+     "11": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "12": "??1Region2D@@QAE@XZ",
+     "13": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "2": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+     "3": "??1Region2D@@QAE@XZ",
+     "4": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "5": "?IsCRC@Xfer@@UBE_NXZ",
+     "6": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "7": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "8": "??1Region2D@@QAE@XZ",
+     "9": "?reset@AI@@UAEXXZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 3,
+   "20": 21,
+   "24": 1,
+   "28": 12,
+   "32": 1,
+   "36": 1,
+   "4": 1
+  },
+  "views": 40,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_AI.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/AI.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "retail-ctor",
+   "kind": "P",
+   "name": "m_pathfinder",
+   "name_by": "zh",
+   "offset": 16,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "Pathfinder*",
+   "witness": "0x002FEB1D stores result of 0x002F6E22"
+  },
+  {
+   "decided_by": "retail-member-extent",
+   "kind": "i4",
+   "name": "field14",
+   "name_by": "neutral",
+   "offset": 20,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "uint",
+   "witness": "0x002FEAC0 constructs list; 0x002FEC26 destroys it; next member starts at 0x18; representation opaque"
+  },
+  {
+   "decided_by": "retail-ctor",
+   "kind": "P",
+   "name": "m_aiData",
+   "name_by": "zh",
+   "offset": 24,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "TAiData*",
+   "witness": "0x002FEAFB stores result of 0x002FE382"
+  },
+  {
+   "decided_by": "retail-ctor and retail-access",
+   "kind": "i4",
+   "name": "m_nextGroupID",
+   "name_by": "zh",
+   "offset": 28,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "uint",
+   "witness": "0x002FEAC5 clears; 0x0036E534..0x0036E53E increments"
+  },
+  {
+   "decided_by": "retail-ctor",
+   "kind": "i4",
+   "name": "m_nextFormationID",
+   "name_by": "zh",
+   "offset": 32,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "uint",
+   "witness": "0x002FEAC9 clears; 0x002FEBAE sets one"
+  }
+ ],
+ "hand_decided": {
+  "base_offsets": {
+   "Snapshot": 12,
+   "SubsystemInterface": 0
+  },
+  "basis": "Retail constructor 0x002FEA85 and destructor 0x002FEBB7 install the same AI tables, VA 0x00C073D0 at +0 and VA 0x00C073C0 at +0xC. VA 0x00BBB554 is the Snapshot base table, stored before and after the AI lifetime. SubsystemInterface has its existing fourteen primary slots; Snapshot has its existing four slots selected with BFME_SNAPSHOT_NAME_SLOT. No new slot is introduced. Primary table ends at VA 0x00C07408, independently installed by Rva002FED8D constructor at 0x002FEDA9. AI allocation at 0x0022F3A9 is 0x24 and calls its constructor at 0x0022F3BE. Private-view votes at +0/+4/+8 do not supersede the registered bases. AI_xfer.cpp is a secondary-this view: its +4/+8/+C/+10/+14 accesses are AI +10/+14/+18/+1C/+20. Names of fields and inline accessors come from Zero Hour AI.h; address-derived methods retain ledger spellings. The list subobject is four opaque bytes; no guessed container API is supplied.",
+  "by": "gpt-6.1-sol",
+  "limitation": "This contract settles AI layout only. The sample still rejects incompatible Snapshot spellings, inherited padding views, alternate member types, duplicate parent definitions and unsafe mechanical renames. It does not approve those units.",
+  "primary_slots": {
+   "0": "~AI",
+   "1": "init()",
+   "10": "update()",
+   "11": "vslot11(int)",
+   "12": "vslot12()",
+   "13": "vslot13(int)",
+   "2": "SubsystemInterface::loadIniFilesFromLegend()",
+   "3": "vslot03()",
+   "4": "vslot04(int)",
+   "5": "vslot05()",
+   "6": "vslot06()",
+   "7": "vslot07(int)",
+   "8": "vslot08()",
+   "9": "reset()"
+  },
+  "raw_evidence": [
+   "build/header_ai/retail-bytes-2.log",
+   "build/header_ai/retail-layout.json",
+   "build/header_ai/contract-auto.json",
+   "build/header_ai/header-layout-1.json"
+  ],
+  "resolved_automatic_queue": [
+   {
+    "attribute": "inherited@0x0",
+    "candidates": {
+     "16:A": 1,
+     "4:VPTR": 1
+    },
+    "class": "AI"
+   },
+   {
+    "attribute": "inherited@0x4",
+    "candidates": {
+     "1:i1": 1,
+     "24:A": 1
+    },
+    "class": "AI"
+   },
+   {
+    "attribute": "field@0x0",
+    "candidates": {
+     "16:A": 3,
+     "4:VPTR": 3
+    },
+    "class": "AI"
+   },
+   {
+    "attribute": "field@0x4",
+    "candidates": {
+     "1:i1": 1,
+     "24:A": 1
+    },
+    "class": "AI"
+   },
+   {
+    "attribute": "nested@0x8",
+    "candidates": {
+     "m_name.m_text": 1
+    },
+    "class": "AI"
+   },
+   {
+    "attribute": "slot0",
+    "candidates": {
+     "GetSnapshotName()": 1,
+     "__vecDelDtor(uint)": 1,
+     "init()": 1
+    },
+    "class": "AI"
+   }
+  ],
+  "secondary_slots": {
+   "0": "~AI adjustor -0xC",
+   "1": "loadPostProcess()",
+   "2": "GetSnapshotName() const",
+   "3": "xfer(Xfer*)"
+  }
+ },
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 6
+ },
+ "outliers": [],
+ "queue": [],
+ "size": 36,
+ "size_by": "retail-new: 0x0022F3A9 allocation, 0x0022F3BE constructor call",
+ "vslots": {}
+}
