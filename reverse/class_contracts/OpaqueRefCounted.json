@@ -1,0 +1,93 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "OpaqueRefCounted",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 117,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 1
+   },
+   "0x4": {
+    "4": 2
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 3,
+  "retail_vtables": {},
+  "view_errors": 2,
+  "view_sizes": {
+   "1": 89,
+   "4": 5,
+   "8": 21
+  },
+  "views": 115,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 26,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 1
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/BfmeObject476Copy.cpp",
+    "Code/GameEngine/Source/Common/INI/AudioEventInfoParseMultisound.cpp",
+    "Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp",
+    "Code/GameEngine/Source/Common/Open2Destructors.cpp",
+    "Code/GameEngine/Source/Common/Rva000A8CE5SetRef.cpp",
+    "Code/GameEngine/Source/Common/Rva003FA26FCopyCtor.cpp",
+    "Code/GameEngine/Source/Common/Rva00402D7ECopyCtor.cpp",
+    "Code/GameEngine/Source/Common/Rva00403055CopyCtor.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable.cpp",
+    "Code/GameEngine/Source/GameClient/DrawableXfer.cpp",
+    "Code/GameEngine/Source/GameClient/GameClientXfer.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerAllocatePlayingAudio.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva00059EAE.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerStopAudio.cpp",
+    "Code/Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.cpp",
+    "Code/Libraries/Source/WWVegas/WWLib/OpaqueRefDequePop57151.cpp",
+    "Code/Libraries/Source/WWVegas/WWLib/OpaqueRefOwnership.cpp",
+    "Code/Libraries/Source/WWVegas/WWLib/StlportOwnedDeque.cpp",
+    "Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorDeferred.cpp",
+    "Code/Libraries/Source/WWVegas/WWLib/stlport_list_opaqueref_erase.cpp",
+    "Code/Libraries/Source/WWVegas/WWLib/stlport_vector_opaque_mclear.cpp"
+   ],
+   "views": 21
+  }
+ ],
+ "queue": [],
+ "size": 8,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
