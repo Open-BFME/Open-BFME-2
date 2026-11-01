@@ -68,3 +68,53 @@ destructor declaration-only so the normal path stays out of line.
   method-named forwards, so the wrapper destructor needs its own ICF row),
   PlayerStorage in LivingWorldLogic.cpp ($L26855), and the deque holder
   0x000581F0 (MilesAudioManager.cpp, 4).
+
+## Seat halilkkaya-cid-o5 (2026-11-01)
+
+| Commit | Group | Findings |
+|---|---|---|
+| fe2e5d759c | `_List_base<int>` (0x00200667): ScriptEngine_dtor.cpp's ScriptIntList and Player's +0x700/+0x704 typed `list<int>` (the eh vector destructor iterator over ScriptEngine's 20-list arrays takes it too) | 13 |
+| a0e899119e | Player's +0x288/+0x294/+0x2A8/+0x2D0 typed as wrappers Rva001FD85E/Rva001FE065/Rva001FD863 (implicit destructor = retail 5-byte `jmp` to the container destructor); ICF rows at 0x001FD85E, 0x001FE065, 0x001FD863 beside the method-named forwards | 4 |
+| 553805e859 | AptPlayer's +0x5C/+0x70/+0x90 typed as wrapper Rva002239AD over Rva0022366C; ICF row at 0x002239AD | 3 |
+
+Wrapper rule: when the funclet's retail target is a 5-byte `jmp` to the
+destructor it names, the member is a wrapper. Type it with an implicit
+destructor and row the emitted `??1` as an ICF twin at the thunk.
+
+Open, with the blocker:
+
+- **BfmeObject476Copy.cpp** (9 funclets, $L13041-3/$L14089-91/$L14298-300):
+  the same three wrappers. Their rows now exist, so retyping the members
+  needs no new row. Held (StarkillerHDX@fleet).
+- **AptShapeContainer.cpp** (13 callers of 0x002888D4): the only copy of
+  `hashtable<pair<const NameKeyType, ArmorTemplate>, ...>::_M_find<NameKeyType>`
+  is kept from this unit. Its decl-only `vector<void*>::size()/begin()`
+  specializations (lines 584-586) make the copy call them out of line, where
+  retail inlines them. Held.
+- **`??_F` vector closures at 0x00256646** (11): keptplan finds them FIXABLE
+  with ICF rows for `vector<T>::vector(const allocator&)` at 0x004F710A in
+  Rva0007517FCtor_Unresolved.cpp, SlowDeathBehaviorModuleDataCtor.cpp (2),
+  FXShaderParameterBinder.cpp, StrategicVeterancyAutoResolveCtor.cpp,
+  BfmePod248.cpp and StrategicInGameUIDynamicAutoResolveDialogImpl.cpp.
+  `claims.py claim 0x004F710A` is held through other fleets' files.
+- **ScriptEngine_dtor.cpp map funclets** (6, thunks 0x00207BDA..0x00207BF8):
+  ScriptEngine.cpp defines the thunks as strong out-of-line destructors
+  (`??1Rva00207BDAMap` ...), so a COMDAT wrapper would collide. The
+  handoff above notes that the key is not int.
+- **PlayerDestructor.cpp**: uw_00775f1d targets 0x002AE76B, rowed only as
+  the gen-thunk `j_002ae76b` with pin `??1Gen_uwm_002ae76b`. uw_00775e89
+  targets the base-vptr reset 0x002A983D (certify unknown).
+- **AptPlayerDtor.cpp** (7 left): FileInfoTree/TargetSet are `_Rb_tree`
+  views where the funclets take map/set thunks (0x002241D1, 0x0022424D,
+  0x0006C94B).
+- **More thunk groups** (scan of 2026-11-01): 0x002F0F02 (6 units),
+  0x0022CA3B (5), 0x0029A21F (4), 0x0007E7DD (4), 0x000B0560 (3),
+  0x0008B4CD (3), 0x00550634 (3), 0x000411BC (3), and 0x000581F0
+  (MilesAudioManager.cpp, held).
+- **`?xfer@Locomotor` at 0x00341E2D is a wrong identity** (re_attempts.log,
+  identity-suspect). Locomotor's table 0x00BDE888 has slot 3 = 0x001E525A
+  (`?xfer@Rva001E3E43`). 0x00341E2D is slot 3 of the WaterRenderObjClass,
+  GODupBase and Rva00341E22 tables. Fix: retire LocomotorXfer.cpp's row,
+  then run `rename.py class Rva001E3E43 -> Locomotor`, keeping LocomotorCtor
+  (395 B) linking. class:Locomotor is held. `canonical:string` was refused,
+  so a basis is still needed.
