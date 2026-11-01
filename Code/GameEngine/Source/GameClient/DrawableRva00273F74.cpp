@@ -74,16 +74,7 @@ public:
 	}
 };
 
-class GlobalData
-{
-public:
-	char m_pad000[0xDC];
-	Coord3D m_ammoPipWorldOffset;
-	char m_padE8[0x0C];
-	Coord2D m_ammoPipScreenOffset;
-	char m_padFC[0x9BD - 0xFC];
-	Bool m_showObjectHealth;
-};
+#include "../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
 class PlayerList

@@ -26,12 +26,7 @@ struct GameLogicFieldView
 	int m_118;
 };
 extern GameLogic *TheGameLogic;
-class GlobalData
-{
-public:
-	char m_pad[0xe84];
-	int m_initialMaxRingLevel;
-};
+#include "../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 class Rva002B2AFD
 {

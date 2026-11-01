@@ -144,12 +144,7 @@ public:
 };
 extern GameLODManager *TheGameLODManager;
 
-class GlobalData
-{
-public:
-	unsigned char m_pad[0x24];
-	bool m_useDrawModuleLOD;				// +0x24
-};
+#include "../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
 extern GameLogic *TheGameLogic;

@@ -16,12 +16,7 @@ class Object;
 
 extern GameLogic *TheGameLogic;
 
-class GlobalData
-{
-public:
-	char m_padC20[0xC20];
-	unsigned int m_networkDisconnectTime;
-};
+#include "../../Include/Common/GlobalData.h"
 
 extern class GlobalData *TheWritableGlobalData;
 extern unsigned int g_007ED97C;

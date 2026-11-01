@@ -60,13 +60,7 @@ public:
 	virtual ~OptionPreferences();
 };
 
-class GlobalData
-{
-public:
-	char m_pad[0x30];
-	Int m_xResolution;
-	Int m_yResolution;
-};
+#include "../../Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;
 

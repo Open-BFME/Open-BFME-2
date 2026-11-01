@@ -3,12 +3,7 @@
 // Float factor from the writable global (offset 0xD40) scaled by the member at
 // +0x18 (fld global; fmul member). Single unclaimed caller at 0x00096B4C;
 // neighbours are the just-landed 0x00214ADC dtor and 0x00214D59 pack.
-class GlobalData
-{
-public:
-	char m_pad000[0xD40];
-	float m_valueD40;
-};
+#include "../../Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;
 
@@ -24,5 +19,5 @@ private:
 
 float Rva00214D4A::rva00214D4A()
 {
-	return TheWritableGlobalData->m_valueD40 * m_factor18;
+	return TheWritableGlobalData->field0D40 * m_factor18;
 }

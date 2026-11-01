@@ -159,20 +159,7 @@ public:
 	char m_pad33[0x1];
 	int m_34; // +0x34
 };
-class GlobalData
-{
-public:
-	char prefix[0x9b8]; // +0x00
-	int m_flag9B8; // +0x9B8
-	char m_pad9BC[0x804];
-	unsigned int limitMs; // +0x11C0
-	char m_pad11C4[0x24];
-	int cellsPerFrame; // +0x11E8
-	char m_pad11EC[0xC];
-	int m_maxCellsAdjustTargetDestination; // +0x11F8
-	char m_pad11FC[0x20];
-	unsigned callbackLimit; // +0x121C
-};
+#include "../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 // Original spelling is unknown. Native9FF0CC is the four-byte BSS counter
 // cleared by the search entry points and incremented against the limit at121C.
@@ -221,7 +208,7 @@ public:
 };
 int Rva002F5925Info::cellCallback(PathfindCell *from,PathfindCell *to,int x,int y)
 {
- if(PathfinderSearchCellsVisited>TheWritableGlobalData->callbackLimit)return 1;
+ if(PathfinderSearchCellsVisited>TheWritableGlobalData->m_maxCellsToExamineTowardsGoal)return 1;
  ++PathfinderSearchCellsVisited;
  if(range>0){int dx=x-goal->m_info->x;int dy=y-goal->m_info->y;if((dx*dx+dy*dy)*100<range*range)return 1;}
  Coord3D point;point.x=(float)(x*10);point.y=(float)(y*10);

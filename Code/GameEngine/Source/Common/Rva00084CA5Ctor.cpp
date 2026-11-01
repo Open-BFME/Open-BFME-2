@@ -3,14 +3,7 @@
 // Ctor-like init: sets +0xC to 0x10441B, zeroes +0x0/+0x4/+0x8/+0x10/+0x14/+0x18,
 // copies GlobalData +0x110/+0x114/+0x118 to +0x1C/+0x20/+0x24. No vptr.
 // Evidence: retail bytes, caller 0x00091B5E, extern TheWritableGlobalData in use.
-class GlobalData
-{
-public:
-	char m_pad[0x110];
-	int m_110;
-	int m_114;
-	int m_118;
-};
+#include "../../Include/Common/GlobalData.h"
 
 extern class GlobalData *TheWritableGlobalData;
 
@@ -43,7 +36,7 @@ Rva00084CA5::Rva00084CA5() : m_0C(0x10441b)
 	m_04 = 0;
 	m_08 = 0;
 	m_00 = 0;
-	m_1C = TheWritableGlobalData->m_110;
-	m_20 = TheWritableGlobalData->m_114;
-	m_24 = TheWritableGlobalData->m_118;
+	m_1C = TheWritableGlobalData->field0110;
+	m_20 = TheWritableGlobalData->field0114;
+	m_24 = TheWritableGlobalData->field0118;
 }

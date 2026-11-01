@@ -3,12 +3,7 @@
 extern class GlobalData *TheWritableGlobalData;
 class ClientFrameSubsystem; extern class GameClient *TheGameClient;
 
-class GlobalData
-{
-public:
-	char m_pad[0xA94];
-	int m_count;
-};
+#include "../../Include/Common/GlobalData.h"
 
 class GameClientHolder
 {
@@ -52,7 +47,7 @@ private:
 
 void Rva0029A94F::rva0029A94F()
 {
-	for (int i = 0; i < TheWritableGlobalData->m_count; ++i)
+	for (int i = 0; i < TheWritableGlobalData->m_maxLineBuildObjects; ++i)
 	{
 		void *p = m_slots[i].ptr;
 		if (p != 0)

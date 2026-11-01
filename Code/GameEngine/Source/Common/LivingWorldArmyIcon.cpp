@@ -255,12 +255,7 @@ class Rva0025CEEFHost : public Keyboard
 
 extern class Keyboard *TheKeyboard;
 
-class GlobalData
-{
-public:
-	char m_pad00[0x88];
-	unsigned char m_livingWorldTurbo;
-};
+#include "../../Include/Common/GlobalData.h"
 
 // Native 0x003FE18A reads VA 0x00DFE758 before the +0x88 flag check.
 // GameClient.cpp owns this singleton with the class GlobalData spelling.

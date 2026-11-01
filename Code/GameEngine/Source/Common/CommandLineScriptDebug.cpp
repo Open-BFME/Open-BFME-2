@@ -7,13 +7,7 @@
 // TheWritableGlobalData is VA DFE758. ScriptEngine initialization checks
 // +9C1 and byte E02D7A before loading DebugWindowLite.dll or DebugWindow.dll.
 // The two BFME2-prefixed global names below are descriptive recovered names.
-class GlobalData {
-public:
-    char prefix[0x9c1];
-    bool m_scriptDebug;
-    char gap[4];
-    bool m_winCursors;
-};
+#include "../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 extern bool BFME2UseDebugWindowLite;   // VA E02D7A: selects the Lite DLL.
 // BFME2UseDebugWindowLite: VA 0xe02d7a (zero-filled .bss).
@@ -24,8 +18,8 @@ bool BFME2ScriptDebugLiteMode;
 
 int parseScriptDebug2(char *args[],int) {
     if(TheWritableGlobalData) {
-        TheWritableGlobalData->m_scriptDebug=true;
-        TheWritableGlobalData->m_winCursors=true;
+        TheWritableGlobalData->field09C1=true;
+        TheWritableGlobalData->field09C6=true;
         BFME2UseDebugWindowLite=true;
     }
     return 1;
@@ -33,8 +27,8 @@ int parseScriptDebug2(char *args[],int) {
 
 int parseScriptDebugLite(char *args[],int) {
     if(TheWritableGlobalData) {
-        TheWritableGlobalData->m_scriptDebug=true;
-        TheWritableGlobalData->m_winCursors=true;
+        TheWritableGlobalData->field09C1=true;
+        TheWritableGlobalData->field09C6=true;
         BFME2UseDebugWindowLite=true;
         BFME2ScriptDebugLiteMode=true;
     }

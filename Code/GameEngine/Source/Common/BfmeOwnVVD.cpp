@@ -390,12 +390,7 @@ virtual unsigned int d17();
 
 extern Display *TheDisplay;
 
-class GlobalData
-{
-public:
-	char m_pad00[0x2C];
-	bool m_windowed; // +0x2C
-};
+#include "../../Include/Common/GlobalData.h"
 
 // Reference GlobalData.h exposes TheGlobalData as this const provider view.
 // Native DIR32 sites bind the same provider at VA 0x00DFE758.

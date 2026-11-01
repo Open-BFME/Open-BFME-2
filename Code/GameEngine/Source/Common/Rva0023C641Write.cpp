@@ -53,17 +53,7 @@ extern "C"
 // The four flags the donor clears, in its order (there +0xCF4, +0x1E and
 // the shadow volume/decal pair +0x64/+0x65); BFME 2's offsets are the
 // retail stores.
-class GlobalData
-{
-public:
-	unsigned char m_pad000[0x26];
-	bool m_flag026; // donor m_useFpsLimit
-	unsigned char m_pad027[0x60 - 0x27];
-	bool m_flag060; // donor m_useShadowVolumes
-	bool m_flag061; // donor m_useShadowDecals
-	unsigned char m_pad062[0xC69 - 0x62];
-	bool m_flagC69; // donor m_unk0CF4
-};
+#include "../../Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;
 
@@ -135,10 +125,10 @@ void Rva0023C641::rva0023C641(const char *str)
 void Rva0023C641::rva0023D494()
 {
 	bfmeClearReceiverFlag(0);
-	TheWritableGlobalData->m_flagC69 = false;
-	TheWritableGlobalData->m_flag026 = false;
-	TheWritableGlobalData->m_flag060 = false;
-	TheWritableGlobalData->m_flag061 = false;
+	TheWritableGlobalData->field0C69 = false;
+	TheWritableGlobalData->m_useFpsLimit = false;
+	TheWritableGlobalData->m_useShadowVolumes = false;
+	TheWritableGlobalData->m_useShadowDecals = false;
 	rva0038780();
 	HideControlBar(true);
 
@@ -174,7 +164,7 @@ void Rva0023C641::rva0023D494()
 	m_file18 = fopen(fileName, "w");
 	rva0023C641("Full,TotalVerts/Skin/Sort,Less Fill,NoParticles,No Spawn-NoPart,Logic,Thing,Model,Kind,Side,DrawCalls All,DrawCalls NoPart-NoSpawn,DrawCalls NoSpawn\n");
 
-	TheWritableGlobalData->m_flag060 = false;
+	TheWritableGlobalData->m_useShadowVolumes = false;
 	Coord3D thePos;
 	thePos.x = 50.0f;
 	thePos.y = 50.0f;

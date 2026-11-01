@@ -47,14 +47,7 @@ struct GameLogicFieldView
 	int m_110; // +0x110
 	int m_114; // +0x114
 };
-class GlobalData
-{
-public:
-	char m_pad00[0x0c];
-	AsciiString m_mapName; // +0x0c
-	char m_padAfter0c[0x0ac0 - 0x0c - sizeof(AsciiString)];
-	AsciiString m_ac0; // +0xac0
-};
+#include "../../../Include/Common/GlobalData.h"
 
 class Rva00377064
 {
@@ -72,9 +65,9 @@ void Rva00377064::rva00377064(int a, int b, int c)
 	((Rva00203BCDDwordSlot *)TheScriptEngine)->set(1);
 	((GameLogicFieldView *)TheGameLogic)->m_a4 = b;
 	((GameLogicFieldView *)TheGameLogic)->m_110 = a;
-	if (!TheWritableGlobalData->m_ac0.isEmpty()) {
-		((StringBase<char> *)&TheWritableGlobalData->m_mapName)->set(*(const StringBase<char> *)&TheWritableGlobalData->m_ac0);
-		TheWritableGlobalData->m_ac0.clear();
+	if (!TheWritableGlobalData->field0AC0.isEmpty()) {
+		((StringBase<char> *)&TheWritableGlobalData->m_mapName)->set(*(const StringBase<char> *)&TheWritableGlobalData->field0AC0);
+		TheWritableGlobalData->field0AC0.clear();
 	}
 	m_94 = c;
 	if (((GameLogicFieldView *)TheGameLogic)->m_110 != 4)

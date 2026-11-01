@@ -2,16 +2,7 @@
 
 #include <stdlib.h>
 
-class GlobalData
-{
-public:
-	char m_padToFlag26[0x26];
-	char m_flag26;
-	char m_padToValue28[1];
-	int m_value28;
-	char m_padTo9B4[0x9b4 - 0x2c];
-	int m_value9B4;
-};
+#include "../../Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;
 
@@ -22,8 +13,8 @@ int Rva003B998EParse(char **, int)
 {
 	if (TheWritableGlobalData != 0)
 	{
-		TheWritableGlobalData->m_flag26 = 0;
-		TheWritableGlobalData->m_value28 = 30000;
+		TheWritableGlobalData->m_useFpsLimit = 0;
+		TheWritableGlobalData->m_framesPerSecondLimit = 30000;
 	}
 	return 1;
 }
@@ -37,7 +28,7 @@ int Rva003B99D0Parse(char *args[], int num)
 	if (TheWritableGlobalData != 0 && num > 1)
 	{
 		Rva003B998EParse(args, num);
-		TheWritableGlobalData->m_value9B4 = atoi(args[1]);
+		TheWritableGlobalData->field09B4 = atoi(args[1]);
 		return 2;
 	}
 	return 1;

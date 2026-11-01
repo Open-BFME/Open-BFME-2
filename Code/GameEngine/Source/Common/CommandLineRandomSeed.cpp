@@ -4,14 +4,10 @@
 // and return1 on every path. atoi named IAT BBA624 independently verified.
 // cl: /DNDEBUG /MD
 #include <stdlib.h>
-class GlobalData {
-public:
-    char prefix[0x1228];
-    int m_fixedSeed;
-};
+#include "../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 int parseRandomSeed(char *args[],int num) {
-    if(num>1) TheWritableGlobalData->m_fixedSeed=atoi(args[1]);
-    else TheWritableGlobalData->m_fixedSeed=0;
+    if(num>1) TheWritableGlobalData->field1228=atoi(args[1]);
+    else TheWritableGlobalData->field1228=0;
     return 1;
 }

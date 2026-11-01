@@ -94,17 +94,7 @@ public:
 	}
 };
 
-class GlobalData
-{
-public:
-	char m_pad000[0xDC];
-	Coord3D m_ammoPipWorldOffset;
-	Coord3D m_pipWorldOffset;
-	Coord2D m_ammoPipScreenOffset;
-	Coord2D m_pipScreenOffset;
-	char m_pad104[0x9BD - 0x104];
-	Bool m_showObjectHealth;
-};
+#include "../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
 class PlayerList
@@ -410,13 +400,13 @@ void Drawable::rva00277669()
     ICoord2D screenCenter;
     const Coord3D *objPos = getPosition();
     Coord3D pos = {objPos->x, objPos->y, objPos->z};
-    pos.x += TheWritableGlobalData->m_pipWorldOffset.x;
-    pos.y += TheWritableGlobalData->m_pipWorldOffset.y;
-    pos.z += TheWritableGlobalData->m_pipWorldOffset.z + obj->getGeometryInfo().getMaxHeightAbovePosition();
+    pos.x += TheWritableGlobalData->m_containerPipWorldOffset.x;
+    pos.y += TheWritableGlobalData->m_containerPipWorldOffset.y;
+    pos.z += TheWritableGlobalData->m_containerPipWorldOffset.z + obj->getGeometryInfo().getMaxHeightAbovePosition();
     if (TheTacticalView->worldToScreen(&pos, &screenCenter) != 0) return;
     Real bounding = obj->getGeometryInfo().m_boundingSphereRadius*scale;
     Int posx = m_460;
-    Int posy = screenCenter.y + (Int)(TheWritableGlobalData->m_pipScreenOffset.y*bounding);
+    Int posy = screenCenter.y + (Int)(TheWritableGlobalData->m_containerPipScreenOffset.y*bounding);
     static const Int emptyColor = GameMakeColor(127, 127, 127, 255);
     Player *owner = obj->getControllingPlayer();
     Int ownerColor = owner ? ((Rva00277669PlayerView *)owner)->m_color : -1;

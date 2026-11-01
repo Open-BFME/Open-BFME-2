@@ -25,11 +25,7 @@ typedef unsigned short WideChar;
 
 #include "unicode_string.h"
 
-class GlobalData
-{
-public:
-	AsciiString rva002360DE() const;
-};
+#include "../../../../Include/Common/GlobalData.h"
 
 #define TheGlobalData TheWritableGlobalData
 

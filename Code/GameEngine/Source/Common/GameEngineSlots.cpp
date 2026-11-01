@@ -17,12 +17,7 @@
 
 typedef bool Bool;
 
-class GlobalData
-{
-public:
-	unsigned char m_unmodelled_0000[0x11C9];
-	Bool m_bfmeFlag11C9;						// +0x11C9, unnamed
-};
+#include "../../Include/Common/GlobalData.h"
 
 class Rva001B5140 { public: Bool rva001B5140(); };
 class SubsystemInterfaceList
@@ -56,7 +51,7 @@ public:
 
 Bool GameEngine::rva00225AD5()
 {
-	if (TheWritableGlobalData == 0 || TheWritableGlobalData->m_bfmeFlag11C9 != 0)
+	if (TheWritableGlobalData == 0 || TheWritableGlobalData->field11C9 != 0)
 	{
 		if (TheSubsystemList == 0)
 			return false;
@@ -67,7 +62,7 @@ Bool GameEngine::rva00225AD5()
 
 Bool GameEngine::rva00225AFF()
 {
-	if (TheWritableGlobalData && !TheWritableGlobalData->m_bfmeFlag11C9)
+	if (TheWritableGlobalData && !TheWritableGlobalData->field11C9)
 		return false;
 	if (!TheSubsystemList)
 		return false;

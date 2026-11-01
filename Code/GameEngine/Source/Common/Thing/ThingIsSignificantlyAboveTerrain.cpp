@@ -12,12 +12,7 @@
 typedef bool Bool;
 typedef float Real;
 
-class GlobalData
-{
-public:
-	unsigned char m_pad000[0xC4];
-	Real m_gravity; // +0xC4
-};
+#include "../../../Include/Common/GlobalData.h"
 extern class GlobalData *TheWritableGlobalData;
 
 struct Rva0030AD8BTemplate

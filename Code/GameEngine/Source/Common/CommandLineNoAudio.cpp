@@ -4,11 +4,7 @@
 // AmbientStreamsOn is +9A1; VideoOn is +9A3 and is not touched here.
 // BFME2CommandFlags is a descriptive name for the retail word at VA DC1170.
 // cl: /DNDEBUG /MD
-class GlobalData {
-public:
-    char prefix[0x99c];
-    bool m_audioOn,m_musicOn,m_soundsOn,m_sounds3DOn,m_speechOn,m_ambientStreamsOn;
-};
+#include "../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 extern unsigned BFME2CommandFlags;
 // BFME2CommandFlags: matched references place it at VA 0xdc1170 (retail .data initial value 0u).

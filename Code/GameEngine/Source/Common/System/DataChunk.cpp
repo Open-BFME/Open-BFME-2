@@ -458,11 +458,7 @@ private:
 
 typedef unsigned int UnsignedInt;
 
-class GlobalData
-{
-public:
-    UnicodeString rva002360FC() const;
-};
+#include "../../../Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;
 

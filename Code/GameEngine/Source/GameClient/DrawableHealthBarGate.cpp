@@ -28,13 +28,7 @@ enum Relationship
 	ALLIES
 };
 
-class GlobalData
-{
-public:
-	char m_pad000[0x9BD];
-	Bool m_showObjectHealth; // +0x9BD
-	Bool m_9BE; // +0x9BE
-};
+#include "../../Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;
 
@@ -227,7 +221,7 @@ void Rva0027601BHost::rva0027601B()
 	if (!thingTemplate->isKindOf(0x5A) && !thingTemplate->isKindOf(0x0B) && !thingTemplate->isKindOf(0x0A)
 		&& !thingTemplate->isKindOf(0x37) && !thingTemplate->isKindOf(0x07) && !thingTemplate->isKindOf(0xAA))
 	{
-		if (!TheWritableGlobalData->m_9BE)
+		if (!TheWritableGlobalData->field09BE)
 			return;
 		if (!thingTemplate->isKindOf(0x08) && !thingTemplate->isKindOf(0x09))
 			return;

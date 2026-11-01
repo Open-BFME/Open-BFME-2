@@ -193,12 +193,7 @@ public:
 
 extern PlayerTemplateStore *ThePlayerTemplateStore;
 
-class GlobalData
-{
-public:
-	char m_pad[0x9D4];
-	unsigned char m_flag9D4;
-};
+#include "../../Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;
 

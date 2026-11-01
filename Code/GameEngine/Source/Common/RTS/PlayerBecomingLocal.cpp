@@ -37,7 +37,7 @@ public:bool isKindOf(KindOfType)const;Rva00373EC6 *rva0028F4BC();int getIndicato
 };
 class PlayerList {public:Player *getNthPlayer(int);};
 extern PlayerList *ThePlayerList;
-class GlobalData {public:unsigned char pad[0x134];int timeOfDay;};
+#include "../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 class BfmeMemberRV {public:bool bfmeAskRV();};
 struct BfmeResultA {void *m_value;BfmeResultA();BfmeResultA(const BfmeResultA&);~BfmeResultA();};
@@ -69,9 +69,9 @@ void Player::becomingLocalPlayer(bool yes)
       if(update && update->disguise){
        Player *disguised=ThePlayerList->getNthPlayer(update->playerIndex);
        if(getRelationship(object->team)!=ALLIES && ((BfmeMemberRV*)this)->bfmeAskRV()){
-        if(TheWritableGlobalData->timeOfDay==4)draw->setIndicatorColor(disguised->nightColor);else draw->setIndicatorColor(disguised->color);
+        if(TheWritableGlobalData->m_timeOfDay==4)draw->setIndicatorColor(disguised->nightColor);else draw->setIndicatorColor(disguised->color);
        }else{
-        if(TheWritableGlobalData->timeOfDay==4)draw->setIndicatorColor(object->getNightIndicatorColor());else draw->setIndicatorColor(object->getIndicatorColor());
+        if(TheWritableGlobalData->m_timeOfDay==4)draw->setIndicatorColor(object->getNightIndicatorColor());else draw->setIndicatorColor(object->getIndicatorColor());
        }
        TheRadar->removeObject((Rva002D76C6Owner*)object);TheRadar->addObject(object);
       }

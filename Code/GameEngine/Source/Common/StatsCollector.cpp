@@ -212,14 +212,7 @@ private:
 };
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/StatsCollector.h
-class GlobalData
-{
-public:
-	unsigned char m_pad00[0xC];
-	AsciiString m_mapName;              // +0xC
-	unsigned char m_pad10[0xC30-0x10];
-	Int m_playStats;                   // +0xC30 native update437BB6
-};
+#include "../../Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;
 #define TheGlobalData ((const GlobalData *)TheWritableGlobalData)

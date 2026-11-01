@@ -1,11 +1,6 @@
 // cl: /O1 /arch:SSE /G7 /DNDEBUG /MD
 
-class GlobalData
-{
-	public:
-	char m_padToRva003B9488[0xB00];
-	unsigned char m_rva003B9488Flag;
-};
+#include "../../Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;
 
@@ -15,6 +10,6 @@ extern GlobalData *TheWritableGlobalData;
 int Rva003B9488Parse(char **, int)
 {
 	if (TheWritableGlobalData != 0)
-		TheWritableGlobalData->m_rva003B9488Flag = 0;
+		TheWritableGlobalData->field0B00 = 0;
 	return 1;
 }

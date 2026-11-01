@@ -160,11 +160,7 @@ class FontLibrary
 public:
 	static void ParseFontDefaultSettings(INI *);
 };
-class GlobalData
-{
-public:
-	static void parseGameDataDefinition(INI *);
-};
+#include "../../../Include/Common/GlobalData.h"
 class GlobalWeatherSystem
 {
 public:

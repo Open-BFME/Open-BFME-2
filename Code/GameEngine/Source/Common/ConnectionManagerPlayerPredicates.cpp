@@ -18,12 +18,7 @@ struct GameLogicFrame
 	unsigned int frame;
 };
 
-class GlobalData
-{
-public:
-	char unknown[0xC18];
-	unsigned int networkRunAheadSlack;
-};
+#include "../../Include/Common/GlobalData.h"
 
 #define TheGameLogic (*(volatile GameLogicFrame **)&TheGameLogic)
 extern GlobalData *TheWritableGlobalData;
@@ -78,7 +73,7 @@ bool BFMEConnectionManager::hasPacketRouterFrameStall(void)
 		return false;
 
 	unsigned int frame = TheGameLogic->frame;
-	unsigned int slack = frame > 5 ? TheWritableGlobalData->networkRunAheadSlack : 3;
+	unsigned int slack = frame > 5 ? TheWritableGlobalData->m_networkRunAheadSlack : 3;
 	int slot = 0;
 	Connection **connectionSlot = m_connections;
 	for (; slot < 8; ++slot, ++connectionSlot) {

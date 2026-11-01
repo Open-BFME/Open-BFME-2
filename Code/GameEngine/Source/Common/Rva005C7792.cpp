@@ -18,12 +18,7 @@ private:
 	char _pad[0x18];
 };
 
-class GlobalData
-{
-public:
-	char _pad[0xd45];
-	unsigned char m_flag; // +0xd45
-};
+#include "../../Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;
 extern ShareBufferClass<Vector3> *g_00E065C8;
@@ -48,7 +43,7 @@ public:
 Rva005C7792::Rva005C7792()
 {
 	int size = 0x200;
-	if (TheWritableGlobalData->m_flag != 0)
+	if (TheWritableGlobalData->field0D45 != 0)
 		size = 0x400;
 	int zero = 0;
 	g_00E065C8 = new ShareBufferClass<Vector3>(size, "FXParticleSystem::CategoryModule<CAT_DRAW>::m_posBuffer", zero);

@@ -64,12 +64,7 @@ public:
 extern FontLibrary *TheFontLibrary;
 #include "../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
-class GlobalData
-{
-public:
-	unsigned char m_pad0000[0x11C8];
-	bool m_11c8; // +0x11C8
-};
+#include "../../Include/Common/GlobalData.h"
 extern GameEngine *TheGameEngine;
 extern Display *TheDisplay;
 extern GlobalData *TheWritableGlobalData;
@@ -88,13 +83,13 @@ private:
 void Rva003560ED::rva00355DF4(int)
 {
 	TheGameEngine->slot23();
-	if (TheWritableGlobalData->m_11c8)
+	if (TheWritableGlobalData->field11C8)
 		TheDisplay->slot73(0);
 }
 void Rva003560ED::rva00355E20(int, int)
 {
 	TheGameEngine->slot23();
-	if (TheWritableGlobalData->m_11c8)
+	if (TheWritableGlobalData->field11C8)
 		TheDisplay->slot73(0);
 }
 
@@ -218,7 +213,7 @@ void Rva003561BE::rva00356889(GameInfo *)
 	int flags = 0x14;
 	if (!m_14 && !m_18)
 		flags = 0x1000014;
-	if (!TheWritableGlobalData->m_11c8)
+	if (!TheWritableGlobalData->field11C8)
 	{
 		if (TheDisplay)
 			TheDisplay->slot72(movieName, flags);
@@ -254,7 +249,7 @@ void Rva003560ED::rva00356724(GameInfo *)
 	if (!((const StringBase<char> *)&m_movieOverlay)->isEmpty())
 	{
 		AsciiString movieName("SmallRing");
-		if (!TheWritableGlobalData->m_11c8)
+		if (!TheWritableGlobalData->field11C8)
 		{
 			if (TheDisplay)
 				TheDisplay->slot72(movieName, 4);

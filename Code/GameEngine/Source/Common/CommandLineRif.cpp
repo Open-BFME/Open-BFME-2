@@ -3,15 +3,11 @@
 // Field name describes only the observed switch request at +11C9; no expanded
 // meaning of RIF is asserted. The command word is shared with parseNoAudio.
 // cl: /DNDEBUG /MD
-class GlobalData {
-public:
-    char prefix[0x11c9];
-    bool m_bfmeRifRequested;
-};
+#include "../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 extern unsigned BFME2CommandFlags;
 int parseRif(char *args[],int num) {
-    if(TheWritableGlobalData) TheWritableGlobalData->m_bfmeRifRequested=true;
+    if(TheWritableGlobalData) TheWritableGlobalData->field11C9=true;
     BFME2CommandFlags|=0x100000;
     return 1;
 }

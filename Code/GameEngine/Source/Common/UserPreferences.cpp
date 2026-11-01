@@ -293,11 +293,7 @@ protected:
 };
 
 // BFME 2's user-data path getter (rowed by address at 0x002360FC).
-class GlobalData
-{
-public:
-	UnicodeString rva002360FC() const;
-};
+#include "../../Include/Common/GlobalData.h"
 
 extern class GlobalData *TheWritableGlobalData;
 

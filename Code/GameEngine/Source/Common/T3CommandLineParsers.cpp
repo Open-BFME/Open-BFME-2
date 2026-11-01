@@ -46,54 +46,7 @@ typedef int Int;
 typedef unsigned int UnsignedInt;
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/GlobalData.h
-class GlobalData
-{
-public:
-	unsigned char m_unreconstructed_00[0x1E];
-	bool m_useFpsLimit;									///< retail this+0x1E
-	unsigned char m_unreconstructed_1F[0x20 - 0x1F];
-	bool m_dumpAssetUsage;								///< retail this+0x20, INI key DumpAssetUsage
-	unsigned char m_unreconstructed_21[0x24 - 0x21];
-	Int m_framesPerSecondLimit;							///< retail this+0x24
-	unsigned char m_unreconstructed_28[1];
-	bool m_windowed;									///< retail this+0x29
-	bool m_flag2A;										///< retail this+0x2A, INI key SkipMapUnroll
-	unsigned char m_unreconstructed_2B[0x30 - 0x2B];
-	Int m_yResolution;										///< retail this+0x30
-	unsigned char m_unreconstructed_34[0x64 - 0x34];
-	bool m_useShadowVolumes;										///< retail this+0x64
-	bool m_useShadowDecals;										///< retail this+0x65
-	unsigned char m_unreconstructed_66[0xA6C - 0x66];
-	bool m_audioOn;										///< retail this+0xA6C
-	bool m_musicOn;										///< retail this+0xA6D
-	bool m_soundsOn;										///< retail this+0xA6E
-	bool m_sounds3DOn;										///< retail this+0xA6F
-	bool m_speechOn;										///< retail this+0xA70
-	bool m_flagA71;										///< retail this+0xA71, INI key AmbientStreamsOn
-	unsigned char m_unreconstructed_A72[0xA84 - 0xA72];
-	Int m_valueA84;										///< retail this+0xA84
-	unsigned char m_unreconstructed_A88[0xA8F - 0xA88];
-	bool m_flagA8F;										///< retail this+0xA8F, INI key ShowTooltips
-	bool m_flagA90;										///< retail this+0xA90
-	bool m_flagA91;										///< retail this+0xA91
-	unsigned char m_unreconstructed_A92[0xA95 - 0xA92];
-	bool m_flagA95;										///< retail this+0xA95
-	unsigned char m_unreconstructed_A96[0xAB0 - 0xA96];
-	Int m_fixedSeed;										///< retail this+0xAB0
-	unsigned char m_unreconstructed_AB4[0xB0C - 0xAB4];
-	Int m_valueB0C;										///< retail this+0xB0C
-	unsigned char m_unreconstructed_B10[0xBB4 - 0xB10];
-	bool m_shellMapOn;										///< retail this+0xBB4
-	bool m_flagBB5;										///< retail this+0xBB5, INI key ShellMapOffByCommandArgument
-	unsigned char m_unreconstructed_BB6[0xBC4 - 0xBB6];
-	bool m_flagBC4;										///< retail this+0xBC4
-	unsigned char m_unreconstructed_BC5[0xCCC - 0xBC5];
-	Int m_playStats;										///< retail this+0xCCC
-	unsigned char m_unreconstructed_CD0[0xDCD - 0xCD0];
-	bool m_flagDCD;										///< retail this+0xDCD
-	unsigned char m_unreconstructed_DCE[0x11FC - 0xDCE];
-	bool m_flag11FC;									///< retail this+0x11FC
-};
+#include "../../Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;				///< retail [0x012ED5C8]
 extern unsigned int BFME2CommandFlags;					///< retail [0x012A6FA0]
