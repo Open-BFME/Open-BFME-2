@@ -107,15 +107,7 @@ public:
 	virtual const DamageInfo *getLastDamageInfo() const; // +0x3C
 };
 
-class Player
-{
-	char m_pad00[0x54];
-	Int m_playerIndex;
-
-public:
-	Int getPlayerIndex() const { return m_playerIndex; }
-	bool rva002AA245() const; // 0x002AA245
-};
+#include "../../Include/Common/Player.h"
 
 class Object
 {

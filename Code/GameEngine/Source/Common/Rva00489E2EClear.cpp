@@ -33,10 +33,7 @@ public:
 	void rva002ACECC(int id);
 };
 
-class Player
-{
-public:
-};
+#include "../../Include/Common/Player.h"
 
 #include "GameLogicObjectLookupView.h"
 

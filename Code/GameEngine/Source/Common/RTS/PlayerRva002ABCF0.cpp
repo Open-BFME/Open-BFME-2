@@ -43,12 +43,7 @@ public:
 
 typedef int (__cdecl *ObjectIterateFunc)(Object *obj, void *userData);
 
-class Player
-{
-public:
-	int iterateObjects(ObjectIterateFunc func, void *userData) const;
-	int rva002ABCF0(unsigned char flag, int *out);
-};
+#include "../../../Include/Common/Player.h"
 
 struct Rva002ABCF0Context
 {

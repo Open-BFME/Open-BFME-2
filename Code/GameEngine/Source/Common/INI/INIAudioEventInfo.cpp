@@ -742,13 +742,7 @@ BFME_DISP32_FLOAT_SETTER(Rva001D972BFloatField, 0x94)
 // 0x004C4401, 0x004C4430 and the linear campaign carryover call it on
 // Object::getControllingPlayer() results and Player pointers. The field
 // purpose at +0x314 is unresolved.
-class Player
-{
-public:
-	void rva002A9E25(float newValue);
-	char m_leadingPadding[0x314];
-	float m_floatValue;
-};
+#include "../../../Include/Common/Player.h"
 
 // Native30F2BA..30F2C7 is a complete float-argument store at ECX+0,
 // between independently bounded RET4 at30F2B7 and known getter30F2C7.

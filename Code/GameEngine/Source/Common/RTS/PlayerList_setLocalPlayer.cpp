@@ -42,15 +42,7 @@ extern BfmeTaintManager *TheTaintManager;			// the taint manager, VA 0x00DFE750
 void Rva002D7AE0LocalPlayerShroudCallback();
 void Rva002D7B18LocalPlayerTaintCallback();
 
-class Player
-{
-public:
-	void becomingLocalPlayer(bool yes);
-	int getPlayerIndex() const { return m_playerIndex; }
-private:
-	char m_pad00[0x54];
-	int m_playerIndex;
-};
+#include "../../../Include/Common/Player.h"
 
 class PlayerList
 {

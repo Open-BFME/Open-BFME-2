@@ -38,7 +38,7 @@ virtual void update();char unknown4[0x14];Matrix3D transform;
 class RenderInfoClass {public:RenderInfoClass(CameraClass&);~RenderInfoClass();char prefix[0x28];LightEnvironmentClass*lights;char rest[0x11c];};
 class RenderContext {public:CameraClass*camera;};
 class Player;class Object {public:Player*getControllingPlayer()const;Object*rva002931F5(bool);};
-class Player {public:int iterateObjects(int(*)(Object*,void*),void*)const;};
+#include "../../Include/Common/Player.h"
 class PlayerList {public:char prefix[16];Player*local;};extern PlayerList*ThePlayerList;
 class Rva000E07F4Obj {public:char prefix[4];void*inner;};
 struct DrawableView {char prefix[0xFC];Rva000E07F4Obj*object;};

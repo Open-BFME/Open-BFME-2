@@ -205,11 +205,7 @@ template <> ScienceMemoTree::~_Rb_tree();
 template <> void ScienceMemoTree::clear();
 }
 
-class Player
-{
-public:
-	Bool hasScience( ScienceType st ) const;
-};
+#include "../../../Include/Common/Player.h"
 
 struct SciencePrereqGroup
 {

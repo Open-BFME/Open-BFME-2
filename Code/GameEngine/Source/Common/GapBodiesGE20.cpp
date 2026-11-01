@@ -535,11 +535,7 @@ int Rva00429276(Rva00429276Entry *entry, Rva00429276Holder *holder)
 // Rva00429276, offering the incoming entry; repeat once with second slot empty.
 class Object;
 typedef int (*ObjectIterateFunc)(Object *, void *);
-class Player
-{
-public:
-	int iterateObjects(ObjectIterateFunc func, void *userData) const;
-};
+#include "../../Include/Common/Player.h"
 class PlayerList;
 extern PlayerList *ThePlayerList;
 struct Rva004292A6PlayerListView

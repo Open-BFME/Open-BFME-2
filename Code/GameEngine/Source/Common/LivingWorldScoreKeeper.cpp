@@ -436,19 +436,7 @@ public:
 
 extern void __cdecl rva004EE8B8(ObjectCountMap *destination, ObjectCountMap *source);
 
-class Player
-{
-public:
-	void accumulateRTSBattleStatsIntoLivingWorldScoreKeeper();
-
-private:
-	unsigned char m_pad000[0x33F];
-	bool m_accumulatedIntoLivingWorld; // +0x33F
-	unsigned char m_pad340[0x3AC - 0x340];
-	int m_livingWorldPlayerID; // +0x3AC
-	unsigned char m_pad3B0[0x3BC - 0x3B0];
-	ScoreKeeper m_scoreKeeper; // +0x3BC
-};
+#include "../../Include/Common/Player.h"
 
 struct ScoreMergeTemplateView {char pad00[8];bool overridden;char pad09[0x64-9];AsciiString name;};
 

@@ -20,11 +20,7 @@ struct Rva0050F041Inner
 	char m_name[1];
 };
 
-class Player
-{
-public:
-	bool isLocalPlayer() const;
-};
+#include "../../../Include/Common/Player.h"
 
 // The rowed method name is donor-derived. This view exists only to make the
 // thiscall at 0x002AA231; the target pointer's class and the method's meaning

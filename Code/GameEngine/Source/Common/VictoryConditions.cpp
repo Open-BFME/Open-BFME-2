@@ -32,11 +32,7 @@ public:
 };
 extern GameInfo *TheGameInfo;
 
-class Player
-{
-public:
-	virtual ~Player();
-};
+#include "../../Include/Common/Player.h"
 
 class PlayerList
 {

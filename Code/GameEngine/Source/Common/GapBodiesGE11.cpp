@@ -127,11 +127,7 @@ void Rva0052416D::rva00524378(const AsciiString &name)
 // local one.
 class Object;
 
-class Player
-{
-public:
-	bool isLocalPlayer() const;								// 0x002A9D89
-};
+#include "../../Include/Common/Player.h"
 
 struct Rva00219713Template
 {

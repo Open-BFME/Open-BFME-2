@@ -37,11 +37,7 @@ public:
 	ObjectP04Flags00219757 *m_p04;
 };
 
-class Player
-{
-public:
-	Upgrade *addUpgrade(const UpgradeTemplate *upgrade, UpgradeStatusType a, int b);
-};
+#include "../../Include/Common/Player.h"
 
 class CreateAHeroManager
 {

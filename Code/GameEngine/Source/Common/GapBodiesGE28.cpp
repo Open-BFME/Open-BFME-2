@@ -147,11 +147,7 @@ Rva00524F19::Rva00524F19(int value) : m_value(value), m_flag(false), m_08(-1.0f)
 
 // --- 0x005260B1 (75B): the first object of the +0x10 record's +0x14 id list
 // that the local player controls, or null.
-class Player
-{
-public:
-	bool isLocalPlayer() const;								// 0x002A9D89
-};
+#include "../../Include/Common/Player.h"
 
 class Object
 {

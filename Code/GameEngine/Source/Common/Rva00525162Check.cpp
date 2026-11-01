@@ -2,11 +2,7 @@
 // ?Rva00525162Check@@YGEPAVObject@@@Z, retail 0x00525162 44B unlock via controlling player plus status.
 // Local-player gate then ObjectStatus 0x5c inverted via rowed testStatus.
 // Evidence: callees rowed getControllingPlayer 0x0028AFA9 plus isLocalPlayer 0x002A9D89 plus testStatus 0x0004E536; callers 0x00526553 0x00526966; prev 0x0052510C same flags.
-class Player
-{
-public:
-	bool isLocalPlayer() const;
-};
+#include "../../Include/Common/Player.h"
 
 enum ObjectStatusTypes;
 

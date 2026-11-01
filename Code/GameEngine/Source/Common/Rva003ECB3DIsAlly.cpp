@@ -13,11 +13,7 @@ enum Relationship
 	NEUTRAL = 1,
 	ALLIES = 2
 };
-class Player
-{
-public:
-	Relationship getRelationship(const Player *that) const;
-};
+#include "../../Include/Common/Player.h"
 int Rva003ECB3DIsAlly(const Player *player, const Player *b)
 {
 	int r = player->getRelationship(b);

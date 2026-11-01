@@ -651,15 +651,7 @@ private:
 	Rva0039B668 m_3B4;
 };
 
-class Player : public Rva002AD7E9Base0, public Rva002B1192Interface, public Rva002AD7E9Interface
-{
-	friend class Rva002AD7E9Interface;
-	friend class Rva002B1192Interface;
-public:
-	bool rva002AB855(CreateAHeroData *data) const;			// 0x002AB855
-private:
-	bool addScience(ScienceType science);					// 0x002AD661
-};
+#include "../../Include/Common/Player.h"
 
 
 

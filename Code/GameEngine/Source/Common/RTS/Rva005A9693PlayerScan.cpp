@@ -30,12 +30,7 @@ enum Relationship
 	ALLIES
 };
 
-class Player
-{
-public:
-	Relationship getRelationship(const Player *other) const;
-	bool rva002AA245() const; // 0x002AA245
-};
+#include "../../../Include/Common/Player.h"
 
 class PlayerList
 {

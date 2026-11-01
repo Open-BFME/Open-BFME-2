@@ -98,11 +98,5 @@ public:
 };
 class ControlBar { public: char m_pad00[0x28]; bool m_dirty; };
 extern ControlBar *TheControlBar;
-class Player
-{
-public:
-	void rva002ADC03(Rva004B5A65Owner *owner, int value);
-	char m_pad000[0x6f4];
-	_STL::list<Snapshot *> m_6F4;	// +0x6F4
-};
+#include "../../../Include/Common/Player.h"
 
