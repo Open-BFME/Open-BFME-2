@@ -9,17 +9,9 @@
 
 #include <cfloat>
 
-class AIUpdateInterface
-{
-public:
-	bool rva0033F8D4() const;
-
-private:
-	char m_pad00[0x1A0];
-	float m_1A0;
-};
+#include "../../Include/GameLogic/Module/AIUpdate.h"
 
 bool AIUpdateInterface::rva0033F8D4() const
 {
-	return m_1A0 != FLT_MAX;
+	return m_field1A0 != FLT_MAX;
 }

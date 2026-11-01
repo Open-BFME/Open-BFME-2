@@ -16,7 +16,7 @@ protected:
 };
 NameKeyType Rva0045EE2CGet();
 class StancesBehavior {public:int rva0045ED4B() const;};
-class AIUpdateInterface {public:Object *getCurrentVictim() const;};
+#include "../../Include/GameLogic/Module/AIUpdate.h"
 struct PredicateObjectPrefix { char unused00[4];void *objectTemplate;char unused08[0x254-8];void *body;AIUpdateInterface *ai;};
 class PredicateBodyPrefix {public:virtual void s0();
  virtual void s1();

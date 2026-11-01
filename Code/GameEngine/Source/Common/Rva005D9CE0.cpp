@@ -4,7 +4,7 @@
 // Retail loads the float at RVA 0x00876420 (bits 0x3E99999A).
 // Use its exact literal so MSVC supplies the constant instead of an unowned global.
 class Object;
-class AIUpdateInterface { public: Object *getCurrentVictim() const; };
+#include "../../Include/GameLogic/Module/AIUpdate.h"
 class Rva005EE816 { public: unsigned rva005EE3B0(Object *obj, bool flag); };
 class Rva005D9Float {
 public:

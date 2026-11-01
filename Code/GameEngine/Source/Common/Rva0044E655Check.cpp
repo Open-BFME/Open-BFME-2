@@ -15,11 +15,7 @@ class BfmeVirtualSlots<0>
 {
 };
 
-class AIUpdateInterface : public BfmeVirtualSlots<110>
-{
-public:
-	virtual bool isIdle();
-};
+#include "../../Include/GameLogic/Module/AIUpdate.h"
 
 class Object
 {

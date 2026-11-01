@@ -18,7 +18,7 @@ public:
 };
 
 // 0x00269566 is rowed as AIUpdateInterface::NotifyPathHasInvalidPortals.
-class AIUpdateInterface { public: void NotifyPathHasInvalidPortals(); };
+#include "../../Include/GameLogic/Module/AIUpdate.h"
 
 class Rva00269566Owner
 {

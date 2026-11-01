@@ -8,11 +8,7 @@
 // structure (kind-of bit 7 of its template word +0x108).
 class Object;
 
-class AIUpdateInterface
-{
-public:
-	Object *getCurrentVictim() const;						// 0x00268D71
-};
+#include "../../Include/GameLogic/Module/AIUpdate.h"
 
 struct Rva005D8929TemplateView
 {

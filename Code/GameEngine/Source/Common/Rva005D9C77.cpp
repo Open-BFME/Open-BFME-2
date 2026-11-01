@@ -2,7 +2,7 @@
 // ?shouldActivate@Rva005D9C6C@@UAE_NPAVObject@@@Z @0x005D9C77 48B
 // Evidence: gap between Rva005D9C6C dtor 0x005D9C6C and deleting dtor 0x005D9CA7 plus vslot 6 of 0x008763FC.
 class Object;
-class AIUpdateInterface { public: Object *getCurrentVictim() const; };
+#include "../../Include/GameLogic/Module/AIUpdate.h"
 class Rva005EE816 { public: unsigned rva005EE3B0(Object *obj, bool flag); };
 class Object {
 public:

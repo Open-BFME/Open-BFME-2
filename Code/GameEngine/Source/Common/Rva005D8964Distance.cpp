@@ -25,11 +25,7 @@ public:
 	unsigned char m_flags108;
 };
 
-class AIUpdateInterface
-{
-public:
-	Object *getCurrentVictim() const;
-};
+#include "../../Include/GameLogic/Module/AIUpdate.h"
 
 class Object
 {

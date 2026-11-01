@@ -57,11 +57,7 @@ void Rva005FEDCD::rva005FEDCD()
 class Weapon;
 enum WeaponSlotType { PRIMARY_WEAPON = 0 };
 
-class AIUpdateInterface
-{
-public:
-	Object *getCurrentVictim() const;						// 0x00268D71
-};
+#include "../../Include/GameLogic/Module/AIUpdate.h"
 
 class Object
 {

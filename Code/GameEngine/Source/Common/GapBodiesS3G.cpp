@@ -19,11 +19,7 @@ extern AI *TheAI;
 
 enum WhichTurretType { TURRET_INVALID = -1 };
 
-class AIUpdateInterface
-{
-public:
-	WhichTurretType getWhichTurretForCurWeapon() const;	// 0x0026275E
-};
+#include "../../Include/GameLogic/Module/AIUpdate.h"
 
 struct Rva00343EFATemplateView
 {

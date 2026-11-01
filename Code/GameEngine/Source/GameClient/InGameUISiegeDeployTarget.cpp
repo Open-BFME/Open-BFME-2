@@ -271,7 +271,7 @@ class ControlBar { public: const CommandButton *findCommandButton(const AsciiStr
 extern ControlBar *TheControlBar;
 class NameKeyGenerator { public: NameKeyType nameToKey(const char*); };
 extern NameKeyGenerator *TheNameKeyGenerator;
-class AIUpdateInterface { public: bool isQuickPathAvailable(const Coord3D*) const; };
+#include "../../Include/GameLogic/Module/AIUpdate.h"
 class SiegeDockInterface { public: virtual void slot0(); virtual bool slot1(ObjectID,Coord3D*); };
 #include "../../Include/Common/Module.h"
 

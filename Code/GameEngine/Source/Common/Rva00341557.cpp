@@ -12,11 +12,7 @@
 class AIUpdateInterface;
 class Object;
 
-class AIUpdateInterface
-{
-public:
-	void setCurrentVictim(const Object *victim);
-};
+#include "../../Include/GameLogic/Module/AIUpdate.h"
 
 class Object
 {

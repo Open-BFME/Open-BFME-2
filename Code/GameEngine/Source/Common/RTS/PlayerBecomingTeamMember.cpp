@@ -49,19 +49,7 @@ public:
 	void awardInitialCaptureBonus(Player *player);
 };
 
-class AIUpdateInterface
-{
-public:
-#define AI_SLOT(n) virtual void aiSlot##n();
-#define AI_SLOT10(n) AI_SLOT(n##0) AI_SLOT(n##1) AI_SLOT(n##2) AI_SLOT(n##3) AI_SLOT(n##4) \
-	AI_SLOT(n##5) AI_SLOT(n##6) AI_SLOT(n##7) AI_SLOT(n##8) AI_SLOT(n##9)
-	AI_SLOT10(0) AI_SLOT10(1) AI_SLOT10(2) AI_SLOT10(3) AI_SLOT10(4)
-	AI_SLOT10(5) AI_SLOT10(6) AI_SLOT10(7) AI_SLOT10(8) AI_SLOT10(9)
-	AI_SLOT10(10)
-#undef AI_SLOT10
-#undef AI_SLOT
-	virtual Bool isIdle() const;				// slot 110 (+0x1B8)
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 class Rva002AD5D5Interface
 {

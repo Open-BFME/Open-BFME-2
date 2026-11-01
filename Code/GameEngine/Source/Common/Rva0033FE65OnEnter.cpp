@@ -11,11 +11,7 @@
 // Layout from Rva0033FE65Ctor (State base plus m_20 m_22 m_24 m_25).
 enum StateReturnType { STATE_CONTINUE = 0 };
 class StateMachine;
-class AIUpdateInterface
-{
-public:
-	void rva00263025();
-};
+#include "../../Include/GameLogic/Module/AIUpdate.h"
 struct SubP00346FD0
 {
 	char m_pad00[0x64];

@@ -29,11 +29,7 @@ public:
 	unsigned char m_pad08[0x14 - 8];
 	Object *m_owner;
 };
-class AIUpdateInterface
-{
-public:
-	Object *checkForCrateToPickup();
-};
+#include "../../Include/GameLogic/Module/AIUpdate.h"
 class Object
 {
 public:

@@ -158,7 +158,7 @@ struct Rva002C6607PlayerView { char pad[0x2ec]; Team *excluded; char gap[0x3c]; 
 class GameLogic; extern GameLogic *TheGameLogic;
 struct Rva002C6607LogicView { char pad[0x40]; unsigned frame; };
 extern int g_00DFEFCC;
-class AIUpdateInterface { public: Object *getCurrentVictim() const; };
+#include "../../Include/GameLogic/Module/AIUpdate.h"
 struct Rva002C6607ObjectView {
  int unknown; char *tmpl; char pad30[0x30]; Coord3DBase position;
  char pad258[0x258-0x44]; AIUpdateInterface *ai;

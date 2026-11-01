@@ -87,11 +87,7 @@ struct Flag108
 	unsigned char m_flag;
 };
 
-class AIUpdateInterface
-{
-public:
-	Object *getCurrentVictim() const;
-};
+#include "../../Include/GameLogic/Module/AIUpdate.h"
 
 class Object
 {

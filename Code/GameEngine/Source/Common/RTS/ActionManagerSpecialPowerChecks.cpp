@@ -972,13 +972,7 @@ public:
 	Object *getGoalObject();	// 0x004D7726
 };
 
-class AIUpdateInterface
-{
-public:
-	bool rva00262BEC();	// 0x00262BEC
-	int rva00260DED() const;	// 0x00260DED
-	bool isQuickPathAvailable(const Coord3D *destination) const;	// 0x00264274
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 class Pathfinder
 {

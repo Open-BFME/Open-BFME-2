@@ -23,12 +23,7 @@ public:
 	OBJCLASS *cur() const { return m_cur; }
 };
 
-class AIUpdateInterface
-{
-public:
-	unsigned char m_pad[0x1dc];
-	UnsignedInt m_surfaces;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 #include "../../../Include/Common/ThingTemplate.h"
 

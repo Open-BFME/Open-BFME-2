@@ -28,11 +28,7 @@ class StancesBehavior
 public:
 	int rva0045ED4B() const;
 };
-class AIUpdateInterface
-{
-public:
-	Object *getCurrentVictim() const;
-};
+#include "../../Include/GameLogic/Module/AIUpdate.h"
 class Rva264Float
 {
 public:

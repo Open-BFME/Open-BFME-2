@@ -2,7 +2,7 @@
 // ?shouldActivate@Rva005D8C25@@UAE_NPAVObject@@@Z @0x005D8EA7 47B
 // Evidence: vslot 6 of 0x00876230 class Rva005D8C25 plus AI victim plus picker 0x005D8C4C.
 class Object;
-class AIUpdateInterface { public: Object *getCurrentVictim() const; };
+#include "../../Include/GameLogic/Module/AIUpdate.h"
 class Rva005EE816 { public: unsigned rva005D8C4C(Object *obj); };
 class Object {
 public:

@@ -714,12 +714,7 @@ struct Rva004A9774Point
 	float z;
 };
 
-class AIUpdateInterface
-{
-protected:
-	virtual void privateDock(Object *obj, CommandSourceType cmdSource);			// 0x0026481B
-	virtual void privateHarvest(const Coord3D *pos, CommandSourceType cmdSource);	// 0x00264853
-};
+#include "../../Include/GameLogic/Module/AIUpdate.h"
 
 class Rva004A9774AI : public AIUpdateInterface
 {

@@ -20,11 +20,7 @@ class StancesBehavior
 public:
 	Int rva0045ED4B() const;
 };
-class AIUpdateInterface
-{
-public:
-	Object *getCurrentVictim() const;
-};
+#include "../../Include/GameLogic/Module/AIUpdate.h"
 class Object
 {
 protected:

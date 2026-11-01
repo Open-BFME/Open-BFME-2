@@ -3,11 +3,7 @@
 // Its caller 0x005D874A tests only AL, so the result is a bool (the
 // neg/sbb/neg form is the same for an int).
 class Object;
-class AIUpdateInterface
-{
-public:
-	Object *getCurrentVictim() const;
-};
+#include "../../Include/GameLogic/Module/AIUpdate.h"
 
 bool __stdcall Rva0058AE1EHasVictim(Object *obj)
 {

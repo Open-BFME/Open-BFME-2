@@ -801,11 +801,7 @@ enum { TEAM_FACTORY_PROTOTYPE_SLOTS = 40 };
 // the /O1 flags and 24-byte iterator shape.
 
 typedef unsigned int UnsignedInt;
-class AIUpdateInterface
-{
-public:
-	Object *getCurrentVictim() const;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 // ?rva0039E968@Team@@QAEPAVObject@@H@Z @0x0039E968 57B chain lane: first
 // member whose rowed 0x0028D8EB test is 1 else null; 0x18B iterator via
 // rowed iterate plus rowed DLINK_ITERATOR<Object> advance; cmp al,1. The

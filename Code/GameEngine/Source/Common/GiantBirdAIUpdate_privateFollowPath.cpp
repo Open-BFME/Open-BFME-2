@@ -58,11 +58,7 @@ public:
 	void setGoalWaypoint(const Waypoint *w);
 };
 
-class AIUpdateInterface
-{
-public:
-	void ignoreObstacle(const Object *o);
-};
+#include "../../Include/GameLogic/Module/AIUpdate.h"
 
 
 class GiantBirdAIUpdate
