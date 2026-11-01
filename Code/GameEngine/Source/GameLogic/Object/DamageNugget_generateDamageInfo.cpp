@@ -51,12 +51,7 @@ public:
  unsigned char pad00[0x10B];
  unsigned char flags10B;
 };
-class Player
-{
-public:
- unsigned char pad00[0x54];
- int index54;
-};
+#include "../../../Include/Common/Player.h"
 #define RVA00508120_SLOT(n) virtual void slot##n();
 #define RVA00508120_SLOT10(n) RVA00508120_SLOT(n##0) RVA00508120_SLOT(n##1) RVA00508120_SLOT(n##2) RVA00508120_SLOT(n##3) RVA00508120_SLOT(n##4) RVA00508120_SLOT(n##5) RVA00508120_SLOT(n##6) RVA00508120_SLOT(n##7) RVA00508120_SLOT(n##8) RVA00508120_SLOT(n##9)
 // Object +0x250 contain interface: slot 71 (+0x11C) returns the eight-byte
@@ -270,7 +265,7 @@ bool DamageNugget::generateDamageInfo(void *weapon, Object *target, DamageInfo *
  info->delay28 = delay;
  info->sourceID08 = view->sourceID08;
  Player *player = source->getControllingPlayer();
- info->playerMask0C = 1 << player->index54;
+ info->playerMask0C = 1 << player->getPlayerIndex();
  info->value2C = view->template04->value10;
  info->flag25 = view->template04->m_shouldPlayUnderAttackEvaEvent;
  return true;
