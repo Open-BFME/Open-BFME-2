@@ -9,12 +9,7 @@ struct Rva002B3740Item
 	bool m_aa;
 };
 
-class Rva002BA8F1Logic
-{
-public:
-	Rva002B3740Item *rva002B2B2D();
-	bool rva002B3669();
-};
+#include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 bool Rva002BA8F1Logic::rva002B3669()
 {

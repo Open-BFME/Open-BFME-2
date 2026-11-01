@@ -11,11 +11,7 @@ class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 struct Rva002B2579Result;
 
-class Rva002BA8F1Logic
-{
-public:
-	Rva002B2579Result *rva002B2579(int arg);
-};
+#include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 class Rva004E0625
 {

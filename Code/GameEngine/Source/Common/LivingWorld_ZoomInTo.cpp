@@ -11,11 +11,7 @@
 
 struct Rva002B3740Item;
 
-class Rva002BA8F1Logic
-{
-public:
-	Rva002B3740Item *rva002B2B2D();
-};
+#include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 #include "RegionCenterPointDispatchView.h"
 

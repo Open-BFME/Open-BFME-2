@@ -2112,23 +2112,7 @@ public:
 class Rva002E2903Player;
 struct Rva002B488EResult;
 
-class Rva002BA8F1Logic
-{
-public:
-	Rva002B3740Item *rva002B2B2D();							// 0x002B2B2D
-	void setLocal(Rva002E2903Player *player);				// 0x002B38F7
-	Rva002B488EResult *rva002B488E(int value);				// 0x002B488E
-	bool rva002B2B3F();
-	void rva002B2B94();
-private:
-	char m_pad00[0x8C];
-	Rva002E2903Player **m_playersStart;
-	Rva002E2903Player **m_playersFinish;
-	Rva002E2903Player **m_playersEnd;
-	Rva002E2903Player *m_98;
-	char m_pad9C[0xB0 - 0x9C];
-	LivingWorldRegionManager *m_B0;
-};
+#include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 bool Rva002BA8F1Logic::rva002B2B3F()
 {

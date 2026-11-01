@@ -123,11 +123,7 @@ void ArmySummaryEntry::MarkForUpgrades(const Rva004E0632 *armory)
 // Evidence: thiscall no-arg void ret; and-0 clear; caller at 0x002B3F2C;
 // same m_bc and getter as sibling MarkForUpgrades above.
 struct Rva002B2579Result;
-class Rva002BA8F1Logic
-{
-public:
-	Rva002B2579Result *rva002B2579(int id);
-};
+#include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 class Rva0040C45CSlot4
 {

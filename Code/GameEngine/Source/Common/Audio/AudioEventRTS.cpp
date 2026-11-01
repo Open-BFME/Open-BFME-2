@@ -113,7 +113,7 @@ public:
 
 struct Rva002B2579Result;
 
-class Rva002BA8F1Logic {public: Rva002B488EResult *rva002B488E(int);Rva002B2579Result *rva002B2579(int);};
+#include "../../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 struct Rva002BFF5AData {char unknown[0x10]; int key;};
 

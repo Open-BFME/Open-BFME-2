@@ -7,12 +7,7 @@
 
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
-class Rva002BA8F1Logic
-{
-public:
-	char m_pad00[0xF4];
-	int m_xF4;
-};
+#include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 struct Rva003F8101Item
 {

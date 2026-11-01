@@ -34,7 +34,7 @@ extern LivingWorldLogic *TheLivingWorldLogic;
 
 class Rva002E2903Player;
 
-class Rva002BA8F1Logic { public: Rva002E2903Player *find(int, unsigned int *); };
+#include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 struct Rva004FA5F8B { char pad[0x13C]; int id; };
 

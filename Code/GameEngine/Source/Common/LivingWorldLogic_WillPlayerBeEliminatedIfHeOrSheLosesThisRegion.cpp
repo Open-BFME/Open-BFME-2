@@ -14,11 +14,7 @@
 // range-table 59B ending at 0x2B5D36 (mov eax,imm32). Names are
 // address-derived except rowed callees.
 class Rva002E2903Player;
-class Rva002BA8F1Logic
-{
-public:
-	Rva002E2903Player *find(int id, unsigned int *index);
-};
+#include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 class Rva002104B6
 {

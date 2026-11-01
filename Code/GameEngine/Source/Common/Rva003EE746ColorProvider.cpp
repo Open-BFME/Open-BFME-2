@@ -12,7 +12,7 @@ struct Rva003EEAFBColourView {char pad[0x20];Rva003EE746Color color;};
 class Rva00DFE1C8Host {public:char pad[0x268];Rva003EEAFBColourView*effects;};
 class LivingWorldManager; extern LivingWorldManager *TheLivingWorldManager;
 class Rva002E2903Player {public:char pad[0x184];Rva003EE746Color color;};
-class Rva002BA8F1Logic {public:Rva002E2903Player*find(int,unsigned*);};
+#include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 struct Rva0059E647World;
 class LivingWorldLogic; extern LivingWorldLogic*TheLivingWorldLogic;
 class Rva003EE711 {public:__declspec(dllimport) __forceinline Rva003EE711(){} virtual ~Rva003EE711(){};virtual Rva003EE746Color color(const Rva003EE746Region*)=0;};

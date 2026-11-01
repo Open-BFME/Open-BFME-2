@@ -172,7 +172,7 @@ class LivingWorldPlayer {
  void*rva002E06EF();
 };
 class Rva002E2903Player;
-class Rva002BA8F1Logic {public:Rva002E2903Player*GetPlayerAtIndex(int);};
+#include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 class Rva002E071E {public:bool rva002E071E(const Rva002E071E*)const;};
 class Rva0009AAA4DwordField {public:int get()const;};
 class Rva0021937DTarget;

@@ -76,7 +76,7 @@ struct TacticBattleParticipantView {char pad[0x14];int army;};
 class LivingWorldBattle {public:void *rva003F4D09();};
 class Rva0040D701ArmySummary;
 class ArmySummary {public:bool getSpawnPositions(int,Coord3D*,Coord3D*,bool);};
-class Rva002BA8F1Logic {public:void rva002B323C(_STL::vector<Rva0040D701ArmySummary*>*,int);};
+#include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 Coord3D Rva00506CF5(void *owner,Coord3D *point) {
  Coord3D result;result.set((const Coord3D *)&Gen00DD0870);
  if(((TacticGameLogicView*)TheGameLogic)->mode==3) {

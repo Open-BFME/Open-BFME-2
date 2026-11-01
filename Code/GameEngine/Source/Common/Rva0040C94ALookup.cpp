@@ -8,11 +8,7 @@
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 struct Rva002B488EResult;
-class Rva002BA8F1Logic
-{
-public:
-	Rva002B488EResult *rva002B488E(int id);
-};
+#include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 class Player;
 #include "../../Include/Common/PlayerList.h"

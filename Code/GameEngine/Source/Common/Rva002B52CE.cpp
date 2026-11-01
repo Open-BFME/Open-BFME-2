@@ -19,11 +19,7 @@
 // (m_44 flag) matches the established Rva002E2903Player view. Names are
 // address-derived except rowed callees and state pins.
 class Rva002E2903Player;
-class Rva002BA8F1Logic
-{
-public:
-	Rva002E2903Player *GetPlayerAtIndex(int index);
-};
+#include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 class Rva004FBB25Sub
 {

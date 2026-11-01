@@ -130,11 +130,7 @@ struct Rva002B488EResult
 	BfmeY1038 *m_78;
 };
 
-class Rva002BA8F1Logic
-{
-public:
-	Rva002B488EResult *rva002B488E(int a);
-};
+#include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 // ?rva0040D008@ArmySummarySystem@@QAEPAXH@Z @0x0040D008 29B: the army lookup
 // by id (WorldBuilder twin 0x0108E170 calls LivingWorldLogic::findArmy and

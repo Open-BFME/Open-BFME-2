@@ -2,11 +2,7 @@
 // ?rva002B4D41@Rva002B4D41@@QAEXXZ @0x002B4D41 128B: Rva002B4D41 countdown with sound.
 // Evidence: caller 0x002BD9B4 passes this in ecx; callee 0x002B35F7 rowed Rva002BA8F1Logic::rva002B35F7;
 // callee 0x0020E3EF rowed get; callee 0x00412A51 rowed PlaySound; globals TheLivingWorldManager and g_Rva0107301CEmptyString.
-class Rva002BA8F1Logic
-{
-public:
-	void rva002B35F7();
-};
+#include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 class Rva0020E3EFNullAdjustGlobalField
 {

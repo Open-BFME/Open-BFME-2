@@ -16,11 +16,7 @@ class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 class Rva002E2903Player;
 
-class Rva002BA8F1Logic
-{
-public:
-	Rva002E2903Player *find(int id, unsigned int *index);
-};
+#include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 class Rva002E071E
 {

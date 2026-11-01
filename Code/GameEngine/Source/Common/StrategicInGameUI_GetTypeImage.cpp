@@ -13,7 +13,7 @@ class ImageCollection { public: const Image *findImageByName(const AsciiString &
 extern ImageCollection *TheMappedImageCollection;
 class Rva002E2903Player { public: char pad[0x40]; void *p40; };
 struct Rva005F002CHolder { char pad[0x20]; AsciiString str; };
-class Rva002BA8F1Logic { public: Rva002E2903Player *find(int, unsigned int *); };
+#include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 #define TheRva00DFEF10 (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)
 struct Rva005F002CIn { char pad[0x54]; int id; };

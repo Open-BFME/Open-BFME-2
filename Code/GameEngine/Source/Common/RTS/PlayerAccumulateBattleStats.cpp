@@ -51,11 +51,7 @@ private:
 	LivingWorldScoreKeeper m_scoreKeeper; // +0x2C8
 };
 
-class Rva002BA8F1Logic
-{
-public:
-	Rva002E2903Player *find(int id, unsigned int *index);
-};
+#include "../../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 // Native39C3AC returns the indexed, twelve-byte map from ScoreKeeper.
 // Use the provider's typed declaration while retaining this unit's erased

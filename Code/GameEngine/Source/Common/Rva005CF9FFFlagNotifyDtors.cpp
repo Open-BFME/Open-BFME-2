@@ -107,7 +107,7 @@ Rva005CFA87::Rva005CFA87(void*o,bool change):Rva005CF872(o),m_08(timeGetTime()),
 }
 
 class LivingWorldLogic;extern LivingWorldLogic *TheLivingWorldLogic;
-class Rva002BA8F1Logic {public:int rva002B5256(bool);};
+#include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 UnicodeString GetBattleTypeSelectedMessage(int);
 namespace StrategicInGameUI { UnicodeString GetDefaultStartingBattleMessage(int); }
 // WB15B8920 names GetStartingBattleMessage. Native354B5D015C through5D02BE

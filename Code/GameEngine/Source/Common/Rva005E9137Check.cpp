@@ -19,18 +19,13 @@ class Rva002B280C
 public:
 	bool rva002B280C(struct Arg54 *a);
 };
-class Rva002BA8F1Logic
-{
-public:
-	char m_pad[0xF4];
-	int m_0F4;
-};
+#include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 unsigned char __cdecl Rva005E9137Check(class Rva00318F42 *target)
 {
 	class Rva002BA8F1Logic *logic = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic);
 	if (logic == 0)
 		return 0;
-	if (logic->m_0F4 != 0)
+	if (logic->m_xF4 != 0)
 		return 0;
 	if (((class Rva002B280C *)logic)->rva002B280C((struct Arg54 *)target))
 		return target->rva00318F42();

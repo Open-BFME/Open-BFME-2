@@ -10,12 +10,7 @@ struct Rva002B3740Item
 	int m_98;
 };
 
-class Rva002BA8F1Logic
-{
-public:
-	Rva002B3740Item *rva002B2B2D();
-	void rva002B35F7();
-};
+#include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 class RadarWindowOverrideSource
 {

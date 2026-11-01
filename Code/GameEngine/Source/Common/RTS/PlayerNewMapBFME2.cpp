@@ -75,7 +75,7 @@ class Player;
 class UnitRevivalTracker { public: void addRevivableUnit(const Rva002E2D10Record &,Player *); void addInitialBuildUnit(const ThingTemplate *,Player *); char bytes[0x14]; };
 class LivingWorldPlayer { public: void ExtractRevivalUnitDataForCurrentMap(_STL::vector<Rva002E2690Element> *); };
 class Rva002E2903Player;
-class Rva002BA8F1Logic { public: Rva002E2903Player *find(int,unsigned int *); };
+#include "../../../Include/GameLogic/Rva002BA8F1Logic.h"
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 class Rva0023C6A4 { public: bool rva00200084(); };

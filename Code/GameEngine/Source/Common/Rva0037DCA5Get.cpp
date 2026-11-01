@@ -30,11 +30,7 @@ public:
 };
 #include "unicode_string.h"
 class Rva002E2903Player;
-class Rva002BA8F1Logic
-{
-public:
-	Rva002E2903Player *find(int v, unsigned int *x);
-};
+#include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 class LivingWorldPlayer
 {

@@ -95,12 +95,7 @@ struct Rva002B3740Item
 	Bool m_flag;
 };
 
-class Rva002BA8F1Logic
-{
-public:
-	Bool rva002B3740();
-	Rva002B3740Item *rva002B2B2D();
-};
+#include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 Bool Rva002BA8F1Logic::rva002B3740()
 {

@@ -25,11 +25,7 @@ public:
 	Rva00318B1ERecord *m_40;
 };
 
-class Rva002BA8F1Logic
-{
-public:
-	Rva002E2903Player *find(int id, unsigned int *outIndex);
-};
+#include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 class Rva00318B1E
 {

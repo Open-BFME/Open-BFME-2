@@ -17,11 +17,7 @@ public:
 	bool isSelectionLocked() const;
 };
 
-class Rva002BA8F1Logic
-{
-public:
-	char _pad[4];
-};
+#include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 class NetWrapperCommandMsg
 {
