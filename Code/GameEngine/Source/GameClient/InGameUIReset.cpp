@@ -77,11 +77,7 @@ void Rva00433C75( const AsciiString &text, bool clear );	// BFME 1's UpdateDiplo
 
 struct RGBAColorInt { int v[4]; };
 
-class Mouse
-{
-public:
-	void setMouseText( UnicodeString text, const RGBAColorInt *color, const RGBAColorInt *dropColor );
-};
+#include "../../Include/GameClient/Mouse.h"
 extern Mouse *TheMouse;
 
 class View

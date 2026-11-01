@@ -22,11 +22,7 @@ void Rva00411E80(int value);
 
 #include "unicode_string.h"
 #include "../../../Libraries/Include/Lib/RGBColor.h"
-class Mouse
-{
-public:
-	void rva001EEA6D(UnicodeString tooltip, int delay, const RGBColor *color, float width);
-};
+#include "../../Include/GameClient/Mouse.h"
 extern Mouse *TheMouse;
 
 class Rva00062908Host

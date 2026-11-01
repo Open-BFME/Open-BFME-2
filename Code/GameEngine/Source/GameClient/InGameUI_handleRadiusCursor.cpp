@@ -19,11 +19,7 @@
 
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 
-class Mouse
-{
-public:
-	unsigned char m_pad[0x4F0C];
-};
+#include "../../Include/GameClient/Mouse.h"
 
 extern Mouse *TheMouse;
 

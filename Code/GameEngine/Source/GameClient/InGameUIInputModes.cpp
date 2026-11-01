@@ -83,23 +83,7 @@ public:
 
 extern RecorderClass *TheRecorder;
 
-class Mouse
-{
-public:
-	enum MouseCursor { NONE = 0, NORMAL, ARROW, SCROLL };
-#define V(n) virtual void r##n();
-	V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7)
-	V(8) V(9) V(10) V(11) V(12) V(13) V(14) V(15)
-	V(16) V(17) V(18)
-#undef V
-	virtual void setCursor( MouseCursor cursor );	// slot 19
-	virtual void capture( void );					// slot 20
-	virtual void releaseCapture( void );			// slot 21
-	MouseCursor getMouseCursor() { return m_currentCursor; }
-private:
-	char m_unknown04[0x4FA4 - 0x4];
-	MouseCursor m_currentCursor;					// +0x4FA4
-};
+#include "../../Include/GameClient/Mouse.h"
 
 extern Mouse *TheMouse;
 

@@ -14,7 +14,8 @@ class ThingFactory {public:void*newDrawable(void*,int,int);};extern ThingFactory
 class GlobalData {public:char p[0x134];int timeOfDay;};extern GlobalData*TheWritableGlobalData;
 #define V(n) virtual void s##n();
 #define V10(n) V(n##0) V(n##1) V(n##2) V(n##3) V(n##4) V(n##5) V(n##6) V(n##7) V(n##8) V(n##9)
-class Mouse {public:enum MouseCursor{NONE,NORMAL,ARROW,SCROLL,CROSS};V10(0) V(10) V(11) V(12) V(13) V(14) V(15) V(16) V(17) V(18) V(19) virtual void capture();virtual void releaseCapture();};extern Mouse*TheMouse;
+#include "../../Include/GameClient/Mouse.h"
+extern Mouse*TheMouse;
 class ResourceEntryCollector {public:void rva004E551E();};struct BfmeUiResourceEntryState;extern BfmeUiResourceEntryState BfmeUiResourceEntryCollectorState;
 class Rva0029B5E3 {public:void clear();void*ptr;};
 class Rva0029A94F {public:void rva0029A94F();};

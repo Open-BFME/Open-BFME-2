@@ -666,11 +666,7 @@ public:
 
 struct RGBColor;
 
-class Mouse
-{
-public:
-	void rva001EEA6D(UnicodeString tooltip, int delay, const RGBColor *color, float width);
-};
+#include "../../../../../Include/GameClient/Mouse.h"
 
 extern Mouse *TheMouse;
 

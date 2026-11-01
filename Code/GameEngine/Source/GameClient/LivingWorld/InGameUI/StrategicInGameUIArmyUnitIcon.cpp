@@ -169,7 +169,7 @@ class Rva005FD034 {public:void rva005FD034(int);};
 class Rva005FD04B {public:void rva005FD04B(unsigned char);};
 class Rva002A98A7DwordField {public:int get()const;};
 struct RGBColor;
-class Mouse {public:void rva001EEA6D(UnicodeString,int,const RGBColor *,float);};
+#include "../../../../Include/GameClient/Mouse.h"
 extern Mouse *TheMouse;
 class GameTextInterface {public:
  virtual ~GameTextInterface();

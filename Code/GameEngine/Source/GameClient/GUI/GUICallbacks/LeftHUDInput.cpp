@@ -107,18 +107,7 @@ public:
 	Bool radarToWorld(const ICoord2D *radar, Coord3D *world);
 };
 
-class Mouse
-{
-public:
-	enum MouseCursor { INVALID_MOUSE_CURSOR = -1, ARROW = 2, CROSS = 4, MOVETO = 5, ATTACKMOVETO = 6 };
-	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
-	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
-	virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
-	virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
-	virtual void v16(); virtual void v17(); virtual void v18();
-	virtual void setCursor(MouseCursor cursor);                          // +0x4C
-	Int getCursorIndex(const AsciiString &name);
-};
+#include "../../../../Include/GameClient/Mouse.h"
 
 class InGameUI
 {

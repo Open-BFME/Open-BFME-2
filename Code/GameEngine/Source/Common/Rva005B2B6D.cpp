@@ -10,11 +10,7 @@
 
 struct RGBColor;
 
-class Mouse
-{
-public:
-	void rva001EEA6D(UnicodeString name, int a0, const RGBColor *a1, float a2);
-};
+#include "../../Include/GameClient/Mouse.h"
 extern Mouse *TheMouse;
 
 class CommandButton;

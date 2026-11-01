@@ -559,11 +559,7 @@ UnicodeString Rva0059F12A(int rank);
 
 void GadgetTextEntrySetText(GameWindow *, UnicodeString);
 struct RGBColor;
-class Mouse
-{
-public:
-    void rva001EEA6D(UnicodeString, int, const RGBColor *, float);
-};
+#include "../../../../../Include/GameClient/Mouse.h"
 extern Mouse *TheMouse;
 // Existing 52-byte rank-table globals defined by Rva005B8116Stats.cpp.
 class Rva00559D0CRankWeights;

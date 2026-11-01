@@ -41,12 +41,7 @@ public:
 class GameSlot;
 #include "../../../Include/GameNetwork/GameInfo.h"
 
-class Mouse
-{
-public:
-	void rva001EEA6D( UnicodeString tooltip, int index, const RGBColor *color,
-		float delay );
-};
+#include "../../../Include/GameClient/Mouse.h"
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/GameEngine.h
 class GameEngine

@@ -26,11 +26,7 @@ namespace StrategicHUD
 
 #include "../../../Libraries/Include/Lib/RGBColor.h"
 
-class Mouse
-{
-public:
-	void rva001EEA6D(UnicodeString tooltip, int delay, const RGBColor *color, float width);
-};
+#include "../../Include/GameClient/Mouse.h"
 
 #include "../../Include/GameClient/GameText.h"
 

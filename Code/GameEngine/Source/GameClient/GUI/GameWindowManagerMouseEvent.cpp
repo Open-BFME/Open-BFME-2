@@ -151,7 +151,7 @@ class BfmeMouseDisplayView { public:
  virtual unsigned int getWidth(); virtual unsigned int getHeight();
 };
 struct RGBColor;
-class Mouse { public: void rva001EEA6D(UnicodeString,int=-1,const RGBColor * =0,float=1.0f); };
+#include "../../../Include/GameClient/Mouse.h"
 extern Mouse *TheMouse; extern Display *TheDisplay;
 static Bool sendMousePosMessages=TRUE;
 WinInputReturnCode GameWindowManager::winProcessMouseEvent( GameWindowMessage msg,

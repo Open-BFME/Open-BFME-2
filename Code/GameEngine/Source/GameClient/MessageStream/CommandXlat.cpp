@@ -120,9 +120,7 @@ class RvaGlobalDataView { public:
  char padb90[0xc9]; bool m_TiVOFastMode;
 };
 struct Rva001EDD80Pair;
-class Mouse { public: bool rva001EDD80(const Rva001EDD80Pair*,const Rva001EDD80Pair*); int getCursorIndex(const AsciiString&); char pad00[0x10ec]; unsigned m_dragTolerance; char pad10f0[4]; unsigned m_clickTime;
- bool rva005A49E0(const ICoord2D*,const ICoord2D*) const;
-};
+#include "../../../Include/GameClient/Mouse.h"
 class Radar { public: bool rva00107140(Coord3D*); };
 class Rva004891C0 { public: char pad00[0x4d]; bool field4d; bool test() const; };
 class Rva003968A0 { public: bool test(); };

@@ -1002,12 +1002,7 @@ struct AptTimeLineShell
 
 class Shell;
 
-class Mouse
-{
-private:
-	void commitPendingCursor();
-    friend class AptTimeLine;
-};
+#include "../../../../../Include/GameClient/Mouse.h"
 
 extern Mouse *TheMouse;
 

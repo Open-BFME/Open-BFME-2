@@ -107,11 +107,7 @@ class ThingFactory;
 extern ThingFactory *TheThingFactory; // findTemplate viewed as the rowed 0x002D06CA
 
 struct RGBColor;
-class Mouse
-{
-public:
-	void rva001EEA6D(UnicodeString text, int a, const RGBColor *color, float alpha);
-};
+#include "../../../../Include/GameClient/Mouse.h"
 extern Mouse *TheMouse;
 
 namespace StrategicInGameUI {

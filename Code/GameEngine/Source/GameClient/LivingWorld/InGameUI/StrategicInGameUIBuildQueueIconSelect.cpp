@@ -636,7 +636,7 @@ __declspec(noinline) static UnicodeString GetTooltipTextAtIndex(Rva005E72B4Queue
 { return rva005E764FGet(queue,queue->slot13()->begin[index]); }
 }
 struct RGBColor;
-class Mouse { public: void rva001EEA6D(UnicodeString,int,const RGBColor *,float); };
+#include "../../../../Include/GameClient/Mouse.h"
 extern Mouse *TheMouse;
 // ?StrategicInGameUI::BuildQueueDetailsPanel::Impl::Icon::Update present-unmatched
 void StrategicInGameUI::BuildQueueDetailsPanel::Impl::Icon::Update()

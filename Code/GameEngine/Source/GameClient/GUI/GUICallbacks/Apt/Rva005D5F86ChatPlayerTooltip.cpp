@@ -89,11 +89,7 @@ extern GameSpyInfoInterface *TheGameSpyInfo;
 extern GameTextInterface *TheGameText;
 
 struct RGBColor;
-class Mouse
-{
-public:
-    void rva001EEA6D(UnicodeString, int, const RGBColor *, float);
-};
+#include "../../../../../Include/GameClient/Mouse.h"
 extern Mouse *TheMouse;
 
 // Existing 52-byte rank-table globals defined by Rva005B8116Stats.cpp and

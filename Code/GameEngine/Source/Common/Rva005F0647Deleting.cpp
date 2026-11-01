@@ -27,11 +27,7 @@ void Rva005F0C39Destroy(Rva005F0647 *begin, Rva005F0647 *end)
 
 #include "../../../Libraries/Include/Lib/RGBColor.h"
 
-class Mouse
-{
-public:
-	void rva001EEA6D(UnicodeString tooltip, int delay, const RGBColor *color, float width) throw();
-};
+#include "../../Include/GameClient/Mouse.h"
 extern Mouse *TheMouse;
 
 #include "../../Include/GameClient/GameText.h"

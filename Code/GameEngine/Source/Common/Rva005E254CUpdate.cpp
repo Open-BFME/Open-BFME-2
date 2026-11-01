@@ -3,7 +3,7 @@
 // refresh clip, optionally display building-type1 tooltip. Original method unclaimed.
 #include "unicode_string.h"
 struct RGBColor;
-class Mouse {public:void rva001EEA6D(UnicodeString,int,const RGBColor *,float);};
+#include "../../Include/GameClient/Mouse.h"
 extern Mouse *TheMouse;
 namespace StrategicInGameUI {
  enum LivingWorldBuildingType {BuildingType1=1};

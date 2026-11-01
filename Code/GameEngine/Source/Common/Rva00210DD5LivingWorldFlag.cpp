@@ -17,11 +17,7 @@ class LivingWorld; extern LivingWorld *TheLivingWorld;
 class LivingWorldLogic; extern LivingWorldLogic *TheLivingWorldLogic;
 class Mouse; extern Mouse *TheMouse;
 
-class Mouse
-{
-public:
-	void _bfme_setEngineVisibility(bool visible);
-};
+#include "../../Include/GameClient/Mouse.h"
 
 class Rva002B5073
 {

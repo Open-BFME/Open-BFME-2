@@ -50,7 +50,7 @@ virtual void OnRollOut(int); virtual void OnRollOver(int); virtual void OnTypeRo
 class LivingWorldBuildPlotObserver {
 public: virtual void OnBuildPlotBuildingChanged(LivingWorldBuildPlot &); virtual void onUnknown(LivingWorldBuildPlot &);
 };
-class Mouse { public: void rva001EEA6D(UnicodeString, int, const RGBColor *, float); };
+#include "../../../../Include/GameClient/Mouse.h"
 extern Mouse *TheMouse;
 class Rva005E2138 { public: void *GetBuildPlot(); };
 class Rva004FC21AOwner { public: int rva004FC207(); };

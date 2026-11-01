@@ -5,10 +5,7 @@
 #include "unicode_string.h"
 
 #include "../../../Libraries/Include/Lib/RGBColor.h"
-class Mouse {
-public:
-	void rva001EEA6D(UnicodeString tooltip, int delay, const RGBColor *color, float width);
-};
+#include "../../Include/GameClient/Mouse.h"
 extern Mouse *TheMouse;
 
 struct Rva002BEFE5Vec { float x, y, z; };

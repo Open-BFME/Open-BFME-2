@@ -177,12 +177,7 @@ public:
 
 extern GlobalData *TheWritableGlobalData;
 
-class Mouse
-{
-public:
-	void _bfme_setEngineVisibility(bool visible);
-	void rva000B3FD0();
-};
+#include "../../../../../Include/GameClient/Mouse.h"
 
 extern Mouse *TheMouse;
 

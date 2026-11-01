@@ -465,7 +465,7 @@ bool AptPlayer::UnloadLevel(int index)
 
 #include "unicode_string.h"
 struct RGBColor;
-class Mouse { public: void rva001EEA6D(UnicodeString,int,const RGBColor *,float); };
+#include "../../../Include/GameClient/Mouse.h"
 extern Mouse *TheMouse;
 // WB B94EA0 AptPlayer.cpp1240 names HideLevel. Native2277D..227DF is98 bytes.
 bool AptPlayer::HideLevel(int index)

@@ -153,11 +153,7 @@ int TimedOpInputLocked;
 
 #include "../../Include/GameClient/InGameUI.h"
 
-class Mouse
-{
-public:
-    void _bfme_setEngineVisibility(bool visible);
-};
+#include "../../Include/GameClient/Mouse.h"
 
 unsigned int _bfme_updateTimedOps(void);
 

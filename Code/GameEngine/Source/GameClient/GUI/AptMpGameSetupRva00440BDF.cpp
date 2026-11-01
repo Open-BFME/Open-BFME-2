@@ -33,12 +33,7 @@ int GadgetListBoxGetEntryBasedOnXY(GameWindow *listBox, int x, int y, int &row, 
 
 struct RGBColor;
 
-class Mouse
-{
-public:
-	// Rowed 0x001EEA6D (sets the cursor tooltip).
-	void rva001EEA6D(UnicodeString tooltip, int delay, const RGBColor *color, float width);
-};
+#include "../../../Include/GameClient/Mouse.h"
 
 extern Mouse *TheMouse;
 

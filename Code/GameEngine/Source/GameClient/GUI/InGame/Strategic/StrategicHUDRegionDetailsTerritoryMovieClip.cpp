@@ -214,7 +214,7 @@ static __declspec(noinline) UnicodeString RegionBonusTooltip(int kind) {
  return TheGameText->fetch(LookupRegionBonus(kind)->tooltip,0);
 }
 struct RGBColor;
-class Mouse {public:void rva001EEA6D(UnicodeString text,int delay,const RGBColor *color,float scale);};
+#include "../../../../../Include/GameClient/Mouse.h"
 extern Mouse *TheMouse;
 void StrategicHUD::RegionDetailsTerritoryMovieClip::Impl::rva005F1A2D() {
  if(selectedBonus>=0 && selectedBonus<6)TheMouse->rva001EEA6D(RegionBonusTooltip(selectedBonus),-1,0,1.0f);

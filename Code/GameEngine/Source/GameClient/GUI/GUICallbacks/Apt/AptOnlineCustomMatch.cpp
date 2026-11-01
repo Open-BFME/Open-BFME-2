@@ -110,7 +110,7 @@ GameSpyStagingRoom *AptOnlineCustomMatch::GetGameToJoin()
 // The icon getter returns an integer, compared with the shared zero value.
 struct PlayerInfo { unsigned char reserved[0xC]; int wins, losses; };
 struct RGBColor;
-class Mouse { public: void rva001EEA6D(UnicodeString, int, const RGBColor *, float); };
+#include "../../../../../Include/GameClient/Mouse.h"
 extern Mouse *TheMouse;
 #include "../../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;

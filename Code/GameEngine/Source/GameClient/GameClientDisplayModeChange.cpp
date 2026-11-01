@@ -55,11 +55,7 @@ extern GlobalData *TheWritableGlobalData;
 
 // ZH's mouseNotifyResolutionChange lands on the shared empty body 0x000B3FD0
 // (pinned by address, as in AptMainMenuCallbacks.cpp).
-class Mouse
-{
-public:
-	void rva000B3FD0();
-};
+#include "../../Include/GameClient/Mouse.h"
 
 extern Mouse *TheMouse;
 
