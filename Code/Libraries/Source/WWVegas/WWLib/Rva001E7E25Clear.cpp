@@ -8,10 +8,15 @@
 // would differ from retail's. Declared imported and force-inlined, they are not emitted.
 namespace _STL {
 template <> void **vector<void *>::erase(void **first, void **last);
+}
+// Rva001E72B4Dtor.cpp spells the same begin/end specializations: one shared block.
+namespace _STL {
 template <> __declspec(dllimport) __forceinline
 void **vector<void *>::begin() { return this->_M_start; }
 template <> __declspec(dllimport) __forceinline
 void **vector<void *>::end() { return this->_M_finish; }
+}
+namespace _STL {
 template <> __declspec(dllimport) __forceinline
 void vector<void *>::clear() { erase(begin(), end()); }
 template <> __declspec(dllimport) __forceinline

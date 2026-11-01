@@ -21,8 +21,13 @@ struct _Rb_tree_node_base;
 // body 0x0007FAB3); only its range erase is reached through the vector<void *> row 0x0031BD55.
 template<> inline _Vector_base<Rva001E72B4Owned *, allocator<Rva001E72B4Owned *> >::~_Vector_base() { if (_M_start) Rva00030830GameFree(_M_start); }
 template<> vector<void *>::iterator vector<void *>::erase(iterator first, iterator last);
-template <> __declspec(dllimport) __forceinline void **vector<void *>::begin() { return _M_start; }
-template <> __declspec(dllimport) __forceinline void **vector<void *>::end() { return _M_finish; }
+}
+// Rva001E7E25Clear.cpp spells the same begin/end specializations: one shared block.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+void **vector<void *>::begin() { return this->_M_start; }
+template <> __declspec(dllimport) __forceinline
+void **vector<void *>::end() { return this->_M_finish; }
 }
 
 #include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
