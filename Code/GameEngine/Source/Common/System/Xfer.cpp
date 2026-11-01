@@ -367,14 +367,6 @@ private:
 
 // AsciiString is only ever read through its buffer pointer here, so this unit
 // models the header block rather than pulling the class in.
-struct AsciiStringHeader
-{
-    int ref_count;
-    unsigned short length;
-    unsigned short capacity;
-    char data[1];
-};
-
 // ---- from Code/GameEngine/Source/Common/System/PooledString.cpp
 
 // flags: region default (reverse/retail_inventory/flag_regions.csv)

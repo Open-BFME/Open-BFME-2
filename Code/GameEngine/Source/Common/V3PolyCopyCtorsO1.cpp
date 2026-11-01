@@ -70,28 +70,6 @@ struct V3Block32 { Int m_v[32]; };
 
 // ------------------------------------------ vptr + thirteen ints (0x38 bytes)
 
-class Rva005EA0D0
-{
-public:
-	Rva005EA0D0( const Rva005EA0D0 &other );
-	virtual ~Rva005EA0D0();
-
-	Int m_field04;
-	Int m_field08;
-	Int m_field0C;
-	Int m_field10;
-	Int m_field14;
-	Int m_field18;
-	Int m_field1C;
-	Int m_field20;
-	Int m_field24;
-	Int m_field28;
-	Int m_field2C;
-	Int m_field30;
-	Int m_field34;
-};
-
-
 // ------------------------------------------- vptr + 0x10 dwords (0x44 bytes)
 
 class Rva005E9390

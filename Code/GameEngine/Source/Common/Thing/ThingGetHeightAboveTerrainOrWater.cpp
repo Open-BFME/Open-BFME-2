@@ -15,17 +15,6 @@
 #include "Lib/Trig.h"
 #include "GameLogic/TerrainLogic.h"
 
-class BFMERetailThingVTable
-{
-public:
-	virtual Real calculateHeightAboveTerrain() const = 0;
-	virtual void slot1() = 0;
-	virtual void slot2() = 0;
-	virtual void slot3() = 0;
-	virtual void slot4() = 0;
-	virtual void reactToTransformChange(const Matrix3D *oldMtx, const Coord3D *oldPos, Real oldAngle) = 0;
-};
-
 class BFMERetailTerrainLogicVTable
 {
 public:

@@ -155,16 +155,7 @@ void W3DVolumetricShadowManager::rva000F0A75(void *owner_)
 }
 
 // --- Call this object's own vtable slot 2 with a constant.
-class Rva0035D781Self
-{
-public:
-	virtual void slot0();
-	virtual void slot1();
-	virtual void slot2(Int value);
-	void rva0035D781();
-	void rva0035E603();
-	void rva0035F49E();
-};	// vtable 0x00C1665C slot 6
+	// vtable 0x00C1665C slot 6
 
 // --- Float functions of the slot's one float argument (cdecl callees,
 // ledger-named by address; 0x004D6B6E is also rowed as _atan).

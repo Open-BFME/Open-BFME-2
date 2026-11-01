@@ -343,12 +343,6 @@ class Rva003F8101
 public:
 	void *rva003F8101();
 };
-class Rva003F8090
-{
-public:
-	void *rva003F80C3();
-};
-
 // Rva003F81FDProxy::rva003F81B0 (0x003F81B0) is rowed in Rva003F81B0Chain.cpp; a second definition here would not link.
 
 // 0x00C3731C#3 slot 3

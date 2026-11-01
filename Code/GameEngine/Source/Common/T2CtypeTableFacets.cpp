@@ -66,14 +66,6 @@ extern const unsigned int g_ctypeClassificationMasks[256] = {
 
 extern "C" __declspec(dllimport) void *__cdecl memmove(void *dst, const void *src, unsigned int n);
 
-struct T2NarrowCtype
-{
-	char toUpper(char c) const;
-	const char *toLowerRange(char *low, char *high) const;
-	const char *widenRange(const char *low, const char *high, char *to) const;
-	const char *narrowRange(const char *low, const char *high, char dflt, char *to) const;
-};
-
 struct T2WideCtype
 {
 	const T2WChar *isRange(const T2WChar *low, const T2WChar *high, unsigned int *vec) const;

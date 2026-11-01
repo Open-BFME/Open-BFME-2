@@ -77,11 +77,6 @@ public:
 
 namespace FXParticleSystem
 {
-class ParticleSystemTemplate
-{
-public:
-	int getParticleType() const;
-};
 }
 
 // ?Rva003064CBXfer@@YAXPAVXfer@@PAI@Z

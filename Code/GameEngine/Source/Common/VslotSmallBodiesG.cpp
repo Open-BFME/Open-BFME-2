@@ -105,20 +105,6 @@ void Rva0057B93E::rva0057B93E(char value)
 
 // slot at VA 0x00C7391C: clears the +0x34 byte and +0x38, and copies the
 // value the +0x0C pointer refers to into +0x10.
-class Rva005B7426
-{
-public:
-	void rva005B7426();
-private:
-	char m_pad00[0x0C];
-	Int *m_0C;
-	Int m_10;
-	char m_pad14[0x34 - 0x14];
-	Bool m_34;
-	char m_pad35[0x38 - 0x35];
-	Int m_38;
-};
-
 // slot at VA 0x00C73954: the global block at VA 0x00E05FCC while +0x2C is 2,
 // else the one at VA 0x00E06000.
 // The two blocks are the GameSpy rank-weight tables, defined with the ledger's

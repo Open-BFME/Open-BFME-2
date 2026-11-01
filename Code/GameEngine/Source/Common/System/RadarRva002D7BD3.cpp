@@ -17,11 +17,6 @@
 
 #include "Common/Snapshot.h"
 
-class BFME2NativeNetwork
-{
-public:
-};
-
 // The ctor at 0x001B4E63 and RadarDtor's +4 base teardown establish
 // the same twelve-byte subsystem base used by RadarDtor.cpp.
 typedef bool Bool;

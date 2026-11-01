@@ -13,14 +13,6 @@
 // fills its own ranges. Flags follow System /O1 neighbours but use /Os to
 // keep retail's late reloads of [this+0x10] and /arch:SSE for movss/xorps.
 
-class Rva000AD6F4
-{
-public:
-	void clear();
-private:
-	char m_pad[8];
-};
-
 class GameEngineDeletingBase
 {
 public:

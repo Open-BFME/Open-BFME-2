@@ -86,27 +86,6 @@ Rva0066D810Handle Rva0066D810::rva0066D810() const
 
 // 0x006CBCF0 (18 tables): virtual slot 14 (1) of this object unless it is
 // NULL.
-class Rva006CBCF0
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void v03();
-	virtual void v04();
-	virtual void v05();
-	virtual void v06();
-	virtual void v07();
-	virtual void v08();
-	virtual void v09();
-	virtual void v10();
-	virtual void v11();
-	virtual void v12();
-	virtual void v13();
-	virtual void v14(Int a);
-	void rva006CBCF0();
-};
-
 // 0x006E0510: whether the rowed 0x006E04A0 answers non-NULL.
 class BfmeAptValue006DCD20
 {

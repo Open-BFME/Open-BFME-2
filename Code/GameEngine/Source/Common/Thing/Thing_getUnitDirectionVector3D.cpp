@@ -5,13 +5,6 @@
 // Unlock 5: builds Coord3D from this+8/+0x18/+0x28 via movss, block-copies
 // to out via 3x movsd, normalizes out via rowed 0x00005A70. Callers UNCLAIMED.
 // Evidence: movss/movsd/fstp shape; SSE flags from next Rva0030A92C.
-struct Coord3DBase
-{
-    float x;
-    float y;
-    float z;
-};
-
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
 class Thing

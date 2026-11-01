@@ -57,11 +57,6 @@ SnapshotAssign g_snapshotAssign = &Snapshot::operator=;
 // one-byte trait object the callers zero with a lea/stosb pair. Neither narrow
 // worker reads that object - only the wide pair takes its address - so it stays
 // an opaque byte here.
-struct CharCompare
-{
-    char m_unused;
-};
-
 // The wide pair at 0x0000586D and 0x00005898 is the same shape, except that
 // both of them DO read the trait object: each takes its address and calls
 // through it, which is why the narrow pair can leave it opaque and these
