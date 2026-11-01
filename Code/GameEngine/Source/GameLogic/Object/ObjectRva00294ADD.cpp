@@ -71,13 +71,7 @@ public:
 	virtual Bool isBlocked(); // +0x64
 };
 
-class BodyModuleInterface
-{
-public:
-	virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03();
-	virtual void slot04(); virtual void slot05(); virtual void slot06(); virtual void slot07();
-	virtual Int getDamageState() const; // +0x20
-};
+#include "../../../Include/GameLogic/Module/BodyModule.h"
 
 struct Rva00294ADDEntry
 {

@@ -38,16 +38,7 @@ public:
 	AICommandInterface m_commands;	// +0x20
 };
 
-class BodyModuleInterface
-{
-public:
-	virtual void v00() = 0;
-	virtual void v01() = 0;
-	virtual void v02() = 0;
-	virtual void v03() = 0;
-	virtual void v04() = 0;
-	virtual float getHealthRatio() const = 0;	// slot 5 (+0x14)
-};
+#include "../../../Include/GameLogic/Module/BodyModule.h"
 
 struct ThingTemplate
 {

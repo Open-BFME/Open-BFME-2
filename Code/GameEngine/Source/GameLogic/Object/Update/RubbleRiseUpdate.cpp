@@ -76,15 +76,7 @@ private:
 	unsigned char m_pad000[0x1A0];
 	Matrix3D m_instance; // +0x1A0
 };
-class BodyModuleInterface
-{
-public:
-#define BODY_SLOT(n) virtual void slot##n();
-	BODY_SLOT(00) BODY_SLOT(01) BODY_SLOT(02) BODY_SLOT(03) BODY_SLOT(04)
-	BODY_SLOT(05) BODY_SLOT(06) BODY_SLOT(07) BODY_SLOT(08) BODY_SLOT(09)
-#undef BODY_SLOT
-	virtual void updateBodyParticleSystems(); // slot 0x28
-};
+#include "../../../../Include/GameLogic/Module/BodyModule.h"
 class ModelConditionFlags
 {
 public:

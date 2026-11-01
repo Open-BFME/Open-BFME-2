@@ -412,20 +412,7 @@ struct CreateMask : public ObjectStatusMask
 {
 };
 
-class BodyModuleInterface
-{
-public:
-	virtual void i00(); virtual void i01(); virtual void i02(); virtual void i03();
-	virtual Real getHealth() const; // +0x10
-	virtual void i05(); virtual void i06(); virtual void i07();
-	virtual void i08(); virtual void i09(); virtual void i10(); virtual void i11();
-	virtual void i12(); virtual void i13(); virtual void i14(); virtual void i15();
-	virtual void i16(); virtual void i17(); virtual void i18(); virtual void i19();
-	virtual void i20(); virtual void i21(); virtual void i22(); virtual void i23();
-	virtual void i24(); virtual void i25(); virtual void i26(); virtual void i27();
-	virtual void i28(); virtual void i29(); virtual void i30(); virtual void i31();
-	virtual void internalChangeHealth(Real delta, Int flag); // +0x80
-};
+#include "../../../../../Include/GameLogic/Module/BodyModule.h"
 
 class GeometryInfo
 {

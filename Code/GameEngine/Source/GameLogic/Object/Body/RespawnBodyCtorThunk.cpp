@@ -22,11 +22,7 @@ public:
 	virtual void behaviorModuleInterfaceAnchor();
 };
 
-class BodyModuleInterface
-{
-public:
-	virtual void bodyModuleInterfaceAnchor();
-};
+#include "../../../../Include/GameLogic/Module/BodyModule.h"
 
 class ActiveBody : public BehaviorModule,
 	public BehaviorModuleInterface,

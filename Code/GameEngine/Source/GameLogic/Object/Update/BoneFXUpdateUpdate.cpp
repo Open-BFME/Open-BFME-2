@@ -96,14 +96,7 @@ struct DamageInfo
 	DamageInfoInput in;
 };
 
-class BodyModuleInterface
-{
-public:
-	virtual void b00(); virtual void b01(); virtual void b02(); virtual void b03(); virtual void b04();
-	virtual void b05(); virtual void b06(); virtual void b07(); virtual void b08(); virtual void b09();
-	virtual void b10(); virtual void b11(); virtual void b12(); virtual void b13(); virtual void b14();
-	virtual const DamageInfo *getLastDamageInfo() const; // slot 15
-};
+#include "../../../../Include/GameLogic/Module/BodyModule.h"
 
 // Drawable 0x00270260 (rowed under a placeholder name): hidden when either
 // of the bytes +0x43D / +0x43E is set.

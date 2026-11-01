@@ -205,12 +205,7 @@ struct DamageInfo
 	Real m_amount; // +0x20
 };
 
-class BodyModuleInterface : public StealthUpdateSlots<15>
-{
-public:
-	virtual const DamageInfo *getLastDamageInfo() const = 0; // slot 15
-	virtual UnsignedInt getLastDamageTimestamp() const = 0; // slot 16
-};
+#include "../../../../Include/GameLogic/Module/BodyModule.h"
 
 // The contain interface Object::rva0028C197 returns; slot 59 is unnamed.
 struct ContainedItemsView;

@@ -35,12 +35,7 @@ template <> class ArmorUpgradeBodySlots<0>
 };
 // BodyModuleInterface (Object +0x254): slots 12/13 are the armor set flag
 // setter and clearer (the Zero Hour order).
-class BodyModuleInterface : public ArmorUpgradeBodySlots<12>
-{
-public:
-	virtual void setArmorSetFlag(ArmorSetType ast) = 0;
-	virtual void clearArmorSetFlag(ArmorSetType ast) = 0;
-};
+#include "../../../../Include/GameLogic/Module/BodyModule.h"
 class ModelConditionFlags
 {
 public:

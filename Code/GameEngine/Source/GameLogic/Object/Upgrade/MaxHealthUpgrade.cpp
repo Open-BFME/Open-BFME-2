@@ -76,17 +76,7 @@ template <> class MaxHealthUpgradeBodySlots<0>
 };
 
 // BodyModuleInterface (Object +0x254): slot 6 getMaxHealth, slot 22 setMaxHealth.
-class BodyModuleInterface : public MaxHealthUpgradeBodySlots<6>
-{
-public:
-	virtual Real getMaxHealth() const = 0;
-	virtual void s07() = 0; virtual void s08() = 0; virtual void s09() = 0;
-	virtual void s10() = 0; virtual void s11() = 0; virtual void s12() = 0;
-	virtual void s13() = 0; virtual void s14() = 0; virtual void s15() = 0;
-	virtual void s16() = 0; virtual void s17() = 0; virtual void s18() = 0;
-	virtual void s19() = 0; virtual void s20() = 0; virtual void s21() = 0;
-	virtual void setMaxHealth(Real maxHealth, MaxHealthChangeType healthChangeType) = 0;
-};
+#include "../../../../Include/GameLogic/Module/BodyModule.h"
 
 class Object
 {

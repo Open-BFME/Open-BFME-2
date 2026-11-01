@@ -85,17 +85,7 @@ public:
 	unsigned char m_b78;
 };
 
-class BodyModuleInterface
-{
-public:
-	virtual void vf00();
-	virtual void vf04();
-	virtual void vf08();
-	virtual void vf0C();
-	virtual void vf10();
-	virtual void vf14();
-	virtual float getMaxHealth() const;
-};
+#include "../../../../Include/GameLogic/Module/BodyModule.h"
 
 // WWMath Vector3 as the WorldBuilder twin uses it (vector3.h operator*=).
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"

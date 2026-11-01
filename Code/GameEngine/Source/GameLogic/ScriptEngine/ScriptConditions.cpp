@@ -1100,15 +1100,7 @@ struct DamageInfo
     unsigned char m_pad[0xC];
     int m_sourcePlayerMask; // +0x0C
 };
-class BodyModuleInterface
-{
-public:
-    virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03();
-    virtual void s04(); virtual void s05(); virtual void s06(); virtual void s07();
-    virtual void s08(); virtual void s09(); virtual void s10(); virtual void s11();
-    virtual void s12(); virtual void s13(); virtual void s14();
-    virtual const DamageInfo *getLastDamageInfo() const; // slot +0x3C
-};
+#include "../../../Include/GameLogic/Module/BodyModule.h"
 enum KindOfType
 {
 	KINDOF_90 = 90

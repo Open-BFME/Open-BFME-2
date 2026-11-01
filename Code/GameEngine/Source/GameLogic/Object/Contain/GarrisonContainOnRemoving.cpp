@@ -96,17 +96,7 @@ public:
     char m_tail[0x7C - 0x24];
 };
 
-class BodyModuleInterface
-{
-public:
-    virtual void attemptDamage(DamageInfo *info);
-    virtual void vf04();
-    virtual void vf08();
-    virtual void vf0C();
-    virtual float getHealth() const;
-    virtual void vf14();
-    virtual float getMaxHealth() const;
-};
+#include "../../../../Include/GameLogic/Module/BodyModule.h"
 
 class PhysicsBehavior
 {

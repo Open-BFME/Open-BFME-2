@@ -35,17 +35,7 @@ private:
 };
 
 // Target-backed slot facade: getMaxHealth is called at vtable offset +0x18.
-class BodyModuleInterface
-{
-public:
-    virtual void vf00() = 0;
-    virtual void vf04() = 0;
-    virtual void vf08() = 0;
-    virtual void vf0C() = 0;
-    virtual void vf10() = 0;
-    virtual void vf14() = 0;
-    virtual float getMaxHealth() const = 0;
-};
+#include "../../../Include/GameLogic/Module/BodyModule.h"
 
 class Object
 {

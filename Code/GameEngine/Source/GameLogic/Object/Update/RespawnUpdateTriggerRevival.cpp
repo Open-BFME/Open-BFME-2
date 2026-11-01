@@ -231,32 +231,7 @@ class ExitInterface {public:
  virtual void slot3()=0;virtual void slot4()=0;virtual void slot5()=0;virtual void slot6()=0;virtual void slot7()=0;virtual void slot8()=0;
  virtual void getExitPosition(Coord3D *,bool)=0;
 };
-class BodyModuleInterface
-{
-public:
-	virtual void slot0()=0;
-	virtual void slot1()=0;
-	virtual void slot2()=0;
-	virtual void slot3()=0;
-	virtual void slot4()=0;
-	virtual void slot5()=0;
-	virtual void slot6()=0;
-	virtual void slot7()=0;
-	virtual void slot8()=0;
-	virtual void slot9()=0;
-	virtual void slot10()=0;
-	virtual void slot11()=0;
-	virtual void slot12()=0;
-	virtual void slot13()=0;
-	virtual void slot14()=0;
-	virtual void slot15()=0;
-	virtual void slot16()=0;
-	virtual void slot17()=0;
-	virtual void slot18()=0;
-	virtual void slot19()=0;
-	virtual void slot20()=0;
-	virtual void setInitialHealth(float,bool)=0;
-};
+#include "../../../../Include/GameLogic/Module/BodyModule.h"
 class PlayerList {public:__forceinline Player *getLocalPlayer() const{return local;}char pad[0x10];Player *local;};
 extern PlayerList *ThePlayerList;
 class ControlBar {public:char pad[0x28];bool dirty;};extern ControlBar *TheControlBar;

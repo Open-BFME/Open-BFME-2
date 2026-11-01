@@ -84,17 +84,7 @@ class Object;
 
 class Rva00263895Member;
 
-class BodyModuleInterface
-{
-public:
-	virtual void s00();
-	virtual void attemptHealing(Rva00263895Member *);
-	virtual void s02();
-	virtual void s03();
-	virtual float getHealth();
-	virtual void s05();
-	virtual float getMaxHealth();
-};
+#include "../../../../Include/GameLogic/Module/BodyModule.h"
 
 struct TransportContainListNode
 {

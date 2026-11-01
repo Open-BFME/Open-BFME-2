@@ -91,20 +91,7 @@ private:
 	Real m_cachedAngle; // +0x44
 };
 
-class BodyModuleInterface
-{
-public:
-	virtual void gap00(); virtual void gap01(); virtual void gap02(); virtual void gap03();
-	virtual void gap04(); virtual void gap05(); virtual void gap06(); virtual void gap07();
-	virtual void gap08(); virtual void gap09(); virtual void gap10(); virtual void gap11();
-	virtual void gap12(); virtual void gap13(); virtual void gap14(); virtual void gap15();
-	virtual void gap16(); virtual void gap17(); virtual void gap18(); virtual void gap19();
-	virtual void gap20(); virtual void gap21(); virtual void gap22(); virtual void gap23();
-	virtual void gap24(); virtual void gap25(); virtual void gap26(); virtual void gap27();
-	virtual void gap28(); virtual void gap29(); virtual void gap30(); virtual void gap31();
-	virtual void gap32();
-	virtual void setIndestructible(Bool indestructible) = 0; // +0x84
-};
+#include "../../../../../Include/GameLogic/Module/BodyModule.h"
 
 class ContainModuleInterface
 {

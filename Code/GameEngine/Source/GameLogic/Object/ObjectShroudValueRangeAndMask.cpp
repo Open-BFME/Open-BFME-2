@@ -16,7 +16,7 @@
 class Player{public:char pad[0x54];int index;};
 class PlayerList{public:int getPlayersWithRelationship(int,unsigned,bool);};extern PlayerList *ThePlayerList;
 enum ObjectStatusTypes{STATUS2=2,STATUS38=38};
-class BodyModuleInterface{public:virtual void s0();virtual void s4();virtual void s8();virtual void sC();virtual float getHealth()const;};
+#include "../../../Include/GameLogic/Module/BodyModule.h"
 struct ShroudTemplateView{char pad0[0x108];unsigned char kinds[0x20];char pad128[0x4ac-0x128];float radius;char pad4B0[0x530-0x4b0];float reveal;char pad534[12];float special;char pad544[0x5d4-0x544];unsigned specialCount;char pad5d8[2];unsigned short visionCount;char pad5dc[2];unsigned short revealCount;};
 class ObjectThingBase{public:virtual ~ObjectThingBase();protected:const ShroudTemplateView *m_template;char pad8[0x64-8];};
 // Compatibility surface of Object's native table at +0x64 (VA 00BFC2D8).

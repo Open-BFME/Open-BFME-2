@@ -53,17 +53,7 @@ enum
 	DEATH_NONE = 1
 };
 
-class BodyModuleInterface
-{
-public:
-	virtual void slot00();
-	virtual void attemptHealing(DamageInfo *damageInfo);
-	virtual void slot02();
-	virtual void slot03();
-	virtual float getHealth() const;
-	virtual void slot05();
-	virtual float getMaxHealth() const;
-};
+#include "../../../../Include/GameLogic/Module/BodyModule.h"
 
 class Object
 {

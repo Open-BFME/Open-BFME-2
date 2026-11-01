@@ -151,11 +151,7 @@ template <> class RebuildHoleBodySlots<0>
 {
 };
 // BodyModuleInterface (Object +0x254): slot 22 setMaxHealth.
-class BodyModuleInterface : public RebuildHoleBodySlots<22>
-{
-public:
-	virtual void setMaxHealth(Real maxHealth, MaxHealthChangeType healthChangeType) = 0;
-};
+#include "../../../../Include/GameLogic/Module/BodyModule.h"
 // SpawnBehaviorInterface table 0x00C425AC: slot 11 is a byte getter.
 class SpawnBehaviorInterface : public RebuildHoleBodySlots<11>
 {

@@ -146,11 +146,7 @@ private:
 	BehaviorModuleInterface m_interface; // +0x0C
 };
 
-class BodyModuleInterface : public OclBehaviorSlots<21>
-{
-public:
-	virtual void setInitialHealth(Real initialPercent, Int unused) = 0; // +0x54
-};
+#include "../../../Include/GameLogic/Module/BodyModule.h"
 
 template <int N> class OclContainSlots : public OclContainSlots<N - 1>
 {

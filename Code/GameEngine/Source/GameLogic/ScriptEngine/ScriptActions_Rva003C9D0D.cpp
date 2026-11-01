@@ -80,16 +80,7 @@ enum CommandSourceType
 };
 
 // The +0x254 body module interface; only the slot this action calls.
-class BodyModuleInterface
-{
-public:
-	virtual void v00() = 0;
-	virtual void v01() = 0;
-	virtual void v02() = 0;
-	virtual void v03() = 0;
-	virtual void v04() = 0;
-	virtual float getHealthRatio() const = 0;	// slot 5 (+0x14), compared with 1
-};
+#include "../../../Include/GameLogic/Module/BodyModule.h"
 
 class AICommandInterface
 {
