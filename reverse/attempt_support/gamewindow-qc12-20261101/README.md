@@ -114,3 +114,5 @@ native slot0. A temporary union instead compiled an extra target-load, and the
 ordinary C++ destructor/delete form freed the original rather than returned
 pointer. Neither failed trial remains in Code. The final direct expression
 matches all 137 native bytes, all relocations, and emits no extra provider.
+
+First header/predicate6432eee5b9 landed as ad5eb6623d57; ancestry and exact header/source blobs verified. Remaining seven commits rebased onto e2eb15a2c332faec1ec113c04324095934d175fd, excluding that landed prefix. All nine final header/source blobs equal the pre-rebase verified tip. Fresh-base85/85 rows, seven header accepts, full runtime graph unchanged and check_csv PASS. Bundle contains eight remaining commits including this verification note.
