@@ -33,11 +33,7 @@ public:
 	NameKeyType nameToKey(const AsciiString &name);
 };
 
-class GameWindow
-{
-public:
-	Int winHide(Bool hide);
-};
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 
 class GameWindowManager
 {

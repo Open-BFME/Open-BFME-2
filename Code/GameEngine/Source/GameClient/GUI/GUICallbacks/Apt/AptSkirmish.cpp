@@ -39,13 +39,7 @@ void __malloc_alloc<0>::deallocate(void *__p, size_t)
 }
 #include "../../../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
-class GameWindow
-{
-protected:
-	virtual ~GameWindow();
-private:
-	unsigned char m_pad004[0x218 - 4];
-};
+#include "../../../../../Include/GameClient/Bfme2GameWindow.h"
 
 class __multiple_inheritance FunctorTarget;
 

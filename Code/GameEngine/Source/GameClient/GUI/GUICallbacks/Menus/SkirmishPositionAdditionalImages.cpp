@@ -50,13 +50,7 @@ public:
 
 extern TechAndSupplyImages TheSupplyAndTechImageLocations;
 
-class GameWindow
-{
-public:
-	Bool winIsHidden(void);
-	Int winGetSize(Int *width, Int *height);
-	Int winGetScreenPosition(Int *x, Int *y);
-};
+#include "../../../../../Include/GameClient/Bfme2GameWindow.h"
 
 class MapMetaData
 {

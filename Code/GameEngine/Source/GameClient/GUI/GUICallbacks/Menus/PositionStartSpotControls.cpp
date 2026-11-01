@@ -19,13 +19,7 @@ typedef float Real;
 
 #include "../../../../../../Libraries/Include/Lib/ICoord2D.h"
 
-class GameWindow
-{
-public:
-	Int winGetSize(Int *width, Int *height);
-	Int winGetScreenPosition(Int *x, Int *y);
-	Int winSetPosition(Int x, Int y);
-};
+#include "../../../../../Include/GameClient/Bfme2GameWindow.h"
 
 class MapMetaData
 {

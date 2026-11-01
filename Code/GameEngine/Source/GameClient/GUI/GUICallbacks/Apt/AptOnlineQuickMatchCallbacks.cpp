@@ -14,7 +14,7 @@ void Rva00516E92Enable();
 #include <string.h>
 
 #include "ascii_string.h"
-class GameWindow {public:int winGetSize(int*,int*);};
+#include "../../../../../Include/GameClient/Bfme2GameWindow.h"
 class Image;
 class ImageCollection {public:const Image *findImageByName(const AsciiString&);};
 extern ImageCollection *TheMappedImageCollection;

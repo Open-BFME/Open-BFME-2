@@ -38,15 +38,7 @@ public:
 class IMEManager;
 extern IMEManager *TheIMEManager;
 
-class GameWindow
-{
-protected:
-	virtual ~GameWindow();
-	virtual void s1(); virtual void s2(); virtual void s3(); virtual void s4();
-	virtual int rva004E8620() = 0;
-private:
-	unsigned char m_pad004[0x218 - 4];
-};
+#include "../../../../../Include/GameClient/Bfme2GameWindow.h"
 
 class AptInGameChat : public GameWindow
 {

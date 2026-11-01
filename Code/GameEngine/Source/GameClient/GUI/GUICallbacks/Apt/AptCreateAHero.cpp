@@ -13,13 +13,7 @@
 #define _CRTIMP __declspec(dllimport)
 #define TheGlobalDataView ((DestructorGlobalData *)TheWritableGlobalData)
 
-class GameWindow
-{
-protected:
-	virtual ~GameWindow();
-private:
-	unsigned char m_pad004[0x218 - 4];
-};
+#include "../../../../../Include/GameClient/Bfme2GameWindow.h"
 
 class Coord2D;
 

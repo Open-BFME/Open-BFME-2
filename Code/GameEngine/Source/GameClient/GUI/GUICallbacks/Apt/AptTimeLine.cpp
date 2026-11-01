@@ -406,14 +406,7 @@ void allocator<int>::deallocate(int* __p, size_t __n) const {
 }
 }
 
-class GameWindow
-{
-public:
-	GameWindow();
-protected:
-	virtual ~GameWindow();
-	char m_pad04[0x214];
-};
+#include "../../../../../Include/GameClient/Bfme2GameWindow.h"
 
 template <class T> class AptRef;
 

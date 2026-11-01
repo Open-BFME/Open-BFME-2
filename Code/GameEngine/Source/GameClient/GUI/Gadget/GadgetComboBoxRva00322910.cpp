@@ -8,9 +8,7 @@
 
 typedef int Int;
 
-class GameWindow
-{
-};
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 
 void GadgetComboBoxGetSelectedPos(GameWindow *comboBox, Int *selectedIndex);
 

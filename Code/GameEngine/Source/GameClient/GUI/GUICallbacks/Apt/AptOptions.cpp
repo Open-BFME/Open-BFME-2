@@ -21,12 +21,7 @@ template <> struct less<AsciiString>
 };
 }
 
-class GameWindow
-{
-public:
-	int winEnable(bool enable);
-	void *winGetUserData();
-};
+#include "../../../../../Include/GameClient/Bfme2GameWindow.h"
 
 class BfmeKeyLC;
 

@@ -5,14 +5,7 @@
 #include "unicode_string.h"
 #pragma pointers_to_members(full_generality, multiple_inheritance)
 extern "C" __declspec(dllimport) int __cdecl atoi(const char *text);
-class GameWindow
-{
-protected:
-	virtual ~GameWindow();
-
-private:
-	unsigned char m_pad004[0x218 - 4];
-};
+#include "../../../../../Include/GameClient/Bfme2GameWindow.h"
 // The Apt callback functors (Rva0057BC63FunctorHolder.cpp, as in
 // AptScoreScreenCallbacks.cpp).
 class __multiple_inheritance FunctorTarget;

@@ -20,11 +20,7 @@ typedef unsigned short wchar_t;
 #include "ascii_string.h"
 
 
-class GameWindow
-{
-public:
-	unsigned int winGetStyle();
-};
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 
 UnicodeString GadgetTextEntryGetText(GameWindow *textentry);
 

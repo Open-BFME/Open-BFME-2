@@ -2,9 +2,7 @@
 // Retail 0x00435BB3, 281 bytes: the save/load screen's list/text-entry event handler (WorldBuilder: switch on
 // the message with 0x4014 list selection, 0x4015 double click, 0x4031 text-entry commit, 0x4032 text change).
 // Partial reconstruction of the AptSaveLoad event handler at 0x00435BB3.
-class GameWindow
-{
-};
+#include "../../../../../Include/GameClient/Bfme2GameWindow.h"
 class _bfme_AptGameWindow
 {
 public:

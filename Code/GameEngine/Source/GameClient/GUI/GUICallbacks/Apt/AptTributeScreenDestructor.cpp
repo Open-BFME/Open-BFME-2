@@ -74,13 +74,7 @@ _Rb_tree_base<TreeHintPair0051030C, allocator<TreeHintPair0051030C> >::_Rb_tree_
 	const allocator<TreeHintPair0051030C> &);
 }
 
-class GameWindow
-{
-protected:
-	virtual ~GameWindow();
-private:
-	unsigned char m_pad004[0x218 - 4];
-};
+#include "../../../../../Include/GameClient/Bfme2GameWindow.h"
 
 class Rva005248D0
 {

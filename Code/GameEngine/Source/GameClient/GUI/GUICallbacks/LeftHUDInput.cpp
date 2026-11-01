@@ -89,12 +89,7 @@ public:
 	UnsignedInt getOptions() const { return m_options; }
 };
 
-class GameWindow
-{
-public:
-	Int winGetSize(Int *width, Int *height);
-	Int winGetScreenPosition(Int *x, Int *y);
-};
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 
 #include "../../../../Include/Common/Player.h"
 

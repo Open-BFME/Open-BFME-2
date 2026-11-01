@@ -20,14 +20,7 @@ class BfmeKeyLC;
 void *bfmeGo925A(BfmeKeyLC *k);
 GameWindow *GadgetComboBoxGetListBox(GameWindow *comboBox);
 
-class GameWindow
-{
-public:
-	Bool winIsHidden();
-	Int winHide(Bool hide);
-	Int winGetSize(Int *width, Int *height);
-	Int winSetSize(Int width, Int height);
-};
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 
 class GameWindowManager
 {

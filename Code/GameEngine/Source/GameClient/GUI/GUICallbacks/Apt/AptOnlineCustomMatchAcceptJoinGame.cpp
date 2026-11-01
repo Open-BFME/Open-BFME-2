@@ -15,11 +15,7 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 
-class GameWindow
-{
-public:
-	int winEnable(bool enable);
-};
+#include "../../../../../Include/GameClient/Bfme2GameWindow.h"
 
 UnicodeString GadgetTextEntryGetText(GameWindow *textEntry);
 

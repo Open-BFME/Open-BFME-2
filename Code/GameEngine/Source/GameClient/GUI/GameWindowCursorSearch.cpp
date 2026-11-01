@@ -23,7 +23,7 @@ public:
  Rva003141BCWindowView*m_next; void*unknown1FC; Rva003141BCWindowView*m_parent; Rva003141BCWindowView*m_child;
  Rva003141BCWindowView*rva003142E1(int,int,bool,bool);
 };
-class GameWindow { public: GameWindow *winPointInChild(int,int,bool,bool=false); };
+#include "../../../Include/GameClient/Bfme2GameWindow.h"
 class AudioManager; extern AudioManager *TheAudio;
 // Native2C1629-2C176C; capture/grab/modal precedence and three status passes
 // follow ZH GameWindowManager donor; manager accessed prefix only.

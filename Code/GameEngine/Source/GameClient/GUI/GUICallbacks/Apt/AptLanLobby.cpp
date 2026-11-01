@@ -71,12 +71,7 @@ extern GameTextInterface *TheGameText;
 
 class WinInstanceData;
 
-class GameWindow
-{
-public:
-	int winSetTooltipFunc(void (*tooltip)(GameWindow *window, WinInstanceData *data, unsigned int mouse));
-	void *winGetUserData();
-};
+#include "../../../../../Include/GameClient/Bfme2GameWindow.h"
 
 class BfmeKeyLC;
 

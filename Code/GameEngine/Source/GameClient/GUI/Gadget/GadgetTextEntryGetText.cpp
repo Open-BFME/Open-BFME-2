@@ -23,11 +23,7 @@ class AsciiString;
 #include "unicode_string.h"
 
 
-class GameWindow
-{
-public:
-	UnsignedInt winGetStyle();
-};
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 
 class GameWindowManager
 {

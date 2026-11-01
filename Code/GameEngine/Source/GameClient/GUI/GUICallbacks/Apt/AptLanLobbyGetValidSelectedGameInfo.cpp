@@ -12,12 +12,7 @@
 // Evidence: chain lane calls 0x003253BE; callers 0x00444704 0x0044489F.
 
 class WinInstanceData;
-class GameWindow
-{
-public:
-	int winSetTooltipFunc(void (*tooltip)(GameWindow *window, WinInstanceData *data, unsigned int mouse));
-	void *winGetUserData();
-};
+#include "../../../../../Include/GameClient/Bfme2GameWindow.h"
 
 void GadgetListBoxGetSelected(GameWindow *listbox, int *selectList);
 void *GadgetListBoxGetItemData(GameWindow *listbox, int row, int column);

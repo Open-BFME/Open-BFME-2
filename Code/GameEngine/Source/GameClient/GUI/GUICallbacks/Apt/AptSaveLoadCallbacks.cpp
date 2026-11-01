@@ -11,11 +11,7 @@ extern LivingWorldLogic *TheLivingWorldLogic;
 #include "unicode_string.h"
 #include "ascii_string.h"
 
-class GameWindow
-{
-public:
-	int winEnable(bool enable);
-};
+#include "../../../../../Include/GameClient/Bfme2GameWindow.h"
 class BfmeKeyLC;
 
 void GadgetTextEntrySetText(GameWindow *textEntry, UnicodeString text);

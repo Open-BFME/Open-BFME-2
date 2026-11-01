@@ -30,9 +30,7 @@
 class Image;
 class WinInstanceData;
 
-class GameWindow
-{
-};
+#include "../../../../../Include/GameClient/Bfme2GameWindow.h"
 
 void GadgetListBoxReset(GameWindow *window);
 void GadgetListBoxGetSelected(GameWindow *listbox, int *selected);

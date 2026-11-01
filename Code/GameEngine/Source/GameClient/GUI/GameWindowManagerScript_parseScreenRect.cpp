@@ -70,11 +70,7 @@ public:
 
 extern Display *TheDisplay;
 
-class GameWindow
-{
-public:
-	Int winGetScreenPosition(Int *x, Int *y);
-};
+#include "../../../Include/GameClient/Bfme2GameWindow.h"
 
 // ?parseScreenRect@@YA_NPAD0PAH111@Z
 static Bool parseScreenRect(char *token, char *buffer, Int *x, Int *y, Int *width, Int *height)

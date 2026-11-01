@@ -547,14 +547,7 @@ extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 // The Apt screen base (BfmeAptGameWindowDestructor.cpp): a 0x218-byte
 // GameWindow and, at +0x218, the 0x58-byte callback registry whose adders
 // sit at +0x04, +0x10 and +0x1C.
-class GameWindow
-{
-protected:
-	virtual ~GameWindow();
-
-private:
-	unsigned char m_pad004[0x218 - 4];
-};
+#include "../../../../../Include/GameClient/Bfme2GameWindow.h"
 
 class Rva005248D0
 {

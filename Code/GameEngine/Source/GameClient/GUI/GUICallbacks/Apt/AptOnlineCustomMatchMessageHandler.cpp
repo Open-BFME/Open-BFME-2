@@ -57,7 +57,7 @@ static inline bool operator!=(const _Rb_tree_iterator<_RbVal, _RbLeft> &a,
 { return a._M_node != b._M_node; }
 }
 
-class GameWindow { public: int winEnable(bool); };
+#include "../../../../../Include/GameClient/Bfme2GameWindow.h"
 
 class GameWindowManager
 {

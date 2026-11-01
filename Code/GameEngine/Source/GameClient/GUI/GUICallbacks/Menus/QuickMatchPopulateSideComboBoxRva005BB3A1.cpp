@@ -50,11 +50,7 @@ typedef int Int;
 typedef bool Bool;
 typedef int Color;
 
-class GameWindow
-{
-public:
-	Int winEnable(Bool enable);
-};
+#include "../../../../../Include/GameClient/Bfme2GameWindow.h"
 
 void GadgetComboBoxReset(GameWindow *comboBox);
 Int GadgetComboBoxAddEntry(GameWindow *comboBox, UnicodeString text, Color color);

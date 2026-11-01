@@ -28,11 +28,7 @@ struct AptPlayerStatusColors
 	int *m_end;
 };
 
-class GameWindow
-{
-public:
-	int winHide(bool hide);
-};
+#include "../../../../../Include/GameClient/Bfme2GameWindow.h"
 
 void GadgetCheckBoxSetChecked(GameWindow *checkBox, bool checked);
 

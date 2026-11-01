@@ -5,14 +5,7 @@
 // Evidence: vtable slot 36 of 0x007C7C90 (GameWindowManager family), caller
 // dtor 0x002C5398 and reset 0x002C0A5C, callee rowed processDestroyList
 // 0x002C08EF, prev/next flags. Identity: ZH/BFME1 winDestroyAll.
-class GameWindow
-{
-public:
-	unsigned char m_pad0[0x08];
-	unsigned int m_status;
-	unsigned char m_padC[0x1EC];
-	GameWindow *m_next;
-};
+#include "../../../Include/GameClient/Bfme2GameWindow.h"
 
 class GameWindowManager
 {

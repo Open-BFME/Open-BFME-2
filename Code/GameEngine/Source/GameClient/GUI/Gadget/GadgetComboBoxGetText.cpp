@@ -11,11 +11,7 @@ typedef unsigned int UnsignedInt;
 #define GWS_COMBO_BOX 0x00008000
 #include <windows.h>
 #include "unicode_string.h"
-class GameWindow
-{
-public:
-	UnsignedInt winGetStyle();
-};
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 GameWindow *GadgetComboBoxGetListBox(GameWindow *comboBox);
 UnicodeString GadgetTextEntryGetText(GameWindow *textEntry);
 UnicodeString GadgetComboBoxGetText(GameWindow *comboBox)

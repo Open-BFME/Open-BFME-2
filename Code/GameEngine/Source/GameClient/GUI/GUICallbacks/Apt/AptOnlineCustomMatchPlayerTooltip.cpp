@@ -43,7 +43,7 @@ bool less<int>::operator()(const int &a, const int &b) const
 { return a < b; }
 }
 
-class GameWindow { public: int winEnable(bool); };
+#include "../../../../../Include/GameClient/Bfme2GameWindow.h"
 
 class GameWindowManager
 {

@@ -52,14 +52,7 @@ namespace _STL { template <> _Bvector_base<allocator<bool> >::_Bvector_base(cons
 
 #include "AptOptionsConstructor_less.h"
 
-class GameWindow
-{
-protected:
-	virtual ~GameWindow();
-
-private:
-	unsigned char m_pad004[0x218 - 4];
-};
+#include "../../../../../Include/GameClient/Bfme2GameWindow.h"
 
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
