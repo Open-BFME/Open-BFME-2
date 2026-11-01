@@ -23,14 +23,7 @@ struct RGBAColorInt
 	Int red, green, blue, alpha;
 };
 
-class INI
-{
-public:
-	static void parseAsciiString( INI *ini, void *instance, void *store, const void *userData );
-	static void parseRGBAColorInt( INI *ini, void *instance, void *store, const void *userData );
-	static void parseReal( INI *ini, void *instance, void *store, const void *userData );
-	static void parseInt( INI *ini, void *instance, void *store, const void *userData );
-};
+#include "../../Include/Common/INI/INI.h"
 
 #include "../../Include/Common/INI/FieldParse.h"
 

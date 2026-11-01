@@ -28,13 +28,7 @@ typedef unsigned int UInt;
 
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
 
-class INI
-{
-public:
-	void initFromINI( void *what, const FieldParse *parseTable );
-	static void parseReal(INI *, void *, void *, const void *);
-	static void parseBool(INI *, void *, void *, const void *);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 class AsciiString;
 

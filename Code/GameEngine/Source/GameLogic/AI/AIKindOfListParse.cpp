@@ -20,12 +20,7 @@
 //   the first call reuses the just-zeroed loop index for its NULL). It is
 //   left unnamed beyond its type; the row notes record this.
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-	const char *getNextTokenOrNull(const char *seps);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 int getAIKindOfFromName(const char *name);
 

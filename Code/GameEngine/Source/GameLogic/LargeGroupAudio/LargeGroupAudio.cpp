@@ -70,14 +70,7 @@ private:
 };
 
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-	void initFromINI(void *what, const FieldParse *parseTable);
-	char m_pad00[8];
-	int m_loadType;	// +0x08
-};
+#include "../../../Include/Common/INI/INI.h"
 
 int Rva003EE6F7Get();	// LargeGroupAudioAudioMap field-parse table
 

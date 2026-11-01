@@ -269,15 +269,7 @@ inline void TAiData::addNamedList(Rva002FED8D*node){node->next=m_namedLists;m_na
 
 
 struct FieldParse;
-class INI
-{
-public:
- void initFromINI(void *what, const FieldParse *parseTable);
- int getLoadType() const { return m_loadType; }
-private:
- char m_pad[8];
- int m_loadType;
-};
+#include "../../../Include/Common/INI/INI.h"
 extern AI *TheAI;
 extern const FieldParse s_aiDataFieldParseTable[];
 

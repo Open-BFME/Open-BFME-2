@@ -77,18 +77,7 @@ struct FieldParse
 	int offset;
 };
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-	void initFromINI(void *what, const FieldParse *parseTable);
-	static void parsePercentToReal(INI *ini, void *instance, void *store, const void *userData);
-	int getLoadType() const { return m_loadType; }
-
-private:
-	char m_pad00[8];
-	int m_loadType; // +0x08
-};
+#include "../../../Include/Common/INI/INI.h"
 
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;

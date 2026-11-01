@@ -41,18 +41,7 @@ static const char *TheBodyDamageTypeNames[] =
 
 enum { MAX_BRIDGE_BODY_FX = 3 };
 
-class INI
-{
-public:
-	static void parseAudioEventRTS(INI *ini, void *instance, void *store, const void *userData);
-	const char *getNextSubToken(const char *expected);
-	Int scanIndexList(const char *token, const char *const *nameList);
-	Int scanInt(const char *token);
-	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
-	static void parseReal(INI *ini, void *instance, void *store, const void *userData);
-	static void parseInt(INI *ini, void *instance, void *store, const void *userData);
-	static void parseRGBColor(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
 

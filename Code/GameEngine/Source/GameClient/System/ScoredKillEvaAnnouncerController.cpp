@@ -18,7 +18,7 @@
 #include "Common/INIException.h"
 #include <vector>
 
-class INI{public:const char *getNextToken(const char *separators=0);};
+#include "../../../Include/Common/INI/INI.h"
 class Rva004147CF{public:Rva004147CF(const AsciiString&);virtual ~Rva004147CF();private:char data[44];};
 struct Rva00414BDBElement{char data[48];};
 namespace _STL{template<>void vector<Rva00414BDBElement>::push_back(const Rva00414BDBElement&);}

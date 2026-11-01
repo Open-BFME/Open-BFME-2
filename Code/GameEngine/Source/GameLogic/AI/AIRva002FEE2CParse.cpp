@@ -13,12 +13,7 @@
 #include <list>
 #include "ascii_string.h"
 
-class INI
-{
-public:
-	static void parseInt(INI *ini, void *instance, void *store, const void *userData);
-	static void parseThingTemplate(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 struct Rva002FED53PointerTarget;
 

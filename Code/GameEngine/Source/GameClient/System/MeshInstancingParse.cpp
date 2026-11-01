@@ -8,7 +8,7 @@
 #include <utility>
 class INI;
 struct FieldParse {const char *name;void (*parse)(INI*,void*,void*,const void*);int offset;const void *data;};
-class INI {public: const char *getNextToken(const char *seps=0);void initFromINI(void*,const FieldParse*);static void parseInt(INI*,void*,void*,const void*);};
+#include "../../../Include/Common/INI/INI.h"
 static const FieldParse fields[]={ {"Instances",INI::parseInt,0,0},{0,0,0,0} };
 struct InsertRet0041FA92 {void *node;void *owner;unsigned char found;};
 class Rva000427195 { public: InsertRet0041FA92 rva0041FC77(const void*); __forceinline void insertOne(const void *value) { rva0041FC77(value); } };

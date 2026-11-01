@@ -319,21 +319,7 @@ AI::~AI()
 }
 
 struct FieldParse;
-class INI
-{
-public:
- void initFromINI(void *what, const FieldParse *parseTable);
- static void parseBool(INI *ini, void *instance, void *store, const void *userData);
- static void parseInt(INI *ini, void *instance, void *store, const void *userData);
- static void parseReal(INI *ini, void *instance, void *store, const void *userData);
- static void parsePercentToReal(INI *ini, void *instance, void *store, const void *userData);
- static void parseDurationUnsignedInt(INI *ini, void *instance, void *store, const void *userData);
- static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
- int getLoadType() const { return m_loadType; }
-private:
- char m_pad[8];
- int m_loadType;
-};
+#include "../../../Include/Common/INI/INI.h"
 extern AI *TheAI;
 extern const FieldParse s_aiDataFieldParseTable[];
 

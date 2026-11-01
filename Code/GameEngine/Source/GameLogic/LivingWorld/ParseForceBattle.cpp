@@ -30,14 +30,7 @@ public:
 	~INIException();
 };
 
-class INI
-{
-public:
-	void initFromINI( void *what, const FieldParse *parseTable );
-	static void parseAsciiString(INI *, void *, void *, const void *);
-	static void parseCoord2D(INI *, void *, void *, const void *);
-	static void parseBool(INI *, void *, void *, const void *);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 class Rva004E16D9Record
 {

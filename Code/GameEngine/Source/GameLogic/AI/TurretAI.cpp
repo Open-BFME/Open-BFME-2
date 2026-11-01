@@ -524,18 +524,7 @@ const Real DEFAULT_PITCH_RATE = 0.01f;
 #include "../../../Include/Common/INI/FieldParse.h"
 
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps = 0);
-	const char *getNextTokenOrNull(const char *seps = 0);
-	int scanIndexList(const char *token, const char *const *names);
-	static void parseReal(INI *ini, void *instance, void *store, const void *userData);
-	static void parseAngleReal(INI *ini, void *instance, void *store, const void *userData);
-	static void parseAngularVelocityReal(INI *ini, void *instance, void *store, const void *userData);
-	static void parseDurationUnsignedInt(INI *ini, void *instance, void *store, const void *userData);
-	static void parseBool(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 extern const FieldParse g_00C60B90[];
 

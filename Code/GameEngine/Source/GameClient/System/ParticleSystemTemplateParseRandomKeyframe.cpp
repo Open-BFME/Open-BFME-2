@@ -11,13 +11,7 @@
 typedef float Real;
 typedef unsigned int UnsignedInt;
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps = 0);
-	Real scanReal(const char *token);
-	UnsignedInt scanUnsignedInt(const char *token);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 class GameClientRandomVariable
 {

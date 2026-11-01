@@ -25,17 +25,7 @@ struct FieldParse
 	int offset;
 };
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps = 0);
-	void initFromINI(void *what, const FieldParse *parseTable);
-	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
-	static void parseCoord2D(INI *ini, void *instance, void *store, const void *userData);
-	static void parseInt(INI *ini, void *instance, void *store, const void *userData);
-	static void parseAngleReal(INI *ini, void *instance, void *store, const void *userData);
-	static void parseBool(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../../Libraries/Include/Lib/Coord2D.h"
