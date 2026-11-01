@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // ?rva000C4C73@Rva000C4C73@@QAEXVAsciiString@@_NI@Z retail 0x000C4C73..0x000C4D34 (193 bytes).
 // Evidence: slot 35 of the +0x0C interface vtables 0x00BCBB78 0x00BCBEF8
 // and 0x00BCC588 (W3DModelDraw family) next to slot 34 0x000C445D; WB twin
@@ -13,17 +13,7 @@
 // slot 0). The original method name is unknown.
 #include "ascii_string.h"
 
-class RenderObjClass
-{
-public:
-	virtual void Delete_This();
-	void Release_Ref()
-	{
-		if (--NumRefs == 0)
-			Delete_This();
-	}
-	int NumRefs;
-};
+#include "../../../../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"
 
 RenderObjClass *Create_Render_Obj(const char *name);
 int GetGameClientRandomValue(int lo, int hi, char *file, int line);

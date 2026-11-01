@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 
 typedef bool Bool;
 
@@ -30,20 +30,7 @@ public:
 	virtual void setAnimNames(AsciiString initial, AsciiString flying, AsciiString final, const FXList *finalFX) = 0;
 };
 
-class RenderObjClass
-{
-public:
-	virtual void deleteThis();
-
-	void releaseRef()
-	{
-		if (--m_refCount == 0)
-			deleteThis();
-	}
-
-private:
-	int m_refCount;
-};
+#include "../../../../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"
 
 class SceneClass
 {
@@ -117,7 +104,7 @@ W3DDebrisDraw::~W3DDebrisDraw()
 		W3DDisplay::m_3DScene->Remove_Render_Object(renderObject);
 		if (m_renderObject != (RenderObjClass *)zero)
 		{
-			m_renderObject->releaseRef();
+			m_renderObject->Release_Ref();
 			*(volatile int *)&m_renderObject = zero;
 		}
 		*(volatile int *)&m_renderObject = zero;
@@ -126,7 +113,7 @@ W3DDebrisDraw::~W3DDebrisDraw()
 	{
 		if (m_anims[i] != (RenderObjClass *)zero)
 		{
-			m_anims[i]->releaseRef();
+			m_anims[i]->Release_Ref();
 			*(volatile int *)&m_anims[i] = zero;
 		}
 		*(volatile int *)&m_anims[i] = zero;

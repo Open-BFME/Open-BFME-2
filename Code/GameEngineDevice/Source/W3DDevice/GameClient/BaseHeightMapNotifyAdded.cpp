@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD /ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // ?Notify_Added@BaseHeightMapRenderObjClass@@UAEXPAVSceneClass@@@Z retail
 // 0x00068477 29B. Zero Hour's BaseHeightMap.cpp override: the base
 // RenderObjClass::Notify_Added (rowed 0x0013BCD0), then registers the terrain
@@ -26,11 +26,7 @@ public:
 	virtual void Register( RenderObjClass *obj, RegType for_what );
 };
 
-class RenderObjClass
-{
-public:
-	virtual void Notify_Added( SceneClass *scene );
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"
 
 class BaseHeightMapRenderObjClass : public RenderObjClass
 {
