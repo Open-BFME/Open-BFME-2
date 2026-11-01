@@ -68,19 +68,7 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &p);
 };
 
-class DozerActionState
-{
-public:
-	virtual const char *GetSnapshotName() const;
-};
-
 BFME_LITERAL_NAME_GETTER(Rva004B850ANamed, "AllowBannerSpawnUpgrade")
-
-class BoneFXDamage
-{
-protected:
-	virtual const char *GetSnapshotName() const;
-};
 
 // tu-skeleton: 0x004B84EA 32B ??1AllowBannerSpawnUpgrade@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/UpgradeModuleTailDtors.cpp (not merged yet)
 

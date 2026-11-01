@@ -340,12 +340,6 @@ public:
 	static void Rva004C8F94_ParseSpawnObject(INI *ini, void *instance, void *store, const void *userData);
 };
 
-class Rva003B1017
-{
-public:
-	static void parseFromINI(INI *ini, void *instance, void *store, const void *userData);
-};
-
 void iniParseObjectFilter(INI *ini, void *instance, void *store, const void *userData);
 
 void Rva001DEE74Parse(INI *ini, void *instance, void *store, const void *userData);
@@ -371,12 +365,6 @@ public:
 int Rva004CE52EGet(void);
 
 FIELD_PROC(ThreatFinderUpdateModuleData, BfmeThreatFinderUpdateFields, DefaultRadius)
-
-class AimWeaponBehaviorModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
 
 // Chained proc: ?buildFieldParse@GiantBirdSlowDeathBehaviorModuleData@@,
 // retail 0x00461E3D, 27 bytes. Calls the rowed SlowDeath base proc above,

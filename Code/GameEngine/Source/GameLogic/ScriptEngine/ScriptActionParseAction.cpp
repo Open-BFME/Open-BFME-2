@@ -31,19 +31,6 @@ enum NameKeyType { NAMEKEY_INVALID = 0 };
 #include <windows.h>
 #include "ascii_string.h"
 
-class BFMERetailAsciiString
-{
-public:
-	BFMERetailAsciiString(const char *text);
-
-private:
-	friend class AsciiString;
-	friend class Parameter;
-	void releaseBuffer();
-	char *m_data;
-};
-
-
 AsciiString KEYNAME(NameKeyType key);
 
 struct DataChunkInfo
@@ -133,26 +120,6 @@ Parameter::Parameter(ParameterType type, Int val) :
 	m_coord.y = 0.0f;
 	m_coord.z = 0.0f;
 }
-
-class ActionTemplate
-{
-public:
-	Int getNumParameters() const { return m_numParameters; }
-	Int getParameterType(Int ndx) const
-	{
-		if (ndx >= 0 && ndx < m_numParameters)
-			return m_parameters[ndx];
-		return 0;
-	}
-
-	char m_head[0x04];
-	AsciiString m_name;
-	AsciiString m_internalName;
-	NameKeyType m_internalNameKey;
-	char m_middle[0x34];
-	Int m_numParameters;
-	Int m_parameters[12];
-};
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;

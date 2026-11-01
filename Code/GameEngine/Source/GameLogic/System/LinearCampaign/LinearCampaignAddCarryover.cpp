@@ -49,8 +49,6 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 struct BfmePod172;
 namespace _STL { template <> void _Construct<BfmePod172, BfmePod172>(BfmePod172 *, const BfmePod172 &); }
-class Rva001EB984Member { public: void *init(void *context); };
-class Rva001EB769 { public: void rva001EB769() throw(); };
 template<class T>class Rva001EB984PoolAllocator {};
 class FreelistProxyHead {public:void setup(const void*,void*);};
 class FreelistPool {public:void*pop();};

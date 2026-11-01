@@ -854,24 +854,6 @@ static Bool turretNamesDiffer(const ModelConditionInfo* modelConditionInfo, cons
 #endif
 
 //-------------------------------------------------------------------------------------------------
-struct Rva007705D0Element
-{
-	Int value[3];
-};
-
-class Rva007705D0Vector
-{
-public:
-	void resizeValue(UnsignedInt newSize, Rva007705D0Element value);
-	void fillInsert(Rva007705D0Element *position, UnsignedInt count,
-		const Rva007705D0Element &value);
-
-private:
-	Rva007705D0Element *m_begin;
-	Rva007705D0Element *m_end;
-	Rva007705D0Element *m_capacity;
-};
-
  
 
   // end crc

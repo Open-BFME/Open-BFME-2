@@ -64,13 +64,6 @@ RefCountPtr<TextureClass> Rva00132F30BlackTexture() {
 // exists, otherwise released through IUnknown slot 2, then cleared. The
 // inline scoped guard uses the already matched Lock/Unlock providers.
 class CriticalSection;
-class ScopedCriticalSection {
- CriticalSection *m_cs; bool m_locked;
- void Lock(); void Unlock() throw();
-public:
- __forceinline ScopedCriticalSection(CriticalSection *cs):m_cs(cs),m_locked(false){Lock();}
- __forceinline ~ScopedCriticalSection(){if(m_locked)Unlock();}
-};
 class BfmeDeferredTexture {
 public:
  virtual long __stdcall QueryInterface(void *,void **);
@@ -87,7 +80,6 @@ static __forceinline CriticalSection *deferredDeviceMutex() {
 static __forceinline _STL::vector<void *> &deferredDeviceQueue() {
  return *reinterpret_cast<_STL::vector<void *> *>(&g_Va00DF29A8);
 }
-class Rva0020FB8BVec20 { public: void vecPushBack(void *&); };
 class Rva0013331A {
  unsigned char prefix[8]; BfmeDeferredTexture *texture;
 public: void rva0013331A();

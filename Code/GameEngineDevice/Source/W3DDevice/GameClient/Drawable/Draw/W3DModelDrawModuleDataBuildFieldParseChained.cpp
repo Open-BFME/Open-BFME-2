@@ -96,17 +96,5 @@ void W3DTruckDrawModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	parse.add(g_00BCC358, 0);
 }
 
-class W3DTankDrawModuleData : public W3DModelDrawModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class W3DQuadrupedDrawModuleData : public W3DModelDrawModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.

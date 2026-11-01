@@ -18,18 +18,6 @@ public:
 	unsigned int m_category;
 };
 
-class BfmeThingCIC
-{
-public:
-	void bfmeGoCIC(void *key, void *value);
-};
-
-class BfmeThingCIB
-{
-public:
-	void bfmeGoCIB(void *key, void *value);
-};
-
 struct BlobAttribute
 {
 	const char *type;

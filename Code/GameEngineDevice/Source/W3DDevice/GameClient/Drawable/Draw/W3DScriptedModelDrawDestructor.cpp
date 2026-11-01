@@ -55,16 +55,6 @@ struct BridgeBehaviorListValue12
  
 }
 ;
-struct BfmeStringRecord000B757D 
-{
- unsigned word0,word1;
- AsciiString text;
- unsigned word2;
- unsigned char tail0;
- __declspec(noinline) ~BfmeStringRecord000B757D();
- 
-}
-;
 struct Rva000B2BE5Src;
 class Rva000BB694 
 {
@@ -455,16 +445,6 @@ class Drawable
  bool m_e4;
  int m_e8;
  int m_ec;
- 
-}
-;
-struct W3DScriptedModelDrawModuleDataView
-
-{
- unsigned char m_pad[0x139];
- bool m_139;
- int m_13c;
- int m_140;
  
 }
 ;

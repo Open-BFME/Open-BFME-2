@@ -114,65 +114,9 @@ public:
 class AudioManager;
 extern AudioManager *TheAudio;
 
-class BFMEOverlayAudioManagerView
-{
-public:
-	virtual void slot00() = 0;
-	virtual void slot04() = 0;
-	virtual void slot08() = 0;
-	virtual void slot0c() = 0;
-	virtual void slot10() = 0;
-	virtual void slot14() = 0;
-	virtual void slot18() = 0;
-	virtual void slot1c() = 0;
-	virtual void slot20() = 0;
-	virtual void slot24() = 0;
-	virtual void slot28() = 0;
-	virtual void slot2c() = 0;
-	virtual void slot30() = 0;
-	virtual void slot34() = 0;
-	virtual void slot38() = 0;
-	virtual void slot3c() = 0;
-	virtual void slot40() = 0;
-	virtual void addAudioEvent( AudioEventRTS *event ) = 0;
-};
-
 // GameWindowManager::winCreateLayout is the retail virtual at +0x6c.  The
 // parameter is a BFME AsciiString by value, so a local view is needed to keep
 // the temporary's construction ABI without changing the shared header.
-class BFMEOverlayWindowManagerView
-{
-public:
-	virtual void slot00() = 0;
-	virtual void slot04() = 0;
-	virtual void slot08() = 0;
-	virtual void slot0c() = 0;
-	virtual void slot10() = 0;
-	virtual void slot14() = 0;
-	virtual void slot18() = 0;
-	virtual void slot1c() = 0;
-	virtual void slot20() = 0;
-	virtual void slot24() = 0;
-	virtual void slot28() = 0;
-	virtual void slot2c() = 0;
-	virtual void slot30() = 0;
-	virtual void slot34() = 0;
-	virtual void slot38() = 0;
-	virtual void slot3c() = 0;
-	virtual void slot40() = 0;
-	virtual void slot44() = 0;
-	virtual void slot48() = 0;
-	virtual void slot4c() = 0;
-	virtual void slot50() = 0;
-	virtual void slot54() = 0;
-	virtual void slot58() = 0;
-	virtual void slot5c() = 0;
-	virtual void slot60() = 0;
-	virtual void slot64() = 0;
-	virtual void slot68() = 0;
-	virtual WindowLayout *winCreateLayout( BFMERetailAsciiString filename ) = 0;
-};
-
 // Message boxes -------------------------------------
 static GameWinMsgBoxFunc okFunc = NULL;
 static GameWinMsgBoxFunc cancelFunc = NULL;

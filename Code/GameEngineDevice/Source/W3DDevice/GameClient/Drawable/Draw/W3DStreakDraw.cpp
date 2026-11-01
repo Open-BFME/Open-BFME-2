@@ -268,18 +268,6 @@ public:
 	FXList(const FXList &other);
 };
 
-struct BfmeStringRecord00239B46
-{
-public:
-	BfmeStringRecord00239B46(const BfmeStringRecord00239B46 &other);
-};
-
-struct BfmeStringRecord005DDD40
-{
-public:
-	BfmeStringRecord005DDD40(const BfmeStringRecord005DDD40 &other);
-};
-
 class Rva0052BEF0
 {
 public:

@@ -344,19 +344,7 @@ public:
 	void rva004AB57E();
 };
 
-class DozerActionState
-{
-public:
-	virtual const char *GetSnapshotName() const;
-};
-
 BFME_LITERAL_NAME_GETTER(Rva004AB26DNamed, "WallUpgradeUpdate")
-
-class BoneFXDamage
-{
-protected:
-	virtual const char *GetSnapshotName() const;
-};
 
 class Drawable;
 

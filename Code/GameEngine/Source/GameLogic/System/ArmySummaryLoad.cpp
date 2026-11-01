@@ -39,8 +39,6 @@ template<> vector<Rva0040CB11Entry>::vector(const vector<Rva0040CB11Entry>&);
 template<class I,class C>void sort(I,I,C);
 template<class T,class A>class list;
 }
-class Rva001EB984Member {public:void*init(void*);};
-class Rva001EB769 {public:void rva001EB769() throw();};
 class FreelistProxyHead {public:void setup(const void*,void*);};
 class FreelistPool {public:void*pop();};
 extern FreelistPool g_freelistPool00DB8FEC;

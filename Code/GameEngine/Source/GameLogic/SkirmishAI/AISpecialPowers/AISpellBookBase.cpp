@@ -18,14 +18,6 @@ public:
 	Rva000421C8 *m_next;
 };
 
-class BfmeFixedStorage0004543D
-{
-public:
-	BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &other) throw();
-private:
-	unsigned char m_bytes[28];
-};
-
 struct Rva00045411BitSet
 {
 	Rva00045411BitSet(int unused, int bit);	// 0x00045411
@@ -37,15 +29,6 @@ template <int N> class BitFlags;
 extern BitFlags<116> KINDOFMASK_NONE;
 
 // vftable 0x00BC2908: every kind of the first mask, none of the second.
-class Rva0004584D : public Rva000421C8
-{
-public:
-	Rva0004584D(const BfmeFixedStorage0004543D &a, const BfmeFixedStorage0004543D &b);
-	virtual bool allow(Object *obj);
-	BfmeFixedStorage0004543D m_08;
-	BfmeFixedStorage0004543D m_24;
-};
-
 // vftable 0x00BFAD10: the object is alive.
 class Rva0026119DFilter : public Rva000421C8
 {

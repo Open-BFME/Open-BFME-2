@@ -17,14 +17,6 @@ class RvaSmartPtr12 { public: RvaSmartPtr12& operator=(const RvaSmartPtr12&) thr
 class Rva00270260 { public: bool rva00270260(); };
 struct Rva001F3C43Arg;
 struct DrawableTruckView { char pad[0xfc]; Rva001F3C43Arg *object; };
-class Rva001F384AByteZeroSetter {
-public:
-    void disable();
-};
-class Rva001F3852ByteOneSetter {
-public:
-    void enable();
-};
 struct Rva001F3C43Arg {
     char m_pad[0x74];
     int m_value;
