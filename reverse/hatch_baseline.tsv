@@ -2535,6 +2535,7 @@ alternatename	Code/GameEngine/Source/GameClient/BfmeItemKA.cpp	??1Rva002606AFDto
 alternatename	Code/GameEngine/Source/GameClient/BfmeItemKA.cpp	?HeaderTemplateGetRegistryLanguage@@YA?AVHeaderTemplateString@@XZ	1
 alternatename	Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehavior.cpp	??1AnimationSoundClientBehaviorModuleDataBase@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehavior.cpp	??1VoiceSlot@@QAE@XZ	1
+alternatename	Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehavior.cpp	?insert_equal@?$_Rb_tree@HHU?$_Identity@H@_STL@@U?$less@H@2@V?$allocator@H@2@@_STL@@QAE?AU?$_Rb_tree_iterator@HU?$_Nonconst_traits@H@_STL@@@2@ABH@Z	1
 alternatename	Code/GameEngine/Source/GameClient/Drawable_rva002724FD.cpp	?rva002724FD@Drawable@@QAEXABVAsciiString@@EHMM@Z	1
 alternatename	Code/GameEngine/Source/GameClient/FXParticleSystem.cpp	??0RenderObjectDrawCategoryBase@@QAE@ABV0@@Z	1
 alternatename	Code/GameEngine/Source/GameClient/FXParticleSystem.cpp	??1Rva0002B8C8TailBase@@UAE@XZ	1
@@ -3952,7 +3953,6 @@ alternatename	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00439609.cpp	?cle
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00439609.cpp	?erase@?$_Rb_tree@HU?$pair@$$CBHURva00439609Record@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva00439609Record@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva00439609Record@@@_STL@@@2@@_STL@@QAEXU?$_Rb_tree_iterator@U?$pair@$$CBHURva00439609Record@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHURva00439609Record@@@_STL@@@2@@2@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00448FF2.cpp	??M@YA_NABURva00448FF2Record@@0@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0044BE1D.cpp	??1Rva0044BE1DRecord@@QAE@XZ	1
-alternatename	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva004CA6F3.cpp	?insert_equal@?$_Rb_tree@HHU?$_Identity@H@_STL@@U?$less@H@2@V?$allocator@H@2@@_STL@@QAE?AU?$_Rb_tree_iterator@HU?$_Nonconst_traits@H@_STL@@@2@ABH@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva004D272E.cpp	?insert_unique@?$_Rb_tree@HU?$pair@$$CBHURva004D272ERecord@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva004D272ERecord@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva004D272ERecord@@@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHURva004D272ERecord@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHURva004D272ERecord@@@_STL@@@2@@2@U32@ABU?$pair@$$CBHURva004D272ERecord@@@2@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00502EA4.cpp	??$_Construct@URva00502EA4Record@@U1@@_STL@@YAXPAURva00502EA4Record@@ABU1@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00525951.cpp	??MRva00525951Record@@QBE_NABU0@@Z	1
@@ -10430,6 +10430,9 @@ pragma_optimize	Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp	"s",o
 pragma_optimize	Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp	"t",on	2
 pragma_optimize	Code/GameEngine/Source/Common/rva00104A75Rva00104A75Farm.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/Common/rva00104A75Rva00104A75Farm.cpp	"w",on	1
+pragma_optimize	Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehavior.cpp	"",on	1
+pragma_optimize	Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehavior.cpp	"s",off	1
+pragma_optimize	Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehavior.cpp	"t",on	1
 pragma_optimize	Code/GameEngine/Source/GameClient/DrawableFields.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/GameClient/DrawableFields.cpp	"gsy",on	1
 pragma_optimize	Code/GameEngine/Source/GameClient/FXListMapNodeEmit.cpp	"",on	2
@@ -11396,9 +11399,6 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva004677FD.cpp	"t
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00470205.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00470205.cpp	"s",off	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00470205.cpp	"t",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva004CA6F3.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva004CA6F3.cpp	"s",off	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva004CA6F3.cpp	"t",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva004D272E.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva004D272E.cpp	"s",off	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva004D272E.cpp	"t",on	1

@@ -19789,7 +19789,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A032C0,4,.data,global,?$S1@?EP@??translateGameMessage@PlaceEventTranslator@@UAE?AW4GameMessageDisposition@@PBVGameMessage@@@Z@4IA,Code/GameEngine/Source/GameClient/MessageStream/PlaceEventTranslator.cpp,owned,,1,2
 0x00A032C4,4,.data,global,_s_rva007B054B,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A032C8,8,.data,global,?g_Va00E032C8@@3HA,Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp,owned,,1,11
-0x00A032D0,4,.data,global,?g_004C9DC9Container@@3PAVRva00432F23@@A,Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehaviorDtor.cpp,owned,,1,16
+0x00A032D0,4,.data,global,?g_004C9DC9Container@@3PAVRva00432F23@@A,Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehavior.cpp,owned,,1,16
 0x00A032D4,4,.data,global,_s_rva007B05A4,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A032D8,4,.data,global,_s_rva007B05CE,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A032DC,4,.data,global,?g_Va00E032DC@@3IA,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,provisional,?Rva00433C18Pool@@3V?$list@VUnicodeString@@V?$allocator@VUnicodeString@@@_STL@@@_STL@@A;?g_Va00E032DC@@3IA,1,4

@@ -9,54 +9,34 @@
 #pragma inline_depth()
 #pragma comment(linker, "/alternatename:??1VoiceSlot@@QAE@XZ=??1Rva002390CB@@QAE@XZ")
 #pragma comment(linker, "/alternatename:??1AnimationSoundClientBehaviorModuleDataBase@@UAE@XZ=??3@YAXPAX@Z")
-
 class INIException {public:char *message;int code;INIException(int,const char*,...);INIException(const INIException&);~INIException();};
-
 class INI {public:const char*getNextSubToken(const char*);const char*getNextToken(const char*);const char*getNextTokenOrNull(const char*);float scanReal(const char*);char pad[0x420];const char *separators;};
-
 class Rva0036CA00Str {public:Rva0036CA00Str(const Rva0036CA00Str&);~Rva0036CA00Str(){if(object)object->Release_Ref();}OpaqueRefCounted *object;};
-
 template<int N>class LookupSlots:public LookupSlots<N-1>{public:virtual void gap(char(*)[N]);};
-
 template<>class LookupSlots<0>{};
-
 class SoundLookupView:public LookupSlots<75>{public:virtual Rva0036CA00Str lookup(const AsciiString&);};
-
 class AudioManager;
-
 extern AudioManager *TheAudio;
-
 template<int N>class BitFlags{public:bool setBitByName(const char*);};
-
 // LINK: the empty default ctor's COMDAT loses to the first-in-order copy; the parse
 // locals use a TU-unique no-init ctor instead (same empty body). No flags touched.
 class WeaponTemplateSetHead {public:struct BfmeNoInitAnim{};WeaponTemplateSetHead(){} WeaponTemplateSetHead(BfmeNoInitAnim){} WeaponTemplateSetHead(const WeaponTemplateSetHead&);unsigned words[19];};
-
 class Rva004C9E94 {public:Rva004C9E94(const Rva0036CA00Str&,const int*,float,const WeaponTemplateSetHead&,const WeaponTemplateSetHead&);int key;Rva0036CA00Str sound;float frame;WeaponTemplateSetHead required,excluded;bool check;};
-
 struct AnimationSoundTreeNode;
-
 enum NameKeyType{KEY0=0};
-
 class NameKeyGenerator
 {
 public:
 	NameKeyType nameToKey(const AsciiString&);
 	NameKeyType nameToKey(const char *name);
 };
-
 extern NameKeyGenerator *TheNameKeyGenerator;
-
 enum DrawableID { INVALID_DRAWABLE_ID=0 };
-
 // ?Range::Range present-unmatched
 struct Range { float first,second; Range():first(0.0f),second(0.0f){} };
-
 class Rva0042526Member { public: Rva0042526Member(); unsigned int words[19]; };
-
 // ?AnimationSoundNullRef::AnimationSoundNullRef present-unmatched
 struct AnimationSoundNullRef : OpaqueRefElement4 { __forceinline AnimationSoundNullRef(){referent=0;} };
-
 class Rva004C9E5D { public:
  Rva004C9E5D(const int*,float);
  // ?Rva004C9E5D::~Rva004C9E5D present-unmatched
@@ -64,10 +44,25 @@ class Rva004C9E5D { public:
  int id; AnimationSoundNullRef sound; float frame;
  Rva0042526Member required,prohibited; unsigned char conditional;
 };
-
 typedef char EntryExtent[(sizeof(Rva004C9E5D)==168)?1:-1];
-
 #include <stl/_tree.h>
+#include <stl/_algobase.h>
+#include <new>
+namespace _STL {
+static inline void _Construct(int *__p, const int &__val)
+{ new (__p) int(__val); }
+}
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+#pragma optimize("", on)
+#include <set>
+#pragma comment(linker, "/alternatename:?insert_equal@?$_Rb_tree@HHU?$_Identity@H@_STL@@U?$less@H@2@V?$allocator@H@2@@_STL@@QAE?AU?$_Rb_tree_iterator@HU?$_Nonconst_traits@H@_STL@@@2@ABH@Z=?rva004CA68B@AnimationSoundTree@@QAEPAPAUAnimationSoundTreeNode@@PAPAU2@PBX@Z")
 
 struct AnimationSoundTreeNode { int color; AnimationSoundTreeNode *parent,*left,*right; Rva004C9E5D payload; };
 
@@ -260,17 +255,20 @@ public:
     const ModuleData *data;
     Drawable *drawable;
 };
+
 class Rva004C9DC9Primary : public Rva0049B47C
 {
 public:
     ~Rva004C9DC9Primary() {}
 };
+
 class Rva004C9E33Iface
 {
 public:
     virtual void rva004C9E33() = 0;
     virtual void rva004C9E48() = 0;
 };
+
 class AnimationSoundClientBehavior : public Rva004C9DC9Primary, public Rva004C9E33Iface
 {
 public:
@@ -456,6 +454,67 @@ public:
 	int m_f10;
 };
 
+// ??1AnimationSoundClientBehavior@@UAE@XZ @0x004C9DC9 80B
+// AnimationSound dtor: restores derived primary 0xC5EE80 plus +0x0C
+// 0xC5EE74, unlists this through the 0x00A032D0 container via rowed
+// remove 0x00432F23 when present, restores intermediate primary 0xBEFE48
+// and calls the fold base at 0x0049B47C via the Rva0049B47C pin (packet
+// annotates the WindModuleInfo row at the same fold address). Layout via
+// PrimaryP (Rva0049B47C padded to 0x0C with empty dtor) plus iface at +0x0C.
+// Donor: BFME1 AnimationSoundClientBehaviorDestructors.cpp:48 (BFME2 adds
+// remove plus Wind fold base; follow retail). Caller is slot-0 ??_G at
+// 0x004C9F45; slot 4 -> 0x004C9EF3 uses class-name string
+// "AnimationSoundClientBehavior". Shape follows CastleMemberBehaviorDtor.
+
+class Rva00432F23Node
+{
+public:
+	char m_pad00[0x14];
+	Rva00432F23Node *m_next; // +0x14
+	Rva00432F23Node *m_prev; // +0x18
+};
+
+// TheAnimationSoundModuleManager: VA 0xe032d0 (zero-filled .bss).
+AnimationSoundModuleManager * TheAnimationSoundModuleManager;
+
+struct ModuleData;
+
+class Drawable;
+
+// map/set<int> internals otherwise instantiate the less<int>::operator()
+// COMDAT (one byte shape per TU flags); an explicit dllimport+forceinline
+// specialization takes those calls inline so this TU emits no external copy.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+bool less<int>::operator()(const int &a, const int &b) const
+{ return a < b; }
+}
+
+// Instantiate the recovered member; retain only its required template dependencies.
+// Declared only (stl batch): retail's body for this name is the rowed one at its
+// pinned address; this TU's copy is not retail's.
+namespace _STL { template <> _STL::_Rb_tree_iterator<int,_STL::_Nonconst_traits<int> > _Rb_tree<int,int,_STL::_Identity<int>,_STL::less<int>,_STL::allocator<int> >::insert_equal(int const &); }
+
+template _STL::_Rb_tree_iterator<int, _STL::_Const_traits<int> > _STL::multiset<int, _STL::less<int>, _STL::allocator<int> >::insert(int const &);
+
+// ---- from Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehaviorDtor.cpp
+
+AnimationSoundClientBehavior::~AnimationSoundClientBehavior()
+{
+    if (TheAnimationSoundModuleManager)
+        TheAnimationSoundModuleManager->remove((Rva00432F23Node *)this);
+}
+
+// tu-skeleton: 0x004C9E19 6B ?name@AnimationSoundClientBehavior@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x004C9E1F 20B ?rva004C9E1F@AnimationSoundClientBehavior@@UAEXHHH@Z -- matched in Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehaviorSlots.cpp (not merged yet)
+
+// tu-skeleton: 0x004C9E33 21B ?rva004C9E33@AnimationSoundClientBehavior@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehaviorSlots.cpp (not merged yet)
+
+// tu-skeleton: 0x004C9E48 21B ?rva004C9E48@AnimationSoundClientBehavior@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehaviorSlots.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehavior.cpp
+
 // ??0AnimationSoundTree@@QAE@XZ
 // Pinned ctor for AnimationSoundTree, retail 0x004CA6DA, 25 bytes.
 // The header init is done by the rowed ?rva004CA13D@AnimationSoundTree (0x004CA13D),
@@ -479,15 +538,10 @@ public:
 // Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehaviorModuleDataCtor.cpp;
 // prev 0x004CA653 dtor and the 0x004CA13D header-init body share this // cl: line.
 
-// tu-skeleton: 0x004C9DC9 80B ??1AnimationSoundClientBehavior@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehaviorDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x004C9E19 6B ?name@AnimationSoundClientBehavior@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x004C9E1F 20B ?rva004C9E1F@AnimationSoundClientBehavior@@UAEXHHH@Z -- matched in Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehaviorSlots.cpp (not merged yet)
 
-// tu-skeleton: 0x004C9E33 21B ?rva004C9E33@AnimationSoundClientBehavior@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehaviorSlots.cpp (not merged yet)
 
-// tu-skeleton: 0x004C9E48 21B ?rva004C9E48@AnimationSoundClientBehavior@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehaviorSlots.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehavior.cpp
 
@@ -696,11 +750,21 @@ AnimationSoundTree::AnimationSoundTree()
 	}
 }
 
+// ---- from Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehaviorModuleDataCtor.cpp
+
+AnimationSoundClientBehaviorModuleData::AnimationSoundClientBehaviorModuleData()
+    : m_value14(3.402823466e+38F)
+{
+}
+
+// Placeholder names this unit's own object settles.  In retail each one holds
+// what the unit's matched code references or installs: the rowed function of
+// the vftable slot it occupies, or the function or datum the instruction
+// reaches, so bind the placeholder to that row's name.
+
 // tu-skeleton: 0x004C9E94 95B ??0Rva004C9E94@@QAE@ABVRva0036CA00Str@@PBHMABVWeaponTemplateSetHead@@2@Z -- matched in Code/GameEngine/Source/GameClient/Drawable/Update/Rva004C9E94Ctor.cpp (not merged yet)
 
 // tu-skeleton: 0x004C9EF3 69B ?getModuleNameKey@AnimationSoundClientBehavior@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehaviorPoolKey.cpp (not merged yet)
-
-// tu-skeleton: 0x004C9F45 28B ??_GAnimationSoundClientBehavior@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehaviorDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004C9F61 21B ??0Rva004C9F61@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/V3PolyCopyCtors.cpp (not merged yet)
 
@@ -736,25 +800,26 @@ AnimationSoundTree::AnimationSoundTree()
 
 // tu-skeleton: 0x004CA6D5 5B ??1Rva004CA6D5@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportMapForwardersSeat8.cpp (not merged yet)
 
-// tu-skeleton: 0x004CA6F3 26B ?insert@?$multiset@HU?$less@H@_STL@@V?$allocator@H@2@@_STL@@QAE?AU?$_Rb_tree_iterator@HU?$_Const_traits@H@_STL@@@2@ABH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva004CA6F3.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva004CA6F3.cpp
 
-// ---- from Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehaviorModuleDataCtor.cpp
+// STLport 4.5.3 reference instantiation. Target boundary and byte comparison prove operation shape.
+// Element spelling/layout is donor inference; opaque records have address-derived identity.
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
 
-AnimationSoundClientBehaviorModuleData::AnimationSoundClientBehaviorModuleData()
-    : m_value14(3.402823466e+38F)
-{
-}
+// vector<int> fill/insert otherwise instantiates the _Construct<int,int>
+// COMDAT (one byte shape per TU flags); a file-static overload takes those
+// calls instead so this TU emits no external copy.
 
-// Placeholder names this unit's own object settles.  In retail each one holds
-// what the unit's matched code references or installs: the rowed function of
-// the vftable slot it occupies, or the function or datum the instruction
-// reaches, so bind the placeholder to that row's name.
+// The declared helper binds to that row (tools/allowed_symbols.py --alternatenames).
 
 // tu-skeleton: 0x004CA74C 28B ??_GAnimationSoundClientBehaviorModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/Drawable/Update/ClientModuleDeletingDtors.cpp (not merged yet)
 
 // tu-skeleton: 0x007905B4 13B $L310 -- matched in Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehaviorPoolKey.cpp (not merged yet)
 
 // tu-skeleton: 0x007905C1 10B __ehhandler$?getModuleNameKey@AnimationSoundClientBehavior@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehaviorPoolKey.cpp (not merged yet)
+
+// tu-skeleton: 0x007905CB 8B $L441 -- matched in Code/GameEngine/Source/Common/AnimationSoundClientBehaviorCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x007905FD 8B $L656 -- matched in Code/GameEngine/Source/Common/AnimationSoundTreeFree.cpp (not merged yet)
 
