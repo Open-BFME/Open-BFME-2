@@ -20007,3 +20007,12 @@ Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCameraModLookTowardBfme
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCameraModLookTowardBfme.cpp|class||Rva0073FF30CameraPath,06240859e3167803cc6a88c0,drz-k10,n30g-k10,w-88a32c4f7da7,2026-11-01
 Code/GameEngineDevice/Source/W3DDevice/GameClient/camerashakesystem.cpp|function|0x000658CA|rva000658CA,5021e484dbdcbe87c32f31d8,drz-k9,n30b2-k9,w-4d4d8f8584bc,2026-11-01
 Code/GameEngineDevice/Source/W3DDevice/GameClient/camerashakesystem.cpp|function|0x000658CF|rva000658CF,7ab2272a09239751cdebc829,drz-k9,n30b2-k9,w-4d4d8f8584bc,2026-11-01
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/ModelSMConditionInfo.cpp|class||BfmeModelAssetNode,f32662f529079093f59da2d8,drz-k3,n30c2-k3,w-077d7aeb666b,2026-11-01
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/ModelSMConditionInfo.cpp|class||BfmeModelEffectRecord,9cb6d5341a84fc72ba63cbb7,drz-k3,n30c2-k3,w-077d7aeb666b,2026-11-01
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/ModelSMConditionInfo.cpp|class||BfmeModelNamedRecord,d92cb59c918b850ee8f83f2a,drz-k3,n30c2-k3,w-077d7aeb666b,2026-11-01
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Gen_006e9160_Init.cpp|class||Gen_006e9160_Triple,7abde3187c06d0df9bad6747,drz-k3,n30c2-k3,w-077d7aeb666b,2026-11-01
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Gen_006e9160_Init.cpp|member|Gen_006e9160_Triple|m_0,462e2fa854342af4995499b3,drz-k3,n30c2-k3,w-077d7aeb666b,2026-11-01
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Gen_006e9160_Init.cpp|member|Gen_006e9160_Triple|m_4,2719a62f9f62ef53424ed1f6,drz-k3,n30c2-k3,w-077d7aeb666b,2026-11-01
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Gen_006e9160_Init.cpp|member|Gen_006e9160_Triple|m_8,e10d01d3e42cee51c04213e3,drz-k3,n30c2-k3,w-077d7aeb666b,2026-11-01
+Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptDisplayStringAllocation_ctor_Rva004D5A4D.cpp|class||Rva00788290Allocation,296c42f8b26a4c4c92ad278c,drz-k3,n30c2-k3,w-077d7aeb666b,2026-11-01
+Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DGameWindowManagerGadgets.cpp|function|0x0008FFE0|rva0008FFE0,da9540e39bb44bc74d77ade5,drz-k3,n30c2-k3,w-077d7aeb666b,2026-11-01
