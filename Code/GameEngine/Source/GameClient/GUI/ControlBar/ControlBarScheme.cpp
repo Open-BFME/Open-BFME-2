@@ -15,6 +15,7 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 { return a._M_node != b._M_node; }
 }
 #include "PreRTS.h"
+#define BFME_STRINGBASE_PUBLIC_DTOR
 #include "ascii_string.h"
 class Xfer;
 class AsciiString;
@@ -322,7 +323,14 @@ class Rva002004FD { public: ~Rva002004FD(); };
 
 // ??_GRva0031F831@@QAEPAXI@Z @0x0031F856 28B; calls rowed ??1Rva0031F831@@QAE@XZ @0x0031F831 then delete 0x0002FD60.
 // Evidence: retail push esi mov esi ecx call test flag delete ret 4 shape; QAE non-virtual so QAEPAXI; chain from 0x0031F831 landing.
-class Rva0031F831 { public: ~Rva0031F831(); };
+class Rva0031F831
+{
+public:
+    ~Rva0031F831();
+    StringBase<char> m_str;
+    char m_pad[4];
+    int m_8;
+};
 
 class W3DDisplay
 {
@@ -353,7 +361,7 @@ public:
 	void rva0031F89E(float scaleX, float scaleY, int m_offsetX, int offsetY);
 	char m_pad00[0x158];
 private:
-	Node *m_lists[3]; // +0x158
+	Node *m_lists[3]; // +0x158 +0x158
 };
 
 class Rva0031F96F
@@ -362,21 +370,98 @@ public:
 	void rva0031F96F(float xScale, float yScale, int xOffset, int yOffset);
 	char m_pad00[0x164];
 private:
-	Node *m_lists[3]; // +0x164
+	Node *m_lists[3]; // +0x164 +0x164
+};
+
+namespace _STL { template <> _List_base<int, allocator<int> >::~_List_base(); }
+
+class Rva00200667 : public _STL::_List_base<int, _STL::allocator<int> >
+{
+public:
+	~Rva00200667() {}
 };
 
 class ControlBarScheme
 {
 public:
-	void init();
-public:
+    ControlBarScheme();
+    ~ControlBarScheme();
+    void init();
+    void update();
+    void reset();
+
 	AsciiString m_name;
-public:
 	ICoord2D m_ScreenCreationRes;
-public:
 	AsciiString m_side;
-public:
-	void update();
+	Image *m_buttonQueueImage;
+	Image *m_rightHUDImage;					///< +0x14
+	Color m_buildUpClockColor;				///< +0x18
+	Color m_borderBuildColor;				///< +0x1c
+	Color m_borderActionColor;
+	Color m_borderUpgradeColor;
+	Color m_borderSystemColor;
+	Color m_bfmeBorderFifthColor;			///< +0x2c
+	Color m_commandBarBorderColor;			///< +0x30
+	Image *m_optionsButtonEnable;			///< +0x34
+	Image *m_optionsButtonHightlited;
+	Image *m_optionsButtonPushed;
+	Image *m_optionsButtonDisabled;
+	Image *m_idleWorkerButtonEnable;		///< +0x44
+	Image *m_idleWorkerButtonHightlited;
+	Image *m_idleWorkerButtonPushed;
+	Image *m_idleWorkerButtonDisabled;
+	Image *m_buddyButtonEnable;				///< +0x54
+	Image *m_buddyButtonHightlited;
+	Image *m_buddyButtonPushed;
+	Image *m_buddyButtonDisabled;
+	Image *m_beaconButtonEnable;			///< +0x64
+	Image *m_beaconButtonHightlited;
+	Image *m_beaconButtonPushed;
+	Image *m_beaconButtonDisabled;
+	Image *m_genBarButtonIn;				///< +0x74
+	Image *m_genBarButtonOn;
+	Image *m_toggleButtonUpIn;				///< +0x7c
+	Image *m_toggleButtonUpOn;
+	Image *m_toggleButtonUpPushed;
+	Image *m_toggleButtonDownIn;
+	Image *m_toggleButtonDownOn;
+	Image *m_toggleButtonDownPushed;
+	Image *m_generalButtonEnable;			///< +0x94
+	Image *m_generalButtonHightlited;
+	Image *m_generalButtonPushed;
+	Image *m_generalButtonDisabled;
+	Image *m_uAttackButtonEnable;			///< +0xa4
+	Image *m_uAttackButtonHightlited;
+	Image *m_uAttackButtonPushed;
+	Image *m_minMaxButtonEnable;			///< +0xb0
+	Image *m_minMaxButtonHightlited;
+	Image *m_minMaxButtonPushed;
+	Image *m_genArrow;						///< +0xbc
+	ICoord2D m_moneyUL;						///< +0xc0
+	ICoord2D m_moneyLR;
+	ICoord2D m_minMaxUL;
+	ICoord2D m_minMaxLR;
+	ICoord2D m_generalUL;
+	ICoord2D m_generalLR;
+	ICoord2D m_uAttackUL;					///< +0xf0
+	ICoord2D m_uAttackLR;
+	ICoord2D m_optionsUL;
+	ICoord2D m_optionsLR;
+	ICoord2D m_workerUL;
+	ICoord2D m_workerLR;
+	ICoord2D m_chatUL;						///< +0x120
+	ICoord2D m_chatLR;
+	ICoord2D m_beaconUL;
+	ICoord2D m_beaconLR;
+	ICoord2D m_powerBarUL;
+	ICoord2D m_powerBarLR;
+	Image *m_expBarForeground;				///< +0x150
+	Image *m_commandMarkerImage;			///< +0x154
+    Rva00200667 m_lists[6];
+    // Native EH calls the complete five-byte list wrapper at200667;
+    // the normal path inlines it and calls the23-byte base at4EC395.
+    // The node payload is not established by these destruction paths.
+    Rva00200667 m_list170;
 };
 
 class Rva0031FA8E

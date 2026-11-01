@@ -10,11 +10,14 @@
 #define BFME_STRINGBASE_PUBLIC_DTOR
 #include "string_base.h"
 
-class Rva0031F831 {
-public: ~Rva0031F831();
-private: StringBase<char> m_str;
-         char m_pad[4];
-         int m_8; };
+class Rva0031F831
+{
+public:
+    ~Rva0031F831();
+    StringBase<char> m_str;
+    char m_pad[4];
+    int m_8;
+};
 Rva0031F831::~Rva0031F831()
 {
 	m_8 = 0;

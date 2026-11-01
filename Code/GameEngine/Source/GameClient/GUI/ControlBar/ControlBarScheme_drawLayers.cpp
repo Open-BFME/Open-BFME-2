@@ -21,15 +21,22 @@ class ControlBarScheme
 
 // LINK: the scheme draws are rowed as Rva0031F89E::rva0031F89E and Rva0031F96F::rva0031F96F(float, float, int, int) (the multiplier and offset
 // are four stack words); the by-value Coord2D/ICoord2D call shape is kept through a member-pointer cast.
+struct Node;
 class Rva0031F89E
 {
 public:
-	void rva0031F89E(float mx, float my, int ox, int oy);
+	void rva0031F89E(float scaleX, float scaleY, int m_offsetX, int offsetY);
+	char m_pad00[0x158];
+private:
+	Node *m_lists[3]; // +0x158 +0x158
 };
 class Rva0031F96F
 {
 public:
-	void rva0031F96F(float mx, float my, int ox, int oy);
+	void rva0031F96F(float xScale, float yScale, int xOffset, int yOffset);
+	char m_pad00[0x164];
+private:
+	Node *m_lists[3]; // +0x164 +0x164
 };
 typedef void (Rva0031F89E::*SchemeForegroundShape)(Coord2D, ICoord2D);
 typedef void (Rva0031F96F::*SchemeBackgroundShape)(Coord2D, ICoord2D);
