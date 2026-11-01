@@ -20588,3 +20588,13 @@ Code/GameEngine/Source/Common/ConstIntGetters5Addr.cpp|function|0x0011C460|Rva00
 Code/GameEngine/Source/Common/ConstIntGetters5Addr.cpp|function|0x00611030|Rva00611030Get,e835ecea5fdb101edc6f530b,drz-k8,n32f-k8,w-87ae7cdc64ef,2026-11-01
 Code/GameEngine/Source/Common/ConstIntGetters.cpp|function|0x00200BBA|Rva00200BBAGet,7ef8b5afacfce03684ac3748,drz-k8,n32f-k8,w-87ae7cdc64ef,2026-11-01
 Code/GameEngine/Source/Common/Containers/Rva00312118SplineRebuild.cpp|class||Rva00312118Record,d90149d05bd0c7bed6455bc4,drz-k8,n32f-k8,w-87ae7cdc64ef,2026-11-01
+Code/GameEngine/Source/Common/Drawable_handleWeaponFireFX.cpp|member|Accum|m_1c,fb2ea45962917a099ad8c849,drz-k11,n32h-k11,w-09889333d128,2026-11-01
+Code/GameEngine/Source/Common/Drawable_handleWeaponFireFX.cpp|member|Accum|m_24,6818b5dc6fb21ad23510be08,drz-k11,n32h-k11,w-09889333d128,2026-11-01
+Code/GameEngine/Source/Common/Elem005DB98EFalloff.cpp|local|Elem005DB98E::rva005DB928|t,ae1fc9d03ed1ebe9870738df,drz-k11,n32h-k11,w-09889333d128,2026-11-01
+Code/GameEngine/Source/Common/Elem005DB98EFalloff.cpp|local|Elem005DB98E::rva005DB95B|f,492871a84d56ed71738bdba4,drz-k11,n32h-k11,w-09889333d128,2026-11-01
+Code/GameEngine/Source/Common/Elem005DB98EFalloff.cpp|local|Elem005DB98E::rva005A66BF|v,360cbb68aa594af7eaacedc8,drz-k11,n32h-k11,w-09889333d128,2026-11-01
+Code/GameEngine/Source/Common/FireLogicSystem_ChangeFuelInArea.cpp|param|FloatToLong|f,f10d5abe2987e110bd86d38e,drz-k11,n32h-k11,w-09889333d128,2026-11-01
+Code/GameEngine/Source/Common/FireLogicSystem_ChangeFuelInArea.cpp|param|FireLogicSystem::ChangeFuelInArea|p,8dfb47d27edf9668c0b3b9a1,drz-k11,n32h-k11,w-09889333d128,2026-11-01
+Code/GameEngine/Source/Common/FireLogicSystem_ChangeFuelInArea.cpp|param|FireLogicSystem::ChangeFuelInArea|w,961e18ad1f05e01fb0778746,drz-k11,n32h-k11,w-09889333d128,2026-11-01
+Code/GameEngine/Source/Common/FireLogicSystem_ChangeFuelInArea.cpp|local|FireLogicSystem::ChangeFuelInArea|y,c31dd08f3530032f102cb4c5,drz-k11,n32h-k11,w-09889333d128,2026-11-01
+Code/GameEngine/Source/Common/FireLogicSystem_ChangeFuelInArea.cpp|local|FireLogicSystem::ChangeFuelInArea|d,f8b17ad0867e9d7c5f536fde,drz-k11,n32h-k11,w-09889333d128,2026-11-01
