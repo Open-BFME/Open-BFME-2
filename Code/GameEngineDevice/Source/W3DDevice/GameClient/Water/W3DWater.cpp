@@ -56,12 +56,7 @@ public:
 };
 
 
-class Vector3 {
-public:
- Vector3() {}
- Vector3(float x,float y,float z):X(x),Y(y),Z(z){}
- float X,Y,Z;
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 class RenderableStandingWaterArea {
 public:
  void createTexture(int index);

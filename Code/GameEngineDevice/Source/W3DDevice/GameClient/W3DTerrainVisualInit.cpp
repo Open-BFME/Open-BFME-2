@@ -30,11 +30,7 @@ public:
 	static RTS3DScene *m_3DScene;
 };
 
-struct Vector3
-{
-	Vector3(float x, float y, float z) : X(x), Y(y), Z(z) {}
-	float X, Y, Z;
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 class Rva00091AEARenderObj
 {

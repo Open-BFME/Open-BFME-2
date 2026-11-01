@@ -24,7 +24,7 @@ typedef unsigned int UnsignedInt;
 
 #include "../../../../Libraries/Include/Lib/IRegion2D.h"
 
-class Vector3 { public: float X, Y, Z; Vector3(float x, float y, float z) { X = x; Y = y; Z = z; } };
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 class DX8Wrapper { public: static void Clear(bool clear_color, bool clear_z, bool clear_stencil, const Vector3 &color, float dest_alpha, float z = 1.0f, unsigned int stencil = 0); };
 
 class CameraClass;

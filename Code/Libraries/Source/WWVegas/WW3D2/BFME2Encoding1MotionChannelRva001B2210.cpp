@@ -13,7 +13,7 @@
 // Codegen: `bit` kept as an int and used for both the select and the pointer step; the vi
 // loop advances packet in its increment expression.
 class ChunkLoadClass;
-class Vector3 { public: float X, Y, Z; };
+#include "../WWMath/Vector3Data.h"
 class Quaternion { public: float X, Y, Z, W; };
 class BFME2MotionChannel {
 public:

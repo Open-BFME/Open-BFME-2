@@ -56,7 +56,7 @@ extern Debug *theDebug;
 		(dbg stream_expr).CrashDone(2); \
 	} } while (0);
 
-class Vector3 { public: float X, Y, Z; };
+#include "../WWMath/Vector3Data.h"
 
 template <class T>
 class RefCountPtr

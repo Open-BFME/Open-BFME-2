@@ -33,10 +33,7 @@ typedef unsigned int UnsignedInt;
 
 #include "../../../../../reference/shims/wwmath/Vector2.h"
 
-struct Vector3
-{
-	Real X, Y, Z;
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 struct VertexFormatXYZDUV1
 {

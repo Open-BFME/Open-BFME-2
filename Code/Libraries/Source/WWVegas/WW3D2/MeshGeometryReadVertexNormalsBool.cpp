@@ -45,12 +45,7 @@
 #include "bittype.h"
 #include "chunkio.h"
 
-class Vector3
-{
-public:
-	float x, y, z;
-	Vector3() {}
-};
+#include "../WWMath/Vector3Data.h"
 
 class MeshGeometryClass
 {

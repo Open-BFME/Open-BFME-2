@@ -19,13 +19,7 @@
 // Size-optimized like retail (/O1: "and [ebp-4],0" for col=0), so the four
 // SSE clamps are written out rather than looped: /O1 keeps a loop rolled.
 
-class Vector3
-{
-public:
-	float X;
-	float Y;
-	float Z;
-};
+#include "../WWMath/Vector3Data.h"
 
 #include "../WWMath/Vector4Data.h"
 

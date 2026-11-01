@@ -8,7 +8,7 @@
 // The original donor x87 helper is required for its saved rounding-control
 // word and four FISTP conversions; ordinary MSVC7.1 /arch:SSE casts do not
 // express that codegen machinery. No naked body or machine-byte emission.
-class Vector3 { public: float X,Y,Z; };
+#include "../WWMath/Vector3Data.h"
 // ShaderDirty, FogEnable and FogColor are protected statics (ShaderClassApply.cpp
 // ?ShaderDirty@ShaderClass@@1_NA, dx8wrapper.cpp ?FogEnable@DX8Wrapper@@1_NA and
 // ?FogColor@DX8Wrapper@@1KA).

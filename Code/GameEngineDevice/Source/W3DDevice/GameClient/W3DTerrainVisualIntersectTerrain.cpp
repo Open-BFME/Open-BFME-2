@@ -5,16 +5,7 @@
 // (rowed 0x0006F1A6, default collision type 2) at the +0x14 terrain render object's Cast_Ray
 // (vtable +0xF0) and copy the contact point out. The ray ends are built as temporaries in the
 // LineSegClass call, which orders the end copy first as in retail.
-class Vector3
-{
-public:
-	Vector3() {}
-	Vector3(float x, float y, float z) { X = x; Y = y; Z = z; }
-	void Set(float x, float y, float z) { X = x; Y = y; Z = z; }
-	float X;
-	float Y;
-	float Z;
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 struct CastResultStruct
 {

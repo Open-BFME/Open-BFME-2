@@ -224,13 +224,7 @@ class Object;
 struct IDirect3DSurface8;
 
 // Native 0x11D330 Clear uses WWMath's class-tagged 12B Vector3 view.
-class Vector3
-{
-public:
-	float X;
-	float Y;
-	float Z;
-};
+#include "../WWMath/Vector3Data.h"
 
 class Rva000F6D56Filter
 {

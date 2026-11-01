@@ -18,16 +18,7 @@ typedef int Int;
 
 #include "../../../../Libraries/Include/Lib/Region3D.h"
 
-struct Vector3
-{
-	Vector3() {}
-	Vector3(const Vector3 &vec) { X = vec.X; Y = vec.Y; Z = vec.Z; }
-	Vector3(Real x, Real y, Real z) { X = x; Y = y; Z = z; }
-	Vector3 &operator=(const Vector3 &vec) { X = vec.X; Y = vec.Y; Z = vec.Z; return *this; }
-	Real X;
-	Real Y;
-	Real Z;
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 struct Matrix3D
 {

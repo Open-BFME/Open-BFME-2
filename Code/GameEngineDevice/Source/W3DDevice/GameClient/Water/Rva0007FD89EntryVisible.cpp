@@ -13,13 +13,7 @@
 
 #include <vector>
 
-class Vector3
-{
-public:
-	float X;
-	float Y;
-	float Z;
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 struct Rva001006F8FrustumView;
 

@@ -35,16 +35,7 @@ struct W3dRGBAStruct
 	uint8 A;
 };
 
-class Vector3
-{
-public:
-	float X;
-	float Y;
-	float Z;
-
-	WWINLINE float & operator [](int i) { return (&X)[i]; }
-	WWINLINE const float & operator [](int i) const { return (&X)[i]; }
-};
+#include "../WWMath/Vector3Data.h"
 
 #include "../WWMath/Vector4Data.h"
 

@@ -9,13 +9,7 @@
 
 #include "../../../../../reference/shims/wwmath/Vector2.h"
 
-class Vector3
-{
-public:
-	float X;
-	float Y;
-	float Z;
-};
+#include "../WWMath/Vector3Data.h"
 
 extern float g_Va00DEC49C;
 

@@ -21,7 +21,7 @@
 // The class layouts are the factory unit's (BFME2MotionChannelFactory.cpp).
 class ChunkLoadClass;
 
-class Vector3 { public: float X, Y, Z; };
+#include "../WWMath/Vector3Data.h"
 
 class Quaternion { public: float X, Y, Z, W; };
 

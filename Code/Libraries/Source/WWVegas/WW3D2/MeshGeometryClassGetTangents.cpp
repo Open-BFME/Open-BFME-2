@@ -7,11 +7,7 @@
 // VertexTangents per Reset/Copy TUs; ShareBuffer Array +0x0C Count +0x10
 // per sharebuf.h; caller 0x0018CC38.
 
-class Vector3
-{
-public:
-	float x, y, z;
-};
+#include "../WWMath/Vector3Data.h"
 class Vector4;
 
 template<class T>
