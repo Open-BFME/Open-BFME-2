@@ -89,7 +89,7 @@ class Rva00691040Handle
 public: Rva00691040Handle &operator=(const Rva00691040Handle &);
 private: Gen0002857E *m_target;
 };
-class Rva000427195 { public: void *rva000A7B3C(const AsciiString *key); };
+#include "../../../GameEngine/Include/GameLogic/Rva000427195.h"
 
 class AudioFileCache : public _STL::hash_map<int, Rva000A7E7AElement>
 {

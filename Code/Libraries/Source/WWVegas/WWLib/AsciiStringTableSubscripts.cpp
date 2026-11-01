@@ -49,16 +49,7 @@ struct BoolSlotPair {
     bool value;
     BoolSlotPair(const AsciiString &asciiString, bool boolValue) : name(asciiString), value(boolValue) {}
 };
-class Rva000427195 {
-public:
-    StoredPair5808E *rva00058C6F(const StoredPair5808E *);
-    void *rva000A7A63(const StoredPair4 *);
-    StoredPair4 *rva002234BA(const StoredPair4 *);
-    void *rva003A2F08(const StoredPair07343 &);
-    StoredPair10B17 *rva00410E67(const StoredPair10B17 *);
-    void *rva000A7B3C(const AsciiString *);
-    void *rva004112A0(const AsciiString *);
-};
+#include "../../../../GameEngine/Include/GameLogic/Rva000427195.h"
 class Rva00059FBBMap { public: AudioEventInfo *&rva00059FBB(const AsciiString &); };
 class Rva001FDE3F { public: float &rva001FDE3F(const AsciiString &); };
 class Rva002235F3 { public: void *rva002235F3(const void *); };

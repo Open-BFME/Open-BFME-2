@@ -358,11 +358,7 @@ private:
 	AsciiString m_name;
 };
 
-class Rva000427195
-{
-public:
-	void rva003A2A41(void);
-};
+#include "../../../Include/GameLogic/Rva000427195.h"
 
 class Rva00240CAB
 {

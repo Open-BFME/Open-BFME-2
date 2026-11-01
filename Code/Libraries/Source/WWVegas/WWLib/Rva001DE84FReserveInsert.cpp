@@ -27,11 +27,7 @@ struct InsertResult
 	unsigned char m_inserted;
 };
 
-class Rva000427195
-{
-public:
-	void rva00212858(unsigned int n);
-};
+#include "../../../../GameEngine/Include/GameLogic/Rva000427195.h"
 
 class Rva001DE556
 {

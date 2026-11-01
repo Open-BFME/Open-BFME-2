@@ -16,13 +16,7 @@ struct Rva00212A16Record { char bytes[1]; };
 // _M_new_node copies and left the record's hash, copy ctor and dtor unresolved,
 // so _M_insert is defined here as an explicit specialization that calls those rows.
 class AsciiString;
-class Rva000427195
-{
-public:
-    void rva00212858(unsigned int count);
-    int bucketIndex(const AsciiString *name);
-    void *rva00212354(const void *src);
-};
+#include "../../../../GameEngine/Include/GameLogic/Rva000427195.h"
 namespace _STL {
 typedef pair<Rva00212A16Record const, Rva00212A16Record> Rva00212A16Pair;
 template <>

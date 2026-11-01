@@ -30,11 +30,7 @@ void *__stdcall Rva002CF9DCCreate(const _STL::pair<const AsciiString, NoCaseTree
 	return block;
 }
 
-class Rva000427195
-{
-public:
-	void *createNode(const _STL::pair<const AsciiString, NoCaseTreeValue4> *src);
-};
+#include "../../../../GameEngine/Include/GameLogic/Rva000427195.h"
 
 // ICF-folded twin of Rva002CF9DCCreate above (same 37 bytes at 0x002CF9DC):
 // the member spelling ignores its receiver, so its stack frame matches the

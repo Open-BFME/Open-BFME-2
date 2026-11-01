@@ -10,11 +10,7 @@ struct BfmeStringRecord00054F57 { void *m_a; void *m_b; };
 struct HashNode00056E8C { HashNode00056E8C *m_next; BfmeStringRecord00054F57 m_val; };
 struct Pair00058D4A { HashNode00056E8C *m_node; void *m_table; bool m_new; };
 
-class Rva000427195
-{
-public:
-	void rva00212858(unsigned int n);
-};
+#include "../../../../GameEngine/Include/GameLogic/Rva000427195.h"
 
 class Rva00058D4A
 {

@@ -19,20 +19,7 @@ struct HashNode00056E53
 	TreeHintPair0005808E m_val;
 };
 
-class Rva000427195
-{
-public:
-	void rva00212858(unsigned int n);
-	int bucketIndex(const AsciiString *name);
-	HashNode00056E53 *rva00056E53(const TreeHintPair0005808E &value);
-	TreeHintPair0005808E *rva00058C6F(const TreeHintPair0005808E *arg);
-
-	void *m_unused00;
-	void **m_beginBuckets;
-	void **m_endBuckets;
-	void **m_storageEnd;
-	unsigned int m_numElements;
-};
+#include "../../../../GameEngine/Include/GameLogic/Rva000427195.h"
 
 TreeHintPair0005808E *Rva000427195::rva00058C6F(const TreeHintPair0005808E *arg)
 {

@@ -46,7 +46,7 @@ struct ScopedMusicRef {
  __forceinline ~ScopedMusicRef(){if(value.referent)value.referent->Release_Ref();}
 };
 class Rva000411084 { public: void *next(); void *current,*owner; Rva000411084(){}; Rva000411084(const Rva000411084&x):current(x.current),owner(x.owner){} };
-class Rva000427195 { public: void *first(Rva000411084*); };
+#include "../../../GameEngine/Include/GameLogic/Rva000427195.h"
 struct AudioEventNode { void *next; AsciiString key; const AudioEventInfo* info; };
 class AudioEventRTS { public: void rva002D9ADC(); AsciiString getFilename(); };
 class FileSystem { public: bool doesFileExist(const char*)const; };extern FileSystem*TheFileSystem;

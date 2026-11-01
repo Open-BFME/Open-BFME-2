@@ -14,11 +14,7 @@ public:
 
 Rva0074104C* makeRva0074104C();
 
-class Rva000427195
-{
-public:
-	void* rva004112A0(const AsciiString* key);
-};
+#include "../../../../GameEngine/Include/GameLogic/Rva000427195.h"
 struct Rva00411112GlobalTable;
 extern Rva00411112GlobalTable g_Va00E0300C;
 

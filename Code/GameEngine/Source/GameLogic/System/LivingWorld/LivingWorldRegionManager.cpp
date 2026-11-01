@@ -159,10 +159,7 @@ class LivingWorldRegionBonusRule;
 // The AsciiString-keyed hash table family (Rva000427195Dtor.cpp and its
 // insert units): the instantiations' identical clear() bodies fold to the
 // one the ledger rows at 0x003A2A41 on the family placeholder.
-struct Rva000427195
-{
-	void rva003A2A41();										// 0x003A2A41
-};
+#include "../../../../Include/GameLogic/Rva000427195.h"
 
 // The table's bucket vector: freed (null-guarded) by the table's dtor after
 // clear(), as in Rva000427195Dtor.cpp.

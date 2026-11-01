@@ -1477,12 +1477,7 @@ private:
 
 Waypoint *Rva00506CC3FindWaypoint(const AsciiString &);
 
-class Rva000427195
-{
-public:
-	void rva00212858(unsigned int n);
-	int bucketIndex(const AsciiString *name);
-};
+#include "../../../Include/GameLogic/Rva000427195.h"
 
 class Rva00240D0F
 {

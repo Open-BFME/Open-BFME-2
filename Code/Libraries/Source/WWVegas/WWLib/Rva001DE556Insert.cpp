@@ -22,11 +22,7 @@ struct HashNode
 	NoCaseTreeValue4 m_value;
 };
 
-class Rva000427195
-{
-public:
-	int bucketIndex(const AsciiString *name);
-};
+#include "../../../../GameEngine/Include/GameLogic/Rva000427195.h"
 
 struct InsertResult
 {

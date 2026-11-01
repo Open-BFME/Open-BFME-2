@@ -102,7 +102,7 @@ __declspec(nothrow) __declspec(noinline) inline Rva0041534BIter Rva00056F61::rva
 {
  return Rva0041534BIter((AudioCacheFileNode *)rva00056F61(key), this);
 }
-class Rva000427195 {public: void *rva000A7B3C(const AsciiString *);};
+#include "../../../GameEngine/Include/GameLogic/Rva000427195.h"
 class AudioFileCacheMap {
 public:
  Rva0041534BIter find(const AsciiString &key) { return ((Rva00056F61 *)this)->rva0041534B(&key); }
