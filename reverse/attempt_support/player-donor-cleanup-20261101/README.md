@@ -44,3 +44,16 @@ the unit; no complete link clearance is claimed.
 The first two-removal batch passes strict preparation of all 12 function rows
 and the one owned data row. Source paths, six admitted aliases and the canonical
 class header are unchanged. Its strict receipt and output are retained.
+
+## Relation-map donor CRC
+
+The obsolete unrowed PlayerRelationMap::crc body is removed independently.
+The native four-slot BFDD90 table has the deleting destructor, loadPostProcess,
+name getter and xfer providers; no CRC slot is present. The old empty CRC also
+has no incoming runtime/data edge locally or outside incoming edge in the
+published index. The rowed loadPostProcess is retained.
+
+All 12 functions and the global still verify. Only the CRC definition is lost:
+407 complete code definitions/relocations remain identical to the preceding
+408-definition control. The owning counter retires its one placeholder hatch.
+The preview has no new unresolved CRC and retains the remaining blockers.

@@ -29,6 +29,10 @@ retained complete definitions/relocations unchanged. One present-unmatched
 count retires through the owning tool. The other wrong-selected science-vector
 copy and donor imports remain, and existing retained shadow divergences are
 unchanged. A separate alias shrink merely synchronizes upstream ffdd9456a9.
+The obsolete relation-map CRC is removed separately: the native four-slot
+contract has no CRC slot, all 407 retained complete definitions/relocations
+are unchanged, and all native rows/global remain verified. Its single
+placeholder hatch retires; rowed loadPostProcess stays in place.
 
 
 ### Six-source Vector4 batch (2026-11-01)

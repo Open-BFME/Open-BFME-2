@@ -493,11 +493,8 @@ void dumpBattlePlanBonuses(const BattlePlanBonuses *battlePlanBonuses, AsciiStri
 #endif // DEBUG_CRC
 
 // ------------------------------------------------------------------------------------------------
-// ?crc@PlayerRelationMap@@MAEXPAVXfer@@@Z present-unmatched
-void PlayerRelationMap::crc( Xfer *xfer )
-{
 
-}  // end crc
+  // end crc
 
 // ------------------------------------------------------------------------------------------------
 /** Load post process */
