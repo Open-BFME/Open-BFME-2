@@ -768,68 +768,7 @@ static void doFindCommandCenter(Object* obj, void* userData)
 // Iterator function
 // Find first object capable of firing specified special power right now.
 //-------------------------------------------------------------------------------------------------
-static void doFindSpecialPowerSourceObject( Object *obj, void *userData )
-{
-	PlayerObjectFindInfo* info = (PlayerObjectFindInfo*)userData;
 
-	if( info->lowestReadyFrame == 0 )
-	{
-		//We already found the best case scenario, so no need to iterate any more.
-		return;
-	}
-	if( !obj->testStatus( OBJECT_STATUS_UNDER_CONSTRUCTION ) 
-			&& !obj->testStatus( OBJECT_STATUS_SOLD )
-			&& !obj->isEffectivelyDead() )
-	{
-		if( info->spType == SPECIAL_INVALID && obj->hasAnySpecialPower() )
-		{
-			//We just care about find an object that has *any* shortcut capable special power.
-			//Iterate through the special power modules and look for one.
-			SpecialPowerModuleInterface *spmInterface = obj->findAnyShortcutSpecialPowerModuleInterface();
-			if( spmInterface && !spmInterface->isScriptOnly() )
-			{
-				info->obj = obj;
-				info->lowestReadyFrame = 0;
-				return;
-			}
-		}
-		else if( obj->hasSpecialPower( info->spType ) )
-		{
-			SpecialPowerModuleInterface *spmInterface = obj->findSpecialPowerModuleInterface( info->spType );
-			if( spmInterface && !spmInterface->isScriptOnly() )
-			{
-				UnsignedInt readyFrame = spmInterface->getReadyFrame();
-				
-#if defined(_DEBUG) || defined(_INTERNAL) || defined(_ALLOW_DEBUG_CHEATS_IN_RELEASE)
-				// Everything is ready if timers are debug off'd
-				if( ! TheGlobalData->m_specialPowerUsesDelay )
-					readyFrame = 0;
-#endif
-				// A disabled guy should only be considered as a last resort.  We need it to be counted
-				// so that a disabled button can appear on the shortcut.
-				if( obj->isDisabled() )
-					readyFrame = UINT_MAX - 10;
-
-				if( readyFrame < TheGameLogic->getFrame())
-				{
-					//This special power is ready now and matches, so simply return the
-					//first one.
-					info->obj = obj;
-					info->lowestReadyFrame = 0;
-					return;
-				}
-				else if( readyFrame < info->lowestReadyFrame )
-				{
-					//This special power isn't ready, but it is going to be ready sooner than any others
-					//we checked (or it's the first one we checked).
-					info->obj = obj;
-					info->lowestReadyFrame = readyFrame;
-					return;
-				}
-			}
-		}
-	}
-}
 
 //-------------------------------------------------------------------------------------------------
 // Iterator function
@@ -1020,17 +959,8 @@ Object* Player::findAnyExistingObjectWithThingTemplate( const ThingTemplate *thi
 //-------------------------------------------------------------------------------------------------
 // Finds a short-cut firing special power of any type arbitrarily.
 //-------------------------------------------------------------------------------------------------
-// ?hasAnyShortcutSpecialPower@Player@@QAE_NXZ present-unmatched
-Bool Player::hasAnyShortcutSpecialPower()
-{
-	PlayerObjectFindInfo info;
-	info.player = this;
-	info.obj = NULL;
-	info.spType = SPECIAL_INVALID; //Invalid dictates that we don't care about the type.
-	info.lowestReadyFrame = 0xffffffff;
-	iterateObjects( doFindSpecialPowerSourceObject, &info );
-	return info.obj;
-}
+
+
 
 //-------------------------------------------------------------------------------------------------
 // ?countReadyShortcutSpecialPowersOfType@Player@@QAEHW4SpecialPowerType@@@Z present-unmatched

@@ -1,0 +1,11 @@
+{
+  "base": "2d81bf7cefb52a6afee600fd35da850c4d13c8e6",
+  "before_definitions": 325,
+  "after_definitions": 324,
+  "added": [],
+  "removed": [
+    "?hasAnyShortcutSpecialPower@Player@@QAE_NXZ"
+  ],
+  "changed": [],
+  "all_retained_whole_code_and_relocations_equal": true
+}
