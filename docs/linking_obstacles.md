@@ -15240,6 +15240,22 @@ last one, `event5_2`, is player table slot 2 = 0x002B2A95. That row is the
 non-virtual `Rva002B2A95Callback::rva002B2A95` in `Rva002B2A95EvaEvent.cpp`.
 `rename.py function` changes only the identifier, so the row first needs a
 code-identity class merge into `LivingWorldLogic`, then `--virtual`.
+2026-11-01 (halilkkaya-lk11): regression found. `LivingWorldLogicDtorRva002B964F.cpp`
+(717 B; linked in census `5d5cf41adf`, not since `ee981931dc`) loses
+`??_7LivingWorldLogic@@6BSubsystemInterface@@@` again, to the ctor's copy. The cause is the
+ctor-view change above (`f711525822`): `LivingWorldObservers.h` names slot 0 of the region and
+player observers `event4_0(int,int,int)` and `event5_0(Rva004EF2ABArg*)`, so
+`OnRegionChangedOwnership(LivingWorldRegion*,int,int)` and `rva002BA3F2(const Rva002E0687*)`
+override nothing. The compiler appends them to the primary table (16 slots, against retail's 14
+at 0x00BFE2E4 and the dtor's 14), and the region/player tables' slot 0 still name the base no-ops
+`?event4_0@LivingWorldRegionObserver@@...` and `?event5_0@LivingWorldPlayerObserver@@...` (COFF
+dump of the current ctor object). The unresolved count fell from 3 to 1 only because those slots
+now bind the wrong, base-default bodies. Fix (ctor file held by StarkillerHDX at 15:40 UTC, not
+attempted): either drop the two appended virtuals from the ctor view, which brings back the 14-slot
+primary table so the dtor links, or give the observer bases slot-0 names matching the rowed
+overrides. The second needs `LivingWorldScoreKeeper::event4_0/event5_0` renamed and retyped with
+them (identity work). Copying the two wrong slots into the dtor view would only spread the defect.
+re_attempts verdict on 0x002B964F.
 
 ### Terrain resource CRT header cleanup (2026-10-30, codexb)
 
@@ -16151,7 +16167,7 @@ with a one-slot anchor) by `GameLogic/Module/BehaviorModule.h`. Four mechanisms:
 | StancesBehaviorCtor, AttachUpdateCtor, BannerCarrierUpdateCtor, DamageFieldUpdateBehaviorCtor/Dtor, FadeAndDieOrnamentUpdateCtor, HordeNotify.../NotifyTargetsOfImminentProbableCrushingUpdateCtor, RespawnUpdateCtor, StrafeAreaUpdateCtor | 967 | 1 | repaired (this entry, first commit): bind `??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@` |
 | SupplyWarehouseCripplingBehaviorCtor, WallUpgradeUpdate | 1,143 | 1 | repaired (second commit): `??_7PoisonedBehavior@@6BBehaviorModuleInterface@@@` (0x00C49800) and the `c3e8f0752f` renames `??_7Rva004839D3@@6BRva004839D3_E1/UpdateModule/ObjectModule@@@`, `??_7Rva004AB246@@6BUpdateModule/ObjectModule@@@` |
 | BloodthirstyUpdateCtor, RainOfFireUpdateCtor | 250 | 1 | repaired (second commit): `6BObjectModule`/`6BBehaviorModuleInterface` tables their Dtor units emit |
-| BridgeBehaviorCtor, QueueProductionExitUpdateCtor | 302 | 1 | blocked: files held (StarkillerHDX UpdateModule adoption / QueueProductionExitUpdate.cpp TU merge) |
+| BridgeBehaviorCtor, QueueProductionExitUpdateCtor | 302 | 1 | blocked. BridgeBehaviorCtor was claimable at 2026-11-01 15:50 UTC (lk11). `6BMiBase1` (0x00C40920) is now BridgeBehaviorDtor.cpp's `6BBehaviorModuleInterface` (retail DIR32 pair), but the unit's own view derives from BehaviorModuleInterface, so rebinding is C2373. It needs canonical UpdateModule with compiler vptr stores (re_attempts 0x00457472). QueueProductionExitUpdateCtor is held by StarkillerHDX's TU work |
 | UpdateModuleCtor, RunOffMapBehaviorCtor, DamageModuleCtor, SpecialPowerModuleCtor, BodyModuleCtor, FireWeaponCollide | 1,167 | 2 | UpdateModuleCtor's implicit own destructor is removed, but its two BehaviorModule table COMDATs still need the shared-header contract repair; historical class reservation and tested proposal below |
 | AIGateUpdateCtor, DestroyEnvironmentUpdateCtor | 132 | 3 (+2) | Both corrected by explicit existing destructor declarations (2026-11-01, Cortys). Historical held-scope blocker retained below. |
 | AIGateUpdateDtor, DestroyEnvironmentUpdate, Rva0024A797DeletingDtor | 413 | 3 (victims) | All three now predict LINKS after the three constructor units reference their existing destructors |
