@@ -32,13 +32,7 @@ class Object;
 
 #include "../../Include/Common/BfmeXfer.h"
 
-class Coord3DBase
-{
-public:
-	float x;
-	float y;
-	float z;
-};
+#include "../../../Libraries/Include/Lib/Coord3DBase.h"
 
 class Rva001F37C4
 {

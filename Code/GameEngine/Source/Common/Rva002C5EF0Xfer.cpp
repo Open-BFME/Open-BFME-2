@@ -32,13 +32,7 @@ public:
 	unsigned char m_minimum;
 };
 
-struct Coord3DBase
-{
-public:
-	float x;
-	float y;
-	float z;
-};
+#include "../../../Libraries/Include/Lib/Coord3DBase.h"
 
 extern unsigned int BfmeTacticalInterestZoneSerial;
 // BfmeTacticalInterestZoneSerial: matched references place it at VA 0xdfefc8 (loader-zero scalar in .data).

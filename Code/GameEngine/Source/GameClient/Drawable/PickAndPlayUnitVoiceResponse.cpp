@@ -980,12 +980,7 @@ public:
 // The "no position" default, VA 0x00DCFC18 (.data): FLT_MAX, -FLT_MAX,
 // FLT_MAX. The constructor copies it into m_pos and the voice routing tests a
 // position against it through Coord3D::equals.
-struct Coord3DBase
-{
-	float x;
-	float y;
-	float z;
-};
+#include "../../../../Libraries/Include/Lib/Coord3DBase.h"
 Coord3DBase g_bfmeCoordDefault = { FLT_MAX, -FLT_MAX, FLT_MAX };
 
 // ??0PickAndPlayInfo@@QAE@XZ @0x004D92FE 61B

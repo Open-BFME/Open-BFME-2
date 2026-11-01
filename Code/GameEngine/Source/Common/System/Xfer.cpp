@@ -5,12 +5,7 @@
 // four-character tag with a zero-length transfer and then moves the payload as
 // raw bytes, so the sizes are the whole story. The region types go across in
 // two halves rather than one block.
-struct Coord3DBase
-{
-    float x;
-    float y;
-    float z;
-};
+#include "../../../../Libraries/Include/Lib/Coord3DBase.h"
 #include "../../../../Libraries/Include/Lib/ICoord3D.h"
 #include "../../../../Libraries/Include/Lib/Coord2D.h"
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"

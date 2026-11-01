@@ -6,12 +6,7 @@
 // Evidence: string literal in .rdata; slot 0x94 proven by XferEnumHelpers;
 // callers at 0x004DD67B plus 0x004DD69E use the return for the next Xfer call.
 
-struct Coord3DBase
-{
-	float x;
-	float y;
-	float z;
-};
+#include "../../../../Libraries/Include/Lib/Coord3DBase.h"
 
 #include "../../../../Libraries/Include/Lib/ICoord3D.h"
 

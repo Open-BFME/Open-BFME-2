@@ -4,12 +4,7 @@
 // Evidence: call 0x0055B048 then mov [esi] 0x00C6E270 then and [esi+2c] 0 then 4x movss xmm0; layout from Rva00573A35Xfer.cpp and Rva00573B23Dtor.cpp; unblocks 0x005AAA34 0x005AC294 0x005AB843 0x005AA90D.
 #include "ascii_string.h"
 
-struct Coord3DBase
-{
-	float x;
-	float y;
-	float z;
-};
+#include "../../../Libraries/Include/Lib/Coord3DBase.h"
 
 class Rva0055B0CC
 {

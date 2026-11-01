@@ -34,12 +34,7 @@ class DamageInfo;
 
 #include "../../Include/Common/BfmeXfer.h"
 
-struct Coord3DBase
-{
-	float x;
-	float y;
-	float z;
-};
+#include "../../../Libraries/Include/Lib/Coord3DBase.h"
 
 class Rva003FD1C5
 {

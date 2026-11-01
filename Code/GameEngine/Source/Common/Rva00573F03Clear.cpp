@@ -9,12 +9,7 @@
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
-struct Coord3DBase
-{
-	float x;
-	float y;
-	float z;
-};
+#include "../../../Libraries/Include/Lib/Coord3DBase.h"
 
 // Dispatch-only view: the native ground-height call uses byte slot 0x18.
 // The preceding slots are opaque and this unit emits no TerrainLogic vtable.

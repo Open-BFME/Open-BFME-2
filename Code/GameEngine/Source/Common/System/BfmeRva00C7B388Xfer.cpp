@@ -25,12 +25,7 @@
 extern "C" __declspec(dllimport) int __cdecl _vsnprintf(char *buffer, unsigned int count, const char *format, va_list args);
 extern "C" unsigned int __cdecl strlen(const char *text);
 
-struct Coord3DBase
-{
-    float x;
-    float y;
-    float z;
-};
+#include "../../../../Libraries/Include/Lib/Coord3DBase.h"
 
 #include "../../../../Libraries/Include/Lib/ICoord3D.h"
 

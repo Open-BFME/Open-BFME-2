@@ -264,12 +264,7 @@ class Xfer;
 class UnicodeString;
 class PooledString;
 struct XferUnknown11;
-struct Coord3DBase
-{
-	float x;
-	float y;
-	float z;
-};
+#include "../../../Libraries/Include/Lib/Coord3DBase.h"
 #include "../../../Libraries/Include/Lib/ICoord3D.h"
 #include "../../../Libraries/Include/Lib/Region3D.h"
 struct IRegion3D

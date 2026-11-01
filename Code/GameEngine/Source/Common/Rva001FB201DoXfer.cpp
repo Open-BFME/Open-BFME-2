@@ -20,13 +20,7 @@ class RGBAColorReal;
 class RGBAColorInt;
 class Snapshot;
 
-struct Coord3DBase
-{
-public:
-	float x; // +0x00
-	float y; // +0x04
-	float z; // +0x08
-};
+#include "../../../Libraries/Include/Lib/Coord3DBase.h"
 
 #include "../../Include/Common/BfmeXfer.h"
 

@@ -25,12 +25,7 @@ class Object;
 
 #include "../../Include/Common/XferVersion.h"
 
-struct Coord3DBase
-{
-	float x;
-	float y;
-	float z;
-};
+#include "../../../Libraries/Include/Lib/Coord3DBase.h"
 
 class Rva0049B47C
 {

@@ -10,12 +10,7 @@
 // order); callers: PooledString assign caller at 0x60C19C; donor:
 // XferAsciiStringTransfer.cpp logic with PooledString strlen/getLength.
 
-struct Coord3DBase
-{
-    float x;
-    float y;
-    float z;
-};
+#include "../../../../Libraries/Include/Lib/Coord3DBase.h"
 
 #include "../../../../Libraries/Include/Lib/ICoord3D.h"
 

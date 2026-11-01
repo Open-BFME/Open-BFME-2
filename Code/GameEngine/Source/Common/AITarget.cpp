@@ -112,12 +112,7 @@ struct InterestZone
 
 #include "../../Include/GameLogic/Rva002A8F24.h"
 
-struct Coord3DBase
-{
-	float x;
-	float y;
-	float z;
-};
+#include "../../../Libraries/Include/Lib/Coord3DBase.h"
 
 class Rva003ECDB7Object
 {

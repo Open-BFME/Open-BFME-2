@@ -26,12 +26,7 @@ class Snapshot;
 #include "../../Include/Common/BfmeXfer.h"
 #include "../../Include/Common/XferVersion.h"
 #include "ascii_string.h"
-struct Coord3DBase
-{
-	float x;
-	float y;
-	float z;
-};
+#include "../../../Libraries/Include/Lib/Coord3DBase.h"
 enum ObjectID
 {
 	INVALID_ID = 0

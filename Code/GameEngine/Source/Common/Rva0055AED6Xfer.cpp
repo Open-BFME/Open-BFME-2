@@ -46,12 +46,7 @@ void XferObjectID(Xfer *xfer, ObjectID *objectID);
 
 #include "ascii_string.h"
 
-struct Coord3DBase
-{
-	float x;
-	float y;
-	float z;
-};
+#include "../../../Libraries/Include/Lib/Coord3DBase.h"
 
 class Rva0055B0CC
 {
