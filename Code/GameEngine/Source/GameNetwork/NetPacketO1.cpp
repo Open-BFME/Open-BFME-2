@@ -140,13 +140,7 @@ struct BfmeNetPacketFields
 // getLength() is a two-byte load; the reference header has no such field and
 // its getLength() calls strlen. Every body below that measures a string a
 // message returns reads the cached count instead.
-struct BfmeStringData
-{
-	UnsignedShort m_refCount;
-	UnsignedShort m_numCharsAllocated;
-	UnsignedShort m_len;				///< retail m_data+0x04
-	UnsignedShort m_unreconstructed_06;
-};
+#include "../../Include/Common/BfmeStringData.h"
 
 
 // BFME's ACK messages carry the acking player's ID at +0x20, a field the
