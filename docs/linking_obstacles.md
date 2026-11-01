@@ -16553,6 +16553,25 @@ Both copies are equal again; neither carries FiringTracker's native update/xfer 
 Dtor is held by StarkillerHDX), so this restores the census-linked parity, not native table
 correctness. `./build.sh` 1/1; scoped DIR32 OK (5 symbols, with the Dtor); `link_check --refresh`
 FiringTrackerCtor 0 -> 149 B, FiringTrackerDtor 124 B unchanged LINKS.
+Same sweep, held files (not edited; recipes): GettingBuiltBehaviorDtor.cpp (142 B, census-linked)
+is the mirror case: `c5692cd910` moved GettingBuiltBehaviorCtor.cpp (first in link order) onto
+canonical UpdateModule.h while the Dtor keeps a private UpdateModule, so the Dtor's 12-slot primary
+table (slots 1-4 `__purecall`) and 1-slot `6BUpdateModule` table differ from the Ctor's 13-slot and
+3-slot copies and lose. Including the canonical header in the Dtor, as above, should make them
+equal (file held by StarkillerHDX at 21:50 UTC+3). HordeMeleeSwarm.cpp (1,947 B) reports a duplicate
+`?erase@?$vector@UBfmePod28@@...`: a `link_check` artifact, since the 14:31 index still holds the
+object of Rva005842F7Finish.cpp, which `ab58bb88df` merged into HordeMeleeSwarm.cpp at 17:49 (after
+the index); the next census will not see that object.
+lk10's held-file recipes above, applied once the files became claimable (lk12, base `c871f897be`):
+BridgeScaffoldBehavior.cpp (1,021 B) binds `??_7Rva00458402@@6BObjectModule/BehaviorModuleInterface/UpdateModule@@@`
+and `6BRva00458402_E1@@@` for its old `6BRva0024A797_Root/_Mid/_B2@@@` and `6B@` (+0/+0x0C/+0x10/+0x20);
+OneRingPenaltyUpdate.cpp (765 B) binds `??_7Rva00499934@@6BObjectModule/UpdateModule/Rva00499934_E1@@@`
+for `_Root/_B2/6B@`, and its class's own `??_7Rva00499934@@6BBehaviorModuleInterface@@@` for the folded
+0x00C49188 it spelled `??_7PropagandaTowerBehavior@@6BPB_Iface1@@@`. All names are what
+Rva0024A797Grandchildren.cpp's current object defines. `./build.sh` 23/23 rows; scoped DIR32 OK
+(106 symbols, with Grandchildren and PropagandaTowerBehaviorConstructor); `link_check --refresh`
+BridgeScaffoldBehavior 0 -> 1,021 B, OneRingPenaltyUpdate 0 -> 765 B, Grandchildren 1,280 B and
+PropagandaTowerBehaviorConstructor 115 B LINKS.
 Census confirmation: awaiting.
 
 ### W3DTerrainBackground seed reconciliation (2026-11-01, halilkkaya-codex)

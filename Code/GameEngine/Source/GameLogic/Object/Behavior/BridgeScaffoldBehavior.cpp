@@ -48,13 +48,13 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 // zeros; frameless so no /GX. Zero new pins (base resolves via its row;
 // interface so small it inlines).
 
-extern "C" const void *const __identifier("??_7Rva00458402@@6B@")[];
+extern "C" const void *const __identifier("??_7Rva00458402@@6BRva00458402_E1@@@")[];
 
-extern "C" const void *const __identifier("??_7Rva00458402@@6BRva0024A797_B2@@@")[];
+extern "C" const void *const __identifier("??_7Rva00458402@@6BUpdateModule@@@")[];
 
-extern "C" const void *const __identifier("??_7Rva00458402@@6BRva0024A797_Mid@@@")[];
+extern "C" const void *const __identifier("??_7Rva00458402@@6BBehaviorModuleInterface@@@")[];
 
-extern "C" const void *const __identifier("??_7Rva00458402@@6BRva0024A797_Root@@@")[];
+extern "C" const void *const __identifier("??_7Rva00458402@@6BObjectModule@@@")[];
 
 class Thing;
 
@@ -266,13 +266,13 @@ BridgeScaffoldBehaviorInterface *BridgeScaffoldBehavior::getBridgeScaffoldBehavi
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeScaffoldBehaviorCtor.cpp
 
-  // ??_7Rva00458402@@6B@
+  // ??_7Rva00458402@@6BRva00458402_E1@@@
 
-  // ??_7Rva00458402@@6BRva0024A797_B2@@@
+  // ??_7Rva00458402@@6BUpdateModule@@@
 
-  // ??_7Rva00458402@@6BRva0024A797_Mid@@@
+  // ??_7Rva00458402@@6BBehaviorModuleInterface@@@
 
-  // ??_7Rva00458402@@6BRva0024A797_Root@@@
+  // ??_7Rva00458402@@6BObjectModule@@@
 
 // Coord3D: shared header/view; no private copy.
 
@@ -284,10 +284,10 @@ BridgeScaffoldBehavior::BridgeScaffoldBehavior(Thing *thing, const ModuleData *m
 	UpdateModule(thing, moduleData)
 {
 	m_targetMotion = STM_STILL;
-	*(unsigned int *)this = ((unsigned int)__identifier("??_7Rva00458402@@6BRva0024A797_Root@@@"));
-	*(unsigned int *)((char *)this + 0x0C) = ((unsigned int)__identifier("??_7Rva00458402@@6BRva0024A797_Mid@@@"));
-	*(unsigned int *)((char *)this + 0x10) = ((unsigned int)__identifier("??_7Rva00458402@@6BRva0024A797_B2@@@"));
-	*(unsigned int *)((char *)this + 0x20) = ((unsigned int)__identifier("??_7Rva00458402@@6B@"));
+	*(unsigned int *)this = ((unsigned int)__identifier("??_7Rva00458402@@6BObjectModule@@@"));
+	*(unsigned int *)((char *)this + 0x0C) = ((unsigned int)__identifier("??_7Rva00458402@@6BBehaviorModuleInterface@@@"));
+	*(unsigned int *)((char *)this + 0x10) = ((unsigned int)__identifier("??_7Rva00458402@@6BUpdateModule@@@"));
+	*(unsigned int *)((char *)this + 0x20) = ((unsigned int)__identifier("??_7Rva00458402@@6BRva00458402_E1@@@"));
 	m_createPos.zero();
 	m_riseToPos.zero();
 	m_buildPos.zero();

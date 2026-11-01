@@ -188,13 +188,13 @@ public:
 // Object-uint spelling resolves via the existing pin at 0x44DF71). Row
 // supersedes the ctor pin.
 
-extern "C" const void *const __identifier("??_7PropagandaTowerBehavior@@6BPB_Iface1@@@")[];
+extern "C" const void *const __identifier("??_7Rva00499934@@6BBehaviorModuleInterface@@@")[];
 
-extern "C" const void *const __identifier("??_7Rva00499934@@6B@")[];
+extern "C" const void *const __identifier("??_7Rva00499934@@6BRva00499934_E1@@@")[];
 
-extern "C" const void *const __identifier("??_7Rva00499934@@6BRva0024A797_B2@@@")[];
+extern "C" const void *const __identifier("??_7Rva00499934@@6BUpdateModule@@@")[];
 
-extern "C" const void *const __identifier("??_7Rva00499934@@6BRva0024A797_Root@@@")[];
+extern "C" const void *const __identifier("??_7Rva00499934@@6BObjectModule@@@")[];
 
 extern "C" const void *const __identifier("??_7SecondaryModuleBase@FXParticleSystem@@6B@")[];
 
@@ -326,13 +326,13 @@ OneRingPenaltyUpdateModuleData::OneRingPenaltyUpdateModuleData()
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/OneRingPenaltyUpdateCtor.cpp
 
-  // folded, 8 classes; via ??_7PropagandaTowerBehavior@@6BPB_Iface1@@@
+  // folded, 8 classes; via ??_7Rva00499934@@6BBehaviorModuleInterface@@@
 
-  // ??_7Rva00499934@@6B@
+  // ??_7Rva00499934@@6BRva00499934_E1@@@
 
-  // ??_7Rva00499934@@6BRva0024A797_B2@@@
+  // ??_7Rva00499934@@6BUpdateModule@@@
 
-  // ??_7Rva00499934@@6BRva0024A797_Root@@@
+  // ??_7Rva00499934@@6BObjectModule@@@
 
   // folded vftable 0x00C1C780 (49 classes), by its data-ledger name
 
@@ -344,10 +344,10 @@ OneRingPenaltyUpdate::OneRingPenaltyUpdate(Thing *thing, const ModuleData *modul
 	int *slot20 = (int *)&m_20;
 	*slot20 = (int)((unsigned int)__identifier("??_7SecondaryModuleBase@FXParticleSystem@@6B@"));
 	int zero = 0;
-	m_vtable = (const void *)((unsigned int)__identifier("??_7Rva00499934@@6BRva0024A797_Root@@@"));
-	m_secondary0C = (const void *)((unsigned int)__identifier("??_7PropagandaTowerBehavior@@6BPB_Iface1@@@"));
-	m_secondary10 = (const void *)((unsigned int)__identifier("??_7Rva00499934@@6BRva0024A797_B2@@@"));
-	m_20 = (const void *)((unsigned int)__identifier("??_7Rva00499934@@6B@"));
+	m_vtable = (const void *)((unsigned int)__identifier("??_7Rva00499934@@6BObjectModule@@@"));
+	m_secondary0C = (const void *)((unsigned int)__identifier("??_7Rva00499934@@6BBehaviorModuleInterface@@@"));
+	m_secondary10 = (const void *)((unsigned int)__identifier("??_7Rva00499934@@6BUpdateModule@@@"));
+	m_20 = (const void *)((unsigned int)__identifier("??_7Rva00499934@@6BRva00499934_E1@@@"));
 	m_24 = zero;
 	m_28 = zero;
 	m_2C = fzero;
