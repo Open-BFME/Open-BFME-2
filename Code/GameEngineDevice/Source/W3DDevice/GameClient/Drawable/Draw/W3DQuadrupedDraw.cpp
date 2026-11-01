@@ -118,12 +118,7 @@ class W3DProjectedShadow
 public:
 	void rva00108951();
 };
-class GameInfo
-{
-public:
-	int getNumPlayers() const;
-	int getNumOpenOrOccupiedSlots() const;
-};
+#include "../../../../../../GameEngine/Include/GameNetwork/GameInfo.h"
 #include "../../../../../../GameEngine/Include/GameLogic/Module/AIUpdate.h"
 class Rva0030BBE5
 {
