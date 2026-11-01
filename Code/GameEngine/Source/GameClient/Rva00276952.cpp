@@ -12,7 +12,8 @@
 // gives the witnessed base+10 LEA; initialize normal.z before normal.x/y to
 // preserve the native zero/load/store order. No new pin or alias.
 #include "../../../Libraries/Include/Lib/Coord3D.h"
-class Matrix3D { public: int v[12]; };
+#include "../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
+
 class Drawable {public:const Coord3D *getPosition() const;};
 class Rva002768AC {
 public:
@@ -43,13 +44,13 @@ bool Rva002768AC::rva00276952(const Coord3D *position,Coord3D *out){
  float best=2000.0f; unsigned which=0xffff;
  Coord3D bone={0,0,0};
  for(unsigned i=0;i<(unsigned)m_count8;++i){
-  bone.x=*(float *)&m_mats[i].v[3];bone.y=*(float *)&m_mats[i].v[7];bone.z=*(float *)&m_mats[i].v[11];
+  bone.x=m_mats[i].Row[0].W;bone.y=m_mats[i].Row[1].W;bone.z=m_mats[i].Row[2].W;
   float distance=tornadoQuickDistance(pos,bone);
   if(distance<best){best=distance;which=i;}else if(distance>best+100.0f)break;
  }
  if(which==0xffff)return false;
  const Matrix3D *mat=&m_mats[which];
- bone.x=*(float *)&mat->v[3];bone.y=*(float *)&mat->v[7];bone.z=*(float *)&mat->v[11];
+ bone.x=mat->Row[0].W;bone.y=mat->Row[1].W;bone.z=mat->Row[2].W;
  Coord3D normal;normal.z=0.0f;normal.x=bone.x-pos.x;normal.y=bone.y-pos.y;
  normal.normalize();float x=normal.x;normal.x=normal.y;normal.y=-x;
  *out=normal;return true;
