@@ -2658,6 +2658,44 @@ def prune_unused_externs(text, source=None, root=ROOT, macros=None):
     return cut(text, cuts)
 
 
+def prune_unused_classes(text, source=None, root=ROOT, macros=None):
+    """Drop namespace-scope class bodies a carved text names nowhere else.
+
+    A carve leaves every shared declaration on both sides, so each unused body is one
+    more duplicate definition. The contexts prune_unused_externs leaves alone stay, as
+    do templated and declarator-bearing bodies, and bodies with a comment, which may
+    be the only record of a retail fact.
+    """
+    code = code_only(text)
+    if re.search(r"^\s*#\s*(?:if|ifdef|ifndef|elif|else|endif)\b|##|\b__asm\b", code, re.M) \
+            or re.search(r"\\\r?\n|\bR\"", text):
+        return text
+    macros = extern_macro_tokens(text, source, root) if macros is None else macros
+    if macros is None:
+        return text
+    while True:
+        for kind, c, at, scope in flat_chunks(text):
+            if kind != "decl" or scope:
+                continue
+            blanked = COMMENT.sub(lambda m: " " * len(m.group(0)), c)
+            m = re.match(r"\s*(?:class|struct|union)\s+(?:__declspec\([^)]*\)\s*)?([A-Za-z_]\w*)\b[^;{()]*\{", blanked)
+            if not m or m.group(1) in macros or not re.search(r"\}\s*;\s*$", blanked):
+                continue
+            head = len(blanked) - len(blanked.lstrip())
+            if any(comment.start() >= head for comment in COMMENT.finditer(c)):
+                continue
+            end = at + len(c)
+            if re.search(r"^\s*#\s*(?:include|import)\b", code_only(text[end:]), re.M):
+                continue
+            if re.search(r"\b" + re.escape(m.group(1)) + r"\b", code_only(text[:at] + text[end:])):
+                continue
+            newline = re.compile(r"\r?\n").match(text, end)
+            text = cut(text, [(at + head, newline.end() if newline else end)])
+            break
+        else:
+            return text
+
+
 class Carve:
     """The two texts a carve produces, or why it cannot be made.
 
@@ -2792,6 +2830,8 @@ def carve(text, take, rowed=frozenset(), data_rowed=frozenset(), own=frozenset()
     if macros is not None:
         donor = prune_unused_externs(donor, source, macros=macros)
         residual = prune_unused_externs(residual, source, macros=macros)
+        donor = prune_unused_classes(donor, source, macros=macros)
+        residual = prune_unused_classes(residual, source, macros=macros)
     return Carve(donor, residual, sorted(copies), data_moved, externs)
 
 

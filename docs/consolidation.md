@@ -279,7 +279,10 @@ What it does, in order, writing nothing until the last step:
    first.
 2. Carves: the donor text is the file minus the bodies that stay; the residual is
    the file minus the bodies that leave. Both keep every preprocessor line,
-   declaration and comment. Definitions are never duplicated: a file-local
+   declaration and comment, except that an extern object or a class body the
+   side no longer names is dropped from it. A class body with a comment, a
+   templated or declarator-bearing body, and every class in a file with
+   preprocessor conditionals stay. Definitions are never duplicated: a file-local
    helper function with internal linkage that is not a ledger row travels as a
    copy when a carved body calls it (transitively); one with external linkage
    never does. A file-scope object definition goes where it is used: with the

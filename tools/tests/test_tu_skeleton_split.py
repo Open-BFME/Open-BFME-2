@@ -76,6 +76,63 @@ class NameTests(unittest.TestCase):
 
 
 class CarveTests(unittest.TestCase):
+    def test_unused_class_body_is_not_copied(self):
+        text = ('struct Unused { int a; };\nstruct Used { int b; };\n'
+                'int moved(Used *u) { return u->b; }\nint stays() { return 0; }\n')
+        cv = T.carve(text, {0}, {0, 1})
+        self.assertNotIn('struct Unused', cv.donor)
+        self.assertIn('struct Used', cv.donor)
+        self.assertNotIn('struct Unused', cv.residual)
+        self.assertNotIn('struct Used', cv.residual)
+
+    def test_class_used_by_the_staying_side_stays_there_only(self):
+        text = ('struct Kept { int b; };\n'
+                'int moved() { return 0; }\nint stays(Kept *k) { return k->b; }\n')
+        cv = T.carve(text, {0}, {0, 1})
+        self.assertNotIn('struct Kept', cv.donor)
+        self.assertIn('struct Kept', cv.residual)
+
+    def test_classes_only_an_unused_class_names_go_with_it(self):
+        text = ('struct Inner { int a; };\nstruct Outer { Inner i; };\n'
+                'int moved() { return 0; }\nint stays() { return 1; }\n')
+        cv = T.carve(text, {0}, {0, 1})
+        self.assertNotIn('struct Inner', cv.donor)
+        self.assertNotIn('struct Outer', cv.donor)
+
+    def test_a_class_naming_only_itself_is_unused(self):
+        self.assertEqual(T.prune_unused_classes('struct Self { Self(); Self *next; };\nint f() { return 0; }\n'),
+                         'int f() { return 0; }\n')
+
+    def test_a_comment_in_the_body_keeps_it_and_a_comment_above_stays(self):
+        text = 'struct Fact { int a; // retail 0x00401000\n};\nint f() { return 0; }\n'
+        self.assertEqual(T.prune_unused_classes(text), text)
+        got = T.prune_unused_classes('// evidence remains\nstruct Gone { int a; };\nint f() { return 0; }\n')
+        self.assertIn('// evidence remains', got)
+        self.assertNotIn('struct Gone', got)
+
+    def test_declarators_templates_and_namespaced_bodies_stay(self):
+        for text in ('struct Named { int a; } value;\nint f() { return 0; }\n',
+                     'template<class T> struct Tmpl { T a; };\nint f() { return 0; }\n',
+                     'namespace N { struct Inside { int a; }; }\nint f() { return 0; }\n'):
+            self.assertEqual(T.prune_unused_classes(text), text)
+
+    def test_contexts_that_can_hide_a_user_keep_every_class(self):
+        for text in ('struct Hidden { int a; };\n#define PASTE(x) x##den\nint f() { return 0; }\n',
+                     '#if 1\nstruct Hidden { int a; };\n#endif\nint f() { return 0; }\n',
+                     'struct Hidden { int a; };\n#define USE sizeof(Hidden)\nint f() { return USE; }\n'):
+            self.assertEqual(T.prune_unused_classes(text), text)
+
+    def test_an_include_after_the_body_keeps_it(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / 'late.h').write_text('int late(Later *);\n')
+            text = 'struct Later { int a; };\n#include "late.h"\nint f() { return 0; }\n'
+            self.assertEqual(T.prune_unused_classes(text, source='source.cpp', root=root), text)
+
+    def test_class_reference_detection_ignores_comments_and_literals(self):
+        text = 'struct Gone { int a; };\nconst char *s = "Gone"; /* Gone */\nint f() { return 0; }\n'
+        self.assertNotIn('struct Gone', T.prune_unused_classes(text))
+
     def test_extern_used_by_macro_from_earlier_header_is_kept(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
