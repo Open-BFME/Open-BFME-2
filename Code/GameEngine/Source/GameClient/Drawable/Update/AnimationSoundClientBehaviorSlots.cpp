@@ -18,8 +18,10 @@ class Rva00432F23Node;
 class AnimationSoundModuleManager
 {
 public:
-	void rva00432EC0(Rva00432F23Node *node);
-	void rva00432E5D(Rva00432F23Node *node);
+	void rva00432EC0(Rva00432F23Node*);
+	void rva00432E5D(Rva00432F23Node*);
+	void remove(Rva00432F23Node *node);
+	void rva00432F7D(Rva00432F23Node *node);
 };
 
 extern AnimationSoundModuleManager *TheAnimationSoundModuleManager;

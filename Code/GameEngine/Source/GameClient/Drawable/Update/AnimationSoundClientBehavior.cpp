@@ -38,7 +38,12 @@ struct AnimationSoundTreeNode;
 
 enum NameKeyType{KEY0=0};
 
-class NameKeyGenerator{public:NameKeyType nameToKey(const AsciiString&);};
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const AsciiString&);
+	NameKeyType nameToKey(const char *name);
+};
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
@@ -62,10 +67,7 @@ class Rva004C9E5D { public:
 
 typedef char EntryExtent[(sizeof(Rva004C9E5D)==168)?1:-1];
 
-namespace _STL {
-struct _Rb_tree_node_base { bool color; _Rb_tree_node_base *parent,*left,*right; };
-template<class D> class _Rb_global { public: static _Rb_tree_node_base* __cdecl _M_increment(_Rb_tree_node_base*); };
-}
+#include <stl/_tree.h>
 
 struct AnimationSoundTreeNode { int color; AnimationSoundTreeNode *parent,*left,*right; Rva004C9E5D payload; };
 
@@ -91,9 +93,13 @@ class Rva001DFE56 { public: bool rva001DFE56(const void*,const void*) const; };
 
 class Rva00432F23Node;
 
-class AnimationSoundModuleManager { public:
- void rva00432EC0(Rva00432F23Node*);
- void rva00432E5D(Rva00432F23Node*);
+class AnimationSoundModuleManager
+{
+public:
+	void rva00432EC0(Rva00432F23Node*);
+	void rva00432E5D(Rva00432F23Node*);
+	void remove(Rva00432F23Node *node);
+	void rva00432F7D(Rva00432F23Node *node);
 };
 
 extern AnimationSoundModuleManager *TheAnimationSoundModuleManager;
@@ -247,9 +253,34 @@ class Drawable { public:
 
 class Rva002B224BDwordField { public: int get() const; };
 
-class AnimationSoundClientBehavior { public:
- void updateAnimationSounds(); void*vptr; const ModuleData*data; Drawable*drawable;
- void*secondary; float rangeSquared; void*next; void*prev;
+class Rva0049B47C
+{
+public:
+    virtual ~Rva0049B47C();
+    const ModuleData *data;
+    Drawable *drawable;
+};
+class Rva004C9DC9Primary : public Rva0049B47C
+{
+public:
+    ~Rva004C9DC9Primary() {}
+};
+class Rva004C9E33Iface
+{
+public:
+    virtual void rva004C9E33() = 0;
+    virtual void rva004C9E48() = 0;
+};
+class AnimationSoundClientBehavior : public Rva004C9DC9Primary, public Rva004C9E33Iface
+{
+public:
+    virtual ~AnimationSoundClientBehavior();
+    virtual void rva004C9E33();
+    virtual void rva004C9E48();
+    void updateAnimationSounds();
+    float rangeSquared;
+    Rva00432F23Node *next;
+    Rva00432F23Node *prev;
 };
 
 class Rva002390CB {
@@ -447,15 +478,6 @@ public:
 // Evidence: sole caller 0x004CA72B in
 // Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehaviorModuleDataCtor.cpp;
 // prev 0x004CA653 dtor and the 0x004CA13D header-init body share this // cl: line.
-
-namespace _STL
-{
-template <class _Tp> class allocator
-{
-public:
-	static _Tp *allocate(unsigned int __n, void const *__hint);
-};
-}
 
 // tu-skeleton: 0x004C9DC9 80B ??1AnimationSoundClientBehavior@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehaviorDtor.cpp (not merged yet)
 

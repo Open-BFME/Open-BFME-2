@@ -14,28 +14,32 @@
 class Rva00432F23Node
 {
 public:
-    char m_pad[0x14];
-    Rva00432F23Node *m_next;
-    Rva00432F23Node *m_prev;
+	char m_pad00[0x14];
+	Rva00432F23Node *m_next; // +0x14
+	Rva00432F23Node *m_prev; // +0x18
 };
 
 class AnimationSoundModuleManager
 {
 public:
-    void remove(Rva00432F23Node *node);
+	void rva00432EC0(Rva00432F23Node*);
+	void rva00432E5D(Rva00432F23Node*);
+	void remove(Rva00432F23Node *node);
+	void rva00432F7D(Rva00432F23Node *node);
 };
 
 extern AnimationSoundModuleManager *TheAnimationSoundModuleManager;
 // TheAnimationSoundModuleManager: VA 0xe032d0 (zero-filled .bss).
 AnimationSoundModuleManager * TheAnimationSoundModuleManager;
 
+struct ModuleData;
+class Drawable;
 class Rva0049B47C
 {
 public:
     virtual ~Rva0049B47C();
-
-private:
-    char m_pad04[8];
+    const ModuleData *data;
+    Drawable *drawable;
 };
 
 // PrimaryP here is NOT the kept PrimaryP (Rva0049B47CThreeVptrDerived.cpp,
@@ -62,6 +66,10 @@ public:
     virtual ~AnimationSoundClientBehavior();
     virtual void rva004C9E33();
     virtual void rva004C9E48();
+    void updateAnimationSounds();
+    float rangeSquared;
+    Rva00432F23Node *next;
+    Rva00432F23Node *prev;
 };
 
 AnimationSoundClientBehavior::~AnimationSoundClientBehavior()

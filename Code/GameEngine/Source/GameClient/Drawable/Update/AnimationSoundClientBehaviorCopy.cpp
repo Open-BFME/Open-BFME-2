@@ -33,14 +33,18 @@ public:
 
 class Rva00432F23Node
 {
-	char m_pad[0x14];
-	Rva00432F23Node *m_next;
-	Rva00432F23Node *m_prev;
+public:
+	char m_pad00[0x14];
+	Rva00432F23Node *m_next; // +0x14
+	Rva00432F23Node *m_prev; // +0x18
 };
 
 class AnimationSoundModuleManager
 {
 public:
+	void rva00432EC0(Rva00432F23Node*);
+	void rva00432E5D(Rva00432F23Node*);
+	void remove(Rva00432F23Node *node);
 	void rva00432F7D(Rva00432F23Node *node);
 };
 
