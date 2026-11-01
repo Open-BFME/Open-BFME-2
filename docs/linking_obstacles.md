@@ -8175,6 +8175,15 @@ Remaining / next check (each needs a decision, a row or a shared change; none is
   tests pass; the broad21 failures reproduce the unchanged control. No Code/row
   change yet. Retry the exact provider candidate through this API; the unstaged
   guard is unchanged. See `reverse/attempt_support/rename-source-preparation-20261101/readme.md`.
+  **Applied provider follow-up:** the normal joint transaction now qualifies all3
+  existing operators as native UAE members and removes exactly their competing
+  unrowed definitions. Default checks pass18/18 own and909/909 dependent rows
+  (25 sources,29 data rows); frozen checks and CSV pass. Ordinary index12902e9e1b
+  preview retains2909 bytes across bool/long/main/ctor; dtor99 still fails.
+  These196 existing bytes add0 unique coverage and no census credit. Full46-slot
+  recovery and AddOutput/interface ownership remain open; outgoing consumer
+  auditing and the next census must cover the changed provider identities.
+  Evidence: `reverse/attempt_support/debug-stream-providers-20261101/readme.md`.
 - `??_7GameWindow@@6B@` (L in `GameWindowDtor.cpp`): the 0x0080BBCC table is shared with
   `BfmeAptScreenBase`. This needs a class-view reconcile.
 - `VectorClass<Vector3>` deleting destructor (S in `vector_class_vector3_ctor.cpp`): see LINK-015.

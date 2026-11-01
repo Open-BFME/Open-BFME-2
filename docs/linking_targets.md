@@ -765,7 +765,7 @@ Each row retains the handoff's investigation lead alongside the census category.
 | `vector_class_vector3_ctor.cpp` | 218 | Wrong selected | LINK-015: preview links 194 B (2026-10-26); census pending |
 | `Rva001F9524Concat.cpp` | 185 | COMDAT losers | Symbol identity debt |
 | `stlport_narrow_string_copy.cpp` | 152 | Unresolved | Missing callee address |
-| `DebugDestructorThunk.cpp` | 113 | COMDAT losers | 2026-11-01: native46-slot boundary proved (old37 superseded); Exact bool/int64 virtual-operator planning is now supported and tested; native prefix/provider/table recovery remains open. Original ctor418/debug_debug2295 remain LINKS; dtor99 code bytes fail. [Proof and prerequisite](../reverse/attempt_support/debug-vtable-native-20261101/readme.md). |
+| `DebugDestructorThunk.cpp` | 113 | COMDAT losers | 2026-11-01: native46-slot boundary proved (old37 superseded); Three bool/int64 native virtual providers applied with18 own and909 dependent rows exact; competing emitters removed. Preview retains2909 bytes across four units; dtor99 still fails. Full46-slot table and remaining provider identities stay open; no census gain. [Proof and prerequisite](../reverse/attempt_support/debug-vtable-native-20261101/readme.md). |
 | `stlport_pod28_vector_resize_value.cpp` | 73 | Wrong selected | Extra emitted COMDAT |
 | `DebugStatisticsTextureShutdown.cpp` | 10 | Unresolved | Destructor inlining |
 | **Total: 8 units** | **1,661** | | |

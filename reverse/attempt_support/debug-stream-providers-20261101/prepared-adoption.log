@@ -1,0 +1,74 @@
+rename: function ??6Debug@@QAEAAV0@_N@Z -> ??6Debug@@UAEAAV0@_N@Z at 0x00038890 (virtual)
+  owner source: Code/Libraries/Source/WWVegas/WWDebug/debug_operator_bool.cpp
+  evidence: ??6Debug@@QAEAAV0@_N@Z -> ??6Debug@@UAEAAV0@_N@Z: retail table 0x00BBE810 slot 9, Debug's table (installed at +0x0 by 0x00038440 ??0Debug@@AAE@XZ); Native Debug table BBE810 slots9/4/3 and constructor/dtor installations; complete16-overload prefix preserves char slot14. Source preparations and duplicate-emitter cleanup are jointly journaled. model=gpt-6 lane=R budget=30m
+  functions.csv rows renamed (1), each tombstoned:
+    0x00038890 ??6Debug@@QAEAAV0@_N@Z -> ??6Debug@@UAEAAV0@_N@Z
+  sources rewritten (1):
+    Code/Libraries/Source/WWVegas/WWDebug/debug_operator_bool.cpp (mangled 1)
+  verify (1): ./build.sh Code/Libraries/Source/WWVegas/WWDebug/debug_operator_bool.cpp
+  claims: 0x00038890 file:Code/Libraries/Source/WWVegas/WWDebug/debug_operator_bool.cpp
+  ledger files: reverse/deleted_rows.csv, reverse/functions.csv
+  mention (not rewritten): reverse/attempt_support/debug-stream-providers-20261101/adoption-result.json
+  mention (not rewritten): reverse/attempt_support/debug-stream-providers-20261101/adoption.log
+  mention (not rewritten): reverse/attempt_support/debug-stream-providers-20261101/proposed-source.patch
+  mention (not rewritten): reverse/attempt_support/debug-stream-virtual-tooling-20261101/operator-post-fix-plan.log
+  mention (not rewritten): reverse/attempt_support/debug-vtable-native-20261101/native-proof.json
+  mention (not rewritten): reverse/attempt_support/debug-vtable-native-20261101/native-table.log
+  mention (not rewritten): reverse/attempt_support/debug-vtable-native-20261101/operator-refusal.log
+  warning: ??6Debug@@QAEAAV0@_N@Z has no name_basis.csv record to carry: its tier is unchanged
+  suggested subject: Respell ??6Debug@@QAEAAV0@_N@Z as virtual ??6Debug@@UAEAAV0@_N@Z (retail vtable slot)
+rename: function ??6Debug@@QAEAAV0@_J@Z -> ??6Debug@@UAEAAV0@_J@Z at 0x0003B510 (virtual)
+  owner source: Code/Libraries/Source/WWVegas/WWDebug/debug_operator_long.cpp
+  evidence: ??6Debug@@QAEAAV0@_J@Z -> ??6Debug@@UAEAAV0@_J@Z: retail table 0x00BBE810 slot 4, Debug's table (installed at +0x0 by 0x00038440 ??0Debug@@AAE@XZ); Native Debug table BBE810 slots9/4/3 and constructor/dtor installations; complete16-overload prefix preserves char slot14. Source preparations and duplicate-emitter cleanup are jointly journaled. model=gpt-6 lane=R budget=30m
+  functions.csv rows renamed (1), each tombstoned:
+    0x0003B510 ??6Debug@@QAEAAV0@_J@Z -> ??6Debug@@UAEAAV0@_J@Z
+  verify (1): ./build.sh Code/Libraries/Source/WWVegas/WWDebug/debug_operator_long.cpp
+  claims: 0x0003B510 file:Code/Libraries/Source/WWVegas/WWDebug/debug_operator_long.cpp
+  ledger files: reverse/deleted_rows.csv, reverse/functions.csv
+  mention (not rewritten): reverse/attempt_support/debug-stream-providers-20261101/adoption-result.json
+  mention (not rewritten): reverse/attempt_support/debug-stream-providers-20261101/adoption.log
+  mention (not rewritten): reverse/attempt_support/debug-stream-virtual-tooling-20261101/int64-post-fix-plan.log
+  mention (not rewritten): reverse/attempt_support/debug-vtable-native-20261101/native-proof.json
+  mention (not rewritten): reverse/attempt_support/debug-vtable-native-20261101/native-table.log
+  warning: ??6Debug@@QAEAAV0@_J@Z has no name_basis.csv record to carry: its tier is unchanged
+  suggested subject: Respell ??6Debug@@QAEAAV0@_J@Z as virtual ??6Debug@@UAEAAV0@_J@Z (retail vtable slot)
+rename: function ??6Debug@@QAEAAV0@_K@Z -> ??6Debug@@UAEAAV0@_K@Z at 0x0003B570 (virtual)
+  owner source: Code/Libraries/Source/WWVegas/WWDebug/debug_operator_long.cpp
+  evidence: ??6Debug@@QAEAAV0@_K@Z -> ??6Debug@@UAEAAV0@_K@Z: retail table 0x00BBE810 slot 3, Debug's table (installed at +0x0 by 0x00038440 ??0Debug@@AAE@XZ); Native Debug table BBE810 slots9/4/3 and constructor/dtor installations; complete16-overload prefix preserves char slot14. Source preparations and duplicate-emitter cleanup are jointly journaled. model=gpt-6 lane=R budget=30m
+  functions.csv rows renamed (1), each tombstoned:
+    0x0003B570 ??6Debug@@QAEAAV0@_K@Z -> ??6Debug@@UAEAAV0@_K@Z
+  verify (1): ./build.sh Code/Libraries/Source/WWVegas/WWDebug/debug_operator_long.cpp
+  claims: 0x0003B570 file:Code/Libraries/Source/WWVegas/WWDebug/debug_operator_long.cpp
+  ledger files: reverse/deleted_rows.csv, reverse/functions.csv
+  mention (not rewritten): reverse/attempt_support/debug-stream-providers-20261101/adoption-result.json
+  mention (not rewritten): reverse/attempt_support/debug-stream-providers-20261101/adoption.log
+  mention (not rewritten): reverse/attempt_support/debug-stream-virtual-tooling-20261101/uint64-post-fix-plan.log
+  mention (not rewritten): reverse/attempt_support/debug-vtable-native-20261101/native-proof.json
+  mention (not rewritten): reverse/attempt_support/debug-vtable-native-20261101/native-table.log
+  warning: ??6Debug@@QAEAAV0@_K@Z has no name_basis.csv record to carry: its tier is unchanged
+  suggested subject: Respell ??6Debug@@QAEAAV0@_K@Z as virtual ??6Debug@@UAEAAV0@_K@Z (retail vtable slot)
+rename: run batch of 3 names; one verification of 3 source(s).
+rename: verifying 3 source(s): ./build.sh Code/Libraries/Source/WWVegas/WWDebug/debug_operator_bool.cpp Code/Libraries/Source/WWVegas/WWDebug/debug_operator_long.cpp Code/Libraries/Source/debug/debug_debug.cpp
+Source claims: OK (3 sources, scoped byte-verified)
+Compile: 0 of 3 TU(s) (deps-cache: 3 current)
+Functions: OK 18/18 matched across 3 source file(s)
+String-ref verify: OK (25 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (0 compiler literals verified)
+Import-ref verify: OK (15 named imports verified)
+rename: verifying 25 source(s): ./build.sh Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp Code/GameEngine/Source/Common/AwardSystemManager.cpp Code/GameEngine/Source/Common/GameLOD.cpp Code/GameEngine/Source/Common/GapBodiesGE41_Rva00118610.cpp Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp Code/GameEngine/Source/Common/Rva006C33D0Purge_Rva006C1CC0.cpp Code/GameEngine/Source/Common/System/Snapshot.cpp Code/GameEngine/Source/Common/System/Xfer.cpp Code/GameEngine/Source/GameClient/BfmeItemKA.cpp Code/GameEngine/Source/GameClient/GameText.cpp Code/GameEngine/Source/GameClient/InGameUISuperweapons.cpp Code/GameEngine/Source/GameClient/Input/Mouse.cpp Code/GameEngine/Source/GameClient/Rva002239B2_Rva002239B2.cpp Code/GameEngine/Source/GameClient/SubtitleEntry.cpp Code/GameEngine/Source/GameLogic/Map/StandingWaterArea.cpp Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp Code/GameEngine/Source/GameLogic/Object/Die/KeepObjectDie.cpp Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp Code/GameEngine/Source/GameLogic/Object/Object.cpp Code/GameEngine/Source/GameLogic/Object/Update/ActivateModuleSpecialPowerVslot.cpp Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate.cpp Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp
+Source claims: OK (25 sources, scoped byte-verified)
+Data rows: OK (29 row(s) byte-verified)
+Compile: 12 of 25 TU(s) (deps-cache: 13 current)
+Funclet pins: 173 row(s) verified past a renumbered $L label
+    $L1575 (Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp): $L1575 was renumbered; verified parent EH data places $L3432 at 0x0077E1A3
+    uw_007739ac (Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp): $L1343 was renumbered; verified parent EH data places $L18320 at 0x007739AC
+    uw_007739b4 (Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp): $L1344 was renumbered; verified parent EH data places $L18321 at 0x007739B4
+    uw_007739bc (Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp): $L1345 was renumbered; verified parent EH data places $L18322 at 0x007739BC
+    uw_007739c4 (Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp): $L1346 was renumbered; verified parent EH data places $L18323 at 0x007739C4
+STLport folds: 9 complete emitted constructor(s) verified against retail owners and resolved callees
+Functions: OK 909/909 matched across 25 source file(s)
+String-ref verify: OK (99 literals + 28 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (88 compiler literals verified)
+Import-ref verify: OK (29 named imports verified)
+rename: run batch verified OK (3 names, 3 source(s)).
+rename: batch timing {"planning": 21.297, "claims": 4.804, "apply_verify": 215.975}

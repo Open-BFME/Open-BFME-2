@@ -16,32 +16,34 @@
 class Debug
 {
 public:
-	virtual ~Debug();
-	virtual void pad01();
-	virtual void pad02();
-	virtual void pad03();
-	virtual void pad04();
-	virtual void pad05();
-	virtual void pad06();
-	virtual void pad07();
-	virtual void pad08();
-	virtual void pad09();
-	virtual void pad10();
-	virtual void pad11();
-	virtual void pad12();
-	virtual void pad13();
-	virtual Debug &operator<<(char const *);
-	Debug &operator<<(long);
-	Debug &operator<<(unsigned);
-	Debug &operator<<(unsigned long);
-	Debug &operator<<(__int64);
-	Debug &operator<<(unsigned __int64);
-	Debug &operator<<(bool);
-	char m_pad[0x9e78];
-	char m_prefix[16];
-	int m_radix;
+    class RepeatChar;
+    class MemDump;
+    class HResult;
+
+    // Native BBE810 slots0..15: MSVC reverses this overload group.
+    virtual Debug &operator<<(const RepeatChar &);
+    virtual Debug &operator<<(const char *);
+    virtual Debug &operator<<(int);
+    virtual Debug &operator<<(unsigned);
+    virtual Debug &operator<<(long);
+    virtual Debug &operator<<(unsigned long);
+    virtual Debug &operator<<(bool);
+    virtual Debug &operator<<(float);
+    virtual Debug &operator<<(double);
+    virtual Debug &operator<<(short);
+    virtual Debug &operator<<(unsigned short);
+    virtual Debug &operator<<(__int64);
+    virtual Debug &operator<<(unsigned __int64);
+    virtual Debug &operator<<(const void *);
+    virtual Debug &operator<<(const MemDump &);
+    virtual Debug &operator<<(HResult);
+    virtual ~Debug(); // Native slot16.
 private:
-	virtual void AddOutput(const char *, unsigned);
+    char m_pad[0x9E78];
+    char m_prefix[16];
+    int m_radix;
+    // Existing direct-call ABI remains; its full class identity is separate.
+    virtual void AddOutput(const char *, unsigned);
 };
 
 // Debug::operator<<(signed __int64), retail at 0x0003B510

@@ -680,10 +680,7 @@ Debug& Debug::operator<<(unsigned long val)
   return (*this) << _ultoa(val,help,m_radix);
 }
 
-Debug& Debug::operator<<(bool val)
-{
-  return (*this) << (val?"true":"false");
-}
+
 
 Debug& Debug::operator<<(float val)
 {
@@ -703,25 +700,9 @@ Debug& Debug::operator<<(double val)
 
 // ??6Debug@@UAEAAV0@F@Z and ??6Debug@@UAEAAV0@G@Z defined in Common/BfmeThreeHundred.cpp and Common/BfmeThreeHundredOne.cpp (their rows' units).
 
-Debug& Debug::operator<<(__int64 val)
-{
-  // usually having a fixed size buffer and a function
-  // that doesn't check for buffer overflow isn't a good idea
-  // but in this case we know how long it can be at max...
-  char help[1+64+1]; // sign, 64 digits, NUL
-  AddOutput(m_prefix,strlen(m_prefix));
-  return (*this) << _i64toa(val,help,m_radix);
-}
 
-Debug& Debug::operator<<(unsigned __int64 val)
-{
-  // usually having a fixed size buffer and a function
-  // that doesn't check for buffer overflow isn't a good idea
-  // but in this case we know how long it can be at max...
-  char help[64+1]; // sign, 64 digits, NUL
-  AddOutput(m_prefix,strlen(m_prefix));
-  return (*this) << _ui64toa(val,help,m_radix);
-}
+
+
 
 Debug& Debug::operator<<(const void *ptr)
 {

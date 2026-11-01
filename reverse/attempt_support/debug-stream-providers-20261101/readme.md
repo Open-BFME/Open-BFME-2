@@ -57,3 +57,29 @@ checks over the complete footprint. Record this boundary before changing tooling
 After that, retry this exact candidate, not a new code-shape family. Then run the
 provider/constructor/destructor previews and the full affected-consumer audit.
 No link preview of the applied state was reached; native46-slot recovery is open.
+
+## Applied provider follow-up, 2026-11-01
+
+The separately published source-preparation transaction (0aedeaca31d95fe853fce233c7e020ffd6de1baf)
+now applies this exact candidate with default checks and no verification override.
+Base0aedeaca31; all three source files were still byte-identical to the bank's
+original inputs. Fresh origin-backed body, file and Debug class claims preceded
+application. The successful three-body source pass took6 minutes, allocated2
+minutes per body; previous tooling and banked-attempt time is recorded separately.
+
+The regular transaction passed18/18 rows across the three edited sources and
+909/909 rows across25 affected dependent sources, including29 data rows,
+99 literals plus28 empty references,88 compiler floats and29 named imports.
+All three native identities applied together; the default dependent guard passed.
+Frozen-source checks and check_csv passed after application. No source path,
+header, pin, hatch or compilation flag changed. The three retained bodies cover
+196 already-matched bytes; unique matched coverage gained is0.
+
+The ordinary five-source preview against index12902e9e1b retains bool30,
+int64-pair166, debug_debug2295 and ctor418 linking bytes:2909 before and after.
+The99-byte destructor still fails its different Debug vtable COMDAT. Preview
+exit1 reflects that known remaining blocker. No census credit, full46-slot
+recovery or Debug obstacle clearance is claimed. The legacy direct-call
+AddOutput declaration and other full-interface owner identities remain open.
+The normal outgoing-batch consumer audit is still required; an index behind
+this source base must be reported as inconclusive and carried to the next census.
