@@ -825,30 +825,7 @@ public:
 	AsciiString m_pristineMapName;                                       // +0x2C
 };
 extern GameState *TheGameState;
-class GameTextInterface
-{
-public:
-	virtual void g00(void) = 0;
-	virtual void g01(void) = 0;
-	virtual void g02(void) = 0;
-	virtual void g03(void) = 0;
-	virtual void g04(void) = 0;
-	virtual void g05(void) = 0;
-	virtual void g06(void) = 0;
-	virtual void g07(void) = 0;
-	virtual void g08(void) = 0;
-	virtual void g09(void) = 0;
-	virtual void g10(void) = 0;
-	virtual void g11(void) = 0;
-	virtual void g12(void) = 0;
-	virtual void g13(void) = 0;
-	virtual void g14(void) = 0;
-	virtual UnicodeString fetch(const char *label, bool *exists = 0) = 0; // +0x3C
-	virtual void g16(void) = 0;
-	virtual void g17(void) = 0;
-	virtual void g18(void) = 0;
-	virtual void initMapStringFile(const AsciiString &filename) = 0;  // +0x4C
-};
+#include "../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 // The network request 0x00240866 answers: the sending player at +0x0C, the
 // request kind at +0x1C, an argument at +0x20 and the save name through the

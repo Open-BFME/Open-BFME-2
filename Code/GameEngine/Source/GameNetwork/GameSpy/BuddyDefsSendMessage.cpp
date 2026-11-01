@@ -55,7 +55,7 @@ V(0)V(1)V(2)V(3)V(4)V(5)V(6)V(7)V(8)V(9)V(10)V(11)V(12)V(13)V(14)V(15)V(16)V(17)
 V(24)V(25)V(26)V(27)V(28)V(29)V(30)V(31)V(32)V(33)V(34)V(35)V(36)virtual AsciiString getLocalBaseName();
 };
 extern GameSpyInfoInterface *TheGameSpyInfo;
-class GameTextInterface {public:V(0)V(1)V(2)V(3)V(4)V(5)V(6)V(7)V(8)V(9)V(10)V(11)V(12)V(13)virtual UnicodeString fetch(const char *,bool *exists=0);virtual UnicodeString fetch(const AsciiString &,bool *exists=0);};
+#include "../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 #undef V
 

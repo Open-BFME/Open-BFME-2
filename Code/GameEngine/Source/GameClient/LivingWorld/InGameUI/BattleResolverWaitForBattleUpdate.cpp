@@ -20,12 +20,8 @@ class Rva00575674{public:void rva00575674(Object*);};
 class LivingWorldLogic;extern LivingWorldLogic*TheLivingWorldLogic;
 class Rva0054D2DDTarget{public:void method(int,const UnicodeString&,const UnicodeString&);};
 class AptStrategicMessageBox{static AptStrategicMessageBox*s_instance;friend class Rva005D0643;};
-class GameTextInterface{public:
-virtual~GameTextInterface();
-#define V(n) virtual void v##n();
-V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9) V(10) V(11) V(12) V(13)
-#undef V
-virtual UnicodeString fetch(const char*,bool* =0);};extern GameTextInterface*TheGameText;
+#include "../../../../Include/GameClient/GameText.h"
+extern GameTextInterface*TheGameText;
 UnicodeString GetBattleTypeSelectedMessage(int);
 struct WideStringRef{const UnicodeString*text;};struct WideStringChar:WideStringRef{unsigned short ch;};
 class Rva005D087F:public WideStringChar{public:const UnicodeString*right;operator UnicodeString();};

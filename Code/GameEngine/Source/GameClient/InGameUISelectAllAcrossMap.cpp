@@ -106,13 +106,7 @@ class GameMessage;
 
 extern MessageStream *TheMessageStream;
 
-class GameTextInterface
-{
-public:
-	V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7)
-	V(8) V(9) V(10) V(11) V(12) V(13) V(14)
-	virtual UnicodeString fetch(const char *label, Bool *exists = 0) = 0; // slot 15
-};
+#include "../../Include/GameClient/GameText.h"
 
 extern GameTextInterface *TheGameText;
 

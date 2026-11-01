@@ -113,11 +113,7 @@ public:
 };
 extern Eva *TheEva;
 
-class GameTextInterface : public Rva004389DBSlots<15>
-{
-public:
-	virtual UnicodeString fetch(const char *label, Bool *exists = 0) = 0;	// slot 15
-};
+#include "../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 
 class InGameUI : public Rva004389DBSlots<16>

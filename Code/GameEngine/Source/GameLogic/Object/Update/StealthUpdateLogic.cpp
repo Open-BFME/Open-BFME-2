@@ -486,11 +486,7 @@ public:
 };
 extern Eva *TheEva;
 
-class GameTextInterface : public StealthUpdateSlots<15>
-{
-public:
-	virtual UnicodeString fetch(const char *label, Bool *exists = 0) = 0; // slot 15
-};
+#include "../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 
 class InGameUIMessage : public StealthUpdateSlots<16>

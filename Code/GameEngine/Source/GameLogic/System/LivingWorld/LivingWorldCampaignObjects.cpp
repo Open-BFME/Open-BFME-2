@@ -224,15 +224,7 @@ const Image *SpawnArmy::GetPortraitImage(int id) {
 // those states. Preserve the existing SpawnArmy binding used by callers.
 // The native AsciiString text-fetch overload occupies vtable slot0x38;
 // this interface and ABI also match AptMapPreview's existing consumers.
-class GameTextInterface { public:
- virtual ~GameTextInterface();
- virtual void slot04()=0;virtual void slot08()=0;virtual void slot0C()=0;
- virtual void slot10()=0;virtual void slot14()=0;virtual void slot18()=0;
- virtual void slot1C()=0;virtual void slot20()=0;virtual void reset()=0;
- virtual void slot28()=0;virtual void slot2C()=0;virtual void slot30()=0;virtual void slot34()=0;
- virtual UnicodeString fetch(const char*,bool* =0)=0;
- virtual UnicodeString fetch(const AsciiString&,bool* =0)=0;
-};
+#include "../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 UnicodeString SpawnArmy::rva004E25AF(int id) {
  UnicodeString title=TheGameText->fetch(((SpawnArmy*)this)->m_constructButtonTitle);

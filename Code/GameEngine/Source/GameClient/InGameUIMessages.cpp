@@ -119,16 +119,7 @@ public:
 };
 extern DisplayStringManager *TheDisplayStringManager;
 
-class GameTextInterface
-{
-public:
-#define SLOT(N) virtual void slot##N() = 0;
-	SLOT(00) SLOT(01) SLOT(02) SLOT(03) SLOT(04) SLOT(05) SLOT(06) SLOT(07)
-	SLOT(08) SLOT(09) SLOT(10) SLOT(11) SLOT(12) SLOT(13)
-#undef SLOT
-	virtual UnicodeString fetch( const char *label, bool *exists = 0 ) = 0;
-	virtual UnicodeString fetch( const AsciiString &label, bool *exists = 0 ) = 0;
-};
+#include "../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 
 class FontLibrary

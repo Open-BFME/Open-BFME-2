@@ -135,25 +135,7 @@ public:
  char unknown000[0xfc]; Object *object;
  char unknown100[0x43c-0x100]; bool selected;
 };
-class GameTextInterface {
-public:
- virtual void slot0();
- virtual void slot1();
- virtual void slot2();
- virtual void slot3();
- virtual void slot4();
- virtual void slot5();
- virtual void slot6();
- virtual void slot7();
- virtual void slot8();
- virtual void slot9();
- virtual void slot10();
- virtual void slot11();
- virtual void slot12();
- virtual void slot13();
- virtual UnicodeString fetch(const char *,bool *exists=0);
- virtual UnicodeString fetch(const AsciiString &,bool *exists=0);
-};
+#include "../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 #include "../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;

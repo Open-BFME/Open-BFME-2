@@ -64,26 +64,7 @@ public:
 	virtual void endFileTransfer();
 };
 
-class GameTextInterface
-{
-public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
-	virtual void slot06();
-	virtual void slot07();
-	virtual void slot08();
-	virtual void slot09();
-	virtual void textPad10();
-	virtual void textPad11();
-	virtual void textPad12();
-	virtual void textPad13();
-	virtual void textPad14();
-	virtual UnicodeString fetch(const char *label, bool *exists = 0);
-};
+#include "../../Include/GameClient/GameText.h"
 
 class Rva005830AE {public:void rva005830AE(int);};
 

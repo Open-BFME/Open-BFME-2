@@ -2255,20 +2255,7 @@ public:
 	Rva0036CA00Str m_4;
 };
 
-class GameTextInterface
-{
-public:
-	virtual ~GameTextInterface() {}
-	virtual void slot01() = 0; virtual void slot02() = 0; virtual void slot03() = 0;
-	virtual void slot04() = 0; virtual void slot05() = 0; virtual void slot06() = 0;
-	virtual void slot07() = 0; virtual void slot08() = 0; virtual void slot09() = 0;
-	virtual void slot10() = 0; virtual void slot11() = 0; virtual void slot12() = 0;
-	virtual void slot13() = 0;
-	// cl 7.1 lays overloaded virtuals out in reverse declaration order:
-	// fetch(const char *) is slot 15 (+0x3C), fetch(const AsciiString &) 14.
-	virtual UnicodeString fetch(const char *label, Bool *exists = 0) = 0;
-	virtual UnicodeString fetch(const AsciiString &label, Bool *exists = 0) = 0;
-};
+#include "../../../../../Include/GameClient/GameText.h"
 
 extern GameTextInterface *TheGameText;
 
