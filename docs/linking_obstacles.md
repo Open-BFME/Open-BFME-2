@@ -8606,6 +8606,16 @@ Census confirmation: awaiting the next census.
   retail layout above in one shared view for `hcanim.cpp`, `hrawanim.cpp`, `htree.cpp`,
   `HRawLoadW3D*.cpp`, re-verifying every virtual-call offset in their matched bodies.
 
+**Canonical-name ABI boundary (2026-11-01):** WorldBuilder A2FF90 self-asserts
+Get_VisibilityF for the588B body1903C0 (score8). The normal naming dry-run
+renames its implementation and derived declaration, but a private compile
+proves it loses the inherited virtual property: the unchanged BFME1 base still
+spells _bfme_hanim_fade, so the new function emits QAE rather than rowed UAE.
+The QAE body is byte-exact, which does not make it the required virtual entry.
+No source/header/row/pin edit was kept. Reconcile the native BFME2 base and
+override together; no extra-slot or alias workaround. Unchanged controls80/80
+pass. [Compiler proof and reviewed WB body](../reverse/attempt_support/hanim-visibility-name-20261101/readme.md).
+
 **Constructor emission follow-up (2026-10-27):** at inspected revision 40d8eced18722ddcee26c59ddc4f3fb8d157d887, the current-object preview reproduces the sole HAnim vtable blocker against index 5ce093a71a (2026-10-26 19:02, retail-truth-4). The object reference graph shows that only the unused standalone HAnimClass constructor copy references that table. Marking that existing inline constructor __declspec(dllimport) __forceinline retains its inlined base initialization and stops both unused external copies. No novtable change is needed. The actual 37-byte HAnim constructor remains rowed in hcanim.cpp at 0x0018D170; the native HRaw constructor has no HAnim vptr store. The 149-byte HRaw row remains exact, its one EH graph is EXACT, and declaration and shadow data checks pass. A paired preview retains LINKS for hcanim.cpp, hrawanim.cpp and hanim.cpp, while HRawLoadW3D_Unresolved.cpp changes from blocked to LINKS. This constructor-emission subset is cleared in ordinary-preview scope; census confirmation pending. The incompatible shared class views documented above remain a separate prerequisite for full ABI reconciliation.
 
 **Consolidation follow-up (2026-10-27, inspected `0ea53cd8e3`):** the supported
