@@ -187,15 +187,7 @@ public:
 	void *m_movie;
 };
 
-class Rva00222A8BTarget
-{
-public:
-	// Unrowed 0x0022277D (98 bytes; ret 4), pinned by address.
-
-
-	unsigned char m_pad000[0x318];
-	int m_318; // +0x318, 2 for the right mouse button
-};
+#include "../../../../Include/Common/Rva00222A8BTarget.h"
 
 // Zero Hour's NameKeyGenerator, TheWindowManager (winGetWindowFromId is
 // vslot 60, winSendSystemMsg vslot 58) and the window's instance data,

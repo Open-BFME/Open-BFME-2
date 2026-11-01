@@ -34,9 +34,7 @@ public:
 	int RemoveExternHandler(const AsciiString *key);
 };
 
-class Rva00222A8BTarget : public Rva002244CA
-{
-};
+#include "../../../../GameEngine/Include/Common/Rva00222A8BTarget.h"
 
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 

@@ -359,11 +359,7 @@ public:
 // cleared. Returns the slot.
 extern GameLogic *TheGameLogic;
 
-class Rva00222A8BTarget
-{
-public:
-	int invoke(void *owner, const char *name, int argc, const char *a0, void *a1, void *a2, void *a3, void *a4);
-};
+#include "../../../../../Include/Common/Rva00222A8BTarget.h"
 
 int __cdecl Rva00216496Invoke(Rva00222A8BTarget *target, void *owner, const char *name, const unsigned int &a, const AsciiString &b, const AsciiString &c);
 

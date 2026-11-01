@@ -93,11 +93,7 @@ typedef bool Bool;
 // The Apt player (VA 0x00DFE4CC, address-named in the ledger): WB names its
 // slot callees AptPlayer::ShowLevel (rowed 0x002224FE) and HideLevel
 // (pinned 0x0022277D); 0x00516F21 sends an Apt movie a state message.
-class Rva00222A8BTarget
-{
-public:
-
-};
+#include "../../../../../Include/Common/Rva00222A8BTarget.h"
 
 class AptPlayer
 {

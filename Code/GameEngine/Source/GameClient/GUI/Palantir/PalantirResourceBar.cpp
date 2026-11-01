@@ -14,7 +14,7 @@ extern Display *TheDisplay;
 class W3DDisplay { public: void rva0004D6B3(Image *,float,float,float,float,int,int); };
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
-class Rva00222A8BTarget {public:void rva002239FA(const AsciiString &,const AsciiString &);};
+#include "../../../../Include/Common/Rva00222A8BTarget.h"
 class Rva00223A94 {public:int rva00223A94(const AsciiString *);};
 class Rva002246B1 {public:int RemoveCustomRender(const AsciiString *);};
 struct TargetRef00217D4C;

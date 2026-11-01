@@ -103,12 +103,7 @@ int Rva00525235Fire(void *,void *,const char *,const char *,int *,int *);
 
 int Rva00740EA1DistanceSquared(const unsigned char *,const unsigned char *);
 
-class Rva00222A8BTarget
-{
-public:
-	int invoke(void *owner, const char *name, int argc, const char *a0, void *a1, void *a2, void *a3, void *a4);
-	int rva00222B19(void *level, const char *prefix, const char *function, int argc, const char *a0, void *a1, void *a2, void *a3, void *a4);
-};
+#include "../../../../../GameEngine/Include/Common/Rva00222A8BTarget.h"
 
 class BfmeAptWindowManager;
 

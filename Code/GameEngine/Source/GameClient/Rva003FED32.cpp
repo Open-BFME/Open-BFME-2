@@ -5,11 +5,7 @@
 // *(pp) (+8) or the empty string, and invokes DeleteButtonFlash with (1, s,
 // 0, 0, 0, 0) through the rowed target/owner. Evidence: caller 0x005C66CB;
 // literals link; invoke declared to the landed UiCallbackFirers shape.
-class Rva00222A8BTarget
-{
-public:
-	void invoke(void *owner, const char *name, int flag, const char *value, void *a4, void *a5, void *a6, void *a7);
-};
+#include "../../Include/Common/Rva00222A8BTarget.h"
 
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 // Native DIR32 at body+0x2A reads VA 0x00DC1A0C, the owner defined

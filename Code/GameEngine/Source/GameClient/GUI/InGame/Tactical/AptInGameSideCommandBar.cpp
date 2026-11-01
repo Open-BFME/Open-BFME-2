@@ -249,10 +249,7 @@ extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 // retaining its address. That visibility gives the parent native's register
 // counter and short-lived argument home, which new later reuses.
 AsciiString __cdecl Rva00222834Get(int);
-class Rva00222A8BTarget {
-public:
- int rva00222B19(void *, const char *, const char *, int, const char *, void *, void *, void *, void *);
-};
+#include "../../../../../Include/Common/Rva00222A8BTarget.h"
 static __forceinline const char *sideBarGetStr(const AsciiString &asciiString) {
  char *text = *(char **)(void *)&asciiString;
  return text ? text + 8 : "";

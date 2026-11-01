@@ -313,7 +313,7 @@ __declspec(noinline) inline int Rva00528B37Equal(const Rva00528B37Key *a, const 
 	return false;
 }
 
-class Rva00222A8BTarget { public: int invoke(void *, const char *, int, const char *, void *, void *, void *, void *); };
+#include "../../../../../Include/Common/Rva00222A8BTarget.h"
 #include "../../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 

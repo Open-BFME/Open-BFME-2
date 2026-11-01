@@ -5,11 +5,7 @@
 // target in ecx; the BFME1 donor has owner and target swapped.
 
 #include <stdio.h>
-class Rva00222A8BTarget
-{
-public:
-	void invoke(void *owner, const char *name, int flag, const char *value, void *a4, void *a5, void *a6, void *a7);
-};
+#include "../../Include/Common/Rva00222A8BTarget.h"
 
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 // Retail writes THIS global at absolute 0x00DC1A0C (RVA 0x9C1A0C) -- see

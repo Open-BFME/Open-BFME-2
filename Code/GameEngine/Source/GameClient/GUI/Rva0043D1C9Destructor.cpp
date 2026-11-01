@@ -63,7 +63,7 @@ private: int unknown4;_STL::vector<ScienceType> sciences;int unknown14;
 };
 
 class Rva00223A94 {public:int rva00223A94(const AsciiString*);};
-class Rva00222A8BTarget {public:void rva00222F55(bool);};
+#include "../../../Include/Common/Rva00222A8BTarget.h"
 class Rva00222A8BTarget;
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;

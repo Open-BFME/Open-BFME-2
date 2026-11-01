@@ -7,11 +7,7 @@
 
 #include "../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 
-class Rva00222A8BTarget
-{
-public:
-	void rva00225375(const AsciiString &key, const AsciiString &value, bool flag);
-};
+#include "../../Include/Common/Rva00222A8BTarget.h"
 
 class Rva00222A8BTarget;
 class BfmeAptWindowManager;

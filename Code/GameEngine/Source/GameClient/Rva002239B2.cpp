@@ -75,11 +75,7 @@ void Rva002239B2::rva002239E2(const AsciiString &key, const Image *image)
 // two string references independently establish this by-name image helper.
 // Retain the existing neutral pin's owner spelling. Its receiver is the
 // same Apt manager used by the adjacent setter, with no new layout claim.
-class Rva00222A8BTarget
-{
-public:
-    void rva002239FA(const AsciiString &key, const AsciiString &imageName);
-};
+#include "../../Include/Common/Rva00222A8BTarget.h"
 void Rva00222A8BTarget::rva002239FA(const AsciiString &key, const AsciiString &imageName)
 {
     const Image *image = TheMappedImageCollection->findImageByName(imageName);

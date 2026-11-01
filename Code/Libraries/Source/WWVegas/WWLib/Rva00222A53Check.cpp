@@ -23,27 +23,16 @@ public:
     virtual void *winGetFocus();
 };
 extern GameWindowManager *TheWindowManager;
-class Rva00222A8BTarget
-{
-public:
-    unsigned char rva00222A53();
-private:
-    char m_pad0[0x300];
-    void *m_p300;
-    char m_pad1[0x314 - 0x304];
-    void *m_p314;
-    char m_pad2[0x329 - 0x318];
-    unsigned char m_b329;
-};
+#include "../../../../GameEngine/Include/Common/Rva00222A8BTarget.h"
 unsigned char Rva00222A8BTarget::rva00222A53()
 {
-    void *p = m_p300;
+    void *p = m_300;
     if (*(int *)((char *)p - 4) != -1) {
-        void **pp = &m_p314;
+        void **pp = &m_314;
         if (*pp != 0) {
             if (*pp == TheWindowManager->winGetFocus())
                 return 1;
         }
     }
-    return m_b329;
+    return m_329;
 }

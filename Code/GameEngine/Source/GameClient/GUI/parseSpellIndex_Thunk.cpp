@@ -692,13 +692,7 @@ public:
 class GameWindow;
 class AptPlayer { public: static int GetLevelIndex(GameWindow *window); };
 
-class Rva00222A8BTarget
-{
-public:
-	int invoke(void *window, const char *function, int argc, const char *arg,
-		void *arg1, void *arg2, void *arg3, void *arg4);
-	void rva002233A6(int mode);
-};
+#include "../../../Include/Common/Rva00222A8BTarget.h"
 
 // Retail 0x0043CD3C, 1059 bytes: the store's frame update; BFME 1's
 // Rva005999B0Screen::frameUpdate (Palantir/SpellStore005999B0.cpp) is the

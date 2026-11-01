@@ -5,12 +5,7 @@
 
 #include <string.h>
 
-class Rva00222A8BTarget
-{
-public:
-	void rva00222F55(bool hide);
-	void rva002233A6(int kind);
-};
+#include "../../Include/Common/Rva00222A8BTarget.h"
 
 // Retail global 0x012F19E8. EA's own name for this pointer; see
 // game/GameEngine/Source/GameClient/GUI/WindowManager.cpp for the definition.

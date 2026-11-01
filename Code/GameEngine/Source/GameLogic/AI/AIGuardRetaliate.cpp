@@ -240,11 +240,7 @@ void Rva00511730(Int a);
 // 0x00514878: state 2 at +0x288 is cleared through the rowed 0x00222F55
 // (false) on the object at VA 0x00DFE4CC; then +0x5D of the object at VA
 // 0x00E01E48 is set.
-class Rva00222A8BTarget
-{
-public:
-	void rva00222F55(bool b);
-};
+#include "../../../Include/Common/Rva00222A8BTarget.h"
 
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 

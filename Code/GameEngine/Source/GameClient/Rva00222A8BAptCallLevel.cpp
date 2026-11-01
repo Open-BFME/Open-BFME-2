@@ -15,12 +15,7 @@
 void Rva006CCB80CallFunction(const char *function, char *result, const char *target,
 	int nNumParams, ...);
 
-class Rva00222A8BTarget
-{
-public:
-	int invoke(void *level, const char *function, int argc, const char *a0,
-		void *a1, void *a2, void *a3, void *a4);
-};
+#include "../../Include/Common/Rva00222A8BTarget.h"
 
 #pragma comment(linker, "/alternatename:?invoke@Rva00222A8BTarget@@QAEXPAXPBDH10000@Z=?invoke@Rva00222A8BTarget@@QAEHPAXPBDH10000@Z")
 

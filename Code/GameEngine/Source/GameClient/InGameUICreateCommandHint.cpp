@@ -36,7 +36,7 @@ extern PlayerList *ThePlayerList;
 class Radar {public:char pad10[0x10];bool hidden,forced;char pad12[0x1430-0x12];GameWindow *window;int isRadarWindow(GameWindow *);};
 extern Radar *TheRadar;
 class Rva0029A224 {public:int isRadarWindow(GameWindow *);};
-class Rva00222A8BTarget {public:unsigned char rva00222A53();};
+#include "../../Include/Common/Rva00222A8BTarget.h"
 class BfmeAptWindowManager;extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 class Rva0029B313 {public:void rva0029B313(int);};
 struct DNode {DNode *next,*prev;Drawable *value;};

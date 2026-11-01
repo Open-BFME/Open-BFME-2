@@ -8,11 +8,7 @@
 // 0x005C65D0 pushes (ptr, float, float) __cdecl; IAT snprintf cached in esi;
 // literals link; invoke declared to the landed UiCallbackFirers shape.
 #include <stdio.h>
-class Rva00222A8BTarget
-{
-public:
-	void invoke(void *owner, const char *name, int flag, const char *value, void *a4, void *a5, void *a6, void *a7);
-};
+#include "../../Include/Common/Rva00222A8BTarget.h"
 
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 // 0x00DC1A0C, the owner setUiCallbackOwner stores (UiCallbackFirers.cpp); the
