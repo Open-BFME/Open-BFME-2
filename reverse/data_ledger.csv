@@ -20201,9 +20201,9 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A03AC8,4,.data,global,_s_rva007B17BD,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A03ACC,4,.data,global,?TheBattlePlanUpdatePoolKey@?1??getModuleNameKey@BattlePlanUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/BattlePlanUpdate.cpp,owned,,1,2
 0x00A03AD0,4,.data,global,?$S1@?1??getModuleNameKey@BattlePlanUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/BattlePlanUpdate.cpp,owned,,1,2
-0x00A03AD4,4,.data,global,?key_StealthDetectorUpdate@?CB@??rva00497AE8@BattlePlanUpdate@@QAEXW4BattlePlanStatus@@@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/Object/Update/BattlePlanUpdateSetBattlePlan.cpp,owned,,1,2
-0x00A03AD8,4,.data,global,?key_StealthDetectorUpdate@?BD@??rva00497AE8@BattlePlanUpdate@@QAEXW4BattlePlanStatus@@@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/Object/Update/BattlePlanUpdateSetBattlePlan.cpp,owned,,1,2
-0x00A03ADC,4,.data,global,?$S1@?BD@??rva00497AE8@BattlePlanUpdate@@QAEXW4BattlePlanStatus@@@Z@4IA,Code/GameEngine/Source/GameLogic/Object/Update/BattlePlanUpdateSetBattlePlan.cpp,owned,,1,8
+0x00A03AD4,4,.data,global,?key_StealthDetectorUpdate@?CB@??rva00497AE8@BattlePlanUpdate@@QAEXW4BattlePlanStatus@@@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/Object/Update/BattlePlanUpdate.cpp,owned,,1,2
+0x00A03AD8,4,.data,global,?key_StealthDetectorUpdate@?BD@??rva00497AE8@BattlePlanUpdate@@QAEXW4BattlePlanStatus@@@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/Object/Update/BattlePlanUpdate.cpp,owned,,1,2
+0x00A03ADC,4,.data,global,?$S1@?BD@??rva00497AE8@BattlePlanUpdate@@QAEXW4BattlePlanStatus@@@Z@4IA,Code/GameEngine/Source/GameLogic/Object/Update/BattlePlanUpdate.cpp,owned,,1,8
 0x00A03AE0,4,.data,global,_s_rva007B17E7,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A03AE4,4,.data,global,?s_key@?1??Rva00498725Find@@YAPAXPAX@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourFind.cpp,owned,,1,2
 0x00A03AE8,4,.data,global,?$S2@?1??Rva00498725Find@@YAPAXPAX@Z@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourFind.cpp,owned,,1,4
