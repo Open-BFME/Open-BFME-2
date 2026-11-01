@@ -1,24 +1,7 @@
 // Eight tiny bodies that free something the object owns (trimmed to the placed
 // Rva008B3990 body; the other seven are declared-only here).
 
-#define R2_RELEASE( NAME, OFF )                                           \
-	class NAME##Owned                                                     \
-	{                                                                     \
-	public:                                                               \
-		virtual ~NAME##Owned();                                             \
-	};                                                                    \
-	class NAME                                                            \
-	{                                                                     \
-	public:                                                               \
-		char m_leading[ OFF ];                                              \
-		NAME##Owned *m_owned;                                               \
-		void release();                                                     \
-	};                                                                    \
-	void NAME::release()                                                  \
-	{                                                                     \
-		delete m_owned;                                                     \
-		m_owned = 0;                                                        \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 R2_RELEASE( Rva008B3990, 0x20 )
 

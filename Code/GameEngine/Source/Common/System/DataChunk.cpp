@@ -9,16 +9,7 @@ typedef bool Bool;
 #include "unicode_string.h"
 #include <stddef.h>
 #define SEEK_SET 0
-#define BFME_DISP8_BINARY_SUB_GETTER(NAME, DISP1, DISP2) \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-	}; \
-	int NAME::get() const \
-	{ \
-		return *(const int *)((const char *)this + (DISP1)) - *(const int *)((const char *)this + (DISP2)); \
-	}
+#include "../../../Include/Common/BfmeAccessorMacros.h"
 
 extern "C" __declspec(dllimport) struct _iobuf *__cdecl _wfopen(const wchar_t *, const wchar_t *);
 

@@ -13,16 +13,7 @@
 // /O1: the state-name switch below needs the sub/dec/je decision chain
 // (defaults emit a jump table); the 6-byte mov/ret getters are flag-proof.
 
-#define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
-	class NAME \
-	{ \
-	public: \
-		const char *name() const; \
-	}; \
-	const char *NAME::name() const \
-	{ \
-		return TEXT; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 // ?name@Rva00603938Named@@QBEPBDXZ @ 0x00603938 (6B): returns "English".
 // Ret-terminated prev (lea/pop/ret), frameless-fn-start next bytes,

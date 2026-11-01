@@ -6,64 +6,15 @@
 // ret 4 -- three dwords copied out of a reference into a member aggregate.  The
 // `add ecx` rather than a displacement off `this` is the aggregate's own
 // assignment operator inlined, with ecx made to point at the member.
-#define BFME_BLOCK_ASSIGN( NAME, LEAD, DWORDS )                               \
-	struct Block##NAME                                                        \
-	{                                                                         \
-		unsigned int m_dword[ DWORDS ];                                       \
-	};                                                                        \
-	class NAME                                                                \
-	{                                                                         \
-	public:                                                                   \
-		void set( const Block##NAME &value );                                 \
-                                                                              \
-		char         m_lead[ LEAD ];                                          \
-		Block##NAME  m_block;                                                 \
-	};                                                                        \
-	void NAME::set( const Block##NAME &value ) { m_block = value; }
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 // mov eax,[esp+4] / mov edx,[eax] / mov [ecx+<D>],edx / mov eax,[eax+4] /
 // mov [ecx+<D>+4],eax / ret 4 -- two dwords, copied field by field off `this`
 // with no address made, which is the same copy done as two member assignments
 // rather than through an aggregate.
-#define BFME_TWO_DWORD_ASSIGN( NAME, LEAD )                                   \
-	struct Pair##NAME                                                         \
-	{                                                                         \
-		unsigned int m_first;                                                 \
-		unsigned int m_second;                                                \
-	};                                                                        \
-	class NAME                                                                \
-	{                                                                         \
-	public:                                                                   \
-		void set( const Pair##NAME &value );                                  \
-                                                                              \
-		char         m_lead[ LEAD ];                                          \
-		unsigned int m_first;                                                 \
-		unsigned int m_second;                                                \
-	};                                                                        \
-	void NAME::set( const Pair##NAME &value )                                 \
-	{                                                                         \
-		m_first = value.m_first;                                              \
-		m_second = value.m_second;                                            \
-	}
 
 // mov eax,[ecx-<BACK>] / add eax,<OFFSET> / ret -- a pointer read at a NEGATIVE
 // displacement and advanced by a constant, as in SmallLeafBodies.cpp.
-#define BFME_BACK_POINTER_OFFSET( NAME, BACK, OFFSET )                        \
-	class Sub##NAME                                                           \
-	{                                                                         \
-	public:                                                                   \
-		char *m_base;                                                         \
-	};                                                                        \
-	class NAME                                                                \
-	{                                                                         \
-	public:                                                                   \
-		char *get() const;                                                    \
-	};                                                                        \
-	char *NAME::get() const                                                   \
-	{                                                                         \
-		return ( (const Sub##NAME *)( (const char *)this - ( BACK ) ) )->m_base \
-			+ ( OFFSET );                                                     \
-	}
 
 BFME_BLOCK_ASSIGN( Rva0016A2C0BlockAssign, 0x24, 3 )
 BFME_BLOCK_ASSIGN( Rva0016A370BlockAssign, 0x50, 3 )

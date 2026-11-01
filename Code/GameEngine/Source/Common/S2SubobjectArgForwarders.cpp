@@ -38,17 +38,7 @@ public:
 	void addControlPoint( const Rva00064640Record &a );
 };
 
-#define BFME_SUBOBJECT_ARG_FORWARDER( NAME, OFFSET )                      \
-	class NAME##Owner                                                     \
-	{                                                                     \
-	public:                                                               \
-		char m_lead[ OFFSET ];                                            \
-		Rva005045C6 m_sub;                                                \
-	};                                                                    \
-	void NAME( NAME##Owner *owner, GenForwardedArg *a )                   \
-	{                                                                     \
-		owner->m_sub.addControlPoint( *(const Rva00064640Record *)a );       \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 // @?Rva003B7140@@YAXPAVRva003B7140Owner@@PAVGenForwardedArg@@@Z 0x003B7140
 BFME_SUBOBJECT_ARG_FORWARDER( Rva003B7140, 0x04 )

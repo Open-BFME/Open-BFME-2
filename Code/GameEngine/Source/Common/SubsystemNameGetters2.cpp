@@ -4,27 +4,8 @@
 // contributors conflict-free; the BFME_LITERAL_NAME_GETTER macro is verbatim.
 // No // cl: line (defaults match the frameless 6-byte shape).
 
-#define BFME_SNAPSHOT_NAME_GETTER(NAME, TEXT) \
-	class NAME \
-	{ \
-	protected: \
-		virtual const char *GetSnapshotName() const; \
-	}; \
-	const char *NAME::GetSnapshotName() const \
-	{ \
-		return TEXT; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
-#define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
-	class NAME \
-	{ \
-	public: \
-		const char *name() const; \
-	}; \
-	const char *NAME::name() const \
-	{ \
-		return TEXT; \
-	}
 
 BFME_LITERAL_NAME_GETTER(TerrainResourceClientBehavior, "TerrainResourceClientBehavior")
 class UpdateModule

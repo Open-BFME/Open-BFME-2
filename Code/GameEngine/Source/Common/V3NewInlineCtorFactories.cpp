@@ -25,28 +25,7 @@ class V3Slot3	{ public: virtual void s0(); virtual ~V3Slot3() {} };
 //
 // NAME is the factory's own address; BASE is the out-of-line constructor's.
 
-#define V3_NEW_TWO_ARG_FACTORY( NAME, BASE, SIZE, LEAF, ARGS )                         \
-	class V3Host##NAME;                                                    \
-	class BASE : public LEAF \
-	{                                                                      \
-	public:                                                                \
-		__declspec(noinline) BASE( void *arg, V3Host##NAME *owner ); \
-	};                                                                     \
-	class NAME##Object : public BASE                                       \
-	{                                                                      \
-	public:                                                                \
-		NAME##Object( void *arg, V3Host##NAME *owner );                                        \
-	};                                                                     \
-	typedef char NAME##Size[(sizeof(NAME##Object) == SIZE) ? 1 : -1]; \
-	class V3Host##NAME                                                     \
-	{                                                                      \
-	public:                                                                \
-		NAME##Object *create( void *arg );                                 \
-	};                                                                     \
-	NAME##Object *V3Host##NAME::create( void *arg )                        \
-	{                                                                      \
-		return new NAME##Object( arg, this );                              \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 class V3Slot2Wide { public: virtual void s0(); virtual ~V3Slot2Wide() {} int m_a; };
 struct DrawInfo2;

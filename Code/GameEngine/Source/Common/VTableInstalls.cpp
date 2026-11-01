@@ -94,18 +94,7 @@ extern "C" const void *const vtbl_00C594E0[] =
 	reinterpret_cast<const void *>(__identifier("?Is_Valid@RegistryClass@@QAE_NXZ"))
 };
 
-#define BFME_VTABLE_INSTALL(NAME, VTABLE) \
-	class NAME \
-	{ \
-	public: \
-		NAME *init(); \
-		void *m_vtable; \
-	}; \
-	NAME *NAME::init() \
-	{ \
-		m_vtable = VTABLE; \
-		return this; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 BFME_VTABLE_INSTALL(Rva00019EB0VTableInstall, reinterpret_cast<void *>(((unsigned int)__identifier("??_7_Messages@_STL@@6B@"))))
 BFME_VTABLE_INSTALL(Rva000910D8VTableInstall, reinterpret_cast<void *>(((unsigned int)vtbl_00BC7F74)))

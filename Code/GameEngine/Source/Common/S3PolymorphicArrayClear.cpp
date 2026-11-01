@@ -44,31 +44,7 @@ public:
 
 extern GenAlloc *Gen007EFFC0();
 
-#define S3_ARRAY_CLEAR( NAME, SIZE )                                      \
-	class NAME##Elem                                                      \
-	{                                                                     \
-	public:                                                               \
-		virtual void step( int flags );                                   \
-		char m_pad[ SIZE - 4 ];                                           \
-	};                                                                    \
-	class NAME                                                            \
-	{                                                                     \
-	public:                                                               \
-		void clear();                                                     \
-		NAME##Elem *m_array;                                              \
-		int m_count;                                                      \
-	};                                                                    \
-	void NAME::clear()                                                    \
-	{                                                                     \
-		if( m_array )                                                     \
-		{                                                                 \
-			for( int i = 0; i < m_count; ++i )                            \
-				m_array[ i ].step( 0 );                                   \
-			Gen007EFFC0()->release( m_array, 0 );                         \
-			m_array = 0;                                                  \
-		}                                                                 \
-		m_count = 0;                                                      \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 S3_ARRAY_CLEAR( Rva007F6BA0, 28 )
 S3_ARRAY_CLEAR( Rva007F6C60, 64 )
@@ -81,26 +57,6 @@ S3_ARRAY_CLEAR( Rva00801600, 56 )
 // to BFME2 0x0066D870 and 0x0066EB20. The array layout and returned element
 // offset follow from those bytes; the address-derived class labels remain
 // provisional because the target has no named direct callers.
-#define S3_ARRAY_LOOKUP( NAME, SIZE )                                     \
-	class NAME##Elem                                                      \
-	{                                                                     \
-	public:                                                               \
-		virtual void step( int flags );                                   \
-		char m_pad[ SIZE - 4 ];                                           \
-	};                                                                    \
-	class NAME                                                            \
-	{                                                                     \
-	public:                                                               \
-		NAME##Elem *at( int index );                                      \
-		NAME##Elem *m_array;                                              \
-		int m_count;                                                      \
-	};                                                                    \
-	NAME##Elem *NAME::at( int index )                                     \
-	{                                                                     \
-		if ( index >= m_count )                                           \
-			return 0;                                                     \
-		return m_array + index;                                           \
-	}
 
 S3_ARRAY_LOOKUP( Rva00801550, 48 )
 S3_ARRAY_LOOKUP( Rva008029F0, 128 )

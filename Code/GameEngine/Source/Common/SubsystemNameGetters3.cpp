@@ -7,16 +7,7 @@
 // verify_string_refs re-reads the string.
 // No // cl: line (defaults match the frameless 6-byte shape).
 
-#define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
-	class NAME \
-	{ \
-	public: \
-		const char *name() const; \
-	}; \
-	const char *NAME::name() const \
-	{ \
-		return TEXT; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 #include "../../Include/GameLogic/AI.h"
 

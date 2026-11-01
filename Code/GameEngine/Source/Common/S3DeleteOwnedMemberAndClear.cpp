@@ -27,26 +27,8 @@
 // stand-in classes below are only for the un-identified destructors.
 #include "../../../Libraries/Source/WWVegas/WWLib/mutex.h"
 
-#define S3_OWNED_CALLEE_NAMED( NAME )                                     \
-	class NAME                                                            \
-	{                                                                     \
-	public:                                                               \
-		~NAME();                                                          \
-	};
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
-#define S3_DELETE_AND_CLEAR( NAME, CALLEE, OFFSET )                       \
-	class NAME                                                            \
-	{                                                                     \
-	public:                                                               \
-		void release();                                                   \
-		char m_lead[ OFFSET ];                                            \
-		CALLEE *m_owned;                                                  \
-	};                                                                    \
-	void NAME::release()                                                  \
-	{                                                                     \
-		delete m_owned;                                                   \
-		m_owned = 0;                                                      \
-	}
 
 S3_OWNED_CALLEE_NAMED( HLodDefClass )
 

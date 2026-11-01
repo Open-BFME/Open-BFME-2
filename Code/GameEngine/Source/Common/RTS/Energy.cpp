@@ -38,18 +38,7 @@ struct Rva004DF231Outer
 	Rva004DF231Inner *m_ptr;
 };
 #include "EnergyView.h"
-#define BFME_DISP32_DWORD_GETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-		char m_lead[DISP]; \
-		int m_value; \
-	}; \
-	int NAME::get() const \
-	{ \
-		return m_value; \
-	}
+#include "../../../Include/Common/BfmeAccessorMacros.h"
 
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva004DF17F@Rva004DF17F@@QBE_NXZ, RVA 0x004DF17F, 14 bytes.

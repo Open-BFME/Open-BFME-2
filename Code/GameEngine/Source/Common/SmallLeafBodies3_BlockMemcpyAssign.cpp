@@ -41,23 +41,7 @@
 // displacement does not fit a signed byte: `lea edi,[ecx+0xA4]` widens to
 // disp32. That is the whole of the size difference.
 
-#define BFME_BLOCK_MEMCPY_ASSIGN( NAME, LEAD )                                 \
-	struct Block##NAME                                                        \
-	{                                                                         \
-		unsigned int m_dword[ 3 ];                                            \
-	};                                                                        \
-	class NAME                                                                \
-	{                                                                         \
-	public:                                                                   \
-		void set( const Block##NAME &value );                                 \
-                                                                              \
-		char        m_lead[ LEAD ];                                           \
-		Block##NAME m_block;                                                  \
-	};                                                                        \
-	void NAME::set( const Block##NAME &value )                                \
-	{                                                                         \
-		m_block = value;                                                      \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 BFME_BLOCK_MEMCPY_ASSIGN( Rva00299790BlockAssign, 0x8 )
 BFME_BLOCK_MEMCPY_ASSIGN( Rva003A1030BlockAssign, 0xA4 )

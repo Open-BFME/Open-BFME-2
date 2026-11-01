@@ -49,19 +49,7 @@
 //
 // Original identities remain unknown; class owners follow native copy calls.
 
-#define Q2_HEAP_COPY_CLONE( NAME, SIZE )                                  \
-	class NAME                                                            \
-	{                                                                     \
-	public:                                                               \
-		NAME( const NAME &other );                                        \
-		NAME *clone() const;                                              \
-	private:                                                              \
-		char m_unreconstructed_00[ SIZE ];                                \
-	};                                                                    \
-	NAME *NAME::clone() const                                             \
-	{                                                                     \
-		return new NAME( *this );                                         \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 Q2_HEAP_COPY_CLONE( Rva003ADC4F, 0x5C )
 Q2_HEAP_COPY_CLONE( Rva003AE0AF, 0x20 )

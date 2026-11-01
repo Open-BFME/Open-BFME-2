@@ -26,20 +26,7 @@ struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 
 #endif
 #include "PreRTS.h"
-#define GAP_VTABLE_PAIR_CTOR(NAME) \
-	class NAME \
-	{ \
-	public: \
-		NAME(const GapPair &pair); \
-		virtual ~NAME() {} \
-	private: \
-		int m_04; \
-		int m_08; \
-		int m_0C; \
-	}; \
-	NAME::NAME(const GapPair &pair) : m_04(0), m_08(pair.a), m_0C(pair.b) \
-	{ \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 /// The singleton message stream for messages going to TheGameLogic
 MessageStream *TheMessageStream = NULL;

@@ -10,33 +10,8 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 
-#define BFME_ASCII_FIELD_CLEAR(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		void clear(); \
-	private: \
-		char m_pad[DISP]; \
-		AsciiString m_str; \
-	}; \
-	void NAME::clear() \
-	{ \
-		((StringBase<char> *)&m_str)->clear(); \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
-#define BFME_ASCII_FIELD_SET_CSTR(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		void set(const char *s); \
-	private: \
-		char m_pad[DISP]; \
-		AsciiString m_str; \
-	}; \
-	void NAME::set(const char *s) \
-	{ \
-		((StringBase<char> *)&m_str)->set(s); \
-	}
 
 class Rva00225A79StringField
 {

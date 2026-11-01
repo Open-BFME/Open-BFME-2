@@ -51,16 +51,6 @@ public:
 	char m_storage[ 0xa8 ];
 };
 
-#define V3_CLONE_FACTORY( NAME, SIZE )                                     \
-	class NAME                                                             \
-	{                                                                      \
-	public:                                                                \
-		NAME *clone() const;                                               \
-		char m_storage[ SIZE ];                                            \
-	};                                                                     \
-	NAME *NAME::clone() const                                              \
-	{                                                                      \
-		return reinterpret_cast<NAME *>( new Rva003AF89A( *reinterpret_cast<const Rva003AF89A *>( this ) ) ); \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 V3_CLONE_FACTORY( Rva005EDF60, 0xa8 )

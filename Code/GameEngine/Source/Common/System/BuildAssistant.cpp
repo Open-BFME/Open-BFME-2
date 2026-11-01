@@ -2421,20 +2421,7 @@ public:
 };
 #include "../../../Include/Common/Module.h"
 #include "../Rva00525119.h"
-#define GAP_VTABLE_PAIR_CTOR(NAME) \
-	class NAME \
-	{ \
-	public: \
-		NAME(const GapPair &pair); \
-		virtual ~NAME() {} \
-	private: \
-		int m_04; \
-		int m_08; \
-		int m_0C; \
-	}; \
-	NAME::NAME(const GapPair &pair) : m_04(0), m_08(pair.a), m_0C(pair.b) \
-	{ \
-	}
+#include "../../../Include/Common/BfmeAccessorMacros.h"
 #pragma comment(linker, "/alternatename:??0Rva00394173Member@@QAE@ABV0@@Z=??0?$list@PAURva00332106PointerTarget@@V?$allocator@PAURva00332106PointerTarget@@@_STL@@@_STL@@QAE@ABV01@@Z")
 #include "Common/Snapshot.h"
 // _List_iterator comparisons otherwise instantiate the base-class

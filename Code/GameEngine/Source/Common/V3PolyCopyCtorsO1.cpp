@@ -53,18 +53,7 @@ struct V3Block32 { Int m_v[32]; };
 
 // -------------------------------------------------- vptr + one int (8 bytes)
 
-#define V3_POLY_COPY_1( NAME )                                            \
-	class NAME                                                            \
-	{                                                                     \
-	public:                                                               \
-		NAME( const NAME &other );                                        \
-		virtual ~NAME();                                                  \
-		Int m_field04;                                                    \
-	};                                                                    \
-	NAME::NAME( const NAME &other )                                       \
-	{                                                                     \
-		m_field04 = other.m_field04;                                      \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 ;
 
 

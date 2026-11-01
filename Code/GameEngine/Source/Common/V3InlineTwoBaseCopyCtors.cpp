@@ -82,13 +82,7 @@ V3_SECOND_BASE( 0110F9E8 )
 V3_SECOND_BASE( 0110FA14 )
 V3_SECOND_BASE_WIDE( 0107375C )
 
-#define V3_INLINE_COPY_CTOR( NAME, SECOND )                               \
-	class NAME : public V3Vt01111D90, public SECOND                       \
-	{                                                                     \
-	public:                                                               \
-		NAME( const NAME & );                                             \
-	};                                                                    \
-	NAME::NAME( const NAME &nAME ) : V3Vt01111D90( nAME ) {}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 V3_INLINE_COPY_CTOR( Rva005EA430, V3Vt0110F978 )
 V3_INLINE_COPY_CTOR( Rva005EA6F0, V3Vt01073760 )

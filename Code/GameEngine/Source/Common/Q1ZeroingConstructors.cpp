@@ -34,58 +34,9 @@ extern "C" const void *const vtbl_00CE7CB0[];  // folded, 2 classes; via ??_7Pro
 
 extern "C" const void *const vtbl_00BD23B4[];  // folded, 2 classes; via ??_7Rva0012D750@@6B@
 
-#define Q1_VFTABLE_ZERO_CTOR( NAME )                                      \
-	class NAME                                                            \
-	{                                                                     \
-	public:                                                               \
-		virtual void v();                                                 \
-		int m_a;                                                          \
-		int m_b;                                                          \
-		NAME();                                                           \
-	};                                                                    \
-	void NAME::v()                                                        \
-	{                                                                     \
-	}                                                                     \
-	NAME::NAME()                                                          \
-	{                                                                     \
-		m_a = 0;                                                          \
-		m_b = 0;                                                          \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
-#define Q1_VFTABLE_ZERO_CTOR_PAD( NAME, PAD )                             \
-	class NAME                                                            \
-	{                                                                     \
-	public:                                                               \
-		virtual void v();                                                 \
-		char m_lead[ PAD ];                                               \
-		int m_a;                                                          \
-		int m_b;                                                          \
-		NAME();                                                           \
-	};                                                                    \
-	void NAME::v()                                                        \
-	{                                                                     \
-	}                                                                     \
-	NAME::NAME()                                                          \
-	{                                                                     \
-		m_a = 0;                                                          \
-		m_b = 0;                                                          \
-	}
 
-#define Q1_PLAIN_ZERO_CTOR( NAME, HEAD )                                  \
-	class NAME                                                            \
-	{                                                                     \
-	public:                                                               \
-		unsigned int m_head;                                              \
-		int m_a;                                                          \
-		int m_b;                                                          \
-		NAME();                                                           \
-	};                                                                    \
-	NAME::NAME()                                                          \
-	{                                                                     \
-		m_head = HEAD;                                                    \
-		m_a = 0;                                                          \
-		m_b = 0;                                                          \
-	}
 
 Q1_VFTABLE_ZERO_CTOR( Rva007F01B0 )                     /* vftable 0x0107301C */
 Q1_VFTABLE_ZERO_CTOR( Rva000CBAA0 )                     /* vftable 0x01083D18 */

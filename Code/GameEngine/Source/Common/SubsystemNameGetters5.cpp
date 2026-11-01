@@ -7,15 +7,6 @@
 // behind a shared pair (slot 1 is 0xA9E440), closed by 0x5B5384.
 // No // cl: line (defaults match the frameless 6-byte shape).
 
-#define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
-	class NAME \
-	{ \
-	public: \
-		const char *name() const; \
-	}; \
-	const char *NAME::name() const \
-	{ \
-		return TEXT; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 BFME_LITERAL_NAME_GETTER(Rva00739970Named, "ShroudManager")

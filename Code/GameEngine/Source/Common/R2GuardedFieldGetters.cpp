@@ -34,19 +34,7 @@ int OldSchoolHelpBoxContentSource::get()
 // Original classes, field purpose and signedness/pointer interpretation are
 // unknown. These carriers preserve only that measured raw-bit contract;
 // their names use target addresses rather than donor carrier addresses.
-#define BFME_R2_NULL_HEAD_BITS(NAME, FIELD) \
-    class NAME \
-    { \
-    public: \
-        unsigned getBits() const; \
-        const void *m_pointee; \
-    }; \
-    unsigned NAME::getBits() const \
-    { \
-        if (m_pointee) \
-            return *(const unsigned *)((const char *)m_pointee + FIELD); \
-        return 0; \
-    }
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 // Previous RET50D45; two local RETs end50D4F/50D52; next entry50D53.
 BFME_R2_NULL_HEAD_BITS(Rva00050D46, 0x2C)

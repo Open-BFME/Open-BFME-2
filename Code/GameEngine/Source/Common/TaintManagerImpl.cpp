@@ -43,16 +43,7 @@ static __forceinline void zeroCoord3D(Coord3D &value)
 extern "C" void bfmeDtorCbDMC(void *what);
 #include <new>
 #pragma comment(linker, "/alternatename:?bfmeVecDtorDMC@@YGXPAXIHP6AX0@Z@Z=??_M@YGXPAXIHP6EX0@Z@Z")
-#define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
-	class NAME \
-	{ \
-	public: \
-		const char *name() const; \
-	}; \
-	const char *NAME::name() const \
-	{ \
-		return TEXT; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 #include "Common/Snapshot.h"
 #include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
 

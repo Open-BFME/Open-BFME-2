@@ -29,20 +29,6 @@
 // disp32, which is the whole of the size difference and is not a code-shape
 // difference.
 
-#define BFME_TWO_DWORD_SETTER( NAME, LEAD )                                   \
-	class NAME                                                                \
-	{                                                                         \
-	public:                                                                   \
-		void set( int first, int second );                                    \
-                                                                              \
-		char m_lead[ LEAD ];                                                  \
-		int  m_first;                                                         \
-		int  m_second;                                                        \
-	};                                                                        \
-	void NAME::set( int first, int second )                                   \
-	{                                                                         \
-		m_first = first;                                                      \
-		m_second = second;                                                    \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 BFME_TWO_DWORD_SETTER( Rva002997C0PairSlot, 0x58 )

@@ -20,31 +20,7 @@ public:
 
 extern GenAlloc *Gen007EFFC0();
 
-#define S3_ARRAY_CLEAR( NAME, SIZE )                                      \
-	class NAME##Elem                                                      \
-	{                                                                     \
-	public:                                                               \
-		virtual void step( int flags );                                   \
-		char m_pad[ SIZE - 4 ];                                           \
-	};                                                                    \
-	class NAME                                                            \
-	{                                                                     \
-	public:                                                               \
-		void clear();                                                     \
-		NAME##Elem *m_array;                                              \
-		int m_count;                                                      \
-	};                                                                    \
-	void NAME::clear()                                                    \
-	{                                                                     \
-		if( m_array )                                                     \
-		{                                                                 \
-			for( int i = 0; i < m_count; ++i )                            \
-				m_array[ i ].step( 0 );                                   \
-			Gen007EFFC0()->release( m_array, 0 );                         \
-			m_array = 0;                                                  \
-		}                                                                 \
-		m_count = 0;                                                      \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 S3_ARRAY_CLEAR( Rva00802A10, 128 )
 
