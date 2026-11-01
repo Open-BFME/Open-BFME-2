@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/open-bfme-1/inputs/reference/shims/sweep /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/GameEngine/Source/GameNetwork/GameSpy/Thread /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/open-bfme-1/inputs/reference/shims/buddythread /Ireference/open-bfme-1/inputs/reference/shims/sweep /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/shims/sweep /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/game/GameEngine/Source/Common /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/open-bfme-1/game/GameEngine/Source/GameNetwork/GameSpy/Thread /Ireference/shims/bfmealloc
 //
 // ?createNewMessageQueue@GameSpyBuddyMessageQueueInterface@@SAPAV1@XZ
 // retail 0x00551B28, 50 bytes. Dedicated TU ported from the Open-BFME-1
@@ -86,8 +86,8 @@ void deque<GameResultsResponse, allocator<GameResultsResponse> >::_M_push_back_a
 
 static const Int NumWorkerThreads = 1;
 
-typedef std::queue<GameResultsRequest> RequestQueue;
-typedef std::queue<GameResultsResponse> ResponseQueue;
+
+
 class GameResultsThreadClass;
 
 class GameResultsQueue : public GameResultsInterface
@@ -115,8 +115,8 @@ public:
 private:
 	MutexClass m_requestMutex;
 	MutexClass m_responseMutex;
-	RequestQueue m_requests;
-	ResponseQueue m_responses;
+	std::queue<GameResultsRequest> m_requests;
+	std::queue<GameResultsResponse> m_responses;
 	Int m_requestCount;
 	Int m_responseCount;
 
@@ -130,22 +130,50 @@ private:
 // BuddyThread_Unresolved.cpp). It is Zero Hour's
 // GameSpyBuddyMessageQueueInterface::createNewMessageQueue. The real
 // createNewGameResultsInterface is 0x0041AA6F (GameEngine::init's
-// TheGameResultsQueue factory). Only the size and the constructor matter to
-// this body, so the queue is declared here as a sized view; the full class
-// lives in BuddyThread_Unresolved.cpp.
-class GameSpyBuddyMessageQueueInterface
+// TheGameResultsQueue factory). The queue uses BuddyThread.cpp's complete
+// BFME 2 view.
+#include "GameNetwork/GameSpy/BuddyThread.h"
+typedef std::queue<BuddyRequest> RequestQueue;
+typedef std::queue<BuddyResponse> ResponseQueue;
+class BuddyThreadClass;
+class Rva0009990D
 {
 public:
-	virtual ~GameSpyBuddyMessageQueueInterface() {}
-	static GameSpyBuddyMessageQueueInterface* createNewMessageQueue( void );
+	void clear();
+	~Rva0009990D(){clear();}
+	void set(void *p);
+	MutexClass::LockClass *m_ptr; // +0x00
 };
 
 class GameSpyBuddyMessageQueue : public GameSpyBuddyMessageQueueInterface
 {
 public:
+	virtual ~GameSpyBuddyMessageQueue();
 	GameSpyBuddyMessageQueue();
+	virtual void startThread( void );
+	virtual void endThread( void );
+	virtual Bool isThreadRunning( void );
+	virtual Bool isConnected( void );
+	virtual Bool isConnecting( void );
+
+	virtual void addRequest( const BuddyRequest& req );
+	virtual Bool getRequest( BuddyRequest& req );
+
+	virtual void addResponse( const BuddyResponse& resp );
+	virtual Bool getResponse( BuddyResponse& resp );
+
+	virtual GPProfile getLocalProfileID( void );
+
+	BuddyThreadClass* getThread( void ) { return m_thread; }
+
 private:
-	char m_body[0x74 - 4];
+	MutexClass m_requestMutex;
+	MutexClass m_responseMutex;
+	RequestQueue m_requests;
+	ResponseQueue m_responses;
+	BuddyThreadClass *m_thread;
+	MutexClass m_bfme_rva0063e080_mutex68;
+	Rva0009990D m_bfme_lock70;
 };
 
 GameSpyBuddyMessageQueueInterface* GameSpyBuddyMessageQueueInterface::createNewMessageQueue( void )
@@ -288,7 +316,6 @@ static const char *getWSAErrorString( Int error )
 
 //-------------------------------------------------------------------------
 
-#pragma optimize("gty", on)
 namespace _STL
 {
 template <>

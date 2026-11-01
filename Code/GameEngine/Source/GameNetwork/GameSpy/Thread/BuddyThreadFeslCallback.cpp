@@ -13,25 +13,97 @@
 bool g_buddyFeslReady;
 bool g_buddyFeslFailed;
 
-class BuddyResponse {
+#include "../../../../../../reference/open-bfme-1/inputs/reference/shims/sweep/GameSpy/GP/GP.h"
+#define MAX_BUDDY_CHAT_LEN 128
+class BuddyRequest;
+
+class BuddyResponse
+{
 public:
- int kind;
- int unknown04;
- int result;
- int unknown0C;
- int error;
- char unknown14[0x80];
- int fatal;
- char unknown98[0x864-0x98];
+	enum
+	{
+		BUDDYRESPONSE_LOGIN,
+		BUDDYRESPONSE_DISCONNECT,
+		BUDDYRESPONSE_MESSAGE,
+		BUDDYRESPONSE_REQUEST,
+		BUDDYRESPONSE_STATUS,
+		BUDDYRESPONSE_MAX
+	} buddyResponseType;
+
+	GPProfile profile;
+	GPResult result;
+
+	union
+	{
+		struct
+		{
+			unsigned int date;
+			char nick[GP_NICK_LEN];
+			unsigned short text[MAX_BUDDY_CHAT_LEN];
+		} message;
+
+		struct
+		{
+			char nick[GP_NICK_LEN];
+			char email[GP_EMAIL_LEN];
+			char countrycode[GP_COUNTRYCODE_LEN];
+			unsigned short text[GP_REASON_LEN];
+		} request;
+
+		struct
+		{
+			//GPResult result;
+			GPErrorCode errorCode;
+			char errorString[MAX_BUDDY_CHAT_LEN];
+			GPEnum fatal;
+		} error;
+
+		struct
+		{
+			char nick[GP_NICK_LEN];
+			char email[GP_EMAIL_LEN];
+			char countrycode[GP_COUNTRYCODE_LEN];
+			char location[GP_LOCATION_STRING_LEN];
+			GPEnum status;
+			char statusString[GP_STATUS_STRING_LEN];
+		} status;
+	} arg;
+
+	// BFME's BuddyResponse is 0x864 bytes, not this header's 0x2D8:
+	// GameSpyBuddyMessageQueue::getResponse @0x63C840 copies it with
+	// `mov ecx,0x219` dwords where we emit 0xB6. Only the SIZE is proven,
+	// so the pad sits at the tail and moves no existing member.
+	char _bfme_pad_tail[0x864 - 0x2D8];
+};
+
+
+struct BuddyErrorResponseArm
+{
+	GPResult result;
+	GPErrorCode errorCode;
+	char errorString[MAX_BUDDY_CHAT_LEN];
+	GPEnum fatal;
 };
 typedef char BuddyResponseSize[sizeof(BuddyResponse)==0x864?1:-1];
-class GameSpyBuddyMessageQueueInterface {
+class GameSpyBuddyMessageQueueInterface
+{
 public:
- virtual void unknown0(); virtual void unknown1();
- virtual void unknown2(); virtual void unknown3();
- virtual void unknown4(); virtual void unknown5();
- virtual void unknown6(); virtual void unknown7();
- virtual void addResponse(const BuddyResponse &response);
+	virtual ~GameSpyBuddyMessageQueueInterface() {}
+	virtual void startThread( void ) = 0;
+	virtual void endThread( void ) = 0;
+	virtual bool isThreadRunning( void ) = 0;
+	virtual bool isConnected( void ) = 0;
+	virtual bool isConnecting( void ) = 0;
+
+	virtual void addRequest( const BuddyRequest& req ) = 0;
+	virtual bool getRequest( BuddyRequest& req ) = 0;
+
+	virtual void addResponse( const BuddyResponse& resp ) = 0;
+	virtual bool getResponse( BuddyResponse& resp ) = 0;
+
+	virtual GPProfile getLocalProfileID( void ) = 0;
+
+	static GameSpyBuddyMessageQueueInterface* createNewMessageQueue( void );
 };
 
 extern GameSpyBuddyMessageQueueInterface *TheGameSpyBuddyMessageQueue;
@@ -51,10 +123,11 @@ void Rva00550918::rva00550921(int event, unsigned int opaque, const int *error)
  }
  if(error && *error==-204) {
   BuddyResponse response;
-  response.kind=6;
+  *(int *)&response.buddyResponseType=6;
   response.result=4;
-  response.error=6;
-  response.fatal=1;
+  BuddyErrorResponseArm &errorArm=*(BuddyErrorResponseArm *)&response.arg;
+  errorArm.errorCode=6;
+  errorArm.fatal=1;
   g_buddyFeslReady=false;
   g_buddyFeslFailed=true;
   TheGameSpyBuddyMessageQueue->addResponse(response);

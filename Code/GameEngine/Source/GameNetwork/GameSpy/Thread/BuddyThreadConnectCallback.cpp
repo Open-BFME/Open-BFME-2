@@ -21,7 +21,8 @@
 #include <string>
 // Bind the narrow-string destructor to its verified free-bodied provider.
 namespace _STL { template <> basic_string<char, char_traits<char>, allocator<char> >::~basic_string(); }
-#include "zh_ascii.h"
+#include "../../../../../../reference/shims/bfme2_ascii/ascii_string.h"
+#define ASCIISTRING_H
 
 // BFME 2's WWLib thread base (as in PersistentStorageThread.cpp).
 #define THREAD_H
@@ -59,6 +60,8 @@ template <> void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(ch
 }
 
 #include "GameNetwork/GameSpy/BuddyThread.h"
+#include "../../../../../../reference/shims/bfme2_buddythread/GameNetwork/GameSpy/PeerThread.h"
+#include "mutex.h"
 // bfme link decl-only begin
 namespace _STL { template <> _String_base<char, allocator<char> >::_String_base(allocator<char> const &); }
 namespace _STL { template <> basic_string<char, char_traits<char>, allocator<char> >::basic_string(char const *, allocator<char> const &); }
@@ -71,13 +74,30 @@ namespace _STL { template <> char * basic_string<char, char_traits<char>, alloca
 namespace _STL { template <> char * __char_traits_base<char, int>::move(char *, char const *, unsigned int); }
 // bfme link decl-only end
 
+class Rva00550995Owner
+{
+public:
+	Rva00550995Owner() : m_lock(0) {}
+	void clearLock();
+public:
+	void rva005509AF(CriticalSectionClass::LockClass *newLock);
+private:
+	CriticalSectionClass::LockClass *m_lock;
+public:
+	~Rva00550995Owner() { clearLock(); }
+};
+
+
 class BuddyThreadClass : public ThreadClass
 {
 
 public:
-	BuddyThreadClass() : ThreadClass(0) { m_isNewAccount = m_isdeleting = m_isConnecting = m_isConnected = false; m_profileID = 0; m_lastErrorCode = 0; }
+	BuddyThreadClass(MutexClass *mutex);
+	// Retail C6AC0C slot 1 inherits ThreadClass::Execute (6104B0).
 
+protected:
 	void Thread_Function();
+public:
 
 	void errorCallback( GPConnection *con, GPErrorArg *arg );
 	void messageCallback( GPConnection *con, GPRecvBuddyMessageArg *arg );
@@ -99,6 +119,10 @@ private:
 	Int m_lastErrorCode;
 	Bool m_isdeleting;
 	std::string m_nick, m_email, m_pass;
+	std::string m_s3, m_s4;
+	MutexClass *m_mutex;
+	CriticalSectionClass m_lock;
+	Rva00550995Owner m_owner;
 };
 
 // BFME2's peer request (rowed constructor 0x001EF661 / destructor 0x001EF723
@@ -120,31 +144,8 @@ typedef char PeerRequestViewSize[sizeof(BfmeOpaqueOwnedRecord492) == 0x1EC ? 1 :
 
 // BFME2's 0x348-byte peer response (PeerResponseAssign.cpp); the disconnect
 // reason is the first payload word.
-class PeerResponse
-{
-public:
-	PeerResponse();
-	~PeerResponse();
-	Int peerResponseType;
-	unsigned char m_04[0x10C - 4];
-	Int discReason;					// +0x10C
-	unsigned char m_110[0x348 - 0x110];
-};
 typedef char PeerResponseViewSize[sizeof(PeerResponse) == 0x348 ? 1 : -1];
 
-class GameSpyPeerMessageQueueInterface
-{
-public:
-	virtual ~GameSpyPeerMessageQueueInterface();
-	virtual void startThread( void );
-	virtual void endThread( void );
-	virtual Bool isThreadRunning( void );
-	virtual Bool isConnected( void );
-	virtual Bool isConnecting( void );
-	virtual void addRequest( const BfmeOpaqueOwnedRecord492& req );
-	virtual Bool getRequest( BfmeOpaqueOwnedRecord492& req );
-	virtual void addResponse( const PeerResponse& resp );
-};
 extern GameSpyPeerMessageQueueInterface *TheGameSpyPeerMessageQueue;
 
 struct BuddyLoginArmBFME2	// GameSpy SDK lengths: nick 31, email 51, password 31
@@ -190,7 +191,7 @@ void BuddyThreadClass::connectCallback( GPConnection *con, GPConnectResponseArg 
 			req.password = m_pass;
 			req.email = m_email;
 			req.loginProfileID = arg->profile;
-			TheGameSpyPeerMessageQueue->addRequest( req );
+			TheGameSpyPeerMessageQueue->addRequest( *(const PeerRequest *)&req );
 		}
 		m_isConnected = true;
 	}
@@ -227,7 +228,7 @@ void BuddyThreadClass::connectCallback( GPConnection *con, GPConnectResponseArg 
 				return;
 			}
 			PeerResponse resp;
-			resp.peerResponseType = 1;	// PEERRESPONSE_DISCONNECT
+			*(Int *)&resp.peerResponseType = 1;	// PEERRESPONSE_DISCONNECT
 			resp.discReason = 4;		// DISCONNECT_COULDNOTCONNECT
 			switch (m_lastErrorCode)
 			{
