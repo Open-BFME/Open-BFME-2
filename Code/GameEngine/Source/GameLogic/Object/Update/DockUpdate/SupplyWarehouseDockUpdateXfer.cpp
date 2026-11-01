@@ -30,23 +30,7 @@ class Snapshot;
 
 #include "../../../../../Include/Common/BfmeXfer.h"
 
-class __declspec(novtable) DockUpdate
-{
-protected:
-	virtual void xfer(Xfer *xfer);
-
-private:
-	char m_pad[0x88 - 4];
-};
-
-class SupplyWarehouseDockUpdate : public DockUpdate
-{
-protected:
-	virtual void xfer(Xfer *xfer);
-
-private:
-	int m_boxesStored;
-};
+#include "SupplyWarehouseDockUpdateNative.h"
 
 void SupplyWarehouseDockUpdate::xfer(Xfer *xfer)
 {

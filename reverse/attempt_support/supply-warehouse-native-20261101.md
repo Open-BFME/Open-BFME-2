@@ -52,3 +52,13 @@ no current whole-image census or runtime result is asserted.
 
 Local raw receipts: build/link_seed_pass/incremental-build.log,
 warehouse-before-link.log, warehouse-fold-apply.log, fold-link.log.
+
+## Native-view xfer adoption
+
+The TU-scoped native header records the four target interfaces and +88
+boxes field. It declares concrete derived overrides for all native
+entries; getter/action provider reconciliation is still pending. Only the
+xfer donor adopts it at this step, so no new vftable emitter is asserted.
+Its complete 42-byte row stays exact and its ordinary preview retains
+42 -> 42 B. Frozen declaration check is clean. No header-queue key owns
+this source. Scratch trials and receipts use build/link_seed_pass/.
