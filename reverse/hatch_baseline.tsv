@@ -12352,10 +12352,6 @@ present_unmatched	Code/GameEngine/Source/Common/System/CDManager.cpp	update@CDMa
 present_unmatched	Code/GameEngine/Source/Common/System/DataChunk.cpp	BfmeThingCX::bfmeDropCX	1
 present_unmatched	Code/GameEngine/Source/Common/System/DataChunk.cpp	BfmeThingCY::bfmeReleaseCY	1
 present_unmatched	Code/GameEngine/Source/Common/System/DataChunk.cpp	BfmeThingCZ::bfmeReleaseCZ	1
-present_unmatched	Code/GameEngine/Source/Common/System/DataChunk_ID_DataChunkTableOfContents_QAEIABVAsciiString_Z.cpp	0Mapping@@QAE@XZ	1
-present_unmatched	Code/GameEngine/Source/Common/System/DataChunk_ID_DataChunkTableOfContents_QAEIABVAsciiString_Z.cpp	0OutputChunk@@QAE@XZ	1
-present_unmatched	Code/GameEngine/Source/Common/System/DataChunk_writeArrayOfBytes_DataChunkOutput_QAEXPADH_Z.cpp	0Mapping@@QAE@XZ	1
-present_unmatched	Code/GameEngine/Source/Common/System/DataChunk_writeArrayOfBytes_DataChunkOutput_QAEXPADH_Z.cpp	0OutputChunk@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/System/FileSystem.cpp	0FileSystem@@	1
 present_unmatched	Code/GameEngine/Source/Common/System/FileSystem.cpp	1FileSystem@@	1
 present_unmatched	Code/GameEngine/Source/Common/System/FileSystem.cpp	areMusicFilesOnCD@FileSystem@@	1
