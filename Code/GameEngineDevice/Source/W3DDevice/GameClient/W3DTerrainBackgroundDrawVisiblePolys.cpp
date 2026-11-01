@@ -13,6 +13,7 @@
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
 #include "../../../../Libraries/Include/Lib/IRegion2D.h"
 
+class TerrainTextureClass;
 class TextureClass
 {
 public:
@@ -23,21 +24,34 @@ template <class T>
 class RefCountPtr
 {
 public:
-	RefCountPtr(const RefCountPtr &rhs) : Referent(rhs.Referent)
+	RefCountPtr(const RefCountPtr &rhs) : m_referent(rhs.m_referent)
 	{
-		if (Referent)
-			Referent->Add_Ref();
+		if (m_referent)
+			m_referent->Add_Ref();
 	}
 	~RefCountPtr(void)
 	{
-		if (Referent)
-			Referent->Release_Ref();
+		if (m_referent)
+			m_referent->Release_Ref();
 	}
-	T *Peek(void) const { return Referent; }
+	T *Peek(void) const { return m_referent; }
 
 private:
-	T *Referent;
+	T *m_referent;
 };
+// Specialization is declared before TextureArgumentView can instantiate
+// its base destructor. The shared terrain resource release is rowed at 61ED10.
+struct BfmeResetResource
+{
+    void Release_Ref();
+};
+template <> inline RefCountPtr<TextureClass>::~RefCountPtr();
+template <> inline RefCountPtr<TextureClass>::~RefCountPtr()
+{
+    if (m_referent)
+        ((BfmeResetResource *)m_referent)->Release_Ref();
+}
+
 // The texture handle's copy constructor is the out-of-line 0x000424BB.
 template <> RefCountPtr<TextureClass>::RefCountPtr(const RefCountPtr<TextureClass> &rhs);
 
@@ -88,10 +102,10 @@ namespace FXShader {
 class RenderingMethod
 {
 public:
-	virtual void slot0();
-	virtual void slot1();
-	virtual void slot2();
-	virtual void slot3();
+	virtual void slot0() = 0;
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
 	virtual void rvaSlot4(int pass);
 };
 }
@@ -112,10 +126,10 @@ private:
 	int m_vertexTerrainSize;
 	IndexBufferClass *m_indexTerrain;
 	int m_indexTerrainSize;
-	RefCountPtr<TextureClass> m_terrainTexture;
-	RefCountPtr<TextureClass> m_flatTexture;
-	RefCountPtr<TextureClass> m_normalTexture;
-	RefCountPtr<TextureClass> m_flatNormalTexture;
+	TerrainTextureClass *m_terrainTexture2X;
+	TerrainTextureClass *m_terrainTexture;
+	TerrainTextureClass *m_texture3C;
+	TerrainTextureClass *m_terrainTexture4X;
 	int m_texMultiplier;
 	int m_curNumTerrainVertices;
 	int m_curNumTerrainIndices;
@@ -131,8 +145,8 @@ private:
 	int m_pad6c;
 	IndexBufferClass *m_extraIndices;
 	int m_pad74;
-	int m_extraNumVertices;
-	int m_extraNumIndices;
+	int m_extraVertexCount;
+	int m_extraIndexCount;
 };
 
 void W3DTerrainBackground::rva0011580A(RenderInfoClass &rinfo, bool disableTextures, FXShader::RenderingMethod *method)
@@ -155,9 +169,9 @@ void W3DTerrainBackground::rva0011580A(RenderInfoClass &rinfo, bool disableTextu
 		return;
 
 	if (method) {
-		const RefCountPtr<TextureClass> &base = m_flatTexture.Peek() ? m_flatTexture : m_terrainTexture;
+		const RefCountPtr<TextureClass> &base = (*(RefCountPtr<TextureClass> *)&m_terrainTexture).Peek() ? (*(RefCountPtr<TextureClass> *)&m_terrainTexture) : (*(RefCountPtr<TextureClass> *)&m_terrainTexture2X);
 		((Rva000E19A3TextureArgumentView*)g_00DEBC60)->setBaseTexture(base);
-		const RefCountPtr<TextureClass> &normal = m_flatNormalTexture.Peek() ? m_flatNormalTexture : m_normalTexture;
+		const RefCountPtr<TextureClass> &normal = (*(RefCountPtr<TextureClass> *)&m_terrainTexture4X).Peek() ? (*(RefCountPtr<TextureClass> *)&m_terrainTexture4X) : (*(RefCountPtr<TextureClass> *)&m_texture3C);
 		((Rva000E19A3TextureArgumentView*)g_00DEBC60)->setNormalTexture(normal);
 		method->rvaSlot4(2);
 	}
@@ -165,7 +179,7 @@ void W3DTerrainBackground::rva0011580A(RenderInfoClass &rinfo, bool disableTextu
 	DX8Wrapper::Set_Vertex_Buffer(m_vertexTerrain, 0);
 	DX8Wrapper::Draw_Triangles(0, m_curNumTerrainIndices / 3, 0, m_curNumTerrainVertices);
 
-	bool drawExtra = m_extraNumVertices != 0
+	bool drawExtra = m_extraVertexCount != 0
 		&& m_map->rva000AEAA6(m_xOrigin, m_yOrigin, m_width, false).Peek() != 0;
 	if (drawExtra) {
 		DX8Wrapper::Set_Index_Buffer(m_extraIndices, 0);
@@ -177,7 +191,7 @@ void W3DTerrainBackground::rva0011580A(RenderInfoClass &rinfo, bool disableTextu
 			g_00DEBC60->setRenderingMode(1);
 			method->rvaSlot4(3);
 		}
-		DX8Wrapper::Draw_Triangles(0, m_extraNumIndices / 3, 0, m_extraNumVertices);
+		DX8Wrapper::Draw_Triangles(0, m_extraIndexCount / 3, 0, m_extraVertexCount);
 		if (method) {
 			g_00DEBC60->setRenderingMode(0);
 			method->rvaSlot4(3);
