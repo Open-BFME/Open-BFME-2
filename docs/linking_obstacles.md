@@ -15812,7 +15812,14 @@ binds `??_7Rva00499934@@6B@`/`_B2`/`_Root` -> `6BRva00499934_E1@@@` (0x00C50250)
 (same folded 0x00C49188 as PropagandaTowerBehaviorConstructor.cpp's
 `6BBehaviorModuleInterface`). Mechanism 4: Rva0024A797Grandchildren.cpp (1,280 B;
 StructureToppleUpdate tables vs StructureToppleUpdate.cpp's ZH copies), ThreatFinderUpdateDtor
-(125 B), AudioLoopUpgradeCtorModuleFactory (133 B).
+(125 B), AudioLoopUpgradeCtorModuleFactory (133 B). AudioLoopUpgradeCtorModuleFactory's
+primary table differs from AudioLoopUpgradeDtor.cpp's only in slot 0
+(`??_EAudioLoopUpgrade@@UAEPAXI@Z` vs `MAE`): its view leaves the destructor implicit (public);
+declaring the rowed `protected: virtual ~AudioLoopUpgrade();` (`??1AudioLoopUpgrade@@MAE@XZ`,
+0x004B7B20) should make the copies equal (file held by StarkillerHDX's AudioLoopUpgrade.cpp TU
+merge; not tried). ThreatFinderUpdateDtor (canonical UpdateModule) and ThreatFinderUpdate.cpp
+(private views, first in link order, held) differ in primary slots 1-4 and 12 and the
+update-interface slots 1-2: both views need the class's native overrides.
 Remaining / next check: the open rows above. Pattern: after a base-header adoption,
 grep `__identifier("??_7<Class>@@6B<old base>@@@")` in sibling units, and check whether
 any adopting unit defines a constructor (it then emits the base's inline destructor and
