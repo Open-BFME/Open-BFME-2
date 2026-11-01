@@ -13845,10 +13845,10 @@ TheLocomotorSetNames). Evidence at base e57b7de842, index 987ee56fdc:
 - The five consumers and the 14 providers still LINK, with sizes unchanged.
 
 Every one of the five tables has one userData list with no external real-named definition, and those
-ten words stay as `(const void *)0x...` literals inside the typed entries. The pre-commit
-`link_debt.py --staged` counts only casts, so it sees 0 -> 10 and refuses, even though the census count
-(`addresses()`) drops by 230 and no address is new. The refusal is recorded as `false-reject
-link_debt.staged` in re_attempts.log. A `static` copy of a list does not help either: data_rows refuses a
+ten words stay as `(const void *)0x...` literals inside the typed entries. Those are integer-address
+casts, real link debt, and the pre-commit `link_debt.py --staged` rightly refuses them (0 -> 10), even
+though the census count drops by 230. The first `false-reject` log row was retracted (a `void` row, then
+a plain `blocked` row). A `static` copy of a list does not help either: data_rows refuses a
 relocation to a TU-local symbol. The ten words and what each needs:
 
 - 0xC1B6D8 (Rotation): defined only as address-named `g_00C1B6D8` (FXParticleSystemModuleParsers.cpp, no
@@ -13861,8 +13861,7 @@ relocation to a TU-local symbol. The ten words and what each needs:
   TheAutoAcquireEnemiesNames, TheShadowNames under DEFINE_*_NAMES). Each of those names already belongs
   to another copy's data row, and data_rows allows one row per name.
 
-Either change unblocks the patch: link_debt --staged also credits raw image words that leave the file,
-or the ten lists get real external names. The 14 `mov eax,imm32` getters are unchanged (see "Hard-coded
+The patch lands once the ten lists have real external names, each with a data row. The 14 `mov eax,imm32` getters are unchanged (see "Hard-coded
 image addresses: name_globals has no candidates").
 
 ### MissileUpdate composition (2026-10-29, seat yasinschroeder-claudeb2)

@@ -46,18 +46,15 @@ Ten userData words point at lists with no external real-named definition, so the
   Each of those names already belongs to another copy's data row, and data_rows allows one row per name.
   A `static` copy is no fix either: data_rows.verify_row refuses a relocation to a TU-local symbol.
 
-The pre-commit `link_debt.py --staged` counts only cast literals (`link_debt.literals`). It sees
-0 -> 10 and refuses the commit. The census count (`link_debt.addresses`, every image hex literal)
-falls from 254 to 24 for the same file. All ten addresses were already present as raw words, so none
-is new. The rejection is recorded as `false-reject link_debt.staged` in reverse/re_attempts.log.
+The pre-commit `link_debt.py --staged` refuses the commit (casts 0 -> 10), and it is right to. All
+ten counted casts embed an image address (`(const void *)0x00DCD4D0`, ...), so they are real link debt
+even though each address was already in the file as a raw word. The symbol-based
+`(FieldParseProc)&__identifier(..)` casts are not counted, which is also correct. This was first
+logged as a false reject, then retracted (`void` row in reverse/re_attempts.log, followed by a plain
+`blocked` row). Do not change link_debt for this case.
 
 ## To land
 
-Either of two changes unblocks it:
-
-- `link_debt --staged` also credits raw image words that leave the file. For example, it could compare
-  `addresses()` as well as `literals()`, or refuse only when both counts grow.
-- The ten lists get real external names first.
-
-After that, apply the patch with `git apply`, rebuild the six sources, and run link_check on the
-consumers and providers.
+The ten lists need real external names (each with a data row) before the patch can land. Once they
+have them, replace each `(const void *)0x...` with the named list, apply the patch with `git apply`,
+rebuild the six sources, and run link_check on the consumers and providers.
