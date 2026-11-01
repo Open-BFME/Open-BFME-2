@@ -2,11 +2,7 @@
 // platformsdk
 #include <windows.h>
 
-class OpaqueRefCounted
-{
-public:
-	void Release_Ref();
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 struct BfmePoolHolder88
 {

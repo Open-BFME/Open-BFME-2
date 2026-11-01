@@ -5,7 +5,7 @@
 // ctor owner Rva0010F7EE and its virtual method; header count4 zero
 // is scheduled by an inline base ctor before handle copy8.
 // The C++ vtable supplies both owned entries, with no literal address.
-class OpaqueRefCounted {public:void Release_Ref();};
+#include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 class Rva0036CA00Str {public:__declspec(nothrow) Rva0036CA00Str(const Rva0036CA00Str&);~Rva0036CA00Str(){if(item)((OpaqueRefCounted*)item)->Release_Ref();}void*item;};
 #include <new>
 struct RefCountedBase {volatile long count;__forceinline RefCountedBase():count(0){} virtual ~RefCountedBase(){}};

@@ -6,7 +6,7 @@
 // WB 0x01569E00 supplies a transfer algorithm lead, not a target class name.
 // The exception identity comes from retail throw-info CFFD18 and its rowed
 // constructor/copy/destructor, independently of that WB lead.
-class OpaqueRefCounted { public: void Release_Ref(); };
+#include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 struct BfmePoolHolder88 { char m_pad[0x88]; OpaqueRefCounted m_ref; };
 class BfmePoolRef10
 {

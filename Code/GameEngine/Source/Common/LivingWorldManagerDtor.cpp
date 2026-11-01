@@ -154,11 +154,7 @@ public:
 };
 extern LivingWorldLogic *TheLivingWorldLogic;
 
-class OpaqueRefCounted
-{
-public:
-	void Release_Ref();
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 #include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
 

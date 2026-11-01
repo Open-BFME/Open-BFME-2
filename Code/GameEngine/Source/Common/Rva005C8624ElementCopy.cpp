@@ -14,7 +14,7 @@ namespace _STL {
 template <> const unsigned int& max<unsigned int>(const unsigned int&, const unsigned int&);
 }
 
-class OpaqueRefCounted { public: void Release_Ref(); };
+#include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 struct BfmePoolHolder88 { char m_pad[0x88]; OpaqueRefCounted m_ref; };
 class BfmePoolRef10
 {

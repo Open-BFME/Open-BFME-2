@@ -7,11 +7,7 @@
 
 #include "unicode_string.h"
 
-class OpaqueRefCounted
-{
-public:
-	void Release_Ref();
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 class Rva004E6935Ref
 {

@@ -3,7 +3,7 @@
 // member order. The upper native4D960C destroys that pair at+4 then its own
 // reference at+0. Deleting wrapper4D96E4 and tree payload4D9B4B confirm dtor
 // identity. Original aggregate types unknown; no donor labels inferred.
-class OpaqueRefCounted { public: void Release_Ref(); };
+#include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 class Rva002390CB {
     void *unknown00;
     OpaqueRefCounted *owner04;

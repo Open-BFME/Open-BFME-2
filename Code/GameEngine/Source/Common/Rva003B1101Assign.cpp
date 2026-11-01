@@ -66,11 +66,7 @@ struct OpaqueRefElement4
 	OpaqueRefElement4 &operator=(const OpaqueRefElement4 &other);
 };
 
-class OpaqueRefCounted
-{
-public:
-	virtual ~OpaqueRefCounted();
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 struct FourInts
 {

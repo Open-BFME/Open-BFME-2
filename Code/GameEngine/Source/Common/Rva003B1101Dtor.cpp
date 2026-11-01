@@ -17,10 +17,7 @@ public:
 private:
 	unsigned m_unknown;
 };
-class OpaqueRefCounted {
-public:
-	void Release_Ref();
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 // Retail calls free directly (the game allocator), not through the CRT
 // import: read <stdlib.h> without dllimport.

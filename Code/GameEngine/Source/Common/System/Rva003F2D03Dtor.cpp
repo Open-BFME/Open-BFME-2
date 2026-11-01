@@ -51,11 +51,7 @@ public:
 		values[5] = 0;
 	}
 };
-class OpaqueRefCounted
-{
-public:
-	void Release_Ref();
-};
+#include "../../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 #include "../../../../Libraries/Include/Lib/BfmeE16.h"
 namespace _STL {

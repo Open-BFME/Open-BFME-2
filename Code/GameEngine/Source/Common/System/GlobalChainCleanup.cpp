@@ -223,11 +223,7 @@ void rva007B6700()
 // 0x007B77EC (16B): atexit cleanup of the reference-counted pointer at
 // VA 0x00DFEBE4 -- the inline RefCountPtr release, tail-calling the rowed
 // OpaqueRefCounted::Release_Ref (0x00050ED3) when it is set. Address names.
-class OpaqueRefCounted
-{
-public:
-    void Release_Ref();
-};
+#include "../../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 // Native loader-zero pointer, released by the registered cleanup below.
 OpaqueRefCounted *g_Va00DFEBE4;
 

@@ -4,12 +4,7 @@
 // Rva0051D93 then restores derived tables BC5324 and BC5320. Evidence: leaf lane,
 // caller 0x00059933, callee 0x00051D22 rowed in OpaqueScalarDeletingDtorsB09,
 // Release_Ref rowed, vtables BC5324 and BC5320 per Rva005813E comment in that TU.
-class OpaqueRefCounted
-{
-public:
-    virtual ~OpaqueRefCounted();
-    void Release_Ref();
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 struct OpaqueRefElement4
 {

@@ -79,11 +79,7 @@ template _STL::vector<Rva0026F4F4Element, _STL::allocator<Rva0026F4F4Element> > 
 // bfme link decl-only BfmeE16
 namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
 
-class OpaqueRefCounted
-{
-public:
-	void Release_Ref();
-};
+#include "../../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 struct OpaqueRefPtr
 {

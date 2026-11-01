@@ -25,11 +25,7 @@ template <> StringBase<char>::~StringBase();
 
 typedef StringBase<char> AsciiString;
 
-class OpaqueRefCounted
-{
-public:
-	void Release_Ref();
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 class OpaqueRefPtr
 {

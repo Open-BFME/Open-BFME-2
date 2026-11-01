@@ -14,11 +14,7 @@ private:
 template <> StringBase<char>::~StringBase();
 
 
-class OpaqueRefCounted
-{
-public:
-	void Release_Ref();
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 struct Rva00469D86Holder0C
 {

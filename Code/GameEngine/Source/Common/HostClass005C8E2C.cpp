@@ -6,11 +6,7 @@
 // Evidence: calls to 0x51950 copy-ctor, 0x519BD clear, 0x5C87F8 bool,
 // 0x5C8E0A method, Release_Ref at 0x50ED3; caller 0x56A430.
 
-class OpaqueRefCounted
-{
-public:
-	void Release_Ref();
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 struct BfmePoolHolder88
 {

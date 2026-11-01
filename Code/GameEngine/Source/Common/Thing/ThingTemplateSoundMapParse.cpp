@@ -20,7 +20,7 @@
 struct FieldParse;
 #include "../../../Include/Common/INI/INI.h"
 struct FieldParse { const char *token; void (*parse)(INI *, void *, void *, const void *); const void *userData; int offset; };
-class OpaqueRefCounted { public: void Release_Ref(); };
+#include "../../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 class Rva002390CB {
 public:
  Rva002390CB();

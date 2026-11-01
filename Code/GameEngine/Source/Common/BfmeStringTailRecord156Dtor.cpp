@@ -3,10 +3,7 @@
 // if (m_ptr) m_ptr->Release_Ref() tail-jmp to rowed
 // ?Release_Ref@OpaqueRefCounted@@QAEXXZ. Pins name the dtor; callers include
 // FamilyDeletingDtors2 ??_G plus STL destroy helpers.
-class OpaqueRefCounted {
-public:
-	void Release_Ref();
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 class BfmeStringTailRecord156 {
 public:
 	~BfmeStringTailRecord156();

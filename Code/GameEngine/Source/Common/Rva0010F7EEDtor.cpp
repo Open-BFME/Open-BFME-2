@@ -12,11 +12,7 @@
 
 extern "C" const void *const __identifier("??_7Rva00051E4D@@6B@")[];  // vftable 0x00BC5128
 
-class OpaqueRefCounted
-{
-public:
-	void Release_Ref();
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 struct Rva0010F7EEHolder
 {

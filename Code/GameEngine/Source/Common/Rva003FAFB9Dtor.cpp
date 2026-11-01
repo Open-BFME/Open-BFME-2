@@ -8,10 +8,7 @@ class Rva003FAC3F {
 public:
     void rva003FAC3F();
 };
-class OpaqueRefCounted {
-public:
-    void Release_Ref();
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 struct RvaHolder14 {
     OpaqueRefCounted *m_ptr;
     ~RvaHolder14() { if (m_ptr != 0) m_ptr->Release_Ref(); }

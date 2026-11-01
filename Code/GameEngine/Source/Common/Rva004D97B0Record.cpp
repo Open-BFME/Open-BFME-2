@@ -4,7 +4,7 @@
 // WB1293550/1293730 confirm branch-local temporaries and default path.
 // 4D990E scans Object244 modules for a movement-sensitive template and feeds
 // the name-based resolver. Original owner and method names remain unknown.
-class OpaqueRefCounted { public: void Release_Ref(); };
+#include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 class Rva002390CB { public:
     Rva002390CB();
     Rva002390CB(const Rva002390CB&);

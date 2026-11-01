@@ -35,7 +35,7 @@ void _STLP_alloc_proxy<_List_node<int> *, _List_node<int>, allocator<_List_node<
   allocator<_List_node<int> >().deallocate(__p, __n);
 }
 }
-class OpaqueRefCounted {public:void Release_Ref();};
+#include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 struct Rva002CD169RefSlot { unsigned address; __forceinline Rva002CD169RefSlot(){} __forceinline Rva002CD169RefSlot(const void *p):address((unsigned)p){} __forceinline ~Rva002CD169RefSlot(){if(address)((OpaqueRefCounted*)address)->Release_Ref();} };
 
 

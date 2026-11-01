@@ -18,11 +18,7 @@
 // are two address-derived views of one refcounted handle; the factory is
 // called through a placeholder spelling whose return type agrees with
 // enqueue's parameter so the result is constructed in place as in retail.
-class OpaqueRefCounted
-{
-public:
-	void Release_Ref();
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 class Rva0036CA00Str
 {

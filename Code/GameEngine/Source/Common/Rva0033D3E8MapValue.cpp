@@ -11,7 +11,7 @@
 // AsciiString's inline isEmpty would change the body. The78B tree lookup's
 // AsciiString mapped type is unused by this key-only algorithm. No new pins.
 #include "ascii_string.h"
-class OpaqueRefCounted { public: void Release_Ref(); };
+#include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 class Rva002390CB {
 public:
  __declspec(nothrow) Rva002390CB();

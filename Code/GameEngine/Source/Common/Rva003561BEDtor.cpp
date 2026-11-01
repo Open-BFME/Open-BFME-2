@@ -66,7 +66,7 @@ class Shell {
 };
 extern Shell *TheShell;
 
-struct OpaqueRefCounted { void Release_Ref(); };
+#include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 struct Rva0036CA00Str {
 	OpaqueRefCounted *m_ref;
 	Rva0036CA00Str(const Rva0036CA00Str &);

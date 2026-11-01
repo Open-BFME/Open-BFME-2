@@ -19,12 +19,7 @@ public:
 	volatile long m_refCount;
 };
 
-class OpaqueRefCounted
-{
-public:
-	virtual ~OpaqueRefCounted();
-	void Release_Ref();
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 class Rva0036CA00Str;
 

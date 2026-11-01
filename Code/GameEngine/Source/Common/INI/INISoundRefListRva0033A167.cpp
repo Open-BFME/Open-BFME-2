@@ -27,11 +27,7 @@ public:
 	static void Rva0033A167_ParseSoundRefList(INI *ini, void *instance, void *store, const void *userData);
 };
 
-class OpaqueRefCounted
-{
-public:
-	void Release_Ref();
-};
+#include "../../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 // Same 4-byte element the rowed push_back 0x0005A084 is instantiated on.
 struct Rva0005A084Element

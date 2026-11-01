@@ -36,7 +36,7 @@ template <> struct less<AsciiString>
 };
 }
 
-class OpaqueRefCounted { public: void Release_Ref(); };
+#include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 class Rva002390CB { public:
     Rva002390CB();
     Rva002390CB(const Rva002390CB&);

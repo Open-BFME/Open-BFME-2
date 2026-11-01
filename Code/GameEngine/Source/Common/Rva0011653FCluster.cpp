@@ -7,11 +7,7 @@
 // and copied +8 object. The base and member names below are address-derived
 // structural views; identity is unproven.
 
-class OpaqueRefCounted
-{
-public:
-	void Release_Ref();
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 class Rva0010F70A
 {

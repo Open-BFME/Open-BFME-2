@@ -174,11 +174,7 @@ template <> __declspec(dllimport) __forceinline
 void **vector<void*>::end()
 { return _M_finish; }
 }
-class OpaqueRefCounted
-{
-public:
-	void Release_Ref();
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 struct BfmePoolHolder88
 {
 	unsigned char m_pad[0x88];

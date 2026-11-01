@@ -6,11 +6,7 @@
 // ?Release_Ref@OpaqueRefCounted 0x00050ED3 when set. Caller: rowed
 // ??_GRva00A86CE 0x00051139. Names address-derived.
 
-class OpaqueRefCounted
-{
-public:
-	void Release_Ref();
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 struct Rva00A86CEOwner
 {

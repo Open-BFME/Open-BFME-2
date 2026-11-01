@@ -6,11 +6,7 @@
 // and method_005C8E0A then clear byte +0x46. Evidence: same +8/+0x46 layout
 // and callee trio as 0x005C8E2C callers 0x005C8FBD/0x005C901B/0x005C908B.
 
-class OpaqueRefCounted
-{
-public:
-	void Release_Ref();
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 struct BfmePoolHolder
 {
