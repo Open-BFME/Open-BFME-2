@@ -10,6 +10,7 @@
 // destructor runs the rowed tree destructor 0x001E6F27; its out-of-line copy
 // for the unwind map is the rowed 0x001E6FE5), and SubsystemInterface last.
 // Owner and element identities are not established.
+#include <map>
 #include <vector>
 
 class Rva001E72B4Owned;
@@ -41,14 +42,6 @@ struct Rva001E72B4Node
 	int m_key;
 	Rva001E72B4Owned *m_value;
 };
-
-namespace _STL {
-template <class _Dummy> class _Rb_global
-{
-public:
-	static _Rb_tree_node_base *_M_increment(_Rb_tree_node_base *);
-};
-}
 
 class Rva001E6731
 {
