@@ -79,13 +79,7 @@ extern class AudioManager *TheAudio;
 
 float LookupFocusChannelVolume(int channelIndex);
 
-class AudioManager
-{
-public:
-	void regainFocus();
-public:
-	void regainFocusThunk();
-};
+#include "../../../Include/Common/GameAudio.h"
 
 // ---- from Code/GameEngine/Source/Main/AudioManagerRegainFocus.cpp
 

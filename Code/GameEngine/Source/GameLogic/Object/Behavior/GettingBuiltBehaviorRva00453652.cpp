@@ -155,13 +155,7 @@ public:
 };
 extern BuildAssistant *TheBuildAssistant;
 
-class AudioManager : public Rva00453652Slots<25>
-{
-public:
-	virtual UnsignedInt addAudioEvent(const BfmeAudioEventPrefix136 *event);	// slot 25
-	virtual void gap26();
-	virtual void removeAudioEvent(UnsignedInt handle);	// slot 27
-};
+#include "../../../../Include/Common/GameAudio.h"
 extern AudioManager *TheAudio;
 
 class ControlBar

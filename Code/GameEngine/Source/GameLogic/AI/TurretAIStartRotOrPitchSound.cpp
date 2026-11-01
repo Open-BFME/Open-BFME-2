@@ -77,11 +77,7 @@ template <> class TurretAudioMore<0> : public TurretAudioPart1
 {
 };
 
-class AudioManager : public TurretAudioMore<26>
-{
-public:
-	virtual bool isCurrentlyPlaying(int handle);	// slot 52
-};
+#include "../../../Include/Common/GameAudio.h"
 extern AudioManager *TheAudio;
 
 class TurretAI

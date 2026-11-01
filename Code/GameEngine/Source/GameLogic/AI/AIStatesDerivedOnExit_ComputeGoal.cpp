@@ -232,11 +232,7 @@ enum AudioHandleSpecialValues
 	AHSV_NoSound = 1,
 	AHSV_FirstHandle = 5
 };
-class AudioManager : public AIDeadStateAISlots<27>
-{
-public:
-	virtual void removeAudioEvent(AudioHandle handle) = 0; // slot 27
-};
+#include "../../../Include/Common/GameAudio.h"
 extern AudioManager *TheAudio;
 // What the path's 0x003642DF returns by value (16 bytes): a node and a
 // position (as in AIUpdateInterfacePrivateCommands.cpp). Unnamed.

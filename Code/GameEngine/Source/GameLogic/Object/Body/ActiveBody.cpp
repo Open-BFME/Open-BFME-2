@@ -536,11 +536,7 @@ class Rva002D9C2F { public: OpaqueRefElement4 &rva002D9C2F(const OpaqueRefElemen
 
 class Rva002D9531 { public: void rva002D9531(int v); };
 
-class AudioManager : public VSlots<25>
-{
-public:
-	virtual int addAudioEvent(const BfmeAudioEventPrefix136 *eventToAdd) = 0;	// +0x64
-};
+#include "../../../../Include/Common/GameAudio.h"
 
 extern AudioManager *TheAudio;
 

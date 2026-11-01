@@ -21,7 +21,8 @@ extern GameLogic*TheGameLogic;
 int GetGameLogicRandomValue(int,int,char*,int);
 class Rva0036CA00Str {public:OpaqueRefCounted*item;__declspec(nothrow) Rva0036CA00Str(const Rva0036CA00Str&);~Rva0036CA00Str(){if(item)item->Release_Ref();}};
 template<int N>class VSlots:public VSlots<N-1>{public:virtual void gap(char(*)[N])=0;};template<>class VSlots<0>{};
-class AudioManager:public VSlots<25>{public:virtual unsigned addAudioEvent(const BfmeAudioEventPrefix136*)=0;};extern AudioManager*TheAudio;
+#include "../../../../Include/Common/GameAudio.h"
+extern AudioManager*TheAudio;
 template<class T>struct PtrVector{T*begin;T*end;T*storage;int size()const{return end-begin;}T&operator[](int i)const{return begin[i];}};
 struct InstantDeathBehaviorModuleData{char pad[0x38];PtrVector<const FXList*>fx;PtrVector<ObjectCreationList*>ocls;PtrVector<const WeaponTemplate*>weapons;PtrVector<Rva0036CA00Str>sounds;};
 #include "../../../../Include/GameLogic/Module/DieModule.h"

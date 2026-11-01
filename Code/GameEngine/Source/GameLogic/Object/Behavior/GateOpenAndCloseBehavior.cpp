@@ -393,13 +393,7 @@ template <> class VSlots<0>
 {
 };
 
-class AudioManager : public VSlots<25>
-{
-public:
-	virtual UnsignedInt addAudioEvent(const BfmeAudioEventPrefix136 *eventToAdd) = 0;
-	virtual void slot26() = 0;
-	virtual void removeAudioEvent(UnsignedInt handle) = 0;
-};
+#include "../../../../Include/Common/GameAudio.h"
 
 extern AudioManager *TheAudio;
 

@@ -52,13 +52,7 @@ public:
 template <> class VSlots<0>
 {
 };
-class AudioManager : public VSlots<25>
-{
-public:
-	virtual AudioHandle addAudioEvent(const BfmeAudioEventPrefix136 *eventToAdd) = 0;
-	virtual void slot26() = 0;
-	virtual void removeAudioEvent(AudioHandle handle) = 0;
-};
+#include "../../../Include/Common/GameAudio.h"
 extern AudioManager *TheAudio;
 
 // Owning sound handle: zeroed on entry, released on exit.

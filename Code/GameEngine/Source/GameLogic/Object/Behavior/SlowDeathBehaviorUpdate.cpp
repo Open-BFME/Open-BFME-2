@@ -138,20 +138,7 @@ public:
 };
 extern WeaponStore *TheWeaponStore;
 
-class AudioManager
-{
-public:
-#define AUDIO_SLOT(n) virtual void audioSlot##n();
-	AUDIO_SLOT(00) AUDIO_SLOT(01) AUDIO_SLOT(02) AUDIO_SLOT(03)
-	AUDIO_SLOT(04) AUDIO_SLOT(05) AUDIO_SLOT(06) AUDIO_SLOT(07)
-	AUDIO_SLOT(08) AUDIO_SLOT(09) AUDIO_SLOT(10) AUDIO_SLOT(11)
-	AUDIO_SLOT(12) AUDIO_SLOT(13) AUDIO_SLOT(14) AUDIO_SLOT(15)
-	AUDIO_SLOT(16) AUDIO_SLOT(17) AUDIO_SLOT(18) AUDIO_SLOT(19)
-	AUDIO_SLOT(20) AUDIO_SLOT(21) AUDIO_SLOT(22) AUDIO_SLOT(23)
-	AUDIO_SLOT(24)
-#undef AUDIO_SLOT
-	virtual int addAudioEvent(const BfmeAudioEventPrefix136 *event);
-};
+#include "../../../../Include/Common/GameAudio.h"
 extern AudioManager *TheAudio;
 
 // One refcounted audio-event-info handle; the copy is the rowed 0x000A8C7C.
