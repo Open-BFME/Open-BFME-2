@@ -195,3 +195,4 @@ GameInfo,Code/GameEngine/Include/GameNetwork/GameInfo.h,existing header; contrac
 StateMachine,Code/GameEngine/Include/Common/StateMachineClass.h,existing header; contract class_contracts/StateMachine.json; 37/219 sampled units adopt
 GameTextInterface,Code/GameEngine/Include/GameClient/GameText.h,existing header; contract class_contracts/GameTextInterface.json; 166/246 sampled units adopt
 GlobalData,Code/GameEngine/Include/Common/GlobalData.h,existing header; contract class_contracts/GlobalData.json; 132/300 sampled units adopt
+GameSlot,Code/GameEngine/Include/GameNetwork/GameInfo.h,existing header; contract class_contracts/GameSlot.json; 38/150 sampled units adopt
