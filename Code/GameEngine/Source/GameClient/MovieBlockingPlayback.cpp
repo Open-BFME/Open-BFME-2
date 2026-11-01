@@ -23,7 +23,7 @@ class Keyboard:public MovieSlots<10>{public:virtual void pump()=0;};extern Keybo
 class GameEngine:public MovieSlots<23>{public:virtual void pump()=0;};extern GameEngine*TheGameEngine;
 class BfmeDfe6e4{public:void rva00225492();};extern BfmeDfe6e4*theBfmeDfe6e4;
 class VideoStreamInterface:public MovieSlots<6>{public:virtual unsigned advance(int)=0;};
-class Display{public:bool rva0025CC7A(bool);};
+#include "../../Include/GameClient/Display.h"
 // Current master owns the rectangle helper at0025C3AA under its neutral ABI view.
 class Rva0025C3AA{public:void rva0025C3AA();};
 class W3DDisplay:public MovieSlots<66>{public:virtual bool startMovie(AsciiString,int,int,int)=0;virtual void gap67()=0;virtual void close()=0;virtual void gap69()=0;virtual void gap70()=0;virtual void gap71()=0;virtual void gap72()=0;virtual void gap73()=0;virtual void gap74()=0;virtual void gap75()=0;virtual void gap76()=0;virtual void gap77()=0;virtual void gap78()=0;virtual void gap79()=0;virtual void gap80()=0;virtual void gap81()=0;virtual void gap82()=0;virtual void gap83()=0;virtual void gap84()=0;virtual void gap85()=0;virtual void gap86()=0;virtual void gap87()=0;virtual void gap88()=0;virtual void gap89()=0;virtual void gap90()=0;virtual void gap91()=0;virtual void gap92()=0;virtual void gap93()=0;virtual void gap94()=0;virtual void gap95()=0;virtual void gap96()=0;virtual void gap97()=0;virtual void gap98()=0;virtual void render(bool)=0;

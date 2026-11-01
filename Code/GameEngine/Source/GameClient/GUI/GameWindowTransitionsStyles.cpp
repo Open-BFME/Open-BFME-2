@@ -732,53 +732,7 @@ private:
 	ICoord2D m_imageSize; // retail this+0x24
 };
 
-class Display { public:
-virtual void unused00();
-virtual void unused01();
-virtual void unused02();
-virtual void unused03();
-virtual void unused04();
-virtual void unused05();
-virtual void unused06();
-virtual void unused07();
-virtual void unused08();
-virtual void unused09();
-virtual void unused10();
-virtual void unused11();
-virtual void unused12();
-virtual void unused13();
-virtual void unused14();
-virtual void unused15();
-virtual void unused16();
-virtual void unused17();
-virtual void unused18();
-virtual void unused19();
-virtual void unused20();
-virtual void unused21();
-virtual void unused22();
-virtual void unused23();
-virtual void unused24();
-virtual void unused25();
-virtual void unused26();
-virtual void unused27();
-virtual void unused28();
-virtual void unused29();
-virtual void unused30();
-virtual void unused31();
-virtual void unused32();
-virtual void unused33();
-virtual void unused34();
-virtual void unused35();
-virtual void unused36();
-virtual void unused37();
-virtual void unused38();
-virtual void unused39();
-virtual void unused40();
-virtual void unused41();
-virtual void setClipRegion(IRegion2D *);
-virtual void unused43();
-virtual void enableClipping(Bool);
-};
+#include "../../../Include/GameClient/Display.h"
 
 class ButtonFlashTransition
 {

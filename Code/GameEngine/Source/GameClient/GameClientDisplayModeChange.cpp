@@ -31,21 +31,7 @@ private:
 extern Shell *TheShell;
 
 // ZH's Display slots 16..22.
-class Display
-{
-public:
-	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
-	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
-	virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
-	virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
-	virtual unsigned int getWidth();
-	virtual unsigned int getHeight();
-	virtual void setBitDepth(unsigned int bitDepth);
-	virtual unsigned int getBitDepth();
-	virtual void setWindowed(bool windowed);
-	virtual bool getWindowed();
-	virtual bool setDisplayMode(unsigned int xres, unsigned int yres, unsigned int bitdepth, bool windowed);
-};
+#include "../../Include/GameClient/Display.h"
 
 extern Display *TheDisplay;
 

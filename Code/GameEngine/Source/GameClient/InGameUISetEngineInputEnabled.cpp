@@ -45,48 +45,7 @@ void InGameUI::setInputEnabled(bool enabled)
 // slots/fields. Original receiver and new slot names remain unproved.
 class View;
 #define DRAW_SLOT(N) virtual void unused##N() = 0;
-class Display
-{
-public:
-    DRAW_SLOT(0)
-    DRAW_SLOT(1)
-    DRAW_SLOT(2)
-    DRAW_SLOT(3)
-    DRAW_SLOT(4)
-    DRAW_SLOT(5)
-    DRAW_SLOT(6)
-    DRAW_SLOT(7)
-    DRAW_SLOT(8)
-    DRAW_SLOT(9)
-    DRAW_SLOT(10)
-    DRAW_SLOT(11)
-    DRAW_SLOT(12)
-    DRAW_SLOT(13)
-    DRAW_SLOT(14)
-    DRAW_SLOT(15)
-    DRAW_SLOT(16)
-    DRAW_SLOT(17)
-    DRAW_SLOT(18)
-    DRAW_SLOT(19)
-    DRAW_SLOT(20)
-    DRAW_SLOT(21)
-    DRAW_SLOT(22)
-    DRAW_SLOT(23)
-    DRAW_SLOT(24)
-    DRAW_SLOT(25)
-    DRAW_SLOT(26)
-    DRAW_SLOT(27)
-    DRAW_SLOT(28)
-    DRAW_SLOT(29)
-    DRAW_SLOT(30)
-    DRAW_SLOT(31)
-    DRAW_SLOT(32)
-    DRAW_SLOT(33)
-    DRAW_SLOT(34)
-    DRAW_SLOT(35)
-    virtual View *getFirstView(); // native +0x90
-    virtual View *getNextView(View *);
-};
+#include "../../Include/GameClient/Display.h"
 class GameWindowManager
 {
 public:

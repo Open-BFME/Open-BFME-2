@@ -451,18 +451,7 @@ struct QuadVertex
 
 // The alternate UV extent comes from Display's width and height virtuals at
 // +0x40 and +0x44. Retail converts these as unsigned extents.
-class Display
-{
-public:
-	virtual void f00() = 0; virtual void f01() = 0; virtual void f02() = 0;
-	virtual void f03() = 0; virtual void f04() = 0; virtual void f05() = 0;
-	virtual void f06() = 0; virtual void f07() = 0; virtual void f08() = 0;
-	virtual void f09() = 0; virtual void f10() = 0; virtual void f11() = 0;
-	virtual void f12() = 0; virtual void f13() = 0; virtual void f14() = 0;
-	virtual void f15() = 0;
-	virtual unsigned int getWidth() = 0;
-	virtual unsigned int getHeight() = 0;
-};
+#include "../../../../GameEngine/Include/GameClient/Display.h"
 
 extern View *TheTacticalView;
 

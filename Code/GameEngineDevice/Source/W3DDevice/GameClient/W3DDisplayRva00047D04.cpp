@@ -179,11 +179,7 @@ public:
 	Rva00047D04Inner *m_08;
 };
 
-class Display
-{
-public:
-	void DrawStaticImage(int index, int arg);
-};
+#include "../../../../GameEngine/Include/GameClient/Display.h"
 
 class Rva000B3FD0
 {

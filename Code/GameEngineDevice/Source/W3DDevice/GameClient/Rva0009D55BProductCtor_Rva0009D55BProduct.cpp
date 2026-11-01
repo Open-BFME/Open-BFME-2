@@ -373,13 +373,7 @@ void Rva0009D55BProduct::rva0009C144()
 // clears depth and stencil only and runs slot 8's blend, taking +0x13C from
 // TheLivingWorldManager's +0x38 float under +0x19; the three render words
 // get fixed opacities 0, 0 and 0.8 before the same scene render tail.
-class Display
-{
-public:
-	D55B_SLOTS16(d0)
-	virtual unsigned int getWidth();	// slot 16
-	virtual unsigned int getHeight();	// slot 17
-};
+#include "../../../../GameEngine/Include/GameClient/Display.h"
 extern Display *TheDisplay;
 struct Rva0009C4FCLivingWorldView { unsigned char m_pad[0x18]; bool m_active; bool m_19; };
 

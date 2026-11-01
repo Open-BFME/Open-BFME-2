@@ -11,40 +11,12 @@
 // this+0xFC/0x100/0x104/0x108. Honest-address name: owner proven Display,
 // signature void __thiscall(float,float,float,float) from ret 0x10.
 
-class Display
-{
-public:
-	virtual void s00();
-	virtual void s01();
-	virtual void s02();
-	virtual void s03();
-	virtual void s04();
-	virtual void s05();
-	virtual void s06();
-	virtual void s07();
-	virtual void s08();
-	virtual void s09();
-	virtual void s10();
-	virtual void s11();
-	virtual void s12();
-	virtual void s13();
-	virtual void s14();
-	virtual void s15();
-	virtual unsigned getWidth();
-	virtual unsigned getHeight();
-	void rva002B2466(float a, float b, float c, float d);
-private:
-	unsigned char m_pad[0xFC - 4];
-	float m_0FC;
-	float m_100;
-	float m_104;
-	float m_108;
-};
+#include "../../Include/GameClient/Display.h"
 
 void Display::rva002B2466(float a, float b, float c, float d)
 {
-	m_0FC = (float)getWidth() * a;
-	m_100 = (float)getHeight() * b;
-	m_104 = (float)getWidth() * c;
-	m_108 = (float)getHeight() * d;
+	fieldFC = (float)getWidth() * a;
+	field100 = (float)getHeight() * b;
+	field104 = (float)getWidth() * c;
+	field108 = (float)getHeight() * d;
 }

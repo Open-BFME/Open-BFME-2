@@ -301,13 +301,7 @@ float __cdecl Rva0009AAA8Get(float x);
 // clears depth and stencil only and runs slot 8's blend, taking +0x13C from
 // TheLivingWorldManager's +0x38 float under +0x19; the three render words
 // get fixed opacities 0, 0 and 0.8 before the same scene render tail.
-class Display
-{
-public:
-	D55B_SLOTS16(d0)
-	virtual unsigned int getWidth();	// slot 16
-	virtual unsigned int getHeight();	// slot 17
-};
+#include "../../../../GameEngine/Include/GameClient/Display.h"
 extern Display *TheDisplay;
 // ?rva0009C422@Rva0009D55BProduct@@UAEX_N@Z retail 0x0009C422 (218 bytes,
 // ret 4; slot 20 of the product table): remembers the camera's aspect ratio

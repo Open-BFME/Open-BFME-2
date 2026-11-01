@@ -35,32 +35,7 @@ public:
 // BFME2 Display carries three more virtuals ahead of getWidth than ZH's, so
 // getWidth/getHeight/getBitDepth/getWindowed land at +0x40/+0x44/+0x4C/+0x54
 // (all four call sites retail-measured; +0x48/+0x50 uncalled).
-class Display
-{
-public:
-	virtual void slot00();
-	virtual void slot04();
-	virtual void slot08();
-	virtual void slot0C();
-	virtual void slot10();
-	virtual void slot14();
-	virtual void slot18();
-	virtual void slot1C();
-	virtual void slot20();
-	virtual void slot24();
-	virtual void slot28();
-	virtual void slot2C();
-	virtual void slot30();
-	virtual void slot34();
-	virtual void slot38();
-	virtual void slot3C();
-	virtual int getWidth();
-	virtual int getHeight();
-	virtual void slot48();
-	virtual unsigned int getBitDepth();
-	virtual void slot50();
-	virtual bool getWindowed();
-};
+#include "../../../../GameEngine/Include/GameClient/Display.h"
 
 // Matched DIR32 sites establish TheDisplay at VA 0x00DFE9D8. This is in the
 // PE .data zero-fill tail, so the retail startup value is null.

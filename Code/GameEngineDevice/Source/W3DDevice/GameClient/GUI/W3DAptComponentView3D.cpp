@@ -104,28 +104,7 @@ inline void CameraClass::Set_Viewport(const Vector2 &min, const Vector2 &max)
 	cameraViewportFields->FrustumValid = false;
 }
 // Display vtable slots 0x40/0x44 return the unsigned viewport extents.
-class Display
-{
-public:
-	virtual void d00();
-	virtual void d01();
-	virtual void d02();
-	virtual void d03();
-	virtual void d04();
-	virtual void d05();
-	virtual void d06();
-	virtual void d07();
-	virtual void d08();
-	virtual void d09();
-	virtual void d10();
-	virtual void d11();
-	virtual void d12();
-	virtual void d13();
-	virtual void d14();
-	virtual void d15();
-	virtual unsigned getWidth();
-	virtual unsigned getHeight();
-};
+#include "../../../../../GameEngine/Include/GameClient/Display.h"
 extern Display *TheDisplay;
 bool Rva00118660Call(void *, void *);
 class LightClass;

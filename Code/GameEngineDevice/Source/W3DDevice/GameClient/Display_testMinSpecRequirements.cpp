@@ -16,12 +16,7 @@ enum StaticGameLODLevel
 	STATIC_GAME_LOD_LEVEL_FIRST
 };
 
-class Display
-{
-public:
-	virtual Bool testMinSpecRequirements( Bool *videoPassed, Bool *cpuPassed,
-		Bool *memPassed, StaticGameLODLevel *idealVideoLevel, Real *cpuTime );
-};
+#include "../../../../GameEngine/Include/GameClient/Display.h"
 
 Bool Display::testMinSpecRequirements( Bool *videoPassed, Bool *cpuPassed,
 	Bool *memPassed, StaticGameLODLevel *idealVideoLevel, Real *cpuTime )

@@ -682,12 +682,7 @@ public:
 	static int Get_Texture_Reduction(void);
 };
 
-class Display
-{
-public:
-	BFME_PAD_VIRTUAL8(0) BFME_PAD_VIRTUAL8(1)
-	virtual unsigned int getWidth();
-};
+#include "../../../../GameEngine/Include/GameClient/Display.h"
 
 extern Display *TheDisplay;
 

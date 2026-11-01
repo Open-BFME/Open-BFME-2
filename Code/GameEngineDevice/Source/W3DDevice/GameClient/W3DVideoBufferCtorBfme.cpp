@@ -86,11 +86,7 @@ protected:
     bool m_flag_28;
 };
 
-class Display
-{
-public:
-    void Rva006F2890RegisterVideoBuffer(VideoBuffer *buffer);
-};
+#include "../../../../GameEngine/Include/GameClient/Display.h"
 
 extern Display *TheDisplay;
 

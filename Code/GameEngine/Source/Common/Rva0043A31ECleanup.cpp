@@ -7,11 +7,7 @@
 // 0x009FE9D8; caller 0x0043A351 ctor calls here; chain lane.
 extern class Display *TheDisplay;
 
-class Display
-{
-public:
-	void rva0025D9CB(bool flag);
-};
+#include "../../Include/GameClient/Display.h"
 
 
 class AudioManager

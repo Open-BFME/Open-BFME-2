@@ -22,13 +22,7 @@ char pad[0x18-4];Matrix3D transform;
 class CameraClass:public RenderObjClass {public:
 void Get_View_Plane(Vector2&,Vector2&)const;
 };
-class Display {public:
-virtual void v00();virtual void v01();virtual void v02();virtual void v03();virtual void v04();
-virtual void v05();virtual void v06();virtual void v07();virtual void v08();virtual void v09();
-virtual void v10();virtual void v11();virtual void v12();virtual void v13();virtual void v14();
-virtual void v15();
-virtual unsigned int getWidth();virtual unsigned int getHeight();
-};
+#include "../../../../GameEngine/Include/GameClient/Display.h"
 extern Display *TheDisplay;
 class Rva0009BF33Point {public:int x;int y;
  Rva0009BF33Point operator-(const Rva0009BF33Point &v) const {Rva0009BF33Point r;r.x=x-v.x;r.y=y-v.y;return r;}

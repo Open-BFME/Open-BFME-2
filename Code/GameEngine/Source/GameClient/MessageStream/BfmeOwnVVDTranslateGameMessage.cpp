@@ -93,13 +93,7 @@ public:
 	virtual float slot1F8(); // +0x1F8
 };
 
-class Display
-{
-public:
-	V(00) V(01) V(02) V(03) V(04) V(05) V(06) V(07) V(08) V(09) V(0A) V(0B) V(0C) V(0D) V(0E) V(0F)
-	virtual unsigned int getWidth(); // +0x40
-	virtual unsigned int getHeight(); // +0x44
-};
+#include "../../../Include/GameClient/Display.h"
 
 class GameClient
 {

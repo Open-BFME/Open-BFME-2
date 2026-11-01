@@ -121,15 +121,7 @@ public:
 	virtual void getLocation(BfmeViewLocation *location); // +0x170
 };
 
-class Display
-{
-public:
-	virtual void v00(); virtual void v04(); virtual void v08(); virtual void v0C(); virtual void v10(); virtual void v14();
-	virtual void v18(); virtual void v1C(); virtual void v20(); virtual void v24(); virtual void v28(); virtual void v2C();
-	virtual void v30(); virtual void v34(); virtual void v38(); virtual void v3C();
-	virtual unsigned int getWidth(); // +0x40
-	virtual unsigned int getHeight(); // +0x44
-};
+#include "../../../Include/GameClient/Display.h"
 
 
 class Rva002D3627Host

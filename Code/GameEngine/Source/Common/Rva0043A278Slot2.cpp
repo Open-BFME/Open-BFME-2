@@ -99,11 +99,7 @@ public:
 
 #include "../../Include/GameLogic/Weapon.h"
 
-class Display
-{
-public:
-	void rva0025D9CB(bool flag);
-};
+#include "../../Include/GameClient/Display.h"
 
 class Rva00355D66
 {
