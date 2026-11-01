@@ -20001,3 +20001,7 @@ Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayCreateLightPulse.cpp
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayCreateLightPulse.cpp|param|W3DDisplay::createLightPulse|c,71b0a5fb47abfa5ac3c02f9a,drz-k7,n30e-k7,w-4471b1f6edef,2026-11-01
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayCreateLightPulse.cpp|param|W3DDisplay::createLightPulse|d,e74ce7402c5f60f617989f06,drz-k7,n30e-k7,w-4471b1f6edef,2026-11-01
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayCreateLightPulse.cpp|local|W3DDisplay::createLightPulse|tmp,9f1708047d2f3e4f5f38da52,drz-k7,n30e-k7,w-4471b1f6edef,2026-11-01
+Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCameraModFinalLookTowardBfme.cpp|class||Rva00740AE0Elem,28996c9e3973e5003aa51564,drz-k10,n30g-k10,w-88a32c4f7da7,2026-11-01
+Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCameraModFinalLookTowardBfme.cpp|class||Rva00740440CameraPath,cf4d248db3be39c57a932396,drz-k10,n30g-k10,w-88a32c4f7da7,2026-11-01
+Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCameraModLookTowardBfme.cpp|class||Rva0073FF30Elem,0da2836bb989ac691049464c,drz-k10,n30g-k10,w-88a32c4f7da7,2026-11-01
+Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCameraModLookTowardBfme.cpp|class||Rva0073FF30CameraPath,06240859e3167803cc6a88c0,drz-k10,n30g-k10,w-88a32c4f7da7,2026-11-01
