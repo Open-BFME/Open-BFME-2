@@ -1,4 +1,5 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /FIzh_ascii.h /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib -Ireference/open-bfme-1/game/GameEngineDevice/Source/W3DDevice/GameClient /O1 /G7 /arch:SSE
+// stlport
 // Native [00112230,00112259),41B, RET4 and [0011234C,001125BE),626B, RET4.
 // BFME 2 W3DTerrainBackground::updateCenter (WorldBuilder: same file, with
 // "Too many cameras used for culling, increase MAX_CULLING_CAMERAS" and the
@@ -14,31 +15,10 @@
 
 #include <math.h>
 
-class Vector3
-{
-public:
-	Vector3() {}
-	Vector3(float x, float y, float z) { X = x; Y = y; Z = z; }
-	Vector3(const Vector3 &vec) { X = vec.X; Y = vec.Y; Z = vec.Z; }
-	float Length2() const { return X * X + Y * Y + Z * Z; }
-	float X;
-	float Y;
-	float Z;
-};
+#include "../../../../../reference/shims/bfme_vector3_full_link/vector3_full_link.h"
+#include "../../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"
 
-inline Vector3 operator-(const Vector3 &a, const Vector3 &b)
-{
-	return Vector3(a.X - b.X, a.Y - b.Y, a.Z - b.Z);
-}
-
-class AABoxClass
-{
-public:
-	Vector3 Center;
-	Vector3 Extent;
-};
-
-#define BFME_PAD_VIRTUAL(n) virtual void pad##n();
+#define BFME_PAD_VIRTUAL(n) virtual void pad##n() = 0;
 #define BFME_PAD_VIRTUAL8(n) BFME_PAD_VIRTUAL(n##0) BFME_PAD_VIRTUAL(n##1) \
 	BFME_PAD_VIRTUAL(n##2) BFME_PAD_VIRTUAL(n##3) BFME_PAD_VIRTUAL(n##4) \
 	BFME_PAD_VIRTUAL(n##5) BFME_PAD_VIRTUAL(n##6) BFME_PAD_VIRTUAL(n##7)
@@ -65,12 +45,6 @@ public:
 
 private:
 	int m_numRefs;
-};
-
-class RenderObjClass
-{
-public:
-	Vector3 Get_Position(void) const;
 };
 
 template <class T> class RefCountPtr
@@ -160,17 +134,16 @@ private:
 
 	__forceinline void clearTextures()
 	{
-		m_terrainTexture.clear();
-		m_terrainTexture2.clear();
+		((BfmeResetTextureRef *)&m_terrainTexture)->clear();
+		((BfmeResetTextureRef *)&m_terrainTexture4X)->clear();
 	}
 
 	int m_cullStatus[MAX_CULLING_CAMERAS];
 	AABoxClass m_bounds;
 	unsigned char m_pad24[0x38 - 0x24];
-	BfmeResetTextureRef m_terrainTexture;
-	unsigned char m_pad39[0x40 - 0x39];
-	BfmeResetTextureRef m_terrainTexture2;
-	unsigned char m_pad41[0x44 - 0x41];
+	TextureClass *m_terrainTexture;
+	unsigned char m_pad3C[4];
+	TextureClass *m_terrainTexture4X;
 	int m_texMultiplier;
 	unsigned char m_pad48[0x64 - 0x48];
 	float m_cameraDistance;
