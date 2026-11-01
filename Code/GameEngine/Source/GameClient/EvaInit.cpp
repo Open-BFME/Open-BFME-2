@@ -10,13 +10,7 @@
 // +0x1C) is processed with the +0x28 member, the +0x34 member with the
 // +0x48 member, and the +0x5C member is sized to the event count; the
 // helpers' names are not recovered.
-template <typename T> struct BfmeStringData
-{
-	int refCount;
-	unsigned short length;
-	unsigned short capacity;
-	T text[1];
-};
+#include "../../Include/Common/BfmeStringData.h"
 
 #include "ascii_string.h"
 

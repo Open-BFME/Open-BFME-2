@@ -6,13 +6,7 @@
 // bfmeSetText pin 0x00225301 releaseBuffer 0x00036410; callers 0x0050F37E
 // 0x0050FCC1; precedent Rva005FDF1CApt donor same callees globals.
 // Sibling of 0x0050F0AB chain.
-template <typename T> struct BfmeStringData
-{
-	int refCount;
-	unsigned short length;
-	unsigned short capacity;
-	T text[1];
-};
+#include "../../../Include/Common/BfmeStringData.h"
 
 #include "ascii_string.h"
 

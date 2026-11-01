@@ -17,13 +17,7 @@
 // 0x00222A8B with owner at +0x274; global 0x009FE4CC; caller 0x004161F1.
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 
-template <typename T> struct BfmeStringData
-{
-	int refCount;
-	unsigned short length;
-	unsigned short capacity;
-	T text[1];
-};
+#include "../../../../../Include/Common/BfmeStringData.h"
 
 typedef int Int;
 

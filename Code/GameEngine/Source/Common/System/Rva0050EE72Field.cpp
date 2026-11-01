@@ -3,13 +3,7 @@
 // APT field setter: key.format APT:_level%u.%s_field%d via rowed 0x00038150
 // plus pinned bfmeSetText 0x00225301 plus releaseBuffer 0x00036410;
 // team AsciiString empty via ""; manager 0x009FE4CC.
-template <typename T> struct BfmeStringData
-{
-	int refCount;
-	unsigned short length;
-	unsigned short capacity;
-	T text[1];
-};
+#include "../../../Include/Common/BfmeStringData.h"
 #include "ascii_string.h"
 #include "unicode_string.h"
 class BfmeAptWindowManager

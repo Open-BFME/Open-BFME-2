@@ -135,13 +135,7 @@ public:
 // plus initFromINI 0x0002DE78; caller none; free-function cdecl (ret 0).
 struct FieldParse;
 extern const struct FieldParse g_0080D720[];
-template <typename T> struct BfmeStringData
-{
-	int refCount;
-	unsigned short length;
-	unsigned short capacity;
-	T text[1];
-};
+#include "../../../../Include/Common/BfmeStringData.h"
 #include <new>
 #define _STLP_NO_EXCEPTIONS 1
 #define _STLP_USE_STATIC_LIB 1

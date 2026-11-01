@@ -5,13 +5,7 @@
 // Caller 0x0057E058 supplies MapMetaData with filename at +0x50 and
 // player count at +0x20. The bool getter includes the player count in the title.
 
-template <typename T> struct BfmeStringData
-{
-    int refCount;
-    unsigned short length;
-    unsigned short capacity;
-    T text[1];
-};
+#include "../../../Include/Common/BfmeStringData.h"
 
 #include "ascii_string.h"
 

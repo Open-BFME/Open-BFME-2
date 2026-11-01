@@ -8,13 +8,7 @@
 // BFME2 adds Subsystem base plus two maps and the subsystem name.
 // Caller at 0x0004C51D constructs the global. Prev/next are stlport hint rows.
 
-template <typename T> struct BfmeStringData
-{
-	int refCount;
-	unsigned short length;
-	unsigned short capacity;
-	T text[1];
-};
+#include "../../../Include/Common/BfmeStringData.h"
 
 #include "ascii_string.h"
 

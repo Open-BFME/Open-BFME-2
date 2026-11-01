@@ -5,13 +5,7 @@
 // "APT:_level%u.%s_PlayerName" at VA 0x879F60, rowed AsciiString::format
 // 0x38150, pinned bfmeSetText 0x225301, rowed releaseBuffer 0x36410,
 // manager at VA 0xDFE4CC, default %s at VA 0xBBAC1C, 2 callers.
-template <typename T> struct BfmeStringData
-{
-    int refCount;
-    unsigned short length;
-    unsigned short capacity;
-    T text[1];
-};
+#include "../../../Include/Common/BfmeStringData.h"
 #include "ascii_string.h"
 #include "unicode_string.h"
 class BfmeAptWindowManager

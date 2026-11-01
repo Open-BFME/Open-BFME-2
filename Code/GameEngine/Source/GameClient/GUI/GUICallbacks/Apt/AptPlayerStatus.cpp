@@ -197,13 +197,7 @@ void _bfme_closeAptScreen(const AsciiString &name);
 // cleanup via rowed releaseBuffer 0x00036410 with EH_prolog. Ret 0xC is 3 args.
 // Callers 0x004E4886/0x004E48A2/0x004E4910/0x004E4991 in 0x004E476C.
 // Layout and flags from AptPlayerNameSet.cpp sibling using same callees.
-template <typename T> struct BfmeStringData
-{
-    int refCount;
-    unsigned short length;
-    unsigned short capacity;
-    T text[1];
-};
+#include "../../../../../Include/Common/BfmeStringData.h"
 
 extern GameLogic *TheGameLogic;
 
