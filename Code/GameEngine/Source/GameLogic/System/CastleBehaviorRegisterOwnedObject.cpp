@@ -323,7 +323,7 @@ void Rva00396BC5SetCastleId(_STL::vector<ObjectID>* ids,ObjectID id) {
 // Native RVA0039792B,203B; invoked by unpack after ownership setup.
 // WB confirms Pathfinder::AddObjectToPathfindMap, but leaves this helper
 // unnamed. Native vectors +0x5C/+0x50 and pending ID +0x38, template bit60.
-class Pathfinder { public: void AddObjectToPathfindMap(Object*); void RemoveObjectFromPathfindMap(Object*); };
+#include "../../../Include/GameLogic/AIPathfind.h"
 class AI;
 extern AI* TheAI;
 static __forceinline void addCastlePathObject(Object* object) {

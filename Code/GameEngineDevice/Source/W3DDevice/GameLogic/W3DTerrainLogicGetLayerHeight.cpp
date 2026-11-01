@@ -27,11 +27,7 @@ public:
 	float rva002E7482(int layer);
 };
 
-class Pathfinder
-{
-public:
-	float GetWallHeight(PathfindLayerEnum layer, const Coord3D *loc, Coord3D *normal);
-};
+#include "../../../../GameEngine/Include/GameLogic/AIPathfind.h"
 
 #include "../../../../GameEngine/Include/GameLogic/AI.h"
 extern AI *TheAI;

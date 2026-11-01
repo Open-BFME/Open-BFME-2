@@ -47,11 +47,7 @@ __forceinline long fast_float2long_round(Real f)
 #define MAP_HEIGHT_SCALE 0.0390625f
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/AIPathfind.h
-class Pathfinder
-{
-public:
-	Int GetGroundLayer(const Coord3D *pos);
-};
+#include "../../../../GameEngine/Include/GameLogic/AIPathfind.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/AI.h
 #include "../../../../GameEngine/Include/GameLogic/AI.h"

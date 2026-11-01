@@ -270,12 +270,7 @@ class BFMEPathfinderMapShim
 public:
 	void addObjectToPathfindMap(Object *obj);
 };
-class Pathfinder
-{
-public:
-	void AddObjectToPathfindMap(Object*);
-	bool AdjustDestination(Object *obj, const LocomotorSet &set, Coord3D *dst, const Coord3D *group);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 class AI : public SystemBase, public Snapshot
 {
 public:

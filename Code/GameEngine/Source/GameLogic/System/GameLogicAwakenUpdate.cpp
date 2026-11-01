@@ -65,11 +65,7 @@ public:
 	void rva001EB130();
 };
 
-class Pathfinder
-{
-public:
-	void RemoveObjectFromPathfindMap(Object *obj);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 #include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;

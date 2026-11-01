@@ -286,13 +286,7 @@ public:
 	virtual void setLocalPlayerIndex(int playerIndex);                   // +0x14
 };
 
-class Pathfinder
-{
-public:
-	void NewMap(void);
-	void ProcessPathfindQueue(void);
-	void AddObjectToPathfindMap(Object *obj);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 // loadAllObjects reads the three tree names at +0xDC..E4 and scale at +0xE8.
 // The field offsets are retail facts; the tree meanings follow the donor.

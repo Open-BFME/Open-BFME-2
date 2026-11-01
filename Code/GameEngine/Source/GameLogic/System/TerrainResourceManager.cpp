@@ -171,7 +171,7 @@ __forceinline int cellInteger(float value)
 		return TEXT; \
 	}
 
-class Pathfinder {public: void GetCellType(int,void*,void*,void*,int);};
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 class AI {public: char pad00[0x10]; Pathfinder *pathfinder10;};
 
