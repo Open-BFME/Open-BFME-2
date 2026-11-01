@@ -55,8 +55,6 @@ class Image;
 struct Rva005D2355In;
 const Image *Rva005D2355Get(Rva005D2355In *);
 int GetMaxCommandPoints(void *);
-class Rva00318FBE { public: int rva00318FBE(); };
-class Rva00319B0AOwner { public: void rva00319B0A(); };
 class Rva0042D703PtrChaseField { public: int get() const; };
 class Rva0042D69DPtrChaseField { public: int get() const; };
 class Rva0042D6B4PtrChaseField { public: int get() const; };
@@ -84,12 +82,6 @@ public:
     Rva005CF22CBig *m_owner;
 };
 // Existing one-vptr observer-base view: its emitted vtable is retail C3702C.
-class Rva00575E4EBase2 {
-public:
-    Rva00575E4EBase2() {}
-    virtual ~Rva00575E4EBase2() {}
-};
-
 class Rva004FC275 {public:void rva004FC299();};
 struct Rva005D23BBSelection;
 namespace StrategicInGameUI {const Image *__cdecl GetSelectionPortrait(const Rva005D23BBSelection *);}

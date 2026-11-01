@@ -72,24 +72,3 @@ void Rva001F8DE2::rva001F8DE2(int a, int b)
         linkHelper->m3(a, b);
     m_next.rva001F8960(a, b);
 }
-class Rva001F9424 {
-public:
-    void rva001F9424(int a, int b);
-private:
-    Rva001F6492Helper *m_ptr;
-    Rva001F8DE2 m_next;
-};
-class Rva001FA4C6 {
-public:
-    void rva001FA4C6(int a, int b);
-private:
-    Rva001F6492Helper *m_ptr;
-    Rva001F9424 m_next;
-};
-class Rva001FA7CE {
-public:
-    void rva001FA7CE(int a, int b);
-private:
-    Rva001F6492Helper *m_ptr;
-    Rva001FA4C6 m_next;
-};

@@ -213,34 +213,6 @@ Rva004444EBBase *Rva0059F35E::rva0059F35E()
 // slots at 0x00072F49 and 0x00072F64: state 2 on the +0x0C object then
 // virtual slot 2 of the +0x08 object (false without one); resp. virtual slot
 // 6 of the +0x08 object then state 0.
-struct Rva00072F49State
-{
-	char m_pad00[0x44];
-	Int m_44;
-};
-class Rva00072F49Target
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual bool v02(Int a, Int b);
-	virtual void v03();
-	virtual void v04();
-	virtual void v05();
-	virtual void v06();
-};
-class Rva00072F49
-{
-public:
-	bool rva00072F49(Int a, Int b);
-	void rva00072F64();
-private:
-	Int m_00;
-	Int m_04;
-	Rva00072F49Target *m_08;
-	Rva00072F49State *m_0C;
-};
-
 // slot at 0x003FF271: stores the argument at +0x14, runs virtual slot 17
 // when the object at VA 0x00DFE78C is in state 3, then sets +0x11.
 struct Rva003FF271Global

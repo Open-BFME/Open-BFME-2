@@ -42,12 +42,6 @@ public:
 	SegLineRendererClass();
 };
 
-class BfmeDualVtableReleaseDtor
-{
-public:
-	BfmeDualVtableReleaseDtor();
-};
-
 class Rva0030ADED
 {
 public:
@@ -64,18 +58,6 @@ class Rva005CB35A
 {
 public:
 	Rva005CB35A();
-};
-
-class Rva005E74CF
-{
-public:
-	Rva005E74CF();
-};
-
-class SimpleFileFactoryClass
-{
-public:
-	SimpleFileFactoryClass();
 };
 
 namespace _STL

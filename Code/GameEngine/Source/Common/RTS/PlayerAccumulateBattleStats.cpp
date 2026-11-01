@@ -78,12 +78,6 @@ private:
 	unsigned char m_bytes[4];
 };
 
-class Rva0039B709
-{
-public:
-	unsigned int rva0039B718();
-};
-
 extern void __cdecl rva004EE8B8(ObjectCountMap *destination, ObjectCountMap *source);
 
 class Player
@@ -111,15 +105,8 @@ void Player::accumulateRTSBattleStatsIntoLivingWorldScoreKeeper()
 }
 
 class ThingTemplate;
-struct ScoreMergeTemplateView {char pad00[8];bool overridden;char pad09[0x64-9];AsciiString name;};
 // Same ABI wrapper as ThingTemplateCountMap.cpp: unsigned stored addresses
 // are keys and mapped counts occupy four bytes. Application type stays opaque.
-struct TemplateCountKey {
- const ThingTemplate *pointer;
- __forceinline TemplateCountKey() {}
- __forceinline TemplateCountKey(const ThingTemplate *thingTemplate):pointer(thingTemplate) {}
- __forceinline bool operator<(const TemplateCountKey &v)const{return pointer<v.pointer;}
-};
 namespace _STL {template<class T,class L,class R> static inline bool operator!=(const _Rb_tree_iterator<T,L>&a,const _Rb_tree_iterator<T,R>&b){return a._M_node!=b._M_node;}}
 class ThingFactory;
 extern ThingFactory *TheThingFactory;

@@ -17,22 +17,6 @@ typedef bool Bool;
 
 class ConnectionManager;
 
-class Rva0057429ADwordField
-{
-public:
-	Int get() const;
-};
-class Rva0028A65EDwordField
-{
-public:
-	Int get() const;
-};
-class Rva004E05E9DwordField
-{
-public:
-	Int get() const;
-};
-
 class DisconnectManager
 {
 public:

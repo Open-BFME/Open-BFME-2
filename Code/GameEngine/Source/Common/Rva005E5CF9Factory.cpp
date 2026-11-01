@@ -68,25 +68,12 @@ class Rva006004C1
 public:
 	Rva006004C1(unsigned int first, unsigned int second, void *context);
 };
-struct Rva005CE2D3
-{
-	char m_prefix[8];
-	Rva005E5CF9In m_context;
-	RvaF1Handle rva005CE2D3(unsigned int argument);
-};
 struct Rva005CEA92
 {
 	char m_prefix[8];
 	Rva005E5CF9In m_context;
 	RvaF1Handle rva005CEA92(unsigned int argument);
 };
-struct Rva005FB418
-{
-	char m_prefix[8];
-	Rva005E5CF9In m_context;
-	RvaF1Handle rva005FB418(unsigned int first, unsigned int second);
-};
-
 RvaF1Handle Rva005CEA92::rva005CEA92(unsigned int argument)
 {
 	return RvaF1Handle(new Rva005E91A9(argument, &m_context));
@@ -252,12 +239,6 @@ class Rva005FB3D9
 	char m_pad[0x20];
 public:
 	Rva005FB3D9(unsigned int first, unsigned int second, void *context);
-};
-struct Rva005E9761
-{
-	char m_prefix[8];
-	Rva005E5CF9In m_context;
-	RvaF1Handle rva005E9761(unsigned int first, unsigned int second);
 };
 struct Rva005E97D5
 {

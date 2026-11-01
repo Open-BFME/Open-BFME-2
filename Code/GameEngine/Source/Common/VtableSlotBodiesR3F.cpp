@@ -176,15 +176,6 @@ Rva00SlotFloat2Copy Rva0029A872::rva0029A872()
 	return m_value808;
 }
 
-class Rva00095343
-{
-public:
-	Rva00SlotFloat3Copy rva00095343();
-private:
-	char m_pad00[0xD4];
-	Rva00SlotFloat3Copy m_valueD4;
-};
-
 // 0x0004C6C6 (slot 51 of W3DGameClient's table): truncates its float
 // argument into the global at 0x00DE204C.
 class Rva0004C6C6
@@ -357,21 +348,6 @@ void Rva003425A0::onExit(int)
 }
 
 // 0x0039D840: the +0x21C integer of the object at +0x2C as a float.
-struct Rva0039D840Target
-{
-	char m_pad00[0x21C];
-	int m_value21C;
-};
-
-class Rva0039D840
-{
-public:
-	float rva0039D840();
-private:
-	char m_pad00[0x2C];
-	Rva0039D840Target *m_target2C;
-};
-
 // 0x003ABEFD / 0x003A3700 / 0x003A36F7 / 0x003F7257: float constants
 // (0.7, 1.0 and 0.0) taking none, one, one and two arguments.
 class Rva003ABEFD

@@ -72,29 +72,6 @@ public:
 };
 extern Rva002A8F24 *TheSkirmishAIManager;
 
-struct Rva005A990BThing
-{
-	char m_pad000[0x120];
-	unsigned char m_120;
-};
-
-class Object
-{
-public:
-	char m_pad000[4];
-	Rva005A990BThing *m_04;
-	char m_pad008[0x94 - 8];
-	unsigned char m_94;
-	char m_pad095[0x438 - 0x95];
-	unsigned char m_438;
-};
-
-class Rva002C589B
-{
-public:
-	Object *rva002C5DA6();
-};
-
 // WorldBuilder sets bit indices 8 and 9 in the +0x2E0 mask and 90
 // in the +0x2FC mask. Target measures seven words in each accessed view.
 struct TacticKindMask

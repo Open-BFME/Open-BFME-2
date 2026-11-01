@@ -4,22 +4,10 @@
 // (0x005F3F6B / 0x005F3FF4) then call pinned second (0x005E3AAA / 0x005E4087)
 // with (this2member-0x10 as this, [this-0x0C] as int). Ret void, this only.
 // Address-derived.
-class Rva005F3F6B
-{
-public:
-	void rva005F3F6B();
-};
-
 class Rva005F3FF4
 {
 public:
 	void rva005F3FF4();
-};
-
-class Rva005E39AE
-{
-public:
-	void rva005E3AAA(int a);
 };
 
 class Rva005E4087
@@ -33,12 +21,6 @@ class Rva005E3E41Inner
 public:
 	int m_pad0;
 	int m_4;
-};
-
-class Rva005E3E41
-{
-public:
-	void rva005E3E41();
 };
 
 class Rva005E4389

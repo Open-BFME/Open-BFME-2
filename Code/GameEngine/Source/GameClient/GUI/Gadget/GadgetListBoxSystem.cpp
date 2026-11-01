@@ -137,16 +137,6 @@ public:
 	GameFont *m_font;
 };
 
-class FXParticleSystem
-{
-public:
-	template <int N> class CategoryModuleClass
-	{
-	public:
-		const char *getName() const;
-	};
-};
-
 class Rva00313D6CDwordField
 {
 public:
@@ -563,16 +553,7 @@ static Int addEntry(UnicodeString *string, Int color, Int row, Int column, GameW
 	return row;
 }
 
-struct RightClickStruct
-{
-	Int mouseX;
-	Int mouseY;
-	Int pos;
-};
-
 // doAudioFeedback 0x00323E1C, rowed as a method on the window pointer.
-class Rva00323E1C { public: void rva00323E1C(); };
-
 struct AddMessageStruct
 {
 	Int row;

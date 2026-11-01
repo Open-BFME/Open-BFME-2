@@ -22,11 +22,6 @@ struct Rva005FD788Inner
 	char m_name[1];
 };
 
-struct Rva005FD788Outer
-{
-	Rva005FD788Inner *m_ptr;
-};
-
 class BfmeAptWindowManager
 {
 public:
@@ -297,18 +292,6 @@ StrategicHUD::ArmyUnitSwapperMovieClip::Impl::Impl(ArmyUnitSwapperMovieClip *own
 // is xor-edi + 2x cmp-mem,edi; assigning the receiver inside the level argument
 // keeps the zero hoist and the factory load between the argument pushes.
 namespace AptUtils { const char *SkipLevelN(const char *path); int LevelIndexFromTarget(const char *path); }
-class Rva005F4AED
-{
-public:
-	Rva005F4AD7 rva005F4AED(int level, const AsciiString &leaf);
-};
-struct Rva002BED91
-{
-	TargetRef00217D4C *m_ptr;
-	void clear();
-};
-
-
 // The owner's ctor 0x005FDE24 (ret 0x10): vtable 0x0087A2E8 and its Impl
 // (new 0x50) built with this and the four arguments.
 StrategicHUD::ArmyUnitSwapperMovieClip::ArmyUnitSwapperMovieClip(int level, const AsciiString &name, const TreeHintRef00217D4C &top, const TreeHintRef00217D4C &bottom)

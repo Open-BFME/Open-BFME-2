@@ -53,24 +53,6 @@ void Rva004E54B8::rva004E54B8()
 	Rva004E52DC::rva004E52DC();
 }
 
-class Rva0025C010
-{
-public:
-	void rva0025C010();
-};
-
-class Rva005961D6
-{
-public:
-	void rva00596269();
-};
-
-class Rva005962E7 : public Rva005961D6
-{
-public:
-	void rva005962E7();
-};
-
 // Coord3D: shared header/view; no private copy.
 #define COORD3D_VIEW_EXTERN_DTOR
 #include "../../../Libraries/Include/Lib/Coord3DCtorView.h"

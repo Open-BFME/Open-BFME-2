@@ -51,17 +51,6 @@ struct Rva002AAC9ERange {float const *begin,*end;};
 struct AsciiRange002ADD75 {AsciiString const *begin,*end;};
 int Rva002AAC9EEqual(const Rva002AAC9ERange *,const Rva002AAC9ERange *);
 int Rva002ADD75Equal(const AsciiRange002ADD75 *,const AsciiRange002ADD75 *);
-class Rva002AABEE {public:
- Rva002AABEE(AsciiString,unsigned,const _STL::vector<unsigned>&,const _STL::vector<AsciiString>&);
- void rva002AABEE();
- char opaque[36];
-};
-struct Rva002AF6C5Element {~Rva002AF6C5Element();};
-struct Rva002B212AOwned {
- Rva002AABEE value;
- __forceinline Rva002B212AOwned(const AsciiString &name,const _STL::vector<unsigned>& values,const _STL::vector<AsciiString>& tags):value(name,1,values,tags) {}
- ~Rva002B212AOwned(){reinterpret_cast<Rva002AF6C5Element*>(&value)->~Rva002AF6C5Element();}
-};
 struct BfmeVectorRecord002AF478 {char opaque[36];};
 namespace _STL {template <> void vector<BfmeVectorRecord002AF478>::push_back(const BfmeVectorRecord002AF478 &);}
 struct Rva002B212AArg {char prefix[0x11C];_STL::vector<unsigned> values;char gap[8];_STL::vector<AsciiString> tags;};

@@ -701,10 +701,6 @@ void AptSkirmish::InitCreateAHeroOnStartGame()
 	}
 }
 
-class Rva0043DB47DoubleSetter {public:void enable();};
-class Rva005216A6 {public:bool rva005216A6();};
-class AptMpGameSetupUpdateView {public:virtual void slot0();virtual void slot1();};
-
 class Rva00222A8BTarget {public:void rva00222F55(bool);int invoke(void*,const char*,int,const char*,void*,void*,void*,void*);};
 
 
