@@ -109,24 +109,24 @@ void Rva00171024::rva001711a6()
         int width=((unsigned)handle->rva0013275A()+31u)>>5;
         int height=((unsigned)handle->rva00132784()+31u)>>5;
         for(;;) {
-            int y;
-            for(y=0; y<=side-height; ++y) {
+            int placementRow;
+            for(placementRow=0; placementRow<=side-height; ++placementRow) {
                 int j;
                 for(j=0; j<height; ++j)
-                    if(skyline[y+j]+width>side) break;
+                    if(skyline[placementRow+j]+width>side) break;
                 if(j==height) break;
             }
-            if(y>side-height) {
+            if(placementRow>side-height) {
                 if((unsigned)(side*2*32)>maxSize) return;
-                for(int n=side; n<side*2; ++n) skyline[n]=0;
+                for(int newSkylineRow=side; newSkylineRow<side*2; ++newSkylineRow) skyline[newSkylineRow]=0;
                 side*=2;
             } else {
-                int x=0;
-                for(int j=0; j<height; ++j) if(skyline[y+j]>x) x=skyline[y+j];
-                for(int j=0; j<height; ++j) skyline[y+j]=x+width;
+                int placementColumn=0;
+                for(int j=0; j<height; ++j) if(skyline[placementRow+j]>placementColumn) placementColumn=skyline[placementRow+j];
+                for(int j=0; j<height; ++j) skyline[placementRow+j]=placementColumn+width;
                 Rva00170999Data *rect=reinterpret_cast<Rva00170BFF *>(&rectangles)->rva00171128(texture);
-                rect->left=x<<5;
-                rect->top=y<<5;
+                rect->left=placementColumn<<5;
+                rect->top=placementRow<<5;
                 rect->right=rect->left+handle->rva0013275A();
                 rect->bottom=rect->top+handle->rva00132784();
                 break;

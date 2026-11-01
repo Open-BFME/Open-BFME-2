@@ -6404,3 +6404,6 @@ class,BfmeModelNamedRecord,ModelNamedRecord,inferred,agree:nl-81298276b449,Code/
 class,BfmeShadowEdge,ShadowEdge,inferred,agree:nl-bfe5627ecf4e,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DVolumetricShadowV2BuildBuffers.cpp,
 class,Rva00740440CameraPath,CameraPath,inferred,agree:nl-a6d65f6a05ed,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCameraModFinalLookTowardBfme.cpp,
 function,?rva006E3810@AptActionQueueC@@QAEXPAVAptValue@@00HH@Z,?enqueueFront@AptActionQueueC@@QAEXPAVAptValue@@00HH@Z,inferred,agree:nl-4761373616f0,Code/Libraries/Source/Apt/Rva006E3810FrontEnqueue.cpp,0x006E3810
+local,Rva00171024::rva001711a6::n,Rva00171024::rva001711a6::newSkylineRow,inferred,agree:nl-2605e724ad28-mfde7d5c741e2cb9a39fcc46f,Code/Libraries/Source/WWVegas/WW3D2/texturepacker.cpp,0x001711A6
+local,Rva00171024::rva001711a6::x,Rva00171024::rva001711a6::placementColumn,inferred,agree:nl-6d6e396d361e-mb0d037a9bb883079717d7ae4,Code/Libraries/Source/WWVegas/WW3D2/texturepacker.cpp,0x001711A6
+local,Rva00171024::rva001711a6::y,Rva00171024::rva001711a6::placementRow,inferred,agree:nl-f5be9d78cc67-m8611dde044ea130bad22034b,Code/Libraries/Source/WWVegas/WW3D2/texturepacker.cpp,0x001711A6

@@ -698,3 +698,6 @@ Code/GameEngine/Source/Common/Rva002D2DF6Init.cpp|local|Rva002D2DF6::rva002D2DF6
 Code/GameEngine/Source/Common/Rva002B4280.cpp|local|Rva002B4280::rva002B4280|e,f6975038981b1d075ecc20e3,drz-k11,n29h-k11,w-09889333d128,2026-10-31,0729fb7fe76f54bdb4e36459
 Code/GameEngine/Source/Common/Rva002B41F4.cpp|local|Rva002B41F4::rva002B41F4|e,e80fcc7f476552e92f641fcb,drz-k11,n29h-k11,w-09889333d128,2026-10-31,e155cdbe72f8d5f7317a3260
 Code/GameEngine/Source/Common/Rva002B2757.cpp|local|Rva002B2757::rva002B2757|r,5fd1596820c6ffe0d9fd8e03,drz-k11,n29h-k11,w-09889333d128,2026-10-31,cb419e9f17093de04964fff9
+Code/Libraries/Source/WWVegas/WW3D2/texturepacker.cpp|local|Rva00171024::rva001711a6|y,d3f2f4c30f05dcbb55ff1e90,gpt-6,locals-texture-20261101,w-c1b03bfb0a31,2026-11-01,8611dde044ea130bad22034b
+Code/Libraries/Source/WWVegas/WW3D2/texturepacker.cpp|local|Rva00171024::rva001711a6|n,81d8ad46b7fee5cd7e49cee0,gpt-6,locals-texture-20261101,w-c1b03bfb0a31,2026-11-01,fde7d5c741e2cb9a39fcc46f
+Code/Libraries/Source/WWVegas/WW3D2/texturepacker.cpp|local|Rva00171024::rva001711a6|x,221aeb83d423bb03c9b95099,gpt-6,locals-texture-20261101,w-c1b03bfb0a31,2026-11-01,b0d037a9bb883079717d7ae4

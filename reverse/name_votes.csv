@@ -20598,3 +20598,6 @@ Code/GameEngine/Source/Common/FireLogicSystem_ChangeFuelInArea.cpp|param|FireLog
 Code/GameEngine/Source/Common/FireLogicSystem_ChangeFuelInArea.cpp|param|FireLogicSystem::ChangeFuelInArea|w,961e18ad1f05e01fb0778746,drz-k11,n32h-k11,w-09889333d128,2026-11-01
 Code/GameEngine/Source/Common/FireLogicSystem_ChangeFuelInArea.cpp|local|FireLogicSystem::ChangeFuelInArea|y,c31dd08f3530032f102cb4c5,drz-k11,n32h-k11,w-09889333d128,2026-11-01
 Code/GameEngine/Source/Common/FireLogicSystem_ChangeFuelInArea.cpp|local|FireLogicSystem::ChangeFuelInArea|d,f8b17ad0867e9d7c5f536fde,drz-k11,n32h-k11,w-09889333d128,2026-11-01
+Code/Libraries/Source/WWVegas/WW3D2/texturepacker.cpp|local|Rva00171024::rva001711a6|y,d3f2f4c30f05dcbb55ff1e90,gpt-6,locals-texture-20261101,w-c1b03bfb0a31,2026-11-01
+Code/Libraries/Source/WWVegas/WW3D2/texturepacker.cpp|local|Rva00171024::rva001711a6|n,81d8ad46b7fee5cd7e49cee0,gpt-6,locals-texture-20261101,w-c1b03bfb0a31,2026-11-01
+Code/Libraries/Source/WWVegas/WW3D2/texturepacker.cpp|local|Rva00171024::rva001711a6|x,221aeb83d423bb03c9b95099,gpt-6,locals-texture-20261101,w-c1b03bfb0a31,2026-11-01
