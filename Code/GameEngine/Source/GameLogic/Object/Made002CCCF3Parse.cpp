@@ -33,13 +33,7 @@ public:
     static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-class INI
-{
-public:
-    void initFromINIMulti(void *p, const MultiIniFieldParse &m);
-    static void parseIndexList(INI *, void *, void *, const void *);
-    static void parseInt(INI *, void *, void *, const void *);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 void q4Notify002CCCF3(void *ini, Made002CCCF3 *nugget, int store, int d)
 {

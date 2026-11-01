@@ -17,12 +17,7 @@ class INI;
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
 #include "../../../../Include/Common/INI/FieldParse.h"
 
-class INI
-{
-public:
-	static void parseBool(INI *ini, void *instance, void *store, const void *userData);
-	static void parseSpecialPowerTemplate(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../../Include/Common/INI/INI.h"
 
 void Rva003393DFParse(INI *ini, void *instance, void *store, const void *userData);
 // Retail VA 0x00C701E0 (.rdata): 3 field records and a zero sentinel.

@@ -27,11 +27,7 @@ extern const FieldParse g_00864DCC[3] = {
 int __cdecl Rva00507552Get();
 
 
-class INI
-{
-public:
-    void initFromINIMulti(void *p, const MultiIniFieldParse &m);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 void q4Notify002CCBCA(void *ini, Made002CCBCA *m, int store, int d)
 {

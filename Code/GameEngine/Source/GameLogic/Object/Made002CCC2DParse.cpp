@@ -29,13 +29,7 @@ public:
     char m_pad[0x84];
 };
 
-class INI
-{
-public:
-    void initFromINIMulti(void *p, const MultiIniFieldParse &m);
-    static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
-    static void parseCoord3D(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 void iniParseObjectFilter(INI *ini, void *instance, void *store, const void *userData);
 

@@ -22,11 +22,7 @@ class INI;
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
 #include "../../../Include/Common/INI/FieldParse.h"
 
-class INI
-{
-public:
-	static void parseUnsignedInt(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 void iniParseObjectFilter(INI *ini, void *instance, void *store, const void *userData);
 // Retail VA 0x00BF0620 (.rdata): 3 field records and a zero sentinel.

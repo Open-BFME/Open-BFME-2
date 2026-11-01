@@ -97,11 +97,7 @@ extern const FieldParse g_00BE2070[62] = {
 };
 
 
-class INI
-{
-public:
-	void initFromINIMulti(void *what, const MultiIniFieldParse &parseTableList);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 int __cdecl Rva003B0E57Get(void);
 

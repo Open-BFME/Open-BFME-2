@@ -18,16 +18,7 @@ typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const v
 struct LookupListRec;
 extern const LookupListRec TheWeaponSlotTypeNamesLookupList[];
 
-class INI
-{
-public:
-	void initFromINI(void *what, const FieldParse *parseTable);
-	static void parseInt(INI *ini, void *instance, void *store, const void *userData);
-	static void parseReal(INI *ini, void *instance, void *store, const void *userData);
-	static void parseAngleReal(INI *ini, void *instance, void *store, const void *userData);
-	static void parseLookupList(INI *ini, void *instance, void *store, const void *userData);
-	static void parseWeaponTemplate(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 class RadiusDecalTemplate
 {

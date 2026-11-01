@@ -16,13 +16,7 @@
 
 typedef int Int;
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps = 0);
-	const char *getNextTokenOrNull(const char *seps = 0);
-	Int scanInt(const char *token);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 namespace _STL
 {
