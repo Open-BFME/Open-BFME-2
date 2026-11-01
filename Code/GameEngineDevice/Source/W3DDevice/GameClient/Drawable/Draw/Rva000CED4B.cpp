@@ -36,11 +36,7 @@ public:
 // ThingTemplateGetAssetList.cpp; WB callgraph names it); the found template
 // is notified through a TU-local view so the call resolves to the rowed
 // body instead of the unrowed Rva0020AA00Target spelling (sole U).
-class ThingTemplate
-{
-public:
-	void GetAssetList(int a, int b);
-};
+#include "../../../../../../GameEngine/Include/Common/ThingTemplate.h"
 
 struct Rva000CED4BArg
 {

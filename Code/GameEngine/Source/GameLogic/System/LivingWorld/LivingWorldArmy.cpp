@@ -84,7 +84,7 @@ public:
 struct Rva0031A02ASummary { char opaque00[0x1C]; int owner; };
 
 
-class ThingTemplate { public: int rva0033B479() const; };
+#include "../../../../Include/Common/ThingTemplate.h"
 class Rva0040CB2CIndexedField { public: int get(int) const; };
 class Rva0037DCA5 { public: void *GetThingTemplate(); };
 class ExperienceLevelList;

@@ -208,7 +208,7 @@ const Image *SpawnArmy::GetButtonImage(int id) {
  return image?image:missing;
 }
 
-class ThingTemplate { public:const Image *getButtonImage(); };
+#include "../../../../Include/Common/ThingTemplate.h"
 
 // Complete native body and associated EH graph verified against retail.
 const Image *SpawnArmy::GetPortraitImage(int id) {
