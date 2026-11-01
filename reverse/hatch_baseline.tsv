@@ -2682,8 +2682,8 @@ alternatename	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine
 alternatename	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp	?Rva004EE9E9@@YAXPAVXfer0051FFF5@@PAX@Z	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp	?Rva0051EC31RangeCallee@@YAPAURva0051EC31Output@@PAURva0051EC31Input@@0PAU1@ABURva0051EC31IteratorTag@@PAH@Z	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/ControlBarCallback.cpp	?DebugGetDefaultCommands@@YAPBDXZ	1
-alternatename	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_mapFind.cpp	?find@CustomPreferenceMapShim@@QAEPAUCustomMapNodeShim@@PAUCustomAsciiStringShim@@@Z	1
-alternatename	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_mapFind.cpp	?find@SkirmishFindMap@@QBEPAUSkirmishFindNode@@ABVAsciiString@@@Z	1
+alternatename	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionsMenu.cpp	?find@CustomPreferenceMapShim@@QAEPAUCustomMapNodeShim@@PAUCustomAsciiStringShim@@@Z	1
+alternatename	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionsMenu.cpp	?find@SkirmishFindMap@@QBEPAUSkirmishFindNode@@ABVAsciiString@@@Z	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/GameFont.cpp	??$__lower_bound@PAHHU?$greater@H@_STL@@H@_STL@@YAPAHPAH0ABHU?$greater@H@0@0@Z	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/GameFont.cpp	??0Rva00218E09Record@@QAE@ABU0@@Z	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp	?orderPairs@GameWindow@@QAEXXZ	1

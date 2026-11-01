@@ -22,6 +22,17 @@ typedef float Real;
 #include "unicode_string.h"
 typedef unsigned short UnsignedShort;
 #include <stdio.h>
+#pragma comment(linker, "/alternatename:?find@SkirmishFindMap@@QBEPAUSkirmishFindNode@@ABVAsciiString@@@Z=??$_M_find@VAsciiString@@@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@V1@@_STL@@@1@ABVAsciiString@@@Z")
+enum GameDifficulty
+{
+	DIFFICULTY_EASY,
+	DIFFICULTY_NORMAL,
+	DIFFICULTY_HARD,
+
+	DIFFICULTY_COUNT
+};
+#include "../../../../../Include/GameLogic/ScriptEngine.h"
+#pragma comment(linker, "/alternatename:?find@CustomPreferenceMapShim@@QAEPAUCustomMapNodeShim@@PAUCustomAsciiStringShim@@@Z=??$_M_find@VAsciiString@@@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@V1@@_STL@@@1@ABVAsciiString@@@Z")
 
 // Retail's tree frees nodes through a direct _free; the dllimport+forceinline
 // specialization takes __malloc_alloc<0>::deallocate inline so this TU emits
@@ -383,6 +394,17 @@ public:
 	Bool m_displayForeignLanguage;
 };
 
+struct ScriptEngineDifficultyView
+{
+	char m_pad[0x1A4C4];
+	GameDifficulty m_gameDifficulty;
+
+	// LINK: same-body helper under a TU-unique name (identical inlined
+	// bytes), so no getGlobalDifficulty COMDAT copy competes with the
+	// first-in-order one. No flags touched.
+	GameDifficulty bfme_global_difficulty() const { return m_gameDifficulty; }
+};
+
 class OptionPreferences : public UserPreferences
 {
 public:
@@ -451,27 +473,51 @@ public:
 	UnsignedInt getOnlineIPAddress(void);
 public:
 	Real getScrollFactor();
+public:
 	Bool getSendDelay();
+public:
 	Bool getTurnOffMessengerInGame();
+public:
 	void getResolution(Int *xres, Int *yres);
+public:
 	Bool getLanguageFilter();
+public:
 	Bool getDoubleClickGuard();
+public:
 	Bool getAlternateMouseSetup();
+public:
 	Bool getRefreshNet();
+public:
 	Bool getDisplayForeignLanguage();
+public:
 	Int getFirewallBehavior();
+public:
 	unsigned short getFirewallPortOverride();
+public:
 	short getFirewallPortAllocationDelta();
+public:
 	Bool getFirewallNeedToRefresh();
+public:
 	void setLANIPAddress(AsciiString IP);
+public:
 	void setLANIPAddress(unsigned int ip);
+public:
 	void setOnlineIPAddress(AsciiString IP);
+public:
 	void setOnlineIPAddress(unsigned int ip);
+public:
 	void setSetting(int setting, int value);
+public:
 	void rva002E43A6(Int val);
+public:
 	void rva002E43EE(short val);
+public:
 	void rva002E4438(unsigned short val);
+public:
+	Int getCampaignDifficulty();
 };
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionsMenu.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionsMenu.cpp
 
@@ -1073,8 +1119,6 @@ UnsignedInt OptionPreferences::getOnlineIPAddress(void)
 	return TheWritableGlobalData->m_defaultIP;
 }
 
-// tu-skeleton: 0x002E42D2 28B ??_GRva002E4272@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva003B1F65Derived.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_ctor.cpp
 
 /*
@@ -1143,18 +1187,6 @@ void OptionPreferences::rva002E4438(unsigned short val)
 {
 	setInt(AsciiString("FirewallPortOverride"), val);
 }
-
-// tu-skeleton: 0x002E4482 59B ?erase@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@QAEXU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@V1@@_STL@@@2@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_pair_cleanup.cpp (not merged yet)
-
-// tu-skeleton: 0x002E44BD 53B ?_M_erase@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@AAEXPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@V1@@_STL@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_pair_cleanup.cpp (not merged yet)
-
-// tu-skeleton: 0x002E44F2 41B ?clear@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_pair_cleanup.cpp (not merged yet)
-
-// tu-skeleton: 0x002E451B 20B ?upper_bound@?$_Rb_tree@VAsciiString@@V1@U?$_Identity@VAsciiString@@@_STL@@U?$less@VAsciiString@@@3@V?$allocator@VAsciiString@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@VAsciiString@@U?$_Nonconst_traits@VAsciiString@@@_STL@@@2@ABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/PeerDefs.cpp (not merged yet)
-
-// tu-skeleton: 0x002E452F 68B ?erase@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@QAEXU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@V1@@_STL@@@2@@2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_pair_cleanup.cpp (not merged yet)
-
-// tu-skeleton: 0x002E4573 103B ?getCampaignDifficulty@OptionPreferences@@QAEHXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_mapFind.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getScrollFactor.cpp
 
@@ -1233,8 +1265,6 @@ Int OptionPreferences::getFirewallBehavior()
 	return behavior;
 }
 
-// tu-skeleton: 0x002E4874 90B ?getFirewallPortAllocationDelta@OptionPreferences@@QAEFXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getFirewallPortAllocationDelta.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getFirewallPortOverride.cpp
 
 //
@@ -1256,8 +1286,6 @@ UnsignedShort OptionPreferences::getFirewallPortOverride()
 
 	return atoi(it->second.str());
 }
-
-// tu-skeleton: 0x002E4928 103B ?getFirewallNeedToRefresh@OptionPreferences@@QAE_NXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getFirewallNeedToRefresh.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getResolution.cpp
 
@@ -1432,10 +1460,6 @@ Bool OptionPreferences::getDisplayForeignLanguage(void)
 	return false;
 }
 
-// tu-skeleton: 0x002E4ED1 73B ?erase@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@QAEIABVAsciiString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_pair_cleanup.cpp (not merged yet)
-
-// tu-skeleton: 0x002E4F1A 5B ?erase@?$map@VAsciiString@@V1@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@QAEIABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/GameSpyLoginPreferences.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_setLANIPAddress.cpp
 
 //
@@ -1498,6 +1522,67 @@ void OptionPreferences::setOnlineIPAddress(unsigned int ip)
 	AsciiString &slot = (*this)[key];
 	slot = text;
 }
+
+// tu-skeleton: 0x002E42D2 28B ??_GRva002E4272@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva003B1F65Derived.cpp (not merged yet)
+
+// tu-skeleton: 0x002E4482 59B ?erase@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@QAEXU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@V1@@_STL@@@2@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_pair_cleanup.cpp (not merged yet)
+
+// tu-skeleton: 0x002E44BD 53B ?_M_erase@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@AAEXPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@V1@@_STL@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_pair_cleanup.cpp (not merged yet)
+
+// tu-skeleton: 0x002E44F2 41B ?clear@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_pair_cleanup.cpp (not merged yet)
+
+// tu-skeleton: 0x002E451B 20B ?upper_bound@?$_Rb_tree@VAsciiString@@V1@U?$_Identity@VAsciiString@@@_STL@@U?$less@VAsciiString@@@3@V?$allocator@VAsciiString@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@VAsciiString@@U?$_Nonconst_traits@VAsciiString@@@_STL@@@2@ABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/PeerDefs.cpp (not merged yet)
+
+// tu-skeleton: 0x002E452F 68B ?erase@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@QAEXU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@V1@@_STL@@@2@@2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_pair_cleanup.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_mapFind.cpp
+
+//
+// Fold-duplicate of OptionPreferences_getCampaignDifficulty.cpp (same class,
+// same body, same flags): the getCampaignDifficulty definition folds
+// byte-identical with its landed row, while this TU additionally claims the
+// map<AsciiString,AsciiString> _Rb_tree _M_find worker (78B @0x1F8437) that
+// every getter TU emits via odr-use of find but none rows. The worker's two
+// less<> calls resolve through the primitive operator< pin at 0x5598C (23B
+// compare+setl); the pair-lexicographic helper at 0x206BCF is a different
+// function (it calls operator< thrice) and is pinned under its own name.
+
+// The preference TUs (SkirmishPreferences.cpp, GameSpyLoginPreferences.cpp,
+// OnlineMiscPref*.cpp, GameModePreferencesUserName.cpp) reach this worker
+// through a private throw() view, SkirmishFindMap::find, whose symbols.csv pin
+// is this same address (0x1F8437). Bind that spelling to the definition here
+// rather than emit a second body for one retail function.
+
+// TheScriptEngine is the real global (canonical ScriptEngine.h); this unit
+// reads only its difficulty field, through a private field view cast at the
+// use, because the canonical class does not spell the field yet.
+
+// ?getCampaignDifficulty@OptionPreferences@@QAEHXZ
+Int OptionPreferences::getCampaignDifficulty(void)
+{
+	OptionPreferences::const_iterator it = find("CampaignDifficulty");
+	if (it == end())
+		return ((const ScriptEngineDifficultyView *)TheScriptEngine)->bfme_global_difficulty();
+
+	Int factor = atoi(it->second.str());
+	if (factor < DIFFICULTY_EASY)
+		factor = DIFFICULTY_EASY;
+	if (factor > DIFFICULTY_HARD)
+		factor = DIFFICULTY_HARD;
+
+	return factor;
+}
+
+// Callers elsewhere reach bodies in this unit through other spellings; retail's
+// call sites in their matched rows land on these addresses (same ABI). Bind them.
+
+// tu-skeleton: 0x002E4874 90B ?getFirewallPortAllocationDelta@OptionPreferences@@QAEFXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getFirewallPortAllocationDelta.cpp (not merged yet)
+
+// tu-skeleton: 0x002E4928 103B ?getFirewallNeedToRefresh@OptionPreferences@@QAE_NXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getFirewallNeedToRefresh.cpp (not merged yet)
+
+// tu-skeleton: 0x002E4ED1 73B ?erase@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@QAEIABVAsciiString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_pair_cleanup.cpp (not merged yet)
+
+// tu-skeleton: 0x002E4F1A 5B ?erase@?$map@VAsciiString@@V1@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@QAEIABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/GameSpyLoginPreferences.cpp (not merged yet)
 
 // tu-skeleton: 0x002E553D 155B ?setSetting@OptionPreferences@@QAEXHH@Z -- matched in Code/GameEngine/Source/Common/OptionPreferences.cpp (not merged yet)
 
