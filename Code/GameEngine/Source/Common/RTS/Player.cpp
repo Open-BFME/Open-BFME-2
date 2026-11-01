@@ -1522,14 +1522,8 @@ void Player::buildSpecificBuilding(const AsciiString &thingName)
 }
 
 //=============================================================================
-// ?buildBySupplies@Player@@QAEXHABVAsciiString@@@Z present-unmatched
-void Player::buildBySupplies(Int minimumCash, const AsciiString &thingName) 
-{
-	if (m_ai) 
-	{
-		m_ai->buildBySupplies(minimumCash, thingName);
-	}
-}
+
+
 
 //=============================================================================
 // ?buildSpecificBuildingNearestTeam@Player@@QAEXABVAsciiString@@PBVTeam@@@Z present-unmatched

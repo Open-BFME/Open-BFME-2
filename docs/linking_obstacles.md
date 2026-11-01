@@ -15,6 +15,8 @@ Recorded `blocked` in reverse/re_attempts.log.
 
 ### Player unrowed donor-body cleanup (2026-11-01, Cortys)
 
+Isolated unrowed `buildBySupplies` is also removed after reference auditing; all 348 retained definitions/relocations and all native rows remain exact. One placeholder hatch retires; see the per-method evidence in the packet.
+
 The served Player.cpp retains all 12 native functions (112 bytes) and its
 owned TheTeamFactory global. The unrowed science-points donor body is removed:
 it introduced two unresolved invented helper names and has no incoming

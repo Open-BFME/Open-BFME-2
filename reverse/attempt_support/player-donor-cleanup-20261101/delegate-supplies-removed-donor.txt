@@ -1,0 +1,7 @@
+void Player::buildBySupplies(Int minimumCash, const AsciiString &thingName) 
+{
+	if (m_ai) 
+	{
+		m_ai->buildBySupplies(minimumCash, thingName);
+	}
+}

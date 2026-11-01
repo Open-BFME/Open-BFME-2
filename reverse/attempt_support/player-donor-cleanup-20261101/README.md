@@ -101,3 +101,7 @@ also leave 20 unresolved non-STL names; none establishes a clean provider set.
 No compiler flag, Code body, header, row, pin or register is changed by this
 trial. The remaining donor users need reconciliation before such a profile
 can be considered. Complete scoped verdicts are retained.
+
+## Isolated donor delegate: buildBySupplies
+
+The unrowed donor is removed after the saved reference audit finds only a debug incoming edge and no outside-index caller. All 12 function rows and the owned global still verify. The sole removed definition is this method; all 348 retained complete code definitions/relocations are identical to the preceding 349-definition control. Its one placeholder hatch retires through the owning counter. The removed donor text is evidence only, not a target-body or original-name claim.

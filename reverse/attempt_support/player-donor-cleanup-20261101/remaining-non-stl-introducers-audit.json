@@ -1,0 +1,649 @@
+{
+  "scope": "Read-only existing Player object and existing published reference index; no compilation, edits, claims or network. Graph edges describe that index, not a fresh whole-tree census.",
+  "source": "Code/GameEngine/Source/Common/RTS/Player.cpp",
+  "source_sha256": "dd3006d09c87a7492da398dee36518acca3d3e83986f3f0ac3911e6e53d77b4b",
+  "object_sha256": "d10344ebfa5c768755acc4fd9520ac39836a2489f1e36a539dc13dc6905cdc00",
+  "compile_receipt_current": true,
+  "index_meta": {
+    "date": "2026-11-01 14:31",
+    "commit": "86db074988",
+    "clean_tree": true,
+    "census_date": "2026-11-01 12:39",
+    "census_commit": "39dfbbdb50"
+  },
+  "external_code_definitions": 349,
+  "non_stl_unresolved_count": 20,
+  "direct_introducers": [
+    {
+      "unresolved": "?buildBySupplies@AIPlayer@@QAEXHABVAsciiString@@@Z",
+      "direct_callers": [
+        {
+          "section": ".text",
+          "offset": 11,
+          "type": 20,
+          "owners": [
+            "?buildBySupplies@Player@@QAEXHABVAsciiString@@@Z"
+          ]
+        }
+      ],
+      "source_player_introducers": [
+        "?buildBySupplies@Player@@QAEXHABVAsciiString@@@Z"
+      ]
+    },
+    {
+      "unresolved": "?buildSpecificBuildingNearestTeam@AIPlayer@@QAEXABVAsciiString@@PBVTeam@@@Z",
+      "direct_callers": [
+        {
+          "section": ".text",
+          "offset": 11,
+          "type": 20,
+          "owners": [
+            "?buildSpecificBuildingNearestTeam@Player@@QAEXABVAsciiString@@PBVTeam@@@Z"
+          ]
+        }
+      ],
+      "source_player_introducers": [
+        "?buildSpecificBuildingNearestTeam@Player@@QAEXABVAsciiString@@PBVTeam@@@Z"
+      ]
+    },
+    {
+      "unresolved": "?calcClosestConstructionZoneLocation@AIPlayer@@QAE_NPBVThingTemplate@@PAUCoord3D@@@Z",
+      "direct_callers": [
+        {
+          "section": ".text",
+          "offset": 11,
+          "type": 20,
+          "owners": [
+            "?calcClosestConstructionZoneLocation@Player@@QAE_NPBVThingTemplate@@PAUCoord3D@@@Z"
+          ]
+        }
+      ],
+      "source_player_introducers": [
+        "?calcClosestConstructionZoneLocation@Player@@QAE_NPBVThingTemplate@@PAUCoord3D@@@Z"
+      ]
+    },
+    {
+      "unresolved": "?deposit@Money@@QAEXI_N@Z",
+      "direct_callers": [
+        {
+          "section": ".text",
+          "offset": 282,
+          "type": 20,
+          "owners": [
+            "?transferAssetsFromThat@Player@@QAEXPAV1@@Z"
+          ]
+        }
+      ],
+      "source_player_introducers": [
+        "?transferAssetsFromThat@Player@@QAEXPAV1@@Z"
+      ]
+    },
+    {
+      "unresolved": "?evacuateTeam@Team@@QAEXXZ",
+      "direct_callers": [
+        {
+          "section": ".text",
+          "offset": 33,
+          "type": 20,
+          "owners": [
+            "?killPlayer@Player@@QAEXXZ"
+          ]
+        }
+      ],
+      "source_player_introducers": [
+        "?killPlayer@Player@@QAEXXZ"
+      ]
+    },
+    {
+      "unresolved": "?findAnyShortcutSpecialPowerModuleInterface@Object@@QBEPAVSpecialPowerModuleInterface@@XZ",
+      "direct_callers": [
+        {
+          "section": ".text",
+          "offset": 90,
+          "type": 20,
+          "owners": [
+            "?doFindSpecialPowerSourceObject@@YAXPAVObject@@PAX@Z"
+          ]
+        }
+      ],
+      "source_player_introducers": [
+        "?findMostReadyShortcutSpecialPowerOfType@Player@@QAEPAVObject@@W4SpecialPowerType@@@Z",
+        "?hasAnyShortcutSpecialPower@Player@@QAE_NXZ"
+      ]
+    },
+    {
+      "unresolved": "?getAIDifficulty@AIPlayer@@QBE?AW4GameDifficulty@@XZ",
+      "direct_callers": [
+        {
+          "section": ".text",
+          "offset": 11,
+          "type": 20,
+          "owners": [
+            "?getPlayerDifficulty@Player@@QBE?AW4GameDifficulty@@XZ"
+          ]
+        }
+      ],
+      "source_player_introducers": [
+        "?getPlayerDifficulty@Player@@QBE?AW4GameDifficulty@@XZ"
+      ]
+    },
+    {
+      "unresolved": "?getMaxSimultaneousOfType@ThingTemplate@@QBEIXZ",
+      "direct_callers": [
+        {
+          "section": ".text",
+          "offset": 17,
+          "type": 20,
+          "owners": [
+            "?canBuildMoreOfType@Player@@QBE_NPBVThingTemplate@@@Z"
+          ]
+        }
+      ],
+      "source_player_introducers": [
+        "?canBuildMoreOfType@Player@@QBE_NPBVThingTemplate@@@Z"
+      ]
+    },
+    {
+      "unresolved": "?getMostPercentReadyToFireAnyWeapon@Object@@QBEIXZ",
+      "direct_callers": [
+        {
+          "section": ".text",
+          "offset": 87,
+          "type": 20,
+          "owners": [
+            "?doFindMostReadyWeaponForThing@@YAXPAVObject@@PAX@Z"
+          ]
+        }
+      ],
+      "source_player_introducers": [
+        "?findMostReadyShortcutWeaponForThing@Player@@QAEPAVObject@@PBVThingTemplate@@AAI@Z"
+      ]
+    },
+    {
+      "unresolved": "?getRankInfo@RankInfoStore@@QBEPBVRankInfo@@H@Z",
+      "direct_callers": [
+        {
+          "section": ".text",
+          "offset": 143,
+          "type": 20,
+          "owners": [
+            "?addSkillPoints@Player@@QAE_NH@Z"
+          ]
+        },
+        {
+          "section": ".text",
+          "offset": 72,
+          "type": 20,
+          "owners": [
+            "?resetSciences@Player@@QAEXXZ"
+          ]
+        }
+      ],
+      "source_player_introducers": [
+        "?addSkillPoints@Player@@QAE_NH@Z",
+        "?resetSciences@Player@@QAEXXZ"
+      ]
+    },
+    {
+      "unresolved": "?getRankLevelCount@RankInfoStore@@QBEHXZ",
+      "direct_callers": [
+        {
+          "section": ".text",
+          "offset": 122,
+          "type": 20,
+          "owners": [
+            "?addSkillPoints@Player@@QAE_NH@Z"
+          ]
+        }
+      ],
+      "source_player_introducers": [
+        "?addSkillPoints@Player@@QAE_NH@Z"
+      ]
+    },
+    {
+      "unresolved": "?hasAnyBuildings@TeamPrototype@@QBE_NV?$BitFlags@$0HE@@@@Z",
+      "direct_callers": [
+        {
+          "section": ".text",
+          "offset": 35,
+          "type": 20,
+          "owners": [
+            "?hasAnyBuildings@Player@@QBE_NV?$BitFlags@$0HE@@@@Z"
+          ]
+        }
+      ],
+      "source_player_introducers": [
+        "?hasAnyBuildings@Player@@QBE_NV?$BitFlags@$0HE@@@@Z"
+      ]
+    },
+    {
+      "unresolved": "?hasAnyBuildings@TeamPrototype@@QBE_NXZ",
+      "direct_callers": [
+        {
+          "section": ".text",
+          "offset": 20,
+          "type": 20,
+          "owners": [
+            "?hasAnyBuildings@Player@@QBE_NXZ"
+          ]
+        }
+      ],
+      "source_player_introducers": [
+        "?hasAnyBuildings@Player@@QBE_NXZ"
+      ]
+    },
+    {
+      "unresolved": "?hasAnySpecialPower@Object@@QBE_NXZ",
+      "direct_callers": [
+        {
+          "section": ".text",
+          "offset": 79,
+          "type": 20,
+          "owners": [
+            "?doFindSpecialPowerSourceObject@@YAXPAVObject@@PAX@Z"
+          ]
+        }
+      ],
+      "source_player_introducers": [
+        "?findMostReadyShortcutSpecialPowerOfType@Player@@QAEPAVObject@@W4SpecialPowerType@@@Z",
+        "?hasAnyShortcutSpecialPower@Player@@QAE_NXZ"
+      ]
+    },
+    {
+      "unresolved": "?isInSinglePlayerGame@GameLogic@@QAE_NXZ",
+      "direct_callers": [
+        {
+          "section": ".text",
+          "offset": 14,
+          "type": 20,
+          "owners": [
+            "?friend_applyDifficultyBonusesForObject@Player@@QBEXPAVObject@@_N@Z"
+          ]
+        },
+        {
+          "section": ".text",
+          "offset": 113,
+          "type": 20,
+          "owners": [
+            "?killPlayer@Player@@QAEXXZ"
+          ]
+        }
+      ],
+      "source_player_introducers": [
+        "?friend_applyDifficultyBonusesForObject@Player@@QBEXPAVObject@@_N@Z",
+        "?killPlayer@Player@@QAEXXZ"
+      ]
+    },
+    {
+      "unresolved": "?isOnSquad@Squad@@QBE_NPBVObject@@@Z",
+      "direct_callers": [
+        {
+          "section": ".text",
+          "offset": 17,
+          "type": 20,
+          "owners": [
+            "?getSquadNumberForObject@Player@@QBEHPBVObject@@@Z"
+          ]
+        }
+      ],
+      "source_player_introducers": [
+        "?getSquadNumberForObject@Player@@QBEHPBVObject@@@Z"
+      ]
+    },
+    {
+      "unresolved": "?isSupplySourceSafe@AIPlayer@@QAE_NH@Z",
+      "direct_callers": [
+        {
+          "section": ".text",
+          "offset": 11,
+          "type": 20,
+          "owners": [
+            "?isSupplySourceSafe@Player@@QAE_NH@Z"
+          ]
+        }
+      ],
+      "source_player_introducers": [
+        "?isSupplySourceSafe@Player@@QAE_NH@Z"
+      ]
+    },
+    {
+      "unresolved": "?removeObject@Squad@@QAEXPAVObject@@@Z",
+      "direct_callers": [
+        {
+          "section": ".text",
+          "offset": 22,
+          "type": 20,
+          "owners": [
+            "?removeObjectFromHotkeySquad@Player@@QAEXPAVObject@@@Z"
+          ]
+        }
+      ],
+      "source_player_introducers": [
+        "?removeObjectFromHotkeySquad@Player@@QAEXPAVObject@@@Z"
+      ]
+    },
+    {
+      "unresolved": "?setRankLevel@Player@@QAE_NH@Z",
+      "direct_callers": [
+        {
+          "section": ".text",
+          "offset": 196,
+          "type": 20,
+          "owners": [
+            "?addSkillPoints@Player@@QAE_NH@Z"
+          ]
+        }
+      ],
+      "source_player_introducers": [
+        "?addSkillPoints@Player@@QAE_NH@Z"
+      ]
+    },
+    {
+      "unresolved": "?withdraw@Money@@QAEII_N@Z",
+      "direct_callers": [
+        {
+          "section": ".text",
+          "offset": 250,
+          "type": 20,
+          "owners": [
+            "?killPlayer@Player@@QAEXXZ"
+          ]
+        },
+        {
+          "section": ".text",
+          "offset": 271,
+          "type": 20,
+          "owners": [
+            "?transferAssetsFromThat@Player@@QAEXPAV1@@Z"
+          ]
+        }
+      ],
+      "source_player_introducers": [
+        "?killPlayer@Player@@QAEXXZ",
+        "?transferAssetsFromThat@Player@@QAEXPAV1@@Z"
+      ]
+    }
+  ],
+  "candidate_checks": [
+    {
+      "method": "?buildBySupplies@Player@@QAEXHABVAsciiString@@@Z",
+      "raw_size": 18,
+      "introduced_names": [
+        "?buildBySupplies@AIPlayer@@QAEXHABVAsciiString@@@Z"
+      ],
+      "local_runtime_or_data_incoming": [],
+      "local_debug_incoming_count": 1,
+      "outside_index_incoming": [],
+      "index_referenced": false,
+      "all_index_incoming_sources": []
+    },
+    {
+      "method": "?buildSpecificBuildingNearestTeam@Player@@QAEXABVAsciiString@@PBVTeam@@@Z",
+      "raw_size": 18,
+      "introduced_names": [
+        "?buildSpecificBuildingNearestTeam@AIPlayer@@QAEXABVAsciiString@@PBVTeam@@@Z"
+      ],
+      "local_runtime_or_data_incoming": [],
+      "local_debug_incoming_count": 1,
+      "outside_index_incoming": [],
+      "index_referenced": false,
+      "all_index_incoming_sources": []
+    },
+    {
+      "method": "?calcClosestConstructionZoneLocation@Player@@QAE_NPBVThingTemplate@@PAUCoord3D@@@Z",
+      "raw_size": 20,
+      "introduced_names": [
+        "?calcClosestConstructionZoneLocation@AIPlayer@@QAE_NPBVThingTemplate@@PAUCoord3D@@@Z"
+      ],
+      "local_runtime_or_data_incoming": [],
+      "local_debug_incoming_count": 1,
+      "outside_index_incoming": [],
+      "index_referenced": false,
+      "all_index_incoming_sources": []
+    },
+    {
+      "method": "?isSupplySourceSafe@Player@@QAE_NH@Z",
+      "raw_size": 20,
+      "introduced_names": [
+        "?isSupplySourceSafe@AIPlayer@@QAE_NH@Z"
+      ],
+      "local_runtime_or_data_incoming": [],
+      "local_debug_incoming_count": 1,
+      "outside_index_incoming": [],
+      "index_referenced": false,
+      "all_index_incoming_sources": []
+    },
+    {
+      "method": "?getPlayerDifficulty@Player@@QBE?AW4GameDifficulty@@XZ",
+      "raw_size": 27,
+      "introduced_names": [
+        "?getAIDifficulty@AIPlayer@@QBE?AW4GameDifficulty@@XZ"
+      ],
+      "local_runtime_or_data_incoming": [
+        {
+          "section": ".text",
+          "offset": 33,
+          "type": 20,
+          "owners": [
+            "?friend_applyDifficultyBonusesForObject@Player@@QBEXPAVObject@@_N@Z"
+          ]
+        },
+        {
+          "section": ".text",
+          "offset": 126,
+          "type": 20,
+          "owners": [
+            "?friend_applyDifficultyBonusesForObject@Player@@QBEXPAVObject@@_N@Z"
+          ]
+        }
+      ],
+      "local_debug_incoming_count": 1,
+      "outside_index_incoming": [],
+      "index_referenced": true,
+      "all_index_incoming_sources": []
+    },
+    {
+      "method": "?removeObjectFromHotkeySquad@Player@@QAEXPAVObject@@@Z",
+      "raw_size": 37,
+      "introduced_names": [
+        "?removeObject@Squad@@QAEXPAVObject@@@Z"
+      ],
+      "local_runtime_or_data_incoming": [],
+      "local_debug_incoming_count": 1,
+      "outside_index_incoming": [],
+      "index_referenced": false,
+      "all_index_incoming_sources": []
+    },
+    {
+      "method": "?getSquadNumberForObject@Player@@QBEHPBVObject@@@Z",
+      "raw_size": 46,
+      "introduced_names": [
+        "?isOnSquad@Squad@@QBE_NPBVObject@@@Z"
+      ],
+      "local_runtime_or_data_incoming": [],
+      "local_debug_incoming_count": 1,
+      "outside_index_incoming": [],
+      "index_referenced": false,
+      "all_index_incoming_sources": []
+    },
+    {
+      "method": "?hasAnyBuildings@Player@@QBE_NXZ",
+      "raw_size": 47,
+      "introduced_names": [
+        "?hasAnyBuildings@TeamPrototype@@QBE_NXZ"
+      ],
+      "local_runtime_or_data_incoming": [],
+      "local_debug_incoming_count": 1,
+      "outside_index_incoming": [],
+      "index_referenced": false,
+      "all_index_incoming_sources": []
+    },
+    {
+      "method": "?hasAnyBuildings@Player@@QBE_NV?$BitFlags@$0HE@@@@Z",
+      "raw_size": 66,
+      "introduced_names": [
+        "?hasAnyBuildings@TeamPrototype@@QBE_NV?$BitFlags@$0HE@@@@Z"
+      ],
+      "local_runtime_or_data_incoming": [],
+      "local_debug_incoming_count": 1,
+      "outside_index_incoming": [],
+      "all_index_incoming_sources": [],
+      "index_referenced": false
+    },
+    {
+      "method": "?canBuildMoreOfType@Player@@QBE_NPBVThingTemplate@@@Z",
+      "raw_size": 96,
+      "introduced_names": [
+        "?getMaxSimultaneousOfType@ThingTemplate@@QBEIXZ"
+      ],
+      "local_runtime_or_data_incoming": [],
+      "local_debug_incoming_count": 0,
+      "outside_index_incoming": [],
+      "index_referenced": false,
+      "all_index_incoming_sources": []
+    },
+    {
+      "method": "?resetSciences@Player@@QAEXXZ",
+      "raw_size": 161,
+      "introduced_names": [
+        "?getRankInfo@RankInfoStore@@QBEPBVRankInfo@@H@Z"
+      ],
+      "local_runtime_or_data_incoming": [],
+      "local_debug_incoming_count": 0,
+      "outside_index_incoming": [],
+      "index_referenced": false,
+      "all_index_incoming_sources": []
+    },
+    {
+      "method": "?friend_applyDifficultyBonusesForObject@Player@@QBEXPAVObject@@_N@Z",
+      "raw_size": 169,
+      "introduced_names": [
+        "?isInSinglePlayerGame@GameLogic@@QAE_NXZ"
+      ],
+      "local_runtime_or_data_incoming": [],
+      "local_debug_incoming_count": 0,
+      "outside_index_incoming": [],
+      "index_referenced": false,
+      "all_index_incoming_sources": []
+    },
+    {
+      "method": "?addSkillPoints@Player@@QAE_NH@Z",
+      "raw_size": 222,
+      "introduced_names": [
+        "?getRankInfo@RankInfoStore@@QBEPBVRankInfo@@H@Z",
+        "?getRankLevelCount@RankInfoStore@@QBEHXZ",
+        "?setRankLevel@Player@@QAE_NH@Z"
+      ],
+      "local_runtime_or_data_incoming": [],
+      "local_debug_incoming_count": 0,
+      "outside_index_incoming": [],
+      "index_referenced": false,
+      "all_index_incoming_sources": []
+    },
+    {
+      "method": "?killPlayer@Player@@QAEXXZ",
+      "raw_size": 258,
+      "introduced_names": [
+        "?evacuateTeam@Team@@QAEXXZ",
+        "?isInSinglePlayerGame@GameLogic@@QAE_NXZ",
+        "?withdraw@Money@@QAEII_N@Z"
+      ],
+      "local_runtime_or_data_incoming": [],
+      "local_debug_incoming_count": 1,
+      "outside_index_incoming": [],
+      "index_referenced": false,
+      "all_index_incoming_sources": []
+    },
+    {
+      "method": "?transferAssetsFromThat@Player@@QAEXPAV1@@Z",
+      "raw_size": 315,
+      "introduced_names": [
+        "?deposit@Money@@QAEXI_N@Z",
+        "?withdraw@Money@@QAEII_N@Z"
+      ],
+      "local_runtime_or_data_incoming": [],
+      "local_debug_incoming_count": 0,
+      "outside_index_incoming": [],
+      "index_referenced": false,
+      "all_index_incoming_sources": []
+    }
+  ],
+  "five_smallest_candidates": [
+    {
+      "method": "?buildBySupplies@Player@@QAEXHABVAsciiString@@@Z",
+      "raw_size": 18,
+      "introduced_names": [
+        "?buildBySupplies@AIPlayer@@QAEXHABVAsciiString@@@Z"
+      ],
+      "local_runtime_or_data_incoming": [],
+      "local_debug_incoming_count": 1,
+      "outside_index_incoming": [],
+      "index_referenced": false,
+      "all_index_incoming_sources": []
+    },
+    {
+      "method": "?buildSpecificBuildingNearestTeam@Player@@QAEXABVAsciiString@@PBVTeam@@@Z",
+      "raw_size": 18,
+      "introduced_names": [
+        "?buildSpecificBuildingNearestTeam@AIPlayer@@QAEXABVAsciiString@@PBVTeam@@@Z"
+      ],
+      "local_runtime_or_data_incoming": [],
+      "local_debug_incoming_count": 1,
+      "outside_index_incoming": [],
+      "index_referenced": false,
+      "all_index_incoming_sources": []
+    },
+    {
+      "method": "?calcClosestConstructionZoneLocation@Player@@QAE_NPBVThingTemplate@@PAUCoord3D@@@Z",
+      "raw_size": 20,
+      "introduced_names": [
+        "?calcClosestConstructionZoneLocation@AIPlayer@@QAE_NPBVThingTemplate@@PAUCoord3D@@@Z"
+      ],
+      "local_runtime_or_data_incoming": [],
+      "local_debug_incoming_count": 1,
+      "outside_index_incoming": [],
+      "index_referenced": false,
+      "all_index_incoming_sources": []
+    },
+    {
+      "method": "?isSupplySourceSafe@Player@@QAE_NH@Z",
+      "raw_size": 20,
+      "introduced_names": [
+        "?isSupplySourceSafe@AIPlayer@@QAE_NH@Z"
+      ],
+      "local_runtime_or_data_incoming": [],
+      "local_debug_incoming_count": 1,
+      "outside_index_incoming": [],
+      "index_referenced": false,
+      "all_index_incoming_sources": []
+    },
+    {
+      "method": "?removeObjectFromHotkeySquad@Player@@QAEXPAVObject@@@Z",
+      "raw_size": 37,
+      "introduced_names": [
+        "?removeObject@Squad@@QAEXPAVObject@@@Z"
+      ],
+      "local_runtime_or_data_incoming": [],
+      "local_debug_incoming_count": 1,
+      "outside_index_incoming": [],
+      "index_referenced": false,
+      "all_index_incoming_sources": []
+    }
+  ],
+  "preserve": [
+    "all 12 matched rows",
+    "existing getter anchors",
+    "ScienceType copy and erase anchor",
+    "TheTeamFactory native storage definition",
+    "six existing linker aliases and their required target providers"
+  ],
+  "input_hashes_still_unchanged": {
+    "source": true,
+    "object": true
+  },
+  "qualifications": [
+    "The twenty names are the remaining non-STL unresolved names from index86db after filtering them against the current undefined-symbol set; the parent current link preview reports eight additional STL-only unresolved names.",
+    "All five recommendations also have zero index incoming edges before any local-owner filtering, strengthening the outside-index absence result.",
+    "Removal is a private byte/link experiment recommendation, not verified application; preserve all listed native rows, anchors, global and aliases."
+  ]
+}
