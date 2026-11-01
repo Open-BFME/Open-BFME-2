@@ -187,19 +187,7 @@ public:
 	unsigned char m_minimum;
 };
 
-class DozerActionState
-{
-public:
-	virtual const char *GetSnapshotName() const;
-};
-
 BFME_LITERAL_NAME_GETTER(Rva0049592FNamed, "DemoTrapUpdate")
-
-class BoneFXDamage
-{
-protected:
-	virtual const char *GetSnapshotName() const;
-};
 
 // tu-skeleton: 0x00495916 25B ??1DemoTrapUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
 

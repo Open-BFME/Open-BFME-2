@@ -38,19 +38,7 @@
 		return TEXT; \
 	}
 
-class DozerActionState
-{
-public:
-	virtual const char *GetSnapshotName() const;
-};
-
 BFME_LITERAL_NAME_GETTER(Rva004A3FA4Named, "HijackerUpdate")
-
-class BoneFXDamage
-{
-protected:
-	virtual const char *GetSnapshotName() const;
-};
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/HijackerUpdate.cpp
 

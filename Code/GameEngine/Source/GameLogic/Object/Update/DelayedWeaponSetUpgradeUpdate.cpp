@@ -131,18 +131,6 @@ public:
 
 BFME_LITERAL_NAME_GETTER(Rva00488288Named, "DelayedWeaponSetUpgradeUpdate")
 
-class DozerActionState
-{
-public:
-	virtual const char *GetSnapshotName() const;
-};
-
-class BoneFXDamage
-{
-protected:
-	virtual const char *GetSnapshotName() const;
-};
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/DelayedWeaponSetUpgradeUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/DelayedWeaponSetUpgradeUpdate.cpp

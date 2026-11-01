@@ -183,19 +183,7 @@ private:
 	bool m_3F4;
 };
 
-class DozerActionState
-{
-public:
-	virtual const char *GetSnapshotName() const;
-};
-
 BFME_LITERAL_NAME_GETTER(Rva0049ACC5Named, "HordeWorkerAIUpdate")
-
-class BoneFXDamage
-{
-protected:
-	virtual const char *GetSnapshotName() const;
-};
 
 // tu-skeleton: 0x0049AC94 49B ??1HordeWorkerAIUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/HordeWorkerAIUpdateDtor.cpp (not merged yet)
 

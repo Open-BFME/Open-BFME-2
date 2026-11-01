@@ -69,11 +69,6 @@ public:
 };
 #include "../../../../Include/Common/ObjectModule.h"
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-class UpdateModuleInterface
-{
-public:
-	virtual void slotUpdate();
-};
 #include "OneRingPenaltyModuleDataView.h"
 // ??0OneRingPenaltyUpdateModuleData@@QAE@XZ at retail 0x004999F1 (37 bytes).
 // The module-data half of OneRingPenaltyUpdate: vtable immediate 0x00C50298

@@ -13,12 +13,6 @@
 #include "ascii_string.h"
 #include "Common/Snapshot.h"
 
-class BfmeFixedStorage0004543D {
-public:
- BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &);
-private:
- unsigned char data[28];
-};
 template <int N> class BitFlags;
 extern BitFlags<116> KINDOFMASK_NONE;
 
@@ -35,9 +29,6 @@ private: unsigned char data[0x80];
 class Rva00360D26Member {
 public: Rva00360D26Member(); ~Rva00360D26Member();
 private: unsigned int index;
-};
-class Rva003623E5Filter {
-public: void applyFilter(BfmeFixedStorage0004543D);
 };
 class __declspec(novtable) InvisibilityUpdateModuleData : public Snapshot {
 public:

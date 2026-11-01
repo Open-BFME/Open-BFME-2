@@ -167,18 +167,6 @@ public:
 
 BFME_LITERAL_NAME_GETTER(Rva00486C8FNamed, "KeepObjectDie")
 
-class DozerActionState
-{
-public:
-	virtual const char *GetSnapshotName() const;
-};
-
-class BoneFXDamage
-{
-protected:
-	virtual const char *GetSnapshotName() const;
-};
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Die/KeepObjectDie.cpp
 
 // The canonical Thing/ThingTemplate views replace the donor's private copies:

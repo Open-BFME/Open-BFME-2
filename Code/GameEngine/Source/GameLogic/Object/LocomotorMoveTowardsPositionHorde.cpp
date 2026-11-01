@@ -813,16 +813,6 @@ public:
 	int m_movementPenaltyDamageState;
 };
 extern GlobalData *TheWritableGlobalData;
-struct Rva001E46E1FrameView
-{
-	char m_pad00[0x40];
-	unsigned int m_frame;
-};
-class Rva001E468F
-{
-public:
-	bool rva001E468F(Object *obj);
-};
 float GetGameLogicRandomValueReal(float,float,char*,int);
 class MineshaftPortalBehaviour
 

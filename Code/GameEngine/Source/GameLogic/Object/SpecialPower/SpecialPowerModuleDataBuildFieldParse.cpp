@@ -357,18 +357,6 @@ void ScavengerSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	parse.add(reinterpret_cast<const FieldParse *>((unsigned int)&g_00C5D27C), 0);
 }
 
-class UntamedAllegianceSpecialPowerModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class RepairSpecialPowerModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
 class CombineHordeSpecialPowerModuleData
 {
 public:

@@ -103,20 +103,6 @@ class Coord3D;
 
 class Xfer;
 
-class BehaviorModuleBase
-{
-public:
-	virtual void behaviorModuleBaseAnchor();
-	const ModuleData *m_moduleData;
-	Object *m_object;
-};
-
-class BehaviorModuleOther
-{
-public:
-	virtual void behaviorModuleOtherAnchor();
-};
-
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 enum UpdateSleepTime
@@ -162,18 +148,6 @@ protected:
 private:
 	bool m_24;
 	bool m_25;
-};
-
-class DozerActionState
-{
-public:
-	virtual const char *GetSnapshotName() const;
-};
-
-class BoneFXDamage
-{
-protected:
-	virtual const char *GetSnapshotName() const;
 };
 
 BFME_LITERAL_NAME_GETTER(Rva004C8D3BNamed, "CritterEmitterUpdate")

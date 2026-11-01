@@ -79,18 +79,6 @@ public:
 	virtual NameKeyType getModuleNameKey() const;
 };
 
-class DozerActionState
-{
-public:
-	virtual const char *GetSnapshotName() const;
-};
-
-class BoneFXDamage
-{
-protected:
-	virtual const char *GetSnapshotName() const;
-};
-
 BFME_LITERAL_NAME_GETTER(Rva004BB0E5Named, "HordeTransportContainDamage")
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Damage/HordeTransportContainDamage.cpp
