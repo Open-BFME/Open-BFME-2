@@ -20903,3 +20903,6 @@ Code/GameEngine/Source/GameNetwork/BfmeGameBrowserVJU.cpp|class||BfmeElementVJU,
 Code/GameEngine/Source/GameNetwork/BfmeGameBrowserVJU.cpp|class||BfmeBrowserLookupVJU,dc5c518582f5082cdc750198,gpt-6,network-name-review-20261102,w-c1b03bfb0a31,2026-11-02
 Code/GameEngine/Source/GameNetwork/BfmeGameBrowserVJU.cpp|class||BfmeBrowserSenderVJU,6de266148135165c252859a8,gpt-6,network-name-review-20261102,w-c1b03bfb0a31,2026-11-02
 Code/GameEngine/Source/GameNetwork/BfmeGameBrowserVJU.cpp|class||BfmeBrowserNotifyVJU,cc242910b258ce275bb4e338,gpt-6,network-name-review-20261102,w-c1b03bfb0a31,2026-11-02
+Code/GameEngine/Source/Common/PortNegotiationSchema_handleNegotiationResult.cpp|param|PortNegotiationSchema::handleNegotiationResult|a,1c888226af8c91ddcd7b5e99,claude-haiku-5-5,drz-k1-n34a,w-d119d30b66de,2026-11-01
+Code/GameEngine/Source/Common/PortNegotiationSchema_handleNegotiationResult.cpp|param|PortNegotiationSchema::handleNegotiationResult|b,e241a91b405cc69d8e12776e,claude-haiku-5-5,drz-k1-n34a,w-d119d30b66de,2026-11-01
+Code/GameEngine/Source/Common/PortNegotiationSchema_sentAPingPacket.cpp|global||g_00DD35C4,81496cfa919a9e4ba7a33541,claude-haiku-5-5,drz-k1-n34a,w-d119d30b66de,2026-11-01
