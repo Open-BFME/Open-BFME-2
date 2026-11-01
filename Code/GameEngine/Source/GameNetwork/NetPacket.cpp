@@ -914,13 +914,7 @@ typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const v
 
 #include "../../Include/Common/INI/FieldParse.h"
 
-class INI
-{
-public:
-	static void parseColorInt(INI *ini, void *instance, void *store, const void *userData);
-	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
-	void initFromINI(void *what, const FieldParse *parseTable);	// 0x0002DE78
-};
+#include "../../Include/Common/INI/INI.h"
 
 class Rva004E0625
 {

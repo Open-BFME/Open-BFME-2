@@ -42,12 +42,7 @@ static __forceinline void _Destroy(Rva00414258Element *first,
 
 #include <vector>
 
-class INI
-{
-public:
-	char m_pad00[8];
-	int m_loadType;						// +0x08, 1 for the startup files
-};
+#include "../../../../../Include/Common/INI/INI.h"
 
 #include "../../../../../Include/Common/INI/FieldParse.h"
 

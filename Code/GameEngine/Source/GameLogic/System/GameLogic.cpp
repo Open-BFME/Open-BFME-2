@@ -3004,11 +3004,7 @@ public:
 	virtual unsigned char rva0047EC5F() const;
 };
 
-class INI
-{
-public:
-	const char *rva0002DFE2(const char *seps, bool *substituted);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 class Rva0049B6AE
 {

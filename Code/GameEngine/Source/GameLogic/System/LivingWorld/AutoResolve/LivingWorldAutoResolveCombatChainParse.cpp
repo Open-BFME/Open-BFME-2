@@ -15,7 +15,7 @@ class INI;
 struct FieldParse {const char *name;void (*parse)(INI*,void*,void*,const void*);const void *data;int offset;};
 void Rva00418F7DParse(INI*,void*,void*,const void*);
 static const FieldParse combatChainFields[]={ {"Target",Rva00418F7DParse,0,0},{0,0,0,0} };
-class INI {public: const char *getNextToken(const char *seps=0);void initFromINI(void*,const FieldParse*);};
+#include "../../../../../Include/Common/INI/INI.h"
 class INIException {public:char *message;int code;INIException(int,const char*,...);INIException(const INIException&);~INIException();};
 class Rva0022D05F {public:~Rva0022D05F();};
 class Rva004190DA {

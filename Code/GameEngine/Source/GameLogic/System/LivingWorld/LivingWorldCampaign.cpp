@@ -216,17 +216,7 @@ typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const v
 
 #include "../../../../Include/Common/INI/FieldParse.h"
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);	// rowed 0x002F11E
-	static void parseInt(INI *ini, void *instance, void *store, const void *userData);		// rowed 0x002EF56
-	static void parseBool(INI *ini, void *instance, void *store, const void *userData);		// rowed 0x002E850
-	static void parseUnsignedInt(INI *ini, void *instance, void *store, const void *userData);	// rowed 0x002EF72
-	static void parseReal(INI *ini, void *instance, void *store, const void *userData);		// rowed 0x002EFC0
-	void initFromINI(void *what, const FieldParse *parseTable);
-};
+#include "../../../../Include/Common/INI/INI.h"
 
 
 class ModuleData;

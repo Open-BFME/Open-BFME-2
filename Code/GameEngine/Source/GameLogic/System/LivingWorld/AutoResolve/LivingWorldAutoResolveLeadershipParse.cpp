@@ -12,7 +12,7 @@ struct FieldParse {const char *name;void (*parse)(INI*,void*,void*,const void*);
 struct Rva00417DFB { static void parseFromINI(INI*,void*,void*,const void*); };
 void Rva00417FF0Parse(INI*,void*,void*,const void*);
 
-class INI {public: const char *getNextToken(const char *seps=0);void initFromINI(void*,const FieldParse*);static void parseBool(INI*,void*,void*,const void*);};
+#include "../../../../../Include/Common/INI/INI.h"
 static const FieldParse leadershipFields[]={ {"Affects",Rva00417DFB::parseFromINI,0,4},{"AffectsHigherLevelFirst",INI::parseBool,0,20},{"BonusForLevel",Rva00417FF0Parse,0,8},{0,0,0,0} };
 class INIException {public:char *message;int code;INIException(int,const char*,...);INIException(const INIException&);~INIException();};
 class Rva0022CCB0 {public:~Rva0022CCB0();};

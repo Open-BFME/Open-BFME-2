@@ -118,17 +118,7 @@ void SpawnArmy::xfer(Xfer *stream)
 // The reused error literal does not establish an original callback name.
 // Table C616C0: all 304 bytes, 18 full strings and callback bindings,
 // all offsets, zero user data and the null terminator independently verified.
-class INI { public:
- void initFromINI(void*,const FieldParse*);
- static void parseAsciiString(INI*,void*,void*,const void*);
- static void parseCoord2D(INI*,void*,void*,const void*);
- static void parseCoord3D(INI*,void*,void*,const void*);
- static void dup_002F0F7(INI*,void*,void*,const void*);
- static void parseAsciiStringVector(INI*,void*,void*,const void*);
- static void parseBool(INI*,void*,void*,const void*);
- static void parseReal(INI*,void*,void*,const void*);
- static void parseInt(INI*,void*,void*,const void*);
-};
+#include "../../../../Include/Common/INI/INI.h"
 struct FieldParse { const char *name; void (*parse)(INI*,void*,void*,const void*); const void *userData; int offset; };
 const FieldParse SpawnArmy::m_fieldParseTable[]={
  {"Icon",INI::parseAsciiString,0,0x04},

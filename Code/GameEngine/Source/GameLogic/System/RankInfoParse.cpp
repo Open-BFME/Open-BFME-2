@@ -52,18 +52,7 @@ enum INILoadType
 
 struct FieldParse;
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-	int scanInt(const char *token);
-	void initFromINI(void *what, const FieldParse *table);
-	__declspec(dllimport) INILoadType getLoadType() const { return m_loadType; }
-
-private:
-	unsigned char m_pad[8];
-	INILoadType m_loadType; // +0x08
-};
+#include "../../../Include/Common/INI/INI.h"
 
 class Overridable
 {

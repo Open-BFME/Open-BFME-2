@@ -17,12 +17,7 @@ struct FieldParse
 	int offset;
 };
 typedef void (*FieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
-class INI
-{
-public:
-	void initFromINI(void *what, const FieldParse *parseTable);
-	static void parseAsciiStringVector(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../../Include/Common/INI/INI.h"
 #include "../../../../../../reference/shims/iniexception/Common/INIException.h"
 
 class Rva0059E920 { public: Rva0059E920(); private: char unknown00[0x20]; };

@@ -148,16 +148,7 @@ struct FieldParse
 	int offset;
 };
 
-class INI
-{
-public:
-	static void parseAsciiString(INI *, void *, void *, const void *);
-	static void parseAsciiStringVector(INI *, void *, void *, const void *);
-	static void parseInt(INI *, void *, void *, const void *);
-	static void parseCoord2D(INI *, void *, void *, const void *);
-	static void parseReal(INI *, void *, void *, const void *);
-	void initFromINI(void *what, const FieldParse *parseTable);	// 0x0002DE78
-};
+#include "../../../../Include/Common/INI/INI.h"
 
 class ObjectCreationNugget;
 

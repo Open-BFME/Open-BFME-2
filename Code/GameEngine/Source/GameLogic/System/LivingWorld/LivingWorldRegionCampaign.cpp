@@ -53,15 +53,7 @@ typedef int Int;
 
 struct FieldParse;
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps = 0);					// 0x0002DF97
-	void initFromINI(void *what, const FieldParse *parseTable);	// 0x0002DE78
-	static void parseInt(INI *, void *, void *, const void *);
-	static void parseAsciiString(INI *, void *, void *, const void *);
-	static void Rva002F592_ParseArmyPlacementPos(INI *, void *, void *, const void *);
-};
+#include "../../../../Include/Common/INI/INI.h"
 
 // ArmyPlacementPos elements: the Coord2D INI::Rva002F592_ParseArmyPlacementPos
 // appends, spelled BfmeE8 as that unit does.

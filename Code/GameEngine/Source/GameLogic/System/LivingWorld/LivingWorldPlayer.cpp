@@ -258,15 +258,7 @@ struct FieldParse
 	int offset;
 };
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-	void initFromINI(void *what, const FieldParse *parseTable);
-	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
-	static void parseInt(INI *ini, void *instance, void *store, const void *userData);
-	static void parseBool(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../../Include/Common/INI/INI.h"
 
 // The parsers retail's LivingWorldPlayer table reaches, each an already-rowed
 // body: INI::parseAsciiString (0x0002F11E), INI::parseInt (0x0002EF56) and

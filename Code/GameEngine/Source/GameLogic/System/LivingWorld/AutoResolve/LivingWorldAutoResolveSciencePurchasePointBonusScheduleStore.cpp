@@ -40,12 +40,7 @@ namespace _STL { template <> void vector<Rva00413B16Element,allocator<Rva00413B1
 
 namespace _STL { template <> void vector<Rva00413B16Element,allocator<Rva00413B16Element> >::_M_clear(); }
 
-class INI
-{
-public:
-	char m_pad00[8];
-	int m_loadType;						// +0x08, 1 for the startup files
-};
+#include "../../../../../Include/Common/INI/INI.h"
 
 #include "../../../../../Include/Common/INI/FieldParse.h"
 

@@ -18,17 +18,7 @@
 #include <string.h>
 #include <set>
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps = 0);			// 0x0002DF97
-	const char *getNextTokenOrNull(const char *seps = 0);	// 0x0002DEED
-	int scanInt(const char *token);							// 0x0002ECCF
-	float dup_002EE10(const char *token);					// 0x0002EE10, percent to real
-
-	unsigned char m_pad000[0x420];
-	const char *m_sepsColon;								// +0x420
-};
+#include "../../../../../Include/Common/INI/INI.h"
 
 #include "../../../../../Include/Common/INI/FieldParse.h"
 

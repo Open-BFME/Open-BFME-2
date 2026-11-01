@@ -23,7 +23,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 #include <vector>
 #include "ascii_string.h"
-class INI{public:const char *getNextToken(const char *s=0);};
+#include "../../../../Include/Common/INI/INI.h"
 class Rva003F3F03{public:void rva003F3F03(INI*);};
 class LivingWorldRegion:public Rva003F3F03{public:LivingWorldRegion(void*,int,const AsciiString&);char bytes[0x1b4];};
 class ModuleData;

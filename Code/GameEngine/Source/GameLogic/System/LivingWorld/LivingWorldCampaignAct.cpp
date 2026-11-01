@@ -92,11 +92,7 @@ Rva0056616B::~Rva0056616B() {}
 // terminator is independently checked against retail. Callback providers
 // all use the registered four-argument ABI, with no casts or extra pins.
 struct FieldParse;
-class INI { public: const char *getNextToken(const char *seps=0); void initFromINI(void*,const FieldParse*);
- static void parseAsciiStringVectorAppend(INI*,void*,void*,const void*);
- static void parseAsciiString(INI*,void*,void*,const void*);
- static void parseBool(INI*,void*,void*,const void*);
-};
+#include "../../../../Include/Common/INI/INI.h"
 #include "Common/INIException.h"
 struct Rva0052D801Record;
 class Rva0052D83B { public:void rva0052D83B(const Rva0052D801Record &); };
