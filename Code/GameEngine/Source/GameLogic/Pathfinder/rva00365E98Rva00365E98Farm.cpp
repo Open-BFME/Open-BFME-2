@@ -30,20 +30,12 @@ class PathNode {public:PathNode *next,*previous,*nextOptimized;Coord3D pos;Int l
 class Rva00363BC7 {public:void *rva00363BC7(Coord2D *,float *);};
 struct DirectionOptions {Bool flag0,flag1;float value4;Bool flag8;};
 void FreePooledNode(void *);
-class Path {
-public:
- void rva00365E98(Object *,const Coord3D *,Int,Bool);
- void rva003649B1(const PathNode *);
- void rva00365B8A(Object *,PathNode *,PathNode *,const Coord3D *,float);
- Bool rva00365309(Object *,PathNode *,const Coord3D *,DirectionOptions *,Int,float,Bool);
- void rva00364AA2(PathNode *,PathNode *,PathNode *,float);
- void *vtable;PathNode *first,*last;Bool optimized;
-};
+#include "../../../Include/GameLogic/PathfindPath.h"
 static __forceinline const float &directionMax(const float &leftOperand,const float &rightOperand) {return leftOperand>rightOperand?leftOperand:rightOperand;}
 static __forceinline const float &directionMin(const float &firstValue,const float &secondValue) {return firstValue>secondValue?secondValue:firstValue;}
 void Path::rva00365E98(Object *obj,const Coord3D *input,Int surfaces,Bool blocked)
 {
- PathNode *original=first;first=0;last=0;optimized=true;
+ PathNode *original=m_path;m_path=0;m_pathTail=0;m_isOptimized=true;
  Coord3D direction;direction.x=input->x;direction.y=input->y;direction.z=input->z;
  float turn,segmentSpeed;turn=0.0f;segmentSpeed=5.0f;
  const Rva0028AC4EEntry *entry=obj->rva0028AC4E();

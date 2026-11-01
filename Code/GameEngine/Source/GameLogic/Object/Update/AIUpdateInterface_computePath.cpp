@@ -133,13 +133,7 @@ public:
 	int rva001E3511();
 };
 
-class Path
-{
-public:
-	Rva003642DFResult rva00364521(const Rva0008BB38FloatField *arg);
-	unsigned char m_pad00[0x0D];
-	Bool m_blockedByAlly; // +0x0D
-};
+#include "../../../../Include/GameLogic/PathfindPath.h"
 
 // updateLastNode, rowed under its address name.
 class Rva003638BA

@@ -96,7 +96,7 @@ public:
 	const Coord3D *getPosition() const { return &m_pos; }
 	int getLayer() const { return m_layer; }
 };
-class Path { public: int m_pad; PathNode *m_first; PathNode *getFirstNode() { return m_first; } };
+#include "../../../../GameEngine/Include/GameLogic/PathfindPath.h"
 class Rva003F3FCEDwordField { public: int get() const; };
 class Rva003EFDD7LeaField { public: void *get() const; };
 class Rva0027C36A {

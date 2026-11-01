@@ -21,10 +21,7 @@ struct PathWorkingCoord {
  __forceinline void normalize(){((Coord3D *)this)->normalize();}
  __forceinline const Coord3D *coord()const{return (const Coord3D *)this;}
 };
-class Path {public:
- void rva00365B8A(Object *,PathNode *,PathNode *,const Coord3D *,float);
- bool rva00365309(Object *,PathNode *,const Coord3D *,DirectionOptions *,int,float,bool);
-};
+#include "../../../Include/GameLogic/PathfindPath.h"
 void Path::rva00365B8A(Object *obj,PathNode *start,PathNode *end,const Coord3D *input,float radius)
 {
  PathWorkingCoord reverse(*input);reverse.scale(-1.0f);

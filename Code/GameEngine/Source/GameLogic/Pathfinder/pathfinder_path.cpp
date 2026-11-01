@@ -22,21 +22,7 @@ struct PathNode
 };
 
 class Rva00263404Product;
-class Path
-{
-public:
-	~Path();
-	bool DoAdvanceAlongPath(const Coord3D *position, bool stopAtPortal);
-	void SpliceAndPrepend(Rva00263404Product *product);
-private:
-	void *m_unknown00;
-	PathNode *m_path;
-	PathNode *m_pathTail;
-	bool m_isOptimized;
-	bool m_unknown0D;
-	PathNode *m_selected;
-	float m_distance;
-};
+#include "../../../Include/GameLogic/PathfindPath.h"
 
 // WorldBuilder Path::SpliceAndPrepend, WB VA 0x00F25F50 (callgraph lead, score 2).
 void Path::SpliceAndPrepend(Rva00263404Product *product)
@@ -53,12 +39,12 @@ void Path::SpliceAndPrepend(Rva00263404Product *product)
 		delete other;
 		return;
 	}
-	while (m_path != m_selected) {
+	while (m_path != field_10) {
 		PathNode *next = m_path->m_next;
 		delete m_path;
 		m_path = next;
 	}
-	PathNode *next = m_selected->m_next;
+	PathNode *next = field_10->m_next;
 	other->m_pathTail->m_nextOptimized = next;
 	other->m_pathTail->m_next = next;
 	next->m_previous = other->m_pathTail;
@@ -66,6 +52,6 @@ void Path::SpliceAndPrepend(Rva00263404Product *product)
 	m_path = other->m_path;
 	other->m_path = 0;
 	delete other;
-	m_selected = m_path;
-	m_distance = 0.0f;
+	field_10 = m_path;
+	field_14 = 0.0f;
 }

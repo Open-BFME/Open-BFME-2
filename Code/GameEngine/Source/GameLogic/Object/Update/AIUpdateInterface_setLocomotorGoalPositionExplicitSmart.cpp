@@ -8,10 +8,7 @@
 // body (m_locomotorGoalType +0x1FC != 4 -> delete the +0x140 Path; type 4;
 // copy the position to +0x200).
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
-class Path {
-public:
-	~Path();
-};
+#include "../../../../Include/GameLogic/PathfindPath.h"
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 void AIUpdateInterface::setLocomotorGoalPositionExplicitSmart(const Coord3D &newPos)
 {

@@ -24,18 +24,7 @@ enum PathfindLayerEnum
 
 enum { WAYPOINT_PATH_LIMIT = 1024 };
 
-class Path
-{
-public:
-	Path();
-	void prependNode(const Coord3D *pos, PathfindLayerEnum layer, int extra);	// prependNode
-	void appendNode(const Coord3D *pos, PathfindLayerEnum layer, int extra);	// appendNode
-	void markOptimized() { m_isOptimized = true; }
-private:
-	unsigned char m_pad00[0x0C];
-	bool m_isOptimized;						// +0x0C
-	unsigned char m_pad0D[0x28 - 0x0D];
-};
+#include "../../../../Include/GameLogic/PathfindPath.h"
 
 class Waypoint
 {

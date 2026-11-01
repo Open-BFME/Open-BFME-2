@@ -213,11 +213,7 @@ public:
 	unsigned char m_flag3B8;
 };
 
-class Path
-{
-public:
-	~Path();
-};
+#include "../../../Include/GameLogic/PathfindPath.h"
 
 class Object
 {

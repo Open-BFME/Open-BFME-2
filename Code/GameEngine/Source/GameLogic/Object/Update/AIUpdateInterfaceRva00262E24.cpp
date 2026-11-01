@@ -7,7 +7,7 @@
 
 struct Rva003642DFNode;
 struct Rva003642DFResult { Rva003642DFNode *m_node; Coord3D m_pos; };
-class Path { public: Rva003642DFResult rva003642DF(float dist); };
+#include "../../../../Include/GameLogic/PathfindPath.h"
 #include "../../../Common/Thing/thing.h"
 class Object {
 public:

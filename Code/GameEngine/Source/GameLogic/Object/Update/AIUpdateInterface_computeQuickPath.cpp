@@ -42,18 +42,7 @@ private:
 	Coord3D m_pos; // +0x0C
 };
 
-class Path
-{
-public:
-	Path();
-	void prependNode(const Coord3D *pos, PathfindLayerEnum layer, Int limit);
-	void rva00365E98(Object *obj, const Coord3D *direction, Int value, Bool flag);
-	PathNode *getLastNode() const { return m_lastNode; }
-private:
-	unsigned char m_pad00[0x08];
-	PathNode *m_lastNode; // +0x08
-	unsigned char m_pad0C[0x28 - 0x0C];
-};
+#include "../../../../Include/GameLogic/PathfindPath.h"
 
 struct Rva002EDEABArg;
 

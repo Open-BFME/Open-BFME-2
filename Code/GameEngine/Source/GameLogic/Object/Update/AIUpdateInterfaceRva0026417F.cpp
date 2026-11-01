@@ -44,11 +44,7 @@ public:
 	FloatData *m_data;
 };
 
-class Path
-{
-public:
-	Rva003642DFResult rva00364521(const Rva0008BB38FloatField *field);
-};
+#include "../../../../Include/GameLogic/PathfindPath.h"
 
 class AIUpdateInterface
 {

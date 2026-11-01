@@ -89,15 +89,7 @@ Pathfinder *m_00;
 Int m_04;
 };
 class PathfindCell;
-class Path
-{
-public:
-Path();										///< matched 0x00363DC8
-void rva00364551(Object *obj, LocomotorSurfaceTypeMask surfaces, Bool blocked, const float *facing);
-void rva00365E98(Object *obj, const Coord3D *dir, LocomotorSurfaceTypeMask surfaces, Bool blocked);
-private:
-char m_pad[0x28];
-};
+#include "../../../Include/GameLogic/PathfindPath.h"
 
 struct Rva002E8C23Pair { Int x,y; };
 int __cdecl Rva002E8C4DCall(int,unsigned char,Rva002E8C23Pair *,int);

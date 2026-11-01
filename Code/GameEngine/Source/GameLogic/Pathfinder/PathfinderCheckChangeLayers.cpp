@@ -101,17 +101,7 @@ struct Rva002E93A7Info
 	Int m_04;
 };
 class PathfindCell;
-class Path
-{
-public:
-	Path();										///< matched 0x00363DC8
-	// 0x00364551 / 0x00365E98 (unrowed): Zero Hour's optimize step with a
-	// BFME facing hint, and a final pass toward a direction (unnamed).
-	void rva00364551(Object *obj, LocomotorSurfaceTypeMask surfaces, Bool blocked, const float *facing);
-	void rva00365E98(Object *obj, const Coord3D *dir, LocomotorSurfaceTypeMask surfaces, Bool blocked);
-private:
-	char m_pad[0x28];
-};
+#include "../../../Include/GameLogic/PathfindPath.h"
 
 struct PathfinderCostCellInfo { Int x,y; };
 void ji_00629952();

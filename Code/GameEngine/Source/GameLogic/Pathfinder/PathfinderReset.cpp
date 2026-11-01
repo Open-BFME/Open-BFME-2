@@ -6,11 +6,7 @@
 // cl: /DNDEBUG /MD /O1 /arch:SSE /G7
 // ?rva002F462C@Pathfinder@@QAEXXZ @0x002F462C 338B
 // evidence: unlock callers 0x002F6F06 plus 0x002FEB41 via AI plus 0x10; rowed Pathfinder 0x002F40E7 plus 0x002F370D; Path dtor 0x00364A89; layer reset 0x00366DEC 16 layers; zone reset 0x005335D3
-class Path
-{
-public:
-	~Path();
-};
+#include "../../../Include/GameLogic/PathfindPath.h"
 
 struct IRegion2D;
 class Xfer;

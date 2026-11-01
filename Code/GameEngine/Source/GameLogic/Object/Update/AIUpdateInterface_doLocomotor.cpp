@@ -290,15 +290,7 @@ public:
 	Int rva001E34FA();
 };
 
-class Path
-{
-public:
-	~Path();
-	Rva003642DFResult rva00364521(const Rva0008BB38FloatField *locomotor);
-	Bool DoAdvanceAlongPath(const Coord3D *pos, Bool arg2);
-	Int GetNextPortalID();
-	void AdvancePastPortal(ScienceType id, _STL::vector<ScienceType> *portals);
-};
+#include "../../../../Include/GameLogic/PathfindPath.h"
 
 // The record TerrainLogic slot 35 returns for a path segment id.
 struct Rva0026A3A0Segment
