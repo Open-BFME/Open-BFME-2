@@ -40,7 +40,7 @@ public:
 class WeaponStore {public:void createAndFireTempWeapon(const WeaponTemplate *,const Object *,const Coord3D *);};
 extern WeaponStore *TheWeaponStore;
 class Pathfinder {public:void RemoveObjectFromPathfindMap(Object *);void AddObjectToPathfindMap(Object *);};
-class AI {public:unsigned char pad[0x10];Pathfinder *pathfinder;};
+#include "../../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 class BuildAssistant {public:bool moveObjectsForConstruction(const ThingTemplate *,const Coord3D *,float,Player *);};
 extern BuildAssistant *TheBuildAssistant;
@@ -110,8 +110,8 @@ UpdateSleepTime GettingBuiltBehavior::update()
      if(obj->tmplate->kind[5]&0x20000000){
        float minimum=body->maxHealth()*0.2f;
        if(body->health()>=minimum && body->health()<minimum+health){
-         TheAI->pathfinder->RemoveObjectFromPathfindMap(obj);
-         TheAI->pathfinder->AddObjectToPathfindMap(obj);
+         TheAI->m_pathfinder->RemoveObjectFromPathfindMap(obj);
+         TheAI->m_pathfinder->AddObjectToPathfindMap(obj);
          float orientation=obj->orientation;
          const ThingTemplate *thingTemplate=obj->tmplate;
          Player *player=obj->getControllingPlayer();

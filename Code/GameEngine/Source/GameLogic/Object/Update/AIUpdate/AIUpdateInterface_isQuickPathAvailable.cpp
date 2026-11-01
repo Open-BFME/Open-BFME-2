@@ -65,12 +65,7 @@ public:
 };
 
 class Pathfinder;
-class AI
-{
-public:
-	char _pad00[0x10];
-	Pathfinder *m_pathfinder; // +0x10
-};
+#include "../../../../../Include/GameLogic/AI.h"
 extern class AI *TheAI;
 
 class Pathfinder

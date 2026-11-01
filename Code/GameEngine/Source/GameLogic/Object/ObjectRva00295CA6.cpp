@@ -64,13 +64,7 @@ public:
 	Bool rva002EC479(Object *obj, const Coord3D *pos, Object *other);
 };
 
-class AI
-{
-public:
-	unsigned char m_pad00[0x10];
-	void *m_pathfinder;		// +0x10
-	void *pathfinder() const { return m_pathfinder; }
-};
+#include "../../../Include/GameLogic/AI.h"
 
 extern AI *TheAI;
 extern GameLogic *TheGameLogic;

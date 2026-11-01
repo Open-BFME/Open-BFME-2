@@ -17,11 +17,7 @@ public:
     bool testStatus(ObjectStatusTypes status) const;
     bool rva0028C149(int attribute,float *value,int argument);
 };
-class AI
-{
-public:
-    static float getAdjustedVisionRangeForObject(const Object *source, int mode);
-};
+#include "../../../Include/GameLogic/AI.h"
 
 class WeaponBonus;
 class GlobalData;

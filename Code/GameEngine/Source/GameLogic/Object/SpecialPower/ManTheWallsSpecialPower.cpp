@@ -68,12 +68,7 @@ public:
 	void add(Object *member);
 	void groupMoveToPosition(Rva00372571Params *params, int commandSource);
 };
-class AI
-{
-public:
-	AIGroup *createGroup();
-	void destroyGroup(AIGroup *group);
-};
+#include "../../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 
 // Two-pointer range view; the caller passes the vector member at entry +4.

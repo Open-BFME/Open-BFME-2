@@ -50,14 +50,7 @@ public:
 	bool queueForPath(ObjectID id);
 };
 
-class AI
-{
-public:
-	Pathfinder *pathfinder() { return m_pathfinder; }
-private:
-	char m_pad00[0x10];
-	Pathfinder *m_pathfinder;
-};
+#include "../../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 
 enum LocomotorSurfaceType

@@ -328,14 +328,7 @@ class Pathfinder
 public:
 	bool adjustToMeleeDestination(Object *obj, const LocomotorSet &locomotorSet, Coord3D *dest);
 };
-class AI
-{
-public:
-	Object *findClosestEnemy(const Object *me, float range, unsigned int qualifiers,
-		const AttackPriorityInfo *info, PartitionFilter *filter, int unk);
-	char m_pad00[0x10];
-	Pathfinder *m_pathfinder;
-};
+#include "../../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 extern PartitionManager *ThePartitionManager;
 extern int BfmeLogicFramesPerSecond;

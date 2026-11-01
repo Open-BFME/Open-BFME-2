@@ -82,13 +82,7 @@ public:
 	void AddObjectToPathfindMap(Object *);
 };
 
-class AI
-{
-public:
-	Pathfinder *pathfinder();
-	char m_pad00[0x10];
-	Pathfinder *m_pathfinder; // +0x10 +0x10: retail loadPostProcess loads [TheAI+0x10] directly
-};
+#include "../../../../Include/GameLogic/AI.h"
 
 extern AI *TheAI;
 

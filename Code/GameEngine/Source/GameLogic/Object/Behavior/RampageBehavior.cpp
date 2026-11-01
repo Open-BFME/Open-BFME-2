@@ -67,11 +67,7 @@ private:
 	int m_28;
 };
 
-class AI
-{
-public:
-	int rva002FEEAD(Object *obj, float range, unsigned int flags);
-};
+#include "../../../../Include/GameLogic/AI.h"
 
 extern class AI *TheAI;
 

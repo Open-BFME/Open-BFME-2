@@ -16,7 +16,7 @@ class TerrainLogic {public:PathfindLayerEnum getLayerForDestination(Object*,cons
 extern TerrainLogic *TheTerrainLogic;
 struct Rva002EDEABArg;
 class Pathfinder {public:void SetDebugPath(Rva002EDEABArg*);};
-class AI {public:char before[0x10];Pathfinder *pathfinder;};
+#include "../../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 class GlobalData {public:char before[0x9b8];int debugPath;};
 extern GlobalData *TheWritableGlobalData;
@@ -30,6 +30,6 @@ void AIUpdateInterface::moveThroughPortalWithMicropath(const Coord3D *portalStar
  Coord3D position;position.x=m_object->position.x;position.y=m_object->position.y;position.z=m_object->position.z;
  m_path->prependNode(&position,TheTerrainLogic->getLayerForDestination(getObject(),&position),0x7fffffff);
  m_path->optimized=true;
- if(TheWritableGlobalData->debugPath==1)TheAI->pathfinder->SetDebugPath(reinterpret_cast<Rva002EDEABArg*>(m_path));
+ if(TheWritableGlobalData->debugPath==1)TheAI->m_pathfinder->SetDebugPath(reinterpret_cast<Rva002EDEABArg*>(m_path));
  m_field1FC=4;m_field200=*finalPos;
 }

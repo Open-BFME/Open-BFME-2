@@ -145,7 +145,7 @@ enum ObjectID; class ThingFactory { public:
     Object *newObject(const ThingTemplate *,Team *,const CreateMask *,ObjectID);
 };
 class Pathfinder { public: void AddObjectToPathfindMap(Object *); };
-class AI { public: char pad[0x10]; Pathfinder *m_pathfinder; };
+#include "../../../../Include/GameLogic/AI.h"
 extern ThingFactory *TheThingFactory;
 extern GameLogic *TheGameLogic;
 extern AI *TheAI;

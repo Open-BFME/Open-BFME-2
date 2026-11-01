@@ -47,12 +47,7 @@ public:
 	void UnregisterObject(Rva00287C21Other *o);
 };
 
-class AI
-{
-public:
-	unsigned char m_pad00[0x10];
-	Pathfinder *m_pathfinder;
-};
+#include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 
 class Rva002872BA;

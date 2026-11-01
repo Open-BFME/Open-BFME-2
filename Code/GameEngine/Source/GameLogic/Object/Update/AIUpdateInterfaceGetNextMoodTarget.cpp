@@ -94,17 +94,7 @@ public:
 	Bool m_attackIgnoreInsignificantBuildings; // +0x68
 };
 
-class AI
-{
-public:
-	const TAiData *getAiData() const { return m_aiData; }
-	Object *findClosestEnemy(const Object *me, Real range, UnsignedInt qualifiers, const AttackPriorityInfo *info, PartitionFilter *optionalFilter, Int extra);
-	static Real getAdjustedVisionRangeForObject(const Object *obj, Int factors);
-	static Bool rva002FE193(Object *owner, Object *nemesis);
-private:
-	unsigned char m_pad00[0x18];
-	TAiData *m_aiData; // +0x18
-};
+#include "../../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 
 class GlobalData

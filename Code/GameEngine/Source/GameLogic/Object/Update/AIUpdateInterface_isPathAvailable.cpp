@@ -17,12 +17,7 @@ class Pathfinder
 public:
 	bool QuickDoesPathExist(Object *obj, const Coord3D *from, const Coord3D *to, int x);
 };
-class AI
-{
-public:
-	char m_pad[0x10];
-	Pathfinder *m_10;
-};
+#include "../../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 bool AIUpdateInterface::isPathAvailable(const Coord3D *destination) const
@@ -30,6 +25,6 @@ bool AIUpdateInterface::isPathAvailable(const Coord3D *destination) const
 	if (!destination)
 		return false;
 	Object *obj = m_object;
-	Pathfinder *pf = TheAI->m_10;
+	Pathfinder *pf = TheAI->m_pathfinder;
 	return pf->QuickDoesPathExist(obj, &obj->m_38, destination, 0);
 }

@@ -222,17 +222,7 @@ public:
 };
 class AttackPriorityInfo;
 class PartitionFilter;
-class AI
-{
-public:
-	AIGroup *createGroup();
-	void destroyGroup(AIGroup *group);
-	Object *findClosestEnemy(const Object *me, float range, unsigned int qualifiers, const AttackPriorityInfo *info, PartitionFilter *optionalFilter, int a6);
-	static bool rva002FE193(Object *obj, Object *victim);	// rowed 0x002FE193
-	unsigned char m_pad00[0x10];
-	Pathfinder *m_pathfinder; // +0x10
-	Pathfinder *pathfinder() { return m_pathfinder; }
-};
+#include "../../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 class FXList
 {

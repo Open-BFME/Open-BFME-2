@@ -58,7 +58,7 @@ class Pathfinder {public:
  bool IsValidMovementPositionForObject(const Coord3D *,int,int,const Object *);
  int IsLinePassable(void *,void *,PathfindLayerEnum,const Coord3D *,const Coord3D *,void *,int,int);
 };
-class AI {public:char pad00[0x10];Pathfinder *finder;Pathfinder *pathfinder()const{return finder;}};
+#include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 class Path {public:
  bool rva00365309(Object *,PathNode *,const Coord3D *,DirectionOptions *,int,float,bool);

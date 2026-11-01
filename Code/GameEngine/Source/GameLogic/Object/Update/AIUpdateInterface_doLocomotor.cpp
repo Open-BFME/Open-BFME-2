@@ -346,16 +346,7 @@ public:
 	void rva00372BB9(const void *target, Int arg2);
 };
 
-class AI
-{
-public:
-	Pathfinder *pathfinder() { return m_pathfinder; }
-	AIGroup *createGroup();
-	void destroyGroup(AIGroup *group);
-private:
-	unsigned char m_pad00[0x10];
-	Pathfinder *m_pathfinder; // +0x10
-};
+#include "../../../../Include/GameLogic/AI.h"
 
 extern AI *TheAI;
 

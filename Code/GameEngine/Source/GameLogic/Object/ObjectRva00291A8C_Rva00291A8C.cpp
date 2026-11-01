@@ -144,7 +144,7 @@ class Pathfinder { public:
  void RemoveObjectFromPathfindMap(Object *);
  void AddObjectToPathfindMap(Object *);
 };
-class AI { char unknown00[0x10]; Pathfinder *m_pathfinder; public: Pathfinder *getPathfinder() { return m_pathfinder; } };
+#include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 
 

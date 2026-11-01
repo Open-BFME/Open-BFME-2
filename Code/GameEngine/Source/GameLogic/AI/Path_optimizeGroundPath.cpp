@@ -49,15 +49,7 @@ public:
 };
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/AI.h
-class AI
-{
-public:
-	Pathfinder *pathfinder(void) const { return m_pathfinder; }
-
-private:
-	unsigned char m_unknown[0x10];
-	Pathfinder *m_pathfinder;
-};
+#include "../../../Include/GameLogic/AI.h"
 
 // 0x00DFF0F8 is retail's TheAI singleton: `extern AI *TheAI`. The AI class
 // above is that same name, so the reference below carries retail's spelling

@@ -18,13 +18,7 @@ public:
 class AttackPriorityInfo;
 class PartitionFilter;
 
-class AI
-{
-public:
-	Object *findClosestAlly(const Object *me, float range, unsigned int flags);
-	Object *findClosestEnemy(const Object *me, float range, unsigned int qualifiers,
-		const AttackPriorityInfo *info, PartitionFilter *optionalFilter, int bfmeArg);
-};
+#include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 
 int GetGameLogicRandomValue(int low, int high, char *file, int line);

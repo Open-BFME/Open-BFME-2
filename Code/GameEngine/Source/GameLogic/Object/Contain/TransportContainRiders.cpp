@@ -262,14 +262,7 @@ public:
 	Bool getClosestPointOnLand(const Coord3D *pos, Object *obj, Coord3D *result);
 };
 
-class AI
-{
-public:
-	Pathfinder *pathfinder() { return m_pathfinder; }
-private:
-	char m_pad00[0x10];
-	Pathfinder *m_pathfinder; // +0x10
-};
+#include "../../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 
 // The pair OpenContain hands its list reader (see OpenContainRva00464286.cpp).

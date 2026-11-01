@@ -90,13 +90,7 @@ public:
 	Bool m_aiCrushesInfantry; // +0x8C
 };
 
-class AI
-{
-public:
-	static Bool rva002FE193(Object *owner, Object *nemesis);
-	unsigned char m_pad00[0x18];
-	TAiData *m_aiData; // +0x18
-};
+#include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 
 class Locomotor
