@@ -1,0 +1,11 @@
+Bool Player::hasAnyBuildings(void) const
+{
+	for (PlayerTeamList::const_iterator it = m_playerTeamPrototypes.begin(); 
+			 it != m_playerTeamPrototypes.end(); ++it)
+	{	
+		if ((*it)->hasAnyBuildings()) {
+			return true;
+		}
+	}
+	return false;
+}

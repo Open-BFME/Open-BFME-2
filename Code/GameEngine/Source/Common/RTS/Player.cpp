@@ -1124,18 +1124,8 @@ struct BfmePlayerTeamFields
 // Player::findClosestByKindOf is defined with its retail-matched body in Code/GameEngine/Source/Common/RTS/PlayerTeamPrototypeQueries.cpp (0x002AB185).
 
 //=============================================================================
-// ?hasAnyBuildings@Player@@ present-unmatched
-Bool Player::hasAnyBuildings(void) const
-{
-	for (PlayerTeamList::const_iterator it = m_playerTeamPrototypes.begin(); 
-			 it != m_playerTeamPrototypes.end(); ++it)
-	{	
-		if ((*it)->hasAnyBuildings()) {
-			return true;
-		}
-	}
-	return false;
-}
+
+
 
 //=============================================================================
 // ?hasAnyBuildings@Player@@ present-unmatched

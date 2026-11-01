@@ -1,0 +1,11 @@
+{
+  "base": "95fb7ea307b56fca28e084d6925d6b1818b14c82",
+  "before_definitions": 323,
+  "after_definitions": 322,
+  "added": [],
+  "removed": [
+    "?hasAnyBuildings@Player@@QBE_NXZ"
+  ],
+  "changed": [],
+  "all_retained_whole_code_and_relocations_equal": true
+}

@@ -12080,7 +12080,7 @@ present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	getProductionCost
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	getProductionTimeChangePercent@Player@@QBEMVAsciiString@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	getProductionVeterancyLevel@Player@@QBE?AW4VeterancyLevel@@VAsciiString@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	getSupplyBoxValue@Player@@QAEIXZ	1
-present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	hasAnyBuildings@Player@@	2
+present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	hasAnyBuildings@Player@@	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	hasUpgradeComplete@Player@@	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	hasUpgradeInProduction@Player@@QAE_NPBVUpgradeTemplate@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	isPlayableSide@Player@@QBE_NXZ	1
