@@ -74,7 +74,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00001DB1,98,code,,,-,,Code/Libraries/Source/ATL/atlconv.cpp
 0x00001E13,8,code,,,-,,Code/Libraries/Source/ATL/Rva00001E13Dtor.cpp
 0x00001E1B,20,code,,,-,,Code/Libraries/Source/ATL/atlimage.cpp
-0x00001E2F,20,code,,,-,,Code/GameEngine/Source/Common/System/AsciiString.cpp
+0x00001E2F,20,code,,,-,,Code/GameEngine/Source/Common/System/Snapshot.cpp
 0x00001E43,36,code,,,-,,Code/Libraries/Source/GdiPlus/gdiplusbitmap_dtor.cpp
 0x00001E67,24,code,,,-,,Code/Libraries/Source/WWVegas/WWMath/color.cpp
 0x00001E7F,47,code,,,-,,Code/Libraries/Source/WWVegas/WWMath/color.cpp
@@ -197,7 +197,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00003FDA,20,code,Code/Libraries/Source/WWVegas/WWMath/Coord3D.cpp,proposed,N,N=Code/Libraries/Source/WWVegas/WWMath/Coord3D.cpp noncontiguous,Code/Libraries/Source/WWVegas/WWMath/coord3d.cpp
 0x00003FEE,46,code,,,-,,Code/Libraries/Source/WWVegas/WWMath/coord3d.cpp
 0x0000401C,93,code,Code/GameEngine/Source/Common/System/Snapshot.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WWMath/Matrix4D.cpp,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp
-0x00004079,357,code,Code/GameEngine/Source/Common/System/Snapshot.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WWMath/Matrix4D.cpp,Code/Libraries/Source/WWVegas/WWMath/matrix4d_axis_angle.cpp
+0x00004079,357,code,Code/GameEngine/Source/Common/System/Snapshot.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WWMath/Matrix4D.cpp,Code/GameEngine/Source/Common/System/Snapshot.cpp
 0x000041DE,111,code,Code/GameEngine/Source/Common/System/Snapshot.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WWMath/Matrix4D.cpp,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp
 0x0000424D,188,code,Code/GameEngine/Source/Common/System/Snapshot.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WWMath/Matrix4D.cpp,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp
 0x00004309,246,code,Code/GameEngine/Source/Common/System/Snapshot.cpp,approved,C,C=0x0000424D..0x000043FF,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp
@@ -252,12 +252,12 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x000051AB,47,code,Code/GameEngine/Source/Common/System/Snapshot.cpp,approved,C,C=0x00004EDF..0x000051DA,Code/Libraries/Source/WWVegas/WWMath/region.cpp
 0x000051DA,125,code,Code/GameEngine/Source/Common/System/Snapshot.cpp,approved,C,C=0x00004EDF..0x00005257,Code/Libraries/Source/WWVegas/WWMath/color.cpp
 0x00005257,109,code,Code/GameEngine/Source/Common/System/Snapshot.cpp,approved,C,C=0x00004EDF..0x000052C4,Code/Libraries/Source/WWVegas/WWMath/color.cpp
-0x000052C4,14,code,Code/GameEngine/Source/Common/System/Snapshot.cpp,approved,C,C=0x00004EDF..0x000052D2,Code/GameEngine/Source/Common/System/AsciiString.cpp
-0x000052D2,15,code,Code/GameEngine/Source/Common/System/Snapshot.cpp,approved,C,C=0x00004EDF..0x000052E1,Code/GameEngine/Source/Common/System/WideLengthOrZero.cpp
-0x000052E1,23,code,Code/GameEngine/Source/Common/System/Snapshot.cpp,approved,C,C=0x00004EDF..0x000052F8,Code/Libraries/Source/WWVegas/WWLib/Rva0000532CCompareBytes.cpp
+0x000052C4,14,code,Code/GameEngine/Source/Common/System/Snapshot.cpp,approved,C,C=0x00004EDF..0x000052D2,Code/GameEngine/Source/Common/System/Snapshot.cpp
+0x000052D2,15,code,Code/GameEngine/Source/Common/System/Snapshot.cpp,approved,C,C=0x00004EDF..0x000052E1,Code/GameEngine/Source/Common/System/Snapshot.cpp
+0x000052E1,23,code,Code/GameEngine/Source/Common/System/Snapshot.cpp,approved,C,C=0x00004EDF..0x000052F8,Code/GameEngine/Source/Common/System/Snapshot.cpp
 0x000052F8,52,code,Code/GameEngine/Source/Common/System/Snapshot.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WWLib/WideCharCompare.cpp,Code/GameEngine/Source/Common/System/Snapshot.cpp
-0x0000532C,24,code,Code/GameEngine/Source/Common/System/Snapshot.cpp,approved,C,C=0x000052F8..0x00005344,Code/Libraries/Source/WWVegas/WWLib/Rva0000532CCompareBytes.cpp
-0x00005344,80,code,Code/GameEngine/Source/Common/System/Snapshot.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WWLib/WideCharCompare.cpp,Code/Libraries/Source/WWVegas/WWLib/string_base_compare_nocase.cpp
+0x0000532C,24,code,Code/GameEngine/Source/Common/System/Snapshot.cpp,approved,C,C=0x000052F8..0x00005344,Code/GameEngine/Source/Common/System/Snapshot.cpp
+0x00005344,80,code,Code/GameEngine/Source/Common/System/Snapshot.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WWLib/WideCharCompare.cpp,Code/GameEngine/Source/Common/System/Snapshot.cpp
 0x00005394,18,code,Code/GameEngine/Source/Common/System/Snapshot.cpp,approved,C,C=0x00005344..0x000053A6,Code/Libraries/Source/WWVegas/WWLib/unicode_string.cpp
 0x000053A6,9,code,Code/GameEngine/Source/Common/System/Snapshot.cpp,approved,Z,Z=Code/GameEngine/Source/Common/System/Snapshot.cpp S=Code/GameEngine/Source/Common/System/Snapshot.cpp N=Code/GameEngine/Source/Common/System/Snapshot.cpp,Code/GameEngine/Source/Common/System/Snapshot.cpp
 0x000053AF,29,code,Code/GameEngine/Source/Common/System/Snapshot.cpp,approved,N,N=Code/GameEngine/Source/Common/System/Snapshot.cpp,Code/GameEngine/Source/Common/System/LivingWorldRegionConnectionCopy.cpp
@@ -320,12 +320,12 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00005CD4,1497,code,Code/GameEngine/Source/Common/System/Snapshot.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WWMath/Matrix4D.cpp,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp
 0x000062AD,43,code,Code/Libraries/Source/WWVegas/WWMath/RealRange.cpp,proposed,N,N=Code/Libraries/Source/WWVegas/WWMath/RealRange.cpp noncontiguous,Code/Libraries/Source/WWVegas/WWMath/region.cpp
 0x000062D8,37,code,Code/GameEngine/Source/Common/System/Snapshot.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WWMath/IntRange.cpp,Code/Libraries/Source/WWVegas/WWMath/region.cpp
-0x000062FD,294,code,Code/GameEngine/Source/Common/System/Snapshot.cpp,approved,C,C=0x000062D8..0x00006423,Code/Libraries/Source/WWVegas/WWMath/Rva000062FDSegment.cpp
+0x000062FD,294,code,Code/GameEngine/Source/Common/System/Snapshot.cpp,approved,C,C=0x000062D8..0x00006423,Code/GameEngine/Source/Common/System/Snapshot.cpp
 0x00006423,70,code,Code/GameEngine/Source/Common/System/Snapshot.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WWMath/Region2D.cpp,Code/Libraries/Source/WWVegas/WWMath/region.cpp
 0x00006469,44,code,Code/GameEngine/Source/Common/System/Snapshot.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WWMath/IRegion2D.cpp,Code/Libraries/Source/WWVegas/WWMath/region.cpp
 0x00006495,103,code,Code/GameEngine/Source/Common/System/Snapshot.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WWMath/Region3D.cpp,Code/Libraries/Source/WWVegas/WWMath/region.cpp
 0x000064FC,60,code,Code/GameEngine/Source/Common/System/Snapshot.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WWMath/IRegion3D.cpp,Code/Libraries/Source/WWVegas/WWMath/region.cpp
-0x00006538,18,code,Code/GameEngine/Source/Common/System/Snapshot.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WWMath/RGBColor.cpp,Code/Libraries/Source/WWVegas/WWMath/color_rgbcolor_ctor.cpp
+0x00006538,18,code,Code/GameEngine/Source/Common/System/Snapshot.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WWMath/RGBColor.cpp,Code/GameEngine/Source/Common/System/Snapshot.cpp
 0x0000654A,18,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/ascii_string.cpp
 0x0000655C,22,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/ascii_string.cpp
 0x00006572,18,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/ascii_string.cpp
@@ -30540,7 +30540,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x003B1546,144,code,Code/GameEngine/Source/Common/RTS/SpecialPower.cpp,approved,C,C=0x003B1244..0x003B15D6,Code/GameEngine/Source/Common/RTS/SpecialPower.cpp
 0x003B15D6,541,code,Code/GameEngine/Source/Common/RTS/SpecialPower.cpp,approved,Z,Z=Code/GameEngine/Source/Common/RTS/SpecialPower.cpp S=Code/GameEngine/Source/Common/RTS/SpecialPower.cpp N=Code/GameEngine/Source/Common/RTS/SpecialPowerStore.cpp,Code/GameEngine/Source/Common/RTS/SpecialPowerStoreParseSpecialPowerDefinition.cpp
 0x003B17F3,28,code,,,-,,Code/GameEngine/Source/Common/RTS/SpecialPower.cpp
-0x003B180F,17,code,,,-,,Code/GameEngine/Source/Common/System/AsciiString.cpp
+0x003B180F,17,code,,,-,,Code/GameEngine/Source/Common/System/Snapshot.cpp
 0x003B1820,51,code,,,-,,Code/GameEngine/Source/Common/Rva003B1820Find.cpp
 0x003B1853,38,code,,,-,,Code/GameEngine/Source/Common/Rva003B1853Set.cpp
 0x003B1879,123,code,,,-,,Code/GameEngine/Source/Common/Rva003B1879Init.cpp
