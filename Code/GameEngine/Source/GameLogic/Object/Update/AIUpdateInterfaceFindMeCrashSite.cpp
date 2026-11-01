@@ -25,9 +25,9 @@ class Object {public: char pad[0x38];Coord3D position;char beforeRadius[0xbc-0x4
 };
 struct HitRange {void *begin,*end;char opaque[4];void *cursor;};
 static __forceinline float crashSpacing(const float &a,const float &b) { float t=b; return a>t?a:b; }
-class AIUpdateInterface { char pad[8];Object *object; public: bool findMeACrashSite(float,const Coord3D*,Coord3D*,BfmeFixedStorage0004543D); };
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 bool AIUpdateInterface::findMeACrashSite(float maxRange,const Coord3D *startPos,Coord3D *output,BfmeFixedStorage0004543D mask) {
- Object *self=object;if(!self)return false;
+ Object *self=m_object;if(!self)return false;
  float spacing=crashSpacing(10.0f,self->radius);
  BfmeWideResult hits=ThePartitionManager->iterateObjectsInRange(startPos,maxRange,0,&Rva0004584D(mask,*reinterpret_cast<const BfmeFixedStorage0004543D *>(&KINDOFMASK_NONE)),1);
  for(float range=spacing;range<=maxRange;range+=spacing) {

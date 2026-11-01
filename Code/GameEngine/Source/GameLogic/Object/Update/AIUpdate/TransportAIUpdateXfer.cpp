@@ -68,14 +68,7 @@ public:
 };
 
 
-class AIUpdateInterface
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void xfer( Xfer *xfer );
-};
+#include "../../../../../Include/GameLogic/Module/AIUpdate.h"
 
 class TransportAIUpdate : public AIUpdateInterface
 {

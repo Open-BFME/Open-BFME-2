@@ -112,12 +112,7 @@ enum CommandSourceType
 	CMD_FROM_AI = 2
 };
 
-class AICommandInterface
-{
-public:
-	virtual void aiDoCommand(const void *parms) = 0;
-	void rva0036EC1D(Object *obj, CommandSourceType cmdSource);	// 0x0036EC1D
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 // What precedes the AICommandInterface subobject (+0x20).
 class Rva004C888DAIBase
@@ -128,9 +123,6 @@ private:
 	char m_pad04[0x1C];
 };
 
-class AIUpdateInterface : public Rva004C888DAIBase, public AICommandInterface
-{
-};
 
 template <int N> class Rva004C888DSlots : public Rva004C888DSlots<N - 1>
 {

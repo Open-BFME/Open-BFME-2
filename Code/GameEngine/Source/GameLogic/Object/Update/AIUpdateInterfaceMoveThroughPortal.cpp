@@ -20,19 +20,16 @@ class AI {public:char before[0x10];Pathfinder *pathfinder;};
 extern AI *TheAI;
 class GlobalData {public:char before[0x9b8];int debugPath;};
 extern GlobalData *TheWritableGlobalData;
-class AIUpdateInterface {public:char before[8];Object *object;char toPath[0x140-0xc];Path *path;char toGoal[0x1fc-0x144];int goalType;Coord3D goal;
- Object *getObject()const{return object;}
- void destroyPath();void moveThroughPortalWithMicropath(const Coord3D*,const Coord3D*,int,PathfindLayerEnum,const Coord3D*,const Coord3D*);
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 void AIUpdateInterface::moveThroughPortalWithMicropath(const Coord3D *portalStart,const Coord3D *portalEnd,int id,PathfindLayerEnum layer,const Coord3D *midPos,const Coord3D *finalPos) {
- destroyPath();path=new Path;
- path->prependNode(finalPos,TheTerrainLogic->getLayerForDestination(getObject(),finalPos),id);
- if(!const_cast<Coord3D*>(midPos)->operator==(*finalPos))path->prependNode(midPos,TheTerrainLogic->getLayerForDestination(getObject(),midPos),id);
- path->prependNode(portalEnd,layer,id);
- path->prependNode(portalStart,TheTerrainLogic->getLayerForDestination(getObject(),portalStart),0x7fffffff);
- Coord3D position;position.x=object->position.x;position.y=object->position.y;position.z=object->position.z;
- path->prependNode(&position,TheTerrainLogic->getLayerForDestination(getObject(),&position),0x7fffffff);
- path->optimized=true;
- if(TheWritableGlobalData->debugPath==1)TheAI->pathfinder->SetDebugPath(reinterpret_cast<Rva002EDEABArg*>(path));
- goalType=4;goal=*finalPos;
+ destroyPath();m_path=new Path;
+ m_path->prependNode(finalPos,TheTerrainLogic->getLayerForDestination(getObject(),finalPos),id);
+ if(!const_cast<Coord3D*>(midPos)->operator==(*finalPos))m_path->prependNode(midPos,TheTerrainLogic->getLayerForDestination(getObject(),midPos),id);
+ m_path->prependNode(portalEnd,layer,id);
+ m_path->prependNode(portalStart,TheTerrainLogic->getLayerForDestination(getObject(),portalStart),0x7fffffff);
+ Coord3D position;position.x=m_object->position.x;position.y=m_object->position.y;position.z=m_object->position.z;
+ m_path->prependNode(&position,TheTerrainLogic->getLayerForDestination(getObject(),&position),0x7fffffff);
+ m_path->optimized=true;
+ if(TheWritableGlobalData->debugPath==1)TheAI->pathfinder->SetDebugPath(reinterpret_cast<Rva002EDEABArg*>(m_path));
+ m_field1FC=4;m_field200=*finalPos;
 }

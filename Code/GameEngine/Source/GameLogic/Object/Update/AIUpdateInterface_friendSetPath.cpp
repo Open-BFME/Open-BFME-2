@@ -8,14 +8,7 @@
 
 class Path;
 
-class AIUpdateInterface
-{
-	char m_pad00[0x140];
-	Path *m_path;
-public:
-	void destroyPath();
-	void friend_setPath(Path *newPath);
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 void AIUpdateInterface::friend_setPath(Path *newPath)
 {

@@ -23,17 +23,11 @@ struct AIStateMachine
 	AIState *m_state50;
 };
 
-class AIUpdateInterface
-{
-	char m_pad00[0x30];
-	AIStateMachine *m_machine;
-public:
-	int getCurrentStateID() const;
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 int AIUpdateInterface::getCurrentStateID() const
 {
-	AIStateMachine *aIStateMachine = m_machine;
+	AIStateMachine *aIStateMachine = m_stateMachine;
 	int id = aIStateMachine->m_state50 ? aIStateMachine->m_state50->m_id : 0xF423F;
 	if (id != 0xF423F)
 		return id;

@@ -28,14 +28,7 @@ struct TurretAI
 	Real getTurnRate() const { return m_data->m_turnRate; }
 };
 
-class AIUpdateInterface
-{
-	char m_pad[0x20C];
-	TurretAI *m_turretAI[1];
-
-public:
-	Real getTurretTurnRate(WhichTurretType tur) const;
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 // ?getTurretTurnRate@AIUpdateInterface@@QBEMW4WhichTurretType@@@Z
 Real AIUpdateInterface::getTurretTurnRate(WhichTurretType tur) const

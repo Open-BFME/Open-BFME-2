@@ -66,11 +66,7 @@ public:
 	virtual void privateFollowPath(const Rva0035149F *path, Object *ignoreObject, CommandSourceType commandSource, bool exitProduction) = 0;
 };
 
-class AIUpdateInterface
-{
-public:
-	int getCurrentStateID() const; // 0x00262FC3
-};
+#include "../../../../../Include/GameLogic/Module/AIUpdate.h"
 
 class AIStateMachine
 {

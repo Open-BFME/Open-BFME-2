@@ -163,13 +163,7 @@ struct WeaponSet
 	CanAttackResult getAbleToAttackSpecificObject(AbleToAttackType,const Object*,const Object*,CommandSourceType)const;
 };
 
-class AIUpdateInterface
-{
-public:
-	WhichTurretType getWhichTurretForWeaponSlot(WeaponSlotType wslot, Real *turretAngle, Real *turretPitch) const;
-	Bool isTurretEnabled(WhichTurretType tur) const;
-	Object *getCurrentVictim() const;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 class SpawnBehaviorInterface
 {

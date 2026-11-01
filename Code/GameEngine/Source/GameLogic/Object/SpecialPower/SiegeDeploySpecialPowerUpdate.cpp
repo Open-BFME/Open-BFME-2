@@ -42,21 +42,10 @@ public:
 	static Module *rva004608E0(Object *obj);
 	bool IsEndPortalAboveWall(Coord3D *pos);
 };
-class AICommandInterface
-{
-public:
-	void rva0045003E(int arg, CommandSourceType cmdSource);
-	void aiMoveToPosition(const Coord3D *pos, CommandSourceType cmdSource);
-	void aiFacePosition(const Coord3D *pos, int cmdSource);
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 class SiegeDeployAIHead
 {
 	unsigned char m_pad[0x20];
-};
-class AIUpdateInterface : public SiegeDeployAIHead, public AICommandInterface
-{
-public:
-	void ignoreObstacle(const Object *obj);
 };
 template<int N> class SiegeDeployAISlots : public SiegeDeployAISlots<N - 1>
 {

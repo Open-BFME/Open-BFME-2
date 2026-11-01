@@ -106,27 +106,11 @@ public:
 	char m_pad00[0x20];
 	SiegeDockingIface m_iface; // +0x20
 };
-class AICommandInterface
-{
-public:
-	void aiIdle(CommandSourceType cmdSource);
-	void aiMoveToPosition(const Coord3D *pos, CommandSourceType cmdSource);
-	void aiEvacuate(bool,CommandSourceType);
-	void aiExit(Object*,CommandSourceType);
-	void rva0045003E(int arg, CommandSourceType cmdSource);
-	void aiFacePosition(const Coord3D *pos, int cmdSource);
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 enum AttitudeType { ATTITUDE_ZERO=0 };
 class AIUpdateInterfaceHead
 {
 	unsigned char m_pad00[0x20];
-};
-class AIUpdateInterface : public AIUpdateInterfaceHead, public AICommandInterface
-{
-public:
-    void ignoreObstacle(const Object *obj);
-    AttitudeType getAttitude() const;
-    void rva0026DE3B(int);
 };
 
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"

@@ -73,28 +73,9 @@ enum CommandSourceType
 	CMD_FROM_AI = 2
 };
 
-class AICommandInterface
-{
-public:
-	virtual void aiDoCommand();
-	void aiIdle(CommandSourceType cmdSource);
-};
+#include "../../../../../Include/GameLogic/Module/AIUpdate.h"
 
-class AIUpdateInterface24
-{
-public:
-	virtual void slot0();
-};
 
-class AIUpdateInterface : public UpdateModule, public AICommandInterface, public AIUpdateInterface24
-{
-public:
-	AIUpdateInterface(Thing *thing, const ModuleData *moduleData);
-protected:
-	virtual ~AIUpdateInterface();
-private:
-	unsigned char m_pad28[0x3E4 - 0x28];
-};
 
 // The 0xC4-byte member DeployStyleAIUpdate keeps at +0x3E4 (ctor 0x0026AFDA,
 // rowed dtor 0x0026B03D).

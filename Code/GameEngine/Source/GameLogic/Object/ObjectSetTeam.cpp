@@ -139,13 +139,7 @@ public:
 	AsciiString m_name;		// +4
 };
 
-class AIUpdateInterface
-{
-public:
-	void rva0026DE3B(int attitude);	// 0x0026DE3B (setAttitude)
-	char m_pad0[0x70];
-	const AttackPriorityInfo *m_attackInfo;	// +0x70
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;

@@ -23,14 +23,7 @@ struct TurretAI
 	bool isOwnersCurWeaponOnTurret() const;
 };
 
-class AIUpdateInterface
-{
-	char m_pad[0x20C];
-	TurretAI *m_turretAI[MAX_TURRETS];
-
-public:
-	WhichTurretType getWhichTurretForCurWeapon() const;
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 // ?getWhichTurretForCurWeapon@AIUpdateInterface@@QBE?AW4WhichTurretType@@XZ
 WhichTurretType AIUpdateInterface::getWhichTurretForCurWeapon() const

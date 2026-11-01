@@ -38,11 +38,7 @@ public:
 
 extern ActionManager *TheActionManager;
 
-class AICommandInterface
-{
-public:
-	void rva0036F19B(Object *obj, CommandSourceType cmdSource);
-};
+#include "../../../../../Include/GameLogic/Module/AIUpdate.h"
 
 class Rva0049AFFCUpdateModule
 {
@@ -51,9 +47,6 @@ public:
 	char m_pad04[0x20 - 0x04];
 };
 
-class AIUpdateInterface : public Rva0049AFFCUpdateModule, public AICommandInterface
-{
-};
 
 struct Rva0049AFFCTemplate
 {

@@ -23,14 +23,7 @@ struct TurretAI
 	Bool isTurretEnabled() const { return m_enabled; }
 };
 
-class AIUpdateInterface
-{
-	char m_pad[0x20C];
-	TurretAI *m_turretAI[1];
-
-public:
-	Bool isTurretEnabled(WhichTurretType tur) const;
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 // ?isTurretEnabled@AIUpdateInterface@@QBE_NW4WhichTurretType@@@Z
 Bool AIUpdateInterface::isTurretEnabled(WhichTurretType tur) const

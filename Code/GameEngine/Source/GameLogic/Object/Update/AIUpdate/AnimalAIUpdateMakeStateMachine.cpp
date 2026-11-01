@@ -17,16 +17,7 @@ public:
 	unsigned char m_unmodelled_00[0x68];
 };
 
-class AIUpdateInterface
-{
-public:
-	virtual ~AIUpdateInterface();
-	Object *getObject() const { return m_object; }
-protected:
-	virtual AIStateMachine *makeStateMachine();
-	const void *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-};
+#include "../../../../../Include/GameLogic/Module/AIUpdate.h"
 
 class AnimalAIUpdate : public AIUpdateInterface
 {

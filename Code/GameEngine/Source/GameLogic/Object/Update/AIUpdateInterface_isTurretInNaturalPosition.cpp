@@ -20,14 +20,7 @@ struct TurretAI
 	Bool isTurretInNaturalPosition() const;
 };
 
-class AIUpdateInterface
-{
-	char m_pad[0x20C];
-	TurretAI *m_turretAI[1];
-
-public:
-	Bool isTurretInNaturalPosition(WhichTurretType tur) const;
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 // ?isTurretInNaturalPosition@AIUpdateInterface@@QBE_NW4WhichTurretType@@@Z
 Bool AIUpdateInterface::isTurretInNaturalPosition(WhichTurretType tur) const

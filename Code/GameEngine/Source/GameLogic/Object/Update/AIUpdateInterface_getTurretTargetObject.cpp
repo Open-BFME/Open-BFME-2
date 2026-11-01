@@ -32,14 +32,7 @@ struct TurretAI
 	TurretTargetType friend_getTurretTarget(Object *&obj, Coord3D &pos) const;
 };
 
-class AIUpdateInterface
-{
-	char m_pad[0x20C];
-	TurretAI *m_turretAI[1];
-
-public:
-	Object *getTurretTargetObject(WhichTurretType tur);
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 // ?getTurretTargetObject@AIUpdateInterface@@QAEPAVObject@@W4WhichTurretType@@@Z
 Object *AIUpdateInterface::getTurretTargetObject(WhichTurretType tur)

@@ -174,15 +174,7 @@ public:
 	Real m_closeEnoughDist;
 };
 
-class AIUpdateInterface
-{
-public:
-	void rva0026DE3B(Int attitude);
-	char m_pad[0x1F0];
-	Locomotor *m_curLocomotor;
-	char m_pad1F4[0x3BE - 0x1F4];
-	Bool m_isRecruitable;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 class Rva002628B6DwordSlot
 {
@@ -364,7 +356,7 @@ void Object::updateObjValuesFromMapProperties(Dict *properties)
 	if (exists)
 	{
 		if (getAIUpdateInterface())
-			getAIUpdateInterface()->m_isRecruitable = valBool;
+			getAIUpdateInterface()->m_field3BE = valBool;
 	}
 
 	valBool = properties->getBool(TheKey_objectSelectable.get(), &exists);

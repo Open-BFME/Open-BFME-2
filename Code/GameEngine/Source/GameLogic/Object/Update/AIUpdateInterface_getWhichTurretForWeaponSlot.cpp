@@ -39,14 +39,7 @@ struct TurretAI
 	Bool isWeaponSlotOnTurret(WeaponSlotType wslot) const;
 };
 
-class AIUpdateInterface
-{
-	char m_pad[0x20C];
-	TurretAI *m_turretAI[MAX_TURRETS];
-
-public:
-	WhichTurretType getWhichTurretForWeaponSlot(WeaponSlotType wslot, Real *turretAngle, Real *turretPitch) const;
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 // ?getWhichTurretForWeaponSlot@AIUpdateInterface@@QBE?AW4WhichTurretType@@W4WeaponSlotType@@PAM1@Z
 WhichTurretType AIUpdateInterface::getWhichTurretForWeaponSlot(WeaponSlotType wslot, Real *turretAngle, Real *turretPitch) const

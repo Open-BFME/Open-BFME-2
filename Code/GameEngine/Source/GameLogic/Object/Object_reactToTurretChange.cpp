@@ -15,11 +15,7 @@ enum WhichTurretType
 	TURRET_PRIMARY = 0
 };
 
-class AIUpdateInterface
-{
-public:
-	bool getTurretRotAndPitch(WhichTurretType tur, float *turretAngle, float *turretPitch) const;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 class Rva0028B141Face
 {

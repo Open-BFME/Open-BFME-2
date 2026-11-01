@@ -32,20 +32,11 @@ public:
 class LuaScriptEngine;
 extern LuaScriptEngine *TheLuaScriptEngine;
 
-class AIUpdateInterface
-{
-public:
-	void setCompletedWaypoint(const Waypoint *wp);
-private:
-	char m_pad0[8];
-	void *m_object;
-	char m_pad1[0x13C - 0x0C];
-	const Waypoint *m_completed;
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 void AIUpdateInterface::setCompletedWaypoint(const Waypoint *wp)
 {
-	m_completed = wp;
+	m_completedWaypoint = wp;
 	DelayedLuaEventList list;
 	void *object = m_object;
 	reinterpret_cast<BfmeObjectEventDispatch *>(TheLuaScriptEngine)->rva003360D2(2, object, (BfmeDelayedLuaEventList *)&list);

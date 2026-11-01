@@ -24,14 +24,7 @@ public:
 	Pathfinder *m_10;
 };
 extern AI *TheAI;
-class AIUpdateInterface
-{
-public:
-	bool isPathAvailable(const Coord3D *destination) const;
-private:
-	char m_pad[8];
-	Object *m_object;
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 bool AIUpdateInterface::isPathAvailable(const Coord3D *destination) const
 {
 	if (!destination)

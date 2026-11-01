@@ -13,7 +13,7 @@ public:
 	virtual void s9(); virtual void s10(); virtual void s11(); virtual void s12(); virtual void s13();
 	virtual void s14(const Coord3D *pos);
 };
-class AIUpdateInterface { public: void rva00265667(const Coord3D *pos, int flag); };
+#include "../../../../../Include/GameLogic/Module/AIUpdate.h"
 class Rva00368344 {
 public:
 	void rva003682F1(const Waypoint *goal, bool extra, const Waypoint *next);

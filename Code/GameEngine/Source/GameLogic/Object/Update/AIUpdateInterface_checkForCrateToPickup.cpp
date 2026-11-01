@@ -34,19 +34,7 @@ private:
 
 extern GameLogic *TheGameLogic;
 
-class AIUpdateInterface
-{
-public:
-	Object *checkForCrateToPickup();
-private:
-	Object *getObject() const { return m_object; }
-
-	void *m_vtable;
-	unsigned char m_pad04[0x08 - 0x04];
-	Object *m_object;
-	unsigned char m_pad0C[0x238 - 0x0C];
-	ObjectID m_crateCreated;
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 Object *AIUpdateInterface::checkForCrateToPickup()
 {

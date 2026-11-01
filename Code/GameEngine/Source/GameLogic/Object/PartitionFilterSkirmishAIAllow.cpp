@@ -14,11 +14,7 @@
 typedef bool Bool;
 typedef int Int;
 
-class AIUpdateInterface
-{
-public:
-	Int rva00260DED() const;			// 0x00260DED, current state id
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 class Object
 {

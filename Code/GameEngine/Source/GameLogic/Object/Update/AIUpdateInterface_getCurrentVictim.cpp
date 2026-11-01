@@ -15,14 +15,7 @@ class Object;
 
 extern GameLogic *TheGameLogic;
 
-class AIUpdateInterface
-{
-	char m_pad[0x40];
-	ObjectID m_currentVictimID;
-
-public:
-	Object *getCurrentVictim() const;
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 // ?getCurrentVictim@AIUpdateInterface@@QBEPAVObject@@XZ
 Object *AIUpdateInterface::getCurrentVictim() const

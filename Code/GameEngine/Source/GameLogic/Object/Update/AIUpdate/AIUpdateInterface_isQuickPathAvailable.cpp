@@ -83,14 +83,7 @@ public:
 	bool QuickDoesPathExist(Object *obj, const Coord3D *from, const Coord3D *to, int extra);
 };
 
-class AIUpdateInterface
-{
-public:
-	bool isQuickPathAvailable(const Coord3D *destination) const;
-private:
-	char _pad00[8];
-	Object *m_object; // +8
-};
+#include "../../../../../Include/GameLogic/Module/AIUpdate.h"
 
 bool AIUpdateInterface::isQuickPathAvailable(const Coord3D *destination) const
 {

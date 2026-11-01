@@ -22,7 +22,7 @@ extern BitFlags<116> KINDOFMASK_NONE;
 extern PartitionManager*ThePartitionManager;
 float GetGameLogicRandomValueReal(float,float,char*,int);float normalizeAngle(float);
 enum CommandSourceType;
-class AICommandInterface {public:void aiIdle(CommandSourceType);};
+#include "../../../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../../../Common/Thing/thing.h"
 class AIHolder {public:
 virtual int rvaSlot0();
@@ -177,7 +177,6 @@ void setStatus(ObjectStatusTypes,bool);
 char opaque00[4];TemplateView*template04;char pad08[0x38-8];Coord3D position;float orientation;
 char pad48[0xB8-0x48];float radiusB8;char padBC[0x258-0xBC];AIHolder*ai258;
 };
-class AIUpdateInterface {public:void chooseGoodLocomotorFromCurrentSet();};
 class GiantBirdAIUpdate {public:
 int doLocomotor();void rva00368D12();
 char pad00[8];Object*object08;char pad0c[0x1F0-0xC];Locomotor*locomotor1F0;

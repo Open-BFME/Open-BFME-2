@@ -26,14 +26,7 @@ struct TurretAI
 	Real getTurretPitch() const { return m_pitch; }
 };
 
-class AIUpdateInterface
-{
-	char m_pad[0x20C];
-	TurretAI *m_turretAI[1];
-
-public:
-	Bool getTurretRotAndPitch(WhichTurretType tur, Real *turretAngle, Real *turretPitch) const;
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 // ?getTurretRotAndPitch@AIUpdateInterface@@QBE_NW4WhichTurretType@@PAM1@Z
 Bool AIUpdateInterface::getTurretRotAndPitch(WhichTurretType tur, Real *turretAngle, Real *turretPitch) const
