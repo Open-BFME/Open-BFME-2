@@ -63,7 +63,7 @@ __forceinline float WWMath::Sin(float val)
 namespace FXParticleSystem {class ButterflyDrawModule;}
 class RenderInfoClass;
 class RefCountClass;
-class Vector3 {public:float X,Y,Z;Vector3(){}__forceinline Vector3(float x,float y,float z){X=x;Y=y;Z=z;}};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 class Vector4 {public:
  float X,Y,Z,W;
  // Constructors

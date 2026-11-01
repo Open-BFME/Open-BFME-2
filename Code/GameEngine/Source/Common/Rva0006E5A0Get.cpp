@@ -9,13 +9,7 @@
 // Evidence: shadow global 0x00DE5DFC with null guard; callee row @0x9A497;
 // caller 0x95665 passes [ebx+0xE0]; member-wise Vector3 copy.
 
-class Vector3
-{
-public:
-	float X;
-	float Y;
-	float Z;
-};
+#include "../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 // Row name ?getLightPosWorld@W3DShadowManager@@ (ZH/BFME1 name; W3DProjectedShadow::update calls it with ECX = TheW3DShadowManager).
 class W3DShadowManager

@@ -61,13 +61,7 @@ public:
 };
 extern W3DShadowManager *TheW3DShadowManager;
 
-class Vector3
-{
-public:
-	float X;
-	float Y;
-	float Z;
-};
+#include "../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 class RTS3DScene
 {

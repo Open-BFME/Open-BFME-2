@@ -9,15 +9,7 @@
 // Retail inlines Zero Hour's Coord3D scale/add (Coord3DCtorView with
 // COORD3D_VIEW_INLINE): the scale read into a named float first, then the two
 // segment points built with Vector3's three-float constructor.
-class Vector3
-{
-public:
-	Vector3() {}
-	Vector3(float x, float y, float z) { X = x; Y = y; Z = z; }
-	float X;
-	float Y;
-	float Z;
-};
+#include "../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 #define COORD3D_VIEW_INLINE
 // Retain native inline scale while binding out-of-line uses to the retail copy.
 #define scale(args) __declspec(dllimport) __forceinline scale(args)

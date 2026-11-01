@@ -150,15 +150,7 @@ public:
 
 };
 
-class Vector3
-{
-public:
-	Vector3(Real x, Real y, Real z) : X(x), Y(y), Z(z) { }
-
-	Real X;
-	Real Y;
-	Real Z;
-};
+#include "../../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 #include "../../../../../../../reference/shims/wwmath/Vector2.h"
 // bfme link decl-only begin

@@ -10,13 +10,7 @@
 // setLightPosition; second global 0x00DEBCD8 with null guard plus row @0xF0912;
 // callers at 0x9549A 0x955B1 0x9567F in 0x953B3 and 0x983CF in 0x982F9.
 
-class Vector3
-{
-public:
-	float X;
-	float Y;
-	float Z;
-};
+#include "../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 class W3DGameClientShadowShim
 {

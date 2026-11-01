@@ -36,13 +36,7 @@ enum NameKeyType
 
 class ModelConditionFlags;
 
-class Vector3
-{
-public:
-	Real X, Y, Z;
-	Vector3() {}
-	Vector3(Real x, Real y, Real z) : X(x), Y(y), Z(z) {}
-};
+#include "../../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 #include "../../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 static __forceinline void copyVector4(Vector4 &row,const Vector4 &other){row.X=other.X;row.Y=other.Y;row.Z=other.Z;row.W=other.W;}

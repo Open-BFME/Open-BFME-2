@@ -22,11 +22,7 @@ typedef float Real;
 
 class RenderInfoClass;
 
-class Vector3
-{
-public:
-	Real X, Y, Z;
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 

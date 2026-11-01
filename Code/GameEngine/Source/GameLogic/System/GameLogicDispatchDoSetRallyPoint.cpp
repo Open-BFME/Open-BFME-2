@@ -32,11 +32,7 @@ typedef bool Bool;
 typedef float Real;
 
 // The bridge-path query is pinned with WWMath's Vector3 for its points.
-class Vector3
-{
-public:
-	Real X, Y, Z;
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 // Zero Hour's Coord3D::set-style copy: member by member.
 static inline void copyCoord(Coord3D *dst, const Coord3D *src)
