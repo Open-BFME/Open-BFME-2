@@ -20665,3 +20665,14 @@ Code/GameEngine/Source/Common/CarryoverUnit.cpp|function|0x0037DC8A|Rva0037DC8AE
 Code/GameEngine/Source/Common/CarryoverUnit.cpp|function|0x0037DCCC|rva0037DCCC,8b8688bf9ab9afb54600e9eb,haiku-5-5,k9-n32f2-review,w-2a58b1ead41e,2026-11-01
 Code/GameEngine/Source/Common/ConstIntGetters2.cpp|function|0x0018026E|Rva0018026EGet,35e775c18dffee6402466994,haiku-5-5,k9-n32f2-review,w-2a58b1ead41e,2026-11-01
 Code/GameEngine/Source/Common/ConstIntGetters.cpp|function|0x00201095|Rva00201095Get,24cca23babb26018546e68f1,haiku-5-5,k9-n32f2-review,w-2a58b1ead41e,2026-11-01
+Code/GameEngine/Source/Common/Drawable_handleWeaponFireFX.cpp|member|Offset44|m_44,576d5dcd04e818ecacca1e66,haiku-5-5,n33a-k1-blind,w-d119d30b66de,2026-11-01
+Code/GameEngine/Source/Common/Drawable_handleWeaponFireFX.cpp|member|Accum|m_1c,f64f9a331ee8d0f127e4edb2,haiku-5-5,n33a-k1-blind,w-d119d30b66de,2026-11-01
+Code/GameEngine/Source/Common/Drawable_handleWeaponFireFX.cpp|member|Accum|m_24,1c45dff589ecd9adab7ed845,haiku-5-5,n33a-k1-blind,w-d119d30b66de,2026-11-01
+Code/GameEngine/Source/Common/Elem005DB98EFalloff.cpp|function|0x005A66BF|rva005A66BF,e1f2baa58ecf8ccb4304df97,haiku-5-5,n33a-k1-blind,w-d119d30b66de,2026-11-01
+Code/GameEngine/Source/Common/Elem005DB98EFalloff.cpp|local|Elem005DB98E::rva005DB928|t,ae1fc9d03ed1ebe9870738df,haiku-5-5,n33a-k1-blind,w-d119d30b66de,2026-11-01
+Code/GameEngine/Source/Common/Elem005DB98EFalloff.cpp|local|Elem005DB98E::rva005DB95B|f,492871a84d56ed71738bdba4,haiku-5-5,n33a-k1-blind,w-d119d30b66de,2026-11-01
+Code/GameEngine/Source/Common/Elem005DB98EFalloff.cpp|local|Elem005DB98E::rva005A66BF|v,e0edf1a52afecdd78619e758,haiku-5-5,n33a-k1-blind,w-d119d30b66de,2026-11-01
+Code/GameEngine/Source/Common/FireLogicSystem_ChangeFuelInArea.cpp|param|FireLogicSystem::ChangeFuelInArea|p,8dfb47d27edf9668c0b3b9a1,haiku-5-5,n33a-k1-blind,w-d119d30b66de,2026-11-01
+Code/GameEngine/Source/Common/FireLogicSystem_ChangeFuelInArea.cpp|param|FireLogicSystem::ChangeFuelInArea|w,961e18ad1f05e01fb0778746,haiku-5-5,n33a-k1-blind,w-d119d30b66de,2026-11-01
+Code/GameEngine/Source/Common/FireLogicSystem_ChangeFuelInArea.cpp|local|FireLogicSystem::ChangeFuelInArea|y,b85318bb4762d4a40bd6f0e3,haiku-5-5,n33a-k1-blind,w-d119d30b66de,2026-11-01
+Code/GameEngine/Source/Common/FireLogicSystem_ChangeFuelInArea.cpp|local|FireLogicSystem::ChangeFuelInArea|d,4bd29a321b73c13be4852c29,haiku-5-5,n33a-k1-blind,w-d119d30b66de,2026-11-01
