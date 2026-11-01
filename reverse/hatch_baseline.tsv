@@ -1114,7 +1114,7 @@ address_global	Code/GameEngine/Source/GameNetwork/GameSpy/PeerDefs.cpp	g_Rva0107
 address_global	Code/GameEngine/Source/GameNetwork/GameSpy/RequestBuddyAddRva004178C1.cpp	g_Rva0107301CEmptyString	2
 address_global	Code/GameEngine/Source/GameNetwork/GameSpy/RequestBuddyAddRva004178C1.cpp	g_Va00A0308C	2
 address_global	Code/GameEngine/Source/GameNetwork/GameSpy/RequestBuddyAddRva004178C1.cpp	g_Va00A03090	2
-address_global	Code/GameEngine/Source/GameNetwork/GameSpy/Thread/BuddyThreadConnectCallback.cpp	g_Rva0107301CEmptyString	2
+address_global	Code/GameEngine/Source/GameNetwork/GameSpy/Thread/BuddyThread.cpp	g_Rva0107301CEmptyString	2
 address_global	Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp	g_Rva0107301CEmptyString	2
 address_global	Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PersistentStorageThread.cpp	g_Rva0107301CEmptyString	3
 address_global	Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PersistentStorageThread.cpp	g_Va00E0333C	2
@@ -10700,7 +10700,6 @@ pragma_optimize	Code/GameEngine/Source/GameNetwork/GameSpy/Thread/BuddyThread.cp
 pragma_optimize	Code/GameEngine/Source/GameNetwork/GameSpy/Thread/BuddyThread_Unresolved.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/GameNetwork/GameSpy/Thread/BuddyThread_Unresolved.cpp	"s",off	1
 pragma_optimize	Code/GameEngine/Source/GameNetwork/GameSpy/Thread/BuddyThread_Unresolved.cpp	"t",on	1
-pragma_optimize	Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsThread_GameResultsInterface_createNewGameResultsInterface.cpp	"gty",on	1
 pragma_optimize	Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread.cpp	"s",off	1
 pragma_optimize	Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread.cpp	"t",on	1
