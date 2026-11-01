@@ -16151,3 +16151,22 @@ checks and predictions, but the batch consumer audit remains INCONCLUSIVE:
 the published index predates its base and an affected AIBaseBuilder.cpp strict
 receipt is not current. Carry this affected scope into the next census; the
 scoped checks do not establish complete consumer clearance.
+
+### SimpleObjectIterator approved-TU consolidation (2026-11-01, Cortys)
+
+The key-sort donor now joins the approved SimpleObjectIterator.cpp TU through
+`tu_skeleton.py`: 30 rows move, 43 final rows verify, one source file is removed,
+and its fold-proof follows the owner. The prerequisite replaces explicit sort
+specializations with the same external helper bindings used by the existing
+provider. All 59 prior seed definitions remain unchanged and all 56 additional
+definitions are whole-body/relocation twins of that provider. Final composition
+retains all 115 external code definitions without changes. Scoped predictions
+retain the cohort's 4,455 linking bytes; no census gain is claimed.
+
+Remaining prerequisites: the cleanup donor's destructor visibility changes the
+seed's EH shape when composed; the auxiliary push-back donor privately defines
+STLport allocator/deque templates and cannot coexist with the real headers.
+Both remain unchanged. Two mixed donors also stay outside this merge. Debt,
+header queues, provider bindings and active path consumers were checked; see
+`reverse/attempt_support/simple-iterator-consolidation-20261101/` for scope,
+verification and the complete outgoing path audit.

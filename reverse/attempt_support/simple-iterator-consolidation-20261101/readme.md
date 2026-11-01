@@ -35,3 +35,30 @@ The latest published index predates current master. The earlier browser GUID
 and Selection batch's broader consumer audit remains INCONCLUSIVE at the
 AIBaseBuilder.cpp receipt; this packet's scoped previews do not clear it.
 No census gain is claimed.
+
+## Applied merge and outgoing path audit
+
+`tu_skeleton.py --merge` applied its verified plan: the key-sort donor is
+deleted, 30 ledger rows join the approved SimpleObjectIterator TU, and one
+fold-proof path follows its owner. `tu_map.csv` changes only those 30 source
+fields; no regenerated map is committed. Source-file count falls by one.
+
+All 43 final TU rows pass normal and strict verification, with no newly
+unmatched definitions. A private whole-object control of the prerequisite
+source and final composed source has 115 external code definitions in each:
+none added, removed, byte-changed or relocation-changed. The remaining two
+donors retain their source and bodies. Three current previews retain the
+complete original cohort's 4,455 bytes; the apparent per-file increase is
+transferred ownership, not a linking gain.
+
+The complete pending path-changing batch was audited against origin/master
+467bea2e0a: this is its sole deleted source. Combined path/basename searches in
+tools, hooks, workflows, Code, docs and reverse found only the retained source
+provenance comment and historical evidence. No active tooling or include
+consumer requires an update. The supported application refreshed header and
+Microsoft-header queues; neither needs a scoped row. There is no debt transfer
+or new hatch. The unchanged rejected donors keep their existing hatch keys.
+Data identity enforcement, pin consistency, case checks, CSV integrity and
+staged TU ownership pass; protected-register inventories remain empty for the
+affected source. Full-batch consumer clearance remains subject to the normal
+publication audit and its stated census-index boundary.

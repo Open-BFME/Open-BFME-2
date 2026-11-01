@@ -96,6 +96,21 @@ private:
 // numeric output. The original element identity is not established.
 struct Rva0054A82C { int nextWithNumeric(int *); };
 
+// Bind to the kept retail copies instead of emitting this unit's own.
+namespace _STL { template <> void __linear_insert<_Deque_iterator<BfmeCopyRecord8,_Nonconst_traits<BfmeCopyRecord8> >,BfmeCopyRecord8,BfmeCopyRecord8KeyAscending>(_Deque_iterator<BfmeCopyRecord8,_Nonconst_traits<BfmeCopyRecord8> >,_Deque_iterator<BfmeCopyRecord8,_Nonconst_traits<BfmeCopyRecord8> >,BfmeCopyRecord8,BfmeCopyRecord8KeyAscending); }
+
+namespace _STL { template <> void __linear_insert<_Deque_iterator<BfmeCopyRecord8,_Nonconst_traits<BfmeCopyRecord8> >,BfmeCopyRecord8,BfmeCopyRecord8KeyDescending>(_Deque_iterator<BfmeCopyRecord8,_Nonconst_traits<BfmeCopyRecord8> >,_Deque_iterator<BfmeCopyRecord8,_Nonconst_traits<BfmeCopyRecord8> >,BfmeCopyRecord8,BfmeCopyRecord8KeyDescending); }
+
+namespace _STL { template <> void __push_heap<_Deque_iterator<BfmeCopyRecord8,_Nonconst_traits<BfmeCopyRecord8> >,int,BfmeCopyRecord8,BfmeCopyRecord8KeyAscending>(_Deque_iterator<BfmeCopyRecord8,_Nonconst_traits<BfmeCopyRecord8> >,int,int,BfmeCopyRecord8,BfmeCopyRecord8KeyAscending); }
+
+namespace _STL { template <> void __push_heap<_Deque_iterator<BfmeCopyRecord8,_Nonconst_traits<BfmeCopyRecord8> >,int,BfmeCopyRecord8,BfmeCopyRecord8KeyDescending>(_Deque_iterator<BfmeCopyRecord8,_Nonconst_traits<BfmeCopyRecord8> >,int,int,BfmeCopyRecord8,BfmeCopyRecord8KeyDescending); }
+
+template void _STL::sort<CopyRecord8Iterator, BfmeCopyRecord8KeyAscending>(CopyRecord8Iterator, CopyRecord8Iterator, BfmeCopyRecord8KeyAscending);
+
+template void _STL::sort<CopyRecord8Iterator, BfmeCopyRecord8KeyDescending>(CopyRecord8Iterator, CopyRecord8Iterator, BfmeCopyRecord8KeyDescending);
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/SimpleObjectIterator.cpp
+
 // ---- from Code/Libraries/Source/WWVegas/WWLib/Rva0054BBB5.cpp
 
 // SimpleObjectIterator::insert (WorldBuilder name, SimpleObjectIterator.cpp line 62: deque push_back of the pair); 0x0054B414 (deque clear) is on the same class.
@@ -139,34 +154,6 @@ void SimpleObjectIterator::sort(IterOrderType mode) {
  m_cursor=m_deque.begin();
 }
 
-// tu-skeleton: 0x0054B41C 58B ??1?$deque@UBfmeTrivialDequeElement8@@V?$allocator@UBfmeTrivialDequeElement8@@@_STL@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportTrivialDeque8Cleanup.cpp (not merged yet)
-
-// tu-skeleton: 0x0054B456 101B ?_M_push_back_aux_v@?$deque@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@IAEXABUBfmeE8@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e8_pushback_aux.cpp (not merged yet)
-
-// tu-skeleton: 0x0054B4BB 99B ??$__insertion_sort@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8Cmp@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0UBfmeCopyRecord8Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_copyrecord8_sort.cpp (not merged yet)
-
-// tu-skeleton: 0x0054B51E 99B ??$__insertion_sort@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8CmpDescending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0UBfmeCopyRecord8CmpDescending@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_copyrecord8_sort.cpp (not merged yet)
-
-// tu-skeleton: 0x0054B581 99B ??$__insertion_sort@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8KeyAscending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0UBfmeCopyRecord8KeyAscending@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportDequeCopyRecord8KeySort.cpp (not merged yet)
-
-// tu-skeleton: 0x0054B5E4 99B ??$__insertion_sort@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8KeyDescending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0UBfmeCopyRecord8KeyDescending@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportDequeCopyRecord8KeySort.cpp (not merged yet)
-
-// tu-skeleton: 0x0054B647 47B ??$make_heap@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8Cmp@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0UBfmeCopyRecord8Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_copyrecord8_sort.cpp (not merged yet)
-
-// tu-skeleton: 0x0054B676 47B ??$make_heap@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8CmpDescending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0UBfmeCopyRecord8CmpDescending@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_copyrecord8_sort.cpp (not merged yet)
-
-// tu-skeleton: 0x0054B6A5 47B ??$make_heap@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8KeyAscending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0UBfmeCopyRecord8KeyAscending@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportDequeCopyRecord8KeySort.cpp (not merged yet)
-
-// tu-skeleton: 0x0054B6D4 47B ??$make_heap@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8KeyDescending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0UBfmeCopyRecord8KeyDescending@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportDequeCopyRecord8KeySort.cpp (not merged yet)
-
-// tu-skeleton: 0x0054B703 45B ??$pop_heap@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8Cmp@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0UBfmeCopyRecord8Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_copyrecord8_sort.cpp (not merged yet)
-
-// tu-skeleton: 0x0054B730 45B ??$pop_heap@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8CmpDescending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0UBfmeCopyRecord8CmpDescending@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_copyrecord8_sort.cpp (not merged yet)
-
-// tu-skeleton: 0x0054B75D 45B ??$pop_heap@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8KeyAscending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0UBfmeCopyRecord8KeyAscending@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportDequeCopyRecord8KeySort.cpp (not merged yet)
-
-// tu-skeleton: 0x0054B78A 45B ??$pop_heap@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8KeyDescending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0UBfmeCopyRecord8KeyDescending@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportDequeCopyRecord8KeySort.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/SimpleObjectIterator.cpp
 
 // Split from Rva0054BBB5.cpp: these definitions reference a callee with no matched body yet,
@@ -199,52 +186,66 @@ void SimpleObjectIterator::insert(int a, float b)
 	reinterpret_cast<_STL::deque<BfmeE8> &>(m_deque).push_back(tmp);
 }
 
+// tu-skeleton: 0x0054B41C 58B ??1?$deque@UBfmeTrivialDequeElement8@@V?$allocator@UBfmeTrivialDequeElement8@@@_STL@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportTrivialDeque8Cleanup.cpp (not merged yet)
+
+// tu-skeleton: 0x0054B456 101B ?_M_push_back_aux_v@?$deque@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@IAEXABUBfmeE8@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e8_pushback_aux.cpp (not merged yet)
+
+// tu-skeleton: 0x0054B4BB 99B ??$__insertion_sort@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8Cmp@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0UBfmeCopyRecord8Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_copyrecord8_sort.cpp (not merged yet)
+
+// tu-skeleton: 0x0054B51E 99B ??$__insertion_sort@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8CmpDescending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0UBfmeCopyRecord8CmpDescending@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_copyrecord8_sort.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlportDequeCopyRecord8KeySort.cpp
+
+//
+// The two key-ordered STLport sorts over the deque of 8-byte records whose
+// float-ordered sorts live in stlport_deque_copyrecord8_sort.cpp (same flags,
+// same record view): 0x0054C24A ascending and 0x0054C360 descending
+// introsort loops and every body they reach. Their compare is out of line,
+// a thiscall member taking both records by reference (ret 8) that orders
+// them by the word at +0x5DA of the object reached through record.a->+4:
+// 0x00549DCB ascending and 0x00549DF2 descending (rowed under placeholder
+// names, pinned here under these comparators). Declaring operator() out of
+// line is what gives retail's argument pushes: an inline forwarding
+// comparator loads the element address early.
+//
+// Each body is one of four masked-identical twins (the float-ordered pair is
+// rowed); the key-ordered ascending body precedes the descending one, as
+// each body's REL32s back to its comparator confirm.
+// __push_heap (0x0054A708 / 0x0054A79A) still schedules its compare
+// arguments differently and stays pinned only; the ascending median and
+// partition fold into the bodies already rowed at 0x00549F02 and 0x0054A355,
+// and the ascending unguarded insertion sort into its rowed CmpKey twin.
+
+// tu-skeleton: 0x0054B647 47B ??$make_heap@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8Cmp@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0UBfmeCopyRecord8Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_copyrecord8_sort.cpp (not merged yet)
+
+// tu-skeleton: 0x0054B676 47B ??$make_heap@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8CmpDescending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0UBfmeCopyRecord8CmpDescending@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_copyrecord8_sort.cpp (not merged yet)
+
+// tu-skeleton: 0x0054B703 45B ??$pop_heap@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8Cmp@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0UBfmeCopyRecord8Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_copyrecord8_sort.cpp (not merged yet)
+
+// tu-skeleton: 0x0054B730 45B ??$pop_heap@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8CmpDescending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0UBfmeCopyRecord8CmpDescending@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_copyrecord8_sort.cpp (not merged yet)
+
 // tu-skeleton: 0x0054B850 45B ?push_back@?$deque@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@QAEXABUBfmeE8@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e8_o1.cpp (not merged yet)
 
 // tu-skeleton: 0x0054B87D 132B ??$__final_insertion_sort@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8Cmp@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0UBfmeCopyRecord8Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_copyrecord8_sort.cpp (not merged yet)
 
 // tu-skeleton: 0x0054B901 132B ??$__final_insertion_sort@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8CmpDescending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0UBfmeCopyRecord8CmpDescending@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_copyrecord8_sort.cpp (not merged yet)
 
-// tu-skeleton: 0x0054B985 132B ??$__final_insertion_sort@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8KeyAscending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0UBfmeCopyRecord8KeyAscending@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportDequeCopyRecord8KeySort.cpp (not merged yet)
-
-// tu-skeleton: 0x0054BA09 132B ??$__final_insertion_sort@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8KeyDescending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0UBfmeCopyRecord8KeyDescending@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportDequeCopyRecord8KeySort.cpp (not merged yet)
-
 // tu-skeleton: 0x0054BA8D 67B ??$sort_heap@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8Cmp@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0UBfmeCopyRecord8Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_copyrecord8_sort.cpp (not merged yet)
 
 // tu-skeleton: 0x0054BAD0 67B ??$sort_heap@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8CmpDescending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0UBfmeCopyRecord8CmpDescending@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_copyrecord8_sort.cpp (not merged yet)
-
-// tu-skeleton: 0x0054BB13 67B ??$sort_heap@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8KeyAscending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0UBfmeCopyRecord8KeyAscending@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportDequeCopyRecord8KeySort.cpp (not merged yet)
-
-// tu-skeleton: 0x0054BB56 67B ??$sort_heap@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8KeyDescending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0UBfmeCopyRecord8KeyDescending@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportDequeCopyRecord8KeySort.cpp (not merged yet)
 
 // tu-skeleton: 0x0054BBDA 214B ??$__partial_sort@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8@@UBfmeCopyRecord8Cmp@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@00PAUBfmeCopyRecord8@@UBfmeCopyRecord8Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_copyrecord8_sort.cpp (not merged yet)
 
 // tu-skeleton: 0x0054BCB0 214B ??$__partial_sort@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8@@UBfmeCopyRecord8CmpDescending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@00PAUBfmeCopyRecord8@@UBfmeCopyRecord8CmpDescending@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_copyrecord8_sort.cpp (not merged yet)
 
-// tu-skeleton: 0x0054BD86 216B ??$__partial_sort@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8@@UBfmeCopyRecord8KeyAscending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@00PAUBfmeCopyRecord8@@UBfmeCopyRecord8KeyAscending@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportDequeCopyRecord8KeySort.cpp (not merged yet)
-
-// tu-skeleton: 0x0054BE5E 216B ??$__partial_sort@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8@@UBfmeCopyRecord8KeyDescending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@00PAUBfmeCopyRecord8@@UBfmeCopyRecord8KeyDescending@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportDequeCopyRecord8KeySort.cpp (not merged yet)
-
 // tu-skeleton: 0x0054BF36 58B ??$partial_sort@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8Cmp@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@00UBfmeCopyRecord8Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_copyrecord8_sort.cpp (not merged yet)
 
 // tu-skeleton: 0x0054BF70 58B ??$partial_sort@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8CmpDescending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@00UBfmeCopyRecord8CmpDescending@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_copyrecord8_sort.cpp (not merged yet)
-
-// tu-skeleton: 0x0054BFAA 58B ??$partial_sort@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8KeyAscending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@00UBfmeCopyRecord8KeyAscending@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportDequeCopyRecord8KeySort.cpp (not merged yet)
-
-// tu-skeleton: 0x0054BFE4 58B ??$partial_sort@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8KeyDescending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@00UBfmeCopyRecord8KeyDescending@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportDequeCopyRecord8KeySort.cpp (not merged yet)
 
 // tu-skeleton: 0x0054C01E 278B ??$__introsort_loop@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8@@HUBfmeCopyRecord8Cmp@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0PAUBfmeCopyRecord8@@HUBfmeCopyRecord8Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_copyrecord8_sort.cpp (not merged yet)
 
 // tu-skeleton: 0x0054C134 278B ??$__introsort_loop@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8@@HUBfmeCopyRecord8CmpDescending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0PAUBfmeCopyRecord8@@HUBfmeCopyRecord8CmpDescending@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_copyrecord8_sort.cpp (not merged yet)
 
-// tu-skeleton: 0x0054C24A 278B ??$__introsort_loop@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8@@HUBfmeCopyRecord8KeyAscending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0PAUBfmeCopyRecord8@@HUBfmeCopyRecord8KeyAscending@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportDequeCopyRecord8KeySort.cpp (not merged yet)
-
-// tu-skeleton: 0x0054C360 278B ??$__introsort_loop@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8@@HUBfmeCopyRecord8KeyDescending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0PAUBfmeCopyRecord8@@HUBfmeCopyRecord8KeyDescending@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportDequeCopyRecord8KeySort.cpp (not merged yet)
-
 // tu-skeleton: 0x0054C476 117B ??$sort@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8Cmp@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0UBfmeCopyRecord8Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_copyrecord8_sort.cpp (not merged yet)
 
 // tu-skeleton: 0x0054C4EB 117B ??$sort@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8CmpDescending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0UBfmeCopyRecord8CmpDescending@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_copyrecord8_sort.cpp (not merged yet)
-
-// tu-skeleton: 0x0054C560 117B ??$sort@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8KeyAscending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0UBfmeCopyRecord8KeyAscending@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportDequeCopyRecord8KeySort.cpp (not merged yet)
-
-// tu-skeleton: 0x0054C5D5 117B ??$sort@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8KeyDescending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0UBfmeCopyRecord8KeyDescending@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportDequeCopyRecord8KeySort.cpp (not merged yet)
