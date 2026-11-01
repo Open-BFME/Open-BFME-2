@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /GX
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX -Ireference/open-bfme-1/game/GameEngine/Source/Common /ICode/GameEngine/Include /I. /Ireference/shims/bfme2_ascii
 // SPDX-License-Identifier: GPL-3.0-or-later
 // ZH/BFME1 BattlePlanUpdate::setBattlePlan semantic source at9cbfb551.
 // Original target name is not asserted; WB helper11F6130 and callers from
@@ -6,11 +6,66 @@
 // Target-specific layout: module scalars8C/90/94, stealth98, health9C/A0;
 // Object body254; bonus pointer40, affecting-army plan2C. Existing providers
 // establish their ABI. Static StealthDetectorUpdate keys preserve native scopes.
+// stlport
+#include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
+#include "Common/BfmeAudioEventPrefix136.h"
+#include "Code/Libraries/Include/Lib/Coord3D.h"
+
+class AIUpdateInterface;
+class Drawable;
+class SpecialPowerTemplate;
+class SpecialPowerModuleInterface;
+struct BattlePlanUpdateModuleData;
+enum TransitionStatus { IDLE,UNPACKING,ACTIVE,PACKING };
+
+enum DisabledType { DISABLED_PARALYZED=4 };
+
+enum ObjectStatusTypes
+{
+	OBJECT_STATUS_8 = 8
+};
+
+enum WeaponSetType
+{
+	WST_0 = 0
+};
+
+enum WeaponSlotType
+{
+	WSLT_0 = 0
+};
+
+enum WeaponLockType
+{
+	WLT_0 = 0,
+	WLT_1 = 1
+};
+
+class BattleModelFlags {
+ unsigned long m_words[19];
+public:
+ __forceinline unsigned long test(int bit) const { return m_words[bit>>5] & (1ul<<(bit&31)); }
+ __forceinline void set(int bit) { m_words[bit>>5] |= (1ul<<(bit&31)); }
+ __forceinline void reset(int bit) { m_words[bit>>5] &= ~(1ul<<(bit&31)); }
+};
+
 typedef float Real;
+typedef int Int;
 typedef bool Bool;
-enum BattlePlanStatus {PLANSTATUS_NONE,PLANSTATUS_BOMBARDMENT,PLANSTATUS_HOLDTHELINE,PLANSTATUS_SEARCHANDDESTROY};
+enum BattlePlanStatus
+{
+	PLANSTATUS_NONE = 0, NONE = PLANSTATUS_NONE,
+	BOMBARDMENT, HOLDTHELINE, SEARCHANDDESTROY,
+	PLANSTATUS_BOMBARDMENT = BOMBARDMENT,
+	PLANSTATUS_HOLDTHELINE = HOLDTHELINE,
+	PLANSTATUS_SEARCHANDDESTROY = SEARCHANDDESTROY
+};
 enum MaxHealthChangeType { MAX_HEALTH_TYPE_DUMMY=0 };
-enum NameKeyType { NAMEKEY_INVALID=0 };
+enum NameKeyType
+{
+	NK_UNKNOWN = 0,
+	NAMEKEY_INVALID = NK_UNKNOWN
+};
 class NameKeyGenerator
 {
 public:
@@ -19,7 +74,27 @@ public:
 extern NameKeyGenerator *TheNameKeyGenerator;
 class Module;
 class Object;
-class Rva002AA14DBonuses { public: Real m_armorScalar;int m_bombardment,m_searchAndDestroy,m_holdTheLine;Real m_sightRangeScalar;char masks[0x38]; };
+class Rva0024C7B3Member
+{
+public:
+	Rva0024C7B3Member();
+
+	unsigned char m_data[0x1C];
+};
+
+class Rva002AA14DBonuses
+{
+public:
+	Rva002AA14DBonuses() throw();
+
+	Real m_armorScalar; // +0x00
+	Int m_bombardment; // +0x04
+	Int m_searchAndDestroy; // +0x08
+	Int m_holdTheLine; // +0x0C
+	Real m_sightRangeScalar; // +0x10
+	Rva0024C7B3Member m_validKindOf; // +0x14
+	Rva0024C7B3Member m_invalidKindOf; // +0x30
+};
 class Team;
 class Player
 {
@@ -56,13 +131,60 @@ class BattlePlanBodyInterfaceView { public:
  virtual void slot21();
  virtual void setMaxHealth(Real,MaxHealthChangeType);
 };
-class Object { friend class BattlePlanUpdate;
- protected: Module *findModule(NameKeyType) const;
- public:
- Player *getControllingPlayer() const;
- Real getVisionRange() const; Real getShroudClearingRange() const;
- void setVisionRange(Real);void setShroudClearingRange(Real);
- char pad[0x254];BattlePlanBodyInterfaceView *m_body;
+class Object
+{
+	friend class BattlePlanUpdate;
+protected:
+	Module *findModule(NameKeyType) const;
+public:
+	SpecialPowerModuleInterface *getSpecialPowerModule(const SpecialPowerTemplate *power) const;
+	void setWeaponSetFlag(WeaponSetType type);
+	bool setWeaponLock(WeaponSlotType slot, WeaponLockType lock);
+	float getVisionRange() const;
+	float getShroudClearingRange() const;
+	void setVisionRange(float);
+	void setShroudClearingRange(float);
+	Player *getControllingPlayer() const;
+public:
+	Drawable *getDrawable() const;
+public:
+	void rva0028AE6D();
+public:
+	__forceinline void clearModelConditionState(int bit) {
+  if(m_modelConditionFlags.test(bit)) { m_modelConditionFlags.reset(bit); rva0028AE6D(); }
+ }
+public:
+	__forceinline void setModelConditionState(int bit) {
+  if(!m_modelConditionFlags.test(bit)) { m_modelConditionFlags.set(bit); rva0028AE6D(); }
+ }
+public:
+	const Coord3D *getPosition() const { return &position; }
+public:
+	ObjectID getID() const { return id; }
+public:
+	AIUpdateInterface *getAI();
+public:
+	char pad00[0x38];
+public:
+	Coord3D position;
+public:
+	char pad44[0x74-0x44];
+public:
+	ObjectID id;
+public:
+	char pad78[0x10C-0x78];
+public:
+	BattleModelFlags m_modelConditionFlags;
+public:
+	char pad158[0x254-0x158];
+public:
+	BattlePlanBodyInterfaceView *m_body; // +0x254
+public:
+	AIUpdateInterface *m_aiDirect; // +0x258
+public:
+	void setDisabledUntil(DisabledType,unsigned);
+public:
+	void setStatus(ObjectStatusTypes status, bool set);
 };
 class Rva004A2D49 { public: void rva004A2D49(Bool); };
 struct BattlePlanUpdateArmyDataView {
@@ -71,16 +193,45 @@ struct BattlePlanUpdateArmyDataView {
  Real m_strategyCenterHoldTheLineMaxHealthScalar;MaxHealthChangeType m_strategyCenterHoldTheLineMaxHealthChangeType;
 };
 int __cdecl Rva004977B5(Object *,void *);
-class BattlePlanUpdate { public:
- void rva00497AE8(BattlePlanStatus);
- const BattlePlanUpdateArmyDataView *getBattlePlanUpdateModuleData() const { return data; }
- Object *getObject() const { return object; }
- void *vtable;BattlePlanUpdateArmyDataView *data;Object *object;
- char pad0C[0x20];BattlePlanStatus m_planAffectingArmy;char pad30[0x10];Rva002AA14DBonuses *m_bonuses;
+class BattlePlanUpdate
+{
+public:
+	virtual NameKeyType getModuleNameKey() const;
+	virtual void onObjectCreated();
+	BattlePlanStatus getActiveBattlePlan() const;
+	void createVisionObject();
+	void rva00497AE8(BattlePlanStatus); // native status transition's army-bonus helper; original name uncertain
+
+protected:
+	void setStatus(TransitionStatus);
+	void enableTurret(bool enable);
+	void recenterTurret();
+	bool isTurretInNaturalPosition();
+
+private:
+	Object *getObject() { return m_object; }
+	const BattlePlanUpdateModuleData *getBattlePlanUpdateModuleData() const { return data; }
+
+	// The virtual getter supplies the compiler-owned vptr at +0x00.
+	BattlePlanUpdateModuleData *data; // +0x04 (unmapped Module base member)
+	Object *m_object; // +0x08
+	char m_pad0C[0x24 - 0x0C];
+	BattlePlanStatus m_currentPlan; // +0x24
+	BattlePlanStatus m_desiredPlan; // +0x28
+	BattlePlanStatus m_planAffectingArmy; // +0x2C
+	TransitionStatus m_status; // +0x30
+	unsigned m_nextReadyFrame; // +0x34
+	SpecialPowerModuleInterface *m_specialPowerModule; // +0x38
+	bool m_invalidSettings; // +0x3C
+	bool m_centeringTurret; // +0x3D
+	Rva002AA14DBonuses *m_bonuses; // +0x40
+	OpaqueRefElement4 unpack[4], pack[4], announcement[4], idle[4]; // +0x44..+0x83
+	unsigned m_handle84; // +0x84
+	ObjectID m_visionObjectID; // +0x88
 };
 void BattlePlanUpdate::rva00497AE8( BattlePlanStatus plan )
 {
-	const BattlePlanUpdateArmyDataView *data = getBattlePlanUpdateModuleData();
+	const BattlePlanUpdateArmyDataView *data = (const BattlePlanUpdateArmyDataView *)getBattlePlanUpdateModuleData();
 	const BattlePlanUpdateArmyDataView *retailData =
 		(const BattlePlanUpdateArmyDataView *)data;
 	Object *obj = getObject();

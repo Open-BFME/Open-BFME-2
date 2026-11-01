@@ -1,4 +1,4 @@
-// cl: /GX /DNDEBUG /MD
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX -Ireference/open-bfme-1/game/GameEngine/Source/Common /ICode/GameEngine/Include /I. /Ireference/shims/bfme2_ascii
 //
 // ?friend_newModuleData@BattlePlanUpdateModuleData@@SAPAVModuleData@@PAVINI@@@Z,
 // retail 0x0024E237, 84 bytes. Dedicated TU: the factory news 0xA8, runs the
@@ -12,6 +12,9 @@
 // BattlePlanUpdate donor (BattlePlanUpdate.cpp ctor plus 30-field table at
 // 0x00C4FF58) in the BattlePlanUpdate file-unit. The same-named proc row at
 // 0x4CBBB4 covers a single SoundUpgrade field and is left for fleet consensus.
+// stlport
+#include "Common/BfmeAudioEventPrefix136.h"
+
 class ModuleData;
 class INI;
 class MultiIniFieldParse;
@@ -29,7 +32,21 @@ public:
 	void initFromINIMultiProc(void *what, void (__cdecl *proc)(MultiIniFieldParse &));
 };
 
-class BattlePlanUpdateModuleData
+class ModuleData;
+class INI;
+class MultiIniFieldParse;
+class SpecialPowerTemplate;
+enum MaxHealthChangeType { MAX_HEALTH_TYPE_DUMMY=0 };
+
+class Rva0024C7B3Member
+{
+public:
+	Rva0024C7B3Member();
+
+	unsigned char m_data[0x1C];
+};
+
+struct BattlePlanUpdateModuleData
 {
 public:
 	BattlePlanUpdateModuleData();
@@ -37,8 +54,36 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 	static ModuleData *friend_newModuleData(INI *ini);
 
-private:
-	unsigned char m_pad[0xA8 - 4];
+public:
+	unsigned int m_unused04;						// +0x04 retail never stores
+	const SpecialPowerTemplate *m_specialPowerTemplate;				// +0x08
+	unsigned int m_bombardmentPlanAnimationFrames;	// +0x0C
+	unsigned int m_holdTheLinePlanAnimationFrames;	// +0x10
+	unsigned int m_searchAndDestroyPlanAnimationFrames; // +0x14
+	unsigned int m_transitionIdleFrames;			// +0x18
+	OpaqueRefElement4 m_bombardmentUnpackName;			// +0x1C
+	OpaqueRefElement4 m_bombardmentPackName;				// +0x20
+	AsciiString m_bombardmentMessageLabel;			// +0x24
+	OpaqueRefElement4 m_bombardmentAnnouncementName;		// +0x28
+	OpaqueRefElement4 m_searchAndDestroyUnpackName;		// +0x2C
+	OpaqueRefElement4 m_searchAndDestroyIdleName;			// +0x30
+	OpaqueRefElement4 m_searchAndDestroyPackName;			// +0x34
+	AsciiString m_searchAndDestroyMessageLabel;		// +0x38
+	OpaqueRefElement4 m_searchAndDestroyAnnouncementName;	// +0x3C
+	OpaqueRefElement4 m_holdTheLineUnpackName;			// +0x40
+	OpaqueRefElement4 m_holdTheLinePackName;				// +0x44
+	AsciiString m_holdTheLineMessageLabel;			// +0x48
+	OpaqueRefElement4 m_holdTheLineAnnouncementName;		// +0x4C
+	unsigned int m_battlePlanParalyzeFrames;		// +0x50
+	Rva0024C7B3Member m_validMemberKindOf;			// +0x54
+	Rva0024C7B3Member m_invalidMemberKindOf;		// +0x70
+	float m_holdTheLineArmorDamageScalar;			// +0x8C
+	float m_searchAndDestroySightRangeScalar;		// +0x90
+	float m_strategyCenterSearchAndDestroySightRangeScalar; // +0x94
+	bool m_strategyCenterSearchAndDestroyDetectsStealth; // +0x98
+	float m_strategyCenterHoldTheLineMaxHealthScalar; // +0x9C
+	MaxHealthChangeType m_strategyCenterHoldTheLineMaxHealthChangeType; // +0xA0 (PRESERVE_RATIO == 1)
+	AsciiString m_visionObjectName;					// +0xA4
 };
 
 // ?friend_newModuleData@BattlePlanUpdateModuleData@@SAPAVModuleData@@PAVINI@@@Z

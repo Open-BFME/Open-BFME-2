@@ -216,7 +216,11 @@ private:
 
 enum BattlePlanStatus
 {
-	PLANSTATUS_NONE = 0, NONE=0, BOMBARDMENT, HOLDTHELINE, SEARCHANDDESTROY
+	PLANSTATUS_NONE = 0, NONE = PLANSTATUS_NONE,
+	BOMBARDMENT, HOLDTHELINE, SEARCHANDDESTROY,
+	PLANSTATUS_BOMBARDMENT = BOMBARDMENT,
+	PLANSTATUS_HOLDTHELINE = HOLDTHELINE,
+	PLANSTATUS_SEARCHANDDESTROY = SEARCHANDDESTROY
 };
 
 class Rva002AA14DBonuses;
@@ -251,13 +255,58 @@ public:
 
 enum TransitionStatus { IDLE,UNPACKING,ACTIVE,PACKING };
 
-struct BattlePlanUpdateModuleData {
- char pad00[0xC];
- unsigned m_bombardmentPlanAnimationFrames,m_holdTheLinePlanAnimationFrames,
- m_searchAndDestroyPlanAnimationFrames,m_transitionIdleFrames;
- char pad1C[8]; AsciiString m_bombardmentMessageLabel; //24
- char pad28[0x10]; AsciiString m_searchAndDestroyMessageLabel; //38
- char pad3C[0xC]; AsciiString m_holdTheLineMessageLabel; //48
+class ModuleData;
+class INI;
+class MultiIniFieldParse;
+class SpecialPowerTemplate;
+enum MaxHealthChangeType { MAX_HEALTH_TYPE_DUMMY=0 };
+
+class Rva0024C7B3Member
+{
+public:
+	Rva0024C7B3Member();
+
+	unsigned char m_data[0x1C];
+};
+
+struct BattlePlanUpdateModuleData
+{
+public:
+	BattlePlanUpdateModuleData();
+	virtual ~BattlePlanUpdateModuleData();
+	static void buildFieldParse(MultiIniFieldParse &parse);
+	static ModuleData *friend_newModuleData(INI *ini);
+
+public:
+	unsigned int m_unused04;						// +0x04 retail never stores
+	const SpecialPowerTemplate *m_specialPowerTemplate;				// +0x08
+	unsigned int m_bombardmentPlanAnimationFrames;	// +0x0C
+	unsigned int m_holdTheLinePlanAnimationFrames;	// +0x10
+	unsigned int m_searchAndDestroyPlanAnimationFrames; // +0x14
+	unsigned int m_transitionIdleFrames;			// +0x18
+	OpaqueRefElement4 m_bombardmentUnpackName;			// +0x1C
+	OpaqueRefElement4 m_bombardmentPackName;				// +0x20
+	AsciiString m_bombardmentMessageLabel;			// +0x24
+	OpaqueRefElement4 m_bombardmentAnnouncementName;		// +0x28
+	OpaqueRefElement4 m_searchAndDestroyUnpackName;		// +0x2C
+	OpaqueRefElement4 m_searchAndDestroyIdleName;			// +0x30
+	OpaqueRefElement4 m_searchAndDestroyPackName;			// +0x34
+	AsciiString m_searchAndDestroyMessageLabel;		// +0x38
+	OpaqueRefElement4 m_searchAndDestroyAnnouncementName;	// +0x3C
+	OpaqueRefElement4 m_holdTheLineUnpackName;			// +0x40
+	OpaqueRefElement4 m_holdTheLinePackName;				// +0x44
+	AsciiString m_holdTheLineMessageLabel;			// +0x48
+	OpaqueRefElement4 m_holdTheLineAnnouncementName;		// +0x4C
+	unsigned int m_battlePlanParalyzeFrames;		// +0x50
+	Rva0024C7B3Member m_validMemberKindOf;			// +0x54
+	Rva0024C7B3Member m_invalidMemberKindOf;		// +0x70
+	float m_holdTheLineArmorDamageScalar;			// +0x8C
+	float m_searchAndDestroySightRangeScalar;		// +0x90
+	float m_strategyCenterSearchAndDestroySightRangeScalar; // +0x94
+	bool m_strategyCenterSearchAndDestroyDetectsStealth; // +0x98
+	float m_strategyCenterHoldTheLineMaxHealthScalar; // +0x9C
+	MaxHealthChangeType m_strategyCenterHoldTheLineMaxHealthChangeType; // +0xA0 (PRESERVE_RATIO == 1)
+	AsciiString m_visionObjectName;					// +0xA4
 };
 
 class AudioManager {
@@ -364,7 +413,8 @@ private:
 
 enum NameKeyType
 {
-	NK_UNKNOWN = 0
+	NK_UNKNOWN = 0,
+	NAMEKEY_INVALID = NK_UNKNOWN
 };
 
 class NameKeyGenerator
@@ -375,36 +425,60 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
+enum WeaponSetType
+{
+	WST_0 = 0
+};
+
+enum WeaponSlotType
+{
+	WSLT_0 = 0
+};
+
+enum WeaponLockType
+{
+	WLT_0 = 0,
+	WLT_1 = 1
+};
+
+class SpecialPowerTemplate;
+class SpecialPowerModuleInterface;
+
 class BattlePlanUpdate
 {
 public:
 	virtual NameKeyType getModuleNameKey() const;
+	virtual void onObjectCreated();
 	BattlePlanStatus getActiveBattlePlan() const;
- void createVisionObject();
- void rva00497AE8(BattlePlanStatus); // native status transition's army-bonus helper; original name uncertain
-
+	void createVisionObject();
+	void rva00497AE8(BattlePlanStatus); // native status transition's army-bonus helper; original name uncertain
 
 protected:
 	void setStatus(TransitionStatus);
- void enableTurret(bool enable);
+	void enableTurret(bool enable);
 	void recenterTurret();
 	bool isTurretInNaturalPosition();
 
 private:
 	Object *getObject() { return m_object; }
- const BattlePlanUpdateModuleData *getBattlePlanUpdateModuleData() const { return data; }
+	const BattlePlanUpdateModuleData *getBattlePlanUpdateModuleData() const { return data; }
 
 	// The virtual getter supplies the compiler-owned vptr at +0x00.
 	BattlePlanUpdateModuleData *data; // +0x04 (unmapped Module base member)
 	Object *m_object; // +0x08
 	char m_pad0C[0x24 - 0x0C];
- BattlePlanStatus m_currentPlan;
- int m_pad28;
-	int m_planAffectingArmy;	// +0x2C
-	TransitionStatus m_status; //+30
- unsigned m_nextReadyFrame; char pad38[0xC];
- OpaqueRefElement4 unpack[4],pack[4],announcement[4],idle[4];
- unsigned m_handle84;
+	BattlePlanStatus m_currentPlan; // +0x24
+	BattlePlanStatus m_desiredPlan; // +0x28
+	BattlePlanStatus m_planAffectingArmy; // +0x2C
+	TransitionStatus m_status; // +0x30
+	unsigned m_nextReadyFrame; // +0x34
+	SpecialPowerModuleInterface *m_specialPowerModule; // +0x38
+	bool m_invalidSettings; // +0x3C
+	bool m_centeringTurret; // +0x3D
+	Rva002AA14DBonuses *m_bonuses; // +0x40
+	OpaqueRefElement4 unpack[4], pack[4], announcement[4], idle[4]; // +0x44..+0x83
+	unsigned m_handle84; // +0x84
+	ObjectID m_visionObjectID; // +0x88
 };
 
 // Native GameWindow table C0BBCC slot9 tests tooltip callback+1EC.
@@ -594,9 +668,22 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_FOREVER = 0x3fffffff
 };
 
+class Module;
+class BattlePlanBodyInterfaceView;
+
 class Object
 {
+	friend class BattlePlanUpdate;
+protected:
+	Module *findModule(NameKeyType) const;
 public:
+	SpecialPowerModuleInterface *getSpecialPowerModule(const SpecialPowerTemplate *power) const;
+	void setWeaponSetFlag(WeaponSetType type);
+	bool setWeaponLock(WeaponSlotType slot, WeaponLockType lock);
+	float getVisionRange() const;
+	float getShroudClearingRange() const;
+	void setVisionRange(float);
+	void setShroudClearingRange(float);
 	Player *getControllingPlayer() const;
 public:
 	Drawable *getDrawable() const;
@@ -629,9 +716,11 @@ public:
 public:
 	BattleModelFlags m_modelConditionFlags;
 public:
-	char pad158[0x258-0x158];
+	char pad158[0x254-0x158];
 public:
-	AIUpdateInterface *m_aiDirect;
+	BattlePlanBodyInterfaceView *m_body; // +0x254
+public:
+	AIUpdateInterface *m_aiDirect; // +0x258
 public:
 	void setDisabledUntil(DisabledType,unsigned);
 public:
