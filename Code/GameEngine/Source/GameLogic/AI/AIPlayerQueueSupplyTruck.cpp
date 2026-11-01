@@ -264,14 +264,7 @@ public:
 	void rva0036F19B(Object *obj, CommandSourceType cmdSource);	// ZH aiRepair
 };
 
-class StateMachine
-{
-public:
-	const Coord3D *getGoalPosition() const { return &m_goalPosition; }
-
-	unsigned char m_pad00[0x24];
-	Coord3D m_goalPosition;			// +0x24
-};
+#include "../../../Include/Common/StateMachineClass.h"
 
 class AIUpdateInterface
 {

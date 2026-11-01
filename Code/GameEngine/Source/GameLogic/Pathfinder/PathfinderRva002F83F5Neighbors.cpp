@@ -801,11 +801,7 @@ __declspec(noinline) inline bool Rva002E6DC4::rva002E6DC4(void *a_raw, void *b_r
 }
 
 static __forceinline Bool nativeBurning(BurningGrid *grid,const Coord3D &point){Int fireX=realToIntFloor((point.x+0.5f)*0.1f);Int fireY=realToIntFloor((point.y+0.5f)*0.1f);if(fireX>=0 && fireX<grid->width && fireY>=0 && fireY<grid->height)return grid->cells[fireX][fireY].count>0;return false;}
-class StateMachine
-{
-public:
-	Object *getGoalObject();
-};
+#include "../../../Include/Common/StateMachineClass.h"
 struct CheckMovementAIView
 {
 	unsigned char m_pad00[0x30];

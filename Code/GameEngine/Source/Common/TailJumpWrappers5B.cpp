@@ -576,11 +576,7 @@ Rva004851A8::~Rva004851A8()
 {
 }
 
-class StateMachine
-{
-public:
-	virtual ~StateMachine();
-};
+#include "../../Include/Common/StateMachineClass.h"
 
 class __declspec(novtable) Rva00488D3B : public StateMachine
 {

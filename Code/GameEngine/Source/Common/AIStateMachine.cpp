@@ -18,14 +18,7 @@
 #include <stdlib.h>
 #undef _CRTIMP
 
-class StateMachine
-{
-public:
-	virtual ~StateMachine();
-
-private:
-	unsigned char m_pad04[0x3C - 4];
-};
+#include "../../Include/Common/StateMachineClass.h"
 
 class Rva003516F3Owned
 {

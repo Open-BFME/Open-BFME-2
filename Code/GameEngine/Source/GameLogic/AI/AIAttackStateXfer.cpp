@@ -54,12 +54,7 @@ struct RGBAColorReal;
 struct RGBAColorInt;
 #include "../../../Include/Common/BfmeXfer.h"
 
-class StateMachine
-{
-public:
-	char m_stateMachineFields[0x14];
-	Object *m_owner;
-};
+#include "../../../Include/Common/StateMachineClass.h"
 
 class AttackStateMachine
 {

@@ -962,11 +962,7 @@ bool ActionManager::canDoSpecialPowerAtObject(const Object *obj, const Object *t
 	return false;
 }
 
-class StateMachine
-{
-public:
-	Object *getGoalObject();	// 0x004D7726
-};
+#include "../../../Include/Common/StateMachineClass.h"
 
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 

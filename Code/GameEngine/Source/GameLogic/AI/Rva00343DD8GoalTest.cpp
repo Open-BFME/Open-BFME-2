@@ -84,14 +84,7 @@ public:
 	Rva002C9400ByteField *m_field4; // +0x4
 };
 
-class StateMachine
-{
-public:
-	Object *getGoalObject();
-
-	char m_pad00[0x14];
-	Object *m_obj14; // +0x14
-};
+#include "../../../Include/Common/StateMachineClass.h"
 
 class Rva00343F8A
 {
@@ -106,7 +99,7 @@ bool rva00343DD8(void *state, void *userData)
 {
 	Rva00343F8A *st = (Rva00343F8A *)state;
 	StateMachine *mach = st->m_machine;
-	Object *self = mach->m_obj14;
+	Object *self = mach->m_owner;
 	Object *goal = mach->getGoalObject();
 	const Weapon *weapon = self->getCurrentWeapon(0);
 	if (goal == 0) return true;

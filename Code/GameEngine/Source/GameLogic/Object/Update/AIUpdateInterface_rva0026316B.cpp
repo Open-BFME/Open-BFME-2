@@ -8,11 +8,7 @@
 
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
-class StateMachine
-{
-public:
-	void setGoalPosition(const Coord3D *pos);
-};
+#include "../../../../Include/Common/StateMachineClass.h"
 
 struct MiniArg1
 {

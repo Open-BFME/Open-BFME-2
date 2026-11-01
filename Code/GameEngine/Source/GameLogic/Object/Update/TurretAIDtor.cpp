@@ -136,30 +136,7 @@ enum TurretTargetType
 // 6, initDefaultState 7 (0x004D770F), setState 8, isInAttackState 11
 // (0x002621B8), isInBusyState 12 (0x004D7309), 13 (0x004D7395) and the goal
 // object setter 14; the current state at +0x04. setGoalPosition is 0x00262224.
-class StateMachine : public Snapshot
-{
-public:
-	virtual ~StateMachine();
-	virtual StateReturnType updateStateMachine();		// slot 4
-	virtual void clear();								// slot 5
-	virtual StateReturnType resetToDefaultState();		// slot 6
-	virtual StateReturnType initDefaultState();			// slot 7
-	virtual StateReturnType setState(int newStateID);	// slot 8
-	virtual void slot9();
-	virtual void slot10();
-	virtual bool isInAttackState() const;				// slot 11
-	virtual bool isInBusyState() const;					// slot 12
-	virtual void rva004D7395();							// slot 13
-	virtual void setGoalObject(Object *obj);			// slot 14
-	void setGoalPosition(const Coord3D *pos);
-protected:
-	virtual void loadPostProcess();
-	virtual const char *GetSnapshotName() const;
-	virtual void xfer(Xfer *xfer);
-public:
-	State *m_currentState;								// +0x04
-	char m_pad08[0x3C - 0x08];
-};
+#include "../../../../Include/Common/StateMachineClass.h"
 
 // The 0x40-byte turret machine (vtable 0x00C609C8); getGoalObject is 0x004D7726.
 class TurretStateMachine : public StateMachine

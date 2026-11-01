@@ -178,11 +178,7 @@ private:
 	Rva0030B719Shape m_shape;	// +0x08
 };
 
-class StateMachine
-{
-public:
-	Object *getGoalObject();	// 0x004D7726
-};
+#include "../../../Include/Common/StateMachineClass.h"
 
 class AIUpdateInterface
 {

@@ -45,11 +45,7 @@ public:
 
 class Object;
 
-class StateMachine
-{
-public:
-	Object *getGoalObject();
-};
+#include "../../../Include/Common/StateMachineClass.h"
 
 class AIUpdateInterface
 {

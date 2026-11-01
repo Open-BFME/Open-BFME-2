@@ -50,11 +50,7 @@ private:
 	Real m_B8; // +0xB8
 };
 
-class StateMachine
-{
-public:
-	Object *getGoalObject();
-};
+#include "../../../../../Include/Common/StateMachineClass.h"
 
 #include "../../../../../Include/Common/ObjectModule.h"
 #include "../../../../../Include/GameLogic/Module/BehaviorModule.h"

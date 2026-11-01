@@ -32,11 +32,7 @@
 // calls the virtual StateMachine::setGoalObject and so carries a longer
 // view of the vtable.
 
-class StateMachine
-{
-public:
-	virtual ~StateMachine();
-};
+#include "../../Include/Common/StateMachineClass.h"
 
 class AttackStateMachine : public StateMachine
 {

@@ -472,16 +472,7 @@ extern int BfmeLogicFramesPerSecond; // logic frames per second
 
 Real normalizeAngle(Real angle);
 
-class StateMachine
-{
-public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual Int updateStateMachine();
-	Object *getGoalObject(); // 0x004D7726
-};
+#include "../../../../../Include/Common/StateMachineClass.h"
 
 class AIStateMachine : public StateMachine
 {

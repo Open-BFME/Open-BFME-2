@@ -334,11 +334,7 @@ class __declspec(novtable) Rva004851A8 : public Rva004B8CDE
 public:
 	virtual ~Rva004851A8();
 };
-class StateMachine
-{
-public:
-	virtual ~StateMachine();
-};
+#include "../../Include/Common/StateMachineClass.h"
 class __declspec(novtable) Rva00488D3B : public StateMachine
 {
 public:

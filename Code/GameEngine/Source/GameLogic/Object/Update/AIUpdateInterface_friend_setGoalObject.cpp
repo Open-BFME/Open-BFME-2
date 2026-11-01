@@ -10,27 +10,7 @@
 
 class Object;
 
-class StateMachine
-{
-public:
-	virtual void s00();
-	virtual void s04();
-	virtual void s08();
-	virtual void s0C();
-	virtual void s10();
-	virtual void s14();
-	virtual void s18();
-	virtual void s1C();
-	virtual void s20();
-	virtual void s24();
-	virtual void s28();
-	virtual void s2C();
-	virtual void s30();
-	virtual void s34();
-	virtual void setGoalObject(const Object *obj);
-	char m_pad04[0x38 - 4];
-	bool m_locked;
-};
+#include "../../../../Include/Common/StateMachineClass.h"
 
 class AIUpdateInterface
 {

@@ -432,15 +432,7 @@ class LocomotorSet;
 
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 
-class StateMachine
-{
-public:
-	// This local +0x24 view must not emit the shared +0x28 getter.
-	const Coord3D *locomotorGoalPosition() const { return &m_goalPosition; }
-
-	unsigned char m_pad00[0x24];
-	Coord3D m_goalPosition;			// +0x24
-};
+#include "../../../Include/Common/StateMachineClass.h"
 
 
 class BodyModuleInterface

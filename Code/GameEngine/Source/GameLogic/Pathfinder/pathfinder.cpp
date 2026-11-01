@@ -3371,11 +3371,7 @@ Bool Pathfinder::rva002ECC0D(Object *obj, const Coord3D *pos)
 		info.radius, info.radius + (info.centerInCell ? 1 : 0), false) == 0;
 }
 // 0x002EA34A (782 B), rehomed from PathfinderCheckForMovement.cpp.
-class StateMachine
-{
-public:
-	Object *getGoalObject();
-};
+#include "../../../Include/Common/StateMachineClass.h"
 struct CheckMovementAIView
 {
 	unsigned char m_pad00[0x30];

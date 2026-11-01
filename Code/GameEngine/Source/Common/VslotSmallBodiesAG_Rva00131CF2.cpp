@@ -454,12 +454,7 @@ class Object
 public:
 	bool testStatus(ObjectStatusTypes status) const;
 };
-class StateMachine
-{
-public:
-	char m_pad00[0x14];
-	Object *m_owner;
-};
+#include "../../Include/Common/StateMachineClass.h"
 #include "../../Include/Common/StateMachine.h"
 int rva0034373F(State *state, void *);
 

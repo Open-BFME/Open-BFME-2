@@ -10,15 +10,7 @@
 
 class Object;
 
-class StateMachine
-{
-public:
-	unsigned char m_pad04[0x38 - 0x04]; // +0x04..0x37
-	bool m_locked; // +0x38
-
-	virtual void setGoalObject(const Object *obj);
-	void internalSetGoalObject(const Object *obj);
-};
+#include "../../../Include/Common/StateMachineClass.h"
 
 void StateMachine::setGoalObject(const Object *obj)
 {

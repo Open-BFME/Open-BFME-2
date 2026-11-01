@@ -4,11 +4,7 @@
 // virtual at +0x28 returns true return true else tail-jmp to rowed
 // StateMachine::isInBusyState 0x004D7309. Evidence: vtable slot plus rowed
 // isInBusyState plus virtual call shape; no callers.
-class StateMachine
-{
-public:
-	virtual bool isInBusyState() const;
-};
+#include "../../Include/Common/StateMachineClass.h"
 
 class Sub50
 {

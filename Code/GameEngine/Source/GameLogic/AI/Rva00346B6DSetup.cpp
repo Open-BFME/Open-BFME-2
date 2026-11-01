@@ -40,12 +40,7 @@ public:
 	Slot6 *m_slot254;
 };
 
-class StateMachine
-{
-public:
-	char m_pad00[0x14];
-	Object *m_obj14;
-};
+#include "../../../Include/Common/StateMachineClass.h"
 
 struct Rva00346B6DInfo
 {
@@ -78,7 +73,7 @@ public:
 void Rva00346B6D::onExit(int unused)
 {
 	(void)unused;
-	Object *self = m_machine->m_obj14;
+	Object *self = m_machine->m_owner;
 	Rva00346B6DInfo info;
 	((Rva00263895Member *)&info)->init();
 	info.m_deathType = 0;

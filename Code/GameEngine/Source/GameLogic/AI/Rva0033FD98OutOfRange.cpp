@@ -22,14 +22,7 @@ public:
 	const Weapon *getCurrentWeapon(WeaponSlotType *slot) const;
 };
 
-class StateMachine
-{
-public:
-	Object *getGoalObject();
-
-	char m_pad00[0x14];
-	Object *m_obj14; // +0x14
-};
+#include "../../../Include/Common/StateMachineClass.h"
 
 class Rva00343F8A
 {
@@ -41,7 +34,7 @@ public:
 bool rva0033FD98(Rva00343F8A *st, void *arg)
 {
 	StateMachine *mach = st->m_machine;
-	Object *self = mach->m_obj14;
+	Object *self = mach->m_owner;
 	void *aux = (char *)mach + 0x24;
 	const Weapon *weapon = self->getCurrentWeapon(0);
 	if (weapon == 0 || aux == 0 || weapon->isWithinAttackRange(self, aux, 0.0f, 1))

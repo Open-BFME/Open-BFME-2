@@ -31,11 +31,7 @@ struct HeightHolder
 	float m_val;
 };
 
-class StateMachine
-{
-public:
-	void setGoalPosition(const Coord3D *pos, float range);
-};
+#include "../../../../../Include/Common/StateMachineClass.h"
 
 class GlobalData
 {
