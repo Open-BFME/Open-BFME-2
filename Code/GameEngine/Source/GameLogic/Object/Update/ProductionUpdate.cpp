@@ -68,7 +68,6 @@ template <> ConstructProbePairC::pair(const ConstructProbePairC &);
 // vector::push_back at 0x39A48E and both uninitialized workers. Its complete
 // construction delegates to the existing pair copy at 0x466EA7. Preserve
 // that witnessed storage operation without asserting an application identity.
-struct Rva0039A48EElement { int a[2]; };
 namespace _STL {
 }
 template void _STL::_Construct<ConstructProbeVec, ConstructProbeVec>(ConstructProbeVec *, const ConstructProbeVec &);
@@ -556,14 +555,6 @@ enum ExitDoorType
 	DOOR_1 = 0
 };
 
-class BehaviorModuleBase
-{
-public:
-	virtual void behaviorModuleBaseAnchor();
-	const ModuleData *m_moduleData;
-	Object *m_object;
-};
-
 class BehaviorModuleOther
 {
 public:
@@ -908,48 +899,6 @@ private:
 // userData, offset) in retail .data; the token names are in each comment.
 // The forwarders stay static members of their target's class.
 class INI;
-
-class Rva0021B7B6
-{
-public:
-	void rva0021B7B6(INI *ini, void *str);
-	static void parseFromINI(INI *ini, void *instance, void *store, const void *userData);
-};
-
-class Rva0033AFBB
-{
-public:
-	void rva0033B84E(INI *ini, AsciiString *str);
-	static void parseFromINI(INI *ini, void *instance, void *store, const void *userData);
-};
-
-class Rva003B1017
-{
-public:
-	void rva003B1017(INI *ini, void *str);
-	static void parseFromINI(INI *ini, void *instance, void *store, const void *userData);
-};
-
-class Rva003FB508
-{
-public:
-	void rva003FB508(INI *ini, void *str);
-	static void parseFromINI(INI *ini, void *instance, void *store, const void *userData);
-};
-
-class Rva00417DFB
-{
-public:
-	void rva00417DFB(INI *ini, void *str);
-	static void parseFromINI(INI *ini, void *instance, void *store, const void *userData);
-};
-
-class Rva0049B8A0
-{
-public:
-	void parse(INI *ini, void *str);
-	static void parseFromINI(INI *ini, void *instance, void *store, const void *userData);
-};
 
 class Rva0049DD83
 {

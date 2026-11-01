@@ -46,38 +46,6 @@ _Rb_tree<int, pair<const int, int>, _Select1st<pair<const int, int> >,
          less<int>, allocator<pair<const int, int> > >::_M_upper_bound(const int &) const;
 }
 
-class Rva0007E971
-{
-public:
-	void rva0007FAC1();
-	void rva0007FB07(IntPtrTree::iterator first, IntPtrTree::iterator last);
-	unsigned int rva00082536(const int &x);
-};
-
-class Rva000D20A9
-{
-public:
-	void rva000D2294();
-	void rva000D22BD(IntPtrTree::iterator first, IntPtrTree::iterator last);
-	unsigned int rva000D3BFD(const int &x);
-};
-
-class Rva00388EAE
-{
-public:
-	void rva00389129();
-	void rva003891E8(IntPtrTree::iterator first, IntPtrTree::iterator last);
-	unsigned int rva00389913(const int &key);
-};
-
-class Rva002EE9B7
-{
-public:
-	void rva002EE9B7();
-	void rva0046A967(IntPtrTree::iterator first, IntPtrTree::iterator last);
-	unsigned int rva0046EDEF(const int &key);
-};
-
 class Rva004E7B13
 {
 public:
@@ -86,60 +54,8 @@ public:
 	unsigned int rva004E7D29(const int &key);
 };
 
-class Rva001E6731
-{
-public:
-	void rva001E6731();
-	void rva001E675A(IntPtrTree::iterator first, IntPtrTree::iterator last);
-	unsigned int rva001E71FA(const int &key);
-};
-
-class Rva00362AB5
-{
-public:
-	void rva00362AB5();
-	void rva00362ADE(IntPtrTree::iterator first, IntPtrTree::iterator last);
-	unsigned int rva00362B89(const int &x);
-};
-
 // Other units call this body (pinned at its address) under the spelling(s)
 // below, with the same calling convention and stack arguments; bind them.
-
-class Rva00082BE1
-{
-public:
-	unsigned int rva00082BE1(const int &x);
-};
-
-class Rva000D3C46
-{
-public:
-	unsigned int rva000D3C46(const int &x);
-};
-
-class Rva001E7E78
-{
-public:
-	unsigned int rva001E7E78(const int &key);
-};
-
-class Rva00362C9A
-{
-public:
-	unsigned int rva00362C9A(const int &x);
-};
-
-class Rva003899C4
-{
-public:
-	unsigned int rva003899C4(const int &key);
-};
-
-class Rva0047003C
-{
-public:
-	unsigned int rva0047003C(const int &key);
-};
 
 class Rva004E7E19
 {
@@ -178,15 +94,6 @@ private:
     _STL::list<Coord3D> m_list0C;
     _STL::map<int, void *> m_map10;
     Rva004E5610 m_1C;
-};
-
-class Rva004E7F43
-{
-public:
-	Rva004E7F43 *rva004E7F43();
-
-private:
-	Rva004E7D72 *m_00;
 };
 
 // tu-skeleton: 0x004E7CBA 53B ?rva004E7CBA@ResourceEntryOwner@@QAEXABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/InGameUIResourceEntries.cpp (not merged yet)

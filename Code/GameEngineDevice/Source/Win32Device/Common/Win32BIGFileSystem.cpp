@@ -526,51 +526,6 @@ private:
 // Five siblings, byte-identical but for the CLEAR callee (decoded above):
 // 0x00207630->0x00206EF0, 0x0020766D->0x00206F19, 0x002076AA->0x00206F42,
 // 0x00207724->0x00206F94, 0x00207761->0x00206FBD.
-class Rva00207630
-{
-public:
-	~Rva00207630();
-private:
-	RvaTreeHeadHolder m_holder;
-	int m_count;
-};
-
-class Rva0020766D
-{
-public:
-	~Rva0020766D();
-private:
-	RvaTreeHeadHolder m_holder;
-	int m_count;
-};
-
-class Rva002076AA
-{
-public:
-	~Rva002076AA();
-private:
-	RvaTreeHeadHolder m_holder;
-	int m_count;
-};
-
-class Rva00207724
-{
-public:
-	~Rva00207724();
-private:
-	RvaTreeHeadHolder m_holder;
-	int m_count;
-};
-
-class Rva00207761
-{
-public:
-	~Rva00207761();
-private:
-	RvaTreeHeadHolder m_holder;
-	int m_count;
-};
-
 // ??1Rva005026B6@@QAE@XZ, retail 0x005026B6 56B.
 // Map-base dtor over tree Rva00501F2D (CLEAR 0x0050247A), same 56B /GX shape
 // as the six siblings above: CLEAR() on the +0 tree then null-guarded free
@@ -604,42 +559,6 @@ public:
 private:
 	RvaTreeHeadHolder m_holder;	/* +0x00, layout-shared with the tree head */
 	int m_count;				/* +0x04, the slot CLEAR() tests */
-};
-
-class Rva0020762B
-{
-public:
-	void rva0020762B();
-};
-
-class Rva00207668
-{
-public:
-	void rva00207668();
-};
-
-class Rva002076A5
-{
-public:
-	void rva002076A5();
-};
-
-class Rva0020771F
-{
-public:
-	void rva0020771F();
-};
-
-class Rva0020775C
-{
-public:
-	void rva0020775C();
-};
-
-class Rva005026B1
-{
-public:
-	void rva005026B1();
 };
 
 // ---- from Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp

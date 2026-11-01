@@ -359,13 +359,6 @@ BFME_DISP8_FLOAT_GETTER(Rva004987FAFloatField, 0x34)
 // Native 006C03D0..006C03DB is a complete independently bounded RET leaf.
 // Target behavior: receiver18 plus four-byte element stride; RET4.
 // Original owner and full array bounds remain unknown; address-owned view only.
-struct Rva006C03D0Slot { unsigned char bytes[4]; };
-
-class Rva006C03D0Fields {
-public: void *at(int index);
-private: unsigned char unknown[0x18]; Rva006C03D0Slot entries[1];
-};
-
 // BF1 9cbfb551fe Common/R2SmallMemberOps.cpp Rva004223B0::isNonNegative
 // supplies the first comparison expression. Native adjacent predicate is a
 // local condition/offset adaptation, not a second asserted donor identity.
@@ -374,16 +367,6 @@ private: unsigned char unknown[0x18]; Rva006C03D0Slot entries[1];
 // Both use independently verified BBAEAC=00000000; unordered returns false.
 // Original owners, field purposes and complete bounds remain unknown. Separate
 // address-owned carriers avoid equating classes merely because bodies adjoin.
-struct Rva001DCCDEFields {
-    unsigned char unknown[4]; float value04;
-    bool isNonNegative() const;
-};
-
-struct Rva001DCCF0Fields {
-    float value00;
-    bool isPositive() const;
-};
-
 // Clean BF1 f98983a7d3 PhysicsUpdate.cpp Get_Z_Vector supplied the expression
 // guide under /O1 /arch:SSE /G7. That name already owns a distinct native
 // body at 143260; no Matrix3D or Vector3 identity is transferred here.
@@ -393,18 +376,6 @@ struct Rva001DCCF0Fields {
 // Whole-image E8/E9 and absolute-address searches find no incoming references.
 // This consumed prefix and result representation claim only those accesses;
 // original class, result name, field purposes and full object size are unknown.
-
-struct Rva0006643CResult {
- float value0,value4,value8;
- Rva0006643CResult(float a,float b,float c):value0(a),value4(b),value8(c) {}
-};
-
-class Rva0006643CFields {
- unsigned char unknown0[8]; float value8; unsigned char unknownC[12];
- float value18; unsigned char unknown1C[12]; float value28;
-public:
- Rva0006643CResult project() const;
-};
 
 class NameKeyGenerator
 {
@@ -656,20 +627,6 @@ struct Rva005F83EDFields { char pad[4]; unsigned int word4; unsigned int get() c
 
 BFME_DISP8_BYTE_GETTER(Rva00498802ByteField, 0x30)
 
-class Rva001DCD05
-{
-public:
-	void *rva001DCD05();
-private:
-	char m_pad[8];
-	char m_08;
-	char m_pad2[0x14 - 0x09];
-	char m_14;
-	char m_pad3[0x20 - 0x15];
-	unsigned char m_20;
-	bool m_21;
-};
-
 // Clean BFME1 9cbfb551 donor structural leads; native instructions independently
 // establish complete RET boundaries and each raw field operation and ABI.
 // Address-owned carriers retain unknown original receiver identity and bounds.
@@ -686,14 +643,6 @@ struct Rva0056AB88Fields { char pad[0xC]; unsigned int wordC; bool matches(unsig
 
 // Disp8 byte setter: mov al,[esp+4] / mov [ecx+<DISP>],al / ret 4 (10 bytes).
 // Address-derived class; the stored byte's meaning is unproven.
-class Rva0065D7C0ByteSetter
-{
-public:
-	void set(unsigned char value);
-	char m_lead[0x1D];
-	unsigned char m_value;
-};
-
 // ?rva002259F3@Rva002259F3@@QBEHXZ, retail 0x002259F3 (25B): three flag bytes at
 // +0x44 (must be set), +0xA8 and +0x9D (must be clear).
 class Rva002259F3

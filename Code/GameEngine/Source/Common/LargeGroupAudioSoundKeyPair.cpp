@@ -79,14 +79,6 @@ public:
 // The application collection class remains unknown. Keep it with its typed
 // overlap provider rather than adding another private AsciiString view to
 // the adjacent string-lookup unit.
-class Rva003EE058Owner
-{
-	char m_prefix[0x1c];
-	Rva00568C36 **m_begin;
-	Rva00568C36 **m_end;
-public:
-	bool overlaps(const Rva00568C36Provider *arg);
-};
 struct Rva00568721Cmp
 {
 public:
@@ -373,7 +365,6 @@ struct Rva00568FE4Less {
 // Target differs from the donor by calling the existing paired release first.
 // Its slot-A cleanup owns the string at+4; slot-B cleanup destroys the tree.
 // The nonvirtual deleting wrapper at665BF calls this complete destructor.
-class Rva000D3A17Resource { public: virtual void Delete_This()=0; int references; };
 #include "../../Include/Common/Rva000D3A8AElemA.h"
 //
 // LargeGroupAudioSoundKeyPair subject bookkeeping (retail 0x00568920..0x00569863).
@@ -812,17 +803,6 @@ union Rva0056956DLookupCall
 };
 
 typedef char Rva0056956DLookupCallWidth[sizeof(Rva0056956DLookupCall)==4 ? 1 : -1];
-
-class Rva000D20A9 {public: ~Rva000D20A9(); private: void *head; int count;};
-
-struct Rva000D3A8AElemB {Rva000D20A9 tree; int extra; ~Rva000D3A8AElemB() {} };
-
-class Rva0074011F {public: void rva0074011F(); private: void *first,*second; };
-
-class Rva000D3A17 {
-public: ~Rva000D3A17();
-private: Rva0074011F buffers; int field08,field0c,field10,field14; Rva000D3A8AElemA refs[10]; int field90; Rva000D3A8AElemB sets[10]; unsigned char field10c;
-};
 
 // Native 5688D2 returns its two-float output address in EAX and RET8.
 // Its caller569ABD consumes that EAX as a live temporary with an empty

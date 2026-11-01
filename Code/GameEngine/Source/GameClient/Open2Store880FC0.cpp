@@ -12,47 +12,7 @@
 
 BFME_LITERAL_NAME_GETTER(Rva006254A0Named, "PartitionManager")
 
-class ModuleData
-{
-public:
-	virtual const char *GetSnapshotName() const;
-};
-
-class Eva
-{
-public:
-	virtual const char *GetSnapshotName() const;
-};
-
-class W3DDebrisDraw
-{
-protected:
-	virtual const char *GetSnapshotName() const;
-};
-
-class FireLogicSystem
-{
-public:
-	virtual const char *GetSnapshotName() const;
-};
-
-class LivingWorldBuilding { public: virtual const char *GetSnapshotName(); };
-
-class SequentialScript { public: virtual const char *GetSnapshotName(); };
-
 // LargeGroupAudio getter is owned by the complete subsystem unit.
-class GeometryInfo
-{
-public:
-	virtual const char *GetSnapshotName();
-};
-
-class DrawModule
-{
-protected:
-    virtual const char *GetSnapshotName() const;
-};
-
 #include "../../Include/GameLogic/Module/BehaviorModule.h"
 
 // tu-skeleton: 0x00625490 8B ??_EOpen2Store880FC0@@WM@AEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/Open2Twins006.cpp (not merged yet)

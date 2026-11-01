@@ -28,52 +28,6 @@ public:
 	~VersionBlockParserInner();
 };
 
-class Rva002DFAD1Dtor
-{
-public:
-	~Rva002DFAD1Dtor();
-};
-
-class Rva00229487
-{
-public:
-	~Rva00229487();
-
-private:
-	char m_pad[4];
-	Rva002DFAD1Dtor m_inner;
-};
-
-class Rva0023863E
-{
-public:
-	~Rva0023863E();
-
-private:
-	char m_pad[4];
-	VersionBlockParserInner m_inner;
-};
-
-class Rva00380200 {public:int rva00380459(int);};
-
-class Rva002A9ECA {public:int rva002A9ECA(int);};
-
-class Rva002B0B32Dtor
-{
-public:
-	~Rva002B0B32Dtor();
-};
-
-class Rva002B0B8E
-{
-public:
-	~Rva002B0B8E();
-
-private:
-	char m_pad[4];
-	Rva002B0B32Dtor m_inner;
-};
-
 // The +8/+8/+4 members of 0x0042581E, 0x005C8565 and 0x00603C57 are the
 // rowed STLport containers whose dtors they tail-jump to.
 struct BfmeWordValue4;
@@ -128,42 +82,6 @@ public:
 private:
 	char m_pad[8];
 	Rva00425756Dtor m_inner;
-};
-
-class Rva00501656
-{
-public:
-	~Rva00501656();
-};
-
-class Rva0050174A
-{
-public:
-	~Rva0050174A();
-
-private:
-	char m_pad[4];
-	Rva00501656 m_inner;
-};
-
-class Rva005C8565
-{
-public:
-	~Rva005C8565();
-
-private:
-	char m_pad[8];
-	Rva005C8494Dtor m_inner;
-};
-
-class Rva00603C57
-{
-public:
-	~Rva00603C57();
-
-private:
-	char m_pad[4];
-	Rva00603AA8Dtor m_inner;
 };
 
 // tu-skeleton: 0x00425801 5B ??1LightPoint@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/LightPointDtor.cpp (not merged yet)

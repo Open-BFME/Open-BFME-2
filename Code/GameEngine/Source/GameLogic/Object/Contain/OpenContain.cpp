@@ -805,51 +805,12 @@ template void Rva00462D08Tree::clear();
 BFME_DISP8_PTRCHASE_BEFORE_DWORD_GETTER(Rva00462745PtrChaseField, 0x1C, 0x70)
 
 // Address-named indexed pointer-chase getter at retail 0x005F6B12.
-class Rva005F6B12
-{
-public:
-	int rva005F6B12(int index) const;
-private:
-	char m_pad00[4];
-	int *m_values;
-};
-
 // Byte bit-7 getters: ptr-chase byte read plus shr to LSB (bool from high bit).
 // Retail 0x005FC73B is mov eax,[ecx+0x18] / mov al,[eax+0x34] / shr al,7 / ret.
-struct Rva005FC73BPtrChaseInner
-{
-	char m_pad[0x34];
-	unsigned char m_byte;
-};
-
-class Rva005FC73BPtrChaseField
-{
-public:
-	bool get() const;
-	char m_lead[0x18];
-	Rva005FC73BPtrChaseInner *m_ptr;
-};
-
 // Virtual-fallback ptr-chase getter: if bit 3 of the chased byte is set,
 // tail-jump to virtual slot 1; else return the chased pointer.
 // Retail 0x005FC745 is mov eax,[ecx+0x18] / test byte [eax+0x34],8 /
 // je ret / mov eax,[ecx] / jmp [eax+4] / ret.
-struct Rva005FC745PtrChaseInner
-{
-	char m_pad[0x34];
-	unsigned char m_flag;
-};
-
-class Rva005FC745PtrChaseField
-{
-	virtual ~Rva005FC745PtrChaseField() {}
-	virtual void *fetch() const = 0;
-	char m_lead[0x18 - 4];
-public:
-	void *get() const;
-	Rva005FC745PtrChaseInner *m_ptr;
-};
-
 // Clean BFME1 9cbfb551 donor structural leads; native instructions independently
 // establish complete RET boundaries and each raw field operation and ABI.
 // Address-owned carriers retain unknown original receiver identity and bounds.
@@ -863,39 +824,10 @@ struct Rva002D2CDCFields { unsigned char byte0; Rva002D2CDCFields *clear(); };
 // Several donor names share each shape, so no donor owner/type is asserted.
 // Each native entry follows INT3 padding and ends its own RET: 1CD70..1CD76
 // and6F6830..6F6836. They read raw words through independently proved offsets.
-class Rva0001CD70Word
-{
-public:
- unsigned int get() const;
- char m_pad00[4];
- unsigned int *m_ptr;
-};
-
 // 0x0001CDA0 is the same shape with the pointer at receiver offset 8 (1CDA0..1CDA5,
 // INT3 padding before, no reference in the image).
-class Rva0001CDA0Word
-{
-public:
- unsigned int get() const;
- char m_pad00[8];
- unsigned int *m_ptr;
-};
-
-class Rva006F6830Word
-{
-public:
- unsigned int get() const;
- unsigned int *m_ptr;
-};
-
 // 0x004543A9 is also reached through the this-0x14 thunk 0x004543E3 in four
 // vtables, so it is virtual (same body).
-class Rva004543A9LeaNegSbbField
-{
-public:
-	virtual int get() const;
-};
-
 BFME_DISP8_LEA_NEG_SBB_GETTER(Rva004647C0LeaNegSbbField, 12, 0x20)
 
 BFME_DISP_BYTE_SETTER(Rva004647FDByteSlot, 0xBD)
@@ -910,24 +842,10 @@ BFME_DISP_BYTE_SETTER(Rva00464810ByteSlot, 0xBE)
 // or constructor identity is established; retain the target address and
 // describe its proven initializer ABI. Destination is the repository's
 // nearest-neighbour home, immediately after its 0x0047A2A9 setter.
-class Rva0047A2B6Floats
-{
-public:
-    Rva0047A2B6Floats *initialize();
-private:
-    float first[3];
-    float second[3];
-};
-
 // Clean BF1 9cbfb551fe Common/Rva007AE610Array.cpp semantic donor, normal O1/SSE/G7.
 // Native 0010855F..0010856E has its own complete RET boundary and establishes
 // receiver68 indexed dword store, RET8. Original owner and full array bound remain
 // unresolved; this separate address-owned view models only observed accesses.
-class Rva0010855FArray {
-public: void setValue(unsigned int index, unsigned int value);
-private: unsigned char unknown[0x68]; unsigned int values[1];
-};
-
 // tu-skeleton: 0x004624E3 8B ?containReactToTransformChange@OpenContain@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainReactToTransformChange.cpp (not merged yet)
 
 // tu-skeleton: 0x004624EB 25B ?rva004624EB@Rva004624EB@@UAE?AURva00462465@@XZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE22.cpp (not merged yet)

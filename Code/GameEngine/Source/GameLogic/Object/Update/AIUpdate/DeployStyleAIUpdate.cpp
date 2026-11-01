@@ -547,51 +547,12 @@ BFME_DISP8_PTRCHASE_DWORD_GETTER(Rva0000048E828PtrChaseField, 0x04, 0x64)
 BFME_DISP8_PTRCHASE_DWORD_GETTER(Rva0000048E82FPtrChaseField, 0x04, 0x68)
 
 // Address-named indexed pointer-chase getter at retail 0x005F6B12.
-class Rva005F6B12
-{
-public:
-	int rva005F6B12(int index) const;
-private:
-	char m_pad00[4];
-	int *m_values;
-};
-
 // Byte bit-7 getters: ptr-chase byte read plus shr to LSB (bool from high bit).
 // Retail 0x005FC73B is mov eax,[ecx+0x18] / mov al,[eax+0x34] / shr al,7 / ret.
-struct Rva005FC73BPtrChaseInner
-{
-	char m_pad[0x34];
-	unsigned char m_byte;
-};
-
-class Rva005FC73BPtrChaseField
-{
-public:
-	bool get() const;
-	char m_lead[0x18];
-	Rva005FC73BPtrChaseInner *m_ptr;
-};
-
 // Virtual-fallback ptr-chase getter: if bit 3 of the chased byte is set,
 // tail-jump to virtual slot 1; else return the chased pointer.
 // Retail 0x005FC745 is mov eax,[ecx+0x18] / test byte [eax+0x34],8 /
 // je ret / mov eax,[ecx] / jmp [eax+4] / ret.
-struct Rva005FC745PtrChaseInner
-{
-	char m_pad[0x34];
-	unsigned char m_flag;
-};
-
-class Rva005FC745PtrChaseField
-{
-	virtual ~Rva005FC745PtrChaseField() {}
-	virtual void *fetch() const = 0;
-	char m_lead[0x18 - 4];
-public:
-	void *get() const;
-	Rva005FC745PtrChaseInner *m_ptr;
-};
-
 // Clean BFME1 9cbfb551 donor structural leads; native instructions independently
 // establish complete RET boundaries and each raw field operation and ABI.
 // Address-owned carriers retain unknown original receiver identity and bounds.
@@ -605,31 +566,8 @@ struct Rva002D2CDCFields { unsigned char byte0; Rva002D2CDCFields *clear(); };
 // Several donor names share each shape, so no donor owner/type is asserted.
 // Each native entry follows INT3 padding and ends its own RET: 1CD70..1CD76
 // and6F6830..6F6836. They read raw words through independently proved offsets.
-class Rva0001CD70Word
-{
-public:
- unsigned int get() const;
- char m_pad00[4];
- unsigned int *m_ptr;
-};
-
 // 0x0001CDA0 is the same shape with the pointer at receiver offset 8 (1CDA0..1CDA5,
 // INT3 padding before, no reference in the image).
-class Rva0001CDA0Word
-{
-public:
- unsigned int get() const;
- char m_pad00[8];
- unsigned int *m_ptr;
-};
-
-class Rva006F6830Word
-{
-public:
- unsigned int get() const;
- unsigned int *m_ptr;
-};
-
 BFME_DISP8_ADD_DWORD_GETTER(Rva0048E84BAddDwordField, 0x04, 0x70)
 
 // Native5F83ED..5F83F4 follows a complete tail JMP and ends RET:

@@ -48,7 +48,6 @@ template <> ConstructProbePairC::pair(const ConstructProbePairC &);
 // vector::push_back at 0x39A48E and both uninitialized workers. Its complete
 // construction delegates to the existing pair copy at 0x466EA7. Preserve
 // that witnessed storage operation without asserting an application identity.
-struct Rva0039A48EElement { int a[2]; };
 namespace _STL {
 }
 template void _STL::_Construct<ConstructProbeVec, ConstructProbeVec>(ConstructProbeVec *, const ConstructProbeVec &);
@@ -674,36 +673,16 @@ struct Rva001D976EFields {
     Rva001D976EFields *initialize();
 };
 
-struct Rva004689FAFields {
-    unsigned int word00; unsigned int word04;
-    Rva004689FAFields *initialize();
-};
-
 // BF1 9cbfb551fe Common/Q1ConstantFieldConstructors.cpp is the clean
 // zero-field/receiver-return semantic guide only. The target bodies are
 // independently RET-bounded: 23DC7F..23DC86 writes dword18=0 after RET23DC7E;
 // 85524..8552B writes dword28=0 after RET85523. Incoming ECX is returned in
 // EAX. Constructor-versus-reset, owner identity and complete bounds are unknown.
-struct Rva0023DC7FFields {
-    unsigned char unknown[0x18]; unsigned int word18;
-    Rva0023DC7FFields *clear();
-};
-
-struct Rva00085524Fields {
-    unsigned char unknown[0x28]; unsigned int word28;
-    Rva00085524Fields *clear();
-};
-
 // BF1 9cbfb551fe Common/RTS/Player_resetOrStartSpecialPowerReadyFrame.cpp
 // emits the SpecialPowerReadyTimerType constructor, a two-field initialization
 // semantic guide only. The target 2AA3B5..2AA3BF follows RET2AA3B4 and stores
 // raw word04=all ones BEFORE word00=zero, returning incoming ECX in EAX.
 // Original timer/class identity, constructor-versus-reset and bounds unknown.
-struct Rva002AA3B5Fields {
-    unsigned int word00, word04;
-    Rva002AA3B5Fields *initialize();
-};
-
 class Rva0023FD06 : public Rva0007DF07
 {
 public:
@@ -757,14 +736,6 @@ public:
 // are not proved by this leaf. The address-owned consumed-word view below
 // preserves the complete observed operation for every raw32 input, without
 // re-declaring ShaderClass or altering its independently unresolved copies.
-class Rva00065F73Word
-{
-public:
-    void set(unsigned int value);
-private:
-    unsigned int word0;
-};
-
 BFME_DISP32_FLOAT_SETTER(Rva001D972BFloatField, 0x94)
 
 // 0x002A9E25 is a Player member: ScavengerSpecialPower::doSpecialPower
@@ -783,13 +754,6 @@ public:
 // between independently bounded RET4 at30F2B7 and known getter30F2C7.
 // Found beside the BF1 9cb WaterRenderObjConstructor Boxed<float> placement;
 // adjacency does not establish its original class or field purpose.
-class Rva0030F2BAFloatField
-{
-public:
-    void set(float value);
-    float m_value;
-};
-
 class Rva000A8CAE
 {
 public:
@@ -809,14 +773,6 @@ public:
 // before more padding: it advances receiver's raw address slot by4 and
 // returns that receiver. Original container/element/owner identity remains
 // unknown; this prefix view transfers only the witnessed byte stride.
-class Rva006CFEA0Iterator
-{
-public:
-    Rva006CFEA0Iterator &advance();
-private:
-    unsigned char *position;
-};
-
 // Whole clean BF1 f989 RenderObjectDrawModuleSlot4_005F6ED0.cpp emits
 // Matrix3's indexed-row helper under O1/SSE2/G7. That donor interpretation
 // does not establish this target's original owner or element type.
@@ -824,12 +780,6 @@ private:
 // stackword multiplied by12 then added to ECX, returned in EAX with RET4.
 // The address-only projection preserves native32bit modular arithmetic;
 // index signedness, original constness and complete array layout unknown.
-class Rva00562865Receiver
-{
-public:
-    void *address(unsigned int index);
-};
-
 // ---- from Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp
 
 // ---- from Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp
