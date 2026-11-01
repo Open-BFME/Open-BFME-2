@@ -11,6 +11,7 @@
 // bodies (0x0004D75B clear, 0x000424D0 assign, 0x00132856 filter,
 // 0x00132989 surface fill); the views are borrowed, not asserted types.
 
+class TerrainTextureClass;
 class TextureClass
 {
 public:
@@ -31,6 +32,18 @@ public:
 private:
 	T *m_referent;
 };
+
+// The rowed TextureClass release at 61ED10 is the same established
+// resource operation the seed's four-word texture holder already uses.
+struct BfmeResetResource
+{
+    void Release_Ref();
+};
+template <> inline RefCountPtr<TextureClass>::~RefCountPtr()
+{
+    if (m_referent)
+        ((BfmeResetResource *)m_referent)->Release_Ref();
+}
 
 struct BfmeResetTextureRef
 {
@@ -98,14 +111,14 @@ private:
 	__forceinline void clearTextures()
 	{
 		((BfmeResetTextureRef *)&m_terrainTexture)->clear();
-		((BfmeResetTextureRef *)&m_terrainTexture2)->clear();
+		((BfmeResetTextureRef *)&m_terrainTexture4X)->clear();
 	}
 
 	int m_cullStatus[3];
 	unsigned char m_pad0c[0x38 - 0x0C];
-	RefCountPtr<TextureClass> m_terrainTexture;
+	TerrainTextureClass *m_terrainTexture;
 	unsigned char m_pad3c[0x40 - 0x3C];
-	RefCountPtr<TextureClass> m_terrainTexture2;
+	TerrainTextureClass *m_terrainTexture4X;
 	int m_texMultiplier;
 	unsigned char m_pad48[0x50 - 0x48];
 	int m_xOrigin;
@@ -124,19 +137,19 @@ bool W3DTerrainBackground::updateTexture(void)
 	}
 
 	if (m_texMultiplier == 2 || TheGlobalData->m_stretchTerrain) {
-		if (m_terrainTexture.isNull()) {
-			m_terrainTexture = m_map->getFlatTexture(m_xOrigin, m_yOrigin, m_width, 0x20, 0x19, 0);
+		if (((const RefCountPtr<TextureClass> *)&m_terrainTexture)->isNull()) {
+			*(RefCountPtr<TextureClass> *)&m_terrainTexture = m_map->getFlatTexture(m_xOrigin, m_yOrigin, m_width, 0x20, 0x19, 0);
 			((ShroudTexture *)&m_terrainTexture)->getFilter()->m_uAddressMode = 1;
 			((ShroudTexture *)&m_terrainTexture)->getFilter()->m_vAddressMode = 1;
 			if (m_fillSurfaces)
 				((CursorTextureSlot *)&m_terrainTexture)->FillLevelSurfaces();
 
-			if (TheGlobalData->m_secondTerrainTexture && m_terrainTexture2.isNull()) {
-				m_terrainTexture2 = m_map->getFlatTexture(m_xOrigin, m_yOrigin, m_width, 0x20, 0x19, 1);
-				((ShroudTexture *)&m_terrainTexture2)->getFilter()->m_uAddressMode = 1;
-				((ShroudTexture *)&m_terrainTexture2)->getFilter()->m_vAddressMode = 1;
+			if (TheGlobalData->m_secondTerrainTexture && ((const RefCountPtr<TextureClass> *)&m_terrainTexture4X)->isNull()) {
+				*(RefCountPtr<TextureClass> *)&m_terrainTexture4X = m_map->getFlatTexture(m_xOrigin, m_yOrigin, m_width, 0x20, 0x19, 1);
+				((ShroudTexture *)&m_terrainTexture4X)->getFilter()->m_uAddressMode = 1;
+				((ShroudTexture *)&m_terrainTexture4X)->getFilter()->m_vAddressMode = 1;
 				if (m_fillSurfaces)
-					((CursorTextureSlot *)&m_terrainTexture2)->FillLevelSurfaces();
+					((CursorTextureSlot *)&m_terrainTexture4X)->FillLevelSurfaces();
 			}
 			return true;
 		}

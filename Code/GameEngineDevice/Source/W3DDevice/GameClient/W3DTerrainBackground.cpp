@@ -40,6 +40,7 @@ public:
     void rva000AD9AB(int x, int y, bool value);
     void rva000AD9FE();
 };
+template <class T> class RefCountPtr;
 class WorldHeightMap;
 class TerrainTextureClass : public TextureClass {};
 class WorldHeightMap : public RefCountClass
@@ -50,6 +51,7 @@ public:
     int getBorderSizeInline() { return m_borderSize; }
     unsigned char getHeight(int x, int y);
     TerrainTextureClass *getFlatTexture(int x, int y, int width, int pixels);
+    RefCountPtr<TextureClass> getFlatTexture(int x, int y, int width, int pixels, int format, int tileKind);
     int m_width, m_height, m_borderSize;
 };
 class HeightMapRenderObjClass
