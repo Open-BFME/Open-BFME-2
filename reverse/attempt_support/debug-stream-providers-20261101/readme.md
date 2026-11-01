@@ -83,3 +83,22 @@ recovery or Debug obstacle clearance is claimed. The legacy direct-call
 AddOutput declaration and other full-interface owner identities remain open.
 The normal outgoing-batch consumer audit is still required; an index behind
 this source base must be reported as inconclusive and carried to the next census.
+
+### Consumer audit boundary
+
+Commit b169014cc715acbc88a41dbf6dae41cd0260b190 passed the normal pre-commit
+source/identity/data/name-dependent checks. The explicit outgoing comparison
+returned2 (INCONCLUSIVE): its index12902e9e1b precedes base0aedeaca31 and three
+provider objects lacked strict census-grade receipts. The supported bounded
+link_check --prepare-current mode prepared exactly constructor, long-stream and
+main Debug sources, passed19/19 normal rows,27 literals and20 imports, and left
+all three objects strictly current. No census/index/status was changed.
+
+The repeated consumer audit then progressed past those providers and returned2:
+Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp lacks a current
+strict consumer receipt. Its ordinary byte verification passed in the25-source
+rename dependent check, but that does not replace the strict audit requirement.
+No clean global consumer result is claimed. Carry the three changed Debug
+providers, the constructor/destructor table cohort and transitive consumers of
+their changed definitions into the next scheduled census. The old-index before
+state also remains unproven; no direct census or nightly run was started.

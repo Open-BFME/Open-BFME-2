@@ -1,0 +1,2 @@
+link batch audit: INCONCLUSIVE baseline: index at 12902e9e1b, outgoing base 0aedeaca31d95fe853fce233c7e020ffd6de1baf; findings below are provisional since-index changes
+link batch audit: INCONCLUSIVE: 3 source object(s) lack current receipts; first: Code/Libraries/Source/WWVegas/WWDebug/DebugConstructor.cpp

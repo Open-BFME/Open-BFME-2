@@ -8184,6 +8184,12 @@ Remaining / next check (each needs a decision, a row or a shared change; none is
   recovery and AddOutput/interface ownership remain open; outgoing consumer
   auditing and the next census must cover the changed provider identities.
   Evidence: `reverse/attempt_support/debug-stream-providers-20261101/readme.md`.
+  **Outgoing audit boundary:** b169014cc7 passes normal hooks. Bounded strict
+  preparation of ctor/long/main passes19/19; the consumer audit still returns2
+  (older index12902e9e1b; first strict receipt missing in
+  Common/0CreateAHeroManager21FE49.cpp). Its ordinary bytes passed, which is not
+  strict closure proof. Carry changed providers, ctor/dtor and their transitive
+  consumers to the next scheduled census; no general consumer clearance.
 - `??_7GameWindow@@6B@` (L in `GameWindowDtor.cpp`): the 0x0080BBCC table is shared with
   `BfmeAptScreenBase`. This needs a class-view reconcile.
 - `VectorClass<Vector3>` deleting destructor (S in `vector_class_vector3_ctor.cpp`): see LINK-015.
