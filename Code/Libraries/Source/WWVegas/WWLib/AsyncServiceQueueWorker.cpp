@@ -12,7 +12,7 @@
 // prove the 12B owning record and queue fields; native verifies mutex20.
 #include <list>
 #include <windows.h>
-class OpaqueRefCounted {public:void Release_Ref();};
+#include "OpaqueRefCounted.h"
 class Rva0036CA00Str {public:void *m_item;Rva0036CA00Str():m_item(0){}Rva0036CA00Str(const Rva0036CA00Str&);~Rva0036CA00Str(){if(m_item)((OpaqueRefCounted*)m_item)->Release_Ref();}};
 struct TargetNestedHandleData {char pad[12];unsigned count;};
 struct TargetNestedHandle {TargetNestedHandleData *item;};

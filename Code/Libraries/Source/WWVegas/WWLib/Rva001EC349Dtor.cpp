@@ -17,11 +17,7 @@ template <> void allocator<AsciiString>::deallocate(AsciiString*, size_t) const;
 }
 
 
-class OpaqueRefCounted
-{
-public:
-	void Release_Ref();
-};
+#include "OpaqueRefCounted.h"
 
 struct OpaqueRefElement4
 {

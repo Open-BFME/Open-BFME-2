@@ -22,7 +22,7 @@ class PlayingAudioUnknown0C:public BfmeStringTailRecord156 {public:PlayingAudioU
 // The owning constructor passes its +0x0C subobject; the original stream type
 // remains unresolved. This replaces the unrelated DataChunkInfo alias claim.
 __declspec(noinline) PlayingAudioUnknown0C::PlayingAudioUnknown0C() { ptr=0; unknown4=0; }
-class OpaqueRefCounted {public:void Release_Ref();};
+#include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 struct BfmePoolHolder88 {char unknown00[0x88];OpaqueRefCounted ref;};
 class BfmePoolRef10 {public:BfmePoolRef10():ptr(0){}~BfmePoolRef10(){if(ptr)ptr->ref.Release_Ref();}private:BfmePoolHolder88 *ptr;};
 // Native PlayingAudio dtor releases file20 through A8A37; WorldBuilder names

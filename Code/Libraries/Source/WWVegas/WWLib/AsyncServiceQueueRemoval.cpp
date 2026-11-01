@@ -20,7 +20,7 @@
 // an otherwise unknown dword at +4, and a handle at +8 whose pointee count
 // is incremented at +0xC when non-null. Donor BridgeFXInfo semantics remain
 // a provenance hypothesis, not a target identity claim.
-class OpaqueRefCounted { public: void Release_Ref(); };
+#include "OpaqueRefCounted.h"
 struct TargetRef00217D4C;
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 class Rva0036CA00Str {

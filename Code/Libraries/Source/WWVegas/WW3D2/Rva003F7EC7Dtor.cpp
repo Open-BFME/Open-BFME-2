@@ -8,11 +8,7 @@
 
 #include <new>
 
-class OpaqueRefCounted
-{
-public:
-	void Release_Ref();
-};
+#include "../WWLib/OpaqueRefCounted.h"
 
 // The canonical frozen StringBase replaces the private copy; its switch makes
 // the member dtor reachable and keeps the teardown an out-of-line call to the

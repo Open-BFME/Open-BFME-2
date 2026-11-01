@@ -2,7 +2,7 @@
 // stlport
 // ?rva0005800A@Rva0005800A@@QAEXABVRva0036CA00Str@@@Z @0x0005800A 132B: deque<Rva0036CA00Str> push_back slow path aux; tCopy plus reserve_map_at_back plus 0x80 byte node allocate plus construct plus set_node plus Release_Ref dtor; caller 0x00058BB4 in 0x00058B90; callees rowed copyCtor reserve allocate Release_Ref.
 #include <new.h>
-class OpaqueRefCounted { public: void Release_Ref(); };
+#include "OpaqueRefCounted.h"
 class Rva0036CA00Str {
 	void *m_item;
 public:

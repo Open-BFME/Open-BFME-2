@@ -7,7 +7,7 @@ void __cdecl Rva00030830FreeAllocation(void *);
 #define free Rva00030830FreeAllocation
 #include <vector>
 #undef free
-class OpaqueRefCounted {public:void Release_Ref();};
+#include "OpaqueRefCounted.h"
 struct BfmePoolHolder88 {char pad[0x88];OpaqueRefCounted ref;};
 class BfmePoolRef10 {public:BfmePoolHolder88 *target; ~BfmePoolRef10(){if(target)target->ref.Release_Ref();}};
 class HostClass005C8E0A;

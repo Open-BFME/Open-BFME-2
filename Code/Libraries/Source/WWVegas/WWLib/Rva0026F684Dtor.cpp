@@ -7,11 +7,7 @@
 #include "ascii_string.h"
 
 
-class OpaqueRefCounted
-{
-public:
-	void Release_Ref();
-};
+#include "OpaqueRefCounted.h"
 
 struct OpaqueRefPtr
 {

@@ -20,11 +20,7 @@
 #include "ascii_string.h"
 #include <windows.h>
 #include <new.h>
-class OpaqueRefCounted
-{
-public:
-	void Release_Ref();
-};
+#include "OpaqueRefCounted.h"
 typedef long Long;
 struct BfmePoolHolder88
 {
