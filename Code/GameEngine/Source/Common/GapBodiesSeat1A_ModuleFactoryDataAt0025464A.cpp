@@ -18,131 +18,19 @@ class GlobalData;
 extern GlobalData *TheWritableGlobalData;
 
 // --- 0x00203582 (19B): adds the argument to the float at +0x48.
-class Rva00203582
-{
-public:
-	void rva00203582(float delta);
-private:
-	char m_pad00[0x48];
-	float m_48;
-};
-
-
 // --- 0x00203671 (23B): stores a non-negative argument into
 // TheWritableGlobalData's word at +0xAC8; the receiver is unused.
-struct Rva00203671GlobalDataView
-{
-	char m_pad000[0xAC8];
-	int m_AC8;
-};
-
-class Rva00203671
-{
-public:
-	void rva00203671(int value);
-};
-
-
 // --- 0x00203E65 (17B): 1 when TheGameLogic->rva001DCD1C() is false, else 0
 // (sibling of the rowed 0x00203688/0x00203693 wrappers).
-class Rva00203E65
-{
-public:
-	int rva00203E65();
-};
-
-
 // --- 0x00205A1B (16B): returns by value a pair {0, &this[+0x0C]}.
-struct Rva00205A1BPair
-{
-	Rva00205A1BPair(void *p) : m_00(0), m_04(p) {}
-	int m_00;
-	void *m_04;
-};
-
-class Rva00205A1B
-{
-public:
-	Rva00205A1BPair rva00205A1B();
-private:
-	char m_pad00[0x0C];
-	int m_0C;
-};
-
-
 // --- 0x00210EAC (19B): returns a zero float pair by value; both word
 // arguments and the receiver are unused.
-struct Rva00210EACCoord2D
-{
-	Rva00210EACCoord2D(float ax, float ay) : x(ax), y(ay) {}
-	float x;
-	float y;
-};
-
-class Rva00210EAC
-{
-public:
-	Rva00210EACCoord2D rva00210EAC(int a, int b);
-};
-
-
 // --- 0x00215E5F (16B): 1 when the argument's first word equals this one's.
-class Rva00215E5F
-{
-public:
-	int rva00215E5F(const Rva00215E5F *other);
-private:
-	int m_00;
-};
-
-
 // --- 0x00215E87 (18B): the index of the first null of two slots, else 2.
-class Rva00215E87
-{
-public:
-	unsigned int rva00215E87();
-private:
-	void *m_slots[2];
-};
-
-
-
 // --- 0x0021982A (16B): the halfword at +4 of the node the first word points
 // at, or 0 without a node.
-struct Rva0021982ANode
-{
-	int m_00;
-	unsigned short m_04;
-};
-
-class Rva0021982A
-{
-public:
-	int rva0021982A();
-private:
-	Rva0021982ANode **m_node;
-};
-
-
 // --- 0x002224DE (32B): false past the fourteenth 0x28-byte record at +0xF0,
 // else the inverse of that record's second flag bit.
-struct Rva002224DERecord
-{
-	unsigned char m_flag0 : 1;
-	unsigned char m_flag1 : 1;
-	char m_pad01[0x27];
-};
-
-class Rva002224DE
-{
-public:
-	bool rva002224DE(unsigned int index);
-private:
-	char m_pad00[0xF0];
-	Rva002224DERecord m_records[14];
-};
-
-
 // --- 0x002226A2 (28B): constructor from a flag and an eight-byte pair.
 struct Rva002226A2Pair
 {
@@ -150,87 +38,18 @@ struct Rva002226A2Pair
 	int m_04;
 };
 
-class Rva002226A2
-{
-public:
-	Rva002226A2(const bool &flag, const Rva002226A2Pair &pair);
-private:
-	bool m_00;
-	Rva002226A2Pair m_04;
-};
-
-
 // --- 0x00225A81 (18B): copies an eight-byte pair to +0x38.
-class Rva00225A81
-{
-public:
-	void rva00225A81(const Rva002226A2Pair &pair);
-private:
-	char m_pad00[0x38];
-	Rva002226A2Pair m_38;
-};
-
-
 // --- 0x0022CF6E, 0x0022CF9F (18B each): the rowed timing hooks applied to
 // the argument twice, as the rowed 0x0022D189 setter calls the first.
 int Rva0022CB5CHook(int a, int b);
 int Rva0022CC0EHook(int a, int b);
 
-class Rva0022CF6E
-{
-public:
-	int rva0022CF6E(int value);
-	int rva0022CF9F(int value);
-};
-
-
-
 // --- 0x0022D979 (20B): sets the timing value from the pointed word through
 // the rowed 0x0022D189 setter and returns this.
-class Rva00077710Value
-{
-public:
-	void rva0022D189(int value);
-	Rva00077710Value &rva0022D979(const int &value);
-	int rva0022D98D();
-	int m_a;
-	int m_b;
-};
-
-
-
 // --- 0x0023262C (23B): whether the halfword at +6 of the indexed 8-byte
 // record at +0x18 shares a bit with the mask.
-struct Rva0023262CRecord
-{
-	char m_pad00[6];
-	unsigned short m_bits;
-};
-
-class Rva0023262C
-{
-public:
-	int rva0023262C(unsigned char index, int mask);
-private:
-	char m_pad00[0x18];
-	Rva0023262CRecord m_records[1];
-};
-
-
 // --- 0x0023426A (30B): constructor from an eight-byte pair and a halfword;
 // 0x002342C5 (16B): copies the first halfword out and returns 1.
-class Rva0023426A
-{
-public:
-	Rva0023426A(const Rva002226A2Pair &pair, const short &value);
-	int rva002342C5(short *out) const;
-private:
-	Rva002226A2Pair m_00;
-	short m_08;
-};
-
-
-
 // --- 0x00239B11 (24B): one node from the freelist pool at VA 0x00DBA5E0
 // (rowed pop), none for a count above one; the second word is unused.
 class FreelistPool
@@ -240,44 +59,9 @@ public:
 };
 extern FreelistPool g_freelistPool00DBA5E0;
 
-class Rva00239B11
-{
-public:
-	void *rva00239B11(unsigned int count, const void *hint);
-};
-
-
 // --- 0x0023DB48 (16B): latches +0x38 into an unset +0x40 and returns it.
-class Rva0023DB48
-{
-public:
-	int rva0023DB48();
-private:
-	char m_pad00[0x38];
-	int m_38;
-	int m_3C;
-	int m_40;
-};
-
-
 // --- 0x0023E887 (28B): constructor copying a word and building the string
 // at +4 from the source's text.
-struct Rva0023E887Source
-{
-	int m_00;
-	const char *m_text;
-};
-
-class Rva0023E887
-{
-public:
-	Rva0023E887(const Rva0023E887Source &source);
-private:
-	int m_00;
-	AsciiString m_text;
-};
-
-
 // --- 0x00254628 (34B) and 0x002546EB (34B): module-data field parsers,
 // each the rowed base table 0x004CE29D at offset 8 then its own table (VA
 // 0x00BF247C, VA 0x00BF2534); 0x0025464A (52B) and 0x0025470D (52B): their
@@ -389,84 +173,11 @@ public:
 	AsciiString m_name;
 };
 
-class Rva0025F342
-{
-public:
-	CameraMarker *rva0025F342(CameraMarker *marker);
-	void rva0025F3AE(const CameraMarker *marker);
-private:
-	char m_pad00[0x80];
-	CameraMarker *m_markers;
-};
-
-
-
 // --- 0x002602C1 (25B): constructor from a unicode string and a word.
-class Rva002602C1
-{
-public:
-	Rva002602C1(const UnicodeString &text, int value);
-private:
-	UnicodeString m_text;
-	int m_04;
-};
-
-
 // --- 0x00260DCF (13B): bit 3 of the byte at +0x438.
-class Rva00260DCF
-{
-public:
-	bool rva00260DCF() const;
-private:
-	char m_pad000[0x438];
-	unsigned char m_438;
-};
-
-
 // --- 0x00260DDC (17B) and 0x0026223A (17B): the +4 word of the record at
 // +0x04 / +0x50, or 999999 without one.
-struct Rva00260DDCRecord
-{
-	int m_00;
-	int m_04;
-};
-
-class Rva00260DDC
-{
-public:
-	int rva00260DDC() const;
-private:
-	int m_00;
-	Rva00260DDCRecord *m_record;
-};
-
-
-class Rva0026223A
-{
-public:
-	int rva0026223A() const;
-	int rva00262254() const;
-private:
-	char m_pad00[0x50];
-	Rva00260DDCRecord *m_record;
-	int m_54;
-};
-
-
-
 // --- 0x00262263 (14B): byte +8 set and byte +0x0A clear.
-class Rva00262263
-{
-public:
-	int rva00262263() const;
-private:
-	char m_pad00[8];
-	bool m_08;
-	bool m_09;
-	bool m_0A;
-};
-
-
 // --- 0x00260E0D (17B): 1 when the object is not on an airborne locomotor.
 enum ObjectStatusTypes { OBJECT_STATUS_4 = 4 };
 enum ObjectScriptStatusBit { OBJECT_SCRIPT_STATUS_0 };
@@ -493,31 +204,7 @@ public:
 	int m_484;												// +0x484
 };
 
-class Rva00260E0D
-{
-public:
-	int rva00260E0D(const Object *obj);
-};
-
-
 // --- 0x00260F3B (21B): the argument's +0x304 word equals this +8 word.
-struct Rva00260F3BOther
-{
-	char m_pad000[0x304];
-	int m_304;
-};
-
-class Rva00260F3B
-{
-public:
-	int rva00260F3B(const Rva00260F3BOther *other);
-private:
-	int m_00;
-	int m_04;
-	int m_08;
-};
-
-
 // --- 0x00261750 (30B): allow() of the thing-template partition filter
 // (vftable 0x00C1FDEC; Zero Hour's PartitionFilterThing): whether the +8
 // template's rowed isEquivalentTo the object's +4 template agrees with the
@@ -535,45 +222,6 @@ public:
 	bool isInSet(const AsciiString &name) const;			// 0x00376A62
 };
 
-struct Rva00261750Template
-{
-	char m_pad00[0x64];
-	AsciiString m_name;
-};
-
-struct Rva00261750Arg
-{
-	int m_00;
-	const void *m_04;
-};
-
-
-class Rva000421C8
-{
-public:
-	virtual ~Rva000421C8();
-	virtual bool allow(Object *obj) = 0;
-	Rva000421C8 *m_next;
-};
-
-class Rva00261750Filter : public Rva000421C8
-{
-public:
-	virtual bool allow(Object *obj);
-	const ThingTemplate *m_template;
-	bool m_match;
-};
-
-
-class Rva0026176EFilter : public Rva000421C8
-{
-public:
-	virtual bool allow(Object *obj);
-	void *m_08;
-	bool m_0C;
-};
-
-
 // --- 0x002619AE (19B): the argument's rowed BitFlags<69>::test of this
 // +0x108.
 template <int N> class BitFlags
@@ -582,16 +230,6 @@ public:
 	bool test(const void *other) const;
 };
 
-class Rva002619AE
-{
-public:
-	bool rva002619AE(const BitFlags<69> *flags);
-private:
-	char m_pad000[0x108];
-	int m_108;
-};
-
-
 // --- 0x002628E0 (25B): the +0x224 owner's rowed removeFromMatching of the
 // argument's +0x74 word and the second argument.
 class Rva00331CBAVectorOwner
@@ -599,22 +237,6 @@ class Rva00331CBAVectorOwner
 public:
 	void removeFromMatching(int entry, int key);			// 0x00331CBA
 };
-
-struct Rva002628E0Arg
-{
-	char m_pad00[0x74];
-	int m_74;
-};
-
-class Rva002628E0
-{
-public:
-	void rva002628E0(const Rva002628E0Arg *arg, int key);
-private:
-	char m_pad000[0x224];
-	Rva00331CBAVectorOwner m_owner;
-};
-
 
 // --- 0x00262B7D (44B): TheAI's pathfinder (+0x10) validates a position for
 // the +8 object with its rowed 0x0028B511 answer and this +0x1DC word.
@@ -628,40 +250,8 @@ public:
 class AI;
 extern AI *TheAI;
 
-struct Rva00262B7DAIView
-{
-	char m_pad00[0x10];
-	Pathfinder *m_pathfinder;
-};
-
-class Rva00262B7D
-{
-public:
-	bool rva00262B7D(const Coord3D *pos);
-private:
-	char m_pad000[8];
-	Object *m_obj;
-	char m_pad00C[0x1DC - 0x0C];
-	int m_1DC;
-};
-
-
 // --- 0x002636E6 (16B): the rowed squared distance to the argument's +0x38
 // point.
-class Rva002636E6Arg
-{
-public:
-	char m_pad00[0x38];
-	Rva000CBA20Point *m_point;
-};
-
-class Rva002636E6 : public Rva000CBA20
-{
-public:
-	float rva002636E6(const Rva002636E6Arg *arg);
-};
-
-
 // --- 0x002638CC, 0x002638E4 (14B each): Locomotor flag setters for flags 6
 // and 3 through the rowed private setFlag.
 class Locomotor
@@ -680,22 +270,6 @@ private:
 
 // --- 0x00265681 (16B): returns by value the word the +4 handle's pointer
 // addresses.
-struct Rva00265681Word
-{
-	Rva00265681Word(int v) : m_value(v) {}
-	int m_value;
-};
-
-class Rva00265681
-{
-public:
-	Rva00265681Word rva00265681();
-private:
-	int m_00;
-	int **m_handle;
-};
-
-
 // --- 0x0026891F (27B): constructor storing two words, then the rowed
 // 0x002654D6 reset.
 class Rva002654D6
@@ -711,39 +285,9 @@ private:
 
 
 // --- 0x0026FCF9 (14B): the indexed word of the array at +0x148.
-class Rva0026FCF9
-{
-public:
-	int rva0026FCF9(int index) const;
-private:
-	char m_pad000[0x148];
-	int m_words[1];
-};
-
-
 // --- 0x0027175F (26B): 1 when the +0xFC object answers the rowed
 // 0x00292FAC test.
-class Rva0027175F
-{
-public:
-	int rva0027175F() const;
-private:
-	char m_pad00[0xFC];
-	Object *m_obj;
-};
-
-
 // --- 0x0027229B (15B): bit 20 of +0x98 clear.
-class Rva0027229B
-{
-public:
-	bool rva0027229B() const;
-private:
-	char m_pad00[0x98];
-	unsigned int m_98;
-};
-
-
 struct GapVoidVector
 {
 	void **m_start;
@@ -776,35 +320,6 @@ public:
 	virtual void slot54(int a, int b);						// slot 54
 };
 
-class Rva00272366Holder
-{
-public:
-	Rva00272366Target *get() const { return m_target; }
-private:
-	Rva00272366Target *m_target;
-};
-
-class Rva00272366
-{
-public:
-	bool rva00272366(int a, int b, int c);
-private:
-	__forceinline Rva00272366Handler *handler() const
-	{
-		if (m_holder)
-		{
-			Rva00272366Target *target = m_holder->get();
-			if (target)
-				return target->getHandler();
-		}
-		return 0;
-	}
-	char m_pad000[0x14C];
-	Rva00272366Holder *m_holder;
-};
-
-
-
 // --- 0x002785D6 (37B): changes the +0x447 flag, then on set the rowed
 // 0x002783F6(0), on clear the rowed 0x002743D7; 0x0027862C (24B): changes the
 // +0x449 flag, then the rowed 0x002784EB.
@@ -835,57 +350,13 @@ extern int g_Va00DBB708;
 
 
 // --- 0x0027C280 (36B): stores three floats at +0x1C.
-class Rva0027C280
-{
-public:
-	void rva0027C280(float x, float y, float z);
-private:
-	char m_pad00[0x1C];
-	float m_1C;
-	float m_20;
-	float m_24;
-};
-
-
 // --- 0x0028565F (19B): calls the cdecl function pointer at +0x9C;
 // 0x002856B7 (15B): the argument is at most +0x3C.
-class Rva0028565F
-{
-public:
-	int rva0028565F(int a, int b);
-	bool rva002856B7(int value) const;
-private:
-	char m_pad00[0x3C];
-	int m_3C;
-	char m_pad40[0x9C - 0x40];
-	int (*m_9C)(int a, int b);
-};
-
-
-
 // --- 0x00285760 (13B): drops a reference (+4) and frees through the rowed
 // 0x0020DAE0 at zero.
 void Rva0020DAE0(void *p);
 
-class Rva00285760
-{
-public:
-	void rva00285760();
-private:
-	int m_00;
-	int m_refs;
-};
-
-
 // --- 0x00285A0A (12B, cdecl): the argument's slot 11 with 0.
-class Rva00285A0ATarget
-{
-public:
-	GAP_V10(0) GAP_V1(10)
-	virtual void slot11(int value);
-};
-
-
 // --- 0x00285A16, 0x0028878C (16B each): the rowed comparisons of the first
 // argument with the second; the receiver is unused.
 class Rva00285672
@@ -899,15 +370,6 @@ class ExperienceLevel
 public:
 	bool operator<(const ExperienceLevel &other) const;	// 0x00288621
 };
-
-class Rva00285A16
-{
-public:
-	bool rva00285A16(const Rva00285672 *a, const Rva00285672 &b);
-	bool rva0028878C(const ExperienceLevel *a, const ExperienceLevel &b);
-};
-
-
 
 // --- 0x0028667F (20B): the rowed 0x00286214 find returned by value.
 struct Rva00286214Node;
@@ -943,76 +405,12 @@ public:
 // 0x0028A84B (23B) bit test of +0x30; 0x0028B975 (15B) resets +0x490/+0x48C;
 // 0x0028C8CD (18B) and 0x0028F2E6 (18B) pointer-vector counts at +0x234 and
 // +0x4A4.
-class Rva0028A638
-{
-public:
-	bool rva0028A638() const;
-	bool rva0028A644() const;
-	void rva0028A6B6(float value);
-	void rva0028A7C7(float value);
-	void rva0028BB8D(float value);
-	void rva0028B975();
-	int rva0028C8CD() const;
-	int rva0028F2E6() const;
-private:
-	char m_pad000[0x1B8];
-	float m_1B8;
-	char m_pad1BC[0x200 - 0x1BC];
-	float m_200;
-	char m_pad204[0x234 - 0x204];
-	GapVoidVector m_234;
-	char m_pad240[0x438 - 0x240];
-	unsigned char m_438;
-	char m_pad439[0x444 - 0x439];
-	float m_444;
-	char m_pad448[0x464 - 0x448];
-	int m_464;
-	char m_pad468[0x48C - 0x468];
-	bool m_48C;
-	char m_pad48D[0x490 - 0x48D];
-	int m_490;
-	char m_pad494[0x4A4 - 0x494];
-	GapVoidVector m_4A4;
-};
-
-
-
-
-
-
-
-
-
-class Rva0028A7B7
-{
-public:
-	int rva0028A7B7(int value) const;
-	int rva0028A84B(int bit) const;
-private:
-	unsigned char m_00;
-	unsigned char m_01;
-	char m_pad02[0x30 - 2];
-	int m_30;
-};
-
-
-
 // --- 0x0028BC29 (18B): the +0x23C field's rowed flag, false without one.
 class Rva003B8ACFCmpBoolField
 {
 public:
 	bool get() const;										// 0x003B8ACF
 };
-
-class Rva0028BC29
-{
-public:
-	bool rva0028BC29() const;
-private:
-	char m_pad000[0x23C];
-	Rva003B8ACFCmpBoolField *m_field;
-};
-
 
 // --- 0x0028BC3B (18B): the same +0x23C field's second query, false without
 // one; the tail jump to 0x004DF49C (list size != 0) shows a bool result.
@@ -1046,33 +444,10 @@ bool Rva0028BC3B::rva0028BC3B() const
 #include <string.h>
 #pragma function(memset)
 
-class Rva0028C59F
-{
-public:
-	void rva0028C59F();
-private:
-	int m_words[5];
-};
-
-
 // --- 0x0028D611 (111B): unless the other object shares this one's +0x484
 // relation (against its +0x74 id) or both carry one, each module whose
 // +0x0C interface (slot 1) yields a handler passes it the three arguments,
 // stopping when this object has status 4.
-class Rva0028D611Handler
-{
-public:
-	virtual void handle(Object *other, int a, int b);
-};
-
-class Rva0028D611Interface
-{
-public:
-	virtual void s0();
-	virtual Rva0028D611Handler *getHandler();
-};
-
-
 // --- 0x00282206 (12B): pops the last 8-byte element, running its rowed
 // destructor 0x0027EA49.
 class Rva0027EA49
@@ -1083,16 +458,6 @@ private:
 	int m_00;
 	int m_04;
 };
-
-class Rva00282206
-{
-public:
-	void rva00282206();
-private:
-	Rva0027EA49 *m_start;
-	Rva0027EA49 *m_finish;
-};
-
 
 // --- 0x00282794 (11B): reserves the +0x578 module-data vector;
 // 0x0028A665 (11B): the +0x330 material pass's texture for a stage;
@@ -1124,24 +489,6 @@ public:
 	TextureClass *Peek_Texture(int stage) const;			// 0x002C7469
 };
 
-class Rva00282794
-{
-public:
-	void rva00282794(unsigned int n);
-	TextureClass *rva0028A665(int stage) const;
-	void rva0028C8BD(const _STL::_Base_bitset<32> &bits);
-private:
-	char m_pad000[0x284];
-	_STL::_Base_bitset<32> m_284;
-	char m_pad288[0x330 - 0x288];
-	MaterialPassClass m_330;
-	char m_pad331[0x578 - 0x331];
-	_STL::vector<const ModuleData *, _STL::allocator<const ModuleData *> > m_578;
-};
-
-
-
-
 // --- 0x0028F898 (11B): assigns the argument to the +0x94 member through its
 // rowed operator=.
 class Rva001EAFC1
@@ -1149,18 +496,6 @@ class Rva001EAFC1
 public:
 	Rva001EAFC1 &operator=(const Rva001EAFC1 &other);		// 0x001EAFC1
 };
-
-class Rva0028F898
-{
-public:
-	Rva001EAFC1 &rva0028F898(const Rva001EAFC1 &value);
-private:
-	char m_pad00[0x94];
-	Rva001EAFC1 m_94;
-};
-
-
-
 
 // --- 0x00294D4B (22B, cdecl): the rowed 0x00294C1A on the first object with
 // the second, false and 1.0.
@@ -1180,16 +515,6 @@ private:
 	int m_04;
 };
 
-class Rva0028F92B
-{
-public:
-	Rva0028F633 rva0028F92B() const;
-private:
-	char m_pad00[0x38];
-	int m_38;
-};
-
-
 // --- 0x00298941, 0x0029894C (11B, 14B): erase every element of the vector
 // at +0 / +0x20 through the rowed EraseRange.
 class Rva00297360Element;
@@ -1205,45 +530,8 @@ public:
 };
 
 
-class Rva0029894C
-{
-public:
-	void rva0029894C();
-private:
-	char m_pad00[0x20];
-	Rva002983DAVector m_20;
-};
-
-
-
 // --- 0x0029A48A (30B): sets the low end of the +0x58 range of the +0
 // record, if any.
-struct Rva0029A48ARange
-{
-	void set(float l, float h) { lo = l; hi = h; }
-	float lo;
-	float hi;
-};
-
-struct Rva0029A48ARecord
-{
-	char m_pad00[0x58];
-	Rva0029A48ARange m_range;
-};
-
-class Rva0029A48A
-{
-public:
-	void rva0029A48A(float lo);
-	float rva0029A4A8() const;
-	float rva0029A4B9() const;
-private:
-	Rva0029A48ARecord *m_record;
-};
-
-
-
-
 // --- 0x0029B5CD (11B): forwards to the rowed body on the +0x9BC object.
 class AnimateWindow;
 class ProcessAnimateWindowSlideFromBottomTimed
@@ -1252,26 +540,9 @@ public:
 	virtual bool reverseAnimateWindow(AnimateWindow *win);	// 0x005CB265
 };
 
-class Rva0029B5CD
-{
-public:
-	bool rva0029B5CD(AnimateWindow *win);
-private:
-	char m_pad000[0x9BC];
-	void *m_9BC;
-};
-
-
 // --- 0x0029E0E6 (24B): one node from the freelist pool at VA 0x00DA60E8
 // (rowed pop), none for a count above one.
 extern FreelistPool g_freelistPool;
-
-class Rva0029E0E6
-{
-public:
-	void *rva0029E0E6(unsigned int count, const void *hint);
-};
-
 
 // --- 0x0029FE9E (29B): the rowed 0x0029BA28 with the word, then appends it
 // to the +0x18 int list.
@@ -1300,112 +571,19 @@ private:
 // --- Small Player-region leaves: 0x002A71B1 (11B) word of the +0x60 array;
 // 0x002A73A4/0x002A73AE (10B) add/subtract +0x0C; 0x002A97ED/0x002A97F7
 // (10B) add to +0x18/+0x1C.
-class Rva002A71B1
-{
-public:
-	int rva002A71B1(int index) const;
-	void rva002A73A4(int value);
-	void rva002A73AE(int value);
-	void rva002A97ED(int value);
-	void rva002A97F7(int value);
-private:
-	int m_00;
-	int m_04;
-	int m_08;
-	int m_0C;
-	int m_10;
-	int m_14;
-	int m_18;
-	int m_1C;
-	char m_pad20[0x60 - 0x20];
-	int m_60[1];
-};
-
-
-
-
-
-
 // --- 0x002A7F6C (20B): the +0x0C field of the indexed 16-byte record at
 // *(+0xF50); 0x002AAE59 (20B) and 0x002AAE6D (20B): the +0 halfword and the
 // +0x0C field of the indexed 16-byte record at *(+0xF6C).
-struct Rva002A7F6CRecord
-{
-	short m_00;
-	char m_pad02[0x0C - 2];
-	int m_0C;
-};
-
-class Rva002A7F6C
-{
-public:
-	int *rva002A7F6C(int index);
-	int rva002AAE59(int index);
-	int *rva002AAE6D(int index);
-private:
-	char m_pad000[0xF50];
-	Rva002A7F6CRecord *m_F50;
-	char m_padF54[0xF6C - 0xF54];
-	Rva002A7F6CRecord *m_F6C;
-};
-
-
-
-
 // --- 0x002A87F9 (15B, cdecl): clears the two skirmish-AI words at VA
 // 0x00DFEFC0 and 0x00DFEFC4.
 extern unsigned g_00DFEFC0, g_AITargetThreatFinderSerial;
 
 
 // --- 0x002A9BE3 (15B): constructor from a flag with a cleared +4 word.
-class Rva002A9BE3
-{
-public:
-	Rva002A9BE3(bool flag);
-private:
-	bool m_00;
-	int m_04;
-};
-
-
 // --- 0x002AA2BB (14B): count of the 0xD8-byte records of the vector at +0;
 // 0x002AAC2E (15B): the indexed record.
-struct Rva002AA2BBRecord
-{
-	char m_data[0xD8];
-};
-
-class Rva002AA2BB
-{
-public:
-	int rva002AA2BB() const;
-	Rva002AA2BBRecord *rva002AAC2E(int index);
-private:
-	Rva002AA2BBRecord *m_start;
-	Rva002AA2BBRecord *m_finish;
-	Rva002AA2BBRecord *m_end;
-};
-
-
-
 // --- 0x002AA842 (21B): the pointer-vector count at +0x18C of the +0x34
 // object.
-struct Rva002AA842Inner
-{
-	char m_pad000[0x18C];
-	GapVoidVector m_18C;
-};
-
-class Rva002AA842
-{
-public:
-	int rva002AA842() const;
-private:
-	char m_pad00[0x34];
-	Rva002AA842Inner *m_34;
-};
-
-
 // --- 0x002AAC3D (24B): returns a node to the free list at VA 0x00DBBD34.
 struct PoolNode002ABAC0
 {
@@ -1413,40 +591,11 @@ struct PoolNode002ABAC0
 };
 extern PoolNode002ABAC0 *g_00DBBD34;
 
-class Rva002AAC3D
-{
-public:
-	void rva002AAC3D(PoolNode002ABAC0 *node, unsigned int count);
-};
-
-
 // --- 0x002AAEB5 (16B): the indexed 0x24-byte record at *(+0x324).
-struct Rva002AAEB5Record
-{
-	char m_data[0x24];
-};
-
-class Rva002AAEB5
-{
-public:
-	Rva002AAEB5Record *rva002AAEB5(int index);
-private:
-	char m_pad000[0x324];
-	Rva002AAEB5Record *m_324;
-};
-
-
 // --- 0x002ABB86 (24B): one node from the freelist pool at VA 0x00DBBD2C,
 // none for a count above one; 0x002ACF8A (18B): constructor running the
 // rowed init.
 extern FreelistPool g_freelistPool009BBD2C;
-
-class Rva002ABB86
-{
-public:
-	void *rva002ABB86(unsigned int count, const void *hint);
-};
-
 
 class Rva002AC026Member
 {
@@ -1518,53 +667,7 @@ private:
 // 0x002B2260 (14B) the +8 record's +0x4C word or 0; 0x002B229B (10B) ORs
 // into +0x14; 0x002B238A (17B) float setter +0x1C8; 0x002B244D (14B) the
 // +0x0C field of the indexed 16-byte record at +0.
-struct Rva002B2260Record
-{
-	char m_pad00[0x4C];
-	int m_4C;
-};
-
-class Rva002B2221
-{
-public:
-	void rva002B2221(const Rva002226A2Pair &pair);
-	int rva002B2260() const;
-	void rva002B229B(int bits);
-	void rva002B238A(float value);
-private:
-	int m_00;
-	int m_04;
-	Rva002B2260Record *m_08;
-	int m_0C;
-	int m_10;
-	int m_14;
-	char m_pad18[0x20 - 0x18];
-	Rva002226A2Pair m_20;
-	char m_pad28[0x1C8 - 0x28];
-	float m_1C8;
-};
-
-
-
-
-
-class Rva002B244D
-{
-public:
-	int *rva002B244D(int index);
-private:
-	Rva002A7F6CRecord m_records[1];
-};
-
-
 // --- 0x002B22FA (21B): 1 for a second argument of 0 or 1.
-class Rva002B22FA
-{
-public:
-	int rva002B22FA(int unused, int value);
-};
-
-
 // --- 0x002B2997 (38B): when TheLivingWorldLogic's +0xC8 flag is set, the
 // campaign manager's rowed 0x003B8CAC runs and the flag clears.
 class LivingWorldLogic;
@@ -1577,27 +680,7 @@ public:
 	bool rva003B8CAC();										// 0x003B8CAC
 };
 
-struct Rva002B2997LogicView
-{
-	char m_pad00[0xC8];
-	bool m_C8;
-};
-
-
 // --- 0x002B29EA (14B): stores the second argument at +0x38 of the first.
-struct Rva002B29EATarget
-{
-	char m_pad00[0x38];
-	int m_38;
-};
-
-class Rva002B29EA
-{
-public:
-	void rva002B29EA(Rva002B29EATarget *target, int value);
-};
-
-
 // --- 0x002B2B3F (28B): the current item's +0x88 flag when the +0xB0
 // region manager exists; 0x002B2B94 (11B): the manager's rowed
 // UpdateBattleMarkers.
@@ -1640,14 +723,6 @@ private:
 class ScriptEngine;
 extern ScriptEngine *TheScriptEngine;
 
-class Rva002B2B9FView
-{
-public:
-	GAP_V10(0)
-	virtual void slot10();
-};
-
-
 // --- 0x002B30D9 (19B): the +0x154 pointer vector is not empty;
 // 0x002B30EC (15B): count of the 8-byte records of the +0x40 vector of the
 // +0x78 object; 0x002B3150 (11B): pre-increments +0x9C.
@@ -1659,47 +734,12 @@ struct Rva002B30ECVector
 	Rva002226A2Pair *m_finish;
 };
 
-struct Rva002B30ECInner
-{
-	char m_pad00[0x40];
-	Rva002B30ECVector m_40;
-};
-
-class Rva002B30D9
-{
-public:
-	bool rva002B30D9() const;
-	int rva002B30EC() const;
-	int rva002B3150();
-private:
-	char m_pad000[0x78];
-	Rva002B30ECInner *m_78;
-	char m_pad07C[0x9C - 0x7C];
-	int m_9C;
-	char m_pad0A0[0x154 - 0xA0];
-	GapVoidVector m_154;
-};
-
-
 static __forceinline int Rva002B30ECCount(const Rva002B30ECVector *v) { return v->m_finish - v->m_start; }
 
 
 
 // --- 0x002B386A (35B): names the campaign's GUI image by the campaign
 // manager's +0x2C evil flag.
-struct Rva002B386AManagerView
-{
-	char m_pad00[0x2C];
-	bool m_evil;
-};
-
-class Rva002B386A
-{
-public:
-	void rva002B386A(AsciiString *name);
-};
-
-
 // --- 0x002B3DA4 (14B, cdecl): the rowed 0x002B3D81 value divided by the
 // word at VA 0x00DBA4E4.
 int rva002B3D81();
@@ -1715,16 +755,6 @@ public:
 
 
 // --- 0x002B4640 (16B): the indexed word of the array *(+0x170).
-class Rva002B4640
-{
-public:
-	int rva002B4640(int index) const;
-private:
-	char m_pad000[0x170];
-	int *m_170;
-};
-
-
 // --- 0x002B4E6D (22B): copies the argument's +0x14 flag to +0xC8, then the
 // rowed 0x002B4CED with it.
 struct Rva002B4E6DArg
@@ -1748,12 +778,6 @@ private:
 struct Rva002B488EResult;
 class Rva002B5B55Arg;
 
-class Rva002B685D
-{
-public:
-	void rva002B685D(int value);
-};
-
 class Rva002B5B55
 {
 public:
@@ -1773,67 +797,12 @@ namespace _STL
 	};
 }
 
-class Rva002B77A2
-{
-public:
-	void rva002B77A2();
-private:
-	char m_pad00[0xF0];
-	_STL::_List_base<UnicodeString, _STL::allocator<UnicodeString> > m_F0;
-};
-
-
 // Unattempted scalar leaves from the native gap audit. Each complete body
 // starts after a preceding body's RET or padding and ends in its own RET.
 // Native accesses establish the offsets and the 32-bit/byte ABI below;
 // original classes, field meanings and signedness remain unasserted. These
 // neutral views describe only the observed operations, as above.
-class Rva000EF876
-{
-public:
- void rva000EF876();
-private:
- char pad00[7]; unsigned char byte07;
-};
-
-
-class Rva000B22A9
-{
-public:
- void rva000B22A9(unsigned char value);
-private:
- char pad00[0x30]; unsigned char byte30;
-};
-
-
-class Rva00234288
-{
-public:
- unsigned rva00234288() const;
-private:
- unsigned word00, word04;
-};
-
-
-class Rva004EA03E
-{
-public:
- void rva004EA03E();
-private:
- char pad00[0x64]; unsigned char byte64;
- char pad65[7]; unsigned word6C;
-};
-
-
 // --- 0x00235A00 (14B, RET4): a constructor copying its one word argument
 // into both +0 and +4 and returning this (twin skeleton of
 // Rva006CD500WordPair 0x006CD500). It follows the MultiPlayMults getters; the
 // owner and the word's meaning are unknown.
-class Rva00235A00WordPair
-{
-public:
-	Rva00235A00WordPair(unsigned int word);
-	unsigned int m_word0;
-	unsigned int m_word4;
-};
-
