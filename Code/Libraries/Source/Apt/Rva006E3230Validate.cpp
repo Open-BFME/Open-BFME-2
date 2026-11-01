@@ -90,7 +90,7 @@ public:
     void rva006E3740(AptValue *pContext, AptValue *pA, AptValue *pB, int iD, int iE);
     void enqueueAction(void *pArg1, AptCIH *pCIH, int iArg3, int iArg4);
     void prependAction(void *pArg1, AptCIH *pCIH, int iArg3, int iArg4);
-    void rva006E3810(AptValue *pContext, AptValue *pA, AptValue *pB, int iD, int iE);
+    void enqueueFront(AptValue *pContext, AptValue *pA, AptValue *pB, int iD, int iE);
 };
 void AptActionQueueC::rva006E3230(Rva006E3230Action *pCur)
 {
@@ -302,4 +302,4 @@ private:
 void Rva006E0F00Owner::rva006E0F00(void *pArg1, AptCIH *pCIH, int iArg3, int iArg4) { m_actionQueue->enqueueAction(pArg1, pCIH, iArg3, iArg4); }
 void Rva006E0F00Owner::rva006E0F10(void *pArg1, AptCIH *pCIH, int iArg3, int iArg4) { m_actionQueue->prependAction(pArg1, pCIH, iArg3, iArg4); }
 void Rva006E0F00Owner::rva006E0F20(AptValue *pContext, AptValue *pA, AptValue *pB, int iD, int iE) { m_actionQueue->rva006E3740(pContext, pA, pB, iD, iE); }
-void Rva006E0F00Owner::rva006E0F30(AptValue *pContext, AptValue *pA, AptValue *pB, int iD, int iE) { m_actionQueue->rva006E3810(pContext, pA, pB, iD, iE); }
+void Rva006E0F00Owner::rva006E0F30(AptValue *pContext, AptValue *pA, AptValue *pB, int iD, int iE) { m_actionQueue->enqueueFront(pContext, pA, pB, iD, iE); }

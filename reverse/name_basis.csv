@@ -6403,3 +6403,4 @@ class,BfmeModelEffectRecord,ModelEffectRecord,inferred,agree:nl-ffede3166a21,Cod
 class,BfmeModelNamedRecord,ModelNamedRecord,inferred,agree:nl-81298276b449,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/ModelSMConditionInfo.cpp,
 class,BfmeShadowEdge,ShadowEdge,inferred,agree:nl-bfe5627ecf4e,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DVolumetricShadowV2BuildBuffers.cpp,
 class,Rva00740440CameraPath,CameraPath,inferred,agree:nl-a6d65f6a05ed,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCameraModFinalLookTowardBfme.cpp,
+function,?rva006E3810@AptActionQueueC@@QAEXPAVAptValue@@00HH@Z,?enqueueFront@AptActionQueueC@@QAEXPAVAptValue@@00HH@Z,inferred,agree:nl-4761373616f0,Code/Libraries/Source/Apt/Rva006E3810FrontEnqueue.cpp,0x006E3810

@@ -108,7 +108,7 @@ class AptActionQueueC
 {
 public:
     void rva006E3740(AptValue *, AptValue *, AptValue *, int, int); // 0x006E3740
-    void rva006E3810(AptValue *, AptValue *, AptValue *, int, int); // 0x006E3810
+    void enqueueFront(AptValue *, AptValue *, AptValue *, int, int); // 0x006E3810
     void enqueueAction(void *actions, AptCIH *target, int type, int value); // 0x006E4B80
     void prependAction(void *actions, AptCIH *target, int type, int value); // 0x006E4C70
 };
@@ -223,7 +223,7 @@ bool AptCIH::queueClipEvents(int mask, int value, int flag)
             if (m == 0x4000 || m == 0x2000)
                 g_bfmeAptPtrAtE176D0->mpActionQueue->rva006E3740(this, handler, 0, m, value);
             else
-                g_bfmeAptPtrAtE176D0->mpActionQueue->rva006E3810(this, handler, 0, m, value);
+                g_bfmeAptPtrAtE176D0->mpActionQueue->enqueueFront(this, handler, 0, m, value);
             bQueued = true;
         } else {
             AptValue *child = findChild(Rva0070B4F0GetString(g_00DDC2E8[idx].m_str), 0);
@@ -237,7 +237,7 @@ bool AptCIH::queueClipEvents(int mask, int value, int flag)
                 if (m == 0x4000 || m == 0x2000)
                     g_bfmeAptPtrAtE176D0->mpActionQueue->rva006E3740(this, child, 0, m, value);
                 else
-                    g_bfmeAptPtrAtE176D0->mpActionQueue->rva006E3810(this, child, 0, m, value);
+                    g_bfmeAptPtrAtE176D0->mpActionQueue->enqueueFront(this, child, 0, m, value);
                 if (g_00DDC2E8[idx].m_mask == 1)
                     g_bfmeAptPtrAtE176D0->mpActionQueue->rva006E3740(this, child, 0, g_00DDC2E8[idx].m_mask, value);
                 bQueued = true;

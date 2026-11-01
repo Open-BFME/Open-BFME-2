@@ -122,7 +122,7 @@ class AptActionQueueC
 {
 public:
 	void rva006E3740(AptValue *,AptValue *,AptValue *,int,int);
-	void rva006E3810(AptValue *,AptValue *,AptValue *,int,int);
+	void enqueueFront(AptValue *,AptValue *,AptValue *,int,int);
 	void enqueueAction(void *,AptCIH *,int,int);
 };
 
@@ -536,7 +536,7 @@ void AptAnimationPoolData::rva006FA100(AptCIH *inst,int mode)
    if (g_00DDC898[j].mask&keyMask) {
     AptValue *found=(AptValue*)((Rva0070B380*)((BfmeAptValue006DCD20*)pInst)->rva006E04A0())->lookup(*Rva0070B4F0GetString(g_00DDC898[j].stringId));
     if (found)
-     (*(AptActionQueueC**)((char*)g_bfmeAptPtrAtE176D0+0xA0))->rva006E3810((AptValue*)pInst,found,0,g_00DDC2E8[j].m_mask,((g_00DDC898[j].keyCode&0x7f)<<10)|5);
+     (*(AptActionQueueC**)((char*)g_bfmeAptPtrAtE176D0+0xA0))->enqueueFront((AptValue*)pInst,found,0,g_00DDC2E8[j].m_mask,((g_00DDC898[j].keyCode&0x7f)<<10)|5);
    }
   }
  }

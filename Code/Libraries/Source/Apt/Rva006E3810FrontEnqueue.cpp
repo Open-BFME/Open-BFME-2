@@ -40,11 +40,11 @@ class AptActionQueueC {
     int m_iActionPoolSize;
 public:
     void rva006E3230(Rva006E3230Action *pCur);
-    void rva006E3810(AptValue *pContext, AptValue *pA, AptValue *pB, int iD, int iE);
+    void enqueueFront(AptValue *pContext, AptValue *pA, AptValue *pB, int iD, int iE);
     int rva006E38D0();
     Rva006E3230Action *rva006E32A0(Rva006E3230Action *pCur);
 };
-void AptActionQueueC::rva006E3810(AptValue *pContext, AptValue *pA, AptValue *pB, int iD, int iE)
+void AptActionQueueC::enqueueFront(AptValue *pContext, AptValue *pA, AptValue *pB, int iD, int iE)
 {
     if (!((const Rva006DBB60ShrNAndField *)pContext)->get()) {
         g_bfmeAptAssertAtE17734("pContext->getIsDefined()", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptAnimation.cpp", 0x6eb);
