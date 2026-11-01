@@ -9,7 +9,82 @@
 #include "Common/Xfer.h"
 #include "GameLogic/Object.h"
 #include "GameClient/Drawable.h"
-#include "Common/DrawModule.h"
+// Zero Hour's Common/DrawModule.h class, minus its two trailing inline
+// definitions (DrawModule::DrawModule and DrawModule::~DrawModule). Retail runs
+// both as out-of-line functions that other units own: the W3DPropDraw ctor at
+// 0x000CEEC0 calls the rowed ??0DrawModule at 0x000B19A1 (DrawModule.cpp), and
+// ??1DrawModule@@MAE@XZ is rowed at 0x000CEB6F (W3DBoatWakeModelDrawDtor.cpp).
+// Emitting them here also emitted this TU's 32-slot ??_7DrawModule@@6B@ and
+// ??_GDrawModule, which lose to the family's kept copy (LINK-120); declared
+// only, the calls bind to those owners and this unit emits no DrawModule table.
+#include "Common/GameType.h"
+#include "Common/Module.h"
+#include "Common/ModelState.h"
+#include "GameClient/Color.h"
+#define __DRAWMODULE_H_
+class Matrix3D;
+class RenderCost;
+class OBBoxClass;
+class ObjectDrawInterface;
+class DebrisDrawInterface;
+class TracerDrawInterface;
+class RopeDrawInterface;
+class LaserDrawInterface;
+class FXList;
+enum TerrainDecalType;
+enum ShadowType;
+class DrawModule : public DrawableModule
+{
+
+	MEMORY_POOL_GLUE_ABC( DrawModule )
+	MAKE_STANDARD_MODULE_MACRO_ABC( DrawModule )
+
+public:
+
+	DrawModule( Thing *thing, const ModuleData* moduleData );
+	static ModuleType getModuleType() { return MODULETYPE_DRAW; }
+	static Int getInterfaceMask() { return MODULEINTERFACE_DRAW; }
+
+	virtual void doDrawModule(const Matrix3D* transformMtx) = 0;
+
+	virtual void setShadowsEnabled(Bool enable) = 0;
+	virtual void releaseShadows(void) = 0;	///< frees all shadow resources used by this module - used by Options screen.
+	virtual void allocateShadows(void) = 0; ///< create shadow resources if not already present. Used by Options screen.
+
+#if defined(_DEBUG) || defined(_INTERNAL)
+	virtual void getRenderCost(RenderCost & rc) const { };  ///< estimates the render cost of this draw module
+#endif
+
+	virtual void setTerrainDecal(TerrainDecalType type) {};
+	virtual void setTerrainDecalSize(Real x, Real y) {};
+	virtual void setTerrainDecalOpacity(Real o) {};
+
+	virtual void setFullyObscuredByShroud(Bool fullyObscured) = 0;
+
+	virtual Bool isVisible() const { return true; }	///< for limiting tree sway, etc to visible objects
+
+	virtual void reactToTransformChange(const Matrix3D* oldMtx, const Coord3D* oldPos, Real oldAngle) = 0;
+	virtual void reactToGeometryChange() = 0;
+
+	virtual Bool isLaser() const { return false; }
+
+	// interface acquisition
+	virtual ObjectDrawInterface* getObjectDrawInterface() { return NULL; }
+	virtual const ObjectDrawInterface* getObjectDrawInterface() const { return NULL; }
+
+	virtual DebrisDrawInterface* getDebrisDrawInterface() { return NULL; }
+	virtual const DebrisDrawInterface* getDebrisDrawInterface() const { return NULL; }
+
+	virtual TracerDrawInterface* getTracerDrawInterface() { return NULL; }
+	virtual const TracerDrawInterface* getTracerDrawInterface() const { return NULL; }
+
+	virtual RopeDrawInterface* getRopeDrawInterface() { return NULL; }
+	virtual const RopeDrawInterface* getRopeDrawInterface() const { return NULL; }
+
+	virtual LaserDrawInterface* getLaserDrawInterface() { return NULL; }
+	virtual const LaserDrawInterface* getLaserDrawInterface() const { return NULL; }
+
+};
 #include "WW3D2/Line3D.h"
 // TU-local declarations from Zero Hour's W3DPropDraw.h, with the static
 // cached-name-key method already defined by the BFME 2 row at 0x000CEEE6.

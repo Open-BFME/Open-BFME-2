@@ -12356,7 +12356,31 @@ gain is claimed.
 
 ### LINK-120: W3DPropDraw's vftables disagree between units and with retail
 
-**Status: Open. Updated: 2026-10-28; inspected revision: `c64f680554`.**
+**Status: Cleared for `W3DPropDraw.cpp` by current-object preview (census confirmation pending). Updated: 2026-11-01; inspected revision: `f489df5a8b`.**
+
+- **2026-11-01 repair (halilkkaya-rq-o1, base `f489df5a8b`, index `dae306bc9d`):** the
+  ModuleData destructor conflict was already gone; the current object lost only
+  `??_7DrawModule@@6B@` and `??_GDrawModule@@MAEPAXI@Z`. Cause: Zero Hour's
+  `Common/DrawModule.h` ends with `inline DrawModule::DrawModule(...)` and
+  `inline DrawModule::~DrawModule()`. The W3DPropDraw ctor (0x000CEEC0) calls the
+  DrawModule ctor out of line, so the inline body was emitted as a COMDAT and,
+  with it, this unit's 32-slot ZH `??_7DrawModule@@6B@` and `??_GDrawModule`. The
+  kept copies (first in link order, `W3DBoatWakeModelDrawDtor.cpp`, eight units
+  agree) are one-slot. Retail runs both functions out of line and other units
+  already own them with retail verdicts: `??0DrawModule` is rowed at 0x000B19A1
+  (`GameClient/Drawable/Update/DrawModule.cpp`), `??1DrawModule@@MAE@XZ` at
+  0x000CEB6F (`W3DBoatWakeModelDrawDtor.cpp`). Fix: `W3DPropDraw.cpp` declares Zero
+  Hour's DrawModule class itself (same virtual list, so its own ZH-shaped
+  `??_7W3DPropDraw@@6B@` is unchanged) and leaves out the two inline
+  definitions. The ctor and dtor calls now bind to those owners and the unit
+  emits no DrawModule table. Verified: `./build.sh` 7/7 exact; `link_check`
+  `W3DPropDraw.cpp` 0 -> 157 B LINKS; all 84 DrawModule-family and W3DPropDraw*
+  units still link (29,376 -> 29,533 B); `--new-variants` clean; scoped DIR32 OK.
+  Remaining for the family: retail's own DrawModule table (VA 0x00BC9690, at
+  least 48 slots: `??_G`, `GetSnapshotName`, `xfer`, `__purecall` and folded
+  stubs) is still not what any unit emits. The kept one-slot copy is not
+  retail's. Proving a family-wide table needs `class:DrawModule`, which other
+  workers hold.
 
 - **Earlier recheck (2026-10-28, revision `e1b88db116ad`):** all five rows in `W3DPropDraw.cpp`
   byte-verify, but its current object still previews blocked for all 124 authored
