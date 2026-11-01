@@ -23,13 +23,8 @@
 typedef int Int;
 typedef float Real;
 
-class Vector4
-{
-public:
-	Vector4() {}
-	__forceinline Vector4 &operator=(const Vector4 &v) { X = v.X; Y = v.Y; Z = v.Z; W = v.W; return *this; }
-	Real X, Y, Z, W;
-};
+#include "../../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
+static __forceinline void copyVector4(Vector4 &row,const Vector4 &other){row.X=other.X;row.Y=other.Y;row.Z=other.Z;row.W=other.W;}
 
 class Vector3
 {
@@ -55,9 +50,9 @@ public:
 	}
 	__forceinline Matrix3D &operator=(const Matrix3D &m)
 	{
-		Row[0] = m.Row[0];
-		Row[1] = m.Row[1];
-		Row[2] = m.Row[2];
+		copyVector4(Row[0], m.Row[0]);
+		copyVector4(Row[1], m.Row[1]);
+		copyVector4(Row[2], m.Row[2]);
 		return *this;
 	}
 
