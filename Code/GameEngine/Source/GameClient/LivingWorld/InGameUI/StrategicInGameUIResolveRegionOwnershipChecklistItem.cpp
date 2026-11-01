@@ -15,21 +15,16 @@
 #include "Coord3D.h"
 class Rva005CCDDD {public:Rva005CCDDD();virtual ~Rva005CCDDD();int unknown4;void *payload;};
 class Rva00318C32Ret;
-class Rva00318C79Owner {public:Rva00318C32Ret*rva00318C32();};
 class Rva0020E89C;
 UnicodeString Rva005C95ECGet(Rva0020E89C*);
 namespace StrategicInGameUI {UnicodeString GetDisplayName(void*);}
 struct Rva002BA8F1Listener;
-class Rva005A0B4CList {public:void append(Rva002BA8F1Listener*);};
 class Rva005CCE13 {public:void rva005CCE13(const UnicodeString&);};
 class Rva005CCB73 {public:void rva005CCB73(void*);};
 class Rva005CCB7B {public:void rva005CCB7B(bool);};
 class Rva005CCB83 {public:void rva005CCB83(void*);};
-class Rva005CCB90 {public:void rva005CCB90(const void*);};
-class LivingWorldRegionManager {public:bool GetRegionCenterPoint(Rva0020E89C*,Coord2D*);};
 class Rva002BF5B0Maker {public:void rva002BF5B0(void*,void*);};
 class LivingWorldLogic;extern LivingWorldLogic*TheLivingWorldLogic;
-struct RetreatWorldView {char unknown[0xb0];LivingWorldRegionManager*regions;};
 class GameTextInterface;
 extern GameTextInterface*TheGameText;
 class RetreatGameText {public:virtual void s00();virtual void s04();virtual void s08();virtual void s0c();virtual void s10();virtual void s14();virtual void s18();virtual void s1c();virtual void s20();virtual void s24();virtual void s28();virtual void s2c();virtual void s30();virtual void s34();virtual void s38();virtual UnicodeString fetch(const char*,bool*);};

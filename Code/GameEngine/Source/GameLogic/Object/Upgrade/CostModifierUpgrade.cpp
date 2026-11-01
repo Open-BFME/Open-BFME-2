@@ -397,12 +397,6 @@ protected:
 	Object *m_object;										// +0x08
 };
 
-class Rva00481A6E : public UpdateModule
-{
-public:
-	virtual void rva00481A6E(int unused, void *player);
-};
-
 // --- 0x003B8DD7 (60B): when TheLivingWorldLogic's +0xB0 holder has a
 // campaign (+0x08), run TheLivingWorldManager's rowed 0x00210F96 and the
 // campaign's rowed 0x0020F3E8 over the holder, then slot 1 of the current
@@ -481,18 +475,6 @@ public:
 	char m_pad08[0x30 - 8];
 };
 
-class Rva0039A245Iface
-{
-public:
-	virtual void rva0039A245();
-};
-
-class Rva0039A245 : public Rva0039A245Base0, public Rva0039A245Iface
-{
-public:
-	virtual void rva0039A245();
-};
-
 // --- 0x004A9617 / 0x004A6A81 (53B / 52B): whether the level read through
 // +0xE0 / +0x04 (999999 when absent) is 2 or 4, or 2, 4 or 5.
 struct Rva004A9617Level
@@ -543,18 +525,6 @@ public:
 	virtual void s16(); virtual void s17();
 	Rva004B0303Data *m_data;								// +0x04
 	char m_pad08[0x88 - 8];
-};
-
-class Rva004B0303Iface
-{
-public:
-	virtual void rva004B0303();
-};
-
-class Rva004B0303 : public Rva004B0303Base0, public Rva004B0303Iface
-{
-public:
-	virtual void rva004B0303();
 };
 
 // --- 0x004B5B82 (42B): from a +0x1C interface, when the +0x04 data's +0x129

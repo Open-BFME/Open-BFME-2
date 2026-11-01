@@ -227,23 +227,6 @@ private:
 	int m_indexInLogic; // +0x18
 	int m_updateState; // +0x1C
 };
-class Rva0044E9C7
-{
-public:
-	Rva0044E9C7 *rva0044E9C7(int a, unsigned int b, unsigned int c, unsigned int d, unsigned int e, unsigned int f, unsigned int g, unsigned int h, unsigned int i, unsigned int j, unsigned int k, unsigned int l, unsigned int m, unsigned int n, unsigned int o);
-	unsigned int m_bits[19];
-};
-class Rva0028F59A
-{
-public:
-	Rva0028F59A(int a, int bit);
-	unsigned int m_bits[19];
-};
-class Rva001E42F2
-{
-public:
-	void rva001E42F2(const int *mask);
-};
 struct Rva002A8AB1Record;
 class Rva002A8F24
 {
@@ -317,27 +300,6 @@ public:
 };
 
 extern GameLogic *TheGameLogic;
-
-class Rva0044F633Inner
-{
-public:
-	char m_pad0[0x38];
-	Overridable *m_override38;
-	char m_pad1[0x74 - 0x38 - 4];
-	void *m_fallback74;
-};
-
-class Rva0044F633
-{
-public:
-	void *rva0044F633();
-
-private:
-	char m_pad0[4];
-	Rva0044F633Inner *m_inner4;
-	char m_pad1[0x40 - 8];
-	ObjectID m_target40;
-};
 
 // Retail 0x004500A3 (555 bytes): SpecialAbilityUpdate::initiateIntentToDoSpecialPower,
 // slot 0 of the SpecialPowerUpdateInterface vtable at +0x20 (0x008552A4,

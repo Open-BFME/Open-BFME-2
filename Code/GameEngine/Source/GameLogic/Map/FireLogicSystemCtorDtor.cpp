@@ -132,16 +132,6 @@ public:
 struct Rva00287B2AResult;
 struct Rva0028688AKey;
 struct Rva0028688ANode;
-struct Rva00286E33Result
-{
-    Rva0028688ANode *node;
-    bool inserted;
-};
-class Rva0028688A
-{
-public:
-    Rva00286E33Result rva00286E33(const Rva0028688AKey &key);
-};
 typedef _STL::_Rb_tree<Rva00285BEC, Rva00285BEC,
     _STL::_Identity<Rva00285BEC>, _STL::less<Rva00285BEC>,
     _STL::allocator<Rva00285BEC> > FireCellTree;
@@ -169,25 +159,10 @@ inline Rva00286214::Rva00286214()
 
 // Coord3D's sub and dot as WorldBuilder calls them out of line (WB 0x40b88e
 // and 0x40b7d0); retail inlines both and the canonical header lacks them.
-struct FireCoord3D : public Coord3D
-{
-	void sub(const Coord3D *o) { x -= o->x; y -= o->y; z -= o->z; }
-	float dot(const Coord3D *o) const { return x * o->x + y * o->y + z * o->z; }
-};
 // The area's shape (PolygonTrigger +8): its bounds come back through
 // 0x0030B6E3 and 0x00285B66 tests a cell centre against it.
 #include "../../../../Libraries/Include/Lib/Region2D.h"
-class Rva0030B719Shape
-{
-public:
-	Region2D rva0030B6E3();
-};
 bool __cdecl rva00285B66(const void *point, const void *region);
-struct FireCellCentre
-{
-	Int x;
-	Int y;
-};
 class PolygonTrigger;
 
 // The subsystem base (ctor 0x001B4E63, dtor 0x001B4E74) and Snapshot at

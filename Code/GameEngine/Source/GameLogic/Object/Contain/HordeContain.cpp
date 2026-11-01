@@ -34,38 +34,8 @@ public:
 	unsigned char *m_end;
 };
 
-class Rva002CA9CA
-{
-public:
-	void rva002CAC6E(int value, int context);
-};
-
-struct ModuleFactoryStringListNode
-{
-	ModuleFactoryStringListNode *m_next;
-	ModuleFactoryStringListNode *m_previous;
-};
-
-struct GameLODManagerHookView
-{
-	unsigned char m_pad000[0x1774];
-	int m_1774;
-};
-
 class GameLODManager;
 extern GameLODManager *TheGameLODManager;
-
-struct AIHookInnerView
-{
-	unsigned char m_pad000[0xBB];
-	unsigned char m_BB;
-};
-
-struct AIHookView
-{
-	unsigned char m_pad000[0x18];
-	AIHookInnerView *m_18;
-};
 
 class AI;
 extern AI *TheAI;

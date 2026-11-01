@@ -77,28 +77,6 @@ void Rva0051BF2D::rva0051BF2D()
 // slot at VA 0x00C67F14: a sixteen-entry table of 0x18-byte records at
 // +0x48; stamps every record's +0x00 with the +0x10 object's +0x10 value
 // and clears its +0x16 byte.
-struct Rva0052586BSource
-{
-	char m_pad00[0x10];
-	Int m_10;
-};
-struct Rva0052586BRecord
-{
-	Int m_00;
-	char m_pad04[0x16 - 0x04];
-	Bool m_16;
-	char m_pad17;
-};
-class Rva0052586B
-{
-public:
-	void resetHeroSlots();
-private:
-	char m_pad00[0x10];
-	Rva0052586BSource *m_10;
-	char m_pad14[0x48 - 0x14];
-	Rva0052586BRecord m_records[16];
-};
 // slot at VA 0x00C6808C: moves the +0x0C state from 3 to 4, setting +0x14 to 5.
 class Rva005277BA
 {
@@ -183,5 +161,3 @@ struct Rva00261C58Arg {char prefix[0x1C8]; unsigned int word;};
 class Rva00261C58Filter {public: virtual ~Rva00261C58Filter(); virtual bool allow(Object *obj); private: char prefix[4]; unsigned char byte;};
 bool Rva00261C58Filter::allow(Object *obj) {Rva00261C58Arg *objectView=(Rva00261C58Arg *)obj; unsigned char difference=(unsigned char)((objectView->word>>5)&1)-byte; return difference ?0:1;}
 
-struct Rva0057A4BAWord {char prefix[0x34]; unsigned int word;};
-class Rva0057A4BA {public: int rva0057A4BA(); private: char prefix[0x48]; Rva0057A4BAWord *entry; unsigned int word;};

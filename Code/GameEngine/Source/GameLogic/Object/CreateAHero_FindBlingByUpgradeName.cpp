@@ -109,12 +109,6 @@ public:
 	CreateAHeroData &operator=(const CreateAHeroData &that);
 };
 
-class Rva00406E47
-{
-public:
-	Bool rva00406E47(Int value);
-};
-
 // A bling entry starts with its name and description string tags.
 struct CreateAHeroBling
 {
@@ -529,7 +523,7 @@ void CreateAHeroManager::iniParseCreateAHeroSystem(INI *ini)
 // Each four-byte value selects a bling and its upgrade; only the unsigned
 // word at upgrade+88 participates in ordering. Its original field and
 // comparator names are unresolved. Ghidra omitted this standalone boundary.
-struct BlingUpgradeOrderView { char unknown00[0x88]; unsigned int word88; };bool Rva0021AD88Less(unsigned int first, unsigned int second);
+bool Rva0021AD88Less(unsigned int first, unsigned int second);
 
 
 typedef bool (*BlingIndexLess)(unsigned int, unsigned int);
@@ -588,47 +582,6 @@ void CreateAHeroManager::parseHeroBlingUpgrades(INI *ini, void *instance, void *
 // unresolved: hero slot10 consumes update mask2FF; a behavior subobject at0C
 // returns the power interface from slot20, whose slot54 result WB asserts.
 // The Object prefix witnesses its ID74 and null-terminated module list244.
-class HeroUpdateInterfaceView {
-public:
-    virtual void slot00(); virtual void slot04(); virtual void slot08(); virtual void slot0c();
-    virtual void slot10(unsigned);
-};
-class HeroPowerStateView { public:
- virtual void slot00();
- virtual void slot04();
- virtual void slot08();
- virtual void slot0c();
- virtual void slot10();
- virtual void slot14();
- virtual void slot18();
- virtual void slot1c();
- virtual void slot20();
- virtual void slot24();
- virtual void slot28();
- virtual void slot2c();
- virtual void slot30();
- virtual void slot34();
- virtual void slot38();
- virtual void slot3c();
- virtual void slot40();
- virtual void slot44();
- virtual void slot48();
- virtual void slot4c();
- virtual void slot50();
- virtual bool slot54();
-};
-class HeroBehaviorInterfaceView { public:
- virtual void slot00();
- virtual void slot04();
- virtual void slot08();
- virtual void slot0c();
- virtual void slot10();
- virtual void slot14();
- virtual void slot18();
- virtual void slot1c();
- virtual HeroPowerStateView *slot20();
-};
-
 class Object {
 public:
     Player *getControllingPlayer() const;

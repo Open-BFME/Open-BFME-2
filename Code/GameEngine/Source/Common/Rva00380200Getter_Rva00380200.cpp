@@ -44,22 +44,10 @@ public:
 // The shared empty-string object is defined in Rva00380200Getter.cpp.
 // This split unit uses the declaration in ascii_string.h.
 
-struct Rva002000D7Config
-{
-	int rva00200157(const AsciiString &name);
-	char unknown00[0x34];
-	int rankCost34;
-};
-class Rva002000D7Store
-{
-public:
-	Rva002000D7Config *get(int);
-};
 extern class RankInfoStore *TheRankInfoStore;
 
 // Native3805BB uses the three-pointer scalar vector at the established +8 member.
 // This prefix view does not claim the complete ExperienceScalarTable layout.
-struct Rva003805BBMultipliers { float *begin,*end,*capacity; int size()const{return static_cast<int>(end-begin);} };
 class ExperienceScalarTable;
 class Rva00380200
 {
@@ -101,22 +89,6 @@ public:
 // as matched 0x00380499 establish Version {1,2}, unsigned int +0x0C,
 // floats +0x10/+0x14 and bool +0x18. Retail repeats the +0x0C transfer
 // within the version-2 arm. Original receiver/member names are unknown.
-class Rva0058AE53
-{
-    char m_pad00[0x0C];
-    unsigned int m_0C;
-    float m_10;
-    float m_14;
-    bool m_18;
-public:
-    void rva0058AE53(Xfer *xfer);
-};
-
-
-
-class Rva003B0FC6SarAvgField { public: int get()const; };
-
-
 // The native BFDC30 table owns setRankLevel at slot1. Keep the established
 // neutral class name; WB supplies the method identity independently.
 

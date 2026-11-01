@@ -202,36 +202,8 @@ struct GapPair
 };
 
 // --- 0x002E7334 (26B): a word and a pair; 0x002E734E (58B): cell callback.
-struct Rva002E734ECell { int m_pad00[3]; unsigned int m_flags; };
-
-struct Rva002E7334
-{
-	Rva002E7334(int value, const GapPair &pair);
-	int rva002E734E(Rva002E734ECell *from, Rva002E734ECell *to, int cellColumn, int cellRow);
-	int m_00;
-	int m_04;
-	int m_08;
-};
-
 // --- 0x004E4E05 (37B): copy five settings from another record;
 // 0x004E4E2A (48B): the +0x08 value clamped to [0, 1].
-class Rva004E4E05
-{
-public:
-	void rva004E4E05(const Rva004E4E05 *that);
-	void rva004E4E2A(float value);
-private:
-	char m_pad[8];
-	float m_08;
-	char m_pad0C[0x18 - 0x0C];
-	int m_18;
-	char m_pad1C[0x24 - 0x1C];
-	int m_24;
-	int m_28;
-	int m_2C;
-	int m_30;
-};
-
 // --- 0x0030F642 (55B): unlink a node (+0x04 previous, +0x08 next) from the
 // list with tail +0x0C and head +0x10, clearing its +0x0C; 0x0030F679 (30B):
 // whether a node from the tail back carries the id (+0x10).
@@ -264,26 +236,7 @@ public:
 	void rva0052A387(int value);							// 0x0052A387
 };
 
-class Rva0052A621
-{
-public:
-	Out0052A36A *rva0052A621(Out0052A36A *out);
-	void rva0052A652(int value);
-private:
-	char m_pad[8];
-	Rva0052A36A m_08;
-};
-
 // --- 0x005DBB4D (45B): the 8x8 short table at +0x838, 0 out of range.
-class Rva005DBB4D
-{
-public:
-	short rva005DBB4D(unsigned short row, unsigned short column) const;
-private:
-	char m_pad[0x838];
-	short m_table[8][8];
-};
-
 // ---- from Code/GameEngine/Source/Common/MessageStream.cpp
 
 // ---- from Code/GameEngine/Source/Common/GameMessage.cpp

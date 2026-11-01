@@ -380,28 +380,14 @@ namespace StrategicHUD { void __cdecl SetBuildingNameString(int level, Rva005F06
 
 // The STLport vector of icon slot references: base ctor 0x00211E58 (folded,
 // pinned), reserve 0x005F122D and push_back 0x005F13E6 (rowed).
-class Rva005F122DVector {public: void reserve(unsigned int); };
-
-
 // These scalar member callbacks are retail ICF copies of existing owners.
 // Each reads the owner at +0 then calls vslot 1/2/3/4; retain those owners.
-class Rva005F141D { public: void OnRegionFortressRollOver(const char *); void rva005F057A(const char *); };
-class InGameCommandButtonMovieClip { public: class Impl { public: void OnOverButton(const char *); }; };
 namespace StrategicHUD { class ArmyMemberIconMovieClip { public: class Impl { public: void OnRollOver(const char *); }; }; }
 
 
 
 #pragma pointers_to_members(full_generality, multiple_inheritance)
-class Rva005F0CC9 {public:
- void OnIconSlotClicked(const char*);void OnIconSlotRollOver(const char*);void OnIconSlotRollOut(const char*);
- void OnIconSlotTypeRollOver(const char*);void OnIconSlotTypeRollOut(const char*);
- void OnRollOverTurnsRemaining(const char*);void OnRollOutTurnsRemaining(const char*);
- void RenderProgress(const Coord2D*,const Coord2D*,void*,void*);
-};
 class AptCustomRender;
-class AptCustomRenderAdder {public:
- void AddCustomRender(const AsciiString&,AptRef<AptCustomRender>);
-};
 // IconSlot ctor: WB1619920 source158 independently names the native
 // 5F0CC9..5F11D0 RET8 constructor. Primary interface/counting secondary
 // base at4 share the proven army-slot header. Target stores establish ownerC,

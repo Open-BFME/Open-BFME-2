@@ -95,15 +95,6 @@ public:
 	void rva0027006C(Int a0);
 };
 
-class Rva002722F4NullForwarder
-{
-public:
-	void rva002722F4(Int a0);
-private:
-	char m_lead[0x354];
-	Rva00270025 *m_member;
-};
-
 class LinearCampaign
 {
 public:
@@ -342,36 +333,6 @@ private:
 // wrapper identities and the two unrowed callees remain address-derived; the
 // third callee is the already-rowed AITargetChooser::rva00505408. Field offsets
 // and return/argument shapes come from each retail body.
-class Rva001EC859
-{
-public:
-	void *rva001EC859(Int a0, Int a1);
-};
-
-class Rva001EC99B
-{
-public:
-	void *rva001EC99B(Int a0, Int a1);
-private:
-	char m_lead[0x10];
-	Rva001EC859 *m_member;
-};
-
-class Rva001EC8C0
-{
-public:
-	bool rva001EC8C0(Int a0, Int a1, Int a2);
-};
-
-class Rva001EC9AC
-{
-public:
-	bool rva001EC9AC(Int a0, Int a1, Int a2);
-private:
-	char m_lead[0x10];
-	Rva001EC8C0 *m_member;
-};
-
 class AsciiString;
 
 class Gen_uw_000e5033;

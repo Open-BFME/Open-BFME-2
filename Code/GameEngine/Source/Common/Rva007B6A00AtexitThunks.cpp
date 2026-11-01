@@ -34,22 +34,10 @@ namespace ATL
 	};
 }
 
-class BfmeStringTailRecord144
-{
-public:
-	virtual ~BfmeStringTailRecord144();
-};
-
 class TerrainFXShaderParameterSourceNamespace
 {
 public:
 	virtual ~TerrainFXShaderParameterSourceNamespace();
-};
-
-class Rva00049C38ADwordImmSetter
-{
-public:
-	void apply();
 };
 
 class Rva000AD6F4
@@ -62,12 +50,6 @@ class Rva00221027
 {
 public:
 	virtual ~Rva00221027();
-};
-
-class Rva0023DBC3
-{
-public:
-	~Rva0023DBC3();
 };
 
 namespace FXParticleSystem
@@ -91,12 +73,6 @@ public:
 	~PlayerPosition();
 };
 
-class Rva002390CB
-{
-public:
-	~Rva002390CB();
-};
-
 class Rva00574499
 {
 public:
@@ -113,12 +89,6 @@ class Rva0057A4E7
 {
 public:
 	virtual ~Rva0057A4E7();
-};
-
-class Rva0005970E6DwordImmSetter
-{
-public:
-	void apply();
 };
 
 class Rva005CB3BE
