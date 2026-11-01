@@ -1,0 +1,250 @@
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Code/GameEngine/Source/Common/Rva000B3649Fetch.cpp: LINKS  LINKED 350 -> 350 bytes (census 2026-11-01 09:19 at 0d24c60eef; file's own bytes 350)
+Code/GameEngine/Source/Common/Rva000E127B.cpp: LINKS  LINKED 177 -> 177 bytes (census 2026-11-01 09:19 at 0d24c60eef; file's own bytes 177)
+Code/GameEngine/Source/Common/Rva000E1341FillSlots.cpp: LINKS  LINKED 102 -> 102 bytes (census 2026-11-01 09:19 at 0d24c60eef; file's own bytes 102)
+Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapCastRay.cpp: LINKS  LINKED 1,918 -> 1,918 bytes (census 2026-11-01 09:19 at 0d24c60eef; file's own bytes 1,918)
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDraw.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-11-01 09:19 at 0d24c60eef; file's own bytes 198)
+  unresolved  ?clearAndSetModelConditionState@Drawable@@QAEXW4ModelConditionFlagType@@0@Z
+  unresolved  ?crc@DrawModule@@MAEXPAVXfer@@@Z
+  unresolved  ?createParticleSystem@ParticleSystemManager@@QAEPAVParticleSystem@@PBVParticleSystemTemplate@@_N@Z
+  unresolved  ?findParticleSystem@ParticleSystemManager@@QAEPAVParticleSystem@@W4ParticleSystemID@@@Z
+  unresolved  ?getPristineBonePositions@Drawable@@QBEHPBDHPAUCoord3D@@PAVMatrix3D@@H@Z
+  unresolved  ?getScale@Drawable@@QBE?BMXZ
+  unresolved  ?m_assetManager@W3DDisplay@@2PAVW3DAssetManager@@A
+  unresolved  ?s_bitNameList@?$BitFlags@$0HF@@@0PAPBDA
+  unresolved  ?scanIndexList@INI@@SAHPBDPBQBD@Z
+  unresolved  ?scanInt@INI@@SAHPBD@Z
+  unresolved  ?scanReal@INI@@SAMPBD@Z
+  unresolved  ?setSaveable@ParticleSystem@@QAEX_N@Z
+  comdat      ?doFXPos@FXList@@SAXPBV1@PBUCoord3D@@PBVMatrix3D@@M1M@Z  (first: differs from the first copy in link order (no retail address))
+  comdat      ??$_Construct@VW3DAnimationInfo@@V1@@_STL@@YAXPAVW3DAnimationInfo@@ABV1@@Z  (retail: not retail's body)
+  comdat      ??$__copy@PAV?$BitFlags@$0HF@@@PAV1@H@_STL@@YAPAV?$BitFlags@$0HF@@@PAV1@00ABUrandom_access_iterator_tag@0@PAH@Z  (retail: not retail's body)
+  comdat      ??1?$_Vector_base@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@XZ  (first: differs from the first copy in link order (no retail address))
+  comdat      ?_M_insert_overflow@?$vector@VW3DAnimationInfo@@V?$allocator@VW3DAnimationInfo@@@_STL@@@_STL@@IAEXPAVW3DAnimationInfo@@ABV3@ABU__false_type@2@I_N@Z  (retail: not retail's body)
+  selected    ??$_Construct@VW3DAnimationInfo@@V1@@_STL@@YAXPAVW3DAnimationInfo@@ABV1@@Z  (the definition the link keeps is not retail's)
+  selected    ??$__copy@PAV?$BitFlags@$0HF@@@PAV1@H@_STL@@YAPAV?$BitFlags@$0HF@@@PAV1@00ABUrandom_access_iterator_tag@0@PAH@Z  (the definition the link keeps is not retail's)
+  selected    ?_M_insert_overflow@?$vector@VW3DAnimationInfo@@V?$allocator@VW3DAnimationInfo@@@_STL@@@_STL@@IAEXPAVW3DAnimationInfo@@ABV3@ABU__false_type@2@I_N@Z  (the definition the link keeps is not retail's)
+  diagnostic  _ceilf  (codegen-like: 19 bytes against the majority copy's 18; unreferenced, not a blocker)
+  diagnostic  ?testDrawableStatus@Drawable@@QBE_NW4DrawableStatus@@@Z  (layout-like: 2 byte(s) differ from the majority copy, same length -- a stale private class view?; unreferenced, not a blocker)
+  diagnostic  ??E?$_Rb_tree_iterator@U?$pair@$$CBW4NameKeyType@@UPristineBoneInfo@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBW4NameKeyType@@UPristineBoneInfo@@@_STL@@@2@@_STL@@QAEAAU01@XZ  (codegen-like: 20 bytes against the majority copy's 17; unreferenced, not a blocker)
+  diagnostic  ??R?$less@W4NameKeyType@@@_STL@@QBE_NABW4NameKeyType@@0@Z  (codegen-like: 20 bytes against the majority copy's 22; unreferenced, not a blocker)
+Code/GameEngineDevice/Source/W3DDevice/GameClient/HeightMap.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-11-01 09:19 at 0d24c60eef; file's own bytes 107)
+  unresolved  ??0DX8IndexBufferClass@@QAE@GW4UsageType@0@@Z
+  unresolved  ??0DynamicVBAccessClass@@QAE@IIG@Z
+  unresolved  ??0WriteLockClass@DynamicVBAccessClass@@QAE@PAV1@@Z
+  unresolved  ??1WriteLockClass@DynamicVBAccessClass@@QAE@XZ
+  unresolved  ?Class_ID@BaseHeightMapRenderObjClass@@UBEHXZ
+  unresolved  ?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ
+  unresolved  ?Draw_Triangles@DX8Wrapper@@SAXGGGG@Z
+  unresolved  ?Get_Obj_Space_Bounding_Sphere@BaseHeightMapRenderObjClass@@UBEXAAVSphereClass@@@Z
+  unresolved  ?On_Frame_Update@BaseHeightMapRenderObjClass@@UAEXXZ
+  unresolved  ?crc@BaseHeightMapRenderObjClass@@MAEXPAVXfer@@@Z
+  unresolved  ?doTheLight@BaseHeightMapRenderObjClass@@QAEXPAUVertexFormatXYZDUV2@@PAVVector3@@1PAV?$RefMultiListIterator@VRenderObjClass@@@@E@Z
+  unresolved  ?drawBridges@W3DBridgeBuffer@@QAEXPAVCameraClass@@_NPAVTextureClass@@@Z
+  unresolved  ?drawRoads@W3DRoadBuffer@@QAEXPAVCameraClass@@PAVTextureClass@@1_NHHHHPAV?$RefMultiListIterator@VRenderObjClass@@@@@Z
+  unresolved  ?drawScorches@BaseHeightMapRenderObjClass@@IAEXXZ
+  unresolved  ?freeMapResources@BaseHeightMapRenderObjClass@@UAEHXZ
+  unresolved  ?getAlphaTerrainTexture@WorldHeightMap@@QAEPAVTextureClass@@XZ
+  unresolved  ?getAlphaUVData@WorldHeightMap@@QAEXHHQAM0QAEPA_N_N@Z
+  unresolved  ?getBackBufferFormat@DX8Wrapper@@SA?AW4WW3DFormat@@XZ
+  unresolved  ?getCliffState@WorldHeightMap@@QBE_NHH@Z
+  unresolved  ?getExtraAlphaUVData@WorldHeightMap@@QAE_NHHQAM0QAEPA_N2@Z
+  unresolved  ?getStaticDiffuse@BaseHeightMapRenderObjClass@@QAEHHH@Z
+  unresolved  ?getTerrainTexture@WorldHeightMap@@QAEPAVTextureClass@@XZ
+  unresolved  ?getUVData@WorldHeightMap@@QAE_NHHQAM0_N@Z
+  unresolved  ?initHeightData@BaseHeightMapRenderObjClass@@UAEHHHPAVWorldHeightMap@@PAV?$RefMultiListIterator@VRenderObjClass@@@@_N@Z
+  unresolved  ?isCliffMappedTexture@WorldHeightMap@@QAE_NHH@Z
+  unresolved  ?loadPostProcess@BaseHeightMapRenderObjClass@@MAEXXZ
+  unresolved  ?m_Textures@W3DShaderManager@@1PAPAVTextureClass@@A
+  unresolved  ?renderShoreLines@BaseHeightMapRenderObjClass@@IAEXPAVCameraClass@@@Z
+  unresolved  ?reset@W3DShroud@@QAEXXZ
+  unresolved  ?resetShader@W3DShaderManager@@SAXW4ShaderTypes@1@@Z
+  unresolved  ?restore@CloudMapTerrainTextureClass@@QAEXXZ
+  unresolved  ?setShader@W3DShaderManager@@SAHW4ShaderTypes@1@H@Z
+  unresolved  ?staticLightingChanged@BaseHeightMapRenderObjClass@@UAEXXZ
+  unresolved  ?updateCenter@BaseHeightMapRenderObjClass@@UAEXPAVCameraClass@@PAV?$RefMultiListIterator@VRenderObjClass@@@@@Z
+  unresolved  ?updateShorelineTiles@BaseHeightMapRenderObjClass@@QAEXHHHHPAVWorldHeightMap@@@Z
+  diagnostic  ??0ShaderClass@@QAE@ABV0@@Z  (register allocation differs from the majority copy, same instructions and offsets; unreferenced, not a blocker)
+  diagnostic  ?Set_Depth_Mask@ShaderClass@@QAEXW4DepthMaskType@1@@Z  (codegen-like: 18 bytes against the majority copy's 21; unreferenced, not a blocker)
+  diagnostic  ?Peek_Obj@?$RefMultiListIterator@VRenderObjClass@@@@QAEPAVRenderObjClass@@XZ  (codegen-like: 16 bytes against the majority copy's 17; unreferenced, not a blocker)
+Code/GameEngineDevice/Source/W3DDevice/GameClient/HeightMapInitHeightDataRva000E1A39.cpp: LINKS  LINKED 780 -> 780 bytes (census 2026-11-01 09:19 at 0d24c60eef; file's own bytes 780)
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva001159F1.cpp: LINKS  LINKED 947 -> 947 bytes (census 2026-11-01 09:19 at 0d24c60eef; file's own bytes 947)
+  diagnostic  ?getXExtent@WorldHeightMap@@QAEHXZ  (layout-like: 1 byte(s) differ from the majority copy, same length -- a stale private class view?; unreferenced, not a blocker)
+  diagnostic  ?getYExtent@WorldHeightMap@@QAEHXZ  (layout-like: 1 byte(s) differ from the majority copy, same length -- a stale private class view?; unreferenced, not a blocker)
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp: LINKS  LINKED 3,266 -> 3,266 bytes (census 2026-11-01 09:19 at 0d24c60eef; file's own bytes 3,266)
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowRenderShadows.cpp: LINKS  LINKED 2,583 -> 2,583 bytes (census 2026-11-01 09:19 at 0d24c60eef; file's own bytes 2,583)
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowMapManagerUpdateShadowCamera.cpp: LINKS  LINKED 4,323 -> 4,323 bytes (census 2026-11-01 09:19 at 0d24c60eef; file's own bytes 4,323)
+  diagnostic  ?getXExtent@WorldHeightMap@@QAEHXZ  (layout-like: 1 byte(s) differ from the majority copy, same length -- a stale private class view?; unreferenced, not a blocker)
+  diagnostic  ?getYExtent@WorldHeightMap@@QAEHXZ  (layout-like: 1 byte(s) differ from the majority copy, same length -- a stale private class view?; unreferenced, not a blocker)
+  diagnostic  ?deallocate@?$_STLP_alloc_proxy@PAUBfmeE8@@U1@V?$allocator@UBfmeE8@@@_STL@@@_STL@@QAEXPAUBfmeE8@@I@Z  (relocations differ from the majority copy, bytes equal; unreferenced, not a blocker)
+  diagnostic  ?_M_clear@?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@IAEXXZ  (relocations differ from the majority copy, bytes equal; unreferenced, not a blocker)
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DVolumetricShadowAllocateShadowVolume.cpp: LINKS  LINKED 460 -> 460 bytes (census 2026-11-01 09:19 at 0d24c60eef; file's own bytes 460)
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DVolumetricShadowManagerV2Render.cpp: LINKS  LINKED 728 -> 728 bytes (census 2026-11-01 09:19 at 0d24c60eef; file's own bytes 728)
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DVolumetricShadowRenderDynamicMeshVolume.cpp: LINKS  LINKED 2,730 -> 2,730 bytes (census 2026-11-01 09:19 at 0d24c60eef; file's own bytes 2,730)
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DVolumetricShadowRenderShadows.cpp: LINKS  LINKED 4,119 -> 4,119 bytes (census 2026-11-01 09:19 at 0d24c60eef; file's own bytes 4,119)
+Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBufferAddTreeType.cpp: LINKS  LINKED 645 -> 645 bytes (census 2026-11-01 09:19 at 0d24c60eef; file's own bytes 645)
+Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackground.cpp: LINKS  LINKED 820 -> 820 bytes (census 2026-11-01 09:19 at 0d24c60eef; file's own bytes 820)
+Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainTracks.cpp: LINKS  LINKED 202 -> 202 bytes (census 2026-11-01 09:19 at 0d24c60eef; file's own bytes 202)
+Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBuffer.cpp: LINKS  LINKED 14,569 -> 14,569 bytes (census 2026-11-01 09:19 at 0d24c60eef; file's own bytes 14,569)
+  diagnostic  ??A?$PtrVector@PAVVertexBufferClass@@@@QAEAAPAVVertexBufferClass@@I@Z  (codegen-like: 12 bytes against the majority copy's 15; unreferenced, not a blocker)
+  diagnostic  ??A?$PtrVector@H@@QAEAAHI@Z  (codegen-like: 12 bytes against the majority copy's 15; unreferenced, not a blocker)
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/WaterTracksObjRender.cpp: LINKS  LINKED 2,409 -> 2,409 bytes (census 2026-11-01 09:19 at 0d24c60eef; file's own bytes 2,409)
+  diagnostic  ?getLocalPlayer@PlayerList@@QAEPAVPlayer@@XZ  (layout-like: 1 byte(s) differ from the majority copy, same length -- a stale private class view?; unreferenced, not a blocker)
+Code/Libraries/Source/WWVegas/WW3D2/HLodUpdateObjSpaceBoundingVolumes.cpp: LINKS  LINKED 2,495 -> 2,495 bytes (census 2026-11-01 09:19 at 0d24c60eef; file's own bytes 2,495)
+  diagnostic  ??8@YA_NABVVector3@@0@Z  (codegen-like: 60 bytes against the majority copy's 58; unreferenced, not a blocker)
+Code/Libraries/Source/WWVegas/WW3D2/MeshClassCastRay.cpp: LINKS  LINKED 928 -> 928 bytes (census 2026-11-01 09:19 at 0d24c60eef; file's own bytes 928)
+Code/Libraries/Source/WWVegas/WW3D2/MeshClassCollision.cpp: LINKS  LINKED 1,173 -> 1,173 bytes (census 2026-11-01 09:19 at 0d24c60eef; file's own bytes 1,173)
+Code/Libraries/Source/WWVegas/WW3D2/aabtree.cpp: LINKS  LINKED 4,068 -> 4,068 bytes (census 2026-11-01 09:19 at 0d24c60eef; file's own bytes 4,068)
+Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp: LINKS  LINKED 6,110 -> 6,110 bytes (census 2026-11-01 09:19 at 0d24c60eef; file's own bytes 6,110)
+Code/Libraries/Source/WWVegas/WW3D2/collect.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-11-01 09:19 at 0d24c60eef; file's own bytes 148)
+  unresolved  ??1?$VectorClass@VProxyClass@@@@UAE@XZ
+  unresolved  ??8?$VectorClass@VProxyClass@@@@UBE_NABV0@@Z
+  unresolved  ?Add_Sub_Object_To_Bone@RenderObjClass@@UAEHPAV1@PBD@Z
+  unresolved  ?Build_Dependency_List@RenderObjClass@@UAE_NAAV?$DynamicVectorClass@VStringClass@@@@_N@Z
+  unresolved  ?Build_Texture_List@RenderObjClass@@UAE_NAAV?$DynamicVectorClass@VStringClass@@@@_N@Z
+  unresolved  ?Clear@?$VectorClass@VProxyClass@@@@UAEXXZ
+  unresolved  ?Create_Decal@CompositeRenderObjClass@@UAEXPAVDecalGeneratorClass@@@Z
+  unresolved  ?Get_Factory@RenderObjClass@@UBEABVPersistFactoryClass@@XZ
+  unresolved  ?ID@?$VectorClass@VProxyClass@@@@UAEHABVProxyClass@@@Z
+  unresolved  ?ID@?$VectorClass@VProxyClass@@@@UAEHPBVProxyClass@@@Z
+  unresolved  ?Load@RenderObjClass@@UAE_NAAVChunkLoadClass@@@Z
+  unresolved  ?Load_W3D@SnapPointsClass@@QAE?AW4WW3DErrorType@@AAVChunkLoadClass@@@Z
+  unresolved  ?Resize@?$VectorClass@VProxyClass@@@@UAE_NHPBVProxyClass@@@Z
+  unresolved  ?Save@RenderObjClass@@UAE_NAAVChunkSaveClass@@@Z
+  comdat      ?Is_Visible@RenderObjClass@@UBEHXZ  (first: differs from the first copy in link order (no retail address))
+  comdat      ?Set_Collision_Type@RenderObjClass@@UAEXH@Z  (first: differs from the first copy in link order (no retail address))
+  comdat      ?Get_Bone_Transform@RenderObjClass@@UAEABVMatrix3D@@PBD@Z  (first: differs from the first copy in link order (no retail address))
+  comdat      ?Get_Bone_Transform@RenderObjClass@@UAEABVMatrix3D@@H@Z  (first: differs from the first copy in link order (no retail address))
+  diagnostic  ?Get_Container@RenderObjClass@@QBEPAV1@XZ  (codegen-like: 7 bytes against the majority copy's 4; unreferenced, not a blocker)
+Code/Libraries/Source/WWVegas/WW3D2/composite.cpp: LINKS  LINKED 1,930 -> 1,930 bytes (census 2026-11-01 09:19 at 0d24c60eef; file's own bytes 1,930)
+Code/Libraries/Source/WWVegas/WW3D2/dynamesh.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-11-01 09:19 at 0d24c60eef; file's own bytes 113)
+  unresolved  ??0DynamicVBAccessClass@@QAE@IIG@Z
+  unresolved  ??0WriteLockClass@DynamicVBAccessClass@@QAE@PAV1@@Z
+  unresolved  ??1WriteLockClass@DynamicVBAccessClass@@QAE@XZ
+  unresolved  ?Add_Sub_Object_To_Bone@RenderObjClass@@UAEHPAV1@PBD@Z
+  unresolved  ?Add_Texture@MaterialInfoClass@@QAEHPAVTextureClass@@@Z
+  unresolved  ?Build_Dependency_List@RenderObjClass@@UAE_NAAV?$DynamicVectorClass@VStringClass@@@@_N@Z
+  unresolved  ?Build_Texture_List@RenderObjClass@@UAE_NAAV?$DynamicVectorClass@VStringClass@@@@_N@Z
+  unresolved  ?Draw_Triangles@DX8Wrapper@@SAXGGGG@Z
+  unresolved  ?Get_Factory@RenderObjClass@@UBEABVPersistFactoryClass@@XZ
+  unresolved  ?Get_Vertex_Normal_Array@MeshGeometryClass@@QAEPBVVector3@@XZ
+  unresolved  ?Insert_Triangles@SortingRendererClass@@SAXABVSphereClass@@GGGG@Z
+  unresolved  ?Load@RenderObjClass@@UAE_NAAVChunkLoadClass@@@Z
+  unresolved  ?Reset_Geometry@MeshGeometryClass@@QAEXHH@Z
+  unresolved  ?Save@RenderObjClass@@UAE_NAAVChunkSaveClass@@@Z
+  unresolved  ?Set_Element@TexBufferClass@@QAEXHPAVTextureClass@@@Z
+  unresolved  ?Set_Single_Texture@MeshMatDescClass@@QAEXPAVTextureClass@@HH@Z
+  unresolved  ?Set_Texture@MeshMatDescClass@@QAEXHPAVTextureClass@@HH@Z
+  comdat      ??1RenderObjClass@@UAE@XZ  (retail: not retail's body)
+  comdat      ??_7RenderObjClass@@6BMultiListObjectClass@@@  (first: differs from the first copy in link order (no retail address))
+  comdat      ??_7RenderObjClass@@6BRefCountClass@@@  (first: differs from the first copy in link order (no retail address))
+  comdat      ?Is_Visible@RenderObjClass@@UBEHXZ  (first: differs from the first copy in link order (no retail address))
+  comdat      ?Set_Collision_Type@RenderObjClass@@UAEXH@Z  (first: differs from the first copy in link order (no retail address))
+  comdat      ?Get_Bone_Transform@RenderObjClass@@UAEABVMatrix3D@@PBD@Z  (first: differs from the first copy in link order (no retail address))
+  comdat      ?Get_Bone_Transform@RenderObjClass@@UAEABVMatrix3D@@H@Z  (first: differs from the first copy in link order (no retail address))
+  selected    ?Add_Vertex_Material@MaterialInfoClass@@QAEHPAVVertexMaterialClass@@@Z  (the definition the link keeps is not retail's)
+  selected    ?Peek_Single_Material@MeshMatDescClass@@QBEPAVVertexMaterialClass@@H@Z  (the definition the link keeps is not retail's)
+  diagnostic  ?Get_Location_Offset@FVFInfoClass@@QBEIXZ  (layout-like: 1 byte(s) differ from the majority copy, same length -- a stale private class view?; unreferenced, not a blocker)
+  diagnostic  ?Get_Tex_Offset@FVFInfoClass@@QBEII@Z  (layout-like: 1 byte(s) differ from the majority copy, same length -- a stale private class view?; unreferenced, not a blocker)
+  diagnostic  ?Get_Diffuse_Offset@FVFInfoClass@@QBEIXZ  (layout-like: 1 byte(s) differ from the majority copy, same length -- a stale private class view?; unreferenced, not a blocker)
+  diagnostic  ?Get_FVF_Size@FVFInfoClass@@QBEIXZ  (layout-like: 1 byte(s) differ from the majority copy, same length -- a stale private class view?; unreferenced, not a blocker)
+  diagnostic  ?Set_Texture@DX8Wrapper@@SAXIPAVTextureBaseClass@@@Z  (codegen-like: 73 bytes against the majority copy's 63; unreferenced, not a blocker)
+  diagnostic  ?Peek_Single_Texture@MeshMatDescClass@@QBEPAVTextureClass@@HH@Z  (codegen-like: 5 of 18 bytes differ from the majority copy; unreferenced, not a blocker)
+  diagnostic  ?Get_Color_Array@DynamicMeshModel@@QAEPAIH@Z  (codegen-like: 21 bytes against the majority copy's 20; unreferenced, not a blocker)
+  diagnostic  ?Set_Single_Texture@DynamicMeshModel@@QAEXPAVTextureClass@@HH@Z  (layout-like: 1 byte(s) differ from the majority copy, same length -- a stale private class view?; unreferenced, not a blocker)
+  diagnostic  ?Set_Dirty_Bounds@DynamicMeshClass@@QAEXXZ  (layout-like: 2 byte(s) differ from the majority copy, same length -- a stale private class view?; unreferenced, not a blocker)
+  diagnostic  ?Set_Dirty_Planes@DynamicMeshClass@@QAEXXZ  (layout-like: 2 byte(s) differ from the majority copy, same length -- a stale private class view?; unreferenced, not a blocker)
+Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp: LINKS  LINKED 15,064 -> 15,064 bytes (census 2026-11-01 09:19 at 0d24c60eef; file's own bytes 15,064)
+Code/Libraries/Source/WWVegas/WW3D2/mesh.cpp: LINKS  LINKED 454 -> 454 bytes (census 2026-11-01 09:19 at 0d24c60eef; file's own bytes 454)
+Code/Libraries/Source/WWVegas/WW3D2/ringobj.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-11-01 09:19 at 0d24c60eef; file's own bytes 64)
+  unresolved  ??0DynamicVBAccessClass@@QAE@IIG@Z
+  unresolved  ??0WriteLockClass@DynamicVBAccessClass@@QAE@PAV1@@Z
+  unresolved  ??1WriteLockClass@DynamicVBAccessClass@@QAE@XZ
+  unresolved  ?Add_Object@PredictiveLODOptimizerClass@@SAXPAVRenderObjClass@@@Z
+  unresolved  ?Draw_Triangles@DX8Wrapper@@SAXGGGG@Z
+  unresolved  ?Insert_Triangles@SortingRendererClass@@SAXABVSphereClass@@GGGG@Z
+  unresolved  ?Set_Model_Transform@VisRasterizerClass@@QAEXABVMatrix3D@@@Z
+  comdat      ?Get_Full_Path@TextureBaseClass@@QBEABVStringClass@@XZ  (first: differs from the first copy in link order (no retail address))
+  diagnostic  ?Set@Vector3@@QAEXMMM@Z  (codegen-like: 23 bytes against the majority copy's 35; unreferenced, not a blocker)
+  diagnostic  ?Set_Texture@DX8Wrapper@@SAXIPAVTextureBaseClass@@@Z  (codegen-like: 78 bytes against the majority copy's 63; unreferenced, not a blocker)
+Code/Libraries/Source/WWVegas/WW3D2/segline.cpp: LINKS  LINKED 4,663 -> 4,663 bytes (census 2026-11-01 09:19 at 0d24c60eef; file's own bytes 4,663)
+Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-11-01 09:19 at 0d24c60eef; file's own bytes 51)
+  unresolved  ??0DynamicVBAccessClass@@QAE@IIG@Z
+  unresolved  ??0WriteLockClass@DynamicVBAccessClass@@QAE@PAV1@@Z
+  unresolved  ??1WriteLockClass@DynamicVBAccessClass@@QAE@XZ
+  unresolved  ?Add_Object@PredictiveLODOptimizerClass@@SAXPAVRenderObjClass@@@Z
+  unresolved  ?Draw_Triangles@DX8Wrapper@@SAXGGGG@Z
+  unresolved  ?Insert_Triangles@SortingRendererClass@@SAXABVSphereClass@@GGGG@Z
+  unresolved  ?Set_Model_Transform@VisRasterizerClass@@QAEXABVMatrix3D@@@Z
+  comdat      ??1RenderObjClass@@UAE@XZ  (retail: not retail's body)
+  comdat      ??_7RenderObjClass@@6BRefCountClass@@@  (first: differs from the first copy in link order (no retail address))
+  comdat      ?Get_Native_Screen_Size@RenderObjClass@@UBEMXZ  (first: differs from the first copy in link order (no retail address))
+  comdat      ??4?$PrimitiveAnimationChannelClass@VVector3@@@@QAEABV0@ABV0@@Z  (first: differs from the first copy in link order (no retail address))
+  comdat      ??4?$PrimitiveAnimationChannelClass@M@@QAEABV0@ABV0@@Z  (first: differs from the first copy in link order (no retail address))
+  diagnostic  ?Set_Texture@DX8Wrapper@@SAXIPAVTextureBaseClass@@@Z  (codegen-like: 69 bytes against the majority copy's 63; unreferenced, not a blocker)
+  diagnostic  ?Get_Transform@DX8Wrapper@@SAXW4_D3DTRANSFORMSTATETYPE@@AAVMatrix4@@@Z  (codegen-like: 1425 bytes against the majority copy's 1107; unreferenced, not a blocker)
+  diagnostic  ??A?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@@@QAEAAVKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@H@Z  (codegen-like: 13 bytes against the majority copy's 15; unreferenced, not a blocker)
+  diagnostic  ??A?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@@@QBEABVKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@H@Z  (codegen-like: 13 bytes against the majority copy's 15; unreferenced, not a blocker)
+  diagnostic  ?Grow@?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@@@IAE_NH@Z  (codegen-like: 67 bytes against the majority copy's 68; unreferenced, not a blocker)
+  diagnostic  ?Grow@?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@M@@@@IAE_NH@Z  (codegen-like: 67 bytes against the majority copy's 68; unreferenced, not a blocker)
+  diagnostic  ?Get_Key@?$PrimitiveAnimationChannelClass@VVector3@@@@QBEABVKeyClass@1@H@Z  (codegen-like: 13 bytes against the majority copy's 15; unreferenced, not a blocker)
+  diagnostic  ?Add@?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@@@QAE_NABVKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@H@Z  (codegen-like: 105 bytes against the majority copy's 108; unreferenced, not a blocker)
+  diagnostic  ?Delete_All@?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@@@QAEX_N@Z  (codegen-like: 46 bytes against the majority copy's 47; unreferenced, not a blocker)
+  diagnostic  ?Add@?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@M@@@@QAE_NABVKeyClass@?$PrimitiveAnimationChannelClass@M@@H@Z  (codegen-like: 92 bytes against the majority copy's 93; unreferenced, not a blocker)
+  diagnostic  ?Delete_All@?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@M@@@@QAEX_N@Z  (codegen-like: 46 bytes against the majority copy's 47; unreferenced, not a blocker)
+Code/Libraries/Source/WWVegas/WW3D2/streak.cpp: LINKS  LINKED 5,248 -> 5,248 bytes (census 2026-11-01 09:19 at 0d24c60eef; file's own bytes 5,248)
+  diagnostic  ?Get_Merge_Abort_Factor@SegLineRendererClass@@QBEMXZ  (layout-like: 1 byte(s) differ from the majority copy, same length -- a stale private class view?; unreferenced, not a blocker)
+  diagnostic  ?Get_Texture_Tile_Factor@SegLineRendererClass@@QBEMXZ  (layout-like: 1 byte(s) differ from the majority copy, same length -- a stale private class view?; unreferenced, not a blocker)
+Code/Libraries/Source/WWVegas/WW3D2/texproject.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-11-01 09:19 at 0d24c60eef; file's own bytes 10)
+  unresolved  ??0MatrixMapperClass@@QAE@H@Z
+  unresolved  ??0ProjectorClass@@QAE@XZ
+  unresolved  ??1ProjectorClass@@UAE@XZ
+  unresolved  ?Begin_Render@WW3D@@SA?AW4WW3DErrorType@@_N0ABVVector3@@MP6AXXZ@Z
+  unresolved  ?End_Render@WW3D@@SA?AW4WW3DErrorType@@_N@Z
+  unresolved  ?Get_Transform@ProjectorClass@@UBEABVMatrix3D@@XZ
+  unresolved  ?Render@WW3D@@SA?AW4WW3DErrorType@@AAVRenderObjClass@@AAVRenderInfoClass@@@Z
+  unresolved  ?Set_Ortho_Projection@ProjectorClass@@UAEXMMMMMM@Z
+  unresolved  ?Set_Perspective_Projection@ProjectorClass@@UAEXMMMM@Z
+  unresolved  ?Set_Texture_Transform@MatrixMapperClass@@QAEXABVMatrix4@@M@Z
+  unresolved  ?Set_Transform@ProjectorClass@@UAEXABVMatrix3D@@@Z
+  unresolved  ?Update_WS_Bounding_Volume@ProjectorClass@@MAEXXZ
+  diagnostic  ??0ShaderClass@@QAE@ABV0@@Z  (register allocation differs from the majority copy, same instructions and offsets; unreferenced, not a blocker)
+Code/Libraries/Source/WWVegas/WWMath/aabtreecull.cpp: LINKS  LINKED 1,467 -> 1,467 bytes (census 2026-11-01 09:19 at 0d24c60eef; file's own bytes 1,467)
+Code/Libraries/Source/WWVegas/WWMath/cullsys.cpp: LINKS  LINKED 362 -> 362 bytes (census 2026-11-01 09:19 at 0d24c60eef; file's own bytes 362)
+link_check: 30 of 37 link cleanly; LINKED 85,090 -> 85,090 bytes (6.0s)

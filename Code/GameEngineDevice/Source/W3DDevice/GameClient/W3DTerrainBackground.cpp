@@ -18,7 +18,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include "always.h"
 #undef W3DMPO_GLUE
 #define W3DMPO_GLUE(ARGCLASS)
-#include "W3DDevice/GameClient/W3DTerrainBackground.h"
 #include <stdio.h>
 #include <string.h>
 #include <assetmgr.h>
@@ -30,6 +29,49 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include "WW3D2/DX8Wrapper.h"
 #include "WW3D2/DX8Renderer.h"
 #include "WW3D2/Camera.h"
+// BFME 2 retail constructor 0x00112DBE writes no vptr: this is a
+// nonpolymorphic terrain tile. Three culling statuses occupy 00..08;
+// bounds start at 0C, origins at 50/54, width at 58 and map at 5C.
+// The rowed lifetime view below independently proves the D4-byte extent.
+class Rva00112230CameraGroup;
+class W3DTerrainBackground
+{
+public:
+    void rva00111FCF();
+    bool isEdgeAligned(int x, int y, int requested);
+    void updateCenter(const Rva00112230CameraGroup &cameraGroup);
+    bool updateTexture();
+    void setFlipRecursive(int x, int y, int width);
+    void setFlipRecursive(int x, int y, int width, float tolerance);
+    bool castTriangle(RayCollisionTestClass &, const Vector3 &, const Vector3 &, const Vector3 &);
+    void getTriangleIntersection(Vector3 *, int, int, int, int, const Vector3 &, const Vector3 &, const Vector3 &);
+    void doTesselatedUpdate(const IRegion2D &, WorldHeightMap *, bool);
+    void doPartialUpdate(const IRegion2D &, WorldHeightMap *, bool);
+    void doPartialUpdate(const IRegion2D &, WorldHeightMap *, bool, bool);
+    void rva00115791(bool flat, float height);
+    void rva00115DD2();
+
+    int m_cullStatus[3];
+    AABoxClass m_bounds;
+    DX8VertexBufferClass *m_vertexTerrain; // 24
+    int m_vertexTerrainSize;
+    DX8IndexBufferClass *m_indexTerrain; // 2C
+    int m_indexTerrainSize;
+    TerrainTextureClass *m_terrainTexture2X; // 34
+    TerrainTextureClass *m_terrainTexture; // 38: native flat texture
+    TerrainTextureClass *m_texture3C;
+    TerrainTextureClass *m_terrainTexture4X; // 40: native second texture
+    int m_texMultiplier;
+    int m_curNumTerrainVertices, m_curNumTerrainIndices;
+    int m_xOrigin, m_yOrigin, m_width;
+    WorldHeightMap *m_map;
+    bool m_anythingChanged, m_initialized, m_pending;
+    float m_cameraDistance;
+    unsigned char m_pad68[0x88 - 0x68];
+    int m_baseDivisor;
+    unsigned char m_pad8C[0xD4 - 0x8C];
+};
+
 #ifdef _INTERNAL
 // for occasional debugging...
 //#pragma optimize("", off)
@@ -305,21 +347,7 @@ void Rva00115DA7::rva00115DA7(int a, int b, int c, int d, int e)
 //=============================================================================
 /** Loads the terrain into the vertex buffer for drawing. */
 //=============================================================================
-// ?W3DTerrainBackground::setFlip present-unmatched
-void W3DTerrainBackground::setFlip(WorldHeightMap *htMap)
-{
-	if (m_map==NULL) return;
-	if (htMap) {
-		REF_PTR_SET(m_map, htMap);
-	}
-	if (!m_initialized) {
-		return;
-	}
 
-	setFlipRecursive(0, 0, m_width);
-
-
-}
 
 //=============================================================================
 // W3DTerrainBackground::doPartialUpdate
@@ -454,234 +482,28 @@ void W3DTerrainBackground::doPartialUpdate(const IRegion2D &partialRange, WorldH
 //=============================================================================
 /** Fills in vertex & index buffers.
 */
-// ?W3DTerrainBackground::advanceLeft present-unmatched
-Bool W3DTerrainBackground::advanceLeft(ICoord2D &left, Int xOffset, Int yOffset, Int width)
-{
-	while (left.y < yOffset+width) {
-		left.y++;
-		if (m_map->getFlipState(left.x+m_xOrigin, left.y+m_yOrigin)) {
-			return true;
-		}
-	}
-	while (left.x < xOffset+width-1) {
-		left.x++;
-		if (m_map->getFlipState(left.x+m_xOrigin, left.y+m_yOrigin)) {
-			return true;
-		}
-	}
-	return false;
-}
+
 
 //=============================================================================
 // W3DTerrainBackground::fillVBRecursive
 //=============================================================================
 /** Fills in vertex & index buffers.
 */
-// ?W3DTerrainBackground::advanceRight present-unmatched
-Bool W3DTerrainBackground::advanceRight(ICoord2D &right, Int xOffset, Int yOffset, Int width)
-{
-	while (right.x < xOffset+width) {
-		right.x++;
-		if (m_map->getFlipState(right.x+m_xOrigin, right.y+m_yOrigin)) {
-			return true;
-		}
-	}
-	while (right.y < yOffset+width-1) {
-		right.y++;
-		if (m_map->getFlipState(right.x+m_xOrigin, right.y+m_yOrigin)) {
-			return true;
-		}
-	}
-	return false;
-}
+
 
 //=============================================================================
 // W3DTerrainBackground::fillVBRecursive
 //=============================================================================
 /** Fills in vertex & index buffers.
 */
-// ?W3DTerrainBackground::fillVBRecursive present-unmatched
-void W3DTerrainBackground::fillVBRecursive(UnsignedShort *ib, Int xOffset, Int yOffset, 
-																					 Int width, UnsignedShort *ndx, Int &curIndex)
-{
-	
-	Int bottomLeftNdx	= ndx[xOffset+yOffset*(m_width+1)];
-	Int topRightNdx	= ndx[xOffset+width + (yOffset+width)*(m_width+1)];
 
-	Int limitX = m_map->getXExtent()-1;
-	Int limitY = m_map->getYExtent()-1;
-	Int i, j;
-	Bool match = true;
-	Int minX = m_xOrigin+xOffset;
-	Int minY = m_yOrigin+yOffset;
-	Int cornerHeight = m_map->getHeight(minX, minY);
-
-	for (i=0; i<=width; i++) {
-		for (j=0; j<=width; j++) {
-			Int k = minX+i;
-			k = k<limitX?k:limitX;
-			Int l = minY+j;
-			l = l<limitY?l:limitY;
-			if (cornerHeight!=m_map->getHeight(k, l)) {
-				match = false;
-				break;
-			}
-		}
-	}
-	if (width==1) {
-		match = true;
-	}
-
-	if (match) {
-
-
-		UnsignedShort prevNdxLeft;
-		UnsignedShort prevNdxRight;
-		ICoord2D left;
-		left.x = xOffset;
-		left.y = yOffset;
-		ICoord2D right;
-		right.x = xOffset;
-		right.y = yOffset;
-		advanceLeft(left, xOffset, yOffset, width);
-		advanceRight(right, xOffset, yOffset, width);
-
-		if (ib) {
-			ib[curIndex] = bottomLeftNdx;
-		}
-		curIndex++;
-
-		prevNdxRight = ndx[right.x+right.y*(m_width+1)];
-		if (ib) {
-			ib[curIndex] = prevNdxRight;
-		}
-		curIndex++;
-
-		prevNdxLeft = ndx[left.x+left.y*(m_width+1)];
-		if (ib) {
-			ib[curIndex] = prevNdxLeft;
-		}
-		curIndex++;
-		Bool didLeft = true;
-		Bool didRight = true;
-		while (didLeft || didRight) {
-			didLeft = advanceLeft(left, xOffset, yOffset, width);
-			if (didLeft) {
-
-				if (ib) {
-					ib[curIndex] = prevNdxLeft;
-				}
-				curIndex++;
-
-				if (ib) {
-					ib[curIndex] = prevNdxRight;
-				}
-				curIndex++;
-
-				prevNdxLeft = ndx[left.x+left.y*(m_width+1)];
-				if (ib) {
-					ib[curIndex] = prevNdxLeft;
-				}
-				curIndex++;
-			}
-			didRight = advanceRight(right, xOffset, yOffset, width);
-			if (didRight) {
-
-				if (ib) {
-					ib[curIndex] = prevNdxLeft;
-				}
-				curIndex++;
-
-				if (ib) {
-					ib[curIndex] = prevNdxRight;
-				}
-				curIndex++;
-
-				prevNdxRight = ndx[right.x+right.y*(m_width+1)];
-				if (ib) {
-					ib[curIndex] = prevNdxRight;
-				}
-				curIndex++;
-			}
-
-		}
-
-		if (ib) {
-			ib[curIndex] = prevNdxLeft;
-		}
-
-		curIndex++;
-
-		if (ib) {
-			ib[curIndex] = prevNdxRight;
-		}
-		curIndex++;
-
-		if (ib) {
-			ib[curIndex] = topRightNdx;
-		}
-		curIndex++;
-
-		return;
-	}
-	Int halfWidth = width/2;
-
-	fillVBRecursive(ib, xOffset, yOffset, halfWidth, ndx, curIndex);
-	fillVBRecursive(ib, xOffset, yOffset+halfWidth, halfWidth, ndx, curIndex);
-	fillVBRecursive(ib, xOffset+halfWidth, yOffset, halfWidth, ndx, curIndex);
-	fillVBRecursive(ib, xOffset+halfWidth, yOffset+halfWidth, halfWidth, ndx, curIndex);
-	
-}
 
 //=============================================================================
 // W3DTerrainBackground::fillVBRecursive
 //=============================================================================
 /** Fills in vertex & index buffers.
 */
-// ?W3DTerrainBackground::setFlipRecursive present-unmatched
-void W3DTerrainBackground::setFlipRecursive(Int xOffset, Int yOffset, Int width)
-{
-	
-	Int limitX = m_map->getXExtent()-1;
-	Int limitY = m_map->getYExtent()-1;
-	Int i, j;
-	Bool match = true;
-	Int minX = m_xOrigin+xOffset;
-	Int minY = m_yOrigin+yOffset;
-	Int cornerHeight = m_map->getHeight(minX, minY);
 
-	for (i=0; i<=width; i++) {
-		for (j=0; j<=width; j++) {
-			Int k = minX+i;
-			k = k<limitX?k:limitX;
-			Int l = minY+j;
-			l = l<limitY?l:limitY;
-			if (cornerHeight!=m_map->getHeight(k, l)) {
-				match = false;
-				break;
-			}
-		}
-	}
-	if (width==1) {
-		match = true;
-	}
-
-	if (match) {
-		m_map->setFlipState(minX, minY, true);
-		m_map->setFlipState(minX+width, minY, true);
-		m_map->setFlipState(minX+width, minY+width, true);
-		m_map->setFlipState(minX, minY+width, true);
-		return;
-	}
-	Int halfWidth = width/2;
-
-
-	setFlipRecursive(xOffset, yOffset, halfWidth);
-	setFlipRecursive(xOffset, yOffset+halfWidth, halfWidth);
-	setFlipRecursive(xOffset+halfWidth, yOffset, halfWidth);
-	setFlipRecursive(xOffset+halfWidth, yOffset+halfWidth, halfWidth);
-	
-}
 
 //=============================================================================
 // W3DTerrainBackground::doTesselatedUpdate
@@ -697,102 +519,23 @@ The vertex coordinates and texture coordinates, as well as static lighting are u
 /** Constructor. Sets m_initialized to true if it finds the w3d models it needs
 for the bibs. */
 //=============================================================================
-// ?W3DTerrainBackground::W3DTerrainBackground present-unmatched
-W3DTerrainBackground::W3DTerrainBackground(void):
-m_vertexTerrain(NULL),
-m_vertexTerrainSize(0),
-m_initialized(FALSE),
-m_indexTerrain(NULL),
-m_indexTerrainSize(0),
-m_terrainTexture(NULL),
-m_terrainTexture2X(NULL),
-m_terrainTexture4X(NULL),
-m_cullStatus(CULL_STATUS_UNKNOWN),
-m_texMultiplier(TEX1X)
-{
-}
+
 
 //=============================================================================
 // W3DTerrainBackground::freeTerrainBuffers
 //=============================================================================
 /** Frees the index and vertex buffers. */
 //=============================================================================
-// ?W3DTerrainBackground::freeTerrainBuffers present-unmatched
-void W3DTerrainBackground::freeTerrainBuffers(void)
-{
-	REF_PTR_RELEASE(m_vertexTerrain);
-	REF_PTR_RELEASE(m_indexTerrain);
-	m_curNumTerrainVertices=0;
-	m_curNumTerrainIndices=0;
-	m_initialized = false;
-	REF_PTR_RELEASE(m_map);
-	REF_PTR_RELEASE(m_map);
-}
+
 
 //=============================================================================
 // W3DTerrainBackground::allocateTerrainBuffers
 //=============================================================================
 /** Allocates the index and vertex buffers. */
 //=============================================================================
-// ?W3DTerrainBackground::allocateTerrainBuffers present-unmatched
-void W3DTerrainBackground::allocateTerrainBuffers(WorldHeightMap *htMap, Int xOrigin, Int yOrigin, Int width)
-{
-	if (htMap==NULL) return;
-	freeTerrainBuffers(); // in case already allocated. jba [3/24/2003]
-	m_curNumTerrainVertices=0;
-	m_curNumTerrainIndices=0;
-	m_xOrigin = xOrigin;
-	m_yOrigin = yOrigin;
-	m_width = width;
-	m_initialized = true;
-	REF_PTR_SET(m_map, htMap);
-}
 
-// ?W3DTerrainBackground::drawVisiblePolys present-unmatched
-void W3DTerrainBackground::drawVisiblePolys(RenderInfoClass & rinfo, Bool disableTextures)
-{
-#if 1
-	if (m_curNumTerrainIndices == 0) {
-		return;
-	}
-	if (m_cullStatus==CULL_STATUS_INVISIBLE) {
-		return;
-	}
-	// Setup the vertex buffer, shader & texture.
-	DX8Wrapper::Set_Index_Buffer(m_indexTerrain,0);
-	DX8Wrapper::Set_Vertex_Buffer(m_vertexTerrain);
-  if (!disableTextures) {
-		if (m_terrainTexture4X) {
-			DX8Wrapper::Set_Texture(1, m_terrainTexture4X);
-		}	else if (m_terrainTexture2X) {
-			DX8Wrapper::Set_Texture(1, m_terrainTexture2X);
-		}	else {
-			DX8Wrapper::Set_Texture(1, m_terrainTexture);
-		}
-	}
-	bfmeDrawTriangles(	0, m_curNumTerrainIndices/3, 0,	m_curNumTerrainVertices);
-#else
-	if (m_curNumTerrainIndices == 0) {
-		return;
-	}
-	if (m_cullStatus==CULL_STATUS_INVISIBLE) {
-		return;
-	}
-	// Setup the vertex buffer, shader & texture.
-	DX8Wrapper::Set_Index_Buffer(m_indexTerrain,0);
-	DX8Wrapper::Set_Vertex_Buffer(m_vertexTerrain);
-  if (!disableTextures) {
-		if (m_terrainTexture4X) {
-			DX8Wrapper::Set_Texture(0, m_terrainTexture4X);
-		}	else if (m_terrainTexture2X) {
-			DX8Wrapper::Set_Texture(0, m_terrainTexture2X);
-		}	else {
-			DX8Wrapper::Set_Texture(0, m_terrainTexture);
-		}
-	}
-	bfmeDrawTriangles(	0, m_curNumTerrainIndices/3, 0,	m_curNumTerrainVertices);
-#endif
-}
+
+
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00112197SlotQuartetReset.cpp
 

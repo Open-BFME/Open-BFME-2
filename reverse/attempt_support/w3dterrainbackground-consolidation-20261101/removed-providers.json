@@ -1,0 +1,80 @@
+{
+  "??0AABoxClass@@QAE@XZ": {
+    "referrers": [
+      "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_hlod.obj",
+      "^code_^game^engine^device_^source_^w3^d^device_^game^client_^drawable_^draw_^w3^d^model^draw.obj",
+      "^code_^game^engine^device_^source_^w3^d^device_^game^client_^w3^d^terrain^tracks.obj",
+      "^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^cast^ray.obj",
+      "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_boxrobj.obj",
+      "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_aabtree.obj",
+      "^code_^game^engine^device_^source_^w3^d^device_^game^client_^shadow_^w3^d^shadow^map^manager^update^shadow^camera.obj",
+      "^code_^libraries_^source_^w^w^vegas_^w^w^math_aabtreecull.obj",
+      "^code_^libraries_^source_^w^w^vegas_^w^w^math_cullsys.obj",
+      "^code_^game^engine_^source_^common_^rva000^b3649^fetch.obj",
+      "^code_^game^engine^device_^source_^w3^d^device_^game^client_^w3^d^shrub^buffer^add^tree^type.obj",
+      "^code_^game^engine^device_^source_^w3^d^device_^game^client_^w3^d^tree^buffer.obj",
+      "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_collect.obj",
+      "^code_^game^engine^device_^source_^w3^d^device_^game^client_^shadow_^w3^d^volumetric^shadow^allocate^shadow^volume.obj",
+      "^code_^game^engine^device_^source_^w3^d^device_^game^client_^shadow_^w3^d^volumetric^shadow^render^dynamic^mesh^volume.obj",
+      "^code_^game^engine^device_^source_^w3^d^device_^game^client_^shadow_^w3^d^volumetric^shadow^render^shadows.obj",
+      "^code_^game^engine^device_^source_^w3^d^device_^game^client_^water_^water^tracks^obj^render.obj",
+      "^code_^game^engine^device_^source_^w3^d^device_^game^client_^shadow_^w3^d^volumetric^shadow^manager^v2^render.obj",
+      "^code_^game^engine^device_^source_^w3^d^device_^game^client_^shadow_^w3^d^projected^shadow.obj",
+      "^code_^game^engine^device_^source_^w3^d^device_^game^client_^shadow_^w3^d^projected^shadow^render^shadows.obj",
+      "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_composite.obj",
+      "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_^mesh^class^collision.obj",
+      "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_mesh.obj",
+      "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_^mesh^class^cast^ray.obj",
+      "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_segline.obj",
+      "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_sphereobj.obj",
+      "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_^h^lod^update^obj^space^bounding^volumes.obj",
+      "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_texproject.obj",
+      "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_streak.obj"
+    ],
+    "remaining_providers": [
+      "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_hlod.obj",
+      "^code_^game^engine^device_^source_^w3^d^device_^game^client_^drawable_^draw_^w3^d^model^draw.obj",
+      "^code_^game^engine^device_^source_^w3^d^device_^game^client_^w3^d^terrain^tracks.obj",
+      "^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^cast^ray.obj",
+      "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_boxrobj.obj",
+      "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_aabtree.obj",
+      "^code_^game^engine^device_^source_^w3^d^device_^game^client_^shadow_^w3^d^shadow^map^manager^update^shadow^camera.obj",
+      "^code_^libraries_^source_^w^w^vegas_^w^w^math_aabtreecull.obj",
+      "^code_^libraries_^source_^w^w^vegas_^w^w^math_cullsys.obj",
+      "^code_^game^engine_^source_^common_^rva000^b3649^fetch.obj",
+      "^code_^game^engine^device_^source_^w3^d^device_^game^client_^w3^d^shrub^buffer^add^tree^type.obj",
+      "^code_^game^engine^device_^source_^w3^d^device_^game^client_^w3^d^tree^buffer.obj",
+      "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_collect.obj",
+      "^code_^game^engine^device_^source_^w3^d^device_^game^client_^shadow_^w3^d^volumetric^shadow^allocate^shadow^volume.obj",
+      "^code_^game^engine^device_^source_^w3^d^device_^game^client_^shadow_^w3^d^volumetric^shadow^render^dynamic^mesh^volume.obj",
+      "^code_^game^engine^device_^source_^w3^d^device_^game^client_^shadow_^w3^d^volumetric^shadow^render^shadows.obj",
+      "^code_^game^engine^device_^source_^w3^d^device_^game^client_^water_^water^tracks^obj^render.obj",
+      "^code_^game^engine^device_^source_^w3^d^device_^game^client_^shadow_^w3^d^volumetric^shadow^manager^v2^render.obj",
+      "^code_^game^engine^device_^source_^w3^d^device_^game^client_^shadow_^w3^d^projected^shadow.obj",
+      "^code_^game^engine^device_^source_^w3^d^device_^game^client_^shadow_^w3^d^projected^shadow^render^shadows.obj",
+      "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_composite.obj",
+      "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_^mesh^class^collision.obj",
+      "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_mesh.obj",
+      "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_^mesh^class^cast^ray.obj",
+      "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_segline.obj",
+      "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_sphereobj.obj",
+      "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_^h^lod^update^obj^space^bounding^volumes.obj",
+      "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_texproject.obj",
+      "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_streak.obj"
+    ]
+  },
+  "?Set_Texture@DX8Wrapper@@SAXIPAVTextureBaseClass@@@Z": {
+    "referrers": [
+      "^code_^game^engine^device_^source_^w3^d^device_^game^client_^height^map.obj",
+      "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_ringobj.obj",
+      "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_dynamesh.obj",
+      "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_sphereobj.obj"
+    ],
+    "remaining_providers": [
+      "^code_^game^engine^device_^source_^w3^d^device_^game^client_^height^map.obj",
+      "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_ringobj.obj",
+      "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_dynamesh.obj",
+      "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_sphereobj.obj"
+    ]
+  }
+}
