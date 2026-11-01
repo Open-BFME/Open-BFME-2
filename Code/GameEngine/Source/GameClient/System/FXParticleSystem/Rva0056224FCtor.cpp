@@ -56,6 +56,10 @@ public:
 	virtual ~Rva0056224F() {}
 
 protected:
+	// Both native info tables (0x00C1D358 and 0x00C1D348) select the
+	// shared empty RET at 0x000B3FD0 for Snapshot's post-load slot.
+	virtual void loadPostProcess() {}
+
 	float m_04;
 	float m_08;
 	float m_0C;
