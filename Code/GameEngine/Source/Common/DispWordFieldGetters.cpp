@@ -10,18 +10,7 @@
 // Every displacement here is a disp32 (MSVC 7.1 uses disp8 whenever the
 // offset fits, so every offset is at least 0x80).
 // No // cl: line (defaults match the frameless 8-byte shape).
-#define BFME_WORD_FIELD_GETTER(NAME, OFFSET) \
-	class NAME \
-	{ \
-	public: \
-		unsigned short get() const; \
-		char m_lead[OFFSET]; \
-		unsigned short m_value; \
-	}; \
-	unsigned short NAME::get() const \
-	{ \
-		return m_value; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 BFME_WORD_FIELD_GETTER(Rva0028A873WordField, 0x5D8)
 BFME_WORD_FIELD_GETTER(Rva005686B1WordField, 0xE0)

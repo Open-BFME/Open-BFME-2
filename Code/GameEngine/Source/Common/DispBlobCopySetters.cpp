@@ -9,21 +9,6 @@
 // BFME_DISP_DWORD_SETTER family in DispDwordFieldSetters.cpp.
 // No // cl: line (defaults match the frameless shape).
 
-#define BFME_DISP_BLOB_SETTER(NAME, DISP) \
-	struct NAME##Blob \
-	{ \
-		int m_words[32]; \
-	}; \
-	class NAME \
-	{ \
-	public: \
-		void set(const NAME##Blob *value); \
-		char m_lead[DISP]; \
-		NAME##Blob m_value; \
-	}; \
-	void NAME::set(const NAME##Blob *value) \
-	{ \
-		m_value = *value; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 BFME_DISP_BLOB_SETTER(Rva0028A5D5BlobSlot, 0x10)

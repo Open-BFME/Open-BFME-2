@@ -9,18 +9,7 @@
 // Identity is not recovered: every name is derived from its address.
 // The established /O1 /SSE /G7 settings are unchanged; /EHsc supports the
 // independently recovered BodyState INI driver below.
-#define BFME_DISP8_SAR_AVG_DWORD_GETTER(NAME, DISP1, DISP2, IMM) \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-		char m_lead[DISP1]; \
-		int m_first; \
-	}; \
-	int NAME::get() const \
-	{ \
-		return (m_first - *(int *)((char *)this + DISP2)) >> IMM; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 BFME_DISP8_SAR_AVG_DWORD_GETTER(Rva0004582DSarAvgField, 0x18, 0x14, 2)
 BFME_DISP8_SAR_AVG_DWORD_GETTER(Rva0007E1A6SarAvgField, 0x04, 0x00, 1)

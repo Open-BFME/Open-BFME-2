@@ -9,18 +9,7 @@
 // array because their types are not witnessed here, only their total size.
 // Identity is not recovered: every name is derived from its address.
 // No // cl: line (defaults match the frameless five-byte shape).
-#define BFME_DISP8_WORD_FIELD_GETTER(NAME, OFFSET) \
-	class NAME \
-	{ \
-	public: \
-		unsigned short get() const; \
-		char m_lead[OFFSET]; \
-		unsigned short m_value; \
-	}; \
-	unsigned short NAME::get() const \
-	{ \
-		return m_value; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 BFME_DISP8_WORD_FIELD_GETTER(Rva004D5767WordField, 0x1C)
 BFME_DISP8_WORD_FIELD_GETTER(Rva004D5973WordField, 0x20)

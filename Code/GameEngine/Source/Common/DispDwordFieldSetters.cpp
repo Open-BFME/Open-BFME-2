@@ -11,18 +11,7 @@
 // Every displacement here is a disp32 (MSVC 7.1 uses disp8 whenever the
 // offset fits, so every offset is at least 0x80).
 // No // cl: line (defaults match the frameless 13-byte shape).
-#define BFME_DISP_DWORD_SETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		void set(int value); \
-		char m_lead[DISP]; \
-		int m_value; \
-	}; \
-	void NAME::set(int value) \
-	{ \
-		m_value = value; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 BFME_DISP_DWORD_SETTER(Rva0029A2C4DwordSlot, 0x8B4)
 BFME_DISP_DWORD_SETTER(Rva005AE60BDwordSlot, 0x1C0)

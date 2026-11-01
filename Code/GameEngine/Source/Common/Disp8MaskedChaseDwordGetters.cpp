@@ -10,17 +10,6 @@
 // is why the two families are kept in separate translation units. Identity
 // is not recovered: every name is derived from its address.
 // No // cl: line (defaults match the frameless ten-byte shape).
-#define BFME_DISP8_MASKED_CHASE_DWORD_GETTER(NAME, DISP1, DISP2, MASK) \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-		char m_lead[DISP1]; \
-		void *m_ptr; \
-	}; \
-	int NAME::get() const \
-	{ \
-		return *(int *)((char *)m_ptr + DISP2) & MASK; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 BFME_DISP8_MASKED_CHASE_DWORD_GETTER(Rva00072756MaskedChaseField, 0x40, 0x10, 0x02)

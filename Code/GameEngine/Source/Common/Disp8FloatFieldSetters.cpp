@@ -11,17 +11,6 @@
 //                     Set_Noise_Amplitude +0x24 follows)
 //   0x00196100 +0x04  directly before SegLineRendererClass::Set_Width
 //                     (0x00196110, +0x08)
-#define BFME_DISP8_FLOAT_SETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		void set(float newValue); \
-		char m_lead[DISP]; \
-		float m_value; \
-	}; \
-	void NAME::set(float newValue) \
-	{ \
-		m_value = newValue; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 BFME_DISP8_FLOAT_SETTER(Rva00196100FloatField, 0x04)

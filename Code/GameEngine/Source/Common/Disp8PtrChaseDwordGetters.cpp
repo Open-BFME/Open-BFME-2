@@ -7,44 +7,12 @@
 // disp8 loads `8B 41 XX` + `8B 40 XX`, plus `ret`, for seven bytes total.
 // Identity is not recovered: every name is derived from its address.
 // No // cl: line (defaults match the frameless seven-byte shape).
-#define BFME_DISP8_PTRCHASE_DWORD_GETTER(NAME, DISP1, DISP2) \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-		char m_lead[DISP1]; \
-		void *m_ptr; \
-	}; \
-	int NAME::get() const \
-	{ \
-		return *(int *)((char *)m_ptr + DISP2); \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 // Backward variant: the holder sits at a NEGATIVE displacement from `this`
 // (a sub-object `this` pointing into a larger object). Spelled as an explicit
 // backward cast, which MSVC folds to `mov eax,[ecx-BACK]`; same shape and
 // reading as BFME1's ChainedFieldGetters.
-#define BFME_DISP8_PTRCHASE_BEFORE_DWORD_GETTER(NAME, BACK, INNER) \
-	class Inner##NAME \
-	{ \
-	public: \
-		char m_lead[INNER]; \
-		int m_value; \
-	}; \
-	class Sub##NAME \
-	{ \
-	public: \
-		Inner##NAME *m_holder; \
-	}; \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-	}; \
-	int NAME::get() const \
-	{ \
-		return ((const Sub##NAME *)((const char *)this - (BACK)))->m_holder->m_value; \
-	}
 
 BFME_DISP8_PTRCHASE_DWORD_GETTER(Rva000425C4PtrChaseField, 0x08, 0x18)
 BFME_DISP8_PTRCHASE_DWORD_GETTER(Rva262193PtrChaseField, 0x04, 0x74)

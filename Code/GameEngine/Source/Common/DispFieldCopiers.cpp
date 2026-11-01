@@ -8,20 +8,7 @@
 // only their total size. Identity is not recovered: every name is derived
 // from its address.
 // No // cl: line (defaults match the frameless ten-byte shape).
-#define BFME_FIELD_COPIER(NAME, SRC, DST) \
-	class NAME \
-	{ \
-	public: \
-		void copy(); \
-		char m_lead[SRC]; \
-		int m_src; \
-		char m_mid[(DST) - (SRC) - 4]; \
-		int m_dst; \
-	}; \
-	void NAME::copy() \
-	{ \
-		m_dst = m_src; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 BFME_FIELD_COPIER(Rva0028A5F9FieldCopy, 0x40, 0x180)
 

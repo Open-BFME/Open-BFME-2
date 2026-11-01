@@ -9,19 +9,7 @@ class Object;
 
 // --- 0x002FDB67 / 0x002FDB7D / 0x00525136 / 0x0052514C (22B each): vtable
 // constructors over a cleared +0x04 that store their argument at +0x08.
-#define GAP_VTABLE_ARG_CTOR(NAME) \
-	class NAME \
-	{ \
-	public: \
-		NAME(int value); \
-		virtual ~NAME() {} \
-	private: \
-		int m_04; \
-		int m_08; \
-	}; \
-	NAME::NAME(int value) : m_04(0), m_08(value) \
-	{ \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 // vtables VA 0x00C071B4, 0x00C071C0, 0x00C67E60, 0x00C67E70
 GAP_VTABLE_ARG_CTOR(Rva002FDB67)

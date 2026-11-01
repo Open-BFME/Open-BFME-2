@@ -8,18 +8,7 @@
 // is nonzero and sbb spreads it to a full mask selecting the field or null.
 // Identity is not recovered: every name is derived from its address.
 // No // cl: line (defaults match the shape).
-#define BFME_DISP8_MOV_LEA_NEG_SBB_GETTER(NAME, ADDIMM) \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-	}; \
-	int NAME::get() const \
-	{ \
-		const void *base = this; \
-		const char *field = (const char *)base + ADDIMM; \
-		return base ? (int)field : 0; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 BFME_DISP8_MOV_LEA_NEG_SBB_GETTER(Rva000CA841MovLeaNegSbbField, 0x0C)
 BFME_DISP8_MOV_LEA_NEG_SBB_GETTER(Rva0042D468MovLeaNegSbbField, 0x04)

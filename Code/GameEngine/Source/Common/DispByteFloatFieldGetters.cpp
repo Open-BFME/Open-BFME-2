@@ -7,18 +7,7 @@
 // gives the 19B EBP shape (frameless esp-temp would be 20B). Identity is
 // address-derived honest name (byte field returning float).
 
-#define BFME_DISP_BYTE_FLOAT_GETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		float get() const; \
-		char m_lead[DISP]; \
-		unsigned char m_value; \
-	}; \
-	float NAME::get() const \
-	{ \
-		return m_value; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 BFME_DISP_BYTE_FLOAT_GETTER(Rva002C8EF9ByteFloatField, 0x168)
 BFME_DISP_BYTE_FLOAT_GETTER(Rva003673BBByteFloatField, 0x534)

@@ -6,18 +6,7 @@
 // convention for `float`. BFME1 pioneered the same family in
 // reference/open-bfme-1/Code/GameEngine/Source/Common/DispFloatFieldGetters.cpp.
 // No // cl: line (defaults match the frameless 7-byte shape).
-#define BFME_DISP_FLOAT_GETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		float get() const; \
-		char m_lead[DISP]; \
-		float m_value; \
-	}; \
-	float NAME::get() const \
-	{ \
-		return m_value; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 BFME_DISP_FLOAT_GETTER(Rva00050F61FloatField, 0x90)
 BFME_DISP_FLOAT_GETTER(Rva00050F68FloatField, 0x94)

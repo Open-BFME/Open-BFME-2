@@ -10,35 +10,12 @@
 // mov-global-else form seventeen. Identity is not recovered: every name is
 // derived from its address.
 // The donor-supported /G6 also preserves every pre-existing body in this unit.
-#define BFME_DISP8_NULL_ADJUST_GETTER(NAME, DISP, ADJ) \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-		char m_lead[DISP]; \
-		int m_ptr; \
-	}; \
-	int NAME::get() const \
-	{ \
-		return m_ptr ? m_ptr + ADJ : 0; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 struct BfmeNullAdjustDefault;
 extern BfmeNullAdjustDefault g_bfmeNullAdjustBBAC1C;
 extern BfmeNullAdjustDefault g_bfmeNullAdjustDE0878;
 
-#define BFME_DISP8_NULL_ADJUST_GLOBAL_GETTER(NAME, DISP, ADJ, GLOBAL) \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-		char m_lead[DISP]; \
-		int m_ptr; \
-	}; \
-	int NAME::get() const \
-	{ \
-		return m_ptr ? m_ptr + ADJ : (int)&GLOBAL; \
-	}
 
 BFME_DISP8_NULL_ADJUST_GETTER(Rva002B2252NullAdjustField, 0x08, 0x2C)
 BFME_DISP8_NULL_ADJUST_GETTER(Rva002D2548NullAdjustField, 0x08, -4)

@@ -9,18 +9,7 @@
 // Identity is not recovered: every name is derived from its address,
 // following Disp8ByteFieldSetters.cpp.
 // No // cl: line (defaults match the frameless twelve-byte shape).
-#define BFME_DISP8_WORD_SETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		void set(unsigned short value); \
-		char m_lead[DISP]; \
-		unsigned short m_value; \
-	}; \
-	void NAME::set(unsigned short value) \
-	{ \
-		m_value = value; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 BFME_DISP8_WORD_SETTER(Rva004D5978WordSlot, 0x20)
 BFME_DISP8_WORD_SETTER(Rva004D59ACWordSlot, 0x1C)

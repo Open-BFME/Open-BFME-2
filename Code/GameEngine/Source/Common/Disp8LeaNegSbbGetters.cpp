@@ -9,19 +9,7 @@
 // add instead of a lea into a scratch register. Identity is not recovered:
 // every name is derived from its address.
 // No // cl: line (defaults match the shape).
-#define BFME_DISP8_LEA_NEG_SBB_GETTER(NAME, LEADISP, ADDIMM) \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-	}; \
-	int NAME::get() const \
-	{ \
-		const char *field = (const char *)this; \
-		const void *base = field - LEADISP; \
-		field += ADDIMM; \
-		return base ? (int)field : 0; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 BFME_DISP8_LEA_NEG_SBB_GETTER(Rva0039852BLeaNegSbbField, 12, 0x24)
 // 0x004543A9 is also reached through the this-0x14 thunk 0x004543E3 in four

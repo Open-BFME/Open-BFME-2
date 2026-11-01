@@ -9,18 +9,7 @@
 // address.
 // No // cl: line (defaults match the frameless ten-byte shape).
 
-#define BFME_SCALED_INT_FLOAT_GETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		float get() const; \
-		char m_lead[DISP]; \
-		int m_value; \
-	}; \
-	float NAME::get() const \
-	{ \
-		return m_value * 0.01f; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 BFME_SCALED_INT_FLOAT_GETTER(Rva0028A9B5ScaledIntField, 0x10)
 BFME_SCALED_INT_FLOAT_GETTER(Rva0028A9BFScaledIntField, 0x14)

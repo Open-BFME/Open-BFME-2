@@ -12,18 +12,7 @@
 // pioneered the same family in
 // reference/open-bfme-1/Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp).
 // No // cl: line (defaults match the frameless 7-byte shape).
-#define BFME_DISP_DWORD_GETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-		char m_lead[DISP]; \
-		int m_value; \
-	}; \
-	int NAME::get() const \
-	{ \
-		return m_value; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 BFME_DISP_DWORD_GETTER(Rva00042272DwordField, 0x45C)
 BFME_DISP_DWORD_GETTER(Rva00042279DwordField, 0x254)

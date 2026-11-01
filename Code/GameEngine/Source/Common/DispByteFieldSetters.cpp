@@ -11,18 +11,7 @@
 // Every displacement here is a disp32 (MSVC 7.1 uses disp8 whenever the
 // offset fits, so every offset is at least 0x80).
 // No // cl: line (defaults match the frameless 13-byte shape).
-#define BFME_DISP_BYTE_SETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		void set(unsigned char value); \
-		char m_lead[DISP]; \
-		unsigned char m_value; \
-	}; \
-	void NAME::set(unsigned char value) \
-	{ \
-		m_value = value; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 BFME_DISP_BYTE_SETTER(Rva0029A2D1ByteSlot, 0x8BB)
 BFME_DISP_BYTE_SETTER(Rva0029A2DEByteSlot, 0x8BC)

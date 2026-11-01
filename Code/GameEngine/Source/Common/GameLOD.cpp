@@ -53,18 +53,7 @@ typedef bool Bool;
 #include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 #include "../../Include/Common/BfmeStringData.h"
 #include "ascii_string.h"
-#define BFME_DISP_BYTE_GETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		unsigned char get() const; \
-		char m_lead[DISP]; \
-		unsigned char m_value; \
-	}; \
-	unsigned char NAME::get() const \
-	{ \
-		return m_value; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 #include "PreRTS.h"
 #include <stdio.h>
 #define PROFILE_ERROR_LIMIT 0.94f

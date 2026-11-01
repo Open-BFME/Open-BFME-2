@@ -9,18 +9,7 @@
 // of the neighboring Disp* families (char pad, then the int member).
 // Identity is not recovered: every name is derived from its address.
 // No // cl: line (defaults match the frameless four-byte shape).
-#define BFME_DISP8_FILD_GETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		double get() const; \
-		char m_lead[DISP]; \
-		int m_value; \
-	}; \
-	double NAME::get() const \
-	{ \
-		return m_value; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 BFME_DISP8_FILD_GETTER(Rva000CB0FFFildField, 0x38)
 BFME_DISP8_FILD_GETTER(Rva004B6FF3FildField, 0x34)

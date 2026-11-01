@@ -9,60 +9,13 @@
 // (twelve with a disp32 load, which the same macro auto-encodes).
 // Identity is not recovered: every name is derived from its address.
 // No // cl: line (defaults match the frameless shape).
-#define BFME_DISP8_SHR_AND_DWORD_GETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-		char m_lead[DISP]; \
-		unsigned int m_value; \
-	}; \
-	int NAME::get() const \
-	{ \
-		return (m_value >> 1) & 1; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 // Shift-by-three variant: `C1 E8 03` instead of `D1 E8` (bit-3 test idiom).
-#define BFME_DISP8_SHR3_AND_DWORD_GETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-		char m_lead[DISP]; \
-		unsigned int m_value; \
-	}; \
-	int NAME::get() const \
-	{ \
-		return (m_value >> 3) & 1; \
-	}
 
 // General shift-count variant: `C1 E8 <COUNT>` for any bit-N test idiom.
-#define BFME_DISP8_SHRN_AND_DWORD_GETTER(NAME, DISP, COUNT) \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-		char m_lead[DISP]; \
-		unsigned int m_value; \
-	}; \
-	int NAME::get() const \
-	{ \
-		return (m_value >> COUNT) & 1; \
-	}
 
 // General shift-count and mask variant for multi-bit field extraction.
-#define BFME_DISP8_SHRN_AND_MASK_DWORD_GETTER(NAME, DISP, COUNT, MASK) \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-		char m_lead[DISP]; \
-		unsigned int m_value; \
-	}; \
-	int NAME::get() const \
-	{ \
-		return (m_value >> COUNT) & MASK; \
-	}
 
 BFME_DISP8_SHR_AND_DWORD_GETTER(Rva00091A29ShrAndField, 0x44)
 BFME_DISP8_SHR_AND_DWORD_GETTER(Rva00179120ShrAndField, 0x30)

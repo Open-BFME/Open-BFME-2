@@ -6,18 +6,7 @@
 // Disp*FieldSetters units (disp8 and disp32 forms; the float ones need
 // /arch:SSE for the movss pair); identity is not recoverable from the bytes,
 // so every name is derived from its address.
-#define BFME_ARG_FIELD_SETTER(NAME, TYPE, DISP) \
-	class NAME \
-	{ \
-	public: \
-		void set(TYPE value); \
-		char m_lead[DISP]; \
-		TYPE m_value; \
-	}; \
-	void NAME::set(TYPE value) \
-	{ \
-		m_value = value; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 BFME_ARG_FIELD_SETTER(Rva0008BB4AFloatField, float, 0x54)
 BFME_ARG_FIELD_SETTER(Rva0008BB6FFloatField, float, 0x68)

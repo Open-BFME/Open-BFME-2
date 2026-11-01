@@ -22,39 +22,7 @@ public:
 };
 #include <string.h>
 #pragma function(memset)
-#define BFME_DISP8_PTRCHASE_DWORD_GETTER(NAME, DISP1, DISP2) \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-		char m_lead[DISP1]; \
-		void *m_ptr; \
-	}; \
-	int NAME::get() const \
-	{ \
-		return *(int *)((char *)m_ptr + DISP2); \
-	}
-#define BFME_DISP8_PTRCHASE_BEFORE_DWORD_GETTER(NAME, BACK, INNER) \
-	class Inner##NAME \
-	{ \
-	public: \
-		char m_lead[INNER]; \
-		int m_value; \
-	}; \
-	class Sub##NAME \
-	{ \
-	public: \
-		Inner##NAME *m_holder; \
-	}; \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-	}; \
-	int NAME::get() const \
-	{ \
-		return ((const Sub##NAME *)((const char *)this - (BACK)))->m_holder->m_value; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 //
 // Dump-range-25 packet family: seven homogeneous forwarders around the

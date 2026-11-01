@@ -10,18 +10,7 @@
 // translation units. Identity is not recovered: every name is derived from
 // its address.
 // No // cl: line (defaults match the frameless nine-byte shape).
-#define BFME_DISP8_SUB_IMM32_DWORD_GETTER(NAME, DISP, IMM) \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-		char m_lead[DISP]; \
-		int m_value; \
-	}; \
-	int NAME::get() const \
-	{ \
-		return m_value - IMM; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 BFME_DISP8_SUB_IMM32_DWORD_GETTER(Rva000519D6SubImm32Field, 0x04, 0x90)
 BFME_DISP8_SUB_IMM32_DWORD_GETTER(Rva001EAEA6SubImm32Field, 0x04, 0xAC)

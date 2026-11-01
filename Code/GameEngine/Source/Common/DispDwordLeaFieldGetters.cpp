@@ -12,27 +12,8 @@
 // offset fits in a signed byte, so every offset here is at least 0x80).
 // Identity is not recovered: every name is derived from its address.
 // No // cl: line (defaults match the frameless seven-byte shape).
-#define BFME_DISP32_LEA_GETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		void *get() const; \
-	}; \
-	void *NAME::get() const \
-	{ \
-		return (char *)this + DISP; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
-#define BFME_DISP32_LEA_BEFORE_GETTER(NAME, BACK) \
-	class NAME \
-	{ \
-	public: \
-		void *get() const; \
-	}; \
-	void *NAME::get() const \
-	{ \
-		return (char *)this - (BACK); \
-	}
 
 BFME_DISP32_LEA_GETTER(Rva00042280LeaGetter, 0x284)
 BFME_DISP32_LEA_GETTER(Rva00042299LeaGetter, 0x3BC)

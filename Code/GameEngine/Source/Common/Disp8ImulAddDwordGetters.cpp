@@ -10,17 +10,7 @@
 // member load into edx first. /G7 keeps small multipliers as true `imul`
 // (/O1 alone strength-reduces them to lea sequences). Identity is not
 // recovered: every name is derived from its address.
-#define BFME_IMUL_ADD_DWORD_GETTER(NAME, IMM) \
-	class NAME \
-	{ \
-	public: \
-		int get(int scale) const; \
-		int m_value; \
-	}; \
-	int NAME::get(int scale) const \
-	{ \
-		return scale * IMM + m_value; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 BFME_IMUL_ADD_DWORD_GETTER(Rva0004686FImulAddField, 0x5C)
 BFME_IMUL_ADD_DWORD_GETTER(Rva0007E95EImulAddField, 0x0C)

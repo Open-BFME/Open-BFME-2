@@ -12,31 +12,8 @@
 // No // cl: line (defaults match the frameless five-byte shapes; probe-verified
 // `0fb7410cc3` / `0fb64120c3` for `unsigned int` returners over
 // `unsigned short` / `unsigned char` members).
-#define BFME_DISP8_MOVZX_WORD_GETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		unsigned int get() const; \
-		char m_lead[DISP]; \
-		unsigned short m_value; \
-	}; \
-	unsigned int NAME::get() const \
-	{ \
-		return m_value; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
-#define BFME_DISP8_MOVZX_BYTE_GETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		unsigned int get() const; \
-		char m_lead[DISP]; \
-		unsigned char m_value; \
-	}; \
-	unsigned int NAME::get() const \
-	{ \
-		return m_value; \
-	}
 
 BFME_DISP8_MOVZX_WORD_GETTER(Rva00042F2BMovzxWordField, 0x0C)
 BFME_DISP8_MOVZX_WORD_GETTER(Rva004D5776MovzxWordField, 0x1C)

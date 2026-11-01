@@ -8,43 +8,11 @@
 // Identity is not recovered: every name is derived from its address.
 // No // cl: line (defaults match the frameless seven-byte shape).
 #include "../../../Libraries/Include/Lib/Coord3D.h"
-#define BFME_DISP8_FLOATCHASE_GETTER(NAME, DISP1, DISP2) \
-	class NAME \
-	{ \
-	public: \
-		float get() const; \
-		char m_lead[DISP1]; \
-		void *m_ptr; \
-	}; \
-	float NAME::get() const \
-	{ \
-		return *(float *)((char *)m_ptr + DISP2); \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 // Backward variant: the holder sits at a NEGATIVE displacement from `this`.
 // Spelled as an explicit backward cast, which MSVC folds to
 // `mov eax,[ecx-BACK]`; same reading as the dword/byte chase families.
-#define BFME_DISP8_FLOATCHASE_BEFORE_GETTER(NAME, BACK, INNER) \
-	class Inner##NAME \
-	{ \
-	public: \
-		char m_lead[INNER]; \
-		float m_value; \
-	}; \
-	class Sub##NAME \
-	{ \
-	public: \
-		Inner##NAME *m_holder; \
-	}; \
-	class NAME \
-	{ \
-	public: \
-		float get() const; \
-	}; \
-	float NAME::get() const \
-	{ \
-		return ((const Sub##NAME *)((const char *)this - (BACK)))->m_holder->m_value; \
-	}
 
 BFME_DISP8_FLOATCHASE_GETTER(Rva0007E066FloatChaseField, 0x0C, 0x28)
 BFME_DISP8_FLOATCHASE_GETTER(Rva0007E0F1FloatChaseField, 0x40, 0x5C)

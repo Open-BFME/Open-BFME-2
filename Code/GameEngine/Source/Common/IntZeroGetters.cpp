@@ -5,16 +5,7 @@
 // The constant zero is returned with no member access. Identity is not
 // recovered: every name is derived from its address.
 // No // cl: line (defaults match the frameless three-byte shape).
-#define BFME_INT_ZERO_GETTER(NAME) \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-	}; \
-	int NAME::get() const \
-	{ \
-		return 0; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 BFME_INT_ZERO_GETTER(Rva0008BBDDZeroGetter)
 BFME_INT_ZERO_GETTER(Rva000B19F8ZeroGetter)

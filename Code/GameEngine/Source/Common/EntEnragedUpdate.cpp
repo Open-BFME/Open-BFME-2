@@ -35,26 +35,7 @@ public:
 #define LogicFramesPerSecond BfmeLogicFramesPerSecond
 extern "C" const void *const __identifier("??_7EntEnragedUpdateModuleData@@6B@")[];
 #include "../../Include/GameLogic/Module/UpdateModule.h"
-#define BFME_SNAPSHOT_NAME_GETTER(NAME, TEXT) \
-	class NAME \
-	{ \
-	protected: \
-		virtual const char *GetSnapshotName() const; \
-	}; \
-	const char *NAME::GetSnapshotName() const \
-	{ \
-		return TEXT; \
-	}
-#define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
-	class NAME \
-	{ \
-	public: \
-		const char *name() const; \
-	}; \
-	const char *NAME::name() const \
-	{ \
-		return TEXT; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 // ?rva004B23C5@EntEnragedUpdate@@UAEXPAVXfer@@@Z, retail 0x004B23C5, 147 bytes.
 // Virtual slot 3 (offset 0xC) of vtable 0x00856948 (VA 0x00C56948), class of
 // ??1EntEnragedUpdate@@UAE@XZ (was Rva004B237B) in Rva0024A797Derived.cpp. UpdateModule xfer via

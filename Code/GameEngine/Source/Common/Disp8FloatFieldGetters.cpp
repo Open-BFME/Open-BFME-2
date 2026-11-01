@@ -13,29 +13,8 @@
 // Negative-displacement sibling: the disp8 byte sign-extends, so a disp byte
 // above 0x7F reads *before* `this` (e.g. 98 = -104). Spelled as a negative
 // float index from `this`, which MSVC 7.1 folds to the same disp8 fld.
-#define BFME_DISP8_FLOAT_GETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		float get() const; \
-		char m_lead[DISP]; \
-		float m_value; \
-	}; \
-	float NAME::get() const \
-	{ \
-		return m_value; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
-#define BFME_DISP8_NEG_FLOAT_GETTER(NAME, INDEX) \
-	class NAME \
-	{ \
-	public: \
-		float get() const; \
-	}; \
-	float NAME::get() const \
-	{ \
-		return ((const float *)this)[INDEX]; \
-	}
 
 BFME_DISP8_FLOAT_GETTER(Rva0015DF10FloatField, 0x1C)
 BFME_DISP8_FLOAT_GETTER(Rva0015DF20FloatField, 0x18)

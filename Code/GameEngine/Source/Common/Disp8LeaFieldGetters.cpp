@@ -11,30 +11,11 @@
 // Identity is not recovered: every name is derived from its address, in the
 // same opaque-holder convention as the neighboring Disp* families.
 // No // cl: line (defaults match the frameless four-byte shape).
-#define BFME_DISP8_LEA_GETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		void *get() const; \
-	}; \
-	void *NAME::get() const \
-	{ \
-		return (char *)this + DISP; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 // Negative-displacement sibling: the disp8 byte sign-extends, so a disp byte
 // above 0x7F addresses *before* `this` (e.g. 9C = -100). Spelled as a
 // negative byte offset from `this`, which folds to the same disp8 lea.
-#define BFME_DISP8_NEG_LEA_GETTER(NAME, BACK) \
-	class NAME \
-	{ \
-	public: \
-		void *get() const; \
-	}; \
-	void *NAME::get() const \
-	{ \
-		return (char *)this - BACK; \
-	}
 
 BFME_DISP8_LEA_GETTER(Rva003EFDD7LeaField, 0x4C)
 BFME_DISP8_LEA_GETTER(Rva0049CB82LeaField, 0x28)

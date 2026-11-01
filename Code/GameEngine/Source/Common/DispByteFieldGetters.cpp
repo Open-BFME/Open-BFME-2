@@ -15,18 +15,7 @@
 // derived from its address (BFME1 pioneered the same family in
 // reference/open-bfme-1/Code/GameEngine/Source/Common/DispByteFieldGetters.cpp).
 // No // cl: line (defaults match the frameless 7-byte shape).
-#define BFME_DISP_BYTE_GETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		unsigned char get() const; \
-		char m_lead[DISP]; \
-		unsigned char m_value; \
-	}; \
-	unsigned char NAME::get() const \
-	{ \
-		return m_value; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 BFME_DISP_BYTE_GETTER(Rva0002BAF1ByteField, 0x430)
 BFME_DISP_BYTE_GETTER(Rva00038CB0ByteField, 0x9F64)
