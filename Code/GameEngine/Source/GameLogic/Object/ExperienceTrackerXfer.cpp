@@ -162,11 +162,6 @@ private:
 // new) are what ExperienceTrackerBaseView stands for. The 0x0039AE30 owner
 // object's shape comes from the Open-BFME-1 BfmeThingEFECtor.cpp donor
 // (revision 177ae72da).
-struct ExperienceTrackerParentView
-{
-	char m_unrecovered00[ 0x64 ];
-	AsciiString m_64;
-};
 struct Rva0039AE75Owner;
 #include "../../../Include/Common/Rva0039AE75.h"
 

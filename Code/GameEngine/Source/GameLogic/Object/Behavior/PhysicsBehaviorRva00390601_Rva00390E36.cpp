@@ -120,20 +120,6 @@ struct Rva003909FAModuleData { unsigned char m_pad[0x4C]; float m_factor; };
 #include "../../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 
-class BehaviorModuleBase
-{
-public:
-	virtual void behaviorModuleBaseAnchor();
-	const ModuleData *m_moduleData;
-	Object *m_object;
-};
-
-class BehaviorModuleOther
-{
-public:
-	virtual void behaviorModuleOtherAnchor();
-};
-
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class UpdateModuleInterface
@@ -269,5 +255,3 @@ void Rva003909FAObj::consume(void *forceArg, int source, int weapon)
 // Receiver comes from Object+25C; native 390533..390557 reads its Object+8.
 // Condition-array base10C is established independently by rowed setters.
 // BFME1 c1f3b5af79 clean29A7D0 accessor supplies the unsigned-shift shape.
-class Rva00390533 { public: bool rva00390533(); char pad[8];Object *m_object; };
-

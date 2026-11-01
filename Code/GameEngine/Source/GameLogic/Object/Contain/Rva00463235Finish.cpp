@@ -25,11 +25,6 @@ public:
 	bool isKindOfMulti(const BitFlags<116> &mustBeSet, const BitFlags<116> &mustBeClear) const;
 };
 
-class BfmeFixedStorage0004543D
-{
-public:
-	char m_data[28];
-};
 extern BitFlags<116> KINDOFMASK_NONE;
 
 struct PassengerBoneNode

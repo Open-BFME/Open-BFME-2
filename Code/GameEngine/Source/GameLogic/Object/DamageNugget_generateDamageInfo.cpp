@@ -85,11 +85,6 @@ public:
 };
 #include "GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
-struct Rva005084FCWeaponView
-{
- unsigned char pad00[8];
- int sourceID08;
-};
 struct Rva00508120WeaponTemplateView
 {
  unsigned char pad00[0x10];

@@ -17,7 +17,6 @@ struct DynamicPortalLink
 };
 namespace _STL
 {
-struct __false_type {};
 template <class T> void _Destroy(T first, T last);
 }
 void *__cdecl Rva001FFC38Copy(void *a, void *b, void *c, void *d);

@@ -76,12 +76,6 @@ class ExperienceTracker
  
 }
 ;
-class Rva003BD306Target 
-{
- public: void rva0039B2C7(int,bool);
- 
-}
-;
 class Thing 
 {
  public: void setTransformMatrix(const Matrix3D *);

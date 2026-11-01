@@ -13,7 +13,6 @@
 #include <math.h>
 #include "vector3.h"
 #include "../../../../../Libraries/Include/Lib/Coord3DCtorView.h"
-struct Rva003901DAPoint : Coord3D { Rva003901DAPoint(); ~Rva003901DAPoint(); };
 class Rva0055A246 {
 public:Rva0055A246(const Rva0055A246&);float rva0055A627(float)const;void rva0055A7DB(int,void*);
  Coord3D points[4];

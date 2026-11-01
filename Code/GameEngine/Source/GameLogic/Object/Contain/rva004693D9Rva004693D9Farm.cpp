@@ -14,7 +14,6 @@
 class ThingTemplate;
 class ThingFactory {public: const ThingTemplate *findTemplate(const AsciiString&);};
 extern ThingFactory *TheThingFactory;
-class Rva002D06CA { public: void *rva002D06CA(const AsciiString*); };
 struct Rva004693D9Input { float x,y; int partner,localIndex; };
 template<class T> struct Rva004693D9Range {
  T *first,*finish,*limit;

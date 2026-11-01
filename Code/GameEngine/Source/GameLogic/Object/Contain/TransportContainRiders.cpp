@@ -201,12 +201,6 @@ public:
 };
 
 // PhysicsBehavior 0x003909FA keeps its address-derived pin name.
-class Rva003909FAObj
-{
-public:
-	void consume(void *force, int a, int b);
-};
-
 class Object : public Thing
 {
 public:

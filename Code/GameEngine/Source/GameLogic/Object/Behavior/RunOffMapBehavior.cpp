@@ -110,22 +110,6 @@ private:
 	BfmeSubBJ m_bfmeSub;			// 0x10
 };
 
-class BfmeThingBK
-{
-public:
-	virtual void bfmeSpare00BK(void) = 0;
-	virtual void bfmeSpare01BK(void) = 0;
-	virtual void bfmeSpare02BK(void) = 0;
-	virtual void bfmeSpare03BK(void) = 0;
-	virtual void bfmeSpare04BK(void) = 0;
-	virtual void bfmeSpare05BK(void) = 0;
-	virtual unsigned char bfmeTestBK(void) = 0;
-	virtual void bfmeNoBK(void) = 0;
-	virtual void bfmeYesBK(void) = 0;
-
-	void bfmeGoBK(void);
-};
-
 // tu-skeleton: 0x0046216A 17B ?buildFieldParse@RunOffMapBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModuleDataBuildFieldParse.cpp (not merged yet)
 
 // tu-skeleton: 0x0046217B 49B ??0RunOffMapBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/RunOffMapBehaviorCtor.cpp (not merged yet)

@@ -361,13 +361,6 @@ class Rva0028E8D4
 }
 ;
 
-class Rva0028CECFOwner 
-{
- public:bool rva0028CECF();
- 
-}
-;
-
 /** Do the collision */
 static const float HUGE_DAMAGE_AMOUNT=999999.0f;
 

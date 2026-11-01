@@ -26,7 +26,6 @@ class ExperienceTracker{public:void rva0039B315(float,bool,bool,bool,bool);};
 class Rva0039ADF3{public:bool rva0039AE04()const;};
 class Rva0028D796{public:int rva0028D796();};
 #include "../../../../Include/GameClient/DrawableBFME2.h"
-class Rva002716Holder{public:void rva00271601(unsigned char);};
 class AICommandInterface{public:void aiIdle(CommandSourceType);};
 class AIUpdateInterface{public:AICommandInterface *commands(){return (AICommandInterface*)((char*)this+0x20);}};
 class Rva002AA292{public:bool rva002AA292(const int*)const;};

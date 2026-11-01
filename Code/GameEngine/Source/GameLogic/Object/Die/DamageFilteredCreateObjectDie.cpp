@@ -78,12 +78,6 @@ private:
 
 // 0x004543A9 is also reached through the this-0x14 thunk 0x004543E3 in four
 // vtables, so it is virtual (same body).
-class Rva004543A9LeaNegSbbField
-{
-public:
-	virtual int get() const;
-};
-
 BFME_DISP8_LEA_NEG_SBB_GETTER(Rva00485EE9LeaNegSbbField, 12, 0x08)
 
 // The +0x14 subobject is DamageFilteredCreateObjectDie's damage-module

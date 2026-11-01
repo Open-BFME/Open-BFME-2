@@ -46,12 +46,6 @@ extern const FieldParse GrantUpgradeCreateModuleDataFieldParse[4] =
 	{ 0, 0, 0, 0 }
 };
 
-class ObjectCreationUpgradeModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Create/GrantUpgradeCreate.cpp
 
 /*

@@ -5,12 +5,6 @@
 // (0x004783D7, address-derived pin), then a comparison between this +0x2C5 and
 // the owner's +0x1D8 byte; on mismatch it tail-jumps slot 24 of the subobject at +0x11C.
 // Class and owner names are address-derived; the slots are shims.
-class OpenContain
-{
-    friend class Rva004697E1Contain;
-protected:
-    virtual void loadPostProcess();
-};
 class Rva004697E1Owner
 {
 public:

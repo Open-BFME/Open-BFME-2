@@ -15,7 +15,6 @@ public:
     virtual void *destroy(unsigned int flags);
     unsigned int id;
 };
-class Rva002E6ECA { public: int get() const; };
 class Rva00372CA8 { public: void rva00372CA8(int value); };
 class Rva002E9042 { public: void rva002E9042(void *portal); };
 class Rva004618D4Caller { public: void rva002E7023(); };

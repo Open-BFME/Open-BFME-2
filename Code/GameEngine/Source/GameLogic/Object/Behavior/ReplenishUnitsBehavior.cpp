@@ -386,12 +386,6 @@ protected:
 	Module *findModule(NameKeyType key) const;	// 0x0028B6D6
 };
 
-class SlowDeathBehavior
-{
-protected:
-	virtual const char *GetSnapshotName() const;
-};
-
 BFME_LITERAL_NAME_GETTER(Rva00484181Named, "ReplenishUnitsBehavior")
 
 // tu-skeleton: 0x00484161 32B ??1ReplenishUnitsBehavior@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/ReplenishUnitsBehaviorDtor.cpp (not merged yet)
