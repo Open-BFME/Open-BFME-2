@@ -24,6 +24,11 @@ relocations unchanged, with only that body removed. Other donor dependencies,
 two wrong-selected copies and STL imports still block the unit. The canonical
 Player class is unchanged; no census gain is claimed. Evidence:
 `reverse/attempt_support/player-donor-cleanup-20261101/`.
+The wrong-selected unrowed pointer upgrade query is also removed, with all 408
+retained complete definitions/relocations unchanged. One present-unmatched
+count retires through the owning tool. The other wrong-selected science-vector
+copy and donor imports remain, and existing retained shadow divergences are
+unchanged. A separate alias shrink merely synchronizes upstream ffdd9456a9.
 
 
 ### Six-source Vector4 batch (2026-11-01)

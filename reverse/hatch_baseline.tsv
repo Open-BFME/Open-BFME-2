@@ -2903,7 +2903,6 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/ClickReactionBeha
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviour.cpp	?dynamicPortalExtraA@DynamicPortalExtraA@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviour.cpp	?dynamicPortalExtraB@DynamicPortalExtraB@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalLinkVector.cpp	??1DynamicPortalLinkVec@@QAE@XZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourDtor.cpp	?f2@FakePathfindPortalBehaviour_B2@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourDtor.cpp	?f3@FakePathfindPortalBehaviour_B3@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourDtor.cpp	?f4@FakePathfindPortalBehaviour_B4@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDamagedBehavior.cpp	??1Rva00482A4DRecord@@QAE@XZ	1
@@ -12094,7 +12093,7 @@ present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	getProductionVete
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	getSupplyBoxValue@Player@@QAEIXZ	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	hasAnyBuildings@Player@@	2
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	hasAnyShortcutSpecialPower@Player@@QAE_NXZ	1
-present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	hasUpgradeComplete@Player@@	2
+present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	hasUpgradeComplete@Player@@	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	hasUpgradeInProduction@Player@@QAE_NPBVUpgradeTemplate@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	isPlayableSide@Player@@QBE_NXZ	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	isPlayerActive@Player@@QBE_NXZ	1

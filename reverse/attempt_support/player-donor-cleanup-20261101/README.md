@@ -20,3 +20,27 @@ retained complete body and symbolic relocation is identical, and nothing is
 added. Normal/frozen verification passes. The unit still does not link: its
 other donor methods, two wrong-selected copies and additional STL imports
 remain. This is cleanup, with no authored-byte or census gain claimed.
+
+## Wrong selected upgrade-query copy
+
+The unrowed pointer-overload hasUpgradeComplete body is removed separately.
+Its code has no runtime/data incoming edge in this object or outside incoming
+edge in the published index. The census certifies this copy as non-retail; the
+current preview no longer selects it. The existing native provider and pins
+are untouched. All 12 functions and the global still verify, and all 408
+retained complete code definitions/relocations are identical to the preceding
+409-definition control. Only the wrong copy disappears; nothing is added.
+
+The owning hatch counter retires one of this source's two same-label
+present-unmatched entries. It also synchronizes an already removed alias from
+upstream ffdd9456a9 in FakePathfindPortalBehaviourDtor.cpp; that extra shrink is
+upstream work, not credit for this pass. No baseline key is hand-added.
+
+The code-identity hook reports existing shadow divergences in other retained
+helpers. Whole-object controls show they are unchanged, and their register is
+not edited. The remaining science-vector copy and donor imports still block
+the unit; no complete link clearance is claimed.
+
+The first two-removal batch passes strict preparation of all 12 function rows
+and the one owned data row. Source paths, six admitted aliases and the canonical
+class header are unchanged. Its strict receipt and output are retained.

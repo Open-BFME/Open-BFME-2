@@ -1848,12 +1848,8 @@ Bool Player::canAffordBuild( const ThingTemplate *whatToBuild ) const
 //=================================================================================================
 /** Does the player have this completed upgrade */
 //=================================================================================================
-// ?hasUpgradeComplete@Player@@ present-unmatched
-Bool Player::hasUpgradeComplete( const UpgradeTemplate *upgradeTemplate )
-{
-	UpgradeMaskType testMask = upgradeTemplate->getUpgradeMask();
-	return hasUpgradeComplete( testMask );
-} 
+
+ 
 
 //=================================================================================================
 /** 

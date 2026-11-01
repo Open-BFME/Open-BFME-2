@@ -1,0 +1,11 @@
+{
+  "base": "b7465a08fa4a36bf9731df6e46c424a20d02be6f",
+  "before_definitions": 409,
+  "after_definitions": 408,
+  "added": [],
+  "removed": [
+    "?hasUpgradeComplete@Player@@QAE_NPBVUpgradeTemplate@@@Z"
+  ],
+  "changed": [],
+  "all_retained_whole_code_and_relocations_equal": true
+}
