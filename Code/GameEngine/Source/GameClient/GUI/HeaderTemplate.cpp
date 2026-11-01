@@ -6,6 +6,7 @@
 #include "ascii_string.h"
 #include "PreRTS.h"
 #include <list>
+#include <string.h>
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
 namespace _STL {
 template <class T, class LeftTraits, class RightTraits>
@@ -144,7 +145,7 @@ void _STLP_alloc_proxy<_List_node<HeaderTemplate *>*, _List_node<HeaderTemplate 
 { __stl_alloc_rebind(static_cast<_Base&>(*this), (_List_node<HeaderTemplate *>*)0).deallocate(p, n); }
 }
 
-extern "C" unsigned int __cdecl strlen( const char *text );
+
 
 typedef char AsciiStringSizeCheck[(sizeof(AsciiString) == 4) ? 1 : -1];
 
