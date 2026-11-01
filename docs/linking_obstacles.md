@@ -10546,10 +10546,18 @@ and the false-reject evidence is banked; no identity-debt retirement is claimed.
 Census confirmation remains pending.
 
 The Snapshot queue row remains: its acceptance command requires the header,
-which the corrected record-only source does not use. The two superseded pins
-also remain pending their own consumer audit. FXParticleSystem.cpp is unchanged
+which the corrected record-only source does not use. FXParticleSystem.cpp is unchanged
 and retains its existing base-view prerequisite and 5,650-byte prediction.
 Evidence: `reverse/attempt_support/record-vector-identity-20261101/`.
+
+Separate pin follow-up: the old Money-copy and vector-overflow address bindings
+are removed after an 18,650-object audit found no observed undefined consumer.
+The sole constructor-name hit is a current, unrelated 27-byte Money COMDAT;
+its real definition is preserved. The owning counter update retires two pin
+hatches. Conservative dependency checks cover 29 units. The repaired cohort's
+3,456-byte prediction is retained; the menu unit stays nonlinking with its
+existing prerequisites. The refused identity-key retirement and Snapshot queue
+entry remain open. Full receipt currency is not claimed for every unhit object.
 Clearance: pending.
 
 **Header-adoption prerequisite (2026-10-28, base `fa53c16f5f`):** the default

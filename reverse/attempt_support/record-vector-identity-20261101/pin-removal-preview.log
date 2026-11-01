@@ -1,0 +1,60 @@
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Code/GameEngine/Source/Common/MoneyVectorPushBack.cpp: LINKS  LINKED 0 -> 59 bytes (census 2026-11-01 09:19 at 0d24c60eef; file's own bytes 59)
+Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp: LINKS  LINKED 3,129 -> 3,129 bytes (census 2026-11-01 09:19 at 0d24c60eef; file's own bytes 3,129)
+Code/GameEngine/Source/Common/Rva006BF5E0Overflow.cpp: LINKS  LINKED 268 -> 268 bytes (census 2026-11-01 09:19 at 0d24c60eef; file's own bytes 268)
+Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/SkirmishGameOptionsMenu.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-11-01 09:19 at 0d24c60eef; file's own bytes 98)
+  unresolved  ??0SkirmishBattleHonors@@QAE@XZ
+  unresolved  ??0SkirmishPreferences@@QAE@XZ
+  unresolved  ??1GameSlot@@QAE@XZ
+  unresolved  ??1SkirmishBattleHonors@@UAE@XZ
+  unresolved  ?BattleHonorTooltip@@YAXPAVGameWindow@@PAVWinInstanceData@@I@Z
+  unresolved  ?EnableSlotListUpdates@@YAX_N@Z
+  unresolved  ?ExMessageBoxOkCancel@@YAPAVGameWindow@@VUnicodeString@@0PAXP6A?AW4MessageBoxReturnType@@1@Z2@Z
+  unresolved  ?InsertBattleHonor@@YAXPAVGameWindow@@PBVImage@@_NHAAH3VUnicodeString@@H@Z
+  unresolved  ?MessageBoxOk@@YAPAVGameWindow@@VUnicodeString@@0P6AXXZ@Z
+  unresolved  ?ParseAsciiStringToGameInfo@@YA_NPAVGameInfo@@VAsciiString@@@Z
+  unresolved  ?PopulateStartingCashComboBox@@YAXPAVGameWindow@@PAVGameInfo@@@Z
+  unresolved  ?ResetBattleHonorInsertion@@YAXXZ
+  unresolved  ?_bfme_gi_slot0@GameInfo@@UAEHXZ
+  unresolved  ?_bfme_gi_slot1@GameInfo@@UAEHXZ
+  unresolved  ?bringForward@WindowLayout@@QAEXXZ
+  unresolved  ?clearGameData@GameLogic@@QAEX_N@Z
+  unresolved  ?crc@Money@@MAEXPAVXfer@@@Z
+  unresolved  ?crc@SkirmishGameInfo@@MAEXPAVXfer@@@Z
+  unresolved  ?deposit@Money@@QAEXI_N@Z
+  unresolved  ?destroyWindows@WindowLayout@@QAEXXZ
+  unresolved  ?format@UnicodeString@@QAAXV1@ZZ
+  unresolved  ?getAsciiString@UserPreferences@@QBE?AVAsciiString@@V2@0@Z
+  unresolved  ?getBestWinStreak@SkirmishBattleHonors@@QBEHXZ
+  unresolved  ?getCHINACampaignComplete@SkirmishBattleHonors@@QBE_NW4GameDifficulty@@@Z
+  unresolved  ?getChallengeCampaignComplete@SkirmishBattleHonors@@QBE_NHW4GameDifficulty@@@Z
+  unresolved  ?getEnduranceMedal@SkirmishBattleHonors@@QBEHVAsciiString@@H@Z
+  unresolved  ?getGLACampaignComplete@SkirmishBattleHonors@@QBE_NW4GameDifficulty@@@Z
+  unresolved  ?getHonors@SkirmishBattleHonors@@QBEHXZ
+  unresolved  ?getInt@UserPreferences@@QBEHVAsciiString@@H@Z
+  unresolved  ?getLosses@SkirmishBattleHonors@@QBEHXZ
+  unresolved  ?getUSACampaignComplete@SkirmishBattleHonors@@QBE_NW4GameDifficulty@@@Z
+  unresolved  ?getWinStreak@SkirmishBattleHonors@@QBEHXZ
+  unresolved  ?getWins@SkirmishBattleHonors@@QBEHXZ
+  unresolved  ?hide@WindowLayout@@QAEX_N@Z
+  unresolved  ?loadPostProcess@Money@@MAEXXZ
+  unresolved  ?loadPostProcess@SkirmishGameInfo@@MAEXXZ
+  unresolved  ?playerTemplateComboBoxTooltip@@YAXPAVGameWindow@@PAVWinInstanceData@@I@Z
+  unresolved  ?playerTemplateListBoxTooltip@@YAXPAVGameWindow@@PAVWinInstanceData@@I@Z
+  unresolved  ?set@UnicodeString@@QAEXABV1@@Z
+  unresolved  ?set@UnicodeString@@QAEXPBG@Z
+  unresolved  ?setStartingCash@GameInfo@@QAEXABVMoney@@@Z
+  unresolved  ?setSuperweaponRestriction@GameInfo@@QAEXG@Z
+  unresolved  ?showShellMap@Shell@@QAEX_N@Z
+  unresolved  ?startGame@GameInfo@@UAEXH@Z
+  unresolved  ?trim@UnicodeString@@QAEXXZ
+  unresolved  ?xfer@Money@@MAEXPAVXfer@@@Z
+  comdat      ??_7GameSlot@@6B@  (first: differs from the first copy in link order (no retail address))
+  diagnostic  ?getPlayerTemplate@GameSlot@@QBEHXZ  (layout-like: 1 byte(s) differ from the majority copy, same length -- a stale private class view?; unreferenced, not a blocker)
+  diagnostic  ?getTeamNumber@GameSlot@@QBEHXZ  (layout-like: 1 byte(s) differ from the majority copy, same length -- a stale private class view?; unreferenced, not a blocker)
+  diagnostic  ?getPlayerTemplateCount@PlayerTemplateStore@@QBEHXZ  (layout-like: 3 byte(s) differ from the majority copy, same length -- a stale private class view?; unreferenced, not a blocker)
+  diagnostic  ?getNumColors@MultiplayerSettings@@QAEHXZ  (layout-like: 4 byte(s) differ from the majority copy, same length -- a stale private class view?; unreferenced, not a blocker)
+link_check: 3 of 4 link cleanly; LINKED 3,397 -> 3,456 bytes (4.4s)

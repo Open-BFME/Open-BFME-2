@@ -1,0 +1,36 @@
+{
+  "head": "fc3bdee2e3c99525e1d2ca04436efea4671dea3d",
+  "names": [
+    "??0Money@@QAE@ABV0@@Z",
+    "?_M_insert_overflow@?$vector@VMoney@@V?$allocator@VMoney@@@_STL@@@_STL@@IAEXPAVMoney@@ABV3@ABU__false_type@2@I_N@Z"
+  ],
+  "ledger_sha256_before": "884b3290e6b2c938199fa06413cf555783e4d948e902143d8d5fd4f1e3982466",
+  "ledger_sha256_after": "884b3290e6b2c938199fa06413cf555783e4d948e902143d8d5fd4f1e3982466",
+  "sources_scanned": 18650,
+  "missing_objects": 0,
+  "missing_sources": 0,
+  "symbol_hits": [
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/SkirmishGameOptionsMenu.cpp",
+      "object": "build\\match\\^code_^game^engine_^source_^game^client_^g^u^i_^g^u^i^callbacks_^menus_^skirmish^game^options^menu.obj",
+      "state": "symbol-hit",
+      "compiled_from_current_source_text": true,
+      "hits": [
+        {
+          "name": "??0Money@@QAE@ABV0@@Z",
+          "external_records": [
+            {
+              "section": 846,
+              "value": 0
+            }
+          ],
+          "undefined_reference": false,
+          "definition": true
+        }
+      ],
+      "full_compile_receipt_current": true
+    }
+  ],
+  "parse_errors": [],
+  "scope": "Current matched Code .cpp/.c/.asm ledger source objects only; no orphan caches or private probes scanned; no compilation. Missing objects are not evidence of absence."
+}

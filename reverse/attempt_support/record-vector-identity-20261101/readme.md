@@ -71,8 +71,8 @@ The Snapshot acceptance command refuses because the replacement does not
 include the Snapshot header. It now needs no Snapshot type; this repair does
 not add an unused include merely to retire the queue row. The queue entry is
 retained for the register's supported identity-change retirement path. No
-false claim of header adoption is made. The two old Money-copy/overflow pins
-remain pending a separate complete consumer audit.
+false claim of header adoption is made. The old Money-copy/overflow pins were
+reserved for the separate consumer audit below.
 
 The second served source, FXParticleSystem.cpp, is unchanged and still predicts
 LINKS for 5,650 bytes. It already includes global canonical Snapshot, but its
@@ -83,3 +83,26 @@ that this view is canonical, and no discovery-error retirement is claimed.
 Publication retains the earlier broader AIBaseBuilder receipt/index boundary
 until the normal outgoing audit establishes its current scope. No new source
 path move, shared-header change, pin or escape hatch is introduced here.
+
+## Superseded pin retirement
+
+A separate audit scanned 18,650 object paths belonging to the current matched
+Code ledger, with no missing source/object or parse error and an unchanged
+functions-ledger hash. Neither old pin name had an observed undefined consumer.
+The overflow name appeared nowhere. The constructor name appears only as a
+defined 27-byte COMDAT in SkirmishGameOptionsMenu.cpp, with a current source
+hash and full compile receipt. That definition copies the real 12-byte Money
+view and references its vtable; it is not the 79-byte record copy at 63BE4.
+No same-object code relocation calls it. Its definition and source are kept.
+
+Only the two false address bindings are removed. The owning hatch update
+reduces pin counts at 63BE4 and 6BF5E0 by one each (two total). This audit does
+not assert full receipt currency for every unhit object: the normal dependency
+gate widens stale-object cases and lists 29 units for verification.
+
+The corrected source and its two real providers retain their 3,456-byte
+prediction. The legitimate Money-defining menu unit retains the census's
+zero linking bytes and existing unresolved prerequisites; its preview is
+not clean, and no menu-unit repair is claimed. The outgoing consumer audit
+still supplies the broader publication verdict. The retained identity key and
+header queue row are unchanged by this pin retirement.
