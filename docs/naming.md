@@ -481,8 +481,17 @@ refuses unless all of these hold:
   constructor whose `+0` stores all install T. Every special-member row of OLD
   and NEW agrees (none owns another table; a constructor that also installs a
   base's table must include T).
-- T's `??_7X@@6B@` names (`data_rows.csv`, and the `data_ledger.csv` names that
-  matched rows' relocations bind at T) include NEW and no class but OLD and NEW.
+- T's `??_7X@@6B@` names (`data_rows.csv`, the `data_ledger.csv` names that
+  matched rows' relocations bind at T, and, because that ledger is a cache that
+  lags new rows, the DIR32 bindings the installing rows' own objects make at T
+  now) include NEW and no class but OLD and NEW.
+- A class with several bases reaches its later base subobjects' tables through
+  a deleting destructor's adjustor thunk (`??_EX@@WM@AEPAXI@Z`, `this -= 0xC`).
+  The thunk must sit in a slot of the class's own table at that displacement:
+  the one a row owning T installs there itself (a destructor's first store at
+  `+disp`, a constructor's last), and every such row must agree. That secondary
+  table gets T's ICF and slot checks, and the thunk counts as a special-member
+  kind of its own, so it never collides with the primary deleting destructor.
 - T is no ICF fold of distinct classes' tables (retail folds identical
   vftables: `0x007CEFA0` serves three constructors of different classes): no
   third class's special-member row installs T as its own, no slot of T holds a

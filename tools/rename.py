@@ -4116,6 +4116,21 @@ def plan_class(ctx, name, new, basis=None, evidence="", *, max_files=25, fold=Fa
 #     NEW never both have a row of one special-member kind (one class has one
 #     destructor; two constructor rows could be overloads or two classes, so
 #     that stays refused in this narrow mode).
+#   * a class with several bases has one more table per base subobject, and
+#     its deleting destructor reaches the later ones through an adjustor thunk
+#     (`??_EX@@WM@AEPAXI@Z`: `this -= 12`, then the deleting destructor). Such
+#     a thunk sits in a slot of the class's own table for the subobject at
+#     that displacement: the table an own-table special member installs there
+#     itself (a destructor's first store at `+disp`, a constructor's last,
+#     after any inlined base constructor's), never at `+0` of T. The thunk is
+#     a member kind of its own (keyed by its displacement), and the secondary
+#     table gets T's ICF and slot checks: no third class installs it as its
+#     own, and no slot holds a third class's deleting destructor.
+#
+# T's names come from data_rows.csv, data_ledger.csv and, because the ledger
+# is a tool-written cache that lags new rows, the DIR32 bindings of OLD's and
+# NEW's own special-member rows read from their compiled objects (the
+# derivation tools/data_ledger.py makes for every matched row).
 #
 # OLD must be a placeholder (tools/name_metric.py): a readable name never
 # folds, into a placeholder (docs/naming.md: only a `restored` revert puts a
@@ -4132,6 +4147,54 @@ def plan_class(ctx, name, new, basis=None, evidence="", *, max_files=25, fold=Fa
 SPECIAL_MEMBER = re.compile(r"\?\?(0|1|_G|_E)([A-Za-z_]\w*)@@")
 SPECIAL_ROLE = {"0": "constructor", "1": "destructor", "_G": "deleting destructor", "_E": "deleting destructor"}
 GLOBAL_VTABLE = re.compile(r"\?\?_7([A-Za-z_]\w*)@@6B")
+# A deleting destructor's this-adjustor thunk: `@@` then the access code of a
+# virtual adjustor thunk (G/H private, O/P protected, W/X public) and the
+# encoded displacement (a digit d is d+1; else hex digits A..P ending in `@`).
+ADJUSTOR_THUNK = re.compile(r"\?\?(?:_G|_E)[A-Za-z_]\w*@@[GHOPWX]([0-9]|[A-P]+@)")
+
+
+def adjustor_of(name):
+    """The this-displacement a deleting destructor's adjustor thunk subtracts
+    (`??_EX@@WM@AEPAXI@Z`: 12), or None for any other name."""
+    match = ADJUSTOR_THUNK.match(name or "")
+    if not match:
+        return None
+    code = match.group(1)
+    if code[-1] != "@":
+        return int(code) + 1
+    return int("".join("0123456789ABCDEF"[ord(c) - ord("A")] for c in code[:-1]), 16)
+
+
+def _all_installs(ctx, tables):
+    """sorted [(store rva, table, this offset)] of every retail vftable install."""
+    key = "_all_installs"
+    if key not in ctx._cache:
+        ctx._cache[key] = sorted((store, table, disp) for table, (_slots, installs) in tables.items()
+                                 for store, disp in installs.items())
+    return ctx._cache[key]
+
+
+def own_secondary(ctx, row, tables, disp):
+    """The table special member `row`'s retail body installs as its own at
+    `+disp` (disp != 0): a destructor's or deleting destructor's first store
+    there, a constructor's last (an inlined base constructor stores the base's
+    table first); None when the body stores nothing there."""
+    import bisect
+    start = _rva(row.get("target_rva"))
+    try:
+        end = start + int(row.get("target_size") or 0)
+    except (TypeError, ValueError):
+        return None
+    installs = _all_installs(ctx, tables)
+    k = bisect.bisect_left(installs, (start, -1, -1))
+    stored = []
+    while k < len(installs) and installs[k][0] < end:
+        if installs[k][2] == disp:
+            stored.append(installs[k][1])
+        k += 1
+    if not stored:
+        return None
+    return stored[-1] if special_member(row["name"])[0] == "0" else stored[0]
 
 
 def _primary_installs(ctx, tables):
@@ -4188,10 +4251,30 @@ def owner_rows_at(ctx, address):
     return out
 
 
-def vtable_names_at(ctx, table):
+def live_vtable_names(ctx, rows, table):
+    """{`??_7` symbol: where} that the compiled objects of matched `rows` bind
+    at retail address `table` through a DIR32 relocation (the derivation
+    tools/data_ledger.py makes for every matched row, for these rows only).
+    Empty without an object scan (a scratch root has no objects)."""
+    rows = [r for r in rows if r.get("status") == "matched" and (r.get("target_rva") or "").startswith("0x")
+            and r.get("source", "").lower().endswith((".c", ".cpp"))]
+    if not ctx.object_scan or not rows:
+        return {}
+    import data_ledger
+    found = collections.defaultdict(set)
+    for row in rows:
+        bind = data_ledger.collect_uncached([row])[0]
+        for (symbol, _local), _sites in bind.get(table, {}).items():
+            if symbol.startswith("??_7"):
+                found[symbol].add(row["source"])
+    return {symbol: "a DIR32 binding in " + ", ".join(sorted(sources)) for symbol, sources in sorted(found.items())}
+
+
+def vtable_names_at(ctx, table, rows=()):
     """{`??_7` symbol: where} bound at retail address `table`: a data_rows.csv
     row, or a data_ledger.csv name/names entry (a matched row's DIR32
-    relocation to that symbol reads `table` in retail)."""
+    relocation to that symbol reads `table` in retail), or a binding `rows`'
+    compiled objects make there now (live_vtable_names: the ledger lags)."""
     out = {}
     for data in ctx.dicts(DATA_ROWS):
         if data_rva(data) == table and data.get("name", "").startswith("??_7"):
@@ -4203,6 +4286,8 @@ def vtable_names_at(ctx, table):
             symbol = re.split(r"@(?=(?:Code|reference)/)", symbol.strip())[0]
             if symbol.startswith("??_7"):
                 out.setdefault(symbol, DATA_LEDGER.rsplit("/", 1)[-1])
+    for symbol, where in live_vtable_names(ctx, rows, table).items():
+        out.setdefault(symbol, where)
     return out
 
 
@@ -4250,55 +4335,98 @@ def fold_evidence(ctx, old, new):
                 raise Refusal(f"{at(row)} installs " + ", ".join(f"0x{t + IMAGE_BASE:08X}" for t in stored) +
                               f" but never {va}: {cls} is not that class")
 
-    names = vtable_names_at(ctx, table)
+    installers = [row for cls in (old, new) for row in members[cls]
+                  if table in own_table(ctx, row, tables)[1]]
+    names = vtable_names_at(ctx, table, installers)
     classes = collections.defaultdict(list)
     for symbol, where in sorted(names.items()):
         match = GLOBAL_VTABLE.match(symbol)
         classes[match.group(1) if match else symbol].append(f"{symbol} ({where})")
     if new not in classes:
         raise Refusal(f"retail vftable {va}, which {old}'s rows install as their own, is named "
-                      f"{', '.join(sorted(names)) or 'by nothing'} in data_rows.csv / data_ledger.csv, not "
-                      f"??_7{new}@@6B@: nothing ties {new} to it")
+                      f"{', '.join(sorted(names)) or 'by nothing'} in data_rows.csv / data_ledger.csv / the "
+                      f"installing rows' objects, not ??_7{new}@@6B@: nothing ties {new} to it")
     others = sorted(set(classes) - {old, new})
     if others:
         raise Refusal(f"retail vftable {va} is also named for {', '.join(others)} "
                       f"({'; '.join(w for o in others for w in classes[o])}): a third name for the table")
     evidence.append(f"{va} is named " + ", ".join(w for c in (new, old) for w in classes.get(c, [])))
 
-    slots, installs = tables[table]
-    for store, disp in sorted(installs.items()):
-        if disp:
-            continue
-        for row in owner_rows_at(ctx, store):
-            found = special_member(row["name"])
-            if not found or found[1] in (old, new):
+    # A deleting destructor's adjustor thunk sits on the class's own table for
+    # the base subobject at its displacement, which the rows owning T install
+    # there themselves (own_secondary); every such row must agree on it.
+    secondary = {}                                  # displacement -> (table, installing row)
+    for cls in (old, new):
+        for row in members[cls]:
+            disp = adjustor_of(row["name"])
+            if disp is None or disp in secondary:
                 continue
-            own, _stored = own_table(ctx, row, tables)
-            if own == table:
-                raise Refusal(f"retail vftable {va} is also the own vftable of {found[1]} ({at(row)}): retail "
-                              "ICF-folds identical vftables of distinct classes, so the table proves no single class")
+            seen = {}
+            for owner in installers:
+                if own_table(ctx, owner, tables)[0] != table:
+                    continue
+                found = own_secondary(ctx, owner, tables, disp)
+                if found is not None:
+                    seen.setdefault(found, owner)
+            if not seen:
+                raise Refusal(f"{at(row)} adjusts this by 0x{disp:X}, but no row owning {va} installs a table "
+                              f"at +0x{disp:X}: nothing ties the thunk's table to {va}'s class")
+            if len(seen) > 1:
+                raise Refusal(f"the rows owning {va} install different tables at +0x{disp:X} (" + "; ".join(
+                    f"0x{t + IMAGE_BASE:08X} by {at(r)}" for t, r in sorted(seen.items(), key=lambda x: x[0])) +
+                    f"): {at(row)} has no one subobject table")
+            secondary[disp] = next(iter(seen.items()))
+
+    def subobject(disp):
+        """(table rva, what it is) for this displacement's table of the class."""
+        if not disp:
+            return table, f"retail vftable {va}"
+        other, owner = secondary[disp]
+        return other, f"secondary vftable 0x{other + IMAGE_BASE:08X} (installed at +0x{disp:X} by {at(owner)})"
+
     starting = collections.defaultdict(list)
     for start, _end, row in spans:
         starting[start].append(row)
-    for index, target in enumerate(slots):
-        for row in starting.get(target, []):
-            found = special_member(row["name"])
-            if found and found[0] in ("_G", "_E") and found[1] not in (old, new):
-                raise Refusal(f"retail vftable {va} slot {index} holds {found[1]}'s deleting destructor "
-                              f"({at(row)}): the table is not one class's of {old} and {new}")
+    for disp in [0] + sorted(secondary):
+        checked, what = subobject(disp)
+        slots, installs = tables[checked]
+        for store, at_disp in sorted(installs.items()):
+            for row in owner_rows_at(ctx, store):
+                found = special_member(row["name"])
+                if not found or found[1] in (old, new):
+                    continue
+                if (at_disp == 0 and own_table(ctx, row, tables)[0] == checked) or \
+                        (at_disp and own_secondary(ctx, row, tables, at_disp) == checked):
+                    raise Refusal(f"{what} is also the own vftable of {found[1]} ({at(row)}): retail "
+                                  "ICF-folds identical vftables of distinct classes, so the table proves no single "
+                                  "class")
+        for index, target in enumerate(slots):
+            for row in starting.get(target, []):
+                found = special_member(row["name"])
+                if found and found[0] in ("_G", "_E") and found[1] not in (old, new):
+                    raise Refusal(f"{what} slot {index} holds {found[1]}'s deleting destructor "
+                                  f"({at(row)}): the table is not one class's of {old} and {new}")
     for cls in (old, new):
         for row in members[cls]:
-            if special_member(row["name"])[0] in ("_G", "_E") and _rva(row["target_rva"]) not in slots:
-                raise Refusal(f"{at(row)} is on no slot of retail vftable {va}: {cls}'s table is another one")
-            if special_member(row["name"])[0] in ("_G", "_E"):
-                evidence.append(f"{at(row)} is slot {slots.index(_rva(row['target_rva']))}")
-    for role in ("0", "1", "_G", "_E"):
-        mine = [r for r in members[old] if special_member(r["name"])[0] == role]
-        theirs = [r for r in members[new] if special_member(r["name"])[0] == role]
-        if mine and theirs:
-            raise Refusal(f"both names have a {SPECIAL_ROLE[role]} row ({at(mine[0])}; {at(theirs[0])}): one class "
-                          f"has one (a folded vftable of two classes, or overloads or an ICF alias pair this mode "
-                          "does not merge)")
+            if special_member(row["name"])[0] not in ("_G", "_E"):
+                continue
+            checked, what = subobject(adjustor_of(row["name"]) or 0)
+            slots = tables[checked][0]
+            if _rva(row["target_rva"]) not in slots:
+                raise Refusal(f"{at(row)} is on no slot of {what}: {cls}'s table is another one")
+            evidence.append(f"{at(row)} is slot {slots.index(_rva(row['target_rva']))}" +
+                            (f" of {what}" if checked != table else ""))
+
+    def kind(row):
+        return special_member(row["name"])[0], adjustor_of(row["name"]) or 0
+
+    for key in sorted({kind(r) for r in members[old]} & {kind(r) for r in members[new]}):
+        mine = [r for r in members[old] if kind(r) == key]
+        theirs = [r for r in members[new] if kind(r) == key]
+        thunk = f" (adjustor thunk, this -= 0x{key[1]:X})" if key[1] else ""
+        raise Refusal(f"both names have a {SPECIAL_ROLE[key[0]]}{thunk} row ({at(mine[0])}; {at(theirs[0])}): one "
+                      f"class has one (a folded vftable of two classes, or overloads or an ICF alias pair this mode "
+                      "does not merge)")
     return table, evidence
 
 

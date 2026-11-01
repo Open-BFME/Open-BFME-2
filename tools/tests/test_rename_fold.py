@@ -412,3 +412,226 @@ def test_cli_dry_run(tree, monkeypatch, capsys):
 def test_cli_refuses_mixed_arguments(tree, argv):
     with pytest.raises(SystemExit):
         rename.main(argv + ["--root", str(tree), "--no-claim", "--dry-run"])
+
+
+# ------------------------------------------------------------ several bases
+
+# GlobalWeatherSystem (BFME 2, 0x00318588..0x003186A5) has two bases: its
+# destructor stores its own table at +0 and its own Snapshot-subobject table at
+# +0xC first, then restores the Snapshot base's table at +0xC; its deleting
+# destructor sits in slot 0 of the +0 table and the `this -= 0xC` adjustor
+# thunk ??_E...@@WM@AEPAXI@Z in slot 0 of the +0xC table; the constructor
+# stores the inlined base's +0xC table before its own. One seat rowed the
+# constructor under the real name, another the destructors under Rva00318637.
+MI_OLD = "Rva00502000"
+MI_NEW = "WeatherHub"
+MI_TABLE, MI_SECOND, MI_BASE2 = 0x00800400, 0x00800300, 0x00800500
+MI_CTOR, MI_DTOR, MI_GDTOR, MI_THUNK = 0x00501000, 0x00502000, 0x00502040, 0x00502060
+MI_STORES = {
+    MI_TABLE: ([MI_GDTOR, PURECALL], {0x00501008: 0, 0x00502003: 0}),
+    MI_SECOND: ([MI_THUNK, PURECALL], {0x0050100F: 0xC, 0x0050200A: 0xC}),
+    MI_BASE2: ([PURECALL], {0x00501002: 0xC, 0x00502020: 0xC, 0x00506002: 0}),
+}
+
+MI_FUNCTIONS = f"""name,export_rva,target_rva,target_size,source,status,notes
+??0{MI_NEW}@@QAE@XZ,,0x00501000,40,Code/Game/MiCtor.cpp,matched,ctor stores both own tables
+??1{MI_OLD}@@UAE@XZ,,0x00502000,40,Code/Game/MiDtor.cpp,matched,MI dtor
+??_G{MI_OLD}@@UAEPAXI@Z,,0x00502040,28,Code/Game/MiDtor.cpp,matched,deleting dtor
+??_E{MI_OLD}@@WM@AEPAXI@Z,,0x00502060,8,Code/Game/MiDtor.cpp,matched,this-adjusting (-0xC) thunk
+??0Second@@QAE@XZ,,0x00506000,20,Code/Game/Second.cpp,matched,the second base's ctor
+??0Other@@QAE@XZ,,0x00507000,20,Code/Game/Other.cpp,matched,unrelated ctor
+"""
+
+MI_CTOR_SRC = f"""class First {{ public: virtual ~First(); }};
+class Second {{ public: Second(); virtual void save() = 0; }};
+class {MI_NEW} : public First, public Second
+{{
+public:
+\t{MI_NEW}();
+\tvirtual void save();
+}};
+{MI_NEW}::{MI_NEW}() {{}}
+"""
+
+MI_DTOR_SRC = f"""class First {{ public: virtual ~First(); }};
+class Second {{ public: virtual void save() = 0; }};
+class {MI_OLD} : public First, public Second
+{{
+public:
+\tvirtual ~{MI_OLD}();
+}};
+{MI_OLD}::~{MI_OLD}() {{}}
+"""
+
+
+def mi_ledger(primary=f"??_7{MI_NEW}@@6BFirst@@@"):
+    return ("address,size,section,kind,name,source,status,names,defs,refs\n"
+            f"0x00800300,8,.rdata,vtable,??_7{MI_NEW}@@6BSecond@@@,,literal,,0,2\n"
+            f"0x00800400,8,.rdata,vtable,{primary},,literal,,0,2\n")
+
+
+def make_mi_tree(root, ledger_text=None):
+    files = {
+        "reverse/functions.csv": MI_FUNCTIONS,
+        "reverse/symbols.csv": "name,address,notes\n",
+        "reverse/deleted_rows.csv": "name,target_rva,reason\n",
+        "reverse/data_rows.csv": "name,address,address_kind,size,section,source,status,evidence,model\n",
+        "reverse/data_ledger.csv": mi_ledger() if ledger_text is None else ledger_text,
+        "reverse/exports.csv": "ordinal,rva,target_rva,section,kind,name\n",
+        "reverse/gate_baseline.txt": "",
+        "Code/Game/MiCtor.cpp": MI_CTOR_SRC,
+        "Code/Game/MiDtor.cpp": MI_DTOR_SRC,
+        "Code/Game/Second.cpp": "class Second { public: Second(); };\nSecond::Second() {}\n",
+        "Code/Game/Other.cpp": OTHER,
+    }
+    for rel, text in files.items():
+        path = root / rel
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(text.encode("utf-8"))
+    _git(root, "init", "-q")
+    _git(root, "add", "-A")
+    return root
+
+
+def mi_tables():
+    return {t: (list(slots), dict(stores)) for t, (slots, stores) in MI_STORES.items()}
+
+
+def mi_plan(root):
+    return rename.plan_rename("class", ctx=ctx_of(root), name=MI_OLD, new=MI_NEW, fold=True)
+
+
+@pytest.mark.parametrize("name,disp", [
+    (f"??_E{MI_OLD}@@WM@AEPAXI@Z", 12), (f"??_G{MI_OLD}@@W3AEPAXI@Z", 4),
+    (f"??_E{MI_OLD}@@WBA@AEPAXI@Z", 16), (f"??_E{MI_OLD}@@OM@AEPAXI@Z", 12),
+    (f"??_E{MI_OLD}@@UAEPAXI@Z", None), (f"??1{MI_OLD}@@UAE@XZ", None),
+])
+def test_adjustor_of_decodes_the_thunk_displacement(name, disp):
+    assert rename.adjustor_of(name) == disp
+
+
+def test_fold_accepts_an_adjustor_thunk_on_the_classs_second_table(tmp_path, monkeypatch):
+    """The false reject of 2026-11-01 (re_attempts: ??1Rva00318637@@UAE@XZ): the
+    deleting destructor's adjustor thunk sits on the class's own +0xC table,
+    which the rows owning the +0 table install at +0xC themselves."""
+    root = make_mi_tree(tmp_path)
+    retail(monkeypatch, MI_STORES)
+    p = mi_plan(root)
+    assert p.fold == MI_TABLE
+    assert f"??_G{MI_OLD}@@UAEPAXI@Z at 0x00502040 is slot 0;" in p.evidence + ";"
+    assert (f"??_E{MI_OLD}@@WM@AEPAXI@Z at 0x00502060 is slot 0 of secondary vftable 0x00C00300 "
+            f"(installed at +0xC by ??1{MI_OLD}@@UAE@XZ at 0x00502000)") in p.evidence
+    rename.apply_rename(p, ctx=ctx_of(root), verify=lambda ctx, sources: True)
+    fns = (root / "reverse/functions.csv").read_text()
+    assert f"??_E{MI_NEW}@@WM@AEPAXI@Z,,0x00502060,8" in fns and MI_OLD not in fns
+
+
+def test_refused_when_the_thunks_table_is_not_installed_at_its_displacement(tmp_path, monkeypatch):
+    # the rows owning the +0 table install their second table at +0x10: the
+    # thunk's -0xC names a subobject they do not have
+    root = make_mi_tree(tmp_path)
+    tables = mi_tables()
+    tables[MI_SECOND] = ([MI_THUNK, PURECALL], {0x0050100F: 0x10, 0x0050200A: 0x10})
+    tables[MI_BASE2] = ([PURECALL], {0x00501002: 0x10, 0x00502020: 0x10, 0x00506002: 0})
+    retail(monkeypatch, tables)
+    with pytest.raises(Refusal, match=r"adjusts this by 0xC, but no row owning 0x00C00400 installs a table at \+0xC"):
+        mi_plan(root)
+
+
+def test_refused_when_the_thunk_is_off_the_second_table(tmp_path, monkeypatch):
+    root = make_mi_tree(tmp_path)
+    tables = mi_tables()
+    tables[MI_SECOND] = ([PURECALL, PURECALL], dict(MI_STORES[MI_SECOND][1]))
+    retail(monkeypatch, tables)
+    with pytest.raises(Refusal, match=r"WM@AEPAXI@Z at 0x00502060 is on no slot of secondary vftable 0x00C00300"):
+        mi_plan(root)
+
+
+def test_refused_when_the_thunk_sits_on_the_base_table_restored_there(tmp_path, monkeypatch):
+    # the thunk in a slot of the second base's own table (which the destructor
+    # restores at +0xC last and the constructor stores there first) proves
+    # nothing about this class
+    root = make_mi_tree(tmp_path)
+    tables = mi_tables()
+    tables[MI_SECOND] = ([PURECALL, PURECALL], dict(MI_STORES[MI_SECOND][1]))
+    tables[MI_BASE2] = ([MI_THUNK], dict(MI_STORES[MI_BASE2][1]))
+    retail(monkeypatch, tables)
+    with pytest.raises(Refusal, match="on no slot of secondary vftable 0x00C00300"):
+        mi_plan(root)
+
+
+def test_refused_when_the_rows_disagree_on_the_second_table(tmp_path, monkeypatch):
+    root = make_mi_tree(tmp_path)
+    tables = mi_tables()
+    tables[MI_SECOND] = (list(MI_STORES[MI_SECOND][0]), {0x0050200A: 0xC})
+    tables[OTHER_TABLE] = ([PURECALL], {0x0050100F: 0xC})
+    retail(monkeypatch, tables)
+    with pytest.raises(Refusal, match=r"install different tables at \+0xC"):
+        mi_plan(root)
+
+
+def test_refused_when_a_third_class_owns_the_second_table(tmp_path, monkeypatch):
+    # Other's constructor installs the +0xC table as its own primary table:
+    # retail folded identical tables of distinct classes
+    root = make_mi_tree(tmp_path)
+    tables = mi_tables()
+    tables[MI_SECOND][1][0x00507004] = 0
+    retail(monkeypatch, tables)
+    with pytest.raises(Refusal, match=r"secondary vftable 0x00C00300 .* is also the own vftable of Other"):
+        mi_plan(root)
+
+
+def test_refused_when_the_second_table_holds_a_third_classs_deleting_destructor(tmp_path, monkeypatch):
+    root = make_mi_tree(tmp_path)
+    append(root, "reverse/functions.csv", "??_GOther@@UAEPAXI@Z,,0x00507100,28,Code/Game/Other.cpp,matched,del\n")
+    tables = mi_tables()
+    tables[MI_SECOND][0][1] = 0x00507100
+    retail(monkeypatch, tables)
+    with pytest.raises(Refusal, match=r"secondary vftable 0x00C00300 .* slot 1 holds Other's deleting destructor"):
+        mi_plan(root)
+
+
+def test_a_thunk_and_a_primary_deleting_destructor_are_different_kinds(tmp_path, monkeypatch):
+    # NEW's own scalar deleting destructor and OLD's thunk are two functions;
+    # two primary deleting destructors stay refused
+    root = make_mi_tree(tmp_path)
+    write(root, "reverse/functions.csv", MI_FUNCTIONS.replace(f"??_G{MI_OLD}@@UAEPAXI@Z", f"??_G{MI_NEW}@@UAEPAXI@Z"))
+    retail(monkeypatch, MI_STORES)
+    mi_plan(root)
+    append(root, "reverse/functions.csv", f"??_G{MI_OLD}@@UAEPAXI@Z,,0x00502080,28,Code/Game/MiDtor.cpp,matched,dup\n")
+    tables = mi_tables()
+    tables[MI_TABLE][0][1] = 0x00502080
+    retail(monkeypatch, tables)
+    with pytest.raises(Refusal, match="both names have a deleting destructor row"):
+        mi_plan(root)
+
+
+def test_a_stale_ledger_is_read_through_the_installing_rows_objects(tmp_path, monkeypatch):
+    """data_ledger.csv is a tool-written cache: a row landed after its last
+    regeneration binds its table only in its object. The installing rows'
+    DIR32 bindings (live_vtable_names) supply the name; nothing else does."""
+    root = make_mi_tree(tmp_path, ledger_text=mi_ledger(primary=f"??_7{MI_OLD}@@6BFirst@@@"))
+    retail(monkeypatch, MI_STORES)
+    with pytest.raises(Refusal, match=f"nothing ties {MI_NEW} to it"):
+        mi_plan(root)
+    seen = []
+
+    def live(ctx, rows, table):
+        seen.append(sorted(r["name"] for r in rows))
+        return {f"??_7{MI_NEW}@@6BFirst@@@": "the DIR32 bindings of Code/Game/MiCtor.cpp"} if table == MI_TABLE else {}
+
+    monkeypatch.setattr(rename, "live_vtable_names", live)
+    p = mi_plan(root)
+    assert f"??_7{MI_NEW}@@6BFirst@@@ (the DIR32 bindings of Code/Game/MiCtor.cpp)" in p.evidence
+    assert seen[-1] == [f"??0{MI_NEW}@@QAE@XZ", f"??1{MI_OLD}@@UAE@XZ"]
+    # a third class's name among the live bindings is still a third name
+    monkeypatch.setattr(rename, "live_vtable_names",
+                        lambda ctx, rows, table: {f"??_7{MI_NEW}@@6BFirst@@@": "objects", "??_7Other@@6B@": "objects"}
+                        if table == MI_TABLE else {})
+    with pytest.raises(Refusal, match="also named for Other"):
+        mi_plan(root)
+
+
+def test_live_vtable_names_needs_an_object_scan(tree):
+    ctx = ctx_of(tree)
+    assert rename.live_vtable_names(ctx, ctx.rows(), TABLE) == {}
