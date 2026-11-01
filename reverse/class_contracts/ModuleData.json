@@ -1,0 +1,540 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "ModuleData",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 40,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-dtor-vptr",
+     "sites": [
+      "0x49b47c"
+     ],
+     "value": {
+      "0x0": "0x7bb554"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7bb554"
+     ],
+     "value": {
+      "count": 4,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_ESnapshot@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x1750"
+       },
+       {
+        "name": "__purecall",
+        "slot": 1,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 2,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 3,
+        "target": "0x3b810"
+       }
+      ],
+      "table": "0x7bb554"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {
+   "0x7bb554": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_ESnapshot@@UAEPAXI@Z",
+     "1": "__purecall",
+     "2": "__purecall",
+     "3": "__purecall"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 9,
+   "4": 13,
+   "8": 2,
+   "12": 2,
+   "20": 2,
+   "24": 1,
+   "28": 1,
+   "36": 1,
+   "40": 1,
+   "44": 1,
+   "60": 1,
+   "84": 1,
+   "90": 1,
+   "136": 1,
+   "304": 1,
+   "320": 1
+  },
+  "views": 39,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_ModuleData.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Module.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 17,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 1225
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/AnimationSoundClientBehaviorCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectDoXfer.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/AnimationSoundClientBehaviorCtor.cpp",
+    "Code/GameEngine/Source/Common/EntEnragedUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/ThreatFinderUpdateMapLoadPostProcess.cpp",
+    "Code/Libraries/Source/WWVegas/WWLib/Rva004EC869.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/AnimationSoundClientBehaviorCtor.cpp",
+    "Code/Libraries/Source/WWVegas/WWLib/Rva0031BF1BRemove.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/AnimationSoundClientBehaviorCtor.cpp",
+    "Code/GameEngine/Source/Common/LightPointSystem.cpp",
+    "Code/GameEngine/Source/Common/Rva004214C3Add.cpp",
+    "Code/Libraries/Source/WWVegas/WWLib/Rva004EC869.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/Common/AnimationSoundClientBehaviorCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WWLib/Rva0031BF1BRemove.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_rva0045F4D7.cpp",
+    "Code/Libraries/Source/WWVegas/WWLib/Rva004EC869.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_rva0045F4D7.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/LivingWorldRegionConnectionRva003F287F.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Die/SpecialPowerCompletionDieNotify.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 80,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AIWallBuilder/AIWall.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 89,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390CCA.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 124,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPowerChoice.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 128,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPowerChoice.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 132,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPowerChoice.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 300,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva004FCDCFMethod.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 316,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/Rva0020FD7FFilter.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "slot4",
+   "candidates": {
+    "s04()": 2,
+    "slot04()": 2,
+    "slot4()": 1,
+    "v4()": 1
+   },
+   "class": "ModuleData",
+   "why": "beyond the retail vftable's 4 slots"
+  },
+  {
+   "attribute": "slot5",
+   "candidates": {
+    "s05()": 2,
+    "slot05()": 2,
+    "slot5()": 1,
+    "v5()": 1
+   },
+   "class": "ModuleData",
+   "why": "beyond the retail vftable's 4 slots"
+  },
+  {
+   "attribute": "slot6",
+   "candidates": {
+    "s06()": 2,
+    "slot06()": 2,
+    "slot6()": 1,
+    "v6()": 1
+   },
+   "class": "ModuleData",
+   "why": "beyond the retail vftable's 4 slots"
+  },
+  {
+   "attribute": "slot7",
+   "candidates": {
+    "s07()": 2,
+    "slot07()": 2,
+    "slot7()": 1,
+    "virt(int)": 1
+   },
+   "class": "ModuleData",
+   "why": "beyond the retail vftable's 4 slots"
+  },
+  {
+   "attribute": "slot8",
+   "candidates": {
+    "s08()": 2,
+    "slot08()": 2,
+    "slot8()": 1
+   },
+   "class": "ModuleData",
+   "why": "beyond the retail vftable's 4 slots"
+  },
+  {
+   "attribute": "slot9",
+   "candidates": {
+    "s09()": 2,
+    "slot09()": 2,
+    "slot9()": 1
+   },
+   "class": "ModuleData",
+   "why": "beyond the retail vftable's 4 slots"
+  },
+  {
+   "attribute": "slot10",
+   "candidates": {
+    "s10()": 2,
+    "slot10()": 3
+   },
+   "class": "ModuleData",
+   "why": "beyond the retail vftable's 4 slots"
+  },
+  {
+   "attribute": "slot11",
+   "candidates": {
+    "s11()": 2,
+    "slot11()": 3
+   },
+   "class": "ModuleData",
+   "why": "beyond the retail vftable's 4 slots"
+  },
+  {
+   "attribute": "slot12",
+   "candidates": {
+    "s12()": 2,
+    "slot12()": 3
+   },
+   "class": "ModuleData",
+   "why": "beyond the retail vftable's 4 slots"
+  },
+  {
+   "attribute": "slot13",
+   "candidates": {
+    "s13()": 2,
+    "slot13()": 3
+   },
+   "class": "ModuleData",
+   "why": "beyond the retail vftable's 4 slots"
+  },
+  {
+   "attribute": "slot14",
+   "candidates": {
+    "s14()": 2,
+    "slot14()": 3
+   },
+   "class": "ModuleData",
+   "why": "beyond the retail vftable's 4 slots"
+  },
+  {
+   "attribute": "slot15",
+   "candidates": {
+    "s15()": 2,
+    "slot15()": 3
+   },
+   "class": "ModuleData",
+   "why": "beyond the retail vftable's 4 slots"
+  },
+  {
+   "attribute": "slot16",
+   "candidates": {
+    "getAsW3DTreeDrawModuleData()": 2,
+    "s16()": 2,
+    "slot16()": 1
+   },
+   "class": "ModuleData",
+   "why": "beyond the retail vftable's 4 slots"
+  },
+  {
+   "attribute": "slot17",
+   "candidates": {
+    "s17()": 2,
+    "slot17()": 1
+   },
+   "class": "ModuleData",
+   "why": "beyond the retail vftable's 4 slots"
+  },
+  {
+   "attribute": "slot18",
+   "candidates": {
+    "s18()": 1,
+    "slot18()": 1
+   },
+   "class": "ModuleData",
+   "why": "beyond the retail vftable's 4 slots"
+  },
+  {
+   "attribute": "slot19",
+   "candidates": {
+    "s19()": 1,
+    "slot19()": 1
+   },
+   "class": "ModuleData",
+   "why": "beyond the retail vftable's 4 slots"
+  },
+  {
+   "attribute": "slot20",
+   "candidates": {
+    "s20()": 1,
+    "slot20()": 1
+   },
+   "class": "ModuleData",
+   "why": "beyond the retail vftable's 4 slots"
+  },
+  {
+   "attribute": "slot21",
+   "candidates": {
+    "getHordeModuleData()": 1,
+    "s21()": 1
+   },
+   "class": "ModuleData",
+   "why": "beyond the retail vftable's 4 slots"
+  },
+  {
+   "attribute": "slot22",
+   "candidates": {
+    "getMinimumRequiredGameLOD()": 1
+   },
+   "class": "ModuleData",
+   "why": "beyond the retail vftable's 4 slots"
+  },
+  {
+   "attribute": "slot23",
+   "candidates": {
+    "s23()": 1
+   },
+   "class": "ModuleData",
+   "why": "beyond the retail vftable's 4 slots"
+  },
+  {
+   "attribute": "slot24",
+   "candidates": {
+    "s24()": 1
+   },
+   "class": "ModuleData",
+   "why": "beyond the retail vftable's 4 slots"
+  },
+  {
+   "attribute": "slot25",
+   "candidates": {
+    "s25()": 1
+   },
+   "class": "ModuleData",
+   "why": "beyond the retail vftable's 4 slots"
+  },
+  {
+   "attribute": "slot26",
+   "candidates": {
+    "s26()": 1
+   },
+   "class": "ModuleData",
+   "why": "beyond the retail vftable's 4 slots"
+  },
+  {
+   "attribute": "slot27",
+   "candidates": {
+    "s27()": 1
+   },
+   "class": "ModuleData",
+   "why": "beyond the retail vftable's 4 slots"
+  },
+  {
+   "attribute": "slot28",
+   "candidates": {
+    "s28()": 1
+   },
+   "class": "ModuleData",
+   "why": "beyond the retail vftable's 4 slots"
+  },
+  {
+   "attribute": "slot29",
+   "candidates": {
+    "s29()": 1
+   },
+   "class": "ModuleData",
+   "why": "beyond the retail vftable's 4 slots"
+  },
+  {
+   "attribute": "slot30",
+   "candidates": {
+    "rva78()": 1
+   },
+   "class": "ModuleData",
+   "why": "beyond the retail vftable's 4 slots"
+  },
+  {
+   "attribute": "slot1",
+   "candidates": {
+    "s01()": 2,
+    "slot01()": 2,
+    "slot1()": 1,
+    "v1()": 1
+   },
+   "class": "ModuleData"
+  },
+  {
+   "attribute": "slot2",
+   "candidates": {
+    "s02()": 2,
+    "slot02()": 2,
+    "slot2()": 1,
+    "v2()": 1
+   },
+   "class": "ModuleData"
+  },
+  {
+   "attribute": "slot3",
+   "candidates": {
+    "s03()": 2,
+    "slot03()": 2,
+    "slot3()": 1,
+    "v3()": 1
+   },
+   "class": "ModuleData"
+  }
+ ],
+ "size": 4,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}

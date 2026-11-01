@@ -219,3 +219,4 @@ XferException,Code/GameEngine/Include/Common/XferException.h,existing header; co
 TreeHintRef00217D4C,Code/Libraries/Source/Apt/AptRefTarget.h,existing header; contract class_contracts/TreeHintRef00217D4C.json; 69/156 sampled units adopt
 LivingWorldLogic,Code/GameEngine/Include/GameLogic/LivingWorldLogic.h,existing header; contract class_contracts/LivingWorldLogic.json; 42/107 sampled units adopt
 EAStringC,Code/Libraries/Source/Apt/EAStringC.h,existing header; contract class_contracts/EAStringC.json; 85/113 sampled units adopt
+ModuleData,Code/GameEngine/Include/Common/ModuleData.h,existing header; contract class_contracts/ModuleData.json; 32/112 sampled units adopt
