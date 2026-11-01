@@ -88,11 +88,10 @@ class GrabContainView {public:
 struct GrabThingView {char head[0x115];unsigned char flag115;};
 struct GrabObjectView {char head[4];GrabThingView *what;char rest8[0x38-8];Coord3D position;char rest44[0x250-0x44];GrabContainView *contain;};
 struct GrabDataView {char head[0xC];bool startsAttack;};
-class BehaviorModule {public:virtual ~BehaviorModule();protected:const GrabDataView *data;Object *owner;};
-class BehaviorModuleInterface {public:virtual void anchor();};
-class SpecialPowerModule:public BehaviorModule,public BehaviorModuleInterface,public SpecialPowerModuleInterface {
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
+class SpecialPowerModule:public BehaviorModule,public SpecialPowerModuleInterface {
 public:void initiateIntentToDoSpecialPower(const Object*,const Coord3D*,unsigned,const Waypoint*);void triggerSpecialPower(const Coord3D*);
-protected:char spare14[8];int paused;Object *getOwner()const{return owner;}const GrabDataView *getData()const{return data;}
+protected:char spare14[8];int paused;Object *getOwner()const{return m_object;}const GrabDataView *getData()const{return reinterpret_cast<const GrabDataView *>(m_moduleData);}
 };
 class GrabPassengerSpecialPower:public SpecialPowerModule {public:virtual void doSpecialPowerAtObject(Object*,unsigned);};
 

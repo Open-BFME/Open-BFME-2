@@ -65,15 +65,7 @@ Bool bfmeRva000387C0(void);
 
 class ModuleData;
 
-class BehaviorModule
-{
-public:
-	virtual ~BehaviorModule();
-protected:
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-};
-struct BehaviorModuleInterface { virtual void f0C(); };
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class SpecialPowerModuleInterface
 {
@@ -86,13 +78,14 @@ public:
 	virtual void slot12(const Coord3D *pos, int options) = 0;
 };
 
-class SpecialPowerModule : public BehaviorModule, public BehaviorModuleInterface, public SpecialPowerModuleInterface
+class SpecialPowerModule : public BehaviorModule, public SpecialPowerModuleInterface
 {
 };
 
 class DevastateSpecialPower : public SpecialPowerModule
 {
 public:
+	using SpecialPowerModuleInterface::slot12;
 	virtual void doSpecialPower(int options);
 	virtual void doSpecialPowerAtObject(Object *target, int options);
 };
