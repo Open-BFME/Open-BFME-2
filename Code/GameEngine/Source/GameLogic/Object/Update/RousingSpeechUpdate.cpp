@@ -110,11 +110,7 @@ class SpecialPowerUpdateInterface
 public:
 	virtual void specialPowerUpdateAnchor();
 };
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 extern GameLogic *TheGameLogic;
 // BFME2's partition filters (the view AIStructureCreepTactic.cpp documents):

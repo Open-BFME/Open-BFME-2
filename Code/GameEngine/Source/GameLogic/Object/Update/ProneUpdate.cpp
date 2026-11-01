@@ -114,11 +114,7 @@ enum NameKeyType
 // (0x002533CD), 3 xfer (0x0044DF9F), 4 getModuleNameKey (__purecall in
 // UpdateModule's, 0x0049FE9A in ProneUpdate's).
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

@@ -63,10 +63,7 @@ class Thing {
   public:
     Drawable *getDrawable() const;
 };
-class NameKeyGenerator {
-  public:
-    NameKeyType nameToKey(const char *);
-};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 class Rva00373EC6;
 class StealthUpdate {

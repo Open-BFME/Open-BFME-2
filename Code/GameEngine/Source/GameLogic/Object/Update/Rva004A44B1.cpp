@@ -18,11 +18,7 @@ class BoneFXUpdate;
 class GameLogic;
 class NameKeyGenerator;
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *s);
-};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 
 #include "../../../../Include/Common/Module.h"
 
