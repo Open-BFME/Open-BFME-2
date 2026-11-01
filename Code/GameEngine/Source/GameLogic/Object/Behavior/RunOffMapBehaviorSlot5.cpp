@@ -81,7 +81,7 @@ class Object : public Thing {public:
 class Rva00294D61 {public:void report(Object *,int);};
 
 extern GameLogic *TheGameLogic;
-class Pathfinder {public:bool QuickDoesPathExist(Object *,const Coord3D *,const Coord3D *,int);};
+#include "../../../../Include/GameLogic/AIPathfind.h"
 class AI;extern AI *TheAI;
 struct RunOffAIView {char pad00[0x10];Pathfinder *pathfinder;};
 struct RunOffWaypointView {char pad00[0xc];Coord3D position;};

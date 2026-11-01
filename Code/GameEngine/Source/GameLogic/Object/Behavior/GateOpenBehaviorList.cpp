@@ -75,11 +75,7 @@ public:
 	Coord3D rva004EBF4B();
 };
 
-class Pathfinder
-{
-public:
-	bool QuickDoesPathExist(Object *obj, const Coord3D *from, const Coord3D *to, int flags);
-};
+#include "../../../../Include/GameLogic/AIPathfind.h"
 
 class AI
 {

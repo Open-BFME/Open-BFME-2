@@ -208,7 +208,7 @@ bool HordeMeleeAmoeba::rva0058776E(int index,Coord3D *result)
 
 struct Rva00588195Elem { float m_key; unsigned int m_04,m_08; };
 namespace _STL { template<class Iterator> void sort(Iterator,Iterator); }
-class Pathfinder { public: bool rva002F07F5(Object *,const Coord3D *); };
+#include "../../../../../Include/GameLogic/AIPathfind.h"
 struct AmoebaAIManager { unsigned char pad[0x10]; Pathfinder *pathfinder; };
 class AI; extern AI *TheAI;
 class Rva001E42F2 { public: void rva001E42F2(const int *); };

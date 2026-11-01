@@ -99,12 +99,7 @@ class GlobalData;
 extern GlobalData *TheWritableGlobalData;
 struct Rva003909FAGlobalDataView { unsigned char m_pad[0xC4]; float m_gravity; };
 extern int BfmeLogicFramesPerSecond;
-class Pathfinder
-{
-public:
-	void AdjustFlingDestination(Object *obj, const Coord3D *from, Coord3D *to); // row 0x002EE4DE
-	void AdjustLayer(Object *);
-};
+#include "../../../../Include/GameLogic/AIPathfind.h"
 class AI;
 extern AI *TheAI;
 struct Rva003909FAAIView { unsigned char m_pad[0x10]; Pathfinder *m_pathfinder; };

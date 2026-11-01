@@ -15,11 +15,7 @@
 
 class Object;
 
-class Pathfinder
-{
-public:
-	bool getClosestPointOnLand(const Coord3D *pos, Object *obj, Coord3D *dest);
-};
+#include "../../../../Include/GameLogic/AIPathfind.h"
 
 #include "../../../../Include/GameLogic/AI.h"
 extern AI *TheAI;

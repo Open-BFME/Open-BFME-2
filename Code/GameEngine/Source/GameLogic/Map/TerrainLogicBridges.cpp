@@ -371,16 +371,7 @@ struct Rva002ED236Pos
 	~Rva002ED236Pos() {}
 };
 
-class Pathfinder
-{
-public:
-	Bool rva002E9442(const Vector3 &from, const Vector3 &to, Vector3 *pos);
-	Bool IsPointOnRamp(const Coord3D *pos);
-	PathfindLayerEnum rva002ED236(Object *obj, Rva002ED236Pos pos);
-	// 0x002E7205: Zero Hour's changeBridgeState(layer, repaired), named
-	// SetBridgeStateRepaired in WorldBuilder.
-	void SetBridgeStateRepaired(Int layer, Bool repaired);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 // TheAI's pathfinder at +0x10.
 #include "../../../Include/GameLogic/AI.h"

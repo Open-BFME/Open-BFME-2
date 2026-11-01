@@ -590,12 +590,7 @@ public:
 
 extern GameLogic *TheGameLogic;
 
-class Pathfinder
-{
-public:
-	void AddObjectToPathfindMap(Object *obj);	// 0x002E7178
-	void RemoveObjectFromPathfindMap(Object *obj);	// 0x002E718A
-};
+#include "../../../../Include/GameLogic/AIPathfind.h"
 
 class AIData
 {

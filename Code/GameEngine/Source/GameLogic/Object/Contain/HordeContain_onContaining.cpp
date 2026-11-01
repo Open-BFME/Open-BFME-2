@@ -61,7 +61,7 @@ struct ContainModuleInterface {virtual void onContaining(Object*,bool)=0;};
 class OpenContain:public ContainModuleInterface {public:virtual void onContaining(Object*,bool);};
 struct Rva0046E6EAObject;struct Rva0046E6EACoord;
 class Rva0046E6EA {public:bool rva0046E6EA(Rva0046E6EAObject*,const Rva0046E6EACoord*,Rva0046E6EACoord*,bool);};
-class Pathfinder {public:int GetGroundLayer(const Coord3D*);};
+#include "../../../../Include/GameLogic/AIPathfind.h"
 class AI {public:char p00[0x10];Pathfinder*pathfinder;};extern AI*TheAI;
 class GlobalData;extern GlobalData*TheWritableGlobalData;
 struct RvaGlobalData9A6 {char p[0x9a6];bool flag;};

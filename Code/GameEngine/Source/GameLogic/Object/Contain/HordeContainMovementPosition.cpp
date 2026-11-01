@@ -159,11 +159,7 @@ enum PathfindLayerEnum
 
 #include "../../../../Include/GameLogic/TerrainLogic.h"
 
-class Pathfinder
-{
-  public:
-    void *getObstacleID(int layer, int pos);
-};
+#include "../../../../Include/GameLogic/AIPathfind.h"
 
 class AI
 {

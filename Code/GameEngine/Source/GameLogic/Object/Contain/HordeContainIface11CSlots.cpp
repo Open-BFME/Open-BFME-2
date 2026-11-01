@@ -188,17 +188,7 @@ struct Rva002A8AB1Record : SkirmishAI
 #include "../../../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
 class LocomotorSet;
-class Pathfinder
-{
-public:
-	bool IsPointOnWall(int pos, bool flag);
-	void AdjustLayer(Object *obj);
-	bool AdjustDestination(Object *obj, const LocomotorSet &locomotorSet, Coord3D *dest, const Coord3D *groupDest);
-	bool IsPointOnRamp(const Coord3D *pos);
-	void RemoveObjectFromPathfindMap(Object *object);
-	void RemoveObjectGoalFromPathfindMap(Object *object);
-	bool IsValidMovementPositionForObject(const Coord3D *pos, int layer, int surfaces, const Object *obj);
-};
+#include "../../../../Include/GameLogic/AIPathfind.h"
 struct Rva00372571Params
 {
 	const Coord3D *m_pos;

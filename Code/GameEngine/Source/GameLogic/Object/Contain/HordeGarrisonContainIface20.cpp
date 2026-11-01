@@ -70,10 +70,7 @@ class Object {public:
  char opaque00[0x38]; Coord3D position;
  char opaque44[0x250-0x44]; AdmissionAIView *ai;AdmissionBodyView *body;
 };
-class Pathfinder {public:
- bool QuickDoesPathExist(Object*,const Coord3D*,const Coord3D*,int);
- bool QuickDoesPathExistToStructure(Object*,const Coord3D*,Object*,int);
-};
+#include "../../../../Include/GameLogic/AIPathfind.h"
 class AI {public: char opaque00[0x10];Pathfinder *pathfinder;};
 extern AI *TheAI;
 class OpenContain {public: virtual bool isValidContainerFor(Object*,bool,bool);};

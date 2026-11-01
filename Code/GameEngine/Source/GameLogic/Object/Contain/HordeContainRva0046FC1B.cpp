@@ -68,7 +68,7 @@ struct Rva002ED236Pos {
     Rva002ED236Pos(const Coord3D &pos) { x=pos.x; y=pos.y; z=pos.z; }
     ~Rva002ED236Pos() {}
 };
-class Pathfinder { public: PathfindLayerEnum rva002ED236(Object *, Rva002ED236Pos); };
+#include "../../../../Include/GameLogic/AIPathfind.h"
 class AI;
 extern AI *TheAI;
 class GameLogic;

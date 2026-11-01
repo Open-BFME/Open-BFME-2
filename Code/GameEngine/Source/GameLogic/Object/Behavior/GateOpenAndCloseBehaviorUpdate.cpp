@@ -139,12 +139,7 @@ private:
 	unsigned char m_438; // +0x438
 };
 
-class Pathfinder
-{
-public:
-	void RemoveObjectFromPathfindMapKeepingGateFlags(Object *object);
-	void AddObjectToPathfindMap(Object *object);
-};
+#include "../../../../Include/GameLogic/AIPathfind.h"
 
 #include "../../../../Include/GameLogic/AI.h"
 extern AI *TheAI;

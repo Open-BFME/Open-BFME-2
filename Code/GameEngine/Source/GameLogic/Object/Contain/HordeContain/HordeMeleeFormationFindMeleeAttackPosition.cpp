@@ -118,13 +118,7 @@ public:
 	unsigned char flags;				// +0x438
 };
 
-class Pathfinder
-{
-public:
-	Int GetOverlapGoalUnits(Object *obj, const Coord3D *pos, Int *ids);
-	Bool IsHordeMeleeLinePassable(void *obj, void *locomotorSet, PathfindLayerEnum layer, const Coord3D *from, const Coord3D *to);
-	Bool rva002EDFF9(Object *obj, Coord3D *pos);
-};
+#include "../../../../../Include/GameLogic/AIPathfind.h"
 
 class AI
 {

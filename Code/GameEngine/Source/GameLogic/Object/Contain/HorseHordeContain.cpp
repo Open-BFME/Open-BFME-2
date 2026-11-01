@@ -217,7 +217,7 @@ __forceinline void set11C(unsigned mask){int bit=mask==0x100?136:135;if(!model.t
 
 };
 
-class Pathfinder {public:bool IsValidMovementPositionForObject(const Coord3D*,int,int,const Object*);};
+#include "../../../../Include/GameLogic/AIPathfind.h"
 
 class AI {public:char pad[0x10];Pathfinder*pathfinder;};
 

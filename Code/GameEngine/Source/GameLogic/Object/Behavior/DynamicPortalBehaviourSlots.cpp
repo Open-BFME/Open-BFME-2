@@ -156,12 +156,7 @@ class Rva00272C42
 public:
     void rva00272C42(const char *text);
 };
-class Pathfinder
-{
-public:
-    void RemoveObjectFromPathfindMap(Object *);
-    void AddObjectToPathfindMap(Object *);
-};
+#include "../../../../Include/GameLogic/AIPathfind.h"
 class AI
 {
 public:

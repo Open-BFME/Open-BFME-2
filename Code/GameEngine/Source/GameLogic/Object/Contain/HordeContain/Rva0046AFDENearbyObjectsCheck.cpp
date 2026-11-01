@@ -25,10 +25,7 @@ public:
     char pad078[0x274 - 0x78];
     Object *containedBy;
 };
-class Pathfinder {
-public:
-    int GetOverlapGoalUnits(Object *, const Coord3D *, int *);
-};
+#include "../../../../../Include/GameLogic/AIPathfind.h"
 class AI {
 public:
     char pad000[0x10];

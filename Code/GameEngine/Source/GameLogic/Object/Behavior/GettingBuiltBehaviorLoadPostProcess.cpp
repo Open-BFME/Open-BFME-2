@@ -57,12 +57,7 @@ public:
 	unsigned char m_438;
 };
 
-class Pathfinder
-{
-public:
-	void RemoveObjectFromPathfindMap(Object *object);
-	void AddObjectToPathfindMap(Object *);
-};
+#include "../../../../Include/GameLogic/AIPathfind.h"
 
 #include "../../../../Include/GameLogic/AI.h"
 

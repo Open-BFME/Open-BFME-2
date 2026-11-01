@@ -100,12 +100,7 @@ private:
 
 extern PlayerList *ThePlayerList;
 
-class Pathfinder
-{
-public:
-	void RemoveObjectFromPathfindMap(Object *obj);
-	void AddObjectToPathfindMap(Object *obj);
-};
+#include "../../../../Include/GameLogic/AIPathfind.h"
 
 #include "../../../../Include/GameLogic/AI.h"
 

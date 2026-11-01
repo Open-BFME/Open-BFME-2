@@ -143,11 +143,7 @@ public:
 };
 
 
-class Pathfinder {
-public:
- bool QuickDoesPathExist(Object*,const Coord3D*,const Coord3D*,int);
- bool QuickDoesPathExistToStructure(Object*,const Coord3D*,Object*,int);
-};
+#include "../../../../Include/GameLogic/AIPathfind.h"
 class AI {public:char unknown00[0x10];Pathfinder *pathfinder;};
 extern AI *TheAI;
 class CitadelSlaughterHordeContain : public SlaughterHordeContain {

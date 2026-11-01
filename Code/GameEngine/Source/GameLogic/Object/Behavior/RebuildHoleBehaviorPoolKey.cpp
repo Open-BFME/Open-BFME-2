@@ -50,11 +50,7 @@ public:
 	void setSelectable(bool selectable);			// 0x0028B76D
 };
 
-class Pathfinder
-{
-public:
-	void AddObjectToPathfindMap(Object *obj);		// 0x002E7178
-};
+#include "../../../../Include/GameLogic/AIPathfind.h"
 
 #include "../../../../Include/GameLogic/AI.h"
 

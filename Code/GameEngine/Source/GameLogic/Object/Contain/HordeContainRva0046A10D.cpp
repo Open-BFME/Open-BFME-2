@@ -18,14 +18,7 @@
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 class Object;
 class LocomotorSet {};
-class Pathfinder
-{
-public:
-    bool AdjustDestination(Object *object,
-        const LocomotorSet &locomotorSet,
-        Coord3D *destination,
-        const Coord3D *groupDestination);
-};
+#include "../../../../Include/GameLogic/AIPathfind.h"
 template <int N> class Rva0046A10DAISlots : public Rva0046A10DAISlots<N - 1>
 {
 public:

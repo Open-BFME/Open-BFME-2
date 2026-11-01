@@ -38,7 +38,7 @@ enum NameKeyType{NAMEKEY_INVALID=0};
 extern NameKeyGenerator*TheNameKeyGenerator;
 #include "../../../../Include/Common/PlayerList.h"
 extern PlayerList*ThePlayerList;
-class Pathfinder{public:void AddObjectToPathfindMap(Object*);};
+#include "../../../../Include/GameLogic/AIPathfind.h"
 class AI{public:char prefix[0x10];Pathfinder*pathfinder;};
 extern AI*TheAI;
 void CastleBehavior::rva0039A7D6(){

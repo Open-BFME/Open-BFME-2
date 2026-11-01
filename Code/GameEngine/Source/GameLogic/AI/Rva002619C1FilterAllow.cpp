@@ -41,12 +41,7 @@ public:
 	GeometryInfo m_geo;
 };
 
-class Pathfinder
-{
-public:
-	int rva002EE96B(Coord3D *a, const Coord3D *b);
-	bool isViewBlockedByObstacle(const Object *a, const Object *b);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 #include "../../../Include/GameLogic/AI.h"
 

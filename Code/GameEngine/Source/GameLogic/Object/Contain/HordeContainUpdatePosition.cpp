@@ -358,14 +358,7 @@ class Eva {
 };
 extern Eva *TheEva;
 
-class Pathfinder {
-  public:
-    bool rva002EE49B(Object *, Rva002EE49BPosition, Rva002EE49BPosition);
-    int CountOverlapHordeGoalUnits(Object *, const Coord3D *);
-    bool IsValidObjectMovement(Object *, const Coord3D *, const Coord3D *);
-    bool IsValidMovementPositionForObject(const Coord3D *, int, int, const Object *);
-    void *getObstacleID(int, int);
-};
+#include "../../../../Include/GameLogic/AIPathfind.h"
 class AI {
   public:
     Pathfinder *getPathfinder() const { return pathfinder; }

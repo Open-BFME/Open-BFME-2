@@ -561,12 +561,7 @@ public:
 
 extern PartitionManager *ThePartitionManager;
 
-class Pathfinder
-{
-public:
-	void RemoveObjectFromPathfindMapKeepingGateFlags(Object *object);
-	void AddObjectToPathfindMap(Object *object);
-};
+#include "../../../../Include/GameLogic/AIPathfind.h"
 
 class AI
 {

@@ -236,7 +236,7 @@ typedef char PortalPointSize[(sizeof(BfmeRadarWorldPoint)==12)?1:-1];
 
 struct PortalQueryPoint {float x,y,z;__forceinline PortalQueryPoint(const Coord3D&r){x=r.x;y=r.y;z=r.z;}};
 
-class Pathfinder {public:bool IsPointOnWall(int,bool);};
+#include "../../../../Include/GameLogic/AIPathfind.h"
 
 struct PortalAIView {char pad0[0x10];Pathfinder *pathfinder;};
 

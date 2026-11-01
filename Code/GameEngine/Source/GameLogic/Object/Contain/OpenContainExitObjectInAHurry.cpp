@@ -117,7 +117,7 @@ public:
  char pad4[0x20-4];AICommandInterface commands;char pad24[0x30-0x24];AIGoalView *goalView;char pad34[0x148-0x34];Coord3D position148;char pad154[0x178-0x154];unsigned int ignoreCollisionUntil;char pad17c[0x1cc-0x17c];
  LocomotorSet &locomotorSet(){return *(LocomotorSet*)((char*)this+0x1cc);}
 };
-class Pathfinder {public:void AddObjectToPathfindMap(Object*);bool adjustToPossibleDestination(Object*,const LocomotorSet&,Coord3D*);bool getClosestPointOnLand(const Coord3D*,Object*,Coord3D*);};
+#include "../../../../Include/GameLogic/AIPathfind.h"
 class AI {public:char pad[0x10];Pathfinder *pathfinder;Pathfinder *getPathfinder(){return pathfinder;}};extern AI *TheAI;
 extern GameLogic *TheGameLogic;
 extern int BfmeLogicFramesPerSecond;

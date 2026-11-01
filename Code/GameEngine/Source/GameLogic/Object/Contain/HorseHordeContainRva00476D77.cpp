@@ -175,7 +175,7 @@ void nextPosition(const Coord3D*p){future=*p;futureValid=true;}
 __forceinline void clear11C(unsigned mask){if(model11C&mask){model11C &=~mask;rva0028AE6D();}}
 __forceinline void set11C(unsigned mask){if(!(model11C&mask)){model11C|=mask;rva0028AE6D();}}
 };
-class Pathfinder {public:bool rva002EF3EE(Object*,Coord3D*,Object*,bool);bool IsValidMovementPositionForObject(const Coord3D*,int,int,const Object*);};
+#include "../../../../Include/GameLogic/AIPathfind.h"
 class AI {public:char pad[0x10];Pathfinder*pathfinder;};extern AI*TheAI;
 #include "../../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic*TheTerrainLogic;

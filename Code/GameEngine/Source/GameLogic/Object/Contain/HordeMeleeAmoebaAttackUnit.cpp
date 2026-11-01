@@ -106,10 +106,7 @@ void HordeMeleeAmoeba::AttackUnit(Object *attacker, Object *victim)
 // Native22B cdecl wrapper at58723D. The direct987B callee operates on
 // two Object pointers and returns the selected Object* (or null) in EAX.
 // The original wrapper and pathfinder-member names remain unknown.
-class Pathfinder {
-public:
- Object *rva002F14F9(Object *unit,Object *current);
-};
+#include "../../../../Include/GameLogic/AIPathfind.h"
 class AI {
  char m_pad[0x10]; Pathfinder *m_pathfinder;
 public:

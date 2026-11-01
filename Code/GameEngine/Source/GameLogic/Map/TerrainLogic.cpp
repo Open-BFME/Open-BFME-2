@@ -1488,19 +1488,7 @@ public:
 	char m_pad24[0x7C - 0x24];
 };
 
-class Pathfinder
-{
-public:
-	bool QuickDoesPathExist(class Object *obj, const struct Coord3D *from, const struct Coord3D *to, int v);
-	bool IsGroundLineOnly(const struct Coord3D *lhs, const struct Coord3D *rhs);
-	Bool IsImpassableCell(int,int);
-	Bool rva002E9442(const Vector3 &from, const Vector3 &to, Vector3 *pos);
-	Bool IsPointOnRamp(const Coord3D *pos);
-	PathfindLayerEnum rva002ED236(Object *obj, Rva002ED236Pos pos);
-	void SetBridgeStateRepaired(Int layer, Bool repaired);
-	void ForceMapRecalculation();
-	Int AddBridge(Int bridge);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 struct TBridgeAttackInfo
 {
