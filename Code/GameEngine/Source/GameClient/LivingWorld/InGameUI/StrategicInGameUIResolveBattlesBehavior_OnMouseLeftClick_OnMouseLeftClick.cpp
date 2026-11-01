@@ -118,27 +118,8 @@ struct ResolveBattleWorldView
     char unknown00[0xB0];
     LivingWorldRegionManager *regionManager;
 };
-struct ResolveBattleResultView
-{
-    char unknown00[0x3C];
-    int state;
-};
 class Object;
-class Rva00575674 { public: void rva00575674(Object *); };
-class Rva00576591
-{
-public:
-    Rva00576591(void *owner);
-private:
-    char nativeStorage[12];
-};
-
-
 class Rva00576BDDDispute;
-class Rva002B8817 { public: void rva002B8817(void *, void *); };
-class Rva005768CBCall { public: void rva005768CB(void *); };
-
-
 class PendingBattleVisitor {
 public:
  virtual bool Visit(LivingWorldPendingBattle *) = 0;
@@ -284,30 +265,3 @@ int StrategicInGameUI::ResolveBattlesBehavior::Impl::OnMouseLeftClick(const IReg
 
 // 0x0057539C is rowed as Rva00575383's member forwarder (Rva0057539CForwarders.cpp).
 class Rva00575383 { public: void rva0057539C(); };
-class Rva005CD010 { public: void rva005CD010(); };
-class Rva005CCEB6 { public: void rva005CCEB6(); };
-class Rva005CD708 { public: void rva005CD708(); };
-class Rva005D14AB { public: void rva005D14AB(); };
-class Rva000AD6F4 { public: void clear(); };
-class Rva002B5EB5 { public: bool IsLocalPlayerAllowedToEndPhase(); };
-class Rva0042D6AEPtrChaseField { public: int get() const; };
-class ResolveUpdateAction {
-public:
- virtual void slot0();
- virtual void slot1();
- virtual void Update();
-};
-struct ResolveUpdateUIHolder { void *unknown00; Rva00328A83PtrChaseField *impl; };
-struct ResolveUpdateWorldView { char unknown00[0x98]; void *localPlayer; };
-struct ResolveUpdateImplView {
- char unknown00[0x10];
- ResolveUpdateUIHolder *ui;
- void *viewer;
- void *localPlayer;
- ResolveUpdateAction *battleState;
- char phaseEnder[16];
- char statusDisplayer[16];
- Rva005D14AB *ownershipState;
- bool endPhaseRequested;
-};
-

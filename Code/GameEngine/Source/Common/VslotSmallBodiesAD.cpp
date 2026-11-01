@@ -26,12 +26,6 @@ public:
 	bool rva0029493F(Object *victim, int mode);
 	bool isKindOf(KindOfType t) const;
 };
-struct Rva00349D02Machine
-{
-	char m_pad00[0x14];
-	Object *m_owner14;
-};
-
 // 0x00260E44: whether the object at VA 0x00DFECC4 exists and its pinned
 // 0x00288CFA accepts the argument's +0x264 word.
 class Rva00288CFA
@@ -87,17 +81,6 @@ bool Rva0026156C::allow(Object *candidate)
 
 // 0x00349D02 (AI state tables): the pinned 0x003497E6 result, setting or
 // clearing status 0x1C on the owner as it is -1.
-class Rva00349D02
-{
-public:
-	Int update();
-	Int rva003497E6();
-private:
-	char m_pad00[0x18];
-	Rva00349D02Machine *m_18;
-};
-
-
 // 0x00359729: HotKeyManager::translate (0x00359556, rowed in
 // MessageStream/HotKey.cpp) of the manager at VA 0x00E01E28 with the
 // argument, 0 without the manager.
@@ -113,12 +96,6 @@ public:
 	GameMessageDisposition translate(const GameMessage *msg);
 };
 extern HotKeyManager *TheHotKeyManager;
-class HotKeyTranslator
-{
-public:
-	virtual GameMessageDisposition translateGameMessage(const GameMessage *msg);
-};
-
 // 0x003AFE24 and 0x003AFE36: GPU resource access through the manager
 // at VA 0x00DFDD04; return zero if it is absent. Providers are byte-verified
 // in ParticleSystemManagerGetShaderSetup.cpp (1F4002 and 1F40AF).
@@ -152,40 +129,8 @@ Int Rva003AFE24::rva003AFE36()
 }
 
 // 0x003C35F7: the pinned 0x003C35AA with both arguments and true.
-class Rva003C35F7
-{
-public:
-	void rva003C35F7(Int a, Int b);
-	void rva003C35AA(Int a, Int b, bool c);
-};
-
-
 // 0x0040E0C5: for the argument's +0x78 object in state 4 (+0x2C), the
 // pinned 0x0040DF77 then the rowed 0x0040E02B; answers true.
-class Rva0040E02B
-{
-public:
-	void rva0040E02B();
-};
-class Rva0040DF77 : public Rva0040E02B
-{
-public:
-	void rva0040DF77();
-	char m_pad00[0x2C];
-	Int m_2C;
-};
-struct Rva0040E0C5Arg
-{
-	char m_pad00[0x78];
-	Rva0040DF77 *m_78;
-};
-class Rva0040CFFF
-{
-public:
-	virtual bool rva0040E0C5(Rva0040E0C5Arg *arg);
-};
-
-
 // 0x00414B89 and 0x00415122: the pinned 0x00414B0A resp. 0x0041505B on
 // every 0x30-byte entry of the [+0x10, +0x14) range.
 class Rva00414B0A
@@ -222,53 +167,8 @@ void Rva00414B89::rva00415122()
 // 0x00482134 and 0x00482152 (the latter through an interface at +0x20):
 // the pinned 0x0035A292 of TheGameLogic's +0x170 object with the +0x08 word
 // and the +0x04 object's +0x08 Real.
-class Rva0035A292
-{
-public:
-	void rva0035A292(Int a, Real b);
-};
-struct Rva00482134Logic
-{
-	char m_pad00[0x170];
-	Rva0035A292 *m_170;
-};
 class GameLogic;
 extern GameLogic *TheGameLogic;
-struct Rva00482134Data
-{
-	Int m_00;
-	Int m_04;
-	Real m_08;
-};
-class Rva00482134
-{
-public:
-	void rva00482134();
-private:
-	Int m_00;
-	Rva00482134Data *m_04;
-	Int m_08;
-};
-class Rva00482152Primary
-{
-public:
-	virtual void primarySlot();
-protected:
-	Rva00482134Data *m_04;
-	Int m_08;
-	char m_pad0C[0x14];
-};
-class Rva00482152Iface
-{
-public:
-	virtual void rva00482152(Int unused) = 0;
-};
-class Rva00482152 : public Rva00482152Primary, public Rva00482152Iface
-{
-public:
-	void rva00482152(Int unused);
-};
-
 // 0x004CDF00 and 0x004CDF1D: the pinned base 0x004502CE with both
 // arguments then the pinned 0x004CDDBA(1); resp. only the latter while
 // +0x08 is set.
@@ -316,14 +216,6 @@ public:
 
 
 // 0x00508925: whether the pinned 0x005075D6 accepts both arguments.
-class Rva00508925
-{
-public:
-	bool rva00508925(Int a, Int b);
-	unsigned char rva005075D6(Int a, Int b);
-};
-
-
 class Rva00507823
 {
 public:

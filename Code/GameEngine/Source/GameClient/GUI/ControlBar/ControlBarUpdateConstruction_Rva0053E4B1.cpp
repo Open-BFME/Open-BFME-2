@@ -97,34 +97,17 @@ public:
 class CommandButton;
 class ModuleData;
 
-class ConstructionExitView {
-public:
-    virtual void slot0()=0; virtual void slot1()=0;
-    virtual void slot2()=0; virtual void slot3()=0;
-    virtual void slot4()=0; virtual void slot5()=0;
-    virtual void slot6()=0; virtual void slot7()=0;
-    virtual const Coord3D *getRallyPoint() const=0;
-};
 class ExitInterface;
-class Rva002A7DD0 { public: bool rva002A7DD0(); };
-class BfmeMemberRV { public: bool bfmeAskRV(); };
 class PlayerList;
 extern PlayerList *ThePlayerList;
-struct ConstructionPlayerListView { char unknown00[0x10]; BfmeMemberRV *localPlayer; };
 class RadarWindowOverrideSource;
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
-class Rva002D368E { public: void rva002D368E(); };
-class Rva002D363EOwner { public: void rva002D363E(int); };
 class WindowList;
 class Rva0053ED1A { public: void rva0053EFC7(WindowList &); };
 // Native portrait dispatch calls the shared empty RET4 at47A69C. This
 // pre-existing opaque ABI binding does not identify ControlBar as its owner.
-struct ConstructionTemplateView { char unknown00[0x122]; unsigned char flags; };
-struct ConstructionObjectView { char unknown00[4]; ConstructionTemplateView *objectTemplate; };
 class ControlBar;
 extern ControlBar *TheControlBar;
-struct ConstructionOverlayModeView { char unknown00[0x29C]; int mode; };
-
 class Object
 {
 public:
@@ -169,27 +152,12 @@ struct Rva0053E4B1Owner
 class Image;
 class ThingTemplate { public: const Image *getButtonImage(); };
 class Rva002A7DDEArg;
-class Rva002A7DDE { public: bool rva002A7DDE(Rva002A7DDEArg *); };
-class Rva0053B914 { public: void rva0053B914(); };
 class HotKeyManager;
 extern HotKeyManager *TheHotKeyManager;
-class ConstructionResetDispatchView {
-public:
-    virtual void slot0()=0; virtual void slot1()=0; virtual void slot2()=0;
-    virtual void slot3()=0; virtual void slot4()=0; virtual void slot5()=0;
-    virtual void slot6()=0; virtual void slot7()=0; virtual void slot8()=0;
-    virtual void reset()=0;
-};
 // Reuse the existing lookup provider's eight-byte table-cell ABI. Native
 // inventory callbacks store a window word followed by its contained ObjectID.
 struct ControlBarInventoryEntry { GameWindow *window; int objectID; };
 extern ControlBarInventoryEntry ControlBarInventoryEntries[32];
-struct PopulateButtonInfo {
-    Object *source;
-    int buttonIndex;
-    ControlBar *self;
-    GameWindow **inventoryButtons;
-};
 const Image *getButtonImage(ThingTemplate *, Object *);
 void GadgetButtonSetEnabledImage_Rva002C0433(GameWindow *, const Image *);
 void Rva003284ED(GameWindow *, int);
@@ -260,12 +228,6 @@ public:
 	Relationship getRelationship(const Team *team) const;
 };
 
-class BuildListInfo
-{
-public:
-	int getDesiredGatherers();
-};
-
 class GameMessage
 {
 public:
@@ -301,79 +263,6 @@ public:
 extern class MessageStream *TheMessageStream;
 
 class InGameUI;
-
-class Rva0053EAECInGameUIView
-{
-public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
-	virtual void slot06();
-	virtual void slot07();
-	virtual void slot08();
-	virtual void slot09();
-	virtual void slot10();
-	virtual void slot11();
-	virtual void slot12();
-	virtual void slot13();
-	virtual void slot14();
-	virtual void slot15();
-	virtual void slot16();
-	virtual void slot17();
-	virtual void slot18();
-	virtual void slot19();
-	virtual void slot20();
-	virtual void slot21();
-	virtual void slot22();
-	virtual void slot23();
-	virtual void slot24();
-	virtual void slot25();
-	virtual void slot26();
-	virtual void slot27();
-	virtual void slot28();
-	virtual void slot29();
-	virtual void slot30();
-	virtual void slot31();
-	virtual void slot32();
-	virtual void slot33();
-	virtual void slot34();
-	virtual void slot35();
-	virtual void slot36();
-	virtual void slot37();
-	virtual void slot38();
-	virtual void slot39();
-	virtual void slot40();
-	virtual void slot41();
-	virtual void slot42();
-	virtual void slot43();
-	virtual void slot44();
-	virtual void slot45();
-	virtual void slot46();
-	virtual void slot47();
-	virtual void slot48();
-	virtual void slot49();
-	virtual void slot50();
-	virtual void slot51();
-	virtual void slot52();
-	virtual void slot53();
-	virtual void slot54();
-	virtual void slot55();
-	virtual void slot56();
-	virtual void slot57();
-	virtual void slot58();
-	virtual void slot59();
-	virtual void slot60();
-	virtual void slot61();
-	virtual void slot62();
-	virtual void slot63();
-	virtual void slot64();
-	virtual void slot65();
-	virtual void slot66();
-	virtual void slot67(Int value);
-};
 
 extern InGameUI *TheInGameUI;
 

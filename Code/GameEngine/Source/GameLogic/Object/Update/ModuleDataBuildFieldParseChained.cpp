@@ -94,12 +94,6 @@ public:
 	static void parseFromINI(INI *, void *, void *, const void *);
 };
 
-class Rva004B65E4
-{
-public:
-	static void rva004B65E4(INI *, void *, void *, const void *);
-};
-
 void Rva000B9468Parse(INI *, void *, void *, const void *);
 void Rva002567EAParse(INI *, void *, void *, const void *);
 void Rva002C8C06Parse(INI *, void *, void *, const void *);
@@ -767,12 +761,6 @@ inline void SpecialPowerCompletionDieModuleData::buildFieldParse(MultiIniFieldPa
 	parse.add(BfmeSpecialPowerCompletionDieFields, 0);
 }
 
-class RebuildHoleExposeDieModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
 class DamageFilteredCreateObjectDieModuleData
 {
 public:
@@ -817,24 +805,6 @@ void SupplyCenterDockUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse
 	DockUpdateModuleData::buildFieldParse(parse);
 	parse.add(BfmeSupplyCenterDockUpdateFields, 0);
 }
-
-class CommandPointsUpgradeModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class BaseUpgradeModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class AudioLoopUpgradeModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
 
 class GarrisonContainModuleData
 {
@@ -1025,30 +995,6 @@ void GeometryUpgradeModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	parse.add(BfmeGeometryUpgradeFields, 0);
 }
 
-class RadiateFearUpdateModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class ModelConditionUpgradeModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class BezierProjectileBehaviorModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class MissileUpdateModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
 // Retail VA 0x00BF0200: 15 fields and the zero sentinel.
 // Class identity comes from this unit's matched registration function;
 // tokens, callbacks and offsets are read from that retail table.
@@ -1116,21 +1062,8 @@ void RubbleRiseUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE52EGet()), 8);
 }
 
-class SubObjectsUpgradeModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
 int Rva0033A495Get(void);
 void Rva0033DC9CParse(INI *, void *, void *, const void *);
-
-class RandomSoundSelectorClientBehaviorModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-	static void parseVoicePriority(INI *, void *, void *, const void *);
-};
 
 // Retail VA 0x00C511A0: 4 fields and the zero sentinel.
 // Class identity comes from this unit's matched registration function;
@@ -1191,12 +1124,6 @@ extern const FieldParse BfmeOpenContainFields[] = {
 	{ "ModifierToGiveOnExit", &INI::parseAsciiStringVectorAppend, 0, 0x88 },
 	{ "ModifierRequiredTime", &INI::parseDurationUnsignedInt, 0, 0x94 },
 	{ 0, 0, 0, 0 }
-};
-
-class CreateObjectDieModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
 // Retail VA 0x00BEEAC8: 1 fields and the zero sentinel.
@@ -1517,18 +1444,6 @@ void HeroModeSpecialAbilityUpdateModuleData::buildFieldParse(MultiIniFieldParse 
 	parse.add(BfmeHeroModeSpecialAbilityUpdateFields, 0);
 }
 
-class WeaponSetSpecialAbilityUpdateModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class TeleportSpecialAbilityUpdateModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
 // Retail VA 0x00BEF770: 5 fields and the zero sentinel.
 // Class identity comes from this unit's matched registration function;
 // tokens, callbacks and offsets are read from that retail table.
@@ -1588,12 +1503,6 @@ void SpecialDisguiseUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	SpecialAbilityUpdateModuleData::buildFieldParse(parse);
 	parse.add(BfmeSpecialDisguiseUpdateFields, 0);
 }
-
-class FellBeastSwoopPowerModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.

@@ -183,39 +183,10 @@ static __forceinline Int realToIntFloor(float f)
 	return i;
 }
 
-class Rva002F3738
-{
-public:
-	void rva002F3738(void **entry);
-};
-
-struct _Rva002E7B02Cell
-{
-	Int x;
-	Int y;
-	Int z;
-};
-
-class Rva002E7B02
-{
-public:
-	Rva002E7B02(Int a, Int b, const _Rva002E7B02Cell &cell);
-private:
-	Int m_00;
-	Int m_04;
-	Int m_08;
-	Int m_0C;
-	Int m_10;
-};
-
 struct Rva002E7B29Info;
 
 template<int N> class PathfinderNativeSlots : public PathfinderNativeSlots<N-1> { public: virtual void unusedSlot(PathfinderNativeSlots<N> *); };
 template<> class PathfinderNativeSlots<0> {};
-class TerrainLogicCheckDestination : public PathfinderNativeSlots<50> { public: virtual bool slotC8(const Coord3D *); };
-class PathfinderContain28 : public PathfinderNativeSlots<28> { public: virtual int slot70(); };
-class PathfinderContain31 : public PathfinderNativeSlots<31> { public: virtual void *slot7C(); };
-class PathfinderContain69 : public PathfinderNativeSlots<69> { public: virtual unsigned int slot114(int); };
 class TerrainLogic
 {
 public:
@@ -449,16 +420,6 @@ public:
 // The list-role labels below describe the three observed conflict passes;
 // their original member spellings are not established. Nodes link at +0 and
 // carry Object* at +8; native Object position/AI/container are +0x38/+0x258/+0x274.
-struct PathCollisionNode { PathCollisionNode *next; void *word4; Object *object; };
-struct PathCollisionInfo {
-    int x,y;
-    char gap08[0x14-8];
-    PathCollisionNode *occupants;
-    char gap18[8];
-    PathCollisionNode *goals;
-    PathCollisionNode *reservations;
-};
-struct PathCollisionCell { PathCollisionInfo *info; };
 // Native bridge list links at +4; height and containment use existing
 // independently admitted Bridge providers from the terrain-logic family.
 class Bridge {
@@ -474,17 +435,7 @@ struct Rva002ED236Pos {
     ~Rva002ED236Pos() {}
 };
 int Rva002E6E8AGet(int layer);
-class Rva002E7482 { public: float rva002E7482(int layer); };
-
 #include "ascii_string.h"
-struct GeometryShape {
-    int type; float height,major,minor;
-    float offsetX,offsetY,offsetZ;
-    AsciiString name;
-    bool enabled,opaque21;
-    __forceinline GeometryShape() : type(0),height(1),major(1),minor(1),offsetX(0),offsetY(0),offsetZ(0),enabled(true),opaque21(true) {}
-};
-class GeometryInfo { public: void rva006BD9C0(GeometryShape &) const; };
 struct ICoord2DBase
 {
 public:
@@ -521,16 +472,6 @@ private:
 	unsigned char m_14; // +0x14
 	unsigned char m_15[3]; // +0x15
 	int m_18; // +0x18
-};
-class Rva0006E009DwordField
-{
-public:
-	int get()const;
-};
-class Rva0052DB4D
-{
-public:
-	Bool rva0052DB4D(Int);
 };
 void rva002E79A8(int,unsigned char,int,int,int);
 // Native 0x002F01B6 addresses this 12-byte floating scratch first. Later

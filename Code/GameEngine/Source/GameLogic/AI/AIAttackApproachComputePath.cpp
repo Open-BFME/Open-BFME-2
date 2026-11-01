@@ -213,12 +213,6 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 class Module;
 
 // The SiegeDeploySpecialPower module's rowed bool getter (0x004C5772).
-class Rva004C5772CmpBoolField
-{
-public:
-	Bool get() const;
-};
-
 class PolygonTrigger;
 class AttackPriorityInfo;
 class PartitionFilter;
@@ -265,12 +259,6 @@ private:
 
 // Locomotor min speed (0x001E3F08), rowed under this name.
 struct Rva001E3F08Arg;
-class Rva001E3F08
-{
-public:
-	Real rva001E3F08(Rva001E3F08Arg *obj);
-};
-
 struct Rva0028AC4EEntry;
 
 // AI current-locomotor speed (0x002627E8), rowed under this name.
@@ -524,12 +512,6 @@ class Rva002C9407ByteField
 public:
 	unsigned char get() const;
 };
-class Rva002C940EByteField
-{
-public:
-	unsigned char get() const;
-};
-
 class WeaponTemplate
 {
 public:
@@ -751,13 +733,6 @@ private:
 
 // The pathfinder's melee engagement-spot search (0x002F23A6), pinned under
 // this name.
-class Rva002F23A6
-{
-public:
-	Bool rva002F23A6(Object *source, int weapon, int locomotorSet, Coord3D *goalPos,
-		Object *victim);
-};
-
 // TheGameLogic's BFME debug level (+0x1B4), private padding in the shared
 // GameLogic view.
 
@@ -780,12 +755,6 @@ template <> class VirtualSlots<0>
 
 // The object behind Object::rva0029439D; its slot 68 yields the object a
 // melee squish should really target.
-class Rva0029439DView : public VirtualSlots<68>
-{
-public:
-	virtual Object *slot68();
-};
-
 // AIAttackMeleeSquishState, vtable 0x00C12868 (rowed xfer 0x00340A92, onExit
 // 0x003497C7).
 class AIAttackMeleeSquishState : public AIInternalMoveToState
@@ -817,22 +786,7 @@ private:
 };
 
 // An enclosing container's contain module (Object +0x250), slot 77.
-class ContainFirePointView : public VirtualSlots<77>
-{
-public:
-	virtual Bool attemptBestFirePointPosition(Object *source, Weapon *weapon, const Coord3D *targetPos);
-};
-
 // The AI's locomotor-goal slots (132 and 135), as AIFaceStateUpdate.cpp views them.
-class AITurnView : public VirtualSlots<132>
-{
-public:
-	virtual void setLocomotorGoalPositionExplicit(const Coord3D &newPos);
-	virtual void slot133();
-	virtual void slot134();
-	virtual void setLocomotorGoalOrientation(Real angle);
-};
-
 // The AI's goal path (+0x30): position by index (0x00346FA5).
 class Rva00346FA5
 {
@@ -970,25 +924,11 @@ private:
 };
 
 // Physics flag-pair check (0x00390533), pinned under this name.
-class Rva00390533
-{
-public:
-	Bool rva00390533();
-};
-
 Bool Rva0034311ECheck(Object *obj);
 
 // Retail 0033F9FE..0033FA64: position half of the line-of-sight guard.
 // Native calls establish Object / Coord3D / Weapon roles; filter shape reused
 // from the independently matched object-target guard below, not a donor name.
-class Rva0026163A
-{
-public:
- Bool rva0026163A(const Coord3D *target);
-};
-
-
-
 __declspec(noinline) inline Bool rva003430A3(Object *source, Object *victim, Weapon *weapon)
 {
 	if (weapon && victim && !((const Rva002C9400ByteField *)weapon->getTemplate())->get() &&
@@ -1216,26 +1156,8 @@ __declspec(noinline) inline StateReturnType AIAttackApproachTargetState::onEnter
 
 
 // Thing-template gate 0x0028CECF (pinned under this name).
-class Rva0028CECFOwner
-{
-public:
-	Bool rva0028CECF();
-};
-
 // The owner's contain module (+0x250) slot 31 and the object it returns,
 // whose slot 85 says whether the victim may be squished from inside.
-class SquishRiderView : public VirtualSlots<85>
-{
-public:
-	virtual Bool slot85(Object *victim);
-};
-
-class SquishContainView : public VirtualSlots<31>
-{
-public:
-	virtual SquishRiderView *slot31();
-};
-
 // Retail 0x0034D98B, 629 bytes: the body of AIAttackMeleeSquishState's slot 6
 // (0x0034DC00 is a 5-byte jump here). Path extra distance 50 while chasing;
 // a contained owner whose rider accepts the victim stops (AI slot 136). A gone
@@ -1278,12 +1200,6 @@ public:
 
 
 // AI slot 121, the area to guard (ZH AIUpdateInterface::getAreaToGuard).
-class AIAreaGuardView : public VirtualSlots<121>
-{
-public:
-	virtual const PolygonTrigger *getAreaToGuard() const;
-};
-
 // Retail 0x0034680D, 232 bytes: slot 6 of 0x00C11900. ZH
 // AIAttackAreaState::update with the scan rate LOGICFRAMES_PER_SECOND, the
 // enemy search as AI 0x002FF8DD (area, owner, the AI's +0x70 attack info),
@@ -1297,12 +1213,6 @@ public:
 // TheTerrainLogic's slot 8, ZH TerrainLogic::getExtent.
 class TerrainLogic;
 extern TerrainLogic *TheTerrainLogic;
-class TerrainLogicExtentView : public VirtualSlots<8>
-{
-public:
-	virtual void getExtent(Region3D *extent) const;
-};
-
 // Retail 0x00345BCF, 220 bytes: slot 17 of AIFollowPathAsTeamState (vtable
 // 0x00C121E8). An owner outside the terrain extent whose goal lies inside it
 // takes AIUpdateInterface::computeQuickPath; everything else logs
@@ -1352,12 +1262,6 @@ Real Sin(Real angle);
 #define PI_F 3.14159265359f
 
 // The locomotor's aim-at-position hook (0x001E702E, rowed under this name).
-class Rva001E702E
-{
-public:
-	void rva001E702E(Thing *obj, Int targetPos, Int flag);
-};
-
 enum AbleToAttackType
 {
 	ATTACK_NEW_TARGET = 0
@@ -1418,13 +1322,6 @@ extern PartitionManager *ThePartitionManager;
 // Cache the normalized scalar components before constructing the scaled offset;
 // that leaves the original escaped vector untouched and eliminates false stores.
 // The first member add followed by a pointer for y/z preserves native addressing.
-struct SquishCoordCopy:Coord3D{ __forceinline SquishCoordCopy(float x_,float y_,float z_){x=x_;y=y_;z=z_;}
-
- __forceinline SquishCoordCopy(const Coord3D&p){x=p.x;y=p.y;z=p.z;}
- __forceinline void sub(const Coord3D*p){x-=p->x;y-=p->y;z-=p->z;}
-};
-
-
 Bool rva00344EB2Gate(Object*,Thing*);
 struct ApproachCoordCopy : Coord3D {
  __forceinline ApproachCoordCopy(const Coord3D &r){x=r.x;y=r.y;z=r.z;}

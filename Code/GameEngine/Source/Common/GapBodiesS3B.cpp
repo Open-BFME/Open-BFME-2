@@ -238,100 +238,8 @@ Rva003ADE32 *Rva003ADE32::clone()
 
 // --- 0x00466457 / 0x0049A6C7 (16B each): from a +0x0C interface, the
 // object's +0xFC / +0x3E4 base (null-checked conversion).
-class Rva00466457Base0
-{
-public:
-	virtual void b0();
-	int m_04;
-	int m_08;
-};
-
-class Rva00466457Base3
-{
-public:
-	virtual void b3();
-};
-
-class Rva00466457Iface
-{
-public:
-	virtual Rva00466457Base3 *getCaveInterface();
-	char m_pad04[0xFC - 0x0C - 4];
-};
-
-class Rva00466457 : public Rva00466457Base0, public Rva00466457Iface, public Rva00466457Base3
-{
-public:
-	virtual Rva00466457Base3 *getCaveInterface();
-};
-
-class Rva0049A6C7Base3
-{
-public:
-	virtual void b3();
-};
-
-class Rva0049A6C7Iface
-{
-public:
-	virtual Rva0049A6C7Base3 *rva0049A6C7();
-	char m_pad04[0x3E4 - 0x0C - 4];
-};
-
-class Rva0049A6C7 : public Rva00466457Base0, public Rva0049A6C7Iface, public Rva0049A6C7Base3
-{
-public:
-	virtual Rva0049A6C7Base3 *rva0049A6C7();
-};
-
 // --- 0x00479CD9 (29B): from a +0x10 interface, copy the object's slot-88
 // position into the first argument; always true.
-class Rva00479CD9Base0
-{
-public:
-	virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3();
-	virtual void s4(); virtual void s5(); virtual void s6(); virtual void s7();
-	virtual void s8(); virtual void s9(); virtual void s10(); virtual void s11();
-	virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15();
-	virtual void s16(); virtual void s17(); virtual void s18(); virtual void s19();
-	virtual void s20(); virtual void s21(); virtual void s22(); virtual void s23();
-	virtual void s24(); virtual void s25(); virtual void s26(); virtual void s27();
-	virtual void s28(); virtual void s29(); virtual void s30(); virtual void s31();
-	virtual void s32(); virtual void s33(); virtual void s34(); virtual void s35();
-	virtual void s36(); virtual void s37(); virtual void s38(); virtual void s39();
-	virtual void s40(); virtual void s41(); virtual void s42(); virtual void s43();
-	virtual void s44(); virtual void s45(); virtual void s46(); virtual void s47();
-	virtual void s48(); virtual void s49(); virtual void s50(); virtual void s51();
-	virtual void s52(); virtual void s53(); virtual void s54(); virtual void s55();
-	virtual void s56(); virtual void s57(); virtual void s58(); virtual void s59();
-	virtual void s60(); virtual void s61(); virtual void s62(); virtual void s63();
-	virtual void s64(); virtual void s65(); virtual void s66(); virtual void s67();
-	virtual void s68(); virtual void s69(); virtual void s70(); virtual void s71();
-	virtual void s72(); virtual void s73(); virtual void s74(); virtual void s75();
-	virtual void s76(); virtual void s77(); virtual void s78(); virtual void s79();
-	virtual void s80(); virtual void s81(); virtual void s82(); virtual void s83();
-	virtual void s84(); virtual void s85(); virtual void s86(); virtual void s87();
-	virtual const Coord3D *s88();
-	char m_pad04[0x10 - 4];
-};
-
-struct Rva00479CD9Pos
-{
-	int x, y, z;
-};
-
-class Rva00479CD9Iface
-{
-public:
-	virtual bool getNaturalRallyPoint(Rva00479CD9Pos *out, int unused);
-};
-
-class Rva00479CD9 : public Rva00479CD9Base0, public Rva00479CD9Iface
-{
-public:
-	virtual bool getNaturalRallyPoint(Rva00479CD9Pos *out, int unused);
-};
-
 // --- 0x00481837 (11B): from a +0x20 interface, the object's slot 13; the
 // argument is unused.
 class Rva00481837Base0
@@ -362,25 +270,3 @@ void Rva00481837::rva00481837(int)
 }
 
 // --- 0x00494AC6 (19B): hand the float to slot 15 of the +0x18 base.
-class Rva00494AC6Base0
-{
-public:
-	virtual void b0();
-	char m_pad04[0x18 - 4];
-};
-
-class Rva00494AC6Base18
-{
-public:
-	virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3();
-	virtual void s4(); virtual void s5(); virtual void s6(); virtual void s7();
-	virtual void s8(); virtual void s9(); virtual void s10(); virtual void s11();
-	virtual void s12(); virtual void s13(); virtual void s14();
-	virtual void s15(float v);
-};
-
-class Rva00494AC6 : public Rva00494AC6Base0, public Rva00494AC6Base18
-{
-public:
-	virtual void rva00494AC6(float v);
-};

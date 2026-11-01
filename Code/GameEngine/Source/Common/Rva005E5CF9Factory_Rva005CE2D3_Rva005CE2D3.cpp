@@ -61,12 +61,6 @@ class Rva005E8D71
 public:
 	Rva005E8D71(void *frame, Rva005E8DCFIn *in);
 };
-class Rva005E91A9
-{
-	char m_pad[0x20];
-public:
-	Rva005E91A9(unsigned int argument, void *context);
-};
 struct Rva005FEF11Input;
 class Rva00600505
 {
@@ -80,19 +74,6 @@ struct Rva005CE2D3
 	Rva005E5CF9In m_context;
 	RvaF1Handle rva005CE2D3(unsigned int frame);
 };
-struct Rva005CEA92
-{
-	char m_prefix[8];
-	Rva005E5CF9In m_context;
-	RvaF1Handle rva005CEA92(unsigned int argument);
-};
-struct Rva005FB418
-{
-	char m_prefix[8];
-	Rva005E5CF9In m_context;
-	RvaF1Handle rva005FB418(unsigned int first, unsigned int second);
-};
-
 RvaF1Handle Rva005CE2D3::rva005CE2D3(unsigned int frame)
 {
 	return RvaF1Handle(new Rva005E8D71((void *)frame, (Rva005E8DCFIn *)&m_context));
@@ -107,58 +88,6 @@ RvaF1Handle Rva005CE2D3::rva005CE2D3(unsigned int frame)
 // factory/application names remain unknown. Earlier attempts lacked these
 // providers; no donor identity is inferred from the matching instruction shape.
 class Rva005A0B4CList;
-struct Rva005F5C77In
-{
-	void *m_00;
-	int m_04;
-	Rva005A0B4CList *m_08;
-};
-struct Rva005F5F2BIn
-{
-	void *m_00;
-	int m_04;
-	Rva005A0B4CList *m_08;
-};
-class Rva005F5BF2
-{
-	char m_storage[0x28];
-public:
-	Rva005F5BF2(void *argument, Rva005F5C77In *context);
-};
-class Rva005F5EA6
-{
-	char m_storage[0x28];
-public:
-	Rva005F5EA6(void *argument, Rva005F5F2BIn *context);
-};
-struct Rva005E5D4D
-{
-	char m_prefix[8];
-	Rva005F5C77In m_context;
-	RvaF1Handle rva005E5D4D(void *argument);
-};
-struct Rva005E5DA1
-{
-	char m_prefix[8];
-	Rva005F5F2BIn m_context;
-	RvaF1Handle rva005E5DA1(void *argument);
-};
-
-
-class Rva005E92F7
-{
-	char m_storage[0x28];
-public:
-	Rva005E92F7(unsigned int argument, void *context);
-};
-struct Rva005CEB03
-{
-	char m_prefix[8];
-	Rva005E5CF9In m_context;
-	RvaF1Handle rva005CEB03(unsigned int argument);
-};
-
-
 // ?rva005FB243@Rva005FB243@@QAE?AURvaF1Handle@@HH@Z, retail 0x005FB243 (87B): the same factory shape with two
 // opaque int arguments and the rowed constructor Rva005FF13A (0x005FF0F6); its context argument is receiver+8.
 // Target evidence: retail body and the constructor's REL32 read byte for byte; names are address-derived.
@@ -224,37 +153,4 @@ public:
 };
 // Constructor-only storage view of the owner whose 207-byte constructor is
 // verified in Rva005FB204Ctor.cpp; allocation and three arguments are unchanged.
-class Rva005FB204
-{
-	char m_pad[0x20];
-public:
-	Rva005FB204(unsigned int first, unsigned int second, void *context);
-};
 // Constructor-only view of the second verified Rva005FB204Ctor.cpp owner.
-class Rva005FB3D9
-{
-	char m_pad[0x20];
-public:
-	Rva005FB3D9(unsigned int first, unsigned int second, void *context);
-};
-struct Rva005E9761
-{
-	char m_prefix[8];
-	Rva005E5CF9In m_context;
-	RvaF1Handle rva005E9761(unsigned int first, unsigned int second);
-};
-struct Rva005E97D5
-{
-	char m_prefix[8];
-	Rva005E5CF9In m_context;
-	RvaF1Handle rva005E97D5(unsigned int first, unsigned int second);
-};
-struct Rva005E9849
-{
-	char m_prefix[8];
-	Rva005E5CF9In m_context;
-	RvaF1Handle rva005E9849(unsigned int first, unsigned int second);
-};
-
-
-

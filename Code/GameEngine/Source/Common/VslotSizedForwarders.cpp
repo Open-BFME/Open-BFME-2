@@ -165,43 +165,6 @@ void MilesAudioManager::rva000512BC()
 	slot94();
 }
 
-class Rva00078AC6Forwarder
-{
-public:
-	void rva00078AC6();
-private:
-	char m_lead[0x4];
-	SizedForwarderSlots *m_inner;
-};
-
-class Rva0008605ALead
-{
-public:
-	virtual void lead0();
-private:
-	char m_lead[0xB0];
-};
-
-class Rva0008605AForwarder : public Rva0008605ALead, public SizedForwarderSlots
-{
-public:
-	void rva0008605A();
-};
-
-class Rva0008615BLead
-{
-public:
-	virtual void lead0();
-private:
-	char m_lead[0x24C4];
-};
-
-class Rva0008615BForwarder : public Rva0008615BLead, public SizedForwarderSlots
-{
-public:
-	void rva0008615B();
-};
-
 class Rva0008BD2BLead
 {
 public:
@@ -251,63 +214,6 @@ void Rva000ABD68Forwarder::rva000ABD68()
 {
 	m_inner->slot3();
 }
-
-class Rva001EDDBBForwarder
-{
-public:
-	void rva001EDDBB();
-private:
-	char m_lead[0x4FA8];
-	SizedForwarderSlots *m_inner;
-};
-
-class Rva0024002ELead
-{
-public:
-	virtual void lead0();
-private:
-	char m_lead[0xC];
-};
-
-class Rva0024002EForwarder : public Rva0024002ELead, public SizedForwarderSlots
-{
-public:
-	void rva0024002E();
-};
-
-class Rva00240035Lead
-{
-public:
-	virtual void lead0();
-private:
-	char m_lead[0xC];
-};
-
-class Rva00240035Forwarder : public Rva00240035Lead, public SizedForwarderSlots
-{
-public:
-	void rva00240035();
-};
-
-class Rva0024003DLead
-{
-public:
-	virtual void lead0();
-private:
-	char m_lead[0xC];
-};
-
-class Rva0024003DForwarder : public Rva0024003DLead, public SizedForwarderSlots
-{
-public:
-	void rva0024003D();
-};
-
-class Rva0025C25AForwarder : public SizedForwarderSlots
-{
-public:
-	void rva0025C25A();
-};
 
 class Rva0029AC98Forwarder : public SizedForwarderSlots
 {
@@ -363,11 +269,3 @@ void Rva00328CCCForwarder::rva00328CCC()
 	m_inner->slot1();
 }
 
-class Rva0039AC9CForwarder
-{
-public:
-	void rva0039AC9C();
-private:
-	char m_lead[0x2C];
-	SizedForwarderSlots *m_inner;
-};

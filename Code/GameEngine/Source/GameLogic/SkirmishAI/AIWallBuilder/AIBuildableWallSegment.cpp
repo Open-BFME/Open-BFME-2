@@ -177,22 +177,6 @@ typedef int Int;
 typedef bool Bool;
 
 // slot at VA 0x00BCEEA8: raises five flag bytes deep inside the object.
-class Rva000EAF80
-{
-public:
-	void rva000EAF80();
-private:
-	char m_pad00[0x44544];
-	Bool m_44544;
-	Bool m_44545;
-	char m_pad44546[0x44556 - 0x44546];
-	Bool m_44556;
-	char m_pad44557[0x45C5C - 0x44557];
-	Bool m_45C5C;
-	char m_pad45C5D[0x45C64 - 0x45C5D];
-	Bool m_45C64;
-};
-
 // slots 3 and 5 of the vtable at VA 0x00BCF7FC (slot 0 is the rowed
 // ??_GRva00104DB0Base): the first adds the extents of the rectangle given by
 // its four arguments to +0xC8/+0xCC, the second sets the embedded +0x04
@@ -206,63 +190,10 @@ public:
 	void Set_Font(FontCharsClass *font);
 };
 
-struct Rva00104DE6Font
-{
-	char m_pad00[0x14];
-	FontCharsClass *m_font;
-};
-
-class Rva00104DE6
-{
-public:
-	void rva00104E68(Int left, Int top, Int right, Int bottom);
-	void rva00104DE6(const Rva00104DE6Font *font);
-private:
-	char m_pad00[0x04];
-	Render2DSentenceClass m_sentence;
-	char m_pad05[0xC8 - 0x05];
-	Int m_width;
-	Int m_CC;
-	char m_padD0[0xD4 - 0xD0];
-	Bool m_D4;
-	Bool m_D5;
-};
-
 // slots at VA 0x00BC70FC and 0x00BC70EC: erase from the pointer vector at
 // +0x40 (resp. +0x4C) the first element whose object has +0x40 equal to the
 // second argument, through the rowed vector erase 0x004F70D1; the first
 // argument is unused.
-struct Rva00080637Object
-{
-	char m_pad00[0x40];
-	Int m_40;
-};
-
-struct TreeHintRef00217D4C
-{
-	Rva00080637Object *m_object;
-};
-
-class Rva004F70D1
-{
-public:
-	TreeHintRef00217D4C *rva004F70D1(TreeHintRef00217D4C *position);
-	TreeHintRef00217D4C *m_begin;
-	TreeHintRef00217D4C *m_end;
-};
-
-class Rva00080637
-{
-public:
-	void rva00080637(Int unused, Int id);
-	void rva00080664(Int unused, Int id);
-private:
-	char m_pad00[0x40];
-	Rva004F70D1 m_40;
-	char m_pad48[0x4C - 0x48];
-	Rva004F70D1 m_4C;
-};
-
 // Installed-table buffer copies. Native x87 accesses establish the first
 // float; other fields are opaque raw32-bit words. Original owner, field
 // meanings and source-level return convention remain unknown. These views
@@ -271,35 +202,8 @@ struct Rva00596CC7Buffer {float first; unsigned int second,third;};
 
 class Rva00596CC7 {public: void *rva00596CC7(Rva00596CC7Buffer *output); private: char prefix[0x40]; float first; unsigned int second,third;};
 
-struct Rva005C3513Buffer {float first; unsigned int second;};
-
-class Rva005C3513 {public: void *rva005C3513(Rva005C3513Buffer *output); private: char prefix[0x14]; float first; unsigned int second;};
-
 // 0x00525886: of the sixteen 0x18-byte entries at +0x48, the first whose
 // leading word equals the argument takes the +0x10 object's +0x10 word.
-struct Rva00525886Entry
-{
-	Int m_00;
-	char m_pad04[0x14];
-};
-
-struct Rva00525886Source
-{
-	char m_pad00[0x10];
-	Int m_10;
-};
-
-class Rva00525886
-{
-public:
-	void rva00525886(Int key);
-private:
-	char m_pad00[0x10];
-	Rva00525886Source *m_10;
-	char m_pad14[0x34];
-	Rva00525886Entry m_entries[16];
-};
-
 // 0x003F468D (nineteen callers): word [b] of the 0x30-byte records that
 // entry [a] (0x1C bytes each) of the +0x18 table points at from its +0x04.
 struct Rva003F468DRecord
@@ -322,20 +226,8 @@ struct Rva003F468DEntry
 	char m_pad0C[0x10];
 };
 
-class Rva003F468D
-{
-public:
-	Int rva003F468D(Int entryIndex, Int recordIndex);
-	Int rva003F4DAE(Int entryIndex);
-private:
-	char m_pad00[0x18];
-	Rva003F468DEntry *m_18;
-};
-
 // 0x0056a9cf: vtable-backed integer predicate; only the accessed word
 // and the native ABI are known. Original owner and field meaning are unknown.
-class Rva0056A9CF {public: Int rva0056A9CF(Int value); private: char m_prefix[0x10]; Int m_word;};
-
 // 0x005ce7bf: vtable-backed integer predicate; only the accessed word
 // and the native ABI are known. Original owner and field meaning are unknown.
 namespace StrategicInGameUI { class PlanningPhaseBuildingSelection; }
@@ -344,8 +236,6 @@ class StrategicInGameUI::PlanningPhaseBuildingSelection {public: virtual Int rva
 
 // 0x0046322c: vtable-backed integer predicate; only the accessed word
 // and the native ABI are known. Original owner and field meaning are unknown.
-class Rva0046322C {public: Int rva0046322C(); private: char m_prefix[0x40]; Int m_word;};
-
 // 0x00596cbe: vtable-backed integer predicate; only the accessed word
 // and the native ABI are known. Original owner and field meaning are unknown.
 class Rva00596CBE {public: Int rva00596CBE(); private: char m_prefix[0x4C]; Int m_word;};

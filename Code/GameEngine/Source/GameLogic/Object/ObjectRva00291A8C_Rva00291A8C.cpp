@@ -93,13 +93,6 @@ enum ObjectStatusTypes
 // Native 0x23DA79 consumes two arguments (RET8) and builds four words.
 // The boolean is already on the outer 0x28CDEB call stack while the mask
 // is constructed; it belongs to that setter, whose own RET8 consumes it.
-class Rva0023DA79
-{
-public:
-	Rva0023DA79 *rva0023DA79(int ignored, int index);
-	unsigned int m_bits[4];
-};
-
 class Rva00346BC0
 {
 public:
@@ -119,7 +112,6 @@ class Matrix3D;
 #include "../../Common/Thing/thing.h"
 class Object;
 struct Rva00287C21Other;
-class FireLogicSystem { public: void RegisterObject(Rva00287C21Other *); void UnregisterObject(Rva00287C21Other *); };
 class Rva002872BA;
 extern Rva002872BA *TheTriggerManager;
 extern GameLogic *TheGameLogic;
@@ -139,11 +131,6 @@ bool isAngleDifferent(float,float);
 class ObjectTransformContain {
 public: virtual void slot00(); virtual void slot04(); virtual void slot08(); virtual void notify();
 };
-class ObjectTransformCallbacks {
-public: virtual void slot00(); virtual void slot04(); virtual void slot08(); virtual void slot0c();
- virtual void slot10(); virtual void slot14(); virtual void slot18();
-};
-
 enum PathfindLayerEnum { LAYER_GROUND = 1 };
 struct Rva002ED236Pos {
  float x,y,z;
@@ -181,12 +168,6 @@ struct ObjectCrushLevelsView {
 #include <string.h>
 class Rva002D9508 {public:void rva002D9508(const void*);};
 class Object; class Player; class RadarWindowOverrideSource;
-class Rva002390CB {public:
- int key;OpaqueRefElement4 value;
- Rva002390CB(const Rva002390CB &);
- __forceinline ~Rva002390CB(){if(value.referent)value.referent->Release_Ref();}
-};
-class Drawable { public: Rva002390CB rva0028F912(); void setDrawableHidden(bool); char pad[0x43c]; bool flag43c; };
 class PlayerList { public: char pad[0x10]; Player *local; };
 extern PlayerList *ThePlayerList;
 class GameMessage { public: enum Type { TYPE_VIEW=0 }; void appendObjectIDArgument(ObjectID); };
@@ -201,9 +182,7 @@ extern MessageStream *TheMessageStream;
 struct Rva002D76C6Owner;
 class Radar { public: void removeObject(Rva002D76C6Owner *); };
 extern Radar *TheRadar;
-class Rva002D37Owner { public: void rva002D373E(int); };
 struct Obj00526309;
-class Rva002D3726 { public: void rva002D3726(Obj00526309 *); };
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
 
 template <unsigned int N>
@@ -216,18 +195,12 @@ public:
 };
 
 
-class Rva001E4A4E {public:bool rva001E4A4E(int);};
-class Rva00270619 {public:void Rva00270619Clear(int);};
 class ObjectCollisionFlags {public:
  unsigned bits[3];
  __forceinline unsigned test(int i)const{return bits[i>>5]&(1u<<(i&31));}
  __forceinline void set(int i){bits[i>>5]|=1u<<(i&31);}
 };
 struct Rva0028AC4EEntry {char pad[0x40];float m_float;};
-class Rva001E46E1 {public:float rva001E48CF(Object*);};
-class Rva002627E8 {public:float rva002627E8()const;};
-class Rva001E415F {public:void rva001E415F(float,int);};
-class Rva002D9531 {public:void rva002D9531(int);};
 extern int BfmeLogicFramesPerSecond;
 class Object
 {
@@ -319,239 +292,9 @@ extern BitFlags<45> OBJECT_STATUS_MASK_NONE;
 // BF1 f989 Object_clearDisabled_Thunk and ZH Object::clearDisabled are the
 // semantic guides; native291CAC..291EB1 independently supplies all offsets,
 // two136B audio lifetimes, condition14E bit1 and the calls used below.
-class ObjectDisabledContain {
-public:
- virtual void slot00();
- virtual void slot01();
- virtual void slot02();
- virtual void slot03();
- virtual void slot04();
- virtual void slot05();
- virtual void slot06();
- virtual void slot07();
- virtual void slot08();
- virtual void slot09();
- virtual void slot10();
- virtual void slot11();
- virtual void slot12();
- virtual void slot13();
- virtual void slot14();
- virtual void slot15();
- virtual void slot16();
- virtual void slot17();
- virtual void slot18();
- virtual void slot19();
- virtual void slot20();
- virtual void slot21();
- virtual void slot22();
- virtual void slot23();
- virtual void slot24();
- virtual void slot25();
- virtual void slot26();
- virtual void slot27();
- virtual void slot28();
- virtual void slot29();
- virtual void slot30();
- virtual void slot31();
- virtual void slot32();
- virtual void slot33();
- virtual void slot34();
- virtual void slot35();
- virtual void slot36();
- virtual void slot37();
- virtual void slot38();
- virtual void slot39();
- virtual void slot40();
- virtual void slot41();
- virtual void slot42();
- virtual void slot43();
- virtual void slot44();
- virtual void slot45();
- virtual void slot46();
- virtual void slot47();
- virtual void slot48();
- virtual void slot49();
- virtual void slot50();
- virtual void slot51();
- virtual void slot52();
- virtual void slot53();
- virtual void slot54();
- virtual void slot55();
- virtual void slot56();
- virtual void slot57();
- virtual void slot58();
- virtual void slot59();
- virtual void slot60();
- virtual void slot61();
- virtual void slot62();
- virtual void slot63();
- virtual void slot64();
- virtual void slot65();
- virtual void slot66();
- virtual void slot67();
- virtual void slot68();
- virtual void slot69();
- virtual void slot70();
- virtual void slot71();
- virtual Object *getRider();
-};
-class ObjectDisabledAudio {
-public:
- virtual void slot00();
- virtual void slot01();
- virtual void slot02();
- virtual void slot03();
- virtual void slot04();
- virtual void slot05();
- virtual void slot06();
- virtual void slot07();
- virtual void slot08();
- virtual void slot09();
- virtual void slot10();
- virtual void slot11();
- virtual void slot12();
- virtual void slot13();
- virtual void slot14();
- virtual void slot15();
- virtual void slot16();
- virtual void slot17();
- virtual void slot18();
- virtual void slot19();
- virtual void slot20();
- virtual void slot21();
- virtual void slot22();
- virtual void slot23();
- virtual void slot24();
- virtual void addAudioEvent(BfmeAudioEventPrefix136*);
- virtual void slot26();
- virtual void slot27();
- virtual void slot28();
- virtual void slot29();
- virtual void slot30();
- virtual void slot31();
- virtual void slot32();
- virtual void slot33();
- virtual void slot34();
- virtual void slot35();
- virtual void slot36();
- virtual void slot37();
- virtual void slot38();
- virtual void slot39();
- virtual void slot40();
- virtual void slot41();
- virtual void slot42();
- virtual void slot43();
- virtual void slot44();
- virtual void slot45();
- virtual void slot46();
- virtual void slot47();
- virtual void slot48();
- virtual void slot49();
- virtual void slot50();
- virtual void slot51();
- virtual void slot52();
- virtual void slot53();
- virtual void slot54();
- virtual void slot55();
- virtual void slot56();
- virtual void slot57();
- virtual void slot58();
- virtual void slot59();
- virtual void slot60();
- virtual void slot61();
- virtual void slot62();
- virtual void slot63();
- virtual void slot64();
- virtual void slot65();
- virtual void slot66();
- virtual void slot67();
- virtual void slot68();
- virtual void slot69();
- virtual void slot70();
- virtual void slot71();
- virtual void slot72();
- virtual void slot73();
- virtual void slot74();
- virtual void slot75();
- virtual void slot76();
- virtual void slot77();
- virtual void *getMiscAudio();
-};
 class AudioManager;extern AudioManager *TheAudio;
 // BFME1 f98983a7 Object_rva001CC250.cpp is the semantic guide; native
 // BFME2 supplies the changed template/member offsets and modifier kinds.
-class ObjectCollisionContain {public:
- virtual void slot0();
- virtual void slot1();
- virtual void slot2();
- virtual void slot3();
- virtual void slot4();
- virtual void slot5();
- virtual void slot6();
- virtual void slot7();
- virtual void slot8();
- virtual void slot9();
- virtual void slot10();
- virtual void slot11();
- virtual void slot12();
- virtual void slot13();
- virtual void slot14();
- virtual void slot15();
- virtual void slot16();
- virtual void slot17();
- virtual void slot18();
- virtual void slot19();
- virtual void slot20();
- virtual void slot21();
- virtual void slot22();
- virtual void slot23();
- virtual void slot24();
- virtual void slot25();
- virtual void slot26();
- virtual void slot27();
- virtual void slot28();
- virtual void slot29();
- virtual void slot30();
- virtual void slot31();
- virtual void slot32();
- virtual void slot33();
- virtual void slot34();
- virtual void slot35();
- virtual void slot36();
- virtual void slot37();
- virtual void slot38();
- virtual void slot39();
- virtual void slot40();
- virtual void slot41();
- virtual void slot42();
- virtual void slot43();
- virtual void slot44();
- virtual void slot45();
- virtual void slot46();
- virtual void slot47();
- virtual void slot48();
- virtual void slot49();
- virtual void slot50();
- virtual void slot51();
- virtual void slot52();
- virtual void slot53();
- virtual void slot54();
- virtual void slot55();
- virtual void slot56();
- virtual void slot57();
- virtual void slot58();
- virtual void slot59();
- virtual void slot60();
- virtual void slot61();
- virtual void slot62();
- virtual void slot63();
- virtual void slot64();
- virtual void slot65();
- virtual void slot66();
- virtual void slot67();
- virtual void slot68();
- virtual int count(int);
-};
 static __forceinline float clampCollision(float low,float value,float high)
 {return value<low?low:(value>high?high:value);}
 #pragma function(sin,cos)

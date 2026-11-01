@@ -22,12 +22,6 @@ public:
 	void disable();
 };
 
-class Rva000B3FD0Nop
-{
-public:
-	void noop();
-};
-
 class Rva005D13C2Run
 {
 public:
@@ -64,127 +58,11 @@ public:
 	void run();
 };
 
-class Rva005E6A9DRun
-{
-public:
-	void run();
-};
-
 class Rva005E6AD8Run
 {
 public:
 	void run();
 };
-
-class Rva005D1516
-{
-public:
-	void step();
-
-private:
-	char m_pad[8];
-	Rva005D13C2Run *m_next;
-};
-
-class Rva005E1906
-{
-public:
-	void step();
-
-private:
-	char m_pad[0x0C];
-	Rva005E18D0Run *m_next;
-};
-
-class Rva005E1917
-{
-public:
-	void step();
-
-private:
-	char m_pad[0x0C];
-	Rva005E18DCRun *m_next;
-};
-
-class Rva005E1BC4
-{
-public:
-	void step();
-
-private:
-	char m_pad[0x0C];
-	Rva005E1B9ARun *m_next;
-};
-
-class Rva005E25DE
-{
-public:
-	void step();
-
-private:
-	char m_pad[0x0C];
-	Rva005E254CRun *m_next;
-};
-
-class Rva005E590F
-{
-public:
-	void step();
-
-private:
-	char m_pad[8];
-	Rva005E589ERun *m_next;
-};
-
-class Rva005E6BA3
-{
-public:
-	void step();
-
-private:
-	char m_pad[0x20];
-	Rva005E6A9DRun *m_next;
-};
-
-class Rva005E6BB4
-{
-public:
-	void step();
-
-private:
-	char m_pad[0x20];
-	Rva005E6AD8Run *m_next;
-};
-
-
-
-
-
-
-
-
-
-class Rva0010BA61
-{
-public:
-	void step();
-
-private:
-	void prepare();
-	void run();
-};
-
-class Rva005962E7
-{
-public:
-	void step();
-
-private:
-	void prepare();
-	void run();
-};
-
-
 
 class Rva0033B1CDNarrow
 {
@@ -210,19 +88,7 @@ public:
 	void run();
 };
 
-class Rva0033B1CD
-{
-public:
-	void step();
-};
-
 class Rva005E590FCaller
-{
-public:
-	void step();
-};
-
-class Rva005CDDF0
 {
 public:
 	void step();

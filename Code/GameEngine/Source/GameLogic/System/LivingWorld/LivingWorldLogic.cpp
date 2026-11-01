@@ -1844,12 +1844,6 @@ void LivingWorldLogic::AwardOwnershipSetsToPlayers()
 // +0xB0 object, keyed by the +0xB8 field.
 struct Rva002B2579Result;
 struct Rva002B3740Item;
-class Rva0020EEF4Outer
-{
-public:
-	int rva0020EEF4(int id);
-};
-
 // The exact null-gated lookup forwarder is owned by Rva002B2579Forward.cpp.
 
 // The exact region lookup forwarder is owned by Rva002B2B2DForward.cpp.
@@ -3981,19 +3975,6 @@ void LivingWorldLogic::rva002B49A8(){
 // Helpers for Rva002B74DE::Update below (names/shapes from the banked
 // standalone trial; all callees rowed, no pins).
 struct Rva003F4E07Results;
-class Rva002B471B { public: Bool rva002B471B(); };
-class Rva002B466E { public: Bool rva002B466E(); };
-class Rva004FA10FOwner { public: void rva004FA10F(); };
-struct ResolverSimHeader { int winner() const { return winner78; } void *players; char pad04[0x78 - 4]; int winner78; };
-struct ResolverPlayerRecord { char pad00[0x2c]; int side2c; int getSide() const { return side2c; } bool isSide(int v) const { return side2c == v; } int tail30; };
-struct ResolverUnit2B74DE { char pad00[0x0c]; float value0c; float getValue() const { return value0c; } char pad10[0x1c - 0x10]; int value1c; int getCount() const { return value1c; } char tail20[0x2c - 0x20]; };
-struct ResolverArmyView { char pad00[0x1c8]; float value1c8; };
-class Rva004E05E9DwordField { public: int get() const; };
-class Rva002E062EDwordSlot { public: void set(int); };
-struct ResolverTransfer { Rva004FA2E2 *p; };
-class Rva002B4349 { public: ~Rva002B4349(); Rva002B4349(Rva002B4349 &from) { Rva004FA2E2 *p = from.m_ptr; from.m_ptr = 0; m_ptr = p; } Rva002B4349(ResolverTransfer from) : m_ptr(from.p) {} ResolverTransfer transfer() { ResolverTransfer v = { m_ptr }; m_ptr = 0; return v; } Rva004FA2E2 *m_ptr; };
-class Rva002B43E7 { public: Rva002B43E7(Rva002B4349); ~Rva002B43E7() { ((Rva002B430C *)this)->clear(); } Rva004FA2E2 *m_ptr; };
-class Rva002B54BB { public: Rva002B4349 rva002B54BB(); };
 // ?Update@Rva002B74DE@@QAEHXZ @0x002BB7D6 (623B): the auto-battle resolver
 // Update (WB LivingWorldLogic::AutoBattleResolver::Update). Evidence: WB
 // 0xD7B800 branch structure + retail 623B; holder members via get() exactly

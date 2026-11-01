@@ -166,48 +166,10 @@ private:
 
 // slot at VA 0x00C5CC3C: with an argument, hands its +0x38 block and the
 // second argument to this object's vslot 12.
-struct Rva004C31ECArg
-{
-	char m_pad00[0x38];
-	char m_position[4];
-};
-
-class Rva004C31EC
-{
-public:
-	virtual void vslot00(); virtual void vslot01(); virtual void vslot02();
-	virtual void vslot03(); virtual void vslot04(); virtual void vslot05();
-	virtual void vslot06(); virtual void vslot07(); virtual void vslot08();
-	virtual void vslot09(); virtual void vslot10(); virtual void vslot11();
-	virtual void vslot12(void *block, Int value);
-	void doSpecialPowerAtObject(Rva004C31ECArg *target, Int value);
-};
-
 // slots at VA 0x00BC662C and 0x00C0883C: stores both arguments at +0x04 and
 // +0x08.
-class Rva004CEE7F
-{
-public:
-	void rva004CEE7F(Int a, Int b);
-private:
-	char m_pad00[0x04];
-	Int m_04;
-	Int m_08;
-};
-
 // slot at VA 0x00C66FDC: sets the +0x27C state to 3 once the +0x284 byte is
 // set, else sets the byte.
-class Rva0051BF2D
-{
-public:
-	void rva0051BF2D();
-private:
-	char m_pad00[0x27C];
-	Int m_state;
-	char m_pad280[0x284 - 0x280];
-	Bool m_284;
-};
-
 // slot at VA 0x00C67F14: a sixteen-entry table of 0x18-byte records at
 // +0x48; stamps every record's +0x00 with the +0x10 object's +0x10 value
 // and clears its +0x16 byte.
@@ -237,37 +199,11 @@ private:
 };
 
 // slot at VA 0x00C6808C: moves the +0x0C state from 3 to 4, setting +0x14 to 5.
-class Rva005277BA
-{
-public:
-	void rva005277BA();
-private:
-	char m_pad00[0x0C];
-	Int m_0C;
-	char m_pad10[0x14 - 0x10];
-	Int m_14;
-};
-
 // slot at VA 0x00C6A13C: true once TheGameLogic's frame reaches +0x04; the
 // argument is unused.
-class Rva00545B72
-{
-public:
-	Bool shouldExit(Int unused);
-private:
-	char m_pad00[0x04];
-	UnsignedInt m_04;
-};
-
 // slots at VA 0x00C6CEC8 and 0x00C6CEEC: a function-local static id taken
 // from the running counter at VA 0x00DFEE18 on first use (the same counter
 // as VslotSmallBodiesD's 0x0029B1EA).
-
-class Rva00567793
-{
-public:
-	Int rva00567793();
-};
 
 // ?GetAssociatedMessageType@@YAHH@Z, retail 0x00567700 (32 bytes).
 // WorldBuilder 0x01430A50 names this helper in
@@ -276,28 +212,12 @@ public:
 // The retail table at RVA 0x0086CE8C is exactly these three eight-byte
 // stance/message records: (1,149), (2,147), (3,148). The 0..3 unsigned scan,
 // success return and missing-stance zero return all byte-match; no data pin.
-struct StanceMessageEntry { int stance; int message; };
-
 // Native vtable-backed bit/word predicates. Address-token views carry only
 // observed data accesses and ABI; original owner and field meanings are unknown.
-struct Rva00261C72Word {char prefix[0x114]; unsigned int word;};
-
-struct Rva00261C72Arg {char prefix[4]; Rva00261C72Word *entry;};
-
 class Object;
 
 // Slot 1 (allow) of partition filter vftable 0x00C53D18.
-class Rva00261C72Filter {public: virtual ~Rva00261C72Filter(); virtual bool allow(Object *obj);};
-
-struct Rva00261C58Arg {char prefix[0x1C8]; unsigned int word;};
-
 // Slot 1 (allow) of partition filter vftable 0x00C1FE28.
-class Rva00261C58Filter {public: virtual ~Rva00261C58Filter(); virtual bool allow(Object *obj); private: char prefix[4]; unsigned char byte;};
-
-struct Rva0057A4BAWord {char prefix[0x34]; unsigned int word;};
-
-class Rva0057A4BA {public: int rva0057A4BA(); private: char prefix[0x48]; Rva0057A4BAWord *entry; unsigned int word;};
-
 // tu-skeleton: 0x00525407 114B ?rva00525407@Holder00525D9A@@QAEXABUHeroCall@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGameHeroSelectDataRemoveHero.cpp (not merged yet)
 
 // tu-skeleton: 0x00525479 16B ?compareRecords@Rva00525479@@QAEHPAVRva00525119@@0@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE14.cpp (not merged yet)

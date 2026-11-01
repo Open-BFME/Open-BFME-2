@@ -917,34 +917,6 @@ private:
 
 // --- 0x00367E31 / 0x00545393 (40B each): a vtable (0x00C17640 / 0x00C69F34)
 // over two cleared words (+0x04, +0x18) and four zero floats (+0x08..+0x14).
-class Rva00367E31
-{
-public:
-	Rva00367E31();
-	virtual ~Rva00367E31() {}
-private:
-	int m_04;
-	float m_progressOverlayColor;
-	float m_backButtonTooltip;
-	float m_10;
-	float m_14;
-	int m_18;
-};
-
-class Rva00545393
-{
-public:
-	Rva00545393();
-	virtual ~Rva00545393() {}
-private:
-	int m_04;
-	float m_progressOverlayColor;
-	float m_backButtonTooltip;
-	float m_10;
-	float m_14;
-	int m_18;
-};
-
 // --- 0x005E7026 (17B): clamp the second argument at zero and forward both to
 // virtual slot 12; 0x005E7037 (18B): parse this from INI with the field
 // table at VA 0x00C77E98; 0x005E7049 (5B): forward to the rowed 0x004E0625.
@@ -974,28 +946,6 @@ public:
 	int rva004E0625() const;								// 0x004E0625
 };
 
-class Rva005E7026
-{
-public:
-	virtual void s0();
-	virtual void s1();
-	virtual void s2();
-	virtual void s3();
-	virtual void s4();
-	virtual void s5();
-	virtual void s6();
-	virtual void s7();
-	virtual void s8();
-	virtual void s9();
-	virtual void s10();
-	virtual void s11();
-	virtual void s12(int a, int b);
-
-	void rva005E7026(int a, int b);
-	void rva005E7037(INI *ini);
-	int rva005E7049() const;
-};
-
 // --- 0x00428DC1 (41B, cdecl): when the player list's +0x10 player has a
 // rowed 0x002ABCF0(1, 0) result, the tactical view takes its +0x38 point
 // (virtual slot 21).
@@ -1008,12 +958,6 @@ public:
 class PlayerList;
 
 extern PlayerList *ThePlayerList;
-
-struct PlayerListView
-{
-	char m_pad[0x10];
-	Player *m_10;
-};
 
 class View
 {
@@ -1066,21 +1010,6 @@ public:
 
 // --- 0x005C8774 (19B): +0x00 = 1.0f, +0x04 = 0; 0x005C8787 (23B): +0x00 and
 // +0x04 cleared, +0x08 = 1.0f.
-struct Rva005C8774
-{
-	Rva005C8774();
-	float m_00;
-	int m_04;
-};
-
-struct Rva005C8787
-{
-	Rva005C8787();
-	int m_00;
-	int m_04;
-	float m_progressOverlayColor;
-};
-
 template <class T> struct GapClassVector
 {
 	T *m_begin;
@@ -1108,17 +1037,6 @@ private:
 };
 
 // --- 0x002C902A (43B): five zero floats, then FLT_MAX at +0x14.
-struct Rva002C902A
-{
-	Rva002C902A();
-	float m_00;
-	float m_04;
-	float m_progressOverlayColor;
-	float m_backButtonTooltip;
-	float m_10;
-	float m_14;
-};
-
 struct Rva0058C475Arg
 {
 	char m_pad[0x28];
@@ -1147,12 +1065,6 @@ struct Rva0058C475Arg
 //   0x005748AD   5B   33 c0 c2 0c 00        xor eax,eax ; ret 0xc
 //   0x005748B2   5B   33 c0 c2 08 00        xor eax,eax ; ret 8
 
-class Rva0050B5C6
-{
-public:
-	bool rva0050B5C6();
-};
-
 // Retail GameWindow's installed table at RVA 0080BBCC has eleven slots.
 // Slot 10 selects this same three-byte constant body (0050B5C6), an ICF
 // fold shared with unrelated classes. Keep the opaque owner for those
@@ -1178,48 +1090,16 @@ public:
 	virtual bool vslot10();
 };
 
-class Rva0050B5F1
-{
-public:
-	bool rva0050B5F1(int a, int b);
-};
-
-class Rva005CB9FF
-{
-public:
-	bool rva005CB9FF(int a);
-};
-
 // The two below return Int rather than Bool -- `xor eax,eax`, not `xor al,al`.
 
-class Rva005748AD
-{
-public:
-	int rva005748AD(int a, int b, int c);
-};
-
-class Rva005748B2
-{
-public:
-	int rva005748B2(int a, int b);
-};
-
 // Installed-vtable constant result; original owner and parameter semantics
 // remain unknown. RET 12 establishes native stack cleanup only.
-class Rva0041BA5C {public: bool rva0041BA5C(int a0, int a1, int a2);};
-
 // Installed-vtable constant result; original owner and parameter semantics
 // remain unknown. RET 24 establishes native stack cleanup only.
-class Rva00481279 {public: bool rva00481279(int a0, int a1, int a2, int a3, int a4, int a5);};
-
 // Installed-vtable constant result; original owner and parameter semantics
 // remain unknown. RET 12 establishes native stack cleanup only.
-class Rva0049A6D7 {public: bool rva0049A6D7(int a0, int a1, int a2);};
-
 // Installed-vtable constant result; original owner and parameter semantics
 // remain unknown. RET 4 establishes native stack cleanup only.
-class Rva0046480A {public: int rva0046480A(int a0);};
-
 // Installed-vtable constant result; original owner and parameter semantics
 // remain unknown. RET 0 establishes native stack cleanup only.
 class Rva0058C484 {public: int rva0058C484();};
