@@ -96,7 +96,7 @@
 #pragma optimize("s", on)
 #include "refcount.h"
 #pragma optimize("", on)
-#include "rendobj.h"
+#include "../../../../../reference/shims/g7_renderobj/donor/rendobj.h"
 // Keep shader inlines in their normal context before the size-optimized
 // TextureBase::Add_Ref at 0x000424B6 (word increment at +4).
 #include "shader.h"
