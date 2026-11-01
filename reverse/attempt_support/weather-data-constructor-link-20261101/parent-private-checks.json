@@ -1,0 +1,38 @@
+[
+  {
+    "symbol": "??0GlobalWeatherSystem@@QAE@XZ",
+    "rva": "0x00318588",
+    "exact": true,
+    "unresolved": false
+  },
+  {
+    "symbol": "Unwind@00b7a81a",
+    "rva": "0x0077A81A",
+    "exact": true,
+    "unresolved": false
+  },
+  {
+    "symbol": "Unwind@00b7a822",
+    "rva": "0x0077A822",
+    "exact": true,
+    "unresolved": false
+  },
+  {
+    "symbol": "Unwind@00b7a82d",
+    "rva": "0x0077A82D",
+    "exact": true,
+    "unresolved": false
+  },
+  {
+    "symbol": "__ehhandler$??0GlobalWeatherSystem@@QAE@XZ",
+    "rva": "0x0077A843",
+    "exact": true,
+    "unresolved": false
+  },
+  {
+    "symbol": "$L5363",
+    "rva": "0x0077A838",
+    "exact": true,
+    "unresolved": false
+  }
+]

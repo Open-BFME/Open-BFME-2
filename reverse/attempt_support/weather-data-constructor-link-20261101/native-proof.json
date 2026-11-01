@@ -1,0 +1,74 @@
+{
+  "weather_ctor": {
+    "rva": "0x318329",
+    "bytes": "8bc1832000c6400400c3",
+    "instructions": [
+      "00718329: mov eax, ecx",
+      "0071832B: and dword ptr [eax], 0",
+      "0071832E: mov byte ptr [eax + 4], 0",
+      "00718332: ret "
+    ]
+  },
+  "array_owner": {
+    "rva": "0x318588",
+    "bytes": "b843a8b700e8f60b310051568bf1578975f0e8c4c8e9ff33ff897dfcc7460c54b5bb008d4e1cc645fc01c70634c7c000c7460c24c7c000897e10c7461401000000897e18e8149e0400897e206849f1500068298371006a056a088d463050c645fc03897e28897e2ce81d0f31008d4e58e8b0ab09008b4df45f8bc65e64890d00000000c9c3",
+    "instructions": [
+      "00718588: mov eax, 0xb7a843",
+      "0071858D: call 0xa29188",
+      "00718592: push ecx",
+      "00718593: push esi",
+      "00718594: mov esi, ecx",
+      "00718596: push edi",
+      "00718597: mov dword ptr [ebp - 0x10], esi",
+      "0071859A: call 0x5b4e63",
+      "0071859F: xor edi, edi",
+      "007185A1: mov dword ptr [ebp - 4], edi",
+      "007185A4: mov dword ptr [esi + 0xc], 0xbbb554",
+      "007185AB: lea ecx, [esi + 0x1c]",
+      "007185AE: mov byte ptr [ebp - 4], 1",
+      "007185B2: mov dword ptr [esi], 0xc0c734",
+      "007185B8: mov dword ptr [esi + 0xc], 0xc0c724",
+      "007185BF: mov dword ptr [esi + 0x10], edi",
+      "007185C2: mov dword ptr [esi + 0x14], 1",
+      "007185C9: mov dword ptr [esi + 0x18], edi",
+      "007185CC: call 0x7623e5",
+      "007185D1: mov dword ptr [esi + 0x20], edi",
+      "007185D4: push 0x50f149",
+      "007185D9: push 0x718329",
+      "007185DE: push 5",
+      "007185E0: push 8",
+      "007185E2: lea eax, [esi + 0x30]",
+      "007185E5: push eax",
+      "007185E6: mov byte ptr [ebp - 4], 3",
+      "007185EA: mov dword ptr [esi + 0x28], edi",
+      "007185ED: mov dword ptr [esi + 0x2c], edi",
+      "007185F0: call 0xa29512",
+      "007185F5: lea ecx, [esi + 0x58]",
+      "007185F8: call 0x7b31ad",
+      "007185FD: mov ecx, dword ptr [ebp - 0xc]",
+      "00718600: pop edi",
+      "00718601: mov eax, esi",
+      "00718603: pop esi",
+      "00718604: mov dword ptr fs:[0], ecx",
+      "0071860B: leave ",
+      "0071860C: ret "
+    ]
+  },
+  "field_table": {
+    "va": "0x00C0C694",
+    "words": [
+      "0xc0c6d4",
+      "0x739900",
+      "0x0",
+      "0x0",
+      "0xc0c6c4",
+      "0x42e850",
+      "0x0",
+      "0x4",
+      "0x0",
+      "0x0",
+      "0x0",
+      "0x0"
+    ]
+  }
+}

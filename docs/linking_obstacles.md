@@ -6750,6 +6750,18 @@ relocation-aware digests. WeatherData callback and complete-destructor identitie
 remain prerequisites. Generated unwind 0x0077A838 is held by another worker;
 its row is untouched. Census confirmation remains pending.
 
+**WeatherData constructor follow-up (2026-11-01, base97c10ba4d8):** native
+array callback318329 and HasLightning/parseBool at field offset4 prove the
+8-byte view has a bool. Its clean10-byte constructor now lives beside the
+existing parent through add_match --icf-owner IPEnumeration:7/7 whole-source
+rows and all parent EH cleanups pass; bounded strict preparation also passes.
+No pin/hatch/path move or unique coverage is added. Index0d24c60eef preview
+drops the constructor unresolved name, leaving only WeatherData's destructor
+and GlobalWeatherSystem's split destructor identity. IPEnumeration stays LINKS10;
+weather still0, so no linking gain or family clearance. The shared destructor
+was held and is untouched. Carry changed provider consumers into the next census.
+Evidence: `reverse/attempt_support/weather-data-constructor-link-20261101/readme.md`.
+
 **Current-state audit (2026-10-27, seat halilkkaya-lk2, inspected `d16a31e4dc`, index `73061d9452`):**
 
 - **Completed (census-confirmed):** the six units in the evidence above link in

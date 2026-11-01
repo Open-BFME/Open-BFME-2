@@ -1,0 +1,7 @@
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Code/GameEngine/Source/GameLogic/System/GlobalWeatherSystemCtorDeferred.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-11-01 09:19 at 0d24c60eef; file's own bytes 143)
+  unresolved  ??1GlobalWeatherSystem@@UAE@XZ
+  unresolved  ??1WeatherData@@QAE@XZ
+Code/GameEngine/Source/GameNetwork/IPEnumerationCtor.cpp: LINKS  LINKED 10 -> 10 bytes (census 2026-11-01 09:19 at 0d24c60eef; file's own bytes 10)
+link_check: 1 of 2 link cleanly; LINKED 10 -> 10 bytes (4.4s)

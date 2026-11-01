@@ -38,8 +38,16 @@ struct WeatherData
 	WeatherData();
 	~WeatherData();
 	OpaqueRefElement4 m_weatherSound;
-	int m_hasLightning;
+	bool m_hasLightning;
 };
+
+// Native array callback318329 clears the counted sound pointer and the
+// byte at +4; parseWeatherData's HasLightning table uses INI::parseBool.
+WeatherData::WeatherData()
+{
+    m_weatherSound.referent = 0;
+    m_hasLightning = false;
+}
 
 class GlobalWeatherSystem : public SubsystemInterface, public Snapshot
 {
