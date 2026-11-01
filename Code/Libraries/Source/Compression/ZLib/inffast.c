@@ -16,7 +16,7 @@
 #include "infutil.h"
 #include "inffast.h"
 
-struct inflate_codes_state {int dummy;}; /* for buggy compilers */
+ /* for buggy compilers */
 
 /* simplify the use of the inflate_huft type with some defines */
 #define exop word.what.Exop

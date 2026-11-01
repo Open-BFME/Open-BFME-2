@@ -21,12 +21,6 @@ private:
 };
 }
 
-class BfmeThingUB
-{
-public:
-	void bfmeResetUB();
-};
-
 class __declspec(novtable) GenBase009EB7D0
 {
 public:

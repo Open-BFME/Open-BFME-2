@@ -265,19 +265,6 @@ protected:
 IDirect3DVertexBuffer8*		VertexBuffer;
 void Create_Vertex_Buffer(UsageType usage);
 };
-class SortingVertexBufferClass : public VertexBufferClass
-{
-friend DX8Wrapper;
-friend SortingRendererClass;
-friend VertexBufferClass::WriteLock;
-friend VertexBufferClass::AppendLockClass;
-friend DynamicVBAccessClass::WriteLock;
-VertexFormatXYZNDUV2* VertexBuffer;
-protected:
-~SortingVertexBufferClass() throw();
-public:
-SortingVertexBufferClass(unsigned short VertexCount);
-};
 #endif  
 #if defined(_MSC_VER)
 #endif

@@ -33,13 +33,6 @@ void __cdecl operator delete[](void *) throw();
 class CameraClass;
 class DecalMeshClass;
 
-class MultiListObjectClass
-{
-public:
-	virtual ~MultiListObjectClass();
-	void *ListNode;
-};
-
 class MultiListNodeClass
 {
 public:

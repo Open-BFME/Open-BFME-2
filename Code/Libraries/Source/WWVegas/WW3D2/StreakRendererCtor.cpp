@@ -24,13 +24,6 @@ public:
 };
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/ww3d.h
-class WW3D
-{
-public:
-	static unsigned int Get_Sync_Time() { return SyncTime; }
-	static unsigned int SyncTime;
-};
-
 class VertexFormatXYZUV1;
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/streakRender.h

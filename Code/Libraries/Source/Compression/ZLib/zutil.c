@@ -13,7 +13,7 @@
 
 #include "zutil.h"
 
-struct internal_state      {int dummy;}; /* for buggy compilers */
+ /* for buggy compilers */
 
 #ifndef STDC
 extern void exit OF((int));

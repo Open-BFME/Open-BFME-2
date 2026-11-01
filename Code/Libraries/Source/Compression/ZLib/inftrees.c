@@ -24,7 +24,7 @@ const char inflate_copyright[] =
   include such an acknowledgment, I would appreciate that you keep this
   copyright string in the executable of your product.
  */
-struct internal_state  {int dummy;}; /* for buggy compilers */
+ /* for buggy compilers */
 
 /* simplify the use of the inflate_huft type with some defines */
 #define exop word.what.Exop

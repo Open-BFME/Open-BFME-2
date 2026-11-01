@@ -15,7 +15,7 @@
 #include "infcodes.h"
 #include "infutil.h"
 
-struct inflate_codes_state {int dummy;}; /* for buggy compilers */
+ /* for buggy compilers */
 
 /* And'ing with mask[n] masks the lower n bits */
 uInt inflate_mask[17] = {

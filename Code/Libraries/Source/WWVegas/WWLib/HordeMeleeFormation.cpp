@@ -39,13 +39,6 @@ struct BfmeE12
 	float z;
 };
 
-struct Ints12
-{
-	int m_00;
-	int m_04;
-	int m_08;
-};
-
 class Rva00585B16
 {
 public:

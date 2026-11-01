@@ -135,8 +135,6 @@ class Rva000799D0 {public:void rva000799D0();};
 
 class Rva001EB769 {public:void rva001EB769() throw();};
 
-class Rva001EB984Member {public:void *init(void*);};
-
 struct FormationSlot16 {int candidate;Object*object;int width,height;};
 
 struct FormationRowNode {_STL::_List_node_base link;_STL::vector<FormationSlot16> slots;};
