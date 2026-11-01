@@ -151,21 +151,8 @@ public:
 	Int m_index; // +0x10
 };
 
-#include "../../../Include/GameLogic/Module/BehaviorModule.h"
+#include "../../../Include/GameLogic/Module/UpdateModule.h"
 
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update();
-};
-
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-protected:
-	unsigned m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_bfmeReserved;
-};
 
 class FloodUpdate : public UpdateModule
 {

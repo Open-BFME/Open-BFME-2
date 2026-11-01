@@ -22,7 +22,8 @@
 	}
 #include "../GameLogic/AI/WorkOrder.h"
 #include "../GameLogic/AI/TeamInQueue.h"
-#include "../../Include/Common/ObjectModule.h"
+
+#include "../../Include/GameLogic/Module/UpdateModule.h"
 // ?getModuleNameKey@OathbreakersFadeAwayBehavior@@UBE?AW4NameKeyType@@XZ @0x004B89DD
 // (69B): cached pool-name key for OathbreakersFadeAwayBehavior. The class
 // identity comes from the pool-name string the body pushes
@@ -120,23 +121,7 @@ public:
 	AIUpdateInterface *getAIUpdateInterface();
 };
 
-#include "../../Include/GameLogic/Module/BehaviorModule.h"
 
-class UpdateModuleInterface { public: virtual void updateSlot(); };
-
-class UpdateModule : public ObjectModule,
-	public BehaviorModuleInterface, public UpdateModuleInterface
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *data);
-	virtual ~UpdateModule();
-	void xfer(Xfer *xfer);
-
-private:
-	unsigned int m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_updateState;
-};
 
 class OathbreakersFadeAwayBehavior : public UpdateModule
 {
