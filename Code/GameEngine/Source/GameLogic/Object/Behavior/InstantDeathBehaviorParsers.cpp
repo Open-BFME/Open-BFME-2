@@ -28,12 +28,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include "ascii_string.h"
 #include <windows.h>
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps = 0);
-	const char *getNextTokenOrNull(const char *seps = 0);
-};
+#include "../../../../Include/Common/INI/INI.h"
 
 class ObjectCreationList;
 class WeaponTemplate;
