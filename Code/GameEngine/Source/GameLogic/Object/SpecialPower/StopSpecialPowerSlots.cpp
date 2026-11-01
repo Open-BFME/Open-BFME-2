@@ -67,15 +67,7 @@ struct StopSpecialPowerModuleData
 	int m_7C; // +0x7C
 };
 
-class BehaviorModule
-{
-public:
-	virtual ~BehaviorModule();
-protected:
-	const StopSpecialPowerModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-};
-struct BehaviorModuleInterface { virtual void f0C(); };
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class SpecialPowerModuleInterface
 {
@@ -87,7 +79,7 @@ public:
 	virtual void doSpecialPower(int unused) = 0;
 };
 
-class SpecialPowerModule : public BehaviorModule, public BehaviorModuleInterface, public SpecialPowerModuleInterface
+class SpecialPowerModule : public BehaviorModule, public SpecialPowerModuleInterface
 {
 protected:
 	unsigned char m_pad14[0x34 - 0x14];
@@ -107,12 +99,12 @@ bool StopSpecialPower::isReady()
 {
 	if (!m_34)
 	{
-		if (m_moduleData->m_7C == 0)
+		if (reinterpret_cast<const StopSpecialPowerModuleData *>(m_moduleData)->m_7C == 0)
 			return false;
 		for (Rva004C683CModule **m = m_object->m_modules; *m; ++m)
 		{
 			Rva004C683CPower *power = (*m)->m_iface.slot8();
-			if (power && power->slot0(m_moduleData->m_7C))
+			if (power && power->slot0(reinterpret_cast<const StopSpecialPowerModuleData *>(m_moduleData)->m_7C))
 			{
 				m_34 = *m;
 				break;

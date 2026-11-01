@@ -45,19 +45,7 @@ public:
 	BitFlags<11> m_disabledMask; // +0x1C8
 };
 class ModuleData;
-class BehaviorModule
-{
-public:
-	virtual ~BehaviorModule();
-protected:
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-};
-class BehaviorModuleInterface
-{
-public:
-	virtual void behaviorModuleInterfaceAnchor();
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 template <int N> class Rva004C861ESPSlots : public Rva004C861ESPSlots<N - 1>
 {
 public:
@@ -72,7 +60,7 @@ class Rva004C861EIface10 : public Rva004C861ESPSlots<10>
 public:
 	virtual void doSpecialPower(unsigned int options) = 0;
 };
-class SpecialPowerModule : public BehaviorModule, public BehaviorModuleInterface, public Rva004C861EIface10
+class SpecialPowerModule : public BehaviorModule, public Rva004C861EIface10
 {
 };
 class SplitHordeSpecialPower : public SpecialPowerModule

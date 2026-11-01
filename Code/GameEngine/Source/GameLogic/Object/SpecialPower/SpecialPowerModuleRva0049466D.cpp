@@ -322,19 +322,12 @@ template <> class BehaviorModuleInterfaceSlots<0>
 {
 };
 
-class BehaviorModuleInterface : public BehaviorModuleInterfaceSlots<25>
-{
-public:
-	virtual Rva0049466DUpdateInterface *getRva0049466DUpdateInterface() = 0;
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 #include "../../../../Include/Common/Module.h"
 #include "../../../../Include/Common/ObjectModule.h"
 
 
-class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
-{
-};
 
 class SpecialPowerModuleInterface
 {
@@ -473,7 +466,7 @@ bool SpecialPowerModule::rva0049466D(const Coord3D *loc)
 		return false;
 	for (BehaviorModule **behaviorModule = getObject()->getBehaviorModules(); *behaviorModule; ++behaviorModule)
 	{
-		Rva0049466DUpdateInterface *update = (*behaviorModule)->getRva0049466DUpdateInterface();
+		Rva0049466DUpdateInterface *update = static_cast<Rva0049466DUpdateInterface *>((*behaviorModule)->slot25());
 		if (update && update->s7(getSpecialPowerModuleData()->m_specialPowerTemplate))
 			return update->s8(loc);
 	}
@@ -527,7 +520,7 @@ void SpecialPowerModule::initiateIntentToDoSpecialPower(const Object *targetObj,
 	Rva0049466DUpdateInterface *found = 0;
 	for (BehaviorModule **behaviorModule = getObject()->getBehaviorModules(); *behaviorModule; ++behaviorModule)
 	{
-		Rva0049466DUpdateInterface *update = (*behaviorModule)->getRva0049466DUpdateInterface();
+		Rva0049466DUpdateInterface *update = static_cast<Rva0049466DUpdateInterface *>((*behaviorModule)->slot25());
 		if (update && update->s7(getSpecialPowerModuleData()->getTemplate()))
 		{
 			update->initiateIntentToDoSpecialPower(getSpecialPowerModuleData()->m_specialPowerTemplate,

@@ -163,19 +163,7 @@ public:
 };
 
 class ModuleData;
-class BehaviorModule
-{
-public:
-	virtual ~BehaviorModule();
-protected:
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-};
-class BehaviorModuleInterface
-{
-public:
-	virtual void behaviorModuleInterfaceAnchor();
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 // The +0x10 interface: slots 0..9 placeholders, slot 10 below.
 class Rva004C51A0Iface10 : public Rva004C51A0Slots<10>
@@ -183,7 +171,7 @@ class Rva004C51A0Iface10 : public Rva004C51A0Slots<10>
 public:
 	virtual void doSpecialPower(unsigned int options) = 0;
 };
-class SpecialPowerModule : public BehaviorModule, public BehaviorModuleInterface, public Rva004C51A0Iface10
+class SpecialPowerModule : public BehaviorModule, public Rva004C51A0Iface10
 {
 };
 
