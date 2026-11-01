@@ -1,0 +1,975 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Debug",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 40,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 2
+   },
+   "0x9c74": {
+    "4": 3
+   },
+   "0x9c78": {
+    "4": 4
+   },
+   "0x9cf4": {
+    "4": 1
+   },
+   "0x9e08": {
+    "4": 6
+   },
+   "0x9e0c": {
+    "4": 5
+   },
+   "0x9e10": {
+    "4": 2
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x38440"
+     ],
+     "value": 40805
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x38440"
+     ],
+     "value": {
+      "0x10": [
+       4
+      ],
+      "0x14": [
+       4
+      ],
+      "0x4": [
+       4
+      ],
+      "0x8": [
+       4
+      ],
+      "0x9c74": [
+       4
+      ],
+      "0x9c78": [
+       4
+      ],
+      "0x9c7c": [
+       4
+      ],
+      "0x9c80": [
+       4
+      ],
+      "0x9cf4": [
+       4
+      ],
+      "0x9cf8": [
+       1
+      ],
+      "0x9df8": [
+       4
+      ],
+      "0x9dfc": [
+       4
+      ],
+      "0x9e00": [
+       4
+      ],
+      "0x9e04": [
+       4
+      ],
+      "0x9e08": [
+       4
+      ],
+      "0x9e0c": [
+       4
+      ],
+      "0x9e10": [
+       4
+      ],
+      "0x9e14": [
+       1
+      ],
+      "0x9e78": [
+       1
+      ],
+      "0x9e79": [
+       1
+      ],
+      "0x9e7a": [
+       1
+      ],
+      "0x9e8c": [
+       4
+      ],
+      "0x9f54": [
+       1
+      ],
+      "0x9f55": [
+       1
+      ],
+      "0x9f56": [
+       1
+      ],
+      "0x9f57": [
+       1
+      ],
+      "0x9f58": [
+       1
+      ],
+      "0x9f5c": [
+       4
+      ],
+      "0x9f64": [
+       1
+      ],
+      "0xc": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x38440"
+     ],
+     "value": {
+      "0x9e7b": [
+       "??0DebugStackwalk@@AAE@XZ"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x38440"
+     ],
+     "value": {
+      "0x0": "0x7be810"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7be810"
+     ],
+     "value": {
+      "count": 46,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??6Debug@@UAEAAV0@VHResult@0@@Z",
+        "slot": 0,
+        "target": "0x38c30"
+       },
+       {
+        "name": "??6Debug@@UAEAAV0@ABVMemDump@0@@Z",
+        "slot": 1,
+        "target": "0x389c0"
+       },
+       {
+        "name": "??6Debug@@UAEAAV0@PBX@Z",
+        "slot": 2,
+        "target": "0x38950"
+       },
+       {
+        "name": "??6Debug@@UAEAAV0@_K@Z",
+        "slot": 3,
+        "target": "0x3b570"
+       },
+       {
+        "name": "??6Debug@@UAEAAV0@_J@Z",
+        "slot": 4,
+        "target": "0x3b510"
+       },
+       {
+        "name": "??6Debug@@UAEAAV0@G@Z",
+        "slot": 5,
+        "target": "0x3b4c0"
+       },
+       {
+        "name": "??6Debug@@UAEAAV0@F@Z",
+        "slot": 6,
+        "target": "0x3b470"
+       },
+       {
+        "name": "??6Debug@@UAEAAV0@N@Z",
+        "slot": 7,
+        "target": "0x38900"
+       },
+       {
+        "name": "??6Debug@@UAEAAV0@M@Z",
+        "slot": 8,
+        "target": "0x388b0"
+       },
+       {
+        "name": "??6Debug@@UAEAAV0@_N@Z",
+        "slot": 9,
+        "target": "0x38890"
+       },
+       {
+        "name": "??6Debug@@UAEAAV0@I@Z",
+        "slot": 10,
+        "target": "0x3b420"
+       },
+       {
+        "name": "??6Debug@@UAEAAV0@H@Z",
+        "slot": 11,
+        "target": "0x3b3d0"
+       },
+       {
+        "name": "??6Debug@@UAEAAV0@I@Z",
+        "slot": 12,
+        "target": "0x3b420"
+       },
+       {
+        "name": "??6Debug@@UAEAAV0@H@Z",
+        "slot": 13,
+        "target": "0x3b3d0"
+       },
+       {
+        "name": "??6Debug@@UAEAAV0@PBD@Z",
+        "slot": 14,
+        "target": "0x3b340"
+       },
+       {
+        "name": "??6Debug@@UAEAAV0@ABVRepeatChar@0@@Z",
+        "slot": 15,
+        "target": "0x3a620"
+       },
+       {
+        "name": "??_GDebug@@UAEPAXI@Z",
+        "slot": 16,
+        "target": "0x39920"
+       },
+       {
+        "name": "?AssertDone@Debug@@UAE_NH@Z",
+        "slot": 17,
+        "target": "0x3a8a0"
+       },
+       {
+        "name": "?d_00889720@Rva00889720Class@@QAE_NXZ",
+        "slot": 18,
+        "target": "0x387f0"
+       },
+       {
+        "name": "?CrashDone@Debug@@UAE_NH@Z",
+        "slot": 19,
+        "target": "0x3aed0"
+       },
+       {
+        "name": "?d_00889780@Rva00889780Class@@QAEXPBDH@Z",
+        "slot": 20,
+        "target": "0x38850"
+       },
+       {
+        "name": "?WriteBuildInfo@Debug@@UAEXXZ",
+        "slot": 21,
+        "target": "0x395d0"
+       },
+       {
+        "name": "?InstallExceptionHandler@Debug@@SAXXZ",
+        "slot": 22,
+        "target": "0x38770"
+       },
+       {
+        "name": "?frameStatus@Debug@@UAE_NI_N@Z",
+        "slot": 23,
+        "target": "0x3a6a0"
+       },
+       {
+        "name": "?bfmeGoDWC@BfmeThingDWC@@QAE_NXZ",
+        "slot": 24,
+        "target": "0x387d0"
+       },
+       {
+        "name": "?CheckBegin@Debug@@UAEAAV1@PBDHH0@Z",
+        "slot": 25,
+        "target": "0x3a750"
+       },
+       {
+        "name": "?LogBegin@Debug@@UAEAAV1@PBD@Z",
+        "slot": 26,
+        "target": "0x3ac60"
+       },
+       {
+        "name": "?CrashBegin@Debug@@UAEAAV1@PBDHH@Z",
+        "slot": 27,
+        "target": "0x3ad80"
+       },
+       {
+        "name": "?isLogEnabled@Debug@@UAE_NI@Z",
+        "slot": 28,
+        "target": "0x3b5d0"
+       },
+       {
+        "name": "?get@Rva00038CB0ByteField@@QBEEXZ",
+        "slot": 29,
+        "target": "0x38cb0"
+       },
+       {
+        "name": "?insert@Rva00889BF0Context@@QAEXIPAX0@Z",
+        "slot": 30,
+        "target": "0x38cc0"
+       },
+       {
+        "name": "?d_00889c90@Rva00889C90Class@@QAEXPAX0@Z",
+        "slot": 31,
+        "target": "0x38d60"
+       },
+       {
+        "name": "?d_00889d20@Rva00889D20Class@@QAE_NPAX00@Z",
+        "slot": 32,
+        "target": "0x38df0"
+       },
+       {
+        "name": "?d_00889d70@Rva00889D70Class@@QAE_NPAX0@Z",
+        "slot": 33,
+        "target": "0x38e40"
+       },
+       {
+        "name": "?d_00889dd0@Rva00889DD0Class@@QAEXH@Z",
+        "slot": 34,
+        "target": "0x38ea0"
+       },
+       {
+        "name": "?Command@Debug@@UAE_NPBD@Z",
+        "slot": 35,
+        "target": "0x3b640"
+       },
+       {
+        "name": "?ExecuteFrameCommands@Debug@@UAEXH@Z",
+        "slot": 36,
+        "target": "0x3b670"
+       },
+       {
+        "name": "?Update@Debug@@UAEXXZ",
+        "slot": 37,
+        "target": "0x3b700"
+       },
+       {
+        "name": "?GetInput@Debug@@UAEHPADHPA_N@Z",
+        "slot": 38,
+        "target": "0x38ee0"
+       },
+       {
+        "name": "?SetBuildInfo@Debug@@UAEXPBD00@Z",
+        "slot": 39,
+        "target": "0x39510"
+       },
+       {
+        "name": "?get@Rva000395A0LeaGetter@@QBEPAXXZ",
+        "slot": 40,
+        "target": "0x395a0"
+       },
+       {
+        "name": "?get@Rva000395B0LeaGetter@@QBEPAXXZ",
+        "slot": 41,
+        "target": "0x395b0"
+       },
+       {
+        "name": "?get@Rva000395C0LeaGetter@@QBEPAXXZ",
+        "slot": 42,
+        "target": "0x395c0"
+       },
+       {
+        "name": "?bfmeProbeAAS@BfmeHostAAS@@QAE_NXZ",
+        "slot": 43,
+        "target": "0x397d0"
+       },
+       {
+        "name": "?bfmeSetSign@Gen_0088A5D0@@QAEXE@Z",
+        "slot": 44,
+        "target": "0x39880"
+       },
+       {
+        "name": "?AddLogGroup@Debug@@AAEPBDPBD0@Z",
+        "slot": 45,
+        "target": "0x390d0"
+       }
+      ],
+      "table": "0x7be810"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 8,
+  "retail_vtables": {
+   "0x7be810": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "??6Debug@@UAEAAV0@VHResult@0@@Z",
+     "1": "??6Debug@@UAEAAV0@ABVMemDump@0@@Z",
+     "2": "??6Debug@@UAEAAV0@PBX@Z",
+     "3": "??6Debug@@UAEAAV0@_K@Z",
+     "4": "??6Debug@@UAEAAV0@_J@Z",
+     "5": "??6Debug@@UAEAAV0@G@Z",
+     "6": "??6Debug@@UAEAAV0@F@Z",
+     "7": "??6Debug@@UAEAAV0@N@Z",
+     "8": "??6Debug@@UAEAAV0@M@Z",
+     "9": "??6Debug@@UAEAAV0@_N@Z",
+     "10": "??6Debug@@UAEAAV0@I@Z",
+     "11": "??6Debug@@UAEAAV0@H@Z",
+     "12": "??6Debug@@UAEAAV0@I@Z",
+     "13": "??6Debug@@UAEAAV0@H@Z",
+     "14": "??6Debug@@UAEAAV0@PBD@Z",
+     "15": "??6Debug@@UAEAAV0@ABVRepeatChar@0@@Z",
+     "16": "??_GDebug@@UAEPAXI@Z",
+     "17": "?AssertDone@Debug@@UAE_NH@Z",
+     "18": "?d_00889720@Rva00889720Class@@QAE_NXZ",
+     "19": "?CrashDone@Debug@@UAE_NH@Z",
+     "20": "?d_00889780@Rva00889780Class@@QAEXPBDH@Z",
+     "21": "?WriteBuildInfo@Debug@@UAEXXZ",
+     "22": "?InstallExceptionHandler@Debug@@SAXXZ",
+     "23": "?frameStatus@Debug@@UAE_NI_N@Z",
+     "24": "?bfmeGoDWC@BfmeThingDWC@@QAE_NXZ",
+     "25": "?CheckBegin@Debug@@UAEAAV1@PBDHH0@Z",
+     "26": "?LogBegin@Debug@@UAEAAV1@PBD@Z",
+     "27": "?CrashBegin@Debug@@UAEAAV1@PBDHH@Z",
+     "28": "?isLogEnabled@Debug@@UAE_NI@Z",
+     "29": "?get@Rva00038CB0ByteField@@QBEEXZ",
+     "30": "?insert@Rva00889BF0Context@@QAEXIPAX0@Z",
+     "31": "?d_00889c90@Rva00889C90Class@@QAEXPAX0@Z",
+     "32": "?d_00889d20@Rva00889D20Class@@QAE_NPAX00@Z",
+     "33": "?d_00889d70@Rva00889D70Class@@QAE_NPAX0@Z",
+     "34": "?d_00889dd0@Rva00889DD0Class@@QAEXH@Z",
+     "35": "?Command@Debug@@UAE_NPBD@Z",
+     "36": "?ExecuteFrameCommands@Debug@@UAEXH@Z",
+     "37": "?Update@Debug@@UAEXXZ",
+     "38": "?GetInput@Debug@@UAEHPADHPA_N@Z",
+     "39": "?SetBuildInfo@Debug@@UAEXPBD00@Z",
+     "40": "?get@Rva000395A0LeaGetter@@QBEPAXXZ",
+     "41": "?get@Rva000395B0LeaGetter@@QBEPAXXZ",
+     "42": "?get@Rva000395C0LeaGetter@@QBEPAXXZ",
+     "43": "?bfmeProbeAAS@BfmeHostAAS@@QAE_NXZ",
+     "44": "?bfmeSetSign@Gen_0088A5D0@@QAEXE@Z",
+     "45": "?AddLogGroup@Debug@@AAEPBDPBD0@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 2,
+  "view_sizes": {
+   "1": 3,
+   "4": 25,
+   "40052": 2,
+   "40184": 1,
+   "40444": 1,
+   "40448": 2,
+   "40456": 1,
+   "40468": 1,
+   "40592": 1,
+   "40804": 1
+  },
+  "views": 38,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_Debug.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug/debug_debug.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "retail-access",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 34,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 26
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WWDebug/Debug_FrameStatus.cpp",
+    "Code/Libraries/Source/WWVegas/WWDebug/Debug_IsLogEnabled.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WWDebug/Debug_CheckBegin.cpp",
+    "Code/Libraries/Source/WWVegas/WWDebug/Debug_CrashBegin.cpp",
+    "Code/Libraries/Source/WWVegas/WWDebug/Debug_LogBegin.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WWDebug/Debug_CheckBegin.cpp",
+    "Code/Libraries/Source/WWVegas/WWDebug/Debug_CrashBegin.cpp",
+    "Code/Libraries/Source/WWVegas/WWDebug/Debug_FrameStatus.cpp",
+    "Code/Libraries/Source/WWVegas/WWDebug/Debug_LogBegin.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WWDebug/Debug_FrameStatus.cpp",
+    "Code/Libraries/Source/WWVegas/WWDebug/Debug_GetFrameEntry.cpp",
+    "Code/Libraries/Source/WWVegas/WWDebug/Debug_IsLogEnabled.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 40068,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WWDebug/DebugGetOutputBuffer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 40180,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WWDebug/DebugGetOutputBuffer.cpp",
+    "Code/Libraries/Source/WWVegas/WWDebug/Debug_CheckBegin.cpp",
+    "Code/Libraries/Source/WWVegas/WWDebug/Debug_CrashBegin.cpp",
+    "Code/Libraries/Source/WWVegas/WWDebug/Debug_LogBegin.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 40184,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WWDebug/Debug_CheckBegin.cpp",
+    "Code/Libraries/Source/WWVegas/WWDebug/Debug_CrashBegin.cpp",
+    "Code/Libraries/Source/WWVegas/WWDebug/Debug_LogBegin.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 40440,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WWDebug/Debug_CheckBegin.cpp",
+    "Code/Libraries/Source/WWVegas/WWDebug/Debug_CrashBegin.cpp",
+    "Code/Libraries/Source/WWVegas/WWDebug/Debug_FrameStatus.cpp",
+    "Code/Libraries/Source/WWVegas/WWDebug/Debug_LogBegin.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 40444,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WWDebug/Debug_CheckBegin.cpp",
+    "Code/Libraries/Source/WWVegas/WWDebug/Debug_CrashBegin.cpp",
+    "Code/Libraries/Source/WWVegas/WWDebug/Debug_LogBegin.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 40448,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WWDebug/Debug_AddPatternEntry.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 40452,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WWDebug/Debug_AddPatternEntry.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 40456,
+   "sources": [
+    "Code/Libraries/Source/debug/Debug_FrameCommands.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 40460,
+   "sources": [
+    "Code/Libraries/Source/debug/Debug_FrameCommands.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 40464,
+   "sources": [
+    "Code/Libraries/Source/debug/Debug_FrameCommands.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 40572,
+   "sources": [
+    "Code/GameEngine/Source/Common/BfmeThreeHundredOne.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 40588,
+   "sources": [
+    "Code/GameEngine/Source/Common/BfmeThreeHundredOne.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 40796,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WWDebug/Debug_LogBegin.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 40800,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WWDebug/Debug_LogBegin.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "slot1",
+   "candidates": {
+    "_M_slot_04()": 3,
+    "f1()": 2,
+    "operator<<(Debug::MemDump*)": 1,
+    "operator<<(MemDump*)": 1,
+    "pad01()": 9,
+    "slot01()": 1,
+    "slot04()": 9,
+    "v1()": 3
+   },
+   "class": "Debug"
+  },
+  {
+   "attribute": "slot2",
+   "candidates": {
+    "_M_slot_08()": 3,
+    "f2()": 2,
+    "operator<<(void*)": 2,
+    "pad02()": 9,
+    "slot02()": 1,
+    "slot08()": 9,
+    "v2()": 3
+   },
+   "class": "Debug"
+  },
+  {
+   "attribute": "slot4",
+   "candidates": {
+    "_M_slot_10()": 3,
+    "f4()": 2,
+    "operator<<(int64)": 2,
+    "pad04()": 9,
+    "slot04()": 1,
+    "slot10()": 9,
+    "v4()": 3
+   },
+   "class": "Debug"
+  },
+  {
+   "attribute": "slot5",
+   "candidates": {
+    "_M_slot_14()": 3,
+    "f5()": 2,
+    "operator<<(ushort)": 2,
+    "pad05()": 9,
+    "slot05()": 1,
+    "slot14()": 9,
+    "v5()": 3
+   },
+   "class": "Debug"
+  },
+  {
+   "attribute": "slot6",
+   "candidates": {
+    "_M_slot_18()": 3,
+    "f6()": 2,
+    "operator<<(short)": 2,
+    "pad06()": 9,
+    "slot06()": 1,
+    "slot18()": 9,
+    "v6()": 3
+   },
+   "class": "Debug"
+  },
+  {
+   "attribute": "slot9",
+   "candidates": {
+    "_M_slot_24()": 3,
+    "f9()": 2,
+    "operator<<(bool)": 2,
+    "operator<<(ushort)": 2,
+    "pad09()": 9,
+    "slot09()": 1,
+    "slot24()": 9,
+    "v9()": 1
+   },
+   "class": "Debug"
+  },
+  {
+   "attribute": "slot10",
+   "candidates": {
+    "_M_slot_28()": 3,
+    "f10()": 2,
+    "operator<<(short)": 2,
+    "operator<<(ulong)": 2,
+    "pad10()": 9,
+    "slot10()": 1,
+    "slot28()": 9,
+    "v10()": 1
+   },
+   "class": "Debug"
+  },
+  {
+   "attribute": "slot12",
+   "candidates": {
+    "_M_slot_30()": 3,
+    "f12()": 2,
+    "operator<<(uint)": 4,
+    "pad12()": 9,
+    "slot12()": 1,
+    "slot30()": 9,
+    "v12()": 1
+   },
+   "class": "Debug"
+  },
+  {
+   "attribute": "slot15",
+   "candidates": {
+    "AddOutput(char*,uint)": 1,
+    "_M_slot_3c()": 3,
+    "f15()": 2,
+    "operator<<(Debug::RepeatChar*)": 3,
+    "pad15()": 7,
+    "slot15()": 1,
+    "slot3C()": 7,
+    "slot3c()": 2,
+    "v15()": 1,
+    "v9()": 2
+   },
+   "class": "Debug"
+  },
+  {
+   "attribute": "slot28",
+   "candidates": {
+    "_M_slot_70()": 2,
+    "pad28()": 1,
+    "slot28()": 1,
+    "slot70()": 2
+   },
+   "class": "Debug"
+  },
+  {
+   "attribute": "slot29",
+   "candidates": {
+    "_M_slot_74()": 2,
+    "pad29()": 1,
+    "slot29()": 1,
+    "slot74()": 2
+   },
+   "class": "Debug"
+  },
+  {
+   "attribute": "slot30",
+   "candidates": {
+    "_M_slot_78()": 2,
+    "pad30()": 1,
+    "slot30()": 1,
+    "slot78()": 2
+   },
+   "class": "Debug"
+  },
+  {
+   "attribute": "slot31",
+   "candidates": {
+    "_M_slot_7c()": 2,
+    "pad31()": 1,
+    "slot31()": 1,
+    "slot7C()": 2
+   },
+   "class": "Debug"
+  },
+  {
+   "attribute": "slot35",
+   "candidates": {
+    "Command(char*)": 1,
+    "FlushOutput(bool)": 1,
+    "_M_slot_8c()": 1,
+    "slot35()": 1,
+    "slot8C()": 1
+   },
+   "class": "Debug"
+  },
+  {
+   "attribute": "slot36",
+   "candidates": {
+    "_M_slot_90()": 1,
+    "slot36()": 1,
+    "slot90()": 1
+   },
+   "class": "Debug"
+  },
+  {
+   "attribute": "slot37",
+   "candidates": {
+    "_M_slot_94()": 1,
+    "slot37()": 1,
+    "slot94()": 1
+   },
+   "class": "Debug"
+  },
+  {
+   "attribute": "slot38",
+   "candidates": {
+    "_M_slot_98()": 1,
+    "slot38()": 1,
+    "slot98(int,int,int)": 1
+   },
+   "class": "Debug"
+  },
+  {
+   "attribute": "slot39",
+   "candidates": {
+    "_M_slot_9c(char*,char*,char*)": 1,
+    "slot39()": 1
+   },
+   "class": "Debug"
+  }
+ ],
+ "size": 4,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "slot00()"
+  },
+  "11": {
+   "decided_by": "majority",
+   "member": "pad11()"
+  },
+  "13": {
+   "decided_by": "majority",
+   "member": "slot34()"
+  },
+  "14": {
+   "decided_by": "majority",
+   "member": "operator<<(char*)"
+  },
+  "16": {
+   "decided_by": "majority",
+   "member": "pad16()"
+  },
+  "17": {
+   "decided_by": "majority",
+   "member": "pad17()"
+  },
+  "18": {
+   "decided_by": "majority",
+   "member": "pad18()"
+  },
+  "19": {
+   "decided_by": "majority",
+   "member": "CrashDone(int)"
+  },
+  "20": {
+   "decided_by": "majority",
+   "member": "slot50()"
+  },
+  "21": {
+   "decided_by": "majority",
+   "member": "slot54()"
+  },
+  "22": {
+   "decided_by": "majority",
+   "member": "slot58()"
+  },
+  "23": {
+   "decided_by": "majority",
+   "member": "slot5C()"
+  },
+  "24": {
+   "decided_by": "majority",
+   "member": "slot60()"
+  },
+  "25": {
+   "decided_by": "majority",
+   "member": "slot64()"
+  },
+  "26": {
+   "decided_by": "majority",
+   "member": "slot68()"
+  },
+  "27": {
+   "decided_by": "majority",
+   "member": "CrashBegin(char*,int,int)"
+  },
+  "3": {
+   "decided_by": "majority",
+   "member": "pad03()"
+  },
+  "32": {
+   "decided_by": "majority",
+   "member": "slot80()"
+  },
+  "33": {
+   "decided_by": "majority",
+   "member": "AddCommands(char*,DebugCmdInterface*)"
+  },
+  "34": {
+   "decided_by": "majority",
+   "member": "_M_slot_88()"
+  },
+  "40": {
+   "decided_by": "bytes",
+   "member": "slot40()"
+  },
+  "41": {
+   "decided_by": "bytes",
+   "member": "slot41()"
+  },
+  "42": {
+   "decided_by": "bytes",
+   "member": "slot42()"
+  },
+  "7": {
+   "decided_by": "majority",
+   "member": "pad07()"
+  },
+  "8": {
+   "decided_by": "majority",
+   "member": "pad08()"
+  }
+ }
+}
