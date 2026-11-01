@@ -28,11 +28,7 @@ private:
 
 // A counted object: the rowed fastcall release 0x0007DEEF drops the +0x04
 // count and destroys it at zero.
-struct TargetRef00217D4C
-{
-	virtual void *destroy(unsigned int flags);
-	int references;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 
 // The 0x14-byte counted record of three words, rowed constructor 0x005CEAE6.

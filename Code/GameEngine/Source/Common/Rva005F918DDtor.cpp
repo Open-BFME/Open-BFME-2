@@ -5,7 +5,7 @@
 // Evidence: same callees as Rva005F8F96 holder plus StringBase release;
 // callers 0x005E9B33 0x005E9C8C 0x005E9D0C; layout matches src of converting
 // copy 0x005F91F3.
-struct TargetRef00217D4C { virtual void *destroy(unsigned int flags); int references; };
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 #include "unicode_string.h"
 struct Rva005F918DHolder00 {

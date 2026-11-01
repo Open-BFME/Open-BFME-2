@@ -9,11 +9,7 @@
 
 class Rva00220808;
 
-struct TargetRef00217D4C
-{
-	void *m_vtbl;
-	int m_refCount;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 
 struct RvaF6Ret
@@ -21,7 +17,7 @@ struct RvaF6Ret
 	RvaF6Ret(TargetRef00217D4C *p) : m_ptr(p)
 	{
 		if (m_ptr)
-			++m_ptr->m_refCount;
+			++m_ptr->references;
 	}
 	~RvaF6Ret()
 	{

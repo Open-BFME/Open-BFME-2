@@ -4,11 +4,7 @@
 // count = last-first; if <=0 return dest; else for (i=n;i!=0;--i)
 // { *dest = *first; ++first; ++dest; } return dest. Caller at 0x005EF54D.
 
-struct TargetRef00217D4C
-{
-	void *m_vtbl;
-	int references;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 
 struct Rva005EEFD2Target
 {

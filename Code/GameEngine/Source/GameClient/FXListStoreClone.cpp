@@ -3,7 +3,7 @@
 // Target1E2BB0..1E2C92; findFXList and named base construction establish
 // FX-list clone semantics; the original method spelling is unproven.
 #include "ascii_string.h"
-struct TargetRef00217D4C {virtual void *destroy(unsigned);int references;};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 class Rva000B3F15Payload {public:char opaque00[0x28];TargetRef00217D4C ref28;};
 class Rva000B3F15 {public:

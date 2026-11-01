@@ -45,7 +45,7 @@ public:
 };
 struct IconSubTemplate {char pad[0x1c];float height;};
 struct IconTemplate {void *name;_STL::vector<IconSubTemplate *> items;};
-struct TargetRef00217D4C {void *vtable;int references;};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 struct IconHelpRef {
  TargetRef00217D4C *ptr;

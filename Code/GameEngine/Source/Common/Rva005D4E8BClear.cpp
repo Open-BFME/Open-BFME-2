@@ -4,11 +4,7 @@
 // 0x0007DEEF then nulls holder. Evidence: retail mov eax,[esi]; test-je;
 // mov ecx,[eax+4]; mov ecx,[ecx+4]; lea ecx,[ecx+eax+4]; call row; and [esi],0;
 // caller 0x005D4F19 uses as this+0xC with tail jmp to Rva002BED91::clear.
-struct TargetRef00217D4C
-{
-	void *m_vtbl;
-	int references;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 struct Rva005D4E8BDesc
 {

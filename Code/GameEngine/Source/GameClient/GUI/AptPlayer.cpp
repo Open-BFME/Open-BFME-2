@@ -8,7 +8,7 @@
 #include "ascii_string.h"
 #undef strchr
 #undef sprintf
-struct TargetRef00217D4C { virtual void *destroy(unsigned); int references; };
+#include "../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 struct TreeHintRef00222C5A {
 	TargetRef00217D4C *m_ptr;

@@ -2,11 +2,7 @@
 //
 // ?Rva005CD813Visit@@YAXPAX@Z retail 0x005CD813 46B visit list via stack Visitor.
 // Evidence: callee 0x005CCD36 rowed Rva005CCD36::rva005CCD36(Visitor*); temp vtable data 0x00875008; caller 0x005CD8A5 pushes one ptr cdecl void.
-struct TargetRef00217D4C
-{
-	virtual void *destroy(unsigned int flags);
-	int references;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 struct Visitor005CCCD0
 {
 	virtual bool visit(TargetRef00217D4C *p);

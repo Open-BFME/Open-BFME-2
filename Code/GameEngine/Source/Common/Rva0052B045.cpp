@@ -7,17 +7,8 @@
 // The helper's by-value result is a temporary whose inline destructor
 // releases a non-null reference (0x0007DEEF), which is the retail tail
 // after the assignment (EH state -1, test ecx, call).
-struct TargetRef00217D4C
-{
-	void *m_vtbl;
-	int references;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
-struct TreeHintRef00217D4C
-{
-	TargetRef00217D4C *m_ptr;
-	TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &other);
-};
 struct RvaF6Ret
 {
 	~RvaF6Ret()

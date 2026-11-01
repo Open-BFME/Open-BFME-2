@@ -10,7 +10,7 @@
 // establishes the32-bit count and release ABI used here.
 // The TargetRef00217D4C prefix agrees with its existing provider: slot0 takes
 // flags and returns the allocation, with a signed32-bit count at offset4.
-struct TargetRef00217D4C {virtual void *destroy(unsigned flags);int references;};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
 class Rva005FEA62VirtualValue {
 public:

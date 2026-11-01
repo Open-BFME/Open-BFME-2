@@ -6,7 +6,7 @@
 // Evidence: push esi mov esi ecx mov ecx [esi] test je call Release test
 // flag je push esi call delete pop ecx mov eax esi ret 4; callers 6 including
 // 0x004F70CB 0x004F72F8; LINK 1 file 7B.
-struct TargetRef00217D4C { virtual void *destroy(unsigned int flags); int references; };
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 #include <new>
 struct Rva005F8FCC

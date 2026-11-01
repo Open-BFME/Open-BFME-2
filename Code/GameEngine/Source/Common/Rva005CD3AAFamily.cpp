@@ -3,11 +3,7 @@
 // Factory helpers constructing refcounted Rva005CD257/Rva005CD2A3/Rva005CD2EF elements
 // and adding them to Rva005CD1A9 container.
 
-struct TargetRef00217D4C
-{
-	virtual void *destroy(unsigned int flags);
-	int references;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 

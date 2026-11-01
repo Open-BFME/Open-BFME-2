@@ -4,11 +4,7 @@
 // count = last-first; if <=0 return dest; else do { --last; --dest;
 // *dest = *last; } while (--count). Caller at 0x005EF47E.
 
-struct TargetRef00217D4C
-{
-	void *m_vtbl;
-	int references;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 
 struct Rva005EEFD2Target
 {

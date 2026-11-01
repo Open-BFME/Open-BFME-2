@@ -23,11 +23,7 @@ private:
 	char m_pad[0x44 - 4];
 };
 
-struct TargetRef00217D4C
-{
-	void *m_vtbl;
-	int m_ref;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(struct TargetRef00217D4C *p);
 
 struct TreeHintHolder00217D4C
@@ -37,7 +33,7 @@ struct TreeHintHolder00217D4C
 	{
 		m_ptr = r;
 		if (r)
-			++r->m_ref;
+			++r->references;
 	}
 	~TreeHintHolder00217D4C() { if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr); }
 };

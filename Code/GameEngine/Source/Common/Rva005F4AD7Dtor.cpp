@@ -12,11 +12,7 @@
 // 0x005F4B21 0x005FD607 0x005FD864 plus Unwind funclets; member dtors at
 // 0x005FD5D4 (+4) and 0x005D4EC6 (+0xC) call this alongside direct Release
 // and StringBase releases.
-struct TargetRef00217D4C
-{
-	void *m_vtbl;
-	int references;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 struct Rva005F4AD7Mid
 {

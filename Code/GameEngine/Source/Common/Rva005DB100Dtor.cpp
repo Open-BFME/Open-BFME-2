@@ -4,7 +4,7 @@
 // via rowed Release 0x0007DEEF and rowed base dtor 0x0039AD56 caller deleting dtor 0x005DB1EB
 // neighbours prev 0x005DB023 Chain and next 0x005DB82B Disp0 setters
 
-struct TargetRef00217D4C { virtual void *destroy(unsigned flags); int references; };
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 
 struct Rva005DB100Mid { char m_pad[172]; TargetRef00217D4C m_hint; };

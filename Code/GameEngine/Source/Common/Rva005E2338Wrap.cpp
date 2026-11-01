@@ -22,17 +22,8 @@ class Rva005E2338Virt;
 // and its two builders: the pinned 0x0056BB8C from the element's +0x20
 // object, and 0x0056BC3D (WorldBuilder StrategicInGameUI::CreateHelpFor)
 // from the element itself; both return the handle by value.
-struct TargetRef00217D4C
-{
-	void *m_vtbl;
-	int references;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
-struct TreeHintRef00217D4C
-{
-	TargetRef00217D4C *m_ptr;
-	TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &other);
-};
 struct RvaF6Ret
 {
 	~RvaF6Ret()

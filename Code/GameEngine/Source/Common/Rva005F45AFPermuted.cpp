@@ -62,14 +62,8 @@ struct EntryNameView4710 { int unknown; AsciiString name; };
 class ThingTemplate;
 class ThingFactory { public: const ThingTemplate *findTemplate(const AsciiString &); };
 extern ThingFactory *TheThingFactory;
-struct TargetRef00217D4C { void *vtable; int references; };
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
-struct TreeHintRef00217D4C {
- __forceinline TreeHintRef00217D4C(TargetRef00217D4C *p):m_ptr(p) { if(m_ptr) ++m_ptr->references; }
- __forceinline TreeHintRef00217D4C(const TreeHintRef00217D4C &other):m_ptr(other.m_ptr) { if(m_ptr) ++m_ptr->references; }
- ~TreeHintRef00217D4C() { if(m_ptr) ReleaseTreeHintRef00217D4C(m_ptr); }
- TargetRef00217D4C *m_ptr;
-};
 class Rva001524CA { public: TreeHintRef00217D4C rva001524CA(); };
 // StrategicInGameUI::ArmyUnitIcon's slot-3 override of its virtual base
 // (C794AC slot 3 reaches it through the vtordisp thunk 0x005F4889, which

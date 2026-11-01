@@ -11,30 +11,10 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 
-struct TargetRef00217D4C
-{
-	void *m_vtbl;
-	int m_refCount;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *ref); // 0x0007DEEF
 
 // The counted handle (assignment 0x002174A4 rowed elsewhere).
-struct TreeHintRef00217D4C
-{
-	TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &other);
-	TreeHintRef00217D4C(TargetRef00217D4C *ptr) : m_ptr(ptr)
-	{
-		if (m_ptr)
-			m_ptr->m_refCount++;
-	}
-	~TreeHintRef00217D4C()
-	{
-		if (m_ptr)
-			ReleaseTreeHintRef00217D4C(m_ptr);
-	}
-
-	TargetRef00217D4C *m_ptr;
-};
 
 // The help object InGameHotSpotSimpleHelp also builds (ctor 0x005398CD in
 // GameClient/GUI/InGame/InGameSimpleHelp.cpp).

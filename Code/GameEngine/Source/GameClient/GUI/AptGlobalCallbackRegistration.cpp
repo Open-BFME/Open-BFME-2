@@ -19,7 +19,7 @@
 // argument-save slot serve all thirteen registrations.
 #include "ascii_string.h"
 
-struct TargetRef00217D4C {void *vtable;int references;};
+#include "../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
 
 #include <new>

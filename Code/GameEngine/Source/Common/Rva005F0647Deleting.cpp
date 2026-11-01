@@ -3,7 +3,7 @@
 // then conditionally deletes this when flag bit0 is set and returns this.
 // Unblocks 0x005F0C39. TU-local honest-address views.
 // cl: /Ireference/shims/bfme2_ascii /MD
-struct TargetRef00217D4C { virtual void *destroy(unsigned int); int references; };
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 #include <new>
 struct Rva005F0647Holder { char pad[4]; TargetRef00217D4C target; };

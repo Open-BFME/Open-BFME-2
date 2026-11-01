@@ -3,11 +3,7 @@
 // Elem dtor destroying TreeHintRef holder at +0x14 then Rva0052413E at +8 then AsciiString at +4.
 // Evidence: retail EH_prolog test ecx [esi+0x14] call ReleaseTreeHintRef 0x0007DEEF then lea [esi+8] call 0x0052413E then lea [esi+4] call releaseBuffer 0x00036410; callers 0x0057C320 deleting dtor and 0x0057C3A8 clear; sibling Rva005F8FEEDtor same holder plus Rva plus releaseBuffer pattern.
 #include "ascii_string.h"
-struct TargetRef00217D4C
-{
-    virtual void *destroy(unsigned int flags);
-    int references;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 class Rva0052413E
 {

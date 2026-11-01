@@ -80,7 +80,7 @@ struct WindowRecord {
 typedef _STL::hash_map<AsciiString, WindowRecord, rts::hash<AsciiString>,
     rts::equal_to<AsciiString> > WindowTable;
 
-struct TargetRef00217D4C {virtual void *destroy(unsigned);int references;};
+#include "../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 
 struct Rva00461A00Mapped {
@@ -189,10 +189,6 @@ Rva00411453Tree::~Rva00411453Tree()
 // existing owners. Native startup7AFF1A and teardown7B8247 establish the
 // existing global's20-byte table storage, not a single unsigned word.
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
-struct TreeHintRef00217D4C {
- TargetRef00217D4C *m_ptr;
- TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &);
-};
 class AptScreenInitGadgets;
 template<class T>class AptRef {
 public:

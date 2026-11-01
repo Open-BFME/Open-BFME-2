@@ -6,11 +6,7 @@
 // Evidence: chain lane calls rowed Holder dtor; callers at 0x005D4F87 0x005D4FAC;
 // unblocks 0x005D4FA0; base rowed in OpaqueScalarDeletingDtors; next row
 // ??1Rva005D50D8@@UAE@XZ shares /O1 layout.
-struct TargetRef00217D4C
-{
-	void *m_vtbl;
-	int references;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 struct AptLoadMovieFrame
 {
