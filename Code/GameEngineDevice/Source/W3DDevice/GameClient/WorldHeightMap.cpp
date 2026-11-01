@@ -67,6 +67,7 @@ extern const StaticNameKey TheKey_livingWorldPlayerID("livingWorldPlayerID");
 
 
 
+
 #endif
 #define K_OBSOLETE_HEIGHT_MAP_VERSION 8
 #define PATHFIND_CLIFF_SLOPE_LIMIT_F	9.8f
@@ -78,6 +79,7 @@ extern const StaticNameKey TheKey_livingWorldPlayerID("livingWorldPlayerID");
 #define K_LRDIAG 5
 #define K_DIR_MOD 0x05
 #define K_INV 6
+#include <vector>
 
 // Preserve STLport operations inline without unused external copies.
 namespace _STL {
@@ -487,6 +489,22 @@ private:
     Rva000AD770Method m_method;
 };
 
+struct BfmeE16;
+
+namespace _STL {
+template <> void vector<BfmeE16, allocator<BfmeE16> >::_M_fill_insert(BfmeE16 *, unsigned, const BfmeE16 &);
+}
+
+template void _STL::vector<BfmeE16,_STL::allocator<BfmeE16> >::insert(BfmeE16*,unsigned,const BfmeE16&);
+
+struct BfmePod36;
+
+namespace _STL {
+template <> void vector<BfmePod36, allocator<BfmePod36> >::_M_fill_insert(BfmePod36 *, unsigned, const BfmePod36 &);
+}
+
+template void _STL::vector<BfmePod36,_STL::allocator<BfmePod36> >::insert(BfmePod36*,unsigned,const BfmePod36&);
+
 // tu-skeleton: 0x000ABD9A 112B ?ParseWorldDictDataChunk@WorldHeightMap@@SA_NAAVDataChunkInput@@PAUDataChunkInfo@@PAX@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseWorldDict.cpp (not merged yet)
 
 // tu-skeleton: 0x000ABE0A 150B ?countTiles@WorldHeightMap@@SAHPAVInputStream@@PA_N@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapTiles.cpp (not merged yet)
@@ -502,6 +520,8 @@ private:
 // tu-skeleton: 0x000AC4C6 78B ?rva000AC4C6@WorldHeightMap@@QAEHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000AC4C6Finish.cpp (not merged yet)
 
 // tu-skeleton: 0x000AC514 299B ?getTerrainColorAt@WorldHeightMap@@QAEXMMPAURGBColor@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapGetTerrainColorAt.cpp (not merged yet)
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMap.cpp
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMap.cpp
 
@@ -729,6 +749,13 @@ Rva000AD71D::~Rva000AD71D()
 {
 }
 
+// ---- from Code/GameEngine/Source/Common/FunctorBindConstructors.cpp
+
+unsigned char Rva000AD770Binding::invoke(void *first, void *second)
+{
+    return (m_target->*m_method)(first, second);
+}
+
 // tu-skeleton: 0x000AC6F9 405B ?Rva000AC6F9SetupAlphaTiles@@YAXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapAlphaTiles.cpp (not merged yet)
 
 // tu-skeleton: 0x000AC88E 332B ?rawTile@Rva000ADDCEWorldHeightMapView@@QAE_NFHPAEHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapAlphaTiles.cpp (not merged yet)
@@ -744,13 +771,6 @@ Rva000AD71D::~Rva000AD71D()
 // tu-skeleton: 0x000AD711 12B ?getElement@Rva000AD711@@QAEPAGH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat2B.cpp (not merged yet)
 
 // tu-skeleton: 0x000AD722 27B ?allocate@?$allocator@F@_STL@@QBEPAFIPBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_s_o1.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/FunctorBindConstructors.cpp
-
-unsigned char Rva000AD770Binding::invoke(void *first, void *second)
-{
-    return (m_target->*m_method)(first, second);
-}
 
 // tu-skeleton: 0x000AD77B 45B ??$_Construct@UBfmeStringRecord00111ACF@@U1@@_STL@@YAXPAUBfmeStringRecord00111ACF@@ABU1@@Z -- matched in Code/GameEngine/Source/Common/StringRecordInlineCopyBFME2.cpp (not merged yet)
 
@@ -932,9 +952,23 @@ unsigned char Rva000AD770Binding::invoke(void *first, void *second)
 
 // tu-skeleton: 0x000B059B 183B ?_M_insert_overflow@?$vector@URva000B059BRecord@@V?$allocator@URva000B059BRecord@@@_STL@@@_STL@@IAEXPAURva000B059BRecord@@ABU3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/VectorOverflowRva000B059B.cpp (not merged yet)
 
-// tu-skeleton: 0x000B0652 5B ?insert@?$vector@UBfmeE16@@V?$allocator@UBfmeE16@@@_STL@@@_STL@@QAEXPAUBfmeE16@@IABU3@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva000B0652VectorInsert.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva000B0652VectorInsert.cpp
 
-// tu-skeleton: 0x000B0657 5B ?insert@?$vector@UBfmePod36@@V?$allocator@UBfmePod36@@@_STL@@@_STL@@QAEXPAUBfmePod36@@IABU3@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva000B0657VectorInsert.cpp (not merged yet)
+// Reference: Open-BFME-1 a7c38d3b2597121f178ab5190b3062478823257d,
+// inputs/vendor/stlport/stl/_vector.h: vector::insert(iterator,size_type,const T&).
+// The complete native five-byte entry at RVA 0x000B0652 tail-calls the
+// independently rowed same-instantiation _M_fill_insert at 0x000B0395.
+// This ABI-only template view needs no vector layout or element fields;
+// retain the existing element identity, which is address-derived where named so.
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva000B0657VectorInsert.cpp
+
+// Reference: Open-BFME-1 a7c38d3b2597121f178ab5190b3062478823257d,
+// inputs/vendor/stlport/stl/_vector.h: vector::insert(iterator,size_type,const T&).
+// The complete native five-byte entry at RVA 0x000B0657 tail-calls the
+// independently rowed same-instantiation _M_fill_insert at 0x000B0478.
+// This ABI-only template view needs no vector layout or element fields;
+// retain the existing element identity, which is address-derived where named so.
 
 // tu-skeleton: 0x000B065C 55B ?push_back@?$vector@UBfmeAssignRecord28@@V?$allocator@UBfmeAssignRecord28@@@_STL@@@_STL@@QAEXABUBfmeAssignRecord28@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_record_deferred.cpp (not merged yet)
 
@@ -985,6 +1019,18 @@ unsigned char Rva000AD770Binding::invoke(void *first, void *second)
 // tu-skeleton: 0x00761036 8B $L4692 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapTileTexture.cpp (not merged yet)
 
 // tu-skeleton: 0x0076103E 10B __ehhandler$?rva000AEAA6@WorldHeightMap@@QAE?AV?$RefCountPtr@VTextureClass@@@@HHHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapTileTexture.cpp (not merged yet)
+
+// tu-skeleton: 0x00761048 8B $L1593 -- matched in Code/GameEngine/Source/Common/Rva000AEFAA.cpp (not merged yet)
+
+// tu-skeleton: 0x00761050 8B $L1390 -- matched in Code/GameEngine/Source/Common/Rva000AEFAA.cpp (not merged yet)
+
+// tu-skeleton: 0x00761058 10B __ehhandler$??0Rva000AEFAA@@QAE@PAXPAVBfmeParserRegistryVE@@PBVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/Rva000AEFAA.cpp (not merged yet)
+
+// tu-skeleton: 0x00761062 8B $L1673 -- matched in Code/GameEngine/Source/Common/Rva000AEFAA.cpp (not merged yet)
+
+// tu-skeleton: 0x0076106A 8B $L1464 -- matched in Code/GameEngine/Source/Common/Rva000AEFAA.cpp (not merged yet)
+
+// tu-skeleton: 0x00761072 10B __ehhandler$??0Rva000AF0E4@@QAE@PAVBfmeParserRegistryVE@@PBVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/Rva000AEFAA.cpp (not merged yet)
 
 // tu-skeleton: 0x0076107C 11B $L1913 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParse.cpp (not merged yet)
 
@@ -1063,6 +1109,80 @@ unsigned char Rva000AD770Binding::invoke(void *first, void *second)
 // tu-skeleton: 0x007611DA 8B $L4245 -- matched in Code/GameEngine/Source/GameClient/EvaMessageVectorDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x007611E2 10B __ehhandler$??1?$vector@UEvaMessageInfo@@V?$allocator@UEvaMessageInfo@@@_STL@@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/EvaMessageVectorDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0076121E 8B $L5191 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x00761226 11B $L5192 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x00761231 11B $L5193 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x0076123C 11B $L5194 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x00761247 11B $L5195 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x00761252 11B $L5196 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x0076125D 11B $L5197 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x00761268 11B $L5198 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x00761273 11B $L5199 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x0076127E 14B $L5200 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x0076128C 14B $L5201 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x0076129A 14B $L5331 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x007612A8 14B $L5203 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x007612B6 27B $L502 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x007612D1 27B $L503 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x007612EC 14B $L5206 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x007612FA 24B $L505 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00761312 10B __ehhandler$??0WorldHeightMap@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x0076131C 8B $L5525 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x00761324 11B $L5526 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x0076132F 11B $L5527 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x0076133A 11B $L5528 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x00761345 11B $L5529 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x00761350 11B $L5530 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x0076135B 11B $L5531 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x00761366 11B $L5532 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x00761371 11B $L5533 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x0076137C 14B $L5534 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x0076138A 14B $L5535 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x00761398 14B $L5539 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x007613A6 14B $L5537 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x007613B4 27B $L5412 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x007613CF 27B $L5413 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x007613EA 14B $L5540 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x007613F8 24B $L5415 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x00761410 8B $L5825 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x00761418 10B __ehhandler$??0WorldHeightMap@@QAE@PAVChunkInputStream@@HHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp (not merged yet)
 
 // tu-skeleton: 0x00761422 8B uw_00761422 -- matched in Code/gen_small/uw_gen_000.cpp (not merged yet)
 

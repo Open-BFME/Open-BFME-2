@@ -6103,8 +6103,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x000B0560,5,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlportMapForwardersSeat8.cpp
 0x000B0565,54,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/TerrainByteVectorResize.cpp
 0x000B059B,183,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/VectorOverflowRva000B059B.cpp
-0x000B0652,5,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/Rva000B0652VectorInsert.cpp
-0x000B0657,5,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/Rva000B0657VectorInsert.cpp
+0x000B0652,5,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMap.cpp
+0x000B0657,5,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMap.cpp
 0x000B065C,55,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_record_deferred.cpp
 0x000B0693,65,code,Code/Libraries/Source/WWVegas/WWLib/BfmeE16Vector.cpp,proposed,N,N=Code/Libraries/Source/WWVegas/WWLib/BfmeE16Vector.cpp,Code/Libraries/Source/WWVegas/WWLib/stlport_e16_resize_byvalue_000b0693.cpp
 0x000B06D4,73,code,Code/Libraries/Source/WWVegas/WWLib/BfmeE16Vector.cpp,proposed,U,N=Code/Libraries/Source/WWVegas/WWLib/BfmePod36Vector.cpp,Code/Libraries/Source/WWVegas/WWLib/stlport_pod36_resize_byvalue.cpp
