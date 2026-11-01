@@ -172,6 +172,10 @@ typedef int Int;
 typedef int Color;
 #define INT_TO_REAL(x) ((float)(x))
 #include <windows.h>
+#pragma comment(linker, "/alternatename:?g_0080D720@@3UFieldParse@@B=?g_0080D720@@3QBUFieldParse@@B")
+#define BFME_STRINGBASE_PUBLIC_DTOR
+#include "string_base.h"
+
 //
 // ?Rva00320158Parse@@YAXPAVINI@@PAVRva003200BC@@@Z, retail 0x00320158, 81 bytes.
 // ControlBar factory (chain: calls 0x0031F7AB now ready). Evidence: news 0x1C
@@ -182,7 +186,9 @@ typedef int Color;
 // free-function name (no proven class): Rva00320158 + Parse.
 
 class INI;
+
 typedef void (*INIFieldParseProc)(INI *, void *, void *, const void *);
+
 struct FieldParse
 {
 public:
@@ -191,7 +197,7 @@ public:
 	const void *userData; // +0x08
 	int offset; // +0x0C
 };
-#pragma comment(linker, "/alternatename:?g_0080D720@@3UFieldParse@@B=?g_0080D720@@3QBUFieldParse@@B")
+
 //
 // ?Rva003201A9Parse@@YAXPAVINI@@PAX@Z, retail 0x003201A9, 92 bytes. ControlBar
 // factory sibling of 0x00320158 (chain: calls 0x0031F7EB now ready).
@@ -637,6 +643,35 @@ extern const FieldParse g_0080D788[6] = {
 	{ 0, 0, 0, 0 }
 };
 
+// The clear stays the rowed STLport int-list body at 0x0023DAA5.
+namespace _STL { template <> void _List_base<int, allocator<int> >::clear(); }
+
+struct NodeA
+{
+	NodeA *m_next;
+	NodeA *m_prev;
+	Rva002004FD *m_obj;
+};
+
+struct ListA
+{
+	NodeA *m_header;
+};
+
+struct NodeB
+{
+	NodeB *m_next;
+	NodeB *m_prev;
+	Rva0031F831 *m_obj;
+};
+
+struct ListB
+{
+	NodeB *m_header;
+};
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme.cpp
+
 // ---- from Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSchemeInit.cpp
 
 void ControlBarScheme::init(void)
@@ -881,10 +916,6 @@ void ControlBarScheme::init(void)
 		win->winSetSize((self->m_uAttackLR.x - self->m_uAttackUL.x)*resMultiplier.x+ COMMAND_BAR_SIZE_OFFSET,(self->m_uAttackLR.y - self->m_uAttackUL.y)*resMultiplier.y+ COMMAND_BAR_SIZE_OFFSET);
 	}
 }
-
-// tu-skeleton: 0x0031F743 86B ?animSlideRight@@YAXPAVControlBarSchemeAnimation@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme_animSlideRight.cpp (not merged yet)
-
-// tu-skeleton: 0x0031F799 18B ?updateAnim@ControlBarScheme@@QAEXPAVControlBarSchemeAnimation@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme_trolBarScheme_QAEXPAVControlBarSchemeAnimation_Z.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme.cpp
 
@@ -1248,22 +1279,6 @@ void Rva0031ED01::rva0031ED01(Rva0031ED01Words words)
     word1C = words.second;
 }
 
-// tu-skeleton: 0x0031F831 9B ??1Rva0031F831@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0031F831Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0031F872 44B ?update@ControlBarScheme@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme_ControlBarScheme_update.cpp (not merged yet)
-
-// tu-skeleton: 0x0031FA9A 43B ?drawForeground@ControlBarSchemeManager@@QAEXUICoord2D@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme_drawLayers.cpp (not merged yet)
-
-// tu-skeleton: 0x0031FAC5 43B ?drawBackground@ControlBarSchemeManager@@QAEXUICoord2D@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme_drawLayers.cpp (not merged yet)
-
-// tu-skeleton: 0x0031FAF0 280B ?reset@ControlBarScheme@@QAEXXZ -- matched in Code/GameEngine/Source/Common/ControlBarScheme_reset.cpp (not merged yet)
-
-// tu-skeleton: 0x0032002C 105B ??1ControlBarScheme@@QAE@XZ -- matched in Code/GameEngine/Source/Common/ControlBarScheme.cpp (not merged yet)
-
-// tu-skeleton: 0x00320095 13B ??_F?$list@HV?$allocator@H@_STL@@@_STL@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/Rva004CEB76ListSort.cpp (not merged yet)
-
-// tu-skeleton: 0x0032013C 28B ??_GControlBarScheme@@QAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSchemeManagerDtor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva00320158.cpp
 
 // Rva0031FA40Create declared the same target as one FieldParse, producing a
@@ -1286,21 +1301,121 @@ void Rva003201A9Parse(INI *ini, void *holder)
 	((Rva003200BC *)holder)->addImage(obj->m_b);
 }
 
+// tu-skeleton: 0x0031F743 86B ?animSlideRight@@YAXPAVControlBarSchemeAnimation@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme_animSlideRight.cpp (not merged yet)
+
+// tu-skeleton: 0x0031F799 18B ?updateAnim@ControlBarScheme@@QAEXPAVControlBarSchemeAnimation@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme_trolBarScheme_QAEXPAVControlBarSchemeAnimation_Z.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva0031F831Dtor.cpp
+
+// ??1Rva0031F831@@QAE@XZ @0x0031F831 9B dtor zeroes +8 then releases StringBase.
+// Retail and [ecx+8],0 then jmp releaseBuffer 0x00036410. Evidence: unlock lane;
+// caller 0x0031F856 is deleting dtor calling this as ??1; rowed releaseBuffer
+// ?releaseBuffer@?$StringBase@D@@AAEXXZ; and-mem-zero idiom needs /O1.
+// The canonical frozen StringBase replaces the private copy; its switch
+// declares the narrow teardown out of line, rowed at 0x00036410
+// (StringBaseWideReleaseBuffer.cpp).
+
+Rva0031F831::~Rva0031F831()
+{
+	m_8 = 0;
+}
+
+// tu-skeleton: 0x0031F872 44B ?update@ControlBarScheme@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme_ControlBarScheme_update.cpp (not merged yet)
+
+// tu-skeleton: 0x0031FA9A 43B ?drawForeground@ControlBarSchemeManager@@QAEXUICoord2D@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme_drawLayers.cpp (not merged yet)
+
+// tu-skeleton: 0x0031FAC5 43B ?drawBackground@ControlBarSchemeManager@@QAEXUICoord2D@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme_drawLayers.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/ControlBarScheme_reset.cpp
+
+// ?reset@ControlBarScheme@@QAEXXZ @0x0031FAF0 280B chain: clears 6 lists at +0x158 plus one at +0x170 then releases two strings and zeroes ints.
+// Evidence: calls rowed dtors 0x2004FD and 0x31F831 plus delete 0x2FD60 and List_base clear 0x23DAA5 and releaseBuffer 0x36410; callers at 0x320044 and 0x32056F; prev/next flags /O1 /EHsc /MD.
+
+void ControlBarScheme::reset()
+{
+	ListA *listA = (ListA *)m_lists;
+	int n = 6;
+	do
+	{
+		NodeA *cur = listA->m_header->m_next;
+		while (cur != listA->m_header)
+		{
+			Rva002004FD *obj = cur->m_obj;
+			if (obj)
+				delete obj;
+			cur = cur->m_next;
+		}
+		(( _STL::_List_base<int, _STL::allocator<int> > *)listA)->clear();
+		++listA;
+		--n;
+	} while (n != 0);
+
+	NodeB *curB = ((ListB *)&m_list170)->m_header->m_next;
+	while (curB != ((ListB *)&m_list170)->m_header)
+	{
+		Rva0031F831 *obj = curB->m_obj;
+		if (obj)
+		{
+			obj->m_8 = 0;
+			delete obj;
+		}
+		curB = curB->m_next;
+	}
+	(( _STL::_List_base<int, _STL::allocator<int> > *)&m_list170)->clear();
+
+	m_name.clear();
+	m_ScreenCreationRes.y = 0;
+	m_ScreenCreationRes.x = 0;
+	m_side.clear();
+	m_buttonQueueImage = 0;
+	m_rightHUDImage = 0;
+	m_optionsButtonEnable = 0;
+	m_optionsButtonHightlited = 0;
+	m_optionsButtonPushed = 0;
+	m_optionsButtonDisabled = 0;
+	m_idleWorkerButtonEnable = 0;
+	m_idleWorkerButtonHightlited = 0;
+	m_idleWorkerButtonPushed = 0;
+	m_idleWorkerButtonDisabled = 0;
+	m_buddyButtonEnable = 0;
+	m_buddyButtonHightlited = 0;
+	m_buddyButtonPushed = 0;
+	m_buddyButtonDisabled = 0;
+	m_beaconButtonEnable = 0;
+	m_beaconButtonHightlited = 0;
+	m_beaconButtonPushed = 0;
+	m_beaconButtonDisabled = 0;
+	m_genBarButtonIn = 0;
+	m_genBarButtonOn = 0;
+	m_toggleButtonUpIn = 0;
+	m_toggleButtonUpOn = 0;
+	m_toggleButtonUpPushed = 0;
+	m_toggleButtonDownIn = 0;
+	m_toggleButtonDownOn = 0;
+	m_toggleButtonDownPushed = 0;
+	m_commandMarkerImage = 0;
+	m_expBarForeground = 0;
+}
+
+// ---- from Code/GameEngine/Source/Common/ControlBarScheme.cpp
+
+// ??1ControlBarScheme@@QAE@XZ, retail 0x0032002C, 105 bytes. Dtor of ControlBarScheme: body calls reset 0x31FAF0 then destroys list at +0x170 and array at +0x158 and two AsciiStrings at +0xC/+0x0.
+// Evidence: deleting-dtor caller at 0x0032013C; offsets match the ControlBarScheme reset TU (Rva0031FAF0.cpp); callees rowed List_base 0x004EC395 vector-dtor 0x00629110 releaseBuffer 0x00036410.
+
+ControlBarScheme::~ControlBarScheme()
+{
+	reset();
+}
+
+// tu-skeleton: 0x00320095 13B ??_F?$list@HV?$allocator@H@_STL@@@_STL@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/Rva004CEB76ListSort.cpp (not merged yet)
+
+// tu-skeleton: 0x0032013C 28B ??_GControlBarScheme@@QAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSchemeManagerDtor.cpp (not merged yet)
+
 // tu-skeleton: 0x00320291 584B ??0ControlBarScheme@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme_ControlBarScheme_Ctor.cpp (not merged yet)
 
 // tu-skeleton: 0x003204D9 101B ??1ControlBarSchemeManager@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSchemeManagerDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0032053E 201B ?newControlBarScheme@ControlBarSchemeManager@@QAEPAVControlBarScheme@@VAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme_ControlBarSchemeManager_newControlBarScheme.cpp (not merged yet)
-
-// tu-skeleton: 0x0077AF20 8B Unwind@00b7af20 -- matched in Code/GameEngine/Source/Common/ControlBarScheme.cpp (not merged yet)
-
-// tu-skeleton: 0x0077AF28 11B Unwind@00b7af28 -- matched in Code/GameEngine/Source/Common/ControlBarScheme.cpp (not merged yet)
-
-// tu-skeleton: 0x0077AF33 24B uw_0077af33 -- matched in Code/GameEngine/Source/Common/ControlBarScheme.cpp (not merged yet)
-
-// tu-skeleton: 0x0077AF4B 14B $L1252 -- matched in Code/GameEngine/Source/Common/ControlBarScheme.cpp (not merged yet)
-
-// tu-skeleton: 0x0077AF59 10B __ehhandler$??1ControlBarScheme@@QAE@XZ -- matched in Code/GameEngine/Source/Common/ControlBarScheme.cpp (not merged yet)
 
 // tu-skeleton: 0x0077AF78 8B Unwind@00b7af78 -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme_ControlBarScheme_Ctor.cpp (not merged yet)
 
@@ -1311,6 +1426,10 @@ void Rva003201A9Parse(INI *ini, void *holder)
 // tu-skeleton: 0x0077AFA3 14B $L51437 -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme_ControlBarScheme_Ctor.cpp (not merged yet)
 
 // tu-skeleton: 0x0077AFB1 10B __ehhandler$??0ControlBarScheme@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme_ControlBarScheme_Ctor.cpp (not merged yet)
+
+// tu-skeleton: 0x0077AFBB 11B $L367 -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSchemeManagerDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0077AFC6 10B __ehhandler$??1ControlBarSchemeManager@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSchemeManagerDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0077AFD0 8B Unwind@00b7afd0 -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme_ControlBarSchemeManager_newControlBarScheme.cpp (not merged yet)
 
