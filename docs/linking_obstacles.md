@@ -10873,6 +10873,23 @@ Clearance: only the four water row bindings and four redundant asset-manager
 claims are resolved; whole-unit closure remains open. Census confirmation:
 awaiting measurement; no headline gain claimed.
 
+New obstacle (2026-11-01, seat halilkkaya-cons-runner, tree `a0b05e4629`): the
+`??1Rva000F0F2B@@UAE@XZ` stand-in in W3DVolumetricShadowCtor.cpp (inline
+`~Rva000F0F2B() { Rva00108B4D::~Rva00108B4D(); }`, a call) also blocks the
+W3DProjectedShadow.cpp TU merge. Retail facts: table 0x007CEFA0 is installed by
+three distinct constructors (0x000F0F19, 0x58 bytes; 0x000F0F2B, 0x68 bytes;
+0x00109D8C, 0x60 bytes), so it is ICF-folded, not one class. ~Rva00109610
+(0x00109610) stores 0x007CEFA0 inline, and its unwind funclet 0x007645AB jumps to
+0x00108B4D (pinned `??1BfmeShadowBufferOwnerBase`). So the 0x68-byte base
+`Rva000F0F2B` has an implicit inline vptr-reset dtor over the canonical
+`BfmeShadowBufferOwnerBase`. Trial: that view in W3DProjectedShadow.cpp and
+Rva00109610Dtor.cpp gave `./build.sh` 58/58 exact. But `link_check` dropped them
+3,266 -> 0 and 79 -> 0 B: the emitted `??1Rva000F0F2B` COMDAT differs from the
+volumetric copy, which is first in link order. Reverted. Prerequisite: make every
+`??1Rva000F0F2B` copy the inline vptr reset (W3DVolumetricShadowCtor.cpp and
+W3DVolumetricShadowV2Constructor.cpp) together with the uw_00763a58/uw_007644e3
+repoints. Then the Rva00109610 base clause in the W3DProjectedShadow TU unifies.
+
 ### LINK-096: placeholder `Rva0015E640` hid `SimpleDynVecClass<Vector3>` from its copy-ctor consumers
 Status: Repair landed / awaiting verification for the WW3D2 subset; Blocked for
 `V3PolyDeferredCopyCtors2.cpp`. Updated: 2026-10-26; inspected revision: `7e7a10015d`
