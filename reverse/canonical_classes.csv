@@ -185,3 +185,4 @@ Vector3,Code/Libraries/Source/WWVegas/WWMath/Vector3Data.h,existing header; cont
 AIUpdateInterface,Code/GameEngine/Include/GameLogic/Module/AIUpdate.h,existing header; contract class_contracts/AIUpdateInterface.json; 170/533 sampled units adopt
 Drawable,Code/GameEngine/Include/GameClient/Drawable.h,existing header; contract class_contracts/Drawable.json; 161/382 sampled units adopt
 FieldParse,Code/GameEngine/Include/Common/INI/FieldParse.h,existing header; contract class_contracts/FieldParse.json; 158/294 sampled units adopt
+MultiIniFieldParse,Code/GameEngine/Include/Common/INI/FieldParse.h,existing header; contract class_contracts/MultiIniFieldParse.json; 110/159 sampled units adopt
