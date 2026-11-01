@@ -962,13 +962,7 @@ bool ActionManager::canDoSpecialPowerAtObject(const Object *obj, const Object *t
 
 #include "../../../Include/GameLogic/AIPathfind.h"
 
-class AI
-{
-public:
-	Pathfinder *pathfinder() const { return m_pathfinder; }
-	char m_pad00[0x10];
-	Pathfinder *m_pathfinder;	// +0x10
-};
+#include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 
 // The canDoSpecialPower* veto: true when the object's AIUpdateInterface

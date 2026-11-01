@@ -198,14 +198,7 @@ private:
 	unsigned int m_stage;	// +0x5C
 };
 
-class AI
-{
-public:
-	virtual void init();
-private:
-	char m_lead[0x1C - 4];
-	int m_counter;
-};
+#include "../../Include/GameLogic/AI.h"
 
 BFME_DISP8_DWORD_CLEAR(Rva005A9D01DwordClearer, 0x5C)
 

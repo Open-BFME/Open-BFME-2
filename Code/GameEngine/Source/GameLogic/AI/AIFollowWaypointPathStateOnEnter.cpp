@@ -231,15 +231,7 @@ public:
     Real m_bfmeGroupOffsetX414; // target-observed float +0x414
     Real m_bfmeGroupOffsetY418; // target-observed float +0x418
 };
-class AI
-{
-public:
-    Object *findClosestRepulsor(const Object *me, Real range);
-    Pathfinder *pathfinder() { return m_pathfinder; }
-private:
-    unsigned char m_pad00[0x10];
-    Pathfinder *m_pathfinder; // +0x10
-};
+#include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 #include "../../../Include/GameLogic/AIPathfind.h"
 class StateMachine
