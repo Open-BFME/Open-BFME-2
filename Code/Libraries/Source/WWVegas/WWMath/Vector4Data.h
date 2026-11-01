@@ -3,6 +3,13 @@
 // sizeof 16 (zh); class-key class (bytes).
 // WWMath's vector4.h guard: a unit that includes the full WWMath header keeps it
 // (same layout), and this storage view then adds nothing.
+//
+// The inline members are Zero Hour vector4.h's (WWINLINE is __forceinline under
+// MSVC), spelled as the units' byte-verified private views spell them. Every
+// view that declares one of these members gives it the same body.
+// The four-float constructor is an import-inline (dllimport + __forceinline), as
+// every view that declares it spells it: each use inlines, and the object emits
+// no out-of-line copy to compete with the one retail keeps elsewhere.
 #ifndef VECTOR4_H
 #define VECTOR4_H
 
@@ -13,9 +20,16 @@ public:
     float Z;
     float W;
     __forceinline Vector4() {}
+    __forceinline Vector4(const Vector4 &v) { X = v.X; Y = v.Y; Z = v.Z; W = v.W; }
+    __declspec(dllimport) __forceinline Vector4(float x, float y, float z, float w) { X = x; Y = y; Z = z; W = w; }
+    __forceinline Vector4 &operator=(const Vector4 &v) { X = v.X; Y = v.Y; Z = v.Z; W = v.W; return *this; }
     // Set: ThingConstructor, DrawableConstructor and DrawableDestructor spell it
     // identically (Zero Hour vector4.h's Set), and each inlines it.
     __forceinline void Set(float x, float y, float z, float w) { X = x; Y = y; Z = z; W = w; }
+    __forceinline float &operator[](int i) { return (&X)[i]; }
+    __forceinline const float &operator[](int i) const { return (&X)[i]; }
+    __forceinline Vector4 &operator+=(const Vector4 &v) { X += v.X; Y += v.Y; Z += v.Z; W += v.W; return *this; }
+    __forceinline Vector4 &operator*=(float k) { X *= k; Y *= k; Z *= k; W *= k; return *this; }
 };
 
 #endif // VECTOR4_H
