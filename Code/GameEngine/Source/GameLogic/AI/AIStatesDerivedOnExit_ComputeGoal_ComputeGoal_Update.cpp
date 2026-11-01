@@ -259,18 +259,7 @@ struct TAiData
 	unsigned char m_pad00[0x58];
 	Real m_skirmishGroupFudgeValue; // +0x58
 };
-class AI
-{
-public:
-	Pathfinder *pathfinder() { return m_pathfinder; }
-	const TAiData *getAiData() { return m_aiData; }
-	AIGroup *createGroup();
-private:
-	unsigned char m_pad00[0x10];
-	Pathfinder *m_pathfinder; // +0x10
-	unsigned char m_pad14[0x18 - 0x14];
-	TAiData *m_aiData; // +0x18
-};
+#include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 // The AI's command interface (+0x20) entries for the attack-follow commands.
 class Rva00352F9D

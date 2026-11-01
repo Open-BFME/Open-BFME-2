@@ -60,12 +60,7 @@ struct TAiData
 	int m_guardEnemyReturnScanRate; // +0x44 update interval in frames
 };
 
-class AI
-{
-public:
-	char m_pad00[0x18];
-	TAiData *m_aiData; // +0x18
-};
+#include "../../../Include/GameLogic/AI.h"
 
 extern AI *TheAI;
 // BfmeGlobalBC2428 was the retail address alias (RVA 0x007C2428) of the constant 10.0f; the literal is the source.
