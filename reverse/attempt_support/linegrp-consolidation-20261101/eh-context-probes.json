@@ -1,0 +1,26 @@
+[
+  {
+    "trial": "EHs",
+    "rows": 15,
+    "matched": 15,
+    "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\tu_skeleton\\0e66c075ad16e093.obj",
+    "errors": [],
+    "before_definitions": 28,
+    "after_definitions": 28,
+    "added": [],
+    "removed": [],
+    "changed": []
+  },
+  {
+    "trial": "common",
+    "rows": 15,
+    "matched": 15,
+    "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\tu_skeleton\\c43c20c85b3a896a.obj",
+    "errors": [],
+    "before_definitions": 28,
+    "after_definitions": 28,
+    "added": [],
+    "removed": [],
+    "changed": []
+  }
+]

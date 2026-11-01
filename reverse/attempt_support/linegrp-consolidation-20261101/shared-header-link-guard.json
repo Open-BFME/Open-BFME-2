@@ -1,0 +1,12 @@
+[
+  {
+    "source": "Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp",
+    "prepare": null,
+    "findings": []
+  },
+  {
+    "source": "Code/Libraries/Source/WWVegas/WW3D2/LineGroupClassRender.cpp",
+    "prepare": null,
+    "findings": []
+  }
+]
