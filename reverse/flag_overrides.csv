@@ -418,7 +418,6 @@ Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptDisplayStringAllocation
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Render_Obj_Exists_Impl.cpp,-O2,1,1,region default loses rows
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva009EBDC0.cpp,,4,2,region default loses rows
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva009EBEC0.cpp,,1,1,region default loses rows
-Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp,-Os -arch:SSE,1,1,region default loses rows
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DScene.cpp,-G7 -arch:SSE,8,2,region default loses rows
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualXfer.cpp,-O1 -G7,1,1,region default loses rows
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBuffer.cpp,,1,1,region default loses rows

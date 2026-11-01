@@ -180,6 +180,9 @@ public:
 };
 #include <new>
 #include <string.h>
+#pragma intrinsic(memset)
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
 // Ported from Open-BFME-1's game/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp
 // (donor revision 6583b3c1ff21db4a561285717028fdafc780b7db) with /O1 /arch:SSE
 // added to its flags, the settings W3DView.cpp's donor bodies match under.
@@ -768,8 +771,6 @@ private:
 	ShadowObj *m_5c;
 	int m_60;
 };
-
-extern "C" void _ReadWriteBarrier();
 
 class Rva007B1380 : public BfmeShadowBufferOwnerBase
 {
