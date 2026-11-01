@@ -144,37 +144,6 @@ DumbProjectileBehaviorModuleData::DumbProjectileBehaviorModuleData() :
 }
 
 //-----------------------------------------------------------------------------
-// ?buildFieldParse@DumbProjectileBehaviorModuleData@@ present-unmatched
-void DumbProjectileBehaviorModuleData::buildFieldParse(MultiIniFieldParse& multiIniFieldParse)
-{
-  UpdateModuleData::buildFieldParse(multiIniFieldParse);
-
-	static const FieldParse dataFieldParse[] = 
-	{
-		{ "MaxLifespan", INI::parseDurationUnsignedInt, NULL, offsetof( DumbProjectileBehaviorModuleData, m_maxLifespan ) },
-		{ "TumbleRandomly", INI::parseBool, NULL, offsetof( DumbProjectileBehaviorModuleData, m_tumbleRandomly ) },
-		{ "DetonateCallsKill", INI::parseBool, NULL, offsetof( DumbProjectileBehaviorModuleData, m_detonateCallsKill ) },
-		{ "OrientToFlightPath", INI::parseBool, NULL, offsetof( DumbProjectileBehaviorModuleData, m_orientToFlightPath ) },
-
-		{ "FirstHeight",					INI::parseReal,						NULL, offsetof( DumbProjectileBehaviorModuleData, m_firstHeight ) },
-		{ "SecondHeight",					INI::parseReal,						NULL, offsetof( DumbProjectileBehaviorModuleData, m_secondHeight ) },
-		{ "FirstPercentIndent",		INI::parsePercentToReal,	NULL, offsetof( DumbProjectileBehaviorModuleData, m_firstPercentIndent ) },
-		{ "SecondPercentIndent",	INI::parsePercentToReal,	NULL, offsetof( DumbProjectileBehaviorModuleData, m_secondPercentIndent ) },
-
-		{ "GarrisonHitKillRequiredKindOf", KindOfMaskType::parseFromINI, NULL, offsetof( DumbProjectileBehaviorModuleData, m_garrisonHitKillKindof ) },
-		{ "GarrisonHitKillForbiddenKindOf", KindOfMaskType::parseFromINI, NULL, offsetof( DumbProjectileBehaviorModuleData, m_garrisonHitKillKindofNot ) },
-		{ "GarrisonHitKillCount", INI::parseUnsignedInt, NULL, offsetof( DumbProjectileBehaviorModuleData, m_garrisonHitKillCount ) },
-		{ "GarrisonHitKillFX", INI::parseFXList, NULL, offsetof( DumbProjectileBehaviorModuleData, m_garrisonHitKillFX ) },
-
-		{ "FlightPathAdjustDistPerSecond", INI::parseVelocityReal, NULL, offsetof( DumbProjectileBehaviorModuleData, m_flightPathAdjustDistPerFrame ) },
-
-
-		{ 0, 0, 0, 0 }
-	};
-
-  multiIniFieldParse.add(dataFieldParse);
-}
-
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
@@ -199,11 +168,6 @@ DumbProjectileBehavior::DumbProjectileBehavior( Thing *thing, const ModuleData* 
 } 
 
 //-------------------------------------------------------------------------------------------------
-// ??1DumbProjectileBehavior@@ present-unmatched
-DumbProjectileBehavior::~DumbProjectileBehavior()
-{
-}
-
 //-------------------------------------------------------------------------------------------------
 inline Bool within(Real min, Real val, Real max)
 {
@@ -396,269 +360,14 @@ static Bool calcTrajectory(
 //-------------------------------------------------------------------------------------------------
 // Prepares the missile for launch via proper weapon-system channels.
 //-------------------------------------------------------------------------------------------------
-// ?projectileLaunchAtObjectOrPosition@DumbProjectileBehavior@@ present-unmatched
-void DumbProjectileBehavior::projectileLaunchAtObjectOrPosition(
-	const Object* victim, 
-	const Coord3D* victimPos, 
-	const Object* launcher, 
-	WeaponSlotType wslot, 
-	Int specificBarrelToUse, 
-	const WeaponTemplate* detWeap,
-	const ParticleSystemTemplate* exhaustSysOverride
-)
-{
-	const DumbProjectileBehaviorModuleData* dumbProjectileBehaviorModuleData = getDumbProjectileBehaviorModuleData();
-
-	DEBUG_ASSERTCRASH(specificBarrelToUse>=0, ("specificBarrelToUse must now be explicit"));
-
-	m_launcherID = launcher ? launcher->getID() : INVALID_ID;
-	m_extraBonusFlags = launcher ? launcher->getWeaponBonusCondition() : 0;
-	m_victimID = victim ? victim->getID() : INVALID_ID;
-	m_detonationWeaponTmpl = detWeap;
-	m_lifespanFrame = TheGameLogic->getFrame() + dumbProjectileBehaviorModuleData->m_maxLifespan;
-
-	Object* projectile = getObject();
-
-	Weapon::positionProjectileForLaunch(projectile, launcher, wslot, specificBarrelToUse);
-
-	projectileFireAtObjectOrPosition( victim, victimPos, detWeap, exhaustSysOverride );
-}
-
 //-------------------------------------------------------------------------------------------------
 // The actual firing of the missile once setup. Uses a Bezier curve with points parameterized in ini
 //-------------------------------------------------------------------------------------------------
-// ?projectileFireAtObjectOrPosition@DumbProjectileBehavior@@ present-unmatched
-void DumbProjectileBehavior::projectileFireAtObjectOrPosition( const Object *victim, const Coord3D *victimPos, const WeaponTemplate *detWeap, const ParticleSystemTemplate* exhaustSysOverride )
-{
-	const DumbProjectileBehaviorModuleData* dumbProjectileBehaviorModuleData = getDumbProjectileBehaviorModuleData();
-	Object* projectile = getObject();
-	Real weaponSpeed = detWeap ? detWeap->getWeaponSpeed() : 0.0f;
-	Real minWeaponSpeed = detWeap ? detWeap->getMinWeaponSpeed() : 0.0f;
-
-	// if an object, aim at the center, not the ground part
-	Coord3D victimPosToUse;
-	if (victim)
-		victim->getGeometryInfo().getCenterPosition(*victim->getPosition(), victimPosToUse);
-	else
-		victimPosToUse = *victimPos;
-
-	if( detWeap  &&  detWeap->isScaleWeaponSpeed() )
-	{
-		// Some weapons want to scale their start speed to the range
-		Real minRange = detWeap->getMinimumAttackRange();
-		Real maxRange = detWeap->getUnmodifiedAttackRange();
-		Real range = sqrt(ThePartitionManager->getDistanceSquared( projectile, &victimPosToUse, FROM_CENTER_2D ) );
-		Real rangeRatio = (range - minRange) / (maxRange - minRange);
-		m_flightPathSpeed = (rangeRatio * (weaponSpeed - minWeaponSpeed)) + minWeaponSpeed;
-	}
-	else
-	{
-		m_flightPathSpeed = weaponSpeed;
-	}
-	
- 	PhysicsBehavior* physics = projectile->getPhysics();
- 	if ( dumbProjectileBehaviorModuleData->m_tumbleRandomly && physics)
-	{
-		physics->setPitchRate( GameLogicRandomValueReal( -1.0f/PI, 1.0f/PI ) );
-		physics->setYawRate( GameLogicRandomValueReal( -1.0f/PI, 1.0f/PI ) );
-		physics->setRollRate( GameLogicRandomValueReal( -1.0f/PI, 1.0f/PI ) );
-	}
-
-	m_flightPathStart = *getObject()->getPosition();
-	m_flightPathEnd = victimPosToUse;
-	if (!calcFlightPath(true))
-	{
-		//Can only fail if wildly incorrect points
-		TheGameLogic->destroyObject( projectile );
-		return;
-	}
-	m_currentFlightPathStep = 0;// We are at the first point, because the launching put us there
-}
-
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-// ?calcFlightPath@DumbProjectileBehavior@@ present-unmatched
-Bool DumbProjectileBehavior::calcFlightPath(Bool recalcNumSegments)
-{
-	const DumbProjectileBehaviorModuleData* dumbProjectileBehaviorModuleData = getDumbProjectileBehaviorModuleData();
-
-	Coord3D controlPoints[4];
-	//First point is us, last point is them
-	controlPoints[0] = m_flightPathStart;
-	controlPoints[3] = m_flightPathEnd;
-
-	Real highestInterveningTerrain;
-	Bool onMap = ThePartitionManager->estimateTerrainExtremesAlongLine( controlPoints[0], controlPoints[3], NULL, &highestInterveningTerrain, NULL, NULL );
-	if( !onMap )
-	{
-		return false;
-	}
-
-	// X and Y for inner points are along the line between us, so normalize and scale a vector between us, but
-	// only use the x and y of the result
-	Vector3 targetVector;// 0 origin vector between me and him
-	targetVector.X = controlPoints[3].x - controlPoints[0].x;
-	targetVector.Y = controlPoints[3].y - controlPoints[0].y;
-	targetVector.Z = controlPoints[3].z - controlPoints[0].z;
-
-	Real targetDistance = WWMath::Sqrt(
-		targetVector.X * targetVector.X + targetVector.Y * targetVector.Y + targetVector.Z * targetVector.Z);
-	targetVector.Normalize();
-	Real firstIndent = targetDistance * dumbProjectileBehaviorModuleData->m_firstPercentIndent;
-	Vector3 firstPointAlongLine;
-	firstPointAlongLine.X = targetVector.X * firstIndent;
-	firstPointAlongLine.Y = targetVector.Y * firstIndent;
-	firstPointAlongLine.Z = targetVector.Z * firstIndent;
-	Real secondIndent = targetDistance * dumbProjectileBehaviorModuleData->m_secondPercentIndent;
-	Vector3 secondPointAlongLine;
-	secondPointAlongLine.X = targetVector.X * secondIndent;
-	secondPointAlongLine.Y = targetVector.Y * secondIndent;
-	secondPointAlongLine.Z = targetVector.Z * secondIndent;
-
-	controlPoints[1].x = firstPointAlongLine.X + controlPoints[0].x;// add world start to offset along the origin based vector
-	controlPoints[1].y = firstPointAlongLine.Y + controlPoints[0].y;
-	controlPoints[2].x = secondPointAlongLine.X + controlPoints[0].x;
-	controlPoints[2].y = secondPointAlongLine.Y + controlPoints[0].y;
-
-	// Z's are determined using the highest intervening height so they won't hit hills, low end bounded by current Zs
-	highestInterveningTerrain = max( highestInterveningTerrain, controlPoints[0].z );
-	highestInterveningTerrain = max( highestInterveningTerrain, controlPoints[3].z );
-	controlPoints[1].z = highestInterveningTerrain + dumbProjectileBehaviorModuleData->m_firstHeight;
-	controlPoints[2].z = highestInterveningTerrain + dumbProjectileBehaviorModuleData->m_secondHeight;
-
-	// With four control points, we have a curve.  We will decide how many frames we want to take to get to the target,
-	// and fill our vector with those curve points.
-	BezierSegment flightCurve( controlPoints );
-	if (recalcNumSegments)
-	{
-		Real flightDistance = flightCurve.getApproximateLength();
-		m_flightPathSegments = ceil( flightDistance / m_flightPathSpeed );
-	}
-	flightCurve.getSegmentPoints( m_flightPathSegments, &m_flightPath );
-	DEBUG_ASSERTCRASH(m_flightPathSegments == m_flightPath.size(), ("m_flightPathSegments mismatch"));
-
-#if defined(_DEBUG) || defined(_INTERNAL)
-	if( TheGlobalData->m_debugProjectilePath )
-		displayFlightPath();
-#endif
-
-	return true;
-}
-
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-// ?projectileHandleCollision@DumbProjectileBehavior@@ present-unmatched
-Bool DumbProjectileBehavior::projectileHandleCollision( Object *other )
-{
-	const DumbProjectileBehaviorModuleData* dumbProjectileBehaviorModuleData = getDumbProjectileBehaviorModuleData();
-
-	if (other != NULL)
-	{
-		Object *projectileLauncher = TheGameLogic->findObjectByID( projectileGetLauncherID() );
-
-			// if it's not the specific thing we were targeting, see if we should incidentally collide...
-		if (!m_detonationWeaponTmpl->shouldProjectileCollideWith(projectileLauncher, getObject(), other, m_victimID))
-		{
-			//DEBUG_LOG(("ignoring projectile collision with %s at frame %d\n",other->getTemplate()->getName().str(),TheGameLogic->getFrame()));
-			return true;
-		}
-
-		if (dumbProjectileBehaviorModuleData->m_garrisonHitKillCount > 0)
-		{
-			ContainModuleInterface* contain = getRetailContain(other);
-			if( contain && contain->getContainCount() > 0 && contain->isGarrisonable() && !contain->isImmuneToClearBuildingAttacks() )
-			{
-				Int numKilled = 0;
-
-				// garrisonable buildings subvert the normal process here.
-				const ContainedItemsList* items = contain->getContainedItemsList();
-				if (items)
-				{
-					for (ContainedItemsList::const_iterator it = items->begin(); *it != NULL && numKilled < dumbProjectileBehaviorModuleData->m_garrisonHitKillCount; )
-					{
-						Object* thingToKill = *it++;
-						if (!thingToKill->isEffectivelyDead() && thingToKill->isKindOfMulti(dumbProjectileBehaviorModuleData->m_garrisonHitKillKindof, dumbProjectileBehaviorModuleData->m_garrisonHitKillKindofNot))
-						{
-							//DEBUG_LOG(("Killed a garrisoned unit (%08lx %s) via Flash-Bang!\n",thingToKill,thingToKill->getTemplate()->getName().str()));
-							if (projectileLauncher)
-								projectileLauncher->scoreTheKill( thingToKill );
-							thingToKill->kill();
-							++numKilled;
-						}
-					} // next contained item
-				} // if items
-				
-				if (numKilled > 0)
-				{
-					// note, fx is played at center of building, not at grenade's location
-					FXList::doFXObj(dumbProjectileBehaviorModuleData->m_garrisonHitKillFX, other, NULL);
-
-					getObject()->getControllingPlayer()->getAcademyStats()->recordClearedGarrisonedBuilding();
-
-					// don't do the normal explosion; just destroy ourselves & return
-					TheGameLogic->destroyObject(getObject());
-
-					return true;
-				}
-			}	// if a garrisonable thing
-		}
-
-	}
-
-	// collided with something... blow'd up!
-	detonate();
-
-	// mark ourself as "no collisions" (since we might still exist in slow death mode)
-	getObject()->setStatus( MAKE_OBJECT_STATUS_MASK( OBJECT_STATUS_NO_COLLISIONS ) );
-	return true;
-}
-
 //-------------------------------------------------------------------------------------------------
-// ?detonate@DumbProjectileBehavior@@ present-unmatched
-void DumbProjectileBehavior::detonate()
-{
-  if ( m_hasDetonated )
-    return;
-
-	Object* obj = getObject();
-	if (m_detonationWeaponTmpl)
-	{
-		TheWeaponStore->handleProjectileDetonation(m_detonationWeaponTmpl, obj, obj->getPosition(), m_extraBonusFlags);
-
-		if ( getDumbProjectileBehaviorModuleData()->m_detonateCallsKill )
-		{
-			// don't call kill(); do it manually, so we can specify DEATH_DETONATED
-			DamageInfo damageInfo;
-			damageInfo.in.m_damageType = DAMAGE_UNRESISTABLE;
-			damageInfo.in.m_deathType = DEATH_DETONATED;
-			damageInfo.in.m_sourceID = INVALID_ID;
-			damageInfo.in.m_amount = getRetailBodyModule(obj)->getMaxHealth();
-			obj->attemptDamage( &damageInfo );
-		}
-		else
-		{
-			TheGameLogic->destroyObject( obj );
-		}
-
-	}
-	else
-	{
-		// don't call kill(); do it manually, so we can specify DEATH_DETONATED
-		DamageInfo damageInfo;
-		damageInfo.in.m_damageType = DAMAGE_UNRESISTABLE;
-		damageInfo.in.m_deathType = DEATH_DETONATED;
-		damageInfo.in.m_sourceID = INVALID_ID;
-		damageInfo.in.m_amount = getRetailBodyModule(obj)->getMaxHealth();
-		obj->attemptDamage( &damageInfo );
-	}
-
-	if (obj->getDrawable())
-		obj->getDrawable()->setDrawableHidden(true);
-  
-  m_hasDetonated = TRUE; 
-
-}
-
 //-------------------------------------------------------------------------------------------------
 /**
  * Simulate one frame of a missile's behavior
@@ -802,102 +511,16 @@ UpdateSleepTime DumbProjectileBehavior::update()
 /** displayFlightPath for debugging */
 // ------------------------------------------------------------------------------------------------
 #if defined(_DEBUG) || defined(_INTERNAL)
-// ?displayFlightPath@DumbProjectileBehavior@@ present-unmatched
-void DumbProjectileBehavior::displayFlightPath()
-{
-	extern void addIcon(const Coord3D *pos, Real width, Int numFramesDuration, RGBColor color);
-	for( Int pointIndex = 0; pointIndex < m_flightPath.size(); ++pointIndex )
-	{
-		addIcon(&m_flightPath[pointIndex], TheGlobalData->m_debugProjectileTileWidth, 
-										TheGlobalData->m_debugProjectileTileDuration, 
-										TheGlobalData->m_debugProjectileTileColor);
-	}
-}
 #endif
 
 // ------------------------------------------------------------------------------------------------
 /** CRC */
 // ------------------------------------------------------------------------------------------------
-// ?crc@DumbProjectileBehavior@@ present-unmatched
-void DumbProjectileBehavior::crc( Xfer *xfer )
-{
-
-	// extend base class
-	UpdateModule::crc( xfer );
-
-}  // end crc
-
 // ------------------------------------------------------------------------------------------------
 /** Xfer method
 	* Version Info:
 	* 1: Initial version */
 // ------------------------------------------------------------------------------------------------
-// ?xfer@DumbProjectileBehavior@@ present-unmatched
-void DumbProjectileBehavior::xfer( Xfer *xfer )
-{
-
-	// version
-	XferVersion currentVersion = 1;
-	XferVersion version = currentVersion;
-	xfer->xferVersion( &version, currentVersion );
-
-	// extend base class
-	UpdateModule::xfer( xfer );
-
-	// launcher
-	xfer->xferObjectID( &m_launcherID );
-
-	// victim ID
-	xfer->xferObjectID( &m_victimID );
-
-	xfer->xferInt( &m_flightPathSegments );
-	xfer->xferReal( &m_flightPathSpeed );
-	xfer->xferCoord3D( &m_flightPathStart );
-	xfer->xferCoord3D( &m_flightPathEnd );
-
-	// weapon template
-	AsciiString weaponTemplateName = AsciiString::TheEmptyString;
-	if( m_detonationWeaponTmpl )
-		weaponTemplateName = m_detonationWeaponTmpl->getName();
-	xfer->xferAsciiString( &weaponTemplateName );
-	if( xfer->getXferMode() == XFER_LOAD )
-	{
-
-		if( weaponTemplateName == AsciiString::TheEmptyString )
-			m_detonationWeaponTmpl = NULL;
-		else
-		{
-
-			// find template
-			m_detonationWeaponTmpl = TheWeaponStore->findWeaponTemplate( weaponTemplateName );
-
-			// sanity
-			if( m_detonationWeaponTmpl == NULL )
-			{
-
-				DEBUG_CRASH(( "DumbProjectileBehavior::xfer - Unknown weapon template '%s'\n",
-											weaponTemplateName.str() ));
-				throw SC_INVALID_DATA;
-
-			}  // end if
-
-		}  // end else
-
-	}  // end if
-
-	// lifespan frame
-	xfer->xferUnsignedInt( &m_lifespanFrame );
-
-}  // end xfer
-
 // ------------------------------------------------------------------------------------------------
 /** Load post process */
 // ------------------------------------------------------------------------------------------------
-// ?loadPostProcess@DumbProjectileBehavior@@ present-unmatched
-void DumbProjectileBehavior::loadPostProcess( void )
-{
-
-	// extend base class
-	UpdateModule::loadPostProcess();
-
-}  // end loadPostProcess
