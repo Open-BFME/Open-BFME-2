@@ -15798,6 +15798,21 @@ slots 9 and 10 (0x004543A9); SpecialPowerModule 0x00BEFCF8 slots 8 (0x002533D3),
 (0x00251C11), 44 (0x00251C24). The canonical copies (digest `d0dadb66`) override none of
 them, so making the private copies equal them would only hide the defect; both views need
 the native overrides (canonical UpdateModule.h supplies slot 9 for update modules).
+Post-census losses from the same adoptions (current-object `link_check` over the 881
+sources changed since `00f3a8f97b`, 2026-11-01 13:55; 873 link): mechanism 1 in files
+held by other seats, recipes ready, names and addresses from DIR32 pairs of the definers'
+rows: BridgeScaffoldBehavior.cpp (1,021 B; its rows are claimed) binds
+`??_7Rva00458402@@6B@`/`6BRva0024A797_B2`/`_Mid`/`_Root@@@`, now emitted by
+Rva0024A797Grandchildren.cpp as `6BRva00458402_E1@@@` (0x00C40B70, +0x20),
+`6BUpdateModule@@@` (0x00C40B88, +0x10), `6BBehaviorModuleInterface@@@` (0x00C40B98, +0x0C),
+`6BObjectModule@@@` (0x00C40C54, +0); OneRingPenaltyUpdate.cpp (482 B; StarkillerHDX TU merge)
+binds `??_7Rva00499934@@6B@`/`_B2`/`_Root` -> `6BRva00499934_E1@@@` (0x00C50250),
+`6BUpdateModule@@@` (0x00C50254), `6BObjectModule@@@` (0x00C50260), and
+`??_7PropagandaTowerBehavior@@6BPB_Iface1@@@` -> `??_7Rva00499934@@6BBehaviorModuleInterface@@@`
+(same folded 0x00C49188 as PropagandaTowerBehaviorConstructor.cpp's
+`6BBehaviorModuleInterface`). Mechanism 4: Rva0024A797Grandchildren.cpp (1,280 B;
+StructureToppleUpdate tables vs StructureToppleUpdate.cpp's ZH copies), ThreatFinderUpdateDtor
+(125 B), AudioLoopUpgradeCtorModuleFactory (133 B).
 Remaining / next check: the open rows above. Pattern: after a base-header adoption,
 grep `__identifier("??_7<Class>@@6B<old base>@@@")` in sibling units, and check whether
 any adopting unit defines a constructor (it then emits the base's inline destructor and
