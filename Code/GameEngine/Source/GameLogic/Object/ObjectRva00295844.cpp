@@ -58,11 +58,7 @@ public:
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-struct ThingTemplate
-{
-	char m_pad000[0x51C];
-	float m_threatLevel;		// +0x51C
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 struct BfmeWideResult
 {

@@ -19,7 +19,7 @@ struct TargetRef00217D4C { void* vtable; int references; };
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
 struct Rva004F69C3Target { unsigned char unknown0[4]; AsciiString templateName; unsigned char opaque[0xAC-8]; TargetRef00217D4C ref; };
 // Target lookup2D06CA and the following byte test prove only this flag offset.
-class ThingTemplate { public: unsigned char opaque[0x113]; unsigned char flags113; };
+#include "../../../Include/Common/ThingTemplate.h"
 class ThingFactory { public: const ThingTemplate* findTemplate(const AsciiString&); };
 extern ThingFactory* TheThingFactory;
 struct Rva004F69C3 { int key; Rva004F69C3Target* value; ~Rva004F69C3(); };

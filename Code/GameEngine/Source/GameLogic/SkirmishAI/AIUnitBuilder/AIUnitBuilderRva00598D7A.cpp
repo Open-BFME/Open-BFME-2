@@ -84,7 +84,7 @@ struct Rva00598052Entry {char unknown00[0x78]; Rva00598052Metadata *metadata;};
 struct Rva00598961Config {char pad00[4]; _STL::vector<AsciiString *> unitNames; char pad10[0x1C-0x10];float field1C;};
 struct Rva002A8AB1Record {char pad00[0x160];Rva00598961Config *config160;};
 class Player;
-class ThingTemplate {public:int rva0033A69A(const Player*,int,int)const;};
+#include "../../../../Include/Common/ThingTemplate.h"
 class ThingFactory {public:const ThingTemplate *findTemplate(const AsciiString &name);};
 extern ThingFactory *TheThingFactory;
 struct Rva00598961Template {char pad00[0x113];unsigned char field113;};

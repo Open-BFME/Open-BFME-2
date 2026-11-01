@@ -98,14 +98,7 @@ public:
 	int tagValue;
 };
 
-class ThingTemplate
-{
-public:
-	const AsciiString &getName( void ) const { return m_nameString; }
-private:
-	char m_unrecovered00[ 0x64 ];
-	AsciiString m_nameString;																									///< 0x64
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class ThingFactory
 {

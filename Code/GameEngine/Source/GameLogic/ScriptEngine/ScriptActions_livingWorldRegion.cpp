@@ -134,11 +134,7 @@ private:
 	void *m_regionManager;
 };
 
-class ThingTemplate
-{
-public:
-	int rva0033B479() const;
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class ThingFactory
 {

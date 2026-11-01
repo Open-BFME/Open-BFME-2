@@ -91,11 +91,7 @@ void XferGameDifficulty(Xfer *xfer, int *value);
 struct ObjectTOCEntry;
 class CommandButton;
 class Team;
-class ThingTemplate
-{
-public:
-	void GetAssetList(int assets, int mode);
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 struct Rva001408C0Target;
 typedef _STL::set<Rva001408C0Target *, _STL::less<Rva001408C0Target *>,

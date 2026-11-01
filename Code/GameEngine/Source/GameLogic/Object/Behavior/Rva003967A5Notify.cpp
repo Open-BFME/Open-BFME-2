@@ -164,11 +164,7 @@ public:
 
 extern SidesList *TheSidesList;
 
-class ThingTemplate
-{
-public:
-	void GetAssetList(int x, int y);
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 struct Rva003967A5Node
 {

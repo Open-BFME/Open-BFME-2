@@ -7,11 +7,7 @@
 #include "ascii_string.h"
 
 
-struct ThingTemplate
-{
-	char m_pad[0x70];
-	AsciiString m_name70;
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 struct Rva00290EABElem
 {
@@ -51,7 +47,7 @@ const AsciiString *Object::rva00290E67() const
 		return &m_str424;
 	if (!m_str420.isEmpty())
 		return &m_str420;
-	return &m_template->m_name70;
+	return &m_template->m_commandSetString;
 }
 
 extern "C" void _ReadWriteBarrier();

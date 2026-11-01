@@ -53,12 +53,7 @@ public:
 
 extern class ThingFactory *TheThingFactory;
 
-class ThingTemplate
-{
-public:
-	unsigned char m_pad[0x64];
-	AsciiString m_name;
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
@@ -105,7 +100,7 @@ void StealthUpdate::xfer(Xfer *xfer)
 		*xfer == m_framesGranted;
 	*xfer == m_enabled;
 	*xfer == m_disguiseAsPlayerIndex;
-	AsciiString tmp = m_disguiseAsTemplate ? m_disguiseAsTemplate->m_name : AsciiString::TheEmptyString;
+	AsciiString tmp = m_disguiseAsTemplate ? m_disguiseAsTemplate->m_nameString : AsciiString::TheEmptyString;
 	*xfer == tmp;
 	if (xfer->IsLoading()) {
 		m_disguiseAsTemplate = NULL;

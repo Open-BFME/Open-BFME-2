@@ -724,12 +724,7 @@ typedef char CaveContainSizeMustBe10C[(sizeof(CaveContain) == 0x10C) ? 1 : -1];
 
 // --- 0x001E0301 (32B): find the +0x148 template by name in TheThingFactory
 // and ask it for its asset list.
-class ThingTemplate
-{
-public:
-	void GetAssetList(int a, int b);						// 0x0033CF34
-	bool isEquivalentTo(const ThingTemplate *other) const;	// 0x0033BB04
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 class ThingFactory
 {

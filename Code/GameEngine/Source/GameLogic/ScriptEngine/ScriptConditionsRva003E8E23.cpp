@@ -110,11 +110,7 @@ private:
 	unsigned char m_string[4]; // +0x10 (AsciiString)
 };
 
-class ThingTemplate
-{
-public:
-	Bool isEquivalentTo(const ThingTemplate *other) const;
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class ExperienceTracker
 {

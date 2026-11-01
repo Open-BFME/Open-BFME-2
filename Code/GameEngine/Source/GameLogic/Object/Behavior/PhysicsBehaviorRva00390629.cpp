@@ -36,12 +36,7 @@ public:
 private:
 	unsigned int m_words[19];
 };
-class ThingTemplate
-{
-public:
-	unsigned char m_pad[0x610];
-	float m_shockwaveResistance; // +0x610
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 class Object
 {
 public:

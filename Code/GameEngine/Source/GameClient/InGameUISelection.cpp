@@ -31,11 +31,7 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
 
 enum KindOfType { KINDOF_INVALID = -1 };
 
-class ThingTemplate
-{
-public:
-	bool isKindOf( KindOfType bit ) const;
-};
+#include "../../Include/Common/ThingTemplate.h"
 
 class Drawable
 {

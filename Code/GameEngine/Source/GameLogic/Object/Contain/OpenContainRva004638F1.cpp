@@ -52,11 +52,7 @@ void _STLP_alloc_proxy<_List_node<int> *, _List_node<int>, allocator<_List_node<
 }
 }
 
-class ThingTemplate
-{
-public:
-	char m_pad[0x10C];
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 class Object
 {

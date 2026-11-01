@@ -22,7 +22,7 @@ extern ThingFactory *TheThingFactory;
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 class ThingFactory {public:const ThingTemplate *findTemplate(const AsciiString &name);};
-class ThingTemplate {public:const Image *getButtonImage();const Image *rva0033BA46();};
+#include "../../../../Include/Common/ThingTemplate.h"
 class Rva002E2903Player;
 class Rva002BA8F1Logic {public:Rva002E2903Player *find(int,unsigned int *);};
 class LivingWorldPlayer {public:void *rva002E06EF();};

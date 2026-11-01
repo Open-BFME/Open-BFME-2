@@ -510,7 +510,7 @@ class Rva0059ADF4 {public:void rva0059ADF4(int);};
 class Rva002B254F {public:int rva002B254F();};
 class LivingWorldLogic; extern LivingWorldLogic *TheLivingWorldLogic;
 class Rva00380200 {public:bool rva003805BB(float,bool);};
-class ThingTemplate {public:void *getCurrentLivingWorldAutoResolveWeapon(const void*) const;};
+#include "../../../../../Include/Common/ThingTemplate.h"
 class Rva004194D6 {public:float rva00419561(int,float,float,int);};
 class Rva00427157 {public:float rva004270FA(int);};
 class Rva0033A9A5 {public:const Rva00427157 *getCurrentLivingWorldAutoResolveArmor(const void*);};

@@ -29,12 +29,7 @@ class RGBAColorInt;
 struct XferUnknown11;
 #include "../../../Include/Common/BfmeXfer.h"
 
-class ThingTemplate
-{
-public:
-	unsigned char m_pad[0x64];
-	AsciiString m_name; // +0x64
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class ThingFactory
 {

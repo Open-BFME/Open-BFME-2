@@ -45,11 +45,7 @@ template <> class Rva00453652Slots<0>
 };
 
 class Player;
-class ThingTemplate
-{
-public:
-	Int calcTimeToBuild(const Player *player, Int a2, Int a3) const;	// 0x0033AA1F
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 // Object +0x254: slot 4 the health, slot 5 the maximum, slot 42 a health set.
 class Rva00453652Body : public Rva00453652Slots<4>

@@ -54,11 +54,7 @@ public:
 	}
 };
 
-struct ThingTemplate
-{
-	unsigned char m_pad00[0x548];
-	int m_energyProduction;
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class Player
 {

@@ -26,11 +26,7 @@ public:
 	unsigned int m_words[7];
 };
 
-struct ThingTemplate
-{
-	char m_pad[0x108];
-	int m_kindOf;
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class Thing
 {

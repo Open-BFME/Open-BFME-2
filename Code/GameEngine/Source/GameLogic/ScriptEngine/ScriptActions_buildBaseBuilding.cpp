@@ -116,11 +116,7 @@ extern GlobalData *TheWritableGlobalData;
 // The asset announcement GameLogic::init makes for a looked-up template
 // (GameLogicInit.cpp): ThingTemplate::GetAssetList 0x0033CF34 with a fresh
 // asset list and load mode, then merge 0x0061F010.
-class ThingTemplate
-{
-public:
-	void GetAssetList(int a, int b);
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 struct Rva001408C0Target;
 typedef _STL::set<Rva001408C0Target *, _STL::less<Rva001408C0Target *>,

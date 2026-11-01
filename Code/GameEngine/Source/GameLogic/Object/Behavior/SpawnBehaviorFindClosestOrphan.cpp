@@ -23,11 +23,7 @@ enum KindOfType
 	KINDOF_220 = 0x220
 };
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
-class ThingTemplate
-{
-public:
-	bool isEquivalentTo(const ThingTemplate *other) const;
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 class Object
 {
 public:

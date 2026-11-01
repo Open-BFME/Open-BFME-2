@@ -67,11 +67,7 @@ struct ObjectStatusMask
 	unsigned int m_words[4];
 };
 
-class ThingTemplate
-{
-public:
-	bool isEquivalentTo(const ThingTemplate *tmplate) const;
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 class ThingFactory
 {

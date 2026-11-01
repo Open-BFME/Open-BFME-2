@@ -177,14 +177,7 @@ extern GameLogic *TheGameLogic;
 // 0x002401C0 is rowed (Common/Rva002401C0Forward.cpp) as an address-named
 // forward on GameLogic returning its army list as four-byte words; each
 // word is an army record pointer here.
-class ThingTemplate
-{
-public:
-	const Image *getButtonImage();
-
-	unsigned char m_pad00[0x30];
-	UnicodeString m_displayName; // +0x30
-};
+#include "../../../../../Include/Common/ThingTemplate.h"
 
 class ThingFactory
 {

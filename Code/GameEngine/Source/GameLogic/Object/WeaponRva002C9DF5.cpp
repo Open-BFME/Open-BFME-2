@@ -40,11 +40,7 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class ThingTemplate
-{
-public:
-	bool isEquivalentTo(const ThingTemplate *tmplate) const;
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class Rva000CBA20Point
 {

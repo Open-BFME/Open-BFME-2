@@ -7,7 +7,7 @@
 #include "ascii_string.h"
 class AssetList;
 struct AssetLoadMode;
-class ThingTemplate { public: void GetAssetList(int assets, int context); };
+#include "../../../Include/Common/ThingTemplate.h"
 class ThingFactory
 {
 public:

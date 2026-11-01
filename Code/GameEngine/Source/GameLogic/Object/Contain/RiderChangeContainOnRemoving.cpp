@@ -75,11 +75,7 @@ public:
 	Rva0023DA79 *rva0023DA79(int base, int bit);	// 0x0023DA79
 };
 
-class ThingTemplate
-{
-public:
-	bool isEquivalentTo(const ThingTemplate *tmplate) const;
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 class ThingFactory
 {

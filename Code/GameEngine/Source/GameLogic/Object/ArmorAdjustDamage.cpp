@@ -69,11 +69,7 @@ extern ArmorStore *TheArmorStore;
 
 class WeaponTemplateSet;
 class Rva0033DCB8 { public: const WeaponTemplateSet *rva0033DCB8(const ArmorSetFlags &) const; };
-class ThingTemplate
-{
-public:
-	const ArmorTemplateSet *findArmorTemplateSet(const ArmorSetFlags &flags) const;
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class Rva001D90A1Body
 {

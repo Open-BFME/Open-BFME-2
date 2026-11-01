@@ -328,11 +328,7 @@ extern const FieldParse s_transportContainFieldTable[];
 
 class AsciiString;
 
-class ThingTemplate
-{
-public:
-	void GetAssetList(int value, int context);
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 class Team;
 

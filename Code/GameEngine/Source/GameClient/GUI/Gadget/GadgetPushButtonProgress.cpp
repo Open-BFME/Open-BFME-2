@@ -7,7 +7,7 @@
 // The palette words belong to outer Rva003284B9 arguments; progress callees take
 // no color. Existing rowed providers and canonical globals are preserved.
 class GameWindow {public:void *winGetUserData();};
-class ThingTemplate {public:bool isEquivalentTo(const ThingTemplate*)const;};
+#include "../../../../Include/Common/ThingTemplate.h"
 class ProductionEntry {public:int unknown00; int kind; const ThingTemplate *thing; void *upgrade; bool getProductionObject()const;};
 class Rva0049CBDA {public:int rva0049CBDA();};
 class ButtonProductionInterface {public:

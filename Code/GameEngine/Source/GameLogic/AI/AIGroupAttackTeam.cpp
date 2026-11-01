@@ -224,11 +224,7 @@ enum WeaponSetType
 	WEAPONSET_VETERAN = 0
 };
 class WeaponTemplateSet;
-class ThingTemplate
-{
-public:
-	const WeaponTemplateSet *findWeaponTemplateSet(const WeaponSetFlags &t) const;
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class Object
 {

@@ -52,12 +52,7 @@ public:
 class Thing;
 class ModuleData;
 class Object;
-class ThingTemplate
-{
-public:
-	unsigned char m_pad[0x64];
-	AsciiString m_name;
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 class ThingFactory
 {
@@ -138,7 +133,7 @@ void RebuildHoleBehavior::xfer(Xfer *xfer)
 	XferObjectID(xfer, &m_reconstructingID);
 	XferObjectID(xfer, &m_spawnerObjectID);
 	*xfer == m_workerWaitCounter;
-	AsciiString tmp1(m_workerTemplate ? m_workerTemplate->m_name : AsciiString::TheEmptyString);
+	AsciiString tmp1(m_workerTemplate ? m_workerTemplate->m_nameString : AsciiString::TheEmptyString);
 	*xfer == tmp1;
 	if (xfer->IsLoading()) {
 		if (tmp1.compare(AsciiString::TheEmptyString) != 0)
@@ -146,7 +141,7 @@ void RebuildHoleBehavior::xfer(Xfer *xfer)
 		else
 			m_workerTemplate = 0;
 	}
-	AsciiString tmp2(m_rebuildTemplate ? m_rebuildTemplate->m_name : AsciiString::TheEmptyString);
+	AsciiString tmp2(m_rebuildTemplate ? m_rebuildTemplate->m_nameString : AsciiString::TheEmptyString);
 	*xfer == tmp2;
 	if (xfer->IsLoading()) {
 		m_rebuildTemplate = 0;

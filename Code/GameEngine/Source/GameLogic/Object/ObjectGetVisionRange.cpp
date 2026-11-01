@@ -27,13 +27,7 @@ public:
 // LINK: the clamp binds the rowed owner at 0x0028A8B5 (Rva0028A8B5::rva0028A8B5, Rva0028A8B5Clamp.cpp).
 class Rva0028A8B5 { public: void rva0028A8B5(Real *value) const; };
 
-class ThingTemplate
-{
-public:
-
-	unsigned char m_pad000[0x4BC];
-	Real m_heightFactor4BC;                 // +0x4BC
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class Object
 {
@@ -66,9 +60,9 @@ Real Object::getVisionRange() const
 	if (pool && pool->rva00403382(0x10, &bonus, 0))
 		visionRange *= bonus + 1.0f;
 
-	if (getTemplate()->m_heightFactor4BC > 0.0f)
+	if (getTemplate()->m_visionBonusPercentPerFoot > 0.0f)
 	{
-		Real height = (m_pos.z - m_height1C4) * getTemplate()->m_heightFactor4BC;
+		Real height = (m_pos.z - m_height1C4) * getTemplate()->m_visionBonusPercentPerFoot;
 		((const Rva0028A8B5 *)getTemplate())->rva0028A8B5(&height);
 		visionRange *= height + 1.0f;
 	}

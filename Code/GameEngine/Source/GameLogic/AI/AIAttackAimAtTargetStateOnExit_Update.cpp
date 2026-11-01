@@ -108,14 +108,7 @@ public:
 	unsigned char get() const;
 };
 #include "../../../Include/GameLogic/Weapon.h"
-class ThingTemplate
-{
-public:
-	Real getUnknown53C() const { return m_unknown53C; }
-private:
-	unsigned char m_pad00[0x53C];
-	Real m_unknown53C; // +0x53C
-};
+#include "../../../Include/Common/ThingTemplate.h"
 class Object
 {
 public:

@@ -10,11 +10,7 @@
 // remains unresolved.
 
 class AsciiString;
-class ThingTemplate
-{
-public:
-	void GetAssetList(int value, int context);
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 class ThingFactory
 {

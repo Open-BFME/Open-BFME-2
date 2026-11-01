@@ -58,17 +58,7 @@ public:
 private:
 	unsigned int m_words[19]; // +0x00
 };
-class ThingTemplate
-{
-public:
-	bool isEquivalentTo(const ThingTemplate *other) const;
-	void GetAssetList(int a2, int a3);
-	int rva0033A69A(const Player *player, int a2, int a3) const;
-	unsigned char m_pad000[0x119];
-	unsigned char kindByte; // +0x119
-	unsigned char m_pad11A;
-	unsigned char kindFlags; // +0x11B
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 // Object +0x254: slot 5 a fraction, slot 8 a state.
 class Rva0045342FBody : public Rva00454430Slots<4>
 {
