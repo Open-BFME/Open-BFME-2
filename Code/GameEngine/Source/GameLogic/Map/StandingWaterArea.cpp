@@ -499,8 +499,6 @@ private:
 	Rva003080AA *m_indexer94;
 };
 
-class MilesAudioManager { public: virtual void *rva0055D96F() const; };
-
 BFME_DISP32_LEA_GETTER(Rva00308156LeaGetter, 0x8C)
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's

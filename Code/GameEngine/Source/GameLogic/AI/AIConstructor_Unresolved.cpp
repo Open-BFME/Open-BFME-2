@@ -253,7 +253,6 @@ AI::AI():m_nextGroupID(0),m_nextFormationID(0)
 
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
-class Rva002FE8CCDeleteView{public:virtual void*destroy(int);};
 class BuildListInfo{public:virtual~BuildListInfo();BuildListInfo*duplicate();};
 class Gen0014AE40{public:Gen0014AE40(AsciiString);virtual~Gen0014AE40();AsciiString side;BuildListInfo*build;Gen0014AE40*next;};
 

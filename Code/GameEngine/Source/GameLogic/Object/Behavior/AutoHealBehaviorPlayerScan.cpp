@@ -76,7 +76,6 @@ typedef BitFlags<69> KindOfMaskType;
 // 0x001EB769 and list dtor 0x001EB940 implement; push_back is 0x001EC03C.
 class Object;
 class Rva001EB130Holder { public: void rva001EB130(); };
-class Rva001EB769 { public: void rva001EB769() throw(); };
 template <class T> class Rva001EB984PoolAllocator
 {
 public:

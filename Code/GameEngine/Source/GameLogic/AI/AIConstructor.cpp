@@ -255,7 +255,6 @@ void TAiData::addFactionBuildList(Gen0014AE40*incoming){
 }
 
 class Rva002FE620{public:Rva002FE620();virtual~Rva002FE620();unsigned char body[0x1B8];Rva002FE620*next;};
-class Rva0014A470{public:Rva0014A470&operator=(const Rva0014A470&);};
 struct Rva002FFC74Record{unsigned char bytes[8];};
 class Rva002FED8D{public:Rva002FED8D(AsciiString);virtual~Rva002FED8D();AsciiString name;unsigned int value;_STL::list<Rva002FFC74Record>tail;Rva002FED8D*next;};
 

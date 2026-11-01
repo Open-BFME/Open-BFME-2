@@ -126,15 +126,6 @@ public:
 
 // Slot 0 of each module's primary vftable is its deleting destructor
 // (0x0045A560 in 0x00C4175C), so the base's first virtual is the destructor.
-class BehaviorModuleBase
-{
-public:
-	virtual ~BehaviorModuleBase();
-protected:
-	const ModuleData *m_moduleData;
-	Object *m_object;
-};
-
 class BehaviorModuleOther
 {
 	virtual void unused();

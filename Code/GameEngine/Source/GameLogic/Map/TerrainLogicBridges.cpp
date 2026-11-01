@@ -308,12 +308,6 @@ public:
 	virtual Bool isScaffoldPresent(); // +0x14
 };
 
-class BridgeBehavior
-{
-public:
-	static BridgeBehaviorInterface *getBridgeBehaviorInterfaceFromObject(Object *obj);
-};
-
 // Zero Hour's BridgeInfo, the 0xA8-byte record whose rowed constructor
 // (0x0027C36A) and assignment (0x00085420) keep their address-derived class
 // name. Bridge holds it at +0x0C.

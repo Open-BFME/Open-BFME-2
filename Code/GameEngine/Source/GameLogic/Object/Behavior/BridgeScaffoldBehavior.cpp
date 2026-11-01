@@ -62,12 +62,6 @@ class ModuleData;
 
 class Object;
 
-class BehaviorModuleOther
-{
-public:
-	virtual void behaviorModuleOtherAnchor();
-};
-
 extern GameLogic *TheGameLogic;
 
 void XferScaffoldTargetMotion(Xfer *xfer, int *value);

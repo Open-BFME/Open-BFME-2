@@ -30,8 +30,6 @@ typedef int NameKeyTypeHack;
 #include <stdlib.h>
 
 class Rva003427DD { public: Rva003427DD &operator=(const Rva003427DD &src); private: char m_data[0x7C]; };
-class Rva0035149F { public: void *m_start; void *m_finish; void *m_end; };
-
 struct AICommandParms {
 	AICommandParms(AICommandType cmd, CommandSourceType cmdSource);
 	~AICommandParms();

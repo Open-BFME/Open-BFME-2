@@ -111,19 +111,6 @@ template <> __declspec(dllimport) __forceinline void _Destroy(
     Rva0032C0E3Element *, Rva0032C0E3Element *) {}
 }
 
-class Rva0032C19D
-{
-public:
-	Rva0032C19D();
-	~Rva0032C19D();
-	Rva0032C19D &operator=(const Rva0032C19D &that);
-
-private:
-	int m_value;
-	std::vector<Rva0032C0E3Element> m_first;
-	std::vector<Rva0032C0E3Element> m_second;
-};
-
 class SidesList : public SubsystemInterface, public Snapshot, public SidesListNotifier
 {
 public:

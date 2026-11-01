@@ -44,11 +44,6 @@ public:
 	unsigned char m_pad08[0x18 - 0x08];
 	StateMachine *m_machine; // +0x18
 };
-class AttackExitConditionsInterface
-{
-public:
-	virtual Bool shouldExit(const StateMachine *machine) const = 0;
-};
 struct TunnelNetworkExitConditions
 {
 	const void *m_vptr;
