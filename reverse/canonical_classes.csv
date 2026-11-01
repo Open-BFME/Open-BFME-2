@@ -199,3 +199,4 @@ GameSlot,Code/GameEngine/Include/GameNetwork/GameInfo.h,existing header; contrac
 AI,Code/GameEngine/Include/GameLogic/AI.h,existing header; contract class_contracts/AI.json; 105/263 sampled units adopt
 PlayerList,Code/GameEngine/Include/Common/PlayerList.h,existing header; contract class_contracts/PlayerList.json; 144/314 sampled units adopt
 InGameUI,Code/GameEngine/Include/GameClient/InGameUI.h,existing header; contract class_contracts/InGameUI.json; 59/231 sampled units adopt
+GeometryInfo,Code/GameEngine/Include/Common/Geometry.h,existing header; contract class_contracts/GeometryInfo.json; 30/127 sampled units adopt

@@ -1,0 +1,584 @@
+{
+ "bases": [
+  "Snapshot"
+ ],
+ "bases_by": "zh",
+ "class": "GeometryInfo",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 40,
+  "inherited": {
+   "base_views": 4,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x10": {
+    "4": 1
+   },
+   "0x14": {
+    "4": 2
+   },
+   "0x18": {
+    "4": 2
+   },
+   "0x1c": {
+    "4": 2
+   },
+   "0x20": {
+    "4": 2
+   },
+   "0x24": {
+    "4": 1
+   },
+   "0x28": {
+    "4": 1
+   },
+   "0x2c": {
+    "4": 16
+   },
+   "0x30": {
+    "4": 15
+   },
+   "0x38": {
+    "4": 1
+   },
+   "0x3c": {
+    "4": 1
+   },
+   "0x50": {
+    "4": 2
+   },
+   "0x54": {
+    "4": 1
+   },
+   "0x58": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "conflict",
+   "conflicts": [
+    {
+     "candidates": {
+      "ctor": {
+       "0x0": "0x7c4e94"
+      },
+      "dtor": {
+       "0x0": "0x7bb554"
+      }
+     },
+     "dtor": "0x50b2a",
+     "fact": "dtor-vftables"
+    }
+   ],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x5c": 1
+     }
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x29840d",
+      "0x50b74",
+      "0x929e8"
+     ],
+     "value": 92
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x29840d",
+      "0x50b74",
+      "0x929e8"
+     ],
+     "value": {
+      "0x10": [
+       4
+      ],
+      "0x14": [
+       4
+      ],
+      "0x18": [
+       4
+      ],
+      "0x1c": [
+       4
+      ],
+      "0x20": [
+       4
+      ],
+      "0x24": [
+       4
+      ],
+      "0x28": [
+       4
+      ],
+      "0x4": [
+       1
+      ],
+      "0x44": [
+       4
+      ],
+      "0x48": [
+       4
+      ],
+      "0x4c": [
+       4
+      ],
+      "0x50": [
+       4
+      ],
+      "0x54": [
+       4
+      ],
+      "0x58": [
+       4
+      ],
+      "0x8": [
+       4
+      ],
+      "0xc": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x29840d",
+      "0x50b74",
+      "0x929e8"
+     ],
+     "value": {
+      "0x0": [
+       "?set@GeometryInfo@@QAEXW4GeometryType@@_NMMM@Z"
+      ],
+      "0x2c": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z",
+       "??0?$vector@UBfmeStringRecord00063BE4@@V?$allocator@UBfmeStringRecord00063BE4@@@_STL@@@_STL@@QAE@ABV01@@Z"
+      ],
+      "0x38": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z",
+       "??0?$vector@UGeometryRecord@@V?$allocator@UGeometryRecord@@@_STL@@@_STL@@QAE@ABV01@@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x29840d",
+      "0x50b74",
+      "0x929e8"
+     ],
+     "value": {
+      "0x0": "0x7c4e94"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7c4e94"
+     ],
+     "value": {
+      "count": 4,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GGeometryInfo@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x50c31"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 1,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?GetSnapshotName@GeometryInfo@@UAEPBDXZ",
+        "slot": 2,
+        "target": "0x50c2b"
+       },
+       {
+        "name": "?DoXfer@GeometryInfo@@UAEXAAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x6c0030"
+       }
+      ],
+      "table": "0x7c4e94"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 14,
+  "retail_vtables": {
+   "0x7c4e94": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GGeometryInfo@@UAEPAXI@Z",
+     "1": "??1Region2D@@QAE@XZ",
+     "2": "?GetSnapshotName@GeometryInfo@@UAEPBDXZ",
+     "3": "?DoXfer@GeometryInfo@@UAEXAAVXfer@@@Z"
+    },
+    "stores": 3
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 14,
+   "4": 3,
+   "24": 1,
+   "28": 1,
+   "36": 1,
+   "40": 1,
+   "44": 1,
+   "56": 2,
+   "92": 16
+  },
+  "views": 40,
+  "witness_offsets": [],
+  "zh": {
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Geometry.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "zh",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 23,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i1",
+   "name": "m_type",
+   "name_by": "zh",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 9,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "m_isSmall",
+   "name_by": "zh",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "zh",
+   "kind": "f4",
+   "name": "m_height",
+   "name_by": "zh",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "zh",
+   "kind": "f4",
+   "name": "m_majorRadius",
+   "name_by": "zh",
+   "offset": 16,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "float",
+   "views": 13,
+   "witness": null
+  },
+  {
+   "decided_by": "zh",
+   "kind": "f4",
+   "name": "m_minorRadius",
+   "name_by": "zh",
+   "offset": 20,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "float",
+   "views": 12,
+   "witness": null
+  },
+  {
+   "decided_by": "zh",
+   "kind": "f4",
+   "name": "m_boundingCircleRadius",
+   "name_by": "zh",
+   "offset": 24,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "float",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "zh",
+   "kind": "f4",
+   "name": "m_boundingSphereRadius",
+   "name_by": "zh",
+   "offset": 28,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "float",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "m_scalar20",
+   "name_by": "majority",
+   "offset": 32,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "int",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "f4",
+   "name": "m_scalar24",
+   "name_by": "majority",
+   "offset": 36,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "float",
+   "views": 10,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "f4",
+   "name": "m_scalar28",
+   "name_by": "majority",
+   "offset": 40,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "float",
+   "views": 9,
+   "witness": null
+  },
+  {
+   "decided_by": "retail-access",
+   "kind": "S:_STL::vector<GeometryShape,_STL::allocator<GeometryShape> >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_start",
+     "offset": 0,
+     "size": 4,
+     "type": "GeometryShape*"
+    },
+    {
+     "kind": "P",
+     "name": "_M_finish",
+     "offset": 4,
+     "size": 4,
+     "type": "GeometryShape*"
+    },
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 8,
+     "size": 4,
+     "type": "GeometryShape*"
+    }
+   ],
+   "name": "m_shapes",
+   "name_by": "majority",
+   "offset": 44,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::vector<GeometryShape,_STL::allocator<GeometryShape> >",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::vector<GeometryRecord,_STL::allocator<GeometryRecord> >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_start",
+     "offset": 0,
+     "size": 4,
+     "type": "GeometryRecord*"
+    },
+    {
+     "kind": "P",
+     "name": "_M_finish",
+     "offset": 4,
+     "size": 4,
+     "type": "GeometryRecord*"
+    },
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 8,
+     "size": 4,
+     "type": "GeometryRecord*"
+    }
+   ],
+   "name": "m_records",
+   "name_by": "majority",
+   "offset": 56,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::vector<GeometryRecord,_STL::allocator<GeometryRecord> >",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:Coord3D",
+   "members": [
+    {
+     "kind": "f4",
+     "name": "m_cached44",
+     "offset": 0,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "m_cached48",
+     "offset": 4,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "m_cached4c",
+     "offset": 8,
+     "size": 4,
+     "type": "float"
+    }
+   ],
+   "name": "preferredPosition",
+   "name_by": "majority",
+   "offset": 68,
+   "retail_widths": {},
+   "size": 12,
+   "type": "Coord3D",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:Coord3D",
+   "members": [
+    {
+     "kind": "f4",
+     "name": "m_cached50",
+     "offset": 0,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "m_cached54",
+     "offset": 4,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "m_cached58",
+     "offset": 8,
+     "size": 4,
+     "type": "float"
+    }
+   ],
+   "name": "defaultPosition",
+   "name_by": "majority",
+   "offset": 80,
+   "retail_widths": {},
+   "size": 12,
+   "type": "Coord3D",
+   "views": 3,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 22
+ },
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "retail-dtor-vftables",
+   "candidates": {
+    "ctor": {
+     "0x0": "0x7c4e94"
+    },
+    "dtor": {
+     "0x0": "0x7bb554"
+    }
+   },
+   "class": "GeometryInfo",
+   "why": "the class's retail constructors or destructors disagree"
+  },
+  {
+   "attribute": "inherited@0x0",
+   "candidates": {
+    "28:A": 1,
+    "36:A": 1,
+    "4:P": 1,
+    "4:VPTR": 1
+   },
+   "class": "GeometryInfo"
+  }
+ ],
+ "size": 92,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
