@@ -205,3 +205,4 @@ Pathfinder,Code/GameEngine/Include/GameLogic/AIPathfind.h,existing header; contr
 ControlBar,Code/GameEngine/Include/GameClient/ControlBar.h,existing header; contract class_contracts/ControlBar.json; 65/125 sampled units adopt
 Rva000421C8,Code/GameEngine/Include/GameLogic/PartitionFilter.h,existing header; contract class_contracts/Rva000421C8.json; 33/193 sampled units adopt
 BfmeStringData,Code/GameEngine/Include/Common/BfmeStringData.h,existing header; contract class_contracts/BfmeStringData.json; 1/1 sampled units adopt
+RefCountClass,Code/Libraries/Source/WWVegas/WWLib/RefCountData.h,existing header; contract class_contracts/RefCountClass.json; 75/130 sampled units adopt
