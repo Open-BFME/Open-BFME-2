@@ -84,3 +84,5 @@ Owning GameWindow.cpp: remove complete private window and opaque instance-data v
 
 Owning TU normal hooks:69rows/2EH exact; twelve shadow duplicate findings refer to pre-existing unchanged code definitions (strict full runtime graph identical), not introduced definitions. Existing one-unclaimed-definition note retained unchanged.
 Dtor donor uses shared window and real WinInstanceData lifetime; existing anchor slot14 helper stays separate. Canonical opaque input/edit pointers are cast to their existing observed deletion types, preserving native destructor/delete paths. All11 table slots and weak E-to-G deleting-dtor fallback must remain identical.
+
+Message donor: add existing nonvirtual message dispatch declarations to canonical header, no slot change. Handler1DC uses existing five-slot helper; own fallback slots1/2 now call canonical input/bfmeGoEHCb. Native dispatch311? actual RVAs314511/31452F preserve exact30B bodies; manager2C0E7D/2C0EA9 each44B. Full seven users recompiled for header declaration change.

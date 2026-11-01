@@ -42,6 +42,8 @@ public:
 public:
 	virtual bool vslot10();
 public:
+	WindowMsgHandledType winSendSystemMsg(unsigned int, unsigned int, unsigned int);
+	WindowMsgHandledType winSendInputMsg(unsigned int, unsigned int, unsigned int);
 	GameWindow *winPointInChild(int, int, bool, bool = false);
 public:
 	int winSetSize(int width, int height);

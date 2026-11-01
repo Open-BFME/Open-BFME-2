@@ -39,22 +39,7 @@ public:
 	virtual WindowMsgHandledType h4( UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2 );
 };
 
-class GameWindow
-{
-public:
-	virtual void v0();
-	virtual WindowMsgHandledType v1( UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2 );
-	virtual WindowMsgHandledType v2( UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2 );
-	WindowMsgHandledType winSendSystemMsg( UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2 );
-	WindowMsgHandledType winSendInputMsg( UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2 );
-
-private:
-	friend class GameWindowManager;
-	unsigned int m_unrecovered04;
-	UnsignedInt m_status;	///< 0x08
-	char m_pad0C[0x1D0];
-	GameWindowHandler *m_handler;	///< 0x1DC
-};
+#include "../../../Include/GameClient/Bfme2GameWindow.h"
 
 class GameWindowManager
 {
@@ -107,9 +92,9 @@ WindowMsgHandledType GameWindowManager::winSendInputMsg( GameWindow *window,
 //-------------------------------------------------------------------------------------------------
 WindowMsgHandledType GameWindow::winSendInputMsg( UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2 )
 {
-	if( m_handler )
-		return m_handler->h3( msg, mData1, mData2 );
-	return v1( msg, mData1, mData2 );
+	if( m_bfmeInputExtra )
+		return ((GameWindowHandler *)m_bfmeInputExtra)->h3( msg, mData1, mData2 );
+	return input( msg, mData1, mData2 );
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -117,7 +102,7 @@ WindowMsgHandledType GameWindow::winSendInputMsg( UnsignedInt msg, WindowMsgData
 //-------------------------------------------------------------------------------------------------
 WindowMsgHandledType GameWindow::winSendSystemMsg( UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2 )
 {
-	if( m_handler )
-		return m_handler->h4( msg, mData1, mData2 );
-	return v2( msg, mData1, mData2 );
+	if( m_bfmeInputExtra )
+		return ((GameWindowHandler *)m_bfmeInputExtra)->h4( msg, mData1, mData2 );
+	return bfmeGoEHCb( msg, mData1, mData2 );
 }
