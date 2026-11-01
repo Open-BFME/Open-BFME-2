@@ -71,11 +71,7 @@ enum NameKeyType
 	FORCE_NAMEKEYTYPE_LONG = 0x7fffffff
 };
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToLowercaseKey(const char *name);
-};
+#include "../../../../GameEngine/Include/Common/NameKeyGenerator.h"
 
 class AssetRegistry
 {

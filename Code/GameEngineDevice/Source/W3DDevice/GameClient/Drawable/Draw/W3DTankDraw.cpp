@@ -534,11 +534,7 @@ struct W3DTankDrawDebrisHandle
 	void *m_ptr2;
 };
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../../../../GameEngine/Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

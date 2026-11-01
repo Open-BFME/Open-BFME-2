@@ -101,12 +101,7 @@ public:
 	const Image *findImageByName(const AsciiString &name);
 };
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const AsciiString &name);
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../../../../GameEngine/Include/Common/NameKeyGenerator.h"
 
 class GameWindow
 {

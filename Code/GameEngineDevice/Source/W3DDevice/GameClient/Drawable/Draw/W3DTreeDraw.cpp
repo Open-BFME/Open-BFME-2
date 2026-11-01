@@ -41,11 +41,7 @@ public:
 	virtual ~W3DTreeDrawModuleDataBase() {}
 };
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../../../../GameEngine/Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

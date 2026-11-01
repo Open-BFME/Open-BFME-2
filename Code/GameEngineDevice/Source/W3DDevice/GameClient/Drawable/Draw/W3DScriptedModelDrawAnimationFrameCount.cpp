@@ -589,9 +589,7 @@ public: void rva000C2AA4(const AsciiString &);
 private: char unmodelled[0x78]; AsciiString *begin; AsciiString *end; void *storage;
 };
 enum NameKeyType { NAMEKEY_INVALID = 0 };
-class NameKeyGenerator {
-public: NameKeyType nameToKey(const char *);
-};
+#include "../../../../../../GameEngine/Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 static __declspec(noinline) void parseBoneNameKey(INI *ini, void *instance, void *store, const void *)
 {

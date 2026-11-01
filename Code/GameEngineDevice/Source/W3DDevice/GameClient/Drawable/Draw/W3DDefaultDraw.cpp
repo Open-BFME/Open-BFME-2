@@ -39,11 +39,7 @@ public:
 	virtual NameKeyType getModuleNameKey() const;
 };
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../../../../GameEngine/Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

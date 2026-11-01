@@ -33,12 +33,7 @@ enum NameKeyType
 	NAMEKEY_MAX = 1 << 23
 };
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const AsciiString &name);
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../../../../GameEngine/Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

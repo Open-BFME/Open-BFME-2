@@ -647,11 +647,7 @@ enum NameKeyType
 
 class AsciiString;
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const AsciiString &a);
-};
+#include "../../../../GameEngine/Include/Common/NameKeyGenerator.h"
 
 class Rva002122D4Host
 {

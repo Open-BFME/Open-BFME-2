@@ -32,11 +32,7 @@ enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../../../../GameEngine/Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 struct BfmePod16 { int a[4]; };
 #include "../../../../../../Libraries/Include/Lib/BfmeE16.h"
