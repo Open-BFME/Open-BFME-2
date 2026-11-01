@@ -293,12 +293,7 @@ public:
 	Obj254V *m_254;
 	Obj258Holder *m_258;
 };
-class GlobalData
-{
-public:
-	char m_pad[0xB3C];
-	int m_movementPenaltyDamageState;
-};
+#include "../../Include/Common/GlobalData.h"
 class TerrainLogic
 {
 public:

@@ -51,7 +51,7 @@ public:
  virtual void slot05() = 0;
  virtual void newMap() = 0;
 };
-class GlobalData { public: char pad[0x9C0]; bool flag9C0; };
+#include "../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 class GameInfo {
 public:
@@ -109,7 +109,7 @@ void Player::newMap() {
  }
  rva002A99FA();
  if (ai) ai->newMap();
- if (TheWritableGlobalData->flag9C0 ||
+ if (TheWritableGlobalData->field09C0 ||
      (TheGameInfo && (TheGameInfo->flag48() || TheGameInfo->flag4C() || TheGameInfo->flag50())) ||
      (TheGameLogic && ((BfmeGlob939D *)TheGameLogic)->bfmeCall939D()))
   initBuildableHeroes();

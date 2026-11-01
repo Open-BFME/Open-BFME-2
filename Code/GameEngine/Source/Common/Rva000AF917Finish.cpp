@@ -66,7 +66,7 @@ public:
 };
 // Retail loads the writable GlobalData slot at VA 0x00DFE758 here,
 // distinct from TheGameLogic at 0x00DFE78C. The +0x49 access is unchanged.
-class GlobalData { public: char unknown00[0x49]; bool normalMaps49; };
+#include "../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 struct TXTextureClass
 {
@@ -97,7 +97,7 @@ void WorldHeightMap::readTexClass(TXTextureClass *texClass,TileData **tileData)
     char texturePath[260];
     sprintf(texturePath,"%s%s","Art/Terrain/",terrain->getTexture().str());
     File *file=TheFileSystem->openFile(texturePath,0x41,0);
-    if (TheWritableGlobalData->normalMaps49) {
+    if (TheWritableGlobalData->field0049) {
         sprintf(texturePath,"%s%s","Art/Terrain/",terrain->getNrmTexture().str());
         normalFile=TheFileSystem->openFile(texturePath,0x41,0);
     }
