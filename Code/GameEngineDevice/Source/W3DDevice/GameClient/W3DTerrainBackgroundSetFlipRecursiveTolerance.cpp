@@ -7,11 +7,13 @@ class BoundedShortGrid {public:short load(int,int);};
 class Rva0006AB49BitPlane {public:bool test(int,int) const;};
 class Rva000ABD19 {public:bool rva000ABD19(int,int);};
 class Rva000AD9AB {public:void rva000AD9AB(int,int,bool);};
-class WorldHeightMap {public:char pad00[8];int width,height;
+class WorldHeightMap {public:
+ __declspec(dllimport) __forceinline int getXExtent() { return m_width; }
+ __declspec(dllimport) __forceinline int getYExtent() { return m_height; }
+char pad00[8];int m_width,m_height;
  __declspec(dllimport) __forceinline unsigned short getHeight(int x,int y){return (unsigned short)((BoundedShortGrid*)this)->load(x,y);}
  __forceinline bool getFlag(int x,int y){return ((Rva0006AB49BitPlane*)this)->test(x,y);}
  __forceinline bool hasDetail(int x,int y){return ((Rva000ABD19*)this)->rva000ABD19(x,y);}
- __declspec(dllimport) __forceinline void setFlipState(int x,int y,bool b){((Rva000AD9AB*)this)->rva000AD9AB(x,y,b);}
 };
 class W3DTerrainBackground {public:
  void setFlipRecursive(int,int,int);
@@ -22,7 +24,7 @@ class W3DTerrainBackground {public:
 };
 
 void W3DTerrainBackground::setFlipRecursive(int xOffset,int yOffset,int width,float tolerance) {
- int limitX=m_map->width-1,limitY=m_map->height-1;
+ int limitX=m_map->getXExtent()-1,limitY=m_map->getYExtent()-1;
  bool match=true;
  int minX=m_xOrigin+xOffset,minY=m_yOrigin+yOffset;
  int maxX=m_xOrigin+xOffset+width;maxX=maxX<limitX?maxX:limitX;
@@ -47,10 +49,10 @@ void W3DTerrainBackground::setFlipRecursive(int xOffset,int yOffset,int width,fl
  if(match) {
   int right=minX+width;right=right<limitX?right:limitX;
   int bottom=minY+width;bottom=bottom<limitY?bottom:limitY;
-  m_map->setFlipState(minX,minY,true);
-  m_map->setFlipState(right,minY,true);
-  m_map->setFlipState(right,bottom,true);
-  m_map->setFlipState(minX,bottom,true);
+  ((Rva000AD9AB *)m_map)->rva000AD9AB(minX,minY,true);
+  ((Rva000AD9AB *)m_map)->rva000AD9AB(right,minY,true);
+  ((Rva000AD9AB *)m_map)->rva000AD9AB(right,bottom,true);
+  ((Rva000AD9AB *)m_map)->rva000AD9AB(minX,bottom,true);
   return;
  }
  int halfWidth=width/2;
