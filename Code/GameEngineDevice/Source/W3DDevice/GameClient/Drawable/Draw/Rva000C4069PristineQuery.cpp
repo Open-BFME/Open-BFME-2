@@ -44,22 +44,8 @@ public:
 	Vector3(Real x, Real y, Real z) : X(x), Y(y), Z(z) {}
 };
 
-class Vector4
-{
-public:
-	Real X, Y, Z, W;
-	Vector4() {}
-	Vector4(const Vector4 &other) : X(other.X), Y(other.Y), Z(other.Z), W(other.W) {}
-	__forceinline Vector4 &operator=(const Vector4 &other)
-	{
-		X = other.X; Y = other.Y; Z = other.Z; W = other.W;
-		return *this;
-	}
-	void Set(Real x, Real y, Real z, Real w)
-	{
-		X = x; Y = y; Z = z; W = w;
-	}
-};
+#include "../../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
+static __forceinline void copyVector4(Vector4 &row,const Vector4 &other){row.X=other.X;row.Y=other.Y;row.Z=other.Z;row.W=other.W;}
 
 #include "Coord3D.h"
 
@@ -69,9 +55,9 @@ public:
 	__forceinline Matrix3D() {}											///< 0x000458EF
 	__forceinline Matrix3D &operator=(const Matrix3D &other)
 	{
-		Row[0] = other.Row[0];
-		Row[1] = other.Row[1];
-		Row[2] = other.Row[2];
+		copyVector4(Row[0], other.Row[0]);
+		copyVector4(Row[1], other.Row[1]);
+		copyVector4(Row[2], other.Row[2]);
 		return *this;
 	}
 

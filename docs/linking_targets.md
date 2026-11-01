@@ -1,6 +1,12 @@
 # Linking target checklist
 
 
+### Use canonical Vector4 rows in pristine query (2026-11-01)
+
+This source uses canonical Vector4 rows; complete normal/frozen/EH/strict and owning acceptance pass. Existing native bodies and retained code/relocations are preserved. No authored-byte, new census or runtime gain is claimed.
+[Evidence](../reverse/attempt_support/pristine-query-vector4-20261101-1501.md).
+
+
 ### Use canonical Vector4 rows in horde movement transforms (2026-11-01)
 
 Horde rank/member movement transforms use canonical Vector4 rows and direct constant-component access. Complete native rows and retained code/relocations remain exact; normal/frozen/EH/strict and owning header acceptance pass. No new authored-byte, census or runtime gain is claimed. Bounded 0d24c60eef preview preserves1616->1616. The removed standalone Rotate_Z/CRT-inline component has no incoming reference from retained code or data in this object; the native Rotate_Z owner is Matrix3DRotateO1.cpp. Outgoing audit is INCONCLUSIVE: differing index/compiler baseline and missing 0CreateAHeroManager21FE49 receipt. Full consumer/current-selection proof remains UNKNOWN.
