@@ -28,7 +28,7 @@ namespace _STL { template <> void vector<const ModuleData *, allocator<const Mod
 // unit's own copy differed, so it is declared only.
 namespace _STL { template <> void vector<const ModuleData *, allocator<const ModuleData *> >::push_back(const ModuleData *const &); }
 
-class Vector3 { public: float X, Y, Z; Vector3(float a, float b, float c) { X=a; Y=b; Z=c; } };
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 class Rva0053947D
 {

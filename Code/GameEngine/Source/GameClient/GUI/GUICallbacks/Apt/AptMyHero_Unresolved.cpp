@@ -116,17 +116,7 @@ extern "C" double __cdecl sin(double);
 extern "C" double __cdecl cos(double);
 inline float cosf(float _X){return ((float)cos((double)_X));}
 inline float sinf(float _X){return ((float)sin((double)_X));}
-class Vector3 {
-public:
- float X,Y,Z;
- __forceinline Vector3(){}
- __forceinline Vector3(float x,float y,float z){X=x;Y=y;Z=z;}
- __forceinline Vector3(const Vector3 &vec){X=vec.X;Y=vec.Y;Z=vec.Z;}
- __forceinline Vector3 &operator=(const Vector3 &vec){X=vec.X;Y=vec.Y;Z=vec.Z;return *this;}
- __forceinline float &operator[](int i){return (&X)[i];}
- __forceinline const float &operator[](int i) const{return (&X)[i];}
- __forceinline Vector3 &operator*=(float k){X*=k;Y*=k;Z*=k;return *this;}
-};
+#include "../../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 __forceinline Vector3 operator-(const Vector3 &a){return Vector3(-a.X,-a.Y,-a.Z);}
 #include "../../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 __forceinline float submul(const Vector4 &row,float tmp1,float tmp2,float tmp3){return row.X*tmp1+row.Y*tmp2+row.Z*tmp3;}
