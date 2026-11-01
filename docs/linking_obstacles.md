@@ -9509,6 +9509,20 @@ Carry consumer preservation into the next census; no census gain is claimed.
 
 ### LINK-064: placeholder element names that hide the retail element of three STL families
 
+**2026-11-01 bounded vector-overflow follow-up, base `64b496da64`, index
+`12902e9e1b`:** The 49B copy constructor and 50B copy-backward twin are already
+admitted. `StlSweepW4Rva00584405.cpp` still rejects its selected overflow COMDAT
+and call (280 authored bytes); native 189B provider `0x0058431D` remains under
+the old int/Arg5 spelling in `HordeMeleeSwarm.cpp`. A private actual member
+specialization emits with an explicit instantiation. Best standalone resolved
+score is 0.8929676511954994: empty temporary tags still force twelve local
+bytes versus native eight and occupy different stack addresses. Existing
+`Rva00030830FreeAllocation` fixes the free-call target without a new pin.
+Production files and rows are unchanged; no clearance or census gain.
+See `reverse/attempt_support/vector-overflow-owner-link-20261101/readme.md`
+and its `candidate.cpp.txt` before retrying (blocked handoff: this RVA is already real-rowed). Do not reproduce the
+already-LINKS 73B sibling as a new gain; preserve the real provider until exact.
+
 **Status: Open. Updated: 2026-10-30; inspected revision: dd8a90d22f (earlier: d0d3b5054d, index d1f046749a).**
 
 - **Evidence / scope:** retail call chains name the element of three families

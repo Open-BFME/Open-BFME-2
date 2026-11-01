@@ -1,0 +1,96 @@
+// ?_M_insert_overflow@?$vector@URva00584405Element@@V?$allocator@URva00584405Element@@@_STL@@@_STL@@IAEXPAURva00584405Element@@ABU3@ABU__false_type@2@I_N@Z
+// partial score=0.8929676511954994 date=2026-11-01
+// cl: /O1 /G7 /arch:SSE /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /ICode/Libraries/Include/Lib /ICode/GameEngine/Source/Common
+// stlport
+#include <vector>
+void Rva00030830FreeAllocation(void *);
+struct BfmeStringRecord00111ACF { char m_data[28]; };
+
+struct Rva002337F0Blk
+{
+	int a;
+	int b;
+	int c;
+	int d;
+	char e;
+	int f;
+	int g;
+};
+
+class Rva002337F0
+{
+	Rva002337F0Blk m;
+};
+
+struct Tag { Tag() {} };
+
+struct Arg5
+{
+	bool m_flag;
+	char m_pad[2];
+	Tag m_tag;
+};
+
+namespace _STL {
+template <class T> class allocator;
+template <> class allocator<BfmeStringRecord00111ACF>
+{
+public:
+	BfmeStringRecord00111ACF* allocate(unsigned int n, const void* hint) const;
+};
+}
+
+Rva002337F0* __cdecl Rva00583B11Copy(Rva002337F0* first, Rva002337F0* last, Rva002337F0* result, const Tag& tag);
+
+void __cdecl Rva00583A72Set(Rva002337F0* a, const Rva002337F0Blk* b);
+
+Rva002337F0* __cdecl Rva00583A84FillN(Rva002337F0* result, unsigned int count, const Rva002337F0Blk& value, const Tag& tag);
+
+struct Rva00584405Element { Rva00584405Element(); Rva00584405Element(const Rva00584405Element &); ~Rva00584405Element() {} char bytes[28]; bool operator==(const Rva00584405Element &) const; };
+
+// Native vector storage view; element operations remain bound to existing owners.
+struct Rva0058431D
+{
+    Rva002337F0 *m_start;
+    Rva002337F0 *m_finish;
+    Rva002337F0 *m_end;
+};
+
+template <> void _STL::vector<Rva00584405Element, _STL::allocator<Rva00584405Element> >::_M_insert_overflow(
+    Rva00584405Element *position, const Rva00584405Element &entry,
+    const _STL::__false_type &unused, unsigned int n, bool atEnd)
+{
+    Rva0058431D *state = reinterpret_cast<Rva0058431D *>(this);
+    Rva002337F0 *pos = reinterpret_cast<Rva002337F0 *>(position);
+    const Rva002337F0Blk *value = reinterpret_cast<const Rva002337F0Blk *>(&entry);
+
+
+	unsigned int size = state->m_finish - state->m_start;
+	unsigned int size_save = size;
+	unsigned int* p = &n;
+	if (size >= n)
+		p = &size_save;
+	unsigned int total = size + *p;
+	Rva002337F0* new_start = (Rva002337F0*)((const _STL::allocator<BfmeStringRecord00111ACF>*)&state->m_end)->allocate(total, 0);
+	Rva002337F0* new_finish = Rva00583B11Copy(state->m_start, pos, new_start, Tag());
+	Rva002337F0* hold_start = new_start;
+	if (n == 1)
+	{
+		Rva00583A72Set(new_finish, value);
+		new_finish += 1;
+	}
+	else
+	{
+		new_finish = Rva00583A84FillN(new_finish, n, *value, Tag());
+	}
+	if (!atEnd)
+		new_finish = Rva00583B11Copy(pos, state->m_finish, new_finish, Tag());
+	if (state->m_start)
+		Rva00030830FreeAllocation(state->m_start);
+	state->m_start = hold_start;
+	state->m_finish = new_finish;
+	state->m_end = hold_start + total;
+
+}
+
+template void _STL::vector<Rva00584405Element, _STL::allocator<Rva00584405Element> >::_M_insert_overflow(Rva00584405Element *, const Rva00584405Element &, const _STL::__false_type &, unsigned int, bool);

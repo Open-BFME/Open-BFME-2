@@ -1,0 +1,6 @@
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Code/Libraries/Source/WWVegas/WWLib/stlport_pod28_vector_resize_value.cpp: LINKS  LINKED 0 -> 73 bytes (census 2026-10-31 23:18 at 12902e9e1b; file's own bytes 73)
+Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva00584405.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-31 23:18 at 12902e9e1b; file's own bytes 280)
+  comdat      ?_M_insert_overflow@?$vector@URva00584405Element@@V?$allocator@URva00584405Element@@@_STL@@@_STL@@IAEXPAURva00584405Element@@ABU3@ABU__false_type@2@I_N@Z  (retail: not retail's body)
+  selected    ?_M_insert_overflow@?$vector@URva00584405Element@@V?$allocator@URva00584405Element@@@_STL@@@_STL@@IAEXPAURva00584405Element@@ABU3@ABU__false_type@2@I_N@Z  (the definition the link keeps is not retail's)
+link_check: 1 of 2 link cleanly; LINKED 0 -> 73 bytes (4.3s)
