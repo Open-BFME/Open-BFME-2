@@ -21,7 +21,7 @@
 // The x87 colour packing is dx8wrapper.h DX8Wrapper::Convert_Color's own
 // inline assembler, reused from the verified DX8SetAmbient.cpp.
 
-class Vector3 { public: float X, Y, Z; };
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 class RenderInfoClass
 {

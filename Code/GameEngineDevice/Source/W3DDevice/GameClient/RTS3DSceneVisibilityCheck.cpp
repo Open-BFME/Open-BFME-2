@@ -37,13 +37,7 @@
 // 18-byte frameless body, which /Oy- turned into a 21-byte ebp-framed copy.
 #include <slist>
 
-class Vector3
-{
-public:
-	Vector3() {}
-	Vector3(const Vector3 &vec) : X(vec.X), Y(vec.Y), Z(vec.Z) {}
-	float X, Y, Z;
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 class SphereClass
 {

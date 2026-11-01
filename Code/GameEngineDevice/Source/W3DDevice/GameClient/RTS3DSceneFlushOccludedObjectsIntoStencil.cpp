@@ -30,14 +30,7 @@ typedef unsigned short UnsignedShort;
 typedef bool Bool;
 typedef float Real;
 
-class Vector3
-{
-public:
-	Vector3() {}
-	Vector3(float x, float y, float z) { X = x; Y = y; Z = z; }
-	void Set(float x, float y, float z) { X = x; Y = y; Z = z; }
-	float X, Y, Z;
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 // Keep math.h's inline floorf local: retail's object exposes no _floorf.
 extern "C" { static float __cdecl floorf(float); }
