@@ -151,11 +151,7 @@ extern int TimedOpInputLocked;
 // TimedOpInputLocked: matched references place it at VA 0xdfe71c (zero-filled .bss).
 int TimedOpInputLocked;
 
-class InGameUI
-{
-public:
-    void setEngineInputEnabled(bool enabled);
-};
+#include "../../Include/GameClient/InGameUI.h"
 
 class Mouse
 {

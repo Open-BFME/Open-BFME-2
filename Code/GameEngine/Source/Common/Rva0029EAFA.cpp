@@ -30,11 +30,7 @@ public:
 	bool rva0029DE76(const Coord3D *pos);
 };
 
-class InGameUI
-{
-public:
-	void expireAllHints(int guard);
-};
+#include "../../Include/GameClient/InGameUI.h"
 
 class Template108
 {

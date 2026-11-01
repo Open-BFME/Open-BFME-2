@@ -4,12 +4,7 @@
 // 0x005270EB, TheInGameUI/TheGameClient globals, unsigned x87 fild/fadd/fmul/ftol2
 // via g_00BC26EC/BfmeClientFramesPerMillisecond, slot 0x7C, neighbours Disp0DwordImmSetters/Rva00524FEDCheck.
 // Honest Rva owner; /O1 like next sibling.
-class InGameUI
-{
-public:
-	char m_pad[0x988];
-	unsigned m_val;
-};
+#include "../../Include/GameClient/InGameUI.h"
 
 class ClientFrameSubsystem
 {
@@ -67,7 +62,7 @@ float BfmeClientFramesPerMillisecond = 0.03f;
 
 void Rva00524FA7::rva00524FA7()
 {
-	unsigned v = TheInGameUI->m_val;
+	unsigned v = TheInGameUI->field988;
 	int t = (int)((float)v * BfmeClientFramesPerMillisecond);
 	int u = ((ClientFrameSubsystem *)TheGameClient)->slot31();
 	m_1dc = u + t;

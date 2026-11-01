@@ -60,7 +60,7 @@ public:
 // Retail VA 0x00DEC2D4 is owned by W3DProjectedShadowUpdate.cpp.
 class ProjectedShadowManager;
 extern ProjectedShadowManager *TheProjectedShadowManager;
-class InGameUI { public: class FormationPreviewDecal; };
+#include "../../Include/GameClient/InGameUI.h"
 class InGameUI::FormationPreviewDecal
 {
  int m_handle;

@@ -26,30 +26,7 @@ public:
 #include "../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 
-class InGameUI
-{
-public:
-	virtual void s00();
-	virtual void s01();
-	virtual void s02();
-	virtual void s03();
-	virtual void s04();
-	virtual void s05();
-	virtual void s06();
-	virtual void s07();
-	virtual void s08();
-	virtual void s09();
-	virtual void s10();
-	virtual void s11();
-	virtual void s12();
-	virtual void s13();
-	virtual void s14();
-	virtual void s15();
-	virtual void s16();
-	virtual void s17();
-	virtual void s18();
-	virtual void __cdecl message(UnicodeString format, ...);
-};
+#include "../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
 
 class Rva0029B16A

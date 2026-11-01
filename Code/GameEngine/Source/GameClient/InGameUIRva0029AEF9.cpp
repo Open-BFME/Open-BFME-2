@@ -6,7 +6,7 @@ struct Rva0029AEF9Item
 	char m_pad[0x1C];
 	int m_1C;
 };
-class InGameUI { public: bool rva0029AEF9(Rva0029AEF9Item*,int,int,int,int,int) const; };
+#include "../../Include/GameClient/InGameUI.h"
 bool InGameUI::rva0029AEF9(Rva0029AEF9Item *p, int q, int a, int b, int c, int d) const
 {
 	int flags = p->m_1C;

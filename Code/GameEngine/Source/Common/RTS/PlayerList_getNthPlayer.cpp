@@ -455,15 +455,7 @@ extern ControlBar *TheControlBar;
 #include "../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 
-class InGameUI
-{
-public:
-#define V(n) virtual void v##n();
-	V(00) V(01) V(02) V(03) V(04) V(05) V(06) V(07) V(08) V(09) V(10) V(11) V(12) V(13) V(14) V(15)
-	V(16) V(17) V(18)
-#undef V
-	virtual void message(UnicodeString message, ...);	// +0x4C
-};
+#include "../../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
 
 class PartitionManager;

@@ -633,18 +633,7 @@ Real m_sellPercentage;
 extern GlobalData*TheWritableGlobalData;
 #include "../../../Include/GameClient/GameText.h"
 extern GameTextInterface*TheGameText;
-class InGameUI
-{
-public:
-#define IGUI_SLOTS10(n) virtual void s##n##0(); virtual void s##n##1(); virtual void s##n##2(); \
-virtual void s##n##3();virtual void s##n##4();virtual void s##n##5();virtual void s##n##6();\
-virtual void s##n##7();virtual void s##n##8();virtual void s##n##9();
-IGUI_SLOTS10(0)IGUI_SLOTS10(1)IGUI_SLOTS10(2)IGUI_SLOTS10(3)IGUI_SLOTS10(4)
-IGUI_SLOTS10(5)IGUI_SLOTS10(6)IGUI_SLOTS10(7)IGUI_SLOTS10(8)IGUI_SLOTS10(9)
-#undef IGUI_SLOTS10
-virtual void s100();virtual void s101();virtual void s102();virtual void s103();
-virtual void addFloatingText(const UnicodeString&text,const Coord3D*pos,Color color);
-};
+#include "../../../Include/GameClient/InGameUI.h"
 extern InGameUI*TheInGameUI;
 class TerrainLogic
 {

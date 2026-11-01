@@ -34,27 +34,19 @@ public:
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 
-class InGameUI
-{
-	char m_pad[0x7EC - 4];
-	unsigned int m_7EC;
-public:
-	virtual void setRva0029B04D(int value);
-	virtual void clearRva0029B060();
-	virtual bool areTooltipsDisabled() const;
-};
+#include "../../Include/GameClient/InGameUI.h"
 
 // ?setRva0029B04D@InGameUI@@UAEXH@Z
 void InGameUI::setRva0029B04D(int value)
 {
-	if (value > m_7EC)
-		m_7EC = value;
+	if (value > field7EC)
+		field7EC = value;
 }
 
 // ?clearRva0029B060@InGameUI@@UAEXXZ
 void InGameUI::clearRva0029B060()
 {
-	m_7EC = 0;
+	field7EC = 0;
 }
 
 // ?areTooltipsDisabled@InGameUI@@UBE_NXZ
@@ -63,5 +55,5 @@ bool InGameUI::areTooltipsDisabled() const
 	if (!TheGlobalData->m_useHelpTextSystem)
 		return true;
 	BfmeSelectionState *state = *(BfmeSelectionState **)&TheLivingWorldLogic;
-	return !(state && state->isSelectionLocked()) && TheGameLogic->getFrame() < m_7EC;
+	return !(state && state->isSelectionLocked()) && TheGameLogic->getFrame() < field7EC;
 }

@@ -558,13 +558,7 @@ public:
 
 extern AudioManager *TheAudio;
 
-class InGameUI : public VSlots<70>
-{
-public:
-	virtual Int getSelectCount();				// +0x118
-	virtual void u71(); virtual void u72(); virtual void u73(); virtual void u74();
-	virtual Drawable *getFirstSelectedDrawable();		// +0x12C
-};
+#include "../../../../Include/GameClient/InGameUI.h"
 
 extern InGameUI *TheInGameUI;
 

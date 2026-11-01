@@ -288,12 +288,7 @@ enum WorldAnimationOptions
 	WORLD_ANIM_FADE_ON_EXPIRE = 0x01
 };
 
-class InGameUI
-{
-public:
-	void addWorldAnimation(Anim2DTemplate *animTemplate, const Coord3D *pos,
-		WorldAnimationOptions options, Real durationInSeconds, Real zRisePerSecond);
-};
+#include "../../../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
 
 class GlobalData

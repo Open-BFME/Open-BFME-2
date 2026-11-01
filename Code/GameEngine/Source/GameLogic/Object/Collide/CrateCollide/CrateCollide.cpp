@@ -264,7 +264,7 @@ enum WorldAnimationOptions { WORLD_ANIM_FADE_ON_EXPIRE = 1 };
 
 struct ObjectPositionView { unsigned char m_pad00[0x38]; Coord3D m_pos; };
 
-class InGameUI { public: void addWorldAnimation(Anim2DTemplate *anim, const Coord3D *pos, WorldAnimationOptions options, float durationInSeconds, float zRisePerSecond); };
+#include "../../../../../Include/GameClient/InGameUI.h"
 
 extern InGameUI *TheInGameUI;
 

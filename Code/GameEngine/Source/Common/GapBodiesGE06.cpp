@@ -82,14 +82,7 @@ void Rva0029A436::setPosition(const Coord3D *pos)
 
 // --- 0x0029F72F (51B): whether the selection can do any action but the
 // first (rowed InGameUI::canSelectedObjectsDoAction over types 2..20).
-class InGameUI
-{
-public:
-	enum ActionType { ACTIONTYPE_NONE = 0 };
-	enum SelectionRules { SELECTION_ANY = 0 };
-	bool canSelectedObjectsDoAction(ActionType action, const Object *obj, SelectionRules rule, bool additional) const;	// 0x0029C823
-	bool canSelectedObjectsNonAttackInteractWithObject(const Object *obj, SelectionRules rule) const;
-};
+#include "../../Include/GameClient/InGameUI.h"
 
 bool InGameUI::canSelectedObjectsNonAttackInteractWithObject(const Object *obj, SelectionRules rule) const
 {

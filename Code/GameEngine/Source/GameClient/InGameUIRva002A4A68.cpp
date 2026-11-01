@@ -133,11 +133,7 @@ struct Payload {
     int m_20;
 };
 
-class InGameUI {
-public:
-    void rva002A4A68();
-    char _pad[0x910];
-};
+#include "../../Include/GameClient/InGameUI.h"
 
 void InGameUI::rva002A4A68()
 {

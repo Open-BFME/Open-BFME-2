@@ -106,24 +106,7 @@ public:
 };
 extern MessageStream *TheMessageStream;
 
-class InGameUI : public Rva0047E5D4Slots<66>
-{
-public:
-	virtual void selectDrawable(Drawable *draw);	// +0x108
-	virtual void rva0047E5D4Slot67(); virtual void rva0047E5D4Slot68(); virtual void rva0047E5D4Slot69();
-	virtual void rva0047E5D4Slot70(); virtual void rva0047E5D4Slot71(); virtual void rva0047E5D4Slot72();
-	virtual void rva0047E5D4Slot73(); virtual void rva0047E5D4Slot74(); virtual void rva0047E5D4Slot75();
-	virtual void rva0047E5D4Slot76(); virtual void rva0047E5D4Slot77(); virtual void rva0047E5D4Slot78();
-	virtual void rva0047E5D4Slot79(); virtual void rva0047E5D4Slot80(); virtual void rva0047E5D4Slot81();
-	virtual void rva0047E5D4Slot82(); virtual void rva0047E5D4Slot83(); virtual void rva0047E5D4Slot84();
-	virtual void rva0047E5D4Slot85(); virtual void rva0047E5D4Slot86(); virtual void rva0047E5D4Slot87();
-	virtual void rva0047E5D4Slot88(); virtual void rva0047E5D4Slot89(); virtual void rva0047E5D4Slot90();
-	virtual void rva0047E5D4Slot91(); virtual void rva0047E5D4Slot92(); virtual void rva0047E5D4Slot93();
-	virtual void rva0047E5D4Slot94(); virtual void rva0047E5D4Slot95(); virtual void rva0047E5D4Slot96();
-	virtual void rva0047E5D4Slot97(); virtual void rva0047E5D4Slot98(); virtual void rva0047E5D4Slot99();
-	virtual void rva0047E5D4Slot100(); virtual void rva0047E5D4Slot101(); virtual void rva0047E5D4Slot102();
-	virtual void setDisplayedMaxWarning(bool show);	// +0x19C
-};
+#include "../../../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
 
 class ControlBar

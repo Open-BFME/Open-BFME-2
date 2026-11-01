@@ -27,7 +27,7 @@ class Rva0042AF97Container {public:
  virtual void s28();virtual void s29();virtual void s30();virtual int s31();
 };
 struct Rva0042AF97ObjectFields {char gap0[0x78];ObjectID linkedID;char gap7c[0x250-0x7c];Rva0042AF97Container*container;char gap254[0x274-0x254];Object*linked;};
-class InGameUI {public:char gap0[0x8b8];bool forceAttack;};
+#include "../../../Include/GameClient/InGameUI.h"
 class TacticalView {public:
  virtual void s00();virtual void s01();virtual void s02();virtual void s03();
  virtual void s04();virtual void s05();virtual void s06();virtual void s07();
@@ -41,7 +41,7 @@ extern ControlBar*TheControlBar;
 // owner reproduced bytes while removing the caller receiver load.
 class CommandTranslator {public:void rva0042AF97(GameMessage*);};
 void CommandTranslator::rva0042AF97(GameMessage*msg){
- if(TheInGameUI->forceAttack)return;
+ if(TheInGameUI->field8B8)return;
  const IRegion2D&region2D=msg->getArgument(0)->pixelRegion;
  if(region2D.height()!=0||region2D.width()!=0)return;
  Drawable*draw=((TacticalView*)TheTacticalView)->pickDrawable(&region2D.lo,false,4);

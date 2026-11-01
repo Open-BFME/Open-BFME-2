@@ -107,20 +107,7 @@ private:
 };
 extern PlayerList *ThePlayerList;
 
-class InGameUI
-{
-public:
-#define UI_SLOT(n) virtual void uiSlot##n();
-#define UI_SLOT10(n) UI_SLOT(n##0) UI_SLOT(n##1) UI_SLOT(n##2) UI_SLOT(n##3) UI_SLOT(n##4) \
-	UI_SLOT(n##5) UI_SLOT(n##6) UI_SLOT(n##7) UI_SLOT(n##8) UI_SLOT(n##9)
-	UI_SLOT10(0) UI_SLOT10(1) UI_SLOT10(2) UI_SLOT10(3) UI_SLOT10(4)
-	UI_SLOT10(5) UI_SLOT10(6) UI_SLOT10(7) UI_SLOT10(8) UI_SLOT10(9)
-	UI_SLOT(100) UI_SLOT(101) UI_SLOT(102) UI_SLOT(103) UI_SLOT(104)
-#undef UI_SLOT10
-#undef UI_SLOT
-	virtual void addIdleWorker(Object *obj);					// slot 105 (+0x1A4)
-	virtual void removeIdleWorker(Object *obj, Int playerNumber);	// slot 106 (+0x1A8)
-};
+#include "../../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
 
 class Rva004F56FC

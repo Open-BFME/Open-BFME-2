@@ -9,11 +9,7 @@
 // no calls and no pins. Semantic name unproven so it rides an
 // address-derived InGameUI-scoped name; opaque behavior.
 
-class InGameUI
-{
-public:
-	virtual void mergeRva0029AF3F(const int *a, const int *b, int *out);
-};
+#include "../../Include/GameClient/InGameUI.h"
 
 // ?mergeRva0029AF3F@InGameUI@@UAEXPBH0PAH@Z
 void InGameUI::mergeRva0029AF3F(const int *a, const int *b, int *out)

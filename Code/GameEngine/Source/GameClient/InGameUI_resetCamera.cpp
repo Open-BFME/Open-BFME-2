@@ -114,7 +114,7 @@ public:
 	virtual void s091();
 	virtual void s092(Rva0029B2E7 *p);
 };
-class InGameUI {public:void resetCamera();};
+#include "../../Include/GameClient/InGameUI.h"
 void InGameUI::resetCamera()
 {
 	Rva0029B2E7 tmp;

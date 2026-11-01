@@ -21,11 +21,7 @@ public:
 	virtual void s24(); virtual void s25(); virtual void s26(); virtual void s27();
 	virtual void s28(); virtual void s29(void *p);
 };
-class InGameUI
-{
-public:
-	class FormationPreviewPoolObject;
-};
+#include "../../Include/GameClient/InGameUI.h"
 class InGameUI::FormationPreviewPoolObject {
 public:
 	void releaseAssets();

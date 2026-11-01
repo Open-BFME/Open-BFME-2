@@ -21,11 +21,7 @@ struct Rva002A1B1DChunk
 	int m_words[3];
 };
 
-class InGameUI
-{
-public:
-	void rva002A4A0C(AsciiString name, unsigned int count, const Rva002A1B1DChunk *p1, const Rva002A1B1DChunk *p2, const Rva002A1B1DChunk *p3, const Rva002A1B1DChunk *p4);
-};
+#include "../../Include/GameClient/InGameUI.h"
 
 extern InGameUI *TheInGameUI;
 

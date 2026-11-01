@@ -4,12 +4,7 @@
 // Evidence: frameless thiscall ret 8; guards (arg1!=0 return and (unsigned)arg2>=0x19
 // return with jae); imul 0x14 strides with and [edx+ecx+0x4C],0 under /O1 and
 // mov byte [eax+ecx],1 for (arg2+4)*0x14; neighbours /O1.
-class InGameUI
-{
-public:
-	void expireHint(int a, unsigned int b);
-	void expireAllHints(int guard);
-};
+#include "../../Include/GameClient/InGameUI.h"
 void InGameUI::expireHint(int a, unsigned int b)
 {
 	if (a != 0)

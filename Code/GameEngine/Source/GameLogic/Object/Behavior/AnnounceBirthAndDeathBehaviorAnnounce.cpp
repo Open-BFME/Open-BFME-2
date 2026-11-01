@@ -15,12 +15,7 @@ class Object;
 class DamageInfo;
 class ModuleData;
 
-class InGameUI
-{
-public:
-	void rva002A123F(Object *obj);
-	void rva002A1283(Object *obj);
-};
+#include "../../../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
 
 class ModuleBase

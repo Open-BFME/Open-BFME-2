@@ -105,16 +105,7 @@ void LargeGroupAudio::init()
     TheSubsystemList->rva001B5018((class SubsystemInterface *)this);
 }
 
-class InGameUI
-{
-public:
-#define SLOT(N) virtual void vslot##N();
-    SLOT(00) SLOT(01) SLOT(02) SLOT(03) SLOT(04) SLOT(05) SLOT(06) SLOT(07)
-    SLOT(08) SLOT(09) SLOT(10) SLOT(11) SLOT(12) SLOT(13) SLOT(14) SLOT(15)
-#undef SLOT
-    // The already-rowed gated UnicodeString formatter occupies slot 16.
-    virtual void __cdecl rva0029E846(UnicodeString format, ...);
-};
+#include "../../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
 
 // Native 0x0020DB09..0x0020DB91, RET 4. The argument is unused.
