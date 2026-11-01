@@ -23,10 +23,12 @@ struct Rva001E6731Head
 class Rva001E6731
 {
 public:
+	unsigned rva001E71FA(const int &);
 	void rva001E6731();
-private:
-	Rva001E6731Head *m_00;
-	int m_04;
+	~Rva001E6731();
+	Rva001E6731Head *m_00; // +0x00
+	int m_04; // +0x04
+	int m_compare; // +0x08
 };
 void Rva001E6731::rva001E6731()
 {

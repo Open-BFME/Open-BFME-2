@@ -43,20 +43,23 @@ struct Rva001E72B4Node
 	Rva001E72B4Owned *m_value;
 };
 
+struct Rva001E6731Head;
+
 class Rva001E6731
 {
 public:
-	~Rva001E6731();
+	unsigned rva001E71FA(const int &);
 	void rva001E6731();
-	Rva001E72B4Node *m_header;
-	int m_count;
-	int m_compare;
+	~Rva001E6731();
+	Rva001E6731Head *m_00; // +0x00
+	int m_04; // +0x04
+	int m_compare; // +0x08
 };
 
 struct Rva001E6FE5
 {
 	~Rva001E6FE5() {}
-	Rva001E72B4Node *header() const { return m_tree.m_header; }
+	Rva001E72B4Node *header() const { return reinterpret_cast<Rva001E72B4Node *>(m_tree.m_00); }
 	void clear() { m_tree.rva001E6731(); }
 	Rva001E6731 m_tree;
 };
