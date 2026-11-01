@@ -995,11 +995,7 @@ void Rva0060006A::clear()
 // Evidence: TreeHintRef copy 0x002174A4, Version? no, AptCall 0x0050E9FE, LoadContent literal,
 // empty g_Rva0107301CEmptyString, manager TheRva00222A8BTarget, caller jmp 0x0057C397.
 class AsciiString;
-struct TreeHintRef00217D4C
-{
-    void *m_ptr;
-    TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &other);
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 class Rva00222A8BTarget;
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 int Rva0050E9FEAptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, const char **a0ptr);

@@ -77,11 +77,7 @@ Int Rva005C9604::rva005C9604(Int unused)
 // slot at VA 0x00C75804 (next to 0x005D24E5's): assigns the argument to the
 // +0x0C reference of 0x1C-byte entry i (entries after a 0x1C-byte header)
 // through the rowed TreeHintRef00217D4C::operator=.
-struct TreeHintRef00217D4C
-{
-	TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &other);
-	void *m_ptr;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 struct Rva005D264DEntry
 {
 	char m_pad00[0x0C];

@@ -7,10 +7,7 @@ public:
 	void rva005278DD();
 };
 
-struct TreeHintRef00217D4C
-{
-	TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &that);
-};
+#include "../../../../Libraries/Source/Apt/AptRefTarget.h"
 
 class Rva00527AEB
 {

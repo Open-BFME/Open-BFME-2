@@ -11,10 +11,7 @@ namespace _STL
 {
 template <class I> void __cdecl _Destroy(I first, I last);
 }
-struct TreeHintRef00217D4C
-{
-	void *m_target;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 struct Rva005E1C9DBase
 {
 	TreeHintRef00217D4C *m_start;

@@ -9,10 +9,7 @@
 // The first word's application meaning remains unknown. No donor identity is claimed.
 #include <stl/_algobase.h>
 struct TargetRef00217D4C;
-struct TreeHintRef00217D4C {
- TargetRef00217D4C *m_ptr;
- TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C&);
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 struct Rva0027EA49 {
  int m_00; TreeHintRef00217D4C m_04;
  ~Rva0027EA49();

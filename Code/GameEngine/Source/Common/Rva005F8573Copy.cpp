@@ -4,11 +4,7 @@
 // Evidence: chain lane; stride-8 copy via rowed 0x005F8536 assignment;
 // caller 0x005F85AB forwards first-last-dest; returns dest end with ret.
 
-struct TreeHintRef00217D4C
-{
-	TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &other);
-	void *m_ptr;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 
 struct Rva005F8536
 {

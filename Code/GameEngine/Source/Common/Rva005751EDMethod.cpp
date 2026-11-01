@@ -20,15 +20,7 @@ public:
 	void clear();
 };
 #include <new>
-struct TargetRef00217D4C
-{
-	virtual void *destroy(unsigned int flags);
-	int references;
-};
-struct TreeHintRef00217D4C
-{
-	TargetRef00217D4C *m_ptr;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 class Rva005746AF
 {
 public:

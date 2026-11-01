@@ -3,10 +3,7 @@
 // TreeHintRef00217D4C: copy [pos+1 finish) to pos via rowed __copy_ptrs 0x004F6A35 then --finish
 // and destroy last via rowed deleting 0x005F8FCC returning pos. Evidence: ret 4 one ptr arg,
 // finish at this+4, callers 0x005E1C6F 0x002B5BBA 0x004F9C8E.
-struct TreeHintRef00217D4C
-{
-	void *m_target;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 
 struct Rva005F8FCC
 {

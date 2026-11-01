@@ -1,15 +1,7 @@
 // cl: /DNDEBUG /MD /EHsc /O1 /arch:SSE /G7
 // ??0Rva005750CF@@QAE@HPAX@Z retail 0x005750CF 86B
 // Evidence: target calls rowed base ctor 0x005746AF with int arg; installs vtables 0x0086E4A4 and 0x0086E360 at the primary and +0x10 subobjects; stores manager at +0x14 and appends this+0x10 through rowed helper 0x005A0B4C. Class identity is address-derived; base relationship follows target offsets and vtable stores.
-struct TargetRef00217D4C
-{
-	virtual void *destroy(unsigned int flags);
-	int references;
-};
-struct TreeHintRef00217D4C
-{
-	TargetRef00217D4C *m_ptr;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 class Rva005746AF
 {
 public:

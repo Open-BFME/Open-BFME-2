@@ -1,9 +1,5 @@
 // cl: /MD
-struct TreeHintRef00217D4C
-{
-	void *m_ptr;
-	TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &other);
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 class Rva005D3AF2
 {
 public:

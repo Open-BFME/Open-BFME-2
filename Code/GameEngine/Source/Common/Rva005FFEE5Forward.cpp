@@ -1,9 +1,6 @@
 // cl: /O1 /arch:SSE /G7 /MD /EHsc
 // ?rva005FFEE5@Rva005FFEE5@@QAEHABUTreeHintRef00217D4C@@@Z at 0x005FFEE5 (8B). Forwarder via this+4 to rowed Impl::AddHeroArmyPanel 0x005FFCCB. Evidence: callers 0x005FB0CD 0x005FB39F 0x005FB574; prev 0x005FFED5 same +4 forwarder precedent; callee rowed.
-struct TreeHintRef00217D4C
-{
-	void *m_ptr;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 
 namespace StrategicHUD {
 class BattlePromptPlayerPageMovieClip

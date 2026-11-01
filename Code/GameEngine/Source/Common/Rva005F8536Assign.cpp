@@ -4,11 +4,7 @@
 // Evidence: unlock lane; two TreeHintRef00217D4C copies via rowed 0x002174A4;
 // caller 0x005F8573 stride-8 copy loop; returns this with ret 4.
 
-struct TreeHintRef00217D4C
-{
-	TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &other);
-	void *m_ptr;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 
 struct Rva005F8536
 {

@@ -9,11 +9,7 @@
 #include <stl/_iterator_base.h>
 #include <stl/_epilog.h>
 
-struct TreeHintRef00217D4C
-{
-	void *m_target;
-	TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &other);
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 
 namespace _STL
 {

@@ -6,12 +6,7 @@
 // rowed StringBase<unsigned short>::set (0x00037150). No REL32 caller found;
 // owner unknown, so the name is address-derived.
 
-struct TreeHintRef00217D4C
-{
-	TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &other);
-
-	void *m_ref;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 
 template <class T>
 class StringBase

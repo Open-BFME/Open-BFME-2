@@ -4,15 +4,7 @@
 // has one empty RET4 callback (47A69C). Its destructor is nonvirtual.
 // MI dtor: base Rva005746AF at +0 plus second base at +0x10 with member at +0x14.
 // Evidence: vtable stores 0x00C6E4C4 then 0x00C6E4C0 then 0x00C6E360; rowed erase 0x002B7250 with this=second arg+4 and arg=sub at +0x10; pinned base dtor 0x005746D2; caller 0x00574E6D deleting dtor; neighbours share /O1. Honest Rva name.
-struct TargetRef00217D4C
-{
-	virtual void *destroy(unsigned int flags);
-	int references;
-};
-struct TreeHintRef00217D4C
-{
-	TargetRef00217D4C *m_ptr;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 class CreateAHeroData;
 class Rva002B7250
 {

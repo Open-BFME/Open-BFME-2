@@ -139,13 +139,7 @@ static __forceinline AsciiStringPlusString operator+(const AsciiString &left, co
 // invoke 0x001531F2.
 // The holder is the TreeHintRef00217D4C LoadContent 0x0057C339 takes by
 // reference (its row's signature); its destructor is the rowed 0x005F8F96.
-struct TreeHintRef00217D4C
-{
-	TreeHintRef00217D4C() : m_ptr(0) {}
-	~TreeHintRef00217D4C();
-
-	TargetRef00217D4C *m_ptr;
-};
+#include "../../../../Libraries/Source/Apt/AptRefTarget.h"
 
 class Rva001531F2Ref : public TreeHintRef00217D4C
 {

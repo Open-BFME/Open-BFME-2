@@ -5,10 +5,7 @@
 // Evidence: prev 0x005FFED5 and next 0x005FFEE5 same +4 forwarder precedent;
 // callee rowed 0x005FFC8B; callers 0x005FB0DB 0x005FB3A6 0x005FB57B;
 // unblocks 0x005FAFE8 0x005FB30A 0x005FB4DF.
-struct TreeHintRef00217D4C
-{
-	void *m_ref;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 
 class Rva005FFC8B
 {

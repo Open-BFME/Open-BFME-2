@@ -2,10 +2,7 @@
 // ?rva005E1C6F@Rva005E1C6F@@QAEXPAX@Z @ 0x005E1C6F (46B). Scan TreeHintRef vector at this+0x14
 // for entries whose m_target matches arg, erase via rowed 0x004F70D1 and set byte at +0x20.
 // Evidence: ret 4 one ptr arg, begin [this+0x14] end [this+0x18], callers 0x005E1CFF, chain from 0x004F70D1.
-struct TreeHintRef00217D4C
-{
-	void *m_target;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 
 class Rva004F70D1
 {
@@ -28,7 +25,7 @@ private:
 void Rva005E1C6F::rva005E1C6F(void *target)
 {
 	for (TreeHintRef00217D4C *it = m_begin; it != m_end; ++it) {
-		if (it->m_target == target) {
+		if (it->m_ptr == target) {
 			((Rva004F70D1 *)&m_begin)->rva004F70D1(it);
 			m_20 = 1;
 		}
