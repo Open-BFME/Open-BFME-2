@@ -181,11 +181,7 @@ private:
 	unsigned char m_pad158[0x258 - 0x158];
 	AIUpdateInterface *m_ai; // +0x258
 };
-class AI
-{
-public:
-	Object *findClosestRepulsor(const Object *me, Real range);
-};
+#include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 class StateMachine
 {

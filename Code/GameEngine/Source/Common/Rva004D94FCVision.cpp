@@ -10,11 +10,7 @@ class Object
 	public: float getVisionRange() const;
 };
 class AttackPriorityInfo; class PartitionFilter;
-class AI
-{
-public:
-	Object *findClosestEnemy(const Object *, float, unsigned, const AttackPriorityInfo*, PartitionFilter*, int);
-};
+#include "../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)

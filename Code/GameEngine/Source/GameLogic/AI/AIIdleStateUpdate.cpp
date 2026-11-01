@@ -216,11 +216,7 @@ private:
 	Object *m_containedBy; // +0x274
 };
 
-class AI
-{
-public:
-	Object *findClosestRepulsor(const Object *obj, Real range);
-};
+#include "../../../Include/GameLogic/AI.h"
 
 extern AI *TheAI;
 extern GameLogic *TheGameLogic;

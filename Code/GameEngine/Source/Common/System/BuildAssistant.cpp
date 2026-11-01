@@ -1216,15 +1216,7 @@ public:
 	void *getObstacleID(int layer, int pos);
 	Bool QuickDoesPathExist(Object *, const Coord3D *, const Coord3D *, Int);
 };
-class AI
-{
-public:
-	Pathfinder *pathfinder() { return m_pathfinder; }
-
-private:
-	unsigned char m_pad00[0x10];
-	Pathfinder *m_pathfinder;		// +0x10
-};
+#include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 // Retail calls the list destructor out of line (the shared pointer-list
 // destructor 0x00239AF4).

@@ -21,12 +21,7 @@ protected:
 	void loadPostProcess();
 };
 
-class AI
-{
-public:
-	char m_pad00[0x10];
-	Pathfinder *m_shim10;
-};
+#include "../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 
 class Rva003956E8 : public Rva00497805
@@ -45,6 +40,6 @@ void Rva003956E8::loadPostProcess()
 	Rva00497805::loadPostProcess();
 	if (m_34)
 	{
-		TheAI->m_shim10->RemoveObjectFromPathfindMap(getObject());
+		TheAI->m_pathfinder->RemoveObjectFromPathfindMap(getObject());
 	}
 }

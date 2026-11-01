@@ -32,12 +32,7 @@ struct FieldParse
 	const void *userData;
 	int offset;
 };
-class AI
-{
-public:
-	static void parseSideInfo(INI *ini, void *instance, void *store, const void *userData);
-	static void parseSkillSet(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/GameLogic/AI.h"
 
 // Retail's own nine-record side-info table, transcribed from .rdata at RVA
 // 0x00807300 (VA 0x00C07300, file offset 0x00806700): the three gatherer

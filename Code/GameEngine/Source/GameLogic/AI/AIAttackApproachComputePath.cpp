@@ -213,19 +213,7 @@ class PolygonTrigger;
 class AttackPriorityInfo;
 class PartitionFilter;
 
-class AI
-{
-public:
-	static Bool rva002FE193(Object *owner, Object *nemesis);
-	Object *rva002FF8DD(const PolygonTrigger *area, Object *owner, const AttackPriorityInfo *info);
-	Object *findClosestEnemy(const Object *me, Real range, UnsignedInt qualifiers, const AttackPriorityInfo *info, PartitionFilter *optionalFilter, Int extra);
-	Pathfinder *pathfinder() { return m_pathfinder; }
-	const TAiData *getAiData() { return m_aiData; }
-	unsigned char m_pad00[0x10];
-	Pathfinder *m_pathfinder; // +0x10
-	unsigned char m_pad14[0x18 - 0x14];
-	TAiData *m_aiData; // +0x18
-};
+#include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 
 class Locomotor

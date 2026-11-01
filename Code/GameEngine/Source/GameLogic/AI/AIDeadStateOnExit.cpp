@@ -101,15 +101,7 @@ class Pathfinder
 public:
 	void RemoveObjectFromPathfindMap(Object *obj);
 };
-class AI
-{
-public:
-	// Native +0x10 accessor is inlined in the recovered callers.
-	__declspec(dllimport) __forceinline Pathfinder *pathfinder() { return m_pathfinder; }
-private:
-	unsigned char m_pad00[0x10];
-	Pathfinder *m_pathfinder; // +0x10
-};
+#include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 class StateMachine
 {

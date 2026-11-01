@@ -1407,14 +1407,7 @@ struct Rva002D2CDCFields { unsigned char byte0; Rva002D2CDCFields *clear(); };
 // and6F6830..6F6836. They read raw words through independently proved offsets.
 // 0x0001CDA0 is the same shape with the pointer at receiver offset 8 (1CDA0..1CDA5,
 // INT3 padding before, no reference in the image).
-class AI
-{
-public:
-	virtual void init();
-private:
-	char m_lead[0x1C - 4];
-	int m_counter;
-};
+#include "../../../Include/GameLogic/AI.h"
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.

@@ -278,19 +278,7 @@ struct TAiData
 	bool m_enableRepulsors;	// +0x64
 };
 
-class AI
-{
-public:
-	Object *findClosestAlly(const Object *me, float range, unsigned int flags);
-	Object *findClosestRepulsor(const Object *me, float range);
-	int rva002FEEAD(Object *me, float range, unsigned int qualifiers);
-	Object *findClosestEnemy(const Object *me, float range, unsigned int qualifiers,
-		const AttackPriorityInfo *info, PartitionFilter *optionalFilter, int bfmeArg);
-
-private:
-	char m_pad00[0x18];
-	TAiData *m_aiData;	// +0x18
-};
+#include "../../../Include/GameLogic/AI.h"
 
 Object *AI::findClosestAlly(const Object *me, float range, unsigned int flags)
 {

@@ -116,11 +116,7 @@ public:
 
 class AIGroup;
 
-class AI
-{
-public:
-	void destroyGroup(AIGroup *group);
-};
+#include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 
 class Rva0036D7A6Receiver

@@ -66,14 +66,7 @@ public:
 	bool IsBuildRestrictedCell(const Coord3D *pos, bool flagA, bool flagB, int layer);
 };
 
-class AI
-{
-public:
-	Pathfinder *pathfinder() { return m_pathfinder; }
-private:
-	unsigned char m_pad00[0x10];
-	Pathfinder *m_pathfinder; // +0x10
-};
+#include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 
 #include "../../../Include/GameLogic/Module/AIUpdate.h"

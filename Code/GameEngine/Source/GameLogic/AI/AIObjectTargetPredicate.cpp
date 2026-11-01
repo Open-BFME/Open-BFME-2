@@ -25,7 +25,7 @@ class Object {public:
 protected:
  friend class AI;Module*findModule(NameKeyType)const;
 };
-class AI {public:static bool rva002FE193(Object*,Object*);};
+#include "../../../Include/GameLogic/AI.h"
 bool AI::rva002FE193(Object*source,Object*target)
 {
  if(!source||!target)return false;

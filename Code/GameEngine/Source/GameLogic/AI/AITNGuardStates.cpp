@@ -154,14 +154,7 @@ struct TAiData
 int GetGameLogicRandomValue(int low, int high, char *file, int line);
 #define AITNGUARD_FILE "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\AI\\AITNGuard.cpp"
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
-class AI
-{
-public:
-	const TAiData *getAiData() const { return m_aiData; }
-private:
-	unsigned char m_pad00[0x18];
-	TAiData *m_aiData; // +0x18
-};
+#include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 extern GameLogic *TheGameLogic;
 typedef UnsignedInt StateID;

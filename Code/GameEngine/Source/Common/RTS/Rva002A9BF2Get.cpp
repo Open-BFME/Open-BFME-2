@@ -64,12 +64,7 @@ public:
 	void AddObjectToPathfindMap(Object *obj);
 };
 
-class AI
-{
-public:
-	char _pad[0x10];
-	Pathfinder *m_shim;
-};
+#include "../../../Include/GameLogic/AI.h"
 
 extern AI *TheAI;
 extern ScriptEngine *TheScriptEngine;
@@ -126,8 +121,8 @@ void Player::onStructureConstructionComplete(Object *builder, Object *structure,
 	int a1 = (int)builder;
 	Object *obj = structure;
 	((Rva002039B6Host *)TheScriptEngine)->rva002039B6();
-	TheAI->m_shim->RemoveObjectFromPathfindMap(obj);
-	TheAI->m_shim->AddObjectToPathfindMap(obj);
+	TheAI->m_pathfinder->RemoveObjectFromPathfindMap(obj);
+	TheAI->m_pathfinder->AddObjectToPathfindMap(obj);
 	obj->friend_adjustPowerForPlayer(true);
 	if (m_ai)
 		((GameWindowVirt *)m_ai)->v8(a1, obj);

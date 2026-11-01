@@ -12,11 +12,7 @@ public:
 	static void parseAIDataDefinition(INI *ini);
 };
 
-class AI
-{
-public:
-	static void parseAiDataDefinition(INI *ini);
-};
+#include "../../../Include/GameLogic/AI.h"
 
 void INI::parseAIDataDefinition(INI *ini)
 {

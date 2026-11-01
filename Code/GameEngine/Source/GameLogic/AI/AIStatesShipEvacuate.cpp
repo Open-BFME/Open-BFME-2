@@ -98,14 +98,7 @@ public:
 	Bool getClosestPointOnLand(const Coord3D *pos, Object *obj, Coord3D *out);
 };
 
-class AI
-{
-public:
-	Pathfinder *pathfinder() { return m_pathfinder; }
-private:
-	unsigned char m_pad00[0x10];
-	Pathfinder *m_pathfinder; // +0x10
-};
+#include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 
 template <int N> class VirtualSlots : public VirtualSlots<N - 1>

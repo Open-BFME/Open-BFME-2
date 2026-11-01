@@ -127,20 +127,7 @@ struct TAiData
 	Real m_groupEnemyScanRange;	// +0x70
 };
 
-class AI
-{
-public:
-	Pathfinder *pathfinder() { return m_pathfinder; }
-	const TAiData *getAiData() { return m_aiData; }
-	Object *findClosestEnemy(const Object *me, Real range, UnsignedInt qualifiers,
-		const AttackPriorityInfo *info, PartitionFilter *optionalFilter, Int bfmeArg);
-
-private:
-	char m_pad0[0x10];
-	Pathfinder *m_pathfinder;	// +0x10
-	char m_pad14[0x18 - 0x14];
-	TAiData *m_aiData;			// +0x18
-};
+#include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 
 class TerrainLogic

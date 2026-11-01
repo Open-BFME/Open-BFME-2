@@ -27,12 +27,7 @@ public:
 
 class Pathfinder;
 
-class AI
-{
-public:
-	char m_pad00[0x10];
-	Pathfinder *m_path10;
-};
+#include "../../Include/GameLogic/AI.h"
 
 extern AI *TheAI;
 
@@ -54,6 +49,6 @@ bool ActionManager::rva0041C9C4(const Object *obj, const Coord3D *coord, const S
 	const Overridable *final = over->friend_getFinalOverride();
 	if ((((unsigned char)(final->m_18 >> 6)) & 1) == 0)
 		return true;
-	Pathfinder *pf = TheAI->m_path10;
+	Pathfinder *pf = TheAI->m_pathfinder;
 	return pf->QuickDoesPathExist((Object *)obj, &obj->m_pos38, coord, 0);
 }

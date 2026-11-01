@@ -237,13 +237,7 @@ struct TAiData
 	float m_supplyCenterSafeRadius;	// +0x84
 };
 
-class AI
-{
-public:
-	TAiData *getAiData() const { return m_aiData; }
-	char m_pad00[0x18];
-	TAiData *m_aiData;		// +0x18
-};
+#include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 
 #include "../../Common/PartitionRangeQueryCallView.h"

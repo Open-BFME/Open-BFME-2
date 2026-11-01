@@ -266,12 +266,7 @@ public:
 
 class Pathfinder { public: void RemoveObjectFromPathfindMap(Object *); };
 
-class AI
-{
-public:
-    char opaque00[0x10];
-    Pathfinder *m_pathfinder;
-};
+#include "../../../Include/GameLogic/AI.h"
 
 extern AI *TheAI;
 

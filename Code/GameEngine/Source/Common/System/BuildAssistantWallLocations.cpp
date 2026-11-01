@@ -670,14 +670,7 @@ void AddObjectToPathfindMap(Object*object);
 void GetCellType(int pos,void*isValid,void*isBlocked,void*cellType,int layer);
 void*getObstacleID(int layer,int pos);
 };
-class AI
-{
-public:
-Pathfinder*pathfinder(){return m_pathfinder;}
-private:
-unsigned char m_pad00[0x10];
-Pathfinder*m_pathfinder;
-};
+#include "../../../Include/GameLogic/AI.h"
 extern AI*TheAI;
 extern PartitionManager*ThePartitionManager;
 extern GameLogic*TheGameLogic;

@@ -155,13 +155,7 @@ public:
 		const Coord3D *groupDest);
 };
 
-class AI
-{
-public:
-	Pathfinder *pathfinder() { return m_pathfinder; }
-	char m_pad[0x10];
-	Pathfinder *m_pathfinder;
-};
+#include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 
 class BFMEActionManager

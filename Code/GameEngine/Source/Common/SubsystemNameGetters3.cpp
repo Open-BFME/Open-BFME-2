@@ -18,11 +18,7 @@
 		return TEXT; \
 	}
 
-class AI
-{
-public:
-	virtual const char *GetSnapshotName() const;
-};
+#include "../../Include/GameLogic/AI.h"
 
 const char *AI::GetSnapshotName() const
 {

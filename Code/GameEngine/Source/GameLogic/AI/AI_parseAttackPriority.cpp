@@ -64,11 +64,7 @@ struct Rva002FFD03Data
 	Rva002FED8D *m_namedLists;
 };
 
-class AI
-{
-public:
-	static void parseAttackPriority(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/GameLogic/AI.h"
 
 void AI::parseAttackPriority(INI *ini, void *instance, void * /*store*/, const void * /*userData*/)
 {

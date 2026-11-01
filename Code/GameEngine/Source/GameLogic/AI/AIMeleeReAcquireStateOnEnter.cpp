@@ -150,13 +150,7 @@ struct TAiData
 	float m_meleeAcquireRadius;	// +0x94
 };
 
-class AI
-{
-public:
-	char m_pad00[0x18];
-	TAiData *m_aiData;	// +0x18
-	const TAiData *getAiData() const { return m_aiData; }
-};
+#include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 
 #include "../../Common/GameLogicObjectLookupView.h"

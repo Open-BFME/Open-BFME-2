@@ -54,12 +54,7 @@ public:
 
 class AIUpdateInterface;
 
-class AI
-{
-public:
-	unsigned char m_pad00[0x10];
-	Pathfinder *m_pathfinder;
-};
+#include "../../../Include/GameLogic/AI.h"
 
 extern class AI *TheAI;
 extern unsigned char g_00E03745;

@@ -239,15 +239,7 @@ struct TAiData
 	Real m_attackPriorityDistanceModifier;	// +0x54
 };
 
-class AI
-{
-public:
-	Object *rva002FF8DD(const PolygonTrigger *area, Object *owner, const AttackPriorityInfo *info);
-	const TAiData *getAiData() const { return m_aiData; }
-private:
-	char m_pad00[0x18];
-	TAiData *m_aiData;	// +0x18
-};
+#include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 
 Object *AI::rva002FF8DD(const PolygonTrigger *area, Object *owner, const AttackPriorityInfo *info)

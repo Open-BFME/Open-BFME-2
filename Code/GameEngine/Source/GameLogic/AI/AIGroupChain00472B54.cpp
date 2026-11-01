@@ -94,12 +94,7 @@ public:
 	void groupEnter(Object *obj, CommandSourceType src);
 };
 
-class AI
-{
-public:
-	AIGroup *createGroup();
-	void destroyGroup(AIGroup *g);
-};
+#include "../../../Include/GameLogic/AI.h"
 
 
 extern AI *TheAI;
