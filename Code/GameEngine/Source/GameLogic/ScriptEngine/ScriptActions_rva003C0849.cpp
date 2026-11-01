@@ -54,11 +54,7 @@ public:
 	const CommandButton *findCommandButton(const AsciiString &);
 };
 
-class AIGroup
-{
-public:
-	void groupDoCommandButtonAtPosition(const CommandButton *commandButton, const Coord3D *pos, CommandSourceType cmdSource);
-};
+#include "../../../Include/GameLogic/AIGroup.h"
 
 struct BfmeWorldRV;
 extern class ScriptEngine *TheScriptEngine;

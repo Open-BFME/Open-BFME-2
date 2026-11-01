@@ -33,11 +33,7 @@ enum AttitudeType { ATTITUDE_UNSPECIFIED = 0 };
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
-class AIGroup
-{
-public:
-    void setAttitude(AttitudeType);
-};
+#include "../../../Include/GameLogic/AIGroup.h"
 
 class AI
 {

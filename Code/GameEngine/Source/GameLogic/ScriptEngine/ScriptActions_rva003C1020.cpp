@@ -35,12 +35,7 @@ public:
 
 enum GUICommandType { GUI_DUMMY = 0 };
 enum CommandSourceType { CMD_FROM_PLAYER = 0, CMD_FROM_SCRIPT = 1 };
-class AIGroup {
-public:
-	Object *getSpecialPowerSourceObject(unsigned id);
-	Object *getCommandButtonSourceObject(GUICommandType type);
-	void groupDoCommandButtonAtObject(const CommandButton *b, Object *o, CommandSourceType src);
-};
+#include "../../../Include/GameLogic/AIGroup.h"
 
 // LINK: the button check 0x0035B2C3 is rowed as Rva0035B2C3::rva0035B2C3 (Rva0035B2C3Audio.cpp); same four-slot ABI.
 class Rva0035B2C3 {

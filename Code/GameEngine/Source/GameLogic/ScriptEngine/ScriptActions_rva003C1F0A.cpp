@@ -23,11 +23,7 @@ class Drawable;
 class Rva002D752DNode;
 class Rva002D752D;
 
-class AIGroup
-{
-public:
-	void groupSetEmoticon(const StringBase<char> &name, int val);
-};
+#include "../../../Include/GameLogic/AIGroup.h"
 
 extern int BfmeLogicFramesPerSecond;
 
