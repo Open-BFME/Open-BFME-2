@@ -35,8 +35,8 @@ extern "C" const void *const vtbl_00C54BA8[3] = {
 	(const void *)&__identifier("?getDisabledTypesToProcess@UpdateModule@@UBE?AV?$BitFlags@$0L@@@XZ"), // slot 1 0x00253376
 	(const void *)&__identifier("?rva0044DF8D@UpdateModule@@UAEXW4UpdateSleepTime@@@Z"), // slot 2 0x0044DF8D
 };
-extern "C" const void *const __identifier("??_7RainOfFireUpdate@@6BBehaviorModuleOther@@@")[];  // vftable 0x00C54BB8
-extern "C" const void *const __identifier("??_7RainOfFireUpdate@@6BBehaviorModuleBase@@@")[];  // vftable 0x00C54C74
+extern "C" const void *const __identifier("??_7RainOfFireUpdate@@6BBehaviorModuleInterface@@@")[];  // vftable 0x00C54BB8
+extern "C" const void *const __identifier("??_7RainOfFireUpdate@@6BObjectModule@@@")[];  // vftable 0x00C54C74
 
 class Thing;
 class ModuleData;
@@ -91,9 +91,9 @@ RainOfFireUpdate::RainOfFireUpdate(Thing *thing, const ModuleData *moduleData)
 	const RainOfFireUpdateModuleData *mod =
 		reinterpret_cast<const RainOfFireUpdateModuleData *>(m_moduleData);
 	int *vtab = (int *)&m_vtable;
-	*vtab = (int)((unsigned int)__identifier("??_7RainOfFireUpdate@@6BBehaviorModuleBase@@@"));
+	*vtab = (int)((unsigned int)__identifier("??_7RainOfFireUpdate@@6BObjectModule@@@"));
 	int *sec0C = (int *)&m_secondary0C;
-	*sec0C = (int)((unsigned int)__identifier("??_7RainOfFireUpdate@@6BBehaviorModuleOther@@@"));
+	*sec0C = (int)((unsigned int)__identifier("??_7RainOfFireUpdate@@6BBehaviorModuleInterface@@@"));
 	int *sec10 = (int *)&m_secondary10;
 	*sec10 = (int)((unsigned int)vtbl_00C54BA8);
 	int *slot = (int *)&m_slot;

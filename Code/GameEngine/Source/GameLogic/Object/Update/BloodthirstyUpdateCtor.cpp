@@ -24,8 +24,8 @@ extern "C" const void *const __identifier("??_7Rva005F0584Base0@@6B@")[];  // fo
 
 extern "C" const void *const __identifier("??_7BloodthirstyUpdate@@6BBloodthirstyUpdateIface@@@")[];  // vftable 0x00C3EFC4
 extern "C" const void *const __identifier("??_7BloodthirstyUpdate@@6BUpdateModule@@@")[];  // vftable 0x00C3EFEC
-extern "C" const void *const __identifier("??_7BloodthirstyUpdate@@6BBehaviorModuleOther@@@")[];  // vftable 0x00C3EFF8
-extern "C" const void *const __identifier("??_7BloodthirstyUpdate@@6BBehaviorModuleBase@@@")[];  // vftable 0x00C3F0B4
+extern "C" const void *const __identifier("??_7BloodthirstyUpdate@@6BBehaviorModuleInterface@@@")[];  // vftable 0x00C3EFF8
+extern "C" const void *const __identifier("??_7BloodthirstyUpdate@@6BObjectModule@@@")[];  // vftable 0x00C3F0B4
 
 class Thing;
 class ModuleData;
@@ -73,8 +73,8 @@ BloodthirstyUpdate::BloodthirstyUpdate(Thing *thing, const ModuleData *moduleDat
 {
 	int *wakeSlot = (int *)&m_secondary20;
 	*wakeSlot = (int)((unsigned int)__identifier("??_7Rva005F0584Base0@@6B@"));
-	m_vtable = (const void *)((unsigned int)__identifier("??_7BloodthirstyUpdate@@6BBehaviorModuleBase@@@"));
-	m_secondary0C = (const void *)((unsigned int)__identifier("??_7BloodthirstyUpdate@@6BBehaviorModuleOther@@@"));
+	m_vtable = (const void *)((unsigned int)__identifier("??_7BloodthirstyUpdate@@6BObjectModule@@@"));
+	m_secondary0C = (const void *)((unsigned int)__identifier("??_7BloodthirstyUpdate@@6BBehaviorModuleInterface@@@"));
 	m_secondary10 = (const void *)((unsigned int)__identifier("??_7BloodthirstyUpdate@@6BUpdateModule@@@"));
 	m_secondary20 = (const void *)((unsigned int)__identifier("??_7BloodthirstyUpdate@@6BBloodthirstyUpdateIface@@@"));
 	m_bestTargetID = 0;

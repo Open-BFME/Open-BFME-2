@@ -15746,8 +15746,8 @@ with a one-slot anchor) by `GameLogic/Module/BehaviorModule.h`. Four mechanisms:
 |---|---:|---|---|
 | OathbreakersFadeAwayBehaviorCtor | 59 | 1 | links again: `9c6a1c1279` adopted canonical UpdateModule (compiler vptr stores) |
 | StancesBehaviorCtor, AttachUpdateCtor, BannerCarrierUpdateCtor, DamageFieldUpdateBehaviorCtor/Dtor, FadeAndDieOrnamentUpdateCtor, HordeNotify.../NotifyTargetsOfImminentProbableCrushingUpdateCtor, RespawnUpdateCtor, StrafeAreaUpdateCtor | 967 | 1 | repaired (this entry, first commit): bind `??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@` |
-| SupplyWarehouseCripplingBehaviorCtor, WallUpgradeUpdate | 1,143 | 1 | open (PoisonedBehavior + Rva004839D3/Rva004AB246 renames) |
-| BloodthirstyUpdateCtor, RainOfFireUpdateCtor | 250 | 1 | open |
+| SupplyWarehouseCripplingBehaviorCtor, WallUpgradeUpdate | 1,143 | 1 | repaired (second commit): `??_7PoisonedBehavior@@6BBehaviorModuleInterface@@@` (0x00C49800) and the `c3e8f0752f` renames `??_7Rva004839D3@@6BRva004839D3_E1/UpdateModule/ObjectModule@@@`, `??_7Rva004AB246@@6BUpdateModule/ObjectModule@@@` |
+| BloodthirstyUpdateCtor, RainOfFireUpdateCtor | 250 | 1 | repaired (second commit): `6BObjectModule`/`6BBehaviorModuleInterface` tables their Dtor units emit |
 | BridgeBehaviorCtor, QueueProductionExitUpdateCtor | 302 | 1 | blocked: files held (StarkillerHDX UpdateModule adoption / QueueProductionExitUpdate.cpp TU merge) |
 | UpdateModuleCtor, RunOffMapBehaviorCtor, DamageModuleCtor, SpecialPowerModuleCtor, BodyModuleCtor, FireWeaponCollide | 1,167 | 2 | blocked on the BehaviorModule.h destructor decision (class claim held) |
 | AIGateUpdateCtor, DestroyEnvironmentUpdateCtor | 132 | 3 (+2) | blocked: files held by StarkillerHDX's UpdateModule adoption; it must also declare the rowed derived destructor |
@@ -15759,6 +15759,17 @@ Completed: group 1 rebinding of the AttributeModifierPoolUpdate folded table
 DIR32 OK (65 rows, 31 symbols, including AttributeModifierPoolUpdate.cpp's own rows);
 `link_check` 0 -> 967 B for the ten units, AttributeModifierPoolUpdate.cpp 3,869 ->
 3,869 B (LINKS).
+Second commit: the four group-1 units above bind the names PoisonedBehavior.cpp,
+Rva0024A797Grandchildren.cpp, BloodthirstyUpdateDtor.cpp and RainOfFireUpdateDtor.cpp
+emit for the same retail tables (0x00C49800, 0x00C49AAC/AB8/AC8, 0x00C54774/780,
+0x00C3EFF8/F0B4, 0x00C54BB8/C74). `./build.sh` 25/25 rows; scoped DIR32 OK (90 rows,
+119 symbols, definers included); `link_check` 0 -> 1,393 B for the four units, definers
+PoisonedBehavior 746, BloodthirstyUpdateDtor 60, RainOfFireUpdateDtor 129 unchanged.
+New regression seen on the way (not from this entry's commits): with current objects
+Rva0024A797Grandchildren.cpp (1,280 B, linked in the 07:56 census) now loses the
+`??_7StructureToppleUpdate@@6BUpdateModule/BehaviorModuleInterface/ObjectModule@@@`
+copies to StructureToppleUpdate.cpp's Zero Hour tables (first in link order), after
+`c3e8f0752f` moved it onto canonical UpdateModule (mechanism 4).
 Remaining / next check: the open rows above. Pattern: after a base-header adoption,
 grep `__identifier("??_7<Class>@@6B<old base>@@@")` in sibling units, and check whether
 any adopting unit defines a constructor (it then emits the base's inline destructor and
