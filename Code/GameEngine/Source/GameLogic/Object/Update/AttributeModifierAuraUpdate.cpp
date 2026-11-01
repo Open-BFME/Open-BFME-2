@@ -277,33 +277,11 @@ private:
 	unsigned char m_438;	// +0x438
 };
 
-class BehaviorModule
-{
-public:
-	virtual ~BehaviorModule();
-	Object *getObject() const { return m_object; }
-protected:
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class BehaviorModuleInterface
-{
-public:
-	virtual void behaviorModuleInterfaceAnchor();
-};
 
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
 
-class UpdateModule : public BehaviorModule, public BehaviorModuleInterface, public UpdateModuleInterface
-{
-protected:
-	char m_pad14[0x20 - 0x14];
-};
 
 class UpgradeMux
 {

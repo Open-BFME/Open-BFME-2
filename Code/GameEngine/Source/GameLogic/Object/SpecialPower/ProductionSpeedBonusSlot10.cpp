@@ -45,16 +45,7 @@ struct ProductionSpeedBonusModuleData
 	const AsciiString *m_end; // +0x88
 };
 
-class BehaviorModule
-{
-public:
-	virtual ~BehaviorModule();
-protected:
-	const ProductionSpeedBonusModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-private:
-	unsigned char m_pad0C[0x10 - 0x0C];
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class SpecialPowerModuleInterface
 {
@@ -76,7 +67,7 @@ public:
 void ProductionSpeedBonus::doSpecialPower(int options)
 {
 	Object *obj = m_object;
-	const ProductionSpeedBonusModuleData *productionSpeedBonusModuleData = m_moduleData;
+	const ProductionSpeedBonusModuleData *productionSpeedBonusModuleData = (const ProductionSpeedBonusModuleData *)getModuleData();
 	Player *player = obj->getControllingPlayer();
 	for (const AsciiString *it = productionSpeedBonusModuleData->m_begin; it != productionSpeedBonusModuleData->m_end; ++it)
 		player->rva002AE8CF(it, (float)((productionSpeedBonusModuleData->m_speedMulitplier - 1.0) / (productionSpeedBonusModuleData->m_speedMulitplier * -1.0)), productionSpeedBonusModuleData->m_numberOfFrames);

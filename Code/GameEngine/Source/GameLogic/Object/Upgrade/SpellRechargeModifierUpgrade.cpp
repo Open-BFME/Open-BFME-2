@@ -50,16 +50,8 @@ struct SpellRechargeModifierUpgradeModuleData
 	bool m_startsActive; // +0x124
 };
 
-class BehaviorModule
-{
-public:
-	virtual ~BehaviorModule();
-protected:
-	const SpellRechargeModifierUpgradeModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-struct BehaviorModuleInterface { virtual void f0C(); };
 
 class UpgradeMux
 {
@@ -74,7 +66,7 @@ public:
 
 struct UpgradeIface18 { virtual void f18(); };
 
-class UpgradeModule : public BehaviorModule, public BehaviorModuleInterface, public UpgradeMux
+class UpgradeModule : public BehaviorModule, public UpgradeMux
 {
 protected:
 	virtual void xfer(Xfer *xfer);
@@ -169,7 +161,7 @@ static __forceinline void applyModifier(Player *player, const SpellRechargeModif
 void SpellRechargeModifierUpgrade::upgradeImplementation()
 {
 	Player *player = m_object->getControllingPlayer();
-	const SpellRechargeModifierUpgradeModuleData *data = m_moduleData;
+	const SpellRechargeModifierUpgradeModuleData *data = (const SpellRechargeModifierUpgradeModuleData *)getModuleData();
 	((Rva002AA0BFDwordCounter *)player)->inc();
 	applyModifier(player, data);
 }
@@ -179,7 +171,7 @@ void SpellRechargeModifierUpgrade::upgradeRemovalImplementation()
 {
 	if (!slot0())
 		return;
-	const SpellRechargeModifierUpgradeModuleData *data = m_moduleData;
+	const SpellRechargeModifierUpgradeModuleData *data = (const SpellRechargeModifierUpgradeModuleData *)getModuleData();
 	Player *player = m_object->getControllingPlayer();
 	if (!player)
 		return;
@@ -190,7 +182,7 @@ void SpellRechargeModifierUpgrade::upgradeRemovalImplementation()
 // ?rva004B5DDC@SpellRechargeModifierUpgrade@@UAEXXZ @0x004B5DDC
 void SpellRechargeModifierUpgrade::rva004B5DDC()
 {
-	if (m_moduleData->m_startsActive)
+	if (((const SpellRechargeModifierUpgradeModuleData *)getModuleData())->m_startsActive)
 	{
 		upgradeImplementation();
 		slot9(1);
@@ -207,7 +199,7 @@ void SpellRechargeModifierUpgrade::rva004B5DDC()
 // body moves its contribution from the old owner to the new one the same way).
 void SpellRechargeModifierUpgrade::onCapture(Player *oldPlayer, Player *newPlayer)
 {
-    const SpellRechargeModifierUpgradeModuleData *data = m_moduleData;
+    const SpellRechargeModifierUpgradeModuleData *data = (const SpellRechargeModifierUpgradeModuleData *)getModuleData();
     if (oldPlayer)
     {
         ((Rva002AA0C6DwordCounter *)oldPlayer)->dec();

@@ -262,40 +262,12 @@ struct BloodthirstyUpdateModuleData
 
 // The module base chain the matched dtor 0x0044DFE0 restores: vftables at
 // +0x00/+0x0C/+0x10 and the BloodthirstyUpdateIface one at +0x20.
-class BehaviorModuleBase
-{
-public:
-	virtual void behaviorModuleBaseAnchor();
-	BloodthirstyUpdateModuleData *m_moduleData;
-	Object *m_object;
-};
 
-class BehaviorModuleOther
-{
-public:
-	virtual void behaviorModuleOtherAnchor();
-};
 
-class BehaviorModule : public BehaviorModuleBase, public BehaviorModuleOther
-{
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
 
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-public:
-	virtual ~UpdateModule();
-	void xfer(Xfer *xfer);
-protected:
-	unsigned m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_bfmeReserved;
-};
 
 class BloodthirstyUpdateIface
 {
@@ -430,7 +402,7 @@ NameKeyType BloodthirstyUpdate::getModuleNameKey() const
 bool BloodthirstyUpdate::rva0044E12F(Object *obj)
 {
 	Object *candidate = obj->rva002931F5(false);
-	BloodthirstyUpdateModuleData *data = m_moduleData;
+	BloodthirstyUpdateModuleData *data = (BloodthirstyUpdateModuleData *)getModuleData();
 	if (candidate == 0)
 		return false;
 	else
@@ -462,7 +434,7 @@ bool BloodthirstyUpdate::rva0044E12F(Object *obj)
 bool BloodthirstyUpdate::isValidSacrifice(Object *obj)
 {
 	Object *candidate = obj->rva002931F5(false);
-	BloodthirstyUpdateModuleData *data = m_moduleData;
+	BloodthirstyUpdateModuleData *data = (BloodthirstyUpdateModuleData *)getModuleData();
 	if (candidate == 0)
 		return false;
 	Rva0028C1A9Interface *iface = (Rva0028C1A9Interface *)candidate->rva0028C1A9();
@@ -579,7 +551,7 @@ void BloodthirstyUpdate::addSacrifice(Object *victim)
 	++m_kills;
 	if (m_kills == 1)
 		resolved->setModelConditionStateForHorde(MODELCONDITION_40);
-	self->rva002931F5(false)->rva00294C1A(victim, true, m_moduleData->m_experienceModifier);
+	self->rva002931F5(false)->rva00294C1A(victim, true, ((const BloodthirstyUpdateModuleData *)getModuleData())->m_experienceModifier);
 	Rva250Module *module = resolved->getRva250();
 	if (module && module->rvaSlot69(0) == 1)
 		cancelSacrifice();
@@ -589,7 +561,7 @@ void BloodthirstyUpdate::addSacrifice(Object *victim)
 
 Rva002390CB BloodthirstyUpdate::rva0044E2F7() const
 {
-	return m_moduleData->m_initiateVoice;
+	return ((const BloodthirstyUpdateModuleData *)getModuleData())->m_initiateVoice;
 }
 
 // tu-skeleton: 0x0044E099 17B ?buildFieldParse@BloodthirstyUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)

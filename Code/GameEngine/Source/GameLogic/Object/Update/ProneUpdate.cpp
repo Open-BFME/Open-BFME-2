@@ -97,6 +97,7 @@ enum UpdateSleepTime
 class ModuleData;
 
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 
 

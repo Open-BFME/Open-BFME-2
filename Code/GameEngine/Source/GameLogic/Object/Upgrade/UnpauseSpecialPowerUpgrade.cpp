@@ -27,22 +27,7 @@ public:
 	virtual void setReadyFrame(UnsignedInt frame) = 0;
 	virtual void pauseCountdown(Bool pause) = 0;
 };
-class BehaviorModuleInterface
-{
-public:
-	virtual void b00(); virtual void b01(); virtual void b02(); virtual void b03();
-	virtual void b04(); virtual void b05(); virtual void b06(); virtual void b07();
-	virtual SpecialPowerModuleInterface *getSpecialPower();
-};
-class BehaviorModule
-{
-public:
-	virtual ~BehaviorModule();
-	BehaviorModuleInterface *getBehaviorModuleInterface() { return &m_interface; }
-private:
-	unsigned char m_pad04[0x0C - 0x04];
-	BehaviorModuleInterface m_interface; // +0x0C
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 class Rva004B555F;
 class Object
 {
@@ -248,7 +233,7 @@ void UnpauseSpecialPowerUpgrade::upgradeImplementation()
 {
 	for (BehaviorModule **behaviorModule = getObject()->m_behaviors; *behaviorModule; ++behaviorModule)
 	{
-		SpecialPowerModuleInterface *sp = (*behaviorModule)->getBehaviorModuleInterface()->getSpecialPower();
+		SpecialPowerModuleInterface *sp = (*behaviorModule)->getSpecialPower();
 		if (!sp)
 			continue;
 		const SpecialPowerTemplate *specialPowerTemplate = sp->getSpecialPowerTemplate();
@@ -266,7 +251,7 @@ void UnpauseSpecialPowerUpgrade::upgradeRemovalImplementation()
 		return;
 	for (BehaviorModule **behaviorModule = getObject()->m_behaviors; *behaviorModule; ++behaviorModule)
 	{
-		SpecialPowerModuleInterface *sp = (*behaviorModule)->getBehaviorModuleInterface()->getSpecialPower();
+		SpecialPowerModuleInterface *sp = (*behaviorModule)->getSpecialPower();
 		if (!sp)
 			continue;
 		if (sp->getSpecialPowerTemplate() != getUnpauseSpecialPowerUpgradeModuleData()->m_specialPowerTemplate)

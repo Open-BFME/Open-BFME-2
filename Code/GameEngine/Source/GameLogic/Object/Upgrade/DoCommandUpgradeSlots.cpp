@@ -33,15 +33,7 @@ struct DoCommandUpgradeModuleData
 	unsigned char m_11C[4]; // +0x11C (AsciiString)
 };
 
-class BehaviorModule
-{
-public:
-	virtual ~BehaviorModule();
-protected:
-	const DoCommandUpgradeModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-};
-struct BehaviorModuleInterface { virtual void f0C(); };
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class UpgradeMux
 {
@@ -53,7 +45,7 @@ public:
 	virtual void upgradeImplementation() = 0;
 };
 
-class UpgradeModule : public BehaviorModule, public BehaviorModuleInterface, public UpgradeMux
+class UpgradeModule : public BehaviorModule, public UpgradeMux
 {
 };
 
@@ -68,9 +60,9 @@ public:
 void DoCommandUpgrade::upgradeRemovalImplementation()
 {
 	Object *obj = m_object;
-	if (obj && m_moduleData)
+	if (obj && getModuleData())
 	{
-		const CommandButton *button = TheControlBar->findCommandButton(*(const AsciiString *)m_moduleData->m_11C);
+		const CommandButton *button = TheControlBar->findCommandButton(*(const AsciiString *)((const DoCommandUpgradeModuleData *)getModuleData())->m_11C);
 		if (button)
 			obj->doCommandButton(button, 0, 0);
 	}
@@ -80,9 +72,9 @@ void DoCommandUpgrade::upgradeRemovalImplementation()
 void DoCommandUpgrade::upgradeImplementation()
 {
 	Object *obj = m_object;
-	if (obj && m_moduleData)
+	if (obj && getModuleData())
 	{
-		const CommandButton *button = TheControlBar->findCommandButton(*(const AsciiString *)m_moduleData->m_118);
+		const CommandButton *button = TheControlBar->findCommandButton(*(const AsciiString *)((const DoCommandUpgradeModuleData *)getModuleData())->m_118);
 		if (button)
 			obj->doCommandButton(button, 0, 0);
 	}

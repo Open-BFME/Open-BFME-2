@@ -89,20 +89,13 @@ public:
 	unsigned int m_A0; // +0xA0
 };
 class ModuleData;
-class BehaviorModule
-{
-public:
-	virtual ~BehaviorModule();
-protected:
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 class Rva00373EC6 : public BehaviorModule
 {
 public:
 	void rva00374815();
 private:
-	unsigned char m_pad0C[0x20 - 0x0C];
+	unsigned char m_pad0C[0x20 - 0x10];
 	unsigned int m_20; // +0x20
 	unsigned int m_24; // +0x24
 	unsigned int m_28; // +0x28

@@ -138,15 +138,7 @@ public:
 	float m_repairMaxAltitude;
 };
 
-class BehaviorModule
-{
-public:
-	virtual ~BehaviorModule();
-	Object *getObject() const { return m_object; }
-protected:
-	const SlavedUpdateModuleData *m_moduleData;
-	Object *m_object;
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class SlavedUpdate : public BehaviorModule
 {
@@ -154,7 +146,7 @@ public:
 	void moveToNewRepairSpot();
 	SlavedUpdateModuleData *getSlavedUpdateModuleData() const { return (SlavedUpdateModuleData *)m_moduleData; }
 private:
-	unsigned char m_pad0C[0x24 - 0x0C];
+	unsigned char m_pad0C[0x24 - 0x10];
 	Int m_slaver;
 	Coord3D m_guardPointOffset;
 };

@@ -104,23 +104,8 @@ public:
 	virtual void slot64() = 0;
 };
 
-class BehaviorModuleInterface
-{
-public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual ContainModuleInterface *getContain();
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class BehaviorModule
-{
-public:
-	virtual ~BehaviorModule();
-	BehaviorModuleInterface *getBehaviorModuleInterface() { return &m_interface; }
-private:
-	unsigned char m_pad04[0x0C - 0x04];
-	BehaviorModuleInterface m_interface; // +0x0C
-};
 
 class ModelConditionFlags
 {
@@ -245,7 +230,7 @@ void GarrisonUpgrade::upgradeRemovalImplementation()
 	Object *object = m_object;
 	for (BehaviorModule **module = object->getBehaviorModules(); *module != 0; ++module)
 	{
-		ContainModuleInterface *contain = (*module)->getBehaviorModuleInterface()->getContain();
+		ContainModuleInterface *contain = static_cast<BehaviorModuleInterface &>(**module).getContain();
 		if (contain != 0 && contain->isGarrisonable())
 		{
 			object->clearModelConditionState(MODELCONDITION_UPGRADE_GARRISON);
@@ -266,7 +251,7 @@ void GarrisonUpgrade::upgradeImplementation()
 	Object *object = m_object;
 	for (BehaviorModule **module = object->getBehaviorModules(); *module != 0; ++module)
 	{
-		ContainModuleInterface *contain = (*module)->getBehaviorModuleInterface()->getContain();
+		ContainModuleInterface *contain = static_cast<BehaviorModuleInterface &>(**module).getContain();
 		if (contain != 0 && contain->isGarrisonable())
 		{
 			object->setModelConditionState(MODELCONDITION_UPGRADE_GARRISON);

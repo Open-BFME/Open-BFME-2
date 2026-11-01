@@ -116,14 +116,7 @@ public:
 };
 class ModuleData;
 class Rva00406F9C;
-class BehaviorModule
-{
-public:
-	virtual ~BehaviorModule();
-protected:
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 class UpgradeModuleInterface
 {
 public:
@@ -146,7 +139,7 @@ protected:
 	virtual void slot09() = 0;
 	virtual void upgradeImplementation() = 0;
 };
-class UpgradeModule : public BehaviorModule, public UpgradeModuleInterface, public UpgradeMuxIface
+class UpgradeModule : public BehaviorModule, public UpgradeMuxIface
 {
 public:
 	void rva004CE4A0();
