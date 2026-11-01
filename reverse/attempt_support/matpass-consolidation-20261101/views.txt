@@ -1,0 +1,26 @@
+tu: Code/Libraries/Source/WWVegas/WW3D2/matpass.cpp
+seed: Code/Libraries/Source/WWVegas/WW3D2/matpass.cpp  (6 files)
+  RefCountClass: reverted (2 files)
+      REVERTED: Code/Libraries/Source/WWVegas/WW3D2/MaterialPassClassCtorThunk.cpp: the rewrite changes the object's external symbols (lost ['?Delete_This@RefCountClass@@UAEXXZ'], gained ['?Delete_This@RefCountClass@@UAEXXZ'])
+      rename in Code/Libraries/Source/WWVegas/WW3D2/MaterialPassClassDestructor.cpp: NumRefs -> m_numRefs
+  MaterialPassStage: applied (2 files)
+      rename in Code/Libraries/Source/WWVegas/WW3D2/MaterialPassClassDestructor.cpp: Pointer -> m_ptr
+  MaterialPassClass: conflict (3 files)
+      CONFLICT: base clause differs: Code/Libraries/Source/WWVegas/WW3D2/MaterialPassClassCtorThunk.cpp: `public RefCountClass`; Code/Libraries/Source/WWVegas/WW3D2/MaterialPassClassDestructor.cpp: `public RefCountClass`; Code/Libraries/Source/WWVegas/WW3D2/MaterialPassInstallMaterials.cpp: `-`
+  BFME2TextureResource: already shared (2 files)
+  BFME2TextureRef: conflict (2 files)
+      CONFLICT: BFME2TextureRef::~BFME2TextureRef: two different inline bodies (Code/Libraries/Source/WWVegas/WW3D2/Rva0013EF40Siblings.cpp, Code/Libraries/Source/WWVegas/WW3D2/MaterialPassInstallMaterials.cpp)
+  Rva0013EF40Category: applied (2 files)
+      note: sizeof 0x10 from Code/Libraries/Source/WWVegas/WW3D2/Rva0013EF40Siblings.cpp; Code/Libraries/Source/WWVegas/WW3D2/MaterialPassInstallMaterials.cpp (0x1) stop at their last field
+applied: ['MaterialPassStage', 'Rva0013EF40Category']
+donors accepted by tu_skeleton --merge --dry-run: 0 -> 0
+  rejected before Code/Libraries/Source/WWVegas/WW3D2/MaterialPassClassCtorThunk.cpp: compile: Code\Libraries\Source\WWVegas\WW3D2\.matpass.b65ff35eb4175390.tu_skeleton.cpp(52) : error C2065: 'm_28' : undeclared identifier | Code\Libraries\Source\WWVegas\WW3D2\.matpass.b65ff35eb4175390
+  rejected before Code/Libraries/Source/WWVegas/WW3D2/MaterialPassClassDestructor.cpp: loses 2 row(s) under the carried flag override ''
+  rejected before Code/Libraries/Source/WWVegas/WW3D2/MaterialPassInstallMaterials.cpp: loses 2 row(s) under the carried flag override ''
+  rejected before Code/Libraries/Source/WWVegas/WW3D2/Rva0013EEB0Cluster.cpp: no baseline match
+  rejected before Code/Libraries/Source/WWVegas/WW3D2/Rva0013EF40Siblings.cpp: no baseline match
+  still rejected Code/Libraries/Source/WWVegas/WW3D2/MaterialPassClassCtorThunk.cpp: compile: Code\Libraries\Source\WWVegas\WW3D2\.matpass.b6f77bb4496e6090.tu_skeleton.cpp(51) : error C2065: 'm_28' : undeclared identifier | Code\Libraries\Source\WWVegas\WW3D2\.matpass.b6f77bb4496e6090
+  still rejected Code/Libraries/Source/WWVegas/WW3D2/MaterialPassClassDestructor.cpp: loses 2 row(s) under the carried flag override ''
+  still rejected Code/Libraries/Source/WWVegas/WW3D2/MaterialPassInstallMaterials.cpp: loses 2 row(s) under the carried flag override ''
+  still rejected Code/Libraries/Source/WWVegas/WW3D2/Rva0013EEB0Cluster.cpp: no baseline match
+  still rejected Code/Libraries/Source/WWVegas/WW3D2/Rva0013EF40Siblings.cpp: no baseline match

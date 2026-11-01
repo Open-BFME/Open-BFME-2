@@ -1,0 +1,30 @@
+[
+  {
+    "source": "seed",
+    "name": "?Set_Material@MaterialPassClass@@QAEXPAVVertexMaterialClass@@@Z",
+    "compiled_length": 39,
+    "target_size": "39",
+    "exact": false
+  },
+  {
+    "source": "seed",
+    "name": "?Set_Shader@MaterialPassClass@@QAEXVShaderClass@@@Z",
+    "compiled_length": 22,
+    "target_size": "22",
+    "exact": true
+  },
+  {
+    "source": "seed",
+    "name": "?Peek_Texture@MaterialPassClass@@QBEPAVTextureClass@@H@Z",
+    "compiled_length": 11,
+    "target_size": "11",
+    "exact": true
+  },
+  {
+    "source": "getter",
+    "name": "?Get_Texture@Rva0013EF40Category@@QAE?AUBFME2TextureRef@@H@Z",
+    "compiled_length": 35,
+    "target_size": "35",
+    "exact": true
+  }
+]

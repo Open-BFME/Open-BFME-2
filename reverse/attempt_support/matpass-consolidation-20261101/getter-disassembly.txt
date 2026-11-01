@@ -1,0 +1,24 @@
+retail:
+000 push ecx
+001 mov eax, dword ptr [esp + 0xc]
+005 mov ecx, dword ptr [ecx + eax*4 + 8]
+009 test ecx, ecx
+00b mov eax, dword ptr [esp + 8]
+00f mov dword ptr [esp], 0
+016 mov dword ptr [eax], ecx
+018 je 0x1f
+01a add word ptr [ecx + 4], 1
+01f pop ecx
+020 ret 8
+compiled:
+000 push ecx
+001 mov eax, dword ptr [esp + 0xc]
+005 mov ecx, dword ptr [ecx + eax*4 + 8]
+009 test ecx, ecx
+00b mov eax, dword ptr [esp + 8]
+00f mov dword ptr [esp], 0
+016 mov dword ptr [eax], ecx
+018 je 0x1e
+01a inc word ptr [ecx + 4]
+01e pop ecx
+01f ret 8

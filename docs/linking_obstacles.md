@@ -12215,6 +12215,17 @@ Census confirmation of this edit remains pending.
 - udp donors (0x00594976, 0x00594A06, 0x00594B2E): the ZH bodies (`SetBlocking`, `GetStatus`, `AllowBroadcasts`, GeneralsMD udp.cpp:210/330/504) are the obvious names, but `rename.py function --basis canonical:zh` refuses: name_evidence has no zh-body placement at these RVAs (the ZH sweep, 27,011 records, places the UDP COMDATs elsewhere or not at all), and `inferred` needs a two-agent agreement record. udp.cpp's `/alternatename` for GetStatus already reflects the same gap. Not renamed.
 - matpass: the two flag-override donors (MaterialPassClassDestructor `/G7`, MaterialPassInstallMaterials `/O2 /G7 /arch:SSE`) disagree with matpass.cpp's flags, so they cannot share the TU without a per-function optimize pragma; the ctor thunk's placeholder fields `m_28/m_2c/m_30/m_34` (8 stage wrappers then four fields) have no counterpart in the ZH `MaterialPassClass` layout matpass.cpp includes; the two Rva0013EE* donors have no baseline match.
 
+2026-11-01 material-pass follow-up (`5aaa45b`): the
+[native-lifetime and compiler-profile proof](../reverse/attempt_support/matpass-consolidation-20261101/readme.md)
+maps those tail offsets to shader/material/enable/cull fields, but confirms
+that the pristine header's raw texture pointers lack native's eight owning
+wrapper lifetimes. G7 fixes the getter's INC/ADD mismatch and preserves two
+seed rows, while breaking its existing 39-byte Set_Material row. Mechanical
+view reconciliation passes 13 strict rows but enables no merge; all source
+trials are restored. Native class/lifetime and coherent profile recovery remain
+prerequisites. The earlier pragma suggestion is not used; no hatch, row, source
+move or census gain is introduced.
+
 ### LINK-126: the camera-track key's assignment at 0x00540053 rowed as a pair copy constructor
 
 **Status: Repair landed / awaiting verification. Updated: 2026-10-27; inspected revision: 472c3b46dc.**
