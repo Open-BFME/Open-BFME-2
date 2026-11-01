@@ -120,17 +120,19 @@ extern unsigned number_of_DX8_calls;
 class IndexBufferClass;
 class VertexBufferClass;
 
-class Vector4
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
+
+static __forceinline void copyVector4(Vector4 &row, const Vector4 &other)
 {
-public:
-	__forceinline Vector4() {}
-	__declspec(dllimport) __forceinline Vector4(Real x, Real y, Real z, Real w) { X = x; Y = y; Z = z; W = w; }
-	__forceinline Vector4 &operator=(const Vector4 &v) { X = v.X; Y = v.Y; Z = v.Z; W = v.W; return *this; }
-	__forceinline void Set(Real x, Real y, Real z, Real w) { X = x; Y = y; Z = z; W = w; }
-	__forceinline Real &operator[](int i) { return (&X)[i]; }
-	__forceinline const Real &operator[](int i) const { return (&X)[i]; }
-	Real X, Y, Z, W;
+ row.X=other.X; row.Y=other.Y; row.Z=other.Z; row.W=other.W;
+}
+namespace {
+struct GpuTransformRow : Vector4
+{
+ __declspec(dllimport) __forceinline GpuTransformRow(Real x, Real y, Real z, Real w)
+ { X=x; Y=y; Z=z; W=w; }
 };
+}
 
 class Matrix3D
 {
@@ -153,7 +155,7 @@ class Matrix4
 public:
 	__forceinline explicit Matrix4(const Matrix3D &matrix3D)
 	{
-		Row[0] = matrix3D[0]; Row[1] = matrix3D[1]; Row[2] = matrix3D[2]; Row[3] = Vector4(0.0f, 0.0f, 0.0f, 1.0f);
+		copyVector4(Row[0], matrix3D[0]); copyVector4(Row[1], matrix3D[1]); copyVector4(Row[2], matrix3D[2]); Row[3].Set(0.0f, 0.0f, 0.0f, 1.0f);
 	}
 	__forceinline Matrix4() {}
 	__forceinline explicit Matrix4(bool identity)
@@ -163,15 +165,15 @@ public:
 	}
 	__forceinline Matrix4(const Vector4 &vector4, const Vector4 &r1, const Vector4 &r2, const Vector4 &r3)
 	{
-		Row[0] = vector4; Row[1] = r1; Row[2] = r2; Row[3] = r3;
+		copyVector4(Row[0], vector4); copyVector4(Row[1], r1); copyVector4(Row[2], r2); copyVector4(Row[3], r3);
 	}
 	__forceinline Matrix4(const Matrix4 &matrix4)
 	{
-		Row[0] = matrix4.Row[0]; Row[1] = matrix4.Row[1]; Row[2] = matrix4.Row[2]; Row[3] = matrix4.Row[3];
+		copyVector4(Row[0], matrix4.Row[0]); copyVector4(Row[1], matrix4.Row[1]); copyVector4(Row[2], matrix4.Row[2]); copyVector4(Row[3], matrix4.Row[3]);
 	}
 	__forceinline Matrix4 &operator=(const Matrix4 &m)
 	{
-		Row[0] = m.Row[0]; Row[1] = m.Row[1]; Row[2] = m.Row[2]; Row[3] = m.Row[3];
+		copyVector4(Row[0], m.Row[0]); copyVector4(Row[1], m.Row[1]); copyVector4(Row[2], m.Row[2]); copyVector4(Row[3], m.Row[3]);
 		return *this;
 	}
 	__forceinline void Make_Identity(void)
@@ -184,10 +186,10 @@ public:
 	__forceinline Matrix4 Transpose(void) const
 	{
 		return Matrix4(
-			Vector4(Row[0][0], Row[1][0], Row[2][0], Row[3][0]),
-			Vector4(Row[0][1], Row[1][1], Row[2][1], Row[3][1]),
-			Vector4(Row[0][2], Row[1][2], Row[2][2], Row[3][2]),
-			Vector4(Row[0][3], Row[1][3], Row[2][3], Row[3][3]));
+			GpuTransformRow(Row[0].X, Row[1].X, Row[2].X, Row[3].X),
+			GpuTransformRow(Row[0].Y, Row[1].Y, Row[2].Y, Row[3].Y),
+			GpuTransformRow(Row[0].Z, Row[1].Z, Row[2].Z, Row[3].Z),
+			GpuTransformRow(Row[0].W, Row[1].W, Row[2].W, Row[3].W));
 	}
 	Vector4 Row[4];
 };

@@ -1,5 +1,11 @@
 # Linking obstacle register
 
+
+### Six-source publication check after concurrent updates (2026-11-01)
+
+Native/strict checks again pass all18 rows and retain all118 external code/relocation instances. Six previews preserve5629->5629 against e78b61f1b2. Immutable outgoing base d7e6c9e17cb8dcc3f2107ed1fcf43cd01b694ef7: audit still INCONCLUSIVE for the differing index baseline and missing 0CreateAHeroManager21FE49 receipt; complete consumer selection remains UNKNOWN. The GPU copy-constructor shadow divergence is an unchanged original definition, documented separately from this Vector4 adoption.
+[Post-rebase evidence](../reverse/attempt_support/six-header-tasks-batch-20261101.md).
+
 ### VslotSmallBodiesAG_Rva00131CF2 linking prerequisites (2026-10-31)
 
 VslotSmallBodiesAG_Rva00131CF2.cpp (10 matched functions, 264 bytes) does not link due to 7 unresolved symbols:
@@ -8,6 +14,18 @@ VslotSmallBodiesAG_Rva00131CF2.cpp (10 matched functions, 264 bytes) does not li
 3. `?m@Gen_003bcb40@@QAEXH@Z` & `?buildFieldParse@Rva005C4352Base@@QAEXAAVMultiIniFieldParse@@@Z` (0x0047A69C): alias pins for the shared 3-byte `ret 4` empty base function (owned by `EmissionInfoCopyCtors.cpp` and `GameEngineInitFolded.cpp`).
 4. `?g_rva005C4352FieldParse@@3QBUFieldParse@@B`, `?g_rva005C4553FieldParse@@3QBUFieldParse@@B`, `?g_rva005C47A8FieldParse@@3QBUFieldParse@@B`: data tables at 0x00874540, 0x00874630, 0x00874704 in `.rdata` which are unowned in `reverse/data_ledger.csv`.
 Recorded `blocked` in `reverse/re_attempts.log`.
+
+
+### Six-source final scope (2026-11-01)
+
+All six owned providers pass strict native verification (18 existing rows); bounded e78b61f1b2 previews preserve LINKED5629->5629. Outgoing immutable-base batch audit is INCONCLUSIVE (exit2): index/compiler baseline differs and affected 0CreateAHeroManager21FE49.cpp lacks a current receipt. Complete consumer selection is UNKNOWN; no census/full-image/runtime gain. Six owning Vector4 retirements completed, while the separately restored Drawable attempt is not counted.
+[Batch evidence](../reverse/attempt_support/six-header-tasks-batch-20261101.md).
+
+
+### Adopt canonical Vector4 rows in GPU particle transforms (2026-11-01)
+
+GPU particle transform rows use canonical Vector4 storage. Existing native particle flow, rendering state and EH cleanup are retained; complete normal/frozen/EH/strict checks and owning acceptance pass. Only the Vector4 key is retired; complete image and runtime proof remain separate.
+[Evidence](../reverse/attempt_support/gpu-particle-transform-vector4-20261101.md).
 
 
 ### Adopt canonical Vector4 rows in formation previews (2026-11-01)
