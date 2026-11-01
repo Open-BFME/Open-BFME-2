@@ -15,6 +15,21 @@ class SubsystemInterface {
 public:
     SubsystemInterface();
     virtual ~SubsystemInterface();
+#ifdef BFME_SUBSYSTEM_SLOTS
+    virtual void init() = 0;
+    virtual bool loadIniFilesFromLegend();
+    virtual void slot3() {}
+    virtual bool slot4(int) { return false; }
+    virtual bool slot5() { return false; }
+    virtual int slot6() { return 0; }
+    virtual void slot7(int) {}
+    virtual void slot8() {}
+    virtual void reset() = 0;
+    virtual void update() = 0;
+    virtual bool slot11(int) { return false; }
+    virtual void slot12() {}
+    virtual void slot13(int) {}
+#endif
     // Out of line in retail: 0x00329F5E (row in subsystem/SubsystemInterfaceCopy.cpp); an
     // implicit copy would be emitted as a second COMDAT definition beside that row's.
     SubsystemInterface(const SubsystemInterface &that);

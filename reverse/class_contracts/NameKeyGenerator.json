@@ -1,0 +1,345 @@
+{
+ "bases": [
+  "SubsystemInterface"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "NameKeyGenerator",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 671,
+  "inherited": {
+   "base_views": 1,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0xc": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x1491ac"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "SubsystemInterface",
+       "offset": 0,
+       "own_vftable": "0x7d3568",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x1491ac"
+     ],
+     "value": 180044
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x1491ac"
+     ],
+     "value": {
+      "0x2bf48": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x1491ac"
+     ],
+     "value": {
+      "0x2bf4c": [
+       "??0?$hash_map@HURva0014918DElement@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHURva0014918DElement@@@_STL@@@3@@_STL@@QAE@XZ"
+      ],
+      "0x2bf60": [
+       "??0Rva00041004@@QAE@H@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x1491ac"
+     ],
+     "value": {
+      "0x0": "0x7d3568"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7d3568"
+     ],
+     "value": {
+      "count": 14,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GNameKeyGenerator@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x148dc3"
+       },
+       {
+        "name": "?reset@NameKeyGenerator@@UAEXXZ",
+        "slot": 1,
+        "target": "0x148c41"
+       },
+       {
+        "name": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+        "slot": 2,
+        "target": "0x1b5384"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 3,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 4,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 5,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 6,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 7,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?reset@NameKeyGenerator@@UAEXXZ",
+        "slot": 9,
+        "target": "0x148c41"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 10,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 11,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 12,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 13,
+        "target": "0x47a69c"
+       }
+      ],
+      "table": "0x7d3568"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 7,
+  "retail_vtables": {
+   "0x7d3568": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "??_GNameKeyGenerator@@UAEPAXI@Z",
+     "1": "?reset@NameKeyGenerator@@UAEXXZ",
+     "2": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+     "3": "??1Region2D@@QAE@XZ",
+     "4": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "5": "?IsCRC@Xfer@@UBE_NXZ",
+     "6": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "7": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "8": "??1Region2D@@QAE@XZ",
+     "9": "?reset@NameKeyGenerator@@UAEXXZ",
+     "10": "??1Region2D@@QAE@XZ",
+     "11": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "12": "??1Region2D@@QAE@XZ",
+     "13": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 34,
+  "view_sizes": {
+   "1": 634,
+   "180068": 1,
+   "180100": 2
+  },
+  "views": 637,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_NameKeyGenerator.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/NameKeyGenerator.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 2,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/GameEngineInit.cpp",
+    "Code/GameEngine/Source/Common/NameKeyGeneratorLifetime.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/NameKeyGeneratorLifetime.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/NameKeyGeneratorLifetime.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 180040,
+   "sources": [
+    "Code/GameEngine/Source/Common/NameKeyGeneratorLifetime.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 180044,
+   "sources": [
+    "Code/GameEngine/Source/Common/NameKeyGeneratorKeyToName.cpp",
+    "Code/GameEngine/Source/Common/NameKeyGeneratorLifetime.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 180045,
+   "sources": [
+    "Code/GameEngine/Source/Common/NameKeyGeneratorLifetime.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 180046,
+   "sources": [
+    "Code/GameEngine/Source/Common/NameKeyGeneratorLifetime.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 180048,
+   "sources": [
+    "Code/GameEngine/Source/Common/NameKeyGeneratorLifetime.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 180052,
+   "sources": [
+    "Code/GameEngine/Source/Common/NameKeyGeneratorLifetime.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 180056,
+   "sources": [
+    "Code/GameEngine/Source/Common/NameKeyGeneratorLifetime.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 180060,
+   "sources": [
+    "Code/GameEngine/Source/Common/NameKeyGeneratorLifetime.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 180064,
+   "sources": [
+    "Code/GameEngine/Source/Common/NameKeyGeneratorKeyToName.cpp",
+    "Code/GameEngine/Source/Common/NameKeyGeneratorLifetime.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "inherited@0x4",
+   "candidates": {
+    "180096:A": 1,
+    "1:i1": 1
+   },
+   "class": "NameKeyGenerator"
+  },
+  {
+   "attribute": "slot0",
+   "candidates": {
+    "__vecDelDtor(uint)": 1,
+    "slot0()": 1
+   },
+   "class": "NameKeyGenerator"
+  }
+ ],
+ "size": 180100,
+ "size_by": "majority",
+ "vslots": {
+  "1": {
+   "decided_by": "bytes",
+   "member": "init()"
+  }
+ }
+}
