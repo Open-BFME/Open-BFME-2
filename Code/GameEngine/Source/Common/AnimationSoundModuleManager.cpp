@@ -91,17 +91,7 @@ enum INILoadType
 
 // BFME keeps m_loadType at INI+0x08; Zero Hour's header puts it at +0x2010
 // because of the 8KB read buffer BFME does not have (docs/ini_loading.md).
-class INI
-{
-public:
-	void initFromINI( void *what, const FieldParse *parseTable );
-	static void parseReal( INI *ini, void *instance, void *store, const void *userData );
-	INILoadType getLoadType() const { return m_loadType; }
-
-private:
-	char m_pad[ 0x08 ];
-	INILoadType m_loadType;	// +0x08
-};
+#include "../../Include/Common/INI/INI.h"
 
 
 // The retail table at 0x0083CA88: 1 entry and the null terminator.

@@ -108,14 +108,7 @@ AttributeModifierStore *TheAttributeModifierStore = 0;
  // Native singleton at RVA 0x009FE1D4.
 int Rva00404715Get();
 
-class INI {
-public:
-    const char *getNextToken(const char *seps);
-    void initFromINI(void *what, const FieldParse *parseTable);
-    int getLoadType() const { return m_loadType; }
-private:
-    char m_pad[8]; int m_loadType;
-};
+#include "../../Include/Common/INI/INI.h"
 
 struct Rva004DFCB0Element { unsigned word0; };
 

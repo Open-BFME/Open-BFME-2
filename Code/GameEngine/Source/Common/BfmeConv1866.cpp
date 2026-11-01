@@ -11,11 +11,7 @@ struct BfmeVecYW
 	BfmeEntryYW *volatile m_bfmeEndYW;
 };
 
-class INI
-{
-public:
-	static void __cdecl parseAsciiString(INI *ini, void *inst, void *field, const void *extra);
-};
+#include "../../Include/Common/INI/INI.h"
 
 void __cdecl bfmeParseYW(void *ini, void *inst, BfmeVecYW *store)
 {

@@ -138,7 +138,7 @@ template void _STL::vector<BfmeVectorRecord000C0BEC>::push_back(const BfmeVector
 // The existing BFME1-derived record view supplies structure only; target
 // C8492, C0BEC and this body independently establish its offsets and calls.
 // Explicit assignment branches preserve retail's argument-push layout.
-class INI { public: const char *getNextTokenOrNull(const char *); int scanInt(const char *); };
+#include "../../../Include/Common/INI/INI.h"
 namespace _STL { template <> void vector<AsciiString>::push_back(const AsciiString &); }
 void Rva000C855CParseRecord(INI *ini,Rva000C8492RecordOwner *owner) {
  if(!owner)return;

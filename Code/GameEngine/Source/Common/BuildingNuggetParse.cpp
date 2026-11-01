@@ -19,12 +19,7 @@
 
 #include "../../Include/Common/INI/FieldParse.h"
 
-class INI
-{
-public:
-	AsciiString getNextQuotedAsciiString();		// 0x0002E93F
-	void initFromINIMulti(void *what, const MultiIniFieldParse &parse);	// 0x0002D7A8
-};
+#include "../../Include/Common/INI/INI.h"
 
 
 // The nugget: vtable slot 3 builds its field parse.

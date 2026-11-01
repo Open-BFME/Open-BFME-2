@@ -95,13 +95,7 @@ public:
 // store through table 0x00C3A658 (the table the rowed 0x00417FF0 parse uses).
 struct FieldParse;
 
-class INI
-{
-public:
-	void initFromINI(void *what, const FieldParse *table);	// 0x0002DE78
-	static void parseInt(INI *, void *, void *, const void *);
-	static void parsePercentToReal(INI *, void *, void *, const void *);
-};
+#include "../../Include/Common/INI/INI.h"
 
 // Native BonusForLevel table C3A658..C3A6C8. The target supplies all six
 // field names, parser addresses and offsets in the 24-byte level record.

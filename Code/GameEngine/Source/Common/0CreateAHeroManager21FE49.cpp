@@ -137,16 +137,7 @@ class Xfer;
 
 enum INILoadType { INI_LOAD_INVALID, INI_LOAD_OVERWRITE };
 
-class INI
-{
-public:
-	INI();							// 0x0002CDB0
-	~INI();							// 0x0002CE5B
-	void loadFile(AsciiString filename, INILoadType loadType, Xfer *pXfer);	// 0x0002DC75
-
-private:
-	unsigned char m_data[0x87c];
-};
+#include "../../Include/Common/INI/INI.h"
 
 class CreateAHeroSubsystemListView
 {

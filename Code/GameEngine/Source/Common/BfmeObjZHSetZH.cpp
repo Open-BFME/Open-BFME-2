@@ -95,13 +95,7 @@ void BfmeObjZH::bfmeSetZH(const BfmeVecZH *value,
 	localName.clear();
 }
 
-class INI
-{
-public:
-	const char *getNextSubToken(const char *separators) throw();
-	const char *getNextTokenOrNull(const char *separators) throw();
-	float scanReal(const char *token) throw();
-};
+#include "../../Include/Common/INI/INI.h"
 
 class BfmeObjEB;
 void bfmeApplyEB(BfmeObjEB *object);

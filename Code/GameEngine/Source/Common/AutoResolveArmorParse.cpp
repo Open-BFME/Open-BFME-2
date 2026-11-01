@@ -9,11 +9,7 @@
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
 struct FieldParse { const char *token; FieldParseProc parse; const void *userData; int offset; };
 
-class INI
-{
-public:
-	void initFromINI(void *what, const FieldParse *table);
-};
+#include "../../Include/Common/INI/INI.h"
 
 extern "C" {
 void __identifier("?Rva00427294Parse@@YAXPAVINI@@PAX11@Z")();

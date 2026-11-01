@@ -73,18 +73,7 @@ class AsciiString;
 
 class Xfer;
 
-class INI
-{
-public:
-	void initFromINI(void *,const FieldParse *);
-	static void parseUnsignedInt(INI *,void *,void *,const void *);
-	static void parseAsciiString(INI *,void *,void *,const void *);
-	INI();
-	~INI();
-	unsigned char loadFile(AsciiString filename, INILoadType loadType, Xfer *xfer); // 0x0002DC75 returns 1
-	static void parseBool(INI *, void *, void *, const void *);
-	char m_pad00[0x87C];
-};
+#include "../../Include/Common/INI/INI.h"
 
 typedef void (*AwardFieldParser)(INI *,void *,void *,const void *);
 

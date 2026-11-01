@@ -31,12 +31,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
 #include "../../Include/Common/INI/FieldParse.h"
 
-class INI
-{
-public:
-	void initFromINI(void *what, const FieldParse *parseTable);
-	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);	// rowed 0x002F11E
-};
+#include "../../Include/Common/INI/INI.h"
 
 
 // The bling binder record: a group key and three upgrade names.

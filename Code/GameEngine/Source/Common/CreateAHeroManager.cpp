@@ -135,16 +135,7 @@ extern GameInfo *TheGameInfo;
 // list's xfer (+0x24) when TheSubsystemList (VA 0x00DFD940) exists.
 class Xfer;
 enum INILoadType { INI_LOAD_INVALID, INI_LOAD_OVERWRITE };
-class INI
-{
-public:
-	INI();							// 0x0002CDB0
-	~INI();							// 0x0002CE5B
-	void loadFile(AsciiString filename, INILoadType loadType, Xfer *pXfer);	// 0x0002DC75
-
-private:
-	unsigned char m_data[0x87c];
-};
+#include "../../Include/Common/INI/INI.h"
 // The dword at VA 0x00DFE348 (ColdGlobalDwordGetters.cpp) gates init's load.
 extern int g_Va00DFE348;
 class Player

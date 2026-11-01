@@ -276,11 +276,7 @@ struct Rva005AE7A5Class
 
 extern int g_Va00E046BC;
 
-class INI
-{
-public:
-	const char *rva0002DFE2(const char *seps, bool *substituted);
-};
+#include "../../Include/Common/INI/INI.h"
 
 class Rva003339CE
 {

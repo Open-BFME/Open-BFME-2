@@ -8,11 +8,7 @@
 // honest-address class Rva00415C56.
 struct FieldParse { const char *token; void (*parse)(class INI *, void *, void *, const void *); const void *userData; int offset; };
 extern const FieldParse s_crowdResponseFieldTable[];
-class INI
-{
-public:
-	void initFromINI(void *what, const struct FieldParse *table);
-};
+#include "../../Include/Common/INI/INI.h"
 class CrowdResponseTemplate
 {
 public:

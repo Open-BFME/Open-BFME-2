@@ -14,13 +14,7 @@
 typedef const char *ConstCharPtr;
 typedef const ConstCharPtr *ConstCharPtrArray;
 
-class INI
-{
-public:
-	const char *getNextSubToken(const char *expected);
-	int scanIndexList(const char *token, ConstCharPtrArray nameList);
-	int scanInt(const char *token);
-};
+#include "../../Include/Common/INI/INI.h"
 
 #include "../../../../reference/shims/iniexception/Common/INIException.h"
 
