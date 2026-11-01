@@ -1,0 +1,5 @@
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Code/Libraries/Source/WWVegas/WW3D2/DX8WebBrowserInitialize.cpp: LINKS  LINKED 771 -> 771 bytes (census 2026-11-01 09:19 at 0d24c60eef; file's own bytes 771)
+Code/GameEngine/Source/GameNetwork/WOLBrowser/WebBrowserComCreateInstance.cpp: LINKS  LINKED 141 -> 141 bytes (census 2026-11-01 09:19 at 0d24c60eef; file's own bytes 141)
+link_check: 2 of 2 link cleanly; LINKED 912 -> 912 bytes (3.9s)

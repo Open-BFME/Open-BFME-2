@@ -91,7 +91,7 @@ public:
 
 		if (context & (4 | 16)) {
 			IUnknown *unknownInstance;
-			createResult = CoCreateInstance(classId, outer, context, __uuidof(IUnknown),
+			createResult = CoCreateInstance(classId, outer, context, IID_IUnknown,
 				reinterpret_cast<void **>(&unknownInstance));
 
 			if (createResult >= 0) {
@@ -126,6 +126,14 @@ private:
 		}
 	}
 };
+
+// Both browser units bind runtime IID references to these existing owners;
+// keep the UUID template argument for the toolchain's type identity.
+template <> inline const IID &
+_com_IIID<IFEBrowserEngine2, &__uuidof(IFEBrowserEngine2)>::GetIID() throw()
+{
+	return g_bfmeIidTSA;
+}
 
 typedef _com_ptr_t<_com_IIID<IFEBrowserEngine2, &__uuidof(IFEBrowserEngine2)> >
 	IFEBrowserEngine2Ptr;

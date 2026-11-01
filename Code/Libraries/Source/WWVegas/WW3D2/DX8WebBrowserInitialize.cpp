@@ -2,7 +2,8 @@
 // Provenance: Open-BFME-1 game/Libraries/Source/WWVegas/WW3D2/DX8WebBrowserInitialize.cpp at 6583b3c1ff; include paths repointed at the
 // reference checkout and built the BFME2 way (/arch:SSE /G7), where its body places
 // exactly once in game.dat by masked byte search.
-// RVA 0x00958F20: int3 before start, ret at 0x009591EC then three int3.
+// BFME1 donor boundary: 0x00958F20..0x009591ED, surrounded by int3 padding.
+// BFME2 target: RVA 0x001772B0, all 717 bytes verified by its ledger row.
 // BrowserEngine.DLL / DllRegisterServer and the interface / class UUIDs
 // identify DX8WebBrowser::Initialize. Native VS2003 COM smart-pointer code
 // reproduces the complete 717-byte body. Dependency proofs:
@@ -48,6 +49,36 @@ template <> inline const IID &_com_IIID<IFEBrowserEngine2,&__uuidof(IFEBrowserEn
     return g_bfmeIidTSA;
 }
 typedef _com_ptr_t<_com_IIID<IFEBrowserEngine2,&__uuidof(IFEBrowserEngine2)> > IFEBrowserEngine2Ptr;
+
+// Preserve the VS2003 smart-pointer operation while sharing the existing
+// IUnknown GUID owner with its out-of-line provider. The compiler UUID
+// constant is the same value but would create a second data identity.
+template <> inline HRESULT IFEBrowserEngine2Ptr::CreateInstance(
+    const CLSID &classId, IUnknown *outer, DWORD context) throw()
+{
+    HRESULT result;
+    _Release();
+    if (context & (CLSCTX_LOCAL_SERVER | CLSCTX_REMOTE_SERVER)) {
+        IUnknown *unknown;
+        result = CoCreateInstance(classId, outer, context, IID_IUnknown,
+            reinterpret_cast<void **>(&unknown));
+        if (SUCCEEDED(result)) {
+            result = OleRun(unknown);
+            if (SUCCEEDED(result)) {
+                result = unknown->QueryInterface(GetIID(),
+                    reinterpret_cast<void **>(&m_pInterface));
+            }
+            unknown->Release();
+        }
+    } else {
+        result = CoCreateInstance(classId, outer, context, GetIID(),
+            reinterpret_cast<void **>(&m_pInterface));
+    }
+    if (FAILED(result))
+        m_pInterface = NULL;
+    return result;
+}
+
 // The browser smart pointer lives at retail 0x009F7040, the global
 // BfmeConv804.cpp owns as g_bfmeObjECF; this unit views it as the COM pointer.
 struct BfmeObjECF;

@@ -12313,6 +12313,18 @@ The supported dry run now accepts both small donors with the seed and keeps the
 link guard clean. Their absorption remains pending the whole-TU reservation;
 no source-file reduction is credited before application.
 
+**Browser GUID ownership repair (2026-11-01, control `821bd9d380`):**
+[The paired COM proof](../reverse/attempt_support/browser-guid-ownership-20261101/readme.md)
+binds both CreateInstance copies to the existing IUnknown and browser IID
+owners. All eight rows and the initialization EH graph remain exact; all 27
+external code definitions retain their raw bytes, with only GUID relocation
+names changing. The 141-byte copies now agree symbolically and both units
+retain LINKS, 912 -> 912 authored bytes against `0d24c60eef`. The owning data
+tool retires the initialization unit's one wrong-name key. Earlier one-sided
+trials are superseded only for this paired scope. No new global, pin, code row,
+census gain or image-ownership receipt is claimed; wider consumer audit remains
+the publication boundary.
+
 ### LINK-126: the camera-track key's assignment at 0x00540053 rowed as a pair copy constructor
 
 **Status: Repair landed / awaiting verification. Updated: 2026-10-27; inspected revision: 472c3b46dc.**

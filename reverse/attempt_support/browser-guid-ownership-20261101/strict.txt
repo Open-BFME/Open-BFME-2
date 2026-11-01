@@ -1,0 +1,15 @@
+link_check: preparing 2 explicit safe provider(s), no extra sources
+Compile: 1 of 2 TU(s) (deps-cache: 1 current)
+Source claims: OK (2 sources, scoped byte-verified)
+Data rows: OK (1 row(s) byte-verified)
+Compile: 0 of 2 TU(s) (deps-cache: 2 current)
+Funclet pins: 4 row(s) verified past a renumbered $L label
+    Unwind@00b67f10 (Code/Libraries/Source/WWVegas/WW3D2/DX8WebBrowserInitialize.cpp): $L57026 was renumbered; verified parent EH data places $L62679 at 0x00767F10
+    Unwind@00b67f18 (Code/Libraries/Source/WWVegas/WW3D2/DX8WebBrowserInitialize.cpp): $L57027 was renumbered; verified parent EH data places $L62680 at 0x00767F18
+    Unwind@00b67f20 (Code/Libraries/Source/WWVegas/WW3D2/DX8WebBrowserInitialize.cpp): $L57028 was renumbered; verified parent EH data places $L62681 at 0x00767F20
+    Unwind@00b67f28 (Code/Libraries/Source/WWVegas/WW3D2/DX8WebBrowserInitialize.cpp): $L57029 was renumbered; verified parent EH data places $L62682 at 0x00767F28
+Functions: OK 8/8 matched across 2 source file(s)
+String-ref verify: OK (2 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (0 compiler literals verified)
+Import-ref verify: OK (9 named imports verified)
+link_check: 2 explicit providers byte-verified with strict reusable receipts; census/index/status unchanged, LINK closure not yet checked
