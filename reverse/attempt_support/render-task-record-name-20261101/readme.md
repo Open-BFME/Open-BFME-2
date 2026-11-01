@@ -53,3 +53,17 @@ required. See LINK-024. These observations are not fresh census measurements.
 Normal outgoing consumer audit remains required. Its result must be read at
 publication; neither this one-provider preview nor its strict receipt proves
 whole-image closure.
+
+## Publication result
+
+Source commit 2e97f871794 landed through the normal publisher and hooks on its
+first attempt. Commit and push both retain EXACT 1 native EH graph; scoped
+DIR32 passes. The push reuses the strict receipt for this one provider.
+The outgoing consumer audit is explicitly INCONCLUSIVE: index 0156fc269e
+predates outgoing base f878d8a980, and affected consumer
+Code/GameEngine/Source/Common/AICowerState_onEnter.cpp lacks a current strict
+receipt. Carry the renderer provider and its affected consumers into the next
+scheduled census. The source-local result is verified; broader current
+selection, census credit and runtime behavior remain unverified. No direct
+link cycle or whole-tree rebuild was started. Both retained name-pass claims
+were released after publication.
