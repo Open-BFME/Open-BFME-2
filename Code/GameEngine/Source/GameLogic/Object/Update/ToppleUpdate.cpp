@@ -78,13 +78,10 @@ extern ThingFactory *TheThingFactory;
 
 struct ToppleUpdateModuleData {char pad[8];const FXList *toppleFX,*bounceFX;AsciiString stump;float initialVelocity,initialAccel,bounceVelocity,minSpeed;bool killWhenToppled,killWhenStart,killStump,leftRight,reorient;};
 
-class ObjectModule {public:virtual ~ObjectModule();const ToppleUpdateModuleData *data;Object *object;};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-class BehaviorModuleInterface {public:virtual void behaviorModuleInterfaceSlot();};
 
-class UpdateModuleInterface {public:virtual UpdateSleepTime update()=0;};
 
-class UpdateModule:public ObjectModule,public BehaviorModuleInterface,public UpdateModuleInterface {public:virtual ~UpdateModule();char pad14[0xC];protected:__forceinline Object *getObject()const{return object;}void setWakeFrame(Object *,UpdateSleepTime);};
 
 class CollideModuleInterface {public:virtual void onCollide(Object *,const Coord3D *,const Coord3D *)=0;};
 
@@ -195,28 +192,28 @@ __forceinline long fast_float2long_round(float f) {
 }
 
 void ToppleUpdate::applyTopplingForce(const Coord3D *toppleDirection,float toppleSpeed,unsigned opts) {
- if(object->status438&1)return;
- const ToppleUpdateModuleData *toppleUpdateModuleData=data;
+ if(m_object->status438&1)return;
+ const ToppleUpdateModuleData *toppleUpdateModuleData=reinterpret_cast<const ToppleUpdateModuleData *>(getModuleData());
  if(toppleSpeed<toppleUpdateModuleData->minSpeed)toppleSpeed=toppleUpdateModuleData->minSpeed;
- Drawable *draw=object->getDrawable();setWakeFrame(getObject(),UPDATE_SLEEP_NONE);
- if(toppleUpdateModuleData->killWhenStart){setWakeFrame(object,UPDATE_SLEEP_FOREVER);object->kill(DAMAGE_UNRESISTABLE,DEATH_NORMAL);return;}
+ Drawable *draw=m_object->getDrawable();setWakeFrame(getObject(),UPDATE_SLEEP_NONE);
+ if(toppleUpdateModuleData->killWhenStart){setWakeFrame(m_object,UPDATE_SLEEP_FOREVER);m_object->kill(DAMAGE_UNRESISTABLE,DEATH_NORMAL);return;}
  direction=*toppleDirection;direction.normalize();TheScriptEngine->rva00357340(getObject(),&direction);
  velocity=toppleSpeed*toppleUpdateModuleData->initialVelocity;acceleration=toppleSpeed*toppleUpdateModuleData->initialAccel;state=1;options=opts;
  static NameKeyType sway=TheNameKeyGenerator->nameToKey("SwayClientUpdate");
  ClientUpdateModule **modules=draw->modules;
  if(modules){while(*modules){if((*modules)->getModuleNameKey()==sway)(*modules)->sway=0;++modules;}}
- float currentAngle=normalizeAngle(object->angle);
+ float currentAngle=normalizeAngle(m_object->angle);
  float toppleAngle=normalizeAngle(atan2(direction.y,direction.x));
- if(toppleUpdateModuleData->leftRight){toppleAngle=angleClosestTo(currentAngle+PI/2,currentAngle-PI/2,toppleAngle);direction.x=Cos(toppleAngle);direction.y=Sin(toppleAngle);TheAI->pathfinder->RemoveObjectFromPathfindMap(object);}
+ if(toppleUpdateModuleData->leftRight){toppleAngle=angleClosestTo(currentAngle+PI/2,currentAngle-PI/2,toppleAngle);direction.x=Cos(toppleAngle);direction.y=Sin(toppleAngle);TheAI->pathfinder->RemoveObjectFromPathfindMap(m_object);}
  float desiredAngle=angleClosestTo(toppleAngle+PI/2,toppleAngle-PI/2,currentAngle);
  countDelta=REAL_TO_INT_FLOOR(ANGULAR_LIMIT/(velocity*(float)2));
  if(countDelta<1)countDelta=1;
- angleDelta=(desiredAngle-currentAngle)/countDelta;object->setCondition0();FXList::doFXObj(toppleUpdateModuleData->toppleFX,object,0);
+ angleDelta=(desiredAngle-currentAngle)/countDelta;m_object->setCondition0();FXList::doFXObj(toppleUpdateModuleData->toppleFX,m_object,0);
  if(!toppleUpdateModuleData->stump.isEmpty()) {
   const ThingTemplate *thingTemplate=TheThingFactory->findTemplate(toppleUpdateModuleData->stump);
   CreateMask mask;memset(&mask,0,sizeof(mask));Object *stump=TheThingFactory->newObject(thingTemplate,0,&mask,(ObjectID)0);
-  if(stump){stump->setPosition(&object->position);stump->setOrientation(object->angle);stumpID=stump->id;
-   Drawable *ownerDraw=object->getDrawable();
+  if(stump){stump->setPosition(&m_object->position);stump->setOrientation(m_object->angle);stumpID=stump->id;
+   Drawable *ownerDraw=m_object->getDrawable();
    if(ownerDraw && (ownerDraw->flags262&1)) {
     if(!stump->conditions.mask(80)){stump->conditions.set(80);stump->rva0028AE6D();}
    }
@@ -238,11 +235,11 @@ UpdateSleepTime ToppleUpdate::update()
 	if ((state == 0) || (state == 2))
 		return UPDATE_SLEEP_FOREVER;
 
-	const ToppleUpdateModuleData *toppleUpdateModuleData = data;
+	const ToppleUpdateModuleData *toppleUpdateModuleData = reinterpret_cast<const ToppleUpdateModuleData *>(getModuleData());
 	const float VELOCITY_BOUNCE_LIMIT = 0.01f;
 	const float VELOCITY_BOUNCE_SOUND_LIMIT = 0.03f;
 
-	Object *obj = object;
+	Object *obj = m_object;
 	if (countDelta)
 	{
 		Matrix3D xfrm = *obj->getTransformMatrix();

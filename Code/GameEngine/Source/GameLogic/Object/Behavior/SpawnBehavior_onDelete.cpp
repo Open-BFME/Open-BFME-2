@@ -48,42 +48,11 @@ public:
 
 extern GameLogic *TheGameLogic;
 
-class BehaviorModuleBase
-{
-public:
-	virtual void unused();
-	const SpawnBehaviorModuleData *m_moduleData;
-	Object *m_object;
-};
 
-class BehaviorModuleOther
-{
-public:
-	virtual void unused();
-};
 
-class BehaviorModule : public BehaviorModuleBase, public BehaviorModuleOther
-{
-public:
-	BehaviorModule(Thing *thing, const ModuleData *moduleData);
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-class UpdateModuleInterface
-{
-public:
-	virtual void update() = 0;
-};
 
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-	unsigned m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_bfmeReserved;
-
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~UpdateModule();
-};
 
 class SpawnBehaviorInterface
 {
@@ -139,7 +108,7 @@ private:
 
 void SpawnBehavior::onDelete()
 {
-	const SpawnBehaviorModuleData *modData = m_moduleData;
+	const SpawnBehaviorModuleData *modData = reinterpret_cast<const SpawnBehaviorModuleData *>(getModuleData());
 	if (modData->m_spawnedRequireSpawner)
 	{
 		for (_STL::list<ObjectID>::iterator it = m_spawnIDs.begin(); it._M_node != m_spawnIDs.end()._M_node; )

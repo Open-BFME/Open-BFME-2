@@ -118,34 +118,10 @@ class Thing;
 
 class ModuleData;
 
-class BehaviorModule
-{
-public:
-	virtual ~BehaviorModule();
-protected:
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-};
+#include "../../../Include/GameLogic/Module/UpdateModule.h"
 
-class BehaviorModuleInterface
-{
-public:
-	virtual void behaviorModuleInterfaceAnchor();
-};
 
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
 
-class UpdateModule : public BehaviorModule, public BehaviorModuleInterface, public UpdateModuleInterface
-{
-protected:
-	unsigned int m_14;
-	int m_18;
-	int m_1C;
-};
 
 class SpecialPowerUpdateInterface
 {
@@ -269,21 +245,21 @@ public:
 class SpecialAbilityUpdate : public UpdateModule, public SpecialPowerUpdateInterface
 {
 public:
-	virtual void slot01();
-	virtual void slot02();
+
+
 protected:
 	virtual void xfer(Xfer *xfer);
 public:
 	virtual NameKeyType getModuleNameKey() const;
-	virtual void slot05(); virtual void slot06(); virtual void slot07();
-	virtual void slot08(); virtual void slot09(); virtual void slot10();
-	virtual void slot11(); virtual void slot12();
+
+
+
 protected:
 	virtual void onExit(bool a, bool b);
 public:
-	virtual void slot14();
-	virtual void slot15();
-	virtual void slot16();
+	virtual void primarySlot14();
+	virtual void primarySlot15();
+	virtual void primarySlot16();
 	virtual void triggerAbilityEffect();
 protected:
 	unsigned char m_pad24[0x40 - 0x24];

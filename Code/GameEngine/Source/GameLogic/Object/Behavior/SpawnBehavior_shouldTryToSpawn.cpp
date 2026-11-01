@@ -43,42 +43,11 @@ struct SpawnBehaviorModuleDataView
 	bool m_isOneShotData;
 };
 
-class BehaviorModuleBase
-{
-public:
-	virtual void unused();
-	const SpawnBehaviorModuleDataView *m_moduleData;
-	Object *m_object;
-};
 
-class BehaviorModuleOther
-{
-public:
-	virtual void unused();
-};
 
-class BehaviorModule : public BehaviorModuleBase, public BehaviorModuleOther
-{
-public:
-	BehaviorModule(Thing *thing, const ModuleData *moduleData);
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-class UpdateModuleInterface
-{
-public:
-	virtual void update() = 0;
-};
 
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-	unsigned m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_bfmeReserved;
-
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~UpdateModule();
-};
 
 class SpawnBehaviorInterface
 {
@@ -141,7 +110,7 @@ bool SpawnBehavior::shouldTryToSpawn()
 {
 	if (!m_active)
 		return false;
-	const SpawnBehaviorModuleDataView *modData = m_moduleData;
+	const SpawnBehaviorModuleDataView *modData = reinterpret_cast<const SpawnBehaviorModuleDataView *>(getModuleData());
 	Object *obj = m_object;
 	if (modData->m_isOneShotData && obj->testStatus(OBJECT_STATUS_RECONSTRUCTING))
 	{

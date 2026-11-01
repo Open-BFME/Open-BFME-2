@@ -22,11 +22,7 @@ class RGBAColorInt;
 struct XferUnknown11;
 #include "../../Include/Common/BfmeXfer.h"
 
-class UpdateModule {
-public:
-	void xfer(Xfer *xfer);
-};
-
+#include "../../Include/GameLogic/Module/UpdateModule.h"
 class Rva004DF81B {
 public:
 	void xfer(Xfer *xfer);
@@ -35,5 +31,5 @@ public:
 void Rva004DF81B::xfer(Xfer *xfer)
 {
 	xfer->Version1();
-	((UpdateModule *)this)->xfer(xfer);
+	((UpdateModule *)this)->UpdateModule::xfer(xfer);
 }

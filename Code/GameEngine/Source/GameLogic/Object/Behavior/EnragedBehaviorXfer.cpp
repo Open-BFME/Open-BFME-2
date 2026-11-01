@@ -28,20 +28,7 @@ class Object;
 
 #include "../../../../Include/Common/BfmeXfer.h"
 
-class UpdateModule
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~UpdateModule();
-	void xfer(Xfer *xfer);
-
-protected:
-	const ModuleData *m_moduleData;
-	Object *m_object;
-	const void *m_p0C;
-	const void *m_p10;
-	unsigned char m_pad[0x20 - 0x14];
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class EnragedBehavior : public UpdateModule
 {

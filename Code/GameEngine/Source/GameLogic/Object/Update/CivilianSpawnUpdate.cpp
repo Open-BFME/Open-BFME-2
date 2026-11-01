@@ -25,7 +25,7 @@ public:
 };
 extern NameKeyGenerator *TheNameKeyGenerator;
 #define BFME_SNAPSHOT_NAME_SLOT
-#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 #include <string.h>
 #include "Lib/Coord3D.h"
 #include "Common/GameLogicObjectLookupView.h"
@@ -199,38 +199,11 @@ enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1, UPDATE_SLEEP_FOREVER = 0x3FFFFFFF 
 
 enum SleepyUpdatePhase;
 
-template <int N> class BitFlags;
+template <unsigned int N> class BitFlags;
 
 class CivilianSpawnUpdateModuleData;
 
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-	virtual BitFlags<11> getDisabledTypesToProcess() const = 0;
-	virtual void rva0044DF8D(UpdateSleepTime wakeDelay) = 0;
-};
 
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-public:
-	UpdateModule(Thing *, const ModuleData *);
-	virtual ~UpdateModule();
-	virtual BitFlags<11> getDisabledTypesToProcess() const;
-	virtual void rva0044DF8D(UpdateSleepTime wakeDelay);
-	virtual void xfer(Xfer *);
-protected:
-	virtual void loadPostProcess();
-	virtual const char *GetSnapshotName() const;
-	virtual SleepyUpdatePhase getUpdatePhase() const;
-	const CivilianSpawnUpdateModuleData *getCivilianSpawnUpdateModuleData() const
-	{
-		return (const CivilianSpawnUpdateModuleData *)m_moduleData;
-	}
-	unsigned int m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_indexInUpdate;
-};
 
 class CivilianSpawnUpdate : public UpdateModule
 {
@@ -422,7 +395,7 @@ CivilianSpawnUpdateModuleData::CivilianSpawnUpdateModuleData()
 
 UpdateSleepTime CivilianSpawnUpdate::update()
 {
-	const CivilianSpawnUpdateModuleData *civilianSpawnUpdateModuleData = getCivilianSpawnUpdateModuleData();
+	const CivilianSpawnUpdateModuleData *civilianSpawnUpdateModuleData = reinterpret_cast<const CivilianSpawnUpdateModuleData *>(getModuleData());
 	Object *obj = getObject();
 	Int index = GetGameLogicRandomValue(0, civilianSpawnUpdateModuleData->m_vec14.size() - 1, CIVILIAN_SPAWN_FILE, 0x55);
 	const ThingTemplate *unitTemplate = TheThingFactory->findTemplate(civilianSpawnUpdateModuleData->m_vec14[index]);

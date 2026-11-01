@@ -76,10 +76,8 @@ extern GameLogic *TheGameLogic;
 struct UpdateLogicView { char pad00[0x40]; unsigned int frame; };
 extern int BfmeLogicFramesPerSecond;
 enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
-class UpdateModuleInterface { public: virtual UpdateSleepTime update()=0; };
-class BehaviorModule { public: virtual ~BehaviorModule(); char pad04[8]; };
-class BehaviorModuleInterface { public: virtual void anchor0C(); };
-class TransportContain : public BehaviorModule, public BehaviorModuleInterface, public UpdateModuleInterface {
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
+class TransportContain : public BehaviorModule, public UpdateModuleInterface {
 public: virtual UpdateSleepTime update();
 };
 class Rva0046E7C2 { public: void rva0046E7C2(); };

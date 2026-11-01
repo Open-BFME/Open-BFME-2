@@ -30,7 +30,7 @@ enum UpdateSleepTime
 {
 	UPDATE_SLEEP_NONE = 1
 };
-#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 enum AICommandType
 {
 	AICMD_BFME_1B = 0x1B
@@ -55,19 +55,7 @@ public:
 	SpecialPowerModuleInterface *findSpecialPowerModuleInterface(SpecialPowerType type) const;
 };
 
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update();
-};
 
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-private:
-	unsigned int m_nextCallFrameAndPhase; // +0x14
-	int m_indexInLogic; // +0x18
-	int m_reserved1C; // +0x1C
-};
 
 class AICommandInterface
 {

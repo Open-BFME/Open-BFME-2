@@ -75,28 +75,9 @@ struct BuildingBehaviorModuleData
 	BuildingWindowList m_windows[4];					// +0x08
 };
 
-class BB_DeepBase
-{
-public:
-	virtual ~BB_DeepBase();
-protected:
-	const BuildingBehaviorModuleData *m_moduleData;		// +0x04
-	Object *m_object;									// +0x08
-};
 
-class BB_Iface1 { public: virtual void slot(); };
-class BB_Iface2 { public: virtual UpdateSleepTime update() = 0; };
 
-class UpdateModule : public BB_DeepBase, public BB_Iface1, public BB_Iface2
-{
-protected:
-	Object *getObject() const { return m_object; }
-	const BuildingBehaviorModuleData *getBuildingBehaviorModuleData() const { return m_moduleData; }
-private:
-	unsigned int m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_updateState;
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class BuildingBehavior : public UpdateModule
 {
@@ -111,7 +92,7 @@ private:
 UpdateSleepTime BuildingBehavior::update()
 {
 	Object *obj = getObject();
-	const BuildingBehaviorModuleData *buildingBehaviorModuleData = getBuildingBehaviorModuleData();
+	const BuildingBehaviorModuleData *buildingBehaviorModuleData = reinterpret_cast<const BuildingBehaviorModuleData *>(getModuleData());
 	if (obj == 0)
 		return UPDATE_SLEEP_FOREVER;
 	if ((obj->m_flags438 & 1) && !obj->testStatus((ObjectStatusTypes)0x58))

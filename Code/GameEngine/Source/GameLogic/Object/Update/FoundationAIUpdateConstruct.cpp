@@ -71,7 +71,7 @@ public:
 	Real Get_Z_Rotation() const;
 };
 
-#include "../../../../Include/Common/Module.h"
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 // Access view for the native module-data load at +4; no extra state or methods.
 class Rva0045569DModuleDataAccess : public Module
@@ -386,26 +386,8 @@ public:
 	Int m_mode; // +0x0C
 };
 
-class BehaviorModule
-{
-public:
-	virtual ~BehaviorModule();
-	Object *getObject() const { return m_object; }
-protected:
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-};
 
-struct BehaviorModuleInterface { virtual void f0C(); };
-struct UpdateModuleInterface { virtual void f10(); };
 
-class UpdateModule : public BehaviorModule, public BehaviorModuleInterface, public UpdateModuleInterface
-{
-protected:
-	unsigned int m_14;
-	int m_18;
-	int m_1C;
-};
 
 class Rva00C1A690Iface
 {

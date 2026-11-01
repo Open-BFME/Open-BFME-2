@@ -19,12 +19,7 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_FOREVER = 0x3fffffff
 };
 
-class UpdateModule
-{
-	friend class AutoAbilityBehavior;
-protected:
-	void setWakeFrame(Object *obj, UpdateSleepTime delay);
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 struct Rva0045A748Arg
 {
@@ -32,7 +27,7 @@ struct Rva0045A748Arg
 	AsciiString m_str10;
 };
 
-class AutoAbilityBehavior
+class AutoAbilityBehavior : public UpdateModule
 {
 public:
 	void rva0045A748(void *src, bool flag);
@@ -41,9 +36,6 @@ public:
 	void rva0045A421(void *src);
 
 private:
-	unsigned char m_pad[8];
-	Object *m_obj8;
-	unsigned char m_mid[0x20 - 0xC];
 	AsciiString m_str20;
 };
 
@@ -55,7 +47,7 @@ void AutoAbilityBehavior::rva0045A748(void *src, bool flag)
 		return;
 	}
 	rva0045A413();
-	((UpdateModule *)this)->setWakeFrame(m_obj8, UPDATE_SLEEP_FOREVER);
+	setWakeFrame(getObject(), UPDATE_SLEEP_FOREVER);
 }
 
 // Target caller45AD11 supplies primary module receiver plus source-target-options.

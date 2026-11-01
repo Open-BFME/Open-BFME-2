@@ -28,25 +28,17 @@ public:
 
 extern GameLogic *TheGameLogic;
 
-class UpdateModule
-{
-protected:
-	void setWakeFrame(Object *obj, UpdateSleepTime wakeDelay);
-private:
-	unsigned char m_pad8[8];
-};
-
+#include "../../Include/GameLogic/Module/UpdateModule.h"
 class Rva004DF7DB : public UpdateModule
 {
 public:
 	void rva004DF7DB(UpdateSleepTime t);
 private:
-	Object *m_obj;
 };
 
 void Rva004DF7DB::rva004DF7DB(UpdateSleepTime t)
 {
-	Object *obj = m_obj;
+	Object *obj = getObject();
 	if (obj->testStatus((ObjectStatusTypes)0))
 		return;
 	UpdateSleepTime wake = t;

@@ -128,39 +128,11 @@ private:
 
 extern GameLogic *TheGameLogic;
 
-class BehaviorModuleBase
-{
-public:
-	virtual void behaviorModuleBaseAnchor();
-	const ModuleData *m_moduleData;
-	Object *m_object;
-};
 
-class BehaviorModuleOther
-{
-public:
-	virtual void behaviorModuleOtherAnchor();
-};
 
-class BehaviorModule : public BehaviorModuleBase, public BehaviorModuleOther
-{
-public:
-	Object *getObject() const { return m_object; }
-};
+#include "../../../../../Include/GameLogic/Module/UpdateModule.h"
 
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update();
-};
 
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-protected:
-	unsigned m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_bfmeReserved;
-};
 
 class AICommandInterface
 {
@@ -180,8 +152,8 @@ class AIUpdateInterface : public UpdateModule, public AICommandInterface
 {
 public:
 	virtual UpdateSleepTime update();
-	// Primary vtable slots 1..142 (slot 0 is BehaviorModuleBase's).
-	AI_GAP10(0) AI_GAP10(1) AI_GAP10(2) AI_GAP10(3) AI_GAP10(4) AI_GAP10(5) AI_GAP10(6)
+	// UpdateModule supplies primary slots 0..12; the command slots follow.
+	virtual void aigap12(); virtual void aigap13(); virtual void aigap14(); virtual void aigap15(); virtual void aigap16(); virtual void aigap17(); virtual void aigap18(); virtual void aigap19(); AI_GAP10(2) AI_GAP10(3) AI_GAP10(4) AI_GAP10(5) AI_GAP10(6)
 	AI_GAP10(7) AI_GAP10(8) AI_GAP10(9) AI_GAP10(10) AI_GAP10(11) AI_GAP10(12) AI_GAP10(13)
 	virtual void aigap140(); virtual void aigap141();
 	virtual CommandSourceType getLastCommandSource() const; // slot 143

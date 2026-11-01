@@ -33,7 +33,7 @@ class Object { public:
  char pad48[0x258-0x48]; AIUpdateInterface *ai; PhysicsBehavior *physics;
  bool isKindOf(KindOfType) const;
 };
-#include "../../../../Include/Common/ObjectModule.h"
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 #define BFME_SNAPSHOT_NAME_GETTER(NAME, TEXT) \
 	class NAME \
 	{ \
@@ -57,13 +57,10 @@ class Object { public:
 #include "../../AI/WorkOrder.h"
 #include "../../AI/TeamInQueue.h"
 
-class BehaviorInterface { public: virtual void unknownBehaviorSlot(); };
 
 enum UpdateSleepTime { UPDATE_SLEEP_NONE=1 };
 
-class UpdateModuleInterface { public: virtual UpdateSleepTime update()=0; };
 
-class UpdateModule : public ObjectModule,public BehaviorInterface,public UpdateModuleInterface { int fields[3]; };
 
 class DieModuleInterface { public: virtual void dieSlot(); };
 

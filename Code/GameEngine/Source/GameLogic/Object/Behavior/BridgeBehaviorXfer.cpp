@@ -154,18 +154,7 @@ public:
 	BridgeBehaviorObjectIDNode *m_node;
 };
 
-class UpdateModule
-{
-public:
-	virtual ~UpdateModule();
-	void xfer( Xfer *xfer );
-protected:
-	Object *getObject( void ) const { return m_object; }
-private:
-	void *m_moduleData;																												///< 0x04
-	Object *m_object;																													///< 0x08
-	char m_unrecovered0C[ 0x24 - 0x0C ];
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class BridgeBehaviorInterface
 {
@@ -178,7 +167,7 @@ class BridgeBehavior : public UpdateModule, public BridgeBehaviorInterface
 protected:
 	virtual void xfer( Xfer *xfer );
 private:
-	char m_unrecovered28[ 0x2C - 0x28 ];
+	char m_unrecovered24[ 0x2C - 0x24 ];
 	ObjectID m_towerID[ BRIDGE_MAX_TOWERS ];																	///< 0x2C
 	char m_unrecovered3C[ 0xFC - 0x3C ];
 	Bool m_bfmeFlagFC;																												///< 0xFC

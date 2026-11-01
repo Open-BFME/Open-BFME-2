@@ -431,18 +431,13 @@ class RGBAColorInt;
 struct XferUnknown11;
 #include "../../Include/Common/BfmeXfer.h"
 void XferObjectID(Xfer *xfer, ObjectID *id);
-class UpdateModule
-{
-public:
-	virtual void primarySlot();
-	void xfer(Xfer *xfer);
-};
+#include "../../Include/GameLogic/Module/UpdateModule.h"
 class Rva004A3B95 : public UpdateModule
 {
 protected:
 	virtual void xfer(Xfer *xfer);
 private:
-	char m_pad04[0xC8];
+	char m_pad20[0xCC - 0x20];
 	ObjectID m_CC[10]; // +0xCC
 };
 void Rva004A3B95::xfer(Xfer *xfer)

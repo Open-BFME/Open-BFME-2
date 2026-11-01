@@ -152,31 +152,11 @@ extern ActionManager *TheActionManager;
 
 extern GameLogic *TheGameLogic;
 
-#include "../../../../../Include/Common/ObjectModule.h"
+#include "../../../../../Include/GameLogic/Module/UpdateModule.h"
 
-class BehaviorModuleInterface
-{
-public:
-	virtual void behaviorModuleInterfaceAnchor();
-};
 
-class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
-{
-};
 
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update();
-};
 
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-private:
-	unsigned int m_nextCallFrameAndPhase; // +0x14
-	int m_indexInLogic; // +0x18
-	int m_reserved1C; // +0x1C
-};
 
 class AICommandInterface
 {
@@ -192,8 +172,6 @@ class AIUpdateInterface : public UpdateModule, public AICommandInterface
 public:
 	virtual void aiDoCommand(const AICommandParms *parms);
 protected:
-	virtual void a010();
-	virtual void a011(); virtual void a012();
 	virtual void privateMoveToPosition(const Coord3D *pos, float speed, CommandSourceType cmdSource); // slot 13
 	virtual void a014(); virtual void a015(); virtual void a016(); virtual void a017(); virtual void a018(); virtual void a019();
 	virtual void a020(); virtual void a021(); virtual void a022();

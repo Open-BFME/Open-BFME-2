@@ -17,13 +17,7 @@ struct SpawnBehaviorModuleDataView
 	char pad0C[0x170 - 0x0C];
 	unsigned char m_170;
 };
-class UpdateModule
-{
-public:
-	virtual void updateDummy();
-	const SpawnBehaviorModuleDataView *m_moduleData;
-	char pad08[0x20 - 8];
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 class SpawnBehaviorInterface
 {
 public:
@@ -80,7 +74,7 @@ private:
 void SpawnBehavior::onBodyDamageStateChange(const DamageInfo *damageInfo, BodyDamageType oldState, BodyDamageType newState)
 {
 	(void)damageInfo;
-	const SpawnBehaviorModuleDataView *md = m_moduleData;
+	const SpawnBehaviorModuleDataView *md = reinterpret_cast<const SpawnBehaviorModuleDataView *>(getModuleData());
 	if (!md)
 		return;
 	if (!md->m_170)

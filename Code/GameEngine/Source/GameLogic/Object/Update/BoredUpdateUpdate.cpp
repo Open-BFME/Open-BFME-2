@@ -181,7 +181,6 @@ private:
 	{
 		return (const BoredUpdateModuleData *)m_moduleData;
 	}
-	unsigned char m_pad14[0x20 - 0x14];
 	int m_scanTimer;				// +0x20
 };
 

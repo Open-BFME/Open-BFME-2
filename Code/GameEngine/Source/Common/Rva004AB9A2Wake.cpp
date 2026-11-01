@@ -27,21 +27,14 @@ enum UpdateSleepTime
 	USLEEP_FOREVER = 0x3FFFFFFF
 };
 
-class UpdateModule
-{
-protected:
-	void setWakeFrame(Object *obj, UpdateSleepTime wakeDelay);
-};
-
+#include "../../Include/GameLogic/Module/UpdateModule.h"
 class Rva004AB9A2 : public UpdateModule
 {
 public:
 	void rva004AB9A2();
 
 private:
-	char m_pad[8];
-	Object *m_obj;
-	char m_padC[0x24 - 0x0C];
+	char m_pad20[0x24 - 0x20];
 	char m_at24;
 	char m_pad25[0x8D - 0x25];
 	unsigned char m_flag;
@@ -52,6 +45,6 @@ void Rva004AB9A2::rva004AB9A2()
 	if (m_flag == 0)
 		return;
 	((Rva0020DXXX *)(*(Rva0020D959Host * *)&TheLargeGroupAudio))->rva0020D959((int)&m_at24);
-	setWakeFrame(m_obj, USLEEP_FOREVER);
+	setWakeFrame(getObject(), USLEEP_FOREVER);
 	m_flag = 0;
 }

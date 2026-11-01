@@ -25,19 +25,7 @@ class ModuleData;
 // Opaque UpdateModule base; ctor resolves to its row. Single inheritance
 // with a declared-only virtual dtor puts the vptr (and the base) at +0, so
 // the base call takes this directly. Slots mirror the retail stores.
-class UpdateModule
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~UpdateModule();
-
-protected:
-	void *m_owner;
-	int m_pad08;
-	const void *m_secondary0C;
-	const void *m_secondary10;
-	unsigned char m_pad14[0x20 - 0x14];
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class OathbreakersFadeAwayBehavior : public UpdateModule
 {
@@ -54,8 +42,6 @@ private:
 OathbreakersFadeAwayBehavior::OathbreakersFadeAwayBehavior(Thing *thing, const ModuleData *moduleData)
 	: UpdateModule(thing, moduleData)
 {
-	m_secondary0C = reinterpret_cast<const void *>(((unsigned int)__identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleOther@@@")));
-	m_secondary10 = reinterpret_cast<const void *>(((unsigned int)__identifier("??_7OathbreakersFadeAwayBehavior@@6BRva004B89C4_B2@@@")));
 	m_fading = false;
 	m_fadeTimer = 1.0f;
 }

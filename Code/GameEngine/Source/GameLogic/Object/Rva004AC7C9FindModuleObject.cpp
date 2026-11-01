@@ -42,7 +42,7 @@ struct Rva00045411BitSet
 	unsigned int m_bits[7];
 };
 
-template <int NUMBITS> class BitFlags;
+template <unsigned int NUMBITS> class BitFlags;
 extern BitFlags<116> KINDOFMASK_NONE;
 
 class Rva0004584D : public Rva000421C8
@@ -76,7 +76,7 @@ public:
 	virtual int slot31();	// +0x7C
 };
 
-#include "../../../Include/Common/Module.h"
+#include "../../../Include/GameLogic/Module/UpdateModule.h"
 
 // Partial storage view: native 4AC5FE adjusts the receiver by +0x0C.
 // The actual derived identity and the interface's original name are unknown.
@@ -158,11 +158,6 @@ public:
 	char m_pad08[0x10 - 0x08];
 };
 
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
 
 class DestroyEnvironmentUpdate : public DestroyEnvironmentUpdatePrimary, public UpdateModuleInterface
 {

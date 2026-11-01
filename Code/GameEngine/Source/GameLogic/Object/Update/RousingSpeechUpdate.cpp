@@ -98,35 +98,11 @@ enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-class BehaviorModule
-{
-public:
-	virtual ~BehaviorModule();
-protected:
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-};
-class BehaviorModuleInterface
-{
-public:
-	virtual void behaviorModuleInterfaceAnchor();
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 enum UpdateSleepTime
 {
 	UPDATE_SLEEP_NONE = 1,
 	UPDATE_SLEEP_FOREVER = 0x3fffffff
-};
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
-class UpdateModule : public BehaviorModule, public BehaviorModuleInterface, public UpdateModuleInterface
-{
-protected:
-	unsigned int m_14;
-	int m_18;
-	int m_1C;
 };
 class SpecialPowerUpdateInterface
 {
@@ -290,17 +266,17 @@ typedef _STL::hash_map<ObjectID, Object *, _STL::hash<int>, _STL::equal_to<Objec
 class SpecialAbilityUpdate : public UpdateModule, public SpecialPowerUpdateInterface
 {
 public:
-	virtual void slot01(); virtual void slot02();
+
 protected:
 	virtual void xfer(Xfer *xfer); // slot 3
 public:
 	virtual NameKeyType getModuleNameKey() const; // slot 4
-	virtual void slot05(); virtual void slot06();
-	virtual void slot07(); virtual void slot08(); virtual void slot09();
-	virtual void slot10(); virtual void slot11(); virtual void slot12();
-	virtual void slot13(); virtual void slot14();
+
+
+
+	virtual void primarySlot13(); virtual void primarySlot14();
 	virtual void startPreparation(); // slot 15; 0x00450D9A, RousingSpeechUpdate 0x004ACE11
-	virtual void slot16();
+	virtual void primarySlot16();
 	virtual void triggerAbilityEffect(); // slot 17; 0x0045108D, RousingSpeechUpdate 0x004AD399
 private:
 	unsigned char m_pad24[0x88 - 0x24];

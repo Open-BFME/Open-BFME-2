@@ -14,12 +14,7 @@ public:
 	void RemoveObjectFromPathfindMap(Object *object);
 };
 
-class UpdateModule
-{
-protected:
-	virtual void loadPostProcess();
-};
-
+#include "../../Include/GameLogic/Module/UpdateModule.h"
 class Rva00497805 : public UpdateModule
 {
 protected:
@@ -39,9 +34,7 @@ class Rva003956E8 : public Rva00497805
 public:
 	void loadPostProcess();
 private:
-	char m_pad04[4];
-	Object *m_08;
-	char m_pad0C[0x34 - 0x0C];
+	char m_pad20[0x34 - 0x20];
 	int m_34;
 };
 
@@ -52,6 +45,6 @@ void Rva003956E8::loadPostProcess()
 	Rva00497805::loadPostProcess();
 	if (m_34)
 	{
-		TheAI->m_shim10->RemoveObjectFromPathfindMap(m_08);
+		TheAI->m_shim10->RemoveObjectFromPathfindMap(getObject());
 	}
 }

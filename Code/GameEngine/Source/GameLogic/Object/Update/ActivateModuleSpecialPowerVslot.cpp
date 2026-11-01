@@ -18,10 +18,8 @@ class Debug {public:
 };
 static __forceinline const char*formatText(const Debug::Format&f){return (const char*)&f;}
 extern Debug*theDebug;void _bfme_debugRecordCallsite(int);
-class UpdateModuleInterface{public:virtual void s0();virtual void s1();virtual void setSleepTime(unsigned);};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 class SpecialPowerModuleInterface{public:virtual void s0();virtual void s1();virtual void s2();virtual void s3();virtual void s4();virtual void s5();virtual void s6();virtual void s7();virtual void s8();virtual void s9();virtual void s10();virtual void s11();virtual void atLocation(const Coord3D*,int);};
-class BehaviorModuleInterface{public:virtual void s0();virtual void s1();virtual void s2();virtual void s3();virtual void s4();virtual void s5();virtual void s6();virtual void s7();virtual SpecialPowerModuleInterface*getSpecialPower();virtual UpdateModuleInterface*getUpdate();};
-class BehaviorModule{public:char pad[12];BehaviorModuleInterface iface;};
 struct ThingTemplate{char pad[0x64];AsciiString name;};
 class Object{public:BehaviorModule*rva0028F2C4(int)const;char p0[4];const ThingTemplate*tmpl;char p8[0x38-8];Coord3D position;};
 struct WakeEntry{int key,mode;};struct WakeVector{WakeEntry*begin,*end,*capacity;};struct WakeData{char p[0xc8];WakeVector entries;};
@@ -40,11 +38,11 @@ void ActivateModuleSpecialPower::SetWakeState(int state)
    Debug&report=theDebug->CrashBegin(0,0,0);
    report<<formatText(Debug::Format("ERROR: ActivateModuleSpecialPower can not be used on it self! Check the INI for Object %s",name));report.CrashDone(1);
   }else{
-   UpdateModuleInterface*update=module->iface.getUpdate();
+   UpdateModuleInterface*update=static_cast<BehaviorModuleInterface &>(*module).getUpdate();
    if(update){
-    unsigned sleep=0x3fffffff;switch(state){case 0:sleep=1;break;case 1:sleep=update?0x3fffffff:0x3fffffff;break;default:break;}update->setSleepTime(sleep);
+    unsigned sleep=0x3fffffff;switch(state){case 0:sleep=1;break;case 1:sleep=update?0x3fffffff:0x3fffffff;break;default:break;}update->rva0044DF8D((UpdateSleepTime)sleep);
    }else if(state==0){
-    SpecialPowerModuleInterface*power=module->iface.getSpecialPower();
+    SpecialPowerModuleInterface*power=static_cast<BehaviorModuleInterface &>(*module).getSpecialPower();
     if(power){Coord3D position;if(it->mode==1)position=obj->position;else position=target;power->atLocation(&position,0);}
    }
   }

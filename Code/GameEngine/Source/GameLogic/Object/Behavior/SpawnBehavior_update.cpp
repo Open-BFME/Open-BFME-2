@@ -183,19 +183,11 @@ public:
 	Bool m_shareUpgrades;
 };
 
-#include "../../../../Include/Common/ObjectModule.h"
-
-#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
 
-private:
-	unsigned char m_pad04[0x10 - 0x04];
-};
+
 
 class SpawnBehaviorInterface
 {
@@ -234,8 +226,7 @@ private:
 	Bool m_upgradeExecuted;
 };
 
-class SpawnBehavior : public BehaviorModule,
-	public UpdateModuleInterface,
+class SpawnBehavior : public UpdateModule,
 	public SpawnBehaviorInterface,
 	public DieModuleInterface,
 	public DamageModuleInterface,

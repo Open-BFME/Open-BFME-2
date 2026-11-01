@@ -272,39 +272,11 @@ public:
 	BoneParticleSystemInfo m_particleSystem[BODYDAMAGETYPE_COUNT][BONE_FX_MAX_BONES]; // +0x914
 };
 
-class BehaviorModuleBase
-{
-public:
-	virtual void behaviorModuleBaseAnchor();
-	const ModuleData *m_moduleData;
-	Object *m_object;
-};
 
-class BehaviorModuleOther
-{
-public:
-	virtual void behaviorModuleOtherAnchor();
-};
 
-class BehaviorModule : public BehaviorModuleBase, public BehaviorModuleOther
-{
-public:
-	Object *getObject() const { return m_object; }
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update();
-};
 
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-protected:
-	unsigned m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_bfmeReserved;
-};
 
 class BoneFXUpdate : public UpdateModule
 {
@@ -317,10 +289,10 @@ protected:
 		return (const BoneFXUpdateModuleData *)m_moduleData;
 	}
 
-	// Primary vtable slots 1..12 (slot 0 is BehaviorModuleBase's).
-	virtual void p01(); virtual void p02(); virtual void p03(); virtual void p04();
-	virtual void p05(); virtual void p06(); virtual void p07(); virtual void p08();
-	virtual void p09(); virtual void p10(); virtual void p11(); virtual void p12();
+	// UpdateModule supplies primary slots 0..12.
+
+
+
 	virtual void resolveBoneLocations(); // slot 13
 
 	void initTimes();

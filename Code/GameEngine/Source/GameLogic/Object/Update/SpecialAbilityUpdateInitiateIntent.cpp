@@ -190,43 +190,7 @@ public:
 	VSLOT(2) VSLOT(3) VSLOT(4) VSLOT(5)
 	virtual bool isPowerCurrentlyInUse(const CommandButton *command) const = 0;
 };
-class ObjectModule
-{
-public:
-	virtual ~ObjectModule();
-	VSLOT(1) VSLOT(2) VSLOT(3) VSLOT(4) VSLOT(5) VSLOT(6) VSLOT(7) VSLOT(8)
-	VSLOT(9) VSLOT(10) VSLOT(11) VSLOT(12)
-	Object *getObject() const { return m_object; }
-protected:
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-};
-class BehaviorModuleInterface
-{
-public:
-	VSLOT(0) VSLOT(1) VSLOT(2) VSLOT(3) VSLOT(4) VSLOT(5) VSLOT(6) VSLOT(7)
-	VSLOT(8) VSLOT(9) VSLOT(10) VSLOT(11) VSLOT(12) VSLOT(13) VSLOT(14) VSLOT(15)
-	VSLOT(16) VSLOT(17) VSLOT(18) VSLOT(19) VSLOT(20) VSLOT(21) VSLOT(22) VSLOT(23)
-	VSLOT(24)
-	virtual SpecialPowerUpdateInterface *getSpecialPowerUpdateInterface();
-};
-class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
-{
-};
-class UpdateModuleInterface
-{
-public:
-	VSLOT(0)
-};
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-protected:
-	void setWakeFrame(Object *obj, UpdateSleepTime wakeDelay);
-private:
-	unsigned int m_nextCallFrameAndPhase; // +0x14
-	int m_indexInLogic; // +0x18
-	int m_updateState; // +0x1C
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 struct Rva002A8AB1Record;
 class Rva002A8F24
 {
@@ -243,11 +207,11 @@ public:
 class SpecialAbilityUpdate : public UpdateModule, public SpecialPowerUpdateInterface
 {
 public:
-	virtual void slot13(bool a, bool b);
-	virtual void slot14();
-	virtual void slot15();
-	virtual void slot16();
-	virtual void slot17();
+	virtual void primarySlot13(bool a, bool b);
+	virtual void primarySlot14();
+	virtual void primarySlot15();
+	virtual void primarySlot16();
+	virtual void primarySlot17();
 
 	virtual void initiateIntentToDoSpecialPower(const SpecialPowerTemplate *specialPowerTemplate,
 		const Object *targetObj, const Coord3D *targetPos, unsigned int commandOptions, const Waypoint *way);
@@ -353,11 +317,11 @@ void SpecialAbilityUpdate::initiateIntentToDoSpecialPower(const SpecialPowerTemp
 	}
 	else if (data->m_instant)
 	{
-		slot17();
+		primarySlot17();
 		SpecialPowerModuleInterface *spm = (SpecialPowerModuleInterface *)((Rva0044E633 *)this)->rva0044E633();
 		if (spm)
 			spm->slot014(false);
-		slot13(false, true);
+		primarySlot13(false, true);
 		return;
 	}
 
@@ -391,12 +355,12 @@ void SpecialAbilityUpdate::initiateIntentToDoSpecialPower(const SpecialPowerTemp
 
 	for (BehaviorModule **behaviorModule = obj->getBehaviorModules(); *behaviorModule; ++behaviorModule)
 	{
-		SpecialPowerUpdateInterface *spu = (*behaviorModule)->getSpecialPowerUpdateInterface();
+		SpecialPowerUpdateInterface *spu = reinterpret_cast<SpecialPowerUpdateInterface *>((*behaviorModule)->slot25());
 		if (spu && spu->isSpecialAbility() && spu->isPowerCurrentlyInUse(0))
 		{
 			SpecialAbilityUpdate *other = static_cast<SpecialAbilityUpdate *>(spu);
 			if (other != this)
-				other->slot13(false, true);
+				other->primarySlot13(false, true);
 		}
 	}
 
