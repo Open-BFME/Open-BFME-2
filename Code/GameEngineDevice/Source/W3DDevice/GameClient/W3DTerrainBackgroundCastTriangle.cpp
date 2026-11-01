@@ -32,12 +32,21 @@ private:
 struct CastResultStruct;
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/coltest.h
+// Native primary ctor 6F1A6/55B proves this 44-byte view, Ray at 0C
+// and three flags at 40/41/42; both terrain callers use the same prefix.
+class RenderObjClass;
 class RayCollisionTestClass
 {
 public:
-	CastResultStruct *Result;
-	unsigned char m_pad04[0x08];
-	LineSegClass Ray;
+	RayCollisionTestClass(const LineSegClass & ray,CastResultStruct * res,int collision_type,bool check_translucent, bool check_hidden);
+
+	CastResultStruct *			Result;
+	int								CollisionType;
+	RenderObjClass *				CollidedRenderObj;
+	LineSegClass 		Ray;
+	bool CheckTranslucent;
+	bool CheckHidden;
+	bool _bfme_flag42; // Retail primary constructor initializes this extra flag to false.
 };
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath/colmath.h
