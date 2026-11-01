@@ -41,17 +41,7 @@ enum
 
 #include "../Common/GameLogicObjectLookupView.h"
 
-class InGameUI
-{
-public:
-#define UI_SLOT(n) virtual void slot##n();
-	UI_SLOT(00) UI_SLOT(01) UI_SLOT(02) UI_SLOT(03) UI_SLOT(04)
-	UI_SLOT(05) UI_SLOT(06) UI_SLOT(07) UI_SLOT(08) UI_SLOT(09)
-	UI_SLOT(10) UI_SLOT(11) UI_SLOT(12) UI_SLOT(13) UI_SLOT(14)
-	UI_SLOT(15) UI_SLOT(16) UI_SLOT(17)
-#undef UI_SLOT
-	virtual void __cdecl message(AsciiString stringManagerLabel, ...); // +0x48
-};
+#include "../../Include/GameClient/InGameUI.h"
 
 // The frame data ring: deleted through its slot-0 virtual destructor.
 class FrameDataManager

@@ -50,11 +50,7 @@ public:
 	Object *m_object;
 };
 
-class InGameUI
-{
-public:
-	Real rva0029B3C1(const Object *obj) const;
-};
+#include "../../../../../../GameEngine/Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
 
 struct MaskCirclePoint;

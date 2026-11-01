@@ -65,12 +65,7 @@ public:
 	Rva002D752DNode *rva002D752D(const StringBase<char> &name);
 };
 
-class InGameUI
-{
-public:
-	void addWorldAnimation(Anim2DTemplate *animTemplate, const Coord3D *pos,
-		WorldAnimationOptions options, float durationInSeconds, float zRisePerSecond);
-};
+#include "../../../Include/GameClient/InGameUI.h"
 
 class GlobalData
 {

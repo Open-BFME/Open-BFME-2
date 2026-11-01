@@ -114,25 +114,7 @@ public:
 };
 extern MessageStream *TheMessageStream;
 
-class InGameUI : public Rva0047E7CFSlots<66>
-{
-public:
-	virtual void selectDrawable(Drawable *draw);	// +0x108
-	virtual void deselectDrawable(Drawable *draw);	// +0x10C
-	virtual void rva0047E7CFSlot68(); virtual void rva0047E7CFSlot69();
-	virtual void rva0047E7CFSlot70(); virtual void rva0047E7CFSlot71(); virtual void rva0047E7CFSlot72();
-	virtual void rva0047E7CFSlot73(); virtual void rva0047E7CFSlot74(); virtual void rva0047E7CFSlot75();
-	virtual void rva0047E7CFSlot76(); virtual void rva0047E7CFSlot77(); virtual void rva0047E7CFSlot78();
-	virtual void rva0047E7CFSlot79(); virtual void rva0047E7CFSlot80(); virtual void rva0047E7CFSlot81();
-	virtual void rva0047E7CFSlot82(); virtual void rva0047E7CFSlot83(); virtual void rva0047E7CFSlot84();
-	virtual void rva0047E7CFSlot85(); virtual void rva0047E7CFSlot86(); virtual void rva0047E7CFSlot87();
-	virtual void rva0047E7CFSlot88(); virtual void rva0047E7CFSlot89(); virtual void rva0047E7CFSlot90();
-	virtual void rva0047E7CFSlot91(); virtual void rva0047E7CFSlot92(); virtual void rva0047E7CFSlot93();
-	virtual void rva0047E7CFSlot94(); virtual void rva0047E7CFSlot95(); virtual void rva0047E7CFSlot96();
-	virtual void rva0047E7CFSlot97(); virtual void rva0047E7CFSlot98(); virtual void rva0047E7CFSlot99();
-	virtual void rva0047E7CFSlot100(); virtual void rva0047E7CFSlot101(); virtual void rva0047E7CFSlot102();
-	virtual void setDisplayedMaxWarning(bool show);	// +0x19C
-};
+#include "../../../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
 
 class PlayerList

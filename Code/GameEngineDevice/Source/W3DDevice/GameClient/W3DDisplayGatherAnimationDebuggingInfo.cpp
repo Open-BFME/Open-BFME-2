@@ -107,16 +107,7 @@ public:
 };
 extern Keyboard *TheKeyboard;
 
-class InGameUI
-{
-public:
-	V16(a) V16(b) V16(c) V16(d) V4(e0) virtual void f0(); virtual void f1();
-	virtual Int getSelectCount();			// +0x118
-	virtual void g0(); virtual void g1(); virtual void g2(); virtual void g3();
-	virtual Drawable *getFirstSelectedDrawable();	// +0x12C
-	V16(h) virtual void i0();
-	virtual Int getMousedOverDrawableID();		// +0x174
-};
+#include "../../../../GameEngine/Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
 
 class GameClient

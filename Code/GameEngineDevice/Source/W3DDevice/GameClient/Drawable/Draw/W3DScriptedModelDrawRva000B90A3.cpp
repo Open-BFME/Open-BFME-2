@@ -11,7 +11,7 @@
 struct B90A3Data {char pad[0x69];bool translationOnly,clientHeading;};
 class Object {char pad[0x1C0];public:float orientation;};
 class Drawable {char pad[0xFC];public:Object *object;const Matrix3D *getTransformMatrix()const;};
-class InGameUI {public:float rva0029B3C1(const Object*)const;};
+#include "../../../../../../GameEngine/Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
 class B90A3Render {public:
 virtual void slot0();

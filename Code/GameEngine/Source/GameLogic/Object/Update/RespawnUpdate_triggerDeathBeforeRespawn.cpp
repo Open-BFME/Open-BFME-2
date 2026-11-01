@@ -80,13 +80,7 @@ public:
 	static void doFXObj(const FXList *,const Object *,const Object *);
 };
 
-class InGameUI
-{
-public:
-	void rva002A1283(Object *obj);
-	void rva002A123F(Object *obj);
-	void rva002A1261(Object *obj);
-};
+#include "../../../../Include/GameClient/InGameUI.h"
 
 extern InGameUI *TheInGameUI;
 

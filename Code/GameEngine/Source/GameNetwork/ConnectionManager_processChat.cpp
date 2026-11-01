@@ -98,19 +98,7 @@ public:
 
 #include "../../../Libraries/Include/Lib/RGBColor.h"
 
-class InGameUI
-{
-public:
-#define UI_SLOT(n) virtual void slot##n();
-	UI_SLOT(00) UI_SLOT(01) UI_SLOT(02) UI_SLOT(03) UI_SLOT(04)
-	UI_SLOT(05) UI_SLOT(06) UI_SLOT(07) UI_SLOT(08) UI_SLOT(09)
-	UI_SLOT(10) UI_SLOT(11) UI_SLOT(12) UI_SLOT(13) UI_SLOT(14)
-	UI_SLOT(15) UI_SLOT(16)
-#undef UI_SLOT
-	virtual void __cdecl messageColor(const RGBColor *rgbColor, UnicodeString format, ...); // +0x44
-	virtual void slot18();
-	virtual void __cdecl message(UnicodeString format, ...); // +0x4C
-};
+#include "../../Include/GameClient/InGameUI.h"
 
 extern GameInfo *TheGameInfo;
 extern NameKeyGenerator *TheNameKeyGenerator;

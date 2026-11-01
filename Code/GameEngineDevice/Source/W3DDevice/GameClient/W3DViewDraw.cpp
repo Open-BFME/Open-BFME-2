@@ -144,14 +144,7 @@ public:
 #include "../../../../GameEngine/Include/GameClient/Drawable.h"
 void drawablePostDraw(Drawable *draw, void *userData);
 
-class InGameUI {
-public:
-	SLOTS16(a) SLOTS16(b) SLOTS16(c) SLOTS16(d)
-	SLOTS4(e) virtual void f0(); virtual void f1();
-	virtual int getSelectCount();
-	SLOTS4(g)
-	virtual Drawable *getFirstSelectedDrawable();
-};
+#include "../../../../GameEngine/Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
 
 class Waypoint {
