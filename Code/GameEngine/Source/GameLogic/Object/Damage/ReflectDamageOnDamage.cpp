@@ -67,25 +67,13 @@ struct ReflectDamageModuleData
 };
 
 class ModuleData;
-class BehaviorModule
-{
-public:
-	virtual ~BehaviorModule();
-protected:
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-};
-class BehaviorModuleInterface
-{
-public:
-	virtual void b00() = 0;
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 class DamageModuleInterface
 {
 public:
 	virtual void onDamage(DamageInfo *damageInfo) = 0;
 };
-class DamageModule : public BehaviorModule, public BehaviorModuleInterface,
+class DamageModule : public BehaviorModule,
 	public DamageModuleInterface
 {
 };
