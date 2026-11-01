@@ -23,7 +23,4 @@ struct Rva000B978ARecord { Rva000B978ARecord(); Rva000B978ARecord(const Rva000B9
 namespace _STL {template<> void _Construct<Rva000B978ARecord,Rva000B978ARecord>(Rva000B978ARecord*,const Rva000B978ARecord&);}
 template Rva000B978ARecord *_STL::__copy(Rva000B978ARecord*,Rva000B978ARecord*,Rva000B978ARecord*,const _STL::random_access_iterator_tag&,int*);
 
-// The retail call in this body reads 0x000B68F0, an address the ledger already
-// carries as ??0?$gslice_array@H@_STL@@QAE@ABV01@@Z. Bind the donor spelling to that rowed owner so one
-// address keeps one definition and the unit links.
-#pragma comment(linker, "/alternatename:??4Rva000B978ARecord@@QAEAAU0@ABU0@@Z=??0?$gslice_array@H@_STL@@QAE@ABV01@@Z")
+// Native record assignment at0x000B68F0 is resolved by its actual name.

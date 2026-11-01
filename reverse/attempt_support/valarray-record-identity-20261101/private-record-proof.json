@@ -1,0 +1,17 @@
+{
+  "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_valarray_int.cpp",
+  "new_name": "??4Rva000B978ARecord@@QAEAAU0@ABU0@@Z",
+  "rva": "0x000B68F0",
+  "size": 27,
+  "raw_hex": "56578b7c240c578bf1e8000000008b47148946145f8bc65ec20400",
+  "relocations": [
+    [
+      10,
+      20,
+      "??4BfmeRecord000B43E5@@QAEAAU0@ABU0@@Z"
+    ]
+  ],
+  "exact": true,
+  "private_output": "build/valarray-native-record-20261101/record.obj",
+  "native_hex": "56578b7c240c578bf1e8e7daffff8b47148946145f8bc65ec20400"
+}

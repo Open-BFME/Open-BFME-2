@@ -430,7 +430,6 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemory.cpp,matched
 ??$__uninitialized_fill_n@PAU?$pair@HH@_STL@@IU12@@_STL@@YAPAU?$pair@HH@0@PAU10@IABU10@ABU__false_type@0@@Z,,0x00627300,39,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pair.cpp,matched,stlport-4.5.3
 ??0?$_Bit_iter@U_Bit_reference@_STL@@PAU12@@_STL@@QAE@XZ,,0x00672310,16,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_bool.cpp,matched,strict relocations from its own object
 ?BTREE_decompress@@YAHPAE0@Z,,0x0068EB60,258,Code/Libraries/Source/Compression/EAC/btreedecode.cpp,matched,strict relocations from its own object
-??0?$gslice_array@H@_STL@@QAE@ABV01@@Z,,0x000B68F0,27,Code/Libraries/Source/WWVegas/WWLib/stlport_valarray_int.cpp,matched,stlport-4.5.3
 ?compress@LZHLCompressor@@QAEIPAEPBEI@Z,,0x006911B0,1741,Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Lz.cpp,matched,stlport-4.5.3
 ??$_M_do_get_integer@V?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@JD@_STL@@YA?AV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@0@AAV10@0AAVios_base@0@AAHAAJPAD@Z,,0x0000AEA0,252,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_do_get_integer_long.cpp,matched,stlport-4.5.3
 ??$_M_do_get_integer@V?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@KD@_STL@@YA?AV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@0@AAV10@0AAVios_base@0@AAHAAKPAD@Z,,0x0000AAB0,252,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_do_get_integer_ulong.cpp,matched,stlport-4.5.3
