@@ -1,0 +1,199 @@
+{
+  "base": "d16fc55c23fbaa06ad41c98292031f32a8c15eff",
+  "placement": [
+    {
+      "source": "Code/GameEngine/Source/GameNetwork/GameSpy/peer/peerPing.c",
+      "sha256": "ef8e6a1f0a38b37ac88ae432d00b20a5ec79a932a42bcf964564e2cc5feb21fa",
+      "blockers": [
+        "internal-linkage-review",
+        "path-keyed-registers: reverse/data_check_baseline.txt, reverse/data_ledger.csv"
+      ],
+      "placement_evidence": [
+        {
+          "alternatives": [],
+          "conflict": false,
+          "evidence": [],
+          "name": "_piPingToBytes",
+          "rva": "0x006B2200",
+          "strength": "unresolved",
+          "target": ""
+        },
+        {
+          "alternatives": [],
+          "conflict": false,
+          "evidence": [],
+          "name": "_piFindActivePingCompareFn",
+          "rva": "0x006B2630",
+          "strength": "unresolved",
+          "target": ""
+        },
+        {
+          "alternatives": [],
+          "conflict": false,
+          "evidence": [],
+          "name": "_piQueueCallback",
+          "rva": "0x006B23A0",
+          "strength": "unresolved",
+          "target": ""
+        },
+        {
+          "alternatives": [],
+          "conflict": false,
+          "evidence": [],
+          "name": "_piCallCallbacks",
+          "rva": "0x006B2420",
+          "strength": "unresolved",
+          "target": ""
+        },
+        {
+          "alternatives": [],
+          "conflict": false,
+          "evidence": [],
+          "name": "_piCheckTimeouts",
+          "rva": "0x006B2A80",
+          "strength": "unresolved",
+          "target": ""
+        },
+        {
+          "alternatives": [],
+          "conflict": false,
+          "evidence": [],
+          "name": "_piSendPing",
+          "rva": "0x006B2240",
+          "strength": "unresolved",
+          "target": ""
+        },
+        {
+          "alternatives": [],
+          "conflict": false,
+          "evidence": [],
+          "name": "_piSocketInit",
+          "rva": "0x006B22E0",
+          "strength": "unresolved",
+          "target": ""
+        },
+        {
+          "alternatives": [],
+          "conflict": false,
+          "evidence": [],
+          "name": "_pingerInit",
+          "rva": "0x006B24B0",
+          "strength": "unresolved",
+          "target": ""
+        },
+        {
+          "alternatives": [],
+          "conflict": false,
+          "evidence": [],
+          "name": "_pingerShutdown",
+          "rva": "0x006B25D0",
+          "strength": "unresolved",
+          "target": ""
+        },
+        {
+          "alternatives": [],
+          "conflict": false,
+          "evidence": [],
+          "name": "_pingerThink",
+          "rva": "0x006B2B40",
+          "strength": "unresolved",
+          "target": ""
+        },
+        {
+          "alternatives": [],
+          "conflict": false,
+          "evidence": [],
+          "name": "_pingerPing",
+          "rva": "0x006B2B70",
+          "strength": "unresolved",
+          "target": ""
+        }
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameNetwork/GameSpy/pinger/pingerMain.c",
+      "sha256": "231865ef12721b5e6784e04554386c45a7ca2dd426d0109dbebf61d5ac29272c",
+      "blockers": [
+        "macro-or-pragma-context",
+        "internal-linkage-review",
+        "path-keyed-registers: reverse/data_check_baseline.txt, reverse/data_ledger.csv"
+      ],
+      "placement_evidence": [
+        {
+          "alternatives": [],
+          "conflict": false,
+          "evidence": [],
+          "name": "_piBytesToPing",
+          "rva": "0x006B2170",
+          "strength": "unresolved",
+          "target": ""
+        },
+        {
+          "alternatives": [],
+          "conflict": false,
+          "evidence": [],
+          "name": "_piFindActivePing",
+          "rva": "0x006B2650",
+          "strength": "unresolved",
+          "target": ""
+        },
+        {
+          "alternatives": [],
+          "conflict": false,
+          "evidence": [],
+          "name": "_piProcessTrip1",
+          "rva": "0x006B26B0",
+          "strength": "unresolved",
+          "target": ""
+        },
+        {
+          "alternatives": [],
+          "conflict": false,
+          "evidence": [],
+          "name": "_piProcessTrip2",
+          "rva": "0x006B27C0",
+          "strength": "unresolved",
+          "target": ""
+        },
+        {
+          "alternatives": [],
+          "conflict": false,
+          "evidence": [],
+          "name": "_piProcessTrip3",
+          "rva": "0x006B28B0",
+          "strength": "unresolved",
+          "target": ""
+        },
+        {
+          "alternatives": [],
+          "conflict": false,
+          "evidence": [],
+          "name": "_pingerProcessPing",
+          "rva": "0x006B2920",
+          "strength": "unresolved",
+          "target": ""
+        },
+        {
+          "alternatives": [],
+          "conflict": false,
+          "evidence": [],
+          "name": "_piProcessIncoming",
+          "rva": "0x006B2970",
+          "strength": "unresolved",
+          "target": ""
+        },
+        {
+          "alternatives": [],
+          "conflict": false,
+          "evidence": [],
+          "name": "_piCalculatePing",
+          "rva": "0x006B26A0",
+          "strength": "unresolved",
+          "target": ""
+        }
+      ]
+    }
+  ],
+  "same_function_name_for_distinct_c_sources": true,
+  "scope_limit": "local_static currently admits only _$E<n> in real .cpp sources; no general C static namespace. No source, ledger or register edit attempted."
+}

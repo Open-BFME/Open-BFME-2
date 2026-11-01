@@ -16600,3 +16600,22 @@ changes (its sole relocation is debug metadata). The 4,455-byte cohort
 prediction is retained. The iterator provider's ten-row strict receipt was
 also refreshed after the last publication audit reported it missing. These
 scoped checks do not retroactively clear that audit or advance the census.
+
+### Pinger ownership placement refresh (2026-11-01, Cortys)
+
+The supported current planner and in-memory split still approve no pinger TU:
+eight pingerMain.c rows and eleven peerPing.c rows remain unresolved. General
+C-static names are still not scoped by ledger_io (its local_static covers only
+_$E compiler initializers). Both files remain19/19 exact. No body, data key or
+row is moved or removed; the four piNextID keys and piSettingData scheduling
+prerequisite stay open. See reverse/attempt_support/pinger-placement-prerequisite-20261101/.
+
+### HeaderTemplate CRT declaration publication (2026-11-01, Cortys)
+
+The two-line CRT-header cleanup landed at d16fc55c23 with20/20 native rows,
+two data rows, five EXACT EH graphs and all43 complete code/relocation
+definitions preserved. The bounded preview retains706 linked bytes. Its
+mandatory wider batch audit remains INCONCLUSIVE: index86db074988 predates
+base211c10aca2 and affected Common/0CreateAHeroManager21FE49.cpp lacks a current
+receipt in that checkout. Carry that consumer and HeaderTemplate provider scope
+into the next scheduled census; this source-level cleanup does not clear it.
