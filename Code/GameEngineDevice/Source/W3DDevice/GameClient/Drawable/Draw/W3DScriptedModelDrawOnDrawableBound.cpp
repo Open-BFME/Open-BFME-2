@@ -73,7 +73,7 @@ public:
 	bool m_15f;
 };
 
-class Vector3 { public: float X, Y, Z; };
+#include "../../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 class VertexMaterialClass
 {

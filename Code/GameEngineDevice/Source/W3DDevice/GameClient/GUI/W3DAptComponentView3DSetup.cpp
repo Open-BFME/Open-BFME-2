@@ -16,14 +16,7 @@
 // views below carry only the slots and sizes this body uses.
 #include <math.h>
 
-class Vector3
-{
-public:
-	__forceinline Vector3( float x, float y, float z ) { X = x; Y = y; Z = z; }
-	float X;
-	float Y;
-	float Z;
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 static __forceinline void copyVector4(Vector4 &row,const Vector4 &other){row.X=other.X;row.Y=other.Y;row.Z=other.Z;row.W=other.W;}

@@ -11,13 +11,7 @@
 
 #include "../../../../../../Libraries/Include/Lib/Coord3D.h"
 
-class Vector3
-{
-public:
-	float X;
-	float Y;
-	float Z;
-};
+#include "../../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 struct Rva00167EF8Rec
 {

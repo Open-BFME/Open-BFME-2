@@ -88,12 +88,7 @@ struct BfmeStringRecord000B757D {
 inline bool operator==(const BfmeStringRecord000B757D &x, const BfmeStringRecord000B757D &y) { return x.word0 == y.word0; }
 inline bool operator<(const BfmeStringRecord000B757D &x, const BfmeStringRecord000B757D &y) { return x.word0 < y.word0; }
 
-struct Vector3
-{
-	__forceinline Vector3() {}
-	__forceinline Vector3(const Vector3 &v) : X(v.X), Y(v.Y), Z(v.Z) {}
-	float X, Y, Z;
-};
+#include "../../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 class Vector4
 {
