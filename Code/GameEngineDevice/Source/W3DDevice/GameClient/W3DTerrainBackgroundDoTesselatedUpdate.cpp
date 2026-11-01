@@ -1,4 +1,5 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /FIzh_ascii.h /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib -Ireference/open-bfme-1/game/GameEngineDevice/Source/W3DDevice/GameClient /O1 /G7 /arch:SSE
+// stlport
 // Native [001149EB,00115044),1625B, RET12. W3DTerrainBackground::
 // doTesselatedUpdate (WorldBuilder name). BFME 2 rewrite of the ZH tile
 // update: swap in the height map, bail when uninitialized (+0x60) or when
@@ -23,10 +24,9 @@ typedef unsigned short UnsignedShort;
 #define MAP_XY_FACTOR 10.0f
 #define MAP_HEIGHT_SCALE (10.0f / 256.0f)
 
-#include <new>
 
 extern void BFME_DX8_Thread_Lock(void);
-extern void BFME_DX8_Thread_Assert(void);
+extern bool BFME_DX8_Thread_Assert(void);
 
 class BFMEDX8DeviceLock
 {
@@ -37,32 +37,7 @@ public:
 
 void bfmeReleaseQueuedDeviceInterfaces();
 
-class Vector3
-{
-public:
-	Vector3() {}
-	Vector3(Real x, Real y, Real z) { X = x; Y = y; Z = z; }
-	Vector3(const Vector3 &vec) { X = vec.X; Y = vec.Y; Z = vec.Z; }
-	Vector3 &operator=(const Vector3 &vec) { X = vec.X; Y = vec.Y; Z = vec.Z; return *this; }
-	Real X;
-	Real Y;
-	Real Z;
-};
-
-inline Vector3 operator+(const Vector3 &a, const Vector3 &b)
-{
-	return Vector3(a.X + b.X, a.Y + b.Y, a.Z + b.Z);
-}
-
-inline Vector3 operator-(const Vector3 &a, const Vector3 &b)
-{
-	return Vector3(a.X - b.X, a.Y - b.Y, a.Z - b.Z);
-}
-
-inline Vector3 operator*(const Vector3 &a, Real k)
-{
-	return Vector3(a.X * k, a.Y * k, a.Z * k);
-}
+#include "../../../../../reference/shims/bfme_vector3_full_link/vector3_full_link.h"
 
 class MinMaxAABoxClass
 {
@@ -176,6 +151,7 @@ struct VertexFormatXYZNDUV1
 	Real v1;
 };
 
+class TerrainTextureClass;
 class TextureClass
 {
 public:
@@ -293,10 +269,10 @@ private:
 	Int m_vertexTerrainSize;
 	IndexBufferClass *m_indexTerrain;
 	Int m_indexTerrainSize;
-	RefCountPtr<TextureClass> m_terrainTexture;
-	RefCountPtr<TextureClass> m_terrainTexture2X;
-	RefCountPtr<TextureClass> m_normalTexture;
-	RefCountPtr<TextureClass> m_normalTexture2X;
+	TerrainTextureClass *m_terrainTexture2X;
+	TerrainTextureClass *m_terrainTexture;
+	TerrainTextureClass *m_texture3C;
+	TerrainTextureClass *m_terrainTexture4X;
 	Int m_texMultiplier;
 	Int m_curNumTerrainVertices;
 	Int m_curNumTerrainIndices;
@@ -426,21 +402,21 @@ void W3DTerrainBackground::doTesselatedUpdate(const IRegion2D &partialRange, Wor
 	}
 	m_bounds.Init(bounds);
 
-	if (m_terrainTexture.isNull() || doTextures) {
-		((BfmeResetTextureRef *)&m_terrainTexture2X)->clear();
+	if ((*(RefCountPtr<TextureClass> *)&m_terrainTexture2X).isNull() || doTextures) {
+		((BfmeResetTextureRef *)&(*(RefCountPtr<TextureClass> *)&m_terrainTexture))->clear();
 		if (TheGameClient)
-			m_terrainTexture = m_map->getFlatTexture(m_xOrigin, m_yOrigin, m_width, 0x10, 0x31545844, 0);
+			(*(RefCountPtr<TextureClass> *)&m_terrainTexture2X) = m_map->getFlatTexture(m_xOrigin, m_yOrigin, m_width, 0x10, 0x31545844, 0);
 		else
-			m_terrainTexture = m_map->getFlatTexture(m_xOrigin, m_yOrigin, m_width, 0x10, 0x19, 0);
-		((ShroudTexture *)&m_terrainTexture)->getFilter()->m_uAddressMode = 1;
-		((ShroudTexture *)&m_terrainTexture)->getFilter()->m_vAddressMode = 1;
+			(*(RefCountPtr<TextureClass> *)&m_terrainTexture2X) = m_map->getFlatTexture(m_xOrigin, m_yOrigin, m_width, 0x10, 0x19, 0);
+		((ShroudTexture *)&(*(RefCountPtr<TextureClass> *)&m_terrainTexture2X))->getFilter()->m_uAddressMode = 1;
+		((ShroudTexture *)&(*(RefCountPtr<TextureClass> *)&m_terrainTexture2X))->getFilter()->m_vAddressMode = 1;
 	}
 	if (TheGlobalData->m_secondTerrainTexture) {
-		if (m_normalTexture.isNull() || doTextures) {
-			((BfmeResetTextureRef *)&m_normalTexture2X)->clear();
-			m_normalTexture = m_map->getFlatTexture(m_xOrigin, m_yOrigin, m_width, 0x10, 0x19, 1);
-			((ShroudTexture *)&m_normalTexture)->getFilter()->m_uAddressMode = 1;
-			((ShroudTexture *)&m_normalTexture)->getFilter()->m_vAddressMode = 1;
+		if ((*(RefCountPtr<TextureClass> *)&m_texture3C).isNull() || doTextures) {
+			((BfmeResetTextureRef *)&(*(RefCountPtr<TextureClass> *)&m_terrainTexture4X))->clear();
+			(*(RefCountPtr<TextureClass> *)&m_texture3C) = m_map->getFlatTexture(m_xOrigin, m_yOrigin, m_width, 0x10, 0x19, 1);
+			((ShroudTexture *)&(*(RefCountPtr<TextureClass> *)&m_texture3C))->getFilter()->m_uAddressMode = 1;
+			((ShroudTexture *)&(*(RefCountPtr<TextureClass> *)&m_texture3C))->getFilter()->m_vAddressMode = 1;
 		}
 	}
 	if (!TheGameClient)
