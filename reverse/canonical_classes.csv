@@ -182,3 +182,4 @@ UpdateModuleInterface,Code/GameEngine/Include/GameLogic/Module/UpdateModule.h,ex
 UpdateModule,Code/GameEngine/Include/GameLogic/Module/UpdateModule.h,existing header; contract class_contracts/UpdateModule.json; 46/357 sampled units adopt
 ThingTemplate,Code/GameEngine/Include/Common/ThingTemplate.h,existing header; contract class_contracts/ThingTemplate.json; 83/473 sampled units adopt
 Vector3,Code/Libraries/Source/WWVegas/WWMath/Vector3Data.h,existing header; contract class_contracts/Vector3.json; 0/223 sampled units adopt
+AIUpdateInterface,Code/GameEngine/Include/GameLogic/Module/AIUpdate.h,existing header; contract class_contracts/AIUpdateInterface.json; 170/533 sampled units adopt

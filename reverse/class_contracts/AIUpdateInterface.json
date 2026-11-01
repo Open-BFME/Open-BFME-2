@@ -1,0 +1,3506 @@
+{
+ "bases": [
+  "UpdateModule",
+  "AICommandInterface",
+  "AIUpdateInterface24"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "AIUpdateInterface",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 40,
+  "inherited": {
+   "base_views": 1,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 9
+   },
+   "0x134": {
+    "4": 4
+   },
+   "0x138": {
+    "4": 1
+   },
+   "0x140": {
+    "4": 6
+   },
+   "0x144": {
+    "4": 4
+   },
+   "0x148": {
+    "4": 7
+   },
+   "0x14c": {
+    "4": 4
+   },
+   "0x150": {
+    "4": 4
+   },
+   "0x160": {
+    "4": 4
+   },
+   "0x168": {
+    "4": 1
+   },
+   "0x16c": {
+    "4": 2
+   },
+   "0x178": {
+    "4": 1
+   },
+   "0x180": {
+    "4": 1
+   },
+   "0x18c": {
+    "4": 1
+   },
+   "0x190": {
+    "4": 1
+   },
+   "0x1a0": {
+    "4": 2
+   },
+   "0x1bc": {
+    "4": 1
+   },
+   "0x1c8": {
+    "4": 1
+   },
+   "0x1cc": {
+    "4": 4
+   },
+   "0x1dc": {
+    "1": 1,
+    "4": 1
+   },
+   "0x1e1": {
+    "1": 1
+   },
+   "0x1f0": {
+    "4": 5
+   },
+   "0x1f4": {
+    "4": 2
+   },
+   "0x1fc": {
+    "4": 3
+   },
+   "0x20": {
+    "4": 2
+   },
+   "0x200": {
+    "4": 1
+   },
+   "0x20c": {
+    "4": 3
+   },
+   "0x218": {
+    "4": 1
+   },
+   "0x21c": {
+    "4": 3
+   },
+   "0x238": {
+    "4": 1
+   },
+   "0x30": {
+    "4": 24
+   },
+   "0x34": {
+    "4": 3
+   },
+   "0x38": {
+    "4": 3
+   },
+   "0x3b0": {
+    "1": 1
+   },
+   "0x3b1": {
+    "1": 2
+   },
+   "0x3b2": {
+    "1": 5
+   },
+   "0x3b3": {
+    "1": 3
+   },
+   "0x3b4": {
+    "1": 4
+   },
+   "0x3b5": {
+    "1": 4
+   },
+   "0x3b6": {
+    "1": 2
+   },
+   "0x3b7": {
+    "1": 2
+   },
+   "0x3b8": {
+    "1": 2
+   },
+   "0x3b9": {
+    "1": 1
+   },
+   "0x3bc": {
+    "1": 3
+   },
+   "0x3bd": {
+    "1": 2
+   },
+   "0x3bf": {
+    "1": 2
+   },
+   "0x3c2": {
+    "1": 2
+   },
+   "0x3e0": {
+    "1": 1
+   },
+   "0x40": {
+    "4": 5
+   },
+   "0x4a4": {
+    "4": 6
+   },
+   "0x4c": {
+    "4": 1
+   },
+   "0x54": {
+    "4": 2
+   },
+   "0x58": {
+    "4": 1
+   },
+   "0x8": {
+    "4": 29
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x26e9bd"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "UpdateModule",
+       "offset": 0,
+       "own_vftable": "0x7fa480",
+       "rule": "retail-ctor-call"
+      },
+      {
+       "kind": "inference",
+       "name": "<vftable 0x81c780>",
+       "offset": 32,
+       "own_vftable": "0x847b88",
+       "rule": "retail-inlined-base-vptr(unnamed)"
+      },
+      {
+       "kind": "inference",
+       "name": "<vftable 0x840818>",
+       "offset": 36,
+       "own_vftable": "0x852f88",
+       "rule": "retail-inlined-base-vptr(unnamed)"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x26e9bd"
+     ],
+     "value": 993
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x26e9bd"
+     ],
+     "value": {
+      "0x134": [
+       4
+      ],
+      "0x138": [
+       4
+      ],
+      "0x13c": [
+       4
+      ],
+      "0x140": [
+       4
+      ],
+      "0x144": [
+       4
+      ],
+      "0x148": [
+       4
+      ],
+      "0x14c": [
+       4
+      ],
+      "0x150": [
+       4
+      ],
+      "0x154": [
+       4
+      ],
+      "0x158": [
+       4
+      ],
+      "0x15c": [
+       4
+      ],
+      "0x160": [
+       4
+      ],
+      "0x164": [
+       4
+      ],
+      "0x168": [
+       4
+      ],
+      "0x16c": [
+       4
+      ],
+      "0x170": [
+       4
+      ],
+      "0x174": [
+       4
+      ],
+      "0x178": [
+       4
+      ],
+      "0x17c": [
+       4
+      ],
+      "0x180": [
+       4
+      ],
+      "0x184": [
+       4
+      ],
+      "0x188": [
+       4
+      ],
+      "0x18c": [
+       4
+      ],
+      "0x190": [
+       4
+      ],
+      "0x194": [
+       4
+      ],
+      "0x198": [
+       4
+      ],
+      "0x19c": [
+       4
+      ],
+      "0x1a0": [
+       4
+      ],
+      "0x1a4": [
+       4
+      ],
+      "0x1c8": [
+       4
+      ],
+      "0x1f0": [
+       4
+      ],
+      "0x1f4": [
+       4
+      ],
+      "0x1f8": [
+       4
+      ],
+      "0x1fc": [
+       4
+      ],
+      "0x200": [
+       4
+      ],
+      "0x204": [
+       4
+      ],
+      "0x208": [
+       4
+      ],
+      "0x20c": [
+       4
+      ],
+      "0x210": [
+       4
+      ],
+      "0x214": [
+       4
+      ],
+      "0x218": [
+       4
+      ],
+      "0x21c": [
+       4
+      ],
+      "0x220": [
+       4
+      ],
+      "0x234": [
+       4
+      ],
+      "0x238": [
+       4
+      ],
+      "0x23c": [
+       4
+      ],
+      "0x240": [
+       4
+      ],
+      "0x28": [
+       4
+      ],
+      "0x2c": [
+       4
+      ],
+      "0x30": [
+       4
+      ],
+      "0x34": [
+       4
+      ],
+      "0x38": [
+       4
+      ],
+      "0x3b0": [
+       1
+      ],
+      "0x3b1": [
+       1
+      ],
+      "0x3b2": [
+       1
+      ],
+      "0x3b3": [
+       1
+      ],
+      "0x3b4": [
+       1
+      ],
+      "0x3b5": [
+       1
+      ],
+      "0x3b6": [
+       1
+      ],
+      "0x3b7": [
+       1
+      ],
+      "0x3b8": [
+       1
+      ],
+      "0x3b9": [
+       1
+      ],
+      "0x3ba": [
+       1
+      ],
+      "0x3bb": [
+       1
+      ],
+      "0x3bc": [
+       1
+      ],
+      "0x3bd": [
+       1
+      ],
+      "0x3be": [
+       1
+      ],
+      "0x3bf": [
+       1
+      ],
+      "0x3c": [
+       4
+      ],
+      "0x3c0": [
+       1
+      ],
+      "0x3c1": [
+       1
+      ],
+      "0x3c2": [
+       1
+      ],
+      "0x3c3": [
+       1
+      ],
+      "0x3c4": [
+       1
+      ],
+      "0x3c5": [
+       1
+      ],
+      "0x3c6": [
+       1
+      ],
+      "0x3c7": [
+       1
+      ],
+      "0x3c8": [
+       1
+      ],
+      "0x3c9": [
+       1
+      ],
+      "0x3ca": [
+       1
+      ],
+      "0x3cb": [
+       1
+      ],
+      "0x3cc": [
+       1
+      ],
+      "0x3cd": [
+       1
+      ],
+      "0x3ce": [
+       1
+      ],
+      "0x3cf": [
+       1
+      ],
+      "0x3dc": [
+       4
+      ],
+      "0x3e0": [
+       1
+      ],
+      "0x40": [
+       4
+      ],
+      "0x44": [
+       4
+      ],
+      "0x48": [
+       4
+      ],
+      "0x4c": [
+       4
+      ],
+      "0x50": [
+       4
+      ],
+      "0x54": [
+       4
+      ],
+      "0x58": [
+       4
+      ],
+      "0x5c": [
+       4
+      ],
+      "0x60": [
+       4
+      ],
+      "0x64": [
+       4
+      ],
+      "0x68": [
+       4
+      ],
+      "0x6c": [
+       4
+      ],
+      "0x70": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x26e9bd"
+     ],
+     "value": {
+      "0x0": [
+       "?chooseLocomotorSet@AIUpdateInterface@@UAE_NH@Z"
+      ],
+      "0x1cc": [
+       "??0Rva001E7087@@QAE@XZ"
+      ],
+      "0x224": [
+       "??0Rva0026E7EA@@QAE@XZ"
+      ],
+      "0x244": [
+       "??0Rva0042526Member@@QAE@XZ"
+      ],
+      "0x290": [
+       "??0Rva0042526Member@@QAE@XZ"
+      ],
+      "0x2dc": [
+       "?reset@?$bitset@$0IA@@_STL@@QAEAAV12@XZ"
+      ],
+      "0x2ec": [
+       "?initMember@Rva0026AFDAMember@@QAEPAV1@XZ"
+      ],
+      "0x3d0": [
+       "?rva00262436@Rva00262436@@QAEPAV1@H@Z"
+      ]
+     }
+    },
+    "sizeof": {
+     "kind": "target",
+     "rule": "retail-operator-new",
+     "sites": [
+      "0x24bde1"
+     ],
+     "value": 996
+    },
+    "unknown_subobject_vptrs": {
+     "kind": "inference",
+     "rule": "retail-ctor-vptr-after-own",
+     "sites": [
+      "0x26e9bd"
+     ],
+     "value": {
+      "0x10": [
+       "0x853a98"
+      ],
+      "0xc": [
+       "0x7fa3c0"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x26e9bd"
+     ],
+     "value": {
+      "0x0": "0x7fa480",
+      "0x20": "0x847b88",
+      "0x24": "0x852f88"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7fa480"
+     ],
+     "value": {
+      "count": 154,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GAIUpdateInterface@@MAEPAXI@Z",
+        "slot": 0,
+        "target": "0x26ed95"
+       },
+       {
+        "name": "?loadPostProcess@AIUpdateInterface@@MAEXXZ",
+        "slot": 1,
+        "target": "0x2686a4"
+       },
+       {
+        "name": "?name@AIUpdateInterface@@QBEPBDXZ",
+        "slot": 2,
+        "target": "0x26e982"
+       },
+       {
+        "name": "?xfer@AIUpdateInterface@@UAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x267edd"
+       },
+       {
+        "name": "?getModuleNameKey@AIUpdateInterface@@UBE?AW4NameKeyType@@XZ",
+        "slot": 4,
+        "target": "0x26e93d"
+       },
+       {
+        "name": "?onObjectCreated@AIUpdateInterface@@UAEXXZ",
+        "slot": 5,
+        "target": "0x2625c8"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 6,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 7,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 9,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 10,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 11,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 12,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?privateMoveToPosition@AIUpdateInterface@@MAEXPBUCoord3D@@MW4CommandSourceType@@@Z",
+        "slot": 13,
+        "target": "0x26b487"
+       },
+       {
+        "name": "?privateAttackMoveToPositionAndOrientation@AIUpdateInterface@@MAEXPBUCoord3D@@MHW4CommandSourceType@@@Z",
+        "slot": 14,
+        "target": "0x26c04e"
+       },
+       {
+        "name": "?bfmePrivateCommand01@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+        "slot": 15,
+        "target": "0x26b637"
+       },
+       {
+        "name": "?privateMoveToPositionSA@AIUpdateInterface@@MAEXPBUCoord3D@@W4CommandSourceType@@@Z",
+        "slot": 16,
+        "target": "0x267cfa"
+       },
+       {
+        "name": "?privateMoveToPositionAmphibious@AIUpdateInterface@@MAEXPBUCoord3D@@HW4CommandSourceType@@@Z",
+        "slot": 17,
+        "target": "0x26b567"
+       },
+       {
+        "name": "?bfmePrivateCommand48@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+        "slot": 18,
+        "target": "0x264558"
+       },
+       {
+        "name": "?privateMoveToAndEvacuate@AIUpdateInterface@@MAEXPBUCoord3D@@W4CommandSourceType@@@Z",
+        "slot": 19,
+        "target": "0x26b6b2"
+       },
+       {
+        "name": "?privateMoveToAndEvacuateAndExit@AIUpdateInterface@@MAEXPBUCoord3D@@W4CommandSourceType@@@Z",
+        "slot": 20,
+        "target": "0x26b720"
+       },
+       {
+        "name": "?bfmePrivateCommand38@AIUpdateInterface@@MAEXPBUCoord3D@@W4CommandSourceType@@@Z",
+        "slot": 21,
+        "target": "0x26b78e"
+       },
+       {
+        "name": "?bfmePrivateCommand41@AIUpdateInterface@@MAEXPBUCoord3D@@W4CommandSourceType@@@Z",
+        "slot": 22,
+        "target": "0x26b7fc"
+       },
+       {
+        "name": "?bfmePrivateCommand42@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+        "slot": 23,
+        "target": "0x26d56c"
+       },
+       {
+        "name": "?privateIdle@AIUpdateInterface@@MAEXW4CommandSourceType@@@Z",
+        "slot": 24,
+        "target": "0x26d5fb"
+       },
+       {
+        "name": "?privateTightenToPosition@AIUpdateInterface@@MAEXPBUCoord3D@@W4CommandSourceType@@@Z",
+        "slot": 25,
+        "target": "0x267dad"
+       },
+       {
+        "name": "?privateFollowWaypointPath@AIUpdateInterface@@MAEXPBVWaypoint@@W4CommandSourceType@@@Z",
+        "slot": 26,
+        "target": "0x26b8e5"
+       },
+       {
+        "name": "?privateFollowWaypointPathAsTeam@AIUpdateInterface@@MAEXPBVWaypoint@@W4CommandSourceType@@@Z",
+        "slot": 27,
+        "target": "0x26b9e2"
+       },
+       {
+        "name": "?privateFollowWaypointPathExact@AIUpdateInterface@@MAEXPBVWaypoint@@W4CommandSourceType@@@Z",
+        "slot": 28,
+        "target": "0x26b987"
+       },
+       {
+        "name": "?privateFollowWaypointPathAsTeamExact@AIUpdateInterface@@MAEXPBVWaypoint@@W4CommandSourceType@@@Z",
+        "slot": 29,
+        "target": "0x26ba33"
+       },
+       {
+        "name": "?privateFollowPath@AIUpdateInterface@@MAEXPBVRva0035149F@@PAVObject@@W4CommandSourceType@@_N@Z",
+        "slot": 30,
+        "target": "0x26ba84"
+       },
+       {
+        "name": "?bfmePrivateCommand24@AIUpdateInterface@@MAEXPBVRva0035149F@@PAVObject@@MW4CommandSourceType@@@Z",
+        "slot": 31,
+        "target": "0x26bb5a"
+       },
+       {
+        "name": "?bfmePrivateCommand25@AIUpdateInterface@@MAEXPBVRva0035149F@@PAVObject@@MW4CommandSourceType@@@Z",
+        "slot": 32,
+        "target": "0x26bc16"
+       },
+       {
+        "name": "?privateFollowPathAppend@AIUpdateInterface@@MAEXPBUCoord3D@@W4CommandSourceType@@@Z",
+        "slot": 33,
+        "target": "0x26e074"
+       },
+       {
+        "name": "?privateAttackObject@AIUpdateInterface@@MAEXPAVObject@@HW4CommandSourceType@@@Z",
+        "slot": 34,
+        "target": "0x26bcd2"
+       },
+       {
+        "name": "?bfmePrivateCommand39@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+        "slot": 35,
+        "target": "0x26be86"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 36,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 37,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?privateForceAttackObject@AIUpdateInterface@@MAEXPAVObject@@HW4CommandSourceType@@@Z",
+        "slot": 38,
+        "target": "0x26bee6"
+       },
+       {
+        "name": "?privateAttackTeam@AIUpdateInterface@@MAEXPBVTeam@@HW4CommandSourceType@@@Z",
+        "slot": 39,
+        "target": "0x26bfd9"
+       },
+       {
+        "name": "?privateAttackPosition@AIUpdateInterface@@MAEXPBUCoord3D@@HW4CommandSourceType@@@Z",
+        "slot": 40,
+        "target": "0x26db1a"
+       },
+       {
+        "name": "?bfmePrivateCommand49@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+        "slot": 41,
+        "target": "0x26c0d6"
+       },
+       {
+        "name": "?privateAttackFollowWaypointPath@AIUpdateInterface@@MAEXPBVWaypoint@@H_NW4CommandSourceType@@@Z",
+        "slot": 42,
+        "target": "0x26c150"
+       },
+       {
+        "name": "?privateHunt@AIUpdateInterface@@MAEXW4CommandSourceType@@@Z",
+        "slot": 43,
+        "target": "0x2646e9"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 44,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 45,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?privateGetHealed@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+        "slot": 46,
+        "target": "0x26dd89"
+       },
+       {
+        "name": "?privateGetRepaired@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+        "slot": 47,
+        "target": "0x26ddbb"
+       },
+       {
+        "name": "?privateEnter@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+        "slot": 48,
+        "target": "0x264775"
+       },
+       {
+        "name": "?bfmePrivateCommand3D@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+        "slot": 49,
+        "target": "0x2647ef"
+       },
+       {
+        "name": "?privateMoveToObject@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+        "slot": 50,
+        "target": "0x26472f"
+       },
+       {
+        "name": "?privateDock@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+        "slot": 51,
+        "target": "0x26481b"
+       },
+       {
+        "name": "?privateHarvest@AIUpdateInterface@@MAEXPBUCoord3D@@W4CommandSourceType@@@Z",
+        "slot": 52,
+        "target": "0x264853"
+       },
+       {
+        "name": "?privateExitInstantly@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+        "slot": 53,
+        "target": "0x26488b"
+       },
+       {
+        "name": "?bfmePrivateCommand4B@AIUpdateInterface@@MAEXPAVObject@@PBUCoord3D@@W4CommandSourceType@@@Z",
+        "slot": 54,
+        "target": "0x2648f1"
+       },
+       {
+        "name": "?bfmePrivateCommand4D@AIUpdateInterface@@MAEXPAVObject@@PBVRva0035149F@@W4CommandSourceType@@@Z",
+        "slot": 55,
+        "target": "0x26492a"
+       },
+       {
+        "name": "?bfmePrivateCommand3E@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+        "slot": 56,
+        "target": "0x264963"
+       },
+       {
+        "name": "?bfmePrivateCommand4A@AIUpdateInterface@@MAEXPAVObject@@PBUCoord3D@@W4CommandSourceType@@@Z",
+        "slot": 57,
+        "target": "0x2649a3"
+       },
+       {
+        "name": "?bfmePrivateCommand4C@AIUpdateInterface@@MAEXPAVObject@@PBVRva0035149F@@W4CommandSourceType@@@Z",
+        "slot": 58,
+        "target": "0x2649dc"
+       },
+       {
+        "name": "?bfmePrivateCommand54@AIUpdateInterface@@MAEXPAVObject@@PBUCoord3D@@W4CommandSourceType@@@Z",
+        "slot": 59,
+        "target": "0x264a15"
+       },
+       {
+        "name": "?rva0026DDED@AIUpdateInterface@@UAEXHW4CommandSourceType@@@Z",
+        "slot": 60,
+        "target": "0x26dded"
+       },
+       {
+        "name": "?privateGoProne@AIUpdateInterface@@MAEXPBVDamageInfo@@W4CommandSourceType@@@Z",
+        "slot": 61,
+        "target": "0x262f5e"
+       },
+       {
+        "name": "?privateGuardTunnelNetwork@AIUpdateInterface@@MAEXHW4CommandSourceType@@@Z",
+        "slot": 62,
+        "target": "0x264cbb"
+       },
+       {
+        "name": "?privateGuardPosition@AIUpdateInterface@@MAEXPBUCoord3D@@W4GuardMode@@W4CommandSourceType@@@Z",
+        "slot": 63,
+        "target": "0x264bc2"
+       },
+       {
+        "name": "?privateGuardObject@AIUpdateInterface@@MAEXPAVObject@@W4GuardMode@@W4CommandSourceType@@@Z",
+        "slot": 64,
+        "target": "0x264d0e"
+       },
+       {
+        "name": "?bfmePrivateCommand20@AIUpdateInterface@@MAEXPBURva00264D81Arg@@W4GuardMode@@W4CommandSourceType@@@Z",
+        "slot": 65,
+        "target": "0x264d81"
+       },
+       {
+        "name": "?privateGuardRetaliate@AIUpdateInterface@@MAEXPAVObject@@PBUCoord3D@@HW4CommandSourceType@@@Z",
+        "slot": 66,
+        "target": "0x267df1"
+       },
+       {
+        "name": "?privateGuardAreaFromPosition@AIUpdateInterface@@MAEXPBVPolygonTrigger@@W4GuardMode@@W4CommandSourceType@@PBUCoord3D@@@Z",
+        "slot": 67,
+        "target": "0x264df8"
+       },
+       {
+        "name": "?privateAttackArea@AIUpdateInterface@@MAEXPBVPolygonTrigger@@W4CommandSourceType@@@Z",
+        "slot": 68,
+        "target": "0x26c1ce"
+       },
+       {
+        "name": "?privateFaceObject@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+        "slot": 69,
+        "target": "0x2645b9"
+       },
+       {
+        "name": "?privateFacePosition@AIUpdateInterface@@MAEXPBUCoord3D@@W4CommandSourceType@@@Z",
+        "slot": 70,
+        "target": "0x267d65"
+       },
+       {
+        "name": "?rva00262EFF@AIUpdateInterface@@UAEXPAX00@Z",
+        "slot": 71,
+        "target": "0x262eff"
+       },
+       {
+        "name": "?privateCommandButton@AIUpdateInterface@@MAEXPBVCommandButton@@W4CommandSourceType@@@Z",
+        "slot": 72,
+        "target": "0x26de77"
+       },
+       {
+        "name": "?privateCommandButtonPosition@AIUpdateInterface@@MAEXPBVCommandButton@@PBUCoord3D@@W4CommandSourceType@@@Z",
+        "slot": 73,
+        "target": "0x267e8e"
+       },
+       {
+        "name": "?Set_Animation@RenderObjClass@@UAEXPAVHAnimClass@@MH@Z",
+        "slot": 74,
+        "target": "0xd1407"
+       },
+       {
+        "name": "?bfmeGoCSG@AIUpdateInterface@@UAEXPAX0@Z",
+        "slot": 75,
+        "target": "0x264a4e"
+       },
+       {
+        "name": "?bfmeGoCSA@AIUpdateInterface@@UAEXPAX@Z",
+        "slot": 76,
+        "target": "0x264a86"
+       },
+       {
+        "name": "?bfmePrivateCommand53@AIUpdateInterface@@MAEXW4CommandSourceType@@@Z",
+        "slot": 77,
+        "target": "0x264ab2"
+       },
+       {
+        "name": "?bfmeGoCSH@AIUpdateInterface@@UAEXPAX0@Z",
+        "slot": 78,
+        "target": "0x264ade"
+       },
+       {
+        "name": "?bfmeGoCSD@AIUpdateInterface@@UAEXPAX0@Z",
+        "slot": 79,
+        "target": "0x264b16"
+       },
+       {
+        "name": "?bfmePrivateCommand31@AIUpdateInterface@@MAEXHW4CommandSourceType@@@Z",
+        "slot": 80,
+        "target": "0x264b86"
+       },
+       {
+        "name": "?privateMoveAwayFromUnit@AIUpdateInterface@@MAEXPAVObject@@PBUCoord3D@@W4CommandSourceType@@@Z",
+        "slot": 81,
+        "target": "0x26d765"
+       },
+       {
+        "name": "?bfmePrivateCommand3C@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+        "slot": 82,
+        "target": "0x26b86a"
+       },
+       {
+        "name": "?bfmeGoCSE@AIUpdateInterface@@UAEXPAX0@Z",
+        "slot": 83,
+        "target": "0x264b4e"
+       },
+       {
+        "name": "?rva002630FD@AIUpdateInterface@@MAEXH@Z",
+        "slot": 84,
+        "target": "0x2630fd"
+       },
+       {
+        "name": "?bfmeGoCSF@AIUpdateInterface@@UAEXPAX0@Z",
+        "slot": 85,
+        "target": "0x263133"
+       },
+       {
+        "name": "?rva0026316B@AIUpdateInterface@@MAEXPAXH@Z",
+        "slot": 86,
+        "target": "0x26316b"
+       },
+       {
+        "name": "?rva002631A6@AIUpdateInterface@@MAEXMH@Z",
+        "slot": 87,
+        "target": "0x2631a6"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 88,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 89,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 90,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?isBusy@AIUpdateInterface@@UBE_NXZ",
+        "slot": 91,
+        "target": "0x262b39"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 92,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 93,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 94,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 95,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 96,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 97,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 98,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 99,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 100,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 101,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 102,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?joinTeam@AIUpdateInterface@@UAEXXZ",
+        "slot": 103,
+        "target": "0x26d478"
+       },
+       {
+        "name": "?rva0026E988@AIUpdateInterface@@UAEHXZ",
+        "slot": 104,
+        "target": "0x26e988"
+       },
+       {
+        "name": "?rva0026E999@AIUpdateInterface@@UAEHXZ",
+        "slot": 105,
+        "target": "0x26e999"
+       },
+       {
+        "name": "?slot2@PlanningPhaseBuildingSelection@StrategicInGameUI@@UAEHPAX@Z",
+        "slot": 106,
+        "target": "0x5daa6c"
+       },
+       {
+        "name": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+        "slot": 107,
+        "target": "0x50b5c6"
+       },
+       {
+        "name": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+        "slot": 108,
+        "target": "0x50b5c6"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 109,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?rva002645FF@Rva002645FF@@QAE_NXZ",
+        "slot": 110,
+        "target": "0x2645ff"
+       },
+       {
+        "name": "?rva00262D8F@AIUpdateInterface@@UBE_NXZ",
+        "slot": 111,
+        "target": "0x262d8f"
+       },
+       {
+        "name": "?isClearingMines@AIUpdateInterface@@UBE_NXZ",
+        "slot": 112,
+        "target": "0x264656"
+       },
+       {
+        "name": "?rva00262DA3@AIUpdateInterface@@UBE_NXZ",
+        "slot": 113,
+        "target": "0x262da3"
+       },
+       {
+        "name": "?rva00262DAB@AIUpdateInterface@@UBE_NXZ",
+        "slot": 114,
+        "target": "0x262dab"
+       },
+       {
+        "name": "?rva00262DBF@AIUpdateInterface@@UBE_NXZ",
+        "slot": 115,
+        "target": "0x262dbf"
+       },
+       {
+        "name": "?rva00262D7B@AIUpdateInterface@@UBE_NXZ",
+        "slot": 116,
+        "target": "0x262d7b"
+       },
+       {
+        "name": "?doQuickExit@AIUpdateInterface@@UAEXPBV?$vector@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@@Z",
+        "slot": 117,
+        "target": "0x262f19"
+       },
+       {
+        "name": "?get@Rva00042287LeaField@@QBEPAXXZ",
+        "slot": 118,
+        "target": "0x42287"
+       },
+       {
+        "name": "?get@Rva002004A1DwordField@@QBEHXZ",
+        "slot": 119,
+        "target": "0x2004a1"
+       },
+       {
+        "name": "?getSerialAuthResult@GameSpyPeerMessageQueue@@UAE?AW4SerialAuthResult@@XZ",
+        "slot": 120,
+        "target": "0x367508"
+       },
+       {
+        "name": "?get@Rva0036750CDwordField@@QBEHXZ",
+        "slot": 121,
+        "target": "0x36750c"
+       },
+       {
+        "name": "?set@Rva0033F15DDwordSlot@@QAEXH@Z",
+        "slot": 122,
+        "target": "0x33f15d"
+       },
+       {
+        "name": "?get@Rva0009AAA4DwordField@@QBEHXZ",
+        "slot": 123,
+        "target": "0x9aaa4"
+       },
+       {
+        "name": "?clearGuardTargetType@AIUpdateInterface@@UAEXXZ",
+        "slot": 124,
+        "target": "0x26e9aa"
+       },
+       {
+        "name": "?get@Rva002A98A7DwordField@@QBEHXZ",
+        "slot": 125,
+        "target": "0x2a98a7"
+       },
+       {
+        "name": "?construct@AIUpdateInterface@@UAEPAVObject@@PBVThingTemplate@@PBUCoord3D@@MPAVPlayer@@_NH@Z",
+        "slot": 126,
+        "target": "0x26e9b8"
+       },
+       {
+        "name": "?getEnterTarget@AIUpdateInterface@@UAEPAVObject@@XZ",
+        "slot": 127,
+        "target": "0x264ef2"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 128,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 129,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 130,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?setLocomotorGoalPositionOnPath@AIUpdateInterface@@UAEXXZ",
+        "slot": 131,
+        "target": "0x262c13"
+       },
+       {
+        "name": "?setLocomotorGoalPositionExplicit@AIUpdateInterface@@UAEXABUCoord3D@@@Z",
+        "slot": 132,
+        "target": "0x262c35"
+       },
+       {
+        "name": "?setLocomotorGoalPositionExplicitSmart@AIUpdateInterface@@UAEXABUCoord3D@@@Z",
+        "slot": 133,
+        "target": "0x262c53"
+       },
+       {
+        "name": "?appendPositionToLocomotorPath@AIUpdateInterface@@UAEXABUCoord3D@@H@Z",
+        "slot": 134,
+        "target": "0x267266"
+       },
+       {
+        "name": "?setLocomotorGoalOrientation@AIUpdateInterface@@UAEXM@Z",
+        "slot": 135,
+        "target": "0x262c9b"
+       },
+       {
+        "name": "?clear@Rva00262CB6DwordClearer@@QAEXXZ",
+        "slot": 136,
+        "target": "0x262cb6"
+       },
+       {
+        "name": "?isDoingGroundMovement@AIUpdateInterface@@UBE_NXZ",
+        "slot": 137,
+        "target": "0x26731c"
+       },
+       {
+        "name": "?rva00262BA9@AIUpdateInterface@@UAE_NXZ",
+        "slot": 138,
+        "target": "0x262ba9"
+       },
+       {
+        "name": "?micropathToPosition@AIUpdateInterface@@UAEXPBUCoord3D@@@Z",
+        "slot": 139,
+        "target": "0x26412b"
+       },
+       {
+        "name": "?doPathfind@AIUpdateInterface@@UAEXPAVPathfindServicesInterface@@@Z",
+        "slot": 140,
+        "target": "0x269902"
+       },
+       {
+        "name": "?rva00263404@AIUpdateInterface@@UAEXPAVRva00263404Source@@@Z",
+        "slot": 141,
+        "target": "0x263404"
+       },
+       {
+        "name": "?chooseLocomotorSet@AIUpdateInterface@@UAE_NH@Z",
+        "slot": 142,
+        "target": "0x268b20"
+       },
+       {
+        "name": "?get@Rva005C4AFDDwordField@@QBEHXZ",
+        "slot": 143,
+        "target": "0x5c4afd"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 144,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva00267E46@AIUpdateInterface@@UAEXXZ",
+        "slot": 145,
+        "target": "0x267e46"
+       },
+       {
+        "name": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+        "slot": 146,
+        "target": "0x50b5c6"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 147,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?isAllowedToRespondToAiCommands@AIUpdateInterface@@UBE_NPBUAICommandParms@@@Z",
+        "slot": 148,
+        "target": "0x26734c"
+       },
+       {
+        "name": "?doLocomotor@AIUpdateInterface@@MAE?AW4UpdateSleepTime@@XZ",
+        "slot": 149,
+        "target": "0x26a3a0"
+       },
+       {
+        "name": "?makeStateMachine@AIUpdateInterface@@MAEPAVAIStateMachine@@XZ",
+        "slot": 150,
+        "target": "0x262513"
+       },
+       {
+        "name": "?getTreatAsAircraftForLocoDistToGoal@AIUpdateInterface@@UBE_NXZ",
+        "slot": 151,
+        "target": "0x262cf2"
+       },
+       {
+        "name": "?rva002697FC@AIUpdateInterface@@UAE_NXZ",
+        "slot": 152,
+        "target": "0x2697fc"
+       },
+       {
+        "name": "?rva002628B1@Rva002628B1@@QAEXXZ",
+        "slot": 153,
+        "target": "0x2628b1"
+       }
+      ],
+      "table": "0x7fa480"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 104,
+  "retail_vtables": {
+   "0x7fa480": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GAIUpdateInterface@@MAEPAXI@Z",
+     "1": "?loadPostProcess@AIUpdateInterface@@MAEXXZ",
+     "2": "?name@AIUpdateInterface@@QBEPBDXZ",
+     "3": "?xfer@AIUpdateInterface@@UAEXPAVXfer@@@Z",
+     "4": "?getModuleNameKey@AIUpdateInterface@@UBE?AW4NameKeyType@@XZ",
+     "5": "?onObjectCreated@AIUpdateInterface@@UAEXXZ",
+     "6": "??1Region2D@@QAE@XZ",
+     "7": "??1Region2D@@QAE@XZ",
+     "8": "??1Region2D@@QAE@XZ",
+     "9": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "10": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "11": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "12": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "13": "?privateMoveToPosition@AIUpdateInterface@@MAEXPBUCoord3D@@MW4CommandSourceType@@@Z",
+     "14": "?privateAttackMoveToPositionAndOrientation@AIUpdateInterface@@MAEXPBUCoord3D@@MHW4CommandSourceType@@@Z",
+     "15": "?bfmePrivateCommand01@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+     "16": "?privateMoveToPositionSA@AIUpdateInterface@@MAEXPBUCoord3D@@W4CommandSourceType@@@Z",
+     "17": "?privateMoveToPositionAmphibious@AIUpdateInterface@@MAEXPBUCoord3D@@HW4CommandSourceType@@@Z",
+     "18": "?bfmePrivateCommand48@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+     "19": "?privateMoveToAndEvacuate@AIUpdateInterface@@MAEXPBUCoord3D@@W4CommandSourceType@@@Z",
+     "20": "?privateMoveToAndEvacuateAndExit@AIUpdateInterface@@MAEXPBUCoord3D@@W4CommandSourceType@@@Z",
+     "21": "?bfmePrivateCommand38@AIUpdateInterface@@MAEXPBUCoord3D@@W4CommandSourceType@@@Z",
+     "22": "?bfmePrivateCommand41@AIUpdateInterface@@MAEXPBUCoord3D@@W4CommandSourceType@@@Z",
+     "23": "?bfmePrivateCommand42@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+     "24": "?privateIdle@AIUpdateInterface@@MAEXW4CommandSourceType@@@Z",
+     "25": "?privateTightenToPosition@AIUpdateInterface@@MAEXPBUCoord3D@@W4CommandSourceType@@@Z",
+     "26": "?privateFollowWaypointPath@AIUpdateInterface@@MAEXPBVWaypoint@@W4CommandSourceType@@@Z",
+     "27": "?privateFollowWaypointPathAsTeam@AIUpdateInterface@@MAEXPBVWaypoint@@W4CommandSourceType@@@Z",
+     "28": "?privateFollowWaypointPathExact@AIUpdateInterface@@MAEXPBVWaypoint@@W4CommandSourceType@@@Z",
+     "29": "?privateFollowWaypointPathAsTeamExact@AIUpdateInterface@@MAEXPBVWaypoint@@W4CommandSourceType@@@Z",
+     "30": "?privateFollowPath@AIUpdateInterface@@MAEXPBVRva0035149F@@PAVObject@@W4CommandSourceType@@_N@Z",
+     "31": "?bfmePrivateCommand24@AIUpdateInterface@@MAEXPBVRva0035149F@@PAVObject@@MW4CommandSourceType@@@Z",
+     "32": "?bfmePrivateCommand25@AIUpdateInterface@@MAEXPBVRva0035149F@@PAVObject@@MW4CommandSourceType@@@Z",
+     "33": "?privateFollowPathAppend@AIUpdateInterface@@MAEXPBUCoord3D@@W4CommandSourceType@@@Z",
+     "34": "?privateAttackObject@AIUpdateInterface@@MAEXPAVObject@@HW4CommandSourceType@@@Z",
+     "35": "?bfmePrivateCommand39@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+     "36": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "37": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "38": "?privateForceAttackObject@AIUpdateInterface@@MAEXPAVObject@@HW4CommandSourceType@@@Z",
+     "39": "?privateAttackTeam@AIUpdateInterface@@MAEXPBVTeam@@HW4CommandSourceType@@@Z",
+     "40": "?privateAttackPosition@AIUpdateInterface@@MAEXPBUCoord3D@@HW4CommandSourceType@@@Z",
+     "41": "?bfmePrivateCommand49@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+     "42": "?privateAttackFollowWaypointPath@AIUpdateInterface@@MAEXPBVWaypoint@@H_NW4CommandSourceType@@@Z",
+     "43": "?privateHunt@AIUpdateInterface@@MAEXW4CommandSourceType@@@Z",
+     "44": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "45": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "46": "?privateGetHealed@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+     "47": "?privateGetRepaired@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+     "48": "?privateEnter@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+     "49": "?bfmePrivateCommand3D@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+     "50": "?privateMoveToObject@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+     "51": "?privateDock@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+     "52": "?privateHarvest@AIUpdateInterface@@MAEXPBUCoord3D@@W4CommandSourceType@@@Z",
+     "53": "?privateExitInstantly@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+     "54": "?bfmePrivateCommand4B@AIUpdateInterface@@MAEXPAVObject@@PBUCoord3D@@W4CommandSourceType@@@Z",
+     "55": "?bfmePrivateCommand4D@AIUpdateInterface@@MAEXPAVObject@@PBVRva0035149F@@W4CommandSourceType@@@Z",
+     "56": "?bfmePrivateCommand3E@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+     "57": "?bfmePrivateCommand4A@AIUpdateInterface@@MAEXPAVObject@@PBUCoord3D@@W4CommandSourceType@@@Z",
+     "58": "?bfmePrivateCommand4C@AIUpdateInterface@@MAEXPAVObject@@PBVRva0035149F@@W4CommandSourceType@@@Z",
+     "59": "?bfmePrivateCommand54@AIUpdateInterface@@MAEXPAVObject@@PBUCoord3D@@W4CommandSourceType@@@Z",
+     "60": "?rva0026DDED@AIUpdateInterface@@UAEXHW4CommandSourceType@@@Z",
+     "61": "?privateGoProne@AIUpdateInterface@@MAEXPBVDamageInfo@@W4CommandSourceType@@@Z",
+     "62": "?privateGuardTunnelNetwork@AIUpdateInterface@@MAEXHW4CommandSourceType@@@Z",
+     "63": "?privateGuardPosition@AIUpdateInterface@@MAEXPBUCoord3D@@W4GuardMode@@W4CommandSourceType@@@Z",
+     "64": "?privateGuardObject@AIUpdateInterface@@MAEXPAVObject@@W4GuardMode@@W4CommandSourceType@@@Z",
+     "65": "?bfmePrivateCommand20@AIUpdateInterface@@MAEXPBURva00264D81Arg@@W4GuardMode@@W4CommandSourceType@@@Z",
+     "66": "?privateGuardRetaliate@AIUpdateInterface@@MAEXPAVObject@@PBUCoord3D@@HW4CommandSourceType@@@Z",
+     "67": "?privateGuardAreaFromPosition@AIUpdateInterface@@MAEXPBVPolygonTrigger@@W4GuardMode@@W4CommandSourceType@@PBUCoord3D@@@Z",
+     "68": "?privateAttackArea@AIUpdateInterface@@MAEXPBVPolygonTrigger@@W4CommandSourceType@@@Z",
+     "69": "?privateFaceObject@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+     "70": "?privateFacePosition@AIUpdateInterface@@MAEXPBUCoord3D@@W4CommandSourceType@@@Z",
+     "71": "?rva00262EFF@AIUpdateInterface@@UAEXPAX00@Z",
+     "72": "?privateCommandButton@AIUpdateInterface@@MAEXPBVCommandButton@@W4CommandSourceType@@@Z",
+     "73": "?privateCommandButtonPosition@AIUpdateInterface@@MAEXPBVCommandButton@@PBUCoord3D@@W4CommandSourceType@@@Z",
+     "74": "?Set_Animation@RenderObjClass@@UAEXPAVHAnimClass@@MH@Z",
+     "75": "?bfmeGoCSG@AIUpdateInterface@@UAEXPAX0@Z",
+     "76": "?bfmeGoCSA@AIUpdateInterface@@UAEXPAX@Z",
+     "77": "?bfmePrivateCommand53@AIUpdateInterface@@MAEXW4CommandSourceType@@@Z",
+     "78": "?bfmeGoCSH@AIUpdateInterface@@UAEXPAX0@Z",
+     "79": "?bfmeGoCSD@AIUpdateInterface@@UAEXPAX0@Z",
+     "80": "?bfmePrivateCommand31@AIUpdateInterface@@MAEXHW4CommandSourceType@@@Z",
+     "81": "?privateMoveAwayFromUnit@AIUpdateInterface@@MAEXPAVObject@@PBUCoord3D@@W4CommandSourceType@@@Z",
+     "82": "?bfmePrivateCommand3C@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+     "83": "?bfmeGoCSE@AIUpdateInterface@@UAEXPAX0@Z",
+     "84": "?rva002630FD@AIUpdateInterface@@MAEXH@Z",
+     "85": "?bfmeGoCSF@AIUpdateInterface@@UAEXPAX0@Z",
+     "86": "?rva0026316B@AIUpdateInterface@@MAEXPAXH@Z",
+     "87": "?rva002631A6@AIUpdateInterface@@MAEXMH@Z",
+     "88": "??1Region2D@@QAE@XZ",
+     "89": "??1Region2D@@QAE@XZ",
+     "90": "?IsCRC@Xfer@@UBE_NXZ",
+     "91": "?isBusy@AIUpdateInterface@@UBE_NXZ",
+     "92": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "93": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "94": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "95": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "96": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "97": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "98": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "99": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "100": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "101": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "102": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "103": "?joinTeam@AIUpdateInterface@@UAEXXZ",
+     "104": "?rva0026E988@AIUpdateInterface@@UAEHXZ",
+     "105": "?rva0026E999@AIUpdateInterface@@UAEHXZ",
+     "106": "?slot2@PlanningPhaseBuildingSelection@StrategicInGameUI@@UAEHPAX@Z",
+     "107": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+     "108": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+     "109": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "110": "?rva002645FF@Rva002645FF@@QAE_NXZ",
+     "111": "?rva00262D8F@AIUpdateInterface@@UBE_NXZ",
+     "112": "?isClearingMines@AIUpdateInterface@@UBE_NXZ",
+     "113": "?rva00262DA3@AIUpdateInterface@@UBE_NXZ",
+     "114": "?rva00262DAB@AIUpdateInterface@@UBE_NXZ",
+     "115": "?rva00262DBF@AIUpdateInterface@@UBE_NXZ",
+     "116": "?rva00262D7B@AIUpdateInterface@@UBE_NXZ",
+     "117": "?doQuickExit@AIUpdateInterface@@UAEXPBV?$vector@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@@Z",
+     "118": "?get@Rva00042287LeaField@@QBEPAXXZ",
+     "119": "?get@Rva002004A1DwordField@@QBEHXZ",
+     "120": "?getSerialAuthResult@GameSpyPeerMessageQueue@@UAE?AW4SerialAuthResult@@XZ",
+     "121": "?get@Rva0036750CDwordField@@QBEHXZ",
+     "122": "?set@Rva0033F15DDwordSlot@@QAEXH@Z",
+     "123": "?get@Rva0009AAA4DwordField@@QBEHXZ",
+     "124": "?clearGuardTargetType@AIUpdateInterface@@UAEXXZ",
+     "125": "?get@Rva002A98A7DwordField@@QBEHXZ",
+     "126": "?construct@AIUpdateInterface@@UAEPAVObject@@PBVThingTemplate@@PBUCoord3D@@MPAVPlayer@@_NH@Z",
+     "127": "?getEnterTarget@AIUpdateInterface@@UAEPAVObject@@XZ",
+     "128": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "129": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "130": "?IsCRC@Xfer@@UBE_NXZ",
+     "131": "?setLocomotorGoalPositionOnPath@AIUpdateInterface@@UAEXXZ",
+     "132": "?setLocomotorGoalPositionExplicit@AIUpdateInterface@@UAEXABUCoord3D@@@Z",
+     "133": "?setLocomotorGoalPositionExplicitSmart@AIUpdateInterface@@UAEXABUCoord3D@@@Z",
+     "134": "?appendPositionToLocomotorPath@AIUpdateInterface@@UAEXABUCoord3D@@H@Z",
+     "135": "?setLocomotorGoalOrientation@AIUpdateInterface@@UAEXM@Z",
+     "136": "?clear@Rva00262CB6DwordClearer@@QAEXXZ",
+     "137": "?isDoingGroundMovement@AIUpdateInterface@@UBE_NXZ",
+     "138": "?rva00262BA9@AIUpdateInterface@@UAE_NXZ",
+     "139": "?micropathToPosition@AIUpdateInterface@@UAEXPBUCoord3D@@@Z",
+     "140": "?doPathfind@AIUpdateInterface@@UAEXPAVPathfindServicesInterface@@@Z",
+     "141": "?rva00263404@AIUpdateInterface@@UAEXPAVRva00263404Source@@@Z",
+     "142": "?chooseLocomotorSet@AIUpdateInterface@@UAE_NH@Z",
+     "143": "?get@Rva005C4AFDDwordField@@QBEHXZ",
+     "144": "??1Region2D@@QAE@XZ",
+     "145": "?rva00267E46@AIUpdateInterface@@UAEXXZ",
+     "146": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+     "147": "??1Region2D@@QAE@XZ",
+     "148": "?isAllowedToRespondToAiCommands@AIUpdateInterface@@UBE_NPBUAICommandParms@@@Z",
+     "149": "?doLocomotor@AIUpdateInterface@@MAE?AW4UpdateSleepTime@@XZ",
+     "150": "?makeStateMachine@AIUpdateInterface@@MAEPAVAIStateMachine@@XZ",
+     "151": "?getTreatAsAircraftForLocoDistToGoal@AIUpdateInterface@@UBE_NXZ",
+     "152": "?rva002697FC@AIUpdateInterface@@UAE_NXZ",
+     "153": "?rva002628B1@Rva002628B1@@QAEXXZ"
+    },
+    "stores": 1
+   },
+   "0x847b88": {
+    "offset": 32,
+    "slots": {},
+    "stores": 1
+   },
+   "0x852f88": {
+    "offset": 36,
+    "slots": {},
+    "stores": 1
+   }
+  },
+  "view_errors": 2,
+  "view_sizes": {
+   "1": 8,
+   "4": 5,
+   "32": 1,
+   "33": 7,
+   "52": 2,
+   "68": 1,
+   "76": 1,
+   "420": 1,
+   "480": 1,
+   "528": 1,
+   "572": 1,
+   "948": 1,
+   "955": 1,
+   "956": 1,
+   "960": 1,
+   "968": 1,
+   "976": 1,
+   "996": 1,
+   "1000": 1,
+   "1020": 1
+  },
+  "views": 38,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_AIUpdateInterface.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/AIUpdate.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {
+    "4": 9
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 10,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 2
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/BfmeConv641.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStates.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DozerAIUpdateXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdateCtor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/BfmeConv641.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdateCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_setCurrentVictim.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/BfmeConv641.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AnimalAIUpdateCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdateCtor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AnimalAIUpdateCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdateCtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdateCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdateCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdateCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit_ComputeGoal.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectDefect.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/RepairSpecialPowerAtObject.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AnimalAIUpdateCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdateCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003C8A15Do.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003C8E2BExit.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doNamedFaceNamed.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doUnitGarrisonNearestBuilding.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C7914.cpp"
+   ],
+   "views": 10
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AnimalAIUpdateCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdateCtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit_ComputeGoal.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit_ComputeGoal.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/Common/BfmeConv641.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild_QueueUnits.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStates.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderCheckForMovement.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectDoXfer.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngine/Source/Common/BfmeConv641.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 64,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_setCurrentVictim.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 72,
+   "sources": [
+    "Code/GameEngine/Source/Common/BfmeConv641.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStates.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit_ComputeGoal.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 320,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIMoveAndDeleteStateUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStates.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit_ComputeGoal.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 364,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIStates.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_rva00262ACE.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 384,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIStates.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 388,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIStates.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 392,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIStates.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 404,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIStates.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 416,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0033F8D4Pred.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStates.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 460,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIStates.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit_ComputeGoal.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 476,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/HordeMeleeFormationFindMeleeAttackPosition.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 496,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIMoveAndDeleteStateUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStates.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit_ComputeGoal.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 524,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_isWeaponSlotOnTurretAndAimingAtTarget.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 568,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 944,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIStates.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 945,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIMoveAndDeleteStateUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStates.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit_ComputeGoal.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 946,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIStates.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 950,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_rva00262ACE.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 951,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_rva00262ACE.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 952,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_rva00262ACE.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 954,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIDockStateOnExit.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 958,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild_QueueUnits.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 961,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIStates.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 967,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIStates.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit_ComputeGoal.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 972,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIStates.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 996,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AnimalAIUpdateCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1000,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AnimalAIUpdateCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1004,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AnimalAIUpdateCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1008,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AnimalAIUpdateCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1012,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AnimalAIUpdateCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1016,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AnimalAIUpdateCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1017,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AnimalAIUpdateCtor.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "inherited@0x0",
+   "candidates": {
+    "4:P": 1,
+    "4:VPTR": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "inherited@0x4",
+   "candidates": {
+    "4:A": 1,
+    "4:P": 1,
+    "996:A": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "inherited@0xc",
+   "candidates": {
+    "36:A": 1,
+    "4:P": 1,
+    "4:VPTR": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "inherited@0x10",
+   "candidates": {
+    "4:P": 1,
+    "4:VPTR": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "inherited@0x20",
+   "candidates": {
+    "1:S:AICommandInterface": 1,
+    "4:P": 1,
+    "4:VPTR": 1,
+    "8:A": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "inherited@0x24",
+   "candidates": {
+    "4:P": 1,
+    "4:VPTR": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot1",
+   "candidates": {
+    "_slot001()": 1,
+    "a01()": 1,
+    "aiSlot1()": 1,
+    "slot001()": 1,
+    "slot004()": 1,
+    "v01()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot2",
+   "candidates": {
+    "_slot002()": 1,
+    "a02()": 1,
+    "aiSlot2()": 1,
+    "slot002()": 1,
+    "slot008()": 1,
+    "v02()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot3",
+   "candidates": {
+    "_slot003()": 1,
+    "a03()": 1,
+    "aiSlot3()": 1,
+    "slot003()": 1,
+    "slot00c()": 1,
+    "xfer(Xfer*)": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot4",
+   "candidates": {
+    "_slot004()": 1,
+    "a04()": 1,
+    "aiSlot4()": 1,
+    "slot004()": 1,
+    "slot010()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot5",
+   "candidates": {
+    "_slot005()": 1,
+    "a05()": 1,
+    "aiSlot5()": 1,
+    "slot005()": 1,
+    "slot014()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot6",
+   "candidates": {
+    "_slot006()": 1,
+    "a06()": 1,
+    "aiSlot6()": 1,
+    "slot006()": 1,
+    "slot018()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot7",
+   "candidates": {
+    "_slot007()": 1,
+    "a07()": 1,
+    "aiSlot7()": 1,
+    "slot007()": 1,
+    "slot01c()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot8",
+   "candidates": {
+    "_slot008()": 1,
+    "a08()": 1,
+    "aiSlot8()": 1,
+    "slot008()": 1,
+    "slot020()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot9",
+   "candidates": {
+    "_slot009()": 1,
+    "a09()": 1,
+    "aiSlot9()": 1,
+    "slot009()": 1,
+    "slot024()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot10",
+   "candidates": {
+    "_slot010()": 1,
+    "a10()": 1,
+    "aiSlot10()": 1,
+    "slot010()": 1,
+    "slot028()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot11",
+   "candidates": {
+    "_slot011()": 1,
+    "a11()": 1,
+    "aiSlot11()": 1,
+    "slot011()": 1,
+    "slot02c()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot12",
+   "candidates": {
+    "_slot012()": 1,
+    "a12()": 1,
+    "aiSlot12()": 1,
+    "slot012()": 1,
+    "slot030()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot13",
+   "candidates": {
+    "_slot013()": 1,
+    "a13()": 1,
+    "aiSlot13()": 1,
+    "slot013()": 1,
+    "slot034()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot14",
+   "candidates": {
+    "_slot014()": 1,
+    "a14()": 1,
+    "aiSlot14()": 1,
+    "slot014()": 1,
+    "slot038()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot15",
+   "candidates": {
+    "_slot015()": 1,
+    "a15()": 1,
+    "aiSlot15()": 1,
+    "slot015()": 1,
+    "slot03c()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot16",
+   "candidates": {
+    "_slot016()": 1,
+    "a16()": 1,
+    "aiSlot16()": 1,
+    "slot016()": 1,
+    "slot040()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot17",
+   "candidates": {
+    "_slot017()": 1,
+    "a17()": 1,
+    "aiSlot17()": 1,
+    "slot017()": 1,
+    "slot044()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot18",
+   "candidates": {
+    "_slot018()": 1,
+    "a18()": 1,
+    "aiSlot18()": 1,
+    "slot018()": 1,
+    "slot048()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot19",
+   "candidates": {
+    "_slot019()": 1,
+    "a19()": 1,
+    "aiSlot19()": 1,
+    "slot019()": 1,
+    "slot04c()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot20",
+   "candidates": {
+    "_slot020()": 1,
+    "a20()": 1,
+    "aiSlot20()": 1,
+    "slot020()": 1,
+    "slot050()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot21",
+   "candidates": {
+    "_slot021()": 1,
+    "a21()": 1,
+    "aiSlot21()": 1,
+    "slot021()": 1,
+    "slot054()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot22",
+   "candidates": {
+    "_slot022()": 1,
+    "a22()": 1,
+    "aiSlot22()": 1,
+    "slot022()": 1,
+    "slot058()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot23",
+   "candidates": {
+    "_slot023()": 1,
+    "a23()": 1,
+    "aiSlot23()": 1,
+    "slot023()": 1,
+    "slot05c()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot24",
+   "candidates": {
+    "_slot024()": 1,
+    "a24()": 1,
+    "aiSlot24()": 1,
+    "slot024()": 1,
+    "slot060()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot25",
+   "candidates": {
+    "_slot025()": 1,
+    "a25()": 1,
+    "aiSlot25()": 1,
+    "slot025()": 1,
+    "slot064()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot26",
+   "candidates": {
+    "_slot026()": 1,
+    "a26()": 1,
+    "aiSlot26()": 1,
+    "slot026()": 1,
+    "slot068()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot27",
+   "candidates": {
+    "_slot027()": 1,
+    "a27()": 1,
+    "aiSlot27()": 1,
+    "slot027()": 1,
+    "slot06c()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot28",
+   "candidates": {
+    "_slot028()": 1,
+    "a28()": 1,
+    "aiSlot28()": 1,
+    "slot028()": 1,
+    "slot070()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot29",
+   "candidates": {
+    "_slot029()": 1,
+    "a29()": 1,
+    "aiSlot29()": 1,
+    "slot029()": 1,
+    "slot074()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot30",
+   "candidates": {
+    "_slot030()": 1,
+    "a30()": 1,
+    "aiSlot30()": 1,
+    "slot030()": 1,
+    "slot078()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot31",
+   "candidates": {
+    "_slot031()": 1,
+    "a31()": 1,
+    "aiSlot31()": 1,
+    "slot031()": 1,
+    "slot07c()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot32",
+   "candidates": {
+    "_slot032()": 1,
+    "a32()": 1,
+    "aiSlot32()": 1,
+    "slot032()": 1,
+    "slot080()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot33",
+   "candidates": {
+    "_slot033()": 1,
+    "a33()": 1,
+    "aiSlot33()": 1,
+    "slot033()": 1,
+    "slot084()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot34",
+   "candidates": {
+    "_slot034()": 1,
+    "a34()": 1,
+    "aiSlot34()": 1,
+    "slot034()": 1,
+    "slot088()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot35",
+   "candidates": {
+    "_slot035()": 1,
+    "a35()": 1,
+    "aiSlot35()": 1,
+    "slot035()": 1,
+    "slot08c()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot36",
+   "candidates": {
+    "_slot036()": 1,
+    "a36()": 1,
+    "aiSlot36()": 1,
+    "slot036()": 1,
+    "slot090()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot37",
+   "candidates": {
+    "_slot037()": 1,
+    "a37()": 1,
+    "aiSlot37()": 1,
+    "slot037()": 1,
+    "slot094()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot38",
+   "candidates": {
+    "_slot038()": 1,
+    "a38()": 1,
+    "aiSlot38()": 1,
+    "slot038()": 1,
+    "slot098()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot39",
+   "candidates": {
+    "_slot039()": 1,
+    "a39()": 1,
+    "aiSlot39()": 1,
+    "slot039()": 1,
+    "slot09c()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot40",
+   "candidates": {
+    "_slot040()": 1,
+    "a40()": 1,
+    "aiSlot40()": 1,
+    "slot040()": 1,
+    "slot0a0()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot41",
+   "candidates": {
+    "_slot041()": 1,
+    "a41()": 1,
+    "aiSlot41()": 1,
+    "slot041()": 1,
+    "slot0a4()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot42",
+   "candidates": {
+    "_slot042()": 1,
+    "a42()": 1,
+    "aiSlot42()": 1,
+    "slot042()": 1,
+    "slot0a8()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot43",
+   "candidates": {
+    "_slot043()": 1,
+    "a43()": 1,
+    "aiSlot43()": 1,
+    "slot043()": 1,
+    "slot0ac()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot44",
+   "candidates": {
+    "_slot044()": 1,
+    "a44()": 1,
+    "aiSlot44()": 1,
+    "slot044()": 1,
+    "slot0b0()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot45",
+   "candidates": {
+    "_slot045()": 1,
+    "a45()": 1,
+    "aiSlot45()": 1,
+    "slot045()": 1,
+    "slot0b4()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot46",
+   "candidates": {
+    "_slot046()": 1,
+    "a46()": 1,
+    "aiSlot46()": 1,
+    "slot046()": 1,
+    "slot0b8()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot47",
+   "candidates": {
+    "_slot047()": 1,
+    "a47()": 1,
+    "aiSlot47()": 1,
+    "slot047()": 1,
+    "slot0bc()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot48",
+   "candidates": {
+    "_slot048()": 1,
+    "a48()": 1,
+    "aiSlot48()": 1,
+    "slot048()": 1,
+    "slot0c0()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot49",
+   "candidates": {
+    "_slot049()": 1,
+    "a49()": 1,
+    "aiSlot49()": 1,
+    "slot049()": 1,
+    "slot0c4()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot50",
+   "candidates": {
+    "_slot050()": 1,
+    "a50()": 1,
+    "aiSlot50()": 1,
+    "slot050()": 1,
+    "slot0c8()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot51",
+   "candidates": {
+    "_slot051()": 1,
+    "a51()": 1,
+    "aiSlot51()": 1,
+    "slot051()": 1,
+    "slot0cc()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot52",
+   "candidates": {
+    "_slot052()": 1,
+    "a52()": 1,
+    "aiSlot52()": 1,
+    "slot052()": 1,
+    "slot0d0()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot53",
+   "candidates": {
+    "_slot053()": 1,
+    "a53()": 1,
+    "aiSlot53()": 1,
+    "slot053()": 1,
+    "slot0d4()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot54",
+   "candidates": {
+    "_slot054()": 1,
+    "a54()": 1,
+    "aiSlot54()": 1,
+    "slot054()": 1,
+    "slot0d8()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot55",
+   "candidates": {
+    "_slot055()": 1,
+    "a55()": 1,
+    "aiSlot55()": 1,
+    "slot055()": 1,
+    "slot0dc()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot56",
+   "candidates": {
+    "_slot056()": 1,
+    "a56()": 1,
+    "aiSlot56()": 1,
+    "slot056()": 1,
+    "slot0e0()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot57",
+   "candidates": {
+    "_slot057()": 1,
+    "a57()": 1,
+    "aiSlot57()": 1,
+    "slot057()": 1,
+    "slot0e4()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot58",
+   "candidates": {
+    "_slot058()": 1,
+    "a58()": 1,
+    "aiSlot58()": 1,
+    "slot058()": 1,
+    "slot0e8()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot59",
+   "candidates": {
+    "_slot059()": 1,
+    "a59()": 1,
+    "aiSlot59()": 1,
+    "slot059()": 1,
+    "slot0ec()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot60",
+   "candidates": {
+    "_slot060()": 1,
+    "a60()": 1,
+    "aiSlot60()": 1,
+    "slot060()": 1,
+    "slot0f0()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot61",
+   "candidates": {
+    "_slot061()": 1,
+    "a61()": 1,
+    "aiSlot61()": 1,
+    "slot061()": 1,
+    "slot0f4()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot62",
+   "candidates": {
+    "_slot062()": 1,
+    "a62()": 1,
+    "aiSlot62()": 1,
+    "slot062()": 1,
+    "slot0f8()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot63",
+   "candidates": {
+    "_slot063()": 1,
+    "a63()": 1,
+    "aiSlot63()": 1,
+    "slot063()": 1,
+    "slot0fc()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot64",
+   "candidates": {
+    "_slot064()": 1,
+    "a64()": 1,
+    "aiSlot64()": 1,
+    "slot064()": 1,
+    "slot100()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot65",
+   "candidates": {
+    "_slot065()": 1,
+    "a65()": 1,
+    "aiSlot65()": 1,
+    "slot065()": 1,
+    "slot104()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot66",
+   "candidates": {
+    "_slot066()": 1,
+    "a66()": 1,
+    "aiSlot66()": 1,
+    "slot066()": 1,
+    "slot108()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot67",
+   "candidates": {
+    "_slot067()": 1,
+    "a67()": 1,
+    "aiSlot67()": 1,
+    "slot067()": 1,
+    "slot10c()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot68",
+   "candidates": {
+    "_slot068()": 1,
+    "a68()": 1,
+    "aiSlot68()": 1,
+    "slot068()": 1,
+    "slot110()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot69",
+   "candidates": {
+    "_slot069()": 1,
+    "a69()": 1,
+    "aiSlot69()": 1,
+    "slot069()": 1,
+    "slot114()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot70",
+   "candidates": {
+    "_slot070()": 1,
+    "a70()": 1,
+    "aiSlot70()": 1,
+    "slot070()": 1,
+    "slot118()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot71",
+   "candidates": {
+    "_slot071()": 1,
+    "a71()": 1,
+    "aiSlot71()": 1,
+    "slot071()": 1,
+    "slot11c()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot72",
+   "candidates": {
+    "_slot072()": 1,
+    "a72()": 1,
+    "aiSlot72()": 1,
+    "slot072()": 1,
+    "slot120()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot73",
+   "candidates": {
+    "_slot073()": 1,
+    "a73()": 1,
+    "aiSlot73()": 1,
+    "slot073()": 1,
+    "slot124()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot74",
+   "candidates": {
+    "_slot074()": 1,
+    "a74()": 1,
+    "aiSlot74()": 1,
+    "slot074()": 1,
+    "slot128()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot75",
+   "candidates": {
+    "_slot075()": 1,
+    "a75()": 1,
+    "aiSlot75()": 1,
+    "slot075()": 1,
+    "slot12c()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot76",
+   "candidates": {
+    "_slot076()": 1,
+    "a76()": 1,
+    "aiSlot76()": 1,
+    "slot076()": 1,
+    "slot130()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot77",
+   "candidates": {
+    "_slot077()": 1,
+    "a77()": 1,
+    "aiSlot77()": 1,
+    "slot077()": 1,
+    "slot134()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot78",
+   "candidates": {
+    "_slot078()": 1,
+    "a78()": 1,
+    "aiSlot78()": 1,
+    "slot078()": 1,
+    "slot138()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot79",
+   "candidates": {
+    "_slot079()": 1,
+    "a79()": 1,
+    "aiSlot79()": 1,
+    "slot079()": 1,
+    "slot13c()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot80",
+   "candidates": {
+    "_slot080()": 1,
+    "a80()": 1,
+    "aiSlot80()": 1,
+    "slot080()": 1,
+    "slot140()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot81",
+   "candidates": {
+    "_slot081()": 1,
+    "a81()": 1,
+    "aiSlot81()": 1,
+    "slot081()": 1,
+    "slot144()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot82",
+   "candidates": {
+    "_slot082()": 1,
+    "a82()": 1,
+    "aiSlot82()": 1,
+    "slot082()": 1,
+    "slot148()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot83",
+   "candidates": {
+    "_slot083()": 1,
+    "a83()": 1,
+    "aiSlot83()": 1,
+    "slot083()": 1,
+    "slot14c()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot84",
+   "candidates": {
+    "_slot084()": 1,
+    "a84()": 1,
+    "aiSlot84()": 1,
+    "slot084()": 1,
+    "slot150()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot85",
+   "candidates": {
+    "_slot085()": 1,
+    "a85()": 1,
+    "aiSlot85()": 1,
+    "slot085()": 1,
+    "slot154()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot86",
+   "candidates": {
+    "_slot086()": 1,
+    "a86()": 1,
+    "aiSlot86()": 1,
+    "slot086()": 1,
+    "slot158()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot87",
+   "candidates": {
+    "_slot087()": 1,
+    "a87()": 1,
+    "aiSlot87()": 1,
+    "slot087()": 1,
+    "slot15c()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot88",
+   "candidates": {
+    "_slot088()": 1,
+    "a88()": 1,
+    "aiSlot88()": 1,
+    "slot088()": 1,
+    "slot160()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot89",
+   "candidates": {
+    "_slot089()": 1,
+    "a89()": 1,
+    "aiSlot89()": 1,
+    "slot089()": 1,
+    "slot164()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot90",
+   "candidates": {
+    "_slot090()": 1,
+    "a90()": 1,
+    "aiSlot90()": 1,
+    "slot090()": 1,
+    "slot168()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot91",
+   "candidates": {
+    "_slot091()": 1,
+    "a91()": 1,
+    "aiSlot91()": 1,
+    "slot091()": 1,
+    "slot16c()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot92",
+   "candidates": {
+    "_slot092()": 1,
+    "a92()": 1,
+    "aiSlot92()": 1,
+    "slot092()": 1,
+    "slot170()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot94",
+   "candidates": {
+    "_slot094()": 1,
+    "a94()": 1,
+    "aiSlot94()": 1,
+    "slot094()": 1,
+    "slot178()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot95",
+   "candidates": {
+    "_slot095()": 1,
+    "a95()": 1,
+    "aiSlot95()": 1,
+    "getSupplyTruckAIInterface()": 1,
+    "slot095()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot96",
+   "candidates": {
+    "_slot096()": 1,
+    "a96()": 1,
+    "aiSlot96()": 1,
+    "slot096()": 1,
+    "slot180()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot97",
+   "candidates": {
+    "_slot097()": 1,
+    "a97()": 1,
+    "aiSlot97()": 1,
+    "slot097()": 1,
+    "slot184()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot98",
+   "candidates": {
+    "_slot098()": 1,
+    "a98()": 1,
+    "aiSlot98()": 1,
+    "slot098()": 1,
+    "slot188()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot99",
+   "candidates": {
+    "_slot099()": 1,
+    "a99()": 1,
+    "aiSlot99()": 1,
+    "slot099()": 1,
+    "slot18c()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot100",
+   "candidates": {
+    "_slot100()": 1,
+    "aiSlot100()": 1,
+    "b00()": 1,
+    "slot100()": 1,
+    "slot190()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot101",
+   "candidates": {
+    "_slot101()": 1,
+    "aiSlot101()": 1,
+    "b01()": 1,
+    "slot101()": 1,
+    "slot194()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot102",
+   "candidates": {
+    "_slot102()": 1,
+    "aiSlot102()": 1,
+    "b02()": 1,
+    "slot102()": 1,
+    "slot198()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot103",
+   "candidates": {
+    "_slot103()": 1,
+    "aiSlot103()": 1,
+    "b03()": 1,
+    "joinTeam()": 1,
+    "slot103()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot104",
+   "candidates": {
+    "_slot104()": 1,
+    "aiSlot104()": 1,
+    "b04()": 1,
+    "slot104()": 1,
+    "slot1a0()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot105",
+   "candidates": {
+    "_slot105()": 1,
+    "aiSlot105()": 1,
+    "b05()": 1,
+    "slot105()": 1,
+    "slot1a4()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot106",
+   "candidates": {
+    "_slot106()": 1,
+    "aiSlot106()": 1,
+    "b06()": 1,
+    "slot106()": 1,
+    "slot1a8()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot107",
+   "candidates": {
+    "_slot107()": 1,
+    "aiSlot107()": 1,
+    "b07()": 1,
+    "slot107()": 1,
+    "slot1ac()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot108",
+   "candidates": {
+    "_slot108()": 1,
+    "aiSlot108()": 1,
+    "b08()": 1,
+    "slot108()": 1,
+    "slot1b0()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot109",
+   "candidates": {
+    "_slot109()": 1,
+    "aiSlot109()": 1,
+    "b09()": 1,
+    "slot109()": 1,
+    "slot1b4()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot111",
+   "candidates": {
+    "_slot111()": 1,
+    "b11()": 1,
+    "slot111()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot112",
+   "candidates": {
+    "_slot112()": 1,
+    "b12()": 1,
+    "slot112()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot113",
+   "candidates": {
+    "_slot113()": 1,
+    "b13()": 1,
+    "slot113()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot114",
+   "candidates": {
+    "_slot114()": 1,
+    "b14()": 1,
+    "slot114()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot115",
+   "candidates": {
+    "_slot115()": 1,
+    "b15()": 1,
+    "slot115()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot116",
+   "candidates": {
+    "_slot116()": 1,
+    "b16()": 1,
+    "slot116()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot117",
+   "candidates": {
+    "_slot117()": 1,
+    "b17()": 1,
+    "slot117()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot118",
+   "candidates": {
+    "_slot118()": 1,
+    "b18()": 1,
+    "slot118()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot119",
+   "candidates": {
+    "_slot119()": 1,
+    "b19()": 1,
+    "slot119()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot120",
+   "candidates": {
+    "_slot120()": 1,
+    "b20()": 1,
+    "slot120()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot121",
+   "candidates": {
+    "_slot121()": 1,
+    "b21()": 1,
+    "slot121()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot122",
+   "candidates": {
+    "_slot122()": 1,
+    "b22()": 1,
+    "slot122()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot123",
+   "candidates": {
+    "_slot123()": 1,
+    "b23()": 1,
+    "slot123()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot124",
+   "candidates": {
+    "_slot124()": 1,
+    "b24()": 1,
+    "slot124()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot125",
+   "candidates": {
+    "_slot125()": 1,
+    "b25()": 1,
+    "slot125()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot126",
+   "candidates": {
+    "_slot126()": 1,
+    "b26()": 1,
+    "slot126()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot127",
+   "candidates": {
+    "_slot127()": 1,
+    "b27()": 1,
+    "slot127()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot128",
+   "candidates": {
+    "_slot128()": 1,
+    "b28()": 1,
+    "slot128()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot129",
+   "candidates": {
+    "addTargeter(enum,bool)": 1,
+    "addTargeter(int,bool)": 1,
+    "b29()": 1,
+    "slot129()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot130",
+   "candidates": {
+    "b30()": 1,
+    "slot130()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot131",
+   "candidates": {
+    "b31()": 1,
+    "setLocomotorGoalPositionOnPath()": 1,
+    "slot131()": 1
+   },
+   "class": "AIUpdateInterface"
+  },
+  {
+   "attribute": "slot142",
+   "candidates": {
+    "slot142()": 1,
+    "slot142(int)": 1
+   },
+   "class": "AIUpdateInterface"
+  }
+ ],
+ "size": 996,
+ "size_by": "retail-new",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "slot000()"
+  },
+  "110": {
+   "decided_by": "majority",
+   "member": "isIdle()"
+  },
+  "132": {
+   "decided_by": "majority",
+   "member": "slot132()"
+  },
+  "133": {
+   "decided_by": "majority",
+   "member": "slot133()"
+  },
+  "134": {
+   "decided_by": "majority",
+   "member": "slot134()"
+  },
+  "135": {
+   "decided_by": "majority",
+   "member": "slot135()"
+  },
+  "136": {
+   "decided_by": "majority",
+   "member": "slot136()"
+  },
+  "137": {
+   "decided_by": "majority",
+   "member": "isDoingGroundMovement()"
+  },
+  "138": {
+   "decided_by": "majority",
+   "member": "slot138()"
+  },
+  "139": {
+   "decided_by": "bytes",
+   "member": "slot139()"
+  },
+  "140": {
+   "decided_by": "bytes",
+   "member": "slot140()"
+  },
+  "141": {
+   "decided_by": "bytes",
+   "member": "slot141()"
+  },
+  "143": {
+   "decided_by": "majority",
+   "member": "slot143()"
+  },
+  "144": {
+   "decided_by": "bytes",
+   "member": "notifyVictimIsDead()"
+  },
+  "145": {
+   "decided_by": "bytes",
+   "member": "slot145()"
+  },
+  "146": {
+   "decided_by": "bytes",
+   "member": "slot146()"
+  },
+  "147": {
+   "decided_by": "bytes",
+   "member": "slot147()"
+  },
+  "148": {
+   "decided_by": "bytes",
+   "member": "slot148()"
+  },
+  "149": {
+   "decided_by": "bytes",
+   "member": "slot149()"
+  },
+  "150": {
+   "decided_by": "bytes",
+   "member": "slot150()"
+  },
+  "151": {
+   "decided_by": "bytes",
+   "member": "slot151()"
+  },
+  "152": {
+   "decided_by": "bytes",
+   "member": "slot152()"
+  },
+  "93": {
+   "decided_by": "majority",
+   "member": "getDozerAIInterface()"
+  }
+ }
+}
