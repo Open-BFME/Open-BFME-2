@@ -57,22 +57,21 @@ enum GameDifficulty
 	DIFFICULTY_COUNT
 };
 
-class ScriptEngine
+// TheScriptEngine is the real global (canonical ScriptEngine.h); this unit
+// reads only its difficulty field, through a private field view cast at the
+// use, because the canonical class does not spell the field yet.
+#include "../../../../../Include/GameLogic/ScriptEngine.h"
+
+struct ScriptEngineDifficultyView
 {
 	char m_pad[0x1A4C4];
 	GameDifficulty m_gameDifficulty;
 
-public:
-	GameDifficulty getGlobalDifficulty() const { return m_gameDifficulty; }
 	// LINK: same-body helper under a TU-unique name (identical inlined
-	// bytes). This TU's getGlobalDifficulty copy loses to the first-in-order
-	// copy (no retail address); the call below inlines it but still emits the
-	// loser COMDAT. Rebinding there emits only this unique (trivially kept)
-	// copy. No flags touched.
+	// bytes), so no getGlobalDifficulty COMDAT copy competes with the
+	// first-in-order one. No flags touched.
 	GameDifficulty bfme_global_difficulty() const { return m_gameDifficulty; }
 };
-
-extern ScriptEngine *TheScriptEngine;
 
 typedef _STL::map<AsciiString, AsciiString> AsciiPreferenceMap;
 
@@ -88,7 +87,7 @@ Int OptionPreferences::getCampaignDifficulty(void)
 {
 	OptionPreferences::const_iterator it = find("CampaignDifficulty");
 	if (it == end())
-		return TheScriptEngine->bfme_global_difficulty();
+		return ((const ScriptEngineDifficultyView *)TheScriptEngine)->bfme_global_difficulty();
 
 	Int factor = atoi(it->second.str());
 	if (factor < DIFFICULTY_EASY)
