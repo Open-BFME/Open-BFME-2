@@ -63,7 +63,7 @@ private:
 };
 
 enum BuildableStatus { BSTATUS_YES, BSTATUS_IGNORE_PREREQUISITES, BSTATUS_NO, BSTATUS_ONLY_BY_AI };
-class ThingTemplate { public: BuildableStatus getBuildable() const; };
+#include "../../Include/Common/ThingTemplate.h"
 class ThingFactory { public: const ThingTemplate *findTemplate(const AsciiString &name); };
 class CommandButton { public: const ThingTemplate *rva0035B570() const; };
 class Rva005DAB30Production {

@@ -12,7 +12,7 @@ typedef int Int;
 typedef bool Bool;
 
 #include "ascii_string.h"
-class ThingTemplate { public: void GetAssetList(int,int); };
+#include "../../../../Include/Common/ThingTemplate.h"
 class CommandButton { public: const ThingTemplate *rva0035B570() const; };
 
 #include "../../../Common/GameLogicObjectLookupView.h"

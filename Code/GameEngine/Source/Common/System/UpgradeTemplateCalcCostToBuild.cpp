@@ -34,11 +34,7 @@ public:
 };
 extern ThingFactory *TheThingFactory;
 
-class ThingTemplate
-{
-public:
-	int rva0033A69A(const Player *player, int a, int b) const;
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class ObjectUpgradeInterface
 {

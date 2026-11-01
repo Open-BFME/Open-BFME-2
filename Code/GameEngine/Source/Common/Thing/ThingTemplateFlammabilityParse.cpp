@@ -62,11 +62,7 @@ static FieldParse s_flammabilityTable[6] = {
 	{ "Fuel", INI::parseUnsignedInt, 0, 0 },
 };
 
-class ThingTemplate
-{
-protected:
-	static void __cdecl parseFlammability(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 // ?parseFlammability@ThingTemplate@@KAXPAVINI@@PAX1PBX@Z
 void __cdecl ThingTemplate::parseFlammability(INI *ini, void *instance, void * /*store*/, const void * /*userData*/)

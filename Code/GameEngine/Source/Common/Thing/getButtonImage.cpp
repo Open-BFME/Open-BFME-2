@@ -20,10 +20,7 @@ public:
 	int m_74;
 };
 class Image;
-class ThingTemplate {
-public:
-	const Image *getButtonImage();
-};
+#include "../../../Include/Common/ThingTemplate.h"
 const Image *getButtonImage(ThingTemplate *thingTemplate, Object *object)
 {
 	if (thingTemplate == 0 || object == 0)

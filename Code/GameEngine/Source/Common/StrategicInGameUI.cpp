@@ -37,11 +37,7 @@ public:
 };
 extern class ThingFactory *TheThingFactory;
 
-class ThingTemplate {
-public:
-    const Image *getButtonImage();
-    const Image *rva0033BA46();
-};
+#include "../../Include/Common/ThingTemplate.h"
 
 struct Rva005D2355In {
     char pad00[0x18];

@@ -1246,13 +1246,7 @@ public:
 
  
  
-class ThingTemplate
-{
-public:
-	void *getCurrentLivingWorldAutoResolveWeapon(const void *key) const;
-public:
-	void GetAssetList(Int a, Int b);
-};
+#include "../../Include/Common/ThingTemplate.h"
 
 class ThingFactory
 {

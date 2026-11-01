@@ -21,11 +21,7 @@ public:
 	OBJCLASS *cur() const { return m_cur; }
 };
 
-struct ThingTemplate
-{
-	unsigned char m_pad[0x5e6];
-	unsigned char m_byte5e6;
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class Object
 {
@@ -41,7 +37,7 @@ bool Team::hasAnyBuildFacility()
 	for (DLINK_ITERATOR<Object> iter = iterate_TeamMemberList(); !iter.done(); iter.advance()) {
 		Object *cur = iter.cur();
 		ThingTemplate *thingTemplate = cur->m_template;
-		if (thingTemplate->m_byte5e6 != 0)
+		if (thingTemplate->m5E6 != 0)
 			return true;
 	}
 	return false;

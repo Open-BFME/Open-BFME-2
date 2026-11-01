@@ -150,7 +150,7 @@ struct Rva0053E4B1Owner
 };
 
 class Image;
-class ThingTemplate { public: const Image *getButtonImage(); };
+#include "../../../../Include/Common/ThingTemplate.h"
 class Rva002A7DDEArg;
 class HotKeyManager;
 extern HotKeyManager *TheHotKeyManager;

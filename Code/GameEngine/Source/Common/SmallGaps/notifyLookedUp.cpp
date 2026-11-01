@@ -9,7 +9,7 @@
 // The callees are the rowed ThingFactory::findTemplate (0x002D06CA) and
 // ThingTemplate::GetAssetList (0x0033CF34); each element is a template name.
 class AsciiString;
-class ThingTemplate { public: void GetAssetList(int a, int b); };
+#include "../../../Include/Common/ThingTemplate.h"
 // TheThingFactory is EA's ThingFactory singleton, defined once in
 // Common/Thing/ThingFactory.cpp.
 class ThingFactory { public: const ThingTemplate *findTemplate(const AsciiString &name); };

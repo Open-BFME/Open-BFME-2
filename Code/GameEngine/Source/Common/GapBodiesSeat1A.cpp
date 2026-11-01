@@ -628,11 +628,7 @@ int Rva00260F3B::rva00260F3B(const Rva00260F3BOther *other)
 // template's rowed isEquivalentTo the object's +4 template agrees with the
 // +0x0C flag; 0x0026176E (34B): the same over the rowed 0x00376A62 test of
 // that template's +0x64 name.
-class ThingTemplate
-{
-public:
-	bool isEquivalentTo(const ThingTemplate *tmpl) const;	// 0x0033BB04
-};
+#include "../../Include/Common/ThingTemplate.h"
 
 class ObjectTypes
 {

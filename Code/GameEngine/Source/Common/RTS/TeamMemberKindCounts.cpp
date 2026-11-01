@@ -37,12 +37,7 @@ enum ObjectStatusTypes
 
 enum KindOfType { KINDOF_INVALID = -1 };
 
-class ThingTemplate
-{
-public:
-	bool isKindOf(KindOfType kind) const;
-	bool isEquivalentTo(const ThingTemplate *tt) const;
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class Object
 {

@@ -41,14 +41,7 @@ class Player { public: bool hasScience(ScienceType) const; };
 class ScienceStore { public: ScienceType getScienceFromInternalName(const AsciiString&) const; };
 extern ScienceStore *TheScienceStore;
 
-class ThingTemplate
-{
-public:
-	const Image *getButtonImage();
-	Int calcTimeToBuild(const Player *player, Int a, Int b) const;
-	int rva0033B479() const;
-	Int rva0033A69A(const Player *player, Int a, Int b) const;	// 0x0033A69A, build cost
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 enum ObjectID; class ThingFactory
 {

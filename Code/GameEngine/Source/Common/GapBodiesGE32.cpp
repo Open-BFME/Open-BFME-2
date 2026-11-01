@@ -237,11 +237,7 @@ Rva002A8AB1Record *Rva00599F65::rva00599F65()
 
 // --- 0x0059AE72 (34B): with a positive +0x0C amount, the rowed 0x0041950A
 // check of the +0x2C template's auto-resolve weapon for the +0x08 object.
-class ThingTemplate
-{
-public:
-	void *getCurrentLivingWorldAutoResolveWeapon(const void *key) const;	// 0x0033A9E2
-};
+#include "../../Include/Common/ThingTemplate.h"
 
 class Rva004194D6
 {

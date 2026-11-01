@@ -102,11 +102,7 @@ enum WeaponSlotType
 };
 #include "Code/Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 class Team;
-class ThingTemplate
-{
-public:
-	void GetAssetList(int a, int b);		// 0x0033CF34
-};
+#include "../../Include/Common/ThingTemplate.h"
 class WeaponTemplate;
 struct CreateMask
 {

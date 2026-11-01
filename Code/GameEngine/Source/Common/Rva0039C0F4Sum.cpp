@@ -7,14 +7,7 @@
 // 0x000069D6 StringBase compare and 0x00024250 _M_increment; callers 0x003C2E61 0x003E82E2;
 // ret 4 proves one AsciiString const-ref arg; twin of 0x0039BF67 sum with KindOf.
 
-class ThingTemplate
-{
-public:
-	// Native +0x64 name access is already inlined in these callers.
-	__declspec(dllimport) __forceinline const AsciiString &getName() const { return *(const AsciiString *)((const char *)this + 0x64); }
-private:
-	char m_pad[0x108];
-};
+#include "../../Include/Common/ThingTemplate.h"
 
 namespace _STL
 {

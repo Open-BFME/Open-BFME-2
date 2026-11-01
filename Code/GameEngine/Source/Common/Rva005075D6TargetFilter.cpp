@@ -3,7 +3,7 @@
 #include "GameLogicObjectLookupView.h"
 
 enum Relationship { ENEMIES, NEUTRAL, ALLIES };
-class ThingTemplate { public: bool isEquivalentTo(const ThingTemplate *) const; };
+#include "../../Include/Common/ThingTemplate.h"
 class Player;
 struct Rva2225E0Filter { bool accepts(Object *, Player *); };
 class ObjectFilter { public: bool isValid() const; };

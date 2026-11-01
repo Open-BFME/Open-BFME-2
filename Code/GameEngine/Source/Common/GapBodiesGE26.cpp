@@ -270,11 +270,7 @@ public:
 	const Rva00427157 *getCurrentLivingWorldAutoResolveArmor(const void *key);		// 0x0033A9A5
 };
 
-class ThingTemplate
-{
-public:
-	void *getCurrentLivingWorldAutoResolveWeapon(const void *key) const;	// 0x0033A9E2
-};
+#include "../../Include/Common/ThingTemplate.h"
 
 struct Rva004F613BObject
 {

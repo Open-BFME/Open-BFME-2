@@ -30,13 +30,7 @@ public:
 	UnsignedInt m_surfaces;
 };
 
-struct ThingTemplate
-{
-	unsigned char m_pad[0x113];
-	unsigned char m_kindByte113;
-	unsigned char m_pad2[0x118 - 0x114];
-	unsigned char m_kindByte118;
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 enum DamageType { DamageType_Unknown };
 enum DeathType { DeathType_Unknown };

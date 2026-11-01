@@ -23,11 +23,7 @@ public:
 // 0x0050B95B: looks up the +0x12C name with the rowed ThingFactory::findTemplate
 // (TheThingFactory, VA 0x00DFF000) and forwards both arguments to the rowed
 // ThingTemplate::GetAssetList of the template found.
-class ThingTemplate
-{
-public:
-	void GetAssetList(Int a, Int b);
-};
+#include "../../Include/Common/ThingTemplate.h"
 
 class ThingFactory
 {

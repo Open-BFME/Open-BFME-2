@@ -5,15 +5,7 @@ bool __cdecl Rva001E4426Test(unsigned int *bits, int bit);
 
 enum KindOfType { KINDOF_INVALID = -1 };
 
-class ThingTemplate
-{
-public:
-	__declspec(noinline) inline bool isKindOf(KindOfType bit) const;
-
-private:
-	unsigned char m_pre[0x108];
-	unsigned int m_kindBits[4];
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 __declspec(noinline) inline bool ThingTemplate::isKindOf(KindOfType bit) const
 {

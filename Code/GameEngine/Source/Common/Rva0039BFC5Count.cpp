@@ -6,11 +6,7 @@
 // ObjectCountMap shape (header ptr +0, key +0x10, value +0x14); ret 8 proves
 // two __stdcall args (query first, map second).
 
-class ThingTemplate
-{
-public:
-	bool isEquivalentTo(const ThingTemplate *other) const;
-};
+#include "../../Include/Common/ThingTemplate.h"
 
 namespace _STL
 {

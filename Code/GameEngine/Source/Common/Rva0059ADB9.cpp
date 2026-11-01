@@ -181,11 +181,7 @@ void *Rva0059AE32::rva0059AE32(void *source, unsigned int *tail)
 // 0x0033A9E2 with body at +0x2C; tail result through rowed bool 0x0041950A.
 // Callers 0x004F97AC 0x004F9A05 in 0x004F971E 0x004F99CC; neighbours
 // 0x0059AE55 0x0059AFC2. Owner identity remains address-derived.
-class ThingTemplate
-{
-public:
-	void *getCurrentLivingWorldAutoResolveWeapon(const void *context) const;
-};
+#include "../../Include/Common/ThingTemplate.h"
 
 class Rva004194D6
 {

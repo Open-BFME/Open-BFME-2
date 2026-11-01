@@ -56,11 +56,7 @@ extern const FieldParse g_prereqFieldParse[] = {
 	{ 0, 0, 0, 0 }
 };
 
-class ThingTemplate
-{
-protected:
-	static void __cdecl parsePrerequisites(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 enum { INI_LOAD_CREATE_OVERRIDES = 2 };
 

@@ -21,11 +21,7 @@ public:
 	Player *getControllingPlayer() const;
 };
 
-class ThingTemplate
-{
-public:
-	int rva0033A69A(const class Player *o, int a, int b) const;	// row 0x0033A69A spelling
-};
+#include "../../Include/Common/ThingTemplate.h"
 
 class Player
 {

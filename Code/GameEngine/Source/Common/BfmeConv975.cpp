@@ -114,11 +114,7 @@ public:
 	char bfmeGo975D(int a);
 };
 
-class ThingTemplate
-{
-public:
-	bool isEquivalentTo(const ThingTemplate *other) const;
-};
+#include "../../Include/Common/ThingTemplate.h"
 
 char BfmeD975::bfmeGo975D(int a)
 {

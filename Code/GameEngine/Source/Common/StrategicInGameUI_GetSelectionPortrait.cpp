@@ -13,10 +13,7 @@ public:
 };
 extern class ThingFactory *TheThingFactory;
 
-class ThingTemplate {
-public:
-    const Image *rva0033BA46();
-};
+#include "../../Include/Common/ThingTemplate.h"
 
 struct Rva005D232DHolder {
     char pad[0x0C];

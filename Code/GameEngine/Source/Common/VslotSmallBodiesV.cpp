@@ -98,11 +98,7 @@ void TextureAsset::RecolorFactoryDecal::PreLoad()
 // ThingFactory::findTemplate (TheThingFactory, VA 0x00DFF000) and forwards both
 // arguments to the rowed ThingTemplate::GetAssetList of the template found.
 class AsciiString;
-class ThingTemplate
-{
-public:
-	void GetAssetList(Int a, Int b);
-};
+#include "../../Include/Common/ThingTemplate.h"
 class ThingFactory
 {
 public:

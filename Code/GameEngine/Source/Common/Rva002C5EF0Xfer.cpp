@@ -138,11 +138,7 @@ public:
     unsigned int m_bits[7];
 };
 
-struct ThingTemplate
-{
-    char m_pad000[0x51C];
-    float m_threatLevel;
-};
+#include "../../Include/Common/ThingTemplate.h"
 
 class Thing
 {
