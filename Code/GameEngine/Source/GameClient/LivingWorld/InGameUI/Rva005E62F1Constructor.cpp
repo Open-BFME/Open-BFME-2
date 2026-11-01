@@ -14,7 +14,7 @@
 // likewise evaluate info before the owner store. No original class name is
 // inferred from byte equality. See reverse/attempt_evidence/0x005e62f1_crack_i.txt.
 class Rva003F3F7CDwordImmSetter {public:void apply();};
-class Rva000AD6F4 {public:void clear();};
+#include "../../../../Include/Common/Rva000AD6F4.h"
 struct Rva002BA8F1Listener;
 class Rva005A0B4CList {public:void append(Rva002BA8F1Listener*);};
 class Rva00319B0AOwner {public:void rva00319B0A();};

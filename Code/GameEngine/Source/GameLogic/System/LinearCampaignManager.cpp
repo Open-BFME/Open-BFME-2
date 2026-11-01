@@ -43,12 +43,7 @@ namespace _STL { template <> void _Destroy<Rva001ED0DE *>(Rva001ED0DE *,Rva001ED
 namespace _STL { template <> vector<Rva001ED0DE, allocator<Rva001ED0DE> >::~vector(); }
 // This unit's own row: the single-element _Destroy the vector dtor used to pull in.
 template void _STL::_Destroy<Rva001ED0DE>(Rva001ED0DE *);
-class Rva000AD6F4
-{
-public:
-	~Rva000AD6F4();
-	void clear();
-};
+#include "../../../Include/Common/Rva000AD6F4.h"
 #include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../../reference/shims/moduledata/Common/Snapshot.h"

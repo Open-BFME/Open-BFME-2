@@ -290,15 +290,7 @@ class Rva00575674
 public:
 	void rva00575674(Object *p);
 };
-class Rva000AD6F4
-{
-public:
-	__forceinline Rva000AD6F4() : m_ptr(0) {}
-	~Rva000AD6F4();
-	void clear();
-
-	void *m_ptr;
-};
+#include "../../../../Include/Common/Rva000AD6F4.h"
 
 // The dialog's movie clip (0x0C bytes, vtable 0x00C781DC); its constructor
 // is rowed under an address-named class.

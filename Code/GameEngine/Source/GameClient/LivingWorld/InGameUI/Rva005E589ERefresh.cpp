@@ -6,13 +6,7 @@
 // the +0x18 army's command-point pair (rowed 0x00318FBE and
 // GetMaxCommandPoints 0x003192B9) to slot 3 of the +0x10 chased target.
 // Names address-derived.
-class Rva000AD6F4
-{
-public:
-	void clear();	// 0x000AD6F4
-private:
-	void *m_held;	// owned pointer
-};
+#include "../../../../Include/Common/Rva000AD6F4.h"
 
 class Rva005F55D6
 {

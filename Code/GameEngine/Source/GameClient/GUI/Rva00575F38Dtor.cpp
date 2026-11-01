@@ -219,15 +219,7 @@ private:
 	Rva005CC61E m_member;
 };
 
-class Rva000AD6F4
-{
-public:
-	Rva000AD6F4() : m_p(0) {}
-	~Rva000AD6F4();
-
-private:
-	void *m_p;
-};
+#include "../../../Include/Common/Rva000AD6F4.h"
 
 class Rva005CD7BD
 {

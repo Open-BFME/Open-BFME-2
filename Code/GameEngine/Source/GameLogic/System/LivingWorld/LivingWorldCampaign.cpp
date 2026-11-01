@@ -821,14 +821,7 @@ struct Rva000AD6F4Base
 	virtual void *virt0(unsigned int);
 };
 
-class Rva000AD6F4
-{
-public:
-	~Rva000AD6F4();
-	void clear();
-private:
-	Rva000AD6F4Base *m_ptr;
-};
+#include "../../../../Include/Common/Rva000AD6F4.h"
 
 struct BfmePod88
 {

@@ -93,11 +93,7 @@ public:
 // The +0x1C holder needs unwinding (EH state 1); its destructor running the
 // rowed Rva000AD6F4::clear is inferred from the sibling holders, as only the
 // unwind funclet calls it.
-class Rva000AD6F4
-{
-public:
-	void clear();
-};
+#include "../../../../Include/Common/Rva000AD6F4.h"
 
 class Rva005CF27AHolder
 {

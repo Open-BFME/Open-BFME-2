@@ -144,7 +144,7 @@ class Rva005CD010 { public: void rva005CD010(); };
 class Rva005CCEB6 { public: void rva005CCEB6(); };
 class Rva005CD708 { public: void rva005CD708(); };
 class Rva005D14AB { public: void rva005D14AB(); };
-class Rva000AD6F4 { public: void clear(); };
+#include "../../../../Include/Common/Rva000AD6F4.h"
 class Rva002B5EB5 { public: bool IsLocalPlayerAllowedToEndPhase(); };
 class Rva0042D6AEPtrChaseField { public: int get() const; };
 class ResolveUpdateAction {

@@ -190,11 +190,7 @@ public:
 
 class Rva0057C394;
 
-class Rva000AD6F4
-{
-public:
-	void clear();
-};
+#include "../../../Include/Common/Rva000AD6F4.h"
 
 class Rva005F23B2 {public: ~Rva005F23B2();};
 
