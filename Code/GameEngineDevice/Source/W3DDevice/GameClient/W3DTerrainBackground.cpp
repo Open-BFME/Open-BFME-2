@@ -21,10 +21,80 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include <stdio.h>
 #include <string.h>
 #include <aabox.h>
-#include <dx8vertexbuffer.h>
-#include <dx8indexbuffer.h>
+#include <refcount.h>
+#include <dx8fvf.h>
+
+// Pointer/lock views from the rowed terrain updates. Native lock constructors
+// 1394A0 and 138790 establish the two words and a trailing device-guard word.
+// Buffer allocation sizes and vtable contents are not asserted here.
+class VertexBufferClass : public RefCountClass
+{
+public:
+    class WriteLockClass
+    {
+    public:
+        WriteLockClass(VertexBufferClass *buffer, int flags = 0);
+        ~WriteLockClass();
+        void *Get_Vertex_Array() { return m_vertices; }
+    private:
+        VertexBufferClass *m_buffer;
+        void *m_vertices;
+        unsigned char m_tail08[4];
+    };
+};
+class DX8VertexBufferClass : public VertexBufferClass
+{
+public:
+    enum UsageType { USAGE_DEFAULT = 0 };
+    DX8VertexBufferClass(unsigned fvf, unsigned short count, UsageType usage);
+};
+class IndexBufferClass : public RefCountClass
+{
+public:
+    class WriteLockClass
+    {
+    public:
+        WriteLockClass(IndexBufferClass *buffer, int flags = 0);
+        ~WriteLockClass();
+        unsigned short *Get_Index_Array() { return m_indices; }
+    private:
+        IndexBufferClass *m_buffer;
+        unsigned short *m_indices;
+        unsigned char m_tail08[4];
+    };
+};
+class DX8IndexBufferClass : public IndexBufferClass
+{
+public:
+    enum UsageType { USAGE_DEFAULT = 0 };
+    DX8IndexBufferClass(unsigned count, UsageType usage);
+};
 #include <shader.h>
-#include <texture.h>
+#include <texturefilter.h>
+
+// Texture access/call prefix: Get_Filter (35FF72/4B) proves Filter at
+// +5C. Release_Ref (61ED10/36B) proves ref bits at +4 and slot-8 disposal.
+// Unknown preceding slots are pure placeholders; no table or allocation size
+// is asserted, and this abstract pointer-only view emits no texture vtable.
+class TextureClass
+{
+public:
+    void Release_Ref();
+    TextureFilterClass &Get_Filter() { return Filter; }
+    virtual void slot00() = 0;
+    virtual void slot04() = 0;
+    virtual void slot08() = 0;
+    virtual void slot0C() = 0;
+    virtual void slot10() = 0;
+    virtual void slot14() = 0;
+    virtual void slot18() = 0;
+    virtual void slot1C() = 0;
+    virtual void Delete_This();
+private:
+    unsigned int m_refBits;
+    unsigned char m_prefix08[0x54];
+    TextureFilterClass Filter;
+};
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
 #include "../../../../Libraries/Include/Lib/IRegion2D.h"
 
@@ -91,6 +161,11 @@ private:
 	int m_unmodelled58; // +0x58
 	Rva00729300BitPlane *m_map; // +0x5C
 };
+class Rva0006653B
+{
+public:
+    void rva0006AA45(int x, int y, Vector3 *normal);
+};
 class Rva0006AB49BitPlane
 {
 public:
@@ -119,6 +194,8 @@ public:
     __declspec(dllimport) __forceinline unsigned short getHeight(int x, int y)
     { return ((BoundedShortGrid *)this)->load(x, y); }
     __forceinline void refreshBitPlane() { ((Rva000AD9AB *)this)->rva000AD9FE(); }
+    __forceinline void getTerrainNormal(int x, int y, Vector3 *normal)
+    { ((Rva0006653B *)this)->rva0006AA45(x, y, normal); }
     __forceinline int getBorderSize() { return m_borderSize; }
     __forceinline bool isInMesh(int x, int y)
     { return ((const Rva00729300BitPlane *)this)->test(x, y); }
@@ -137,12 +214,13 @@ public:
     RefCountPtr<TextureClass> rva000AEAA6(int x, int y, int width, int second);
     int m_width, m_height, m_borderSize;
 };
-class HeightMapRenderObjClass
+class BaseHeightMapRenderObjClass
 {
 public:
     unsigned int getStaticDiffuse(int x, int y);
+    int getStaticDiffuse(int x, int y, bool skipFirstLight);
 };
-extern HeightMapRenderObjClass *TheTerrainRenderObject;
+extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
 class RayCollisionTestClass;
 #define MAP_XY_FACTOR 10.0f
 #define MAP_HEIGHT_SCALE (10.0f / 256.0f)
@@ -217,9 +295,9 @@ public:
 
     int m_cullStatus[3];
     AABoxClass m_bounds;
-    DX8VertexBufferClass *m_vertexTerrain; // 24
+    VertexBufferClass *m_vertexTerrain; // 24
     int m_vertexTerrainSize;
-    DX8IndexBufferClass *m_indexTerrain; // 2C
+    IndexBufferClass *m_indexTerrain; // 2C
     int m_indexTerrainSize;
     TerrainTextureClass *m_terrainTexture2X; // 34
     TerrainTextureClass *m_terrainTexture; // 38: native flat texture
@@ -286,7 +364,6 @@ struct Rva00112153Elem
 {
 	char m_00;
 };
-#include <new>
 
 static ShaderClass detailShader(SC_DETAIL);
 

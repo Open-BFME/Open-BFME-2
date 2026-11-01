@@ -39,19 +39,6 @@ public:
 private:
 	T *m_referent;
 };
-// Specialization is declared before TextureArgumentView can instantiate
-// its base destructor. The shared terrain resource release is rowed at 61ED10.
-struct BfmeResetResource
-{
-    void Release_Ref();
-};
-template <> inline RefCountPtr<TextureClass>::~RefCountPtr();
-template <> inline RefCountPtr<TextureClass>::~RefCountPtr()
-{
-    if (m_referent)
-        ((BfmeResetResource *)m_referent)->Release_Ref();
-}
-
 // The texture handle's copy constructor is the out-of-line 0x000424BB.
 template <> RefCountPtr<TextureClass>::RefCountPtr(const RefCountPtr<TextureClass> &rhs);
 

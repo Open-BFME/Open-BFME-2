@@ -33,18 +33,6 @@ private:
 	T *m_referent;
 };
 
-// The rowed TextureClass release at 61ED10 is the same established
-// resource operation the seed's four-word texture holder already uses.
-struct BfmeResetResource
-{
-    void Release_Ref();
-};
-template <> inline RefCountPtr<TextureClass>::~RefCountPtr()
-{
-    if (m_referent)
-        ((BfmeResetResource *)m_referent)->Release_Ref();
-}
-
 struct BfmeResetTextureRef
 {
 	void clear();
