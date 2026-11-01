@@ -26,15 +26,7 @@ class RGBAColorInt;
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 #define COORD3D_VIEW_DTOR
 
-class Xfer::Version
-{
-public:
-	Version(unsigned char current, unsigned char minimum)
-		: m_current(current), m_minimum(minimum) {}
-
-	unsigned char m_current;
-	unsigned char m_minimum;
-};
+#include "../../../../Include/Common/XferVersion.h"
 
 class Thing;
 

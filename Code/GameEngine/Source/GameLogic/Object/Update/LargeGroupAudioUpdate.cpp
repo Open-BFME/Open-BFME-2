@@ -94,15 +94,7 @@ class Snapshot;
 class Thing;
 class ModuleData;
 #include "../../../../Include/Common/BfmeXfer.h"
-class Xfer::Version
-{
-public:
-	Version(unsigned char current, unsigned char minimum)
-		: m_current(current), m_minimum(minimum) {}
-
-	unsigned char m_current;
-	unsigned char m_minimum;
-};
+#include "../../../../Include/Common/XferVersion.h"
 #include "../../../../../Libraries/Include/Lib/Coord2D.h"
 
 // ?rva004AB7C8@LargeGroupAudioUpdate@@QBEHXZ @0x004AB7C8 35B: returns GetGameLogicRandomValue(0 m_18 file 0xA7) plus m_14 plus 1. File literal at 0x008547B8 is LargeGroupAudioUpdate.cpp. Callers at 0x004AB94B 0x004ABB60 0x004ABB72 0x004ABC52. Prev Rva0024A797Grandchildren next V3PolyCopyCtors.

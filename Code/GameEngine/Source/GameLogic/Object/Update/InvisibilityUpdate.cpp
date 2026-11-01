@@ -101,15 +101,7 @@ extern "C" void _ReadWriteBarrier();
 
 class Object;
 
-class Xfer::Version
-{
-public:
-	Version(unsigned char current, unsigned char minimum)
-		: m_current(current), m_minimum(minimum) {}
-
-	unsigned char m_current;
-	unsigned char m_minimum;
-};
+#include "Code/GameEngine/Include/Common/XferVersion.h"
 
 enum UpdateSleepTime
 {

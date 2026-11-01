@@ -262,15 +262,7 @@ extern ThreatFinderManager *TheThreatFinderManager;
 // TheThreatFinderManager: matched references place it at VA 0xe02e48 (zero-filled .bss).
 ThreatFinderManager * TheThreatFinderManager;
 
-class Xfer::Version
-{
-public:
-	Version(unsigned char current, unsigned char minimum)
-		: m_current(current), m_minimum(minimum) {}
-
-	unsigned char m_current;
-	unsigned char m_minimum;
-};
+#include "../../../../Include/Common/XferVersion.h"
 
 class Rva003ECD60Object
 {

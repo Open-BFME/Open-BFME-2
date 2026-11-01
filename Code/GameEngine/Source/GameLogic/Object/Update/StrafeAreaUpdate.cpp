@@ -48,15 +48,7 @@ struct StrafeDirection {float x,y,z;
  __forceinline StrafeDirection(const Coord3D &v):x(v.x),y(v.y),z(v.z) {}
  __forceinline void sub(const Coord3D &v){x-=v.x;y-=v.y;z-=v.z;}
 };
-class Xfer::Version
-{
-public:
-	Version(unsigned char current, unsigned char minimum)
-		: m_current(current), m_minimum(minimum) {}
-
-	unsigned char m_current;
-	unsigned char m_minimum;
-};
+#include "../../../../Include/Common/XferVersion.h"
 struct Coord3DBase
 {
 	float x;
