@@ -10,7 +10,7 @@
 // instance factory 0x24ED86 (news 0x50) is the sole raw caller. Row
 // supersedes the ctor pin.
 
-extern "C" const void *const __identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@")[];  // folded vftable 0x00BEFF90 (80 classes), by the name its definer AttributeModifierPoolUpdate.cpp emits on the canonical BehaviorModule chain (data ledger: ...@@6BBehaviorModuleOther@@@)
+extern "C" const void *const __identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleOther@@@")[];  // folded vftable 0x00BEFF90 (80 classes), by the name its definer AttributeModifierPoolUpdate.cpp emits on the canonical BehaviorModule chain (data ledger: ...@@6BBehaviorModuleOther@@@)
 
 extern "C" const void *const __identifier("??_7Rva003A4322@@6BRva003A4322_B2@@@")[];  // vftable 0x00C1AF54
 // The retail table at RVA 0x0081AF60: 13 slots, each a rowed code owner (the next
@@ -93,7 +93,7 @@ FadeAndDieOrnamentUpdate::FadeAndDieOrnamentUpdate(Thing *thing, const ModuleDat
 {
 	float fzero = 0.0f;
 	m_vtable = (const void *)((unsigned int)vtbl_00C1AF60);
-	m_secondary0C = (const void *)((unsigned int)__identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@"));
+	m_secondary0C = (const void *)((unsigned int)__identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleOther@@@"));
 	m_secondary10 = (const void *)((unsigned int)__identifier("??_7Rva003A4322@@6BRva003A4322_B2@@@"));
 	m_28.init();
 	const FadeAndDieOrnamentUpdateModuleData *data = (const FadeAndDieOrnamentUpdateModuleData *)m_moduleData;

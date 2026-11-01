@@ -15846,11 +15846,15 @@ Completed: group 1 rebinding of the AttributeModifierPoolUpdate folded table
 DIR32 OK (65 rows, 31 symbols, including AttributeModifierPoolUpdate.cpp's own rows);
 `link_check` 0 -> 967 B for the ten units, AttributeModifierPoolUpdate.cpp 3,869 ->
 3,869 B (LINKS).
-Update (2026-11-01, attach-update-bind): `AttachUpdateCtor.cpp` re-bound
-`??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@` to
-`??_7AttributeModifierPoolUpdate@@6BBehaviorModuleOther@@@` (0x00BEFF90), matching
-the converged data ledger symbol and the name emitted by `AttributeModifierPoolUpdate.cpp`.
-`AttachUpdateCtor.cpp` now LINKS cleanly (0 -> 99 bytes, `link_check.py`).
+Update (2026-11-01, behavior-module-other-bind): all ten group-1 units
+(`AttachUpdateCtor.cpp`, `StancesBehaviorCtor.cpp`, `BannerCarrierUpdateCtor.cpp`,
+`DamageFieldUpdateBehaviorDtor.cpp`, `DamageFieldUpdateBehaviorCtor.cpp`,
+`FadeAndDieOrnamentUpdateCtor.cpp`, `HordeNotifyTargetsOfImminentProbableCrushingUpdateCtor.cpp`,
+`NotifyTargetsOfImminentProbableCrushingUpdateCtor.cpp`, `RespawnUpdateCtor.cpp` and
+`StrafeAreaUpdateCtor.cpp`) re-bound `??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@`
+to `??_7AttributeModifierPoolUpdate@@6BBehaviorModuleOther@@@` (0x00BEFF90), matching
+the converged data ledger symbol and the actual table emitted by `AttributeModifierPoolUpdate.cpp`.
+All ten units now LINK cleanly (0 -> 967 bytes, `link_check.py`).
 Second commit: the four group-1 units above bind the names PoisonedBehavior.cpp,
 Rva0024A797Grandchildren.cpp, BloodthirstyUpdateDtor.cpp and RainOfFireUpdateDtor.cpp
 emit for the same retail tables (0x00C49800, 0x00C49AAC/AB8/AC8, 0x00C54774/780,

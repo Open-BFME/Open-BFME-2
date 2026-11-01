@@ -12,7 +12,7 @@
 // DIR32-masked in comparison). Zero new pins (base resolves via the
 // rowed UpdateModule spelling).
 
-extern "C" const void *const __identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@")[];  // folded vftable 0x00BEFF90 (80 classes), by the name its definer AttributeModifierPoolUpdate.cpp emits on the canonical BehaviorModule chain (data ledger: ...@@6BBehaviorModuleOther@@@)
+extern "C" const void *const __identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleOther@@@")[];  // folded vftable 0x00BEFF90 (80 classes), by the name its definer AttributeModifierPoolUpdate.cpp emits on the canonical BehaviorModule chain (data ledger: ...@@6BBehaviorModuleOther@@@)
 
 extern "C" const void *const __identifier("??_7Rva004969FF@@6BRva004969FF_B2@@@")[];  // vftable 0x00C4F82C
 // The retail table at RVA 0x0084F838: 13 slots, each a rowed code owner (the next
@@ -60,6 +60,6 @@ BannerCarrierUpdate::BannerCarrierUpdate(Thing *thing, const ModuleData *moduleD
 	UpdateModule(thing, moduleData)
 {
 	*(unsigned int *)this = ((unsigned int)vtbl_00C4F838);
-	*(unsigned int *)((char *)this + 0xC) = ((unsigned int)__identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@"));
+	*(unsigned int *)((char *)this + 0xC) = ((unsigned int)__identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleOther@@@"));
 	*(unsigned int *)((char *)this + 0x10) = ((unsigned int)__identifier("??_7Rva004969FF@@6BRva004969FF_B2@@@"));
 }

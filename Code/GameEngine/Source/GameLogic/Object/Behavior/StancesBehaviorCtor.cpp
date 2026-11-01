@@ -42,7 +42,7 @@ extern "C" const void *const vtbl_00C424DC[13] = {
 
 extern "C" const void *const __identifier("??_7StancesBehavior@@6BStancesBehaviorInterfaceB@@@")[];  // vftable 0x00C424D0
 
-extern "C" const void *const __identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@")[];  // folded vftable 0x00BEFF90 (80 classes), by the name its definer AttributeModifierPoolUpdate.cpp emits on the canonical BehaviorModule chain (data ledger: ...@@6BBehaviorModuleOther@@@)
+extern "C" const void *const __identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleOther@@@")[];  // folded vftable 0x00BEFF90 (80 classes), by the name its definer AttributeModifierPoolUpdate.cpp emits on the canonical BehaviorModule chain (data ledger: ...@@6BBehaviorModuleOther@@@)
 
 class Thing;
 class ModuleData;
@@ -82,6 +82,6 @@ StancesBehavior::StancesBehavior(Thing *thing, const ModuleData *moduleData)
 {
 	m_30 = 0;
 	m_vtable = reinterpret_cast<const void *>(((unsigned int)vtbl_00C424DC));
-	m_p0C = reinterpret_cast<const void *>(((unsigned int)__identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@")));
+	m_p0C = reinterpret_cast<const void *>(((unsigned int)__identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleOther@@@")));
 	m_p10 = reinterpret_cast<const void *>(((unsigned int)__identifier("??_7StancesBehavior@@6BStancesBehaviorInterfaceB@@@")));
 }

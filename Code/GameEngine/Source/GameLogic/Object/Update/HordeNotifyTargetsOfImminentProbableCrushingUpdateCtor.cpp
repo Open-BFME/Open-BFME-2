@@ -14,7 +14,7 @@
 // DIR32-masked in comparison). Zero new pins (base resolves via the
 // rowed UpdateModule spelling).
 
-extern "C" const void *const __identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@")[];  // folded vftable 0x00BEFF90 (80 classes), by the name its definer AttributeModifierPoolUpdate.cpp emits on the canonical BehaviorModule chain (data ledger: ...@@6BBehaviorModuleOther@@@)
+extern "C" const void *const __identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleOther@@@")[];  // folded vftable 0x00BEFF90 (80 classes), by the name its definer AttributeModifierPoolUpdate.cpp emits on the canonical BehaviorModule chain (data ledger: ...@@6BBehaviorModuleOther@@@)
 
 extern "C" const void *const __identifier("??_7Rva00253E19@@6BRva00253E19_B2@@@")[];  // vftable 0x00BF17EC
 // The retail table at RVA 0x007F17F8: 13 slots, each a rowed code owner (the next
@@ -62,7 +62,7 @@ HordeNotifyTargetsOfImminentProbableCrushingUpdate::HordeNotifyTargetsOfImminent
 	UpdateModule(thing, moduleData)
 {
 	*(unsigned int *)this = ((unsigned int)vtbl_00BF17F8);
-	*(unsigned int *)((char *)this + 0xC) = ((unsigned int)__identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@"));
+	*(unsigned int *)((char *)this + 0xC) = ((unsigned int)__identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleOther@@@"));
 	*(unsigned int *)((char *)this + 0x10) = ((unsigned int)__identifier("??_7Rva00253E19@@6BRva00253E19_B2@@@"));
 }
 
