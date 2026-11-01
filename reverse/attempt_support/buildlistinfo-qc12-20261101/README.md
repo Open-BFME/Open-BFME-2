@@ -80,3 +80,5 @@ context; that matched original body is not a regression and remains verified.
 Original all-eight before/after graphs are retained as well as the aggregate
 proof. Unused SidesList class/root-shim claims can be released after exact
 restoration; native header and six edited owner file claims await landing.
+
+First header/getter3ac6124c80 landed689cc79b91. Exact blobs and ancestry verified. Fresh baseline compiled all eight units on current origin/master e682e3cb330a305cd63c9406bcd77c658c55561a, with that header already on base. Remaining seven commits rebased excluding the landed prefix. Final124/124rows, seven accepts and STRICT all-eight runtime comparison PASS (879sections831definitions9weak). Thus no per-unit runtime difference at all for the remaining six native owner adoptions; the first-header duplicate-alias proof remains disclosed separately. No SideList/root shim edits remain.
