@@ -1,0 +1,518 @@
+{
+ "bases": [
+  "SubsystemInterface",
+  "Snapshot"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "Rva002A8F24",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 40,
+  "inherited": {
+   "base_views": 4,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x908": {
+    "4": 1
+   },
+   "0x914": {
+    "4": 2
+   },
+   "0x918": {
+    "4": 2
+   },
+   "0x934": {
+    "4": 1
+   },
+   "0x938": {
+    "4": 2
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x944": 1
+     }
+    },
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x2a9725"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "SubsystemInterface",
+       "offset": 0,
+       "own_vftable": "0x7fdb94",
+       "rule": "retail-ctor-call"
+      },
+      {
+       "kind": "target",
+       "name": "Snapshot",
+       "offset": 12,
+       "own_vftable": "0x7fdb84",
+       "rule": "retail-inlined-base-vptr"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x2a9725"
+     ],
+     "value": 2372
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x2a9725"
+     ],
+     "value": {
+      "0x940": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x2a9725"
+     ],
+     "value": {
+      "0x10": [
+       "??0Rva002A8D49@@QAE@XZ"
+      ],
+      "0x908": [
+       "??0?$map@EHU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEH@_STL@@@2@@_STL@@QAE@XZ"
+      ],
+      "0x914": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x920": [
+       "??0?$hash_map@HURva002A9706Element@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHURva002A9706Element@@@_STL@@@3@@_STL@@QAE@XZ"
+      ],
+      "0x934": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x2a9725"
+     ],
+     "value": {
+      "0x0": "0x7fdb94",
+      "0xc": "0x7fdb84"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7fdb94"
+     ],
+     "value": {
+      "count": 14,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GRva002A8F24@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x2a93f5"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 1,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+        "slot": 2,
+        "target": "0x1b5384"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 3,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 4,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 5,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 6,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 7,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?reset@Rva002A8F24@@UAEXXZ",
+        "slot": 9,
+        "target": "0x2a9072"
+       },
+       {
+        "name": "?update@Rva002A8F24@@UAEXXZ",
+        "slot": 10,
+        "target": "0x2a8e7b"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 11,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 12,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 13,
+        "target": "0x47a69c"
+       }
+      ],
+      "table": "0x7fdb94"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 11,
+  "retail_vtables": {
+   "0x7fdb84": {
+    "offset": 12,
+    "slots": {},
+    "stores": 1
+   },
+   "0x7fdb94": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GRva002A8F24@@UAEPAXI@Z",
+     "1": "??1Region2D@@QAE@XZ",
+     "2": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+     "3": "??1Region2D@@QAE@XZ",
+     "4": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "5": "?IsCRC@Xfer@@UBE_NXZ",
+     "6": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "7": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "8": "??1Region2D@@QAE@XZ",
+     "9": "?reset@Rva002A8F24@@UAEXXZ",
+     "10": "?update@Rva002A8F24@@UAEXXZ",
+     "11": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "12": "??1Region2D@@QAE@XZ",
+     "13": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 26,
+   "32": 1,
+   "2132": 2,
+   "2145": 1,
+   "2184": 2,
+   "2312": 1,
+   "2337": 1,
+   "2372": 5
+  },
+  "views": 39,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 7,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManagerCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManagerReset.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManagerUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManager_FindPreSpawnedObjects.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManagerCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManagerReset.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManagerUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManager_FindPreSpawnedObjects.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManagerCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManagerReset.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManagerUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManager_FindPreSpawnedObjects.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/INI/INIBfmeBlockParsers_Rva00210F64Parse.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManagerCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManagerReset.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManagerUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManager_FindPreSpawnedObjects.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 2128,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/UpgradeTemplateCalcCostToBuild.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateBuildCost.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 2144,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManager_FindPreSpawnedObjects.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherSkirmishAIStats.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 2180,
+   "sources": [
+    "Code/GameEngine/Source/Common/AITargetHeuristicEnemyDozer.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITargetChooser/AITargetHeuristics/AITargetHeuristicExpansionBase.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 2184,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AIDifficulty.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2312,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManagerCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManagerReset.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManagerUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManager_FindPreSpawnedObjects.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 2316,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManagerCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManager_FindPreSpawnedObjects.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 2320,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManagerCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManager_FindPreSpawnedObjects.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 2324,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManagerCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManagerReset.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManagerUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManager_FindPreSpawnedObjects.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 2328,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManagerCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManagerReset.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManagerUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManager_FindPreSpawnedObjects.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 2332,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManagerCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManagerReset.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManagerUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManager_FindPreSpawnedObjects.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 2336,
+   "sources": [
+    "Code/GameEngine/Source/Common/INI/Rva002A92F2Parse.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManagerCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManagerReset.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManagerUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManager_FindPreSpawnedObjects.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 2337,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManagerCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2338,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManagerCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2340,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManagerCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2344,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManagerCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2348,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManagerCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2352,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManagerCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2356,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManagerCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManagerReset.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManagerUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManager_FindPreSpawnedObjects.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 2360,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManagerCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManagerReset.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManagerUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManager_FindPreSpawnedObjects.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 2364,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManagerCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManagerReset.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManagerUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManager_FindPreSpawnedObjects.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 2368,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManagerCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManagerReset.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManagerUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManager_FindPreSpawnedObjects.cpp"
+   ],
+   "views": 4
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "inherited@0x0",
+   "candidates": {
+    "16:A": 1,
+    "2336:A": 1,
+    "2372:A": 1,
+    "4:VPTR": 1
+   },
+   "class": "Rva002A8F24"
+  }
+ ],
+ "size": 2372,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}

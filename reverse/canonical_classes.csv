@@ -223,3 +223,4 @@ ModuleData,Code/GameEngine/Include/Common/ModuleData.h,existing header; contract
 BfmeAptWindowManager,Code/Libraries/Source/Apt/BfmeAptWindowManager.h,existing header; contract class_contracts/BfmeAptWindowManager.json; 100/119 sampled units adopt
 OpaqueRefCounted,Code/Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h,existing header; contract class_contracts/OpaqueRefCounted.json; 92/117 sampled units adopt
 BfmeAptValue006DCD20,Code/Libraries/Source/Apt/BfmeAptValue006DCD20.h,existing header; contract class_contracts/BfmeAptValue006DCD20.json; 83/123 sampled units adopt
+Rva002A8F24,Code/GameEngine/Include/GameLogic/Rva002A8F24.h,existing header; contract class_contracts/Rva002A8F24.json; 89/137 sampled units adopt
