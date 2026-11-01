@@ -1,52 +1,76 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /MD
 // ?read@DataChunkTableOfContents@@QAEXAAVChunkInputStream@@@Z @0x003071E9 301B via BFME1 donor DataChunkTableOfContents.cpp
-// Evidence: pinned name; caller DataChunkInput ctor 0x307351; donor game/GameEngine/Source/Common/System/DataChunkTableOfContents.cpp read plus DataChunk.cpp; retail inlines tag CkMp check and Mapping new 0x10 with StringBase getBufferForRead row.
+// Evidence: pinned name; caller DataChunkInput ctor 0x307351; donor game/GameEngine/Source/Common/System/DataChunkTableOfContents.cpp read plus DataChunk.cpp; retail inlines tag CkMp check and the 0x10-byte mapping new (as allocateID) with StringBase getBufferForRead row.
 #include "ascii_string.h"
 
 typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef unsigned char Byte;
 
-class ChunkInputStream
+// DataChunk.cpp's views: the stream, the output stream, the 0x10-byte mapping
+// (Mapping, and the concrete object retail news, whose table 0x00807EAC the
+// ledger also names ??_7Rva0030714F@@6B@) and the table of contents.
+class ChunkInputStream;
+class OutputStream;
+
+class Mapping
 {
 public:
-	virtual int read(void *pData, int numBytes);
-	virtual unsigned int tell(void);
-	virtual bool absoluteSeek(unsigned int pos);
-	virtual bool eof(void);
+	virtual void *deleteInstance(int flags);
+
+	Mapping *m_next;			// +0x04
+	AsciiString m_name;			// +0x08
+	unsigned int m_id;			// +0x0C
+};
+
+class Rva0030714F
+{
+public:
+	Rva0030714F() {}
+	virtual ~Rva0030714F();
+private:
+	char m_pad04[4];
+	AsciiString m_name;			// +0x08
+	unsigned int m_id;			// +0x0C
+};
+
+class DataChunkTableOfContents
+{
+public:
+    DataChunkTableOfContents() : m_list(0), m_nextID(1), m_listLength(0), m_headerOpened(false) {}
+    ~DataChunkTableOfContents();
+    void read(ChunkInputStream &s);
+    void write(OutputStream &stream);
+    unsigned int allocateID(const AsciiString &name);
+    unsigned int getID(const AsciiString &name);
+    AsciiString getName(unsigned int id);
+
+    Mapping *m_list;
+    int m_listLength;
+    unsigned int m_nextID;
+    bool m_headerOpened;
+
+private:
+    Mapping *findMapping(const AsciiString &name);
 };
 
 class OutputStream
 {
 public:
-	virtual Int write(const void *pData, Int numBytes) = 0;
+    virtual int write(const void *data, int count) = 0;
 };
 
-struct Mapping
-{
-	virtual ~Mapping();
-	Mapping *next;
-	AsciiString name;
-	UnsignedInt id;
-};
-
-// ??1Mapping@@UAE@XZ present-unmatched
-Mapping::~Mapping() {}
-
-#include <new>
-
-class DataChunkTableOfContents
+// Zero Hour's ChunkInputStream: read is vslot 0, eof vslot 3.
+class ChunkInputStream
 {
 public:
-	void read(ChunkInputStream &s);
-	void write(OutputStream &s);
-
-private:
-	Mapping *m_list;
-	Int m_listLength;
-	UnsignedInt m_nextID;
-	bool m_headerOpened;
+	virtual int read(void *buf, int numBytes) = 0;
+	virtual unsigned int tell(void) = 0;
+	virtual bool absoluteSeek(unsigned int pos) = 0;
+	virtual bool eof(void) = 0;
 };
+
+#include <new>
 
 // The read() consumer naturally emits the unsigned-reference instantiation.
 // Its complete native leaf is 0x9FDE5..0x9FDF5 (16B): load two referents,
@@ -77,23 +101,23 @@ void DataChunkTableOfContents::read(ChunkInputStream &s)
 
 	for (i = 0; i < count; i++)
 	{
-		m = new Mapping;
+		m = (Mapping *)new Rva0030714F;
 		s.read((char *)&len, sizeof(unsigned char));
 
 		if (len > 0)
 		{
-			char *str = ((StringBase<char> *)&m->name)->getBufferForRead(len);
+			char *str = ((StringBase<char> *)&m->m_name)->getBufferForRead(len);
 			s.read(str, len);
 			str[len] = '\0';
 		}
 
-		s.read((char *)&m->id, sizeof(UnsignedInt));
-		m->next = m_list;
+		s.read((char *)&m->m_id, sizeof(UnsignedInt));
+		m->m_next = m_list;
 		m_list = m;
 		m_listLength++;
 
-		if (m->id > maxID)
-			maxID = m->id;
+		if (m->m_id > maxID)
+			maxID = m->m_id;
 	}
 
 	m_headerOpened = count > 0 && !s.eof();
@@ -117,11 +141,11 @@ void DataChunkTableOfContents::write(OutputStream &s)
 	Byte tag[4] = {'C', 'k', 'M', 'p'};
 	s.write(tag, sizeof(tag));
 	s.write((void *)&m_listLength, sizeof(Int));
-	for (m = m_list; m; m = m->next)
+	for (m = m_list; m; m = m->m_next)
 	{
-		len = m->name.getLength();
+		len = m->m_name.getLength();
 		s.write((char *)&len, sizeof(unsigned char));
-		s.write(m->name.str(), len);
-		s.write((char *)&m->id, sizeof(UnsignedInt));
+		s.write(m->m_name.str(), len);
+		s.write((char *)&m->m_id, sizeof(UnsignedInt));
 	}
 }
