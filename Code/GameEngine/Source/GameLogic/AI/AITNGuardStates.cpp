@@ -157,11 +157,7 @@ struct TAiData
 };
 int GetGameLogicRandomValue(int low, int high, char *file, int line);
 #define AITNGUARD_FILE "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\AI\\AITNGuard.cpp"
-class AIUpdateInterface
-{
-public:
-	void friend_setGoalObject(Object *obj); // friend_setGoalObject
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 class AI
 {
 public:

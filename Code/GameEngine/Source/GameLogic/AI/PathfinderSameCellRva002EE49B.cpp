@@ -72,13 +72,7 @@ class Rva0006E009DwordField
 public:
 	int get()const;
 };
-class AIUpdateInterface
-{
-public:
-	ObjectID getIgnoredObstacleID() const;
-	char m_pad00[0x1CC];
-	Rva002E8BCFSrc *m_1cc_dummy;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 struct ThingTemplate
 {

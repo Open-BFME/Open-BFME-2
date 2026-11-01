@@ -10,15 +10,7 @@ class Thing;
 class ModuleData;
 class Module;
 
-class AIUpdateInterface
-{
-public:
-	AIUpdateInterface(Thing *thing, const ModuleData *moduleData);
-	static Module *friend_newModuleInstance(Thing *thing, const ModuleData *moduleData);
-
-private:
-	char m_pad[0x3E4];
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 // ?friend_newModuleInstance@AIUpdateInterface@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z
 Module *AIUpdateInterface::friend_newModuleInstance(Thing *thing, const ModuleData *moduleData)

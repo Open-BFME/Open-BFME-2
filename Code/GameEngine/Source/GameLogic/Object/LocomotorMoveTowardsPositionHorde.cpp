@@ -529,11 +529,7 @@ public:
 	char m_pad18[0x24 - 0x18];
 	Real m_majorRadius; // +0x24
 };
-class AIUpdateInterface
-{
-public:
-	void destroyPath();
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 class Rva00373EC6;
 class StealthUpdate
 {

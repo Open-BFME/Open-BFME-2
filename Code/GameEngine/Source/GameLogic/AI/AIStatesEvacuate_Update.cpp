@@ -78,14 +78,7 @@ private:
 };
 extern AI *TheAI;
 
-class AIUpdateInterface
-{
-public:
-	Path *getPath() const { return m_path; }
-private:
-	unsigned char m_pad000[0x140];
-	Path *m_path; // +0x140
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 class Object
 {

@@ -37,20 +37,13 @@ enum CommandSourceType
 	CMD_FROM_AI = 2
 };
 
-class AICommandInterface
-{
-public:
-	void aiIdle(CommandSourceType cmdSource);
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 struct Rva001E8C1BAIHead
 {
 	char m_pad[0x20];
 };
 
-class AIUpdateInterface : public Rva001E8C1BAIHead, public AICommandInterface
-{
-};
 
 class Object
 {

@@ -244,13 +244,7 @@ class AIExitStateView : public CowerSlots<106>
 public:
 	virtual int rva003462E1Slot106(Object *obj) = 0;
 };
-class AIUpdateInterface
-{
-public:
-	unsigned char m_pad000[0x3C5];
-	Bool m_bfmeFlag3C5; // +0x3C5
-	Bool m_bfmeFlag3C6; // +0x3C6
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 class Rva0010CBits
 {
@@ -541,8 +535,8 @@ void AIRampageState::onExit(StateExitType status)
 		return;
 	owner->setStatus(OBJECT_STATUS_BFME_39, false);
 	owner->clearWeaponSetFlag(WEAPONSET_BFME_8);
-	ai->m_bfmeFlag3C5 = false;
-	ai->m_bfmeFlag3C6 = false;
+	ai->m_field3C5 = false;
+	ai->m_field3C6 = false;
 	owner->setModelConditionBit(132);
 	owner->kill(DAMAGE_BFME_8, DEATH_NORMAL);
 }

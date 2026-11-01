@@ -22,11 +22,7 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class AIUpdateInterface
-{
-public:
-	virtual NameKeyType getModuleNameKey() const;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 // ?getModuleNameKey@AIUpdateInterface@@UBE?AW4NameKeyType@@XZ
 NameKeyType AIUpdateInterface::getModuleNameKey() const

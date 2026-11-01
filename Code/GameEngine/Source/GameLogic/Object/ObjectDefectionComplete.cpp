@@ -202,13 +202,7 @@ public:
 	virtual void releaseContainment() = 0;
 };
 
-class AIUpdateInterface
-{
-public:
-	void rva0026331C();
-	void rva002633B6();
- void BeginDefectedStateMachine();
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 class Object
 {

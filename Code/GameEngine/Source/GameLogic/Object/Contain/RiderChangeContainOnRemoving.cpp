@@ -151,11 +151,7 @@ private:
 };
 extern PlayerList *ThePlayerList;
 
-class AIUpdateInterface
-{
-public:
-	bool isMoving() const;	// 0x00264688
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 // Experience tracker views at Object+0x264 (rowed and pinned spellings).
 class Rva0039ACA4

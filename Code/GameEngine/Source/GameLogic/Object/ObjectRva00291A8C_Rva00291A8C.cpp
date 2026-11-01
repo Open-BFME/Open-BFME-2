@@ -149,12 +149,7 @@ extern AI *TheAI;
 
 
 class Rva001E3591 { public: bool rva001E3591(); };
-class AIUpdateInterface {
-public:
- bool isMoving() const;
- char unknown00[0x140];
- Rva001E3591 *path;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 class AttributeModifierPoolUpdate { public: bool rva00403382(int,float *,int);bool rva00403448(int,float*,int,int); };
 enum KindOfType { KINDOF_VIEW_UNKNOWN = 0 };
 struct ObjectCrushLevelsView {

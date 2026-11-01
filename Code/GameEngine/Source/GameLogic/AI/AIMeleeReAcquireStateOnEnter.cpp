@@ -170,13 +170,7 @@ extern GameLogic *TheGameLogic;
 extern int BfmeLogicFramesPerSecond;
 #define LogicFramesPerSecond BfmeLogicFramesPerSecond
 
-class AIUpdateInterface
-{
-public:
-	// The source owner now declares the corroborated Object pointer;
-	// it preserves the native +0x30 machine and its lock guard.
-	void friend_setGoalObject(Object *obj);	// 0x00262B0F
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 class Object
 {

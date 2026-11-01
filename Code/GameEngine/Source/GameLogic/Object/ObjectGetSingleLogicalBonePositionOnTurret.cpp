@@ -17,7 +17,7 @@
 enum WhichTurretType {TURRET_PRIMARY=0};
 enum WeaponSlotType {PRIMARY_WEAPON=0};
 #include "../../../Include/GameClient/DrawableBFME2.h"
-class AIUpdateInterface {public:bool getTurretRotAndPitch(WhichTurretType,float*,float*)const;};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 class Object {public:
  char pad00[0x84];Drawable*draw;char pad88[0x258-0x88];AIUpdateInterface*ai;
  bool getSingleLogicalBonePositionOnTurret(WhichTurretType,const char*,Coord3D*,Matrix3D*)const;

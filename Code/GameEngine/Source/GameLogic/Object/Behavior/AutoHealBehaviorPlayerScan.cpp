@@ -163,11 +163,7 @@ public:
 	Real getMaxHeightAbovePosition() const;
 };
 
-class AIUpdateInterface
-{
-public:
-	Object *getCurrentVictim() const;
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 class BodyModuleInterface
 {
@@ -381,31 +377,9 @@ enum
 
 #include "../../../../Include/Common/ObjectModule.h"
 
-class BehaviorModuleInterface
-{
-public:
-	virtual void getBody();
-};
 
-class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
-{
-};
 
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
 
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-protected:
-	Object *getObject() const { return m_object; }
-private:
-	UnsignedInt m_nextCallFrameAndPhase; // +0x14
-	Int m_indexInLogic; // +0x18
-	Int m_reserved1C; // +0x1C
-};
 
 // +0x20: slot 0 reads the upgrade-executed byte.
 class UpgradeMux

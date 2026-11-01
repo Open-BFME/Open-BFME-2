@@ -137,11 +137,7 @@ private:
 extern ControlBar *TheControlBar;
 
 // AIUpdateInterface: slot 142 (+0x238) chooses the locomotor set.
-class AIUpdateInterface : public Rva0047E5D4Slots<142>
-{
-public:
-	virtual void chooseLocomotorSet(int set);
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 class StealthUpdate
 {

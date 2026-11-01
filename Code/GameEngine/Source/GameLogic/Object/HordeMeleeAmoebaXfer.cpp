@@ -59,7 +59,7 @@ class Weapon {public:
  float getAttackRange(const Object*)const;
  void *vptr;const Rva002C9400ByteField *data;
 };
-class AIUpdateInterface {public:Object *getCurrentVictim()const;};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 class Rva001E3591 {public:bool rva001E3591();};
 template<int N> class HmaVirtualSlots:public HmaVirtualSlots<N-1>{public:virtual void gap(char(*)[N]);};
 template<> class HmaVirtualSlots<0>{};

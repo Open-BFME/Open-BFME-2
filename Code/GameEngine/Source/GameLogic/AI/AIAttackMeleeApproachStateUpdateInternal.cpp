@@ -112,14 +112,7 @@ template <> class AIUpdateSlots<0>
 {
 };
 
-class AIUpdateInterface : public AIUpdateSlots<144>
-{
-public:
-	virtual void notifyVictimIsDead() = 0; // +0x240
-	void setCurrentVictim(const Object *victim);
-	unsigned char m_pad04[0x140 - 0x04];
-	int m_140; // +0x140
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 enum StateExitType
 {
@@ -206,13 +199,13 @@ StateReturnType Rva00349611::rva00349611()
 		if (weapon && weapon->isWithinAttackRange((const Object *)source, victim, 0.0f, 1))
 		{
 			Bool inRange = TheAI->m_pathfinder->rva002ED313(source);
-			if (ai->m_140 == 0)
+			if (ai->m_path == 0)
 				inRange = true;
 			if (inRange)
 				return STATE_SUCCESS;
 		}
 		ai->setCurrentVictim(victim);
-		if (ai->m_140 == 0)
+		if (ai->m_path == 0)
 		{
 			Coord3D *goal = &m_prevVictimPos;
 			*goal = *victim->getPosition();

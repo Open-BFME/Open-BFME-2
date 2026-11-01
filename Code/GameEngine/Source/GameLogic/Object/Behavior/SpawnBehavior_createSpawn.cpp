@@ -162,11 +162,7 @@ public:
 	void fadeIn(UnsignedInt frames);
 };
 
-class AIUpdateInterface
-{
-public:
-	void ignoreObstacle(const Object *obj);
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 class Object
 {

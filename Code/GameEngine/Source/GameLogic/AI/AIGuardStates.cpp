@@ -214,15 +214,7 @@ private:
 	unsigned char m_pad308[0x438 - 0x308];
 	unsigned char m_bfme438; // +0x438
 };
-class AIUpdateInterface
-{
-public:
-	Real getLocomotorDistanceToGoal();
-	ObjectID getCrateID() const { return m_crateCreated; }
-private:
-	unsigned char m_pad00[0x238];
-	ObjectID m_crateCreated; // +0x238
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 struct TAiData
 {
 	unsigned char m_pad00[0x3C];

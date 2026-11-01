@@ -47,14 +47,7 @@ public:
 	virtual void setLocomotorGoalPositionExplicit(const Coord3D &newPos) = 0;
 	virtual void bfmeStopTurn() = 0;
 };
-class AIUpdateInterface : public VSlots<132>
-{
-public:
-	virtual void setLocomotorGoalPositionExplicit(const Coord3D &newPos) = 0;
-	virtual void slot133() = 0;
-	virtual void slot134() = 0;
-	virtual void setLocomotorGoalOrientation(Real angle) = 0;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 class Object
 {
 public:

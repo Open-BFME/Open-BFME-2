@@ -30,11 +30,7 @@ public:
 template <> class AIUpdateSlots<0>
 {
 };
-class AIUpdateInterface : public AIUpdateSlots<142>
-{
-public:
-	virtual Bool chooseLocomotorSet(LocomotorSetType wst) = 0;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 class Object
 {
 public:

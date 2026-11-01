@@ -37,11 +37,7 @@ public:
 	unsigned char m_11a;
 };
 
-class AIUpdateInterface
-{
-public:
-	bool isQuickPathAvailable(const Coord3D *destination) const;
-};
+#include "../../Include/GameLogic/Module/AIUpdate.h"
 
 class Object
 {

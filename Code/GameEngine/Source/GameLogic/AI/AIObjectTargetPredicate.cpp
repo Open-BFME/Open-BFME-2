@@ -15,7 +15,7 @@ extern NameKeyGenerator*TheNameKeyGenerator;
 class Rva002C9400ByteField {public:unsigned char get()const;};
 class Weapon {public:bool isWithinAttackRange(const Object*,const Object*,float,int)const;char pad[4];const Rva002C9400ByteField*data;};
 class WeaponSet {public:Weapon*getWeaponInWeaponSlot(WeaponSlotType)const;char pad[8];Weapon*slots[6];};
-struct AIUpdateInterface {char pad[0x3CC];bool playerIdle;};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 struct ThingTemplate {char pad[0x113];unsigned char flags113;char pad114;unsigned char flags115;};
 class Rva004C5772CmpBoolField {public:bool get()const;};
 class Rva0028F326Owner {public:unsigned char rva0028F326(unsigned,float);};
@@ -32,7 +32,7 @@ bool AI::rva002FE193(Object*source,Object*target)
  AIUpdateInterface*ai=source->ai;
  if(!ai)return false;
  bool onGround=false;
- if(source->testStatus((ObjectStatusTypes)68)||ai->playerIdle)onGround=true;
+ if(source->testStatus((ObjectStatusTypes)68)||ai->m_field3CC)onGround=true;
  if(source->data->flags115&0x20){
   if(!source->contain)return false;
   for(int slot=0;slot<6;++slot){

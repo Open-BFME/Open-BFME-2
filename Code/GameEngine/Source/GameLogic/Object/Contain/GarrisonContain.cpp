@@ -346,11 +346,7 @@ private:
     AIUpdateInterface *m_ai; // +0x258
 };
 
-class AIUpdateInterface
-{
-public:
-    Object *getCurrentVictim() const;
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 // Measured target helpers used by retail trackTargets at 0x00478ADB.
 struct Rva0046247DPair { void *first; void *second; };

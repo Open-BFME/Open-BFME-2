@@ -178,11 +178,7 @@ class RebuildHoleBehavior
 public:
 	static RebuildHoleBehaviorInterface *getRebuildHoleBehaviorInterfaceFromObject(Object *obj);
 };
-class AIUpdateInterface
-{
-public:
-	void transferAttack(ObjectID fromID, ObjectID toID);
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 class Drawable
 {
 public:

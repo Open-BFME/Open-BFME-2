@@ -242,15 +242,7 @@ template <> class RiderSlots<0>
 {
 };
 
-class AIUpdateInterface : public RiderSlots<106>
-{
-public:
-	virtual AIFreeToExitType getAiFreeToExit(const Object *exiter) const; // +0x1A8
-	Locomotor *getCurLocomotor() const { return m_curLocomotor; }
-private:
-	char m_pad04[0x1F0 - 0x04];
-	Locomotor *m_curLocomotor; // +0x1F0
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 class TerrainLogic : public RiderSlots<19>
 {

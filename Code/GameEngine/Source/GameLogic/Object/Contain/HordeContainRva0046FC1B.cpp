@@ -49,7 +49,7 @@ public:
     WeaponTemplateSetHead(const WeaponTemplateSetHead &);
 };
 bool Rva00045473Equal(const void *, const void *);
-class AIUpdateInterface { public: bool isMoving() const; };
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 enum PathfindLayerEnum { LAYER_INVALID = 0, LAYER_GROUND = 1 };
 class Object {
 public:

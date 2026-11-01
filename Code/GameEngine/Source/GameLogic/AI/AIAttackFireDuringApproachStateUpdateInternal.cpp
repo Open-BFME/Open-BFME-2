@@ -87,18 +87,7 @@ template <> class AIUpdateSlots<0>
 {
 };
 
-class AIUpdateInterface : public AIUpdateSlots<144>
-{
-public:
-	virtual void notifyVictimIsDead() = 0;
-	void setCurrentVictim(const Object *victim);
-	void destroyPath();
-	void friend_setGoalObject(Object *obj);
-	void *getPath() const { return m_path; }
-private:
-	unsigned char m_pad004[0x140 - 0x04];
-	void *m_path; // +0x140
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 #include "../../../Include/GameLogic/Weapon.h"
 

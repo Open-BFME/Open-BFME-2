@@ -39,14 +39,7 @@ extern "C" void fprintf(FprintfTarget *target, const char *format, ...);
 extern "C" void *theLogicRandomLogFile;
 extern unsigned char g_00E03745;
 
-class AIUpdateInterface
-{
-public:
-	unsigned char m_pad000[0x180];
-	Coord3D m_bfmeGoal180; // +0x180
-	unsigned char m_pad18C[0x3B0 - 0x18C];
-	Bool m_bfme3B0; // +0x3B0
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 class Object
 {
@@ -157,8 +150,8 @@ StateReturnType Rva0034DE21::onEnter()
 		if (obj->GetGoalPosition(&pos))
 		{
 			AIUpdateInterface *ai = obj->getAI();
-			ai->m_bfmeGoal180 = pos;
-			ai->m_bfme3B0 = false;
+			ai->m_field180 = pos;
+			ai->m_field3B0 = false;
 		}
 		return STATE_FAILURE;
 	}

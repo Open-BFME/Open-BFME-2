@@ -216,7 +216,7 @@ struct Rva002A8AB1Record;
 class Rva002A8F24 { public: Rva002A8AB1Record *rva002A8AB1(void *); };
 extern Rva002A8F24 *TheSkirmishAIManager;
 
-class AIUpdateInterface { public: int rva00260DED() const; };
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 class AttackPriorityInfo { public: float getPriority(const Object *, const Object *, bool) const; };
 class Rva0020391FLeaGetter { public: void *get() const; };
 class ScriptEngine;

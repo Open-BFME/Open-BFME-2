@@ -70,12 +70,7 @@ public:
 	float getMaxSpeed(Object *object) const;
 };
 class Locomotor;
-class AIUpdateInterface
-{
- public:
- char m_pad00[0x1F0];
- Locomotor *m_curLocomotor; // +0x1F0
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 #include "../../../Common/Thing/thing.h"
 

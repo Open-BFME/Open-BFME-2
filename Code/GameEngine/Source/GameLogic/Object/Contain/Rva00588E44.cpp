@@ -83,11 +83,7 @@ public:
 
 class Object;
 
-class AICommandInterface
-{
-public:
-	void aiExit(Object *obj, CommandSourceType cmdSource);
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 class Rva00588E44UpdateModule
 {
@@ -96,9 +92,6 @@ public:
 	char m_pad04[0x20 - 0x04];
 };
 
-class AIUpdateInterface : public Rva00588E44UpdateModule, public AICommandInterface
-{
-};
 
 class Object
 {
