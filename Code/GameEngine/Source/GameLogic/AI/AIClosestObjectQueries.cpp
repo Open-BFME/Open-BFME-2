@@ -193,12 +193,7 @@ public:
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-class Player
-{
-public:
-	char m_pad00[0x54];
-	int m_playerIndex;	// +0x54
-};
+#include "../../../Include/Common/Player.h"
 
 enum ObjectStatusTypes
 {
@@ -333,7 +328,7 @@ int AI::rva002FEEAD(Object *me, float range, unsigned int qualifiers)
 	Rva002619C1Filter filterLOS(me);
 	Rva00260FD0Filter filterAttack(me, 2, 0);
 	Rva00261246Filter filterInsignificant(true, false);
-	Rva00261353Filter filterFogged(me->getControllingPlayer()->m_playerIndex);
+	Rva00261353Filter filterFogged(me->getControllingPlayer()->getPlayerIndex());
 	if (!(qualifiers & 8))
 		filterObvious.link(&filterBldgs);
 	if (qualifiers & 0x10)
