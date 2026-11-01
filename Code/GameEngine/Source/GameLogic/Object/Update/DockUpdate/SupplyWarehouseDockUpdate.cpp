@@ -37,6 +37,12 @@
 #include "Common/GlobalData.h"
 #include "Common/Xfer.h"
 #include "GameClient/Drawable.h"
+// The native key slot is the rowed out-of-line owner at 004A7DA5.
+// Keep this TU's remaining module macro behavior, with that method declared
+// only so the seed cannot compete with the verified native provider.
+#include "GameLogic/Module/DockUpdate.h"
+#undef MAKE_STANDARD_MODULE_MACRO
+#define MAKE_STANDARD_MODULE_MACRO(cls) public:     static Module *friend_newModuleInstance(Thing *thing, const ModuleData *moduleData) { return ::new cls(thing, moduleData); }     virtual NameKeyType getModuleNameKey() const; protected:     virtual void crc(Xfer *xfer);     virtual void xfer(Xfer *xfer);     virtual void loadPostProcess();
 #include "GameLogic/Module/SupplyWarehouseDockUpdate.h"
 #include "GameLogic/Module/SupplyTruckAIUpdate.h"
 #include "GameLogic/Object.h"

@@ -62,3 +62,27 @@ xfer donor adopts it at this step, so no new vftable emitter is asserted.
 Its complete 42-byte row stays exact and its ordinary preview retains
 42 -> 42 B. Frozen declaration check is clean. No header-queue key owns
 this source. Scratch trials and receipts use build/link_seed_pass/.
+
+## Native key-slot owner
+
+004A7DA5 is reconciled from the static rva004A7DA5 placeholder to
+`SupplyWarehouseDockUpdate::getModuleNameKey() const`. The existing
+canonical Module contract and Object::findModule's slot-10 dispatch fix
+this already-named virtual; the warehouse table itself points directly to
+this body. Its static local caches the class literal. This is an ABI/owner
+correction; identifier-only rename.py cannot express static-to-virtual.
+The function and its EH handler are tombstoned and both EH rows' parent
+identity is carried. All 3/3 rows remain exact; the EH graph is EXACT.
+The source adopts canonical NameKeyGenerator with the native warehouse
+header; no private generator view or new pin/alias remains. Its ordinary
+preview retains 79 -> 79 B and the seed remains blocked at this step.
+The generated data_ledger's two local-static symbol descriptions remain
+stale until its supported regeneration; their addresses are unchanged.
+
+The key correction is coupled with a narrow declaration-only change in
+the seed macro. The initial strong definition collided with the seed's
+existing inline copy; making the new definition inline alone failed to
+emit it. The final pair keeps the real out-of-line provider and removes
+only the seed's competing key body/static guard. Both constructors and
+setDockCrippled remain exact: paired byte gate 6/6, key LINKS 79 -> 79 B,
+seed unchanged U7/L2 and 0 -> 0 B. No rejected inline-only trial remains.

@@ -1,37 +1,14 @@
 // cl: /DNDEBUG /MD /EHsc
-// ?rva004A7DA5@SupplyWarehouseDockUpdate@@SA?AW4NameKeyType@@XZ @0x004A7DA5
-// (69B): cached pool-name key for SupplyWarehouseDockUpdate. The class
-// identity comes from the pool-name string the body pushes
-// ("SupplyWarehouseDockUpdate"); the body guards a function-local static
-// key fetched once through TheNameKeyGenerator. It is NOT getClassMemoryPool:
-// retail stores nameToKey's return (a key, not a pool pointer) and returns it,
-// and the address carries no getClassMemoryPool row anywhere. /EHsc for the
-// static-guard EH prologue; globals are TU-local externs (DIR32 slots patch
-// from retail, no pins; nameToKey resolves via its matched row).
+// Retail 004A7DA5 is primary slot 4 of the warehouse module table
+// 00853790. Module.h and Object::findModule establish getModuleNameKey's
+// virtual const signature; its cached literal identifies this module.
+// The earlier static placeholder represented the body but lost that slot.
+#include "../../../../Include/Common/NameKeyGenerator.h"
+#include "DockUpdate/SupplyWarehouseDockUpdateNative.h"
 
-enum NameKeyType
+NameKeyType SupplyWarehouseDockUpdate::getModuleNameKey() const
 {
-	NK_UNKNOWN = 0
-};
-
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
-
-extern NameKeyGenerator *TheNameKeyGenerator;
-
-class SupplyWarehouseDockUpdate
-{
-public:
-	static NameKeyType rva004A7DA5();
-};
-
-// ?rva004A7DA5@SupplyWarehouseDockUpdate@@SA?AW4NameKeyType@@XZ
-NameKeyType SupplyWarehouseDockUpdate::rva004A7DA5()
-{
-	static NameKeyType TheSupplyWarehouseDockUpdatePoolKey =
-		TheNameKeyGenerator->nameToKey("SupplyWarehouseDockUpdate");
-	return TheSupplyWarehouseDockUpdatePoolKey;
+    static NameKeyType TheSupplyWarehouseDockUpdatePoolKey =
+        TheNameKeyGenerator->nameToKey("SupplyWarehouseDockUpdate");
+    return TheSupplyWarehouseDockUpdatePoolKey;
 }
