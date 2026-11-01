@@ -107,11 +107,6 @@ const char *GeometryInfo::GetSnapshotName()
 }
 BFME_LITERAL_NAME_GETTER(MilesAudioManager, "MilesAudioManager")
 BFME_LITERAL_NAME_GETTER(Rva0008BC8BNamed, "View")
-class DrawModule
-{
-protected:
-    virtual const char *GetSnapshotName() const;
-};
 BFME_LITERAL_NAME_GETTER(Rva00226309Named, "SaveMapPreview")
 BFME_LITERAL_NAME_GETTER(Rva002296E6Named, "GameSlot")
 BFME_LITERAL_NAME_GETTER(Rva00229902Named, "LobbyGameInfo")

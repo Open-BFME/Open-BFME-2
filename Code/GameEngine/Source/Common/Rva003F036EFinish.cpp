@@ -24,16 +24,6 @@ public:
 	bool rva002E071E(const Rva002E071E *other) const;
 };
 
-class Rva002E2903Player : public Rva002E071E
-{
-};
-
-class Rva002BA8F1Logic
-{
-public:
-	Rva002E2903Player *find(int id, unsigned int *index);
-};
-
 struct Rva003F02E4Node
 {
 	char m_pad[0x20];

@@ -30,12 +30,6 @@ namespace _STL
 struct BfmeUiResourceEntryState;
 class Rva005F0152;
 
-class TerrainFXShaderParameterSourceNamespace
-{
-public:
-	TerrainFXShaderParameterSourceNamespace();
-};
-
 class VegetationFXShaderParameterSourceNamespace
 {
 public:
@@ -112,12 +106,6 @@ class Rva00579731
 {
 public:
 	Rva00579731();
-};
-
-class Rva0057A4E7
-{
-public:
-	Rva0057A4E7();
 };
 
 extern unsigned g_Va00DEBC64;

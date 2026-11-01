@@ -24,12 +24,6 @@ template<class K,class C,class Al>class set{public:typedef _Rb_tree_iterator<K,_
 }
 typedef _STL::set<AsciiString,_STL::less<AsciiString>,_STL::allocator<AsciiString> > AsciiStringSet;
 
-struct XferVersion
-{
-	UnsignedByte m_version;
-	UnsignedByte m_currentVersion;
-};
-
 class Snapshot;
 class AsciiString;
 class UnicodeString;
@@ -48,17 +42,6 @@ class RGBAColorReal;
 class RGBAColorInt;
 struct XferUnknown11;
 #include "../../Include/Common/BfmeXfer.h"
-
-class XferException
-{
-public:
-	XferException(int tag, const char *format, ...);
-	XferException(const XferException &that);
-	~XferException();
-
-	char *text;
-	int tag;
-};
 
 namespace _STL {
 template<class K,class V,class C,class A>class map{char bytes[12];};

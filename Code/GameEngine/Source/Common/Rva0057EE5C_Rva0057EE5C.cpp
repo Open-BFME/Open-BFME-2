@@ -19,16 +19,6 @@ namespace _STL { template <> ObjectID *uninitialized_fill_n<ObjectID *, unsigned
 struct TargetRef00217D4C {void *vtable;int refs;};
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 
-struct FreeHolder0057EE5C
-{
-	char *m_ptr;
-	~FreeHolder0057EE5C()
-	{
-		if (m_ptr)
-			free(m_ptr);
-	}
-};
-
 struct ReleaseHolder0057EE5C
 {
 	TargetRef00217D4C *m_ptr;
@@ -66,12 +56,5 @@ _STL::vector<ObjectID> m_B4;
 
 
 class MpGameRules { public: static void GetDefaults(int arg, void *ctx); };
-
-class AptMpGameRules
-{
-public:
-	void rva0057EF18();
-};
-
 
 Rva0057EE5C::Rva0057EE5C(TargetRef00217D4C *ref):m_58(ref),m_5C(-1),m_60(-1),m_88(true),m_89(false),m_B4(10,INVALID_OBJECT_ID){MpGameRules::GetDefaults(m_60,&m_8C);}

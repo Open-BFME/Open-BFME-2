@@ -1,28 +1,6 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 // Open-BFME: mode-gated virtual call reconstructed from retail RVA 0x007E3410.
 
-class Rva007E3410Target
-{
-public:
-    virtual void unused0(void);
-    virtual void unused1(void);
-    virtual void unused2(void);
-    virtual void unused3(void);
-    virtual void unused4(void);
-    virtual void invoke(int first, int second);
-};
-
-class Rva007E3410Object
-{
-public:
-    void invokeForMode(void);
-
-private:
-    char m_pad0[4];
-    Rva007E3410Target *m_target;
-    int m_mode;
-};
-
 // Whole one-body BFME1 Rva00971BA0GuardedHelper.cpp at revision
 // 1281192f682ce6f29b8f06b7daea4b5e8fdfbb24 supplies this control-flow
 // lead. Complete native Ghidra180AD6/35 independently proves receiver

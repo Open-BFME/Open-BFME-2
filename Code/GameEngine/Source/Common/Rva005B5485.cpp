@@ -66,12 +66,10 @@ void AptCreateAHero::Class::ExternFunc(int sel, char *buf, bool flag)
 // Views for Rva005B566B::rva005B54ED below (shapes from the banked standalone
 // trial; all callees rowed, no pins).
 class CreateAHeroData;
-class Rva0040A3D2 { public: CreateAHeroData *rva0040A3D2(int, int); };
 class AptMyHero { public: void rva005B21DA(CreateAHeroData *, bool, int); };
 struct ClassScreenPrefix { char prefix[0x27C]; AptMyHero hero; };
 class ModuleData;
 class Rva00423A68 { public: void rva00423A68(const ModuleData *); };
-class Rva00222A8BTarget { public: void rva002239FA(const AsciiString &, const AsciiString &); };
 class BfmeAptWindowManager { public: void bfmeSetText(const AsciiString &, const UnicodeString &, bool); };
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 class GameTextInterface {

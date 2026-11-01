@@ -53,9 +53,6 @@ void rva006CC5F0()
 // (mov ecx, [global]; test ecx, ecx; je ret; jmp). Same naming as above.
 class Rva00108660ResourceManager;
 extern Rva00108660ResourceManager *Rva00DEC2D8Manager;
-class Rva00109236 { public: void rva00109236(); };
-class Rva00109DCF { public: void rva00108E28(); };
-
 class Q1Receiver0134FAAC { public: void Rva00624790(); };
 extern Q1Receiver0134FAAC *TheQ1Receiver;
 

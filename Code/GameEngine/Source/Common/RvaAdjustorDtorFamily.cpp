@@ -61,16 +61,6 @@ public:
 	~Rva002B0B32Dtor();
 };
 
-class Rva002B0B8E
-{
-public:
-	~Rva002B0B8E();
-
-private:
-	char m_pad[4];
-	Rva002B0B32Dtor m_inner;
-};
-
 // The +8/+8/+4 members of 0x0042581E, 0x005C8565 and 0x00603C57 are the
 // rowed STLport containers whose dtors they tail-jump to.
 struct BfmeWordValue4;
@@ -110,16 +100,6 @@ public:
 typedef _STL::deque<_STL::BfmeWordDeque2, _STL::allocator<_STL::BfmeWordDeque2> > Rva00425756Dtor;
 typedef _STL::vector<Rva005C847BRecord, _STL::allocator<Rva005C847BRecord> > Rva005C8494Dtor;
 typedef _STL::_Rb_tree<const char *, _STL::Rva00603A00Pair, _STL::_Select1st<_STL::Rva00603A00Pair>, _STL::less<const char *>, _STL::allocator<_STL::Rva00603A00Pair> > Rva00603AA8Dtor;
-
-class Rva0042581E
-{
-public:
-	~Rva0042581E();
-
-private:
-	char m_pad[8];
-	Rva00425756Dtor m_inner;
-};
 
 class Rva00501656
 {

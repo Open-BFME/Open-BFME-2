@@ -31,12 +31,6 @@ extern "C" void _ReadWriteBarrier();
 #include "unicode_string.h"
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 
-class Rva0025C0FF
-{
-public:
-	void rva0025C0FF();
-};
-
 class W3DDisplay
 {
 public:
@@ -205,11 +199,6 @@ public:
 
 extern GameLogic *TheGameLogic;
 
-struct GlobalA01E48
-{
-	char pad[0x5d];
-	unsigned char flag;
-};
 // ?g_Va00A01E48@@3PAUGlobalA01E48@@A: the global at this VA is ?TheShell@@3PAVShell@@A; this name is an alias for it.
 
 struct Rva0025C18BCoord

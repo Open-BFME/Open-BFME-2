@@ -202,18 +202,6 @@ public:
 	void rva001B4D09();
 };
 
-class Rva001F81EC
-{
-public:
-	void rva001F81EC();
-};
-
-class Rva001F8922
-{
-public:
-	void rva001F8922();
-};
-
 // bfme link decl-only begin
 namespace _STL { template <> void _List_base<RvaSmartPtr12,_STL::allocator<RvaSmartPtr12> >::clear(); }
 

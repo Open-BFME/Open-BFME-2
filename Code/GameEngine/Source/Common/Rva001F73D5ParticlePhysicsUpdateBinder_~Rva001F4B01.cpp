@@ -135,12 +135,6 @@ private:
 
 ParticleSystem *Make001FCBD7();
 
-class BfmeParticleSystemHandle
-{
-public:
-	~BfmeParticleSystemHandle() throw();
-};
-
 class RvaSmartPtr12
 {
 	public: void rva0004CBC0() throw(); // 0x0004CBC0, the unlink the inline dtor null test calls
@@ -231,15 +225,6 @@ class FXShaderParameterBinder
 {
 public:
 	void AddBinding(TreeHintRef00217D4C callback, const char *handle);
-};
-
-struct Rva001530E9Path
-{
-	char m_name[0x40];
-	bool m_hasStar;
-	bool m_hasBracket;
-	int m_index;
-	const char *m_rest;
 };
 
 // FX parameter binder base: vtable 0x00BC6F24 = { deleting dtor, __purecall }.

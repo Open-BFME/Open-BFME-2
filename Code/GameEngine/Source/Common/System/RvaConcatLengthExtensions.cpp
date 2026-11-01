@@ -10,13 +10,8 @@
 // remain unknown. Existing fold spellings below expose only receiver calls;
 // none of these consumed-prefix views is allocated or claimed complete.
 class AsciiStringPlusString {public:int length() const;};
-class AsciiStringPlusText {public:int length() const;};
 class Rva0050F1DFPrefix {
 public: char unknown00[0x10];int extra;
- int total() const;
-};
-class Rva0059B122Prefix {
-public: char unknown00[0x10];int first;char unknown14[4];int second;
  int total() const;
 };
 class Rva005D32C4Prefix {

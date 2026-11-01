@@ -35,19 +35,7 @@ void Rva005E18B9::rva005E18B9()
 	m_0->v14(m_24->m_14);
 }
 
-class Rva005E18D0Forwarder : public Rva005E18B9
-{
-public:
-	void tail005E18D0();
-};
-
 // Exact guarded forwarder owned by Rva005E18D0Forwarders.cpp.
-
-class Rva005E18DCForwarder : public Rva005E18B9
-{
-public:
-	void tail005E18DC();
-};
 
 // Exact guarded forwarder owned by Rva005E18D0Forwarders.cpp.
 

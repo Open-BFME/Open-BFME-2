@@ -25,12 +25,6 @@ int __cdecl Rva005FB5E6AptCall(Rva00222A8BTarget *target, void *level, const cha
 int __cdecl Rva005F2A52AptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, int *index, float *x, float *y);
 int __cdecl Rva00577C23AptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, int *index, bool *flag);
 
-struct Rva005F2FEFTeam
-{
-	char m_pad[8];
-	char m_name[1];
-};
-
 namespace StrategicHUD {
 class ArmyDetailsMovieClip
 {
@@ -389,11 +383,6 @@ void Rva0086EE20::rva005F267E(int,float) {}
 // Counted icon-slot reference, returned by value through a hidden pointer
 // (native 5F3652/5F38D8 RET8), so the type is not a POD; destructor declared
 // only. Native 5F3652 stores the slot at +0 and bumps the count at +4.
-struct Rva005F38D8Ref
-{
-	void *m_ptr;
-	~Rva005F38D8Ref();
-};
 // "APT:" + prefix + name + text: the text-plus-string node is the rowed
 // 0x002226E5 (System/RegistryAsciiPath.cpp); the two widening concats are
 // emitted out of line here and ICF-folded at 0x005F17C6 and 0x005D2F96

@@ -60,14 +60,6 @@ enum ErrorCode
 // delegation evidence). Teardown inlines to the folded releaseBuffer at
 // 0x36410.
 
-struct BfmeStringData
-{
-	unsigned short m_refCount;
-	unsigned short m_numCharsAllocated;
-	unsigned short m_len;
-	unsigned short m_pad;
-};
-
 struct InputChunk
 {
 	virtual void *deleteInstance(int flags);	// vtable slot 0 (MemoryPoolObject pattern)
@@ -548,11 +540,6 @@ private:
 // Full native leaf 0049CB66..0049CB6E ends at its own RET boundary.
 // Target evidence: increment receiver24 dword; set receiver2C to all ones.
 // Original owner unresolved; the address-owned type is independent of nearby classes.
-class Rva0049CB66Fields {
-public: void bump();
-private: char unknown[0x24]; unsigned int value24; unsigned int unknown28; int value2C;
-};
-
 // ---- from Code/GameEngine/Source/Common/System/DataChunk.cpp
 
 // ---- from Code/GameEngine/Source/Common/System/DataChunk.cpp

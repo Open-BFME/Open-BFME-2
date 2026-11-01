@@ -44,18 +44,6 @@ private:
 	char m_pad04[0x38];
 };
 
-class Rva005C6C7B
-{
-public:
-	void reset();
-};
-
-class Rva005C6CC7Call
-{
-public:
-	void rva005C6CC7();
-};
-
 class GameWindow
 {
 public:

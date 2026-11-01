@@ -37,15 +37,6 @@ void *Rva000454F3::rva000454F3(unsigned int idx)
 
 
 
-class Rva0028C783
-{
-public:
-	void *rva0028C783(unsigned int idx);
-
-private:
-	unsigned int m_bits[8];
-};
-
 extern const char *TheKindOfBitNames[];
 
 class Rva002AA2CF
@@ -63,15 +54,6 @@ void *Rva002AA2CF::rva002AA2CF(unsigned int idx)
 }
 
 
-
-class Rva0031852F
-{
-public:
-	void *rva0031852F(unsigned int idx);
-
-private:
-	unsigned int m_bits[8];
-};
 
 extern const char *VeterancyLevelNames[];
 
