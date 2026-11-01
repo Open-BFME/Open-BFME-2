@@ -314,9 +314,7 @@ extern Mouse *TheMouse;
 
 #include "../../../Include/GameLogic/ScriptConditions.h"
 
-class ScriptActions : public SubsystemInterface
-{
-};
+#include "../../../Include/GameLogic/ScriptActionsBFME2.h"
 extern ScriptActions *TheScriptActions;
 
 extern ScriptConditions *TheScriptConditions;

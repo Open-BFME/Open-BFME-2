@@ -218,29 +218,7 @@ struct BfmeTotalCommandPointsCall
 
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/ScriptActions.h
-class ScriptActions
-{
-protected:
-	void doCounterMathCounter(Parameter *counter, Parameter *operation,
-		Parameter *otherCounter);
-	void doCounterMathValue(Parameter *counter, Parameter *operation,
-		Parameter *value);
-	void doSetPlayerMoneyToCounter(Parameter *player, Parameter *counter);
-	void doSetPlayerLightPointsToCounter(Parameter *player, Parameter *counter);
-	void doSetUnitExperienceToCounter(const AsciiString &unit,
-		Parameter *counter);
-	void doSetPlayerCommandPointsUsedToCounter(Parameter *player,
-		Parameter *counter);
-	void doSetPlayerCommandPointsAvailableToCounter(Parameter *player,
-		Parameter *counter);
-	void doSetPlayerCommandPointsTotalToCounter(Parameter *player,
-		Parameter *counter);
-	void doSetPlayerKillsOfTypeToCounter(Parameter *player,
-		Parameter *objectType, Parameter *counter);
-	void doSetCounterToNumberObjectsPlayerOwnesWithModelCondition(
-		const AsciiString &playerName, const AsciiString &modelConditionName,
-		const AsciiString &counterName);
-};
+#include "../../../Include/GameLogic/ScriptActionsBFME2.h"
 
 void ScriptActions::doCounterMathCounter(Parameter *counter,
 	Parameter *operation, Parameter *otherCounter)

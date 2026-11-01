@@ -130,12 +130,7 @@ private:
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
-class ScriptActions
-{
-protected:
-	void doUnitStandGround(Parameter *unitParameter, Parameter *standGroundParameter);
-	void doTeamStandGround(Parameter *teamParameter, Parameter *standGroundParameter);
-};
+#include "../../../Include/GameLogic/ScriptActionsBFME2.h"
 
 void ScriptActions::doUnitStandGround(Parameter *unitParameter, Parameter *standGroundParameter)
 {

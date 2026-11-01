@@ -132,11 +132,7 @@ private:
 };
 extern ScriptEngine *TheScriptEngine;
 
-class ScriptActions
-{
-protected:
-	void rva003C5F1B(ScriptAction *pAction, Parameter *pTypeParm, Parameter *pPlayerParm, Parameter *pCounterParm, bool ignoreDead);
-};
+#include "../../../Include/GameLogic/ScriptActionsBFME2.h"
 
 void ScriptActions::rva003C5F1B(ScriptAction *pAction, Parameter *pTypeParm, Parameter *pPlayerParm, Parameter *pCounterParm, bool ignoreDead)
 {

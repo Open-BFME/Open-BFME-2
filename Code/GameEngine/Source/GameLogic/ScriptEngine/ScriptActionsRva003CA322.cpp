@@ -28,12 +28,7 @@ private:
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
-class ScriptActions
-{
-protected:
-	void rva003CA322(const AsciiString &teamName, int count,
-		const AsciiString &objectTypeName, const AsciiString &otherTeamName);
-};
+#include "../../../Include/GameLogic/ScriptActionsBFME2.h"
 
 // WB 0x01014EE0 unnamed ScriptActions member @0x003CA322 (179B): hand the
 // team's 0x003A178D an object-type list (the named list, or a temporary one

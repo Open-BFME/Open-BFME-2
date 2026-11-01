@@ -151,13 +151,7 @@ extern ThingFactory *TheThingFactory;
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
-class ScriptActions
-{
-protected:
-	void doBuildBaseBuilding(const AsciiString &buildingType, Parameter *baseParm, const AsciiString &referenceName);
-	void doBuildBaseBuildingInSlot(const AsciiString &buildingType, Parameter *slotParm, Parameter *baseParm, const AsciiString &referenceName);
-	void rva003C66F1(const AsciiString &buildingType, Parameter *modeParm, const AsciiString &markerType, Parameter *baseParm, const AsciiString &referenceName);
-};
+#include "../../../Include/GameLogic/ScriptActionsBFME2.h"
 
 void ScriptActions::doBuildBaseBuilding(const AsciiString &buildingType, Parameter *baseParm, const AsciiString &referenceName)
 {

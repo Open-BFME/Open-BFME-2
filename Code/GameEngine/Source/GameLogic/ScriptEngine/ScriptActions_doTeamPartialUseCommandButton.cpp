@@ -81,11 +81,7 @@ public:
 	bool rva0035B2C3(void *object, int other, const Coord3D *position, int source);
 };
 
-class ScriptActions
-{
-protected:
-	void doTeamPartialUseCommandButton(float percentage, const AsciiString &teamName, const AsciiString &commandAbility);
-};
+#include "../../../Include/GameLogic/ScriptActionsBFME2.h"
 
 void ScriptActions::doTeamPartialUseCommandButton(float percentage, const AsciiString &teamName, const AsciiString &commandAbility)
 {

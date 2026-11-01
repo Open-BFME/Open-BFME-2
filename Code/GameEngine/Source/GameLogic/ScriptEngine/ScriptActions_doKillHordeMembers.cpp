@@ -107,11 +107,7 @@ private:
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
-class ScriptActions
-{
-protected:
-	void doKillHordeMembers(Parameter *unitParameter, Real percentage);
-};
+#include "../../../Include/GameLogic/ScriptActionsBFME2.h"
 
 void ScriptActions::doKillHordeMembers(Parameter *unitParameter, Real percentage)
 {
