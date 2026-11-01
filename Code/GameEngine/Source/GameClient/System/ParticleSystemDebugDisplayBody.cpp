@@ -75,7 +75,6 @@ static inline bool operator!=(const _List_iterator<T, L>& a, const _List_iterato
 }
 
 template<> _STL::list<RvaSmartPtr12>::list(const _STL::list<RvaSmartPtr12>&);
-class Rva001F81EC {public:void rva001F81EC();};
 typedef _STL::list<RvaSmartPtr12> ParticleDebugList;
 static bool timing() { return *((char *)TheWritableGlobalData+0x9c2)!=0; }
 static float managerFloat(unsigned off) { return *(float *)((char *)TheParticleSystemManager+off); }

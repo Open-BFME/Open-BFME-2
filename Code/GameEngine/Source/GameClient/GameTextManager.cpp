@@ -15,12 +15,6 @@ template <> void _STLP_alloc_proxy<AsciiString*, AsciiString, allocator<AsciiStr
 template <> void allocator<AsciiString>::deallocate(AsciiString*, size_t) const;
 }
 
-class AsciiStringMember
-{
-public:
-	~AsciiStringMember();
-};
-
 // Base dtor at 0x001B4E74 by its row name ??1SubsystemInterface@@UAE@XZ (SubsystemInterface.cpp).
 typedef bool Bool;
 #include "subsystem_interface.h"

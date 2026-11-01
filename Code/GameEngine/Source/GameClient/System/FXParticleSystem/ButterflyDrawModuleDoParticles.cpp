@@ -128,7 +128,6 @@ class WW3D {friend class FXParticleSystem::ButterflyDrawModule;static bool IsCur
 class Rva001F4E2D {public:bool rva001F4E2D();};
 class Rva001F4D2D {public:float rva001F4D2D();};
 class Rva001F4DC4 {public:float rva001F4DC4();};
-class Rva001F4DE6 {public:int rva001F4DE6();};
 #include "../../../../../Libraries/Include/Lib/RGBColor.h"
 class Rva001F4E1BSlot {public:const RGBColor*get()const;};
 class Rva001F4DF9 {public:float rva001F4DF9();};

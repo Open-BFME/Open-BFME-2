@@ -134,15 +134,6 @@ void Rva005DAA9E::rva005DAA9E(Rva005DAA9ETriple *out) const
 	out->y = m_30.y;
 	out->z = m_30.z;
 }
-class Rva005DAC6D
-{
-public:
-	void rva005DAC6D(Rva005DAA9ETriple *out) const;
-private:
-	char m_pad00[0x2C];
-	Rva005DAA9ETriple m_2C;
-};
-
 // 0x005E16A7 and 0x005E2126: the pinned INI::initFromINI on this object with
 // the field table at VA 0x00C779F0 (resp. 0x00C77A98).
 struct FieldParse;
@@ -153,15 +144,6 @@ public:
 };
 extern const FieldParse g_rva005E16A7FieldParse[];
 extern const FieldParse g_rva005E2126FieldParse[];
-class Rva005E16A7
-{
-public:
-	void rva005E16A7(INI *ini);
-	void rva005E2126(INI *ini);
-};
-
-
-
 // 0x005F84F7: clears entry i (8 bytes each) of the +0x20 vector through the
 // rowed 0x002BED91 when i is in range.
 class Rva002BED91

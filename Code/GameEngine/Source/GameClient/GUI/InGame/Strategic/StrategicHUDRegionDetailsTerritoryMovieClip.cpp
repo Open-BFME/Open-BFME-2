@@ -107,10 +107,6 @@ private:
 // The 12-byte command-map name list: ctor 0x001F81BF (ICF fold, pinned),
 // AddCommandMap 0x0052458E, dtor 0x0052413E (pinned).
 class Image;
-class Rva00524306 {public:
- void rva00524306(const StringBase<char>& key);
- void rva00524725(const AsciiString& key,const Image *image);
-};
 class AptCommandMapAdder
 {
 public:

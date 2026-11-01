@@ -80,5 +80,3 @@ void parseAIBaseDefinition(INI*ini){
 // definition slot in the +0x0C map is appended to the output through the
 // rowed ModuleData-pointer push_back 0x004DFCB0. False when the side has no
 // entry. Original name unknown; the output element view is the push owner's.
-struct Rva0041E912Entry {void*next;int key;int*begin;int*end;};
-

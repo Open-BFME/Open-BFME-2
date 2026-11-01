@@ -44,14 +44,6 @@ class GameTextTable;
 #include "string_base.h"
 #define BFME_STRINGBASE_PUBLIC_DTOR
 
-struct AsciiStringHeader
-{
-	int m_ref;
-	unsigned short m_len;
-	unsigned short m_cap;
-	char m_data[1];
-};
-
 // bfme link decl-only begin
 namespace _STL { template <> void _Destroy<AsciiString>(AsciiString *); }
 

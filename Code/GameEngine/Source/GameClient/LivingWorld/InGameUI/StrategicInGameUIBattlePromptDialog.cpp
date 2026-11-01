@@ -53,7 +53,6 @@ class Rva005E982C { public: struct Payload { int v[3]; }; };
 RvaCloneResult<Rva005E9742> Rva005E98FDCreate(const Rva005E9742::Payload *src);
 RvaCloneResult<Rva005E97B8> Rva005E992FCreate(const Rva005E97B8::Payload *src);
 RvaCloneResult<Rva005E982C> Rva005E9961Create(const Rva005E982C::Payload *src);
-class Rva005E957C { public: Rva005E957C *rva005E957C(int,int,int,int,int,int); int words[6]; };
 #include "../../../../../Libraries/Include/Lib/RGBColor.h"
 class Image;
 class ImageCollection { public: const Image *findImageByName(const AsciiString &); };

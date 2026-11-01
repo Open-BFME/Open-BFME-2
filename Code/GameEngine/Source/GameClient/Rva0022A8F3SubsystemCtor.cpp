@@ -56,11 +56,6 @@ struct Rva0022D95AElement
 	char bytes[1];
 };
 
-class BFME2NativeNetwork
-{
-public:
-};
-
 // Retail base construction and cleanup use the shared fourteen-slot interface.
 typedef bool Bool;
 #include "subsystem_interface.h"
