@@ -29486,7 +29486,7 @@ _CpuProbe_Sse2Executes,,0x001D5540,126,Code/Libraries/Source/VP6/CpuProbeSse2.cp
 ?push_back@?$vector@VRva0040AF66@@V?$allocator@VRva0040AF66@@@_STL@@@_STL@@QAEXABVRva0040AF66@@@Z,,0x0040BA6A,55,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_Rva0040AF66_pushback.cpp,matched,chain calls just-landed 0x0040B8E8 via rowed Construct 0x0040B17B
 ?rva0043B3A1@Rva0043B2E2@@QAEXAAPAURva0043B2E2Node@@PAU2@1PBH1@Z,,0x0043B3A1,136,Code/GameEngine/Source/Common/DOTManager.cpp,matched,rb-tree insert via pinned twin factory 0x0043B30F plus Rebalance 0x00025490
 ?rva005AFCFF@Rva005AFC92@@QAEXXZ,,0x005AFCFF,47,Code/GameEngine/Source/GameClient/GUI/ChatWindowsInGame.cpp,matched,three winEnable via rowed 0x00313BEC caller 0x0057FD9B
-?rva0050539C@Rva0050539C@@QAEPAVPlayer@@XZ,,0x0050539C,8,Code/GameEngine/Source/Common/Rva0050539CGet.cpp,matched,tail-jmp to rowed 0x005A910E caller 0x002C5FD9
+?rva0050539C@Rva0050539C@@QAEPAVPlayer@@XZ,,0x0050539C,8,Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITargetChooser/AITargetChooser.cpp,matched,tail-jmp to rowed 0x005A910E caller 0x002C5FD9
 ?insert@Rva002236F2@@QAEAAURva002236F2Value@@ABU2@@Z,,0x002236F2,68,Code/GameEngine/Source/GameClient/Rva002236F2Insert.cpp,matched,same shape as rowed 0x002249ED via rowed bucketIndex new-node plus pin resize
 ?rva0031C7D6@Rva000427195@@QAEPAXABU?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@Z,,0x0031C7D6,68,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp,matched,hashtable insert via reserve bucketIndex new_node link inc count
 ?Rva004634BACreate@@YGPAURva004634BANode@@ABVRva0046267A@@@Z,,0x004634BA,34,Code/Libraries/Source/WWVegas/WWLib/Rva004634BACreateNode.cpp,matched,RB create_node alloc 0x60 via 0x307F0 plus Construct 0x462D83 at plus 0x10
@@ -29499,7 +29499,7 @@ _CpuProbe_Sse2Executes,,0x001D5540,126,Code/Libraries/Source/VP6/CpuProbeSse2.cp
 ??0Rva003B6831@@QAE@XZ,,0x003B6831,21,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_ctor_3b6831.cpp,matched,leaf default ctor via rowed Deque-base 0x00605464
 ?rva00107152@Rva00107152@@QAEXXZ,,0x00107152,27,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp,matched,this+8 while loop virtual slot0 int0 return deleted via rowed delete
 ?nextWithNumeric@Rva0054A82C@@QAEHPAH@Z,,0x0054A82C,75,Code/Libraries/Source/WWVegas/WWLib/Rva0054A67BSiftUp.cpp,matched,deque iterator compare plus increment and float zero via rowed _M_increment 0x00549E19
-?rva005055DE@Rva005055DE@@QAEXXZ,,0x005055DE,40,Code/GameEngine/Source/Common/Rva005055DECopy.cpp,matched,copies ModuleData range from global g_00E0311C vec 0xc via push_back into vec 0x14 caller 0x0050590C
+?rva005055DE@Rva005055DE@@QAEXXZ,,0x005055DE,40,Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITargetChooser/AITargetChooser.cpp,matched,copies ModuleData range from global g_00E0311C vec 0xc via push_back into vec 0x14 caller 0x0050590C
 ?rva00598149@Rva00598149@@QAEXPAX@Z,,0x00598149,73,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp,matched,map value-erase via increment erase flag 0x2C caller 0x004EC8F4
 ?rva005AFD43@Rva005AFD43@@QAEXPAVGameWindow@@ABVUnicodeString@@@Z,,0x005AFD43,70,Code/GameEngine/Source/GameClient/GUI/ChatWindowsInGame.cpp,matched,finish stash 0.93 shared UnicodeString inline order TheWindowManager slot C4
 ?rva0057FD6E@Rva0057FD6E@@QAEXXZ,,0x0057FD6E,13,Code/GameEngine/Source/Common/Rva0057FD6EForward.cpp,matched,chain forwards to rowed 0x005AFC92 when plus64 nonnull

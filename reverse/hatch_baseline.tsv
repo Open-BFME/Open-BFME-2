@@ -10481,9 +10481,6 @@ pragma_optimize	Code/GameEngine/Source/Common/Rva004FD4AE.cpp	"t",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Rva004FD4C1.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Rva004FD4C1.cpp	"s",off	1
 pragma_optimize	Code/GameEngine/Source/Common/Rva004FD4C1.cpp	"t",on	1
-pragma_optimize	Code/GameEngine/Source/Common/Rva005055DECopy.cpp	"",on	1
-pragma_optimize	Code/GameEngine/Source/Common/Rva005055DECopy.cpp	"s",off	1
-pragma_optimize	Code/GameEngine/Source/Common/Rva005055DECopy.cpp	"t",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Rva005A0B4CListAppend.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Rva005A0B4CListAppend.cpp	"s",off	1
 pragma_optimize	Code/GameEngine/Source/Common/Rva005A0B4CListAppend.cpp	"t",on	1
@@ -10668,6 +10665,9 @@ pragma_optimize	Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp	"y",o
 pragma_optimize	Code/GameEngine/Source/GameLogic/ScriptEngine/Rva0054840AXfer.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/ScriptEngine/Rva0054840AXfer.cpp	"s",off	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/ScriptEngine/Rva0054840AXfer.cpp	"t",on	1
+pragma_optimize	Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITargetChooser/AITargetChooser.cpp	"",on	1
+pragma_optimize	Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITargetChooser/AITargetChooser.cpp	"s",off	1
+pragma_optimize	Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITargetChooser/AITargetChooser.cpp	"t",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp	"t",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/System/ArmyPlacer.cpp	"",on	1

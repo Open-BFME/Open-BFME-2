@@ -19748,7 +19748,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A03110,4,.data,global,?$S2@?O@??canTransferSuppliesAt@ActionManager@@QAE_NPBVObject@@0@Z@4IA,Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp,owned,,1,4
 0x00A03114,4,.data,global,?key@?CH@??canDoSpecialPowerAtObject@ActionManager@@QAE_NPBVObject@@0W4CommandSourceType@@PBVSpecialPowerTemplate@@I_N@Z@4W4NameKeyType@@B,Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp,owned,,1,2
 0x00A03118,4,.data,global,?$S1@?CH@??canDoSpecialPowerAtObject@ActionManager@@QAE_NPBVObject@@0W4CommandSourceType@@PBVSpecialPowerTemplate@@I_N@Z@4IA,Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp,owned,,1,2
-0x00A0311C,8,.data,global,?g_00E0311C@@3PAURva005055DESrc@@A,Code/GameEngine/Source/Common/Rva005055DECopy.cpp,owned,,1,2
+0x00A0311C,8,.data,global,?g_00E0311C@@3PAURva005055DESrc@@A,Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITargetChooser/AITargetChooser.cpp,owned,,1,2
 0x00A03124,8,.data,global,?TheBaseTemplateLibrary@@3PAVRva0022BD9ASubsystem@@A,Code/GameEngine/Source/Common/GameEngineInit.cpp,provisional,?TheBaseTemplateLibrary@@3PAVRva0022BD9ASubsystem@@A;?g_00E03124@@3PAVRva0022BD9ASubsystem@@A,1,7
 0x00A0312C,8,.data,global,?TheArmyDefinitionManager@@3PAVRva0022BD25Subsystem@@A,,unowned,?TheArmyDefinitionManager@@3PAVRva0022BD25Subsystem@@A;?g_00E0312C@@3PAVArmorStore@@A,1,2
 0x00A03134,4,.data,global,?TheMeshInstancingManager@@3PAVRva0041FB13@@A,Code/GameEngine/Source/GameClient/System/MeshInstancingManager.cpp,owned,,1,1
