@@ -48,20 +48,7 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_NONE = 1,
 	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
 };
-class UpdateModuleInterface { public: virtual UpdateSleepTime update(); };
-class UpdateModule : public ObjectModule,
-	public BehaviorModuleInterface, public UpdateModuleInterface
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *data);
-	virtual ~UpdateModule();
-	void xfer(Xfer *xfer);
-
-private:
-	unsigned int m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_updateState;
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 class Rva0049B2A2 : public UpdateModule
 {
 protected:

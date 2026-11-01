@@ -145,7 +145,7 @@ class BannerBase { public: virtual void slot0();
 
 class BannerOther { public: virtual void slot0(); };
 
-class UpdateModuleInterface { public: virtual UpdateSleepTime update()=0; };
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class BannerCarrierUpdate : public BannerBase, public BannerOther, public UpdateModuleInterface {
 public:

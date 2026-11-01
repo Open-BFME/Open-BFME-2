@@ -146,21 +146,8 @@ class BodyModuleInterface;
 // first entry is the null-returning getBody used by this same base view.
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-class UpdateModule : public PB_DeepBase, public BehaviorModuleInterface, public UpdateModuleInterface
-{
-public:
-	virtual ~UpdateModule();
-private:
-	unsigned int m_field14;
-	int m_field18;
-	int m_field1C;
-};
 
 class EntEnragedUpdate : public UpdateModule
 {

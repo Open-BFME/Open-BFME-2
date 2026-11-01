@@ -33,16 +33,7 @@ protected:
 	Object *m_object;		// +0x08
 };
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
-class UpdateModule : public ModuleBase, public BehaviorModuleInterface, public UpdateModuleInterface
-{
-protected:
-	unsigned char m_pad14[0x20 - 0x14];
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 class NotifyTargetsOfImminentProbableCrushingUpdate : public UpdateModule
 {
 public:

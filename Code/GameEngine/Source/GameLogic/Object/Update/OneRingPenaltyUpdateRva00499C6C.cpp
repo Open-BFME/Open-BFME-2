@@ -91,19 +91,8 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_NONE = 0
 };
 
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-class UpdateModule : public ObjectModule, public BehaviorModuleInterface, public UpdateModuleInterface
-{
-protected:
-	unsigned int m_nextCallFrameAndPhase; // +0x14
-	int m_indexInLogic; // +0x18
-	int m_updateState; // +0x1C
-};
 
 class OneRingPenaltyUpdate : public UpdateModule
 {
