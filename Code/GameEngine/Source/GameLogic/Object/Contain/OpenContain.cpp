@@ -442,7 +442,7 @@ class WeaponTemplateSetHead
 public:
 	__declspec(nothrow) WeaponTemplateSetHead(const WeaponTemplateSetHead &other);
 private:
-	unsigned int m_bits[19];
+	unsigned int m_bits[19]; // +0x00
 };
 
 class Rva0046267A;
@@ -452,8 +452,10 @@ struct Rva004634BANode;
 class Rva00463782
 {
 public:
-	_STL::_Rb_tree_node_base *m_header;
-	unsigned int m_count;
+	~Rva00463782();
+	_STL::_Rb_tree_node_base *m_header; // +0x00
+	unsigned int m_count; // +0x04
+	int m_extent; // +0x08
 };
 
 typedef _STL::pair<const unsigned int, WeaponTemplateSetHead> WeaponTemplateSetHeadPair;

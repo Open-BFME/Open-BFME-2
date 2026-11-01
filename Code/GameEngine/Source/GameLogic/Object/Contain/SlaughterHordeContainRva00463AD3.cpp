@@ -159,7 +159,7 @@ public:
 class Rva00294D61
 {
 public:
-	void report(Object *victim, int credit);
+	void report(Object*,int);
 };
 
 struct Rva00463AD3Data

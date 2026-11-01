@@ -8,7 +8,11 @@ class Object;
 extern GameLogic *TheGameLogic;
 class Drawable {public:void setDrawableHidden(bool);};
 class Object {public:Drawable *getDrawable() const;};
-class Rva00294D61 {public:void report(Object*,int);};
+class Rva00294D61
+{
+public:
+	void report(Object*,int);
+};
 namespace _STL {template<> list<Object*>::iterator find(list<Object*>::iterator,list<Object*>::iterator,Object *const&);}
 #define V(n) virtual void s##n()=0;
 class Rva0046391BNotice {public:

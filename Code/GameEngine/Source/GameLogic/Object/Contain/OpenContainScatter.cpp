@@ -15,7 +15,17 @@ extern float GetGameLogicRandomValueReal(float, float, char *, int);
 extern float Cos(float);
 extern float Sin(float);
 enum CommandSourceType { CMD_FROM_AI = 2 };
-class AICommandInterface { public: void aiMoveToPosition(const Coord3D *, CommandSourceType); };
+struct AICommandParms;
+class Rva0035149F;
+class Object;
+class AICommandInterface
+{
+public:
+	void aiMoveToPosition(const Coord3D *, CommandSourceType);
+	void rva0036EE16(const Rva0035149F*,Object*,CommandSourceType);
+	void rva0036EF09(const Rva0035149F*,Object*,float,CommandSourceType);
+	virtual void aiDoCommand(const AICommandParms*);
+};
 class AIUpdateInterface { public: void ignoreObstacle(const Object *); };
 #include "../../../Common/Thing/thing.h"
 class Object : public Thing {
