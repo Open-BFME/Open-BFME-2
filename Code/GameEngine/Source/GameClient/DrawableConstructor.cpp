@@ -171,6 +171,7 @@ public:
 	void rva002783F6(int v);
 };
 
+#include "../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 #include "../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
 struct Coord3DZero
