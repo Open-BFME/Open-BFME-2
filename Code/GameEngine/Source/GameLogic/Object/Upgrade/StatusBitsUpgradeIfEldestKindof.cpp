@@ -25,19 +25,7 @@ class RGBAColorReal;
 class RGBAColorInt;
 class Snapshot;
 #include "../../../../Include/Common/BfmeXfer.h"
-#define BFME_DISP8_LEA_NEG_SBB_GETTER(NAME, LEADISP, ADDIMM) \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-	}; \
-	int NAME::get() const \
-	{ \
-		const char *field = (const char *)this; \
-		const void *base = field - LEADISP; \
-		field += ADDIMM; \
-		return base ? (int)field : 0; \
-	}
+#include "../../../../Include/Common/BfmeAccessorMacros.h"
 
 //
 // StatusBitsUpgradeIfEldestKindofModuleData parse-unit.

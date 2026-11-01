@@ -8,18 +8,7 @@
 #include <stdlib.h>
 #include "ascii_string.h"
 #include "unicode_string.h"
-#define BFME_DISP8_DWORD_SETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		void set(int value); \
-		char m_lead[DISP]; \
-		int m_value; \
-	}; \
-	void NAME::set(int value) \
-	{ \
-		m_value = value; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 #include "../../Include/Common/BfmeStringData.h"
 

@@ -39,30 +39,7 @@ class Snapshot;
 #include "../../../../Include/Common/BfmeXfer.h"
 #include "../../../../../Libraries/Include/Lib/BfmeE16.h"
 #pragma comment(linker, "/alternatename:?v1@Rva00506B1B@@UAEXXZ=__purecall")
-#define BFME_DISP8_NULL_ADJUST_GETTER(NAME, DISP, ADJ) \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-		char m_lead[DISP]; \
-		int m_ptr; \
-	}; \
-	int NAME::get() const \
-	{ \
-		return m_ptr ? m_ptr + ADJ : 0; \
-	}
-#define BFME_DISP8_NULL_ADJUST_GLOBAL_GETTER(NAME, DISP, ADJ, GLOBAL) \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-		char m_lead[DISP]; \
-		int m_ptr; \
-	}; \
-	int NAME::get() const \
-	{ \
-		return m_ptr ? m_ptr + ADJ : (int)&GLOBAL; \
-	}
+#include "../../../../Include/Common/BfmeAccessorMacros.h"
 
 #include "../../../../Include/Common/XferVersion.h"
 

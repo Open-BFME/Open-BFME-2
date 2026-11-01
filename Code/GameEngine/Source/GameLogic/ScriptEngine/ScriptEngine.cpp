@@ -192,18 +192,7 @@ struct XferVersion
 #define _STLP_NO_EXCEPTIONS 1
 #include "BfmeSpecialPowerTimer8.h"
 #define _STLP_NO_EXCEPTIONS 1
-#define BFME_DISP_BYTE_GETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		unsigned char get() const; \
-		char m_lead[DISP]; \
-		unsigned char m_value; \
-	}; \
-	unsigned char NAME::get() const \
-	{ \
-		return m_value; \
-	}
+#include "../../../Include/Common/BfmeAccessorMacros.h"
 // Declaration-only: retail keeps one copy of this STLport member (rowed elsewhere); this unit calls it
 // rather than emitting its own.
 namespace _STL {

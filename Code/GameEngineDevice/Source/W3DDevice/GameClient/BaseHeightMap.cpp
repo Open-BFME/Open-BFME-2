@@ -25,18 +25,7 @@ typedef unsigned int Uint;
 typedef unsigned short UShort;
 #include <new>
 #define DEVICE9 (reinterpret_cast<IDirect3DDevice9 *>(DX8Wrapper::D3DDevice))
-#define BFME_DISP32_DWORD_CLEAR(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		void clear(); \
-		char m_lead[DISP]; \
-		int m_counter; \
-	}; \
-	void NAME::clear() \
-	{ \
-		m_counter = 0; \
-	}
+#include "../../../../GameEngine/Include/Common/BfmeAccessorMacros.h"
 #define _BFME_RETAIL_TREE_INSERT_LAYOUT
 #include <set>
 #include <vector>

@@ -58,72 +58,7 @@ public:
 #include "../../../Common/GameLogicObjectLookupView.h"
 #include "Common/Snapshot.h"
 #include "ascii_string.h"
-#define BFME_DISP8_BYTECHASE_GETTER(NAME, DISP1, DISP2) \
-	class NAME \
-	{ \
-	public: \
-		unsigned char get() const; \
-		char m_lead[DISP1]; \
-		void *m_ptr; \
-	}; \
-	unsigned char NAME::get() const \
-	{ \
-		return *(unsigned char *)((char *)m_ptr + DISP2); \
-	}
-#define BFME_DISP8_BYTECHASE_BEFORE_GETTER(NAME, BACK, INNER) \
-	class Inner##NAME \
-	{ \
-	public: \
-		char m_lead[INNER]; \
-		unsigned char m_value; \
-	}; \
-	class Sub##NAME \
-	{ \
-	public: \
-		Inner##NAME *m_holder; \
-	}; \
-	class NAME \
-	{ \
-	public: \
-		unsigned char get() const; \
-	}; \
-	unsigned char NAME::get() const \
-	{ \
-		return ((const Sub##NAME *)((const char *)this - (BACK)))->m_holder->m_value; \
-	}
-#define BFME_DISP8_LEA_NEG_SBB_GETTER(NAME, LEADISP, ADDIMM) \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-	}; \
-	int NAME::get() const \
-	{ \
-		const char *field = (const char *)this; \
-		const void *base = field - LEADISP; \
-		field += ADDIMM; \
-		return base ? (int)field : 0; \
-	}
-#define BFME_DISP8_LEA_GETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		void *get() const; \
-	}; \
-	void *NAME::get() const \
-	{ \
-		return (char *)this + DISP; \
-	}
-#define BFME_DISP8_NEG_LEA_GETTER(NAME, BACK) \
-	class NAME \
-	{ \
-	public: \
-		void *get() const; \
-	}; \
-	void *NAME::get() const \
-	{ \
-		return (char *)this - BACK; \
-	}
+#include "../../../../Include/Common/BfmeAccessorMacros.h"
 
 extern GameLogic *TheGameLogic;
 

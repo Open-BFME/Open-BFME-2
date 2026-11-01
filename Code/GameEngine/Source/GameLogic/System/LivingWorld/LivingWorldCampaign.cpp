@@ -126,18 +126,7 @@ class DamageInfo;
 class Xfer;
 #include "string_base.h"
 #define BFME_SNAPSHOT_NAME_SLOT
-#define BFME_DISP8_DIV_AVG_DWORD_GETTER(NAME, DISP1, DISP2, DIVISOR) \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-		char m_lead[DISP1]; \
-		int m_first; \
-	}; \
-	int NAME::get() const \
-	{ \
-		return (m_first - *(int *)((char *)this + DISP2)) / DIVISOR; \
-	}
+#include "../../../../Include/Common/BfmeAccessorMacros.h"
 #include "../../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
 BFME_DISP8_DIV_AVG_DWORD_GETTER(Rva0052BB28DivAvgField, 0x04, 0x00, 0x28)

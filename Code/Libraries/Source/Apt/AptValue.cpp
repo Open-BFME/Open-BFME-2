@@ -8,30 +8,8 @@
 #define B(v) ((BfmeAptValue006DCD20 *)(v))
 #define I ((FindChildInterpreterView *)&g_aptDateInterpreter)
 #define GLOBAL gpGlobalGlobalObject
-#define RVA_APT_FLAG_CTOR(NAME, TYPE, KEEP, SET) \
-	class NAME : public BfmeAptValue006DCD20 \
-	{ \
-	public: \
-		NAME(); \
-		virtual ~NAME() {} \
-	}; \
-	NAME::NAME() : BfmeAptValue006DCD20(TYPE) \
-	{ \
-		if(0){throw 0;} \
-		m_flags = (m_flags & (KEEP)) | (SET); \
-	}
+#include "../../../GameEngine/Include/Common/BfmeAccessorMacros.h"
 #pragma intrinsic(__debugbreak)
-#define RVA_APT_CTOR(NAME, TYPE, SIZE) \
-	class NAME : public Rva006D6360Base, public Rva006DBits \
-	{ \
-	public: \
-		NAME(); \
-		virtual ~NAME() {} \
-	}; \
-	NAME::NAME() : Rva006D6360Base(TYPE, SIZE), Rva006DBits() \
-	{ \
-		m_flags = (m_flags & 0xFE07FFFFu) | 0x40000u; \
-	}
 
 struct R4Word { const char *name; int value; };
 

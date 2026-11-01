@@ -44,30 +44,7 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 
 
 #endif
-#define BFME_DISP_BYTE_GETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		unsigned char get() const; \
-		char m_lead[DISP]; \
-		unsigned char m_value; \
-	}; \
-	unsigned char NAME::get() const \
-	{ \
-		return m_value; \
-	}
-#define BFME_DISP32_BYTE_GETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		unsigned char get() const; \
-		char m_lead[DISP]; \
-		unsigned char m_value; \
-	}; \
-	unsigned char NAME::get() const \
-	{ \
-		return m_value; \
-	}
+#include "../../../Include/Common/BfmeAccessorMacros.h"
 
 // bfme link decl-only begin
 namespace _STL { template <> unsigned long _Base_bitset<4>::_S_maskbit(unsigned int); }

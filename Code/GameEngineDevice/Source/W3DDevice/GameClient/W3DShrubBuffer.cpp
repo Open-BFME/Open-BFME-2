@@ -31,16 +31,7 @@
 #include "rendobj.h"
 #include "scene.h"
 #define TheBfmeAwakenDebug (*(BfmeAwakenDebug **)&theDebug)
-#define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
-	class NAME \
-	{ \
-	public: \
-		const char *name() const; \
-	}; \
-	const char *NAME::name() const \
-	{ \
-		return TEXT; \
-	}
+#include "../../../../GameEngine/Include/Common/BfmeAccessorMacros.h"
 
 class Rva000E6AC0Base
 {

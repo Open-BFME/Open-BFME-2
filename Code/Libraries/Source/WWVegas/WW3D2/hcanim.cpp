@@ -154,28 +154,7 @@ void _bfme_debugRecordCallsite(int kind);
 #include "nstrdup.h"
 #define W3D_CHUNK_BFME2_MOTION_CHANNEL	(W3D_CHUNK_COMPRESSED_BIT_CHANNEL + 1)
 #include <new>
-#define BFME_DISP8_FLOAT_GETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		float get() const; \
-		char m_lead[DISP]; \
-		float m_value; \
-	}; \
-	float NAME::get() const \
-	{ \
-		return m_value; \
-	}
-#define BFME_DISP8_NEG_FLOAT_GETTER(NAME, INDEX) \
-	class NAME \
-	{ \
-	public: \
-		float get() const; \
-	}; \
-	float NAME::get() const \
-	{ \
-		return ((const float *)this)[INDEX]; \
-	}
+#include "../../../../GameEngine/Include/Common/BfmeAccessorMacros.h"
 
 // The normalized quaternion lerp at 0x00717550 (ledger
 // ?BFME2_Nlerp@@YAXAAVQuaternion@@ABV1@1M@Z) that BFME2 blends with where Zero

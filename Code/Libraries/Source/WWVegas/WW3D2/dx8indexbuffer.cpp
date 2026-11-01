@@ -34,18 +34,7 @@ extern void BFME_DX8_Thread_Lock(void);
 #pragma inline_depth()
 #pragma comment(linker, "/alternatename:??0BfmeSortingIBAccess@@QAE@GG@Z=??0DynamicIBAccessClass@@QAE@GG@Z")
 #pragma comment(linker, "/alternatename:??1BfmeSortingIBAccess@@QAE@XZ=??1DynamicIBAccessClass@@QAE@XZ")
-#define BFME_DISP_BYTE_GETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		unsigned char get() const; \
-		char m_lead[DISP]; \
-		unsigned char m_value; \
-	}; \
-	unsigned char NAME::get() const \
-	{ \
-		return m_value; \
-	}
+#include "../../../../GameEngine/Include/Common/BfmeAccessorMacros.h"
 
 // BFME's retail DX8 error path writes through the game debug stream rather
 // than calling the later Zero Hour Log_DX8_ErrorCode helper.  Keep the small

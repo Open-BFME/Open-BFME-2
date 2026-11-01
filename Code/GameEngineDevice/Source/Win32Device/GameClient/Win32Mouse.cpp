@@ -31,30 +31,7 @@ typedef StringBase<char> AsciiString;
 #define MOUSE_NONE 0x00
 #define MOUSE_OK 0x01
 #define MAX_2D_CURSOR_DIRECTIONS 8
-#define BFME_DISP_DWORD_GETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-		char m_lead[DISP]; \
-		int m_value; \
-	}; \
-	int NAME::get() const \
-	{ \
-		return m_value; \
-	}
-#define BFME_DISP_DWORD_SETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		void set(int value); \
-		char m_lead[DISP]; \
-		int m_value; \
-	}; \
-	void NAME::set(int value) \
-	{ \
-		m_value = value; \
-	}
+#include "../../../../GameEngine/Include/Common/BfmeAccessorMacros.h"
 
 struct RGBAColorInt
 {

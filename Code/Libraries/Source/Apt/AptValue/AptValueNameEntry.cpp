@@ -41,54 +41,7 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #pragma comment(linker, "/alternatename:?loadPostProcess@Rva006DCD20@@MAEXXZ=?ForceDelete@AptValue@@UAEXXZ")
 #pragma inline_depth(0)
 #pragma inline_depth()
-#define BFME_DISP8_SHR_AND_DWORD_GETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-		char m_lead[DISP]; \
-		unsigned int m_value; \
-	}; \
-	int NAME::get() const \
-	{ \
-		return (m_value >> 1) & 1; \
-	}
-#define BFME_DISP8_SHR3_AND_DWORD_GETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-		char m_lead[DISP]; \
-		unsigned int m_value; \
-	}; \
-	int NAME::get() const \
-	{ \
-		return (m_value >> 3) & 1; \
-	}
-#define BFME_DISP8_SHRN_AND_DWORD_GETTER(NAME, DISP, COUNT) \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-		char m_lead[DISP]; \
-		unsigned int m_value; \
-	}; \
-	int NAME::get() const \
-	{ \
-		return (m_value >> COUNT) & 1; \
-	}
-#define BFME_DISP8_SHRN_AND_MASK_DWORD_GETTER(NAME, DISP, COUNT, MASK) \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-		char m_lead[DISP]; \
-		unsigned int m_value; \
-	}; \
-	int NAME::get() const \
-	{ \
-		return (m_value >> COUNT) & MASK; \
-	}
+#include "../../../../GameEngine/Include/Common/BfmeAccessorMacros.h"
 
 //
 // The 28B target body at 0x006CBBF0 clears eight dwords at offsets 0x00..0x1C.

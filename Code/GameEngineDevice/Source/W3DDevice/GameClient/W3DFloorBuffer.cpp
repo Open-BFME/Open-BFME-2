@@ -183,16 +183,7 @@ struct RGBAColorInt
 };
 #include "ascii_string.h"
 #include "Common/Snapshot.h"
-#define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
-	class NAME \
-	{ \
-	public: \
-		const char *name() const; \
-	}; \
-	const char *NAME::name() const \
-	{ \
-		return TEXT; \
-	}
+#include "../../../../GameEngine/Include/Common/BfmeAccessorMacros.h"
 #define _OPERATOR_NEW_DEFINED_ // <new> supplies the placement allocation overloads.
 #include "reference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath/matrix3d.h"
 #include "Code/Libraries/Include/Lib/Coord3D.h"

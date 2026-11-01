@@ -906,26 +906,7 @@ public:
 #include "../../../Include/Common/Module.h"
 #include "../../../Include/Common/ObjectModule.h"
 #include "../../../Include/GameLogic/Module/BehaviorModule.h"
-#define BFME_DISP8_WORDCHASE_ZERO_GETTER(NAME, DISP1) \
-	class Inner##NAME \
-	{ \
-	public: \
-		short m_value; \
-	}; \
-	class Sub##NAME \
-	{ \
-	public: \
-		Inner##NAME *m_holder; \
-	}; \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-	}; \
-	int NAME::get() const \
-	{ \
-		return ((const Sub##NAME *)((const char *)this + (DISP1)))->m_holder->m_value; \
-	}
+#include "../../../Include/Common/BfmeAccessorMacros.h"
 #include <stddef.h>
 typedef unsigned int PlayerMaskType;
 void setFPMode();
@@ -1014,116 +995,6 @@ static const volatile float IdentityDiagonal=1.0f;
 #include "../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 #define TheGlobalData TheWritableGlobalData
 #define TheVerifyClientCRC BfmeClientCRCCheckEnabled
-#define BFME_DISP32_FIRST_PTRCHASE_GETTER(NAME, DISP1, DISP2) \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-		char m_lead[DISP1]; \
-		void *m_ptr; \
-	}; \
-	int NAME::get() const \
-	{ \
-		return *(int *)((char *)m_ptr + DISP2); \
-	}
-#define BFME_DISP32_FIRST_WORDCHASE_ZERO_GETTER(NAME, DISP1) \
-	class Inner##NAME \
-	{ \
-	public: \
-		short m_value; \
-	}; \
-	class Sub##NAME \
-	{ \
-	public: \
-		Inner##NAME *m_holder; \
-	}; \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-	}; \
-	int NAME::get() const \
-	{ \
-		return ((const Sub##NAME *)((const char *)this + (DISP1)))->m_holder->m_value; \
-	}
-#define BFME_DISP32_BACK_PTRCHASE_GETTER(NAME, BACK, DISP2) \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-	}; \
-	int NAME::get() const \
-	{ \
-		return *(int *)((char *)*(void *const *)((char *)this - (BACK)) + (DISP2)); \
-	}
-#define BFME_DISP32_BACK_BYTECHASE_GETTER(NAME, BACK, DISP2) \
-	class NAME \
-	{ \
-	public: \
-		unsigned char get() const; \
-	}; \
-	unsigned char NAME::get() const \
-	{ \
-		return *(unsigned char *)((char *)*(void *const *)((char *)this - (BACK)) + (DISP2)); \
-	}
-#define BFME_DISP32_BACK_FLOATCHASE_GETTER(NAME, BACK, DISP2) \
-	class NAME \
-	{ \
-	public: \
-		float get() const; \
-	}; \
-	float NAME::get() const \
-	{ \
-		return *(float *)((char *)*(void *const *)((char *)this - (BACK)) + (DISP2)); \
-	}
-#define BFME_DISP8_SAR_AVG_DWORD_GETTER(NAME, DISP1, DISP2, IMM) \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-		char m_lead[DISP1]; \
-		int m_first; \
-	}; \
-	int NAME::get() const \
-	{ \
-		return (m_first - *(int *)((char *)this + DISP2)) >> IMM; \
-	}
-#define BFME_ASCII_FIELD_CLEAR(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		void clear(); \
-	private: \
-		char m_pad[DISP]; \
-		AsciiString m_str; \
-	}; \
-	void NAME::clear() \
-	{ \
-		((StringBase<char> *)&m_str)->clear(); \
-	}
-#define BFME_ASCII_FIELD_SET_CSTR(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		void set(const char *s); \
-	private: \
-		char m_pad[DISP]; \
-		AsciiString m_str; \
-	}; \
-	void NAME::set(const char *s) \
-	{ \
-		((StringBase<char> *)&m_str)->set(s); \
-	}
-#define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
-	class NAME \
-	{ \
-	public: \
-		const char *name() const; \
-	}; \
-	const char *NAME::name() const \
-	{ \
-		return TEXT; \
-	}
 
 BFME_DISP8_SAR_AVG_DWORD_GETTER(Rva0023D6F0SarAvgField, 0x5C, 0x58, 2)
 

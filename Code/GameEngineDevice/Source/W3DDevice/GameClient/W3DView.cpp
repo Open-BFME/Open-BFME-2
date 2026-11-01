@@ -41,30 +41,7 @@
 #define MIN_CAPPED_ZOOM (0.5f) //WST 10.19.2002. JSC integrated 5/20/03.
 #define BFME_SHAKE_DATA ((const BfmeGlobalDataShakeFields *)TheGlobalData)
 #include <map>
-#define BFME_DISP_BYTE_SETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		void set(unsigned char value); \
-		char m_lead[DISP]; \
-		unsigned char m_value; \
-	}; \
-	void NAME::set(unsigned char value) \
-	{ \
-		m_value = value; \
-	}
-#define BFME_DISP_FLOAT_GETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		float get() const; \
-		char m_lead[DISP]; \
-		float m_value; \
-	}; \
-	float NAME::get() const \
-	{ \
-		return m_value; \
-	}
+#include "../../../../GameEngine/Include/Common/BfmeAccessorMacros.h"
 #include <vector>
 #include <list>
 #include "../../../../GameEngine/Source/Common/GameLogicObjectLookupView.h"
@@ -336,42 +313,6 @@ public:
 	void addNeed(int a);
 };
 #include "../../../../GameEngine/Include/Common/Overridable.h"
-#define BFME_DISP32_FLOAT_GETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		float get() const; \
-		char m_lead[DISP]; \
-		float m_value; \
-	}; \
-	float NAME::get() const \
-	{ \
-		return m_value; \
-	}
-#define BFME_DISP8_DIV_MOV_DWORD_GETTER(NAME, DISP1, DISP2, DIVISOR) \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-		char m_lead[DISP1]; \
-		int m_first; \
-	}; \
-	int NAME::get() const \
-	{ \
-		return (m_first - *(int *)((char *)this + DISP2)) / DIVISOR; \
-	}
-#define BFME_DISP_BYTE_GETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		unsigned char get() const; \
-		char m_lead[DISP]; \
-		unsigned char m_value; \
-	}; \
-	unsigned char NAME::get() const \
-	{ \
-		return m_value; \
-	}
 #include <new>
 //
 // F6 shape family: three vector _M_clear siblings of the rowed 0x004758D6.

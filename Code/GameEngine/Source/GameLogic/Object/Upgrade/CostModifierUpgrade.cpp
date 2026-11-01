@@ -6,39 +6,7 @@
 class Thing;
 class ModuleData;
 #include "../../../../Include/Common/ObjectModule.h"
-#define BFME_DISP8_BYTECHASE_GETTER(NAME, DISP1, DISP2) \
-	class NAME \
-	{ \
-	public: \
-		unsigned char get() const; \
-		char m_lead[DISP1]; \
-		void *m_ptr; \
-	}; \
-	unsigned char NAME::get() const \
-	{ \
-		return *(unsigned char *)((char *)m_ptr + DISP2); \
-	}
-#define BFME_DISP8_BYTECHASE_BEFORE_GETTER(NAME, BACK, INNER) \
-	class Inner##NAME \
-	{ \
-	public: \
-		char m_lead[INNER]; \
-		unsigned char m_value; \
-	}; \
-	class Sub##NAME \
-	{ \
-	public: \
-		Inner##NAME *m_holder; \
-	}; \
-	class NAME \
-	{ \
-	public: \
-		unsigned char get() const; \
-	}; \
-	unsigned char NAME::get() const \
-	{ \
-		return ((const Sub##NAME *)((const char *)this - (BACK)))->m_holder->m_value; \
-	}
+#include "../../../../Include/Common/BfmeAccessorMacros.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h

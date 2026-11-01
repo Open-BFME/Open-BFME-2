@@ -79,26 +79,7 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_FOREVER = 0x3fffffff
 };
 #include "../../../../Include/Common/ObjectModule.h"
-#define BFME_SNAPSHOT_NAME_GETTER(NAME, TEXT) \
-	class NAME \
-	{ \
-	protected: \
-		virtual const char *GetSnapshotName() const; \
-	}; \
-	const char *NAME::GetSnapshotName() const \
-	{ \
-		return TEXT; \
-	}
-#define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
-	class NAME \
-	{ \
-	public: \
-		const char *name() const; \
-	}; \
-	const char *NAME::name() const \
-	{ \
-		return TEXT; \
-	}
+#include "../../../../Include/Common/BfmeAccessorMacros.h"
 
 class BehaviorInterface
 {

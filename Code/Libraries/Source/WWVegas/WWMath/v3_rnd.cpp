@@ -11,26 +11,7 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include "rendobj.h"	// the bfmerendobj shim has to win the include guard
 #include "../../../../../reference/shims/bfme_randomizer_dtor/v3_rnd.h"
 #include "vector2.h"
-#define BFME_DISP8_LEA_GETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		void *get() const; \
-	}; \
-	void *NAME::get() const \
-	{ \
-		return (char *)this + DISP; \
-	}
-#define BFME_DISP8_NEG_LEA_GETTER(NAME, BACK) \
-	class NAME \
-	{ \
-	public: \
-		void *get() const; \
-	}; \
-	void *NAME::get() const \
-	{ \
-		return (char *)this - BACK; \
-	}
+#include "../../../../GameEngine/Include/Common/BfmeAccessorMacros.h"
 
 const float Vector3Randomizer::OOIntMax = 1.0f / (float)INT_MAX;
 

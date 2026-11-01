@@ -12,16 +12,7 @@
 #pragma comment(linker, "/alternatename:?run@Rva007EB6C0Cleanup@@QAEXXZ=??1BfmeDirtyBase@@UAE@XZ")
 #pragma comment(linker, "/alternatename:?run@Rva007FA650Cleanup@@QAEXXZ=??1Rva00666BA0@@UAE@XZ")
 #pragma comment(linker, "/alternatename:?run@Rva009EDD30Cleanup@@QAEXXZ=?Remove_All@?$SList@VTagBlockIndex@@@@UAEXXZ")
-#define BFME_VPTR_CLEANUP_DELETING_DTOR( NAME, CLEANUP )                      \
-	class NAME                                                                \
-	{                                                                         \
-	public:                                                                   \
-		virtual ~NAME();                                                      \
-	};                                                                        \
-	NAME::~NAME()                                                             \
-	{                                                                         \
-		( (CLEANUP *)this )->run();                                           \
-	}
+#include "../../../../GameEngine/Include/Common/BfmeAccessorMacros.h"
 
 // The header-node initialization stays inline; the shared base owns its external copy.
 namespace _STL {

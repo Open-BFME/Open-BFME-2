@@ -5,17 +5,7 @@
 #include <d3dx9core.h>
 #pragma comment(linker, "/alternatename:??0Rva0027C36ASix@@QAE@XZ=?get@Rva00181450ReturnThis@@QBEPAXXZ")
 #pragma comment(linker, "/alternatename:??0CDEArraySlot@@QAE@XZ=?get@Rva00181450ReturnThis@@QBEPAXXZ")
-#define BFME_DISP0_DWORD_GETTER(NAME) \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-		int m_value; \
-	}; \
-	int NAME::get() const \
-	{ \
-		return m_value; \
-	}
+#include "../../../../GameEngine/Include/Common/BfmeAccessorMacros.h"
 
 // These declarations retain the Zero Hour FVF layout used by Get_FVF_Name.
 // Keep them local so the reference header need not bring in its DX8 stand-in.
