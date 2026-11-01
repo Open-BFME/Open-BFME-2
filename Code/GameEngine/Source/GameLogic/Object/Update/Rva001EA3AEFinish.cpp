@@ -40,7 +40,7 @@ template<> void BfmeLocomotorTemplateVector::push_back(const value_type&);
 // Original receiver and method names unknown. Prefix is only a measured ABI view.
 #include "ascii_string.h"
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
-struct FieldParse { const char *token; FieldParseProc parse; const void *userData; int offset; };
+#include "../../../../Include/Common/INI/FieldParse.h"
 class INI {
 public: void initFromINI(void *, const FieldParse *);
  int scanIndexList(const char *, const char *const *);

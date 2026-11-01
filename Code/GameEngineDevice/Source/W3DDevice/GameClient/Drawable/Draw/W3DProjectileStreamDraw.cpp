@@ -137,13 +137,7 @@ class INI;
 
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
 
-struct FieldParse
-{
-	const char *token;
-	INIFieldParseProc parse;
-	const void *userData;
-	int offset;
-};
+#include "../../../../../../GameEngine/Include/Common/INI/FieldParse.h"
 
 class INI
 {
@@ -163,11 +157,6 @@ extern const FieldParse g_00BCDFB0[] = {
 	{ 0, 0, 0, 0 }
 };
 
-class MultiIniFieldParse
-{
-public:
-	void add(const FieldParse *parseTable, unsigned int extraOffset);
-};
 
 // ?getModuleNameKey@W3DProjectileStreamDraw@@UBE?AW4NameKeyType@@XZ @0xD140A
 // (69B): cached pool-name key for W3DProjectileStreamDraw. The class

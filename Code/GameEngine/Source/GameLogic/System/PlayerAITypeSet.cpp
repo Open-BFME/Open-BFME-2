@@ -56,7 +56,7 @@ namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
 
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
 
-struct FieldParse { const char *token; FieldParseProc parse; const void *userData; int offset; };
+#include "../../../Include/Common/INI/FieldParse.h"
 
 class INI
 {

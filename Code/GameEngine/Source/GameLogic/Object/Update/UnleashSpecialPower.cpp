@@ -8,22 +8,11 @@
 // (EvacuateGarrisonSpecialPower) and 0x25327A (UnleashSpecialPower); both new
 // 0xC8 with this one folded ctor (vtable 0x00C5F778). Named after the
 // lower-address registration. Do NOT declare an explicit vptr member.
-struct FieldParse
-{
-	const char *m_token;
-	void *m_parse;
-	const void *m_userData;
-	int m_offset;
-};
+#include "../../../../Include/Common/INI/FieldParse.h"
 
 // Both retail parse procs reference the existing empty table at VA 0x00C6BB18.
 extern const int g_emptyFieldParseTable[4];
 
-class MultiIniFieldParse
-{
-public:
-	void add(const FieldParse *f, unsigned int extraOffset);
-};
 
 class SpecialAbilityUpdateModuleData
 {

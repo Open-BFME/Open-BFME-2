@@ -210,14 +210,7 @@ template <> const unsigned int &max<unsigned int>(const unsigned int &, const un
 
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
 
-struct FieldParse
-{
-public:
-	const char *token; // +0x00
-	INIFieldParseProc parse; // +0x04
-	const void *userData; // +0x08
-	int offset; // +0x0C
-};
+#include "../../../../../../GameEngine/Include/Common/INI/FieldParse.h"
 
 class INI
 {
@@ -253,15 +246,6 @@ void ParseScriptedModelParticleSysBone(INI *ini, void *instance, void *store, co
 
 void rva000C4B61(INI *ini, void *instance, void *store, const void *userData);
 
-class INIException
-{
-public:
-	char *mFailureMessage;
-	int mErrorCode;
-	INIException(int code, const char *format, ...);			// 0x0002F681
-	INIException(const INIException &);
-	~INIException();
-};
 
 // Retail VA 0x00DB4E00 (.data): the shadow type names Shadow parses
 // against, 16 names and the null terminator, read from retail.

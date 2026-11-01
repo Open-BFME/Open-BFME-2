@@ -214,13 +214,7 @@ class INI;
 
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
 
-struct FieldParse
-{
-	const char *token;
-	INIFieldParseProc parse;
-	const void *userData;
-	int offset;
-};
+#include "../../../../Include/Common/INI/FieldParse.h"
 
 class INI
 {
@@ -234,15 +228,6 @@ public:
 	void initFromINI(void *what, const FieldParse *parseTable);
 };
 
-class INIException
-{
-public:
-	INIException(int argCount, const char *format, ...);
-	char *mFailureMessage;
-	int mErrorCode;
-	INIException(const INIException &that);
-	~INIException();
-};
 
 class ModuleData;
 

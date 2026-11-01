@@ -90,13 +90,7 @@ public:
 
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
 
-struct FieldParse
-{
-	const char *token;
-	INIFieldParseProc parse;
-	const void *userData;
-	int offset;
-};
+#include "../../../../Include/Common/INI/FieldParse.h"
 
 // The own table at 0x00C5DEAC and the ForbiddenConditions bit names at
 // 0x00DCE9DC (.data) it alone points to, from retail's bytes (data rows;
@@ -114,11 +108,6 @@ extern const FieldParse WoundArrowUpdateModuleDataFieldParse[3] =
 	{ 0, 0, 0, 0 }
 };
 
-class MultiIniFieldParse
-{
-public:
-	void add(const FieldParse *parseTable, unsigned int extraOffset);
-};
 
 class __declspec(novtable) SpecialAbilityUpdateModuleData
 {

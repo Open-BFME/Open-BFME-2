@@ -59,13 +59,7 @@ struct Rva00218FC2RecordCompare
 
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
 
-struct FieldParse
-{
-	const char *token;
-	INIFieldParseProc parse;
-	const void *userData;
-	int offset;
-};
+#include "../../../../GameEngine/Include/Common/INI/FieldParse.h"
 
 // 0x00218C2B (the font-size table lookup) is rowed as
 // int Rva00218C2B::rva00218C2B(const AsciiString &) in

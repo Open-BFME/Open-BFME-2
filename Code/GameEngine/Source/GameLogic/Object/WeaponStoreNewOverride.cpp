@@ -29,7 +29,7 @@ enum NameKeyType
 };
 
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
-struct FieldParse { const char *token; FieldParseProc parse; const void *userData; int offset; };
+#include "../../../Include/Common/INI/FieldParse.h"
 // Retail Weapon FieldParse table; its original linker symbol is unestablished.
 // The retail name list at RVA 0x009BC64C (4 names and the null terminator).
 extern const char *const TheWeaponPrefireNames[5] = { "PER_SHOT", "PER_ATTACK", "PER_CLIP", "PER_POSITION", 0 };

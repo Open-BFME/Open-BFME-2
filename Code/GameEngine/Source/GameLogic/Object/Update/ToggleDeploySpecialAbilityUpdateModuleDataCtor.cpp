@@ -15,13 +15,7 @@ extern "C" void _ReadWriteBarrier(void);
 class MultiIniFieldParse;
 class INI;
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
-struct FieldParse
-{
-	const char *token;
-	INIFieldParseProc parse;
-	const void *userData;
-	int offset;
-};
+#include "../../../../Include/Common/INI/FieldParse.h"
 
 extern "C" void __identifier("?parseAudioEventRTS@INI@@SAXPAV1@PAX1PBX@Z")(INI *ini, void *instance, void *store, const void *userData);
 // Retail VA 0x00BEF820 (.rdata): 2 field records and a zero sentinel.
@@ -31,11 +25,6 @@ extern const FieldParse g_00BEF820[] = {
 	{ 0, 0, 0, 0 }
 };
 
-class MultiIniFieldParse
-{
-public:
-	void add(const FieldParse *parseTable, unsigned int extraOffset);
-};
 
 class __declspec(novtable) SpecialAbilityUpdateModuleData
 {

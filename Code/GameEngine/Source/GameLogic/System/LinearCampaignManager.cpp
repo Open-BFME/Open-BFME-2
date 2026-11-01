@@ -160,11 +160,7 @@ public:
 	INILoadType loadType; // +0x08 +0x08, overwrite for the startup files
 };
 
-class INIException {
-public: INIException(int code, const char *format, ...);
- INIException(const INIException &); ~INIException();
- char *failureMessage; int errorCode;
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 
 class LinearCampaignManager {
 public: void DoXfer(Xfer*);
@@ -342,7 +338,6 @@ private:
 // Evidence: callee rowed 0x0002DE78; table g_00BDF1D8; caller 0x001ED61C in 0x001ED580.
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
 
-struct FieldParse { const char *token; FieldParseProc parse; const void *userData; int offset; };
 
 extern "C" {
 void __identifier("?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z")();

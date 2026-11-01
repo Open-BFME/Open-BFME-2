@@ -10,7 +10,7 @@
 #include "ascii_string.h"
 class INI;
 typedef void (*INIFieldParseProc)(INI*,void*,void*,const void*);
-struct FieldParse {const char* token; INIFieldParseProc parse; const void* data; int offset;};
+#include "../../../../../Include/Common/INI/FieldParse.h"
 class INI {public: const char* getNextToken(const char*); void initFromINI(void*,const FieldParse*); static void parseBool(INI*,void*,void*,const void*); static void parseInt(INI*,void*,void*,const void*);};
 class LivingWorldAutoResolveWeaponTemplate
 {
@@ -27,7 +27,6 @@ struct InsertRet00419331 { void* m_node; void* m_owner; unsigned char m_found;};
 class Rva000427195 {public: InsertRet00419331 rva00419967(const void*); __forceinline InsertRet00419331 rva0041998B(const void *value) {return rva00419967(value);}private:char bytes[0x14];};
 class Rva0041811D {public: void* rva004196F8(); char prefix[0xC]; Rva000427195 table;};
 extern Rva0041811D *TheLivingWorldAutoResolveWeaponStore;
-class INIException {public:char*message;int code;INIException(int,const char*,...);INIException(const INIException&);~INIException();};
 void parseAutoResolveWeaponDefinition(INI* ini) {
  static const FieldParse fields[] = {
  {"DamagePerRound", LivingWorldAutoResolveWeaponTemplate::parseDamagePerRoundIntoTable,0,0x14},

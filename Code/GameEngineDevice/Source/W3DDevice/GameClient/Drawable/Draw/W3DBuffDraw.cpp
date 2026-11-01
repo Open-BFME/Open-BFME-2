@@ -59,13 +59,7 @@ class INI;
 
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
 
-struct FieldParse
-{
-	const char *token;
-	INIFieldParseProc parse;
-	const void *userData;
-	int offset;
-};
+#include "../../../../../../GameEngine/Include/Common/INI/FieldParse.h"
 
 class INI
 {
@@ -81,11 +75,6 @@ extern const FieldParse g_00BCD2F4[] = {
 	{ 0, 0, 0, 0 }
 };
 
-class MultiIniFieldParse
-{
-public:
-	void add(const FieldParse *parseTable, unsigned int extraOffset);
-};
 
 // tu-skeleton: 0x000CEDE1 32B ??0W3DBuffDraw@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DBuffDrawConstructor.cpp (not merged yet)
 

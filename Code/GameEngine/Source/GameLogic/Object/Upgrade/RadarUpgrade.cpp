@@ -42,15 +42,8 @@
 
 class MultiIniFieldParse;
 
-struct FieldParse
-{
-};
+#include "../../../../Include/Common/INI/FieldParse.h"
 
-class MultiIniFieldParse
-{
-public:
-	void add(const FieldParse *parse, unsigned int extraOffset);
-};
 
 int Rva004CE29DGet();
 

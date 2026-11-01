@@ -33,13 +33,7 @@ private:
 
 typedef void (*INIFieldParseProc)(INI *, void *, void *, const void *);
 
-struct FieldParse
-{
-	const char *token;
-	INIFieldParseProc parse;
-	const void *userData;
-	int offset;
-};
+#include "../../../../Include/Common/INI/FieldParse.h"
 
 class INI
 {
@@ -130,11 +124,6 @@ extern const FieldParse g_00BEF150TeleportSpecialAbilityFieldParse[] = {
 	{ 0, 0, 0, 0 }
 };
 
-class MultiIniFieldParse
-{
-public:
-	void add(const FieldParse *parse, unsigned int extraOffset);
-};
 
 // Registration SpecialAbilityUpdate (0x00259DD9) pushes this data factory with
 // the rowed SpecialAbilityUpdate::friend_newModuleInstance 0x0024A847. Its
