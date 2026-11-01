@@ -21,20 +21,6 @@ class Thing;
 class ModuleData;
 class Object;
 
-class BehaviorModuleBase
-{
-public:
-	virtual void behaviorModuleBaseAnchor();
-	const ModuleData *m_moduleData;
-	Object *m_object;
-};
-
-class BehaviorModuleOther
-{
-public:
-	virtual void behaviorModuleOtherAnchor();
-};
-
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 enum UpdateSleepTime

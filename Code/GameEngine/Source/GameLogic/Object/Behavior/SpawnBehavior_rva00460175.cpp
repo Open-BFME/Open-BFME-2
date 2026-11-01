@@ -45,20 +45,6 @@ public:
 
 extern GameLogic *TheGameLogic;
 
-class BehaviorModuleBase
-{
-public:
-	virtual void unused();
-	const ModuleData *m_moduleData;
-	Object *m_object;
-};
-
-class BehaviorModuleOther
-{
-public:
-	virtual void unused();
-};
-
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class UpdateModuleInterface

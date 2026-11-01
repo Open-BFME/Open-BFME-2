@@ -164,19 +164,8 @@ extern GameState *TheGameState;
 
 void Rva00274E7DInit();
 
-class Rva002783F6Host
-{
-public:
-	void rva002783F6(int v);
-};
-
 #include "../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 #include "../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
-
-struct Coord3DZero
-{
-	static void zero(Coord3D &c) { c.x = 0.0f; c.y = 0.0f; c.z = 0.0f; }
-};
 
 struct DrawableICoord2D { int x, y; };
 

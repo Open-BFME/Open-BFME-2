@@ -26,20 +26,6 @@ enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
 template <int NUMBITS> class BitFlags;
 typedef BitFlags<11> DisabledMaskType;
 
-class BehaviorModuleBase
-{
-public:
-	virtual ~BehaviorModuleBase();
-private:
-	char m_pad04[8];
-};
-
-class MiBase1
-{
-public:
-	virtual void f1();
-};
-
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class UpdateModuleInterface

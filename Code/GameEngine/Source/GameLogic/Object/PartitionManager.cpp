@@ -709,24 +709,6 @@ private:
 // cleanup scope. CF13A0 contains this owner's single virtual slot.
 extern "C" void _ReadWriteBarrier(void);
 
-struct Rva0073BE00Point
-{
-	float x;
-	float y;
-	Rva0073BE00Point(float pointX, float pointY) : x(pointX), y(pointY) {}
-	~Rva0073BE00Point();
-};
-
-class Rva0073BE00
-{
-public:
-	virtual void rva0073BE00(int columnIndex, int rowIndex);
-private:
-	Rva0073BEA0Grid2 *m_grid;
-	void *m_unknown8;
-	Rva0073BEA0Sink *m_sink;
-};
-
 // tu-skeleton: 0x00739740 8B ?setRegion@PartitionManager@@QAEXPBURegion3D@@M@Z -- matched in Code/GameEngine/Source/GameLogic/Object/PartitionManagerShroudThunks.cpp (not merged yet)
 
 // tu-skeleton: 0x00739750 8B ?rva00739750@Rva00739750@@QAEXPAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/PartitionManagerShroudThunks.cpp (not merged yet)

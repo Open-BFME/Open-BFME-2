@@ -92,21 +92,7 @@ struct OpaqueRefPtr
 	~OpaqueRefPtr() { if (m_ptr) m_ptr->Release_Ref(); }
 };
 
-struct MallocPtr
-{
-	void *m_ptr;
-	~MallocPtr() { if (m_ptr) free(m_ptr); }
-};
-
 void __cdecl free(void *p);
-
-class Rva00360D26Member
-{
-public:
-	~Rva00360D26Member();
-private:
-	unsigned m_unknown;
-};
 
 class Rva003623E5Member
 {

@@ -1694,12 +1694,6 @@ public:
     virtual void slot6C(Object *object) = 0;
 };
 
-class DataChunkReader
-{
-public:
-	virtual void read(void *buffer, Int size);
-};
-
 class DataChunkInput
 {
 public:
@@ -2120,15 +2114,6 @@ public:
  char pad[0x1C-1];
  void **begin;
  void **end;
-};
-
-class Rva004DFE4F
-{
-public:
- int rva004DFE4F(void *key);
-private:
- char pad0[0x10]; Rva004DFCE6 **m_begin; Rva004DFCE6 **m_end;
- char pad18[8]; Rva004DFE4FCallback m_callback;
 };
 
 // ---- from Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp

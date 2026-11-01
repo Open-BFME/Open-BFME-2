@@ -29,20 +29,6 @@ class Object;
 enum DamageType { DamageType_Unknown = 0 };
 enum DeathType { DeathType_Unknown = 0 };
 
-class BehaviorModuleBase
-{
-public:
-	virtual void behaviorModuleBaseAnchor();
-	const ModuleData *m_moduleData;
-	Object *m_object;
-};
-
-class BehaviorModuleOther
-{
-public:
-	virtual void behaviorModuleOtherAnchor();
-};
-
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class UpdateModuleInterface
