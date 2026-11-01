@@ -419,18 +419,6 @@ Bool AIUpdateInterface::computeAttackPath(PathfindServicesInterface *services,co
  m_pathTimestamp=TheGameLogic->getFrame();m_blockedFrames=0;m_isBlockedAndStuck=false;if(m_path)return true;return false;
 }
 
-class Rva00265254 {
-public:
- Rva00265254(unsigned int,unsigned int,unsigned int,unsigned int);
- int bits[19];
-};
-class Rva001E42F2 { public: void rva001E42F2(const int *); };
-
-struct FacingDirection : Coord3D {
- FacingDirection(float a,float b,float c) { x=a;y=b;z=c; }
- ~FacingDirection() {}
-};
-
 static __forceinline void setFacingCondition(Object *obj,unsigned int bit) {
  if(obj->hasFacingMask(bit)==0) { obj->addFacingMask(bit);obj->rva0028AE6D(); }
 }

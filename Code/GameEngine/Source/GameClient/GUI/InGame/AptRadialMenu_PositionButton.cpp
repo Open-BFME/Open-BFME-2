@@ -92,14 +92,6 @@ struct BfmeE12 { char bytes[12]; };
 namespace _STL {
 template <> void vector<BfmeE12>::swap(vector<BfmeE12> &);
 }
-struct Rva00577EB2 : _STL::_Vector_base<unsigned,_STL::allocator<unsigned> > {
-    Rva00577EB2() : _STL::_Vector_base<unsigned,_STL::allocator<unsigned> >(_STL::allocator<unsigned>()) {}
-    ~Rva00577EB2();
-};
-class Rva00577F0FVector { public: void reserve(unsigned); };
-class Rva005C6D4D { public: void secondarySetCount(int); };
-
-
 // Names this unit references that no unit defines under that spelling. Each is
 // bound to the row that owns the pinned retail address (same address, same
 // body); the pin keeps the name, the row supplies the definition.

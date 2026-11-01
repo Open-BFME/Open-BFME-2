@@ -56,30 +56,8 @@ public:
     char m_storage[12];
 };
 
-class ObjectCreationList
-{
-public:
-    ObjectCreationList();
-    char m_storage[12];
-};
-
 // Initialization-only view used by the exact rva003EDD68 provider. Its
 // constructor is folded; the target's cleanup uses the key-map owner.
-class Rva003EDD68KeyMap : public ObjectCreationList
-{
-public:
-    __forceinline ~Rva003EDD68KeyMap()
-    {
-        ((Rva003ED94FDtor *)this)->Rva003ED94FDtor::~Rva003ED94FDtor();
-    }
-};
-
-class Rva0020DXXXElem
-{
-public:
-    Rva003ED658 rva003EDD68();
-};
-
 class LargeGroupAudio
 {
 public:

@@ -312,20 +312,6 @@ BFME_DISP8_NULL_ADJUST_GETTER(Rva002C5FCBNullAdjustField, 0x0C, 8)
 // emits the same whole 16 bytes with no relocations under /O1 /G7 /arch:SSE2.
 // That is a source guide, not proof of a LookupTableClass or RenderObjClass
 // identity in BF2. This unit's established /O1 /G6 emits the same body.
-struct Rva00068DC6NodePrefix
-{
-    char m_unknown[0x0C];
-    void *m_object;
-};
-
-class Rva00068DC6CurrentObject
-{
-public:
-    void *get() const;
-    void *m_unknown;
-    Rva00068DC6NodePrefix *m_current;
-};
-
 // Clean BF1 f98983a7 hanimmgr.cpp Get_Current_Anim and the fresh O1/SSE2/G6
 // donor trial supply this nullable interior-pointer adjustment expression.
 // Native F0BD7..F0BE4 is complete after RET4 at F0BD4 and before an indexed
@@ -336,15 +322,6 @@ public:
 // Retail is the branchless neg/sbb/and form (13 bytes): the pointer read as
 // an unsigned value reproduces it, where the pointer-conditional spelling
 // keeps the 14-byte branch.
-class Rva000F0BD7NullAdjustField
-{
-public:
-	void *get() const;
-private:
-	unsigned char m_unknown[0x0C];
-	void *m_pointer;
-};
-
 // ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/TacticalAI.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/TacticalAI.cpp

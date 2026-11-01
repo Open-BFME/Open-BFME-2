@@ -129,24 +129,6 @@ public:
 	BFME2RespawnRuleTree m_rules;
 };
 
-class Rva0037F2C0
-{
-public:
-	int rva0037F2C0(Object *obj, bool autoSpawn);
-};
-
-class Rva0037E421
-{
-public:
-	void *rva0037E421(int index);
-};
-
-struct RevivalSlot
-{
-	char m_pad00[0xC8];
-	int m_c8;
-};
-
 class UpdateModule
 {
 public:

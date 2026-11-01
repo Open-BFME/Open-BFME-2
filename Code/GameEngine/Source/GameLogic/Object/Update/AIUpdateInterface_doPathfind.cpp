@@ -138,27 +138,14 @@ struct Rva003642DFResult
 	Coord3D m_pos;
 };
 class Rva0008BB38FloatField;
-class Rva001E3511
-{
-public:
-	int rva001E3511();
-};
-
 class PathNode { public: PathNode*next,*prev,*optimized; Coord3D pos; PathfindLayerEnum layer; };
 class Path { public:
  Path(); Rva003642DFResult rva00364521(const Rva0008BB38FloatField *arg);
  void prependNode(const Coord3D*,PathfindLayerEnum,int);
  unsigned int pad; PathNode *head,*tail; Bool optimized, m_blockedByAlly; char rest[0x28-14];
 };
-class WeaponTemplate { public: Bool isContactWeapon()const; };
 #include "../../../../Include/GameLogic/Weapon.h"
 // updateLastNode, rowed under its address name.
-class Rva003638BA
-{
-public:
-	void rva003638FD(const Coord3D *pos);
-};
-
 class PathfindServicesInterface
 {
 public:

@@ -83,16 +83,6 @@ public:
 private:
 	char m_data[0x18];
 };
-class Rva004E9378
-{
-public:
-	bool rva004E9378();
-};
-class Rva00506FE9Hit
-{
-public:
-	void unRegisterWithBuilder(void *owner);
-};
 class GameSlot
 {
 public:
@@ -175,12 +165,6 @@ public:
 };
 
 extern ThingFactory *TheThingFactory;
-
-class Player
-{
-public:
-	bool canBuild(const ThingTemplate *tmpl) const;
-};
 
 struct Rva005AD9E6Node
 {

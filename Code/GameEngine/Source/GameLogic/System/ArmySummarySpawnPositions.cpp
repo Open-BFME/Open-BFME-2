@@ -26,8 +26,6 @@ struct Rva004F69C3 { int key; Rva004F69C3Target* value; ~Rva004F69C3(); };
 namespace _STL { template<> vector<Rva004F69C3>::iterator vector<Rva004F69C3>::erase(iterator); }
 // The existing 40E0EB provider destroys this same eight-byte entry range.
 class Rva0040E0EB : public _STL::vector<Rva004F69C3> { public: ~Rva0040E0EB(); };
-class Rva0040D8B8Listener { public: virtual void slot0(); virtual void notify(void*); };
-class Rva0040D8B8List { public: void forEach(void(Rva0040D8B8Listener::*)(void*),void*); };
 class Rva0040D8D6Listener {
 public:
  virtual void slot0(); virtual void slot1(); virtual void slot2();
@@ -46,7 +44,6 @@ struct Rva0040DD3ARef {
  ~Rva0040DD3ARef(){if(value)ReleaseTreeHintRef00217D4C(&value->ref);}
 };
 #include "../../Common/BfmeIntVecG.h"
-class Rva0040CB3AIndexedField { public: int find(int key) const; };
 class ArmySummary : public Snapshot, public Rva0040D8D6List {
 public:
  virtual ~ArmySummary();

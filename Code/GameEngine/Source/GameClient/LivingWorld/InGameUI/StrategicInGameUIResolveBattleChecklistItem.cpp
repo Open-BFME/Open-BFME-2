@@ -16,7 +16,6 @@
 class Rva005CCDDD {public:Rva005CCDDD();virtual ~Rva005CCDDD();virtual void slot04() = 0;virtual void clickSlot08();virtual void slot0C() = 0;virtual void slot10() = 0;virtual void slot14() = 0;virtual void slot18() = 0;int unknown4;void *payload;};
 class Rva005D1D38Second {public:virtual void observerSlot0(int) = 0;virtual void observerSlot1(void*,unsigned) = 0;~Rva005D1D38Second(){} };
 class Rva00318C32Ret;
-class Rva00318C79Owner {public:Rva00318C32Ret*rva00318C32();};
 class Rva0020E89C {public:UnicodeString rva0020E89C();};
 UnicodeString Rva005C95ECGet(Rva0020E89C*);
 namespace StrategicInGameUI {UnicodeString GetDisplayName(void*);}
@@ -27,12 +26,10 @@ class Rva005CCB73 {public:void rva005CCB73(void*);};
 class Rva005CCB7B {public:void rva005CCB7B(bool);};
 class Rva005CCB83 {public:void rva005CCB83(void*);};
 class Rva005CCB90 {public:void rva005CCB90(const void*);};
-class LivingWorldRegionManager {public:bool GetRegionCenterPoint(Rva0020E89C*,Coord2D*);};
 class Vector3;
 class Rva002BF4F3 {public:bool rva002BF5B0(const Vector3*,Vector3*);}; // rowed 0x002BF5B0 (Rva002BF4F3.cpp)
 class LivingWorldLogic;extern LivingWorldLogic*TheLivingWorldLogic;
 class LivingWorld;extern LivingWorld*TheLivingWorld;
-struct RetreatWorldView {char unknown[0xb0];LivingWorldRegionManager*regions;};
 class GameTextInterface;
 extern GameTextInterface*TheGameText;
 class RetreatGameText {public:virtual void s00();virtual void s04();virtual void s08();virtual void s0c();virtual void s10();virtual void s14();virtual void s18();virtual void s1c();virtual void s20();virtual void s24();virtual void s28();virtual void s2c();virtual void s30();virtual void s34();virtual void s38();virtual UnicodeString fetch(const char*,bool*);};

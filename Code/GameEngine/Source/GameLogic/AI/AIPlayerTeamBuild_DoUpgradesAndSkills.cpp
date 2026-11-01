@@ -348,8 +348,6 @@ public:
 };
 
 // The building name is the folded by-value copy of +4, rowed under this view.
-class Rva00564DF2NameView { public: AsciiString rva00564DF2() const; };
-
 class Player
 {
 public:
@@ -906,18 +904,6 @@ private:
 // pointer of a multiple-inheritance class (selectTeamToReinforce).
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
-class TeamPoolView
-{
-public:
-	virtual ~TeamPoolView();
-};
-
-class Rva0055B156 : public Snapshot
-{
-public:
-	void rva0055B156(int val);
-};
-
 #include "../../../Include/Common/TeamBFME2.h"
 
 inline DLINK_ITERATOR<Team> TeamPrototype::iterate_TeamInstanceList() const

@@ -32,22 +32,6 @@ extern ParticleSystemManager *TheParticleSystemManager;
 extern GlobalData *TheWritableGlobalData;
 
 // Address-derived views: only slots/offsets used by this retail body are asserted.
-struct Rva001FA04BDisplay {
- virtual void slot00();
- virtual void print(const char *, ...);
- virtual void slot08();
- virtual void cursor(int, int);
- virtual void slot10(); virtual void slot14(); virtual void slot18();
- virtual void slot1c();
- virtual void margin(int);
-};
-struct Rva001FA04BManager {
- virtual void slot00(); virtual void slot04(); virtual void slot08();
- virtual void slot0c(); virtual void slot10(); virtual void slot14();
- virtual void slot18(); virtual void slot1c(); virtual void slot20();
- virtual void slot24();virtual void slot28();virtual void slot2c();virtual void slot30();virtual void slot34();
- virtual int onScreen();
-};
 namespace FXParticleSystem { class ParticleSystemTemplate { public: AsciiString getName() const; }; }
 struct Rva001FA04BParticleModule {
  virtual void slot0();virtual void slot1();virtual void slot2();virtual void slot3();
@@ -76,7 +60,6 @@ class Rva0004CCFF {public:void *destroyDelete(unsigned int);};
 namespace _STL {static __forceinline void _Destroy(RvaSmartPtr12 *p){((Rva0004CCFF *)p)->destroyDelete(0);}}
 #include <list>
 template<> _STL::list<RvaSmartPtr12>::list(const _STL::list<RvaSmartPtr12>&);
-class Rva001F81EC {public:void rva001F81EC();};
 typedef _STL::list<RvaSmartPtr12> ParticleDebugList;
 
 // Native1013B statistics caller proves these typed int/float map and

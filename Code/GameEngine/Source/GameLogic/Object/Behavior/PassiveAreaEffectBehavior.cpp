@@ -205,26 +205,8 @@ public:
 
 // vftable 0x00BF8FE4, allow 0x0026109D: +0x08 the object's controlling player
 // (or none), +0x0C a flag.
-class Rva00261058 : public Rva000421C8
-{
-public:
-	Rva00261058(Object *obj, bool flag);
-	virtual bool allow(Object *obj);
-	Player *m_player;
-	bool m_flag;
-};
-
 // vftable 0x00BF8FF0: +0x08 the object, +0x0C whether its controlling
 // player's +0x5C is 1.
-class PartitionFilterRejectBuildings : public Rva000421C8
-{
-public:
-	PartitionFilterRejectBuildings(Object *obj);
-	virtual bool allow(Object *obj);
-	Object *m_obj;
-	bool m_flag;
-};
-
 // vftable 0x00BFBC90, allow 0x00260EB1, getPlayerMask 0x00260E6A: the object,
 // relationship flags and whether a hit allows.
 class Rva00260EB1Filter : public Rva000421C8
@@ -413,8 +395,6 @@ private:
 	int m_antiFX; // +0x30
 	int m_healFX; // +0x34
 };
-
-class BehaviorModuleInterface { public: virtual void behaviorSlot(); };
 
 // Slot 0 of each module's primary vftable is its deleting destructor
 // (0x00484C3C in 0x00C4A448), so the base's first virtual is the destructor.
