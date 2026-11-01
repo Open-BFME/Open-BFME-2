@@ -223,3 +223,7 @@ audit, and is not a new census.
 ## Isolated donor cleanup: addSkillPoints
 
 The current saved audit finds no local runtime/data caller and no outside-index incoming edge. The unverified donor and its one placeholder hatch are removed; all 12 matched functions and the owned global pass the normal build. All 308 retained complete code definitions and symbolic relocations equal the preceding 313-definition control, with no additions. Unused file-local callback text is also removed where applicable. This is cleanup, not new matched coverage or census progress.
+
+## Isolated donor cleanup: killPlayer
+
+The current saved audit finds no local runtime/data caller and no outside-index incoming edge. The unverified donor and its one placeholder hatch are removed; all 12 matched functions and the owned global pass the normal build. All 305 retained complete code definitions and symbolic relocations equal the preceding 308-definition control, with no additions. Unused file-local callback text is also removed where applicable. This is cleanup, not new matched coverage or census progress.

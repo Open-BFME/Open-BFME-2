@@ -51,6 +51,8 @@ This source adopts canonical Matrix3D storage with native code/relocations prese
 
 ### Player unrowed donor-body cleanup (2026-11-01, Cortys)
 
+Unverified isolated `killPlayer` is removed with its placeholder hatch; all 305 retained definitions/relocations and all native rows stay exact. See its per-method proof in the packet.
+
 Unverified isolated `addSkillPoints` is removed with its placeholder hatch; all 308 retained definitions/relocations and all native rows stay exact. See its per-method proof in the packet.
 
 The subsequent four-donor batch (masked building query, build limit, difficulty

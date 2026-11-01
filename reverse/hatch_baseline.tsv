@@ -11982,7 +11982,6 @@ present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	isPlayerActive@Pl
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	isScienceDisabled@Player@@QBE_NW4ScienceType@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	isScienceHidden@Player@@QBE_NW4ScienceType@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	isSupplySourceAttacked@Player@@QAE_NXZ	1
-present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	killPlayer@Player@@QAEXXZ	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	loadPostProcess@Player@@MAEXXZ	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	onUpgradeCompleted@Player@@QAEXPBVUpgradeTemplate@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	recruitSpecificTeam@Player@@QAEXPAVTeamPrototype@@M@Z	1

@@ -1,0 +1,49 @@
+void Player::killPlayer(void)
+{
+	for (PlayerTeamList::iterator it = m_playerTeamPrototypes.begin(); it != m_playerTeamPrototypes.end(); ++it) {
+		for (BfmeTeamIter iter = bfmeTeamInstances(*it); !iter.done(); iter.advance()) {
+			Team *team = iter.cur();
+			if (!team) {
+				continue;
+			}
+			team->evacuateTeam(); // force containers on team to dump contents
+		}
+	}
+
+	m_isPlayerDead = TRUE; // this is so OCLs don't ever again spawn useful units for us.
+
+	for (it = m_playerTeamPrototypes.begin(); it != m_playerTeamPrototypes.end(); ++it) {
+		for (BfmeTeamIter iter = bfmeTeamInstances(*it); !iter.done(); iter.advance()) {
+			Team *team = iter.cur();
+			if (!team) {
+				continue;
+			}
+			team->killTeam();
+		}
+	}
+	if (TheGameLogic->isInSinglePlayerGame()) {
+		if (getPlayerType()==PLAYER_COMPUTER) {
+			// This is an AI player in a solo mission - leave him alive so he can be used later. jba.
+			m_isPlayerDead = FALSE; // this is so we can later spawn useful units for us.
+			return;
+		}
+	}
+	if (isLocalPlayer() && !TheGameLogic->isInShellGame())
+	{
+		becomingLocalPlayer(TRUE); // recalc disguises, etc
+		if (TheControlBar )
+		{
+			if (isPlayerActive())
+			{
+				TheControlBar->setControlBarSchemeByPlayer(this);
+			}
+			else
+			{
+				TheControlBar->setControlBarSchemeByPlayerTemplate(ThePlayerTemplateStore->findPlayerTemplate(NAMEKEY("FactionObserver")));
+			}
+		}
+
+	}
+
+	m_money.withdraw(m_money.countMoney()); // force $$$ to 0 on death
+}

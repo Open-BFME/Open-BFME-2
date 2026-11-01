@@ -1,0 +1,13 @@
+{
+  "base": "4db00503279f579e256efbec91bcc24be90fa480",
+  "before_definitions": 308,
+  "after_definitions": 305,
+  "added": [],
+  "removed": [
+    "?getPlayerType@Player@@QBE?AW4PlayerType@@XZ",
+    "?isInShellGame@GameLogic@@QAE_NXZ",
+    "?killPlayer@Player@@QAEXXZ"
+  ],
+  "changed": [],
+  "all_retained_whole_code_and_relocations_equal": true
+}
