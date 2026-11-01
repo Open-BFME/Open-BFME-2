@@ -1689,25 +1689,9 @@ public:
 };
 
 //=============================================================================
-// ?addSciencePurchasePoints@Player@@QAEXH@Z
-// noinline: retail attemptToPurchaseScience calls this out-of-line (ILT 0xF0F1)
-__declspec(noinline) void Player::addSciencePurchasePoints(Int delta)
-{
-	//DEBUG_LOG(("Adding SciencePurchasePoints %d -> %d\n",m_sciencePurchasePoints,m_sciencePurchasePoints+delta));
-	if (delta > 0)
-		((BfmePlayerPointRecorderField *)this)->m_pointRecorder._bfme_recordPointsEarned(delta);
 
-	BfmePlayerScienceFields *points = (BfmePlayerScienceFields *)this;
 
-	Int oldSPP = points->m_sciencePurchasePoints;
-	points->m_sciencePurchasePoints += delta;
-	if (points->m_sciencePurchasePoints < 0)
-		points->m_sciencePurchasePoints = 0;
 
-	if (oldSPP != points->m_sciencePurchasePoints && TheControlBar != NULL)
-		((BfmeSciencePointsControlBar *)TheControlBar)->onPlayerSciencePurchasePointsChanged(this);
-
-}
 
 //=============================================================================
 // BFME: no AcademyStats / markUIDirty tail (ZH-only); body @ 0xD55B0 size 60

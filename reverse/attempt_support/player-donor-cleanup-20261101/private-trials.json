@@ -1,0 +1,47 @@
+[
+  {
+    "step": "science-points",
+    "rows": 12,
+    "matched": 12,
+    "errors": [],
+    "misses": [],
+    "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\tu_skeleton\\5cdd8f88c1c3dd33.obj",
+    "undefined_count": 119
+  },
+  {
+    "step": "upgrade-copy",
+    "rows": 12,
+    "matched": 12,
+    "errors": [],
+    "misses": [],
+    "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\tu_skeleton\\7fb0edd0f73fcae6.obj",
+    "undefined_count": 119
+  },
+  {
+    "step": "relation-crc",
+    "rows": 12,
+    "matched": 12,
+    "errors": [],
+    "misses": [],
+    "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\tu_skeleton\\9664f73eb3e34642.obj",
+    "undefined_count": 119
+  },
+  {
+    "step": "player-crc",
+    "rows": 12,
+    "matched": 12,
+    "errors": [],
+    "misses": [],
+    "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\tu_skeleton\\93defe1f09d8091b.obj",
+    "undefined_count": 119
+  },
+  {
+    "step": "player-xfer",
+    "rows": 12,
+    "matched": 12,
+    "errors": [],
+    "misses": [],
+    "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\tu_skeleton\\5a9142d9a875d033.obj",
+    "undefined_count": 101
+  }
+]

@@ -1,0 +1,11 @@
+{
+  "base": "18a6efb24657db5162c0169ecf3e9c9e0d79639e",
+  "before_definitions": 410,
+  "after_definitions": 409,
+  "added": [],
+  "removed": [
+    "?addSciencePurchasePoints@Player@@QAEXH@Z"
+  ],
+  "changed": [],
+  "all_retained_whole_code_and_relocations_equal": true
+}

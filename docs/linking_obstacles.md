@@ -13,6 +13,18 @@ Recorded `blocked` in reverse/re_attempts.log.
 
 # Linking obstacle register
 
+### Player unrowed donor-body cleanup (2026-11-01, Cortys)
+
+The served Player.cpp retains all 12 native functions (112 bytes) and its
+owned TheTeamFactory global. The unrowed science-points donor body is removed:
+it introduced two unresolved invented helper names and has no incoming
+runtime/data reference locally or outside incoming edge in index86db074988.
+An original-source control proves all 409 retained complete definitions and
+relocations unchanged, with only that body removed. Other donor dependencies,
+two wrong-selected copies and STL imports still block the unit. The canonical
+Player class is unchanged; no census gain is claimed. Evidence:
+`reverse/attempt_support/player-donor-cleanup-20261101/`.
+
 
 ### Six-source Vector4 batch (2026-11-01)
 
