@@ -460,6 +460,52 @@ A global's consumers are invisible to the byte gate, because DIR32 is masked. Fo
 `rename.py` refuses a global rename when it cannot find and rewrite every consumer. It reports
 `data_ledger.csv` as stale instead of editing it.
 
+### `rename.py class --fold`: one retail class under two placeholders
+
+Two seats sometimes row one class independently: its constructor as
+`??0BfmeModuleDataSnapshotBase`, its destructor, deleting destructor and
+vftable as `Rva001164B6`. A TU merge needs one spelling, and `class` cannot
+give it (the new token already names rows, and it is a placeholder). This mode
+folds the placeholder into the name the class's vftable already carries:
+
+    python3 tools/rename.py class --fold BfmeModuleDataSnapshotBase --into Rva001164B6 --dry-run
+
+It takes no `--basis`: no name is invented, and retail is the evidence. It
+refuses unless all of these hold:
+
+- OLD is a placeholder (`tools/name_metric.py`). A readable name never folds:
+  into a placeholder only a `restored` revert may go, and choosing between two
+  readable names is a naming decision. NEW may be readable; it keeps its basis.
+- A constructor, destructor or deleting destructor row of OLD installs a
+  retail vftable T as its own: a destructor's first `+0` store, or a
+  constructor whose `+0` stores all install T. Every special-member row of OLD
+  and NEW agrees (none owns another table; a constructor that also installs a
+  base's table must include T).
+- T's `??_7X@@6B@` names (`data_rows.csv`, and the `data_ledger.csv` names that
+  matched rows' relocations bind at T) include NEW and no class but OLD and NEW.
+- T is no ICF fold of distinct classes' tables (retail folds identical
+  vftables: `0x007CEFA0` serves three constructors of different classes): no
+  third class's special-member row installs T as its own, no slot of T holds a
+  third class's deleting destructor, OLD's and NEW's deleting destructors sit
+  in T's slots, and OLD and NEW do not both row one special-member kind (one
+  class has one destructor; two constructor rows stay refused in this narrow
+  mode).
+- The usual `class` rules: OLD is not protected or registered in
+  `canonical_classes.csv`, is global and no template, is no function's
+  identifier, and keys no frozen register; a registered NEW is refused where
+  the fold would create a private copy of it; no unit may end up declaring NEW
+  twice or deriving NEW from itself.
+
+Each renamed row and data row is tombstoned `Renamed to <new> by
+tools/rename.py (fold: retail vftable 0x...)`. No `name_basis.csv` row is
+written for the fold itself; records scoped by OLD (`OLD::m_x`) are carried. A
+respelled pin that becomes a row's own name at its own address (the alias the
+second name needed) is dropped; one that would give a name a second address is
+refused. The byte gate, `pin_admission` and `pin_consistency --check` decide as
+for any rename (commit checks). Because no record is written, `rename.py check`
+does not watch the old spelling; the tombstones keep union merges from
+reviving its rows.
+
 ### `rename.py carry`: notes added after a rename
 
 A seat working on a tree older than a rename can add a `gen-funclet` row whose

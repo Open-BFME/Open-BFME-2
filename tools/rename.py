@@ -207,6 +207,16 @@ names, tombstones the old rows, carries a name_basis.csv record (the name's
 basis is unchanged), and is byte-gated like any rename: a caller whose call
 now goes through the vtable fails ./build.sh and everything is restored.
 
+`class --fold OLD --into NEW` respells placeholder class OLD as NEW, the name
+the class's retail vftable already carries, when retail proves one class: an
+OLD constructor/destructor/deleting destructor installs a vftable as its own
+whose `??_7` names are NEW's, no third class owns that table (retail ICF-folds
+identical vftables of distinct classes), the deleting destructors sit in its
+slots, and OLD and NEW never both row one special-member kind (see
+plan_fold's section). It invents no name: no name_basis.csv record, tombstones
+`(fold: retail vftable 0x...)`, and a pin the respelling makes a row's own name
+is dropped. A readable OLD is refused.
+
 Kinds in this build: function, global, file, class, member, param, local;
 plus `check`, `recover` and `revert`. Vendored and SDK sources (vendored= or .lib
 rows, library directories, gamespy and Platform SDK shims) are refused for
@@ -1027,6 +1037,8 @@ class Plan:
     carried: list = field(default_factory=list)       # name_basis.csv records carried to a new spelling
     spellings: list = field(default_factory=list)     # carry: (old spelling, new spelling, occurrences)
     virtual: bool = False                             # function --virtual: the decoration, not the name
+    fold: int = None                                  # class --fold: the retail vftable rva proving one class
+    dropped_pins: list = field(default_factory=list)  # class --fold: (old pin, its respelling, address) removed
 
     def edit(self, ctx, rel, data):
         if rel not in self.before:
@@ -1041,6 +1053,8 @@ class Plan:
     def subject(self):
         if self.virtual:
             return f"Respell {self.old} as virtual {self.new} (retail vtable slot)"
+        if self.fold is not None:
+            return f"Fold class {self.old} into {self.new} (retail vftable 0x{self.fold + IMAGE_BASE:08X})"
         if self.kind == "carry":
             return f"Carry {len(self.spellings)} renamed spelling(s) into ledger notes"
         if self.kind in ("member", "param", "local"):
@@ -1056,7 +1070,7 @@ class Plan:
         else:
             lines = [f"rename: {self.kind} {self.old} -> {self.new}{where} ({self.basis})",
                      f"  owner source: {self.source}"]
-            if self.virtual:
+            if self.virtual or self.fold is not None:
                 lines.append(f"  evidence: {self.evidence}")
         for old, new in self.moves:
             lines.append(f"  git mv {old} {new}")
@@ -1080,6 +1094,9 @@ class Plan:
         if self.renamed_pins:
             lines.append(f"  symbols.csv pins renamed in place ({len(self.renamed_pins)}):")
             lines += [f"    {address} {old} -> {new}" for old, new, address in self.renamed_pins]
+        if self.dropped_pins:
+            lines.append(f"  symbols.csv pins dropped (now the row's own name) ({len(self.dropped_pins)}):")
+            lines += [f"    {address} {old} (would read {new})" for old, new, address in self.dropped_pins]
         if self.source_counts:
             lines.append(f"  sources rewritten ({len(self.source_counts)}):")
             for rel, counts in sorted(self.source_counts.items()):
@@ -3889,12 +3906,20 @@ def rewrite_ledger(ctx, plan, rel, label, regex, replacement):
     return changed
 
 
-def plan_class(ctx, name, new, basis, evidence, *, max_files=25):
+def plan_class(ctx, name, new, basis=None, evidence="", *, max_files=25, fold=False):
     """Plan respelling one class/struct/union/enum type token everywhere: every
     mangled name it scopes or types (functions.csv names and notes, pins, data
     rows), every source, header and shim view that spells it, and the units
     whose objects reference a renamed symbol. The rewrite is the whole token,
-    so it refuses when the word also names a function or datum."""
+    so it refuses when the word also names a function or datum. `fold` folds
+    a placeholder into the name its retail vftable already carries
+    (plan_fold), with no basis."""
+    if fold:
+        if basis is not None:
+            raise Refusal("class --fold invents no name and takes no --basis: retail's vftable is the evidence")
+        return plan_fold(ctx, name, new, evidence=evidence or "", max_files=max_files)
+    if basis is None:
+        raise Refusal("--basis is required")
     old = name or ""
     if not IDENT.fullmatch(old):
         raise Refusal(f"{old!r} is not a type identifier")
@@ -4060,6 +4085,440 @@ def plan_class(ctx, name, new, basis, evidence, *, max_files=25):
     plan.mentions = sorted(set(ctx.grep_files(old, word=True, roots=("docs", "reverse"))) - edited)
     stems = sorted(rel for rel in plan.source_counts if old in Path(rel).stem)
     for rel in stems:
+        plan.warnings.append(f"{rel}: its file name spells {old} (not renamed; use the file kind)")
+    return plan
+
+
+# ---------------------------------------------------------------- class --fold
+#
+# One retail class sometimes carries two placeholder names: one seat rowed its
+# constructor as `??0BfmeModuleDataSnapshotBase`, another its destructor,
+# deleting destructor and vftable as `Rva001164B6`. A TU merge then needs one
+# spelling, and `class` cannot give it: the new token already names rows (a
+# collision) and is itself a placeholder. `class --fold OLD --into NEW`
+# respells the placeholder OLD as NEW everywhere, exactly as `class` would,
+# when retail proves the two names are one class:
+#
+#   * a constructor, destructor or deleting destructor row of OLD installs a
+#     retail vftable T as its own: a destructor's or deleting destructor's
+#     FIRST +0 store (MSVC stores the class's own table before member and
+#     base destructors restore theirs), or a constructor's +0 stores when they
+#     all install T (a constructor that also installs a base's or a member's
+#     table proves nothing and must merely include T); every other special
+#     member row of OLD or NEW agrees (none owns another table);
+#   * T's `??_7X@@6B@` names (data_rows.csv, and the data_ledger.csv names the
+#     matched rows' DIR32 relocations bind there) name NEW, and no class but
+#     OLD and NEW;
+#   * T is no ICF fold of distinct classes' vftables (0x007CEFA0 is one, under
+#     three constructors): no special member row of a third class installs T
+#     as its own; the slot layout agrees: every deleting destructor of OLD and
+#     NEW sits in a slot of T and no slot holds a third class's; and OLD and
+#     NEW never both have a row of one special-member kind (one class has one
+#     destructor; two constructor rows could be overloads or two classes, so
+#     that stays refused in this narrow mode).
+#
+# OLD must be a placeholder (tools/name_metric.py): a readable name never
+# folds, into a placeholder (docs/naming.md: only a `restored` revert puts a
+# placeholder back) or into another readable name (that is a naming decision).
+# NEW may be readable; it keeps whatever basis it has. No name is invented,
+# so no name_basis.csv record is written (records scoped by OLD are carried,
+# as by `class`); each renamed row is tombstoned `Renamed to <new> by
+# tools/rename.py (fold: retail vftable 0x...)`. A pin that the respelling
+# makes a row's own name at the same address (the redundant alias the second
+# name needed) is dropped; one that would give a name a second address is
+# refused. The byte gate, pin_admission and pin_consistency --check
+# (commit_checks) decide as for every rename.
+
+SPECIAL_MEMBER = re.compile(r"\?\?(0|1|_G|_E)([A-Za-z_]\w*)@@")
+SPECIAL_ROLE = {"0": "constructor", "1": "destructor", "_G": "deleting destructor", "_E": "deleting destructor"}
+GLOBAL_VTABLE = re.compile(r"\?\?_7([A-Za-z_]\w*)@@6B")
+
+
+def _primary_installs(ctx, tables):
+    """sorted [(store rva, table)] of every retail +0 vftable install."""
+    key = "_primary_installs"
+    if key not in ctx._cache:
+        ctx._cache[key] = sorted((store, table) for table, (_slots, installs) in tables.items()
+                                 for store, disp in installs.items() if disp == 0)
+    return ctx._cache[key]
+
+
+def special_member(name):
+    """(role code, class) of a global class's constructor, destructor or
+    deleting destructor decorated name, or None."""
+    match = SPECIAL_MEMBER.match(name or "")
+    return (match.group(1), match.group(2)) if match else None
+
+
+def own_table(ctx, row, tables):
+    """(own table or None, [tables installed at +0, in store order]) of the
+    retail body of special member `row`: a destructor's or deleting
+    destructor's first +0 store; a constructor's table when all its +0 stores
+    install that one table, else None (ambiguous)."""
+    import bisect
+    start = _rva(row.get("target_rva"))
+    try:
+        end = start + int(row.get("target_size") or 0)
+    except (TypeError, ValueError):
+        return None, []
+    installs = _primary_installs(ctx, tables)
+    k = bisect.bisect_left(installs, (start, -1))
+    stored = []
+    while k < len(installs) and installs[k][0] < end:
+        stored.append(installs[k][1])
+        k += 1
+    if not stored:
+        return None, stored
+    if special_member(row["name"])[0] == "0":
+        return (stored[0] if len(set(stored)) == 1 else None), stored
+    return stored[0], stored
+
+
+def owner_rows_at(ctx, address):
+    """Every functions.csv owner row (no funclet) whose body holds `address`:
+    an ICF-folded body carries several."""
+    import bisect
+    starts, spans = _row_spans(ctx)
+    k = bisect.bisect_right(starts, address) - 1
+    out = []
+    while k >= 0 and address - spans[k][0] < 0x20000:
+        if spans[k][0] <= address < spans[k][1]:
+            out.append(spans[k][2])
+        k -= 1
+    return out
+
+
+def vtable_names_at(ctx, table):
+    """{`??_7` symbol: where} bound at retail address `table`: a data_rows.csv
+    row, or a data_ledger.csv name/names entry (a matched row's DIR32
+    relocation to that symbol reads `table` in retail)."""
+    out = {}
+    for data in ctx.dicts(DATA_ROWS):
+        if data_rva(data) == table and data.get("name", "").startswith("??_7"):
+            out.setdefault(data["name"], "data_rows.csv")
+    for data in ctx.dicts(DATA_LEDGER):
+        if _rva(data.get("address")) != table:
+            continue
+        for symbol in [data.get("name", "")] + (data.get("names") or "").split(";"):
+            symbol = re.split(r"@(?=(?:Code|reference)/)", symbol.strip())[0]
+            if symbol.startswith("??_7"):
+                out.setdefault(symbol, DATA_LEDGER.rsplit("/", 1)[-1])
+    return out
+
+
+def fold_evidence(ctx, old, new):
+    """(table rva, [evidence]) proving the class names `old` and `new` one
+    retail class (see the section comment); raises Refusal."""
+    tables = retail_vtables(ctx)
+    spans = _row_spans(ctx)[1]
+    members = {old: [], new: []}
+    for _start, _end, row in spans:
+        found = special_member(row["name"])
+        if found and found[1] in members:
+            members[found[1]].append(row)
+
+    def at(row):
+        return f"{row['name']} at 0x{_rva(row['target_rva']):08X}"
+
+    owns = collections.defaultdict(list)
+    for row in members[old]:
+        own, _stored = own_table(ctx, row, tables)
+        if own is not None:
+            owns[own].append(row)
+    if not owns:
+        raise Refusal(f"{old} installs no vftable retail shows as its own (through {len(members[old])} "
+                      "constructor, destructor or deleting destructor row(s)): nothing in retail ties it to a "
+                      "class table")
+    if len(owns) > 1:
+        raise Refusal(f"{old}'s rows install different own vftables (" + "; ".join(
+            f"0x{t + IMAGE_BASE:08X} by {', '.join(at(r) for r in rows)}" for t, rows in sorted(owns.items())) +
+            f"): {old} names more than one class")
+    table = next(iter(owns))
+    va = f"0x{table + IMAGE_BASE:08X}"
+    evidence = []
+    for row in owns[table]:
+        role = special_member(row["name"])[0]
+        how = "its only +0 install" if role == "0" else "its first +0 store"
+        evidence.append(f"{at(row)} installs retail vftable {va} as its own ({how})")
+    for cls in (old, new):
+        for row in members[cls]:
+            own, stored = own_table(ctx, row, tables)
+            if own is not None and own != table:
+                raise Refusal(f"{at(row)} installs 0x{own + IMAGE_BASE:08X} as its own vftable, not {va}: "
+                              f"{cls} is not that class")
+            if own is None and stored and table not in stored:
+                raise Refusal(f"{at(row)} installs " + ", ".join(f"0x{t + IMAGE_BASE:08X}" for t in stored) +
+                              f" but never {va}: {cls} is not that class")
+
+    names = vtable_names_at(ctx, table)
+    classes = collections.defaultdict(list)
+    for symbol, where in sorted(names.items()):
+        match = GLOBAL_VTABLE.match(symbol)
+        classes[match.group(1) if match else symbol].append(f"{symbol} ({where})")
+    if new not in classes:
+        raise Refusal(f"retail vftable {va}, which {old}'s rows install as their own, is named "
+                      f"{', '.join(sorted(names)) or 'by nothing'} in data_rows.csv / data_ledger.csv, not "
+                      f"??_7{new}@@6B@: nothing ties {new} to it")
+    others = sorted(set(classes) - {old, new})
+    if others:
+        raise Refusal(f"retail vftable {va} is also named for {', '.join(others)} "
+                      f"({'; '.join(w for o in others for w in classes[o])}): a third name for the table")
+    evidence.append(f"{va} is named " + ", ".join(w for c in (new, old) for w in classes.get(c, [])))
+
+    slots, installs = tables[table]
+    for store, disp in sorted(installs.items()):
+        if disp:
+            continue
+        for row in owner_rows_at(ctx, store):
+            found = special_member(row["name"])
+            if not found or found[1] in (old, new):
+                continue
+            own, _stored = own_table(ctx, row, tables)
+            if own == table:
+                raise Refusal(f"retail vftable {va} is also the own vftable of {found[1]} ({at(row)}): retail "
+                              "ICF-folds identical vftables of distinct classes, so the table proves no single class")
+    starting = collections.defaultdict(list)
+    for start, _end, row in spans:
+        starting[start].append(row)
+    for index, target in enumerate(slots):
+        for row in starting.get(target, []):
+            found = special_member(row["name"])
+            if found and found[0] in ("_G", "_E") and found[1] not in (old, new):
+                raise Refusal(f"retail vftable {va} slot {index} holds {found[1]}'s deleting destructor "
+                              f"({at(row)}): the table is not one class's of {old} and {new}")
+    for cls in (old, new):
+        for row in members[cls]:
+            if special_member(row["name"])[0] in ("_G", "_E") and _rva(row["target_rva"]) not in slots:
+                raise Refusal(f"{at(row)} is on no slot of retail vftable {va}: {cls}'s table is another one")
+            if special_member(row["name"])[0] in ("_G", "_E"):
+                evidence.append(f"{at(row)} is slot {slots.index(_rva(row['target_rva']))}")
+    for role in ("0", "1", "_G", "_E"):
+        mine = [r for r in members[old] if special_member(r["name"])[0] == role]
+        theirs = [r for r in members[new] if special_member(r["name"])[0] == role]
+        if mine and theirs:
+            raise Refusal(f"both names have a {SPECIAL_ROLE[role]} row ({at(mine[0])}; {at(theirs[0])}): one class "
+                          f"has one (a folded vftable of two classes, or overloads or an ICF alias pair this mode "
+                          "does not merge)")
+    return table, evidence
+
+
+def plan_fold(ctx, old, new, *, evidence="", max_files=25):
+    """Plan `class --fold`: respell placeholder class `old` as `new`, the class
+    retail's vftable already names (fold_evidence); see the section comment.
+    Raises Refusal; writes nothing."""
+    old, new = old or "", new or ""
+    for word in (old, new):
+        if not IDENT.fullmatch(word) or word in name_metric.KEYWORDS:
+            raise Refusal(f"{word!r} is not a type identifier")
+    if new == old:
+        raise Refusal("the new name is the old name")
+    if not is_placeholder(old, "class"):
+        raise Refusal(f"{old} is a readable name: class --fold folds only a placeholder (docs/naming.md: a "
+                      "placeholder never replaces a readable name except by a `restored` revert, and choosing "
+                      "between two readable names is a naming decision)")
+    reason = class_protected(ctx, old)
+    if reason:
+        raise Refusal(f"canonical name: {reason}")
+    registered = {row.get("class") for row in ctx.dicts(CANONICAL_CLASSES)}
+    if old in registered or ctx.path(f"{CLASS_CONTRACTS}/{old}.json").exists():
+        raise Refusal(f"{old} is registered in {CANONICAL_CLASSES} / {CLASS_CONTRACTS}; its key, contract "
+                      "and class_gate allowances move in a class-reconciliation commit, not here")
+    table, proof = fold_evidence(ctx, old, new)
+    va = f"0x{table + IMAGE_BASE:08X}"
+
+    frag = type_fragment_re(old)
+    token = class_token_re(old)
+    rows, pins, datas = ctx.rows(), ctx.pins(), ctx.dicts(DATA_ROWS)
+    names = [r["name"] for r in rows] + [p.get("name", "") for p in pins] + [d.get("name", "") for d in datas]
+    scoped = sorted({n for n in names if n and frag.search(n)})
+    for symbol in scoped:
+        for a, b in class_spans(symbol, old):
+            if symbol[b + 1:b + 2] != "@" or symbol[a - 2:a] == "?$":
+                raise Refusal(f"{symbol} spells {old} nested in another scope or as a template: this mode folds "
+                              "one global class only")
+    for other in names:
+        if other and leading_identifier(other, old):
+            raise Refusal(f"{old} is also the identifier of {other}; a token rewrite would rename it too")
+    for rel in ctx.grep_files(old, roots=FROZEN_KEYED):
+        if rel == DATA_LEDGER:
+            continue
+        if frag.search((ctx.read(rel) or b"").decode("utf-8", errors="replace")):
+            raise Refusal(f"{old} scopes a key in {rel} (frozen, shrink-only); renaming it needs a "
+                          "Verifier-Change commit")
+
+    texts = {}
+    for rel in ctx.grep_files(old):
+        data = ctx.read(rel)
+        if data is not None:
+            text = data.decode("utf-8", errors="surrogateescape")
+            if token.search(text):
+                texts[rel] = text
+    refuse_vendored(ctx, set(texts), f"folding the type {old}")
+    if len(texts) > max_files:
+        raise Refusal(f"{len(texts)} files spell {old} (over --max-files {max_files}; text scope alone)")
+    declarers = sorted(rel for rel, text in texts.items() if declares_type(name_metric.strip(text), old))
+    if declarers and (new in registered or ctx.path(f"{CLASS_CONTRACTS}/{new}.json").exists()):
+        raise Refusal(f"{new} is registered in {CANONICAL_CLASSES}: the fold would turn {', '.join(declarers[:3])}'s "
+                      f"class {old} into a private copy of {new} (class_gate); adopt {new}'s header there first")
+    by_object = object_referencers(ctx, set(scoped)) if ctx.object_scan and scoped else set()
+    touched = set(texts) | by_object
+    refuse_vendored(ctx, touched, f"folding the type {old}")
+    generated = sorted(p for p in touched if is_generated(p))
+    if generated:
+        raise Refusal(f"generated source(s) spell {old}: {', '.join(generated[:5])}; "
+                      "the fold would leave them stale and they are never edited")
+    if len(touched) > max_files:
+        raise Refusal(f"{len(touched)} files spell {old} (over --max-files {max_files}; "
+                      f"{len(texts)} text, {len(by_object)} object consumers)")
+
+    owner = next((d for d in declarers if d in ctx.ledger_sources()), declarers[0] if declarers else "")
+    plan = Plan("class", old, new, "fold", "; ".join(proof) + (f"; {' '.join(evidence.split())}"
+                                                                 if evidence.strip() else ""),
+                owner, None, old_word=old, new_word=new, fold=table)
+
+    # Ledgers. One name, one address: a respelled row or pin may not take a
+    # name another address carries; a pin respelled into the very name of a
+    # row (or pin) at its own address is that alias made redundant: dropped.
+    renamed_row = {r["name"]: frag.sub(new, r["name"]) for r in rows if frag.search(r["name"])}
+    created = set(renamed_row.values())
+    taken = {r["name"] for r in rows}
+    for name, respelled in renamed_row.items():
+        if respelled in taken:
+            raise Refusal(f"{name} would become {respelled}, which already names a row: this mode does not merge "
+                          "two rows (an ICF alias pair keeps its two names)")
+    rows_after = collections.defaultdict(set)           # row name after the fold -> addresses
+    for row in rows:
+        rows_after[renamed_row.get(row["name"], row["name"])].add(_rva(row.get("target_rva")))
+
+    def respell_pin(name):
+        return frag.sub(new, name) if frag.search(name) else name
+    pins_after = collections.defaultdict(set)           # pin name after the fold -> addresses
+    for pin in pins:
+        pins_after[respell_pin(pin.get("name", ""))].add(_rva(pin.get("address")))
+    for pin in pins:
+        name, address = pin.get("name", ""), _rva(pin.get("address"))
+        respelled = respell_pin(name)
+        if respelled == name and name not in created:
+            continue                                     # a pin the fold neither respells nor reaches
+        others = (rows_after.get(respelled, set()) | pins_after.get(respelled, set())) - {address}
+        if others:
+            raise Refusal(f"pin {name} at {pin.get('address')} would read {respelled}, which also names "
+                          f"0x{sorted(others)[0]:08X}: one name at two addresses")
+    raw = ctx.read(SYMBOLS)
+    if raw is not None:
+        ledger_io.lf_terminator(raw, "symbols.csv")
+        out, kept, first = [], set(), True
+        for payload, term in ledger_io.split_records(raw):
+            flds = ledger_io.fields(payload)
+            if first or len(flds) < 2:
+                first = False
+                out.append(payload + term)
+                continue
+            name, address = flds[0], _rva(flds[1])
+            respelled = respell_pin(name)
+            if respelled != name or name in created:
+                if address in rows_after.get(respelled, ()) or (respelled, address) in kept:
+                    plan.dropped_pins.append((name, respelled, flds[1]))
+                    continue
+            kept.add((respelled, address))
+            if respelled != name:
+                plan.renamed_pins.append((name, respelled, flds[1]))
+            text = payload.decode("utf-8")
+            changed = frag.sub(new, text)                # the name and any mangled name in its notes
+            out.append((changed.encode("utf-8") if changed != text else payload) + term)
+        after = b"".join(out)
+        if after != raw:
+            plan.edit(ctx, SYMBOLS, after)
+    for before, after in rewrite_ledger(ctx, plan, FUNCTIONS, "functions.csv", frag, new):
+        at = _rva(before[2])
+        if before[0] != after[0]:
+            plan.renamed_rows.append((before[0], after[0], at))
+        else:
+            plan.notes_rows.append((before[0], at))
+    for before, _after in rewrite_ledger(ctx, plan, BODY_OWNERS, "body_owners.csv", frag, new):
+        plan.owner_rows.append((before[1], _rva(before[0])))
+    data_index = {d.get("name"): data_rva(d) for d in datas}
+    for before, after in rewrite_ledger(ctx, plan, DATA_ROWS, "data_rows.csv", frag, new):
+        if before[0] != after[0]:
+            if after[0] in data_index:
+                raise Refusal(f"data row {before[0]} would become {after[0]}, which already names a data row")
+            plan.renamed_data.append((before[0], after[0], data_index.get(before[0])))
+    tombstoned = _tombstones(ctx)
+    for _o, n, at in plan.renamed_rows:
+        if (n, at) in tombstoned:
+            raise Refusal(f"({n}, 0x{at:08X}) is tombstoned in deleted_rows.csv: {tombstoned[(n, at)][:120]}")
+    lines = [tombstone_line(o, at, f"Renamed to {n} by tools/rename.py (fold: retail vftable {va})")
+             for o, n, at in plan.renamed_rows + plan.renamed_data
+             if at is not None and (o, at) not in tombstoned]
+    if lines:
+        plan.edit(ctx, DELETED, appended(ctx.read(DELETED), lines, header="name,target_rva,reason"))
+
+    def carried(spelling):
+        if "@" in spelling or spelling.startswith("?"):
+            return frag.sub(new, spelling)
+        parts = spelling.split("::")
+        return "::".join(new if i < len(parts) - 1 and p == old else p for i, p in enumerate(parts))
+    carry_records(ctx, plan, carried)
+
+    # Sources: OLD's views become NEW's; a unit that would then declare NEW
+    # twice, or derive NEW from itself, needs its views reconciled first.
+    headers = []
+    for rel in sorted(touched):
+        text = texts.get(rel)
+        if text is None:
+            data = ctx.read(rel)
+            text = data.decode("utf-8", errors="surrogateescape") if data is not None else ""
+        new_text, counts, strings, includes = rewrite_tokens(text, token, new, identifiers=True)
+        if strings:
+            raise Refusal(f"{old} is spelled inside a string literal in {rel}: {strings[0][:80]} "
+                          "(retail-locked text)")
+        for line in includes:
+            plan.warnings.append(f"{rel}: {line} names {old} in a path (not renamed; use the file kind)")
+        if new_text == text:
+            if rel in by_object:
+                raise Refusal(f"{rel}'s object references a {old} symbol but its text never spells "
+                              f"{old} (a macro or generated name): cannot rewrite it")
+            continue
+        code = name_metric.strip(new_text)
+        bodies = re.findall(r"\b(?:class|struct|union)\s+%s\b([^;{()]*)\{" % re.escape(new), code)
+        if len(bodies) > 1:
+            raise Refusal(f"{rel} would declare class {new} twice (its {old} view and its {new} view): "
+                          "reconcile the two views in that unit first")
+        if any(re.search(r":[^{]*\b%s\b" % re.escape(new), clause) for clause in bodies):
+            raise Refusal(f"{rel} would derive {new} from itself ({old} derives from {new} there): "
+                          f"{old} and {new} are not one class in that view")
+        plan.source_counts[rel] = counts
+        plan.edit(ctx, rel, new_text.encode("utf-8", errors="surrogateescape"))
+        if not rel.endswith(SOURCE_SUFFIXES) or rel not in ctx.ledger_sources():
+            headers.append(rel)
+    verify = {rel for rel in plan.source_counts if rel in ctx.ledger_sources()}
+    renamed = {o for o, _, _ in plan.renamed_rows}
+    verify |= {r["source"] for r in rows if r["name"] in renamed}
+    verify |= {r["source"] for r in rows if (r["name"], _rva(r.get("target_rva"))) in set(plan.notes_rows)}
+    renamed_data = {o for o, _, _ in plan.renamed_data}
+    verify |= {d.get("source", "") for d in datas if d.get("name") in renamed_data}
+    if headers:
+        verify |= includers(ctx, headers, max_files)
+    plan.verify = sorted(v for v in verify if v and not is_generated(v) and v in ctx.ledger_sources())
+    if len(plan.verify) > max_files:
+        raise Refusal(f"{len(plan.verify)} sources to verify (over --max-files {max_files})")
+    if not plan.verify:
+        raise Refusal(f"no ledger source compiles {old}; ./build.sh could not verify the fold")
+
+    prose = len(word_re(old).findall(plan.after.get(FUNCTIONS, b"").decode("utf-8", errors="replace")))
+    if prose:
+        plan.warnings.append(f"functions.csv notes still spell {old} {prose} time(s) in prose (left as written)")
+    dropped = {_rva(address) for _o, _n, address in plan.dropped_pins}
+    plan.claims = sorted({at for _, _, at in plan.renamed_rows if at is not None} |
+                         {at for _, at in plan.notes_rows if at is not None} |
+                         {at for at in dropped if at is not None}) + [f"class:{old}", f"class:{new}"]
+    ledger_text = (ctx.read(DATA_LEDGER) or b"").decode("utf-8", errors="replace")
+    if frag.search(ledger_text):
+        plan.warnings.append(f"{DATA_LEDGER} (tool-written, protected) still spells {old} symbols; "
+                             "tools/data_ledger.py regenerates it in a Verifier-Change commit")
+    edited = set(plan.after) | {"reverse/re_attempts.log"}
+    plan.mentions = sorted(set(ctx.grep_files(old, word=True, roots=("docs", "reverse"))) - edited)
+    for rel in sorted(rel for rel in plan.source_counts if old in Path(rel).stem):
         plan.warnings.append(f"{rel}: its file name spells {old} (not renamed; use the file kind)")
     return plan
 
@@ -6973,8 +7432,12 @@ def main(argv=None):
     unit.add_argument("--new", required=True, help="new file name or stem (same directory), or full path")
     klass = kinds.add_parser("class", parents=[common],
                              help="respell one class/struct/union/enum token in every name and view")
-    klass.add_argument("--name", required=True, help="the type's current identifier")
-    klass.add_argument("--new", required=True, help="the new identifier")
+    klass.add_argument("--name", help="the type's current identifier (required unless --fold)")
+    klass.add_argument("--new", help="the new identifier (required unless --fold)")
+    klass.add_argument("--fold", metavar="OLD",
+                       help="fold placeholder class OLD into --into NEW, the class its retail vftable already "
+                            "names (no --basis: retail is the evidence; see docs/naming.md)")
+    klass.add_argument("--into", metavar="NEW", help="with --fold: the class name OLD folds into")
     member = kinds.add_parser("member", parents=[common],
                               help="respell one non-static data member in every view and use")
     member.add_argument("--class", dest="cls", required=True, help="the class whose member it is")
@@ -7057,7 +7520,17 @@ def main(argv=None):
     if virtual and (args.new or args.basis):
         parser.error("function --virtual keeps the identifier and takes its evidence from retail: "
                      "pass neither --new nor --basis")
-    if not virtual and (args.basis is None or args.evidence is None or args.new is None):
+    fold = args.kind == "class" and (args.fold is not None or args.into is not None)
+    if fold:
+        if args.fold is None or args.into is None:
+            parser.error("class --fold OLD takes --into NEW (both)")
+        if args.name or args.new or args.basis:
+            parser.error("class --fold invents no name and takes its evidence from retail: "
+                         "pass neither --name, --new nor --basis")
+    elif args.kind == "class" and (args.name is None or args.new is None):
+        parser.error("the following arguments are required: " +
+                     ", ".join(f for f, v in (("--name", args.name), ("--new", args.new)) if v is None))
+    if not virtual and not fold and (args.basis is None or args.evidence is None or args.new is None):
         parser.error("the following arguments are required: " +
                      ", ".join(f for f, v in (("--new", args.new), ("--basis", args.basis),
                                               ("--evidence", args.evidence)) if v is None))
@@ -7065,7 +7538,10 @@ def main(argv=None):
     kwargs = dict(new=args.new, basis=args.basis, evidence=args.evidence, max_files=args.max_files)
     if virtual:
         kwargs = dict(virtual=True, evidence=args.evidence or "", max_files=args.max_files)
-    if args.kind == "function":
+    if fold:
+        kwargs = dict(name=args.fold, new=args.into, fold=True, evidence=args.evidence or "",
+                      max_files=args.max_files)
+    elif args.kind == "function":
         try:
             kwargs.update(rva=int(args.rva, 16), old=args.old)
         except ValueError:
