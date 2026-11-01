@@ -3128,8 +3128,6 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateCtor.cp
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate.cpp	??1BehaviorModuleData@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIUpdateModuleDataCtor.cpp	??0DeflectSpecialPowerModuleDataBase@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AnimalAIUpdateCtor.cpp	??0Rva0026E9BDBase@@QAE@PAVThing@@PBVModuleData@@@Z	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AssaultTransportAIUpdateCtor.cpp	??0Rva0026E9BDBase@@QAE@PAVThing@@PBVModuleData@@@Z	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AssaultTransportAIUpdatePassengerHelper.cpp	?Rva0026C347Command@Rva0026C347Commands@@QAEXPAXH@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AssaultTransportAIUpdateUpdate.cpp	?rva00295A0F@AICommandInterface@@QAEXPBUCoord3D@@HW4CommandSourceType@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AssaultTransportAIUpdateUpdate.cpp	?rva0048F472@AssaultTransportAIUpdate@@QBE_NPBVObject@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DeployStyleAIUpdate.cpp	??0Rva0026E9BDBase@@QAE@PAVThing@@PBVModuleData@@@Z	1

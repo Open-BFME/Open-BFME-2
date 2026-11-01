@@ -112,7 +112,6 @@ public:
 	int getNumOpenOrOccupiedSlots() const;
 };
 #include "../../../../../Include/GameLogic/Module/UpdateModule.h"
-
 struct AICommandParms;
 struct Coord3D;
 class Coord3DBase
@@ -122,12 +121,10 @@ public:
     float y;
     float z;
 };
-
 enum AssaultStateTypes
 {
     IDLE
 };
-
 class AICommandInterface
 {
 public:
@@ -135,13 +132,11 @@ public:
     void rva0026C347(Object *target, CommandSourceType source);
     void rva0026C2D9(Object *target, int range, CommandSourceType source);
 };
-
 class Rva0026E836_M4
 {
 public:
     virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal);
 };
-
 class AIUpdateInterface : public UpdateModule, public AICommandInterface, public Rva0026E836_M4
 {
 public:
@@ -157,7 +152,6 @@ protected:
     virtual ~AIUpdateInterface();
     void wakeUpNow();
 };
-
 class Rva0030BBE5
 {
 public:
@@ -344,11 +338,42 @@ public:
 	}
 #include "../../../AI/WorkOrder.h"
 #include "../../../AI/TeamInQueue.h"
+enum NameKeyType;
+enum CommandSourceType;
+// AssaultTransportAIUpdate::xfer, ported from Zero Hour's GameEngine/Source/
+// GameLogic/Object/Update/AIUpdate/AssaultTransportAIUpdate.cpp (GeneralsMD
+// tree vendored under reference/open-bfme-1/inputs/reference). It is slot 3
+// of the vftable whose name getter returns "AssaultTransportAIUpdate".
+//
+// BFME 2 order: the AIUpdateInterface base (0x00267EDD) first, then the
+// light-CRC gate and Version1, then ZH's fields at +0x3E8..+0x441 and one more
+// BFME 2 flag (+0x442).
+
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+#include "../../../../../Include/Common/BfmeXfer.h"
 
 enum NameKeyType { NK_UNKNOWN = 0 };
 
 enum ObjectStatusTypes;
+
 class AIUpdateInterface;
+
 class Object
 {
 public:
@@ -428,6 +453,7 @@ private:
     bool m_isAttackObject; // +0x441
     bool m_bfmeFlag442; // +0x442
 };
+
 class Rva00420B2AZeroSetter
 {
 public:
@@ -650,9 +676,90 @@ namespace _STL {
 
 BFME_LITERAL_NAME_GETTER(Rva0048F456Named, "AssaultTransportAIUpdate")
 
-// tu-skeleton: 0x0048F365 123B ?Rva0048F365Helper@AssaultTransportAIUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AssaultTransportAIUpdateHelper.cpp (not merged yet)
+class Xfer::Version
+{
+public:
+	Version(unsigned char current, unsigned char minimum)
+		: m_current(current), m_minimum(minimum) {}
+
+	unsigned char m_current;
+	unsigned char m_minimum;
+};
+
+typedef bool Bool;
+
+typedef unsigned int UnsignedInt;
+
+void XferObjectID( Xfer *xfer, ObjectID *value );
+
+enum { MAX_TRANSPORT_SLOTS = 10 };
+
+class Rva0048F64ESlave
+{
+public:
+	virtual void v00();
+	virtual void v01();
+	virtual void v02();
+	virtual void v03();
+	virtual float GetA();
+	virtual void v05();
+	virtual float GetB();
+};
+
+struct Rva0048F64EMaster
+{
+	unsigned char m_pad[0x64];
+	float m64;
+};
+
+class Rva00295A0FCommands
+{
+public:
+	void Rva00295A0FCommand(void *target, int range, int source);
+};
+
+struct AICommandParms
+{
+	int m_cmd;
+	int m_cmdSource;
+	Coord3DBase m_pos;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AssaultTransportAIUpdateHelper.cpp
+
+//
+// ?Rva0048F365Helper@AssaultTransportAIUpdate@@QAEXXZ, retail 0x0048F365
+// (93 bytes). Loop-zeroing helper over three count-sized arrays plus scalar
+// tails: clears the dword run at +0x3E8 plus the byte runs at +0x410 and
+// +0x41A for the +0x43C count, zeroes the count, zeroes the three floats at
+// +0x424/+0x428/+0x42C, zeroes the ints at +0x430/+0x434/+0x438 plus the
+// byte stores at +0x440/+0x441/+0x442. Called at member position by the behavior ctor plus the
+// dispatcher methods. Row supersedes the helper pin.
+
+void AssaultTransportAIUpdate::Rva0048F365Helper() throw()
+{
+	for (int i = 0; i < m_currentMembers; ++i)
+	{
+		m_memberIDs[i] = (ObjectID)0;
+		m_memberHealing[i] = 0;
+		m_array41A[i] = 0;
+	}
+	m_currentMembers = 0;
+	float *floats424 = &m_attackMoveGoalPos.x;
+	floats424[0] = 0.0f;
+	floats424[1] = 0.0f;
+	floats424[2] = 0.0f;
+	m_designatedTarget = (ObjectID)0;
+	m_state = IDLE;
+	m_framesRemaining = 0;
+	m_isAttackMove = 0;
+	m_isAttackObject = 0;
+	m_bfmeFlag442 = 0;
+}
 
 // tu-skeleton: 0x0048F3E0 49B ??1AssaultTransportAIUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0026E836Derived.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AssaultTransportAIUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AssaultTransportAIUpdate.cpp
 
@@ -717,18 +824,247 @@ bool Rva0048F46D::rva0048F46D()
 // bytes, string carried in source where verify_string_refs re-reads it).
 // No // cl: line (defaults match the frameless 6-byte shape).
 
-// tu-skeleton: 0x0048F4AC 247B ?xfer@AssaultTransportAIUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AssaultTransportAIUpdateXfer.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AssaultTransportAIUpdateXfer.cpp
 
-// tu-skeleton: 0x0048F5A3 91B ??0AssaultTransportAIUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AssaultTransportAIUpdateCtor.cpp (not merged yet)
+/*
+**	Command & Conquer Generals Zero Hour(tm)
+**	Copyright 2025 Electronic Arts Inc.
+**
+**	This program is free software: you can redistribute it and/or modify
+**	it under the terms of the GNU General Public License as published by
+**	the Free Software Foundation, either version 3 of the License, or
+**	(at your option) any later version.
+**
+**	This program is distributed in the hope that it will be useful,
+**	but WITHOUT ANY WARRANTY; without even the implied warranty of
+**	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+**	GNU General Public License for more details.
+**
+**	You should have received a copy of the GNU General Public License
+**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
 
-// tu-skeleton: 0x0048F61A 52B ?isAttackPointless@AssaultTransportAIUpdate@@QBE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AssaultTransportAIUpdateCheck.cpp (not merged yet)
+// ------------------------------------------------------------------------------------------------
+/** Xfer method
+	* Version Info:
+	* 1: Initial version */
+// ------------------------------------------------------------------------------------------------
+void AssaultTransportAIUpdate::xfer( Xfer *xfer )
+{
 
-// tu-skeleton: 0x0048F64E 66B ?rva0048F64E@AssaultTransportAIUpdate@@QAE_NPAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva0048F64EFinish.cpp (not merged yet)
+ // extend base class
+	AIUpdateInterface::xfer(xfer);
 
-// tu-skeleton: 0x0048F690 94B ?Rva0048F690Helper@AssaultTransportAIUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AssaultTransportAIUpdatePassengerHelper.cpp (not merged yet)
+	if( xfer->IsLightCRC() )
+		return;
 
-// tu-skeleton: 0x0048F6EE 185B ?Rva0048F6EEHelper@AssaultTransportAIUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AssaultTransportAIUpdateCommandHelper.cpp (not merged yet)
+  // version
+	xfer->Version1();
 
-// tu-skeleton: 0x0048F7A7 129B ?aiDoCommand@AssaultTransportAIUpdate@@UAEXPBUAICommandParms@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AssaultTransportAIUpdateDispatch.cpp (not merged yet)
+	*xfer == m_currentMembers;
+
+	for( int i = 0; i < m_currentMembers; i++ )
+	{
+		XferObjectID( xfer, &(m_memberIDs[ i ]) );
+		*xfer == m_memberHealing[ i ];
+	}
+
+	*xfer == m_attackMoveGoalPos;
+	XferObjectID( xfer, &m_designatedTarget );
+
+	Int state = (Int)m_state;
+	*xfer == state;
+	m_state = (AssaultStateTypes)state;
+
+	*xfer == m_framesRemaining;
+	*xfer == m_isAttackMove;
+	*xfer == m_isAttackObject;
+	*xfer == m_bfmeFlag442;
+
+}
+
+  // end xfer
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AssaultTransportAIUpdateCtor.cpp
+
+// ??0AssaultTransportAIUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x0048F5A3.
+
+// The base constructor is 0x0026E9BD. Retail installs vptrs at +0/+0x0C/+0x10/+0x20/+0x24,
+// and replaces the +0x3E4 interface table 0x00C1C780 with 0x00C4CC88.
+// The instance factory at 0x0024D263 is the single raw caller.
+
+// ??0AssaultTransportAIUpdate@@QAE@PAVThing@@PBVModuleData@@@Z @0x0048F5A3
+AssaultTransportAIUpdate::AssaultTransportAIUpdate(Thing *thing, const ModuleData *moduleData)
+    : AIUpdateInterface(thing, moduleData)
+{
+    m_currentMembers = 0xA;
+    Rva0048F365Helper();
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AssaultTransportAIUpdateCheck.cpp
+
+//
+// ?isAttackPointless@AssaultTransportAIUpdate@@QBE_NXZ, retail 0x0048F61A
+// (52 bytes). Readiness gate over the +0x41A passenger flags: the +0x08
+// object must carry status 0x16 (rowed Object::testStatus) and every flag
+// for the +0x43C count must be set. Any failure returns false; the count may
+// be zero (vacuous true).
+
+bool AssaultTransportAIUpdate::isAttackPointless() const
+{
+	if (!m_object->testStatus((ObjectStatusTypes)0x16))
+		return false;
+	for (int index = 0; index < m_currentMembers; ++index)
+	{
+		if (m_array41A[index] == 0)
+			return false;
+	}
+	return true;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva0048F64EFinish.cpp
+
+// ?rva0048F64E@AssaultTransportAIUpdate@@QAE_NPAX@Z
+//
+// ?rva0048F64E@AssaultTransportAIUpdate@@QAE_NPAX@Z @0x0048F64E 66B
+// __thiscall predicate on AssaultTransportAIUpdate: arg+0x254 slave provides
+// two float virtuals at +0x10 and +0x18 (ratio a/b); this+4 master provides
+// float at +0x64 threshold; returns threshold > ratio, false on null slave.
+// Neighbours AssaultTransportAIUpdateCheck/ PassengerHelper share // cl and
+// class; callers at 0x0048F9A7 0x0048FAA6 in 0x0048F828. /arch:SSE is what
+// selects retail's fcomip float guard: plain /O1 emits the fnstsw/parity form
+// three bytes shorter (63B). The Helper sibling TU carries the same flag.
+
+bool AssaultTransportAIUpdate::rva0048F64E(void *arg)
+{
+	Rva0048F64ESlave *slave = *(Rva0048F64ESlave **)((char *)arg + 0x254);
+	Rva0048F64EMaster *master = (Rva0048F64EMaster *)m_moduleData;
+	if (slave != 0) {
+		float a = slave->GetA();
+		float b = slave->GetB();
+		float ratio = a / b;
+		if (ratio < master->m64)
+			return true;
+	}
+	return false;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AssaultTransportAIUpdatePassengerHelper.cpp
+
+//
+// ?Rva0048F690Helper@AssaultTransportAIUpdate@@QAEXXZ, retail 0x0048F690
+// (94 bytes). Passenger-AI sweep over the +0x3E8 ObjectID array for the
+// +0x43C count: each ID resolves through TheGameLogic->findObjectByID, the
+// live ones expose their AIUpdateInterface at +0x258, and interfaces whose
+// +0x274 word is clear get the 2-param AI command (0x26C347, pinned
+// Rva-addressed) with the +0x08 member and constant 2. Layout matches the
+// rowed Rva0048F365Helper TU (IDs at +0x3E8, count at +0x43C). The bound is
+// checked against the zeroed index up front so the cursor setup stays below
+// the branch, reproducing the retail split prologue.
+// AIUpdateInterface's +0x20 command subobject is the AICommandInterface
+// receiver; the pointer/int thiscall signature and target pin agree.
+
+void AssaultTransportAIUpdate::Rva0048F690Helper()
+{
+	int index = 0;
+	if (index >= m_currentMembers)
+		return;
+	ObjectID *idCursor = m_memberIDs;
+	while (index < m_currentMembers)
+	{
+		Object *passenger = TheGameLogic->findObjectByID(*idCursor);
+		AIUpdateInterface *commandInterface = passenger != 0 ? passenger->m_aiDirect : 0;
+		if (passenger != 0 && commandInterface != 0 && passenger->m_bfme274 == 0)
+			commandInterface->rva0026C347(m_object, (CommandSourceType)2);
+		++index;
+		++idCursor;
+	}
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AssaultTransportAIUpdateCommandHelper.cpp
+
+//
+// ?Rva0048F6EEHelper@AssaultTransportAIUpdate@@QAEXXZ, retail 0x0048F6EE
+// (185 bytes). Dual-command passenger sweep over the +0x3E8 ObjectID array
+// for the +0x43C count: each live passenger exposes its AIUpdateInterface at
+// +0x258, a second lookup resolves the +0x430 member ID, and then either the
+// target command (pinned 0x26C2D9) issues when the +0x441 flag is set with a
+// live target, or the position command (pinned 0x295A0F) issues from the
+// +0x424 triple when the +0x440 flag is set; either way the interface's
+// +0x3C1 byte clears. The two commands are if/else chained (the target path
+// jumps over the position check). Counter and cursor stay homed in stack
+// slots while constants live in registers, matching the retail prologue.
+
+void AssaultTransportAIUpdate::Rva0048F6EEHelper()
+{
+	int index = 0;
+	if (index >= m_currentMembers)
+		return;
+	ObjectID *idCursor = m_memberIDs;
+	while (index < m_currentMembers)
+	{
+		Object *passenger = TheGameLogic->findObjectByID(*idCursor);
+		AIUpdateInterface *commandInterface = passenger != 0 ? passenger->m_aiDirect : 0;
+		if (passenger != 0 && commandInterface != 0)
+		{
+			Object *other = TheGameLogic->findObjectByID(m_designatedTarget);
+			if (m_isAttackObject != 0 && other != 0)
+				commandInterface->rva0026C2D9(other, 0x7FFFFFFF, (CommandSourceType)0);
+			else if (m_isAttackMove != 0)
+				((Rva00295A0FCommands *)(AICommandInterface *)commandInterface)->Rva00295A0FCommand(&m_attackMoveGoalPos.x, 0x7FFFFFFF, 0);
+			commandInterface->m_byte3C1 = 0;
+		}
+		++index;
+		++idCursor;
+	}
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AssaultTransportAIUpdateDispatch.cpp
+
+//
+// ?aiDoCommand@AssaultTransportAIUpdate@@UAEXPBUAICommandParms@@@Z
+// retail 0x0048F7A7 (129 bytes). Slot 0 of AssaultTransportAIUpdate's
+// +0x20 AICommandInterface vftable 0x00C4CC8C, which the rowed dtor
+// 0x0048F3E0 and ctor 0x0048F5A3 store. The override keeps that base's
+// this, so the class members are reached 0x20 below their offsets and every
+// helper call adjusts it back with its own lea. Commands from the AI
+// (source 2) skip straight to the base; otherwise the command selects helper
+// work before always delegating to AIUpdateInterface::aiDoCommand (0x002673F6,
+// slot 0 of its +0x20 vftable). Command 5 zeroes the +0x430 word then runs
+// both helpers; commands 0xB and 0x39 run the reset helper and raise the
+// +0x441 flag; command 0xF runs the reset helper, copies the 12-byte position
+// into the +0x424 triple and raises the +0x440 flag; any other command just
+// runs the reset helper. The +0x424/+0x430/+0x440 tail is proven by the rowed
+// Rva0048F365Helper TU. Case order in source is load-bearing for the
+// compiler's block layout.
+
+void AssaultTransportAIUpdate::aiDoCommand(const AICommandParms *parms)
+{
+	if (parms->m_cmdSource != 2)
+	{
+		switch (parms->m_cmd)
+		{
+		case 5:
+			m_designatedTarget = (ObjectID)0;
+			Rva0048F690Helper();
+			Rva0048F365Helper();
+			break;
+		case 0xB:
+		case 0x39:
+			Rva0048F365Helper();
+			m_isAttackObject = 1;
+			break;
+		case 0xF:
+			Rva0048F365Helper();
+			m_attackMoveGoalPos = parms->m_pos;
+			m_isAttackMove = 1;
+			break;
+		default:
+			Rva0048F365Helper();
+			break;
+		}
+	}
+	AIUpdateInterface::aiDoCommand(parms);
+}
 
 // tu-skeleton: 0x0048F828 914B ?update@AssaultTransportAIUpdate@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AssaultTransportAIUpdateUpdate.cpp (not merged yet)
