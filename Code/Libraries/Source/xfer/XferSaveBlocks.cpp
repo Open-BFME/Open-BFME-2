@@ -32,7 +32,6 @@ public:
 };
 // Retain this existing string-node view's npos COMDAT provider until the
 // table family is consolidated and its data bindings can move together.
-struct Rva0060CAEANode { void *next; _STL::string key; unsigned int value; };
 class XferSave {
 public:
  virtual ~XferSave();

@@ -9,11 +9,6 @@
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
-class BFME2NativeNetwork
-{
-public:
-};
-
 #include "SubsystemInterface.h"
 
 class __declspec(novtable) BFME2NativeNetworkBase

@@ -580,8 +580,6 @@ struct Rva006272D0Fields { char pad[4]; unsigned int word4; void subtract24(); }
 // ends its own RET0 before a distinct stack-based body. It subtracts8
 // modulo32 from receiver word4; no vector, pointer, element or owner
 // identity is asserted. Unsigned storage preserves the witnessed bits.
-struct Rva00539A13Fields { char pad[4]; unsigned word4; void subtract8(); };
-
 // tu-skeleton: 0x00626AA0 72B ?_ClearNumObjBelow@PartitionManagerImpl@@QAEXPAPAXI@Z -- matched in Code/Libraries/Source/partitionmanager/partitionmanager_impl.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp

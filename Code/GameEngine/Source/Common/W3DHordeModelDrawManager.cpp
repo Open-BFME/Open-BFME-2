@@ -620,24 +620,10 @@ BFME_DISP_BYTE_SETTER(Rva00078B2BByteSlot, 0x28D)
 // or constructor identity is established; retain the target address and
 // describe its proven initializer ABI. Destination is the repository's
 // nearest-neighbour home, immediately after its 0x0047A2A9 setter.
-class Rva0047A2B6Floats
-{
-public:
-    Rva0047A2B6Floats *initialize();
-private:
-    float first[3];
-    float second[3];
-};
-
 // Clean BF1 9cbfb551fe Common/Rva007AE610Array.cpp semantic donor, normal O1/SSE/G7.
 // Native 0010855F..0010856E has its own complete RET boundary and establishes
 // receiver68 indexed dword store, RET8. Original owner and full array bound remain
 // unresolved; this separate address-owned view models only observed accesses.
-class Rva0010855FArray {
-public: void setValue(unsigned int index, unsigned int value);
-private: unsigned char unknown[0x68]; unsigned int values[1];
-};
-
 class Rva000789A0Named
 {
 public:
@@ -843,174 +829,12 @@ public:
 	virtual void slot132();
 };
 
-class MilesAudioManager : public SizedForwarderSlots
-{
-public:
-	virtual void rva000512BC();
-};
-
 class Rva00078AC6Forwarder
 {
 public:
 	void rva00078AC6();
 private:
 	char m_lead[0x4];
-	SizedForwarderSlots *m_inner;
-};
-
-class Rva0008605ALead
-{
-public:
-	virtual void lead0();
-private:
-	char m_lead[0xB0];
-};
-
-class Rva0008605AForwarder : public Rva0008605ALead, public SizedForwarderSlots
-{
-public:
-	void rva0008605A();
-};
-
-class Rva0008615BLead
-{
-public:
-	virtual void lead0();
-private:
-	char m_lead[0x24C4];
-};
-
-class Rva0008615BForwarder : public Rva0008615BLead, public SizedForwarderSlots
-{
-public:
-	void rva0008615B();
-};
-
-class Rva0008BD2BLead
-{
-public:
-	virtual void lead0();
-private:
-	char m_lead[0x24C4];
-};
-
-class Rva0008BD2BForwarder : public Rva0008BD2BLead, public SizedForwarderSlots
-{
-public:
-	void rva0008BD2B();
-};
-
-class Rva00091D32Forwarder
-{
-public:
-	void rva00091D32();
-private:
-	char m_lead[0x14];
-	SizedForwarderSlots *m_inner;
-};
-
-class Rva000ABD68Forwarder
-{
-public:
-	void rva000ABD68();
-private:
-	char m_lead[0x4];
-	SizedForwarderSlots *m_inner;
-};
-
-class Rva001EDDBBForwarder
-{
-public:
-	void rva001EDDBB();
-private:
-	char m_lead[0x4FA8];
-	SizedForwarderSlots *m_inner;
-};
-
-class Rva0024002ELead
-{
-public:
-	virtual void lead0();
-private:
-	char m_lead[0xC];
-};
-
-class Rva0024002EForwarder : public Rva0024002ELead, public SizedForwarderSlots
-{
-public:
-	void rva0024002E();
-};
-
-class Rva00240035Lead
-{
-public:
-	virtual void lead0();
-private:
-	char m_lead[0xC];
-};
-
-class Rva00240035Forwarder : public Rva00240035Lead, public SizedForwarderSlots
-{
-public:
-	void rva00240035();
-};
-
-class Rva0024003DLead
-{
-public:
-	virtual void lead0();
-private:
-	char m_lead[0xC];
-};
-
-class Rva0024003DForwarder : public Rva0024003DLead, public SizedForwarderSlots
-{
-public:
-	void rva0024003D();
-};
-
-class Rva0025C25AForwarder : public SizedForwarderSlots
-{
-public:
-	void rva0025C25A();
-};
-
-class Rva0029AC98Forwarder : public SizedForwarderSlots
-{
-public:
-	void rva0029AC98();
-};
-
-class Rva0030ADE8Forwarder : public SizedForwarderSlots
-{
-public:
-	void rva0030ADE8();
-};
-
-class Rva00328CC5Forwarder
-{
-public:
-	void rva00328CC5();
-private:
-	char m_lead[0x18];
-	SizedForwarderSlots *m_inner;
-};
-
-class Rva00328CCCForwarder
-{
-public:
-	void rva00328CCC();
-private:
-	char m_lead[0xC];
-	SizedForwarderSlots *m_inner;
-};
-
-class Rva0039AC9CForwarder
-{
-public:
-	void rva0039AC9C();
-private:
-	char m_lead[0x2C];
 	SizedForwarderSlots *m_inner;
 };
 
@@ -1046,30 +870,6 @@ public:
 
 typedef WorldHeightMap Rva000B0F82;
 
-class Rva000B197C
-{
-public:
-	void rva000B197C(Int firstValue, Int secondValue);
-private:
-	char m_pad00[0x0C];
-	Rva000B0F82 *m_heightMap;
-};
-
-class Rva005254C5
-{
-public:
-	void rva005254C5(Int firstValue);
-};
-
-class Rva005259B1
-{
-public:
-	void rva005259B1(Int firstValue);
-private:
-	char m_pad00[0x08];
-	Rva005254C5 m_08;
-};
-
 class Holder00527BA2
 {
 public:
@@ -1077,30 +877,6 @@ public:
 };
 
 typedef Holder00527BA2 Rva00527BA2;
-
-class Rva00527B9A
-{
-public:
-	void rva00527B9A(Int firstValue, Int secondValue, Int thirdValue);
-private:
-	char m_pad00[0x04];
-	Rva00527BA2 *m_04;
-};
-
-class Rva005394F0
-{
-public:
-	void drawLines(Int firstValue, Int secondValue);
-};
-
-class Rva00539611
-{
-public:
-	void rva00539611(Int firstValue, Int secondValue);
-private:
-	char m_pad00[0x08];
-	Rva005394F0 *m_08;
-};
 
 namespace InGameSimpleHelp
 {
@@ -1112,15 +888,6 @@ public:
 }
 
 typedef InGameSimpleHelp::Impl Rva0053973F;
-
-class Rva005397D3
-{
-public:
-	void rva005397D3(Int firstValue);
-private:
-	char m_pad00[0x08];
-	Rva0053973F *m_08;
-};
 
 struct FloatPair;
 
@@ -1135,85 +902,7 @@ public:
 
 typedef InGameCommandButtonHelp::Impl Rva0056CA31;
 
-class Rva0056D2BD
-{
-public:
-	void rva0056D2BD(Int firstValue);
-private:
-	char m_pad00[0x08];
-	Rva0056CA31 *m_08;
-};
-
-class Rva0056D2C5
-{
-public:
-	void rva0056D2C5(Int firstValue, Int secondValue);
-private:
-	char m_pad00[0x08];
-	InGameCommandButtonHelp::Impl *m_08;
-};
-
 struct Rva005757F9Value;
-
-class Rva005757F9
-{
-public:
-	void rva005757F9(Rva005757F9Value *firstValue);
-};
-
-class Rva00575DBA
-{
-public:
-	void rva00575DBA(Int firstValue);
-private:
-	char m_pad00[0x08];
-	Rva005757F9 *m_08;
-};
-
-class Rva0057590E
-{
-public:
-	void rva0057590E(Int firstValue);
-};
-
-class Rva00575DC2
-{
-public:
-	void rva00575DC2(Int firstValue);
-private:
-	char m_pad00[0x08];
-	Rva0057590E *m_08;
-};
-
-class Rva005759A5
-{
-public:
-	void rva005759A5(Int firstValue);
-};
-
-class Rva00575DCA
-{
-public:
-	void rva00575DCA(Int firstValue);
-private:
-	char m_pad00[0x08];
-	Rva005759A5 *m_08;
-};
-
-class Rva00575A3F
-{
-public:
-	void rva00575A3F(Int firstValue);
-};
-
-class Rva00575DD2
-{
-public:
-	void rva00575DD2(Int firstValue);
-private:
-	char m_pad00[0x08];
-	Rva00575A3F *m_08;
-};
 
 namespace StrategicInGameUI
 {
@@ -1229,30 +918,6 @@ public:
 
 typedef StrategicInGameUI::ResolveBattlesBehavior::Impl Rva00576D0D;
 
-class Rva00576DCD
-{
-public:
-	void rva00576DCD();
-private:
-	char m_pad00[0x08];
-	Rva00576D0D *m_08;
-};
-
-class Rva0057718D
-{
-public:
-	void rva0057718D();
-};
-
-class Rva005772FA
-{
-public:
-	void rva005772FA();
-private:
-	char m_pad00[0x08];
-	Rva0057718D *m_08;
-};
-
 class UnicodeString;
 
 class Rva005D40A6
@@ -1263,15 +928,6 @@ public:
 
 typedef Rva005D40A6 Rva005D46E3;
 
-class Rva0057A362
-{
-public:
-	void rva0057A362(Int firstValue);
-private:
-	char m_pad00[0x08];
-	Rva005D46E3 m_08;
-};
-
 class Rva005D3F93
 {
 public:
@@ -1281,129 +937,6 @@ public:
 
 typedef Rva005D3F93 Rva005D3F8D;
 
-class Rva0057A36A
-{
-public:
-	void rva0057A36A();
-private:
-	char m_pad00[0x08];
-	Rva005D3F8D m_08;
-};
-
-class Rva0057A372
-{
-public:
-	void rva0057A372(Int firstValue);
-private:
-	char m_pad00[0x08];
-	Rva005D3F93 m_08;
-};
-
-class Rva005D4E37
-{
-public:
-	void rva005D4E37(Int firstValue, const char *secondValue, bool thirdValue);
-};
-
-class Rva0057AA3D
-{
-public:
-	void rva0057AA3D(Int firstValue, Int secondValue, Int thirdValue);
-private:
-	char m_pad00[0x08];
-	Rva005D4E37 m_08;
-};
-
-class Rva0059B428
-{
-public:
-	void rva0059B428(Int firstValue, Int secondValue, Int thirdValue);
-};
-
-class Rva0059B420
-{
-public:
-	void rva0059B420(Int firstValue, Int secondValue, Int thirdValue);
-private:
-	char m_pad00[0x04];
-	Rva0059B428 *m_04;
-};
-
-class Rva005C33DD
-{
-public:
-	void rva005C33DD();
-};
-
-class Rva005C3586
-{
-public:
-	void rva005C3586();
-private:
-	char m_pad00[0x08];
-	Rva005C33DD *m_08;
-};
-
-class Rva005C3427
-{
-public:
-	void Run();
-};
-
-class Rva005C358E
-{
-public:
-	void rva005C358E();
-private:
-	char m_pad00[0x08];
-	Rva005C3427 *m_08;
-};
-
-class Rva005C3453
-{
-public:
-	void rva005C3453();
-};
-
-class Rva005C3596
-{
-public:
-	void rva005C3596();
-private:
-	char m_pad00[0x08];
-	Rva005C3453 *m_08;
-};
-
-class Rva005C349D
-{
-public:
-	void rva005C349D();
-};
-
-class Rva005C359E
-{
-public:
-	void rva005C359E();
-private:
-	char m_pad00[0x08];
-	Rva005C349D *m_08;
-};
-
-class Rva005CB9D1
-{
-public:
-	bool rva005CB9D1(Int firstValue);
-};
-
-class Rva005CBAE6
-{
-public:
-	void rva005CBAE6(Int firstValue);
-private:
-	char m_pad00[0x04];
-	Rva005CB9D1 m_04;
-};
-
 class Rva005CEA1CHolder
 {
 public:
@@ -1411,60 +944,6 @@ public:
 };
 
 typedef Rva005CEA1CHolder Rva005CEA1C;
-
-class Rva005CEA35
-{
-public:
-	void rva005CEA35();
-private:
-	char m_pad00[0x08];
-	Rva005CEA1C *m_08;
-};
-
-class Rva00574192
-{
-public:
-	void rva00574192();
-};
-
-class Rva005CF8DB
-{
-public:
-	void rva005CF8DB();
-private:
-	char m_pad00[0x08];
-	Rva00574192 m_08;
-};
-
-class Rva005F3F9A
-{
-public:
-	void rva005F3F9A();
-};
-
-class Rva005F3FF4
-{
-public:
-	void rva005F3FF4();
-private:
-	char m_pad00[0x08];
-	Rva005F3F9A *m_08;
-};
-
-class Rva005F40B0
-{
-public:
-	void rva005F40B0();
-};
-
-class Rva005F41AF
-{
-public:
-	void rva005F41AF();
-private:
-	char m_pad00[0x08];
-	Rva005F40B0 *m_08;
-};
 
 struct Rva0007989CRecord {  int word0;int word1;int word2; };
 

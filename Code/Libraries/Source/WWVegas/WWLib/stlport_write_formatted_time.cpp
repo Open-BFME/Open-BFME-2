@@ -78,8 +78,6 @@ private:
 
 typedef basic_string<char, char_traits<char>, allocator<char> > string;
 
-struct __false_type {};
-
 }
 
 namespace _STL
