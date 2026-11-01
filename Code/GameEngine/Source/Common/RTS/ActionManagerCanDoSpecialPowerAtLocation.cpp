@@ -45,7 +45,6 @@ class Object; class Module; class Player; class SpecialPowerTemplate;
 template<int N> class BitFlags { public: unsigned words[7]; };
 extern BitFlags<116> KINDOFMASK_NONE;
 class BfmeFixedStorage0004543D { public: BfmeFixedStorage0004543D(int,int); unsigned words[7]; };
-struct Rva00045411BitSet { Rva00045411BitSet(int,int); unsigned words[7]; };
 struct Rva0006EE7A { Rva0006EE7A(int,int,int); unsigned words[7]; };
 class Rva002618A2 { public: Rva002618A2() {} Rva002618A2 *rva002618FA(int,int,int,int,int,int); unsigned words[7]; };
 class Rva000421C8 {

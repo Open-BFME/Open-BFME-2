@@ -492,12 +492,6 @@ class Rva00E02D6C;
 
  extern Rva00E02D6C *TheCampaignManager;
 
-class Gen_003bcb40
-{
-public:
-	void m(int value);
-};
-
 class Rva0060D5E0
 {
 public:

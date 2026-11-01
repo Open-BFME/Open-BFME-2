@@ -63,12 +63,6 @@ void Rva003F59FE::rva003F59FE(LivingWorldArmy *army)
 }
 
 // --- 0x004CC08D (8B): the Rva004CBF9A sub-object at +0xC.
-class Rva004CC08D
-{
-public:
-	void rva004CC08D();
-};
-
 // --- 0x0039851D (8B): the FoundationAIUpdate sub-object at +0x20.
 class Rva0039851D
 {

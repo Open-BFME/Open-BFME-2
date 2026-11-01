@@ -410,12 +410,6 @@ private:
 	LivingWorldScoreKeeper m_scoreKeeper; // +0x2C8
 };
 
-class Rva002BA8F1Logic
-{
-public:
-	Rva002E2903Player *find(int id, unsigned int *index);
-};
-
 namespace _STL {
 template<class T> struct less;
 template<class A, class B> struct pair;

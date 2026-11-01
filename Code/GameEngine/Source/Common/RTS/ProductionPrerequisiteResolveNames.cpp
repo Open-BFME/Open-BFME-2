@@ -35,12 +35,6 @@ public:
 };
 extern ThingFactory *TheThingFactory;
 
-class BfmeThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &name);
-};
-
 class BFMERetailAsciiString
 {
 public:

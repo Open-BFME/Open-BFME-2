@@ -239,12 +239,6 @@ public:
 	virtual PolygonTrigger *slot39(const AsciiString &name);
 };
 
-class Rva00375BFF
-{
-public:
-	void rva00375BFF(unsigned int key, float value);
-};
-
 class AerialPathfinder;
 extern TerrainLogic *TheTerrainLogic;
 extern AerialPathfinder *TheAerialPathfinder;

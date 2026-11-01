@@ -83,14 +83,6 @@ typedef int Int;
 
 typedef unsigned int UnsignedInt;
 
-class Coord3DBase
-{
-public:
-	float x;
-	float y;
-	float z;
-};
-
 class PlayerList
 {
 public:

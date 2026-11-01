@@ -42,16 +42,6 @@ public:
 	virtual void vfunc20();
 };
 
-struct Rva003FB793Elem
-{
-	char m_pad00[0x24];
-	float m_24;
-	char m_pad28[0x0C];
-	float m_34;
-	char m_pad38[0x0C];
-	float m_44;
-};
-
 class Rva003F936EHost
 {
 public:

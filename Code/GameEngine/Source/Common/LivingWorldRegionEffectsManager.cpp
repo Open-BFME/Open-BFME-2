@@ -45,7 +45,6 @@ template <> ConstructProbePairC::pair(const ConstructProbePairC &);
 // vector::push_back at 0x39A48E and both uninitialized workers. Its complete
 // construction delegates to the existing pair copy at 0x466EA7. Preserve
 // that witnessed storage operation without asserting an application identity.
-struct Rva0039A48EElement { int a[2]; };
 namespace _STL {
 }
 template void _STL::_Construct<ConstructProbeVec, ConstructProbeVec>(ConstructProbeVec *, const ConstructProbeVec &);

@@ -55,27 +55,6 @@ class WWMath
 public:
 	static float __fastcall Inv_Sqrt(float val);
 };
-class Vector3
-{
-public:
-	Vector3() {}
-	Vector3(float x, float y, float z) { X = x; Y = y; Z = z; }
-	__forceinline float Length2() const { return X * X + Y * Y + Z * Z; }
-	__forceinline void Normalize()
-	{
-		float len2 = Length2();
-		if (len2 != 0.0f)
-		{
-			float oolen = WWMath::Inv_Sqrt(len2);
-			X *= oolen;
-			Y *= oolen;
-			Z *= oolen;
-		}
-	}
-	float X;
-	float Y;
-	float Z;
-};
 #include "../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 // Bezier segment over four control points (see Rva0055A246Ctor.cpp).
 class Rva0055A246
@@ -170,20 +149,6 @@ public:
 	ObjectID m_id; // +0
 	_STL::vector<Coord3D> m_path; // +4
 	Int m_index; // +0x10
-};
-
-class BehaviorModuleBase
-{
-public:
-	virtual void behaviorModuleBaseAnchor();
-	const ModuleData *m_moduleData;
-	Object *m_object;
-};
-
-class BehaviorModuleOther
-{
-public:
-	virtual void behaviorModuleOtherAnchor();
 };
 
 #include "../../../Include/GameLogic/Module/BehaviorModule.h"

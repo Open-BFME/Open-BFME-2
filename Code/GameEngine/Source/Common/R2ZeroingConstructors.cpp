@@ -49,16 +49,6 @@ Rva003B7160::Rva003B7160()
 	m_at0C = 0;
 }
 
-class Rva007E3430
-{
-public:
-	int m_at00;
-	int m_at04;
-	int m_at08;
-	int m_at0C;
-	Rva007E3430();
-};
-
 class Rva0029BC80
 {
 public:

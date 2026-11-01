@@ -6,13 +6,6 @@
 // existing spellings.
 
 // --- 0x00595020 (59B) / 0x0059505B (46B): weighted sums of flag bits.
-class Rva00595020
-{
-public:
-	int rva00595020(unsigned char flags);
-	int rva0059505B(unsigned char flags);
-};
-
 // --- vtable 0x00C4ED70 over a zero +0x08 and a cleared +0x0C; 0x002534B1 (17B): its field table (VA 0x00BF00A0) for the parser;
 // 0x002534C2 (60B): the INI factory building one with that table.
 class INI;

@@ -33,12 +33,6 @@ public:
 	void rva00256499(INI *ini, void *extra);
 };
 
-class Rva002C8754
-{
-public:
-	void rva002C8754(INI *ini, void *extra);
-};
-
 void Rva001DEE74Parse(INI *ini, void *, void *store, const void *)
 {
 	const char *token = ini->getNextToken();

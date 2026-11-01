@@ -52,13 +52,6 @@ void Rva000B693D::rva000B693D(const Gen_0075EF90 &that)
 
 // --- 0x000FB85D (15B): holder destructor freeing the block at +0x18
 // through the rowed _free (0x00030830).
-struct Rva000FB85D
-{
-	~Rva000FB85D();
-	unsigned char m_pad00[0x18];
-	void *m_18;
-};
-
 // --- 0x000D167A (13B): ORs the argument into the flag word at +0x118.
 class Rva000D167A
 {

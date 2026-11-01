@@ -272,8 +272,3 @@ Rva002C902A::Rva002C902A() : m_00(0.0f), m_04(0.0f), m_progressOverlayColor(0.0f
 {
 }
 
-struct Rva0058C475Arg
-{
-	char m_pad[0x28];
-	int m_28;
-};
