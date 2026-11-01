@@ -79,3 +79,5 @@ elsewhere; this README is its proposed native-ABI/remaining-consumer entry.
 Host donor: canonical status8/phase1F4 and reverse-link1FC names; same185B draw traversal and all runtime providers, no table emission.
 
 Apt ctor donor: remove protected-dtor-only private GameWindow; retain native explicit Apt table assignments and all secondary construction/EH. Canonical friendship preserves qualified destructor call. No table/default provider introduced.
+
+Owning GameWindow.cpp: remove complete private window and opaque instance-data views; retain original inline tooltip setter locally rather than adding header default bodies. Canonical WinInstanceData real virtual lifetime is used. Same full eleven-slot table including pure slot7 must verify in the strict runtime graph.
