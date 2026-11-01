@@ -243,3 +243,4 @@ Rva000AD6F4,Code/GameEngine/Include/Common/Rva000AD6F4.h,existing header; contra
 AIGroup,Code/GameEngine/Include/GameLogic/AIGroup.h,existing header; contract class_contracts/AIGroup.json; 26/80 sampled units adopt
 WeaponTemplate,Code/GameEngine/Include/GameLogic/WeaponTemplate.h,existing header; contract class_contracts/WeaponTemplate.json; 25/69 sampled units adopt
 TeamPrototype,Code/GameEngine/Include/Common/Team.h,existing header; contract class_contracts/TeamPrototype.json; 10/70 sampled units adopt
+ParticleSystemManager,Code/GameEngine/Include/GameClient/ParticleSys.h,existing header; contract class_contracts/ParticleSystemManager.json; 46/69 sampled units adopt
