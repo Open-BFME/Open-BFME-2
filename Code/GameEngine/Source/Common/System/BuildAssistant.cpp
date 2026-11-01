@@ -8,7 +8,11 @@
 // them, and the destructor (0x00239AF4) is defined once elsewhere, so this
 // unit emits no stock allocator copy of them for the link to reject.
 class Drawable;
-class FreelistPool { public: void *pop(); };
+class FreelistPool
+{
+public:
+	void *pop();
+};
 extern FreelistPool g_freelistPool00DBA5E0;
 namespace _STL {
 template <> __declspec(noinline)
@@ -330,12 +334,12 @@ private:
 class CommandSet
 {
 public:
-	const CommandButton *getCommandButton(Int i) const;	// 0x00409EE8
+	const CommandButton *getCommandButton(int i) const; // 0x00409EE8
 };
 class Rva0031D5F8
 {
 public:
-	void *rva0031D5F8(const AsciiString *key);	// 0x0031D5F8, findCommandSet
+	void *rva0031D5F8(const AsciiString *key); // 0x0031D5F8, findCommandSet
 };
 class ControlBar : public Rva0031D5F8
 {
@@ -376,25 +380,52 @@ class BehaviorModule : public BfmeObjectModule, public BehaviorModuleInterface
 class ProductionUpdateInterface
 {
 public:
-	virtual CanMakeType rva0049CFCD() const;					// +0x00
-	virtual void slot01(); virtual void slot02(); virtual void slot03();
-	virtual void slot04(); virtual void slot05(); virtual void slot06();
-	virtual UnsignedInt countUnitTypeInQueue(const ThingTemplate *type) const;	// +0x1C
-	virtual void slot08(); virtual void slot09(); virtual void slot10(); virtual void slot11();
-	virtual void slot12(); virtual void slot13(); virtual void slot14();
-	virtual void cancelAndRefundAllProduction();			// +0x3C
+	virtual CanMakeType rva0049CFCD() const; // +0x00
+	virtual void slot01();
+	virtual void slot02();
+	virtual void slot03();
+	virtual void slot04();
+	virtual void slot05();
+	virtual void slot06();
+	virtual UnsignedInt countUnitTypeInQueue(const ThingTemplate *type) const; // +0x1C
+	virtual void slot08();
+	virtual void slot09();
+	virtual void slot10();
+	virtual void slot11();
+	virtual void slot12();
+	virtual void slot13();
+	virtual void slot14();
+	virtual void cancelAndRefundAllProduction(); // +0x3C
 };
 class ContainModuleInterface
 {
 public:
-	virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03();
-	virtual void slot04(); virtual void slot05(); virtual void slot06(); virtual void slot07();
-	virtual void slot08(); virtual void slot09(); virtual void slot10(); virtual void slot11();
-	virtual void slot12(); virtual void slot13(); virtual void slot14(); virtual void slot15();
-	virtual void slot16(); virtual void slot17(); virtual void slot18(); virtual void slot19();
-	virtual void slot20(); virtual void slot21(); virtual void slot22(); virtual void slot23();
+	virtual void slot00();
+	virtual void slot01();
+	virtual void slot02();
+	virtual void slot03();
+	virtual void slot04();
+	virtual void slot05();
+	virtual void slot06();
+	virtual void slot07();
+	virtual void slot08();
+	virtual void slot09();
+	virtual void slot10();
+	virtual void slot11();
+	virtual void slot12();
+	virtual void slot13();
+	virtual void slot14();
+	virtual void slot15();
+	virtual void slot16();
+	virtual void slot17();
+	virtual void slot18();
+	virtual void slot19();
+	virtual void slot20();
+	virtual void slot21();
+	virtual void slot22();
+	virtual void slot23();
 	virtual void slot24();
-	virtual void onSelling();					// +0x64
+	virtual void onSelling(); // +0x64
 };
 // The 128-bit object status mask and the rowed two-bit constructor
 // (0x00391F4E) that builds one.
@@ -411,7 +442,7 @@ struct Rva00391F4E : public Rva00346BC0
 class Rva00391994
 {
 public:
-	Bool rva00391994();
+	bool rva00391994();
 };
 class ProductionUpdate
 {
@@ -451,18 +482,50 @@ public:
 class DozerAIInterface
 {
 public:
-	virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03();
-	virtual void slot04(); virtual void slot05(); virtual void slot06(); virtual void slot07();
-	virtual void slot08(); virtual void slot09(); virtual void slot10(); virtual void slot11();
-	virtual void slot12(); virtual void slot13(); virtual void slot14(); virtual void slot15();
-	virtual void slot16(); virtual void slot17(); virtual void slot18(); virtual void slot19();
-	virtual void slot20(); virtual void slot21(); virtual void slot22(); virtual void slot23();
-	virtual void slot24(); virtual void slot25(); virtual void slot26(); virtual void slot27();
-	virtual void slot28(); virtual void slot29();
-	virtual UnsignedInt slot30();					// +0x78
+	virtual void slot00();
+	virtual void slot01();
+	virtual void slot02();
+	virtual void slot03();
+	virtual void slot04();
+	virtual void slot05();
+	virtual void slot06();
+	virtual void slot07();
+	virtual void slot08();
+	virtual void slot09();
+	virtual void slot10();
+	virtual void slot11();
+	virtual void slot12();
+	virtual void slot13();
+	virtual void slot14();
+	virtual void slot15();
+	virtual void slot16();
+	virtual void slot17();
+	virtual void slot18();
+	virtual void slot19();
+	virtual void slot20();
+	virtual void slot21();
+	virtual void slot22();
+	virtual void slot23();
+	virtual void slot24();
+	virtual void slot25();
+	virtual void slot26();
+	virtual void slot27();
+	virtual void slot28();
+	virtual void slot29();
+	virtual UnsignedInt slot30(); // +0x78
 };
-struct Rva00391D25PathNode { unsigned char pad0[0x0C]; Coord3D pos; };
-struct Rva00391D25Path { unsigned char pad0[8]; Rva00391D25PathNode *node; };
+struct Rva00391D25PathNode
+{
+public:
+	char m_pad00[0xC];
+	Coord3D pos; // +0x0C
+};
+struct Rva00391D25Path
+{
+public:
+	char m_pad00[0x8];
+	Rva00391D25PathNode *node; // +0x08
+};
 class AIUpdateInterface
 {
 public:
@@ -530,10 +593,17 @@ public:
 class G00DFF080Obj
 {
 public:
-	virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03();
-	virtual void slot04(); virtual void slot05(); virtual void slot06(); virtual void slot07();
-	virtual void slot08(); virtual void slot09();
-	virtual void addFactionBib(Object *factionBuilding, Bool highlight, Real extra = 0);	// +0x28
+	virtual void slot00();
+	virtual void slot01();
+	virtual void slot02();
+	virtual void slot03();
+	virtual void slot04();
+	virtual void slot05();
+	virtual void slot06();
+	virtual void slot07();
+	virtual void slot08();
+	virtual void slot09();
+	virtual void addFactionBib(Object *factionBuilding, Bool highlight, Real extra = 0); // +0x28
 };
 extern G00DFF080Obj *TheTerrainVisual;
 	// TheTerrainVisual
@@ -670,7 +740,7 @@ class Rva003B0D7C
 {
 public:
 	unsigned withdraw(unsigned amount, class Rva0039B795 *scoreKeeper, bool flag);
-	void rva003B0D7C(int amount, Rva0039B7AD *score, bool flag);	// ZH's Money::deposit
+	void rva003B0D7C(int amount, Rva0039B7AD *score, bool flag); // ZH's Money::deposit
 };
 class Money : public Rva003B0D7C
 {
@@ -685,9 +755,7 @@ class ScoreKeeper
 {
 public:
 	void addObjectLost(const Object *o);
-
-private:
-	unsigned char m_pad00[4];
+	char m_pad00[0x4];
 };
 class Player
 {
@@ -754,6 +822,7 @@ public:
 	void rva00392129(UnsignedInt index, Real angle);
 	void rva0039215F(UnsignedInt index, const AsciiString &name);
 	void rva00392196(UnsignedInt index, Int status);
+	void rva003921C8(UnsignedInt index, unsigned char value);
 	void rva00392CAC();
 
 	union { unsigned count; Int m_count; };         // +0x00
@@ -802,6 +871,7 @@ Real normalizeAngle(Real angle);
 class BuildAssistant
 {
 public:
+	void xferTheSellList(Xfer *xfer);
 	bool rva00392DC0(Object *builder, const ThingTemplate *what, const Coord3D *pos, Player *player, unsigned kind, Object **result);
 	virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03();
 	virtual void slot04(); virtual void slot05(); virtual void slot06(); virtual void slot07();
@@ -1073,27 +1143,39 @@ extern ThingFactory *TheThingFactory;
 class GlobalData
 {
 public:
-	unsigned char m_pad000[0xA68];
-	Real m_minDistFromEdgeOfMapForBuild;	// +0xA68
-	Real m_supplyBuildBorder;		// +0xA6C
-	Real m_allowedHeightVariationForBuilding;	// +0xA70
-	unsigned char m_padA74[0xA94 - 0xA74];
-	Int m_maxLineBuildObjects;		// +0xA94
-	unsigned char m_padA98[0xB94 - 0xA98];
-	Real m_sellPercentage;			// +0xB94
-	unsigned char m_padB98[0x1220 - 0xB98];
-	Real m_1220;				// +0x1220
+	char m_pad00[0xA68];
+	float m_minDistFromEdgeOfMapForBuild; // +0xA68 +0xA68
+	float m_supplyBuildBorder; // +0xA6C +0xA6C
+	float m_allowedHeightVariationForBuilding; // +0xA70 +0xA70
+	char m_padA74[0x20];
+	int m_maxLineBuildObjects; // +0xA94 +0xA94
+	char m_padA98[0xFC];
+	float m_sellPercentage; // +0xB94 +0xB94
+	char m_padB98[0x688];
+	float m_1220; // +0x1220 +0x1220
 };
 extern GlobalData *TheWritableGlobalData;
 class GameTextInterface
 {
 public:
-	virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
-	virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
-	virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
-	virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
+	virtual void v0();
+	virtual void v1();
+	virtual void v2();
+	virtual void v3();
+	virtual void v4();
+	virtual void v5();
+	virtual void v6();
+	virtual void v7();
+	virtual void v8();
+	virtual void v9();
+	virtual void v10();
+	virtual void v11();
+	virtual void v12();
+	virtual void v13();
+	virtual void v14();
+	virtual void v15();
 	virtual void v16();
-	virtual const UnicodeString *fetch(const char *label, Bool *exists);	// +0x44
+	virtual const UnicodeString *fetch(const char *label, Bool *exists); // +0x44
 };
 extern GameTextInterface *TheGameText;
 class InGameUI
@@ -1159,24 +1241,25 @@ class Rva000421C8
 {
 public:
 	Rva000421C8() : m_next(0) {}
+	Rva000421C8 *link(Rva000421C8 *filter);
 	virtual ~Rva000421C8() {}
 	virtual Bool allow(Object *obj) = 0;
 	virtual int getPlayerMask();
-	Rva000421C8 *link(Rva000421C8 *filter);
-	Rva000421C8 *m_next;
+	Rva000421C8 *m_next; // +0x04
 };
 class BfmeFixedStorage0004543D
 {
 public:
 	BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &other) throw();
 private:
-	unsigned char m_bytes[28];
+	unsigned char m_bytes[28]; // +0x00
 };
 // The 224-bit KindOf mask (unused, bit) constructor 0x00045411.
 struct Rva00045411BitSet
 {
+public:
 	Rva00045411BitSet(int unused, int bit) throw();
-	unsigned int m_bits[7];
+	unsigned int m_bits[7]; // +0x00
 };
 template <int NUMBITS> class BitFlags;
 extern BitFlags<116> KINDOFMASK_NONE;
@@ -1187,8 +1270,8 @@ class Rva0004584D : public Rva000421C8
 public:
 	Rva0004584D(const BfmeFixedStorage0004543D &a, const BfmeFixedStorage0004543D &b) throw();
 	virtual Bool allow(Object *obj);
-	BfmeFixedStorage0004543D m_08;
-	BfmeFixedStorage0004543D m_24;
+	BfmeFixedStorage0004543D m_08; // +0x08
+	BfmeFixedStorage0004543D m_24; // +0x24
 };
 class Rva00261603Filter : public Rva000421C8
 {
@@ -1501,8 +1584,9 @@ void BuildAssistant::update( void )
 // ------------------------------------------------------------------------------------------------
 struct ProductionCountData
 {
-	UnsignedInt count;
-	const ThingTemplate *type;
+public:
+	UnsignedInt count; // +0x00
+	const ThingTemplate *type; // +0x04
 };
 // countInProduction, retail 0x0039194F.
 static Int countInProduction( Object *obj, void *userData )
@@ -2019,17 +2103,20 @@ Bool BuildAssistant::moveObjectsForConstruction( const ThingTemplate *whatToBuil
 //-------------------------------------------------------------------------------------------------
 struct SampleBuildData
 {
-	const ThingTemplate *build;		// +0x00
-	Bool requireWaterOrLand;		// +0x04
-	Region3D mapRegion;			// +0x08
-	Bool terrainRestricted;			// +0x20
-	Real hiZ;				// +0x24
-	Real loZ;				// +0x28
-	Real waterSamples;			// +0x2C
-	Real landSamples;			// +0x30
-	Coord3D waterSum;			// +0x34
-	Coord3D landSum;			// +0x40
-	Int playerIndex;			// +0x4C
+public:
+	const ThingTemplate *build; // +0x00 +0x00
+	Bool requireWaterOrLand; // +0x04 +0x04
+	char m_pad05[0x3];
+	Region3D mapRegion; // +0x08 +0x08
+	Bool terrainRestricted; // +0x20 +0x20
+	char m_pad21[0x3];
+	Real hiZ; // +0x24 +0x24
+	Real loZ; // +0x28 +0x28
+	Real waterSamples; // +0x2C +0x2C
+	Real landSamples; // +0x30 +0x30
+	Coord3D waterSum; // +0x34 +0x34
+	Coord3D landSum; // +0x40 +0x40
+	Int playerIndex; // +0x4C +0x4C
 };
 // Zero Hour's Coord3D::add (WB calls it out of line); the canonical Coord3D header has no
 // inline methods, so this TU spells it as a helper.
@@ -2497,12 +2584,13 @@ class Rva004D9A3C
 {
 public:
 	Rva004D9A3C();
-private:
+	~Rva004D9A3C();
+public:
 	float m_00;
 	float m_04;
 	float m_08;
 	float m_0C;
-	bool m_10;
+	unsigned char m_byte10;
 	AsciiString m_name;										// +0x14
 	int m_18;
 };
@@ -3299,7 +3387,7 @@ Rva004D9A3C::Rva004D9A3C()
 	m_0C = 0.0f;
 	m_name.clear();
 	m_18 = -1;
-	m_10 = false;
+	m_byte10 = false;
 }
 
 // ---- from Code/GameEngine/Source/Common/System/CompositeRvoGetters.cpp

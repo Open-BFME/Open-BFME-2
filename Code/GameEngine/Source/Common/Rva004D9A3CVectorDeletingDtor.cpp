@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /EHs /MD /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_CRTIMP= /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /ICode/GameEngine/Source/Common /Ireference/shims/bfmelist /Ireference/shims/moduledata
 //
 // ??_ERva004D9A3C@@QAEPAXI@Z 75B @0x00392011: vector deleting dtor for
 // Rva004D9A3C (28-byte element with StringBase<char> at +0x14, dtor rowed
@@ -16,15 +16,22 @@
 // cl emits ??3 in both branches). The declaration emits no code.
 #include <new>
 
-template <typename T> class StringBase { public: ~StringBase(); private: char m_pad[8]; };
+
+#include "ascii_string.h"
 
 class Rva004D9A3C
 {
 public:
+	Rva004D9A3C();
 	~Rva004D9A3C();
-private:
-	char m_lead[0x14];
-	StringBase<char> m_str;
+public:
+	float m_00;
+	float m_04;
+	float m_08;
+	float m_0C;
+	unsigned char m_byte10;
+	AsciiString m_name;										// +0x14
+	int m_18;
 };
 
 // ?Rva004D9A3CDeleteArray@@YAXPAVRva004D9A3C@@@Z absent-from-retail
