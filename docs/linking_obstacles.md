@@ -37,6 +37,13 @@ The unrowed Player CRC is removed under the native name-slot contract as a
 separate change. All 406 retained definitions/relocations and all native rows
 remain unchanged, and one more placeholder hatch retires. The legacy xfer
 body and other donor dependencies remain at this step.
+The unverified transfer body is now removed too, without claiming retail lacks
+xfer. It and 56 incidental helpers disappear while all 349 retained complete
+definitions/relocations remain identical. Strict verification retains all 12
+functions and the owned global; the third snapshot placeholder hatch retires.
+The unit still has 28 unresolved names and one wrong-selected science-vector
+copy. The prior batch's wider audit remains inconclusive on the old index and
+an AIBuildable.cpp receipt; carry that scope into the next census.
 
 
 ### Six-source Vector4 batch (2026-11-01)

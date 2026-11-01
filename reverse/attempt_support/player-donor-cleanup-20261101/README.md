@@ -1,7 +1,7 @@
 # Player donor-body cleanup
 
 The served Player.cpp owns 12 matched functions (112 bytes, all relocation-free)
-and the native TheTeamFactory global at A028BC. The latter has 73 known address
+and the native TheTeamFactory global at VA E028BC (RVA A028BC). It has 73 known address
 references and stays in place. Player is canonical; no replacement private
 class, header or ABI is introduced. Existing header-accessor and ScienceType
 copy emissions must remain available throughout this pass.
@@ -67,3 +67,26 @@ or outside incoming edge in the published index. All 12 functions and the
 global still verify. Only this definition disappears, leaving all 406 complete
 code definitions/relocations identical to the preceding 407-definition control.
 Its one present-unmatched hatch retires through the owning counter.
+
+## Unverified Player transfer body
+
+The imported, unrowed Player::xfer body is removed separately. This does not
+claim retail has no transfer method: the native primary contract still has
+xfer, and its source recovery remains open. This donor body has no incoming
+runtime/data reference or outside incoming edge in the published index.
+
+All 12 function rows and the owned data row pass normal/frozen/strict checks.
+The object goes from 406 to 349 external code definitions: the donor transfer
+and 56 incidental helpers disappear; every retained complete body and symbolic
+relocation is identical, and nothing is added. Its single placeholder hatch
+retires through the owning counter. The six existing aliases and canonical
+class header remain untouched.
+
+After all five removals, the preview still reports 28 unresolved names, one
+losing science-vector copy and one wrong-selected copy, so the unit remains
+unlinked. The bitset losing copy and the two invented science-points names
+are gone. No census, authored-byte or full consumer clearance is claimed.
+
+The preceding two-removal publication's broad audit is INCONCLUSIVE: the index
+predates base33056a795c and affected AIBuildable.cpp has no current strict
+receipt. Carry that wider scope into the next scheduled census.
