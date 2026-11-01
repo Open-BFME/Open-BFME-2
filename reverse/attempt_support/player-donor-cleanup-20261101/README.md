@@ -124,3 +124,14 @@ The unrowed donor is removed after the saved reference audit finds only a debug 
 ## Isolated donor delegate: isSupplySourceSafe
 
 The unrowed donor is removed after the saved reference audit finds only a debug incoming edge and no outside-index caller. All 12 function rows and the owned global still verify. The sole removed definition is this method; all 345 retained complete code definitions/relocations are identical to the preceding 346-definition control. Its one placeholder hatch retires through the owning counter. The removed donor text is evidence only, not a target-body or original-name claim.
+
+## Isolated donor delegate: removeObjectFromHotkeySquad
+
+The unrowed donor is removed after the saved reference audit finds only a debug incoming edge and no outside-index caller. All 12 function rows and the owned global still verify. The sole removed definition is this method; all 344 retained complete code definitions/relocations are identical to the preceding 345-definition control. Its one placeholder hatch retires through the owning counter. The removed donor text is evidence only, not a target-body or original-name claim.
+
+The final three-delegate batch passes strict verification of all 12 functions
+and the global. It retires three further placeholder hatches and reduces the
+preview from 26 unresolved names to 23, with the same vector losing/wrong-selected
+copy still present. The preceding publication's broader AIBuildable consumer
+audit remains inconclusive; this scoped check does not clear it or change the
+census. The current AGENTS revision is unchanged (877b481530).

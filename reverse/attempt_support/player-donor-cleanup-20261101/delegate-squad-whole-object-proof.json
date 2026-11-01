@@ -1,0 +1,11 @@
+{
+  "base": "5a2bb308a74da95184f7241973eaa265d801a891",
+  "before_definitions": 345,
+  "after_definitions": 344,
+  "added": [],
+  "removed": [
+    "?removeObjectFromHotkeySquad@Player@@QAEXPAVObject@@@Z"
+  ],
+  "changed": [],
+  "all_retained_whole_code_and_relocations_equal": true
+}

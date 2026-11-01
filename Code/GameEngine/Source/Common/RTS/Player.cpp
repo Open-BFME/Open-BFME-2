@@ -2397,23 +2397,8 @@ Int Player::getSquadNumberForObject(const Object *objToFind) const
 /** Remove an object from any hotkey squads its on. (Should never be more than one, but do them */
 /** all for good measure. */
 //-------------------------------------------------------------------------------------------------
-// ?Player::removeObjectFromHotkeySquad present-unmatched
-void Player::removeObjectFromHotkeySquad(Object *objToRemove)
-{
-	// m_squads is at Player+0x654 in BFME; this tree lands it at +0x41c.
-	// Spelled as a member array on a cast `this` rather than a bare pointer:
-	// MSVC strength-reduces the former to a pointer walk, which is what retail
-	// has, and leaves the latter as scaled indexing.
-	struct BFMEPlayerSquads { char pad[0x654]; Squad *m_squads[NUM_HOTKEY_SQUADS]; };
-	BFMEPlayerSquads *squads = (BFMEPlayerSquads *)this;
-	for (Int i = 0; i < NUM_HOTKEY_SQUADS; ++i) {
-		if (!squads->m_squads[i]) {
-			continue;
-		}
 
-		squads->m_squads[i]->removeObject(objToRemove);
-	}
-}
+
 
 //-------------------------------------------------------------------------------------------------
 /** Select a hotkey team based on this GameMessage */
