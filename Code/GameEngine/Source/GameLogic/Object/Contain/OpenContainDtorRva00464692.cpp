@@ -94,10 +94,10 @@ typedef _STL::map<int, Rva00462D35Mapped> Rva00462D35Map;
 class Rva00463782
 {
 public:
-	unsigned int m_header;
-	int m_flag;
-	int m_extent;
 	~Rva00463782();
+	_STL::_Rb_tree_node_base *m_header; // +0x00
+	unsigned int m_count; // +0x04
+	int m_extent; // +0x08
 };
 
 class Rva0042526Member

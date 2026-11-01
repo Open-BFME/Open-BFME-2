@@ -18,7 +18,7 @@ class WeaponTemplateSetHead
 public:
 	__declspec(nothrow) WeaponTemplateSetHead(const WeaponTemplateSetHead &other);
 private:
-	unsigned int m_bits[19];
+	unsigned int m_bits[19]; // +0x00
 };
 
 typedef _STL::pair<const unsigned int, WeaponTemplateSetHead> WeaponTemplateSetHeadPair;

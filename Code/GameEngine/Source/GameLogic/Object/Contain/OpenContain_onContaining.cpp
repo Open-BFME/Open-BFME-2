@@ -5,7 +5,11 @@
 class Rva002390CB {public:Rva002390CB(const Rva002390CB&);__forceinline ~Rva002390CB(){if(value.referent)value.referent->Release_Ref();}__forceinline operator const OpaqueRefElement4&()const{return value;}private:void*unknown;OpaqueRefElement4 value;};
 class Drawable {public:Rva002390CB rva00462D95();};
 class Object {public:Drawable*getDrawable()const;char pad[0x74];int id;};
-class Rva002D9531 {public:void rva002D9531(int);};
+class Rva002D9531
+{
+public:
+	void rva002D9531(int v); // AudioEventRTS::setObjectID
+};
 class AudioManager {public:virtual void d0();
 virtual void d1();
 virtual void d2();

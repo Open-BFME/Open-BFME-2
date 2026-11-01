@@ -22,16 +22,15 @@ template<> _List_base<Rva0036ADF9Element, allocator<Rva0036ADF9Element> >::~_Lis
 
 struct Rva0046247DPair
 {
-	void *present;
-	struct CopyValue *source;
+public:
+	void *a; // +0x00
+	void *b; // +0x04
 };
 
 class Rva0046247D
 {
 public:
-	// LINK: 0x0046247D is rowed as void Rva0046247D::rva0046247D(Pair&) (Rva0046247DCondPair.cpp); the eax result read here is
-	// kept through a member-pointer cast to the old pointer-returning shape.
-	void rva0046247D(Rva0046247DPair &result);
+	void rva0046247D(Rva0046247DPair&);
 };
 
 // The shared helper and its eight-byte element copier are now recovered.

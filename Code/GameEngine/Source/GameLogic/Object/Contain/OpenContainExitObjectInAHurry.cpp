@@ -98,7 +98,14 @@ struct AICommandParms {
  ~AICommandParms(){if(coords.start)free(coords.start);}
  int cmd,source;Coord3D pos;Object *target;char pad18[8];Rva0035149F coords;char pad2c[0xc0-0x2c];
 };
-class AICommandInterface {public:virtual void aiDoCommand(const AICommandParms*);void rva0036EE16(const Rva0035149F*,Object*,CommandSourceType);void rva0036EF09(const Rva0035149F*,Object*,float,CommandSourceType);};
+class AICommandInterface
+{
+public:
+	void aiMoveToPosition(const Coord3D *, CommandSourceType);
+	void rva0036EE16(const Rva0035149F*,Object*,CommandSourceType);
+	void rva0036EF09(const Rva0035149F*,Object*,float,CommandSourceType);
+	virtual void aiDoCommand(const AICommandParms*);
+};
 struct AIGoalView {char pad[0x24];Coord3D goal;};
 class AIUpdateInterface:public Slots<AIUpdateInterface,110>{
 public:
