@@ -16,18 +16,70 @@
 // Rva0048F365Helper TU. Case order in source is load-bearing for the
 // compiler's block layout.
 
-struct BfmeFloatTriple
+#include "../../../../Common/GameLogicObjectLookupView.h"
+enum NameKeyType;
+enum CommandSourceType;
+enum CommandSourceType { CMD_FROM_PLAYER = 0 };
+
+#include "../../../../../Include/GameLogic/Module/UpdateModule.h"
+
+struct AICommandParms;
+struct Coord3D;
+class Coord3DBase
 {
-	float m_x;
-	float m_y;
-	float m_z;
+public:
+    float x;
+    float y;
+    float z;
 };
+
+enum AssaultStateTypes
+{
+    IDLE
+};
+
+class AICommandInterface
+{
+public:
+    virtual void aiDoCommand(const AICommandParms *parms) = 0;
+    void rva0026C347(Object *target, CommandSourceType source);
+    void rva0026C2D9(Object *target, int range, CommandSourceType source);
+};
+
+class Rva0026E836_M4
+{
+public:
+    virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal);
+};
+
+class AIUpdateInterface : public UpdateModule, public AICommandInterface, public Rva0026E836_M4
+{
+public:
+    AIUpdateInterface(Thing *thing, const ModuleData *moduleData);
+    virtual void xfer(Xfer *xfer);
+    virtual void aiDoCommand(const AICommandParms *parms);
+    virtual UpdateSleepTime update();
+    virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal);
+    unsigned char m_pad28[0x3C1 - 0x28];
+    unsigned char m_byte3C1;
+    unsigned char m_pad3C2[0x3E4 - 0x3C2];
+protected:
+    virtual ~AIUpdateInterface();
+    void wakeUpNow();
+};
+
+class AssaultTransportAIInterface
+{
+public:
+    virtual void beginAssault(const Object *designatedTarget) const = 0;
+};
+
 
 struct AICommandParms
 {
 	int m_cmd;
 	int m_cmdSource;
-	BfmeFloatTriple m_pos;
+	Coord3DBase m_pos;
 };
 
 enum UpdateSleepTime
@@ -35,58 +87,40 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_NONE = 1
 };
 
-class Rva0026E836_Root
+
+
+
+
+
+class AssaultTransportAIUpdate : public AIUpdateInterface, public AssaultTransportAIInterface
 {
 public:
-	virtual ~Rva0026E836_Root();
-
+    AssaultTransportAIUpdate(Thing *thing, const ModuleData *moduleData);
+    virtual ~AssaultTransportAIUpdate();
+    virtual NameKeyType getModuleNameKey() const;
+    virtual void beginAssault(const Object *designatedTarget) const;
+    virtual void aiDoCommand(const AICommandParms *parms);
+    virtual UpdateSleepTime update();
+    void Rva0048F365Helper() throw();
+    bool isAttackPointless() const;
+    bool rva0048F64E(void *arg);
+    void Rva0048F690Helper();
+    void Rva0048F6EEHelper();
+protected:
+    virtual void xfer(Xfer *xfer);
 private:
-	char m_pad04[8];
+    ObjectID m_memberIDs[10]; // +0x3E8
+    bool m_memberHealing[10]; // +0x410
+    unsigned char m_array41A[10]; // +0x41A
+    Coord3DBase m_attackMoveGoalPos; // +0x424
+    mutable ObjectID m_designatedTarget; // +0x430
+    AssaultStateTypes m_state; // +0x434
+    unsigned int m_framesRemaining; // +0x438
+    int m_currentMembers; // +0x43C
+    bool m_isAttackMove; // +0x440
+    bool m_isAttackObject; // +0x441
+    bool m_bfmeFlag442; // +0x442
 };
-
-class Rva0026E836_M1
-{
-public:
-	virtual void f1();
-};
-
-class Rva0026E836_B2
-{
-public:
-	virtual UpdateSleepTime update();
-
-private:
-	char m_pad08[12];
-};
-
-class Rva0026E836_M3
-{
-public:
-	virtual void aiDoCommand(const AICommandParms *parms);
-};
-
-class AIUpdateInterface : public Rva0026E836_Root, public Rva0026E836_M1, public Rva0026E836_B2, public Rva0026E836_M3
-{
-public:
-	virtual void aiDoCommand(const AICommandParms *parms);
-};
-
-class AssaultTransportAIUpdate : public AIUpdateInterface
-{
-public:
-	virtual void aiDoCommand(const AICommandParms *parms);
-	void Rva0048F690Helper();
-	void Rva0048F365Helper();
-
-private:
-	unsigned char m_pad24[0x424 - 0x24];
-	BfmeFloatTriple m_triple424;
-	int m_int430;
-	unsigned char m_pad434[0x440 - 0x434];
-	unsigned char m_byte440;
-	unsigned char m_byte441;
-};
-
 void AssaultTransportAIUpdate::aiDoCommand(const AICommandParms *parms)
 {
 	if (parms->m_cmdSource != 2)
@@ -94,19 +128,19 @@ void AssaultTransportAIUpdate::aiDoCommand(const AICommandParms *parms)
 		switch (parms->m_cmd)
 		{
 		case 5:
-			m_int430 = 0;
+			m_designatedTarget = (ObjectID)0;
 			Rva0048F690Helper();
 			Rva0048F365Helper();
 			break;
 		case 0xB:
 		case 0x39:
 			Rva0048F365Helper();
-			m_byte441 = 1;
+			m_isAttackObject = 1;
 			break;
 		case 0xF:
 			Rva0048F365Helper();
-			m_triple424 = parms->m_pos;
-			m_byte440 = 1;
+			m_attackMoveGoalPos = parms->m_pos;
+			m_isAttackMove = 1;
 			break;
 		default:
 			Rva0048F365Helper();

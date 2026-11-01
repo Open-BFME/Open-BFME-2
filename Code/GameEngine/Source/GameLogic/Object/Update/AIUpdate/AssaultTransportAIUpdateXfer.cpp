@@ -18,6 +18,65 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "../../../../Common/GameLogicObjectLookupView.h"
+enum NameKeyType;
+enum CommandSourceType;
+enum CommandSourceType { CMD_FROM_PLAYER = 0 };
+enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
+
+#include "../../../../../Include/GameLogic/Module/UpdateModule.h"
+
+struct AICommandParms;
+struct Coord3D;
+class Coord3DBase
+{
+public:
+    float x;
+    float y;
+    float z;
+};
+
+enum AssaultStateTypes
+{
+    IDLE
+};
+
+class AICommandInterface
+{
+public:
+    virtual void aiDoCommand(const AICommandParms *parms) = 0;
+    void rva0026C347(Object *target, CommandSourceType source);
+    void rva0026C2D9(Object *target, int range, CommandSourceType source);
+};
+
+class Rva0026E836_M4
+{
+public:
+    virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal);
+};
+
+class AIUpdateInterface : public UpdateModule, public AICommandInterface, public Rva0026E836_M4
+{
+public:
+    AIUpdateInterface(Thing *thing, const ModuleData *moduleData);
+    virtual void xfer(Xfer *xfer);
+    virtual void aiDoCommand(const AICommandParms *parms);
+    virtual UpdateSleepTime update();
+    virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal);
+    unsigned char m_pad28[0x3C1 - 0x28];
+    unsigned char m_byte3C1;
+    unsigned char m_pad3C2[0x3E4 - 0x3C2];
+protected:
+    virtual ~AIUpdateInterface();
+    void wakeUpNow();
+};
+
+class AssaultTransportAIInterface
+{
+public:
+    virtual void beginAssault(const Object *designatedTarget) const = 0;
+};
+
 
 // AssaultTransportAIUpdate::xfer, ported from Zero Hour's GameEngine/Source/
 // GameLogic/Object/Update/AIUpdate/AssaultTransportAIUpdate.cpp (GeneralsMD
@@ -62,59 +121,47 @@ typedef bool Bool;
 typedef int Int;
 typedef unsigned int UnsignedInt;
 
-class Coord3DBase
-{
-public:
-	float x;
-	float y;
-	float z;
-};
 
 typedef bool Bool;
 
-enum ObjectID
-{
-	INVALID_ID = 0
-};
+
 
 void XferObjectID( Xfer *xfer, ObjectID *value );
 
-enum AssaultStateTypes
-{
-	IDLE
-};
+
 
 enum { MAX_TRANSPORT_SLOTS = 10 };
 
-class AIUpdateInterface
+
+class AssaultTransportAIUpdate : public AIUpdateInterface, public AssaultTransportAIInterface
 {
 public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void xfer( Xfer *xfer );
-private:
-	char m_unrecovered04[ 0x3E8 - 0x04 ];
-};
-
-class AssaultTransportAIUpdate : public AIUpdateInterface
-{
+    AssaultTransportAIUpdate(Thing *thing, const ModuleData *moduleData);
+    virtual ~AssaultTransportAIUpdate();
+    virtual NameKeyType getModuleNameKey() const;
+    virtual void beginAssault(const Object *designatedTarget) const;
+    virtual void aiDoCommand(const AICommandParms *parms);
+    virtual UpdateSleepTime update();
+    void Rva0048F365Helper() throw();
+    bool isAttackPointless() const;
+    bool rva0048F64E(void *arg);
+    void Rva0048F690Helper();
+    void Rva0048F6EEHelper();
 protected:
-	virtual void xfer( Xfer *xfer );
+    virtual void xfer(Xfer *xfer);
 private:
-	ObjectID m_memberIDs[ MAX_TRANSPORT_SLOTS ];															///< 0x3E8
-	Bool m_memberHealing[ MAX_TRANSPORT_SLOTS ];															///< 0x410
-	char m_unrecovered41A[ 0x424 - 0x41A ];
-	Coord3DBase m_attackMoveGoalPos;																					///< 0x424
-	ObjectID m_designatedTarget;																							///< 0x430
-	AssaultStateTypes m_state;																								///< 0x434
-	UnsignedInt m_framesRemaining;																						///< 0x438
-	Int m_currentMembers;																											///< 0x43C
-	Bool m_isAttackMove;																											///< 0x440
-	Bool m_isAttackObject;																										///< 0x441
-	Bool m_bfmeFlag442;																												///< 0x442
+    ObjectID m_memberIDs[10]; // +0x3E8
+    bool m_memberHealing[10]; // +0x410
+    unsigned char m_array41A[10]; // +0x41A
+    Coord3DBase m_attackMoveGoalPos; // +0x424
+    mutable ObjectID m_designatedTarget; // +0x430
+    AssaultStateTypes m_state; // +0x434
+    unsigned int m_framesRemaining; // +0x438
+    int m_currentMembers; // +0x43C
+    bool m_isAttackMove; // +0x440
+    bool m_isAttackObject; // +0x441
+    bool m_bfmeFlag442; // +0x442
 };
-
 // ------------------------------------------------------------------------------------------------
 /** Xfer method
 	* Version Info:

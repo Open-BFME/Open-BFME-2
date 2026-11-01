@@ -8,45 +8,111 @@
 // byte stores at +0x440/+0x441/+0x442. Called at member position by the behavior ctor plus the
 // dispatcher methods. Row supersedes the helper pin.
 
-class AssaultTransportAIUpdate
+#include "../../../../Common/GameLogicObjectLookupView.h"
+enum NameKeyType;
+enum CommandSourceType;
+enum CommandSourceType { CMD_FROM_PLAYER = 0 };
+enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
+
+#include "../../../../../Include/GameLogic/Module/UpdateModule.h"
+
+struct AICommandParms;
+struct Coord3D;
+class Coord3DBase
 {
 public:
-	void Rva0048F365Helper();
-
-private:
-	unsigned char m_pad00[0x3E8];
-	int m_array3E8[10];
-	unsigned char m_array410[10];
-	unsigned char m_array41A[10];
-	float m_float424;
-	float m_float428;
-	float m_float42C;
-	int m_int430;
-	int m_int434;
-	int m_int438;
-	int m_count43C;
-	unsigned char m_byte440;
-	unsigned char m_byte441;
-	unsigned char m_byte442;
+    float x;
+    float y;
+    float z;
 };
 
-void AssaultTransportAIUpdate::Rva0048F365Helper()
+enum AssaultStateTypes
 {
-	for (int i = 0; i < m_count43C; ++i)
+    IDLE
+};
+
+class AICommandInterface
+{
+public:
+    virtual void aiDoCommand(const AICommandParms *parms) = 0;
+    void rva0026C347(Object *target, CommandSourceType source);
+    void rva0026C2D9(Object *target, int range, CommandSourceType source);
+};
+
+class Rva0026E836_M4
+{
+public:
+    virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal);
+};
+
+class AIUpdateInterface : public UpdateModule, public AICommandInterface, public Rva0026E836_M4
+{
+public:
+    AIUpdateInterface(Thing *thing, const ModuleData *moduleData);
+    virtual void xfer(Xfer *xfer);
+    virtual void aiDoCommand(const AICommandParms *parms);
+    virtual UpdateSleepTime update();
+    virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal);
+    unsigned char m_pad28[0x3C1 - 0x28];
+    unsigned char m_byte3C1;
+    unsigned char m_pad3C2[0x3E4 - 0x3C2];
+protected:
+    virtual ~AIUpdateInterface();
+    void wakeUpNow();
+};
+
+class AssaultTransportAIInterface
+{
+public:
+    virtual void beginAssault(const Object *designatedTarget) const = 0;
+};
+
+class AssaultTransportAIUpdate : public AIUpdateInterface, public AssaultTransportAIInterface
+{
+public:
+    AssaultTransportAIUpdate(Thing *thing, const ModuleData *moduleData);
+    virtual ~AssaultTransportAIUpdate();
+    virtual NameKeyType getModuleNameKey() const;
+    virtual void beginAssault(const Object *designatedTarget) const;
+    virtual void aiDoCommand(const AICommandParms *parms);
+    virtual UpdateSleepTime update();
+    void Rva0048F365Helper() throw();
+    bool isAttackPointless() const;
+    bool rva0048F64E(void *arg);
+    void Rva0048F690Helper();
+    void Rva0048F6EEHelper();
+protected:
+    virtual void xfer(Xfer *xfer);
+private:
+    ObjectID m_memberIDs[10]; // +0x3E8
+    bool m_memberHealing[10]; // +0x410
+    unsigned char m_array41A[10]; // +0x41A
+    Coord3DBase m_attackMoveGoalPos; // +0x424
+    mutable ObjectID m_designatedTarget; // +0x430
+    AssaultStateTypes m_state; // +0x434
+    unsigned int m_framesRemaining; // +0x438
+    int m_currentMembers; // +0x43C
+    bool m_isAttackMove; // +0x440
+    bool m_isAttackObject; // +0x441
+    bool m_bfmeFlag442; // +0x442
+};
+void AssaultTransportAIUpdate::Rva0048F365Helper() throw()
+{
+	for (int i = 0; i < m_currentMembers; ++i)
 	{
-		m_array3E8[i] = 0;
-		m_array410[i] = 0;
+		m_memberIDs[i] = (ObjectID)0;
+		m_memberHealing[i] = 0;
 		m_array41A[i] = 0;
 	}
-	m_count43C = 0;
-	float *floats424 = &m_float424;
+	m_currentMembers = 0;
+	float *floats424 = &m_attackMoveGoalPos.x;
 	floats424[0] = 0.0f;
 	floats424[1] = 0.0f;
 	floats424[2] = 0.0f;
-	m_int430 = 0;
-	m_int434 = 0;
-	m_int438 = 0;
-	m_byte440 = 0;
-	m_byte441 = 0;
-	m_byte442 = 0;
+	m_designatedTarget = (ObjectID)0;
+	m_state = IDLE;
+	m_framesRemaining = 0;
+	m_isAttackMove = 0;
+	m_isAttackObject = 0;
+	m_bfmeFlag442 = 0;
 }

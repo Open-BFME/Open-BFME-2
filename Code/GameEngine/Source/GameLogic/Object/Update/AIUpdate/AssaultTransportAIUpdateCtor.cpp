@@ -1,69 +1,102 @@
-// cl: /DNDEBUG /MD
-//
-// ??0AssaultTransportAIUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail
-// 0x0048F5A3 (89 bytes). Behavior ctor over the pinned opaque Transport
-// base (0x26E9BD, thing plus data): installs the six behavior vtable slots
-// (+0x00/+0x0C/+0x10/+0x20/+0x24 via explicit members with TU-local dummy
-// statics, DIR32-masked; +0x3E4 double-stored C1C780-then-C4CC88) plus 0xA
-// at +0x43C, then runs the pinned class helper (0x48F365). The class
-// declares no virtuals of its own: the stores land from explicit members in
-// body order (PlayerHeal precedent). Row supersedes the sole-caller pin;
-// the instance factory at 0x24D263 is the single raw caller.
+// cl: /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmelist /Ireference/shims/bfmealloc
+// stlport
+// ??0AssaultTransportAIUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x0048F5A3.
 
-class Thing;
-class ModuleData;
+// The base constructor is 0x0026E9BD. Retail installs vptrs at +0/+0x0C/+0x10/+0x20/+0x24,
+// and replaces the +0x3E4 interface table 0x00C1C780 with 0x00C4CC88.
+// The instance factory at 0x0024D263 is the single raw caller.
+#include "../../../../Common/GameLogicObjectLookupView.h"
+enum NameKeyType;
+enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
+enum CommandSourceType { CMD_FROM_PLAYER = 0 };
 
-static int s_vtable;
-static int s_secondary0C;
-static int s_secondary10;
-static int s_secondary20;
-static int s_secondary24;
-static int s_slot3E4first;
-static int s_slot3E4second;
+#include "../../../../../Include/GameLogic/Module/UpdateModule.h"
 
-class AIUpdateInterface
+struct AICommandParms;
+struct Coord3D;
+class Coord3DBase
 {
 public:
-	AIUpdateInterface(Thing *thing, const ModuleData *moduleData);
+    float x;
+    float y;
+    float z;
+};
 
+enum AssaultStateTypes
+{
+    IDLE
+};
+
+class AICommandInterface
+{
+public:
+    virtual void aiDoCommand(const AICommandParms *parms) = 0;
+    void rva0026C347(Object *target, CommandSourceType source);
+    void rva0026C2D9(Object *target, int range, CommandSourceType source);
+};
+
+class Rva0026E836_M4
+{
+public:
+    virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal);
+};
+
+class AIUpdateInterface : public UpdateModule, public AICommandInterface, public Rva0026E836_M4
+{
+public:
+    AIUpdateInterface(Thing *thing, const ModuleData *moduleData);
+    virtual void xfer(Xfer *xfer);
+    virtual void aiDoCommand(const AICommandParms *parms);
+    virtual UpdateSleepTime update();
+    virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal);
+    unsigned char m_pad28[0x3C1 - 0x28];
+    unsigned char m_byte3C1;
+    unsigned char m_pad3C2[0x3E4 - 0x3C2];
 protected:
-	const void *m_vtable;			// +0x00
-	unsigned char m_pad04[0x0C - 4];
-	const void *m_p0C;			// +0x0C
-	const void *m_p10;			// +0x10
-	unsigned char m_pad14[0x20 - 0x14];
-	const void *m_p20;			// +0x20
-	const void *m_p24;			// +0x24
-	unsigned char m_pad28[0x3E4 - 0x28];
-	const void *m_p3E4;			// +0x3E4
-	unsigned char m_pad3E8[0x43C - 0x3E8];
-	int m_count43C;			// +0x43C
+    virtual ~AIUpdateInterface();
+    void wakeUpNow();
 };
 
-class AssaultTransportAIUpdate : public AIUpdateInterface
+class AssaultTransportAIInterface
 {
 public:
-	AssaultTransportAIUpdate(Thing *thing, const ModuleData *moduleData);
-	void Rva0048F365Helper();
+    virtual void beginAssault(const Object *designatedTarget) const = 0;
 };
 
-// ??0AssaultTransportAIUpdate@@QAE@PAVThing@@PBVModuleData@@@Z @0x48F5A3
-AssaultTransportAIUpdate::AssaultTransportAIUpdate(Thing *thing, const ModuleData *moduleData)
-	: AIUpdateInterface(thing, moduleData)
+class AssaultTransportAIUpdate : public AIUpdateInterface, public AssaultTransportAIInterface
 {
-	*(const void * volatile *)&m_p3E4 = &s_slot3E4first;
-	m_vtable = &s_vtable;
-	m_p0C = &s_secondary0C;
-	m_p10 = &s_secondary10;
-	m_p20 = &s_secondary20;
-	m_p24 = &s_secondary24;
-	m_p3E4 = &s_slot3E4second;
-	m_count43C = 0xA;
-	Rva0048F365Helper();
-}
+public:
+    AssaultTransportAIUpdate(Thing *thing, const ModuleData *moduleData);
+    virtual ~AssaultTransportAIUpdate();
+    virtual NameKeyType getModuleNameKey() const;
+    virtual void beginAssault(const Object *designatedTarget) const;
+    virtual void aiDoCommand(const AICommandParms *parms);
+    virtual UpdateSleepTime update();
+    void Rva0048F365Helper() throw();
+    bool isAttackPointless() const;
+    bool rva0048F64E(void *arg);
+    void Rva0048F690Helper();
+    void Rva0048F6EEHelper();
+protected:
+    virtual void xfer(Xfer *xfer);
+private:
+    ObjectID m_memberIDs[10]; // +0x3E8
+    bool m_memberHealing[10]; // +0x410
+    unsigned char m_array41A[10]; // +0x41A
+    Coord3DBase m_attackMoveGoalPos; // +0x424
+    mutable ObjectID m_designatedTarget; // +0x430
+    AssaultStateTypes m_state; // +0x434
+    unsigned int m_framesRemaining; // +0x438
+    int m_currentMembers; // +0x43C
+    bool m_isAttackMove; // +0x440
+    bool m_isAttackObject; // +0x441
+    bool m_bfmeFlag442; // +0x442
+};
 
-// Each retail call in this body reads an address the ledger already carries
-// under the rowed name below; bind the donor spelling to that owner so one
-// address keeps one definition.
-//   0x0026E9BD -> ??0AIUpdateInterface@@QAE@PAVThing@@PBVModuleData@@@Z (defined by Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIUpdateInterfaceCtor.cpp)
-#pragma comment(linker, "/alternatename:??0Rva0026E9BDBase@@QAE@PAVThing@@PBVModuleData@@@Z=??0AIUpdateInterface@@QAE@PAVThing@@PBVModuleData@@@Z")
+// ??0AssaultTransportAIUpdate@@QAE@PAVThing@@PBVModuleData@@@Z @0x0048F5A3
+AssaultTransportAIUpdate::AssaultTransportAIUpdate(Thing *thing, const ModuleData *moduleData)
+    : AIUpdateInterface(thing, moduleData)
+{
+    m_currentMembers = 0xA;
+    Rva0048F365Helper();
+}
