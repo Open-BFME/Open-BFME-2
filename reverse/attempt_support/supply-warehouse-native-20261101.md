@@ -98,3 +98,12 @@ The standalone preview uses the old census seed and reports an expected
 duplicate; the paired current preview removes it. Include all changed
 providers together for subsequent previews, especially the renamed key.
 One present-unmatched counter can tighten in the separate hatch commit.
+
+## Snapshot-name owner
+
+The six-byte literal getter at 004A7D75 now belongs to the warehouse
+class with Snapshot's protected virtual GetSnapshotName profile. The
+returned module literal and ctor-owned table slot 2 establish its owner
+and inherited contract. The mixed getter TU stays in place; only one
+macro invocation changes, with the old row tombstoned. All its rows and
+its existing linking bytes remain verified. No alias or new body is added.
