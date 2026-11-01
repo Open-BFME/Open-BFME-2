@@ -17,31 +17,9 @@ public:
 	virtual bool slot04();
 };
 
-class BehaviorModuleInterface
-{
-public:
-	virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03();
-	virtual void slot04(); virtual void slot05(); virtual void slot06(); virtual void slot07();
-	virtual void slot08(); virtual void slot09(); virtual void slot10(); virtual void slot11();
-	virtual void slot12(); virtual void slot13(); virtual void slot14(); virtual void slot15();
-	virtual void slot16(); virtual void slot17(); virtual void slot18(); virtual void slot19();
-	virtual void slot20(); virtual void slot21(); virtual void slot22(); virtual void slot23();
-	virtual void slot24();
-	virtual Rva0028BD5DResult *slot25();
-};
+#include "../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class BfmeObjectModule
-{
-public:
-	virtual void slot0();
 
-private:
-	unsigned int m_data[2];
-};
-
-class BehaviorModule : public BfmeObjectModule, public BehaviorModuleInterface
-{
-};
 
 class Object
 {
@@ -57,7 +35,7 @@ void *Object::rva0028BD5D(int unused) const
 	(void)unused;
 	for (BehaviorModule **behaviorModule = m_modules244; *behaviorModule; ++behaviorModule)
 	{
-		Rva0028BD5DResult *r = (*behaviorModule)->slot25();
+		Rva0028BD5DResult *r = static_cast<Rva0028BD5DResult *>((*behaviorModule)->slot25());
 		if (r != 0 && r->slot04())
 			return r;
 	}

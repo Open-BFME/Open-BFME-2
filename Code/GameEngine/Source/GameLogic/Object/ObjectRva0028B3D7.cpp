@@ -17,27 +17,9 @@ public:
 	virtual void slot05();
 };
 
-class BehaviorModuleInterface
-{
-public:
-	virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03();
-	virtual void slot04(); virtual void slot05(); virtual void slot06(); virtual void slot07();
-	virtual void slot08(); virtual void slot09();
-	virtual Rva0028B3D7Result *slot10();
-};
+#include "../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class BfmeObjectModule
-{
-public:
-	virtual void slot0();
 
-private:
-	unsigned int m_data[2];
-};
-
-class BehaviorModule : public BfmeObjectModule, public BehaviorModuleInterface
-{
-};
 
 class Object
 {
@@ -52,7 +34,7 @@ void Object::rva0028B3D7() const
 {
 	for (BehaviorModule **behaviorModule = m_modules244; *behaviorModule; ++behaviorModule)
 	{
-		Rva0028B3D7Result *r = (*behaviorModule)->slot10();
+		Rva0028B3D7Result *r = reinterpret_cast<Rva0028B3D7Result *>((*behaviorModule)->getUpgrade());
 		if (r != 0 && r->slot04())
 			r->slot05();
 	}
