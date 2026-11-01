@@ -174,22 +174,8 @@ virtual void slot48();
 virtual void slot49();
 virtual void slot50();
 virtual bool connected(int);};extern NetworkInterface*TheNetwork;
-class GameTextInterface {public:
-virtual void slot0();
-virtual void slot1();
-virtual void slot2();
-virtual void slot3();
-virtual void slot4();
-virtual void slot5();
-virtual void slot6();
-virtual void slot7();
-virtual void slot8();
-virtual void slot9();
-virtual void slot10();
-virtual void slot11();
-virtual void slot12();
-virtual void slot13();
-virtual UnicodeString fetch(const char*,bool*exists=0);virtual UnicodeString fetch(const AsciiString&,bool*exists=0);};extern GameTextInterface*TheGameText;
+#include "../../../../../Include/GameClient/GameText.h"
+extern GameTextInterface*TheGameText;
 class MultiplayerColorDefinition {public:char pad[0x10];int color;};class MultiplayerSettings {public:MultiplayerColorDefinition*getColor(int);};extern MultiplayerSettings*TheMultiplayerSettings;
 #include "../../../../../Include/Common/Player.h"
 void Rva0050EE72Set(int,const AsciiString&,int,const UnicodeString&);

@@ -807,28 +807,7 @@ public:
 	void writeFields(const Pair0051E31A &a, const Pair0051E31A &b, int word, float scalar);
 };
 
-class GameTextInterface
-{
-public:
-	virtual ~GameTextInterface() {}
-	virtual void slot01() = 0;
-	virtual void slot02() = 0;
-	virtual void slot03() = 0;
-	virtual void slot04() = 0;
-	virtual void slot05() = 0;
-	virtual void slot06() = 0;
-	virtual void slot07() = 0;
-	virtual void slot08() = 0;
-	virtual void slot09() = 0;
-	virtual void slot10() = 0;
-	virtual void slot11() = 0;
-	virtual void slot12() = 0;
-	virtual void slot13() = 0;
-	// MSVC lays overloaded virtuals out in reverse declaration order: the
-	// AsciiString fetch is slot 14 (+0x38), the C-string fetch slot 15 (+0x3C).
-	virtual UnicodeString fetch(const char *label, bool *exists = 0) = 0;
-	virtual UnicodeString fetch(const AsciiString &label, bool *exists = 0) = 0;
-};
+#include "../../../../../Include/GameClient/GameText.h"
 
 class BfmeAptWindowManager
 {

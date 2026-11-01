@@ -131,13 +131,7 @@ static __forceinline FunctorBinding bind(FunctorMethod m, FunctorTarget *functor
 }
 
 #define V(n) virtual void slot##n();
-class GameTextInterface
-{
-public:
-	V(0)V(1)V(2)V(3)V(4)V(5)V(6)V(7)V(8)V(9)V(10)V(11)V(12)V(13)
-	virtual UnicodeString fetch(const char *label, bool *exists = 0);
-	virtual UnicodeString fetch(const AsciiString &label, bool *exists = 0);
-};
+#include "../../../../../Include/GameClient/GameText.h"
 #undef V
 extern GameTextInterface *TheGameText;
 

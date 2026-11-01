@@ -26,14 +26,7 @@ extern const RegionBonusRecord RegionBonusRecords[]={
  {5, {RegionBonusFormat0, RegionBonusTooltip5}}
 };
 
-class GameTextInterface {public:
- virtual ~GameTextInterface();
- virtual void s01();virtual void s02();virtual void s03();virtual void s04();
- virtual void s05();virtual void s06();virtual void s07();virtual void s08();
- virtual void s09();virtual void s10();virtual void s11();virtual void s12();
- virtual void s13();virtual void s14();
- virtual UnicodeString fetch(const char *label,bool *exists=0)=0;
-};
+#include "../../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 class BfmeAptWindowManager {public:void bfmeSetText(const AsciiString&,const UnicodeString&,bool);};
 class Rva00222A8BTarget;

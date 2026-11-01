@@ -1439,14 +1439,7 @@ bool AptOnlineCustomMatch::RequestJoinGame(const char *password)
 	return true;
 }
 
-class GameTextInterface
-{
-public:
-#define T(n) virtual void t##n();
-	T(0) T(1) T(2) T(3) T(4) T(5) T(6) T(7) T(8) T(9) T(10) T(11) T(12) T(13) T(14)
-#undef T
-	virtual UnicodeString fetch(const char *, bool *exists = 0);
-};
+#include "../../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 
 // Retail 0x0059F12A..0x0059F1B8, 142 bytes. WorldBuilder's unnamed

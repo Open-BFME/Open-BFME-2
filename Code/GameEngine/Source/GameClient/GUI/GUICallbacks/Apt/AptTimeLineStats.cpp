@@ -283,15 +283,7 @@ class Rva0039BF39 {public:int rva0039BF39(const Rva00045411BitSet&,const Rva0004
 class Rva005DD772:public BfmeStringRecord005DDD40 {public:Rva005DD772(const UnicodeString&,float);};
 // VC7.1 reverses the two overload slots: AsciiString fetch is38, char fetch3C.
 // Retail calls3C with GUI:None and a hidden four-byte UnicodeString result.
-class GameTextInterface {
-public:
- virtual ~GameTextInterface(){}
- virtual void slot00()=0;virtual void slot01()=0;virtual void slot02()=0;virtual void slot03()=0;
- virtual void slot04()=0;virtual void slot05()=0;virtual void slot06()=0;virtual void slot07()=0;
- virtual void slot08()=0;virtual void slot09()=0;virtual void slot10()=0;virtual void slot11()=0;
- virtual void slot12()=0;virtual UnicodeString fetch(const char*,bool * =0)=0;
- virtual UnicodeString fetch(const AsciiString&,bool * =0)=0;
-};
+#include "../../../../../Include/GameClient/GameText.h"
 extern GameTextInterface*TheGameText;
 // WB155A800 names this RTS CollectPlayerData overload (asserts106..292).
 // Native5BEA70..5BF02C is1468 code bytes; its24-entry96B switch table follows

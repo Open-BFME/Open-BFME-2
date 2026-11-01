@@ -158,18 +158,7 @@ public:
 
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
-class GameTextInterface
-{
-public:
-#define TEXT_SLOT(N) virtual void slot##N();
-	TEXT_SLOT(00) TEXT_SLOT(01) TEXT_SLOT(02) TEXT_SLOT(03) TEXT_SLOT(04) TEXT_SLOT(05) TEXT_SLOT(06)
-	TEXT_SLOT(07) TEXT_SLOT(08) TEXT_SLOT(09) TEXT_SLOT(10) TEXT_SLOT(11) TEXT_SLOT(12) TEXT_SLOT(13)
-#undef TEXT_SLOT
-	// Overloaded virtuals are laid out in reverse declaration order: the
-	// AsciiString fetch is vslot 14, the char one vslot 15.
-	virtual UnicodeString fetch(const char *label, bool *exists = 0);
-	virtual UnicodeString fetch(const AsciiString &label, bool *exists = 0);
-};
+#include "../../../../../Include/GameClient/GameText.h"
 
 extern GameTextInterface *TheGameText;
 

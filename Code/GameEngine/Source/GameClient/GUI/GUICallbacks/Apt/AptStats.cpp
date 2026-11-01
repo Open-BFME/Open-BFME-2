@@ -140,13 +140,7 @@ class BfmeAptWindowManager {public:void bfmeSetText(const AsciiString&,const Uni
 extern BfmeAptWindowManager*g_bfmeAptWindowManager;
 extern class PlayerTemplateStore*ThePlayerTemplateStore;
 extern const char*g_rva0033A3F4Table[7];
-class GameTextInterface {
-public:virtual~GameTextInterface(){}
- virtual void slot00()=0;virtual void slot01()=0;virtual void slot02()=0;virtual void slot03()=0;
- virtual void slot04()=0;virtual void slot05()=0;virtual void slot06()=0;virtual void slot07()=0;
- virtual void slot08()=0;virtual void slot09()=0;virtual void slot10()=0;virtual void slot11()=0;
- virtual void slot12()=0;virtual UnicodeString fetch(const AsciiString&,bool * =0)=0;
-};
+#include "../../../../../Include/GameClient/GameText.h"
 extern GameTextInterface*TheGameText;
 void AptStats::InitializeFactionVariables() {
  if(!ThePlayerTemplateStore)return;

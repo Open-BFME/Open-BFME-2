@@ -18,26 +18,7 @@ int Rva0043DB23(Rva00222A8BTarget *, void *, const char *);
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
 
 typedef bool Bool;
-class GameTextInterface
-{
-public:
-    virtual ~GameTextInterface() {}
-    virtual void slot00() = 0;
-    virtual void slot04() = 0;
-    virtual void slot08() = 0;
-    virtual void slot0c() = 0;
-    virtual void slot10() = 0;
-    virtual void slot14() = 0;
-    virtual void slot18() = 0;
-    virtual void slot1c() = 0;
-    virtual void slot20() = 0;
-    virtual void slot24() = 0;
-    virtual void slot28() = 0;
-    virtual void slot2c() = 0;
-    virtual void slot30() = 0;
-    virtual UnicodeString fetch(const char *label, Bool *exists = 0) = 0;
-    virtual UnicodeString fetch(const AsciiString &label, Bool *exists = 0) = 0;
-};
+#include "../../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 
 class BfmeAptWindowManager

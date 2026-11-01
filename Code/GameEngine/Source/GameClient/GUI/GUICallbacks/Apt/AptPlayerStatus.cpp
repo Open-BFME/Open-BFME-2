@@ -352,15 +352,7 @@ class VictoryConditionsInterface;
  extern VictoryConditionsInterface *TheVictoryConditions;
 
 // TheGameText's fetch by label (vslot 14).
-class GameTextInterface
-{
-public:
-#define TEXT_SLOT(N) virtual void slot##N();
-	TEXT_SLOT(00) TEXT_SLOT(01) TEXT_SLOT(02) TEXT_SLOT(03) TEXT_SLOT(04) TEXT_SLOT(05) TEXT_SLOT(06)
-	TEXT_SLOT(07) TEXT_SLOT(08) TEXT_SLOT(09) TEXT_SLOT(10) TEXT_SLOT(11) TEXT_SLOT(12) TEXT_SLOT(13)
-#undef TEXT_SLOT
-	virtual UnicodeString fetch(const AsciiString &label, bool *exists = 0);
-};
+#include "../../../../../Include/GameClient/GameText.h"
 
 extern GameTextInterface *TheGameText;
 

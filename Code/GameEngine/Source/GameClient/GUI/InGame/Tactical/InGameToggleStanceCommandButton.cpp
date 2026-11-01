@@ -90,13 +90,7 @@ void InGameToggleStanceCommandButton::Impl::onStancesBehaviorStanceChanged(Stanc
 #include "unicode_string.h"
 class Rva0035B232 {public:const AsciiString *rva0035B232(int);};
 class Rva0035B29E {public:const AsciiString *rva0035B29E(int);};
-class GameTextInterface {public:
- virtual void v0();virtual void v1();virtual void v2();virtual void v3();
- virtual void v4();virtual void v5();virtual void v6();virtual void v7();
- virtual void v8();virtual void v9();virtual void v10();virtual void v11();
- virtual void v12();virtual void v13();
- virtual UnicodeString fetch(const AsciiString &,bool *exists=0);
-};
+#include "../../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 struct TargetRef00217D4C {virtual void *destroy(unsigned);int references;};
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);

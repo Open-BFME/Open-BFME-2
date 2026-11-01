@@ -314,16 +314,7 @@ __declspec(noinline) inline int Rva00528B37Equal(const Rva00528B37Key *a, const 
 }
 
 class Rva00222A8BTarget { public: int invoke(void *, const char *, int, const char *, void *, void *, void *, void *); };
-class GameTextInterface
-{
-public:
-	virtual void slot00() = 0; virtual void slot04() = 0; virtual void slot08() = 0; virtual void slot0c() = 0;
-	virtual void slot10() = 0; virtual void slot14() = 0; virtual void slot18() = 0; virtual void slot1c() = 0;
-	virtual void slot20() = 0; virtual void slot24() = 0; virtual void slot28() = 0; virtual void slot2c() = 0;
-	virtual void slot30() = 0; virtual void slot34() = 0;
-	virtual UnicodeString fetch(const char *label, bool *exists = 0) = 0;			// +0x3C
-	virtual UnicodeString fetch(const AsciiString &label, bool *exists = 0) = 0;	// +0x38
-};
+#include "../../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 
 void Rva00529B6E::rva00529B6E(Object *obj)

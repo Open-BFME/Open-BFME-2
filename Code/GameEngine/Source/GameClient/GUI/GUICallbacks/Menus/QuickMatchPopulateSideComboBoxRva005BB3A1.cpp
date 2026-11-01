@@ -57,7 +57,7 @@ Int GadgetComboBoxAddEntry(GameWindow *comboBox, UnicodeString text, Color color
 void GadgetComboBoxSetItemData(GameWindow *comboBox, Int index, void *data);
 void GadgetComboBoxSetSelectedPos(GameWindow *comboBox, Int selectedIndex, Bool dontHilite);
 
-class GameTextInterface {public:virtual void slot0();virtual void slot1();virtual void slot2();virtual void slot3();virtual void slot4();virtual void slot5();virtual void slot6();virtual void slot7();virtual void slot8();virtual void slot9();virtual void slot10();virtual void slot11();virtual void slot12();virtual void slot13();virtual UnicodeString fetch(const char *,bool *exists=0);virtual UnicodeString fetch(const AsciiString &,bool *exists=0);virtual void slot16();virtual const UnicodeString *fetchFormat(const char *,bool *exists=0);};
+#include "../../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 
 class MultiplayerColorDefinition

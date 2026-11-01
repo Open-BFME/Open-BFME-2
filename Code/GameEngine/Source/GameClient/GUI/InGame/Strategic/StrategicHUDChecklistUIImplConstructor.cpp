@@ -103,7 +103,7 @@ class Base2 {public:virtual void b2()=0;~Base2(){}};
 class __declspec(novtable) Rva0086EE20 {public:virtual void slot0(int);virtual void rva005F267E(int,float);};
 class Base3:public Rva0086EE20 {public:~Base3(){}};
 class Rva000AD6F4 {public:void clear();Rva000AD6F4():ptr(0){}~Rva000AD6F4();void*ptr;};
-class GameTextInterface {public:virtual void s0();virtual void s1();virtual void s2();virtual void s3();virtual void s4();virtual void s5();virtual void s6();virtual void s7();virtual void s8();virtual void s9();virtual void s10();virtual void s11();virtual void s12();virtual void s13();virtual void s14();virtual UnicodeString fetch(const char*,bool=0);};
+#include "../../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 class BfmeAptWindowManager {public:void bfmeSetText(const AsciiString&,const UnicodeString&,bool);};
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;

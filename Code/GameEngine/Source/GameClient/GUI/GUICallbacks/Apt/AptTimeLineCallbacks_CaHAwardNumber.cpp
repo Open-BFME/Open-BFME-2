@@ -42,25 +42,7 @@ extern class Rva0040AAD5 *TheAwardSystemManager;
 
 // The ids of the awards earned this game (0x00E04920).
 
-class GameTextInterface
-{
-public:
-	virtual ~GameTextInterface() {}
-	virtual void slot01() = 0;
-	virtual void slot02() = 0;
-	virtual void slot03() = 0;
-	virtual void slot04() = 0;
-	virtual void slot05() = 0;
-	virtual void slot06() = 0;
-	virtual void slot07() = 0;
-	virtual void slot08() = 0;
-	virtual void slot09() = 0;
-	virtual void slot10() = 0;
-	virtual void slot11() = 0;
-	virtual void slot12() = 0;
-	virtual void slot13() = 0;
-	virtual UnicodeString fetch(const AsciiString &label, bool *exists = 0) = 0;
-};
+#include "../../../../../Include/GameClient/GameText.h"
 
 extern GameTextInterface *TheGameText;
 
