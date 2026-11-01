@@ -1,4 +1,5 @@
-// TU-scoped shim for QueueProductionExitUpdate.cpp (lead: Open-BFME-1 inputs/reference/shims/queueproductionexitrallypoint at f2ee5a44c5): ZH QueueProductionExitUpdate.h verbatim except the inline setRallyPoint definition is dropped (the class still declares it); BFME 2 retail keeps one body (0x004A051B, QueueProductionExitUpdateSetRallyPoint.cpp).
+// TU-scoped QueueProductionExitUpdate view from the ZH header (Open-BFME-1 shim f2ee5a44c5).
+// BFME 2: setRallyPoint (0x004A051B) and getModuleNameKey (0x004A00C2) have out-of-line owners.
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -80,7 +81,15 @@ class QueueProductionExitUpdate : public UpdateModule, public ExitInterface
 {
 
 	MEMORY_POOL_GLUE_WITH_USERLOOKUP_CREATE( QueueProductionExitUpdate, "QueueProductionExitUpdate" )
-	MAKE_STANDARD_MODULE_MACRO_WITH_MODULE_DATA( QueueProductionExitUpdate, QueueProductionExitUpdateModuleData )
+public:
+	static Module *friend_newModuleInstance(Thing *thing, const ModuleData *moduleData) { return ::new QueueProductionExitUpdate(thing, moduleData); }
+	// BFME 2: getModuleNameKey has an out-of-line body at 0x004A00C2.
+	virtual NameKeyType getModuleNameKey() const;
+protected:
+	virtual void crc(Xfer *xfer);
+	virtual void xfer(Xfer *xfer);
+	virtual void loadPostProcess();
+	MAKE_STANDARD_MODULE_DATA_MACRO_ABC( QueueProductionExitUpdate, QueueProductionExitUpdateModuleData )
 
 public: 
 
