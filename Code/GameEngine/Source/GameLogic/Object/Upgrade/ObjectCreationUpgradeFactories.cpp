@@ -17,16 +17,6 @@ class ModuleData;
 #include <new>
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/ObjectCreationUpgrade.h
-class ObjectCreationUpgradeModuleData
-{
-public:
-	ObjectCreationUpgradeModuleData();
-	virtual ~ObjectCreationUpgradeModuleData();
-
-private:
-	unsigned char m_pad[0xa0];
-};
-
 class MultiIniFieldParse;
 
 // Retail's module-data factories reach INI through initFromINIMultiProc

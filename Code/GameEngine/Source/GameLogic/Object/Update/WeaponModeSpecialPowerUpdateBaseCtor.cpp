@@ -12,14 +12,6 @@ class Thing;
 class ModuleData;
 class Object;
 
-class ObjectModuleBase
-{
-public:
-	virtual void objectModuleAnchor();
-	virtual ~ObjectModuleBase();
-	const ModuleData *m_moduleData;
-};
-
 #include "../../../../Include/Common/ObjectModule.h"
 
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"

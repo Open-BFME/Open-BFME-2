@@ -74,13 +74,6 @@ public: LocomotorTemplate *findLocomotorTemplate(const AsciiString &);
 };
 extern LocomotorStore *TheLocomotorStore;
 extern const char *TheLocomotorSetNames[];
-class INIException {
-public:
- char *mFailureMessage; int m_argCount;
- INIException(int,const char*,...);
- INIException(const INIException&);
- ~INIException();
-};
 class LocomotorSet { public: void setLocomotorAndBaseSpeed(INI *ini, ThingTemplate *instance); };
 class Rva001EA2CFLocomotorDefinition {
 public:

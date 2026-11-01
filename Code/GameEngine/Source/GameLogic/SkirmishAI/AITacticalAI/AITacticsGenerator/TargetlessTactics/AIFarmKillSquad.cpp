@@ -21,12 +21,6 @@ AsciiString AIFarmKillSquad_FrameNextRun("AIFarmKillSquad_FrameNextRun");
 float g_00E06434 = sqr(1100.0f);
 int g_00E06438 = BfmeLogicFramesPerSecond * 30;
 int g_00E0643C = BfmeLogicFramesPerSecond * 120;
-struct Coord3DBase
-{
-	float x;
-	float y;
-	float z;
-};
 #include "../../../../../../../Libraries/Include/Lib/Coord3D.h"
 // BFME2's Xfer: operator== overloads, grouped by cl at the first overload
 // slot in reverse declaration order (Rva004E0513Xfer.cpp has the same view).

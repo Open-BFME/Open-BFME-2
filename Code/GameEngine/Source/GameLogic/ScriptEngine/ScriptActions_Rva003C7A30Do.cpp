@@ -59,12 +59,6 @@ public:
 	void aiMoveToPosition(const Coord3D *pos, CommandSourceType src);
 };
 
-class Rva00295A0FCommands
-{
-public:
-	void Rva00295A0FCommand(void *pos, int a, int b);
-};
-
 class AIUpdateInterface
 {
 public:

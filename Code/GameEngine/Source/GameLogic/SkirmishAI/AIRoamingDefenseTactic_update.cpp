@@ -238,12 +238,6 @@ public:
 	int m_2EC;			// +0x2EC
 };
 
-class Rva002A9BF2
-{
-public:
-	void *rva002A9BF2();
-};
-
 class Rva002A8F24
 {
 public:

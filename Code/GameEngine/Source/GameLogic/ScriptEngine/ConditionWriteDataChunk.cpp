@@ -35,14 +35,6 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-struct BfmeStringData
-{
-	unsigned short m_refCount;
-	unsigned short m_numCharsAllocated;
-	unsigned short m_len;
-	unsigned short m_pad;
-};
-
 class AsciiString;
 #include "ascii_string.h"
 

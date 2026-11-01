@@ -49,12 +49,6 @@ public:
 	Int m_waypointID;
 };
 
-class Rva00065964ObjectPool
-{
-public:
-	void *rva002635C2() throw();
-};
-
 class Path
 {
 public:

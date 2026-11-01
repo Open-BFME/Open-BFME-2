@@ -55,12 +55,6 @@ public:
 };
 
 // Castle-side behaviour found under CastleBehavior's key; 0x00397357 grants it the upgrade.
-class Rva003972D3
-{
-public:
-	void rva00397357(const UpgradeTemplate *upgrade);
-};
-
 // Module found under "CastleMemberBehavior": the owning castle's ID at +0x18 (retail-measured).
 struct CastleMemberBehaviorView
 {

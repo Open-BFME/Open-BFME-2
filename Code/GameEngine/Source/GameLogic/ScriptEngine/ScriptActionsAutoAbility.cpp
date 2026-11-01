@@ -59,8 +59,6 @@ inline __declspec(noinline) DLINK_ITERATOR<Object> Team::iterate_TeamMemberList(
 extern ScriptEngine *TheScriptEngine;
 class PlayerList { public: Player *getEachPlayerFromMask(int &); };
 extern PlayerList *ThePlayerList;
-class Rva002039B6Host { public: void rva002039B6(); };
-
 class NameKeyGenerator { public: NameKeyType nameToKey(const char *); }; extern NameKeyGenerator *TheNameKeyGenerator;
 class CommandButton { public: unsigned char m_pad[0x10C]; bool m_10C; };
 class CommandSet { public: const CommandButton *getCommandButton(int) const; };

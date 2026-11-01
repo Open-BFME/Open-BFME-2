@@ -284,12 +284,6 @@ namespace {
 typedef _STL::hash_map<ObjectID, Object *, _STL::hash<int>, _STL::equal_to<ObjectID> > ObjectPtrHashVF;
 }
 
-class Rva00270619
-{
-public:
-	void Rva00270619Clear(int bit);
-};
-
 // Primary-vtable slots 1..17 of SpecialAbilityUpdate (vtable 0x00C3FBA8):
 // xfer 0x0044F996 in slot 3 and the pool key in slot 4; only the positions
 // of slots 15 and 17 matter to update().

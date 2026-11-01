@@ -40,8 +40,6 @@ class Anim2DCallView { public:
 };
 
 class Display;extern Display *TheDisplay;
-class FadeDisplayCalls {public:
- virtual void p00();virtual void p04();virtual void p08();virtual void p0c();virtual void p10();virtual void p14();virtual void p18();virtual void p1c();virtual void p20();virtual void p24();virtual void p28();virtual void p2c();virtual void p30();virtual void p34();virtual void p38();virtual void p3c();virtual unsigned width();};
 class GameFont;class FontLibrary {public:GameFont*getFont(const AsciiString*,float,bool);};extern FontLibrary*TheFontLibrary;
 class Anim2DTemplate;class Anim2DCollection;extern Anim2DCollection*TheAnim2DCollection;
 // The collection's template lookup is rowed under its address class.
