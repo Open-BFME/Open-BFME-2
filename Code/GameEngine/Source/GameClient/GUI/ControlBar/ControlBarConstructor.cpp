@@ -114,7 +114,31 @@ typedef bool Bool;
 
 class WindowVideoManager : public SubsystemInterface { public: WindowVideoManager(); virtual void init(); virtual void reset(); virtual void update(); private: char m_opaque[0x24 - 0x0C]; };
 
-class AnimateWindowManager : public SubsystemInterface { public: AnimateWindowManager(); virtual void init(); virtual void reset(); virtual void update(); private: char m_opaque[0x38 - 0x0C]; };
+enum AnimTypes
+{
+	WIN_ANIMATION_NONE = 0,
+	WIN_ANIMATION_SLIDE_RIGHT,
+	WIN_ANIMATION_SLIDE_RIGHT_FAST,
+	WIN_ANIMATION_SLIDE_LEFT,
+	WIN_ANIMATION_SLIDE_TOP,
+	WIN_ANIMATION_SLIDE_BOTTOM,
+	WIN_ANIMATION_SPIRAL,
+	WIN_ANIMATION_SLIDE_BOTTOM_TIMED,
+	WIN_ANIMATION_SLIDE_TOP_FAST,
+	WIN_ANIMATION_COUNT
+};
+class AnimateWindowManager : public SubsystemInterface
+{
+public:
+    AnimateWindowManager();
+    virtual void init();
+    virtual void reset();
+    virtual void update();
+    void registerGameWindow(GameWindow *win, AnimTypes animType, bool needsToFinish, unsigned int ms, unsigned int delayMs);
+    void reverseAnimateWindow();
+private:
+    char m_opaque[0x38 - 0x0C];
+};
 
 #include "../../../../../Libraries/Include/Lib/ICoord2D.h"
 
@@ -265,6 +289,8 @@ protected:
 	void updateContextStructureInventory();
 public:
 	ControlBar();
+	void updateRightHUDImage(const Image *image);
+	void setPortraitByObject(Object *obj);
 	WindowVideoManager *m_videoManager; // +0x0C
 	AnimateWindowManager *m_animateWindowManager; // +0x10
 	AnimateWindowManager *m_animateWindowManagerForGenShortcuts; // +0x14

@@ -204,12 +204,40 @@ public:
 extern ImageCollection *TheMappedImageCollection;
 class CommandButton;
 class WindowVideoManager : public SubsystemInterface { public: WindowVideoManager(); virtual void init(); virtual void reset(); virtual void update(); private: char m_opaque[0x24 - 0x0C]; };
-class AnimateWindowManager : public SubsystemInterface { public: AnimateWindowManager(); virtual void init(); virtual void reset(); virtual void update(); private: char m_opaque[0x38 - 0x0C]; };
+enum AnimTypes
+{
+	WIN_ANIMATION_NONE = 0,
+	WIN_ANIMATION_SLIDE_RIGHT,
+	WIN_ANIMATION_SLIDE_RIGHT_FAST,
+	WIN_ANIMATION_SLIDE_LEFT,
+	WIN_ANIMATION_SLIDE_TOP,
+	WIN_ANIMATION_SLIDE_BOTTOM,
+	WIN_ANIMATION_SPIRAL,
+	WIN_ANIMATION_SLIDE_BOTTOM_TIMED,
+	WIN_ANIMATION_SLIDE_TOP_FAST,
+	WIN_ANIMATION_COUNT
+};
+class AnimateWindowManager : public SubsystemInterface
+{
+public:
+    AnimateWindowManager();
+    virtual void init();
+    virtual void reset();
+    virtual void update();
+    void registerGameWindow(GameWindow *win, AnimTypes animType, bool needsToFinish, unsigned int ms, unsigned int delayMs);
+    void reverseAnimateWindow();
+private:
+    char m_opaque[0x38 - 0x0C];
+};
 void commandButtonTooltip(GameWindow *window, WinInstanceData *instData, UnsignedInt mouse);
 void Rva0053EC21(GameWindow *window);
-enum
+enum ControlBarContext
 {
 	CB_CONTEXT_NONE = 0,
+	CB_CONTEXT_OBSERVER_LIST = 9
+};
+enum
+{
 	WIN_STATUS_RVA0031C83D_200 = 0x00000200,
 	WIN_STATUS_RVA0031C83D_10000 = 0x00010000,
 	WIN_STATUS_RVA0031C83D_20000 = 0x00020000,
@@ -391,12 +419,6 @@ class Rva0043D3A8;
 // Native science range is +A4/+A8/+AC. Only this consumed prefix is
 // represented; neither the full CommandButton extent nor container spelling
 // is inferred from the BFME1 +84 range. Value access follows the donor.
-struct PurchaseScienceRange
-{
-    ScienceType *first, *last, *capacity;
-    bool empty() const { return first == last; }
-    ScienceType operator[](int index) const { return first[index]; }
-};
 class ScienceStore
 {
 public:
@@ -684,13 +706,18 @@ unsigned int g_Va00E01D34;
 extern unsigned int g_Va00E01D3C;
 // g_Va00E01D3C: matched references place it at VA 0xe01d3c (zero-filled .bss).
 unsigned int g_Va00E01D3C;
-class INI {
+class INI
+{
 public:
-  INI();
-  ~INI();
-  unsigned char loadFile(AsciiString s, INILoadType t, Xfer *x);
-private:
-  char m_data[0x87C];
+    INI();
+    ~INI();
+    unsigned char loadFile(AsciiString s, INILoadType t, Xfer *x);
+    const char *getNextToken(const char *separators = 0);
+    void initFromINI(void *, const FieldParse *);
+    static void parseInt(INI *, void *, void *, const void *);
+    char m_pad00[8];
+    int m_loadType;
+    char m_pad0C[0x87C - 0x0C];
 };
 class Rva0031B53D {
 public:
@@ -715,12 +742,23 @@ public:
 	Rva00056F61 m_table;
 };
 class Image {public:void rva002D937E();};
-class ThingTemplate {
+class Image;
+class ThingTemplate
+{
 public:
- const Image *getButtonImage();const Image *rva0033BA46();
- char pad00[0x6C];AsciiString side;AsciiString commandSet;
- char pad74[0x108-0x74];unsigned kindOf;
- char pad10C[0x484-0x10C];ThingTemplate *next;
+    const Image *getButtonImage();
+    const Image *rva0033BA46();
+    const AsciiString &getName() const { return m_name; }
+    __forceinline unsigned int isKindOf(int bit) const { return kindOf[bit >> 5] & (1u << (bit & 31)); }
+    char m_pad00[0x64];
+    AsciiString m_name;
+    char m_pad68[4];
+    AsciiString side;
+    AsciiString commandSet;
+    char m_pad74[0x108 - 0x74];
+    unsigned int kindOf[7];
+    char m_pad124[0x484 - 0x124];
+    ThingTemplate *next;
 };
 class ThingFactory
 {
@@ -731,7 +769,22 @@ public:
 	ThingTemplate *first; // +0x0C
 };
 extern ThingFactory *TheThingFactory;
-class PlayerTemplate {public:char pad00[0x138];AsciiString commandSet;};
+class PlayerTemplate
+{
+public:
+    const AsciiString &getSpecialPowerShortcutCommandSet() const { return m_specialPowerShortcutCommandSet; }
+    const AsciiString &getSpecialPowerShortcutWinName() const { return m_specialPowerShortcutWinName; }
+    int getSpecialPowerShortcutButtonCount() const { return m_specialPowerShortcutButtonCount; }
+    const AsciiString &getBeaconTemplate() const { return m_beaconTemplate; }
+    char m_pad00[0x138];
+    AsciiString commandSet;
+    char m_pad13C[4];
+    AsciiString m_specialPowerShortcutCommandSet;
+    AsciiString m_specialPowerShortcutWinName;
+    int m_specialPowerShortcutButtonCount;
+    char m_pad14C[0x17C - 0x14C];
+    AsciiString m_beaconTemplate;
+};
 class PlayerList
 {
 public:
@@ -743,18 +796,29 @@ extern PlayerList *ThePlayerList;
 #include <string.h>
 #include "unicode_string.h"
 typedef void (*GameWinTooltipFunc)(GameWindow *,WinInstanceData *,unsigned int);
+class AsciiString;
+class Image;
+class SpecialPowerTemplate;
 class CommandButton
 {
 public:
-	char opaque00[0xA4];
-public:
-	PurchaseScienceRange science;
-public:
-	const PurchaseScienceRange &getScienceVec() const { return science; }
-public:
-	const Image *rva0035B19E() const;
-public:
-	const AsciiString &rva0035B1E9() const;
+    void cacheButtonImage();
+    CommandButton *friend_getNext() { return m_next; }
+    int getCommandType() const { return m_command; }
+    CommandButton *getNext() const { return m_next; }
+    const SpecialPowerTemplate *getSpecialPowerTemplate() const { return m_specialPower; }
+    const _STL::vector<ScienceType> &getScienceVec() const { return science; }
+    signed char getOptions() const { return static_cast<signed char>(m_options); }
+    const Image *rva0035B19E() const;
+    const AsciiString &rva0035B1E9() const;
+    char m_pad00[0x14];
+    int m_command;
+    CommandButton *m_next;
+    unsigned int m_options;
+    char m_pad20[0x24];
+    const SpecialPowerTemplate *m_specialPower;
+    char m_pad48[0x5C];
+    _STL::vector<ScienceType> science;
 };
 struct ShortcutScienceVectorView
 {
@@ -846,7 +910,17 @@ extern GameLogic *TheGameLogic;
 extern int BfmeLogicFramesPerSecond;
 void GadgetButtonSetHiliteImage_Rva002C04DB(GameWindow *win, const Image *image);
 void GadgetButtonSetHiliteImage123_Rva002C0505(GameWindow *win, const Image *image);
-class Rva0031AB7F { public: Rva0031AB7F &operator=(const Rva0031AB7F &); };
+class Rva0031AB7F : public FXParticleSystem::StreakDrawModuleTemplate
+{
+public:
+	Rva0031AB7F &operator=(const Rva0031AB7F &that);
+
+private:
+	StringBase<char> m_0010;
+	int m_0014[32];
+	int m_0094;
+	int m_0098;
+};
 extern unsigned char g_00E01EA8;
 struct ShortcutCommandButtonView
 {
@@ -1010,13 +1084,14 @@ public:
 // its stack space and copy its two words through the argument address.
 struct VideoPair
 {
-	struct
-	{
-		void *first;
-		void *second;
-	} s;
-	inline VideoPair(void *a, void *b) { s.first = a; s.second = b; }
-	inline VideoPair(const VideoPair &other) { s.first = other.s.first; s.second = other.s.second; }
+    struct
+    {
+        void *first;
+        void *second;
+    } s;
+    inline VideoPair(void *a, void *b) { s.first = a; s.second = b; }
+    inline VideoPair(const Rva0041534BIter &p) { s.first = p.m_node; s.second = p.m_table; }
+    inline VideoPair(const VideoPair &other) { s.first = other.s.first; s.second = other.s.second; }
 };
 #include <hash_map>
 #include <memory>
@@ -1218,97 +1293,56 @@ class ControlBar : public SubsystemInterface
 {
 private:
 	static const Image *m_rankVeteranIcon;
-private:
 	static const Image *m_rankEliteIcon;
-private:
 	static const Image *m_rankHeroicIcon;
 public:
 	virtual void init(void);
-public:
 	void initObserverControls(void);
-public:
 	void postProcessCommands(void);
-public:
 	const CommandButton *findCommandButton(const AsciiString &name);
-public:
 	void setControlCommand(GameWindow *button, const CommandButton *commandButton);
-public:
 	void switchToContext(int context, void *draw);
-public:
 	void GetPurchaseScienceStatus(Player *, int, const CommandButton **, bool *, bool *, bool *);
-public:
 	bool rva0031E068(Player *, int);
-public:
 	void setControlBarScheme(const AsciiString &schemeName);
-public:
 	void switchControlBarStage(ControlBarStages stage);
-public:
 	void hidePurchaseScience();
-public:
 	void rva0031AD94();
-public:
 	void showPurchaseScience();
-public:
 	void rva0031D61E(const AsciiString *);
-public:
 	void rva0031D64F();
-public:
 	int rva0031AA86();
-public:
 	void rva0031AB77SetFlag();
-public:
 	void forgetStaleCommandSet(const AsciiString &);
-public:
 	CommandSet *rva0031E8D5(const AsciiString &,int);
-public:
 	CommandSet *rva0031B05B(CommandSet *);
-public:
 	static void parseCommandSetDefinition(INI *);
-public:
 	void setCommandBarBorder(GameWindow *button, CommandButtonMappedBorderType type);
-public:
 	void setPortraitByImage(const Image *image);
-public:
 	void rva0031AD14(int a, int b, int c, int d, int e);
-public:
 	void rva0031AD48(bool hide);
-public:
 	void rva0031ADAE();
 protected:
 	void setHiddenControlBar();
 public:
 	void rva0031AE13();
-public:
 	void rva0031AE93(int *a, int *b);
-public:
 	void rva0031AEAE(int *a, int *b);
-public:
 	void rva0031AEC9();
-public:
 	void hideSpecialPowerShortcut( void );
 protected:
 	void setLowControlBarConfig(void);
-protected:
 	void setDefaultControlBarConfig(void);
 public:
 	void rva0031B1BC(const Image *a250, const Image *a254, const Image *a258, const Image *a25c, const Image *a260, const Image *a264, const Image *a270, const Image *a274);
-public:
 	void showSpecialPowerShortcut();
-public:
 	void rva0031B210();
-public:
 	CommandAvailability getCommandAvailability(const CommandButton *,GameWindow *,Object *,float *,bool) const;
-public:
 	void rva0031B5A3(const Player *player);
-public:
 	void showRallyPoint(const Coord3D *loc);
-public:
 	void setControlCommand(const AsciiString &buttonWindowName, GameWindow *parent, const CommandButton *commandButton);
-public:
 	void rva0031BAB1();
-public:
 	void rva0031BAC3(Player *player);
-public:
 	void populateCommand(Object *,bool);
 protected:
 	void populateStructureInventory(Object *,bool);
@@ -1322,17 +1356,13 @@ protected:
 	void populateMultiSelect();
 public:
 	void populateObserverList();
-public:
 	void setControlBarSchemeByPlayer(Player *p);
-public:
 	void setControlBarSchemeByPlayerTemplate(const PlayerTemplate *pt);
-public:
 	void rva0031D230();
 protected:
 	void populateSpecialPowerShortcut(Player *player);
 public:
 	virtual void reset();
-public:
 	virtual void update();
 protected:
 	void updateContextMultiSelect();
@@ -1342,180 +1372,116 @@ protected:
 	void updateContextCommand();
 public:
 	void rva0053E4B1();
-public:
 	void updateContextContestedStructureInventory();
 protected:
 	void updateContextOCLTimer();
-protected:
 	void updateContextStructureInventory();
 public:
 	ControlBar();
-public:
-	WindowVideoManager *m_videoManager;
-public:
-	AnimateWindowManager *m_animateWindowManager;
-public:
-	AnimateWindowManager *m_animateWindowManagerForGenShortcuts;
-public:
-	AnimateWindowManager *m_generalsScreenAnimate;
+	void updateRightHUDImage(const Image *image);
+	void setPortraitByObject(Object *obj);
+	WindowVideoManager *m_videoManager; // +0x0C
+	AnimateWindowManager *m_animateWindowManager; // +0x10
+	AnimateWindowManager *m_animateWindowManagerForGenShortcuts; // +0x14
+	AnimateWindowManager *m_generalsScreenAnimate; // +0x18
 private:
-	ICoord2D m_defaultControlBarPosition;
-private:
-	int m_currentControlBarStage;
+	ICoord2D m_defaultControlBarPosition; // +0x1C
+	int m_currentControlBarStage; // +0x24
 public:
-	unsigned char m_UIDirty;
-public:
+	unsigned char m_UIDirty; // +0x28
 	char m_pad29[0x3];
+	CommandButton *m_commandButtons; // +0x2C
+	_STL::hash_map<int, Rva0031DBFCElement> m_videoMap; // +0x30
+private:
+	ControlBarSchemeManager *m_controlBarSchemeManager; // +0x44
+	GameWindow *m_contextParent[NUM_CONTEXT_PARENTS + 1]; // +0x48
+	Drawable *selectedDrawable; // +0x6C
+	int context; // +0x70
 public:
-	CommandButton *m_commandButtons;
+	int m_rallyPointDrawableID; // +0x74
+	float m_displayedConstructPercent; // +0x78
+	int m_displayedOCLTimerSeconds; // +0x7C
+private:
+	int m_0080; // +0x80
+	GameWindow *m_rightHUDWindow; // +0x84
+	GameWindow *m_rightHUDCameoWindow; // +0x88
+	GameWindow *m_rightHUDUpgradeCameos[MAX_RIGHT_HUD_UPGRADE_CAMEOS]; // +0x8C
+	GameWindow *m_rightHUDUnitSelectParent; // +0xA0
+	GameWindow *m_communicatorButton; // +0xA4
+	GameWindow *m_specialPowerShortcutButtons[5]; // +0xA8
+	GameWindow *m_specialPowerShortcutButtonParents[5]; // +0xBC
+	int m_currentlyUsedSpecialPowersButtons; // +0xD0
+	WindowLayout *m_specialPowerLayout; // +0xD4
 public:
-	_STL::hash_map<int, Rva0031DBFCElement> m_videoMap;
+	GameWindow *m_specialPowerShortcutParent; // +0xD8
+	GameWindow *m_commandWindows[MAX_COMMANDS_PER_SET]; // +0xDC
 private:
-	ControlBarSchemeManager *m_controlBarSchemeManager;
-private:
-	GameWindow *m_contextParent[NUM_CONTEXT_PARENTS + 1];
-private:
-	Drawable *selectedDrawable;
-private:
-	int context;
+	void *m_015C[32]; // +0x15C
 public:
-	int m_rallyPointDrawableID;
-public:
-	float m_displayedConstructPercent;
-public:
-	int m_displayedOCLTimerSeconds;
-private:
-	int m_0080;
-private:
-	GameWindow *m_rightHUDWindow;
-private:
-	GameWindow *m_rightHUDCameoWindow;
-private:
-	GameWindow *m_rightHUDUpgradeCameos[MAX_RIGHT_HUD_UPGRADE_CAMEOS];
-private:
-	GameWindow *m_rightHUDUnitSelectParent;
-private:
-	GameWindow *m_communicatorButton;
-private:
-	GameWindow *m_specialPowerShortcutButtons[5];
-private:
-	GameWindow *m_specialPowerShortcutButtonParents[5];
-private:
-	int m_currentlyUsedSpecialPowersButtons;
-private:
-	WindowLayout *m_specialPowerLayout;
-public:
-	GameWindow *m_specialPowerShortcutParent;
-public:
-	GameWindow *m_commandWindows[MAX_COMMANDS_PER_SET];
-private:
-	void *m_015C[32];
-public:
-	Bool m_sideSelectAnimateDown;
-public:
+	Bool m_sideSelectAnimateDown; // +0x1DC
 	char m_pad1DD[0x3];
 private:
-	int m_01E0;
-private:
-	int m_01E4;
-private:
-	int m_01E8;
-private:
-	int m_01EC;
-private:
-	int m_01F0;
-private:
-	int m_01F4;
-private:
-	int m_01F8;
-private:
-	int m_01FC;
+	int m_01E0; // +0x1E0
+	int m_01E4; // +0x1E4
+	int m_01E8; // +0x1E8
+	int m_01EC; // +0x1EC
+	int m_01F0; // +0x1F0
+	int m_01F4; // +0x1F4
+	int m_01F8; // +0x1F8
+	int m_01FC; // +0x1FC
 public:
-	GameWindow *m_animateDownWindow;
+	GameWindow *m_animateDownWindow; // +0x200
 private:
-	int m_0204;
-private:
-	unsigned int buildUpClockColor;
+	int m_0204; // +0x204
+	unsigned int buildUpClockColor; // +0x208
 public:
-	bool m_isObserverCommandBar;
-public:
+	bool m_isObserverCommandBar; // +0x20C
 	char m_pad20D[0x3];
-public:
-	void *m_observerLookAtPlayer;
-public:
-	unsigned char m_showBuildToolTipLayout;
-public:
+	void *m_observerLookAtPlayer; // +0x210
+	unsigned char m_showBuildToolTipLayout; // +0x214
 	char m_pad215[0x3];
 private:
-	int m_commandButtonBorderBuildColor;
-private:
-	int m_commandButtonBorderActionColor;
-private:
-	int m_commandButtonBorderUpgradeColor;
-private:
-	int m_commandButtonBorderSystemColor;
-private:
-	int m_commandButtonBorderBfme5Color;
-private:
-	unsigned int m_022C;
-private:
-	_STL::vector<PlayerAITypeEntry> m_0230;
-private:
-	_STL::vector<PlayerAITypeEntry> m_023C;
-private:
-	const Image *m_genStarOn;
-private:
-	const Image *m_genStarOff;
-private:
-	const Image *m_p0250;
-private:
-	const Image *m_p0254;
-private:
-	const Image *m_p0258;
-private:
-	const Image *m_p025C;
-private:
-	const Image *m_p0260;
-private:
-	const Image *m_p0264;
-private:
+	int m_commandButtonBorderBuildColor; // +0x218
+	int m_commandButtonBorderActionColor; // +0x21C
+	int m_commandButtonBorderUpgradeColor; // +0x220
+	int m_commandButtonBorderSystemColor; // +0x224
+	int m_commandButtonBorderBfme5Color; // +0x228
+	unsigned int m_022C; // +0x22C
+	_STL::vector<PlayerAITypeEntry> m_0230; // +0x230
+	_STL::vector<PlayerAITypeEntry> m_023C; // +0x23C
+	const Image *m_genStarOn; // +0x248
+	const Image *m_genStarOff; // +0x24C
+	const Image *m_p0250; // +0x250
+	const Image *m_p0254; // +0x254
+	const Image *m_p0258; // +0x258
+	const Image *m_p025C; // +0x25C
+	const Image *m_p0260; // +0x260
+	const Image *m_p0264; // +0x264
 	char m_pad268[0x4];
 public:
-	void *m_genArrow;
+	void *m_genArrow; // +0x26C
 private:
-	const Image *m_p0270;
-private:
-	const Image *m_p0274;
+	const Image *m_p0270; // +0x270
+	const Image *m_p0274; // +0x274
 public:
-	Bool m_genStarFlash;
-public:
+	Bool m_genStarFlash; // +0x278
 	char m_pad279[0x3];
-public:
-	int m_lastFlashedAtPointValue;
+	int m_lastFlashedAtPointValue; // +0x27C
 private:
-	ICoord2D m_controlBarForegroundMarkerPos;
-private:
-	ICoord2D m_controlBarBackgroundMarkerPos;
+	ICoord2D m_controlBarForegroundMarkerPos; // +0x280
+	ICoord2D m_controlBarBackgroundMarkerPos; // +0x288
 public:
-	unsigned char m_0290;
-public:
+	unsigned char m_0290; // +0x290
 	char m_pad291[0x3];
-public:
-	int m_0294;
-public:
-	GameWindow *m_radarAttackGlowWindow;
+	int m_0294; // +0x294
+	GameWindow *m_radarAttackGlowWindow; // +0x298
 private:
-	int m_rva0031C83D29C;
+	int m_rva0031C83D29C; // +0x29C
+	void *m_commandWindowUserData; // +0x2A0
+public:
+	Rva000AD6F4 m_buildToolTipLayout; // +0x2A4
 private:
-	void *m_commandWindowUserData;
-public:
-	Rva000AD6F4 m_buildToolTipLayout;
-private:
-	_STL::vector<PlayerAITypeEntry> m_02A8;
-public:
-	void updateRightHUDImage(const Image *image);
-public:
-	void setPortraitByObject(Object *obj);
+	_STL::vector<PlayerAITypeEntry> m_02A8; // +0x2A8
 };
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp
@@ -2228,7 +2194,7 @@ void ControlBar::rva0031D64F() {
  if(!player)return;
  AsciiString side=player->side;
  for(ThingTemplate *thingTemplate=TheThingFactory->first;thingTemplate;thingTemplate=thingTemplate->next) {
-  if((thingTemplate->kindOf&2)&&thingTemplate->side.compare(side)==0) {
+  if((thingTemplate->kindOf[0]&2)&&thingTemplate->side.compare(side)==0) {
    rva0031D61E(&thingTemplate->commandSet);
    if(thingTemplate->getButtonImage()) const_cast<Image*>(thingTemplate->getButtonImage())->rva002D937E();
    if(thingTemplate->rva0033BA46()) const_cast<Image*>(thingTemplate->rva0033BA46())->rva002D937E();

@@ -164,14 +164,52 @@ public:
 };
 struct Rva0031DCF0Iterator { char *m_current; void *m_owner; };
 
-class Rva000427195 { public: void *first(Rva000411084 *iter); };
-
-class Rva0031C79DMap
+#include <utility>
+struct NoCaseTreeValue4;
+typedef _STL::pair<const AsciiString, NoCaseTreeValue4> Bef1Pair;
+struct VideoPair;
+class Rva000411084;
+class Rva000427195
 {
 public:
-	~Rva0031C79DMap();
-private:
-	char m_pad[0x14];
+	void rva00212858(unsigned int n);
+public:
+	int bucketIndex(const AsciiString *name);
+public:
+	void *rva0031C7D6(const Bef1Pair &x);
+public:
+	void **rva0031DB83(const AsciiString &name);
+public:
+	void *m_unused00;
+public:
+	void **m_beginBuckets;
+public:
+	void **m_endBuckets;
+public:
+	void **m_storageEnd;
+public:
+	unsigned int m_numElements;
+public:
+	void *first(Rva000411084 *iter);
+public:
+	void rva003A37DC(VideoPair p);
+};
+
+#include <hash_map>
+class Rva00409FFA;
+namespace rts
+{
+template <class T> struct hash
+{
+    unsigned int operator()(T value) const;
+};
+}
+typedef _STL::hash_map<AsciiString, Rva00409FFA *, rts::hash<AsciiString>,
+	_STL::equal_to<AsciiString> > Rva0031E7F0Map;
+class Rva0031C79DMap : public Rva0031E7F0Map
+{
+public:
+    ~Rva0031C79DMap();
 };
 
 class Rva000AD6F4
@@ -187,12 +225,15 @@ class Rva0031DCF0 : public SubsystemInterface
 {
 public:
 	virtual ~Rva0031DCF0();
+	bool rva0031E7F0(bool *needsRestart);
 
 	Rva0031DCF0Owned *m_0C;
 	Rva0031DCF0Owned *m_10;
 	Rva0031DCF0Owned *m_14;
 	Rva0031DCF0Owned *m_18;
-	char pad1C[0x2c - 0x1c];
+	char pad1C[0x28 - 0x1c];
+	bool m_reloaded28;
+	char m_pad29[3];
 	Rva0031DCF0Command *m_commands;		// +0x2C
 	Rva0031C79DMap m_videoMap;		// +0x30
 	ControlBarSchemeManager *m_schemeManager;	// +0x44

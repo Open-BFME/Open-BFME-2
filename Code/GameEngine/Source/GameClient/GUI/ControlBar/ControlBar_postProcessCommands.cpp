@@ -8,14 +8,31 @@
 // ControlBar::postProcessCommands loop.
 typedef bool Bool;
 #include "subsystem_interface.h"
+#include <vector>
+enum ScienceType { SCIENCE_INVALID = -1 };
+class AsciiString;
+class Image;
+class SpecialPowerTemplate;
 class CommandButton
 {
 public:
-	void cacheButtonImage();
-	CommandButton *friend_getNext() { return m_next; }
-private:
-	char m_pad00[0x18];
-	CommandButton *m_next;	// +0x18
+    void cacheButtonImage();
+    CommandButton *friend_getNext() { return m_next; }
+    int getCommandType() const { return m_command; }
+    CommandButton *getNext() const { return m_next; }
+    const SpecialPowerTemplate *getSpecialPowerTemplate() const { return m_specialPower; }
+    const _STL::vector<ScienceType> &getScienceVec() const { return science; }
+    signed char getOptions() const { return static_cast<signed char>(m_options); }
+    const Image *rva0035B19E() const;
+    const AsciiString &rva0035B1E9() const;
+    char m_pad00[0x14];
+    int m_command;
+    CommandButton *m_next;
+    unsigned int m_options;
+    char m_pad20[0x24];
+    const SpecialPowerTemplate *m_specialPower;
+    char m_pad48[0x5C];
+    _STL::vector<ScienceType> science;
 };
 
 #include "ControlBarMemberTypes.h"
@@ -152,6 +169,8 @@ protected:
 	void updateContextStructureInventory();
 public:
 	ControlBar();
+	void updateRightHUDImage(const Image *image);
+	void setPortraitByObject(Object *obj);
 	WindowVideoManager *m_videoManager; // +0x0C
 	AnimateWindowManager *m_animateWindowManager; // +0x10
 	AnimateWindowManager *m_animateWindowManagerForGenShortcuts; // +0x14

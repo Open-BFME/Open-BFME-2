@@ -91,14 +91,19 @@ public:
 
 class PlayerTemplate
 {
-	unsigned char m_unreconstructed_00[0x140];
-	AsciiString m_specialPowerShortcutCommandSet;
-
 public:
-	const AsciiString &getSpecialPowerShortcutCommandSet() const
-	{
-		return m_specialPowerShortcutCommandSet;
-	}
+    const AsciiString &getSpecialPowerShortcutCommandSet() const { return m_specialPowerShortcutCommandSet; }
+    const AsciiString &getSpecialPowerShortcutWinName() const { return m_specialPowerShortcutWinName; }
+    int getSpecialPowerShortcutButtonCount() const { return m_specialPowerShortcutButtonCount; }
+    const AsciiString &getBeaconTemplate() const { return m_beaconTemplate; }
+    char m_pad00[0x138];
+    AsciiString commandSet;
+    char m_pad13C[4];
+    AsciiString m_specialPowerShortcutCommandSet;
+    AsciiString m_specialPowerShortcutWinName;
+    int m_specialPowerShortcutButtonCount;
+    char m_pad14C[0x17C - 0x14C];
+    AsciiString m_beaconTemplate;
 };
 
 class Player
@@ -121,38 +126,29 @@ class SpecialPowerTemplate {};
 
 typedef _STL::vector<ScienceType> ScienceVec;
 
+class AsciiString;
+class Image;
+class SpecialPowerTemplate;
 class CommandButton
 {
-	unsigned char m_unreconstructed_00[0x14];
-	Int m_command;
-	CommandButton *m_next;
-	UnsignedInt m_options;
-	unsigned char m_unreconstructed_1C[0x24];
-	const SpecialPowerTemplate *m_specialPower;
-	unsigned char m_unreconstructed_38[0x5C];
-	ScienceVec m_science;
-
 public:
-	Int getCommandType(void) const
-	{
-		return m_command;
-	}
-	CommandButton *getNext(void) const
-	{
-		return m_next;
-	}
-	const SpecialPowerTemplate *getSpecialPowerTemplate(void) const
-	{
-		return m_specialPower;
-	}
-	const ScienceVec &getScienceVec(void) const
-	{
-		return m_science;
-	}
-	signed char getOptions(void) const
-	{
-		return static_cast<signed char>(m_options);
-	}
+    void cacheButtonImage();
+    CommandButton *friend_getNext() { return m_next; }
+    int getCommandType() const { return m_command; }
+    CommandButton *getNext() const { return m_next; }
+    const SpecialPowerTemplate *getSpecialPowerTemplate() const { return m_specialPower; }
+    const _STL::vector<ScienceType> &getScienceVec() const { return science; }
+    signed char getOptions() const { return static_cast<signed char>(m_options); }
+    const Image *rva0035B19E() const;
+    const AsciiString &rva0035B1E9() const;
+    char m_pad00[0x14];
+    int m_command;
+    CommandButton *m_next;
+    unsigned int m_options;
+    char m_pad20[0x24];
+    const SpecialPowerTemplate *m_specialPower;
+    char m_pad48[0x5C];
+    _STL::vector<ScienceType> science;
 };
 
 class CommandSet
@@ -294,6 +290,8 @@ protected:
 	void updateContextStructureInventory();
 public:
 	ControlBar();
+	void updateRightHUDImage(const Image *image);
+	void setPortraitByObject(Object *obj);
 	WindowVideoManager *m_videoManager; // +0x0C
 	AnimateWindowManager *m_animateWindowManager; // +0x10
 	AnimateWindowManager *m_animateWindowManagerForGenShortcuts; // +0x14
@@ -403,7 +401,21 @@ private:
 };
 
 extern ControlBar *TheControlBar;
-class Rva0031D5F8 { public: void *rva0031D5F8(const AsciiString *); };
+struct Rva0041534BIter;
+class Rva00056F61
+{
+public:
+	__declspec(nothrow) Rva0041534BIter rva0041534B(const AsciiString *);
+	void *rva00056F61(const AsciiString *key);
+};
+class Rva0031D5F8
+{
+public:
+	void *rva0031D5F8(const AsciiString *key);
+	void *GetPurchaseScienceCommandSet(const void *player);
+	char m_pad[0x30];
+	Rva00056F61 m_table;
+};
 class Rva0031AF54
 {
 public:

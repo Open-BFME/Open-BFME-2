@@ -18,7 +18,14 @@ typedef unsigned int UnsignedInt;
 typedef bool Bool;
 
 enum { MAX_SPECIAL_POWER_SHORTCUTS = 5 };
-enum { WIN_STATUS_USE_OVERLAY_STATES = 0x00200000 };
+enum
+{
+	WIN_STATUS_RVA0031C83D_200 = 0x00000200,
+	WIN_STATUS_RVA0031C83D_10000 = 0x00010000,
+	WIN_STATUS_RVA0031C83D_20000 = 0x00020000,
+	WIN_STATUS_USE_OVERLAY_STATES = 0x00200000,
+	WIN_STATUS_RVA0031C83D_20000000 = 0x20000000
+};
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 
 // Target string text access is inlined: one Header pointer and text at+8,
@@ -161,13 +168,18 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 class PlayerTemplate
 {
 public:
-	const AsciiString &getSpecialPowerShortcutWinName() const { return m_specialPowerShortcutWinName; }
-	Int getSpecialPowerShortcutButtonCount() const { return m_specialPowerShortcutButtonCount; }
-
-private:
-	char m_unmodelled00[0x144];
-	AsciiString m_specialPowerShortcutWinName;     // target+0x144
-	Int m_specialPowerShortcutButtonCount;         // target+0x148
+    const AsciiString &getSpecialPowerShortcutCommandSet() const { return m_specialPowerShortcutCommandSet; }
+    const AsciiString &getSpecialPowerShortcutWinName() const { return m_specialPowerShortcutWinName; }
+    int getSpecialPowerShortcutButtonCount() const { return m_specialPowerShortcutButtonCount; }
+    const AsciiString &getBeaconTemplate() const { return m_beaconTemplate; }
+    char m_pad00[0x138];
+    AsciiString commandSet;
+    char m_pad13C[4];
+    AsciiString m_specialPowerShortcutCommandSet;
+    AsciiString m_specialPowerShortcutWinName; // target+0x144
+    int m_specialPowerShortcutButtonCount; // target+0x148
+    char m_pad14C[0x17C - 0x14C];
+    AsciiString m_beaconTemplate;
 };
 
 class Player
@@ -314,6 +326,8 @@ protected:
 	void updateContextStructureInventory();
 public:
 	ControlBar();
+	void updateRightHUDImage(const Image *image);
+	void setPortraitByObject(Object *obj);
 	WindowVideoManager *m_videoManager; // +0x0C
 	AnimateWindowManager *m_animateWindowManager; // +0x10
 	AnimateWindowManager *m_animateWindowManagerForGenShortcuts; // +0x14

@@ -32,13 +32,47 @@ public:
 	__declspec(nothrow) Rva0041534BIter rva0041534B(const AsciiString *);
 	void *rva00056F61(const AsciiString *key);
 };
-struct VideoPair {
-    struct { void *first; void *second; } s;
-    VideoPair(void *a, void *b) { s.first=a; s.second=b; }
-    VideoPair(const Rva0041534BIter &p) { s.first=p.m_node; s.second=p.m_table; }
-    VideoPair(const VideoPair &videoPair) { s.first=videoPair.s.first; s.second=videoPair.s.second; }
+struct VideoPair
+{
+    struct
+    {
+        void *first;
+        void *second;
+    } s;
+    inline VideoPair(void *a, void *b) { s.first = a; s.second = b; }
+    inline VideoPair(const Rva0041534BIter &p) { s.first = p.m_node; s.second = p.m_table; }
+    inline VideoPair(const VideoPair &other) { s.first = other.s.first; s.second = other.s.second; }
 };
-class Rva000427195 { public: void rva003A37DC(VideoPair); };
+#include <utility>
+struct NoCaseTreeValue4;
+typedef _STL::pair<const AsciiString, NoCaseTreeValue4> Bef1Pair;
+struct VideoPair;
+class Rva000411084;
+class Rva000427195
+{
+public:
+	void rva00212858(unsigned int n);
+public:
+	int bucketIndex(const AsciiString *name);
+public:
+	void *rva0031C7D6(const Bef1Pair &x);
+public:
+	void **rva0031DB83(const AsciiString &name);
+public:
+	void *m_unused00;
+public:
+	void **m_beginBuckets;
+public:
+	void **m_endBuckets;
+public:
+	void **m_storageEnd;
+public:
+	unsigned int m_numElements;
+public:
+	void *first(Rva000411084 *iter);
+public:
+	void rva003A37DC(VideoPair p);
+};
 struct StaleCommandSetView { char opaque00[0x0C]; int stale; };
 struct CommandSetNodeView { void *next; AsciiString key; StaleCommandSetView *value; };
 typedef bool Bool;
@@ -176,6 +210,8 @@ protected:
 	void updateContextStructureInventory();
 public:
 	ControlBar();
+	void updateRightHUDImage(const Image *image);
+	void setPortraitByObject(Object *obj);
 	WindowVideoManager *m_videoManager; // +0x0C
 	AnimateWindowManager *m_animateWindowManager; // +0x10
 	AnimateWindowManager *m_animateWindowManagerForGenShortcuts; // +0x14

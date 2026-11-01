@@ -185,6 +185,8 @@ protected:
 	void updateContextStructureInventory();
 public:
 	ControlBar();
+	void updateRightHUDImage(const Image *image);
+	void setPortraitByObject(Object *obj);
 	WindowVideoManager *m_videoManager; // +0x0C
 	AnimateWindowManager *m_animateWindowManager; // +0x10
 	AnimateWindowManager *m_animateWindowManagerForGenShortcuts; // +0x14
@@ -444,35 +446,59 @@ class Rva00409FFA : public CommandSet {};
 typedef _STL::hash_map<AsciiString, Rva00409FFA *, rts::hash<AsciiString>,
 	_STL::equal_to<AsciiString> > Rva0031E7F0Map;
 
-// ControlBar view (vftable 0x00C0CC88); polymorphic here so the derived
-// class below shares its address.
-class Rva0031AC39
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual bool v02();	// 0x0031B53D in vftable 0x00C0CC88
-};
 
-class Rva0031DCF0 : public Rva0031AC39
+struct Rva0031DCF0Owned;
+struct Rva0031DCF0Command;
+struct Rva0031DCF0Layout;
+class Rva0031C79DMap : public Rva0031E7F0Map
 {
 public:
+    ~Rva0031C79DMap();
+};
+// ControlBar view (vftable 0x00C0CC88) has its SubsystemInterface base at +0.
+class Rva0031DCF0 : public SubsystemInterface
+{
+public:
+	virtual ~Rva0031DCF0();
 	bool rva0031E7F0(bool *needsRestart);
-private:
-	char m_unmodelled04[0x28 - 0x04];
+
+	Rva0031DCF0Owned *m_0C;
+	Rva0031DCF0Owned *m_10;
+	Rva0031DCF0Owned *m_14;
+	Rva0031DCF0Owned *m_18;
+	char pad1C[0x28 - 0x1c];
 	bool m_reloaded28;
-	void *m_list2C;
-	Rva0031E7F0Map m_map30;
+	char m_pad29[3];
+	Rva0031DCF0Command *m_commands;		// +0x2C
+	Rva0031C79DMap m_videoMap;		// +0x30
+	ControlBarSchemeManager *m_schemeManager;	// +0x44
+	char pad48[0x68 - 0x48];
+	GameWindow *m_68;
+	char pad6C[0xd4 - 0x6c];
+	Rva0031DCF0Layout *m_layout;		// +0xD4
+	char padD8[4];
+	GameWindow *m_windows[32];		// +0xDC
+	char pad15C[0x230 - 0x15c];
+	_STL::vector<void *> m_230;
+	_STL::vector<void *> m_23C;
+	char pad248[0x26c - 0x248];
+	int m_26C;
+	char pad270[0x298 - 0x270];
+	int m_298;
+	char pad29C[4];
+	Rva0031DCF0Owned *m_2A0;
+	Rva000AD6F4 m_2A4;
+	_STL::vector<void *> m_2A8;
 };
 
 bool Rva0031DCF0::rva0031E7F0(bool *needsRestart)
 {
 	bool result = false;
 	g_Va00E01D0C = result;
-	if (v02())
+	if (loadIniFilesFromLegend()) // 0x0031B53D in vftable 0x00C0CC88
 	{
 		TheInGameUI->message(UnicodeString(L"RIF: ControlBar (CommandSet/CommandButton) reloaded. Changes effective immediately."));
-		for (Rva0031E7F0Map::iterator it = m_map30.begin(); it != m_map30.end(); ++it)
+		for (Rva0031E7F0Map::iterator it = m_videoMap.begin(); it != m_videoMap.end(); ++it)
 		{
 			(*it).second->refreshIfStale();
 		}
@@ -504,15 +530,36 @@ struct FieldParse {
     const void *userData;
     int offset;
 };
-class INI {
+class Xfer;
+enum INILoadType { INI_LOAD_OVERWRITE = 1 };
+class INI
+{
 public:
-    const char *getNextToken(const char *separators=0);
-    void initFromINI(void *,const FieldParse *);
-    static void parseInt(INI *,void *,void *,const void *);
-    char m_unknown00[8];
+    INI();
+    ~INI();
+    unsigned char loadFile(AsciiString s, INILoadType t, Xfer *x);
+    const char *getNextToken(const char *separators = 0);
+    void initFromINI(void *, const FieldParse *);
+    static void parseInt(INI *, void *, void *, const void *);
+    char m_pad00[8];
     int m_loadType;
+    char m_pad0C[0x87C - 0x0C];
 };
-class Rva0031D5F8 { public: void *rva0031D5F8(const AsciiString *); };
+struct Rva0041534BIter;
+class Rva00056F61
+{
+public:
+	__declspec(nothrow) Rva0041534BIter rva0041534B(const AsciiString *);
+	void *rva00056F61(const AsciiString *key);
+};
+class Rva0031D5F8
+{
+public:
+	void *rva0031D5F8(const AsciiString *key);
+	void *GetPurchaseScienceCommandSet(const void *player);
+	char m_pad[0x30];
+	Rva00056F61 m_table;
+};
 extern ControlBar *TheControlBar;
 void ControlBar::parseCommandSetDefinition(INI *ini)
 {

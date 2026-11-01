@@ -40,9 +40,18 @@ public:
 class PlayerTemplate
 {
 public:
-	char pad000[0x17C];
-	AsciiString m_beaconTemplate;	// +0x17C
-	const AsciiString &getBeaconTemplate() const { return m_beaconTemplate; }
+    const AsciiString &getSpecialPowerShortcutCommandSet() const { return m_specialPowerShortcutCommandSet; }
+    const AsciiString &getSpecialPowerShortcutWinName() const { return m_specialPowerShortcutWinName; }
+    int getSpecialPowerShortcutButtonCount() const { return m_specialPowerShortcutButtonCount; }
+    const AsciiString &getBeaconTemplate() const { return m_beaconTemplate; }
+    char m_pad00[0x138];
+    AsciiString commandSet;
+    char m_pad13C[4];
+    AsciiString m_specialPowerShortcutCommandSet;
+    AsciiString m_specialPowerShortcutWinName;
+    int m_specialPowerShortcutButtonCount;
+    char m_pad14C[0x17C - 0x14C];
+    AsciiString m_beaconTemplate; // +0x17C
 };
 
 class Player
@@ -62,16 +71,23 @@ public:
 	Player *local; // +0x10
 };
 
+class Image;
 class ThingTemplate
 {
 public:
-	__forceinline unsigned int isKindOf(int bit) const { return m_kindOf[bit >> 5] & (1u << (bit & 31)); }
-
-	char pad000[0x64];
-	AsciiString m_name;	// +0x64
-	const AsciiString &getName() const { return m_name; }
-	char pad068[0x108 - 0x68];
-	unsigned int m_kindOf[7];	// +0x108
+    const Image *getButtonImage();
+    const Image *rva0033BA46();
+    const AsciiString &getName() const { return m_name; }
+    __forceinline unsigned int isKindOf(int bit) const { return kindOf[bit >> 5] & (1u << (bit & 31)); }
+    char m_pad00[0x64];
+    AsciiString m_name; // +0x64
+    char m_pad68[4];
+    AsciiString side;
+    AsciiString commandSet;
+    char m_pad74[0x108 - 0x74];
+    unsigned int kindOf[7]; // +0x108
+    char m_pad124[0x484 - 0x124];
+    ThingTemplate *next;
 };
 
 class ContainModuleInterface
@@ -381,6 +397,8 @@ protected:
 	void updateContextStructureInventory();
 public:
 	ControlBar();
+	void updateRightHUDImage(const Image *image);
+	void setPortraitByObject(Object *obj);
 	WindowVideoManager *m_videoManager; // +0x0C
 	AnimateWindowManager *m_animateWindowManager; // +0x10
 	AnimateWindowManager *m_animateWindowManagerForGenShortcuts; // +0x14

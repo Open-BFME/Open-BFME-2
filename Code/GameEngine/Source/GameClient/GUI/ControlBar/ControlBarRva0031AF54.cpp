@@ -1,4 +1,7 @@
-// ?rva0031AF54@Rva0031AF54@@QAEX_N@Z
+// cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB -Ireference/open-bfme-1/inputs/vendor/stlport -Ireference/open-bfme-1/inputs/reference/shims/stlp_nodealloc -Ireference/open-bfme-1/inputs/reference/shims/controlbarvtables -Ireference/open-bfme-1/inputs/reference/shims/controlbarlayout -Ireference/open-bfme-1/inputs/reference/shims/sweep -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad -Ireference/open-bfme-1/game/GameEngine/Source/GameClient/GUI/ControlBar /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /Ireference/shims/subsystem_bfme2 /Ireference/shims/moduledata /Ireference/shims/iniexception /Ireference/open-bfme-1/Code/GameEngine/Source/Common/System /Ireference/open-bfme-1/Code/GameEngine/Source/GameClient /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Include
+// stlport
+typedef bool Bool;
+#include "subsystem_interface.h"
 // partial score=0.92 date=2026-09-30
 // cl: /DNDEBUG /MD
 // ?rva0031AF54@Rva0031AF54@@QAEX_N@Z @0x0031AF54 120B: search 10-window list at +0xA8 count +0xD0 for first with userData then animate via manager +0x14 and window +0xD8. Evidence: packet disasm with rowed winGetUserData 0x005C4ACD and registerGameWindow 0x0053B843 reverseAnimateWindow 0x0053B417 and virtual slot 9 at +0x24.
@@ -50,21 +53,17 @@ enum AnimTypes
 	WIN_ANIMATION_COUNT
 };
 
-class AnimateWindowManager
+class AnimateWindowManager : public SubsystemInterface
 {
 public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void v03();
-	virtual void v04();
-	virtual void v05();
-	virtual void v06();
-	virtual void v07();
-	virtual void v08();
-	virtual void unknown09();
-	void registerGameWindow(GameWindow *win, AnimTypes animType, bool needsToFinish, unsigned int ms, unsigned int delayMs);
-	void reverseAnimateWindow();
+    AnimateWindowManager();
+    virtual void init();
+    virtual void reset();
+    virtual void update();
+    void registerGameWindow(GameWindow *win, AnimTypes animType, bool needsToFinish, unsigned int ms, unsigned int delayMs);
+    void reverseAnimateWindow();
+private:
+    char m_opaque[0x38 - 0x0C];
 };
 
 class Rva0031AF54
@@ -93,7 +92,7 @@ void Rva0031AF54::rva0031AF54(bool flag)
 		if (m_list[i]->winGetUserData() == 0)
 			continue;
 		if (flag) {
-			m_manager->unknown09();
+			m_manager->reset();
 			m_manager->registerGameWindow(m_window, WIN_ANIMATION_SLIDE_RIGHT, true, 500, 0);
 		} else {
 			m_manager->reverseAnimateWindow();

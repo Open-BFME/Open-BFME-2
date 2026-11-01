@@ -3,25 +3,17 @@
 // StreakDrawModuleTemplate assign plus AsciiString at +0x10 plus 32-dword
 // copy +0x14..+0x93 plus +0x94/+0x98. Evidence: rowed base assign 0x001FD28E
 // plus pinned AsciiString assign 0x000366F0 plus caller 0x0031B0A9.
-class FXParticleSystem
-{
+class FXParticleSystem {
 public:
-	class StreakDrawModuleTemplate
-	{
-	public:
-		StreakDrawModuleTemplate &operator=(const StreakDrawModuleTemplate &that);
-
-	private:
-		char m_pad[0x10];
-	};
+    class StreakDrawModuleTemplate {
+    public:
+        StreakDrawModuleTemplate &operator=(const StreakDrawModuleTemplate &);
+    private:
+        unsigned int fields[4];
+    };
 };
 
-template <typename T>
-class StringBase
-{
-public:
-	void set(const StringBase<T> &that);
-};
+#include "../../../../../../reference/shims/bfme2_ascii/string_base.h"
 
 class Rva0031AB7F : public FXParticleSystem::StreakDrawModuleTemplate
 {
