@@ -156,26 +156,9 @@ private:
 	char m_pad00[0x10C];
 	Rva0010CConditionBits m_conditionBits; // +0x10C
 };
-class Rva00589722Primary
-{
-public:
-	virtual void primarySlot();
-protected:
-	Int m_04;
-	Object *m_object; // +0x08
-	char m_pad0C[0x14];
-};
-class Rva00589722Iface
-{
-public:
-	virtual void rva00589722(Object *other) = 0;
-};
-class Rva00589722 : public Rva00589722Primary, public Rva00589722Iface
-{
-public:
-	void rva00589722(Object *other);
-};
-void Rva00589722::rva00589722(Object *other)
+#include "../GameLogic/Object/Update/DockUpdate/SupplyWarehouseDockUpdateNative.h"
+
+void DockUpdate::onDockReached(Object *other)
 {
 	m_object->clearAndSetCondition(82, 83);
 	other->clearAndSetCondition(82, 83);

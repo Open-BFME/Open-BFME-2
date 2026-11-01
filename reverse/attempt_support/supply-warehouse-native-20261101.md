@@ -107,3 +107,14 @@ returned module literal and ctor-owned table slot 2 establish its owner
 and inherited contract. The mixed getter TU stays in place; only one
 macro invocation changes, with the old row tombstoned. All its rows and
 its existing linking bytes remain verified. No alias or new body is added.
+
+## Dock callback owner
+
+00589722 is reconciled to DockUpdate::onDockReached using slot 10 of
+the ctor-owned +20 docking interface. Its two-object condition-82/83
+transition and the existing docking declaration agree. The native header
+replaces the fabricated primary/interface classes; the body stays the
+same. All three mixed-source rows pass, frozen checks are clean and the
+unit retains 290 -> 290 predicted linking bytes. The old row is tombstoned.
+The name-getter verdict's 90-row typo is also explicitly retracted with
+re_log.py and replaced by its actual 101/101, 605-byte receipt.
