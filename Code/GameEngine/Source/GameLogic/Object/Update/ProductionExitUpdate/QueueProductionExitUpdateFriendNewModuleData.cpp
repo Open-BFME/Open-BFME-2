@@ -20,16 +20,7 @@ class ModuleData;
 class INI;
 class MultiIniFieldParse;
 
-class INI
-{
-public:
-	void initFromINIMultiProc(void *what, void (__cdecl *proc)(MultiIniFieldParse &));
-    static void parseCoord3D(INI *, void *, void *, const void *);
-    static void parseAngleReal(INI *, void *, void *, const void *);
-    static void parseDurationUnsignedInt(INI *, void *, void *, const void *);
-    static void parseBool(INI *, void *, void *, const void *);
-    static void parseUnsignedInt(INI *, void *, void *, const void *);
-};
+#include "../../../../../Include/Common/INI/INI.h"
 
 class QueueProductionExitUpdateModuleData
 {

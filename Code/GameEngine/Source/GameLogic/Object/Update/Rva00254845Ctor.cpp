@@ -7,14 +7,7 @@ extern "C" const void *const __identifier("??_7WeaponSetUpgradeModuleData@@6B@")
 
 class ModuleData;
 class MultiIniFieldParse;
-class INI
-{
-public:
-	void initFromINIMultiProc(void *what, void (__cdecl *proc)(MultiIniFieldParse &));
-	static void parseReal(INI *, void *, void *, const void *);
-	static void parseInt(INI *, void *, void *, const void *);
-	static void parseBitString32(INI *, void *, void *, const void *);
-};
+#include "../../../../Include/Common/INI/INI.h"
 class BuildableHeroListUpgradeModuleData
 {
 public:

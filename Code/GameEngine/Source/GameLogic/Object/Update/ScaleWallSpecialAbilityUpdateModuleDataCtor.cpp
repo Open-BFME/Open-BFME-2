@@ -15,11 +15,7 @@ class INI;
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
 #include "../../../../Include/Common/INI/FieldParse.h"
 
-class INI
-{
-public:
-	static void parseDurationUnsignedInt(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../../Include/Common/INI/INI.h"
 
 // Retail VA 0x00BEF1B4 (.rdata): 1 field records and a zero sentinel.
 extern const FieldParse g_00BEF1B4[] = {
