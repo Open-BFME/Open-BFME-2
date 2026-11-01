@@ -89,12 +89,7 @@ public:
 	unsigned int m_bits[7];
 };
 
-class Thing
-{
-public:
-	bool isAnyKindOf(const BitFlags<69> &mask) const;
-	bool isKindOfMulti(const BitFlags<116> &, const BitFlags<116> &) const;
-};
+#include "Thing/thing.h"
 
 class Object : public Thing
 {

@@ -44,11 +44,7 @@ struct ThingTemplate
 	unsigned char m_kindByte11a;
 };
 
-class Thing
-{
-public:
-	bool isKindOfMulti(const BitFlags<116> &mustBeSet, const BitFlags<116> &mustBeClear) const;
-};
+#include "../Thing/thing.h"
 
 class Object
 {
