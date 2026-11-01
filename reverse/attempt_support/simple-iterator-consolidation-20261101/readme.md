@@ -109,3 +109,26 @@ No debt transfer is required. The map edit changes one source field only;
 no regenerated map is committed. CSV, TU ownership and enforced data checks
 pass. The previous publication's AIBaseBuilder receipt boundary remains open
 until the broader audit/census clears it.
+
+## Cleanup pragma retirement
+
+The remaining cleanup donor does not need its three local optimize pragmas.
+All eight rows still pass normal and strict verification; the cleanup/seed
+prediction retains 4,455 bytes. A private complete-object comparison includes
+both external and internal code: 174 definitions before and after, no addition
+or removal, and 173 whole bodies/relocations identical. Only the unused local
+`max(unsigned const&, unsigned const&)` changes from nine bytes to eight.
+Its COFF storage is STATIC, with no runtime relocation into it in either
+object: its sole reference is associated `.debug$F` metadata. No runtime
+provider or binding changes.
+
+The owning counter update removes the three pragma keys. It also reflects an
+already-landed upstream pin deletion: d1a5a1bb96 removed the superseded
+`BfmeModuleDataSnapshotBase` destructor alias at 11647B, lowering that address's
+pin count from two to one. This is register synchronization for upstream's
+repair, not a new pin retirement by this cleanup.
+
+The previous push's missing iterator-provider receipt has now been refreshed
+through `link_check.py --prepare-current`, ten rows verified. That scoped
+receipt does not retroactively clear the previous INCONCLUSIVE batch audit or
+the older AIBaseBuilder boundary. No census figure is changed here.

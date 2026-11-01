@@ -1,0 +1,38 @@
+{
+  "before_definitions": 174,
+  "after_definitions": 174,
+  "added": [],
+  "removed": [],
+  "changed": [
+    {
+      "name": "?max@_STL@@YAABIABI0@Z",
+      "raw_identical": false,
+      "before_size": 9,
+      "after_size": 8,
+      "before_relocations": [],
+      "after_relocations": []
+    }
+  ],
+  "local_max_references": {
+    "before": {
+      "storage": 3,
+      "references": [
+        {
+          "section": ".debug$F",
+          "offset": 0,
+          "target": "?max@_STL@@YAABIABI0@Z"
+        }
+      ]
+    },
+    "after": {
+      "storage": 3,
+      "references": [
+        {
+          "section": ".debug$F",
+          "offset": 0,
+          "target": "?max@_STL@@YAABIABI0@Z"
+        }
+      ]
+    }
+  }
+}

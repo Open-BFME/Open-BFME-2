@@ -5243,7 +5243,7 @@ pin	reverse/symbols.csv	0x001149EB	1
 pin	reverse/symbols.csv	0x00115DA7	1
 pin	reverse/symbols.csv	0x00115DD2	1
 pin	reverse/symbols.csv	0x00115DE8	1
-pin	reverse/symbols.csv	0x0011647B	2
+pin	reverse/symbols.csv	0x0011647B	1
 pin	reverse/symbols.csv	0x001164F5	1
 pin	reverse/symbols.csv	0x001165D0	1
 pin	reverse/symbols.csv	0x00116600	1
@@ -11575,9 +11575,6 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlportObject156Vector.cpp	"
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlportObject156Vector.cpp	"t",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlportTreeKeyRangeVector.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlportTreeKeyRangeVector.cpp	"y",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlportTrivialDeque8Cleanup.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlportTrivialDeque8Cleanup.cpp	"s",off	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlportTrivialDeque8Cleanup.cpp	"t",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlportVectorAsciiScalarOverflow.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlportVectorAsciiScalarOverflow.cpp	"s",off	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlportVectorAsciiScalarOverflow.cpp	"t",on	1

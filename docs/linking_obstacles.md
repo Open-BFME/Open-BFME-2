@@ -16203,3 +16203,11 @@ two suppressed seed copies retain identical existing providers. The merge
 guard and scoped 4,455-byte cohort prediction pass. Path consumers and affected
 queues were audited across this outgoing batch. Census confirmation remains
 separate from these retained predictions.
+
+The remaining cleanup donor's three optimize hatches are retired independently
+of its still-blocked merge. Eight rows remain strict-exact, 173 of 174 complete
+code definitions are identical, and only an unreferenced local max helper
+changes (its sole relocation is debug metadata). The 4,455-byte cohort
+prediction is retained. The iterator provider's ten-row strict receipt was
+also refreshed after the last publication audit reported it missing. These
+scoped checks do not retroactively clear that audit or advance the census.
