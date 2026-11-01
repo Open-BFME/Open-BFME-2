@@ -210,3 +210,4 @@ Mouse,Code/GameEngine/Include/GameClient/Mouse.h,existing header; contract class
 TargetRef00217D4C,Code/Libraries/Source/Apt/AptRefTarget.h,existing header; contract class_contracts/TargetRef00217D4C.json; 153/236 sampled units adopt
 AudioManager,Code/GameEngine/Include/Common/GameAudio.h,existing header; contract class_contracts/AudioManager.json; 67/169 sampled units adopt
 Display,Code/GameEngine/Include/GameClient/Display.h,existing header; contract class_contracts/Display.json; 40/116 sampled units adopt
+Coord3DBase,Code/Libraries/Include/Lib/Coord3DBase.h,existing header; contract class_contracts/Coord3DBase.json; 109/119 sampled units adopt
