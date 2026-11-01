@@ -497,11 +497,7 @@ class Rva002763E6Aux;
 // Rva003626CE::rva003626EA taking a Block3.
 struct Coord3D;
 
-class Drawable
-{
-public:
-	const Coord3D *getPosition() const;
-};
+#include "../../../Include/GameClient/Drawable.h"
 
 struct Block3;
 

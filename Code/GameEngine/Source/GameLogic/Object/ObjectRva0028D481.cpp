@@ -50,11 +50,7 @@ class ModelConditionFlags
 	int m_words[19];
 };
 
-class Drawable
-{
-public:
-	void rva002791E7(const ModelConditionFlags &flags, unsigned int forceReplace, unsigned int b);
-};
+#include "../../../Include/GameClient/Drawable.h"
 
 class Object
 {

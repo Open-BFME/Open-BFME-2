@@ -184,11 +184,7 @@ public:
 
 class AsciiString;
 
-class Drawable
-{
-public:
-	void rva002724FD(const AsciiString &a, unsigned char b, int c, float d, float e);
-};
+#include "../../../../Include/GameClient/Drawable.h"
 
 #include "../../../Common/Thing/thing.h"
 

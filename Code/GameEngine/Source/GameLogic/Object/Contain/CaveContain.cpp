@@ -395,12 +395,7 @@ private:
 	Team *m_defaultTeam; // +0x2EC
 };
 
-class Drawable
-{
-public:
-	void setIndicatorColor(Color color);
-	void setDrawableHidden(bool hidden);
-};
+#include "../../../../Include/GameClient/Drawable.h"
 
 class PlayerList
 {

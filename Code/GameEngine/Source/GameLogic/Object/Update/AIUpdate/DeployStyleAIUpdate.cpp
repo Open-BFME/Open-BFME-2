@@ -440,11 +440,7 @@ public:
 
 class Rva002390CB { public: int id; Rva0036CA00Str ref; };
 
-class Drawable {
-public:
- void setAnimationLoopDuration(UnsignedInt);
- Rva002390CB rva00274CD8(const AsciiString &);
-};
+#include "../../../../../Include/GameClient/Drawable.h"
 
 class AudioManager {
 public:

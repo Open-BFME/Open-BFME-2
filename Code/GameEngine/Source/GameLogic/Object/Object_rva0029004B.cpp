@@ -7,12 +7,7 @@
 // 0x00274401 is rowed ?setInaudible@Drawable@@QAEXXZ; retail offsets +0x9a
 // flag 0x10, +0x84 Drawable, +0x435 gate, +0x244 array.
 
-class Drawable
-{
-public:
-	void setInaudible();
-	void setAudible();
-};
+#include "../../../Include/GameClient/Drawable.h"
 
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)

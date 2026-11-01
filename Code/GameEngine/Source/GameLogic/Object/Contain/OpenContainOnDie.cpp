@@ -27,7 +27,7 @@ class DieMuxData {
 public: bool isDieApplicable(const Object*,const DamageInfo*) const;
 };
 #include "../object.h"
-class Drawable { public: void setDrawableHidden(bool hidden); };
+#include "../../../../Include/GameClient/Drawable.h"
 extern GameLogic *TheGameLogic;
 struct OpenContainDieData {
  char unknown00[8];

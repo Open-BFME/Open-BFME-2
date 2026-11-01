@@ -26,13 +26,7 @@ class Rva000CF0D6
 public:
 	unsigned int m_bits[19];
 };
-class Drawable
-{
-public:
-	DrawableID getID() const;
-	unsigned char m_pad000[0x258];
-	Rva000CF0D6 m_conditionFlags;	// +0x258
-};
+#include "../../../../Include/GameClient/Drawable.h"
 struct Rva004CBE66Entry { Rva0036CA00Str value; Rva000CF0D6 required,exempt; };
 class ModuleData;
 class Rva004CBE66 {

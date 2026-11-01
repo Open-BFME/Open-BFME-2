@@ -75,15 +75,7 @@ public:
 };
 extern class MessageStream *TheMessageStream;
 
-class Drawable
-{
-public:
-	__declspec(dllimport) __forceinline Bool isSelected() const { return m_selected; }
-
-private:
-	unsigned char m_pad000[0x43c];
-	Bool m_selected;
-};
+#include "../../../../Include/GameClient/Drawable.h"
 
 class InGameUI
 {

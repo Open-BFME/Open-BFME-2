@@ -12,11 +12,7 @@
 
 #include "../../../../Common/Thing/thing.h"
 
-class Drawable
-{
-public:
-	void rva00274176(bool b);
-};
+#include "../../../../../Include/GameClient/Drawable.h"
 
 class Rva001E42F2
 {

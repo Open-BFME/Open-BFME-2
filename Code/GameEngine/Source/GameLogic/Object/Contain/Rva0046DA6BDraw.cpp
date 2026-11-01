@@ -4,7 +4,7 @@
 // stlport
 #include <map>
 class Rva00270644 {public:void rva00270644(float,float);};
-class Drawable {public:void rva00272870(int);};
+#include "../../../../Include/GameClient/Drawable.h"
 class Player;
 class Object {public:Drawable*getDrawable()const;Player*getControllingPlayer()const;};
 class Rva2225E0Filter {public:bool accepts(Object*,Player*);};

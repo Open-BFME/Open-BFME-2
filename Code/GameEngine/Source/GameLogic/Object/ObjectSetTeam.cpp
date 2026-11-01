@@ -167,7 +167,7 @@ public:
 class InGameUI;
 extern InGameUI *TheInGameUI;
 
-class Drawable { public: void changedTeam(); };	// 0x002742AC
+#include "../../../Include/GameClient/Drawable.h"
 
 class Object
 {

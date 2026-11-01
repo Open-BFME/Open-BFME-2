@@ -240,7 +240,7 @@ public:
 	Team *m_team; // +0x2EC +0x2ec
 };
 
-class Drawable { public: void setAnimationLoopDuration(unsigned); };
+#include "../../../../Include/GameClient/Drawable.h"
 
 // Native uses nineteen DWORDs for the 591-bit model-condition mask.
 // The only accesses here are proven fixed indices21..32 from the donor;

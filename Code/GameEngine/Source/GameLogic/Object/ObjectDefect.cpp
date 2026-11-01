@@ -57,11 +57,7 @@ list<Drawable *>::_M_create_node(Drawable *const &value)
 typedef bool Bool;
 typedef unsigned int UnsignedInt;
 
-class Drawable
-{
-public:
-	void rva00278C7C(int flash);
-};
+#include "../../../Include/GameClient/Drawable.h"
 
 class Team;
 class Player;

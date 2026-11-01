@@ -25,13 +25,7 @@ struct BfmeHeldFDE
 	BfmeSubFDE *m_bfmeS;
 };
 class Matrix3D;
-class Drawable
-{
-public:
-	void rva002724FD(const AsciiString &a, int b, int c, float d, float e);
-	int getPristineBonePositions(const char *, int, Coord3D *, Matrix3D *, int, int) const;
-	void rva002724FD(const AsciiString &name, unsigned char visible, int a, float b, float c);
-};
+#include "../../../../Include/GameClient/Drawable.h"
 #include "../../../Common/Thing/thing.h"
 struct BfmeEntry
 {

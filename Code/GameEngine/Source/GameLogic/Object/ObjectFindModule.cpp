@@ -36,11 +36,7 @@ public:
 	virtual void slot13(int v);
 };
 
-class Drawable
-{
-public:
-	void setSelectable(bool selectable);
-};
+#include "../../../Include/GameClient/Drawable.h"
 
 class Object
 {

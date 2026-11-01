@@ -41,13 +41,7 @@ struct Rva00297612Entry
 
 // 0x0027B18C's bank names its parameter DamageInfo; the call passes this entry unchanged.
 struct DamageInfo;
-class Drawable
-{
-public:
-	Rva002390CB rva0028F8F9();
-	Rva002390CB rva0028F8E0();
-	void rva0027B18C(DamageInfo *);
-};
+#include "../../../Include/GameClient/Drawable.h"
 class Rva002D9531 { public: void rva002D9531(int); };
 class Rva00294D61 { public: void report(Object *, int); };
 

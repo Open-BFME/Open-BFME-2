@@ -391,11 +391,7 @@ public:
 	bool rva00270260();
 };
 
-class Drawable
-{
-public:
-	void setDrawableHidden(bool hidden);
-};
+#include "../../../../Include/GameClient/Drawable.h"
 
 class Rva00463509 {
 public:

@@ -32,11 +32,7 @@ struct Rva0039B57FTemplate
 	unsigned char m_113;		// +0x113
 };
 
-class Drawable
-{
-public:
-	void rva0027290C(int value);
-};
+#include "../../../Include/GameClient/Drawable.h"
 
 class Rva0039B632 { public: void rva0039B632(int value); };
 class Rva0039B64D { public: void rva0039B64D(int value); };

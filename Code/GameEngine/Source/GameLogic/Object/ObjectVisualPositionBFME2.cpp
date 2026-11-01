@@ -8,7 +8,7 @@
 static __forceinline bool visualGroundBit(unsigned v){return(v>>6)&1;}
 class Matrix3D;
 struct VisualMatrixTranslation {float values[3][4];};
-class Drawable {public:const Matrix3D *getTransformMatrix() const;};
+#include "../../../Include/GameClient/Drawable.h"
 class Object;
 class VisualContain {
 public:

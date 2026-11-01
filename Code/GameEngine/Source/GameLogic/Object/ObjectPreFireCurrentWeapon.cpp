@@ -78,11 +78,7 @@ private:
 	unsigned char m_bits[0x4C];
 };
 
-class Drawable
-{
-public:
-	void rva00274176(bool b);
-};
+#include "../../../Include/GameClient/Drawable.h"
 
 class Object
 {

@@ -15,11 +15,7 @@
 
 extern int BfmeLogicFramesPerSecond;
 
-class Drawable
-{
-public:
-	void fadeIn(unsigned int frames);
-};
+#include "../../../../Include/GameClient/Drawable.h"
 
 class Rva003BD306Target
 {

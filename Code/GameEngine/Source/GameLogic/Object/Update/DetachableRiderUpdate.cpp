@@ -28,7 +28,7 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 // the shape that gives retail's register assignment (a do-while on begin
 // itself swaps EBX/EDI).
 class ObjectCreationList {public:void create(void*,void*,void*);};
-class Drawable {public:void rva002724FD(const AsciiString&,int,int,float,float);};
+#include "../../../../Include/GameClient/Drawable.h"
 enum DisabledType{DISABLED4=4};
 enum WeaponSlotType{WEAPON0=0};
 enum WeaponLockType{LOCK2=2};

@@ -129,11 +129,7 @@ static __forceinline void giantBirdDoFXPos(const FXList *fx, const Coord3D *prim
 		fx->doFXPos(primary, primaryMtx, primarySpeed, secondary);
 }
 
-class Drawable
-{
-public:
-	const Matrix3D *getTransformMatrix() const;
-};
+#include "../../../../../Include/GameClient/Drawable.h"
 
 class WeaponTemplate
 {

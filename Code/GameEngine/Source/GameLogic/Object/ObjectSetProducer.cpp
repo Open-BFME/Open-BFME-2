@@ -23,12 +23,7 @@ public:
 
 #include "../../../Include/Common/TeamBFME2.h"
 
-class Drawable
-{
-public:
-	void setIndicatorColor(Color color);
-	void changedTeam();
-};
+#include "../../../Include/GameClient/Drawable.h"
 
 enum TimeOfDay
 {

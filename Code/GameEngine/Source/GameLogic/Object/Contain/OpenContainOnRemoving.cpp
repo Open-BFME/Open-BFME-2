@@ -44,7 +44,7 @@ public:
     void *unknown00;
     OpaqueRefElement4 ref;
 };
-class Drawable { public: Rva002390CB rva00462DAE(); Rva002390CB rva00462DC7(); };
+#include "../../../../Include/GameClient/Drawable.h"
 class Object { public: Drawable *getDrawable() const; bool addAttributeModifierToPool(const AsciiString &, int); int getID() const { return *reinterpret_cast<const int *>(reinterpret_cast<const char *>(this)+0x74); } };
 struct Rva00464D02Object { char unknown00[0x74]; int id74; };
 class Rva002D9531

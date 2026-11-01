@@ -155,12 +155,7 @@ public:
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 
-class Drawable
-{
-public:
-	void setFullyObscuredByShroud(Bool fullyObscured);
-	void fadeIn(UnsignedInt frames);
-};
+#include "../../../../Include/GameClient/Drawable.h"
 
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 

@@ -337,14 +337,7 @@ extern UpgradeCenter *TheUpgradeCenter;
 class Rva0021BFD8 { public: Bool rva0021BFD8(const StringBase<char> &name); };
 // The hero colour record Update hands the drawable (0x00406D67 fills it).
 class Rva00406D67 { public: Rva00406D67 *rva00406D67(unsigned red, unsigned green, unsigned blue); unsigned data[4]; };
-class Drawable
-{
-public:
-	void rva00274176(bool);
-	void rva0027248A(int color, int names);
-	int rva00272709();
-	int rva0027272B();
-};
+#include "../../../Include/GameClient/Drawable.h"
 // The drawable's null-terminated draw-module array (rowed get 0x002B224B).
 class Rva002B224BDwordField
 {

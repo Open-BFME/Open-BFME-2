@@ -39,11 +39,7 @@ public:
 	OpaqueRefElement4 ref;
 };
 
-class Drawable
-{
-public:
-	Rva002390CB rva0028F912(); // key 0x37
-};
+#include "../../../Include/GameClient/Drawable.h"
 
 class Rva002D9531
 {

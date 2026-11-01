@@ -75,12 +75,7 @@ enum ObjectStatusTypes
 {
 	OBJECT_STATUS_DUMMY = 0
 };
-class Drawable
-{
-public:
-	char m_pad00[0x43c];
-	bool m_43c;
-};
+#include "../../../../Include/GameClient/Drawable.h"
 #include "../../../Common/Thing/thing.h"
 class Player;
 class PlayerList
@@ -141,7 +136,7 @@ struct ObjectLayout
 void Rva0047A040Base9E0::rva00588D99(Object *obj)
 {
 	Drawable *drawable = ((Thing *)obj)->getDrawable();
-	if (drawable != 0 && drawable->m_43c) {
+	if (drawable != 0 && drawable->m_selected) {
 		Player *local = ThePlayerList->m_localPlayer;
 		Player *ctrl = obj->getControllingPlayer();
 		if (ctrl == local) {

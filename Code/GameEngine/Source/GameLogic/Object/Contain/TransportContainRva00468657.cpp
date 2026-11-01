@@ -35,11 +35,7 @@ bool less<int>::operator()(const int &a, const int &b) const
 { return a < b; }
 }
 
-class Drawable
-{
-public:
-	void rva0027656F(int ownerID, AsciiString bone);void setDrawableHidden(bool);
-};
+#include "../../../../Include/GameClient/Drawable.h"
 
 #include "../../../Common/Thing/thing.h"
 

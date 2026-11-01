@@ -250,10 +250,7 @@ class Rva001E46E1 {
   public:
     float rva001E4845(Object *);
 };
-class Drawable {
-  public:
-    void rva00272A02(bool);
-};
+#include "../../../../Include/GameClient/Drawable.h"
 class Rva00373EC6 {
   public:
     char pad[0x3C];

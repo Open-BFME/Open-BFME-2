@@ -6,7 +6,7 @@
 class Object;
 #include "GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
-class Drawable {public:void setDrawableHidden(bool);};
+#include "../../../../Include/GameClient/Drawable.h"
 class Object {public:Drawable *getDrawable() const;};
 class Rva00294D61
 {

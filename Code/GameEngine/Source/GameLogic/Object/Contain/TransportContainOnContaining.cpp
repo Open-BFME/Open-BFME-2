@@ -96,13 +96,7 @@ public:
 	UnsignedInt m_kindOf[4];							///< +0x108
 };
 
-class Drawable
-{
-public:
-	void fadeOut(UnsignedInt frames);
-	void fadeIn(UnsignedInt frames);
-	void rva00274176(bool flag);
-};
+#include "../../../../Include/GameClient/Drawable.h"
 
 class Object
 {

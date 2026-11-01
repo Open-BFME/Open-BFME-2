@@ -47,11 +47,7 @@ class Object;
 
 #include "../../../Common/Thing/thing.h"
 
-class Drawable
-{
-public:
-	void setDrawableHidden(bool hidden);
-};
+#include "../../../../Include/GameClient/Drawable.h"
 
 class Payload
 {
