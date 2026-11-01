@@ -39,7 +39,7 @@ hash_map<unsigned int, void *>::iterator hash_map<unsigned int, void *>::find(co
 
 struct CRITICAL_SECTION
 {
-	unsigned char m_data[0x1c];
+	unsigned char m_data[0x18];
 };
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(
@@ -50,16 +50,16 @@ extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(
 class CriticalSectionLock
 {
 public:
-	explicit CriticalSectionLock(int lock) : m_lock(lock)
+	explicit CriticalSectionLock(CRITICAL_SECTION *lock) : m_lock(lock)
 	{
-		EnterCriticalSection((CRITICAL_SECTION *)m_lock);
+		EnterCriticalSection(m_lock);
 	}
 	~CriticalSectionLock()
 	{
-		LeaveCriticalSection((CRITICAL_SECTION *)m_lock);
+		LeaveCriticalSection(m_lock);
 	}
 
-	int m_lock;
+	CRITICAL_SECTION *m_lock;
 };
 
 enum NameKeyType
@@ -82,21 +82,21 @@ public:
 private:
 	unsigned char m_unmodelled_000[0x34];
 	CRITICAL_SECTION m_lock;
-	unsigned char m_unmodelled_048[0x1a8];
+	_STL::hash_map<unsigned int, void *> m_assets;
+	unsigned char m_gap[0x1f8 - 0x4c - sizeof(_STL::hash_map<unsigned int, void *>)];
 	NameKeyGenerator *m_hash_context;
 };
 
 // ?bfmeGetEME@BfmeObjEME@@QAEPAXPAX@Z
 void *BfmeObjEME::bfmeGetEME(void *name)
 {
-	CriticalSectionLock lock((int)&m_lock);
+	CriticalSectionLock lock(&m_lock);
 	unsigned int key =
 		(unsigned int)m_hash_context->nameToLowercaseKey((const char *)name);
 	if (key == 0)
 		return 0;
 	typedef _STL::hash_map<unsigned int, void *> AssetRegistryHash;
-	AssetRegistryHash *assets =
-		(AssetRegistryHash *)((char *)this + 0x4C);
+	AssetRegistryHash *assets = &m_assets;
 	AssetRegistryHash::iterator it = assets->find(key);
 	if (it == assets->end())
 		return 0;
