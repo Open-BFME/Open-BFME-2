@@ -742,7 +742,6 @@ public:
 	Rva00056F61 m_table;
 };
 class Image {public:void rva002D937E();};
-class Image;
 class ThingTemplate
 {
 public:
@@ -797,7 +796,6 @@ extern PlayerList *ThePlayerList;
 #include "unicode_string.h"
 typedef void (*GameWinTooltipFunc)(GameWindow *,WinInstanceData *,unsigned int);
 class AsciiString;
-class Image;
 class SpecialPowerTemplate;
 class CommandButton
 {
@@ -1136,6 +1134,34 @@ template void _STL::_Construct<ConstructProbeSciVec, ConstructProbeSciVec>(Const
 template void _STL::_Construct<ConstructProbeCoordList, ConstructProbeCoordList>(ConstructProbeCoordList *, const ConstructProbeCoordList &);
 template void _STL::_Construct<ConstructProbePairC, ConstructProbePairC>(ConstructProbePairC *, const ConstructProbePairC &);
 #include "../../../../Include/Common/Rva0007DF07.h"
+#include "../../../../../../reference/shims/bfme2_ascii/string_base.h"
+enum GameModeType
+{
+	GAME_LAN = 1,
+	GAME_SINGLE = 2,
+	GAME_INTERNET = 5
+};
+class NameKeyGenerator;
+class GameWindowManager;
+class PlayerTemplateStore;
+class GameLogic;
+class GameInfo;
+class PlayerTemplateStore
+{
+public:
+	const PlayerTemplate *findPlayerTemplate(NameKeyType key) const;
+};
+extern PlayerTemplateStore *ThePlayerTemplateStore;
+class GameInfo
+{
+public:
+	virtual void g00(); virtual void g01(); virtual void g02(); virtual void g03(); virtual void g04();
+	virtual void g05(); virtual void g06(); virtual void g07(); virtual void g08(); virtual void g09();
+	virtual void g10(); virtual void g11(); virtual void g12(); virtual void g13(); virtual void g14();
+	virtual void g15(); virtual void g16(); virtual void g17(); virtual void g18();
+	virtual bool isMultiPlayer();
+};
+extern GameInfo *TheGameInfo;
 
 class Rva000427195
 {
@@ -1223,8 +1249,6 @@ struct Rva0031DBFCElement;
 struct PlayerAITypeEntry;
 
 class Rva000AD6F4;
-
-class AsciiString;
 
 class Player;
 
@@ -1483,6 +1507,8 @@ public:
 private:
 	_STL::vector<PlayerAITypeEntry> m_02A8; // +0x2A8
 };
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp
 
@@ -2850,28 +2876,6 @@ void ControlBar::setPortraitByObject(Object *obj)
 {
 }
 
-// tu-skeleton: 0x0031AB77 8B ?rva0031AB77SetFlag@ControlBar@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp (not merged yet)
-
-// tu-skeleton: 0x0031AB7F 80B ??4Rva0031AB7F@@QAEAAV0@ABV0@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/Rva0031AB7FCopy.cpp (not merged yet)
-
-// tu-skeleton: 0x0031ABCF 5B ?processContextSensitiveButtonClick@ControlBar@@QAE?AW4CBCommandStatus@@PAVGameWindow@@W4GadgetGameMessage@@@Z -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
-
-// tu-skeleton: 0x0031ABD4 5B ?processContextSensitiveButtonTransition@ControlBar@@QAE?AW4CBCommandStatus@@PAVGameWindow@@W4GadgetGameMessage@@@Z -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
-
-// tu-skeleton: 0x0031AC39 22B ?postProcessCommands@ControlBar@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_postProcessCommands.cpp (not merged yet)
-
-// tu-skeleton: 0x0031AF54 120B ?rva0031AF54@Rva0031AF54@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031AF54.cpp (not merged yet)
-
-// tu-skeleton: 0x0031B031 42B ??$__copy@PBW4ScienceType@@PAW41@H@_STL@@YAPAW4ScienceType@@PBW41@0PAW41@ABUrandom_access_iterator_tag@0@PAH@Z -- matched in Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp (not merged yet)
-
-// tu-skeleton: 0x0031B4A8 18B ??$_Construct@VRva002390CB@@V1@@_STL@@YAXPAVRva002390CB@@ABV1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_throw_spec.cpp (not merged yet)
-
-// tu-skeleton: 0x0031B4BA 28B ??_GRva002390CB@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/AnimationSoundTreeFree.cpp (not merged yet)
-
-// tu-skeleton: 0x0031B99A 81B ?switchControlBarStage@ControlBar@@QAEXW4ControlBarStages@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_Rva0031B99A.cpp (not merged yet)
-
-// tu-skeleton: 0x0031B9EB 45B ??$_M_allocate_and_copy@PBURva0031B9EBElement@@@?$vector@URva0031B9EBElement@@V?$allocator@URva0031B9EBElement@@@_STL@@@_STL@@IAEPAURva0031B9EBElement@@IPBU2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0031B9EB.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_setControlCommandByName.cpp
 
 // ?setControlCommand@ControlBar@@QAEXABVAsciiString@@PAVGameWindow@@PBVCommandButton@@@Z
@@ -2889,6 +2893,67 @@ void ControlBar::setControlCommand(const AsciiString &buttonWindowName, GameWind
 		return;
 	setControlCommand(win, commandButton);
 }
+
+// tu-skeleton: 0x0031AB77 8B ?rva0031AB77SetFlag@ControlBar@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/ControlBar/Rva0031AB7FCopy.cpp
+
+Rva0031AB7F &Rva0031AB7F::operator=(const Rva0031AB7F &that)
+{
+	FXParticleSystem::StreakDrawModuleTemplate::operator=(that);
+	m_0010.set(that.m_0010);
+	for (int i = 0; i < 32; i++)
+		m_0014[i] = that.m_0014[i];
+	m_0094 = that.m_0094;
+	m_0098 = that.m_0098;
+	return *this;
+}
+
+// tu-skeleton: 0x0031ABCF 5B ?processContextSensitiveButtonClick@ControlBar@@QAE?AW4CBCommandStatus@@PAVGameWindow@@W4GadgetGameMessage@@@Z -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x0031ABD4 5B ?processContextSensitiveButtonTransition@ControlBar@@QAE?AW4CBCommandStatus@@PAVGameWindow@@W4GadgetGameMessage@@@Z -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_postProcessCommands.cpp
+
+void ControlBar::postProcessCommands(void)
+{
+	for (CommandButton *button = m_commandButtons; button; button = button->friend_getNext())
+		button->cacheButtonImage();
+}
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031AF54.cpp
+
+void Rva0031AF54::rva0031AF54(bool flag)
+{
+	if (m_window == 0)
+		return;
+	if (m_manager == 0)
+		return;
+	if (m_count == 0)
+		return;
+	int i = 0;
+	for (; i < m_count; ++i) {
+		if (m_list[i]->winGetUserData() == 0)
+			continue;
+		if (flag) {
+			m_manager->reset();
+			m_manager->registerGameWindow(m_window, WIN_ANIMATION_SLIDE_RIGHT, true, 500, 0);
+		} else {
+			m_manager->reverseAnimateWindow();
+		}
+		break;
+	}
+}
+
+// tu-skeleton: 0x0031B031 42B ??$__copy@PBW4ScienceType@@PAW41@H@_STL@@YAPAW4ScienceType@@PBW41@0PAW41@ABUrandom_access_iterator_tag@0@PAH@Z -- matched in Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp (not merged yet)
+
+// tu-skeleton: 0x0031B4A8 18B ??$_Construct@VRva002390CB@@V1@@_STL@@YAXPAVRva002390CB@@ABV1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_throw_spec.cpp (not merged yet)
+
+// tu-skeleton: 0x0031B4BA 28B ??_GRva002390CB@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/AnimationSoundTreeFree.cpp (not merged yet)
+
+// tu-skeleton: 0x0031B99A 81B ?switchControlBarStage@ControlBar@@QAEXW4ControlBarStages@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_Rva0031B99A.cpp (not merged yet)
+
+// tu-skeleton: 0x0031B9EB 45B ??$_M_allocate_and_copy@PBURva0031B9EBElement@@@?$vector@URva0031B9EBElement@@V?$allocator@URva0031B9EBElement@@@_STL@@@_STL@@IAEPAURva0031B9EBElement@@IPBU2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0031B9EB.cpp (not merged yet)
 
 // tu-skeleton: 0x0031BAC3 658B ?rva0031BAC3@ControlBar@@QAEXPAVPlayer@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp (not merged yet)
 
@@ -2908,9 +2973,100 @@ void ControlBar::setControlCommand(const AsciiString &buttonWindowName, GameWind
 
 // tu-skeleton: 0x0031BF64 1194B ?switchToContext@ControlBar@@QAEXHPAX@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp (not merged yet)
 
-// tu-skeleton: 0x0031C40E 442B ?setControlBarSchemeByPlayer@ControlBar@@QAEXPAVPlayer@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_setControlBarSchemeByPlayerTemplate.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_setControlBarSchemeByPlayerTemplate.cpp
 
-// tu-skeleton: 0x0031C5C8 469B ?setControlBarSchemeByPlayerTemplate@ControlBar@@QAEXPBVPlayerTemplate@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_setControlBarSchemeByPlayerTemplate.cpp (not merged yet)
+void ControlBar::setControlBarSchemeByPlayerTemplate(const PlayerTemplate *pt)
+{
+	if (m_controlBarSchemeManager)
+		m_controlBarSchemeManager->setControlBarSchemeByPlayerTemplate(pt, false);
+
+	static NameKeyType buttonPlaceBeaconID = TheNameKeyGenerator->nameToKey("ControlBar.wnd:ButtonPlaceBeacon");
+	static NameKeyType buttonIdleWorkerID = TheNameKeyGenerator->nameToKey("ControlBar.wnd:ButtonIdleWorker");
+	static NameKeyType buttonGeneralID = TheNameKeyGenerator->nameToKey("ControlBar.wnd:ButtonGeneral");
+	GameWindow *buttonPlaceBeacon = TheWindowManager->winGetWindowFromId(0, buttonPlaceBeaconID);
+	GameWindow *buttonIdleWorker = TheWindowManager->winGetWindowFromId(0, buttonIdleWorkerID);
+	GameWindow *buttonGeneral = TheWindowManager->winGetWindowFromId(0, buttonGeneralID);
+
+	if (pt == ThePlayerTemplateStore->findPlayerTemplate(TheNameKeyGenerator->nameToKey("FactionObserver")))
+	{
+		m_isObserverCommandBar = true;
+		switchToContext(CB_CONTEXT_OBSERVER_LIST, 0);
+
+		if (buttonPlaceBeacon)
+			buttonPlaceBeacon->winHide(true);
+		if (buttonIdleWorker)
+			buttonIdleWorker->winHide(true);
+		if (buttonGeneral)
+			buttonGeneral->winEnable(false);
+	}
+	else
+	{
+		switchToContext(CB_CONTEXT_NONE, 0);
+		m_isObserverCommandBar = false;
+
+		if (buttonPlaceBeacon)
+			buttonPlaceBeacon->winHide((TheGameLogic->m_110 != GAME_LAN && TheGameLogic->m_110 != GAME_INTERNET) || !TheGameInfo->isMultiPlayer());
+		if (buttonIdleWorker)
+			buttonIdleWorker->winHide(false);
+		if (buttonGeneral)
+		{
+			buttonGeneral->winHide(false);
+			buttonGeneral->winEnable(true);
+		}
+	}
+	switchControlBarStage(CONTROL_BAR_STAGE_DEFAULT);
+
+	Rva0043C96FEnable();
+}
+
+// ZH ControlBar.cpp setControlBarSchemeByPlayer at the verified BFME 1
+// reference ba7ddda7e8f261163972ddbe23c7e7a12ac5b84f. Target 31C40E..31C5C8
+// has the same three button names and observer/active control flow. Layouts
+// come from the matched template overload above; native calls independently
+// reach manager 31FE49 and the Player active predicate 2AA231. No BFME 1
+// lifted body is used. The game's original method name is donor evidence.
+void ControlBar::setControlBarSchemeByPlayer(Player *player)
+{
+	if (m_controlBarSchemeManager)
+		m_controlBarSchemeManager->setControlBarSchemeByPlayer(player);
+
+	static NameKeyType buttonPlaceBeaconID = TheNameKeyGenerator->nameToKey("ControlBar.wnd:ButtonPlaceBeacon");
+	static NameKeyType buttonIdleWorkerID = TheNameKeyGenerator->nameToKey("ControlBar.wnd:ButtonIdleWorker");
+	static NameKeyType buttonGeneralID = TheNameKeyGenerator->nameToKey("ControlBar.wnd:ButtonGeneral");
+	GameWindow *buttonPlaceBeacon = TheWindowManager->winGetWindowFromId(0, buttonPlaceBeaconID);
+	GameWindow *buttonIdleWorker = TheWindowManager->winGetWindowFromId(0, buttonIdleWorkerID);
+	GameWindow *buttonGeneral = TheWindowManager->winGetWindowFromId(0, buttonGeneralID);
+
+	if (!player->isPlayerActive())
+	{
+		m_isObserverCommandBar = true;
+		switchToContext(CB_CONTEXT_OBSERVER_LIST, 0);
+
+		if (buttonPlaceBeacon)
+			buttonPlaceBeacon->winHide(true);
+		if (buttonIdleWorker)
+			buttonIdleWorker->winHide(true);
+		if (buttonGeneral)
+			buttonGeneral->winEnable(false);
+	}
+	else
+	{
+		switchToContext(CB_CONTEXT_NONE, 0);
+		m_isObserverCommandBar = false;
+
+		if (buttonPlaceBeacon)
+			buttonPlaceBeacon->winHide((TheGameLogic->m_110 != GAME_LAN && TheGameLogic->m_110 != GAME_INTERNET) || !TheGameInfo->isMultiPlayer());
+		if (buttonIdleWorker)
+			buttonIdleWorker->winHide(false);
+		if (buttonGeneral)
+		{
+			buttonGeneral->winHide(false);
+			buttonGeneral->winEnable(true);
+		}
+	}
+	switchControlBarStage(CONTROL_BAR_STAGE_DEFAULT);
+
+}
 
 // tu-skeleton: 0x0031C79D 57B (unledgered) -- unmatched, no code, never credited
 
@@ -2944,6 +3100,10 @@ void ControlBar::setControlCommand(const AsciiString &buttonWindowName, GameWind
 
 // tu-skeleton: 0x0031EC03 253B ?parseCommandSetDefinition@ControlBar@@SAXPAVINI@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp (not merged yet)
 
+// tu-skeleton: 0x0077AB59 10B $L1664 -- matched in Code/GameEngine/Source/GameLogic/System/CrateSystemNewCrateTemplate.cpp (not merged yet)
+
+// tu-skeleton: 0x0077AB63 10B __ehhandler$?rva0031EB96@Rva0031EB96@@QAEPAVRva0031AB1ENode@@PAV2@@Z -- matched in Code/GameEngine/Source/GameLogic/System/CrateSystemNewCrateTemplate.cpp (not merged yet)
+
 // tu-skeleton: 0x0077ABAE 8B Unwind@00b7abae -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp (not merged yet)
 
 // tu-skeleton: 0x0077ABB6 8B Unwind@00b7abb6 -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp (not merged yet)
@@ -2954,15 +3114,15 @@ void ControlBar::setControlCommand(const AsciiString &buttonWindowName, GameWind
 
 // tu-skeleton: 0x0077ABCE 10B __ehhandler$?rva0031BAC3@ControlBar@@QAEXPAVPlayer@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp (not merged yet)
 
-// tu-skeleton: 0x0077AC31 10B __ehhandler$?setControlBarSchemeByPlayer@ControlBar@@QAEXPAVPlayer@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_setControlBarSchemeByPlayerTemplate.cpp (not merged yet)
-
-// tu-skeleton: 0x0077AC62 10B __ehhandler$?setControlBarSchemeByPlayerTemplate@ControlBar@@QAEXPBVPlayerTemplate@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_setControlBarSchemeByPlayerTemplate.cpp (not merged yet)
-
 // tu-skeleton: 0x0077AD72 10B __ehhandler$?rva0031D230@ControlBar@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp (not merged yet)
 
 // tu-skeleton: 0x0077ADB6 8B $L5355 -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp (not merged yet)
 
 // tu-skeleton: 0x0077ADBE 10B __ehhandler$?populateSpecialPowerShortcut@ControlBar@@IAEXPAVPlayer@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp (not merged yet)
+
+// tu-skeleton: 0x0077ADEB 11B $L5834 -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0031DBFC.cpp (not merged yet)
+
+// tu-skeleton: 0x0077ADF6 10B __ehhandler$??1Rva0031C79DMap@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/Rva000427195Dtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0077AE00 8B Unwind@00b7ae00 -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/Rva0031DCF0ControlBarDtor.cpp (not merged yet)
 
