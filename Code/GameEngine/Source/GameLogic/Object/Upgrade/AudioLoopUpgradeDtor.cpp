@@ -49,29 +49,7 @@ public:
 
 extern AudioManager *TheAudio;
 
-class UpdateModule
-{
-public:
-	virtual ~UpdateModule();
-
-private:
-	unsigned char m_pad[0xc - 4];
-};
-
-class AudioLoopBase0C
-{
-public:
-	virtual void base0CAnchor();
-};
-
-class AudioLoopBase10
-{
-public:
-	virtual void base10Anchor();
-
-private:
-	unsigned char m_pad[0x20 - 0x14];
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class AudioLoopBase20
 {
@@ -89,8 +67,6 @@ public:
 };
 
 class AudioLoopUpgrade : public UpdateModule,
-	public AudioLoopBase0C,
-	public AudioLoopBase10,
 	public AudioLoopBase20,
 	public AudioLoopBase28
 {
