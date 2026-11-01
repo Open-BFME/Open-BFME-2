@@ -30,3 +30,22 @@ both names. All 37 unique referring/current sources were checked together:
 ./build.sh seed: 18/18 exact; find_declared_unmatched clean; compiler
 CodeView confirms D4 bytes and no vfptr. Initial full verification also
 passed all 99,270 rows. No census or image ownership gain is claimed.
+
+## Include prerequisite
+
+Replace the seed's engine-header fanout with the library headers actually
+needed by its retained emitter plus canonical ICoord2D/IRegion2D headers.
+The WorldHeightMap receiver keeps only its observed refcount/extents prefix
+and declarations used by the legacy body. This removes the conflicting ZH
+coordinate/UnicodeString/class declarations without changing a matched row.
+The terrain tail now names existing donor fields at their witnessed offsets;
+60/61/62 are initialized/update-mode/need-update as native consumers use them.
+CodeView and the constructor establish the nonpolymorphic D4-byte extent.
+
+Of the original 590 emitted definitions, 40 remain. Each of the 542 removed
+names with outside touches has a byte/relocation-identical alternate in the
+census; include-provider-proof.tsv records a digest and alternate for every
+name. All 411 affected current units were previewed together: 372 LINKS,
+518,497 -> 520,236 predicted bytes, no per-unit loss. Existing blockers remain;
+this prediction is not a census measurement. Eighteen seed rows stay exact
+and the frozen-file check is clean. The three inline helper rows remain here.
