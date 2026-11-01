@@ -6,11 +6,7 @@ class AptPlayer { public: bool HideLevel(int); };
 // Evidence: rowed free invoke 0x00516F21 (strings SetState _fadeOut) plus pin 0x0022277D;
 // caller 0x0042C39A; neighbours 0x0042D55B 0x0042D697.
 
-class Rva00222A8BTarget
-{
-public:
-
-};
+#include "../../Include/Common/Rva00222A8BTarget.h"
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 #pragma comment(linker, "/alternatename:?TheRva00222A8BTarget@@3PAVRva00222A8BTarget@@A=?g_bfmeAptWindowManager@@3PAVBfmeAptWindowManager@@A")
 

@@ -6,11 +6,7 @@
 // 1 and 2 are set and not already in +0x6bc. Owner at +0x274.
 // Evidence: leaf callers 0x00444727 0x00444741; strings 0x83DFCC 0x83DFBC.
 
-class Rva00222A8BTarget
-{
-public:
-	void invoke(void *owner, const char *name, int flag, const char *value, void *a4, void *a5, void *a6, void *a7);
-};
+#include "../../Include/Common/Rva00222A8BTarget.h"
 
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 

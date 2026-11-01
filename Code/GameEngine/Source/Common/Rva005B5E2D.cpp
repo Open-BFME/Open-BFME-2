@@ -8,9 +8,7 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 
-class Rva00222A8BTarget
-{
-};
+#include "../../Include/Common/Rva00222A8BTarget.h"
 class Rva00222A8BTarget;
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;

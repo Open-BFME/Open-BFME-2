@@ -13,11 +13,7 @@ class Shell
 public:
 	void push(AsciiString s, bool flag);
 };
-class Rva00222A8BTarget
-{
-public:
-	void rva002233A6(int mode);
-};
+#include "../../Include/Common/Rva00222A8BTarget.h"
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 struct State005185D8
 {

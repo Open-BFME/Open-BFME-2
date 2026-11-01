@@ -671,7 +671,7 @@ StrategicHUD::Palantir *StrategicHUD::Palantir::rva005785BE()
 // Explicit receiver views preserve that ABI without changing the owner's vtable.
 
 // Existing rowed bool wrapper is visible for its read-only argument behavior.
-class Rva00222A8BTarget {public:int rva00222B19(void *,const char *,const char *,int,const char *,void *,void *,void *,void *);};
+#include "../../Include/Common/Rva00222A8BTarget.h"
 char ** __cdecl Rva004E678BGet(char **,bool);
 inline __declspec(noinline) void __cdecl Rva005277D9Fire(Rva00222A8BTarget *target,void *level,const char *prefix,const char *function,bool *flagPtr) {
  char *value;

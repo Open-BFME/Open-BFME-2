@@ -12,12 +12,7 @@
 // ?rva00222B19@Rva00222A8BTarget@@QAEHPAXPBD1H10000@Z there. Naming the
 // 0x00222C12 row instead compiles to the identical instruction shape but a
 // wrong rel32, so the row fails byte comparison on that one field.
-class Rva00222A8BTarget
-{
-public:
-	int rva00222B19(void *level, const char *prefix, const char *function,
-		int argc, const char *a0, void *a1, void *a2, void *a3, void *a4);
-};
+#include "../../Include/Common/Rva00222A8BTarget.h"
 
 int __cdecl Rva00524EF4AptCall(Rva00222A8BTarget *t, void *a1, const char *a2, const char *a3)
 {

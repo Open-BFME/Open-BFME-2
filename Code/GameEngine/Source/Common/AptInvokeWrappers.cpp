@@ -11,12 +11,7 @@
 // wrapper is owned by BannerUIUpdate.cpp, whose caller needs its body visible.
 #include "ascii_string.h"
 
-class Rva00222A8BTarget
-{
-public:
-	int invoke(void *owner, const char *name, int argc, const char *a0, void *a1, void *a2, void *a3, void *a4);
-	int rva00222B19(void *level, const char *prefix, const char *function, int argc, const char *a0, void *a1, void *a2, void *a3, void *a4);
-};
+#include "../../Include/Common/Rva00222A8BTarget.h"
 
 // StringBase<char>::str() (TheNullChr for an empty string) of a temporary.
 static inline const char *Rva002162CFStr(const AsciiString &asciiString)

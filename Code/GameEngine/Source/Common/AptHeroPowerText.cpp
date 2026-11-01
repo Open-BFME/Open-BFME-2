@@ -15,11 +15,7 @@
 
 #include "../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 
-class Rva00222A8BTarget
-{
-public:
-	void invoke(void *owner, const char *name, int argc, const char *a0, void *a1, void *a2, void *a3, void *a4);
-};
+#include "../../Include/Common/Rva00222A8BTarget.h"
 class Rva00222A8BTarget;
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;

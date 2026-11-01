@@ -5,21 +5,7 @@ class AptSaveLoad { public: static AptSaveLoad *s_instance; };
 void Rva00433D27Enable();
 void Rva00437E9C(int);
 
-class Rva00222A8BTarget
-{
-public:
-	virtual void v0() = 0;
-	virtual void v1() = 0;
-	virtual void v2() = 0;
-	virtual void v3() = 0;
-	virtual void v4() = 0;
-	virtual void v5() = 0;
-	virtual void v6() = 0;
-	virtual void v7() = 0;
-	virtual void v8() = 0;
-	virtual void v9() = 0;
-	virtual void v10() = 0;
-};
+#include "../../Include/Common/Rva00222A8BTarget.h"
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 #include "GameLogicObjectLookupView.h"

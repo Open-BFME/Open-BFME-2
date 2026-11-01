@@ -15,11 +15,7 @@
 AsciiString Rva00222834Get(int val);
 AsciiString Rva002228E8Get(float val);
 
-class Rva00222A8BTarget
-{
-public:
-	int invoke(void *owner, const char *name, int kind, const char *value, void *a4, void *a5, void *a6, void *a7);
-};
+#include "../../Include/Common/Rva00222A8BTarget.h"
 
 int Rva002D43EFFire(Rva00222A8BTarget *target, void *owner, const char *name, int *value, const AsciiString *text)
 {

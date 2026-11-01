@@ -4,7 +4,7 @@
 // record clears. All offsets and calls below are native facts; owner identity
 // remains address-derived. Public AsciiString clear uses its owned worker.
 #include "ascii_string.h"
-class Rva00222A8BTarget {public:int invoke(void *,const char *,int,const char *,void *,void *,void *,void *);};
+#include "../../Include/Common/Rva00222A8BTarget.h"
 class Rva00223A94 {public:int rva00223A94(const AsciiString *);};
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 class Rva00528B98 {public:void rva00528B98();private:void *owner;bool flag04;};

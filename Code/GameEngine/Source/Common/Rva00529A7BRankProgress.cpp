@@ -6,12 +6,7 @@
 // callee rows 0x00222A8B 0x002D4531 and pin-free; globals TheRva00222A8BTarget
 // g_00BCF9B0 as -100.0f literal (retail -1e+02f per Rva002E0C2BMethod; literal loads v first);
 // caller at 0x00529D8A unclaimed so owner address-derived.
-class Rva00222A8BTarget
-{
-public:
-	int invoke(void *level, const char *function, int argc, const char *a0,
-		void *a1, void *a2, void *a3, void *a4);
-};
+#include "../../Include/Common/Rva00222A8BTarget.h"
 
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 

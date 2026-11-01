@@ -5,11 +5,7 @@
 // UiCallbackFirers. Callers at 0x002B8922 0x002B99F3, both LivingWorldLogic
 // members (rva002B88EC, init) that enter it with the logic in ECX: a
 // LivingWorldLogic member that does not read its receiver.
-class Rva00222A8BTarget
-{
-public:
-	void invoke(void *owner, const char *name, int flag, const char *value, void *a4, void *a5, void *a6, void *a7);
-};
+#include "../../Include/Common/Rva00222A8BTarget.h"
 // The slot at VA 0x00DFE4CC is the Apt window manager pointer, defined as
 // g_bfmeAptWindowManager in Rva005832D0MapName.cpp; this TU reads it through
 // its own view type.

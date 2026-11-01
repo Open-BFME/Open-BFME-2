@@ -33,11 +33,7 @@ namespace StrategicHUD
 extern GameTextInterface *TheGameText;
 extern Mouse *TheMouse;
 
-class Rva00222A8BTarget
-{
-public:
-
-};
+#include "../../Include/Common/Rva00222A8BTarget.h"
 class Rva00222A8BTarget;
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;

@@ -10,11 +10,7 @@
 // Keep these flags local to this TU; rehoming requires fresh verification.
 #include "ascii_string.h"
 
-class Rva00222A8BTarget
-{
-public:
-	int invoke(void *owner, const char *name, int argc, const char *a0, void *a1, void *a2, void *a3, void *a4);
-};
+#include "../../Include/Common/Rva00222A8BTarget.h"
 
 // StringBase<char>::str() (TheNullChr for an empty string) of a temporary.
 static inline const char *Rva002162CFStr(const AsciiString &asciiString)

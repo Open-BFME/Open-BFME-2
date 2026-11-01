@@ -23,9 +23,7 @@ public:
 	int rva00223A94(const AsciiString *key);
 };
 
-class Rva00222A8BTarget : public Rva00223A94
-{
-};
+#include "../../Include/Common/Rva00222A8BTarget.h"
 
 class Rva00222A8BTarget;
 class BfmeAptWindowManager;
