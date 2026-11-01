@@ -18,15 +18,6 @@ private:
 	BfmeCellFD *m_bfmeCells;
 };
 
-BfmeCellFD *Gen_008F7CD0::bfmeAt(int x, int y) const
-{
-	if (x < 0 || x >= m_bfmeWidth || y < 0 || y >= m_bfmeHeight)
-		return 0;
-
-	unsigned char *base = reinterpret_cast<unsigned char *>(m_bfmeCells);
-	return reinterpret_cast<BfmeCellFD *>(base + (y * m_bfmeWidth + x) * 0xA8);
-}
-
 // ?rva0073A2A0@Gen_008F7CD0@@QAEXPAPAVBfmeCellFD@@0HHH@Z @0x0073A2A0 135B: row-range sibling of bfmeAt; same width+0x24 height+0x28 cells+0x2C and 0xA8 stride; callers 0x73A650 0x73AAE0 0x73BAA0 0x73BB40 0x73BBE0 pass grid as this; donor BfmeGridRasterCircle.cpp bfmeGetCellRange plus x2<x1 clamp and *last reload.
 void Gen_008F7CD0::rva0073A2A0(BfmeCellFD **first, BfmeCellFD **last, int firstColumn, int lastColumn, int scanRow)
 {

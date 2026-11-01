@@ -1,84 +1,20 @@
-// cl: /Ireference/shims/aiupdatelayout /Ireference/shims/bfme_geometryinfo_ctor_link /Ireference/shims/bfme_moduleinfo_decl /Ireference/shims/bfme_pathfinder_get_cell_link /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /G7 /arch:SSE /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/zh_outofline /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib
+// cl: /FIzh_ascii.h /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE /Ireference/shims/aiupdatelayout /Ireference/shims/bfme_geometryinfo_ctor_link /Ireference/shims/bfme_moduleinfo_decl /Ireference/shims/bfme_pathfinder_get_cell_link /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/zh_outofline /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib
 // stlport
-// Ported verbatim from the Generals Zero Hour reference
-// (GameEngine/Source/GameLogic/Object/PartitionManager.cpp); this unit had no counterpart under Code/.
-/*
-**	Command & Conquer Generals Zero Hour(tm)
-**	Copyright 2025 Electronic Arts Inc.
-**
-**	This program is free software: you can redistribute it and/or modify
-**	it under the terms of the GNU General Public License as published by
-**	the Free Software Foundation, either version 3 of the License, or
-**	(at your option) any later version.
-**
-**	This program is distributed in the hope that it will be useful,
-**	but WITHOUT ANY WARRANTY; without even the implied warranty of
-**	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-**	GNU General Public License for more details.
-**
-**	You should have received a copy of the GNU General Public License
-**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-////////////////////////////////////////////////////////////////////////////////
-//																																						//
-//  (c) 2001-2003 Electronic Arts Inc.																				//
-//																																						//
-////////////////////////////////////////////////////////////////////////////////
-
-// FILE: PartitionManager.cpp ////////////////////////////////////////////////////
-//-----------------------------------------------------------------------------
-//                                                                          
-//                       Westwood Studios Pacific.                          
-//                                                                          
-//                       Confidential Information                           
-//                Copyright (C) 2001 - All Rights Reserved                  
-//                                                                          
-//-----------------------------------------------------------------------------
-//
-// Project:   RTS3
-//
-// File name: PartitionManager.cpp
-//
-// Created:   Steven Johnson, September 2001
-//
-// Desc:      Partition management, this system will allow us to partition the
-//					  objects in space, iterate objects in specified volumes, 
-//					  regions, by types and other properties.
-//
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-//         Includes                                                      
-//-----------------------------------------------------------------------------
-// Retail's /O1 _Bit_reference::operator= (0x00066099): in-class inline members
-// take the optimize state of their definition; PreRTS.h brings <vector> in.
-// Zero Hour's PartitionManager.h defines PartitionData::friend_updateCellsTouched
-// inline as a bare updateCellsTouched() call; BFME 2's facade first unlinks the
-// dirty list (retail 0x0073B250, rowed in PartitionData_friendUpdateCellsTouched.cpp).
-// This TU's copy sat first in link order, so units emitting or calling the retail
-// body were charged against it. Leave the member declared only; the inline body
-// moves to an unreferenced free function (the call site below stays a call).
+// TU Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp: generated by tools/tu_skeleton.py from tu_map.csv (approved rows, retail order)
 #define friend_updateCellsTouched() friend_updateCellsTouched(); void bfmeZhInline_friend_updateCellsTouched()
 #pragma optimize("s", on)
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
 #pragma optimize("", on)
-
-// Use the established exact byte-vector insertion specialization; this TU
-// must not instantiate an optimization-specific competing copy of its helpers.
 #include <vector>
 namespace _STL {
 template<> void vector<unsigned char>::_M_fill_insert(unsigned char *, unsigned int, const unsigned char &);
 // Retain this unit's already verified native allocator instantiation (000073E0).
 template unsigned char *allocator<unsigned char>::allocate(unsigned int, const void *) const;
 }
-
 #include "Common/ActionManager.h"
 #include "Common/DiscreteCircle.h"
 #include "Common/GameEngine.h"
 #include "Common/GameState.h"
-// Keep the existing inline instructions, while the native out-of-line
-// isDisguised owner remains in StealthUpdate.cpp (0x0004D65B).
 #include "GameLogic/WeaponSetType.h"
 #define BFME_STEALTH_DISGUISE_INLINE_ONLY
 #include "../../../../../reference/shims/bfme_stealth_level_link/StealthUpdate.h"
@@ -92,7 +28,6 @@ template unsigned char *allocator<unsigned char>::allocate(unsigned int, const v
 #include "Common/ThingFactory.h"	// for bullet type hack
 #include "Common/ThingTemplate.h"
 #include "Common/Xfer.h"
-
 #include "GameLogic/AIPathfind.h"
 #include "GameLogic/GameLogic.h"
 #include "GameLogic/Object.h"
@@ -105,14 +40,47 @@ template unsigned char *allocator<unsigned char>::allocate(unsigned int, const v
 #include "GameLogic/PolygonTrigger.h"
 #include "GameLogic/Squad.h"
 #include "GameLogic/GhostObject.h"
-
 #include "GameClient/Line2D.h"
 #include "GameClient/ControlBar.h"
-
 #ifdef _DEBUG
 //#include "GameClient/InGameUI.h"	// for debugHints
+
 #include "Common/PlayerList.h"
 #endif
+#ifdef _INTERNAL
+// for occasional debugging...
+//#pragma optimize("", off)
+//#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
+
+#endif
+#define DISABLE_INVALID_PREVENTION	//Steven, I had to turn this off because it was causing problem with map border resizing (USA04). -MW
+#define NO_FILTER_PROFILING
+#ifdef FASTER_GCO
+// nothing
+
+#else
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+
+#endif
+#ifdef _DEBUG
+#endif
+#ifdef DUMP_PERF_STATS
+#endif
+#ifdef FASTER_GCO
+//-----------------------------------------------------------------------------
+
+#endif
+#ifdef FASTER_GCO
+//-----------------------------------------------------------------------------
+
+#endif
+#ifdef PM_CACHE_TERRAIN_HEIGHT
+#endif
+#pragma intrinsic(_ReadWriteBarrier)
 
 // The map utility unit supplies the retail vector-growth body.
 namespace _STL {
@@ -128,38 +96,68 @@ template <> inline void vector<ICoord2D>::push_back(const ICoord2D &value)
  }
 }
 }
+
 #ifdef PM_CACHE_TERRAIN_HEIGHT
 #include "common/mapobject.h"
 // bfme link decl-only begin
 namespace _STL { template <> void _Bvector_base<allocator<bool> >::_M_deallocate(); }
+
 namespace _STL { template <> _Bvector_base<allocator<bool> >::~_Bvector_base(); }
+
 namespace _STL { template <> vector<bool, allocator<bool> >::~vector(); }
+
 namespace _STL { template <> _Bit_reference vector<bool, allocator<bool> >::operator[](unsigned int); }
+
 namespace _STL { template <> _Bit_iter<_Bit_reference, _Bit_reference *> & _Bit_iter<_Bit_reference, _Bit_reference *>::operator++(); }
+
 namespace _STL { template <> bool bitset<45>::_Unchecked_test(unsigned int) const; }
+
 namespace _STL { template <> unsigned int * allocator<unsigned int>::allocate(unsigned int, void const *) const; }
+
 namespace _STL { template <> void vector<bool, allocator<bool> >::resize(unsigned int, bool); }
+
 namespace _STL { template <> _Bit_iter<_Bit_reference, _Bit_reference *> & _Bit_iter<_Bit_reference, _Bit_reference *>::operator+=(int); }
+
 namespace _STL { template <> int _Bit_iter<bool, bool const *>::operator-(_Bit_iter<bool, bool const *> const &) const; }
+
 namespace _STL { template <> bool bitset<13>::_Unchecked_test(unsigned int) const; }
+
 namespace _STL { template <> _Bit_iter<_Bit_reference, _Bit_reference *>::_Bit_iter(unsigned int *, unsigned int); }
+
 namespace _STL { template <> _Bit_iter<bool, bool const *>::_Bit_iter(unsigned int *, unsigned int); }
+
 namespace _STL { template <> void allocator<unsigned int>::deallocate(unsigned int *, unsigned int) const; }
+
 namespace _STL { template <> unsigned char * __copy_ptrs<unsigned char *, unsigned char *>(unsigned char *, unsigned char *, unsigned char *, __true_type); }
+
 namespace _STL { template <> int _Bit_iter<_Bit_reference, _Bit_reference *>::operator-(_Bit_iter<_Bit_reference, _Bit_reference *> const &) const; }
+
 namespace _STL { template <> __false_type _BothPtrType<_Bit_iter<_Bit_reference, _Bit_reference *>, _Bit_iter<_Bit_reference, _Bit_reference *> >::_Ret(); }
+
 namespace _STL { template <> bool bitset<13>::test(unsigned int) const; }
+
 namespace _STL { template <> ICoord2D * _STLP_alloc_proxy<ICoord2D *, ICoord2D, allocator<ICoord2D> >::allocate(unsigned int); }
+
 namespace _STL { template <> void _STLP_alloc_proxy<unsigned int *, unsigned int, allocator<unsigned int> >::deallocate(unsigned int *, unsigned int); }
+
 namespace _STL { template <> unsigned int * _STLP_alloc_proxy<unsigned int *, unsigned int, allocator<unsigned int> >::allocate(unsigned int); }
+
 namespace _STL { template <> _Bit_iter<_Bit_reference, _Bit_reference *> __copy_aux<_Bit_iter<_Bit_reference, _Bit_reference *>, _Bit_iter<_Bit_reference, _Bit_reference *> >(_Bit_iter<_Bit_reference, _Bit_reference *>, _Bit_iter<_Bit_reference, _Bit_reference *>, _Bit_iter<_Bit_reference, _Bit_reference *>, __false_type); }
+
 namespace _STL { template <> bitset<116> & bitset<116>::_Unchecked_set(unsigned int); }
+
 namespace _STL { template <> unsigned int * _Bvector_base<allocator<bool> >::_M_bit_alloc(unsigned int); }
+
 namespace _STL { template <> bitset<116> & bitset<116>::set(unsigned int); }
+
 namespace _STL { template <> bool bitset<45>::test(unsigned int) const; }
+
 template <> BitFlags<116>::BitFlags(BitFlags<116>::BogusInitType, int);
+
 namespace _STL { template <> vector<bool, allocator<bool> >::vector(allocator<bool> const &); }
+
 namespace _STL { template <> unsigned char * vector<unsigned char, allocator<unsigned char> >::erase(unsigned char *, unsigned char *); }
+
 // bfme link decl-only end
 
 // BFME 2's Object keeps its behavior list at +0x244 (the matched
@@ -171,46 +169,27 @@ namespace _STL { template <> unsigned char * vector<unsigned char, allocator<uns
 // out-of-line Object getter: the 7-byte bodies at 0x00313E8C/93/9A are
 // GameWindow text-colour getters).
 static BehaviorModule **getRetailBehaviorModules( const Object *obj ) { return *(BehaviorModule ** const *)((const char *)obj + 0x244); }
+
 static ContainModuleInterface *getRetailContain( const Object *obj ) { return *(ContainModuleInterface * const *)((const char *)obj + 0x250); }
+
 static BodyModuleInterface *getRetailBodyModule( const Object *obj ) { return *(BodyModuleInterface * const *)((const char *)obj + 0x254); }
 #endif
 
 #ifdef DUMP_PERF_STATS
 	long s_countInClosestObjects = 0;
-	long s_countInClosestObjectsThisFrame = 0;
-	Int64 s_timeInClosestObjects = 0;
-	Int64 s_timeInClosestObjectsThisFrame = 0;
-	UnsignedInt s_gcoPerfFrame = 0xffffffff;
-#endif 
 
-#ifdef _INTERNAL
-// for occasional debugging...
-//#pragma optimize("", off)
-//#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
+	long s_countInClosestObjectsThisFrame = 0;
+
+	Int64 s_timeInClosestObjects = 0;
+
+	Int64 s_timeInClosestObjectsThisFrame = 0;
+
+	UnsignedInt s_gcoPerfFrame = 0xffffffff;
 #endif
 
 extern void addIcon(const Coord3D *pos, Real width, Int numFramesDuration, RGBColor color);
 
 const Real HUGE_DIST_SQR = (HUGE_DIST*HUGE_DIST);
-
-#define DISABLE_INVALID_PREVENTION	//Steven, I had to turn this off because it was causing problem with map border resizing (USA04). -MW
-
-//------------------------------------------------------------------------------ Performance Timers 
-//#include "Common/PerfMetrics.h"
-//#include "Common/PerfTimer.h"
-
-//-------------------------------------------------------------------------------------------------
-//-----------------------------------------------------------------------------
-//         Defines                                                         
-//-----------------------------------------------------------------------------
-
-// BFME's Player keeps m_playerIndex at +0x54 (the matched rally-point setter
-// 0x0037711A and TerrainResourceManager::tryToClaimCell 0x0035AA43 read it
-// there), where this tree's Zero Hour Player.h has +0x24. Player indices in
-// this unit are read through this function rather than the header's inline
-// Player::getPlayerIndex, whose +0x24 copy would otherwise be the first one in
-// link order and displace every BFME 2 unit's +0x54 copy.
-static Int getRetailPlayerIndex( const Player *player ) { return *(const Int *)((const char *)player + 0x54); }
 
 //-----------------------------------------------------------------------------
 static PartitionContactList* TheContactList = NULL;
@@ -271,10 +250,6 @@ struct CollideInfo
 	CollideInfo(const Coord3D* p, const GeometryInfo& geometryInfo, Real a) : position(*p), geom(geometryInfo), angle(a) { }
 };
 
-
-
-
-
 /*
 	Notes:
 	-- collideLoc and collideNormal will only be filled in if result is true;
@@ -300,18 +275,622 @@ typedef Bool (*DistCalcProc)
 	Real& abDistSqr, 
 	Coord3D& abVec,
 	Real maxDistSqr
-); 
-
-//-----------------------------------------------------------------------------
-//         Inline Functions                                                      
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-#define NO_FILTER_PROFILING
+);
 
 #ifdef FILTER_PROFILING
 Bool DoFilterProfiling = false;
 #endif
+
+//-----------------------------------------------------------------------------
+//         Local Functions                                                      
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+
+static void projectCoord3D(Coord3D *coord, const Coord3D *unitDir, Real dist);
+
+static void flipCoord3D(Coord3D *coord);
+
+static void rectToFourPoints(
+	const CollideInfo *lhs,		// z is ignored
+	Coord2D pts[]
+);
+
+static void testRotatedPointsAgainstRect(
+	const Coord2D *pts,				// an array of 4
+	const CollideInfo *lhs,
+	Coord2D *avg,
+	Int *avgTot
+);
+
+static Bool xy_collideTest_Rect_Rect(const CollideInfo *lhs, const CollideInfo *rhs, CollideLocAndNormal *cinfo);
+
+static Bool xy_collideTest_Rect_Circle(const CollideInfo *lhs, const CollideInfo *rhs, CollideLocAndNormal *cinfo);
+
+static Bool xy_collideTest_Circle_Rect(const CollideInfo *lhs, const CollideInfo *rhs, CollideLocAndNormal *cinfo);
+
+static Bool xy_collideTest_Circle_Circle(const Coord3D *a_pos, const Coord3D *b_pos, const Real a_radius, const Real b_radius, CollideLocAndNormal *cinfo);
+
+static Bool collideTest_Sphere_Sphere(const CollideInfo *lhs, const CollideInfo *rhs, CollideLocAndNormal *cinfo);
+
+static Bool collideTest_Sphere_Cylinder(const CollideInfo *lhs, const CollideInfo *rhs, CollideLocAndNormal *cinfo);
+
+static Bool collideTest_Sphere_Box(const CollideInfo *lhs, const CollideInfo *rhs, CollideLocAndNormal *cinfo);
+
+static Bool collideTest_Cylinder_Sphere(const CollideInfo *lhs, const CollideInfo *rhs, CollideLocAndNormal *cinfo);
+
+static Bool collideTest_Cylinder_Cylinder(const CollideInfo *lhs, const CollideInfo *rhs, CollideLocAndNormal *cinfo);
+
+static Bool collideTest_Cylinder_Box(const CollideInfo *lhs, const CollideInfo *rhs, CollideLocAndNormal *cinfo);
+
+static Bool collideTest_Box_Sphere(const CollideInfo *lhs, const CollideInfo *rhs, CollideLocAndNormal *cinfo);
+
+static Bool collideTest_Box_Cylinder(const CollideInfo *lhs, const CollideInfo *rhs, CollideLocAndNormal *cinfo);
+
+static Bool collideTest_Box_Box(const CollideInfo *lhs, const CollideInfo *rhs, CollideLocAndNormal *cinfo);
+
+static Bool distCalcProc_CenterAndCenter_2D(const Coord3D *posA, const Object *objA, const Coord3D *posB, const Object *objB, Real& abDistSqr, Coord3D& abVec, Real maxDistSqr);
+
+ 
+static Bool distCalcProc_BoundaryAndBoundary_2D(const Coord3D *posA, const Object *objA, const Coord3D *posB, const Object *objB, Real& abDistSqr, Coord3D& abVec, Real maxDistSqr);
+
+ 
+static Bool distCalcProc_CenterAndCenter_3D(const Coord3D *posA, const Object *objA, const Coord3D *posB, const Object *objB, Real& abDistSqr, Coord3D& abVec, Real maxDistSqr);
+
+ 
+static Bool distCalcProc_BoundaryAndBoundary_3D(const Coord3D *posA, const Object *objA, const Coord3D *posB, const Object *objB, Real& abDistSqr, Coord3D& abVec, Real maxDistSqr);
+
+//-----------------------------------------------------------------------------
+//         Private Types                                                     
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+//         Private Data                                                     
+//-----------------------------------------------------------------------------
+
+
+// NOTE: This *DEPENDS* on the order of the geometry enum defines
+static CollideTestProc theCollideTestProcs[] = 
+{
+	collideTest_Sphere_Sphere,
+	collideTest_Sphere_Cylinder,
+	collideTest_Sphere_Box,
+	collideTest_Cylinder_Sphere,
+	collideTest_Cylinder_Cylinder,
+	collideTest_Cylinder_Box,
+	collideTest_Box_Sphere,
+	collideTest_Box_Cylinder,
+	collideTest_Box_Box
+};
+
+//-----------------------------------------------------------------------------
+//         Public Data                                                      
+//-----------------------------------------------------------------------------
+PartitionManager *ThePartitionManager = NULL;
+
+  ///< the object manager singleton
+
+//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+
+class PartitionContactListNode : public MemoryPoolObject
+{
+	MEMORY_POOL_GLUE_WITH_USERLOOKUP_CREATE(PartitionContactListNode, "PartitionContactListNode" )
+
+public:
+	PartitionContactListNode*			m_nextHash;	///< next node with same hash value 
+	PartitionContactListNode*			m_next;			///< next node
+	PartitionData*								m_obj;			///< one object that is possibly colliding
+	PartitionData*								m_other;		///< the other object (or null for collisions with the terrain)
+	Int														m_hashValue;///< index into hash table 
+};
+
+//-----------------------------------------------------------------------------
+
+class PartitionContactList
+{
+private:
+
+	/*
+		socketcount should be prime (and "not too close to a power of 2) for best results.
+		
+		if this one isn't large enough, try this website:
+		http://www.utm.edu/research/primes/lists/small/1000.txt
+
+		So how is this chosen? Eh, pretty much based on experimentation.
+	*/
+	enum { PartitionContactList_SOCKET_COUNT = 5381 };
+
+
+	PartitionContactListNode* m_contactHash[PartitionContactList_SOCKET_COUNT];
+	PartitionContactListNode* m_contactList;
+
+public:
+
+	PartitionContactList()
+	{
+		memset(m_contactHash, 0, sizeof(m_contactHash));
+		m_contactList = NULL;
+	}
+
+	~PartitionContactList()
+	{
+		resetContactList();
+	}
+
+	/**
+		add a pair of objects to the contact list. If the pair is already
+		present (in either this order or reverse order), nothing is done.
+		Note that it is OK for other==null (this indicates a collisions with
+		the ground) but it is not OK for obj==null.
+	*/
+	void addToContactList(PartitionData *obj, PartitionData *other);
+
+	/**
+		process all pairs in the contact list: first, determine if they
+		truly collide, based on their geometry. if so, call the collide
+		actions for each object in the pair.
+	*/
+	void processContactList();
+
+	/**
+		discard the contents of the contact list.
+	*/
+	void resetContactList();
+
+	/**
+		remove any contacts that refer to the given data.
+	*/
+	void removeSpecificPartitionData(PartitionData* data);
+
+};
+
+#if defined(_DEBUG) || defined(_INTERNAL)
+static AsciiString theObjName;
+#endif
+
+#ifdef PM_CACHE_TERRAIN_HEIGHT
+static void calcHeights(const Region3D& world, Real cellSize, Int x, Int y, Real& loZ, Real& hiZ)
+{
+	DEBUG_ASSERTCRASH(TheTerrainLogic, ("no TheTerrainLogic"));
+	Real xbase = world.lo.x + (x * cellSize);
+	Real ybase = world.lo.y + (y * cellSize);
+	const Real ROUGH_STEP_SIZE = MAP_XY_FACTOR;	// no point in stepping smaller than grid scale
+	Real numSteps = ceilf(cellSize / ROUGH_STEP_SIZE);
+	Real step = cellSize / numSteps;
+	loZ = HUGE_DIST;		// huge positive
+	hiZ = -HUGE_DIST;		// huge negative
+	for (Real yy = 0; yy <= cellSize; yy += step) 
+	{
+		for (Real xx = 0; xx <= cellSize; xx += step) 
+		{
+			Real h = TheTerrainLogic->getGroundHeight( xbase + xx, ybase + yy );
+			if (h < loZ) loZ = h;
+			if (h > hiZ) hiZ = h;
+		}
+	}
+}
+#endif
+
+//-----------------------------------------------------------------------------
+//DECLARE_PERF_TIMER(getClosestObjects)
+
+
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Gets the distance if obj were at goalPos.  Used to calculate attack position paths.
+
+//-----------------------------------------------------------------------------
+// Gets the distance if obj were at goalPos.  Used to calculate attack position paths.
+
+//-----------------------------------------------------------------------------
+// PartitionManager::getRelativeAngle2D (both overloads): Zero Hour bodies with no
+// proven retail address (0x002C9BE4 is Weapon::getAttackRange); BFME2 callers use
+// Object::GetRelativeAngle 0x000B4542 instead. Not defined here.
+
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// BFME 2's filter of this shape (ctor row 0x0027C2C9, vftable 0x00BFB1B8, allow
+// 0x00261603) keeps the geometry by reference at +0x14. Zero Hour's
+// PartitionFilterWouldCollide (header-declared) copies it into a GeometryInfo
+// member, whose ctor instantiated Zero Hour's implicit GeometryInfo copy under
+// the retail name; the filter is used only here, so this port holds the
+// geometry by reference as BFME 2 does. allow() is Zero Hour's body.
+class PartitionFilterWouldCollideRef : public PartitionFilter
+{
+private:
+	Coord3D m_position;
+	const GeometryInfo& m_geom;
+	Real m_angle;
+  Bool m_desiredCollisionResult;  // collision must match this for allow to return true
+public:
+	PartitionFilterWouldCollideRef(const Coord3D& pos, const GeometryInfo& geom, Real angle, Bool desired) :
+	  m_position(pos),
+		m_geom(geom),
+	  m_angle(angle),
+	  m_desiredCollisionResult(desired)
+	{
+	}
+
+	virtual Bool allow(Object *objOther)
+	{
+		CollideInfo thisInfo(&m_position, m_geom, m_angle);
+		CollideInfo thatInfo(objOther->getPosition(), objOther->getGeometryInfo(), objOther->getOrientation());
+
+	  Bool doesCollide;
+
+		// invariant for all geometries: first do z collision check.
+		if (thisInfo.position.z + thisInfo.geom.getMaxHeightAbovePosition() >= thatInfo.position.z && 
+				thisInfo.position.z <= thatInfo.position.z + thatInfo.geom.getMaxHeightAbovePosition())
+		{
+			GeometryType thisGeom = m_geom.getGeomType();
+			GeometryType thatGeom = objOther->getGeometryInfo().getGeomType();
+
+			//
+			// NOTE: This assumes geometry enumerations that start at GEOMETRY_FIRST AND depends on the
+			// order in which they appear in the enum list
+			//
+			CollideTestProc collideProc = theCollideTestProcs[ (thisGeom - GEOMETRY_FIRST) * GEOMETRY_NUM_TYPES + (thatGeom - GEOMETRY_FIRST) ];
+			CollideLocAndNormal cinfo;
+			doesCollide = (*collideProc)(&thisInfo, &thatInfo, &cinfo);
+		}
+		else
+		{
+			// no z-intersection -> no collision.
+			doesCollide = false;
+		}
+
+	  return doesCollide == m_desiredCollisionResult;
+	}
+#if defined(_DEBUG) || defined(_INTERNAL)
+	virtual const char* debugGetName() { return "PartitionFilterWouldCollide"; }
+#endif
+};
+
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+
+
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
+  // end tryPosition
+
+//
+// the following determines how fast we expand our concentric ring search for the
+// find position methods
+//
+static Real ringSpacing = 5.0f;
+
+#ifdef PM_CACHE_TERRAIN_HEIGHT
+
+	struct TerrainExtremeData
+	{
+		Real* minZ;
+		Real* maxZ;
+		Coord2D* minZPos;
+		Coord2D* maxZPos;
+		Bool isValid;
+	};
+
+
+static Int checkTerrainExtreme(PartitionCell* cell, void* userData)
+{
+	TerrainExtremeData* data = (TerrainExtremeData*)userData;
+	
+	data->isValid = true;
+
+	Real tmp;
+
+	if (data->minZ)
+	{
+		tmp = cell->getLoTerrain();
+		if (tmp < *data->minZ ) 
+		{
+			*data->minZ = tmp;
+			if (data->minZPos)
+			{
+				cell->getCellCenterPos(data->minZPos->x, data->minZPos->y);
+			}
+		}
+	}
+
+	if (data->maxZ)
+	{
+		tmp = cell->getHiTerrain();
+		if (tmp > *data->maxZ ) 
+		{
+			*data->maxZ = tmp;
+			if (data->maxZPos)
+			{
+				cell->getCellCenterPos(data->maxZPos->x, data->maxZPos->y);
+			}
+		}
+	}
+
+	return 0;	// zero to continue
+}
+#endif
+
+// BFME1 Bfme5SeventySeven.cpp row-major lookup adapted to target stride.
+// Donor labels are provisional; target 0x73BD70 directly calls this lookup.
+// The cell record is incomplete here: retail evidence establishes its 0xA8 stride,
+// but this function only returns its address.
+class BfmeCellFD;
+
+class Gen_008F7CD0
+{
+public:
+	BfmeCellFD *bfmeAt(int x, int y) const;
+	void rva0073A2A0(BfmeCellFD **first, BfmeCellFD **last, int firstColumn, int lastColumn, int scanRow);
+
+private:
+	char m_bfmeHead[0x24];
+	int m_bfmeWidth;
+	int m_bfmeHeight;
+	BfmeCellFD *m_bfmeCells;
+};
+
+// The related native grid callback uses origins4/8 and cell size1C.
+// Its owner remains address-derived; it shares this grid-family unit
+// with the verified x87 coordinate/lookup operations.
+// ?rva0073BEA0@Rva0073BEA0@@UAEXHH@Z @0x0073BEA0 106B RET8.
+// Address-derived name; layout is a view of the witnessed offsets. Native:
+// converts integer cell coordinates (a, b) to the cell centre in the
+// grid at this+4 (cell size at +0x1C, origins at +8 for the first and +4 for
+// the second coordinate, centre = c * size + origin + size * 0.5, truncated),
+// swaps them into a float pair (second, first) and reports it through slot 0
+// of the sink at this+0xC. 0x0073BE00 is the same body with a guarded frame.
+struct Rva0073BEA0Grid
+{
+	char m_pad0[4];
+	float m_originX;
+	float m_originY;
+	char m_padC[0x1C - 0xC];
+	float m_cellSize;
+};
+
+struct Rva0073BEA0Point
+{
+	float x;
+	float y;
+};
+
+struct Rva0073BEA0Grid2 : Rva0073BEA0Grid
+{
+	int centreA(int cellRow) const { return (int)((float)cellRow * m_cellSize + m_originY + m_cellSize * 0.5); }
+	int centreB(int cellColumn) const { return (int)((float)cellColumn * m_cellSize + m_originX + m_cellSize * 0.5); }
+};
+
+class Rva0073BEA0Sink
+{
+public:
+	virtual void slot0(const Rva0073BEA0Point *point);
+};
+
+class Rva0073BEA0
+{
+public:
+	virtual void rva0073BEA0(int gridColumn, int gridRow);
+private:
+	Rva0073BEA0Grid2 *m_grid;
+	char m_pad8[4];
+	Rva0073BEA0Sink *m_sink;
+};
+
+// Native 0x73BE00 has one unwind state: cleanup 0x7AB130 calls the
+// shared empty RET at 0x0B3FD0 on the point local; no try blocks are present.
+// Both coordinates are initialized by the point constructor before its
+// lifetime begins. The destructor barrier emits RET while preserving that
+// cleanup scope. CF13A0 contains this owner's single virtual slot.
+extern "C" void _ReadWriteBarrier(void);
+
+struct Rva0073BE00Point
+{
+	float x;
+	float y;
+	Rva0073BE00Point(float pointX, float pointY) : x(pointX), y(pointY) {}
+	~Rva0073BE00Point();
+};
+
+class Rva0073BE00
+{
+public:
+	virtual void rva0073BE00(int columnIndex, int rowIndex);
+private:
+	Rva0073BEA0Grid2 *m_grid;
+	void *m_unknown8;
+	Rva0073BEA0Sink *m_sink;
+};
+
+// tu-skeleton: 0x00739740 8B ?setRegion@PartitionManager@@QAEXPBURegion3D@@M@Z -- matched in Code/GameEngine/Source/GameLogic/Object/PartitionManagerShroudThunks.cpp (not merged yet)
+
+// tu-skeleton: 0x00739750 8B ?rva00739750@Rva00739750@@QAEXPAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/PartitionManagerShroudThunks.cpp (not merged yet)
+
+// tu-skeleton: 0x00739760 8B ?rva00739760@Rva00739760@@QAEXPAVCDEProvider@@0@Z -- matched in Code/GameEngine/Source/GameLogic/Object/PartitionManagerShroudThunks.cpp (not merged yet)
+
+// tu-skeleton: 0x00739770 8B ?rva00739770@Rva00739770@@QAEXPAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/PartitionManagerShroudThunks.cpp (not merged yet)
+
+// tu-skeleton: 0x00739780 8B ?rva00739780@Rva00739780@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/PartitionManagerShroudThunks.cpp (not merged yet)
+
+// tu-skeleton: 0x00739790 8B ?revealMapForPlayerPermanently@PartitionManager@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/PartitionManagerShroudThunks.cpp (not merged yet)
+
+// tu-skeleton: 0x007397A0 8B ?rva007397A0@PartitionManager@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/PartitionManagerShroudThunks.cpp (not merged yet)
+
+// tu-skeleton: 0x007397B0 8B ?undoRevealMapForPlayerPermanently@PartitionManager@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/PartitionManagerShroudThunks.cpp (not merged yet)
+
+// tu-skeleton: 0x007397C0 8B ?rva007397C0@Rva007397C0@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/PartitionManagerShroudThunks.cpp (not merged yet)
+
+// tu-skeleton: 0x007397D0 8B ?rva007397D0@Rva007397D0@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/PartitionManagerShroudThunks.cpp (not merged yet)
+
+// tu-skeleton: 0x007397E0 8B ?rva007397E0@Rva007397E0@@QBEHHPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/PartitionManagerShroudThunks.cpp (not merged yet)
+
+// tu-skeleton: 0x007397F0 8B ?getShroudStatusForPlayer@PartitionManager@@QBE?AW4CellShroudStatus@@HPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/PartitionManagerShroudThunks.cpp (not merged yet)
+
+// tu-skeleton: 0x00739800 8B ?rva00739800@Rva00739800@@QBE?AW4ObjectShroudStatus@@HPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/PartitionManagerShroudThunks.cpp (not merged yet)
+
+// tu-skeleton: 0x00739810 8B ?rva00739810@Rva00739810@@QBEXHHPAUBfmeCellOut@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/PartitionManagerShroudThunks.cpp (not merged yet)
+
+// tu-skeleton: 0x00739820 8B ?rva00739820@ShroudManager@@QAEXPBUCoord3D@@HHHPAU2@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/PartitionManagerShroudThunks.cpp (not merged yet)
+
+// tu-skeleton: 0x00739830 8B ?rva00739830@Rva00739830@@QBEHPBUBfmePointFD@@HI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/PartitionManagerShroudThunks.cpp (not merged yet)
+
+// tu-skeleton: 0x00739840 44B ?bfmeCellX@Gen_008F7CD0@@QBEHM@Z -- matched in Code/GameEngine/Source/Common/BfmeConv1570.cpp (not merged yet)
+
+// tu-skeleton: 0x00739870 44B ?bfmeCellY@Gen_008F7CD0@@QBEHM@Z -- matched in Code/GameEngine/Source/Common/BfmeConv1572.cpp (not merged yet)
+
+// tu-skeleton: 0x007398A0 41B ?bfmeCellExtent8F74E0@Gen_008F7CD0@@QBEHM@Z -- matched in Code/GameEngine/Source/Common/Bfme5CeilCellExtent.cpp (not merged yet)
+
+// tu-skeleton: 0x007398D0 143B ??0Open2Store8F75D0@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/Open2Twins006.cpp (not merged yet)
+
+// tu-skeleton: 0x00739960 8B ??_EOpen2Store8F75D0@@WM@AEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/Open2Twins006.cpp (not merged yet)
+
+// tu-skeleton: 0x00739970 6B ?name@Rva00739970Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters5.cpp (not merged yet)
+
+// tu-skeleton: 0x00739980 115B ??1Open2Store8F75D0@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/Open2Twins006.cpp (not merged yet)
+
+// tu-skeleton: 0x00739A00 46B ?bfmeDescribe@Gen_008F7650@@QAEXPAVBfmeFlagTarget@@@Z -- matched in Code/GameEngine/Source/GameClient/Open2Twins006.cpp (not merged yet)
+
+// tu-skeleton: 0x00739A30 179B ?rva00739A30@Rva00739A30@@QAEXPAUPair00739BE0@@MH@Z -- matched in Code/GameEngine/Source/Common/RTS/Rva00739BE0.cpp (not merged yet)
+
+// tu-skeleton: 0x00739AF0 229B ?rva00739AF0@Rva00739AF0@@QAEXPAUFloatRect0073CE30@@HI@Z -- matched in Code/GameEngine/Source/Common/RTS/Rva00739AF0Siblings.cpp (not merged yet)
+
+// tu-skeleton: 0x00739BE0 179B ?rva00739BE0@Rva00739BE0@@QAEXPAUPair00739BE0@@MH@Z -- matched in Code/GameEngine/Source/Common/RTS/Rva00739BE0.cpp (not merged yet)
+
+// tu-skeleton: 0x00739CA0 229B ?rva00739CA0@Rva00739CA0@@QAEXPAUFloatRect0073CE30@@HI@Z -- matched in Code/GameEngine/Source/Common/RTS/Rva00739CA0.cpp (not merged yet)
+
+// tu-skeleton: 0x00739D90 171B ?rva00739D90@Rva00739D90@@QAEXPBUBfmePointFC@@MHHH@Z -- matched in Code/GameEngine/Source/Common/Rva00739D90Siblings.cpp (not merged yet)
+
+// tu-skeleton: 0x00739E40 30B ??_GOpen2Store8F75D0@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/Open2Twins006.cpp (not merged yet)
+
+// tu-skeleton: 0x00739E60 227B ??0BfmeThingCDE@@QAE@PAX00@Z -- matched in Code/GameEngine/Source/Common/BfmeThingCDEDestructor.cpp (not merged yet)
+
+// tu-skeleton: 0x00739F50 133B ?d_008f7990@BfmeThingCDE@@QAEXXZ -- matched in Code/GameEngine/Source/Common/BfmeThingCDEDestructor.cpp (not merged yet)
+
+// tu-skeleton: 0x00739FE0 188B ?KeepAsGhost@Data@ShroudManager@@QAE_NXZ -- matched in Code/GameEngine/Source/Common/BfmeThingCDEDestructor.cpp (not merged yet)
+
+// tu-skeleton: 0x0073A0A0 29B ?bfmeUnlink@Gen_008F7AC0@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Bfme5ThirtyFour.cpp (not merged yet)
+
+// tu-skeleton: 0x0073A0C0 28B ?EverSeenByPlayer@Data@ShroudManager@@QAEDH@Z -- matched in Code/GameEngine/Source/Common/Rva008F7B00Get.cpp (not merged yet)
+
+// tu-skeleton: 0x0073A0E0 16B ?maybePrepend@PartitionData@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/PartitionData_maybePrepend.cpp (not merged yet)
+
+// tu-skeleton: 0x0073A0F0 27B ?makeDirty@PartitionData@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectFields.cpp (not merged yet)
+
+// tu-skeleton: 0x0073A110 17B ?bfmeForward@Gen_008F7B50@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/S3GuardedVirtualArgs.cpp (not merged yet)
+
+// tu-skeleton: 0x0073A130 36B ?state@Rva0073A130Table@@QBEHH@Z -- matched in Code/GameEngine/Source/Common/Rva0073A130Leaves.cpp (not merged yet)
+
+// tu-skeleton: 0x0073A160 28B ?set@Rva0073A160Field@@QAE_NH@Z -- matched in Code/GameEngine/Source/Common/Rva0073A130Leaves.cpp (not merged yet)
+
+// tu-skeleton: 0x0073A180 30B ?bfmeLinkTo@Gen_008F7BE0@@QAEXPAV1@@Z -- matched in Code/GameEngine/Source/Common/Bfme5LinkedNode8F7BE0.cpp (not merged yet)
+
+// tu-skeleton: 0x0073A1A0 28B ?bfmeUnlink8F7C00@Gen_008F7BE0@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Bfme5LinkedNode8F7BE0.cpp (not merged yet)
+
+// tu-skeleton: 0x0073A1C0 4B ?get@Rva0073A1C0FloatField@@QBEMXZ -- matched in Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/BfmeCellAt.cpp
+
+BfmeCellFD *Gen_008F7CD0::bfmeAt(int x, int y) const
+{
+	if (x < 0 || x >= m_bfmeWidth || y < 0 || y >= m_bfmeHeight)
+		return 0;
+
+	unsigned char *base = reinterpret_cast<unsigned char *>(m_bfmeCells);
+	return reinterpret_cast<BfmeCellFD *>(base + (y * m_bfmeWidth + x) * 0xA8);
+}
+
+// tu-skeleton: 0x0073A330 36B ?bfmeInsert@Gen_008F7D90@@QAE_NPAUBfmeLink8F7D90@@0@Z -- matched in Code/GameEngine/Source/Common/Bfme5InsertLink8F7D90.cpp (not merged yet)
+
+// tu-skeleton: 0x0073A360 15B ?clear@Rva0073A360@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/RvaSmallLeafTransfers.cpp (not merged yet)
+
+// tu-skeleton: 0x0073A3C0 148B ?initializeArray@BfmeThingCDE@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/BfmeThingCDEInitializeArray.cpp (not merged yet)
+
+// tu-skeleton: 0x0073A460 57B ?d_008f7ec0@BfmeThingCDE@@QAEXXZ -- matched in Code/GameEngine/Source/Common/BfmeThingCDEDestructor.cpp (not merged yet)
+
+// tu-skeleton: 0x0073A4A0 421B ?DoRectFill@BfmeThingCDE@@QAE_NMMMMM@Z -- matched in Code/GameEngine/Source/Common/BfmeThingCDEDestructor.cpp (not merged yet)
+
+// tu-skeleton: 0x0073A650 115B ?bfmeUpdateVRC@BfmeShroudVRC@@QAEDHHH@Z -- matched in Code/GameEngine/Source/Common/RTS/ShroudVariantCircle008F9BB0.cpp (not merged yet)
+
+// tu-skeleton: 0x0073A6D0 392B ?getShroudedStatus@PartitionData@@QAE?AW4ObjectShroudStatus@@H@Z -- matched in Code/GameEngine/Source/Common/PartitionDataShroudStatus.cpp (not merged yet)
+
+// tu-skeleton: 0x0073A860 155B ?bfmeCallXO@@YA_NHHHUBfmeArgXO@@@Z -- matched in Code/GameEngine/Source/Common/RTS/ShroudVariantCircle008F9BB0.cpp (not merged yet)
+
+// tu-skeleton: 0x0073A900 170B ?bfmeDtorCDE@BfmeThingCDE@@QAEXXZ -- matched in Code/GameEngine/Source/Common/BfmeThingCDEDestructor.cpp (not merged yet)
+
+// tu-skeleton: 0x0073A9B0 266B ?rva0073A9B0@BfmeThingCDE@@AAE_NMMM@Z -- matched in Code/GameEngine/Source/Common/RTS/ShroudVariantCircle008F9BB0.cpp (not merged yet)
+
+// tu-skeleton: 0x0073AAC0 30B ??_GRva0073A900Dtor@@UAEPAXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00170C0Siblings.cpp (not merged yet)
+
+// tu-skeleton: 0x0073AAE0 685B ?DoSmallFill@Data@ShroudManager@@QAE_NMMM@Z -- matched in Code/GameEngine/Source/Common/RTS/ShroudManagerDataDoSmallFill.cpp (not merged yet)
+
+// tu-skeleton: 0x0073AD90 1158B ?UpdateCellsTouched@Data@ShroudManager@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RTS/ShroudManagerDataDoSmallFill.cpp (not merged yet)
+
+// tu-skeleton: 0x0073B220 38B ?bfmeGoCDE@BfmeThingCDE@@QAEXXZ -- matched in Code/GameEngine/Source/Common/BfmeConv583.cpp (not merged yet)
+
+// tu-skeleton: 0x0073B250 37B ?friend_updateCellsTouched@PartitionData@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/PartitionData_friendUpdateCellsTouched.cpp (not merged yet)
+
+// tu-skeleton: 0x007AB040 8B Unwind@00bab040 -- matched in Code/GameEngine/Source/GameClient/Open2Twins006.cpp (not merged yet)
+
+// tu-skeleton: 0x007AB048 11B Unwind@00bab048 -- matched in Code/GameEngine/Source/GameClient/Open2Twins006.cpp (not merged yet)
+
+// tu-skeleton: 0x007AB053 11B Unwind@00bab053 -- matched in Code/GameEngine/Source/GameClient/Open2Twins006.cpp (not merged yet)
+
+// tu-skeleton: 0x007AB05E 10B __ehhandler$??0Open2Store8F75D0@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/Open2Twins006.cpp (not merged yet)
+
+// tu-skeleton: 0x007AB070 8B uw_007ab070 -- matched in Code/GameEngine/Source/GameClient/Open2Twins006.cpp (not merged yet)
+
+// tu-skeleton: 0x007AB078 39B uw_007ab078 -- matched in Code/GameEngine/Source/GameClient/Open2Twins006.cpp (not merged yet)
+
+// tu-skeleton: 0x007AB09F 10B __ehhandler$??1Open2Store8F75D0@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/Open2Twins006.cpp (not merged yet)
+
+// tu-skeleton: 0x007AB0B0 11B uw_007ab0b0 -- matched in Code/GameEngine/Source/Common/BfmeThingCDEInitializeArray.cpp (not merged yet)
+
+// tu-skeleton: 0x007AB0BB 10B __ehhandler$?initializeArray@BfmeThingCDE@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/BfmeThingCDEInitializeArray.cpp (not merged yet)
+
+// tu-skeleton: 0x007AB0D0 25B $L1667 -- matched in Code/GameEngine/Source/Common/RTS/ShroudManagerDataDoSmallFill.cpp (not merged yet)
+
+// tu-skeleton: 0x007AB0E9 25B ?rva007AB0E9@@YAXXZ -- matched in Code/GameEngine/Source/Common/RTS/ShroudManagerDataDoSmallFill.cpp (not merged yet)
+
+// tu-skeleton: 0x007AB102 10B __ehhandler$?DoSmallFill@Data@ShroudManager@@QAE_NMMM@Z -- matched in Code/GameEngine/Source/Common/RTS/ShroudManagerDataDoSmallFill.cpp (not merged yet)
+
+// tu-skeleton: 0x007AB110 8B uw_007ab110 -- matched in Code/GameEngine/Source/Common/RTS/ShroudManagerDataDoSmallFill.cpp (not merged yet)
+
+// tu-skeleton: 0x007AB118 10B __ehhandler$?UpdateCellsTouched@Data@ShroudManager@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RTS/ShroudManagerDataDoSmallFill.cpp (not merged yet)
+
+//------------------------------------------------------------------------------ Performance Timers 
+//#include "Common/PerfMetrics.h"
+//#include "Common/PerfTimer.h"
+
+//-------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+//         Defines                                                         
+//-----------------------------------------------------------------------------
+
+// BFME's Player keeps m_playerIndex at +0x54 (the matched rally-point setter
+// 0x0037711A and TerrainResourceManager::tryToClaimCell 0x0035AA43 read it
+// there), where this tree's Zero Hour Player.h has +0x24. Player indices in
+// this unit are read through this function rather than the header's inline
+// Player::getPlayerIndex, whose +0x24 copy would otherwise be the first one in
+// link order and displace every BFME 2 unit's +0x54 copy.
+static Int getRetailPlayerIndex( const Player *player ) { return *(const Int *)((const char *)player + 0x54); }
 
 //DECLARE_PERF_TIMER(filtersAllow)
 inline Bool filtersAllow(PartitionFilter **filters, Object *objOther)
@@ -455,45 +1034,7 @@ inline Real maxReal(Real lhs, Real rhs)
 	if (lhs > rhs) return lhs; else return rhs;
 }
 
-//-----------------------------------------------------------------------------
-//         Local Functions                                                      
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-
-static void projectCoord3D(Coord3D *coord, const Coord3D *unitDir, Real dist);
-static void flipCoord3D(Coord3D *coord);
-
-static void rectToFourPoints(
-	const CollideInfo *lhs,		// z is ignored
-	Coord2D pts[]
-);
-static void testRotatedPointsAgainstRect(
-	const Coord2D *pts,				// an array of 4
-	const CollideInfo *lhs,
-	Coord2D *avg,
-	Int *avgTot
-);
-
-static Bool xy_collideTest_Rect_Rect(const CollideInfo *lhs, const CollideInfo *rhs, CollideLocAndNormal *cinfo);
-static Bool xy_collideTest_Rect_Circle(const CollideInfo *lhs, const CollideInfo *rhs, CollideLocAndNormal *cinfo);
-static Bool xy_collideTest_Circle_Rect(const CollideInfo *lhs, const CollideInfo *rhs, CollideLocAndNormal *cinfo);
-static Bool xy_collideTest_Circle_Circle(const Coord3D *a_pos, const Coord3D *b_pos, const Real a_radius, const Real b_radius, CollideLocAndNormal *cinfo);
-
-static Bool collideTest_Sphere_Sphere(const CollideInfo *lhs, const CollideInfo *rhs, CollideLocAndNormal *cinfo);
-static Bool collideTest_Sphere_Cylinder(const CollideInfo *lhs, const CollideInfo *rhs, CollideLocAndNormal *cinfo);
-static Bool collideTest_Sphere_Box(const CollideInfo *lhs, const CollideInfo *rhs, CollideLocAndNormal *cinfo);
-static Bool collideTest_Cylinder_Sphere(const CollideInfo *lhs, const CollideInfo *rhs, CollideLocAndNormal *cinfo);
-static Bool collideTest_Cylinder_Cylinder(const CollideInfo *lhs, const CollideInfo *rhs, CollideLocAndNormal *cinfo);
-static Bool collideTest_Cylinder_Box(const CollideInfo *lhs, const CollideInfo *rhs, CollideLocAndNormal *cinfo);
-static Bool collideTest_Box_Sphere(const CollideInfo *lhs, const CollideInfo *rhs, CollideLocAndNormal *cinfo);
-static Bool collideTest_Box_Cylinder(const CollideInfo *lhs, const CollideInfo *rhs, CollideLocAndNormal *cinfo);
-static Bool collideTest_Box_Box(const CollideInfo *lhs, const CollideInfo *rhs, CollideLocAndNormal *cinfo);
-
-static Bool distCalcProc_CenterAndCenter_2D(const Coord3D *posA, const Object *objA, const Coord3D *posB, const Object *objB, Real& abDistSqr, Coord3D& abVec, Real maxDistSqr); 
-static Bool distCalcProc_BoundaryAndBoundary_2D(const Coord3D *posA, const Object *objA, const Coord3D *posB, const Object *objB, Real& abDistSqr, Coord3D& abVec, Real maxDistSqr); 
-static Bool distCalcProc_CenterAndCenter_3D(const Coord3D *posA, const Object *objA, const Coord3D *posB, const Object *objB, Real& abDistSqr, Coord3D& abVec, Real maxDistSqr); 
-static Bool distCalcProc_BoundaryAndBoundary_3D(const Coord3D *posA, const Object *objA, const Coord3D *posB, const Object *objB, Real& abDistSqr, Coord3D& abVec, Real maxDistSqr); 
+ 
 
 //-----------------------------------------------------------------------------
 inline void projectCoord3D(Coord3D *coord, const Coord3D *unitDir, Real dist)
@@ -1064,125 +1605,6 @@ static Bool distCalcProc_BoundaryAndBoundary_3D(
 }
 
 //-----------------------------------------------------------------------------
-//         Private Types                                                     
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-//         Private Data                                                     
-//-----------------------------------------------------------------------------
-
-
-// NOTE: This *DEPENDS* on the order of the geometry enum defines
-static CollideTestProc theCollideTestProcs[] = 
-{
-	collideTest_Sphere_Sphere,
-	collideTest_Sphere_Cylinder,
-	collideTest_Sphere_Box,
-	collideTest_Cylinder_Sphere,
-	collideTest_Cylinder_Cylinder,
-	collideTest_Cylinder_Box,
-	collideTest_Box_Sphere,
-	collideTest_Box_Cylinder,
-	collideTest_Box_Box
-};
-
-//-----------------------------------------------------------------------------
-//         Public Data                                                      
-//-----------------------------------------------------------------------------
-PartitionManager *ThePartitionManager = NULL;  ///< the object manager singleton
-
-//-----------------------------------------------------------------------------
-//-----------------------------------------------------------------------------
-//-----------------------------------------------------------------------------
-
-class PartitionContactListNode : public MemoryPoolObject
-{
-	MEMORY_POOL_GLUE_WITH_USERLOOKUP_CREATE(PartitionContactListNode, "PartitionContactListNode" )
-
-public:
-	PartitionContactListNode*			m_nextHash;	///< next node with same hash value 
-	PartitionContactListNode*			m_next;			///< next node
-	PartitionData*								m_obj;			///< one object that is possibly colliding
-	PartitionData*								m_other;		///< the other object (or null for collisions with the terrain)
-	Int														m_hashValue;///< index into hash table 
-};
-
-
-//-----------------------------------------------------------------------------
-
-class PartitionContactList
-{
-private:
-
-	/*
-		socketcount should be prime (and "not too close to a power of 2) for best results.
-		
-		if this one isn't large enough, try this website:
-		http://www.utm.edu/research/primes/lists/small/1000.txt
-
-		So how is this chosen? Eh, pretty much based on experimentation.
-	*/
-	enum { PartitionContactList_SOCKET_COUNT = 5381 };
-
-
-	PartitionContactListNode* m_contactHash[PartitionContactList_SOCKET_COUNT];
-	PartitionContactListNode* m_contactList;
-
-public:
-
-	PartitionContactList()
-	{
-		memset(m_contactHash, 0, sizeof(m_contactHash));
-		m_contactList = NULL;
-	}
-
-	~PartitionContactList()
-	{
-		resetContactList();
-	}
-
-	/**
-		add a pair of objects to the contact list. If the pair is already
-		present (in either this order or reverse order), nothing is done.
-		Note that it is OK for other==null (this indicates a collisions with
-		the ground) but it is not OK for obj==null.
-	*/
-	void addToContactList(PartitionData *obj, PartitionData *other);
-
-	/**
-		process all pairs in the contact list: first, determine if they
-		truly collide, based on their geometry. if so, call the collide
-		actions for each object in the pair.
-	*/
-	void processContactList();
-
-	/**
-		discard the contents of the contact list.
-	*/
-	void resetContactList();
-
-	/**
-		remove any contacts that refer to the given data.
-	*/
-	void removeSpecificPartitionData(PartitionData* data);
-
-};
-
-//-----------------------------------------------------------------------------
-//-----------------------------------------------------------------------------
-//-----------------------------------------------------------------------------
-
-#ifdef FASTER_GCO
-// nothing
-#else
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-#endif
-
-//-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
 
@@ -1300,12 +1722,6 @@ void PartitionCell::friend_removeFromCellList(CellAndObjectIntersection *coi)
 	}
 }
 
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-#ifdef _DEBUG
-#endif
-
 // ------------------------------------------------------------------------------------------------
 /** CRC */
 // ------------------------------------------------------------------------------------------------
@@ -1352,32 +1768,6 @@ void PartitionData::removeAllTouchedCells()
 	}
 	DEBUG_ASSERTCRASH(m_coiInUseCount == 0, ("hmm, coi count mismatch"));
 }
-
-// -----------------------------------------------------------------------------
-
-// -----------------------------------------------------------------------------
-
-// -----------------------------------------------------------------------------
-
-// -----------------------------------------------------------------------------
-
-// -----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-/* See if thisObj collides with geom at pos & angle. */
-
-//-----------------------------------------------------------------------------
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-
-#if defined(_DEBUG) || defined(_INTERNAL)
-static AsciiString theObjName;
-#endif
 
 //-----------------------------------------------------------------------------
 
@@ -1465,7 +1855,6 @@ inline UnsignedInt hash2ints(Int lhs, Int rhs)
 	}
 }
 
-
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
@@ -1485,301 +1874,6 @@ void PartitionContactList::removeSpecificPartitionData(PartitionData* data)
 		}
 	}
 }
-
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-//-----------------------------------------------------------------------------
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-#ifdef PM_CACHE_TERRAIN_HEIGHT
-static void calcHeights(const Region3D& world, Real cellSize, Int x, Int y, Real& loZ, Real& hiZ)
-{
-	DEBUG_ASSERTCRASH(TheTerrainLogic, ("no TheTerrainLogic"));
-	Real xbase = world.lo.x + (x * cellSize);
-	Real ybase = world.lo.y + (y * cellSize);
-	const Real ROUGH_STEP_SIZE = MAP_XY_FACTOR;	// no point in stepping smaller than grid scale
-	Real numSteps = ceilf(cellSize / ROUGH_STEP_SIZE);
-	Real step = cellSize / numSteps;
-	loZ = HUGE_DIST;		// huge positive
-	hiZ = -HUGE_DIST;		// huge negative
-	for (Real yy = 0; yy <= cellSize; yy += step) 
-	{
-		for (Real xx = 0; xx <= cellSize; xx += step) 
-		{
-			Real h = TheTerrainLogic->getGroundHeight( xbase + xx, ybase + yy );
-			if (h < loZ) loZ = h;
-			if (h > hiZ) hiZ = h;
-		}
-	}
-}
-#endif
-
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-#ifdef DUMP_PERF_STATS
-#endif
-
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-//DECLARE_PERF_TIMER(PartitionManager_update)
-
-//------------------------------------------------------------------------------
-
-//------------------------------------------------------------------------------
-
-//------------------------------------------------------------------------------
-
-//------------------------------------------------------------------------------
-
-/** 
-	Reveals the map for the given player, but does not override Shroud generation.  (Script)
-*/
-
-/** 
-	Reveals the map for the given player, AND permanently disables all Shroud generation (Observer Mode).
-	*/
-// Owned by PartitionManagerShroudThunks.cpp.
-
-/** 
-		Adds a layer of permanent blindness.  Used solely to undo the permanent reveal for debugging
-	*/
-// Owned by PartitionManagerShroudThunks.cpp.
-
-/** 
-	Resets the shroud for the given player with passive shroud (can re-explore).
-	*/
-
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-// Owned by PartitionManagerShroudThunks.cpp.
-
-
-//-----------------------------------------------------------------------------
-
-
-
-#ifdef FASTER_GCO
-//-----------------------------------------------------------------------------
-#endif
-
-#ifdef FASTER_GCO
-//-----------------------------------------------------------------------------
-#endif
-
-//-----------------------------------------------------------------------------
-//DECLARE_PERF_TIMER(getClosestObjects)
-
-
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-// Gets the distance if obj were at goalPos.  Used to calculate attack position paths.
-
-//-----------------------------------------------------------------------------
-// Gets the distance if obj were at goalPos.  Used to calculate attack position paths.
-
-//-----------------------------------------------------------------------------
-// PartitionManager::getRelativeAngle2D (both overloads): Zero Hour bodies with no
-// proven retail address (0x002C9BE4 is Weapon::getAttackRange); BFME2 callers use
-// Object::GetRelativeAngle 0x000B4542 instead. Not defined here.
-
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-// BFME 2's filter of this shape (ctor row 0x0027C2C9, vftable 0x00BFB1B8, allow
-// 0x00261603) keeps the geometry by reference at +0x14. Zero Hour's
-// PartitionFilterWouldCollide (header-declared) copies it into a GeometryInfo
-// member, whose ctor instantiated Zero Hour's implicit GeometryInfo copy under
-// the retail name; the filter is used only here, so this port holds the
-// geometry by reference as BFME 2 does. allow() is Zero Hour's body.
-class PartitionFilterWouldCollideRef : public PartitionFilter
-{
-private:
-	Coord3D m_position;
-	const GeometryInfo& m_geom;
-	Real m_angle;
-  Bool m_desiredCollisionResult;  // collision must match this for allow to return true
-public:
-	PartitionFilterWouldCollideRef(const Coord3D& pos, const GeometryInfo& geom, Real angle, Bool desired) :
-	  m_position(pos),
-		m_geom(geom),
-	  m_angle(angle),
-	  m_desiredCollisionResult(desired)
-	{
-	}
-
-	virtual Bool allow(Object *objOther)
-	{
-		CollideInfo thisInfo(&m_position, m_geom, m_angle);
-		CollideInfo thatInfo(objOther->getPosition(), objOther->getGeometryInfo(), objOther->getOrientation());
-
-	  Bool doesCollide;
-
-		// invariant for all geometries: first do z collision check.
-		if (thisInfo.position.z + thisInfo.geom.getMaxHeightAbovePosition() >= thatInfo.position.z && 
-				thisInfo.position.z <= thatInfo.position.z + thatInfo.geom.getMaxHeightAbovePosition())
-		{
-			GeometryType thisGeom = m_geom.getGeomType();
-			GeometryType thatGeom = objOther->getGeometryInfo().getGeomType();
-
-			//
-			// NOTE: This assumes geometry enumerations that start at GEOMETRY_FIRST AND depends on the
-			// order in which they appear in the enum list
-			//
-			CollideTestProc collideProc = theCollideTestProcs[ (thisGeom - GEOMETRY_FIRST) * GEOMETRY_NUM_TYPES + (thatGeom - GEOMETRY_FIRST) ];
-			CollideLocAndNormal cinfo;
-			doesCollide = (*collideProc)(&thisInfo, &thatInfo, &cinfo);
-		}
-		else
-		{
-			// no z-intersection -> no collision.
-			doesCollide = false;
-		}
-
-	  return doesCollide == m_desiredCollisionResult;
-	}
-#if defined(_DEBUG) || defined(_INTERNAL)
-	virtual const char* debugGetName() { return "PartitionFilterWouldCollide"; }
-#endif
-};
-
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-
-
-// ------------------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------
-  // end tryPosition
-
-//
-// the following determines how fast we expand our concentric ring search for the
-// find position methods
-//
-static Real ringSpacing = 5.0f;
-
-//-------------------------------------------------------------------------------------------------
-/** This method will attempt to find a legal postion from the center position specified,
-	* at least minRadis away from it, but no more than maxRadius away.
-	*
-	* Return TRUE if position is found and that position is returned in 'result'
-	* return FALSE no legal position exists or invalid params 
-	*/
-//-------------------------------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-// This is the main accessor of the shroud system.  At this level, allies are taken
-// into consideration as specified by the caller.  Look/Unlook are the ones sending Ally info, as that
-// is in Object where Allies make sense.  AddLooker literally just adds a looker for the player you specify.
-// This way, Full map reveals and Observer mode active look will not carry over to all 
-// allies.  They'll use the RevealWholeDamnMap series, which call addLooker directly.
-	
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-	
-//-----------------------------------------------------------------------------
-	
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-#ifdef PM_CACHE_TERRAIN_HEIGHT
-
-	struct TerrainExtremeData
-	{
-		Real* minZ;
-		Real* maxZ;
-		Coord2D* minZPos;
-		Coord2D* maxZPos;
-		Bool isValid;
-	};
-
-static Int checkTerrainExtreme(PartitionCell* cell, void* userData)
-{
-	TerrainExtremeData* data = (TerrainExtremeData*)userData;
-	
-	data->isValid = true;
-
-	Real tmp;
-
-	if (data->minZ)
-	{
-		tmp = cell->getLoTerrain();
-		if (tmp < *data->minZ ) 
-		{
-			*data->minZ = tmp;
-			if (data->minZPos)
-			{
-				cell->getCellCenterPos(data->minZPos->x, data->minZPos->y);
-			}
-		}
-	}
-
-	if (data->maxZ)
-	{
-		tmp = cell->getHiTerrain();
-		if (tmp > *data->maxZ ) 
-		{
-			*data->maxZ = tmp;
-			if (data->maxZPos)
-			{
-				cell->getCellCenterPos(data->maxZPos->x, data->maxZPos->y);
-			}
-		}
-	}
-
-	return 0;	// zero to continue
-}
-#endif
-
-//-----------------------------------------------------------------------------
-#ifdef PM_CACHE_TERRAIN_HEIGHT
-#endif
 
 //-----------------------------------------------------------------------------
 // Uses Bresenham line algorithm from www.gamedev.net.
@@ -2192,29 +2286,3 @@ static void hLineRemoveValue(Int startX, Int endX, Int y, void *threatValueParms
 		cell->removeCashValue( parms->playerIndex, REAL_TO_UNSIGNEDINT(parms->threatOrValue * mulVal) );
 	}
 }
-
-// ------------------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------
-
-// ------------------------------------------------------------------------------------------------
-/** Resetting sighting info */
-// ------------------------------------------------------------------------------------------------
-
-// ------------------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------
-
-// ------------------------------------------------------------------------------------------------
-/** CRC */
-// ------------------------------------------------------------------------------------------------
-
-// ------------------------------------------------------------------------------------------------
-/** Xfer Method
-	* Version Info:
-	* 1: Initial version */
-// ------------------------------------------------------------------------------------------------
-
-// ------------------------------------------------------------------------------------------------
-/** Load post process */
-// ------------------------------------------------------------------------------------------------
-
-// ------------------------------------------------------------------------------------------------

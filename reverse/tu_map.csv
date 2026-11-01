@@ -60152,7 +60152,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0073A1A0,28,code,,,-,,Code/GameEngine/Source/Common/Bfme5LinkedNode8F7BE0.cpp
 0x0073A1C0,4,code,,,-,,Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp
 0x0073A1D0,138,code,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl.cpp,proposed,N,N=Code/GameEngine/Source/Common/RTS/ShroudManagerImpl.cpp noncontiguous,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl008FBA40.cpp
-0x0073A260,55,code,,,-,,Code/GameEngine/Source/Common/BfmeCellAt.cpp
+0x0073A260,55,code,,,-,,Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp
 0x0073A2A0,135,code,,,-,,Code/GameEngine/Source/Common/BfmeCellAt.cpp
 0x0073A330,36,code,,,-,,Code/GameEngine/Source/Common/Bfme5InsertLink8F7D90.cpp
 0x0073A360,15,code,,,-,,Code/GameEngine/Source/Common/RvaSmallLeafTransfers.cpp
