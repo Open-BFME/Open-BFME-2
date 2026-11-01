@@ -148,7 +148,7 @@ enum ExitDoorType { DOOR_1=0 };
 enum CommandSourceType { CMD_FROM_AI=2 };
 enum PathfindLayerEnum { LAYER_WALL=17 };
 enum NameKeyType { NAMEKEY_INVALID=0 };
-class NameKeyGenerator {public:NameKeyType nameToKey(const char*);};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 class Player {public:char pad[0x5c];int type;};
 class Module;

@@ -94,11 +94,7 @@ private:
 	Rva003623E5Filter m_objectFilter; // +0x8C
 };
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

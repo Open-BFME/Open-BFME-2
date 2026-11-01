@@ -134,11 +134,7 @@ enum NameKeyType
 {
 	NAMEKEY_INVALID = 0
 };
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 // A store category: +0x0C is its index.
 struct Rva0046DB6DCategory

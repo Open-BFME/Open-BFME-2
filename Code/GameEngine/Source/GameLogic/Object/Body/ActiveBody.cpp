@@ -730,11 +730,7 @@ class Rva002AA201IndexedByteField { public: void set(int index); };
 // goes through that address's rowed Rva0059BB50 name.
 class Rva0059BB50 { public: void rva0047A69C(int v); };
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

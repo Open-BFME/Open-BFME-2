@@ -385,11 +385,7 @@ public:
 
 BFME_DISP8_BYTECHASE_BEFORE_GETTER(Rva0047840CByteChase32Field, 0x1C, 0xA1)
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

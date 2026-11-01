@@ -17,7 +17,7 @@ enum ObjectID;
 class DamageInfo { public: unsigned char before08[8]; ObjectID source; };
 #include "../../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
-class NameKeyGenerator { public: NameKeyType nameToKey(const char *); };
+#include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 class Object {
 public:

@@ -520,11 +520,7 @@ private:
 	Rva0047A040Base9E0 m_record9C0;			// +0x9C0
 };
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

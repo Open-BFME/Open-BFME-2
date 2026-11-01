@@ -53,11 +53,7 @@ class Rva004BD8A2 {
 public:virtual BodyZeroPair004BD8A2 rva004BD8A2();
 };
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

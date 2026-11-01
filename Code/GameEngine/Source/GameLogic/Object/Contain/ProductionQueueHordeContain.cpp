@@ -44,11 +44,7 @@ public:
 #pragma comment(linker, "/alternatename:??1Rva004816F4Entry@@QAE@XZ=??1Rva0048130E@@QAE@XZ")
 #pragma comment(linker, "/alternatename:?push_back@Rva004816F4Vector@@QAEXABURva004816F4Entry@@@Z=?push_back@?$vector@URva0048130E@@V?$allocator@URva0048130E@@@_STL@@@_STL@@QAEXABURva0048130E@@@Z")
 #include <vector>
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 class GarrisonContain : public OpenContain

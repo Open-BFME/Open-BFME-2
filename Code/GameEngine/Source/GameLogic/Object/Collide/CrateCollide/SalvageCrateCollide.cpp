@@ -230,11 +230,7 @@ struct SalvageCrateCollideModuleData
 // Owner row ?rva004BCF92@Rva004BCF92@@QAEXPBVObject@@H@Z: the text arrives as an int.
 class Rva004BCF92 { public: void rva004BCF92(const Object *obj, int arg); };
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

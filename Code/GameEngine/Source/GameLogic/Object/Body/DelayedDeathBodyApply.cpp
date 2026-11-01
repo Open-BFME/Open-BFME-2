@@ -19,7 +19,7 @@ protected:
  Module *findModule(NameKeyType) const;
  friend class DelayedDeathBody;
 };
-class NameKeyGenerator { public: NameKeyType nameToKey(const char*); };
+#include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 class LifetimeUpdate { public: void setLifetimeRange(unsigned int,unsigned int); };
 class FXList { public: static void doFXObj(const FXList*,const Object*,const Object*); };
