@@ -6,6 +6,7 @@
 
 #include <math.h>
 #include <string.h>
+#include <new>
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
 #include "../../../../Libraries/Include/Lib/IRegion2D.h"
 
@@ -110,7 +111,6 @@ void Rva001159F1::rva001159F1(void *value)
 
 #define MAP_HEIGHT_SCALE (10.0f / 256.0f)
 
-#include <new>
 
 class BoundedShortGrid
 {
