@@ -43,6 +43,8 @@ class GameTextTable;
 #include <new>
 #include "string_base.h"
 #define BFME_STRINGBASE_PUBLIC_DTOR
+#include <memory.h>
+#pragma intrinsic(memset)
 
 // bfme link decl-only begin
 namespace _STL { template <> void _Destroy<AsciiString>(AsciiString *); }
@@ -333,6 +335,13 @@ public:
 // stores it by that name; the compiler's own store of this class's table is dead.
 extern "C" const void *const __identifier("??_7Rva002E55D8@@6B@")[];
 
+class AsciiString;
+
+// ??$sort@PAUStringLookUp@@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@0URva002E5678Cmp@@@Z @0x002E68A9 and its callees
+template void _STL::sort<StringLookUp *, Rva002E5678Cmp>(StringLookUp *, StringLookUp *, Rva002E5678Cmp);
+
+void *__cdecl rva002E6329(void *, void *, void *, void *, void *) throw();
+
 class GameTextInterface : public SubsystemInterface
 {
 public:
@@ -377,6 +386,8 @@ public:
 	_STL::vector<AsciiString> m_asciiStringVec;	// +0x34
 	int m_translateMode;					// +0x40
 };
+
+// ---- from Code/GameEngine/Source/GameClient/GameText.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/GameText.cpp
 
@@ -909,8 +920,6 @@ void GameTextManager::deinit()
 	m_initialized = 0;
 }
 
-// tu-skeleton: 0x002E5770 33B ?fetchPtr@GameTextManager@@UAEPAVUnicodeString@@ABVAsciiString@@PA_N@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesD.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameClient/Rva002E5791Dtor.cpp
 
 // ??1Rva002E5791@@QAE@XZ 0x002E5791 53B
@@ -923,65 +932,68 @@ Rva002E5791::~Rva002E5791()
 {
 }
 
-// tu-skeleton: 0x002E5B66 101B ??$__median@UStringLookUp@@URva002E5678Cmp@@@_STL@@YAABUStringLookUp@@ABU1@00URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
+// tu-skeleton: 0x002E5770 33B ?fetchPtr@GameTextManager@@UAEPAVUnicodeString@@ABVAsciiString@@PA_N@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesD.cpp (not merged yet)
 
-// tu-skeleton: 0x002E5BCB 74B ??$__unguarded_partition@PAUStringLookUp@@U1@URva002E5678Cmp@@@_STL@@YAPAUStringLookUp@@PAU1@0U1@URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp
 
-// tu-skeleton: 0x002E5CAD 60B ??$__unguarded_linear_insert@PAUStringLookUp@@U1@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@U1@URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
-
-// tu-skeleton: 0x002E5CE9 93B ??$__push_heap@PAUStringLookUp@@HU1@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@HHU1@URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
-
-// tu-skeleton: 0x002E60C2 36B ??$__unguarded_insertion_sort_aux@PAUStringLookUp@@U1@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@00URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
-
-// tu-skeleton: 0x002E60E6 114B ??$__adjust_heap@PAUStringLookUp@@HU1@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@HHU1@URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
-
-// tu-skeleton: 0x002E621B 23B ??$__unguarded_insertion_sort@PAUStringLookUp@@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@0URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
-
-// tu-skeleton: 0x002E6232 77B ??$__linear_insert@PAUStringLookUp@@U1@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@0U1@URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
-
-// tu-skeleton: 0x002E627F 50B ??$__pop_heap@PAUStringLookUp@@U1@URva002E5678Cmp@@H@_STL@@YAXPAUStringLookUp@@00U1@URva002E5678Cmp@@PAH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
-
-// tu-skeleton: 0x002E62B1 82B ??$__make_heap@PAUStringLookUp@@URva002E5678Cmp@@U1@H@_STL@@YAXPAUStringLookUp@@0URva002E5678Cmp@@0PAH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
-
-// tu-skeleton: 0x002E6303 33B ??$__pop_heap_aux@PAUStringLookUp@@U1@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@00URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
+// STLport sort<StringLookUp*, Rva002E5678Cmp> family, 0x002E5B66-0x002E68EB:
+// the GameText label table sort (StringLookUp is the 8-byte {label, info}
+// record of the landed GameTextStringLookUpLess.cpp). sort 0x002E68A9 and the
+// 19 helpers it instantiates all place uniquely by masked search in
+// 0x2E5600-0x2E6A00 from one explicit sort instantiation of the vendored
+// header (the 23B forwarders split by callee) and reach one another by
+// REL32. The comparator is called as a thiscall functor on the two records'
+// addresses; its only body is the rowed stdcall compareStringLookUpLess at
+// 0x002E5678, which a thiscall operator() with the same statement compiles to
+// byte for byte (the this pointer is unused), so the functor is pinned there
+// under an address-derived name. swap and copy_backward fold onto the rowed
+// 8-byte bodies at 0x005A9125 and 0x004C72FE; under these flags (the same as
+// the Keyframe sort family's) both compile byte-identical to them and are
+// pinned as aliases. Under /EHsc the vendored copy_backward inlines its
+// pointer helper instead, which is why the unit keeps /GX-.
 
 // tu-skeleton: 0x002E6324 5B ??1Rva002E6324@@QAE@XZ -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
 
-// tu-skeleton: 0x002E634A 48B ??$__insertion_sort@PAUStringLookUp@@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@0URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
-
-// tu-skeleton: 0x002E637A 25B ??$make_heap@PAUStringLookUp@@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@0URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
-
-// tu-skeleton: 0x002E6393 23B ??$pop_heap@PAUStringLookUp@@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@0URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
-
 // tu-skeleton: 0x002E640B 10B ?setTranslateMode@GameTextManager@@UAEXH@Z -- matched in Code/GameEngine/Source/Common/DispArgFieldSettersVslots.cpp (not merged yet)
 
-// tu-skeleton: 0x002E6451 74B ?rva002E6451@Rva002E6451@@QAEPAXPBD@Z -- matched in Code/GameEngine/Source/GameClient/Rva002E6451Find.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/Rva002E6451Find.cpp
 
-// tu-skeleton: 0x002E649B 74B ??$__final_insertion_sort@PAUStringLookUp@@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@0URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
+// ?rva002E6451@Rva002E6451@@QAEPAXPBD@Z @0x002E6451 74B: StringLookUp equal_range lookup via 0x002E6329 forwarder over count at +0 and base at +8 returns info+4 or 0
 
-// tu-skeleton: 0x002E64E5 58B ??$sort_heap@PAUStringLookUp@@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@0URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
+// The zero-filled functor byte is an inline stosb: memset as an intrinsic,
+// as GameText.cpp's region default (/O1, no /Oi) would otherwise call it.
 
-// tu-skeleton: 0x002E651F 50B ?CreateGameTextInterface@@YAPAVGameTextInterface@@XZ -- matched in Code/GameEngine/Source/GameClient/GameTextCreate.cpp (not merged yet)
+void *Rva002E6451::rva002E6451(const char *key)
+{
+	if (m_count == 0 || m_items == 0)
+		return 0;
+	struct Pair
+	{
+		StringLookUp *first;
+		StringLookUp *second;
+	} res;
+	bool flag;
+	memset(&flag, 0, 1);
+	rva002E6329(&res, m_items, m_items + m_count, (void *)&key, *(void **)&flag);
+	if (res.first != res.second)
+		return (void *)((char *)res.first->info + 4);
+	return 0;
+}
 
-// tu-skeleton: 0x002E6695 93B ??$__partial_sort@PAUStringLookUp@@U1@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@000URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/GameTextCreate.cpp
+
+GameTextInterface *CreateGameTextInterface(void)
+{
+	return new GameTextManager;
+}
 
 // tu-skeleton: 0x002E66F2 89B ??1GameTextManager@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/GameTextManager.cpp (not merged yet)
-
-// tu-skeleton: 0x002E67B3 27B ??$partial_sort@PAUStringLookUp@@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@00URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
 
 // tu-skeleton: 0x002E67CE 28B ??_GGameTextManager@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/GameTextManager.cpp (not merged yet)
 
 // tu-skeleton: 0x002E67EA 60B ?getStringsWithLabelPrefix@GameTextManager@@UAEAAV?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@ABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/GameTextManager.cpp (not merged yet)
 
-// tu-skeleton: 0x002E6826 131B ??$__introsort_loop@PAUStringLookUp@@U1@HURva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@00HURva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
-
-// tu-skeleton: 0x002E68A9 67B ??$sort@PAUStringLookUp@@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@0URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
-
 // tu-skeleton: 0x00778D11 8B uw_00778d11 -- matched in Code/gen_small/uw_gen_011.cpp (not merged yet)
-
-// tu-skeleton: 0x00778D23 10B uw_00778d23 -- matched in Code/GameEngine/Source/GameClient/GameTextCreate.cpp (not merged yet)
-
-// tu-skeleton: 0x00778D2D 10B __ehhandler$?CreateGameTextInterface@@YAPAVGameTextInterface@@XZ -- matched in Code/GameEngine/Source/GameClient/GameTextCreate.cpp (not merged yet)
 
 // tu-skeleton: 0x00778D49 8B $L5334 -- matched in Code/GameEngine/Source/GameClient/GameTextManager.cpp (not merged yet)
 
