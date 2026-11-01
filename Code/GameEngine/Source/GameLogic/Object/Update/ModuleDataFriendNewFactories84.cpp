@@ -16,11 +16,7 @@ class ModuleData;
 class INI;
 class MultiIniFieldParse;
 
-class INI
-{
-public:
-	void initFromINIMultiProc(void *what, void (__cdecl *proc)(MultiIniFieldParse &));
-};
+#include "../../../../Include/Common/INI/INI.h"
 
 // 0x00251DCC: news 0x80, ctor ??0DefectorSpecialPowerModuleData (rowed 0x4C2A6A),
 // parse proc 0x8C4338.

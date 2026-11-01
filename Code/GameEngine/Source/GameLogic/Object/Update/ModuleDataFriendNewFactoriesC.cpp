@@ -40,11 +40,7 @@ class MultiIniFieldParse;
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
 #include "../../../../Include/Common/INI/FieldParse.h"
 
-class INI
-{
-public:
-	void initFromINIMultiProc(void *what, void (__cdecl *proc)(MultiIniFieldParse &));
-};
+#include "../../../../Include/Common/INI/INI.h"
 
 
 int Rva004CE52EGet(void);

@@ -14,11 +14,7 @@ class ModuleData;
 class INI;
 class MultiIniFieldParse;
 
-class INI
-{
-public:
-	void initFromINIMultiProc(void *what, void (__cdecl *proc)(MultiIniFieldParse &));
-};
+#include "../../../../Include/Common/INI/INI.h"
 
 // 0x0024AF5C: news 0x0C, ctor ??0LockWeaponCreateModuleData (rowed 0x254C8E),
 // parse proc 0x8598E1.

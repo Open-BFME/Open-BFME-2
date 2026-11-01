@@ -17,11 +17,7 @@ class ModuleData;
 
 typedef void (*LifetimeFieldProc)(MultiIniFieldParse &);
 
-class INI
-{
-public:
-	void initFromINIMultiProc(void *data, LifetimeFieldProc proc);
-};
+#include "../../../../Include/Common/INI/INI.h"
 
 class LifetimeUpdateModuleData
 {

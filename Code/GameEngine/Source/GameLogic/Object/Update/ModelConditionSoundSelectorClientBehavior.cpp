@@ -41,12 +41,7 @@ private:
 	unsigned char m_storage[0x84];
 };
 
-class INI
-{
-public:
-	static void Rva004CAB3D_ParseVoicePriority(INI *ini, void *instance, void *store, const void *userData);
-	void initFromINIMulti(void *object, const MultiIniFieldParse &parse);
-};
+#include "../../../../Include/Common/INI/INI.h"
 
 // bfme link decl-only begin
 // The append is the rowed push_back 0x004CB00D (StlportObject544Vector.cpp).
