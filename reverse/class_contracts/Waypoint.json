@@ -1,0 +1,622 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Waypoint",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 69,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x20": {
+    "4": 2
+   },
+   "0x4": {
+    "4": 1
+   },
+   "0x40": {
+    "4": 3
+   },
+   "0x44": {
+    "4": 3
+   },
+   "0x4c": {
+    "4": 2
+   },
+   "0x60": {
+    "4": 1
+   },
+   "0x68": {
+    "1": 1
+   },
+   "0x6c": {
+    "4": 1
+   },
+   "0x8": {
+    "4": 1
+   },
+   "0xa8": {
+    "1": 1
+   },
+   "0xa9": {
+    "1": 1
+   },
+   "0xb0": {
+    "4": 1
+   },
+   "0xb8": {
+    "1": 1
+   },
+   "0xbc": {
+    "4": 1
+   },
+   "0xc": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x282212",
+      "0x2823d1"
+     ],
+     "value": 185
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x282212",
+      "0x2823d1"
+     ],
+     "value": {
+      "0x10": [
+       4
+      ],
+      "0x14": [
+       4
+      ],
+      "0x18": [
+       4
+      ],
+      "0x1c": [
+       4
+      ],
+      "0x4": [
+       4
+      ],
+      "0x40": [
+       4
+      ],
+      "0x44": [
+       4
+      ],
+      "0x48": [
+       1
+      ],
+      "0x4c": [
+       4
+      ],
+      "0x50": [
+       4
+      ],
+      "0x54": [
+       4
+      ],
+      "0x58": [
+       4
+      ],
+      "0x5c": [
+       1
+      ],
+      "0x60": [
+       4
+      ],
+      "0x64": [
+       4
+      ],
+      "0x68": [
+       1
+      ],
+      "0x8": [
+       4
+      ],
+      "0x88": [
+       1
+      ],
+      "0xa8": [
+       1
+      ],
+      "0xa9": [
+       1
+      ],
+      "0xac": [
+       4
+      ],
+      "0xb0": [
+       4
+      ],
+      "0xb4": [
+       4
+      ],
+      "0xb8": [
+       1
+      ],
+      "0xc": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x282212",
+      "0x2823d1"
+     ],
+     "value": {
+      "0x50": [
+       "??0?$StringBase@D@@AAE@ABV0@@Z"
+      ],
+      "0x54": [
+       "??0?$StringBase@D@@AAE@ABV0@@Z"
+      ],
+      "0x58": [
+       "??0?$StringBase@D@@AAE@ABV0@@Z"
+      ],
+      "0x64": [
+       "??0?$StringBase@D@@AAE@ABV0@@Z"
+      ],
+      "0x6c": [
+       "??0Rva0024C7B3Member@@QAE@XZ"
+      ],
+      "0x8": [
+       "??0?$StringBase@D@@AAE@ABV0@@Z"
+      ],
+      "0x8c": [
+       "??0Rva0024C7B3Member@@QAE@XZ"
+      ],
+      "0xbc": [
+       "??0Rva003623E5Member@@QAE@XZ"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x282212",
+      "0x2823d1"
+     ],
+     "value": {
+      "0x0": "0x7fb21c"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7fb21c"
+     ],
+     "value": {
+      "count": 1,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GWaypoint@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x282b9f"
+       }
+      ],
+      "table": "0x7fb21c"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 6,
+  "retail_vtables": {
+   "0x7fb21c": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GWaypoint@@UAEPAXI@Z"
+    },
+    "stores": 2
+   }
+  },
+  "view_errors": 4,
+  "view_sizes": {
+   "1": 8,
+   "4": 2,
+   "8": 6,
+   "12": 1,
+   "20": 1,
+   "24": 12,
+   "32": 7,
+   "36": 2,
+   "80": 14,
+   "100": 3,
+   "180": 1,
+   "192": 8
+  },
+  "views": 65,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_Waypoint.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/TerrainLogic.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_id",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "int",
+   "views": 25,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_text",
+     "offset": 0,
+     "size": 4,
+     "type": "char*"
+    }
+   ],
+   "name": "m_name",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 13,
+   "witness": null
+  },
+  {
+   "decided_by": "retail-access",
+   "kind": "S:Coord3D",
+   "members": [
+    {
+     "kind": "f4",
+     "name": "x",
+     "offset": 0,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "y",
+     "offset": 4,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "z",
+     "offset": 8,
+     "size": 4,
+     "type": "float"
+    }
+   ],
+   "name": "m_location",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 12,
+   "type": "Coord3D",
+   "views": 40,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "m_18",
+   "name_by": "majority",
+   "offset": 24,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 12,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "P",
+   "name": "m_next",
+   "name_by": "majority",
+   "offset": 28,
+   "retail_widths": {},
+   "size": 4,
+   "type": "Waypoint*",
+   "views": 20,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "P",
+   "name": "m_links",
+   "name_by": "majority",
+   "offset": 32,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "Waypoint*",
+   "views": 8,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_unrecovered24",
+   "name_by": "majority",
+   "offset": 36,
+   "retail_widths": {},
+   "size": 40,
+   "type": "char[40]",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_linkSource",
+   "name_by": "majority",
+   "offset": 64,
+   "retail_widths": {
+    "4": 3
+   },
+   "size": 4,
+   "type": "Waypoint*",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "P",
+   "name": "chainNext",
+   "name_by": "majority",
+   "offset": 68,
+   "retail_widths": {
+    "4": 3
+   },
+   "size": 4,
+   "type": "Waypoint*",
+   "views": 8,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_numLinks",
+   "name_by": "majority",
+   "offset": 76,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "int",
+   "views": 17,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 87
+ },
+ "outliers": [
+  {
+   "offset": 80,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicBuildBeacons.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/WaypointIsValidUnitType.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 84,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/WaypointIsValidUnitType.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 88,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/WaypointIsValidUnitType.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 92,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/WaypointIsValidUnitType.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 96,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicBuildBeacons.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/WaypointIsValidUnitType.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/OffensiveTactics/AIFlankAttackTactic.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 100,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/WaypointIsValidUnitType.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 104,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/WaypointIsValidUnitType.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 108,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/WaypointIsValidUnitType.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 136,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/WaypointIsValidUnitType.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 140,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/WaypointIsValidUnitType.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 168,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/WaypointIsValidUnitType.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviourCreateWaypoints.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviour.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 169,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/WaypointIsValidUnitType.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviour.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 172,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/WaypointIsValidUnitType.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 176,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/WaypointIsValidUnitType.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviourCreateWaypoints.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviour.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 180,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/WaypointIsValidUnitType.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviourCreateWaypoints.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 184,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/WaypointIsValidUnitType.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviourCreateWaypoints.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 188,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/WaypointIsValidUnitType.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviourCreateWaypoints.cpp"
+   ],
+   "views": 3
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "field@0x0",
+   "candidates": {
+    "12:A": 4,
+    "4:P": 4,
+    "4:VPTR": 7,
+    "4:i4": 7,
+    "8:A": 1
+   },
+   "class": "Waypoint"
+  },
+  {
+   "attribute": "field@0x48",
+   "candidates": {
+    "1:i1": 4,
+    "4:i4": 4
+   },
+   "class": "Waypoint"
+  },
+  {
+   "attribute": "straddle@0x40",
+   "candidates": {},
+   "class": "Waypoint"
+  },
+  {
+   "attribute": "straddle@0x44",
+   "candidates": {},
+   "class": "Waypoint"
+  }
+ ],
+ "size": 80,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
