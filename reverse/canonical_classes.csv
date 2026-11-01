@@ -244,3 +244,4 @@ AIGroup,Code/GameEngine/Include/GameLogic/AIGroup.h,existing header; contract cl
 WeaponTemplate,Code/GameEngine/Include/GameLogic/WeaponTemplate.h,existing header; contract class_contracts/WeaponTemplate.json; 25/69 sampled units adopt
 TeamPrototype,Code/GameEngine/Include/Common/Team.h,existing header; contract class_contracts/TeamPrototype.json; 10/70 sampled units adopt
 ParticleSystemManager,Code/GameEngine/Include/GameClient/ParticleSys.h,existing header; contract class_contracts/ParticleSystemManager.json; 46/69 sampled units adopt
+Path,Code/GameEngine/Include/GameLogic/PathfindPath.h,existing header; contract class_contracts/Path.json; 58/77 sampled units adopt
