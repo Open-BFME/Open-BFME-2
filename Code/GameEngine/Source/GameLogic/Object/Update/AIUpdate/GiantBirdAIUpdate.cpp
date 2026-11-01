@@ -5,7 +5,6 @@
 #include "../../../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../../../Include/GameLogic/ContainmentListView.h"
 #include "../../../../../Include/GameLogic/BfmeStoredAICommandView.h"
-namespace _STL {template<> _List_base<Rva0036ADF9Element,allocator<Rva0036ADF9Element> >::~_List_base();}
 typedef bool Bool;
 typedef float Real;
 typedef int Int;
@@ -64,7 +63,6 @@ class ThingTemplateView
 {
 public:
 	Bool isKindOf5A() const { return (m_kindOf[0x5A >> 3] & (1 << (0x5A & 7))) != 0; }
-private:
 	unsigned char m_pad000[0x108];
 	unsigned char m_kindOf[0x20]; // +0x108
 };
@@ -371,10 +369,12 @@ protected:
 	Int m_bfmeReserved; // +0x1C
 };
 
+
 class AICommandInterface
 {
 public:
 	virtual void aiDoCommand(const AICommandParms *parms) = 0;
+	void aiIdle(CommandSourceType cmdSource);
 };
 
 class AIUpdateInterface : public UpdateModule, public AICommandInterface
