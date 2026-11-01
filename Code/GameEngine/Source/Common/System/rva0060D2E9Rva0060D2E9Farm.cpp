@@ -53,9 +53,21 @@ public:
 	virtual int write(const void *buffer, int size);
 	virtual int skip(int count, int flag);
 };
-struct Rva0060CAEANode { void *next; _STL::string key; unsigned int value; };
-struct Rva0060CAEAIterator { Rva0060CAEANode *cur; const void *table;
- Rva0060CAEAIterator(Rva0060CAEANode *c,const void *t):cur(c),table(t) {}
+struct Rva0060CAEANode
+{
+    void *m_next;
+    _STL::string m_key;
+    unsigned int value;
+};
+struct Rva0060CAEAIterator
+{
+    Rva0060CAEANode *m_cur;
+    const void *m_ht;
+
+    Rva0060CAEAIterator(Rva0060CAEANode *cur, const void *ht)
+        : m_cur(cur), m_ht(ht)
+    {
+    }
 };
 struct Rva0060CAEABuckets
 {

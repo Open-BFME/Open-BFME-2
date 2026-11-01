@@ -1,0 +1,81 @@
+NATIVE128
+000 mov      eax, 0xba6d56
+005 call     0x629188
+00a sub      esp, 0x14
+00d and      dword ptr [ebp - 0x10], 0
+011 push     esi
+012 push     dword ptr [ebp + 8]
+015 lea      eax, [ebp - 0x18]
+018 push     eax
+019 mov      esi, ecx
+01b call     0x60cb61
+020 mov      eax, dword ptr [ebp - 0x18]
+023 test     eax, eax
+025 jne      0x60d2bc
+027 push     dword ptr [ebp + 8]
+02a lea      ecx, [ebp - 0x20]
+02d call     0x9170
+032 and      dword ptr [ebp - 0x14], 0
+036 and      dword ptr [ebp - 4], 0
+03a lea      eax, [ebp - 0x20]
+03d push     eax
+03e mov      ecx, esi
+040 mov      dword ptr [ebp - 0x10], 1
+047 call     0x60d1b3
+04c mov      esi, eax
+04e add      esi, 0xc
+051 jmp      0x60d2bf
+053 lea      esi, [eax + 0x10]
+056 or       dword ptr [ebp - 4], 0xffffffff
+05a test     byte ptr [ebp - 0x10], 1
+05e je       0x60d2d8
+060 cmp      dword ptr [ebp - 0x20], 0
+064 je       0x60d2d8
+066 push     dword ptr [ebp - 0x20]
+069 call     0x30830
+06e pop      ecx
+06f mov      ecx, dword ptr [ebp - 0xc]
+072 mov      eax, esi
+074 pop      esi
+075 mov      dword ptr fs:[0], ecx
+07c leave
+07d ret      4
+COMPOSED121
+000 mov      eax, 0
+005 call     0xa
+00a sub      esp, 0x14
+00d and      dword ptr [ebp - 0x10], 0
+011 push     esi
+012 push     dword ptr [ebp + 8]
+015 lea      eax, [ebp - 0x18]
+018 push     eax
+019 mov      esi, ecx
+01b call     0x20
+020 mov      eax, dword ptr [ebp - 0x18]
+023 test     eax, eax
+025 jne      0x53
+027 push     dword ptr [ebp + 8]
+02a lea      ecx, [ebp - 0x20]
+02d call     0x32
+032 and      dword ptr [ebp - 0x14], 0
+036 and      dword ptr [ebp - 4], 0
+03a lea      eax, [ebp - 0x20]
+03d push     eax
+03e mov      ecx, esi
+040 mov      dword ptr [ebp - 0x10], 1
+047 call     0x4c
+04c mov      esi, eax
+04e add      esi, 0xc
+051 jmp      0x56
+053 lea      esi, [eax + 0x10]
+056 or       dword ptr [ebp - 4], 0xffffffff
+05a test     byte ptr [ebp - 0x10], 1
+05e je       0x68
+060 lea      ecx, [ebp - 0x20]
+063 call     0x68
+068 mov      ecx, dword ptr [ebp - 0xc]
+06b mov      eax, esi
+06d pop      esi
+06e mov      dword ptr fs:[0], ecx
+075 leave
+076 ret      4

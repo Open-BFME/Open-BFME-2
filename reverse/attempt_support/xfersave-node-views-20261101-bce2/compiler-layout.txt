@@ -1,0 +1,21 @@
+tu: Code/GameEngine/Source/Common/System/XferSave.cpp
+seed: Code/GameEngine/Source/Common/System/XferSave.cpp  (9 files)
+  Rva0060CAEANode: plan (3 files)
+        | struct Rva0060CAEANode
+        | {
+        | public:
+        | 	void *m_next; // +0x00
+        | 	_STL::string m_key; // +0x04
+        | 	unsigned int value; // +0x10
+        | };
+  Rva0060CAEAIterator: plan (3 files)
+        | struct Rva0060CAEAIterator
+        | {
+        | public:
+        | 	Rva0060CAEAIterator(Rva0060CAEANode *cur, const void *ht)
+        | 	    : m_cur(cur), m_ht(ht)
+        | 	{
+        | 	}
+        | 	Rva0060CAEANode *m_cur; // +0x00
+        | 	const void *m_ht; // +0x04
+        | };

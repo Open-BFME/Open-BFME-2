@@ -1,0 +1,15 @@
+link_check: preparing 9 explicit safe provider(s), no extra sources
+Compile: 8 of 9 TU(s) (deps-cache: 1 current)
+Source claims: OK (9 sources, scoped byte-verified)
+Compile: 0 of 9 TU(s) (deps-cache: 9 current)
+Funclet pins: 7 row(s) verified past a renumbered $L label
+    $L8331 (Code/Libraries/Source/WWVegas/WWLib/stlport_construct_deque_string.cpp): $L8331 was renumbered; verified parent EH data places $L8291 at 0x007A6CC0
+    uw_007a6d00 (Code/Libraries/Source/xfer/XferSaveDeletingDtor.cpp): $L391 was renumbered; verified parent EH data places $L762 at 0x007A6D00
+    ?rva007A6D3D@@YAXXZ (Code/Libraries/Source/WWVegas/WWLib/Rva0060D269.cpp): $L8598 was renumbered; verified parent EH data places $L8141 at 0x007A6D3D
+    Unwind@00ba6d60 (Code/GameEngine/Source/Common/System/rva0060D2E9Rva0060D2E9Farm.cpp): $L8267 was renumbered; verified parent EH data places $L8257 at 0x007A6D60
+    $L7999 (Code/GameEngine/Source/Common/BfmeConv881O1.cpp): $L7999 was renumbered; verified parent EH data places $L6896 at 0x007A6D1D
+Functions: OK 44/44 matched across 9 source file(s)
+String-ref verify: OK (0 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (0 compiler literals verified)
+Import-ref verify: OK (0 named imports verified)
+link_check: 9 explicit providers byte-verified with strict reusable receipts; census/index/status unchanged, LINK closure not yet checked

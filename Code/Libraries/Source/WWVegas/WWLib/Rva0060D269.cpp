@@ -28,9 +28,22 @@ template <> __declspec(dllimport) __forceinline
 void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(char *__p, size_t __n)
 { allocator<char>::deallocate(__p, __n); }
 }
-struct Rva0060CAEANode { void *next; _STL::string key; unsigned int value; };
-struct Rva0060CAEAIterator { Rva0060CAEANode *cur; const void *table;
- Rva0060CAEAIterator(Rva0060CAEANode*c,const void*t):cur(c),table(t){} };
+struct Rva0060CAEANode
+{
+    void *m_next;
+    _STL::string m_key;
+    unsigned int value;
+};
+struct Rva0060CAEAIterator
+{
+    Rva0060CAEANode *m_cur;
+    const void *m_ht;
+
+    Rva0060CAEAIterator(Rva0060CAEANode *cur, const void *ht)
+        : m_cur(cur), m_ht(ht)
+    {
+    }
+};
 struct Rva0060CAEABuckets
 {
 	void **_M_start;
@@ -63,12 +76,12 @@ typedef _STL::hashtable<XferNamePair,_STL::string,_STL::hash<_STL::string>,
 namespace _STL { template<> XferNamePair &XferNameTable::_M_insert(const XferNamePair&); }
 unsigned int &Rva0060D269::rva0060D269(const _STL::string &key) {
  Rva0060CAEANode *node;
- { Rva0060CAEAIterator it=((Rva0060CAEA*)this)->rva0060CB61(key); node=it.cur; }
+ { Rva0060CAEAIterator it=((Rva0060CAEA*)this)->rva0060CB61(key); node=it.m_cur; }
  return !node ? ((XferNameTable*)this)->_M_insert(XferNamePair(key,0)).second : node->value;
 }
 
 // Actual rowed member ?rva0060CB61@Rva0060CAEA@@QAE?AURva0060CAEAIterator@@ABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@Z at 0x0060CB61 from Code/Libraries/Source/WWVegas/WWLib/stlport_string_find_0060CAEA.cpp.
-inline __declspec(noinline) Rva0060CAEAIterator Rva0060CAEA::rva0060CB61(const _STL::string &key)
+__declspec(noinline) inline Rva0060CAEAIterator Rva0060CAEA::rva0060CB61(const _STL::string &key)
 {
 	return Rva0060CAEAIterator(rva0060CAEA(key), this);
 }
