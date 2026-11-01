@@ -85,11 +85,7 @@ public:
 	GameSlot *getSlot(int slotNum);
 };
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const AsciiString &nameString);
-};
+#include "../../Include/Common/NameKeyGenerator.h"
 
 extern GameInfo *TheGameInfo;
 

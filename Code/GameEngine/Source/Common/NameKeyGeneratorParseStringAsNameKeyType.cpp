@@ -23,12 +23,7 @@ public:
 	AsciiString getNextAsciiString();
 };
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const AsciiString &nameString);
-	static void parseStringAsNameKeyType(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

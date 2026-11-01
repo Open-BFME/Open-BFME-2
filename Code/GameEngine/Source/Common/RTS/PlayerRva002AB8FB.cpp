@@ -46,11 +46,7 @@ public:
 	void *winGetUserData();
 };
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *s);
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 
 class UpgradeCenter
 {

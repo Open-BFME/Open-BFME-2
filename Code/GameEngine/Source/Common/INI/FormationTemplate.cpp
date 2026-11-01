@@ -46,12 +46,7 @@ public:
 	void initFromINI(void *what, const FieldParse *table);
 };
 enum NameKeyType { NAMEKEY_INVALID = 0 };
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const AsciiString &name);
-	const AsciiString &keyToName(NameKeyType key);
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 void Rva00425421Parse(INI *ini, void *what);
 void rva00425842(INI *ini, void *instance, void *store, const void *userData);

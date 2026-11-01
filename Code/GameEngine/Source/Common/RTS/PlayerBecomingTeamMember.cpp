@@ -35,11 +35,7 @@ enum ObjectStatusTypes
 class Player;
 class Module;
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 #define NAMEKEY(x) TheNameKeyGenerator->nameToKey(x)
 

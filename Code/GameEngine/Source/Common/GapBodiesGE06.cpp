@@ -190,11 +190,7 @@ bool Rva002E7F1E::isNotEmpty() const
 // with 1 and the flag.
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const AsciiString &name);			// 0x0009FA65
-};
+#include "../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 class Overridable;

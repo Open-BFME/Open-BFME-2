@@ -68,7 +68,7 @@ extern MapCache *TheMapCache;
 
 enum NameKeyType {NAMEKEY_INVALID};
 
-class NameKeyGenerator {public:const AsciiString&keyToName(NameKeyType);};
+#include "../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

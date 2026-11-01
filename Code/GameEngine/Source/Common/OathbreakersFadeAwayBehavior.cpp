@@ -38,11 +38,7 @@ enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 //
 // ?xfer@OathbreakersFadeAwayBehavior@@MAEXPAVXfer@@@Z, retail 0x004B8A28, 81 bytes. Virtual

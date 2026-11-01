@@ -48,11 +48,7 @@ class SupplyTruckAIInterface;
 class BfmeVec3EJ;
 class Gen_000E5A50;
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

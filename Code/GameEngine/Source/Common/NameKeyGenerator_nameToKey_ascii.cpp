@@ -11,12 +11,7 @@ enum NameKeyType
 
 #include "ascii_string.h"
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *nameString);
-	NameKeyType nameToKey(const AsciiString &nameString);
-};
+#include "../../Include/Common/NameKeyGenerator.h"
 
 inline NameKeyType NameKeyGenerator::nameToKey(const AsciiString &nameString)
 {

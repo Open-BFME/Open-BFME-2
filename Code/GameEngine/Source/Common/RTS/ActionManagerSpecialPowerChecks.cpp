@@ -801,11 +801,7 @@ struct ActionModuleView
 	const unsigned char *m_data;	// +0x04
 };
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *);	// 0x00148E1A
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 static inline const unsigned char *actionTemplate(const Object *object)

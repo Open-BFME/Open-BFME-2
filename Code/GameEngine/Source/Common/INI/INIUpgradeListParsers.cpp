@@ -27,11 +27,7 @@ enum ErrorCode
 	ERROR_BUG = (ERROR_BASE + 0x0000)
 };
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *nameString);
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 class UpgradeTemplate;

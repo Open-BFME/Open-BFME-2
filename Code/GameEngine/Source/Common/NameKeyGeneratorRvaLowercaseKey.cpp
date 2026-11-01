@@ -34,13 +34,7 @@ struct BfmeStringData
 #include "ascii_string.h"
 
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *nameString);
-	NameKeyType Rva00148F02(const char *nameString);
-	NameKeyType Rva002D91AF(const AsciiString &nameString);
-};
+#include "../../Include/Common/NameKeyGenerator.h"
 
 NameKeyType NameKeyGenerator::Rva00148F02(const char *nameString)
 {

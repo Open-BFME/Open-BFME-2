@@ -101,7 +101,7 @@ const FieldParse *DamageFX::getFieldParse() const
  return DamageFXFields;
 }
 enum NameKeyType { NAMEKEY_INVALID=0, FORCE_NAMEKEY_LONG=0x7fffffff };
-class NameKeyGenerator { public: NameKeyType nameToKey(const char*); };
+#include "../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 class INI { public: const char *getNextToken(const char*); void initFromINI(void*,const FieldParse*); };
 class Rva003605AF { public: void rva003605AF(); };

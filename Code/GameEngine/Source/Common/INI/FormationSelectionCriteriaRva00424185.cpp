@@ -37,7 +37,7 @@ class INI {public:
  static void parseInt(INI*,void*,void*,const void*);
 };
 enum NameKeyType {NAMEKEY_INVALID=0};
-class NameKeyGenerator {public:NameKeyType nameToKey(const AsciiString&);};
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator* TheNameKeyGenerator;
 struct Rva00424185Criteria {int templateIndex;float maxDragLength;int maxUnitsSelected;};
 // The native append call reaches the existing deque<BfmeE12>

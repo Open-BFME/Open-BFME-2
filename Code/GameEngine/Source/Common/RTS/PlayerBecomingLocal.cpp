@@ -19,7 +19,7 @@ extern GameClient *TheGameClient;
 struct Rva002D76C6Owner;
 class Radar {public:void removeObject(Rva002D76C6Owner*);void addObject(Object*);};
 extern Radar *TheRadar;
-class NameKeyGenerator {public:NameKeyType nameToKey(const char*);};
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 #include "../../../Include/GameClient/Drawable.h"
 #include "../Thing/thing.h"

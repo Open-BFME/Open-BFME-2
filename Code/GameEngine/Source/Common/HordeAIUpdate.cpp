@@ -78,11 +78,7 @@ typedef float Real;
 #include "../GameLogic/AI/WorkOrder.h"
 #include "../GameLogic/AI/TeamInQueue.h"
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

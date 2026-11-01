@@ -46,11 +46,7 @@ extern const StaticNameKey TheKey_teamName;
 extern const StaticNameKey TheKey_teamOwner;
 extern Rva00148F5ECache TheKey_teamIsSingleton;
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const AsciiString &name);
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 struct DictPairData
