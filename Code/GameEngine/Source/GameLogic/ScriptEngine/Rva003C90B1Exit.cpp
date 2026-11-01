@@ -23,11 +23,7 @@ public:
 	AICommandInterface m_command; // +0x20
 };
 
-class Object
-{
-public:
-	AIUpdateInterface *getAI() const { return *(AIUpdateInterface **)((const char *)this + 0x258); }
-};
+#include "../Object/object.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;

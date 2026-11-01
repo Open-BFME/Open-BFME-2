@@ -24,14 +24,7 @@ public:
 	AICommandInterface m_command;
 };
 
-class Object
-{
-public:
-	__declspec(dllimport) __forceinline AIUpdateInterface *getAIUpdateInterface()
-	{
-		return *(AIUpdateInterface **)((char *)this + 0x258);
-	}
-};
+#include "../Object/object.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;

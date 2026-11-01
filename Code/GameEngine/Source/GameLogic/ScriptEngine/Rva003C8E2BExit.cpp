@@ -41,11 +41,7 @@ public:
 	AICommandInterface m_command;
 };
 
-class Object
-{
-public:
-	AIUpdateInterface *getAI() const { return *(AIUpdateInterface **)((const char *)this + 0x258); }
-};
+#include "../Object/object.h"
 
 // Zero Hour's ScriptActions::doTeamExitAllBuildings without its locomotor-set
 // call. Its explicit `if (!obj) continue;` is what makes cl keep one zero in

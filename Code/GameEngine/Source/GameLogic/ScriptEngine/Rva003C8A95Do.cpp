@@ -26,11 +26,7 @@ public:
 	AICommandInterface m_command;
 };
 
-class Object
-{
-public:
-	AIUpdateInterface *getAI() const { return *(AIUpdateInterface **)((const char *)this + 0x258); }
-};
+#include "../Object/object.h"
 
 void ScriptActions::Rva003C8A95Do(Parameter *param)
 {

@@ -28,11 +28,7 @@ enum Relationship
 	ALLIES = 2
 };
 
-class Object
-{
-public:
-	Player *getControllingPlayer() const;
-};
+#include "../object.h"
 
 class Player
 {

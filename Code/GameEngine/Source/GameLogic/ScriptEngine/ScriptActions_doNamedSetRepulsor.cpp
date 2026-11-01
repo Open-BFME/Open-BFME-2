@@ -20,11 +20,7 @@ enum ObjectStatusTypes
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 
-class Object
-{
-public:
-    void setStatus(ObjectStatusTypes, bool);
-};
+#include "../Object/object.h"
 
 class ScriptActions
 {

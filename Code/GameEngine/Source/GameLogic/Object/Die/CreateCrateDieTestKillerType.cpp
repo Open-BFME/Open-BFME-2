@@ -41,9 +41,7 @@ public:
 
 #include "../../../Common/Thing/thing.h"
 
-class Object : public Thing
-{
-};
+#include "../object.h"
 
 class CrateTemplate
 {

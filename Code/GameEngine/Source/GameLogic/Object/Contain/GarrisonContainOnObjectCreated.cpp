@@ -65,16 +65,7 @@ public:
 	virtual void addToContain(Object *obj); // slot 0x9C
 };
 
-class Object
-{
-public:
-	Player *getControllingPlayer() const;
-	ContainModuleInterface *getContain() const { return m_contain; }
-
-private:
-	unsigned char m_pad000[0x250];
-	ContainModuleInterface *m_contain; // +0x250
-};
+#include "../object.h"
 
 struct InitialRoster
 {

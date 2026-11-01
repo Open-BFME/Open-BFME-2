@@ -10,8 +10,7 @@
 // Parameter plus void. Global g_Va009FE16C used by 14 TUs.
 class Parameter;
 #include "../../../Include/GameClient/DrawableBFME2.h"
-class Object : public Thing {
-};
+#include "../Object/object.h"
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 

@@ -72,12 +72,7 @@ private:
 class GameLogic;
 extern GameLogic *TheGameLogic;
 
-class Object
-{
-public:
-	unsigned char m_pad274[0x274];
-	Object *m_containedBy;
-};
+#include "../object.h"
 
 #include "../../../Common/GameLogicObjectLookupView.h"
 

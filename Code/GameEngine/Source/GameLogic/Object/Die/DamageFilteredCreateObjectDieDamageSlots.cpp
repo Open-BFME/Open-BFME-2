@@ -18,11 +18,7 @@ public:
 	unsigned char m_pad00[0x54];
 	int m_54;			// +0x54
 };
-class Object
-{
-public:
-	Player *getControllingPlayer() const;
-};
+#include "../object.h"
 extern GameLogic *TheGameLogic;
 class DamageInfo
 {

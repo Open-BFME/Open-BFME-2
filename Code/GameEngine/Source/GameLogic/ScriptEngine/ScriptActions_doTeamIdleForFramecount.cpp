@@ -32,14 +32,7 @@ enum CommandSourceType
 	CMD_FROM_SCRIPT = 1
 };
 
-class Object
-{
-public:
-	AIUpdateInterface *getAIUpdateInterface() const
-	{
-		return *(AIUpdateInterface **)((const char *)this + 0x258);
-	}
-};
+#include "../Object/object.h"
 
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 

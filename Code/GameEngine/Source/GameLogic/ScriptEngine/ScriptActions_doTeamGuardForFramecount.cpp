@@ -39,18 +39,7 @@ public:
 	AICommandInterface m_command;
 };
 
-class Object
-{
-public:
-	AIUpdateInterface *getAIUpdateInterface() const
-	{
-		return *(AIUpdateInterface **)((const char *)this + 0x258);
-	}
-private:
-	char m_pad00[0x38];
-public:
-	Coord3D m_position;
-};
+#include "../Object/object.h"
 
 #include "../../../Include/Common/TeamBFME2.h"
 
@@ -74,9 +63,9 @@ void ScriptActions::doTeamGuardForFramecount(const AsciiString &teamName, int fr
 		AIUpdateInterface *ai = object->getAIUpdateInterface();
 		if (ai) {
 			Coord3D position;
-			position.x = object->m_position.x;
-			position.y = object->m_position.y;
-			position.z = object->m_position.z;
+			position.x = object->m_cachedPos.x;
+			position.y = object->m_cachedPos.y;
+			position.z = object->m_cachedPos.z;
 			ai->m_command.aiGuardPosition(&position, GUARDMODE_NORMAL, CMD_FROM_SCRIPT);
 		}
 		iter.advance();

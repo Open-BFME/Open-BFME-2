@@ -36,11 +36,7 @@ public:
 	ScoreKeeper m_3BC;
 };
 
-class Object
-{
-public:
-	Player *getControllingPlayer() const;
-};
+#include "../object.h"
 
 class ThingTemplate;
 class ThingFactory

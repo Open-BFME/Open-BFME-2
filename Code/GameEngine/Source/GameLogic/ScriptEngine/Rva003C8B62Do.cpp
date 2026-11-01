@@ -47,12 +47,7 @@ public:
 	AICommandInterface m_command;
 };
 
-class Object
-{
-public:
-	AIUpdateInterface *getAI() const { return *(AIUpdateInterface **)((const char *)this + 0x258); }
-	const Coord3D *getPosition() const { return reinterpret_cast<const Coord3D *>((const char *)this + 0x38); }
-};
+#include "../Object/object.h"
 
 template<class OBJ> class DLINK_ITERATOR
 {

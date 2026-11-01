@@ -10,12 +10,7 @@ enum ObjectStatusTypes
 	STATUS_62 = 0x3e
 };
 class Player;
-class Object
-{
-public:
-	bool testStatus(ObjectStatusTypes s) const;
-	Player *getControllingPlayer() const;
-};
+#include "../object.h"
 // 0x00362437 is rowed as Rva2225E0Filter::accepts(Object *, Player *); the old
 // ?bfmeHas1026@BfmeTab1026@@QAEDHH@Z pin names the same body.
 class Rva2225E0Filter

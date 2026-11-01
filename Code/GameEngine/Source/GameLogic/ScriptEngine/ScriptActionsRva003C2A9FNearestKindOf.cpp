@@ -71,12 +71,7 @@ public:
 	Object *findClosestToPosByKindOf(const Coord3D *pos, BitFlags<116> setMask, BitFlags<116> clearMask);
 };
 
-class Object
-{
-public:
-	const Coord3D *getPosition() const { return (const Coord3D *)((const char *)this + 0x38); }
-	AIUpdateInterface *getAI() const { return *(AIUpdateInterface **)((const char *)this + 0x258); }
-};
+#include "../Object/object.h"
 
 
 // The argument block 0x00372571 takes (built inline by its callers).

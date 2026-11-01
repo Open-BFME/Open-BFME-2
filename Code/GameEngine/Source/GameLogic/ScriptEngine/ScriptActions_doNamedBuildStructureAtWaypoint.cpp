@@ -80,12 +80,7 @@ public:
 	virtual void slot126(void *a1, const Coord3D *a2, float a3, Player *a4, int a5, int a6) = 0;
 };
 
-class Object
-{
-public:
-	Player *getControllingPlayer() const;
-	AIUpdateInterface *getAI() const { return *(AIUpdateInterface **)((const char *)this + 0x258); }
-};
+#include "../Object/object.h"
 
 class ScriptActions
 {

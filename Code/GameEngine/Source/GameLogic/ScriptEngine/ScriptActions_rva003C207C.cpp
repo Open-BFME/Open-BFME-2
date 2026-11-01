@@ -7,14 +7,7 @@
 // rowed Team::rva003A23A5.
 #include "ascii_string.h"
 
-class Object
-{
-public:
-	int getID() const { return m_id; }
-private:
-	unsigned char m_pad[0x74];
-	int m_id; // +0x74
-};
+#include "../Object/object.h"
 
 #include "../../../Include/Common/TeamBFME2.h"
 

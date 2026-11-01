@@ -87,16 +87,7 @@ public:
 	AICommandInterface m_commands;	// +0x20
 };
 
-class Object
-{
-public:
-	AIUpdateInterface *getAIUpdateInterface() const { return m_ai; }
-	const Coord3D *getPosition() const { return &m_pos; }
-	char m_pad000[0x38];
-	Coord3D m_pos;			// +0x38
-	char m_pad044[0x258 - 0x44];
-	AIUpdateInterface *m_ai;	// +0x258
-};
+#include "../Object/object.h"
 
 class ObjectTypes
 {

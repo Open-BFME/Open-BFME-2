@@ -5,16 +5,7 @@ class Object;
 class Player;
 #include "../../../../../../Libraries/Include/Lib/Coord3D.h"
 
-class Object
-{
-public:
-	Player *getControllingPlayer() const;	// 0x0028AFA9
-	const Coord3D *getPosition() const { return &m_pos; }
-	char m_pad000[0x38];
-	Coord3D m_pos;			// +0x38
-	char m_pad44[0x30];
-	int m_id74;
-};
+#include "../../object.h"
 
 class Player
 {
@@ -196,7 +187,7 @@ bool ShroudCrateCollide::executeCrateBehavior(Object *other)
     Player *cratePlayer=other->getControllingPlayer();
     reinterpret_cast<Rva00739780 *>(TheShroudManager)->rva00739780(cratePlayer->m_playerIndex);
     BfmeAudioEventPrefix136 soundToPlay(reinterpret_cast<HealCrateAudioView *>(TheAudio)->getMiscAudio()->crateShroud,0);
-    reinterpret_cast<Rva002D9531 *>(&soundToPlay)->rva002D9531(other->m_id74);
+    reinterpret_cast<Rva002D9531 *>(&soundToPlay)->rva002D9531(other->m_id);
     reinterpret_cast<HealCrateAudioView *>(TheAudio)->addAudioEvent(&soundToPlay);
     return true;
 }

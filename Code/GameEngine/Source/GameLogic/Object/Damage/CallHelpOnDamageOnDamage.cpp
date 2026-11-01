@@ -80,17 +80,7 @@ private:
 };
 
 
-class Object
-{
-public:
-	Player *getControllingPlayer() const;	// 0x0028AFA9
-	const Coord3D *getPosition() const { return &m_pos; }
-	AIUpdateInterface *getAIUpdateInterface() const { return m_ai; }
-	unsigned char m_pad000[0x38];
-	Coord3D m_pos;			// +0x38
-	unsigned char m_pad044[0x258 - 0x44];
-	AIUpdateInterface *m_ai;	// +0x258
-};
+#include "../object.h"
 
 extern GameLogic *TheGameLogic;
 

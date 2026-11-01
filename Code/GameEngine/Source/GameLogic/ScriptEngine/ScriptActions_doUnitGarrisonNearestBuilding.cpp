@@ -190,20 +190,7 @@ public:
 	AICommandInterface m_commands;	// +0x20
 };
 
-class Object
-{
-public:
-	Player *getControllingPlayer() const;	// 0x0028AFA9
-	__declspec(dllimport) __forceinline AIUpdateInterface *getAIUpdateInterface() { return m_ai; }
-	__declspec(dllimport) __forceinline ContainModuleInterface *getContain() const { return m_contain; }
-	const Coord3D *getPosition() const { return &m_pos; }
-	char m_pad000[0x38];
-	Coord3D m_pos;			// +0x38
-	char m_pad044[0x250 - 0x44];
-	ContainModuleInterface *m_contain;	// +0x250
-	char m_pad254[0x258 - 0x254];
-	AIUpdateInterface *m_ai;	// +0x258
-};
+#include "../Object/object.h"
 
 #include "../../Common/PartitionRangeQueryCallView.h"
 

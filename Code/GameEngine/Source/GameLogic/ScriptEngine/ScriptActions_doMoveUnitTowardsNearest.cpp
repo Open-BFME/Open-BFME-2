@@ -86,18 +86,7 @@ public:
 	AICommandInterface m_commands;	// +0x20
 };
 
-class Object
-{
-public:
-	// Retail inlines this and has no out-of-line copy; other units' views
-	// emit it first in link order, so dllimport keeps this one inline-only.
-	__declspec(dllimport) __forceinline AIUpdateInterface *getAIUpdateInterface() { return m_ai; }
-	const Coord3D *getPosition() const { return &m_pos; }
-	char m_pad000[0x38];
-	Coord3D m_pos;			// +0x38
-	char m_pad044[0x258 - 0x44];
-	AIUpdateInterface *m_ai;	// +0x258
-};
+#include "../Object/object.h"
 
 class ThingFactory
 {

@@ -26,11 +26,7 @@ public:
 	Relationship getRelationship(const Object *that) const;
 };
 
-class Object
-{
-public:
-	Player *getControllingPlayer() const;
-};
+#include "../object.h"
 
 class PlayerList
 {

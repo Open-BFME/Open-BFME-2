@@ -109,17 +109,7 @@ public:
 	unsigned char m_kindOf115;
 };
 
-class Object
-{
-public:
-	Player *getControllingPlayer() const;
-	// Keep the native +0x250 load inline; omit the competing legacy getter.
-	__declspec(dllimport) __forceinline ContainModuleInterface *getContain() const { return m_contain; }
-	void *m_vtable;
-	const ThingTemplate *m_template;
-	unsigned char m_pad08[0x250 - 0x08];
-	ContainModuleInterface *m_contain;
-};
+#include "../object.h"
 
 class Rva00466398
 {

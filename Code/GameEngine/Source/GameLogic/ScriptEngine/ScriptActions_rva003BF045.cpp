@@ -30,12 +30,7 @@ public:
 	Bool done() const { return m_cur == 0; }
 	OBJCLASS *cur() const { return m_cur; }
 };
-class Object
-{
-public:
-	char m_pad00[0x38];
-	Coord3D m_position;
-};
+#include "../Object/object.h"
 #include "../../../Include/Common/TeamBFME2.h"
 #include "../../../Include/GameLogic/ScriptEngine.h"
 class AI
@@ -105,9 +100,9 @@ void ScriptActions::doTeamFollowSkirmishApproachPath(const AsciiString &teamName
 	DLINK_ITERATOR<Object> it = team->iterate_TeamMemberList();
 	while (!it.done()) {
 		Object *object = it.cur();
-		float x = object->m_position.x;
-		float y = object->m_position.y;
-		float z = object->m_position.z;
+		float x = object->m_cachedPos.x;
+		float y = object->m_cachedPos.y;
+		float z = object->m_cachedPos.z;
 		sum.x += x;
 		sum.y += y;
 		sum.z += z;

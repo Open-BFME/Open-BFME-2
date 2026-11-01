@@ -200,20 +200,7 @@ public:
 	unsigned m_kindOf;		// +0x108 (bit 2 tested)
 };
 
-class Object
-{
-public:
-	Player *getControllingPlayer() const;	// 0x0028AFA9
-	const Coord3D *getPosition() const { return &m_pos; }
-	char m_pad000[0x04];
-	const ThingTemplate *m_template;	// +0x04
-	char m_pad008[0x38 - 0x08];
-	Coord3D m_pos;			// +0x38
-	char m_pad044[0x258 - 0x44];
-	void *m_ai;			// +0x258
-	char m_pad25C[0x264 - 0x25C];
-	ExperienceTracker *m_experienceTracker;	// +0x264
-};
+#include "../../object.h"
 
 struct SalvageCrateCollideModuleData
 {

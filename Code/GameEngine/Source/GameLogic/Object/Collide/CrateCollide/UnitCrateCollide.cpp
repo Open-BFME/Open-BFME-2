@@ -27,14 +27,7 @@ struct CreateMask
 
 #include "../../../../Common/Thing/thing.h"
 
-class Object : public Thing
-{
-public:
-	Player *getControllingPlayer() const;	// 0x0028AFA9
-	int getID() const { return m_id; }
-	char m_pad060[0x74 - 0x60];
-	int m_id;			// +0x74
-};
+#include "../../object.h"
 
 class Player
 {

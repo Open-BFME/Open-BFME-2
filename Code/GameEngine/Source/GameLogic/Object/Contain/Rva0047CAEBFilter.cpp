@@ -8,11 +8,7 @@ class Player;
 class Object;
 class BfmeObject872Header;
 
-class Object
-{
-public:
-	Player *getControllingPlayer() const;
-};
+#include "../object.h"
 
 class Rva2225E0Filter
 {
