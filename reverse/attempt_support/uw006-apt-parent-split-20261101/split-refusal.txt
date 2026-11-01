@@ -1,0 +1,12 @@
+file: Code/GameEngine/Source/Common/Rva00515Wrappers.cpp
+tu: Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenu.cpp
+candidates: 3
+carved: ['0x00515BCA', '0x00515C17', '0x00515B0A']
+refused_rows: {}
+copies: []
+data_moved: ['g_Va00DD1538']
+externs: []
+hatches_move: True
+residual_keeps: 0
+residual_loses: ['0x00211F3D']
+blocked: the residual loses matched rows (flag region or a shared helper)

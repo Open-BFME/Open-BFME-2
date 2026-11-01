@@ -1,0 +1,51 @@
+{
+  "method": "Private compiler_command with private absolute object; all current source rows checked, shared cache untouched.",
+  "rows": [
+    {
+      "name": "?startGoodCampaign@@YAXD@Z",
+      "rva": "0x00515BCA",
+      "exact": true,
+      "eh": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "name": "?startEvilCampaign@@YAXD@Z",
+      "rva": "0x00515C17",
+      "exact": true,
+      "eh": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "name": "?rva00515B0A@@YAXPAVRva00515Handle@@D@Z",
+      "rva": "0x00515B0A",
+      "exact": false,
+      "eh": null
+    },
+    {
+      "name": "??0Rva00211E75Callback@@QAE@H@Z",
+      "rva": "0x00211F3D",
+      "exact": true,
+      "eh": null
+    },
+    {
+      "name": "__ehhandler$?startEvilCampaign@@YAXD@Z",
+      "rva": "0x007952E8",
+      "exact": true,
+      "eh": null
+    }
+  ],
+  "ctor_whole_raw_and_relocations_unchanged": true,
+  "ctor_size": 19,
+  "ctor_hex": "568d442408508bf1e8000000008bc65ec20400",
+  "ctor_relocations": [
+    [
+      9,
+      20,
+      "??0Rva00211E75@@QAE@PBH@Z"
+    ]
+  ]
+}

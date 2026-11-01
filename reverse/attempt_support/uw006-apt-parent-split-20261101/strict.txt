@@ -1,0 +1,16 @@
+link_check: preparing 3 explicit safe provider(s), no extra sources
+Compile: 0 of 3 TU(s) (deps-cache: 3 current)
+Source claims: OK (3 sources, scoped byte-verified)
+Data rows: OK (1 row(s) byte-verified)
+Compile: 0 of 3 TU(s) (deps-cache: 3 current)
+Funclet pins: 14 row(s) verified past a renumbered $L label
+    $L1926 (Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGameHeroSelectInterfaceCtor.cpp): $L1926 was renumbered; verified parent EH data places $L1948 at 0x00796949
+    $L1927 (Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGameHeroSelectInterfaceCtor.cpp): $L1927 was renumbered; verified parent EH data places $L1949 at 0x00796954
+    $L1928 (Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGameHeroSelectInterfaceCtor.cpp): $L1928 was renumbered; verified parent EH data places $L1950 at 0x0079695F
+    Unwind@00b96936 (Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGameHeroSelectInterfaceCtor.cpp): $L1924 was renumbered; verified parent EH data places $L1946 at 0x00796936
+    Unwind@00b9693e (Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGameHeroSelectInterfaceCtor.cpp): $L1925 was renumbered; verified parent EH data places $L1947 at 0x0079693E
+Functions: OK 25/25 matched across 3 source file(s)
+String-ref verify: OK (6 literals + 3 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (0 compiler literals verified)
+Import-ref verify: OK (0 named imports verified)
+link_check: 3 explicit providers byte-verified with strict reusable receipts; census/index/status unchanged, LINK closure not yet checked
