@@ -1,6 +1,6 @@
 // ?erase@?$vector@UBfmePod28@@V?$allocator@UBfmePod28@@@_STL@@@_STL@@QAEPAUBfmePod28@@PAU3@0@Z
 // partial score=0.97 date=2026-09-24
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /ICode/Libraries/Include/Lib /ICode/GameEngine/Source/Common
 // stlport
 // STLport range erase over a 28-byte POD. The prvalue __false_type tag is the
 // sibling stlport_vector_record_2154f3_erase shape: it keeps the tag at
@@ -12,31 +12,28 @@ struct BfmePod28 { int a[7]; };
 // __copy<BfmePod28*> left unresolved).
 struct Rva00215FEFElement { char bytes[28]; };
 
+#include <vector>
 namespace _STL {
-struct __false_type {};
-struct random_access_iterator_tag { random_access_iterator_tag() {} };
 template <class InputIter, class OutputIter> OutputIter __copy_ptrs(InputIter first, InputIter last, OutputIter result, const __false_type &tag);
-template <class InputIter, class OutputIter, class Distance> OutputIter __copy(InputIter first, InputIter last, OutputIter result, const random_access_iterator_tag &tag, Distance *distance);
-template <class T> class allocator {};
-template <class T, class A> class vector {
-public:
-	typedef T *iterator;
-	iterator erase(iterator first, iterator last);
-private:
-	iterator _M_start;
-	iterator _M_finish;
-	iterator _M_end;
-};
 }
+extern template __declspec(noinline) Rva00215FEFElement *
+_STL::__copy<Rva00215FEFElement *, Rva00215FEFElement *, int>(Rva00215FEFElement *first,
+	Rva00215FEFElement *last, Rva00215FEFElement *result, const _STL::random_access_iterator_tag &tag, int *distance);
+
 // ??$__copy_ptrs@PAUBfmePod28@@PAU1@@_STL@@YAPAUBfmePod28@@PAU1@00ABU__false_type@0@@Z present-unmatched
 template <> __declspec(noinline) BfmePod28 *_STL::__copy_ptrs<BfmePod28 *, BfmePod28 *>(BfmePod28 *first, BfmePod28 *last, BfmePod28 *result, const _STL::__false_type &tag)
 {
 	return (BfmePod28 *)_STL::__copy((Rva00215FEFElement *)first, (Rva00215FEFElement *)last, (Rva00215FEFElement *)result, _STL::random_access_iterator_tag(), (int *)0);
 }
 
+template <> __declspec(noinline)
 _STL::vector<BfmePod28, _STL::allocator<BfmePod28> >::iterator _STL::vector<BfmePod28, _STL::allocator<BfmePod28> >::erase(iterator first, iterator last)
 {
-	iterator result = _STL::__copy_ptrs(last, _M_finish, first, _STL::__false_type());
+	typedef iterator (*CopyFunction)(iterator, iterator, iterator, const _STL::__false_type &);
+	iterator result = static_cast<CopyFunction>(&_STL::__copy_ptrs<iterator, iterator>)(
+		last, _M_finish, first, _STL::__false_type());
 	_M_finish = result;
 	return first;
 }
+
+template _STL::vector<BfmePod28, _STL::allocator<BfmePod28> >::iterator _STL::vector<BfmePod28, _STL::allocator<BfmePod28> >::erase(BfmePod28 *, BfmePod28 *);

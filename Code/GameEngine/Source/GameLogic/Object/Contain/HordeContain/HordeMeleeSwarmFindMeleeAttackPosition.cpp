@@ -1,4 +1,5 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /ICode/Libraries/Include/Lib /ICode/GameEngine/Source/Common
+// stlport
 //
 // HordeMeleeSwarm::findMeleeAttackPosition, retail 0x00583D54..0x005842F7 (1443B), thiscall ret 0x1C; sole caller
 // 0x0058492D (the swarm's unit update).
@@ -26,6 +27,7 @@
 #include "../../../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../../Common/GameLogicObjectLookupView.h"
 #include <math.h>
+#include <vector>
 
 typedef int Int;
 typedef bool Bool;
@@ -135,14 +137,38 @@ struct Rva00583D54Held
 	Object *m_leader;				// +0x08
 };
 
-class HordeMeleeSwarm
+struct Rva00583CE0Elem
+{
+	int m_00;
+	char m_pad04[0x0C];
+	bool m_10;
+	char m_pad11[0x03];
+	unsigned int m_14;
+	char m_pad18[0x04];
+};
+
+class Rva005D6FCC
 {
 public:
-	Bool findMeleeAttackPosition(Object *obj, Coord3D *result, Object *victim, const Coord3D *victimPos,
-		Bool unused, Int *frames, Bool allowOverlap);
+	Rva005D6FCC(void *held);
+	virtual ~Rva005D6FCC();
+	Rva00583D54Held *m_held; // +0x04
+};
+
+class HordeMeleeSwarm : public Rva005D6FCC
+{
+public:
+	HordeMeleeSwarm(void *held);
+	virtual ~HordeMeleeSwarm();
+	void setUnitNeedsNewAttackPos(int unused, int i);
+	bool isUnitMoving(int i);
+	bool isUnitRotating(int i);
+	bool canUnitRotate(int i);
+	bool findMeleeAttackPosition(Object *obj, Coord3D *result, Object *victim, const Coord3D *victimPos,
+		bool unused, int *frames, bool allowOverlap);
 private:
-	void *m_vtable;
-	Rva00583D54Held *m_held;			// +0x04
+	_STL::vector<Rva00583CE0Elem> m_vec; // +8
+	bool m_flag; // +0x14
 };
 
 static __forceinline void copyCoord(Coord3D &dest, const Coord3D *src)
