@@ -232,15 +232,7 @@ template<> __forceinline void allocator<Coord3D>::deallocate(Coord3D *p,unsigned
 
 #include "../../../../Include/Common/BfmeXfer.h"
 
-class Xfer::Version
-{
-public:
-	Version(unsigned char current, unsigned char minimum)
-		: m_current(current), m_minimum(minimum) {}
-
-	unsigned char m_current;
-	unsigned char m_minimum;
-};
+#include "../../../../Include/Common/XferVersion.h"
 
 #include "GameLogicObjectLookupView.h"
 // Suppress this TU's non-retail copy of ??$max@I@_STL@@YAABIABI0@Z:

@@ -456,15 +456,7 @@ public:
 	void rva00479CF6(int unused);
 };
 
-class Xfer::Version
-{
-public:
-	Version(unsigned char current, unsigned char minimum)
-		: m_current(current), m_minimum(minimum) {}
-
-	unsigned char m_current;
-	unsigned char m_minimum;
-};
+#include "../../../../Include/Common/XferVersion.h"
 
 // Native 00479D68..00479D6D forwards the unchanged full-object receiver to
 // 004783D7, whose existing ABI spelling is used by Rva004697E1Gate.cpp.

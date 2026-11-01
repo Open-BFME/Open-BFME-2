@@ -131,15 +131,7 @@ class Object;
 		return ((const Sub##NAME *)((const char *)this - (BACK)))->m_holder->m_value; \
 	}
 
-class Xfer::Version
-{
-public:
-	Version(unsigned char current, unsigned char minimum)
-		: m_current(current), m_minimum(minimum) {}
-
-	unsigned char m_current;
-	unsigned char m_minimum;
-};
+#include "../../../../Include/Common/XferVersion.h"
 
 // A declaration-only specialization stops this TU emitting its own
 // vector<AsciiString> dtor COMDAT, so the call binds the kept copy.

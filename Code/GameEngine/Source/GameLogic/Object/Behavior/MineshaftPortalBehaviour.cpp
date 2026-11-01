@@ -387,15 +387,7 @@ private:
 	bool registered; // +0x38
 	char m_pad39[0x3];
 };
-class Xfer::Version
-{
-public:
-	Version(unsigned char current, unsigned char minimum)
-		: m_current(current), m_minimum(minimum) {}
-
-	unsigned char m_current;
-	unsigned char m_minimum;
-};
+#include "../../../../Include/Common/XferVersion.h"
 struct Rva003732BFNode : _STL::_Rb_tree_node_base { int key; Rva00373158Group *group; };
 #include "../../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 #include "Common/Snapshot.h"

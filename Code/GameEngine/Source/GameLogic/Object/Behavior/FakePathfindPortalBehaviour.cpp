@@ -159,15 +159,7 @@ BFME_DISP8_BYTE_SETTER(Rva0046191DByteSetter, disable, 0xD, 0x0)
 // separate seven-byte leaf after rowed54B3F/47 RET4at54B6B and before
 // rowed54B75 list insertion. Only byte8=0 and EAX=receiver are observed;
 // owner, constructor/reset purpose and complete allocation size are unknown.
-class Xfer::Version
-{
-public:
-	Version(unsigned char current, unsigned char minimum)
-		: m_current(current), m_minimum(minimum) {}
-
-	unsigned char m_current;
-	unsigned char m_minimum;
-};
+#include "../../../../Include/Common/XferVersion.h"
 
 enum { INVALID_WAYPOINT_ID = 0x7fffffff };
 

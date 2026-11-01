@@ -91,15 +91,7 @@ class Snapshot;
 	GetGameClientRandomValue((lo), (hi), __FILE__, __LINE__)
 #define GameLogicRandomValueReal(lo, hi) \
 	GetGameLogicRandomValueReal((lo), (hi), __FILE__, __LINE__)
-class Xfer::Version
-{
-public:
-	Version(unsigned char current, unsigned char minimum)
-		: m_current(current), m_minimum(minimum) {}
-
-	unsigned char m_current;
-	unsigned char m_minimum;
-};
+#include "../../../../Include/Common/XferVersion.h"
 class XferException
 {
 public:

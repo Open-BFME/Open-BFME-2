@@ -177,15 +177,7 @@ class ModuleData;
 
 typedef bool Bool;
 
-class Xfer::Version
-{
-public:
-	Version(unsigned char current, unsigned char minimum)
-		: m_current(current), m_minimum(minimum) {}
-
-	unsigned char m_current;
-	unsigned char m_minimum;
-};
+#include "../../../../Include/Common/XferVersion.h"
 
 enum { INVALID_WAYPOINT_ID = 0x7fffffff };
 

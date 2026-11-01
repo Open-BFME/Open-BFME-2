@@ -49,15 +49,7 @@ extern "C" const void *const __identifier("??_7ObjectHelperModuleData@@6B@")[];
 #include <math.h>
 #include "Lib/Coord3D.h"
 
-class Xfer::Version
-{
-public:
-	Version(unsigned char current, unsigned char minimum)
-		: m_current(current), m_minimum(minimum) {}
-
-	unsigned char m_current;
-	unsigned char m_minimum;
-};
+#include "../../../../Include/Common/XferVersion.h"
 
 enum NameKeyType
 {
