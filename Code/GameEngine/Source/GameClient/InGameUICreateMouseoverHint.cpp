@@ -186,12 +186,7 @@ class GameClient { public:
 };
 extern GameClient* TheGameClient;
 union GameMessageArgumentType { DrawableID drawableID; };
-class GameMessage { public:
- enum Type { MSG_MOUSEOVER_DRAWABLE_HINT=0xa2 };
- Type getType() const { return m_type; }
- const GameMessageArgumentType* getArgument(int) const;
- unsigned char pad[0x10]; Type m_type;
-};
+#include "../../Include/Common/MessageStream.h"
 class ThingTemplate { public:
  __declspec(dllimport) __forceinline const UnicodeString& getDisplayName() const { return displayName; }
  const AsciiString& getName() const { return name; }

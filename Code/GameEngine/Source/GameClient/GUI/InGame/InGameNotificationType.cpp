@@ -35,11 +35,7 @@ class Image;
 class GameFont;
 class GameMessageList;
 
-class GameMessage
-{
-public:
-	void friend_setList(GameMessageList *list);
-};
+#include "../../../../Include/Common/MessageStream.h"
 
 class Gen_00489270
 {

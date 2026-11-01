@@ -25,11 +25,7 @@ public:
 
 #include "../../../Include/GameClient/Drawable.h"
 
-class GameMessage
-{
-public:
-	void appendObjectIDArgument(ObjectID id);
-};
+#include "../../../Include/Common/MessageStream.h"
 
 class GameTextInterface
 {
