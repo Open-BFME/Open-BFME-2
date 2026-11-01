@@ -18,7 +18,7 @@
 #include "GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 class Drawable { public: char unknown00[0x43C]; bool selected43C; };
-class Player { public: char unknown00[0x54]; unsigned index54; };
+#include "../../../../Include/Common/Player.h"
 class Object { public: Drawable *getDrawable() const; Player *getControllingPlayer() const; void onContainedBy(Object *); int getID() const { return *reinterpret_cast<const int *>(reinterpret_cast<const char *>(this)+0x74); } };
 template<int N> class Rva00464830Slots:public Rva00464830Slots<N-1> { public: virtual void gap(char (*)[N]); };
 template<> class Rva00464830Slots<0> {};
@@ -50,7 +50,7 @@ void OpenContain::addToContain(Object *rider)
     if (draw && draw->selected43C) selected = true;
     if (reinterpret_cast<Rva00464830Object *>(rider)->m_containedBy) return;
     addList(rider);
-    playerMask58 = 1U << rider->getControllingPlayer()->index54;
+    playerMask58 = 1U << rider->getControllingPlayer()->getPlayerIndex();
     Rva00464830OnContaining *contain = reinterpret_cast<Rva00464830Object *>(object())->m_contain;
     if (contain) contain->onContaining(rider,selected);
     primary()->redeploy();
