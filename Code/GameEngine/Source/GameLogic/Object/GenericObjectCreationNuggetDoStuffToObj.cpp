@@ -345,12 +345,7 @@ public:
 	}
 };
 
-class ParticleSystemManager
-{
-public:
-	ParticleSystemTemplate *findTemplate(const AsciiString &name) const;
-	BfmeParticleSystemHandle createParticleSystem(const ParticleSystemTemplate *sysTemplate, bool createSlaves);
-};
+#include "../../../Include/GameClient/ParticleSys.h"
 extern ParticleSystemManager *TheParticleSystemManager;
 
 template <int N> class OclTerrainSlots : public OclTerrainSlots<N - 1>

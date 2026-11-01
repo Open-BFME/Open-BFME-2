@@ -8,11 +8,7 @@ enum ParticleSystemID
 {
 	INVALID_PARTICLE_SYSTEM_ID = 0
 };
-class ParticleSystemManager
-{
-public:
-	void destroyParticleSystemByID(ParticleSystemID id);
-};
+#include "../../Include/GameClient/ParticleSys.h"
 extern ParticleSystemManager *TheParticleSystemManager;
 struct BfmeParticleSystemHandle
 {

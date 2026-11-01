@@ -70,12 +70,7 @@ void Rva0060038E::rva0060038E()
 // unused); 0x001E0C77 is a slot that asks the manager at VA 0x00DFDD04 for
 // its +0x148 name with its first argument.
 class ParticleSystemTemplate;
-class ParticleSystemManager
-{
-public:
-	ParticleSystemTemplate *findTemplate(const AsciiString &name) const;
-	__declspec(noinline) ParticleSystemTemplate *rva001F9343(const AsciiString &name, Int unused) const;
-};
+#include "../../Include/GameClient/ParticleSys.h"
 extern class ParticleSystemManager *TheParticleSystemManager;
 class Rva001E0C77
 {

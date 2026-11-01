@@ -34,11 +34,7 @@ Rva001E125D::Rva001E125D()
 class ParticleSystemManager;
 extern ParticleSystemManager *TheParticleSystemManager;
 class ParticleSystemTemplate;
-class ParticleSystemManager
-{
-public:
-	ParticleSystemTemplate *rva001F9343(const AsciiString &s, int i) const;
-};
+#include "../../Include/GameClient/ParticleSys.h"
 void Rva001E125D::rva001E0AA5(int a1, int a2)
 {
 	AsciiString tmp(m_str160);

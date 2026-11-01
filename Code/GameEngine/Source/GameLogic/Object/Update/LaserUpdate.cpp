@@ -73,18 +73,7 @@ class ParticleSystemTemplate;
 
 class LaserUpdate;
 
-class ParticleSystemManager
-{
-private:
-	friend class LaserUpdate;
-public:
-	void destroyParticleSystemByID(ParticleSystemID id);
-private:
-	BfmeParticleSystemHandle findParticleSystemByID(ParticleSystemID);
-public:
-	ParticleSystemTemplate *findTemplate(const AsciiString &) const;
-	BfmeParticleSystemHandle createParticleSystem(const ParticleSystemTemplate *,bool);
-};
+#include "../../../../Include/GameClient/ParticleSys.h"
 
 extern ParticleSystemManager *TheParticleSystemManager;
 

@@ -45,12 +45,7 @@ public:
 	virtual ~ParticleSystemTemplate();
 };
 
-class ParticleSystemManager
-{
-public:
-	ParticleSystemTemplate *findTemplate(const AsciiString &name) const;
-	ParticleSystemTemplate *newTemplate(const AsciiString &name);
-};
+#include "../../../Include/GameClient/ParticleSys.h"
 
 class INI
 {

@@ -21,11 +21,7 @@ public:
  ~BfmeParticleSystemHandle() { if(ptr)((RvaSmartPtr12*)this)->rva0004CBC0(); }
  void *ptr; int prev,next;
 };
-class ParticleSystemManager {
-public:
- ParticleSystemTemplate *findTemplate(const AsciiString&)const;
- BfmeParticleSystemHandle createParticleSystem(const ParticleSystemTemplate*,bool);
-};
+#include "../../../Include/GameClient/ParticleSys.h"
 extern ParticleSystemManager *TheParticleSystemManager;
 namespace FXParticleSystem {
 class ParticleSystemTemplate {

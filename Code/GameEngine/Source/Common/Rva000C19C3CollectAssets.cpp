@@ -40,7 +40,7 @@ class ModelSMConditionInfo{public:void GetAssetList(AssetList00208F90*,int,int,b
 class Rva0006C995{public:Rva0006C995*rva0006C995(Rva001408C0Target*);};
 class Rva000BC874{public:void rva000BC874(AssetList*,int,const AsciiString&);};
 class ParticleSystemTemplate;
-class ParticleSystemManager{public:ParticleSystemTemplate*rva001F9343(const AsciiString&,int)const;};
+#include "../../Include/GameClient/ParticleSys.h"
 extern ParticleSystemManager*TheParticleSystemManager;
 class GameLODManager;extern GameLODManager*TheGameLODManager;
 struct LodView{char pad[0x1774];int value;};

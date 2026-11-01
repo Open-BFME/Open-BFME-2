@@ -74,12 +74,7 @@ public:
 	BfmeParticleSystemHandle *previous, *next;
 };
 class ParticleSystemTemplate;
-class ParticleSystemManager
-{
-public:
-	ParticleSystemTemplate *findTemplate(const AsciiString &) const;
-	BfmeParticleSystemHandle createParticleSystem(const ParticleSystemTemplate *, bool) throw();
-};
+#include "../../../../../../GameEngine/Include/GameClient/ParticleSys.h"
 extern ParticleSystemManager *TheParticleSystemManager;
 struct Rva001F3899Arg;
 class Rva001F3899Slot

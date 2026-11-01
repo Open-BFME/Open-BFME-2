@@ -71,11 +71,7 @@ private:
 };
 }
 
-class ParticleSystemManager
-{
-public:
-	void rva001FCF11(const AsciiString &name, FXParticleSystem::ParticleSystemTemplate *tmpl);
-};
+#include "../../../Include/GameClient/ParticleSys.h"
 extern ParticleSystemManager *TheParticleSystemManager;
 
 class Rva0020453CHolderBase

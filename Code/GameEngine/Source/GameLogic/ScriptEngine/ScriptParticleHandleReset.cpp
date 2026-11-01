@@ -21,10 +21,7 @@ public:
 };
 enum ParticleSystemID { INVALID_PARTICLE_SYSTEM_ID=0 };
 class Rva0020453CHolderBase;
-class ParticleSystemManager {
- friend class Rva0020453CHolderBase;
- BfmeParticleSystemHandle findParticleSystemByID(ParticleSystemID);
-};
+#include "../../../Include/GameClient/ParticleSys.h"
 extern ParticleSystemManager *TheParticleSystemManager;
 class Rva0020453CHolderBase {
 public:void release();void rva00204C68();

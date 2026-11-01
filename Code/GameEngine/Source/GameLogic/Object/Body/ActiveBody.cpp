@@ -171,12 +171,7 @@ public:
 	}
 };
 class AsciiString;
-class ParticleSystemManager
-{
-public:
-	BfmeParticleSystemHandle createParticleSystem(const ParticleSystemTemplate *sysTemplate, bool createSlaves);
-	ParticleSystemTemplate *findTemplate(const AsciiString &name) const;
-};
+#include "../../../../Include/GameClient/ParticleSys.h"
 extern ParticleSystemManager *TheParticleSystemManager;
 extern Int GetGameClientRandomValue(Int lo, Int hi, char *file, Int line);
 // BodyParticleSystem: BFME 2 drops Zero Hour's memory pool, so the 12-byte

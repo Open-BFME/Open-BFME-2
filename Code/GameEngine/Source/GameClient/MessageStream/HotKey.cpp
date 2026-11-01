@@ -560,11 +560,7 @@ struct IDirect3DVertexDeclaration9;
 class DX8IndexBufferClass;
 
 namespace FXParticleSystem {
-class ParticleSystemManager {
-public:
-	IDirect3DVertexDeclaration9 *GetVertexDeclaration();
-	DX8IndexBufferClass *rva001F40AF();
-};
+#include "../../../Include/GameClient/ParticleSys.h"
 }
 
 extern class ParticleSystemManager *TheParticleSystemManager;

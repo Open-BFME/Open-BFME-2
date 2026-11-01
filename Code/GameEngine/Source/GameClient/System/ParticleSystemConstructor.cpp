@@ -38,11 +38,7 @@ public:
  Rva001F5467 *operator->()const {return (Rva001F5467*)(ptr?ptr:Make001FCBD7());}
  void *ptr; int prev,next;
 };
-class ParticleSystemManager {
-public:
- ParticleSystemTemplate *findTemplate(const AsciiString&)const;
- BfmeParticleSystemHandle createParticleSystem(const ParticleSystemTemplate*,bool);
-};
+#include "../../../Include/GameClient/ParticleSys.h"
 extern ParticleSystemManager *TheParticleSystemManager;
 
 #define BFME_SNAPSHOT_CAPITALIZED_SLOTS

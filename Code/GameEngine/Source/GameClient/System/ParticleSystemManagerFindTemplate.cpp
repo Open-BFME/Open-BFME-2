@@ -28,17 +28,7 @@ public:
 class ParticleSystemTemplate;
 class BfmeParticleSystemHandle;
 
-class ParticleSystemManager
-{
-public:
-	virtual void rva001F9F66();
-	ParticleSystemTemplate *findTemplate(const AsciiString &name) const;
-	BfmeParticleSystemHandle createParticleSystem(const ParticleSystemTemplate*,bool);
-
-private:
-	char m_pad[0x84];
-	char m_templateMap[0x14];	// +0x88
-};
+#include "../../../Include/GameClient/ParticleSys.h"
 
 ParticleSystemTemplate *ParticleSystemManager::findTemplate(const AsciiString &name) const
 {

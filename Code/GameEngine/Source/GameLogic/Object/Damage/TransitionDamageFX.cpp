@@ -677,12 +677,7 @@ public:
 
 class ParticleSystemTemplate;
 
-class ParticleSystemManager
-{
-public:
-	BfmeParticleSystemHandle createParticleSystem(const ParticleSystemTemplate *sysTemplate, bool createSlaves);
-	void destroyParticleSystemByID(ParticleSystemID id);
-};
+#include "../../../../Include/GameClient/ParticleSys.h"
 
 extern ParticleSystemManager *TheParticleSystemManager;
 

@@ -86,11 +86,7 @@ extern HotKeyManager *TheHotKeyManager;
 struct IDirect3DVertexDeclaration9;
 class DX8IndexBufferClass;
 namespace FXParticleSystem {
-class ParticleSystemManager {
-public:
-	IDirect3DVertexDeclaration9 *GetVertexDeclaration();
-	DX8IndexBufferClass *rva001F40AF();
-};
+#include "../../Include/GameClient/ParticleSys.h"
 }
 extern class ParticleSystemManager *TheParticleSystemManager;
 // 0x003C35F7 lives beside its callee 0x003C35AA in ScriptGlueRva003C35AA.cpp.

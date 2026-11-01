@@ -11,11 +11,7 @@
 
 class ParticleSystemTemplate;
 
-class ParticleSystemManager
-{
-public:
-	ParticleSystemTemplate *findTemplate(const AsciiString &name) const;
-};
+#include "../../../Include/GameClient/ParticleSys.h"
 
 extern ParticleSystemManager *TheParticleSystemManager;
 

@@ -365,12 +365,7 @@ public:
 };
 
 class ParticleSystemTemplate;
-class ParticleSystemManager
-{
-public:
-	ParticleSystemTemplate *findTemplate(const AsciiString &name) const;
-	BfmeParticleSystemHandle createParticleSystem(const ParticleSystemTemplate *sysTemplate, bool createSlaves);
-};
+#include "../../../../Include/GameClient/ParticleSys.h"
 extern ParticleSystemManager *TheParticleSystemManager;
 
 // TheAudio's misc-audio table (slot 78) holds the repair sparks event at +0x68;

@@ -49,11 +49,7 @@ namespace FXParticleSystem
 class CPUParticle;
 }
 
-class ParticleSystemManager
-{
-	friend class FXParticleSystem::CPUParticle;
-	BfmeParticleSystemHandle findParticleSystemByID(ParticleSystemID id);
-};
+#include "../../../../Include/GameClient/ParticleSys.h"
 
 extern ParticleSystemManager *TheParticleSystemManager;
 

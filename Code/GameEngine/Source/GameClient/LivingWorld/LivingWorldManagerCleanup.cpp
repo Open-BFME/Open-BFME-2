@@ -65,11 +65,7 @@ public:
     BfmeParticleSystemHandle *previous, *next;
 };
 class ParticleSystemTemplate;
-class ParticleSystemManager {
-public:
-    ParticleSystemTemplate *findTemplate(const AsciiString &) const;
-    BfmeParticleSystemHandle createParticleSystem(const ParticleSystemTemplate *, bool);
-};
+#include "../../../Include/GameClient/ParticleSys.h"
 extern ParticleSystemManager *TheParticleSystemManager;
 struct Rva00214243Element { int a[4]; };
 // push_back on this element is rowed in its overflow owner as vector<Rva002111C8>.

@@ -185,13 +185,7 @@ public:
 
 class ParticleSystemTemplate;
 
-class ParticleSystemManager
-{
-public:
-	void destroyParticleSystemByID(ParticleSystemID id);
-	ParticleSystemTemplate *findTemplate(const AsciiString &name) const;
-	int rva001F5AA4(const ParticleSystemTemplate *tmpl, const Object *obj, bool flag);
-};
+#include "../../../../Include/GameClient/ParticleSys.h"
 
 extern ParticleSystemManager *TheParticleSystemManager;
 

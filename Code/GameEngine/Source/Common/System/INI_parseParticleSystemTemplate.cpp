@@ -14,11 +14,7 @@ class ParticleSystemTemplate;
 #include "ascii_string.h"
 
 
-class ParticleSystemManager
-{
-public:
-	ParticleSystemTemplate *findTemplate(const AsciiString &name) const;
-};
+#include "../../../Include/GameClient/ParticleSys.h"
 
 // Matched DIR32 sites in particle/manager users place this singleton pointer
 // at VA 0x00DFDD04; retail's zero-filled slot starts null.

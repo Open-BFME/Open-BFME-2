@@ -143,9 +143,7 @@ public:
 	RvaSmartPtr12 get() const throw();
 };
 
-class ParticleSystemManager : public Rva001F6C54SmartField
-{
-};
+#include "../../Include/GameClient/ParticleSys.h"
 
 extern ParticleSystemManager *TheParticleSystemManager;
 void Rva001F7471Gravity(ID3DXEffect *effect, D3DXHANDLE handle);

@@ -180,10 +180,7 @@ class Rva002D3627Host;
 class LivingWorld; extern LivingWorld *TheLivingWorld;
 struct ParticleSetupEnabledView {char pad[0x18];bool enabled18; bool enabled()const{return enabled18;} };
 class ParticleSystemTemplate;
-class ParticleSystemManager {public:
- ParticleSystemTemplate *findTemplate(const AsciiString &) const;
- BfmeParticleSystemHandle createParticleSystem(const ParticleSystemTemplate *,bool);
-};
+#include "../../../Include/GameClient/ParticleSys.h"
 extern ParticleSystemManager *TheParticleSystemManager;
 class Rva002115EC {public:
  char pad00[0x130];AsciiString template130;Vec3 position134;

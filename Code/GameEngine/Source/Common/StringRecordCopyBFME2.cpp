@@ -386,7 +386,7 @@ class BfmeParticleSystemHandle {public:
 };
 enum ParticleSystemID {INVALID_PARTICLE_SYSTEM_ID=0};
 class Rva000B75FF;
-class ParticleSystemManager {BfmeParticleSystemHandle findParticleSystemByID(ParticleSystemID);friend class Rva000B75FF;};
+#include "../../Include/GameClient/ParticleSys.h"
 extern ParticleSystemManager *TheParticleSystemManager;
 class Rva001F3852ByteOneSetter {public:void enable();};
 class Rva001F384AByteZeroSetter {public:void disable();};

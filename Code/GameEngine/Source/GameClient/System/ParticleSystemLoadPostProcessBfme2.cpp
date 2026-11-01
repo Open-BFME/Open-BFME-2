@@ -43,13 +43,7 @@ public:
 	~BfmeParticleSystemHandle(){if(m_ptr)rva0004CBC0();}
 };
 
-class ParticleSystemManager
-{
-	friend class ParticleSystem;
-
-	private:
-	BfmeParticleSystemHandle findParticleSystemByID(ParticleSystemID id);
-};
+#include "../../../Include/GameClient/ParticleSys.h"
 
 extern ParticleSystemManager *TheParticleSystemManager;
 

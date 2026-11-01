@@ -130,16 +130,7 @@ public:
 	AsciiString m_slaveSystemName;
 };
 
-class ParticleSystemManager
-{
-public:
-	virtual void rva001F9F66();
-	void bfmeStopCW(const BFMERetailAsciiString &name);
-	ParticleSystemTemplate *findParentTemplate(const AsciiString &name, int parentNum) const;
-private:
-	char m_pad04[0x88 - 0x04];
-	char m_templateMap[0x14]; // +0x88; observed bucket table prefix
-};
+#include "../../../Include/GameClient/ParticleSys.h"
 
 void ParticleSystemManager::rva001F9F66()
 {

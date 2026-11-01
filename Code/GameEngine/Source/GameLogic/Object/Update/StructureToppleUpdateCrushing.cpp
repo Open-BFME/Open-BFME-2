@@ -385,11 +385,7 @@ public:
 };
 
 class ParticleSystemTemplate;
-class ParticleSystemManager
-{
-public:
-	BfmeParticleSystemHandle createParticleSystem(const ParticleSystemTemplate *sysTemplate, bool createSlaves);
-};
+#include "../../../../Include/GameClient/ParticleSys.h"
 extern ParticleSystemManager *TheParticleSystemManager;
 
 class Drawable
