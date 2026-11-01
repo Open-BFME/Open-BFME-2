@@ -244,11 +244,7 @@ template <> class RiderSlots<0>
 
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
-class TerrainLogic : public RiderSlots<19>
-{
-public:
-	virtual Bool isUnderwater(Real x, Real y, Real *waterZ, Real *terrainZ, Int unused); // +0x4C
-};
+#include "../../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 
 class Pathfinder

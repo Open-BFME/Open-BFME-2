@@ -238,11 +238,7 @@ enum PathfindLayerEnum
 };
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/TerrainLogic.h
-class TerrainLogic
-{
-public:
-	PathfindLayerEnum getLayerForDestination(Object *object, const Coord3D *position);
-};
+#include "../../../../../Include/GameLogic/TerrainLogic.h"
 
 extern TerrainLogic *TheTerrainLogic;
 

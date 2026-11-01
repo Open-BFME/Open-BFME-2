@@ -439,12 +439,7 @@ public:
 	PathNodeView *m_08; // +0x08
 };
 
-class TerrainLogic : public BfmeVirtualSlots<7>
-{
-public:
-	virtual Real getLayerHeight(Real x, Real y, PathfindLayerEnum layer, Coord3D *normal = 0, Bool clip = true) const;
-	PathfindLayerEnum getLayerForDestination(Object *obj, const Coord3D *pos);
-};
+#include "../../../../../Include/GameLogic/TerrainLogic.h"
 
 extern TerrainLogic *TheTerrainLogic;
 

@@ -248,11 +248,7 @@ private:
 	Locomotor *m_curLocomotor; // +0x1F0
 };
 
-class TerrainLogic : public RiderSlots<19>
-{
-public:
-	virtual Bool isUnderwater(Real x, Real y, Real *waterZ, Real *terrainZ, Int unused); // +0x4C
-};
+#include "../../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 
 class Pathfinder

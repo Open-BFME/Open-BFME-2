@@ -153,17 +153,7 @@ public:
 	void aiMoveToPosition(const Coord3D *pos, CommandSourceType src);
 };
 
-class TerrainLogic
-{
-public:
-	virtual void bfmeSlot0() = 0;
-	virtual void bfmeSlot1() = 0;
-	virtual void bfmeSlot2() = 0;
-	virtual void bfmeSlot3() = 0;
-	virtual void bfmeSlot4() = 0;
-	virtual void bfmeSlot5() = 0;
-	virtual Real getGroundHeight(Real x, Real y, Coord3D *normal) = 0;
-};
+#include "../../../../Include/GameLogic/TerrainLogic.h"
 
 extern TerrainLogic *TheTerrainLogic;
 

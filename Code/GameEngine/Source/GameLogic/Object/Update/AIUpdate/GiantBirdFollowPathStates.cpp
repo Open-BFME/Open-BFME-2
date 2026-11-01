@@ -84,11 +84,7 @@ public:
 		const Coord3D *lookAhead, Bool noLookAhead);
 };
 
-class TerrainLogic : public GiantBirdPathSlots<6>
-{
-public:
-	virtual Real getGroundHeight(Real x, Real y, int unused);
-};
+#include "../../../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 extern unsigned char g_00E01EC0[4]; // defined once in Rva00368C7A.cpp (rowed below)
 

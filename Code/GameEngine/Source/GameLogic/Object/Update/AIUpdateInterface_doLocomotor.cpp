@@ -312,12 +312,7 @@ struct Rva0026A3A0Segment
 	ObjectID m_objectID; // +0xB0
 };
 
-class TerrainLogic : public BfmeVirtualSlots<6>
-{
-public:
-	virtual Real getGroundHeight(Real x, Real y, Coord3D *normal) const;
-	PathfindLayerEnum getLayerForDestination(Object *obj, const Coord3D *pos);
-};
+#include "../../../../Include/GameLogic/TerrainLogic.h"
 
 class TerrainLogicSlots : public BfmeVirtualSlots<35>
 {

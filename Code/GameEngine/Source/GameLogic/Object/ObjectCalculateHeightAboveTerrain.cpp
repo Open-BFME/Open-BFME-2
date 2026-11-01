@@ -21,14 +21,7 @@ enum PathfindLayerEnum
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-class TerrainLogic
-{
-public:
-	virtual void vslot00(); virtual void vslot01(); virtual void vslot02(); virtual void vslot03();
-	virtual void vslot04(); virtual void vslot05();
-	virtual Real getGroundHeight(Real x, Real y, Coord3D *normal = 0) const;
-	virtual Real getLayerHeight(Real x, Real y, PathfindLayerEnum layer, Coord3D *normal = 0, bool clip = true) const;
-};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 
 class Object

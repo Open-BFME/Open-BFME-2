@@ -2155,17 +2155,7 @@ extern BuildAssistant *TheBuildAssistant;
 
 class GeometryInfo;
 
-class TerrainLogic
-{
-public:
-	virtual void t00(); virtual void t01(); virtual void t02(); virtual void t03();
-	virtual void t04(); virtual void t05();
-	virtual Real getGroundHeight(Real x, Real y, Coord3D *normal = 0) const; // +0x18
-	// BFME 2's: it destroys what intersects the footprint, then has the
-	// terrain visual (vslot 18) remove trees and props for construction.
-	void rva0028449F(const Coord3D *pos, const GeometryInfo &geom, Real angle);
-	void flattenTerrain(Object *obj);
-};
+#include "../../../../../Include/GameLogic/TerrainLogic.h"
 
 extern TerrainLogic *TheTerrainLogic;
 

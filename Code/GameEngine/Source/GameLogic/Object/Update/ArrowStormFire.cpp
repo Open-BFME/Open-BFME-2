@@ -23,7 +23,8 @@ class WeaponTemplate;
 class WeaponStore {public:const WeaponTemplate *findWeaponTemplate(const AsciiString&)const;void createAndFireTempWeapon(const WeaponTemplate*,const Object*,const Coord3D*);void rva002CE964(const WeaponTemplate*,const Object*,const Object*);};
 extern WeaponStore *TheWeaponStore;
 extern GameLogic *TheGameLogic;
-class TerrainLogic {public:virtual void s0();virtual void s1();virtual void s2();virtual void s3();virtual void s4();virtual void s5();virtual float getGroundHeight(float,float,Coord3D *normal=0);};extern TerrainLogic *TheTerrainLogic;
+#include "../../../../Include/GameLogic/TerrainLogic.h"
+extern TerrainLogic *TheTerrainLogic;
 float GetGameLogicRandomValueReal(float,float,char*,int);
 class ArrowStormUpdate {
 private:

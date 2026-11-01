@@ -323,20 +323,7 @@ public:
 
 extern WeaponStore *TheWeaponStore;
 
-class TerrainLogic
-{
-public:
-	virtual ~TerrainLogic();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
-	virtual Real getGroundHeight(Real x, Real y, Coord3D *normal);	// +0x18
-	virtual Real getLayerHeight(Real x, Real y, PathfindLayerEnum layer, Coord3D *normal, Bool clip);
-	PathfindLayerEnum getLayerForDestination(Object *obj, const Coord3D *pos);	// 0x002802FE
-	PathfindLayerEnum getHighestLayerForDestination(const Coord3D *pos, Bool flag);
-};
+#include "../../../../Include/GameLogic/TerrainLogic.h"
 
 extern TerrainLogic *TheTerrainLogic;
 

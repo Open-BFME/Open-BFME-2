@@ -119,12 +119,7 @@ struct ObjectTransformRegion {
  Coord3D lo, hi;
  bool contains(const Coord3D *p) const { return p->x > lo.x && p->x < hi.x && p->y > lo.y && p->y < hi.y; }
 };
-class TerrainLogic {
-public:
- virtual void slot00(); virtual void slot04(); virtual void slot08(); virtual void slot0c();
- virtual void slot10(); virtual void slot14(); virtual void slot18(); virtual void slot1c();
- virtual void getExtent(ObjectTransformRegion *);
-};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 bool isPosDifferent(const Coord3D *,const Coord3D *);
 bool isAngleDifferent(float,float);

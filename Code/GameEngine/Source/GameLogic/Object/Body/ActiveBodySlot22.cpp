@@ -69,17 +69,7 @@ public:
 
 extern PartitionManager *ThePartitionManager;
 
-class TerrainLogic
-{
-public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
-	virtual float getGroundHeight(float x, float y, Coord3D *normal = 0) const;
-};
+#include "../../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 
 class View

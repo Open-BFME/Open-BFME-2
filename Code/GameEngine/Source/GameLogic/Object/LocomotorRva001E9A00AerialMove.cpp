@@ -63,17 +63,7 @@ public:
 	Vector4 Row[3];
 };
 
-class TerrainLogic
-{
-public:
-	virtual void slot00();
-	virtual void slot04();
-	virtual void slot08();
-	virtual void slot0C();
-	virtual void slot10();
-	virtual void slot14();
-	virtual Real getGroundHeight(Real x, Real y, Coord3D *normal);
-};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 
 struct Rva00375A73Coord { float x, y, z; };

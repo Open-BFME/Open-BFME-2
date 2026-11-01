@@ -177,9 +177,8 @@ __forceinline void set11C(unsigned mask){if(!(model11C&mask)){model11C|=mask;rva
 };
 class Pathfinder {public:bool rva002EF3EE(Object*,Coord3D*,Object*,bool);bool IsValidMovementPositionForObject(const Coord3D*,int,int,const Object*);};
 class AI {public:char pad[0x10];Pathfinder*pathfinder;};extern AI*TheAI;
-class TerrainLogic {public:
-virtual void s00();virtual void s04();virtual void s08();virtual void s0C();virtual void s10();virtual void s14();virtual void s18();virtual float s1C(float,float,int,Coord3D*,bool);
-};extern TerrainLogic*TheTerrainLogic;
+#include "../../../../Include/GameLogic/TerrainLogic.h"
+extern TerrainLogic*TheTerrainLogic;
 class HorseHordeContain {public:
 void _horseUpdatePosition(Object*,const Coord3D*,float);
 void rva00476D77(Object*,const Coord3D*,float,bool);

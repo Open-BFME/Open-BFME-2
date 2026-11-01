@@ -12,7 +12,7 @@
 enum PathfindLayerEnum { LAYER_INVALID=0,LAYER_GROUND=1 };
 class Object {public:char pad[0x38];Coord3D position;};
 class Path {public:Path();void prependNode(const Coord3D*,PathfindLayerEnum,int);char before[0xc];bool optimized;char after[0x28-0xd];};
-class TerrainLogic {public:PathfindLayerEnum getLayerForDestination(Object*,const Coord3D*);};
+#include "../../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 struct Rva002EDEABArg;
 class Pathfinder {public:void SetDebugPath(Rva002EDEABArg*);};

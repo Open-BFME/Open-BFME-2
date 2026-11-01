@@ -93,14 +93,7 @@ public:
 	Object *m_holder274;
 };
 
-class TerrainLogic
-{
-public:
-	virtual void s00(); virtual void s04(); virtual void s08(); virtual void s0C();
-	virtual void s10(); virtual void s14(); virtual void s18();
-	virtual float getLayerHeight(float x, float y, PathfindLayerEnum layer, Coord3D *normal, bool clip);
-	PathfindLayerEnum getLayerForDestination(Object *obj, const Coord3D *pos);	// row 0x002802FE
-};
+#include "../../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 class GlobalData;
 extern GlobalData *TheWritableGlobalData;

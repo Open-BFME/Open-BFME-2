@@ -59,19 +59,7 @@ private:
 	Pathfinder *m_pathfinder; // +0x10
 };
 
-class TerrainLogic
-{
-public:
-	virtual void slot00() = 0;
-	virtual void slot01() = 0;
-	virtual void slot02() = 0;
-	virtual void slot03() = 0;
-	virtual void slot04() = 0;
-	virtual void slot05() = 0;
-	virtual void slot06() = 0;
-	virtual void slot07() = 0;
-	virtual void getExtent(Region3D *extent) const = 0;
-};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 
 extern Radar *TheRadar;
 extern AI *TheAI;

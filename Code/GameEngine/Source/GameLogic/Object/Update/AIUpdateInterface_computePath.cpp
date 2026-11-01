@@ -186,15 +186,7 @@ private:
 };
 extern AI *TheAI;
 
-class TerrainLogic
-{
-public:
-	virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03();
-	virtual void s04(); virtual void s05(); virtual void s06(); virtual void s07();
-	virtual void s08(); virtual void s09(); virtual void s10(); virtual void s11();
-	virtual void getMaximumPathfindExtent(Region3D *extent);
-	PathfindLayerEnum getLayerForDestination(Object *obj, const Coord3D *pos);
-};
+#include "../../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 
 Bool Rva001E3679(Int layer);

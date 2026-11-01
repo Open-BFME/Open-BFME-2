@@ -102,11 +102,7 @@ class AIUpdateInterface { public:
  bool findMeACrashSite(float,const Coord3D *,Coord3D *,BfmeFixedStorage0004543D);
 };
 
-class TerrainLogic { public:
- virtual void slot0(); virtual void slot1(); virtual void slot2();
- virtual void slot3(); virtual void slot4(); virtual void slot5();
- virtual float getGroundHeight(float,float,void *);
-};
+#include "../../../../Include/GameLogic/TerrainLogic.h"
 
 extern TerrainLogic *TheTerrainLogic;
 

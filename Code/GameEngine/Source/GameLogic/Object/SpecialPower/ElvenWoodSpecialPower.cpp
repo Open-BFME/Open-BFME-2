@@ -129,24 +129,7 @@ private:
 class ThingTemplate;
 class Matrix3D;
 struct Region3D;
-class TerrainLogic
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void v03();
-	virtual void v04();
-	virtual void v05();
-	virtual float getGroundHeight( float x, float y, Coord3D *normal ) const;
-	virtual void v07();
-	virtual void getExtent( Region3D *extent ) const;
-	void addTree(const ThingTemplate *, const Coord3D *, const Matrix3D *, float);
-	void rva00280176(const ThingTemplate *, const Coord3D *, const Matrix3D *, float);
-	void rva0027D3D9(const ThingTemplate *, const Coord3D *, const Matrix3D *, float);
-	void rva0027F28E(const Coord3D *loc, float radius, int flag);
-	void rva0027D1A4(const Coord3D *loc, float radius, int flag);
-};
+#include "../../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 struct CreateMask
 {

@@ -157,18 +157,7 @@ enum PathfindLayerEnum
     LAYER_INVALID = 0
 };
 
-class TerrainLogic
-{
-  public:
-    virtual void v00();
-    virtual void v04();
-    virtual void v08();
-    virtual void v0C();
-    virtual void v10();
-    virtual void v14();
-    virtual float getGroundHeight(float x, float y, Coord3D *normal); // +0x18
-    PathfindLayerEnum getLayerForDestination(Object *obj, const Coord3D *pos);
-};
+#include "../../../../Include/GameLogic/TerrainLogic.h"
 
 class Pathfinder
 {

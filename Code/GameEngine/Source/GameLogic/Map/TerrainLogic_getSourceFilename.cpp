@@ -11,23 +11,9 @@
 
 #include "ascii_string.h"
 
-class TerrainLogic
-{
-public:
-	virtual ~TerrainLogic();
-	virtual void slot01(); virtual void slot02(); virtual void slot03();
-	virtual void slot04(); virtual void slot05(); virtual void slot06();
-	virtual void slot07(); virtual void slot08(); virtual void slot09();
-	virtual void slot10(); virtual void slot11(); virtual void slot12();
-	virtual void slot13(); virtual void slot14(); virtual void slot15();
-	virtual void slot16();
-	virtual AsciiString getSourceFilename( void );
-private:
-	char m_unrecovered04[ 0x4C - 0x04 ];
-	AsciiString m_filenameString;	///< 0x4C
-};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 
 AsciiString TerrainLogic::getSourceFilename( void )
 {
-	return m_filenameString;
+	return field4C;
 }

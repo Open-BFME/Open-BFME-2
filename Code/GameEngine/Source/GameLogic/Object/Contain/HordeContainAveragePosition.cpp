@@ -93,12 +93,7 @@ public:
 	virtual void gap(char (*)[1]) = 0;
 };
 
-class TerrainLogic : public HordeAverageSlots<7>
-{
-public:
-	virtual Real getLayerHeight(Real x, Real y, PathfindLayerEnum layer, Coord3D *normal, Bool clip) = 0; // slot 7
-	PathfindLayerEnum getLayerForDestination(Object *obj, const Coord3D *pos);
-};
+#include "../../../../Include/GameLogic/TerrainLogic.h"
 
 extern TerrainLogic *TheTerrainLogic;
 
