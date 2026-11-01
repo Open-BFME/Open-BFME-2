@@ -185,13 +185,6 @@ void bfmeFormatToBuffer88A640(const char *format, ...)
 // WWDebug TUs keep their matched bodies.
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug/debug_cmd.h
-// Retail's kept ??_GDebugCmdInterface is frameless; this TU builds /Oy-
-// (framed) for its 70B ctor row, so emit the COMDAT frameless here. The
-// row below keeps TU flags; only the inline copy follows the pragma.
-
-#pragma optimize("y", on)
-
-#pragma optimize("", on)
 
 // ??0DebugCmdInterfaceDebug@@QAE@XZ
 inline DebugCmdInterfaceDebug::DebugCmdInterfaceDebug(void)

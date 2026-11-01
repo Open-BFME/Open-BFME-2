@@ -977,12 +977,6 @@ void DebugExceptionhandler::LogRegisters(Debug &dbg, struct _EXCEPTION_POINTERS 
 // - Two local buffers are named exePath and buf because MSVC orders stack
 //   slots by name; these names reproduce retail's frame.
 
-// Retail RepeatChar/MemDump copies are frameless /O2-style; this TU builds
-// /Oy-, so emit those select-any copies with fast frame omission.
-
-#pragma optimize("ty", on)
-
-#pragma optimize("", on)
 
 // This TU spells Signature as a struct; debug_stack.cpp's same-layout type is a class.
 

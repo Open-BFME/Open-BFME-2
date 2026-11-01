@@ -11,12 +11,6 @@
 template <> __declspec(dllimport) __forceinline
 StringBase<unsigned short>::StringBase() : m_data(0) {}
 #include "unicode_string.h"
-// LINK-COMDAT: StringBase<G> default ctor kept as /O1 (and) from
-// unicode_string.cpp; file is /O1 so the COMDAT matches, row below forced to
-// /O2 via t on / s off to keep its 91B match.
-#pragma optimize("t", on)
-#pragma optimize("s", off)
 UnicodeString::UnicodeString(const AsciiString& text) {
     translate(text.str());
 }
-#pragma optimize("", on)
