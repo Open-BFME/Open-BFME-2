@@ -42,3 +42,5 @@ BuildListInfoAssign.cpp: private view removed in its own normal verified commit;
 BuildListInfo.cpp: private view removed in its own normal verified commit; all owned native rows and full runtime/virtual-provider graph retained, with only the already disclosed getter duplicate aliases.
 
 BuildListInfoParseStructure.cpp: private view removed in its own normal verified commit; all owned native rows and full runtime/virtual-provider graph retained, with only the already disclosed getter duplicate aliases.
+
+Xfer caller retains its existing Coord3DBase and ObjectID worker surfaces via explicit casts of the proven12-byte triple and4-byte IDs. Canonical native fields retain the constructor/assignment layout; call targets and all runtime providers must remain exact.

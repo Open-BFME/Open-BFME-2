@@ -91,42 +91,7 @@ void XferObjectID( Xfer *xfer, ObjectID *value );
 
 #include "../../../../Libraries/Include/Lib/Coord2D.h"
 
-class BuildListInfo : public Snapshot
-{
-public:
-	enum { MAX_RESOURCE_GATHERERS = 10 };
-	virtual const char *GetSnapshotName() const;
-protected:
-	virtual ~BuildListInfo();
-	virtual void loadPostProcess();
-	virtual void xfer( Xfer *xfer );
-private:
-	AsciiString m_buildingName;																								///< 0x04
-	AsciiString m_templateName;																								///< 0x08
-	Coord3DBase m_location;																										///< 0x0C
-	Coord2D m_rallyPointOffset;																								///< 0x18
-	Real m_angle;																															///< 0x20
-	Bool m_isInitiallyBuilt;																									///< 0x24
-	UnsignedInt m_numRebuilds;																								///< 0x28
-	BuildListInfo *m_nextBuildList;																						///< 0x2C
-	AsciiString m_script;																											///< 0x30
-	Int m_health;																															///< 0x34
-	Bool m_whiner;																														///< 0x38
-	Bool m_unsellable;																												///< 0x39
-	Bool m_repairable;																												///< 0x3A
-	Bool m_automaticallyBuild;																								///< 0x3B
-	void *m_renderObj;																												///< 0x3C
-	void *m_shadowObj;																												///< 0x40
-	Bool m_selected;																													///< 0x44
-	Bool m_underConstruction;																									///< 0x45
-	Bool m_isSupplyBuilding;																									///< 0x46
-	Bool m_priorityBuild;																											///< 0x47
-	ObjectID m_objectID;																											///< 0x48
-	UnsignedInt m_objectTimestamp;																						///< 0x4C
-	ObjectID m_resourceGatherers[ MAX_RESOURCE_GATHERERS ];										///< 0x50
-	Int m_desiredGatherers;																										///< 0x78
-	Int m_currentGatherers;																										///< 0x7C
-};
+#include "../../../Include/GameLogic/Bfme2BuildListInfo.h"
 
 // ------------------------------------------------------------------------------------------------
 /** Xfer method
@@ -142,7 +107,7 @@ void BuildListInfo::xfer( Xfer *xfer )
 	xfer->Version1();
 	*xfer == m_buildingName;
 	*xfer == m_templateName;
-	*xfer == m_location;
+	*xfer == *(Coord3DBase *)&m_location;
 	*xfer == m_rallyPointOffset;
 	*xfer == m_angle;
 	*xfer == m_isInitiallyBuilt;
@@ -156,11 +121,11 @@ void BuildListInfo::xfer( Xfer *xfer )
 	// m_renderObj we don't need to xfer this, its for the editor only
 	// m_shadowObj we don't need to xfer this, its for the editor only
 	// m_selected we don't need to xfer this, its for the editor only
-	XferObjectID( xfer, &m_objectID );
+	XferObjectID( xfer, (ObjectID *)&m_objectID );
 	*xfer == m_objectTimestamp;
 	*xfer == m_underConstruction;
 	for( Int i = 0; i < MAX_RESOURCE_GATHERERS; ++i )
-		XferObjectID( xfer, &m_resourceGatherers[ i ] );
+		XferObjectID( xfer, (ObjectID *)&m_resourceGatherers[ i ] );
 	*xfer == m_isSupplyBuilding;
 	*xfer == m_desiredGatherers;
 	*xfer == m_priorityBuild;
