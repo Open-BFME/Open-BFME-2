@@ -208,3 +208,4 @@ BfmeStringData,Code/GameEngine/Include/Common/BfmeStringData.h,existing header; 
 RefCountClass,Code/Libraries/Source/WWVegas/WWLib/RefCountData.h,existing header; contract class_contracts/RefCountClass.json; 75/130 sampled units adopt
 Mouse,Code/GameEngine/Include/GameClient/Mouse.h,existing header; contract class_contracts/Mouse.json; 51/105 sampled units adopt
 TargetRef00217D4C,Code/Libraries/Source/Apt/AptRefTarget.h,existing header; contract class_contracts/TargetRef00217D4C.json; 153/236 sampled units adopt
+AudioManager,Code/GameEngine/Include/Common/GameAudio.h,existing header; contract class_contracts/AudioManager.json; 67/169 sampled units adopt
