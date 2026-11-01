@@ -20019,3 +20019,7 @@ Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DGameWindowManagerGadget
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009CD9BSunRaysSetup.cpp|function|0x0009CD9B|rva0009CD9B,50914b94fe144bdf47d122cb,drz-k9,n30d2-k9,w-4d4d8f8584bc,2026-11-01
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DVolumetricShadowV2BuildBuffers.cpp|class||BfmeShadowEdge,74e79669fdea5b744b25ddfe,drz-k3,n30e2-k3,w-077d7aeb666b,2026-11-01
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DVolumetricShadowV2BuildBuffers.cpp|function|0x00106D56|rva00106D56,b3cb1b854ada9e3e3d1d445e,drz-k3,n30e2-k3,w-077d7aeb666b,2026-11-01
+Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCameraModFinalLookTowardBfme.cpp|class||Rva00740AE0Elem,8e559adfad2dab0b529f4fba,drz-k3,n30g2-k3,w-077d7aeb666b,2026-11-01
+Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCameraModFinalLookTowardBfme.cpp|class||Rva00740440CameraPath,cf4d248db3be39c57a932396,drz-k3,n30g2-k3,w-077d7aeb666b,2026-11-01
+Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCameraModLookTowardBfme.cpp|class||Rva0073FF30Elem,23d89c60584c6967b74bb6ea,drz-k3,n30g2-k3,w-077d7aeb666b,2026-11-01
+Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCameraModLookTowardBfme.cpp|class||Rva0073FF30CameraPath,06240859e3167803cc6a88c0,drz-k3,n30g2-k3,w-077d7aeb666b,2026-11-01
