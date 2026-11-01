@@ -29,15 +29,68 @@ public:
 	unsigned char m_unknown[0x11F];
 	unsigned char m_kindOfByte;
 };
-class Object
-{
-public:
-	__forceinline ThingTemplate *getTemplate() const { return m_template; }
-	unsigned char m_unknown00[4];
-	ThingTemplate *m_template;
-	unsigned char m_unknown08[0x74 - 8];
-	int m_heroKey;
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
+#include "../../../Common/GameLogicObjectLookupView.h"
+extern GameLogic *TheGameLogic;
+enum UpdateSleepTime {UPDATE_SLEEP_FOREVER=0x3fffffff};
+enum DisabledType;
+enum ObjectStatusTypes;
+class Player;
+class ExitInterface;
+class BodyModuleInterface;
+class FXList;
+class ThingTemplate;
+class Image;
+class AIUpdateInterface;
+class INI;
+class Object {public:
+ ExitInterface *getObjectExitInterface() const;
+ void restoreObjectToWorld(const Coord3D *);
+ void rva001E42F2(const int *);
+ void rva001E431E(const int *);
+ void setStatus(ObjectStatusTypes,bool);
+ bool clearDisabled(DisabledType);
+ void setDisabledUntil(DisabledType,unsigned);
+ Player *getControllingPlayer() const;
+ __forceinline const Coord3D *getPosition() const {return &position;}
+ __forceinline ThingTemplate *getTemplate() const {return m_template;}
+ char pad00[4];ThingTemplate *m_template;char pad08[0x38-0x08];Coord3D position;char pad44[0x74-0x44];int m_heroKey;ObjectID producer;
+ char pad7C[0x254-0x7C];BodyModuleInterface *body;AIUpdateInterface *ai;
+ char pad25C[0x45C-0x25C];int handle;
 };
+
+#include "../../../../Include/Common/ObjectModule.h"
+
+class BehaviorModuleInterface {public:virtual void slot0()=0;};
+
+class BehaviorModule:public ObjectModule,public BehaviorModuleInterface {public:virtual ~BehaviorModule();};
+
+class UpdateModuleInterface {public:virtual UpdateSleepTime update()=0;};
+
+class UpdateModule:public BehaviorModule,public UpdateModuleInterface {public:virtual ~UpdateModule();protected:void setWakeFrame(Object *,UpdateSleepTime);private:unsigned nextWake;int index,reserved;};
+
+
+class RespawnUpdate:public UpdateModule {
+public:
+	virtual UpdateSleepTime update();
+	virtual NameKeyType getModuleNameKey() const;
+	virtual float getPercentReady(int *out);
+	virtual const Image *getDeadImage();
+	void rva004AF182();
+	void *rva004AF25D();
+	Object *searchForSuitableSpawnAtObject();
+	static void iniParseNewRuleForLevel(INI *, void *, void *, const void *);
+	static void iniParseDefaultRule(INI *, void *, void *, const void *);
+public:
+	float health;
+	const Image *deadImage;
+	void *respawnTemplate;
+	unsigned state;
+	ObjectID spawnAt;
+	int at34,at38,at3C;
+	bool at40,at41;
+};
+
 class CreateAHeroHero;
 // The rowed lookup ?rva002197A6@CreateAHeroManager@@QAEPAVCreateAHeroData@@H@Z.
 class CreateAHeroData;
@@ -56,75 +109,49 @@ extern CreateAHeroManager *TheCreateAHeroManager;
 extern ImageCollection *TheMappedImageCollection;
 const Image *getButtonImage(ThingTemplate *, Object *);
 
-struct RespawnUpdateObjectRef
-{
-	char m_pad[4];
-	void *m_unk04;
-};
-
-class RespawnUpdate
-{
-public:
-	// Primary table 8556B0, installed by the verified constructor4AF096.
-	virtual void slot00(); virtual void slot01(); virtual void slot02();
-	virtual void slot03(); virtual void slot04(); virtual void slot05();
-	virtual void slot06(); virtual void slot07(); virtual void slot08();
-	virtual void slot09(); virtual void slot10(); virtual void slot11();
-	virtual void slot12(); virtual void slot13();
-	virtual const Image *getDeadImage();
-	void *rva004AF25D();
-
-private:
-	RespawnUpdateModuleDataRef *m_moduleData;
-	RespawnUpdateObjectRef *m_object;
-	unsigned char m_pad0C[0x24 - 0x0C];
-	const Image *m_deadImage;
-	void *m_cached;
-};
-
 // WorldBuilder RespawnUpdate::getDeadImage, source lines 851/868. Retail
 // 4AF2DE..4AF3BD tests cached image +24, module-data string +118,
 // template KindOf byte +11F bit40 and the object's hero key +74.
 // Callees and both singleton globals retain their existing verified names.
 const Image *RespawnUpdate::getDeadImage()
 {
-	if (m_deadImage)
-		return m_deadImage;
-	RespawnUpdateModuleDataRef *data = m_moduleData;
-	Object *object = reinterpret_cast<Object *>(m_object);
+	if (deadImage)
+		return deadImage;
+	const RespawnUpdateModuleDataRef *data = reinterpret_cast<const RespawnUpdateModuleDataRef *>(getModuleData());
+	Object *object = m_object;
 	const AsciiString &name = data->m_deadImageName;
 	if (!name.isEmpty()) {
 		if (object->getTemplate()->m_kindOfByte & 0x40) {
 			CreateAHeroHero *hero = (CreateAHeroHero *)(
 				TheCreateAHeroManager->rva002197A6(object->m_heroKey));
 			if (hero) {
-				m_deadImage = TheMappedImageCollection->findImageByName(
+				deadImage = TheMappedImageCollection->findImageByName(
 					TheCreateAHeroManager->GetButtonImageName(hero));
-				if (!m_deadImage)
-					m_deadImage = TheMappedImageCollection->findImageByName(
+				if (!deadImage)
+					deadImage = TheMappedImageCollection->findImageByName(
 						AsciiString("BuildingNoArt"));
 			}
 		} else {
-			m_deadImage = TheMappedImageCollection->findImageByName(name);
+			deadImage = TheMappedImageCollection->findImageByName(name);
 		}
-		if (m_deadImage)
-			return m_deadImage;
-		Object *current = reinterpret_cast<Object *>(m_object);
+		if (deadImage)
+			return deadImage;
+		Object *current = m_object;
 		ThingTemplate *currentTemplate = current->getTemplate();
-		m_deadImage = getButtonImage(currentTemplate, current);
+		deadImage = getButtonImage(currentTemplate, current);
 	} else {
-		m_deadImage = getButtonImage(object->getTemplate(), object);
+		deadImage = getButtonImage(object->getTemplate(), object);
 	}
-	return m_deadImage;
+	return deadImage;
 }
 
 void *RespawnUpdate::rva004AF25D()
 {
-	if (m_cached == (void *)-1) {
-		void *found = (void *)TheThingFactory->findTemplate(m_moduleData->m_respawnAsTemplate);
-		m_cached = found;
+	if (respawnTemplate == (void *)-1) {
+		void *found = (void *)TheThingFactory->findTemplate(reinterpret_cast<const RespawnUpdateModuleDataRef *>(getModuleData())->m_respawnAsTemplate);
+		respawnTemplate = found;
 		if (found == 0)
-			m_cached = m_object->m_unk04;
+			respawnTemplate = m_object->m_template;
 	}
-	return m_cached;
+	return respawnTemplate;
 }

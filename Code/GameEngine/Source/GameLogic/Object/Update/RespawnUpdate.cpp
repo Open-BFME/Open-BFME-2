@@ -21,6 +21,8 @@ class Player;
 class ExitInterface;
 class BodyModuleInterface;
 class FXList;
+class ThingTemplate;
+class Image;
 template<int N> class RespawnAISlots:public RespawnAISlots<N-1> {public:virtual void gap(char (*)[N])=0;};
 template<> class RespawnAISlots<0> {};
 class AIUpdateInterface:public RespawnAISlots<110> {public:virtual bool isAutoDock()=0;int rva00260DED() const;};
@@ -34,7 +36,8 @@ class Object {public:
  void setDisabledUntil(DisabledType,unsigned);
  Player *getControllingPlayer() const;
  __forceinline const Coord3D *getPosition() const {return &position;}
- char pad00[0x38];Coord3D position;char pad44[0x78-0x44];ObjectID producer;
+ __forceinline ThingTemplate *getTemplate() const {return m_template;}
+ char pad00[4];ThingTemplate *m_template;char pad08[0x38-0x08];Coord3D position;char pad44[0x74-0x44];int m_heroKey;ObjectID producer;
  char pad7C[0x254-0x7C];BodyModuleInterface *body;AIUpdateInterface *ai;
  char pad25C[0x45C-0x25C];int handle;
 };
@@ -172,29 +175,31 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 class RespawnUpdate:public UpdateModule {
 public:
 	virtual UpdateSleepTime update();
-public:
+	virtual NameKeyType getModuleNameKey() const;
+	virtual float getPercentReady(int *out);
+	virtual const Image *getDeadImage();
+	void rva004AF182();
+	void *rva004AF25D();
 	Object *searchForSuitableSpawnAtObject();
-public:
-	float health;
-public:
-	unsigned at24,at28,state;
-public:
-	ObjectID spawnAt;
-public:
-	unsigned at34,at38,at3C;
-public:
-	bool at40,at41;
-public:
 	static void iniParseNewRuleForLevel(INI *, void *, void *, const void *);
-public:
 	static void iniParseDefaultRule(INI *, void *, void *, const void *);
 public:
-	virtual NameKeyType getModuleNameKey() const;
+	float health;
+	const Image *deadImage;
+	void *respawnTemplate;
+	unsigned state;
+	ObjectID spawnAt;
+	int at34,at38,at3C;
+	bool at40,at41;
 };
 
 class RespawnUpdateModuleData {
 public:
-	char pad00[0x58];
+	char pad00[8];
+public:
+	char filter08[4];
+public:
+	char pad0C[0x58-0x0C];
 public:
 	int conditions58[19];
 public:
@@ -287,7 +292,7 @@ UpdateSleepTime RespawnUpdate::update() {
   obj->setDisabledUntil((DisabledType)4,TheGameLogic->getFrame()+respawnUpdateModuleData->reviveTime);
   state=4;
   obj->body->setInitialHealth(health*100.0f,false);
-  at34=(unsigned)-1;at38=(unsigned)-1;
+  at34=-1;at38=-1;
   if(ThePlayerList->getLocalPlayer()==obj->getControllingPlayer()) TheControlBar->dirty=true;
   (void)obj->getControllingPlayer();
   return (UpdateSleepTime)respawnUpdateModuleData->reviveTime;

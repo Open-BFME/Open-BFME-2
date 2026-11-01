@@ -14,68 +14,58 @@
 // (frame - m_34) / m_38 with unsigned frame conversion (fild plus 2^32
 // fixup) and jle zero guard. Honest address name; identity is class plus slot.
 
-extern class GameLogic *TheGameLogic;
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
+#include "../../../Common/GameLogicObjectLookupView.h"
+extern GameLogic *TheGameLogic;
+enum UpdateSleepTime {UPDATE_SLEEP_FOREVER=0x3fffffff};
+enum DisabledType;
+enum ObjectStatusTypes;
+class Player;
+class ExitInterface;
+class BodyModuleInterface;
+class FXList;
+class ThingTemplate;
+class Image;
+class AIUpdateInterface;
+class INI;
+#include "../../../../Include/Common/ObjectModule.h"
 
-class Thing;
-class ModuleData;
-class Object;
+class BehaviorModuleInterface {public:virtual void slot0()=0;};
 
-class UpdateModule
-{
+class BehaviorModule:public ObjectModule,public BehaviorModuleInterface {public:virtual ~BehaviorModule();};
+
+class UpdateModuleInterface {public:virtual UpdateSleepTime update()=0;};
+
+class UpdateModule:public BehaviorModule,public UpdateModuleInterface {public:virtual ~UpdateModule();protected:void setWakeFrame(Object *,UpdateSleepTime);private:unsigned nextWake;int index,reserved;};
+
+
+class RespawnUpdate:public UpdateModule {
 public:
-	virtual void s00();
-	virtual void s01();
-	virtual void s02();
-	virtual void s03();
-	virtual void s04();
-	virtual void s05();
-	virtual void s06();
-	virtual void s07();
-	virtual void s08();
-	virtual void s09();
-	virtual void s10();
-	virtual void s11();
-	virtual void s12();
-	const ModuleData *m_moduleData;
-	Object *m_object;
-	const void *m_secondary0C;
-	const void *m_secondary10;
-	unsigned int m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_reserved1C;
-};
-
-struct GameLogicFrame
-{
-	char m_pad00[0x40];
-	unsigned int m_frame;
-	unsigned int getFrame() const { return m_frame; }
-};
-
-#define TheGameLogic (*(GameLogicFrame **)&TheGameLogic)
-
-class RespawnUpdate : public UpdateModule
-{
-public:
+	virtual UpdateSleepTime update();
+	virtual NameKeyType getModuleNameKey() const;
 	virtual float getPercentReady(int *out);
-private:
-	float m_20;
-	unsigned int m_24;
-	int m_28;
-	int m_2C;
-	unsigned int m_30;
-	int m_34;
-	int m_38;
-	int m_3C;
-	unsigned char m_40;
-	unsigned char m_41;
+	virtual const Image *getDeadImage();
+	void rva004AF182();
+	void *rva004AF25D();
+	Object *searchForSuitableSpawnAtObject();
+	static void iniParseNewRuleForLevel(INI *, void *, void *, const void *);
+	static void iniParseDefaultRule(INI *, void *, void *, const void *);
+public:
+	float health;
+	const Image *deadImage;
+	void *respawnTemplate;
+	unsigned state;
+	ObjectID spawnAt;
+	int at34,at38,at3C;
+	bool at40,at41;
 };
+
 
 float RespawnUpdate::getPercentReady(int *out)
 {
 	if (out)
-		*out = m_3C;
-	switch (m_2C)
+		*out = at3C;
+	switch (state)
 	{
 	case 0:
 		return 0.0f;
@@ -92,9 +82,9 @@ float RespawnUpdate::getPercentReady(int *out)
 	default:
 		return 0.0f;
 	}
-	int total = m_38;
+	int total = at38;
 	if (total <= 0)
 		return 0.0f;
 	unsigned int frame = TheGameLogic->getFrame();
-	return ((float)frame - m_34) / total;
+	return ((float)frame - at34) / total;
 }
