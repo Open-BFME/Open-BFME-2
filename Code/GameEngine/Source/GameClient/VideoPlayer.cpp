@@ -13,6 +13,10 @@
 typedef bool Bool;
 #include "subsystem_interface.h"
 #pragma comment(linker, "/alternatename:?g_Va00CE4918@@3DA=??_7VideoPlayer@@6B@")
+#include <new.h>
+#include "../../Include/GameClient/BfmeVideoRecord.h"
+#define g_bfmeVideoTableBegin ((Video*)g_videoTable.begin)
+#define g_bfmeVideoTableEnd ((Video*)g_videoTable.end)
 
 //
 // ?Rva00689180@VideoPlayer@@UAEXXZ, retail 0x00689180, 21 bytes. Virtual
@@ -40,7 +44,9 @@ public:
 };
 
 class VideoStreamInterface;
+
 class SubtitleEntry;
+
 typedef SubtitleEntry *(__cdecl *CreateSubtitleEntry)(AsciiString *, int,
     const AsciiString &, unsigned int, int, int, int, int, int);
 
@@ -247,6 +253,53 @@ struct Elem28
 	char m_bytes[28];
 };
 
+// Native 6898D0..689B0E is 574B, including the final stack release/RET.
+// The old inventory's 567B extent ended inside that epilogue.
+// Clean BF1 VideoPlayerInit.cpp supplies the initialization semantics.
+// Retail independently establishes INI width87C (locals+20/+89C),
+// receiver fields+10/+14, the28B Video stride and native callbacks75A4DC/
+// 6885B0. The initialized byte is read before callee saves and set once at
+// the end; its original source name and the +10 field label remain unknown.
+class Xfer;
+
+enum INILoadType { INI_LOAD_INVALID=0, INI_LOAD_OVERWRITE=1 };
+
+class INI
+{
+public:
+ INI();
+ ~INI();
+ void load(AsciiString,INILoadType,Xfer*,void (__cdecl *)(INI*));
+ static void parseVideoDefinition(INI*);
+private:
+ char storage[0x87c];
+};
+
+extern void parseSubtitle(INI*,void*,void*,const void*);
+
+class SubtitleManager
+{
+public:
+ SubtitleManager(CreateSubtitleEntry,int,const AsciiString&);
+private:
+ char storage[0x64];
+};
+
+// Only the shared string allocation header is viewed here; the canonical
+// AsciiString owns construction and teardown through the verified workers.
+struct BfmeStringHeader
+{
+ int m_refCount;
+ unsigned short m_length,m_capacity;
+ char m_text[1];
+};
+
+struct BfmeStringObject { BfmeStringHeader *m_data; };
+
+static unsigned char s_videoPlayerInitialised;
+
+// ---- from Code/GameEngine/Source/GameClient/VideoPlayer.cpp
+
 // ---- from Code/GameEngine/Source/GameClient/VideoPlayer.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/VideoPlayer.cpp
@@ -391,6 +444,19 @@ Rva006892F0::~Rva006892F0()
 {
 }
 
+// ---- from Code/GameEngine/Source/Common/ElementStrideWalks.cpp
+
+Elem28 *rva00689750CopyWalk(Elem28 *first, Elem28 *last, Elem28 *dest)
+{
+	Elem28 *cursor = dest;
+	for ( ; first != last; ++first)
+	{
+		_STL::_Construct((Rva001D28F0Element *)cursor, *(const Rva001D28F0Element *)first);
+		++cursor;
+	}
+	return cursor;
+}
+
 // tu-skeleton: 0x006891A0 6B ?Rva006891A0Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x006891E0 72B ?bfmeDropUC@BfmeSubUC@@QAEXPAVBfmeThingUC@@@Z -- matched in Code/GameEngine/Source/Common/BfmeThreeHundredFiftyFour.cpp (not merged yet)
@@ -411,7 +477,66 @@ Rva006892F0::~Rva006892F0()
 
 // tu-skeleton: 0x00689500 119B ??1Rva001D28F0Element@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001D28F0ElementDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x00689580 114B ?rva00689580@VideoPlayer@@QAEXAAVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/VideoPlayerInit.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/VideoPlayerInit.cpp
+
+// Clean donor: Open-BFME-1 34f59164f6d1efd413c5fd37f4894ec834c3c0fe
+// game/GameEngine/Source/Common/BfmeMoviePathAB.cpp and GameClient/VideoPlayerInit.cpp.
+// Native 689580..6895F2 formats Data/%s/Movies/ from a cdecl callback at +C.
+// The purpose and accessed offsets follow retail; the original helper name
+// is unknown. BFME1 supplies the path-building semantics. BFME2's callback
+// is +C rather than +8 and the formatter takes a const char* format directly.
+
+void VideoPlayer::rva00689580(AsciiString &out)
+{
+ if(m_movieName != 0)
+  out.format("Data/%s/Movies/", m_movieName().str());
+}
+
+void VideoPlayer::init(void)
+{
+	if (s_videoPlayerInitialised == 0)
+	{
+		INI ini;
+		ini.load(AsciiString("Data\\INI\\Default\\Video.ini"),
+			INI_LOAD_OVERWRITE, 0, INI::parseVideoDefinition);
+		ini.load(AsciiString("Data\\INI\\Video.ini"),
+			INI_LOAD_OVERWRITE, 0, INI::parseVideoDefinition);
+
+		for (unsigned int index = 0;
+			index < (unsigned int)(g_bfmeVideoTableEnd - g_bfmeVideoTableBegin);
+			index++)
+		{
+			Video *video = g_bfmeVideoTableBegin + index;
+			if (video->m_hasSubtitles)
+			{
+				if (m_createSubtitleEntry != 0 && m_second != 0)
+				{
+					AsciiString path;
+					rva00689580(path);
+
+					const BfmeStringObject *name =
+						(const BfmeStringObject *)&video->m_internalName;
+					int length = name->m_data ? name->m_data->m_length : 0;
+					const char *text = name->m_data
+						? name->m_data->m_text : "";
+					((StringBase<char> *)&path)->concat(text, length);
+					((StringBase<char> *)&path)->concat(".ini", 4);
+
+					video->m_subtitleManager =
+						new SubtitleManager(m_createSubtitleEntry, m_second, path);
+
+					{
+						INI subtitleIni;
+						subtitleIni.load(path, INI_LOAD_OVERWRITE, 0,
+							(void (__cdecl *)(INI *))parseSubtitle);
+					}
+				}
+			}
+		}
+
+		s_videoPlayerInitialised = 1;
+	}
+}
 
 // tu-skeleton: 0x00689600 37B ??0?$_String_base@DV?$allocator@D@_STL@@@_STL@@QAE@ABV?$allocator@D@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_money_put_long_double.cpp (not merged yet)
 
@@ -419,22 +544,7 @@ Rva006892F0::~Rva006892F0()
 
 // tu-skeleton: 0x00689740 9B ??$_Destroy@VRva001D28F0Element@@@_STL@@YAXPAVRva001D28F0Element@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001D28F0ElementDtor.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/ElementStrideWalks.cpp
-
-Elem28 *rva00689750CopyWalk(Elem28 *first, Elem28 *last, Elem28 *dest)
-{
-	Elem28 *cursor = dest;
-	for ( ; first != last; ++first)
-	{
-		_STL::_Construct((Rva001D28F0Element *)cursor, *(const Rva001D28F0Element *)first);
-		++cursor;
-	}
-	return cursor;
-}
-
 // tu-skeleton: 0x006897B0 280B ?getSubTitleMgrForVideo@VideoPlayer@@UAEPAVSubtitleManager@@ABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/VideoPlayerGetVideo.cpp (not merged yet)
-
-// tu-skeleton: 0x006898D0 574B ?init@VideoPlayer@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/VideoPlayerInit.cpp (not merged yet)
 
 // tu-skeleton: 0x00689B10 338B ?getVideo@VideoPlayer@@UAEPBUVideo@@VAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/VideoPlayerGetVideo.cpp (not merged yet)
 
@@ -452,25 +562,11 @@ Elem28 *rva00689750CopyWalk(Elem28 *first, Elem28 *last, Elem28 *dest)
 
 // tu-skeleton: 0x007A7ABE 10B __ehhandler$??1Rva001D28F0Element@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001D28F0ElementDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x007A7AD0 8B Unwind@00ba7ad0 -- matched in Code/GameEngine/Source/GameClient/VideoPlayerInit.cpp (not merged yet)
-
-// tu-skeleton: 0x007A7AD8 10B __ehhandler$?rva00689580@VideoPlayer@@QAEXAAVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/VideoPlayerInit.cpp (not merged yet)
-
 // tu-skeleton: 0x007A7AF0 8B uw_007a7af0 -- matched in Code/GameEngine/Source/Common/Open2Records.cpp (not merged yet)
 
 // tu-skeleton: 0x007A7AF8 11B uw_007a7af8 -- matched in Code/GameEngine/Source/Common/Open2Records.cpp (not merged yet)
 
 // tu-skeleton: 0x007A7B03 10B __ehhandler$??0Rva001D28F0Element@@QAE@ABU0@@Z -- matched in Code/GameEngine/Source/Common/Open2Records.cpp (not merged yet)
-
-// tu-skeleton: 0x007A7B30 11B Unwind@00ba7b30 -- matched in Code/GameEngine/Source/GameClient/VideoPlayerInit.cpp (not merged yet)
-
-// tu-skeleton: 0x007A7B3B 11B Unwind@00ba7b3b -- matched in Code/GameEngine/Source/GameClient/VideoPlayerInit.cpp (not merged yet)
-
-// tu-skeleton: 0x007A7B46 14B Unwind@00ba7b46 -- matched in Code/GameEngine/Source/GameClient/VideoPlayerInit.cpp (not merged yet)
-
-// tu-skeleton: 0x007A7B54 11B Unwind@00ba7b54 -- matched in Code/GameEngine/Source/GameClient/VideoPlayerInit.cpp (not merged yet)
-
-// tu-skeleton: 0x007A7B5F 10B __ehhandler$?init@VideoPlayer@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/VideoPlayerInit.cpp (not merged yet)
 
 // tu-skeleton: 0x007A7B70 8B uw_007a7b70 -- matched in Code/GameEngine/Source/GameClient/VideoPlayerGetVideo.cpp (not merged yet)
 
