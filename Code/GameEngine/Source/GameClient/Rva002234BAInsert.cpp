@@ -28,19 +28,7 @@ public:
 	void *newNode(const void *obj);
 };
 
-class Rva000427195
-{
-public:
-	void rva00212858(unsigned int n);
-	int bucketIndex(const AsciiString *key);
-	_STL::pair<const AsciiString, NoCaseTreeValue4> *rva002234BA(const _STL::pair<const AsciiString, NoCaseTreeValue4> *arg);
-private:
-	void *m_unused00;
-	void **m_beginBuckets;
-	void **m_endBuckets;
-	void **m_storageEnd;
-	unsigned int m_numElements;
-};
+#include "../../Include/GameLogic/Rva000427195.h"
 
 _STL::pair<const AsciiString, NoCaseTreeValue4> *Rva000427195::rva002234BA(const _STL::pair<const AsciiString, NoCaseTreeValue4> *entry)
 {

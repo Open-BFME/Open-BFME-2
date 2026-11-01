@@ -22,19 +22,7 @@ struct InsertRet001F8F2A
 };
 #pragma pack(pop)
 
-class Rva000427195
-{
-public:
-	int bucketIndex(const AsciiString *name);
-	void *rva002ACFD6(const void *src);
-	InsertRet001F8F2A rva001F8F2A(const void *key);
-
-	void *m_unused00;
-	void **m_beginBuckets;
-	void **m_endBuckets;
-	void **m_storageEnd;
-	unsigned int m_numElements;
-};
+#include "../../Include/GameLogic/Rva000427195.h"
 
 InsertRet001F8F2A Rva000427195::rva001F8F2A(const void *key)
 {

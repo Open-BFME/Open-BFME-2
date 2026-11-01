@@ -199,11 +199,7 @@ public:
 	void *m_table;
 };
 
-class Rva000427195
-{
-public:
-	void *first(Rva000411084 *it);
-};
+#include "../../../../Include/GameLogic/Rva000427195.h"
 
 class Rva001F58D4
 {

@@ -27,12 +27,7 @@ template <class T1, class T2> struct pair
 };
 }
 
-class Rva000427195
-{
-public:
-	void rva00212858(unsigned int n);
-	int bucketIndex(const AsciiString *key);
-};
+#include "../../Include/GameLogic/Rva000427195.h"
 
 class Rva00223124
 {

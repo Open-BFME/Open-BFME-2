@@ -116,13 +116,7 @@ private:
 };
 class BFMERetailAsciiString;
 struct InsertRet001F8F2A;
-class Rva000427195
-{
-public:
-	void *first(Rva000411084 *iter);
-	void rva003A37DC(VideoPair p);
-	InsertRet001F8F2A insertWithGrow(const void *key);
-};
+#include "../../../Include/GameLogic/Rva000427195.h"
 
 // BFME1 ba7ddda7 supplies the parent-search algorithm. Target findTemplate
 // proves map +88; the native comparison reads SlaveSystemName at template +68.

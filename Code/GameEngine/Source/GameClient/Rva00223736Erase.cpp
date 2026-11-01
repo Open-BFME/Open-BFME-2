@@ -4,11 +4,7 @@
 // Evidence: caller chain from 0x0022380B clear; rowed bucketIndex 0x00223149 plus rowed StringBase compare 0x000069D6 plus just-landed free-node 0x00223591; same shape as rowed ?rva00223429@Rva000427195@@QAEHPBVAsciiString@@@Z 0x00223429.
 #include "ascii_string.h"
 
-class Rva000427195
-{
-public:
-	int bucketIndex(const AsciiString *name);
-};
+#include "../../Include/GameLogic/Rva000427195.h"
 
 class Rva00223591
 {

@@ -8,11 +8,7 @@
 struct OutIter004182F8;
 class Rva004181F5;
 
-class Rva000427195
-{
-public:
-	void rva00212858(unsigned int n);
-};
+#include "../../Include/GameLogic/Rva000427195.h"
 
 class Rva004182F8
 {

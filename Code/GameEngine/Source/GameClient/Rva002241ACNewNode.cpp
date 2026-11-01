@@ -43,11 +43,7 @@ struct Rva002241ACNode
 	Rva0022304A value;
 };
 
-class Rva000427195
-{
-public:
-	Rva002241ACNode *rva002241AC(const Rva0022304A &obj);
-};
+#include "../../Include/GameLogic/Rva000427195.h"
 
 Rva002241ACNode *Rva000427195::rva002241AC(const Rva0022304A &obj)
 {

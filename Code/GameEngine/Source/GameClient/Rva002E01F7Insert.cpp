@@ -29,20 +29,7 @@ public:
 	void *newNode(const void *src);
 };
 
-class Rva000427195
-{
-public:
-	int bucketIndex(const AsciiString *name);
-	void rva00212858(unsigned int newSize);
-	InsertRet002E01F7 rva002E01F7(const void *key);
-	InsertRet002E01F7 rva002E035B(const void *key);
-
-	void *m_unused00;
-	void **m_beginBuckets;
-	void **m_endBuckets;
-	void **m_storageEnd;
-	unsigned int m_numElements;
-};
+#include "../../Include/GameLogic/Rva000427195.h"
 
 InsertRet002E01F7 Rva000427195::rva002E01F7(const void *key)
 {

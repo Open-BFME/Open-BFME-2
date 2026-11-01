@@ -12,11 +12,7 @@ public:
 	void *m_owner;
 };
 
-class Rva000427195
-{
-public:
-	void *first(Rva000411084 *iter);
-};
+#include "../../Include/GameLogic/Rva000427195.h"
 
 // VA 0x00E02FE4: the component-window table AptComponentWindowLookup.cpp owns.
 extern unsigned int AptComponentWindowDataTableStorage[5];

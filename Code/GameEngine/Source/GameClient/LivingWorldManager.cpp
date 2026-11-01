@@ -11,19 +11,7 @@ struct InsertRet00212A5A
 	unsigned char m_found;
 };
 
-class Rva000427195
-{
-public:
-	void rva00212858(unsigned int newSize);
-	InsertRet00212A5A rva00212A5A(const void *key);
-	InsertRet00212A5A rva00213925(const void *key);
-
-	void *m_unused00;
-	void **m_beginBuckets;
-	void **m_endBuckets;
-	void **m_storageEnd;
-	unsigned int m_numElements;
-};
+#include "../../Include/GameLogic/Rva000427195.h"
 
 // Retail 0x00213DFD (20B, RET8): the hash container member over this table
 // (at +0): the hidden result pointer and the key go straight to the

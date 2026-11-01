@@ -194,13 +194,7 @@ public:
 	void *owner; // +0x04
 };
 
-class Rva000427195
-{
-public:
-	void *first(Rva000411084 *);
-	int bucketIndex(const AsciiString *name);
-	void rva00212858(unsigned int n);
-};
+#include "../../../Include/GameLogic/Rva000427195.h"
 
 struct Rva002BFF5AData { char unknown[0x10]; int key; };
 

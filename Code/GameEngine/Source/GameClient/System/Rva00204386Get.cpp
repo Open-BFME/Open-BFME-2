@@ -56,7 +56,7 @@ struct AudioCacheCursor
 	AudioCacheCursor(void *a, void *b);
 	AudioCacheCursor(const AudioCacheCursor &v);
 };
-class Rva000427195 { public: AudioCacheCursor rva00427195(); };
+#include "../../../Include/GameLogic/Rva000427195.h"
 class Rva000411084 { public: void *next(); };
 class Rva002082F1Visitor { public: virtual void visit(const char *name); };
 struct Rva002082F1Node

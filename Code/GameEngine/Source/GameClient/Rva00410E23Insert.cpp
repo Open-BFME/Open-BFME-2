@@ -73,19 +73,7 @@ private:
 typedef _STL::pair<const int, BfmePod44> Pod44Pair;
 typedef _STL::hashtable<Pod44Pair, int, _STL::hash<int>, _STL::_Select1st<Pod44Pair>, _STL::equal_to<int>, _STL::allocator<Pod44Pair> > Pod44Table;
 
-class Rva000427195
-{
-public:
-	void rva00212858(unsigned int n);
-	int bucketIndex(const AsciiString *key);
-	_STL::pair<const AsciiString, TreeHintPayload00410E23> *rva00410E23(const _STL::pair<const AsciiString, TreeHintPayload00410E23> *arg);
-private:
-	void *m_unused00;
-	void **m_beginBuckets;
-	void **m_endBuckets;
-	void **m_storageEnd;
-	unsigned int m_numElements;
-};
+#include "../../Include/GameLogic/Rva000427195.h"
 
 _STL::pair<const AsciiString, TreeHintPayload00410E23> *Rva000427195::rva00410E23(const _STL::pair<const AsciiString, TreeHintPayload00410E23> *entry)
 {

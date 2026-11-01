@@ -23,21 +23,7 @@ template <class T1, class T2> struct pair
 };
 }
 
-class Rva000427195
-{
-public:
-	void *rva0041112B(const AsciiString *name);
-	void rva00212858(unsigned int n);
-	int bucketIndex(const AsciiString *key);
-	void *rva00410A86(const void *src);
-	_STL::pair<const AsciiString, TreeHintPayload00410A86> *rva00410DDF(const _STL::pair<const AsciiString, TreeHintPayload00410A86> *arg);
-private:
-	void *m_unused00;
-	void **m_beginBuckets;
-	void **m_endBuckets;
-	void **m_storageEnd;
-	unsigned int m_numElements;
-};
+#include "../../Include/GameLogic/Rva000427195.h"
 
 _STL::pair<const AsciiString, TreeHintPayload00410A86> *Rva000427195::rva00410DDF(const _STL::pair<const AsciiString, TreeHintPayload00410A86> *arg)
 {

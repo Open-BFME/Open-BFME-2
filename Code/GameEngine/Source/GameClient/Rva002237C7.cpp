@@ -4,12 +4,7 @@
 // Evidence: same shape as rowed Rva00223591::rva00223854 in Rva00223591Free.cpp; neighbours 0x00223736 erase and 0x0022380B clear share layout +4 buckets +0x10 count; unblocks 0x0022402A.
 #include "ascii_string.h"
 
-class Rva000427195
-{
-public:
-	void rva00212858(unsigned int n);
-	int bucketIndex(const AsciiString *name);
-};
+#include "../../Include/GameLogic/Rva000427195.h"
 
 class Rva0022356C
 {

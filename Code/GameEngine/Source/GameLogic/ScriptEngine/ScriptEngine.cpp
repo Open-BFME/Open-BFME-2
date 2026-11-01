@@ -784,11 +784,7 @@ public:
 	void *next();
 };
 
-class Rva000427195
-{
-public:
-	void *first(Rva000411084 *iterator);
-};
+#include "../../../Include/GameLogic/Rva000427195.h"
 
 class ParticleSystemManager
 {

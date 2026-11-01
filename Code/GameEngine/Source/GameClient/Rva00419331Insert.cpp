@@ -76,22 +76,7 @@ struct InsertRet00419331
 };
 #pragma pack(pop)
 
-class Rva000427195
-{
-public:
-	int bucketIndex(const AsciiString *name);
-	void rva00212858(unsigned int newSize);
-	InsertRet00419331 insertUniqueNoresize(const void *key);
-	InsertRet00419331 insertUnique(const void *key);
-	InsertRet00419331 rva004198EB(const void *key);
-	InsertRet00419331 rva00419967(const void *key);
-
-	void *m_unused00;
-	void **m_beginBuckets;
-	void **m_endBuckets;
-	void **m_storageEnd;
-	unsigned int m_numElements;
-};
+#include "../../Include/GameLogic/Rva000427195.h"
 
 InsertRet00419331 Rva000427195::insertUniqueNoresize(const void *key)
 {

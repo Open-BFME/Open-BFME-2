@@ -12,7 +12,7 @@
 #include <stdlib.h>
 #undef _CRTIMP
 
-class Rva000427195 { public: void rva003A2A41(); };
+#include "../../../Include/GameLogic/Rva000427195.h"
 struct MeshInstancingBucketHandle
 {
     ~MeshInstancingBucketHandle()

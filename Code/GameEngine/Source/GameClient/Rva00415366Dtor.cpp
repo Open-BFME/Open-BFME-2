@@ -28,11 +28,7 @@ struct Rva00415366BucketHandle
 	void **m_storageEnd;
 };
 
-class Rva000427195
-{
-public:
-	void rva003A2A41();
-};
+#include "../../Include/GameLogic/Rva000427195.h"
 
 class Rva00415366
 {

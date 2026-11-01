@@ -14,11 +14,7 @@ public:
 	void *m_owner;
 };
 
-class Rva000427195
-{
-public:
-	void *first(Rva000411084 *iter);
-};
+#include "../../Include/GameLogic/Rva000427195.h"
 
 struct Rva004114EFGlobalTable
 {

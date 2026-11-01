@@ -18,19 +18,7 @@ struct InsertRet0041539F
 };
 #pragma pack(pop)
 
-class Rva000427195
-{
-public:
-	void rva00212858(unsigned int newSize);
-	InsertRet0041539F rva0041539F(const void *key);
-	InsertRet0041539F rva0041557A(const void *key);
-
-	void *m_unused00;
-	void **m_beginBuckets;
-	void **m_endBuckets;
-	void **m_storageEnd;
-	unsigned int m_numElements;
-};
+#include "../../Include/GameLogic/Rva000427195.h"
 
 InsertRet0041539F Rva000427195::rva0041557A(const void *key)
 {

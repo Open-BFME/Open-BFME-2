@@ -14,10 +14,7 @@
 #include <stdlib.h>
 #undef _CRTIMP
 
-struct Rva000427195
-{
-	void rva003A2A41();
-};
+#include "../../Include/GameLogic/Rva000427195.h"
 
 struct Rva000588DABucketHandle
 {

@@ -188,11 +188,7 @@ template <> GroupOrderMapCursor &GroupOrderMapCursor::operator++();
 
 class Rva000411084;
 
-class Rva000427195
-{
-public:
-	void *first(Rva000411084 *cursor);
-};
+#include "../../../Include/GameLogic/Rva000427195.h"
 
 struct GroupOrderMapWords
 {

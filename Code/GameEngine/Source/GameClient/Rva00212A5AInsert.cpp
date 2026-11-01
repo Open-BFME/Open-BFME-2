@@ -21,19 +21,7 @@ struct InsertRet00212A5A
 	unsigned char m_found;
 };
 
-class Rva000427195
-{
-public:
-	int bucketIndex(const AsciiString *name);
-	void *rva00212354(const void *src);
-	InsertRet00212A5A rva00212A5A(const void *key);
-
-	void *m_unused00;
-	void **m_beginBuckets;
-	void **m_endBuckets;
-	void **m_storageEnd;
-	unsigned int m_numElements;
-};
+#include "../../Include/GameLogic/Rva000427195.h"
 
 InsertRet00212A5A Rva000427195::rva00212A5A(const void *key)
 {

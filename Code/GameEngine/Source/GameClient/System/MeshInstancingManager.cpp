@@ -87,7 +87,7 @@ namespace _STL { template <> void vector<void *,_STL::allocator<void *> >::reser
 namespace _STL { template <> unsigned int vector<void *,_STL::allocator<void *> >::size() const; }
 // bfme link decl-only end
 class Rva00056F61 { public: __declspec(nothrow) void *rva00056F61(const AsciiString *); };
-class Rva000427195 { public: void rva003A2A41(); };
+#include "../../../Include/GameLogic/Rva000427195.h"
 class Rva0041FA59 : public MeshNameMap
 {
 public:

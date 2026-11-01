@@ -15,18 +15,7 @@ public:
 	void rva001FD9EF(void *node);
 };
 
-class Rva000427195
-{
-public:
-	int bucketIndex(const AsciiString *name);
-	int rva00223429(const AsciiString *key);
-
-	void *m_unused00;
-	void **m_beginBuckets;
-	void **m_endBuckets;
-	void **m_storageEnd;
-	unsigned int m_numElements;
-};
+#include "../../Include/GameLogic/Rva000427195.h"
 
 int Rva000427195::rva00223429(const AsciiString *key)
 {

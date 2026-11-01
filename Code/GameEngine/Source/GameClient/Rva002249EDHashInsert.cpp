@@ -23,13 +23,7 @@ struct Rva002241ACNode
 	Rva0022304A m_value;
 };
 
-class Rva000427195
-{
-public:
-	void rva00212858(unsigned int count);
-	int bucketIndex(const AsciiString *key);
-	Rva002241ACNode *rva002241AC(const Rva0022304A &value);
-};
+#include "../../Include/GameLogic/Rva000427195.h"
 
 class Rva00056F61
 {

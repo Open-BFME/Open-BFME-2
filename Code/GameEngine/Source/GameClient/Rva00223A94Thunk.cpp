@@ -5,11 +5,7 @@
 // an honest address class. Returns erase count. Callers include 0x002D3B71.
 #include "ascii_string.h"
 
-class Rva000427195
-{
-public:
-	int rva00223429(const AsciiString *key);
-};
+#include "../../Include/GameLogic/Rva000427195.h"
 
 class Rva00223A94
 {
