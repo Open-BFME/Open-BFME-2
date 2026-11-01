@@ -51,16 +51,7 @@ struct XferVersion
 #include "XferVectorTypes.h"
 #include "../../../Include/Common/BfmeXfer.h"
 
-class XferException
-{
-public:
-	XferException(int tag, const char *format, ...);
-	XferException(const XferException &that);
-	~XferException();
-
-	char *text;
-	int tag;
-};
+#include "../../../Include/Common/XferException.h"
 
 // Retail's tree node construction calls the out-of-line copy 0x0002C485.
 namespace _STL {

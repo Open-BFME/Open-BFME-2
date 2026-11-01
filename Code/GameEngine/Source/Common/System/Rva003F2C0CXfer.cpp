@@ -36,16 +36,7 @@ struct XferVersion
 #include "XferVectorTypes.h"
 #include "../../../Include/Common/BfmeXfer.h"
 
-class XferException
-{
-public:
-	XferException(int tag, const char *format, ...);
-	XferException(const XferException &that);
-	~XferException();
-
-	char *text;
-	int tag;
-};
+#include "../../../Include/Common/XferException.h"
 
 
 typedef _STL::vector<BfmeE8> VectorE8;
