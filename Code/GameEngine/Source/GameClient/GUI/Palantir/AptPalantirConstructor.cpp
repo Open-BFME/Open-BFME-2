@@ -419,15 +419,7 @@ public:
 
 // Palantir::Impl::init's window: a GadgetCreateView handed to the window
 // manager's createFromView (vslot 34) and Zero Hour's WinInstanceData.
-class WinInstanceData
-{
-public:
-	WinInstanceData();
-	virtual ~WinInstanceData();
-
-private:
-	unsigned char m_pad004[0x1A8 - 4];
-};
+#include "../../../../Include/GameClient/Bfme2WinInstanceData.h"
 
 class GameWindowManager
 {

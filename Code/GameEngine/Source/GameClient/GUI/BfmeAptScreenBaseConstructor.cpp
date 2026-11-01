@@ -1,14 +1,7 @@
 // cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // BfmeAptScreenBase constructor at retail 0x00477BC0 (210B).
 
-class WinInstanceData
-{
-public:
-	WinInstanceData();
-
-private:
-	char m_data[ 0x1A8 ];
-};
+#include "../../../Include/GameClient/Bfme2WinInstanceData.h"
 
 struct BfmeAptScreenContext
 {

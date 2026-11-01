@@ -8,14 +8,7 @@
 // [ecx+0x1E8] (m_draw, proven by GameWindow_DefaultConstructor and
 // BfmeAptScreenBaseConstructor layouts) and forwards (this, data) returning 1/0.
 
-class WinInstanceData
-{
-public:
-	WinInstanceData();
-
-private:
-	char m_data[ 0x1A8 ];
-};
+#include "../../../Include/GameClient/Bfme2WinInstanceData.h"
 
 class GameWindow;
 

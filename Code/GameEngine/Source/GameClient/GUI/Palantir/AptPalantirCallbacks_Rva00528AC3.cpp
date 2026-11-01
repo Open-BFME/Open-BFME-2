@@ -211,11 +211,7 @@ enum NameKeyType
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-struct WinInstanceData
-{
-	unsigned char m_pad00[0x14];
-	GameWindow *m_owner; // +0x14
-};
+#include "../../../../Include/GameClient/Bfme2WinInstanceData.h"
 
 class GameWindowManager
 {
