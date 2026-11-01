@@ -15,13 +15,7 @@ public:
 };
 extern Rva006DB270 *g_pChainBlockAllocator;
 
-class AptValue {
-public:
-  virtual void AddRef();
-  virtual void Release();
-  virtual void ForceDelete();
-  unsigned int getRefCount() const;
-};
+#include "../../Apt/AptValue.h"
 
 class BfmeAptValue006DCD20 {
   virtual void slot0();
