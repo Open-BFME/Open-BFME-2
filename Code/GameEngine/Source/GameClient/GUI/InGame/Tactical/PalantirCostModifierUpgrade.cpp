@@ -20,7 +20,7 @@ class Rva002A7DDE {public:bool rva002A7DDE(Rva002A7DDEArg*);};
 class Rva00528C65 {public:AsciiString rva00528C65() const;int rva00528C85(Player*);void *vtable;struct Data {char unknown[0x128];bool percentage;};Data *data;};
 class Rva00528BDD {public:void rva00528BDD();};
 class Rva00222A8BTarget {public:int invoke(void*,const char*,int,const char*,void*,void*,void*,void*);};
-class BfmeAptWindowManager {public:void bfmeSetText(const AsciiString&,const UnicodeString&,bool);};
+#include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 class GameTextInterface {public:
  virtual void slot0()=0;virtual void slot1()=0;virtual void slot2()=0;virtual void slot3()=0;virtual void slot4()=0;virtual void slot5()=0;virtual void slot6()=0;virtual void slot7()=0;virtual void slot8()=0;virtual void slot9()=0;virtual void slotA()=0;virtual void slotB()=0;virtual void slotC()=0;virtual void slotD()=0;virtual void slotE()=0;virtual void slotF()=0;

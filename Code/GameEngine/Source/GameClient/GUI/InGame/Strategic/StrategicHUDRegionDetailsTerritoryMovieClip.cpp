@@ -28,7 +28,7 @@ extern const RegionBonusRecord RegionBonusRecords[]={
 
 #include "../../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
-class BfmeAptWindowManager {public:void bfmeSetText(const AsciiString&,const UnicodeString&,bool);};
+#include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 class Rva00222A8BTarget;
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
 static __declspec(noinline) const RegionBonusPair *LookupRegionBonus(int kind) {

@@ -137,7 +137,7 @@ extern GameLogic *TheGameLogic;
 // (0x00223A94) under their rowed address-derived spellings.
 class Rva002239B2 { public: void rva002239E2(const AsciiString &name, const Image *image); };
 class Rva00223A94 { public: int rva00223A94(const AsciiString *name); };
-class BfmeAptWindowManager { public: void bfmeSetText(const AsciiString &, const UnicodeString &, bool); };
+#include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 class Rva002BED91 { public: void clear(); };

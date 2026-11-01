@@ -249,11 +249,7 @@ public:
 
 // The Apt window manager (0x009FE4CC): the rowed image binding 0x002239E2
 // (Rva002239B2.cpp) and text setter.
-class BfmeAptWindowManager
-{
-public:
-	void bfmeSetText(const AsciiString &name, const UnicodeString &text, bool flag);
-};
+#include "../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 

@@ -46,12 +46,7 @@ private:
 #undef MOUSE_SLOT
 extern Mouse *TheMouse;
 
-class BfmeAptWindowManager
-{
-public:
-	char m_pad000[0x318];
-	int m_mouseButtonMode; // +0x318
-};
+#include "../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 #include "../../../Include/GameClient/Bfme2GameWindow.h"
@@ -134,7 +129,7 @@ GameMessageDisposition AptTranslator::translateGameMessage(const GameMessage *ms
 		{
 			if (++m_leftCount > maxCount)
 			{
-				g_bfmeAptWindowManager->m_mouseButtonMode = 0;
+				g_bfmeAptWindowManager->field318 = 0;
 				Rva006CC9A0(0, 1, 1);
 				m_buttonDown[0] = false;
 				m_leftCount = 0;
@@ -146,7 +141,7 @@ GameMessageDisposition AptTranslator::translateGameMessage(const GameMessage *ms
 		{
 			if (++m_rightCount > maxCount)
 			{
-				g_bfmeAptWindowManager->m_mouseButtonMode = 2;
+				g_bfmeAptWindowManager->field318 = 2;
 				Rva006CC9A0(0, 1, 1);
 				m_buttonDown[2] = false;
 				m_rightCount = 0;
@@ -171,9 +166,9 @@ GameMessageDisposition AptTranslator::translateGameMessage(const GameMessage *ms
 	case 14:
 	case 15:
 		if (type == 4 || type == 5)
-			g_bfmeAptWindowManager->m_mouseButtonMode = 0;
+			g_bfmeAptWindowManager->field318 = 0;
 		else
-			g_bfmeAptWindowManager->m_mouseButtonMode = 2;
+			g_bfmeAptWindowManager->field318 = 2;
 		if ((unsigned char)rva0043287E())
 		{
 			rva00432A3B(msg);
@@ -198,9 +193,9 @@ GameMessageDisposition AptTranslator::translateGameMessage(const GameMessage *ms
 		{
 			rva00432A3B(msg);
 			if (type == 6)
-				g_bfmeAptWindowManager->m_mouseButtonMode = 0;
+				g_bfmeAptWindowManager->field318 = 0;
 			else
-				g_bfmeAptWindowManager->m_mouseButtonMode = 2;
+				g_bfmeAptWindowManager->field318 = 2;
 			Rva006CC9A0(0, 1, 1);
 			if (++m_200 < 2)
 				m_200 = 2;

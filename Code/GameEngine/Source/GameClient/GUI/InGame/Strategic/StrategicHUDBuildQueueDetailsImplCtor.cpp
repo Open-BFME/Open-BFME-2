@@ -44,7 +44,8 @@ struct Rva002226E5TextPlusString:Rva005F17C6S12{};
 Rva002226E5TextPlusString operator+(const char*,const AsciiString&);
 Rva005F17C6S16 Rva005F17C6Build(const Rva005F17C6S12&,int);
 Rva005D2F96S24 Rva005D2F96Build(const Rva005D2F96S16&,const char*);
-class BfmeAptWindowManager{public:void bfmeSetText(const AsciiString&,const UnicodeString&,bool);};extern BfmeAptWindowManager*g_bfmeAptWindowManager;
+#include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
+extern BfmeAptWindowManager*g_bfmeAptWindowManager;
 namespace StrategicHUD{class BuildQueueDetailsMovieClip{public:class Impl{public:class QueuedIconSlot;class InProgressIconSlot;void rva005F68FE(void*);void OnBackButtonRollOver(void*);void OnBackButtonRollOut(void*);};};}
 class StrategicHUD::BuildQueueDetailsMovieClip::Impl::QueuedIconSlot{public:QueuedIconSlot(Impl*,int);char bytes[0x2c];};
 class StrategicHUD::BuildQueueDetailsMovieClip::Impl::InProgressIconSlot{public:InProgressIconSlot(Impl*);char bytes[0x2c];};

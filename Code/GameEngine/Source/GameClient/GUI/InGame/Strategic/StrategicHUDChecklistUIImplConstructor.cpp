@@ -105,7 +105,7 @@ class Base3:public Rva0086EE20 {public:~Base3(){}};
 class Rva000AD6F4 {public:void clear();Rva000AD6F4():ptr(0){}~Rva000AD6F4();void*ptr;};
 #include "../../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
-class BfmeAptWindowManager {public:void bfmeSetText(const AsciiString&,const UnicodeString&,bool);};
+#include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 struct Rva0057A51CTeam;struct Rva0057A685Team;
 namespace StrategicHUD {void SetTurnNumberString(int,Rva0057A51CTeam**,int);void SetPhaseTitleString(int,Rva0057A685Team**,int);}

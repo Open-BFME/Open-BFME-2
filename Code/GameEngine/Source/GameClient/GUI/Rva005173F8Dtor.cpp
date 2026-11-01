@@ -95,7 +95,7 @@ extern int g_Va00E04904;
 void __cdecl TearDownGameSpy();
 void __cdecl Rva00511F73Run();
 
-class BfmeAptWindowManager {public:void bfmeSetText(const AsciiString&,const UnicodeString&,bool);};
+#include "../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 class GameTextInterface {
 public:

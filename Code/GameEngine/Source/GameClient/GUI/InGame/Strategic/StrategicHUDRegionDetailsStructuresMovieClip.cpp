@@ -271,7 +271,7 @@ public:
 
 #include "../../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
-class BfmeAptWindowManager {public:void bfmeSetText(const AsciiString &,const UnicodeString &,bool);};
+#include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 int __cdecl Rva00525338Fire(void *,void *,const char *,const char *,int *,void *);
 class Image;

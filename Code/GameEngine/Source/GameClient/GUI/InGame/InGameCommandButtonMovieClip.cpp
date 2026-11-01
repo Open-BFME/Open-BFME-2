@@ -46,7 +46,8 @@ class AptMovieClipFrame {public:bool CreateContentMovieClip(const AsciiString&,c
 namespace AptUtils {AsciiString DotPath2SlashPath(const char*);}
 struct AsciiStringRefWithChar:AsciiStringRef {int write(char *);operator AsciiString();char m_char;};
 inline AsciiStringRefWithChar operator+(const AsciiString&a,char c){AsciiStringRefWithChar r;r.m_string=&a;r.m_char=c;return r;}
-class BfmeAptWindowManager {public:void bfmeSetText(const AsciiString&,const UnicodeString&,bool);};extern BfmeAptWindowManager*g_bfmeAptWindowManager;
+#include "../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
+extern BfmeAptWindowManager*g_bfmeAptWindowManager;
 class InGameCommandButtonMovieClip {public:class Impl;virtual ~InGameCommandButtonMovieClip();virtual void NotifyTimer();};
 class InGameCommandButtonMovieClip::Impl {public:Impl(InGameCommandButtonMovieClip*,AptMovieClipFrame*,const AsciiString&);void OnInitialized(const char*);void OnPress(const char*);void OnOverButton(const char*);
 private:InGameCommandButtonMovieClip*owner;AptMovieClipFrame*frame;int level;AsciiString name;AptCommandMapAdder commands;AptOverButtonHandlerAdder overHandlers;CustomStorage renders;AptTimerAdder timers;bool initialized;int mode;bool flash,overlay;void*image,*unknown5C;};

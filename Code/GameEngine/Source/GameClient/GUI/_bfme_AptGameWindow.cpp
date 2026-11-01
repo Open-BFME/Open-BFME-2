@@ -30,12 +30,7 @@ private: unsigned char unknown[0x58-4];
 };
 
 // The Apt window manager (VA 0x00DFE4CC) and the window holding its focus.
-class BfmeAptWindowManager
-{
-public:
-	unsigned char m_pad000[0x314];
-	void *m_focus; // +0x314
-};
+#include "../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
@@ -77,17 +72,17 @@ int _bfme_AptGameWindow::rva0051274F(int message, unsigned int data1, unsigned i
 	case 1:
 		break;
 	case 2:
-		if (g_bfmeAptWindowManager != 0 && g_bfmeAptWindowManager->m_focus == this)
-			g_bfmeAptWindowManager->m_focus = 0;
+		if (g_bfmeAptWindowManager != 0 && g_bfmeAptWindowManager->field314 == this)
+			g_bfmeAptWindowManager->field314 = 0;
 		break;
 	case 0x17:
 		if (data1 == 1)
 		{
 			*(bool *)data2 = true;
-			g_bfmeAptWindowManager->m_focus = this;
+			g_bfmeAptWindowManager->field314 = this;
 		}
-		else if (g_bfmeAptWindowManager->m_focus == this)
-			g_bfmeAptWindowManager->m_focus = 0;
+		else if (g_bfmeAptWindowManager->field314 == this)
+			g_bfmeAptWindowManager->field314 = 0;
 		break;
 	case 0x1D:
 		if (data1 != 0x7D0)

@@ -5,11 +5,7 @@
 // BfmeAptWindowManager::rva00225375 with TheRva00222A8BTarget; caller 0x002D47D9.
 #include "ascii_string.h"
 
-class BfmeAptWindowManager
-{
-public:
-	void rva00225375(const AsciiString &key, const AsciiString &value, bool flag);
-};
+#include "../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 
 class Rva00222A8BTarget
 {

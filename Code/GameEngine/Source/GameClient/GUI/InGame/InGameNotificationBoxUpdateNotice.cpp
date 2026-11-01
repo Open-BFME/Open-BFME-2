@@ -85,7 +85,7 @@ static __forceinline void openNotice(Rva00222A8BTarget *target, void *const &own
 {
  Rva004E697DCall(target,owner,"Open",&height,option,location);
 }
-class BfmeAptWindowManager {public:void bfmeSetText(const AsciiString&,const UnicodeString&,bool);};
+#include "../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 void Rva004E6816Fire(Rva00222A8BTarget*,void*,const char*,bool*);
 class Rva00524306 {public:

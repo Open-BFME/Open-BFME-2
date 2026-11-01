@@ -188,11 +188,7 @@ inline AptTextPlusStringPlusStringText operator+(const AptTextPlusStringPlusStri
 	return r;
 }
 
-class BfmeAptWindowManager
-{
-public:
-	void bfmeSetText(const AsciiString &key, const UnicodeString &text, bool flag); // 0x00225301
-};
+#include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 int __cdecl Rva0052519DFire(void *target, void *level, const char *prefix, const char *function, int *value);
 
