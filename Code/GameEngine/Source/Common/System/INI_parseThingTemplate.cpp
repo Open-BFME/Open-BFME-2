@@ -17,12 +17,7 @@ public:
 };
 extern class ThingFactory *TheThingFactory;
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps = 0);
-	static void parseThingTemplate(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 extern "C" __declspec(dllimport) int __cdecl _strcmpi(const char *a, const char *b);
 

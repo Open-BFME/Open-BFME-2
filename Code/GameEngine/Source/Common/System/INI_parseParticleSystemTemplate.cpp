@@ -24,12 +24,7 @@ public:
 // at VA 0x00DFDD04; retail's zero-filled slot starts null.
 ParticleSystemManager *TheParticleSystemManager = 0;
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps = 0);
-	static void parseParticleSystemTemplate(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 
 // ?parseParticleSystemTemplate@INI@@SAXPAV1@PAX1PBX@Z

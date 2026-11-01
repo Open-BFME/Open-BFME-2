@@ -25,12 +25,7 @@ public:
  char pad[0x420];
  const char *seps;
 };
-class INI
-{
-public:
- const char *getNextToken(const char *);
- const char *getNextTokenOrNull(const char *);
-};
+#include "../../../Include/Common/INI/INI.h"
 void Rva003F005F(void *a, void *, void *pair, void *)
 {
  INI *ini = (INI *)a;

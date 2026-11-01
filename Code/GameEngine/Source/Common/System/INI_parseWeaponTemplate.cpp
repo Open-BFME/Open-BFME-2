@@ -19,12 +19,7 @@ public:
 
 extern WeaponStore *TheWeaponStore;
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps = 0);
-	static void parseWeaponTemplate(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 // ?parseWeaponTemplate@INI@@SAXPAV1@PAX1PBX@Z
 void INI::parseWeaponTemplate(INI *ini, void *, void *store, const void *)

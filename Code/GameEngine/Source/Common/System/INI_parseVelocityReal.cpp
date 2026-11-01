@@ -15,13 +15,7 @@
 
 #include <windows.h>
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-	float scanReal(const char *token);
-	static void parseVelocityReal(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 // Retail value at 0x009BA4F8 (ZH SECONDS_PER_LOGICFRAME_REAL); owned by
 // INI_parseAccelerationReal.cpp, declared here.

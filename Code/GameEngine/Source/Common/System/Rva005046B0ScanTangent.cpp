@@ -5,11 +5,7 @@ typedef float Real;
 
 #include "../../../Include/Common/INI/FieldParse.h"
 
-class INI
-{
-public:
-	float scanReal(const char *token);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 #include <math.h>
 

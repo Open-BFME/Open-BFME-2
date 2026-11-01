@@ -11,13 +11,7 @@
 // the return-value pointer in eax and reserve the 0x10-byte frame retail has.
 #include "ascii_string.h"
 
-class INI
-{
-public:
-    const char *getNextToken(const char *delim);
-    AsciiString getFilename() const;
-    int getLineNum() const;
-};
+#include "../../../../Include/Common/INI/INI.h"
 
 class CommandButton
 {

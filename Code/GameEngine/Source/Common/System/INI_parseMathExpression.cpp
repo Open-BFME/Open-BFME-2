@@ -30,15 +30,7 @@ typedef float Real;
 #include <string.h>
 #include "ascii_string.h"
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-	void rva0002CBCC(const AsciiString &text, char separator);
-	Int parseIntMathExpression(const char *text, Int (INI::*valueParser)(const char *token));
-	UnsignedInt parseUnsignedIntMathExpression(const char *text, UnsignedInt (INI::*valueParser)(const char *token));
-	Real parseMathExpression(const char *text, Real (INI::*valueParser)(const char *token));
-};
+#include "../../../Include/Common/INI/INI.h"
 
 #include "../../../Include/Common/INI/FieldParse.h"
 

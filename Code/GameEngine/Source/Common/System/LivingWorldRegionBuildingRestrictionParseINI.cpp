@@ -12,12 +12,7 @@
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
 #include "../../../Include/Common/INI/FieldParse.h"
 
-class INI
-{
-public:
-	void initFromINI(void *what, const FieldParse *table);
-	static void parseInt(INI *, void *, void *, const void *);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 class ModuleData;
 

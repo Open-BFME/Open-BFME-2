@@ -19,12 +19,7 @@ public:
 
 extern ImageCollection *TheMappedImageCollection;
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps = 0);
-	static void parseMappedImage(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 // ?parseMappedImage@INI@@SAXPAV1@PAX1PBX@Z
 void INI::parseMappedImage(INI *ini, void *, void *store, const void *)

@@ -3,11 +3,7 @@
 // Target evidence: LINK BONUS 20B plus pin plus callers 0x002567F4 0x002C8C41 0x002C8C75, this=worker edi homing with mov ecx edi before both Append plus worker calls, INI rva0002DFE2 0x0002DFE2 null-tolerant quoted reader, StringBase ctor 0x00037BA0 plus nextToken 0x00036D90 plus releaseBuffer 0x00036410, worker 0x00255D58, Append 0x0049B6AE, empty fallback g_Rva0107301CEmptyString, __EH_prolog frame; donor is INI_VeterancyLevelListParse.cpp 0x0033B84E 234B same shape: member Append homing (now the rowed Rva0049B6AE::append) and quoted-arm wasQuoted reclear; string temporaries are the canonical AsciiString.
 #include "ascii_string.h"
 
-class INI
-{
-public:
-	const char *rva0002DFE2(const char *seps, bool *substituted);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 class Rva0049B6AE
 {

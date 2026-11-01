@@ -3,11 +3,7 @@
 // Target evidence: retail body matches the 234B driver family by masked n-gram (1.0); worker callee 0x003FB3B8 read at the REL32; the join-append 0x0049B6AE is the rowed Rva0049B6AE::append member (no pin); string temporaries are the canonical AsciiString. Class names are address-derived.
 #include "ascii_string.h"
 
-class INI
-{
-public:
-	const char *rva0002DFE2(const char *seps, bool *substituted);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 __forceinline const char *GetStr003FB508(const AsciiString &asciiString)
 {

@@ -102,11 +102,7 @@ template class _STL::_Rb_tree<AsciiString,_STL::pair<AsciiString const ,TreeHint
 // 0x0021AAFE single-token worker.
 // The join-append is the shared Rva0049B6AE::append member (rowed, body
 // ignores ecx); the string temporaries are the canonical AsciiString.
-class INI
-{
-public:
-	const char *rva0002DFE2(const char *seps, bool *substituted);
-};
+#include "../../../../Include/Common/INI/INI.h"
 
 class Rva0049B6AE
 {

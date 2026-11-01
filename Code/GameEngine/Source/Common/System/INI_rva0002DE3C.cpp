@@ -4,12 +4,7 @@
 // Evidence: chain from just-landed 0x0002D6F8 plus same 60B temp-set-dtor
 // shape as sibling INI_parseAsciiString.cpp at 0x0002F11E.
 #include "ascii_string.h"
-class INI
-{
-public:
-	AsciiString rva0002D6F8();
-	static void rva0002DE3C(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 void INI::rva0002DE3C(INI *ini, void *instance, void *store, const void *userData)
 {
 	*(AsciiString *)store = ini->rva0002D6F8();

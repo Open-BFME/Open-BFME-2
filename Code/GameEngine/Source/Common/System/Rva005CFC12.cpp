@@ -5,12 +5,7 @@
 #include <math.h>
 
 struct FieldParse;
-class INI
-{
-public:
-	void initFromINI(void *vals, const struct FieldParse *table);
-	static void parseReal(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 struct FieldParse
 {

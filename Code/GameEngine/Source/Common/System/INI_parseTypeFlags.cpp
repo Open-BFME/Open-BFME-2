@@ -6,15 +6,7 @@
 // BFME2DamageTypeNames is a descriptive alias of the verified FORCE..POISON
 // pointer array at VA 0xDBE858, not fabricated source data. Exception throwinfo
 // anchor denotes the existing INIException chain at VA 0xCFE2FC.
-class INI {
-public:
-    const char *getNextToken(const char *seps);
-    const char *getNextTokenOrNull(const char *seps);
-    int scanIndexList(const char *token, const char * const *names);
-    static void parseVeterancyLevelFlags(INI *, void *, void *, const void *);
-    static void parseDamageTypeFlags(INI *, void *, void *, const void *);
-    static void parseDeathTypeFlags(INI *, void *, void *, const void *);
-};
+#include "../../../Include/Common/INI/INI.h"
 extern const char *TheVeterancyNames[];
 // Owned here: parseDamageTypeFlags (0x338CD0) is the only reader of the .data table at VA 0x00DBE858
 // (retail's entries and NULL terminator, transcribed from the image).

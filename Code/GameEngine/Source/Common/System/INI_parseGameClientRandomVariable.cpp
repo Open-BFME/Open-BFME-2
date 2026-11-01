@@ -22,15 +22,7 @@ const char *GameClientRandomVariable::DistributionTypeNames[] =
 	"CONSTANT", "UNIFORM", "GAUSSIAN", "TRIANGULAR", "LOW_BIAS", "HIGH_BIAS", 0
 };
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps = 0);
-	const char *getNextTokenOrNull(const char *seps = 0);
-	float scanReal(const char *token);
-	int scanIndexList(const char *token, const char *const *nameList);
-	static void parseGameClientRandomVariable(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 // ?parseGameClientRandomVariable@INI@@SAXPAV1@PAX1PBX@Z
 void INI::parseGameClientRandomVariable(INI *ini, void *, void *store, const void *)

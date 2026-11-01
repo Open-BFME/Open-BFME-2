@@ -19,12 +19,7 @@ public:
 
 extern UpgradeCenter *TheUpgradeCenter;
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps = 0);
-	static void parseUpgradeTemplate(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 // ?parseUpgradeTemplate@INI@@SAXPAV1@PAX1PBX@Z
 void INI::parseUpgradeTemplate(INI *ini, void *, void *store, const void *)

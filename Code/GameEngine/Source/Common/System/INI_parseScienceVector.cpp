@@ -32,13 +32,7 @@ public:
 };
 }
 
-class INI
-{
-public:
-	const char *getNextTokenOrNull(const char *seps);
-	static ScienceType scanScience(const char *token);
-	static void parseScienceVector(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 #include <string.h>
 
