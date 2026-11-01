@@ -3,16 +3,7 @@
 // Evidence: vslot slot 41; pin Rva0008FF12Host; caller jmp 0x0008FF1D; callee drawWindow 0x002C0FC9; TheTransitionHandler (DIR32 0x00DFDC14, the
 // GameWindowTransitionsHandler global; TheAudio is the distinct pointer at 0x00DFE6E8).
 
-class GameWindow
-{
-public:
-	unsigned char m_pad00[0x08];
-	unsigned int m_flags8; // +0x08
-	unsigned char m_pad0C[0x1F4 - 0x0C];
-	int m_1F4; // +0x1F4
-	unsigned char m_pad1F8[0x1FC - 0x1F8];
-	GameWindow *m_next; // +0x1FC
-};
+#include "../../Include/GameClient/Bfme2GameWindow.h"
 
 class GameWindowManager
 {
@@ -57,11 +48,11 @@ void Rva0008FF12Host::rva002C108F()
 	{
 		do
 		{
-			int v = gameWindow->m_1F4;
-			GameWindow *next = gameWindow->m_next;
+			int v = gameWindow->m_bfmeCallbackExtra2;
+			GameWindow *next = gameWindow->m_prev;
 			if (v == m_3C)
 			{
-				unsigned int f = gameWindow->m_flags8;
+				unsigned int f = gameWindow->m_status;
 				if ((f & hidden) == 0 && (f & 0x40) != 0)
 					((GameWindowManager *)this)->drawWindow(gameWindow);
 			}
@@ -73,11 +64,11 @@ void Rva0008FF12Host::rva002C108F()
 	{
 		do
 		{
-			int v = gameWindow->m_1F4;
-			GameWindow *next = gameWindow->m_next;
+			int v = gameWindow->m_bfmeCallbackExtra2;
+			GameWindow *next = gameWindow->m_prev;
 			if (v == m_3C)
 			{
-				unsigned int f = gameWindow->m_flags8;
+				unsigned int f = gameWindow->m_status;
 				if ((f & hidden) == 0 && (f & 0x60) == 0)
 					((GameWindowManager *)this)->drawWindow(gameWindow);
 			}
@@ -89,11 +80,11 @@ void Rva0008FF12Host::rva002C108F()
 	{
 		do
 		{
-			int v = gameWindow->m_1F4;
-			GameWindow *next = gameWindow->m_next;
+			int v = gameWindow->m_bfmeCallbackExtra2;
+			GameWindow *next = gameWindow->m_prev;
 			if (v == m_3C)
 			{
-				unsigned int f = gameWindow->m_flags8;
+				unsigned int f = gameWindow->m_status;
 				if ((f & hidden) == 0 && (f & 0x20) != 0)
 					((GameWindowManager *)this)->drawWindow(gameWindow);
 			}

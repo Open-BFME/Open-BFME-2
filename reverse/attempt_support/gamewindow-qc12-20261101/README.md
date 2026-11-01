@@ -75,3 +75,5 @@ processDestroyList's scalar deleting-dtor flag0/returned-pointer ABI must be
 proved rather than changing it to a generic delete. No BehaviorModuleBase or
 UpdateModule root adoption is attempted. Shared obstacle register is held
 elsewhere; this README is its proposed native-ABI/remaining-consumer entry.
+
+Host donor: canonical status8/phase1F4 and reverse-link1FC names; same185B draw traversal and all runtime providers, no table emission.
