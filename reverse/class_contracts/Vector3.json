@@ -1,0 +1,92 @@
+{
+ "bases": [],
+ "bases_by": "zh",
+ "class": "Vector3",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 40,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 16
+   },
+   "0x4": {
+    "4": 16
+   },
+   "0x8": {
+    "4": 12
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 9,
+  "retail_vtables": {},
+  "view_errors": 1,
+  "view_sizes": {
+   "12": 39
+  },
+  "views": 39,
+  "witness_offsets": [],
+  "zh": {
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath/vector3.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "X",
+   "name_by": "zh",
+   "offset": 0,
+   "retail_widths": {
+    "4": 16
+   },
+   "size": 4,
+   "type": "float",
+   "views": 39,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "Y",
+   "name_by": "zh",
+   "offset": 4,
+   "retail_widths": {
+    "4": 16
+   },
+   "size": 4,
+   "type": "float",
+   "views": 39,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "Z",
+   "name_by": "zh",
+   "offset": 8,
+   "retail_widths": {
+    "4": 12
+   },
+   "size": 4,
+   "type": "float",
+   "views": 39,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 457,
+  "struct": 3
+ },
+ "outliers": [],
+ "queue": [],
+ "size": 12,
+ "size_by": "zh",
+ "vslots": {}
+}
