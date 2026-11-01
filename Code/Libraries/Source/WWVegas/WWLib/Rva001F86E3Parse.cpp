@@ -7,11 +7,7 @@
 // rva001F43BD 0x1F43BD row, releaseBuffer 0x36410 row, EH prolog row.
 #include "ascii_string.h"
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-};
+#include "../../../../GameEngine/Include/Common/INI/INI.h"
 
 class Rva001F43BD
 {

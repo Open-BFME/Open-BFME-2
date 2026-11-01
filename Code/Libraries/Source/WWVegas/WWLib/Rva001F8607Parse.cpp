@@ -2,11 +2,7 @@
 // ?Rva001F8607Parse@@YAXPAVINI@@PAX@Z @0x001F8607 110B: INI token lookup in FXParticleSystem CategoryModuleClass<3> list then owned-pointer store at +0xB4 via rowed rva001F43BD setter; twin of Rva001F8599Parse 0x001F8599 with s_head $03 at 0x009FDD4C and B4 offset; evidence retail getNextToken 0x2DF97 row StringBase ctor 0x37BA0 row compare 0x69B1 row virtual slot0 create rva001F43BD 0x1F43BD row releaseBuffer 0x36410 row EH prolog row.
 #include "ascii_string.h"
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-};
+#include "../../../../GameEngine/Include/Common/INI/INI.h"
 
 class Rva001F43BD
 {

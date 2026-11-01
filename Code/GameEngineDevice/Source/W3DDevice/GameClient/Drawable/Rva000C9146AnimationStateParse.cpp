@@ -37,19 +37,7 @@ struct FieldParse
 	int offset;
 };
 
-class INI
-{
-public:
-	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
-	static void parseBitString32(INI *ini, void *instance, void *store, const void *userData);
-	static void parseBool(INI *ini, void *instance, void *store, const void *userData);
-	static void parseFXList(INI *ini, void *instance, void *store, const void *userData);
-	static void parseInt(INI *ini, void *instance, void *store, const void *userData);
-	static void rva0002DE3C(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva000C3B6EParse(INI *ini, void *instance, void *store, const void *userData);
-	const char *getNextTokenOrNull(const char *seps);
-	void initFromINI(void *what, const FieldParse *parseTable);
-};
+#include "../../../../../GameEngine/Include/Common/INI/INI.h"
 
 class Rva000B937E
 {

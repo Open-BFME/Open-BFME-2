@@ -32,15 +32,7 @@ typedef MixFileCreator::FileInfoStruct FileInfoStruct;
 // Use the rowed push_back specialization at 0x00218DD2.
 namespace _STL { template <> void vector<FileInfoStruct>::push_back(const FileInfoStruct &); }
 
-class INI
-{
-public:
-	const char *getNextToken(const char *delimiters);
-	int scanInt(const char *token);
-	AsciiString getNextAsciiString();
-	AsciiString getNextQuotedAsciiString();
-	void initFromINI(void *instance, const struct FieldParse *fields);
-};
+#include "../../../../GameEngine/Include/Common/INI/INI.h"
 
 struct Rva00218FC2Record
 {

@@ -37,12 +37,7 @@ template<class T, class A=allocator<T> > class vector { public: void push_back(c
 }
 struct FieldParse;
 extern const FieldParse AttachModelFieldParse[];
-class INI {
-public:
-	void initFromINI(void *,const FieldParse *);
-	static void parseAsciiString(INI *, void *, void *, const void *);
-	static void parseCoord3D(INI *, void *, void *, const void *);
-};
+#include "../../../../../GameEngine/Include/Common/INI/INI.h"
 void parseModelConditionFlags(INI *, WeaponTemplateSetHead *, WeaponTemplateSetHead *);
 class W3DScriptedModelDrawModuleData {
 public:

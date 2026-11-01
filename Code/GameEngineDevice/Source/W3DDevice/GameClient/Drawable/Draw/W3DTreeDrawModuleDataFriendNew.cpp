@@ -15,11 +15,7 @@ class INI;
 class MultiIniFieldParse;
 
 
-class INI
-{
-public:
-	void initFromINIMultiProc(void *what, void (__cdecl *proc)(MultiIniFieldParse &));
-};
+#include "../../../../../../GameEngine/Include/Common/INI/INI.h"
 
 class W3DTreeDrawModuleData
 {

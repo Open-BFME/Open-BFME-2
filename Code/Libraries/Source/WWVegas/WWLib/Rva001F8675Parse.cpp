@@ -8,11 +8,7 @@
 // and that Init's parse-pointer store place the start.
 #include "ascii_string.h"
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-};
+#include "../../../../GameEngine/Include/Common/INI/INI.h"
 
 class Rva001F43BD
 {

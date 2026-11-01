@@ -15,12 +15,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include <vector>
 #include "ascii_string.h"
 
-class INI
-{
-public:
-	static void parseIndexList(INI *ini, void *instance, void *store, const void *userData);
-	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../../GameEngine/Include/Common/INI/INI.h"
 
 class CameraMarker
 {

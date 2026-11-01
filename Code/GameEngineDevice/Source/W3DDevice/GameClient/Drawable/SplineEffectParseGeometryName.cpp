@@ -29,11 +29,7 @@ typedef int Int;
 
 #include "../../../../../GameEngine/Include/Common/INI/FieldParse.h"
 
-class INI
-{
-public:
-	AsciiString getNextAsciiString();
-};
+#include "../../../../../GameEngine/Include/Common/INI/INI.h"
 
 class Rva003BB680Owner
 {
