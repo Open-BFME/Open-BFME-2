@@ -20842,3 +20842,12 @@ Code/GameEngine/Source/Common/NativeBlockWriters.cpp|param|Rva0052AF5F::write|b,
 Code/GameEngine/Source/Common/NativeBlockWriters.cpp|param|Rva005975E1::write|b,322d64567fe8964c100754c4,haiku-5.5,drz-k10-n33g,w-a9197dfa94c6,2026-11-01
 Code/GameEngine/Source/Common/ObfuscatedValueOperators.cpp|local|Rva00077710Value::rva0022D89D|tmp,761ab3cbd2a67d4ce273995a,haiku-5.5,drz-k10-n33g,w-a9197dfa94c6,2026-11-01
 Code/GameEngine/Source/Common/ObfuscatedValueOperators.cpp|local|Rva00077710Value::rva0022D99A|tmp,1a8dcec6742bf868a234a451,haiku-5.5,drz-k10-n33g,w-a9197dfa94c6,2026-11-01
+Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB06.cpp|class||Rva002D62ABFlashState,2320746f2abdcf73ead5129c,drz-k11,n33h-k11,w-eba6c619cb9e,2026-11-01
+Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB06.cpp|local|Rva002D62AB::updateButtonFlash|argument,3f343aa773b3be4b96af6c6a,drz-k11,n33h-k11,w-eba6c619cb9e,2026-11-01
+Code/GameEngine/Source/Common/ParticleSystemManagerFindByID.cpp|class||BfmeParticleSystemNode,d73b832287070e119109e121,drz-k11,n33h-k11,w-eba6c619cb9e,2026-11-01
+Code/GameEngine/Source/Common/ParticleSystemManagerFindByID.cpp|class||BfmeParticleSystemIterator,3bfe19bb906ad7a7a975dc63,drz-k11,n33h-k11,w-eba6c619cb9e,2026-11-01
+Code/GameEngine/Source/Common/PathfindCell_CalcCostSoFar.cpp|local|PathfindCell::CalcCostSoFar|dx1,3cddbee09953b57c2e2b0fa0,drz-k11,n33h-k11,w-eba6c619cb9e,2026-11-01
+Code/GameEngine/Source/Common/PathfindCell_CalcCostSoFar.cpp|local|PathfindCell::CalcCostSoFar|dy1,e9a05a8be71c59fe9d54df4a,drz-k11,n33h-k11,w-eba6c619cb9e,2026-11-01
+Code/GameEngine/Source/Common/PathfindCell_CalcCostSoFar.cpp|local|PathfindCell::CalcCostSoFar|e,d6514edd4fd5ca2dddde380f,drz-k11,n33h-k11,w-eba6c619cb9e,2026-11-01
+Code/GameEngine/Source/Common/PathfindCell_CalcCostSoFar.cpp|local|PathfindCell::CalcCostSoFar|dx2,232683c06ae2e89a67bf5ef8,drz-k11,n33h-k11,w-eba6c619cb9e,2026-11-01
+Code/GameEngine/Source/Common/PathfindCell_CalcCostSoFar.cpp|local|PathfindCell::CalcCostSoFar|dy2,558db829068ecac68ccb8294,drz-k11,n33h-k11,w-eba6c619cb9e,2026-11-01
