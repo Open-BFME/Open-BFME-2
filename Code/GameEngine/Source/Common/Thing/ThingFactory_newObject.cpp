@@ -84,7 +84,7 @@ class Object : public Thing, public Snapshot, public BfmeCtor001B3A20, public Rv
 public:
 	Object(const ThingTemplate *tmplate, const CreateMask *mask, Team *team, ObjectID id);
 	virtual void LoadPostProcess();
-	virtual void crc(Xfer *);
+	virtual const char *GetSnapshotName() const;
 	virtual void DoXfer(Xfer *);
 	ObjectID getID() const { return m_id; }
 	BehaviorModule **getBehaviorModules() const { return m_behaviors; }

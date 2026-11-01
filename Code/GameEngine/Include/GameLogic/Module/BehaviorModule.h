@@ -28,6 +28,10 @@
 #ifndef __BFME2_BEHAVIORMODULE_H_
 #define __BFME2_BEHAVIORMODULE_H_
 
+// BFME2's Snapshot has the GetSnapshotName slot where Zero Hour spells crc.
+#if !defined(__SNAPSHOT_H_) && !defined(BFME_SNAPSHOT_NAME_SLOT)
+#define BFME_SNAPSHOT_NAME_SLOT
+#endif
 #include "../../Common/ObjectModule.h"
 
 class AIUpdateInterface;
