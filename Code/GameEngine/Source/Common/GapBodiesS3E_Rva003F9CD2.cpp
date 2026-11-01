@@ -69,24 +69,8 @@ public:
 	static void parseFontDesc(INI *ini, void *instance, void *store, const void *userData);	// 0x0037691C
 };
 
-class Rva005742A1
-{
-public:
-	virtual void rva005742A1(INI *ini);
-private:
-	static const FieldParse s_fieldParseTable[];
-};
-
 // The table definition is owned by GapBodiesS3E.cpp.
 
-
-class Rva0057A260
-{
-public:
-	virtual void rva0057A260(INI *ini);
-private:
-	static const FieldParse s_fieldParseTable[];
-};
 
 // The table definition is owned by GapBodiesS3E.cpp.
 
@@ -117,35 +101,11 @@ void rva004E1342(INI *ini, void *instance, void *store, const void *userData)
 // --- 0x005CB288 / 0x005E3955 / 0x005E9F80 (18B each): more table slots
 // parsing an INI block into this object through static field tables (retail
 // 0x00C74D20, 0x00C77C10 and 0x00C780D4; the field names are retail's).
-class Rva005CB288
-{
-public:
-	virtual void rva005CB288(INI *ini);
-private:
-	static const FieldParse s_fieldParseTable[];
-};
-
 // The table definition is owned by GapBodiesS3E.cpp.
 
 
-class Rva005E3955
-{
-public:
-	virtual void rva005E3955(INI *ini);
-private:
-	static const FieldParse s_fieldParseTable[];
-};
-
 // The table definition is owned by GapBodiesS3E.cpp.
 
-
-class Rva005E9F80
-{
-public:
-	virtual void rva005E9F80(INI *ini);
-private:
-	static const FieldParse s_fieldParseTable[];
-};
 
 // The table definition is owned by GapBodiesS3E.cpp.
 

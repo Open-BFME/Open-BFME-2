@@ -7,11 +7,6 @@
 // then tail-jumps the pinned 0x004E3B78 member on this+8.
 #include "ascii_string.h"
 
-class Rva003EEC63
-{
-public:
-	void rva003EEC63(void *p, AsciiString s, bool a, bool b);
-};
 class Rva004E3CD0 { public: void rva004E3A6E(); };
 struct Rva004E3B78Node {
     unsigned unknown00;
@@ -63,49 +58,7 @@ void Rva004E3B78::rva004E3B78()
 class RenderObjClass;
 RenderObjClass *Create_Render_Obj(const char *);
 void rva0010E4F6(void *,bool);
-class Rva002BF4F3 { public: void rva002BEA10(RenderObjClass *,bool); };
 class Rva002D3627Host;
 class LivingWorld; extern LivingWorld *TheLivingWorld;
 class GlobalData;
 extern GlobalData *TheWritableGlobalData;
-struct RegionObjectTransform
-{
-    float m[3][4];
-    __forceinline RegionObjectTransform() {
-        m[0][0]=1.0f;m[0][1]=0.0f;m[0][2]=0.0f;m[0][3]=0.0f;
-        m[1][0]=0.0f;m[1][1]=1.0f;m[1][2]=0.0f;m[1][3]=0.0f;
-        m[2][0]=0.0f;m[2][1]=0.0f;m[2][2]=1.0f;m[2][3]=0.0f;
-    }
-};
-struct RegionPosition {
- float x,y,z;
- __forceinline RegionPosition(float a,float b,float c):x(a),y(b),z(c){}
-};
-class RegionRenderObjectView
-{
-public:
-    virtual void s00();virtual void s04();virtual void s08();virtual void s0C();
-    virtual void s10();virtual void s14();virtual void s18();virtual void s1C();
-    virtual void s20();virtual void s24();virtual void s28();virtual void s2C();
-    virtual void s30();virtual void s34();virtual void s38();virtual void s3C();
-    virtual void s40();virtual void s44();virtual void s48();virtual void s4C();
-    virtual void slot50();
-    virtual void slot54(const RegionObjectTransform &);
-    char pad04[0x24-4];
-    float x;
-    char pad28[0x34-0x28];
-    float y;
-    char pad38[0x44-0x38];
-    float z;
-    __forceinline RegionPosition position() { slot50(); return RegionPosition(x,y,z); }
-};
-class RegionSceneView
-{
-public:
-    virtual void s00();virtual void s04();virtual void s08();virtual void s0C();
-    virtual void s10();virtual void s14();virtual void s18();virtual void s1C();
-    virtual void s20();virtual void s24();virtual void s28();virtual void s2C();
-    virtual void s30();virtual void s34();virtual void s38();virtual void s3C();
-    virtual float slot40();
-    virtual void slot44(RenderObjClass *);
-};

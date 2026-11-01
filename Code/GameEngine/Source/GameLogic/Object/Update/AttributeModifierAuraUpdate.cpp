@@ -399,53 +399,11 @@ class INI;
 
 class AsciiString;
 
-class Rva0021B7B6
-{
-public:
-	void rva0021B7B6(INI *ini, void *str);
-	static void parseFromINI(INI *ini, void *instance, void *store, const void *userData);
-};
-
-class Rva0033AFBB
-{
-public:
-	void rva0033B84E(INI *ini, AsciiString *str);
-	static void parseFromINI(INI *ini, void *instance, void *store, const void *userData);
-};
-
-class Rva003B1017
-{
-public:
-	void rva003B1017(INI *ini, void *str);
-	static void parseFromINI(INI *ini, void *instance, void *store, const void *userData);
-};
-
-class Rva003FB508
-{
-public:
-	void rva003FB508(INI *ini, void *str);
-	static void parseFromINI(INI *ini, void *instance, void *store, const void *userData);
-};
-
-class Rva00417DFB
-{
-public:
-	void rva00417DFB(INI *ini, void *str);
-	static void parseFromINI(INI *ini, void *instance, void *store, const void *userData);
-};
-
 class Rva0049B8A0 : public Rva0049B750
 {
 public:
 	void parse(INI *ini, void *extra);
 public:
-	static void parseFromINI(INI *ini, void *instance, void *store, const void *userData);
-};
-
-class Rva0049DD83
-{
-public:
-	void rva0049DD83(INI *ini, void *str);
 	static void parseFromINI(INI *ini, void *instance, void *store, const void *userData);
 };
 

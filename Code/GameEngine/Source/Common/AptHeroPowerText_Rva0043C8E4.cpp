@@ -44,35 +44,12 @@ UnicodeString __cdecl Rva005B2446Describe(void *power);
 // AptMyHero::rva005B0416 and the AptCreateAHero power panel. WorldBuilder's
 // twin 0x0157F330 is unnamed; the name is address-derived.
 class Image;
-class CommandButton
-{
-public:
-	const Image *rva0035B19E() const;
-	const AsciiString &rva0035B26F() const;
-};
 class ImageCollection
 {
 public:
 	const Image *findImageByName(const AsciiString &name);
 };
 extern ImageCollection *TheMappedImageCollection;
-class Rva00223A9F
-{
-public:
-	void *rva00223A9F(const AsciiString *key);
-};
-class Rva00223A94
-{
-public:
-	int rva00223A94(const AsciiString *key);
-};
-class Rva002239B2
-{
-public:
-	void rva002239E2(const AsciiString &key, const Image *image);
-};
-
-
 // ?rva005B9378@Rva005B9378@@QAEXHABVUnicodeString@@@Z @0x005B9378 178B: one
 // ticker row. The field text is the game-text label for the row's entry in
 // the label table at VA 0x00DD3B90, fetched through TheGameText's
@@ -155,12 +132,6 @@ class AptDisconnectScreen
 {
 public:
 	void rva00512CE9(int slot, bool b);
-};
-
-class Rva00513040
-{
-public:
-	void rva00513040(int v1, int v2);
 };
 
 // StringBase<unsigned short>::isEmpty, inline here as retail expands it.

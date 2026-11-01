@@ -721,28 +721,12 @@ public:
 	unsigned int m_flags; // +0x1C
 };
 
-class Rva006CD650
-{
- public:
- void *rva006CD650();
-};
-
 // Retail preserves the unsigned-address addition before the resource load.
 // Using direct pointer arithmetic folds these two instructions in MSVC 7.1.
 AptValue *__cdecl Rva008A4EA0MakeFloat(float value);
 
 // ?rva006ee3b0@@YAPAVAptValue@@PAV1@@Z @0x006EE3B0, 393B.
 // ?rva006ee540@@YAPAVAptValue@@PAV1@@Z @0x006EE540, 373B.
-class AptInteger
-{
- public:static AptValue *Create(int);
-};
-
-class Rva008A4570Owner
-{
- public:bool nameEquals(const char*);
-};
-
 class Rva006EB4B0
 {
  public:EAStringC font;
@@ -837,21 +821,6 @@ struct TextInstance
 static const unsigned int eventMasks[18]=
 {
  0x100,0x10000,0x8000,0x2,0x40,0x80,0xFFFFFFFF,0x1,0x10,0x8,0x20,0x400,0x800,0x1000,0x4000,0x2000,0xFFFFFFFF,0x4
-};
-
-class Rva006D89D0ByteField
-{
- public:unsigned char get()const;
-};
-
-class Rva00723490FloatField
-{
- public:float get()const;
-};
-
-class Rva00144010Opaque
-{
- public:int rva00144010();
 };
 
 // ---- from Code/Libraries/Source/Apt/AptCharacter.cpp

@@ -635,43 +635,11 @@ bool Rva004319AF::rva004319AF(unsigned now) const
 
 // --- 0x00432858 (38B, cdecl): whether TheMouse's +0x4F0C block has any of
 // its +0x18 / +0x24 / +0x30 words set.
-struct Rva00432858Block
-{
-	char m_pad[0x18];
-	int m_18;
-	char m_pad1C[0x24 - 0x1C];
-	int m_24;
-	char m_pad28[0x30 - 0x28];
-	int m_30;
-};
-
 class Mouse;
 extern Mouse *TheMouse;
 
-struct Rva00432858Mouse
-{
-	char m_pad[0x4F0C];
-	Rva00432858Block m_block;
-};
-
 // --- 0x00432968 (14B): the address of the +0x08 24-byte record the +0x1E8
 // index selects.
-struct Rva00432968Record
-{
-	int m_words[6];
-};
-
-class Rva00432968
-{
-public:
-	Rva00432968Record *rva00432968();
-private:
-	int m_00;
-	int m_04;
-	Rva00432968Record m_records[20];
-	int m_1E8;
-};
-
 // --- 0x00435B71 (17B) / 0x00435BA1 (18B) / 0x00435D70 (13B): the rowed
 // obfuscated hooks fed one value twice (a sign-extended short, the argument,
 // the +0x04 word); 0x00435B71 and 0x00435BA1 do not read the receiver.
@@ -768,12 +736,6 @@ public:
 };
 
 extern MultiplayerSettings *TheMultiplayerSettings;
-
-struct Rva0043A1C0ColorView
-{
-	char m_pad[0x10];
-	int m_color;
-};
 
 // AptLoadScreen's Apt extern handlers: its constructor 0x0043AE44 registers 0x0043A1C0 as
 // "GameLoading:PlayerColor:%d" and 0x0043A242 as "GameLoadingType" (AptLoadScreenCtor.cpp).

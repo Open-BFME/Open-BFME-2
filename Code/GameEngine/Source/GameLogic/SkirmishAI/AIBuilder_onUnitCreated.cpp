@@ -21,11 +21,6 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits> &a,
 class AsciiString;
 // Retail Version stores minimum/current bytes and has an inline constructor;
 // that constructor form also reproduces the independent stack homes in DoXfer.
-struct WallVersion
-{
-    WallVersion(unsigned char min, unsigned char cur) : minimum(min), current(cur) {}
-    unsigned char minimum, current;
-};
 class Snapshot;
 class UnicodeString;
 class PooledString;
@@ -45,11 +40,7 @@ struct XferUnknown11;
 #include "../../../Include/Common/BfmeXfer.h"
 
 
-class AIDozerManager {public: void DoXfer(Xfer*);};
-class AIBaseBuilder {public: void DoXfer(Xfer*);};
 #include "Code/GameEngine/Source/GameLogic/SkirmishAI/AIEconomyBuilder/AIEconomyBuilderFarmLibrary.h"
-class AIWallBuilder {public: void DoXfer(Xfer*);};
-class Rva00598DA2 {public: void rva00598DA2(Xfer*);};
 class Rva0059761B {public: void rva0059761B(void*);};
 class Player
 {
@@ -64,11 +55,6 @@ public:
     unsigned char prefix00[0x14];
     unsigned int saved14;
     int limit18;
-};
-struct AIBuilderSavingsStore
-{
-    unsigned char prefix00[0x0c];
-    Rva00596389 *saver0c;
 };
 struct Rva002A8AB1Record
 {

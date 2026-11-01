@@ -97,26 +97,11 @@ void Rva002BF6A7::rva002BF6A7(int owner)
 }
 // Retail 0x005F83A9, 16B: pass the 8-byte element count of the range at
 // +0x20/+0x24 to member 0x00578513 on the same object.
-struct Rva005F83A9Element
-{
-	int m_a;
-	int m_b;
-};
 // LINK: 0x00578513 is rowed as Rva00578513::rva00578513; bind it through a view of this object.
 class Rva00578513
 {
 public:
 	void rva00578513(int count);
-};
-class Rva005F83A9
-{
-public:
-	void rva005F83A9();
-
-private:
-	char m_pad00[0x20];
-	Rva005F83A9Element *m_begin;
-	Rva005F83A9Element *m_end;
 };
 #include "../../Common/RegionCenterPointDispatchView.h"
 #include "Lib/Coord2D.h"
@@ -383,14 +368,6 @@ class Rva002BF652{public:void rva002BF652(void*);};
 // Native5CD284..5CD2A3 RET0, WB15C5010: empty folded hook, owned
 // 8B child-forwarder then region placement(value20->18, receiver10).
 // Existing neutral noop owner names only the proven shared empty RET.
-class PathfindLayer {public:void rva000B3FD0();};
-
-class Rva005CCB5B {public:void rva005CCB5B();};
-
-struct Rva005CD284Value {char pad[0x18];void*value;};
-
-class Rva005CD284 {public:void rva005CD284();private:char pad[0x10];Rva002BF652*placer;char pad14[0xC];Rva005CD284Value*holder;};
-
 class Rva000411084;
 
 class Rva002BFAD6

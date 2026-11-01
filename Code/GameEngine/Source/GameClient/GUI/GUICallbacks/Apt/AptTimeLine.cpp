@@ -72,25 +72,6 @@ struct AptTimeLineMiscAudio
 	unsigned char m_pad98[0x9C - 0x98];
 	OpaqueRefElement4 m_continue; // +0x9C
 };
-class AptTimeLineAudioView
-{
-public:
-#define V(n) virtual void pad##n();
-	V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9)
-	V(10) V(11) V(12) V(13) V(14) V(15) V(16) V(17) V(18) V(19)
-	V(20) V(21) V(22) V(23) V(24)
-	virtual void addAudioEvent(const BfmeAudioEventPrefix136 *event);
-	V(26) V(27) V(28) V(29)
-	V(30) V(31) V(32) V(33) V(34)
-	virtual void stopAudio(int a, int b, int c);
-	V(36) V(37) V(38) V(39)
-	V(40) V(41) V(42) V(43) V(44) V(45) V(46) V(47) V(48) V(49)
-	V(50) V(51) V(52) V(53) V(54) V(55) V(56) V(57) V(58) V(59)
-	V(60) V(61) V(62) V(63) V(64) V(65) V(66) V(67) V(68) V(69)
-	V(70) V(71) V(72) V(73) V(74) V(75) V(76) V(77)
-#undef V
-	virtual AptTimeLineMiscAudio *getMiscAudio();
-};
 class AudioManager;
 extern AudioManager *TheAudio;
 #include "../../../../../Include/GameLogic/Weapon.h"
@@ -1030,24 +1011,12 @@ public:
 	_STL::vector<LivingWorldPlayer*> m_players; // +0x8C
 };
 
-class Rva002B3753
-{
-public:
-	int rva002B3753();
-};
-
 class LivingWorldLogic;
 
 extern LivingWorldLogic *TheLivingWorldLogic;
 
 // The main menu (OpaqueScalarDeletingDtorsB12.cpp's g_Va00E048DC); its
 // verified 0x005158A7 picks the credits menu.
-class AptMainMenu
-{
-public:
-	void rva005158A7();
-};
-
 extern int g_Va00E048DC;
 
 extern GameLogic *TheGameLogic;
@@ -1060,12 +1029,6 @@ struct AptTimeLineShell
 };
 
 class Shell;
-
-class Rva00222479ByteOneSetter
-{
-public:
-	void enable();
-};
 
 class Mouse
 {
@@ -1140,8 +1103,6 @@ class RecorderClass { public: RecorderModeType getMode(); };
 	// 0x0030F2C7
 extern RecorderClass *TheRecorder;
 
-class Rva0023C666 { public: bool rva0023C666(); };
-
 // ?get@Rva00210C66CmpBoolField@@QBE_NXZ, rowed 0x00210C66 (LivingWorldLogic.cpp)
 class Rva00210C66CmpBoolField
 {
@@ -1159,8 +1120,6 @@ private:
 	unsigned char m_first;
 	unsigned char m_second;
 };
-
-struct AptTimeLineGameLogicView { unsigned char m_pad[0x110]; int m_mode; int m_gameType; };
 
 class AptTimeLineScreen { public: void rva00520CD1(); };
 

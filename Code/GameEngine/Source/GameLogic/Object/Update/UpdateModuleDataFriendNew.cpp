@@ -16,19 +16,6 @@ public:
 	void initFromINIMultiProc(void *what, void (__cdecl *proc)(MultiIniFieldParse &));
 };
 
-class DynamicPortalBehaviourModuleData
-{
-public:
-	DynamicPortalBehaviourModuleData();
-	virtual ~DynamicPortalBehaviourModuleData();
-	static void buildFieldParse(MultiIniFieldParse &parse);
-	static ModuleData *friend_newModuleData(INI *ini);
-
-private:
-	unsigned char m_pad[0x15C - 4];
-};
-
-
 class FakePathfindPortalBehaviourModuleData
 {
 public:
@@ -365,18 +352,6 @@ ModuleData *ToggleDeploySpecialAbilityUpdateModuleData::friend_newModuleData(INI
 	return reinterpret_cast<ModuleData *>(data);
 }
 
-class TeleportSpecialAbilityUpdateModuleData
-{
-public:
-	TeleportSpecialAbilityUpdateModuleData();
-	virtual ~TeleportSpecialAbilityUpdateModuleData();
-	static void buildFieldParse(MultiIniFieldParse &parse);
-	static ModuleData *friend_newModuleData(INI *ini);
-
-private:
-	unsigned char m_pad[0xD8 - 4];
-};
-
 class HeroModeSpecialAbilityUpdateModuleData
 {
 public:
@@ -397,18 +372,6 @@ ModuleData *HeroModeSpecialAbilityUpdateModuleData::friend_newModuleData(INI *in
 		ini->initFromINIMultiProc(data, HeroModeSpecialAbilityUpdateModuleData::buildFieldParse);
 	return reinterpret_cast<ModuleData *>(data);
 }
-
-class WeaponSetSpecialAbilityUpdateModuleData
-{
-public:
-	WeaponSetSpecialAbilityUpdateModuleData();
-	virtual ~WeaponSetSpecialAbilityUpdateModuleData();
-	static void buildFieldParse(MultiIniFieldParse &parse);
-	static ModuleData *friend_newModuleData(INI *ini);
-
-private:
-	unsigned char m_pad[0xD0 - 4];
-};
 
 class ScaleWallSpecialAbilityUpdateModuleData
 {
@@ -473,19 +436,6 @@ ModuleData *DozerAIUpdateModuleData::friend_newModuleData(INI *ini)
 	return reinterpret_cast<ModuleData *>(data);
 }
 
-class FadeAndDieOrnamentUpdateModuleData
-{
-public:
-	FadeAndDieOrnamentUpdateModuleData();
-	virtual ~FadeAndDieOrnamentUpdateModuleData();
-	static void buildFieldParse(MultiIniFieldParse &parse);
-	static ModuleData *friend_newModuleData(INI *ini);
-
-private:
-	unsigned char m_pad[0x38 - 4];
-};
-
-
 class StructureCollapseUpdateModuleData
 {
 public:
@@ -506,19 +456,6 @@ ModuleData *StructureCollapseUpdateModuleData::friend_newModuleData(INI *ini)
 		ini->initFromINIMultiProc(data, StructureCollapseUpdateModuleData::buildFieldParse);
 	return reinterpret_cast<ModuleData *>(data);
 }
-
-class WorkerAIUpdateModuleData
-{
-public:
-	WorkerAIUpdateModuleData();
-	virtual ~WorkerAIUpdateModuleData();
-	static void buildFieldParse(MultiIniFieldParse &parse);
-	static ModuleData *friend_newModuleData(INI *ini);
-
-private:
-	unsigned char m_pad[0x94 - 4];
-};
-
 
 class RespawnUpdateModuleData
 {
@@ -687,18 +624,6 @@ ModuleData *WoundArrowUpdateModuleData::friend_newModuleData(INI *ini)
 		ini->initFromINIMultiProc(data, WoundArrowUpdateModuleData::buildFieldParse);
 	return reinterpret_cast<ModuleData *>(data);
 }
-
-class FellBeastSwoopPowerModuleData
-{
-public:
-	FellBeastSwoopPowerModuleData();
-	virtual ~FellBeastSwoopPowerModuleData();
-	static void buildFieldParse(MultiIniFieldParse &parse);
-	static ModuleData *friend_newModuleData(INI *ini);
-
-private:
-	unsigned char m_pad[0xD0 - 4];
-};
 
 // Registration SpecialAbilityUpdate (0x00259DD9) pushes this data factory with
 // the rowed SpecialAbilityUpdate::friend_newModuleInstance 0x0024A847. Its

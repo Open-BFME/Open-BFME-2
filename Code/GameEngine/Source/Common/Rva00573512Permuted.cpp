@@ -12,12 +12,6 @@ public:
     unsigned m_words[7];
 };
 
-struct ThingTemplate
-{
-    char m_pad[0x108];
-    int m_kindOf;
-};
-
 struct Thing
 {
     bool isAnyKindOf(const BitFlags<69> &mask) const;
@@ -90,26 +84,3 @@ class Player;
 class Object;
 #include "GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
-class AITarget
-{
-public:
-    void setTarget(Object *, float);
-};
-struct EnemyHeuristicIds { ObjectID *first, *last, *limit; };
-class Rva005C4AD1LeaField
-{
-public:
-    void *get() const;
-};
-struct EnemyHeuristicRecord
-{
-    void *units;
-    void *unused;
-    Rva005C4AD1LeaField *structures;
-};
-class AITargetHeuristicEnemyDozer
-{
-public:
-    int isValidTarget(Thing *, void *);
-    void findBestTarget(AITarget *, Player *, Player *);
-};

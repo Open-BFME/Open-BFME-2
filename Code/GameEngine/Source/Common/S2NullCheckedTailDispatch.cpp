@@ -80,39 +80,3 @@ unsigned Rva000E44B1::dispatch() const
 // original method name is inferred from this adjacency. Argument words are
 // raw32 bits; their pointer/integer meaning remains unknown. The target
 // virtual declarations only express the witnessed slot and physical arity.
-class Rva001F4234Slot1 {
-public:
-    virtual void slot0();
-    virtual void forward();
-};
-class Rva001F4234 {
-public:
-    void forward();
-    Rva001F4234Slot1 *held;
-};
-
-class Rva001F4240Slot3 {
-public:
-    virtual void slot0();
-    virtual void slot1();
-    virtual void slot2();
-    virtual void forward(unsigned first, unsigned second);
-};
-class Rva001F4240 {
-public:
-    void forward(unsigned first, unsigned second);
-    Rva001F4240Slot3 *held;
-};
-
-class Rva001F424ESlot3 {
-public:
-    virtual void slot0();
-    virtual void slot1();
-    virtual void slot2();
-    virtual void forward(unsigned word);
-};
-class Rva001F424E {
-public:
-    void forward(unsigned word);
-    Rva001F424ESlot3 *held;
-};

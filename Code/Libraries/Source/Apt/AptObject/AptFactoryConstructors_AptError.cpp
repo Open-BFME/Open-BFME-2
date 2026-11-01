@@ -153,17 +153,12 @@ AptValue *callback006F36B0(AptValue *context,int);
 
 struct AptActionInterpreter;
 extern AptActionInterpreter g_aptDateInterpreter;
-class AptBasePtrStack {public:BfmeAptValue006DCD20 *At(int);};
-struct SoundExport {const char *name;int id;};
-struct SoundCharacterValue {int type;int opaque;void *id;};
-struct SoundAnimation {char opaque[0x10];SoundCharacterValue **characters;char opaque2[0x28-0x14];int exportCount;SoundExport *exports;};
 AptValue *callback006F3580(AptValue *context,int);
 
 
 // Colour donor setRGB/getRGB semantics with original procedural-property ABI:
 // native indices8/9/10, multiplier fields28/2C/30 and AS-change flag16 at5C.
 // Original getRGB omits later clamping and truncates each float to int.
-class AptInteger {public:static AptValue *Create(int);};
 AptValue *callback006F2700(AptValue *context,int);
 
 AptValue *callback006F2640(AptValue *context,int);
@@ -180,7 +175,6 @@ inline void *operator new(unsigned int n,FactoryObjectAllocation){return g_pChai
 // Native6F12F0 pool-delete fold; the tag is a TU-local structural model.
 inline void operator delete(void *p,FactoryObjectAllocation size){g_pChainBlockAllocatorF4->freeBlock(p,size);}
 class Rva8D0D80String;class Rva8D0D80Value;
-class Rva8D0D80Table {public:void add(Rva8D0D80String *,Rva8D0D80Value *);};
 #define COLOUR_ASSERT(expr,line) if(!(expr)){g_bfmeAptAssertAtE17734(#expr,"C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptObject\\AptScriptColour.cpp",line);if(g_bfmeAptBreakOnAssertAtDDC01C){__asm int 3}}
 AptValue *callback006F2760(AptValue *context,int count);
 

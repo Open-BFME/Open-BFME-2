@@ -210,28 +210,6 @@ private:
 
 
 
-class Rva003B85D0
-{
-public:
-	void * m_at00;
-	int m_at04;
-	int m_at08;
-	int m_at0C;
-	char m_at10;
-	Rva003B85D0();
-};
-
-class Rva003B7160
-{
-public:
-	void * m_at00;
-	int m_at04;
-	char m_at08;
-	char m_pad09[ 0x3 ];
-	int m_at0C;
-	Rva003B7160();
-};
-
 class Rva007E3430
 {
 public:
@@ -240,26 +218,6 @@ public:
 	int m_at08;
 	int m_at0C;
 	Rva007E3430();
-};
-
-class Rva0029BC80
-{
-public:
-	int m_at00;
-	int m_at04;
-	int m_at08;
-	char m_at0C;
-	Rva0029BC80();
-};
-
-class Rva000EC1E0
-{
-public:
-	void * m_at00;
-	int m_at04;
-	int m_at08;
-	char m_at0C;
-	Rva000EC1E0();
 };
 
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
@@ -304,28 +262,6 @@ class AggregateDefClass
 {
 public:
     RenderObjClass *Create(void);
-};
-
-class Rva00180AD6HelperOwner
-{
-public:
-    virtual void slot00();
-    virtual void slot04();
-    virtual void slot08();
-    virtual void slot0C();
-    virtual void slot10();
-    virtual void slot14();
-    virtual void slot18();
-    virtual void slot1C();
-    virtual void slot20();
-    virtual void slot24();
-    virtual bool ready();
-    virtual void prepare();
-
-    int guardedHelper();
-private:
-    unsigned char reserved04[0x14 - 4];
-    AggregateDefClass *helper;
 };
 
 //

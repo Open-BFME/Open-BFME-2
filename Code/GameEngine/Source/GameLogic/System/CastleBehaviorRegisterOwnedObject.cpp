@@ -81,8 +81,6 @@ class NameKeyGenerator { public: NameKeyType nameToKey(const char*); };
 extern NameKeyGenerator* TheNameKeyGenerator;
 
 extern GameLogic* TheGameLogic;
-class Rva2225E0Filter { public: bool accepts(Object*,Player*); };
-class Rva00395F0B { public: void rva00395F0B(Object*); };
 class FoundationAIUpdate { protected: virtual void xfer(Xfer*); private: void rva0045527A(ObjectID); friend class CastleBehavior;
  friend class Rva00399959; char native04[0x2c]; };
 template<class T> inline T& field(void* p,int n) { return *(T*)((char*)p+n); }
@@ -286,7 +284,6 @@ void Rva0039585A::mapLoadPostProcess(int context) {
 // Field +0x98 is AsciiString, independently witnessed by unpack.
 // One shared ObjectID temporary preserves native stack-slot reuse.
 class AsciiString;
-struct CastleXferVersion { unsigned char first,second; CastleXferVersion(unsigned char a,unsigned char b):first(a),second(b){} };
 class Snapshot;
 class UnicodeString;
 class PooledString;
@@ -356,12 +353,6 @@ class ThingFactory { public: const ThingTemplate* findTemplate(const AsciiString
 extern ThingFactory* TheThingFactory;
 // Existing verified 8B ASCII-plus-word record view. The source pair's scalar
 // identity is unresolved; only the measured layout and copy ABI are used here.
-struct BfmeAsciiScalarValue8 {
- AsciiString first;
- int second;
- BfmeAsciiScalarValue8(const BfmeAsciiScalarValue8&);
-};
-class Rva003980BF { public: void* rva003980BF(void*,int,int); };
 class Rva00399959 { public: void unpack(bool); };
 class CastleConditionBits {
  unsigned words[20];
@@ -641,8 +632,6 @@ private: unsigned char storage[124];
 };
 class SidesList { public: bool rva0032BD64(NameKeyType,int,PolygonTrigger*); bool rva0032BD25(NameKeyType,int,BuildListInfo*); };
 extern SidesList* TheSidesList;
-class Rva00396B0D { public: int rva00396B0D(); };
-
 // Native 00399C6C..00399D54 (232B), WB 00EB9B60. The native trace
 // names initiateUnpack; the BFME 1 ba7ddda7 donor at
 // game/GameEngine/Source/GameLogic/Object/Behavior/CastleBehaviorInitiateUnpack.cpp

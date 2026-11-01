@@ -51,17 +51,6 @@ private:
 	Rva003623E5Member m_filter; // +4, via pinned 0x3623E5
 };
 
-class MilesAudioManager
-{
-public:
-    virtual unsigned char rva000515A4() const;
-    virtual unsigned char rva00051896() const;
-    char m_lead[0x6A3 - sizeof(void *)];
-    unsigned char m_6A3;
-    char m_pad6A4[2];
-    unsigned char m_6A6;
-};
-
 BFME_DISP_BYTE_GETTER(Rva0045A203ByteField, 0x12C)
 
 BFME_DISP_BYTE_GETTER(Rva0045A211ByteField, 0x138)
@@ -70,11 +59,6 @@ BFME_DISP_BYTE_GETTER(Rva0045A211ByteField, 0x138)
 // Full native leaf 001F350B..001F3513 ends at its own RET boundary.
 // Target evidence: receiver0C dword equals two; result in AL.
 // Original owner unresolved; the address-owned type is independent of nearby classes.
-class Rva001F350BFields {
-public: unsigned char isTwo() const;
-private: char unknown[0x0C]; unsigned int value;
-};
-
 BFME_DISP_FLOAT_GETTER(Rva0045A20AFloatField, 0x134)
 
 // Two getters that read a GameClientRandomVariable field through its rowed
@@ -90,42 +74,6 @@ private:
 	int m_type;
 	float m_low;
 	float m_high;
-};
-
-class Rva00094AEERandomField
-{
-public:
-	float get() const;
-private:
-	char m_pad00[0x74];
-	GameClientRandomVariable m_value;
-};
-
-class Rva00094AFDRandomField
-{
-public:
-	float get() const;
-private:
-	char m_pad00[0x84];
-	GameClientRandomVariable m_value;
-};
-
-class Rva00098540RandomField
-{
-public:
-	int get() const;
-private:
-	char m_pad00[0x30];
-	GameClientRandomVariable m_value;
-};
-
-class Rva0009854DRandomField
-{
-public:
-	float get() const;
-private:
-	char m_pad00[0x3C];
-	GameClientRandomVariable m_value;
 };
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityQueryEntry.cpp
