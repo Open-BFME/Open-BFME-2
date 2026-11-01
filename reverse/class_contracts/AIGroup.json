@@ -1,0 +1,337 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "AIGroup",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 40,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x14": {
+    "4": 2
+   },
+   "0x18": {
+    "4": 1
+   },
+   "0x1c": {
+    "4": 1
+   },
+   "0x20": {
+    "4": 1
+   },
+   "0x24": {
+    "4": 1
+   },
+   "0x28": {
+    "4": 1
+   },
+   "0x2c": {
+    "4": 1
+   },
+   "0x30": {
+    "4": 1
+   },
+   "0x4": {
+    "4": 115
+   },
+   "0x8": {
+    "4": 4
+   },
+   "0xc": {
+    "1": 4
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x36e4c7"
+     ],
+     "value": 48
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x36e4c7"
+     ],
+     "value": {
+      "0x10": [
+       4
+      ],
+      "0x14": [
+       4
+      ],
+      "0x18": [
+       4
+      ],
+      "0x1c": [
+       4
+      ],
+      "0x20": [
+       4
+      ],
+      "0x24": [
+       4
+      ],
+      "0x28": [
+       4
+      ],
+      "0x2c": [
+       4
+      ],
+      "0x8": [
+       4
+      ],
+      "0xc": [
+       1
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x36e4c7"
+     ],
+     "value": {
+      "0x30": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x4": [
+       "??0?$_List_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x36e4c7"
+     ],
+     "value": {
+      "0x0": "0x817d00"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x817d00"
+     ],
+     "value": {
+      "count": 4,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GAIGroup@@MAEPAXI@Z",
+        "slot": 0,
+        "target": "0x36e8ea"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 1,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?name@AIGroup@@QBEPBDXZ",
+        "slot": 2,
+        "target": "0x36e55e"
+       },
+       {
+        "name": "?xfer@AIGroup@@MAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x36e3c6"
+       }
+      ],
+      "table": "0x817d00"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 89,
+  "retail_vtables": {
+   "0x817d00": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GAIGroup@@MAEPAXI@Z",
+     "1": "??1Region2D@@QAE@XZ",
+     "2": "?name@AIGroup@@QBEPBDXZ",
+     "3": "?xfer@AIGroup@@MAEXPAVXfer@@@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 33,
+   "4": 1,
+   "8": 1,
+   "16": 1,
+   "48": 1,
+   "60": 3
+  },
+  "views": 40,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_AIGroup.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/AI.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 6,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 31
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIGroupAttackTeam.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIGroupGetCenter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIGroupGetCommandButtonSourceObject.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIGroupRemove.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIGroupGetCenter.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIGroupGetCenter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIGroupRemove.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIGroupGetCenter.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIGroupGetCenter.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIGroupGetCenter.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIGroupGetCenter.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIGroupGetCenter.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIGroupGetCenter.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIGroupGetCenter.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIGroupAttackTeam.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIGroupAttackTeam.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIGroupAttackTeam.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [],
+ "size": 60,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
