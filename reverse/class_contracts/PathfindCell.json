@@ -1,0 +1,175 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "PathfindCell",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 69,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 24
+   },
+   "0x4": {
+    "4": 1
+   },
+   "0x8": {
+    "2": 1
+   },
+   "0xc": {
+    "4": 12
+   }
+  },
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {}
+  },
+  "retail_member_rows": 16,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 4,
+   "4": 6,
+   "10": 1,
+   "16": 58
+  },
+  "views": 69,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_PathfindCell.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/AIPathfind.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "retail-access",
+   "kind": "P",
+   "name": "m_info",
+   "name_by": "tie",
+   "offset": 0,
+   "retail_widths": {
+    "4": 24
+   },
+   "size": 4,
+   "type": "PathfindCellInfo*",
+   "views": 49,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "m_04",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "uint",
+   "views": 14,
+   "witness": null
+  },
+  {
+   "decided_by": "retail-access",
+   "kind": "i2",
+   "name": "m_zone",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {
+    "2": 1
+   },
+   "size": 2,
+   "type": "ushort",
+   "views": 17,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i2",
+   "name": "m_A",
+   "name_by": "tie",
+   "offset": 10,
+   "retail_widths": {},
+   "size": 2,
+   "type": "ushort",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "retail-access",
+   "kind": "i4",
+   "name": "m_flags",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {
+    "4": 12
+   },
+   "size": 4,
+   "type": "uint",
+   "views": 105,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_0E",
+   "name_by": "majority",
+   "offset": 14,
+   "retail_widths": {},
+   "size": 1,
+   "type": "uchar",
+   "views": 1,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 46
+ },
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "name@0x0",
+   "candidates": {
+    "info": 12,
+    "m_0": 4,
+    "m_buf": 1,
+    "m_buffer": 1,
+    "m_head": 3,
+    "m_head00": 1,
+    "m_info": 12,
+    "m_inner": 1,
+    "m_node": 1,
+    "m_pathInfo": 5,
+    "m_storage": 5,
+    "m_unreconstructed": 2,
+    "prefix0C": 1
+   },
+   "class": "PathfindCell"
+  },
+  {
+   "attribute": "name@0xa",
+   "candidates": {
+    "m_0A": 1,
+    "m_A": 1,
+    "second": 1,
+    "wordA": 1
+   },
+   "class": "PathfindCell"
+  },
+  {
+   "attribute": "straddle@0xe",
+   "candidates": {},
+   "class": "PathfindCell"
+  }
+ ],
+ "size": 16,
+ "size_by": "majority",
+ "vslots": {}
+}
