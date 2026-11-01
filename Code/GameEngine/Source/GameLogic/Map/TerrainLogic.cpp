@@ -31,6 +31,13 @@ struct XferVersion
 };
 #include "../../Common/System/XferVectorTypes.h"
 #include "../../../Include/Common/BfmeXfer.h"
+// TerrainLogic's bases, from the constructor 0x00283FAA's vftable stores:
+// Snapshot +0x00 (0x00BBB554, then 0x00BFB2C8), SubsystemInterface +0x04
+// (0x00BFB28C) and two listener roots +0x10/+0x14 (0x00BC6F34, then
+// 0x00BC5848/0x00BC5838).
+#define BFME_SNAPSHOT_NAME_SLOT
+#include "Common/Snapshot.h"
+#include "subsystem_interface.h"
 #include <vector>
 #include <map>
 // ?rva0027D244@Rva0027D244@@QAEPAV1@H@Z, retail 0x0027D244, 50 bytes.
@@ -1809,16 +1816,55 @@ public:
 	Bool getBiDirectional(void) const { return m_biDirectional; }
 };
 
-class TerrainLogic
+// Root tables BC6F34: empty RET4 followed by three pure callbacks.
+class TerrainLogicListenerRootA {
+public:
+ virtual void vslot0(int);
+ virtual void vslot1(int, WaterHandle *) = 0;
+ virtual void vslot2(void *, void *) = 0;
+ virtual void vslot3(void *, void *) = 0;
+ ~TerrainLogicListenerRootA() {}
+};
+class TerrainLogicListenerA : public TerrainLogicListenerRootA {
+public:
+ virtual void vslot1(int, WaterHandle *);
+ virtual void vslot3(void *, void *);
+ ~TerrainLogicListenerA();
+};
+class TerrainLogicListenerRootB {
+public:
+ virtual void vslot0(int);
+ virtual void vslot1(int, WaterHandle *) = 0;
+ virtual void vslot2(void *, void *) = 0;
+ virtual void vslot3(void *, void *) = 0;
+ ~TerrainLogicListenerRootB() {}
+};
+class TerrainLogicListenerB : public TerrainLogicListenerRootB {
+public:
+ virtual void vslot1(int, WaterHandle *);
+ virtual void vslot3(void *, void *);
+ ~TerrainLogicListenerB();
+};
+
+// Retail vftable 0x00BFB2C8 (51 slots): Snapshot's four, then TerrainLogic's
+// own from slot 4. Slots retail fills with __purecall (8-12, 15, 16, 50) and
+// slots whose retail bodies have no TerrainLogic row yet (13, 14, 17-30, 32,
+// 33, 40: W3DTerrainLogic-named placeholders and ICF folds) are pure here, so
+// a table this unit emits resolves; those entries read __purecall where
+// retail has a body until the slots are named.
+class TerrainLogic : public Snapshot, public SubsystemInterface,
+	public TerrainLogicListenerA, public TerrainLogicListenerB
 {
 public:
+	TerrainLogic();
 	virtual ~TerrainLogic();
+	virtual void reset();
+	virtual void init();
+	virtual void update();
 protected:
+	virtual const char *GetSnapshotName() const;
+	virtual void xfer(Xfer *xfer);
 	virtual void loadPostProcess(void);
-public:
-	virtual void slot02();
-public:
-	virtual void slot03();
 public:
 	virtual Bool loadMap(const AsciiString &filename, ChunkInputStream *pStrm, Bool query, Bool addWaypoints);
 public:
@@ -1828,57 +1874,57 @@ public:
 public:
 	virtual Real getLayerHeight(Real x, Real y, PathfindLayerEnum layer, Coord3D *normal = 0, Bool clip = true) const;
 public:
-	virtual void getExtent(Region3D *extent) const;
+	virtual void getExtent(Region3D *extent) const = 0;
 public:
-	virtual void slot09();
+	virtual void slot09() = 0;
 public:
-	virtual void fetchBounds(void *out);
+	virtual void fetchBounds(void *out) = 0;
 public:
-	virtual void slot11();
+	virtual void slot11() = 0;
 public:
-	virtual void getMaximumPathfindExtent(Region3D *extent);
+	virtual void getMaximumPathfindExtent(Region3D *extent) = 0;
 public:
-	virtual Triple *slot13(Triple *tmp, float *p);
+	virtual Triple *slot13(Triple *tmp, float *p) = 0;
 public:
-	virtual void slot14();
+	virtual void slot14() = 0;
 public:
-	virtual void slot15();
+	virtual void slot15() = 0;
 public:
-	virtual void slot16();
+	virtual void slot16() = 0;
 public:
-	virtual AsciiString getSourceFilename();
+	virtual AsciiString getSourceFilename() = 0;
 public:
-	virtual void slot18();
+	virtual void slot18() = 0;
 public:
-	virtual Bool isUnderwater(Real x, Real y, Real *waterZ = 0, Real *terrainZ = 0, void *handle = 0);
+	virtual Bool isUnderwater(Real x, Real y, Real *waterZ = 0, Real *terrainZ = 0, void *handle = 0) = 0;
 public:
-	virtual Bool isCliffCell(Real x, Real y);
+	virtual Bool isCliffCell(Real x, Real y) = 0;
 public:
-	virtual void slot21();
+	virtual void slot21() = 0;
 public:
-	virtual void slot22();
+	virtual void slot22() = 0;
 public:
-	virtual void slot23();
+	virtual void slot23() = 0;
 public:
-	virtual void slot24();
+	virtual void slot24() = 0;
 public:
-	virtual void slot25();
+	virtual void slot25() = 0;
 public:
-	virtual void slot26();
+	virtual void slot26() = 0;
 public:
-	virtual void slot27();
+	virtual void slot27() = 0;
 public:
-	virtual void slot28();
+	virtual void slot28() = 0;
 public:
-	virtual void slot29();
+	virtual void slot29() = 0;
 public:
-	virtual Real getWaterHeight(const WaterHandle *water);
+	virtual Real getWaterHeight(const WaterHandle *water) = 0;
 public:
 	virtual void setWaterHeight(const WaterHandle *water, Real height, Real damageAmount, Bool forcePathfindUpdate);
 public:
-	virtual void slot32();
+	virtual void slot32() = 0;
 public:
-	virtual Waypoint *getFirstWaypoint();
+	virtual Waypoint *getFirstWaypoint() = 0;
 public:
 	virtual Waypoint *getWaypointByName(const AsciiString &name);
 public:
@@ -1892,7 +1938,7 @@ public:
 public:
 	virtual PolygonTrigger *getTriggerAreaByName(const AsciiString &name);
 public:
-	virtual Bridge *getFirstBridge() const;
+	virtual Bridge *getFirstBridge() const = 0;
 public:
 	virtual Bridge *findBridgeAt(const Coord3D *pLoc) const;
 public:
@@ -1912,6 +1958,8 @@ public:
 public:
 	virtual void updateBridgeDamageStates(void);
 public:
+	virtual void slot50() = 0;
+public:
 	void LoadAmbientLightmap(const AsciiString &name);
 public:
 	void rva0027D1A4(const Coord3D *pos, float radius, int arg);
@@ -1930,7 +1978,7 @@ public:
 public:
 	void rva0027F28E(const Coord3D *pos, float radius, int arg);
 public:
-	unsigned char m_pad04[0x24 - 0x04];
+	unsigned char m_pad18[0x24 - 0x18];
 public:
 	unsigned char *pixels;
 public:
