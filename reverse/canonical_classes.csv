@@ -231,3 +231,4 @@ UpgradeCenter,Code/GameEngine/Include/Common/Upgrade.h,existing header; contract
 Rva000427195,Code/GameEngine/Include/GameLogic/Rva000427195.h,existing header; contract class_contracts/Rva000427195.json; 96/123 sampled units adopt
 UpgradeTemplate,Code/GameEngine/Include/Common/Upgrade.h,existing header; contract class_contracts/UpgradeTemplate.json; 18/65 sampled units adopt
 CommandButton,Code/GameEngine/Include/GameClient/CommandButton.h,existing header; contract class_contracts/CommandButton.json; 29/87 sampled units adopt
+View,Code/GameEngine/Include/GameClient/View.h,existing header; contract class_contracts/View.json; 47/92 sampled units adopt
