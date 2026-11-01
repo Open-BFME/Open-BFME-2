@@ -155,11 +155,8 @@ private:
     unsigned int m_occlusionDelay; // +0x554
 };
 
-class Matrix3D
-{
-public:
-    float Row[3][4];
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
+
 
 class Thing
 {
@@ -375,8 +372,8 @@ void GarrisonContain::onRemoving(Object *obj)
             {
                 obj->setPosition(&pos);
                 Coord3D dir;
-                dir.x = obj->getTransformMatrix()->Row[0][0];
-                dir.y = obj->getTransformMatrix()->Row[1][0];
+                dir.x = obj->getTransformMatrix()->Row[0].X;
+                dir.y = obj->getTransformMatrix()->Row[1].X;
                 int r = GetGameLogicRandomValue(2, 5, GARRISONCONTAIN_SOURCE_FILE, 1626);
                 dir.x *= r;
                 dir.y *= r;
