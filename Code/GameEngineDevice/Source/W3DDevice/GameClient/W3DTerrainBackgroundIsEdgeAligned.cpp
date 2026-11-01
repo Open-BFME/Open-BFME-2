@@ -15,6 +15,8 @@ typedef bool Bool;
 class WorldHeightMap
 {
 public:
+	__declspec(dllimport) __forceinline int getXExtent() { return m_width; }
+	__declspec(dllimport) __forceinline int getYExtent() { return m_height; }
 	unsigned char m_pad00[0x08];
 	int m_width;
 	int m_height;
@@ -50,11 +52,11 @@ Bool W3DTerrainBackground::isEdgeAligned(int x, int y, int requested)
 {
 	int yValue = y;
 	WorldHeightMap *map = m_map;
-	int limitY = map->m_height - 1;
+	int limitY = map->getYExtent() - 1;
 	if (yValue != 0)
 		goto afterMapRightEdge;
 	{
-		int limitX = map->m_width - 1;
+		int limitX = map->getXExtent() - 1;
 		if (m_xOrigin + x == limitX)
 			goto resultTrue;
 	}
