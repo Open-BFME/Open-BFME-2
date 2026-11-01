@@ -59,18 +59,7 @@ ModuleData *QueueProductionExitUpdate::friend_newModuleData(INI *ini)
 // Retail table VA 0x00BF1E48: all ten 16-byte records were read from game.dat.
 // ZH's buildFieldParse provides the add(table) source pattern; target data
 // supplies BFME-specific fields and offsets rather than inheriting ZH's layout.
-struct FieldParse
-{
-    const char *name;
-    void (__cdecl *parse)(INI *, void *, void *, const void *);
-    const void *userData;
-    unsigned offset;
-};
-class MultiIniFieldParse
-{
-public:
-    void add(const FieldParse *, unsigned);
-};
+#include "../../../../../Include/Common/INI/FieldParse.h"
 
 void QueueProductionExitUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {

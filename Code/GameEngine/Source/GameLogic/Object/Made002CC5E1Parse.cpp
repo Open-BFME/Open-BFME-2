@@ -6,12 +6,7 @@
 // parseDamageNugget at 0x002CC626. Same tail as sibling q4Notify002CC64B
 // 0x0050893A but with adds factored into buildFieldParse.
 class DamageNugget;
-class MultiIniFieldParse
-{
-public:
-	MultiIniFieldParse();
-	char m_pad[0x84];
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 class Rva005088CE
 {
 public:

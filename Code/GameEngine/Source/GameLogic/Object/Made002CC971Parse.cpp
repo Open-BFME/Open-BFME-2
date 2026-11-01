@@ -14,14 +14,7 @@ extern const int g_emptyFieldParseTable[4];
 
 int Rva00507552Get();
 
-class MultiIniFieldParse
-{
-public:
-	MultiIniFieldParse();
-	void add(const FieldParse *p, unsigned int u);
-
-	char m_pad[0x84];
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 
 class INI
 {

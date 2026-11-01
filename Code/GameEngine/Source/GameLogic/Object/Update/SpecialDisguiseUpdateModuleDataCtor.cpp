@@ -13,11 +13,7 @@
 class MultiIniFieldParse;
 struct FieldParse;
 
-class MultiIniFieldParse
-{
-public:
-	void add(const FieldParse *parseTable, unsigned int extraOffset);
-};
+#include "../../../../Include/Common/INI/FieldParse.h"
 
 class __declspec(novtable) SpecialAbilityUpdateModuleData
 {

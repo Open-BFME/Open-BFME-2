@@ -12,13 +12,7 @@
 
 class Made002CC9D4;
 
-class MultiIniFieldParse
-{
-public:
-	MultiIniFieldParse();
-
-	char m_pad[0x84];
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 
 void Rva0050AD97BuildFieldParse(MultiIniFieldParse &m);
 

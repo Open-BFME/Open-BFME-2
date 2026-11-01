@@ -93,11 +93,7 @@ struct FieldParse;
 
 extern const int g_emptyFieldParseTable[4];
 
-class MultiIniFieldParse
-{
-public:
-	void add(const FieldParse *parseTable, unsigned int extraOffset);
-};
+#include "../../../../Include/Common/INI/FieldParse.h"
 
 class __declspec(novtable) TransportAIUpdateModuleData
 {

@@ -17,11 +17,7 @@ struct FieldParse;
 extern "C" const void *const vtbl_00C4D5A0[];  // ??_7ArrowStormUpdateModuleData@@6B@
 #pragma comment(linker, "/alternatename:_vtbl_00C4D5A0=??_7ArrowStormUpdateModuleData@@6B@")
 
-class MultiIniFieldParse
-{
-public:
-	void add(const FieldParse *parseTable, unsigned int extraOffset);
-};
+#include "../../../../Include/Common/INI/FieldParse.h"
 
 class __declspec(novtable) SpecialAbilityUpdateModuleData
 {
