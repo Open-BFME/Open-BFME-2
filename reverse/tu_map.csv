@@ -27514,7 +27514,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00362461,10,code,,,-,,Code/GameEngine/Source/Common/GapBodiesSeat1C.cpp
 0x0036246B,17,code,,,-,,Code/GameEngine/Source/Common/SmallLeafBodies3_BlockMemcpyAssign.cpp
 0x0036247C,23,code,Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp provisional,Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp
-0x00362493,6,code,Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp,approved,U,N=Code/GameEngine/Source/Common/GlowMaterial.cpp provisional,Code/GameEngine/Source/Common/SubsystemNameGetters4.cpp
+0x00362493,6,code,Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp,approved,U,N=Code/GameEngine/Source/Common/GlowMaterial.cpp provisional,Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp
 0x00362499,15,code,Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp W=Code/GameEngine/Source/GameClient/BuffManager.cpp provisional,Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp
 0x003624A8,12,code,Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp,approved,C,C=0x00362499..0x003624B4 provisional,Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp
 0x003624B4,16,code,Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp,approved,C,C=0x00362499..0x003624C4 provisional,Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp
@@ -27548,7 +27548,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00362C9F,83,code,Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp,approved,C,C=0x003628D3..0x00362CF2 provisional,Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp
 0x00362CF2,51,code,Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp provisional,Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp
 0x00362D25,65,code,Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/Object/BuffInstance.cpp provisional,Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp
-0x00362D66,6,code,Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp,approved,U,N=Code/GameEngine/Source/Common/BuffInstance.cpp provisional,Code/GameEngine/Source/Common/SubsystemNameGetters4.cpp
+0x00362D66,6,code,Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp,approved,U,N=Code/GameEngine/Source/Common/BuffInstance.cpp provisional,Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp
 0x00362D6C,81,code,Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/Object/BuffInstance.cpp provisional,Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp
 0x00362DBD,89,code,Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/Object/BuffManager.cpp W=Code/GameEngine/Source/GameClient/BuffManager.cpp provisional,Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp
 0x00362E16,6,code,Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp,approved,U,N=Code/GameEngine/Source/Common/BuffManager.cpp provisional,Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp

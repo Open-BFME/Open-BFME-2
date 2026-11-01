@@ -171,6 +171,16 @@ extern void *g_Va00E01E74;
 #undef _CRTIMP
 extern class BuffLogic *TheBuffLogic;
 #include "../../Common/GameLogicObjectLookupView.h"
+#define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	public: \
+		const char *name() const; \
+	}; \
+	const char *NAME::name() const \
+	{ \
+		return TEXT; \
+	}
 
 // WorldBuilder names this complete 70-byte retail body MakeGlowOutlineBuff.
 // The caller 0x003627F9 passes this in ECX, six stack arguments, and a float
@@ -634,6 +644,31 @@ class Rva005202C8;
 class Rva00523825;
 
  Rva00523825 *__stdcall Rva002D21FBCreate(void *);
+
+// ScoreKeeper::GetSnapshotName is owned by RTS/ScoreKeeperDtor.cpp.
+// Slot 2 of TeamRelationMap's vftable 0x00C1ADFC: the Snapshot name slot.
+class TeamRelationMap
+{
+protected:
+	virtual const char *GetSnapshotName() const;
+};
+
+class LivingWorldRegion
+{
+public:
+    virtual ~LivingWorldRegion();
+	virtual void loadPostProcess();
+	virtual const char *GetSnapshotName() const;
+	virtual void DoXfer(Xfer *);
+};
+
+class CreateAHeroData
+{
+public:
+ virtual const char *GetSnapshotName() const;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp
 
@@ -1159,7 +1194,29 @@ bool BuffInstance::MakeNormalBuff(int a, int b, void *c, void *d, int e)
 	return false;
 }
 
-// tu-skeleton: 0x00362493 6B ?GetSnapshotName@GlowMaterial@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters4.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/ConstIntGetters4.cpp
+
+// ?Rva00362E16Get@@YAHXZ @ 0x00362e16 (6B): returns 0x00C17098.
+// Follows a ret-4 (prev C2-04-00), carried by 1 .rdata vtable slot,
+// no direct callers, no branch sources. Opaque address-derived name.
+const char *BuffManager::GetSnapshotName() const
+{
+	return "BuffManager";
+}
+
+// ---- from Code/GameEngine/Source/Common/SubsystemNameGetters4.cpp
+
+// Subsystem literal name getters, fourth unit: six-byte const members with one
+// shape (mov eax,<offset string literal> / ret). Split to keep concurrent
+// contributors conflict-free; the BFME_LITERAL_NAME_GETTER macro is verbatim.
+// Each body returns a pointer to a NUL-terminated class-name string in .rdata
+// with exactly one vtable (body-VA) reference behind a C3 predecessor;
+// verify_string_refs re-reads the string.
+// No // cl: line (defaults match the frameless 6-byte shape).
+
+const char *GlowMaterial::GetSnapshotName() const { return "GlowMaterial"; }
+
+const char *BuffInstance::GetSnapshotName() const { return "BuffInstance"; }
 
 // tu-skeleton: 0x003624C4 58B ?DoXfer@GlowMaterial@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/System/SnapshotXfersBfme.cpp (not merged yet)
 
@@ -1176,17 +1233,5 @@ bool BuffInstance::MakeNormalBuff(int a, int b, void *c, void *d, int e)
 // tu-skeleton: 0x00362B89 73B ?rva00362B89@Rva00362AB5@@QAEIABH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily_Unresolved.cpp (not merged yet)
 
 // tu-skeleton: 0x00362C9A 5B ?rva00362C9A@Rva00362C9A@@QAEIABH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily_Rva00082BE1.cpp (not merged yet)
-
-// tu-skeleton: 0x00362D66 6B ?GetSnapshotName@BuffInstance@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters4.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/ConstIntGetters4.cpp
-
-// ?Rva00362E16Get@@YAHXZ @ 0x00362e16 (6B): returns 0x00C17098.
-// Follows a ret-4 (prev C2-04-00), carried by 1 .rdata vtable slot,
-// no direct callers, no branch sources. Opaque address-derived name.
-const char *BuffManager::GetSnapshotName() const
-{
-	return "BuffManager";
-}
 
 // tu-skeleton: 0x0077E1B5 8B uw_0077e1b5 -- matched in Code/gen_small/uw_gen_010.cpp (not merged yet)
