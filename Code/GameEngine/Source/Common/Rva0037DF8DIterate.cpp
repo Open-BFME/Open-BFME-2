@@ -31,14 +31,7 @@ extern ThingFactory *TheThingFactory;
 typedef _STL::pair<AsciiString,int> HordeMember;
 typedef _STL::list<HordeMember> HordeMembers;
 class HordeModuleData {public:char pad[0xA4];HordeMembers members;};
-class ModuleData {public:
-#define SLOT(N) virtual void slot##N();
- SLOT(0) SLOT(1) SLOT(2) SLOT(3) SLOT(4) SLOT(5) SLOT(6) SLOT(7)
- SLOT(8) SLOT(9) SLOT(10) SLOT(11) SLOT(12) SLOT(13) SLOT(14) SLOT(15)
- SLOT(16) SLOT(17) SLOT(18) SLOT(19) SLOT(20)
-#undef SLOT
- virtual const HordeModuleData *getHordeModuleData()const;
-};
+#include "../../Include/Common/ModuleData.h"
 class ModuleInfo {public:char *begin,*end,*storage;const ModuleData *getNthData(int)const;};
 struct CarryoverTemplate {char pad[0x115];unsigned char flag;char pad116[0x2E4-0x116];ModuleInfo modules;};
 class Rva0037DCA5 {public:

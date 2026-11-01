@@ -18,9 +18,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 #include "ascii_string.h"
 
-class ModuleData
-{
-};
+#include "../../Include/Common/ModuleData.h"
 
 class Rva0035B750
 {

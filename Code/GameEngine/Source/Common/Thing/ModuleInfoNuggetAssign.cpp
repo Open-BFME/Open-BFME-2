@@ -10,9 +10,7 @@
 
 #include "ascii_string.h"
 
-class ModuleData
-{
-};
+#include "../../../Include/Common/ModuleData.h"
 
 class ModuleInfo
 {

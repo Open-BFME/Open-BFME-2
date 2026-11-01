@@ -34,7 +34,7 @@ namespace _STL { template <> void allocator<const ModuleData *>::deallocate(cons
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 class ModuleData;
 namespace _STL { template <> void vector<const ModuleData *, allocator<const ModuleData *> >::_M_clear(); }
-class ModuleData { public: int x; };
+#include "../../Include/Common/ModuleData.h"
 extern unsigned int g_00DFE1AC;
 void __cdecl Rva0020DFFBRegister(const ModuleData* md)
 {

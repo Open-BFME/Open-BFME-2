@@ -22,11 +22,7 @@ namespace _STL { template <> void * __malloc_alloc<0>::allocate(unsigned int); }
 namespace _STL { template <> void __malloc_alloc<0>::deallocate(void *, unsigned int); }
 // bfme link decl-only end
 
-class ModuleData
-{
-public:
-    virtual ~ModuleData();
-};
+#include "../../../../GameEngine/Include/Common/ModuleData.h"
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> ModuleData const * * allocator<ModuleData const *>::allocate(unsigned int,void const *)const ; }
 // Bind to the kept retail copy instead of emitting this unit's own.

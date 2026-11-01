@@ -149,16 +149,7 @@ struct Rva0050CBA2DrawData
     Rva0050CBA2TransitionVector m_transitionStates;
 };
 
-class ModuleData
-{
-public:
-    virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03();
-    virtual void slot04(); virtual void slot05(); virtual void slot06(); virtual void slot07();
-    virtual void slot08(); virtual void slot09(); virtual void slot10(); virtual void slot11();
-    virtual void slot12(); virtual void slot13(); virtual void slot14(); virtual void slot15();
-    virtual void slot16(); virtual void slot17();
-    virtual const Rva0050CBA2DrawData *getAsW3DModelDrawModuleData() const;
-};
+#include "../../Include/Common/ModuleData.h"
 
 // RefCountClass-derived render and animation objects: slot 0 deletes, the
 // count sits at +4.

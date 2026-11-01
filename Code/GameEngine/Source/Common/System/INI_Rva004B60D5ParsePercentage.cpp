@@ -10,9 +10,7 @@
 // Percentage entry of the table at 0x858460. The callback name stays
 // address-derived; the owning class is BFME2-new (no BFME1 donor).
 
-class ModuleData
-{
-};
+#include "../../../Include/Common/ModuleData.h"
 
 #include <vector>
 

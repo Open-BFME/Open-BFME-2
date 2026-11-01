@@ -178,9 +178,7 @@ template <> void allocator<AsciiString>::deallocate(AsciiString*, size_t) const;
 template <> AsciiString *vector<AsciiString, allocator<AsciiString> >::erase(AsciiString*, AsciiString*);
 }
 
-class ModuleData
-{
-};
+#include "../../../Include/Common/ModuleData.h"
 
 class ThingTemplate;
 

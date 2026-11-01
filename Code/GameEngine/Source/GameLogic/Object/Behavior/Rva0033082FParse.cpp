@@ -13,12 +13,7 @@ public:
 	int readInt() throw();
 };
 
-class ModuleData
-{
-public:
-	char m_pad[20];
-	int m_ref;
-};
+#include "../../../../Include/Common/ModuleData.h"
 
 class CreateAHeroData
 {

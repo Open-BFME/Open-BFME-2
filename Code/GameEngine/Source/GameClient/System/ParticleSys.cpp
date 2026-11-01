@@ -1898,11 +1898,7 @@ public:
     Rva001F424ESlot3 *held;
 };
 
-class ModuleData
-{
-public:
-	virtual const char *GetSnapshotName() const;
-};
+#include "../../../Include/Common/ModuleData.h"
 
 BFME_LITERAL_NAME_GETTER(Rva001FBEB1Named, "FXParticleSystem")
 

@@ -68,11 +68,7 @@ struct CameraMarkerVec
 	CameraMarker *m_end;
 };
 
-class ModuleData
-{
-public:
-	char m_pad[4];
-};
+#include "../../../Include/Common/ModuleData.h"
 
 struct Rva00289902Data78
 {

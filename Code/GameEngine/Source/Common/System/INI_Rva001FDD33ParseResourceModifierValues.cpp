@@ -11,9 +11,7 @@
 // sibling ResourceModifierObjectFilter). The callback name stays
 // address-derived; the owning struct is BFME2-new (no BFME1 donor).
 
-class ModuleData
-{
-};
+#include "../../../Include/Common/ModuleData.h"
 
 #include <vector>
 

@@ -26,11 +26,7 @@ public:
 	void *m_held;
 };
 
-class ModuleData
-{
-public:
-	virtual ~ModuleData();
-};
+#include "../../Include/Common/ModuleData.h"
 
 typedef const ModuleData *PlayerAITypeEntry;
 

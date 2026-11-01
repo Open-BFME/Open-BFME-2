@@ -24,11 +24,7 @@
 		return TEXT; \
 	}
 
-class ModuleData
-{
-public:
-	virtual const char *GetSnapshotName() const;
-};
+#include "../../Include/Common/ModuleData.h"
 
 const char *ModuleData::GetSnapshotName() const
 {

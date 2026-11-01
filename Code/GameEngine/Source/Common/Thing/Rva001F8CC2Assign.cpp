@@ -49,11 +49,7 @@ void vector<BfmeE12, allocator<BfmeE12> >::swap(vector<BfmeE12, allocator<BfmeE1
 
 }
 
-class ModuleData
-{
-public:
-	virtual ~ModuleData();
-};
+#include "../../../Include/Common/ModuleData.h"
 
 class Rva001F8CC2Iface
 {

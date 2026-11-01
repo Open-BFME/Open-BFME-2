@@ -65,10 +65,7 @@ public:
 };
 class Thing;
 class Matrix3D;
-class ModuleData
-{
-	char m_pad00[8];
-};
+#include "../../../../../../GameEngine/Include/Common/ModuleData.h"
 
 struct OrnamentData {
  OrnamentData *init() throw();

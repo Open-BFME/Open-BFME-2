@@ -841,7 +841,7 @@ namespace _STL { template <> void vector<const ModuleData *, allocator<const Mod
 // The retail push_back body is rowed at 0x004DFCB0.
 namespace _STL { template <> void vector<const ModuleData *, allocator<const ModuleData *> >::push_back(const ModuleData *const &); }
 
-class ModuleData {};
+#include "../../../Include/Common/ModuleData.h"
 
 class UpgradeTemplate : public ModuleData {};
 

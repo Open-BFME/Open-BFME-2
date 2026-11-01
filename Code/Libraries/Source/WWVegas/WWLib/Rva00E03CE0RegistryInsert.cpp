@@ -8,7 +8,7 @@
 // and 0x004ABF47 with global 0x00E03CE0 as this. Flags match stlport neighbours.
 #define _BFME_RETAIL_TREE_INSERT_LAYOUT
 #include <set>
-class ModuleData { public: int x; };
+#include "../../../../GameEngine/Include/Common/ModuleData.h"
 struct Rva001408C0Target { int x; };
 void __cdecl Rva0020DFFBRegister(const ModuleData* md);
 struct Rva00E03CE0 {

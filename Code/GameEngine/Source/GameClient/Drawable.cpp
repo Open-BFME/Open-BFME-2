@@ -2425,14 +2425,7 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class ModuleData
-{
-public:
-	NameKeyType getModuleTagNameKey() const { return m_moduleTagNameKey; }
-private:
-	void *m_vtable;
-	NameKeyType m_moduleTagNameKey;
-};
+#include "../../Include/Common/ModuleData.h"
 
 class WeaponTemplateSetHead
 {

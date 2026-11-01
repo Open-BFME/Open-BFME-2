@@ -20,12 +20,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 #include <vector>
 
-class ModuleData
-{
-public:
-	char m_pad[20];
-	int m_ref;
-};
+#include "../../../../Include/Common/ModuleData.h"
 
 class Rva0033068BListener
 {
