@@ -113,12 +113,7 @@ public:
  void *m_contain;
 };
 extern GameLogic *TheGameLogic;
-class GlobalData
-{
-public:
-	unsigned char pad00[0xB40];
-	Real m_singleTargetRadius;		// +0xB40
-};
+#include "../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 class Rva000421C8
 {
@@ -364,7 +359,7 @@ void DamageNugget::doEffectPosition(void *weapon, const Coord3D *position)
 		}
 		if (!reinterpret_cast<Rva00507D84Calls *>(this)->v14(weapon, obj, position))
 			continue;
-		if (TheWritableGlobalData->m_singleTargetRadius >= radius)
+		if (TheWritableGlobalData->m_damageRadiusMinimumForSplash >= radius)
 			return;
 	}
 }

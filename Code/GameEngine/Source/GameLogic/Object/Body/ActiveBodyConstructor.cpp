@@ -84,13 +84,7 @@ struct ActiveBodyModuleDataFields
 	_STL::vector<BfmeE16> m_damageCreation;
 };
 
-class GlobalData
-{
-public:
-	unsigned char m_pad00[0xb4];
-	float m_unitDamagedThresh;
-	float m_unitReallyDamagedThresh;
-};
+#include "../../../../Include/Common/GlobalData.h"
 
 extern class GlobalData *TheWritableGlobalData;
 
@@ -173,9 +167,9 @@ ActiveBody::ActiveBody(Thing *thing, const ModuleData *moduleData)
 	if (data->m_useDefault)
 	{
 		if (m_damagedThreshold == 0.0f)
-			m_damagedThreshold = TheWritableGlobalData->m_unitDamagedThresh;
+			m_damagedThreshold = TheWritableGlobalData->m_unitDamagedThreshold;
 		if (m_reallyDamagedThreshold == 0.0f)
-			m_reallyDamagedThreshold = TheWritableGlobalData->m_unitReallyDamagedThresh;
+			m_reallyDamagedThreshold = TheWritableGlobalData->m_unitReallyDamagedThreshold;
 	}
 	for (int i = 0; i < 4; ++i)
 	{

@@ -30,7 +30,7 @@ class MapObject { public: static Dict TheWorldDict; };
 static StaticNameKey TheKey_cameraMapHeightSmoothnessScalar={NAMEKEY_INVALID,"cameraMapHeightSmoothnessScalar"};
 static StaticNameKey TheKey_cameraGroundMinHeight={NAMEKEY_INVALID,"cameraGroundMinHeight"};
 static StaticNameKey TheKey_cameraGroundMaxHeight={NAMEKEY_INVALID,"cameraGroundMaxHeight"};
-class GlobalData { public: unsigned char pad[0xDE4];float m_cameraMapHeightSmoothnessScalar; };
+#include "../../Include/Common/GlobalData.h"
 extern GlobalData*TheWritableGlobalData;
 template<class T> T clamp(T,T,T);
 // Target 0x30E910 takes its fill value by value; vendored resize takes const&.
@@ -48,7 +48,7 @@ void SmoothCameraHeightField::Initialize( const R3HeightSample *source, int unus
 	bool found;
 	float setting = MapObject::TheWorldDict.getReal((int)TheKey_cameraMapHeightSmoothnessScalar.key(), &found);
 	if( !found )
-		setting = TheWritableGlobalData->m_cameraMapHeightSmoothnessScalar;
+		setting = TheWritableGlobalData->field0DE4;
 	if( setting == 0.0f )
 		return;
 

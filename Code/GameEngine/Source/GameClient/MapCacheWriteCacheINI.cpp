@@ -32,7 +32,7 @@ typedef char SizeCheck[sizeof(MapMetaData)==0x100?1:-1];
 struct BfmeInnerSX { unsigned char m_bfmeRawSX[12]; };
 struct BfmeKeySX { char a,b,c,pad; int team; BfmeInnerSX factions; };
 int __cdecl bfmeEqualSX(const BfmeKeySX &,const BfmeKeySX &);
-class GlobalData { public: char opaque[0xAB5]; bool buildMapCache; };
+#include "../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 class FileSystem;
 extern FileSystem *TheFileSystem;
@@ -49,7 +49,7 @@ static __forceinline void appendCharacter(AsciiString &dst,char c)
 void MapCache::writeCacheINI(bool userDir)
 {
     AsciiString mapDir;
-    if (!userDir || TheWritableGlobalData->buildMapCache)
+    if (!userDir || TheWritableGlobalData->field0AB5)
         mapDir = ((Rva00300489 *)this)->Rva00300489::getMapDir();
     else
         mapDir = ((Rva00300D7A *)this)->rva00300D7A();
