@@ -7,7 +7,7 @@
 // SubtitleManagerAccessors.cpp sibling and the Rva003625C3Glow Debug shape.
 // The near file parseSubtitle.cpp already links this manager.
 
-#include <vector>
+#include "unicode_string.h"
 
 class Debug
 {
@@ -29,11 +29,43 @@ public:
 extern Debug *theDebug;
 void _bfme_debugRecordCallsite(int kind);
 
+// vftable 0x008E451C: slot 0 is the deleting dtor 0x006886F0 over the
+// protected virtual dtor 0x006885A0 (vptr store, then the text member's
+// releaseBuffer). The ctor 0x00688550 stores that vptr and copy-constructs
+// the text at +0x04; SubtitleManager::getStartFrame 0x00688680 reads
+// m_startFrame (+0x18) directly.
 class SubtitleEntry
 {
+	friend class SubtitleManager;
 public:
-	char m_pad[0x18];
+	SubtitleEntry(const UnicodeString &text, unsigned int color, int style,
+		int alignment, int line, int startFrame, int endFrame);
+protected:
+	virtual ~SubtitleEntry();
+private:
+	UnicodeString m_text;
+	unsigned int m_color;
+	int m_style;
+	int m_alignment;
+	int m_line;
 	int m_startFrame;
+	int m_endFrame;
+	bool m_displayed;
+};
+
+// The entry list at +0x14 is a vector of SubtitleEntry pointers; this unit
+// spells only its three words and the inline size()/operator[] it uses, so
+// the TU keeps its own STLport-free C++-linkage free binding.
+struct SubtitleEntryList
+{
+	SubtitleEntry *const *begin() const { return m_start; }
+	SubtitleEntry *const *end() const { return m_finish; }
+	unsigned int size() const { return (unsigned int)(end() - begin()); }
+	SubtitleEntry *const &operator[](unsigned int n) const { return *(begin() + n); }
+
+	SubtitleEntry **m_start;
+	SubtitleEntry **m_finish;
+	SubtitleEntry **m_endOfStorage;
 };
 
 class SubtitleManager
@@ -43,7 +75,7 @@ public:
 
 private:
 	char m_pad[0x14];
-	_STL::vector<SubtitleEntry *> m_entries;
+	SubtitleEntryList m_entries;
 };
 
 int SubtitleManager::getStartFrame(int index) const
