@@ -58,23 +58,7 @@ private:
 #include "../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 union GameMessageArgumentType;
-class GameMessage
-{
-public:
-	void appendIntegerArgument(int value);
-	void appendBooleanArgument(bool arg);
-	const GameMessageArgumentType *getArgument(int argIndex) const; // 0x0030F4EA
-	GameMessage *next() { return m_next; }
-	int getType() const { return m_type; }
-	unsigned char getArgumentCount() const { return m_argCount; }
-	virtual void *deleteInstance(int flags); // slot 0
-	GameMessage *m_next; // +0x04 +0x04
-	char m_pad08[0x8];
-	int m_type; // +0x10 +0x10
-	char m_pad14[0x4];
-	unsigned char m_argCount; // +0x18 +0x18
-	char m_pad19[0x3];
-};
+#include "../../Include/Common/MessageStream.h"
 class MessageStream
 {
 public:

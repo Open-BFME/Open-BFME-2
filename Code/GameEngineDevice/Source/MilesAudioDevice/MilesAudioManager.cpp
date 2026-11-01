@@ -2729,7 +2729,7 @@ class Rva000A8C2BObj;
 class Rva000A8B6D { public: void rva000A8B79(Rva000A8C2BObj *xfer); void rva000A8B6D(void); };
 class Rva000A8C2B { public: void rva000A8C2B(Rva000A8C2BObj *xfer, int *resumePosition); };
 class GameMessageList;
-class GameMessage { public: void friend_setList(GameMessageList *list); };
+#include "../../../GameEngine/Include/Common/MessageStream.h"
 // Saved stream position the load half fills and playAndStoreStream resumes from.
 struct Rva0010FFA2Packet {
     int m_event0;

@@ -173,19 +173,7 @@ union GameMessageArgumentType
 	char bytes[16];
 };
 
-class GameMessage
-{
-public:
-	virtual ~GameMessage();
-	Int getType() const { return m_type; }
-	UnsignedByte getArgumentCount() const { return m_argCount; }
-	GameMessageArgumentDataType getArgumentDataType(Int argIndex);
-	const GameMessageArgumentType *getArgument(Int argIndex) const;
-	UnsignedInt m_04[3];
-	Int m_type;
-	UnsignedInt m_14;
-	UnsignedByte m_argCount;
-};
+#include "../../Include/Common/MessageStream.h"
 
 class NetGameCommandMsg : public NetCommandMsg
 {

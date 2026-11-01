@@ -1145,17 +1145,7 @@ union GameMessageArgumentType
 	Int integer;
 };
 
-class GameMessage
-{
-public:
-void appendIntegerArgument(int);
-	const GameMessageArgumentType *getArgument(Int argIndex) const;	// 0x0030F4EA
-	UnsignedInt getArgumentCount() const { return m_argCount; }
-
-private:
-	unsigned char m_pad00[0x18];
-	unsigned char m_argCount;				// +0x18
-};
+#include "../../../../Include/Common/MessageStream.h"
 
 // WB's validateMessageArgumentIndex / validateArmy / validateArmySummaryEntryID
 // helpers, which retail inlines into each message getter.

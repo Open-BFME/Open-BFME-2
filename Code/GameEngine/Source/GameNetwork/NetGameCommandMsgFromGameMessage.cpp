@@ -25,19 +25,7 @@ union GameMessageArgumentType
 	int pixelRegion[4];
 };
 
-class GameMessage
-{
-public:
-	int getType() const { return m_type; }
-	unsigned char getArgumentCount() const { return m_argCount; }
-	const GameMessageArgumentType *getArgument(int index) const;
-	GameMessageArgumentDataType getArgumentDataType(int index);
-private:
-	char m_unknown00[0x10];
-	int m_type;
-	char m_unknown14[4];
-	unsigned char m_argCount;
-};
+#include "../../Include/Common/MessageStream.h"
 
 class NetCommandMsg
 {

@@ -21,15 +21,7 @@ __forceinline const char *GetStr004D5D55(const AsciiString &asciiString)
 	return t ? t + 8 : "";
 }
 
-class GameMessage
-{
-public:
-	enum Type
-	{
-		MSG_INVALID = 0
-	};
-	static AsciiString getCommandTypeAsAsciiString(Type t);
-};
+#include "../../Include/Common/MessageStream.h"
 
 class NetCommandMsg
 {

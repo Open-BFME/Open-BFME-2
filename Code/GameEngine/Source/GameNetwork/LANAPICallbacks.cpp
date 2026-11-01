@@ -531,11 +531,7 @@ public:
 };
 class LivingWorld; extern LivingWorld *TheLivingWorld;
 
-class GameMessage
-{
-public:
-	void appendIntegerArgument( Int arg );
-};
+#include "../../Include/Common/MessageStream.h"
 
 class MessageStream
 {

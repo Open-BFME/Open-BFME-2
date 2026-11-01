@@ -5,7 +5,7 @@
 // is updated directly. The concrete field/message semantics remain unknown.
 // MessageStream appendMessage is slot18 as in ControlBarUpdateConstruction;
 // GameMessage::appendIntegerArgument is the owned 30F936 provider.
-class GameMessage{public:void appendIntegerArgument(int);};
+#include "../../../../GameEngine/Include/Common/MessageStream.h"
 class MessageStream{public:
 virtual void slot00();
 virtual void slot01();

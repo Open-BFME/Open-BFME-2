@@ -60,7 +60,7 @@ inline AudioEventRTS *multisoundTarget(const BfmePoolRef10& ref) {
  return *reinterpret_cast<AudioEventRTS*const*>(&ref);
 }
 class GameMessageList;
-class GameMessage {public:void friend_setList(GameMessageList*);};
+#include "../../../GameEngine/Include/Common/MessageStream.h"
 class MilesMutexGuard {public:MilesMutexGuard(void*,int);~MilesMutexGuard();bool rva00041055();bool rva00041037(int);void*mutex;bool held;};
 class Rva001D9A00 {public:bool rva001D9A00();};
 class Rva001D98BD {public:bool rva001D9781();};
