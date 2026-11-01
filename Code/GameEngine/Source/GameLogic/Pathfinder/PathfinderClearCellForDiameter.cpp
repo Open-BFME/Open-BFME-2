@@ -24,10 +24,7 @@ class PathfindCell {public: DiameterCellInfo *info; char m_pad[8];
  unsigned int m_flags;
  unsigned char obstacleFence()const{return info?(info->flags>>1)&1:0;}
 };
-class Pathfinder {public:
- PathfindCell*getCell(PathfindLayerEnum,Int,Int);
- Int rva002E7749(void*,Int,Int,Int,Int,bool);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 // ZH AIPathfind.cpp clearCellForDiameter semantic guide; target D4D280
 // separates the cell test. Native field offsets and unsigned crusher compare.
 static __declspec(noinline) bool rva002E76D3(PathfindCell *cell, unsigned int crusher, bool occupants)

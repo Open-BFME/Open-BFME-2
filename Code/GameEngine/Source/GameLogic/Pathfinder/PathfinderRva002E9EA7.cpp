@@ -88,12 +88,7 @@ private:
 	UnsignedInt m_flags;				// +0x0C
 };
 
-class Pathfinder
-{
-public:
-	PathfindCell *getCell(PathfindLayerEnum layer, Int x, Int y);
-	bool rva002E9EA7(Object *obj, Int cellX, Int cellY, PathfindLayerEnum layer, Int iRadius, UnsignedByte centerInCell, Int *count);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 // TheTerrainLogic vtable slot 50 (+0xC8): a bool probe of a world point.
 #include "../../../Include/GameLogic/TerrainLogic.h"

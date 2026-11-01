@@ -58,7 +58,7 @@ static __forceinline int queryFloor(float f){float floored=(float)floor(f);int i
  fld [floored]
  fistp [i]
  }return i;}
-class Pathfinder {public:bool rva002EC479(Object*,const Coord3D*,Object*);PathfindCell *getCell(PathfindLayerEnum,int,int);};
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 inline __declspec(noinline) ICoord2D* __cdecl Rva002E7875WorldToCell(ICoord2D* out, bool center, const Coord3D* pos)
 {

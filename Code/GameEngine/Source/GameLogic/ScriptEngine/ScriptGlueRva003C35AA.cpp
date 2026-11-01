@@ -14,11 +14,7 @@ class PolygonTrigger;
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
-class Pathfinder
-{
-public:
-	void rva0052E3E6(PolygonTrigger *a, bool b);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 struct Rva00DFF0F8Obj
 {

@@ -389,11 +389,7 @@ private:
 
 extern GameLogic *TheGameLogic;
 
-class Pathfinder
-{
-public:
-	void RemoveObjectFromPathfindMap(Object *obj);
-};
+#include "../../../../Include/GameLogic/AIPathfind.h"
 
 class AI
 {

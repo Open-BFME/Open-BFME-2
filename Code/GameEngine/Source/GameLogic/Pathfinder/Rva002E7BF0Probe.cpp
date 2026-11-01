@@ -36,11 +36,7 @@ public:
 	unsigned int m_flag18 : 1;				// bit 18
 };
 
-class Pathfinder
-{
-public:
-	PathfindCell *getCell(PathfindLayerEnum layer, int x, int y);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 class Rva002E99F9Sub460
 {

@@ -18,10 +18,7 @@ public:
     Pathfinder *m_pathfinder;
 };
 extern class AI *TheAI;
-class Pathfinder {
-public:
-    int rva002EE96B(Coord3D *a, const Coord3D *b);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 class TerrainLogic {
 public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4();

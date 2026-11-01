@@ -82,11 +82,7 @@ public:
 
 class LocomotorSet;
 class Object;
-class Pathfinder
-{
-public:
-	bool AdjustDestination(Object *obj, const LocomotorSet &locomotorSet, Coord3D *dest, const Coord3D *groupDest);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 class AICommandInterface
 {

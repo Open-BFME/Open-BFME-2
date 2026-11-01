@@ -47,10 +47,7 @@ private:
  CellInfo*m_info;unsigned int m_unused4,m_unused8;
  union{unsigned int m_packed;struct{unsigned int type:4;unsigned int other:28;}m_bits;};
 };
-class Pathfinder {
-public:
- PathfindCell *getCell(PathfindLayerEnum,int,int);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 class Rva002EC3CEProbes {
 public:
  Bool rva002EAA41(int objectAddress,int cellX,int cellY,int layer,int radius,Bool center);

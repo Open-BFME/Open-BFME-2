@@ -247,11 +247,7 @@ struct TBridgeAttackInfo
 };
 #include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
-class Pathfinder
-{
-  public:
-    bool IsPointOnWall(int, bool);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 class AI
 {
   public:

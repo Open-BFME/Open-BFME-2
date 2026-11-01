@@ -103,11 +103,7 @@ public:
 
 extern GameLogic *TheGameLogic;
 
-class Pathfinder
-{
-public:
-	bool QuickDoesPathExistToStructure(Object *from, const Coord3D *fromPos, Object *to, int flags);
-};
+#include "../../../../../../Include/GameLogic/AIPathfind.h"
 
 class AI
 {

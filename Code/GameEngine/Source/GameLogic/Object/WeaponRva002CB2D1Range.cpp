@@ -76,11 +76,7 @@ public:
 	static Module *rva004608E0(Object *obj);
 };
 
-class Pathfinder
-{
-public:
-	bool rva002EC479(Object *obj, const Coord3D *pos, Object *victim);	// pinned 0x002EC479
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 struct Rva002CB35CAIData
 {

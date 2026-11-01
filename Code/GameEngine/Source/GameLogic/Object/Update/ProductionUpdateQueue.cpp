@@ -693,7 +693,7 @@ struct CreateMask { unsigned int bits[4]; CreateMask() { memset(bits,0,sizeof(bi
 struct ProductionPlayerListView { char pad[0x10]; Player *localPlayer; };
 class PlayerList; extern PlayerList *ThePlayerList;
 struct ProductionAIDataView { char pad[0xbb]; bool createdFlag; };
-class Pathfinder { public: int MoveAlliesAwayFromDestination(Object *,const Coord3D *,const Coord3D *); };
+#include "../../../../Include/GameLogic/AIPathfind.h"
 struct ProductionAIView { char pad[0x10]; Pathfinder *pathfinder; Pathfinder *getPathfinder() const { return pathfinder; } char pad14[4]; ProductionAIDataView *data; };
 class AI; extern AI *TheAI;
 // Shared writable timing owners and door-state tables are reconciled across

@@ -315,13 +315,7 @@ extern GameLogic *TheGameLogic;
 
 extern TerrainLogic *TheTerrainLogic;
 
-class Pathfinder
-{
-public:
-	void AddObjectToPathfindMap(Object *obj);
-	Bool AdjustDestination(Object *obj, const LocomotorSet &locomotorSet, Coord3D *dest, const Coord3D *groupDest = 0);
-	Int MoveAlliesAwayFromDestination(Object *obj, const Coord3D *from, const Coord3D *dest);
-};
+#include "../../../../../Include/GameLogic/AIPathfind.h"
 
 class AI
 {

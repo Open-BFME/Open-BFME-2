@@ -72,12 +72,7 @@ char m_pad04[8]; // +4..+0xB
 unsigned int m_flags0C; // +0xC
 };
 
-class Pathfinder
-{
-public:
-bool rva002EDFF9(Object *obj, Coord3D *out);
-PathfindCell *getCell(PathfindLayerEnum layer, int cellX, int cellY);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 void __cdecl Rva002EBCD6Split(void *p, int *outHalf, int *outRest);
 ICoord2D *__cdecl Rva002EBC14Cell(ICoord2D *out, void *obj, const Coord3D *pos);

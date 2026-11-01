@@ -25,7 +25,7 @@ public:
  virtual float slot1C(float,float,int,Coord3D *,bool);
 };
 extern TerrainLogic *TheTerrainLogic;
-class Pathfinder {public:void AdjustLayer(Object *);PathfindCell *Rva002EDF44(ObjWithPos *);void *rva001E3647Pos(int,const Coord3D *);};
+#include "../../../Include/GameLogic/AIPathfind.h"
 void Pathfinder::AdjustLayer(Object *obj)
 {
  int oldLayer=obj->rva0028B511();

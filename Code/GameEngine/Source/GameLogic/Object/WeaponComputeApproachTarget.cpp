@@ -66,12 +66,7 @@ public:
 	Real getMinimumAttackRange() const;			///< retail 0x002C92FA
 };
 
-class Pathfinder
-{
-public:
-	///< retail 0x002F3BB3 (ledger spelling: target, position and weapon as Int)
-	Bool AdjustTargetDestination(Object *obj, Int target, Int targetPos, Int weapon, const Coord3D *dest);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 class AI;
 extern AI *TheAI;

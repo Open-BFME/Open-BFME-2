@@ -302,11 +302,7 @@ public:
 };
 extern ThingFactory *TheThingFactory;
 
-class Pathfinder
-{
-public:
-	void AddObjectToPathfindMap(Object *object);
-};
+#include "../../../../Include/GameLogic/AIPathfind.h"
 
 #include "../../../../Include/GameLogic/AI.h"
 extern AI *TheAI;

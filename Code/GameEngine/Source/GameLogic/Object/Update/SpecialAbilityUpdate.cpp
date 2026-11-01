@@ -787,10 +787,7 @@ protected:
 
 extern TerrainLogic *TheTerrainLogic;
 
-class Pathfinder {
-public:
-    bool QuickDoesPathExist(Object *, const Coord3D *, const Coord3D *, int);
-};
+#include "../../../../Include/GameLogic/AIPathfind.h"
 
 #include "../../../../Include/GameLogic/AI.h"
 

@@ -60,7 +60,7 @@ class ScriptEngine {public:void rva00357340(void *,Coord3D *);};
 
 extern ScriptEngine *TheScriptEngine;
 
-class Pathfinder {public:void RemoveObjectFromPathfindMap(Object *);};
+#include "../../../../Include/GameLogic/AIPathfind.h"
 
 class AI {public:char pad[0x10];Pathfinder *pathfinder;};
 

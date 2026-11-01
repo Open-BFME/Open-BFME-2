@@ -23,7 +23,7 @@ private:
 	void *m_48; // +0x48
 };
 void *rva002EBC59(void *,void *,int,int,int);
-class Pathfinder {public:Bool QuickDoesPathExist(Object *,const Coord3D *,const Coord3D *,int);};
+#include "../../../Include/GameLogic/AIPathfind.h"
 struct LayerProbeObjectView {char pad00[0x38];Coord3D position;};
 struct Rva002F4D8BInfo
 {

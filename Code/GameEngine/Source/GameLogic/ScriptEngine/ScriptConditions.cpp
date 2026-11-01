@@ -925,11 +925,7 @@ public:
 	char m_pad[0x0c]; // +0x00
 	Coord3D m_0c; // +0x0C
 };
-class Pathfinder
-{
-public:
-	bool QuickDoesPathExist(Object *obj, const Coord3D *from, const Coord3D *to, int x);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 class AI
 {
 public:

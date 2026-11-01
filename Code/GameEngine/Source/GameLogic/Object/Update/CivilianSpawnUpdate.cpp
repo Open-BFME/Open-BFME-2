@@ -113,12 +113,7 @@ public:
 	char m_pad04[0x20 - 0x04];
 	AICommandInterface m_commandInterface;		// +0x20
 };
-class Pathfinder
-{
-public:
-	void rva003E3BFB(ObjectID id);
-	Bool QuickDoesPathExist(Object *obj, const Coord3D *from, const Coord3D *to, Int flags);
-};
+#include "../../../../Include/GameLogic/AIPathfind.h"
 class AI
 {
 public:

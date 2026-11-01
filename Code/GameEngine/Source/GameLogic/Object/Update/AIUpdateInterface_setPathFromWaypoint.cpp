@@ -62,11 +62,7 @@ int Rva002EDE5B(void *obj, Coord3D *pos);
 
 struct Rva002EDEABArg;
 
-class Pathfinder
-{
-public:
-	void SetDebugPath(Rva002EDEABArg *path);
-};
+#include "../../../../Include/GameLogic/AIPathfind.h"
 
 #include "../../../../Include/GameLogic/AI.h"
 

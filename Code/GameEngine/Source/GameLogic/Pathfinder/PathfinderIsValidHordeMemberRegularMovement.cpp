@@ -29,11 +29,7 @@ class PathfindCell { public: char pad0[0xc]; unsigned int m_info; };
 extern TerrainLogic *TheTerrainLogic;
 ICoord2D *Rva002EBC14Cell(ICoord2D *,void *,const Coord3D *);
 int Rva002E6E8AGet(int);
-class Pathfinder { public:
- bool rva002EE49B(Object *,Rva002EE49BPosition,Rva002EE49BPosition);
- PathfindCell *getCell(PathfindLayerEnum,Int,Int);
- Bool IsValidHordeMemberRegularMovement(Object *,const Coord3D *,const Coord3D *,const Coord3D *);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 Bool Pathfinder::IsValidHordeMemberRegularMovement(Object *obj, const Coord3D *from,
 	const Coord3D *to, const Coord3D *other)
 {

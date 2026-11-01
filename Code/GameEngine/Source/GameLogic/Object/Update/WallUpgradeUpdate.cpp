@@ -185,14 +185,7 @@ public:
 	__declspec(dllimport) __forceinline const LocomotorSet &getLocomotorSet() const { return *(const LocomotorSet *)m_locomotorSet; }
 };
 
-class Pathfinder
-{
-public:
-	int GetGroundLayer(const Coord3D *pos);		// 0x002E9871
-	bool rva002EDFF9(Object *obj, Coord3D *pos);	// 0x002EDFF9
-	bool AdjustDestination(Object *obj, const LocomotorSet &locoSet, Coord3D *dest,
-		const Coord3D *groupDest);		// 0x002FCFCF
-};
+#include "../../../../Include/GameLogic/AIPathfind.h"
 
 #include "../../../../Include/GameLogic/AI.h"
 

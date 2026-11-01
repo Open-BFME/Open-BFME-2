@@ -50,12 +50,7 @@ public:
 	unsigned char m_438;
 };
 
-class Pathfinder
-{
-public:
-	bool IsPointOnWall(int point, bool flag);
-	bool IsGroundLineOnly(const Coord3D *a, const Coord3D *b);
-};
+#include "../../../../Include/GameLogic/AIPathfind.h"
 
 class Rva2225E0Filter
 {

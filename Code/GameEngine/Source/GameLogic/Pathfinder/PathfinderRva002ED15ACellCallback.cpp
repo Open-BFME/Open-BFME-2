@@ -27,7 +27,7 @@ private:
 	void *m_48; // +0x48
 };
 bool Rva001E3679(int);
-class Pathfinder { public: bool checkForMovement(Object *,TCheckMovementInfo &); bool rva002EA658(Object *,TCheckMovementInfo &,const ICoord2D *); };
+#include "../../../Include/GameLogic/AIPathfind.h"
 struct Rva002ED15AInfo {
  Pathfinder *pathfinder; Object *object; TCheckMovementInfo info;
  ICoord2D previous; int valid[4]; int pinchedCount;
