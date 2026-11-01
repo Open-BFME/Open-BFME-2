@@ -33,14 +33,7 @@ public:
 	void forEach(void (Rva004FC320Listener::*notify)(void *), void *arg);
 };
 
-class Rva000AD6F4
-{
-public:
-	__forceinline Rva000AD6F4() : m_ptr(0) {}
-	void clear();
-	~Rva000AD6F4();
-	void *m_ptr;
-};
+#include "../../Include/Common/Rva000AD6F4.h"
 
 class CreateAHeroData;
 

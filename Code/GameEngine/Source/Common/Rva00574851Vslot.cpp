@@ -16,11 +16,7 @@ public:
 	virtual bool check(int arg);
 };
 
-class Rva000AD6F4
-{
-public:
-	void clear();
-};
+#include "../../Include/Common/Rva000AD6F4.h"
 
 class Rva005747DA : public Object
 {

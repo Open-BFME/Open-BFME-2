@@ -53,15 +53,7 @@ public:
 	void rva00575674(Object *row);
 };
 
-class Rva000AD6F4
-{
-public:
-	Rva000AD6F4() : m_ptr(0) {}
-	~Rva000AD6F4();
-	void clear();
-
-	void *m_ptr;
-};
+#include "../../../../../Include/Common/Rva000AD6F4.h"
 
 // A row: the slot index and player it shows, and its movie once built.
 struct AptRowListRow

@@ -10,11 +10,7 @@ class Rva00575674
 public:
 	void rva00575674(Object *p);
 };
-class Rva000AD6F4
-{
-public:
-	void clear();
-};
+#include "../../Include/Common/Rva000AD6F4.h"
 #include <new>
 #include "../../../Libraries/Source/Apt/AptRefTarget.h"
 class Rva005746AF

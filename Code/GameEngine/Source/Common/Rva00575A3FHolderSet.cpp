@@ -28,11 +28,7 @@
 
 class Object;
 
-class Rva000AD6F4
-{
-public:
-	void clear();
-};
+#include "../../Include/Common/Rva000AD6F4.h"
 
 class Rva00575674
 {

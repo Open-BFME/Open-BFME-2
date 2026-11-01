@@ -45,14 +45,7 @@ public:
 	void rva002B230F(int impl);
 };
 
-class Rva000AD6F4
-{
-public:
-	Rva000AD6F4() : m_ptr(0) {}
-	~Rva000AD6F4();
-
-	void *m_ptr;
-};
+#include "../../Include/Common/Rva000AD6F4.h"
 
 class Rva0057417E { public: ~Rva0057417E(); };
 #include <new>

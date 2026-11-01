@@ -1,11 +1,7 @@
 // cl: /MD /Oy-
 // ?rva005D27BE@Rva005D2664@@QAEXPBD@Z @0x005D27BE 39B
 // Evidence: chain from rowed 0x005D2505Get plus rowed 0x005D2664 plus caller shape plus sibling Rva005D2664Method TU.
-class Rva000AD6F4
-{
-public:
-	void clear();
-};
+#include "../../Include/Common/Rva000AD6F4.h"
 
 class Rva00528FE6
 {

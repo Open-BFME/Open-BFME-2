@@ -30,7 +30,7 @@ private:
 // binding descriptor by value preserves each native callback-address load.
 // The constructor's6x1C iterator calls native25-byte zero initialization;
 // the matching destructor5D258E..5D25F2 reverses five nontrivial members.
-class Rva000AD6F4 { public: void clear(); };
+#include "../../Include/Common/Rva000AD6F4.h"
 class Rva00528FE6 { public: void rva00529009(); };
 struct TargetRef00217D4C;
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);

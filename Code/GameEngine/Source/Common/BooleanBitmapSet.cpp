@@ -1004,13 +1004,7 @@ private:
 // OnAllyTabsLoaded/OnEnemyTabsLoaded): clear the owned handle at +0x2C /
 // +0x3C through the rowed Rva000AD6F4::clear 0x000AD6F4; the command
 // argument is unused.
-class Rva000AD6F4
-{
-public:
-	void clear();
-private:
-	void *m_pointer;
-};
+#include "../../Include/Common/Rva000AD6F4.h"
 
 namespace StrategicHUD
 {

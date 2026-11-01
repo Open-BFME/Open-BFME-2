@@ -93,11 +93,7 @@ public:
 };
 
 // The owning holder's teardown is the rowed Rva000AD6F4::clear.
-class Rva000AD6F4
-{
-public:
-	void clear();
-};
+#include "../../Include/Common/Rva000AD6F4.h"
 
 class Rva005D0C87CallbackHolder
 {

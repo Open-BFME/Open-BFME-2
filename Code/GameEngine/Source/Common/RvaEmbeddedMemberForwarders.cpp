@@ -69,11 +69,7 @@ void Rva003F7D56::rva003F7D56()
 	m_member.clear();
 }
 
-class Rva000AD6F4
-{
-public:
-	void clear();
-};
+#include "../../Include/Common/Rva000AD6F4.h"
 
 // 0x0050EAB9 is ??1AptRowListRow@@QAE@XZ (the implicit row dtor: movie member at +8),
 // rowed from AptRowListConstructor.cpp, the copy the link keeps.

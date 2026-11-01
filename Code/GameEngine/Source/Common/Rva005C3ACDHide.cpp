@@ -20,13 +20,7 @@ private:
     void *m_ptr; // +0 holder makes Elem stride 12 like retail imul 12
 };
 
-class Rva000AD6F4
-{
-public:
-    void clear();
-private:
-    void *m_ptr; // +0 holder makes Elem stride 12
-};
+#include "../../Include/Common/Rva000AD6F4.h"
 
 class Inner005C3ACD
 {

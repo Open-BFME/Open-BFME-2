@@ -54,14 +54,7 @@ struct Inner00576C4B
 	char m_pad[4];
 	Rva00328A83PtrChaseField *m_p;
 };
-class Rva000AD6F4
-{
-public:
-	Rva000AD6F4() : m_ptr(0) {}
-	~Rva000AD6F4();
-	void clear();
-	void *m_ptr;
-};
+#include "../../Include/Common/Rva000AD6F4.h"
 class Rva005CD1A9;
 class Rva00574A98 { public: void *rva00574A98(); };
 class Rva005CD7BD { public: Rva005CD7BD(void *,int,int); private: int native[4]; };

@@ -50,11 +50,7 @@ Rva00574C1B::~Rva00574C1B()
 	m_owner->m_list.rva002B7250((CreateAHeroData *)static_cast<Rva00575125Second *>(this));
 }
 
-class Rva000AD6F4
-{
-public:
-	~Rva000AD6F4();
-};
+#include "../../Include/Common/Rva000AD6F4.h"
 
 // Native C6E4C0 slot 0 receives the secondary-base pointer. MSVC adjusts
 // this override's receiver by -0x10, producing the native [ecx-0x0C] load.

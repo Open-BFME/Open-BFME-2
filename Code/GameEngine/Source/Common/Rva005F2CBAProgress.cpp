@@ -193,14 +193,7 @@ __forceinline void AddCommandMapDelegate(const AsciiString &name, DelegateDesc d
 
 // The owning holder of the icon slot's clip: its destructor is the rowed
 // clear 0x000AD6F4 (pinned destructor view).
-class Rva000AD6F4
-{
-public:
-	Rva000AD6F4() : m_ptr(0) {}
-	~Rva000AD6F4();
-	void clear();
- void *m_ptr;
-};
+#include "../../Include/Common/Rva000AD6F4.h"
 
 // The icon slot's base: an interface whose out-of-line destructor only
 // restores its vtable (folded 0x005277B3, read from the ctor's unwind map);

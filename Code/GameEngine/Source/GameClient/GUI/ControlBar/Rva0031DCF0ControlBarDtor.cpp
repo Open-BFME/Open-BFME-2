@@ -188,14 +188,7 @@ public:
     ~Rva0031C79DMap();
 };
 
-class Rva000AD6F4
-{
-public:
-	~Rva000AD6F4();
-	void clear();
-private:
-	void *m_ptr; // +0x00
-};
+#include "../../../../Include/Common/Rva000AD6F4.h"
 
 class Rva0031DCF0 : public SubsystemInterface
 {

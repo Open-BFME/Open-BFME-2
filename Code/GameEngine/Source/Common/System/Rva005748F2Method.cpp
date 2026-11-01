@@ -11,12 +11,7 @@ public:
 	virtual void slot1();
 };
 
-class Rva000AD6F4
-{
-public:
-	void clear();
-	void *m_ptr;
-};
+#include "../../../Include/Common/Rva000AD6F4.h"
 
 class Rva005748F2
 {

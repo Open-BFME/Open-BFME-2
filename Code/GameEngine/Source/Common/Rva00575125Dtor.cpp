@@ -51,11 +51,7 @@ void bfmeAnchorRva00575125Dtor(Rva00575125 *p)
 
 
 void Rva00575125Second::slot0(int) {}
-class Rva000AD6F4
-{
-public:
-	~Rva000AD6F4();
-};
+#include "../../Include/Common/Rva000AD6F4.h"
 
 // Native C6E4C0 slot 0 receives the secondary-base pointer. MSVC adjusts
 // this override's receiver by -0x10, producing the native [ecx-0x0C] load.

@@ -16,14 +16,7 @@ public:
 	void RemoveOnLoadedCommandMap();
 };
 
-class Rva000AD6F4
-{
-public:
-	~Rva000AD6F4();
-	void clear();
-
-	void *m_ptr;
-};
+#include "../../Include/Common/Rva000AD6F4.h"
 
 // Base vtable C4EF80: every slot is __purecall (0x0003B810).
 class Rva005F2B22Base

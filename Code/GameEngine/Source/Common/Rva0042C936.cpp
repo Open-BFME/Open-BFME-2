@@ -69,11 +69,7 @@ Rva0042C936 *Rva0042C936::assign(Holder0042C936 holder)
 // factory's auto_ptr straight into the setter's by-value argument, as an
 // auto_ptr conversion does -- and caches the value. The emptied auto_ptr's
 // destructor (a virtual delete) runs after the call.
-class Rva000AD6F4
-{
-public:
-	void clear();
-};
+#include "../../Include/Common/Rva000AD6F4.h"
 
 // The factory's owner: a pointer released into the returned auto_ptr
 // (rowed 0x0042C993 in StrategicInGameUITurnPhaseFactory.cpp), filled

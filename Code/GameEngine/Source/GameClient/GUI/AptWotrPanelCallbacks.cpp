@@ -51,13 +51,7 @@ private:
 // ---- the panel built by 0x0057B5AA
 
 // The scroll bar holder at +0x28 (Rva000AD6F4's clear).
-class Rva000AD6F4
-{
-public:
-	void clear();
-
-	void *m_ptr;
-};
+#include "../../../Include/Common/Rva000AD6F4.h"
 
 // The scroll bar built from the loaded movie's level and path by the
 // unrowed constructor 0x005D4DA9 (pinned by address); listeners join its

@@ -2,13 +2,7 @@
 // ?rva0050F10B@Rva0050F10B@@QAEXPBD@Z 119B @0x0050F10B: index-param clear of entry holder via rowed GetParam and clear. Evidence: REF constant at 0x0051076D in FUN_0091066a plus rowed callees 0x004128F0 0x000AD6F4 0x00036410 plus IAT atoi plus neighbours Rva0050F0AB and FamilyDeletingDtors.
 #include "ascii_string.h"
 
-class Rva000AD6F4
-{
-public:
-	void clear();
-private:
-	void *m_ptr;
-};
+#include "../../../Include/Common/Rva000AD6F4.h"
 
 bool __cdecl Rva004128F0GetParam(const char *a, const char *b, AsciiString &c);
 extern "C" __declspec(dllimport) int __cdecl atoi(const char *s);

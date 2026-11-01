@@ -120,11 +120,7 @@ public:
 // 0x0044BD53, ..., 0x0044BDF7): the rowed functor fire 0x0044BDFF on the
 // +0x08 member.
 // 0x00575CA6: the rowed clear 0x000AD6F4 on the +0x24 member.
-class Rva000AD6F4
-{
-public:
-	void clear();
-};
+#include "../../Include/Common/Rva000AD6F4.h"
 // 0x00575CAE: allocates the rowed 0x14-byte helper 0x0057551C from the
 // adjusted owner pointer, then stores it through the rowed setter at +0x28.
 // The helper identity follows the direct constructor call; owner type is

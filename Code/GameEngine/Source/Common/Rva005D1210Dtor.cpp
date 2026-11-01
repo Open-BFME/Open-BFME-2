@@ -10,15 +10,7 @@
 
 void Rva005EC135Delete(void **slot);
 
-class Rva000AD6F4
-{
-public:
-	~Rva000AD6F4();
-	void clear();
-
-private:
-	int m_ptr;
-};
+#include "../../Include/Common/Rva000AD6F4.h"
 
 namespace StrategicInGameUI {
 class TacticalBattleResolver

@@ -320,11 +320,7 @@ void Rva0044BDF7::rva0044BDF7(Int which)
 }
 
 // 0x00575CA6: the rowed clear 0x000AD6F4 on the +0x24 member.
-class Rva000AD6F4
-{
-public:
-	void clear();
-};
+#include "../../Include/Common/Rva000AD6F4.h"
 class Rva00575CA6
 {
 public:

@@ -190,11 +190,7 @@ private:
 // Evidence: caller 0x003BBB26 passes g_bfmeWorldRV in ecx with no stack args;
 // same +0x2A4 as neighbour 0x00405A50; callees rowed; jmp tail to 0x002D370A.
 
-class Rva000AD6F4
-{
-public:
-	void clear();
-};
+#include "../../Include/Common/Rva000AD6F4.h"
 
 struct TreeHintRef00217D4C;
 

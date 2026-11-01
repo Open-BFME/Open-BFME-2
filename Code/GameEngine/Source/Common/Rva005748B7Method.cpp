@@ -29,11 +29,7 @@ private:
 	char m_pad[0x20];
 	Rva0042D6B4PtrChaseField *m_field;
 };
-class Rva000AD6F4
-{
-public:
-	~Rva000AD6F4();
-};
+#include "../../Include/Common/Rva000AD6F4.h"
 class Rva005756F2
 {
 public:

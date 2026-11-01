@@ -8,13 +8,7 @@
 #include "ascii_string.h"
 
 // The scroll bar holder at +0x28.
-class Rva000AD6F4
-{
-public:
-	void clear();
-
-	void *m_ptr;
-};
+#include "../../../Include/Common/Rva000AD6F4.h"
 
 // The scroll bar's ratio setters (rowed 0x005D4BAE/0x005D4BC1) and visibility
 // (rowed SetVisible 0x005D49D5).
