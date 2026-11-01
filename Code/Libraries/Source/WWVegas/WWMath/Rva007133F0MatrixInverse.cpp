@@ -15,34 +15,25 @@
 // the header's inline definition. Class and method names are address-derived;
 // the original name is unproven in both games.
 
-struct Vector4
-{
-	float X, Y, Z, W;
-	__forceinline Vector4 &operator=(const Vector4 &v) { X = v.X; Y = v.Y; Z = v.Z; W = v.W; return *this; }
-	__forceinline void Set(float x, float y, float z, float w) { X = x; Y = y; Z = z; W = w; }
-	float &operator[](int i) { return (&X)[i]; }
-	const float &operator[](int i) const { return (&X)[i]; }
-};
+#include "Vector4Data.h"
+static __forceinline void copyVector4(Vector4 &row, const Vector4 &other)
+{ row.X=other.X; row.Y=other.Y; row.Z=other.Z; row.W=other.W; }
 
 class Matrix3D
 {
 public:
-	Vector4 &operator[](int i) { return Row[i]; }
-	const Vector4 &operator[](int i) const { return Row[i]; }
-protected:
 	Vector4 Row[3];
 };
 
 class Matrix4
 {
 public:
+	__forceinline Matrix4() {}
 	__declspec(dllimport) __forceinline void Init(const Matrix3D &m)
 	{
-		Row[0] = m[0]; Row[1] = m[1]; Row[2] = m[2]; Row[3].Set(0.0f, 0.0f, 0.0f, 1.0f);
+		copyVector4(Row[0], m.Row[0]); copyVector4(Row[1], m.Row[1]); copyVector4(Row[2], m.Row[2]); Row[3].Set(0.0f, 0.0f, 0.0f, 1.0f);
 	}
 	void Inverse(Matrix4 *out) const;
-	Vector4 &operator[](int i) { return Row[i]; }
-	const Vector4 &operator[](int i) const { return Row[i]; }
 	Vector4 Row[4];
 };
 
@@ -58,16 +49,16 @@ void Rva007133F0MatrixInverse::inverse(Matrix3D &out) const
 	mat.Init(*this);
 	Matrix4 result;
 	mat.Inverse(&result);
-	out[0][0] = result[0][0];
-	out[0][1] = result[0][1];
-	out[0][2] = result[0][2];
-	out[0][3] = result[0][3];
-	out[1][0] = result[1][0];
-	out[1][1] = result[1][1];
-	out[1][2] = result[1][2];
-	out[1][3] = result[1][3];
-	out[2][0] = result[2][0];
-	out[2][1] = result[2][1];
-	out[2][2] = result[2][2];
-	out[2][3] = result[2][3];
+	out.Row[0].X = result.Row[0].X;
+	out.Row[0].Y = result.Row[0].Y;
+	out.Row[0].Z = result.Row[0].Z;
+	out.Row[0].W = result.Row[0].W;
+	out.Row[1].X = result.Row[1].X;
+	out.Row[1].Y = result.Row[1].Y;
+	out.Row[1].Z = result.Row[1].Z;
+	out.Row[1].W = result.Row[1].W;
+	out.Row[2].X = result.Row[2].X;
+	out.Row[2].Y = result.Row[2].Y;
+	out.Row[2].Z = result.Row[2].Z;
+	out.Row[2].W = result.Row[2].W;
 }
