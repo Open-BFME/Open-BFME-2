@@ -227,3 +227,4 @@ Rva002A8F24,Code/GameEngine/Include/GameLogic/Rva002A8F24.h,existing header; con
 Rva00222A8BTarget,Code/GameEngine/Include/Common/Rva00222A8BTarget.h,existing header; contract class_contracts/Rva00222A8BTarget.json; 151/166 sampled units adopt
 BfmeFixedStorage0004543D,Code/GameEngine/Include/Common/BfmeFixedStorage0004543D.h,existing header; contract class_contracts/BfmeFixedStorage0004543D.json; 105/131 sampled units adopt
 Rva002BA8F1Logic,Code/GameEngine/Include/GameLogic/Rva002BA8F1Logic.h,existing header; contract class_contracts/Rva002BA8F1Logic.json; 103/155 sampled units adopt
+UpgradeCenter,Code/GameEngine/Include/Common/Upgrade.h,existing header; contract class_contracts/UpgradeCenter.json; 41/92 sampled units adopt

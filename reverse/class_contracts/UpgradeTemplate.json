@@ -1,0 +1,331 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "UpgradeTemplate",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 40,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x10": {
+    "4": 1
+   },
+   "0x34": {
+    "4": 1
+   },
+   "0x6c": {
+    "4": 1
+   },
+   "0x70": {
+    "4": 1
+   },
+   "0x7c": {
+    "4": 1
+   },
+   "0x8c": {
+    "4": 1
+   },
+   "0x90": {
+    "4": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 5,
+  "retail_vtables": {},
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 2,
+   "8": 12,
+   "12": 4,
+   "48": 1,
+   "60": 9,
+   "100": 1,
+   "104": 2,
+   "108": 1,
+   "116": 1,
+   "121": 1,
+   "124": 1,
+   "128": 1,
+   "132": 1,
+   "136": 1,
+   "156": 1
+  },
+  "views": 39,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_UpgradeTemplate.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Upgrade.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "P",
+   "name": "m_0",
+   "name_by": "tie",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 12,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_type",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 18,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 47
+ },
+ "outliers": [
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerTransferAssets.cpp",
+    "Code/GameEngine/Source/Common/Rva0059B5A3Describe.cpp",
+    "Code/GameEngine/Source/Common/System/UpgradeCenterNewUpgrade.cpp",
+    "Code/GameEngine/Source/Common/System/UpgradeTemplateCalcCostToBuild.cpp",
+    "Code/GameEngine/Source/Common/System/XferUpgradeMask.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroManager.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Upgrade/UpgradeModule.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AIWallBuilder/AIWall.cpp"
+   ],
+   "views": 10
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/UpgradeCenterFindUpgradeByKey.cpp",
+    "Code/GameEngine/Source/Common/System/UpgradeCenterNewUpgrade.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/UpgradeTemplateCalcCostToBuild.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/UpgradeTemplateCalcCostToBuild.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/UpgradeTemplateCalcCostToBuild.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/UnitHelpSource.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/UpgradeTemplateCalcCostToBuild.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerRva002AB87D.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerTransferAssets.cpp",
+    "Code/GameEngine/Source/Common/RTS/Player_addUpgrade.cpp",
+    "Code/GameEngine/Source/Common/RTS/Player_removeUpgrade.cpp",
+    "Code/GameEngine/Source/Common/Rva0035B513.cpp",
+    "Code/GameEngine/Source/Common/System/UpgradeCenterFindUpgradeByKey.cpp",
+    "Code/GameEngine/Source/Common/System/UpgradeCenterNewUpgrade.cpp",
+    "Code/GameEngine/Source/Common/System/XferUpgradeMask.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehavior.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHeroReset.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectAffectedByUpgrade.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectUpdateUpgradeModules.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdateUpgradeMasks.cpp"
+   ],
+   "views": 13
+  },
+  {
+   "offset": 64,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 68,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 72,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 76,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerRva002AD93A.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 80,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerRva002AD93A.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 84,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerRva002AD93A.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 88,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerRva002AD93A.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 92,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerRva002AD93A.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 96,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerRva002AD93A.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 100,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/UpgradeCenterFindUpgradeByKey.cpp",
+    "Code/GameEngine/Source/Common/System/XferUpgradeMask.cpp",
+    "Code/GameEngine/Source/Common/UpgradeCenterDestructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroManager.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 104,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/UpgradeCenterFindUpgradeByKey.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 112,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 120,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/INI_Rva003F2033ParseOnVictoryGiveUpgrade.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 121,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/UpgradeTemplateCalcCostToBuild.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 124,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/UpgradeTemplateCalcCostToBuild.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 128,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/ObjectAffectedByUpgrade.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 132,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroManager.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "name@0x0",
+   "candidates": {
+    "__vfptr": 1,
+    "m_0": 2,
+    "m_00": 1,
+    "m_unmodelled_000": 1,
+    "m_unreconstructed": 2,
+    "m_unreconstructed_000": 1,
+    "m_vptr": 1,
+    "m_vtbl": 1,
+    "opaque00": 1,
+    "p0": 1
+   },
+   "class": "UpgradeTemplate"
+  }
+ ],
+ "size": 8,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
