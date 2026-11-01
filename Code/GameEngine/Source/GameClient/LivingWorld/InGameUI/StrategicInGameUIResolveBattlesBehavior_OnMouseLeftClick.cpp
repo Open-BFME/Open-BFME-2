@@ -101,97 +101,34 @@ private:
 class LivingWorldPendingBattle;
 class PendingBattleVisitor;
 class Rva0020E7E8Callback;
-class LivingWorldRegionManager
-{
-public:
-    LivingWorldPendingBattle *rva0020E6C0();
-    LivingWorldPendingBattle *rva0020E501(int);
-    void EnumeratePendingBattles(PendingBattleVisitor &) const;
-    void EnumerateCompletedBattles(Rva0020E7E8Callback *);
-};
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
-struct ResolveBattleWorldView
-{
-    char unknown00[0xB0];
-    LivingWorldRegionManager *regionManager;
-};
-struct ResolveBattleResultView
-{
-    char unknown00[0x3C];
-    int state;
-};
 class Object;
-class Rva00575674 { public: void rva00575674(Object *); };
-class Rva00576591
-{
-public:
-    Rva00576591(void *owner);
-private:
-    char nativeStorage[12];
-};
-
-
 class Rva00576BDDDispute;
-class Rva002B8817 { public: void rva002B8817(void *, void *); };
-class Rva005768CBCall { public: void rva005768CB(void *); };
-
-
 class PendingBattleVisitor {
 public:
  virtual bool Visit(LivingWorldPendingBattle *) = 0;
  ~PendingBattleVisitor() {}
 };
 class Rva0020E7E8Callback { public: virtual bool invoke(void *) = 0; };
-class Rva005766B3 : public PendingBattleVisitor {
-public:
- Rva005766B3(int,int,int);
- ~Rva005766B3() {}
- virtual bool Visit(LivingWorldPendingBattle *);
-private:
- int a,b,c;
-};
-
-
-class LivingWorldBattle { public: bool rva003F48EF(void *); };
 struct TargetRef00217D4C;
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
-class Rva005D1DCB {
-public:
- Rva005D1DCB(void *, LivingWorldPendingBattle *);
- char storage[24];
-};
 namespace StrategicInGameUI {
-struct ChecklistItemRef {
- Rva005D1DCB *m_ptr;
- ChecklistItemRef(Rva005D1DCB *p) : m_ptr(p) { if(p) ++*(int *)((char *)p+4); }
- ~ChecklistItemRef() { if(m_ptr) ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)m_ptr); }
-};
-class Checklist { public: void AddItem(const ChecklistItemRef &); };
 }
 
 
 
-class Rva002C025AViewer { public: void *rva002C025A(void *, unsigned, bool); };
-class Rva00212728 { public: void *rva00212728(void *); };
 class Rva00DFE1C8Host;
 // g_00DFE1C8 is only an alias of the owned global TheLivingWorldManager (ledger names column); this unit reads the owner through its own view type.
 extern class LivingWorldManager *TheLivingWorldManager;
 #define g_00DFE1C8 (*(Rva00DFE1C8Host * *)&TheLivingWorldManager)
 class Rva00328A83PtrChaseField { public: int get() const; };
-class Rva0042D6BAPtrChaseField { public: int get() const; };
-class Rva0057C22FByteChaseField { public: unsigned char get() const; };
 struct Rva002B5C5EVal;
-class Rva002B5C5E { public: Rva002B5C5EVal *rva002B5C5E(int); };
-class RegionAwardDispute { public: int GetResolvableBy(); };
 // The two native owning state holders share the38-byte reset at575674.
 // Distinct typed instantiations preserve the native caller's two EH paths;
 // each emitted reset is proved byte-and-relocation identical to the owner.
 // Slot0 returns the allocation after flags0 destruction. The original class
 // identities remain unresolved; these views only express the witnessed ABI.
-class ResolveClickState { public: virtual void *deleteInstance(int); };
-class Rva0057647E : public ResolveClickState { public: Rva0057647E(void *,LivingWorldPendingBattle *); char data[8]; };
-class Rva005765D1 : public ResolveClickState { public: Rva005765D1(void *,int,int); char data[8]; };
 template<class T> class ResolveClickHolder { public:
  T *p;
  __declspec(noinline) void reset(T *value) {
@@ -201,15 +138,6 @@ template<class T> class ResolveClickHolder { public:
   ::operator delete(released);
  }
 };
-struct ResolveClickUI { void *unknown0; Rva00328A83PtrChaseField *impl; };
-struct ResolveClickPlayer { char unknown0[0x14]; int id; };
-struct ResolveClickObject { char unknown0[0x10]; void *key; };
-struct ResolveClickView {
- char unknown0[0x10]; ResolveClickUI *ui; Rva002C025AViewer *viewer;
- ResolveClickPlayer *player; ResolveClickHolder<Rva0057647E> battle; char unknown20[0x20]; ResolveClickHolder<Rva005765D1> ownership;
-};
-
-
 // 0x0057539C is rowed as Rva00575383's member forwarder (Rva0057539CForwarders.cpp).
 class Rva00575383 { public: void rva0057539C(); };
 class Rva005CD010 { public: void rva005CD010(); };

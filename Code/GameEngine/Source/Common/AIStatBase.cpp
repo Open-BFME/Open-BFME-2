@@ -70,18 +70,6 @@ private:
 };
 // Rva0010BA61::rva0010BA61 is defined with its retail-matched body in Code/GameEngine/Source/Common/Rva0010BA61.cpp (0x0010BA61).
 
-class Rva004E52DC
-{
-public:
-	void rva004E52DC();
-};
-class Rva004E54B8 : public Rva004E52DC
-{
-public:
-	void rva004E54B8();
-private:
-	void helper004E5372();
-};
 class Rva0025C010
 {
 public:
@@ -201,167 +189,17 @@ public:
  public:
 };
 
-class Rva005D13C2
-{
-public:
-	void rva005D13C2();
-};
-
-class Rva005D1516
-{
-public:
-	void rva005D1516();
-private:
-	char m_pad00[8];
-	Rva005D13C2 *m_08;
-};
-
 #include "../../Include/Common/Overridable.h"
 
-class Rva005E18D0Forwarder
-{
-public:
-	void tail005E18D0();
-};
-
-class Rva005E1906 : public Rva005E18D0Forwarder
-{
-public:
-	void rva005E1906();
-private:
-	char m_pad00[0x0C];
-	Rva005E18D0Forwarder *m_0C;
-};
-
-class Rva00420B2AZeroSetter
-{
-public:
-	void disable();
-};
-
-class Rva005E18DCForwarder
-{
-public:
-	void tail005E18DC();
-};
-
-class Rva005E1917 : public Rva005E18DCForwarder
-{
-public:
-	void rva005E1917();
-private:
-	char m_pad00[0x0C];
-	Rva005E18DCForwarder *m_0C;
-};
-
 namespace StrategicInGameUI {
-class RegionDetailsArmiesPage
-{
-public:
-	class Impl
-	{
-	public:
-		void Update();
-	};
-};
 }
-
-class Rva005E1BC4
-{
-public:
-	void rva005E1BC4();
-private:
-	char m_pad00[0x0C];
-	StrategicInGameUI::RegionDetailsArmiesPage::Impl *m_0C;
-};
-
-class Rva005E254C
-{
-public:
-	void rva005E254C();
-};
-
-class Rva005E25DE
-{
-public:
-	void rva005E25DE();
-private:
-	char m_pad00[0x0C];
-	Rva005E254C *m_0C;
-};
-
-class Rva005E589EForwarder
-{
-public:
-	void tail005E589E();
-};
-
-class Rva005E590F
-{
-public:
-	void rva005E590F();
-private:
-	char m_pad00[8];
-	Rva005E589EForwarder *m_08;
-};
-
-class Rva005E6A9DRun
-{
-public:
-	void run();
-};
-
-class Rva005E6BA3
-{
-public:
-	void rva005E6BA3();
-private:
-	char m_pad00[0x20];
-	Rva005E6A9DRun *m_20;
-};
-
-class Rva005E6AD8
-{
-public:
-	void rva005E6AD8();
-};
-
-class Rva005E6BB4
-{
-public:
-	void rva005E6BB4();
-private:
-	char m_pad00[0x20];
-	Rva005E6AD8 *m_20;
-};
 
 // Native 0x005E6B8F..0x005E6BA3, 20B. The +0x14 member runs the
 // complete 81B no-argument helper; the tail uses this-0x0C and the
 // existing 0x005F327A owner through its 0x005F604C retail jump thunk.
 // Neither the wrapper's original class nor its method name is known.
-class Rva005E6B3E
-{
-public:
-	void updateTooltip();
-};
-
 // Retail 0x005E6B8F calls 0x005F604C, the rowed 5-byte forward to
 // Rva005F327ARun::run (TailJumpWrappers5B.cpp); the call names that row.
-class Rva005F604C
-{
-public:
-	void run();
-};
-
-class Rva005E6B8F
-{
-public:
-	virtual void rva005E6B8F();
-private:
-	char m_pad04[0x14 - 4];
-	Rva005E6B3E *m_14;
-};
-
 // Native 0x005E5920..0x005E5942, 34B.  A qualified call to the rowed
 // RAMFile::write 0x00574473; on -1 it restores this and tail-jumps to the
 // rowed helper 0x005E5884 with the two arguments forwarded (thiscall ret 8).
@@ -375,21 +213,6 @@ class RAMFile
 {
 public:
 	virtual int write(const void *a, int b);
-};
-
-class Rva005E5884
-{
-public:
-	int rva005E5884(void *a1, int a2);
-};
-
-class Rva005E5920 : public RAMFile
-{
-public:
-	int rva005E5920(void *buffer, int size);
-private:
-	char m_pad04[4];
-	Rva005E5884 *m_8;
 };
 
 // tu-skeleton: 0x005960E0 31B ?rva005960E0@AIStatBase@@QAE_NPAX@Z -- matched in Code/GameEngine/Source/Common/Rva00596095Bits.cpp (not merged yet)

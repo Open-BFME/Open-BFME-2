@@ -16,86 +16,13 @@ typedef float Real;
 
 // 0x00131CF2 and 0x00151415 (texture tables): true when the +0x14 object's
 // +0x08 (resp. +0x04) is set, else the rowed 0x00130FCE on this object.
-struct Rva00131CF2Info
-{
-	Int m_00;
-	Int m_04;
-	Int m_08;
-};
-class Rva00130FCE
-{
-public:
-	bool rva00130FCE();
-};
-class Rva00131CF2 : public Rva00130FCE
-{
-public:
-	bool rva00131CF2();
-	bool rva00151415();
-private:
-	char m_pad00[0x14];
-	Rva00131CF2Info *m_14;
-};
-
-
-
 // 0x0057B97C: 1 when the +0x34 object exists and the rowed 0x005D4E6F
 // holds for it, else 0.
-class Rva005D4E6F
-{
-public:
-	bool rva005D4E6F();
-};
-class Rva0057B97C
-{
-public:
-	Int rva0057B97C();
-private:
-	char m_pad00[0x34];
-	Rva005D4E6F *m_34;
-};
-
-
 // 0x003FF312: false while +0x10 is clear, else the rowed GameSlot
 // 0x003FF145 of the +0x18 slot for the +0x38 address.
 struct BfmeNetAddress;
-class Rva003FF145
-{
-public:
-	bool rva003FF145(const BfmeNetAddress *address) const;
-};
-class Rva003FF312
-{
-public:
-	bool rva003FF312();
-private:
-	char m_pad00[0x10];
-	bool m_10;
-	char m_pad11[0x07];
-	Rva003FF145 *m_18;
-	char m_pad1C[0x1C];
-	Int m_38;
-};
-
-
 // 0x0023DAF7: the rowed 0x0023C7F5 with both arguments on the +0x08
 // member.
-class Rva0023C7F5
-{
-public:
-	Int rva0023C7F5(Real a, Int b);
-};
-class Rva0023DAF7
-{
-public:
-	void rva0023DAF7(Real a, Int b);
-private:
-	Int m_00;
-	Int m_04;
-	Rva0023C7F5 m_08;
-};
-
-
 // 0x005FEEC7 and 0x005FEEE6 (adjacent slots of table VA 0x00C7A454): each
 // first runs the shared empty base slot 0x0047A69C (pinned there as
 // Gen_003bcb40::m) with its index, then stores entry [index] of the +0x08
@@ -106,26 +33,6 @@ class Gen_003bcb40
 public:
 	void m(Int index);
 };
-struct Rva005FEEC7Info
-{
-	char m_pad00[0x18];
-	Int *m_18;
-	char m_pad1C[0x08];
-	Int m_24;
-};
-class Rva005FEEC7 : public Gen_003bcb40
-{
-public:
-	void rva005FEEC7(Int index);
-	void rva005FEEE6(Int index);
-private:
-	Int m_00;
-	Int m_04;
-	Rva005FEEC7Info *m_08;
-};
-
-
-
 // 0x005C4352 and 0x005C4553 (tables VA 0x00C745E0/0x00C746D8): field-parse
 // builders: the shared empty base slot 0x0047A69C (alias-pinned here as a
 // buildFieldParse), then the pinned MultiIniFieldParse::add of the table at
@@ -139,51 +46,9 @@ public:
 extern const FieldParse g_rva005C4352FieldParse[];
 extern const FieldParse g_rva005C4553FieldParse[];
 extern const FieldParse g_rva005C47A8FieldParse[];
-class Rva005C4352Base
-{
-public:
-	void buildFieldParse(MultiIniFieldParse &p);
-};
-class Rva005C4352 : public Rva005C4352Base
-{
-public:
-	void rva005C4352(MultiIniFieldParse &p);
-	void rva005C4553(MultiIniFieldParse &p);
-	void rva005C47A8(MultiIniFieldParse &p);
-};
-
-
-
-
 // 0x00576FFE (table VA 0x00C6E8F0): the dword the rowed getter 0x0042D697
 // reads through the object the rowed getter 0x00328A83 (alias-pinned with
 // its pointer result) reaches from the +0x08 object's +0x04 member.
-class Rva0042D697PtrChaseField
-{
-public:
-	Int get() const;
-};
-class Rva00328A83
-{
-public:
-	Rva0042D697PtrChaseField *rva00328A83() const;
-};
-struct Rva00576FFEInfo
-{
-	Int m_00;
-	Rva00328A83 *m_04;
-};
-class Rva00576FFE
-{
-public:
-	Int rva00576FFE();
-private:
-	Int m_00;
-	Int m_04;
-	Rva00576FFEInfo *m_08;
-};
-
-
 // 0x00251C24, 0x00466E0A and 0x004BC51B: interface overrides
 // (interface at +0x0C, +0x34 resp. +0x10) that only dispatch to
 // virtual slot 12, 28 resp. 13 of the complete object.
@@ -258,11 +123,6 @@ void Rva00251C24::forward()
 {
 	target();
 }
-class Rva00466E0A : public Rva00251C24Primary<28, 0x34>, public Rva00251C24Iface
-{
-public:
-	void forward();
-};
 class Rva004BC51B : public Rva00251C24Primary<13, 0x10>, public Rva00251C24Iface
 {
 public:
@@ -324,27 +184,6 @@ void Rva005C47DC::rva005C47DC(Int)
 		m_14 = remainingCount - 1;
 }
 
-class AsciiStringRef
-{
-public:
-	Int write(char *buf);
-private:
-	Int m_ref;
-};
-struct Rva0032AFA4Pair
-{
-	AsciiStringRef m_a;
-	AsciiStringRef m_b;
-};
-class Rva0032AFA4
-{
-public:
-	Int rva0032AFA4(char *buf);
-private:
-	Int m_00;
-	Rva0032AFA4Pair *m_04;
-};
-
 struct Rva003678D6Sub04
 {
 	virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
@@ -369,26 +208,6 @@ bool Rva003678D6::rva003678D6()
 {
 	return !m_28->check();
 }
-
-class Rva0037B7C7
-{
-public:
-	void rva0037BC65();
-};
-class RecorderClass
-{
-public:
-	virtual ~RecorderClass();
-	virtual void init();
-	virtual void postProcessLoad();
-	virtual void reset();
-	virtual void update();
-protected:
-	void updateRecord();
-private:
-	char m_pad04[0x1C - 4];
-	Int m_mode;
-};
 
 namespace FXParticleSystem
 {
@@ -499,11 +318,6 @@ void Rva0027CE80::rva0027CE80()
 
 class Display;
 extern Display *TheDisplay;
-struct DisplayView002D7B50 : public Rva00251C24Slots<82>
-{
-	virtual void v82(Int a, Int b);
-};
-
 class LANAPI;
 extern LANAPI *TheLAN;
 struct LANView0044446D : public Rva00251C24Slots<54>

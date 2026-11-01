@@ -99,48 +99,6 @@ extern Real g_bfmeDefaultBU;
 typedef void (__cdecl *BFMEPathDebugLogFunction)( void *, const char *, ... );
 
 // The Zero Hour shim omits BFME members before these fields, so its declared offsets cannot be used here.
-struct BFMEApproachPathFields
-{
-	char m_unreconstructed_000[0x08];
-	Object *m_object;
-	char m_unreconstructed_00C[0x140 - 0x00C];
-	Path *m_path;
-	ObjectID m_requestedVictimID;
-	Coord3D m_requestedDestination;
-	Coord3D m_requestedDestination2;
-	UnsignedInt m_pathTimestamp;
-	char m_unreconstructed_164[0x16C - 0x164];
-	Int m_blockedFrames;
-	char m_unreconstructed_170[0x178 - 0x170];
-	UnsignedInt m_ignoreCollisionsUntil;
-	UnsignedInt m_queueForPathFrame;
-	char m_unreconstructed_180[0x18C - 0x180];
-	ObjectID m_repulsor1;
-	ObjectID m_repulsor2;
-	char m_unreconstructed_194[0x1D8 - 0x194];
-	Int m_locomotorGoalType;
-	Coord3D m_locomotorGoalData;
-	char m_unreconstructed_1E8[0x31E - 0x1E8];
-	Bool m_waitingForPath;
-	Bool m_isAttackPath;
-	Bool m_isFinalGoal;
-	Bool m_isApproachPath;
-	Bool m_isSafePath;
-	char m_unreconstructed_323[0x325 - 0x323];
-	Bool m_isBlocked;
-	Bool m_isBlockedAndStuck;
-	char m_unreconstructed_327[0x330 - 0x327];
-	Bool m_isInUpdate;
-};
-
-struct BFMEQuickPathFields
-{
-	UnsignedInt getValidLocomotorSurfaces() const { return m_validLocomotorSurfaces; }
-
-	char m_unreconstructed_000[0x1B8];
-	UnsignedInt m_validLocomotorSurfaces;
-};
-
 // The rest of the AIUpdateInterface tail the Zero Hour shim cannot place: the
 // state machine, the current victim, and the mood-check deadline with its
 // randomise flag.
@@ -277,30 +235,6 @@ public:
 	}
 };
 
-class Rva003D5620DwordSlot
-{
-public:
-	void set( Int value );
-};
-
-class Rva00216D20
-{
-public:
-	Bool field() const;
-};
-
-class BFMEActionObject
-{
-public:
-	Bool testStatus( Int status ) const;
-};
-
-class BFMESelectionStatusBits
-{
-public:
-	Bool test( UnsignedInt bit ) const;
-};
-
 extern void j_000082ba(void);
 extern void j_000016a4(void);
 extern void j_00001bae(void);
@@ -336,13 +270,6 @@ public:
 	}
 };
 
-struct BFMEPathNodeView
-{
-	char m_unreconstructed_000[0x0C];
-	Coord3D m_position;
-	PathfindLayerEnum m_layer;
-};
-
 typedef Bool (__fastcall *BFMEComputeAttackPathCall)( AIUpdateInterface *,
 	PathfindServicesInterface *, PathfindServicesInterface *, Object *,
 	const Coord3D * );
@@ -357,16 +284,6 @@ typedef void (__fastcall *BFMEWakeCall)( AIUpdateInterface * );
 // The computePath implementation remains a dump. Preserve its proven ILT
 // identity and use a single-inheritance PMF to express the two-argument ABI.
 extern void j_00023209( void );
-class BFMEComputePathRoute
-{
-public:
-	typedef Bool (BFMEComputePathRoute::*Call)(PathfindServicesInterface *, Coord3D *);
-	__forceinline Bool invoke(PathfindServicesInterface *pathfinder, Coord3D *position)
-	{
-		union { void (*address)(); Call member; } route = { j_00023209 };
-		return (this->*route.member)(pathfinder, position);
-	}
-};
 extern void j_00005637( void );
 extern void j_00011252( void );
 extern void j_000294e2( void );
@@ -482,32 +399,6 @@ public:
 	Int m_appearance;					///< retail this+0x70
 };
 
-class BFMENeedToRotatePath
-{
-};
-
-class BFMENeedToRotateObject
-{
-};
-
-struct BFMENeedToRotateFields
-{
-	char m_unreconstructed_000[0x08];
-	Object *m_object;
-	char m_unreconstructed_00C[0x140 - 0x0C];
-	Path *m_path;
-	char m_unreconstructed_144[0x1CC - 0x144];
-	BFMELocomotorOverride *m_curLocomotor;
-	char m_unreconstructed_1D0[0x31E - 0x1D0];
-	Bool m_waitingForPath;
-};
-
-struct BFMENeedToRotatePoint
-{
-	Coord3D m_posOnPath;
-	char m_unreconstructed_00C[0x21 - 0x0C];
-};
-
 // The two locomotor appearance values these bodies test. Only the VALUES are
 // proven; the names are not. This file's donors called them LOCO_HOVER and
 // LOCO_WINGS against the reference enum's 3 and 5, but Drawable.cpp's
@@ -534,12 +425,6 @@ struct BFMEObjectStatusWord
 {
 	char m_unreconstructed_000[0x90];
 	UnsignedInt m_status;					///< retail this+0x90
-};
-
-class BFMEDeletablePath : public Path
-{
-public:
-	void destroy(void) { Path::~Path(); }
 };
 
 #define BFME_AIUPDATE_SLOT(N) virtual void slot##N() = 0
@@ -670,11 +555,6 @@ static __forceinline Object *rva00279A50TeamTarget(void *team)
 struct Rva00279A50MoodStateCall
 {
 	typedef Int (Rva00279A50MoodStateCall::*Function)(void);
-};
-
-struct Rva00279A50ObjectNoArgIntCall
-{
-	typedef Int (Rva00279A50ObjectNoArgIntCall::*Function)(void);
 };
 
 static __forceinline Int rva00279A50MoodState(const void *aiUpdate)
@@ -835,38 +715,6 @@ static __forceinline Object *rva00279A50FindClosest(AI *ai, const Object *owner,
 class Rva00279A50StateProbe;
 
 #define RVA00279A50_SLOT(N) virtual void slot##N(void) = 0
-class Rva00279A50UpdateVtable
-{
-public:
-	RVA00279A50_SLOT(000); RVA00279A50_SLOT(001); RVA00279A50_SLOT(002); RVA00279A50_SLOT(003);
-	RVA00279A50_SLOT(004); RVA00279A50_SLOT(005); RVA00279A50_SLOT(006); RVA00279A50_SLOT(007);
-	RVA00279A50_SLOT(008); RVA00279A50_SLOT(009); RVA00279A50_SLOT(010); RVA00279A50_SLOT(011);
-	RVA00279A50_SLOT(012); RVA00279A50_SLOT(013); RVA00279A50_SLOT(014); RVA00279A50_SLOT(015);
-	RVA00279A50_SLOT(016); RVA00279A50_SLOT(017); RVA00279A50_SLOT(018); RVA00279A50_SLOT(019);
-	RVA00279A50_SLOT(020); RVA00279A50_SLOT(021); RVA00279A50_SLOT(022); RVA00279A50_SLOT(023);
-	RVA00279A50_SLOT(024); RVA00279A50_SLOT(025); RVA00279A50_SLOT(026); RVA00279A50_SLOT(027);
-	RVA00279A50_SLOT(028); RVA00279A50_SLOT(029); RVA00279A50_SLOT(030); RVA00279A50_SLOT(031);
-	RVA00279A50_SLOT(032); RVA00279A50_SLOT(033); RVA00279A50_SLOT(034); RVA00279A50_SLOT(035);
-	RVA00279A50_SLOT(036); RVA00279A50_SLOT(037); RVA00279A50_SLOT(038); RVA00279A50_SLOT(039);
-	RVA00279A50_SLOT(040); RVA00279A50_SLOT(041); RVA00279A50_SLOT(042); RVA00279A50_SLOT(043);
-	RVA00279A50_SLOT(044); RVA00279A50_SLOT(045); RVA00279A50_SLOT(046); RVA00279A50_SLOT(047);
-	RVA00279A50_SLOT(048); RVA00279A50_SLOT(049); RVA00279A50_SLOT(050); RVA00279A50_SLOT(051);
-	RVA00279A50_SLOT(052); RVA00279A50_SLOT(053); RVA00279A50_SLOT(054); RVA00279A50_SLOT(055);
-	RVA00279A50_SLOT(056); RVA00279A50_SLOT(057); RVA00279A50_SLOT(058); RVA00279A50_SLOT(059);
-	RVA00279A50_SLOT(060); RVA00279A50_SLOT(061); RVA00279A50_SLOT(062); RVA00279A50_SLOT(063);
-	RVA00279A50_SLOT(064); RVA00279A50_SLOT(065); RVA00279A50_SLOT(066); RVA00279A50_SLOT(067);
-	RVA00279A50_SLOT(068); RVA00279A50_SLOT(069); RVA00279A50_SLOT(070); RVA00279A50_SLOT(071);
-	RVA00279A50_SLOT(072); RVA00279A50_SLOT(073); RVA00279A50_SLOT(074); RVA00279A50_SLOT(075);
-	RVA00279A50_SLOT(076); RVA00279A50_SLOT(077); RVA00279A50_SLOT(078);
-	virtual Rva00279A50StateProbe *slot079(void) = 0;
-	RVA00279A50_SLOT(080); RVA00279A50_SLOT(081); RVA00279A50_SLOT(082); RVA00279A50_SLOT(083);
-	RVA00279A50_SLOT(084); RVA00279A50_SLOT(085); RVA00279A50_SLOT(086); RVA00279A50_SLOT(087);
-	RVA00279A50_SLOT(088); RVA00279A50_SLOT(089); RVA00279A50_SLOT(090); RVA00279A50_SLOT(091);
-	RVA00279A50_SLOT(092); RVA00279A50_SLOT(093); RVA00279A50_SLOT(094); RVA00279A50_SLOT(095);
-	RVA00279A50_SLOT(096);
-	virtual Bool slot097(void) = 0;
-};
-
 class Rva00279A50StateProbe
 {
 public:
@@ -876,92 +724,10 @@ public:
 	virtual Int slot24(void) = 0;
 };
 
-class Rva00279A50ModuleVtable
-{
-public:
-	RVA00279A50_SLOT(00); RVA00279A50_SLOT(04); RVA00279A50_SLOT(08); RVA00279A50_SLOT(0C);
-	RVA00279A50_SLOT(10); RVA00279A50_SLOT(14); RVA00279A50_SLOT(18); RVA00279A50_SLOT(1C);
-	RVA00279A50_SLOT(20); RVA00279A50_SLOT(24); RVA00279A50_SLOT(28); RVA00279A50_SLOT(2C);
-	RVA00279A50_SLOT(30); RVA00279A50_SLOT(34); RVA00279A50_SLOT(38); RVA00279A50_SLOT(3C);
-	RVA00279A50_SLOT(40); RVA00279A50_SLOT(44); RVA00279A50_SLOT(48); RVA00279A50_SLOT(4C);
-	RVA00279A50_SLOT(50); RVA00279A50_SLOT(54); RVA00279A50_SLOT(58); RVA00279A50_SLOT(5C);
-	RVA00279A50_SLOT(60); RVA00279A50_SLOT(64);
-	virtual void *slot68(void) = 0;
-	RVA00279A50_SLOT(6C); RVA00279A50_SLOT(70); RVA00279A50_SLOT(74); RVA00279A50_SLOT(78);
-	RVA00279A50_SLOT(7C); RVA00279A50_SLOT(80); RVA00279A50_SLOT(84); RVA00279A50_SLOT(88);
-	RVA00279A50_SLOT(8C); RVA00279A50_SLOT(90); RVA00279A50_SLOT(94); RVA00279A50_SLOT(98);
-	RVA00279A50_SLOT(9C); RVA00279A50_SLOT(A0);
-	virtual Bool slotA4(void) = 0;
-	RVA00279A50_SLOT(A8); RVA00279A50_SLOT(AC); RVA00279A50_SLOT(B0); RVA00279A50_SLOT(B4);
-	RVA00279A50_SLOT(B8); RVA00279A50_SLOT(BC); RVA00279A50_SLOT(C0); RVA00279A50_SLOT(C4);
-	RVA00279A50_SLOT(C8); RVA00279A50_SLOT(CC); RVA00279A50_SLOT(D0); RVA00279A50_SLOT(D4);
-	RVA00279A50_SLOT(D8); RVA00279A50_SLOT(DC);
-	virtual Bool slotE0(void) = 0;
-};
-
-class Rva00279A50BodyVtable
-{
-public:
-	RVA00279A50_SLOT(00); RVA00279A50_SLOT(04); RVA00279A50_SLOT(08); RVA00279A50_SLOT(0C);
-	RVA00279A50_SLOT(10); RVA00279A50_SLOT(14); RVA00279A50_SLOT(18); RVA00279A50_SLOT(1C);
-	RVA00279A50_SLOT(20); RVA00279A50_SLOT(24); RVA00279A50_SLOT(28); RVA00279A50_SLOT(2C);
-	RVA00279A50_SLOT(30); RVA00279A50_SLOT(34); RVA00279A50_SLOT(38);
-	virtual void *slot3C(void) = 0;
-};
-
-class Rva00279A50BodySubVtable
-{
-public:
-	RVA00279A50_SLOT(00); RVA00279A50_SLOT(04); RVA00279A50_SLOT(08); RVA00279A50_SLOT(0C);
-	RVA00279A50_SLOT(10); RVA00279A50_SLOT(14); RVA00279A50_SLOT(18); RVA00279A50_SLOT(1C);
-	RVA00279A50_SLOT(20); RVA00279A50_SLOT(24); RVA00279A50_SLOT(28); RVA00279A50_SLOT(2C);
-	RVA00279A50_SLOT(30); RVA00279A50_SLOT(34); RVA00279A50_SLOT(38); RVA00279A50_SLOT(3C);
-	RVA00279A50_SLOT(40); RVA00279A50_SLOT(44); RVA00279A50_SLOT(48); RVA00279A50_SLOT(4C);
-	RVA00279A50_SLOT(50); RVA00279A50_SLOT(54); RVA00279A50_SLOT(58); RVA00279A50_SLOT(5C);
-	RVA00279A50_SLOT(60); RVA00279A50_SLOT(64); RVA00279A50_SLOT(68); RVA00279A50_SLOT(6C);
-	RVA00279A50_SLOT(70); RVA00279A50_SLOT(74); RVA00279A50_SLOT(78); RVA00279A50_SLOT(7C);
-	RVA00279A50_SLOT(80); RVA00279A50_SLOT(84); RVA00279A50_SLOT(88); RVA00279A50_SLOT(8C);
-	RVA00279A50_SLOT(90); RVA00279A50_SLOT(94); RVA00279A50_SLOT(98);
-	virtual void *slot9C(Coord3D *, Object *, Int) = 0;
-};
-
-class Rva00279A50TerrainVtable
-{
-public:
-	RVA00279A50_SLOT(00); RVA00279A50_SLOT(04); RVA00279A50_SLOT(08); RVA00279A50_SLOT(0C);
-	RVA00279A50_SLOT(10); RVA00279A50_SLOT(14);
-	virtual Real slot18(Real, Real, Int) = 0;
-};
-
-class Rva00279A50TacticalVtable
-{
-public:
-	RVA00279A50_SLOT(00); RVA00279A50_SLOT(04); RVA00279A50_SLOT(08); RVA00279A50_SLOT(0C);
-	RVA00279A50_SLOT(10); RVA00279A50_SLOT(14); RVA00279A50_SLOT(18); RVA00279A50_SLOT(1C);
-	RVA00279A50_SLOT(20); RVA00279A50_SLOT(24); RVA00279A50_SLOT(28); RVA00279A50_SLOT(2C);
-	virtual void slot30(Coord3D *, Real, UnsignedInt, Int) = 0;
-};
-
 // C-linkage views of the retail tables ??_7Rva0026FA60FunctorValueWrapper@@6B@
 // and ??_7PartitionFilter@@6B@; the alternate names define no table.
 extern "C" void *bfmeVftRva0026FA60FunctorValueWrapper[];
 extern "C" void *bfmeVftPartitionFilter[];
-
-class Rva00279A50FunctorFilter
-{
-public:
-	Rva00279A50FunctorFilter(Object *object)
-		: m_vtable(bfmeVftRva0026FA60FunctorValueWrapper), m_zero(0), m_object(object) {}
-	~Rva00279A50FunctorFilter()
-	{
-		m_vtable = bfmeVftPartitionFilter;
-	}
-
-private:
-	void *m_vtable;
-	UnsignedInt m_zero;
-	Object *m_object;
-};
 
 #undef RVA00279A50_SLOT
 
@@ -1138,138 +904,6 @@ enum {WAYPOINT_PATH_LIMIT=1024};
 
 //=============================================================================
 // BFME AIUpdateInterface::chooseLocomotorSet is vtable +0x1fc (slot 127).
-class AIUpdateInterface_ChooseLocomotorSlot {
-public:
-	virtual void _pad0(void) = 0;
-	virtual void _pad1(void) = 0;
-	virtual void _pad2(void) = 0;
-	virtual void _pad3(void) = 0;
-	virtual void _pad4(void) = 0;
-	virtual void _pad5(void) = 0;
-	virtual void _pad6(void) = 0;
-	virtual void _pad7(void) = 0;
-	virtual void _pad8(void) = 0;
-	virtual void _pad9(void) = 0;
-	virtual void _pad10(void) = 0;
-	virtual void _pad11(void) = 0;
-	virtual void _pad12(void) = 0;
-	virtual void _pad13(void) = 0;
-	virtual void _pad14(void) = 0;
-	virtual void _pad15(void) = 0;
-	virtual void _pad16(void) = 0;
-	virtual void _pad17(void) = 0;
-	virtual void _pad18(void) = 0;
-	virtual void _pad19(void) = 0;
-	virtual void _pad20(void) = 0;
-	virtual void _pad21(void) = 0;
-	virtual void _pad22(void) = 0;
-	virtual void _pad23(void) = 0;
-	virtual void _pad24(void) = 0;
-	virtual void _pad25(void) = 0;
-	virtual void _pad26(void) = 0;
-	virtual void _pad27(void) = 0;
-	virtual void _pad28(void) = 0;
-	virtual void _pad29(void) = 0;
-	virtual void _pad30(void) = 0;
-	virtual void _pad31(void) = 0;
-	virtual void _pad32(void) = 0;
-	virtual void _pad33(void) = 0;
-	virtual void _pad34(void) = 0;
-	virtual void _pad35(void) = 0;
-	virtual void _pad36(void) = 0;
-	virtual void _pad37(void) = 0;
-	virtual void _pad38(void) = 0;
-	virtual void _pad39(void) = 0;
-	virtual void _pad40(void) = 0;
-	virtual void _pad41(void) = 0;
-	virtual void _pad42(void) = 0;
-	virtual void _pad43(void) = 0;
-	virtual void _pad44(void) = 0;
-	virtual void _pad45(void) = 0;
-	virtual void _pad46(void) = 0;
-	virtual void _pad47(void) = 0;
-	virtual void _pad48(void) = 0;
-	virtual void _pad49(void) = 0;
-	virtual void _pad50(void) = 0;
-	virtual void _pad51(void) = 0;
-	virtual void _pad52(void) = 0;
-	virtual void _pad53(void) = 0;
-	virtual void _pad54(void) = 0;
-	virtual void _pad55(void) = 0;
-	virtual void _pad56(void) = 0;
-	virtual void _pad57(void) = 0;
-	virtual void _pad58(void) = 0;
-	virtual void _pad59(void) = 0;
-	virtual void _pad60(void) = 0;
-	virtual void _pad61(void) = 0;
-	virtual void _pad62(void) = 0;
-	virtual void _pad63(void) = 0;
-	virtual void _pad64(void) = 0;
-	virtual void _pad65(void) = 0;
-	virtual void _pad66(void) = 0;
-	virtual void _pad67(void) = 0;
-	virtual void _pad68(void) = 0;
-	virtual void _pad69(void) = 0;
-	virtual void _pad70(void) = 0;
-	virtual void _pad71(void) = 0;
-	virtual void _pad72(void) = 0;
-	virtual void _pad73(void) = 0;
-	virtual void _pad74(void) = 0;
-	virtual void _pad75(void) = 0;
-	virtual void _pad76(void) = 0;
-	virtual void _pad77(void) = 0;
-	virtual void _pad78(void) = 0;
-	virtual void _pad79(void) = 0;
-	virtual void _pad80(void) = 0;
-	virtual void _pad81(void) = 0;
-	virtual void _pad82(void) = 0;
-	virtual void _pad83(void) = 0;
-	virtual void _pad84(void) = 0;
-	virtual void _pad85(void) = 0;
-	virtual void _pad86(void) = 0;
-	virtual void _pad87(void) = 0;
-	virtual void _pad88(void) = 0;
-	virtual void _pad89(void) = 0;
-	virtual void _pad90(void) = 0;
-	virtual void _pad91(void) = 0;
-	virtual void _pad92(void) = 0;
-	virtual void _pad93(void) = 0;
-	virtual void _pad94(void) = 0;
-	virtual void _pad95(void) = 0;
-	virtual void _pad96(void) = 0;
-	virtual void _pad97(void) = 0;
-	virtual void _pad98(void) = 0;
-	virtual void _pad99(void) = 0;
-	virtual void _pad100(void) = 0;
-	virtual void _pad101(void) = 0;
-	virtual void _pad102(void) = 0;
-	virtual void _pad103(void) = 0;
-	virtual void _pad104(void) = 0;
-	virtual void _pad105(void) = 0;
-	virtual void _pad106(void) = 0;
-	virtual void _pad107(void) = 0;
-	virtual void _pad108(void) = 0;
-	virtual void _pad109(void) = 0;
-	virtual void _pad110(void) = 0;
-	virtual void _pad111(void) = 0;
-	virtual void _pad112(void) = 0;
-	virtual void _pad113(void) = 0;
-	virtual void _pad114(void) = 0;
-	virtual void _pad115(void) = 0;
-	virtual void _pad116(void) = 0;
-	virtual void _pad117(void) = 0;
-	virtual void _pad118(void) = 0;
-	virtual void _pad119(void) = 0;
-	virtual void _pad120(void) = 0;
-	virtual void _pad121(void) = 0;
-	virtual void _pad122(void) = 0;
-	virtual void _pad123(void) = 0;
-	virtual void _pad124(void) = 0;
-	virtual void _pad125(void) = 0;
-	virtual void _pad126(void) = 0;
-	virtual Bool chooseLocomotorSet( int wst ) = 0;
-};
-
 #ifdef ALLOW_SURRENDER
 
 #endif

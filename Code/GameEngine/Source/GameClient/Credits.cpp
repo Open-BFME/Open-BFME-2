@@ -232,12 +232,6 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 { return a._M_node != b._M_node; }
 }
 
-class AsciiStringMember
-{
-public:
-	~AsciiStringMember();
-};
-
 class Rva005B77F1 : public SubsystemInterface
 {
 public:
@@ -376,21 +370,6 @@ template <> void list<int, allocator<int> >::push_back(const int &value);
 // the three T1 bodies the sweep places. Identity is not recovered: names are
 // addresses and offsets.
 
-class Rva0013A8B0
-{
-public:
-	Rva0013A8B0();
-	int m_00, m_04, m_08, m_0C, m_10;
-	char m_pad14[8];
-	int m_1C, m_20;
-	char m_pad24[4];
-	int m_28;
-	char m_pad2C[0x3C - 0x2C];
-	int m_3C;
-	char m_pad40[4];
-	int m_44;
-};
-
 class Rva0040C1F0
 {
 public:
@@ -400,65 +379,28 @@ public:
 	int m_10, m_14, m_18, m_1C, m_20, m_24;
 };
 
-class Rva00704980
-{
-public:
-	Rva00704980();
-	int m_00, m_04, m_08, m_0C, m_10, m_14, m_18;
-	char m_1C, m_1D, m_1E, m_1F;
-};
-
 // Lead: AssistanceRequestData's zero initializer in Open-BFME-1
 // 9cbfb551fe20dae985f91f2319d8997287b6a705 GameLogic/Object/Weapon.cpp.
 // Native 2C95CC..2C95DE is a complete thiscall leaf between two independently
 // bounded Ghidra functions, returning this after clearing +0/+4 and float+8.
 // The original class, constructor/reset purpose and first two field types
 // remain unknown; the method spelling claims only the native operation/ABI.
-class Rva002C95CCFields
-{
-public:
-    Rva002C95CCFields *initialize();
-    unsigned int m_00;
-    unsigned int m_04;
-    float m_08;
-};
-
 // Current BF1 9cbfb551fe20dae985f91f2319d8997287b6a705 WaterRenderObjConstructor.cpp
 // Boxed<float> constructor is a source guide, not proof of this target's class
 // or constructor role. Native30F2AB..30F2BA stores a single stack float at+0,
 // returns this, and RET4; aligned from known30F14C/351, whose final JMP at
 //30F2A9 stays inside its own teardown, then next independent store starts30F2BA.
 // The neutral initialize method preserves only the observed operation/ABI.
-class Rva0030F2ABFields
-{
-public:
-    Rva0030F2ABFields *initialize(float value);
-    float m_value;
-};
-
 // BF1 9cbfb551fe20dae985f91f2319d8997287b6a705 Rva000FA610GetPortrait.cpp
 // OneBlock constructor is the source lead only. Complete native2A8818..2A8823
 // is independently bounded by preceding RET2A8817 and the known tuning ctor
 // at2A8823; it writes two raw words to1 and returns this without arguments.
 // The original owner, field purposes and constructor role remain unknown.
-class Rva002A8818Fields
-{
-public:
-    Rva002A8818Fields *initialize();
-    unsigned int m_00,m_04;
-};
-
 // BF1 9cbfb551fe20dae985f91f2319d8997287b6a705 AptDisplayStringAllocation_ctor.cpp
 // Rect00787710 zero constructor is a source guide only. Native26FCF9..26FD07
 // is a complete indexed getter ending RET4; the next body26FD07..26FD20
 // independently clears four floats at0/4/8/C and returns this, before the
 // next predicate begins26FD20. Original owner and constructor role unknown.
-class Rva0026FD07Fields {
-public:
- Rva0026FD07Fields *initialize();
- float m_00,m_04,m_08,m_0C;
-};
-
 // BF1 f989 WindowManager_invokeCallback.cpp result-constructor lead,
 // compiled O1/SSE2/G7, is not proof of this target's owner or lifetime.
 // Complete native2223C7..2223DD follows RET and precedes a new thunk;
@@ -467,14 +409,6 @@ public:
 // EAX returns the receiver with RET8. Original second-field interpretation,
 // original declared field types, full owner layout and constructor/reset
 // role remain unknown beyond these witnessed bit transfers.
-class Rva002223C7Fields
-{
-public:
-    Rva002223C7Fields *initialize(float value, unsigned int word);
-    float m_00;
-    unsigned int m_04;
-};
-
 // Whole BF1 f989 AptPalantirRva00594740.cpp's record initializer is the
 // O1/SSE2/G7 source lead, not an original target owner/constructor proof.
 // Native528B22..528B37 independently follows RET8 and precedes a new
@@ -482,87 +416,15 @@ public:
 // cleared with XORPS/MOVSS, then receiver returned in EAX with RET.
 // Field purposes, original declared types and complete owner/lifetime
 // remain unknown; donor float representation preserves the witnessed zero.
-class Rva00528B22Fields
-{
-public:
-    Rva00528B22Fields *initialize();
-    unsigned int m_00;
-    unsigned int m_04;
-    float m_08;
-};
-
 typedef unsigned int UnsignedInt;
 
 // slot at VA 0x00C6E3D8: true when the argument equals +0x10.
-class Rva00574365
-{
-public:
-	Bool rva00574365(Int value);
-private:
-	char m_pad00[0x10];
-	Int m_10;
-};
-
 // slot at VA 0x00C6E400: true when the argument's +0x74 byte is clear.
-struct Rva00574374Arg
-{
-	char m_pad00[0x74];
-	Bool m_74;
-};
-
-class Rva00574374
-{
-public:
-	Bool rva00574374(const Rva00574374Arg *arg);
-};
-
 // slot at VA 0x00C6E424: hands the argument's +0x88 pointer, when set, to
 // this object's vslot 12.
-struct Rva00574383Arg
-{
-	char m_pad00[0x88];
-	void *m_88;
-};
-
-class Rva00574383
-{
-public:
-	virtual void vslot00(); virtual void vslot01(); virtual void vslot02();
-	virtual void vslot03(); virtual void vslot04(); virtual void vslot05();
-	virtual void vslot06(); virtual void vslot07(); virtual void vslot08();
-	virtual void vslot09(); virtual void vslot10(); virtual void vslot11();
-	virtual void vslot12(void *value);
-	void rva00574383(const Rva00574383Arg *arg);
-};
-
 // slot at VA 0x00C6F128: the +0x08 field of the +0x34 entry unless it equals
 // +0x30, else 0.
-struct Rva0057AAF1Entry
-{
-	char m_pad00[0x08];
-	Int m_08;
-};
-
-class Rva0057AAF1
-{
-public:
-	Int rva0057AAF1();
-private:
-	char m_pad00[0x30];
-	Rva0057AAF1Entry *m_30;
-	Rva0057AAF1Entry *m_34;
-};
-
 // slot at VA 0x00C6F270: stores the byte argument at +0x2C when it differs.
-class Rva0057B93E
-{
-public:
-	void rva0057B93E(char value);
-private:
-	char m_pad00[0x2C];
-	char m_2C;
-};
-
 // slot at VA 0x00C7391C: clears the +0x34 byte and +0x38, and copies the
 // value the +0x0C pointer refers to into +0x10.
 class Rva005B7426
@@ -587,44 +449,11 @@ private:
 // incomplete view is enough because only the address is taken.
 class Rva00559D0CRankWeights;
 
-class Rva005B8018
-{
-public:
-	char *rva005B8018();
-private:
-	char m_pad00[0x2C];
-	Int m_2C;
-};
-
 // slot at VA 0x00C743E0: the +0x2C object's +0x04 field, or the global
 // block at VA 0x00E06060 without the object.
 
-struct Rva005C1A8DInner
-{
-	char m_pad00[0x04];
-	char *m_04;
-};
-
-class AptSkirmishStats
-{
-public:
-	char *GetRankPointValue();
-private:
-	char m_pad00[0x2C];
-	Rva005C1A8DInner *m_2C;
-};
-
 // slots at VA 0x00C6E408, 0x00C6E640, 0x00C6E8C8, 0x00C74DD8 and
 // 0x00C77DB0: tests one bit of the word array at +0x04.
-class Rva005CBA3D
-{
-public:
-	Int testBit(UnsignedInt bit);
-private:
-	char m_pad00[0x04];
-	UnsignedInt m_words[1];
-};
-
 // ---- from Code/GameEngine/Source/GameClient/Credits.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/Credits.cpp
