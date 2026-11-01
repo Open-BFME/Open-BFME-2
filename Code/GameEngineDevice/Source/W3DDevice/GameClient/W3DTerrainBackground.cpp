@@ -34,6 +34,13 @@ typedef unsigned short UnsignedShort;
 
 // Borrowed prefix for the retained legacy emission body. The native rows
 // below still own the terrain lifetime and the three emitted inline helpers.
+class Rva000AD9AB
+{
+public:
+    void rva000AD9AB(int x, int y, bool value);
+    void rva000AD9FE();
+};
+class WorldHeightMap;
 class TerrainTextureClass : public TextureClass {};
 class WorldHeightMap : public RefCountClass
 {
@@ -54,6 +61,22 @@ extern HeightMapRenderObjClass *TheTerrainRenderObject;
 class RayCollisionTestClass;
 const float MAP_XY_FACTOR = 10.0f;
 const float MAP_HEIGHT_SCALE = (10.0f / 256.0f);
+
+struct BfmeResetResource {
+public: void Release_Ref();
+};
+
+class BfmeResetTextureRef {
+public:
+ // Keep the initialization visible without emitting another default-ctor
+ // copy under this unit's /G7 settings. The shared default ctor is owned
+ // elsewhere; this tag only selects the terrain's inline null init.
+ struct TerrainInit {};
+ void clear();
+ BfmeResetTextureRef(TerrainInit) : pointer(0) {}
+ ~BfmeResetTextureRef() { if (pointer) pointer->Release_Ref(); }
+private: BfmeResetResource *pointer;
+};
 
 // BFME 2 retail constructor 0x00112DBE writes no vptr: this is a
 // nonpolymorphic terrain tile. Three culling statuses occupy 00..08;
@@ -76,6 +99,18 @@ public:
     void doPartialUpdate(const IRegion2D &, WorldHeightMap *, bool, bool);
     void rva00115791(bool flat, float height);
     void rva00115DD2();
+    __forceinline bool isCulled()
+    {
+        for (int i = 0; i < 3; ++i) {
+            if (m_cullStatus[i] == 1) return false;
+        }
+        return true;
+    }
+    __forceinline void clearTextures()
+    {
+        ((BfmeResetTextureRef *)&m_terrainTexture)->clear();
+        ((BfmeResetTextureRef *)&m_terrainTexture4X)->clear();
+    }
     void calcBlendHeight(float, int, float *);
     void checkUnsetEdges(int, int, int, bool *, bool *, bool *, bool *);
     void rva00113399(unsigned short *, void *, int, int, int, int, unsigned short *, int &);
@@ -190,22 +225,6 @@ extern "C" void __cdecl __identifier("?Draw_Triangles@DX8Wrapper@@SAXIIII@Z")(un
 // Original owning class is not asserted by this borrowed prefix view.
 // Existing holder contract from dx8wrapper.cpp: the pointer uses
 // BfmeResetResource and its established Release_Ref binding.
-struct BfmeResetResource {
-public: void Release_Ref();
-};
-
-class BfmeResetTextureRef {
-public:
- // Keep the initialization visible without emitting another default-ctor
- // copy under this unit's /G7 settings. The shared default ctor is owned
- // elsewhere; this tag only selects the terrain's inline null init.
- struct TerrainInit {};
- void clear();
- BfmeResetTextureRef(TerrainInit) : pointer(0) {}
- ~BfmeResetTextureRef() { if (pointer) pointer->Release_Ref(); }
-private: BfmeResetResource *pointer;
-};
-
 class Rva00112291MapRef {
 public:
  virtual void Delete_This();
