@@ -521,11 +521,7 @@ public:
 	virtual CanAttackResult getCanAnySlavesUseWeaponAgainstTarget(AbleToAttackType attackType,
 		const Object *victim, const Coord3D *pos, CommandSourceType commandSource);
 };
-class Thing
-{
-public:
-	bool isAnyKindOf(const BitFlags<69> &) const;
-};
+#include "../../Common/Thing/thing.h"
 #include <math.h>
 
 // Native 0x002C7907..0x002C7D03: 1020B RET 0x14. BFME1 WeaponSet.cpp

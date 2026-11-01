@@ -277,7 +277,7 @@ public:
 
 template<int N> class BitFlags;
 
-class Thing { public: bool isAnyKindOf(const BitFlags<69> &) const; };
+#include "../../../../Common/Thing/thing.h"
 
 struct Rva0059764AMask
 {

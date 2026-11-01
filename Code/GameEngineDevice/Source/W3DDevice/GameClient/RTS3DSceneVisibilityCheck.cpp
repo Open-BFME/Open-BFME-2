@@ -394,11 +394,7 @@ struct Rva0006EE7A : public BitFlags<69>
 	Rva0006EE7A(int unused, int b1, int b2, int b3, int b4);
 };
 
-class Thing
-{
-public:
-	bool isAnyKindOf(const BitFlags<69> &mask) const;
-};
+#include "../../../../GameEngine/Source/Common/Thing/thing.h"
 
 class Player;
 enum ObjectStatusTypes { OBJECT_STATUS_RVA_3A = 0x3A };

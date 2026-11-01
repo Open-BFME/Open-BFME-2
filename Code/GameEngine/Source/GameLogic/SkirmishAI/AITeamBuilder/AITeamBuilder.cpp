@@ -162,7 +162,7 @@ void AITeamBuilder::rva0059A153(TeamPrototype *prototype)
 // Thing::isAnyKindOf provider retains BitFlags<69> in its ABI spelling;
 // the actual requirement storage and any() instantiation are BitFlags<218>.
 template<int N> class BitFlags { public: bool any() const; unsigned int words[7]; };
-class Thing { public: bool isAnyKindOf(const BitFlags<69>&) const; };
+#include "../../../Common/Thing/thing.h"
 // The template's kind-of words at +0x108, tested through an int-returning
 // word test that cl narrows to retail's byte test.
 struct RecruitKindOfFlags { unsigned int m_words[3]; __forceinline int test(int b) const { return m_words[b >> 5] & (1u << (b & 31)); } };
