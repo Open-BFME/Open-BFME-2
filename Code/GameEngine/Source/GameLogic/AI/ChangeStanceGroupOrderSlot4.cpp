@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD
+// cl: /MD /GX /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // ?rva00546BED@ChangeStanceGroupOrder@@UAEXW4ObjectID@@@Z, retail 0x00546BED,
 // 57 bytes: slot 4 of the ChangeStanceGroupOrder vtable 0x00C6A36C. Finds the
@@ -37,17 +37,46 @@ protected:
 
 extern GameLogic *TheGameLogic;
 
-class ChangeStanceGroupOrder
+#include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
+
+class Rva0036E346;
+class Xfer;
+enum ObjectID;
+
+// The direct base GroupOrder (ctor 0x005488C5, called only by the six group
+// orders) is 0x18 bytes: vptr 0xC6A520, vector-built member at +4 via
+// 0x211E58, zeros at +0x10/+0x14. Do NOT declare an explicit vptr member on
+// the base: the hidden vptr sits at +0 and a declared one shifts every slot.
+// Its table is Snapshot's: loadPostProcess in slot 1, the class-name getter
+// in slot 2 and xfer (0x00548AC2) in slot 3 (GroupOrderDerivedDtors.cpp).
+class GroupOrder : public Snapshot
 {
 public:
+	GroupOrder();
+	GroupOrder(Rva0036E346 *holder);
+	GroupOrder(const GroupOrder &other);
+	virtual ~GroupOrder();
+
+	virtual void xfer(Xfer *xfer);
+
+protected:
+	unsigned char m_pad04[0x14];
+};
+
+// Table 0x0086A36C: slot 3 xfer 0x00546B91, slot 4 rva00546BED 0x00546BED.
+class ChangeStanceGroupOrder : public GroupOrder
+{
+public:
+	ChangeStanceGroupOrder();
+	ChangeStanceGroupOrder(Rva0036E346 *holder, int stance);
+	ChangeStanceGroupOrder(const ChangeStanceGroupOrder &other);
 	virtual ~ChangeStanceGroupOrder();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
+
+	virtual void xfer(Xfer *xfer);
 	virtual void rva00546BED(ObjectID id);
+
 private:
-	char m_pad04[0x18 - 4];
-	int m_stance; // +0x18
+	int m_stance;		// +0x18
 };
 
 void ChangeStanceGroupOrder::rva00546BED(ObjectID id)

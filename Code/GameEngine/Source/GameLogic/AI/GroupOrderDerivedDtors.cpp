@@ -15,10 +15,18 @@ private:
 	unsigned char m_pad04[0x14];
 };
 
+class Xfer;
+enum ObjectID;
+
+// Table 0x0086A36C: slot 3 xfer 0x00546B91, slot 4 rva00546BED 0x00546BED;
+// every unit that emits the table spells these two (ChangeStanceGroupOrder.cpp).
 class ChangeStanceGroupOrder : public GroupOrder
 {
 public:
 	virtual ~ChangeStanceGroupOrder();
+
+	virtual void xfer(Xfer *xfer);
+	virtual void rva00546BED(ObjectID id);
 };
 
 ChangeStanceGroupOrder::~ChangeStanceGroupOrder()
