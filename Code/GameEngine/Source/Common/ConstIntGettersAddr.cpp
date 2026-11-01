@@ -82,10 +82,43 @@ void __identifier("?parsePositiveNonZeroReal@INI@@SAXPAV1@PAX1PBX@Z")();
 void __identifier("?parseLodOptions@W3DModelDrawModuleData@@SAXPAVINI@@PAX1PBX@Z")();
 void __identifier("?parseBitString32@INI@@SAXPAV1@PAX1PBX@Z")();
 void __identifier("?parseTurret@AIUpdateModuleData@@CAXPAVINI@@PAX1PBX@Z")();
+void __identifier("?parseObjectCreationList@INI@@SAXPAV1@PAX1PBX@Z")();
 }
 
 extern const char *TheLocomotorSetNames[];
 namespace FXParticleSystem { extern const char *const RotationTypeNames[]; }
+
+// This unit's own copies of three header-static name lists. Zero Hour defines
+// such lists `static` in a header under DEFINE_DEATH_NAMES / DEFINE_SHADOW_NAMES
+// (GameLogic/Damage.h TheDeathNames, GameClient/Shadow.h TheShadowNames), so
+// every including TU carries a copy. Retail holds 12 identical damage-name
+// arrays, 6 death-name arrays and about 70 shadow-name arrays, each at its own
+// .data address and reached only from its own TU's tables. These copies sit at
+// VA 0x00DCD4D0, 0x00DCD550 and 0x00DBE6F0, which only AODCrushCollideTable
+// and s_radiusDecalFieldTable below point at; the external spellings are the
+// rowed copies at 0x009B8968, 0x009BC5B0 and 0x00DB4E00. The data rows of the
+// two tables place these statics by content (tools/data_rows.py).
+static const char *TheDamageNames[] = {
+	"FORCE", "CRUSH", "SLASH", "PIERCE", "SIEGE", "STRUCTURAL", "FLAME", "HEALING",
+	"UNRESISTABLE", "WATER", "PENALTY", "FALLING", "TOPPLING", "REFLECTED", "PASSENGER",
+	"MAGIC", "CHOP", "HERO", "SPECIALIST", "URUK", "HERO_RANGED", "FLY_INTO", "UNDEFINED",
+	"LOGICAL_FIRE", "CAVALRY", "CAVALRY_RANGED", "POISON", 0
+};
+
+static const char *TheDeathNames[] = {
+	"NORMAL", "NONE", "CRUSHED", "BURNED", "EXPLODED", "POISONED", "TOPPLED", "FLOODED",
+	"SUICIDED", "LASERED", "DETONATED", "SPLATTED", "POISONED_BETA", "EXTRA_2", "EXTRA_3",
+	"EXTRA_4", "EXTRA_5", "EXTRA_6", "EXTRA_7", "EXTRA_8", "KNOCKBACK", "SUPERNATURAL",
+	"FADED", "SLAUGHTERED", 0
+};
+
+static const char *TheShadowNames[] = {
+	"SHADOW_DECAL", "SHADOW_VOLUME", "SHADOW_VOLUME_NEW", "SHADOW_DYNAMIC_PROJECTION",
+	"SHADOW_DIRECTIONAL_PROJECTION", "SHADOW_ALPHA_DECAL", "SHADOW_ADDITIVE_DECAL",
+	"SHADOW_VOLUME_NON_SELF_1", "SHADOW_VOLUME_NON_SELF_2", "SHADOW_VOLUME_NON_SELF_3",
+	"SHADOW_ALPHA_DECAL_DYNAMIC", "SHADOW_ADDITIVE_DECAL_DYNAMIC", "SHADOW_MERGE_DECAL",
+	"SHADOW_DECAL_TERRAIN_CLAIM", "SHADOW_VOLUME_OR_DECAL", "SHADOW_VOLUME_NEW_OR_DECAL", 0
+};
 
 extern const int g_emptyFieldParseTable[4];
 #pragma comment(linker, "/alternatename:?opaqueCall@Rva00507552@@SAPAXXZ=?Rva00507552Get@@YAHXZ")
@@ -445,24 +478,24 @@ extern const FieldParse CrateCollideTable[12] = {
 };
 
 // Retail VA 0x00c5a4a8: 16 entries + terminator (272B).
-extern const int AODCrushCollideTable[68] = {
-    0x00C5A498, 0x00738A09, 0x00000000, 0x00000008,
-    0x00C5A480, 0x00738A6F, 0x00000000, 0x0000000C,
-    0x00C5A470, 0x00738A09, 0x00000000, 0x00000010,
-    0x00C5A454, 0x00738A6F, 0x00000000, 0x00000014,
-    0x00C5A448, 0x00738A09, 0x00000000, 0x00000018,
-    0x00C5A430, 0x00738A6F, 0x00000000, 0x0000001C,
-    0x00C03E1C, 0x0042EFC0, 0x00000000, 0x00000028,
-    0x00C015C8, 0x0042EC4E, 0x00DCD4D0, 0x00000020,
-    0x00C015BC, 0x0042EC4E, 0x00DCD550, 0x00000024,
-    0x00C5A420, 0x0042EFC0, 0x00000000, 0x00000038,
-    0x00C5A40C, 0x0042EC4E, 0x00DCD4D0, 0x00000030,
-    0x00C5A3F8, 0x0042EC4E, 0x00DCD550, 0x00000034,
-    0x00C5A3EC, 0x0042EFC0, 0x00000000, 0x00000044,
-    0x00C5A3DC, 0x0042EC4E, 0x00DCD4D0, 0x0000003C,
-    0x00C5A3CC, 0x0042EC4E, 0x00DCD550, 0x00000040,
-    0x00C3F700, 0x00761CA5, 0x00000000, 0x0000002C,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+extern const FieldParse AODCrushCollideTable[17] = {
+    { "SmallFXList", (FieldParseProc)&__identifier("?parseFXList@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x8 },
+    { "SmallObjectCreationList", (FieldParseProc)&__identifier("?parseObjectCreationList@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0xC },
+    { "MediumFXList", (FieldParseProc)&__identifier("?parseFXList@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x10 },
+    { "MediumObjectCreationList", (FieldParseProc)&__identifier("?parseObjectCreationList@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x14 },
+    { "LargeFXList", (FieldParseProc)&__identifier("?parseFXList@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x18 },
+    { "LargeObjectCreationList", (FieldParseProc)&__identifier("?parseObjectCreationList@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x1C },
+    { "Damage", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x28 },
+    { "DamageType", (FieldParseProc)&__identifier("?parseIndexList@INI@@SAXPAV1@PAX1PBX@Z"), TheDamageNames, 0x20 },
+    { "DeathType", (FieldParseProc)&__identifier("?parseIndexList@INI@@SAXPAV1@PAX1PBX@Z"), TheDeathNames, 0x24 },
+    { "SpecialDamage", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x38 },
+    { "SpecialDamageType", (FieldParseProc)&__identifier("?parseIndexList@INI@@SAXPAV1@PAX1PBX@Z"), TheDamageNames, 0x30 },
+    { "SpecialDeathType", (FieldParseProc)&__identifier("?parseIndexList@INI@@SAXPAV1@PAX1PBX@Z"), TheDeathNames, 0x34 },
+    { "SelfDamage", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x44 },
+    { "SelfDamageType", (FieldParseProc)&__identifier("?parseIndexList@INI@@SAXPAV1@PAX1PBX@Z"), TheDamageNames, 0x3C },
+    { "SelfDeathType", (FieldParseProc)&__identifier("?parseIndexList@INI@@SAXPAV1@PAX1PBX@Z"), TheDeathNames, 0x40 },
+    { "SpecialObject", (FieldParseProc)&__identifier("?iniParseObjectFilter@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x2C },
+    { 0, 0, 0, 0 },
 };
 
 // Retail VA 0x00befabc: 1 entries + terminator (32B).
@@ -777,21 +810,21 @@ extern const FieldParse s_crowdResponseFieldTable[3] = {
 };
 
 // Retail VA 0x00c0dc20: 13 entries + terminator (224B).
-extern const int s_radiusDecalFieldTable[56] = {
-    0x00BCA9B0, 0x0042F11E, 0x00000000, 0x00000000,
-    0x00C0DC14, 0x0042F11E, 0x00000000, 0x00000004,
-    0x00C0DC0C, 0x0042EB38, 0x00DBE6F0, 0x00000008,
-    0x00C0DC00, 0x0042F1BA, 0x00000000, 0x0000000C,
-    0x00C0DBF4, 0x0042F1BA, 0x00000000, 0x00000010,
-    0x00C0DBE0, 0x0042EFC0, 0x00000000, 0x00000014,
-    0x00C0DBCC, 0x0042EFC0, 0x00000000, 0x0000002C,
-    0x00BCDB38, 0x0042F3FE, 0x00000000, 0x00000018,
-    0x00C0DBB0, 0x0042E850, 0x00000000, 0x0000001C,
-    0x00C0DBA4, 0x0042EFC0, 0x00000000, 0x00000024,
-    0x00C0DB98, 0x0042EFC0, 0x00000000, 0x00000020,
-    0x00C0DB84, 0x0042EF72, 0x00000000, 0x00000028,
-    0x00C0DB70, 0x0042EFC0, 0x00000000, 0x00000030,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+extern const FieldParse s_radiusDecalFieldTable[14] = {
+    { "Texture", (FieldParseProc)&__identifier("?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x0 },
+    { "Texture2", (FieldParseProc)&__identifier("?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x4 },
+    { "Style", (FieldParseProc)&__identifier("?parseBitString32@INI@@SAXPAV1@PAX1PBX@Z"), TheShadowNames, 0x8 },
+    { "OpacityMin", (FieldParseProc)&__identifier("?parsePercentToReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0xC },
+    { "OpacityMax", (FieldParseProc)&__identifier("?parsePercentToReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x10 },
+    { "OpacityThrobTime", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x14 },
+    { "RotationsPerMinute", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x2C },
+    { "Color", (FieldParseProc)&__identifier("?parseColorInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x18 },
+    { "OnlyVisibleToOwningPlayer", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x1C },
+    { "MaxRadius", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x24 },
+    { "MinRadius", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x20 },
+    { "MaxSelectedUnits", (FieldParseProc)&__identifier("?parseUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x28 },
+    { "SpiralAcceleration", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x30 },
+    { 0, 0, 0, 0 },
 };
 
 // Retail VA 0x00c100c0: 56 entries + terminator (912B).

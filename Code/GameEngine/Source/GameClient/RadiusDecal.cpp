@@ -193,9 +193,9 @@ class Shadow;
 // OpacityMin/Max/ThrobTime, ...) through the rowed INI::initFromINI at
 // 0x002DE78. Shared by the DecalTemplate and DeliveryDecal table entries.
 
-struct FieldParse;
+#include "../../Include/Common/INI/FieldParse.h"
 
-extern const int s_radiusDecalFieldTable[];
+extern const FieldParse s_radiusDecalFieldTable[];
 
 class INI
 {
@@ -447,7 +447,7 @@ RadiusDecal::RadiusDecal() :
 // ?parseRadiusDecalTemplate@RadiusDecalTemplate@@SAXPAVINI@@PAX1PBX@Z
 void RadiusDecalTemplate::parseRadiusDecalTemplate(INI *ini, void * /*instance*/, void *store, const void * /*userData*/)
 {
-	ini->initFromINI(store, reinterpret_cast<const FieldParse *>(s_radiusDecalFieldTable));
+	ini->initFromINI(store, s_radiusDecalFieldTable);
 }
 
 // ---- from Code/GameEngine/Source/GameClient/RadiusDecal_setOpacity.cpp

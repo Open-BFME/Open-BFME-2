@@ -13884,6 +13884,56 @@ FXParticleSystemDefaultParsers (90 B), FXParticleSystemModuleParsers (512 B) and
 (1,179 B) still LINK, sizes unchanged. Still open: s_modelDraw (0xDB960C), AODCrush (0xDCD4D0/0xDCD550),
 s_radiusDecal (0xDBE6F0) and the 14 getters.
 
+Update (2026-11-02, seat halilkkaya-ad-o2): AODCrushCollideTable and s_radiusDecalFieldTable are typed
+with data rows. ConstIntGettersAddr.cpp addresses go from 195 to 130 (link_check at index 93c5672365).
+- The blocker was a false reject in the data-row verifier, now fixed with regression tests in
+  bba49993ac and d2a50c3098 (Verifier-Change). Retail holds identical TheDamageNames arrays at 12
+  .data addresses, TheDeathNames at 6 and TheShadowNames at about 70. 0xDCD4D0/0xDCD550 are referenced
+  only from AODCrushCollideTable and 0xDBE6F0 only from s_radiusDecalFieldTable, with no code xref.
+  These are Zero Hour's DEFINE_*_NAMES header statics, one copy per including TU.
+- data_rows.verify_row now places a relocation to a TU-local data object by content, as it places a
+  string literal. MSVC 7.1 names a file static `_name`. Retail's pointer must land in data over the
+  static's proven sizeof and overlap no data row. The bytes must match, and the static's own
+  relocations must land too.
+- ConstIntGettersAddr.cpp now defines `static` TheDamageNames/TheDeathNames/TheShadowNames copies.
+  CollideModuleDataBuildFieldParse.cpp and RadiusDecal.cpp (now including the canonical FieldParse.h)
+  spell `extern const FieldParse`.
+- Verification: the 3-source build passes 45/45 functions and 39 data rows. find_declared_unmatched is
+  clean, and scoped DIR32 is OK. RadiusDecal.cpp (2,415 B) and CollideModuleDataBuildFieldParse.cpp
+  (88 B) still LINK. The parser providers INI.cpp, INI_parseFXList.cpp, INI_parseObjectCreationList.cpp
+  and GameLogic/System/ObjectFilter.cpp still LINK (12,666 B), unchanged.
+- Reusable rule: a per-TU header-static list is spelled `static` in its own unit. No external name is
+  invented.
+
+Morning handoff (130 literals left):
+- s_modelDrawFieldTable (116 literals): the banked patch hunk applies once 0xDB960C has a real name.
+  - Identity: the ModelLOD level-name array, 4 entries Low/Medium/High/UltraHigh with no null.
+    Retail's options table at VA 0xDBD120 (OptionsMenu.cpp's BfmeEnumTable) pairs "ModelLOD" with
+    0xDB960C and count 4. It pairs AnimationLOD with 0xDB961C/5, EffectsLOD 0xDB9630/5, ShadowLOD
+    0xDB9660/5, TerrainLOD 0xDB9674/3, WaterLOD 0xDB9650/4, TextureQualityLOD 0xDB9680/3, ShaderLOD
+    0xDB968C/4 and DecalLOD 0xDB9644/3.
+  - The arrays are consecutive in GameLOD.cpp's .data. The last is CPUNames (0x9B96B8), whose null
+    ends every parseIndexList scan.
+  - No export, string, typeinfo or donor names the array, so a name needs the name lane's two blind
+    agents.
+  - GameLOD.cpp's `g_00DB960C[48]` (and g_00DB961C/9630/9644/9650/9660/968C) overlap each other. No
+    data row can cover them: a 192-byte row at 0xDB960C would overlap the CPUNames row.
+  - Honest fix: define the 11 short arrays in retail order (4, 5, 5, 3, 4, 5, 3, 3, 4, then
+    bfmeStaticLODNames and Low/High) so MSVC lays them out in definition order, as retail does (still to be checked). Then name
+    them through the lane and row each one.
+  - GameLOD.cpp is held by StarkillerHDX@fleet's claims (2026-11-02 00:30).
+  - Maintainer question: may a descriptive inferred name (for example ModelLODNames) land for these
+    arrays without blind agreement, given the retail "ModelLOD" key pairing?
+- The 14 getters stay blocked:
+  - 0xDBD7DC/0xDBD860/0xDBD918 return the file statics `_s_glowEffectActive`/`_s_ringEffectActive`/
+    `_s_fireEffectActive` (Drawable_Rva00309fb3/ffd/a040.cpp). A getter can name a static only in
+    the static's own TU, and the getter RVAs have no approved TU.
+  - 0x00544558 lands inside DX8MeshRendererClass::Init (0x144530, 73 B). It is likely a constant,
+    not an address.
+  - 0xE032DC is only the provisional `?g_Va00E032DC@@3IA` hatch.
+  - 0xDC2884/0xDC2D10/0xDC4B60/0xDC34A4/0xDB4CF0/0xDB4CF8/0xDC2274/0xDC5170/0xC6D690 have no
+    data_ledger entry.
+
 ### MissileUpdate composition (2026-10-29, seat yasinschroeder-claudeb2)
 
 - Landed: 2a7a171df8 merged 4 files into `MissileUpdate.cpp` (13 rows).

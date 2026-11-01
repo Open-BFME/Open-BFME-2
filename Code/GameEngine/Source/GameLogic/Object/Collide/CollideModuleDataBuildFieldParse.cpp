@@ -24,7 +24,7 @@ public:
 };
 
 extern const FieldParse CrateCollideTable[];
-extern const int AODCrushCollideTable[];
+extern const FieldParse AODCrushCollideTable[];
 extern const FieldParse s_moneyCrateFieldTable[];
 extern const FieldParse s_veterancyCrateFieldTable[];
 
