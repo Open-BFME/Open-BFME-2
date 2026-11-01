@@ -26,12 +26,7 @@ typedef float Real;
 #include "../../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 static __forceinline void copyVector4(Vector4 &row,const Vector4 &other){row.X=other.X;row.Y=other.Y;row.Z=other.Z;row.W=other.W;}
 
-class Vector3
-{
-public:
-	Vector3(Real x, Real y, Real z) { X = x; Y = y; Z = z; }
-	Real X, Y, Z;
-};
+#include "../../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 static __forceinline Real submul(const Vector4 &row, Real tmp1, Real tmp2, Real tmp3)
 {

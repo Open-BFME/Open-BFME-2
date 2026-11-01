@@ -26,12 +26,7 @@ private:
 bool Rva00045473Equal(const void *, const void *);
 typedef WeaponTemplateSetHead ModelConditionFlags;
 
-struct Vector3
-{
-	float X;
-	float Y;
-	float Z;
-};
+#include "../../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 class RenderObjClass
 {
