@@ -33,11 +33,6 @@ private:
 // The Apt window manager (VA 0x00DFE4CC) and its background switch.
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
-class Rva00222A8BTarget
-{
-public:
-	void rva002233A6(int mode);
-};
 // The Apt callback functors (Rva0057BC63FunctorHolder.cpp, as in
 // AptScoreScreenCallbacks.cpp).
 class __multiple_inheritance FunctorTarget;
@@ -177,6 +172,23 @@ private:
 extern "C" __declspec(dllimport) int __cdecl sprintf(char *buffer, const char *format, ...);
 #include "../../../../Common/GameLogicObjectLookupView.h"
 #pragma pointers_to_members(full_generality, multiple_inheritance)
+class Rva00222A8BTarget
+{
+public:
+	void rva002233A6(int mode);
+public:
+	void rva00222F55(bool show);
+};
+class Shell
+{
+public:
+	void showShell(bool show);
+public:
+	void push(AsciiString filename, bool shutdownImmediately);
+public:
+	void rva0035BF4C(bool shutdownImmediate);
+};
+void _bfme_closeAptScreen(const AsciiString &name);
 
 // ?Rva004E44FBSet@@YGXHHABVUnicodeString@@@Z @0x004E44FB 88B
 // Free __stdcall setter formatting "PlayerTable:%d:%d" via rowed AsciiString::format
@@ -442,14 +454,6 @@ public:
 
 extern Mouse *TheMouse;
 
-class Shell
-{
-public:
-	// The pinned shell show/hide.
-	void showShell(bool show);
-	void push(AsciiString filename, bool shutdownImmediately);
-};
-
 extern Shell *TheShell;
 
 // The disconnect menu (VA 0x00E048D0).
@@ -491,6 +495,8 @@ extern Rva0039B95FHolder *TheMissionObjectiveTracker;
 // tu-skeleton: 0x004E40C7 178B ?InitGadgets@AptPlayerStatus@@QAEXPBDPAXPAVGameWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatusCallbacks.cpp (not merged yet)
 
 // tu-skeleton: 0x004E4179 50B ?Rva004E4179Get@@YAPAXXZ -- matched in Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatus.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatus.cpp
 
@@ -738,14 +744,6 @@ void __stdcall Rva004E44FBSet(int a, int b, const UnicodeString &text)
     g_bfmeAptWindowManager->bfmeSetText(key, text, false);
 }
 
-// tu-skeleton: 0x004E4312 5B ?Rva004E4312GetRoute@@YAPAXXZ -- matched in Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp (not merged yet)
-
-// tu-skeleton: 0x004E4317 10B ?rva004E4317@@YAXXZ -- matched in Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp (not merged yet)
-
-// tu-skeleton: 0x004E4321 9B ?Rva004E4321Get@@YAEXZ -- matched in Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp (not merged yet)
-
-// tu-skeleton: 0x004E432A 34B ?Rva004E432ASet@@YAXE@Z -- matched in Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptObjectivesMenu.cpp
 
 // GetNthVisibleObjectiveIndex: native 0x004E43F2..0x004E4446, 84 bytes, cdecl.
@@ -795,6 +793,14 @@ int __cdecl GetNthVisibleObjectiveIndex(int skip)
 	}
 }
 
+// tu-skeleton: 0x004E4312 5B ?Rva004E4312GetRoute@@YAPAXXZ -- matched in Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp (not merged yet)
+
+// tu-skeleton: 0x004E4317 10B ?rva004E4317@@YAXXZ -- matched in Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp (not merged yet)
+
+// tu-skeleton: 0x004E4321 9B ?Rva004E4321Get@@YAEXZ -- matched in Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp (not merged yet)
+
+// tu-skeleton: 0x004E432A 34B ?Rva004E432ASet@@YAXE@Z -- matched in Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp (not merged yet)
+
 // tu-skeleton: 0x004E4446 131B ?Objective@AptPlayerStatus@@QAEXHPAD_N@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatusCallbacks.cpp (not merged yet)
 
 // tu-skeleton: 0x004E44C9 50B ?Rva004E44C9Check@@YGHHEE@Z -- matched in Code/GameEngine/Source/Common/Rva004E44C9Check.cpp (not merged yet)
@@ -803,18 +809,42 @@ int __cdecl GetNthVisibleObjectiveIndex(int skip)
 
 // tu-skeleton: 0x004E45FA 91B ?PlayerColor@AptPlayerStatus@@QAEXHPAD_N@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatusCallbacks.cpp (not merged yet)
 
-// tu-skeleton: 0x004E4655 240B ??1AptPlayerStatus@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatusDtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatusDtor.cpp
+
+// ??1AptPlayerStatus@@UAE@XZ
+//
+// ??1AptPlayerStatus@@UAE@XZ, retail 0x004E4655..0x004E4745 (240 bytes, EH).
+// The player status / objectives screen destructor (class and views as in
+// AptPlayerStatusScreen.cpp; the deleting destructor 0x004E4750 kept the
+// address-derived name Rva004E4655): when this is the open screen
+// (0x00A04450) it clears the global, closes the in-game UI menu, unpauses a
+// single player game outside mode 6, hides the shell and the background and
+// closes its InitGadgets screen reference; then the color list and the Apt
+// window base go.
+
+// The game mode at +0x110 (2 skirmish, 6 the one where the UI's +0x16
+// flag decides whether input is enabled) is GameLogic::m_110.
+
+AptPlayerStatus::~AptPlayerStatus()
+{
+	if (this == (AptPlayerStatus *)g_Va00A04450)
+	{
+		g_Va00A04450 = 0;
+		if (TheInGameUI)
+			TheInGameUI->slot94(false);
+		GameLogic *logic = TheGameLogic;
+		if (logic && !logic->isInMultiplayerGame() && (logic->m_110?logic->m_110:logic->m_110) != 6)
+			logic->rva0023CD9E(false, 0, true);
+		if (TheShell)
+			TheShell->rva0035BF4C(false);
+		if (g_bfmeAptWindowManager)
+			((Rva00222A8BTarget *)g_bfmeAptWindowManager)->rva00222F55(false);
+		_bfme_closeAptScreen(AsciiString("AptPlayerStatus::InitGadgets"));
+	}
+}
 
 // tu-skeleton: 0x004E4A34 17B ?rva004E4A34@AptPlayerStatus@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatusCallbacks.cpp (not merged yet)
 
 // tu-skeleton: 0x00791EA9 8B $L1233 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatusObjectiveText.cpp (not merged yet)
 
 // tu-skeleton: 0x00791EB1 10B __ehhandler$?ExternsObjective@AptPlayerStatus@@QAEXHPAD_N@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatusObjectiveText.cpp (not merged yet)
-
-// tu-skeleton: 0x00791EBB 8B uw_00791ebb -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatusDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00791EC3 14B $L5928 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatusDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00791ED1 8B $L5929 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatusDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00791ED9 10B __ehhandler$??1AptPlayerStatus@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatusDtor.cpp (not merged yet)
