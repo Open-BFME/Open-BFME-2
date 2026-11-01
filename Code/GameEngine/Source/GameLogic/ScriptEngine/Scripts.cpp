@@ -54,6 +54,7 @@ public:
 //#pragma optimize("", off)
 //#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
 
+
 #endif
 
 static Script *s_mtScript = NULL;
@@ -397,6 +398,48 @@ private:
 	int m_bits[32];
 };
 
+// BFME1 donor1399ad37d42ea52a63829e417c46a1ba9ed2cd20,
+// game/GameEngine/Source/Common/IndexedListTailWalkers.cpp (two marker bodies).
+// Target: this+0x1C is the initial index and this+0xC the record base. Each
+// 20-byte record has its next index at+0 and a byte flag at+0xC. The native
+// loop reloads the record base after each store and terminates at index-1.
+// Mark body3B3ECB follows rowed deque decrement3B3EA8/35, then clear3B3EEA
+// follows immediately; both close31-byte RET extents. Original owners and
+// method names remain unknown, so both views use their actual target RVAs.
+class Rva003B3ECBOwner
+{
+public:
+	void rva003B3ECB();
+
+private:
+	char m_padding00[ 0x0C ];
+	unsigned char *m_records;
+	char m_padding10[ 0x0C ];
+	int m_index;
+};
+
+struct Rva003B3EEAOwner
+{
+	char m_padding00[ 0x0c ];
+	unsigned int m_entries;
+	char m_padding10[ 0x0c ];
+	int m_index;
+
+	void rva003B3EEA();
+};
+
+// Whole BF1 f98983a7d3 Common/Rva000BE720Arr.cpp supplies the clean
+// this-based indexing guide; its two owner names share one placed body.
+// Native300015..300021 is complete afterRET300014 and before a fresh
+// entry300021: multiply stackword4 by20, add incomingECX, RET4. Only
+// these32-bit address bits are established, not an original owner, element
+// identity, signed index, payload, declaration, or complete array extent.
+// ?elementAddressBits@Rva00300015@@QBEII@Z
+struct Rva00300015
+{
+    unsigned int elementAddressBits(unsigned int index) const;
+};
+
 // tu-skeleton: 0x003B23DE 25B ?addGroupRef@ScriptList@@QAEXPAURva0034F9D0Head@@PAURva0034F9D0Node@@1@Z -- matched in Code/GameEngine/Source/Common/Rva0034F9D0ListInsert.cpp (not merged yet)
 
 // tu-skeleton: 0x003B23F7 35B ?addScriptRef@ScriptList@@QAEXPAUBfmeHeadXZ@@PAUBfmeNodeXZ@@1@Z -- matched in Code/GameEngine/Source/Common/BfmeOneHundredFortyEight_bfmeInsertXZ_YGXPAUBfmeHeadXZ_PAUBfmeNodeXZ_1_Z.cpp (not merged yet)
@@ -422,6 +465,8 @@ private:
 // tu-skeleton: 0x003B260F 31B ?rva003B260F@Rva003B260F@@QBEPAURva003B260FNode@@PAU2@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1C.cpp (not merged yet)
 
 // tu-skeleton: 0x003B262E 68B ??1Rva003B262E@@MAE@XZ -- matched in Code/GameEngine/Source/Common/Rva003B262EFinish.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/Scripts.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/Scripts.cpp
 
@@ -837,6 +882,20 @@ AsciiString Condition::getUiText(void)
 	return uiText;
 }
 
+// ---- from Code/GameEngine/Source/Common/Rva0040C598BitAnd.cpp
+
+// Complete RET0 native leaves3B32DE..3B32E5 and5EA0EF..5EA0F6 each
+// mutate the raw32 word addressed by stackarg4 and leave that pointer inEAX.
+// Whole BF1 f98983a7d3 SmallLeafBodies2.cpp increment family and
+// Bfme/Rva006919A0DecrementPointer.cpp are operation guides only. Original
+// owners, declaration return types, and signed payload meaning are unknown;
+// unsigned expresses the native32-bit wrapping mutation without overclaim.
+// ?Rva003B32DEIncrementWord@@YAXPAI@Z
+void Rva003B32DEIncrementWord(unsigned int *value)
+{
+    ++*value;
+}
+
 // tu-skeleton: 0x003B26DF 48B ??0Condition@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ConditionCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x003B270F 75B ??4Rva0034FE00@@QAEAAV0@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Rva0034FE00Assign.cpp (not merged yet)
@@ -887,23 +946,7 @@ AsciiString Condition::getUiText(void)
 
 // tu-skeleton: 0x003B32CD 17B ?rva003504e0@@YAPAURva003504E0Node@@PAU1@@Z -- matched in Code/GameEngine/Source/Common/Rva003504E0.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/Rva0040C598BitAnd.cpp
-
-// Complete RET0 native leaves3B32DE..3B32E5 and5EA0EF..5EA0F6 each
-// mutate the raw32 word addressed by stackarg4 and leave that pointer inEAX.
-// Whole BF1 f98983a7d3 SmallLeafBodies2.cpp increment family and
-// Bfme/Rva006919A0DecrementPointer.cpp are operation guides only. Original
-// owners, declaration return types, and signed payload meaning are unknown;
-// unsigned expresses the native32-bit wrapping mutation without overclaim.
-// ?Rva003B32DEIncrementWord@@YAXPAI@Z
-void Rva003B32DEIncrementWord(unsigned int *value)
-{
-    ++*value;
-}
-
 // tu-skeleton: 0x003B32E5 57B ??4Rva003B32E5@@QAEAAV0@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Rva003B32E5Assign.cpp (not merged yet)
-
-// tu-skeleton: 0x003B331E 28B ??_GRva003B262E@@MAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva003B262EFinish.cpp (not merged yet)
 
 // tu-skeleton: 0x003B333A 55B ??0Parameter@@QAE@W4ParameterType@0@H@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionParseAction.cpp (not merged yet)
 
@@ -955,9 +998,54 @@ void Rva003B32DEIncrementWord(unsigned int *value)
 
 // tu-skeleton: 0x003B3EA8 35B ?_M_decrement@?$_Deque_iterator_base@H@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_int.cpp (not merged yet)
 
-// tu-skeleton: 0x003B3ECB 31B ?rva003B3ECB@Rva003B3ECBOwner@@QAEXXZ -- matched in Code/GameEngine/Source/Common/IndexedRecordMarkFlags.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/IndexedRecordMarkFlags.cpp
 
-// tu-skeleton: 0x003B3EEA 31B ?rva003B3EEA@Rva003B3EEAOwner@@QAEXXZ -- matched in Code/GameEngine/Source/Common/IndexedRecordMarkFlags.cpp (not merged yet)
+// ?rva003B3ECB@Rva003B3ECBOwner@@QAEXXZ
+void Rva003B3ECBOwner::rva003B3ECB()
+{
+	unsigned char mark = 1;
+	int index = m_index;
+	if (index != -1)
+	{
+		unsigned int p = (unsigned int)m_records;
+		do
+		{
+			unsigned int i = (unsigned int)index * 20;
+			*(unsigned char *)(i + p + 0x0C) = mark;
+			p = (unsigned int)m_records;
+			index = *(int *)(i + p);
+		}
+		while (index != -1);
+	}
+}
+
+static __forceinline void rva003B3EEAClear(unsigned int offset,
+	unsigned int pointer)
+{
+	*(unsigned char *)(offset + pointer) = 0;
+}
+
+static __forceinline int rva003B3EEARead(unsigned int offset,
+	unsigned int pointer)
+{
+	return *(int *)(offset + pointer);
+}
+
+// ?rva003B3EEA@Rva003B3EEAOwner@@QAEXXZ
+void Rva003B3EEAOwner::rva003B3EEA()
+{
+	int index = m_index;
+	if (index != -1)
+	{
+		do
+		{
+			rva003B3EEAClear((unsigned int)(index * 20 + 0x0c),
+				m_entries);
+			index = rva003B3EEARead((unsigned int)(index * 20), m_entries);
+		}
+		while (index != -1);
+	}
+}
 
 // tu-skeleton: 0x003B3F09 38B ?lookupTableEntry@Rva003B3F09Holder@@QAEPAXHH@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003B3F09Lookup.cpp (not merged yet)
 
@@ -1285,6 +1373,16 @@ void Rva003B32DEIncrementWord(unsigned int *value)
 
 // tu-skeleton: 0x0076C73F 10B __ehhandler$??1Rva003B39C7@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva003B39C7Dtor.cpp (not merged yet)
 
+// tu-skeleton: 0x007822C4 10B $L316 -- matched in Code/GameEngine/Source/Common/Rva003BCopyLeaves.cpp (not merged yet)
+
+// tu-skeleton: 0x007822CE 10B __ehhandler$??0Rva003B31DF@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Rva003BCopyLeaves.cpp (not merged yet)
+
+// tu-skeleton: 0x007822D8 8B $L1246 -- matched in Code/GameEngine/Source/Common/Rva003B37C8Ctor.cpp (not merged yet)
+
+// tu-skeleton: 0x007822E0 8B $L1247 -- matched in Code/GameEngine/Source/Common/Rva003B37C8Ctor.cpp (not merged yet)
+
+// tu-skeleton: 0x007822E8 10B __ehhandler$??0Rva003B37C8@@QAE@PAX0PAVBfmeParserRegistryVE@@PBVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/Rva003B37C8Ctor.cpp (not merged yet)
+
 // tu-skeleton: 0x007822F2 8B $L1195 -- matched in Code/GameEngine/Source/Common/Rva003B3536Load.cpp (not merged yet)
 
 // tu-skeleton: 0x007822FA 10B __ehhandler$?rva003B3536@Rva003B3536@@QAEXAAVDataChunkInput@@G@Z -- matched in Code/GameEngine/Source/Common/Rva003B3536Load.cpp (not merged yet)
@@ -1344,6 +1442,10 @@ void Rva003B32DEIncrementWord(unsigned int *value)
 // tu-skeleton: 0x0078242F 8B Unwind@00b8242f -- matched in Code/GameEngine/Source/Common/System/INI_Rva003B44EEList.cpp (not merged yet)
 
 // tu-skeleton: 0x00782437 10B __ehhandler$?rva003B5624@Rva003B44EE@@QAEXVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/System/INI_Rva003B44EEList.cpp (not merged yet)
+
+// tu-skeleton: 0x00782441 10B $L343 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionDuplicate.cpp (not merged yet)
+
+// tu-skeleton: 0x0078244B 10B __ehhandler$?duplicate@ScriptAction@@QBEPAV1@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionDuplicate.cpp (not merged yet)
 
 // tu-skeleton: 0x0078249B 10B uw_0078249b -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ParameterReadParameter.cpp (not merged yet)
 
@@ -1447,6 +1549,10 @@ void Rva003B32DEIncrementWord(unsigned int *value)
 
 // tu-skeleton: 0x0078269D 10B __ehhandler$?rva003B825F@@YAXPAVRva003B32E5@@PBV1@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListSubrecordRemove.cpp (not merged yet)
 
+// tu-skeleton: 0x007826A7 8B $L5621 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListTakeGroups.cpp (not merged yet)
+
+// tu-skeleton: 0x007826AF 10B __ehhandler$?takeGroups@ScriptList@@QAEXPAV1@PAPAUScriptGroupLink@@1@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListTakeGroups.cpp (not merged yet)
+
 // tu-skeleton: 0x007826B9 8B $L5308 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptFixupNames.cpp (not merged yet)
 
 // tu-skeleton: 0x007826C1 8B $L5309 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptFixupNames.cpp (not merged yet)
@@ -1454,6 +1560,10 @@ void Rva003B32DEIncrementWord(unsigned int *value)
 // tu-skeleton: 0x007826C9 8B $L5310 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptFixupNames.cpp (not merged yet)
 
 // tu-skeleton: 0x007826D1 10B __ehhandler$?read@Rva003B3485@@QAE_NAAVDataChunkInput@@PAUDataChunkInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptFixupNames.cpp (not merged yet)
+
+// tu-skeleton: 0x007826DB 8B $L1167 -- matched in Code/GameEngine/Source/Common/Rva003B3371Call.cpp (not merged yet)
+
+// tu-skeleton: 0x007826E3 10B __ehhandler$?Rva003B3371Call@@YAXH@Z -- matched in Code/GameEngine/Source/Common/Rva003B3371Call.cpp (not merged yet)
 
 // tu-skeleton: 0x007826ED 8B Unwind@00b826ed -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListSetCopy.cpp (not merged yet)
 

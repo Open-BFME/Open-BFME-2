@@ -19,25 +19,6 @@ private:
 	int m_index;
 };
 
-// ?rva003B3ECB@Rva003B3ECBOwner@@QAEXXZ
-void Rva003B3ECBOwner::rva003B3ECB()
-{
-	unsigned char mark = 1;
-	int index = m_index;
-	if (index != -1)
-	{
-		unsigned int p = (unsigned int)m_records;
-		do
-		{
-			unsigned int i = (unsigned int)index * 20;
-			*(unsigned char *)(i + p + 0x0C) = mark;
-			p = (unsigned int)m_records;
-			index = *(int *)(i + p);
-		}
-		while (index != -1);
-	}
-}
-
 struct Rva003B3EEAOwner
 {
 	char m_padding00[ 0x0c ];
@@ -58,22 +39,6 @@ static __forceinline int rva003B3EEARead(unsigned int offset,
 	unsigned int pointer)
 {
 	return *(int *)(offset + pointer);
-}
-
-// ?rva003B3EEA@Rva003B3EEAOwner@@QAEXXZ
-void Rva003B3EEAOwner::rva003B3EEA()
-{
-	int index = m_index;
-	if (index != -1)
-	{
-		do
-		{
-			rva003B3EEAClear((unsigned int)(index * 20 + 0x0c),
-				m_entries);
-			index = rva003B3EEARead((unsigned int)(index * 20), m_entries);
-		}
-		while (index != -1);
-	}
 }
 
 // Whole BF1 f98983a7d3 Common/Rva000BE720Arr.cpp supplies the clean
