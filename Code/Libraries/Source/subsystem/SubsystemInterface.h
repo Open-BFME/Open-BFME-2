@@ -18,7 +18,7 @@ public:
 #ifdef BFME_SUBSYSTEM_SLOTS
     virtual void init() = 0;
     virtual bool loadIniFilesFromLegend();
-    virtual void vslot03() {}
+    virtual void postProcessLoad() {}
     virtual bool vslot04(int) { return false; }
     virtual bool vslot05() { return false; }
     virtual int vslot06() { return 0; }
