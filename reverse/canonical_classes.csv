@@ -214,3 +214,4 @@ Coord3DBase,Code/Libraries/Include/Lib/Coord3DBase.h,existing header; contract c
 Debug,Code/GameEngine/Source/Common/debug.h,existing header; contract class_contracts/Debug.json; 57/123 sampled units adopt
 CreateAHeroManager,Code/GameEngine/Include/GameLogic/CreateAHeroManager.h,existing header; contract class_contracts/CreateAHeroManager.json; 64/106 sampled units adopt
 MessageStream,Code/GameEngine/Include/Common/MessageStream.h,existing header; contract class_contracts/MessageStream.json; 49/109 sampled units adopt
+ThingFactory,Code/GameEngine/Include/Common/ThingFactory.h,existing header; contract class_contracts/ThingFactory.json; 149/193 sampled units adopt
