@@ -12,12 +12,7 @@
 
 class StateMachine;
 
-class State
-{
-public:
-	State(StateMachine *machine, unsigned int hash);
-	virtual ~State();
-};
+#include "../../Include/Common/StateMachine.h"
 
 // Rva003426AB_vftable: matched references place it at VA 0xc12438 (retail .rdata value 7).
 extern "C" char Rva003426AB_vftable = 7;

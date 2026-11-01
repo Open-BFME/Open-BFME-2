@@ -180,20 +180,7 @@ public:
 	virtual void method238(int value);
 };
 
-class State
-{
-public:
-	State(StateMachine *machine, unsigned int hash);
-	virtual ~State();
-
-	int m_id;
-	int m_successStateID;
-	int m_failureStateID;
-	void *m_transitionsFirst;
-	void *m_transitionsLast;
-	StateMachine *m_machine;
-	bool m_tail1C;
-};
+#include "../../Include/Common/StateMachine.h"
 
 class Rva003426AB : public State
 {

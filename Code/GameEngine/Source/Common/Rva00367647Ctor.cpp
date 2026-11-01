@@ -4,14 +4,7 @@
 // plus bool at +0x24. Evidence: callers 0x00367CA4 0x00367CD8; rowed State
 // base 0x004D73FC via I twin; precedent StateDerivedCtors_muse-a7a4.cpp.
 class StateMachine;
-class State
-{
-public:
-	State(StateMachine *machine, unsigned int hash);
-	virtual ~State();
-private:
-	char m_pad[0x20 - 4];
-};
+#include "../../Include/Common/StateMachine.h"
 // Rva00367647_vftable: matched references place it at VA 0xc17478 (retail .rdata value 7).
 extern "C" char Rva00367647_vftable = 7;
 class __declspec(novtable) Rva00367647 : public State

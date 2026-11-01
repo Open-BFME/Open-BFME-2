@@ -24,16 +24,7 @@ struct XferVersion
 
 extern void __cdecl XferObjectID(Xfer *xfer, enum ObjectID *id);
 
-class State
-{
-public:
-	virtual ~State();
-	virtual void v01();
-	virtual void v02();
-	virtual void xfer(Xfer *xfer);
-protected:
-	char m_pad04[0x20 - 0x04];
-};
+#include "../../Include/Common/StateMachine.h"
 
 class Rva005445D4 : public State
 {

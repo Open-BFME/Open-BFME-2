@@ -5,21 +5,7 @@
 // ??0State@@QAE@PAVStateMachine@@I@Z; precedent AIGuardState hash-plus-vtable.
 class StateMachine;
 
-class State
-{
-public:
-	State(StateMachine *machine, unsigned int hash);
-	virtual ~State();
-
-	int m_id;
-	int m_successStateID;
-	int m_failureStateID;
-	void *m_transitionsFirst;
-	void *m_transitionsLast;
-	StateMachine *m_machine;
-	bool m_tail1C;
-	char m_pad1D[0x20 - 0x1D];
-};
+#include "../../Include/Common/StateMachine.h"
 
 // Rva003678F7_vftable: matched references place it at VA 0xc175a8 (retail .rdata value 7).
 extern "C" char Rva003678F7_vftable = 7;

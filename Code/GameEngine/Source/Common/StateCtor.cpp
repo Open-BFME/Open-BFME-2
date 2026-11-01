@@ -29,20 +29,7 @@ class StateMachine;
 // State_vftable: matched references place it at VA 0xc605d8 (retail .rdata value -3).
 extern "C" char State_vftable = -3;
 
-class __declspec(novtable) State : public Snapshot
-{
-public:
-	State(StateMachine *machine, unsigned int hash);
-	virtual ~State();
-
-	int m_id; // +0x04
-	int m_successStateID; // +0x08
-	int m_failureStateID; // +0x0C
-	void *m_transitionsFirst; // +0x10
-	void *m_transitionsLast; // +0x14
-	StateMachine *m_machine; // +0x18
-	bool m_tail1C; // +0x1C
-};
+#include "../../Include/Common/StateMachine.h"
 
 // The State ctor installs VA 0x00C605D8. Its first native slot is the
 // deleting destructor at RVA 0x004A10FD, which calls 0x0049B47C before

@@ -9,21 +9,7 @@
 
 class StateMachine;
 
-class State
-{
-public:
-	State(StateMachine *machine, unsigned int hash);
-	virtual ~State();
-
-	int m_id;
-	int m_successStateID;
-	int m_failureStateID;
-	void *m_transitionsFirst;
-	void *m_transitionsLast;
-	StateMachine *m_machine;
-	bool m_tail1C;
-	char m_pad1D[0x20 - 0x1D];
-};
+#include "../../Include/Common/StateMachine.h"
 
 // Rva0033F33D_vftable: matched references place it at VA 0xc10ee0 (retail .rdata value -15).
 extern "C" char Rva0033F33D_vftable = -15;

@@ -158,16 +158,7 @@ extern AudioManager *TheAudio;
 
 Xfer *XferPathfindLayerEnum(Xfer *xfer, int *value);
 
-class State
-{
-public:
-	virtual ~State();
-	virtual void stateSlot1();
-	virtual void stateSlot2();
-
-private:
-	char m_pad04[0x20 - 4];
-};
+#include "../../Include/Common/StateMachine.h"
 
 class AIInternalMoveToState : public State
 {
