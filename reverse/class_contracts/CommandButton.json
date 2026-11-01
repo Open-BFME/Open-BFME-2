@@ -1,0 +1,440 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "CommandButton",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 40,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x14": {
+    "4": 3
+   },
+   "0x1c": {
+    "4": 2
+   },
+   "0x20": {
+    "4": 1
+   },
+   "0x234": {
+    "4": 1
+   },
+   "0x24": {
+    "4": 1
+   },
+   "0x44": {
+    "4": 1
+   },
+   "0x64": {
+    "4": 2
+   },
+   "0x68": {
+    "4": 3
+   },
+   "0x7c": {
+    "4": 1
+   },
+   "0xb4": {
+    "4": 1
+   },
+   "0xec": {
+    "4": 2
+   },
+   "0xfc": {
+    "4": 3
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 13,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 7,
+   "20": 4,
+   "24": 1,
+   "29": 1,
+   "30": 1,
+   "32": 1,
+   "40": 3,
+   "48": 1,
+   "72": 7,
+   "132": 2,
+   "164": 1,
+   "176": 1,
+   "256": 1,
+   "269": 2,
+   "320": 2,
+   "400": 1,
+   "404": 1,
+   "568": 1,
+   "576": 2
+  },
+  "views": 40,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_CommandButton.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/ControlBar.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "data00",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 308,
+   "type": "char[308]",
+   "views": 2,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 51
+ },
+ "outliers": [
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/AIUpgrade_DoXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva0026AFDAMemberDoXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/CommandButtonHuntUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003C5825Do.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_Rva003C57A9Do.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/Common/CommandButtonRva0035B6FA.cpp",
+    "Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp",
+    "Code/GameEngine/Source/Common/Rva00428EEBIssueFireWeapon.cpp",
+    "Code/GameEngine/Source/Common/Rva005DA6F3Ctor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRappellerCount.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/Rva0042970AGet.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUICreateCommandHint.cpp",
+    "Code/GameEngine/Source/GameClient/MessageStream/GUICommandTranslatorTranslateGameMessage.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/BfmeK1094ApplyABG.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHero.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doTeamHuntWithCommandButton.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AIUpgrade/AIUpgradeScienceBuilder/AIUpgradeScienceBuilder.cpp"
+   ],
+   "views": 13
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/Common/CommandButtonRva0035B6FA.cpp",
+    "Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp",
+    "Code/GameEngine/Source/Common/Rva002917E8Check.cpp",
+    "Code/GameEngine/Source/Common/Rva00428EEBIssueFireWeapon.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRappellerCount.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUICanSelectedObjectsDoAction.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUICanSelectedObjectsDoSpecialPower.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUICreateCommandHint.cpp",
+    "Code/GameEngine/Source/GameClient/MessageStream/GUICommandTranslatorTranslateGameMessage.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHero.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_commandButtonOnNearest.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doTeamHuntWithCommandButton.cpp"
+   ],
+   "views": 14
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRappellerCount.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AIUpgrade/AIUnitUpgrader/AIUnitUpgrader.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AIUpgrade/AIUpgradeScienceBuilder/AIUpgradeScienceBuilder.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AIWallBuilder/AIWall.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva005DA6F3Ctor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRappellerCount.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHero.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva005DA6F3Ctor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRappellerCount.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHero.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRappellerCount.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHero.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRappellerCount.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 68,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp",
+    "Code/GameEngine/Source/Common/Rva00428EEBIssueFireWeapon.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRappellerCount.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/Rva0042970AGet.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUICanSelectedObjectsDoSpecialPower.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUICreateCommandHint.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHero.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectRva002922D9.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/CommandButtonHuntUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doTeamHuntWithCommandButton.cpp"
+   ],
+   "views": 11
+  },
+  {
+   "offset": 76,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/InGameUICreateCommandHint.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 80,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/InGameUICreateCommandHint.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 84,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/InGameUICreateCommandHint.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 128,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRappellerCount.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUICanSelectedObjectsDoAction.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUICreateCommandHint.cpp",
+    "Code/GameEngine/Source/GameClient/MessageStream/GUICommandTranslatorTranslateGameMessage.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 160,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/MessageStream/GUICommandTranslatorTranslateGameMessage.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 164,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 168,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 172,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 192,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRappellerCount.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 252,
+   "sources": [
+    "Code/GameEngine/Source/Common/CommandButtonRva0035B6FA.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 257,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRappellerCount.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 262,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRappellerCount.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 264,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRappellerCount.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 268,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsAutoAbility.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C31F3.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 272,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRappellerCount.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 308,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityBehaviorRva0045A447.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityBehaviorTargetPredicate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 312,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityBehaviorRva0045A447.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityBehaviorTargetPredicate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 313,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityBehaviorRva0045A447.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityBehaviorTargetPredicate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 316,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityBehaviorRva0045A447.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityBehaviorTargetPredicate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 392,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00428EEBIssueFireWeapon.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRappellerCount.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 396,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00428EEBIssueFireWeapon.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRappellerCount.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 400,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00428EEBIssueFireWeapon.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 564,
+   "sources": [
+    "Code/GameEngine/Source/Common/CommandButton_getStance.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGameToggleStanceCommandButton.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGameToggleStanceCommandButtonCtor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 568,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGameToggleStanceCommandButton.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGameToggleStanceCommandButtonCtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 572,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGameToggleStanceCommandButton.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGameToggleStanceCommandButtonCtor.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "size",
+   "candidates": {
+    "1": 7,
+    "20": 4,
+    "24": 1,
+    "29": 1,
+    "30": 1,
+    "32": 1,
+    "40": 3,
+    "48": 1,
+    "72": 7,
+    "132": 2,
+    "164": 1,
+    "176": 1,
+    "256": 1,
+    "269": 2,
+    "320": 2,
+    "400": 1,
+    "404": 1,
+    "568": 1,
+    "576": 2
+   },
+   "class": "CommandButton"
+  }
+ ],
+ "size": 308,
+ "size_by": "tie",
+ "vslots": {}
+}
