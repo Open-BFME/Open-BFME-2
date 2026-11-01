@@ -40,16 +40,7 @@ public:
 	virtual void unk88(void *p);
 };
 
-class XferException
-{
-public:
-	XferException(int tag, const char *format, ...);
-	XferException(const XferException &that);
-	~XferException();
-
-	void *text;
-	int tag;
-};
+#include "../../../../GameEngine/Include/Common/XferException.h"
 
 
 Rva002DBD05 * __cdecl Rva002DBD05Get(Rva002DBD05 *obj, char *base)

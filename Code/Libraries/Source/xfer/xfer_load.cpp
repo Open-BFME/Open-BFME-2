@@ -3,16 +3,7 @@
 
 typedef bool Bool;
 
-class XferException
-{
-public:
-	XferException(int tag, const char *format, ...);
-	XferException(const XferException &that);
-	~XferException();
-
-	void *text;
-	int tag;
-};
+#include "../../../GameEngine/Include/Common/XferException.h"
 
 
 class BfmeByteStream

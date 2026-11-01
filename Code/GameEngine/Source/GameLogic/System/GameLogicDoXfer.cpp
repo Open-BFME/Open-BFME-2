@@ -266,16 +266,7 @@ struct ObjectView
 };
 
 
-class XferException
-{
-public:
-	XferException(int tag, const char *format, ...);
-	XferException(const XferException &that);
-	~XferException(void);
-
-	char *text;
-	int tagValue;
-};
+#include "../../../Include/Common/XferException.h"
 
 // StringBase<wchar_t>::compare is called out of line, bound to the string_base.cpp row.
 template<> __declspec(nothrow) int StringBase<wchar_t>::compare(const StringBase<wchar_t>&str)const;

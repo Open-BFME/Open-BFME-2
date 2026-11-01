@@ -27,13 +27,7 @@ public:
 };
 
 
-class XferException {
-public:
- XferException(int,const char*,...);
- XferException(const XferException&);
- ~XferException();
- char *text; int tag;
-};
+#include "../../../../Include/Common/XferException.h"
 Xfer *Rva002E07FAXfer(Xfer *xfer, unsigned int *values) {
  unsigned int count=4;
  *xfer == count;

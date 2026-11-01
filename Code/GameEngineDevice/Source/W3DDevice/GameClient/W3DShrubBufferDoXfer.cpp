@@ -133,7 +133,7 @@ class ModuleData {public:
  virtual const Rva000E91CEData *TreeDrawData()const;
 };
 class ModuleInfo {public:const ModuleData *getNthData(int)const;};
-class XferException {public:XferException(int,const char *,...);XferException(const XferException &);~XferException();char *text;int tag;};
+#include "../../../../GameEngine/Include/Common/XferException.h"
 class RenderObjClass {public:
  virtual void Delete_This();virtual void s01();virtual void s02();virtual int Class_ID()const;virtual void s04();virtual void *MeshView()const;
  int refs;

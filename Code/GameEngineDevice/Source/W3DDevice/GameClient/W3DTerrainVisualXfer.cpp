@@ -81,16 +81,7 @@ public:
 typedef bool Bool;
 typedef unsigned char UnsignedByte;
 
-class XferException
-{
-public:
-	XferException(int tag, const char *format, ...);
-	XferException(const XferException &that);
-	~XferException(void);
-
-	char *text;
-	int tagValue;
-};
+#include "../../../../GameEngine/Include/Common/XferException.h"
 
 class WorldHeightMap
 {

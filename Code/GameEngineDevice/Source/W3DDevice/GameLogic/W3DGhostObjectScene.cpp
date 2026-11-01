@@ -121,16 +121,7 @@ enum DrawableID
 void XferObjectID(Xfer *xfer, ObjectID *objectID);
 void XferDrawableID(Xfer *xfer, Int *drawableID);
 
-class XferException
-{
-public:
-	XferException(int tag, const char *format, ...);
-	XferException(const XferException &that);
-	~XferException(void);
-
-	char *text;
-	int tagValue;
-};
+#include "../../../../GameEngine/Include/Common/XferException.h"
 
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 

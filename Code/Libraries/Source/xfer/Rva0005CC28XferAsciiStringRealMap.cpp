@@ -96,16 +96,7 @@ struct RGBAColorReal;
 struct RGBAColorInt;
 #include "../../../GameEngine/Include/Common/BfmeXfer.h"
 
-class XferException
-{
-public:
-	XferException(int tag, const char *format, ...);
-	XferException(const XferException &that);
-	~XferException();
-
-	char *text;
-	int tag;
-};
+#include "../../../GameEngine/Include/Common/XferException.h"
 
 int __cdecl Rva00051BC5Call(void *xfer, int pair);
 

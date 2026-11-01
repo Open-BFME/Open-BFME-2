@@ -41,16 +41,7 @@ class RGBAColorReal;
 class RGBAColorInt;
 struct XferUnknown11;
 #include "../../../Include/Common/BfmeXfer.h"
-class XferException
-{
-public:
-	XferException(int tag, const char *format, ...);
-	XferException(const XferException &that);
-	~XferException(void);
-
-	char *text;
-	int tagValue;
-};
+#include "../../../Include/Common/XferException.h"
 #include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 #define BFME_SNAPSHOT_CAPITALIZED_SLOTS
 #include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
