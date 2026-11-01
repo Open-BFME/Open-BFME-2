@@ -102,11 +102,7 @@ struct Rva0006EE7A : public BitFlags<69>
 	Rva0006EE7A(int unused, int b1, int b2);
 };
 
-class Thing
-{
-public:
-	bool isAnyKindOf(const BitFlags<69> &mask) const;
-};
+#include "../Common/Thing/thing.h"
 
 class Rva0023C6A4
 {

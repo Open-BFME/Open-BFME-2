@@ -339,7 +339,7 @@ private:
 // with a copied seven-word kind mask followed by a boolean result.
 template<int N> class BitFlags;
 
-class Thing { public: bool isAnyKindOf(const BitFlags<69> &) const; };
+#include "../../../Common/Thing/thing.h"
 
 struct CommandCastleKindFilter { unsigned int mask[7]; bool matched; };
 

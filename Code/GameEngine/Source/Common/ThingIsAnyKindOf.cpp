@@ -24,16 +24,7 @@ struct ThingTemplate
 	int m_kindOf;
 };
 
-class Thing
-{
-public:
-	bool isAnyKindOf(const BitFlags<69> &mask) const;
-	bool isKindOfMulti(const BitFlags<116> &mustBeSet, const BitFlags<116> &mustBeClear) const;
-
-private:
-	char m_pad00[4];
-	ThingTemplate *m_template;
-};
+#include "Thing/thing.h"
 
 // ?isAnyKindOf@Thing@@QBE_NABV?$BitFlags@$0EF@@@@Z
 bool Thing::isAnyKindOf(const BitFlags<69> &mask) const
