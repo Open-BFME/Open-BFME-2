@@ -25,9 +25,12 @@ public:
 // Retail VA 0x00C1B6D8 (.rdata): the particle rotation names the
 // RenderObjectUpdate table (0x00C6C710) parses through INI::parseIndexList,
 // six names and the NULL sentinel; the string data that follows ends it.
-extern const char *const g_00C1B6D8[] = {
+// Retail exports it as ?RotationTypeNames@FXParticleSystem@@3QBQBDB (reverse/exports.csv).
+namespace FXParticleSystem {
+extern const char *const RotationTypeNames[] = {
     "NONE", "ROTATION_OFF", "ROTATE_X", "ROTATE_Y", "ROTATE_Z", "ROTATE_V", 0
 };
+}
 
 namespace FXParticleSystem { extern const char *ParticleShaderTypeNames[]; }
 // Retail VA 0x00C6C230 (.rdata): 1 field records and a zero sentinel.
@@ -117,7 +120,7 @@ extern const FieldParse g_00C6C710[] = {
 	{ "AngleZ", &INI::parseGameClientRandomVariable, 0, 0x78 },
 	{ "AngularRateZ", &INI::parseGameClientRandomVariable, 0, 0x84 },
 	{ "AngularDamping", &INI::parseGameClientRandomVariable, 0, 0x90 },
-	{ "Rotation", &INI::parseIndexList, g_00C1B6D8, 0x9C },
+	{ "Rotation", &INI::parseIndexList, FXParticleSystem::RotationTypeNames, 0x9C },
 	{ 0, 0, 0, 0 }
 };
 

@@ -9,7 +9,7 @@
 struct FieldParse { const char *token; void (*parse)(class INI *, void *, void *, const void *); const void *userData; int offset; };
 extern const int g_emptyFieldParseTable[4];
 extern const FieldParse s_fxpsAlphaTable[];
-extern const int s_fxpsSizeAngleTable[40];
+extern const FieldParse s_fxpsSizeAngleTable[];
 extern const FieldParse s_fxpsPhysicsTable[];
 extern const FieldParse s_fxpsColorTable[];
 

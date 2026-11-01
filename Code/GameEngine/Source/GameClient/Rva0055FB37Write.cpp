@@ -1,7 +1,7 @@
 // cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /O1 /G7 /arch:SSE /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // stlport
 // ?rva0055FB37@Rva0055FB37@@QAEXPAVFile@@I@Z @0x0055FB37 504B chain lane writeINI via WriteHeader.
-// Evidence: vslot 3 of DefaultModuleTemplate $01 0x0081BCF0 and ConcreteModuleTag $01 0x0081BF84; calls rowed WriteHeader 0x0055FA5F then ostringstream then 8x rowed IsZero 0x001F3744 gated SizeRate SizeRateDamping AngleZ AngularRateZ AngularDamping AngleXY AngularRateXY AngularDampingXY via rowed 0x001F8B5F plus Rotation enum via rowed 0x001F82AB with table g_00C1B6D8 then rowed str plus FileWrite 0x001F458B plus free plus footer 0x003AFC6B.
+// Evidence: vslot 3 of DefaultModuleTemplate $01 0x0081BCF0 and ConcreteModuleTag $01 0x0081BF84; calls rowed WriteHeader 0x0055FA5F then ostringstream then 8x rowed IsZero 0x001F3744 gated SizeRate SizeRateDamping AngleZ AngularRateZ AngularDamping AngleXY AngularRateXY AngularDampingXY via rowed 0x001F8B5F plus Rotation enum via rowed 0x001F82AB with table FXParticleSystem::RotationTypeNames (RVA 0x0081B6D8) then rowed str plus FileWrite 0x001F458B plus free plus footer 0x003AFC6B.
 // vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
 // overload takes the call instead, so this TU emits no external max COMDAT.
 #include <stl/_algobase.h>
@@ -77,7 +77,7 @@ extern "C" void __cdecl free(void *p);
 void Rva0055FA5FWriteHeader(const void *self, File *file, unsigned int *flags);
 void Rva003AFC6BWrite(File *file, unsigned int *flags);
 
-extern const char *const g_00C1B6D8[];	// defined so in FXParticleSystemModuleParsers.cpp
+namespace FXParticleSystem { extern const char *const RotationTypeNames[]; }	// defined in FXParticleSystemModuleParsers.cpp
 
 struct S001F87D5 {
     char _0[4];
@@ -132,7 +132,7 @@ void Rva0055FB37::rva0055FB37(File *file, unsigned int flags)
     if (!Rva001F3744IsZero((const S001F3744 *)&m_angularDamping))
         Rva001F8B5FWrite(oss, flags, "AngularDamping", m_angularDamping);
     if (m_rotation != 1)
-        Rva001F82ABWrite(oss, flags, "Rotation", const_cast<const char **>(&g_00C1B6D8[m_rotation]));
+        Rva001F82ABWrite(oss, flags, "Rotation", const_cast<const char **>(&FXParticleSystem::RotationTypeNames[m_rotation]));
     if (!Rva001F3744IsZero((const S001F3744 *)&m_angleXY))
         Rva001F8B5FWrite(oss, flags, "AngleXY", m_angleXY);
     if (!Rva001F3744IsZero((const S001F3744 *)&m_angularRateXY))
@@ -192,7 +192,7 @@ void Rva005625C5::rva005625C5(File *file,unsigned flags) {
   Rva001F8B5FWrite(oss,flags,"AngularRateZ",m_AngularRateZ);
  if(!Rva001F3744IsZero((const S001F3744*)&m_AngularDamping))
   Rva001F8B5FWrite(oss,flags,"AngularDamping",m_AngularDamping);
- if(rotation!=1)Rva001F82ABWrite(oss,flags,"Rotation",const_cast<const char **>(&g_00C1B6D8[rotation]));
+ if(rotation!=1)Rva001F82ABWrite(oss,flags,"Rotation",const_cast<const char **>(&FXParticleSystem::RotationTypeNames[rotation]));
  Rva001F458BWrite(*file,(const Rva001F458BText&)oss.str());
  Rva003AFC6BWrite(file,&flags);
 }

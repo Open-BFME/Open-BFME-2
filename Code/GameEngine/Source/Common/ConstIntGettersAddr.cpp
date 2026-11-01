@@ -85,6 +85,7 @@ void __identifier("?parseTurret@AIUpdateModuleData@@CAXPAVINI@@PAX1PBX@Z")();
 }
 
 extern const char *TheLocomotorSetNames[];
+namespace FXParticleSystem { extern const char *const RotationTypeNames[]; }
 
 extern const int g_emptyFieldParseTable[4];
 #pragma comment(linker, "/alternatename:?opaqueCall@Rva00507552@@SAPAXXZ=?Rva00507552Get@@YAHXZ")
@@ -281,17 +282,17 @@ extern const FieldParse s_fxpsAlphaTable[9] = {
 };
 
 // Retail VA 0x00C6C4A0: SizeRate..AngularDampingXY plus terminator (160B).
-extern const int s_fxpsSizeAngleTable[40] = {
-    0x00BE189C, 0x00738A9D, 0x00000000, 0x0000000C,
-    0x00BE188C, 0x00738A9D, 0x00000000, 0x00000018,
-    0x00C6C498, 0x00738A9D, 0x00000000, 0x00000024,
-    0x00C6C488, 0x00738A9D, 0x00000000, 0x00000030,
-    0x00C6C478, 0x00738A9D, 0x00000000, 0x0000003C,
-    0x00C6C46C, 0x0042EC4E, 0x00C1B6D8, 0x00000048,
-    0x00C6C464, 0x00738A9D, 0x00000000, 0x0000004C,
-    0x00C6C454, 0x00738A9D, 0x00000000, 0x00000058,
-    0x00C6C440, 0x00738A9D, 0x00000000, 0x00000064,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+extern const FieldParse s_fxpsSizeAngleTable[10] = {
+    { "SizeRate", (FieldParseProc)&__identifier("?parseGameClientRandomVariable@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0xC },
+    { "SizeRateDamping", (FieldParseProc)&__identifier("?parseGameClientRandomVariable@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x18 },
+    { "AngleZ", (FieldParseProc)&__identifier("?parseGameClientRandomVariable@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x24 },
+    { "AngularRateZ", (FieldParseProc)&__identifier("?parseGameClientRandomVariable@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x30 },
+    { "AngularDamping", (FieldParseProc)&__identifier("?parseGameClientRandomVariable@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x3C },
+    { "Rotation", (FieldParseProc)&__identifier("?parseIndexList@INI@@SAXPAV1@PAX1PBX@Z"), FXParticleSystem::RotationTypeNames, 0x48 },
+    { "AngleXY", (FieldParseProc)&__identifier("?parseGameClientRandomVariable@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x4C },
+    { "AngularRateXY", (FieldParseProc)&__identifier("?parseGameClientRandomVariable@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x58 },
+    { "AngularDampingXY", (FieldParseProc)&__identifier("?parseGameClientRandomVariable@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x64 },
+    { 0, 0, 0, 0 },
 };
 
 // Retail VA 0x00C6C3E0: Gravity..ParticlesAttachToBone plus terminator (96B).

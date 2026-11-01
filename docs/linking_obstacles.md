@@ -13874,6 +13874,16 @@ TransportAIUpdateModuleDataBuildFieldParse.cpp still LINKS 152 B. AIUpdate.cpp (
 `static` copy) was not linking at census and still does not, LINKED 0 B both before and after. The
 other four tables of the banked patch still wait on 0xC1B6D8, 0xDB960C, 0xDCD4D0/0xDCD550 and 0xDBE6F0.
 
+Update (2026-11-01, seat halilkkaya-ad-o1, last): 0xC1B6D8 is now named. The address-named
+`g_00C1B6D8` is renamed to retail's export `?RotationTypeNames@FXParticleSystem@@3QBQBDB` (exports.csv
+ordinal 1375) in FXParticleSystemModuleParsers.cpp and Rva0055FB37Write.cpp, with a new 28-byte data row.
+s_fxpsSizeAngleTable is typed against it with a data row. data_check reports 0 findings: the stale
+`?g_00C1B6D8@@3PAPBDA` data_ledger entry that blocked rotation-table-link-blocked-20261014 no longer
+fires in shadow mode. link_check at index 987ee56fdc: ConstIntGettersAddr.cpp addresses 214 -> 195.
+FXParticleSystemDefaultParsers (90 B), FXParticleSystemModuleParsers (512 B) and Rva0055FB37Write
+(1,179 B) still LINK, sizes unchanged. Still open: s_modelDraw (0xDB960C), AODCrush (0xDCD4D0/0xDCD550),
+s_radiusDecal (0xDBE6F0) and the 14 getters.
+
 ### MissileUpdate composition (2026-10-29, seat yasinschroeder-claudeb2)
 
 - Landed: 2a7a171df8 merged 4 files into `MissileUpdate.cpp` (13 rows).
