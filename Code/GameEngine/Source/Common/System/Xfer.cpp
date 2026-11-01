@@ -108,15 +108,7 @@ class RGBAColorInt;
 // Two version bytes, stored back to back: the retail Version1 body writes 1 to
 // both of them in a four-byte stack slot before handing their address to the
 // slot-10 transfer operator.
-class Xfer::Version
-{
-public:
-    Version(unsigned char current, unsigned char minimum)
-        : m_current(current), m_minimum(minimum) {}
-
-    unsigned char m_current;
-    unsigned char m_minimum;
-};
+#include "../../../Include/Common/XferVersion.h"
 
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 //

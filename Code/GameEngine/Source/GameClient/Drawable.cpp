@@ -1749,15 +1749,7 @@ public:
 	virtual void slot4() = 0;
 };
 
-class Xfer::Version
-{
-public:
-	Version(unsigned char current, unsigned char minimum)
-		: m_current(current), m_minimum(minimum) {}
-
-	unsigned char m_current;
-	unsigned char m_minimum;
-};
+#include "../../Include/Common/XferVersion.h"
 
 void Rva0030612AXfer(Xfer *xfer, float *vals);
 

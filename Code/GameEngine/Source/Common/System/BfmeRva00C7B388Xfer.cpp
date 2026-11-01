@@ -109,15 +109,7 @@ public:
 inline Xfer::~Xfer() {}
 #pragma inline_depth()
 
-class Xfer::Version
-{
-public:
-    Version(unsigned char current, unsigned char minimum)
-        : m_current(current), m_minimum(minimum) {}
-
-    unsigned char m_current;
-    unsigned char m_minimum;
-};
+#include "../../../Include/Common/XferVersion.h"
 
 // The text sink: only its write slot (+0x10) is called.
 struct BfmeRva00C7B388Stream
