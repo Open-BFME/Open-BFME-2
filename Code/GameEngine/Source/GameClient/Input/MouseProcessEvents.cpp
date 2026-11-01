@@ -1,4 +1,14 @@
-// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
+// cl: /FIzh_ascii.h /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/bfme2_ascii_common /Ireference/open-bfme-1/reference/shims/ini /Ireference/open-bfme-1/reference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/shims/sweep
+// stlport
+
+#define Matrix4x4 Matrix4
+#define __PLACEMENT_VEC_NEW_INLINE
+#include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
+#define __SUBSYSTEMINTERFACE_H_
+class SubsystemInterfaceList;
+#include "PreRTS.h"
+#include "../../../../../reference/shims/bfme2_mouse/GameClient/Mouse.h"
+#include "../../../../../reference/shims/bfme2_mouse/Common/MessageStream.h"
 //
 // Mouse event processing from Zero Hour's Mouse.cpp, with BFME 1's
 // conversions (reference/open-bfme-1/game/GameEngine/Source/GameClient/Input/
@@ -33,71 +43,25 @@ typedef unsigned char UnsignedByte;
 typedef unsigned short UnsignedShort;
 typedef bool Bool;
 
-#include "../../../../Libraries/Include/Lib/ICoord2D.h"
+#include "GameClient/Keyboard.h"
+#include "GameClient/GameWindow.h"
+#include "Common/MessageStream.h"
 
-class GameMessage
-{
-public:
-	void appendPixelArgument( const ICoord2D &position );
-	void appendIntegerArgument( Int value );
-};
 
-class MessageStream
-{
-public:
-	virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03();
-	virtual void slot04(); virtual void slot05(); virtual void slot06(); virtual void slot07();
-	virtual void slot08(); virtual void slot09(); virtual void slot10(); virtual void slot11();
-	virtual void slot12(); virtual void slot13(); virtual void slot14(); virtual void slot15();
-	virtual void slot16(); virtual void slot17();
-	virtual GameMessage *appendMessage( Int type );	// slot 18 (+0x48)
-};
 // The singleton is defined by Common/MessageStream.cpp. Native accesses
 // read the same cell (RVA 0x00A00950, VA 0x00E00950).
 extern MessageStream *TheMessageStream;
 
-class Keyboard
-{
-public:
-	Int getModifierFlags( void ) { return m_modifiers; }
-private:
-	char m_pad[0x0C];
-	UnsignedShort m_modifiers;
-};
 extern Keyboard *TheKeyboard;
 
-enum MouseButtonState
-{
-	MBS_Up = 0,
-	MBS_Down,
-	MBS_DoubleClick
-};
 
-enum GameWindowMessage
-{
-	GWM_LEFT_DOWN = 5,
-	GWM_LEFT_UP,
-	GWM_LEFT_DOUBLE_CLICK,
-	GWM_LEFT_DRAG,
-	GWM_MIDDLE_DOWN,
-	GWM_MIDDLE_UP,
-	GWM_MIDDLE_DOUBLE_CLICK,
-	GWM_MIDDLE_DRAG,
-	GWM_RIGHT_DOWN,
-	GWM_RIGHT_UP,
-	GWM_RIGHT_DOUBLE_CLICK,
-	GWM_RIGHT_DRAG
-};
+
+
 
 #define MOUSE_NONE		0x00
 #define MOUSE_LOST		0xFF
 
-enum
-{
-	MOUSE_EVENT_NONE = 0,
-	MOUSE_MOVE_RELATIVE = 0,
-	MOUSE_MOVE_ABSOLUTE = 1
-};
+
 
 // BFME 2's GameMessage types for the mouse, read off createStreamMessages.
 enum
@@ -121,70 +85,7 @@ enum
 	MSG_RAW_MOUSE_WHEEL
 };
 
-struct MouseIO
-{
-	ICoord2D pos;
-	UnsignedInt time;
-	Int wheelPos;
-	ICoord2D deltaPos;
-	MouseButtonState leftState;
-	Int leftEvent;
-	Int leftFrame;
-	MouseButtonState rightState;
-	Int rightEvent;
-	Int rightFrame;
-	MouseButtonState middleState;
-	Int middleEvent;
-	Int middleFrame;
-};
 
-class Mouse
-{
-public:
-	enum { NUM_MOUSE_EVENTS = 256 };
-	enum { CLICK_SENSITIVITY = 5 };
-
-	virtual ~Mouse();
-	virtual void vslot01(); virtual void vslot02(); virtual void vslot03();
-	virtual void vslot04(); virtual void vslot05(); virtual void vslot06();
-	virtual void vslot07(); virtual void vslot08(); virtual void vslot09();
-	virtual void update( void );													// slot 10
-	virtual void vslot11(); virtual void vslot12(); virtual void vslot13();
-	virtual void vslot14(); virtual void vslot15();
-	virtual void createStreamMessages( void );						// slot 16
-	virtual void vslot17(); virtual void vslot18(); virtual void vslot19();
-	virtual void vslot20(); virtual void vslot21(); virtual void vslot22();
-	virtual void vslot23(); virtual void vslot24(); virtual void vslot25();
-	virtual void vslot26(); virtual void vslot27(); virtual void vslot28();
-
-protected:
-	virtual UnsignedByte getMouseEvent( MouseIO *result, Bool flush ) = 0;	// slot 29 (+0x74)
-
-	void updateMouseData( void );
-	void checkForDrag( void );
-	void moveMouse( Int x, Int y, Int relOrAbs );
-
-private:
-	void processMouseEvent( Int index );
-
-	char m_pad0004[0x1288 - 0x0004];
-	UnsignedByte m_buttonActivity;
-	char m_pad1289[0x130C - 0x1289];
-	MouseIO m_mouseEvents[ NUM_MOUSE_EVENTS ];
-	MouseIO m_currMouse;
-	MouseIO m_prevMouse;
-	Int m_minX;
-	Int m_maxX;
-	Int m_minY;
-	Int m_maxY;
-	UnsignedInt m_inputFrame;
-	UnsignedInt m_deadInputFrame;
-	UnsignedByte m_inputMovesAbsolute;
-	char m_pad4F9D[0x4FFC - 0x4F9D];
-	Int m_eventsThisFrame;
-	Int m_leftClickAge;
-	Int m_rightClickAge;
-};
 
 //-------------------------------------------------------------------------------------------------
 /** Get the latest mouse events from the device */
@@ -457,7 +358,7 @@ void Mouse::createStreamMessages( void )
 		switch( m_currMouse.leftEvent )
 		{
 			case GWM_LEFT_DOWN:
-				msg = TheMessageStream->appendMessage( MSG_RAW_MOUSE_LEFT_BUTTON_DOWN );
+				msg = TheMessageStream->appendMessage( static_cast<GameMessage::Type>(MSG_RAW_MOUSE_LEFT_BUTTON_DOWN) );
 				msg->appendPixelArgument( m_currMouse.pos );
 				msg->appendIntegerArgument( TheKeyboard->getModifierFlags() );
 				msg->appendIntegerArgument( m_currMouse.time );
@@ -465,14 +366,14 @@ void Mouse::createStreamMessages( void )
 				break;
 
 			case GWM_LEFT_DOUBLE_CLICK:
-				msg = TheMessageStream->appendMessage( MSG_RAW_MOUSE_LEFT_DOUBLE_CLICK );
+				msg = TheMessageStream->appendMessage( static_cast<GameMessage::Type>(MSG_RAW_MOUSE_LEFT_DOUBLE_CLICK) );
 				msg->appendPixelArgument( m_currMouse.pos );
 				msg->appendIntegerArgument( TheKeyboard->getModifierFlags() );
 				msg->appendIntegerArgument( m_currMouse.time );
 				break;
 
 			case GWM_LEFT_UP:
-				msg = TheMessageStream->appendMessage( MSG_RAW_MOUSE_LEFT_BUTTON_UP );
+				msg = TheMessageStream->appendMessage( static_cast<GameMessage::Type>(MSG_RAW_MOUSE_LEFT_BUTTON_UP) );
 				msg->appendPixelArgument( m_currMouse.pos );
 				msg->appendIntegerArgument( TheKeyboard->getModifierFlags() );
 				msg->appendIntegerArgument( m_currMouse.time );
@@ -480,7 +381,7 @@ void Mouse::createStreamMessages( void )
 				break;
 
 			case GWM_LEFT_DRAG:
-				msg = TheMessageStream->appendMessage( MSG_RAW_MOUSE_LEFT_DRAG );
+				msg = TheMessageStream->appendMessage( static_cast<GameMessage::Type>(MSG_RAW_MOUSE_LEFT_DRAG) );
 				msg->appendPixelArgument( m_currMouse.pos );
 				msg->appendPixelArgument( m_currMouse.deltaPos );
 				msg->appendIntegerArgument( TheKeyboard->getModifierFlags() );
@@ -490,28 +391,28 @@ void Mouse::createStreamMessages( void )
 		switch( m_currMouse.middleEvent )
 		{
 			case GWM_MIDDLE_DOWN:
-				msg = TheMessageStream->appendMessage( MSG_RAW_MOUSE_MIDDLE_BUTTON_DOWN );
+				msg = TheMessageStream->appendMessage( static_cast<GameMessage::Type>(MSG_RAW_MOUSE_MIDDLE_BUTTON_DOWN) );
 				msg->appendPixelArgument( m_currMouse.pos );
 				msg->appendIntegerArgument( TheKeyboard->getModifierFlags() );
 				msg->appendIntegerArgument( m_currMouse.time );
 				break;
 
 			case GWM_MIDDLE_DOUBLE_CLICK:
-				msg = TheMessageStream->appendMessage( MSG_RAW_MOUSE_MIDDLE_DOUBLE_CLICK );
+				msg = TheMessageStream->appendMessage( static_cast<GameMessage::Type>(MSG_RAW_MOUSE_MIDDLE_DOUBLE_CLICK) );
 				msg->appendPixelArgument( m_currMouse.pos );
 				msg->appendIntegerArgument( TheKeyboard->getModifierFlags() );
 				msg->appendIntegerArgument( m_currMouse.time );
 				break;
 
 			case GWM_MIDDLE_UP:
-				msg = TheMessageStream->appendMessage( MSG_RAW_MOUSE_MIDDLE_BUTTON_UP );
+				msg = TheMessageStream->appendMessage( static_cast<GameMessage::Type>(MSG_RAW_MOUSE_MIDDLE_BUTTON_UP) );
 				msg->appendPixelArgument( m_currMouse.pos );
 				msg->appendIntegerArgument( TheKeyboard->getModifierFlags() );
 				msg->appendIntegerArgument( m_currMouse.time );
 				break;
 
 			case GWM_MIDDLE_DRAG:
-				msg = TheMessageStream->appendMessage( MSG_RAW_MOUSE_MIDDLE_DRAG );
+				msg = TheMessageStream->appendMessage( static_cast<GameMessage::Type>(MSG_RAW_MOUSE_MIDDLE_DRAG) );
 				msg->appendPixelArgument( m_currMouse.pos );
 				msg->appendPixelArgument( m_currMouse.deltaPos );
 				msg->appendIntegerArgument( TheKeyboard->getModifierFlags() );
@@ -521,7 +422,7 @@ void Mouse::createStreamMessages( void )
 		switch( m_currMouse.rightEvent )
 		{
 			case GWM_RIGHT_DOWN:
-				msg = TheMessageStream->appendMessage( MSG_RAW_MOUSE_RIGHT_BUTTON_DOWN );
+				msg = TheMessageStream->appendMessage( static_cast<GameMessage::Type>(MSG_RAW_MOUSE_RIGHT_BUTTON_DOWN) );
 				msg->appendPixelArgument( m_currMouse.pos );
 				msg->appendIntegerArgument( TheKeyboard->getModifierFlags() );
 				msg->appendIntegerArgument( m_currMouse.time );
@@ -529,14 +430,14 @@ void Mouse::createStreamMessages( void )
 				break;
 
 			case GWM_RIGHT_DOUBLE_CLICK:
-				msg = TheMessageStream->appendMessage( MSG_RAW_MOUSE_RIGHT_DOUBLE_CLICK );
+				msg = TheMessageStream->appendMessage( static_cast<GameMessage::Type>(MSG_RAW_MOUSE_RIGHT_DOUBLE_CLICK) );
 				msg->appendPixelArgument( m_currMouse.pos );
 				msg->appendIntegerArgument( TheKeyboard->getModifierFlags() );
 				msg->appendIntegerArgument( m_currMouse.time );
 				break;
 
 			case GWM_RIGHT_UP:
-				msg = TheMessageStream->appendMessage( MSG_RAW_MOUSE_RIGHT_BUTTON_UP );
+				msg = TheMessageStream->appendMessage( static_cast<GameMessage::Type>(MSG_RAW_MOUSE_RIGHT_BUTTON_UP) );
 				msg->appendPixelArgument( m_currMouse.pos );
 				msg->appendIntegerArgument( TheKeyboard->getModifierFlags() );
 				msg->appendIntegerArgument( m_currMouse.time );
@@ -544,7 +445,7 @@ void Mouse::createStreamMessages( void )
 				break;
 
 			case GWM_RIGHT_DRAG:
-				msg = TheMessageStream->appendMessage( MSG_RAW_MOUSE_RIGHT_DRAG );
+				msg = TheMessageStream->appendMessage( static_cast<GameMessage::Type>(MSG_RAW_MOUSE_RIGHT_DRAG) );
 				msg->appendPixelArgument( m_currMouse.pos );
 				msg->appendPixelArgument( m_currMouse.deltaPos );
 				msg->appendIntegerArgument( TheKeyboard->getModifierFlags() );
@@ -554,7 +455,7 @@ void Mouse::createStreamMessages( void )
 		// mouse wheel
 		if( m_currMouse.wheelPos != 0 )
 		{
-			msg = TheMessageStream->appendMessage( MSG_RAW_MOUSE_WHEEL );
+			msg = TheMessageStream->appendMessage( static_cast<GameMessage::Type>(MSG_RAW_MOUSE_WHEEL) );
 			msg->appendPixelArgument( m_currMouse.pos );
 			msg->appendIntegerArgument( m_currMouse.wheelPos / 120 );	// wheel delta
 			msg->appendIntegerArgument( TheKeyboard->getModifierFlags() );
@@ -569,7 +470,7 @@ void Mouse::createStreamMessages( void )
 
 	if( m_leftClickAge >= CLICK_SENSITIVITY )
 	{
-		msg = TheMessageStream->appendMessage( MSG_RAW_MOUSE_LEFT_CLICK );
+		msg = TheMessageStream->appendMessage( static_cast<GameMessage::Type>(MSG_RAW_MOUSE_LEFT_CLICK) );
 		msg->appendPixelArgument( m_currMouse.pos );
 		msg->appendIntegerArgument( TheKeyboard->getModifierFlags() );
 		msg->appendIntegerArgument( m_currMouse.time );
@@ -578,7 +479,7 @@ void Mouse::createStreamMessages( void )
 
 	if( m_rightClickAge >= CLICK_SENSITIVITY )
 	{
-		msg = TheMessageStream->appendMessage( MSG_RAW_MOUSE_RIGHT_CLICK );
+		msg = TheMessageStream->appendMessage( static_cast<GameMessage::Type>(MSG_RAW_MOUSE_RIGHT_CLICK) );
 		msg->appendPixelArgument( m_currMouse.pos );
 		msg->appendIntegerArgument( TheKeyboard->getModifierFlags() );
 		msg->appendIntegerArgument( m_currMouse.time );
@@ -586,7 +487,7 @@ void Mouse::createStreamMessages( void )
 	}
 
 	// the raw position is always sent
-	msg = TheMessageStream->appendMessage( MSG_RAW_MOUSE_POSITION );
+	msg = TheMessageStream->appendMessage( static_cast<GameMessage::Type>(MSG_RAW_MOUSE_POSITION) );
 	msg->appendPixelArgument( m_currMouse.pos );
 	msg->appendIntegerArgument( TheKeyboard->getModifierFlags() );
 

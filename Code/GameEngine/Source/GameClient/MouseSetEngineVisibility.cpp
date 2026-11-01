@@ -1,4 +1,13 @@
-// cl: /MD
+// cl: /FIzh_ascii.h /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/bfme2_ascii_common /Ireference/open-bfme-1/reference/shims/ini /Ireference/open-bfme-1/reference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/shims/sweep
+// stlport
+
+#define Matrix4x4 Matrix4
+#define __PLACEMENT_VEC_NEW_INLINE
+#include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
+#define __SUBSYSTEMINTERFACE_H_
+class SubsystemInterfaceList;
+#include "PreRTS.h"
+#include "../../../../reference/shims/bfme2_mouse/GameClient/Mouse.h"
 
 // Evidence: retail 0x001EE5BE (24 bytes) is the REL32 call target named
 // ?_bfme_setEngineVisibility@Mouse@@QAEX_N@Z at several already-matched call
@@ -17,42 +26,12 @@
 // unconditionally before applyCursor -- which itself moved from vtable
 // slot 0x5C to 0x70 (five more virtuals ahead of it in BFME2's Mouse).
 
-class Mouse
-{
-public:
-	virtual void _M_slot_00(); virtual void _M_slot_04(); virtual void _M_slot_08();
-	virtual void _M_slot_0c(); virtual void _M_slot_10(); virtual void _M_slot_14();
-	virtual void _M_slot_18(); virtual void _M_slot_1c(); virtual void _M_slot_20();
-	virtual void _M_slot_24(); virtual void _M_slot_28(); virtual void _M_slot_2c();
-	virtual void _M_slot_30(); virtual void _M_slot_34(); virtual void _M_slot_38();
-	virtual void _M_slot_3c(); virtual void _M_slot_40(); virtual void _M_slot_44();
-	virtual void _M_slot_48(); virtual void _M_slot_4c(); virtual void _M_slot_50();
-	virtual void _M_slot_54(); virtual void _M_slot_58(); virtual void _M_slot_5c();
-	virtual void _M_slot_60(); virtual void _M_slot_64(); virtual void _M_slot_68();
-	virtual void _M_slot_6c();
-	virtual void applyCursor( bool visible, const unsigned char *cursor );
-
-	void _bfme_setEngineVisibility( bool visible );
-	void setVisibility( bool visible );
-
-private:
-	// Retail's commit-if-dirty helper, factored out of this method (see
-	// evidence above); it directly touches the five bytes below.
-	void commitPendingCursor( void );
-
-	unsigned char m_unreconstructed_04[0x4F9D - 4];
-	unsigned char m_cursor;               // +0x4F9D
-	unsigned char m_cursorState;          // +0x4F9E
-	unsigned char m_pendingCursor;        // +0x4F9F
-	unsigned char m_pendingCursorState;   // +0x4FA0
-	unsigned char m_cursorDirty;          // +0x4FA1
-};
 
 __declspec(noinline) void Mouse::commitPendingCursor( void )
 {
 	if ( m_cursorDirty )
 	{
-		m_cursor = m_pendingCursor;
+		m_visible = m_pendingCursor;
 		m_cursorState = m_pendingCursorState;
 		m_cursorDirty = 0;
 	}
@@ -61,7 +40,7 @@ __declspec(noinline) void Mouse::commitPendingCursor( void )
 void Mouse::_bfme_setEngineVisibility( bool visible )
 {
 	commitPendingCursor();
-	applyCursor( visible, &m_cursor );
+	applyCursor( visible, &m_visible );
 }
 
 // Retail 0x001EE5D6 (24 bytes), directly after the method above: ZH's

@@ -1,4 +1,13 @@
-// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/sweep /MD /EHsc /DNDEBUG
+// cl: /FIzh_ascii.h /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/bfme2_ascii_common /Ireference/open-bfme-1/reference/shims/ini /Ireference/open-bfme-1/reference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/shims/sweep
+// stlport
+
+#define Matrix4x4 Matrix4
+#define __PLACEMENT_VEC_NEW_INLINE
+#include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
+#define __SUBSYSTEMINTERFACE_H_
+class SubsystemInterfaceList;
+#include "PreRTS.h"
+#include "../../../../reference/shims/bfme2_mouse/GameClient/Mouse.h"
 // ?drawTooltip@Mouse@@QAEXXZ @0x001EF06F 546B
 // BFME2's per-frame Apt tooltip updater (sits in the Mouse cluster between
 // rowed 0x001EEC4B and 0x001EF291; sole caller of rowed MoveToolTip 0x003807F3,
@@ -44,13 +53,6 @@ extern class GlobalData *TheWritableGlobalData;
 class GlobalLanguage;
 extern GlobalLanguage *TheGlobalLanguageData;
 
-struct RGBAColorInt
-{
-	int red;
-	int green;
-	int blue;
-	int alpha;
-};
 
 typedef int BfmeColor;
 inline BfmeColor BfmeGameMakeColor(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha)
@@ -68,34 +70,6 @@ public:
 void HideToolTip();
 
 
-class Mouse
-{
-	char m_pad0000[0x126C];
-	AsciiString m_tooltipFontName;	// +0x126C
-	int m_tooltipFontSize;		// +0x1270
-	unsigned char m_tooltipFontIsBold;	// +0x1274
-	char m_pad1275[0x127C - 0x1275];
-	int m_tooltipDelayTime;		// +0x127C
-	char m_pad1280[0x1288 - 0x1280];
-	unsigned char m_1288;		// +0x1288
-	char m_pad1289[0x12F8 - 0x1289];
-	UnicodeString m_12F8;		// +0x12F8 sent Apt text
-	UnicodeString m_12FC;		// +0x12FC current request
-	UnicodeString m_1300;		// +0x1300 shown mirror
-	int m_1304;			// +0x1304 show/hide state
-	unsigned char m_1308;		// +0x1308 shown flag
-	char m_pad1309[0x4F0C - 0x1309];
-	int m_4F0C;			// +0x4F0C move Y
-	int m_4F10;			// +0x4F10 move X
-	char m_pad4F14[0x4FCC - 0x4F14];
-	int m_tooltipDelay;		// +0x4FCC
-	int m_4FD0;			// +0x4FD0
-	unsigned int m_4FD4;		// +0x4FD4
-	unsigned int m_4FD8;		// +0x4FD8 still-time stamp
-	RGBAColorInt m_tooltipTextColor;	// +0x4FDC
-public:
-	void drawTooltip();
-};
 
 // ?TheGlobalLanguageData triple and ScriptEngine/GlobalData bytes are read
 // through TU-local views: only the used slots are modeled.
@@ -110,36 +84,36 @@ struct BfmeLangFontTriple
 void Mouse::drawTooltip()
 {
 	unsigned int now = timeGetTime();
-	if (m_12FC.compare(m_1300) != 0)
+	if (m_tooltipString.compare(m_str1300) != 0)
 	{
-		m_1300.set(m_12FC);
-		m_4FD8 = now;
-		m_1288 = 0;
+		m_str1300.set(m_tooltipString);
+		m_stillTime = now;
+		m_buttonActivity = 0;
 	}
 	int delay = m_tooltipDelayTime;
 	if (m_tooltipDelay >= 0)
 		delay = m_tooltipDelay;
 	if (*reinterpret_cast<unsigned char *>(reinterpret_cast<char *>(TheWritableGlobalData) + 0x9C1))
 		delay = 0;
-	if (now - m_4FD8 >= (unsigned int)delay)
+	if (now - m_stillTime >= (unsigned int)delay)
 	{
-		if (!m_1308)
+		if (!m_displayTooltip)
 		{
-			m_4FD0 = 0;
-			m_4FD4 = timeGetTime();
+			m_highlightPos = 0;
+			m_highlightUpdateStart = timeGetTime();
 		}
-		m_1308 = 1;
+		m_displayTooltip = 1;
 	}
 	else
-		m_1308 = 0;
+		m_displayTooltip = 0;
 	if (*reinterpret_cast<int *>(reinterpret_cast<char *>(TheScriptEngine) + 0x1A138) != 0)
 		return;
 	if (*reinterpret_cast<unsigned char *>(reinterpret_cast<char *>(TheWritableGlobalData) + 0x9BF)
-		&& m_1308 && TheDisplay != 0 && !m_1288 && !m_12FC.isEmpty())
+		&& m_displayTooltip && TheDisplay != 0 && !m_buttonActivity && !m_tooltipString.isEmpty())
 	{
-		if (m_12F8.compare(m_12FC) != 0)
+		if (m_str12F8.compare(m_tooltipString) != 0)
 		{
-			m_12F8.set(m_12FC);
+			m_str12F8.set(m_tooltipString);
 			AsciiString font;
 			// Retail stores this slot as a byte (mov [ebp-0x14],al) but pushes
 			// it as a dword (push dword [ebp-0x14]): a typeless spill home, not
@@ -167,16 +141,16 @@ void Mouse::drawTooltip()
 			int color = BfmeGameMakeColor((unsigned char)m_tooltipTextColor.red,
 				(unsigned char)m_tooltipTextColor.green, (unsigned char)m_tooltipTextColor.blue,
 				(unsigned char)m_tooltipTextColor.alpha);
-			AptGuiFX::ShowToolTip(&m_12F8, &font, size, boldSlot.asInt, color);
-			AptGuiFX::MoveToolTip((float)m_4F0C, (float)m_4F10);
+			AptGuiFX::ShowToolTip(&m_str12F8, &font, size, boldSlot.asInt, color);
+			AptGuiFX::MoveToolTip((float)m_currMouse.pos.x, (float)m_currMouse.pos.y);
 		}
-		m_1304 = 4;
+		reinterpret_cast<int &>(m_tooltipDisplayString) = 4;
 		return;
 	}
-	if (m_12F8.isEmpty())
+	if (m_str12F8.isEmpty())
 		return;
-	if (--m_1304 > 0)
+	if (--reinterpret_cast<int &>(m_tooltipDisplayString) > 0)
 		return;
 	HideToolTip();
-	m_12F8.clear();
+	m_str12F8.clear();
 }
