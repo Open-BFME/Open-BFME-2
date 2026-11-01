@@ -28,13 +28,7 @@ private:
 	char m_pad[0x80];
 };
 
-class BfmeFixedStorage0004543D
-{
-public:
-	__declspec(nothrow) BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &other);
-private:
-	unsigned char m_bytes[28];
-};
+#include "../../Include/Common/BfmeFixedStorage0004543D.h"
 
 class Rva003623E5Member
 {

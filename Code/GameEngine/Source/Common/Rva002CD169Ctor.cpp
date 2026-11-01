@@ -64,13 +64,7 @@ struct Rva002CD169RefWords {
  CashHackSpecialPowerModuleData::Upgrades words;
  __forceinline ~Rva002CD169RefWords(){if(words.m_amount)((OpaqueRefCounted*)words.m_amount)->Release_Ref();}
 };
-class BfmeFixedStorage0004543D
-{
-public:
-	BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &other);
-private:
-	unsigned char m_bytes[28];
-};
+#include "../../Include/Common/BfmeFixedStorage0004543D.h"
 
 class Rva003623E5Member
 {

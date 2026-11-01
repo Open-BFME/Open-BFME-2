@@ -1305,13 +1305,7 @@ public:
 
 // The 224-bit KindOf mask, the one-bit mask builder 0x00045411 and the KindOf
 // filter (ctor 0x0004584D, vftable 0x00BC2908).
-class BfmeFixedStorage0004543D
-{
-public:
-	BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &other) throw();
-private:
-	unsigned char m_bytes[28];
-};
+#include "../../../Include/Common/BfmeFixedStorage0004543D.h"
 struct Rva00045411BitSet : public BfmeFixedStorage0004543D
 {
 	Rva00045411BitSet(int unused, int bit) throw();

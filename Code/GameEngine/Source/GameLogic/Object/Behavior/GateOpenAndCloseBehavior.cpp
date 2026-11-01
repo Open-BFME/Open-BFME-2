@@ -520,13 +520,7 @@ public:
 };
 
 // The 224-bit KindOf mask.
-class BfmeFixedStorage0004543D
-{
-public:
-	BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &other) throw();
-private:
-	unsigned char m_bytes[28];
-};
+#include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
 
 // Its (unused, four bits) constructor 0x0006EEBC.
 struct Rva0006EE7A

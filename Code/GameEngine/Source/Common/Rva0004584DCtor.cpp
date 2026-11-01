@@ -10,14 +10,7 @@
 // filter chain. ZH PartitionFilterAcceptByKindOf is the semantic lead for
 // the 20B predicate; target establishes two 28B fields at +0x08/+0x24 and callees.
 
-class BfmeFixedStorage0004543D
-{
-public:
-	BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &other) throw();
-
-private:
-	unsigned char m_bytes[28];
-};
+#include "../../Include/Common/BfmeFixedStorage0004543D.h"
 
 class Object;
 class Rva000421C8

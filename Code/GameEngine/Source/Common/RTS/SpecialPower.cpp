@@ -57,13 +57,7 @@ private:
 	Int m_x;
 };
 
-class BfmeFixedStorage0004543D
-{
-public:
-	__declspec(nothrow) BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &other);
-private:
-	unsigned char m_bytes[28];
-};
+#include "../../../Include/Common/BfmeFixedStorage0004543D.h"
 
 namespace _STL
 {

@@ -5,11 +5,7 @@
 // separate from their owning records so callers preserve the out-of-line ABI.
 #include <string.h>
 
-class BfmeFixedStorage0004543D {
-    char m_bytes[28];
-public:
-    __declspec(nothrow) BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &);
-};
+#include "../../Include/Common/BfmeFixedStorage0004543D.h"
 BfmeFixedStorage0004543D::BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &other) { memcpy(this, &other, sizeof(*this)); }
 
 class BfmeFixedStorage002CF0F0 {

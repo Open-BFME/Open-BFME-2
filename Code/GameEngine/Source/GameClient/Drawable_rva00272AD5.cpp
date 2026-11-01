@@ -29,13 +29,7 @@ public:
 };
 
 // A KindOfMaskType as the mask filters copy it (0x0004543D).
-class BfmeFixedStorage0004543D
-{
-public:
-	BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &other) throw();
-private:
-	unsigned char m_bytes[28];
-};
+#include "../../Include/Common/BfmeFixedStorage0004543D.h"
 
 // vftable 0x00BFAD10, allow 0x0026119D: not effectively dead (status bit 0),
 // ZH's PartitionFilterAlive.

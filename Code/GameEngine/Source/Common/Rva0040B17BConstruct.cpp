@@ -15,13 +15,7 @@ enum ScienceType
 	SCIENCE_NONE = 0
 };
 
-class BfmeFixedStorage0004543D
-{
-public:
-	BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &other);
-private:
-	char m_pad[0x1C];
-};
+#include "../../Include/Common/BfmeFixedStorage0004543D.h"
 
 class Rva0040AF66
 {

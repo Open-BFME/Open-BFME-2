@@ -658,13 +658,7 @@ virtual int getPlayerMask();
 Rva000421C8*link(Rva000421C8*filter);
 Rva000421C8*m_next;
 };
-class BfmeFixedStorage0004543D
-{
-public:
-BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D&other)throw();
-private:
-unsigned char m_bytes[28];
-};
+#include "../../../Include/Common/BfmeFixedStorage0004543D.h"
 struct Rva00045411BitSet
 {
 Rva00045411BitSet(int unused,int bit)throw();

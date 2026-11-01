@@ -80,12 +80,7 @@ public:
 };
 
 // The 224-bit KindOf mask; the (unused, bit, bit) constructor is 0x0006EE7A.
-class BfmeFixedStorage0004543D
-{
-public:
-	BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &other) throw();
-	unsigned int w[7]; // +0x00
-};
+#include "../../../Include/Common/BfmeFixedStorage0004543D.h"
 // Rowed 66-byte two-bit constructor at 0x0006EE7A; same 28-byte mask.
 struct Rva0006EE7A
 {

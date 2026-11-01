@@ -21,12 +21,7 @@ public:
 
 // The by-value kind filter is the 28-byte storage the ledger names after
 // its copy constructor 0x0004543D, which every caller copies it through.
-class BfmeFixedStorage0004543D
-{
-public:
-	BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &other) throw();
-	unsigned int w[7]; // +0x00
-};
+#include "../../../Include/Common/BfmeFixedStorage0004543D.h"
 typedef BfmeFixedStorage0004543D Rva0039DF1CFilter;
 
 template<int N>

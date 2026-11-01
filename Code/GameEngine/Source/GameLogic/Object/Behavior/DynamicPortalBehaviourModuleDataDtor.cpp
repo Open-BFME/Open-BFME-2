@@ -71,14 +71,7 @@ struct DynamicPortalLinkVec
 	void *m_end;
 };
 
-class BfmeFixedStorage0004543D
-{
-public:
-	BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &other);
-
-private:
-	unsigned char m_bytes[28];
-};
+#include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
 
 class Rva003623E5Filter
 {

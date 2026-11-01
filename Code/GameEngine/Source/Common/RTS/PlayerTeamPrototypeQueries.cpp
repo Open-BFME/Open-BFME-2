@@ -12,12 +12,7 @@ typedef int Int;
 // The by-value kind filters are the 28-byte storage the ledger names after
 // its copy constructor 0x0004543D (FixedStorageCopyBFME2.cpp), the callee
 // retail copies each argument through.
-class BfmeFixedStorage0004543D
-{
-public:
-	BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &other);
-	unsigned int w[7];
-};
+#include "../../../Include/Common/BfmeFixedStorage0004543D.h"
 typedef BfmeFixedStorage0004543D Rva0039DDC2Filter;
 typedef BfmeFixedStorage0004543D Rva0039DF1CFilter;
 
