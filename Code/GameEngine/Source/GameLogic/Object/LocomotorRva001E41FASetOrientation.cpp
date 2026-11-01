@@ -16,22 +16,12 @@ float Cos(float x);
 
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
-class Matrix3D
-{
-public:
-	float Get_X_Translation() const { return Row[0][3]; }
-	float Get_Y_Translation() const { return Row[1][3]; }
-	float Get_Z_Translation() const { return Row[2][3]; }
-	void Set(float m11, float m12, float m13, float m14,
-		float m21, float m22, float m23, float m24,
-		float m31, float m32, float m33, float m34)
-	{
-		Row[0].Set(m11, m12, m13, m14);
-		Row[1].Set(m21, m22, m23, m24);
-		Row[2].Set(m31, m32, m33, m34);
-	}
-	Vector4 Row[3];
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
+static __forceinline float matrixXTranslation(const Matrix3D &m) { return m.Row[0][3]; }
+static __forceinline float matrixYTranslation(const Matrix3D &m) { return m.Row[1][3]; }
+static __forceinline float matrixZTranslation(const Matrix3D &m) { return m.Row[2][3]; }
+static __forceinline void setMatrixValues(Matrix3D &m,float m11,float m12,float m13,float m14,float m21,float m22,float m23,float m24,float m31,float m32,float m33,float m34) { m.Row[0].Set(m11,m12,m13,m14);m.Row[1].Set(m21,m22,m23,m24);m.Row[2].Set(m31,m32,m33,m34); }
+
 
 static __forceinline void crossProduct(const Coord3D *left, const Coord3D *right, Coord3D *result)
 {
@@ -52,9 +42,9 @@ private:
 void Locomotor::rva001E41FA(float angle)
 {
 	Coord3D pos, x, y, z, u;
-	pos.x = m_transform.Get_X_Translation();
-	pos.y = m_transform.Get_Y_Translation();
-	pos.z = m_transform.Get_Z_Translation();
+	pos.x = matrixXTranslation(m_transform);
+	pos.y = matrixYTranslation(m_transform);
+	pos.z = matrixZTranslation(m_transform);
 	z.x = 0.0f;
 	z.y = 0.0f;
 	z.z = 1.0f;
@@ -63,7 +53,7 @@ void Locomotor::rva001E41FA(float angle)
 	u.z = 0.0f;
 	crossProduct(&z, &u, &y);
 	crossProduct(&y, &z, &x);
-	m_transform.Set(x.x, y.x, z.x, pos.x,
+	setMatrixValues(m_transform,x.x, y.x, z.x, pos.x,
 		x.y, y.y, z.y, pos.y,
 		x.z, y.z, z.z, pos.z);
 }
