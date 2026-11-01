@@ -66,14 +66,7 @@ public:
 };
 
 
-class TerrainLogic
-{
-protected:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void xfer( Xfer *xfer );
-};
+#include "../../../../GameEngine/Include/GameLogic/TerrainLogic.h"
 
 class W3DTerrainLogic : public TerrainLogic
 {

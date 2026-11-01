@@ -479,7 +479,7 @@ public:
 	Int m_refCount;
 };
 
-class TerrainLogic { public: void rva00283CE7(unsigned key); };
+#include "../../../../GameEngine/Include/GameLogic/TerrainLogic.h"
 
 extern TerrainLogic *TheTerrainLogic;
 

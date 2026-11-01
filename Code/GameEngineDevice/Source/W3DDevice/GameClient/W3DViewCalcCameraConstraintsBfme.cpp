@@ -27,19 +27,7 @@ public:
 	Int m_debugAI;
 };
 
-class TerrainLogic
-{
-public:
-	virtual void terrainSlot00() = 0;
-	virtual void terrainSlot04() = 0;
-	virtual void terrainSlot08() = 0;
-	virtual void terrainSlot0C() = 0;
-	virtual void terrainSlot10() = 0;
-	virtual void terrainSlot14() = 0;
-	virtual void terrainSlot18() = 0;
-	virtual void terrainSlot1C() = 0;
-	virtual void getExtent(Region3D *extent) const = 0;
-};
+#include "../../../../GameEngine/Include/GameLogic/TerrainLogic.h"
 
 class W3DView
 {

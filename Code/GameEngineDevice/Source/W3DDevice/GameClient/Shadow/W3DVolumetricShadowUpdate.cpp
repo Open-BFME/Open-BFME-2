@@ -61,17 +61,7 @@ public:
 	Vector3 Get_Position(void) const;
 };
 
-class TerrainLogic
-{
-public:
-	virtual void vslot000(void);
-	virtual void vslot001(void);
-	virtual void vslot002(void);
-	virtual void vslot003(void);
-	virtual void vslot004(void);
-	virtual void vslot005(void);
-	virtual Real getGroundHeight(Real x, Real y, Coord3D *normal = NULL) const;
-};
+#include "../../../../../GameEngine/Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 
 class BaseHeightMapRenderObjClass

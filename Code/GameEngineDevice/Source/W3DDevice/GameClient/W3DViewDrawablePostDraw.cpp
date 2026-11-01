@@ -110,13 +110,7 @@ public:
 	virtual Real getFXPitch();			// slot 108 (+0x1B0)
 };
 
-class TerrainLogic
-{
-public:
-	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
-	virtual void v04(); virtual void v05();
-	virtual Real getGroundHeight(Real x, Real y, Coord3D *normal);	// slot 6 (+0x18)
-};
+#include "../../../../GameEngine/Include/GameLogic/TerrainLogic.h"
 
 class DebugLineDrawer
 {

@@ -43,17 +43,7 @@ extern float BfmeFollowSaved6C;
 extern Coord3D BfmeFollowSavedPosition;
 extern Coord3D BfmeFollowSavedOffset23E8;
 
-class TerrainLogic
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void v03();
-	virtual void v04();
-	virtual void v05();
-	virtual Real getGroundHeight(Real x, Real y, Coord3D *normal);	// +0x18
-};
+#include "../../../../GameEngine/Include/GameLogic/TerrainLogic.h"
 
 extern TerrainLogic *TheTerrainLogic;
 
