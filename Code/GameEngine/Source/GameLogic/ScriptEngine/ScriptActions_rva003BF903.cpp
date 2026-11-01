@@ -20,11 +20,7 @@ public:
 	AIGroup *createGroup();
 };
 #include "../../../Include/Common/TeamBFME2.h"
-class AIGroup
-{
-public:
-	void groupHarvest(const Coord3D *pos, CommandSourceType src);
-};
+#include "../../../Include/GameLogic/AIGroup.h"
 class TerrainLogic
 {
 public:

@@ -50,12 +50,7 @@ public:
 
 #include "../../../Include/Common/TeamBFME2.h"
 
-class AIGroup
-{
-public:
-	void rva003704D3(const PolygonTrigger *trigger, int x, CommandSourceType src, const Coord3D *coord);
-	void rva00370492(const PolygonTrigger *trigger, int x, CommandSourceType src);
-};
+#include "../../../Include/GameLogic/AIGroup.h"
 
 extern ScriptEngine *TheScriptEngine;
 extern TerrainLogic *TheTerrainLogic;

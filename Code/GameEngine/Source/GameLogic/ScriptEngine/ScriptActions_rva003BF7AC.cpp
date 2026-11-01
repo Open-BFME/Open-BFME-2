@@ -31,11 +31,7 @@ public:
 
 #include "../../../Include/Common/TeamBFME2.h"
 
-class AIGroup
-{
-public:
-	void groupGuardObject(Object *obj, int x, CommandSourceType src);
-};
+#include "../../../Include/GameLogic/AIGroup.h"
 
 extern ScriptEngine *TheScriptEngine;
 extern AI *TheAI;
