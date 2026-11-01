@@ -146,11 +146,7 @@ public:
 };
 extern PlayerList *ThePlayerList;
 
-class UpgradeCenter
-{
-public:
-	const UpgradeTemplate*rva0026EEA0(int)const;
-};
+#include "../../../../Include/Common/Upgrade.h"
 extern UpgradeCenter *TheUpgradeCenter;
 
 struct CarryoverUnit
