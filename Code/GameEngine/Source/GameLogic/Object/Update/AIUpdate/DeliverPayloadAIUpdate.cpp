@@ -96,6 +96,101 @@ static BodyModuleInterface *getRetailBodyModule( const Object *obj ) { return *(
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
+// ?update@DeliverPayloadAIUpdate@@ present-unmatched
+// Retail's AIUpdateInterface::getCurLocomotor reads +0x1F0 (rowed 0x0026FF1E
+// from SlavedUpdateRepair.cpp); this unit's header copy reads +0x1B4 (7B body
+// 8B81B4010000C3 measured in this unit's own object), and its object sorts
+// ahead of the first retail copy in link order, so the link keeps its copy
+// (S on 24 units). These reads go straight at the member instead of odr-using
+// the ZH inline, whose COMDAT would otherwise displace the retail copy.
+static Locomotor *bfmeDeliverPayloadLoco(AIUpdateInterface *ai)
+{
+	return *(Locomotor *const *)((const char *)ai + 0x1B4);
+}
+static const Locomotor *bfmeDeliverPayloadLoco(const AIUpdateInterface *ai)
+{
+	return *(const Locomotor *const *)((const char *)ai + 0x1B4);
+}
+UpdateSleepTime DeliverPayloadAIUpdate::update( void )
+{
+	m_deliveryDecal.update();
+
+	if(!(isAiInDeadState()) && m_deliverPayloadStateMachine)
+		m_deliverPayloadStateMachine->updateStateMachine();
+
+	//Handling diving logic (regardless of state)
+	if( m_diveState != DIVESTATE_POSTDIVE )
+	{
+		if( m_diveState == DIVESTATE_PREDIVE )
+		{
+			//Check to see if we are close enough to start diving.
+			Real startDiveDistanceSquared = sqr( getData()->m_diveStartDistance );
+			Real currentDistanceSquared  = ThePartitionManager->getDistanceSquared( getObject(), getTargetPos(), FROM_CENTER_2D );
+			if( currentDistanceSquared <= startDiveDistanceSquared )
+			{
+				m_diveState = DIVESTATE_DIVING;
+				bfmeDeliverPayloadLoco(getObject()->getAIUpdateInterface())->setUsePreciseZPos( true );
+
+				AudioEventRTS soundDive = *(getObject()->getTemplate()->getPerUnitSound("StartDive"));
+				if( soundDive.getEventName().isNotEmpty() ) 
+				{
+					soundDive.setPosition( getObject()->getPosition() );
+					TheAudio->addAudioEvent( &soundDive );
+				}
+			}
+		}
+		else 
+		{
+			//Check to see when we shall end diving
+			Real endDiveDistanceSquared = sqr( getData()->m_diveEndDistance );
+			Real currentDistanceSquared  = ThePartitionManager->getDistanceSquared( getObject(), getTargetPos(), FROM_CENTER_3D );
+			if( currentDistanceSquared <= endDiveDistanceSquared )
+			{
+				m_diveState = DIVESTATE_POSTDIVE;
+				bfmeDeliverPayloadLoco(getObject()->getAIUpdateInterface())->setUsePreciseZPos( false );
+			}
+
+			if( m_data.m_strafingWeaponSlot != -1 )
+			{
+				//SHOOT!!
+				const Coord3D *velocity = getObject()->getPhysics()->getVelocity();
+				if( velocity->z < 5.0f )
+				{
+					//Calc strafe ratio
+					Real startDiveDistance = getData()->m_diveStartDistance;
+					Real endDiveDistance = sqrt( endDiveDistanceSquared );
+					Real currentDistance = sqrt( currentDistanceSquared );
+
+					Real diveRatio = (startDiveDistance - currentDistance) / (startDiveDistance - endDiveDistance);
+					
+					Coord3D velocity = *getObject()->getPhysics()->getVelocity();
+					velocity.z = 0.0f;
+					velocity.normalize();
+					velocity.scale( diveRatio * 100.0f );
+
+					Coord3D backwards = velocity;
+					backwards.scale( 0.33f );
+
+					Coord3D strafePoint = *getTargetPos();
+					strafePoint.sub( &backwards );
+
+					strafePoint.add( &velocity );
+					strafePoint.z = TheTerrainLogic->getGroundHeight( strafePoint.x, strafePoint.y );
+
+					// lock it just till the weapon is empty or the attack is "done"
+					getObject()->setWeaponLock( m_data.m_strafingWeaponSlot, LOCKED_TEMPORARILY );
+					getObject()->fireCurrentWeapon( &strafePoint );
+					FXList::doFXPos( m_data.m_strafeFX, &strafePoint );
+				}
+			}
+		}
+	}
+
+	AIUpdateInterface::update();
+
+	return UPDATE_SLEEP_NONE;	// ignore our parent, and never sleep
+}
+
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
