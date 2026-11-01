@@ -15,10 +15,7 @@
 #ifndef __BFME2_IMAGE_H_
 #define __BFME2_IMAGE_H_
 
-#if defined(CANONICAL_SUBSYSTEMINTERFACE_H) && !defined(BFME_SUBSYSTEM_SLOTS)
-#error ImageCollection requires the complete SubsystemInterface slot declaration.
-#endif
-#ifndef BFME_SUBSYSTEM_SLOTS
+#if !defined(CANONICAL_SUBSYSTEMINTERFACE_H) && !defined(BFME_SUBSYSTEM_SLOTS)
 #define BFME_SUBSYSTEM_SLOTS
 #endif
 #include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
