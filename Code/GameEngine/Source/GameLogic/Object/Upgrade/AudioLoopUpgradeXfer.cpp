@@ -47,6 +47,9 @@ public:
 
 typedef unsigned int AudioHandle;
 
+struct BfmeAudioEventPrefix136;
+class Xfer;
+
 class AudioManager
 {
 public:
@@ -75,7 +78,7 @@ public:
 	virtual void _pad22() = 0;
 	virtual void _pad23() = 0;
 	virtual void _pad24() = 0;
-	virtual void _pad25() = 0;
+	virtual AudioHandle addAudioEvent(const BfmeAudioEventPrefix136 *eventToAdd) = 0;
 	virtual void _pad26() = 0;
 	virtual void removeAudioEvent(AudioHandle handle) = 0;
 	virtual void _pad28() = 0;

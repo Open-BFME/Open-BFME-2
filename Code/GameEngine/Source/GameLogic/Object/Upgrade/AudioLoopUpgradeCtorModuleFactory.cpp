@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc /Ireference/shims/moduledata /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include
 // Open-BFME5: ModuleFactory's create proc 0x0011E0B0 allocates 0x30 and
 // reaches this body, which identifies AudioLoopUpgrade.
 //
@@ -13,24 +13,14 @@ class Object;
 
 enum UpdateSleepTime { UPDATE_SLEEP_FOREVER = 0x3fffffff };
 
-class ALU_DeepBase
-{
-public:
-	ALU_DeepBase(Thing *, const ModuleData *);
-	virtual ~ALU_DeepBase();
-
-protected:
-	const ModuleData *m_moduleData;
-	Object *m_object;
-};
-
-class ALU_Iface1 { public: virtual void slot() = 0; };
-class ALU_Iface2 { public: virtual void slot() = 0; };
-
 // The base is retail's UpdateModule: its constructor (0x00253390),
 // destructor and setWakeFrame are rowed elsewhere, so they are declared,
 // never defined here.
-#include "../../../../Include/GameLogic/Module/UpdateModule.h"
+#include "GameLogic/Module/UpdateModule.h"
+#include "Common/ObjectModule.h"
+
+enum NameKeyType;
+class BfmeFixedStorage002CF0F0;
 
 class UpgradeMux
 {
@@ -52,17 +42,22 @@ class AudioLoopUpgrade : public UpdateModule,
 {
 public:
 	AudioLoopUpgrade(Thing *, const ModuleData *);
-	// Rowed in AudioLoopUpgradeRva004B7E3C.cpp: slot 0 of retail's table 0x00C58C68.
+	virtual NameKeyType getModuleNameKey() const;
+	BfmeFixedStorage002CF0F0 *getDisabledTypesToProcess(BfmeFixedStorage002CF0F0 *out);
+	// Rowed in AudioLoopUpgradeRva004B7E3C.cpp: slot 0 of retail table 0x00C58C68.
 	virtual void rva004B7E3C(int);
 
+protected:
+	virtual ~AudioLoopUpgrade();
+
 private:
-	int m_x2c;
+	unsigned int m_soundHandle; // +0x2C
 };
 
 // ??0AudioLoopUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z
 AudioLoopUpgrade::AudioLoopUpgrade(Thing *thing, const ModuleData *moduleData)
 	: UpdateModule(thing, moduleData), UpgradeMux()
 {
-	m_x2c = 1;
+	m_soundHandle = 1;
 	setWakeFrame(getObject(), UPDATE_SLEEP_FOREVER);
 }
