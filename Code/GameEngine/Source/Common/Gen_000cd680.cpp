@@ -40,4 +40,3 @@ private:
 };
 
 Int Gen_000cd680::keyAtA( Int index ) const { return m_arrayA[index].m_key; }
-void **Gen_000cd680::pointerAtA( Int index ) const { return &m_arrayA[index].m_pointer; }

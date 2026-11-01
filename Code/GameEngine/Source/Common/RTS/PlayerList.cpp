@@ -36,6 +36,7 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 //#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
 
 
+
 #endif
 #define BFME_STR_SET(dst, src) ((StringBase<char> &)(dst)).set((const StringBase<char> &)(src))
 #define BFME_DISP8_CMP_IMM_BOOL_GETTER(NAME, DISP, IMM, OP) \
@@ -443,6 +444,47 @@ public:
 	bool m_second;
 };
 
+// Two accessors into the first array.
+//
+// BFME1 byte-identical donor (reference/open-bfme-1
+// Code/GameEngine/Source/Common/Gen_000cd680.cpp); trimmed to the two T1
+// bodies the sweep places.
+
+typedef int Int;
+
+typedef short Short;
+
+struct Gen_000cd680_Element
+{
+	Short m_key;
+	char m_unknown02[10];
+	void *m_pointer;
+};
+
+class Gen_000cd680
+{
+public:
+	Int firstKeyA( void ) const;
+	Int keyAtA( Int index ) const;
+	void **pointerAtA( Int index ) const;
+
+	Int firstKeyB( void ) const;
+	Int keyAtB( Int index ) const;
+	void **pointerAtB( Int index ) const;
+
+	Int firstKeyC( void ) const;
+	Int keyAtC( Int index ) const;
+	void **pointerAtC( Int index ) const;
+
+private:
+	char m_unknown00[0x0C];
+	Gen_000cd680_Element *m_arrayA;			// +0x0C
+	char m_unknown10[0x63C - 0x10];
+	Gen_000cd680_Element *m_arrayB;			// +0x63C
+	char m_unknown640[0x658 - 0x640];
+	Gen_000cd680_Element *m_arrayC;			// +0x658
+};
+
 // tu-skeleton: 0x002A79A9 122B ??1PlayerList@@UAE@XZ -- matched in Code/GameEngine/Source/Common/RTS/PlayerListDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x002A7A23 6B ?name@Rva002A7A23Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters2.cpp (not merged yet)
@@ -452,6 +494,8 @@ public:
 // tu-skeleton: 0x002A7A41 46B ?findPlayerWithNameKey@PlayerList@@QAEPAVPlayer@@W4NameKeyType@@@Z -- matched in Code/GameEngine/Source/Common/RTS/PlayerList_findPlayerWithNameKey.cpp (not merged yet)
 
 // tu-skeleton: 0x002A7A6F 49B ?Rva002A7A6F@PlayerList@@QAEPAVPlayer@@H@Z -- matched in Code/GameEngine/Source/Common/RTS/PlayerList_Rva002A7A6F.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/RTS/PlayerList.cpp
 
 // ---- from Code/GameEngine/Source/Common/RTS/PlayerList.cpp
 
@@ -699,6 +743,27 @@ Rva000DF920 &Rva000DF920::operator=(const Rva0036CA00Str *pair)
 	return *this;
 }
 
+// ---- from Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp
+
+// Disp8 compare bool getters: frameless __thiscall members in three shapes:
+//
+//   CMP_IMM: xor eax,eax / cmp [ecx+<DISP>],<IMM8> / setcc al / ret
+//   CMP_ZERO: xor eax,eax / cmp [ecx+<DISP>],eax / setcc al / ret
+//   TERNARY: cmp [ecx+<DISP>],0 / setcc al / ret (no xor)
+//
+// One dword is read at a fixed displacement from `this` and tested. The CMP
+// forms zero eax first and return the setcc result; comparing against zero
+// reuses the zeroed eax instead of an immediate. The TERNARY form spells the
+// test as `m_value ? true : false`, which the compiler emits as a bare
+// compare-plus-setcc with no xor (probe-proven). Identity is not recovered:
+// every name is derived from its address.
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
+
+// Backward-chase ternary: the method runs on a subobject BACK bytes into its
+// container, so the pointer member is read at a negative displacement from
+// `this` and the inner byte is tested through it (probe-proven; a direct
+// backward cast would fold the two offsets into one read).
+
 // tu-skeleton: 0x002A7AB6 24B ?update@PlayerList@@UAEXXZ -- matched in Code/GameEngine/Source/Common/RTS/PlayerList_playerLoops.cpp (not merged yet)
 
 // tu-skeleton: 0x002A7ACE 24B ?rva002A7ACE@PlayerList@@UAEXXZ -- matched in Code/GameEngine/Source/Common/RTS/PlayerList_playerLoops.cpp (not merged yet)
@@ -723,27 +788,6 @@ Rva000DF920 &Rva000DF920::operator=(const Rva0036CA00Str *pair)
 
 // tu-skeleton: 0x002A7D63 109B ?DoXfer@PlayerList@@UAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/RTS/PlayerListDoXfer.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp
-
-// Disp8 compare bool getters: frameless __thiscall members in three shapes:
-//
-//   CMP_IMM: xor eax,eax / cmp [ecx+<DISP>],<IMM8> / setcc al / ret
-//   CMP_ZERO: xor eax,eax / cmp [ecx+<DISP>],eax / setcc al / ret
-//   TERNARY: cmp [ecx+<DISP>],0 / setcc al / ret (no xor)
-//
-// One dword is read at a fixed displacement from `this` and tested. The CMP
-// forms zero eax first and return the setcc result; comparing against zero
-// reuses the zeroed eax instead of an immediate. The TERNARY form spells the
-// test as `m_value ? true : false`, which the compiler emits as a bare
-// compare-plus-setcc with no xor (probe-proven). Identity is not recovered:
-// every name is derived from its address.
-// flags: region default (reverse/retail_inventory/flag_regions.csv)
-
-// Backward-chase ternary: the method runs on a subobject BACK bytes into its
-// container, so the pointer member is read at a negative displacement from
-// `this` and the inner byte is tested through it (probe-proven; a direct
-// backward cast would fold the two offsets into one read).
-
 // tu-skeleton: 0x002A7ECD 8B ??_EPlayerList@@WM@AEPAXI@Z -- matched in Code/GameEngine/Source/Common/RTS/PlayerListDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x002A7ED5 28B ??_GPlayerList@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/RTS/PlayerListDtor.cpp (not merged yet)
@@ -752,7 +796,9 @@ Rva000DF920 &Rva000DF920::operator=(const Rva0036CA00Str *pair)
 
 // tu-skeleton: 0x002A7F2A 49B ?createClonedAllyFor@PlayerList@@QAEPAVPlayer@@PAX@Z -- matched in Code/GameEngine/Source/Common/RTS/PlayerList_createClonedAllyFor.cpp (not merged yet)
 
-// tu-skeleton: 0x002A7F5B 17B ?pointerAtA@Gen_000cd680@@QBEPAPAXH@Z -- matched in Code/GameEngine/Source/Common/Gen_000cd680.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Gen_000cd680.cpp
+
+void **Gen_000cd680::pointerAtA( Int index ) const { return &m_arrayA[index].m_pointer; }
 
 // tu-skeleton: 0x002A7F6C 20B ?rva002A7F6C@Rva002A7F6C@@QAEPAHH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
 
