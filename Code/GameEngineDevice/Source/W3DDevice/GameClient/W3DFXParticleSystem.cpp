@@ -243,12 +243,7 @@ public:
 	Int m_color;					// +0x40
 };
 
-class GlobalData
-{
-public:
-	unsigned char m_pad00[0x25];
-	Bool m_useHeatEffects;				// +0x25
-};
+#include "../../../../GameEngine/Include/Common/GlobalData.h"
 
 class W3DSnowManager
 {
@@ -361,7 +356,7 @@ void Rva0004CA4C::rva0004CF9A(RenderInfoClass &rinfo)
 
 		if (*((UnsignedInt *)raw->getParticleTypeName().str()) == 0x44554D53)
 		{
-			if (g_bfmeB991 && g_bfmeB991->m_04 != 1 && TheWritableGlobalData->m_useHeatEffects)
+			if (g_bfmeB991 && g_bfmeB991->m_04 != 1 && TheWritableGlobalData->field0025)
 			{
 				Bool colorSet = false;
 				if (!raw->isSevenOrEight())

@@ -29,7 +29,7 @@ struct SplineState {
 };
 class Rva0022B3F6Subsystem {public:bool rva00311974(SplineState*,bool,float*);};
 extern Rva0022B3F6Subsystem *TheSplineService;
-class GlobalData {public:char pad[0x9a4];bool disabled;};
+#include "../../../../GameEngine/Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 class W3DView {public:
 virtual void slot000();
@@ -72,7 +72,7 @@ void W3DView::moveCameraOrLocatorAlongSplinePath(int milliseconds,bool useLocato
  if(!info->enabled)return;
  float oldTime=(float)info->elapsed;
  info->elapsed+=milliseconds;
- if(TheWritableGlobalData->disabled){
+ if(TheWritableGlobalData->m_disableCameraMovements){
   if(info->elapsed>info->total)locator.byte68=false;
   return;
  }

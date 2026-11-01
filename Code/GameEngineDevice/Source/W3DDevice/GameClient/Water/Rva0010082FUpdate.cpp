@@ -10,7 +10,7 @@
 // Identity of the owning class is not established; the name is address-derived.
 #include <windows.h>
 
-class GlobalData { public: char pad[0xD45]; bool m_D45; };
+#include "../../../../../GameEngine/Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData; // 0x00DFE758
 
 class Rva0010082FPart { public: virtual void slot0(); virtual void Update(float); };
@@ -31,7 +31,7 @@ void Rva0010082F::rva0010082F()
     static unsigned long last = timeGetTime();
     unsigned long now = timeGetTime();
     float step = (float)(now - last);
-    if (TheWritableGlobalData->m_D45)
+    if (TheWritableGlobalData->field0D45)
         step = 33.333332f;
     last = now;
     float seconds = step * 0.001f;
