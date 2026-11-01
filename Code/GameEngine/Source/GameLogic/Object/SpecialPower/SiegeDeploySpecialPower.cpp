@@ -128,7 +128,8 @@ public:
     AttitudeType getAttitude() const;
     void rva0026DE3B(int);
 };
-#include "../../../../Include/Common/ObjectModule.h"
+
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 #include "ContainmentListView.h"
 #define BFME_DISP8_CMP_IMM_BOOL_GETTER(NAME, DISP, IMM, OP) \
 	class NAME \
@@ -272,31 +273,8 @@ template<> class SiegePhaseSlots<0> {};
 
 class SiegePhaseContain : public SiegePhaseSlots<70> {public:virtual Rva0036AE51ListView slot70()=0;virtual Rva0036AE51ListView slot71()=0;};
 
-#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-struct UpdateModuleInterface
-{
-    virtual void f10();
-    virtual void u1();
-    virtual void u2();
-    virtual void u3();
-    virtual void u4();
-    virtual void u5();
-    virtual void u6();
-    virtual void u7();
-    virtual void u8();
-    virtual UpdateSleepTime update() = 0;
-};
 
-class UpdateModule : public ObjectModule, public BehaviorModuleInterface, public UpdateModuleInterface
-{
-protected:
-    virtual ~UpdateModule();
-    void setWakeFrame(Object *obj, UpdateSleepTime wakeDelay);
-    unsigned int m_14;
-    int m_18;
-    int m_1C;
-};
 
 class SpecialPowerUpdateInterface
 {
