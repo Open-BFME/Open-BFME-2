@@ -18,7 +18,8 @@ enum PathfindLayerEnum {LAYER17=17};
 enum ObjectStatusTypes {STATUS60=60};
 enum CommandSourceType {COMMAND2=2};
 enum ExitDoorType {DOOR0=0};
-class Matrix3D {float matrix[3][4];};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
+
 class NameKeyGenerator {public:NameKeyType nameToKey(const char*);};extern NameKeyGenerator *TheNameKeyGenerator;
 class Rva2225E0Filter {public:bool accepts(Object*,Player*);};
 class AIUpdateInterface {public:void ignoreObstacle(const Object*);char pad[0x178];unsigned ignoreUntil;char pad17c[0x1cc-0x17c];LocomotorSet *locomotorView(){return (LocomotorSet*)((char*)this+0x1cc);}};
