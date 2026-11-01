@@ -17053,6 +17053,7 @@ would clear UnitRevivalTracker, GlobalWeatherSystem and WeaponStore), an `rename
 that accepts an MI class's adjustor thunk on its secondary table, and the identity of
 0x0046F7E4 and 0x00674870.
 Clearance: none. Census confirmation: not claimed.
+<<<<<<< HEAD
 
 ### LINK-176: GlobalWeatherSystem destructors folded out of `Rva00318637`; shared-blocker names traced (2026-11-01, seat halilkkaya-lk14)
 
@@ -17076,3 +17077,17 @@ Follows LINK-175's GlobalWeatherSystem row.
   link_check: `GlobalWeatherSystemCtorDeferred.cpp` 0 -> 155 B LINKS; `GlobalWeatherSystem.cpp`
   (303), `CreateAHeroParseBlingBinder.cpp` (419), `Rva007ABBF6BlockParseInits.cpp` (2,728) and
   `SubsystemInterface.cpp` (22,023) keep linking. Census confirmation: pending.
+=======
+
+
+### SupplyWarehouseDockUpdate native seed prerequisites (2026-11-01, halilkkaya-codex)
+
+Base `1a7b67c6a1`: the supported retail-vftable fold reconciles
+Rva004A7D55 with SupplyWarehouseDockUpdate across five source views and
+its script caller. All 13 rows remain exact; the five current objects
+retain 517 -> 517 predicted linking bytes. The original seed remains
+unlinked (217 B); no census gain is claimed. Its four native interfaces,
+name/key getters, action receiver and imported donor bodies still need
+reconciliation before the six clean donors can merge.
+Evidence: `reverse/attempt_support/supply-warehouse-native-20261101.md`.
+>>>>>>> 8f41776236 (Fold the retail SupplyWarehouseDockUpdate destructor class)

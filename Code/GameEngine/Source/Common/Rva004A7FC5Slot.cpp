@@ -1,17 +1,17 @@
 // cl: /MD
 
-// ?loadPostProcess@Rva004A7D55@@UAEXXZ @0x004A7FC5 43B virtual slot 1 of vtable 0x00853790 class of ??1Rva004A7D55.
+// ?loadPostProcess@SupplyWarehouseDockUpdate@@UAEXXZ @0x004A7FC5 43B virtual slot 1 of vtable 0x00853790 class of ??1Rva004A7D55.
 // Target evidence: vslot 1 plus call DockUpdate loadPostProcess 0x00589909 plus Thing getDrawable 0x005508E2 plus broadcast 0x0027164E with m_04+0x10 and m_88; sibling slot5 Rva004A7E43Slot pattern.
 
 #include <math.h>
 
-class Rva004A7D55;
+class SupplyWarehouseDockUpdate;
 
 class DockUpdate
 {
 protected:
 	virtual void loadPostProcess();
-	friend class Rva004A7D55;
+	friend class SupplyWarehouseDockUpdate;
 };
 
 class Drawable;
@@ -38,7 +38,7 @@ public:
 
 extern GlobalData *TheWritableGlobalData;
 
-class Rva004A7D55
+class SupplyWarehouseDockUpdate
 {
 public:
 	virtual void s0();
@@ -55,7 +55,7 @@ private:
 	int m_88;
 };
 
-void Rva004A7D55::loadPostProcess()
+void SupplyWarehouseDockUpdate::loadPostProcess()
 {
 	((DockUpdate *)this)->DockUpdate::loadPostProcess();
 	Thing *thing = m_08;
@@ -66,7 +66,7 @@ void Rva004A7D55::loadPostProcess()
 	((Rva002716Holder *)drawable)->Rva0027164EBroadcast(aux->m_10, m_88);
 }
 
-void Rva004A7D55::rva004A7F78(int val)
+void SupplyWarehouseDockUpdate::rva004A7F78(int val)
 {
 	m_88 = (int)ceil((double)val / TheWritableGlobalData->m_valuePerSupplyBox);
 	Drawable *drawable = m_08->getDrawable();

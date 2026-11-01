@@ -6418,7 +6418,7 @@ _Rva008118C0,,0x0067D7C0,5,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matc
 ??1Rva004C6C5C@@UAE@XZ,,0x004C6C5C,32,Code/GameEngine/Source/Common/Rva00451F45Derived.cpp,matched,opaque MI-derived dtor; 4 vptrs; tail-jmp opaque SEH base pin 0x451F45
 ??1Rva004A0E0C@@UAE@XZ,,0x004A0E0C,32,Code/GameEngine/Source/Common/Rva0058A0F4Derived.cpp,matched,opaque MI-derived dtor; 4 vptrs; tail-jmp opaque SEH base pin 0x58A0F4
 ??1Rva004A11D4@@UAE@XZ,,0x004A11D4,32,Code/GameEngine/Source/Common/Rva0058A0F4Derived.cpp,matched,opaque MI-derived dtor; 4 vptrs; tail-jmp opaque SEH base pin 0x58A0F4
-??1Rva004A7D55@@UAE@XZ,,0x004A7D55,32,Code/GameEngine/Source/Common/Rva0058A0F4Derived.cpp,matched,opaque MI-derived dtor; 4 vptrs; tail-jmp opaque SEH base pin 0x58A0F4
+??1SupplyWarehouseDockUpdate@@UAE@XZ,,0x004A7D55,32,Code/GameEngine/Source/Common/Rva0058A0F4Derived.cpp,matched,opaque MI-derived dtor; 4 vptrs; tail-jmp opaque SEH base pin 0x58A0F4
 ??1Rva00711330@@UAE@XZ,,0x00711330,18,Code/GameEngine/Source/Common/Rva00711330Dtor.cpp,matched,opaque derived dtor; vptr + member-clear at +0x20 (speed-form mov); tail-jmp opaque SEH base pin 0x6D6470; dedicated /O2 TU (/O1 compacts to and-form)
 ??1Rva0035D0D1@@UAE@XZ,,0x0035D0D1,11,Code/GameEngine/Source/Common/Rva001DBAC3Derived.cpp,matched,opaque derived dtor; tail-jmp opaque leaf base pin 0x1DBAC3
 ??1Rva0035D352@@UAE@XZ,,0x0035D352,11,Code/GameEngine/Source/Common/Rva001DBAC3Derived.cpp,matched,opaque derived dtor; tail-jmp opaque leaf base pin 0x1DBAC3
@@ -11022,7 +11022,7 @@ _luaX_lex,,0x00757C90,1324,Code/Libraries/Source/Lua/llex.c,matched,BFME1 byte-i
 ??_GRva0049C3FC@@UAEPAXI@Z,,0x0049C4B6,28,Code/GameEngine/Source/Common/Rva00451F45Derived.cpp,matched,Scalar deleting dtor via ??_G harvest; calls rowed dtor 0x49C3FC plus operator delete 0x2FD60; /O1 pop-ecx shape
 ??_GRva004A0E0C@@UAEPAXI@Z,,0x004A0E91,28,Code/GameEngine/Source/Common/Rva0058A0F4Derived.cpp,matched,Scalar deleting dtor via ??_G harvest; calls rowed dtor 0x4A0E0C plus operator delete 0x2FD60; /O1 pop-ecx shape
 ??_GRva004A11D4@@UAEPAXI@Z,,0x004A1239,28,Code/GameEngine/Source/Common/Rva0058A0F4Derived.cpp,matched,Scalar deleting dtor via ??_G harvest; calls rowed dtor 0x4A11D4 plus operator delete 0x2FD60; /O1 pop-ecx shape
-??_GRva004A7D55@@UAEPAXI@Z,,0x004A7E27,28,Code/GameEngine/Source/Common/Rva0058A0F4Derived.cpp,matched,Scalar deleting dtor via ??_G harvest; calls rowed dtor 0x4A7D55 plus operator delete 0x2FD60; /O1 pop-ecx shape
+??_GSupplyWarehouseDockUpdate@@UAEPAXI@Z,,0x004A7E27,28,Code/GameEngine/Source/Common/Rva0058A0F4Derived.cpp,matched,Scalar deleting dtor via ??_G harvest; calls rowed dtor 0x4A7D55 plus operator delete 0x2FD60; /O1 pop-ecx shape
 ??_GRva004C3108@@UAEPAXI@Z,,0x004C318C,28,Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp,matched,Scalar deleting dtor via ??_G harvest; calls rowed dtor 0x4C3108 plus operator delete 0x2FD60; /O1 pop-ecx shape
 ??_GRva004C5019@@UAEPAXI@Z,,0x004C5032,28,Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp,matched,Scalar deleting dtor via ??_G harvest; calls rowed dtor 0x4C5019 plus operator delete 0x2FD60; /O1 pop-ecx shape
 ??_GRva004C7EAE@@UAEPAXI@Z,,0x004C7F40,28,Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp,matched,Scalar deleting dtor via ??_G harvest; calls rowed dtor 0x4C7EAE plus operator delete 0x2FD60; /O1 pop-ecx shape
@@ -20446,7 +20446,7 @@ _$E5,,0x007B7060,10,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsRecordTex
 ?Compute_Ram_Size@MeshMatDescClass@@QAEHXZ,,0x0015CAE0,430,Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescComputeRamSize.cpp,matched,BFME1 donor MeshMatDescClass ComputeRamSize plus MeshModel callers
 ??1AerialPathfinder@@UAE@XZ,,0x0022C9F6,59,Code/GameEngine/Source/Common/System/SaveGame/Rva0022C9F6Dtor.cpp,matched,opaque virtual dtor with list base via replica pattern
 ??_GAerialPathfinder@@UAEPAXI@Z,,0x0022C9DA,28,Code/GameEngine/Source/Common/System/SaveGame/Rva0022C9F6Dtor.cpp,matched,scalar deleting dtor via TU vtable emission
-?rva004A7E43@Rva004A7D55@@UAEXXZ,,0x004A7E43,36,Code/GameEngine/Source/Common/Rva004A7E43Slot.cpp,matched,vtable 0x00853790 slot5 broadcast via rowed 0x27164E
+?rva004A7E43@SupplyWarehouseDockUpdate@@UAEXXZ,,0x004A7E43,36,Code/GameEngine/Source/Common/Rva004A7E43Slot.cpp,matched,vtable 0x00853790 slot5 broadcast via rowed 0x27164E
 ?Rva0035E327Parse@@YAXPAVINI@@PAVRva0035E327Holder@@@Z,,0x0035E327,81,Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp,matched,gap factory news 0x34 ctor 0x35E2E6 empty table 0xC6BB18 setter 0x5F69CE
 ??0MeshMatDescRendererState@@QAE@XZ,,0x0015B5B0,41,Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescDefaultCtor.cpp,matched,RendererState ctor nulls Textures sets 0x10441b
 ?isDate@BfmeAptValue006DCD20@@QBEHXZ,,0x006DC680,78,Code/Libraries/Source/Apt/AptValue/AptValueTypePredicatesBFME2.cpp,matched,caller 0x006DD163 asserts isDate; type 29 with undefined exclusion
@@ -35950,8 +35950,8 @@ uw_0075c910,,0x0075C910,8,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_str
 ?rva006CD030Store@@YAXII@Z,,0x006CD030,34,Code/Libraries/Source/Apt/Rva006CD030Store.cpp,matched,BF1@6583b3c1 whole Apt.cpp donor; /O2 /DNDEBUG /MD /EHs-c-; native aligned34B complete stack-word store to four scalar data providers; initial4B zeros verified; no entry refs or original function/type identity claimed; independently Apt.cpp named sibling6CD6F0 establishes subsystem
 ?Rva003E41CBGet@@YG_NPAVParameter@@@Z,,0x003E41CB,24,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions.cpp,matched,leaf string plus true via rowed rva00357A97 plus global g_Va009FE16C
 ?triggerAbilityEffect@Rva00492C59@@UAEXXZ,,0x00492D11,154,Code/GameEngine/Source/GameLogic/Object/Update/Rva00492D11Update.cpp,matched,slot17 of vtable 0x0084E1A8 via SpecialAbilityUpdate base and WeaponStore rows
-?loadPostProcess@Rva004A7D55@@UAEXXZ,,0x004A7FC5,43,Code/GameEngine/Source/Common/Rva004A7FC5Slot.cpp,matched,Rva004A7D55 slot1 via DockUpdate loadPostProcess Thing drawable broadcast
-?rva004A7F78@Rva004A7D55@@QAEXH@Z,,0x004A7F78,77,Code/GameEngine/Source/Common/Rva004A7FC5Slot.cpp,matched,Rva004A7D55 leaf ceil divisor broadcast via drawable
+?loadPostProcess@SupplyWarehouseDockUpdate@@UAEXXZ,,0x004A7FC5,43,Code/GameEngine/Source/Common/Rva004A7FC5Slot.cpp,matched,Rva004A7D55 slot1 via DockUpdate loadPostProcess Thing drawable broadcast
+?rva004A7F78@SupplyWarehouseDockUpdate@@QAEXH@Z,,0x004A7F78,77,Code/GameEngine/Source/Common/Rva004A7FC5Slot.cpp,matched,Rva004A7D55 leaf ceil divisor broadcast via drawable
 ?Rva0021784ACopy@@YAPAUFileInfoStruct@MixFileCreator@@PAU12@00@Z,,0x0021784A,38,Code/GameEngine/Source/GameClient/GUI/GameFont.cpp,matched,unlock uninitialized_copy stride 0x10 via rowed dup _Construct at 0x0021781D
 ??4Rva003F610FElement@@QAEAAU0@ABU0@@Z,,0x003F554C,56,Code/Libraries/Source/WWVegas/WWLib/StlportRva003F610FAssign.cpp,matched,Element assign via vector uint and Vector104 plus tail20 rep
 ??$__uninitialized_fill_n@PAVCreateAHeroClass@CreateAHeroManager@@IV12@@_STL@@YAPAVCreateAHeroClass@CreateAHeroManager@@PAV12@IABV12@ABU__false_type@0@@Z,,0x0021FA6D,37,Code/Libraries/Source/WWVegas/WWLib/Rva0021F876FillN.cpp,matched,fill_n 37B via rowed Construct 0x0021FA1A stride 0x20

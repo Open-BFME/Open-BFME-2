@@ -2,7 +2,7 @@
 //
 // ?xfer@SupplyWarehouseDockUpdate@@MAEXPAVXfer@@@Z, retail 0x004A7D7B, 42 bytes.
 // Virtual slot 3 (offset 0x0C) of vtable 0x00853790 (class of rowed dtor
-// ??1Rva004A7D55@@UAE@XZ in Rva0058A0F4Derived.cpp). Version1 via rowed
+// ??1SupplyWarehouseDockUpdate@@UAE@XZ in Rva0058A0F4Derived.cpp). Version1 via rowed
 // 0x53EE then base DockUpdate xfer via rowed 0x58A410 then int at +0x88 via
 // Xfer slot 0x7C. Layout is single inheritance from DockUpdate per ZH donor
 // (no adjustment) with int m_boxesStored at +0x88 giving 0x8C total (factory

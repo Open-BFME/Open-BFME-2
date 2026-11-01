@@ -70,13 +70,13 @@ Rva004A11D4::~Rva004A11D4()
 {
 }
 
-class Rva004A7D55 : public DockUpdate
+class SupplyWarehouseDockUpdate : public DockUpdate
 {
 public:
-	virtual ~Rva004A7D55();
+	virtual ~SupplyWarehouseDockUpdate();
 };
 
-Rva004A7D55::~Rva004A7D55()
+SupplyWarehouseDockUpdate::~SupplyWarehouseDockUpdate()
 {
 }
 

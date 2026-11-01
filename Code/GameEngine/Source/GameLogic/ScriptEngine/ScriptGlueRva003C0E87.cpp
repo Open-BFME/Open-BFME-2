@@ -13,7 +13,7 @@
 enum NameKeyType { NK_NONE = 0 };
 
 class Object;
-class Rva004A7D55
+class SupplyWarehouseDockUpdate
 {
 public:
     void rva004A7F78(int v);
@@ -51,5 +51,5 @@ void ScriptActions::doSetWarehouseValue(const AsciiString &name, int count)
     Module *module = obj->findModule(supplyKey);
     if (module == 0)
         return;
-    ((Rva004A7D55 *)module)->rva004A7F78(count);
+    ((SupplyWarehouseDockUpdate *)module)->rva004A7F78(count);
 }
