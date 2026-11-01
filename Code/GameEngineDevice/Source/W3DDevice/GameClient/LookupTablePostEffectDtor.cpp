@@ -8,11 +8,6 @@ public:
     void rva00116496();
 };
 
-class Rva0011647BDwordImmSetter
-{
-public:
-    void apply();
-};
 
 class AsciiString;
 class Rva00111C05Effect;

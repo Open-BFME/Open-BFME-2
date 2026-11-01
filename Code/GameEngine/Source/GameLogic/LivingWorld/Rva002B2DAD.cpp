@@ -114,11 +114,6 @@ Rva003F468D *Rva0020E6B7RegionManager::rva0020E6B7()
  return (Rva003F468D *)((LivingWorldRegionManager *)this)->rva0020E5BB(currentKey);
 }
 
-class LivingWorldBattle
-{
-public:
-	void rva003F5397(int side, int player, int army1, int army2);
-};
 class Rva003F468D
 {
 public:

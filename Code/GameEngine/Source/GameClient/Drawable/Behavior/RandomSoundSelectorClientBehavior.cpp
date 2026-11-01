@@ -198,57 +198,17 @@ void rva004B5293(INI *, void *, void *, const void *);
 void Rva0049B51EParse(INI *, void *, void *, const void *);
 
 
-class SpecialAbilityUpdateModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
 
-class DockUpdateModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
 
-class TeleportToCasterSpecialPowerModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
 
-class StoreObjectsSpecialPowerModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
 
-class CurseSpecialPowerModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
 
-class SupplyWarehouseDockUpdateModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
 
-class DelayedDeathBodyModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
 
 int Rva004CE29DGet(void);
 
 int Rva004CE52EGet(void);
 
-class DominateEnemySpecialPowerModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
 
 int Rva0033A495Get(void);
 
@@ -279,11 +239,6 @@ extern const FieldParse BfmeRandomSoundSelectorClientBehaviorFields[] = {
 	{ 0, 0, 0, 0 }
 };
 
-class GiveUpgradeUpdateModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
 
 // ?buildFieldParse@WeaponSetUpgradeModuleData@@SAXAAVMultiIniFieldParse@@@Z
 // retail 0x004B56F6 (34 bytes): double-add on the rowed ModuleData getter
@@ -295,11 +250,6 @@ public:
 // theory that the WeaponSetUpgrade pool key ending at this address was
 // packing coincidence. HealContain is a real, separate module (data factory
 // 0x24B80D, ctor 0x466D37).
-class WeaponSetUpgradeModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
 
 class ClientFrameSubsystem;
 

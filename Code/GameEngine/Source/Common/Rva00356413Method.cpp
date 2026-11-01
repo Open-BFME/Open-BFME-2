@@ -130,15 +130,6 @@ private:
 class Display;
 extern Display *TheDisplay;
 
-class Rva003563A7 : public Rva00355D66
-{
-public:
-	virtual ~Rva003563A7();
-	void rva00355EE1();
-private:
-	bool m_pad10;
-	StringBase<char> m_str;
-};
 
 // ?TheDisplay@@3PAVDisplayManager@@A: the global at this VA is ?TheDisplay@@3PAVDisplay@@A; this name is an alias for it.
 // ?TheDisplay@@3PAVDisplayManager@@A: the global at VA 0xdfe9d8 is ?TheDisplay@@3PAVDisplay@@A.

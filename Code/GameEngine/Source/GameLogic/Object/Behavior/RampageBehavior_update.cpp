@@ -64,14 +64,6 @@ class Drawable
  
 }
 ;
-class UpdateModuleInterface
-
-{
- public:
- virtual UpdateSleepTime update() = 0;
- 
-}
-;
 class RampageBehaviorModuleDataView
 
 {

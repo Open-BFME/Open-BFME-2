@@ -97,15 +97,6 @@ void Rva0066CA80::rva0066CA80()
 }
 
 // ??0Rva00665B70@@QAE@XZ @0x00665B70 13B: default constructor zeroing three words.
-class Rva00665B70
-{
-public:
-	Rva00665B70();
-private:
-	int m_00;
-	int m_04;
-	int m_08;
-};
 
 // ?rva00674A20@Rva00674A20@@QAEHXZ @0x00674A20 8B: post-increment of the +0
 // counter, returning the old value.

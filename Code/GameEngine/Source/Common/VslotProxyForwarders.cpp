@@ -338,11 +338,6 @@ Rva003F816EItem *Rva003F81FDProxy::rva003F816E()
 // 0x003F81B0 30B: the inner interface the forwarders below call through --
 // the 0x003F816E entry, then its rowed 0x003F8101 lookup, then the rowed
 // 0x003F80C3 getter on that (tail call); null at either missing step.
-class Rva003F8101
-{
-public:
-	void *rva003F8101();
-};
 // Rva003F81FDProxy::rva003F81B0 (0x003F81B0) is rowed in Rva003F81B0Chain.cpp; a second definition here would not link.
 
 // 0x00C3731C#3 slot 3

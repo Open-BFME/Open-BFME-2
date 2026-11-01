@@ -49,17 +49,7 @@ public:
 
 int Rva004CE29DGet();
 
-class CommandSetUpgradeModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
 
-class RadarUpgradeModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
 
 class StatusBitsUpgradeModuleData
 {

@@ -7,11 +7,6 @@
 
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
-class Rva00225D38Host
-{
-public:
-	bool rva00225D38();
-};
 
 class GameEngine
 {

@@ -29,26 +29,6 @@ class Rva001F5DE8Slot
 public:
 	void *get(void *a);
 };
-class Rva001F5DD4Slot
-{
-public:
-	void *get(void *a);
-};
-class Rva001F5DC0Slot
-{
-public:
-	void *get(void *a);
-};
-class Rva001F5DACSlot
-{
-public:
-	void *get(void *a);
-};
-class Rva001F5D98Slot
-{
-public:
-	void *get(void *a);
-};
 class Rva001FA54D
 {
 public:

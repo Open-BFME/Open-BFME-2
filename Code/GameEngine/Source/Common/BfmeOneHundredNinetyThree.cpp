@@ -8,12 +8,6 @@ struct BfmeThingET
 
 int bfmeFindET(BfmeThingET *thing);
 
-class BfmeThingEU
-{
-public:
-	void bfmeClearEU(void);
-	void bfmeAlsoEU(void);
-};
 
 class Object;
 
@@ -54,14 +48,4 @@ public:
 	void *m_bfmeBack;			// 0x4c
 };
 
-class BfmeThingER
-{
-public:
-	BfmeMadeER *bfmeGoER(void);
-};
 
-class BfmeThingES
-{
-public:
-	void bfmeDropES(int which);
-};

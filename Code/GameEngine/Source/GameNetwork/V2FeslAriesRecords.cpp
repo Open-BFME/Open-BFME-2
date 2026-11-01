@@ -93,19 +93,6 @@ Rva007F4130Endpoints::Rva007F4130Endpoints( Rva007E8810Message *msg )
 }
 
 // -------------------------------------------------------------------- lobby
-class Rva007F4EF0Lobby
-{
-public:
-	Rva007F4EF0Lobby( Rva007E8810Message *msg );
-	int m_lid;
-	int m_passing;
-	int m_favoriteGames;
-	int m_favoritePlayers;
-	int m_maxGames;
-	int m_numGames;
-	char m_name[ 0x80 ];
-	char m_locale[ 8 ];
-};
 
 // Rva007F4EF0Lobby::Rva007F4EF0Lobby: defined in V2FeslAriesLobby.cpp (its row's unit).
 

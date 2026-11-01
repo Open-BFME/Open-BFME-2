@@ -8,11 +8,6 @@
 // 0x0030E2C9 (35B). Callee addresses are read off retail's call sites
 // (reverse/symbols.csv). Only the placed bodies are carried; the donor's other
 // definitions are omitted.
-struct BfmeGlobEYA
-{
-	unsigned char m_bfmeHead[0xbd0];
-	void *m_bfmeP;
-};
 
 // EA's GlobalData (Common/GlobalData.h) is only forward declared here; this
 // global is retail 0x012ED5C8, defined once in
@@ -115,19 +110,7 @@ bool BfmeThingEYF::bfmeGoEYF(void *a, void *b)
 	return true;
 }
 
-struct BfmeNodeEYG
-{
-	BfmeNodeEYG *m_bfmeNext;
-	BfmeNodeEYG *m_bfmePrev;
-	void *m_bfmeVal;
-};
 
 void __cdecl bfmeFreeEYG(void *p, unsigned int n);
 
-struct BfmeThingEYG
-{
-	void *bfmeGoEYG();
-	unsigned char m_bfmeHead[4];
-	BfmeNodeEYG *volatile m_bfmeL;
-};
 

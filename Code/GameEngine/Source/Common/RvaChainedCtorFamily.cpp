@@ -12,11 +12,6 @@
 // codegen needs; the ctor calls resolve through the rowed and pinned names.
 // Names are address-derived. One ledger row per ctor.
 
-class Rva001F9060
-{
-public:
-	Rva001F9060();
-};
 
 class Script
 {
@@ -24,58 +19,10 @@ public:
 	Script();
 };
 
-class Rva001FA5A5
-{
-public:
-	Rva001FA5A5();
 
-private:
-	int m_00;
-	int m_04;
-	Rva001F9060 m_sub;
-};
 
-class Rva001FBA45
-{
-public:
-	Rva001FBA45();
 
-private:
-	int m_00;
-	int m_04;
-	Rva001FA5A5 m_sub;
-};
 
-class Rva001FBF37
-{
-public:
-	Rva001FBF37();
-
-private:
-	int m_00;
-	int m_04;
-	Rva001FBA45 m_sub;
-};
-
-class Rva001FB8A9
-{
-public:
-	Rva001FB8A9();
-
-private:
-	int m_00;
-	Rva001FA5A5 m_sub;
-};
-
-class Rva001FBBE4
-{
-public:
-	Rva001FBBE4();
-
-private:
-	int m_00;
-	Rva001FBA45 m_sub;
-};
 
 class Rva003B44DC
 {
