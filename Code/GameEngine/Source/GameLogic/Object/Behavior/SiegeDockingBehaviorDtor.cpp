@@ -28,21 +28,8 @@ class BehaviorModuleOther
 
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class UpdateModuleInterface
-{
-public:
-	virtual void update() = 0;
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-	unsigned m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_bfmeReserved;
-
-public:
-	virtual ~UpdateModule();
-};
 
 // Same view as SiegeDockingBehaviorConstructorThunk.cpp, so both units emit one
 // +0x20 table (retail 0x00C41404).
