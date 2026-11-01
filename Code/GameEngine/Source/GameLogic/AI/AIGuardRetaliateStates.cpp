@@ -323,18 +323,7 @@ struct TAiData
  unsigned char m_pad40[4];
 	UnsignedInt m_guardEnemyReturnScanRate; // +0x44
 };
-class AI
-{
-public:
-	static Real getAdjustedVisionRangeForObject(const Object *obj, int factors);
- Pathfinder *pathfinder() { return m_pathfinder; }
-	const TAiData *getAiData() const { return m_aiData; }
-private:
-	unsigned char m_pad00[0x10];
-	Pathfinder *m_pathfinder; // +0x10
-	unsigned char m_pad14[0x18 - 0x14];
-	TAiData *m_aiData; // +0x18
-};
+#include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 extern GameLogic *TheGameLogic;
 extern int BfmeLogicFramesPerSecond;

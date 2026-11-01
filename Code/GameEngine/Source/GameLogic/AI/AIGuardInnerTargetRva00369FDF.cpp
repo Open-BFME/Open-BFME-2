@@ -264,16 +264,7 @@ struct TAiData
 	unsigned int m_guardEnemyScanRate;	// +0x40
 };
 
-class AI
-{
-public:
-	Object *findClosestEnemy(const Object *me, float range, unsigned int qualifiers,
-		const AttackPriorityInfo *info, PartitionFilter *optionalFilter, int extra);	// 0x002FFFA3
-	const TAiData *getAiData() const { return m_aiData; }
-private:
-	char m_pad00[0x18];
-	TAiData *m_aiData;	// +0x18
-};
+#include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 
 // GameLogic's trigger-area change frame at +0x180, beside the canonical

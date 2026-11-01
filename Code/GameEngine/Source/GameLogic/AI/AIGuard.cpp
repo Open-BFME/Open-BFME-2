@@ -291,20 +291,7 @@ public:
 
 #include "../../../Include/GameLogic/AIPathfind.h"
 
-class AI
-{
-public:
-	Object *findClosestEnemy(const Object *me, Real range, UnsignedInt qualifiers,
-		const AttackPriorityInfo *info, PartitionFilter *optionalFilter, Int b);
-	const TAiData *getAiData() const { return m_aiData; }
-	static Real getAdjustedVisionRangeForObject(const Object *object, int factorsToConsider);
-	static Bool rva002FE193(Object *obj, Object *nemesis);
-	Pathfinder *pathfinder() { return m_pathfinder; }
-	char m_pad[0x10];
-	Pathfinder *m_pathfinder; // +0x10
-	char m_pad14[0x18 - 0x14];
-	TAiData *m_aiData; // +0x18
-};
+#include "../../../Include/GameLogic/AI.h"
 
 extern AI *TheAI;
 

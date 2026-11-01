@@ -152,12 +152,7 @@ struct TAiData
 	float m_maxRetaliateDistance;		// +0xC8
 };
 
-class AI
-{
-public:
-	char m_pad00[0x18];
-	TAiData *m_aiData;	// +0x18
-};
+#include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 
 class AIGuardRetaliateMachine
