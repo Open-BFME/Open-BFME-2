@@ -20676,3 +20676,15 @@ Code/GameEngine/Source/Common/FireLogicSystem_ChangeFuelInArea.cpp|param|FireLog
 Code/GameEngine/Source/Common/FireLogicSystem_ChangeFuelInArea.cpp|param|FireLogicSystem::ChangeFuelInArea|w,961e18ad1f05e01fb0778746,haiku-5-5,n33a-k1-blind,w-d119d30b66de,2026-11-01
 Code/GameEngine/Source/Common/FireLogicSystem_ChangeFuelInArea.cpp|local|FireLogicSystem::ChangeFuelInArea|y,b85318bb4762d4a40bd6f0e3,haiku-5-5,n33a-k1-blind,w-d119d30b66de,2026-11-01
 Code/GameEngine/Source/Common/FireLogicSystem_ChangeFuelInArea.cpp|local|FireLogicSystem::ChangeFuelInArea|d,4bd29a321b73c13be4852c29,haiku-5-5,n33a-k1-blind,w-d119d30b66de,2026-11-01
+Code/GameEngine/Source/Common/GapBodiesGE01.cpp|function|0x005ED583|rva005ED583,86ddb5c754caed77deb2b01b,claude-haiku-5-5,drz-k2-n33b,w-4cad33e49465,2026-11-01
+Code/GameEngine/Source/Common/GapBodiesGE05.cpp|function|0x00363A78|rva00363A78,c13bb95a446ee4b02410fe47,claude-haiku-5-5,drz-k2-n33b,w-4cad33e49465,2026-11-01
+Code/GameEngine/Source/Common/GapBodiesGE05.cpp|function|0x0029A347|rva0029A347,90e51d102e1a8bf72f8cc1cc,claude-haiku-5-5,drz-k2-n33b,w-4cad33e49465,2026-11-01
+Code/GameEngine/Source/Common/GapBodiesGE05.cpp|function|0x0029A354|rva0029A354,eb918d660d15f0ea9aed3350,claude-haiku-5-5,drz-k2-n33b,w-4cad33e49465,2026-11-01
+Code/GameEngine/Source/Common/GapBodiesGE05.cpp|function|0x005EB7DE|rva005EB7DE,4b09904c538a4e862c3e9edf,claude-haiku-5-5,drz-k2-n33b,w-4cad33e49465,2026-11-01
+Code/GameEngine/Source/Common/GapBodiesGE05.cpp|function|0x005EB7ED|rva005EB7ED,e1e922ae3e272258a0519ad6,claude-haiku-5-5,drz-k2-n33b,w-4cad33e49465,2026-11-01
+Code/GameEngine/Source/Common/GapBodiesGE05.cpp|function|0x0035BD0D|rva0035BD0D,a19870787088077976df0bbc,claude-haiku-5-5,drz-k2-n33b,w-4cad33e49465,2026-11-01
+Code/GameEngine/Source/Common/GapBodiesGE07.cpp|member|Rva00261603Object|m_44,c8a37edc6ff59a7fa2f2cc5d,claude-haiku-5-5,drz-k2-n33b,w-4cad33e49465,2026-11-01
+Code/GameEngine/Source/Common/GapBodiesGE07.cpp|member|Rva00367422|m_56C,526c27c16de4a97dfd333a22,claude-haiku-5-5,drz-k2-n33b,w-4cad33e49465,2026-11-01
+Code/GameEngine/Source/Common/GapBodiesGE12.cpp|class||Rva0030BE5D,08e29ac7f7812c902f4de8ae,claude-haiku-5-5,drz-k2-n33b,w-4cad33e49465,2026-11-01
+Code/GameEngine/Source/Common/GapBodiesGE12.cpp|class||Rva005FD4AATable,0faee7fcc806ea0a769977a2,claude-haiku-5-5,drz-k2-n33b,w-4cad33e49465,2026-11-01
+Code/GameEngine/Source/Common/GapBodiesGE12.cpp|class||Rva005FD4AA,28c67845480a2f57d8776ad2,claude-haiku-5-5,drz-k2-n33b,w-4cad33e49465,2026-11-01
