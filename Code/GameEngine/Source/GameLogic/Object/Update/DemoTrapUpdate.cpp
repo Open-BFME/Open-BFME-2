@@ -173,15 +173,7 @@ struct Rva00495A2B_H04
 	const WeaponTemplate *m_detonationWeaponTemplate;
 };
 
-class Xfer::Version
-{
-public:
-	Version(unsigned char current, unsigned char minimum)
-		: m_current(current), m_minimum(minimum) {}
-
-	unsigned char m_current;
-	unsigned char m_minimum;
-};
+#include "../../../../Include/Common/XferVersion.h"
 
 BFME_LITERAL_NAME_GETTER(Rva0049592FNamed, "DemoTrapUpdate")
 

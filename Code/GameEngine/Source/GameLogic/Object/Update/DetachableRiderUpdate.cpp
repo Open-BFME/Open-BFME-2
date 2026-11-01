@@ -126,15 +126,7 @@ enum NameKeyType
 };
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
-class Xfer::Version
-{
-public:
-	Version(unsigned char current, unsigned char minimum)
-		: m_current(current), m_minimum(minimum) {}
-
-	unsigned char m_current;
-	unsigned char m_minimum;
-};
+#include "../../../../Include/Common/XferVersion.h"
 #include "../../../../Include/Common/ObjectModule.h"
 #define BFME_IMUL_ADD_DWORD_GETTER(NAME, IMM) \
 	class NAME \
