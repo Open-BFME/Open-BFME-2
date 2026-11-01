@@ -181,14 +181,7 @@ struct Rva002A8AB1Record
 	unsigned char m_pad00[0x164];
 	Rva002C5FCBNullAdjustField *m_targets;		// +0x164
 };
-class Rva002A8F24
-{
-public:
-	void *rva002A8F24(Player *player);		// 0x002A8F24
-	Rva002A8AB1Record *rva002A8AB1(void *player);	// 0x002A8AB1
-	unsigned char m_pad00[0x860];
-	Bool m_showAllAI;				// +0x860
-};
+#include "../../../../GameEngine/Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
 extern Int g_bfmeSkirmishAIDebugIndex;	// the selected AI index
 extern const char *AITargetTypeNames[];
@@ -277,7 +270,7 @@ void W3DDisplay::gatherSkirmishAIStats()
 		if (player->m_playerType == 0 || aiIndex == g_bfmeSkirmishAIDebugIndex)
 		{
 			UnicodeString line;
-			if (player->m_playerType == 1 || TheSkirmishAIManager->m_showAllAI)
+			if (player->m_playerType == 1 || TheSkirmishAIManager->field_860)
 			{
 				AsciiString aiName;
 				aiName.format("AI (%s - %s)\n", player->m_side.str(), player->m_playerName.str());

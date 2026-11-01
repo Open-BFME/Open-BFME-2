@@ -110,12 +110,7 @@ struct SkirmishAIStatsOwner
 	Rva00049D20 *m_tree;		// +0x10
 };
 
-class Rva002A8F24
-{
-public:
-	Rva002A8AB1Record *rva002A8AB1(void *player);
-	void *rva002A8F24(Player *player);
-};
+#include "../../../../GameEngine/Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
 
 class SkirmishAIStatsDebugDraw

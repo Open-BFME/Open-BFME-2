@@ -49,11 +49,7 @@ struct Polymorph004F
 class Player;
 class CreateAHeroData;
 
-class Rva002A8F24
-{
-public:
-	void *rva002A8F24(Player *player);
-};
+#include "../../../../GameEngine/Include/GameLogic/Rva002A8F24.h"
 
 class Rva004DFB55
 {
