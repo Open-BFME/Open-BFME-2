@@ -19,6 +19,9 @@ class Object;
 namespace _STL { template <> __declspec(dllimport) __forceinline _Vector_base<Object *, allocator<Object *> >::~_Vector_base() { if (this->_M_start != 0) this->_M_end_of_storage.deallocate(this->_M_start, this->_M_end_of_storage._M_data - this->_M_start); } }
 #include "ascii_string.h"
 #include "Coord3DBase.h"
+// The standard allocation header supplies the placement overloads.
+#define _OPERATOR_NEW_DEFINED_
+#include "vector3.h"
 // Existing bfmealloc shim and no-exception STL configuration reproduce the
 // native record-vector helpers. Each body and recursive relocation was checked.
 // AITactic::initializeTeamTemplate @ 0x004ECE61, 50 bytes: slot 3 of the AITactic
@@ -110,13 +113,20 @@ public:
 
 struct AITacticAssistTemplate { unsigned char pad[0x115]; unsigned char kindByte; };
 
-class Object {
+class AIUpdateInterface;
+class Object
+{
 public:
-    bool isKindOf(KindOfType) const;
-    Object *rva0028ACA0() const;
-    unsigned char pad0[4]; AITacticAssistTemplate *m_template;
-    unsigned char pad8[0x38-8]; Coord3D position;
-    unsigned char pad44[0x304-0x44]; int m_commandTag;
+	bool isKindOf(KindOfType) const;
+	Object *rva0028ACA0() const;
+	char m_pad00[0x4];
+	AITacticAssistTemplate *m_template; // +0x04
+	char m_pad08[0x30];
+	Coord3D position; // +0x38
+	char m_pad44[0x214];
+	AIUpdateInterface *m_ai; // +0x258
+	char m_pad25C[0xA8];
+	int m_commandTag; // +0x304
 };
 
 template<int N> class BitFlags {
@@ -132,7 +142,21 @@ extern BitFlags<116> KINDOFMASK_NONE;
 
 enum CommandSourceType { CMD_FROM_PLAYER = 0, CMD_FROM_SCRIPT = 1 };
 
-class AIGroup { public: void groupAttackMoveToPosition(const Coord3D *, int, CommandSourceType); };
+struct Rva00372571Params;
+class AITactic;
+class AIGroup
+{
+private:
+	friend class AITactic;
+public:
+	void groupAttackMoveToPosition(const Coord3D *, int, CommandSourceType);
+	void rva00372C05();
+	void groupMoveToPosition(Rva00372571Params *params, int source);
+private:
+	void groupAttackObjectPrivate(bool a, Object *victim, int b, CommandSourceType c);
+public:
+	void rva00372BB9(const void *a, int b);
+};
 
 class BfmeC986 { public: void groupGatherAndAttackInFormationToPosition(int, int, int, int); };
 
@@ -285,15 +309,18 @@ public:
 // Evidence: callees rowed Assign 0x004ED0D7 and Finish 0x004ED471; callers
 // 0x004ED6F8 and 0x004EDBD2; unblocks 0x004ED6D2 and 0x004EDA8C;
 // prev file names this the push_back overflow path.
+class RenderObjClass;
+
 class HLodClass
 {
 public:
 	class ModelNodeClass
 	{
 	public:
-		void *Model;
+		ModelNodeClass & operator = (const ModelNodeClass &that);
+		RenderObjClass *Model;
 		int BoneIndex;
-		char Offset[12];
+		Vector3 Offset;
 	};
 };
 
@@ -318,6 +345,8 @@ class AITactic
 public:
 	AITactic(const AsciiString &name, bool flags);
 public:
+	void rva004ECE1C();
+	unsigned char rva004ED169();
 	bool anyTeamMembersInCombat();
 public:
 	void rva004EDA60();

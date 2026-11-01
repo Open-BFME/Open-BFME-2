@@ -12,18 +12,13 @@
 
 class RenderObjClass;
 
-class HLodBase
-{
-};
-
-class HLodClass : public HLodBase
+class HLodClass
 {
 public:
 	class ModelNodeClass
 	{
 	public:
 		ModelNodeClass & operator = (const ModelNodeClass &that);
-
 		RenderObjClass *Model;
 		int BoneIndex;
 		Vector3 Offset;

@@ -31,8 +31,19 @@ public:
 	char m_pad04[0xC];
 	int m_10; // +0x10
 };
+enum CommandSourceType;
+struct Coord3D;
+struct Rva00372571Params;
 class AIGroup
 {
+private:
+	friend class AITactic;
+public:
+	void groupAttackMoveToPosition(const Coord3D *, int, CommandSourceType);
+	void rva00372C05();
+	void groupMoveToPosition(Rva00372571Params *params, int source);
+private:
+	void groupAttackObjectPrivate(bool a, Object *victim, int b, CommandSourceType c);
 public:
 	void rva00372BB9(const void *a, int b);
 };

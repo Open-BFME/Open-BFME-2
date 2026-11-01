@@ -47,11 +47,23 @@ private:
 
 class AIUpdateInterface;
 
+#include "../../../Include/Lib/Coord3D.h"
+enum KindOfType;
+struct AITacticAssistTemplate;
+struct Coord3D;
 class Object
 {
 public:
-    unsigned char m_pad0[0x258];
-    AIUpdateInterface *m_ai;
+	bool isKindOf(KindOfType) const;
+	Object *rva0028ACA0() const;
+	char m_pad00[0x4];
+	AITacticAssistTemplate *m_template; // +0x04
+	char m_pad08[0x30];
+	Coord3D position; // +0x38
+	char m_pad44[0x214];
+	AIUpdateInterface *m_ai; // +0x258
+	char m_pad25C[0xA8];
+	int m_commandTag; // +0x304
 };
 
 template<class OBJCLASS>
@@ -69,10 +81,20 @@ public:
 
 #include "../../../../GameEngine/Include/Common/TeamBFME2.h"
 
+enum CommandSourceType;
+struct Rva00372571Params;
 class AIGroup
 {
+private:
+	friend class AITactic;
 public:
-    void rva00372C05();
+	void groupAttackMoveToPosition(const Coord3D *, int, CommandSourceType);
+	void rva00372C05();
+	void groupMoveToPosition(Rva00372571Params *params, int source);
+private:
+	void groupAttackObjectPrivate(bool a, Object *victim, int b, CommandSourceType c);
+public:
+	void rva00372BB9(const void *a, int b);
 };
 
 class AI

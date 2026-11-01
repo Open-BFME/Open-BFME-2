@@ -1,5 +1,6 @@
 // ?rva004ED471@Rva004ED471@@QAEXPAVModelNodeClass@HLodClass@@PBV23@PBXI_N@Z
-// cl: /Ireference/shims/bfmevector /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep
+// cl: /MD /EHs /D_STLP_NO_EXCEPTIONS /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /ICode/Libraries/Include/Lib /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /Ireference/shims/bfmevector /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep
+// stlport
 // ?rva004ED471@Rva004ED471@@QAE... @ 0x004ED471, 189 bytes.
 // Vector overflow for HLod ModelNode 0x14 stride: allocates max+old, copies
 // [start pos), fills n, copies [pos finish) unless atend, frees old.
@@ -10,6 +11,9 @@
 // argument; retail passes the address of a dedicated allocator local (its own
 // stack slot distinct from the incoming count), which is why each call opens
 // with a lea of that slot rather than reusing the count home.
+#include <vector>
+// The standard allocation header supplies the placement overloads.
+#define _OPERATOR_NEW_DEFINED_
 #include "vector.h"
 #include "vector3.h"
 #include "ascii_string.h"
@@ -34,7 +38,6 @@ HLodClass::ModelNodeClass * __cdecl Rva004ED0E9Copy(const HLodClass::ModelNodeCl
 { HLodClass::ModelNodeClass *destination = result; const HLodClass::ModelNodeClass *source = first; while (source != last) { Rva004ED0D7Assign(destination, source); ++source; ++destination; } return destination; }
 HLodClass::ModelNodeClass * __cdecl Rva004ED10FFill(HLodClass::ModelNodeClass *dst, unsigned int count, const HLodClass::ModelNodeClass *src, const void *h)
 { HLodClass::ModelNodeClass *current = dst; unsigned int remaining = count; if (remaining <= 0) return current; do { Rva004ED0D7Assign(current, src); ++current; } while (--remaining != 0); return current; }
-extern "C" void __cdecl free(void *);
 
 struct BfmeStringRecord002CF4C6 {
     AsciiString *text0, *text1;
@@ -44,11 +47,7 @@ struct BfmeStringRecord002CF4C6 {
     BfmeStringRecord002CF4C6(const BfmeStringRecord002CF4C6 &);
 };
 namespace _STL {
-template <class T> class allocator
-{
-public:
-	T *allocate(unsigned int n, const void *hint) const;
-};
+template <> BfmeStringRecord002CF4C6 *allocator<BfmeStringRecord002CF4C6>::allocate(unsigned int n, const void *hint) const;
 }
 
 // The allocator instance the Copy/Fill helpers take as their fourth argument.
