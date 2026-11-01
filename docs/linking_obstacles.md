@@ -15840,6 +15840,28 @@ StarkillerHDX claims (tu seat w2, header_adopt_lane, class:BehaviorModule) at 14
 Pattern: when a seed or Zero Hour port keeps an unrowed constructor or destructor body of a
 module class, its tables can sit first in link order and beat retail-shaped copies; drop the
 body when the row lives elsewhere.
+Full sweep (2026-11-01 15:00, lk10): `link_check` over all 18,530 sources the 07:56 census
+records as linked, on current objects: 18,509 link. Eleven more mechanism-1 ctor units had
+lost their explicit vftable bindings to `c3e8f0752f`'s Rva0024A797Grandchildren.cpp renames
+(`6BRva0024A797_Root/_Mid/_B2@@@` -> `6BObjectModule/BehaviorModuleInterface/UpdateModule@@@`,
+the class's own `6B@` -> `6B<Class>_E1@@@`) and to the canonical spellings of
+SpawnPointProductionExitUpdate (`6BSpawnB2/B3` -> `6BBehaviorModuleInterface/UpdateModule`),
+LargeGroupAudioUpdate (`6BMiBase1/Rva0049B47C` -> `6BBehaviorModuleInterface/ObjectModule`)
+and PropagandaTowerBehavior (`6BPB_Iface1` -> `6BBehaviorModuleInterface`, folded 0x00C49188).
+Repaired by binding the names now emitted, each mapped by a DIR32 pair dump of the consumer
+row and of the definer rows onto the same retail table: SlowDeathBehaviorCtor 276,
+AutoHealBehaviorCtor 199, DefaultProductionExitUpdateCtor 130, FoundationAIUpdateCtor 117,
+LargeGroupAudioUpdateCtor 120, LargeGroupBonusUpdateCtor 153, RubbleRiseUpdateCtor 150,
+SlavedUpdateCtor 97, StructureCollapseUpdateCtor 149, SupplyCenterProductionExitUpdateBehaviorCtor
+130, ToppleUpdateCtor 167 (1,688 B). `./build.sh` 20/20 rows; scoped DIR32 OK (156 rows, 128
+symbols, definers included); `link_check` 11/11 LINKS, definers GapForwardersSeat8 691,
+PropagandaTowerBehaviorConstructor 115, LargeGroupAudioUpdateDtor 74,
+SpawnPointProductionExitUpdate 717 B unchanged (Rva0024A797Grandchildren links when checked
+together with the current StructureToppleUpdate.cpp object). Still failing in that sweep and
+not from this cause: BfmeStringTailRecord180Ctor (41), Rva00236285Ctor (47),
+DisplayRegisterVideoBuffer (19) and BaseHeightMap_Rva00069F4F (62) on unprovided STLport
+`__imp_` node-allocator / range-error imports, and atlbasemodule.cpp (197) on `___ImageBase`;
+BattlePlanUpdateConstructor (263) loses its class tables (mechanism 4, file claimed).
 Remaining / next check: the open rows above. Pattern: after a base-header adoption,
 grep `__identifier("??_7<Class>@@6B<old base>@@@")` in sibling units, and check whether
 any adopting unit defines a constructor (it then emits the base's inline destructor and

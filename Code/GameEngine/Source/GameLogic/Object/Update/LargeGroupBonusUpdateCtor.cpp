@@ -18,10 +18,10 @@
 
 extern "C" const void *const __identifier("??_7DamageModuleInterface@@6B@")[];  // folded vftable 0x00BE2B78 (9 classes), by its data-ledger name
 
-extern "C" const void *const __identifier("??_7Rva0048FFB4@@6B@")[];  // vftable 0x00C4D04C
-extern "C" const void *const __identifier("??_7Rva0048FFB4@@6BRva0024A797_B2@@@")[];  // vftable 0x00C4D058
-extern "C" const void *const __identifier("??_7Rva0048FFB4@@6BRva0024A797_Mid@@@")[];  // vftable 0x00C4D068
-extern "C" const void *const __identifier("??_7Rva0048FFB4@@6BRva0024A797_Root@@@")[];  // vftable 0x00C4D124
+extern "C" const void *const __identifier("??_7Rva0048FFB4@@6BRva0048FFB4_E1@@@")[];  // vftable 0x00C4D04C
+extern "C" const void *const __identifier("??_7Rva0048FFB4@@6BUpdateModule@@@")[];  // vftable 0x00C4D058
+extern "C" const void *const __identifier("??_7Rva0048FFB4@@6BBehaviorModuleInterface@@@")[];  // vftable 0x00C4D068
+extern "C" const void *const __identifier("??_7Rva0048FFB4@@6BObjectModule@@@")[];  // vftable 0x00C4D124
 
 class Thing;
 class ModuleData;
@@ -88,10 +88,10 @@ LargeGroupBonusUpdate::LargeGroupBonusUpdate(Thing *thing, const ModuleData *mod
 	int zero = 0;
 	m_28 = zero;
 	m_2A = zero;
-	m_vtable = (const void *)((unsigned int)__identifier("??_7Rva0048FFB4@@6BRva0024A797_Root@@@"));
-	m_secondary0C = (const void *)((unsigned int)__identifier("??_7Rva0048FFB4@@6BRva0024A797_Mid@@@"));
-	m_secondary10 = (const void *)((unsigned int)__identifier("??_7Rva0048FFB4@@6BRva0024A797_B2@@@"));
-	m_20 = (const void *)((unsigned int)__identifier("??_7Rva0048FFB4@@6B@"));
+	m_vtable = (const void *)((unsigned int)__identifier("??_7Rva0048FFB4@@6BObjectModule@@@"));
+	m_secondary0C = (const void *)((unsigned int)__identifier("??_7Rva0048FFB4@@6BBehaviorModuleInterface@@@"));
+	m_secondary10 = (const void *)((unsigned int)__identifier("??_7Rva0048FFB4@@6BUpdateModule@@@"));
+	m_20 = (const void *)((unsigned int)__identifier("??_7Rva0048FFB4@@6BRva0048FFB4_E1@@@"));
 	m_24 = TheGameLogic->getFrame();
 	m_29 = zero;
 	const LargeGroupBonusUpdateModuleData *data = (const LargeGroupBonusUpdateModuleData *)m_moduleData;

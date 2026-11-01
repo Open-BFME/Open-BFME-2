@@ -17,9 +17,9 @@
 extern "C" const void *const __identifier("??_7Rva005EEF2FBase0@@6B@")[];  // vftable 0x00BFBC9C
 
 extern "C" const void *const __identifier("??_7CastleBehavior@@6BFoundationAIUpdateInterface@@@")[];  // vftable 0x00C1A690
-extern "C" const void *const __identifier("??_7Rva00455050@@6BRva0024A797_B2@@@")[];  // vftable 0x00C40538
-extern "C" const void *const __identifier("??_7Rva00455050@@6BRva0024A797_Mid@@@")[];  // vftable 0x00C40548
-extern "C" const void *const __identifier("??_7Rva00455050@@6BRva0024A797_Root@@@")[];  // vftable 0x00C40608
+extern "C" const void *const __identifier("??_7Rva00455050@@6BUpdateModule@@@")[];  // vftable 0x00C40538
+extern "C" const void *const __identifier("??_7Rva00455050@@6BBehaviorModuleInterface@@@")[];  // vftable 0x00C40548
+extern "C" const void *const __identifier("??_7Rva00455050@@6BObjectModule@@@")[];  // vftable 0x00C40608
 
 class Thing;
 class ModuleData;
@@ -70,9 +70,9 @@ FoundationAIUpdate::FoundationAIUpdate(Thing *thing, const ModuleData *moduleDat
 	*slot20 = (int)((unsigned int)__identifier("??_7Rva005EEF2FBase0@@6B@"));
 	m_28 &= 0;
 	int one = 1;
-	m_vtable = (const void *)((unsigned int)__identifier("??_7Rva00455050@@6BRva0024A797_Root@@@"));
-	m_secondary0C = (const void *)((unsigned int)__identifier("??_7Rva00455050@@6BRva0024A797_Mid@@@"));
-	m_secondary10 = (const void *)((unsigned int)__identifier("??_7Rva00455050@@6BRva0024A797_B2@@@"));
+	m_vtable = (const void *)((unsigned int)__identifier("??_7Rva00455050@@6BObjectModule@@@"));
+	m_secondary0C = (const void *)((unsigned int)__identifier("??_7Rva00455050@@6BBehaviorModuleInterface@@@"));
+	m_secondary10 = (const void *)((unsigned int)__identifier("??_7Rva00455050@@6BUpdateModule@@@"));
 	m_20 = (const void *)((unsigned int)__identifier("??_7CastleBehavior@@6BFoundationAIUpdateInterface@@@"));
 	m_24 = one;
 	m_2C = (unsigned char)one;

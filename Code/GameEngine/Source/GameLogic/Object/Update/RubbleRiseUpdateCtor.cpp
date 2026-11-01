@@ -23,11 +23,11 @@
 // (base ctor resolves via its row; setWakeFrame resolves via the existing
 // IAEX Object-uint pin at 0x44DF71). Row supersedes the ctor pin.
 
-extern "C" const void *const __identifier("??_7PropagandaTowerBehavior@@6BPB_Iface1@@@")[];  // folded vftable 0x00C49188 (8 classes), by its data-ledger name
+extern "C" const void *const __identifier("??_7PropagandaTowerBehavior@@6BBehaviorModuleInterface@@@")[];  // folded vftable 0x00C49188 (8 classes), by its data-ledger name
 
-extern "C" const void *const __identifier("??_7Rva004A4C19@@6B@")[];  // vftable 0x00C52858
-extern "C" const void *const __identifier("??_7Rva004A4C19@@6BRva0024A797_B2@@@")[];  // vftable 0x00C5285C
-extern "C" const void *const __identifier("??_7Rva004A4C19@@6BRva0024A797_Root@@@")[];  // vftable 0x00C52868
+extern "C" const void *const __identifier("??_7Rva004A4C19@@6BRva004A4C19_E1@@@")[];  // vftable 0x00C52858
+extern "C" const void *const __identifier("??_7Rva004A4C19@@6BUpdateModule@@@")[];  // vftable 0x00C5285C
+extern "C" const void *const __identifier("??_7Rva004A4C19@@6BObjectModule@@@")[];  // vftable 0x00C52868
 extern "C" const void *const __identifier("??_7SecondaryModuleBase@FXParticleSystem@@6B@")[];  // folded vftable 0x00C1C780 (49 classes), by its data-ledger name
 
 class Thing;
@@ -87,10 +87,10 @@ RubbleRiseUpdate::RubbleRiseUpdate(Thing *thing, const ModuleData *moduleData)
 	float *lingerSlot = &m_linger38;
 	Object **objSlot = &m_object;
 	int zero = 0;
-	m_vtable = (const void *)((unsigned int)__identifier("??_7Rva004A4C19@@6BRva0024A797_Root@@@"));
-	m_secondary0C = (const void *)((unsigned int)__identifier("??_7PropagandaTowerBehavior@@6BPB_Iface1@@@"));
-	m_secondary10 = (const void *)((unsigned int)__identifier("??_7Rva004A4C19@@6BRva0024A797_B2@@@"));
-	m_secondary20 = (const void *)((unsigned int)__identifier("??_7Rva004A4C19@@6B@"));
+	m_vtable = (const void *)((unsigned int)__identifier("??_7Rva004A4C19@@6BObjectModule@@@"));
+	m_secondary0C = (const void *)((unsigned int)__identifier("??_7PropagandaTowerBehavior@@6BBehaviorModuleInterface@@@"));
+	m_secondary10 = (const void *)((unsigned int)__identifier("??_7Rva004A4C19@@6BUpdateModule@@@"));
+	m_secondary20 = (const void *)((unsigned int)__identifier("??_7Rva004A4C19@@6BRva004A4C19_E1@@@"));
 	m_phaseDelay24 = zero;
 	m_retryDelay2C = zero;
 	m_riseRate30 = fzero;

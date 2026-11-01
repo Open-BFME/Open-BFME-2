@@ -19,9 +19,9 @@ extern "C" const void *const vtbl_00C40818[];  // folded, 7 classes; via ??_7Bfm
 #pragma comment(linker, "/alternatename:_vtbl_00C40818=??_7BfmeCtor001B3A20@@6BBfmeCtorFirstBase001B3A20@@@")
 extern "C" const void *const __identifier("??_7AODCrushCollide@@6BCollideDtorB2@@@")[];  // folded, 4 classes; via ??_7AODCrushCollide@@6BCollideDtorB2@@@
 
-extern "C" const void *const __identifier("??_7Rva004A8091@@6B@")[];  // ??_7Rva004A8091@@6B@
-extern "C" const void *const __identifier("??_7Rva004A8091@@6BRva0024A797_B2@@@")[];  // ??_7Rva004A8091@@6BRva0024A797_B2@@@
-extern "C" const void *const __identifier("??_7Rva004A8091@@6BRva0024A797_Root@@@")[];  // ??_7Rva004A8091@@6BRva0024A797_Root@@@
+extern "C" const void *const __identifier("??_7Rva004A8091@@6BRva004A8091_E1@@@")[];  // ??_7Rva004A8091@@6BRva004A8091_E1@@@
+extern "C" const void *const __identifier("??_7Rva004A8091@@6BUpdateModule@@@")[];  // ??_7Rva004A8091@@6BUpdateModule@@@
+extern "C" const void *const __identifier("??_7Rva004A8091@@6BObjectModule@@@")[];  // ??_7Rva004A8091@@6BObjectModule@@@
 
 class Thing;
 class ModuleData;
@@ -82,10 +82,10 @@ ToppleUpdate::ToppleUpdate(Thing *thing, const ModuleData *moduleData)
 	int *slot20 = (int *)&m_20;
 	*slot20 = (int)((unsigned int)vtbl_00C40818);
 	int zero = 0;
-	m_vtable = (const void *)((unsigned int)__identifier("??_7Rva004A8091@@6BRva0024A797_Root@@@"));
+	m_vtable = (const void *)((unsigned int)__identifier("??_7Rva004A8091@@6BObjectModule@@@"));
 	m_secondary0C = (const void *)((unsigned int)__identifier("??_7AODCrushCollide@@6BCollideDtorB2@@@"));
-	m_secondary10 = (const void *)((unsigned int)__identifier("??_7Rva004A8091@@6BRva0024A797_B2@@@"));
-	m_20 = (const void *)((unsigned int)__identifier("??_7Rva004A8091@@6B@"));
+	m_secondary10 = (const void *)((unsigned int)__identifier("??_7Rva004A8091@@6BUpdateModule@@@"));
+	m_20 = (const void *)((unsigned int)__identifier("??_7Rva004A8091@@6BRva004A8091_E1@@@"));
 	m_40 = fzero;
 	m_48 = zero;
 	m_44 = zero;

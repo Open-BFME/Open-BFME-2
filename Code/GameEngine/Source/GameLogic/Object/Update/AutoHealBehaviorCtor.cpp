@@ -22,8 +22,8 @@ extern "C" const void *const __identifier("??_7FireWeaponWhenDamagedBehavior@@6B
 
 extern "C" const void *const __identifier("??_7Rva0045232D@@6BRva0045232D_E2@@@")[];  // vftable 0x00C3FC78
 extern "C" const void *const __identifier("??_7Rva0045232D@@6BRva0045232D_E1@@@")[];  // vftable 0x00C3FC88
-extern "C" const void *const __identifier("??_7Rva0045232D@@6BRva0024A797_B2@@@")[];  // vftable 0x00C3FCD0
-extern "C" const void *const __identifier("??_7Rva0045232D@@6BRva0024A797_Root@@@")[];  // vftable 0x00C3FCDC
+extern "C" const void *const __identifier("??_7Rva0045232D@@6BUpdateModule@@@")[];  // vftable 0x00C3FCD0
+extern "C" const void *const __identifier("??_7Rva0045232D@@6BObjectModule@@@")[];  // vftable 0x00C3FCDC
 
 class Thing;
 class ModuleData;
@@ -98,9 +98,9 @@ AutoHealBehavior::AutoHealBehavior(Thing *thing, const ModuleData *moduleData)
 	*slot28 = (int)((unsigned int)__identifier("??_7DamageModuleInterface@@6B@"));
 	const AutoHealBehaviorModuleData *data = (const AutoHealBehaviorModuleData *)m_moduleData;
 	m_2C &= 0;
-	m_vtable = (const void *)((unsigned int)__identifier("??_7Rva0045232D@@6BRva0024A797_Root@@@"));
+	m_vtable = (const void *)((unsigned int)__identifier("??_7Rva0045232D@@6BObjectModule@@@"));
 	m_secondary0C = (const void *)((unsigned int)__identifier("??_7FireWeaponWhenDamagedBehavior@@6BBehaviorModuleOther@@@"));
-	m_secondary10 = (const void *)((unsigned int)__identifier("??_7Rva0045232D@@6BRva0024A797_B2@@@"));
+	m_secondary10 = (const void *)((unsigned int)__identifier("??_7Rva0045232D@@6BUpdateModule@@@"));
 	*(void **)&m_20 = (void *)((unsigned int)__identifier("??_7Rva0045232D@@6BRva0045232D_E1@@@"));
 	m_28 = (unsigned int)((unsigned int)__identifier("??_7Rva0045232D@@6BRva0045232D_E2@@@"));
 	m_30 = data->m_buttonTriggered;

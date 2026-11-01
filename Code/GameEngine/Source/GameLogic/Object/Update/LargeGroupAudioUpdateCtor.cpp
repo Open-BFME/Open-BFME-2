@@ -31,8 +31,8 @@ extern "C" const void *const vtbl_00C548F0[3] = {
 	(const void *)&__identifier("?getDisabledTypesToProcess@Rva004AB9D5@@QAE?AVBfmeFixedStorage002CF0F0@@XZ"), // slot 1 0x004AB9D5
 	(const void *)&__identifier("?rva0044DF8D@UpdateModule@@UAEXW4UpdateSleepTime@@@Z"), // slot 2 0x0044DF8D
 };
-extern "C" const void *const __identifier("??_7LargeGroupAudioUpdate@@6BMiBase1@@@")[];  // vftable 0x00C54900
-extern "C" const void *const __identifier("??_7LargeGroupAudioUpdate@@6BRva0049B47C@@@")[];  // vftable 0x00C549BC
+extern "C" const void *const __identifier("??_7LargeGroupAudioUpdate@@6BBehaviorModuleInterface@@@")[];  // vftable 0x00C54900
+extern "C" const void *const __identifier("??_7LargeGroupAudioUpdate@@6BObjectModule@@@")[];  // vftable 0x00C549BC
 
 #include <bitset>
 
@@ -100,9 +100,9 @@ LargeGroupAudioUpdate::LargeGroupAudioUpdate(Thing *thing, const ModuleData *mod
 	int *slotInit24 = (int *)&m_secondary24;
 	*slotInit24 = (int)((unsigned int)__identifier("??_7LargeGroupAudioUpdate_B24@@6B@"));
 	int *vtab = (int *)&m_vtable;
-	*vtab = (int)((unsigned int)__identifier("??_7LargeGroupAudioUpdate@@6BRva0049B47C@@@"));
+	*vtab = (int)((unsigned int)__identifier("??_7LargeGroupAudioUpdate@@6BObjectModule@@@"));
 	int *sec0C = (int *)&m_secondary0C;
-	*sec0C = (int)((unsigned int)__identifier("??_7LargeGroupAudioUpdate@@6BMiBase1@@@"));
+	*sec0C = (int)((unsigned int)__identifier("??_7LargeGroupAudioUpdate@@6BBehaviorModuleInterface@@@"));
 	int *sec10 = (int *)&m_secondary10;
 	*sec10 = (int)((unsigned int)vtbl_00C548F0);
 	int *slot20 = (int *)&m_secondary20;

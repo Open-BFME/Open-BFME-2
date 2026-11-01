@@ -15,10 +15,10 @@
 
 extern "C" const void *const __identifier("??_7Rva0044EF5EIface20@@6B@")[];  // folded vftable 0x00C6F248 (4 classes), by its data-ledger name
 
-extern "C" const void *const __identifier("??_7Rva004A1855@@6B@")[];  // vftable 0x00C51E30
-extern "C" const void *const __identifier("??_7Rva004A1855@@6BRva0024A797_B2@@@")[];  // vftable 0x00C51E54
-extern "C" const void *const __identifier("??_7Rva004A1855@@6BRva0024A797_Mid@@@")[];  // vftable 0x00C51E60
-extern "C" const void *const __identifier("??_7Rva004A1855@@6BRva0024A797_Root@@@")[];  // vftable 0x00C51F1C
+extern "C" const void *const __identifier("??_7Rva004A1855@@6BRva004A1855_E1@@@")[];  // vftable 0x00C51E30
+extern "C" const void *const __identifier("??_7Rva004A1855@@6BUpdateModule@@@")[];  // vftable 0x00C51E54
+extern "C" const void *const __identifier("??_7Rva004A1855@@6BBehaviorModuleInterface@@@")[];  // vftable 0x00C51E60
+extern "C" const void *const __identifier("??_7Rva004A1855@@6BObjectModule@@@")[];  // vftable 0x00C51F1C
 
 class Thing;
 class ModuleData;
@@ -71,10 +71,10 @@ SlavedUpdate::SlavedUpdate(Thing *thing, const ModuleData *moduleData)
 	*slot20 = (int)((unsigned int)__identifier("??_7Rva0044EF5EIface20@@6B@"));
 	int zero = 0;
 	m_24 = zero;
-	m_vtable = (const void *)((unsigned int)__identifier("??_7Rva004A1855@@6BRva0024A797_Root@@@"));
-	m_secondary0C = (const void *)((unsigned int)__identifier("??_7Rva004A1855@@6BRva0024A797_Mid@@@"));
-	m_secondary10 = (const void *)((unsigned int)__identifier("??_7Rva004A1855@@6BRva0024A797_B2@@@"));
-	m_secondary20 = (const void *)((unsigned int)__identifier("??_7Rva004A1855@@6B@"));
+	m_vtable = (const void *)((unsigned int)__identifier("??_7Rva004A1855@@6BObjectModule@@@"));
+	m_secondary0C = (const void *)((unsigned int)__identifier("??_7Rva004A1855@@6BBehaviorModuleInterface@@@"));
+	m_secondary10 = (const void *)((unsigned int)__identifier("??_7Rva004A1855@@6BUpdateModule@@@"));
+	m_secondary20 = (const void *)((unsigned int)__identifier("??_7Rva004A1855@@6BRva004A1855_E1@@@"));
 	m_28 = fzero;
 	m_2C = fzero;
 	m_30 = fzero;
