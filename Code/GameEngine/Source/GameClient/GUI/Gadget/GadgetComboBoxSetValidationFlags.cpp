@@ -7,11 +7,7 @@
 
 typedef int Int;
 
-class GameWindow
-{
-public:
-	void *winGetUserData();
-};
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 
 struct Rva00322699Child
 {

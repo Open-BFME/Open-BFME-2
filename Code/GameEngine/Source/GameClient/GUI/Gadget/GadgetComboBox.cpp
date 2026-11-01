@@ -57,21 +57,7 @@ struct ComboBoxData
 	GameWindow *listBox;
 };
 
-class GameWindow
-{
-public:
-	Int winSetEnabledColor(Int index, Int color);
-	Int winSetEnabledBorderColor(Int index, Int color);
-	Int winSetDisabledColor(Int index, Int color);
-	Int winSetDisabledBorderColor(Int index, Int color);
-	Int winSetHiliteColor(Int index, Int color);
-	Int winSetHiliteBorderColor(Int index, Int color);
-	void winSetEnabledTextColors(int, int);
-	void winSetDisabledTextColors(int, int);
-	void winSetHiliteTextColors(int, int);
-	void winSetIMECompositeTextColors(int, int);
-	void *winGetUserData(void);
-};
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 
 typedef Int Color;
 class BfmeKeyLC;

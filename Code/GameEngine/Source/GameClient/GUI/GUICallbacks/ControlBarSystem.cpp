@@ -40,11 +40,7 @@ enum GadgetGameMessage
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 enum CBCommandStatus { CBC_COMMAND_NOT_USED = 0, CBC_COMMAND_USED };
 
-class GameWindow
-{
-public:
-	Int winGetWindowId();
-};
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 
 class CommandButton;
 

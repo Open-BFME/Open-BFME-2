@@ -22,14 +22,7 @@ typedef UnsignedInt WindowMsgData;
 
 enum { GSM_SET_SLIDER = 0x400D };
 
-class GameWindow
-{
-public:
-	void *winGetUserData();
-	Int winGetSize(Int *width, Int *height);
-	Int winSetSize(Int width, Int height);
-	GameWindow *winGetChild();
-};
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 
 #include <windows.h>
 #include "../../../../../Libraries/Include/Lib/ICoord2D.h"

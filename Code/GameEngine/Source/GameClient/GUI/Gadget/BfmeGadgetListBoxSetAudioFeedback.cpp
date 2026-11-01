@@ -9,11 +9,7 @@ typedef int Int;
 typedef bool Bool;
 typedef short Short;
 
-class GameWindow
-{
-public:
-	void *winGetUserData(void);
-};
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 
 void BfmeGadgetListBoxSetAudioFeedback(GameWindow *listBox, Bool enabled)
 {

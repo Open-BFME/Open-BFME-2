@@ -33,15 +33,7 @@ static inline bool operator!=(const _Rb_tree_iterator<_RbVal, _RbLeft> &a,
 }
 
 class Image;
-class GameWindow
-{
-public:
-	void winSetUserData(void *data);
-	unsigned int winSetStatus(unsigned int status);
-	unsigned int winClearStatus(unsigned int status);
-	int winSetEnabledImage(int index, const Image *image);
-	int winHide(bool hide);
-};
+#include "../../../../../Include/GameClient/Bfme2GameWindow.h"
 
 class ImageCollection
 {

@@ -7,11 +7,7 @@
 typedef bool Bool;
 typedef unsigned int UnsignedInt;
 
-class GameWindow
-{
-public:
-	UnsignedInt winGetStatus();
-};
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 
 Bool Rva00327C39Get(GameWindow *button)
 {

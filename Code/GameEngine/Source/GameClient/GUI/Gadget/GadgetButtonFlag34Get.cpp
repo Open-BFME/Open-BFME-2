@@ -10,11 +10,7 @@
 
 typedef bool Bool;
 
-class GameWindow
-{
-public:
-	void *winGetUserData();
-};
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 
 struct Rva00327E0EHolder
 {

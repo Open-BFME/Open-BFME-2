@@ -19,13 +19,7 @@ enum NameKeyType { NAMEKEY_INVALID = 0 };
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class GameWindow
-{
-public:
-	Int winGetWindowId(void);
-	void *winGetUserData(void);
-	void winSetUserData(void *data);
-};
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 
 class GameWindowManager
 {

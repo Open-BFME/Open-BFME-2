@@ -8,19 +8,7 @@
 // address.
 class Image;
 
-class GameWindow
-{
-public:
-	int winSetEnabledImage(int index, const Image *image);	// 0x003143B9
-	int winSetEnabledColor(int index, int color);	// 0x003143DD
-	int winSetEnabledBorderColor(int index, int color);	// 0x003143FF
-	int winSetDisabledImage(int index, const Image *image);	// 0x00314421
-	int winSetDisabledColor(int index, int color);	// 0x00314445
-	int winSetDisabledBorderColor(int index, int color);	// 0x0031446A
-	int winSetHiliteImage(int index, const Image *image);	// 0x0031448F
-	int winSetHiliteColor(int index, int color);	// 0x003144B3
-	int winSetHiliteBorderColor(int index, int color);	// 0x003144D8
-};
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 
 // 0x002C0343 (16B): winSetEnabledColor at index 4.
 int Rva002C0343(GameWindow *window, int color)

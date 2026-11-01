@@ -10,13 +10,7 @@ typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef bool Bool;
 
-class GameWindow
-{
-public:
-	void *winGetUserData();
-	UnsignedInt winClearStatus(UnsignedInt status);
-	UnsignedInt winSetStatus(UnsignedInt status);
-};
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 
 GameWindow *GadgetComboBoxGetListBox(GameWindow *comboBox);
 

@@ -11,13 +11,7 @@
 
 class Image;
 
-class GameWindow
-{
-public:
-	int winSetEnabledImage(int index, const Image *image);
-	int winSetDisabledImage(int index, const Image *image);
-	int winSetHiliteImage(int index, const Image *image);
-};
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 
 // ?GadgetButtonSetEnabledImage_Rva002C0433@@YAXPAVGameWindow@@PBVImage@@@Z
 void GadgetButtonSetEnabledImage_Rva002C0433(GameWindow *win, const Image *image)

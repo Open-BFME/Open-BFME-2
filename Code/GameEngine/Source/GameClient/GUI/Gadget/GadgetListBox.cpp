@@ -11,15 +11,7 @@ typedef short Short;
 class WinInstanceData;
 class GameFont;
 
-class GameWindow
-{
-public:
-	void *winGetUserData(void);
-	WinInstanceData *winGetInstanceData(void);
-	GameWindow *winGetChild(void);
-	Int winHide(Bool hide);
-	Bool winIsHidden(void);
-};
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 
 GameWindow *GadgetComboBoxGetEditBox(GameWindow *comboBox);
 GameWindow *GadgetListBoxGetDownButton(GameWindow *listbox);

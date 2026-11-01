@@ -56,7 +56,7 @@ void GadgetButtonSetText(GameWindow *gameWindow, UnicodeString text)
 
 // Target WB1122270 and native328354..3283F7: update a push-button's cached
 // production query through the selected drawable's owner and command data.
-class GameWindow {public:void *winGetUserData();};
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 class Object {public:void *rva0028BC58(Int);};
 struct ButtonSelectedDrawable {char pad[0xFC];Object *object;};
 class ButtonGameUI

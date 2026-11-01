@@ -22,12 +22,7 @@ enum WindowMsgHandledType
 
 typedef WindowMsgHandledType (__cdecl *GameWinInputFunc)(GameWindow *, UnsignedInt, WindowMsgData, WindowMsgData);
 
-class GameWindow
-{
-public:
-	void *winGetUserData(void);
-	int winSetInputFunc(GameWinInputFunc input);
-};
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 
 #include <new>
 

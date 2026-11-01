@@ -68,11 +68,7 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
 // imported callbacks are not BFME 2 reconstructions; EnumeratedIP's folded
 // string getter is provided by OptionPreferences_getLANIPAddress.cpp.
 
-class GameWindow
-{
-public:
-    void *winGetUserData();
-};
+#include "../../../../../Include/GameClient/Bfme2GameWindow.h"
 
 // Zero Hour Gadget.h supplies these first two SliderData fields. The helper's
 // retail loads independently confirm maxVal at +4 and minVal at +0.
