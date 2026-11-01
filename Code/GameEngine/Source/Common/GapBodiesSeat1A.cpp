@@ -392,11 +392,7 @@ Rva0023E887::Rva0023E887(const Rva0023E887Source &source) : m_00(source.m_00), m
 struct FieldParse;
 class ModuleData;
 
-class MultiIniFieldParse
-{
-public:
-	void add(const FieldParse *table, unsigned int offset);	// 0x0002BC6E
-};
+#include "../../Include/Common/INI/FieldParse.h"
 
 class INI
 {

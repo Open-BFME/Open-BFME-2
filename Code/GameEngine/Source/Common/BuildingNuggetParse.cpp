@@ -17,13 +17,7 @@
 #include <memory>
 #include "ascii_string.h"
 
-class MultiIniFieldParse
-{
-public:
-	MultiIniFieldParse();				// 0x0002BAA0
-private:
-	unsigned char m_data[0x84];
-};
+#include "../../Include/Common/INI/FieldParse.h"
 
 class INI
 {
@@ -32,16 +26,6 @@ public:
 	void initFromINIMulti(void *what, const MultiIniFieldParse &parse);	// 0x0002D7A8
 };
 
-class INIException
-{
-public:
-	INIException(int argCount, const char *format, ...);	// 0x0002F681
-	INIException(const INIException &that);
-	~INIException();
-private:
-	char *m_failureMessage;
-	int m_argCount;
-};
 
 // The nugget: vtable slot 3 builds its field parse.
 class Rva0052B685Pointee

@@ -38,11 +38,7 @@ public:
 // buildFieldParse), then the pinned MultiIniFieldParse::add of the table at
 // VA 0x00C74540 (resp. 0x00C74630) with offset 0.
 struct FieldParse;
-class MultiIniFieldParse
-{
-public:
-	void add(const FieldParse *table, unsigned int offset);
-};
+#include "../../Include/Common/INI/FieldParse.h"
 extern const FieldParse g_rva005C4352FieldParse[];
 extern const FieldParse g_rva005C4553FieldParse[];
 extern const FieldParse g_rva005C47A8FieldParse[];

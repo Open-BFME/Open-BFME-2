@@ -45,15 +45,7 @@ private:
 	unsigned char m_c5;
 };
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
-struct FieldParse { const char *token; FieldParseProc parse; const void *userData; int offset; };
-class MultiIniFieldParse
-{
-public:
-	MultiIniFieldParse();
-	void add(const FieldParse *table, unsigned int x);
-private:
-	char m_pad[0x84];
-};
+#include "../../Include/Common/INI/FieldParse.h"
 class INI
 {
 public:

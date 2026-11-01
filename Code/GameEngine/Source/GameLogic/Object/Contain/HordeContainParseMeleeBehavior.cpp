@@ -24,15 +24,7 @@
 // initFromINIMulti 0x0002D7A8. The behaviour class names stay
 // address-derived.
 
-class MultiIniFieldParse
-{
-public:
-	MultiIniFieldParse();
-private:
-	const void *m_fieldParse[16];
-	unsigned m_extraOffset[16];
-	int m_count;
-};
+#include "../../../../Include/Common/INI/FieldParse.h"
 
 class INI
 {

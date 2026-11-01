@@ -34,11 +34,7 @@ class MultiIniFieldParse;
 
 struct FieldParse;
 
-class MultiIniFieldParse
-{
-public:
-	void add(const FieldParse *parseTable, unsigned int extraOffset);
-};
+#include "../../../../Include/Common/INI/FieldParse.h"
 
 // Retail VA 0x00C6BB18 is the empty FieldParse table: game.dat stores 16
 // zero bytes there. The matched parser below independently references it.
