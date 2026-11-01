@@ -238,3 +238,4 @@ File,Code/GameEngine/Include/Common/File.h,existing header; contract class_contr
 ImageCollection,Code/GameEngine/Include/GameClient/Image.h,existing header; contract class_contracts/ImageCollection.json; 24/88 sampled units adopt
 BaseHeightMapRenderObjClass,Code/GameEngineDevice/Include/W3DDevice/GameClient/BaseHeightMap.h,existing header; contract class_contracts/BaseHeightMapRenderObjClass.json; 17/101 sampled units adopt
 AptCommandMapAdder,Code/Libraries/Source/Apt/AptCommandMapAdder.h,existing header; contract class_contracts/AptCommandMapAdder.json; 22/102 sampled units adopt
+RvaSmartPtr12,Code/GameEngine/Include/Common/RvaSmartPtr12.h,existing header; contract class_contracts/RvaSmartPtr12.json; 67/107 sampled units adopt
