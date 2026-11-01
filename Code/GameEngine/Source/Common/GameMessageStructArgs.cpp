@@ -27,14 +27,7 @@ public:
 	int m_type; // +0x18
 };
 
-class GameMessage
-{
-	GameMessageArgument *allocArg();
-
-public:
-	void appendLocationArgument(const Coord3D &arg);
-	void appendPixelRegionArgument(const IRegion2D &arg);
-};
+#include "../../Include/Common/MessageStream.h"
 
 // ?appendLocationArgument@GameMessage@@QAEXABUCoord3D@@@Z @0x0030F9BB
 void GameMessage::appendLocationArgument(const Coord3D &arg)

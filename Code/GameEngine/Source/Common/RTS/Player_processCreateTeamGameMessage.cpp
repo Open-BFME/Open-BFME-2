@@ -12,14 +12,7 @@ union GameMessageArgumentType
 	int m_int;
 };
 
-class GameMessage
-{
-public:
-	const GameMessageArgumentType *getArgument(int index) const;
-private:
-	char m_pad[0x18];
-	unsigned char m_argCount;
-};
+#include "../../../Include/Common/MessageStream.h"
 
 extern GameLogic *TheGameLogic;
 

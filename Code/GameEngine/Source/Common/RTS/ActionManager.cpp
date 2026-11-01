@@ -495,11 +495,7 @@ public:
 	SpecialAbilityUpdate *findSpecialAbilityUpdate(SpecialPowerType type) const;
 };
 
-class GameMessage
-{
-public:
-	enum Type { MSG_ENTER_HINT = 175, MSG_CONTEST_HINT = 176, MSG_TYPE_193 = 193, MSG_TYPE_194 = 194 };
-};
+#include "../../../Include/Common/MessageStream.h"
 
 class DrawableList;
 

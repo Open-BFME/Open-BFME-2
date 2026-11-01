@@ -848,7 +848,7 @@ class Rva0051D93 {public:Rva0051D93(const OpaqueRefElement4&,const BfmeEventPosi
 
 class GameMessageList;
 
-class GameMessage {public:void friend_setList(GameMessageList*);};
+#include "../../Include/Common/MessageStream.h"
 
 class AudioManager;
 

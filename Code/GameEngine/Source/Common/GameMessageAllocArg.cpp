@@ -17,16 +17,7 @@ public:
 	char m_bfme_body[0x1C - 0x08];
 };
 
-class GameMessage
-{
-	GameMessageArgument *allocArg(void);
-
-	char m_slice_pad[0x18];
-	UnsignedByte m_argCount;
-	char m_slice_padB[0x1C - 0x19];
-	GameMessageArgument *m_argList;
-	GameMessageArgument *m_argTail;
-};
+#include "../../Include/Common/MessageStream.h"
 
 GameMessageArgument *GameMessage::allocArg(void)
 {

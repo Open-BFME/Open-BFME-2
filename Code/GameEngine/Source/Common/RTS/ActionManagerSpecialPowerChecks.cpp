@@ -180,13 +180,7 @@ public:
 };
 
 class DrawableList;
-class GameMessage
-{
-public:
-	// BFME2's message-name table (MessageStreamCommandName) calls 175 and 176
-	// MSG_ENTER_HINT and MSG_CONTEST_HINT; 193 and 194 are not in it.
-	enum Type { MSG_ENTER_HINT = 175, MSG_CONTEST_HINT = 176, MSG_TYPE_193 = 193, MSG_TYPE_194 = 194 };
-};
+#include "../../../Include/Common/MessageStream.h"
 
 class ActionManager
 {

@@ -59,38 +59,7 @@ enum GameMessageArgumentDataType
 class GameMessageArgument;
 class GameMessageList;
 
-class GameMessage
-{
-public:
-	GameMessage(const GameMessage &source);
-	virtual ~GameMessage();
-	void rva0031123E(const GameMessage &source);
-
-	const GameMessageArgumentType *getArgument(int argIndex) const;
-	GameMessageArgumentDataType getArgumentDataType(int argIndex);
-
-	void appendIntegerArgument(int arg);
-	void appendRealArgument(float arg);
-	void appendBooleanArgument(bool arg);
-	void appendObjectIDArgument(ObjectID arg);
-	void appendDrawableIDArgument(DrawableID arg);
-	void appendTeamIDArgument(unsigned int arg);
-	void appendLocationArgument(const Coord3D &arg);
-	void appendPixelArgument(const ICoord2D &arg);
-	void appendPixelRegionArgument(const IRegion2D &arg);
-	void appendTimestampArgument(unsigned int arg);
-	void appendWideCharArgument(const unsigned short &arg);
-
-private:
-	GameMessage *m_next; // +0x04
-	GameMessage *m_prev; // +0x08
-	GameMessageList *m_list; // +0x0C
-	int m_type; // +0x10
-	int m_playerIndex; // +0x14
-	unsigned char m_argCount; // +0x18
-	GameMessageArgument *m_argList; // +0x1C
-	GameMessageArgument *m_argTail; // +0x20
-};
+#include "../../Include/Common/MessageStream.h"
 
 // ??0GameMessage@@QAE@ABV0@@Z @0x00311097
 GameMessage::GameMessage(const GameMessage &source)

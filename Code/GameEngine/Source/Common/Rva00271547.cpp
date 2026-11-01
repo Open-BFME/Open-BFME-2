@@ -27,11 +27,7 @@ enum ObjectID
 	OBJECTID_Zero = 0
 };
 
-class GameMessage
-{
-public:
-	void appendObjectIDArgument(ObjectID id);
-};
+#include "../../Include/Common/MessageStream.h"
 
 class PlayerList;
 extern PlayerList *ThePlayerList;
