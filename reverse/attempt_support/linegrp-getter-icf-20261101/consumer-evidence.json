@@ -1,0 +1,276 @@
+{
+  "scope": "Read-only outside-provider investigation; no compile/current-command recheck, network, Code/Git mutations.",
+  "index": {
+    "date": "2026-11-01 18:30",
+    "commit": "dae306bc9d",
+    "clean_tree": true
+  },
+  "current_consumer_object": {
+    "source": "Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp",
+    "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w3^d2_part_buf.obj",
+    "sha256": "a0ee1a49b6999db43af701bc4a486a5b5353d2d8c53ab4d80691432dc10c2654",
+    "receipt_object_md5": "d7bd4076b54ea97e4116037612269e6d",
+    "actual_object_md5": "d7bd4076b54ea97e4116037612269e6d",
+    "receipt_source_md5": "70ac07d033e9bc39276c1c2e089b6f8c",
+    "actual_source_md5": "70ac07d033e9bc39276c1c2e089b6f8c",
+    "dependency_count": 100
+  },
+  "symbols": [
+    {
+      "name": "?Get_Shader@LineGroupClass@@QAE?AVShaderClass@@XZ",
+      "touches": [
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_part_buf.obj",
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp"
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_linegrp.obj",
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp"
+        }
+      ],
+      "census_reference_owners": [
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_part_buf.obj",
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp",
+          "root": true,
+          "callers": [],
+          "digest": "520318743a13743689f83f946827ebd10d1f3e0547157febbd4a771aca9ce1e8",
+          "digest_matches_index": true
+        }
+      ],
+      "current_runtime_relocations": [
+        {
+          "section_number": 410,
+          "section": ".text",
+          "flags": "0x60501020",
+          "relocation_offset": 45,
+          "kind": "0x14",
+          "owners": [
+            "?Get_Shader@ParticleBufferClass@@QBE?AVShaderClass@@XZ"
+          ],
+          "matched_rows": [
+            {
+              "name": "?Get_Shader@ParticleBufferClass@@QBE?AVShaderClass@@XZ",
+              "rva": "0x001A7B10",
+              "size": "94"
+            }
+          ],
+          "native": {
+            "parent_rva": "0x001A7B10",
+            "parent_size": "94",
+            "instruction_rva": "0x001A7B3C",
+            "operand_rva": "0x001A7B3D",
+            "opcode": "e8",
+            "callee_rva": "0x0013EDB0"
+          }
+        },
+        {
+          "section_number": 592,
+          "section": ".text",
+          "flags": "0x60501020",
+          "relocation_offset": 3952,
+          "kind": "0x14",
+          "owners": [
+            "??0ParticleBufferClass@@QAE@ABV0@@Z"
+          ],
+          "matched_rows": [
+            {
+              "name": "??0ParticleBufferClass@@QAE@ABV0@@Z",
+              "rva": "0x001AD1B0",
+              "size": "4788"
+            }
+          ],
+          "native": {
+            "parent_rva": "0x001AD1B0",
+            "parent_size": "4788",
+            "instruction_rva": "0x001AE11F",
+            "operand_rva": "0x001AE120",
+            "opcode": "e8",
+            "callee_rva": "0x0013EDB0"
+          }
+        },
+        {
+          "section_number": 592,
+          "section": ".text",
+          "flags": "0x60501020",
+          "relocation_offset": 4172,
+          "kind": "0x14",
+          "owners": [
+            "??0ParticleBufferClass@@QAE@ABV0@@Z"
+          ],
+          "matched_rows": [
+            {
+              "name": "??0ParticleBufferClass@@QAE@ABV0@@Z",
+              "rva": "0x001AD1B0",
+              "size": "4788"
+            }
+          ],
+          "native": {
+            "parent_rva": "0x001AD1B0",
+            "parent_size": "4788",
+            "instruction_rva": "0x001AE1FB",
+            "operand_rva": "0x001AE1FC",
+            "opcode": "e8",
+            "callee_rva": "0x0013EDB0"
+          }
+        }
+      ]
+    },
+    {
+      "name": "?Set_Texture@LineGroupClass@@QAEXPAVTextureClass@@@Z",
+      "touches": [
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_part_buf.obj",
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp"
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_linegrp.obj",
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp"
+        }
+      ],
+      "census_reference_owners": [
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_part_buf.obj",
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp",
+          "root": true,
+          "callers": [],
+          "digest": "520318743a13743689f83f946827ebd10d1f3e0547157febbd4a771aca9ce1e8",
+          "digest_matches_index": true
+        }
+      ],
+      "current_runtime_relocations": [
+        {
+          "section_number": 408,
+          "section": ".text",
+          "flags": "0x60501020",
+          "relocation_offset": 28,
+          "kind": "0x14",
+          "owners": [
+            "?Set_Texture@ParticleBufferClass@@QAEXPAVTextureClass@@@Z"
+          ],
+          "matched_rows": [
+            {
+              "name": "?Set_Texture@ParticleBufferClass@@QAEXPAVTextureClass@@@Z",
+              "rva": "0x001A7AD0",
+              "size": "52"
+            }
+          ],
+          "native": {
+            "parent_rva": "0x001A7AD0",
+            "parent_size": "52",
+            "instruction_rva": "0x001A7AEB",
+            "operand_rva": "0x001A7AEC",
+            "opcode": "e9",
+            "callee_rva": "0x001790A0"
+          }
+        },
+        {
+          "section_number": 580,
+          "section": ".text",
+          "flags": "0x60501020",
+          "relocation_offset": 1520,
+          "kind": "0x14",
+          "owners": [
+            "??0ParticleBufferClass@@QAE@PAVParticleEmitterClass@@IAAU?$ParticlePropertyStruct@VVector3@@@@AAU?$ParticlePropertyStruct@M@@22M22VVector3@@MMPAVTextureClass@@VShaderClass@@_NHHPBUW3dEmitterLinePropertiesStruct@@@Z"
+          ],
+          "matched_rows": [
+            {
+              "name": "??0ParticleBufferClass@@QAE@PAVParticleEmitterClass@@IAAU?$ParticlePropertyStruct@VVector3@@@@AAU?$ParticlePropertyStruct@M@@22M22VVector3@@MMPAVTextureClass@@VShaderClass@@_NHHPBUW3dEmitterLinePropertiesStruct@@@Z",
+              "rva": "0x001AC860",
+              "size": "2344"
+            }
+          ],
+          "native": {
+            "parent_rva": "0x001AC860",
+            "parent_size": "2344",
+            "instruction_rva": "0x001ACE4F",
+            "operand_rva": "0x001ACE50",
+            "opcode": "e8",
+            "callee_rva": "0x001790A0"
+          }
+        },
+        {
+          "section_number": 580,
+          "section": ".text",
+          "flags": "0x60501020",
+          "relocation_offset": 1666,
+          "kind": "0x14",
+          "owners": [
+            "??0ParticleBufferClass@@QAE@PAVParticleEmitterClass@@IAAU?$ParticlePropertyStruct@VVector3@@@@AAU?$ParticlePropertyStruct@M@@22M22VVector3@@MMPAVTextureClass@@VShaderClass@@_NHHPBUW3dEmitterLinePropertiesStruct@@@Z"
+          ],
+          "matched_rows": [
+            {
+              "name": "??0ParticleBufferClass@@QAE@PAVParticleEmitterClass@@IAAU?$ParticlePropertyStruct@VVector3@@@@AAU?$ParticlePropertyStruct@M@@22M22VVector3@@MMPAVTextureClass@@VShaderClass@@_NHHPBUW3dEmitterLinePropertiesStruct@@@Z",
+              "rva": "0x001AC860",
+              "size": "2344"
+            }
+          ],
+          "native": {
+            "parent_rva": "0x001AC860",
+            "parent_size": "2344",
+            "instruction_rva": "0x001ACEE1",
+            "operand_rva": "0x001ACEE2",
+            "opcode": "e8",
+            "callee_rva": "0x001790A0"
+          }
+        }
+      ]
+    }
+  ],
+  "native_facts": [
+    "Native1790A0/51B dereferences its stack argument as pointer to one pointer-sized word, increments low WORD at referent+4, calls existing TextureBaseClass::Release_Ref61ED10/36B for old this+24, then rereads and stores incoming word to this+24. This supports a by-reference handle contract, not identity of a recovered template spelling.",
+    "Native13EDB0/12B copies this+28 to the hidden result pointer from stack and returns with ret4. ShaderClass is a four-byte return object here.",
+    "Native matched ParticleBuffer::Set_Texture1A7AD0/52B loads groups at204/20C/208; first two tail-jump1790A0. Matched Get_Shader1A7B10/94B loads204/20C/208; first two call13EDB0.",
+    "Both current PointGroup and LineGroup storage views give Texture+24 and Shader+28, explaining complete folded bodies without an inferred common class.",
+    "Existing matched owners are PointGroup::Set_Texture1790A0/51B and PointGroup::Get_Shader13EDB0/12B in pointgr.cpp; existing LineGroup pins name exact twins. Neither LineGroup method has a separate code row.",
+    "All six inspected current runtime relocations originate inside four independently matched ParticleBuffer rows; there are no data/vtable relocations to these two names in the current consumer object."
+  ],
+  "safe_cleanup_hypothesis": [
+    "Retain both providers and pins. These are live matched-row dependencies, not donor-only emitted islands.",
+    "Get_Shader is an ordinary existing ICF twin; its provider cannot be deleted merely because the address is already owned by PointGroup. Cross-TU caller binding must remain resolved.",
+    "A future coordinated contract cleanup must cover PointGroup, LineGroup and part_buf declarations/callers together. The setter argument is a reference to a one-word retained handle; changing only LineGroup to a new reference signature would strand its three current call sites and legacy pin name.",
+    "Use supported naming/pin admission if a truthful new shared method contract is established, proving full bytes/relocations and all affected consumers. Do not create hand aliases, duplicate rows or a guessed common identity just to remove providers.",
+    "There is no presently evidenced small provider-removal win. Documentation/provenance can accurately record existing folds and setter ABI debt without changing bindings."
+  ],
+  "freshness_limits": [
+    "The fresh dae census per-object roots prove outside owner part_buf. Roots intentionally aggregate NODUPLICATES code sections, so named caller attribution comes from the separately read current COFF relocations.",
+    "Current part_buf object SHA differs from census digest520318743a13743689f83f946827ebd10d1f3e0547157febbd4a771aca9ce1e8; immutable census archive is absent locally. Source/object MD5s match receipt, but full strict receipt currency was not rerun by child.",
+    "No new claim that a donor/source method signature identifies a native C++ type. Native instructions and existing identities remain distinct evidence."
+  ],
+  "existing_target_rows": [
+    {
+      "name": "?Set_Texture@PointGroupClass@@QAEXPAVTextureClass@@@Z",
+      "export_rva": "",
+      "target_rva": "0x001790A0",
+      "target_size": "51",
+      "source": "Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp",
+      "status": "matched",
+      "notes": "stlport 4.5.3; placed by masked whole-.text search of the compiled body - single hit"
+    },
+    {
+      "name": "?Get_Shader@PointGroupClass@@QAE?AVShaderClass@@XZ",
+      "export_rva": "",
+      "target_rva": "0x0013EDB0",
+      "target_size": "12",
+      "source": "Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp",
+      "status": "matched",
+      "notes": "PointGroupClass::Get_Shader; pinned address plus an emitted body nothing claimed"
+    }
+  ],
+  "existing_pin_rows": [
+    {
+      "name": "?Get_Shader@LineGroupClass@@QAE?AVShaderClass@@XZ",
+      "address": "0x0013EDB0",
+      "notes": "identical-code twins folded at this address; read from the retail REL32 in ParticleBufferClass::Get_Shader at 0x001A7B10"
+    },
+    {
+      "name": "?Set_Texture@LineGroupClass@@QAEXPAVTextureClass@@@Z",
+      "address": "0x001790A0",
+      "notes": "address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded"
+    }
+  ],
+  "fold_and_abi_distinction": {
+    "legitimate_fold_evidence": "The native matched callsites for both group branches reach exactly1790A0 or13EDB0. Existing PointGroup rows own complete51B/12B native bodies, while existing LineGroup definitions read/write the same Texture+24 and Shader+28 and are recorded retail twins by census. No new shared class or name is inferred.",
+    "legacy_abi_debt": "Setter machine code consumes a pointer to an incoming pointer-sized word, retains its referent, releases old referent and stores the incoming word. Current raw TextureClass* signatures are legacy views that implement this by dereference; native code alone does not recover whether the source parameter was RefCountPtr<TextureClass> const&, another handle const&, or a distinct source spelling."
+  }
+}

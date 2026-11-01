@@ -1786,7 +1786,6 @@ void LineGroupClass::Set_Shader(const ShaderClass &shader)
 	Shader = shader;
 }
 
-// ?Get_Shader@LineGroupClass@@ present-unmatched
 ShaderClass LineGroupClass::Get_Shader(void)
 {
 	return Shader;

@@ -13707,7 +13707,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/layer.cpp	Set_Scene@LayerC
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/lightenvironment.cpp	1LightEnvironmentClass@@QAE@XZ	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/lightenvironment.cpp	LightEnvironmentClass::Calculate_Fill_Light	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/lightenvironment.cpp	Reset@LightEnvironmentClass@@QAEXABVVector3@@0@Z	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp	Get_Shader@LineGroupClass@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp	Set_Texture@LineGroupClass@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/matinfo.cpp	Clone@MaterialInfoClass@@QBEPAV1@XZ	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/matinfo.cpp	Get_Shader_Count@MaterialCollectorClass@@QAEHXZ	1

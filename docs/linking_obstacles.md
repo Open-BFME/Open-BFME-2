@@ -16751,6 +16751,13 @@ remain exact, with no LinkGuard loss. Set_Texture and Get_Shader stay because
 the census still references their providers. Evidence:
 reverse/attempt_support/linegrp-donor-cleanup-20261101/.
 
+The surviving shader getter is now independently verified as an ICF twin:
+its existing pin and three matched ParticleBuffer calls reach PointGroup's
+12-byte getter at 0x0013EDB0. add_match --icf-owner admits the existing clean
+C++ body and removes its marker, with no new pin or new covered-byte claim.
+The remaining texture setter retains its legacy argument-type boundary.
+Evidence: reverse/attempt_support/linegrp-getter-icf-20261101/.
+
 ## Shared definition-time header context
 
 The EHs and common-EH seed probes preserve all 15 rows and all 28 complete
