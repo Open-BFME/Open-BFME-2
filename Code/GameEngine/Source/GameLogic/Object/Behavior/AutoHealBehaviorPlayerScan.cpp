@@ -259,11 +259,7 @@ public:
 	virtual Object *rvaSlot99(const Matrix3D *transform); // +0x18C
 };
 
-class Player
-{
-public:
-	Int iterateObjects(Int (*func)(Object *, void *), void *userData) const;
-};
+#include "../../../../Include/Common/Player.h"
 
 class Object : public Thing
 {
