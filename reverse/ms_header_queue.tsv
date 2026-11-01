@@ -134,7 +134,6 @@ Code/GameEngine/Source/Common/BfmeSubBZCSet.cpp	unverified	unverified	1	0	0	0	1	
 Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-7a10c.cpp	unverified	unverified	1	1	0	0	0	0	0	0	0	0	0	<new>	no	yes	hand	27: Code/Libraries/Source/WWVegas/WWLib/always.h:61 malloc(unknown); Code/Libraries/Source/WWVegas/WWLib/always.h:62 calloc(unknown); Code/Libraries/Source/WWVegas/WWLib/always.h:63 realloc(unknown)		operator delete [ ]:same
 Code/GameEngine/Source/Common/RTS/ScoreKeeperUnhookAll.cpp	unverified	unverified	1	0	0	0	1	0	0	0	0	0	0	<crtdbg.h>	no	yes	hand			free:unverified
 Code/GameEngine/Source/Common/RTS/SpecialPowerStoreCanUseSpecialPower.cpp	unverified	unverified	1	0	0	0	1	0	0	0	0	0	0	<crtdbg.h>	no	yes	hand			free:unverified
-Code/GameEngine/Source/Common/Rva0008A173Copy.cpp	unverified	unverified	1	0	0	0	1	0	0	0	0	0	0	<new.h>	no	yes	hand			operator new:unverified
 Code/GameEngine/Source/Common/Rva000C2980Finish.cpp	unverified	unverified	1	0	0	0	1	0	0	0	0	0	0	<crtdbg.h>	no	yes	hand			free:unverified
 Code/GameEngine/Source/Common/Rva0014F5FillN.cpp	unverified	unverified	1	0	0	0	1	0	0	0	0	0	0	<new.h>	no	no	hand			operator new:unverified
 Code/GameEngine/Source/Common/Rva002CCD56Dtor.cpp	unverified	unverified	1	0	0	0	1	0	0	0	0	0	0	<crtdbg.h>	no	yes	hand			free:unverified

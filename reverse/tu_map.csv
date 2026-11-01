@@ -4853,8 +4853,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00085F05,13,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x00085EC7..0x00085F12,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
 0x00085F12,26,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,Z,Z=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp S=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
 0x00085F2C,62,code,Code/GameEngine/Source/Common/BfmeValidatedHandle.cpp,proposed,N,N=Code/GameEngine/Source/Common/BfmeValidatedHandle.cpp,Code/GameEngine/Source/Common/BfmeValidatedHandle.cpp
-0x00085F6A,62,code,,,-,,Code/GameEngine/Source/Common/Rva00085F6ASet.cpp
-0x00085FA8,178,code,,,-,,Code/GameEngine/Source/Common/Rva00085FA8Delta.cpp
+0x00085F6A,62,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
+0x00085FA8,178,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
 0x0008605A,11,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
 0x00086065,46,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,S,S=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRva0008DAE4.cpp
 0x00086093,28,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x00086065..0x000860AF,Code/GameEngine/Source/Common/VtableSlotBodiesR3F.cpp
@@ -4942,7 +4942,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00089E2A,170,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,S,S=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp W=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView_MoveCameraOrLocatorAlongSplinePathInit.cpp
 0x00089ED4,529,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,S,S=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp W=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewMoveAlongSpline.cpp
 0x0008A0E5,142,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,Z,Z=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp S=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
-0x0008A173,18,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x0008A0E5..0x0008A185,Code/GameEngine/Source/Common/Rva0008A173Copy.cpp
+0x0008A173,18,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x0008A0E5..0x0008A185,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
 0x0008A185,38,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x0008A0E5..0x0008A1AB,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
 0x0008A1AB,37,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x0008A0E5..0x0008A1D0,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
 0x0008A1D0,45,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x0008A0E5..0x0008A1FD,Code/Libraries/Source/WWVegas/WWLib/Rva0008B5B5VectorReserve.cpp
@@ -4964,8 +4964,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0008B010,469,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,Z,Z=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp S=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewUpdateCameraMovementsBfme.cpp
 0x0008B1E5,651,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,Z,Z=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp S=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewPickDrawable.cpp
 0x0008B470,63,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x0008B1E5..0x0008B4AF,Code/GameEngine/Source/Common/Rva0008B470VectorDtor.cpp
-0x0008B4AF,30,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x0008B1E5..0x0008B4CD,Code/Libraries/Source/WWVegas/WWLib/StlportVectorClearF6Family.cpp
-0x0008B4CD,5,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x0008B1E5..0x0008B4D2,Code/Libraries/Source/WWVegas/WWLib/StlportVectorClearF6Family.cpp
+0x0008B4AF,30,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x0008B1E5..0x0008B4CD,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
+0x0008B4CD,5,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x0008B1E5..0x0008B4D2,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
 0x0008B4D2,38,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x0008B1E5..0x0008B4F8,Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseNoDestroyFamily.cpp
 0x0008B4F8,11,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x0008B1E5..0x0008B503,Code/Libraries/Source/WWVegas/WWLib/StlportVectorClearNoDestroyFamily.cpp
 0x0008B503,178,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x0008B1E5..0x0008B5B5,Code/Libraries/Source/WWVegas/WWLib/StlportVectorOverflow0008B503.cpp
@@ -49759,7 +49759,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x005C8472,9,code,,,-,,Code/GameEngine/Source/Common/DestroyInstances.cpp
 0x005C847B,25,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlHelperRva005C847B.cpp
 0x005C8494,63,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/Rva005C8494VectorDtor.cpp
-0x005C84D3,30,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlportVectorClearF6Family.cpp
+0x005C84D3,30,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
 0x005C84F1,116,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlVectorRva005C84F1.cpp
 0x005C8565,8,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,proposed,K,K=Rva005C8565,Code/GameEngine/Source/Common/RvaAdjustorDtorFamily.cpp
 0x005C856D,183,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/VectorOverflowRva005C856D.cpp

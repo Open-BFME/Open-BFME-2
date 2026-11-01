@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/open-bfme-1/inputs/reference/shims/sweep /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc/stl /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Include /ICode/GameEngine/Source/Common /ICode/Libraries/Include/Lib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /I. /Ireference/shims/bfmealloc /ICode /Ireference/shims/bfmerendobj -Ireference/open-bfme-1/game/GameEngine/Source/Common /Ireference/shims/bfmelist
+// cl: /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /Ireference/open-bfme-1/inputs/reference/shims/sweep /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc/stl /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Include /ICode/GameEngine/Source/Common /ICode/Libraries/Include/Lib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /I. /Ireference/shims/bfmealloc /ICode /Ireference/shims/bfmerendobj -Ireference/open-bfme-1/game/GameEngine/Source/Common /Ireference/shims/bfmelist /Ireference/shims/flightdeck_info_public /Ireference/shims/aiupdatelayout /Ireference/shims/zh_outofline /Ireference/shims/bfme2_ascii_zh /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmehashtable /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks
 // stlport
 // TU Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp: generated by tools/tu_skeleton.py from tu_map.csv (approved rows, retail order)
 #define Matrix4x4 Matrix4  // BFME renamed it
@@ -23,6 +23,7 @@
 // for occasional debugging...
 //#pragma optimize("", off)
 //#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
+
 
 
 
@@ -371,6 +372,25 @@ public:
 	{ \
 		return m_value; \
 	}
+#include <new>
+//
+// F6 shape family: three vector _M_clear siblings of the rowed 0x004758D6.
+// 0x0008B4AF destroys via _Destroy 0x0008AFDC, 0x00577EF1 via the matched
+// TreeHintRef _Destroy 0x005F97BC, 0x005C84D3 via _Destroy 0x005C847B,
+// then frees storage through the free row 0x00030830. Element types are
+// address-derived views; only the Destroy reloc varies per member.
+struct Rva0008B4AFElement { char m_pad[4]; };
+struct Rva00577EF1Element { char m_pad[4]; };
+struct Rva005C84D3Element { char m_pad[4]; };
+struct TreeHintRef00217D4C { char m_pad[4]; };
+namespace _STL {
+template <class _ForwardIterator> void _Destroy(_ForwardIterator __first, _ForwardIterator __last);
+template <> void _Destroy<Rva0008B4AFElement *>(Rva0008B4AFElement *__first, Rva0008B4AFElement *__last);
+template <> void _Destroy<TreeHintRef00217D4C *>(TreeHintRef00217D4C *__first, TreeHintRef00217D4C *__last);
+template <> void _Destroy<Rva005C84D3Element *>(Rva005C84D3Element *__first, Rva005C84D3Element *__last);
+}
+#pragma comment(linker, "/alternatename:??$_Destroy@PAURva0008B4AFElement@@@_STL@@YAXPAURva0008B4AFElement@@0@Z=?Rva0008AFDCDestroy@@YAXPAX0@Z")
+#pragma comment(linker, "/alternatename:??$_Destroy@PAURva005C84D3Element@@@_STL@@YAXPAURva005C84D3Element@@0@Z=??$__destroy_aux@PAURva005C847BRecord@@@_STL@@YAXPAURva005C847BRecord@@0ABU__false_type@0@@Z")
 
 // BFME adds View and Display virtuals that the shared Zero Hour headers omit;
 // these scoped views preserve the witnessed slots and +0x104 camera offset.
@@ -544,6 +564,7 @@ void drawDrawableExtents( Drawable *draw, void *userData );
 
 
 
+
   // end drawDrawableExtents
 
 
@@ -674,6 +695,7 @@ static inline bool operator!=(const _Rb_tree_iterator<_RbVal, _RbLeft> &a,
 }
 
 struct DrawableInfo;
+
 class Rva0008A2A3Item
 {
 public:
@@ -1394,11 +1416,57 @@ private:
 	Rva0027C36A m_record;
 };
 
+// ?rva00085F6A@Rva00085F6A@@QAE_NH@Z 0x00085F6A 62B: thiscall sets m_110 to arg validates via Rva00075725Check restores on false; chain from 0x00075725
+bool __cdecl Rva00075725Check(int index, int arg);
+
+class Rva00085F6A
+{
+public:
+	char m_pad[0x10C];
+	int m_10C;
+	int m_110;
+	bool rva00085F6A(int val);
+};
+
+class Rva00085FA8
+{
+public:
+	void calcDeltaScroll(float *out);
+	char m_pad00[0xC];
+	float m_C; // +0x0C
+	float m_10; // +0x10
+	char m_pad14[0xF0];
+	class CameraClass *m_104; // +0x104
+	char m_pad108[0x22EC];
+	float m_23F4; // +0x23F4
+	float m_23F8; // +0x23F8
+	char m_pad23FC[0xC];
+	float m_2408; // +0x2408
+};
+
+class Rva0008B470
+{
+public:
+	~Rva0008B470();
+};
+
+class Rva0008B4CD
+{
+public:
+	void rva0008B4CD();
+};
+
+template void _STL::vector<Rva0008B4AFElement>::_M_clear();
+
+template void _STL::vector<Rva005C84D3Element>::_M_clear();
+
 // tu-skeleton: 0x00085B41 380B ?getAxisAlignedViewRegion@W3DView@@AAEXAAURegion3D@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewGetAxisAlignedViewRegion.cpp (not merged yet)
 
 // tu-skeleton: 0x00085CBD 522B ?rva00085CBD@W3DView@@QAEXAAURegion3D@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewFarRegion.cpp (not merged yet)
 
 // tu-skeleton: 0x00085EC7 62B ?setFadeParameters@W3DView@@UAEXHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewSetFadeParameters.cpp (not merged yet)
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
 
@@ -1986,9 +2054,81 @@ void Rva000875CEByteZeroSetter::disable()
 // reference/open-bfme-1/Code/GameEngine/Source/Common/DispByteFieldGetters.cpp).
 // No // cl: line (defaults match the frameless 7-byte shape).
 
-// tu-skeleton: 0x00085F6A 62B ?rva00085F6A@Rva00085F6A@@QAE_NH@Z -- matched in Code/GameEngine/Source/Common/Rva00085F6ASet.cpp (not merged yet)
 
-// tu-skeleton: 0x00085FA8 178B ?calcDeltaScroll@Rva00085FA8@@QAEXPAM@Z -- matched in Code/GameEngine/Source/Common/Rva00085FA8Delta.cpp (not merged yet)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---- from Code/GameEngine/Source/Common/Rva0027C36AAssign.cpp
+
+Rva0027C36A &Rva00087AB9::rva00087AB9(Rva0027C36A *destination)
+{
+	return *destination = m_record;
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva00085F6ASet.cpp
+
+bool Rva00085F6A::rva00085F6A(int val)
+{
+	int oldIdx = m_10C;
+	int oldVal = m_110;
+	m_110 = val;
+	if (oldIdx == 0)
+		return true;
+	if (val == 0)
+		return true;
+	bool ok = Rva00075725Check(val, oldIdx);
+	if (!ok) {
+		m_110 = oldVal;
+		return ok;
+	}
+	return true;
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva00085FA8Delta.cpp
+
+void Rva00085FA8::calcDeltaScroll(float *out)
+{
+	out[0] = 0.0f;
+	out[1] = 0.0f;
+	Vector3 in1;
+	Vector3 out1;
+	in1.X = m_23F4;
+	in1.Y = m_23F8;
+	in1.Z = m_2408;
+	if (m_104->Project(out1, in1) != 0)
+		return;
+	Vector3 in2;
+	Vector3 out2;
+	in2.X = m_C;
+	in2.Y = m_10;
+	in2.Z = m_2408;
+	if (m_104->Project(out2, in2) != 0)
+		return;
+	out[0] = out2.X - out1.X;
+	out[1] = out2.Y - out1.Y;
+}
 
 // tu-skeleton: 0x00086065 46B ?rva00086065@W3DView@@UAEXH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRva0008DAE4.cpp (not merged yet)
 
@@ -2037,13 +2177,6 @@ void Rva000875CEByteZeroSetter::disable()
 // tu-skeleton: 0x000879A9 61B ?rva000879A9@Rva00085947@@QAE_NH@Z -- matched in Code/GameEngine/Source/GameClient/Rva00085947Method.cpp (not merged yet)
 
 // tu-skeleton: 0x00087A44 24B ??$fill@PAPAXPAX@_STL@@YAXPAPAX0ABQAX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_ptr_o1.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/Rva0027C36AAssign.cpp
-
-Rva0027C36A &Rva00087AB9::rva00087AB9(Rva0027C36A *destination)
-{
-	return *destination = m_record;
-}
 
 // tu-skeleton: 0x00087AF4 141B ?setHeight@W3DView@@UAEXH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView_MoveCameraOrLocatorAlongSplinePathInit.cpp (not merged yet)
 
@@ -2099,7 +2232,13 @@ Rva0027C36A &Rva00087AB9::rva00087AB9(Rva0027C36A *destination)
 
 // tu-skeleton: 0x00089ED4 529B ?moveCameraOrLocatorAlongSplinePath@W3DView@@AAEXH_N@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewMoveAlongSpline.cpp (not merged yet)
 
-// tu-skeleton: 0x0008A173 18B ?Rva0008A173Copy@@YAXPAVRva00089822@@ABV1@@Z -- matched in Code/GameEngine/Source/Common/Rva0008A173Copy.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva0008A173Copy.cpp
+
+void __cdecl Rva0008A173Copy(Rva00089822 *dst, const Rva00089822 &src)
+{
+	if (dst != 0)
+		new (dst) Rva00089822(src);
+}
 
 // tu-skeleton: 0x0008A1D0 45B ??$_M_allocate_and_copy@PAURva0008B5B5Record@@@?$vector@URva0008B5B5Record@@V?$allocator@URva0008B5B5Record@@@_STL@@@_STL@@IAEPAURva0008B5B5Record@@IPAU2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0008B5B5VectorReserve.cpp (not merged yet)
 
@@ -2133,9 +2272,37 @@ Rva0027C36A &Rva00087AB9::rva00087AB9(Rva0027C36A *destination)
 
 // tu-skeleton: 0x0008B470 63B ??1Rva0008B470@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0008B470VectorDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0008B4AF 30B ?_M_clear@?$vector@URva0008B4AFElement@@V?$allocator@URva0008B4AFElement@@@_STL@@@_STL@@IAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorClearF6Family.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlportVectorClearF6Family.cpp
 
-// tu-skeleton: 0x0008B4CD 5B ?rva0008B4CD@Rva0008B4CD@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorClearF6Family.cpp (not merged yet)
+template <>
+void _STL::vector<Rva0008B4AFElement>::_M_clear()
+{
+	_STL::_Destroy(_M_start, _M_finish);
+	Rva0008B4AFElement *start = _M_start;
+	if (start)
+		free(start);
+}
+
+template <>
+void _STL::vector<Rva005C84D3Element>::_M_clear()
+{
+	_STL::_Destroy(_M_start, _M_finish);
+	Rva005C84D3Element *start = _M_start;
+	if (start)
+		free(start);
+}
+
+void Rva0008B4CD::rva0008B4CD()
+{
+	((Rva0008B470 *)this)->~Rva0008B470();
+}
+
+// Each retail call in this body reads an address the ledger already carries
+// under the rowed name below. Bind the donor spelling to that owner so one
+// address keeps one definition and the unit links.
+//   0x0008AFDC reads ?Rva0008AFDCDestroy@@YAXPAX0@Z
+
+//   0x005C847B reads ??$__destroy_aux@PAURva005C847BRecord@@@_STL@@YAXPAURva005C847BRecord@@0ABU__false_type@0@@Z
 
 // tu-skeleton: 0x0008B4D2 38B ?erase@?$vector@UBfmeStringRecord000B9534@@V?$allocator@UBfmeStringRecord000B9534@@@_STL@@@_STL@@QAEPAUBfmeStringRecord000B9534@@PAU3@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseNoDestroyFamily.cpp (not merged yet)
 
@@ -2211,9 +2378,23 @@ Rva0027C36A &Rva00087AB9::rva00087AB9(Rva0027C36A *destination)
 
 // tu-skeleton: 0x0075FB2B 10B __ehhandler$??1RunwayInfo@FlightDeckBehavior@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FlightDeckBehaviorRunwayInfoDestructor.cpp (not merged yet)
 
+// tu-skeleton: 0x0075FB35 8B $L1177 -- matched in Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva00564E0DAssign.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FB3D 10B __ehhandler$??4Rva00564E0D@@QAEAAV0@AAV0@@Z -- matched in Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva00564E0DAssign.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FB47 8B $L1328 -- matched in Code/GameEngine/Source/GameClient/Rva0008990COwnerCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FB4F 25B $L1329 -- matched in Code/GameEngine/Source/GameClient/Rva0008990COwnerCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FB68 10B __ehhandler$??0Rva0089971@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/Rva0008990COwnerCtor.cpp (not merged yet)
+
 // tu-skeleton: 0x0075FB72 14B Unwind@00b5fb72 -- matched in Code/GameEngine/Source/Common/Rva000899E5Clear.cpp (not merged yet)
 
 // tu-skeleton: 0x0075FB80 10B __ehhandler$??1Rva000899E5@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva000899E5Clear.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FB9E 8B $L2642 -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FBA6 10B __ehhandler$??1Rva0006F318@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
 
 // tu-skeleton: 0x0075FBB0 11B uw_0075fbb0 -- matched in Code/gen_small/uw_gen_000.cpp (not merged yet)
 

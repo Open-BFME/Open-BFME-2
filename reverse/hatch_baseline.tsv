@@ -3516,6 +3516,8 @@ alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisual
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualXfer.cpp	?xfer@TerrainVisual@@MAEXPAVXfer@@@Z	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBuffer.cpp	?bfmeHas992C@BfmeAsk992@@QAEDXZ	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBuffer.cpp	?valid@Rva007FA5E0Arg@@QAE_NXZ	1
+alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp	??$_Destroy@PAURva0008B4AFElement@@@_STL@@YAXPAURva0008B4AFElement@@0@Z	1
+alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp	??$_Destroy@PAURva005C84D3Element@@@_STL@@YAXPAURva005C84D3Element@@0@Z	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCtorBfme.cpp	??1Rva0030E7D0@@QAE@XZ	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCtorBfme.cpp	??1W3DView@@UAE@XZ	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParse.cpp	??1Rva000AF146@@QAE@XZ	1
@@ -4094,8 +4096,6 @@ alternatename	Code/Libraries/Source/WWVegas/WWLib/StlportVector104Assignment.cpp
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlportVector104Assignment.cpp	?clearStorage@Rva003F5254Vector104@@QAEXXZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlportVectorAllocateAndCopyRva002D0EDC.cpp	??$_Construct@URva002D0EDCElement@@U1@@_STL@@YAXPAURva002D0EDCElement@@ABU1@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlportVectorAsciiScalarOverflow.cpp	?clear@Rva004C3D8BVectorClearView@@QAEXXZ	1
-alternatename	Code/Libraries/Source/WWVegas/WWLib/StlportVectorClearF6Family.cpp	??$_Destroy@PAURva0008B4AFElement@@@_STL@@YAXPAURva0008B4AFElement@@0@Z	1
-alternatename	Code/Libraries/Source/WWVegas/WWLib/StlportVectorClearF6Family.cpp	??$_Destroy@PAURva005C84D3Element@@@_STL@@YAXPAURva005C84D3Element@@0@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlportVectorRva0032C0E3Assign.cpp	??$_M_allocate_and_copy@PAURva0032C0E3Element@@@?$vector@URva0032C0E3Element@@V?$allocator@URva0032C0E3Element@@@_STL@@@_STL@@IAEPAURva0032C0E3Element@@IPAU2@0@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlportVectorRva0032C0E3Assign.cpp	??$__copy_ptrs@PAURva0032C0E3Element@@PAU1@@_STL@@YAPAURva0032C0E3Element@@PAU1@00ABU__false_type@0@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlportVectorRva0032C0E3Assign.cpp	??$__uninitialized_copy@PAURva0032C0E3Element@@PAU1@@_STL@@YAPAURva0032C0E3Element@@PAU1@00ABU__false_type@0@@Z	1
