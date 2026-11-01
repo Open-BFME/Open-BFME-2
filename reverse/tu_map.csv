@@ -849,15 +849,15 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00016C60,39,code,Code/GameEngine/Source/Common/T2NarrowCtype.cpp,approved,N,N=Code/GameEngine/Source/Common/T2NarrowCtype.cpp provisional,Code/GameEngine/Source/Common/T2NarrowCtype.cpp
 0x00016C90,37,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_ctype_wchar_scan_not.cpp
 0x00016CC0,11,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_locale_facet_subclass_dtors.cpp
-0x00016CD0,40,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_ctype_virtuals.cpp
+0x00016CD0,40,code,,,-,,Code/GameEngine/Source/Common/T2WideCtype.cpp
 0x00016D00,57,code,Code/GameEngine/Source/Common/T2WideCtype.cpp,approved,N,N=Code/GameEngine/Source/Common/T2WideCtype.cpp provisional,Code/GameEngine/Source/Common/T2CtypeTableFacets.cpp
-0x00016D40,24,code,Code/GameEngine/Source/Common/T2WideCtype.cpp,approved,C,C=0x00016D00..0x00016D60 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_ctype_virtuals.cpp
+0x00016D40,24,code,Code/GameEngine/Source/Common/T2WideCtype.cpp,approved,C,C=0x00016D00..0x00016D60 provisional,Code/GameEngine/Source/Common/T2WideCtype.cpp
 0x00016D60,50,code,Code/GameEngine/Source/Common/T2WideCtype.cpp,approved,N,N=Code/GameEngine/Source/Common/T2WideCtype.cpp provisional,Code/GameEngine/Source/Common/T2CtypeTableFacets.cpp
-0x00016DA0,24,code,Code/GameEngine/Source/Common/T2WideCtype.cpp,approved,C,C=0x00016D60..0x00016DC0 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_ctype_virtuals.cpp
+0x00016DA0,24,code,Code/GameEngine/Source/Common/T2WideCtype.cpp,approved,C,C=0x00016D60..0x00016DC0 provisional,Code/GameEngine/Source/Common/T2WideCtype.cpp
 0x00016DC0,50,code,Code/GameEngine/Source/Common/T2WideCtype.cpp,approved,N,N=Code/GameEngine/Source/Common/T2WideCtype.cpp provisional,Code/GameEngine/Source/Common/T2CtypeTableFacets.cpp
-0x00016E00,9,code,Code/GameEngine/Source/Common/T2WideCtype.cpp,approved,C,C=0x00016DC0..0x00016E10 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_ctype_virtuals.cpp
+0x00016E00,9,code,Code/GameEngine/Source/Common/T2WideCtype.cpp,approved,C,C=0x00016DC0..0x00016E10 provisional,Code/GameEngine/Source/Common/T2WideCtype.cpp
 0x00016E10,36,code,Code/GameEngine/Source/Common/T2WideCtype.cpp,approved,N,N=Code/GameEngine/Source/Common/T2WideCtype.cpp provisional,Code/GameEngine/Source/Common/T2CtypeTableFacets.cpp
-0x00016E40,23,code,Code/GameEngine/Source/Common/T2WideCtype.cpp,approved,C,C=0x00016E10..0x00016E60 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_ctype_virtuals.cpp
+0x00016E40,23,code,Code/GameEngine/Source/Common/T2WideCtype.cpp,approved,C,C=0x00016E10..0x00016E60 provisional,Code/GameEngine/Source/Common/T2WideCtype.cpp
 0x00016E60,57,code,Code/GameEngine/Source/Common/T2WideCtype.cpp,approved,N,N=Code/GameEngine/Source/Common/T2WideCtype.cpp provisional,Code/GameEngine/Source/Common/T2CtypeTableFacets.cpp
 0x00016EA0,128,code,,,-,,Code/stlport/CtypeCharFindIf.cpp
 0x00016F20,128,code,,,-,,Code/stlport/CtypeCharFindIfNot.cpp
