@@ -10,11 +10,18 @@
 // sole unwindable. The owning factory at 0x0024EB2C (news 0x18) is the sole
 // caller; the pool key plus Update ctor plus dtor sit in the cluster at
 // 0x4A139A right where the proc ends. Row supersedes the ctor pin.
+//
+// The base destructor is defined inline so this unit emits the unrowed
+// ??1DockUpdateModuleData@@UAE@XZ COMDAT its unwind (and SupplyCenterDockUpdate's)
+// references. Retail folds it into the Snapshot teardown 0x0049B47C (funclet
+// 0x0078DB70 jumps there); no BFME 2 unit spells it out of line, and the
+// native SupplyWarehouseDockUpdate view that replaced the Zero Hour seed (its
+// former provider) models DockUpdateModuleData's table pointer explicitly.
 class DockUpdateModuleData
 {
 public:
 	DockUpdateModuleData();
-	virtual ~DockUpdateModuleData();
+	virtual ~DockUpdateModuleData() {}
 
 protected:
 	unsigned char m_pad[0x0C];
