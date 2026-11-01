@@ -17,14 +17,7 @@ typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
 #include "../../../Include/Common/INI/FieldParse.h"
 
 
-class INI
-{
-public:
-	void initFromINI( void *what, const FieldParse *parseTable );
-	static void parseCoord3D(INI *, void *, void *, const void *);
-	static void parseReal(INI *, void *, void *, const void *);
-	static void dup_002F0F7(INI *, void *, void *, const void *);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 class Rva00064390
 {

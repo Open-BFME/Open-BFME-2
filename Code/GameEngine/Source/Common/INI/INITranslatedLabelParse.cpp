@@ -16,12 +16,7 @@
 
 extern GameTextInterface *TheGameText;
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps = 0);
-	static void Rva0033B938_ParseTranslatedLabel(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 #include "../../../Include/Common/INI/FieldParse.h"
 

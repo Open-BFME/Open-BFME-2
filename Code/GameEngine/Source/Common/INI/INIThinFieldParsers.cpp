@@ -13,11 +13,7 @@
 //     FlagsUsedForToggle, RevealWeaponSets and ForbiddenWeaponConditions,
 //     through its member 0x002C8754 (ini, 0).
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps = 0);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 class Eva
 {

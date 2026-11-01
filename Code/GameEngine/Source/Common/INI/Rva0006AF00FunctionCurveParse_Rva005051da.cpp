@@ -8,12 +8,7 @@ typedef int Int;
 
 struct FieldParse;
 
-class INI
-{
-public:
-	static void parseIndexList( INI *, void *, void *, const void * );
-	void initFromINI( void *, const FieldParse * );
-};
+#include "../../../Include/Common/INI/INI.h"
 
 typedef void (__cdecl *INIFieldParseProc)( INI *, void *, void *, const void * );
 

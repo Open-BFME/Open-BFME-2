@@ -11,19 +11,7 @@ class INI;
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
 #include "../../../Include/Common/INI/FieldParse.h"
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps = 0);
-	void initFromINI(void *what, const FieldParse *parseTable);
-
-	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
-	static void parseBool(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva00339E1C_ParseBrowser(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva00318242_ParseNamedReal(INI *ini, void *instance, void *store, const void *userData);
-
-	static void parseTerrainDefinition(INI *ini);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 class TerrainType
 {

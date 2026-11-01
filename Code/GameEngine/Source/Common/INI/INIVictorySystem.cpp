@@ -11,7 +11,7 @@
 
 #include "ascii_string.h"
 struct FieldParse;
-class INI {public: const char *getNextToken(const char *separators=0); void initFromINI(void *,const FieldParse *); static void parseReal(INI *,void *,void *,const void *);};
+#include "../../../Include/Common/INI/INI.h"
 struct FieldParse {const char *name;void (*parse)(INI *,void *,void *,const void *);const void *user;int offset;};
 class VictorySystem;extern VictorySystem *TheVictorySystem;
 extern "C" const FieldParse VictorySystemFieldParse[]={

@@ -43,12 +43,7 @@ static inline const StringBase<char> &rva00339109Base(const AsciiString &asciiSt
 
 extern Anim2DCollection *TheAnim2DCollection;
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps = 0);
-	static void parseAnim2DTemplate(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 // ?parseAnim2DTemplate@INI@@SAXPAV1@PAX1PBX@Z
 void INI::parseAnim2DTemplate(INI *ini, void *instance, void *store, const void *userData)

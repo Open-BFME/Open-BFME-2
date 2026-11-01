@@ -29,7 +29,7 @@ namespace _STL { template <> _Rb_tree_node<pair<AsciiString const ,TreeHintRef00
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 class AsciiString; struct TreeHintRef00221D6B;
 namespace _STL { template <> void allocator<_Rb_tree_node<pair<AsciiString const ,TreeHintRef00221D6B> > >::deallocate(_Rb_tree_node<pair<AsciiString const ,TreeHintRef00221D6B> > *,unsigned int) const; }
-class INI { public: const char *getNextToken(const char *s); };
+#include "../../../Include/Common/INI/INI.h"
 class Rva00221A58 { public: Rva00221A58(const Rva00221A58 &other); private: char m_pad[0x1C]; };
 class Rva00221B42 { private: char m_pad[0x20]; };
 class Rva00221C15 { public: Rva00221C15(const AsciiString &a, const Rva00221A58 &b, INI *ini); const void *m_vtable; int m_refs; Rva00221B42 m_08; };

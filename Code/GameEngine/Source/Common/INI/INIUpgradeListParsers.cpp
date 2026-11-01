@@ -63,13 +63,7 @@ private:
 
 typedef _STL::vector<const UpgradeTemplate *, _STL::allocator<const UpgradeTemplate *> > UpgradeTemplateVector;
 
-class INI
-{
-public:
-	const char *getNextTokenOrNull(const char *seps = 0);
-	static void Rva002890D1_ParseUpgradeList(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva00339A13_ParseUpgradeKeyList(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 struct Rva002890D1Owner
 {

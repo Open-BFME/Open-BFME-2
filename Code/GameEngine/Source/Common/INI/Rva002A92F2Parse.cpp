@@ -15,11 +15,7 @@
 
 struct FieldParse;
 
-class INI
-{
-public:
-	void initFromINI(void *what, const FieldParse *parseTable);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 enum NameKeyType
 {

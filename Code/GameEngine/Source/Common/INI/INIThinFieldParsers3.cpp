@@ -21,17 +21,7 @@
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
 #include "../../../Include/Common/INI/FieldParse.h"
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps = 0);
-	const char *getNextTokenOrNull(const char *seps = 0);
-	int scanIndexList(const char *token, const char *const *names);
-	void initFromINI(void *what, const FieldParse *parseTable);
-	static void parseICoord2D(INI *, void *, void *, const void *);
-	static void parseColorInt(INI *, void *, void *, const void *);
-	static void parseInt(INI *, void *, void *, const void *);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 void Rva000B9468Parse(INI *ini, void *instance, void *store, const void *userData);
 

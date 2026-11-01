@@ -157,40 +157,7 @@ class GlobalWeatherSystem
 public:
 	static void parseWeatherData(INI *);
 };
-class INI
-{
-public:
-	static void parseAIDataDefinition(INI *);
-	static void parseAudioLODDefinition(INI *);
-	static void parseAudioSettingsDefinition(INI *);
-	static void parseBenchProfile(INI *);
-	static void parseChildObjectDefinition(INI *);
-	static void parseControlBarSchemeDefinition(INI *);
-	static void parseDrawGroupNumberDefinition(INI *);
-	static void parseHeaderTemplateDefinition(INI *);
-	static void parseLODPreset(INI *);
-	static void parseLanguageDefinition(INI *);
-	static void parseMappedImageDefinition(INI *);
-	static void parseMiscAudio(INI *);
-	static void parseMiscEvaData(INI *);
-	static void parseMouseCursorDefinition(INI *);
-	static void parseMouseDefinition(INI *);
-	static void parseMultiplayerColorDefinition(INI *);
-	static void parseMultiplayerSettingsDefinition(INI *);
-	static void parseObjectDefinition(INI *);
-	static void parseObjectReskinDefinition(INI *);
-	static void parseOnlineChatColorDefinition(INI *);
-	static void parseParticleSystemDefinition(INI *);
-	static void parseShellMenuSchemeDefinition(INI *);
-	static void parseStaticGameLODDefinition(INI *);
-	static void parseTerrainBridgeDefinition(INI *);
-	static void parseTerrainDefinition(INI *);
-	static void parseTerrainRoadDefinition(INI *);
-	static void parseWaterSettingDefinition(INI *);
-	static void parseWaterTransparencyDefinition(INI *);
-	static void parseWeatherDefinition(INI *);
-	static void parseWindowTransitions(INI *);
-};
+#include "../../../Include/Common/INI/INI.h"
 class LargeGroupAudio
 {
 public:

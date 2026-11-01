@@ -20,17 +20,7 @@
 
 struct LookupListRec { const char *name; int value; };
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps = 0);
-	const char *getNextTokenOrNull(const char *seps = 0);
-	const char *getNextSubToken(const char *expected);
-	int scanInt(const char *token);
-	int scanIndexList(const char *token, const char *const *names);
-	int scanLookupList(const char *token, const LookupListRec *table);
-	static void parseBool(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 #include "../../../../Libraries/Include/Lib/RGBColor.h"
 

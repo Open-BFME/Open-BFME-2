@@ -15,20 +15,7 @@
 #include <windows.h>
 #include "ascii_string.h"
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps = 0);
-	AsciiString getNextAsciiString();
-	int scanIndexList(const char *token, const char *const *names);
-	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva004E8E57_ParseAIKindOf(INI *ini, void *instance, void *store, const void *userData);
-    static void Rva002C5E40_ParseAITarget(INI *, void *, void *, const void *);
-    static void Rva002C5E8F_ParseAITargetList(INI *, void *, void *, const void *);
-    const char *getNextTokenOrNull(const char *seps);
-	static void parseTerrainResourceClaimDecal(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva005096FF_ParseWeaponSlot(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 int getAIKindOfFromName(const char *name);
 

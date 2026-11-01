@@ -24,13 +24,7 @@ typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
 #include "../../../Include/Common/INI/FieldParse.h"
 
 
-class INI
-{
-public:
-	void initFromINI(void *what, const FieldParse *parseTable);
-	void initFromINIMulti(void *what, const MultiIniFieldParse &parseTableList);
-	static void Rva004E8EFF_ParseDisabledSlots(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 extern "C" {
 void __identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z")();

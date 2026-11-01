@@ -5,12 +5,7 @@
 // 0x00CE43B0; scanIndexList of the next token over the names at 0x00DD9914
 // into the int store. Its unit caches the INI pointer in esi (/O2).
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps = 0);
-	int scanIndexList(const char *token, const char *const *names);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 // The retail table at RVA 0x009D9914: 3 string pointers.
 extern const char *g_00DD9914[3] = { "CINEMA", "HUD", 0 };
