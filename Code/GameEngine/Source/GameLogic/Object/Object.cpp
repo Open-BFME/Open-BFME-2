@@ -2304,9 +2304,82 @@ public: unsigned char isTwo() const;
 private: char unknown[0x0C]; unsigned int value;
 };
 
+// ?rva0028C6FB@Rva0028C6FB@@QAEPAXI@Z @0x0028C6FB 42B
+// Bit-present table lookup: if bit (idx&31) of word (idx>>5) at +0 is set return table[idx] else 0.
+// Evidence: test [this+word*4] mask plus mov eax [idx*4+VA 0x00DC828C]; sole caller 0x00292414;
+// neighbours V3PolyCopyCtors and ConstIntGetters5 give TU and flags.
+// DisabilityTypeNames: the retail string table at VA 0x00DC828C (defined in
+// Code/GameEngine/Source/GameLogic/Object/Update/Rva0049D67F.cpp).
+extern const char *DisabilityTypeNames[11];
+
+ ///< retail [0x00DC828C]
+
+class Rva0028C6FB
+{
+public:
+	void *rva0028C6FB(unsigned int idx);
+
+private:
+	unsigned int m_bits[8];
+};
+
+// Five more copies of this lookup, each over a named BitFlags name table (the
+// operand the load reads), otherwise the same 42 bytes. Owners keep addresses.
+
+
+
+class Rva000454F3
+{
+public:
+	void *rva000454F3(unsigned int idx);
+
+private:
+	unsigned int m_bits[8];
+};
+
+extern const char *SpecialPowerNames[];
+
+class Rva0028C783
+{
+public:
+	void *rva0028C783(unsigned int idx);
+
+private:
+	unsigned int m_bits[8];
+};
+
+class Rva002AA2CF
+{
+public:
+	void *rva002AA2CF(unsigned int idx);
+
+private:
+	unsigned int m_bits[8];
+};
+
+class Rva0031852F
+{
+public:
+	void *rva0031852F(unsigned int idx);
+
+private:
+	unsigned int m_bits[8];
+};
+
+class Rva004BE0C7
+{
+public:
+	void *rva004BE0C7(unsigned int idx);
+
+private:
+	unsigned int m_bits[8];
+};
+
 // tu-skeleton: 0x0028A670 20B ?setWeaponBonusCondition@Object@@QAEXW4WeaponBonusConditionType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/WeaponBonusUpgradeUpgradeImplementation.cpp (not merged yet)
 
 // tu-skeleton: 0x0028A684 22B ?clearWeaponBonusCondition@Object@@QAEXW4WeaponBonusConditionType@@@Z -- matched in Code/GameEngine/Source/Common/RTS/PlayerBattlePlanBonuses.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Object.cpp
 
 // ---- from Code/GameEngine/Source/Common/DispByteFieldGetters.cpp
 
@@ -5033,7 +5106,17 @@ void Rva0028F8B3SetBit(unsigned int *words, unsigned int bit)
 
 // tu-skeleton: 0x0028C6F7 4B ?get@Rva0028C6F7Const@@SAHXZ -- matched in Code/GameEngine/Source/Common/GapLeavesSeat8.cpp (not merged yet)
 
-// tu-skeleton: 0x0028C6FB 42B ?rva0028C6FB@Rva0028C6FB@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0028C6FB.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva0028C6FB.cpp
+
+void *Rva0028C6FB::rva0028C6FB(unsigned int idx)
+{
+	return (m_bits[idx >> 5] & (1u << (idx & 31))) ? (void *)DisabilityTypeNames[idx] : 0;
+}
+
+void *Rva0028C783::rva0028C783(unsigned int idx)
+{
+	return (m_bits[idx >> 5] & (1u << (idx & 31))) ? (void *)SpecialPowerNames[idx] : 0;
+}
 
 // tu-skeleton: 0x0028C725 42B ?rva0028C725@Rva0028C725@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0028C725.cpp (not merged yet)
 
@@ -5042,8 +5125,6 @@ void Rva0028F8B3SetBit(unsigned int *words, unsigned int bit)
 // tu-skeleton: 0x0028C753 42B ?rva0028C753@Rva0028C753@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0028C753.cpp (not merged yet)
 
 // tu-skeleton: 0x0028C77D 6B ?Rva0028C77DGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters5.cpp (not merged yet)
-
-// tu-skeleton: 0x0028C783 42B ?rva0028C783@Rva0028C783@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0028C6FB.cpp (not merged yet)
 
 // tu-skeleton: 0x0028C7AD 54B ?getSingleBitFromName@?$BitFlags@$0L@@@SAHPBD@Z -- matched in Code/GameEngine/Source/Common/BitFlags11DisabilityGetSingleBitFromName.cpp (not merged yet)
 

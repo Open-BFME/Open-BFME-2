@@ -5,7 +5,7 @@
 // neighbours V3PolyCopyCtors and ConstIntGetters5 give TU and flags.
 // DisabilityTypeNames: the retail string table at VA 0x00DC828C (defined in
 // Code/GameEngine/Source/GameLogic/Object/Update/Rva0049D67F.cpp).
-extern const char *DisabilityTypeNames[11]; ///< retail [0x00DC828C]
+ ///< retail [0x00DC828C]
 
 class Rva0028C6FB
 {
@@ -15,11 +15,6 @@ public:
 private:
 	unsigned int m_bits[8];
 };
-
-void *Rva0028C6FB::rva0028C6FB(unsigned int idx)
-{
-	return (m_bits[idx >> 5] & (1u << (idx & 31))) ? (void *)DisabilityTypeNames[idx] : 0;
-}
 
 // Five more copies of this lookup, each over a named BitFlags name table (the
 // operand the load reads), otherwise the same 42 bytes. Owners keep addresses.
@@ -40,7 +35,7 @@ void *Rva000454F3::rva000454F3(unsigned int idx)
 	return (m_bits[idx >> 5] & (1u << (idx & 31))) ? (void *)ModelConditionNames[idx] : 0;
 }
 
-extern const char *SpecialPowerNames[];
+
 
 class Rva0028C783
 {
@@ -50,11 +45,6 @@ public:
 private:
 	unsigned int m_bits[8];
 };
-
-void *Rva0028C783::rva0028C783(unsigned int idx)
-{
-	return (m_bits[idx >> 5] & (1u << (idx & 31))) ? (void *)SpecialPowerNames[idx] : 0;
-}
 
 extern const char *TheKindOfBitNames[];
 

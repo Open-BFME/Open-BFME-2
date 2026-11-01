@@ -22755,7 +22755,7 @@ uw_0076443a,,0x0076443A,8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DD
 ??1Rva00466E23@@QAE@XZ,,0x00466E23,53,Code/GameEngine/Source/GameLogic/Object/Contain/TransportContain.cpp,matched,two StringBase-D at +0 +4 via 0x00036410 EH_prolog 0x00629188 callers 0x00466EC5
 ?_M_clear@?$vector@VBfmePoolRef10@@V?$allocator@VBfmePoolRef10@@@_STL@@@_STL@@IAEXXZ,,0x00569DFF,30,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,matched,vector clear via Destroy 0x569A74 plus free exact 30B
 ?rva00569543@Rva00569543@@QAEXPBVModuleData@@@Z,,0x00569543,42,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,matched,dedup push into vector at plus58 via rowed pushback 0x4DFCB0
-?rva0028C6FB@Rva0028C6FB@@QAEPAXI@Z,,0x0028C6FB,42,Code/GameEngine/Source/Common/Rva0028C6FB.cpp,matched,Bit-present DisabilityTypeNames lookup via global table
+?rva0028C6FB@Rva0028C6FB@@QAEPAXI@Z,,0x0028C6FB,42,Code/GameEngine/Source/GameLogic/Object/Object.cpp,matched,Bit-present DisabilityTypeNames lookup via global table
 ?rva0028C725@Rva0028C725@@QAEPAXI@Z,,0x0028C725,42,Code/GameEngine/Source/Common/Rva0028C725.cpp,matched,Bit-present table lookup twin via global table
 ?rva0028C753@Rva0028C753@@QAEPAXI@Z,,0x0028C753,42,Code/GameEngine/Source/Common/Rva0028C753.cpp,matched,Bit-present table lookup twin via global table
 ?rva0028C4B6@Object@@QAEXXZ,,0x0028C4B6,55,Code/GameEngine/Source/GameLogic/Object/Object.cpp,matched,Object provider-gated holder flag set via virtual slots
@@ -28688,7 +28688,7 @@ _FilterBlock_C,,0x001B8560,993,Code/Libraries/Source/VP6/FilterBlockC.cpp,matche
 ?rva005C4720@Rva005C4720@@UBE?AVAsciiString@@XZ,,0x005C4720,28,Code/GameEngine/Source/Common/RvaAsciiStringNameGetters.cpp,matched,AsciiString name getter returning 'StrengthenArmy'; bytes equal LookupTablePostEffect::rva00111BE9 except the literal
 ?rva005C4A1D@Rva005C4A1D@@UBE?AVAsciiString@@XZ,,0x005C4A1D,28,Code/GameEngine/Source/Common/RvaAsciiStringNameGetters.cpp,matched,AsciiString name getter returning 'UpgradeTroops'; bytes equal LookupTablePostEffect::rva00111BE9 except the literal
 ?rva000454F3@Rva000454F3@@QAEPAXI@Z,,0x000454F3,42,Code/GameEngine/Source/Common/Rva0028C6FB.cpp,matched,bit-present name lookup over ModelConditionNames; bytes equal rva0028C6FB except the table operand
-?rva0028C783@Rva0028C783@@QAEPAXI@Z,,0x0028C783,42,Code/GameEngine/Source/Common/Rva0028C6FB.cpp,matched,bit-present name lookup over SpecialPowerNames; bytes equal rva0028C6FB except the table operand
+?rva0028C783@Rva0028C783@@QAEPAXI@Z,,0x0028C783,42,Code/GameEngine/Source/GameLogic/Object/Object.cpp,matched,bit-present name lookup over SpecialPowerNames; bytes equal rva0028C6FB except the table operand
 ?rva002AA2CF@Rva002AA2CF@@QAEPAXI@Z,,0x002AA2CF,42,Code/GameEngine/Source/Common/Rva0028C6FB.cpp,matched,bit-present name lookup over TheKindOfBitNames; bytes equal rva0028C6FB except the table operand
 ?rva0031852F@Rva0031852F@@QAEPAXI@Z,,0x0031852F,42,Code/GameEngine/Source/GameLogic/System/GlobalWeatherSystem.cpp,matched,bit-present name lookup over CommandSetNames; bytes equal rva0028C6FB except the table operand
 ?rva004BE0C7@Rva004BE0C7@@QAEPAXI@Z,,0x004BE0C7,42,Code/GameEngine/Source/Common/Rva0028C6FB.cpp,matched,bit-present name lookup over VeterancyLevelNames; bytes equal rva0028C6FB except the table operand

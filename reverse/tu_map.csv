@@ -19904,12 +19904,12 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0028C62B,171,code,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate.cpp,proposed,K,K=Rva00263653 noncontiguous,Code/GameEngine/Source/Common/V3PolyDeferredCopyCtors2.cpp
 0x0028C6D6,33,code,,,-,,Code/GameEngine/Source/Common/V3PolyCopyCtors.cpp
 0x0028C6F7,4,code,,,-,,Code/GameEngine/Source/Common/GapLeavesSeat8.cpp
-0x0028C6FB,42,code,,,-,,Code/GameEngine/Source/Common/Rva0028C6FB.cpp
+0x0028C6FB,42,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Object.cpp
 0x0028C725,42,code,,,-,,Code/GameEngine/Source/Common/Rva0028C725.cpp
 0x0028C74F,4,code,,,-,,Code/GameEngine/Source/Common/GapLeavesSeat8.cpp
 0x0028C753,42,code,,,-,,Code/GameEngine/Source/Common/Rva0028C753.cpp
 0x0028C77D,6,code,,,-,,Code/GameEngine/Source/Common/ConstIntGetters5.cpp
-0x0028C783,42,code,,,-,,Code/GameEngine/Source/Common/Rva0028C6FB.cpp
+0x0028C783,42,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Object.cpp
 0x0028C7AD,54,code,,,-,,Code/GameEngine/Source/Common/BitFlags11DisabilityGetSingleBitFromName.cpp
 0x0028C7E3,54,code,,,-,,Code/GameEngine/Source/Common/BitFlags104VeterancyGetSingleBitFromName.cpp
 0x0028C819,54,code,,,-,,Code/GameEngine/Source/Common/BitFlags101BodyStateGetSingleBitFromName.cpp
