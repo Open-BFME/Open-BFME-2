@@ -198,11 +198,7 @@ void Rva004E8F37::closeAlliedGates(const Player *player)
 
 // --- 0x004EACB3 (66B): sum the counts of the +0x28 (index, count) entries
 // whose player exists, is not the given one and is its enemy.
-class Player
-{
-public:
-	Relationship getRelationship(const Player *that) const;	// 0x002AC3E0
-};
+#include "../../Include/Common/Player.h"
 
 class PlayerList
 {

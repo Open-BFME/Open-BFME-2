@@ -547,6 +547,9 @@ PlaceEventTranslator::PlaceEventTranslator()
 // constructor and destructor, member-wise copy constructor (the WWMath owner
 // view in coord3d.cpp).
 
+// Keep the pending build pointer in lexical value storage, preserving native spill homes.
+struct PlacementPointer { const ThingTemplate *value; };
+
 GameMessageDisposition PlaceEventTranslator::translateGameMessage(const GameMessage *msg)
 {
 	GameMessageDisposition disp = KEEP_MESSAGE;
@@ -612,12 +615,12 @@ GameMessageDisposition PlaceEventTranslator::translateGameMessage(const GameMess
 	case 23:
 	case 24: // left click / double click: place the anchored building
 	{
-		const ThingTemplate *pendingBuild = TheInGameUI->getPendingPlaceType();
+		PlacementPointer pendingBuild = { TheInGameUI->getPendingPlaceType() };
 
 		// ... and also remove any radius cursor that is active.
 		TheInGameUI->setRadiusCursorNone();
 
-		if (pendingBuild && TheInGameUI->isPlacementAnchored())
+		if (pendingBuild.value && TheInGameUI->isPlacementAnchored())
 		{
 			// Reuse the pending template through the active placement path.
 			// Its native pointer spills remain exact with the shared GameLogic API.
@@ -631,10 +634,10 @@ GameMessageDisposition PlaceEventTranslator::translateGameMessage(const GameMess
 			TheTacticalView->screenToTerrain(&anchorStart, &world, false);
 
 			Object *builderObj = TheGameLogic->findObjectByID(TheInGameUI->getPendingPlaceSourceObjectID());
-			bool isPort = TheBuildAssistant->isBuildPort(pendingBuild, builderObj);
+			bool isPort = TheBuildAssistant->isBuildPort(pendingBuild.value, builderObj);
 
 			// make sure we can still afford and queue it
-			int cmt = TheBuildAssistant->canMakeUnit(builderObj, pendingBuild, -1);
+			int cmt = TheBuildAssistant->canMakeUnit(builderObj, pendingBuild.value, -1);
 			if (cmt != 0 && cmt != 1)
 			{
 				if (cmt == 2)
@@ -667,7 +670,7 @@ GameMessageDisposition PlaceEventTranslator::translateGameMessage(const GameMess
 			if (isPort)
 				lbc = 0;
 			else
-				lbc = TheBuildAssistant->isLocationLegalToBuild(&world, pendingBuild, angle, 0x49F, builderObj, 0);
+				lbc = TheBuildAssistant->isLocationLegalToBuild(&world, pendingBuild.value, angle, 0x49F, builderObj, 0);
 
 			// the local player may not build over a ghost object it remembers
 			if (builderObj)
@@ -675,7 +678,7 @@ GameMessageDisposition PlaceEventTranslator::translateGameMessage(const GameMess
 				int localIndex = TheGhostObjectManager->getLocalPlayerIndex();
 				if (localIndex == builderObj->getControllingPlayer()->getPlayerIndex())
 				{
-					if (Rva0030596CIntersects((void *)pendingBuild, world, angle))
+					if (Rva0030596CIntersects((void *)pendingBuild.value, world, angle))
 						lbc = 8;
 				}
 			}
@@ -689,21 +692,21 @@ GameMessageDisposition PlaceEventTranslator::translateGameMessage(const GameMess
 
 			if (lbc == 0 && !portBlocked)
 			{
-				if (pendingBuild->m_kindOfByte23 & 0x10)
+				if (pendingBuild.value->m_kindOfByte23 & 0x10)
 				{
 					PlaceCoord newWorld;
 					float newAngle;
-					TheBuildAssistant->getPortTransform(&world, pendingBuild, angle, &newAngle, &newWorld);
+					TheBuildAssistant->getPortTransform(&world, pendingBuild.value, angle, &newAngle, &newWorld);
 					angle = newAngle;
 					world = newWorld;
 				}
 
-				if (TheBuildAssistant->isBuildPort(pendingBuild, builderObj))
+				if (TheBuildAssistant->isBuildPort(pendingBuild.value, builderObj))
 				{
 					if (TheInGameUI->canPlacePort())
 					{
 						placeMsg = TheMessageStream->appendMessage(GameMessage::MSG_PORT_CONSTRUCT);
-						placeMsg->appendIntegerArgument(pendingBuild->getTemplateID());
+						placeMsg->appendIntegerArgument(pendingBuild.value->getTemplateID());
 						placeMsg->appendLocationArgument(*builderObj->getPosition());
 						placeMsg->appendLocationArgument(world);
 						TheInGameUI->clearPlacementPort(false);
@@ -719,7 +722,7 @@ GameMessageDisposition PlaceEventTranslator::translateGameMessage(const GameMess
 				else
 				{
 					placeMsg = TheMessageStream->appendMessage(GameMessage::MSG_DOZER_CONSTRUCT);
-					placeMsg->appendIntegerArgument(pendingBuild->getTemplateID());
+					placeMsg->appendIntegerArgument(pendingBuild.value->getTemplateID());
 					placeMsg->appendLocationArgument(world);
 					placeMsg->appendRealArgument(angle);
 					pickAndPlayUnitVoiceResponse(TheInGameUI->getAllSelectedDrawables(), placeMsg->getType(), 0);

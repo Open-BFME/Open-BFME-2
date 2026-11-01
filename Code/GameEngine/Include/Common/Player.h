@@ -13,6 +13,12 @@
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../reference/shims/moduledata/Common/Snapshot.h"
 #include "../../Source/Common/Rva00380200.h"
+class AsciiString;
+class PlayerTemplate;
+class Upgrade;
+class UpgradeTemplate;
+enum Relationship;
+enum UpgradeStatusType;
 class Player;
 class AIPlayer;
 class Object;
@@ -53,6 +59,16 @@ public:
  virtual void rslot04(const void *);
  virtual bool rslot05();
  // Existing matched nonvirtual Player row signatures; no new layout or slots.
+ Relationship getRelationship(const Player *) const;
+ float getProductionCostChangeBasedOnUpgradeDiscount(AsciiString) const;
+ void becomingLocalPlayer(bool);
+ int iterateObjects(int (*)(Object *, void *), void *) const;
+ Upgrade *addUpgrade(const UpgradeTemplate *, UpgradeStatusType, int);
+ void init(const PlayerTemplate *);
+ void update();
+ void rva002A99FA();
+ void newMap();
+ void updateTeamStates();
  void addRadar(bool disableProof);
  bool cloneFrom(Player *other);
  int getSupplyBoxValue();
