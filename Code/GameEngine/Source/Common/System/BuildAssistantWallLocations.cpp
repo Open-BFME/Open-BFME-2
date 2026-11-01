@@ -212,12 +212,6 @@ Real m_boxMinorRadius;
 unsigned char m_pad2C[0x5C - 0x2C];
 };
 class ModuleData;
-class Rva0033B427Data
-{
-public:
-unsigned char m_pad00[0x30];
-Real m_range;
-};
 class ThingTemplate
 {
 public:
@@ -300,19 +294,7 @@ return(const CommandSet*)rva0031D5F8(name);
 }
 };
 extern ControlBar*TheControlBar;
-class Rva00392B10Interface
-{
-public:
-virtual AsciiString slot00()const=0;
-};
 #include "../../../Include/GameLogic/Module/BehaviorModule.h"
-class BfmeObjectModule
-{
-public:
-virtual void slot0()=0;
-private:
-unsigned int m_data[2];
-};
 class ProductionUpdateInterface
 {
 public:
@@ -341,43 +323,10 @@ class Rva00346BC0
 public:
 UnsignedInt m_bits[4];
 };
-struct Rva00391F4E : public Rva00346BC0
-{
-Rva00391F4E(Int unused,Int bit1,Int bit2);
-};
-class Rva00391994
-{
-public:
-Bool rva00391994();
-};
 class ProductionUpdate
 {
 public:
 static ProductionUpdateInterface*getProductionUpdateInterfaceFromObject(Object*obj);
-};
-class Rva0028BD17Interface
-{
-public:
-virtual void slot00();virtual void slot01();virtual void slot02();
-virtual void slot03();virtual void slot04();virtual void slot05();
-virtual Bool slot06();
-virtual void slot07();
-virtual void slot08();
-virtual void slot09();
-virtual void slot10();
-virtual void slot11();
-virtual void slot12();
-virtual void slot13();
-virtual void slot14();
-virtual void slot15();
-virtual void slot16();
-virtual void slot17();
-virtual void slot18();
-virtual void slot19();
-virtual void slot20();
-virtual void slot21();
-virtual void slot22();
-virtual Bool slot23(ObjectID);
 };
 class AICommandInterface
 {
@@ -450,14 +399,6 @@ AICommandInterface m_command;
 unsigned char m_pad021[0x140 - 0x21];
 Rva00391D25Path*m_path;
 };
-class FoundationAIInterface
-{
-public:
-virtual void slot00();virtual void slot01();virtual void slot02();
-virtual Bool slot03();
-virtual void slot04();virtual void slot05();virtual void slot06();
-virtual Object*construct(const ThingTemplate*what,const Coord3D*pos,Real angle,Player*owningPlayer,Bool isRebuild,Int flags);
-};
 class G00DFF080Obj
 {
 public:
@@ -487,11 +428,6 @@ virtual void slot04();
 virtual Real slot05()const;
 virtual void slot06();virtual void slot07();
 virtual BodyDamageType getDamageState()const;
-};
-class Rva00294D61
-{
-public:
-void report(Object*owner,int setting);
 };
 class Thing
 {
@@ -801,174 +737,6 @@ virtual Bool allow(Object*obj);
 BfmeFixedStorage0004543D m_08;
 BfmeFixedStorage0004543D m_24;
 };
-class Rva00261603Filter : public Rva000421C8
-{
-public:
-Rva00261603Filter(const Coord3D&pos,const GeometryInfo&geom,Real angle,Bool desired)throw();
-virtual Bool allow(Object*objOther);
-private:
-Coord3D m_position;
-const GeometryInfo&m_geom;
-Real m_angle;
-Bool m_desiredCollisionResult;
-};
-class Rva0029439DModule
-{
-public:
-virtual void slot000();
-virtual void slot001();
-virtual void slot002();
-virtual void slot003();
-virtual void slot004();
-virtual void slot005();
-virtual void slot006();
-virtual void slot007();
-virtual void slot008();
-virtual void slot009();
-virtual void slot010();
-virtual void slot011();
-virtual void slot012();
-virtual void slot013();
-virtual void slot014();
-virtual void slot015();
-virtual void slot016();
-virtual void slot017();
-virtual void slot018();
-virtual void slot019();
-virtual void slot020();
-virtual void slot021();
-virtual void slot022();
-virtual void slot023();
-virtual void slot024();
-virtual void slot025();
-virtual void slot026();
-virtual void slot027();
-virtual void slot028();
-virtual void slot029();
-virtual void slot030();
-virtual void slot031();
-virtual void slot032();
-virtual void slot033();
-virtual void slot034();
-virtual void slot035();
-virtual void slot036();
-virtual void slot037();
-virtual void slot038();
-virtual void slot039();
-virtual void slot040();
-virtual void slot041();
-virtual void slot042();
-virtual void slot043();
-virtual void slot044();
-virtual void slot045();
-virtual void slot046();
-virtual void slot047();
-virtual void slot048();
-virtual void slot049();
-virtual void slot050();
-virtual void slot051();
-virtual void slot052();
-virtual void slot053();
-virtual void slot054();
-virtual void slot055();
-virtual void slot056();
-virtual void slot057();
-virtual void slot058();
-virtual void slot059();
-virtual void slot060();
-virtual void slot061();
-virtual void slot062();
-virtual void slot063();
-virtual void slot064();
-virtual void slot065();
-virtual void slot066();
-virtual void slot067();
-virtual void slot068();
-virtual void slot069();
-virtual void slot070();
-virtual void slot071();
-virtual void slot072();
-virtual void slot073();
-virtual void slot074();
-virtual void slot075();
-virtual void slot076();
-virtual void slot077();
-virtual void slot078();
-virtual void slot079();
-virtual void slot080();
-virtual void slot081();
-virtual void slot082();
-virtual void slot083();
-virtual void slot084();
-virtual void slot085();
-virtual void slot086();
-virtual void slot087();
-virtual void slot088();
-virtual void slot089();
-virtual void slot090();
-virtual void slot091();
-virtual void slot092();
-virtual void slot093();
-virtual void slot094();
-virtual void slot095();
-virtual void slot096();
-virtual void slot097();
-virtual void slot098();
-virtual void slot099();
-virtual void slot100();
-virtual void slot101();
-virtual void slot102();
-virtual void slot103();
-virtual void slot104();
-virtual void slot105();
-virtual void slot106();
-virtual void slot107();
-virtual void slot108();
-virtual void slot109();
-virtual void slot110();
-virtual void slot111();
-virtual void slot112();
-virtual void slot113();
-virtual Bool slot114();
-};
-class Rva0026119DFilter : public Rva000421C8
-{
-public:
-virtual Bool allow(Object*obj);
-};
-class Rva0026118BFilter : public Rva000421C8
-{
-public:
-virtual Bool allow(Object*obj);
-};
-struct Rva0006EE7A
-{
-Rva0006EE7A(int unused,int b1,int b2,int b3,int b4)throw();
-unsigned int m_bits[7];
-};
-class Rva00391D25Filter : public Rva000421C8
-{
-public:
-Rva00391D25Filter(const Coord3D*pos,Real radius): m_pos(pos),m_radius(radius){}
-virtual Bool allow(Object*obj);
-private:
-const Coord3D*m_pos;
-Real m_radius;
-};
-struct BfmeResultA
-{
-void*m_value;
-~BfmeResultA();
-};
-class BfmeResultForwardB
-{
-public:
-BfmeResultA bfmeForwardResultB(int value);
-};
-struct BfmeCopyElementA
-{
-BfmeCopyElementA*bfmeAssign(BfmeCopyElementA*source);
-};
 Real GetGameLogicRandomValueReal(Real low,Real high,char*file,Int line);
 #define BUILDASSISTANT_FILE "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\Common\\System\\BuildAssistant.cpp"
 #define PI 3.14159265359f
@@ -990,11 +758,6 @@ MSG_BFME2_0x7DA=0x7DA
 };
 bool pickAndPlayUnitVoiceResponse(const DrawableList*list,GameMessage::Type messageType,
 PickAndPlayInfo*info);
-class Rva0028CBFD
-{
-public:
-void rva0028CBFD();
-};
 struct ProductionCountData
 {
 UnsignedInt count;

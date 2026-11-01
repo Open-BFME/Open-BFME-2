@@ -522,16 +522,6 @@ class __multiple_inheritance Rva000AD770Target;
 
 typedef unsigned char (Rva000AD770Target::*Rva000AD770Method)(void *, void *);
 
-class Rva000AD770Binding
-{
-public:
-    unsigned char invoke(void *first, void *second);
-private:
-    unsigned char m_unmodelled_00[0x0C];
-    Rva000AD770Target *m_target;
-    Rva000AD770Method m_method;
-};
-
 // Native GameWindow table C0BBCC slot9 tests tooltip callback+1EC.
 // Keep the existing slot placeholder: no original method name is proven.
 enum WindowMsgHandledType { MSG_IGNORED, MSG_HANDLED };
@@ -540,27 +530,6 @@ class WinInstanceData;
 
 // Zero-displacement members: the compared dword is the first field, so no
 // lead padding is emitted (a zero-length pad array is not legal C++).
-class Rva004CB73CmpBoolField
-{
-public:
-	bool get() const;
-	int m_value;
-};
-
-class Rva0050D3ECmpBoolField
-{
-public:
-	bool get() const;
-	int m_value;
-};
-
-class Rva002620FECmpBoolField
-{
-public:
-	bool get() const;
-	int m_value;
-};
-
 BFME_DISP8_TERNARY_BOOL_GETTER(Rva004E8234CmpBoolField, 0x284)
 
 // 0x004A8125 is ToppleUpdate::isAbleToBeToppled (pinned under that name from
@@ -571,28 +540,6 @@ public:
 	bool isAbleToBeToppled() const;
 	char m_lead[0x38];
 	int m_toppleState;
-};
-
-struct Rva0036CC89Inner
-{
-	char m_pad[0x1C];
-	unsigned int m_flags;
-};
-
-class Rva0036CC89CmpBoolField
-{
-public:
-	bool get() const;
-	char m_lead[4];
-	Rva0036CC89Inner *m_ptr;
-};
-
-class Rva00368594CmpBoolField
-{
-public:
-	bool get() const;
-	char m_lead[0x558];
-	unsigned char m_byte;
 };
 
 // ?rva00050D86@Rva00050D86@@QAE_NE@Z @0x00050D86 55B mask-covered set-field check.
@@ -610,46 +557,14 @@ public:
 	unsigned char m_4C;
 };
 
-class Rva00050D6C
-{
-public:
-	int rva00050D6C();
-	char m_lead[0x49];
-	unsigned char m_49;
-	unsigned char m_4A;
-	unsigned char m_4B;
-	unsigned char m_4C;
-};
-
 // Native 0x0026FFF7..0x0027000E RET: int at +B8 equals either 1 or 2.
 // Full EAX returns 0/1; field signedness and enum meaning remain unknown.
-class Rva0026FFF7 {
-    char m_pad[0xB8];
-    int m_value;
-public:
-    int get() const;
-};
-
 // BF1 9cbfb551fe Common/Rva00694830Accessors.cpp is the clean semantic guide.
 // Complete native 00050D53..00050D60 RET leaf proves: receiver0 pointer returns null or pointed address plus8.
 // Original owner and complete bounds unresolved; independent address-owned view.
-class Rva00050D53Fields {
-public: char *get();
-private: char *value;
-};
-
 // 0x0023C4F8 (14B): both flag bytes at +0x15 and +0x16 set (the
 // xor/cmp-je/cmp-je/inc shape of HordeUpdate::isTrueHordeMember 0x0049001F).
 // Owner unresolved; address-derived name.
-class Rva0023C4F8BothFlags
-{
-public:
-	bool get() const;
-	char m_lead[0x15];
-	bool m_first;
-	bool m_second;
-};
-
 // tu-skeleton: 0x004E81FF 20B ?OnInitialized@AptInGameChat@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLobbyScreenInitCallbacks.cpp (not merged yet)
 
 // tu-skeleton: 0x004E8213 13B ?rva004E8213@AptInGameChat@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLobbyScreenInitCallbacks.cpp (not merged yet)

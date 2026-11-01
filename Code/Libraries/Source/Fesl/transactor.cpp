@@ -87,57 +87,15 @@ private:
 
 extern void *g_bfmeVftTUA[];
 
-class BfmeSubTUA
-{
-public:
-	void bfmeInitTUA();
-	void *m_bfmeVft;
-	int m_bfme04;
-	int m_bfme08;
-	int m_bfme0c;
-};
-
-class BfmeThingTUA
-{
-public:
-	BfmeThingTUA();
-	int m_bfme00;
-	int m_bfme04;
-	char m_bfme08;
-	char m_bfmePad[3];
-	int m_bfme0c;
-	BfmeSubTUA m_bfmeSub;
-	int m_bfme20;
-};
-
 extern "C" void *__identifier("??_7Rva00CE12FCMutex@@6B@")[];
 
 // BFME2 releases the TVA handle with CloseHandle (kernel32 slot 0xBBA180)
 // and frees the vector with scalar operator delete (0x2FD60), where BFME1
 // calls its own release/free helpers.
 // The rowed base cleanup restores the base vtable at retail 0x65D180.
-class Rva00CE1E14Base { public: virtual ~Rva00CE1E14Base(); };
-
-class BfmeThingTVA
-{
-public:
-	void *bfmeDelTVA(unsigned char flags);
-	void bfmeDtorTVA();
-	void *m_bfmeVft;
-	HANDLE m_handle;
-};
-
 // BFME2 frees the TVB object string with SysFreeString (oleaut32 slot
 // 0xBBA78C), the buffer with array delete (0x2FD80) and the vector with
 // scalar delete (0x2FD60).
-class BfmeThingTVB
-{
-public:
-	void *bfmeDelTVB(unsigned char flags);
-	BSTR m_bfmeObj;
-	void *m_buffer;
-};
-
 class BfmeSinkTVC
 {
 public:
@@ -381,68 +339,10 @@ struct Rva00802D00Element
 };
 
 // -------------------------------------------------- plain release-and-clear
-class Rva007F6CF0Block
-{
-public:
-	void clear();
-	void *m_data;
-	int m_count;
-};
-
-class Rva007F7860Block
-{
-public:
-	void clear();
-	void allocate( int count );
-	void *m_data;
-	int m_count;
-};
-
 // ------------------------------------- stride-8 block that destroys elements
-class Rva007F78E0Block
-{
-public:
-	void clear();
-	void allocate( int count );
-	Gen_dtor_007f6d20 *m_data;
-	int m_count;
-};
-
 // -------------------------------------- allocate-and-construct over the two
 //                                        already-named polymorphic arrays
-class Rva007F77B0Block : public Rva007F6BA0
-{
-public:
-	void allocate( int count );
-};
-
-class Rva007F7810Block : public Rva007F6C60
-{
-public:
-	void allocate( int count );
-};
-
 // ------------------------------------------- owners that reset a whole array
-class Rva007F70D0Owner
-{
-public:
-	void reset();
-	char m_head[ 0x38 ];
-	Rva007F6BA0 m_array;
-	int m_a;
-	int m_b;
-};
-
-class Rva007F7140Owner
-{
-public:
-	void reset();
-	char m_head[ 0x48 ];
-	Rva007F6C60 m_array;
-	int m_a;
-	int m_b;
-};
-
 // --------------------------------------------------- three-field free-and-zero
 class Rva007F9610Holder
 {

@@ -142,45 +142,7 @@ public:
 	void doCommandButtonAtPosition(const CommandButton *button, const Coord3D *pos, Int a, Int b);
 };
 
-struct Rva005EE2CFPos
-{
-	Real x;
-	Real y;
-	Real z;
-};
-
-class AISpecialPower
-{
-public:
-	void activate(Object *obj);
-private:
-	Int m_00;
-	Int m_04;
-	const CommandButton *m_08;
-};
-
-class Rva005EE2CF
-{
-public:
-	void activate(Object *obj);
-private:
-	Int m_00;
-	Int m_04;
-	const CommandButton *m_08;
-	char m_pad0C[0x10];
-	Rva005EE2CFPos m_1C;
-};
-
 // 0x00596BA2: the unsigned +0x38 count as a Real (the argument is unused).
-class Rva00596BA2
-{
-public:
-	Real rva00596BA2(Int unused) const;
-private:
-	char m_pad00[0x38];
-	UnsignedInt m_38;
-};
-
 // 0x005C4212 and 0x005C4221: hand this object to virtual slot 3 (resp. 2)
 // of the argument.
 class Rva005C4212;
@@ -210,15 +172,6 @@ struct Rva005DAA9ETriple
 	Int z;
 };
 
-class Rva005DAA9E
-{
-public:
-	void rva005DAA9E(Rva005DAA9ETriple *out) const;
-private:
-	char m_pad00[0x30];
-	Rva005DAA9ETriple m_30;
-};
-
 class Rva005DAC6D
 {
 public:
@@ -242,71 +195,15 @@ extern const FieldParse g_rva005E16A7FieldParse[];
 
 extern const FieldParse g_rva005E2126FieldParse[];
 
-class Rva005E16A7
-{
-public:
-	void rva005E16A7(INI *ini);
-	void rva005E2126(INI *ini);
-};
-
 // 0x005F84F7: clears entry i (8 bytes each) of the +0x20 vector through the
 // rowed 0x002BED91 when i is in range.
-class Rva002BED91
-{
-public:
-	void clear();
-private:
-	Int m_00;
-	Int m_04;
-};
-
-class Rva002BED91Vector
-{
-public:
-	UnsignedInt size() const { return m_finish - m_start; }
-	Rva002BED91 &operator[](UnsignedInt i) { return m_start[i]; }
-private:
-	Rva002BED91 *m_start;
-	Rva002BED91 *m_finish;
-};
-
-class Rva005F84F7
-{
-public:
-	void rva005F84F7(Int i);
-private:
-	char m_pad00[0x20];
-	Rva002BED91Vector m_20;
-};
-
 // 0x00604A1E: creates the named directory (kernel32 CreateDirectoryW, no
 // security attributes) unless the name is NULL or empty.
-class Rva00604A1E
-{
-public:
-	bool rva00604A1E(const unsigned short *path);
-};
-
 // 0x00740A96: the rowed 0x007401A3 setter on the +0x20 member with the first
 // argument and the rowed 0x00740A60 lookup of the second.
 template <class T> class StringBase;
 
 Int Rva00740A60Get(const StringBase<char> &name);
-
-class Rva007401A3
-{
-public:
-	void SetFrame(Int a, Int b);
-};
-
-class Rva00740A96
-{
-public:
-	void rva00740A96(Int a, const StringBase<char> &name);
-private:
-	char m_pad00[0x20];
-	Rva007401A3 m_20;
-};
 
 // ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIBuildableUnit.cpp
 

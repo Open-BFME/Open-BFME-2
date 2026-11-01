@@ -71,12 +71,6 @@ int __cdecl Rva00524EF4AptCall(Rva00222A8BTarget *t, void *a1, const char *a2, c
 // and 0x0059F296).
 void Rva0059F20BSet(int slot, const UnicodeString &text);
 void Rva0059F296Set(int slot, const UnicodeString &text);
-class AptSaveLoad
-{
-public:
-	static void OpenScreen(int a, int b, bool c);
-};
-
 // The game slot the owner menus edit. Target facts: Team writes +0x1C;
 // the host's name (slot 0) is the UnicodeString at +0x30 that
 // AsciiString::translate 0x00038220 reads. encodeHero is the rowed
@@ -162,11 +156,6 @@ public:
 	void setMapCRC(unsigned int crc);	// rowed 0x00400E9F
 	void setMapSize(unsigned int size);  // rowed 0x00400F5A
 };
-
-class Rva0022C4DF { public: UnicodeString rva0022C4DF() const; };
-class Rva003821E2 { public: void assign(UnicodeString); };
-class Rva0059F322AsciiField { public: AsciiString get() const; };
-class Rva0059F2EB { public: void rva0059F2EB(AsciiString); };
 
 class GameSpyGameSlot : public GameSlot
 {
@@ -280,8 +269,6 @@ extern unsigned int g_00DB91B4;
 // Unrowed 0x0044C0A8 (pinned; as AptLanLobby::MpOwnerPrintMessage uses it)
 // and the flag it is skipped under.
 void Rva0044C0A8(UnicodeString title, UnicodeString text, void *callback);
-class AptMessenger { public: static AptMessenger *s_instance; };
-
 // The peer thread request (layout of Rva005A8666BoxNat.cpp): type +0x00,
 // nick +0x04, id +0x34, options +0x40, the staging-room flag +0x118.
 struct PeerRequest
@@ -350,40 +337,10 @@ private:
 // Address-named views the buddy invite uses: the screen's state test
 // (0x0059EF33, state 6 or 12), the room's +0xFDC string (0x0059F340) and
 // the invite record's five-field setter (0x0059EF62).
-class Rva0059ECAD
-{
-public:
-	unsigned char rva0059EF33() const;
-};
-
-class Rva0059F340AsciiField
-{
-public:
-	AsciiString get() const;
-};
-
-class Rva0059EF62
-{
-public:
-	void rva0059EF62(unsigned int a, unsigned int b, const AsciiString &password, const AsciiString &text, unsigned int c);
-};
-
 UnicodeString GadgetTextEntryGetText(GameWindow *window); // rowed 0x00320AAB
 
 // The +0x70 panel's rowed 0x0043DBCA test and the screen's state-2 action
 // 0x005A5B38 (address-named views).
-class Rva0043DFE0
-{
-public:
-	bool rva0043DBCA();
-};
-
-class Rva005A5B38Box
-{
-public:
-	bool Run();
-};
-
 // InitGadgets' helpers: the +0x450 preferences loader (rowed 0x00580316),
 // the +0x70 panel's reset (AptMpGameSetup 0x0043DE19), the screen closer
 // (0x0041149A) and the full object's 0x0052493F.
@@ -394,12 +351,6 @@ public:
 };
 
 void _bfme_closeAptScreen(const AsciiString &name);
-
-class Rva0052493F
-{
-public:
-	void rva0052493F();
-};
 
 // The screen's full object, as the placeholder row 0x0059F950 names it.
 class Rva0059F950

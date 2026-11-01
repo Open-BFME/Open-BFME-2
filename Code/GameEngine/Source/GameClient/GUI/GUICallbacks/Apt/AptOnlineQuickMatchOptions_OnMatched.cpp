@@ -327,56 +327,9 @@ public:
 };
 extern PlayerTemplateStore *ThePlayerTemplateStore;
 int GetGameClientRandomValue(int, int, char *, int);
-class OptionPreferences {
-public:
-  OptionPreferences();
-  virtual ~OptionPreferences();
-  char p[0x10];
-  int getFirewallBehavior();
-};
-class LadderPref {
-public:
-  LadderPref() {}
-  LadderPref(const LadderPref &);
-  ~LadderPref();
-  UnicodeString name;
-  AsciiString address;
-  unsigned short port;
-  long lastPlayDate;
-};
-class LadderPreferences {
-public:
-  LadderPreferences();
-  virtual ~LadderPreferences();
-  char p[0x1c];
-  bool loadProfile(int);
-  virtual bool write();
-  void addRecentLadder(LadderPref);
-};
-class Rva00323674 {
-public:
-  int rva00323674() const;
-};
-class Rva003236C4 {
-public:
-  int rva003236C4(int);
-};
-class Rva00237E28 {
-public:
-  int v[4];
-  void rva00237E28(Rva00237E28 *);
-};
 extern int OnlineQuickMatchMaxPingEntries, g_009C0758, g_009C075C, BfmeOnlineLadderRank1v1, BfmeOnlineLadderRank2v2;
 class GlobalData;
 extern GlobalData *TheWritableGlobalData;
-struct NativeQuickMatchRequest {
-  int minPointPercentage, maxPointPercentage, points, widenTime, ladderID, ladderPassCRC, maxPing,
-      maxDiscons, searchTime;
-  char pings[20];
-  int numPlayers, botID, roomID, side, color, NAT;
-  Rva00237E28 data;
-  unsigned exeCRC, iniCRC;
-};
 void *GadgetComboBoxGetItemData(GameWindow *, int);
 
 
@@ -426,32 +379,3 @@ extern "C" void __cdecl free(void *);
 // supply the partition predicate and comparator the native call site uses;
 // the loop body holds *m in a named local, which reproduces retail's iterator
 // register roles (EDI first-arg / ESI iterator) exactly.
-struct Rva0030145CCmp {bool operator()(MapMetaData *,MapMetaData *)const;};
-struct Rva00450B90Item
-{
-	char m_beforeFlags[0x24];
-	bool m_flag24;
-	bool m_flag25;
-	bool m_flag26;
-};
-
-class Rva00450B90Predicate
-{
-public:
-	bool operator()(const Rva00450B90Item *item) const
-	{
-		if ((m_mask & 0x01) != 0 && item->m_flag26)
-			goto selected26;
-		if ((m_mask & 0x02) == 0 || item->m_flag26)
-			return false;
-
-	selected26:
-		return !((item->m_flag24 && (m_mask & 0x04) != 0)
-				|| (!item->m_flag24 && (m_mask & 0x08) != 0))
-			&& !((item->m_flag25 && (m_mask & 0x10) != 0)
-			|| (!item->m_flag25 && (m_mask & 0x20) != 0));
-	}
-
-	unsigned int m_mask;
-};
-

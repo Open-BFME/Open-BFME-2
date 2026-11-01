@@ -1,6 +1,5 @@
 // Split from AptPalantirCallbacks.cpp: these definitions reference a callee with no matched body yet,
 // so they are kept apart from the unit's bodies that already link.
-class AptPlayer { public: bool HideLevel(int); };
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // BFME2's palantir (in-game command bar) Apt callbacks, 0x002D2FD4 onward,
@@ -57,27 +56,9 @@ private:
 // Rva00527FA2's constructor allocates 0x18 bytes and calls this constructor
 // with its level and name arguments. The allocation extent is target evidence;
 // the payload's field layout and semantics remain unknown.
-class Rva00527FA7
-{
-public:
-	Rva00527FA7(int level, const AsciiString &name);
-
-private:
-	unsigned char m_pad00[0x18];
-};
-
 // Rva0052710C allocates this payload and forwards its owner and four
 // constructor arguments. The 0x1E0 extent comes from the target allocation;
 // payload fields and behavior remain unknown.
-class Rva00527378Payload
-{
-public:
-	Rva00527378Payload(void *owner, int level, const AsciiString &name, void *c0, void *f8);
-
-private:
-	unsigned char m_pad00[0x1E0];
-};
-
 // The next three wrappers allocate these payloads and forward their own
 // address plus one caller argument. Allocation sizes are target evidence.
 // 0x005288C4 is rowed as AptInGameSideCommandBar::Impl's constructor
@@ -105,15 +86,6 @@ private:
 	unsigned char m_pad00[0xDC];
 };
 
-class Rva0052AD30Payload
-{
-public:
-	Rva0052AD30Payload(void *owner, void *argument);
-
-private:
-	unsigned char m_pad00[0x230];
-};
-
 class Rva00528AC3
 {
 public:
@@ -132,33 +104,12 @@ private:
 	void *m_0;
 };
 
-class Rva0052AF1C
-{
-public:
-	Rva0052AF1C(void *argument);
-
-private:
-	void *m_0;
-};
-
 // The holders' rowed resets (OwnedPointerResets.cpp's views; the same
 // holders' clears are rowed under other names below).
-class Rva002D38AE
-{
-public:
-	void reset(Rva0052710C *panel);
-};
-
 class Rva002D38EB
 {
 public:
 	void reset(Rva00527CCE *panel);
-};
-
-class Rva002D390E
-{
-public:
-	void reset(Rva00527FA2 *panel);
 };
 
 // TheControlBar's rowed findCommandButton 0x0031BE3C and the rowed
@@ -270,18 +221,6 @@ struct WinInstanceData
 	GameWindow *m_owner; // +0x14
 };
 
-class Rva00314046LeaField
-{
-public:
-	void *get() const;
-};
-
-class Rva005C4AE9DwordField
-{
-public:
-	int get() const;
-};
-
 class GameWindowManager
 {
 public:
@@ -308,20 +247,8 @@ class GameLogic;
 extern GameLogic *TheGameLogic;
 
 // TheGameLogic's rowed byte query 0x0023C6FD (BfmeConv939Call939D.cpp).
-class BfmeGlob939D
-{
-public:
-	char bfmeCall939D();
-};
-
 // TheGameLogic's rowed bool query 0x00200084 (Rva0023C6A4Check.cpp's
 // class) and its game mode at +0x110.
-class Rva0023C6A4
-{
-public:
-	bool rva00200084();
-};
-
 struct AptPalantirGameLogic
 {
 	unsigned char m_pad000[0x110];
@@ -342,7 +269,6 @@ extern PlayerList *ThePlayerList;
 // 0x0051B4F7), 0x0050EC24 and 0x004E41AB (objectives), 0x005117DF
 // (messenger, rowed as AptMessenger::OnMessengerBttn; its argument is unused).
 void Rva0051B8EA();
-class AptPlayerTribute { public: static void OpenScreen(); };
 void Rva004E41AB();
 class AptMessenger { public: static void OnMessengerBttn(const char *unused); };
 

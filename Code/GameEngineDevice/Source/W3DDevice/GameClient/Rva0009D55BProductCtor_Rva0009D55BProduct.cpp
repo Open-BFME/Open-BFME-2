@@ -187,20 +187,10 @@ Rva0009D55BProduct::~Rva0009D55BProduct()
 // the "FadeInGameMovie" transition group (rowed setGroup / enable) and hides
 // the engine mouse; phase 3 sets the fade to 1, clears +0x134/+0x138 and
 // calls the table's slot 10 with true.
-class Rva002BE7FA { public: void rva002BE7FA(unsigned int a, unsigned int b); };
 class GameWindowTransitionsHandler { public: void setGroup(AsciiString name, bool immediate); };
 extern GameWindowTransitionsHandler *TheTransitionHandler;
-class Rva001DBB82OneSetter { public: void enable(); };
 class Mouse { public: void _bfme_setEngineVisibility(bool visible); };
 extern Mouse *TheMouse;
-class Rva0009C784Slots
-{
-public:
-	D55B_SLOTS4(v0) D55B_SLOTS4(v1) virtual void v20(); virtual void v21();
-	virtual void slot10(bool flag);
-};
-
-
 // ?rva0009D862@Rva0009D55BProduct@@UAEXXZ retail 0x0009D862 (319 bytes, EH;
 // slot 4 of the product table): after the rowed shutdown 0x0009AB85 it
 // creates the camera (+0xC0, CameraClass), the scene built on this (+0xC4,
@@ -235,18 +225,12 @@ void Rva0009D55BProduct::rva0009D862()
 // manager's +0x1E4 word into the shadow manager, places its light at
 // +0x1A0..+0x1A8 and adds the shadows (rowed 0x0009DB47); deactivation runs
 // the manager's 0x002141D1 and resets the view again.
-class Rva0009D9BD { public: void rva0009DA28(); void rva0009DB47(); };
 class LivingWorldManager { public: void rva002142EA(); };
 extern LivingWorldManager *TheLivingWorldManager;
-class Rva002141D1 { public: void rva002141D1(); };
 class GlobalData;
 extern GlobalData *TheWritableGlobalData;
 class W3DShadowManager;
 extern W3DShadowManager *TheW3DShadowManager;
-class W3DGameClientShadowShim { public: void setLightPosition(int index, float x, float y, float z); };
-struct Rva0009DB5AShadowView { void *m_vtbl; int m_04; };
-struct Rva0009DB5AGlobalView { unsigned char m_pad[0x60]; bool m_shadows; };
-struct Rva0009DB5AManagerView { unsigned char m_pad[0x1E4]; int m_1E4; };
 struct Rva0009DB5ALivingWorldView { unsigned char m_pad[0x18]; bool m_active; bool m_viewMode; };
 
 
@@ -516,7 +500,6 @@ public:
 	D55B_SLOTS16(s0) D55B_SLOTS4(s1) virtual void s20(); virtual void s21();
 	virtual void rva0009B023(const Vector3 *pos);	// slot 22
 };
-class Rva00213A85 { public: void rva00213B88(void *point); };
 // Native mutable tuning values DB4AB0/DB4AAC; original identifiers unknown.
 extern float BfmeCameraPanRotationRate;
 extern float BfmeCameraPanRotationLimit;
@@ -524,18 +507,3 @@ extern float BfmeCameraPanRotationLimit;
 
 // MSVC 7.1 evaluates Y before X in the returned Vector2 constructor;
 // retain that form and the X-then-Y position updates for native SSE ordering.
-struct PanRotation
-{
-    static __forceinline float sine(float a) { return sinf(a); }
-    static __forceinline float cosine(float a) { return cosf(a); }
-
-    static __forceinline Vector2 core(const Vector2 &p, float s, float c)
-    {
-        return Vector2(c * p.X - s * p.Y, c * p.Y + s * p.X);
-    }
-    static __forceinline Vector2 rotate(const Vector2 &p, float a)
-    {
-        return core(p, sine(a), cosine(a));
-    }
-};
-

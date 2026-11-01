@@ -64,13 +64,6 @@ class Rva004E0632
 public:
 	int rva004E0632() const;
 };
-struct Rva0040C430Ret
-{
-	virtual void f0();
-	virtual void f1();
-	virtual void f2();
-	virtual void slotC(void *p);
-};
 ArmySummaryEntry::ArmySummaryEntry() : CarryoverUnit()
 {
 	MemberAC *memberAC = &m_ac;
@@ -107,20 +100,6 @@ ArmySummaryEntry::ArmySummaryEntry(const ArmySummaryEntry &armySummaryEntry) : C
 // Evidence: thiscall no-arg void ret; and-0 clear; caller at 0x002B3F2C;
 // same m_bc and getter as sibling MarkForUpgrades above.
 struct Rva002B2579Result;
-class Rva002BA8F1Logic
-{
-public:
-	Rva002B2579Result *rva002B2579(int id);
-};
-class Rva0040C45CSlot4
-{
-public:
-	virtual void v0();
-	virtual void v1();
-	virtual void v2();
-	virtual void v3();
-	virtual void v4(ArmySummaryEntry *arg);
-};
 // ApplyWorldMapUpgrades: WB1091690 names the complete native351B
 // 40C6A5..40C804 routine. No clean BFME1 ArmySummaryEntry donor exists at
 // reference34f59164f6. Target masks10/template404 and modules2E4 agree
@@ -149,31 +128,6 @@ extern "C" const void *const __identifier("??_7Snapshot@@6B@")[];
 
 class Rva0040C598 { public: void rva0040C598(const int *); void rva0040C5B1(const int *); };
 
-class Rva0037DCA5 { public: void *GetThingTemplate(); };
-
-class Rva002AA292 { public: bool rva002AA292(const int *) const; };
-
-class Rva00406F9C { public: bool rva00406F9C(const void *); };
-
-struct WorldMapUpgradeDataView {
- char unknown[8];
- int required[32];
- int excluded[32];
- char unknown108[0x118-0x108];
- int levels;
- int maxLevel;
-};
-
-class WorldMapModuleDataView {
-public:
-#define V(n) virtual void slot##n();
- V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9) V(10) V(11)
- virtual bool isWorldMapUpgrade() const;
- V(13) V(14) V(15) V(16) V(17) V(18) V(19) V(20) V(21) V(22) V(23) V(24) V(25)
- virtual const WorldMapUpgradeDataView *worldMapUpgradeData() const;
-#undef V
-};
-
 class ModuleData;
 
 struct WorldMapModuleRecordView { char name[8]; const ModuleData *data; int flags, unknown; };
@@ -186,20 +140,6 @@ public:
 };
 
 class ThingTemplate;
-
-struct ArmyUpgradeTemplateView {
- char pad[0x2E4];
- ModuleInfo modules;
- char pad2F0[0x404-0x2F0];
- _STL::_Base_bitset<32> upgrades;
-};
-
-struct ArmyUpgradeCarryoverView {
- char pad[8];
- float experience;
- int level;
- _STL::_Base_bitset<32> upgrades;
-};
 
 struct ExperienceLevelHandle {
  ExperienceLevelHandle() {}
@@ -248,12 +188,6 @@ public:
 // takes it with the handle, and the entry's +0xC0 value goes to the object's
 // +0x460 (WB +0x474).
 extern GameLogic *TheGameLogic;
-
-struct Rva0040C495Object
-{
-	char m_pad[0x460];
-	int m_460;
-};
 
 // bfme link decl-only BfmeE16
 namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }

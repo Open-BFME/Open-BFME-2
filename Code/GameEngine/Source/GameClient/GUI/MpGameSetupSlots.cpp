@@ -519,12 +519,6 @@ public:
 };
 
 // A panel member rowed under its own address-named class (0x0043DBE0).
-class Rva0043DBE0
-{
-public:
-	void rva0043DBE0();
-};
-
 // Rva00446A71Get.cpp's byte setter for g_Va00A0335C.
 void Rva00446A67Set(unsigned char value);
 
@@ -648,30 +642,6 @@ public:
 	GameWindow *m_window;
 };
 
-class Rva00323674
-{
-public:
-	int rva00323674() const;
-};
-
-class Rva003236C4
-{
-public:
-	int rva003236C4(int index);
-};
-
-class Rva003236E8
-{
-public:
-	int rva003236E8();
-};
-
-class BfmeThing925D
-{
-public:
-	void bfmeGo925D(void *value);
-};
-
 // The +0x60 member is the map preview (AptMapPreviewSetMapDescription.cpp's
 // class; its rowed 0x0057C597 enables the preview windows).
 class AptMapPreview
@@ -689,12 +659,6 @@ public:
 
 // The +0x60 member's next selectable slot from a start (rowed 0x0057CA78
 // under its address class).
-class Rva0057CA78
-{
-public:
-	int GetNextSelectablePlayer(int start);
-};
-
 // The panel's team, handicap and start position handlers, rowed under
 // their own address classes (Rva0043DFE0.cpp, Rva0043E0C5.cpp).
 class Rva0043DFE0
@@ -772,33 +736,9 @@ public:
 // The rowed clears 0x0057F34D (the +0x190 member, "AptMpClans") and
 // 0x0057FECE (the +0x244 member, "AptMpChat"), each under its own address
 // class.
-class Rva0057F34D
-{
-public:
-	void rva0057F34D();
-};
-
-class Rva0057FECE
-{
-public:
-	void rva0057FECE();
-};
-
 // The panel's own clear at +0x00 (rowed 0x0052493F, six Rva00524021
 // clears).
-class Rva0052493F
-{
-public:
-	void rva0052493F();
-};
-
 // TheRva00222A8BTarget's erase by name (rowed 0x00223A94).
-class Rva00223A94
-{
-public:
-	int rva00223A94(const AsciiString *key);
-};
-
 // The Apt callback functors (Rva0057BC63FunctorHolder.cpp): a binding of an
 // object and an eight-byte multiple-inheritance member pointer, and the
 // refcounted holder rowed 0x0057BC63 builds from it.
@@ -1576,14 +1516,6 @@ bool AptMpGameSetup::rva00442BCC()
 
 // The +0xD0 member's own class (vftable 0x00C3D954 after
 // ??_GRva0043DABD; base Rva0057EE5C).
-class Rva0043DABD
-{
-public:
-	virtual ~Rva0043DABD();
-	virtual void rva0043FE01(int kind, bool reset);
-};
-
-
 // Retail 0x0043DD34, 138 bytes. Name unknown. Stores a hero choice on a
 // slot: a listed hero gives kind 2 or 3 (by its +0x48 flag) and its +0x0C
 // and +0x10; -2 is kind 1 and anything else unlisted becomes -1. False

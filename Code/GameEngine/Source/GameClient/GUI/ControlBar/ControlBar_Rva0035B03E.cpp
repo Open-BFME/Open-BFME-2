@@ -174,47 +174,6 @@ public:
 // The BFME object grew two context-parent slots and moved the selected-draw
 // state one word past the Zero Hour layout.  Keep this view local to the
 // reconstruction so the real ControlBar header remains untouched.
-struct BfmeContextSwitchControlBarView
-{
-	char pad00[0x34];
-	GameWindow *contextParent[10];
-	Drawable *currentSelectedDrawable;
-	ControlBarContext currContext;
-	char pad64[0x9c];
-	GameWindow *commandWindows[20];
-	char pad150[0x1a0];
-	void *contextOverlay;
-};
-
-struct BfmeContextSwitchSelectionState
-{
-	void *chat;
-	Drawable *oldSelected;
-};
-
-class BfmeSourceCB
-{
-public:
-	char m_bfmeHead[0x74];
-	int m_bfmeValue;
-};
-
-class Gen_004AFA80
-{
-public:
-	void bfmeTake(BfmeSourceCB *source);
-
-private:
-	int m_bfmeHead[7];
-	int m_bfmeValue;
-};
-
-struct BfmeContextSwitchDrawableView
-{
-	char pad00[0xfc];
-	BfmeSourceCB *object;
-};
-
 // Calls in the context arms are deliberately declaration-only.  This keeps
 // each retail call boundary visible to the compiler instead of inlining an
 // already-converted sibling body into this large dispatcher.
@@ -222,36 +181,6 @@ extern void j_0000d495(void);
 extern void j_0000efe8(void);
 extern void j_0001df4d(void);
 extern void j_00034581(void);
-class Rva0049E780Calls {
-public:
-    void commandSignature(Object *, Bool);
-    void multiSignature(void);
-    __forceinline void populateCommand(Object *object, Bool refresh) {
-        typedef void (Rva0049E780Calls::*Method)(Object *, Bool);
-        union { void (*raw)(void); Method member; } call;
-        call.raw = j_0000d495;
-        (this->*call.member)(object, refresh);
-    }
-    __forceinline void populateStructureInventory(Object *object, Bool refresh) {
-        typedef void (Rva0049E780Calls::*Method)(Object *, Bool);
-        union { void (*raw)(void); Method member; } call;
-        call.raw = j_0001df4d;
-        (this->*call.member)(object, refresh);
-    }
-    __forceinline void populateOCLTimer(Object *object) {
-        typedef void (Rva0049E780Calls::*Method)(Object *);
-        union { void (*raw)(void); Method member; } call;
-        call.raw = j_00034581;
-        (this->*call.member)(object);
-    }
-    __forceinline void populateMultiSelect(void) {
-        typedef void (Rva0049E780Calls::*Method)(void);
-        union { void (*raw)(void); Method member; } call;
-        call.raw = j_0000efe8;
-        (this->*call.member)();
-    }
-};
-
 class BfmeContextSwitchBfmeTransitionMD
 {
 public:
@@ -290,16 +219,6 @@ public:
 	virtual void slot69(void) = 0;
 	virtual void slot70(void) = 0;
 	virtual void setRadiusCursorNone(void) = 0;
-};
-
-class BfmeContextSwitchOverlaySink
-{
-public:
-	virtual void slot00(void) = 0;
-	virtual void slot01(void) = 0;
-	virtual void slot02(void) = 0;
-	virtual void slot03(void) = 0;
-	virtual void slot04(void) = 0;
 };
 
 class BfmeContextSwitchGameLogicView
@@ -463,12 +382,6 @@ public:
 //-------------------------------------------------------------------------------------------------
 
 //-------------------------------------------------------------------------------------------------
-struct BFMEDrawableObjectView
-{
-	char m_pad000[0xfc];
-	Object *m_object;
-};
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // CommandSet /////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1025,16 +938,6 @@ public:
 // is guarded by `if (marker)`.  The reference guards only the creation arm and
 // then dereferences the marker unconditionally -- under NDEBUG its
 // DEBUG_ASSERTCRASH compiles away and nothing is left to stop a null.
-class BFMERetailAsciiString
-{
-public:
-	BFMERetailAsciiString( const char *string );
-	~BFMERetailAsciiString() { releaseBuffer(); }
-private:
-	void releaseBuffer();
-	char *m_data;
-};
-
 // BFME's GameClient vtable is not the vendored one: findDrawableByID is slot 11
 // (+0x2C) against slot 8 (+0x20) here, and destroyDrawable slot 24 (+0x60)
 // against slot 19 (+0x4C).  Three virtuals ahead of findDrawableByID and two more
@@ -1105,13 +1008,6 @@ struct BfmeRallyPointDrawable
 // retail calls a one-argument lookup.  newDrawable takes a third argument retail
 // passes -1 for, which is the spelling BFMEThingFactory_newDrawable.cpp already
 // carries.
-class BFMEThingFactory
-{
-public:
-	const ThingTemplate *findTemplate( const AsciiString &name );
-	Drawable *newDrawable( const ThingTemplate *tmplate, DrawableStatus statusBits, Int unknown );
-};
-
 // ------------------------------------------------------------------------------------------------
 /** Show a rally point marker at the world location specified.  If no location is specified
 	* any marker that we might have visible is hidden */

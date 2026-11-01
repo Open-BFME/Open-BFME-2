@@ -467,20 +467,6 @@ public:
 
 BFME_DISP8_BYTE_GETTER(Rva004A6A40ByteField, 0x21)
 
-class Rva001DCD05
-{
-public:
-	void *rva001DCD05();
-private:
-	char m_pad[8];
-	char m_08;
-	char m_pad2[0x14 - 0x09];
-	char m_14;
-	char m_pad3[0x20 - 0x15];
-	unsigned char m_20;
-	bool m_21;
-};
-
 // Clean BFME1 9cbfb551 donor structural leads; native instructions independently
 // establish complete RET boundaries and each raw field operation and ABI.
 // Address-owned carriers retain unknown original receiver identity and bounds.
@@ -497,14 +483,6 @@ struct Rva0056AB88Fields { char pad[0xC]; unsigned int wordC; bool matches(unsig
 
 // Disp8 byte setter: mov al,[esp+4] / mov [ecx+<DISP>],al / ret 4 (10 bytes).
 // Address-derived class; the stored byte's meaning is unproven.
-class Rva0065D7C0ByteSetter
-{
-public:
-	void set(unsigned char value);
-	char m_lead[0x1D];
-	unsigned char m_value;
-};
-
 // ?rva002259F3@Rva002259F3@@QBEHXZ, retail 0x002259F3 (25B): three flag bytes at
 // +0x44 (must be set), +0xA8 and +0x9D (must be clear).
 class Rva002259F3
@@ -548,31 +526,6 @@ class __single_inheritance GapReceiver;
 typedef void (GapReceiver::*GapCallback2)(int, int);
 
 typedef void (GapReceiver::*GapCallback3)(int, int, int);
-
-class Rva00318DC0
-{
-public:
-	Rva00318DC0 &operator=(const Rva00318DC0 &that);
-	void invoke(GapReceiver *receiver);
-private:
-	GapCallback2 m_callback;
-	int m_a;
-	int m_b;
-	int m_0C;
-};
-
-class Rva005DBD10
-{
-public:
-	Rva005DBD10 &operator=(const Rva005DBD10 &that);
-	void invoke(GapReceiver *receiver);
-private:
-	GapCallback3 m_callback;
-	short m_04;
-	short m_06;
-	int m_b;
-	int m_c;
-};
 
 // --- 0x004A6BE7 (44B): through the +0x18 owner's object (+0x14) and its
 // +0x258 interface (virtual slot 95), virtual slot 13 with 0; returns 0.
@@ -638,65 +591,10 @@ private:
 };
 
 // --- 0x00583A07 (11B): set the +0x04 object's +0x120 flag.
-struct Rva00583A07Target
-{
-	char m_pad[0x120];
-	bool m_120;
-};
-
-class Rva00583A07
-{
-public:
-	void rva00583A07();
-private:
-	Rva00583A07Target *m_00;
-	Rva00583A07Target *m_04;
-};
-
 // --- 0x005F273B / 0x005F2744 / 0x005F274F / 0x005F275B: bits 0..3 of the
 // +0x04 object's +0x58 flags.
-struct Rva005F273BFlags
-{
-	char m_pad[0x58];
-	unsigned char m_bit0 : 1;
-	unsigned char m_bit1 : 1;
-	unsigned char m_bit2 : 1;
-	unsigned char m_bit3 : 1;
-};
-
-class Rva005F273B
-{
-public:
-	bool rva005F273B() const;
-	bool rva005F2744() const;
-	bool rva005F274F() const;
-	bool rva005F275B() const;
-private:
-	int m_00;
-	Rva005F273BFlags *m_04;
-};
-
 // --- 0x004A9B51 / 0x004A9B60 / 0x004A9B6F (15B each): null-preserving
 // pointers to the +0x3E4 / +0x3E8 / +0x3EC subobjects.
-class Rva004A9B51Sub
-{
-public:
-	int m_00;
-};
-
-class Rva004A9B51
-{
-public:
-	Rva004A9B51Sub *rva004A9B51();
-	Rva004A9B51Sub *rva004A9B60();
-	Rva004A9B51Sub *rva004A9B6F();
-private:
-	char m_pad[0x3E4];
-	Rva004A9B51Sub m_3E4;
-	Rva004A9B51Sub m_3E8;
-	Rva004A9B51Sub m_3EC;
-};
-
 // --- 0x0052AC16 / 0x0052AC29 (19B each): assign a by-value delegate
 // description through the rowed assignments; return this.
 struct DelegateDesc
@@ -747,12 +645,6 @@ class Rva0057BC63FunctorHolder
 public:
 	Rva0057BC63FunctorHolder(const FunctorBinding &binding);	// 0x0057BC63
 	void *m_ptr;
-};
-
-class Rva00518756 : public Rva0057BC63FunctorHolder
-{
-public:
-	Rva00518756(FunctorBinding binding);
 };
 
 // tu-skeleton: 0x004A69BF 123B ??1SupplyTruckAIUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/SupplyTruckAIUpdateCtor.cpp (not merged yet)
