@@ -1055,6 +1055,7 @@ address_global	Code/GameEngine/Source/GameLogic/Object/ObjectSetTriggerAreaFlags
 address_global	Code/GameEngine/Source/GameLogic/Object/PathfinderPosGoalManager.cpp	g_Va00E049D8	3
 address_global	Code/GameEngine/Source/GameLogic/Object/Rva005003DF.cpp	g_Va00E04544	2
 address_global	Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp	g_Va00BC2428	1
+address_global	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdate.cpp	g_Va00E0362C	2
 address_global	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva00459109.cpp	g_Va00BBB8D8	2
 address_global	Code/GameEngine/Source/GameLogic/Object/Update/Rva00254845Ctor.cpp	g_Va00DCBB7C	2
 address_global	Code/GameEngine/Source/GameLogic/Object/Update/Rva0037441ELeaf.cpp	g_Va00BBB8D8	2
@@ -1524,7 +1525,6 @@ address_global	Code/Libraries/Source/WWVegas/WWLib/Rva0030E7D0Ctor.cpp	g_Va00BBB
 address_global	Code/Libraries/Source/WWVegas/WWLib/Rva004119F3.cpp	g_Va00E0300C	2
 address_global	Code/Libraries/Source/WWVegas/WWLib/Rva00422D1CFind.cpp	g_Va00E0319C	2
 address_global	Code/Libraries/Source/WWVegas/WWLib/Rva0055C0E1.cpp	g_Va007C26F0	4
-address_global	Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0036ADF9.cpp	g_Va00E0362C	2
 address_global	Code/Libraries/Source/WWVegas/WWLib/simpledynvec_vector3_clip.cpp	g_Va00BCF628	3
 address_global	Code/Libraries/Source/WWVegas/WWLib/stlport_list_unicodestring_add_if_missing_00433C18.cpp	g_Va00E032DC	2
 address_global	Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_string_range_ctors.cpp	g_Va00DDEEFC	2
