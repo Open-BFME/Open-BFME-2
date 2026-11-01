@@ -31,12 +31,7 @@ public:
 
 extern GameTextInterface *TheGameText;
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps = 0);
-	static void parseAndTranslateLabel(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 class INIException
 {

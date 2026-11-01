@@ -17,11 +17,7 @@ public:
 	BfmePod16 *erase(BfmePod16 *first, BfmePod16 *last);
 };
 }
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-};
+#include "../../../Include/Common/INI/INI.h"
 class Rva00504EADCurve
 {
 public:

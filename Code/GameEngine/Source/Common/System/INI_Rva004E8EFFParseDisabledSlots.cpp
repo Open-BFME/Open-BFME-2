@@ -22,14 +22,7 @@ namespace _STL
 template <> void vector<const ModuleData *, allocator<const ModuleData *> >::push_back(const ModuleData *const &value);
 }
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-	int scanInt(const char *token);
-	const char *getNextTokenOrNull(const char *seps);
-	static void Rva004E8EFF_ParseDisabledSlots(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 // ?Rva004E8EFF_ParseDisabledSlots@INI@@SAXPAV1@PAX1PBX@Z
 void INI::Rva004E8EFF_ParseDisabledSlots(INI *ini, void *instance, void *store, const void *userData)

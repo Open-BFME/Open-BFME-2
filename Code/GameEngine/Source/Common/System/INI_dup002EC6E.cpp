@@ -21,13 +21,7 @@
 typedef const char *ConstCharPtr;
 typedef const ConstCharPtr *ConstCharPtrArray;
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-	int scanIndexList(const char *token, ConstCharPtrArray flagList);
-	static void dup_002EC6E(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
 

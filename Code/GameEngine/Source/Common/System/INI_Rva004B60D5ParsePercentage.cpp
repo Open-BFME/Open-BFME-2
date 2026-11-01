@@ -22,12 +22,7 @@ namespace _STL
 template <> void vector<const ModuleData *, allocator<const ModuleData *> >::push_back(const ModuleData *const &value);
 }
 
-class INI
-{
-public:
-	static void parsePercentToReal(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva004B60D5_ParsePercentage(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 // ?Rva004B60D5_ParsePercentage@INI@@SAXPAV1@PAX1PBX@Z
 void INI::Rva004B60D5_ParsePercentage(INI *ini, void *instance, void *store, const void *userData)

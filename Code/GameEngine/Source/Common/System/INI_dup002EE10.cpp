@@ -10,12 +10,7 @@
 // the normal thiscall shape (cf. getNextToken). No /arch:SSE: the scale is
 // an x87 fmul, not mulss.
 
-class INI
-{
-public:
-	float scanReal(const char *token);
-	float dup_002EE10(const char *token);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 // ?dup_002EE10@INI@@QAEMPBD@Z
 float INI::dup_002EE10(const char *token)

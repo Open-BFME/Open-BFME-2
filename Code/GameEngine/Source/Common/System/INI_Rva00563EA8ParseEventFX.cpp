@@ -4,12 +4,7 @@
 // parseAsciiString at 0x002F11E with userData forced to 0 (EventTime's
 // sibling entry at +0x14 uses parseGameClientRandomVariable).
 
-class INI
-{
-public:
-	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva00563EA8_ParseEventFX(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 // ?Rva00563EA8_ParseEventFX@INI@@SAXPAV1@PAX1PBX@Z
 void INI::Rva00563EA8_ParseEventFX(INI *ini, void *instance, void *store, const void *userData)

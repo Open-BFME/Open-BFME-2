@@ -30,13 +30,7 @@ public:
 };
 }
 
-class INI
-{
-public:
-	static void Rva003396D3_ParseKillerScience(INI *ini, void *instance, void *store, const void *userData);
-	static void parseInt(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva004C2918_ParseUpgradeMoneyAmount(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 void INI::Rva004C2918_ParseUpgradeMoneyAmount(INI *ini, void *instance, void *store, const void *userData)
 {

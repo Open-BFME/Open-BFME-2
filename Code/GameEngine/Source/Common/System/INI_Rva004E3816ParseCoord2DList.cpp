@@ -22,12 +22,7 @@ namespace _STL
 template <> void vector<BfmeE8, allocator<BfmeE8> >::push_back(const BfmeE8 &value);
 }
 
-class INI
-{
-public:
-	static void parseCoord2D(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva004E3816Parse(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 void INI::Rva004E3816Parse(INI *ini, void *instance, void *store, const void *)
 {

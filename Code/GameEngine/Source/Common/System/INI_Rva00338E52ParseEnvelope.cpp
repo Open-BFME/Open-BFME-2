@@ -14,15 +14,7 @@
 #include <math.h>
 #include <string.h>
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-	const char *getNextTokenOrNull(const char *seps);
-	float scanReal(const char *token);
-	unsigned int scanUnsignedInt(const char *token);
-	static void Rva00338E52_ParseEnvelope(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 struct OpacityEnvelope
 {

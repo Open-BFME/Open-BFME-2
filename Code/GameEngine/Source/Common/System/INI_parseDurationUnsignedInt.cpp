@@ -14,13 +14,7 @@
 
 #include <math.h>
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-	unsigned int scanUnsignedInt(const char *token);
-	static void parseDurationUnsignedInt(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 // Retail value at 0x00DBA4EC owned by INI_parseDurationUnsignedShort.cpp;
 // declared here so uses keep the same name without a second definition.

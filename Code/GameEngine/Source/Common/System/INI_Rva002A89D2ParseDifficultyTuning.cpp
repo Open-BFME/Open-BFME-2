@@ -36,14 +36,7 @@ public:
 	int economyMaxFarms;
 };
 
-class INI
-{
-public:
-	void initFromINI(void *instance, const FieldParse *table);
-	static void Rva002A89D2_ParseDifficultyTuning(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva002A8845_ParseProbability(INI *ini, void *instance, void *store, const void *userData);
-	static void parseInt(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 void Rva0023899FParse(INI *ini, int, int *);
 

@@ -11,13 +11,7 @@
 // CrushableLevel/MountedCrusherLevel/MountedCrushableLevel/CrushKnockback
 // byte fields (offsets 0x5F9..0x5FC).
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-	int scanInt(const char *token);
-	static void parseByte(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 class INIException
 {

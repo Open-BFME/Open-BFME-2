@@ -14,16 +14,7 @@
 #include "ascii_string.h"
 
 
-class INI
-{
-public:
-	const char *getNextTokenOrNull(const char *seps);
-	static void Rva003F156F_ParseRegionBonus(INI *ini, void *instance, void *store, const void *userData);
-
-private:
-	char _pad[0x420];
-	const char *m_sepsColon;
-};
+#include "../../../Include/Common/INI/INI.h"
 
 int Rva003F1540_LookupRegionBonus(const AsciiString &name);
 

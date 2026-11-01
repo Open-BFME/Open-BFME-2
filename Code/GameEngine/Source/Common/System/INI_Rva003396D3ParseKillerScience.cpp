@@ -17,14 +17,7 @@ enum ScienceType
 class ScienceStore;
 extern ScienceStore *TheScienceStore;
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-	static ScienceType scanScience(const char *token);
-	static void Rva003396D3_ParseKillerScience(INI *ini, void *instance, void *store, const void *userData);
-	static void parseScience(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 // Zero Hour's Common/Errors.h; retail's ErrorCode throw info is at 0x00CFEEE4.
 enum ErrorCode

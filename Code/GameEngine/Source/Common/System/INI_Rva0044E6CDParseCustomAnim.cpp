@@ -27,18 +27,7 @@ typedef int Int;
 
 #include <string.h>
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-	const char *getNextTokenOrNull(const char *seps);
-	static void parseDurationUnsignedInt(INI *ini, void *instance, void *store, const void *userData);
-	static void iniParseAnimAndDuration(INI *ini, void *instance, void *store, const void *userData);
-
-private:
-	char _pad[0x420];
-	const char *m_sepsColon;
-};
+#include "../../../Include/Common/INI/INI.h"
 
 class INIException
 {

@@ -14,12 +14,7 @@
 
 #include <windows.h>
 
-class INI
-{
-public:
-	static void parseBitString32(INI *ini, void *instance, void *store, const void *userData);
-	static void parseBitString16(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
 

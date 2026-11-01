@@ -16,13 +16,7 @@
 
 #include <windows.h>
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-	float scanReal(const char *token);
-	static void parseAccelerationReal(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 // Retail value at 0x009BA4F8 (ZH SECONDS_PER_LOGICFRAME_REAL); read by
 // address (DIR32) like the duration scale global.

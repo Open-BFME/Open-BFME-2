@@ -31,13 +31,7 @@ public:
 };
 }
 
-class INI
-{
-public:
-	const char *getNextTokenOrNull(const char *seps);
-	int scanIndexList(const char *token, const char * const *table);
-	static void Rva00339E1C_ParseBrowser(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 extern "C" __declspec(dllimport) int __cdecl _strcmpi(const char *a, const char *b);
 

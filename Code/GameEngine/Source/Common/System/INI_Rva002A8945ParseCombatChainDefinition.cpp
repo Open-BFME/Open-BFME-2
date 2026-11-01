@@ -35,13 +35,7 @@ struct CombatChainEntry
 	float targetPriorityModifiers[16];
 };
 
-class INI
-{
-public:
-	void initFromINI(void *instance, const FieldParse *table);
-	static void Rva002A8945_ParseCombatChainDefinition(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva004E8E57_ParseAIKindOf(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 void parseAIKindOfList(INI *ini, const char *, int *);
 void Rva004E8D8CParse(INI *ini, void *instance, void *store, const void *userData);

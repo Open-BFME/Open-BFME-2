@@ -7,13 +7,7 @@
 // already pinned. Upstream name of the scale global not recovered, so it is
 // TU-local with the retail value cited.
 
-class INI
-{
-public:
-	const char *getNextToken(const char *separators);
-	float scanReal(const char *token);
-	static void parseDurationReal(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 // Retail value at 0x00DBA4EC; read by address (DIR32) like other globals.
 extern float g_parseDurationMsecScale;

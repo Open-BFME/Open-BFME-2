@@ -9,13 +9,7 @@
 
 #include <math.h>
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-	unsigned int scanUnsignedInt(const char *token);
-	static void Rva00339761_ParseDurationUnsignedByte(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 class INIException
 {

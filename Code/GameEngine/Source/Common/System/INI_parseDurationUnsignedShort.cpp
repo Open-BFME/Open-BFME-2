@@ -11,13 +11,7 @@
 
 #include <math.h>
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-	unsigned int scanUnsignedInt(const char *token);
-	static void parseDurationUnsignedShort(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 // Retail value at 0x00DBA4EC; read by address (DIR32) like the landed
 // parseDurationReal TU's scale global.

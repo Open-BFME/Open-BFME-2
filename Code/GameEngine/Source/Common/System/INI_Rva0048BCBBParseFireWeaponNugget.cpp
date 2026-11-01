@@ -28,11 +28,7 @@ public:
 	void add(const FieldParse *fields, unsigned extraOffset);
 };
 
-class INI
-{
-public:
-	void initFromINIMulti(void *what, const MultiIniFieldParse &parseTableList);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 namespace _STL
 {

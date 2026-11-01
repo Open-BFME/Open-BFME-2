@@ -9,13 +9,7 @@
 // seconds-to-milliseconds, but that is unproven. Static: same frameless
 // (ini, store) shape as the parse family; entry ecx never read.
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-	float scanReal(const char *token);
-	static void dup_002F0F7(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 // ?dup_002F0F7@INI@@SAXPAV1@PAX1PBX@Z
 void INI::dup_002F0F7(INI *ini, void *instance, void *store, const void *userData)

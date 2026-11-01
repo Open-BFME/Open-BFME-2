@@ -25,13 +25,7 @@ struct BrutalDifficultyCheats
 };
 
 
-class INI
-{
-public:
-	void initFromINI(void *instance, const FieldParse *table);
-	static void Rva002A898A_ParseBrutalDifficultyCheats(INI *ini, void *instance, void *store, const void *userData);
-	static void parsePercentToReal(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 // Retail's BrutalDifficultyCheats field table at VA 0x00BFD85C (.rdata, 32
 // bytes), transcribed from retail's own bytes. Retail has no zero sentinel

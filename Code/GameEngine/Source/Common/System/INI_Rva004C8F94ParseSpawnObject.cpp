@@ -39,13 +39,7 @@ public:
 };
 }
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-	const char *getNextTokenOrNull(const char *seps);
-	static void Rva004C8F94_ParseSpawnObject(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 extern ObjectCreationListStore *TheObjectCreationListStore;
 

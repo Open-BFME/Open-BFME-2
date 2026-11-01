@@ -17,13 +17,7 @@ typedef float Real;
 
 #define PI 3.14159265359f
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-	Real scanReal(const char *token);
-	static void parseAngularVelocityReal(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 // Retail 0x00DBA4F8 (0.2), owned by the unit that defines it.
 extern Real g_secondsPerLogicFrame;

@@ -38,12 +38,7 @@ public:
 	const ArmorTemplate *findArmorTemplate(AsciiString name) const;
 };
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps = 0);
-	static void parseDamageFX(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 void INI::parseDamageFX(INI *ini, void *, void *store, const void *)
 {

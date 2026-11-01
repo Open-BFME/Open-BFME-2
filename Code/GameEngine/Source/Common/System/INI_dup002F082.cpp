@@ -10,13 +10,7 @@
 // 0.0 first emits fldz ahead of the value dup (fld st(1)), where the twins'
 // value-first form emits fld st(0) ahead of fldz.
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-	float scanReal(const char *token);
-	static void dup_002F082(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 class INIException
 {

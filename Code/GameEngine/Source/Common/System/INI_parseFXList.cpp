@@ -19,12 +19,7 @@ public:
 
 extern FXListStore *TheFXListStore;
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps = 0);
-	static void parseFXList(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 class INIException
 {

@@ -11,18 +11,7 @@
 // BFME1 ini.cpp shape verbatim; the only BFME2 delta is the default-seps
 // member sitting at this+0x418 (BFME1: +0x414).
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-	const char *getNextTokenOrNull(const char *seps);
-	static const char *preprocessMacro(const char *token);
-	const char *rva0002DFE2(const char *seps, bool *substituted);
-	const char *rva0002E03D(const char *seps, bool *substituted);
-private:
-	char _pad[0x418];
-	const char *m_seps;
-};
+#include "../../../Include/Common/INI/INI.h"
 
 class INIException
 {

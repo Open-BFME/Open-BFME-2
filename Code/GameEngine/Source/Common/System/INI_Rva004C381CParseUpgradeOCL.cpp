@@ -32,13 +32,7 @@ public:
 };
 }
 
-class INI
-{
-public:
-	static void Rva003396D3_ParseKillerScience(INI *ini, void *instance, void *store, const void *userData);
-	static void parseObjectCreationList(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva004C381C_ParseUpgradeOCL(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 // ?Rva004C381C_ParseUpgradeOCL@INI@@SAXPAV1@PAX1PBX@Z
 void INI::Rva004C381C_ParseUpgradeOCL(INI *ini, void *instance, void *store, const void *userData)

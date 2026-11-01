@@ -9,13 +9,7 @@
 // zero too). Field-table users include UnpackingVariation. Static: only
 // data-table references (no direct calls to set ecx).
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-	float scanReal(const char *token);
-	static void dup_002F02F(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 class INIException
 {

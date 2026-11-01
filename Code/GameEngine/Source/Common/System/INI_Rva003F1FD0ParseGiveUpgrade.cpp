@@ -49,12 +49,7 @@ public:
 };
 }
 
-class INI
-{
-public:
-	const char *getNextTokenOrNull(const char *seps);
-	static void Rva003F1FD0_ParseGiveUpgrade(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 extern UpgradeCenter *TheUpgradeCenter;

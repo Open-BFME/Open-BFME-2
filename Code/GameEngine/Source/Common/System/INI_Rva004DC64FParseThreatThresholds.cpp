@@ -9,13 +9,7 @@
 // The callback names stay address-derived; the owning struct is BFME2-new
 // (no BFME1 donor).
 
-class INI
-{
-public:
-	static void parseUnsignedInt(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva004DC64F_ParseThreatAbove(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva004DC625_ParseThreatBelow(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 // ?Rva004DC64F_ParseThreatAbove@INI@@SAXPAV1@PAX1PBX@Z
 void INI::Rva004DC64F_ParseThreatAbove(INI *ini, void *instance, void *store, const void *userData)

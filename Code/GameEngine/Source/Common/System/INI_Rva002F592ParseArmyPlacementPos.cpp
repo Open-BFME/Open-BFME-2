@@ -25,12 +25,7 @@ namespace _STL
 template <> void vector<BfmeE8, allocator<BfmeE8> >::push_back(const BfmeE8 &value);
 }
 
-class INI
-{
-public:
-	static void parseCoord2D(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva002F592_ParseArmyPlacementPos(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 // ?Rva002F592_ParseArmyPlacementPos@INI@@SAXPAV1@PAX1PBX@Z
 void INI::Rva002F592_ParseArmyPlacementPos(INI *ini, void *instance, void *store, const void *userData)

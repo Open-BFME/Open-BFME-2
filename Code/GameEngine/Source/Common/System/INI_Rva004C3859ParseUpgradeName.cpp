@@ -23,12 +23,7 @@ public:
 };
 }
 
-class INI
-{
-public:
-	AsciiString getNextAsciiString();
-	static void Rva004C3859_ParseUpgradeName(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 // ?Rva004C3859_ParseUpgradeName@INI@@SAXPAV1@PAX1PBX@Z
 void INI::Rva004C3859_ParseUpgradeName(INI *ini, void *instance, void *store, const void *userData)
