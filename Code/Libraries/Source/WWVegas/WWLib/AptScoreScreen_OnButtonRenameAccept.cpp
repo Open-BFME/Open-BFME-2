@@ -2,10 +2,7 @@
 // ?OnButtonRenameAccept@AptScoreScreen@@QAEXH@Z @0x0051C17E 195B: thiscall update via GadgetTextEntryGetText then wide set plus listbox add with winEnable guards; evidence rowed GadgetTextEntryGetText 0x00320AAB wide set 0x00037150 winEnable 0x00313BEC listbox 0x00326BEC copy 0x00037050 release 0x00036E70 caller 0x0051C4B8 globals g_00DD16C4
 #include "unicode_string.h"
 
-class GameWindow {
-public:
-	int winEnable(bool enable);
-};
+#include "../../../../GameEngine/Include/GameClient/Bfme2GameWindow.h"
 
 UnicodeString __cdecl GadgetTextEntryGetText(GameWindow *textEntry);
 int __cdecl GadgetListBoxAddEntryText(GameWindow *listbox, UnicodeString text, int color, int row, int column, bool overwrite);

@@ -255,13 +255,7 @@ struct PickHitMap
 	Rva004DD206TreeView tree;
 };
 
-class GameWindow
-{
-public:
-	unsigned int winGetStatus();
-	GameWindow *winGetParent();
-	int winNextTab();
-};
+#include "../../../../GameEngine/Include/GameClient/Bfme2GameWindow.h"
 
 class GameWindowManager
 {

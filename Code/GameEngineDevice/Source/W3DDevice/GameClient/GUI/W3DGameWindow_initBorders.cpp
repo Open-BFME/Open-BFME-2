@@ -53,14 +53,7 @@ public:
 };
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/GameWindow.h
-class GameWindow
-{
-protected:
-	// Protected, as retail's mangling records: ??1GameWindow@@MAE@XZ.
-	virtual ~GameWindow();									///< ILT 0x00013AF7 -> 0x00479CD0
-
-	friend class W3DGameWindow;
-};
+#include "../../../../../GameEngine/Include/GameClient/Bfme2GameWindow.h"
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include/W3DDevice/GameClient/W3DGameWindow.h
 class W3DGameWindow : public GameWindow
