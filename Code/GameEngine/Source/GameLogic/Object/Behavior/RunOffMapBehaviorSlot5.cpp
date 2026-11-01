@@ -126,32 +126,24 @@ class RunOffTerrainView {public:
  virtual RunOffWaypointView *waypoint(const AsciiString &) const;
 };
 struct RunOffMapBehaviorModuleData {char pad00[0x10];bool m_10;AsciiString waypointName;bool dieOnMap;};
-class BehaviorModule {public:
- virtual ~BehaviorModule();
- virtual void slot1();
- virtual void slot2();
- virtual void slot3();
- virtual void slot4();virtual void rva00462213();
- protected:const RunOffMapBehaviorModuleData *m_moduleData;Object *m_object;
-};
-class BehaviorModuleInterface {public:virtual void anchor();};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 class RunOffMapBehaviorInterface {public:virtual void triggerFlee()=0;};
-class RunOffMapBehavior:public BehaviorModule,public BehaviorModuleInterface,public RunOffMapBehaviorInterface {public:
+class RunOffMapBehavior:public BehaviorModule,public RunOffMapBehaviorInterface {public:
  virtual void rva00462213();virtual void triggerFlee();
 };
 void RunOffMapBehavior::rva00462213()
 {
-	if (!m_moduleData->m_10)
+	if (!reinterpret_cast<const RunOffMapBehaviorModuleData *>(getModuleData())->m_10)
 		triggerFlee();
 }
 
 void RunOffMapBehavior::triggerFlee()
 {
-	Object *obj = m_object;
+	Object *obj = getObject();
 	AIUpdateInterface *ai = obj->ai();
 	if (!ai)
 		return;
-	const RunOffMapBehaviorModuleData *data = m_moduleData;
+	const RunOffMapBehaviorModuleData *data = reinterpret_cast<const RunOffMapBehaviorModuleData *>(getModuleData());
 	if (!data)
 		return;
 	Coord3D destination;

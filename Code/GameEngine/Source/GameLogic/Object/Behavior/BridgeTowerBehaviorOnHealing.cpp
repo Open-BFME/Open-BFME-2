@@ -45,30 +45,8 @@ public:
 	virtual ObjectID getTowerID(int towerType);
 };
 
-class BehaviorModuleInterface
-{
-public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
-	virtual void slot06();
-	virtual void slot07();
-	virtual void slot08();
-	virtual void slot09();
-	virtual void slot10();
-	virtual void slot11();
-	virtual BridgeBehaviorInterface *getBridgeBehaviorInterface();
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class BehaviorModule
-{
-public:
-	unsigned char m_pad00[0x0C];
-	BehaviorModuleInterface m_interface;
-};
 
 class ThingTemplate
 {
@@ -135,7 +113,7 @@ void BridgeTowerBehavior::onHealing( DamageInfo *damageInfo )
 	for( bmi = bridge->getBehaviorModules(); *bmi; ++bmi )
 	{
 
-		bridgeInterface = (*bmi)->m_interface.getBridgeBehaviorInterface();
+		bridgeInterface = static_cast<BridgeBehaviorInterface *>(static_cast<BehaviorModuleInterface &>(**bmi).slot12());
 		if( bridgeInterface )
 			break;
 

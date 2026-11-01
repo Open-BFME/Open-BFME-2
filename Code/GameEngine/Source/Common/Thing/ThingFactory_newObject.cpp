@@ -62,18 +62,9 @@ private:
 	char m_pad[8];
 };
 
-class BehaviorModuleInterface
-{
-public:
-	virtual void slot0() = 0;
-	virtual void slot1() = 0;
-	virtual void slot2() = 0;
-	virtual CreateModuleInterface *getCreate() = 0;
-};
+#define BFME_SNAPSHOT_CAPITALIZED_SLOTS
+#include "../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class BehaviorModule : public ModuleBase, public BehaviorModuleInterface
-{
-};
 
 class Team;
 struct CreateMask;
@@ -82,7 +73,6 @@ struct CreateMask;
 // word. These call-only base views preserve its observed 0x74 ID, 0x244 module
 // list and 0x4D8 allocation; constructor stores establish the base offsets.
 class Thing { public: virtual ~Thing(); private: char unknown04[0x5c]; };
-#define BFME_SNAPSHOT_CAPITALIZED_SLOTS
 #include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
 class BfmeCtorFirstBase001B3A20 { public: virtual void slot(); };
 class BfmeCtorVirtualBase001B3A20 { public: virtual void slot(); };

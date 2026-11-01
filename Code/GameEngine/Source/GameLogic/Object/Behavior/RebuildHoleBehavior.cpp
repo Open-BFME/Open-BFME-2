@@ -25,15 +25,7 @@ public:
 	virtual void dummy() = 0;
 };
 
-class BehaviorModule
-{
-public:
-	virtual void s00() = 0;
-	virtual void s04() = 0;
-	virtual void s08() = 0;
-	virtual void s0C() = 0;
-	virtual NameKeyType getModuleTag() = 0;
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class Team; class Player; class Drawable; class SpawnBehaviorInterface; class Rva00346BC0; struct Coord3D;
 enum ObjectStatusTypes {STATUS_UNKNOWN}; enum DamageType {DAMAGE_UNKNOWN}; enum DeathType {DEATH_UNKNOWN};
@@ -196,7 +188,7 @@ RebuildHoleBehaviorInterface *RebuildHoleBehavior::getRebuildHoleBehaviorInterfa
 	static NameKeyType key = TheNameKeyGenerator->nameToKey("RebuildHoleBehavior");
 	for (BehaviorModule **i = obj->getBehaviorModules(); *i; ++i)
 	{
-		if ((*i)->getModuleTag() == key)
+		if ((*i)->getModuleNameKey() == key)
 		{
 			BehaviorModule *behaviorModule = *i;
 			if (behaviorModule)

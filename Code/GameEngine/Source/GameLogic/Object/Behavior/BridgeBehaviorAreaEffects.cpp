@@ -151,17 +151,7 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_NONE = 1
 };
 
-class BehaviorModule
-{
-public:
-	virtual ~BehaviorModule();
-	Object *getObject(void) const { return m_object; }
-
-protected:
-	const BridgeBehaviorModuleData *m_moduleData;
-	Object *m_object;
-	unsigned char m_unmodelled0C[0x10 - 0xC];
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class UpdateModuleInterface
 {
@@ -175,7 +165,7 @@ public:
 	virtual UpdateSleepTime update();
 
 protected:
-	const BridgeBehaviorModuleData *getBridgeBehaviorModuleData(void) const { return m_moduleData; }
+	const BridgeBehaviorModuleData *getBridgeBehaviorModuleData(void) const { return reinterpret_cast<const BridgeBehaviorModuleData *>(getModuleData()); }
 
 	void getRandomSurfacePosition(TerrainRoadType *bridgeTemplate,
 		const BridgeInfo *bridgeInfo, Coord3D *pos);

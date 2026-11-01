@@ -152,22 +152,8 @@ public:
 
 #include "../../../../Include/Common/ObjectModule.h"
 
-class BehaviorModuleInterface
-{
-public:
-#define BMI_SLOT(n) virtual void behaviorModuleInterfaceSlot##n();
-	BMI_SLOT(00) BMI_SLOT(01) BMI_SLOT(02) BMI_SLOT(03) BMI_SLOT(04) BMI_SLOT(05)
-	BMI_SLOT(06) BMI_SLOT(07) BMI_SLOT(08) BMI_SLOT(09) BMI_SLOT(10) BMI_SLOT(11)
-	BMI_SLOT(12) BMI_SLOT(13) BMI_SLOT(14) BMI_SLOT(15) BMI_SLOT(16) BMI_SLOT(17)
-	BMI_SLOT(18) BMI_SLOT(19) BMI_SLOT(20) BMI_SLOT(21) BMI_SLOT(22) BMI_SLOT(23)
-	BMI_SLOT(24) BMI_SLOT(25)
-#undef BMI_SLOT
-	virtual SlavedUpdateInterface *getSlavedUpdateInterface();
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
-{
-};
 
 class Drawable
 {
@@ -315,7 +301,7 @@ Bool SpawnBehavior::createSpawn()
 	// If they have a SlavedUpdate, then I have to tell them who their daddy is from now on.
 	for (BehaviorModule **update = newSpawn->getBehaviorModules(); *update; ++update)
 	{
-		SlavedUpdateInterface *sdu = (*update)->getSlavedUpdateInterface();
+		SlavedUpdateInterface *sdu = static_cast<SlavedUpdateInterface *>(static_cast<BehaviorModuleInterface &>(**update).slot26());
 		if (sdu != NULL)
 		{
 			sdu->onEnslave(parent);
