@@ -10376,8 +10376,6 @@ pragma_optimize	Code/GameEngine/Source/Common/Rva005DCE72.cpp	"s",off	1
 pragma_optimize	Code/GameEngine/Source/Common/Rva005DCE72.cpp	"t",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Rva00699180Volume_Refresh.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Rva00699180Volume_Refresh.cpp	"y",off	1
-pragma_optimize	Code/GameEngine/Source/Common/Rva006F8460Dtor.cpp	"",on	1
-pragma_optimize	Code/GameEngine/Source/Common/Rva006F8460Dtor.cpp	"t",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	"",on	2
 pragma_optimize	Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	"t",on	2
 pragma_optimize	Code/GameEngine/Source/Common/Rva007B7024Cluster.cpp	"",on	2
@@ -11151,9 +11149,6 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlContainerRva0037FEA3.cpp	
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlContainerRva0037FF20.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlContainerRva0037FF20.cpp	"s",off	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlContainerRva0037FF20.cpp	"t",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlContainerRva0073E4C0.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlContainerRva0073E4C0.cpp	"s",off	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlContainerRva0073E4C0.cpp	"t",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlHelperRva000B690B.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlHelperRva000B690B.cpp	"s",off	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlHelperRva000B690B.cpp	"t",on	1
@@ -11196,9 +11191,6 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva000A7E31.cpp	"t
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva000BDBFA.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva000BDBFA.cpp	"s",off	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva000BDBFA.cpp	"t",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00156FA0.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00156FA0.cpp	"s",off	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00156FA0.cpp	"t",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00170ED6.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00170ED6.cpp	"s",off	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00170ED6.cpp	"t",on	1
@@ -11404,9 +11396,6 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorChains.cpp	
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlportVectorRva005DBCD1Overflow.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlportVectorRva005DBCD1Overflow.cpp	"s",off	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlportVectorRva005DBCD1Overflow.cpp	"t",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/UnicodeFromAscii.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/UnicodeFromAscii.cpp	"s",off	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/UnicodeFromAscii.cpp	"t",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/Vector2Equality.cpp	"",on	2
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/Vector2Equality.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/Vector2Equality.cpp	"s",on	1
@@ -11646,10 +11635,6 @@ pragma_optimize	Code/Libraries/Source/assetmanager/assetmanager_impl.cpp	"gsy",o
 pragma_optimize	Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp	"s",off	1
 pragma_optimize	Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp	"t",on	1
-pragma_optimize	Code/Libraries/Source/debug/debug_cmd.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/debug/debug_cmd.cpp	"y",on	1
-pragma_optimize	Code/Libraries/Source/debug/debug_except.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/debug/debug_except.cpp	"ty",on	1
 pragma_optimize	Code/Libraries/Source/debug/debug_io_con.cpp	"y",off	1
 pragma_optimize	Code/Libraries/Source/debug/debug_io_con.cpp	"y",on	1
 pragma_optimize	Code/Libraries/Source/debug/debug_io_net.cpp	"y",off	3
