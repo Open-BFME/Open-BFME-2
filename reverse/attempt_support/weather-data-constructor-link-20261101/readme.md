@@ -46,3 +46,22 @@ complete GlobalWeather clearance is claimed. The shared destructor and the
 GlobalWeatherSystem/Rva00318637 class-and-vtable reconciliation remain open.
 The ordinary outgoing consumer audit is still required; incomplete older-index
 evidence must be carried into the next scheduled census.
+
+## Commit and consumer-audit boundary
+
+Normal source commit d884cdd17911ae19482dc586c1ec9e4463d1c681 passes7/7 rows,
+its complete parent EH graph (EXACT1), all convergence checks and no new code
+identity or shadow data findings. TU ownership still reports A1: a second
+source row at318329, already attributed to IPEnumerationCtor.cpp. The explicit
+ICF admission proves emitted byte identity and the weather callback; it does
+not retire TU ownership debt, recover retail's complete source partition or
+independently re-establish IPEnumeration's donor-derived original identity.
+No ownership register was changed.
+
+The ordinary batch audit returns2 (INCONCLUSIVE), because provider index0d24c60eef
+precedes source base97c10ba4d8 and affected consumer
+Common/0CreateAHeroManager21FE49.cpp lacks a strict current receipt. No clean
+whole-consumer verdict is claimed. Carry this WeatherData/GlobalWeather constructor
+provider scope and its transitive consumers to the next scheduled census.
+The attempted index preflight found7524 stale units; no broad update or whole-tree
+compile was launched. The shared-destructor claim refusal remains respected.

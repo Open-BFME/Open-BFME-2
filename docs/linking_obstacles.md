@@ -6761,6 +6761,12 @@ and GlobalWeatherSystem's split destructor identity. IPEnumeration stays LINKS10
 weather still0, so no linking gain or family clearance. The shared destructor
 was held and is untouched. Carry changed provider consumers into the next census.
 Evidence: `reverse/attempt_support/weather-data-constructor-link-20261101/readme.md`.
+The source commit passes normal hooks (7/7; parent EH EXACT1). TU ownership's
+A1 second-source finding at318329 remains visible; the ICF row does not retire
+source-ownership debt or re-prove the older donor-derived IPEnumeration name.
+The ordinary batch audit is INCONCLUSIVE (older0d24c60eef index; first strict
+consumer receipt missing in Common/0CreateAHeroManager21FE49.cpp). Carry this
+provider and its transitive consumer scope to the scheduled census.
 
 **Current-state audit (2026-10-27, seat halilkkaya-lk2, inspected `d16a31e4dc`, index `73061d9452`):**
 
