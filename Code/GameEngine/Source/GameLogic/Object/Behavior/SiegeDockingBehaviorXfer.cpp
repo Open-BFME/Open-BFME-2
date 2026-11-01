@@ -63,23 +63,10 @@ public:
 	float y;
 	float z;
 };
-#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-class UpdateModuleInterface
-{
-public:
-	virtual void update();
-};
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~UpdateModule();
-	void xfer(Xfer *xfer);
-protected:
-	unsigned m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_bfmeReserved;
-};
+
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
+
+
 class SiegeDockingBehaviorSecondaryBase
 {
 public:
