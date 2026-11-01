@@ -197,11 +197,7 @@ public:
 	static Bool isForcedIntoWantingState(State *thisState, void *userData);
 	static Bool isForcedIntoBusyState(State *thisState, void *userData);
 };
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 class Rva004A6F0A
 {

@@ -283,11 +283,7 @@ struct BroadcastStealthUpdateModuleData
 	unsigned m_140;			// +0x140 the flags to keep
 };
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

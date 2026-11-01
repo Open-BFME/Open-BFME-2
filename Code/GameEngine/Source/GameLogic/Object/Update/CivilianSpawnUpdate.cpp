@@ -18,11 +18,7 @@ enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"

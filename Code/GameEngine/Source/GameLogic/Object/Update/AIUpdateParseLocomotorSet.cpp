@@ -95,11 +95,7 @@ namespace _STL { template <> void allocator<LocomotorTemplate const *>::dealloca
 
 #include "../../../../Include/Common/INI/INI.h"
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *str);
-};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 
 class LocomotorStore
 {

@@ -14,7 +14,8 @@ class Object:public Thing {public:Player *getControllingPlayer() const;char pad[
 struct CreateMask {unsigned words[4];};
 enum ObjectID; class ThingFactory {public:Object *newObject(const ThingTemplate *,Team *,const CreateMask *,ObjectID);};extern ThingFactory *TheThingFactory;
 enum NameKeyType {NAMEKEY_INVALID=0};
-class NameKeyGenerator {public:NameKeyType nameToKey(const char *);};extern NameKeyGenerator *TheNameKeyGenerator;
+#include "../../../../Include/Common/NameKeyGenerator.h"
+extern NameKeyGenerator *TheNameKeyGenerator;
 class Drawable {public:ClientUpdateModule *findClientUpdateModule(NameKeyType);};
 class ClientUpdateModule {};
 class LaserUpdate:public ClientUpdateModule {public:void initLaser(const Object *,const Coord3D *,const Coord3D *,int);};

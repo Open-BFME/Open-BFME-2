@@ -414,7 +414,7 @@ struct ModifierObjectView {
 
 class Rva001E42F2 { public: void rva001E42F2(const int *flags); };
 
-class NameKeyGenerator { public: NameKeyType nameToKey(const char *name); };
+#include "../../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

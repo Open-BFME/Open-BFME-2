@@ -91,11 +91,7 @@ Int GetGameLogicRandomValue(Int lo, Int hi, char *file, Int line);
 
 extern GameLogic *TheGameLogic;
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 struct CreateMask
