@@ -16677,13 +16677,19 @@ into the next scheduled census; this source-level cleanup does not clear it.
 
 The approved linegrp TU still needs verified composition. Initial dry-run
 rejects its destructor flag override and mismatched buffer declarations.
-Removing nine unused seed includes clears compilation while preserving all15
-rows and all29 complete code definitions/relocations. Removing the old array
-anchor then preserves all28 remaining definitions and retires two optimization
+Removing nine unused seed includes clears compilation while preserving all 15
+rows and all 29 complete code definitions/relocations. Removing the old array
+anchor then preserves all 28 remaining definitions and retires two optimization
 hatches. The native ATL iterator owner is strictly verified; seed preview
-retains520 bytes. Render and its cleanup remain for the supported merge to
+retains 520 bytes. Render and its cleanup remain for the supported merge to
 verify; no file-count or new linked-byte gain is claimed yet. Evidence:
 reverse/attempt_support/linegrp-consolidation-20261101/.
+
+Its destructor profile is now aligned through flag_defaults propose: the
+region default still loses two rows, while O2/SSE/G7 preserves all four rows
+and complete definitions/relocations. The unit retains 253 linking bytes.
+This removes the profile mismatch without adding an override or altering code.
+
 ### LINK-170: Player donor-closure removal (`da3e48530e`) unresolved three Player consumers (2026-11-01, seat halilkkaya-lk12)
 
 Status: Open (partly repaired). Base `6b1a8fb85c`; census 12:39 (`39dfbbdb50`), index `86db074988`.
