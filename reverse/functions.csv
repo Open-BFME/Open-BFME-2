@@ -7299,7 +7299,7 @@ _GetProcessorFlags,,0x001C4390,169,Code/Libraries/Source/VP6/GetProcessorFlags.c
 ?get@Rva0028AA39ByteField@@QBEEXZ,,0x0028AA39,7,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp,matched,Disp32 byte getter
 ?get@Rva0028AA47ByteField@@QBEEXZ,,0x0028AA47,7,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp,matched,Disp32 byte getter
 ?get@Rva0028AA4EByteField@@QBEEXZ,,0x0028AA4E,7,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp,matched,Disp32 byte getter
-?get@Rva0028B984ByteField@@QBEEXZ,,0x0028B984,7,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp,matched,Disp32 byte getter
+?get@Rva0028B984ByteField@@QBEEXZ,,0x0028B984,7,Code/GameEngine/Source/GameLogic/Object/Object.cpp,matched,Disp32 byte getter
 ??1Rva001D28F0Element@@QAE@XZ,,0x00689500,119,Code/Libraries/Source/WWVegas/WWLib/Rva001D28F0ElementDtor.cpp,matched,
 ?get@Rva002A9879ByteField@@QBEEXZ,,0x002A9879,7,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp,matched,Disp32 byte getter
 ?get@Rva002A98AFByteField@@QBEEXZ,,0x002A98AF,7,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp,matched,Disp32 byte getter
@@ -7494,7 +7494,7 @@ _GetProcessorFlags,,0x001C4390,169,Code/Libraries/Source/VP6/GetProcessorFlags.c
 ??1DebugCmdInterfaceDebug@@UAE@XZ,,0x00039980,55,Code/Libraries/Source/debug/debug_cmd.cpp,matched,Implicit dtor via delete anchor; B1 has FreeConsole member while B2 is memberless with base reinstall only; explicit-empty gives 61B two-store while implicit gives 55B exact
 ??_GDebugCmdInterfaceDebug@@UAEPAXI@Z,,0x00039950,33,Code/Libraries/Source/debug/debug_cmd.cpp,matched,Scalar deleting dtor via delete anchor; calls dtor plus matched operator delete 0x2FD60; B1 33B same size
 ?get@Rva0028A62AByteField@@QBEEXZ,,0x0028A62A,7,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp,matched,Disp32 byte getter
-?get@Rva0028A69AByteField@@QBEEXZ,,0x0028A69A,7,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp,matched,Disp32 byte getter
+?get@Rva0028A69AByteField@@QBEEXZ,,0x0028A69A,7,Code/GameEngine/Source/GameLogic/Object/Object.cpp,matched,Disp32 byte getter
 ?get@Rva0028AA15ByteField@@QBEEXZ,,0x0028AA15,7,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp,matched,Disp32 byte getter
 ?bfmeMakeBZA@@YAPAVBfmeCacheBZA@@PAVBfmeThingBZA@@@Z,,0x006612C0,59,Code/GameEngine/Source/Common/BfmeMakeBZA.cpp,matched,
 ?get@Rva0028A984DwordField@@QBEHXZ,,0x0028A984,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter

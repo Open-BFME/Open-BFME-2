@@ -378,6 +378,18 @@ typedef unsigned short WideChar;
 	{ \
 		return TEXT; \
 	}
+#define BFME_DISP_BYTE_GETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		unsigned char get() const; \
+		char m_lead[DISP]; \
+		unsigned char m_value; \
+	}; \
+	unsigned char NAME::get() const \
+	{ \
+		return m_value; \
+	}
 
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
 namespace _STL {
@@ -1939,14 +1951,6 @@ public:
 	bool m_second;
 };
 
-class MilesAudioManager
-{
-public:
-    virtual int rva0005189D() const;
-    char m_lead[0x678 - sizeof(void *)];
-    int m_value;
-};
-
 BFME_DISP_DWORD_GETTER(Rva0028A6A1DwordField, 0x240)
 
 BFME_DISP_DWORD_GETTER(Rva0028A6A8DwordField, 0x24C)
@@ -2279,11 +2283,52 @@ BFME_LITERAL_NAME_GETTER(Rva0028CA92Named, "ObjectRecoveryHelper")
 
 BFME_LITERAL_NAME_GETTER(Rva0028CB23Named, "ObjectRepulsorHelper")
 
+class MilesAudioManager
+{
+public:
+    virtual int rva0005189D() const;
+    char m_lead[0x678 - sizeof(void *)];
+    int m_value;
+};
+
+BFME_DISP_BYTE_GETTER(Rva0028A69AByteField, 0x43C)
+
+BFME_DISP_BYTE_GETTER(Rva0028B984ByteField, 0x48C)
+
+// BF1 9cbfb551fe Common/Rva005BD470ZeroTest.cpp is the clean semantic donor.
+// Full native leaf 001F350B..001F3513 ends at its own RET boundary.
+// Target evidence: receiver0C dword equals two; result in AL.
+// Original owner unresolved; the address-owned type is independent of nearby classes.
+class Rva001F350BFields {
+public: unsigned char isTwo() const;
+private: char unknown[0x0C]; unsigned int value;
+};
+
 // tu-skeleton: 0x0028A670 20B ?setWeaponBonusCondition@Object@@QAEXW4WeaponBonusConditionType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/WeaponBonusUpgradeUpgradeImplementation.cpp (not merged yet)
 
 // tu-skeleton: 0x0028A684 22B ?clearWeaponBonusCondition@Object@@QAEXW4WeaponBonusConditionType@@@Z -- matched in Code/GameEngine/Source/Common/RTS/PlayerBattlePlanBonuses.cpp (not merged yet)
 
-// tu-skeleton: 0x0028A69A 7B ?get@Rva0028A69AByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/DispByteFieldGetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/DispByteFieldGetters.cpp
+
+// Disp32 byte getters: seven-byte __thiscall members with one shape:
+//
+//     mov al,[ecx+<DISP>] / ret
+//
+// One BYTE is read at a fixed displacement from `this` and left in al. The
+// return type is spelled `unsigned char` because only al is written and the
+// upper bytes of eax are left holding whatever the caller had; the bytes
+// cannot distinguish it from `signed char`, `bool` or a one-byte enum.
+//
+// Every displacement here is a disp32 (MSVC 7.1 uses disp8 whenever the
+// offset fits, so every offset is at least 0x80), which is why this family
+// is separable from the far larger disp8 one. Members before the accessed
+// one are spelled as a lead array because their types are not witnessed
+// here, only their total size. Identity is not recovered: every name is
+// derived from its address (BFME1 pioneered the same family in
+// reference/open-bfme-1/Code/GameEngine/Source/Common/DispByteFieldGetters.cpp).
+// No // cl: line (defaults match the frameless 7-byte shape).
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Object.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Object.cpp
 
@@ -4524,6 +4569,184 @@ void Rva0028F8B3SetBit(unsigned int *words, unsigned int bit)
 // derived from its address.
 // No // cl: line (defaults match the frameless seven-byte shape).
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---- from Code/GameEngine/Source/Common/SubsystemNameGetters.cpp
+
+// Subsystem literal name getters: six-byte const members with one shape:
+//
+//     mov eax,<offset string literal> / ret
+//
+// Each body returns a pointer to a NUL-terminated class-name string in
+// .rdata. The vtable at each site carries the body at slot 2 (offset 8)
+// behind a shared pair (slot 0 varies, slot 1 is 0xA9E440) and ahead of
+// class-specific tails, closed by 0x5B5384 -- the Subsystem/Snapshot family
+// pattern. Ported from Open-BFME-1
+// (Code/GameEngine/Source/Common/LiteralNameGetters_01.cpp): the
+// BFME_LITERAL_NAME_GETTER macro is verbatim; only the class names follow
+// this tree's address-derived convention (identity unrecoverable from 6
+// bytes, string carried in source where verify_string_refs re-reads it).
+// No // cl: line (defaults match the frameless 6-byte shape).
+
 // tu-skeleton: 0x0028A6B6 17B ?rva0028A6B6@Rva0028A638@@QAEXM@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
 
 // tu-skeleton: 0x0028A6C7 32B ?dlink_isInList_TeamMemberList@Object@@QBE_NPBQAV1@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectIsInTeamMemberList.cpp (not merged yet)
@@ -4698,8 +4921,6 @@ void Rva0028F8B3SetBit(unsigned int *words, unsigned int bit)
 
 // tu-skeleton: 0x0028B975 15B ?rva0028B975@Rva0028A638@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
 
-// tu-skeleton: 0x0028B984 7B ?get@Rva0028B984ByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/DispByteFieldGetters.cpp (not merged yet)
-
 // tu-skeleton: 0x0028B98B 107B ?rva0028B98B@Object@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectScriptStatus.cpp (not merged yet)
 
 // tu-skeleton: 0x0028B9F6 143B ?SwapForExchange@Object@@QAEXPAV1@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Object_SwapForExchange.cpp (not merged yet)
@@ -4845,23 +5066,6 @@ void Rva0028F8B3SetBit(unsigned int *words, unsigned int bit)
 // tu-skeleton: 0x0028C955 61B ??0ObjectDefectionHelper@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Helper/ObjectDefectionHelperCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0028C992 69B ?getModuleNameKey@ObjectDefectionHelper@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/ObjectDefectionHelperPoolKey.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/SubsystemNameGetters.cpp
-
-// Subsystem literal name getters: six-byte const members with one shape:
-//
-//     mov eax,<offset string literal> / ret
-//
-// Each body returns a pointer to a NUL-terminated class-name string in
-// .rdata. The vtable at each site carries the body at slot 2 (offset 8)
-// behind a shared pair (slot 0 varies, slot 1 is 0xA9E440) and ahead of
-// class-specific tails, closed by 0x5B5384 -- the Subsystem/Snapshot family
-// pattern. Ported from Open-BFME-1
-// (Code/GameEngine/Source/Common/LiteralNameGetters_01.cpp): the
-// BFME_LITERAL_NAME_GETTER macro is verbatim; only the class names follow
-// this tree's address-derived convention (identity unrecoverable from 6
-// bytes, string carried in source where verify_string_refs re-reads it).
-// No // cl: line (defaults match the frameless 6-byte shape).
 
 // tu-skeleton: 0x0028C9DD 28B ??_GRva004DF52E@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva004DF7C2Derived.cpp (not merged yet)
 
@@ -5452,6 +5656,20 @@ void Rva0028F8B3SetBit(unsigned int *words, unsigned int bit)
 // tu-skeleton: 0x00774461 13B $L4801 -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectGetCreateAHeroSpecialPower.cpp (not merged yet)
 
 // tu-skeleton: 0x0077446E 10B __ehhandler$?rva002911B7@Object@@QAEPAVThingTemplate@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectGetCreateAHeroSpecialPower.cpp (not merged yet)
+
+// tu-skeleton: 0x00774478 8B $L1168 -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva00291298.cpp (not merged yet)
+
+// tu-skeleton: 0x00774480 10B __ehhandler$?rva00291298@Object@@QAEXVAsciiString@@H@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva00291298.cpp (not merged yet)
+
+// tu-skeleton: 0x0077448A 8B $L1689 -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x00774492 8B $L1690 -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0077449A 10B __ehhandler$?xfer@?$BitFlags@$0GI@@@QAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x007744A4 8B $L2678 -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectSetTeam.cpp (not merged yet)
+
+// tu-skeleton: 0x007744AC 10B __ehhandler$?setOrRestoreTeam@Object@@AAEXPAVTeam@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectSetTeam.cpp (not merged yet)
 
 // tu-skeleton: 0x007744B6 11B Unwind@00b744b6 -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectScriptStatus.cpp (not merged yet)
 
