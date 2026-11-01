@@ -1,0 +1,3224 @@
+{
+ "bases": [
+  "RenderObjClass",
+  "DX8_CleanupHook",
+  "Snapshot"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "BaseHeightMapRenderObjClass",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 101,
+  "inherited": {
+   "base_views": 3,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 6
+   },
+   "0x3790": {
+    "4": 8
+   },
+   "0x3794": {
+    "4": 2
+   },
+   "0x3798": {
+    "4": 1
+   },
+   "0x379c": {
+    "4": 1
+   },
+   "0x37c0": {
+    "4": 14
+   },
+   "0x37c5": {
+    "1": 3
+   },
+   "0x37d4": {
+    "1": 1
+   },
+   "0x37d8": {
+    "4": 1
+   },
+   "0x37e4": {
+    "4": 1
+   },
+   "0x37e8": {
+    "4": 1
+   },
+   "0x37ec": {
+    "4": 1
+   },
+   "0x381c": {
+    "4": 1
+   },
+   "0x3820": {
+    "4": 1
+   },
+   "0x3828": {
+    "4": 1
+   },
+   "0x382c": {
+    "4": 2
+   },
+   "0x3834": {
+    "1": 2
+   },
+   "0x3838": {
+    "4": 1
+   },
+   "0x3844": {
+    "4": 1
+   },
+   "0x3850": {
+    "4": 7
+   },
+   "0x3854": {
+    "4": 7
+   },
+   "0x3858": {
+    "4": 4
+   },
+   "0x3860": {
+    "4": 3
+   },
+   "0x386c": {
+    "4": 1
+   },
+   "0x3870": {
+    "4": 2
+   },
+   "0x387c": {
+    "4": 1
+   },
+   "0xcc": {
+    "4": 3
+   },
+   "0xd0": {
+    "4": 2
+   },
+   "0xd4": {
+    "4": 2
+   },
+   "0xd8": {
+    "4": 1
+   },
+   "0xdc": {
+    "4": 2
+   },
+   "0xe8": {
+    "4": 1
+   },
+   "0xec": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x6c9cf"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "RenderObjClass",
+       "offset": 0,
+       "own_vftable": "0x7c5db0",
+       "rule": "retail-ctor-call"
+      },
+      {
+       "kind": "inference",
+       "name": "<vftable 0x86fffc>",
+       "offset": 196,
+       "own_vftable": "0x7c5da0",
+       "rule": "retail-inlined-base-vptr(unnamed)"
+      },
+      {
+       "kind": "target",
+       "name": "Snapshot",
+       "offset": 200,
+       "own_vftable": "0x7c5d90",
+       "rule": "retail-inlined-base-vptr"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x6c9cf"
+     ],
+     "value": 14465
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x6c9cf"
+     ],
+     "value": {
+      "0x3790": [
+       4
+      ],
+      "0x3794": [
+       4
+      ],
+      "0x3798": [
+       4
+      ],
+      "0x379c": [
+       4
+      ],
+      "0x37a0": [
+       4
+      ],
+      "0x37a4": [
+       4
+      ],
+      "0x37a8": [
+       4
+      ],
+      "0x37ac": [
+       4
+      ],
+      "0x37c0": [
+       4
+      ],
+      "0x37c4": [
+       1
+      ],
+      "0x37c5": [
+       1
+      ],
+      "0x37c8": [
+       4
+      ],
+      "0x37cc": [
+       4
+      ],
+      "0x37d0": [
+       4
+      ],
+      "0x37d4": [
+       1
+      ],
+      "0x37d8": [
+       4
+      ],
+      "0x37dc": [
+       4
+      ],
+      "0x37e0": [
+       1
+      ],
+      "0x37e4": [
+       4
+      ],
+      "0x37e8": [
+       4
+      ],
+      "0x3814": [
+       4
+      ],
+      "0x3818": [
+       4
+      ],
+      "0x381c": [
+       4
+      ],
+      "0x3820": [
+       4
+      ],
+      "0x3824": [
+       4
+      ],
+      "0x3828": [
+       4
+      ],
+      "0x382c": [
+       4
+      ],
+      "0x3830": [
+       4
+      ],
+      "0x3838": [
+       4
+      ],
+      "0x383c": [
+       4
+      ],
+      "0x3840": [
+       4
+      ],
+      "0x3844": [
+       4
+      ],
+      "0x3848": [
+       4
+      ],
+      "0x384c": [
+       4
+      ],
+      "0x3850": [
+       4
+      ],
+      "0x3854": [
+       4
+      ],
+      "0x3858": [
+       4
+      ],
+      "0x385c": [
+       4
+      ],
+      "0x3860": [
+       4
+      ],
+      "0x3864": [
+       4
+      ],
+      "0x3868": [
+       4
+      ],
+      "0x386c": [
+       4
+      ],
+      "0x3870": [
+       4
+      ],
+      "0x3874": [
+       4
+      ],
+      "0x3878": [
+       4
+      ],
+      "0x387c": [
+       4
+      ],
+      "0x3880": [
+       1
+      ],
+      "0xcc": [
+       4
+      ],
+      "0xd0": [
+       4
+      ],
+      "0xd4": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x6c9cf"
+     ],
+     "value": {
+      "0x37ec": [
+       "??0?$_Bvector_base@V?$allocator@_N@_STL@@@_STL@@QAE@ABV?$allocator@_N@1@@Z"
+      ],
+      "0x3800": [
+       "??0?$_Bvector_base@V?$allocator@_N@_STL@@@_STL@@QAE@ABV?$allocator@_N@1@@Z"
+      ],
+      "0x3824": [
+       "?set@?$StringBase@D@@QAEXPBD@Z"
+      ],
+      "0x3830": [
+       "?set@?$StringBase@D@@QAEXPBD@Z"
+      ],
+      "0x3840": [
+       "?set@?$StringBase@D@@QAEXPBD@Z"
+      ],
+      "0x384c": [
+       "?set@?$StringBase@D@@QAEXPBD@Z"
+      ]
+     }
+    },
+    "unknown_subobject_vptrs": {
+     "kind": "inference",
+     "rule": "retail-ctor-vptr-after-own",
+     "sites": [
+      "0x6c9cf"
+     ],
+     "value": {
+      "0x8": [
+       "0x7c5da8"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x6c9cf"
+     ],
+     "value": {
+      "0x0": "0x7c5db0",
+      "0xc4": "0x7c5da0",
+      "0xc8": "0x7c5d90"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7c5db0"
+     ],
+     "value": {
+      "count": 148,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "?DeleteThis@BfmeDynamicVBRefCount@@UAEXXZ",
+        "slot": 0,
+        "target": "0x6ce57"
+       },
+       {
+        "name": "??_GBaseHeightMapRenderObjClass@@UAEPAXI@Z",
+        "slot": 1,
+        "target": "0x6d58b"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 2,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?UnknownSlot2@BFME2Encoding0MotionChannel@@UAEHXZ",
+        "slot": 3,
+        "target": "0x4fb350"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 4,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 5,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?name@Rva0006CE6BNamed@@QBEPBDXZ",
+        "slot": 6,
+        "target": "0x6ce6b"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 7,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 8,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 9,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 10,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 11,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "__purecall",
+        "slot": 12,
+        "target": "0x3b810"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 13,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 14,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?Add@RenderObjClass@@UAEXPAVSceneClass@@@Z",
+        "slot": 15,
+        "target": "0x13bc80"
+       },
+       {
+        "name": "?Remove@RenderObjClass@@UAEXXZ",
+        "slot": 16,
+        "target": "0x13bca0"
+       },
+       {
+        "name": "?Get_Scene@RenderObjClass@@UAEPAVSceneClass@@XZ",
+        "slot": 17,
+        "target": "0x13b770"
+       },
+       {
+        "name": "?get@Rva004F04F1DwordField@@QBEHXZ",
+        "slot": 18,
+        "target": "0x4f04f1"
+       },
+       {
+        "name": "?Set_Container@RenderObjClass@@UAEXPAV1@@Z",
+        "slot": 19,
+        "target": "0x13b780"
+       },
+       {
+        "name": "?Validate_Transform@RenderObjClass@@UBEXXZ",
+        "slot": 20,
+        "target": "0x13b850"
+       },
+       {
+        "name": "?Set_Transform@RenderObjClass@@UAEXABVMatrix3D@@@Z",
+        "slot": 21,
+        "target": "0x13b790"
+       },
+       {
+        "name": "?Set_Position@RenderObjClass@@UAEXABVVector3@@@Z",
+        "slot": 22,
+        "target": "0x13b810"
+       },
+       {
+        "name": "?_bfme_set_indexed_factor@RenderObjClass@@UAEXHM@Z",
+        "slot": 23,
+        "target": "0x6ce71"
+       },
+       {
+        "name": "?_bfme_get_indexed_factor@RenderObjClass@@UBEMH@Z",
+        "slot": 24,
+        "target": "0x6ce87"
+       },
+       {
+        "name": "?_bfme_get_factor_product@RenderObjClass@@UBEMXZ",
+        "slot": 25,
+        "target": "0x13bc60"
+       },
+       {
+        "name": "?Notify_Added@BaseHeightMapRenderObjClass@@UAEXPAVSceneClass@@@Z",
+        "slot": 26,
+        "target": "0x68477"
+       },
+       {
+        "name": "?Notify_Removed@RenderObjClass@@UAEXPAVSceneClass@@@Z",
+        "slot": 27,
+        "target": "0x13bce0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 28,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?_bfme_ro_v28@RenderObjClass@@UBEHXZ",
+        "slot": 29,
+        "target": "0x6ce95"
+       },
+       {
+        "name": "?slot2@PlanningPhaseBuildingSelection@StrategicInGameUI@@UAEHPAX@Z",
+        "slot": 30,
+        "target": "0x5daa6c"
+       },
+       {
+        "name": "?slot2@PlanningPhaseBuildingSelection@StrategicInGameUI@@UAEHPAX@Z",
+        "slot": 31,
+        "target": "0x5daa6c"
+       },
+       {
+        "name": "?Get_Sub_Object_By_Name@RenderObjClass@@UBEPAV1@PBDPAH@Z",
+        "slot": 32,
+        "target": "0x13b8d0"
+       },
+       {
+        "name": "?slot2@PlanningPhaseBuildingSelection@StrategicInGameUI@@UAEHPAX@Z",
+        "slot": 33,
+        "target": "0x5daa6c"
+       },
+       {
+        "name": "?rva005748B2@Rva005748B2@@QAEHHH@Z",
+        "slot": 34,
+        "target": "0x5748b2"
+       },
+       {
+        "name": "?rva005748B2@Rva005748B2@@QAEHHH@Z",
+        "slot": 35,
+        "target": "0x5748b2"
+       },
+       {
+        "name": "?slot2@PlanningPhaseBuildingSelection@StrategicInGameUI@@UAEHPAX@Z",
+        "slot": 36,
+        "target": "0x5daa6c"
+       },
+       {
+        "name": "?Add_Sub_Object_To_Bone@RenderObjClass@@UAEHPAV1@PBDPBVVector3@@@Z",
+        "slot": 37,
+        "target": "0x13b9e0"
+       },
+       {
+        "name": "?rva005748AD@Rva005748AD@@QAEHHHH@Z",
+        "slot": 38,
+        "target": "0x5748ad"
+       },
+       {
+        "name": "?Remove_Sub_Objects_From_Bone@RenderObjClass@@UAEHPBD@Z",
+        "slot": 39,
+        "target": "0x13ba80"
+       },
+       {
+        "name": "?Remove_Sub_Objects_From_Bone@RenderObjClass@@UAEHH@Z",
+        "slot": 40,
+        "target": "0x13ba10"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 41,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?debugIgnoreLeaks@?$StringBase@D@@QAEXXZ",
+        "slot": 42,
+        "target": "0x69e440"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 43,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?Set_Animation@RenderObjClass@@UAEXPAVHAnimClass@@M0MM@Z",
+        "slot": 44,
+        "target": "0x25ef04"
+       },
+       {
+        "name": "?Set_Animation@RenderObjClass@@UAEXPAVHAnimClass@@MH@Z",
+        "slot": 45,
+        "target": "0xd1407"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 46,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 47,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 48,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?slot2@PlanningPhaseBuildingSelection@StrategicInGameUI@@UAEHPAX@Z",
+        "slot": 49,
+        "target": "0x5daa6c"
+       },
+       {
+        "name": "?slot2@PlanningPhaseBuildingSelection@StrategicInGameUI@@UAEHPAX@Z",
+        "slot": 50,
+        "target": "0x5daa6c"
+       },
+       {
+        "name": "?Get_Bone_Transform@RenderObjClass@@UAE?AVMatrix3D@@PBD@Z",
+        "slot": 51,
+        "target": "0x6d06d"
+       },
+       {
+        "name": "?Get_Bone_Transform@RenderObjClass@@UAE?AVMatrix3D@@PBD@Z",
+        "slot": 52,
+        "target": "0x6d06d"
+       },
+       {
+        "name": "?_bfme_ro_v50@RenderObjClass@@UAE_NH@Z",
+        "slot": 53,
+        "target": "0x5cb9fa"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 54,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 55,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 56,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "?Set_Animation@RenderObjClass@@UAEXPAVHAnimClass@@MH@Z",
+        "slot": 57,
+        "target": "0xd1407"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 58,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 59,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?Cast_Ray@BaseHeightMapRenderObjClass@@UAE_NAAVRayCollisionTestClass@@@Z",
+        "slot": 60,
+        "target": "0x6bf62"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 61,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "?Intersect@RenderObjClass@@UAE_NPAVIntersectionClass@@PAVIntersectionResultClass@@@Z",
+        "slot": 62,
+        "target": "0x13c3b0"
+       },
+       {
+        "name": "?Intersect_Sphere@RenderObjClass@@UAE_NPAVIntersectionClass@@PAVIntersectionResultClass@@@Z",
+        "slot": 63,
+        "target": "0x13bd20"
+       },
+       {
+        "name": "?Intersect_Sphere_Quick@RenderObjClass@@UAE_NPAVIntersectionClass@@PAVIntersectionResultClass@@@Z",
+        "slot": 64,
+        "target": "0x13bd70"
+       },
+       {
+        "name": "?Get_Bounding_Sphere@RenderObjClass@@UBEABVSphereClass@@XZ",
+        "slot": 65,
+        "target": "0x6d028"
+       },
+       {
+        "name": "?Get_Bounding_Box@RenderObjClass@@UBEABVAABoxClass@@XZ",
+        "slot": 66,
+        "target": "0x6d03e"
+       },
+       {
+        "name": "?rva00069AF5@Rva00069AF5Host@@QAEXPAM@Z",
+        "slot": 67,
+        "target": "0x69af5"
+       },
+       {
+        "name": "?Get_Obj_Space_Bounding_Box@BaseHeightMapRenderObjClass@@UBEXAAVAABoxClass@@@Z",
+        "slot": 68,
+        "target": "0x69bcc"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 69,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?_bfme_set_float_84@RenderObjClass@@UAEXM@Z",
+        "slot": 70,
+        "target": "0x6ce9a"
+       },
+       {
+        "name": "?_bfme_get_float_84@RenderObjClass@@UBEMXZ",
+        "slot": 71,
+        "target": "0x6ceab"
+       },
+       {
+        "name": "?m009EC960@Q1Receiver0134FAAC@@QAEXPAX@Z",
+        "slot": 72,
+        "target": "0x180fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 73,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 74,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 75,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?Get_Cost@RenderObjClass@@UBEMXZ",
+        "slot": 76,
+        "target": "0x13baa0"
+       },
+       {
+        "name": "?Rva00167F59Get@@YAMXZ",
+        "slot": 77,
+        "target": "0x167f59"
+       },
+       {
+        "name": "?Rva00167F60Get@@YAMXZ",
+        "slot": 78,
+        "target": "0x167f60"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 79,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 80,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?Create@GameFileClass@@UAEHXZ",
+        "slot": 81,
+        "target": "0x910fb"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 82,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?Calculate_Cost_Value_Arrays@RenderObjClass@@UBEHMPAM0@Z",
+        "slot": 83,
+        "target": "0x13bac0"
+       },
+       {
+        "name": "?Get_Current_LOD@RenderObjClass@@UAEPAV1@XZ",
+        "slot": 84,
+        "target": "0x7e4af"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 85,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?Set_User_Data@RenderObjClass@@UAEXPAX_N@Z",
+        "slot": 86,
+        "target": "0x6ceb2"
+       },
+       {
+        "name": "?Get_User_Data@RenderObjClass@@UAEPAXXZ",
+        "slot": 87,
+        "target": "0x30c8a7"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 88,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 89,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?Get_Screen_Size@RenderObjClass@@UAEMAAVCameraClass@@@Z",
+        "slot": 90,
+        "target": "0x13c030"
+       },
+       {
+        "name": "?Set_Animation@RenderObjClass@@UAEXPAVHAnimClass@@MH@Z",
+        "slot": 91,
+        "target": "0xd1407"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 92,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?Set_ObjectScale@RenderObjClass@@UAEXM@Z",
+        "slot": 93,
+        "target": "0x6cebf"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 94,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 95,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?Is_Really_Visible@RenderObjClass@@UAEHXZ",
+        "slot": 96,
+        "target": "0x6cecd"
+       },
+       {
+        "name": "?Is_Not_Hidden_At_All@RenderObjClass@@UAEHXZ",
+        "slot": 97,
+        "target": "0x6ceee"
+       },
+       {
+        "name": "?queryVisible@Rva0013B6D0@@QAEHXZ",
+        "slot": 98,
+        "target": "0x13b6d0"
+       },
+       {
+        "name": "?Set_Visible@RenderObjClass@@UAEXHH@Z",
+        "slot": 99,
+        "target": "0x13b710"
+       },
+       {
+        "name": "?Is_Hidden@RenderObjClass@@UBEHXZ",
+        "slot": 100,
+        "target": "0x6cf00"
+       },
+       {
+        "name": "?Set_Hidden@RenderObjClass@@UAEXH@Z",
+        "slot": 101,
+        "target": "0x6cf0c"
+       },
+       {
+        "name": "?Is_Animation_Hidden@RenderObjClass@@UBEHXZ",
+        "slot": 102,
+        "target": "0x6cf20"
+       },
+       {
+        "name": "?Set_Animation_Hidden@RenderObjClass@@UAEXH@Z",
+        "slot": 103,
+        "target": "0x6cf2c"
+       },
+       {
+        "name": "?Is_Force_Visible@RenderObjClass@@UBEHXZ",
+        "slot": 104,
+        "target": "0x6cf40"
+       },
+       {
+        "name": "?Set_Force_Visible@RenderObjClass@@UAEXH@Z",
+        "slot": 105,
+        "target": "0x13b720"
+       },
+       {
+        "name": "?Is_Translucent@RenderObjClass@@UBEHXZ",
+        "slot": 106,
+        "target": "0x6cf49"
+       },
+       {
+        "name": "?Set_Translucent@RenderObjClass@@UAEXH@Z",
+        "slot": 107,
+        "target": "0x6cf52"
+       },
+       {
+        "name": "?Is_Alpha@RenderObjClass@@UBEHXZ",
+        "slot": 108,
+        "target": "0x6cf66"
+       },
+       {
+        "name": "?Set_Alpha@RenderObjClass@@UAEXH@Z",
+        "slot": 109,
+        "target": "0x6cf6f"
+       },
+       {
+        "name": "?Is_Additive@RenderObjClass@@UBEHXZ",
+        "slot": 110,
+        "target": "0x6cf83"
+       },
+       {
+        "name": "?Set_Additive@RenderObjClass@@UAEXH@Z",
+        "slot": 111,
+        "target": "0x6cf8c"
+       },
+       {
+        "name": "?_bfme_ro_flag109@RenderObjClass@@UBEHXZ",
+        "slot": 112,
+        "target": "0x6cfa0"
+       },
+       {
+        "name": "?_bfme_ro_flag110@RenderObjClass@@UAEXH@Z",
+        "slot": 113,
+        "target": "0x6cfa9"
+       },
+       {
+        "name": "?_bfme_ro_flag111@RenderObjClass@@UBEHXZ",
+        "slot": 114,
+        "target": "0x6cfbd"
+       },
+       {
+        "name": "?_bfme_ro_flag112@RenderObjClass@@UAEXH@Z",
+        "slot": 115,
+        "target": "0x6cfc6"
+       },
+       {
+        "name": "?_bfme_ro_flag113@RenderObjClass@@UBEHXZ",
+        "slot": 116,
+        "target": "0x6cfda"
+       },
+       {
+        "name": "?_bfme_ro_flag114@RenderObjClass@@UAEXH@Z",
+        "slot": 117,
+        "target": "0x6cfe3"
+       },
+       {
+        "name": "?_bfme_ro_flag115@RenderObjClass@@UBEHXZ",
+        "slot": 118,
+        "target": "0x6cff7"
+       },
+       {
+        "name": "?_bfme_ro_flag116@RenderObjClass@@UAEXH@Z",
+        "slot": 119,
+        "target": "0x6d000"
+       },
+       {
+        "name": "?Get_Collision_Type@RenderObjClass@@UBEHXZ",
+        "slot": 120,
+        "target": "0x6d014"
+       },
+       {
+        "name": "?Set_Collision_Type@RenderObjClass@@UAEXH_N@Z",
+        "slot": 121,
+        "target": "0x13baf0"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 122,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?Is_In_Scene@RenderObjClass@@UAE_NXZ",
+        "slot": 123,
+        "target": "0x6d01f"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 124,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 125,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 126,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?Update_Cached_Bounding_Volumes@RenderObjClass@@MBEXXZ",
+        "slot": 127,
+        "target": "0x13c190"
+       },
+       {
+        "name": "?Update_Sub_Object_Bits@RenderObjClass@@MAEXXZ",
+        "slot": 128,
+        "target": "0x13bb60"
+       },
+       {
+        "name": "?rva0006692C@BaseHeightMapRenderObjClass@@QAEXXZ",
+        "slot": 129,
+        "target": "0x6692c"
+       },
+       {
+        "name": "?rva00066A9A@Rva00066A9AHost@@QAEXXZ",
+        "slot": 130,
+        "target": "0x66a9a"
+       },
+       {
+        "name": "?initHeightData@BaseHeightMapRenderObjClass@@QAEHHHPAVWorldHeightMap@@PAX@Z",
+        "slot": 131,
+        "target": "0x6d6d9"
+       },
+       {
+        "name": "__purecall",
+        "slot": 132,
+        "target": "0x3b810"
+       },
+       {
+        "name": "?rva0006933D@Rva0006933D@@QAEHXZ",
+        "slot": 133,
+        "target": "0x6933d"
+       },
+       {
+        "name": "?rva00069CE6@BaseHeightMapRenderObjClass@@QAEXABVRva000E3A8D@@H@Z",
+        "slot": 134,
+        "target": "0x69ce6"
+       },
+       {
+        "name": "?adjustTerrainLOD@BaseHeightMapRenderObjClass@@UAEXH@Z",
+        "slot": 135,
+        "target": "0x6669f"
+       },
+       {
+        "name": "__purecall",
+        "slot": 136,
+        "target": "0x3b810"
+       },
+       {
+        "name": "?rva00068441@Rva00068441@@QAEXH@Z",
+        "slot": 137,
+        "target": "0x68441"
+       },
+       {
+        "name": "?reset@BaseHeightMapRenderObjClass@@UAEXXZ",
+        "slot": 138,
+        "target": "0x6d5a7"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 139,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "__purecall",
+        "slot": 140,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 141,
+        "target": "0x3b810"
+       },
+       {
+        "name": "?rva0006820F@Rva0006820FNullForwarder@@QAE_NH@Z",
+        "slot": 142,
+        "target": "0x6820f"
+       },
+       {
+        "name": "?rva0006B804@BaseHeightMapRenderObjClass@@QAEXXZ",
+        "slot": 143,
+        "target": "0x6b804"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 144,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?getHeightMapHeight@BaseHeightMapRenderObjClass@@UBEMMMPAUCoord3D@@@Z",
+        "slot": 145,
+        "target": "0x6ad6a"
+       },
+       {
+        "name": "?getMaxCellHeight@BaseHeightMapRenderObjClass@@UBEMMM@Z",
+        "slot": 146,
+        "target": "0x670b8"
+       },
+       {
+        "name": "__purecall",
+        "slot": 147,
+        "target": "0x3b810"
+       }
+      ],
+      "table": "0x7c5db0"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 48,
+  "retail_vtables": {
+   "0x7c5d90": {
+    "offset": 200,
+    "slots": {},
+    "stores": 1
+   },
+   "0x7c5da0": {
+    "offset": 196,
+    "slots": {},
+    "stores": 1
+   },
+   "0x7c5db0": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "?DeleteThis@BfmeDynamicVBRefCount@@UAEXXZ",
+     "1": "??_GBaseHeightMapRenderObjClass@@UAEPAXI@Z",
+     "2": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "3": "?UnknownSlot2@BFME2Encoding0MotionChannel@@UAEHXZ",
+     "4": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "5": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "6": "?name@Rva0006CE6BNamed@@QBEPBDXZ",
+     "7": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "8": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "9": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "10": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "11": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "12": "__purecall",
+     "13": "??1Region2D@@QAE@XZ",
+     "14": "??1Region2D@@QAE@XZ",
+     "15": "?Add@RenderObjClass@@UAEXPAVSceneClass@@@Z",
+     "16": "?Remove@RenderObjClass@@UAEXXZ",
+     "17": "?Get_Scene@RenderObjClass@@UAEPAVSceneClass@@XZ",
+     "18": "?get@Rva004F04F1DwordField@@QBEHXZ",
+     "19": "?Set_Container@RenderObjClass@@UAEXPAV1@@Z",
+     "20": "?Validate_Transform@RenderObjClass@@UBEXXZ",
+     "21": "?Set_Transform@RenderObjClass@@UAEXABVMatrix3D@@@Z",
+     "22": "?Set_Position@RenderObjClass@@UAEXABVVector3@@@Z",
+     "23": "?_bfme_set_indexed_factor@RenderObjClass@@UAEXHM@Z",
+     "24": "?_bfme_get_indexed_factor@RenderObjClass@@UBEMH@Z",
+     "25": "?_bfme_get_factor_product@RenderObjClass@@UBEMXZ",
+     "26": "?Notify_Added@BaseHeightMapRenderObjClass@@UAEXPAVSceneClass@@@Z",
+     "27": "?Notify_Removed@RenderObjClass@@UAEXPAVSceneClass@@@Z",
+     "28": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "29": "?_bfme_ro_v28@RenderObjClass@@UBEHXZ",
+     "30": "?slot2@PlanningPhaseBuildingSelection@StrategicInGameUI@@UAEHPAX@Z",
+     "31": "?slot2@PlanningPhaseBuildingSelection@StrategicInGameUI@@UAEHPAX@Z",
+     "32": "?Get_Sub_Object_By_Name@RenderObjClass@@UBEPAV1@PBDPAH@Z",
+     "33": "?slot2@PlanningPhaseBuildingSelection@StrategicInGameUI@@UAEHPAX@Z",
+     "34": "?rva005748B2@Rva005748B2@@QAEHHH@Z",
+     "35": "?rva005748B2@Rva005748B2@@QAEHHH@Z",
+     "36": "?slot2@PlanningPhaseBuildingSelection@StrategicInGameUI@@UAEHPAX@Z",
+     "37": "?Add_Sub_Object_To_Bone@RenderObjClass@@UAEHPAV1@PBDPBVVector3@@@Z",
+     "38": "?rva005748AD@Rva005748AD@@QAEHHHH@Z",
+     "39": "?Remove_Sub_Objects_From_Bone@RenderObjClass@@UAEHPBD@Z",
+     "40": "?Remove_Sub_Objects_From_Bone@RenderObjClass@@UAEHH@Z",
+     "41": "??1Region2D@@QAE@XZ",
+     "42": "?debugIgnoreLeaks@?$StringBase@D@@QAEXXZ",
+     "43": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "44": "?Set_Animation@RenderObjClass@@UAEXPAVHAnimClass@@M0MM@Z",
+     "45": "?Set_Animation@RenderObjClass@@UAEXPAVHAnimClass@@MH@Z",
+     "46": "??1Region2D@@QAE@XZ",
+     "47": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "48": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "49": "?slot2@PlanningPhaseBuildingSelection@StrategicInGameUI@@UAEHPAX@Z",
+     "50": "?slot2@PlanningPhaseBuildingSelection@StrategicInGameUI@@UAEHPAX@Z",
+     "51": "?Get_Bone_Transform@RenderObjClass@@UAE?AVMatrix3D@@PBD@Z",
+     "52": "?Get_Bone_Transform@RenderObjClass@@UAE?AVMatrix3D@@PBD@Z",
+     "53": "?_bfme_ro_v50@RenderObjClass@@UAE_NH@Z",
+     "54": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "55": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "56": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "57": "?Set_Animation@RenderObjClass@@UAEXPAVHAnimClass@@MH@Z",
+     "58": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "59": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "60": "?Cast_Ray@BaseHeightMapRenderObjClass@@UAE_NAAVRayCollisionTestClass@@@Z",
+     "61": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "62": "?Intersect@RenderObjClass@@UAE_NPAVIntersectionClass@@PAVIntersectionResultClass@@@Z",
+     "63": "?Intersect_Sphere@RenderObjClass@@UAE_NPAVIntersectionClass@@PAVIntersectionResultClass@@@Z",
+     "64": "?Intersect_Sphere_Quick@RenderObjClass@@UAE_NPAVIntersectionClass@@PAVIntersectionResultClass@@@Z",
+     "65": "?Get_Bounding_Sphere@RenderObjClass@@UBEABVSphereClass@@XZ",
+     "66": "?Get_Bounding_Box@RenderObjClass@@UBEABVAABoxClass@@XZ",
+     "67": "?rva00069AF5@Rva00069AF5Host@@QAEXPAM@Z",
+     "68": "?Get_Obj_Space_Bounding_Box@BaseHeightMapRenderObjClass@@UBEXAAVAABoxClass@@@Z",
+     "69": "??1Region2D@@QAE@XZ",
+     "70": "?_bfme_set_float_84@RenderObjClass@@UAEXM@Z",
+     "71": "?_bfme_get_float_84@RenderObjClass@@UBEMXZ",
+     "72": "?m009EC960@Q1Receiver0134FAAC@@QAEXPAX@Z",
+     "73": "??1Region2D@@QAE@XZ",
+     "74": "??1Region2D@@QAE@XZ",
+     "75": "??1Region2D@@QAE@XZ",
+     "76": "?Get_Cost@RenderObjClass@@UBEMXZ",
+     "77": "?Rva00167F59Get@@YAMXZ",
+     "78": "?Rva00167F60Get@@YAMXZ",
+     "79": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "80": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "81": "?Create@GameFileClass@@UAEHXZ",
+     "82": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "83": "?Calculate_Cost_Value_Arrays@RenderObjClass@@UBEHMPAM0@Z",
+     "84": "?Get_Current_LOD@RenderObjClass@@UAEPAV1@XZ",
+     "85": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "86": "?Set_User_Data@RenderObjClass@@UAEXPAX_N@Z",
+     "87": "?Get_User_Data@RenderObjClass@@UAEPAXXZ",
+     "88": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "89": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "90": "?Get_Screen_Size@RenderObjClass@@UAEMAAVCameraClass@@@Z",
+     "91": "?Set_Animation@RenderObjClass@@UAEXPAVHAnimClass@@MH@Z",
+     "92": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "93": "?Set_ObjectScale@RenderObjClass@@UAEXM@Z",
+     "94": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "95": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "96": "?Is_Really_Visible@RenderObjClass@@UAEHXZ",
+     "97": "?Is_Not_Hidden_At_All@RenderObjClass@@UAEHXZ",
+     "98": "?queryVisible@Rva0013B6D0@@QAEHXZ",
+     "99": "?Set_Visible@RenderObjClass@@UAEXHH@Z",
+     "100": "?Is_Hidden@RenderObjClass@@UBEHXZ",
+     "101": "?Set_Hidden@RenderObjClass@@UAEXH@Z",
+     "102": "?Is_Animation_Hidden@RenderObjClass@@UBEHXZ",
+     "103": "?Set_Animation_Hidden@RenderObjClass@@UAEXH@Z",
+     "104": "?Is_Force_Visible@RenderObjClass@@UBEHXZ",
+     "105": "?Set_Force_Visible@RenderObjClass@@UAEXH@Z",
+     "106": "?Is_Translucent@RenderObjClass@@UBEHXZ",
+     "107": "?Set_Translucent@RenderObjClass@@UAEXH@Z",
+     "108": "?Is_Alpha@RenderObjClass@@UBEHXZ",
+     "109": "?Set_Alpha@RenderObjClass@@UAEXH@Z",
+     "110": "?Is_Additive@RenderObjClass@@UBEHXZ",
+     "111": "?Set_Additive@RenderObjClass@@UAEXH@Z",
+     "112": "?_bfme_ro_flag109@RenderObjClass@@UBEHXZ",
+     "113": "?_bfme_ro_flag110@RenderObjClass@@UAEXH@Z",
+     "114": "?_bfme_ro_flag111@RenderObjClass@@UBEHXZ",
+     "115": "?_bfme_ro_flag112@RenderObjClass@@UAEXH@Z",
+     "116": "?_bfme_ro_flag113@RenderObjClass@@UBEHXZ",
+     "117": "?_bfme_ro_flag114@RenderObjClass@@UAEXH@Z",
+     "118": "?_bfme_ro_flag115@RenderObjClass@@UBEHXZ",
+     "119": "?_bfme_ro_flag116@RenderObjClass@@UAEXH@Z",
+     "120": "?Get_Collision_Type@RenderObjClass@@UBEHXZ",
+     "121": "?Set_Collision_Type@RenderObjClass@@UAEXH_N@Z",
+     "122": "?IsCRC@Xfer@@UBE_NXZ",
+     "123": "?Is_In_Scene@RenderObjClass@@UAE_NXZ",
+     "124": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "125": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "126": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "127": "?Update_Cached_Bounding_Volumes@RenderObjClass@@MBEXXZ",
+     "128": "?Update_Sub_Object_Bits@RenderObjClass@@MAEXXZ",
+     "129": "?rva0006692C@BaseHeightMapRenderObjClass@@QAEXXZ",
+     "130": "?rva00066A9A@Rva00066A9AHost@@QAEXXZ",
+     "131": "?initHeightData@BaseHeightMapRenderObjClass@@QAEHHHPAVWorldHeightMap@@PAX@Z",
+     "132": "__purecall",
+     "133": "?rva0006933D@Rva0006933D@@QAEHXZ",
+     "134": "?rva00069CE6@BaseHeightMapRenderObjClass@@QAEXABVRva000E3A8D@@H@Z",
+     "135": "?adjustTerrainLOD@BaseHeightMapRenderObjClass@@UAEXH@Z",
+     "136": "__purecall",
+     "137": "?rva00068441@Rva00068441@@QAEXH@Z",
+     "138": "?reset@BaseHeightMapRenderObjClass@@UAEXXZ",
+     "139": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "140": "__purecall",
+     "141": "__purecall",
+     "142": "?rva0006820F@Rva0006820FNullForwarder@@QAE_NH@Z",
+     "143": "?rva0006B804@BaseHeightMapRenderObjClass@@QAEXXZ",
+     "144": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "145": "?getHeightMapHeight@BaseHeightMapRenderObjClass@@UBEMMMPAUCoord3D@@@Z",
+     "146": "?getMaxCellHeight@BaseHeightMapRenderObjClass@@UBEMMM@Z",
+     "147": "__purecall"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 19,
+   "4": 13,
+   "8": 1,
+   "196": 1,
+   "204": 2,
+   "216": 1,
+   "224": 1,
+   "14232": 2,
+   "14236": 2,
+   "14272": 1,
+   "14276": 15,
+   "14292": 1,
+   "14296": 1,
+   "14300": 2,
+   "14304": 1,
+   "14316": 3,
+   "14336": 1,
+   "14356": 1,
+   "14392": 1,
+   "14420": 1,
+   "14424": 3,
+   "14428": 1,
+   "14436": 4,
+   "14452": 2,
+   "14456": 1,
+   "14460": 8,
+   "14464": 6,
+   "14468": 5,
+   "14472": 1
+  },
+  "views": 101,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_BaseHeightMapRenderObjClass.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include/W3DDevice/GameClient/BaseHeightMap.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "retail-access",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {
+    "4": 6
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 43,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB09.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapBoundingBox.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapNotifyAdded.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapXfer.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3B41Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3BFEConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualDestructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualXfer.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB09.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapNotifyAdded.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0006D0D7Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3B41Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3BFEConstructor.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB09.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapNotifyAdded.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3B41Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3BFEConstructor.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapNotifyAdded.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3B41Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3BFEConstructor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapNotifyAdded.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3B41Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3BFEConstructor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapNotifyAdded.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapXfer.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3B41Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3BFEConstructor.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 72,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapNotifyAdded.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3B41Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3BFEConstructor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 76,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapNotifyAdded.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3B41Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3BFEConstructor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 80,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapNotifyAdded.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3B41Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3BFEConstructor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 84,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapNotifyAdded.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3B41Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3BFEConstructor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 88,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapNotifyAdded.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3B41Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3BFEConstructor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 92,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapNotifyAdded.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3B41Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3BFEConstructor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 96,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapNotifyAdded.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3B41Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3BFEConstructor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 100,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapNotifyAdded.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3B41Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3BFEConstructor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 104,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapNotifyAdded.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3B41Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3BFEConstructor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 108,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapNotifyAdded.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3B41Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3BFEConstructor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 112,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapNotifyAdded.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3B41Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3BFEConstructor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 116,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapNotifyAdded.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3B41Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3BFEConstructor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 120,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapAdjustTerrainLOD.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapGetStaticDiffuse.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapNotifyAdded.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3B41Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3BFEConstructor.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 124,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapNotifyAdded.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3B41Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3BFEConstructor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 128,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapNotifyAdded.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3B41Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3BFEConstructor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 132,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapNotifyAdded.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3B41Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3BFEConstructor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 136,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapNotifyAdded.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3B41Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3BFEConstructor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 140,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapNotifyAdded.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3B41Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3BFEConstructor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 144,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapNotifyAdded.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3B41Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3BFEConstructor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 152,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapNotifyAdded.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3B41Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3BFEConstructor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 188,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapNotifyAdded.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3B41Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3BFEConstructor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 189,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapNotifyAdded.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3B41Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3BFEConstructor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 192,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapNotifyAdded.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3B41Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3BFEConstructor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 196,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0006D0D7Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3B41Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3BFEConstructor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 200,
+   "sources": [
+    "Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB09.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0006D0D7Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3B41Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3BFEConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualXfer.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 204,
+   "sources": [
+    "Code/GameEngine/Source/Common/BaseHeightMapRenderObjClass_updateScorches.cpp",
+    "Code/GameEngine/Source/Common/Rva00067878Clear.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapDrawScorches.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapScorchResources.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 208,
+   "sources": [
+    "Code/GameEngine/Source/Common/BaseHeightMapRenderObjClass_updateScorches.cpp",
+    "Code/GameEngine/Source/Common/Rva00067878Clear.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapDrawScorches.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapScorchResources.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 212,
+   "sources": [
+    "Code/GameEngine/Source/Common/BaseHeightMapRenderObjClass_updateScorches.cpp",
+    "Code/GameEngine/Source/Common/Rva00067878Clear.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapDrawScorches.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapScorchResources.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0006D0D7Dtor.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 216,
+   "sources": [
+    "Code/GameEngine/Source/Common/BaseHeightMapRenderObjClass_updateScorches.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapDrawScorches.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapScorchResources.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 220,
+   "sources": [
+    "Code/GameEngine/Source/Common/BaseHeightMapRenderObjClass_updateScorches.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapDrawScorches.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapScorchResources.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 224,
+   "sources": [
+    "Code/GameEngine/Source/Common/BaseHeightMapRenderObjClass_updateScorches.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapAddScorch.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapScorchOverlap.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0006D0D7Dtor.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 14024,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 14028,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 14032,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 14036,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 14076,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReleaseResources.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 14216,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 14220,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 14224,
+   "sources": [
+    "Code/GameEngine/Source/Common/BaseHeightMapRenderObjClass_updateScorches.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapAddScorch.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReset.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapScorchOverlap.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapXfer.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 14228,
+   "sources": [
+    "Code/GameEngine/Source/Common/BaseHeightMapRenderObjClass_updateScorches.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapAddScorch.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReset.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapScorchOverlap.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapScorchResources.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapXfer.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 14232,
+   "sources": [
+    "Code/GameEngine/Source/Common/BaseHeightMapRenderObjClass_updateScorches.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapAddScorch.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReleaseResources.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReset.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapXfer.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 14236,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReleaseResources.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapUpdateViewImpassable.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 14240,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReleaseResources.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 14244,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapRva000687EF.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 14248,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReleaseResources.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapRva000687EF.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 14252,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReleaseResources.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReset.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapRva000687EF.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 14256,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReleaseResources.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapRva000687EF.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 14260,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReleaseResources.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapRva000687EF.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 14264,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReleaseResources.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapRva000687EF.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 14268,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReleaseResources.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapRva000687EF.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 14272,
+   "sources": [
+    "Code/GameEngine/Source/Common/BaseHeightMapRenderObjClass_updateScorches.cpp",
+    "Code/GameEngine/Source/Common/BfmeConv1137InstallMaterials.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapAdjustTerrainLOD.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapBoundingBox.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapCastRay.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapCellQueries.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapEstimateMaxHeightAlongLine.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapEvaluateVisibleCliff.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapGetHeightMapHeight.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapGetStaticDiffuse.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapIsClearLineOfSight.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapRva000687EF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapRva00069CE6.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapUpdateViewImpassable.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapVisibleCellQueries.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawReactToTransformChange.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowDecalHelpers.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowMapManagerUpdateShadowCamera.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/ShroudTextureShaderSet.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShaderManager.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShaderManagerSetShroudTex.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSnowManagerRender.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTaint.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainFXVectorParams.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/W3DWaterRender.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicCellQueries.cpp"
+   ],
+   "views": 30
+  },
+  {
+   "offset": 14276,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapBoundingBox.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapDoTheLight.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 14277,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapRva00069CE6.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 14280,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapDoTheLight.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 14284,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapDoTheLight.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 14288,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapDoTheLight.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 14292,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapRva00069CE6.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView_update.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 14296,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapBoundingBox.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapGetMaximumVisibleBox.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DVolumetricShadowUpdate.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 14300,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapBoundingBox.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 14304,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 14308,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0007EBFBWaterDraw.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapAddProp.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseEnvironmentData.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 14312,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0007EBFBWaterDraw.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapAddProp.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShaderManager.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShaderManagerSetShroudTex.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewDraw.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseEnvironmentData.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 14316,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapAddProp.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReset.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapUpdateViewImpassable.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapVisibleCellQueries.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0006D0D7Dtor.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 14320,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReset.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapUpdateViewImpassable.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapVisibleCellQueries.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 14324,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReset.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapUpdateViewImpassable.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapVisibleCellQueries.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 14328,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReset.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapUpdateViewImpassable.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapVisibleCellQueries.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 14332,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReset.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapUpdateViewImpassable.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapVisibleCellQueries.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 14336,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReset.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapVisibleCellQueries.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0006D0D7Dtor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 14340,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReset.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapVisibleCellQueries.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 14344,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReset.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapVisibleCellQueries.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 14348,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReset.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapVisibleCellQueries.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 14352,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReset.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapVisibleCellQueries.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 14356,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 14360,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 14364,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0006ACBDMethod.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReset.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0006D0D7Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainTexturePtrGetters.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 14368,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0006ACBDMethod.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapAddProp.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReset.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap_Rva0006B804.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0006D0D7Dtor.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 14372,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0006ACBDMethod.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapAddProp.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0006D0D7Dtor.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 14376,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0006ACBDMethod.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0006D0D7Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainTexturePtrGetters.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 14380,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0006ACBDMethod.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapAddProp.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap_Rva0006B804.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0006D0D7Dtor.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 14384,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0006ACBDMethod.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapAddProp.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0006D0D7Dtor.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 14388,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0006ACBDMethod.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapAddProp.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap_Rva0006B804.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainFXVectorParams.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 14389,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapAddProp.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 14392,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0006D0D7Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainTexturePtrGetters.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 14396,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0006D0D7Dtor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 14400,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0006D0D7Dtor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 14404,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0006D0D7Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainTexturePtrGetters.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 14408,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0006D0D7Dtor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 14412,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0006D0D7Dtor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 14416,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapAddTree.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapMoveTree.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReset.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapRva0006692C.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapRva000687EF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapRva00069CE6.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap_Rva0006B804.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0006D0D7Dtor.cpp"
+   ],
+   "views": 10
+  },
+  {
+   "offset": 14420,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapAddTree.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapMoveTree.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReset.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapRva0006692C.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapRva00069CE6.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap_Rva0006B804.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0006D0D7Dtor.cpp"
+   ],
+   "views": 10
+  },
+  {
+   "offset": 14424,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapAddProp.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReset.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapRva00069CE6.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0006D0D7Dtor.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 14428,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReset.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0006D0D7Dtor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 14432,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0006B76CMethod.cpp",
+    "Code/GameEngine/Source/Common/Rva0006B7BFMethod.cpp",
+    "Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReset.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapRva00069CE6.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DFloorDraw.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0006D0D7Dtor.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 14436,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0006D0D7Dtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 14440,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0006D0D7Dtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 14444,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapLoadRoadsAndBridges.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReset.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapRva00069CE6.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0006D0D7Dtor.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 14448,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapLoadRoadsAndBridges.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReset.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapRva00069CE6.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0006D0D7Dtor.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 14452,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReset.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0006D0D7Dtor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 14456,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapAdjustTerrainLOD.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReset.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneRenderOneObject.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0006D0D7Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/ShroudTextureShaderSet.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplaySmallSlots.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DPropBufferDrawProps.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShaderManager.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShaderManagerSetShroudTex.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudMaterialPass.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTaint.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainFXVectorParams.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainTexturePtrGetters.cpp"
+   ],
+   "views": 15
+  },
+  {
+   "offset": 14460,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReset.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap_Rva0006B804.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0006D0D7Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplaySmallSlots.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainFXVectorParams.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainTexturePtrGetters.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 14464,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReset.cpp"
+   ],
+   "views": 3
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "inherited@0x0",
+   "candidates": {
+    "14272:A": 1,
+    "14308:A": 1,
+    "14416:A": 1,
+    "14432:A": 1,
+    "224:A": 1,
+    "4:VPTR": 1
+   },
+   "class": "BaseHeightMapRenderObjClass"
+  },
+  {
+   "attribute": "inherited@0x4",
+   "candidates": {
+    "14268:A": 1,
+    "196:A": 1,
+    "20:A": 1,
+    "4:A": 1,
+    "4:i4": 1
+   },
+   "class": "BaseHeightMapRenderObjClass"
+  },
+  {
+   "attribute": "inherited@0xc",
+   "candidates": {
+    "188:A": 1,
+    "4:P": 1
+   },
+   "class": "BaseHeightMapRenderObjClass"
+  },
+  {
+   "attribute": "inherited@0x18",
+   "candidates": {
+    "14000:A": 1,
+    "48:A": 1
+   },
+   "class": "BaseHeightMapRenderObjClass"
+  },
+  {
+   "attribute": "inherited@0x78",
+   "candidates": {
+    "4:P": 1,
+    "4:i4": 1
+   },
+   "class": "BaseHeightMapRenderObjClass"
+  },
+  {
+   "attribute": "slot3",
+   "candidates": {
+    "a03()": 1,
+    "gap003()": 1,
+    "gap03()": 1,
+    "s003()": 2,
+    "slot003()": 1,
+    "slot00c()": 1,
+    "slot3()": 2,
+    "v003()": 3,
+    "v03()": 3,
+    "v3()": 1,
+    "vf003()": 1,
+    "vslot003()": 2,
+    "xfer(Xfer*)": 1
+   },
+   "class": "BaseHeightMapRenderObjClass"
+  },
+  {
+   "attribute": "slot4",
+   "candidates": {
+    "a04()": 1,
+    "gap004()": 1,
+    "gap04()": 1,
+    "s004()": 2,
+    "slot004()": 1,
+    "slot010()": 1,
+    "slot4()": 2,
+    "v004()": 3,
+    "v04()": 3,
+    "v4()": 1,
+    "vf004()": 1,
+    "vslot004()": 2
+   },
+   "class": "BaseHeightMapRenderObjClass"
+  },
+  {
+   "attribute": "slot5",
+   "candidates": {
+    "a05()": 1,
+    "gap005()": 1,
+    "gap05()": 1,
+    "s005()": 2,
+    "slot005()": 1,
+    "slot014()": 1,
+    "slot5()": 2,
+    "v005()": 3,
+    "v05()": 3,
+    "v5()": 1,
+    "vf005()": 1,
+    "vslot005()": 2
+   },
+   "class": "BaseHeightMapRenderObjClass"
+  },
+  {
+   "attribute": "slot6",
+   "candidates": {
+    "a06()": 1,
+    "gap006()": 1,
+    "gap06()": 1,
+    "s006()": 2,
+    "slot006()": 1,
+    "slot018()": 1,
+    "slot6()": 2,
+    "v006()": 3,
+    "v06()": 3,
+    "v6()": 1,
+    "vf006()": 1,
+    "vslot006()": 2
+   },
+   "class": "BaseHeightMapRenderObjClass"
+  },
+  {
+   "attribute": "slot7",
+   "candidates": {
+    "a07()": 1,
+    "gap007()": 1,
+    "gap07()": 1,
+    "s007()": 2,
+    "slot007()": 1,
+    "slot01c()": 1,
+    "slot7()": 2,
+    "v007()": 3,
+    "v07()": 3,
+    "v7()": 1,
+    "vf007()": 1,
+    "vslot007()": 2
+   },
+   "class": "BaseHeightMapRenderObjClass"
+  },
+  {
+   "attribute": "slot8",
+   "candidates": {
+    "a08()": 1,
+    "gap008()": 1,
+    "gap08()": 1,
+    "s008()": 2,
+    "slot008()": 1,
+    "slot020()": 1,
+    "slot8()": 2,
+    "v008()": 3,
+    "v08()": 3,
+    "v8()": 1,
+    "vf008()": 1,
+    "vslot008()": 2
+   },
+   "class": "BaseHeightMapRenderObjClass"
+  },
+  {
+   "attribute": "slot9",
+   "candidates": {
+    "a09()": 1,
+    "gap009()": 1,
+    "gap09()": 1,
+    "s009()": 2,
+    "slot009()": 1,
+    "slot024()": 1,
+    "slot9()": 2,
+    "v009()": 3,
+    "v09()": 3,
+    "v9()": 1,
+    "vf009()": 1,
+    "vslot009()": 2
+   },
+   "class": "BaseHeightMapRenderObjClass"
+  },
+  {
+   "attribute": "slot139",
+   "candidates": {
+    "gap8B()": 1,
+    "rva0008CE2ENotify(int)": 1,
+    "s139()": 1,
+    "slot139()": 2,
+    "slot22c(int)": 1,
+    "v139()": 2,
+    "vf139()": 1,
+    "vslot139()": 2,
+    "w39()": 2
+   },
+   "class": "BaseHeightMapRenderObjClass"
+  }
+ ],
+ "size": 14276,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "v00()"
+  },
+  "1": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  },
+  "10": {
+   "decided_by": "majority",
+   "member": "v10()"
+  },
+  "100": {
+   "decided_by": "majority",
+   "member": "v100()"
+  },
+  "101": {
+   "decided_by": "majority",
+   "member": "v101()"
+  },
+  "102": {
+   "decided_by": "majority",
+   "member": "v102()"
+  },
+  "103": {
+   "decided_by": "majority",
+   "member": "v103()"
+  },
+  "104": {
+   "decided_by": "majority",
+   "member": "v104()"
+  },
+  "105": {
+   "decided_by": "majority",
+   "member": "v105()"
+  },
+  "106": {
+   "decided_by": "majority",
+   "member": "v106()"
+  },
+  "107": {
+   "decided_by": "majority",
+   "member": "v107()"
+  },
+  "108": {
+   "decided_by": "majority",
+   "member": "v108()"
+  },
+  "109": {
+   "decided_by": "majority",
+   "member": "v109()"
+  },
+  "11": {
+   "decided_by": "majority",
+   "member": "v11()"
+  },
+  "110": {
+   "decided_by": "majority",
+   "member": "v110()"
+  },
+  "111": {
+   "decided_by": "majority",
+   "member": "v111()"
+  },
+  "112": {
+   "decided_by": "majority",
+   "member": "v112()"
+  },
+  "113": {
+   "decided_by": "majority",
+   "member": "v113()"
+  },
+  "114": {
+   "decided_by": "majority",
+   "member": "v114()"
+  },
+  "115": {
+   "decided_by": "majority",
+   "member": "v115()"
+  },
+  "116": {
+   "decided_by": "majority",
+   "member": "v116()"
+  },
+  "117": {
+   "decided_by": "majority",
+   "member": "v117()"
+  },
+  "118": {
+   "decided_by": "majority",
+   "member": "v118()"
+  },
+  "119": {
+   "decided_by": "majority",
+   "member": "v119()"
+  },
+  "12": {
+   "decided_by": "majority",
+   "member": "v12()"
+  },
+  "120": {
+   "decided_by": "majority",
+   "member": "v120()"
+  },
+  "121": {
+   "decided_by": "majority",
+   "member": "v121()"
+  },
+  "122": {
+   "decided_by": "majority",
+   "member": "v122()"
+  },
+  "123": {
+   "decided_by": "majority",
+   "member": "v123()"
+  },
+  "124": {
+   "decided_by": "majority",
+   "member": "v124()"
+  },
+  "125": {
+   "decided_by": "majority",
+   "member": "v125()"
+  },
+  "126": {
+   "decided_by": "majority",
+   "member": "v126()"
+  },
+  "127": {
+   "decided_by": "majority",
+   "member": "v127()"
+  },
+  "128": {
+   "decided_by": "majority",
+   "member": "v128()"
+  },
+  "129": {
+   "decided_by": "majority",
+   "member": "v129()"
+  },
+  "13": {
+   "decided_by": "majority",
+   "member": "v13()"
+  },
+  "130": {
+   "decided_by": "majority",
+   "member": "v130()"
+  },
+  "131": {
+   "decided_by": "majority",
+   "member": "v131()"
+  },
+  "132": {
+   "decided_by": "majority",
+   "member": "v132()"
+  },
+  "133": {
+   "decided_by": "majority",
+   "member": "v133()"
+  },
+  "134": {
+   "decided_by": "majority",
+   "member": "v134()"
+  },
+  "135": {
+   "decided_by": "majority",
+   "member": "v135()"
+  },
+  "136": {
+   "decided_by": "majority",
+   "member": "v136()"
+  },
+  "137": {
+   "decided_by": "majority",
+   "member": "v137()"
+  },
+  "138": {
+   "decided_by": "majority",
+   "member": "v138()"
+  },
+  "14": {
+   "decided_by": "majority",
+   "member": "v14()"
+  },
+  "140": {
+   "decided_by": "majority",
+   "member": "s140()"
+  },
+  "141": {
+   "decided_by": "majority",
+   "member": "s141()"
+  },
+  "142": {
+   "decided_by": "majority",
+   "member": "s142()"
+  },
+  "143": {
+   "decided_by": "majority",
+   "member": "s143()"
+  },
+  "144": {
+   "decided_by": "majority",
+   "member": "s144()"
+  },
+  "145": {
+   "decided_by": "majority",
+   "member": "getHeightMapHeight(float,float,Coord3D*)"
+  },
+  "146": {
+   "decided_by": "bytes",
+   "member": "s146()"
+  },
+  "147": {
+   "decided_by": "bytes",
+   "member": "getRenderingMode()"
+  },
+  "15": {
+   "decided_by": "majority",
+   "member": "v15()"
+  },
+  "16": {
+   "decided_by": "majority",
+   "member": "v16()"
+  },
+  "17": {
+   "decided_by": "majority",
+   "member": "v17()"
+  },
+  "18": {
+   "decided_by": "majority",
+   "member": "v18()"
+  },
+  "19": {
+   "decided_by": "majority",
+   "member": "v19()"
+  },
+  "2": {
+   "decided_by": "majority",
+   "member": "v02()"
+  },
+  "20": {
+   "decided_by": "majority",
+   "member": "v20()"
+  },
+  "21": {
+   "decided_by": "majority",
+   "member": "v21()"
+  },
+  "22": {
+   "decided_by": "majority",
+   "member": "v22()"
+  },
+  "23": {
+   "decided_by": "majority",
+   "member": "v23()"
+  },
+  "24": {
+   "decided_by": "majority",
+   "member": "v24()"
+  },
+  "25": {
+   "decided_by": "majority",
+   "member": "v25()"
+  },
+  "26": {
+   "decided_by": "majority",
+   "member": "v26()"
+  },
+  "27": {
+   "decided_by": "majority",
+   "member": "v27()"
+  },
+  "28": {
+   "decided_by": "majority",
+   "member": "v28()"
+  },
+  "29": {
+   "decided_by": "majority",
+   "member": "v29()"
+  },
+  "30": {
+   "decided_by": "majority",
+   "member": "v30()"
+  },
+  "31": {
+   "decided_by": "majority",
+   "member": "v31()"
+  },
+  "32": {
+   "decided_by": "majority",
+   "member": "v32()"
+  },
+  "33": {
+   "decided_by": "majority",
+   "member": "v33()"
+  },
+  "34": {
+   "decided_by": "majority",
+   "member": "v34()"
+  },
+  "35": {
+   "decided_by": "majority",
+   "member": "v35()"
+  },
+  "36": {
+   "decided_by": "majority",
+   "member": "v36()"
+  },
+  "37": {
+   "decided_by": "majority",
+   "member": "v37()"
+  },
+  "38": {
+   "decided_by": "majority",
+   "member": "v38()"
+  },
+  "39": {
+   "decided_by": "majority",
+   "member": "v39()"
+  },
+  "40": {
+   "decided_by": "majority",
+   "member": "v40()"
+  },
+  "41": {
+   "decided_by": "majority",
+   "member": "v41()"
+  },
+  "42": {
+   "decided_by": "majority",
+   "member": "v42()"
+  },
+  "43": {
+   "decided_by": "majority",
+   "member": "v43()"
+  },
+  "44": {
+   "decided_by": "majority",
+   "member": "v44()"
+  },
+  "45": {
+   "decided_by": "majority",
+   "member": "v45()"
+  },
+  "46": {
+   "decided_by": "majority",
+   "member": "v46()"
+  },
+  "47": {
+   "decided_by": "majority",
+   "member": "v47()"
+  },
+  "48": {
+   "decided_by": "majority",
+   "member": "v48()"
+  },
+  "49": {
+   "decided_by": "majority",
+   "member": "v49()"
+  },
+  "50": {
+   "decided_by": "majority",
+   "member": "v50()"
+  },
+  "51": {
+   "decided_by": "majority",
+   "member": "v51()"
+  },
+  "52": {
+   "decided_by": "majority",
+   "member": "v52()"
+  },
+  "53": {
+   "decided_by": "majority",
+   "member": "v53()"
+  },
+  "54": {
+   "decided_by": "majority",
+   "member": "v54()"
+  },
+  "55": {
+   "decided_by": "majority",
+   "member": "v55()"
+  },
+  "56": {
+   "decided_by": "majority",
+   "member": "v56()"
+  },
+  "57": {
+   "decided_by": "majority",
+   "member": "v57()"
+  },
+  "58": {
+   "decided_by": "majority",
+   "member": "v58()"
+  },
+  "59": {
+   "decided_by": "majority",
+   "member": "v59()"
+  },
+  "60": {
+   "decided_by": "majority",
+   "member": "v60()"
+  },
+  "61": {
+   "decided_by": "majority",
+   "member": "v61()"
+  },
+  "62": {
+   "decided_by": "majority",
+   "member": "v62()"
+  },
+  "63": {
+   "decided_by": "majority",
+   "member": "v63()"
+  },
+  "64": {
+   "decided_by": "majority",
+   "member": "v64()"
+  },
+  "65": {
+   "decided_by": "majority",
+   "member": "v65()"
+  },
+  "66": {
+   "decided_by": "majority",
+   "member": "v66()"
+  },
+  "67": {
+   "decided_by": "majority",
+   "member": "v67()"
+  },
+  "68": {
+   "decided_by": "majority",
+   "member": "v68()"
+  },
+  "69": {
+   "decided_by": "majority",
+   "member": "v69()"
+  },
+  "70": {
+   "decided_by": "majority",
+   "member": "v70()"
+  },
+  "71": {
+   "decided_by": "majority",
+   "member": "v71()"
+  },
+  "72": {
+   "decided_by": "majority",
+   "member": "v72()"
+  },
+  "73": {
+   "decided_by": "majority",
+   "member": "v73()"
+  },
+  "74": {
+   "decided_by": "majority",
+   "member": "v74()"
+  },
+  "75": {
+   "decided_by": "majority",
+   "member": "v75()"
+  },
+  "76": {
+   "decided_by": "majority",
+   "member": "v76()"
+  },
+  "77": {
+   "decided_by": "majority",
+   "member": "v77()"
+  },
+  "78": {
+   "decided_by": "majority",
+   "member": "v78()"
+  },
+  "79": {
+   "decided_by": "majority",
+   "member": "v79()"
+  },
+  "80": {
+   "decided_by": "majority",
+   "member": "v80()"
+  },
+  "81": {
+   "decided_by": "majority",
+   "member": "v81()"
+  },
+  "82": {
+   "decided_by": "majority",
+   "member": "v82()"
+  },
+  "83": {
+   "decided_by": "majority",
+   "member": "v83()"
+  },
+  "84": {
+   "decided_by": "majority",
+   "member": "v84()"
+  },
+  "85": {
+   "decided_by": "majority",
+   "member": "v85()"
+  },
+  "86": {
+   "decided_by": "majority",
+   "member": "v86()"
+  },
+  "87": {
+   "decided_by": "majority",
+   "member": "v87()"
+  },
+  "88": {
+   "decided_by": "majority",
+   "member": "v88()"
+  },
+  "89": {
+   "decided_by": "majority",
+   "member": "v89()"
+  },
+  "90": {
+   "decided_by": "majority",
+   "member": "v90()"
+  },
+  "91": {
+   "decided_by": "majority",
+   "member": "v91()"
+  },
+  "92": {
+   "decided_by": "majority",
+   "member": "v92()"
+  },
+  "93": {
+   "decided_by": "majority",
+   "member": "v93()"
+  },
+  "94": {
+   "decided_by": "majority",
+   "member": "v94()"
+  },
+  "95": {
+   "decided_by": "majority",
+   "member": "v95()"
+  },
+  "96": {
+   "decided_by": "majority",
+   "member": "v96()"
+  },
+  "97": {
+   "decided_by": "majority",
+   "member": "v97()"
+  },
+  "98": {
+   "decided_by": "majority",
+   "member": "v98()"
+  },
+  "99": {
+   "decided_by": "majority",
+   "member": "v99()"
+  }
+ }
+}
