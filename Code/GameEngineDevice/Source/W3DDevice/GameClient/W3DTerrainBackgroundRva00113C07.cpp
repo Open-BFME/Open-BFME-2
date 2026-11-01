@@ -121,7 +121,7 @@ private:
 	Int m_width;
 	WorldHeightMap *m_map;
 	unsigned char m_pad60[0x88 - 0x60];
-	Int m_leafWidth;
+	Int m_baseDivisor;
 };
 
 void W3DTerrainBackground::rva00113C07(unsigned short *ib, void *aux, int xOffset, int yOffset, int width,
@@ -206,7 +206,7 @@ void W3DTerrainBackground::rva00113DE0(UnsignedShort *ib, Vector3 *heights, Int 
 		if (m_xOrigin + xOffset >= limitX || minY >= limitY)
 			return;
 	}
-	if (width == m_leafWidth) {
+	if (width == m_baseDivisor) {
 		match = true;
 		if (!m_map->isCellPresent(minX, minY))
 			return;
