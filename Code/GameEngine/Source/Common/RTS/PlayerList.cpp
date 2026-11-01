@@ -506,14 +506,9 @@ void PlayerList::reset()
 // (PlayerList_playerLoops.cpp); this unit only declares it.
 
 // ------------------------------------------------------------------------
-// ?PlayerList::teamAboutToBeDeleted present-unmatched
-void PlayerList::teamAboutToBeDeleted(Team* team)
-{
-	for( Int i = 0; i < MAX_PLAYER_COUNT; i++ )
-	{
-		m_players[i]->removeTeamRelationship(team);
-	}
-}
+// PlayerList::teamAboutToBeDeleted: retail's body is the row at 0x002A7AFE
+// (PlayerListRva002A7AFE.cpp), which TeamFactory::teamAboutToBeDeleted
+// (0x003A3048) calls; this unit only declares it.
 
 //=============================================================================
 

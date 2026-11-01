@@ -16675,3 +16675,32 @@ hatches. The native ATL iterator owner is strictly verified; seed preview
 retains520 bytes. Render and its cleanup remain for the supported merge to
 verify; no file-count or new linked-byte gain is claimed yet. Evidence:
 reverse/attempt_support/linegrp-consolidation-20261101/.
+### LINK-170: Player donor-closure removal (`da3e48530e`) unresolved three Player consumers (2026-11-01, seat halilkkaya-lk12)
+
+Status: Open (partly repaired). Base `6b1a8fb85c`; census 12:39 (`39dfbbdb50`), index `86db074988`.
+Found by a current-object `link_check --refresh` over all 18,636 census sources (14 census-linked
+units fail; this entry covers three). `da3e48530e` removed Player.cpp's unverified Zero Hour donor
+bodies and their 115 incidental helpers. Its audit checked outside callers of removed helper
+families in the published index, but three census-linked consumers still bound names only those
+donors defined:
+
+| Unit | B | Missing name | Status |
+|---|---:|---|---|
+| Common/RTS/PlayerList.cpp | 292 | `?removeTeamRelationship@Player@@QAE_NPBVTeam@@@Z` | repaired (below) |
+| Common/RTS/RelationMapXfer.cpp | 654 | `??A?$hash_map@IW4Relationship@@...` (`hash_map<unsigned,Relationship>::operator[]`) | blocked: file held by StarkillerHDX |
+| Object/SpecialPower/SpecialPowerModule.cpp | 36 | `?getOrStartSpecialPowerReadyFrame@Player@@...`, `?resetOrStartSpecialPowerReadyFrame@Player@@...` | open |
+
+PlayerList.cpp: the only caller was its own unrowed Zero Hour `PlayerList::teamAboutToBeDeleted`
+(present-unmatched). Retail's body is the 30 B row 0x002A7AFE (`PlayerList::rva002A7AFE`,
+PlayerListRva002A7AFE.cpp), which TeamFactory::teamAboutToBeDeleted (0x003A3048) calls and which
+calls the rowed per-player 0x002AD19E. Nothing references `?teamAboutToBeDeleted@PlayerList@@`
+(source grep; only playerlist.h declares it), so the donor body and its marker go. `./build.sh`
+8/8 rows and the data row; `find_declared_unmatched` clean; `link_check --refresh` PlayerList.cpp
+0 -> 292 B (current objects), PlayerListRva002A7AFE 30 and Team.cpp 7,862 B unchanged LINKS.
+
+RelationMapXfer.cpp declares `template <> Relationship &hash_map<unsigned int, Relationship>::operator[](const unsigned int &);`
+("Player.cpp supplies the same team-relation subscript provider"); Player.cpp's removed donors were
+that provider's only emitter (index: one COMDAT, two touching objects). Next check (needs the file):
+drop that declaration-only specialization so the unit emits its own subscript, then recheck the
+helpers it instantiates against their declared-only suppressions.
+Census confirmation: awaiting.
