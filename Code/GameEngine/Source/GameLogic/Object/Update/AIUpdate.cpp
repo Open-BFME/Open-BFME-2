@@ -235,92 +235,9 @@ template bool _STL::vector<const LocomotorTemplate *>::empty() const;
 //=============================================================================
 // Object::setSurrendered, and related methods ================================
 //=============================================================================
-// ?setSurrendered@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::setSurrendered( const Object *objWeSurrenderedTo, Bool surrendered )
-{
-	if (surrendered)
-	{
-		Bool wasSurrendered = isSurrendered();
-
-		const AIUpdateModuleData* aIUpdateModuleData = getAIUpdateModuleData();
-
-		if (m_surrenderedFramesLeft < aIUpdateModuleData->m_surrenderDuration)
-			m_surrenderedFramesLeft = aIUpdateModuleData->m_surrenderDuration;
-		
-		const Player* playerWeSurrenderedTo = objWeSurrenderedTo ? objWeSurrenderedTo->getControllingPlayer() : NULL;
-		m_surrenderedPlayerIndex = playerWeSurrenderedTo ? playerWeSurrenderedTo->getPlayerIndex() : -1;
-
-		if (!wasSurrendered)
-		{
-			//aiIdle(CMD_FROM_AI);
-			// srj sez: calling aiIdle() won't work, since we are probably "effectivelyDead"...
-			// meaning we won't respong to aiDoCommand! so go straight to the metal here:
-			getStateMachine()->clear();
-			getStateMachine()->setState( AI_IDLE );
-			setLastCommandSource(CMD_FROM_AI);
-
-			// Play our sound surrendered
-			AudioEventRTS surrenderSound = *getObject()->getTemplate()->getVoiceSurrender();
-			surrenderSound.setObjectID(getObject()->getID());
-			TheAudio->addAudioEvent(&surrenderSound);		
-		}
-	}
-	else
-	{
-		// GS During the act of surrendering, we dipped to 0 and then were manually set to have hit points.  
-		// That made us alive but marked as Dead.  Gotta undo that.
-
-		getObject()->setEffectivelyDead( FALSE );
-
-		m_surrenderedFramesLeft = 0;
-		m_surrenderedPlayerIndex = -1;
-	}
-
-}
 #endif
 
 //=============================================================================
-// ?setGoalPositionClipped@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::setGoalPositionClipped(const Coord3D* in, CommandSourceType cmdSource)
-{
-	if (in)
-	{
-		Coord3D tmp  = *in;
-		if (cmdSource == CMD_FROM_PLAYER)
-		{
-			Real fudge = TheGlobalData->m_partitionCellSize * 0.5f;
-			if (getObject()->isKindOf(KINDOF_AIRCRAFT) && getObject()->isSignificantlyAboveTerrain() && m_curLocomotor != NULL)
-			{
-				// aircraft must stay further away from the map edges, to prevent getting "lost"
-				fudge = max(fudge, m_curLocomotor->getPreferredHeight());
-			}
-			Region3D mapRegion;
-			TheTerrainLogic->getExtent( &mapRegion );
-			if (tmp.x < mapRegion.lo.x + fudge)
-			{
-				tmp.x = mapRegion.lo.x + fudge;
-			}
-			if (tmp.x > mapRegion.hi.x - fudge)
-			{
-				tmp.x = mapRegion.hi.x - fudge;
-			}
-			if (tmp.y < mapRegion.lo.y + fudge)
-			{
-				tmp.y = mapRegion.lo.y + fudge;
-			}
-			if (tmp.y > mapRegion.hi.y - fudge)
-			{
-				tmp.y = mapRegion.hi.y - fudge;
-			}
-		}
-		getStateMachine()->setGoalPosition(&tmp);
-	}
-	else
-	{
-		getStateMachine()->setGoalPosition(NULL);
-	}
-}
-
 /* Called by the pathfinder when it processes the pathfind queue.  Basically, it's our turn
 to call use the PathfindServicesInterface to do a pathfind operation.  This shouldn't be called
 (and in fact is very hard to do because PathfindServicesInterace is private to the pathfinder)
@@ -393,149 +310,17 @@ Object* AIUpdateInterface::getTurretTargetObject( WhichTurretType tur, Bool clea
 // AIUpdateInterface::getWhichTurretForWeaponSlot is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_getWhichTurretForWeaponSlot.cpp (0x0026278A).
 
 //=============================================================================
-// ?getCurLocomotorSpeed@AIUpdateInterface@@ present-unmatched
-Real AIUpdateInterface::getCurLocomotorSpeed() const
-{
-	if (m_curLocomotor != NULL)
-		return m_curLocomotor->getMaxSpeedForCondition(getRetailBodyModule(getObject())->getDamageState());
-
-	DEBUG_LOG(("no current locomotor!"));
-	return 0.0f;
-}
-
 //=============================================================================
-// ?setLocomotorUpgrade@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::setLocomotorUpgrade(Bool set)
-{
-	m_upgradedLocomotors = set;
-	if (m_curLocomotorSet == LOCOMOTORSET_NORMAL || m_curLocomotorSet == LOCOMOTORSET_NORMAL_UPGRADED)
-		chooseLocomotorSet(LOCOMOTORSET_NORMAL);
-}
-
 //=============================================================================
-// ?chooseLocomotorSet@AIUpdateInterface@@ present-unmatched
-Bool AIUpdateInterface::chooseLocomotorSet(LocomotorSetType wst)
-{
-	DEBUG_ASSERTCRASH(wst != LOCOMOTORSET_NORMAL_UPGRADED, ("never pass LOCOMOTORSET_NORMAL_UPGRADED here"));
-	if (wst == LOCOMOTORSET_NORMAL && m_upgradedLocomotors)
-		wst = LOCOMOTORSET_NORMAL_UPGRADED;
-
-	if (wst == m_curLocomotorSet)
-		return TRUE;
-
-	if (chooseLocomotorSetExplicit(wst))
-	{
-		chooseGoodLocomotorFromCurrentSet();
-		return TRUE;
-	}
-
-	return FALSE;
-}
-
 //=============================================================================
 // this should only be called by load/save, or by chooseLocomotorSet.
 // it does no sanity checking; it just jams it in.
-// ?chooseLocomotorSetExplicit@AIUpdateInterface@@ present-unmatched
-Bool AIUpdateInterface::chooseLocomotorSetExplicit(LocomotorSetType wst)
-{
-	const LocomotorTemplateVector* set = getAIUpdateModuleData()->findLocomotorTemplateVector(wst);
-	if (set)
-	{
-		m_locomotorSet.clear();
-		m_curLocomotor = NULL;
-		for (Int i = 0; i < set->size(); ++i)
-		{
-			const LocomotorTemplate* lt = set->at(i);
-			if (lt)
-				m_locomotorSet.addLocomotor(lt);
-		}
-		m_curLocomotorSet = wst;
-		return TRUE;
-	}
-	return FALSE;
-}
-
 //-------------------------------------------------------------------------------------------------
-// ?chooseGoodLocomotorFromCurrentSet@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::chooseGoodLocomotorFromCurrentSet( void )
-{
-	Locomotor* prevLoco = m_curLocomotor;
-
-	Locomotor* newLoco = TheAI->pathfinder()->chooseBestLocomotorForPosition(getObject()->getLayer(), &m_locomotorSet, getObject()->getPosition());
-
-	if (newLoco == NULL)
-	{
-		if (prevLoco != NULL)
-		{
-		/* due to physics, we might slight into a cell for which we have no loco
-			(eg, cliff) and get stuck. this is bad. as a solution, we do this.
-			this may look a little funny, but as a practical matter, it works well, 
-			since the pathfinder will prevent us from doing any significant "wrong" terrain. */
-			newLoco = prevLoco;
-		}
-		else
-		{
-			/* this can happen for a newly-created object, which might come into being in 
-				the middle of an obstacle. for now, we just fake it and choose a ground locomotor. */
-			newLoco = m_locomotorSet.findLocomotor(LOCOMOTORSURFACE_GROUND);
-		}
-	}
-
-	m_curLocomotor = newLoco;
-
-	if (prevLoco != m_curLocomotor)
-	{
-		// make sure the group's speed will be recalculated
-		if (getGroup())
-			getGroup()->recomputeGroupSpeed();
-
-		// turn off precision-z-pos anytime the loco changes, just in case,
-		// since it should only be enabled in very special cases
-		m_curLocomotor->setUsePreciseZPos(FALSE);
-		// ditto for no-slow-down.
-		m_curLocomotor->setNoSlowDownAsApproachingDest(FALSE);
-		// ditto for ultra-accuracy.
-		m_curLocomotor->setUltraAccurate(FALSE);
-	}
-}
-
 //----------------------------------------------------------------------------------------------------------
 // AIUpdateInterface::checkForCrateToPickup is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_checkForCrateToPickup_Rva00268B79.cpp (0x00268B79).
 
 #ifdef ALLOW_SURRENDER
 //-------------------------------------------------------------------------------------------------
-// ?doSurrenderUpdateStuff@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::doSurrenderUpdateStuff()
-{
-	RELEASE_CRASH(("Read the comment in doSurrenderUpdateStuff"));
-
-	/*
-		If you ever re-enable this code, you must convert it to be 
-		properly sleepy. It is crucial that we avoid requiring a call
-		to AIUpdate every frame just to support this. (srj)
-	*/
-
-	UnsignedInt prevSurrenderedFrames = m_surrenderedFramesLeft;
-
-	if (m_surrenderedFramesLeft > 0)
-		--m_surrenderedFramesLeft;
-
-	if (m_surrenderedFramesLeft > 0)
-		getObject()->setModelConditionState( MODELCONDITION_SURRENDER );
-	else
-		getObject()->clearModelConditionState( MODELCONDITION_SURRENDER );
-
-	//
-	// when we leave a surrendered state we give ourselves an idle command ... why you ask? Well
-	// during the surrender sequence we might have started moving towards a POW truck come
-	// to pick us up, but now we should stop and be all normal again
-	//
-	if( prevSurrenderedFrames > 0 && m_surrenderedFramesLeft == 0 )
-	{
-		m_surrenderedPlayerIndex = -1;
-		aiIdle( CMD_FROM_AI );
-	}
-}
 #endif
 
 //-------------------------------------------------------------------------------------------------
@@ -544,12 +329,6 @@ void AIUpdateInterface::doSurrenderUpdateStuff()
 //-------------------------------------------------------------------------------------------------
 // AIUpdateInterface::wakeUpNow: defined in AIUpdateInterface_wakeUpNow.cpp (its row's unit).
 //-------------------------------------------------------------------------------------------------
-// ?friend_notifyStateMachineChanged@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::friend_notifyStateMachineChanged()
-{
-	wakeUpNow();
-}
-
 //-------------------------------------------------------------------------------------------------
 /**
  * The "main loop" of the AI subsystem
@@ -559,246 +338,18 @@ DECLARE_PERF_TIMER(AIUpdateInterface_update)
 // AIUpdate/AIUpdateInterfaceUpdate.cpp; the Zero Hour body is not kept here.
 
 
-
 // queueWaypoint is defined in AIUpdateInterfaceQueueWaypoint.cpp using the
 // verified BFME 2 queue layout; this reference unit calls that provider.
 
 //-------------------------------------------------------------------------------------------------
-/**
- * Start moving along the waypoint path in the queue
- */
-// ?executeWaypointQueue@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::executeWaypointQueue( void )
-{
-	// the dead don't listen very well
-	if (isAiInDeadState())
-		return;
-
-//	m_actionStack->clear();
-
-	if (m_waypointCount > 0)
-	{
-		m_waypointIndex = 0;
-		m_executingWaypointQueue = TRUE;
-	}
-}
-
 //-------------------------------------------------------------------------------------------------
-// ?clearWaypointQueue@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::clearWaypointQueue( void )
-{
-	m_waypointCount = 0;
-	m_executingWaypointQueue = FALSE;
-}
-
 //-------------------------------------------------------------------------------------------------
 // AIUpdateInterface::markAsDead is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_wakeUpNow.cpp (0x0026296D).
 
 //-------------------------------------------------------------------------------------------------
-/* Returns TRUE if this ai has a higher path priority than the other one.
-The way to have a higher priority is:
-1. If the paths were assigned when both units were in the same ai group, we use the path priority assigned.
-2. If not, the unit that is in front has the higher priority.
-3. If exactly tied (usually beacause both units got unfortunately snapped to the same location), ObjectID is used
-to break the tie. 
-*/
-// ?hasHigherPathPriority@AIUpdateInterface@@ present-unmatched
-Bool AIUpdateInterface::hasHigherPathPriority(AIUpdateInterface *otherAI) const
-{
-	Object *other = otherAI->getObject();
-
-	// Dozers have highest priority.
-	if (getObject()->isKindOf(KINDOF_DOZER) && !other->isKindOf(KINDOF_DOZER)) {
-		return TRUE;
-	}
-	if (!getObject()->isKindOf(KINDOF_DOZER) && other->isKindOf(KINDOF_DOZER)) {
-		return FALSE;
-	}
-
-	// Vehicles always have higher priority than infantry.
-	if (getObject()->isKindOf(KINDOF_VEHICLE) && other->isKindOf(KINDOF_INFANTRY)) {
-		return TRUE;
-	}
-	if (getObject()->isKindOf(KINDOF_INFANTRY) && other->isKindOf(KINDOF_VEHICLE)) {
-		return FALSE;
-	}
-
-	// The paths aren't of the same group, so see which unit is in front.
-	Coord3D ourDir = *getObject()->getUnitDirectionVector2D();
-	Coord3D otherDir = *other->getUnitDirectionVector2D();
-	if (ourDir.x*otherDir.x + ourDir.y*otherDir.y <= 0) {
-		return getObject()->getID() < other->getID();
-	}
-	Coord2D	combinedDir; 
-	combinedDir.x = ourDir.x + otherDir.x;
-	combinedDir.y = ourDir.y + otherDir.y;
-	Coord2D vectorToOther;
-	vectorToOther.x = other->getPosition()->x - getObject()->getPosition()->x;
-	vectorToOther.y = other->getPosition()->y - getObject()->getPosition()->y;
-	// Dot product is our directions projected onto each other.
-	Real dotProduct = combinedDir.x*vectorToOther.x	+ combinedDir.y*vectorToOther.y;
-	if (dotProduct>0) return FALSE;  // other is ahead of us along our directional vector.
-	if (dotProduct<0) return TRUE; // We are ahead of other.
-	// Exactly equal.  Use object id's to break the tie.  
-	return getObject()->getID() < other->getID();
-}
+//-------------------------------------------------------------------------------------------------
 
 //-------------------------------------------------------------------------------------------------
-/* Returns max speed we can have and not run into unit that is blocking us.
-*/
-// ?calculateMaxBlockedSpeed@AIUpdateInterface@@ present-unmatched
-Real AIUpdateInterface::calculateMaxBlockedSpeed(Object *other) const
-{
-	Coord3D ourDir = *getObject()->getUnitDirectionVector2D();
-	Coord3D otherDir = *other->getUnitDirectionVector2D();
-	// Dot product is our directions projected onto each other.
-	Coord2D vectorToOther;
-	vectorToOther.x = other->getPosition()->x - getObject()->getPosition()->x;
-	vectorToOther.y = other->getPosition()->y - getObject()->getPosition()->y;
-	vectorToOther.normalize();
-	Real dotProduct = vectorToOther.x*otherDir.x	+ vectorToOther.y*otherDir.y;
-	if (dotProduct<0) return 0; // They are running into us.
-
-	Real speedFactor = dotProduct;
-	PhysicsBehavior *otherPhysics = other->getPhysics();
-	if (!otherPhysics) {
-		return m_curMaxBlockedSpeed;
-	}	
-	Coord3D otherVel = *otherPhysics->getVelocity();
-	otherVel.z = 0;
-	// Calculate how fast other is moving away from us...
-	Real awaySpeed = otherVel.length() * speedFactor;				 
-
-	// Now calculate the amount we are moving relative to towards them...
-	dotProduct = vectorToOther.x*ourDir.x	+ vectorToOther.y*ourDir.y;
-	if (dotProduct<=0) {
-		// Unexpected - we are moving away.  Shouldn't be blocked...
-		return m_curMaxBlockedSpeed;
-	}
-	Real maxSpeed = awaySpeed / dotProduct;
-	if (other->getFormationID()!=NO_FORMATION_ID && getObject()->getFormationID()==other->getFormationID()) {
-		maxSpeed *= 0.55f; // don't let formations crowd each other.
-	}
-	if (maxSpeed>m_curMaxBlockedSpeed) return m_curMaxBlockedSpeed;
-	return maxSpeed;
-}
-
-
-//-------------------------------------------------------------------------------------------------
-// ?blockedBy@AIUpdateInterface@@ present-unmatched
-Bool AIUpdateInterface::blockedBy(Object *other)
-/* Returns TRUE if we are blocked from moving by the other object.*/
-{
-	Coord3D goalPos = *getStateMachine()->getGoalPosition();
-	Object *obj = getObject();
-	Coord3D pos = *obj->getPosition();
-	ICoord2D goalCell = *getPathfindGoalCell();
-
-	// If we are near our final goal, don't get stuck.
-	if (goalCell.x>0 && goalCell.y>0) {
-		Real dx = fabs(goalPos.x-pos.x);
-		Real dy = fabs(goalPos.y-pos.y);
-		if (dx<PATHFIND_CELL_SIZE_F && dy<PATHFIND_CELL_SIZE_F) {
-			return FALSE; // If we're approaching our goal, ignore obstacles.
-		}
-	}
-
-	Bool canCrush = obj->canCrushOrSquish(other, TEST_CRUSH_OR_SQUISH);
-	if (canCrush) return FALSE; // just run over them.
-
-	AIUpdateInterface* aiOther = other->getAI();
-
-	if (!aiOther->isDoingGroundMovement()) {
-		return FALSE; // Can't be blocked if the other is airborne.
-	}
-	if (!aiOther) return FALSE; // Ignore it.
-
-	// Retail's AIUpdateInterface::getCurLocomotor is the +0x1F0 body rowed from
-	// SlavedUpdateRepair.cpp (0x0026FF1E); this unit's header copy reads a
-	// different offset, and its object sorts first in link order, so the link
-	// keeps its copy (S on 24 units). These reads go straight at the member
-	// instead of odr-using the ZH inline, whose COMDAT would otherwise
-	// displace the retail copy.
-	if (m_curLocomotor && m_curLocomotor->isMovingBackwards()) {
-		return false; // don't collide.
-	}
-	Bool otherMoving = ( aiOther->m_locomotorGoalType != NONE );
-	Coord3D otherPos = *other->getPosition();
-	Real dx = pos.x-otherPos.x;
-	Real dy = pos.y-otherPos.y;
-	Real curDSqr = dx*dx+dy*dy;
-
-	if (obj->isKindOf(KINDOF_INFANTRY) && other->isKindOf(KINDOF_INFANTRY)) {
-		// Infantry doesn't tend to impede other infantry...
-#ifdef INFANTRY_MOVES_THROUGH_INFANTRY
-		if (!otherMoving) {
-			return FALSE;  // Infantry can run through other infantry.
-		}
-		return FALSE; 
-#else
-		// If we are crossing, just pass through.
-		Coord3D ourDir = *obj->getUnitDirectionVector2D();
-		Coord3D theirDir = *other->getUnitDirectionVector2D();
-		// Dot product is our directions projected onto each other.
-		Real dotProduct = ourDir.x*theirDir.x	+ ourDir.y*theirDir.y;
-		if (dotProduct<=0.25) return FALSE;  // we are not moving in the same direction.
-#endif
-	}
-
-	if (curDSqr < PATHFIND_CELL_SIZE_F*PATHFIND_CELL_SIZE_F*0.0001f) {
-		// Somehow 2 units ended up on the same grid.
-		// Lowest path priority wins.
-		return (hasHigherPathPriority(aiOther));
-	}
-
-	// we've been blocked for a while.  If we're crossing, just move through.
-	Coord3D ourDir = *obj->getUnitDirectionVector2D();
-	Coord3D theirDir = *other->getUnitDirectionVector2D();
-	// Dot product is our directions projected onto each other.
-	Real dotProduct = ourDir.x*theirDir.x	+ ourDir.y*theirDir.y;
-	if (getNumFramesBlocked()>LOGICFRAMES_PER_SECOND) {
-		if (dotProduct<=0.0f) return FALSE;  // we are not moving in the same direction.
-	}
-
-	Real collisionAngle = ThePartitionManager->getRelativeAngle2D( obj, &otherPos );
-	Real otherAngle = ThePartitionManager->getRelativeAngle2D( other, &pos );
-	//DEBUG_LOG(("Collision angle %.2f, %.2f, %s, %x %s\n", collisionAngle*180/PI, otherAngle*180/PI, obj->getTemplate()->getName().str(), obj, other->getTemplate()->getName().str()));
-	Real angleLimit = PI/4; // 45 degrees.
-	if (collisionAngle>PI/2 || collisionAngle<-PI/2) {
-		return FALSE; // we're moving away.
-	}
-	if (!otherMoving) angleLimit *= 0.75f;
-	if (collisionAngle>angleLimit || collisionAngle<-angleLimit) {
-		if (dotProduct<=0.0f) return FALSE;  // we are not moving in the same direction.
-		if (otherMoving && (otherAngle>angleLimit || otherAngle<-angleLimit) ) {
-			// See if we're running into each other.
-			Coord3D ourDir = *obj->getUnitDirectionVector2D();
-			Coord3D theirDir = *other->getUnitDirectionVector2D();
-			dx += ourDir.x - theirDir.x;
-			dy += ourDir.y - theirDir.y;
-			if (curDSqr>dx*dx+dy*dy) {
-				if (hasHigherPathPriority(aiOther)) {
-					// Lowest path priority wins.
-					return FALSE;
-				}
-			}	else {
-				//DEBUG_LOG(("Moving Away From EachOther\n"));
-				return FALSE;  // moving away, so no need for corrective action.
-			}
-		} else {
-			return FALSE;	 // Off angle, and they're not moving, so we aren't moving into each other.
-		}
-	}
-
-
-	if (!aiOther->isAiInDeadState())	
-	{
-		return TRUE;
-	}
-
-	return FALSE;
-}
-
 //-------------------------------------------------------------------------------------------------
 // ?needToRotate@AIUpdateInterface@@ present-unmatched
 Bool AIUpdateInterface::needToRotate(void)
@@ -832,166 +383,6 @@ Bool AIUpdateInterface::needToRotate(void)
 
 
 //-------------------------------------------------------------------------------------------------
-/* Returns TRUE if the physics collide should apply the force.  Normally not.  
-Also determines whether objects are blocked, and if so, if they are stuck.  jba.*/
-// ?processCollision@AIUpdateInterface@@ present-unmatched
-Bool AIUpdateInterface::processCollision(PhysicsBehavior *physics, Object *other)
-{
-
-#ifdef DO_UNIT_TIMINGS
-	return false;
-#endif
-
-	if (m_ignoreCollisionsUntil > TheGameLogic->getFrame()) 
-		return FALSE;
-
-	if (m_canPathThroughUnits) 
-		return FALSE;
-
-	AIUpdateInterface* aiOther = other->getAI();
-	if (aiOther == NULL) 
-		return FALSE;
-
-	Bool selfMoving = isMoving();
-	Bool otherMoving = ( aiOther && aiOther->isMoving() );
-	if (!isDoingGroundMovement()) return FALSE;
-	if (!aiOther->isDoingGroundMovement()) return FALSE;
-	if (selfMoving) 
-	{
-		Bool blocked = blockedBy(other);
-		if (blocked) 
-		{
-			if (getObject()->isKindOf(KINDOF_INFANTRY)) 
-			{
-				// Panic bounces around.
-				if (getStateMachine()->getCurrentStateID() == AI_PANIC) 
-				{
-					return TRUE; // just bounce off of other humans.
-				}
-			}
-			m_isBlocked = TRUE; // we are blocked.
- 			if (otherMoving && aiOther->m_waitingForPath) 
-			{
-				return FALSE; // let them get their path;
-			}
-
-			Real maxSpeed = calculateMaxBlockedSpeed(other);
-			if (maxSpeed < m_curMaxBlockedSpeed) 
-			{
-				m_curMaxBlockedSpeed = maxSpeed;
-			}
-
-			if (!aiOther->isMovingAwayFrom(getObject())) {
-
-				if (other->isKindOf(KINDOF_INFANTRY) && !getObject()->isKindOf(KINDOF_INFANTRY)) 
-				{
-					//Kris: Patch 1.01 -- November 5, 2003
-					//Prevent busy units from being told to move out of the way!
-					if( other->testStatus( OBJECT_STATUS_IS_USING_ABILITY ) || other->getAI() && other->getAI()->isBusy() )
-					{
-						return FALSE;
-					}
-					aiOther->aiMoveAwayFromUnit(getObject(), CMD_FROM_AI);
-					return FALSE;
-				}
-#define dont_MOVE_AROUND // It just causes more problems than it fixes. jba.
-#ifdef MOVE_AROUND 
-				if (m_curLocomotor!=NULL && (other->isKindOf(KINDOF_INFANTRY)==getObject()->isKindOf(KINDOF_INFANTRY))) {
-					Real myMaxSpeed = m_curLocomotor->getMaxSpeedForCondition(getRetailBodyModule(getObject())->getDamageState());
-					Locomotor *hisLoco = aiOther->m_curLocomotor;
-					if (hisLoco) {
-						Real hisMaxSpeed = hisLoco->getMaxSpeedForCondition(getRetailBodyModule(other)->getDamageState());
-						if (hisMaxSpeed > 0.05 && hisMaxSpeed < 0.6f*myMaxSpeed)	{
-							aiOther->aiMoveAwayFromUnit(getObject(), CMD_FROM_AI);
-							return FALSE;
-						}
-					}
-				}
-#endif
-			}
-
-			//DEBUG_LOG(("Blocked %s, %x, %s\n", getObject()->getTemplate()->getName().str(), getObject(), other->getTemplate()->getName().str()));
-			if (m_blockedFrames==0) m_blockedFrames = 1;
-			if (!needToRotate()) 
-			{
-				// If we are already pointing in the right direction, we may be stuck.
-				if (!otherMoving) 
-				{
-					// Intense logging jba
-					// DEBUG_LOG(("Blocked&Stuck !otherMoving\n"));
-					m_isBlockedAndStuck = TRUE;
-					return FALSE;
-				}
-
-				// See if other is blocked by us.
-				if (aiOther->blockedBy(getObject())) 
-				{
-					if (!aiOther->needToRotate()) 
-					{
-						// Deadlocked.
-						if (!hasHigherPathPriority(aiOther)) 
-						{
-							// get out of his way.
-							aiMoveAwayFromUnit(aiOther->getObject(), CMD_FROM_AI);
-							//m_isBlockedAndStuck = TRUE;
-							// Intense logging jba.
-							// DEBUG_LOG(("Blocked&Stuck other is blockedByUs, has higher priority\n"));
-						}
-					}
-				}	
-				else 
-				{
-					// Just wait.
-				}
-			}	
-			else 
-			{
-				// We are rotating, so don't accumulate blocked frames.
-				m_blockedFrames = 1;
-			}
-		}
-	}	
-	else 
-	{
-		if (isAiInDeadState()) 
-		{
-			// Dead infantry get pushed around by crushers.
-			if (getObject()->isKindOf(KINDOF_INFANTRY) && other->canCrushOrSquish(getObject(), TEST_SQUISH_ONLY)) 
-			{
-				return TRUE;
-			}
-		}
-
-		Coord3D otherPos = *other->getPosition();
-		Real dx = getObject()->getPosition()->x - otherPos.x;
-		Real dy = getObject()->getPosition()->y - otherPos.y;
-		Real curDSqr = dx*dx+dy*dy;
-		if (!otherMoving && curDSqr < PATHFIND_CELL_SIZE_F*PATHFIND_CELL_SIZE_F*0.25f) 
-		{	
-			if (this->getCurrentStateID() == AI_BUSY) {
-				return false;
-			}
-			if (getObject()->testStatus(OBJECT_STATUS_IS_USING_ABILITY)) {
-				return false;  // we are doing a special ability.  Shouldn't move at this time.  jba.
-			}
-			// jba intense debug
-			//DEBUG_LOG(("*****Units ended up on top of each other.  Shouldn't happen.\n"));
-			if (isIdle()) {
-				Coord3D safePosition = *getObject()->getPosition();
-				
-				TheAI->pathfinder()->adjustToPossibleDestination(getObject(), getLocomotorSet(), &safePosition);
-				aiMoveToPosition( &safePosition, CMD_FROM_AI ); 
-			}
-			if (aiOther->isIdle()) {
-				TheAI->pathfinder()->adjustToPossibleDestination(other, aiOther->getLocomotorSet(), 
-					&otherPos);
-				aiOther->aiMoveToPosition( &otherPos, CMD_FROM_AI);
-			}
-		}
-	}
-	return FALSE;
-}
-
 //-------------------------------------------------------------------------------------------------
 /**
  * See if we can do a quick path without pathfinding.
@@ -1019,29 +410,7 @@ Bool AIUpdateInterface::processCollision(PhysicsBehavior *physics, Object *other
  */
 // AIUpdateInterface::destroyPath: defined in GameLogicDestroyObject.cpp (its row's unit).
 //-------------------------------------------------------------------------------------------------
-/**
- * This is used by the internal move to state to indicate that a move started.
- */
-// ?friend_startingMove@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::friend_startingMove(void) 
-{
-	m_movementComplete = FALSE; // we aren't finished moving.
-	m_isMoving = TRUE;
-	m_blockedFrames = 0;
-	m_isBlockedAndStuck = FALSE;
-}
-
 //-------------------------------------------------------------------------------------------------
-/**
- * This is used by the internal move to state to indicate that a move completed.
- */
-// ?friend_endingMove@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::friend_endingMove()
-{
-	m_movementComplete = TRUE;
-	m_isMoving = FALSE;
-}
-
 //-------------------------------------------------------------------------------------------------
 /**
  * This is used by the jetai to set a specific path.
@@ -1065,15 +434,7 @@ void AIUpdateInterface::friend_endingMove()
 // AIUpdateInterface::isQuickPathAvailable: defined in AIUpdate/AIUpdateInterface_isQuickPathAvailable.cpp (its row's unit).
 
 
-
-
 //-------------------------------------------------------------------------------------------------
-// ?isValidLocomotorPosition@AIUpdateInterface@@ present-unmatched
-Bool AIUpdateInterface::isValidLocomotorPosition(const Coord3D* pos) const
-{
-	return TheAI->pathfinder()->validMovementPosition( getObject()->getCrusherLevel()>0, getObject()->getLayer(), m_locomotorSet, pos );
-}
-
 //-------------------------------------------------------------------------------------------------
 DECLARE_PERF_TIMER(doLocomotor)
 /**
@@ -1087,12 +448,6 @@ DECLARE_PERF_TIMER(doLocomotor)
 //-------------------------------------------------------------------------------------------------
 // AIUpdateInterface::setLocomotorGoalOrientation: defined in AIUpdateInterface_setLocomotorGoalPositionExplicit.cpp (its row's unit).
 //-------------------------------------------------------------------------------------------------
-// ?setLocomotorGoalNone@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::setLocomotorGoalNone()
-{
-	m_locomotorGoalType = NONE;
-}
-
 //-------------------------------------------------------------------------------------------------
 // AIUpdateInterface::isDoingGroundMovement is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp (0x0026731C).
 
@@ -1103,87 +458,9 @@ destinations, and this routine identifies non-ground units that should unstack. 
 
 // AIUpdateInterface::isAircraftThatAdjustsDestination: defined in AIUpdateInterface_isAircraftThatAdjustsDestination.cpp (its row's unit).
 //-------------------------------------------------------------------------------------------------
-// ?getTreatAsAircraftForLocoDistToGoal@AIUpdateInterface@@ present-unmatched
-Bool AIUpdateInterface::getTreatAsAircraftForLocoDistToGoal() const
-{
-	Bool treatAsAircraft = !isDoingGroundMovement();
-	if (getPathExtraDistance() > PATHFIND_CLOSE_ENOUGH) 
-	{
-		// We are following a waypoint or other multiple point path, so use the "easy" success criteria.
-		treatAsAircraft = TRUE;
-	}
-	if (m_curLocomotor && m_curLocomotor->getAppearance() == LOCO_HOVER) 
-	{
-		// Hovercrafts are very sloppy.  So use aircraft tests for distance to goal.  jba.
-		treatAsAircraft = TRUE;
-	}
-	return treatAsAircraft;
-}
-
-/**
- * Catch up with the rest of the team.
- */
-// ?joinTeam@AIUpdateInterface@@ present-unmatched
-// This TU includes ZH's Common/Team.h, whose DLINK_ITERATOR<Object> (16B,
-// head at Team+0x10) and Team::iterate_TeamMemberList are not BFME2 retail's
-// (matched 32B advance @0x00263526 and 49B iterate @0x00263864 use head +0x38
-// and the +0x68 vbptr walk). joinTeam is unmatched, so it walks through these
-// TU-local twins with identical semantics instead of odr-using the ZH inlines,
-// whose COMDATs would otherwise displace the retail copies link order keeps.
-typedef Object *(Object::*BfmeAIUpdateNextFunc)() const;
-class BfmeAIUpdateIter
-{
-public:
-	BfmeAIUpdateIter(Object *cur, BfmeAIUpdateNextFunc f) : m_cur(cur), m_f(f) {}
-	void advance()
-	{
-		if (m_cur)
-			m_cur = (m_cur->*m_f)();
-	}
-	Bool done() const { return m_cur == 0; }
-	Object *cur() const { return m_cur; }
-private:
-	Object *m_cur;
-	BfmeAIUpdateNextFunc m_f;
-};
-static BfmeAIUpdateIter bfmeAIUpdateMembers(const Team *team)
-{
-	Object *head = *(Object *const *)((const char *)team + 0x10);
-	return BfmeAIUpdateIter(head, &Object::dlink_next_TeamMemberList);
-}
 // ?joinTeam@AIUpdateInterface@@UAEXXZ is rowed in its own unit; this copy collided with it.  // end joinTeam
 
 //-------------------------------------------------------------------------------------------------
-// ?isAllowedToRespondToAiCommands@AIUpdateInterface@@ present-unmatched
-Bool AIUpdateInterface::isAllowedToRespondToAiCommands(const AICommandParms* parms) const
-{
-	// the dead don't listen very well
-	// (unless they are seeking to feed on the brains of the living)
-	// [urrr, need brains]
-	if (getObject()->isEffectivelyDead())
-		return FALSE;
-
-	// We're catching the sleep mood here. AI Units that are asleep actually ignore all commands.
-	// (See the AI Mood matrix for more info)
-	UnsignedInt moodParms = getMoodMatrixValue();
-	if ((moodParms & MM_Controller_AI) && (moodParms & MM_Mood_Sleep) && (parms->m_cmd != AICMD_MOVE_TO_POSITION_EVEN_IF_SLEEPING))
-		return FALSE;
-
-  const AIUpdateModuleData *data = getAIUpdateModuleData();
-
-  Bool forbidden = data->m_forbidPlayerCommands;
-
-  if ( parms->m_cmdSource == CMD_FROM_PLAYER && forbidden )
-    return FALSE; 
-  // THIS IS JUST FOR THE SPECTREGUNSHIP FOR NOW... 
-  // IT LOCKS OUT USER INPUT, 
-  // ALLOWING ONLY THE SPECTREUPDATE TO COMMAND IT VIA CMD_FROM_AI
-  // AUTHOR, LORENZEN... 5/15/03
-
-
-	return TRUE;
-}
-
 // AIUpdateInterface::aiDoCommand is rowed at 0x002673F6 (2308B) from
 // AIUpdateInterfaceAiDoCommand.cpp; this unit's duplicate 1588B
 // definition displaced it in link order (S on 12 units), so only the
@@ -1192,44 +469,6 @@ Bool AIUpdateInterface::isAllowedToRespondToAiCommands(const AICommandParms* par
 //-------------------------------------------------------------------------------------------------
 // AI Command Interface implementation for AIUpdateInterface
 //
-
-/**
- * Move to given position(s)
- */
-// ?privateMoveToPosition@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::privateMoveToPosition( const Coord3D *pos, CommandSourceType cmdSource )
-{
-	if (getObject()->isMobile() == FALSE) 
-		return;
-
-	//Resetting the locomotor here was initially added for scripting purposes. It has been moved
-	//to the responsibility of the script to reset the locomotor before moving. This is needed because
-	//other systems (like the battle drone) change the locomotor based on what it's trying to do, and
-	//doesn't want to get reset when ordered to move.
-	//chooseLocomotorSet(LOCOMOTORSET_NORMAL);
-
-	if (!isIdle() && cmdSource == CMD_FROM_AI) {
-		// This is an internally generated move to, and we are in a non-idle state. [8/19/2003]
-		// Our state could be the source of this command, so 
-		// Move for 20 seconds [8/19/2003]
-		// Things like attack state don't take kindly to being booted out unceremoniously. jba. [8/19/2003]
-		setGoalPositionClipped(pos, cmdSource);
-		m_blockedFrames = 0;
-		m_isBlocked = FALSE;
-		m_isBlockedAndStuck = FALSE;
-		getStateMachine()->setTemporaryState(AI_MOVE_TO, LOGICFRAMES_PER_SECOND * 20);
-	} else {
-		// Normal user or script command, just do it. [8/19/2003]
-		getStateMachine()->clear();
-		setGoalPositionClipped(pos, cmdSource);
-		m_blockedFrames = 0;
-		m_isBlocked = FALSE;
-		m_isBlockedAndStuck = FALSE;
-		setLastCommandSource( cmdSource );
-		getStateMachine()->setState( AI_MOVE_TO );
-	}
-
-}
 
 //-------------------------------------------------------------------------------------------------
 /**
@@ -1251,26 +490,6 @@ void AIUpdateInterface::privateMoveToPosition( const Coord3D *pos, CommandSource
 // Rappel into target and devastate contents (if not empty).
 // If target is null, rappel to ground.
 //----------------------------------------------------------------------------------------
-// ?privateRappelInto@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::privateRappelInto( Object *target, const Coord3D& pos, CommandSourceType cmdSource )
-{
-
-	//Resetting the locomotor here was initially added for scripting purposes. It has been moved
-	//to the responsibility of the script to reset the locomotor before moving. This is needed because
-	//other systems (like the battle drone) change the locomotor based on what it's trying to do, and
-	//doesn't want to get reset when ordered to move.
-	//chooseLocomotorSet(LOCOMOTORSET_NORMAL);
-
-	getStateMachine()->clear();
-	getStateMachine()->setGoalObject( target );
-	setGoalPositionClipped(&pos, cmdSource);
-	m_blockedFrames = 0;
-	m_isBlocked = FALSE;
-	m_isBlockedAndStuck = FALSE;
-	setLastCommandSource( cmdSource );
-	getStateMachine()->setState( AI_RAPPEL_INTO );
-}
-
 
 //----------------------------------------------------------------------------------------
 /**
@@ -1305,12 +524,6 @@ Bool AIUpdateInterface::isIdle() const
 }
 
 //----------------------------------------------------------------------------------------
-// ?isAttacking@AIUpdateInterface@@ present-unmatched
-Bool AIUpdateInterface::isAttacking() const
-{
-	return getStateMachine()->isInAttackState();
-}
-
 //----------------------------------------------------------------------------------------
 //Definition of busy -- when explicitly in the busy state. Moving or attacking is not considered busy!
 //----------------------------------------------------------------------------------------
@@ -1325,19 +538,6 @@ Bool AIUpdateInterface::isAttacking() const
  */
 // AIUpdateInterface::privateTightenToPosition is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp (0x00267DAD).
 //----------------------------------------------------------------------------------------
-/**
- * Is this moving out of the way of another unit.
- */
-// ?isMovingAwayFrom@AIUpdateInterface@@ present-unmatched
-Bool AIUpdateInterface::isMovingAwayFrom(Object *obj)	 const
-{
-	ObjectID id = obj->getID();
-	if (m_stateMachine->getTemporaryState() == AI_MOVE_OUT_OF_THE_WAY) {
-		if (m_moveOutOfWay1 == id) return TRUE;
-		if (m_moveOutOfWay2 == id) return TRUE; 
-	}
-	return FALSE;
-}
 //----------------------------------------------------------------------------------------
 /**
  * Is this moving out of the way of another unit.
@@ -1345,65 +545,6 @@ Bool AIUpdateInterface::isMovingAwayFrom(Object *obj)	 const
 // AIUpdateInterface::isMoving is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceIsMoving.cpp (0x00264688).
 
 //----------------------------------------------------------------------------------------
-/**
- * Move out of the way of another unit.
- */
-// ?privateMoveAwayFromUnit@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::privateMoveAwayFromUnit( Object *unit, CommandSourceType cmdSource )
-{
-	// the dead don't listen very well
-	if (isAiInDeadState() || (getObject()->isMobile() == FALSE) || !isAllowedToMoveAwayFromUnit()) 
-	{
-		return;
-	}
-	ObjectID id = unit->getID();
-	if (m_stateMachine->getTemporaryState() == AI_MOVE_OUT_OF_THE_WAY) {
-		if (m_moveOutOfWay1 == id) {
-			if (m_isBlocked) {
-				setIgnoreCollisionTime(LOGICFRAMES_PER_SECOND*2); // cheat for 2 seconds.
-			}
-			return;
-		}
-		if (m_moveOutOfWay2 == id) {
-			if (m_isBlocked) {
-				setIgnoreCollisionTime(LOGICFRAMES_PER_SECOND*2); // cheat for 2 seconds.
-			}
-			return;
-		}
-	}
-	m_moveOutOfWay2 = m_moveOutOfWay1;
-	m_moveOutOfWay1 = id;
-	Object *obj2 = TheGameLogic->findObjectByID(m_moveOutOfWay2);
-	Path *path2 = NULL;
-	if (obj2 && obj2->getAI()) {
-		path2 = obj2->getAI()->getPath();
-	}
-
-	Path* unitPath = NULL;
-	if (unit && unit->getAI()) {
-		unitPath = unit->getAI()->getPath();
-	}
-	if (unitPath == NULL) return;
-	Path *newPath = TheAI->pathfinder()->getMoveAwayFromPath(getObject(), unit, unitPath, obj2, path2);
-	if (newPath==NULL && !canPathThroughUnits())	{
-		setCanPathThroughUnits(TRUE);
-		newPath = TheAI->pathfinder()->getMoveAwayFromPath(getObject(), unit, unitPath, obj2, path2);
-	}
-		
-	if (newPath) {
-		destroyPath();
-		m_path = newPath;
-		wakeUpNow();
-		m_stateMachine->setTemporaryState(AI_MOVE_OUT_OF_THE_WAY, 10*LOGICFRAMES_PER_SECOND);
-		if (m_path) 
-		{
-	 		if( !getObject()->isKindOf(KINDOF_NO_COLLIDE))// If I don't collide with things, I don't need to tell them to get out of the way
-				TheAI->pathfinder()->moveAllies(getObject(), m_path);
-		}
-	}
-
-}
-
 //----------------------------------------------------------------------------------------
 /**
  * Start following the path from the given point
@@ -1432,42 +573,6 @@ void AIUpdateInterface::privateMoveAwayFromUnit( Object *unit, CommandSourceType
 // AIUpdateInterface::privateFollowPathAppend is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp (0x0026E074).
 
 //----------------------------------------------------------------------------------------
-/**
- * Follow the path defined by the given array of points
- */
-// ?privateFollowPath@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::privateFollowPath( const std::vector<Coord3D>* path, Object *ignoreObject, CommandSourceType cmdSource, Bool exitProduction )
-{
-	if (getObject()->isMobile() == FALSE)
-		return;
-
-	//Resetting the locomotor here was initially added for scripting purposes. It has been moved
-	//to the responsibility of the script to reset the locomotor before moving. This is needed because
-	//other systems (like the battle drone) change the locomotor based on what it's trying to do, and
-	//doesn't want to get reset when ordered to move.
-	//chooseLocomotorSet(LOCOMOTORSET_NORMAL);
-
-	// clear current state machine
-	getStateMachine()->clear();
-
-	if (path->size()>0) {
-		const Coord3D goal = (*path)[path->size()-1];
-		getStateMachine()->setGoalPosition(&goal);
-	}
-	// set path info
-	getStateMachine()->setGoalPath( path );
-
-
-	// set the command source
-	setLastCommandSource( cmdSource );
-
-	ignoreObstacle(ignoreObject);
-
-	// start us following
-	getStateMachine()->setState( exitProduction ? AI_FOLLOW_EXITPRODUCTION_PATH : AI_FOLLOW_PATH );
-
-}
-
 //----------------------------------------------------------------------------------------
 /**
  * Attack given object
@@ -1533,61 +638,15 @@ void AIUpdateInterface::privateAttackMoveToPosition( const Coord3D *pos, Int max
 // AIUpdateInterface::privateAttackArea is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp (0x0026C1CE).
 
 //----------------------------------------------------------------------------------------
-/**
- * Repair the given object
- */
-// ?privateRepair@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::privateRepair( Object *obj, CommandSourceType cmdSource )
-{
-
-	// there is no "default" way for generic objects to repair each other
-	return;
-				
-}
-
 #ifdef ALLOW_SURRENDER
 //----------------------------------------------------------------------------------------
-/**
-	* Pick up prisoner
-	*/
-// ?privatePickUpPrisoner@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::privatePickUpPrisoner( Object *prisoner, CommandSourceType cmdSource )
-{
-
-	// there is no "default" way for generic units to pick up prisoners
-	return;
-
-}
 #endif
 
 #ifdef ALLOW_SURRENDER
 //----------------------------------------------------------------------------------------
-/**
-	* Return prisoners
-	*/
-// ?privateReturnPrisoners@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::privateReturnPrisoners( Object *prison, CommandSourceType cmdSource )
-{
-
-	// there is no "default" way for generic units to return prisoners
-	return;
-
-}
 #endif
 
 //----------------------------------------------------------------------------------------
-/**
-	* Resume construction of object
-	*/
-// ?privateResumeConstruction@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::privateResumeConstruction( Object *obj, CommandSourceType cmdSource )
-{
-
-	// there is no "default" way for generic objects to resume construction
-	return;
-
-}
-
 //----------------------------------------------------------------------------------------
 /**
  * Get healed at the heal depot
@@ -1613,46 +672,7 @@ void AIUpdateInterface::privateResumeConstruction( Object *obj, CommandSourceTyp
 // AIUpdateInterface::privateDock is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate_AIUpdateInterface_privateDock.cpp (0x0026481B).
 
 //----------------------------------------------------------------------------------------
-// ?privateCombatDrop@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::privateCombatDrop( Object *target, const Coord3D& pos, CommandSourceType cmdSource )
-{
-	DEBUG_CRASH(("default implementation, should never be called"));
-	if( getRetailContain(getObject()) )
-	{
-		getRetailContain(getObject())->removeAllContained(FALSE);
-	}
-}
-
 //----------------------------------------------------------------------------------------
-/**
- * Get out of whatever it is inside of
- */
-// ?privateExit@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::privateExit( Object *objectToExit, CommandSourceType cmdSource )
-{
-	Object *us = getObject();
-	if (!objectToExit)
-	{
-		objectToExit = us->getContainedBy();
-	}
-
-	if (!objectToExit)
-		return;
-
-  if ( objectToExit->isDisabledByType( DISABLED_SUBDUED ) )
-    return;
-
-
-	// we must go thru this state (rather than calling exitObjectViaDoor directly!), 
-	// because a few containers might need to delay to allow
-	// us to exit (eg, Chinooks must land), meaning we might have to wait a bit, and coordinate
-	// with the container by actually NOTIFYING it that we want to exit...
-	getStateMachine()->clear();
-	getStateMachine()->setGoalObject( objectToExit );
-	setLastCommandSource( cmdSource );
-	getStateMachine()->setState( AI_EXIT );
-}
-
 //----------------------------------------------------------------------------------------
 /**
  * Get out of whatever it is inside of this frame
@@ -1667,60 +687,8 @@ void AIUpdateInterface::privateExit( Object *objectToExit, CommandSourceType cmd
 // AIUpdateInterface::doQuickExit is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp (0x00262F19).
 
 //----------------------------------------------------------------------------------------
-/**
- * Empty its contents
- */
-// ?privateEvacuate@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::privateEvacuate( Int exposeStealthUnits, CommandSourceType cmdSource )
-{
-
-  if ( getObject()->isDisabledByType( DISABLED_SUBDUED ) )
-    return;
-
-
-	ContainModuleInterface *contain = getRetailContain(getObject());
-	if( contain )
-	{
-		if( exposeStealthUnits )
-		{
-			contain->markAllPassengersDetected();
-		}
-		contain->orderAllPassengersToExit( cmdSource, FALSE );
-	}
-}
-
 //----------------------------------------------------------------------------------------
-/**
- * Empty its contents this frame
- */
-// ?privateEvacuateInstantly@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::privateEvacuateInstantly( Int exposeStealthUnits, CommandSourceType cmdSource )
-{
-
-  if ( getObject()->isDisabledByType( DISABLED_SUBDUED ) )
-    return;
-
-
-	ContainModuleInterface *contain = getRetailContain(getObject());
-	if( contain )
-	{
-		if( exposeStealthUnits )
-		{
-			contain->markAllPassengersDetected();
-		}
-		contain->orderAllPassengersToExit( cmdSource, TRUE );
-	}
-}
-
 // ------------------------------------------------------------------------------------------------
-// ?privateExecuteRailedTransport@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::privateExecuteRailedTransport( CommandSourceType cmdSource )
-{
-
-	// there is no default implementation for this
-
-}
-
 //----------------------------------------------------------------------------------------
 ///< life altering state change, if this AI can do it
 #pragma optimize("s", on)
@@ -1736,88 +704,12 @@ void AIUpdateInterface::privateGoProne( const DamageInfo *damageInfo, CommandSou
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-/**
- * Wander around
- */
-// ?privateWander@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::privateWander( const Waypoint *way, CommandSourceType cmdSource )
-{
-	if (getObject()->isMobile() == FALSE)
-		return;
-
-	//Resetting the locomotor here was initially added for scripting purposes. It has been moved
-	//to the responsibility of the script to reset the locomotor before moving. This is needed because
-	//other systems (like the battle drone) change the locomotor based on what it's trying to do, and
-	//doesn't want to get reset when ordered to move.
-	//chooseLocomotorSet(LOCOMOTORSET_WANDER);
-
-	getStateMachine()->clear();
-	setLastCommandSource( cmdSource );
-	getStateMachine()->setGoalWaypoint( way );
-	getStateMachine()->setState( AI_WANDER );
-	
-}
-
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-/**
- * Wander around
- */
-// ?privateWanderInPlace@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::privateWanderInPlace( CommandSourceType cmdSource )
-{
-	if (getObject()->isMobile() == FALSE)
-		return;
-
-	//Resetting the locomotor here was initially added for scripting purposes. It has been moved
-	//to the responsibility of the script to reset the locomotor before moving. This is needed because
-	//other systems (like the battle drone) change the locomotor based on what it's trying to do, and
-	//doesn't want to get reset when ordered to move.
-	//chooseLocomotorSet(LOCOMOTORSET_WANDER);
-
-	getStateMachine()->clear();
-	setLastCommandSource( cmdSource );
-	getStateMachine()->setState( AI_WANDER_IN_PLACE );
-	
-}
-
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-/**
- * Panic
- */
-// ?privatePanic@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::privatePanic( const Waypoint *way, CommandSourceType cmdSource )
-{
-	if (getObject()->isMobile() == FALSE)
-		return;
-
-	//Resetting the locomotor here was initially added for scripting purposes. It has been moved
-	//to the responsibility of the script to reset the locomotor before moving. This is needed because
-	//other systems (like the battle drone) change the locomotor based on what it's trying to do, and
-	//doesn't want to get reset when ordered to move.
-	//chooseLocomotorSet(LOCOMOTORSET_PANIC);
-	
-	getStateMachine()->clear();
-	setLastCommandSource( cmdSource );
-	getStateMachine()->setGoalWaypoint( way );
-	getStateMachine()->setState( AI_PANIC );
-	
-}
-
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-/**
- * Busy
- */
-// ?privateBusy@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::privateBusy( CommandSourceType cmdSource )
-{
-	getStateMachine()->clear();
-	setLastCommandSource( cmdSource );
-	getStateMachine()->setState( AI_BUSY );
-}
-
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
 /**
@@ -1827,25 +719,6 @@ void AIUpdateInterface::privateBusy( CommandSourceType cmdSource )
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-/**
- * Guard the given spot
- */
-// ?privateGuardTunnelNetwork@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::privateGuardTunnelNetwork( GuardMode guardMode, CommandSourceType cmdSource )
-{
-	if (getObject()->isMobile() == FALSE)
-		return;
-
-	if (getObject()->isKindOf(KINDOF_PROJECTILE))
-		return;
-
-	m_guardMode = guardMode;
-
-	getStateMachine()->clear();
-	setLastCommandSource( cmdSource );
-	getStateMachine()->setState( AI_GUARD_TUNNEL_NETWORK );
-}
-
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
 /**
@@ -1855,58 +728,7 @@ void AIUpdateInterface::privateGuardTunnelNetwork( GuardMode guardMode, CommandS
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-/**
- * Guard the given spot
- */
-// ?privateGuardArea@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::privateGuardArea( const PolygonTrigger *areaToGuard, GuardMode guardMode, CommandSourceType cmdSource )
-{
-	if (getObject()->isMobile() == FALSE)
-		return;
-
-	if (getObject()->isKindOf(KINDOF_PROJECTILE))
-		return;
-
-	if (m_guardTargetType[1] == GUARDTARGET_NONE) {
-		m_guardTargetType[1] = GUARDTARGET_AREA;
-	} else {
-		m_guardTargetType[0] = GUARDTARGET_AREA;
-	}
-	m_areaToGuard = areaToGuard;
-	m_guardMode = guardMode;
-
-	Coord3D pos;
-	m_areaToGuard->getCenterPoint(&pos);
-	m_locationToGuard = pos;
-	m_objectToGuard = INVALID_ID; //just in case.
-	getStateMachine()->clear();
-	setLastCommandSource( cmdSource );
-	getStateMachine()->setState( AI_GUARD );
-}
-
 //-------------------------------------------------------------------------------------------------
-// ?privateHackInternet@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::privateHackInternet( CommandSourceType cmdSource )
-{
-	// We need to be able to hack in containers
-//	if (getObject()->isMobile() == FALSE)
-//		return;
-
-	getStateMachine()->clear();
-	setLastCommandSource( cmdSource );
-
-	static NameKeyType key_HackInternetAIUpdate = NAMEKEY("HackInternetAIUpdate");
-	HackInternetAIUpdate *ai = (HackInternetAIUpdate*)getObject()->findUpdateModule( key_HackInternetAIUpdate );
-	if( ai )
-	{
-		ai->hackInternet();
-	}
-	else
-	{
-		DEBUG_CRASH(("Unit %s is expecting a 'Update = HackInternetAIUpdate' entry in FactionUnit.ini", getObject()->getTemplate()->getName().str() ) );
-	}
-}
-
 /// if we are attacking "fromID", stop that and attack "toID" instead
 // AIUpdateInterface::transferAttack is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate_AIUpdateInterface_transferAttack.cpp (0x00268CDC).
 
@@ -1920,52 +742,14 @@ void AIUpdateInterface::privateHackInternet( CommandSourceType cmdSource )
  */
 // AIUpdateInterface::getCurrentVictim: defined in AIUpdateInterface_getCurrentVictim.cpp (its row's unit).
 // if we are attacking a position (and NOT an object), return it. otherwise return null.
-// ?getCurrentVictimPos@AIUpdateInterface@@ present-unmatched
-const Coord3D *AIUpdateInterface::getCurrentVictimPos( void ) const
-{
-	if (getObject()->testStatus(OBJECT_STATUS_IS_ATTACKING))
-	{
-		if (m_currentVictimID == INVALID_ID)
-		{
-			return getStateMachine()->getGoalPosition();
-		}
-	}
-
-	return NULL;
-}
-
-
-/**
- * Set the behavior modifier for this agent
- */
-// ?setAttitude@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::setAttitude( AttitudeType tude )
-{
-	m_attitude = tude;
-}
 
 /**
  * Get the current behavior modifier state	
  */
 
-/**
- * Return the current state the AI is in.
- */
-// ?getAIStateType@AIUpdateInterface@@ present-unmatched
-AIStateType AIUpdateInterface::getAIStateType() const
-{
-	return (AIStateType)getStateMachine()->getCurrentStateID();
-}
-
 //-------------------------------------------------------------------------------------------------
 // AIUpdateInterface::ignoreObstacle: defined in AIUpdateInterfaceIgnoreObstacle.cpp (its row's unit).
 //-------------------------------------------------------------------------------------------------
-// ?ignoreObstacleID@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::ignoreObstacleID( ObjectID id )
-{
-	m_ignoreObstacleID = id;
-}
-
 //-------------------------------------------------------------------------------------------------
 // AIUpdateInterface::getIgnoredObstacleID: defined in AIUpdateInterfaceIgnoreObstacle.cpp (its row's
 // unit at retail 0x0006E009). This TU's ZH-layout view reads +0x154, retail reads +0x164, so the
@@ -1988,47 +772,8 @@ void AIUpdateInterface::setLastCommandSource( CommandSourceType source )
 // AIUpdateInterface::getMoodMatrixActionAdjustment is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_getMoodMatrixActionAdjustment.cpp (0x00264FF8).
 
 //----------------------------------------------------------------------------------------------
-// ?wakeUpAndAttemptToTarget@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::wakeUpAndAttemptToTarget( void )
-{
-	if (!isIdle()) {
-		return;
-	}
-
-	UnsignedInt now = TheGameLogic->getFrame();
-	m_nextMoodCheckTime = now;
-	m_randomlyOffsetMoodCheck = TRUE;
-}
-
 //----------------------------------------------------------------------------------------------
-/**
- * Reset when we should next look for a target. Usually called by *Idle::onEnter
- */
-// ?resetNextMoodCheckTime@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::resetNextMoodCheckTime()
-{
-	UnsignedInt now = TheGameLogic->getFrame();
-	m_nextMoodCheckTime = now + TheAI->getAiData()->m_forceIdleFramesCount;
-	m_randomlyOffsetMoodCheck = TRUE;
-}
-
 //----------------------------------------------------------------------------------------------
-// ?setNextMoodCheckTime@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::setNextMoodCheckTime( UnsignedInt frame )
-{
-	m_nextMoodCheckTime = frame;
-	m_randomlyOffsetMoodCheck = false;
-}
-
-
-
-// ?canAutoAcquireWhileStealthed@AIUpdateInterface@@ present-unmatched
-Bool AIUpdateInterface::canAutoAcquireWhileStealthed() const 
-{ 
-  if ( getObject() && getObject()->getStealth() && getObject()->getStealth()->isGrantedBySpecialPower() )
-    return TRUE;
-  return getAIUpdateModuleData()->m_autoAcquireEnemiesWhenIdle & AAS_Idle_Stealthed;
-}
 
 
 //----------------------------------------------------------------------------------------------
@@ -2038,146 +783,9 @@ Bool AIUpdateInterface::canAutoAcquireWhileStealthed() const
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
-// ?evaluateMoraleBonus@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::evaluateMoraleBonus( void )
-{
-	Object *us = getObject();
-#ifdef ALLOW_DEMORALIZE
-	Bool demoralized = isDemoralized();
-#endif
-	Bool horde = FALSE;
-	Bool nationalism = FALSE;
-	Bool fanaticism = FALSE;
-
-	// do we have nationalism
-	///@todo Find a better way to represent nationalism without hardcoding here (CBD)
-	static const UpgradeTemplate *nationalismTemplate = TheUpgradeCenter->findUpgrade( "Upgrade_Nationalism" );
-	DEBUG_ASSERTCRASH( nationalismTemplate != NULL, ("AIUpdateInterface::evaluateMoraleBonus - Nationalism upgrade not found\n") );
-	Player *player = us->getControllingPlayer();
-	if( player && player->hasUpgradeComplete( nationalismTemplate ) )
-		nationalism = TRUE;
-
-	// do we have fanaticism
-	///@todo Find a better way to represent fanaticism without hardcoding here (MAL)
-	static const UpgradeTemplate *fanaticismTemplate = TheUpgradeCenter->findUpgrade( "Upgrade_Fanaticism" );
-	DEBUG_ASSERTCRASH( fanaticismTemplate != NULL, ("AIUpdateInterface::evaluateMoraleBonus - Fanaticism upgrade not found\n") );
-	if( player && player->hasUpgradeComplete( fanaticismTemplate ) )
-		fanaticism = TRUE;
-
-	// are we in a horde
-	HordeUpdateInterface *hui;
-	for( BehaviorModule** behaviorModule = getRetailBehaviorModules(us); *behaviorModule; ++behaviorModule )
-	{
-
-		hui = (*behaviorModule)->getHordeUpdateInterface();
-		if( hui && hui->isInHorde() )
-		{
-			horde = TRUE;
-
-			if( !hui->isAllowedNationalism() )
-			{
-				// Sorry CBD and MAL, but the cancer has spread to the lymph nodes.  After Alpha, just pump full of painkillers.
-				nationalism = FALSE;
-				fanaticism = FALSE;
-			}
-		}
-
-	}  // end for
-
-#ifdef ALLOW_DEMORALIZE
-	// if we are are not demoralized we can have horde and nationalism effects
-	if( demoralized == FALSE )
-#endif
-	{
-
-#ifdef ALLOW_DEMORALIZE
-		// demoralized
-		us->clearWeaponBonusCondition( WEAPONBONUSCONDITION_DEMORALIZED );
-#endif		
-		
-		//Lorenzen temporarily disabled, since it fights with the horde buff
-		//Drawable *draw = us->getDrawable();
-		//if ( draw && !us->isKindOf( KINDOF_PORTABLE_STRUCTURE ) )
-		//	draw->setTerrainDecal(TERRAIN_DECAL_NONE);
-
-		// horde
-		if( horde )
-		{
-			us->setWeaponBonusCondition( WEAPONBONUSCONDITION_HORDE );
-
-		}  // end if
-		else
-			us->clearWeaponBonusCondition( WEAPONBONUSCONDITION_HORDE );
-
-		// nationalism
-		if( nationalism )
-    {
-			us->setWeaponBonusCondition( WEAPONBONUSCONDITION_NATIONALISM );
-      // fanaticism
-      if ( fanaticism )
-        us->setWeaponBonusCondition( WEAPONBONUSCONDITION_FANATICISM );// FOR THE NEW GC INFANTRY GENERAL
-      else 
-        us->clearWeaponBonusCondition( WEAPONBONUSCONDITION_FANATICISM );
-    }
-		else
-			us->clearWeaponBonusCondition( WEAPONBONUSCONDITION_NATIONALISM );
-
-
-
-	}  // end if
-#ifdef ALLOW_DEMORALIZE
-	else
-	{
-
-		// demoralized
-		us->setWeaponBonusCondition( WEAPONBONUSCONDITION_DEMORALIZED );
-
-		// we cannot have horde bonus condition
-		us->clearWeaponBonusCondition( WEAPONBONUSCONDITION_HORDE );
-		Drawable *draw = us->getDrawable();
-		if( draw && !us->isKindOf( KINDOF_PORTABLE_STRUCTURE ) )
-		{	
-			draw->setTerrainDecal(TERRAIN_DECAL_DEMORALIZED);
-		}
-				
-		// we cannot have nationalism bonus condition
-		us->clearWeaponBonusCondition( WEAPONBONUSCONDITION_NATIONALISM );
-    us->clearWeaponBonusCondition( WEAPONBONUSCONDITION_FANATICISM );
-
-	}  // end else
-#endif
-
-/*
-	UnicodeString msg;
-	msg.format( L"'%S' Horde=%d,Nationalism=%d,Demoralized=%d",
-							us->getTemplate()->getName().str(), horde, nationalism, demoralized );
-	TheInGameUI->message( msg );
-*/
-
-}  // end evaluateMoraleBonus
-
 #ifdef ALLOW_DEMORALIZE
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
-// ?setDemoralized@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::setDemoralized( UnsignedInt durationInFrames )
-{
-	UnsignedInt prevDemoralizedFrames = m_demoralizedFramesLeft;
-
-	// overwrite the previous demoralized time left
-	m_demoralizedFramesLeft = durationInFrames;
-
-	// if we turned on or turned off we need to re-evaluate our bonus conditions
-	if( (prevDemoralizedFrames == 0 && m_demoralizedFramesLeft > 0) ||
-			(prevDemoralizedFrames > 0 && m_demoralizedFramesLeft == 0) )
-	{
-
-		// evaluate demoralization, nationalism, and horde effect as they are all intertwined
-		evaluateMoraleBonus();
-
-	}  // end if
-
-}
 #endif
 
 // ------------------------------------------------------------------------------------------------
@@ -2190,81 +798,7 @@ void AIUpdateInterface::setDemoralized( UnsignedInt durationInFrames )
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
-// ?privateCommandButtonObject@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::privateCommandButtonObject( const CommandButton *commandButton, Object *obj, CommandSourceType cmdSource )
-{
-	if( !commandButton )
-	{
-		return;
-	}
-
-	if (getObject()->isKindOf(KINDOF_PROJECTILE))
-		return;
-
-	//First of all, it's quite possible to get this far with an object incapable of performing such a task. Scripts will have
-	//entire teams of multiple unit types and want to order units to do something... if they can, great.. if not, ignore.
-	Object *owner = getObject();
-	if( owner )
-	{
-		AIUpdateInterface *ai = owner->getAI();
-		//Make sure the owner has the same command button.
-		const CommandSet *commandSet = TheControlBar->findCommandSet( owner->getCommandSetString() );
-		if( commandSet )
-		{
-			for( int i = 0; i < MAX_COMMANDS_PER_SET; i++ )
-			{
-				const CommandButton *aCommandButton = commandSet->getCommandButton(i);
-				if( commandButton == aCommandButton )
-				{
-					//We found the matching command button so now order the unit to do what the button wants.
-					// LINK: read m_command at +0x14 (retail truth: matched
-					// witnesses isReady 0x0035B069, evaluateSkirmish 0x003E73E7
-					// and rowed 0x003C10D8 all read +0x14) through a TU-local
-					// view instead of odr-using the ZH inline, whose +0x10
-					// copy sorts first in link order and displaces the retail
-					// copy (getCommandType L row).
-					struct AIUpdateCommandButtonView { unsigned char m_pad[0x14]; Int m_command; };
-					switch( reinterpret_cast<const AIUpdateCommandButtonView *>(commandButton)->m_command )
-					{
-						//OBJECT BASED COMMANDS ONLY VIA AI
-						case GUI_COMMAND_COMBATDROP:
-							if( ai )
-							{
-								ai->aiCombatDrop( obj, *(obj->getPosition()), cmdSource );
-							}
-							break;
-						default:
-						{
-							AsciiString myName = owner->getTemplate()->getName().str();
-							AsciiString myNickname;
-							AsciiString targetName = obj->getTemplate()->getName().str();
-							AsciiString targetNickname;
-							if( owner->getName().isNotEmpty() )
-							{
-								myNickname.format( "('%s')", owner->getName().str() );
-							}
-							if( obj->getName().isNotEmpty() )
-							{
-								targetNickname.format( "('%s')", obj->getName().str() );
-							}
-
-							DEBUG_ASSERTCRASH( 0, ("AIUpdate::privateCommandButtonPosition() -- unit %s %s, command %s at unit %s %s not implemented.",
-								myName.str(), myNickname.str(), commandButton->getTextLabel().str(), targetName.str(), targetNickname.str() ) );
-						}
-					}
-				}
-			}
-		}
-	}
-}
-
 // ------------------------------------------------------------------------------------------------
-// ?getGroup@AIUpdateInterface@@ present-unmatched
-AIGroup *AIUpdateInterface::getGroup(void)
-{
-	return getObject()->getGroup();
-}
-
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2291,226 +825,6 @@ void AIUpdateInterface::crc( Xfer *x )
 	* Version Info:
 	* 1: Initial version */
 // ------------------------------------------------------------------------------------------------
-// ?xfer@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::xfer( Xfer *xfer )
-{
-  // version
-  const XferVersion currentVersion = 4;
-  XferVersion version = currentVersion;
-  xfer->xferVersion( &version, currentVersion );
- 
- // extend base class
-  UpdateModule::xfer( xfer );
- 
-	xfer->xferUnsignedInt(&m_priorWaypointID);
-	xfer->xferUnsignedInt(&m_currentWaypointID);
-	xfer->xferSnapshot(m_stateMachine);
-	xfer->xferBool(&m_isAiDead);
-	xfer->xferBool(&m_isRecruitable);
-
-	xfer->xferUnsignedInt(&m_nextEnemyScanTime);		
-	xfer->xferObjectID(&m_currentVictimID);	
-	xfer->xferReal(&m_desiredSpeed);
-	xfer->xferUser(&m_lastCommandSource, sizeof(m_lastCommandSource));
-	xfer->xferUser(&m_guardTargetType[0], sizeof(m_guardTargetType));
-	xfer->xferUser(&m_guardTargetType[1], sizeof(m_guardTargetType));
-	xfer->xferCoord3D(&m_locationToGuard);
-
-	xfer->xferObjectID(&m_objectToGuard);
-
-	AsciiString triggerName;
-	if (m_areaToGuard) triggerName = m_areaToGuard->getTriggerName();
-	xfer->xferAsciiString(&triggerName);
-	if (xfer->getXferMode() == XFER_LOAD)
-	{
-		if (triggerName.isNotEmpty()) {
-			m_areaToGuard = TheTerrainLogic->getTriggerAreaByName(triggerName);
-		}
-	} 
-
-	AsciiString attackName;
-	if (m_attackInfo) attackName = m_attackInfo->getName();
-	xfer->xferAsciiString(&attackName);
-	if (xfer->getXferMode() == XFER_LOAD)
-	{
-		if (attackName.isNotEmpty()) {
-			m_attackInfo = TheScriptEngine->getAttackInfo(attackName);
-		}
-	}  
-
-	xfer->xferInt(&m_waypointCount);
-	if (m_waypointCount<0 || m_waypointCount>MAX_WAYPOINTS) {
-		DEBUG_CRASH(("Invalid waypoint count %d, max = %d", m_waypointCount, MAX_WAYPOINTS));
-		throw SC_INVALID_DATA;
-	}
-	Int i;
-	for (i=0; i<m_waypointCount; i++) {
-		xfer->xferCoord3D(&m_waypointQueue[i]);
-	}
-	xfer->xferInt(&m_waypointIndex);
-	xfer->xferBool(&m_executingWaypointQueue);
-
-	UnsignedInt id = INVALID_WAYPOINT_ID;
-	if (m_completedWaypoint) {
-		id = m_completedWaypoint->getID();
-	}
-	xfer->xferUnsignedInt(&id);
-	if (xfer->getXferMode() == XFER_LOAD)
-	{
-		m_completedWaypoint = TheTerrainLogic->getWaypointByID(id);
-	}
-
-	xfer->xferBool(&m_waitingForPath);
-	Bool gotPath = (m_path != NULL);
-	xfer->xferBool(&gotPath);
-	if (xfer->getXferMode() == XFER_LOAD)	{
-		if (gotPath) {
-			m_path = newInstance(Path);
-		}
-	}
-	if (gotPath) {
-		xfer->xferSnapshot(m_path);
-	}
-	xfer->xferObjectID(&m_requestedVictimID);
-	xfer->xferCoord3D(&m_requestedDestination);
-	xfer->xferCoord3D(&m_requestedDestination2);
-
-	// Not needed - we will recompute paths on load.
-	//xfer->xferUnsignedInt(&m_pathTimestamp);		
-	
-	xfer->xferObjectID(&m_ignoreObstacleID);
-	xfer->xferReal(&m_pathExtraDistance);
-	xfer->xferICoord2D(&m_pathfindGoalCell);
-	xfer->xferICoord2D(&m_pathfindCurCell);
-
-	// Not needed - jba.
-	//Int					m_blockedFrames;						///< Number of frames we've been blocked.
-	//Real				m_curMaxBlockedSpeed;				///< Max speed we can have and not run into blocking things.
-	//Bool				m_isBlocked;
-	//Bool				m_isBlockedAndStuck;				///< True if we are stuck & need to recompute path.
-	//Bool				m_isInUpdate;
-	//Bool				m_fixLocoInPostProcess;
-
-	xfer->xferUnsignedInt(&m_ignoreCollisionsUntil);
-	xfer->xferUnsignedInt(&m_queueForPathFrame);
-	xfer->xferCoord3D(&m_finalPosition);
-	xfer->xferBool(&m_doFinalPosition);
-	xfer->xferBool(&m_isAttackPath);
-	xfer->xferBool(&m_isFinalGoal);
-	xfer->xferBool(&m_isApproachPath);
-	xfer->xferBool(&m_isSafePath);
-	xfer->xferBool(&m_movementComplete);
-	xfer->xferBool(&m_isSafePath);
-	xfer->xferBool(&m_upgradedLocomotors);
-	xfer->xferBool(&m_canPathThroughUnits);
-	xfer->xferBool(&m_randomlyOffsetMoodCheck);
-	xfer->xferObjectID(&m_repulsor1);
-	xfer->xferObjectID(&m_repulsor2);
-
-	if (version < 3)
-	{
-		Int lastFrameMoved = 0;
-		xfer->xferInt(&lastFrameMoved);
-	}
-
-	xfer->xferObjectID(&m_moveOutOfWay1);
-	xfer->xferObjectID(&m_moveOutOfWay2);
-
-	if (xfer->getXferMode() == XFER_LOAD && version < 4)
-	{
-		// Read in from .ini
-		//LocomotorSet			m_locomotorSet;
-		AsciiString setName;
-		if (m_curLocomotorSet > LOCOMOTORSET_INVALID && m_curLocomotorSet < LOCOMOTORSET_COUNT) 
-			setName = TheLocomotorSetNames[m_curLocomotorSet];
-
-		xfer->xferAsciiString(&setName);
-
-		if (setName.isNotEmpty()) 
-			m_curLocomotorSet = (LocomotorSetType)INI::scanIndexList(setName.str(), TheLocomotorSetNames);
-
-		m_fixLocoInPostProcess = TRUE;
-	}
-	else
-	{
-		if (xfer->getXferMode() == XFER_LOAD)
-		{
-			// our ctor choose a NORMAL set for us. it's simpler
-			// to simply clear out whatever we have here and allow 
-			// xferSelfAndCurLocoPtr() to continue to require a pristine,
-			// empty set. (srj)
-			m_locomotorSet.clear();
-			m_curLocomotor = NULL;
-		}
-		m_locomotorSet.xferSelfAndCurLocoPtr(xfer, &m_curLocomotor);
-		xfer->xferUser(&m_curLocomotorSet, sizeof(m_curLocomotorSet));
-	}
-
-	xfer->xferUser(&m_locomotorGoalType, sizeof(m_locomotorGoalType));
-	xfer->xferCoord3D(&m_locomotorGoalData);
-
-	for (i=0; i<MAX_TURRETS; i++) {
-		if (m_turretAI[i]) {
-			xfer->xferSnapshot(m_turretAI[i]);
-		}
-	}
-	xfer->xferUser(&m_turretSyncFlag, sizeof(m_turretSyncFlag));
-	xfer->xferUser(&m_attitude, sizeof(m_attitude));
-
-	xfer->xferUnsignedInt(&m_nextMoodCheckTime);
-	if (version == 1)	
-	{
-		// surrender + demoralize
-#ifdef ALLOW_DEMORALIZE
-		xfer->xferUnsignedInt(&m_demoralizedFramesLeft);
-#else
-		UnsignedInt demoralizedFramesLeft = 0;
-		xfer->xferUnsignedInt(&demoralizedFramesLeft);
-#endif
-#ifdef ALLOW_SURRENDER
-		xfer->xferUnsignedInt(&m_surrenderedFramesLeft);
-		xfer->xferInt(&m_surrenderedPlayerIndex);
-#else
-		UnsignedInt surrenderedFramesLeft = 0;
-		Int surrenderedPlayerIndex = 0;
-		xfer->xferUnsignedInt(&surrenderedFramesLeft);
-		xfer->xferInt(&surrenderedPlayerIndex);
-#endif
-	}
-	else if (version == 2)
-	{
-#ifdef ALLOW_SURRENDER
-		DEBUG_CRASH(("fix me ALLOW_SURRENDER"));	// should not happen
-#endif
-		// demoralize only
-#ifdef ALLOW_DEMORALIZE
-		xfer->xferUnsignedInt(&m_demoralizedFramesLeft);
-#else
-		UnsignedInt tmp0 = 0;
-		xfer->xferUnsignedInt(&tmp0);
-#endif
-	}
-	else
-	{
-		// else no surrender or demoralize
-#ifdef ALLOW_SURRENDER
-		DEBUG_CRASH(("fix me ALLOW_SURRENDER"));	// should not happen
-#endif
-#ifdef ALLOW_DEMORALIZE
-		DEBUG_CRASH(("fix me ALLOW_DEMORALIZE"));	// should not happen
-#endif
-	}
-
-	xfer->xferObjectID(&m_crateCreated);
-	if (version < 3)
-	{
-		Int repulsorCountdown = 0;
-		xfer->xferInt(&repulsorCountdown);
-	}
-
-
-}  // end xfer
-
 // ------------------------------------------------------------------------------------------------
 /** Load post process */
 // ------------------------------------------------------------------------------------------------
@@ -2518,33 +832,5 @@ void AIUpdateInterface::xfer( Xfer *xfer )
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
-// ?friend_getWaypointGoalPathSize@AIUpdateInterface@@ present-unmatched
-Int AIUpdateInterface::friend_getWaypointGoalPathSize() const 
-{ 
-			//
-			// it is VERY IMPORTANT to check for the current state type as being follow-path, 
-			// because "getGoalPath" and friends are used for other things (eg, jet takeoff and landing).
-			// if you don't do this check, you will end up with really bizarre behavior in obscure jet-related
-			// cases, and our users will all laugh at us.
-			//
-			// the goalpath should really be completely private, but at this point, this ugly scheme
-			// has to be lived with. (srj)
-			//
-	if (getAIStateType() != AI_FOLLOW_PATH)
-		return 0;
-
-	return getStateMachine()->getGoalPathSize(); 
-}
-
 // ------------------------------------------------------------------------------------------------
-// ?hasLocomotorForSurface@AIUpdateInterface@@ present-unmatched
-Bool AIUpdateInterface::hasLocomotorForSurface(LocomotorSurfaceType surfaceType)
-{
-	LocomotorSurfaceTypeMask surfaceMask = (LocomotorSurfaceTypeMask)surfaceType;
-	if (m_locomotorSet.findLocomotor(surfaceMask))
-		return TRUE;
-	else
-		return FALSE;
-}
-
 // ------------------------------------------------------------------------------------------------
