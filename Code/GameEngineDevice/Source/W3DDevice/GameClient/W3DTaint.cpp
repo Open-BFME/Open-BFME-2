@@ -424,7 +424,6 @@ public:
 	~BFMEDX8DeviceLock() { BFME_DX8_Thread_Assert(); }
 };
 class Rva000728E2 { public: void rva000728E2(); };
-class Rva007397D0 { public: void rva007397D0(); };
 class BfmeTaintManager;
 extern BfmeTaintManager *TheTaintManager;
 class Rva006C0820 { public: void rva006C0820(); };

@@ -94,4 +94,3 @@ PlayingAudio::PlayingAudio() :
 // native BC5128 counted-base vtable slot0 binds Rva00051E4D deleting29B.
 class AudioManager;
 
-class MilesAudioManager {public:void onPlayingAudioDeleted(PlayingAudio&);};

@@ -63,15 +63,6 @@ public:
 	~PrimaryP451F45() {}
 };
 
-class Rva0024A797_B2
-{
-public:
-	virtual void f2();
-
-private:
-	char m_pad08[12];
-};
-
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class SpecialPowerTemplate;

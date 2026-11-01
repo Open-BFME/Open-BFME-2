@@ -244,20 +244,6 @@ BFME_DISP8_BYTE_GETTER(Rva0065D7B0ByteField, 0x1C)
 
 BFME_DISP8_BYTE_GETTER(Rva0065D7D0ByteField, 0x1D)
 
-class Rva001DCD05
-{
-public:
-	void *rva001DCD05();
-private:
-	char m_pad[8];
-	char m_08;
-	char m_pad2[0x14 - 0x09];
-	char m_14;
-	char m_pad3[0x20 - 0x15];
-	unsigned char m_20;
-	bool m_21;
-};
-
 // Clean BFME1 9cbfb551 donor structural leads; native instructions independently
 // establish complete RET boundaries and each raw field operation and ABI.
 // Address-owned carriers retain unknown original receiver identity and bounds.

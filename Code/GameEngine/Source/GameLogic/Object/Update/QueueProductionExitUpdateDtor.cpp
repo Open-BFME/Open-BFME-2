@@ -33,14 +33,6 @@ template<int N> class BitFlags
 };
 typedef BitFlags<13> DisabledMaskType;
 
-class BehaviorModuleBase
-{
-public:
-	virtual void behaviorModuleBaseAnchor();
-	const ModuleData *m_moduleData;
-	Object *m_object;
-};
-
 class BehaviorModuleOther
 {
 public:

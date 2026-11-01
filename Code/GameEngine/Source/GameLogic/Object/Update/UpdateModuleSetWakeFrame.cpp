@@ -40,11 +40,6 @@ public:
 	Object *getObject() const { return m_object; }
 };
 
-class BehaviorModuleOther
-{
-	virtual void unused();
-};
-
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 // BitFlags<11> is DisabledMaskType (BitFlags11DisabilityCtors.cpp); its

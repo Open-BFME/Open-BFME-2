@@ -13,14 +13,6 @@ private:
     long refs;
 };
 
-struct OpaqueRefElement4
-{
-    OpaqueRefCounted *referent;
-    ~OpaqueRefElement4();
-    OpaqueRefElement4 &operator=(const OpaqueRefElement4 &other);
-    OpaqueRefElement4 &rva00239057(const OpaqueRefElement4 *other);
-};
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/OpaqueRefOwnership.cpp
 
 // platformsdk
