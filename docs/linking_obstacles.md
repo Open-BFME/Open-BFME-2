@@ -13832,6 +13832,39 @@ AnimationSoundClientBehavior.cpp LINKS 1,882 -> 1,958 B, W3DHordeModelDrawModule
 ConstIntGettersAddr.cpp addresses 260 -> 254. Census confirmation pending. Still open: s_modelDraw,
 s_fxpsSizeAngle, AODCrush, s_transportAi, s_radiusDecal (userData lists need real-named data rows) and the getters.
 
+Update (2026-11-01, seat halilkkaya-ad-o1): blocked, banked in
+reverse/attempt_support/constintgettersaddr-typed-fieldparse-20261101 (patch, generator, readme). The
+last five raw tables (s_fxpsSizeAngle, s_modelDraw, AODCrush, s_transportAi, s_radiusDecal) can be
+typed `FieldParse` tables with data rows: field names come from retail, every parser is the matched row
+at its RVA, and the owned lists are named (0xDBC284 TheWeaponSlotTypeNames, 0xDBB4F0
+TheLocomotorSetNames). Evidence at base e57b7de842, index 987ee56fdc:
+
+- 6-source build: 57/57 functions, 39 data rows verified.
+- Scoped DIR32 is OK.
+- ConstIntGettersAddr.cpp addresses fall from 254 to 24.
+- The five consumers and the 14 providers still LINK, with sizes unchanged.
+
+Every one of the five tables has one userData list with no external real-named definition, and those
+ten words stay as `(const void *)0x...` literals inside the typed entries. The pre-commit
+`link_debt.py --staged` counts only casts, so it sees 0 -> 10 and refuses, even though the census count
+(`addresses()`) drops by 230 and no address is new. The refusal is recorded as `false-reject
+link_debt.staged` in re_attempts.log. A `static` copy of a list does not help either: data_rows refuses a
+relocation to a TU-local symbol. The ten words and what each needs:
+
+- 0xC1B6D8 (Rotation): defined only as address-named `g_00C1B6D8` (FXParticleSystemModuleParsers.cpp, no
+  data row). exports.csv names it `?RotationTypeNames@FXParticleSystem@@3QBQBDB`, but the data ledger's
+  stale `?g_00C1B6D8@@3PAPBDA` size-560 entry already blocked a rebind once
+  (rotation-table-link-blocked-20261014).
+- 0xDB960C (MinLODRequired): only `g_00DB960C` in GameLOD.cpp, with no data row and no proven name.
+- 0xDCD4D0/0xDCD550 (AODCrush, 6 words), 0xDBB4C4 (AutoAcquireEnemiesWhenIdle) and 0xDBE6F0 (Style):
+  per-TU copies of Zero Hour's header `static` lists (TheDamageNames, TheDeathNames,
+  TheAutoAcquireEnemiesNames, TheShadowNames under DEFINE_*_NAMES). Each of those names already belongs
+  to another copy's data row, and data_rows allows one row per name.
+
+Either change unblocks the patch: link_debt --staged also credits raw image words that leave the file,
+or the ten lists get real external names. The 14 `mov eax,imm32` getters are unchanged (see "Hard-coded
+image addresses: name_globals has no candidates").
+
 ### MissileUpdate composition (2026-10-29, seat yasinschroeder-claudeb2)
 
 - Landed: 2a7a171df8 merged 4 files into `MissileUpdate.cpp` (13 rows).
