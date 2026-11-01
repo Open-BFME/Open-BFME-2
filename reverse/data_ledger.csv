@@ -20756,7 +20756,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A044A0,8,.data,global,?g_00E044A0@@3HA,Code/Libraries/Source/WWVegas/WWLib/Rva004EB583Ctor.cpp,owned,,1,4
 0x00A044A8,4,.data,global,_s_rva007B3231,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A044AC,4,.data,global,?g_00E044AC@@3HA,Code/Libraries/Source/WWVegas/WW3D2/Rva004ECE14.cpp,owned,,1,2
-0x00A044B0,4,.data,global,?g_00E044B0@@3IA,Code/Libraries/Source/WWVegas/WW3D2/Rva004ECE1C.cpp,owned,,1,1
+0x00A044B0,4,.data,global,?g_00E044B0@@3IA,Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/AITactic.cpp,owned,,1,1
 0x00A044B4,4,.data,global,_s_rva007B328F,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A044B8,4,.data,global,_s_rva007B32B9,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A044BC,4,.data,global,?key_warehouseUpdate@?N@??findSupplyCenter@AIPlayer@@IAEPAVObject@@H@Z@4W4NameKeyType@@B,Code/GameEngine/Source/GameLogic/AI/AIPlayer.cpp,owned,,1,2

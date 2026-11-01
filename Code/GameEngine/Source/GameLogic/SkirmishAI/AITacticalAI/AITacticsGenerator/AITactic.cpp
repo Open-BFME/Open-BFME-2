@@ -19,7 +19,6 @@ class Object;
 namespace _STL { template <> __declspec(dllimport) __forceinline _Vector_base<Object *, allocator<Object *> >::~_Vector_base() { if (this->_M_start != 0) this->_M_end_of_storage.deallocate(this->_M_start, this->_M_end_of_storage._M_data - this->_M_start); } }
 #include "ascii_string.h"
 #include "Coord3DBase.h"
-// The standard allocation header supplies the placement overloads.
 #define _OPERATOR_NEW_DEFINED_
 #include "vector3.h"
 // Existing bfmealloc shim and no-exception STL configuration reproduce the
@@ -68,6 +67,16 @@ class RGBAColorInt;
 struct XferUnknown11;
 #include "../../../../../Include/Common/BfmeXfer.h"
 #pragma comment(linker, "/alternatename:?slot08@AITactic@@UAEXXZ=?rva004EDDAA@AITactic@@QAEXXZ")
+#define _OPERATOR_NEW_DEFINED_
+#include "vector.h"
+#include "../../../../Common/GameLogicObjectLookupView.h"
+extern GameLogic *TheGameLogic;
+ // ?TheGameLogic@@3PAVGameLogic@@A
+extern unsigned int g_00E044B0;
+// g_00E044B0: matched references place it at VA 0xe044b0 (zero-filled .bss).
+unsigned int g_00E044B0;
+#define _CRTIMP
+#undef _CRTIMP
 
 class Xfer::Version
 {
@@ -114,6 +123,7 @@ public:
 struct AITacticAssistTemplate { unsigned char pad[0x115]; unsigned char kindByte; };
 
 class AIUpdateInterface;
+
 class Object
 {
 public:
@@ -143,7 +153,9 @@ extern BitFlags<116> KINDOFMASK_NONE;
 enum CommandSourceType { CMD_FROM_PLAYER = 0, CMD_FROM_SCRIPT = 1 };
 
 struct Rva00372571Params;
+
 class AITactic;
+
 class AIGroup
 {
 private:
@@ -340,6 +352,30 @@ public:
 	HLodClass::ModelNodeClass *m_end; // +0x08
 };
 
+struct BfmeStringRecord002CF4C6 {
+    AsciiString *text0, *text1;
+    unsigned int word0, word1;
+    unsigned char flag0, flag1;
+    BfmeStringRecord002CF4C6();
+    BfmeStringRecord002CF4C6(const BfmeStringRecord002CF4C6 &);
+};
+
+namespace _STL {
+template <> BfmeStringRecord002CF4C6 *allocator<BfmeStringRecord002CF4C6>::allocate(unsigned int n, const void *hint) const;
+}
+
+class Player;
+
+class TeamPrototype;
+
+class Xfer;
+
+class Rva002C589B;
+
+class Rva004ECDC8;
+
+struct Rva004ECECDNode;
+
 class AITactic
 {
 public:
@@ -436,7 +472,62 @@ private:
 	};
 };
 
-// tu-skeleton: 0x004ECE1C 69B ?rva004ECE1C@AITactic@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva004ECE1C.cpp (not merged yet)
+struct Rva004EDCE9Buf
+{
+	void *m_p;
+	~Rva004EDCE9Buf()
+	{
+		if (m_p != 0)
+			free(m_p);
+	}
+};
+
+class Rva004EDCE9
+{
+public:
+	virtual ~Rva004EDCE9();
+private:
+	Rva004EDCE9Buf m_04; // +4
+	char m_pad08[0x14 - 0x08]; // +8
+	Rva004EDCE9Buf m_14; // +0x14
+	char m_pad18[0x2C - 0x18]; // +0x18
+	AsciiString m_2C; // +0x2C
+	char m_pad30[0x54 - 0x30]; // tail to cover +0x38/+0x50 uses in 0x004ED748
+};
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/Rva004ECE1C.cpp
+
+// ?rva004ECE1C@AITactic@@QAEXXZ @ 0x004ECE1C, 69 bytes.
+// An AITactic member: AITacticsGenerator.cpp's 0x00505924 pass calls it on
+// each AITactic, in the AITactic.cpp range.
+// Early-return checks on +0x51 +0x28 +0x10 then GameLogic m_40 vs +0x54 with
+// threshold g_00E044B0 then tail-jmps to vtable slots 0x18 and 0x1c.
+// Evidence: xor-edx byte compares; TheGameLogic rowed name; g_ stopgap;
+// 4 callers in 0x00505924 looping over object arrays; /O1 per xor-first.
+
+void AITactic::rva004ECE1C()
+{
+	if (m_51 == 0)
+		return;
+	if (m_ended != 0)
+		return;
+	if (m_10 == 0) {
+		if (m_54 == 0) {
+			m_54 = TheGameLogic->getFrame();
+			return;
+		}
+		if (TheGameLogic->getFrame() - m_54 < g_00E044B0)
+			return;
+		m_10 = 1;
+		slot06();
+		return;
+	}
+	slot07();
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/AITactic.cpp
+
+// The standard allocation header supplies the placement overloads.
 
 // ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/AITactic.cpp
 
@@ -812,23 +903,14 @@ int Rva004ECE0AKeep(const int *a, const int *b)
 // 0, the ICF-shared trivial virtual 0x000910FB in slot 4 and 0x004EDDAA in slot
 // 8; bind each placeholder to the row that owns that address.
 
-// tu-skeleton: 0x004ECE93 21B ?rva004ECE93@Rva004ECE93@@QAEMH@Z -- matched in Code/GameEngine/Source/Common/RvaPinnedCallWrappers.cpp (not merged yet)
 
-// tu-skeleton: 0x004ECEA8 37B ??4ModelNodeClass@HLodClass@@QAEAAV01@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp (not merged yet)
 
-// tu-skeleton: 0x004ECECD 56B ?rva004ECECD@AITactic@@QAEPAVTeam@@H@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HLodRva004ECECD.cpp (not merged yet)
 
-// tu-skeleton: 0x004ECF05 60B ?rva004ECF05@AITactic@@QAEPAURva004ECECDNode@@H@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HLodRva004ECECD.cpp (not merged yet)
 
-// tu-skeleton: 0x004ECF41 91B ?anyTeamMembersInCombat@AITactic@@QAE_NXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/HLodRva004ECECD.cpp (not merged yet)
 
-// tu-skeleton: 0x004ED08A 77B ?cohereTeams@AITactic@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/HLodRva004ECECD.cpp (not merged yet)
 
-// tu-skeleton: 0x004ED0D7 18B ?Rva004ED0D7Assign@@YAXPAVModelNodeClass@HLodClass@@PBV12@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HLodModelNodeAssign.cpp (not merged yet)
 
-// tu-skeleton: 0x004ED0E9 38B ?Rva004ED0E9Copy@@YAPAVModelNodeClass@HLodClass@@PBV12@0PAV12@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HLodModelNodeCopy.cpp (not merged yet)
 
-// tu-skeleton: 0x004ED10F 37B ?Rva004ED10FFill@@YAPAVModelNodeClass@HLodClass@@PAV12@IPBV12@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HLodModelNodeFill.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/AITactic_isTeamIdle.cpp
 
@@ -845,24 +927,6 @@ bool AITactic::isTeamIdle(int id)
 	}
 	return true;
 }
-
-// tu-skeleton: 0x004ED169 56B ?rva004ED169@AITactic@@QAEEXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/HLodRva004ED169.cpp (not merged yet)
-
-// tu-skeleton: 0x004ED1A1 92B ?teamAttackObject@AITactic@@QAEXHPAVObject@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HLodRva004ED1A1.cpp (not merged yet)
-
-// tu-skeleton: 0x004ED1FD 90B ?teamAttackMove@AITactic@@QAEXHPBUCoord3D@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HLodRva004ED1A1.cpp (not merged yet)
-
-// tu-skeleton: 0x004ED257 150B ?teamForceMove@AITactic@@QAEXHPBUCoord3D@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HLodRva004ED1A1.cpp (not merged yet)
-
-// tu-skeleton: 0x004ED2ED 85B ?teamGarrisonObject@AITactic@@QAEXHPAVObject@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/AITactic_teamGarrisonObject.cpp (not merged yet)
-
-// tu-skeleton: 0x004ED342 48B ?rva004ED342@AITactic@@QAEXPAX@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HLodRva004ED1A1.cpp (not merged yet)
-
-// tu-skeleton: 0x004ED372 48B ?rva004ED372@AITactic@@QAEXPBUCoord3D@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HLodRva004ED1A1.cpp (not merged yet)
-
-// tu-skeleton: 0x004ED3A2 47B ?rva004ED3A2@Rva004ED3A2@@QAEPAXPAX@Z -- matched in Code/GameEngine/Source/Common/CursorCompaction.cpp (not merged yet)
-
-// tu-skeleton: 0x004ED471 189B ?rva004ED471@Rva004ED471@@QAEXPAVModelNodeClass@HLodClass@@PBV23@PBXI_N@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva004ED471Finish.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/Rva004ED69BPushBack.cpp
 
@@ -890,25 +954,190 @@ void AITactic::rva004EDA60()
 	end(0, 0);
 }
 
-// tu-skeleton: 0x004EDCE9 100B ??1Rva004EDCE9@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva004EDCE9Dtor.cpp (not merged yet)
+// tu-skeleton: 0x004ECE93 21B ?rva004ECE93@Rva004ECE93@@QAEMH@Z -- matched in Code/GameEngine/Source/Common/RvaPinnedCallWrappers.cpp (not merged yet)
+
+// tu-skeleton: 0x004ECEA8 37B ??4ModelNodeClass@HLodClass@@QAEAAV01@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp (not merged yet)
+
+// tu-skeleton: 0x004ECECD 56B ?rva004ECECD@AITactic@@QAEPAVTeam@@H@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HLodRva004ECECD.cpp (not merged yet)
+
+// tu-skeleton: 0x004ECF05 60B ?rva004ECF05@AITactic@@QAEPAURva004ECECDNode@@H@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HLodRva004ECECD.cpp (not merged yet)
+
+// tu-skeleton: 0x004ECF41 91B ?anyTeamMembersInCombat@AITactic@@QAE_NXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/HLodRva004ECECD.cpp (not merged yet)
+
+// tu-skeleton: 0x004ED08A 77B ?cohereTeams@AITactic@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/HLodRva004ECECD.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/HLodModelNodeAssign.cpp
+
+// ?Rva004ED0D7Assign@@YAXPAVModelNodeClass@HLodClass@@PBV12@@Z @ 0x004ED0D7, 18 bytes.
+// Guarded single-element copy: assigns *src into *dst when dst is non-null.
+// Evidence: callers are the ModelNode range/counted copy loops at 0x004ED0E9,
+// 0x004ED10F, 0x004ED471 and 0x004ED69B; callee is the rowed
+// ModelNodeClass::operator= (??4ModelNodeClass@HLodClass@@QAEAAV01@ABV01@@Z)
+// at 0x004ECEA8. Element stride 0x14 matches the ModelNode payload below,
+// shared with Code/Libraries/Source/WWVegas/WW3D2/HLodModelNodeVectorResize.cpp.
+
+void __cdecl Rva004ED0D7Assign(HLodClass::ModelNodeClass *dst, const HLodClass::ModelNodeClass *src)
+{
+	if (dst != 0) {
+		*dst = *src;
+	}
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/HLodModelNodeCopy.cpp
+
+// ?Rva004ED0E9Copy@@YAPAVModelNodeClass@HLodClass@@PBV12@0PAV12@@Z @ 0x004ED0E9, 38 bytes.
+// Range copy: copies [first last) into result via the guarded Assign,
+// returning one past the last destination. Evidence: callers at 0x004ED4B2 and
+// 0x004ED4FD pass src-begin src-end dst-begin; callee is the rowed
+// Rva004ED0D7Assign at 0x004ED0D7. Increment order ++first then ++result gives
+// retail add-edi before add-esi. Shares the ModelNode payload with its
+// siblings.
+
+HLodClass::ModelNodeClass * __cdecl Rva004ED0E9Copy(const HLodClass::ModelNodeClass *first, const HLodClass::ModelNodeClass *last, HLodClass::ModelNodeClass *result)
+{
+	HLodClass::ModelNodeClass *r = result;
+	const HLodClass::ModelNodeClass *f = first;
+	while (f != last) {
+		Rva004ED0D7Assign(r, f);
+		++f;
+		++r;
+	}
+	return r;
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/HLodModelNodeFill.cpp
+
+// ?Rva004ED10FFill@@YAPAVModelNodeClass@HLodClass@@PAV12@IPBV12@@Z @ 0x004ED10F, 37 bytes.
+// Counted fill: copies *src into each of count destinations, stride 0x14,
+// returning one past the last. Evidence: sole caller 0x004ED4DF passes dst in
+// eax, count from idiv and src from [ebp+0x0C]; callee is the rowed
+// Rva004ED0D7Assign at 0x004ED0D7. Loop shape test-jbe plus dec-before-pop
+// needs unsigned count with <=0 guard and --n in the condition. Shares the
+// ModelNode payload with HLodModelNodeAssign.cpp.
+
+HLodClass::ModelNodeClass * __cdecl Rva004ED10FFill(HLodClass::ModelNodeClass *dst, unsigned int count, const HLodClass::ModelNodeClass *src)
+{
+	HLodClass::ModelNodeClass *p = dst;
+	unsigned int n = count;
+	if (n <= 0) {
+		return p;
+	}
+	do {
+		Rva004ED0D7Assign(p, src);
+		++p;
+	} while (--n != 0);
+	return p;
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/HLodRva004ED169.cpp
+
+unsigned char AITactic::rva004ED169()
+{
+	unsigned int count = (unsigned int)(m_teams.end() - m_teams.begin());
+	unsigned int matched = 0;
+	for (unsigned int i = 0; i < count; ++i)
+	{
+		if (isTeamIdle((int)i))
+			++matched;
+	}
+	return matched == count;
+}
+
+// tu-skeleton: 0x004ED1A1 92B ?teamAttackObject@AITactic@@QAEXHPAVObject@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HLodRva004ED1A1.cpp (not merged yet)
+
+// tu-skeleton: 0x004ED1FD 90B ?teamAttackMove@AITactic@@QAEXHPBUCoord3D@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HLodRva004ED1A1.cpp (not merged yet)
+
+// tu-skeleton: 0x004ED257 150B ?teamForceMove@AITactic@@QAEXHPBUCoord3D@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HLodRva004ED1A1.cpp (not merged yet)
+
+// tu-skeleton: 0x004ED2ED 85B ?teamGarrisonObject@AITactic@@QAEXHPAVObject@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/AITactic_teamGarrisonObject.cpp (not merged yet)
+
+// tu-skeleton: 0x004ED342 48B ?rva004ED342@AITactic@@QAEXPAX@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HLodRva004ED1A1.cpp (not merged yet)
+
+// tu-skeleton: 0x004ED372 48B ?rva004ED372@AITactic@@QAEXPBUCoord3D@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HLodRva004ED1A1.cpp (not merged yet)
+
+// tu-skeleton: 0x004ED3A2 47B ?rva004ED3A2@Rva004ED3A2@@QAEPAXPAX@Z -- matched in Code/GameEngine/Source/Common/CursorCompaction.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/Rva004ED471Finish.cpp
+
+// ?rva004ED471@Rva004ED471@@QAEXPAVModelNodeClass@HLodClass@@PBV23@PBXI_N@Z
+// ?rva004ED471@Rva004ED471@@QAE... @ 0x004ED471, 189 bytes.
+// Vector overflow for HLod ModelNode 0x14 stride: allocates max+old, copies
+// [start pos), fills n, copies [pos finish) unless atend, frees old.
+// Evidence: callers 0x004ED6C8 push_back overflow path passes pos value 1 1;
+// callees rowed Copy 0x004ED0E9 Fill 0x004ED10F Assign 0x004ED0D7 allocator
+// 0x395960 free 0x30830; prev/next share TU flags.
+// The Copy/Fill/Copy helpers each take the allocator instance as a fourth
+// argument; retail passes the address of a dedicated allocator local (its own
+// stack slot distinct from the incoming count), which is why each call opens
+// with a lea of that slot rather than reusing the count home.
+
+// The standard allocation header supplies the placement overloads.
+
+HLodClass::ModelNodeClass * __cdecl Rva004ED0E9Copy(const HLodClass::ModelNodeClass *first, const HLodClass::ModelNodeClass *last, HLodClass::ModelNodeClass *result, const void *h)
+{ HLodClass::ModelNodeClass *destination = result; const HLodClass::ModelNodeClass *source = first; while (source != last) { Rva004ED0D7Assign(destination, source); ++source; ++destination; } return destination; }
+
+HLodClass::ModelNodeClass * __cdecl Rva004ED10FFill(HLodClass::ModelNodeClass *dst, unsigned int count, const HLodClass::ModelNodeClass *src, const void *h)
+{ HLodClass::ModelNodeClass *current = dst; unsigned int remaining = count; if (remaining <= 0) return current; do { Rva004ED0D7Assign(current, src); ++current; } while (--remaining != 0); return current; }
+
+void Rva004ED471::rva004ED471(HLodClass::ModelNodeClass *pos, const HLodClass::ModelNodeClass *value, const void *dummy, unsigned int count, bool atend)
+{
+	unsigned int oldSize = (unsigned int)(m_finish - m_start);
+	unsigned int *growthCount = &count;
+	unsigned int growthSize = oldSize;
+	if (growthSize >= count) {
+		growthCount = &growthSize;
+	}
+	unsigned int len = *growthCount + oldSize;
+	_STL::allocator<BfmeStringRecord002CF4C6> *alloc = (_STL::allocator<BfmeStringRecord002CF4C6> *)&m_end;
+	HLodClass::ModelNodeClass *newStart = (HLodClass::ModelNodeClass *)alloc->allocate(len, 0);
+	(void)dummy;
+	_BfmeAllocatorHintType hintSlot;
+	const void *hint = &hintSlot;
+	HLodClass::ModelNodeClass *newFinish = Rva004ED0E9Copy(m_start, pos, newStart, hint);
+	if (count == 1) {
+		Rva004ED0D7Assign(newFinish, value);
+		++newFinish;
+	} else {
+		newFinish = Rva004ED10FFill(newFinish, count, value, hint);
+	}
+	if (!atend) {
+		newFinish = Rva004ED0E9Copy(pos, m_finish, newFinish, hint);
+	}
+	HLodClass::ModelNodeClass *oldStart = m_start;
+	if (oldStart != 0) {
+		free(oldStart);
+	}
+	m_start = newStart;
+	m_finish = newFinish;
+	m_end = newStart + len;
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva004EDCE9Dtor.cpp
+
+// ??1Rva004EDCE9@@UAE@XZ
+// ??1Rva004EDCE9@@UAE@XZ at 0x004EDCE9 (100B).
+// Base dtor with vtable 0x008629E4, stop call 0x004ED748(0 1),
+// AsciiString at +0x2C via releaseBuffer, frees of +0x14 then +0x4.
+// Evidence: retail vptr store + push 1 push 0 call 0x4ED748 with EH2,
+// lea ecx [esi+0x2C] call releaseBuffer EH1, test/free +0x14 EH0,
+// then free +0x4; tail-called by 4 derived dtors in Rva004EDCE9Derived.cpp;
+// LINK BONUS 156B file waits for this name.
+
+// Retail calls free directly (the game allocator), not through the CRT
+// import: read <stdlib.h> without dllimport.
+
+Rva004EDCE9::~Rva004EDCE9()
+{
+	((AITactic *)this)->end(0, 1);
+}
 
 // tu-skeleton: 0x004EDD4D 93B ?NotifyTeamCancelled@AITactic@@QAEXPAVTeam@@@Z -- matched in Code/GameEngine/Source/Common/Rva004EDDD3.cpp (not merged yet)
 
 // tu-skeleton: 0x004EDDD3 276B ?calcLastTeamPos@AITactic@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva004EDDD3.cpp (not merged yet)
 
-// tu-skeleton: 0x004EDEE7 28B ??_GRva004EDCE9@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva004EDCE9Dtor.cpp (not merged yet)
-
 // tu-skeleton: 0x007928BE 11B uw_007928be -- matched in Code/gen_small/uw_gen_010.cpp (not merged yet)
 
 // tu-skeleton: 0x007928C9 11B uw_007928c9 -- matched in Code/gen_small/uw_gen_010.cpp (not merged yet)
-
-// tu-skeleton: 0x00792914 11B $L1203 -- matched in Code/GameEngine/Source/Common/Rva004EDCE9Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0079291F 11B $L1204 -- matched in Code/GameEngine/Source/Common/Rva004EDCE9Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0079292A 11B $L1205 -- matched in Code/GameEngine/Source/Common/Rva004EDCE9Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00792935 10B __ehhandler$??1Rva004EDCE9@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva004EDCE9Dtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0079293F 8B $L4578 -- matched in Code/GameEngine/Source/Common/Rva004EDDD3.cpp (not merged yet)
 
