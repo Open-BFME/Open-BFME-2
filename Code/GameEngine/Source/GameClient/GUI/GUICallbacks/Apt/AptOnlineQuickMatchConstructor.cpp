@@ -29,29 +29,61 @@
 class GameWindow;
 class Image;
 
-class Rva0056DC4C
-{
+class AptOnline;
+class Rva005248D0 {
 public:
-	Rva0056DC4C(void *);
-	virtual ~Rva0056DC4C();
-	unsigned char pad[0x60 - 4];
+    virtual ~Rva005248D0();
+private:
+    unsigned char unknown04[0x58-4];
+};
+class Rva0056DC4C:public Rva005248D0 {
+public:
+    Rva0056DC4C(void*);
+    virtual ~Rva0056DC4C();
+protected:
+    AptOnline *m_owner; // +0x58
+    int unknown5c;
 };
 
-class QuickMatchPreferences
+class UserPreferences
+{
+public:
+	virtual ~UserPreferences();
+	virtual bool write();
+
+private:
+	unsigned char m_unmodelled[0x10];
+};
+
+class QuickMatchPreferences : public UserPreferences
 {
 public:
 	QuickMatchPreferences();
+public:
 	virtual ~QuickMatchPreferences();
-private:
-	unsigned char m_pad04[0x14 - 0x04];
+public:
+	void setLastLadder(const AsciiString &address, unsigned short port);
+public:
+	void setNumPlayers(int value);
+public:
+	void setMaxPing(int value);
+public:
+	void setSide(int value);
+public:
+	void setColor(int value);
+public:
+	int getNumPlayers();
+	int getMaxPing();
+	int getSide();
 };
 
 class Rva00323674
 {
 public:
+	int rva00323674() const;
 	Rva00323674(GameWindow *window);
 	~Rva00323674();
-	GameWindow *m_window;
+	GameWindow *m_window; // +0x00
 };
 
 class __multiple_inheritance FunctorTarget;
@@ -106,9 +138,11 @@ public:
 };
 extern ImageCollection *TheMappedImageCollection;
 
+class MapMetaData;
 class MapCache
 {
 public:
+	const MapMetaData *findMap(AsciiString);
 	void updateCache();
 };
 extern MapCache *TheMapCache;
@@ -170,7 +204,7 @@ public:
 	void InitGadgets(const char *name, void *argument, GameWindow *window);
 
 private:
-	AptOnline *shell() { return *(AptOnline **)((char *)this + 0x58); }
+	AptOnline *shell() { return m_owner; }
 	AptCommandMapAdder *commandMaps() { return (AptCommandMapAdder *)((char *)this + 4); }
 
 	int m_state; // +0x60

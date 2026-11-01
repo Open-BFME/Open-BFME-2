@@ -546,12 +546,21 @@ public:
 	unsigned char m_pad152[0x1dc - 0x152];
 };
 
-class PlayerTemplateStore {
+class QuickMatchPlayerTemplateRange : public _STL::vector<PlayerTemplate>
+{
 public:
-  char p[0xc];
-  char *begin, *end;
-  const PlayerTemplate *getNthPlayerTemplate(int) const;
-  int count() const { return (end - begin) / 0x1dc; }
+	unsigned int count() const { return (unsigned int)(this->_M_finish - this->_M_start); }
+};
+
+class PlayerTemplateStore
+{
+public:
+    int getPlayerTemplateCount() const { return m_playerTemplates.count(); }
+    const PlayerTemplate *getNthPlayerTemplate(int) const;
+    int count() const { return m_playerTemplates.count(); }
+
+    unsigned char m_pad00[0x0c];
+    QuickMatchPlayerTemplateRange m_playerTemplates; // +0x0C
 };
 
 extern PlayerTemplateStore *ThePlayerTemplateStore;
@@ -687,15 +696,6 @@ public:
 	unsigned int m_mask;
 };
 
-class UserPreferences
-{
-public:
-	virtual ~UserPreferences();
-	virtual bool write();
-
-private:
-	unsigned char m_unmodelled[0x10];
-};
 
 void GadgetComboBoxGetSelectedPos(GameWindow *combo, int *selected);
 
@@ -757,23 +757,87 @@ struct AptOnlineQuickMatchOwnerView
 // AptOnline::rva00516F08 body. Represent its named nested screen as a nested
 // class so the owner uses that same AptOnline identity; no owner layout is
 // accessed here. The registered callback names and screen layout are retained.
+class AptOnline;
+class Image;
+class Rva005248D0 {
+public:
+    virtual ~Rva005248D0();
+private:
+    unsigned char unknown04[0x58-4];
+};
+class Rva0056DC4C:public Rva005248D0 {
+public:
+    Rva0056DC4C(void*);
+    virtual ~Rva0056DC4C();
+protected:
+    AptOnline *m_owner; // +0x58
+    int unknown5c;
+};
+
+class UserPreferences
+{
+public:
+	virtual ~UserPreferences();
+	virtual bool write();
+
+private:
+	unsigned char m_unmodelled[0x10];
+};
+class QuickMatchPreferences : public UserPreferences
+{
+public:
+	QuickMatchPreferences();
+public:
+	virtual ~QuickMatchPreferences();
+public:
+	void setLastLadder(const AsciiString &address, unsigned short port);
+public:
+	void setNumPlayers(int value);
+public:
+	void setMaxPing(int value);
+public:
+	void setSide(int value);
+public:
+	void setColor(int value);
+public:
+	int getNumPlayers();
+	int getMaxPing();
+	int getSide();
+};
+class OnlineQuickMatchWindowRef {
+public:
+    ~OnlineQuickMatchWindowRef();
+private:
+    GameWindow *m_window;
+};
+class Image;
 class AptOnline
 {
 public:
     void rva00516F08();
 
-    class OnlineQuickMatch
+    class OnlineQuickMatch : public Rva0056DC4C
     {
     public:
+        OnlineQuickMatch(AptOnline *shell);
+        virtual ~OnlineQuickMatch();
+        void StartSimple(const char *unused);
+        void PlayGame(const char *unused);
+        void OnFoundMovieDone(const char *unused);
         void WidenSearch(const char *unused);
         void Cancel(const char *unused);
+        void InitGadgets(const char *name, void *argument, GameWindow *window);
         int rva005BAECA(int window, int msg, unsigned char key, int flags);
 
     private:
-        unsigned char m_pad00[0x58];
-        AptOnline *m_owner; // +0x58
-        unsigned char m_pad5c[0x60 - 0x5C];
         int m_state; // +0x60
+        QuickMatchPreferences m_prefs; // +0x64
+        bool m_78, m_simple, m_foundMovie;
+        unsigned int m_gadgets; // +0x7C
+        OnlineQuickMatchWindowRef m_color; // +0x80
+        GameWindow *m_numPlayers, *m_side, *m_connectionSpeed, *m_ladder;
+        const Image *m_selectedImage, *m_unselectedImage;
+        int m_9C;
     };
 };
 
@@ -785,7 +849,18 @@ class Rva005BA626 { public: bool rva005BA626(); };
 
 class Rva005BA6EE { public: bool rva005BA6EE(); };
 
-class Rva005BB3A1 { public: bool rva005BB3A1(); };
+
+
+class Rva005BB3A1
+{
+public:
+	bool rva005BB3A1();
+
+	unsigned char m_pad00[0x64];
+	QuickMatchPreferences m_prefs;		// +0x64
+	unsigned char m_pad78[0x88 - 0x78];
+	GameWindow *m_comboBoxSide;		// +0x88
+};
 
 class Rva005BB5CEOwner
 {
@@ -806,25 +881,6 @@ void GadgetComboBoxSetSelectedPos(GameWindow *comboBox, int selectedIndex, bool 
 
 extern int GameSpyColor[];
 
-class QuickMatchPreferences : public UserPreferences
-{
-public:
-	QuickMatchPreferences();
-public:
-	virtual ~QuickMatchPreferences();
-public:
-	void setLastLadder(const AsciiString &address, unsigned short port);
-public:
-	void setNumPlayers(int value);
-public:
-	void setMaxPing(int value);
-public:
-	void setSide(int value);
-public:
-	void setColor(int value);
-public:
-	int getNumPlayers();
-};
 
 class Rva00420B2AZeroSetter
 {

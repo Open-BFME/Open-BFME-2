@@ -10,6 +10,8 @@
 // WB places every member in AptOnlineQuickMatch.cpp and names 0x5BAF35
 // AptOnlineQuickMatch::OnMatched (callgraph lead score 6); the other method
 // names stay address-derived.
+#include <cmath>
+#include <ctime>
 #include <cstdlib>
 #include <list>
 
@@ -97,7 +99,7 @@ extern GameSpyPeerMessageQueueInterface *TheGameSpyPeerMessageQueue;
 class Rva00385333;
 class GameSpyPSMessageQueueInterface {public:V(0)V(1)V(2)V(3)V(4)V(5)V(6)V(7)virtual void trackPlayerStats(PSPlayerAllStats);V(9)V(10)V(11)virtual PSPlayerAllStats findPlayerStatsByID(int);virtual Rva00385333 getStats(int);};
 extern GameSpyPSMessageQueueInterface *TheGameSpyPSMessageQueue;
-class GameTextInterface {public:V(0)V(1)V(2)V(3)V(4)V(5)V(6)V(7)V(8)V(9)V(10)V(11)V(12)V(13)virtual UnicodeString fetch(const char *,bool *exists=0);virtual UnicodeString fetch(const AsciiString &,bool *exists=0);V(16)virtual const UnicodeString *fetchFormat(const char *,bool *exists=0);};
+class GameTextInterface {public:virtual void slot0();virtual void slot1();virtual void slot2();virtual void slot3();virtual void slot4();virtual void slot5();virtual void slot6();virtual void slot7();virtual void slot8();virtual void slot9();virtual void slot10();virtual void slot11();virtual void slot12();virtual void slot13();virtual UnicodeString fetch(const char *,bool *exists=0);virtual UnicodeString fetch(const AsciiString &,bool *exists=0);virtual void slot16();virtual const UnicodeString *fetchFormat(const char *,bool *exists=0);};
 extern GameTextInterface *TheGameText;
 enum NameKeyType;class NameKeyGenerator {public:NameKeyType nameToKey(const char *);};extern NameKeyGenerator *TheNameKeyGenerator;
 class GameWindowManager {public:V(0)V(1)V(2)V(3)V(4)V(5)V(6)V(7)V(8)V(9)V(10)V(11)V(12)V(13)V(14)V(15)V(16)V(17)V(18)V(19)V(20)V(21)V(22)V(23)V(24)V(25)V(26)V(27)V(28)V(29)V(30)virtual int getLocalProfileID();V(32)V(33)V(34)V(35)V(36)V(37)V(38)V(39)V(40)V(41)V(42)V(43)V(44)V(45)V(46)V(47)V(48)V(49)V(50)V(51)V(52)V(53)V(54)V(55)V(56)V(57)V(58)V(59)virtual GameWindow *winGetWindowFromId(GameWindow *,int);};
@@ -266,23 +268,23 @@ public:
   virtual int getQMChannel();
 };
 extern GameSpyConfigInterface *TheGameSpyConfig;
-class Rva0054D8D8 {
+class Rva0054D8D8
+{
 public:
-  UnicodeString name;
-  char p4[8];
-  int players;
-  char p10[9];
-  bool randomFactions;
-  char p1a[2];
-  _STL::list<AsciiString> maps;
-  _STL::list<AsciiString> factions;
-  char p24[4];
-  AsciiString address;
-  unsigned short port;
+	UnicodeString name; // +0x00
+	char p4[8]; // +0x04
+	int players; // +0x0C
+	char p10[9]; // +0x10
+	bool randomFactions; // +0x19
+	char p1a[2]; // +0x1A
+	_STL::list<AsciiString> maps; // +0x1C
+	_STL::list<AsciiString> factions; // +0x20
+	char p24[4]; // +0x24
+	AsciiString address; // +0x28
+	unsigned short port; // +0x2C
+	char m_pad2E[0x2];
 };
 void GadgetComboBoxGetSelectedPos(GameWindow *, int *);
-#include <cmath>
-#include <ctime>
 // bfme link decl-only begin
 namespace _STL { template <> _Bit_iter<_Bit_reference, _Bit_reference *> copy<_Bit_iter<_Bit_reference, _Bit_reference *>, _Bit_iter<_Bit_reference, _Bit_reference *> >(_Bit_iter<_Bit_reference, _Bit_reference *>, _Bit_iter<_Bit_reference, _Bit_reference *>, _Bit_iter<_Bit_reference, _Bit_reference *>); }
 namespace _STL { template <> unsigned int * _Bvector_base<allocator<bool> >::_M_bit_alloc(unsigned int); }
@@ -313,17 +315,33 @@ public:
   Rva0054D8D8 *rva0054D6C8(int);
 };
 extern Rva0054D974 *TheLadderList;
-class PlayerTemplate {
+class PlayerTemplate
+{
 public:
-  char p[0x18];
-  AsciiString side;
+	const AsciiString &getSide() const { return side; }
+	bool isPlayableSide() const { return m_playableSide; }
+
+	char p[0x18];
+	AsciiString side;			// +0x18
+	unsigned char m_pad1C[0x151 - 0x1c];
+	bool m_playableSide;			// +0x151
+	unsigned char m_pad152[0x1dc - 0x152];
 };
-class PlayerTemplateStore {
+class QuickMatchPlayerTemplateRange : public _STL::vector<PlayerTemplate>
+{
 public:
-  char p[0xc];
-  char *begin, *end;
-  const PlayerTemplate *getNthPlayerTemplate(int) const;
-  int count() const { return (end - begin) / 0x1dc; }
+	unsigned int count() const { return (unsigned int)(this->_M_finish - this->_M_start); }
+};
+
+class PlayerTemplateStore
+{
+public:
+    int getPlayerTemplateCount() const { return m_playerTemplates.count(); }
+    const PlayerTemplate *getNthPlayerTemplate(int) const;
+    int count() const { return m_playerTemplates.count(); }
+
+    unsigned char m_pad00[0x0c];
+    QuickMatchPlayerTemplateRange m_playerTemplates; // +0x0C
 };
 extern PlayerTemplateStore *ThePlayerTemplateStore;
 int GetGameClientRandomValue(int, int, char *, int);

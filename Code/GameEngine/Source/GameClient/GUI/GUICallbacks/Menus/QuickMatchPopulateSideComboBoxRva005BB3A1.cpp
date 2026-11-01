@@ -61,26 +61,7 @@ Int GadgetComboBoxAddEntry(GameWindow *comboBox, UnicodeString text, Color color
 void GadgetComboBoxSetItemData(GameWindow *comboBox, Int index, void *data);
 void GadgetComboBoxSetSelectedPos(GameWindow *comboBox, Int selectedIndex, Bool dontHilite);
 
-class GameTextInterface
-{
-public:
-	virtual ~GameTextInterface() {}
-	virtual void slot04() = 0;
-	virtual void slot08() = 0;
-	virtual void slot0c() = 0;
-	virtual void slot10() = 0;
-	virtual void slot14() = 0;
-	virtual void slot18() = 0;
-	virtual void slot1c() = 0;
-	virtual void slot20() = 0;
-	virtual void slot24() = 0;
-	virtual void slot28() = 0;
-	virtual void slot2c() = 0;
-	virtual void slot30() = 0;
-	virtual void slot34() = 0;
-	virtual UnicodeString fetch(const char *label, bool *exists = 0) = 0;
-	virtual UnicodeString fetch(const AsciiString &label, bool *exists = 0) = 0;
-};
+class GameTextInterface {public:virtual void slot0();virtual void slot1();virtual void slot2();virtual void slot3();virtual void slot4();virtual void slot5();virtual void slot6();virtual void slot7();virtual void slot8();virtual void slot9();virtual void slot10();virtual void slot11();virtual void slot12();virtual void slot13();virtual UnicodeString fetch(const char *,bool *exists=0);virtual UnicodeString fetch(const AsciiString &,bool *exists=0);virtual void slot16();virtual const UnicodeString *fetchFormat(const char *,bool *exists=0);};
 extern GameTextInterface *TheGameText;
 
 class MultiplayerColorDefinition
@@ -104,13 +85,13 @@ enum { PLAYERTEMPLATE_RANDOM = -1 };
 class PlayerTemplate
 {
 public:
-	const AsciiString &getSide() const { return m_side; }
-	Bool isPlayableSide() const { return m_playableSide; }
+	const AsciiString &getSide() const { return side; }
+	bool isPlayableSide() const { return m_playableSide; }
 
-	unsigned char m_pad00[0x18];
-	AsciiString m_side;			// +0x18
+	char p[0x18];
+	AsciiString side;			// +0x18
 	unsigned char m_pad1C[0x151 - 0x1c];
-	Bool m_playableSide;			// +0x151
+	bool m_playableSide;			// +0x151
 	unsigned char m_pad152[0x1dc - 0x152];
 };
 
@@ -125,11 +106,12 @@ public:
 class PlayerTemplateStore
 {
 public:
-	Int getPlayerTemplateCount() const { return m_playerTemplates.count(); }
-	const PlayerTemplate *getNthPlayerTemplate(Int index) const;
+    int getPlayerTemplateCount() const { return m_playerTemplates.count(); }
+    const PlayerTemplate *getNthPlayerTemplate(int) const;
+    int count() const { return m_playerTemplates.count(); }
 
-	unsigned char m_pad00[0x0c];
-	QuickMatchPlayerTemplateRange m_playerTemplates;	// +0x0C
+    unsigned char m_pad00[0x0c];
+    QuickMatchPlayerTemplateRange m_playerTemplates; // +0x0C
 };
 extern PlayerTemplateStore *ThePlayerTemplateStore;
 
@@ -140,22 +122,54 @@ Rva005BB3A1FactionIterator Rva005BAA83Find(Rva005BB3A1FactionIterator first,
 class Rva0054D8D8
 {
 public:
-	unsigned char m_pad00[0x19];
-	Bool m_randomFactions;			// +0x19
-	unsigned char m_pad1A[0x20 - 0x1a];
-	_STL::list<AsciiString> m_validFactions;	// +0x20
+	UnicodeString name; // +0x00
+	char p4[8]; // +0x04
+	int players; // +0x0C
+	char p10[9]; // +0x10
+	bool randomFactions; // +0x19
+	char p1a[2]; // +0x1A
+	_STL::list<AsciiString> maps; // +0x1C
+	_STL::list<AsciiString> factions; // +0x20
+	char p24[4]; // +0x24
+	AsciiString address; // +0x28
+	unsigned short port; // +0x2C
+	char m_pad2E[0x2];
 };
 
-class AptOnlineQuickMatch
+class PeerResponse;
+struct BfmeOpaqueOwnedRecord492;
+struct AptOnlineQuickMatch {char prefix[0x60];int state;char at64[0x16];bool matched;char at7b[0x21];int mode;void rva005BB5F6();void rva005BBDAC(BfmeOpaqueOwnedRecord492 &);void rva005BBF15();void rva005BA39F(int);void OnMatched(PeerResponse &);Rva0054D8D8 *rva005BA36D();};
+
+class UserPreferences
 {
 public:
-	Rva0054D8D8 *rva005BA36D();
+	virtual ~UserPreferences();
+	virtual bool write();
+
+private:
+	unsigned char m_unmodelled[0x10];
 };
 
-class QuickMatchPreferences
+class QuickMatchPreferences : public UserPreferences
 {
 public:
-	Int getSide();
+	QuickMatchPreferences();
+public:
+	virtual ~QuickMatchPreferences();
+public:
+	void setLastLadder(const AsciiString &address, unsigned short port);
+public:
+	void setNumPlayers(int value);
+public:
+	void setMaxPing(int value);
+public:
+	void setSide(int value);
+public:
+	void setColor(int value);
+public:
+	int getNumPlayers();
+	int getMaxPing();
+	int getSide();
 };
 
 class Rva005BB3A1
@@ -165,7 +179,7 @@ public:
 
 	unsigned char m_pad00[0x64];
 	QuickMatchPreferences m_prefs;		// +0x64
-	unsigned char m_pad65[0x88 - 0x65];
+	unsigned char m_pad78[0x88 - 0x78];
 	GameWindow *m_comboBoxSide;		// +0x88
 };
 
@@ -206,7 +220,7 @@ bool Rva005BB3A1::rva005BB3A1()
 
 		if (li)
 		{
-			if (Rva005BAA83Find(li->m_validFactions.begin(), li->m_validFactions.end(), fac->getSide()) == li->m_validFactions.end())
+			if (Rva005BAA83Find(li->factions.begin(), li->factions.end(), fac->getSide()) == li->factions.end())
 				continue;
 		}
 
@@ -221,7 +235,7 @@ bool Rva005BB3A1::rva005BB3A1()
 	seenSides.clear();
 
 	GadgetComboBoxSetSelectedPos(m_comboBoxSide, entryToSelect, false);
-	if (li && li->m_randomFactions)
+	if (li && li->randomFactions)
 		m_comboBoxSide->winEnable(false);
 	else
 		m_comboBoxSide->winEnable(true);
