@@ -105,7 +105,7 @@ class ActionAIView { public: V10(a) V10(b) V10(c) V10(d) V10(e) V10(f) V10(g) V1
  virtual Rva00368594CmpBoolField *specialAbility();
 };
 class BodyInterface { public: virtual void v0();virtual void v1();virtual void v2();virtual void v3();virtual float getHealth() const;virtual void v5();virtual float getMaxHealth() const; };
-class Thing { public: bool isAnyKindOf(const BitFlags<69> &) const; };
+#include "../Thing/thing.h"
 struct Rva0028AC4EEntry;
 class Object:public Thing {
 public:

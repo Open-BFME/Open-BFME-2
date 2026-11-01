@@ -46,11 +46,7 @@ class Drawable : public Rva00271C68
 {
 };
 
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
-};
+#include "Thing/thing.h"
 
 class Object : public Thing
 {

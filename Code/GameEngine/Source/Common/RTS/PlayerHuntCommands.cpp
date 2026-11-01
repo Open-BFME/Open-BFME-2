@@ -50,11 +50,7 @@ enum ObjectStatusTypes
 	STATUS_RVA38 = 38
 };
 
-class Thing
-{
-public:
-	bool isAnyKindOf(const BitFlags<69> &) const;
-};
+#include "../Thing/thing.h"
 
 class AICommandInterface
 {

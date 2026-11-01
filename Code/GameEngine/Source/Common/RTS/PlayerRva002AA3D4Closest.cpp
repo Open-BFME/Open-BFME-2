@@ -16,11 +16,7 @@ template <int NUMBITS> class BitFlags
 };
 typedef BitFlags<116> KindOfMaskType;
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
-class Thing
-{
-public:
-	bool isKindOfMulti(const KindOfMaskType &mustBeSet, const KindOfMaskType &mustBeClear) const;
-};
+#include "../Thing/thing.h"
 class Object : public Thing
 {
 public:
