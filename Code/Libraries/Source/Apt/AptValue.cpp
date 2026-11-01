@@ -85,13 +85,15 @@ class BfmeN1034;
 
 class Rva0070A5C0 { public: BfmeN1034 *rva0070A5C0(int); };
 
+// _AptValuePtrStack.h's stack: retail's assert text in top/at (0x006DE160,
+// 0x006DCC10) names m_nElements; the layout mirrors AptBasePtrStack.
 template <class T>
 class AptValuePtrStack
 {
 public:
-	int count;
-	int capacity;
-	T **elements;
+	int m_nElements;
+	int m_nCapacity;
+	T **m_aElements;
 	T *top();
 	T *at(int nPos);
 };
@@ -394,7 +396,7 @@ static __forceinline AptValue *FindChildThis(AptValue *self)
 {
  AptValue *context=I->contexts.top();
  if(context==self) return self;
- if(I->withScope.count>0 && !(I->withScope.top())->isUndefined()) {
+ if(I->withScope.m_nElements>0 && !(I->withScope.top())->isUndefined()) {
   AptValue *pWithStkTop=I->withScope.top();
   APT_ASSERT(pWithStkTop!=0,"pWithStkTop != NULL",0x42a);
   APT_ASSERT(pWithStkTop->ContainsNativeHashVirtual(),"pWithStkTop->ContainsNativeHashVirtual()",0x42b);
