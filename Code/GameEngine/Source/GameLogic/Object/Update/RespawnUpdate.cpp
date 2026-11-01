@@ -31,14 +31,8 @@ class Image;
 template<int N> class RespawnAISlots:public RespawnAISlots<N-1> {public:virtual void gap(char (*)[N])=0;};
 template<> class RespawnAISlots<0> {};
 class AIUpdateInterface:public RespawnAISlots<110> {public:virtual bool isAutoDock()=0;int rva00260DED() const;};
-enum DisabledType;
-enum ObjectStatusTypes;
 enum ObjectID;
-class Player;
-class ExitInterface;
-class BodyModuleInterface;
 class AIUpdateInterface;
-class ThingTemplate;
 class ExperienceTracker;
 class Object
 {
@@ -110,7 +104,6 @@ public:
 #include "../../../../Include/Common/ObjectModule.h"
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
-class AIUpdateInterface;
 class INI;
 //
 // ?searchForSuitableSpawnAtObject@RespawnUpdate@@QAEPAVObject@@XZ, retail 0x004AF1CE, 143 bytes.
@@ -177,22 +170,13 @@ public:
 	unsigned char m_unknown[0x11F];
 	unsigned char m_kindOfByte;
 };
-
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-
-
 class UpdateModuleInterface {public:virtual UpdateSleepTime update()=0;};
-
 class UpdateModule:public BehaviorModule,public UpdateModuleInterface {public:virtual ~UpdateModule();protected:void setWakeFrame(Object *,UpdateSleepTime);private:unsigned nextWake;int index,reserved;};
-
 class PlayerList {public:__forceinline Player *getLocalPlayer() const{return local;}char pad[0x10];Player *local;};
-
 extern PlayerList *ThePlayerList;
-
 class ControlBar {public:char pad[0x28];bool dirty;};
-
 extern ControlBar *TheControlBar;
-
 class INI {
 public:
     const char *getNextToken(const char *);
@@ -203,15 +187,10 @@ public:
     static void parsePercentToReal(INI *, void *, void *, const void *);
     char unused[0x420]; const char *colon;
 };
-
 struct INIException { char *message; int code; INIException() {} INIException(int argCount, const char *format, ...); };
-
 extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
-
 struct RespawnThrowInfoAnchor { int a,b,c,d; };
-
 static const RespawnThrowInfoAnchor respawnThrowInfoAnchor = {0,0,0,0};
-
 struct RespawnRule
 {
     unsigned level;
@@ -220,17 +199,12 @@ struct RespawnRule
     float health;
     bool autoSpawn;
 };
-
 class RespawnUpdate;
-
 #include <map>
-
 typedef _STL::pair<const unsigned int, void *> RespawnRuleValue;
-
 typedef _STL::_Rb_tree<unsigned int, RespawnRuleValue,
     _STL::_Select1st<RespawnRuleValue>, _STL::less<unsigned int>,
     _STL::allocator<RespawnRuleValue> > RespawnRuleTree;
-
 struct RespawnInsertResult
 {
 public:
@@ -244,20 +218,16 @@ public:
 	bool inserted; // +0x04
 	char m_pad05[0x3];
 };
-
 enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-
 class NameKeyGenerator
 {
 public:
 	NameKeyType nameToKey(const char *name);
 };
-
 extern NameKeyGenerator *TheNameKeyGenerator;
-
 class RespawnUpdate:public UpdateModule {
 public:
 	virtual UpdateSleepTime update();
@@ -278,11 +248,8 @@ public:
 	int at34,at38,at3C;
 	bool at40,at41;
 };
-
 class MultiIniFieldParse;
-
 #include "Common/Snapshot.h"
-#include "ascii_string.h"
 
 class Rva00360D26Member
 {
@@ -297,15 +264,7 @@ struct BfmePod20
     unsigned a[5];
 };
 
-inline bool operator<(const BfmePod20 &x, const BfmePod20 &y)
-{
-    return x.a[0] < y.a[0];
-}
-
 typedef _STL::_Rb_tree<BfmePod20, BfmePod20, _STL::_Identity<BfmePod20>, _STL::less<BfmePod20>, _STL::allocator<BfmePod20> > UBfmePod20SetTree;
-
-class MultiIniFieldParse;
-class FXList;
 
 class __declspec(novtable) RespawnUpdateModuleData : public Snapshot
 {
@@ -407,7 +366,24 @@ public:
     RespawnInsertResult *insertUnique(RespawnInsertResult *out, const RespawnRule &rule);
 };
 
+struct FieldParse { const char *token; void (*parse)(class INI *, void *, void *, const void *); const void *userData; int offset; };
+
+extern const FieldParse s_respawnFieldTable[];
+
+class MultiIniFieldParse
+{
+public:
+	void add(const FieldParse *parseTable, unsigned int extraOffset);
+};
+
 // tu-skeleton: 0x004AEF46 103B ?rva004AEF46@RespawnUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateRva004AEF46.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp
+
+inline bool operator<(const BfmePod20 &x, const BfmePod20 &y)
+{
+    return x.a[0] < y.a[0];
+}
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate_getPercentReady.cpp
 
@@ -453,10 +429,6 @@ float RespawnUpdate::getPercentReady(int *out)
 	unsigned int frame = TheGameLogic->getFrame();
 	return ((float)frame - at34) / total;
 }
-
-// tu-skeleton: 0x004AF00B 139B ?xfer@RespawnUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x004AF096 128B ??0RespawnUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateCtor.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp
 
@@ -639,12 +611,6 @@ int Rva004AFB01::rva004AFB16()
 	return m_helper->calcTimeToBuild(m_context->m_record->m_value);
 }
 
-// tu-skeleton: 0x004AF15B 6B ?name@RespawnUpdate@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x004AF161 28B ??_GRva004AF17D@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAR.cpp (not merged yet)
-
-// tu-skeleton: 0x004AF17D 5B ??1Rva004AF17D@@QAE@XZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAR.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateRva004AF182.cpp
 
 // RespawnUpdate entry RVA 0x004AF182, native [4AF182,4AF1CE), RET.
@@ -738,6 +704,26 @@ void *RespawnUpdate::rva004AF25D()
 	return respawnTemplate;
 }
 
+// ---- from Code/GameEngine/Source/GameLogic/Object/Body/RespawnRuleTreeInsert.cpp
+
+// ?insert@BFME2RespawnRuleTree@@QAE?AURespawnInsertResult@@ABURespawnRule@@@Z
+RespawnInsertResult BFME2RespawnRuleTree::insert(const RespawnRule &rule)
+{
+	RespawnInsertResult result;
+	insertUnique(&result, rule);
+	return result;
+}
+
+// tu-skeleton: 0x004AF00B 139B ?xfer@RespawnUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x004AF096 128B ??0RespawnUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004AF15B 6B ?name@RespawnUpdate@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x004AF161 28B ??_GRva004AF17D@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAR.cpp (not merged yet)
+
+// tu-skeleton: 0x004AF17D 5B ??1Rva004AF17D@@QAE@XZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAR.cpp (not merged yet)
+
 // tu-skeleton: 0x004AF28F 45B ?_M_erase@?$_Rb_tree@UBfmePod20@@U1@U?$_Identity@UBfmePod20@@@_STL@@U?$less@UBfmePod20@@@3@V?$allocator@UBfmePod20@@@3@@_STL@@AAEXPAU?$_Rb_tree_node@UBfmePod20@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_bfmepod20_insert.cpp (not merged yet)
 
 // tu-skeleton: 0x004AF2BC 34B ?_M_create_node@?$_Rb_tree@UBfmePod20@@U1@U?$_Identity@UBfmePod20@@@_STL@@U?$less@UBfmePod20@@@3@V?$allocator@UBfmePod20@@@3@@_STL@@IAEPAU?$_Rb_tree_node@UBfmePod20@@@2@ABUBfmePod20@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_create_nodes.cpp (not merged yet)
@@ -760,23 +746,19 @@ void *RespawnUpdate::rva004AF25D()
 
 // tu-skeleton: 0x004AF79C 403B ?triggerRevival@RespawnUpdate@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateTriggerRevival.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/GameLogic/Object/Body/RespawnRuleTreeInsert.cpp
-
-// ?insert@BFME2RespawnRuleTree@@QAE?AURespawnInsertResult@@ABURespawnRule@@@Z
-RespawnInsertResult BFME2RespawnRuleTree::insert(const RespawnRule &rule)
-{
-	RespawnInsertResult result;
-	insertUnique(&result, rule);
-	return result;
-}
-
 // tu-skeleton: 0x004AFB4E 149B ??0RespawnUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateModuleDataConstruct.cpp (not merged yet)
 
 // tu-skeleton: 0x004AFBE3 28B ??_GRespawnUpdateModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-04-4AFBE3.cpp (not merged yet)
 
 // tu-skeleton: 0x004AFBFF 96B ??1RespawnUpdateModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateModuleDataDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x004B0153 17B ?buildFieldParse@RespawnUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateModuleDataParse.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateModuleDataParse.cpp
+
+// ?buildFieldParse@RespawnUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z @0x004B0153
+void RespawnUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	parse.add(reinterpret_cast<const FieldParse *>(s_respawnFieldTable), 0);
+}
 
 // tu-skeleton: 0x0078E665 8B uw_0078e665 -- matched in Code/gen_small/uw_gen_011.cpp (not merged yet)
 
