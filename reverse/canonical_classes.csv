@@ -180,3 +180,4 @@ BehaviorModuleInterface,Code/GameEngine/Include/GameLogic/Module/BehaviorModule.
 BehaviorModule,Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h,existing header; contract class_contracts/BehaviorModule.json; 85/262 sampled units adopt
 UpdateModuleInterface,Code/GameEngine/Include/GameLogic/Module/UpdateModule.h,existing header; contract class_contracts/UpdateModuleInterface.json; 11/226 sampled units adopt
 UpdateModule,Code/GameEngine/Include/GameLogic/Module/UpdateModule.h,existing header; contract class_contracts/UpdateModule.json; 46/357 sampled units adopt
+ThingTemplate,Code/GameEngine/Include/Common/ThingTemplate.h,existing header; contract class_contracts/ThingTemplate.json; 83/473 sampled units adopt

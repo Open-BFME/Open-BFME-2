@@ -1,0 +1,3967 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "ThingTemplate",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 473,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x10a": {
+    "1": 1
+   },
+   "0x1bc": {
+    "4": 1
+   },
+   "0x2e4": {
+    "4": 5
+   },
+   "0x2f0": {
+    "4": 1
+   },
+   "0x2fc": {
+    "4": 1
+   },
+   "0x308": {
+    "4": 1
+   },
+   "0x324": {
+    "4": 6
+   },
+   "0x328": {
+    "4": 6
+   },
+   "0x358": {
+    "4": 1
+   },
+   "0x3ac": {
+    "4": 1
+   },
+   "0x3f8": {
+    "4": 1
+   },
+   "0x3fc": {
+    "4": 1
+   },
+   "0x4": {
+    "4": 1
+   },
+   "0x488": {
+    "4": 1
+   },
+   "0x48c": {
+    "4": 2
+   },
+   "0x5e6": {
+    "1": 1
+   },
+   "0x5e9": {
+    "1": 1
+   },
+   "0x5ea": {
+    "1": 1
+   },
+   "0x5f2": {
+    "1": 1
+   },
+   "0x64": {
+    "4": 2
+   },
+   "0x74": {
+    "4": 1
+   },
+   "0x78": {
+    "4": 1
+   },
+   "0x90": {
+    "4": 1
+   },
+   "0xa0": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x640": 1
+     }
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x33e1b8"
+     ],
+     "value": 1600
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x33e1b8"
+     ],
+     "value": {
+      "0x14": [
+       4
+      ],
+      "0x18": [
+       4
+      ],
+      "0x1c": [
+       4
+      ],
+      "0x20": [
+       4
+      ],
+      "0x24": [
+       4
+      ],
+      "0x28": [
+       4
+      ],
+      "0x2c": [
+       4
+      ],
+      "0x30": [
+       4
+      ],
+      "0x314": [
+       4
+      ],
+      "0x318": [
+       4
+      ],
+      "0x31c": [
+       4
+      ],
+      "0x320": [
+       4
+      ],
+      "0x34": [
+       4
+      ],
+      "0x354": [
+       4
+      ],
+      "0x38": [
+       4
+      ],
+      "0x3c": [
+       4
+      ],
+      "0x40": [
+       4
+      ],
+      "0x44": [
+       4
+      ],
+      "0x48": [
+       4
+      ],
+      "0x484": [
+       4
+      ],
+      "0x488": [
+       4
+      ],
+      "0x48c": [
+       4
+      ],
+      "0x490": [
+       4
+      ],
+      "0x494": [
+       4
+      ],
+      "0x498": [
+       4
+      ],
+      "0x49c": [
+       4
+      ],
+      "0x4a0": [
+       4
+      ],
+      "0x4a4": [
+       4
+      ],
+      "0x4a8": [
+       4
+      ],
+      "0x4ac": [
+       4
+      ],
+      "0x4b0": [
+       4
+      ],
+      "0x4b4": [
+       4
+      ],
+      "0x4b8": [
+       4
+      ],
+      "0x4bc": [
+       4
+      ],
+      "0x4c": [
+       4
+      ],
+      "0x4c0": [
+       4
+      ],
+      "0x4c4": [
+       4
+      ],
+      "0x4c8": [
+       4
+      ],
+      "0x4cc": [
+       4
+      ],
+      "0x4d0": [
+       4
+      ],
+      "0x4d4": [
+       4
+      ],
+      "0x4d8": [
+       4
+      ],
+      "0x4dc": [
+       4
+      ],
+      "0x4e0": [
+       4
+      ],
+      "0x4e4": [
+       4
+      ],
+      "0x4e8": [
+       4
+      ],
+      "0x4ec": [
+       4
+      ],
+      "0x4f0": [
+       4
+      ],
+      "0x4f4": [
+       4
+      ],
+      "0x4f8": [
+       4
+      ],
+      "0x4fc": [
+       4
+      ],
+      "0x50": [
+       4
+      ],
+      "0x500": [
+       4
+      ],
+      "0x504": [
+       4
+      ],
+      "0x508": [
+       4
+      ],
+      "0x50c": [
+       4
+      ],
+      "0x510": [
+       4
+      ],
+      "0x514": [
+       4
+      ],
+      "0x518": [
+       4
+      ],
+      "0x51c": [
+       4
+      ],
+      "0x520": [
+       4
+      ],
+      "0x524": [
+       4
+      ],
+      "0x528": [
+       4
+      ],
+      "0x52c": [
+       4
+      ],
+      "0x530": [
+       4
+      ],
+      "0x534": [
+       4
+      ],
+      "0x538": [
+       4
+      ],
+      "0x53c": [
+       4
+      ],
+      "0x54": [
+       4
+      ],
+      "0x540": [
+       4
+      ],
+      "0x544": [
+       4
+      ],
+      "0x548": [
+       4
+      ],
+      "0x54c": [
+       4
+      ],
+      "0x550": [
+       4
+      ],
+      "0x554": [
+       4
+      ],
+      "0x558": [
+       4
+      ],
+      "0x55c": [
+       4
+      ],
+      "0x560": [
+       4
+      ],
+      "0x564": [
+       4
+      ],
+      "0x568": [
+       4
+      ],
+      "0x56c": [
+       4
+      ],
+      "0x570": [
+       4
+      ],
+      "0x574": [
+       4
+      ],
+      "0x578": [
+       4
+      ],
+      "0x57c": [
+       4
+      ],
+      "0x58": [
+       4
+      ],
+      "0x580": [
+       4
+      ],
+      "0x584": [
+       4
+      ],
+      "0x588": [
+       4
+      ],
+      "0x58c": [
+       4
+      ],
+      "0x590": [
+       4
+      ],
+      "0x594": [
+       4
+      ],
+      "0x598": [
+       4
+      ],
+      "0x59c": [
+       4
+      ],
+      "0x5a0": [
+       4
+      ],
+      "0x5a4": [
+       4
+      ],
+      "0x5a8": [
+       4
+      ],
+      "0x5ac": [
+       4
+      ],
+      "0x5b0": [
+       4
+      ],
+      "0x5b4": [
+       4
+      ],
+      "0x5b8": [
+       4
+      ],
+      "0x5bc": [
+       4
+      ],
+      "0x5c": [
+       4
+      ],
+      "0x5c0": [
+       4
+      ],
+      "0x5c4": [
+       4
+      ],
+      "0x5c8": [
+       4
+      ],
+      "0x5cc": [
+       4
+      ],
+      "0x5d0": [
+       4
+      ],
+      "0x5d4": [
+       4
+      ],
+      "0x5d8": [
+       2
+      ],
+      "0x5da": [
+       2
+      ],
+      "0x5dc": [
+       2
+      ],
+      "0x5de": [
+       2
+      ],
+      "0x5e0": [
+       2
+      ],
+      "0x5e2": [
+       2
+      ],
+      "0x5e4": [
+       1
+      ],
+      "0x5e5": [
+       1
+      ],
+      "0x5e6": [
+       1
+      ],
+      "0x5e7": [
+       1
+      ],
+      "0x5e8": [
+       1
+      ],
+      "0x5e9": [
+       1
+      ],
+      "0x5ea": [
+       1
+      ],
+      "0x5eb": [
+       1
+      ],
+      "0x5ec": [
+       1
+      ],
+      "0x5ed": [
+       1
+      ],
+      "0x5ee": [
+       1
+      ],
+      "0x5ef": [
+       1
+      ],
+      "0x5f0": [
+       1
+      ],
+      "0x5f1": [
+       1
+      ],
+      "0x5f2": [
+       1
+      ],
+      "0x5f3": [
+       1
+      ],
+      "0x5f4": [
+       1
+      ],
+      "0x5f5": [
+       1
+      ],
+      "0x5f6": [
+       1
+      ],
+      "0x5f7": [
+       1
+      ],
+      "0x5f8": [
+       1
+      ],
+      "0x5f9": [
+       1
+      ],
+      "0x5fa": [
+       1
+      ],
+      "0x5fb": [
+       1
+      ],
+      "0x5fc": [
+       1
+      ],
+      "0x5fd": [
+       1
+      ],
+      "0x5fe": [
+       1
+      ],
+      "0x60": [
+       4
+      ],
+      "0x600": [
+       4
+      ],
+      "0x604": [
+       4
+      ],
+      "0x608": [
+       4
+      ],
+      "0x60c": [
+       4
+      ],
+      "0x610": [
+       4
+      ],
+      "0x614": [
+       1
+      ],
+      "0x618": [
+       4
+      ],
+      "0x61c": [
+       4
+      ],
+      "0x624": [
+       4
+      ],
+      "0x628": [
+       4
+      ],
+      "0x62c": [
+       4
+      ],
+      "0x630": [
+       1
+      ],
+      "0x631": [
+       1
+      ],
+      "0x632": [
+       1
+      ],
+      "0x633": [
+       1
+      ],
+      "0x634": [
+       1
+      ],
+      "0x635": [
+       1
+      ],
+      "0x638": [
+       4
+      ],
+      "0x63c": [
+       4
+      ],
+      "0x64": [
+       4
+      ],
+      "0x68": [
+       4
+      ],
+      "0x6c": [
+       4
+      ],
+      "0x70": [
+       4
+      ],
+      "0x74": [
+       4
+      ],
+      "0x78": [
+       4
+      ],
+      "0x90": [
+       4
+      ],
+      "0x94": [
+       4
+      ],
+      "0x98": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x33e1b8"
+     ],
+     "value": {
+      "0x0": [
+       "??_L@YGXPAXIHP6EX0@Z1@Z"
+      ],
+      "0x108": [
+       "??0Rva0024C7B3Member@@QAE@XZ"
+      ],
+      "0x124": [
+       "??0Rva00254FE4Member@@QAE@XZ"
+      ],
+      "0x2e4": [
+       "??0ObjectCreationList@@QAE@XZ"
+      ],
+      "0x2f0": [
+       "??0ObjectCreationList@@QAE@XZ"
+      ],
+      "0x2fc": [
+       "??0ObjectCreationList@@QAE@XZ"
+      ],
+      "0x308": [
+       "??0ObjectCreationList@@QAE@XZ"
+      ],
+      "0x324": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x330": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x33c": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x348": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x358": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x364": [
+       "??0?$map@JVLadderPref@@U?$less@J@_STL@@V?$allocator@U?$pair@$$CBJVLadderPref@@@_STL@@@3@@_STL@@QAE@XZ"
+      ],
+      "0x370": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x37c": [
+       "??0?$map@EHU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEH@_STL@@@2@@_STL@@QAE@XZ"
+      ],
+      "0x388": [
+       "??0?$map@HUBfmePod8@@U?$less@H@_STL@@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@3@@_STL@@QAE@XZ"
+      ],
+      "0x394": [
+       "??0?$map@EHU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEH@_STL@@@2@@_STL@@QAE@XZ"
+      ],
+      "0x3a0": [
+       "??0?$map@EHU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEH@_STL@@@2@@_STL@@QAE@XZ"
+      ],
+      "0x3ac": [
+       "??0?$map@HV?$vector@UBfmePod128@@V?$allocator@UBfmePod128@@@_STL@@@_STL@@U?$less@H@2@V?$allocator@U?$pair@$$CBHV?$vector@UBfmePod128@@V?$allocator@UBfmePod128@@@_STL@@@_STL@@@_STL@@@2@@_STL@@QAE@XZ"
+      ],
+      "0x3b8": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x3ec": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x3f8": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x404": [
+       "?clear80@Rva001EAE6FHelper@@QAEPAV1@XZ"
+      ],
+      "0x44": [
+       "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+      ],
+      "0x48": [
+       "?releaseBuffer@?$StringBase@G@@AAEXXZ"
+      ],
+      "0x4c": [
+       "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+      ],
+      "0x50": [
+       "?releaseBuffer@?$StringBase@G@@AAEXXZ"
+      ],
+      "0x60": [
+       "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+      ],
+      "0x9c": [
+       "??0?$StringBase@D@@AAE@PBD@Z"
+      ],
+      "0xa0": [
+       "??0GeometryInfo@@QAE@W4GeometryType@@_NMMM@Z"
+      ],
+      "0xfc": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x33e1b8"
+     ],
+     "value": {
+      "0x0": "0x810c4c"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x810c4c"
+     ],
+     "value": {
+      "count": 1,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GThingTemplate@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x33e90b"
+       }
+      ],
+      "table": "0x810c4c"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 24,
+  "retail_vtables": {
+   "0x810c4c": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GThingTemplate@@UAEPAXI@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 7,
+  "view_sizes": {
+   "1": 61,
+   "4": 1,
+   "8": 2,
+   "9": 1,
+   "16": 2,
+   "20": 1,
+   "28": 1,
+   "52": 1,
+   "104": 30,
+   "116": 1,
+   "161": 1,
+   "180": 1,
+   "204": 1,
+   "212": 1,
+   "264": 1,
+   "265": 4,
+   "266": 4,
+   "267": 1,
+   "268": 33,
+   "270": 2,
+   "272": 6,
+   "274": 1,
+   "275": 1,
+   "276": 9,
+   "278": 16,
+   "280": 32,
+   "281": 5,
+   "282": 1,
+   "283": 2,
+   "284": 20,
+   "286": 1,
+   "288": 13,
+   "289": 1,
+   "291": 1,
+   "292": 34,
+   "296": 38,
+   "308": 1,
+   "320": 1,
+   "348": 3,
+   "752": 6,
+   "756": 2,
+   "764": 2,
+   "824": 1,
+   "828": 1,
+   "840": 1,
+   "856": 2,
+   "872": 1,
+   "940": 1,
+   "952": 1,
+   "1004": 1,
+   "1020": 1,
+   "1024": 1,
+   "1160": 3,
+   "1164": 1,
+   "1168": 1,
+   "1188": 1,
+   "1196": 2,
+   "1212": 1,
+   "1216": 2,
+   "1236": 2,
+   "1244": 1,
+   "1252": 1,
+   "1272": 1,
+   "1308": 1,
+   "1312": 4,
+   "1340": 1,
+   "1344": 4,
+   "1352": 1,
+   "1356": 1,
+   "1368": 2,
+   "1384": 1,
+   "1396": 1,
+   "1408": 1,
+   "1432": 2,
+   "1452": 1,
+   "1476": 1,
+   "1480": 2,
+   "1498": 2,
+   "1500": 7,
+   "1506": 1,
+   "1508": 4,
+   "1511": 1,
+   "1512": 3,
+   "1516": 3,
+   "1520": 2,
+   "1522": 2,
+   "1523": 1,
+   "1524": 1,
+   "1528": 2,
+   "1529": 2,
+   "1532": 3,
+   "1536": 5,
+   "1544": 1,
+   "1556": 1,
+   "1560": 6,
+   "1564": 5,
+   "1568": 2,
+   "1585": 1,
+   "1587": 1,
+   "1588": 6,
+   "1589": 1,
+   "1592": 1,
+   "1596": 2,
+   "1600": 4
+  },
+  "views": 466,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_ThingTemplate.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/ThingTemplate.h"
+  }
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 239
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/AttackPriorityInfo_setPriority.cpp",
+    "Code/GameEngine/Source/Common/StatsCollector.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingFactoryNewOverride.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingFactoryReset.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateIsEquivalentTo.cpp",
+    "Code/GameEngine/Source/GameClient/GameClientXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectWorldspaceBestContactPoint.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIUpdateInterfaceIgnoreObstacle.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/TransportAIUpdatePrivateAttackPosition.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateGuardObject.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateGuardPosition.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/AttackPriorityInfoGetPriority.cpp"
+   ],
+   "views": 17
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingFactoryNewOverride.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingFactoryParseObjectDefinition.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingFactoryReset.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateIsEquivalentTo.cpp",
+    "Code/GameEngine/Source/GameClient/GameClientXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectWorldspaceBestContactPoint.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIUpdateInterfaceIgnoreObstacle.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/TransportAIUpdatePrivateAttackPosition.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateGuardObject.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateGuardPosition.cpp"
+   ],
+   "views": 14
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingFactoryReset.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/DrawableDrawIconUI.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectRva0028C428.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/Rva004389AENearbyCheck.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033DDA1Dtor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/Rva0029B1C2.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIUpdateFormationPreview.cpp",
+    "Code/GameEngine/Source/GameClient/Rva0029B1C2.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/Rva0029B1C2.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033DDA1Dtor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/Rva0029B1C2.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033DDA1Dtor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/ProductionPrerequisiteIsSatisfied_ProductionPrerequisite_isSatisfied.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateValidate.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/UnitHelpSource.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptScoreScreenCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/OldSchoolHelpBoxContentSource.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUICreateMouseoverHint.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033DDA1Dtor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateValidate.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/UnitHelpSource.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033DDA1Dtor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 64,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateValidate.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 68,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033DDA1Dtor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 72,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 76,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033DDA1Dtor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 80,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 84,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033DDA1Dtor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 88,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateValidate.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 92,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033DDA1Dtor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUICreateMouseoverHint.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 96,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033DDA1Dtor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 100,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerInitFromDict.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerSetObjectsEnabled.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamGetControllingPlayer.cpp",
+    "Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp",
+    "Code/GameEngine/Source/Common/Recorder.cpp",
+    "Code/GameEngine/Source/Common/Rva00306910DrawableTemplateXfer.cpp",
+    "Code/GameEngine/Source/Common/Rva003A45D2ApplyMatchingRecord.cpp",
+    "Code/GameEngine/Source/Common/Rva0059B5A3Describe.cpp",
+    "Code/GameEngine/Source/Common/System/BuildAssistant.cpp",
+    "Code/GameEngine/Source/Common/System/BuildAssistantWallLocations.cpp",
+    "Code/GameEngine/Source/Common/Thing/Rva0033DDA1Dtor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingFactoryNewTemplate.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingFactoryReset.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingFactory_newObject.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateBuildCost.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateIsEquivalentTo.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateParseModuleName.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateParseRemoveModule.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateParseReplaceModule.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateSetCopiedFromDefault.cpp",
+    "Code/GameEngine/Source/Common/ThingTemplateBuildFacility.cpp",
+    "Code/GameEngine/Source/GameClient/ArmySummaryDescriptionVisitor.cpp",
+    "Code/GameEngine/Source/GameClient/DrawableConstructPercentRva002779CE.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGameHeroSelectInterface.cpp",
+    "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+    "Code/GameEngine/Source/GameClient/GameClientXfer.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUICreateMouseoverHint.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackStateOnExit.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayer.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerQueueSupplyTruck.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild_DoUpgradesAndSkills.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild_QueueUnits.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AISkirmishPlayer.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit_ComputeGoal.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit_ComputeGoal_ComputeGoal.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit_ComputeGoal_ComputeGoal_Update.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/Rva003063A9XferThingTemplate.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/BridgeObjectCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/SidesListDataChunks.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/SidesListRva0032A5FCWriteBuildLists.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/SidesList_validateSides.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehaviorCapturePermission.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehaviorXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00396E4ARemove.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehaviorXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainRva00473212.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/LocomotorSetSetLocomotorAndBaseSpeed.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Object.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectDoXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectInterfaceSlots.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectWorldspaceBestContactPoint.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIUpdateInterfaceIgnoreObstacle.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AnimalAIUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DozerAIUpdateCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceFindNearestLabeledContactPoint.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_computeAttackPath.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_computeAttackPath_ComputeAttackPath.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_computePath.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_doPathfind.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateParseLocomotorSet.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/ActivateModuleSpecialPowerVslot.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/Rva001EA3AEFinish.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdateXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/AttackPriorityInfoXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doTeamHuntWithCommandButton.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AIBuilder_onUnitCreated.cpp",
+    "Code/GameEngine/Source/GameLogic/System/ArmySummaryLoad.cpp",
+    "Code/GameEngine/Source/GameLogic/System/GameLogic.cpp",
+    "Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp",
+    "Code/GameEngine/Source/GameLogic/System/ObjectFilterCollectionXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Thing/Rva0033BA46Finish.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawUpdateSubObjects.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/MapObject_fastAssignAllUniqueIDs.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/MapObject_verifyValidUniqueID.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherAnimationDebuggingInfo.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherDebugStats.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherSkirmishAIStats.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBuffer.cpp"
+   ],
+   "views": 91
+  },
+  {
+   "offset": 104,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033DDA1Dtor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateParseRemoveModule.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateParseReplaceModule.cpp",
+    "Code/GameEngine/Source/Common/ThingTemplateBuildFacility.cpp",
+    "Code/GameEngine/Source/GameLogic/System/ArmySummaryLoad.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 108,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerDoFindCommandCenter.cpp",
+    "Code/GameEngine/Source/Common/Thing/Rva0033DDA1Dtor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameLogic/System/GameLogic.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 112,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/BuildAssistant.cpp",
+    "Code/GameEngine/Source/Common/System/BuildAssistantWallLocations.cpp",
+    "Code/GameEngine/Source/Common/Thing/Rva0033DDA1Dtor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectRva00290E67.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doRemoveCommandBarButton.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 116,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033DDA1Dtor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Thing/Rva0033BA46Finish.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 120,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033DDA1Dtor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateButtonImage.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 124,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033DDA1Dtor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 144,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033DDA1Dtor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateValidate.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicXfer.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 148,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033DDA1Dtor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateParseModuleName.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateParseRemoveModule.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateParseReplaceModule.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 152,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033DDA1Dtor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateParseModuleName.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateParseRemoveModule.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateParseReplaceModule.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 156,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033DDA1Dtor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateParseRemoveModule.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateParseReplaceModule.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 160,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/BuildAssistant.cpp",
+    "Code/GameEngine/Source/Common/System/BuildAssistantWallLocations.cpp",
+    "Code/GameEngine/Source/Common/Thing/Rva0033DDA1Dtor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/BridgeObjectCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Body/ImmortalBody.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetReallyCreate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/StructureCollapseUpdateUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Upgrade/ReplaceSelfUpgrade.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualAddFactionBibDrawable.cpp"
+   ],
+   "views": 12
+  },
+  {
+   "offset": 176,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00261D2EFilter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerIsLocationSafe.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerQueueSupplyTruck.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild_DoUpgradesAndSkills.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild_QueueUnits.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/BridgeObjectCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehavior.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Upgrade/ReplaceSelfUpgrade.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 180,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00261D2EFilter.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/BridgeObjectCtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 196,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/BridgeObjectCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 200,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/BridgeObjectCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Upgrade/ReplaceSelfUpgrade.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 204,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateValidate.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 208,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateValidate.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 252,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033DDA1Dtor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 256,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033DDA1Dtor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ExperienceTracker.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_Rva003C9D0D.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doTeamGarrisonNearestBuilding.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 260,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 264,
+   "sources": [
+    "Code/GameEngine/Source/Common/AITacticOffensive.cpp",
+    "Code/GameEngine/Source/Common/RTS/ActionManager.cpp",
+    "Code/GameEngine/Source/Common/RTS/Handicap.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerAddSkillPointsForDamage.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerBattlePlanBonuses.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerCanBuild.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerCanBuild_CanBuild.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerRva002ABCF0.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerTransferAssets.cpp",
+    "Code/GameEngine/Source/Common/RTS/ScoreKeeperReset.cpp",
+    "Code/GameEngine/Source/Common/RTS/Team.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamGetControllingPlayer.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamHasAnyObjects.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamKillTeam.cpp",
+    "Code/GameEngine/Source/Common/RTS/Team_countObjects.cpp",
+    "Code/GameEngine/Source/Common/RTS/Team_hasAnyBuildings.cpp",
+    "Code/GameEngine/Source/Common/RTS/Team_hasAnyUnits.cpp",
+    "Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp",
+    "Code/GameEngine/Source/Common/Rva0026185B.cpp",
+    "Code/GameEngine/Source/Common/Rva00261D2EFilter.cpp",
+    "Code/GameEngine/Source/Common/Rva003980BFSelect.cpp",
+    "Code/GameEngine/Source/Common/Rva0039BF67Sum.cpp",
+    "Code/GameEngine/Source/Common/Rva004EC30EAddOwnedObject.cpp",
+    "Code/GameEngine/Source/Common/Rva005D8964Distance.cpp",
+    "Code/GameEngine/Source/Common/ScoreKeeper.cpp",
+    "Code/GameEngine/Source/Common/ScoreKeeperMapCount.cpp",
+    "Code/GameEngine/Source/Common/StatsCollector.cpp",
+    "Code/GameEngine/Source/Common/System/BuildAssistant.cpp",
+    "Code/GameEngine/Source/Common/System/BuildAssistantWallLocations.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateRva000456AC.cpp",
+    "Code/GameEngine/Source/Common/ThingIsAnyKindOf.cpp",
+    "Code/GameEngine/Source/Common/ThingTemplateBuildFacility.cpp",
+    "Code/GameEngine/Source/GameClient/DrawableConstructPercentRva002779CE.cpp",
+    "Code/GameEngine/Source/GameClient/DrawableDrawIconUI.cpp",
+    "Code/GameEngine/Source/GameClient/DrawableHealthBarGate.cpp",
+    "Code/GameEngine/Source/GameClient/DrawableIconAnchorPosition.cpp",
+    "Code/GameEngine/Source/GameClient/DrawableShroud.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommandProcessing.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRappellerCount.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/UnitHelpSource.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/PalantirCommandInterfacePortrait.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ScoreRowSort.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/SelectionCanSelectDrawable.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUICanSelectedObjectsDoAction.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUICreateMouseoverHint.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIHandleBuildPlacements.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIObserverMessage.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIPlacement.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUISelectAllAcrossMap.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIUpdateLocalPhantomStructureDisplay.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUI_selectMatchingAcrossMap.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackAimAtTargetStateUpdateInternal.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachComputePath.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_OnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_Unresolved.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnExit.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackStateOnExit.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIClosestEnemySearch.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIEnterStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIFollowPathStateMethods.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIGroupAdd.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIGroupGetCenter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIGroupRva00372571.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIGroupScatter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIGuard.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIGuardInnerTargetRva00369FDF.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIHordeCowerStateSlots.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIHuntStateUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIInternalMoveToStateUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIMoveToStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayer.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStates.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesBfmeComputePath.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit_ComputeGoal.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit_ComputeGoal_ComputeGoal.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit_ComputeGoal_ComputeGoal_Update.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesMeleeApproachGoal.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesShipEvacuate.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AITunnelNetworkGuardStateUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIWanderInPlaceStateUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AerialPathfinder.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderCheckForMovement.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderSameCellRva002EE49B.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/Rva00343FB0.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/cellCallbackRva002F18D4Farm.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/SidesListDataChunks.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/SidesListRva0032A5FCWriteBuildLists.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/SidesList_validateSides.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/AutoHealBehaviorPlayerScan.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehavior.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehavior.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehaviorBuildCastleStructure.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehavior.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehaviorUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00396E4ARemove.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehaviorUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_createSpawn.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Body/OathbreakerBodyAttemptDamage.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Body/PorcupineFormationBodyModuleRva004C21A9.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/CrateCollide.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/SalvageCrateCollide.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Collide/HordeMemberCollideOnCollide.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainOnRemoving.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainIsValidContainerFor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainOnContaining.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainRiders.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainRiders_Rva0046740C.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Die/CreateCrateDieTestKillerType.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetCanCreate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetReallyCreate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Object.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectInitObject.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectOnDie.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectPartitionShroudQueries.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectRva0028DCC4.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectRva002929F9.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectRva00294ADD.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectRva00295CA6.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectSetTriggerAreaFlagsForChangeInPosition.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectShroudRangeQuery.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Object_isAbleToAttack.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Object_isMassSelectable.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Rva00290EFEGetGhostObject.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/RepairSpecialPowerAtObject.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeployHordeInitiate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDtor_Unresolved.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleRva0049402B.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleTrigger.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIGiantBirdSwoopStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIUpdateInterfaceQuickHordeUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DozerAIUpdateCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/TransportAIUpdatePrivateAttackPosition.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceCollisionResponse.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceIsMoving.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateGuardObject.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateGuardPosition.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_computeAttackPath.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_computeAttackPath_ComputeAttackPath.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_computePath.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_computeQuickPath.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_doLocomotor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_doPathfind.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/ArrowStormUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/FoundationAIUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/FoundationAIUpdateConstruct.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/QueueProductionExitUpdateExitObjectViaDoor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/Rva004B0FEBCheck.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdateTriggerAbilityEffect.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdateLogic.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponPrivateFireWeapon.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponProjectileLaunch.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetSetWeaponLock.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateScatterTargetPos.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderCheckMovementOverlap.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderRva002E9EA7.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderSquareOccupancy.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsAutoAbility.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsLoadAllTransports.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsReinforcements.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsTransferTeam.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_Rva003C9E4E.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_garrison.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsPlayerUnitCounts.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineSetCounterToThreat.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AIBuilder.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AITeamBuilder/AITeamBuilder.cpp",
+    "Code/GameEngine/Source/GameLogic/System/GameLogic.cpp",
+    "Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp",
+    "Code/GameEngine/Source/GameLogic/System/ObjectFilterCollectionXfer.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarRenderObjectList.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawOnDrawableBound.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DWaypointBuffer.cpp"
+   ],
+   "views": 197
+  },
+  {
+   "offset": 265,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerBecomingTeamMember.cpp",
+    "Code/GameEngine/Source/Common/ThingTemplateBuildFacility.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIDeadStateOnExit.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerQueueSupplyTruck.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild_DoUpgradesAndSkills.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild_QueueUnits.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderAdjustCandidate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehavior.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Object_isAbleToAttack.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceGetNextMoodTarget.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceRva0026417F.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AIBuilder.cpp"
+   ],
+   "views": 14
+  },
+  {
+   "offset": 266,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerDoFindCommandCenter.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplate_resolveNames.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUISuperweapons.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerQueueSupplyTruck.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AISkirmishPlayer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorHandleObjectsOnBridgeOnDie.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeTowerBehaviorOnDamage.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeTowerBehaviorOnHealing.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehavior.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 267,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIFollowWaypointPathStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorHandleObjectsOnBridgeOnDie.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehavior.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceLocomotorDistanceToGoal.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdate_update.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 268,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/InGameUISiegeDeployTarget.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIFollowWaypointPathStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerQueueSupplyTruck.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIWanderStateMethods.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehavior.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngineContainRiders.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainRva00464EE7.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainRiders.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/SlaughterHordeContainUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierAuraUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/Rva004B0FEBCheck.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Upgrade/BuildableHeroListUpgrade.cpp",
+    "Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp"
+   ],
+   "views": 13
+  },
+  {
+   "offset": 269,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIIdleStateUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehavior.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectOnVeterancyLevelChanged.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 270,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/Team.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehavior.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 271,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva004EC30EAddOwnedObject.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/SelectionCanSelectDrawable.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerQueueSupplyTruck.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild_DoUpgradesAndSkills.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild_QueueUnits.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehavior.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectDoXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectIsSelectable.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Object_isAbleToAttack.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceGetNextMoodTarget.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AIBuilder.cpp"
+   ],
+   "views": 12
+  },
+  {
+   "offset": 272,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCanBuild.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerCanBuild_CanBuild.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamHasAnyObjects.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGameHeroSelectDataRemoveHero.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/SelectionCanSelectDrawable.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUISiegeDeployTarget.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUI_selectMatchingAcrossRegion.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehavior.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/CurseSpecialPowerSlots.cpp",
+    "Code/GameEngine/Source/GameLogic/System/ArmySummaryLoad.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarRenderObjectList.cpp"
+   ],
+   "views": 14
+  },
+  {
+   "offset": 273,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/MapUtilParseObjectDataChunk.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehavior.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectIsSelectable.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 274,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehavior.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Object_isAbleToAttack.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/LifetimeUpdate.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 275,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerBecomingLocal.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamApplyDamage.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamDidAllEnter.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamDidPartialEnter.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptScoreScreenCallbacks.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIObjectTargetPredicate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehavior.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectDidEnterOrExit.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectRva0028D796.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdate_update.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AITeamBuilder/AITeamBuilder.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIBuildableUnit.cpp",
+    "Code/GameEngine/Source/GameLogic/System/ArmySummary.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/ConsumeGarrisonUnitsFromRTS.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayerCreateRevival.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherSkirmishAIStats.cpp"
+   ],
+   "views": 17
+  },
+  {
+   "offset": 276,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/TeamGetControllingPlayer.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUISiegeDeployTarget.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUI_selectMatchingAcrossRegion.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUI_selectMatchingCallback.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIFollowPathStateOnExit.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesBfmeOnExit.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesCowerVoice.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehavior.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Collide/SquishCollide.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainDissolveComboHorde.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectRva002931F5.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectRva002943B2.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectRva00295FA9.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/DominateEnemySpecialPower.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/LevelGrantSpecialPower.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceGetNextMoodTarget.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceNotifyPathHasInvalidPortals.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/MissileLauncherBuildingUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/System/ArmySummaryLoad.cpp"
+   ],
+   "views": 20
+  },
+  {
+   "offset": 277,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/TeamGetTeamAsAIGroup.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamRva0039E0D0.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamSetControllingPlayer.cpp",
+    "Code/GameEngine/Source/Common/Rva0044E6AEVirtForward.cpp",
+    "Code/GameEngine/Source/GameClient/Rva0029B1C2.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIObjectTargetPredicate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehavior.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/CitadelSlaughterHordeContain.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainRva00473212.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainRva00475F61.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/ProductionQueueHordeContainSlots.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainRemoveAllContained.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectRva002931BA.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Object_isAbleToAttack.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Object_isMassSelectable.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/HordeDispatchSpecialPower.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceIsMoving.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AttachUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/Rva004B0FEBCheck.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdateIsWithinStartAbilityRange.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderMoveAlliesCallback.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doStandGround.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AIBuilder_onUnitCreated.cpp"
+   ],
+   "views": 25
+  },
+  {
+   "offset": 278,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehavior.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 279,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerRva002AC629.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehavior.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 280,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/TeamApplyDamage.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamDidAllEnter.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamDidPartialEnter.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/SelectionCanSelectDrawable.cpp",
+    "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIPlaceBuildAvailable.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUISiegeDeployTarget.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehavior.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehaviorPrimarySlots.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdateIsWithinStartAbilityRange.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Upgrade/ReplaceSelfUpgrade.cpp"
+   ],
+   "views": 13
+  },
+  {
+   "offset": 281,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGameHeroSelectDataRemoveHero.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehavior.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/SiegeDockingBehaviorReserve.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 282,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/TeamGetControllingPlayer.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamHasAnyObjects.cpp",
+    "Code/GameEngine/Source/Common/RTS/Team_hasAnyBuildings.cpp",
+    "Code/GameEngine/Source/Common/RTS/Team_hasAnyUnits.cpp",
+    "Code/GameEngine/Source/GameClient/DrawableXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Object_isAbleToAttack.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdate_update.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 283,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/OldSchoolHelpBoxContentSource.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerQueueSupplyTruck.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild_DoUpgradesAndSkills.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild_QueueUnits.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehavior.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIBuildableUnit.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 284,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/InGameUIPlaceBuildAvailable.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrderXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehaviorPrimarySlots.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectShockRva00296065.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdateDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarRenderObjectList.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 285,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/AttachUpdate.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 287,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingFactoryReset.cpp",
+    "Code/GameEngine/Source/GameClient/MessageStream/PlaceEventTranslator.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainRva00464EE7.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectRva0028DA67.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Object_isAbleToAttack.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceRva00263FA7.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/System/GameLogicDispatchDoSetRallyPoint.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayerCreateRevival.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 288,
+   "sources": [
+    "Code/GameEngine/Source/Common/AITacticOffensive.cpp",
+    "Code/GameEngine/Source/Common/Rva004EC30EAddOwnedObject.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AIBuilder.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AIWallBuilder/AIWall.cpp",
+    "Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawDoDrawModule.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 289,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherSkirmishAIStats.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 290,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachComputePath.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_OnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_Unresolved.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStates.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/Rva00343FB0.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 292,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033DDA1Dtor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 740,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/TeamGetControllingPlayer.cpp",
+    "Code/GameEngine/Source/Common/System/BuildAssistant.cpp",
+    "Code/GameEngine/Source/Common/Thing/ModuleInfoGetNthData.cpp",
+    "Code/GameEngine/Source/Common/Thing/Rva0033DDA1Dtor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingFactoryReset.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateFuelFactorProvider.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateParseModuleName.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateSetCopiedFromDefault.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIHandleBuildPlacements.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetCanCreate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doRemoveCommandBarButton.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayerCreateRevival.cpp"
+   ],
+   "views": 16
+  },
+  {
+   "offset": 744,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/TeamGetControllingPlayer.cpp",
+    "Code/GameEngine/Source/Common/System/BuildAssistant.cpp",
+    "Code/GameEngine/Source/Common/Thing/ModuleInfoGetNthData.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingFactoryReset.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateFuelFactorProvider.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateSetCopiedFromDefault.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIHandleBuildPlacements.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetCanCreate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doRemoveCommandBarButton.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayerCreateRevival.cpp"
+   ],
+   "views": 14
+  },
+  {
+   "offset": 748,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/TeamGetControllingPlayer.cpp",
+    "Code/GameEngine/Source/Common/System/BuildAssistant.cpp",
+    "Code/GameEngine/Source/Common/Thing/ModuleInfoGetNthData.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingFactoryReset.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateFuelFactorProvider.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateSetCopiedFromDefault.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIHandleBuildPlacements.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetCanCreate.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doRemoveCommandBarButton.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayerCreateRevival.cpp"
+   ],
+   "views": 13
+  },
+  {
+   "offset": 752,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00091E83Forwarders.cpp",
+    "Code/GameEngine/Source/Common/Thing/Rva0033DDA1Dtor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingFactoryReset.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateSetCopiedFromDefault.cpp",
+    "Code/GameEngine/Source/GameClient/DrawableConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/DrawableDestructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Rva00290EFEGetGhostObject.cpp",
+    "Code/GameEngine/Source/GameLogic/System/GameLogic.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBuffer.cpp"
+   ],
+   "views": 13
+  },
+  {
+   "offset": 756,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00091E83Forwarders.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingFactoryReset.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateSetCopiedFromDefault.cpp",
+    "Code/GameEngine/Source/GameClient/DrawableConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/DrawableDestructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Rva00290EFEGetGhostObject.cpp",
+    "Code/GameEngine/Source/GameLogic/System/GameLogic.cpp"
+   ],
+   "views": 10
+  },
+  {
+   "offset": 760,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00091E83Forwarders.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingFactoryReset.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateSetCopiedFromDefault.cpp",
+    "Code/GameEngine/Source/GameClient/DrawableConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/DrawableDestructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Rva00290EFEGetGhostObject.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 764,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033DDA1Dtor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateSetCopiedFromDefault.cpp",
+    "Code/GameEngine/Source/GameClient/DrawableConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/DrawableDestructor.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 768,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateSetCopiedFromDefault.cpp",
+    "Code/GameEngine/Source/GameClient/DrawableConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/DrawableDestructor.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 772,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateSetCopiedFromDefault.cpp",
+    "Code/GameEngine/Source/GameClient/DrawableConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/DrawableDestructor.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 776,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033DDA1Dtor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateSetCopiedFromDefault.cpp",
+    "Code/GameEngine/Source/GameClient/DrawableConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/DrawableDestructor.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 780,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateSetCopiedFromDefault.cpp",
+    "Code/GameEngine/Source/GameClient/DrawableConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/DrawableDestructor.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 784,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateSetCopiedFromDefault.cpp",
+    "Code/GameEngine/Source/GameClient/DrawableConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/DrawableDestructor.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 788,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 804,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCanBuild.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerCanBuild_CanBuild.cpp",
+    "Code/GameEngine/Source/Common/Thing/Rva0033DDA1Dtor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplate_resolveNames.cpp",
+    "Code/GameEngine/Source/Common/ThingTemplateBuildFacility.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/OldSchoolHelpBoxContentSource.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 808,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCanBuild.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerCanBuild_CanBuild.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplate_resolveNames.cpp",
+    "Code/GameEngine/Source/Common/ThingTemplateBuildFacility.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/OldSchoolHelpBoxContentSource.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 812,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCanBuild.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerCanBuild_CanBuild.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplate_resolveNames.cpp",
+    "Code/GameEngine/Source/Common/ThingTemplateBuildFacility.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/OldSchoolHelpBoxContentSource.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 816,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCanBuild.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerCanBuild_CanBuild.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamGetControllingPlayer.cpp",
+    "Code/GameEngine/Source/Common/Thing/Rva0033DDA1Dtor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingFactory_newObject.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateGetAssetList.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateIsEquivalentTo.cpp",
+    "Code/GameEngine/Source/Common/ThingTemplateBuildFacility.cpp"
+   ],
+   "views": 10
+  },
+  {
+   "offset": 820,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/TeamGetControllingPlayer.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingFactory_newObject.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateGetAssetList.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateIsEquivalentTo.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 824,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/TeamGetControllingPlayer.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateGetAssetList.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateIsEquivalentTo.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 828,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033DDA1Dtor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateIsEquivalentTo.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 832,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateIsEquivalentTo.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 836,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateIsEquivalentTo.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 840,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033DDA1Dtor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 844,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 848,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 852,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngineContainCreatePayload.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainCreatePayload.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 856,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033DDA1Dtor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateRva0033D331.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateSetCopiedFromDefault.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/Rva0033DCD1.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 860,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateRva0033D331.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateSetCopiedFromDefault.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/Rva0033DCD1.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 864,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateRva0033D331.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateSetCopiedFromDefault.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/Rva0033DCD1.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 868,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033DDA1Dtor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/Rva0033DCD1.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 872,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033DDA1Dtor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 876,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033DDA1Dtor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 880,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033DDA1Dtor.cpp",
+    "Code/GameEngine/Source/Common/Thing/Rva0033E102Rebuild.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 884,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033E102Rebuild.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 888,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033E102Rebuild.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 892,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033DDA1Dtor.cpp",
+    "Code/GameEngine/Source/Common/Thing/Rva0033E102Rebuild.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 896,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033DDA1Dtor.cpp",
+    "Code/GameEngine/Source/Common/Thing/Rva0033E102Rebuild.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 900,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033DDA1Dtor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 904,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033DDA1Dtor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 908,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 912,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 916,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033DDA1Dtor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 920,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 924,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 928,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033DDA1Dtor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateFloatMapStore.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 932,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033DDA1Dtor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateFloatMapStore.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 936,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033DDA1Dtor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateFloatMapStore.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 940,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033DDA1Dtor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateLocomotorMapStore.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 944,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateLocomotorMapStore.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 948,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateLocomotorMapStore.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 952,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033DDA1Dtor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 956,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 960,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 964,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033DDA1Dtor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateGetAssetList.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 1004,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033DDA1Dtor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1008,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1012,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1016,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033DDA1Dtor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateGetCurrentLivingWorldAutoResolveWeapon.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 1020,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateGetCurrentLivingWorldAutoResolveWeapon.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1024,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1028,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1156,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingFactoryReset.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateSetCopiedFromDefault.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerQueueSupplyTruck.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild_DoUpgradesAndSkills.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild_QueueUnits.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineSetPriorityDefault.cpp",
+    "Code/GameEngine/Source/GameLogic/System/GameLogic.cpp"
+   ],
+   "views": 12
+  },
+  {
+   "offset": 1160,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Thing/Rva0033BA46Finish.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1164,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateButtonImage.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1168,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1172,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1176,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1180,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1184,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponPrivateFireWeapon.cpp",
+    "Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 1188,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1192,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawReactToTransformChange.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawDestructor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 1196,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/BuildAssistant.cpp",
+    "Code/GameEngine/Source/Common/System/BuildAssistantWallLocations.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 1200,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1204,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectShroudRangeQuery.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1208,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectShroudRangeQuery.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1212,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectGetShroudClearingRange.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectGetVisionRange.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectSetTriggerAreaFlagsForChangeInPosition.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 1216,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1220,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1224,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectSetTriggerAreaFlagsForChangeInPosition.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1228,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1232,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIPlaceBuildAvailable.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/FoundationAIUpdateConstruct.cpp",
+    "Code/GameEngine/Source/GameLogic/System/GameLogic.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 1236,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualAddFactionBibDrawable.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1240,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualAddFactionBibDrawable.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1244,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/ThingTemplateBuildFacility.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1248,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/ThingTemplateBuildFacility.cpp",
+    "Code/GameEngine/Source/GameClient/DrawableConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/DrawableDestructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetReallyCreate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp",
+    "Code/GameEngine/Source/GameLogic/System/GameLogic.cpp",
+    "Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 1252,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1256,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDraw_setTerrainDecal.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1260,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDraw_setTerrainDecal.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1264,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDraw_setTerrainDecal.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1268,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDraw_setTerrainDecal.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1272,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1276,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1280,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1284,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1288,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1292,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectRva002929F9.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1296,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectRva002929F9.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1300,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectRva002929F9.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1304,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectRva002929F9.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1308,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/TeamRva003A2DBB.cpp",
+    "Code/GameEngine/Source/Common/Rva002C5EF0Xfer.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectRva00295844.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AITeamBuilder/AITeamBuilder.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 1312,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1316,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1320,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1324,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1328,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1332,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1336,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/DrawableIconAnchorPosition.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1340,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackAimAtTargetStateUpdateInternal.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachComputePath.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_OnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_Unresolved.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStates.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesBfmeOnExit.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 1344,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1348,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectSetTriggerAreaFlagsForChangeInPosition.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1352,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Object.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectRva0028B8A6DisablePower.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 1356,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1360,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1364,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainOnRemoving.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 1368,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1372,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1376,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1380,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIGroupMoveFormation.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1384,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1388,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderSameCellRva002EE49B.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1392,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectRva0028D796.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1396,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectOnDie.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1400,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectOnDie.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1404,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectOnDie.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1408,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1412,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1416,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1420,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1424,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1428,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/DrawableConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/DrawableDestructor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 1432,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1436,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/DrawableShroud.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1440,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/DrawableShroud.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1444,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/DrawableShroud.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1448,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/DrawableShroud.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1452,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1456,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1460,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1464,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicXfer.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1468,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/UnitHelpSource.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1472,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/UnitHelpSource.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1476,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/ConsumeGarrisonUnitsFromRTS.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva0059DA34.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 1480,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1484,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1488,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1492,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1496,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCanBuild.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerCanBuild_CanBuild.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingFactoryNewTemplate.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingFactoryReset.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateSetCopiedFromDefault.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommandProcessing.cpp",
+    "Code/GameEngine/Source/GameClient/MessageStream/PlaceEventTranslator.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Object.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp"
+   ],
+   "views": 12
+  },
+  {
+   "offset": 1498,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateBuildCost.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_teamCommandButtonOnNearest.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 1500,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/BuildAssistant.cpp",
+    "Code/GameEngine/Source/Common/System/BuildAssistantWallLocations.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 1502,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1504,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/BuildAssistant.cpp",
+    "Code/GameEngine/Source/Common/System/BuildAssistantWallLocations.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommandProcessing.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetReallyCreate.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 1506,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicXfer.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneFlushOccludedObjectsIntoStencil.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 1508,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1509,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1510,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/Team_hasAnyBuildFacility.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplate_resolveNames.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 1511,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/PalantirObjectProgress.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherDebugStats.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 1512,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1513,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033E102Rebuild.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateSetCopiedFromDefault.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 1514,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateRva0033D331.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateSetCopiedFromDefault.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 1515,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 1516,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 1517,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1518,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1519,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1520,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1521,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainUpdateUpgradeCreationTriggers.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Object_getTransportSlotCount.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 1522,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/ThingTemplate_getBuildable.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1523,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/ThingTemplateBuildFacility.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1524,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/System/GameLogic.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1525,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1526,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1527,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Body/ImmortalBody.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1528,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateParseAddModule.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateParseInheritable.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateParseModuleName.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateParseRemoveModule.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateParseReplaceModule.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 1529,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1530,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1531,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1532,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1533,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachComputePath.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_OnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_Unresolved.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStates.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 1534,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1536,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectInitObject.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1540,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1544,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Collide/SquishCollide.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1548,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Collide/SquishCollide.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1552,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390629.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectRva0028DA67.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 1556,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Collide/SquishCollide.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_computeAttackPath.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_computeAttackPath_ComputeAttackPath.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_computePath.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_doPathfind.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 1560,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/OldSchoolHelpBoxContentSource.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehaviorRva00398E9A.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_createSpawn.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectRva0028DA67.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp",
+    "Code/GameEngine/Source/GameLogic/System/ArmySummaryLoad.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 1564,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectAttributeModifierPool.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectRva0028DA67.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 1568,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1572,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1576,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1580,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1584,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineRegisterObject.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1585,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1586,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/SelectionCanSelectDrawable.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehaviorUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectIsSelectable.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 1587,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerQueueSupplyTruck.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild_DoUpgradesAndSkills.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild_QueueUnits.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 1588,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderSameCellRva002EE49B.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Object_isAbleToAttack.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 1589,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1592,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptScoreScreenCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGameHeroSelectDataAddHero.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 1596,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "field@0x0",
+   "candidates": {
+    "100:A": 11,
+    "1528:A": 2,
+    "176:A": 1,
+    "20:A": 1,
+    "24:A": 1,
+    "264:A": 11,
+    "266:A": 1,
+    "275:A": 1,
+    "277:A": 2,
+    "280:A": 1,
+    "48:A": 2,
+    "4:P": 9,
+    "4:VPTR": 11,
+    "752:A": 1,
+    "816:A": 1
+   },
+   "class": "ThingTemplate"
+  }
+ ],
+ "size": 1,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}

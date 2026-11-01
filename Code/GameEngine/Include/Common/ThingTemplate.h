@@ -1,34 +1,11 @@
 // FILE: ThingTemplate.h //////////////////////////////////////////////////////////////////////////
 // Desc:   Canonical BFME2 ThingTemplate: the native 0x640-byte layout and its one-slot vftable.
 //
-// Written from target evidence; tools/header_adopt_lane.py cannot generate it:
-// the 497 compiled private views hold 422 layouts, the commonest "size" is an
-// empty class (63 pointer-only views), so class_contract freezes nothing past
-// offset 0 (reverse/class_contracts/ThingTemplate.json is the lane's record of
-// that, not this header's source). Target facts:
-//  - the constructor ??0ThingTemplate@@QAE@XZ (0x0033E1B8, 1875 B, matched in
-//    ThingTemplateConstructor.cpp) stores the vftable 0x00C10C4C (RVA
-//    0x00810C4C) and initializes every member below; the allocation at
-//    0x002D1AB4 is 0x640 bytes;
-//  - that vftable holds ONE slot, 0x0073E90B = ??_GThingTemplate@@UAEPAXI@Z
-//    (0x0033E90B); the string "PlayerUpgrade" follows it. So ThingTemplate
-//    declares no virtual besides its destructor, and its base Overridable
-//    contributes only a virtual destructor (Zero Hour's MemoryPoolObject glue,
-//    getObjectMemoryPool and the protected destructor, is not BFME2's);
-//  - the destructor ??1ThingTemplate@@UAE@XZ (0x0033DDA1, matched in
-//    Rva0033DDA1Dtor.cpp) tears the members down in reverse order and ends in
-//    ~Overridable (0x001E3624);
-//  - the inline Overridable constructor in 0x0033E1B8 stores +0x04 = 0,
-//    byte +0x08 = 0 and +0x0C = -1, so the first own member is at +0x10;
-//  - the member offsets are the constructor view's offset checks
-//    (0x14 0xA0 0xFC 0x108 0x124 0x2E4 0x354 0x364 0x388 0x3AC 0x3C4 0x404
-//    0x484 0x620 0x638) and the copy assignment ??4 (0x002D1101) extents.
-// Names: Zero Hour's where the retail FieldParse table (RVA 0x009BECD8) joins an
-// INI key to them, the lower-cased native INI key otherwise, an offset name
-// (mXXX) where nothing names the member. Members whose native type has no
-// shared header yet are opaque storage of the native size, named and
-// commented with the type the constructor view spells; giving one a real type
-// keeps the layout. Every member is public: the consumers read them directly.
+// Target facts: constructor RVA 0x0033E1B8 stores VA 0x00C10C4C at RVA 0x0033E1F0; destructor RVA 0x0033DDA1 restores the same table at RVA 0x0033DDB2. Its only slot (table RVA 0x00810C4C) is the deleting destructor RVA 0x0033E90B, which calls 0x0033DDA1; "PlayerUpgrade" immediately follows the slot. There are no other virtual functions.
+// The destructor calls ~Overridable at RVA 0x0033E058; the base destructor (RVA 0x001E3624) installs its own VA 0x00BDDC48 at RVA 0x001E362C. That base-phase table is not ThingTemplate's table. The constructor initializes the base prefix (+4 = 0, byte +8 = 0, +0xC = -1) at RVAs 0x0033E1D1..0x0033E1D8; the first own member is the float at +0x10 (RVA 0x0033E1E3).
+// RVA 0x002D1AD1 pushes 0x640 for operator new (0x002D1AD6), then calls the constructor at 0x002D1AE9. Constructor stores end at +0x63C, and assignment RVA 0x002D1101 copies the same member extents after calling Overridable::operator= at RVA 0x002D110F. Constructor, destructor and assignment remain out of line.
+// The constructor and assignment establish the member boundaries below, including strings +0x64, geometry +0xA0..0xFC, seven kind-mask words +0x108..0x124, module lists +0x2E4..0x314 and the scalar tail +0x484..0x640. The FieldParse table at RVA 0x009BECD8 (16-byte entries, member offset in word 3, terminator 0x009BF8C8) proves INI names and offsets; Zero Hour declarations supply matching member spellings. Unnamed members keep offset names; opaque storage preserves extents without supplying substitute container bodies.
+// Method names and signatures follow the ledger RVAs beside their declarations. isKindOf (0x000456AC) and isKindOfMulti (0x0030A8E3) address +0x108; friend_getNextTemplate (0x00406D4A) reads +0x1BC. These rowed methods are declared only. Zero Hour's getName declaration and copyFrom (0x0033EBEB) support the inline name accessor at +0x64.
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 #pragma once
@@ -45,7 +22,12 @@ class INI;
 class LocomotorTemplate;
 class ModuleData;
 class Player;
+class WeaponTemplateSet;
+#ifndef __BitFlags_H_
+template <int N> class BitFlags;
+#endif
 enum BuildableStatus;
+enum KindOfType;
 enum LocomotorSetType;
 
 //-------------------------------------------------------------------------------------------------
@@ -62,6 +44,8 @@ public:
 	int calcTimeToBuild( const Player *player, int second, int third ) const;			// 0x0033AA1F
 	void copyFrom( const ThingTemplate *that );											// 0x0033EBEB
 	AIUpdateModuleData *friend_getAIModuleInfo();											// 0x0033B387
+	ThingTemplate *friend_getNextTemplate() const;				// 0x00406D4A
+	const WeaponTemplateSet *findWeaponTemplateSet( const BitFlags<117> &flags ) const;	// 0x0033DCD1
 	const ThingTemplate *getBuildFacilityTemplate( const Player *player ) const;			// 0x0033A97F
 	BuildableStatus getBuildable() const;													// 0x0033A632
 	const Image *getButtonImage();															// 0x0033B580
@@ -69,6 +53,8 @@ public:
 	int getPrereqCount() const;															// 0x002AA3BF
 	void GetAssetList( int a, int b );														// 0x0033CF34
 	bool isEquivalentTo( const ThingTemplate *that ) const;								// 0x0033BB04
+	bool isKindOf( KindOfType type ) const;					// 0x000456AC
+	bool isKindOfMulti( const BitFlags<116> &mustBeSet, const BitFlags<116> &mustBeClear ) const;	// 0x0030A8E3
 	void resolveNames();																	// 0x0033C2C2
 	void setCopiedFromDefault();															// 0x0033B539
 	void validate();																		// 0x0033B4CD
