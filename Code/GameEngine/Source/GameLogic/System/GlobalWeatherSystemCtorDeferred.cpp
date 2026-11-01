@@ -49,6 +49,16 @@ WeatherData::WeatherData()
     m_hasLightning = false;
 }
 
+// The constructor's `eh vector constructor iterator' passes 0x0010F149 as the
+// element destructor: the shared 12-byte release of the counted sound pointer
+// (null check, tail jump to Release_Ref 0x00050ED3), which retail ICF-folds
+// with every other one-reference destructor.
+WeatherData::~WeatherData()
+{
+    if (m_weatherSound.referent)
+        m_weatherSound.referent->Release_Ref();
+}
+
 class GlobalWeatherSystem : public SubsystemInterface, public Snapshot
 {
 public:

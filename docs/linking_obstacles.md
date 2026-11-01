@@ -17069,3 +17069,10 @@ Follows LINK-175's GlobalWeatherSystem row.
   ctor unit's 14 slots). `/DBFME_SUBSYSTEM_SLOTS` gives it the header's retail slot list; both
   units now emit the same 56-byte table. link_check: `Rva00318637Dtor.cpp` LINKS 146 -> 146;
   `GlobalWeatherSystemCtorDeferred.cpp` keeps one blocker, `??1WeatherData@@QAE@XZ`.
+- `??1WeatherData@@QAE@XZ`: the ctor's `eh vector constructor iterator` passes 0x0010F149 as
+  the element destructor; the unit now defines `WeatherData::~WeatherData()` (release of the
+  counted sound pointer) and rows it as a fold-proof ICF twin of
+  `??1BfmeStringTailRecord156@@QAE@XZ` (`add_match --icf-owner`, 12/12 bytes and relocation).
+  link_check: `GlobalWeatherSystemCtorDeferred.cpp` 0 -> 155 B LINKS; `GlobalWeatherSystem.cpp`
+  (303), `CreateAHeroParseBlingBinder.cpp` (419), `Rva007ABBF6BlockParseInits.cpp` (2,728) and
+  `SubsystemInterface.cpp` (22,023) keep linking. Census confirmation: pending.
