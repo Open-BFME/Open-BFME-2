@@ -105,3 +105,14 @@ can be considered. Complete scoped verdicts are retained.
 ## Isolated donor delegate: buildBySupplies
 
 The unrowed donor is removed after the saved reference audit finds only a debug incoming edge and no outside-index caller. All 12 function rows and the owned global still verify. The sole removed definition is this method; all 348 retained complete code definitions/relocations are identical to the preceding 349-definition control. Its one placeholder hatch retires through the owning counter. The removed donor text is evidence only, not a target-body or original-name claim.
+
+## Isolated donor delegate: buildSpecificBuildingNearestTeam
+
+The unrowed donor is removed after the saved reference audit finds only a debug incoming edge and no outside-index caller. All 12 function rows and the owned global still verify. The sole removed definition is this method; all 347 retained complete code definitions/relocations are identical to the preceding 348-definition control. Its one placeholder hatch retires through the owning counter. The removed donor text is evidence only, not a target-body or original-name claim.
+
+This first delegate pair passes strict verification of all 12 functions and
+the owned global. It retires two placeholder hatches and reduces the current
+preview's unresolved names from 28 to 26; one vector losing/wrong-selected
+copy still blocks the unit. No census gain is claimed. The preceding snapshot
+batch's wider audit remains inconclusive on the older index and an AIBuildable
+receipt; it is carried into the next census, without claiming full clearance.

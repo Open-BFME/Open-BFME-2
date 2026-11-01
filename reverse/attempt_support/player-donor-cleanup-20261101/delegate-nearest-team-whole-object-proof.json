@@ -1,0 +1,11 @@
+{
+  "base": "c32d31117f0ae89b4dd3a76614a278e34aa9583c",
+  "before_definitions": 348,
+  "after_definitions": 347,
+  "added": [],
+  "removed": [
+    "?buildSpecificBuildingNearestTeam@Player@@QAEXABVAsciiString@@PBVTeam@@@Z"
+  ],
+  "changed": [],
+  "all_retained_whole_code_and_relocations_equal": true
+}

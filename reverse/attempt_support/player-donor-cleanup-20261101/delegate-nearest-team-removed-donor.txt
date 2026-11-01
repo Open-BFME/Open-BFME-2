@@ -1,0 +1,7 @@
+void Player::buildSpecificBuildingNearestTeam( const AsciiString &thingName, const Team *team )
+{
+	if( m_ai )
+	{
+		m_ai->buildSpecificBuildingNearestTeam( thingName, team );
+	}
+}

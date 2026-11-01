@@ -15,6 +15,8 @@ Recorded `blocked` in reverse/re_attempts.log.
 
 ### Player unrowed donor-body cleanup (2026-11-01, Cortys)
 
+Isolated unrowed `buildSpecificBuildingNearestTeam` is also removed after reference auditing; all 347 retained definitions/relocations and all native rows remain exact. One placeholder hatch retires; see the per-method evidence in the packet.
+
 Isolated unrowed `buildBySupplies` is also removed after reference auditing; all 348 retained definitions/relocations and all native rows remain exact. One placeholder hatch retires; see the per-method evidence in the packet.
 
 The served Player.cpp retains all 12 native functions (112 bytes) and its

@@ -12064,7 +12064,6 @@ present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	addUpgrade@Player
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	buildBaseDefense@Player@@QAEX_N@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	buildBaseDefenseStructure@Player@@QAEXABVAsciiString@@_N@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	buildSpecificBuilding@Player@@QAEXABVAsciiString@@@Z	1
-present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	buildSpecificBuildingNearestTeam@Player@@QAEXABVAsciiString@@PBVTeam@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	buildSpecificTeam@Player@@QAEXPAVTeamPrototype@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	buildUpgrade@Player@@QAEXABVAsciiString@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	calcClosestConstructionZoneLocation@Player@@QAE_NPBVThingTemplate@@PAUCoord3D@@@Z	1

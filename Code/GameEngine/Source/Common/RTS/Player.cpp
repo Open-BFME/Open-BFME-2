@@ -1526,14 +1526,8 @@ void Player::buildSpecificBuilding(const AsciiString &thingName)
 
 
 //=============================================================================
-// ?buildSpecificBuildingNearestTeam@Player@@QAEXABVAsciiString@@PBVTeam@@@Z present-unmatched
-void Player::buildSpecificBuildingNearestTeam( const AsciiString &thingName, const Team *team )
-{
-	if( m_ai )
-	{
-		m_ai->buildSpecificBuildingNearestTeam( thingName, team );
-	}
-}
+
+
 
 //=============================================================================
 // ?buildUpgrade@Player@@QAEXABVAsciiString@@@Z present-unmatched
