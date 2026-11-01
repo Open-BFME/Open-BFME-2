@@ -1,0 +1,515 @@
+{
+  "table_rva": "0x007BE810",
+  "next_table_rva": "0x007BE8C8",
+  "entry_count": 46,
+  "constructor_stores": [
+    {
+      "rva": "0x3846c",
+      "instruction": "mov dword ptr [esi], 0xbbe810"
+    }
+  ],
+  "destructor_stores": [
+    {
+      "rva": "0x3872c",
+      "instruction": "mov dword ptr [ecx], 0xbbe810"
+    }
+  ],
+  "next_constructor_stores": [
+    {
+      "rva": "0x3869b",
+      "instruction": "mov dword ptr [eax], 0xbbe8c8"
+    }
+  ],
+  "slots": [
+    {
+      "slot": 0,
+      "rva": "0x38c30",
+      "owners": [
+        {
+          "name": "??6Debug@@UAEAAV0@VHResult@0@@Z",
+          "source": "Code/Libraries/Source/debug/debug_debug.cpp"
+        }
+      ]
+    },
+    {
+      "slot": 1,
+      "rva": "0x389c0",
+      "owners": [
+        {
+          "name": "??6Debug@@UAEAAV0@ABVMemDump@0@@Z",
+          "source": "Code/Libraries/Source/debug/debug_debug.cpp"
+        }
+      ]
+    },
+    {
+      "slot": 2,
+      "rva": "0x38950",
+      "owners": [
+        {
+          "name": "??6Debug@@UAEAAV0@PBX@Z",
+          "source": "Code/Libraries/Source/debug/debug_debug.cpp"
+        }
+      ]
+    },
+    {
+      "slot": 3,
+      "rva": "0x3b570",
+      "owners": [
+        {
+          "name": "??6Debug@@QAEAAV0@_K@Z",
+          "source": "Code/Libraries/Source/WWVegas/WWDebug/debug_operator_long.cpp"
+        }
+      ]
+    },
+    {
+      "slot": 4,
+      "rva": "0x3b510",
+      "owners": [
+        {
+          "name": "??6Debug@@QAEAAV0@_J@Z",
+          "source": "Code/Libraries/Source/WWVegas/WWDebug/debug_operator_long.cpp"
+        }
+      ]
+    },
+    {
+      "slot": 5,
+      "rva": "0x3b4c0",
+      "owners": [
+        {
+          "name": "??6Debug@@UAEAAV0@G@Z",
+          "source": "Code/GameEngine/Source/Common/BfmeThreeHundredOne.cpp"
+        }
+      ]
+    },
+    {
+      "slot": 6,
+      "rva": "0x3b470",
+      "owners": [
+        {
+          "name": "??6Debug@@UAEAAV0@F@Z",
+          "source": "Code/GameEngine/Source/Common/BfmeThreeHundred.cpp"
+        }
+      ]
+    },
+    {
+      "slot": 7,
+      "rva": "0x38900",
+      "owners": [
+        {
+          "name": "??6Debug@@UAEAAV0@N@Z",
+          "source": "Code/Libraries/Source/debug/debug_debug.cpp"
+        }
+      ]
+    },
+    {
+      "slot": 8,
+      "rva": "0x388b0",
+      "owners": [
+        {
+          "name": "??6Debug@@UAEAAV0@M@Z",
+          "source": "Code/Libraries/Source/debug/debug_debug.cpp"
+        }
+      ]
+    },
+    {
+      "slot": 9,
+      "rva": "0x38890",
+      "owners": [
+        {
+          "name": "??6Debug@@QAEAAV0@_N@Z",
+          "source": "Code/Libraries/Source/WWVegas/WWDebug/debug_operator_bool.cpp"
+        }
+      ]
+    },
+    {
+      "slot": 10,
+      "rva": "0x3b420",
+      "owners": [
+        {
+          "name": "??6Debug@@UAEAAV0@I@Z",
+          "source": "Code/Libraries/Source/WWVegas/WWDebug/Debug_OperatorInteger.cpp"
+        }
+      ]
+    },
+    {
+      "slot": 11,
+      "rva": "0x3b3d0",
+      "owners": [
+        {
+          "name": "??6Debug@@UAEAAV0@H@Z",
+          "source": "Code/Libraries/Source/WWVegas/WWDebug/Debug_OperatorInteger.cpp"
+        }
+      ]
+    },
+    {
+      "slot": 12,
+      "rva": "0x3b420",
+      "owners": [
+        {
+          "name": "??6Debug@@UAEAAV0@I@Z",
+          "source": "Code/Libraries/Source/WWVegas/WWDebug/Debug_OperatorInteger.cpp"
+        }
+      ]
+    },
+    {
+      "slot": 13,
+      "rva": "0x3b3d0",
+      "owners": [
+        {
+          "name": "??6Debug@@UAEAAV0@H@Z",
+          "source": "Code/Libraries/Source/WWVegas/WWDebug/Debug_OperatorInteger.cpp"
+        }
+      ]
+    },
+    {
+      "slot": 14,
+      "rva": "0x3b340",
+      "owners": [
+        {
+          "name": "??6Debug@@UAEAAV0@PBD@Z",
+          "source": "Code/Libraries/Source/debug/debug_debug.cpp"
+        }
+      ]
+    },
+    {
+      "slot": 15,
+      "rva": "0x3a620",
+      "owners": [
+        {
+          "name": "??6Debug@@UAEAAV0@ABVRepeatChar@0@@Z",
+          "source": "Code/Libraries/Source/WWVegas/WWDebug/Debug_OperatorRepeatChar.cpp"
+        }
+      ]
+    },
+    {
+      "slot": 16,
+      "rva": "0x39920",
+      "owners": [
+        {
+          "name": "??_GDebug@@UAEPAXI@Z",
+          "source": "Code/Libraries/Source/WWVegas/WWDebug/DebugDestructorThunk.cpp"
+        }
+      ]
+    },
+    {
+      "slot": 17,
+      "rva": "0x3a8a0",
+      "owners": [
+        {
+          "name": "?AssertDone@Debug@@UAE_NH@Z",
+          "source": "Code/Libraries/Source/WWVegas/WWDebug/Debug_AssertDone.cpp"
+        }
+      ]
+    },
+    {
+      "slot": 18,
+      "rva": "0x387f0",
+      "owners": [
+        {
+          "name": "?d_00889720@Rva00889720Class@@QAE_NXZ",
+          "source": "Code/GameEngine/Source/Common/Bfme/Rva00889720.cpp"
+        }
+      ]
+    },
+    {
+      "slot": 19,
+      "rva": "0x3aed0",
+      "owners": [
+        {
+          "name": "?CrashDone@Debug@@UAE_NH@Z",
+          "source": "Code/Libraries/Source/WWVegas/WWDebug/Debug_CrashDone.cpp"
+        }
+      ]
+    },
+    {
+      "slot": 20,
+      "rva": "0x38850",
+      "owners": [
+        {
+          "name": "?d_00889780@Rva00889780Class@@QAEXPBDH@Z",
+          "source": "Code/GameEngine/Source/Common/Bfme/Rva00889780.cpp"
+        }
+      ]
+    },
+    {
+      "slot": 21,
+      "rva": "0x395d0",
+      "owners": [
+        {
+          "name": "?WriteBuildInfo@Debug@@UAEXXZ",
+          "source": "Code/Libraries/Source/debug/debug_debug.cpp"
+        }
+      ]
+    },
+    {
+      "slot": 22,
+      "rva": "0x38770",
+      "owners": [
+        {
+          "name": "?InstallExceptionHandler@Debug@@SAXXZ",
+          "source": "Code/Libraries/Source/debug/debug_debug.cpp"
+        }
+      ]
+    },
+    {
+      "slot": 23,
+      "rva": "0x3a6a0",
+      "owners": [
+        {
+          "name": "?frameStatus@Debug@@UAE_NI_N@Z",
+          "source": "Code/Libraries/Source/WWVegas/WWDebug/Debug_FrameStatus.cpp"
+        }
+      ]
+    },
+    {
+      "slot": 24,
+      "rva": "0x387d0",
+      "owners": [
+        {
+          "name": "?bfmeGoDWC@BfmeThingDWC@@QAE_NXZ",
+          "source": "Code/GameEngine/Source/Common/BfmeConv789.cpp"
+        }
+      ]
+    },
+    {
+      "slot": 25,
+      "rva": "0x3a750",
+      "owners": [
+        {
+          "name": "?CheckBegin@Debug@@UAEAAV1@PBDHH0@Z",
+          "source": "Code/Libraries/Source/WWVegas/WWDebug/Debug_CheckBegin.cpp"
+        }
+      ]
+    },
+    {
+      "slot": 26,
+      "rva": "0x3ac60",
+      "owners": [
+        {
+          "name": "?LogBegin@Debug@@UAEAAV1@PBD@Z",
+          "source": "Code/Libraries/Source/WWVegas/WWDebug/Debug_LogBegin.cpp"
+        }
+      ]
+    },
+    {
+      "slot": 27,
+      "rva": "0x3ad80",
+      "owners": [
+        {
+          "name": "?CrashBegin@Debug@@UAEAAV1@PBDHH@Z",
+          "source": "Code/Libraries/Source/WWVegas/WWDebug/Debug_CrashBegin.cpp"
+        }
+      ]
+    },
+    {
+      "slot": 28,
+      "rva": "0x3b5d0",
+      "owners": [
+        {
+          "name": "?isLogEnabled@Debug@@UAE_NI@Z",
+          "source": "Code/Libraries/Source/WWVegas/WWDebug/Debug_IsLogEnabled.cpp"
+        }
+      ]
+    },
+    {
+      "slot": 29,
+      "rva": "0x38cb0",
+      "owners": [
+        {
+          "name": "?get@Rva00038CB0ByteField@@QBEEXZ",
+          "source": "Code/GameEngine/Source/Common/DispByteFieldGetters.cpp"
+        }
+      ]
+    },
+    {
+      "slot": 30,
+      "rva": "0x38cc0",
+      "owners": [
+        {
+          "name": "?insert@Rva00889BF0Context@@QAEXIPAX0@Z",
+          "source": "Code/Libraries/Source/WWVegas/WWDebug/Rva00889BF0EntryInsert.cpp"
+        }
+      ]
+    },
+    {
+      "slot": 31,
+      "rva": "0x38d60",
+      "owners": [
+        {
+          "name": "?d_00889c90@Rva00889C90Class@@QAEXPAX0@Z",
+          "source": "Code/GameEngine/Source/Common/Bfme/Rva00889C90.cpp"
+        }
+      ]
+    },
+    {
+      "slot": 32,
+      "rva": "0x38df0",
+      "owners": [
+        {
+          "name": "?d_00889d20@Rva00889D20Class@@QAE_NPAX00@Z",
+          "source": "Code/GameEngine/Source/Common/Bfme/Rva00889D20.cpp"
+        }
+      ]
+    },
+    {
+      "slot": 33,
+      "rva": "0x38e40",
+      "owners": [
+        {
+          "name": "?d_00889d70@Rva00889D70Class@@QAE_NPAX0@Z",
+          "source": "Code/GameEngine/Source/Common/Bfme/Rva00889D70.cpp"
+        }
+      ]
+    },
+    {
+      "slot": 34,
+      "rva": "0x38ea0",
+      "owners": [
+        {
+          "name": "?d_00889dd0@Rva00889DD0Class@@QAEXH@Z",
+          "source": "Code/GameEngine/Source/Common/Bfme/Rva00889DD0.cpp"
+        }
+      ]
+    },
+    {
+      "slot": 35,
+      "rva": "0x3b640",
+      "owners": [
+        {
+          "name": "?Command@Debug@@UAE_NPBD@Z",
+          "source": "Code/Libraries/Source/WWVegas/WWDebug/Debug_Command.cpp"
+        }
+      ]
+    },
+    {
+      "slot": 36,
+      "rva": "0x3b670",
+      "owners": [
+        {
+          "name": "?ExecuteFrameCommands@Debug@@UAEXH@Z",
+          "source": "Code/Libraries/Source/debug/Debug_FrameCommands.cpp"
+        }
+      ]
+    },
+    {
+      "slot": 37,
+      "rva": "0x3b700",
+      "owners": [
+        {
+          "name": "?Update@Debug@@UAEXXZ",
+          "source": "Code/Libraries/Source/WWVegas/WWDebug/Debug_Update.cpp"
+        }
+      ]
+    },
+    {
+      "slot": 38,
+      "rva": "0x38ee0",
+      "owners": [
+        {
+          "name": "?GetInput@Debug@@UAEHPADHPA_N@Z",
+          "source": "Code/Libraries/Source/WWVegas/WWDebug/Debug_GetInput.cpp"
+        }
+      ]
+    },
+    {
+      "slot": 39,
+      "rva": "0x39510",
+      "owners": [
+        {
+          "name": "?SetBuildInfo@Debug@@UAEXPBD00@Z",
+          "source": "Code/Libraries/Source/WWVegas/WWDebug/DebugSetBuildInfo.cpp"
+        }
+      ]
+    },
+    {
+      "slot": 40,
+      "rva": "0x395a0",
+      "owners": [
+        {
+          "name": "?get@Rva000395A0LeaGetter@@QBEPAXXZ",
+          "source": "Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp"
+        }
+      ]
+    },
+    {
+      "slot": 41,
+      "rva": "0x395b0",
+      "owners": [
+        {
+          "name": "?get@Rva000395B0LeaGetter@@QBEPAXXZ",
+          "source": "Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp"
+        }
+      ]
+    },
+    {
+      "slot": 42,
+      "rva": "0x395c0",
+      "owners": [
+        {
+          "name": "?get@Rva000395C0LeaGetter@@QBEPAXXZ",
+          "source": "Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp"
+        }
+      ]
+    },
+    {
+      "slot": 43,
+      "rva": "0x397d0",
+      "owners": [
+        {
+          "name": "?bfmeProbeAAS@BfmeHostAAS@@QAE_NXZ",
+          "source": "Code/Libraries/Source/debug/debug_cmd.cpp"
+        }
+      ]
+    },
+    {
+      "slot": 44,
+      "rva": "0x39880",
+      "owners": [
+        {
+          "name": "?bfmeSetSign@Gen_0088A5D0@@QAEXE@Z",
+          "source": "Code/Libraries/Source/debug/debug_cmd.cpp"
+        }
+      ]
+    },
+    {
+      "slot": 45,
+      "rva": "0x390d0",
+      "owners": [
+        {
+          "name": "?AddLogGroup@Debug@@AAEPBDPBD0@Z",
+          "source": "Code/Libraries/Source/WWVegas/WWDebug/Debug_AddLogGroup.cpp"
+        }
+      ]
+    },
+    {
+      "slot": 46,
+      "rva": "0x39950",
+      "owners": [
+        {
+          "name": "??_GDebugCmdInterfaceDebug@@UAEPAXI@Z",
+          "source": "Code/Libraries/Source/debug/debug_cmd.cpp"
+        }
+      ]
+    },
+    {
+      "slot": 47,
+      "rva": "0x3e570",
+      "owners": [
+        {
+          "name": "?Execute@DebugCmdInterfaceDebug@@UAE_NAAVDebug@@PBDW4CommandMode@DebugCmdInterface@@IPBQBD@Z",
+          "source": "Code/Libraries/Source/WWVegas/WWDebug/DebugCmdInterfaceDebug_Execute.cpp"
+        }
+      ]
+    },
+    {
+      "slot": 48,
+      "rva": "0x386c0",
+      "owners": [
+        {
+          "name": "?Delete@DebugIOFlat@@UAEXXZ",
+          "source": "Code/Libraries/Source/WWVegas/WWDebug/debug_io_flat.cpp"
+        }
+      ]
+    }
+  ]
+}

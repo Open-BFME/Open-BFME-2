@@ -1,0 +1,48 @@
+ 0 00438C30 ??6Debug@@UAEAAV0@VHResult@0@@Z Code/Libraries/Source/debug/debug_debug.cpp
+ 1 004389C0 ??6Debug@@UAEAAV0@ABVMemDump@0@@Z Code/Libraries/Source/debug/debug_debug.cpp
+ 2 00438950 ??6Debug@@UAEAAV0@PBX@Z Code/Libraries/Source/debug/debug_debug.cpp
+ 3 0043B570 ??6Debug@@QAEAAV0@_K@Z Code/Libraries/Source/WWVegas/WWDebug/debug_operator_long.cpp
+ 4 0043B510 ??6Debug@@QAEAAV0@_J@Z Code/Libraries/Source/WWVegas/WWDebug/debug_operator_long.cpp
+ 5 0043B4C0 ??6Debug@@UAEAAV0@G@Z Code/GameEngine/Source/Common/BfmeThreeHundredOne.cpp
+ 6 0043B470 ??6Debug@@UAEAAV0@F@Z Code/GameEngine/Source/Common/BfmeThreeHundred.cpp
+ 7 00438900 ??6Debug@@UAEAAV0@N@Z Code/Libraries/Source/debug/debug_debug.cpp
+ 8 004388B0 ??6Debug@@UAEAAV0@M@Z Code/Libraries/Source/debug/debug_debug.cpp
+ 9 00438890 ??6Debug@@QAEAAV0@_N@Z Code/Libraries/Source/WWVegas/WWDebug/debug_operator_bool.cpp
+10 0043B420 ??6Debug@@UAEAAV0@I@Z Code/Libraries/Source/WWVegas/WWDebug/Debug_OperatorInteger.cpp
+11 0043B3D0 ??6Debug@@UAEAAV0@H@Z Code/Libraries/Source/WWVegas/WWDebug/Debug_OperatorInteger.cpp
+12 0043B420 ??6Debug@@UAEAAV0@I@Z Code/Libraries/Source/WWVegas/WWDebug/Debug_OperatorInteger.cpp
+13 0043B3D0 ??6Debug@@UAEAAV0@H@Z Code/Libraries/Source/WWVegas/WWDebug/Debug_OperatorInteger.cpp
+14 0043B340 ??6Debug@@UAEAAV0@PBD@Z Code/Libraries/Source/debug/debug_debug.cpp
+15 0043A620 ??6Debug@@UAEAAV0@ABVRepeatChar@0@@Z Code/Libraries/Source/WWVegas/WWDebug/Debug_OperatorRepeatChar.cpp
+16 00439920 ??_GDebug@@UAEPAXI@Z Code/Libraries/Source/WWVegas/WWDebug/DebugDestructorThunk.cpp
+17 0043A8A0 ?AssertDone@Debug@@UAE_NH@Z Code/Libraries/Source/WWVegas/WWDebug/Debug_AssertDone.cpp
+18 004387F0 ?d_00889720@Rva00889720Class@@QAE_NXZ Code/GameEngine/Source/Common/Bfme/Rva00889720.cpp
+19 0043AED0 ?CrashDone@Debug@@UAE_NH@Z Code/Libraries/Source/WWVegas/WWDebug/Debug_CrashDone.cpp
+20 00438850 ?d_00889780@Rva00889780Class@@QAEXPBDH@Z Code/GameEngine/Source/Common/Bfme/Rva00889780.cpp
+21 004395D0 ?WriteBuildInfo@Debug@@UAEXXZ Code/Libraries/Source/debug/debug_debug.cpp
+22 00438770 ?InstallExceptionHandler@Debug@@SAXXZ Code/Libraries/Source/debug/debug_debug.cpp
+23 0043A6A0 ?frameStatus@Debug@@UAE_NI_N@Z Code/Libraries/Source/WWVegas/WWDebug/Debug_FrameStatus.cpp
+24 004387D0 ?bfmeGoDWC@BfmeThingDWC@@QAE_NXZ Code/GameEngine/Source/Common/BfmeConv789.cpp
+25 0043A750 ?CheckBegin@Debug@@UAEAAV1@PBDHH0@Z Code/Libraries/Source/WWVegas/WWDebug/Debug_CheckBegin.cpp
+26 0043AC60 ?LogBegin@Debug@@UAEAAV1@PBD@Z Code/Libraries/Source/WWVegas/WWDebug/Debug_LogBegin.cpp
+27 0043AD80 ?CrashBegin@Debug@@UAEAAV1@PBDHH@Z Code/Libraries/Source/WWVegas/WWDebug/Debug_CrashBegin.cpp
+28 0043B5D0 ?isLogEnabled@Debug@@UAE_NI@Z Code/Libraries/Source/WWVegas/WWDebug/Debug_IsLogEnabled.cpp
+29 00438CB0 ?get@Rva00038CB0ByteField@@QBEEXZ Code/GameEngine/Source/Common/DispByteFieldGetters.cpp
+30 00438CC0 ?insert@Rva00889BF0Context@@QAEXIPAX0@Z Code/Libraries/Source/WWVegas/WWDebug/Rva00889BF0EntryInsert.cpp
+31 00438D60 ?d_00889c90@Rva00889C90Class@@QAEXPAX0@Z Code/GameEngine/Source/Common/Bfme/Rva00889C90.cpp
+32 00438DF0 ?d_00889d20@Rva00889D20Class@@QAE_NPAX00@Z Code/GameEngine/Source/Common/Bfme/Rva00889D20.cpp
+33 00438E40 ?d_00889d70@Rva00889D70Class@@QAE_NPAX0@Z Code/GameEngine/Source/Common/Bfme/Rva00889D70.cpp
+34 00438EA0 ?d_00889dd0@Rva00889DD0Class@@QAEXH@Z Code/GameEngine/Source/Common/Bfme/Rva00889DD0.cpp
+35 0043B640 ?Command@Debug@@UAE_NPBD@Z Code/Libraries/Source/WWVegas/WWDebug/Debug_Command.cpp
+36 0043B670 ?ExecuteFrameCommands@Debug@@UAEXH@Z Code/Libraries/Source/debug/Debug_FrameCommands.cpp
+37 0043B700 ?Update@Debug@@UAEXXZ Code/Libraries/Source/WWVegas/WWDebug/Debug_Update.cpp
+38 00438EE0 ?GetInput@Debug@@UAEHPADHPA_N@Z Code/Libraries/Source/WWVegas/WWDebug/Debug_GetInput.cpp
+39 00439510 ?SetBuildInfo@Debug@@UAEXPBD00@Z Code/Libraries/Source/WWVegas/WWDebug/DebugSetBuildInfo.cpp
+40 004395A0 ?get@Rva000395A0LeaGetter@@QBEPAXXZ Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp
+41 004395B0 ?get@Rva000395B0LeaGetter@@QBEPAXXZ Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp
+42 004395C0 ?get@Rva000395C0LeaGetter@@QBEPAXXZ Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp
+43 004397D0 ?bfmeProbeAAS@BfmeHostAAS@@QAE_NXZ Code/Libraries/Source/debug/debug_cmd.cpp
+44 00439880 ?bfmeSetSign@Gen_0088A5D0@@QAEXE@Z Code/Libraries/Source/debug/debug_cmd.cpp
+45 004390D0 ?AddLogGroup@Debug@@AAEPBDPBD0@Z Code/Libraries/Source/WWVegas/WWDebug/Debug_AddLogGroup.cpp
+46 00439950 ??_GDebugCmdInterfaceDebug@@UAEPAXI@Z Code/Libraries/Source/debug/debug_cmd.cpp
+47 0043E570 ?Execute@DebugCmdInterfaceDebug@@UAE_NAAVDebug@@PBDW4CommandMode@DebugCmdInterface@@IPBQBD@Z Code/Libraries/Source/WWVegas/WWDebug/DebugCmdInterfaceDebug_Execute.cpp

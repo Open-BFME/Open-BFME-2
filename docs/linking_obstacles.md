@@ -8096,9 +8096,17 @@ Remaining / next check (each needs a decision, a row or a shared change; none is
   (row 0x00614EF0). The unit also has six unresolved `__imp_` STL names.
 - `BridgeScaffoldBehavior.cpp`: the unresolved `UpdateModule::loadPostProcess` is gone on current
   inputs, but duplicate-definition blockers (ctor, `update`, `xfer`, interface getter) remain.
-- `??_7Debug@@6B@` (L in `DebugDestructorThunk.cpp`): retail has 37 slots with `??_GDebug` at slot 16;
-  the shared `reference/shims/debugvtable` emits 35. A shared Debug view must shift the later slots
-  (already recorded three times in `re_attempts.log`).
+- `??_7Debug@@6B@` (L in `DebugDestructorThunk.cpp`): **2026-11-01 correction:**
+  retail has46 slots, not the previously stated37; destructor remains at16.
+  Constructor38440 and dtor38710 installBBE810; distinct command-interface ctor38670
+  installs the next tableBBE8C8, proving the184-byte boundary. The shared shim
+  still emits35. Native bool/int64 stream slots9/4/3 retain nonvirtual row spellings;
+  `rename.py function --virtual` currently refuses operators before their evidence.
+  Correct overload selection is a tooling prerequisite; adding only a dtor slot
+  does not recover this interface. Original preview12902e9e1b retains ctor418 and
+  debug_debug2295 while dtor99 code bytes still fail. No source/pin/header changes
+  or clearance. See `reverse/attempt_support/debug-vtable-native-20261101/readme.md`;
+  the older37-slot handoffs are retained as superseded history.
 - `??_7GameWindow@@6B@` (L in `GameWindowDtor.cpp`): the 0x0080BBCC table is shared with
   `BfmeAptScreenBase`. This needs a class-view reconcile.
 - `VectorClass<Vector3>` deleting destructor (S in `vector_class_vector3_ctor.cpp`): see LINK-015.

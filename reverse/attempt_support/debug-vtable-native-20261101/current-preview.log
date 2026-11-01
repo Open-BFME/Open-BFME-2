@@ -1,0 +1,8 @@
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Code/Libraries/Source/WWVegas/WWDebug/DebugDestructorThunk.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-31 23:18 at 12902e9e1b; file's own bytes 99)
+  comdat      ??_7Debug@@6B@  (first: differs from the first copy in link order (no retail address))
+Code/Libraries/Source/WWVegas/WWDebug/DebugConstructor.cpp: LINKS  LINKED 418 -> 418 bytes (census 2026-10-31 23:18 at 12902e9e1b; file's own bytes 418)
+Code/Libraries/Source/debug/debug_debug.cpp: LINKS  LINKED 2,295 -> 2,295 bytes (census 2026-10-31 23:18 at 12902e9e1b; file's own bytes 2,295)
+link_check: 2 of 3 link cleanly; LINKED 2,713 -> 2,713 bytes (4.3s)
