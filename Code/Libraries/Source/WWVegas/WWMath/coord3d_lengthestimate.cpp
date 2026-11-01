@@ -17,12 +17,7 @@
 
 #include <math.h>
 
-struct Coord3DBase
-{
-    float x;
-    float y;
-    float z;
-};
+#include "../../../Include/Lib/Coord3DBase.h"
 
 #include "../../../Include/Lib/Coord3D.h"
 

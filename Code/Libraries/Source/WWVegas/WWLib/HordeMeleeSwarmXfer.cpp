@@ -41,12 +41,7 @@ class Snapshot;
 
 #include "../../../../GameEngine/Include/Common/XferVersion.h"
 
-struct Coord3DBase
-{
-	float x;
-	float y;
-	float z;
-};
+#include "../../../Include/Lib/Coord3DBase.h"
 
 template <class T>
 struct Rva00584A7DVector

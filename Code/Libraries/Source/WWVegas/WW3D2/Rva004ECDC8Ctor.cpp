@@ -9,13 +9,7 @@
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
-class Coord3DBase
-{
-public:
-	float x;
-	float y;
-	float z;
-};
+#include "../../../Include/Lib/Coord3DBase.h"
 
 class Rva004ECDC8
 {

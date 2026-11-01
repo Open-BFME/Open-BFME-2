@@ -11,12 +11,7 @@
 // transferred through the layer helper's returned Xfer (WB keeps it too).
 // Slot layout follows PathfinderPosGoalManager.cpp's Rva004DD843Slot.
 
-struct Coord3DBase
-{
-	float x;
-	float y;
-	float z;
-};
+#include "../../../../Libraries/Include/Lib/Coord3DBase.h"
 
 #include "../../../../Libraries/Include/Lib/ICoord3D.h"
 

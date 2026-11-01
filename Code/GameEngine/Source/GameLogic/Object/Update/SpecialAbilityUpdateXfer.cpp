@@ -97,12 +97,7 @@ typedef _STL::list<int> ListInt;
 
 Xfer *Rva0036ABAFXfer(Xfer *xfer, ListInt *list);
 
-struct Coord3DBase
-{
-	float x;
-	float y;
-	float z;
-};
+#include "../../../../../Libraries/Include/Lib/Coord3DBase.h"
 
 #include "../../../../Include/Common/ObjectModule.h"
 

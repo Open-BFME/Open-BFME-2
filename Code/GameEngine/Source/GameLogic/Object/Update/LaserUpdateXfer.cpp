@@ -49,13 +49,7 @@ public:
 void XferParticleSystemID(Xfer *xfer, int *value);
 void XferDrawableID(Xfer *xfer, int *value);
 
-class Coord3DBase
-{
-public:
-	float x;
-	float y;
-	float z;
-};
+#include "../../../../../Libraries/Include/Lib/Coord3DBase.h"
 
 class ObjectModule
 {

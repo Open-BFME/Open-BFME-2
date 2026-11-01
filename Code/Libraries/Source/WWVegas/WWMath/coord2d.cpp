@@ -15,12 +15,7 @@ struct Coord2DBase
     float y;
 };
 
-struct Coord3DBase
-{
-    float x;
-    float y;
-    float z;
-};
+#include "../../../Include/Lib/Coord3DBase.h"
 
 // Same two loads and two stores as the Coord2D bodies below, folded onto them.
 Coord2DBase &Coord2DBase::operator=(const Coord2DBase &that)

@@ -64,12 +64,7 @@ enum
 	MAX_PROJECTILE_STREAM = 20
 };
 
-struct Coord3DBase
-{
-	float m_x;
-	float m_y;
-	float m_z;
-};
+#include "../../../../../Libraries/Include/Lib/Coord3DBase.h"
 
 void __cdecl XferObjectID(Xfer *xfer, ObjectID *value);
 

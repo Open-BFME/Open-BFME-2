@@ -34,13 +34,7 @@ class DamageInfo;
 
 #include "../../../../GameEngine/Include/Common/BfmeXfer.h"
 
-class Coord3DBase
-{
-public:
-	float x;
-	float y;
-	float z;
-};
+#include "../../../Include/Lib/Coord3DBase.h"
 
 class Xfer::Version
 {

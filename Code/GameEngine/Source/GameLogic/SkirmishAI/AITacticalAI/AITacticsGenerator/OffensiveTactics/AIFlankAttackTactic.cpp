@@ -42,12 +42,7 @@ template <> void _Construct<Coord3D, Coord3D>(Coord3D *, const Coord3D &);
 #include "../../../../../Common/AIXferTypes.h"
 #include "../../../../../../Include/Common/BfmeXfer.h"
 
-struct Coord3DBase
-{
-	float x;
-	float y;
-	float z;
-};
+#include "../../../../../../../Libraries/Include/Lib/Coord3DBase.h"
 
 // The rowed push_back 0x002CE7DC: called, never emitted here with its overflow helper.
 namespace _STL { template<> void vector<Coord3D>::push_back(const Coord3D &); }

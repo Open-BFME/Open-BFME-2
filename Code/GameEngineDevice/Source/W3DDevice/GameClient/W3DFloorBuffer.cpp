@@ -144,12 +144,7 @@ struct RGBAColorInt;
 #define Rva006F7DA0Scale255 255.0f
 typedef unsigned char UnsignedByte;
 typedef bool Bool;
-struct Coord3DBase
-{
-	float x;
-	float y;
-	float z;
-};
+#include "../../../../Libraries/Include/Lib/Coord3DBase.h"
 #include "../../../../Libraries/Include/Lib/ICoord3D.h"
 #include "../../../../Libraries/Include/Lib/Region3D.h"
 struct IRegion3D
