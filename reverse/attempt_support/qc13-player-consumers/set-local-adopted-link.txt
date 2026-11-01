@@ -1,0 +1,4 @@
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Code/GameEngine/Source/Common/RTS/PlayerList_setLocalPlayer.cpp: does not link  LINKED 93 -> 0 bytes (census 2026-10-31 23:18 at 12902e9e1b; file's own bytes 93)
+  unresolved  ?rva006C0800@Rva006C0800@@QAEXW4PointModeEnum@PointGroupClass@@@Z
+link_check: 0 of 1 link cleanly; LINKED 93 -> 0 bytes (4.2s)

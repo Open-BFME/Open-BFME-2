@@ -1,0 +1,9 @@
+  PASS Code/GameEngine/Source/Common/GapBodiesGE26.cpp
+  PASS Code/GameEngine/Source/Common/RTS/PlayerList_playerLoops.cpp
+  PASS Code/GameEngine/Source/Common/System/UpgradeTemplateCalcCostToBuild.cpp
+  PASS Code/GameEngine/Source/GameLogic/Object/Behavior/AutoHealBehaviorPlayerScan.cpp
+  PASS Code/GameEngine/Source/GameLogic/Object/Create/GrantUpgradeCreate_onBuildComplete.cpp
+  PASS Code/GameEngine/Source/Common/Rva002FE13DHandler.cpp
+  PASS Code/GameEngine/Source/GameLogic/AI/AIClosestObjectQueries.cpp
+  PASS Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainAdd.cpp
+  PASS Code/GameEngine/Source/GameLogic/Object/DamageNugget_generateDamageInfo.cpp

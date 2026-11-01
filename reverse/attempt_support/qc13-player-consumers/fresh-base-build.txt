@@ -1,0 +1,12 @@
+Source claims: OK (10 sources, scoped byte-verified)
+Compile: 1 of 10 TU(s) (deps-cache: 9 current)
+Funclet pins: 24 row(s) verified past a renumbered $L label
+    uw_00787a9c (Code/GameEngine/Source/GameClient/MessageStream/PlaceEventTranslator.cpp): $L6669 was renumbered; verified parent EH data places $L6824 at 0x00787A9C
+    Unwind@00b79031 (Code/GameEngine/Source/GameLogic/AI/AIClosestObjectQueries.cpp): $L1556 was renumbered; verified parent EH data places $L1782 at 0x00779031
+    Unwind@00b78ff7 (Code/GameEngine/Source/GameLogic/AI/AIClosestObjectQueries.cpp): $L1452 was renumbered; verified parent EH data places $L1678 at 0x00778FF7
+    Unwind@00b78fff (Code/GameEngine/Source/GameLogic/AI/AIClosestObjectQueries.cpp): $L1453 was renumbered; verified parent EH data places $L1679 at 0x00778FFF
+    Unwind@00b79007 (Code/GameEngine/Source/GameLogic/AI/AIClosestObjectQueries.cpp): $L1454 was renumbered; verified parent EH data places $L1680 at 0x00779007
+Functions: OK 81/81 matched across 10 source file(s)
+String-ref verify: OK (4 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (12 compiler literals verified)
+Import-ref verify: OK (0 named imports verified)
