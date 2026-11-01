@@ -8,13 +8,7 @@ struct NoCaseTreeValue4
 {
 	unsigned char m_data[4];
 };
-class Rva000427195
-{
-public:
-	void rva00212858(unsigned int v);
-	int bucketIndex(const AsciiString *name);
-	void *createNode(const _STL::pair<const AsciiString, NoCaseTreeValue4> *src);
-};
+#include "../../Include/GameLogic/Rva000427195.h"
 class Rva002CFB4C
 {
 public:

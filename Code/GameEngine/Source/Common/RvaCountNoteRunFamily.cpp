@@ -58,12 +58,7 @@ public:
 	void run(int a, int b);
 };
 
-class Rva000427195
-{
-public:
-	void rva00212858(unsigned int value);
-	int bucketIndex(const class AsciiString *key);
-};
+#include "../../Include/GameLogic/Rva000427195.h"
 
 struct InsertRet003EF264;
 class Rva003EF264Sub

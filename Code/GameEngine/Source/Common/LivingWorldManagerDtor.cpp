@@ -95,11 +95,7 @@ class Rva000411084
 public:
 	void *next();
 };
-class Rva000427195
-{
-public:
-	void rva003A2A41();
-};
+#include "../../Include/GameLogic/Rva000427195.h"
 
 // vector<void *>::erase(first, last), rowed 0x0031BD55; called under this
 // existing pin spelling.

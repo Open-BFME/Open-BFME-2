@@ -13,16 +13,7 @@ struct BfmePod8
 	int a[2];
 };
 
-class Rva000427195
-{
-public:
-	void *rva003F797C(void *out, const AsciiString *key);
-	void *m_unused00;
-	void **m_beginBuckets;
-	void **m_endBuckets;
-	int m_pad0C;
-	int m_size;
-};
+#include "../../Include/GameLogic/Rva000427195.h"
 
 struct EvaBucketNode
 {

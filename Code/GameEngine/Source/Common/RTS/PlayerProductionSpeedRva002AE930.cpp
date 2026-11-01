@@ -35,12 +35,7 @@ struct VideoPair
         s.first = other.s.first;
     }
 };
-class Rva000427195
-{
-public:
-    int rva00223429(const AsciiString *name);
-    void rva003A37DC(VideoPair cursor);
-};
+#include "../../../Include/GameLogic/Rva000427195.h"
 class Player
 {
 public:

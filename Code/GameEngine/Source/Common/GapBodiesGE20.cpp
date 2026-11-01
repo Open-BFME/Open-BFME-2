@@ -743,12 +743,7 @@ struct InsertRet0041FA92
 	unsigned char found;
 };
 
-class Rva000427195
-{
-public:
-	InsertRet0041FA92 rva0041FC77(const void *value);		// 0x0041FC77
-	InsertRet0041FA92 rva0041FCD6(const void *value);
-};
+#include "../../Include/GameLogic/Rva000427195.h"
 
 InsertRet0041FA92 Rva000427195::rva0041FCD6(const void *value)
 {

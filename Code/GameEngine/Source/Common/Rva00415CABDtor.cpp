@@ -35,12 +35,7 @@ public:
     void *m_owner;
 };
 
-class Rva000427195
-{
-public:
-    void *first(Rva000411084 *iterator);
-    void rva003A2A41();
-};
+#include "../../Include/GameLogic/Rva000427195.h"
 
 class Rva00415366
 {

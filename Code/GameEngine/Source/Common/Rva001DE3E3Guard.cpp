@@ -5,11 +5,7 @@
 // then the 0x1DDCC5 copy. Returns this. (First callee was VA 0x7A2A41 in
 // draft; retail REL32 proves RVA 0x3A2A41, which already has a rowed name.)
 
-class Rva000427195
-{
-public:
-	void rva003A2A41();
-};
+#include "../../Include/GameLogic/Rva000427195.h"
 class Rva001DDCC5
 {
 public:

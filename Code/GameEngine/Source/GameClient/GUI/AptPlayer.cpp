@@ -477,7 +477,7 @@ bool AptPlayer::HideLevel(int index)
  return UnloadLevel(index);
 }
 
-class Rva000427195 { public: int rva00223429(const AsciiString *); };
+#include "../../../Include/GameLogic/Rva000427195.h"
 class Rva0022494F { public: void rva0022494F(); };
 // WB B94410 AptPlayer.cpp1118..1121 names RemoveLevel; native24B7D..24BC9.
 bool AptPlayer::RemoveLevel(int index)

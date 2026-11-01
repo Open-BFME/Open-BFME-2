@@ -119,12 +119,7 @@ struct Rva001FD42B
 	char m_pad[8];
 };
 
-struct Rva000427195
-{
-	void rva003A2A41();
-	~Rva000427195();
-	char m_pad[20];
-};
+#include "../../../Include/GameLogic/Rva000427195.h"
 
 // The +288/+2D0 and +294/+2A8 members are wrappers over these containers:
 // each wrapper's destructor is a retail 5-byte `jmp` to the container's

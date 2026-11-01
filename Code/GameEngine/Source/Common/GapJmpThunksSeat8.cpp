@@ -261,14 +261,7 @@ public:
 	void rva002BF7BE();
 };
 
-class Rva000427195
-{
-public:
-	int bucketIndex(const AsciiString *);
-	int rva00223429(const AsciiString *);
-	void rva00212858(unsigned int);
-	void rva003A2A41();
-};
+#include "../../Include/GameLogic/Rva000427195.h"
 
 class Rva002E15E6
 {

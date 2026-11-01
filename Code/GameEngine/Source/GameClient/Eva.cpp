@@ -719,7 +719,7 @@ void Rva001DEE92Member::rva001DEE92(int count) {
 // and unread field meanings remain neutral/carried from the existing view.
 // EHs preserves the retail state ending before free; all pre-existing Eva
 // bodies remain byte-exact under this matched-sibling setting.
-class Rva000427195 {public:void rva003A2A41();};
+#include "../../Include/GameLogic/Rva000427195.h"
 struct Rva001DDBF3Buckets
 {
 	void **begin, **end, **capacity;

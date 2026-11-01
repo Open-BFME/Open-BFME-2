@@ -60,10 +60,7 @@ struct NoCaseTreeValue4 {
     NoCaseTreeValue4() { *(void **)m_body = 0; }
 };
 typedef _STL::pair<const AsciiString, NoCaseTreeValue4> NocasePair;
-class Rva000427195 {
-public:
-    void *rva0020D638(const NocasePair &src);
-};
+#include "../../../Include/GameLogic/Rva000427195.h"
 class Rva00056F61;
 struct Rva0041534BIter {
     void *m_node;

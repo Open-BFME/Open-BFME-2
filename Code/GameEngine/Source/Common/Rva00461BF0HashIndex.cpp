@@ -103,11 +103,7 @@ typedef _STL::hash_map<AsciiString, Rva0045EF90Object,
 // These declarations retain the providers' pointer/iterator ABI. They do
 // not identify the opaque native insert payload with the donor value type.
 struct TreeHintPayload00410E23 { unsigned char m_body[4]; };
-class Rva000427195 {
-public:
- _STL::pair<const AsciiString, TreeHintPayload00410E23> *rva00410E23(
-  const _STL::pair<const AsciiString, TreeHintPayload00410E23> *);
-};
+#include "../../Include/GameLogic/Rva000427195.h"
 class Rva00056F61;
 struct Rva0041534BIter { void *m_node; Rva00056F61 *m_table; };
 class Rva00056F61 {

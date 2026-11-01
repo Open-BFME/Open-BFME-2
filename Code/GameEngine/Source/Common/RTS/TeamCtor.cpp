@@ -42,11 +42,7 @@ private:
 	char m_table[0x14];
 };
 
-class Rva000427195
-{
-public:
-	void rva003A2A41();
-};
+#include "../../../Include/GameLogic/Rva000427195.h"
 
 class TeamRelationMap
 {

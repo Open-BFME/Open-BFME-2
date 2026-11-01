@@ -50,7 +50,7 @@ void Rva0041097B::rva0041097B(void *p)
 // Native pair cleanup4104C9 independently proves the AsciiString at node+4.
 // This view asserts the observed table/iterator ABI, no original owner name.
 class AsciiString;
-class Rva000427195 { public: int bucketIndex(const AsciiString *name); };
+#include "../../Include/GameLogic/Rva000427195.h"
 void Rva0041097B::rva00410AC7Erase(const void *iterator)
 {
  Rva0041097BNode *n = *(Rva0041097BNode *const *)iterator;

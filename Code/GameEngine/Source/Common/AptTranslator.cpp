@@ -379,12 +379,7 @@ struct InsertRet0041FA92
 	unsigned char found;
 };
 
-class Rva000427195
-{
-public:
-	InsertRet0041FA92 rva0041FC77(const void *value);		// 0x0041FC77
-	InsertRet0041FA92 rva0041FCD6(const void *value);
-};
+#include "../../Include/GameLogic/Rva000427195.h"
 
 // --- 0x00421392 (16B): look the name up in the +0x0C module vector through
 // the rowed 0x00421263 (that row's notes name this wrapper's shape).

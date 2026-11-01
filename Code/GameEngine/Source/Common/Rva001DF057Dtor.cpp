@@ -75,7 +75,7 @@ struct Rva001DEF38Element
     unsigned char m_storage[48];
 };
 
-class Rva000427195 {public:void rva003A2A41();};
+#include "../../Include/GameLogic/Rva000427195.h"
 struct Rva001DDBF3Buckets
 {
 	void **begin, **end, **capacity;

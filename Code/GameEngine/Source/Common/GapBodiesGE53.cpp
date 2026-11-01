@@ -12,11 +12,7 @@ class INI;
 
 // --- 0x001FE300 (18B): copy construction through the rowed assignment
 // Rva000427195::operator= 0x001FDEBC.
-struct Rva000427195
-{
-	Rva000427195(const Rva000427195 &that);
-	Rva000427195 &operator=(const Rva000427195 &that);
-};
+#include "../../Include/GameLogic/Rva000427195.h"
 
 Rva000427195::Rva000427195(const Rva000427195 &that)
 {

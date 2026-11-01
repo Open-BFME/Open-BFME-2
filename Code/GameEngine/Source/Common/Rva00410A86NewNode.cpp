@@ -38,11 +38,7 @@ struct HashNode
 	NewNodePair m_val;
 };
 
-class Rva000427195
-{
-public:
-	void *rva00410A86(const void *src);
-};
+#include "../../Include/GameLogic/Rva000427195.h"
 
 void *Rva000427195::rva00410A86(const void *src)
 {

@@ -43,11 +43,7 @@ void *__stdcall Rva00410997NewNode(const void *src)
 	return node;
 }
 
-class Rva000427195
-{
-public:
-	void *rva00410997(const void *src);
-};
+#include "../../Include/GameLogic/Rva000427195.h"
 
 // ICF-folded twin of Rva00410997NewNode above (same 37 bytes at 0x00410997):
 // the member spelling ignores its receiver, so its stack frame matches the

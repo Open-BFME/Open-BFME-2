@@ -98,15 +98,7 @@ public:
 };
 
 // Existing row 0x00223429: erase by pointer to the four-byte AsciiString.
-class Rva000427195
-{
-public:
-    int rva00223429(const AsciiString *key);
-    void rva003A2A41();
-    void *m_unused;
-    void **m_beginBuckets, **m_endBuckets, **m_storageEnd;
-    unsigned int m_numElements;
-};
+#include "../../../Include/GameLogic/Rva000427195.h"
 
 class ThingFactory : public SubsystemInterface
 {

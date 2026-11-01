@@ -421,11 +421,7 @@ class AsciiString;
 
 extern const char *TheVeterancyNames[];
 
-class Rva000427195
-{
-public:
-	~Rva000427195();
-};
+#include "../../../Include/GameLogic/Rva000427195.h"
 
 class Rva001FE065
 {

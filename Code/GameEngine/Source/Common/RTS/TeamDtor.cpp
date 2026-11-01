@@ -62,10 +62,7 @@ private:
 	char m_04[0x2C - 4];
 };
 
-struct Rva000427195
-{
-	void rva003A2A41();
-};
+#include "../../../Include/GameLogic/Rva000427195.h"
 
 // ??1Rva003A393A@@QAE@XZ @0x003A2EBD 57B: the dtor of Team's +0x48 table,
 // whose ctor is 0x003A393A (Team::Team constructs the member through it and

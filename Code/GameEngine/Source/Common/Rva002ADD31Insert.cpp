@@ -3,13 +3,7 @@
 // Evidence: hashtable insert same 68B shape as sibling 0x002CFB4C via pin resize 0x00212858 plus rowed bucketIndex 0x00223149 plus thiscall NewNode 0x002ACFD6; buckets at +4 count at +0x10 return node+4; caller 0x002AE4C5
 #include "ascii_string.h"
 
-class Rva000427195
-{
-public:
-	void rva00212858(unsigned int v);
-	int bucketIndex(const AsciiString *name);
-	void *rva002ACFD6(const void *src);
-};
+#include "../../Include/GameLogic/Rva000427195.h"
 
 class Rva002ADD31
 {

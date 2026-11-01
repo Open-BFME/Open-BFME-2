@@ -1463,29 +1463,7 @@ struct VideoPair
  VideoPair(const VideoPair &other) { s.first = other.s.first; s.second = other.s.second; }
 };
 
-class Rva000427195
-{
-public:
-	void rva003A2A41();
-public:
-	void *m_unused00;
-public:
-	void **m_beginBuckets;
-public:
-	void **m_endBuckets;
-public:
-	void **m_storageEnd;
-public:
-	unsigned int m_numElements;
-public:
-	void rva00212858(unsigned int n);
-public:
-	int bucketIndex(const AsciiString *name);
-public:
-	void *rva003A2F08(const TreeHintPair003A2F08 &x);
-public:
-	void rva003A37DC(VideoPair cursor);
-};
+#include "../../../Include/GameLogic/Rva000427195.h"
 
 BFME_DISP32_BYTE_GETTER(Rva0039D48EByteField, 0x31E)
 

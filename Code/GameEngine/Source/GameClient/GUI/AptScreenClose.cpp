@@ -195,7 +195,7 @@ public:
  ~AptRef(){if(m_ptr)ReleaseTreeHintRef00217D4C(m_ptr);}
  TargetRef00217D4C *m_ptr;
 };
-class Rva000427195 {public:void *rva0041112B(const AsciiString *);};
+#include "../../../Include/GameLogic/Rva000427195.h"
 void _bfme_setAptScreenRef(const AsciiString &name,AptRef<AptScreenInitGadgets> incoming) {
  TreeHintRef00217D4C *slot=(TreeHintRef00217D4C *)
   ((Rva000427195 *)&g_aptScreenReferences)->rva0041112B(&name);

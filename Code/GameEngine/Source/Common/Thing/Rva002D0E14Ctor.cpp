@@ -55,11 +55,7 @@ private:
 	ArmorHt002D0C71 m_ht;
 };
 
-class Rva000427195
-{
-public:
-	void rva00212858(unsigned int n);
-};
+#include "../../../Include/GameLogic/Rva000427195.h"
 
 #include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 

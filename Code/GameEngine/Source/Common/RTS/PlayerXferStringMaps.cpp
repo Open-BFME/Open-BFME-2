@@ -102,14 +102,7 @@ __declspec(noinline) unsigned int __stdcall Rva00055041AsciiHash(const AsciiStri
 	const char *chars = data != 0 ? (const char *)data + 8 : "";
 	return _STL::__stl_hash_string(chars);
 }
-class Rva000427195
-{
-public:
-	__declspec(noinline) int bucketIndex(const AsciiString *name);	// 0x00223149
-	void *m_unused00;
-	void **m_beginBuckets;
-	void **m_endBuckets;
-};
+#include "../../../Include/GameLogic/Rva000427195.h"
 int Rva000427195::bucketIndex(const AsciiString *name)
 {
 	unsigned hash = Rva00055041AsciiHash(name);

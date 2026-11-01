@@ -34,11 +34,7 @@ namespace AptUtils
 	int __cdecl LevelIndexFromTarget(const char *path);
 }
 
-class Rva000427195
-{
-public:
-	void *rva004112A0(const AsciiString *key);
-};
+#include "../../Include/GameLogic/Rva000427195.h"
 // g_00E02FF8 is loader-zeroed BSS (RVA 0xA02FF8 is zero-filled PE data);
 // it holds the Rva000427195 table pointer once runtime initializes it.
 unsigned int g_00E02FF8;

@@ -13,11 +13,7 @@ struct AudioCacheCursor {
 	AudioCacheCursor(const AudioCacheCursor &audioCacheCursor) { s.first = audioCacheCursor.s.first; s.second = audioCacheCursor.s.second; }
 };
 
-class Rva000427195
-{
-public:
-	AudioCacheCursor rva00427195();
-};
+#include "../../Include/GameLogic/Rva000427195.h"
 
 class Rva00206D91
 {

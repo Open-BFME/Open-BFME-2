@@ -7,12 +7,7 @@
 #include <memory>
 #include "Common/Rva00418A12StringHash.h"
 
-class Rva000427195
-{
-public:
-    void rva00212858(unsigned value);
-    int bucketIndex(const AsciiString *name);
-};
+#include "../../Include/GameLogic/Rva000427195.h"
 
 Rva0041890FRecord::Rva0041890FRecord(const Rva0041890FRecord &other)
     : key(other.key), value(other.value)

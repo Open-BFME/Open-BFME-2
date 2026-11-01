@@ -19,11 +19,7 @@ void *__stdcall Rva0020D613Alloc(const NocasePair &src)
 	return p;
 }
 
-class Rva000427195
-{
-public:
-	void *rva0020D613(const NocasePair &src);
-};
+#include "../../Include/GameLogic/Rva000427195.h"
 
 // ICF-folded twin of Rva0020D613Alloc above (same 37 bytes at 0x0020D613):
 // the member spelling ignores its receiver, so its stack frame matches the

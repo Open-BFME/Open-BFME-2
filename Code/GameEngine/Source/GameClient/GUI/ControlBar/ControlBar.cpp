@@ -1150,31 +1150,7 @@ public:
 };
 extern GameInfo *TheGameInfo;
 
-class Rva000427195
-{
-public:
-	void rva00212858(unsigned int n);
-public:
-	int bucketIndex(const AsciiString *name);
-public:
-	void *rva0031C7D6(const Bef1Pair &x);
-public:
-	void **rva0031DB83(const AsciiString &name);
-public:
-	void *m_unused00;
-public:
-	void **m_beginBuckets;
-public:
-	void **m_endBuckets;
-public:
-	void **m_storageEnd;
-public:
-	unsigned int m_numElements;
-public:
-	void *first(Rva000411084 *iter);
-public:
-	void rva003A37DC(VideoPair p);
-};
+#include "../../../../Include/GameLogic/Rva000427195.h"
 
 // The canonical ScriptEngine keeps +0x10..+0x1A4E0 opaque; this unit reads
 // the int at +0x1A104 through its own view.

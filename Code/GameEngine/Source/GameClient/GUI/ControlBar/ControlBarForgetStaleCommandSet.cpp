@@ -48,31 +48,7 @@ struct NoCaseTreeValue4;
 typedef _STL::pair<const AsciiString, NoCaseTreeValue4> Bef1Pair;
 struct VideoPair;
 class Rva000411084;
-class Rva000427195
-{
-public:
-	void rva00212858(unsigned int n);
-public:
-	int bucketIndex(const AsciiString *name);
-public:
-	void *rva0031C7D6(const Bef1Pair &x);
-public:
-	void **rva0031DB83(const AsciiString &name);
-public:
-	void *m_unused00;
-public:
-	void **m_beginBuckets;
-public:
-	void **m_endBuckets;
-public:
-	void **m_storageEnd;
-public:
-	unsigned int m_numElements;
-public:
-	void *first(Rva000411084 *iter);
-public:
-	void rva003A37DC(VideoPair p);
-};
+#include "../../../../Include/GameLogic/Rva000427195.h"
 struct StaleCommandSetView { char opaque00[0x0C]; int stale; };
 struct CommandSetNodeView { void *next; AsciiString key; StaleCommandSetView *value; };
 typedef bool Bool;

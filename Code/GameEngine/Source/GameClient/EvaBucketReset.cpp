@@ -6,16 +6,7 @@
 // same flags; caller 0x0020EB4E passes its arg as this; landing unblocks it.
 #include "ascii_string.h"
 
-class Rva000427195
-{
-public:
-	void rva003A2A41();
-	void *m_unused00;
-	void **m_beginBuckets;
-	void **m_endBuckets;
-	void **m_storageEnd;
-	unsigned int m_numElements;
-};
+#include "../../Include/GameLogic/Rva000427195.h"
 
 class Rva003F7954
 {
