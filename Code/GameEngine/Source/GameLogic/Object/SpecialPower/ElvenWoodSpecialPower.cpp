@@ -280,7 +280,6 @@ typedef int Int;
 #pragma intrinsic(_ReadWriteBarrier)
 #pragma comment(linker, "/alternatename:_kF7C=?g_objectSpacingDefault@@3MA")
 #pragma comment(linker, "/alternatename:?g_cloudBreakRadiusDefault@@3MA=?g_Va00BC2428@@3MA")
-
 //
 // WeaponChangeSpecialPowerModule::doSpecialPower, retail 0x004C40BA, 413 bytes:
 // slot 10 of the +0x10 special-power interface vftable 0x00C5D150, so `this`
@@ -297,23 +296,61 @@ class BfmeObject872Header
 public:
 	__declspec(nothrow) BfmeObject872Header(const BfmeObject872Header &);
 };
-
 class Rva0028D891Owner
 {
 public:
 	bool testBit(int bit) const;
 };
-
-//
-// ScavengerSpecialPower::doSpecialPower, retail 0x004C4401, 47 bytes: slot
-// 10 of the class's +0x10 special-power interface vftable 0x00C5D2A0 (slots
-// 11/12 there are the SpecialPowerModule bases), so `this` is that subobject
-// (module data at -0x0C, Object at -0x08). Stores the module data's +0x7C
-// float into the controlling Player's +0x314 (Player::rva002A9E25,
-// 0x002A9E25), runs the SpecialPowerModule base doSpecialPower 0x0049490F,
-// then raises the byte at +0x34.
-
 #include "../../../../Include/Common/Player.h"
+#include <memory>
+#include <list>
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class LeftTraits, class RightTraits>
+static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
+                              const _List_iterator<T, RightTraits>& b)
+{ return a._M_node != b._M_node; }
+}
+struct NoCaseTreeValue4
+{
+	char m_body[4];
+};
+enum ScienceType
+{
+	SCIENCE_INVALID = -1
+};
+typedef _STL::pair<const AsciiString, NoCaseTreeValue4> ConstructProbePair;
+typedef _STL::vector<unsigned int> ConstructProbeVec;
+typedef _STL::pair<const int, _STL::vector<unsigned int> > ConstructProbePairIV;
+typedef _STL::vector<ScienceType> ConstructProbeSciVec;
+typedef _STL::list<Coord3D> ConstructProbeCoordList;
+typedef _STL::pair<const AsciiString, char> ConstructProbePairC;
+// These helpers delegate to complete copy constructors already rowed in
+// their provider units. Declaration-only specializations suppress incorrect
+// local copies and their allocator/container machinery, preserving the
+// actual out-of-line placement-copy calls.
+namespace _STL {
+template <> ConstructProbeVec::vector(const ConstructProbeVec &);
+template <> ConstructProbePair::pair(const ConstructProbePair &);
+template <> ConstructProbePairIV::pair(const ConstructProbePairIV &);
+template <> ConstructProbeSciVec::vector(const ConstructProbeSciVec &);
+template <> ConstructProbeCoordList::list(const ConstructProbeCoordList &);
+template <> ConstructProbePairC::pair(const ConstructProbePairC &);
+}
+// Native 0x396170 is called through the eight-byte element view used by
+// vector::push_back at 0x39A48E and both uninitialized workers. Its complete
+// construction delegates to the existing pair copy at 0x466EA7. Preserve
+// that witnessed storage operation without asserting an application identity.
+struct Rva0039A48EElement { int a[2]; };
+namespace _STL {
+}
+template void _STL::_Construct<ConstructProbeVec, ConstructProbeVec>(ConstructProbeVec *, const ConstructProbeVec &);
+template void _STL::_Construct<ConstructProbePair, ConstructProbePair>(ConstructProbePair *, const ConstructProbePair &);
+template void _STL::_Construct<ConstructProbePairIV, ConstructProbePairIV>(ConstructProbePairIV *, const ConstructProbePairIV &);
+template void _STL::_Construct<ConstructProbeSciVec, ConstructProbeSciVec>(ConstructProbeSciVec *, const ConstructProbeSciVec &);
+template void _STL::_Construct<ConstructProbeCoordList, ConstructProbeCoordList>(ConstructProbeCoordList *, const ConstructProbeCoordList &);
+template void _STL::_Construct<ConstructProbePairC, ConstructProbePairC>(ConstructProbePairC *, const ConstructProbePairC &);
+#include "../../../../Include/Common/Rva0007DF07.h"
 
  extern class ThingFactory *TheThingFactory;
 
@@ -813,6 +850,27 @@ private:
     TreeHintRef00217D4C *m_begin;
     TreeHintRef00217D4C *m_end;
 };
+
+class Rva0023FD06 : public Rva0007DF07
+{
+public:
+	Rva0023FD06(const ConstructProbePair &value);
+	virtual ~Rva0023FD06();
+	virtual int rva0023FCD3(float a, int b);
+private:
+	ConstructProbePair m_value;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp
+
+//
+// ScavengerSpecialPower::doSpecialPower, retail 0x004C4401, 47 bytes: slot
+// 10 of the class's +0x10 special-power interface vftable 0x00C5D2A0 (slots
+// 11/12 there are the SpecialPowerModule bases), so `this` is that subobject
+// (module data at -0x0C, Object at -0x08). Stores the module data's +0x7C
+// float into the controlling Player's +0x314 (Player::rva002A9E25,
+// 0x002A9E25), runs the SpecialPowerModule base doSpecialPower 0x0049490F,
+// then raises the byte at +0x34.
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp
 
@@ -1555,32 +1613,6 @@ void TaintSpecialPower::rva004C49AE( const Coord3D *loc )
 		TheTaintManager->bfmeApplyCircleWorld( (const BfmePointFC *)loc, radius, 0, true, taint->m_id );
 }
 
-// tu-skeleton: 0x004C38FF 6B ?Rva004C38FFGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x004C3905 25B ??1Rva004C3905@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
-
-// tu-skeleton: 0x004C3963 28B ??_GRva004C3905@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
-
-// tu-skeleton: 0x004C3A9F 45B ?Rva004C3A9FConstruct@@YAXPAXPBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp (not merged yet)
-
-// tu-skeleton: 0x004C3ACC 38B ??$__uninitialized_copy@PAUBfmePod8@@PAU1@@_STL@@YAPAUBfmePod8@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod8_resize_byvalue.cpp (not merged yet)
-
-// tu-skeleton: 0x004C3AF2 37B ??$__uninitialized_fill_n@PAURva004C3AF2Element@@IU1@@_STL@@YAPAURva004C3AF2Element@@PAU1@IABU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW6Rva004C3AF2.cpp (not merged yet)
-
-// tu-skeleton: 0x004C3C36 201B ?rva004C3C36@ElvenWoodSpecialPower@@QAEXPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPowerChoice.cpp (not merged yet)
-
-// tu-skeleton: 0x004C3D4C 63B ??1?$vector@URvaPair004C3D4C@@V?$allocator@URvaPair004C3D4C@@@_STL@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x004C3D8B 30B ?_M_clear@?$vector@UBfmeStringRecord00426A5B@@V?$allocator@UBfmeStringRecord00426A5B@@@_STL@@@_STL@@IAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_stringrecord_426a5b_allocate_copy.cpp (not merged yet)
-
-// tu-skeleton: 0x004C3DF4 178B ?_M_insert_overflow@?$vector@URva004C3F09Element@@V?$allocator@URva004C3F09Element@@@_STL@@@_STL@@IAEXPAURva004C3F09Element@@ABU3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorInsertOverflowFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x004C3EA6 28B ??_GElvenWoodSpecialPowerModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDeletingDtors.cpp (not merged yet)
-
-// tu-skeleton: 0x004C3EC2 71B ??1ElvenWoodSpecialPowerModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPowerModuleDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004C3F09 55B ?push_back@?$vector@URva004C3F09Element@@V?$allocator@URva004C3F09Element@@@_STL@@@_STL@@QAEXABURva004C3F09Element@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorPushBackFamily.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/StlportVectorClearFamily.cpp
 
 //
@@ -1603,6 +1635,57 @@ void Rva004C3F40::rva004C3F40(const Rva004C3F09Element &element)
 {
 	m_7C.push_back(element);
 }
+
+// tu-skeleton: 0x004C38FF 6B ?Rva004C38FFGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x004C3905 25B ??1Rva004C3905@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
+
+// tu-skeleton: 0x004C3963 28B ??_GRva004C3905@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp
+
+//
+// STLport placement-copy helpers and distinct native copy owners, same-shape
+// siblings of the rowed _Construct<AsciiString> at 0x0002C485 (45 bytes; see
+// stlport_construct_asciistring.cpp). Each body is the null-guarded
+// placement-new copy over a single element: the copy delegates out-of-line
+// to T's own rowed copy ctor, and __EH_prolog resolves via its matched row.
+// Unlike the opaque-struct batches, these T's come from the real STLport
+// headers (<vector>, and _STL::pair over a minimal AsciiString declaration):
+// declaration-only copy specializations below keep the calls out-of-line
+// and resolve through the complete provider rows.
+
+// ??0Rva0023FD06@@QAE@ABU?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@Z,
+// retail 0x0023FC98..0x0023FCD3 (59 bytes, EH, RET 4): a counted holder of one
+// such pair. The counted base (count at +0x04 cleared; EH state 0 once built)
+// comes first, then the vtable 0x00BEDC94 and the pair copied into +0x08
+// through its rowed out-of-line copy constructor 0x00466EA7.
+// Vtable 0x00BEDC94 is Rva0023FD06Dtor.cpp's class: its slot 0 is the rowed
+// scalar deleting dtor 0x0023FCEA (calling the rowed dtor 0x0023FD06) and its
+// slot 1 the rowed 0x0023FCD3. Use that name so the dtor binds to its row.
+
+void Rva004C3A9FConstruct(void *dest, const void *source)
+{
+    ::new (dest) ConstructProbePair(*static_cast<const ConstructProbePair *>(source));
+}
+
+// tu-skeleton: 0x004C3ACC 38B ??$__uninitialized_copy@PAUBfmePod8@@PAU1@@_STL@@YAPAUBfmePod8@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod8_resize_byvalue.cpp (not merged yet)
+
+// tu-skeleton: 0x004C3AF2 37B ??$__uninitialized_fill_n@PAURva004C3AF2Element@@IU1@@_STL@@YAPAURva004C3AF2Element@@PAU1@IABU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW6Rva004C3AF2.cpp (not merged yet)
+
+// tu-skeleton: 0x004C3C36 201B ?rva004C3C36@ElvenWoodSpecialPower@@QAEXPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPowerChoice.cpp (not merged yet)
+
+// tu-skeleton: 0x004C3D4C 63B ??1?$vector@URvaPair004C3D4C@@V?$allocator@URvaPair004C3D4C@@@_STL@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x004C3D8B 30B ?_M_clear@?$vector@UBfmeStringRecord00426A5B@@V?$allocator@UBfmeStringRecord00426A5B@@@_STL@@@_STL@@IAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_stringrecord_426a5b_allocate_copy.cpp (not merged yet)
+
+// tu-skeleton: 0x004C3DF4 178B ?_M_insert_overflow@?$vector@URva004C3F09Element@@V?$allocator@URva004C3F09Element@@@_STL@@@_STL@@IAEXPAURva004C3F09Element@@ABU3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorInsertOverflowFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x004C3EA6 28B ??_GElvenWoodSpecialPowerModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDeletingDtors.cpp (not merged yet)
+
+// tu-skeleton: 0x004C3EC2 71B ??1ElvenWoodSpecialPowerModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPowerModuleDataDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004C3F09 55B ?push_back@?$vector@URva004C3F09Element@@V?$allocator@URva004C3F09Element@@@_STL@@@_STL@@QAEXABURva004C3F09Element@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorPushBackFamily.cpp (not merged yet)
 
 // tu-skeleton: 0x004C3FC2 27B ?buildFieldParse@ElvenWoodSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDataBuildFieldParse.cpp (not merged yet)
 
@@ -1669,10 +1752,6 @@ void Rva004C3F40::rva004C3F40(const Rva004C3F09Element &element)
 // tu-skeleton: 0x004C4DE9 25B ??1Rva004C4DE9@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
 
 // tu-skeleton: 0x004C4E47 28B ??_GRva004C4DE9@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
-
-// tu-skeleton: 0x0078FF54 14B $L6620 -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp (not merged yet)
-
-// tu-skeleton: 0x0078FF62 10B __ehhandler$?Rva004C3A9FConstruct@@YAXPAXPBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp (not merged yet)
 
 // tu-skeleton: 0x0078FF6C 8B $L5255 -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPowerChoice.cpp (not merged yet)
 
