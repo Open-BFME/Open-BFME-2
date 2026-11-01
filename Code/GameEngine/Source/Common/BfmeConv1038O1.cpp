@@ -107,15 +107,6 @@ struct Rva007EB810Diag
 Rva007EB810Diag *Rva007EB810Get(void);
 extern char g_bfmeMsg1038[];
 
-class BfmeD1038
-{
-public:
-	void bfmeGo1038D(void);
-
-	char m_bfmePad[4];
-	void *m_bfmeHandle;
-};
-
 class BfmeY1038
 {
 public:

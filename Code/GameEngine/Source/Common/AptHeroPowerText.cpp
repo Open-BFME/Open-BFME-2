@@ -423,7 +423,6 @@ void Rva0057E3DB::rva0057C7BA(int type)
 // rowed invoke on the owner the rowed Rva00222547Get resolves for this
 // window. The number buffer reuses the index parameter's slot, as in retail.
 class GameWindow;
-class AptPlayer { public: static int GetLevelIndex(GameWindow *window); };
 extern const char *g_00C3D700[];
 
 class AptSpellStore

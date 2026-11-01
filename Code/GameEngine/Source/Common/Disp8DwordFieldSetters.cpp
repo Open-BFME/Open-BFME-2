@@ -37,13 +37,6 @@ BFME_DISP8_DWORD_SETTER(Rva0065ECC0DwordSlot, 0x50)
 // destructor proves the virtual base and its adjustment word; field purpose
 // and historical method names remain unknown. A shared view keeps the
 // independently demonstrated getter/setter pairing in one source.
-class Rva00299CA8DwordSlot
-{
-public:
-    void set(int value);
-    int get() const;
-};
-
 // BF1 9cb WWDownload/CDownloadDownloadFile.cpp RestartFrom supplies the
 // store-and-zero-return expression only. Complete native6C9630..6C963C
 // lies between INT3 padding: raw32 argument to receiver2C then EAX0 RET4.

@@ -96,12 +96,6 @@ extern AudioManager *TheAudio;
 // Retail global at 0x012F0898 is GameLogic *TheGameLogic (defined once in
 // game_logic.cpp). This TU calls through a local view type, so keep the view
 // and cast at the use; the global itself uses the canonical spelling.
-class BfmeGlob939D
-{
-public:
-	char bfmeCall939D();
-};
-
 class GameLogic;
 extern GameLogic *TheGameLogic;
 

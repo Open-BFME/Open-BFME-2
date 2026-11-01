@@ -33,8 +33,3 @@ public:
 	void bfmePopVJU();
 };
 
-class BfmeThingVJU
-{
-public:
-	void bfmeGoVJU(BfmeStackVJU *s, int v, void *p);
-};

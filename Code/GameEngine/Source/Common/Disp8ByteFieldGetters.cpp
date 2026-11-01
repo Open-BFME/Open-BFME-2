@@ -152,14 +152,6 @@ struct Rva0056AB88Fields { char pad[0xC]; unsigned int wordC; bool matches(unsig
 bool Rva0056AB88Fields::matches(unsigned int value) const { return wordC==value; }
 // Disp8 byte setter: mov al,[esp+4] / mov [ecx+<DISP>],al / ret 4 (10 bytes).
 // Address-derived class; the stored byte's meaning is unproven.
-class Rva0065D7C0ByteSetter
-{
-public:
-	void set(unsigned char value);
-	char m_lead[0x1D];
-	unsigned char m_value;
-};
-
 // ?rva002259F3@Rva002259F3@@QBEHXZ, retail 0x002259F3 (25B): three flag bytes at
 // +0x44 (must be set), +0xA8 and +0x9D (must be clear).
 class Rva002259F3

@@ -5,10 +5,6 @@
 #include "../../../Libraries/Include/Lib/BfmeE16.h"
 // bfme link decl-only BfmeE16
 namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
-class BFME2NativeNetwork
-{
-public:
-};
 #include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
 // Retain the bfmealloc primary bodies inline without competing external copies.
 namespace _STL {
@@ -27,12 +23,6 @@ class Rva004DC9EDEntry
 public:
 	~Rva004DC9EDEntry();
 };
-class AsciiStringMember
-{
-public:
-	~AsciiStringMember();
-};
-
 class EmotionSystem : public SubsystemInterface
 {
 public:

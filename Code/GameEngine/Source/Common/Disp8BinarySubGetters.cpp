@@ -22,18 +22,6 @@ BFME_DISP8_BINARY_SUB_GETTER(Rva0049CB5FBinarySubField, 0x20, 0x24)
 BFME_DISP8_BINARY_SUB_GETTER(Rva002C9504BinarySubField, 0x18, 0x28)
 // 0x00306C42 is slot 1 of the table 0x00BEDAA8 that the constructor 0x0023DB34
 // installs (RvaSmallVtableCtors.cpp): cursor +8 minus base +4.
-class Rva0023DB34
-{
-public:
-	virtual int slot00(void *p, int n);
-	virtual int slot04();
-	virtual bool slot08(int n);
-	virtual bool slot0C();
-private:
-	void *m_04;
-	void *m_08;
-	void *m_0C;
-};
 BFME_DISP8_BINARY_SUB_GETTER(Rva006DAE20BinarySubField, 0x04, 0x08)
 
 // BF1 9cbfb551fe Common/Rva0029BC30Bump.cpp is the clean semantic donor.

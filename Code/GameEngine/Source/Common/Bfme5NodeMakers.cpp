@@ -5,12 +5,6 @@
 
 namespace _STL {
 
-class __new_alloc
-{
-public:
-	static void *allocate(unsigned int n);
-};
-
 }
 
 // The one-word node table the holder installs at +0: retail RVA 0x007EDAA0

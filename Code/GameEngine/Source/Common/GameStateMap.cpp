@@ -2,11 +2,6 @@
 // ??0Rva0041AC6A@@QAE@XZ, retail 0x0041AC6A, 32 bytes.
 // Evidence: leaf lane, caller at 0x0022FAC5, callee baseConstruct 0x001B4E63,
 // vtable g_00C3ADD8 at +0, second vtable g_00C3ADC8 at +0xC overwriting g_00BBB554.
-class BFME2NativeNetwork
-{
-public:
-};
-
 #include "Common/Snapshot.h"
 extern "C" const void *const __identifier("??_7Rva0041B790@@6BSubsystemInterface@@@")[];
 extern "C" const void *const __identifier("??_7Rva0041B790@@6BSnapshot@@@")[];

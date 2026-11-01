@@ -87,15 +87,6 @@ struct BfmeThingELE
 };
 
 
-struct BfmeThingELF
-{
-	void bfmeGoELF(void *a);
-	unsigned char m_bfmeHead[4];
-	void (__cdecl *m_bfmeFn)(void *ctx, void *a);
-	void *m_bfmeCtx;
-};
-
-
 class BfmeSubELGa
 {
 public:

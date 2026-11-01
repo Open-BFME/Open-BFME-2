@@ -176,21 +176,6 @@ struct Rva00801900Entry
 	int m_pad;
 };
 
-class Rva00801900Get
-{
-public:
-	int rva008018C0Get(const char *key);
-
-private:
-	char m_pad00[4];
-	Rva00802240Host *m_host;
-	char m_pad08[8];
-	Rva00801900Entry *m_firstEntries;
-	int m_firstCount;
-	Rva00801900Entry *m_entries;
-	int m_count;
-};
-
 class Rva00802470Get
 {
 public:

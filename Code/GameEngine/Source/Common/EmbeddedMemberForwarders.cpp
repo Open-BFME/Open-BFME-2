@@ -27,12 +27,6 @@ void Rva00203595Owner::rva00203595(bool val)
 }
 
 // 0x002C6AC3: this + 0x4 -> AIBaseBuilder::rva00506B96
-class Rva002C6AC3Owner
-{
-public:
-	void rva002C6AC3(const Coord3D *point);
-};
-
 // 0x004EC0B9: this + 0x4 -> AIBaseBuilder::rva00506C39
 class Rva004EC0B9Owner
 {

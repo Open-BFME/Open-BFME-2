@@ -38,12 +38,6 @@ public:
 	int bfmeSize(void) const;
 };
 
-class Gen_003D3220
-{
-public:
-	bool bfmeAllZero(void) const;
-};
-
 class Gen_003D4A20
 {
 public:

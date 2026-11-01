@@ -152,14 +152,6 @@ private:
 // GameModePreferences::rva0054F5A4: defined in GameModePreferences.cpp (its row's unit).
 
 // Color-limit globals at 0x00A022F4: +0x38 count source plus +0x40 cached limit.
-struct Rva00A022F4
-{
-	char m_pad[0x38];
-	int m_38;
-	int m_3C;
-	int m_40;
-};
-
 extern class MultiplayerSettings *TheMultiplayerSettings;
 
 // ?rva0044D836@GameModePreferences@@QAEHXZ @0x0044D836 (86B): Color getter

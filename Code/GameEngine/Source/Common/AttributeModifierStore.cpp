@@ -45,10 +45,6 @@ Bool AttributeModifierStore::getModifier(Int index, void *key, float *value, con
 #include "../../../Libraries/Include/Lib/BfmeE16.h"
 // bfme link decl-only BfmeE16
 namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
-class BFME2NativeNetwork
-{
-public:
-};
 #include "subsystem_interface.h"
 
 struct Rva00214B22Record;
