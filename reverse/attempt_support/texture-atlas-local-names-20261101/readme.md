@@ -25,3 +25,22 @@ No new match, pin, hatch, header edit, source path, census credit or runtime
 behavior change is claimed. Existing weak class/function identities remain.
 The complete normal outgoing batch audit is still required; historical-index
 or missing consumer receipts cannot be called a clean broader result.
+
+## Published receipt follow-up
+
+Source commit b7d5c9e1be5a4f086d8e7f9d653e71ea543a2ba0 and animation
+handoff18c6580f40f08b8603187f658afc07098dba28c2 landed through the normal hooks.
+The push audit explicitly returned INCONCLUSIVE: this source lacked a strict
+compiler receipt. Supported bounded --prepare-current then verified exactly
+this one provider (13/13 rows, same existing constructor fold and2 floats)
+and produced a reusable strict receipt. The committed reference pin is now
+131fb8ff0a515c504313ac10ec87c929d71cf214; the animation hanim/hcanim reference
+headers are unchanged from7a8a034a, so the banked inherited-virtual boundary
+still applies. No independent official-upstream freshness check was run.
+
+The repeated batch audit progresses past the source and returns2 INCONCLUSIVE:
+index0d24c60eef precedes outgoing base44d2b83238, and affected consumer
+Common/0CreateAHeroManager21FE49.cpp lacks a strict current receipt. Carry
+this unchanged-provider/consumer scope into the scheduled census. No clean
+whole-consumer, census or runtime verdict is claimed; no further code change,
+whole-tree build or direct link cycle was performed.
