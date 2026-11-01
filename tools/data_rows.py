@@ -48,7 +48,18 @@ Verification (build.py, per source and in the full gate), per row:
             form); for data, as whichever reading lands in data, and a pin
             with two such readings places nothing. DIR32 holds the target's
             VA, DIR32NB its RVA.
-            A relocation to a TU-local symbol cannot be placed and fails.
+            A TU-local data object (a file-scope or function-local `static`,
+            whose own mangled `?name` the object defines with static storage)
+            has no ledger name either: header statics such as Zero Hour's
+            DEFINE_*_NAMES lists give every including TU its own copy, at its
+            own retail address. It is placed by content too, against this
+            row's own object: retail's pointer (less the addend) must land in
+            data on the static's compiler-proven extent, overlapping no data
+            row (a ledger-owned global is never a TU-local copy), holding the
+            static's bytes outside relocation fields, with each of its own
+            relocations placed by these same rules. Any other relocation to a
+            TU-local symbol (a static function, a `$`/`.` or `??_` compiler
+            name, a zero-filled static) cannot be placed and fails.
             A weak external (a vftable slot's `??_E` deleting destructor) is
             placed by its own name when the ledgers give it a home, else by its
             default (the IMAGE_WEAK_EXTERN TagIndex, MSVC's `??_G`), which is
@@ -608,9 +619,11 @@ class Resolver:
                 va = IMAGE_BASE + int(row["target_rva"], 16)
                 for key in {row["name"], build.ledger_object_symbol(row)}:
                     self.homes.setdefault(key, set()).add(va)
+        self.spans = []      # (start, end, name): every data row's range, which no TU-local copy may claim
         for row in data_rows:
             va, size = va_of(row), int(row["size"])
             self.homes.setdefault(row["name"], set()).add(va)
+            self.spans.append((va, va + max(size, 1), row["name"]))
             if (row["status"] == "matched" and size > 0
                     and any(section == row["section"] and start <= va and va + size <= end
                             for section, start, end, _ in self.sections)):
@@ -728,17 +741,42 @@ def verify_row(row, img, resolve, compile=True, sizer=compiled_size):
     if bytes(masked) != retail:
         diff = next(i for i in range(size) if masked[i] != retail[i])
         return False, f"initializer differs from retail at +{diff:#x}"
+    problem = _relocation_problem(data, sections, symbols, sec, lo, relocs, va, retail, img, resolve,
+                                  source, sizer, {})
+    if problem:
+        return False, problem
+    return True, f"{size} B at 0x{va:08X} equal to retail, {len(relocs)} relocation(s) on target ({why})"
+
+
+# a C++ static object's own mangled name (`?TheShadowNames@@3PAPBDA`, a static local's
+# `?d@?BC@??f@@YAHH@Z@4PAHA`); never a `??_` compiler name, a C `_x`, nor a `$SG`/`.` label
+TU_LOCAL_DATA = re.compile(r"^\?[A-Za-z_]")
+
+
+def _relocation_problem(data, sections, symbols, sec, lo, relocs, va, retail, img, resolve, source, sizer, placed):
+    """None when each relocation in `relocs` (fields of object section `sec` in a
+    symbol at offset `lo`, which sits at retail `va` over `retail`'s bytes) lands
+    on its target in retail; else why not. `placed` {name: VA} holds the TU-local
+    objects already being placed by content on this path."""
+    build, _ = _tools()
     for w, index, kind in relocs:
         target = symbols.get(index)
         site = va + w - lo
         value = struct.unpack_from("<I", retail, w - lo)[0]
         if target is None or kind not in (DIR32, DIR32NB):
-            return False, f"+{w - lo:#x}: unsupported relocation type {kind:#x}"
+            return f"+{w - lo:#x}: unsupported relocation type {kind:#x}"
         default = weak_default(data, index, symbols) if target["storage"] == WEAK_EXTERNAL else None
-        if target["storage"] != EXTERNAL and (default is None or default["storage"] != EXTERNAL):
-            return False, f"+{w - lo:#x}: relocation to TU-local {target['name']} cannot be placed"
         addend = struct.unpack_from("<i", sec["body"], w)[0]
         function = (target["type"] >> 4) & 3 == DTYPE_FUNCTION
+        if target["storage"] != EXTERNAL and (default is None or default["storage"] != EXTERNAL):
+            if target["storage"] != STATIC or function or not TU_LOCAL_DATA.match(target["name"]):
+                return f"+{w - lo:#x}: relocation to TU-local {target['name']} cannot be placed"
+            pointed = value if kind == DIR32 else (value + IMAGE_BASE) & 0xFFFFFFFF
+            problem = _tu_local_problem(data, sections, symbols, target, addend, pointed, img, resolve,
+                                        source, sizer, placed)
+            if problem:
+                return f"+{w - lo:#x} (0x{site:08X}): {problem}"
+            continue
         if default is not None and not resolve(target["name"], function):
             # no ledger home for the weak name: link.exe binds its default
             target, function = default, (default["type"] >> 4) & 3 == DTYPE_FUNCTION
@@ -746,21 +784,71 @@ def verify_row(row, img, resolve, compile=True, sizer=compiled_size):
             pointed = value if kind == DIR32 else (value + IMAGE_BASE) & 0xFFFFFFFF
             problem = string_literal_problem(build, sections, target, addend, pointed, img)
             if problem:
-                return False, f"+{w - lo:#x} (0x{site:08X}): {problem}"
+                return f"+{w - lo:#x} (0x{site:08X}): {problem}"
             continue
         want = {(home + addend) & 0xFFFFFFFF for home in resolve(target["name"], function)}  # VAs
         if not want:
             ambiguity = "; ".join(getattr(resolve, "ambiguous", {}).get(target["name"], ()))
-            return False, (f"+{w - lo:#x}: {target['name']} has no retail address in the ledgers "
-                           f"(as {'code' if function else 'data'})" + (f": {ambiguity}" if ambiguity else ""))
+            return (f"+{w - lo:#x}: {target['name']} has no retail address in the ledgers "
+                    f"(as {'code' if function else 'data'})" + (f": {ambiguity}" if ambiguity else ""))
         # DIR32 holds the target's VA, DIR32NB its RVA: compare VAs, the stub's target included
         actual = value if kind == DIR32 else (value + IMAGE_BASE) & 0xFFFFFFFF
         head = img.read(actual, 5) if function and img.section(actual) == ".text" else None
         stub = (actual + 5 + struct.unpack_from("<i", head, 1)[0]) & 0xFFFFFFFF if head and head[0] == 0xE9 else None
         if actual not in want and stub not in want:
-            return False, (f"+{w - lo:#x} (0x{site:08X}): retail points at 0x{actual:08X}, "
-                           f"{target['name']}+{addend:#x} is " + ", ".join(f"0x{x:08X}" for x in sorted(want)))
-    return True, f"{size} B at 0x{va:08X} equal to retail, {len(relocs)} relocation(s) on target ({why})"
+            return (f"+{w - lo:#x} (0x{site:08X}): retail points at 0x{actual:08X}, "
+                    f"{target['name']}+{addend:#x} is " + ", ".join(f"0x{x:08X}" for x in sorted(want)))
+    return None
+
+
+def _tu_local_problem(data, sections, symbols, target, addend, pointed, img, resolve, source, sizer, placed):
+    """None when retail's pointer `pointed` addresses the TU-local data object
+    `target` (+`addend`) of this object, placed by content; else why not.
+
+    No ledger can name a static: header statics give every including TU its own
+    copy at its own address, all under one name. So the copy is placed as a
+    string literal is: at retail's pointer less the addend, inside one data
+    section, over the compiler-proven sizeof(static), overlapping no data row,
+    retail must hold the static's bytes outside relocation fields, and each of
+    the static's own relocations must land by these rules in turn."""
+    name = target["name"]
+    base = (pointed - addend) & 0xFFFFFFFF
+    if name in placed:  # a static reached again on its own path: one copy, one address
+        return None if placed[name] == base else (
+            f"TU-local {name} is placed at 0x{placed[name]:08X} and at 0x{base:08X}")
+    sec = sections[target["section"] - 1] if 0 < target["section"] <= len(sections) else None
+    if sec is None or sec["body"] is None:
+        return f"relocation to TU-local {name} cannot be placed: it has no initialised bytes in this object"
+    sizes, why = symbol_size(sections, symbols, target, source, sizer)
+    if len(sizes) != 1:
+        return f"relocation to TU-local {name} cannot be placed: size unproven ({why})"
+    size = next(iter(sizes))
+    if not 0 <= addend < size:
+        return f"TU-local {name}: addend {addend:#x} is outside its {size} bytes"
+    where = img.section(base)
+    kinds = [(s["name"], s["va"], s["end"], c) for s, c in zip(img.sections, _characteristics(img))]
+    if (where in (None, "header") or section_kind(kinds, base) != "data"
+            or img.section(base + size - 1) != where):
+        return f"retail points at 0x{pointed:08X}, which is not {size} B of data, for TU-local {name}"
+    for start, end, owner in getattr(resolve, "spans", ()):
+        if start < base + size and base < end:
+            return (f"TU-local {name} at 0x{base:08X}+{size} overlaps data row {owner} "
+                    f"0x{start:08X}+{end - start}: a ledger-owned global is no TU-local copy")
+    lo = target["value"]
+    body = sec["body"][lo:lo + size]
+    retail = img.read(base, size)
+    relocs = [(w, i, k) for w, i, k in sec["relocs"] if lo - 3 <= w < lo + size]
+    if len(body) != size or any(w < lo or w + 4 > lo + size for w, _, _ in relocs):
+        return f"TU-local {name}: its bytes or a relocation field leave its {size}-byte extent"
+    masked = bytearray(body)
+    for w, _, _ in relocs:
+        masked[w - lo:w - lo + 4] = retail[w - lo:w - lo + 4]
+    if bytes(masked) != retail:
+        diff = next(i for i in range(size) if masked[i] != retail[i])
+        return f"retail at 0x{base:08X} differs from TU-local {name} at +{diff:#x}"
+    problem = _relocation_problem(data, sections, symbols, sec, lo, relocs, base, retail, img, resolve,
+                                  source, sizer, {**placed, name: base})
+    return f"TU-local {name} at 0x{base:08X}: {problem}" if problem else None
 
 
 def _compiled_source_groups(rows, object_path):

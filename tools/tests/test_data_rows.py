@@ -221,6 +221,82 @@ def test_a_relocation_to_a_tu_local_cannot_be_placed(tmp_path, monkeypatch):
 
 
 LITERAL = "??_C@_05MGDGCKO@Unini?$AA@"  # a 6-byte literal: five characters and the terminator
+NAMES = "?names@@3PAPBDA"  # static const char *names[] = { "Unini", 0 }; this TU's own copy
+
+
+class Ledger:
+    """A resolver over fixed homes that also carries data rows' ranges (Resolver.spans)."""
+
+    def __init__(self, homes=None, spans=()):
+        self.homes, self.spans = homes or {}, list(spans)
+
+    def __call__(self, name, function=None):
+        return self.homes.get(name, set())
+
+
+def static_copy_row(tmp_path, monkeypatch, retail_copy, pointer=BASE + 0x3010, names_type=0,
+                    names_storage=3, names=NAMES, zero_filled=False, resolve=None, sizes=None):
+    """const char **u = names; with a file-local `names` copy. Retail .data holds u
+    (0x403000 -> `pointer`) and `retail_copy` at 0x403010; .rdata holds "Unini".
+    `zero_filled` puts `names` alone in a .bss section instead."""
+    img = image_with(rdata=b"Unini\0", data=struct.pack("<I", pointer) + bytes(12) + retail_copy)
+    obj = tmp_path / "G.obj"
+    sections = [(".data", 0xC0300040, bytes(12), 12, [(0, 1)] + ([] if zero_filled else [(4, 2)])),
+                (".rdata", 0x40301040, b"Unini\0", 6, [])]
+    names_at = (4, 1)
+    if zero_filled:
+        sections.append((".bss", 0xC0300080, None, 8, []))
+        names_at = (0, 3)
+    write_coff(obj, sections, [("?u@@3PAPBDA", 0, 1, 2), (names, *names_at, names_storage, names_type),
+                               (LITERAL, 0, 2, 2)])
+    (tmp_path / "Code").mkdir(exist_ok=True)
+    (tmp_path / "Code/G.cpp").write_text('static const char *names[] = { "Unini", 0 };\nconst char **u = names;\n')
+    monkeypatch.setattr(data_rows, "ROOT", tmp_path)
+    monkeypatch.setattr(data_rows._tools()[0], "obj_path", lambda source: obj)
+    known = {"?u@@3PAPBDA": 4, names: 8} if sizes is None else sizes
+    sizer = lambda source, symbol: (known[symbol], "fixture sizeof") if symbol in known else (None, "no probe")
+    return data_rows.verify_row(dict(zip(data_rows.FIELDS, row("?u@@3PAPBDA"))), img, resolve or Ledger(),
+                                compile=False, sizer=sizer)
+
+
+RETAIL_COPY = struct.pack("<2I", BASE + 0x2000, 0)
+
+
+def test_a_tu_local_data_copy_is_placed_by_its_content(tmp_path, monkeypatch):
+    # header statics (Zero Hour's DEFINE_*_NAMES lists) give each including TU
+    # its own copy under one name, so no ledger can name it: retail's pointer
+    # must land on the static's own bytes, its own relocations placed in turn
+    ok, message = static_copy_row(tmp_path, monkeypatch, RETAIL_COPY)
+    assert ok, message
+    ok, message = static_copy_row(tmp_path, monkeypatch, struct.pack("<2I", BASE + 0x2000, 1))
+    assert not ok and "differs from TU-local ?names@@3PAPBDA at +0x4" in message
+    ok, message = static_copy_row(tmp_path, monkeypatch, struct.pack("<2I", BASE + 0x2001, 0))
+    assert not ok and "TU-local ?names@@3PAPBDA at 0x00403010" in message and "retail holds" in message
+
+
+def test_a_tu_local_copy_is_never_code_a_rowed_global_or_unsized(tmp_path, monkeypatch):
+    ok, message = static_copy_row(tmp_path, monkeypatch, RETAIL_COPY, pointer=BASE + 0x1000)
+    assert not ok and "not 8 B of data" in message
+    ok, message = static_copy_row(tmp_path, monkeypatch, RETAIL_COPY, pointer=BASE + 0x3FFC)
+    assert not ok and "not 8 B of data" in message                # runs off the end of .data
+    rowed = Ledger(spans=[(BASE + 0x3014, BASE + 0x3018, "?other@@3PAPBDA")])
+    ok, message = static_copy_row(tmp_path, monkeypatch, RETAIL_COPY, resolve=rowed)
+    assert not ok and "overlaps data row ?other@@3PAPBDA" in message
+    ok, message = static_copy_row(tmp_path, monkeypatch, RETAIL_COPY, sizes={"?u@@3PAPBDA": 4})
+    assert not ok and "cannot be placed: size unproven" in message
+
+
+def test_only_an_initialised_static_data_object_is_placed_by_content(tmp_path, monkeypatch):
+    for kwargs in ({"names_type": FUNCTION},                  # a static function
+                   {"names": "$SG1234"},                      # a C compiler label
+                   {"names": "??_C@_05MGDGCKO@Unixi?$AA@"}):  # a compiler-emitted name
+        ok, message = static_copy_row(tmp_path, monkeypatch, RETAIL_COPY, **kwargs)
+        assert not ok and "cannot be placed" in message, kwargs
+    ok, message = static_copy_row(tmp_path, monkeypatch, bytes(8), zero_filled=True)
+    assert not ok and "no initialised bytes" in message      # zero-filled: no bytes to place by
+    # an external of the same name still needs its own ledger home
+    ok, message = static_copy_row(tmp_path, monkeypatch, RETAIL_COPY, names_storage=2)
+    assert not ok and "no retail address in the ledgers" in message
 
 
 def literal_row(tmp_path, monkeypatch, pointer, rdata=b"Unini\0", addend=0, name=LITERAL, body=b"Unini\0",
