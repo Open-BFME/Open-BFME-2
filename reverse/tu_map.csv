@@ -43094,23 +43094,23 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00506B3B,29,code,,,-,,Code/GameEngine/Source/Common/Rva00506B1BCtor.cpp
 0x00506B58,28,code,,displaced,-,N=Code/GameEngine/Source/Common/AIBase.cpp,Code/GameEngine/Source/Common/FamilyDeletingDtors8.cpp
 0x00506B74,34,code,Code/GameEngine/Source/Common/AIBaseBuilder.cpp,approved,N,N=Code/GameEngine/Source/Common/AIBaseBuilder.cpp provisional,Code/GameEngine/Source/Common/AIBaseBuilder.cpp
-0x00506B96,23,code,Code/GameEngine/Source/Common/AIBaseBuilder.cpp,approved,N,N=Code/GameEngine/Source/Common/AIBaseBuilder.cpp provisional,Code/GameEngine/Source/Common/Rva00506B74Tactic.cpp
+0x00506B96,23,code,Code/GameEngine/Source/Common/AIBaseBuilder.cpp,approved,N,N=Code/GameEngine/Source/Common/AIBaseBuilder.cpp provisional,Code/GameEngine/Source/Common/AIBaseBuilder.cpp
 0x00506BAD,47,code,Code/GameEngine/Source/Common/AIBaseBuilder.cpp,approved,C,C=0x00506B96..0x00506BDC provisional,Code/GameEngine/Source/Common/AIBaseBuilder.cpp
-0x00506BDC,27,code,Code/GameEngine/Source/Common/AIBaseBuilder.cpp,approved,N,N=Code/GameEngine/Source/Common/AIBaseBuilder.cpp provisional,Code/GameEngine/Source/Common/Rva00506B74Tactic.cpp
-0x00506BF7,66,code,Code/GameEngine/Source/Common/AIBaseBuilder.cpp,approved,N,N=Code/GameEngine/Source/Common/AIBaseBuilder.cpp provisional,Code/GameEngine/Source/Common/Rva00506B74Tactic.cpp
-0x00506C39,43,code,Code/GameEngine/Source/Common/AIBaseBuilder.cpp,approved,N,N=Code/GameEngine/Source/Common/AIBaseBuilder.cpp provisional,Code/GameEngine/Source/Common/Rva00506B74Tactic.cpp
-0x00506C64,30,code,Code/GameEngine/Source/Common/AIBaseBuilder.cpp,approved,N,N=Code/GameEngine/Source/Common/AIBaseBuilder.cpp provisional,Code/GameEngine/Source/Common/Rva00506B74Tactic.cpp
+0x00506BDC,27,code,Code/GameEngine/Source/Common/AIBaseBuilder.cpp,approved,N,N=Code/GameEngine/Source/Common/AIBaseBuilder.cpp provisional,Code/GameEngine/Source/Common/AIBaseBuilder.cpp
+0x00506BF7,66,code,Code/GameEngine/Source/Common/AIBaseBuilder.cpp,approved,N,N=Code/GameEngine/Source/Common/AIBaseBuilder.cpp provisional,Code/GameEngine/Source/Common/AIBaseBuilder.cpp
+0x00506C39,43,code,Code/GameEngine/Source/Common/AIBaseBuilder.cpp,approved,N,N=Code/GameEngine/Source/Common/AIBaseBuilder.cpp provisional,Code/GameEngine/Source/Common/AIBaseBuilder.cpp
+0x00506C64,30,code,Code/GameEngine/Source/Common/AIBaseBuilder.cpp,approved,N,N=Code/GameEngine/Source/Common/AIBaseBuilder.cpp provisional,Code/GameEngine/Source/Common/AIBaseBuilder.cpp
 0x00506C82,65,code,Code/GameEngine/Source/Common/AIBaseBuilder.cpp,approved,C,C=0x00506C64..0x00506CC3 provisional,Code/GameEngine/Source/Common/AIBaseBuilder.cpp
-0x00506CC3,50,code,Code/GameEngine/Source/Common/AIBaseBuilder.cpp,approved,C,C=0x00506C64..0x00506CF5 provisional,Code/GameEngine/Source/Common/Rva00506B74Tactic.cpp
+0x00506CC3,50,code,Code/GameEngine/Source/Common/AIBaseBuilder.cpp,approved,C,C=0x00506C64..0x00506CF5 provisional,Code/GameEngine/Source/Common/AIBaseBuilder.cpp
 0x00506CF5,756,code,Code/GameEngine/Source/Common/AIBaseBuilder.cpp,approved,C,C=0x00506C64..0x00506FE9 provisional,Code/GameEngine/Source/Common/Rva00506CF5HomePoint.cpp
-0x00506FE9,256,code,Code/GameEngine/Source/Common/AIBaseBuilder.cpp,approved,N,N=Code/GameEngine/Source/Common/AIBaseBuilder.cpp W=Code/GameEngine/Source/GameLogic/SkirmishAI/AIBaseBuilder/AIBaseBuilder.cpp provisional,Code/GameEngine/Source/Common/Rva00506B74Tactic.cpp
-0x005070E9,184,code,Code/GameEngine/Source/Common/AIBaseBuilder.cpp,approved,N,N=Code/GameEngine/Source/Common/AIBaseBuilder.cpp provisional,Code/GameEngine/Source/Common/Rva00506B74Tactic.cpp
-0x005071A1,60,code,Code/GameEngine/Source/Common/AIBaseBuilder.cpp,approved,N,N=Code/GameEngine/Source/Common/AIBaseBuilder.cpp provisional,Code/GameEngine/Source/Common/Rva00506B74Tactic.cpp
-0x005071DD,77,code,Code/GameEngine/Source/Common/AIBaseBuilder.cpp,approved,N,N=Code/GameEngine/Source/Common/AIBaseBuilder.cpp provisional,Code/GameEngine/Source/Common/Rva00506B74Tactic.cpp
-0x0050722A,428,code,Code/GameEngine/Source/Common/AIBaseBuilder.cpp,approved,N,N=Code/GameEngine/Source/Common/AIBaseBuilder.cpp provisional,Code/GameEngine/Source/Common/Rva00506B74Tactic.cpp
-0x005073D6,304,code,Code/GameEngine/Source/Common/AIBaseBuilder.cpp,approved,N,N=Code/GameEngine/Source/Common/AIBaseBuilder.cpp W=Code/GameEngine/Source/GameLogic/SkirmishAI/AIBaseBuilder/AIBaseBuilder.cpp provisional,Code/GameEngine/Source/Common/Rva00506B74Tactic.cpp
-0x00507506,28,code,Code/GameEngine/Source/Common/AIBaseBuilder.cpp,approved,N,N=Code/GameEngine/Source/Common/AIBaseBuilder.cpp provisional,Code/GameEngine/Source/Common/Rva00506B74Tactic.cpp
-0x00507522,38,code,Code/GameEngine/Source/Common/AIBaseBuilder.cpp,approved,N,N=Code/GameEngine/Source/Common/AIBaseBuilder.cpp provisional,Code/GameEngine/Source/Common/Rva00506B74Tactic.cpp
+0x00506FE9,256,code,Code/GameEngine/Source/Common/AIBaseBuilder.cpp,approved,N,N=Code/GameEngine/Source/Common/AIBaseBuilder.cpp W=Code/GameEngine/Source/GameLogic/SkirmishAI/AIBaseBuilder/AIBaseBuilder.cpp provisional,Code/GameEngine/Source/Common/AIBaseBuilder.cpp
+0x005070E9,184,code,Code/GameEngine/Source/Common/AIBaseBuilder.cpp,approved,N,N=Code/GameEngine/Source/Common/AIBaseBuilder.cpp provisional,Code/GameEngine/Source/Common/AIBaseBuilder.cpp
+0x005071A1,60,code,Code/GameEngine/Source/Common/AIBaseBuilder.cpp,approved,N,N=Code/GameEngine/Source/Common/AIBaseBuilder.cpp provisional,Code/GameEngine/Source/Common/AIBaseBuilder.cpp
+0x005071DD,77,code,Code/GameEngine/Source/Common/AIBaseBuilder.cpp,approved,N,N=Code/GameEngine/Source/Common/AIBaseBuilder.cpp provisional,Code/GameEngine/Source/Common/AIBaseBuilder.cpp
+0x0050722A,428,code,Code/GameEngine/Source/Common/AIBaseBuilder.cpp,approved,N,N=Code/GameEngine/Source/Common/AIBaseBuilder.cpp provisional,Code/GameEngine/Source/Common/AIBaseBuilder.cpp
+0x005073D6,304,code,Code/GameEngine/Source/Common/AIBaseBuilder.cpp,approved,N,N=Code/GameEngine/Source/Common/AIBaseBuilder.cpp W=Code/GameEngine/Source/GameLogic/SkirmishAI/AIBaseBuilder/AIBaseBuilder.cpp provisional,Code/GameEngine/Source/Common/AIBaseBuilder.cpp
+0x00507506,28,code,Code/GameEngine/Source/Common/AIBaseBuilder.cpp,approved,N,N=Code/GameEngine/Source/Common/AIBaseBuilder.cpp provisional,Code/GameEngine/Source/Common/AIBaseBuilder.cpp
+0x00507522,38,code,Code/GameEngine/Source/Common/AIBaseBuilder.cpp,approved,N,N=Code/GameEngine/Source/Common/AIBaseBuilder.cpp provisional,Code/GameEngine/Source/Common/AIBaseBuilder.cpp
 0x00507548,10,code,,,-,,Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp
 0x00507552,6,code,,,-,,Code/GameEngine/Source/Common/ConstIntGetters5.cpp
 0x00507558,126,code,,,-,,Code/GameEngine/Source/Common/Rva00507823Check.cpp
@@ -83293,16 +83293,16 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007940D9,8,code,Code/GameEngine/Source/Common/AIBaseBuilder.cpp,approved,P,P=0x00506CF5@FuncInfo0x00946F9C provisional,Code/GameEngine/Source/Common/Rva00506CF5HomePoint.cpp
 0x007940E1,8,code,Code/GameEngine/Source/Common/AIBaseBuilder.cpp,approved,P,P=0x00506CF5@FuncInfo0x00946F9C provisional,Code/GameEngine/Source/Common/Rva00506CF5HomePoint.cpp
 0x007940E9,10,code,Code/GameEngine/Source/Common/AIBaseBuilder.cpp,approved,P,P=0x00506CF5@FuncInfo0x00946F9C provisional,Code/GameEngine/Source/Common/Rva00506CF5HomePoint.cpp
-0x007940F3,8,code,Code/GameEngine/Source/Common/AIBaseBuilder.cpp,approved,P,P=0x00506FE9@FuncInfo0x00946FC8 provisional,Code/GameEngine/Source/Common/Rva00506B74Tactic.cpp
-0x007940FB,8,code,Code/GameEngine/Source/Common/AIBaseBuilder.cpp,approved,P,P=0x00506FE9@FuncInfo0x00946FC8 provisional,Code/GameEngine/Source/Common/Rva00506B74Tactic.cpp
-0x00794103,10,code,Code/GameEngine/Source/Common/AIBaseBuilder.cpp,approved,P,P=0x00506FE9@FuncInfo0x00946FC8 provisional,Code/GameEngine/Source/Common/Rva00506B74Tactic.cpp
-0x0079410D,8,code,,,-,,Code/GameEngine/Source/Common/Rva00506B74Tactic.cpp
+0x007940F3,8,code,Code/GameEngine/Source/Common/AIBaseBuilder.cpp,approved,P,P=0x00506FE9@FuncInfo0x00946FC8 provisional,Code/GameEngine/Source/Common/AIBaseBuilder.cpp
+0x007940FB,8,code,Code/GameEngine/Source/Common/AIBaseBuilder.cpp,approved,P,P=0x00506FE9@FuncInfo0x00946FC8 provisional,Code/GameEngine/Source/Common/AIBaseBuilder.cpp
+0x00794103,10,code,Code/GameEngine/Source/Common/AIBaseBuilder.cpp,approved,P,P=0x00506FE9@FuncInfo0x00946FC8 provisional,Code/GameEngine/Source/Common/AIBaseBuilder.cpp
+0x0079410D,8,code,,,-,,Code/GameEngine/Source/Common/AIBaseBuilder.cpp
 0x00794115,11,code,,,-,,Code/gen_small/uw_gen_010.cpp
-0x00794120,10,code,,,-,,Code/GameEngine/Source/Common/Rva00506B74Tactic.cpp
-0x0079412A,10,code,Code/GameEngine/Source/Common/AIBaseBuilder.cpp,approved,P,P=0x0050722A@FuncInfo0x00947018 provisional,Code/GameEngine/Source/Common/Rva00506B74Tactic.cpp
-0x00794134,10,code,Code/GameEngine/Source/Common/AIBaseBuilder.cpp,approved,P,P=0x0050722A@FuncInfo0x00947018 provisional,Code/GameEngine/Source/Common/Rva00506B74Tactic.cpp
-0x0079413E,10,code,Code/GameEngine/Source/Common/AIBaseBuilder.cpp,approved,P,P=0x005073D6@FuncInfo0x0094703C provisional,Code/GameEngine/Source/Common/Rva00506B74Tactic.cpp
-0x00794148,10,code,Code/GameEngine/Source/Common/AIBaseBuilder.cpp,approved,P,P=0x005073D6@FuncInfo0x0094703C provisional,Code/GameEngine/Source/Common/Rva00506B74Tactic.cpp
+0x00794120,10,code,,,-,,Code/GameEngine/Source/Common/AIBaseBuilder.cpp
+0x0079412A,10,code,Code/GameEngine/Source/Common/AIBaseBuilder.cpp,approved,P,P=0x0050722A@FuncInfo0x00947018 provisional,Code/GameEngine/Source/Common/AIBaseBuilder.cpp
+0x00794134,10,code,Code/GameEngine/Source/Common/AIBaseBuilder.cpp,approved,P,P=0x0050722A@FuncInfo0x00947018 provisional,Code/GameEngine/Source/Common/AIBaseBuilder.cpp
+0x0079413E,10,code,Code/GameEngine/Source/Common/AIBaseBuilder.cpp,approved,P,P=0x005073D6@FuncInfo0x0094703C provisional,Code/GameEngine/Source/Common/AIBaseBuilder.cpp
+0x00794148,10,code,Code/GameEngine/Source/Common/AIBaseBuilder.cpp,approved,P,P=0x005073D6@FuncInfo0x0094703C provisional,Code/GameEngine/Source/Common/AIBaseBuilder.cpp
 0x00794152,14,code,,,-,,Code/GameEngine/Source/Common/Rva00507823Ctor.cpp
 0x00794160,14,code,,,-,,Code/GameEngine/Source/Common/Rva00507823Ctor.cpp
 0x0079416E,14,code,,,-,,Code/GameEngine/Source/Common/Rva00507823Ctor.cpp
