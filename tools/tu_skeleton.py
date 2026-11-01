@@ -1266,6 +1266,61 @@ class LinkGuard:
         mine = {build.obj_path(build.ROOT / f).name for f in files}
         return any(o in self.rank and o not in mine for o in self.owners.get(name, ()))
 
+    def referenced_outside(self, names, places, merged):
+        """The `names` that an object other than the census objects at `places`
+        (the ones this merge replaces) may still reference.
+
+        view() drops the replaced objects' references only with per-object
+        census provenance. An index --update-index refreshed keeps the
+        aggregate graph alone, which still counts every reference a replaced
+        object made, its references to its own definitions included:
+        PartitionManager.cpp at census index 12902e9e1b refused eight donors
+        over getClassMemoryPool guards that only the old seed object defined
+        and referenced. A relocation can only name a symbol of its own
+        object's table, and the index's touches hold every name an object
+        defines, references (undefined and weak externals, their defaults) or
+        holds as COMMON. So a name keeps a referrer when a ledger row owns it
+        (the census keeps those), when the merged object references it
+        (`merged`: its undefined and weak names), when an object outside
+        `places` touches it (a unit gone since the census too: this merge does
+        not replace it), when such an object has no touches record (a unit
+        --update-index forgot refers to nothing; any other proves nothing), or
+        when an /alternatename alias leads to it from an outside object's
+        directive or from an alias one of those referrers names. Without the
+        touches table every name keeps its referrer."""
+        index, names = self.index, set(names)
+        touches = index.get("touches")
+        if not isinstance(touches, dict):
+            return names
+        owners = index["selection"].get("owners", {})
+        found = {n for n in names if n in owners}
+        routes = collections.defaultdict(set)   # target -> aliases of a replaced object's directives
+        for alias, entries in index["alternates"].items():
+            for p, target in entries:
+                if p in places:
+                    routes[target].add(alias)
+                else:
+                    found.add(target)
+        want, frontier = set(names), set(names)
+        while frontier:
+            frontier = set().union(*(routes.get(n, ()) for n in frontier)) - want
+            want |= frontier
+        found |= want & merged
+        forgotten = index.get("forgotten", ())
+        for p, name in enumerate(index["objects"]):
+            if p in places or name in forgotten:
+                continue
+            held = touches.get(name)
+            if held is None:
+                return names
+            found |= want & held
+        # a referenced alias reaches every target a replaced directive routes it to
+        frontier = set(found)
+        while frontier:
+            frontier = {target for target, aliases in routes.items() if aliases & frontier} - found
+            found |= frontier
+        return names & found
+
     def view(self, obj, places):
         """The census index with the objects at `places` and every gone unit's
         removed and `obj` at the first of `places`. With complete census
@@ -1325,6 +1380,10 @@ class LinkGuard:
                              for _, target in entries)
                 out["references"] = {"schema": LC.REFERENCES_SCHEMA, "edges": edges,
                                      "referenced": LCe.referenced_names(roots, edges, kept, links)}
+            else:
+                # The aggregate still counts the replaced objects' own
+                # references; judge() discounts them for dropped definitions.
+                out["aggregate_references"] = True
             # A view has replaced providers and cannot itself serve as census
             # provenance, including when validation above failed.
             out["references"].pop("objects", None)
@@ -1374,7 +1433,7 @@ class LinkGuard:
                     for name, digests in self.previous.get(p, {}).items():
                         previous.setdefault(name, set()).update(digests)
                 breaks = LC.new_variants(obj, view, self.truth, previous, rank) if rank else []
-                copies, defined, _, _ = LCe.object_facts(obj, self.truth)
+                copies, defined, undefined, weaks = LCe.object_facts(obj, self.truth)
                 if breaks:
                     contexts = portable_comdat_contexts(obj.read_bytes())
                     facts = {name: (digest, verdict) for name, digest, _, verdict in copies}
@@ -1392,7 +1451,10 @@ class LinkGuard:
                 other = lambda n: (view["strong"].get(n) or view["comdat"].get(n) or view["common"].get(n)
                                    or LCe.excused(n, view["excuses"]["runtime"], view["excuses"]["imported"],
                                                   view["excuses"]["stubs"]))
-                lost = sorted(n for n in dropped if not other(n) and LC.is_referenced(view, n))
+                lost = {n for n in dropped if not other(n) and LC.is_referenced(view, n)}
+                if lost and view.get("aggregate_references"):
+                    lost &= self.referenced_outside(lost, places, set(undefined) | {n for pair in weaks for n in pair})
+                lost = sorted(lost)
             why += ([f"unresolved {n}" for n in found["unresolved"] if not self.moved_provider(n, files)]
                     + [f"duplicate {n}" for n in found["duplicates"]]
                     + [f"comdat {n} ({rule})" for n, rule, _ in found["comdat"]]

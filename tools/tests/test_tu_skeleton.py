@@ -1437,6 +1437,68 @@ class LinkGuardTests(unittest.TestCase):
                 why, _ = self.judge(guard, [self.TU], defined=("?t@@YAXXZ",))
                 self.assertEqual("no longer defines private, which the census still references" in why, outside)
 
+    LOST_PRIVATE = "no longer defines private, which the census still references"
+
+    def aggregate_guard(self, tmp):
+        """A guard over an index --update-index refreshed: its reference graph is
+        the census's aggregate, with no per-object provenance. t.obj defines
+        `private` and references it, a.obj references it too, and the aggregate
+        counts both (PartitionManager.cpp, census index 12902e9e1b: the
+        getClassMemoryPool guards only the old seed object defined and used)."""
+        guard = self.guard(tmp)
+        index = guard.index
+        index["strong"]["private"] = [0]
+        index["references"]["edges"]["?t@@YAXXZ"] = frozenset({"?a@@YAXXZ", "private"})
+        index["references"]["referenced"].add("private")
+        index["touches"] = {"t.obj": {"?t@@YAXXZ", "?a@@YAXXZ", "?inl@@YAXXZ", "private"},
+                            "a.obj": {"?a@@YAXXZ", "?al@@YAXXZ", "?inl@@YAXXZ", "private"},
+                            "b.obj": {"?b@@YAXXZ"}, "x.obj": {"?x@@YAXXZ", "?inl@@YAXXZ"}}
+        self.assertNotIn("objects", index["references"])
+        return guard
+
+    def test_a_definition_only_the_replaced_objects_reference_is_not_lost(self):
+        # The seed and its donor are both replaced; their references to `private`,
+        # including the seed's to its own definition, leave with them.
+        for kind in ("seed and donor", "replaced alias", "forgotten referrer"):
+            with self.subTest(kind=kind), tempfile.TemporaryDirectory() as tmp:
+                guard = self.aggregate_guard(tmp)
+                if kind == "replaced alias":       # a replaced object's route nobody outside takes
+                    guard.index["alternates"]["route"] = [(0, "private")]
+                    guard.index["touches"]["a.obj"].add("route")
+                elif kind == "forgotten referrer":  # --update-index dropped the unit (and its touches)
+                    guard.index["touches"].pop("b.obj")
+                    guard.index["forgotten"] = {"b.obj"}
+                why, _ = self.judge(guard, [self.TU, self.A], defined=("?t@@YAXXZ", "?a@@YAXXZ"))
+                self.assertEqual(why, [])
+
+    def test_a_definition_another_object_references_is_still_lost(self):
+        for kind in ("outside reference", "gone referrer", "untracked object", "no touches table",
+                     "ledger owner", "outside alias", "replaced alias taken outside", "replacement reference"):
+            with self.subTest(kind=kind), tempfile.TemporaryDirectory() as tmp:
+                guard = self.aggregate_guard(tmp)
+                index, undefined = guard.index, ()
+                if kind == "outside reference":
+                    index["touches"]["x.obj"].add("private")
+                elif kind == "gone referrer":       # merged away since the census, not by this merge
+                    index["touches"]["b.obj"].add("private")
+                    del guard.rank["b.obj"]
+                elif kind == "untracked object":
+                    del index["touches"]["x.obj"]
+                elif kind == "no touches table":
+                    del index["touches"]
+                elif kind == "ledger owner":
+                    index["selection"]["owners"]["private"] = {"t.obj"}
+                elif kind == "outside alias":
+                    index["alternates"]["route"] = [(3, "private")]
+                elif kind == "replaced alias taken outside":
+                    index["alternates"]["route"] = [(0, "private")]
+                    index["touches"]["x.obj"].add("route")
+                else:
+                    undefined = ("private",)
+                why, _ = self.judge(guard, [self.TU, self.A], defined=("?t@@YAXXZ", "?a@@YAXXZ"),
+                                    undefined=undefined)
+                self.assertIn(self.LOST_PRIVATE, why)
+
     def test_gone_objects_and_absorbed_aliases_do_not_retain_old_references(self):
         import link_check as LC
         with tempfile.TemporaryDirectory() as tmp:
@@ -1580,9 +1642,9 @@ class LinkGuardTests(unittest.TestCase):
                 self.assertIsNotNone(guard.load())
         self.assertEqual(fetched, [False])
 
-    def judge(self, guard, files, defined=("?t@@YAXXZ", "?a@@YAXXZ", "?b@@YAXXZ")):
-        """guard.judge of a merged object that links by itself and defines `defined`;
-        returns (why, the `previous` new_variants was given)."""
+    def judge(self, guard, files, defined=("?t@@YAXXZ", "?a@@YAXXZ", "?b@@YAXXZ"), undefined=()):
+        """guard.judge of a merged object that links by itself, defines `defined`
+        and references `undefined`; returns (why, the `previous` new_variants was given)."""
         import link_check as LC
         import link_census as LCe
         import link_debt
@@ -1595,7 +1657,7 @@ class LinkGuardTests(unittest.TestCase):
                  "unreferenced_differs": []}
         with patch.object(LC, "check_object", return_value=clean), \
                 patch.object(LC, "new_variants", side_effect=new_variants), \
-                patch.object(LCe, "object_facts", return_value=([], list(defined), [], [])), \
+                patch.object(LCe, "object_facts", return_value=([], list(defined), list(undefined), [])), \
                 patch.object(LCe, "common_definitions", return_value=set()), \
                 patch.object(link_debt, "addresses", return_value=[]):
             self.assertIsNone(guard.prepare(files))
