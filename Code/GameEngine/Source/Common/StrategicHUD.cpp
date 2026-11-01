@@ -569,11 +569,7 @@ public:
 
 // 0x0052458E is the rowed AptCommandMapAdder::AddCommandMap (AptCallbackAdders.cpp)
 // on the +0x0C member.
-class AptCommandMapAdder
-{
-public:
-	void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
-};
+#include "../../../Libraries/Source/Apt/AptCommandMapAdder.h"
 
 // ?SetHelpBox@Rva005796B3@@QAEXPAX@Z @0x005796B3 73B
 // Thiscall setter for +0x18 pointer with +0x1C flag: if new==old return; if

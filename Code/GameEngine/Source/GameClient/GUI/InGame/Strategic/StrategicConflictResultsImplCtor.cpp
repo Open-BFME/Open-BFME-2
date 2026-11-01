@@ -110,16 +110,7 @@ class AptCommandMap;class AptExternHandler;struct TargetRef00217D4C;
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
 template<class T> class AptRef:public Rva00579E47 {public:AptRef(const DelegateDesc &desc):Rva00579E47(desc){}~AptRef(){if(ptr)ReleaseTreeHintRef00217D4C((TargetRef00217D4C*)ptr);}};
 
-class AptCommandMapAdder
-{
-public:
-	AptCommandMapAdder();
-	~AptCommandMapAdder();
-	void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);	// 0x0052458E
-
-private:
-	char m_pad[0xC];
-};
+#include "../../../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
 
 // The extern-handler name list (ctor folded 0x001F81BF, dtor 0x005241B0).
 class Rva005241B0

@@ -116,7 +116,7 @@ template<class T> class AptRef:public Rva00579E47{public:AptRef(DelegateDesc d):
 // bytes; the copy ctor stays declared to keep the by-value temp convention.
 // Only the COMDAT bodies change.
 class AptCommandMap;class AptExternHandler;class AptCustomRender;
-class AptCommandMapAdder {public:void AddCommandMap(const AsciiString&,AptRef<AptCommandMap>);};
+#include "../../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
 class AptExternHandlerAdder {public:void AddExternHandler(const AsciiString&,int,AptRef<AptExternHandler>);};
 class AptCustomRenderAdder {public:void AddCustomRender(const AsciiString&,AptRef<AptCustomRender>);};
 class DisplayString;

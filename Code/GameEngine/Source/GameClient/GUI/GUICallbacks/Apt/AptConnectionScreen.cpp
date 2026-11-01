@@ -127,13 +127,7 @@ class AptExternHandler;
 
 class AptOverButtonHandler;
 
-class AptCommandMapAdder
-{
-public:
-	void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
-private:
-	char m_pad[12];
-};
+#include "../../../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
 
 class __declspec(novtable) Rva005248D0
 {

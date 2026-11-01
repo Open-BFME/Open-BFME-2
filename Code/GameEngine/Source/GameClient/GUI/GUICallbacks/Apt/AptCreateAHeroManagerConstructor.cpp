@@ -48,11 +48,7 @@ struct TargetRef00217D4C;
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
 template<class T> class AptRef:public Rva00579E47 {public:AptRef(const DelegateDesc &desc):Rva00579E47(desc){}~AptRef(){if(ptr)ReleaseTreeHintRef00217D4C((TargetRef00217D4C*)ptr);}};
 
-class AptCommandMapAdder
-{
-public:
-	void AddCommandMap(const AsciiString &, AptRef<AptCommandMap>);
-};
+#include "../../../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
 void _bfme_setAptScreenRef(const AsciiString &, AptRef<AptScreenInitGadgets>);
 
 

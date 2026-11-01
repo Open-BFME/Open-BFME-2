@@ -123,11 +123,7 @@ public:
 	}
 };
 class AptCommandMap;
-class AptCommandMapAdder
-{
-public:
-	void AddCommandMap(const AsciiString &, AptRef<AptCommandMap>);
-};
+#include "../../../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
 class AptScreenInitGadgets;
 void _bfme_setAptScreenRef(const AsciiString &name, AptRef<AptScreenInitGadgets> ref);
 

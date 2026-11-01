@@ -27,7 +27,7 @@ void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
 // dtor; copy ctor kept declared) + inline release dtor emit retail's bytes.
 template<class T> class AptRef:public Rva00579E47 {public:AptRef(DelegateDesc desc):Rva00579E47(desc){}~AptRef(){if(ptr)ReleaseTreeHintRef00217D4C((TargetRef00217D4C*)ptr);}};
 class AptCommandMap;
-class AptCommandMapAdder {public:void AddCommandMap(const AsciiString&,AptRef<AptCommandMap>);char unknown[12];};
+#include "../../../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
 class Rva000B3F84Pair {public:Rva000B3F84Pair(){} Rva000B3F84Pair *init(const char*); const char *ptr; int len;};
 struct AsciiStringRef {const AsciiString *m_string;};
 struct AsciiStringPlusString:AsciiStringRef {AsciiStringRef m_second;};

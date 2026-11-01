@@ -123,21 +123,7 @@ private:
 
 // The 12-byte command-map name list: ctor 0x001F81BF (ICF fold, pinned),
 // AddCommandMap 0x0052458E, dtor 0x0052413E (pinned).
-class AptCommandMapAdder
-{
-public:
-	AptCommandMapAdder();
-	~AptCommandMapAdder();
-	void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
-
-	__forceinline void AddCommandMapBinding(const AsciiString &name, FunctorBinding binding)
-	{
-		AddCommandMap(name, binding);
-	}
-
-private:
-	char m_pad[0xC];
-};
+#include "../../../Libraries/Source/Apt/AptCommandMapAdder.h"
 
 // "prefix + name + text" concat nodes (layout as in System/RegistryAsciiPath.cpp).
 class Rva000B3F84Pair

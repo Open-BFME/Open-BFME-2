@@ -30,15 +30,7 @@
 // pin ?rva002D2C34@Rva002D2C34@@QAEXXZ stays for the callers still spelling
 // it (AptRowListCallbacks.cpp, AptPalantirUpdate.cpp).
 
-class AptCommandMapAdder
-{
-public:
-	AptCommandMapAdder();
-	~AptCommandMapAdder();
-
-private:
-	char m_pad[12];
-};
+#include "../../../Libraries/Source/Apt/AptCommandMapAdder.h"
 
 class Rva005241B0
 {

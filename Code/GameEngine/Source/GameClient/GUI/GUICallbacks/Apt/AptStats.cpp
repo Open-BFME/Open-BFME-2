@@ -195,7 +195,7 @@ void AptStats::rva005DD48C() {
 }
 class AptScreenInitGadgets;class AptCommandMap;
 void _bfme_setAptScreenRef(const AsciiString&,AptRef<AptScreenInitGadgets>);
-class AptCommandMapAdder {public:void AddCommandMap(const AsciiString&,AptRef<AptCommandMap>);};
+#include "../../../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
 // Native [5DD22B,5DD2D3) registers two callbacks and reuses one descriptor.
 // Screen/member strings establish the AptStats receiver; keep unknown names.
 void AptStats::rva005DD22B() {

@@ -68,11 +68,7 @@ public:
     }
 };
 class AptCommandMap;
-class AptCommandMapAdder
-{
-public:
-    void AddCommandMap(const AsciiString &, AptRef<AptCommandMap>);
-};
+#include "../../../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
 class AptOnline
 {
 public:

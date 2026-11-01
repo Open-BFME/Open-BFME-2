@@ -508,7 +508,7 @@ public:
 
 class AptScreenInitGadgets;
 class AptCommandMap;
-class AptCommandMapAdder {public:void AddCommandMap(const AsciiString &,AptRef<AptCommandMap>);};
+#include "../../../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
 void _bfme_setAptScreenRef(const AsciiString&,AptRef<AptScreenInitGadgets>);
 class Rva005B2725 {public:void Run(int);};
 // Native 5B414F..5B4541 (1010B): member initialization followed by Apt

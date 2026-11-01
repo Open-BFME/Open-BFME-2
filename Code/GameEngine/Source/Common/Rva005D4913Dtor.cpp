@@ -63,9 +63,7 @@ template<class T> class AptRef : public Rva00579E47 { public:
     ~AptRef() { if(ptr) ReleaseTreeHintRef00217D4C(reinterpret_cast<TargetRef00217D4C *>(ptr)); }
 };
 class AptCommandMap;
-class AptCommandMapAdder { public:
-    void AddCommandMap(const AsciiString &,AptRef<AptCommandMap>);
-};
+#include "../../../Libraries/Source/Apt/AptCommandMapAdder.h"
 static __forceinline DelegateDesc MakeBinding(FunctorMethod functorMethod,FunctorTarget *functorTarget) { return DelegateDesc(functorMethod,functorTarget); }
 
 class Rva005D4867 { public: void rva005D4867(const char *); };

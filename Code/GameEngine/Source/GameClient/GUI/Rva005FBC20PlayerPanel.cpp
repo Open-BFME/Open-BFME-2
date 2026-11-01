@@ -93,9 +93,7 @@ private:
 // preserve this caller's established temporary-copy/destructor ABI.
 class AptCommandMap;
 template<class T> class AptRef;
-class AptCommandMapAdder {
-public: void AddCommandMap(const AsciiString &, AptRef<AptCommandMap>);
-};
+#include "../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
 
 #include "unicode_string.h"
 // Existing names supply the independently proven ABI of the two setters.
