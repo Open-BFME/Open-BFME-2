@@ -90,3 +90,14 @@ are gone. No census, authored-byte or full consumer clearance is claimed.
 The preceding two-removal publication's broad audit is INCONCLUSIVE: the index
 predates base33056a795c and affected AIBuildable.cpp has no current strict
 receipt. Carry that wider scope into the next scheduled census.
+
+## Static STL profile trial: not applied
+
+Three private profiles add static-library mode, then malloc, then the usual
+no-exception/CRT-import definitions. All three preserve the 12 matched code
+rows and remove the eight STL DLL-import blockers, but their new-variant audits
+introduce 13, 13 and 12 additional helper variants respectively. The profiles
+also leave 20 unresolved non-STL names; none establishes a clean provider set.
+No compiler flag, Code body, header, row, pin or register is changed by this
+trial. The remaining donor users need reconciliation before such a profile
+can be considered. Complete scoped verdicts are retained.

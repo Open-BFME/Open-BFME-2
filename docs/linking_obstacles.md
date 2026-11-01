@@ -44,6 +44,10 @@ functions and the owned global; the third snapshot placeholder hatch retires.
 The unit still has 28 unresolved names and one wrong-selected science-vector
 copy. The prior batch's wider audit remains inconclusive on the old index and
 an AIBuildable.cpp receipt; carry that scope into the next census.
+Private static-STL profile trials preserve the 12 code rows but introduce
+12–13 new helper variants while leaving 20 non-STL unresolved names. No profile
+is applied. Reconcile the remaining donor users instead of admitting those
+variants; detailed trial verdicts are in the same evidence packet.
 
 
 ### Six-source Vector4 batch (2026-11-01)

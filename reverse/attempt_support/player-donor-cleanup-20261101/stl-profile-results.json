@@ -1,0 +1,211 @@
+[
+  {
+    "profile": "static",
+    "flags_added": "/D_STLP_USE_STATIC_LIB",
+    "rows": 12,
+    "matched": 12,
+    "errors": [],
+    "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\tu_skeleton\\4cd5e8f3d4177214.obj",
+    "blockers": {
+      "unresolved": [
+        "?buildBySupplies@AIPlayer@@QAEXHABVAsciiString@@@Z",
+        "?buildSpecificBuildingNearestTeam@AIPlayer@@QAEXABVAsciiString@@PBVTeam@@@Z",
+        "?calcClosestConstructionZoneLocation@AIPlayer@@QAE_NPBVThingTemplate@@PAUCoord3D@@@Z",
+        "?deposit@Money@@QAEXI_N@Z",
+        "?evacuateTeam@Team@@QAEXXZ",
+        "?findAnyShortcutSpecialPowerModuleInterface@Object@@QBEPAVSpecialPowerModuleInterface@@XZ",
+        "?getAIDifficulty@AIPlayer@@QBE?AW4GameDifficulty@@XZ",
+        "?getMaxSimultaneousOfType@ThingTemplate@@QBEIXZ",
+        "?getMostPercentReadyToFireAnyWeapon@Object@@QBEIXZ",
+        "?getRankInfo@RankInfoStore@@QBEPBVRankInfo@@H@Z",
+        "?getRankLevelCount@RankInfoStore@@QBEHXZ",
+        "?hasAnyBuildings@TeamPrototype@@QBE_NV?$BitFlags@$0HE@@@@Z",
+        "?hasAnyBuildings@TeamPrototype@@QBE_NXZ",
+        "?hasAnySpecialPower@Object@@QBE_NXZ",
+        "?isInSinglePlayerGame@GameLogic@@QAE_NXZ",
+        "?isOnSquad@Squad@@QBE_NPBVObject@@@Z",
+        "?isSupplySourceSafe@AIPlayer@@QAE_NH@Z",
+        "?removeObject@Squad@@QAEXPAVObject@@@Z",
+        "?setRankLevel@Player@@QAE_NH@Z",
+        "?withdraw@Money@@QAEII_N@Z"
+      ],
+      "duplicates": [
+        "?allocate@__new_alloc@_STL@@SAPAXI@Z"
+      ],
+      "comdat": [
+        [
+          "?allocate@__new_alloc@_STL@@SAPAXI@Z",
+          "retail",
+          "unknown"
+        ],
+        [
+          "?allocate@?$_STLP_alloc_proxy@PAPAXPAXV?$allocator@PAX@_STL@@@_STL@@QAEPAPAXI@Z",
+          "first",
+          null
+        ],
+        [
+          "??$_M_allocate_and_copy@PBW4ScienceType@@@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@IAEPAW4ScienceType@@IPBW42@0@Z",
+          "retail",
+          "wrong"
+        ]
+      ],
+      "addresses": [],
+      "selected": [
+        "??$_M_allocate_and_copy@PBW4ScienceType@@@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@IAEPAW4ScienceType@@IPBW42@0@Z",
+        "??0?$_STLP_alloc_proxy@PAPAXPAXV?$allocator@PAX@_STL@@@_STL@@QAE@ABV01@@Z"
+      ]
+    },
+    "new_variants": [
+      "?allocate@__new_alloc@_STL@@SAPAXI@Z",
+      "?deallocate@__new_alloc@_STL@@SAXPAXI@Z",
+      "?TEST_KINDOFMASK_MULTI@@YA_NABV?$BitFlags@$0HE@@@00@Z",
+      "?getPlayerTemplate@Player@@QBEPBVPlayerTemplate@@XZ",
+      "?isPlayableSide@PlayerTemplate@@QBE_NXZ",
+      "?getNumTeams@TeamsInfoRec@@QBEHXZ",
+      "?_M_do_flip@?$_Base_bitset@$03@_STL@@QAEXXZ",
+      "?allocate@?$allocator@PAX@_STL@@QBEPAPAXIPBX@Z",
+      "??0?$_Vector_base@PAXV?$allocator@PAX@_STL@@@_STL@@QAE@IABV?$allocator@PAX@1@@Z",
+      "??1?$_Vector_base@PAXV?$allocator@PAX@_STL@@@_STL@@QAE@XZ",
+      "??$_M_allocate_and_copy@PBW4ScienceType@@@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@IAEPAW4ScienceType@@IPBW42@0@Z",
+      "??1?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAE@XZ",
+      "??4?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z"
+    ]
+  },
+  {
+    "profile": "static-malloc",
+    "flags_added": "/D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC",
+    "rows": 12,
+    "matched": 12,
+    "errors": [],
+    "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\tu_skeleton\\bed4a3b2d9ca0771.obj",
+    "blockers": {
+      "unresolved": [
+        "?buildBySupplies@AIPlayer@@QAEXHABVAsciiString@@@Z",
+        "?buildSpecificBuildingNearestTeam@AIPlayer@@QAEXABVAsciiString@@PBVTeam@@@Z",
+        "?calcClosestConstructionZoneLocation@AIPlayer@@QAE_NPBVThingTemplate@@PAUCoord3D@@@Z",
+        "?deposit@Money@@QAEXI_N@Z",
+        "?evacuateTeam@Team@@QAEXXZ",
+        "?findAnyShortcutSpecialPowerModuleInterface@Object@@QBEPAVSpecialPowerModuleInterface@@XZ",
+        "?getAIDifficulty@AIPlayer@@QBE?AW4GameDifficulty@@XZ",
+        "?getMaxSimultaneousOfType@ThingTemplate@@QBEIXZ",
+        "?getMostPercentReadyToFireAnyWeapon@Object@@QBEIXZ",
+        "?getRankInfo@RankInfoStore@@QBEPBVRankInfo@@H@Z",
+        "?getRankLevelCount@RankInfoStore@@QBEHXZ",
+        "?hasAnyBuildings@TeamPrototype@@QBE_NV?$BitFlags@$0HE@@@@Z",
+        "?hasAnyBuildings@TeamPrototype@@QBE_NXZ",
+        "?hasAnySpecialPower@Object@@QBE_NXZ",
+        "?isInSinglePlayerGame@GameLogic@@QAE_NXZ",
+        "?isOnSquad@Squad@@QBE_NPBVObject@@@Z",
+        "?isSupplySourceSafe@AIPlayer@@QAE_NH@Z",
+        "?removeObject@Squad@@QAEXPAVObject@@@Z",
+        "?setRankLevel@Player@@QAE_NH@Z",
+        "?withdraw@Money@@QAEII_N@Z"
+      ],
+      "duplicates": [
+        "?allocate@__new_alloc@_STL@@SAPAXI@Z"
+      ],
+      "comdat": [
+        [
+          "?allocate@__new_alloc@_STL@@SAPAXI@Z",
+          "retail",
+          "unknown"
+        ],
+        [
+          "?allocate@?$_STLP_alloc_proxy@PAPAXPAXV?$allocator@PAX@_STL@@@_STL@@QAEPAPAXI@Z",
+          "first",
+          null
+        ],
+        [
+          "??$_M_allocate_and_copy@PBW4ScienceType@@@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@IAEPAW4ScienceType@@IPBW42@0@Z",
+          "retail",
+          "wrong"
+        ]
+      ],
+      "addresses": [],
+      "selected": [
+        "??$_M_allocate_and_copy@PBW4ScienceType@@@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@IAEPAW4ScienceType@@IPBW42@0@Z",
+        "??0?$_STLP_alloc_proxy@PAPAXPAXV?$allocator@PAX@_STL@@@_STL@@QAE@ABV01@@Z"
+      ]
+    },
+    "new_variants": [
+      "?allocate@__new_alloc@_STL@@SAPAXI@Z",
+      "?deallocate@__new_alloc@_STL@@SAXPAXI@Z",
+      "?TEST_KINDOFMASK_MULTI@@YA_NABV?$BitFlags@$0HE@@@00@Z",
+      "?getPlayerTemplate@Player@@QBEPBVPlayerTemplate@@XZ",
+      "?isPlayableSide@PlayerTemplate@@QBE_NXZ",
+      "?getNumTeams@TeamsInfoRec@@QBEHXZ",
+      "?_M_do_flip@?$_Base_bitset@$03@_STL@@QAEXXZ",
+      "?allocate@?$allocator@PAX@_STL@@QBEPAPAXIPBX@Z",
+      "??0?$_Vector_base@PAXV?$allocator@PAX@_STL@@@_STL@@QAE@IABV?$allocator@PAX@1@@Z",
+      "??1?$_Vector_base@PAXV?$allocator@PAX@_STL@@@_STL@@QAE@XZ",
+      "??$_M_allocate_and_copy@PBW4ScienceType@@@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@IAEPAW4ScienceType@@IPBW42@0@Z",
+      "??1?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAE@XZ",
+      "??4?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z"
+    ]
+  },
+  {
+    "profile": "static-malloc-nothrow",
+    "flags_added": "/D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /D_CRTIMP=",
+    "rows": 12,
+    "matched": 12,
+    "errors": [],
+    "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\tu_skeleton\\7501d01acfe63235.obj",
+    "blockers": {
+      "unresolved": [
+        "?buildBySupplies@AIPlayer@@QAEXHABVAsciiString@@@Z",
+        "?buildSpecificBuildingNearestTeam@AIPlayer@@QAEXABVAsciiString@@PBVTeam@@@Z",
+        "?calcClosestConstructionZoneLocation@AIPlayer@@QAE_NPBVThingTemplate@@PAUCoord3D@@@Z",
+        "?deposit@Money@@QAEXI_N@Z",
+        "?evacuateTeam@Team@@QAEXXZ",
+        "?findAnyShortcutSpecialPowerModuleInterface@Object@@QBEPAVSpecialPowerModuleInterface@@XZ",
+        "?getAIDifficulty@AIPlayer@@QBE?AW4GameDifficulty@@XZ",
+        "?getMaxSimultaneousOfType@ThingTemplate@@QBEIXZ",
+        "?getMostPercentReadyToFireAnyWeapon@Object@@QBEIXZ",
+        "?getRankInfo@RankInfoStore@@QBEPBVRankInfo@@H@Z",
+        "?getRankLevelCount@RankInfoStore@@QBEHXZ",
+        "?hasAnyBuildings@TeamPrototype@@QBE_NV?$BitFlags@$0HE@@@@Z",
+        "?hasAnyBuildings@TeamPrototype@@QBE_NXZ",
+        "?hasAnySpecialPower@Object@@QBE_NXZ",
+        "?isInSinglePlayerGame@GameLogic@@QAE_NXZ",
+        "?isOnSquad@Squad@@QBE_NPBVObject@@@Z",
+        "?isSupplySourceSafe@AIPlayer@@QAE_NH@Z",
+        "?removeObject@Squad@@QAEXPAVObject@@@Z",
+        "?setRankLevel@Player@@QAE_NH@Z",
+        "?withdraw@Money@@QAEII_N@Z"
+      ],
+      "duplicates": [
+        "?allocate@__new_alloc@_STL@@SAPAXI@Z"
+      ],
+      "comdat": [
+        [
+          "?allocate@__new_alloc@_STL@@SAPAXI@Z",
+          "retail",
+          "unknown"
+        ],
+        [
+          "?allocate@?$_STLP_alloc_proxy@PAPAXPAXV?$allocator@PAX@_STL@@@_STL@@QAEPAPAXI@Z",
+          "first",
+          null
+        ]
+      ],
+      "addresses": [],
+      "selected": [
+        "??0?$_STLP_alloc_proxy@PAPAXPAXV?$allocator@PAX@_STL@@@_STL@@QAE@ABV01@@Z"
+      ]
+    },
+    "new_variants": [
+      "?allocate@__new_alloc@_STL@@SAPAXI@Z",
+      "?deallocate@__new_alloc@_STL@@SAXPAXI@Z",
+      "?TEST_KINDOFMASK_MULTI@@YA_NABV?$BitFlags@$0HE@@@00@Z",
+      "?getPlayerTemplate@Player@@QBEPBVPlayerTemplate@@XZ",
+      "?isPlayableSide@PlayerTemplate@@QBE_NXZ",
+      "?getNumTeams@TeamsInfoRec@@QBEHXZ",
+      "?_M_do_flip@?$_Base_bitset@$03@_STL@@QAEXXZ",
+      "?allocate@?$allocator@PAX@_STL@@QBEPAPAXIPBX@Z",
+      "??0?$_Vector_base@PAXV?$allocator@PAX@_STL@@@_STL@@QAE@IABV?$allocator@PAX@1@@Z",
+      "??1?$_Vector_base@PAXV?$allocator@PAX@_STL@@@_STL@@QAE@XZ",
+      "??4?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z",
+      "??1?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAE@XZ"
+    ]
+  }
+]
