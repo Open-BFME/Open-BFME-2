@@ -76,7 +76,7 @@ class Rva002A7DDEArg;
 class BfmeMemberRV;
 class UpgradeTemplate { public: Int m_pad0; Int m_upgradeType; };
 
-class NameKeyGenerator { public: NameKeyType nameToKey(const char *name); };
+#include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 class ThingTemplate {

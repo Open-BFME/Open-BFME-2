@@ -9,7 +9,7 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 enum NameKeyType { NAMEKEY_INVALID=0 };
-class NameKeyGenerator {public:NameKeyType nameToKey(const char*);};
+#include "../../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 class Player;class Module;class Rva0052914B;
 struct ObjectCostTemplate {char unknown[0x108];unsigned char kindOf[0x14];};

@@ -59,7 +59,7 @@ extern HotKeyManager *TheHotKeyManager;
 struct Rva003597C3Element {char bytes[8];};
 class Rva00359811 {public:unsigned rva00359811(const Rva003597C3Element &,bool);};
 enum NameKeyType {NK_UNKNOWN=0};
-class NameKeyGenerator {public:NameKeyType nameToKey(const char *);};
+#include "../../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 class Module;
 class Object;

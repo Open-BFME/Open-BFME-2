@@ -57,12 +57,7 @@ public:
 	GameWindow *winGetNext(void);
 };
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-	NameKeyType nameToKey(const AsciiString &name) { return nameToKey(name.str()); }
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 
 class __declspec(novtable) GameWindowManager
 {
