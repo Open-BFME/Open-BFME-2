@@ -8,7 +8,7 @@
 // their no-escape behavior preserves the local reference in ESI across copy.
 // The setter receiver is a typed view at offset zero in the shared base.
 // No original class relationship is inferred from that view decomposition.
-struct TargetRef00217D4C {void *vtable;int count;};
+#include "../../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 struct SBServer {
  void *m_handle;

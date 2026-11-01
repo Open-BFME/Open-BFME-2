@@ -58,13 +58,8 @@ struct RGBColor;class Mouse {public:void rva001EEA6D(UnicodeString,int,const RGB
 class Rva005E6B3E {public:void updateTooltip();char unknown0[4];void*clip;char unknown8[0x10];Rva005E4300Entry*entry;};
 // Rva005E6B3E::rva005E6B3E is rowed in its home unit; this copy was a duplicate definition.
 
-struct TargetRef00217D4C {void*vtable;int count;};
+#include "../../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
-struct TreeHintRef00217D4C {
- ~TreeHintRef00217D4C(){if(m_ptr)ReleaseTreeHintRef00217D4C(m_ptr);}
- TreeHintRef00217D4C&operator=(const TreeHintRef00217D4C&);
- TargetRef00217D4C*m_ptr;
-};
 namespace StrategicInGameUI {TreeHintRef00217D4C Rva005E6A23(const Rva005E4300Entry*);}
 class Rva003FE20FBase {public:virtual void slot1(void*);};
 class Rva005E6AD8 {public:void rva005E6AD8();char pad0[4];void*clip;Rva003FE20FBase*owner;char padC[8];int value;Rva005E4300Entry*entry;TreeHintRef00217D4C held;};

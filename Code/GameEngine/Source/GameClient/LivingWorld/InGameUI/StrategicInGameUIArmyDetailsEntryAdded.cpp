@@ -7,7 +7,7 @@
 // Both vector providers remain visible so the backing pointer stays in ESI.
 // The existing ScienceType instantiations are storage-compatible int providers;
 // this consumer makes no claim that army entry IDs are science IDs.
-struct TargetRef00217D4C {void *vtable;int count;};
+#include "../../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 struct SBServer {
  void *handle;

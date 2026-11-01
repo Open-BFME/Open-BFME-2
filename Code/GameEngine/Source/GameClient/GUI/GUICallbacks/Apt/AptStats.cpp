@@ -120,7 +120,7 @@ void AptStats::NextRankExtern(int faction,char*out,bool lvalue)
 // descriptor and owning four-byte AptRef. Native 5DD2D3 binds both rowed
 // callbacks and labels six factions; WB 15D8E40 names InitializeFactionVariables.
 // Returning the inline descriptor closes native callback-address scheduling.
-struct TargetRef00217D4C {void*vt;int references;};
+#include "../../../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
 typedef void(AptStats::*StatsHandler)();
 struct DelegateDesc {AptStats*object;StatsHandler method;DelegateDesc(){}DelegateDesc(AptStats*o,StatsHandler m):object(o),method(m){}};

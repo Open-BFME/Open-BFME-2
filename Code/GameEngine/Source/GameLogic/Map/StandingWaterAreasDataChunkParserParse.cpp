@@ -75,11 +75,7 @@ public:
 	void parse(DataChunkInput &file, Int flag);
 };
 
-struct TargetRef00217D4C
-{
-	virtual void *destroy(unsigned int);
-	Int references;
-};
+#include "../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 
 class WaterArea : public TargetRef00217D4C

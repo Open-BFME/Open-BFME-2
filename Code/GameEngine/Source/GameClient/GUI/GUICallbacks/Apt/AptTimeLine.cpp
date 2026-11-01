@@ -1009,7 +1009,7 @@ extern Mouse *TheMouse;
 // A counted callback holder (Rva00080221Ctor.cpp's view); the verified
 // 0x003FE7E6 registers one and answers its id through the pointer, and
 // 0x003FEC05 is the callback registered here (both pinned by address).
-struct TargetRef00217D4C { virtual void *destroy(unsigned flags); int references; };
+#include "../../../../../../Libraries/Source/Apt/AptRefTarget.h"
 
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 

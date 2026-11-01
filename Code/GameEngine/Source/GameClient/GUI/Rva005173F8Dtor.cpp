@@ -19,7 +19,7 @@ struct FunctorBinding {
  FunctorBinding(FunctorMethod m,FunctorTarget*functorTarget):target(functorTarget),method(m){}
  FunctorTarget*target; unsigned unused; FunctorMethod method;
 };
-struct TargetRef00217D4C { void *vtable; int references; };
+#include "../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
 class Rva0057BC63FunctorHolder {
 public:

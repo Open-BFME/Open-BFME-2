@@ -16,26 +16,8 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 
-struct TargetRef00217D4C
-{
-	void *m_vtbl;
-	int m_refCount;
-};
+#include "../../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *ref);
-struct TreeHintRef00217D4C
-{
-	TreeHintRef00217D4C(TargetRef00217D4C *ptr) : m_ptr(ptr)
-	{
-		if (m_ptr)
-			++m_ptr->m_refCount;
-	}
-	~TreeHintRef00217D4C()
-	{
-		if (m_ptr)
-			ReleaseTreeHintRef00217D4C(m_ptr);
-	}
-	TargetRef00217D4C *m_ptr;
-};
 class InGameSimpleHelp
 {
 public:

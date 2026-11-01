@@ -167,7 +167,7 @@ void AptCreateAHero::Manager::rva005B5F2E() {
 void __cdecl GadgetListBoxGetSelected(GameWindow *, int *);
 void *GadgetListBoxGetItemData(GameWindow *, int, int);
 extern unsigned char g_rva005B5C02Flag;
-struct TargetRef00217D4C {void *vtbl;int references;};
+#include "../../../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 struct DelegateDesc {void *m_object;void *m_method;DelegateDesc(void *o,void *m):m_object(o),m_method(m){}};
 static __forceinline DelegateDesc MakeDelegate(void *object,void *method){return DelegateDesc(object,method);}

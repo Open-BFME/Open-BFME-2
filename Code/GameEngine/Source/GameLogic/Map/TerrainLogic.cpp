@@ -422,7 +422,7 @@ public:
 	unsigned int m_index; // +0x0C +0x0C
 };
 
-struct TargetRef00217D4C { virtual void *destroy(unsigned int flags); int references; };
+#include "../../../../Libraries/Source/Apt/AptRefTarget.h"
 
 struct Rva0027EA49
 {

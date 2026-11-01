@@ -116,7 +116,7 @@ void Rva00511730(int);
 void Rva00548C1ACleanup();
 void GSMessageBoxOk(UnicodeString,UnicodeString,void(*)()=0);
 void TearDownGameSpy();
-struct TargetRef00217D4C {void *vtbl;int references;};
+#include "../../../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 class __multiple_inheritance FunctorTarget;
 typedef void(FunctorTarget::*FunctorMethod)(int);

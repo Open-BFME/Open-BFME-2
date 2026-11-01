@@ -9,7 +9,7 @@
 // class hierarchy of the holder (Rva0051732ABase/Rva0051732A split mirrors what
 // the byte shape needs: the dtor-less by-value view vs the owning temp).
 #include "unicode_string.h"
-struct TargetRef00217D4C { void *m_vtbl; int references; };
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 class Rva0044BC76 {
 public:

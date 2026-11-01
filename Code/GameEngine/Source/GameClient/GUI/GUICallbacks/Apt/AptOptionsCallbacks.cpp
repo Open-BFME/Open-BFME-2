@@ -95,11 +95,7 @@ namespace _STL { template <> void vector<bool, allocator<bool> >::_M_fill_insert
 // AptOnlineQuickMatchOptions.cpp's prompt plumbing: a member-pointer
 // binding wrapped in the refcounted holder 0x0057BC63 builds, handed by
 // value to the prompt helper 0x00437F61 (type, title, text, answer).
-struct TargetRef00217D4C
-{
-	void *vtbl;
-	int references;
-};
+#include "../../../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 class __multiple_inheritance FunctorTarget;
 typedef void (FunctorTarget::*FunctorMethod)(int);

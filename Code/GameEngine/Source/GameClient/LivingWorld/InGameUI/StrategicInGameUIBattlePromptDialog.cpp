@@ -18,7 +18,7 @@
 // by this unit's exact out-of-line copies (fold-proof pins).
 namespace StrategicInGameUI { class BattlePromptDialog { public: class Impl; }; }
 // ---- the battle-prompt player records (CreateLocalPlayerData / PopulateMovieClip) ----
-struct TargetRef00217D4C { virtual void *destroy(unsigned int flags); int references; };
+#include "../../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 // The 16-byte record's page-factory reference (+0): copied by 0x005F9141,
 // released through 0x0007DEEF; its assignment is the ICF-folded 0x002174A4.

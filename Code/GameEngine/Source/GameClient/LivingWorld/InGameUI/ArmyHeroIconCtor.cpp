@@ -52,7 +52,7 @@ public:
 class ArmyHeroIconMovieClip;
 class Image;
 class AptMovieClipFrame;
-struct TargetRef00217D4C { void *vtable; int references; };
+#include "../../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 struct Rva002BED91 { TargetRef00217D4C *m_ptr; void set(TargetRef00217D4C *); };
 class HeroClipReference {
@@ -117,12 +117,6 @@ UnicodeString __cdecl GetTooltipText(int id); // 0x005F027D (pinned)
 class Rva005F3F73 { public: Rva005F3F73(void *, void *) throw(); private: char storage[0x18]; };
 class Rva005F4096 { public: void clear(); Rva005F4096(Rva005F3F73 *p) : p(p) {} private: Rva005F3F73 *p; };
 class Rva005F4179Base { public: Rva005F4179Base() : count(0) {} virtual ~Rva005F4179Base() {} protected: int count; };
-struct TreeHintRef00217D4C {
- __forceinline TreeHintRef00217D4C(TargetRef00217D4C *p):m_ptr(p) {if(p) ++p->references;}
- __forceinline TreeHintRef00217D4C(const TreeHintRef00217D4C&r):m_ptr(r.m_ptr) {if(m_ptr)++m_ptr->references;}
- ~TreeHintRef00217D4C(){if(m_ptr)ReleaseTreeHintRef00217D4C(m_ptr);}
- TargetRef00217D4C *m_ptr;
-};
 class Rva005F4179 : public Rva005F4179Base {
 public:
  Rva005F4179(void *clip); virtual ~Rva005F4179();

@@ -35,7 +35,7 @@ private:
 
 // Native LAN/online entry callbacks share the firewall confirmation protocol.
 // These views reuse the rowed 16-byte member binding and two-handle lifetime.
-struct TargetRef00217D4C { virtual void *destroy(unsigned); int references; };
+#include "../../../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 class __multiple_inheritance FunctorTarget;
 typedef void (FunctorTarget::*FunctorMethod)();

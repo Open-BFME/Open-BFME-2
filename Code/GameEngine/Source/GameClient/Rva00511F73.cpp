@@ -48,7 +48,7 @@ void __cdecl Rva00511F73Run()
 // registers the two independently named static messenger callbacks.
 struct Rva002BA8F1Listener;
 class Rva005A0B4CList {public:void append(Rva002BA8F1Listener*);};
-struct TargetRef00217D4C {void *vtable;int references;};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
 // The two callback-holder constructors (rows 0x0023E8D8 in Rva0023E8D8Ctor.cpp
 // and 0x004106FA in Rva00080221Ctor.cpp) are visible here as inline,

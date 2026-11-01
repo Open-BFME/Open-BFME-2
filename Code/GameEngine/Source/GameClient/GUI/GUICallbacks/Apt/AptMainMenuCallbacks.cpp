@@ -938,7 +938,7 @@ struct FunctorBinding
 };
 // The generic member pointer is the eight-byte multiple-inheritance form; a
 // plain member converts to it through a derived class of that form.
-struct TargetRef00217D4C { virtual void *destroy(unsigned int); int references; };
+#include "../../../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 class FunctorWrapperHead
 {
@@ -970,16 +970,6 @@ public:
 			m_ptr->references++;
 	}
 	TargetRef00217D4C *m_ptr;
-};
-struct TreeHintRef00217D4C : public Rva0057BC63FunctorHolder
-{
-	TreeHintRef00217D4C(FunctorBinding binding) : Rva0057BC63FunctorHolder(binding) {}
-	TreeHintRef00217D4C(const TreeHintRef00217D4C &v) : Rva0057BC63FunctorHolder(v)
-	{
-		if (m_ptr)
-			++m_ptr->references;
-	}
-	~TreeHintRef00217D4C() { if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr); }
 };
 class AptMessageBox
 {

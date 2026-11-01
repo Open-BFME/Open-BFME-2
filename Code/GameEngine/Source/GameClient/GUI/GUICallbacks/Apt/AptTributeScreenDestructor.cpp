@@ -32,11 +32,7 @@ template <> struct less<AsciiString>
 };
 }
 
-struct TargetRef00217D4C
-{
-	virtual void *destroy(unsigned flags);
-	int references;
-};
+#include "../../../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 struct TreeHintRef0051030C
 {

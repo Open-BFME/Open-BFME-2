@@ -4,11 +4,7 @@
 // accessor: lea slot from this+index*4+4 with two Rva002BED91 at +4 and +8
 // then virtual slot 0x50 creator plus rowed Rva002BED91::set 0x003F8396.
 // Callers 0x0043FA68 with index 1 via +0x58 and 0x00441ECE with 0 then 1.
-struct TargetRef00217D4C
-{
-	void *m_vtbl;
-	int references;
-};
+#include "../../../../Libraries/Source/Apt/AptRefTarget.h"
 struct Rva002BED91
 {
 	TargetRef00217D4C *m_ptr;

@@ -230,11 +230,7 @@ namespace _STL { template <> void __destroy_aux<Rva005FA1CEElement *>(Rva005FA1C
 struct Rva005FA197Element;
 namespace _STL { template <> void __destroy_aux<Rva005FA197Element *>(Rva005FA197Element *,Rva005FA197Element *,__false_type const &); }
 
-struct TargetRef00217D4C
-{
-	virtual void *destroy(unsigned int flags);
-	int references;
-};
+#include "../../../../../../Libraries/Source/Apt/AptRefTarget.h"
 
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 

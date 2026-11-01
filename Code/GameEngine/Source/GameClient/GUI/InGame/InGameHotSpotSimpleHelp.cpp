@@ -1,16 +1,8 @@
 // cl: /O1 /Ireference/shims/bfme2_ascii /MD /EHsc
 #include "unicode_string.h"
 
-struct TargetRef00217D4C
-{
-	virtual void *destroy(unsigned flags);
-	int references;
-};
+#include "../../../../../Libraries/Source/Apt/AptRefTarget.h"
 
-struct TreeHintRef00217D4C
-{
-	TargetRef00217D4C *m_ptr;
-};
 
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 

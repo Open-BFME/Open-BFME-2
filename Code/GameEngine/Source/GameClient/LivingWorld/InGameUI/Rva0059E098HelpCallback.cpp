@@ -5,11 +5,11 @@
 // The return handle spelling/lifetime is carried from the rowed 0x0056BC3D
 // provider. Its nontrivial destructor explains the compiler's return flag
 // stack slot; no explicit unread or volatile source local is required.
-struct TargetRef00217D4C {void *m_vtbl; int m_refCount;};
+#include "../../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 struct RvaF6Ret {
     RvaF6Ret(TargetRef00217D4C *p) : m_ptr(p) {
-        if (m_ptr) ++m_ptr->m_refCount;
+        if (m_ptr) ++m_ptr->references;
     }
     __declspec(dllimport) __forceinline ~RvaF6Ret() {
         if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr);

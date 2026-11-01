@@ -47,7 +47,7 @@ void *Rva00223591::rva002237C7(const void *arg)
 // destroys it through the existing pair cleanup222C5A. That cleanup reads
 // key+0 and ref-pointer+4; the POD index at+8 requires no cleanup. Keep the
 // existing constructor/destructor owners rather than inventing alias pins.
-struct TargetRef00217D4C { virtual void *destroy(unsigned); int references; };
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 class Rva00056F61;
 struct Rva0041534BIter {

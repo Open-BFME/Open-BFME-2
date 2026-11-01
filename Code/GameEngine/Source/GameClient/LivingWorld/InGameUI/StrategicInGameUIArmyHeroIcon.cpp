@@ -50,7 +50,7 @@ public:
 class ArmyHeroIconMovieClip;
 class Image;
 class AptMovieClipFrame;
-struct TargetRef00217D4C { void *vtable; int references; };
+#include "../../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 struct Rva002BED91 { TargetRef00217D4C *m_ptr; void set(TargetRef00217D4C *); };
 class HeroClipReference {

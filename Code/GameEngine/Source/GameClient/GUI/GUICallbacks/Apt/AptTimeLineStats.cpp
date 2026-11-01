@@ -129,7 +129,7 @@ struct DelegateDesc {
  TimelineHandler method;
  DelegateDesc(AptTimeLineStats *aptTimeLineStats,TimelineHandler m):object(aptTimeLineStats),method(m){}
 };
-struct TargetRef00217D4C {void *vtable;int references;};
+#include "../../../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 class Rva00579E47 {
 public:

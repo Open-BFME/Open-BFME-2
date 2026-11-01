@@ -144,7 +144,7 @@ class AptMessenger { public: static void OpenScreen(); static AptMessenger *s_in
 
 // Reference-counted callback handles (address-derived views; the callee
 // releases its by-value handles).
-struct TargetRef00217D4C { void *m_vtbl; int references; };
+#include "../../../../../../Libraries/Source/Apt/AptRefTarget.h"
 
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 
