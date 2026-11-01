@@ -475,12 +475,6 @@ struct Rva00481A6EPlayerListView
 	void *m_local;											// +0x18
 };
 
-class Rva00481A6E : public UpdateModule
-{
-public:
-	virtual void rva00481A6E(int unused, void *player);
-};
-
 // --- 0x003B8DD7 (60B): when TheLivingWorldLogic's +0xB0 holder has a
 // campaign (+0x08), run TheLivingWorldManager's rowed 0x00210F96 and the
 // campaign's rowed 0x0020F3E8 over the holder, then slot 1 of the current
@@ -557,18 +551,6 @@ public:
 	virtual void b0();
 	Rva0039A245Data *m_data;								// +0x04
 	char m_pad08[0x30 - 8];
-};
-
-class Rva0039A245Iface
-{
-public:
-	virtual void rva0039A245();
-};
-
-class Rva0039A245 : public Rva0039A245Base0, public Rva0039A245Iface
-{
-public:
-	virtual void rva0039A245();
 };
 
 // --- 0x004A9617 / 0x004A6A81 (53B / 52B): whether the level read through

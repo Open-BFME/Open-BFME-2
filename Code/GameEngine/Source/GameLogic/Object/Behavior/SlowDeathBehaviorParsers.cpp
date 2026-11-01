@@ -113,15 +113,6 @@ void Rva00339184(const char *token, void *store);
 // The death-flag masks under the names the ledger gives their rowed
 // members: the 19-word model condition flags (+0x128) and the 4-word status
 // bitset (+0x174).
-class Rva000B6253
-{
-public:
-	Rva000B6253 *rva000B6253(int init, unsigned int bit1, unsigned int bit2, unsigned int bit3, unsigned int bit4, unsigned int bit5) throw();
-	__declspec(dllimport) __forceinline Rva000B6253(int init, unsigned int bit1, unsigned int bit2, unsigned int bit3, unsigned int bit4, unsigned int bit5) throw()
-	{ rva000B6253(init, bit1, bit2, bit3, bit4, bit5); }
-	unsigned int m_words[19];
-};
-
 class WeaponTemplateSetHead
 {
 public:
@@ -130,35 +121,10 @@ public:
 	unsigned int m_words[19];
 };
 
-class Rva000B937E
-{
-public:
-	void rva000B937E(INI *ini, void *description);
-	unsigned int m_words[19];
-};
-
-struct Rva0045D887
-{
-	unsigned m_bits[4];
-
-	Rva0045D887(int unused, int b1, int b2, int b3, int b4, int b5) throw();
-};
-
 // Retail's FuncInfo nests two further states inside the description string's
 // with no code and no cleanup action: as in beginSlowDeath 0x0045DE65 they are
 // modelled by two lifetimes in a scope the optimizer deletes.
-struct Rva0045E293EliminatedLifetime
-{
-	~Rva0045E293EliminatedLifetime();
-};
 void rva0045e293EliminatedSink(const void *, const void *);
-
-class Rva003339CE
-{
-public:
-	void rva00334506(AsciiString description);
-	unsigned long m_words[4];
-};
 
 namespace _STL
 {

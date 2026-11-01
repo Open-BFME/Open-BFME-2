@@ -93,8 +93,6 @@ class Object {public: char pad00[0x44];float field44;char pad48[0x74-0x48];int f
 class CommandButton;
 void __cdecl Rva005B24CDHeroPowerText(void *,const char *,int);
 bool __cdecl rva005B2295(const CommandButton *button,const char *prefix,int index,int page);
-class Rva00223A94 {public: int rva00223A94(const AsciiString *);};
-class Rva005241DF {public: void rva005241DF(const StringBase<char> &);};
 class Rva005B1830 {public: void rva005B1830();};
 class Rva005B1A07 {public: void rva005B1B26(unsigned int);};
 // Sun-direction helper views (retail 0x005B0A95): the WWMath Vector3/Vector4/
@@ -218,16 +216,7 @@ extern Keyboard *TheKeyboard;
 
 extern int BfmeLogicFramesPerSecond;
 
-class Rva005B02B5 {public:void rva005B0249();void rva005B027F();void rva005B02B5();void rva005B02FD();};
-
-class Rva001DBAA4 {public:void unlock();};
-
 class Rva001DBAA4L {public:void lock();};
-
-class Rva0023C565 {
-public: Rva0023C565(){if(TheTransitionHandler)reinterpret_cast<Rva001DBAA4L *>(TheTransitionHandler)->lock();}
- __forceinline ~Rva0023C565(){if(TheTransitionHandler)reinterpret_cast<Rva001DBAA4 *>(TheTransitionHandler)->unlock();}
-};
 
 // Split from GapBodiesSeat10O1.cpp: these definitions reference a callee with no matched body yet,
 // so they are kept apart from the unit's bodies that already link.
@@ -1365,18 +1354,6 @@ namespace _STL
 		T **_M_node;
 	};
 }
-
-class Rva00549420 : public _STL::_Deque_iterator_base<BfmeE8>
-{
-public:
-	int rva00549420(const Rva00549420 &other) const;
-};
-
-class Rva00584D50 : public _STL::_Deque_iterator_base<BfmeE12>
-{
-public:
-	int rva00584D50(const Rva00584D50 &other) const;
-};
 
 // ?rva005D7357@Rva005D7357@@QBEIXZ @0x005D7357 5B: bucket count of the
 // int->int hash_map at +0 through its rowed bucket_count.

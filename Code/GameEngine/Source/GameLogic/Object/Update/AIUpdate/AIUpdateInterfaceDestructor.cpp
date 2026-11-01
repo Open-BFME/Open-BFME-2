@@ -14,28 +14,6 @@
 // (+0x20) and 0x00C52F88 (+0x24). The views below carry only that layout.
 #include "ascii_string.h"
 
-class UpdateModuleRoot
-{
-public:
-	virtual void r0() = 0;
-private:
-	char m_pad04[8];
-};
-
-class UpdateModuleSecond
-{
-public:
-	virtual void s0() = 0;
-};
-
-class UpdateModuleThird
-{
-public:
-	virtual void t0() = 0;
-private:
-	char m_pad14[12];
-};
-
 #include "../../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class AIUpdateInterfaceFourth

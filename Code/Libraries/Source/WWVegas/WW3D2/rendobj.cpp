@@ -250,25 +250,12 @@ public:
 // Native 0027C2A4..0027C2AE is a complete independently bounded RET leaf.
 // Target behavior: receiver28 dword subtracts stack argument modulo32; RET4.
 // Original owner and full array bounds remain unknown; address-owned view only.
-class Rva0027C2A4Fields {
-public: void subtract(unsigned int value);
-private: unsigned char unknown[0x28]; unsigned int value28;
-};
-
 // BF1 9cbfb551fe Common/Rva005BD470ZeroTest.cpp is the clean semantic guide.
 // Complete native 001F34FE..001F350B RET leaf proves: cdecl pointer argument; byte1C equals zero; full EAX result0 or1.
 // Original owner and complete bounds unresolved; independent address-owned view.
-struct Rva001F34FEFields { unsigned char unknown[0x1C]; unsigned char value; };
-
 // BF1 9cb Rva005FC2B0Set.cpp guides the raw store/receiver-return pattern.
 // Target 563E5F..563E65 follows RET8 and writes byte0=1, returning this.
 // Original owner and complete class bounds remain unknown.
-struct Rva00563E5FFields
-{
-    unsigned char flag;
-    Rva00563E5FFields *enable();
-};
-
 // Clean BFME1 9cbfb551 donor structural leads; native instructions independently
 // establish complete RET boundaries and each raw field operation and ABI.
 // Address-owned carriers retain unknown original receiver identity and bounds.

@@ -17,20 +17,6 @@ template<int N> class BitFlags;
 // unrelated virtual here shifted the destructor into slot 1 and emitted
 // a wrong first virtual slot. The deleting-wrapper unit uses these same
 // base views, including the native three-entry update interface.
-class BehaviorModuleBase
-{
-public:
-	virtual ~BehaviorModuleBase();
-private:
-	int a;
-	int b;
-};
-
-class BehaviorModuleOther
-{
-	virtual void unused();
-};
-
 #include "../../Include/GameLogic/Module/BehaviorModule.h"
 
 class UpdateModuleInterface

@@ -151,11 +151,9 @@ namespace _STL { template <> _Rb_tree_node<pair<const int, void*> > * _Rb_tree<i
 namespace _STL { template <> _Rb_tree_node<pair<const int, void*> > * _Rb_tree<int, pair<const int, void*>, _Select1st<pair<const int, void*> >, Rva001FDAB0Less, allocator<pair<const int, void*> > >::_M_clone_node(_Rb_tree_node<pair<const int, void*> > *); }
 // bfme link decl-only end
 enum ScienceType { S3ScienceForce=0x7fffffff };
-struct Rva0021C21BElement { char bytes[4]; };
 struct Rva0026F4F4Element { unsigned words[1]; bool operator<(const Rva0026F4F4Element &)const;bool operator==(const Rva0026F4F4Element &)const; };
 namespace _STL {template<>struct __type_traits<Rva0026F4F4Element> : __type_traits_aux<1> {};}
 
-struct TreeHintPayload003012F0 {unsigned a,b,c;TreeHintPayload003012F0(const TreeHintPayload003012F0 &r):a(r.a),b(r.b),c(r.c){}};
 class BfmeFixedStorage0004543D {public:BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D&);char data[28];};
 template <int N> class BitFlags;
 extern BitFlags<116> KINDOFMASK_NONE;
