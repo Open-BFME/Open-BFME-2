@@ -153,7 +153,10 @@ private:
 namespace _STL {
 template <> _List_base<int, allocator<int> >::~_List_base();
 }
-typedef _STL::_List_base<int, _STL::allocator<int> > ScriptIntList;
+// list<int>'s destructor is retail's tail thunk 0x00200667: the unwind
+// funclets and the eh vector destructor iterator over the 20-list arrays
+// take it, while the normal path expands it into the base destructor call.
+typedef _STL::list<int, _STL::allocator<int> > ScriptIntList;
 
 class Rva00205AF8
 {

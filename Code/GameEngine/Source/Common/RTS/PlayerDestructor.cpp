@@ -260,8 +260,8 @@ private:
 	ScoreKeeper m_3bc;
 	_STL::list<int> m_6f4;
 	char pad6f8[8];
-	_STL::_List_base<int, _STL::allocator<int> > m_700;
-	_STL::_List_base<int, _STL::allocator<int> > m_704;
+	_STL::list<int> m_700;
+	_STL::list<int> m_704;
 	DelBase *m_708[10];
 	DelBase *m_730;
 	char m_pad734[4];
