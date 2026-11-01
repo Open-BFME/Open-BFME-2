@@ -27,15 +27,7 @@
 
 typedef int Int;
 
-class INIException
-{
-public:
-	INIException(int argCount, const char *format, ...);
-	char *mFailureMessage;
-	int mErrorCode;
-	INIException(const INIException &that);
-	~INIException();
-};
+#include "../../../../../GameEngine/Include/Common/INI/FieldParse.h"
 
 class INI
 {

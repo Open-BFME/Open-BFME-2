@@ -1694,7 +1694,7 @@ struct EventFlagEntry {void setKeyFromName(const char *);};
 
 namespace _STL { template <> void vector<NameKeyType>::push_back(const NameKeyType &); }
 
-class INIException {public:char *mFailureMessage;};
+#include "../../../Include/Common/INI/FieldParse.h"
 
 struct ModelConditionWords {unsigned long words[19];
  ModelConditionWords(){memset(words,0,sizeof(words));}

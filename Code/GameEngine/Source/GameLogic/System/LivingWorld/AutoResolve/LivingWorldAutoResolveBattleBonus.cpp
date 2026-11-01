@@ -30,15 +30,7 @@ public:
 	const char *m_sepsColon;								// +0x420
 };
 
-class INIException
-{
-public:
-	INIException(int argCount, const char *format, ...);	// 0x0002F681
-	INIException(const INIException &that);
-	~INIException();
-	char *mFailureMessage;
-	int mErrorCode;
-};
+#include "../../../../../Include/Common/INI/FieldParse.h"
 
 // One bonus entry: the rowed tree's 16-byte value, keyed by MinCount.
 struct Rva003F75ECValue

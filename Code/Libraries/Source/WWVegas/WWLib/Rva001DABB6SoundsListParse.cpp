@@ -17,15 +17,7 @@ class INI
 public:
 	const char *getNextTokenOrNull(const char *s);
 };
-class INIException
-{
-public:
-	INIException(int argCount, const char *format, ...);
-	char *mFailureMessage;
-	int m_argCount;
-	INIException(const INIException &that);
-	~INIException();
-};
+#include "../../../../GameEngine/Include/Common/INI/FieldParse.h"
 struct Rva001DAAF2Element {
 	AsciiString name;
 	int weight;

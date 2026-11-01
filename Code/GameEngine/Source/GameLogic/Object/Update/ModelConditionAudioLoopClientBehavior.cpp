@@ -48,7 +48,7 @@ typedef _STL::vector<BfmeStringTailRecord156> SoundVector;
 
 namespace _STL {template<> __declspec(noinline) void SoundVector::push_back(const BfmeStringTailRecord156 &);}
 
-class INIException {public:INIException(int,const char *,...);INIException(const INIException &);~INIException();int code;const char *message;};
+#include "../../../../Include/Common/INI/FieldParse.h"
 
 class INI {public:const char *getNextTokenOrNull(const char *);const char *getNextToken(const char *);char pad[0x420];const char *separators;};
 

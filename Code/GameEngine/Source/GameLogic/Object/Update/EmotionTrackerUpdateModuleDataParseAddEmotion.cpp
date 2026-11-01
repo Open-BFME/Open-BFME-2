@@ -15,13 +15,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include "ascii_string.h"
 
 class INI { public: const char *getNextToken(const char *separators = 0); };
-class INIException {
-public:
-    INIException(int, const char *, ...);
-    INIException(const INIException &);
-    ~INIException();
-    char *message; int argumentCount;
-};
+#include "../../../../Include/Common/INI/FieldParse.h"
 // Existing lookup ABI spelling; the retained temporary is an AsciiString.
 class BfmeEmotionName;
 class EmotionNugget;

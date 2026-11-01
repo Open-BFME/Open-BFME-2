@@ -46,7 +46,7 @@ public:
 	AsciiString m_04;
 	char m_08[8];
 };
-class INIException {public:INIException(int,const char*,...);INIException(const INIException&);~INIException();private:unsigned opaque[2];};
+#include "../../../Include/Common/INI/FieldParse.h"
 // ?parseHordeContainComboHorde@@YAXPAVINI@@PAX1PBX@Z
 void parseHordeContainComboHorde(INI *ini, void *instance, void *store, const void *userData)
 {

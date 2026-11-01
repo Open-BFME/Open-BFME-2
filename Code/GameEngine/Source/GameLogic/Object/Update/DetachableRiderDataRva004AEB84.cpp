@@ -35,14 +35,7 @@ public:
 	const char *getSepsColon() const { return *(const char **)((const char *)this + 0x420); }
 };
 
-class INIException
-{
-public:
-	INIException(int, const char *, ...);
-	INIException(const INIException &);
-	~INIException();
-private: unsigned opaque[2];
-};
+#include "../../../../Include/Common/INI/FieldParse.h"
 
 template<int N> class BitFlags
 {

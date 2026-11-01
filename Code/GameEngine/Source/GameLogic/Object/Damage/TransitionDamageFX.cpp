@@ -501,15 +501,7 @@ private:
 	const char *m_sepsColon;
 };
 
-class INIException
-{
-public:
-	INIException(int argCount, const char *format, ...);
-	INIException(const INIException &other);
-	~INIException();
-	char *mFailureMessage; // +0x00
-	int m_argCount; // +0x04
-};
+#include "../../../../Include/Common/INI/FieldParse.h"
 
 // Native 004B9C4D..004B9D86 is the complete 313B getLocalEffectPos helper:
 // Ghidra boundary and WB12472F0 call graph/source-path/line339 corroborate

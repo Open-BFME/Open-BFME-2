@@ -50,10 +50,7 @@ class INI {public:AsciiString getNextAsciiString();AsciiString getFilename()cons
 enum NameKeyType {NAMEKEY_INVALID=0};
 class NameKeyGenerator {public:NameKeyType nameToKey(const AsciiString &);};
 extern NameKeyGenerator *TheNameKeyGenerator;
-class INIException {
- public: INIException(int,const char*,...);INIException(const INIException &);~INIException();
- char *mFailureMessage;int m_argCount;
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 void Rva004251C4Parse(INI *ini,Rva004251C4Table *table)
 {
  table->rows.push_back(OuterDeque());

@@ -103,15 +103,7 @@ private:
 
 extern RankInfoStore *TheRankInfoStore;
 
-class INIException
-{
-public:
-	char *mFailureMessage;
-	int mErrorCode;
-	INIException(int argCount, const char *format, ...);
-	INIException(const INIException &that);
-	~INIException();
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 
 // ?friend_parseRankDefinition@RankInfoStore@@SAXPAVINI@@@Z
 void RankInfoStore::friend_parseRankDefinition(INI *ini)

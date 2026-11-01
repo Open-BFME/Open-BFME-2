@@ -51,15 +51,7 @@ private:
 	Drawable *m_drawable; // +4
 };
 
-class INIException
-{
-public:
-	INIException(int argCount, const char *format, ...);
-	char *mFailureMessage;
-	int mErrorCode;
-	INIException(const INIException &that);
-	~INIException();
-};
+#include "../../../../Include/Common/INI/FieldParse.h"
 
 
 // ??0DrawableModule@@QAE@PAVThing@@PBVModuleData@@@Z

@@ -49,15 +49,7 @@ public:
 	int m_loadType;						// +0x08, 1 for the startup files
 };
 
-class INIException
-{
-public:
-	INIException(int code, const char *format, ...);	// 0x0002F681
-	INIException(const INIException &that);
-	~INIException();
-	char *mFailureMessage;
-	int mErrorCode;
-};
+#include "../../../../../Include/Common/INI/FieldParse.h"
 
 struct Rva00414258Element
 {

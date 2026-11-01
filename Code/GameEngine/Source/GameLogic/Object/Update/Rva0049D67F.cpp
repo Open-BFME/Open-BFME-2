@@ -33,15 +33,7 @@ const char *DisabilityTypeNames[11] = {
 	"DISABLED_SCRIPT_UNDERPOWERED",
 };
 
-class INIException
-{
-public:
-	INIException(int argCount, const char *format, ...);
-	char *mFailureMessage;
-	int mErrorCode;
-	INIException(const INIException &that);
-	~INIException();
-};
+#include "../../../../Include/Common/INI/FieldParse.h"
 
 class Rva0049D67F
 {

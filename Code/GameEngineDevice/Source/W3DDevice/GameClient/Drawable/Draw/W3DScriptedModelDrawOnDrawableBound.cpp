@@ -37,15 +37,7 @@ public:
 	unsigned int m_bits[19];
 };
 
-class INIException
-{
-public:
-	char *mFailureMessage;
-	int mErrorCode;
-	INIException(int argCount, const char *format, ...);
-	INIException(const INIException &that);
-	~INIException();
-};
+#include "../../../../../../GameEngine/Include/Common/INI/FieldParse.h"
 
 struct ModelConditionInfo;
 class Rva000B4B23 { public: void *rva000B4B23(const ModelConditionFlags &); };

@@ -434,17 +434,7 @@ private:
 	const char *m_sepsColon; // +0x420
 };
 
-class INIException
-{
-public:
-	INIException(int code, const char *format, ...);
-	INIException(const INIException &other);
-	~INIException();
-
-private:
-	char *m_failureMessage;
-	int m_argCount;
-};
+#include "../../../../Include/Common/INI/FieldParse.h"
 
 namespace _STL
 {

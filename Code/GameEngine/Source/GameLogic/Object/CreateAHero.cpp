@@ -489,15 +489,7 @@ extern "C" const FieldParse CreateAHeroSystemFieldParse[];
 
 bool Rva00219453Validate(int stat, const char *name);	// 0x00219453
 
-class INIException
-{
-public:
-	INIException(int argCount, const char *format, ...);	// 0x0002F681
-	char *mFailureMessage;
-	int mErrorCode;
-	INIException(const INIException &that);
-	~INIException();
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 
 class UpgradeTemplate;
 

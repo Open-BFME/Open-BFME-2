@@ -119,16 +119,7 @@ public:
 	static void parseAsciiStringVector(INI *ini, void *instance, void *store, const void *userData);
 };
 
-class INIException
-{
-public:
-	INIException(int argumentCount, const char *format, ...);
-	INIException(const INIException &other);
-	~INIException();
-
-	char *mFailureMessage;
-	int m_argumentCount;
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 
 // A declaration-only specialization stops this TU emitting its own
 // vector<AsciiString> dtor COMDAT, so the call binds the kept copy.

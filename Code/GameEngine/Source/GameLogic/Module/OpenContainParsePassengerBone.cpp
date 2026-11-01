@@ -14,15 +14,7 @@ public:
 	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
 };
 
-class INIException
-{
-public:
-	INIException(int argumentCount, const char *format, ...);
-	char *mFailureMessage;
-	int m_argumentCount;
-	INIException(const INIException &that);
-	~INIException();
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 
 class Rva00256499
 {

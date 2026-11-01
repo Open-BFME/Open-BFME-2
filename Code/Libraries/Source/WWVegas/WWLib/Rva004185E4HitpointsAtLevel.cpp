@@ -29,15 +29,7 @@ public:
 	int scanInt(const char *text);
 };
 
-class INIException
-{
-public:
-	char *mFailureMessage;
-	int m_argCount;
-	INIException(int code, const char *format, ...);
-	INIException(const INIException &that);
-	~INIException();
-};
+#include "../../../../GameEngine/Include/Common/INI/FieldParse.h"
 
 void Rva004185E4HitpointsAtLevel(INI *ini, void *, void *store, const void *)
 {
