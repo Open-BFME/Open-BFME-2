@@ -82,11 +82,7 @@ public:
 	Rva0039BCF8 m_3BC; // +0x3BC
 };
 
-class PlayerList
-{
-public:
-	Player *getNthPlayer(int i);
-};
+#include "../../Include/Common/PlayerList.h"
 
 extern PlayerList *ThePlayerList;
 

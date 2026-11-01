@@ -25,12 +25,7 @@
 
 class Player;
 
-class PlayerList
-{
-public:
-	int rva002A7C0B(bool);
-	Player *getNthPlayer(int);
-};
+#include "../../../Include/Common/PlayerList.h"
 
 class GameLogic;
 class GlobalData;

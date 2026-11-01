@@ -14,11 +14,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 class Player;
 class Dict;
 
-class PlayerList
-{
-public:
-	Player *findPlayerWithNameKey(NameKeyType key);
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 // The two tactic slots of the prototype's team template (+0x12C), as the

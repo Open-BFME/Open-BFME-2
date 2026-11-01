@@ -86,7 +86,7 @@ struct GameLogic0055AA06
 // when the existing signed index is nonnegative. All callees already owned.
 class Player {public:char opaque[0x54];int index;};
 
-class PlayerList {public:Player*getNthPlayer(int);};
+#include "../../../Include/Common/PlayerList.h"
 
 extern PlayerList*ThePlayerList;
 

@@ -338,7 +338,7 @@ enum NameKeyType {INVALID_NAME_KEY=-1};
 
 #include "../../Include/Common/NameKeyGenerator.h"
 
-class PlayerList {public:Player*findPlayerWithNameKey(NameKeyType);};
+#include "../../Include/Common/PlayerList.h"
 
 class Rva005B8053 {public:void*rva005B8053(const unsigned char*);};
 

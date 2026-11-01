@@ -32,13 +32,7 @@ enum Relationship
 
 #include "../../../Include/Common/Player.h"
 
-class PlayerList
-{
-public:
-	Player *getNthPlayer(Int i);
-	unsigned char m_pad[0x14];
-	Int m_playerCount; // +0x14
-};
+#include "../../../Include/Common/PlayerList.h"
 
 extern PlayerList *ThePlayerList;
 

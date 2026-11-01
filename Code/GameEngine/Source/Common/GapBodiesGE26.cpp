@@ -200,11 +200,7 @@ void Rva004E8F37::closeAlliedGates(const Player *player)
 // whose player exists, is not the given one and is its enemy.
 #include "../../Include/Common/Player.h"
 
-class PlayerList
-{
-public:
-	Player *getNthPlayer(int index);						// 0x002A7A29
-};
+#include "../../Include/Common/PlayerList.h"
 
 struct Rva004EACB3Entry
 {

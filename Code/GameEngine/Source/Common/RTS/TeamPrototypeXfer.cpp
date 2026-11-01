@@ -76,11 +76,7 @@ public:
 	RetailPlayerRelationMap *m_teamRelations; // +0x334 +0x334
 };
 
-class PlayerList
-{
-public:
-	Player *getNthPlayer(int i);
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 #include "../../../Include/Common/TeamBFME2.h"

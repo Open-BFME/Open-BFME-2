@@ -75,11 +75,7 @@ enum NameKeyType
 	NAMEKEY_INVALID = 0
 };
 
-class PlayerList
-{
-public:
-	Player *findPlayerWithNameKey(NameKeyType key);
-};
+#include "../../Include/Common/PlayerList.h"
 
 #include "../../Include/Common/NameKeyGenerator.h"
 

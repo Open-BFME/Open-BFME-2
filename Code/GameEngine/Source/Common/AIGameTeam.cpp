@@ -94,11 +94,7 @@ enum Relationship { ENEMIES = 0, NEUTRAL = 1, ALLIES = 2 };
 
 #include "../../Include/Common/Player.h"
 
-class PlayerList
-{
-public:
-    Player *getNthPlayer(int i);
-};
+#include "../../Include/Common/PlayerList.h"
 
 extern PlayerList *ThePlayerList;
 

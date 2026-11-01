@@ -86,11 +86,7 @@ private:
 	int m_livingWorldPlayerID; // +0x3AC
 };
 
-class PlayerList
-{
-public:
-	Player *getNthPlayer(int index);
-};
+#include "../../../Include/Common/PlayerList.h"
 
 extern PlayerList *ThePlayerList;
 

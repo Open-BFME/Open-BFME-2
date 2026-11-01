@@ -104,15 +104,7 @@ public:
 extern TeamFactory *TheTeamFactory;
 
 class Player;
-class PlayerList
-{
-public:
-	Player *getNthPlayer(Int i);
-	Player *getNeutralPlayer() { return m_players[0]; }
-private:
-	char m_pad[0x18];
-	Player *m_players[20];
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 typedef _STL::hash_map<Int, Relationship, _STL::hash<Int>, _STL::equal_to<Int> > PlayerRelationMapType;

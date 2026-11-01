@@ -21,7 +21,7 @@ struct FrameStatsVector {
 };
 class Rva0039C190 { public: void rva0039D1D0(unsigned int); };
 class Player { public: bool rva002AA245() const; char opaque[0x94]; int money; };
-class PlayerList { public: Player *getPlayerFromMask(int); };
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 class BfmeMemberRV { public: bool bfmeAskRV(); };
 struct Rva002A8AB1Record;

@@ -83,11 +83,7 @@ typedef int Int;
 
 typedef unsigned int UnsignedInt;
 
-class PlayerList
-{
-public:
-	Player *getNthPlayer( Int i );
-};
+#include "../../../Include/Common/PlayerList.h"
 
 extern PlayerList *ThePlayerList;
 

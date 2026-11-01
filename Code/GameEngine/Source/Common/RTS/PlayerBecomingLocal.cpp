@@ -35,7 +35,7 @@ friend class Player;protected:Module *findModule(NameKeyType)const;
 public:bool isKindOf(KindOfType)const;Rva00373EC6 *rva0028F4BC();int getIndicatorColor()const;int getNightIndicatorColor()const;
  unsigned char pad60[0x250-0x60];ContainLocalView *contain;unsigned char pad254[0x304-0x254];Team *team;
 };
-class PlayerList {public:Player *getNthPlayer(int);};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 #include "../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;

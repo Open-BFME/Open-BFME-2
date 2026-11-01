@@ -98,7 +98,8 @@ extern GlobalData *TheWritableGlobalData;
 // Existing owned multiplayer predicate; the shared header owns GameLogic.
 class BfmeGlob939D {public: char bfmeCall939D();};
 extern GameLogic *TheGameLogic;
-class PlayerList {public:int rva002A7C0B(bool);};extern PlayerList *ThePlayerList;
+#include "../../Include/Common/PlayerList.h"
+extern PlayerList *ThePlayerList;
 class Rva002A9BF2 {public:void *rva002A9BF2();};
 struct Rva002A8AB1Record;
 class Rva002A8F24 {public:Rva002A8AB1Record *rva002A8AB1(void*);};extern Rva002A8F24 *TheSkirmishAIManager;

@@ -18,14 +18,7 @@ enum Relationship
 
 class Player;
 
-class PlayerList
-{
-public:
-	Player *getNthPlayer(int i);
-	Player *m_pad00[4];
-	Player *m_local10;
-	int m_count14;
-};
+#include "../../Include/Common/PlayerList.h"
 
 class Player : public BfmeMemberRV
 {
@@ -52,11 +45,11 @@ public:
 
 void Rva0050E8D6::rva0050E8D6()
 {
-	Player *local = ThePlayerList->m_local10;
+	Player *local = ThePlayerList->m_local;
 	Rva0050E8D6Entry &slot0 = m_list24[m_count20];
 	m_count20++;
 	slot0.m_player = local;
-	int n = ThePlayerList->m_count14;
+	int n = ThePlayerList->m_playerCount;
 	int i = 0;
 	if (n <= 0)
 		return;

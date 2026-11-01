@@ -250,15 +250,7 @@ public:
 };
 
 class Player;
-class PlayerList
-{
-public:
-	// Keep retail's inlined +0x10 access without a competing external copy.
-	__declspec(dllimport) __forceinline Player *getLocalPlayer() { return m_local; }
-private:
-	unsigned char m_pad[0x10];
-	Player *m_local; // +0x10
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 extern GameLogic *TheGameLogic;

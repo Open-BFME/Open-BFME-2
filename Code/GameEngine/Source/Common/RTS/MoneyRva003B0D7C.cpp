@@ -113,12 +113,7 @@ public:
 	int m_playerIndex;
 };
 
-class PlayerList
-{
-public:
-	char m_pad00[0x10];
-	Player *m_localPlayer;
-};
+#include "../../../Include/Common/PlayerList.h"
 
 struct G00E032F8Wrap { char m_pad00[4]; int m_val04; int m_val08; };
 
@@ -161,7 +156,7 @@ unsigned int Rva003B0D7C::withdraw(unsigned int amount, Rva0039B795 *tracker, bo
 	if (stats != 0) {
 		PlayerList *pl = ThePlayerList;
 		if (pl != 0) {
-			Player *local = pl->m_localPlayer;
+			Player *local = pl->m_local;
 			if (local != 0) {
 				if (local->m_playerIndex == m_val08) {
 					stats->m_val04 += amount;
@@ -189,7 +184,7 @@ void Rva003B0D7C::rva003B0D7C(int amount, Rva0039B7AD *tracker, bool flag)
 	if (stats != 0) {
 		PlayerList *pl = ThePlayerList;
 		if (pl != 0) {
-			Player *local = pl->m_localPlayer;
+			Player *local = pl->m_local;
 			if (local != 0) {
 				if (local->m_playerIndex == m_val08) {
 					stats->m_val08 += amount;

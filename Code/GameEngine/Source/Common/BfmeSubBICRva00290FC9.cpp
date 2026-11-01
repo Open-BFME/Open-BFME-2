@@ -16,13 +16,7 @@ class BfmeMemberRV
 public:
 	bool bfmeAskRV();
 };
-class PlayerList
-{
-public:
-	Player *getNthPlayer(int i);
-	char m_pad00[0x10];
-	Player *m_local10;
-};
+#include "../../Include/Common/PlayerList.h"
 class Rva00373EC6
 {
 public:
@@ -88,7 +82,7 @@ public:
 };
 int BfmeSubBIC::bfmeAskBIC()
 {
-	Player *local = ThePlayerList->m_local10;
+	Player *local = ThePlayerList->m_local;
 	Player *controller = getControllingPlayer();
 	Player *candidate = controller;
 	bool useFallback = true;

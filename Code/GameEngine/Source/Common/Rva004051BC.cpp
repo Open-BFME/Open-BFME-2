@@ -20,11 +20,7 @@ class Object;
 
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 
-class PlayerList
-{
-public:
-	Player *getNthPlayer(int index);
-};
+#include "../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 class Rva000421C8

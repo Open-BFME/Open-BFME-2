@@ -8,11 +8,7 @@
 // caller 0x005056C7, rowed get/getNthPlayer callees, pin-only lookup,
 // ThePlayerList extern in use by 10 TUs. Honest pin-held names.
 class Player;
-class PlayerList
-{
-public:
-	Player *getNthPlayer(int index);
-};
+#include "../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 class Rva002C67CFCmpBoolField

@@ -37,11 +37,7 @@ extern GameTextInterface *TheGameText;
 class BfmeGlob939D {public: char bfmeCall939D();};
 extern GameLogic *TheGameLogic;
 
-class PlayerList
-{
-public:
-	int rva002A7C0B(bool flag);	// 0x002A7C0B
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 class MultiPlayMults

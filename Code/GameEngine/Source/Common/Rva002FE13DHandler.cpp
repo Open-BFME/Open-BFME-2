@@ -42,11 +42,7 @@ public:
 
 #include "../../Include/Common/Player.h"
 
-class PlayerList
-{
-public:
-	int getPlayersWithRelationship(int a, unsigned int b, bool c);
-};
+#include "../../Include/Common/PlayerList.h"
 
 extern PlayerList *ThePlayerList;
 

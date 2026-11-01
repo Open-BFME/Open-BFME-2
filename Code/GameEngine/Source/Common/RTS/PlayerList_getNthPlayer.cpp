@@ -173,34 +173,7 @@ class ParticleSystem
 public:
 	bool isSaveable() const;
 };
-class PlayerList
-{
-public:
-	virtual ~PlayerList();
-	virtual void init();
-	virtual void reset();
-	virtual void update();
-	virtual void newGame();
-
-	Player *getNthPlayer(Int i);
-	Player *getNeutralPlayer() { return m_players[0]; }
-	Player *findPlayerWithNameKey(NameKeyType key);
-	void setLocalPlayer(Player *player);
-
-	Player *getPlayerFromMask(PlayerMaskType mask);
-	Player *getEachPlayerFromMask(PlayerMaskType &maskToAdjust);
-	int rva002A7C0B(bool flag);
-	int rva002A7D30();
-	PlayerMaskType getPlayersWithRelationship(Int srcPlayerIndex, unsigned int allowedRelationships, bool reverse);
-	void rva002A8306(bool forward);
-	int getPlayerCount() const { return m_playerCount; }
-
-private:
-	char m_pad04[0x10 - 4];
-	Player *m_local;	// +0x10
-	Int m_playerCount;	// +0x14
-	Player *m_players[20];	// +0x18
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 // Select-any copy of the body rowed in SidesList_getSideInfo.cpp.

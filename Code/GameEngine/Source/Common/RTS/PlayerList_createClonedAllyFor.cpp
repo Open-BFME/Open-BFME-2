@@ -14,16 +14,7 @@ typedef int Int;
 
 #include "../../../Include/Common/Player.h"
 
-class PlayerList
-{
-public:
-	Player *createClonedAllyFor(void *data);
-
-private:
-	unsigned char m_pad[0x14];
-	Int m_playerCount; // +0x14
-	Player *m_players[20]; // +0x18
-};
+#include "../../../Include/Common/PlayerList.h"
 
 Player *PlayerList::createClonedAllyFor(void *data)
 {

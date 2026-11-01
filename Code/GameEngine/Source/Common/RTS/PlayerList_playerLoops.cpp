@@ -35,24 +35,7 @@ class PlayerTemplate;
 
 #include "../../../Include/Common/Player.h"
 
-class PlayerList
-{
-public:
-	virtual void init();
-	virtual void update();
-	virtual void rva002A7ACE();
-	virtual void newMap();
-
-	void setLocalPlayer(Player *player);	///< pinned 0x002A7B34 (ZH name)
-	void updateTeamStates();
-
-private:
-	char m_unmodelled_04[0x10 - 0x04];
-	Player *m_local;						// +0x10
-
-	Int m_playerCount;						// +0x14
-	Player *m_players[MAX_PLAYER_COUNT];	// +0x18
-};
+#include "../../../Include/Common/PlayerList.h"
 
 void PlayerList::init()
 {

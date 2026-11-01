@@ -120,12 +120,7 @@ public:
 
 class Player;
 
-class PlayerList
-{
-public:
-	unsigned char m_pad[0x10];
-	Player *m_local; // +0x10
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 enum EvaEventID { EVA_EVENT_STUB = 0 };

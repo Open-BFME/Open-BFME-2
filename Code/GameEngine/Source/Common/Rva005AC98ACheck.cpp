@@ -14,13 +14,7 @@ enum Relationship
 	REL_0 = 0
 };
 
-class PlayerList
-{
-public:
-	Player *getNthPlayer(int index);
-	char m_pad[0x14];
-	unsigned int m_count;
-};
+#include "../../Include/Common/PlayerList.h"
 
 class Player
 {
@@ -52,7 +46,7 @@ private:
 
 bool AIRingHeroTactic::enemyHasRingHeroUpgrade()
 {
-	unsigned int count = ThePlayerList->m_count;
+	unsigned int count = ThePlayerList->m_playerCount;
 	for (unsigned int i = 0; i < count; ++i)
 	{
 		Player *player = ThePlayerList->getNthPlayer(i);

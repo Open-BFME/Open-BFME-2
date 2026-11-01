@@ -15,11 +15,7 @@ public:
 };
 
 class Player;
-class PlayerList
-{
-public:
-	Player *Rva002A7A6F(int id);
-};
+#include "../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 Player *Rva0040C94ALookup(int id)
 {

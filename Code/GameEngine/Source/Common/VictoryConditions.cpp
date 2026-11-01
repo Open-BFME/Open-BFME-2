@@ -34,11 +34,7 @@ extern GameInfo *TheGameInfo;
 
 #include "../../Include/Common/Player.h"
 
-class PlayerList
-{
-public:
-	Player *getNthPlayer(int i);
-};
+#include "../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 class RecorderClass

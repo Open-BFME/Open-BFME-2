@@ -30,7 +30,7 @@ public:
     char unknown00[0x54];
     int index;
 };
-class PlayerList { public: Player *getPlayerFromMask(int mask); };
+#include "../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 struct Rva00414EA1Vector { void *begin, *end, *capacity; };
 Xfer *Rva00414C92(Xfer *xfer, Rva00414EA1Vector *values);

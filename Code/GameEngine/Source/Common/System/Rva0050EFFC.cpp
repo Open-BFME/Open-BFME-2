@@ -31,12 +31,7 @@ public:
 	bool bfmeAskRV();
 };
 
-class PlayerList
-{
-public:
-	char m_pad00[0x10];
-	Player *m_localPlayer;
-};
+#include "../../../Include/Common/PlayerList.h"
 
 extern PlayerList *ThePlayerList;
 
@@ -87,7 +82,7 @@ void Rva0050F041::rva0050FF1C()
 	}
 	else
 	{
-		Player *localPlayer = ThePlayerList->m_localPlayer;
+		Player *localPlayer = ThePlayerList->m_local;
 		if (localPlayer == 0 || !((BfmeMemberRV *)localPlayer)->bfmeAskRV())
 			rva0050EFFC(2);
 	}
