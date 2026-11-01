@@ -1089,18 +1089,8 @@ struct BfmePlayerTeamFields
 
 
 //=============================================================================
-// ?hasAnyBuildings@Player@@ present-unmatched
-Bool Player::hasAnyBuildings(KindOfMaskType kindOf) const
-{
-	for (PlayerTeamList::const_iterator it = m_playerTeamPrototypes.begin(); 
-			 it != m_playerTeamPrototypes.end(); ++it)
-	{	
-		if ((*it)->hasAnyBuildings(kindOf)) {
-			return true;
-		}
-	}
-	return false;
-}
+
+
 
 //=============================================================================
 // ?Player::hasAnyUnits present-unmatched

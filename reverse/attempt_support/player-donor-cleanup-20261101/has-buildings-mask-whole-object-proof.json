@@ -1,0 +1,11 @@
+{
+  "base": "8a80317e8c5e5f778101d2fa88f92e536283d9af",
+  "before_definitions": 321,
+  "after_definitions": 320,
+  "added": [],
+  "removed": [
+    "?hasAnyBuildings@Player@@QBE_NV?$BitFlags@$0HE@@@@Z"
+  ],
+  "changed": [],
+  "all_retained_whole_code_and_relocations_equal": true
+}
