@@ -121,7 +121,7 @@ public:
 	void rva000E6B99();
 };
 
-class W3DShrubBuffer { public: void drawShrubs(int); };
+class W3DShrubBuffer { public: void drawShrubs(int); void rva000E7016(); };
 
 class W3DBuffBuffer
 {
@@ -208,6 +208,7 @@ public:
 	void clearAllBibs();
 	void removeBib(ObjectID id);
 	void removeBibDrawable(DrawableID id);
+	void addBib(Vector3 corners[4], ObjectID id, bool highlight);
 };
 
 class Rva0006840A
@@ -537,7 +538,7 @@ struct BuffInfoView;
 
 class TBuff;
 
-class W3DTreeBuffer { public: Bool rva000EA644(void *firstValue); };
+class W3DTreeBuffer { public: Bool rva000EA644(void *firstValue); void rva000EA24D(); };
 
 class Rva000680B3Host
 {
