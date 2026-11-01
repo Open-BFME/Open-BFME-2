@@ -225,7 +225,7 @@ enum NameKeyType
 // bool at +0x118 when Player present, then secondary slot9 with 0.
 // Evidence: callees rowed plus vtable slot; prev/next same flags.
 
-template<unsigned int N> class BitFlags
+template<int N> class BitFlags
 {
 public:
 	bool any() const;

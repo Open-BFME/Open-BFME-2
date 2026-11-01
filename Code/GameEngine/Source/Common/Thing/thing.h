@@ -34,6 +34,10 @@
 class Drawable;
 class Object;
 class ThingTemplate;
+// BitFlags's parameter is spelled as BodyModule.h spells it, unless Zero Hour's BitFlags.h came first; the rows' decorated names hold only its value.
+#ifndef __BitFlags_H_
+template <int N> class BitFlags;
+#endif
 
 //-------------------------------------------------------------------------------------------------
 class Thing
@@ -57,8 +61,7 @@ public:
 	const Matrix3D *getTransformMatrix() const { return &m_transform; }
 
 	// The other public Thing rows of reverse/functions.csv, spelled from their
-	// decorated names (the BitFlags-typed isAnyKindOf/isKindOfMulti are left to
-	// the units, which spell BitFlags differently). getDrawable is BFME2's.
+	// decorated names. getDrawable is BFME2's.
 	float getHeightAboveTerrain() const;											// 0x0030A12D
 	float getHeightAboveTerrainOrWater() const;										// 0x0030A4D0
 	bool isAboveTerrain() const;													// 0x000B19E5
@@ -69,6 +72,8 @@ public:
 	void convertBonePosToWorldPos(const Coord3D *bonePos, const Matrix3D *boneTransform,
 		Coord3D *worldPos, Matrix3D *worldTransform) const;							// 0x0030A528
 	Drawable *getDrawable() const;													// 0x005508E2
+	bool isAnyKindOf(const BitFlags<69> &mask) const;								// 0x0030ADC7
+	bool isKindOfMulti(const BitFlags<116> &mustBeSet, const BitFlags<116> &mustBeClear) const;	// 0x0030AD7D
 
 protected:
 	virtual float calculateHeightAboveTerrain() const;													// slot 0

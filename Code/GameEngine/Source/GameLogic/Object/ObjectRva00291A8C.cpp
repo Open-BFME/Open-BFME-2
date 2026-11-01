@@ -190,7 +190,7 @@ extern Radar *TheRadar;
 struct Obj00526309;
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
 
-template <unsigned int N>
+template <int N>
 class BitFlags
 {
 public:

@@ -183,7 +183,7 @@ struct Obj00526309;
 class Rva002D3726 { public: void rva002D3726(Obj00526309 *); };
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
 
-template <unsigned int N>
+template <int N>
 class BitFlags
 {
 public:

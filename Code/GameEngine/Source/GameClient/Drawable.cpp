@@ -2113,7 +2113,7 @@ public:
 // ?rva0027532F@Rva0027532F@@QAE_N_N@Z 0x0027532F 71B. Predicate on the object at
 // +0xFC: a disabled-mask test (bit 2 of +0x437 when the flag is set), then the
 // BitFlags any() at +0x1C8 pinned to 0x0023C58B, then bits 0x24 / 0x40 of the mask word.
-template <unsigned int N>
+template <int N>
 class BitFlags
 {
 public:

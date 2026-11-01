@@ -206,7 +206,7 @@ public:
 	unsigned bits[7];
 };
 
-template<unsigned int N> class BitFlags
+template<int N> class BitFlags
 {
 public:
 	unsigned bits[7];

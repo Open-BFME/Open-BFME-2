@@ -179,7 +179,7 @@ public:
 class TerrainLogic;
 extern TerrainLogic *TheTerrainLogic;
 
-template<unsigned int N>
+template<int N>
 class BitFlags
 {
 public:

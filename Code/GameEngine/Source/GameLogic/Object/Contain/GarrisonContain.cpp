@@ -52,7 +52,7 @@ public:
 private:
 	unsigned char m_bytes[0x1C];
 };
-template <unsigned int N> class BitFlags;
+template <int N> class BitFlags;
 extern BitFlags<116> KINDOFMASK_NONE;
 class Rva003623E5Member
 {

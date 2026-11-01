@@ -1787,7 +1787,7 @@ public:
 	unsigned char m_b;
 };
 
-template <unsigned int N> class BitFlags
+template <int N> class BitFlags
 {
 public:
 	void xfer(Xfer *xfer);

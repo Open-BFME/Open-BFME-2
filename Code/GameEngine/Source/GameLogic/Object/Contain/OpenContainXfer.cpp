@@ -190,7 +190,7 @@ extern GameLogic *TheGameLogic;
 
 #include "../object.h"
 
-template <unsigned int NUMBITS> class BitFlags
+template <int NUMBITS> class BitFlags
 {
 public:
 	void xfer(Xfer *xfer);

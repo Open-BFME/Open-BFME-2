@@ -17,7 +17,7 @@
 
 typedef bool Bool;
 
-template <unsigned int NUMBITS> class BitFlags
+template <int NUMBITS> class BitFlags
 {
 public:
 	Bool testSetAndClear(const BitFlags &mustBeSet, const BitFlags &mustBeClear) const;

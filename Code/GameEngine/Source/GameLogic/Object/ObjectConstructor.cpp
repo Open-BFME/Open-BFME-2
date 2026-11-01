@@ -257,9 +257,9 @@ class GeometryInfo;
 struct Rva00BFC2B8Base { virtual const GeometryInfo &getGeometryInfo() const = 0; };
 struct Rva00BFC290Base { virtual Coord3D rva0028C037() = 0; };
 
-template <unsigned int N> class BitFlags;
+template <int N> class BitFlags;
 struct CreateMask;
-template <unsigned int N> class BitFlags
+template <int N> class BitFlags
 {
 public:
 	BitFlags();
