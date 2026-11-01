@@ -20896,3 +20896,4 @@ Code/GameEngine/Source/Common/INI/INIInlineTableParsers.cpp|function|0x0033A49B|
 Code/GameEngine/Source/Common/io_open.cpp|member|BfmeTagVIF|m_bfme08,16548cfffafe6c31f105eb96,claude-haiku-5-5,drz-k3-n33f2-review,w-a3d394d58042,2026-11-01
 Code/GameEngine/Source/Common/LivingWorldArmyIcon.cpp|class||OwnerAudioEvent003FDF1B,4fe1f5ba94546b78349bdad7,claude-haiku-5-5,drz-k9-n33g2-review,w-2a58b1ead41e,2026-11-01
 Code/GameEngine/Source/Common/LivingWorldAutoResolveUnit.cpp|class||NarrowStrSource0059B0DD,4d34e9f842c1464d150095f2,claude-haiku-5-5,drz-k9-n33g2-review,w-2a58b1ead41e,2026-11-01
+Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB06.cpp|class||Rva002D62ABFlashState,2320746f2abdcf73ead5129c,claude-haiku-5-5,drz-k3-n33h2-review,w-a3d394d58042,2026-11-01
