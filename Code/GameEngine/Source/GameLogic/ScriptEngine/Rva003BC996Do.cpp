@@ -8,11 +8,7 @@ class Parameter
 {
 };
 
-class Drawable
-{
-public:
-	void setEmoticon(const StringBase<char> &name, int val);
-};
+#include "../../../Include/GameClient/Drawable.h"
 
 #include "../../Common/Thing/thing.h"
 

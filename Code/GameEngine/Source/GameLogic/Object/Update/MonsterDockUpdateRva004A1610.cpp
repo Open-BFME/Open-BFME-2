@@ -71,12 +71,7 @@ public:
 class DockUpdate : public UpdateModule, public DockUpdateInterface
 {
 };
-class Drawable
-{
-public:
-	void rva00272A02(bool on);
-	void setDrawableHidden(bool);
-};
+#include "../../../../Include/GameClient/Drawable.h"
 class MonsterDockUpdate : public DockUpdate
 {
 public:

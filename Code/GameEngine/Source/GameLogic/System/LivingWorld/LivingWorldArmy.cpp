@@ -59,7 +59,7 @@ class Rva003FE0B3 { public: void rva003FE0B3(TreeHintRef00217D4C); };
 
 
 struct TWheelInfo;
-class Drawable { public: const TWheelInfo *getWheelInfo() const; };
+#include "../../../../Include/GameClient/Drawable.h"
 
 struct Elem003AF9E0
 {

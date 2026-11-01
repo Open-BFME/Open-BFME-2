@@ -65,11 +65,7 @@ public:
 	void addCapEdgeToTrack(Real x, Real y);
 };
 
-class Drawable
-{
-public:
-	const Coord3D *getPosition() const;
-};
+#include "../../../../../../GameEngine/Include/GameClient/Drawable.h"
 
 struct W3DModelDrawModuleData
 {

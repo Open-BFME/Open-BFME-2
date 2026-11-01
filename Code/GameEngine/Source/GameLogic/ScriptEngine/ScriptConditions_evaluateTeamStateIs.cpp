@@ -652,14 +652,7 @@ private:
 
 extern GameLogic *TheGameLogic;
 
-class Drawable
-{
-public:
-	Object *getObject() const { return m_object; }
-private:
-	unsigned char m_pad00[0xFC];
-	Object *m_object; // +0xFC
-};
+#include "../../../Include/GameClient/Drawable.h"
 
 typedef _STL::list<Drawable *> DrawableList;
 

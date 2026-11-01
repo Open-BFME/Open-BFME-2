@@ -2315,12 +2315,7 @@ extern class Rva002A8F24 *TheSkirmishAIManager;
 
 extern class AI *TheAI;
 
-class Drawable
-{
-public:
-	void friend_bindToObject( Object *obj );
-	void rva00270FAC(bool value);
-};
+#include "../../../Include/GameClient/Drawable.h"
 
 // sendObjectDestroyed reaches GameClient::destroyDrawable through slot 0x74 of
 // TheGameClient (0x00DFE77C).

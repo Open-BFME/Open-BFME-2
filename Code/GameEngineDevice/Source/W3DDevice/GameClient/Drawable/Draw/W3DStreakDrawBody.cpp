@@ -27,13 +27,7 @@ struct Rva00167EF8Rec
 };
 
 
-class Drawable
-{
-public:
-	float rva00272C9E(int key);
-public:
-	const Coord3D *getPosition() const;
-};
+#include "../../../../../../GameEngine/Include/GameClient/Drawable.h"
 
 class SidesList
 {

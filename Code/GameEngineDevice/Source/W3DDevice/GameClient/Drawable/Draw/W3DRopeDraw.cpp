@@ -53,11 +53,7 @@ template <> void _STLP_alloc_proxy<BfmeE16*, BfmeE16, allocator<BfmeE16> >::deal
 template <> void vector<BfmeE16>::_M_clear();
 }
 
-class Drawable
-{
-public:
-	const Coord3D *getPosition() const;
-};
+#include "../../../../../../GameEngine/Include/GameClient/Drawable.h"
 
 class Vector3
 {

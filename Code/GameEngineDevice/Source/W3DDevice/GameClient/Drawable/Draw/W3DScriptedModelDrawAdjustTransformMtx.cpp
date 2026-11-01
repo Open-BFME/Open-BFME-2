@@ -87,13 +87,7 @@ public:
 	float m_constructionPercent;
 };
 
-class Drawable
-{
-public:
-	bool rva00272835(int boneName, int boneMtx);
-	char m_pad00[0xFC];
-	Object *m_object;
-};
+#include "../../../../../../GameEngine/Include/GameClient/Drawable.h"
 
 class GameClient
 {

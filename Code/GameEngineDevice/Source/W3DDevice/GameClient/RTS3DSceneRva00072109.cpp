@@ -105,11 +105,7 @@ public:
 	bool _bfme_flag42;
 };
 
-class Drawable
-{
-public:
-	const Coord3D *getPosition() const;
-};
+#include "../../../../GameEngine/Include/GameClient/Drawable.h"
 
 struct DrawableInfo
 {

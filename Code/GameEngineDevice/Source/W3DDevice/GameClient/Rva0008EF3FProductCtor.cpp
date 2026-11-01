@@ -196,7 +196,7 @@ public:
 	void drawLine(float x1, float y1, float x2, float y2, float width, int color1, int color2);	// line
 	void rva0008EEF0(float x, float y, float w, float h, float width, int color);	// open rect
 };
-class Drawable { public: const Matrix3D *getTransformMatrix(void) const; };
+#include "../../../../GameEngine/Include/GameClient/Drawable.h"
 
 void Rva0008EF3FProduct::drawPlaceAngle(View *view)
 {
@@ -361,11 +361,6 @@ public:
 	virtual bool isUnderwater(float x, float y, float *waterZ, float *terrainZ, void *unknown);	// +0x4C
 };
 extern TerrainLogic *TheTerrainLogic;
-class Matrix3D
-{
-public:
-	float Row[3][4];
-};
 class HAnimClass
 {
 public:

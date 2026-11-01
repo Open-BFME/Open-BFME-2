@@ -43,12 +43,7 @@ class FXList
 public:
 	static void doFXPos(const FXList *, const Coord3D *, const Matrix3D *, float, const Coord3D *);
 };
-class Drawable
-{
-public:
-	const Coord3D *getPosition() const;
-	const Matrix3D *getTransformMatrix() const;
-};
+#include "../../../Include/GameClient/Drawable.h"
 // Existing callback-list provider; its four machine-word arguments are
 // the weapon, source, victim, and position in this caller.
 class Rva002CA9CA

@@ -827,12 +827,7 @@ struct BfmeLighting36;
 
 struct FloorGlobalLightAccess { char pad[0x134];int time;char gap[8];BfmeLighting36 *unused; };
 
-class Drawable
-{
-public:
-	const Matrix3D *getTransformMatrix() const;
-	float rva00272C9E(int);
-};
+#include "../../../../GameEngine/Include/GameClient/Drawable.h"
 
 class VertexMaterialClass { public: void Get_Emissive(Vector3*) const; };
 

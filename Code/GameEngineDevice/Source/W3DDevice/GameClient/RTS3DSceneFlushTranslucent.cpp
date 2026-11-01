@@ -125,11 +125,7 @@ public:
 	bool flagBC; // +0xBC
 };
 
-class Drawable
-{
-public:
-	float rva00272C9E(int key);
-};
+#include "../../../../GameEngine/Include/GameClient/Drawable.h"
 
 struct DrawableInfo
 {

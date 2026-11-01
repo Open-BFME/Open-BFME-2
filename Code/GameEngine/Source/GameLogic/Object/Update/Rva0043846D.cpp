@@ -13,11 +13,7 @@ struct Rva0043846DObjectFlags
 	unsigned char flags;
 };
 
-class Drawable
-{
-public:
-	void rva00275DCE(int mode, float x, float y, float phase);
-};
+#include "../../../../Include/GameClient/Drawable.h"
 
 extern int BfmeLogicFramesPerSecond;
 

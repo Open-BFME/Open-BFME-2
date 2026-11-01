@@ -166,14 +166,7 @@ public:
 	Matrix3D m_transform;
 };
 
-class Drawable
-{
-public:
-	const Matrix3D *getTransformMatrix() const;
-	Object *getObject() const { return m_object; }
-	char m_pad00[0xFC];
-	Object *m_object;
-};
+#include "../../../../../../GameEngine/Include/GameClient/Drawable.h"
 
 struct W3DScriptedModelDrawModuleData
 {

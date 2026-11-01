@@ -30,11 +30,7 @@ public:
 
 // Drawable::getPosition (0x002763E6) is rowed as Drawable::getPosition.
 class Drawable;
-class Drawable
-{
-public:
-	const Coord3D *getPosition() const;
-};
+#include "../../../../Include/GameClient/Drawable.h"
 
 class Object
 {

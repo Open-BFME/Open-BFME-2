@@ -96,11 +96,7 @@ struct Container000B5C41
 #include "Lib/Coord3D.h"
 struct RangeSample {Coord3D point;volatile float distance;};
 __forceinline void opacityCoordCopy(Coord3D*destination,const Coord3D*source){destination->x=source->x;destination->y=source->y;destination->z=source->z;}
-class Drawable
-{
-public:
-	const Coord3D *getPosition() const;
-};
+#include "../../../../../../GameEngine/Include/GameClient/Drawable.h"
 
 class TacticalView
 {

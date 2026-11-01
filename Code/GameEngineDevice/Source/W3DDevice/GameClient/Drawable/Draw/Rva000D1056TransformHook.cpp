@@ -14,11 +14,7 @@
 
 #include "Lib/Coord3D.h"
 
-class Drawable
-{
-public:
-	const Coord3D *getPosition() const;
-};
+#include "../../../../../../GameEngine/Include/GameClient/Drawable.h"
 
 class RenderObjClass;
 

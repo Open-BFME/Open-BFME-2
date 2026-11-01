@@ -39,12 +39,7 @@ public:
 	unsigned char m_privateStatus;	// +0x438
 };
 
-class Drawable
-{
-public:
-	unsigned char m_pad000[0xFC];
-	Object *m_object;	// +0xFC
-};
+#include "../../../../../../GameEngine/Include/GameClient/Drawable.h"
 
 struct W3DFloorDrawModuleData
 {

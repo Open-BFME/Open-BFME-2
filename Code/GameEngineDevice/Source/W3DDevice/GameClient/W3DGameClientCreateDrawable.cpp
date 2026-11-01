@@ -21,13 +21,7 @@ enum DrawableStatus
 };
 
 // The 0x470-byte Drawable; only the rowed constructor is modelled.
-class Drawable
-{
-public:
-	Drawable(const ThingTemplate *thing, DrawableStatus statusBits, int extra);
-private:
-	char m_body[0x470];
-};
+#include "../../../../GameEngine/Include/GameClient/Drawable.h"
 
 class W3DGameClient
 {

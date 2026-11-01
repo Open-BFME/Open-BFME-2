@@ -149,13 +149,7 @@ public:
 struct Rva000B2BE5Src;
 int Rva000B2BA3Get(const Rva000B2BE5Src *src, bool *out);
 
-class Drawable
-{
-public:
-	void fadeIn(unsigned int frames);
-	unsigned char m_pad000[0xfc];
-	Object *m_object;
-};
+#include "../../../../../../GameEngine/Include/GameClient/Drawable.h"
 
 class DrawModule
 {

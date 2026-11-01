@@ -693,13 +693,7 @@ extern ScriptEngine *TheScriptEngine;
 class Rva00358752Opaque { public: Object *lookupUnitByValue(AsciiString); };
 #include "../../../Common/Thing/thing.h"
 class Rva002390CB { public: int opaque00; OpaqueRefElement4 ref; ~Rva002390CB() { if(ref.referent) ref.referent->Release_Ref(); } };
-class Drawable { public:
- void setFullyObscuredByShroud(bool); void rva002723C0(int); void rva00274176(bool);
- void setDrawableHidden(bool); void fadeIn(unsigned int);
- Rva002390CB rva0049D114();
- // Native shared empty RET hook; owner/identity still needs fold proof.
- void rva000B3FD0();
-};
+#include "../../../../Include/GameClient/Drawable.h"
 class Rva002707FA { public: void rva002707FA(unsigned char); };
 class Rva0028CBFD { public: void rva0028CBFD(); };
 class SlaveWatcherBehavior { public: void rva00484869(int); };

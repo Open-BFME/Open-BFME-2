@@ -146,11 +146,7 @@ struct ObjectKindBytes
 		unsigned int m_words[7];
 	};
 };
-class Drawable {
-public:
- void rva002724FD(const AsciiString &, int, int, float, float);
- void updateSubObjects();
-};
+#include "../../../../Include/GameClient/Drawable.h"
 class Object
 {
 public:

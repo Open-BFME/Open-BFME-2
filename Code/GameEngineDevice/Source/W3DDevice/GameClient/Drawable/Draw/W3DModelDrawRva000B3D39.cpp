@@ -43,12 +43,7 @@ public:
 };
 extern View *TheTacticalView;
 
-class Drawable
-{
-public:
-	const Coord3D *getPosition() const;	// 0x002763E6
-	void rva00274176(bool immediate);	// 0x00274176
-};
+#include "../../../../../../GameEngine/Include/GameClient/Drawable.h"
 
 struct Rva000B2BE5Src;
 int Rva000B2BA3Get(const Rva000B2BE5Src *src, bool *out);	// 0x000B2BA3

@@ -23,12 +23,7 @@ public:
 	AsciiString boneName;
 };
 
-class Drawable
-{
-public:
-	const Matrix3D *getTransformMatrix() const;
-	bool rva00272835(int boneName, int outTransform);
-};
+#include "../../../../../../GameEngine/Include/GameClient/Drawable.h"
 
 class W3DDynamicLight
 {

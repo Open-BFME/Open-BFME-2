@@ -362,11 +362,7 @@ void ScriptActions::Rva003BAAE4(const AsciiString &name,
 // BFMERopeDrawable does not override getPosition: the 0x002763E6 body is
 // owned by Drawable (rowed under that name from BFMERopeDrawableGetPosition),
 // so this view inherits it instead of declaring a same-named method.
-class Drawable
-{
-public:
-    const Coord3D *getPosition() const;
-};
+#include "../../../Include/GameClient/Drawable.h"
 class BFMERopeDrawable : public Drawable
 {
 };

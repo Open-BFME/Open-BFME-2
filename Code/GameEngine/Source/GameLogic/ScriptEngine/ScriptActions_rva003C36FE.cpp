@@ -36,11 +36,7 @@ class Object : public Thing
 {
 };
 
-class Drawable
-{
-public:
-	void rva00270FAC(bool flag);
-};
+#include "../../../Include/GameClient/Drawable.h"
 
 #include "../../../Include/Common/TeamBFME2.h"
 

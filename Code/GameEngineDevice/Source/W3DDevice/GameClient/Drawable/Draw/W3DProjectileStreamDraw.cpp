@@ -297,14 +297,7 @@ protected:
 	Module *findModule( NameKeyType key ) const;
 };
 
-class Drawable
-{
-public:
-	__declspec(dllimport) __forceinline Object *getObject( void ) { return m_object; }
-private:
-	char m_unrecovered00[ 0xFC ];
-	Object *m_object;																													///< 0xFC
-};
+#include "../../../../../../GameEngine/Include/GameClient/Drawable.h"
 
 enum { MAX_PROJECTILE_STREAM = 20 };
 

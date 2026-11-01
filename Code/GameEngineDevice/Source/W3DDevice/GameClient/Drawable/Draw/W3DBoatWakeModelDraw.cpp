@@ -65,14 +65,7 @@ public:
 	const Rva0028AC4EEntry *rva0028AC4E() const;
 };
 
-class Drawable
-{
-public:
-	Object *getObject() const { return m_object; }
-private:
-	char m_pad00[0xFC];
-	Object *m_object;					// +0xFC
-};
+#include "../../../../../../GameEngine/Include/GameClient/Drawable.h"
 
 #include "../../../../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"
 

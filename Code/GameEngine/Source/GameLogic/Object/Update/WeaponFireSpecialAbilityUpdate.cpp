@@ -259,13 +259,7 @@ extern WeaponStore *TheWeaponStore;
 
 class Matrix3D;
 
-class Drawable
-{
-public:
-	const Matrix3D *getTransformMatrix() const;
-public:
-	const Coord3D *getPosition() const;
-};
+#include "../../../../Include/GameClient/Drawable.h"
 
 // 0x002763E6 is pinned under this name; it is called on the Object's Drawable.
 class FXList

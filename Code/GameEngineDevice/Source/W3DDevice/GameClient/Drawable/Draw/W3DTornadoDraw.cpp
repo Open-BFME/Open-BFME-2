@@ -121,11 +121,7 @@ private:
 	float m_decalMaxRadius;
 };
 
-class Drawable
-{
-public:
-	const Coord3D *getPosition() const;
-};
+#include "../../../../../../GameEngine/Include/GameClient/Drawable.h"
 
 // Opaque 12-byte ClientUpdate-derived intermediate; ctor resolves to the
 // opaque pin at 0x000B19A1. Single vptr plus pad to the list at +0x0C.

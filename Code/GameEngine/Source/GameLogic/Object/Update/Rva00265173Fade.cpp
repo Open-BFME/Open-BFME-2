@@ -4,17 +4,7 @@
 // CMP AL,BL against the zero register, not TEST AL,AL): unlock lane, fade hide/show via rowed getDrawable fadeOut fadeIn Drawable toggles pinned bfmeAskBIC, caller 0x0026E40A, neighbours share flags.
 extern int BfmeLogicFramesPerSecond;
 
-class Drawable
-{
-public:
-	void fadeOut(unsigned int v);
-	void fadeIn(unsigned int v);
-	void rva00272A02(bool v);
-	void rva00272BE7();
-	void rva00272BAB(int a, int b);
-	char _pad[0x43c];
-	bool m_43c;
-};
+#include "../../../../Include/GameClient/Drawable.h"
 
 #include "../../../Common/Thing/thing.h"
 
@@ -66,7 +56,7 @@ void Rva00265173::rva00265173()
 		if (drawable == 0)
 			goto after_flag;
 	}
-	flag = drawable->m_43c != 0;
+	flag = drawable->m_selected != 0;
 after_flag:;
 	Rva001E3591 *p = m_140;
 	bool r = false;

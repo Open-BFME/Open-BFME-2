@@ -16,12 +16,7 @@
 struct Coord3D;
 class Matrix3D;
 
-class Drawable
-{
-public:
-	int getPristineBonePositions(const char *name, int priority, Coord3D *coord,
-		Matrix3D *matrix, int flags, int index) const;
-};
+#include "../../../../../../GameEngine/Include/GameClient/Drawable.h"
 
 struct StringHeader
 {

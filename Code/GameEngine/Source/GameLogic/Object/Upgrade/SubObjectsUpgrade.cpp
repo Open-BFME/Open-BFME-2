@@ -164,19 +164,7 @@ namespace _STL { template <> void _STLP_alloc_proxy<Rva00B6CF1 *,Rva00B6CF1,_STL
 
 namespace _STL { template <> void allocator<Rva00B6CF1>::deallocate(Rva00B6CF1 *,unsigned int) const; }
 
-class Drawable
-{
-public:
-	DrawModule **getDrawModules();
-public:
-	void updateSubObjects();
-public:
-	void rva00272414(const _STL::vector<AsciiString> *arg);
-public:
-	bool rva00278689(const AsciiString &name, bool a2, bool a3);
-public:
-	void rva002724FD(const AsciiString &a, int b, int c, float d, float e);
-};
+#include "../../../../Include/GameClient/Drawable.h"
 
 struct BfmeStringRecord000B94D2
 {

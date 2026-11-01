@@ -4,5 +4,5 @@
 // View* to rowed Drawable::draw(27C157), then RET. The camera update8C3AC
 // passes this callback address to GameClient's drawable traversal slot68.
 class View;
-class Drawable {public:void draw(View*);};
+#include "../../../../GameEngine/Include/GameClient/Drawable.h"
 void drawDrawable(Drawable*draw,void*view){draw->draw((View*)view);}
