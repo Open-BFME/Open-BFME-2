@@ -39,11 +39,7 @@ private:
 
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class UpdateModuleInterface
-{
-public:
-	virtual void updateModuleInterfaceAnchor();
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 // Retail's ObjectHelper base destructor is 0x004DF7C2 (the last call of the
 // matched ~ObjectSMCHelper 0x004DE767), rowed under this placeholder name.

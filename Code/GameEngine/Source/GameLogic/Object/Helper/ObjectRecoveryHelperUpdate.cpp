@@ -36,11 +36,7 @@ protected:
 	Object *m_object;		// +0x08
 };
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 class ObjectHelper : public ModuleBase, public BehaviorModuleInterface, public UpdateModuleInterface
 {
 };

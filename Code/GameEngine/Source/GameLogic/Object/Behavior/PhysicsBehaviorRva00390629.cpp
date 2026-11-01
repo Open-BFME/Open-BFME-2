@@ -94,20 +94,7 @@ public:
 	virtual void behaviorModuleOtherAnchor();
 };
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-class UpdateModuleInterface
-{
-public:
-	virtual void update();
-};
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-protected:
-	void setWakeFrame(Object *obj, UpdateSleepTime wakeDelay);
-private:
-	unsigned m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_bfmeReserved;
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 class PhysicsBehavior : public UpdateModule
 {
 public:

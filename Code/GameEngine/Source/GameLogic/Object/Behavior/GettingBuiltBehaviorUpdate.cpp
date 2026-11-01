@@ -57,10 +57,7 @@ protected:const ModuleData *m_moduleData;Object *m_object;
 };
 class BehaviorModuleOther {public:virtual void behaviorModuleOtherAnchor();};
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-class UpdateModuleInterface {public:virtual UpdateSleepTime update()=0;};
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface {
-protected:unsigned m_nextCallFrameAndPhase;int m_indexInLogic;int m_bfmeReserved;
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 struct GettingBuiltUpdateData {
  unsigned char pad[0x20];union {float duration;unsigned int durationBits;};
  unsigned char pad24[4];const WeaponTemplate *weapon;bool rebuild;
