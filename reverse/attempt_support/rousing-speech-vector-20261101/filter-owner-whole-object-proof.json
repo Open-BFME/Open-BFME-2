@@ -1,0 +1,18 @@
+{
+  "before_definitions": 9,
+  "after_definitions": 9,
+  "added": [],
+  "removed": [],
+  "changed": [
+    "??0RousingSpeechUpdateModuleData@@QAE@XZ"
+  ],
+  "after_element_type_substitution_all_whole_code_and_relocations_equal": true,
+  "parent_eh": [
+    "EXACT",
+    ""
+  ],
+  "proven_funclets": {
+    "$L5174": "0x78e457",
+    "$L5173": "0x78e44f"
+  }
+}

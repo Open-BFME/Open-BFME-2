@@ -1,0 +1,40 @@
+rename: class Rva0044ECCE -> SpecialAbilityUpdateModuleData (fold)
+  owner source: Code/GameEngine/Source/Common/Rva0044ECCEDtor.cpp
+  evidence: ??1Rva0044ECCE@@UAE@XZ at 0x0044ECCE installs retail vftable 0x00C3F2A8 as its own (its first +0 store); 0x00C3F2A8 is named ??_7SpecialAbilityUpdateModuleData@@6B@ (data_ledger.csv), ??_7Rva0044ECCE@@6B@ (data_ledger.csv); ??_GRva0044ECCE@@UAEPAXI@Z at 0x0044EF42 is slot 0
+  functions.csv rows renamed (3), each tombstoned:
+    0x0044ECCE ??1Rva0044ECCE@@UAE@XZ -> ??1SpecialAbilityUpdateModuleData@@UAE@XZ
+    0x0044EF42 ??_GRva0044ECCE@@UAEPAXI@Z -> ??_GSpecialAbilityUpdateModuleData@@UAEPAXI@Z
+    0x00789ABD __ehhandler$??1Rva0044ECCE@@UAE@XZ -> __ehhandler$??1SpecialAbilityUpdateModuleData@@UAE@XZ
+  functions.csv notes rewritten (1):
+    0x004C6CC1 ??1Rva004C6CC1@@UAE@XZ
+  sources rewritten (20):
+    Code/GameEngine/Source/Common/Rva0044ECCEDtor.cpp (code 4, comment 1)
+    Code/GameEngine/Source/Common/TailJumpWrappers5B.cpp (code 3, comment 1)
+    Code/GameEngine/Source/Common/TailJumpWrappers5B_~Rva002563CE.cpp (code 3, comment 1)
+    Code/GameEngine/Source/Common/W3DAptComponentView3D.cpp (code 3, comment 1)
+    Code/GameEngine/Source/GameLogic/Object/SpecialPower/ActivateModuleSpecialPowerModuleDataDtor.cpp (code 3, comment 1)
+    Code/GameEngine/Source/GameLogic/Object/SpecialPower/DominateEnemySpecialPowerModuleDataDtor.cpp (code 3, comment 2)
+    Code/GameEngine/Source/GameLogic/Object/SpecialPower/GiveOrRestoreUpgradeSpecialPower.cpp (code 3)
+    Code/GameEngine/Source/GameLogic/Object/SpecialPower/LevelGrantSpecialPowerModuleDataDtor.cpp (code 3, comment 1)
+    Code/GameEngine/Source/GameLogic/Object/SpecialPower/WeaponFireSpecialAbilityUpdateModuleDataDtor.cpp (code 4, comment 1)
+    Code/GameEngine/Source/GameLogic/Object/Update/ArrowStormUpdateModuleDataDtor.cpp (code 3, comment 1)
+    Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdate.cpp (code 3, comment 3)
+    Code/GameEngine/Source/GameLogic/Object/Update/HeroModeSpecialAbilityUpdateModuleDataDtor.cpp (code 3, comment 2)
+    Code/GameEngine/Source/GameLogic/Object/Update/ModelConditionSpecialAbilityUpdateModuleDataDtor.cpp (code 4, comment 1)
+    Code/GameEngine/Source/GameLogic/Object/Update/ReplaceObjectUpdateModuleDataDtor.cpp (code 3)
+    Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdate.cpp (code 3, comment 2)
+    Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdate.cpp (comment 3)
+    Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdateModuleDataDtor.cpp (code 3, comment 2)
+    Code/GameEngine/Source/GameLogic/Object/Update/TeleportSpecialAbilityUpdateModuleDataDtor.cpp (code 3, comment 2)
+    Code/GameEngine/Source/GameLogic/Object/Update/ToggleDeploySpecialAbilityUpdate.cpp (code 3, comment 2)
+    Code/GameEngine/Source/GameLogic/Object/Update/ToggleMountedSpecialAbilityUpdate.cpp (code 3, comment 3)
+  verify (20): ./build.sh Code/GameEngine/Source/Common/Rva0044ECCEDtor.cpp Code/GameEngine/Source/Common/TailJumpWrappers5B.cpp Code/GameEngine/Source/Common/TailJumpWrappers5B_~Rva002563CE.cpp Code/GameEngine/Source/Common/W3DAptComponentView3D.cpp Code/GameEngine/Source/GameLogic/Object/SpecialPower/ActivateModuleSpecialPowerModuleDataDtor.cpp Code/GameEngine/Source/GameLogic/Object/SpecialPower/DominateEnemySpecialPowerModuleDataDtor.cpp Code/GameEngine/Source/GameLogic/Object/SpecialPower/GiveOrRestoreUpgradeSpecialPower.cpp Code/GameEngine/Source/GameLogic/Object/SpecialPower/LevelGrantSpecialPowerModuleDataDtor.cpp Code/GameEngine/Source/GameLogic/Object/SpecialPower/WeaponFireSpecialAbilityUpdateModuleDataDtor.cpp Code/GameEngine/Source/GameLogic/Object/Update/ArrowStormUpdateModuleDataDtor.cpp Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdate.cpp Code/GameEngine/Source/GameLogic/Object/Update/HeroModeSpecialAbilityUpdateModuleDataDtor.cpp Code/GameEngine/Source/GameLogic/Object/Update/ModelConditionSpecialAbilityUpdateModuleDataDtor.cpp Code/GameEngine/Source/GameLogic/Object/Update/ReplaceObjectUpdateModuleDataDtor.cpp Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdate.cpp Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdate.cpp Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdateModuleDataDtor.cpp Code/GameEngine/Source/GameLogic/Object/Update/TeleportSpecialAbilityUpdateModuleDataDtor.cpp Code/GameEngine/Source/GameLogic/Object/Update/ToggleDeploySpecialAbilityUpdate.cpp Code/GameEngine/Source/GameLogic/Object/Update/ToggleMountedSpecialAbilityUpdate.cpp
+  claims: 0x0044ECCE 0x0044EF42 0x004C6CC1 0x00789ABD class:Rva0044ECCE class:SpecialAbilityUpdateModuleData file:Code/GameEngine/Source/Common/Rva0044ECCEDtor.cpp file:Code/GameEngine/Source/Common/TailJumpWrappers5B.cpp file:Code/GameEngine/Source/Common/TailJumpWrappers5B_~Rva002563CE.cpp file:Code/GameEngine/Source/Common/W3DAptComponentView3D.cpp file:Code/GameEngine/Source/GameLogic/Object/SpecialPower/ActivateModuleSpecialPowerModuleDataDtor.cpp file:Code/GameEngine/Source/GameLogic/Object/SpecialPower/DominateEnemySpecialPowerModuleDataDtor.cpp file:Code/GameEngine/Source/GameLogic/Object/SpecialPower/GiveOrRestoreUpgradeSpecialPower.cpp file:Code/GameEngine/Source/GameLogic/Object/SpecialPower/LevelGrantSpecialPowerModuleDataDtor.cpp file:Code/GameEngine/Source/GameLogic/Object/SpecialPower/WeaponFireSpecialAbilityUpdateModuleDataDtor.cpp file:Code/GameEngine/Source/GameLogic/Object/Update/ArrowStormUpdateModuleDataDtor.cpp file:Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdate.cpp file:Code/GameEngine/Source/GameLogic/Object/Update/HeroModeSpecialAbilityUpdateModuleDataDtor.cpp file:Code/GameEngine/Source/GameLogic/Object/Update/ModelConditionSpecialAbilityUpdateModuleDataDtor.cpp file:Code/GameEngine/Source/GameLogic/Object/Update/ReplaceObjectUpdateModuleDataDtor.cpp file:Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdate.cpp file:Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdate.cpp file:Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdateModuleDataDtor.cpp file:Code/GameEngine/Source/GameLogic/Object/Update/TeleportSpecialAbilityUpdateModuleDataDtor.cpp file:Code/GameEngine/Source/GameLogic/Object/Update/ToggleDeploySpecialAbilityUpdate.cpp file:Code/GameEngine/Source/GameLogic/Object/Update/ToggleMountedSpecialAbilityUpdate.cpp
+  ledger files: reverse/deleted_rows.csv, reverse/functions.csv
+  mention (not rewritten): docs/reconstruction/deleting-destructor-identity-audit.md
+  mention (not rewritten): reverse/attempt_support/specialability-view-prerequisite-20261026-bce2/dry-run-after.txt
+  mention (not rewritten): reverse/wb_name_leads.csv
+  warning: reverse/data_ledger.csv (tool-written, protected) still spells Rva0044ECCE symbols; tools/data_ledger.py regenerates it in a Verifier-Change commit
+  warning: Code/GameEngine/Source/Common/Rva0044ECCEDtor.cpp: its file name spells Rva0044ECCE (not renamed; use the file kind)
+  suggested subject: Fold class Rva0044ECCE into SpecialAbilityUpdateModuleData (retail vftable 0x00C3F2A8)
+rename: refused: claimed by another worker: file/106f564bbed9c3c9, file/4c5e09f9fce14bf4, file/62f4edd37b0145e0, file/67b189ae47ce0835, file/f6f899e72d6344f5

@@ -41,3 +41,26 @@ tools, hooks, workflows and includes finds no consumer of the old cleanup
 name or the constructor source basename. No path consumer requires an update.
 No register or pin is hand-admitted. This audit covers the constructor
 prerequisite and its reverted cleanup trial, based on 3079f4acd4.
+
+## Filter member and remaining base fold
+
+The constructor's +F4 filter member now uses Rva00360D26Member, matching the
+seed. ObjectFilter.cpp already owns its folded 82-byte constructor at 3623E5,
+and ObjectFilterRelease.cpp owns its eight-byte destructor at 360D26. This
+reuses existing identities and adds no alias or pin. All nine external code
+definitions retain their raw bytes and symbolic relocations after substituting
+the existing member-owner name. The parent EH graph remains EXACT. The
+constructor and both providers pass 41 strict rows; the four-source preview
+retains 4,783 linking bytes. The unreferenced AsciiString::str relocation
+diagnostic in ObjectFilter.cpp is unchanged.
+
+The supported class fold from Rva0044ECCE into SpecialAbilityUpdateModuleData
+has a unique native C3F2A8 vtable proof. Its three row renames would reconcile
+the base destructor without a second pin, but five of its twenty source files
+are held by other contributors. The applying tool refuses before edits; its
+plan and refusal are retained. Complete that atomic fold when its full scope
+can be claimed. The constructor/destructor novtable difference remains a
+separate code-generation prerequisite, not an approved merge.
+
+The last publication's AIBaseBuilder consumer receipt has now been refreshed:
+27 rows pass strict checks. This does not retroactively clear the prior audit.

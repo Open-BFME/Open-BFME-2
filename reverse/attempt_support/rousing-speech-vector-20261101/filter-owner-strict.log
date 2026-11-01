@@ -1,0 +1,16 @@
+link_check: preparing 3 explicit safe provider(s), no extra sources
+Compile: 2 of 3 TU(s) (deps-cache: 1 current)
+Source claims: OK (3 sources, scoped byte-verified)
+Data rows: OK (1 row(s) byte-verified)
+Compile: 0 of 3 TU(s) (deps-cache: 3 current)
+Funclet pins: 12 row(s) verified past a renumbered $L label
+    Unwind@00b7e141 (Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp): $L5699 was renumbered; verified parent EH data places $L18667 at 0x0077E141
+    Unwind@00b7e14c (Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp): $L5700 was renumbered; verified parent EH data places $L18668 at 0x0077E14C
+    Unwind@00b7e154 (Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp): $L5701 was renumbered; verified parent EH data places $L18669 at 0x0077E154
+    Unwind@00b7e15c (Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp): $L5702 was renumbered; verified parent EH data places $L18670 at 0x0077E15C
+    Unwind@00b7e0d6 (Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp): $L5417 was renumbered; verified parent EH data places $L18284 at 0x0077E0D6
+Functions: OK 41/41 matched across 3 source file(s)
+String-ref verify: OK (31 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (0 compiler literals verified)
+Import-ref verify: OK (1 named imports verified)
+link_check: 3 explicit providers byte-verified with strict reusable receipts; census/index/status unchanged, LINK closure not yet checked

@@ -10601,6 +10601,11 @@ publication and the generated row stays intact. The 8-byte cleanup
 at 78E44F still requires reconciliation of its base-destructor owner. Evidence:
 `reverse/attempt_support/rousing-speech-tu-prerequisites-20261101/`.
 `reverse/attempt_support/rousing-speech-vector-20261101/` records the correction.
+The +F4 filter member also now uses the seed's existing Rva00360D26Member
+constructor/destructor owners, with 41 strict provider rows and a retained
+4,783-byte preview. The supported base-identity fold has unique native vtable
+proof but cannot claim five held consumer files; no part of that fold is
+applied. The derived novtable difference still needs a combined exact solution.
 Clearance: pending.
 
 **Header-adoption prerequisite (2026-10-28, base `fa53c16f5f`):** the default

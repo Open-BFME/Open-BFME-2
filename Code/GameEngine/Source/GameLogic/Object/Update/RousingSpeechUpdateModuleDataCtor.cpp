@@ -31,11 +31,14 @@ namespace _STL {
 template <> void _STLP_alloc_proxy<AsciiString*, AsciiString, allocator<AsciiString> >::deallocate(AsciiString*, size_t);
 }
 
-class Rva003623E5Member
+// Existing four-byte pool-index view used by the seed and its destructor.
+// ObjectFilter.cpp owns this constructor's folded native 0x3623E5 body;
+// ObjectFilterRelease.cpp owns its 0x360D26 release destructor.
+class Rva00360D26Member
 {
 public:
-	Rva003623E5Member();
-	~Rva003623E5Member();
+	Rva00360D26Member();
+	~Rva00360D26Member();
 
 private:
 	int m_x;
@@ -69,7 +72,7 @@ private:
 	_STL::vector<AsciiString> m_modifierNames; // +0xE4, ModifierName parser
 	unsigned char m_levelUp; // +0xF0
 	unsigned char m_padF1[3]; // +0xF1
-	Rva003623E5Member m_objectFilter; // +0xF4
+	Rva00360D26Member m_objectFilter; // +0xF4
 };
 
 // RousingSpeechUpdateModuleData::~RousingSpeechUpdateModuleData: defined in RousingSpeechUpdateModuleDataDtor.cpp (its row's unit).
