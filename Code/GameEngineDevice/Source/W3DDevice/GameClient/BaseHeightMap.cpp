@@ -114,11 +114,21 @@ extern GlobalData *TheWritableGlobalData;
 
 class RenderInfoClass;
 
-class Rva000EC9C6 { public: void rva000EC9C6(int); };
+class Rva000EC9C6
+{
+public:
+	void rva000EC9C6(int);
+	void rva000E6B99();
+};
 
 class W3DShrubBuffer { public: void drawShrubs(int); };
 
-class W3DBuffBuffer { public: void rva000D28FA(RenderInfoClass &rinfo, bool flag); };
+class W3DBuffBuffer
+{
+public:
+	void rva000D28FA(RenderInfoClass &rinfo, bool flag);
+	void allocateBuffBuffers();
+};
 
 class BfmeVector4
 {
@@ -249,7 +259,7 @@ class RefCountClass
 {
 public:
 	virtual void Delete_This() {}
-	int m_refs;
+	int m_refs; // +0x04
 };
 
 class BfmeDynamicNativeVB : public RefCountClass
@@ -280,15 +290,15 @@ class Rva000686F2
 {
 public:
 	void rva000686F2();
+	char m_pad00[0x37A4];
 private:
-	char _pad[0x37A4];
-	BfmeDynamicNativeVB *m_vb;
-	DX8IndexBufferClass *m_ib;
-	int m_37ac;
-	int m_37b0;
-	int m_37b4;
-	Uint m_37b8;
-	Uint m_37bc;
+	BfmeDynamicNativeVB *m_vb; // +0x37A4
+	DX8IndexBufferClass *m_ib; // +0x37A8
+	int m_37ac; // +0x37AC
+	int m_37b0; // +0x37B0
+	int m_37b4; // +0x37B4
+	unsigned int m_37b8; // +0x37B8
+	unsigned int m_37bc; // +0x37BC
 };
 
 //
@@ -343,10 +353,19 @@ private:
 // rva000E73CE. Same +0x3854 member and flags as Rva000682B8/Rva000683FF
 // neighbours; caller at 0x00045048.
 // Evidence: callees rowed; count/dirty layout from Common neighbours.
+struct Coord3D;
+class GeometryInfo;
+class AsciiString;
 class W3DPropBuffer
 {
 public:
 	void notifyShroudChanged();
+	void rva000EE04A(const Coord3D *a, float b);
+	void removePropsForConstruction(const Coord3D *a, const GeometryInfo &b, float c);
+	void addProp( int id, Coord3D location, float angle, float scale, const AsciiString &modelName, bool bfmeFlag );
+	bool updatePropPosition( int id, const Coord3D &location, float angle, float scale );
+	W3DPropBuffer();
+	char data[194344]; // +0x00
 };
 
 class Rva000E73CE
@@ -513,7 +532,6 @@ class Drawable;
 
 class Transport;
 
-struct Coord3D;
 
 struct BuffInfoView;
 

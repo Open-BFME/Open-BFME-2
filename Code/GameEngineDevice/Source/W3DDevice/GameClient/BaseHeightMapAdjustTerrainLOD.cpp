@@ -107,7 +107,24 @@ public:
 };
 extern GlobalData *TheWritableGlobalData;
 
-class W3DRoadBuffer { public: void loadRoads(); };
+class BaseHeightMapRenderObjClass;
+class WorldHeightMap;
+class W3DRoadBuffer
+{
+private:
+	friend class BaseHeightMapRenderObjClass;
+public:
+	void loadRoads();
+protected:
+	void freeRoadBuffers();
+	void allocateRoadBuffers();
+public:
+	W3DRoadBuffer();
+	~W3DRoadBuffer();
+	void clearAllRoads();
+	void setMap(WorldHeightMap*);
+	char data[80]; // +0x00
+};
 class Rva000731AE { public: void rva000731AE(); };
 
 class Rva000E3B41
@@ -253,7 +270,6 @@ public:
 
 class BfmeTaintModeView;
 extern BfmeTaintModeView *g_bfmeTaintModeView;
-class BaseHeightMapRenderObjClass;
 extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
 
 class RenderObjClass

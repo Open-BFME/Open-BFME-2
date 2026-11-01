@@ -24,9 +24,40 @@ public:
 };
 class GlobalData {public: char pad[0xd4];float partitionCellSize;};
 extern GlobalData *TheWritableGlobalData;
-class W3DShroud {public:void init(WorldHeightMap*,float,float);};
-class W3DTaint {public:void init(WorldHeightMap*,float,float);};
-class W3DRoadBuffer {public:void setMap(WorldHeightMap*);};
+class W3DShroud
+{
+public:
+	bool ReAcquireResources();
+	W3DShroud();
+	void init(WorldHeightMap*,float,float);
+	char data[88]; // +0x00
+};
+class W3DTaint
+{
+public:
+	bool ReAcquireResources();
+	~W3DTaint();
+	W3DTaint();
+	void init(WorldHeightMap*,float,float);
+	char data[80]; // +0x00
+};
+class BaseHeightMapRenderObjClass;
+class W3DRoadBuffer
+{
+private:
+	friend class BaseHeightMapRenderObjClass;
+public:
+	void loadRoads();
+protected:
+	void freeRoadBuffers();
+	void allocateRoadBuffers();
+public:
+	W3DRoadBuffer();
+	~W3DRoadBuffer();
+	void clearAllRoads();
+	void setMap(WorldHeightMap*);
+	char data[80]; // +0x00
+};
 class BoundedShortGrid {public:
  short load(int a,int b){int idx=m_stride*b+a;if(idx<0)return 0;if(idx>=m_capacity)return 0;if(m_data)return m_data[idx];return 0;}
  unsigned char m_unknown00[0x08];int m_stride;unsigned char m_unknown0C[0x20-0x0C];int m_capacity;short *m_data;};
@@ -64,7 +95,11 @@ namespace _STL { template <> _Rb_tree_node<Rva001408C0Target *> *allocator<_Rb_t
 struct Rva001408C0Target;
 namespace _STL { template <> _Rb_tree_node<Rva001408C0Target *> *_STLP_alloc_proxy<_Rb_tree_node<Rva001408C0Target *> *, _Rb_tree_node<Rva001408C0Target *>, allocator<_Rb_tree_node<Rva001408C0Target *> > >::allocate(size_t); }
 class TreeBoundsView {public:char pad[0x1948];Region2D bounds;};
-class TextureBaseClass {public:void Release_Ref();};
+class TextureBaseClass
+{
+public:
+	void Release_Ref();
+};
 class TextureClass:public TextureBaseClass {};
 template<class T>class RefCountPtr {
 public:T*Referent;
@@ -77,7 +112,7 @@ public:TextureClass*Ptr;
 class TextureAsset
 {
 public:
-	static BFME2ParticleTextureHandle Get(const char*,int,int);
+	static BFME2ParticleTextureHandle Get(const char *name, int a, int b);
 };
 template<class T>class TexSlot:public RefCountPtr<T>{public:
  __forceinline TexSlot&operator=(const BFME2ParticleTextureHandle&h){RefCountPtr<T>::operator=(*(const RefCountPtr<T>*)&h);return *this;}};
@@ -96,10 +131,38 @@ struct AssetList00208F90 {
 };
 class Rva0006C995 {public:Rva0006C995*rva0006C995(Rva001408C0Target*);};
 void bfmeMergeReceiverKeys(int);
-class Rva000686F2 {public:void rva000686F2();};
+class BfmeDynamicNativeVB;
+class DX8IndexBufferClass;
+class Rva000686F2
+{
+public:
+	void rva000686F2();
+	char m_pad00[0x37A4];
+private:
+	BfmeDynamicNativeVB *m_vb; // +0x37A4
+	DX8IndexBufferClass *m_ib; // +0x37A8
+	int m_37ac; // +0x37AC
+	int m_37b0; // +0x37B0
+	int m_37b4; // +0x37B4
+	unsigned int m_37b8; // +0x37B8
+	unsigned int m_37bc; // +0x37BC
+};
 class VertexMaterialClass {public:enum PresetType{PRELIT_DIFFUSE};static VertexMaterialClass*Get_Preset(PresetType);};
 // HeightMap.cpp's detail-blend shader (one ShaderBits dword).
-class ShaderClass {public:unsigned int ShaderBits;};
+class DX8Wrapper;
+class ShaderClass
+{
+protected:
+	friend class DX8Wrapper;
+public:
+	static ShaderClass _PresetAlphaShader;
+	static ShaderClass _PresetMultiplicativeShader;
+protected:
+	static bool ShaderDirty;
+public:
+	void Enable_Fog(const char *source);
+	unsigned bits; // +0x00
+};
 extern ShaderClass detailOpaqueShader;
 class BaseHeightMapRenderObjClass {
 public:
@@ -319,7 +382,7 @@ int BaseHeightMapRenderObjClass::initHeightData(int x,int y,WorldHeightMap*pMap,
    rva0006B3F3();
    ((Rva000686F2*)this)->rva000686F2();
    material=VertexMaterialClass::Get_Preset(VertexMaterialClass::PRELIT_DIFFUSE);
-   shader=detailOpaqueShader.ShaderBits;
+   shader=detailOpaqueShader.bits;
   }
  }
  return 0;

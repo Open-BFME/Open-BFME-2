@@ -45,16 +45,80 @@ namespace _STL { template <> _Bvector_base<allocator<bool> >::~_Bvector_base(); 
 namespace _STL { template <> vector<bool, allocator<bool> >::~vector(); }
 class W3DTreeBuffer {public:W3DTreeBuffer();char data[285800];};
 class W3DShrubBuffer {public:W3DShrubBuffer();char data[332416];};
-class W3DPropBuffer {public:W3DPropBuffer();char data[194344];};
+struct Coord3D;
+class GeometryInfo;
+class AsciiString;
+class W3DPropBuffer
+{
+public:
+	void notifyShroudChanged();
+	void rva000EE04A(const Coord3D *a, float b);
+	void removePropsForConstruction(const Coord3D *a, const GeometryInfo &b, float c);
+	void addProp( int id, Coord3D location, float angle, float scale, const AsciiString &modelName, bool bfmeFlag );
+	bool updatePropPosition( int id, const Coord3D &location, float angle, float scale );
+	W3DPropBuffer();
+	char data[194344]; // +0x00
+};
 class W3DBibBuffer {public:W3DBibBuffer();char data[68048];};
 class W3DBridgeBuffer {public:W3DBridgeBuffer();char data[55224];};
 class Rva000E59D3 {public:Rva000E59D3();char data[36];};
-class W3DWaypointBuffer {public:W3DWaypointBuffer();char data[12];};
-class Rva000E0AE2 {public:Rva000E0AE2();char data[620];};
-class W3DRoadBuffer {public:W3DRoadBuffer();char data[80];};
-class Rva000D3A17 {public:Rva000D3A17();char data[272];};
-class W3DShroud {public:W3DShroud();char data[88];};
-class W3DTaint {public:W3DTaint();char data[80];};
+class W3DWaypointBuffer
+{
+public:
+	W3DWaypointBuffer();
+	~W3DWaypointBuffer();
+	char data[12]; // +0x00
+};
+class Rva000E0AE2
+{
+public:
+	Rva000E0AE2();
+	~Rva000E0AE2();
+	char data[620]; // +0x00
+};
+class BaseHeightMapRenderObjClass;
+class WorldHeightMap;
+class W3DRoadBuffer
+{
+private:
+	friend class BaseHeightMapRenderObjClass;
+public:
+	void loadRoads();
+protected:
+	void freeRoadBuffers();
+	void allocateRoadBuffers();
+public:
+	W3DRoadBuffer();
+	~W3DRoadBuffer();
+	void clearAllRoads();
+	void setMap(WorldHeightMap*);
+	char data[80]; // +0x00
+};
+class Rva000D3A17
+{
+public:
+	Rva000D3A17();
+	~Rva000D3A17();
+	void rva000D3A17();
+	char data[272]; // +0x00
+};
+class W3DShroud
+{
+public:
+	bool ReAcquireResources();
+	W3DShroud();
+	void init(WorldHeightMap*,float,float);
+	char data[88]; // +0x00
+};
+class W3DTaint
+{
+public:
+	bool ReAcquireResources();
+	~W3DTaint();
+	W3DTaint();
+	void init(WorldHeightMap*,float,float);
+	char data[80]; // +0x00
+};
 class GlobalData;extern GlobalData*TheWritableGlobalData;
 struct TerrainGlobalView {char data[0xC6A];bool useTaint;};
 class Rva001E35DFView {public:const Rva001E35DFView*getFinalOverride()const{if(next)return next->getFinalOverride();return this;}void*unknown00;Rva001E35DFView*next;bool isOverride;};

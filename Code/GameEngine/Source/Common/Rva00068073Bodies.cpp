@@ -20,11 +20,17 @@ public:
 	void rva000E9D18(const Coord3D *a, const GeometryInfo &b, float c);
 };
 
+class AsciiString;
 class W3DPropBuffer
 {
 public:
+	void notifyShroudChanged();
 	void rva000EE04A(const Coord3D *a, float b);
 	void removePropsForConstruction(const Coord3D *a, const GeometryInfo &b, float c);
+	void addProp( int id, Coord3D location, float angle, float scale, const AsciiString &modelName, bool bfmeFlag );
+	bool updatePropPosition( int id, const Coord3D &location, float angle, float scale );
+	W3DPropBuffer();
+	char data[194344]; // +0x00
 };
 
 class Rva00068073Host

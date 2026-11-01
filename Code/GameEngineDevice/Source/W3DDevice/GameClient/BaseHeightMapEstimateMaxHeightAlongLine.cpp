@@ -58,10 +58,8 @@ class AI
 {
 public:
 	Pathfinder *pathfinder(void) { return m_pathfinder; }
-
-private:
-	unsigned char m_pad00[0x10];
-	Pathfinder *m_pathfinder;
+	char m_pad00[0x10];
+	Pathfinder *m_pathfinder; // +0x10
 };
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/TerrainLogic.h

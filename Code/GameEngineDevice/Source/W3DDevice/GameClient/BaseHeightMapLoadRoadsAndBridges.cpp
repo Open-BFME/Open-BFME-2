@@ -46,10 +46,23 @@ protected:
 
 class W3DTerrainLogic;
 
+class BaseHeightMapRenderObjClass;
+class WorldHeightMap;
 class W3DRoadBuffer
 {
+private:
+	friend class BaseHeightMapRenderObjClass;
 public:
-	void loadRoads(void);
+	void loadRoads();
+protected:
+	void freeRoadBuffers();
+	void allocateRoadBuffers();
+public:
+	W3DRoadBuffer();
+	~W3DRoadBuffer();
+	void clearAllRoads();
+	void setMap(WorldHeightMap*);
+	char data[80]; // +0x00
 };
 
 class W3DBridgeBuffer

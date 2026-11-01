@@ -14,9 +14,18 @@ class StringClass {public:
 class VertexMaterialClass {public:
  virtual void Delete_This();int refs;enum PresetType{PRELIT_DIFFUSE=1};static VertexMaterialClass*Get_Preset(PresetType);__forceinline void Release_Ref(){if(!--refs)Delete_This();
 }};
-class ShaderClass {public:
- unsigned bits;void Enable_Fog(const char*);static ShaderClass _PresetMultiplicativeShader;protected:
- static bool ShaderDirty;friend class DX8Wrapper;
+class ShaderClass
+{
+protected:
+	friend class DX8Wrapper;
+public:
+	static ShaderClass _PresetAlphaShader;
+	static ShaderClass _PresetMultiplicativeShader;
+protected:
+	static bool ShaderDirty;
+public:
+	void Enable_Fog(const char *source);
+	unsigned bits; // +0x00
 };
 struct RenderStateStruct {ShaderClass shader;VertexMaterialClass*material;
 };
@@ -30,8 +39,10 @@ static __forceinline void BindAuxiliaryShader(const ShaderClass&s){if(!ShaderCla
 protected:
  static bool FogEnable;static RenderStateStruct render_state;static unsigned render_state_changed;friend class Rva00069DB1;
 };
-class TextureBaseClass {public:
- void Release_Ref();
+class TextureBaseClass
+{
+public:
+	void Release_Ref();
 };
 class AssetReference {public:
  TextureBaseClass*p;AssetReference(const AssetReference&);~AssetReference(){if(p)p->Release_Ref();
@@ -39,7 +50,10 @@ class AssetReference {public:
 class Rva00069322 {public:
  AssetReference rva00069322();
 };
-struct BFME2TextureRef {TextureBaseClass*p;
+struct BFME2TextureRef
+{
+public:
+	TextureBaseClass *p; // +0x00
 };
 void BFME2Set_Texture(unsigned,const BFME2TextureRef&);void bfmeSetProjectionDepthBias(float);
 class GlobalData {public:

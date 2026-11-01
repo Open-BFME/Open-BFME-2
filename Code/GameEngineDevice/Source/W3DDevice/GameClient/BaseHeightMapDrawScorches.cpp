@@ -22,12 +22,19 @@ struct IDirect3DDevice8;
 
 extern unsigned number_of_DX8_calls;
 
+class DX8Wrapper;
 class ShaderClass
 {
+protected:
+	friend class DX8Wrapper;
 public:
-	unsigned bits;
-	void Enable_Fog(const char *source);
 	static ShaderClass _PresetAlphaShader;
+	static ShaderClass _PresetMultiplicativeShader;
+protected:
+	static bool ShaderDirty;
+public:
+	void Enable_Fog(const char *source);
+	unsigned bits; // +0x00
 };
 
 class DX8Wrapper
@@ -47,7 +54,8 @@ protected:
 
 struct BFME2TextureRef
 {
-	TextureBaseClass *p;
+public:
+	TextureBaseClass *p; // +0x00
 };
 void BFME2Set_Texture(unsigned stage, const BFME2TextureRef &texture);
 void bfmeSetProjectionDepthBias(float bias);

@@ -11,7 +11,12 @@
 extern void *W3DGCData00DE2000;
 
 class Rva0007E12F { public: void rva0007E12F(); };
-class Rva000EC9C6 { public: void rva000E6B99(); };
+class Rva000EC9C6
+{
+public:
+	void rva000EC9C6(int);
+	void rva000E6B99();
+};
 class W3DShaderManager { public: static void shutdown(); };
 
 class BaseHeightMapRenderObjClass

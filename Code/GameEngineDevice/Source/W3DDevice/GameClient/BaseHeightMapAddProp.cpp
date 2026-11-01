@@ -35,11 +35,17 @@ typedef float Real;
 
 #include "ascii_string.h"
 
+class GeometryInfo;
 class W3DPropBuffer
 {
 public:
-	void addProp( Int id, Coord3D location, Real angle, Real scale, const AsciiString &modelName, Bool bfmeFlag );
-	Bool updatePropPosition( Int id, const Coord3D &location, Real angle, Real scale );
+	void notifyShroudChanged();
+	void rva000EE04A(const Coord3D *a, float b);
+	void removePropsForConstruction(const Coord3D *a, const GeometryInfo &b, float c);
+	void addProp( int id, Coord3D location, float angle, float scale, const AsciiString &modelName, bool bfmeFlag );
+	bool updatePropPosition( int id, const Coord3D &location, float angle, float scale );
+	W3DPropBuffer();
+	char data[194344]; // +0x00
 };
 
 class DataChunkOutput

@@ -7,7 +7,11 @@
 // RenderObjClass base destructor 0x13BE20. Layout from the retail dtor.
 #include "ascii_string.h"
 
-class TextureBaseClass { public: void Release_Ref(); };
+class TextureBaseClass
+{
+public:
+	void Release_Ref();
+};
 void Rva00030830GameFree(void *);
 
 struct RefTex {
@@ -28,14 +32,58 @@ private:
 
 class Rva0006933D { public: int rva0006933D(); };
 class VBuf { public: virtual ~VBuf(); };
-class Rva000D3A17 { public: ~Rva000D3A17(); };
+class Rva000D3A17
+{
+public:
+	Rva000D3A17();
+	~Rva000D3A17();
+	void rva000D3A17();
+	char data[272]; // +0x00
+};
 class W3DBibBuffer { public: ~W3DBibBuffer(); };
-class W3DRoadBuffer { public: ~W3DRoadBuffer(); };
+class BaseHeightMapRenderObjClass;
+class WorldHeightMap;
+class W3DRoadBuffer
+{
+private:
+	friend class BaseHeightMapRenderObjClass;
+public:
+	void loadRoads();
+protected:
+	void freeRoadBuffers();
+	void allocateRoadBuffers();
+public:
+	W3DRoadBuffer();
+	~W3DRoadBuffer();
+	void clearAllRoads();
+	void setMap(WorldHeightMap*);
+	char data[80]; // +0x00
+};
 class W3DBridgeBuffer { public: ~W3DBridgeBuffer(); };
-class W3DWaypointBuffer { public: ~W3DWaypointBuffer(); };
-class Rva000E0AE2 { public: ~Rva000E0AE2(); };
+class W3DWaypointBuffer
+{
+public:
+	W3DWaypointBuffer();
+	~W3DWaypointBuffer();
+	char data[12]; // +0x00
+};
+class Rva000E0AE2
+{
+public:
+	Rva000E0AE2();
+	~Rva000E0AE2();
+	char data[620]; // +0x00
+};
 class Rva0007311B { public: ~Rva0007311B(); };
-class W3DTaint { public: ~W3DTaint(); };
+class W3DTaint
+{
+public:
+	bool ReAcquireResources();
+	~W3DTaint();
+	W3DTaint();
+	void init(WorldHeightMap*,float,float);
+	char data[80]; // +0x00
+};
 
 class RO0 { public: virtual ~RO0(); private: char m_pad[4]; };
 class RO8 { public: virtual ~RO8(); private: char m_pad[0xB8]; };

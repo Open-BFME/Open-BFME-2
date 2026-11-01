@@ -61,10 +61,12 @@ private:
 	int m_vAddressMode;
 };
 
-class BfmeResetTextureRef
+struct BfmeResetResource;
+struct BfmeResetTextureRef
 {
 public:
 	void clear();
+	BfmeResetResource *pointer; // +0x00
 };
 
 class ShroudTexture

@@ -17,17 +17,53 @@
 namespace _STL { template<> void vector<bool, allocator<bool> >::clear(); }
 
 class W3DTreeBuffer { public: void rva000EA24D(); };
-class Rva000D3A17 { public: void rva000D3A17(); };
+class Rva000D3A17
+{
+public:
+	Rva000D3A17();
+	~Rva000D3A17();
+	void rva000D3A17();
+	char data[272]; // +0x00
+};
 class W3DShrubBuffer { public: void rva000E7016(); };
 class Rva000EE198Owner { public: void rva000EE198(); };
-class W3DRoadBuffer { public: void clearAllRoads(); };
+class BaseHeightMapRenderObjClass;
+class WorldHeightMap;
+class W3DRoadBuffer
+{
+private:
+	friend class BaseHeightMapRenderObjClass;
+public:
+	void loadRoads();
+protected:
+	void freeRoadBuffers();
+	void allocateRoadBuffers();
+public:
+	W3DRoadBuffer();
+	~W3DRoadBuffer();
+	void clearAllRoads();
+	void setMap(WorldHeightMap*);
+	char data[80]; // +0x00
+};
 class W3DBridgeBuffer { public: void clearAllBridges(); };
-class W3DFloorBuffer { public: void rva000E598B(); };
+class W3DFloorBuffer
+{
+public:
+	void rva000E473F();
+	void allocateFloorBuffers();
+	void rva000E598B();
+};
 class W3DBibBuffer { public: void clearAllBibs(); };
 class Rva000731AE { public: void rva000731AE(); };
 class Rva000729CC { public: void rva000729CC(bool level); };
 class Rva00073C7A { public: void rva00073C7A(); };
-class BfmeResetTextureRef { public: void clear(); };
+struct BfmeResetResource;
+struct BfmeResetTextureRef
+{
+public:
+	void clear();
+	BfmeResetResource *pointer; // +0x00
+};
 
 class GlobalData
 {

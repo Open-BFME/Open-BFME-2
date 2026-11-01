@@ -7,7 +7,16 @@
 
 class Rva000E6594 { public: void rva000E6594(); };
 // The destructor at 0x00073BFE is rowed as ??1W3DTaint@@QAE@XZ (W3DTaintDtor.cpp).
-class W3DTaint { public: ~W3DTaint(); };
+class WorldHeightMap;
+class W3DTaint
+{
+public:
+	bool ReAcquireResources();
+	~W3DTaint();
+	W3DTaint();
+	void init(WorldHeightMap*,float,float);
+	char data[80]; // +0x00
+};
 class GlobalData;
 extern GlobalData *TheWritableGlobalData;
 

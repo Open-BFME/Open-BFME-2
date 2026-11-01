@@ -17,8 +17,9 @@ struct RefObj00067878
 
 struct BfmeResetTextureRef
 {
-	BfmeResetResource *pointer;
+public:
 	void clear();
+	BfmeResetResource *pointer; // +0x00
 };
 
 class BaseHeightMapRenderObjClass

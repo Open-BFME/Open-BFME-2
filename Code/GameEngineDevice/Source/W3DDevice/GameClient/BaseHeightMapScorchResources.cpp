@@ -18,8 +18,8 @@ typedef unsigned short UShort;
 class RefCountClass
 {
 public:
-	virtual void Delete_This();
-	int m_refs;
+	virtual void Delete_This() {}
+	int m_refs; // +0x04
 };
 
 class BfmeDynamicNativeVB : public RefCountClass

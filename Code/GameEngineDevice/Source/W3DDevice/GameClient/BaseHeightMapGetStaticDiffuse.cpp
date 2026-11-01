@@ -39,9 +39,15 @@ public:
 
 struct VertexFormatXYZDUV2
 {
-	Real x, y, z;
-	UnsignedInt diffuse;
-	Real u1, v1, u2, v2;
+public:
+	Real x; // +0x00
+	Real y; // +0x04
+	Real z; // +0x08
+	unsigned int diffuse; // +0x0C
+	Real u1; // +0x10
+	Real v1; // +0x14
+	Real u2; // +0x18
+	Real v2; // +0x1C
 };
 
 #include "Lib/Coord3D.h"

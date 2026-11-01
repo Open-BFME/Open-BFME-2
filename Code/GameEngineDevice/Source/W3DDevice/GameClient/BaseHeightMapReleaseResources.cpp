@@ -40,12 +40,19 @@ protected:
 
 class W3DRoadBuffer
 {
+private:
 	friend class BaseHeightMapRenderObjClass;
+public:
+	void loadRoads();
 protected:
 	void freeRoadBuffers();
 	void allocateRoadBuffers();
 public:
-	void loadRoads();
+	W3DRoadBuffer();
+	~W3DRoadBuffer();
+	void clearAllRoads();
+	void setMap(WorldHeightMap*);
+	char data[80]; // +0x00
 };
 
 class W3DFloorBuffer
@@ -53,6 +60,7 @@ class W3DFloorBuffer
 public:
 	void rva000E473F();
 	void allocateFloorBuffers();
+	void rva000E598B();
 };
 
 // 0x000B3FD0 is the one-byte empty body the toolchain folds many empties into.
@@ -109,17 +117,26 @@ class W3DShroud
 {
 public:
 	bool ReAcquireResources();
+	W3DShroud();
+	void init(WorldHeightMap*,float,float);
+	char data[88]; // +0x00
 };
 
 class W3DTaint
 {
 public:
 	bool ReAcquireResources();
+	~W3DTaint();
+	W3DTaint();
+	void init(WorldHeightMap*,float,float);
+	char data[80]; // +0x00
 };
 
+class RenderInfoClass;
 class W3DBuffBuffer
 {
 public:
+	void rva000D28FA(RenderInfoClass &rinfo, bool flag);
 	void allocateBuffBuffers();
 };
 
