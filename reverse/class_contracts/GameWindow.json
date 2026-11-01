@@ -1,0 +1,967 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "GameWindow",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 60,
+  "header_widening": {
+   "inline_methods": [
+    {
+     "caller": "?recreateControlBar@InGameUI@@UAEXXZ",
+     "caller_rva": "0x0029F7EA",
+     "declaration": "__forceinline void deleteInstance() { ::delete this; }",
+     "fact": "Slot 0 is called with flag 0; its returned pointer is passed to global operator delete. The helper has no out-of-line retail call or new virtual slot.",
+     "kind": "target-call-site",
+     "name": "deleteInstance",
+     "sites": [
+      "0x0029F843",
+      "0x0029F845",
+      "0x0029F848",
+      "0x0029F84B"
+     ]
+    }
+   ],
+   "layout_probe": "The compiler layouts before and after have equal size, class-key, fields, bases and virtual slots.",
+   "new_fields": [],
+   "out_of_line_declarations": [
+    {
+     "declaration": "void *winGetUserData();",
+     "rva": "0x005C4ACD",
+     "size": 4,
+     "source": "Code/GameEngine/Source/GameClient/GUI/GameWindow_winGetUserData.cpp",
+     "symbol": "?winGetUserData@GameWindow@@QAEPAXXZ"
+    },
+    {
+     "declaration": "void winSetUserData(void *data);",
+     "rva": "0x002B2210",
+     "size": 10,
+     "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowStatusUserData.cpp",
+     "symbol": "?winSetUserData@GameWindow@@QAEXPAX@Z"
+    },
+    {
+     "declaration": "unsigned int winGetStatus();",
+     "rva": "0x0030F45F",
+     "size": 4,
+     "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowStatusUserData.cpp",
+     "symbol": "?winGetStatus@GameWindow@@QAEIXZ"
+    },
+    {
+     "declaration": "GameWindow *winGetParent();",
+     "rva": "0x003140A4",
+     "size": 7,
+     "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowStatusUserData.cpp",
+     "symbol": "?winGetParent@GameWindow@@QAEPAV1@XZ"
+    },
+    {
+     "declaration": "GameWindow *winGetChild();",
+     "rva": "0x003140C8",
+     "size": 7,
+     "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowStatusUserData.cpp",
+     "symbol": "?winGetChild@GameWindow@@QAEPAV1@XZ"
+    },
+    {
+     "declaration": "GameWindow *winGetNext();",
+     "rva": "0x003140F1",
+     "size": 7,
+     "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowStatusUserData.cpp",
+     "symbol": "?winGetNext@GameWindow@@QAEPAV1@XZ"
+    },
+    {
+     "declaration": "GameWindow *winGetPrev();",
+     "rva": "0x00314105",
+     "size": 7,
+     "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowStatusUserData.cpp",
+     "symbol": "?winGetPrev@GameWindow@@QAEPAV1@XZ"
+    },
+    {
+     "declaration": "GameWindow *winGetOwner();",
+     "rva": "0x005C4AF9",
+     "size": 4,
+     "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowStatusUserData.cpp",
+     "symbol": "?winGetOwner@GameWindow@@QAEPAV1@XZ"
+    },
+    {
+     "declaration": "int winGetWindowId();",
+     "rva": "0x005C4AE9",
+     "size": 4,
+     "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowStatusUserData.cpp",
+     "symbol": "?winGetWindowId@GameWindow@@QAEHXZ"
+    },
+    {
+     "declaration": "int winSetWindowId(int value);",
+     "rva": "0x0031404A",
+     "size": 12,
+     "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowFields.cpp",
+     "symbol": "?winSetWindowId@GameWindow@@QAEHH@Z"
+    },
+    {
+     "declaration": "WinInstanceData *winGetInstanceData();",
+     "rva": "0x00314046",
+     "size": 4,
+     "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowStatusUserData.cpp",
+     "symbol": "?winGetInstanceData@GameWindow@@QAEPAVWinInstanceData@@XZ"
+    },
+    {
+     "declaration": "int winSetInstanceData(WinInstanceData *data);",
+     "rva": "0x0031495C",
+     "size": 142,
+     "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowWinSetInstanceData_Rva0031495c.cpp",
+     "symbol": "?winSetInstanceData@GameWindow@@QAEHPAVWinInstanceData@@@Z"
+    },
+    {
+     "declaration": "GameFont *winGetFont();",
+     "rva": "0x00313D6C",
+     "size": 7,
+     "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowStatusUserData.cpp",
+     "symbol": "?winGetFont@GameWindow@@QAEPAVGameFont@@XZ"
+    },
+    {
+     "declaration": "int winNextTab();",
+     "rva": "0x000D43D0",
+     "size": 3,
+     "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowStatusUserData.cpp",
+     "symbol": "?winNextTab@GameWindow@@QAEHXZ"
+    },
+    {
+     "declaration": "int winPrevTab();",
+     "rva": "0x000D43D0",
+     "size": 3,
+     "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowStatusUserData.cpp",
+     "symbol": "?winPrevTab@GameWindow@@QAEHXZ"
+    },
+    {
+     "declaration": "int winSetEnabledImage(int index, const Image *image);",
+     "rva": "0x003143B9",
+     "size": 36,
+     "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowFields.cpp",
+     "symbol": "?winSetEnabledImage@GameWindow@@QAEHHPBVImage@@@Z"
+    },
+    {
+     "declaration": "int winSetEnabledColor(int index, int color);",
+     "rva": "0x003143DD",
+     "size": 34,
+     "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowFields.cpp",
+     "symbol": "?winSetEnabledColor@GameWindow@@QAEHHH@Z"
+    },
+    {
+     "declaration": "int winSetEnabledBorderColor(int index, int color);",
+     "rva": "0x003143FF",
+     "size": 34,
+     "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowFields.cpp",
+     "symbol": "?winSetEnabledBorderColor@GameWindow@@QAEHHH@Z"
+    },
+    {
+     "declaration": "int winSetDisabledImage(int index, const Image *image);",
+     "rva": "0x00314421",
+     "size": 36,
+     "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowFields.cpp",
+     "symbol": "?winSetDisabledImage@GameWindow@@QAEHHPBVImage@@@Z"
+    },
+    {
+     "declaration": "int winSetDisabledColor(int index, int color);",
+     "rva": "0x00314445",
+     "size": 37,
+     "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowFields.cpp",
+     "symbol": "?winSetDisabledColor@GameWindow@@QAEHHH@Z"
+    },
+    {
+     "declaration": "int winSetDisabledBorderColor(int index, int color);",
+     "rva": "0x0031446A",
+     "size": 37,
+     "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowFields.cpp",
+     "symbol": "?winSetDisabledBorderColor@GameWindow@@QAEHHH@Z"
+    },
+    {
+     "declaration": "int winSetHiliteImage(int index, const Image *image);",
+     "rva": "0x0031448F",
+     "size": 36,
+     "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowFields.cpp",
+     "symbol": "?winSetHiliteImage@GameWindow@@QAEHHPBVImage@@@Z"
+    },
+    {
+     "declaration": "int winSetHiliteColor(int index, int color);",
+     "rva": "0x003144B3",
+     "size": 37,
+     "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowFields.cpp",
+     "symbol": "?winSetHiliteColor@GameWindow@@QAEHHH@Z"
+    },
+    {
+     "declaration": "int winSetHiliteBorderColor(int index, int color);",
+     "rva": "0x003144D8",
+     "size": 37,
+     "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowFields.cpp",
+     "symbol": "?winSetHiliteBorderColor@GameWindow@@QAEHHH@Z"
+    },
+    {
+     "declaration": "const Image *winGetEnabledImage(int index);",
+     "rva": "0x0009DC22",
+     "size": 16,
+     "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Gadget/W3DVerticalSlider.cpp",
+     "symbol": "?winGetEnabledImage@GameWindow@@QAEPBVImage@@H@Z"
+    },
+    {
+     "declaration": "int winGetEnabledColor(int index);",
+     "rva": "0x0009FC44",
+     "size": 14,
+     "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Gadget/W3DVerticalSlider.cpp",
+     "symbol": "?winGetEnabledColor@GameWindow@@QAEHH@Z"
+    },
+    {
+     "declaration": "int winGetEnabledBorderColor(int index);",
+     "rva": "0x0009FC52",
+     "size": 14,
+     "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Gadget/W3DVerticalSlider.cpp",
+     "symbol": "?winGetEnabledBorderColor@GameWindow@@QAEHH@Z"
+    },
+    {
+     "declaration": "const Image *winGetDisabledImage(int index);",
+     "rva": "0x0009FC60",
+     "size": 16,
+     "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Gadget/W3DVerticalSlider.cpp",
+     "symbol": "?winGetDisabledImage@GameWindow@@QAEPBVImage@@H@Z"
+    },
+    {
+     "declaration": "int winGetDisabledColor(int index);",
+     "rva": "0x0009FC70",
+     "size": 17,
+     "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Gadget/W3DVerticalSlider.cpp",
+     "symbol": "?winGetDisabledColor@GameWindow@@QAEHH@Z"
+    },
+    {
+     "declaration": "int winGetDisabledBorderColor(int index);",
+     "rva": "0x0009FC81",
+     "size": 17,
+     "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Gadget/W3DVerticalSlider.cpp",
+     "symbol": "?winGetDisabledBorderColor@GameWindow@@QAEHH@Z"
+    },
+    {
+     "declaration": "const Image *winGetHiliteImage(int index);",
+     "rva": "0x0009FC92",
+     "size": 16,
+     "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Gadget/W3DVerticalSlider.cpp",
+     "symbol": "?winGetHiliteImage@GameWindow@@QAEPBVImage@@H@Z"
+    },
+    {
+     "declaration": "int winGetHiliteColor(int index);",
+     "rva": "0x0009FCA2",
+     "size": 17,
+     "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Gadget/W3DVerticalSlider.cpp",
+     "symbol": "?winGetHiliteColor@GameWindow@@QAEHH@Z"
+    },
+    {
+     "declaration": "int winGetHiliteBorderColor(int index);",
+     "rva": "0x0009FCB3",
+     "size": 17,
+     "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Gadget/W3DVerticalSlider.cpp",
+     "symbol": "?winGetHiliteBorderColor@GameWindow@@QAEHH@Z"
+    },
+    {
+     "declaration": "int winGetEnabledTextColor();",
+     "rva": "0x00313E8C",
+     "size": 7,
+     "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowStatusUserData.cpp",
+     "symbol": "?winGetEnabledTextColor@GameWindow@@QAEHXZ"
+    },
+    {
+     "declaration": "int winGetEnabledTextBorderColor();",
+     "rva": "0x00313E93",
+     "size": 7,
+     "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowStatusUserData.cpp",
+     "symbol": "?winGetEnabledTextBorderColor@GameWindow@@QAEHXZ"
+    },
+    {
+     "declaration": "int winGetDisabledTextColor();",
+     "rva": "0x00313E9A",
+     "size": 7,
+     "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowStatusUserData.cpp",
+     "symbol": "?winGetDisabledTextColor@GameWindow@@QAEHXZ"
+    },
+    {
+     "declaration": "int winGetDisabledTextBorderColor();",
+     "rva": "0x00313EA1",
+     "size": 7,
+     "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowStatusUserData.cpp",
+     "symbol": "?winGetDisabledTextBorderColor@GameWindow@@QAEHXZ"
+    },
+    {
+     "declaration": "int winGetHiliteTextColor();",
+     "rva": "0x00313EB6",
+     "size": 7,
+     "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowStatusUserData.cpp",
+     "symbol": "?winGetHiliteTextColor@GameWindow@@QAEHXZ"
+    },
+    {
+     "declaration": "int winGetHiliteTextBorderColor();",
+     "rva": "0x00313840",
+     "size": 7,
+     "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowStatusUserData.cpp",
+     "symbol": "?winGetHiliteTextBorderColor@GameWindow@@QAEHXZ"
+    },
+    {
+     "declaration": "int winGetIMECompositeTextColor();",
+     "rva": "0x00313EA8",
+     "size": 7,
+     "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowStatusUserData.cpp",
+     "symbol": "?winGetIMECompositeTextColor@GameWindow@@QAEHXZ"
+    },
+    {
+     "declaration": "int winGetIMECompositeBorderColor();",
+     "rva": "0x00313EAF",
+     "size": 7,
+     "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowStatusUserData.cpp",
+     "symbol": "?winGetIMECompositeBorderColor@GameWindow@@QAEHXZ"
+    },
+    {
+     "declaration": "int winGetTextLength();",
+     "rva": "0x00313D64",
+     "size": 8,
+     "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowStatusUserData.cpp",
+     "symbol": "?winGetTextLength@GameWindow@@QAEHXZ"
+    },
+    {
+     "declaration": "UnicodeString winGetText();",
+     "rva": "0x00314942",
+     "size": 26,
+     "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowWinSetInstanceData_Rva0031495c.cpp",
+     "symbol": "?winGetText@GameWindow@@QAE?AVUnicodeString@@XZ"
+    },
+    {
+     "declaration": "void winSetTooltip(UnicodeString tip);",
+     "rva": "0x003148A2",
+     "size": 68,
+     "source": "Code/GameEngine/Source/GameClient/GUI/GameWindow_winSetText.cpp",
+     "symbol": "?winSetTooltip@GameWindow@@QAEXVUnicodeString@@@Z"
+    },
+    {
+     "declaration": "unsigned char winPointInWindow(int x, int y);",
+     "rva": "0x003147F6",
+     "size": 84,
+     "source": "Code/GameEngine/Source/GameClient/GUI/GameWindow_winSetText.cpp",
+     "symbol": "?winPointInWindow@GameWindow@@QAEEHH@Z"
+    },
+    {
+     "declaration": "GameWindowEditData *winGetEditData();",
+     "rva": "0x0031450A",
+     "size": 7,
+     "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowFields.cpp",
+     "symbol": "?winGetEditData@GameWindow@@QAEPAUGameWindowEditData@@XZ"
+    },
+    {
+     "declaration": "void setRva003144FD(int value);",
+     "rva": "0x003144FD",
+     "size": 13,
+     "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowFields.cpp",
+     "symbol": "?setRva003144FD@GameWindow@@QAEXH@Z"
+    },
+    {
+     "declaration": "int rva0009DC32(WinInstanceData *data);",
+     "rva": "0x0009DC32",
+     "size": 40,
+     "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowDraw.cpp",
+     "symbol": "?rva0009DC32@GameWindow@@QAEHPAVWinInstanceData@@@Z"
+    }
+   ],
+   "signature_probe": "Taking each new out-of-line member address emits exactly its existing ledger-decorated name.",
+   "virtual_slot_proofs": {
+    "1": {
+     "kind": "target-table-word-and-matched-member-row",
+     "ledger_symbol": "?input@GameWindow@@UAE?AW4WindowMsgHandledType@@III@Z",
+     "table_rva": "0x0080BBCC",
+     "target_rva": "0x000A0CFF"
+    },
+    "2": {
+     "kind": "target-table-word-and-matched-member-row",
+     "ledger_symbol": "?bfmeGoEHCb@GameWindow@@UAE?AW4WindowMsgHandledType@@III@Z",
+     "table_rva": "0x0080BBCC",
+     "target_rva": "0x00104E45"
+    },
+    "3": {
+     "kind": "target-table-word-and-matched-member-row",
+     "ledger_symbol": "?draw@GameWindow@@UAEHPAX@Z",
+     "table_rva": "0x0080BBCC",
+     "target_rva": "0x0009DC05"
+    },
+    "4": {
+     "kind": "target-table-word-and-matched-member-row",
+     "ledger_symbol": "?tooltip@GameWindow@@UAEHPAVWinInstanceData@@I@Z",
+     "table_rva": "0x0080BBCC",
+     "target_rva": "0x0008FF56"
+    },
+    "5": {
+     "kind": "target-table-word-and-matched-member-row",
+     "ledger_symbol": "?rva0009FD78@GameWindow@@UAEHXZ",
+     "table_rva": "0x0080BBCC",
+     "target_rva": "0x0009FD78"
+    },
+    "6": {
+     "kind": "target-table-word-and-matched-member-row",
+     "ledger_symbol": "?vslot6@GameWindow@@UBE_NXZ",
+     "table_rva": "0x0080BBCC",
+     "target_rva": "0x00313913"
+    },
+    "8": {
+     "kind": "target-table-word-and-matched-member-row",
+     "ledger_symbol": "?vslot8@GameWindow@@UBE_NXZ",
+     "table_rva": "0x0080BBCC",
+     "target_rva": "0x0031393A"
+    }
+   }
+  },
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 1
+   },
+   "0x10": {
+    "4": 4
+   },
+   "0x14": {
+    "4": 5
+   },
+   "0x18": {
+    "4": 5
+   },
+   "0x18c": {
+    "4": 2
+   },
+   "0x190": {
+    "4": 2
+   },
+   "0x194": {
+    "4": 2
+   },
+   "0x198": {
+    "4": 2
+   },
+   "0x19c": {
+    "4": 2
+   },
+   "0x1a0": {
+    "4": 2
+   },
+   "0x1a4": {
+    "4": 2
+   },
+   "0x1a8": {
+    "4": 2
+   },
+   "0x1b4": {
+    "4": 2
+   },
+   "0x1c": {
+    "4": 2
+   },
+   "0x1cc": {
+    "4": 1
+   },
+   "0x1d0": {
+    "4": 1
+   },
+   "0x1d4": {
+    "4": 1
+   },
+   "0x1dc": {
+    "4": 2
+   },
+   "0x1e0": {
+    "4": 2
+   },
+   "0x1e4": {
+    "4": 1
+   },
+   "0x1e8": {
+    "4": 2
+   },
+   "0x1ec": {
+    "4": 2
+   },
+   "0x1f0": {
+    "4": 1
+   },
+   "0x1f8": {
+    "4": 2
+   },
+   "0x1fc": {
+    "4": 2
+   },
+   "0x20": {
+    "4": 2
+   },
+   "0x200": {
+    "4": 5
+   },
+   "0x204": {
+    "4": 2
+   },
+   "0x214": {
+    "4": 2
+   },
+   "0x218": {
+    "4": 1
+   },
+   "0x24": {
+    "4": 1
+   },
+   "0x28": {
+    "4": 1
+   },
+   "0x2c": {
+    "4": 2
+   },
+   "0x30": {
+    "4": 3
+   },
+   "0x34": {
+    "4": 2
+   },
+   "0x3c": {
+    "4": 2
+   },
+   "0x3d": {
+    "1": 4
+   },
+   "0x4": {
+    "4": 3
+   },
+   "0x44": {
+    "4": 1
+   },
+   "0x8": {
+    "4": 11
+   },
+   "0xc": {
+    "4": 4
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x3145f0"
+     ],
+     "value": 536
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x3145f0"
+     ],
+     "value": {
+      "0x10": [
+       4
+      ],
+      "0x14": [
+       4
+      ],
+      "0x18": [
+       4
+      ],
+      "0x1c": [
+       4
+      ],
+      "0x1d8": [
+       4
+      ],
+      "0x1dc": [
+       4
+      ],
+      "0x1e0": [
+       4
+      ],
+      "0x1e4": [
+       4
+      ],
+      "0x1e8": [
+       4
+      ],
+      "0x1ec": [
+       4
+      ],
+      "0x1f0": [
+       4
+      ],
+      "0x1f4": [
+       4
+      ],
+      "0x1f8": [
+       4
+      ],
+      "0x1fc": [
+       4
+      ],
+      "0x20": [
+       4
+      ],
+      "0x200": [
+       4
+      ],
+      "0x204": [
+       4
+      ],
+      "0x208": [
+       4
+      ],
+      "0x20c": [
+       4
+      ],
+      "0x210": [
+       4
+      ],
+      "0x214": [
+       4
+      ],
+      "0x24": [
+       4
+      ],
+      "0x28": [
+       4
+      ],
+      "0x2c": [
+       4
+      ],
+      "0x4": [
+       4
+      ],
+      "0x8": [
+       4
+      ],
+      "0xc": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x3145f0"
+     ],
+     "value": {
+      "0x30": [
+       "??0WinInstanceData@@QAE@XZ"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x3145f0"
+     ],
+     "value": {
+      "0x0": "0x80bbcc"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x80bbcc"
+     ],
+     "value": {
+      "count": 11,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GGameWindow@@MAEPAXI@Z",
+        "slot": 0,
+        "target": "0x314ac4"
+       },
+       {
+        "name": "?input@GameWindow@@UAE?AW4WindowMsgHandledType@@III@Z",
+        "slot": 1,
+        "target": "0xa0cff"
+       },
+       {
+        "name": "?bfmeGoEHCb@GameWindow@@UAE?AW4WindowMsgHandledType@@III@Z",
+        "slot": 2,
+        "target": "0x104e45"
+       },
+       {
+        "name": "?draw@GameWindow@@UAEHPAX@Z",
+        "slot": 3,
+        "target": "0x9dc05"
+       },
+       {
+        "name": "?bfmeDispatch@Gen_004655b0@@QAEHPAX0@Z",
+        "slot": 4,
+        "target": "0x8ff56"
+       },
+       {
+        "name": "?rva0009FD78@GameWindow@@UAEHXZ",
+        "slot": 5,
+        "target": "0x9fd78"
+       },
+       {
+        "name": "?vslot6@GameWindow@@UBE_NXZ",
+        "slot": 6,
+        "target": "0x313913"
+       },
+       {
+        "name": "__purecall",
+        "slot": 7,
+        "target": "0x3b810"
+       },
+       {
+        "name": "?vslot8@GameWindow@@UBE_NXZ",
+        "slot": 8,
+        "target": "0x31393a"
+       },
+       {
+        "name": "?vslot9@GameWindow@@UBE_NXZ",
+        "slot": 9,
+        "target": "0x8ff78"
+       },
+       {
+        "name": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+        "slot": 10,
+        "target": "0x50b5c6"
+       }
+      ],
+      "table": "0x80bbcc"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 82,
+  "retail_vtables": {
+   "0x80bbcc": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "??_GGameWindow@@MAEPAXI@Z",
+     "1": "?input@GameWindow@@UAE?AW4WindowMsgHandledType@@III@Z",
+     "10": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+     "2": "?bfmeGoEHCb@GameWindow@@UAE?AW4WindowMsgHandledType@@III@Z",
+     "3": "?draw@GameWindow@@UAEHPAX@Z",
+     "4": "?bfmeDispatch@Gen_004655b0@@QAEHPAX0@Z",
+     "5": "?rva0009FD78@GameWindow@@UAEHXZ",
+     "6": "?vslot6@GameWindow@@UBE_NXZ",
+     "7": "__purecall",
+     "8": "?vslot8@GameWindow@@UBE_NXZ",
+     "9": "?vslot9@GameWindow@@UBE_NXZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 2,
+  "view_sizes": {
+   "1": 39,
+   "300": 1,
+   "396": 2,
+   "4": 4,
+   "488": 1,
+   "496": 1,
+   "536": 8,
+   "8": 1,
+   "96": 1
+  },
+  "views": 58,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_GameWindow.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/GameWindow.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "retail-access",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 15,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 754
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/BfmeConv812_bfmeGoEHC.cpp",
+    "Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp",
+    "Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB10.cpp",
+    "Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB11.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowFields.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 72,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetListBoxSetColors.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowFields.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/GUICallbacks/W3DControlBar.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Gadget/W3DPushButtonImageDrawVertical.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Rva00105216DrawText_Rva00105216.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 76,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Rva00105216DrawText_Rva00105216.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 80,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Rva00105216DrawText_Rva00105216.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 180,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetListBoxSetColors.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowFields.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Gadget/W3DPushButtonImageDrawVertical.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Rva00105216DrawText_Rva00105216.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 184,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Rva00105216DrawText_Rva00105216.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 188,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Rva00105216DrawText_Rva00105216.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 288,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetListBoxSetColors.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowFields.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Gadget/W3DPushButtonImageDrawVertical.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Rva00105216DrawText_Rva00105216.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 292,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Rva00105216DrawText_Rva00105216.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 296,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Rva00105216DrawText_Rva00105216.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 484,
+   "sources": [
+    "Code/GameEngine/Source/Common/BfmeConv812_bfmeGoEHC.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 492,
+   "sources": [
+    "Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 532,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowFields.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "slot7",
+   "candidates": {
+    "fetchCreateInstance()": 2,
+    "unknown07()": 2
+   },
+   "class": "GameWindow",
+   "why": "The retail table word targets __purecall at RVA 0x0003B810. It establishes a pure virtual slot, but not the original C++ name or return signature. The existing header declaration is unchanged."
+  }
+ ],
+ "size": 536,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "retail-vtable",
+   "member": "input(uint,uint,uint)"
+  },
+  "10": {
+   "decided_by": "bytes",
+   "member": "vslot10()"
+  },
+  "2": {
+   "decided_by": "retail-vtable",
+   "member": "bfmeGoEHCb(uint,uint,uint)"
+  },
+  "3": {
+   "decided_by": "retail-vtable",
+   "member": "draw(void*)"
+  },
+  "4": {
+   "decided_by": "retail-vtable",
+   "member": "tooltip(WinInstanceData*,uint)"
+  },
+  "5": {
+   "decided_by": "retail-vtable",
+   "member": "rva0009FD78()"
+  },
+  "6": {
+   "decided_by": "retail-vtable",
+   "member": "vslot6()"
+  },
+  "8": {
+   "decided_by": "retail-vtable",
+   "member": "vslot8()"
+  },
+  "9": {
+   "decided_by": "bytes",
+   "member": "vslot9()"
+  }
+ }
+}
