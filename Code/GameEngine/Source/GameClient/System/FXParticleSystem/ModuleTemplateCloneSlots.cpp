@@ -36,29 +36,7 @@ private:
 	int m_storage[ 4 ];
 };
 
-#define MODULE_TEMPLATE_CLONE_SLOT( NAME, METHOD, BASE, SRC, SLOT1, SIZE )    \
-	class BASE : public Rva003AC8D7Slot0, public SLOT1, public Rva003AC8D7Slot2 \
-	{                                                                        \
-	public:                                                                  \
-		BASE( unsigned int arg, SRC src );                                    \
-	};                                                                       \
-	class NAME##Object : public BASE                                         \
-	{                                                                        \
-	public:                                                                  \
-		__forceinline NAME##Object( unsigned int arg, SRC src )              \
-			: BASE( arg, src ) {}                                             \
-		char m_storage[ SIZE - sizeof( BASE ) ];                              \
-	};                                                                       \
-	class NAME##Clone                                                        \
-	{                                                                        \
-	public:                                                                  \
-		virtual NAME##Object *METHOD( unsigned int arg ) = 0;                 \
-	};                                                                       \
-	class NAME##Host : public Rva003AC8D7Primary, public NAME##Clone          \
-	{                                                                        \
-	public:                                                                  \
-		virtual NAME##Object *METHOD( unsigned int arg );                      \
-	};
+#include "../../../../Include/Common/BfmeAccessorMacros.h"
 
 struct Rva0055B52ESrc;
 struct Src00562366;

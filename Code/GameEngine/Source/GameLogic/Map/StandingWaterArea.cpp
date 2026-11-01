@@ -31,26 +31,7 @@ public:
 #pragma pack(push,1)
 #pragma pack(pop)
 #include "ascii_string.h"	// shared AsciiString: operator= expands to StringBase<char>::set (0x000366F0), as retail
-#define BFME_DISP32_LEA_GETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		void *get() const; \
-	}; \
-	void *NAME::get() const \
-	{ \
-		return (char *)this + DISP; \
-	}
-#define BFME_DISP32_LEA_BEFORE_GETTER(NAME, BACK) \
-	class NAME \
-	{ \
-	public: \
-		void *get() const; \
-	}; \
-	void *NAME::get() const \
-	{ \
-		return (char *)this - (BACK); \
-	}
+#include "../../../Include/Common/BfmeAccessorMacros.h"
 
 class Rva00330757Member
 {

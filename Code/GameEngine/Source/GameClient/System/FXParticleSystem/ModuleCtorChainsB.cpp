@@ -233,29 +233,8 @@ PARTICLE_INFO_MODULE( Rva003AC297Module, CylindricalEmissionVelocityInfo, 4 )
 
 typedef FXParticleSystem::TrackingPtr<FXParticleSystem::ParticleSystem> RvaParticleSystemPtr;
 
-#define PARTICLE_MODULE_INTERMEDIATE( NAME, MODULE )                            \
-	class NAME : public FXParticleSystem::MODULE                                \
-	{                                                                         \
-	public:                                                                   \
-		NAME( void *system, void *module_template );                            \
-	};                                                                        \
-	NAME::NAME( void *system, void *module_template )                           \
-		: FXParticleSystem::MODULE( *static_cast<RvaParticleSystemPtr *>( system ), \
-			static_cast<const FXParticleSystem::MODULE##Template *>( module_template ) ) \
-	{                                                                         \
-	}
+#include "../../../../Include/Common/BfmeAccessorMacros.h"
 
-#define PARTICLE_MODULE_FINAL( NAME, TEMPLATE, BASE )                           \
-	class TEMPLATE;                                                           \
-	class NAME : public BASE                                                  \
-	{                                                                         \
-	public:                                                                   \
-		NAME( void *owner, TEMPLATE *module_template );                         \
-	};                                                                        \
-	NAME::NAME( void *owner, TEMPLATE *module_template )                        \
-		: BASE( owner, module_template )                                       \
-	{                                                                         \
-	}
 
 PARTICLE_MODULE_INTERMEDIATE( Rva003ACCAD, BoxEmissionVolumeModule )
 PARTICLE_MODULE_INTERMEDIATE( Rva003ACCDE, SphereEmissionVolumeModule )

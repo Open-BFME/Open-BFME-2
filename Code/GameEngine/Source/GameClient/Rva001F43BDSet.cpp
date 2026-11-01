@@ -31,16 +31,7 @@ public:
 // (11 bytes each): offset this to the Rva001F43BD at +0xA8..+0xC0 (one per
 // four-byte slot) and tail-jump Rva001F43BD::rva001F43BD. Owners and names are
 // address-derived; no referencing site was found in this pass.
-#define BFME_RVA001F43BD_SLOT_SETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		void set(void *p); \
-	}; \
-	void NAME::set(void *p) \
-	{ \
-		((Rva001F43BD *)((char *)this + DISP))->rva001F43BD(p); \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 
 // Eight more forwarders to the same setters (+0xA4..+0xC0), contiguous at

@@ -29,15 +29,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 }
 #include <stdlib.h>
-#define R4_TWO_MEMBER_DTOR( NAME, LEAD, M1, M2 )                              \
-	struct NAME                                                               \
-	{                                                                         \
-		char m_lead[ LEAD ];                                                  \
-		M1 m_first;                                                           \
-		M2 m_second;                                                          \
-		~NAME();                                                              \
-	};                                                                        \
-	NAME::~NAME() {}
+#include "../../../Include/Common/BfmeAccessorMacros.h"
 // ??1Rva0032C4D5@@QAE@XZ @0x0032C4D5 30B
 // Vector-like container dtor over Rva00329D0E without EH frame.
 // Evidence: retail calls rowed

@@ -69,54 +69,11 @@ class Thing;
 class ModuleData;
 class Object;
 #include "../../../Include/Common/BfmeXfer.h"
-#define BFME_RVA001F43BD_SLOT_SETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		void set(void *p); \
-	}; \
-	void NAME::set(void *p) \
-	{ \
-		((Rva001F43BD *)((char *)this + DISP))->rva001F43BD(p); \
-	}
+#include "../../../Include/Common/BfmeAccessorMacros.h"
 #define BFME_RVA001F43BD_STATIC_SETTER(NAME, DISP) \
 	static __declspec(noinline) void NAME(char *owner, void *p) \
 	{ \
 		((Rva001F43BD *)(owner + DISP))->rva001F43BD(p); \
-	}
-#define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
-	class NAME \
-	{ \
-	public: \
-		const char *name() const; \
-	}; \
-	const char *NAME::name() const \
-	{ \
-		return TEXT; \
-	}
-#define BFME_DISP_BYTE_SETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		void set(unsigned char value); \
-		char m_lead[DISP]; \
-		unsigned char m_value; \
-	}; \
-	void NAME::set(unsigned char value) \
-	{ \
-		m_value = value; \
-	}
-#define BFME_DISP_DWORD_SETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		void set(int value); \
-		char m_lead[DISP]; \
-		int m_value; \
-	}; \
-	void NAME::set(int value) \
-	{ \
-		m_value = value; \
 	}
 
 struct Coord3DBase

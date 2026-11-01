@@ -79,44 +79,10 @@ inline AODDtorElem24::~AODDtorElem24()
 {
 }
 #include "../../../Common/GameLogicObjectLookupView.h"
-#define BFME_MOVSX_BYTE_FIELD_GETTER(NAME, OFFSET) \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-		char m_lead[OFFSET]; \
-		signed char m_value; \
-	}; \
-	int NAME::get() const \
-	{ \
-		return m_value; \
-	}
+#include "../../../../Include/Common/BfmeAccessorMacros.h"
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
-#define BFME_DISP8_DIV_AVG_DWORD_GETTER(NAME, DISP1, DISP2, DIVISOR) \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-		char m_lead[DISP1]; \
-		int m_first; \
-	}; \
-	int NAME::get() const \
-	{ \
-		return (m_first - *(int *)((char *)this + DISP2)) / DIVISOR; \
-	}
 BFME_DISP8_DIV_AVG_DWORD_GETTER(Rva0047A6B4DivAvgField, 0x08, 0x00, 0x18)
 #include <new>
-#define BFME_IMUL_ADD_DWORD_GETTER(NAME, IMM) \
-	class NAME \
-	{ \
-	public: \
-		int get(int scale) const; \
-		int m_value; \
-	}; \
-	int NAME::get(int scale) const \
-	{ \
-		return scale * IMM + m_value; \
-	}
 
 class GeometryInfo;
 

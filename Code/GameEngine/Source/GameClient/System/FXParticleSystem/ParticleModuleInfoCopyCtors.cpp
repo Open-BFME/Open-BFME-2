@@ -55,12 +55,7 @@ public:
 	int m_int10; // +0x10
 };
 
-#define MODULE_INFO_THIRD_BASE(NAME) \
-	class NAME \
-	{ \
-	public: \
-		virtual ~NAME() {} \
-	};
+#include "../../../../Include/Common/BfmeAccessorMacros.h"
 
 MODULE_INFO_THIRD_BASE(ModuleInfoThirdBAC0)
 MODULE_INFO_THIRD_BASE(ModuleInfoThirdBD10)

@@ -278,88 +278,11 @@ public:
 struct BfmeCopyElementA;
 #include "../../../../Include/Common/ThingTemplate.h"
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
-#define BFME_DISP8_FLOATCHASE_GETTER(NAME, DISP1, DISP2) \
-	class NAME \
-	{ \
-	public: \
-		float get() const; \
-		char m_lead[DISP1]; \
-		void *m_ptr; \
-	}; \
-	float NAME::get() const \
-	{ \
-		return *(float *)((char *)m_ptr + DISP2); \
-	}
-#define BFME_DISP8_FLOATCHASE_BEFORE_GETTER(NAME, BACK, INNER) \
-	class Inner##NAME \
-	{ \
-	public: \
-		char m_lead[INNER]; \
-		float m_value; \
-	}; \
-	class Sub##NAME \
-	{ \
-	public: \
-		Inner##NAME *m_holder; \
-	}; \
-	class NAME \
-	{ \
-	public: \
-		float get() const; \
-	}; \
-	float NAME::get() const \
-	{ \
-		return ((const Sub##NAME *)((const char *)this - (BACK)))->m_holder->m_value; \
-	}
-#define BFME_DISP_BYTE_SETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		void set(unsigned char value); \
-		char m_lead[DISP]; \
-		unsigned char m_value; \
-	}; \
-	void NAME::set(unsigned char value) \
-	{ \
-		m_value = value; \
-	}
+#include "../../../../Include/Common/BfmeAccessorMacros.h"
 #define _CRTIMP
 #include <stddef.h>
 #include <stdlib.h>
 #undef _CRTIMP
-#define BFME_DISP8_PTRCHASE_DWORD_GETTER(NAME, DISP1, DISP2) \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-		char m_lead[DISP1]; \
-		void *m_ptr; \
-	}; \
-	int NAME::get() const \
-	{ \
-		return *(int *)((char *)m_ptr + DISP2); \
-	}
-#define BFME_DISP8_PTRCHASE_BEFORE_DWORD_GETTER(NAME, BACK, INNER) \
-	class Inner##NAME \
-	{ \
-	public: \
-		char m_lead[INNER]; \
-		int m_value; \
-	}; \
-	class Sub##NAME \
-	{ \
-	public: \
-		Inner##NAME *m_holder; \
-	}; \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-	}; \
-	int NAME::get() const \
-	{ \
-		return ((const Sub##NAME *)((const char *)this - (BACK)))->m_holder->m_value; \
-	}
 
 enum AICommandType
 {

@@ -4,26 +4,7 @@
 #include <vector>
 #include "Common/Snapshot.h"
 #include "../../../../../Libraries/Include/Lib/BfmeE16.h"
-#define BFME_SNAPSHOT_NAME_GETTER(NAME, TEXT) \
-	class NAME \
-	{ \
-	protected: \
-		virtual const char *GetSnapshotName() const; \
-	}; \
-	const char *NAME::GetSnapshotName() const \
-	{ \
-		return TEXT; \
-	}
-#define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
-	class NAME \
-	{ \
-	public: \
-		const char *name() const; \
-	}; \
-	const char *NAME::name() const \
-	{ \
-		return TEXT; \
-	}
+#include "../../../../Include/Common/BfmeAccessorMacros.h"
 #define TheThunk230 ((Rva00758230 *)TheCollisionManager)
 #define TheThunk240 ((Rva00758240 *)TheCollisionManager)
 //

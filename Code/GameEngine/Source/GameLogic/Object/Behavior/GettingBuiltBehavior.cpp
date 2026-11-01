@@ -112,43 +112,7 @@ public:
 #include "../../../Common/GameLogicObjectLookupView.h"
 #define REAL_TO_INT_CEIL(x) (fast_float2long_round(fast_float_ceil(x)))
 #include <new>
-#define BFME_DISP8_BYTE_GETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		unsigned char get() const; \
-		char m_lead[DISP]; \
-		unsigned char m_value; \
-	}; \
-	unsigned char NAME::get() const \
-	{ \
-		return m_value; \
-	}
-#define BFME_DISP8_LEA_NEG_SBB_GETTER(NAME, LEADISP, ADDIMM) \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-	}; \
-	int NAME::get() const \
-	{ \
-		const char *field = (const char *)this; \
-		const void *base = field - LEADISP; \
-		field += ADDIMM; \
-		return base ? (int)field : 0; \
-	}
-#define BFME_DISP8_FILD_GETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		double get() const; \
-		char m_lead[DISP]; \
-		int m_value; \
-	}; \
-	double NAME::get() const \
-	{ \
-		return m_value; \
-	}
+#include "../../../../Include/Common/BfmeAccessorMacros.h"
 extern GameLogic *TheGameLogic;
 class AudioManager : public Rva00454430Slots<27>
 {

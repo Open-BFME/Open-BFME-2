@@ -39,26 +39,7 @@ class Thing;
 class ModuleData;
 class Object;
 #include "../../../../Include/Common/BfmeXfer.h"
-#define BFME_SNAPSHOT_NAME_GETTER(NAME, TEXT) \
-	class NAME \
-	{ \
-	protected: \
-		virtual const char *GetSnapshotName() const; \
-	}; \
-	const char *NAME::GetSnapshotName() const \
-	{ \
-		return TEXT; \
-	}
-#define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
-	class NAME \
-	{ \
-	public: \
-		const char *name() const; \
-	}; \
-	const char *NAME::name() const \
-	{ \
-		return TEXT; \
-	}
+#include "../../../../Include/Common/BfmeAccessorMacros.h"
 
 // ?getModuleNameKey@DamageFieldUpdate@@UBE?AW4NameKeyType@@XZ @0x491264
 // (69B): cached pool-name key for DamageFieldUpdate. The class

@@ -78,16 +78,7 @@ enum StateReturnType
 	STATE_FAILURE = -2
 };
 #include "../../../../../../reference/shims/bfme2_statemachine/StateMachineView.h"
-#define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
-	class NAME \
-	{ \
-	public: \
-		const char *name() const; \
-	}; \
-	const char *NAME::name() const \
-	{ \
-		return TEXT; \
-	}
+#include "../../../../Include/Common/BfmeAccessorMacros.h"
 
 #include "../../../../Include/Common/XferVersion.h"
 

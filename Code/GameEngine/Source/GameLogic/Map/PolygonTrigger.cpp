@@ -35,19 +35,7 @@ typedef int Int;
 #define COORD3D_VIEW_INLINE
 #include "../../../../Libraries/Include/Lib/Coord3DCtorView.h"
 #include "../../../../Libraries/Include/Lib/ICoord3D.h"
-#define BFME_ASCII_FIELD_SETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		void set(const AsciiString &s); \
-	private: \
-		char m_pad[DISP]; \
-		AsciiString m_str; \
-	}; \
-	void NAME::set(const AsciiString &s) \
-	{ \
-		return ((StringBase<char> &)m_str).set((const StringBase<char> &)s); \
-	}
+#include "../../../Include/Common/BfmeAccessorMacros.h"
 
 struct FloatRect0073CE30
 {

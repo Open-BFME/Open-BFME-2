@@ -209,19 +209,7 @@ private:
 //#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
 
 #endif
-#define BFME_DISP8_LEA_NEG_SBB_GETTER(NAME, LEADISP, ADDIMM) \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-	}; \
-	int NAME::get() const \
-	{ \
-		const char *field = (const char *)this; \
-		const void *base = field - LEADISP; \
-		field += ADDIMM; \
-		return base ? (int)field : 0; \
-	}
+#include "../../../../Include/Common/BfmeAccessorMacros.h"
 
 // bfme link decl-only begin
 namespace _STL { template <> _List_iterator<Object *, _Nonconst_traits<Object *> > list<Object *, allocator<Object *> >::insert(_List_iterator<Object *, _Nonconst_traits<Object *> >, Object *const &); }

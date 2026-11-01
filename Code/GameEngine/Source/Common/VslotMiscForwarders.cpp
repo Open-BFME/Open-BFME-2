@@ -9,20 +9,7 @@ typedef int Int;
 typedef bool Bool;
 
 // --- Two-field setters: store both stack arguments at two adjacent fields.
-#define BFME_PAIR_SETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		void set(Int a, Int b); \
-		char m_lead[DISP]; \
-		Int m_a; \
-		Int m_b; \
-	}; \
-	void NAME::set(Int a, Int b) \
-	{ \
-		m_a = a; \
-		m_b = b; \
-	}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 BFME_PAIR_SETTER(Rva0008BBA1PairSlot, 0x8C)	// vtable 0x00BC7568 slot 120
 // InGameUI::setScrollAmount: defined in InGameUIInputModes.cpp (its row's unit).

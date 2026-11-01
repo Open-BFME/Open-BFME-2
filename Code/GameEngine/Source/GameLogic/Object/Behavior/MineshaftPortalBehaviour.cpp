@@ -170,19 +170,7 @@ struct XferUnknown11;
 #pragma comment(linker, "/alternatename:??0FakePathfindPortalBehaviourModuleData@@QAE@XZ=??0MineshaftPortalBehaviourModuleData@@QAE@XZ")
 #include <stdlib.h>
 #include "../../../../../Libraries/Include/Lib/BfmeE16.h"
-#define BFME_DISP8_LEA_NEG_SBB_GETTER(NAME, LEADISP, ADDIMM) \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-	}; \
-	int NAME::get() const \
-	{ \
-		const char *field = (const char *)this; \
-		const void *base = field - LEADISP; \
-		field += ADDIMM; \
-		return base ? (int)field : 0; \
-	}
+#include "../../../../Include/Common/BfmeAccessorMacros.h"
 // bfme link decl-only begin
 namespace _STL { template <> ObjectID * vector<ObjectID, allocator<ObjectID> >::erase(ObjectID *); }
 // bfme link decl-only end

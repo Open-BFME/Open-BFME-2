@@ -389,18 +389,7 @@ public:
     FXCoord3D m_unknown80;
 };
 
-#define FX_MODULE_TEMPLATE(NAME, INFO)                                                             \
-    class NAME : public ModuleTemplate, public SecondaryModuleBase, public INFO                    \
-    {                                                                                              \
-    public:                                                                                        \
-        NAME();                                                                                    \
-        virtual ~NAME();                                                                           \
-        NAME(const NAME &that);                                                                    \
-                                                                                                   \
-        NAME &operator=(const NAME &that);                                                         \
-                                                                                                   \
-        void parse(INI *ini);                                      \
-    };
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 FX_MODULE_TEMPLATE(PointEmissionVolumeModuleTemplate, EmissionVolumeInfo)
 FX_MODULE_TEMPLATE(SphereEmissionVolumeModuleTemplate, SphereEmissionVolumeInfo)
@@ -425,19 +414,6 @@ FX_MODULE_TEMPLATE(TerrainFireEmissionModuleTemplate, TerrainFireEmissionInfo)
 FX_MODULE_TEMPLATE(LightningEmissionModuleTemplate, LightningEmissionInfo)
 FX_MODULE_TEMPLATE(RenderObjectUpdateModuleTemplate, RenderObjectUpdateModuleInfo)
 
-#define FX_DRAW_MODULE_TEMPLATE(NAME, INFO)                                                        \
-    /* Retail derives draw templates through CategoryModuleTemplate<6>; keeping \
-       that intermediate base is required for its destructor EH-state shape. */ \
-    class NAME : public CategoryModuleTemplate<6>, public INFO                                     \
-    {                                                                                              \
-    public:                                                                                        \
-        NAME();                                                                                    \
-        NAME(const NAME &that);                                                                    \
-                                                                                                   \
-        NAME &operator=(const NAME &that);                                                         \
-                                                                                                   \
-        void parse(INI *ini);                                                                      \
-    };
 
 FX_DRAW_MODULE_TEMPLATE(RenderObjectDrawModuleTemplate, RenderObjectDrawModuleInfo)
 FX_DRAW_MODULE_TEMPLATE(GpuDrawModuleTemplate, GpuDrawModuleInfo)

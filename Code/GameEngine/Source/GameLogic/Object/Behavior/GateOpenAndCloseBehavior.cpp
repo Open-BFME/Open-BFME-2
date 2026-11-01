@@ -30,66 +30,11 @@ int g_00DCB4CC = -1;
 #include "../../../../Include/Common/BfmeModuleData.h"
 #include "../../../../Include/Common/ObjectModule.h"
 #include "../../../Common/Thing/thing.h"
-#define BFME_DISP8_FLOAT_GETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		float get() const; \
-		char m_lead[DISP]; \
-		float m_value; \
-	}; \
-	float NAME::get() const \
-	{ \
-		return m_value; \
-	}
-#define BFME_DISP8_NEG_FLOAT_GETTER(NAME, INDEX) \
-	class NAME \
-	{ \
-	public: \
-		float get() const; \
-	}; \
-	float NAME::get() const \
-	{ \
-		return ((const float *)this)[INDEX]; \
-	}
+#include "../../../../Include/Common/BfmeAccessorMacros.h"
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 #include "Lib/Coord3D.h"
 #include "Common/PartitionRangeQueryCallView.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
-#define BFME_DISP8_ADD_BEFORE_DWORD_GETTER(NAME, BACK, IMM) \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-	}; \
-	int NAME::get() const \
-	{ \
-		return *(const int *)((const char *)this - (BACK)) + (IMM); \
-	}
-#define BFME_DISP8_ADD_DWORD_GETTER(NAME, DISP, IMM) \
-	class NAME \
-	{ \
-	public: \
-		int get() const; \
-		char m_lead[DISP]; \
-		int m_value; \
-	}; \
-	int NAME::get() const \
-	{ \
-		return m_value + IMM; \
-	}
-#define BFME_DISP8_BYTE_GETTER(NAME, DISP) \
-	class NAME \
-	{ \
-	public: \
-		unsigned char get() const; \
-		char m_lead[DISP]; \
-		unsigned char m_value; \
-	}; \
-	unsigned char NAME::get() const \
-	{ \
-		return m_value; \
-	}
 
 // ?getControllingPlayer@GateOpenAndCloseBehavior@@QBEPAVPlayer@@XZ @0x004989D7 8B
 // Gap between GateOpenAndCloseBehaviorCtorShard 0x0049889C and Disp8 getter.

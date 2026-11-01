@@ -31,32 +31,10 @@ public:
 
 // mov dl,[esp+8] / mov eax,ecx / mov cl,[esp+4] / <head> /
 // mov [eax+8],cl / mov [eax+9],dl / ret 8
-#define BFME_VPTR_ZERO_BYTE_BYTE_CTOR( NAME )                                 \
-	class NAME : public VptrZeroHead                                          \
-	{                                                                         \
-	public:                                                                   \
-		NAME( unsigned char first, unsigned char second );                    \
-                                                                              \
-		unsigned char m_first;                                                \
-		unsigned char m_second;                                                \
-	};                                                                        \
-	NAME::NAME( unsigned char first, unsigned char second )                   \
-		: m_first( first ), m_second( second ) {}
+#include "../../Include/Common/BfmeAccessorMacros.h"
 
 // mov edx,[esp+8] / mov eax,ecx / mov ecx,[esp+4] / mov [eax+8],ecx /
 // mov ecx,[esp+0xC] / <head> / mov [eax+0xC],dl / mov [eax+0x10],ecx / ret 0xC
-#define BFME_VPTR_ZERO_PTR_BYTE_PTR_CTOR( NAME )                              \
-	class NAME : public VptrZeroHead                                          \
-	{                                                                         \
-	public:                                                                   \
-		NAME( void *first, unsigned char second, void *third );               \
-                                                                              \
-		void          *m_first;                                               \
-		unsigned char  m_second;                                              \
-		void          *m_third;                                               \
-	};                                                                        \
-	NAME::NAME( void *first, unsigned char second, void *third )              \
-		: m_first( first ), m_second( second ), m_third( third ) {}
 
 BFME_VPTR_ZERO_BYTE_BYTE_CTOR( Rva00149F20VptrZeroObject )
 BFME_VPTR_ZERO_PTR_BYTE_PTR_CTOR( Rva002ED5C0VptrZeroObject )
