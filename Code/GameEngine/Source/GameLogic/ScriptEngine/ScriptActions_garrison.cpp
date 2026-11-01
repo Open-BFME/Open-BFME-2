@@ -290,11 +290,7 @@ private:
 	unsigned char m_targetAbiState[20];
 };
 
-class AIGroup
-{
-public:
-	void groupEnter(Object *obj, CommandSourceType cmdSource);
-};
+#include "../../../Include/GameLogic/AIGroup.h"
 
 class AI
 {

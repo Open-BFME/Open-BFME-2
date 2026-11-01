@@ -50,11 +50,7 @@ enum CommandSourceType
 	CMD_FROM_AI = 2
 };
 
-class AIGroup
-{
-public:
-	void groupAttackMoveToPosition(const Coord3D *pos, int maxShotsToFire, CommandSourceType cmdSource);
-};
+#include "../../../Include/GameLogic/AIGroup.h"
 
 class AI
 {

@@ -200,12 +200,7 @@ struct Rva00372571Params
 	int m_18;
 	bool m_1C;
 };
-class AIGroup
-{
-public:
-	void add(Object *obj);
-	void groupMoveToPosition(Rva00372571Params *params, int source);
-};
+#include "../../../../Include/GameLogic/AIGroup.h"
 class AttackPriorityInfo;
 class PartitionFilter;
 #include "../../../../Include/GameLogic/AI.h"

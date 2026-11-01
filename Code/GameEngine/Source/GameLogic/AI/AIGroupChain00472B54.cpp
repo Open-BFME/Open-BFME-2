@@ -87,12 +87,7 @@ public:
 	AICommandInterface m_cmd;
 };
 
-class AIGroup
-{
-public:
-	void add(Object *obj);
-	void groupEnter(Object *obj, CommandSourceType src);
-};
+#include "../../../Include/GameLogic/AIGroup.h"
 
 #include "../../../Include/GameLogic/AI.h"
 

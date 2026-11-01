@@ -20,11 +20,7 @@ class Team;
 class PolygonTrigger;
 enum CommandSourceType { CMD_FROM_SCRIPT = 1 };
 
-class AIGroup
-{
-public:
-    void groupAttackArea(PolygonTrigger *, CommandSourceType);
-};
+#include "../../../Include/GameLogic/AIGroup.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;

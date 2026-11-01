@@ -217,11 +217,7 @@ private:
 	unsigned char m_pad08[0x0C - 0x08];
 	Coord3D m_location; // +0x0C
 };
-class AIGroup
-{
-public:
-	Bool getCenter(Coord3D *center);
-};
+#include "../../../Include/GameLogic/AIGroup.h"
 // The rowed group member count runs on the AIGroup (address-derived name).
 #include "../../../Include/Common/TeamBFME2.h"
 class Player

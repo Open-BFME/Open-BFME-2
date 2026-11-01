@@ -17,11 +17,7 @@
 class Team;
 enum CommandSourceType { CMD_FROM_SCRIPT = 1 };
 
-class AIGroup
-{
-public:
-    void groupAttackTeam(const Team *, int, CommandSourceType);
-};
+#include "../../../Include/GameLogic/AIGroup.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;

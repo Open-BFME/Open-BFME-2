@@ -45,11 +45,7 @@ template <class T> class allocator;
 template <class T, class A> class vector;
 }
 
-class AIGroup
-{
-public:
-	const _STL::vector<ObjectID, _STL::allocator<ObjectID> > &getAllIDs() const;
-};
+#include "../../../Include/GameLogic/AIGroup.h"
 
 class Rva0018B8B0Holder
 {

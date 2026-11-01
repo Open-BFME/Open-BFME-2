@@ -326,12 +326,7 @@ extern GameLogic *TheGameLogic;
 
 #include "../../../../Include/GameLogic/AIPathfind.h"
 
-class AIGroup
-{
-public:
-	void add(Object *obj);
-	void rva00372BB9(const void *target, Int arg2);
-};
+#include "../../../../Include/GameLogic/AIGroup.h"
 
 #include "../../../../Include/GameLogic/AI.h"
 

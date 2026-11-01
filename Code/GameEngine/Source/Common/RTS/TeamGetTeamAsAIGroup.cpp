@@ -56,11 +56,7 @@ public:
 	ObjectID m_producerID;
 };
 
-class AIGroup
-{
-public:
-	void add(Object *object);
-};
+#include "../../../Include/GameLogic/AIGroup.h"
 
 struct ThingTemplate
 {

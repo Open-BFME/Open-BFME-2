@@ -117,7 +117,7 @@ extern GameLogic*TheGameLogic;
 struct Rva0037FE3DNode {Rva0037FE3DNode*next,*prev;Object*object;};
 struct Rva0037FE3DList {Rva0037FE3DNode*head;};
 struct Rva00372571Params;
-class AIGroup {public:void add(Object*);void groupMoveToPosition(Rva00372571Params*,int);void groupSetPositionInFormation(const Coord3D*,const Coord3D*,int);};
+#include "../../../Include/GameLogic/AIGroup.h"
 #include "../../../Include/GameLogic/AI.h"
 extern AI*TheAI;
 class BfmeC986 {public:void bfmeGo986C(int,int,int,int);};

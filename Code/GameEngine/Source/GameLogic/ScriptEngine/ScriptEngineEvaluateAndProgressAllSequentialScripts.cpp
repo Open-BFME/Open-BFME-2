@@ -214,14 +214,7 @@ private:
 
 extern GameLogic *TheGameLogic;
 
-class AIGroup
-{
-public:
-	Bool isIdle() const;
-	Bool rva0036E0B6() const;	// 0x0036E0B6, a member's AI byte +0x3CA set
-	void rva0036E2E2(Bool b);	// 0x0036E2E2, sets each member's AI +0x3DA
-	Bool rva0036E0E3();			// 0x0036E0E3, every member effectively dead
-};
+#include "../../../Include/GameLogic/AIGroup.h"
 
 class AI
 {

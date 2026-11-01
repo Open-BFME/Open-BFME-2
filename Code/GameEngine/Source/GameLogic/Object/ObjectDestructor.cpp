@@ -131,7 +131,7 @@ template <> __declspec(dllimport) __forceinline
 void vector<void *>::clear() { erase(begin(), end()); }
 }
 
-class AIGroup { public: bool remove(class Object *obj); };
+#include "../../../Include/GameLogic/AIGroup.h"
 
 class CreateAHeroData { public: bool WriteNamedHeroAtRva004074CF(); };
 #include "../../../Include/GameLogic/CreateAHeroManager.h"

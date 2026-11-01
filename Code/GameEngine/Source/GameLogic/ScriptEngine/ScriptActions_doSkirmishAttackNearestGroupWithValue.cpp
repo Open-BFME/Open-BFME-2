@@ -41,12 +41,7 @@ public:
 };
 extern PlayerList *ThePlayerList;
 
-class AIGroup
-{
-public:
-	bool getCenter(Coord3D *center);
-	void groupAttackMoveToPosition(const Coord3D *pos, Int maxShotsToFire, CommandSourceType cmdSource);
-};
+#include "../../../Include/GameLogic/AIGroup.h"
 
 class AI
 {

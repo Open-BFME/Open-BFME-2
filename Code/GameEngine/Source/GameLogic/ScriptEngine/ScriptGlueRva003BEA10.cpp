@@ -51,12 +51,7 @@ struct Rva00372571Params
 	bool m_1C;
 };
 
-class AIGroup
-{
-public:
-	void groupMoveToPosition(Rva00372571Params *params, int source);
-	void groupGatherAndMoveInFormationToPosition(Coord3D *pos, int a, int b, int c);
-};
+#include "../../../Include/GameLogic/AIGroup.h"
 class BfmeC986
 {
 public:

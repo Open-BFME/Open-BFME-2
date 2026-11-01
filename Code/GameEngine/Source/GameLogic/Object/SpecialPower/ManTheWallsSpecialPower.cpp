@@ -62,12 +62,7 @@ struct Rva00372571Params
 	Player *m_player;
 	bool m_attackMove;
 };
-class AIGroup
-{
-public:
-	void add(Object *member);
-	void groupMoveToPosition(Rva00372571Params *params, int commandSource);
-};
+#include "../../../../Include/GameLogic/AIGroup.h"
 #include "../../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 

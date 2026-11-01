@@ -222,17 +222,7 @@ public:
 };
 extern ControlBar *TheControlBar;
 
-class AIGroup
-{
-public:
-	Object *getSpecialPowerSourceObject(unsigned int specialPowerID);		// 0x0036E111
-	Object *getCommandButtonSourceObject(GUICommandType type);			// 0x0036E158
-	bool getCenter(Coord3D *center);						// 0x0036D035
-	void groupDoCommandButtonAtPosition(const CommandButton *button, const Coord3D *pos,
-		CommandSourceType source);						// 0x0036DCB8
-	void groupDoCommandButtonAtObject(const CommandButton *button, Object *obj,
-		CommandSourceType source);						// 0x0036DCE7
-};
+#include "../../../Include/GameLogic/AIGroup.h"
 
 class AI
 {

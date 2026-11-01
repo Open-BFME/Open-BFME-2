@@ -18,11 +18,7 @@ struct BfmePartCDF
 // LINK: 0x0036F710 is rowed as AIGroup::getAllIDs; the argument is that group
 // and the returned word is the part pointer, so the call keeps its shape
 // through a member-pointer cast.
-class AIGroup
-{
-public:
-	const _STL::vector<ObjectID> &getAllIDs() const;
-};
+#include "../../../Include/GameLogic/AIGroup.h"
 
 class Rva0018B8B0Arg;
 

@@ -84,12 +84,7 @@ class Snapshot;
 
 #include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
-class AIGroup
-{
-public:
-	Real getSpeed();
-	Bool getCenter(Coord3D *center);
-};
+#include "../../../Include/GameLogic/AIGroup.h"
 class RadarObject;
 struct FprintfTarget
 {

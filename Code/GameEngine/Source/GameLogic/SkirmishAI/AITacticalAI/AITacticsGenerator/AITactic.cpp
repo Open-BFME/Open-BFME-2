@@ -156,19 +156,7 @@ struct Rva00372571Params;
 
 class AITactic;
 
-class AIGroup
-{
-private:
-	friend class AITactic;
-public:
-	void groupAttackMoveToPosition(const Coord3D *, int, CommandSourceType);
-	void rva00372C05();
-	void groupMoveToPosition(Rva00372571Params *params, int source);
-private:
-	void groupAttackObjectPrivate(bool a, Object *victim, int b, CommandSourceType c);
-public:
-	void rva00372BB9(const void *a, int b);
-};
+#include "../../../../../Include/GameLogic/AIGroup.h"
 
 class BfmeC986 { public: void groupGatherAndAttackInFormationToPosition(int, int, int, int); };
 

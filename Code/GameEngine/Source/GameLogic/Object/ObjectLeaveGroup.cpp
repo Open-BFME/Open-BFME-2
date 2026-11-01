@@ -5,11 +5,7 @@
 // donor BFME1 Object.cpp:7182 and ZH Object.cpp:6320 use 0x188, BFME2 retail uses 0x1A8.
 class Object;
 
-class AIGroup
-{
-public:
-	bool remove(Object *member);
-};
+#include "../../../Include/GameLogic/AIGroup.h"
 
 class Object
 {

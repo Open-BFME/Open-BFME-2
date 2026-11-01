@@ -10,14 +10,7 @@
 #define _STLP_NO_EXCEPTIONS 1
 #include <list>
 
-class AIGroup
-{
-public:
-	AIGroup();
-
-private:
-	char m_body[0x3C];
-};
+#include "../../../Include/GameLogic/AIGroup.h"
 
 class AI
 {
