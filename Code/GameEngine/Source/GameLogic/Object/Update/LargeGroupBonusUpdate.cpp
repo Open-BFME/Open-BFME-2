@@ -134,14 +134,7 @@ public:
 	virtual void slot01() = 0;
 	virtual Bool isActive() = 0;
 };
-class Rva00490225BehaviorIface : public Rva00490225Slots<29>
-{
-public:
-	virtual Rva00490225Member *getMember() = 0;
-};
-class BehaviorModule : public ObjectModule, public Rva00490225BehaviorIface
-{
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 struct ObjectKindBytes
 {
 	// The KindOf mask. Retail tests +0x109 bit 0 and bit 1 with two
@@ -173,7 +166,7 @@ public:
 	__forceinline Rva00490225Member *findMember() const
 	{
 		for (BehaviorModule **behaviorModule = getBehaviorModules(); *behaviorModule; ++behaviorModule) {
-			Rva00490225Member *member = (*behaviorModule)->getMember();
+			Rva00490225Member *member = static_cast<Rva00490225Member *>((*behaviorModule)->slot29());
 			if (member)
 				return member;
 		}
@@ -299,7 +292,6 @@ class AsciiString;
 
 class Snapshot;
 
-class BehaviorModuleInterface { public: virtual void behaviorSlot(); };
 
 enum UpdateSleepTime
 {
@@ -313,8 +305,7 @@ public:
 	virtual UpdateSleepTime update() = 0;
 };
 
-class UpdateModule : public ObjectModule,
-	public BehaviorModuleInterface, public UpdateModuleInterface
+class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 {
 public:
 	UpdateModule(Thing *thing, const ModuleData *moduleData);
