@@ -76,25 +76,21 @@ struct W3DVolumetricShadowRenderTask : public W3DBufferManager::W3DRenderTask
 	UnsignedByte		m_lightIndex;
 };
 
-// Retail's ctor unwind destroys the shadow base through 0x00108B4D, the rowed
-// 7B restore of table 0x00BCEFA0 (??1Rva00108B4D).
-class Rva00108B4D
-{
-public:
-	virtual ~Rva00108B4D();
-};
-
-// The shadow base constructed by the rowed 0x000F0F2B; its original name
-// is not established, only its size and the enable flags at +4/+5.
-class Rva000F0F2B
+// The shadow base constructed by the rowed 0x000F0F2B (0x68 bytes) over the
+// canonical 0x58-byte prefix; its original name is not established. Its
+// destructor is the canonical base's inline restore of table 0x00BCEFA0:
+// retail ~Rva00109610 (0x00109610) stores it inline, and this ctor's unwind
+// reaches the folded 7B copy 0x00108B4D (??1BfmeShadowBufferOwnerBase's pin).
+// Every unit that emits ??1Rva000F0F2B then emits that same body.
+#pragma inline_depth(0)
+#include "BfmeShadowPrefix.h"
+#pragma inline_depth()
+class Rva000F0F2B : public BfmeShadowBufferOwnerBase
 {
 public:
 	Rva000F0F2B();
-	virtual ~Rva000F0F2B() { ((Rva00108B4D *)this)->Rva00108B4D::~Rva00108B4D(); }
 protected:
-	Bool m_isEnabled;
-	Bool m_isInvisibleEnabled;
-	char m_unreconstructed06[0x62];
+	char m_unreconstructed58[0x68 - 0x58];
 };
 
 class W3DVolumetricShadow : public Rva000F0F2B
@@ -135,8 +131,8 @@ W3DVolumetricShadow::W3DVolumetricShadow( void )
 	m_shadowLengthScale = 0.0f;
 	m_extraExtrusionPadding = 0.0f;
 	m_robj = NULL;
-	m_isEnabled = TRUE;
-	m_isInvisibleEnabled = FALSE;
+	m_fields.m_04 = TRUE;	// m_isEnabled
+	m_fields.m_05 = FALSE;	// m_isInvisibleEnabled
 	m_field4900 = FALSE;
 
 	for (j=0; j < MAX_SHADOW_CASTER_MESHES; j++)

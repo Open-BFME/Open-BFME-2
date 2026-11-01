@@ -19,7 +19,16 @@ class W3DProjectedShadow
 public:
 	void rva00108951();
 };
-class Rva00109610 : public BfmeShadowBufferOwnerBase
+// The 0x68-byte base whose rowed constructor 0x000F0F2B ??0Rva00109610 (0x0010BA71)
+// calls; its destructor stays the canonical base's inline vtable reset.
+class Rva000F0F2B : public BfmeShadowBufferOwnerBase
+{
+public:
+	Rva000F0F2B() throw();
+protected:
+	char m_body[0x68 - 0x58];
+};
+class Rva00109610 : public Rva000F0F2B
 {
 public:
 	virtual ~Rva00109610();

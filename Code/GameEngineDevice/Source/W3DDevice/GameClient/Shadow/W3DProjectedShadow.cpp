@@ -402,13 +402,19 @@ struct Rva00108895Triplet
     void set(float value) { first = value; second = value; third = value; }
 };
 
-class Rva000F0F2B
+// The 0x68-byte shadow base the rowed constructor 0x000F0F2B builds: it runs the
+// 0x58-byte prefix initializer 0x000EFA4E, sets +0x58..+0x64 and installs 0x007CEFA0.
+// Its destructor is the base's inline vtable reset: retail ~Rva00109610 (0x00109610)
+// stores 0x007CEFA0 inline and its unwind funclet 0x007645AB jumps to the folded
+// out-of-line copy 0x00108B4D, ??1BfmeShadowBufferOwnerBase's pin. 0x007CEFA0 is also
+// installed by 0x000F0F19 (0x58 bytes) and 0x00109D8C (0x60 bytes), so it is a folded
+// table shared by distinct classes, not a second name for this one.
+class Rva000F0F2B : public BfmeShadowBufferOwnerBase
 {
 public:
     Rva000F0F2B() throw();
-    virtual ~Rva000F0F2B();
 protected:
-    char m_body[0x68 - 4];
+    char m_body[0x68 - 0x58];
 };
 
 class Rva0010BA2COwner : public Rva000F0F2B
