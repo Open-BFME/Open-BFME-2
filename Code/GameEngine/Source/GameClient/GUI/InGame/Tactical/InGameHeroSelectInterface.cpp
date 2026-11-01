@@ -68,7 +68,7 @@ public:
 	AsciiString m_name;				// +0x64
 };
 
-class Player {public:bool isLocalPlayer() const;};
+#include "../../../../../Include/Common/Player.h"
 class Drawable;
 struct HeroContainer;
 

@@ -43,11 +43,7 @@
 
 
 class Team;
-class Player
-{
-public:
-	bool isLocalPlayer() const;
-};
+#include "../../../Include/Common/Player.h"
 
 enum ObjectStatusTypes { OBJECT_STATUS_0x33 = 0x33 };
 

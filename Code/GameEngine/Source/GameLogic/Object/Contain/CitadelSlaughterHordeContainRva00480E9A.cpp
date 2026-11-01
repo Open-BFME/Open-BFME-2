@@ -83,11 +83,7 @@ public:
 extern UpgradeCenter *TheUpgradeCenter;
 
 class Upgrade;
-class Player
-{
-public:
-	Upgrade *addUpgrade(const UpgradeTemplate *upgradeTemplate, UpgradeStatusType status, int x);
-};
+#include "../../../../Include/Common/Player.h"
 
 class FXList
 {

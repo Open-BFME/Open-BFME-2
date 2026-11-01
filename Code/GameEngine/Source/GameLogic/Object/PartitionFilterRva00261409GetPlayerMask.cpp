@@ -10,15 +10,7 @@
 
 class Object;
 
-class Player
-{
-public:
-	// Preserve the native +0x54 inline read without an external getter copy.
-	__declspec(dllimport) __forceinline int getPlayerIndex() const { return m_playerIndex; }
-private:
-	unsigned char m_pad00[0x54];
-	int m_playerIndex;
-};
+#include "../../../Include/Common/Player.h"
 
 class PlayerList
 {

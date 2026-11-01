@@ -102,12 +102,7 @@ template <int _Words> struct _Base_bitset
 
 extern PartitionManager *ThePartitionManager;
 
-class Player
-{
-public:
-	bool rva002AA245() const;	// 0x002AA245
-	Relationship getRelationship(const Player *that) const;	// 0x002AC3E0
-};
+#include "../../../../Include/Common/Player.h"
 
 class PlayerList
 {

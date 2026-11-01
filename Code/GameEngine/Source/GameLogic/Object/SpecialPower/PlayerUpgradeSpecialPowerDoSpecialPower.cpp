@@ -47,11 +47,7 @@ public:
 };
 extern UpgradeCenter *TheUpgradeCenter;
 
-class Player
-{
-public:
-	Upgrade *addUpgrade(const UpgradeTemplate *upgrade, UpgradeStatusType status, int flag);
-};
+#include "../../../../Include/Common/Player.h"
 
 class Object
 {

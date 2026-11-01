@@ -41,11 +41,7 @@ public:
 	Int m_playerCount;
 };
 
-class Player
-{
-public:
-	Upgrade *addUpgrade(const UpgradeTemplate *upgradeTemplate, UpgradeStatusType status, Int x);
-};
+#include "../../../Include/Common/Player.h"
 
 class GameInfo;
 

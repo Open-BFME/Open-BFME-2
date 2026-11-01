@@ -106,11 +106,7 @@ public:
 	virtual Coord3D *slot08() = 0;
 };
 
-class Player
-{
-public:
-	int iterateObjects(int (*func)(Object *, void *), void *userData) const;
-};
+#include "../../../Include/Common/Player.h"
 
 class Object
 {

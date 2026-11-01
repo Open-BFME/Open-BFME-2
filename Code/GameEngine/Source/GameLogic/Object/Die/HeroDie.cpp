@@ -41,11 +41,7 @@ public:
 	virtual void s07() = 0;
 	virtual void setReadyFrame(unsigned int frame) = 0;
 };
-class Player
-{
-public:
-	int iterateObjects(int (*func)(Object *, void *), void *userData) const;	// 0x002AB08B
-};
+#include "../../../../Include/Common/Player.h"
 class Object
 {
 public:

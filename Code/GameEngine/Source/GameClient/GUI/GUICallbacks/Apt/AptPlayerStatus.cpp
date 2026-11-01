@@ -281,11 +281,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 class ParticleSystem { public: bool isSaveable() const; };
 
 	// 0x002AA223 (rowed under this name)
-class Player
-{
-public:
-	// The pinned 7-byte flag getter (BFME 1's isPlayerObserver).
-};
+#include "../../../../../Include/Common/Player.h"
 
 class PlayerList
 {

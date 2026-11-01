@@ -48,14 +48,7 @@ public:
 
 extern FXListStore *TheFXListStore;
 
-class Player
-{
-public:
-	__declspec(dllimport) __forceinline Int getPlayerIndex() const { return m_playerIndex; }
-
-	char m_pad[0x54];
-	Int m_playerIndex;
-};
+#include "../../Include/Common/Player.h"
 
 class PlayerList
 {

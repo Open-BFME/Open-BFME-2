@@ -35,12 +35,7 @@ namespace _STL { template <> _Vector_base<const ModuleData *, allocator<const Mo
 class CreateAHeroData;
 // The player's rowed science checks 0x002AB82D and 0x002AB855 (BFME 1's
 // isScienceDisabled and isScienceHidden), named by their rows' views.
-class Player
-{
-public:
-	bool rva002AB82D(CreateAHeroData *science) const;
-	bool rva002AB855(CreateAHeroData *science) const;
-};
+#include "../../../Include/Common/Player.h"
 // Its rowed constructor 0x0043D16F (Rva0043D16FCtor.cpp's view) builds the
 // vftable, the player, the science vector and the count; the rowed views
 // split the class by name. The screen's +0x288 member is spelled by this

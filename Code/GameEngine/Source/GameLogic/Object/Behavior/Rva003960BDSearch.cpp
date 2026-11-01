@@ -35,11 +35,7 @@ public:
 	bool getFlag18(void) const { return m_flag18; }
 };
 
-class Player
-{
-public:
-	Int iterateObjects(ObjectIterateFunc func, void *userData) const;
-};
+#include "../../../../Include/Common/Player.h"
 
 class PlayerList
 {

@@ -22,11 +22,7 @@ public:
 	Player *getControllingPlayer() const;
 };
 
-class Player
-{
-public:
-	int iterateObjects(int (*func)(Object *, void *), void *userData) const;
-};
+#include "../../../../Include/Common/Player.h"
 
 class ThingTemplate;
 class ThingFactory

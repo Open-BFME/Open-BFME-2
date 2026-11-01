@@ -112,7 +112,7 @@ extern GameLogic *TheGameLogic;
 class ScriptEngine;
 extern ScriptEngine *TheScriptEngine;
 struct AwardScriptEngineView { char pad[0x1a104]; int suppressed; };
-class Player { public: bool isLocalPlayer() const; };
+#include "../../Include/Common/Player.h"
 // The KindOf bit set at +0x108; notifyOfHeroSpawnEvent tests bit 90 (0x5A).
 class ThingTemplate
 {

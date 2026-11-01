@@ -35,7 +35,7 @@ class Player;
 class Upgrade;
 enum UpgradeStatusType { UPGRADE_COMPLETE=2 };
 class UpgradeTemplate { public: char pad[4]; int type; };
-class Player { public: Upgrade *addUpgrade(const UpgradeTemplate *,UpgradeStatusType,int); };
+#include "../../../../Include/Common/Player.h"
 class UpgradeCenter { public: const UpgradeTemplate *findUpgrade(const AsciiString &) const; };
 extern UpgradeCenter *TheUpgradeCenter;
 class Object { public: char pad[0x38]; Coord3D pos; Player *getControllingPlayer() const; };

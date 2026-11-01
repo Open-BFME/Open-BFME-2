@@ -72,11 +72,7 @@ public:
 	void rva00625840();
 };
 
-class Player
-{
-public:
-	bool isLocalPlayer() const;
-};
+#include "../../../Include/Common/Player.h"
 
 struct BfmeWorldRV
 {
