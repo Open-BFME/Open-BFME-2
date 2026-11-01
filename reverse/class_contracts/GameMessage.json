@@ -1,0 +1,344 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "GameMessage",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 176,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x10": {
+    "4": 2
+   },
+   "0x14": {
+    "4": 1
+   },
+   "0x18": {
+    "1": 2
+   },
+   "0x1c": {
+    "4": 3
+   },
+   "0x20": {
+    "4": 1
+   },
+   "0x4": {
+    "4": 1
+   },
+   "0x8": {
+    "4": 1
+   },
+   "0xc": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x30f47a",
+      "0x311097"
+     ],
+     "value": 36
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x30f47a",
+      "0x311097"
+     ],
+     "value": {
+      "0x10": [
+       4
+      ],
+      "0x14": [
+       4
+      ],
+      "0x18": [
+       1
+      ],
+      "0x1c": [
+       4
+      ],
+      "0x20": [
+       4
+      ],
+      "0x4": [
+       4
+      ],
+      "0x8": [
+       4
+      ],
+      "0xc": [
+       4
+      ]
+     }
+    },
+    "icf_shared_ctors": {
+     "kind": "target",
+     "rule": "ledger-names",
+     "sites": [
+      "0x30f47a"
+     ],
+     "value": {
+      "0x30f47a": [
+       "GameMessage",
+       "Rva0030F47A"
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x30f47a",
+      "0x311097"
+     ],
+     "value": {
+      "0x0": [
+       "?appendIntegerArgument@GameMessage@@QAEXH@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x30f47a",
+      "0x311097"
+     ],
+     "value": {
+      "0x0": "0x809840"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x809840"
+     ],
+     "value": {
+      "count": 1,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GGameMessage@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x30f8e3"
+       }
+      ],
+      "table": "0x809840"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 17,
+  "retail_vtables": {
+   "0x809840": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "??_GGameMessage@@UAEPAXI@Z"
+    },
+    "stores": 2
+   }
+  },
+  "view_errors": 13,
+  "view_sizes": {
+   "1": 117,
+   "8": 3,
+   "12": 1,
+   "16": 1,
+   "20": 27,
+   "24": 1,
+   "25": 3,
+   "28": 5,
+   "36": 5
+  },
+  "views": 163,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_GameMessage.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/MessageStream.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 16,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 104
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/CommandList_appendMessageList.cpp",
+    "Code/GameEngine/Source/Common/GameMessageCopy.cpp",
+    "Code/GameEngine/Source/Common/MessageStreamListCtors.cpp",
+    "Code/GameEngine/Source/Common/MessageStream_propagateMessages.cpp",
+    "Code/GameEngine/Source/Common/Recorder.cpp",
+    "Code/GameEngine/Source/GameClient/MessageStream/SelectionXlatTranslateGameMessage.cpp",
+    "Code/GameEngine/Source/GameLogic/System/GameLogic.cpp",
+    "Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp",
+    "Code/GameEngine/Source/GameNetwork/NetPacket.cpp",
+    "Code/GameEngine/Source/GameNetwork/Network.cpp",
+    "Code/GameEngine/Source/GameNetwork/NetworkGetCommandsFromCommandList.cpp"
+   ],
+   "views": 11
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/GameMessageCopy.cpp",
+    "Code/GameEngine/Source/Common/MessageStreamListCtors.cpp",
+    "Code/GameEngine/Source/Common/MessageStream_propagateMessages.cpp",
+    "Code/GameEngine/Source/Common/Recorder.cpp",
+    "Code/GameEngine/Source/GameClient/MessageStream/SelectionXlatTranslateGameMessage.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/GameMessageCopy.cpp",
+    "Code/GameEngine/Source/Common/MessageStreamListCtors.cpp",
+    "Code/GameEngine/Source/Common/Recorder.cpp",
+    "Code/GameEngine/Source/GameClient/MessageStream/SelectionXlatTranslateGameMessage.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/BfmeOwnVVD.cpp",
+    "Code/GameEngine/Source/Common/GameMessageCopy.cpp",
+    "Code/GameEngine/Source/Common/Recorder.cpp",
+    "Code/GameEngine/Source/Common/Rva0042C5C3Dtor.cpp",
+    "Code/GameEngine/Source/Common/Rva0042C833Dtor.cpp",
+    "Code/GameEngine/Source/Common/Rva0042CB81.cpp",
+    "Code/GameEngine/Source/Common/Rva00431AEC.cpp",
+    "Code/GameEngine/Source/Common/Rva00431BDD.cpp",
+    "Code/GameEngine/Source/Common/Rva00431F0C.cpp",
+    "Code/GameEngine/Source/Common/Rva004320B1Finish.cpp",
+    "Code/GameEngine/Source/Common/Rva005D1FD3.cpp",
+    "Code/GameEngine/Source/Common/StatsCollector.cpp",
+    "Code/GameEngine/Source/Common/VslotSmallBodiesW.cpp",
+    "Code/GameEngine/Source/GameClient/FormationTranslatorRva00432038.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUICreateCommandHint.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUICreateMouseoverHint.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIManualPhaseEnder.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIPlayerStatusDisplayer.cpp",
+    "Code/GameEngine/Source/GameClient/MessageStream/AptTranslator.cpp",
+    "Code/GameEngine/Source/GameClient/MessageStream/BfmeOwnVVDTranslateGameMessage.cpp",
+    "Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp",
+    "Code/GameEngine/Source/GameClient/MessageStream/GUICommandTranslatorTranslateGameMessage.cpp",
+    "Code/GameEngine/Source/GameClient/MessageStream/HintSpy.cpp",
+    "Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp",
+    "Code/GameEngine/Source/GameClient/MessageStream/MetaEvent.cpp",
+    "Code/GameEngine/Source/GameClient/MessageStream/PlaceEventTranslator.cpp",
+    "Code/GameEngine/Source/GameClient/MessageStream/SelectionXlatTranslateGameMessage.cpp",
+    "Code/GameEngine/Source/GameClient/MessageStream/WindowXlat.cpp",
+    "Code/GameEngine/Source/GameClient/UserInputTranslator_translateGameMessage.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Rva005C9BE3Dispatch.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_sendLocalGameMessage.cpp",
+    "Code/GameEngine/Source/GameNetwork/NetGameCommandMsgFromGameMessage.cpp",
+    "Code/GameEngine/Source/GameNetwork/NetPacket.cpp",
+    "Code/GameEngine/Source/GameNetwork/Network.cpp",
+    "Code/GameEngine/Source/GameNetwork/NetworkGetCommandsFromCommandList.cpp"
+   ],
+   "views": 36
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/Common/GameMessageCopy.cpp",
+    "Code/GameEngine/Source/Common/NetGameCommandMsg_constructGameMessage.cpp",
+    "Code/GameEngine/Source/Common/Recorder.cpp",
+    "Code/GameEngine/Source/Common/StatsCollector.cpp",
+    "Code/GameEngine/Source/GameClient/MessageStream/SelectionXlatTranslateGameMessage.cpp",
+    "Code/GameEngine/Source/GameNetwork/NetPacket.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/Common/GameMessageAllocArg.cpp",
+    "Code/GameEngine/Source/Common/GameMessageCopy.cpp",
+    "Code/GameEngine/Source/Common/RTS/Player_processCreateTeamGameMessage.cpp",
+    "Code/GameEngine/Source/Common/Recorder.cpp",
+    "Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp",
+    "Code/GameEngine/Source/GameClient/MessageStream/SelectionXlatTranslateGameMessage.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_sendLocalGameMessage.cpp",
+    "Code/GameEngine/Source/GameNetwork/NetGameCommandMsgFromGameMessage.cpp",
+    "Code/GameEngine/Source/GameNetwork/NetPacket.cpp",
+    "Code/GameEngine/Source/GameNetwork/Network.cpp",
+    "Code/GameEngine/Source/GameNetwork/NetworkGetCommandsFromCommandList.cpp"
+   ],
+   "views": 12
+  },
+  {
+   "offset": 25,
+   "sources": [
+    "Code/GameEngine/Source/Common/GameMessageAllocArg.cpp",
+    "Code/GameEngine/Source/Common/Recorder.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/Common/GameMessageAllocArg.cpp",
+    "Code/GameEngine/Source/Common/GameMessageCopy.cpp",
+    "Code/GameEngine/Source/Common/Recorder.cpp",
+    "Code/GameEngine/Source/GameClient/MessageStream/SelectionXlatTranslateGameMessage.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/Common/GameMessageAllocArg.cpp",
+    "Code/GameEngine/Source/Common/GameMessageCopy.cpp",
+    "Code/GameEngine/Source/Common/Recorder.cpp",
+    "Code/GameEngine/Source/GameClient/MessageStream/SelectionXlatTranslateGameMessage.cpp"
+   ],
+   "views": 4
+  }
+ ],
+ "queue": [],
+ "size": 20,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}

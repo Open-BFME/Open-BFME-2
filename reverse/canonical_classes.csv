@@ -190,3 +190,4 @@ AICommandInterface,Code/GameEngine/Include/GameLogic/Module/AIUpdate.h,existing 
 INI,Code/GameEngine/Include/Common/INI/INI.h,existing header; contract class_contracts/INI.json; 663/760 sampled units adopt
 INIException,Code/GameEngine/Include/Common/INI/FieldParse.h,existing header; contract class_contracts/INIException.json; 110/156 sampled units adopt
 NameKeyGenerator,Code/GameEngine/Include/Common/NameKeyGenerator.h,existing header; contract class_contracts/NameKeyGenerator.json; 587/671 sampled units adopt
+GameMessage,Code/GameEngine/Include/Common/MessageStream.h,existing header; contract class_contracts/GameMessage.json; 130/176 sampled units adopt
