@@ -304,20 +304,3 @@ void Rva005EA266::rva005EA266()
 }
 
 // --- 0x00426A15 (42B): every 8-byte element of the +0x04 vector gets +5 = 1, +6 = 0.
-struct Rva00426A15Element
-{
-	int m_00;
-	char m_04;
-	bool m_05;
-	bool m_06;
-	char m_07;
-};
-
-class Rva00426A15
-{
-public:
-	void rva00426A15();
-private:
-	int m_00;
-	GapVectorView<Rva00426A15Element> m_04;
-};

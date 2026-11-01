@@ -90,18 +90,6 @@ public:
 
 class Rva002E2903Player;
 
-class Rva002BA8F1Logic
-{
-public:
-	Rva002E2903Player *find(int v, unsigned int *x);
-};
-
-class LivingWorldPlayer
-{
-public:
-	void *rva002E06EF();
-};
-
 // tu-skeleton: 0x0037DC84 6B ?name@CarryoverUnit@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/CarryoverUnit.cpp

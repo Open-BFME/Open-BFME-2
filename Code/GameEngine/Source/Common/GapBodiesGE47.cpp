@@ -148,24 +148,6 @@ GapRefItem *Rva0016EB50::rva0016EB50(int i)
 
 // --- 0x00189400 (33B): slot 2 (+8) of the object embedded at +0x23C, then
 // the +0x240 word.
-class GapSlot2View
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void slot2(int value);
-};
-
-class Rva00189400
-{
-public:
-	int rva00189400(int value);
-private:
-	char m_pad00[0x23C];
-	GapSlot2View m_23C;
-	int m_240;
-};
-
 // --- 0x0019AF00 (20B): three zero floats, returning this.
 class Rva0019AF00
 {

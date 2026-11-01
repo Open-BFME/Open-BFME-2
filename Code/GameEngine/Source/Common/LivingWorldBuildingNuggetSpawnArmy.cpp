@@ -65,18 +65,6 @@ public:
 	virtual ~Rva004FA623() {}
 };
 
-class DozerActionState
-{
-public:
-	virtual const char *GetSnapshotName() const;
-};
-
-class BoneFXDamage
-{
-protected:
-	virtual const char *GetSnapshotName() const;
-};
-
 BFME_LITERAL_NAME_GETTER(Rva004FA61DNamed, "LivingWorldBuildingNuggetSpawnArmy")
 
 // ---- from Code/GameEngine/Source/Common/LivingWorldBuildingNuggetSpawnArmy.cpp

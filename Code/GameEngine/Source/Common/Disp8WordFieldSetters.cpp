@@ -33,15 +33,3 @@ BFME_DISP8_WORD_SETTER(Rva004D59ACWordSlot, 0x1C)
 // All eight native sections contain zero direct call/address witnesses.
 // Signedness and original owner/full object and pointee sizes are unknown;
 // these independent accessed-prefix views reproduce raw word stores only.
-class Rva002E6C94WordChase {
-public:
-    void set(unsigned short value);
-private:
-    void *pointee;
-};
-class Rva002E6CA2WordChase {
-public:
-    void set(unsigned short value);
-private:
-    void *pointee;
-};

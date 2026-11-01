@@ -184,22 +184,8 @@ Rva002D2CDCFields *Rva002D2CDCFields::clear() { byte0=0; return this; }
 // Several donor names share each shape, so no donor owner/type is asserted.
 // Each native entry follows INT3 padding and ends its own RET: 1CD70..1CD76
 // and6F6830..6F6836. They read raw words through independently proved offsets.
-class Rva0001CD70Word
-{
-public:
- unsigned int get() const;
- char m_pad00[4];
- unsigned int *m_ptr;
-};
 // 0x0001CDA0 is the same shape with the pointer at receiver offset 8 (1CDA0..1CDA5,
 // INT3 padding before, no reference in the image).
-class Rva0001CDA0Word
-{
-public:
- unsigned int get() const;
- char m_pad00[8];
- unsigned int *m_ptr;
-};
 class Rva006F6830Word
 {
 public:

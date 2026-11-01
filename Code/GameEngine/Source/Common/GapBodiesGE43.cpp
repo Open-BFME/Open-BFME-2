@@ -248,20 +248,3 @@ Rva0015AB00 &Rva0015AB00::rva0015AB00(const Rva0015AB00 &that)
 }
 
 // --- 0x0015DFB0 (24B): copy a three-word value into +0x0C.
-struct GapWords3
-{
-	int a;
-	int b;
-	int c;
-};
-
-class Rva0015DFB0
-{
-public:
-	void rva0015DFB0(const GapWords3 &value);
-private:
-	char m_pad00[0x0C];
-	int m_0C;
-	int m_10;
-	int m_14;
-};

@@ -38,10 +38,6 @@ public:
 // word04=all ones. Complete class bounds and field purposes remain unknown.
 // Ordinary address-owned initialize methods preserve this uncertainty.
 // Fixed-field initializer proof; native names remain unknown.
-struct Rva001D976EFields {
-    unsigned int word00; float value04;
-    Rva001D976EFields *initialize();
-};
 struct Rva004689FAFields {
     unsigned int word00; unsigned int word04;
     Rva004689FAFields *initialize();
@@ -55,10 +51,6 @@ Rva004689FAFields *Rva004689FAFields::initialize() {
 // independently RET-bounded: 23DC7F..23DC86 writes dword18=0 after RET23DC7E;
 // 85524..8552B writes dword28=0 after RET85523. Incoming ECX is returned in
 // EAX. Constructor-versus-reset, owner identity and complete bounds are unknown.
-struct Rva0023DC7FFields {
-    unsigned char unknown[0x18]; unsigned int word18;
-    Rva0023DC7FFields *clear();
-};
 struct Rva00085524Fields {
     unsigned char unknown[0x28]; unsigned int word28;
     Rva00085524Fields *clear();

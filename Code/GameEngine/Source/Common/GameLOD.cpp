@@ -572,28 +572,12 @@ public:
 	BenchProfile* newBenchProfile();
 };
 
-class MilesAudioManager
-{
-public:
-    virtual unsigned char rva000515A4() const;
-    virtual unsigned char rva00051896() const;
-    char m_lead[0x6A3 - sizeof(void *)];
-    unsigned char m_6A3;
-    char m_pad6A4[2];
-    unsigned char m_6A6;
-};
-
 BFME_DISP_BYTE_GETTER(Rva002026C7ByteField, 0x17AA)
 
 // BF1 9cbfb551fe Common/Rva005BD470ZeroTest.cpp is the clean semantic donor.
 // Full native leaf 001F350B..001F3513 ends at its own RET boundary.
 // Target evidence: receiver0C dword equals two; result in AL.
 // Original owner unresolved; the address-owned type is independent of nearby classes.
-class Rva001F350BFields {
-public: unsigned char isTwo() const;
-private: char unknown[0x0C]; unsigned int value;
-};
-
 // tu-skeleton: 0x00201EAC 353B ??0GameLODManager@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00201DC4LODDefaults.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/GameLOD.cpp

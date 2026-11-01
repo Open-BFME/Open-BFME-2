@@ -161,20 +161,6 @@ public:
 	unsigned char m_minimum;
 };
 
-class BehaviorModuleBase
-{
-public:
-	virtual void unused();
-	Thing *m_thing;
-	Object *m_object;
-};
-
-class BehaviorModuleOther
-{
-public:
-	virtual void unused();
-};
-
 // The Object's AI as these units use it: slot 110 (+0x1B8) answers whether
 // it is busy, the command interface sits at +0x20 and +0x34 is tested before
 // 0x0026331C.

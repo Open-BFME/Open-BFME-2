@@ -508,14 +508,6 @@ public:
 	BfmeHolderRE *m_bfmeHolder;
 };
 
-class MilesAudioManager
-{
-public:
-    virtual int rva0005189D() const;
-    char m_lead[0x678 - sizeof(void *)];
-    int m_value;
-};
-
 // ?rva00524F35@Rva00524F35@@QAEAAV1@H@Z @0x00524F35 37B
 class Rva00524F35
 {
@@ -545,11 +537,6 @@ BFME_DISP_DWORD_GETTER(Rva00656F40DwordField, 0x288)
 // BF1 9cbfb551fe Common/Bfme/Rva001BD660_setFlags.cpp is the clean semantic guide.
 // Complete native 0023C4CE..0023C4DB RET leaf proves: OR stack dword into receiver114; RET4.
 // Original owner and complete bounds unresolved; independent address-owned view.
-class Rva0023C4CEFields {
-public: void setFlags(unsigned int value);
-private: unsigned char unknown[0x114]; unsigned int flags;
-};
-
 // tu-skeleton: 0x006560F0 36B ?bfmeGoRE@BfmeThingRE@@QAEDPAVBfmeOtherRE@@@Z -- matched in Code/GameEngine/Source/Common/BfmeConv908.cpp (not merged yet)
 
 // tu-skeleton: 0x00656120 104B ?get@Rva007E90C0Names@@QAE_NPADH@Z -- matched in Code/GameEngine/Source/GameNetwork/Rva007E90C0Names.cpp (not merged yet)

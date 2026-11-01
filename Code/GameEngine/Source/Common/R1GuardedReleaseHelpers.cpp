@@ -4,12 +4,6 @@ public:
 	void handle();
 };
 
-class BfmeThingVGP
-{
-public:
-	int bfmeGoVGP();
-};
-
 class Rva008A2C60
 {
 public:
@@ -24,13 +18,6 @@ void Rva008A2C60::go()
 		m_target->handle();
 	m_done = true;
 }
-
-class Rva00958C40
-{
-public:
-	void go();
-	BfmeThingVGP *m_target;
-};
 
 // -------------------------------------------------- pointer-to-member call
 

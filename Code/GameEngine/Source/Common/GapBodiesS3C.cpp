@@ -393,18 +393,6 @@ public:
 	char m_pad08[0x88 - 8];
 };
 
-class Rva004B0303Iface
-{
-public:
-	virtual void rva004B0303();
-};
-
-class Rva004B0303 : public Rva004B0303Base0, public Rva004B0303Iface
-{
-public:
-	virtual void rva004B0303();
-};
-
 // --- 0x004B5B82 (42B): from a +0x1C interface, when the +0x04 data's +0x129
 // flag is set run slots 10 and 9 (true) of the +0x10 base; then latch +0x20.
 struct Rva004B5B82Data

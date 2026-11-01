@@ -7,28 +7,6 @@
 // Mark body3B3ECB follows rowed deque decrement3B3EA8/35, then clear3B3EEA
 // follows immediately; both close31-byte RET extents. Original owners and
 // method names remain unknown, so both views use their actual target RVAs.
-class Rva003B3ECBOwner
-{
-public:
-	void rva003B3ECB();
-
-private:
-	char m_padding00[ 0x0C ];
-	unsigned char *m_records;
-	char m_padding10[ 0x0C ];
-	int m_index;
-};
-
-struct Rva003B3EEAOwner
-{
-	char m_padding00[ 0x0c ];
-	unsigned int m_entries;
-	char m_padding10[ 0x0c ];
-	int m_index;
-
-	void rva003B3EEA();
-};
-
 static __forceinline void rva003B3EEAClear(unsigned int offset,
 	unsigned int pointer)
 {

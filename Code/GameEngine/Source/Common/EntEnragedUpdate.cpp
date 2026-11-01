@@ -216,19 +216,7 @@ private:
 	unsigned char m_extra;
 };
 
-class DozerActionState
-{
-public:
-	virtual const char *GetSnapshotName() const;
-};
-
 BFME_LITERAL_NAME_GETTER(Rva004B2394Named, "EntEnragedUpdate")
-
-class BoneFXDamage
-{
-protected:
-	virtual const char *GetSnapshotName() const;
-};
 
 class Xfer::Version
 {

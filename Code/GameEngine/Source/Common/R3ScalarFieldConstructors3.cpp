@@ -33,24 +33,6 @@ Rva0013A8B0::Rva0013A8B0()
 	m_44 = 0;
 }
 
-class Rva0040C1F0
-{
-public:
-	Rva0040C1F0();
-	int m_00, m_04, m_08;
-	char m_0C, m_0D;
-	int m_10, m_14, m_18, m_1C, m_20, m_24;
-};
-
-class Rva00704980
-{
-public:
-	Rva00704980();
-	int m_00, m_04, m_08, m_0C, m_10, m_14, m_18;
-	char m_1C, m_1D, m_1E, m_1F;
-};
-
-
 // Lead: AssistanceRequestData's zero initializer in Open-BFME-1
 // 9cbfb551fe20dae985f91f2319d8997287b6a705 GameLogic/Object/Weapon.cpp.
 // Native 2C95CC..2C95DE is a complete thiscall leaf between two independently
