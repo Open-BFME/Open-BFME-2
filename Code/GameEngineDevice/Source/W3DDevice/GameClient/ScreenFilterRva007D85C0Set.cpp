@@ -10,11 +10,8 @@ class StringClass {
  static char *m_EmptyString; static char m_NullChar;
  void Get_String(int,bool); void Free_String();
 public:
-#pragma optimize("t", off)
-#pragma optimize("s", on)
 
  StringClass(int n=0,bool temp=false):m_Buffer(m_EmptyString) { Get_String(n,temp); m_Buffer[0]=m_NullChar; }
-#pragma optimize("", on)
 
  __forceinline ~StringClass(void) { Free_String(); }
 };

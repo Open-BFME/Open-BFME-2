@@ -31,7 +31,6 @@ public:
 	CRITICAL_SECTION m_sec;
 };
 
-#pragma optimize("sy", on)
 template <class TLock>
 class CComCritSecLock
 {
@@ -76,7 +75,6 @@ CComCritSecLock<TLock>::~CComCritSecLock() throw()
 }
 
 template class CComCritSecLock<CComCriticalSection>;
-#pragma optimize("", on)
 
 template <class T>
 class CSimpleArrayEqualHelper

@@ -23,7 +23,6 @@
 #ifdef _INTERNAL
 #endif
 #define BRIDGE_OFFSET_FACTOR	0.25f	//amount to raise tracks above bridges.
-#pragma optimize("s", on)
 
 // edgeInfo is a protected nested type, so the anchor is a static member of a
 // derived helper that is never instantiated.

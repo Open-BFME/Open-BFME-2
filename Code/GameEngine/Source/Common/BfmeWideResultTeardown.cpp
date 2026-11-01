@@ -20,7 +20,6 @@
 // As in the donor (a vector, cursor and count), the payload's destructor is
 // implicit: it is a select-any copy here, like PartitionManagerGetObjectsInRange.cpp's.
 // The intervening bytes and original payload type are not asserted here.
-#pragma optimize("s", on)
 struct BfmeWideResultStorage
 {
     void *m_storage;
@@ -56,4 +55,3 @@ BfmeWideResult::~BfmeWideResult()
     if (static_cast<BfmeWideResultPayload *>(payload)->m_refCount == 0)
         delete static_cast<BfmeWideResultPayload *>(payload);
 }
-#pragma optimize("", on)

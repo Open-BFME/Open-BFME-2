@@ -10,9 +10,7 @@ enum ScienceType
 };
 // Preserve retail's inline node/buffer free; the public allocator is supplied by its verified owner.
 namespace _STL {
-#pragma optimize("gsy", on)
 template <> __forceinline void allocator<::ScienceType >::deallocate(::ScienceType *p, size_t) const { if (p != 0) free(p); }
-#pragma optimize("", on)
 }
 #include "Common/Snapshot.h"
 #pragma inline_depth(0)

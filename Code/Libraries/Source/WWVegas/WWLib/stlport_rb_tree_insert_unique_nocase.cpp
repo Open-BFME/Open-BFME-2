@@ -20,9 +20,7 @@
 // which is why the mapped types are named for the _M_insert's address.
 
 #define _BFME_RETAIL_TREE_INSERT_LAYOUT
-#pragma optimize("s", on)
 #include "Common/AsciiString.h"
-#pragma optimize("", on)
 #include "PreRTS.h"
 // Suppress this TU's non-retail copy of ?deallocate@?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@VAsciiString@@@_STL@@U12@V?$allocator@U:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).

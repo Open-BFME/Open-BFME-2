@@ -7,13 +7,11 @@
 // and parameter destroyed via rowed
 // releaseBuffer 0x00036410. Reverse of the 0x004D632D getter.
 // Evidence: callers 0x004D19D4 0x004D2E21 plus TheGameState 0x009FF08C.
-#pragma optimize("sy", on)
 #include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
 // The narrow teardown is rowed at 0x00036410 (StringBaseWideReleaseBuffer.cpp).
 template <> StringBase<char>::~StringBase();
 
-#pragma optimize("", on)
 class GameState
 {
 public:

@@ -237,9 +237,7 @@ struct Rva001EAD69Owner {unsigned char unknown[0x138];Rva001EAD69List entries;};
 
 // Preserve retail's inline node/buffer free; the public allocator is supplied by its verified owner.
 namespace _STL {
-#pragma optimize("gsy", on)
 template <> __forceinline void allocator<_List_node< ::Rva001EA443 > >::deallocate(_List_node< ::Rva001EA443 > *p, size_t) const { if (p != 0) free(p); }
-#pragma optimize("", on)
 }
 
 // bfme link decl-only begin

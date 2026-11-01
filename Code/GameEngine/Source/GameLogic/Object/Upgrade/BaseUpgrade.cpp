@@ -317,9 +317,7 @@ public:
 // Snapshot's: it restores Snapshot's table 0x00BBB554. Spell it the same way so
 // this TU's inline copy is the retail one.
 
-#pragma optimize("sy", on)
 
-#pragma optimize("", on)
 
 // ??0BaseUpgradeModuleData@@QAE@XZ @0x4B3698
 BaseUpgradeModuleData::BaseUpgradeModuleData()

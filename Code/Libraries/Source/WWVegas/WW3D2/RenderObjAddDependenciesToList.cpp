@@ -4,17 +4,6 @@
 // Xfer::SkipBadBlock row at the same three-byte boundary.
 // Donor provenance: Open-BFME-1 WW3D2/rendobj.cpp at 071013b3c6f1228dfda315732197bed0fd191209
 // adds asset dependencies here; that behavior diverges from the retail no-op.
-// The compiler-generated vector constructor iterator (??_H) takes the
-// optimization state of the first function that needs it. Retail links one
-// copy, the /O1 body at 0x00001423; this unemitted anchor makes this unit's
-// copy that same body, so it no longer loses to retail's at link time.
-// It can also change how later array constructions here compile; checked to
-// change nothing else in this unit, but if a function added later that builds
-// an array will not match, try it without this block.
-struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
-#pragma optimize("gsy", on)
-static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 
 #include "rendobj.h"
 

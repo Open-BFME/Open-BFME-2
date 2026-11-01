@@ -61,7 +61,6 @@ public:
 	bool test(const Rva00300021Argument *) const;
 };
 
-#pragma optimize("s", on)
 
 // Retail expands these cleanup operations in both callers. Keep their real
 // STLport semantics inline-only, as in AIWall, so this unit does not emit
@@ -94,15 +93,12 @@ void rva00302459(unsigned int flags, _STL::vector<MapMetaData *> *out)
 		} while (it != TheMapCache->end());
 	}
 }
-#pragma optimize("", on)
 
 struct Rva0030145CCmp
 {
 	bool operator()(MapMetaData *, MapMetaData *) const;
 };
 
-#pragma optimize("t", off)
-#pragma optimize("s", on)
 AsciiString getDefaultMap(bool isMultiplayer)
 {
 	if (!TheMapCache)
@@ -116,7 +112,6 @@ AsciiString getDefaultMap(bool isMultiplayer)
 		return maps.front()->m_fileName;
 	return AsciiString::TheEmptyString;
 }
-#pragma optimize("", on)
 
 // Retail 0x00304744..0x00304BA9 (1125B), the BFME2 map-list population
 // counterpart of ZH/BFME1 populateMapListboxNoReset. The BFME1 source at

@@ -12,23 +12,6 @@ static float __cdecl sin(float);
 #include "GameClient/GameWindow.h"
 #include "GameClient/Display.h"
 #include "PreRTS.h"
-#pragma optimize("gsy", on)
-static void bfmeVciAnchorSpiralInitReverse()
-{
-    struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
-    BfmeVciAnchorElem anchor[2];
-    (void)anchor;
-}
-#pragma optimize("", on)
-#pragma optimize("y", on)
-#pragma optimize("gsy", on)
-static void bfmeVciAnchorSpiralUpdate()
-{
-    struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
-    BfmeVciAnchorElem anchor[2];
-    (void)anchor;
-}
-#pragma optimize("", on)
 #define inline static inline
 #include <math.h>
 #undef inline
@@ -51,14 +34,6 @@ static void bfmeVciAnchorSpiralUpdate()
 // markers are bookkeeping and do not establish BFME2 byte identity.
 // Ported verbatim from the Generals Zero Hour reference
 // (GameEngine/Source/GameClient/GUI/ProcessAnimateWindow.cpp); this unit had no counterpart under Code/.
-// The compiler-generated vector constructor iterator (??_H) takes the
-// optimization state of the first function that needs it. Retail links one
-// copy, the /O1 body at 0x00001423; this unemitted anchor makes this unit's
-// copy that same body, so it no longer loses to retail's at link time.
-// It can also change how later array constructions here compile; checked to
-// change nothing else in this unit, but if a function added later that builds
-// an array will not match, try it without this block.
-struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 
 // Shard for the Spiral ctor: the home TU builds this family under /G7
 // (manual-SEH prologue), but retail 0x005C4FFF uses the EH_prolog-call
@@ -151,27 +126,11 @@ private:
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindow.cpp
 
-#pragma optimize("gsy", on)
 
-static void bfmeVciAnchorSpiralReverse()
-{
-    struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
-    BfmeVciAnchorElem anchor[2];
-    (void)anchor;
-}
 
-#pragma optimize("", on)
 
-#pragma optimize("gsy", on)
 
-static void bfmeVciAnchorSlideFromRightUpdate()
-{
-    struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
-    BfmeVciAnchorElem anchor[2];
-    (void)anchor;
-}
 
-#pragma optimize("", on)
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindow.cpp
 
@@ -229,11 +188,8 @@ ProcessAnimateWindowSpiral::ProcessAnimateWindowSpiral( void )
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindow.cpp
 
-#pragma optimize("gsy", on)
 
-static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 
-#pragma optimize("", on)
 
 /*
 **	Command & Conquer Generals Zero Hour(tm)
@@ -291,9 +247,7 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // Enable "y" while the headers define those inlines so our copies match the
 // kept ones; our own rows below still compile with the TU's /Oy-.
 
-#pragma optimize("y", on)
 
-#pragma optimize("", on)
 
 //-----------------------------------------------------------------------------
 // DEFINES ////////////////////////////////////////////////////////////////////
@@ -849,13 +803,9 @@ Bool ProcessAnimateWindowSlideFromRightFast::reverseAnimateWindow( AnimateWindow
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindowSlideFromRightReverse.cpp
 
-#pragma optimize("gsy", on)
 
-#pragma optimize("", on)
 
-#pragma optimize("sy", on)
 
-#pragma optimize("", on)
 
 // ?reverseAnimateWindow@ProcessAnimateWindowSlideFromRight@@UAE_NPAVAnimateWindow@@@Z @0x005C51E5
 Bool ProcessAnimateWindowSlideFromRight::reverseAnimateWindow( AnimateWindow *animWin )
@@ -910,15 +860,7 @@ Bool ProcessAnimateWindowSlideFromRight::reverseAnimateWindow( AnimateWindow *an
 // manual-prologue body; the home TU builds this family under /G7 and emits a
 // frameless shape, so this body lives here under /O1. Donor-verbatim ZH
 // transcription; getVel is out-of-line (call) and setVel inlines to stores.
-// The compiler-generated vector constructor iterator (??_H) takes the
-// optimization state of the first function that needs it. Retail links one
-// copy, the /O1 body at 0x00001423; this unemitted anchor makes this unit's
-// copy that same body, so it no longer loses to retail's at link time.
-// It can also change how later array constructions here compile; checked to
-// change nothing else in this unit, but if a function added later that builds
-// an array will not match, try it without this block.
 
-#pragma optimize("", on)
 
 // ?initReverseAnimateWindow@ProcessAnimateWindowSpiral@@UAEXPAVAnimateWindow@@I@Z @0x005C5BE2
 void ProcessAnimateWindowSpiral::initReverseAnimateWindow( AnimateWindow *animWin, UnsignedInt maxDelay )
@@ -945,10 +887,6 @@ void ProcessAnimateWindowSpiral::initReverseAnimateWindow( AnimateWindow *animWi
 // transcription (matches BFME1 reverse shape); getVel is out-of-line (call)
 // and setVel/setCurPos inline to stores.
 // The matched trig operations inline; keep the CRT float overloads local.
-// The compiler-generated vector constructor iterator (??_H) takes the
-// optimization state of the first function that needs it; retail links the
-// /O1 body at 0x00001423. Instantiate it first in an unemitted anchor (the
-// lookuptable.cpp pattern) so this unit's copy is that body.
 
 // ?updateAnimateWindow@ProcessAnimateWindowSpiral@@UAE_NPAVAnimateWindow@@@Z @0x005C5D33
 Bool ProcessAnimateWindowSpiral::updateAnimateWindow( AnimateWindow *animWin )
@@ -1015,10 +953,6 @@ Bool ProcessAnimateWindowSpiral::updateAnimateWindow( AnimateWindow *animWin )
 // transcription (matches BFME1 update shape); getVel is out-of-line (call)
 // and setVel/setCurPos inline to stores.
 // The matched trig operations inline; keep the CRT float overloads local.
-// The compiler-generated vector constructor iterator (??_H) takes the
-// optimization state of the first function that needs it; retail links the
-// /O1 body at 0x00001423. Instantiate it first in an unemitted anchor (the
-// lookuptable.cpp pattern) so this unit's copy is that body.
 
 // ?reverseAnimateWindow@ProcessAnimateWindowSpiral@@UAE_NPAVAnimateWindow@@@Z @0x005C5E80
 Bool ProcessAnimateWindowSpiral::reverseAnimateWindow( AnimateWindow *animWin )
@@ -1083,10 +1017,6 @@ Bool ProcessAnimateWindowSpiral::reverseAnimateWindow( AnimateWindow *animWin )
 // result pointer and returns with ret 4; caller/callee bytes support the
 // Coord2D return ABI. The volatile clamp-home store reproduces retail's write
 // to the getVel result slot when the speed floor is reached.
-// The compiler-generated vector constructor iterator (??_H) takes the
-// optimization state of the first function that needs it; retail links the
-// /O1 body at 0x00001423. Instantiate it first in an unemitted anchor (the
-// lookuptable.cpp pattern) so this unit's copy is that body.
 
 // ?updateAnimateWindow@ProcessAnimateWindowSlideFromRight@@UAE_NPAVAnimateWindow@@@Z @0x005C64BE
 Bool ProcessAnimateWindowSlideFromRight::updateAnimateWindow( AnimateWindow *animWin )

@@ -26,14 +26,12 @@ struct Rva005E59FCKeyIterator {
  bool operator!=(const Rva005E59FCKeyIterator&b)const{return node!=b.node;}
 };
 namespace _STL {
-#pragma optimize("y", on)
 template<> inline __declspec(noinline) int *__uninitialized_copy(Rva005E59FCKeyIterator first, Rva005E59FCKeyIterator last,int *result,const __true_type&) {
  _Rb_tree_node_base *n=first.node;
  int *d=result;
  for(;n!=last.node;n=_Rb_global<bool>::_M_increment(n),++d) {if(d) *d=*(int*)((char*)n+16);}
  return d;
 }
-#pragma optimize("", on)
 }
 // The non-owning key copy is already supplied by Rva005F4F59Copy (27B),
 // whose copy_aux29B and tree traversal37B providers are fully rowed.

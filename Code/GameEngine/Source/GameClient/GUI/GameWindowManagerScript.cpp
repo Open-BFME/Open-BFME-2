@@ -413,7 +413,6 @@ static Int scanUnsignedInt( const char *source, UnsignedInt& val )
 
 // resetWindowStack ===========================================================
 //=============================================================================
-#pragma optimize("s", on)
 void resetWindowStack( void )
 {
 
@@ -421,7 +420,6 @@ void resetWindowStack( void )
   stackPtr = windowStack;
 
 }  // end resetWindowStack
-#pragma optimize("", on)
 
 // resetWindowDefaults ========================================================
 //=============================================================================
@@ -2301,7 +2299,6 @@ Bool parseLayoutBlock( File *inFile, char *buffer, UnsignedInt version, WindowLa
 /** Free up the memory used by static strings.  Normally this memory
 is freed by the string destructor but we do it here to make the
 memory leak detection code happy.*/
-#pragma optimize("s", on)
 void GameWindowManager::freeStaticStrings(void)
 {
 	((StringBase<char> *)&g_systemCallbackName)->clear();
@@ -2309,7 +2306,6 @@ void GameWindowManager::freeStaticStrings(void)
 	((StringBase<char> *)&g_tooltipCallbackName)->clear();
 	((StringBase<char> *)&g_drawCallbackName)->clear();
 }
-#pragma optimize("", on)
 
 // ??0WindowLayoutInfo@@ present-unmatched
 WindowLayoutInfo::WindowLayoutInfo() :

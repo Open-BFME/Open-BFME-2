@@ -23,9 +23,7 @@ template <> _Rb_tree_base< ::Rva00357C6APair, allocator< ::Rva00357C6APair> >::_
 
 // Preserve retail's inline node/buffer free; the public allocator is supplied by its verified owner.
 namespace _STL {
-#pragma optimize("gsy", on)
 template <> __forceinline void allocator<_Rb_tree_node< ::Rva00357C6APair > >::deallocate(_Rb_tree_node< ::Rva00357C6APair > *p, size_t) const { if (p != 0) free(p); }
-#pragma optimize("", on)
 }
 
 typedef _STL::_Rb_tree<unsigned, Rva00357C6APair, _STL::_Select1st<Rva00357C6APair>, _STL::less<unsigned>, _STL::allocator<Rva00357C6APair> > Rva00357C6ATree;

@@ -128,7 +128,6 @@ SaveGameInfo::SaveGameInfo( void )
 // ------------------------------------------------------------------------------------------------
 /** Is this date newer than the other one passed in? */
 // ------------------------------------------------------------------------------------------------
-#pragma optimize("s", on)
 Bool SaveDate::isNewerThan( SaveDate *other )
 {
 
@@ -199,7 +198,6 @@ Bool SaveDate::isNewerThan( SaveDate *other )
 	}  // end else
 
 }  // end isNewerThan
-#pragma optimize("", on)
 
 // ------------------------------------------------------------------------------------------------
 /** Find a snapshot block info that matches the token passed in */

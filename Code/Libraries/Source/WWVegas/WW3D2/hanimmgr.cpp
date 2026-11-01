@@ -1,17 +1,6 @@
 // cl: /DBFME_WWSTRING_NATIVE_COPY_ASSIGN /DBFME_WWSTRING_NATIVE_CSTR_CONSTRUCTOR /G7 /DBFME_WWSTRING_NATIVE_CSTR_ASSIGN /Ireference/shims/wwstring_teardown/bfme /Ireference/shims/bfmerendobj /DNDEBUG /MD /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
 // Ported verbatim from the Generals Zero Hour reference
 // (Libraries/Source/WWVegas/WW3D2/hanimmgr.cpp); this unit had no counterpart under Code/.
-// The compiler-generated vector constructor iterator (??_H) takes the
-// optimization state of the first function that needs it. Retail links one
-// copy, the /O1 body at 0x00001423; this unemitted anchor makes this unit's
-// copy that same body, so it no longer loses to retail's at link time.
-// It can also change how later array constructions here compile; checked to
-// change nothing else in this unit, but if a function added later that builds
-// an array will not match, try it without this block.
-struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
-#pragma optimize("gsy", on)
-static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -64,10 +53,7 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // /G7 for StringClass::Get_Length. Keep the refcount inlines at size optimization.
 #include "wwstring.h"
 #include "vector3.h"
-#pragma optimize("t", off)
-#pragma optimize("s", on)
 #include "refcount.h"
-#pragma optimize("", on)
 #include "hanimmgr.h"
 #include <string.h>
 #include "hanim.h"
@@ -259,12 +245,10 @@ Error:
  * HISTORY:                                                                                    * 
  *   08/11/1997 GH  : Created.                                                                 * 
  *=============================================================================================*/
-#pragma optimize("s", on)
 HAnimClass * HAnimManagerClass::Peek_Anim(const char * name)
 {
 	return (HAnimClass*)AnimPtrTable->Find( name );
 }
-#pragma optimize("", on)
 
 
 /*********************************************************************************************** 
@@ -368,8 +352,6 @@ void HAnimManagerClass::Create_Asset_List(DynamicVectorClass<StringClass> & excl
  *=============================================================================================*/
 // Retail Add_Anim at 0x000F0BAB keeps the short inc-dword form.
 // Size optimization preserves it while this unit uses /G7 for Get_Length.
-#pragma optimize("t", off)
-#pragma optimize("s", on)
 bool HAnimManagerClass::Add_Anim(HAnimClass *new_anim)
 {
 	WWASSERT (new_anim != NULL);
@@ -380,7 +362,6 @@ bool HAnimManagerClass::Add_Anim(HAnimClass *new_anim)
 	
 	return true;
 }
-#pragma optimize("", on)
 
 
 /*
@@ -396,12 +377,10 @@ void	HAnimManagerClass::Register_Missing( const char * name )
 	MissingAnimTable->Add( W3DNEW MissingAnimClass( name ) );
 }
 
-#pragma optimize("s", on)
 bool	HAnimManagerClass::Is_Missing( const char * name )
 {
 	return ( MissingAnimTable->Find( name ) != NULL );
 }
-#pragma optimize("", on)
 
 // ?Reset_Missing@HAnimManagerClass@@ present-unmatched
 void	HAnimManagerClass::Reset_Missing( void )
