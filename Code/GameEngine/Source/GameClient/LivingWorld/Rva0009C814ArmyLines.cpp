@@ -21,13 +21,7 @@ typedef float Real;
 typedef int Int;
 typedef unsigned int UnsignedInt;
 
-class Vector3
-{
-public:
-	Real X;
-	Real Y;
-	Real Z;
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 // The colour temporaries: one stack copy per branch, passed by reference.
 struct Rva0009C814Color : Vector3

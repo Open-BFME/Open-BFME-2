@@ -10,12 +10,7 @@
 // Scoped donor math below keeps assignments/arithmetic inline and suppresses
 // competing COMDAT copies. The complete target body/relocations are unchanged;
 // the compiled unit has no imported math/helper references.
-class Vector3 {
-public:
- float X,Y,Z;
- __declspec(dllimport) __forceinline Vector3(float x,float y,float z) {X=x;Y=y;Z=z;}
- __declspec(dllimport) __forceinline Vector3 &operator-=(const Vector3 &v) {X-=v.X;Y-=v.Y;Z-=v.Z;return *this;}
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 class WWMath {
 public:
  __declspec(dllimport) static __forceinline float Clamp(float val,float min,float max) {if(val<min)return min;if(val>max)return max;return val;}
