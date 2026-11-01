@@ -21,11 +21,7 @@ static inline void coordCopy(Coord3D *to, const Coord3D *from) {
 class Matrix3D;
 class ThingTemplate;
 
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &name);
-};
+#include "../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 
 class GameClient

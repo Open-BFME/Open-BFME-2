@@ -26,7 +26,7 @@ class Rva00406F9C { public: bool rva00406F9C(const void *); };
 struct UnitView { int unknown; AsciiString name; int unknown08; int rank; _STL::_Base_bitset<32> upgrades; char unknown90[0xB8-0x90]; int flagB8,flagBC,unknownC0; unsigned char valueC4; };
 class ThingTemplate;
 struct TemplateView { char unknown00[0x404]; _STL::_Base_bitset<32> upgrades; char unknown484[0x5C4-0x484]; int tooltip; };
-class ThingFactory { public: const ThingTemplate *findTemplate(const AsciiString &); };
+#include "../../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 class UpgradeTemplate;
 class UpgradeCenter { public: const UpgradeTemplate *rva0026EEA0(int) const; };

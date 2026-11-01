@@ -240,11 +240,7 @@ static const int GETTING_BUILT_CONDITION_B = 2 * 32 + 5;
 // as that record is a structural inference. The function's owner and meaning
 // remain unresolved, so its name is address-derived.
 class AsciiString;
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &key);
-};
+#include "../../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 class Rva004530ED
 {

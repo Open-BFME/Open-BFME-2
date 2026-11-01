@@ -98,11 +98,7 @@ struct Rva005F42FFTemplate
 };
 
 class ThingTemplate;
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &name);
-};
+#include "../../../../Include/Common/ThingFactory.h"
 class ThingFactory;
 extern ThingFactory *TheThingFactory; // findTemplate viewed as the rowed 0x002D06CA
 

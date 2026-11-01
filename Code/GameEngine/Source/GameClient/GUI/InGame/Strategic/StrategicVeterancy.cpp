@@ -349,9 +349,7 @@ struct TacticalEntryNameView {
  AsciiString m_templateName;
 };
 class ThingTemplate;
-class ThingFactory {
-public: const ThingTemplate *findTemplate(const AsciiString &);
-};
+#include "../../../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 class Rva002B2B66 { public: int rva002B2B66(); };
 class Rva005ECD8C {

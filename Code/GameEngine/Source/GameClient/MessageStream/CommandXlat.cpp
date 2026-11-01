@@ -121,7 +121,7 @@ class RecorderClass { public: RecorderModeType getMode(); };
 enum NameKeyType { NAMEKEY_NONE };
 #include "../../../Include/Common/NameKeyGenerator.h"
 class GameWindow { public: bool winIsHidden(); };
-class ThingFactory { public: const ThingTemplate* findTemplate(const AsciiString&); };
+#include "../../../Include/Common/ThingFactory.h"
 class MultiplayerSettings { public: char pad00[0x14]; int m_maxBeaconsPerPlayer; int getMaxBeaconsPerPlayer() { return m_maxBeaconsPerPlayer; } };
 struct Rva0029AEF9Item;
 enum SpecialPowerType { CONTEXT_POWER_NONE };

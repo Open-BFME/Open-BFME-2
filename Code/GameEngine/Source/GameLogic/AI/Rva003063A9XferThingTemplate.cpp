@@ -31,11 +31,7 @@ struct XferUnknown11;
 
 #include "../../../Include/Common/ThingTemplate.h"
 
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &s);
-};
+#include "../../../Include/Common/ThingFactory.h"
 extern class ThingFactory *TheThingFactory;
 
 void Rva003063A9XferThingTemplate(Xfer *xfer, const ThingTemplate **thing)

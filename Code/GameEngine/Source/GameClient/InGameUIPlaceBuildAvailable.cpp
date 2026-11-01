@@ -10,7 +10,8 @@ class Thing {public:void setOrientation(float);};
 class ModelConditionFlags;
 struct Rva0028F59A {unsigned bits[19];Rva0028F59A(int,int);};
 class Drawable:public Thing {public:void setIndicatorColor(int);void rva002791E7(const ModelConditionFlags&,unsigned,unsigned);char p[4];const ThingTemplate*tmpl;char q[0xb0-8];float opacity;char r[0xfc-0xb4];Object*object;};
-class ThingFactory {public:void*newDrawable(void*,int,int);};extern ThingFactory*TheThingFactory;
+#include "../../Include/Common/ThingFactory.h"
+extern ThingFactory*TheThingFactory;
 class GlobalData {public:char p[0x134];int timeOfDay;};extern GlobalData*TheWritableGlobalData;
 #define V(n) virtual void s##n();
 #define V10(n) V(n##0) V(n##1) V(n##2) V(n##3) V(n##4) V(n##5) V(n##6) V(n##7) V(n##8) V(n##9)

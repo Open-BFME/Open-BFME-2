@@ -44,12 +44,7 @@ public:
 	ClientUpdateModule *findClientUpdateModule(NameKeyType key);
 };
 
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &name);
-	void *newDrawable(void *thingTemplate, int status, int drawableID);
-};
+#include "../../Include/Common/ThingFactory.h"
 
 extern ThingFactory *TheThingFactory;
 

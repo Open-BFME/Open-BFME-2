@@ -177,11 +177,7 @@ public:
 	// Retail adjustBuildList reads this link directly.
 	BuildListInfo *m_next;			// +0x2C
 };
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &name);	// 0x002D06CA
-};
+#include "../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 #include "../../../../Libraries/Include/Lib/Region3D.h"
 class Waypoint

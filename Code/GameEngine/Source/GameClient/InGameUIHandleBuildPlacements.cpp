@@ -363,12 +363,7 @@ public:
     virtual unsigned getFrame();
 };
 extern GameClient* TheGameClient;
-class ThingFactory
-{
-public:
-    void* newDrawable(void*, int, int);
-    const ThingTemplate* findTemplate(const AsciiString&);
-};
+#include "../../Include/Common/ThingFactory.h"
 extern ThingFactory* TheThingFactory;
 class SpecialPowerModule
 {

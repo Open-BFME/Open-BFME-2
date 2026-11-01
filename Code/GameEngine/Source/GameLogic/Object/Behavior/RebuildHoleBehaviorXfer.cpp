@@ -54,11 +54,7 @@ class ModuleData;
 class Object;
 #include "../../../../Include/Common/ThingTemplate.h"
 
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &key);
-};
+#include "../../../../Include/Common/ThingFactory.h"
 
 // ?g_009FF000@@3PAVRva002D06CA@@A: the global at this VA is ?TheThingFactory@@3PAVRva002D06CA@@A; this name is an alias for it.
 extern class ThingFactory *TheThingFactory;

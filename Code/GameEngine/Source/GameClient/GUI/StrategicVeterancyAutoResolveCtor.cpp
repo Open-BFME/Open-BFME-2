@@ -26,7 +26,7 @@ struct Rva004F77E0Element;
 namespace _STL { template <> void __destroy_aux<Rva004F77E0Element *>(Rva004F77E0Element *,Rva004F77E0Element *,__false_type const &); }
 class AsciiString;
 class ThingTemplate;
-class ThingFactory { public: const ThingTemplate *findTemplate(const AsciiString &); };
+#include "../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 struct TargetRef00217D4C {
  virtual void *destroy(unsigned int flags);

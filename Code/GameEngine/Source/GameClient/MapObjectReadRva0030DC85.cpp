@@ -26,7 +26,7 @@ class Dict { public:
 };
 class DataChunkInput {public:float readReal();int readInt();AsciiString readAsciiString();Dict readDict();};
 class ThingTemplate;
-class ThingFactory {public: bool rva002D06AA(const AsciiString &); const ThingTemplate *findTemplate(const AsciiString &);};
+#include "../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 class Rva0030DBD5 {public:
  virtual ~Rva0030DBD5();

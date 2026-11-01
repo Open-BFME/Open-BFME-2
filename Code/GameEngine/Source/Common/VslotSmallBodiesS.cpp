@@ -35,11 +35,7 @@ bool Rva00490628::rva0044FC52()
 // (TheThingFactory, VA 0x00DFF000) and forwards both arguments to the rowed
 // ThingTemplate::GetAssetList of the template found.
 #include "../../Include/Common/ThingTemplate.h"
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &name);
-};
+#include "../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 class Rva0050B95B
 {

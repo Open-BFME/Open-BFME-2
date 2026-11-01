@@ -44,7 +44,7 @@ bool Rva005FED61::rva005FED99(const Rva005FED99Arg *arg)
 // native 005FEE09..005FEE8C. Static linkage lets MSVC pass the region in EDI,
 // as retail does; the ordinary C++ loop counts eligible type-6 buildings.
 class ThingTemplate;
-class ThingFactory { public: const ThingTemplate *findTemplate(const AsciiString &name); };
+#include "../../../../Include/Common/ThingFactory.h"
 extern class ThingFactory *TheThingFactory;
 struct CounterTemplate { char pad[0x5C4]; int index; };
 struct CounterKey { char pad[0xC]; StringBase<char> key; };

@@ -177,11 +177,7 @@ public:
 	unsigned char m_kindOf[4];			// +0x108, byte 2 at +0x10A
 };
 
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &name);
-};
+#include "../../../Include/Common/ThingFactory.h"
 
 extern ThingFactory *TheThingFactory;
 

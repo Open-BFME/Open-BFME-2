@@ -304,7 +304,7 @@ __declspec(noinline) static void *rva005E72B4Get(Rva005E72B4Queue *queue,int id)
 
 class Image;
 class ThingTemplate;
-class ThingFactory { public: const ThingTemplate *findTemplate(const AsciiString &name); };
+#include "../../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 struct Rva005E7322MidRet { char pad[4]; AsciiString text; };
 // 0x0040CB2C, the rowed indexed getter Rva0040CB2CIndexedField::get (second dword).

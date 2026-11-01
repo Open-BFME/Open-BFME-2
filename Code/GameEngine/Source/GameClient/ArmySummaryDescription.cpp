@@ -97,7 +97,7 @@ ArmySummaryDescriptionVisitor::~ArmySummaryDescriptionVisitor() {}
 #include "unicode_string.h"
 #include "../Common/BattlePromptCounterView.h"
 class ThingTemplate;
-class ThingFactory { public: const ThingTemplate *findTemplate(const AsciiString &name); };
+#include "../../Include/Common/ThingFactory.h"
 class ThingFactory;
 extern ThingFactory *TheThingFactory;
 class GameTextInterface;

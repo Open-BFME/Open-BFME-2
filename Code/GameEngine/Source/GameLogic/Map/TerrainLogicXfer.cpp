@@ -184,11 +184,7 @@ private:
 };
 
 // TheThingFactory's template lookup by name, named for its address.
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &name);
-};
+#include "../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 
 // The fire logic system at 0x00DFEC68 (the data ledger names the pointer

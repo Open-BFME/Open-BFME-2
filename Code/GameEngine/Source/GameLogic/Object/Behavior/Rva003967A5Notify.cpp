@@ -143,11 +143,7 @@ public:
 };
 
 class ThingTemplate;
-class ThingFactory
-{
-public:
-	const ThingTemplate* findTemplate(const AsciiString&);
-};
+#include "../../../../Include/Common/ThingFactory.h"
 
 extern class ThingFactory *TheThingFactory;
 

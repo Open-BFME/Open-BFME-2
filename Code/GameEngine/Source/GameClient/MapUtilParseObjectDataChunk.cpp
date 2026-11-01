@@ -20,7 +20,7 @@ class Dict { public:
 };
 class DataChunkInput {public:float readReal();int readInt();AsciiString readAsciiString();Dict readDict();};
 class ThingTemplate { public: char unknown[0x111]; unsigned char flags; };
-class ThingFactory {public: bool rva002D06AA(const AsciiString &); const ThingTemplate *findTemplate(const AsciiString &);};
+#include "../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 class Rva0030D748 { public: AsciiString rva0030D748(); };
 class MapObject {public:const ThingTemplate *getThingTemplate() const;};

@@ -38,11 +38,7 @@ static inline unsigned int rva004534F5TestB(const ThingTemplate *thingTemplate)
 }
 
 // ThingFactory::findTemplate (0x002D06CA) is rowed as ThingFactory::rva002D06CA.
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &key);
-};
+#include "../../../../Include/Common/ThingFactory.h"
 class ThingFactory;
 static inline const ThingTemplate *rva004534F5Find(ThingFactory *thingFactory, const AsciiString &name)
 {

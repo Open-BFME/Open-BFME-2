@@ -14,7 +14,7 @@
 class Drawable;
 class Object {public:Drawable*getDrawable()const;};
 class ThingTemplate;
-class ThingFactory {public:const ThingTemplate*findTemplate(const AsciiString&);};
+#include "../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 class Rva00271BCC {public:void rva00271BCC(int,int);};
 class Rva00271B5C {public:void rva00271B5C(int,void*,int,int,float);};

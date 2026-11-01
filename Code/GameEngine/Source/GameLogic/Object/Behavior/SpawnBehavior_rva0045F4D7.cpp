@@ -25,11 +25,7 @@ public:
 #include "../../../../Include/Common/Player.h"
 
 class ThingTemplate;
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &key);
-};
+#include "../../../../Include/Common/ThingFactory.h"
 
 extern class ThingFactory *TheThingFactory;
 extern float g_00C4254C;

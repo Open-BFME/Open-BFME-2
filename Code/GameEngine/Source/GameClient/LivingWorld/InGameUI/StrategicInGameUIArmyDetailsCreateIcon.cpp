@@ -52,7 +52,7 @@ struct Rva005E4300Entry;
 class ArmySummaryEntry {};
 struct Rva005E3967Template;
 class ThingTemplate;
-class ThingFactory {public:const ThingTemplate *findTemplate(const AsciiString &);};
+#include "../../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 namespace StrategicInGameUI {
 static __declspec(noinline) Rva005E3967Template *Rva005E3967(const Rva005E4300Entry *e) {
