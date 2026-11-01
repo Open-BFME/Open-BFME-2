@@ -102,11 +102,7 @@ class BfmeItemBF;
 
 // AIGroup::add is the matched body at 0x001526C0; the retail ILT at
 // 0x0002B7E2 routes to it. This TU only needs the call-side view.
-class AIGroup
-{
-public:
-	void add(Object *member);
-};
+#include "../../../Include/GameLogic/AIGroup.h"
 
 class BfmeVisitorBF
 {

@@ -29,11 +29,7 @@ public:
 
 #include "../../../Include/Common/TeamBFME2.h"
 
-class AIGroup
-{
-public:
-	void rva00370451(const Team *team, int x, CommandSourceType src);
-};
+#include "../../../Include/GameLogic/AIGroup.h"
 
 extern ScriptEngine *TheScriptEngine;
 extern AI *TheAI;

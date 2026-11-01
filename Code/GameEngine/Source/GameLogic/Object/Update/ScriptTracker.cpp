@@ -63,12 +63,7 @@ public:
 
 #include "../../../../Include/Common/TeamBFME2.h"
 
-class AIGroup
-{
-public:
-	Bool isIdle() const;
-	Bool rva0036E0B6() const;
-};
+#include "../../../../Include/GameLogic/AIGroup.h"
 
 extern AI *TheAI;
 

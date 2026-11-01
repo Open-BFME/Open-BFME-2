@@ -46,9 +46,7 @@ public:
 	TAiData *m_next;										// +0x100
 };
 
-class AIGroup : public Snapshot
-{
-};
+#include "../../../Include/GameLogic/AIGroup.h"
 
 class AI
 {
