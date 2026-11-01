@@ -1,0 +1,23 @@
+{
+  "rows": 15,
+  "matched": 15,
+  "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\sole-next-20261101\\build\\tu_skeleton\\6d09a43c82380a00.obj",
+  "errors": [],
+  "before_definitions": 29,
+  "after_definitions": 23,
+  "added": [],
+  "removed": [
+    "??0ShaderClass@@QAE@ABV0@@Z",
+    "?Get_Line_Mode@LineGroupClass@@QAE?AW4LineModeType@1@XZ",
+    "?Get_Shader@LineGroupClass@@QAE?AVShaderClass@@XZ",
+    "?Get_Texture@LineGroupClass@@QAEPAVTextureClass@@XZ",
+    "?Peek_Texture@LineGroupClass@@QAEPAVTextureClass@@XZ",
+    "?Set_Texture@LineGroupClass@@QAEXPAVTextureClass@@@Z"
+  ],
+  "changed": [],
+  "link_guard_prepare": null,
+  "link_guard_findings": [
+    "no longer defines ?Get_Shader@LineGroupClass@@QAE?AVShaderClass@@XZ, which the census still references",
+    "no longer defines ?Set_Texture@LineGroupClass@@QAEXPAVTextureClass@@@Z, which the census still references"
+  ]
+}

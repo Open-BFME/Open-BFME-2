@@ -1781,19 +1781,6 @@ void LineGroupClass::Set_Texture(TextureClass* texture)
 	}
 }
 
-// ?Get_Texture@LineGroupClass@@ present-unmatched
-TextureClass * LineGroupClass::Get_Texture(void)
-{
-	if (Texture) ++*(unsigned short *)((char *)Texture + 4);
-	return Texture;
-}
-
-// ?Peek_Texture@LineGroupClass@@ present-unmatched
-TextureClass * LineGroupClass::Peek_Texture(void)
-{
-	return Texture;
-}
-
 void LineGroupClass::Set_Shader(const ShaderClass &shader)
 {
 	Shader = shader;
@@ -1808,12 +1795,6 @@ ShaderClass LineGroupClass::Get_Shader(void)
 void LineGroupClass::Set_Line_Mode(LineModeType linemode)
 {
 	LineMode = linemode;
-}
-
-// ?Get_Line_Mode@LineGroupClass@@ present-unmatched
-LineGroupClass::LineModeType LineGroupClass::Get_Line_Mode(void)
-{
-	return LineMode;
 }
 
 // LineGroupClass::Render: defined in LineGroupClassRender.cpp (its row's unit).

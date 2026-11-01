@@ -16690,6 +16690,12 @@ region default still loses two rows, while O2/SSE/G7 preserves all four rows
 and complete definitions/relocations. The unit retains 253 linking bytes.
 This removes the profile mismatch without adding an override or altering code.
 
+Three unrowed seed getters (Get_Texture, Peek_Texture, Get_Line_Mode) can be
+retired separately: 15 native rows and all 26 retained complete definitions
+remain exact, with no LinkGuard loss. Set_Texture and Get_Shader stay because
+the census still references their providers. Evidence:
+reverse/attempt_support/linegrp-donor-cleanup-20261101/.
+
 ## Shared definition-time header context
 
 The EHs and common-EH seed probes preserve all 15 rows and all 28 complete

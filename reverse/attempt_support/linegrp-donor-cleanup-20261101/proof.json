@@ -1,0 +1,17 @@
+{
+  "rows": 15,
+  "matched": 15,
+  "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\sole-next-20261101\\build\\tu_skeleton\\ec374ab045bdb852.obj",
+  "errors": [],
+  "before_definitions": 29,
+  "after_definitions": 26,
+  "added": [],
+  "removed": [
+    "?Get_Line_Mode@LineGroupClass@@QAE?AW4LineModeType@1@XZ",
+    "?Get_Texture@LineGroupClass@@QAEPAVTextureClass@@XZ",
+    "?Peek_Texture@LineGroupClass@@QAEPAVTextureClass@@XZ"
+  ],
+  "changed": [],
+  "link_guard_prepare": null,
+  "link_guard_findings": []
+}
