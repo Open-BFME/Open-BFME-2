@@ -163,15 +163,7 @@ void Rva0047BEF8::onContaining(Object *rider, bool wasSelected)
 	((TransportContain *)this)->TransportContain::onContaining(rider, wasSelected);
 }
 
-class XferException
-{
-public:
-    XferException(int tag, const char *format, ...);
-    XferException(const XferException &);
-    ~XferException();
-    char *text;
-    int tag;
-};
+#include "../../../../Include/Common/XferException.h"
 class Rva004697E1Contain { public: void rva004783D7(); };
 template <int N> class Rva0047D19CSlots : public Rva0047D19CSlots<N - 1>
 {

@@ -706,16 +706,7 @@ Xfer *xferSTLObjectIDList(Xfer *xfer, BridgeBehaviorObjectIDList *list);
 
 // Retail ThrowInfo identifies the 8-byte XferException class and its
 // established constructor, copy constructor and destructor providers.
-class XferException
-{
-public:
-	XferException(int tag, const char *format, ...);
-	XferException(const XferException &that);
-	~XferException();
-
-	char *text;
-	int tag;
-};
+#include "../../../../Include/Common/XferException.h"
 
 class FXList
 {

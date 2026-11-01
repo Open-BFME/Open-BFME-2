@@ -144,15 +144,7 @@ private:
 	_STL::list<int> m_riders;
 };
 
-class XferException
-{
-public:
-    XferException(int tag, const char *format, ...);
-    XferException(const XferException &);
-    ~XferException();
-    char *text;
-    int tag;
-};
+#include "../../../../../Include/Common/XferException.h"
 
 class Rva00479D68 { public: void rva00479D68(); };
 
