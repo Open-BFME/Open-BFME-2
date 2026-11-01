@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /ICode/Libraries/Include
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /ICode/Libraries/Include C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // ?doDrawModule@W3DTruckDraw@@UAEXPBVMatrix3D@@@Z, retail 0x000CC80E..0x000CDE57 (5689B).
 // BFME 2 W3DTruckDraw::doDrawModule from Zero Hour W3DTruckDraw.cpp onto the BFME 2 layout.
 // Codegen: the cab rotation is stored once in a local that also feeds Rotate_Z (not
@@ -29,62 +29,7 @@ extern "C" void _ReadWriteBarrier();
 #include "ascii_string.h"
 #include "matrix3d.h"
 #include "Lib/Coord3D.h"
-class RenderObjClass { public:
-virtual void s00();
-virtual void s04();
-virtual void s08();
-virtual void s0C();
-virtual void s10();
-virtual void s14();
-virtual void s18();
-virtual void s1C();
-virtual void s20();
-virtual void s24();
-virtual void s28();
-virtual void s2C();
-virtual void s30();
-virtual void s34();
-virtual void s38();
-virtual void s3C();
-virtual void s40();
-virtual void s44();
-virtual void s48();
-virtual void s4C();
-virtual void s50();
-virtual void s54();
-virtual void s58();
-virtual void s5C();
-virtual void s60();
-virtual void s64();
-virtual void s68();
-virtual void s6C();
-virtual void s70();
-virtual void s74();
-virtual void s78();
-virtual void s7C();
-virtual void s80();
-virtual void s84();
-virtual void s88();
-virtual void s8C();
-virtual void s90();
-virtual void s94();
-virtual void s98();
-virtual void s9C();
-virtual void sA0();
-virtual void sA4();
-virtual void sA8();
-virtual void sAC();
-virtual void sB0();
-virtual void sB4();
-virtual void sB8();
-virtual void sBC();
-virtual void sC0();
-virtual void sC4();
-virtual void sC8();
-virtual void sCC();
-virtual void sD0();
-virtual void sD4();
-virtual void Capture_Bone(int); virtual void sDC(); virtual void sE0(); virtual void Control_Bone(int,const Matrix3D&,bool=false); };
+#include "../../../../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"
 
 
 class BfmeVec3FC { public: float x,y,z; };

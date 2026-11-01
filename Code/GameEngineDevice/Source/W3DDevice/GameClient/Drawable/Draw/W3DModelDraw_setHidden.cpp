@@ -1,4 +1,4 @@
-// cl: /MD /DNDEBUG
+// cl: /MD /DNDEBUG C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 //
 // ?setHidden@W3DModelDraw@@UAEX_N@Z
 // retail 0x000B6F6D, 145 bytes (Ghidra boundary), slot 16 of the
@@ -17,38 +17,7 @@ typedef float Real;
 
 #include "../../../../../../Libraries/Include/Lib/Coord3D.h"
 
-class RenderObjClass
-{
-public:
-	// Slots before Set_Hidden (byte offset 0x194); not needed here.
-	virtual void vslot000(); virtual void vslot001(); virtual void vslot002(); virtual void vslot003();
-	virtual void vslot004(); virtual void vslot005(); virtual void vslot006(); virtual void vslot007();
-	virtual void vslot008(); virtual void vslot009(); virtual void vslot010(); virtual void vslot011();
-	virtual void vslot012(); virtual void vslot013(); virtual void vslot014(); virtual void vslot015();
-	virtual void vslot016(); virtual void vslot017(); virtual void vslot018(); virtual void vslot019();
-	virtual void vslot020(); virtual void vslot021(); virtual void vslot022(); virtual void vslot023();
-	virtual void vslot024(); virtual void vslot025(); virtual void vslot026(); virtual void vslot027();
-	virtual void vslot028(); virtual void vslot029(); virtual void vslot030(); virtual void vslot031();
-	virtual void vslot032(); virtual void vslot033(); virtual void vslot034(); virtual void vslot035();
-	virtual void vslot036(); virtual void vslot037(); virtual void vslot038(); virtual void vslot039();
-	virtual void vslot040(); virtual void vslot041(); virtual void vslot042(); virtual void vslot043();
-	virtual void vslot044(); virtual void vslot045(); virtual void vslot046(); virtual void vslot047();
-	virtual void vslot048(); virtual void vslot049(); virtual void vslot050(); virtual void vslot051();
-	virtual void vslot052(); virtual void vslot053(); virtual void vslot054(); virtual void vslot055();
-	virtual void vslot056(); virtual void vslot057(); virtual void vslot058(); virtual void vslot059();
-	virtual void vslot060(); virtual void vslot061(); virtual void vslot062(); virtual void vslot063();
-	virtual void vslot064(); virtual void vslot065(); virtual void vslot066(); virtual void vslot067();
-	virtual void vslot068(); virtual void vslot069(); virtual void vslot070(); virtual void vslot071();
-	virtual void vslot072(); virtual void vslot073(); virtual void vslot074(); virtual void vslot075();
-	virtual void vslot076(); virtual void vslot077(); virtual void vslot078(); virtual void vslot079();
-	virtual void vslot080(); virtual void vslot081(); virtual void vslot082(); virtual void vslot083();
-	virtual void vslot084(); virtual void vslot085(); virtual void vslot086(); virtual void vslot087();
-	virtual void vslot088(); virtual void vslot089(); virtual void vslot090(); virtual void vslot091();
-	virtual void vslot092(); virtual void vslot093(); virtual void vslot094(); virtual void vslot095();
-	virtual void vslot096(); virtual void vslot097(); virtual void vslot098(); virtual void vslot099();
-	virtual void vslot100();
-	virtual void Set_Hidden(int onoff);
-};
+#include "../../../../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"
 
 class Shadow
 {
