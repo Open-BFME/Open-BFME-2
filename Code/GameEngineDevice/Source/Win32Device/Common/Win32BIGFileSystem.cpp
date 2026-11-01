@@ -17,6 +17,94 @@
 #pragma comment(linker, "/alternatename:??RRva006038D4Less@@QBE_NPBD0@Z=?Rva0006038D4CStrLess@@YG_NPBD0@Z")
 #undef _CRTIMP
 #define _CRTIMP __declspec(dllimport)
+#define _CRTIMP
+#include <stdlib.h>
+#undef _CRTIMP
+#define RVA_TREE_VALUE_FAMILY( OWNER, ERASE, CLEAR )                       \
+	class OWNER                                                           \
+	{                                                                     \
+	public:                                                               \
+		void ERASE(RvaTreeValueNode *node);                               \
+		void CLEAR();                                                     \
+		RvaTreeValueHead *head() { return m_head; } /* +0 accessor for owner dtors */ \
+	private:                                                              \
+		RvaTreeValueHead *m_head;	/* +0x00 */                          \
+		int m_count;				/* +0x04 */                          \
+	};                                                                    \
+	void OWNER::ERASE(RvaTreeValueNode *node)                             \
+	{                                                                     \
+		while (node)                                                      \
+		{                                                                 \
+			ERASE(node->m_right);                                         \
+			RvaTreeValueNode *next = node->m_left;                        \
+			node->m_value.~Rva002046BBValue();                            \
+			free(node);                                                   \
+			node = next;                                                  \
+		}                                                                 \
+	}                                                                     \
+	void OWNER::CLEAR()                                                   \
+	{                                                                     \
+		if (m_count != 0)                                                 \
+		{                                                                 \
+			ERASE(m_head->m_root);                                        \
+			m_head->m_left = m_head;                                      \
+			m_head->m_root = 0;                                           \
+			m_head->m_right = m_head;                                     \
+			m_count = 0;                                                  \
+		}                                                                 \
+	}
+#define RVA_TREE_VALUE_FAMILY_T( VALUE, OWNER, ERASE, CLEAR )               \
+	struct VALUE                                                          \
+	{                                                                     \
+		~VALUE();                                                         \
+		int m_00;                                                         \
+	};                                                                    \
+	struct OWNER##Node                                                    \
+	{                                                                     \
+		char m_pad[8];                                                    \
+		OWNER##Node *m_left;                                              \
+		OWNER##Node *m_right;                                             \
+		VALUE m_value;                                                    \
+	};                                                                    \
+	struct OWNER##Head                                                    \
+	{                                                                     \
+		char m_pad00[4];                                                  \
+		OWNER##Node *m_root;                                              \
+		OWNER##Head *m_left;                                              \
+		OWNER##Head *m_right;                                             \
+	};                                                                    \
+	class OWNER                                                           \
+	{                                                                     \
+	public:                                                               \
+		void ERASE(OWNER##Node *node);                                    \
+		void CLEAR();                                                     \
+	private:                                                              \
+		OWNER##Head *m_head;                                              \
+		int m_count;                                                      \
+	};                                                                    \
+	void OWNER::ERASE(OWNER##Node *node)                                  \
+	{                                                                     \
+		while (node)                                                      \
+		{                                                                 \
+			ERASE(node->m_right);                                         \
+			OWNER##Node *next = node->m_left;                             \
+			node->m_value.~VALUE();                                       \
+			free(node);                                                   \
+			node = next;                                                  \
+		}                                                                 \
+	}                                                                     \
+	void OWNER::CLEAR()                                                   \
+	{                                                                     \
+		if (m_count != 0)                                                 \
+		{                                                                 \
+			ERASE(m_head->m_root);                                        \
+			m_head->m_left = m_head;                                      \
+			m_head->m_root = 0;                                           \
+			m_head->m_right = m_head;                                     \
+			m_count = 0;                                                  \
+		}                                                                 \
+	}
+
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
 namespace _STL {
 template <class T, class LeftTraits, class RightTraits>
@@ -378,6 +466,184 @@ bool operator<(const AsciiString &left, const AsciiString &right);
 
 extern const char g_Rva0107301CEmptyString[];
 
+struct Rva002046BBValue
+{
+	~Rva002046BBValue();
+	int m_00;
+};
+
+struct RvaTreeValueNode
+{
+	char m_pad[8];				// +0x00
+	RvaTreeValueNode *m_left;	// +0x08
+	RvaTreeValueNode *m_right;	// +0x0C
+	Rva002046BBValue m_value;	// +0x10
+};
+
+struct RvaTreeValueHead
+{
+	char m_pad00[4];			// +0x00
+	RvaTreeValueNode *m_root;	// +0x04
+	RvaTreeValueHead *m_left;	// +0x08
+	RvaTreeValueHead *m_right;	// +0x0C
+};
+
+// erase 0x0060421C, clear 0x0060434B, value dtor 0x00603C57
+RVA_TREE_VALUE_FAMILY_T( Rva00603C57, Rva0060421C, rva0060421C, rva0060434B )
+
+// Map-base dtors (56B each, /GX frame): the six 5B novtable jmp stubs in
+// Rva00207BDAMapDtors.cpp (0x00207BDA->0x002075F3, 0x00207BDF->0x00207630,
+// 0x00207BE4->0x0020766D, 0x00207BE9->0x002076AA, 0x00207BF3->0x00207724,
+// 0x00207BF8->0x00207761) target these bodies as their Map bases, so each
+// body below is the owner dtor over the matching tree instantiation:
+// CLEAR() on the +0 tree, then a null-guarded free of the head at +0.
+// The __EH_prolog frame plus the single and/or [ebp-4] state pair is the
+// /GX shape (same as rowed 0x001F077D: or-state--1). A no-member model was
+// refuted: without an unwindable member MSVC emits no frame (22B flat).
+// The frame therefore comes from the inline-dtor holder at +0 whose
+// teardown (null-checked free) the compiler inlines; the +4 count slot is
+// what CLEAR() reads. (An earlier delete-spelling was refuted: retail calls
+// the 0x00030830 free, like ERASE and rowed 0x001F077D.)
+struct RvaTreeHeadHolder
+{
+	RvaTreeValueHead *m_head;
+	~RvaTreeHeadHolder()
+	{
+		if (m_head)
+			free(m_head);
+	}
+};
+
+class Rva002075F3
+{
+public:
+	~Rva002075F3();
+private:
+	RvaTreeHeadHolder m_holder;	/* +0x00, layout-shared with the tree head */
+	int m_count;				/* +0x04, the slot CLEAR() tests */
+};
+
+// Five siblings, byte-identical but for the CLEAR callee (decoded above):
+// 0x00207630->0x00206EF0, 0x0020766D->0x00206F19, 0x002076AA->0x00206F42,
+// 0x00207724->0x00206F94, 0x00207761->0x00206FBD.
+class Rva00207630
+{
+public:
+	~Rva00207630();
+private:
+	RvaTreeHeadHolder m_holder;
+	int m_count;
+};
+
+class Rva0020766D
+{
+public:
+	~Rva0020766D();
+private:
+	RvaTreeHeadHolder m_holder;
+	int m_count;
+};
+
+class Rva002076AA
+{
+public:
+	~Rva002076AA();
+private:
+	RvaTreeHeadHolder m_holder;
+	int m_count;
+};
+
+class Rva00207724
+{
+public:
+	~Rva00207724();
+private:
+	RvaTreeHeadHolder m_holder;
+	int m_count;
+};
+
+class Rva00207761
+{
+public:
+	~Rva00207761();
+private:
+	RvaTreeHeadHolder m_holder;
+	int m_count;
+};
+
+// ??1Rva005026B6@@QAE@XZ, retail 0x005026B6 56B.
+// Map-base dtor over tree Rva00501F2D (CLEAR 0x0050247A), same 56B /GX shape
+// as the six siblings above: CLEAR() on the +0 tree then null-guarded free
+// of the head via RvaTreeHeadHolder. Evidence: 56B __EH_prolog frame with
+// CLEAR callee 0x0050247A and free 0x00030830; callers at 0x00502952 and
+// jmp stub at 0x00502926; neighbours share stlport map context.
+class Rva005026B6
+{
+public:
+	~Rva005026B6();
+private:
+	RvaTreeHeadHolder m_holder;	/* +0x00, layout-shared with the tree head */
+	int m_count;				/* +0x04, the slot CLEAR() tests */
+};
+
+// ??1Rva0050298D@@QAE@XZ, retail 0x0050298D 56B.
+// Map-base dtor over tree Rva00502787 (CLEAR 0x00502787), same 56B /GX shape
+// as Rva005026B6 above: CLEAR() on the +0 tree then null-guarded free
+// of the head via RvaTreeHeadHolder. Evidence: 56B __EH_prolog frame with
+// CLEAR callee 0x00502787 and free 0x00030830; callers at 0x00502D2A and
+// jmp stub at 0x00502CFE; neighbours share stlport map context.
+struct Rva00502787
+{
+	void rva00502787();
+};
+
+class Rva0050298D
+{
+public:
+	~Rva0050298D();
+private:
+	RvaTreeHeadHolder m_holder;	/* +0x00, layout-shared with the tree head */
+	int m_count;				/* +0x04, the slot CLEAR() tests */
+};
+
+class Rva0020762B
+{
+public:
+	void rva0020762B();
+};
+
+class Rva00207668
+{
+public:
+	void rva00207668();
+};
+
+class Rva002076A5
+{
+public:
+	void rva002076A5();
+};
+
+class Rva0020771F
+{
+public:
+	void rva0020771F();
+};
+
+class Rva0020775C
+{
+public:
+	void rva0020775C();
+};
+
+class Rva005026B1
+{
+public:
+	void rva005026B1();
+};
+
+// ---- from Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp
+
 // ---- from Code/GameEngine/Source/Common/Win32BIGFileSystem_init.cpp
 
 // ?init@Win32BIGFileSystem@@UAEX_N@Z @0x00603944 188B: vslot 1 of vtable 0x0087A94C (class of ??0Win32BIGFileSystem@@QAE@XZ). Loads lang big files. Evidence: vtable slot 1; strings "%s*.big" "lang\" "lang\%sAudio.big" "EnglishAudio.big" "*.big" "apt\"; global TheArchiveFileSystem; buffers g_00DD509C g_Rva0107301CEmptyString.
@@ -709,24 +975,6 @@ Rva00603FD2::Rva00603FD2(unsigned const *a, TreeIntPtr00603FD2 const &b) : m_00(
 
 Rva00603FD2 Rva00604251(const unsigned&key,const TreeIntPtr00603FD2&value) {return Rva00603FD2(&key,value);}
 
-// tu-skeleton: 0x00603AE0 42B ??0?$_Rb_tree@HU?$pair@$$CBHV?$vector@UBfmePod128@@V?$allocator@UBfmePod128@@@_STL@@@_STL@@@_STL@@U?$_Select1st@U?$pair@$$CBHV?$vector@UBfmePod128@@V?$allocator@UBfmePod128@@@_STL@@@_STL@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHV?$vector@UBfmePod128@@V?$allocator@UBfmePod128@@@_STL@@@_STL@@@_STL@@@2@@_STL@@QAE@ABU?$less@H@1@ABV?$allocator@U?$pair@$$CBHV?$vector@UBfmePod128@@V?$allocator@UBfmePod128@@@_STL@@@_STL@@@_STL@@@1@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/SidesListCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00603B9C 115B ?_M_copy@?$_Rb_tree@IU?$pair@$$CBIPAX@_STL@@U?$_Select1st@U?$pair@$$CBIPAX@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@_STL@@AAEPAU?$_Rb_tree_node@U?$pair@$$CBIPAX@_STL@@@2@PAU32@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_lower.cpp (not merged yet)
-
-// tu-skeleton: 0x00603C0F 67B ?rva00603C0F@Rva00603C0F@@QAEPBXPBD0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_cstring_tree_lookup_00603C0F.cpp (not merged yet)
-
-// tu-skeleton: 0x00603C57 8B ??1Rva00603C57@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaAdjustorDtorFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x00603EEB 165B ??0?$_Rb_tree@IU?$pair@$$CBIPAX@_STL@@U?$_Select1st@U?$pair@$$CBIPAX@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@_STL@@QAE@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_lower.cpp (not merged yet)
-
-// tu-skeleton: 0x00603F90 28B ??_GRva00603C57@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors12.cpp (not merged yet)
-
-// tu-skeleton: 0x00603FEF 9B ??$_Destroy@VRva00603C57@@@_STL@@YAXPAVRva00603C57@@@Z -- matched in Code/GameEngine/Source/Common/DestroyInstances.cpp (not merged yet)
-
-// tu-skeleton: 0x00603FF8 548B ?getFileListInDirectory@Win32BIGFileSystem@@UBEXABVAsciiString@@00AAV?$set@VAsciiString@@UBfmeStringNoCaseLess@@V?$allocator@VAsciiString@@@_STL@@@_STL@@_N@Z -- matched in Code/GameEngine/Source/Common/System/Win32BIGFileSystemGetFileListInDirectory.cpp (not merged yet)
-
-// tu-skeleton: 0x0060421C 53B ?rva0060421C@Rva0060421C@@QAEXPAURva0060421CNode@@@Z -- matched in Code/GameEngine/Source/Common/RvaTreeEraseValueDtorFamily.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameClient/Rva006042B6.cpp
 
 // ?rva006042B6@Win32BIGFileSystem@@UAE_NPBD0H@Z
@@ -748,7 +996,39 @@ bool Win32BIGFileSystem::rva006042B6(const char *path, const char *filter, int e
 	return result;
 }
 
-// tu-skeleton: 0x0060434B 41B ?rva0060434B@Rva0060421C@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeEraseValueDtorFamily.cpp (not merged yet)
+// tu-skeleton: 0x00603AE0 42B ??0?$_Rb_tree@HU?$pair@$$CBHV?$vector@UBfmePod128@@V?$allocator@UBfmePod128@@@_STL@@@_STL@@@_STL@@U?$_Select1st@U?$pair@$$CBHV?$vector@UBfmePod128@@V?$allocator@UBfmePod128@@@_STL@@@_STL@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHV?$vector@UBfmePod128@@V?$allocator@UBfmePod128@@@_STL@@@_STL@@@_STL@@@2@@_STL@@QAE@ABU?$less@H@1@ABV?$allocator@U?$pair@$$CBHV?$vector@UBfmePod128@@V?$allocator@UBfmePod128@@@_STL@@@_STL@@@_STL@@@1@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/SidesListCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00603B9C 115B ?_M_copy@?$_Rb_tree@IU?$pair@$$CBIPAX@_STL@@U?$_Select1st@U?$pair@$$CBIPAX@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@_STL@@AAEPAU?$_Rb_tree_node@U?$pair@$$CBIPAX@_STL@@@2@PAU32@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_lower.cpp (not merged yet)
+
+// tu-skeleton: 0x00603C0F 67B ?rva00603C0F@Rva00603C0F@@QAEPBXPBD0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_cstring_tree_lookup_00603C0F.cpp (not merged yet)
+
+// tu-skeleton: 0x00603C57 8B ??1Rva00603C57@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaAdjustorDtorFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x00603EEB 165B ??0?$_Rb_tree@IU?$pair@$$CBIPAX@_STL@@U?$_Select1st@U?$pair@$$CBIPAX@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@_STL@@QAE@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_lower.cpp (not merged yet)
+
+// tu-skeleton: 0x00603F90 28B ??_GRva00603C57@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors12.cpp (not merged yet)
+
+// tu-skeleton: 0x00603FEF 9B ??$_Destroy@VRva00603C57@@@_STL@@YAXPAVRva00603C57@@@Z -- matched in Code/GameEngine/Source/Common/DestroyInstances.cpp (not merged yet)
+
+// tu-skeleton: 0x00603FF8 548B ?getFileListInDirectory@Win32BIGFileSystem@@UBEXABVAsciiString@@00AAV?$set@VAsciiString@@UBfmeStringNoCaseLess@@V?$allocator@VAsciiString@@@_STL@@@_STL@@_N@Z -- matched in Code/GameEngine/Source/Common/System/Win32BIGFileSystemGetFileListInDirectory.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/RvaTreeEraseValueDtorFamily.cpp
+
+//
+// STLport red-black tree erase and clear bodies whose node value has a
+// destructor, one pair per tree instantiation. These are the
+// RvaTreeEraseClearFamily.cpp shapes plus a value destructor call on the
+// node's +0x10 payload before free. The 53-byte erase walks left, recursing
+// on the right subtree. The 41-byte clear erases from the root when the
+// count is non-zero and resets the header links. Six trees share the value
+// destructor 0x002046BB (pinned). Which trees they are is not recovered, so
+// owners are named after their erase's address.
+
+// Retail calls free directly (the game allocator), not through the CRT
+// import: read <stdlib.h> without dllimport.
+
+// Three more trees with the same shapes over other value types, whose
+// destructors are already pinned under these address names.
 
 // tu-skeleton: 0x00604396 56B ??1?$_Rb_tree@$$CBV?$BitFlags@$0BB@@@U?$pair@$$CBV?$BitFlags@$0BB@@@PBVWeaponTemplateSet@@@_STL@@U?$_Select1st@U?$pair@$$CBV?$BitFlags@$0BB@@@PBVWeaponTemplateSet@@@_STL@@@3@UMapHelper@?$SparseMatchFinder@VWeaponTemplateSet@@V?$BitFlags@$0BB@@@@@V?$allocator@U?$pair@$$CBV?$BitFlags@$0BB@@@PBVWeaponTemplateSet@@@_STL@@@3@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp (not merged yet)
 
@@ -775,6 +1055,12 @@ bool Win32BIGFileSystem::rva006042B6(const char *path, const char *filter, int e
 // tu-skeleton: 0x007A6B44 8B Unwind@00ba6b44 -- matched in Code/GameEngine/Source/Common/System/Win32BIGFileSystemGetFileListInDirectory.cpp (not merged yet)
 
 // tu-skeleton: 0x007A6B4C 10B __ehhandler$?getFileListInDirectory@Win32BIGFileSystem@@UBEXABVAsciiString@@00AAV?$set@VAsciiString@@UBfmeStringNoCaseLess@@V?$allocator@VAsciiString@@@_STL@@@_STL@@_N@Z -- matched in Code/GameEngine/Source/Common/System/Win32BIGFileSystemGetFileListInDirectory.cpp (not merged yet)
+
+// tu-skeleton: 0x007A6B80 8B uw_007a6b80 -- matched in Code/gen_small/uw_gen_010.cpp (not merged yet)
+
+// tu-skeleton: 0x007A6B92 8B $L326 -- matched in Code/GameEngine/Source/Common/Rva00604465Dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x007A6B9A 10B __ehhandler$??1Rva00604465@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00604465Dtor.cpp (not merged yet)
 
 // tu-skeleton: 0x007A6BA4 8B $L6784 -- matched in Code/GameEngine/Source/GameClient/Win32BIGFileSystemRva006046B0.cpp (not merged yet)
 
