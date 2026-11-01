@@ -336,12 +336,7 @@ protected:
     Bool m_moveAsGroup; // +0x65
     Bool m_isFollowWaypointPathState; // +0x66
 };
-class AIGroup
-{
-public:
-    Real getSpeed();
-    Bool getCenter(Coord3D *center);
-};
+#include "../../../Include/GameLogic/AIGroup.h"
 
 // floor/sqrt come from <math.h>; hand prototypes missed retail's float compare shape.
 StateReturnType AIFollowWaypointPathState::onEnter()

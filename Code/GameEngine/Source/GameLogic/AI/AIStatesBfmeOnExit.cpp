@@ -444,11 +444,7 @@ public:
 	unsigned char m_pad00[0x5C];
 	int m_playerType; // +0x5C
 };
-class AIGroup
-{
-public:
-	Real getSpeed();
-};
+#include "../../../Include/GameLogic/AIGroup.h"
 
 class AIUpdateInterface : public AIStateAISlots<135>
 {

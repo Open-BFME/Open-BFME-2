@@ -129,11 +129,7 @@ enum CommandSourceType
 	CMD_FROM_AI
 };
 
-class AIGroup
-{
-public:
-	void groupGuardPosition(const Coord3D *pos, GuardMode guardMode, CommandSourceType cmdSource);	// 0x003703CF
-};
+#include "../../../Include/GameLogic/AIGroup.h"
 
 // What Object +0x04 points at: the KindOf mask at +0x108 (bit 7
 // KINDOF_STRUCTURE, +0x112 bit 6 the supply source) and the cost-to-build

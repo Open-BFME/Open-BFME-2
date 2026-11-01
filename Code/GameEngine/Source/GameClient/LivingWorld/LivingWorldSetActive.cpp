@@ -80,7 +80,7 @@ extern LivingWorldManager *TheLivingWorldManager;
 class Rva00211589 { public: void rva002110DF(int value); };
 class Rva00213A85 { public: void rva00213BBE(); void rva00213C30(); };
 // 0x0047A69C is the ICF-folded empty `ret 4` body; its rowed bool spelling.
-class AIGroup { public: void setMineClearingDetail(bool value); };
+#include "../../../Include/GameLogic/AIGroup.h"
 
 class GlobalData;
 extern GlobalData *TheWritableGlobalData;
