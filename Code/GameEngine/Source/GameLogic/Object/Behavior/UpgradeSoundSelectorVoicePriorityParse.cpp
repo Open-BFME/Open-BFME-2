@@ -29,11 +29,7 @@
 //   parseTurretSweep repair note (Real* at +0x10). This body is
 //   target-evidence reconstruction, not a donor copy.
 
-class INI
-{
-public:
-	static void parseInt(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../../Include/Common/INI/INI.h"
 
 struct UpgradeSoundSelectorEntry
 {

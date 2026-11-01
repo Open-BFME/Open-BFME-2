@@ -384,13 +384,7 @@ enum CommandSourceType { CMD_FROM_PLAYER, CMD_FROM_SCRIPT, CMD_FROM_AI };
 // 12-byte entry appended to the vector at instance + 0x58 (12-byte POD
 // push_back fold 0x002DF89B). Name address-derived.
 
-class INI
-{
-public:
-	const char *getNextTokenOrNull(const char *seps = 0);
-	int scanIndexList(const char *token, const char *const *names);
-	static void parseObjectCreationList(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../../Include/Common/INI/INI.h"
 
 class ObjectCreationList;
 

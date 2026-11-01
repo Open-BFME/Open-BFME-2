@@ -11,12 +11,7 @@
 //       0x004CB047: VoicePriority 0x00C5F124, store +0x218, flag +0x21C. The
 //       record's owner is unproven, so the name stays address-derived.
 
-class INI
-{
-public:
-	static void parseInt(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva004CAB3D_ParseVoicePriority(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../../Include/Common/INI/INI.h"
 
 class RandomSoundSelectorClientBehaviorModuleData
 {

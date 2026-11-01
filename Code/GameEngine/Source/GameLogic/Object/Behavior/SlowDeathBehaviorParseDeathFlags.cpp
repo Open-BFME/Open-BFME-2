@@ -46,13 +46,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 class FXList;
 namespace _STL { template <> void vector<FXList const *,allocator<FXList const *> >::_M_clear(); }
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps = 0);
-	const char *getNextTokenOrNull(const char *seps = 0);
-	int scanIndexList(const char *token, const char *const *names);
-};
+#include "../../../../Include/Common/INI/INI.h"
 
 class FXList;
 class ObjectCreationList;
