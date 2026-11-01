@@ -34,28 +34,7 @@ typedef float Real;
 // vector4.h gives Vector4 a user-defined default constructor.  That matters:
 // with /EHsc the four-element vertex array then uses the retail vector
 // constructor iterator at the same point in the frame.
-class Vector4
-{
-public:
-	float X;
-	float Y;
-	float Z;
-	float W;
-
-	__declspec(dllimport) __forceinline Vector4(void) {}
-	__declspec(dllimport) __forceinline Vector4(float x, float y, float z, float w)
-		: X(x), Y(y), Z(z), W(w) {}
-	Vector4(const Vector4 &other)
-		: X(other.X), Y(other.Y), Z(other.Z), W(other.W) {}
-	Vector4 &operator=(const Vector4 &other)
-	{
-		X = other.X;
-		Y = other.Y;
-		Z = other.Z;
-		W = other.W;
-		return *this;
-	}
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
 struct IDirect3DBaseTexture8 {};
 

@@ -23,21 +23,7 @@
 // multiply above.
 #include <d3d9.h>
 
-class Vector4
-{
-public:
-	__forceinline Vector4() {}
-	__declspec(dllimport) __forceinline Vector4(float x, float y, float z, float w) { X = x; Y = y; Z = z; W = w; }
-	float &operator[](int i) { return (&X)[i]; }
-	const float &operator[](int i) const { return (&X)[i]; }
-	__forceinline Vector4 &operator=(const Vector4 &v) { X = v.X; Y = v.Y; Z = v.Z; W = v.W; return *this; }
-	__forceinline void Set(float x, float y, float z, float w) { X = x; Y = y; Z = z; W = w; }
-
-	float X;
-	float Y;
-	float Z;
-	float W;
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
 class Matrix4
 {

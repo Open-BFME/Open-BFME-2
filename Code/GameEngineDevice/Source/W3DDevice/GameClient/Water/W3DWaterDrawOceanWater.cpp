@@ -146,21 +146,7 @@ struct IDirect3DDevice8
 
 extern unsigned number_of_DX8_calls;
 
-class Vector4
-{
-public:
-	__forceinline Vector4() {}
-	// Preserve the inline construction without a competing standalone helper.
-	__declspec(dllimport) __forceinline Vector4(Real x, Real y, Real z, Real w) { X = x; Y = y; Z = z; W = w; }
-	__forceinline void Set(Real x, Real y, Real z, Real w) { X = x; Y = y; Z = z; W = w; }
-	__forceinline Vector4 &operator=(const Vector4 &vec) { X = vec.X; Y = vec.Y; Z = vec.Z; W = vec.W; return *this; }
-	__forceinline const Real &operator[](int i) const { return (&X)[i]; }
-
-	Real X;
-	Real Y;
-	Real Z;
-	Real W;
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
 class Vector3
 {

@@ -214,30 +214,7 @@ private:
 	unsigned char m_data[0x34];
 };
 
-class Vector4
-{
-public:
-	Vector4() {}
-	__forceinline Vector4 &operator=(const Vector4 &v)
-	{
-		X = v.X;
-		Y = v.Y;
-		Z = v.Z;
-		W = v.W;
-		return *this;
-	}
-	void Set(float x, float y, float z, float w)
-	{
-		X = x;
-		Y = y;
-		Z = z;
-		W = w;
-	}
-	float X;
-	float Y;
-	float Z;
-	float W;
-};
+#include "../../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
 class Matrix3D
 {

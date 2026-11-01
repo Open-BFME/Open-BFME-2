@@ -9,16 +9,7 @@
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-struct Vector4
-{
-	float X;
-	float Y;
-	float Z;
-	float W;
-	Vector4() {}
-	__forceinline Vector4(const Vector4 &vector4) { X = vector4.X; Y = vector4.Y; Z = vector4.Z; W = vector4.W; }
-	__forceinline Vector4 &operator=(const Vector4 &v) { X = v.X; Y = v.Y; Z = v.Z; W = v.W; return *this; }
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
 class Matrix3D
 {

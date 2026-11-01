@@ -18,25 +18,7 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #pragma optimize("", on)
 #pragma auto_inline(on)
 
-class Vector4
-{
-public:
-	Vector4();
-	Vector4 &operator=(const Vector4 &that)
-	{
-		X = that.X;
-		Y = that.Y;
-		Z = that.Z;
-		W = that.W;
-		return *this;
-	}
-
-private:
-	float X;
-	float Y;
-	float Z;
-	float W;
-};
+#include "../WWMath/Vector4Data.h"
 
 // Retail's RefCountClass inline copies (scalar deleting dtor 0x00072899) are
 // the size form: compile this class for size, as hlod.cpp does.

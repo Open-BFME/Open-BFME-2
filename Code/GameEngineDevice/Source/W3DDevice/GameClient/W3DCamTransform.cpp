@@ -147,15 +147,7 @@ extern unsigned int BfmeLiveCameraModeNameStorage;	// live camera mode name (Asc
 __forceinline float Vector3::Length() const { return WWMath::Sqrt(Length2()); }
 __forceinline float Vector3::Distance(const Vector3 &p1, const Vector3 &p2) { Vector3 temp; temp = p1 - p2; return (temp.Length()); }
 // Reduced donor math view: formulas from GeneralsMD WWMath/matrix3d.h.
-class Vector4 {
-public:
-    float X,Y,Z,W;
-    Vector4() {}
-    __forceinline Vector4 &operator=(const Vector4 &v) {X=v.X;Y=v.Y;Z=v.Z;W=v.W;return *this;}
-    __forceinline void Set(float x,float y,float z,float w) {X=x;Y=y;Z=z;W=w;}
-    float &operator[](int i) {return (&X)[i];}
-    const float &operator[](int i)const {return (&X)[i];}
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 class Matrix3D {
 public:
     Vector4 Row[3];

@@ -211,17 +211,7 @@ class CollisionMath {public:enum OverlapType {OUTSIDE=1,INSIDE=2,OVERLAPPED=8};s
 class MeshClass;
 
 
-class Vector4
-{
-public:
-	Vector4(void) {}
-	__declspec(dllimport) __forceinline Vector4(Real x, Real y, Real z, Real w) { X = x; Y = y; Z = z; W = w; }
-	__forceinline Vector4(const Vector4 &vector4) { X = vector4.X; Y = vector4.Y; Z = vector4.Z; W = vector4.W; }
-	__forceinline Vector4 &operator=(const Vector4 &v) { X = v.X; Y = v.Y; Z = v.Z; W = v.W; return *this; }
-	Real &operator[](int i) { return (&X)[i]; }
-	const Real &operator[](int i) const { return (&X)[i]; }
-	Real X, Y, Z, W;
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
 class Matrix3D
 {

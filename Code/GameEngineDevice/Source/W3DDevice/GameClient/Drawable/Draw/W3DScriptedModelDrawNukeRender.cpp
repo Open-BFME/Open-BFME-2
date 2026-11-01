@@ -8,7 +8,7 @@
 // carry no recovered signature claim. Target matrix18 and count4 are proven
 // by native accesses. Forced inline matrix/vector assignment supplies the
 // complete twelve-word copies in both branches. Original method name unknown.
-struct Vector4 {float X,Y,Z,W;__forceinline Vector4&operator=(const Vector4&o){X=o.X;Y=o.Y;Z=o.Z;W=o.W;return *this;}};
+#include "../../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 class Matrix3D {public:Vector4 row[3];__forceinline Matrix3D&operator=(const Matrix3D&o){row[0]=o.row[0];row[1]=o.row[1];row[2]=o.row[2];return *this;}};
 class Drawable {public:const Matrix3D*getTransformMatrix()const;};
 void BFME_DX8_Thread_Lock();bool BFME_DX8_Thread_Assert();

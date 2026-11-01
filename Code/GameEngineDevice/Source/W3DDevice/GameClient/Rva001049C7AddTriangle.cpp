@@ -94,16 +94,7 @@ struct ListNode
 // compete with retail's (0x0004C91A for the constructor). The display size is
 // one Vector2 built from getWidth() and getHeight(): its arguments run right
 // to left, which is retail's getHeight-first call order and float homes.
-class Vector4
-{
-public:
-	float X;
-	float Y;
-	float Z;
-	float W;
-	WWINLINE float &operator[](int i) { return (&X)[i]; }
-	WWINLINE void Set(float x, float y, float z, float w) { X = x; Y = y; Z = z; W = w; }
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
 class Matrix3D
 {

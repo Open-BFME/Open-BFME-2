@@ -53,16 +53,7 @@ public:
 	float Z;
 };
 
-class Vector4
-{
-public:
-	__forceinline void Set( float x, float y, float z, float w ) { X = x; Y = y; Z = z; W = w; }
-	float &operator [] ( int i ) { return (&X)[i]; }
-	float X;
-	float Y;
-	float Z;
-	float W;
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
 class Matrix3D
 {

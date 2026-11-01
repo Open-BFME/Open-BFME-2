@@ -68,23 +68,7 @@ public:
 	}
 };
 
-class Vector4
-{
-public:
-	float X;
-	float Y;
-	float Z;
-	float W;
-
-	Vector4(void) {}
-	__declspec(dllimport) __forceinline Vector4(float x, float y, float z, float w) : X(x), Y(y), Z(z), W(w) {}
-	Vector4(const Vector4 &vector4) : X(vector4.X), Y(vector4.Y), Z(vector4.Z), W(vector4.W) {}
-	Vector4 &operator=(const Vector4 &vec) { X = vec.X; Y = vec.Y; Z = vec.Z; W = vec.W; return *this; }
-	float &operator[](int i) { return (&X)[i]; }
-	const float &operator[](int i) const { return (&X)[i]; }
-	Vector4 &operator*=(float k) { X *= k; Y *= k; Z *= k; W *= k; return *this; }
-	void Set(float x, float y, float z, float w) { X = x; Y = y; Z = z; W = w; }
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
 class Matrix3D
 {

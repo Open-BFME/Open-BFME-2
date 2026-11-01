@@ -433,17 +433,7 @@ public:
 	const float &operator[](int i) const { return (&X)[i]; }
 };
 
-class Vector4
-{
-public:
-	float X;
-	float Y;
-	float Z;
-	float W;
-
-	float &operator[](int i) { return (&X)[i]; }
-	const float &operator[](int i) const { return (&X)[i]; }
-};
+#include "../WWMath/Vector4Data.h"
 
 // upstream layout: dx8fvf.h VertexFormatXYZNDUV1 (36 bytes).
 struct VertexFormatXYZNDUV1

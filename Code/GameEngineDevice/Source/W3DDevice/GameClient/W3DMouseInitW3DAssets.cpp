@@ -94,17 +94,7 @@ public:
 	float Z;
 };
 
-class Vector4
-{
-public:
-	__forceinline void Set( float x, float y, float z, float w ) { X = x; Y = y; Z = z; W = w; }
-	__forceinline float & operator []( int i ) { return (&X)[i]; }
-
-	float X;
-	float Y;
-	float Z;
-	float W;
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
 extern "C" double __cdecl cos( double x );
 extern "C" double __cdecl sin( double x );

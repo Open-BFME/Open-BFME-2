@@ -142,18 +142,7 @@ struct IDirect3DDevice8
 	virtual long __stdcall SetPixelShader(void *shader) = 0;	// slot 107
 };
 extern unsigned number_of_DX8_calls;
-class Vector4
-{
-public:
-	__forceinline Vector4() {}
-	__forceinline Vector4(const Vector4 &vector4) { X = vector4.X; Y = vector4.Y; Z = vector4.Z; W = vector4.W; }
-	__forceinline Vector4 &operator=(const Vector4 &vec) { X = vec.X; Y = vec.Y; Z = vec.Z; W = vec.W; return *this; }
-	// Calls are already inlined; use the canonical matrix3d.cpp out-of-line owner.
-	__declspec(dllimport) __forceinline Vector4(Real x, Real y, Real z, Real w) { X = x; Y = y; Z = z; W = w; }
-	__forceinline Real &operator[](int i) { return (&X)[i]; }
-	__forceinline const Real &operator[](int i) const { return (&X)[i]; }
-	Real X, Y, Z, W;
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 class Vector3
 {
 public:

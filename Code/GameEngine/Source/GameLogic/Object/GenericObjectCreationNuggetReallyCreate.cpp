@@ -70,13 +70,7 @@ enum NameKeyType { NAMEKEY_INVALID = 0 };
 enum PathfindLayerEnum { LAYER_INVALID = 0, LAYER_GROUND = 1 };
 NameKeyType NAMEKEY(const AsciiString &name);
 
-struct Vector4
-{
-	Vector4() {}
-	__forceinline Vector4 &operator=(const Vector4 &v) { X = v.X; Y = v.Y; Z = v.Z; W = v.W; return *this; }
-	Real &operator[](int i) { return (&X)[i]; }
-	Real X, Y, Z, W;
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
 class Matrix3D
 {

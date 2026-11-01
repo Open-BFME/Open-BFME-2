@@ -339,13 +339,7 @@ public:
 	virtual float getHeightMapHeight(float x, float y, void *normal); // +0x244
 };
 
-class Vector4
-{
-public:
-	Real X, Y, Z, W;
-	__forceinline Real &operator[](int i) { return (&X)[i]; }
-	__forceinline const Real &operator[](int i) const { return (&X)[i]; }
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
 class Matrix3D
 {

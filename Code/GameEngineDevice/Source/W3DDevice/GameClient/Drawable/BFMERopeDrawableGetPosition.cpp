@@ -54,16 +54,7 @@ public:
 // reference assignments inside the proven native 344-byte body.
 // The rebuild helper remains address-named; its source identity is unproved.
 
-class Vector4
-{
-public:
-    float X, Y, Z, W;
-    __forceinline Vector4 &operator=(const Vector4 &v)
-    {
-        X=v.X; Y=v.Y; Z=v.Z; W=v.W;
-        return *this;
-    }
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 class Matrix3D
 {
 public:

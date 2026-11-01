@@ -14,14 +14,7 @@
 float Sin(float x);
 float Cos(float x);
 
-class Vector4
-{
-public:
-	float X, Y, Z, W;
-	void Set(float x, float y, float z, float w) { X = x; Y = y; Z = z; W = w; }
-	float &operator[](int i) { return (&X)[i]; }
-	const float &operator[](int i) const { return (&X)[i]; }
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
 class Matrix3D
 {

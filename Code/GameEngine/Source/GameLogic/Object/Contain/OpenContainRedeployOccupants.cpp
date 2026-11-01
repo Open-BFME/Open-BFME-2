@@ -45,22 +45,7 @@ extern template class _STL::_Rb_tree<int,_STL::pair<const int,int>,_STL::_Select
 #include "ascii_string.h"
 // Read-only BF1/GeneralsMD matrix3d.h supplies the 3-by-4 float copy contract.
 // Native32 arrays each invoke three16B default row constructors.
-class Vector4
-{
-public:
-    Vector4()
-    {
-    }
-    __forceinline Vector4 &operator=(const Vector4 &v)
-    {
-        X=v.X;
-        Y=v.Y;
-        Z=v.Z;
-        W=v.W;
-        return *this;
-    }
-    float X,Y,Z,W;
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 class Matrix3D
 {
 public:

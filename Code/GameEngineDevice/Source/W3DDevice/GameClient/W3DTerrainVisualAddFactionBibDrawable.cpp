@@ -51,16 +51,7 @@ public:
 	Real Z;
 };
 
-class Vector4
-{
-public:
-	Real &operator[](int i) { return (&X)[i]; }
-	const Real &operator[](int i) const { return (&X)[i]; }
-	Real X;
-	Real Y;
-	Real Z;
-	Real W;
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
 class Matrix3D
 {
