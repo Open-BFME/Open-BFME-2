@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // Native3FC149..3FC291 RET4,328B; WB10705B0 has the same transform
 // copy, Set_Rotation711EF0, scale and virtual21 calls. Sole known direct
 // native caller is the existing guarded wrapper3F935A,20B. Retain its
@@ -13,64 +13,11 @@ typedef float Real;
 
 class Matrix3D;
 
-class Matrix3
-{
-public:
-	Matrix3(const Matrix3D &m);
-private:
-	Real m_rows[9];
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"
 
-class Matrix3D
-{
-public:
-	void Set_Rotation(const Matrix3 &m);
-};
 
-class LivingWorldVisualRow
-{
-public:
-	__forceinline LivingWorldVisualRow(const LivingWorldVisualRow &livingWorldVisualRow) { X = livingWorldVisualRow.X; Y = livingWorldVisualRow.Y; Z = livingWorldVisualRow.Z; W = livingWorldVisualRow.W; }
-	Real &operator[](int i) { return (&X)[i]; }
-	Real X;
-	Real Y;
-	Real Z;
-	Real W;
-};
 
-class LivingWorldVisualTransform
-{
-public:
-	__forceinline LivingWorldVisualTransform(const LivingWorldVisualTransform &livingWorldVisualTransform)
-		: Row0(livingWorldVisualTransform.Row0), Row1(livingWorldVisualTransform.Row1), Row2(livingWorldVisualTransform.Row2) {}
-	LivingWorldVisualRow &operator[](int i) { return (&Row0)[i]; }
-	void Scale(Real scale)
-	{
-		(*this)[0][0] *= scale; (*this)[1][0] *= scale; (*this)[2][0] *= scale;
-		(*this)[0][1] *= scale; (*this)[1][1] *= scale; (*this)[2][1] *= scale;
-		(*this)[0][2] *= scale; (*this)[1][2] *= scale; (*this)[2][2] *= scale;
-	}
-	LivingWorldVisualRow Row0;
-	LivingWorldVisualRow Row1;
-	LivingWorldVisualRow Row2;
-};
 
-class RenderObjClass
-{
-public:
-#define V(n) virtual void slot##n();
-	V(00) V(01) V(02) V(03) V(04) V(05) V(06) V(07) V(08) V(09)
-	V(10) V(11) V(12) V(13) V(14) V(15) V(16) V(17) V(18) V(19)
-#undef V
-	virtual void Validate_Transform() const;							// slot 20
-	virtual void Set_Transform(const LivingWorldVisualTransform &m);	// slot 21
-	const LivingWorldVisualTransform &Get_Transform() const { Validate_Transform(); return Transform; }
-	friend class U4Target0060C2C0;
-private:
-	unsigned char m_pad04[0x18 - 0x04];
-	LivingWorldVisualTransform Transform;								// +0x18
-	Real ObjectScale;													// +0x48
-};
 
 class U4Target0060C2C0
 {
@@ -96,11 +43,10 @@ void LivingWorldEyeTower::rva003F935A(U4Target0060C2C0 *target, void *payload)
 
 void U4Target0060C2C0::hand(void *payload) {
  if(primary){
- LivingWorldVisualTransform tm=primary->Get_Transform();
- reinterpret_cast<Matrix3D*>(&tm)->Set_Rotation(*static_cast<const Matrix3*>(payload));
- // The native inline read does not need an emitted Get_ObjectScale COMDAT.
- // Its global kept copy is census debt; direct access retains the proven48 field.
- Real factor=primary->ObjectScale;
+ Matrix3D tm=primary->Get_Transform();
+ tm.Set_Rotation(*static_cast<const Matrix3*>(payload));
+ // The public scale accessor supplies the factor for the transform's columns.
+ Real factor=primary->Get_ObjectScale();
  tm.Scale(factor);
  primary->Set_Transform(tm);
  if(secondary)secondary->Set_Transform(tm);

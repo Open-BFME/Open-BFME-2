@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc /ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // ??1Rva006ED6F@@UAE@XZ retail 0x0006ED6F 116B
 // MI dtor: own vftables at +0 (SimpleSceneClass part) and +0x108
 // (SubsystemInterface part). Removes the held render object from the scene
@@ -6,18 +6,7 @@
 // releases and clears the ref at +0x114, then the rowed base dtors
 // ??1SubsystemInterface@@UAE@XZ 0x001B4E74 and ??1SimpleSceneClass@@UAE@XZ
 // 0x00141DF0.
-class RenderObjClass
-{
-public:
-	virtual void Delete_This();
-	void Release_Ref()
-	{
-		if (--m_numRefs == 0)
-			Delete_This();
-	}
-private:
-	int m_numRefs;
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"
 
 class SimpleSceneClass
 {

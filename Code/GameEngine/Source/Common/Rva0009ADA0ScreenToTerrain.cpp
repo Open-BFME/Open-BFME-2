@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 //
 // ?screenToTerrain@Rva0009D55BProduct@@UAEXPBHPAVVector3@@@Z retail 0x0009ADA0..0x0009AE98
 // (248 bytes). Slot 14 (+0x38) of the view vtable 0x00BC89C8 whose slot 27
@@ -11,44 +11,8 @@
 // at TheLivingWorldManager's +0xE4 height (Vector3::Find_X_At_Z and
 // Find_Y_At_Z inlined); the world z is cleared.
 
-class Vector3
-{
-public:
-	float X;
-	float Y;
-	float Z;
+#include "../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"
 
-	Vector3() {}
-	Vector3(float x, float y, float z) : X(x), Y(y), Z(z) {}
-	Vector3 &operator=(const Vector3 &v)
-	{
-		X = v.X;
-		Y = v.Y;
-		Z = v.Z;
-		return *this;
-	}
-	void Set(float x, float y, float z)
-	{
-		X = x;
-		Y = y;
-		Z = z;
-	}
-
-	static float Find_X_At_Z(float z, const Vector3 &p1, const Vector3 &p2)
-	{
-		return p1.X + ((z - p1.Z) * ((p2.X - p1.X) / (p2.Z - p1.Z)));
-	}
-	static float Find_Y_At_Z(float z, const Vector3 &p1, const Vector3 &p2)
-	{
-		return p1.Y + ((z - p1.Z) * ((p2.Y - p1.Y) / (p2.Z - p1.Z)));
-	}
-};
-
-class RenderObjClass
-{
-public:
-	Vector3 Get_Position() const;
-};
 
 class Rva002BF4F3
 {
