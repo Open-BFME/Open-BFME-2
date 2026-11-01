@@ -8,7 +8,7 @@
 #include "Lib/Coord3D.h"
 #include "../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
-class Thing { public: void setTransformMatrix(const Matrix3D *); };
+#include "../../Common/Thing/thing.h"
 class Object {
 public:
  void rva0028AE6D();
