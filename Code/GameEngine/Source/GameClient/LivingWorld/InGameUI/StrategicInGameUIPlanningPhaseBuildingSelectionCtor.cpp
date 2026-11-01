@@ -365,12 +365,7 @@ public:
 };
 #include <string.h>
 
-class GameWindow {
-public:
-    int winHide(bool); bool winIsHidden(); int winEnable(bool);
-    unsigned int winSetStatus(unsigned int); unsigned int winClearStatus(unsigned int);
-    unsigned int winGetStatus();
-};
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;

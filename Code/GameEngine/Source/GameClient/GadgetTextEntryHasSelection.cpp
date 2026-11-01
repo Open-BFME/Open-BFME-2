@@ -1,11 +1,7 @@
 // ?GadgetTextEntryHasSelection@@YA_NPAVGameWindow@@@Z
 // cl: /Ob0
 
-class GameWindow
-{
-public:
-	void *winGetUserData(void);
-};
+#include "../../Include/GameClient/Bfme2GameWindow.h"
 
 struct Rva00516660User
 {

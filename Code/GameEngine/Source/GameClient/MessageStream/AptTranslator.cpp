@@ -54,13 +54,7 @@ public:
 };
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
-class GameWindow
-{
-public:
-	unsigned int winGetStatus();
-	GameWindow *winGetParent();
-	unsigned char winPointInWindow(int x, int y);
-};
+#include "../../../Include/GameClient/Bfme2GameWindow.h"
 class GameWindowManager
 {
 public:

@@ -17,12 +17,7 @@
 // retail's +0x110. /O1 was chosen by probe: /O2 puts the setne result in dl
 // where retail uses al.
 
-class GameWindow
-{
-public:
-	int winHide(bool hide);
-	bool winIsHidden();
-};
+#include "../../Include/GameClient/Bfme2GameWindow.h"
 
 #include "../Common/GameLogicObjectLookupView.h"
 

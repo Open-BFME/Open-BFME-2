@@ -23,14 +23,7 @@
 class WinInstanceData;
 class BfmeKeyLC;
 
-class GameWindow
-{
-public:
-	int winSetTooltipFunc(void (*tooltip)(GameWindow *window, WinInstanceData *instData, unsigned int mouse));
-	int winEnable(bool enable);
-	int winHide(bool hide);
-	int rva0031475A();
-};
+#include "../../../Include/GameClient/Bfme2GameWindow.h"
 
 // The map list box tooltip set by 0x00443BF3 (defined below).
 void Rva0043E8F1Tooltip(GameWindow *window, WinInstanceData *instData, unsigned int mouse);

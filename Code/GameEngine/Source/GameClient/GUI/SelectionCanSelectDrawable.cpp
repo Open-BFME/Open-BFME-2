@@ -50,12 +50,7 @@ public:
 };
 
 
-class GameWindow
-{
-public:
-	UnsignedInt winGetStatus();
-	GameWindow *winGetParent();
-};
+#include "../../../Include/GameClient/Bfme2GameWindow.h"
 
 class View
 {

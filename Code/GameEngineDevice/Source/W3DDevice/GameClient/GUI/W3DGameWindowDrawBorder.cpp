@@ -27,16 +27,7 @@ typedef unsigned int UnsignedInt;
 
 class GameFont;
 
-class GameWindow
-{
-public:
-	Int winGetScreenPosition(Int *x, Int *y);
-	Int winGetSize(Int *width, Int *height);
-	UnsignedInt winGetStyle();
-	Int winGetTextLength();
-	UnicodeString winGetText();
-	GameFont *winGetFont();
-};
+#include "../../../../../GameEngine/Include/GameClient/Bfme2GameWindow.h"
 
 class Rva003140C8DwordField
 {

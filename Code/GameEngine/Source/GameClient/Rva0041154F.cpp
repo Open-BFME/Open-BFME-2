@@ -21,13 +21,7 @@ public:
 // VA 0x00E02FE4: the component-window table AptComponentWindowLookup.cpp owns.
 extern unsigned int AptComponentWindowDataTableStorage[5];
 
-class GameWindow
-{
-public:
-	bool winIsHidden();
-	int winHide(bool hide);
-	unsigned int winSetStatus(unsigned int status);
-};
+#include "../../Include/GameClient/Bfme2GameWindow.h"
 
 struct Rva0041154FNode
 {

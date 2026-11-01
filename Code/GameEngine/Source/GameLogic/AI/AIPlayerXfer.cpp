@@ -46,11 +46,7 @@ void XferGameDifficulty(Xfer *xfer, int *value);
 
 class TeamInQueue;
 
-class GameWindow
-{
-public:
-	unsigned int winGetStatus();
-};
+#include "../../../Include/GameClient/Bfme2GameWindow.h"
 
 class Rva001DB09DDwordField
 {

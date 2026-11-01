@@ -4,12 +4,7 @@
 // The table at869310 puts doInvoke at slot3 and the status queries at slots1/2.
 // Slot0 and the prefix word remain opaque; this view is not instantiated.
 class WinInstanceData;
-class GameWindow {
-public:
-    WinInstanceData *winGetInstanceData();
-    int winGetWindowId();
-    unsigned int winGetStatus();
-};
+#include "../../../Include/GameClient/Bfme2GameWindow.h"
 struct HotKeyWindowInstanceView {
     unsigned char unknown0[0x14];
     GameWindow *owner;

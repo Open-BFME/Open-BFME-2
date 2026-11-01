@@ -161,11 +161,7 @@ public:
 	StealthUpdate *rva00373D28(Object *obj);
 };
 
-class GameWindow
-{
-public:
-	void winSetUserData(void *data);
-};
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 
 class Rva00373EC6
 {

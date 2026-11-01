@@ -9,11 +9,7 @@
 // Layout from BfmeQuickMatchScreenBaseConstructor.cpp (slot at +0x04 plus
 // head at +0x08 plus flag at +0x14). No donor; honest address name.
 
-class GameWindow
-{
-public:
-	int winHide(bool hide);
-};
+#include "../../../Include/GameClient/Bfme2GameWindow.h"
 
 class BfmeQuickMatchScreenBase
 {

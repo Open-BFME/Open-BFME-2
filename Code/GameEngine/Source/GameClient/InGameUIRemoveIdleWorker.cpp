@@ -47,12 +47,7 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 #include "unicode_string.h"
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 
-class GameWindow
-{
-public:
-	int winEnable(bool enable);
-	int winGetWindowId(void);
-};
+#include "../../Include/GameClient/Bfme2GameWindow.h"
 
 void GadgetButtonSetText(GameWindow *g, UnicodeString text);
 

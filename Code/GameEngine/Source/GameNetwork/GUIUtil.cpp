@@ -121,14 +121,7 @@ public:
 extern NameKeyGenerator *TheNameKeyGenerator;
 #define NAMEKEY(x) TheNameKeyGenerator->nameToKey(x)
 
-class GameWindow
-{
-public:
-	Int winEnable(Bool enable);
-	Int winHide(Bool hide);
-	unsigned int winGetStatus(void);
-	Int winSetEnabledColor(Int index, Int color);
-};
+#include "../../Include/GameClient/Bfme2GameWindow.h"
 inline void GadgetButtonSetEnabledColor(GameWindow *gameWindow, Int color) { gameWindow->winSetEnabledColor(0, color); }
 class GameWindowManager
 {

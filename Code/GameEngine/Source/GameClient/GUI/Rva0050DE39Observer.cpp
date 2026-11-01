@@ -10,18 +10,7 @@
 typedef int Int;
 
 class Image;
-class GameWindow
-{
-public:
-	int winHide(bool hide);
-	unsigned int winSetStatus(unsigned int status);
-	void winSetEnabledTextColors(int color, int borderColor);
-	void winSetTooltip(UnicodeString tooltip);	// ZH winSetTooltip
-	bool winIsHidden();
-	Int winGetWindowId();
-	int winSetEnabledImage(int index, const Image *image);
-	unsigned char m_pad[8];
-};
+#include "../../../Include/GameClient/Bfme2GameWindow.h"
 
 enum NameKeyType
 {

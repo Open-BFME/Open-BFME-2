@@ -9,10 +9,7 @@ typedef unsigned int UnsignedInt;
 typedef UnsignedInt WindowMsgData;
 enum WindowMsgHandledType { MSG_IGNORED, MSG_HANDLED };
 
-class GameWindow {
-public:
-	unsigned char m_pad[8];
-};
+#include "../../../Include/GameClient/Bfme2GameWindow.h"
 
 class GameWindowManager {
 public:

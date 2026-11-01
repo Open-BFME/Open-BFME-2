@@ -14,10 +14,7 @@ enum NameKeyType { NAMEKEY_INVALID = 0 };
 #include "../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class GameWindow {
-public:
-    int winEnable(bool);
-};
+#include "../../Include/GameClient/Bfme2GameWindow.h"
 void GadgetButtonSetText(GameWindow *, UnicodeString);
 class GameWindowManager;
 extern GameWindowManager *TheWindowManager;

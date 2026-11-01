@@ -82,13 +82,7 @@ public:
 	ICoord2D m_imageSize;	// +0x24
 };
 
-class GameWindow
-{
-public:
-	Int winHide(Bool hide);
-	Int winGetSize(Int *width, Int *height);
-	Int winGetScreenPosition(Int *x, Int *y);
-};
+#include "../../../Include/GameClient/Bfme2GameWindow.h"
 
 enum NameKeyType
 {

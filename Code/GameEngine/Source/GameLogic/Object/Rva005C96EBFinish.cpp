@@ -14,12 +14,7 @@
 
 // Retail destroys this GameWindow-derived screen base through the rowed
 // protected ~GameWindow 0x00314A0C (the unwind funclet / vtable slot 0 target).
-class GameWindow
-{
-protected:
-	virtual ~GameWindow();
-	friend class BfmeAptScreenBase;
-};
+#include "../../../Include/GameClient/Bfme2GameWindow.h"
 
 class BfmeAptScreenBase
 {

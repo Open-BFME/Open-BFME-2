@@ -87,12 +87,7 @@ public:
 
 #include "../../Include/Common/NameKeyGenerator.h"
 
-class GameWindow
-{
-public:
-	Bool winIsHidden();
-	Int winHide(Bool hide);
-};
+#include "../../Include/GameClient/Bfme2GameWindow.h"
 
 class GameWindowManager
 {

@@ -22,12 +22,7 @@
 
 class WinInstanceData;
 
-class GameWindow
-{
-public:
-	int winSetTooltipFunc(void (*tooltip)(GameWindow *window, WinInstanceData *data, unsigned int flags));
-	int winHide(bool hide);
-};
+#include "../../../Include/GameClient/Bfme2GameWindow.h"
 
 typedef void (*GameWinTooltipFunc)(GameWindow *window, WinInstanceData *data, unsigned int flags);
 

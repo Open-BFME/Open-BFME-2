@@ -246,12 +246,7 @@ bool IniLoad( const char *name, INIBlockParse parse );
 
 // Deleting a window runs its virtual destructor in place and frees through the
 // global operator delete (0x0002FD60).
-class GameWindow
-{
-public:
-	virtual ~GameWindow();
-	__forceinline void deleteInstance() { ::delete this; }
-};
+#include "../../Include/GameClient/Bfme2GameWindow.h"
 struct WindowLayoutInfo;
 
 enum NameKeyType { NAMEKEY_INVALID = 0 };

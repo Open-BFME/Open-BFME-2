@@ -63,18 +63,7 @@ public:
 };
 
 class Image;
-class GameWindow {
-public:
- Int winGetScreenPosition(Int *,Int *);
- Int winGetSize(Int *,Int *);
- unsigned int winGetStatus();
- char unknown00[0x48];
- const Image *enabledImage; Color enabledColor,enabledBorder;
- char unknown54[0xb4-0x54];
- const Image *disabledImage; Color disabledColor,disabledBorder;
- char unknownC0[0x120-0xc0];
- const Image *hiliteImage; Color hiliteColor,hiliteBorder;
-};
+#include "../../../../../GameEngine/Include/GameClient/Bfme2GameWindow.h"
 struct Rva0010500FDrawData {
  char unknown00[8]; unsigned int state;
  char unknown0c[0x17c-0xc]; Int imageOffsetX,imageOffsetY;
