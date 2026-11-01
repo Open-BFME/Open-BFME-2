@@ -15749,7 +15749,7 @@ with a one-slot anchor) by `GameLogic/Module/BehaviorModule.h`. Four mechanisms:
 | SupplyWarehouseCripplingBehaviorCtor, WallUpgradeUpdate | 1,143 | 1 | repaired (second commit): `??_7PoisonedBehavior@@6BBehaviorModuleInterface@@@` (0x00C49800) and the `c3e8f0752f` renames `??_7Rva004839D3@@6BRva004839D3_E1/UpdateModule/ObjectModule@@@`, `??_7Rva004AB246@@6BUpdateModule/ObjectModule@@@` |
 | BloodthirstyUpdateCtor, RainOfFireUpdateCtor | 250 | 1 | repaired (second commit): `6BObjectModule`/`6BBehaviorModuleInterface` tables their Dtor units emit |
 | BridgeBehaviorCtor, QueueProductionExitUpdateCtor | 302 | 1 | blocked: files held (StarkillerHDX UpdateModule adoption / QueueProductionExitUpdate.cpp TU merge) |
-| UpdateModuleCtor, RunOffMapBehaviorCtor, DamageModuleCtor, SpecialPowerModuleCtor, BodyModuleCtor, FireWeaponCollide | 1,167 | 2 | blocked on the BehaviorModule.h destructor decision (class claim held) |
+| UpdateModuleCtor, RunOffMapBehaviorCtor, DamageModuleCtor, SpecialPowerModuleCtor, BodyModuleCtor, FireWeaponCollide | 1,167 | 2 | blocked on the BehaviorModule.h destructor change (`class:BehaviorModule` held by StarkillerHDX); tested proposal below; re_attempts verdicts on the six ctor rows |
 | AIGateUpdateCtor, DestroyEnvironmentUpdateCtor | 132 | 3 (+2) | blocked: files held by StarkillerHDX's UpdateModule adoption; it must also declare the rowed derived destructor |
 | AIGateUpdateDtor, DestroyEnvironmentUpdate, Rva0024A797DeletingDtor | 413 | 3 (victims) | clear when the two ctor units stop emitting the copies |
 | ReplenishUnitsBehavior, SiegeDockingBehaviorDtor, SpecialPowerModuleDtor_Unresolved, MonitorConditionUpdate, StructureToppleUpdateCtor, AutoPickUpUpdate | 3,940 | 4 | open; several first copies are in held Dtor files |
@@ -15770,6 +15770,34 @@ Rva0024A797Grandchildren.cpp (1,280 B, linked in the 07:56 census) now loses the
 `??_7StructureToppleUpdate@@6BUpdateModule/BehaviorModuleInterface/ObjectModule@@@`
 copies to StructureToppleUpdate.cpp's Zero Hour tables (first in link order), after
 `c3e8f0752f` moved it onto canonical UpdateModule (mechanism 4).
+Mechanism 2 tested proposal (third commit, no header change landed): with the header
+temporarily patched to `protected: virtual ~BehaviorModule();` (declaration only) and the
+eight affected ctor units compiled into `build/lk10_scratch` (never `build/match`; header
+restored byte-identical), all 24 rows of those units keep identical COMDAT bodies and
+relocation names, none of them defines `??1BehaviorModule@@UAE@XZ`,
+`??_GBehaviorModule@@UAEPAXI@Z` or either `??_7BehaviorModule@@6B...` table, and the only new
+external is `??1BehaviorModule@@MAE@XZ`, which the ten ZH units already provide as identical
+COMDATs (census `first` rule: no loser). That would clear RunOffMapBehaviorCtor,
+DamageModuleCtor, BodyModuleCtor, FireWeaponCollide and SpecialPowerModuleCtor (1,106 B,
+pending a real current-object `link_check`), and UpdateModuleCtor (61 B) once its private
+UpdateModule view also declares `virtual ~UpdateModule();` (rowed in
+Rva0024A797DeletingDtor.cpp). The protected spelling is the one retail and Zero Hour use for
+module destructors (`??1DieModule@@MAE@XZ`, MEMORY_POOL_GLUE_ABC). Cost: a canonical unit that
+must inline the empty base destructor (a future canonical ~DieModule) then needs the inline
+body back, so the header owner should decide; a shared-header edit takes the full gate.
+Mechanism 3 for the held ctor files: canonical UpdateModule.h already declares
+`virtual ~UpdateModule();`, which removes the inline ~UpdateModule/~BehaviorModule copies, but
+`AIGateUpdate`/`DestroyEnvironmentUpdate` must also declare their rowed
+`virtual ~AIGateUpdate();`/`virtual ~DestroyEnvironmentUpdate();`, or the vftable's `??_G`
+still emits an implicit copy that duplicates the Dtor rows (scratch test above: both still
+define it).
+Mechanism 4 retail slots (table VAs, slot targets as RVAs, read from the image, diff against BehaviorModule's
+0x00BEE9C0): SiegeDockingBehavior 0x00C41420 slots 9 (0x002533D3) and 34 (0x004543A9);
+AutoPickUpUpdate 0x00C4EFB0 slots 9 and 27 (0x004543A9); ReplenishUnitsBehavior 0x00C49F78
+slots 9 and 10 (0x004543A9); SpecialPowerModule 0x00BEFCF8 slots 8 (0x002533D3), 43
+(0x00251C11), 44 (0x00251C24). The canonical copies (digest `d0dadb66`) override none of
+them, so making the private copies equal them would only hide the defect; both views need
+the native overrides (canonical UpdateModule.h supplies slot 9 for update modules).
 Remaining / next check: the open rows above. Pattern: after a base-header adoption,
 grep `__identifier("??_7<Class>@@6B<old base>@@@")` in sibling units, and check whether
 any adopting unit defines a constructor (it then emits the base's inline destructor and
