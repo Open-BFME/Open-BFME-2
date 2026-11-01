@@ -65,7 +65,8 @@ public:
 	unsigned char m_current;
 	unsigned char m_minimum;
 };
-#include "../../../../Include/Common/ObjectModule.h"
+
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 #define BFME_SNAPSHOT_NAME_GETTER(NAME, TEXT) \
 	class NAME \
 	{ \
@@ -89,23 +90,8 @@ public:
 #include "../../AI/WorkOrder.h"
 #include "../../AI/TeamInQueue.h"
 
-#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class UpdateModuleInterface { public: virtual void updateSlot(); };
 
-class UpdateModule : public ObjectModule,
-	public BehaviorModuleInterface, public UpdateModuleInterface
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *data);
-	virtual ~UpdateModule();
-	void xfer(Xfer *xfer);
-
-private:
-	unsigned int m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_updateState;
-};
 
 class Rva004B8732_E1
 {
