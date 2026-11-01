@@ -1,0 +1,34 @@
+{
+ "size": {
+  "value": 32,
+  "proof": "factory 250696 pushes 20h"
+ },
+ "decisions": [
+  {
+   "attribute": "inherited@0x0",
+   "value": "VPTR",
+   "proof": "constructor 4B7045 installs executable-entry table at C58B10"
+  },
+  {
+   "attribute": "inherited@0x1c",
+   "value": "VPTR",
+   "proof": "constructor 4B7045 installs executable-entry table at C58AB8"
+  },
+  {
+   "attribute": "field@0xc",
+   "value": "VPTR",
+   "proof": "constructor 4B7045 installs executable-entry table at C58110"
+  },
+  {
+   "attribute": "field@0x10",
+   "value": "VPTR",
+   "proof": "constructor 4B7045 installs executable-entry table at C58AC8"
+  },
+  {
+   "attribute": "field@0x1c",
+   "value": "VPTR",
+   "proof": "constructor 4B7045 installs executable-entry table at C58AB8"
+  }
+ ],
+ "parent": "UpgradeModule constructor call 460AEC; canonical header missing; no adoption admitted"
+}

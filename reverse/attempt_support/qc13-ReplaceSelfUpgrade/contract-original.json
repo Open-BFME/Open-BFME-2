@@ -1,0 +1,313 @@
+{
+ "bases": [
+  "UpgradeModule",
+  "Rva004B70F0Iface1C"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "ReplaceSelfUpgrade",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 8,
+  "inherited": {
+   "base_views": 1,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x4b7045"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "UpgradeModule",
+       "offset": 0,
+       "own_vftable": "0x858b10",
+       "rule": "retail-ctor-call"
+      },
+      {
+       "kind": "inference",
+       "name": "<vftable 0x84ef80>",
+       "offset": 28,
+       "own_vftable": "0x858ab8",
+       "rule": "retail-inlined-base-vptr(unnamed)"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x4b7045"
+     ],
+     "value": 32
+    },
+    "sizeof": {
+     "kind": "target",
+     "rule": "retail-operator-new",
+     "sites": [
+      "0x2506bd"
+     ],
+     "value": 32
+    },
+    "unknown_subobject_vptrs": {
+     "kind": "inference",
+     "rule": "retail-ctor-vptr-after-own",
+     "sites": [
+      "0x4b7045"
+     ],
+     "value": {
+      "0x10": [
+       "0x858ac8"
+      ],
+      "0x18": [
+       "0x858790"
+      ],
+      "0xc": [
+       "0x858110"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x4b7045"
+     ],
+     "value": {
+      "0x0": "0x858b10",
+      "0x1c": "0x858ab8"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x858b10"
+     ],
+     "value": {
+      "count": 12,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GReplaceSelfUpgrade@@MAEPAXI@Z",
+        "slot": 0,
+        "target": "0x4b70cf"
+       },
+       {
+        "name": "?loadPostProcess@Rva00497805@@MAEXXZ",
+        "slot": 1,
+        "target": "0x497805"
+       },
+       {
+        "name": "?Rva004B7084Get@@YAHXZ",
+        "slot": 2,
+        "target": "0x4b7084"
+       },
+       {
+        "name": "?xfer@ReplaceSelfUpgrade@@MAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x4b6ff7"
+       },
+       {
+        "name": "?getModuleNameKey@ReplaceSelfUpgrade@@UBE?AW4NameKeyType@@XZ",
+        "slot": 4,
+        "target": "0x4b708a"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 5,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 6,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 7,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 9,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 10,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 11,
+        "target": "0xd43d0"
+       }
+      ],
+      "table": "0x858b10"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {
+   "0x858ab8": {
+    "offset": 28,
+    "slots": {},
+    "stores": 1
+   },
+   "0x858b10": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "??_GReplaceSelfUpgrade@@MAEPAXI@Z",
+     "1": "?loadPostProcess@Rva00497805@@MAEXXZ",
+     "2": "?Rva004B7084Get@@YAHXZ",
+     "3": "?xfer@ReplaceSelfUpgrade@@MAEXPAVXfer@@@Z",
+     "4": "?getModuleNameKey@ReplaceSelfUpgrade@@UBE?AW4NameKeyType@@XZ",
+     "5": "??1Region2D@@QAE@XZ",
+     "6": "??1Region2D@@QAE@XZ",
+     "7": "??1Region2D@@QAE@XZ",
+     "8": "??1Region2D@@QAE@XZ",
+     "9": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "10": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "11": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 1,
+   "4": 2,
+   "20": 1,
+   "28": 1,
+   "32": 3
+  },
+  "views": 8,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_moduleData",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "ReplaceSelfUpgradeModuleData*",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_object",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 4,
+   "type": "Object*",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_p18",
+   "name_by": "majority",
+   "offset": 24,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 1,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "inherited@0x0",
+   "candidates": {
+    "4:P": 1,
+    "4:VPTR": 1
+   },
+   "class": "ReplaceSelfUpgrade"
+  },
+  {
+   "attribute": "inherited@0x1c",
+   "candidates": {
+    "4:P": 1,
+    "4:VPTR": 1
+   },
+   "class": "ReplaceSelfUpgrade"
+  },
+  {
+   "attribute": "field@0xc",
+   "candidates": {
+    "4:P": 1,
+    "4:VPTR": 1
+   },
+   "class": "ReplaceSelfUpgrade"
+  },
+  {
+   "attribute": "field@0x10",
+   "candidates": {
+    "4:P": 1,
+    "4:VPTR": 1
+   },
+   "class": "ReplaceSelfUpgrade"
+  },
+  {
+   "attribute": "field@0x1c",
+   "candidates": {
+    "4:P": 1,
+    "4:VPTR": 1
+   },
+   "class": "ReplaceSelfUpgrade"
+  }
+ ],
+ "size": 32,
+ "size_by": "retail-new",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
