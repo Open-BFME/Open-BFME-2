@@ -2,12 +2,7 @@
 // ??0_bfme_AptGameWindow@@QAE@PAX@Z @0x0051268C 94B ctor for 0x27C AptGameWindow via rowed base 0x00313847 plus matched 0x002D2C34 plus vtables C659E8/C659E4 plus 270/274/278 inits evidence factory 0x002D1E55 size 0x27C and dtor 0x005126F5 same vtables
 // Retail destroys this GameWindow-derived screen base through the rowed
 // protected ~GameWindow 0x00314A0C (the unwind funclet / vtable slot 0 target).
-class GameWindow
-{
-protected:
-	virtual ~GameWindow();
-	friend class BfmeAptScreenBase;
-};
+#include "../../../Include/GameClient/Bfme2GameWindow.h"
 
 class __declspec(novtable) BfmeAptScreenBase
 {

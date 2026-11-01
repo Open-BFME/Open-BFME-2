@@ -77,3 +77,5 @@ UpdateModule root adoption is attempted. Shared obstacle register is held
 elsewhere; this README is its proposed native-ABI/remaining-consumer entry.
 
 Host donor: canonical status8/phase1F4 and reverse-link1FC names; same185B draw traversal and all runtime providers, no table emission.
+
+Apt ctor donor: remove protected-dtor-only private GameWindow; retain native explicit Apt table assignments and all secondary construction/EH. Canonical friendship preserves qualified destructor call. No table/default provider introduced.
