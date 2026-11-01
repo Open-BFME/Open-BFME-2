@@ -1,0 +1,2 @@
+z:\home\user\bfme2-runner\repo\Code\GameEngine\Include\GameLogic\../../../Libraries\Include\Lib\Coord3DInline.h(15) : error C2011: 'Coord3D' : 'struct' type redefinition
+z:\home\user\bfme2-runner\repo\Code\GameEngine\Include\GameLogic\../../../Libraries\Include\Lib\Coord2D.h(64) : error C2011: 'Coord2D' : 'struct' type redefinition

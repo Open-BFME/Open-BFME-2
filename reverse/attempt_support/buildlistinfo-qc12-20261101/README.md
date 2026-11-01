@@ -44,3 +44,29 @@ BuildListInfo.cpp: private view removed in its own normal verified commit; all o
 BuildListInfoParseStructure.cpp: private view removed in its own normal verified commit; all owned native rows and full runtime/virtual-provider graph retained, with only the already disclosed getter duplicate aliases.
 
 Xfer caller retains its existing Coord3DBase and ObjectID worker surfaces via explicit casts of the proven12-byte triple and4-byte IDs. Canonical native fields retain the constructor/assignment layout; call targets and all runtime providers must remain exact.
+
+## Remaining served caller: canonical coordinate prerequisite
+
+The SidesList trial redirected its existing build-list shim to the canonical
+class, selected the native name surface and removed that shim's private
+BuildListInfo. It was refused by the compiler: C2011 Coord3D and Coord2D
+redefinitions against the external BaseType.h definitions already loaded by
+PreRTS. The exact patch and diagnostics are banked. Source and shared shim
+were restored in full; no guard suppression, alternate private class or layout
+substitute was introduced. This caller needs canonical coordinate adoption in
+its BaseType include environment before it can consume this class header.
+
+Native SidesList secondary table C0DA88 and all four providers are attached as
+additional evidence, not a SideList producer adoption: deleting adjustor32ED59,
+emptyB3FD0, name32ED53, DoXfer329AEA. Its capitalized LoadPostProcess/DoXfer
+owner spellings remain distinct from the old donor shim. No root module or
+Snapshot header is edited by this attempt. Existing lower-spelled donor
+producer declarations are not claimed as complete target source recovery.
+
+Copy constructor adopted without a second layout: real Coord3D/Coord2D fields
+and int[10] stay in the canonical type. Component/scalar copies are sequenced
+in the m_script initializer before its real AsciiString construction; the
+existing sizeof-checked ten-ID trivial carrier copies the array before the
+m_desiredGatherers initializer. Native253-byte body and its exception handler
+match exactly, preserving the actual three-string/base construction states.
+There is no raw assembly or replacement virtual/default provider.
