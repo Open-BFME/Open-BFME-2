@@ -6774,6 +6774,20 @@ The ordinary batch audit is INCONCLUSIVE (older0d24c60eef index; first strict
 consumer receipt missing in Common/0CreateAHeroManager21FE49.cpp). Carry this
 provider and its transitive consumer scope to the scheduled census.
 
+**Native owner/table prerequisite (2026-11-01, base60e005e3d2):** constructor
+and complete destructor install the same primary14-slot and Snapshot4-slot
+native tables C0C734/C0C724. A private owner rename plus the existing14-slot
+subsystem shim preserves the110B destructor and all eight family byte sequences
+(one adjusted deleting-helper reference unresolved), but its tables and the
+current constructor both replace six concrete native entries by __purecall.
+Do not merge those agreeing incomplete views: primary slots1/9/10 must reach
+B3FD0/3186A5/318768; Snapshot slots1/2/3 reach3187A0/31860D/3189AD. Existing
+providers need real owner/override reconciliation; the3187A0 thunk adjusts-C
+and forwards3184B8. The class-merge engine limitation is only one prerequisite,
+not a reason to admit the incomplete table. Unchanged controls pass15/15;
+old destructor preview LINKS146 and ctor stays0/U2. No Code/row/pin change or
+clearance. [Native tables, emitted-table comparison and rejected candidate](../reverse/attempt_support/globalweather-owner-native-20261101/readme.md).
+
 **Current-state audit (2026-10-27, seat halilkkaya-lk2, inspected `d16a31e4dc`, index `73061d9452`):**
 
 - **Completed (census-confirmed):** the six units in the evidence above link in
