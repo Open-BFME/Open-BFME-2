@@ -142,11 +142,6 @@ class RadarObject
 protected:
 	virtual const char *GetSnapshotName() const;
 };
-
-const char *RadarObject::GetSnapshotName() const
-{
-	return "RadarObject";
-}
 BFME_LITERAL_NAME_GETTER(Rva002DAB5ENamed, "TerrainVisual")
 BFME_LITERAL_NAME_GETTER(Pathfinder, "Pathfinder")
 class TAiData

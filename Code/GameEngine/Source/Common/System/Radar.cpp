@@ -318,6 +318,32 @@ struct Rva002D76C6Owner
 #define BFME_SNAPSHOT_NAME_SLOT
 #define BFME_SNAPSHOT_NAME_SLOT
 #define BFME_SNAPSHOT_NAME_SLOT
+#define BFME_SNAPSHOT_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	protected: \
+		virtual const char *GetSnapshotName() const; \
+	}; \
+	const char *NAME::GetSnapshotName() const \
+	{ \
+		return TEXT; \
+	}
+#define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	public: \
+		const char *name() const; \
+	}; \
+	const char *NAME::name() const \
+	{ \
+		return TEXT; \
+	}
+class UpdateModule
+{
+protected:
+	virtual const char *GetSnapshotName() const;
+};
+#include "../../../Include/GameLogic/Bfme2BuildListInfo.h"
 
 class BfmeTerrainHeightView
 {
@@ -1337,7 +1363,33 @@ struct Rva004469D1Receiver
 	int m_288;
 };
 
+// The constructor installs Snapshot table VA 0x00C0DA88 at +0x0C.
+// Its name slot holds this getter.
+class SidesList
+{
+public:
+	virtual const char *GetSnapshotName() const;
+};
+
+class LuaScriptEngine
+{
+public:
+	virtual const char *GetSnapshotName() const;
+};
+
+class LivingWorldRegionManager { public: virtual const char *GetSnapshotName() const; };
+
+class LivingWorldLogic { public: virtual const char *GetSnapshotName() const; };
+
+class TAiData
+{
+public:
+	virtual const char *GetSnapshotName() const;
+};
+
 // tu-skeleton: 0x002D75E5 130B ?deleteListResources@Radar@@IAEXXZ -- matched in Code/GameEngine/Source/Common/System/Radar_deleteListResources.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/System/Radar.cpp
 
 // ---- from Code/GameEngine/Source/Common/System/Radar.cpp
 
@@ -2214,10 +2266,6 @@ void Radar::tryUnderAttackEvent(const Object *object)
  }
 }
 
-// tu-skeleton: 0x002D767C 6B ?GetSnapshotName@RadarObject@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters2.cpp (not merged yet)
-
-// tu-skeleton: 0x002D76B7 4B ?AddReference@RadarMarker@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Disp8DwordFieldIncDec.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/VslotSmallBodiesAG.cpp
 
 //
@@ -2235,6 +2283,21 @@ void rva002D7B50(Int a, Int b)
 	if (TheDisplay)
 		reinterpret_cast<DisplayView002D7B50 *>(TheDisplay)->v82(a, b);
 }
+
+// ---- from Code/GameEngine/Source/Common/SubsystemNameGetters2.cpp
+
+// Subsystem literal name getters, second unit: six-byte const members with one
+// shape (mov eax,<offset string literal> / ret). Split from
+// Code/GameEngine/Source/Common/SubsystemNameGetters.cpp to keep concurrent
+// contributors conflict-free; the BFME_LITERAL_NAME_GETTER macro is verbatim.
+// No // cl: line (defaults match the frameless 6-byte shape).
+
+const char *RadarObject::GetSnapshotName() const
+{
+	return "RadarObject";
+}
+
+// tu-skeleton: 0x002D76B7 4B ?AddReference@RadarMarker@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Disp8DwordFieldIncDec.cpp (not merged yet)
 
 // tu-skeleton: 0x002D7B6B 76B ?newMap@Radar@@QAEXXZ -- matched in Code/GameEngine/Source/Common/System/RadarNewMap.cpp (not merged yet)
 
