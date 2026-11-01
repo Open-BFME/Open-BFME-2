@@ -33,19 +33,21 @@ public:
     virtual void notify(void *);
 };
 
+struct Rva00280B1ACall;
 class Rva00281A15List
 {
 public:
-    void forEach(void (Rva00281A15Listener::*notify)(void *), void *arg);
-    ~Rva00281A15List()
-    {
-        if (m_begin)
-            free(m_begin);
-    }
-    Rva00281A15Listener **m_begin;
-    Rva00281A15Listener **m_end;
-    Rva00281A15Listener **m_capacity;
-    unsigned int m_index;
+	void forEach(void (Rva00281A15Listener::*notify)(void *), void *arg);
+	void apply(const Rva00280B1ACall &call);
+	~Rva00281A15List()
+	{
+	    if (m_begin)
+	        free(m_begin);
+	}
+	Rva00281A15Listener **m_begin; // +0x00 +0x00
+	Rva00281A15Listener **m_end; // +0x04 +0x04
+	Rva00281A15Listener **m_capacity; // +0x08 +0x08
+	unsigned int m_index; // +0x0C +0x0C
 };
 
 class Rva00282135

@@ -395,10 +395,10 @@ public:
 	    if (m_begin)
 	        free(m_begin);
 	}
-	Rva00281A15Listener **m_begin; // +0x00
-	Rva00281A15Listener **m_end; // +0x04
-	Rva00281A15Listener **m_capacity; // +0x08
-	unsigned int m_index; // +0x0C
+	Rva00281A15Listener **m_begin; // +0x00 +0x00
+	Rva00281A15Listener **m_end; // +0x04 +0x04
+	Rva00281A15Listener **m_capacity; // +0x08 +0x08
+	unsigned int m_index; // +0x0C +0x0C
 };
 
 struct TargetRef00217D4C { virtual void *destroy(unsigned int flags); int references; };
@@ -1010,7 +1010,7 @@ class BfmeT1035
 {
 public:
 	void bfmeUse1035(BfmeX1035 *p, int b);
-	int m_bfmeV; // +0x00
+	int m_bfmeV; // +0x00 +0x00
 };
 
 enum NameKeyType
@@ -1448,20 +1448,14 @@ class Pathfinder
 {
 public:
 	bool QuickDoesPathExist(class Object *obj, const struct Coord3D *from, const struct Coord3D *to, int v);
-public:
 	bool IsGroundLineOnly(const struct Coord3D *lhs, const struct Coord3D *rhs);
-public:
 	Bool IsImpassableCell(int,int);
-public:
 	Bool rva002E9442(const Vector3 &from, const Vector3 &to, Vector3 *pos);
-public:
 	Bool IsPointOnRamp(const Coord3D *pos);
-public:
 	PathfindLayerEnum rva002ED236(Object *obj, Rva002ED236Pos pos);
-public:
 	void SetBridgeStateRepaired(Int layer, Bool repaired);
-public:
 	void ForceMapRecalculation();
+	Int AddBridge(Int bridge);
 };
 
 struct TBridgeAttackInfo
@@ -1981,10 +1975,13 @@ class Rva004DFAB3 { public: bool rva004DFAB3(void *key, void *candidate); };
 class Rva00282B26
 {
 public:
- int rva00282B26(void *key);
+	int rva00282B26(void *key);
+	char m_pad00[0x10];
 private:
- char pad0[0x10]; Rva002829BD **m_begin; Rva002829BD **m_end;
- char pad18[8]; Rva00282B26Callback m_callback;
+	Rva002829BD **m_begin; // +0x10
+	Rva002829BD **m_end; // +0x14
+	char m_pad18[0x8];
+	Rva00282B26Callback m_callback; // +0x20
 };
 
 // Native 4DFE4F..4DFEC8 repeats the matched282B26 nested scan.

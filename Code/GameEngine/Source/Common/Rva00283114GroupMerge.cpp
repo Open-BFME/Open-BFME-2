@@ -33,7 +33,17 @@ public:
  _STL::vector<Object *> objects1C;
  ~Rva00281A76() {}
 };
-class Rva00282B26 { public: int rva00282B26(void *key); };
+class Rva00282B26
+{
+public:
+	int rva00282B26(void *key);
+	char m_pad00[0x10];
+private:
+	Rva002829BD **m_begin; // +0x10
+	Rva002829BD **m_end; // +0x14
+	char m_pad18[0x8];
+	Rva00282B26Callback m_callback; // +0x20
+};
 
 // Native 00283114..00283246 RET4: clear every group's active flag and run the
 // rowed nested scan 0x00282B26. No match: build a new group from virtual slot

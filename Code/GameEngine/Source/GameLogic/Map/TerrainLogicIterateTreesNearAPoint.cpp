@@ -22,7 +22,12 @@ class GeometryInfo {public: GeometryInfo(GeometryType,bool,float,float,float);vi
  bool CollidesWith(const Coord3D &,float,const GeometryInfo &,const Coord3D &,float) const;
  char pad04[12]; float radius;char pad14[0x5c-0x14];};
 class BfmeX1035;
-class BfmeT1035 {public:void bfmeUse1035(BfmeX1035 *,int);};
+class BfmeT1035
+{
+public:
+	void bfmeUse1035(BfmeX1035 *p, int b);
+	int m_bfmeV; // +0x00 +0x00
+};
 struct TerrainTreeRecord {Coord3D position;int key;char pad10[8];bool flag18;char pad19[15];int amount;bool flag2c,flag2d;short next; bool isF18() const {return flag18;}};
 class TerrainLogic {public:
 virtual void slot0();

@@ -236,24 +236,11 @@ TerrainLogic::TerrainLogic()
 // they must not silently inherit the base TerrainLogic implementations.
 // This address-derived constructor view still needs its existing W3D method
 // names reconciled with their providers before it links.
-class W3DTerrainLogic : public TerrainLogic
+class W3DTerrainLogic
 {
 public:
-	W3DTerrainLogic();
-	virtual ~W3DTerrainLogic();
-	virtual bool loadMap(const AsciiString &, ChunkInputStream *, bool, bool);
-	virtual void init();
-	virtual void reset();
-	virtual void update();
-
-protected:
-	virtual const char *GetSnapshotName() const;
-	virtual void xfer(Xfer *xfer);
-	virtual void loadPostProcess();
-
-private:
-	Real m_mapMinZ;										// +0x191C
-	Real m_mapMaxZ;										// +0x1920
+	void Rva0027DA58();
+	void Rva0027D960(void *water, float *region);
 };
 
 
