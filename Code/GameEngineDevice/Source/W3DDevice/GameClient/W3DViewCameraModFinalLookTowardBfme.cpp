@@ -45,7 +45,7 @@ public:
 	Int unknown28;
 };
 
-class Rva00740440CameraPath : public Rva00740AE0Base
+class CameraPath : public Rva00740AE0Base
 {
 public:
 	// Keep the complete contiguous point storage in one array: final-heading
@@ -104,7 +104,7 @@ private:
 	char padding0004[0x1dc - 4];
 	Bool doingRotateCamera;
 	char padding1dd[0x280 - 0x1dd];
-	Rva00740440CameraPath cameraPath;
+	CameraPath cameraPath;
 	char padding22f4[0x2354 - 0x22f4];
 	Int cameraMovementMode;
 };

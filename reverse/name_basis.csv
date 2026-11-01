@@ -6394,3 +6394,12 @@ function,?Rva0011C450Get@@YAHXZ,?getTextureFilter@@YAHXZ,inferred,agree:nl-83546
 function,?rva005E8E80@Rva005E8E80@@UAE?AURva005E1753Result@@XZ,?getResult@Rva005E8E80@@UAE?AURva005E1753Result@@XZ,inferred,agree:nl-059d1e0ef47a,Code/GameEngine/Source/Common/Rva005E8E80Method.cpp,0x005E8E80
 function,?rva00035540@GeneralAllocator@Allocator@EA@@QAE_NP6A_NPBUBlockInfo@23@PAX@Z1H_NPADI@Z,?reportHeap@GeneralAllocator@Allocator@EA@@QAE_NP6A_NPBUBlockInfo@23@PAX@Z1H_NPADI@Z,inferred,agree:nl-e1a240cb4a2b,Code/GameEngine/Source/Common/System/Rva000353F0Trace.cpp,0x00035540
 function,?rva0022546B@BfmeDfe6e4@@QAEXXZ,?unlock@BfmeDfe6e4@@QAEXXZ,inferred,agree:nl-62d62463b6c6,Code/GameEngine/Source/Main/BfmeDfe6e4.cpp,0x0022546B
+function,?rva000658CA@Rva000658C5@@QAE_NPAVMultiListObjectClass@@@Z,?remove@Rva000658C5@@QAE_NPAVMultiListObjectClass@@@Z,inferred,agree:nl-5021e484dbdc,Code/GameEngineDevice/Source/W3DDevice/GameClient/camerashakesystem.cpp,0x000658CA
+function,?rva000658CF@Rva000658C5@@QAEPAVMultiListObjectClass@@XZ,?removeHead@Rva000658C5@@QAEPAVMultiListObjectClass@@XZ,inferred,agree:nl-5b62a38c0be8,Code/GameEngineDevice/Source/W3DDevice/GameClient/camerashakesystem.cpp,0x000658CF
+member,Gen_006e9160_Triple::m_0,Gen_006e9160_Triple::m_dx8Vertices,inferred,agree:nl-8304de108c70,Code/GameEngineDevice/Source/W3DDevice/GameClient/Gen_006e9160_Init.cpp,
+member,Gen_006e9160_Triple::m_4,Gen_006e9160_Triple::m_dx8SkinVertices,inferred,agree:nl-57a60008aa83,Code/GameEngineDevice/Source/W3DDevice/GameClient/Gen_006e9160_Init.cpp,
+member,Gen_006e9160_Triple::m_8,Gen_006e9160_Triple::m_sortingVertices,inferred,agree:nl-6e82fa3c354d,Code/GameEngineDevice/Source/W3DDevice/GameClient/Gen_006e9160_Init.cpp,
+class,BfmeModelEffectRecord,ModelEffectRecord,inferred,agree:nl-ffede3166a21,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/ModelSMConditionInfo.cpp,
+class,BfmeModelNamedRecord,ModelNamedRecord,inferred,agree:nl-81298276b449,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/ModelSMConditionInfo.cpp,
+class,BfmeShadowEdge,ShadowEdge,inferred,agree:nl-bfe5627ecf4e,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DVolumetricShadowV2BuildBuffers.cpp,
+class,Rva00740440CameraPath,CameraPath,inferred,agree:nl-a6d65f6a05ed,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCameraModFinalLookTowardBfme.cpp,

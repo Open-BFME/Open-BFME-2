@@ -96,8 +96,8 @@ class Rva000658C5 : public GenericMultiListClass
 {
 public:
 	bool add(MultiListObjectClass *obj, bool onlyonce);
-	bool rva000658CA(MultiListObjectClass *obj);
-	MultiListObjectClass *rva000658CF();
+	bool remove(MultiListObjectClass *obj);
+	MultiListObjectClass *removeHead();
 };
 
 // ?rva00065E21@Rva00065E21@@QAE_NXZ @0x00065E21 27B list scan for nonzero flag
@@ -155,12 +155,12 @@ bool Rva000658C5::add(MultiListObjectClass *obj, bool onlyonce)
 	return Internal_Add(obj, onlyonce);
 }
 
-bool Rva000658C5::rva000658CA(MultiListObjectClass *obj)
+bool Rva000658C5::remove(MultiListObjectClass *obj)
 {
 	return Internal_Remove(obj);
 }
 
-MultiListObjectClass *Rva000658C5::rva000658CF()
+MultiListObjectClass *Rva000658C5::removeHead()
 {
 	return Internal_Remove_List_Head();
 }

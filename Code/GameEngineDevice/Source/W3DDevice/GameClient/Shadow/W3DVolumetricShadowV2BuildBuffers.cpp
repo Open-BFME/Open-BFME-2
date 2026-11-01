@@ -67,7 +67,7 @@ public:
 	BfmeShadowMeshModel *m_model;
 };
 
-struct BfmeShadowEdge
+struct ShadowEdge
 {
 	int m_vertex0;
 	int m_vertex1;
@@ -78,7 +78,7 @@ struct Rva00107E76Elem
 	BfmeShadowMesh *m_mesh;
 	Vector3 *m_allocation0;
 	unsigned char *m_allocation1;
-	BfmeShadowEdge *m_allocation2;
+	ShadowEdge *m_allocation2;
 	int m_reserved10;
 	unsigned char m_reserved14;
 
@@ -102,7 +102,7 @@ void Rva00107E76Elem::rva00107B41(Vector3 *vertex, short vertexBase,
 	for (j = 0; j < count; ++j)
 		*vertex++ = bfmeAddV3(m_allocation0[j],offset);
 
-	BfmeShadowEdge *edge = m_allocation2;
+	ShadowEdge *edge = m_allocation2;
 	for (int edgesLeft = m_reserved10; edgesLeft > 0; --edgesLeft, ++edge, index += 6)
 	{
 		index[0] = (unsigned short)(edge->m_vertex0 + count) + vertexBase;
@@ -153,7 +153,7 @@ int Rva00107E76Elem::rva00106D56(int vertexBuf, short vertexBase, int indexBuf,
 		for (j = 0; j < count; ++j)
 			*vertex++ = bfmeAddV3(offset, m_allocation0[j]);
 
-		BfmeShadowEdge *edge = m_allocation2;
+		ShadowEdge *edge = m_allocation2;
 		for (int edgesLeft = m_reserved10; edgesLeft > 0; --edgesLeft, ++edge, index += 6)
 		{
 			index[0] = vertexBase + edge->m_vertex0 + count;
@@ -166,7 +166,7 @@ int Rva00107E76Elem::rva00106D56(int vertexBuf, short vertexBase, int indexBuf,
 		return count * 2;
 	}
 
-	BfmeShadowEdge *edge = m_allocation2;
+	ShadowEdge *edge = m_allocation2;
 	for (int edgesLeft = m_reserved10; edgesLeft > 0; --edgesLeft, ++edge, vertex += 4)
 	{
 		vertex[0] = m_allocation0[edge->m_vertex0];

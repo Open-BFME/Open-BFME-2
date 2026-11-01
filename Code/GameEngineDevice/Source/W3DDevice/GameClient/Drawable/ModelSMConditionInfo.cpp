@@ -30,16 +30,16 @@ class Rva001E11F8 {public:void rva001E11F8(int,int);};
 
 struct BfmeModelAssetNode {BfmeModelAssetNode* next;BfmeModelAssetNode* prev;char value[0x14];};
 
-struct BfmeModelEffectRecord {char pad[0x14];Rva001E11F8* value;};
+struct ModelEffectRecord {char pad[0x14];Rva001E11F8* value;};
 
-struct BfmeModelNamedRecord {int key;AsciiString value;};
+struct ModelNamedRecord {int key;AsciiString value;};
 
 class ModelSMConditionInfo {
  char pad00[0x4c];AsciiString* models;AsciiString* modelsEnd;void* modelsCapacity;
- AsciiString name58;char pad5c[8];BfmeModelNamedRecord* names;BfmeModelNamedRecord* namesEnd;void* namesCapacity;
+ AsciiString name58;char pad5c[8];ModelNamedRecord* names;ModelNamedRecord* namesEnd;void* namesCapacity;
  char pad70[0xb4-0x70];BfmeModelAssetNode* node;
- BfmeModelEffectRecord* effects;BfmeModelEffectRecord* effectsEnd;void* effectsCapacity;
- BfmeModelEffectRecord* extraEffects;BfmeModelEffectRecord* extraEffectsEnd;void* extraEffectsCapacity;
+ ModelEffectRecord* effects;ModelEffectRecord* effectsEnd;void* effectsCapacity;
+ ModelEffectRecord* extraEffects;ModelEffectRecord* extraEffectsEnd;void* extraEffectsCapacity;
  char padD0[0xdc-0xd0];AsciiString* texture;
  public:void GetAssetList(AssetList00208F90*,int context,int lod,bool variants);
 };
@@ -66,11 +66,11 @@ void ModelSMConditionInfo::GetAssetList(AssetList00208F90* assets,int context,in
  }while(++it!=modelsEnd);
  if(!((StringBase<char>*)&name58)->isEmpty())*assets<<name58;
  for(BfmeModelAssetNode* it=node->next;it!=node;it=it->next) ((Rva000B2D4D*)it->value)->rva000B2D4D((int)assets,context);
- BfmeModelEffectRecord* fx=effects;
- BfmeModelEffectRecord* fxEnd=effectsEnd;
+ ModelEffectRecord* fx=effects;
+ ModelEffectRecord* fxEnd=effectsEnd;
  if(fx!=fxEnd)do{if(fx->value)fx->value->rva001E11F8((int)assets,context);}while(++fx!=effectsEnd);
- for(BfmeModelEffectRecord* it=extraEffects;it!=extraEffectsEnd;++it) if(it->value)it->value->rva001E11F8((int)assets,context);
+ for(ModelEffectRecord* it=extraEffects;it!=extraEffectsEnd;++it) if(it->value)it->value->rva001E11F8((int)assets,context);
  AsciiString* tex=texture;
  if(tex && !((StringBase<char>*)tex)->isEmpty())*assets<<(*tex+".tga");
- for(BfmeModelNamedRecord* it=names;it!=namesEnd;++it)*assets<<it->value;
+ for(ModelNamedRecord* it=names;it!=namesEnd;++it)*assets<<it->value;
 }
