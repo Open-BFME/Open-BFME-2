@@ -19,7 +19,8 @@ enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-#include "../../Include/GameLogic/Module/BehaviorModule.h"
+
+#include "../../Include/GameLogic/Module/UpdateModule.h"
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 class Thing;
 class ModuleData;
@@ -119,19 +120,6 @@ enum CommandSourceType
 	CMD_FROM_AI = 2
 };
 
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update();
-};
-
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-protected:
-	unsigned m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_bfmeReserved;
-};
 
 class AICommandInterface
 {
@@ -151,7 +139,6 @@ class AIUpdateInterface : public UpdateModule, public AICommandInterface, public
 public:
 	AIUpdateInterface(Thing *thing, const ModuleData *moduleData);
 	virtual UpdateSleepTime update();
-	virtual void a011();
 	virtual void a012();
 	virtual void a013();
 	virtual void a014();
