@@ -1,87 +1,34 @@
-// cl: /Ireference/shims/bfme2_specialpower_layout /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /DWIN32 /D_WINDOWS /DBFME_MODULE_NO_MPO /MD /EHsc /Ireference/open-bfme-1/reference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad
-// This donor Object view does not use native disabled-mask +0x1C8.
-// Keep its unrecovered callers separate from native Object::isDisabled.
-#define isDisabled oCLSpecialPowerDonorIsDisabled
+// cl: /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /ICode/Libraries/Include /ICode/GameEngine/Source
 // stlport
-#define Matrix4x4 Matrix4  // BFME renamed it
-/*
-**	Command & Conquer Generals Zero Hour(tm)
-**	Copyright 2025 Electronic Arts Inc.
-**
-**	This program is free software: you can redistribute it and/or modify
-**	it under the terms of the GNU General Public License as published by
-**	the Free Software Foundation, either version 3 of the License, or
-**	(at your option) any later version.
-**
-**	This program is distributed in the hope that it will be useful,
-**	but WITHOUT ANY WARRANTY; without even the implied warranty of
-**	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-**	GNU General Public License for more details.
-**
-**	You should have received a copy of the GNU General Public License
-**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-////////////////////////////////////////////////////////////////////////////////
-//																																						//
-//  (c) 2001-2003 Electronic Arts Inc.																				//
-//																																						//
-////////////////////////////////////////////////////////////////////////////////
-
 // FILE: OCLSpecialPower.cpp //////////////////////////////////////////////////////////////////////
-// Author: Colin Day, April 2002
-// Desc:   Special powers that are driven by object creation lists
+// Desc:   Special powers that are driven by object creation lists (BFME 2).
+//
+// Target facts:
+//  - ??0OCLSpecialPower (0x004C30D8, 42 bytes) calls the rowed
+//    SpecialPowerModule constructor 0x00493C5A, then stores three tables:
+//    0x00C5CC74 at +0x00 (the ObjectModule chain, 15 slots), the folded
+//    SpecialPowerModule BehaviorModuleInterface table 0x00BEFCF8 at +0x0C and
+//    0x00C5CC10 at +0x10 (the SpecialPowerModuleInterface table, 25 slots);
+//  - slots 10, 12 and 18 of 0x00C5CC10 are the rowed overriders
+//    doSpecialPower (0x004C3204), doSpecialPowerAtLocation (0x004C3365) and
+//    rva0049466D (0x004C3260);
+//  - the CreateLocation parse table names (VA 0x00DCDFD0) are Zero Hour's
+//    six plus three BFME 2 placements.
+// Donor (Zero Hour OCLSpecialPower.cpp) facts: the class, method and
+// placement names. Zero Hour's ModuleData, xfer/crc/loadPostProcess bodies,
+// disabled check and angle argument are not BFME 2's.
+//
+// No vtable is emitted here: most of the three tables' slots still carry
+// placeholder owners, so the class is novtable and the constructor stores the
+// tables by their data-ledger names, each defined by a census object
+// (StopSpecialPowerCtor.cpp precedent). All three names are the ledger aliases
+// that the destructor's current owner Rva004C3108 (0x004C3108) defines.
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-// USER INCLUDES //////////////////////////////////////////////////////////////////////////////////
-#include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
-
-#include "Common/Player.h"
-#include "Common/RandomValue.h"
-#include "Common/ThingFactory.h"
-#include "Common/Xfer.h"
-#include "GameLogic/Object.h"
-#include "GameLogic/ObjectCreationList.h"
-#include "../../../Common/PartitionRangeQueryCallView.h"
-#include "GameLogic/TerrainLogic.h"
-#include "GameLogic/Module/OCLSpecialPower.h"
-
-// Same 32-byte native options view as AIUpdateInterfacePrivateCommands.cpp.
-// Its 55-byte constructor is already rowed at 0x0023C5D0; use that owner
-// rather than emitting a second, differently optimized donor copy.
-struct FindPositionOptions
-{
-    FindPositionOptions();
-    unsigned int flags;
-    float minRadius;
-    float maxRadius;
-    float startAngle;
-    float maxZDelta;
-    const Object *ignoreObject;
-    const Object *sourceToPathToDest;
-    const Object *relationshipObject;
-};
-// Zero Hour PartitionManager.h and the native search's clear-cell branch.
-enum { FPF_CLEAR_CELLS_ONLY = 0x00000100 };
-
-// Shared retail science-word selector; see OCLSpecialPowerFindOCL.cpp.
-class Rva004C31A8ScienceSelector { public: unsigned select() const; };
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-// MODULE DATA ////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
-#ifdef _INTERNAL
-// for occasional debugging...
-//#pragma optimize("", off)
-//#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
-#endif
-
-enum 
-{
-	CREATE_ABOVE_LOCATION_HEIGHT = 300,
-	MAX_ADJUST_RADIUS = 500
-};
+#include "Lib/Coord3D.h"
+#include "../../../../Include/Common/Module.h"
+#include "../../../../Include/Common/ObjectModule.h"
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 // BFME 2's list (retail VA 0x00DCDFD0, .data, read from retail): the
 // CreateLocation parseIndexList names of OCLSpecialPowerModuleData's table,
@@ -97,187 +44,54 @@ const char* TheOCLCreateLocTypeNames[] =
 	"CREATE_AT_EDGE_FARTHEST_FROM_TARGET",
 	"CREATE_CLOSEST_TO_SPAWN_POINT",
 	"USE_SECONDARY_OBJECT_LOCATION",
-	NULL
+	0
 };
 
 //-------------------------------------------------------------------------------------------------
-//-------------------------------------------------------------------------------------------------
-static void parseOCLUpgradePair( INI* ini, void * /*instance*/, void *store, const void* /*userData*/ )
+class SpecialPowerModuleInterface
 {
-	OCLSpecialPowerModuleData::Upgrades up;
-
-	INI::parseScience(ini, NULL, &up.m_science, NULL);
-	INI::parseObjectCreationList(ini, NULL, &up.m_ocl, NULL);
-
-	std::vector<OCLSpecialPowerModuleData::Upgrades>* s = (std::vector<OCLSpecialPowerModuleData::Upgrades>*)store;
-	s->push_back(up);
-}
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-// MODULE /////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////
+public:
+	virtual void doSpecialPower( unsigned commandOptions ) = 0;
+	virtual void doSpecialPowerAtObject( Object *obj, unsigned commandOptions ) = 0;
+	virtual void doSpecialPowerAtLocation( const Coord3D *loc, unsigned commandOptions ) = 0;
+	virtual bool rva0049466D( const Coord3D *loc ) = 0;
+};
 
 //-------------------------------------------------------------------------------------------------
+class SpecialPowerModule : public BehaviorModule, public SpecialPowerModuleInterface
+{
+public:
+	SpecialPowerModule( Thing *thing, const ModuleData *moduleData );
+	virtual ~SpecialPowerModule();											// rowed 0x00493DEF
+
+	virtual void doSpecialPower( unsigned commandOptions );
+	virtual void doSpecialPowerAtObject( Object *obj, unsigned commandOptions );
+	virtual void doSpecialPowerAtLocation( const Coord3D *loc, unsigned commandOptions );
+	virtual bool rva0049466D( const Coord3D *loc );
+};
+
+// The constructor's three tables, by their data-ledger names.
+extern "C" const void *const __identifier("??_7Rva004C3108@@6BRva00493DEF@@@")[];				// 0x00C5CC74
+extern "C" const void *const __identifier("??_7Rva004C3108@@6BMiBase1@@@")[];					// 0x00BEFCF8
+extern "C" const void *const __identifier("??_7Rva004C3108@@6BRva004C3108_B2@@@")[];			// 0x00C5CC10
+
 //-------------------------------------------------------------------------------------------------
-// The module hierarchy needs BFME_MODULE_NO_MPO on this file's own cl line:
-// retail's Module has no MemoryPoolObject base, so BehaviorModule spans 0x0C
-// and this constructor's second vtable store lands at +0x0C, where the wider
-// layout puts a fourth vptr at +0x04 and +0x14 and shifts everything.
+class __declspec(novtable) OCLSpecialPower : public SpecialPowerModule
+{
+public:
+	OCLSpecialPower( Thing *thing, const ModuleData *moduleData );
+
+	virtual void doSpecialPower( unsigned commandOptions );
+	virtual void doSpecialPowerAtLocation( const Coord3D *loc, unsigned commandOptions );
+	virtual bool rva0049466D( const Coord3D *loc );
+};
+
+//-------------------------------------------------------------------------------------------------
+// ??0OCLSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z @0x004C30D8
 OCLSpecialPower::OCLSpecialPower( Thing *thing, const ModuleData *moduleData )
 							 : SpecialPowerModule( thing, moduleData )
 {
-
-} 
-
-//-------------------------------------------------------------------------------------------------
-//-------------------------------------------------------------------------------------------------
-// Implemented in OCLSpecialPowerFindOCL.cpp with the BFME2 ABI.
-
-
-//-------------------------------------------------------------------------------------------------
-//-------------------------------------------------------------------------------------------------
-// Protected visibility preserves retail's MAE destructor and deleting-wrapper symbols.
-// ??1OCLSpecialPower@@MAE@XZ present-unmatched
-OCLSpecialPower::~OCLSpecialPower( void )
-{
-
+	*(unsigned int *)this = (unsigned int)__identifier("??_7Rva004C3108@@6BRva00493DEF@@@");
+	*(unsigned int *)((char *)this + 0x0C) = (unsigned int)__identifier("??_7Rva004C3108@@6BMiBase1@@@");
+	*(unsigned int *)((char *)this + 0x10) = (unsigned int)__identifier("??_7Rva004C3108@@6BRva004C3108_B2@@@");
 }
-
-//-------------------------------------------------------------------------------------------------
-/** Execute the power */
-//-------------------------------------------------------------------------------------------------
-// ?doSpecialPowerAtLocation@OCLSpecialPower@@UAEXPBUCoord3D@@MI@Z present-unmatched
-void OCLSpecialPower::doSpecialPowerAtLocation( const Coord3D *loc, Real angle, UnsignedInt commandOptions )
-{
-	if (getObject()->isDisabled())
-		return;
-
-	// sanity
-	if( loc == NULL )
-		return;
-
-	// get the module data
-	const OCLSpecialPowerModuleData *modData = getOCLSpecialPowerModuleData();
-
-	Coord3D targetCoord = *loc;
-
-	if( modData->m_isOCLAdjustPositionToPassable )
-	{
-		FindPositionOptions fpOptions;
-		fpOptions.flags = FPF_CLEAR_CELLS_ONLY;
-		fpOptions.maxRadius = MAX_ADJUST_RADIUS;
-		if ( ! PartitionManager::findPositionAround(&targetCoord, &fpOptions, &targetCoord) )
-    { // if findPosition() fails, then don't monkey with target Coord!
-    	targetCoord = *loc;
-    }
-    
-
-	}
-
-	// call the base class action cause we are *EXTENDING* functionality
-	SpecialPowerModule::doSpecialPowerAtLocation( &targetCoord, angle, commandOptions );
-
-	const ObjectCreationList* ocl = reinterpret_cast<const ObjectCreationList*>(reinterpret_cast<const Rva004C31A8ScienceSelector*>(this)->select());
-
-	// at what point will the "deliverer" come in
-	Coord3D creationCoord;
-	switch (modData->m_createLoc)
-	{
-		case CREATE_AT_EDGE_NEAR_SOURCE:
-			creationCoord = TheTerrainLogic->findClosestEdgePoint( getObject()->getPosition() );
-			ObjectCreationList::create( ocl, getObject(), &creationCoord, &targetCoord, angle );
-			break;
-		case CREATE_AT_EDGE_NEAR_TARGET:
-			creationCoord = TheTerrainLogic->findClosestEdgePoint(&targetCoord);
-			ObjectCreationList::create( ocl, getObject(), &creationCoord, &targetCoord, angle );
-			break;
-		case CREATE_AT_EDGE_FARTHEST_FROM_TARGET:
-			creationCoord = TheTerrainLogic->findFarthestEdgePoint(&targetCoord);
-			creationCoord.z += CREATE_ABOVE_LOCATION_HEIGHT;
-			ObjectCreationList::create( ocl, getObject(), &creationCoord, &targetCoord, angle );
-			break;
-		case CREATE_AT_LOCATION:
-			// this is the case where the special power stuff originates at the location of the mouse click
-			creationCoord = targetCoord;
-			ObjectCreationList::create( ocl, getObject(), &creationCoord, &targetCoord, angle );
-			break;
-		case USE_OWNER_OBJECT:
-			creationCoord.set( &targetCoord );
-			ObjectCreationList::create( ocl, getObject(), &creationCoord, &targetCoord, angle, false );
-			break;
-		case CREATE_ABOVE_LOCATION:
-			// this is the case where the special power stuff originates above the location of the mouse click
-			creationCoord = targetCoord;
-			creationCoord.z += CREATE_ABOVE_LOCATION_HEIGHT;
-			ObjectCreationList::create( ocl, getObject(), &creationCoord, &targetCoord, angle );
-			break;
-	}
-}  
-
-// ------------------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------
-// ?doSpecialPowerAtObject@OCLSpecialPower@@UAEXPAVObject@@I@Z present-unmatched
-void OCLSpecialPower::doSpecialPowerAtObject( Object *obj, UnsignedInt commandOptions )
-{
-	if (getObject()->isDisabled())
-		return;
-
-	// convert to a location
-	if( !obj )
-		return;
-	doSpecialPowerAtLocation( obj->getPosition(), INVALID_ANGLE, commandOptions );
-}  
-
-// ------------------------------------------------------------------------------------------------
-// Implemented in OCLSpecialPowerFindOCL.cpp with the BFME2 ABI.
-
-
-// ------------------------------------------------------------------------------------------------
-// ?getReferenceThingTemplate@OCLSpecialPower@@UBEPBVThingTemplate@@XZ present-unmatched
-const ThingTemplate* OCLSpecialPower::getReferenceThingTemplate() const
-{
-	return TheThingFactory->findTemplate( getOCLSpecialPowerModuleData()->m_referenceThingName );
-}
-
-// ------------------------------------------------------------------------------------------------
-/** CRC */
-// ------------------------------------------------------------------------------------------------
-// ?crc@OCLSpecialPower@@MAEXPAVXfer@@@Z present-unmatched
-void OCLSpecialPower::crc( Xfer *xfer )
-{
-
-	// extend base class
-	SpecialPowerModule::crc( xfer );
-
-}  // end crc
-
-// ------------------------------------------------------------------------------------------------
-/** Xfer method
-	* Version Info:
-	* 1: Initial version */
-// ------------------------------------------------------------------------------------------------
-// ?xfer@OCLSpecialPower@@MAEXPAVXfer@@@Z present-unmatched
-void OCLSpecialPower::xfer( Xfer *xfer )
-{
-
-	// version
-	XferVersion currentVersion = 1;
-	XferVersion version = currentVersion;
-	xfer->xferVersion( &version, currentVersion );
-
-	// extend base class
-	SpecialPowerModule::xfer( xfer );
-
-}  // end xfer
-
-// ------------------------------------------------------------------------------------------------
-/** Load post process */
-// ------------------------------------------------------------------------------------------------
-// ?loadPostProcess@OCLSpecialPower@@MAEXXZ present-unmatched
-void OCLSpecialPower::loadPostProcess( void )
-{
-
-	// extend base class
-	SpecialPowerModule::loadPostProcess();
-
-}  // end loadPostProcess
