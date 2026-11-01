@@ -23,11 +23,7 @@ class MultiIniFieldParse;
 struct FieldParse;
 
 extern const int s_modelDrawFieldTable[];
-class MultiIniFieldParse
-{
-public:
-	void add(const FieldParse *parse, unsigned int extraOffset);
-};
+#include "../../../../../../GameEngine/Include/Common/INI/FieldParse.h"
 
 class W3DModelDrawModuleData
 {

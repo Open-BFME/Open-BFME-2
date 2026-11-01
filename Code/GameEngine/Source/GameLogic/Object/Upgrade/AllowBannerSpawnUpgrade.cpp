@@ -54,11 +54,7 @@ struct FieldParse;
 
 extern const int g_emptyFieldParseTable[4];
 
-class MultiIniFieldParse
-{
-public:
-	void add(const FieldParse *f, unsigned int extraOffset);
-};
+#include "../../../../Include/Common/INI/FieldParse.h"
 
 int Rva004CE29DGet(void);
 

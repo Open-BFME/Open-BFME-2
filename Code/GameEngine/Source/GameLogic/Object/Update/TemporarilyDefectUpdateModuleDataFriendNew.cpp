@@ -54,11 +54,7 @@ ModuleData *TemporarilyDefectUpdateModuleData::friend_newModuleData(INI *ini)
 struct FieldParse;
 extern const int g_emptyFieldParseTable[];
 
-class MultiIniFieldParse
-{
-public:
-	void add(const FieldParse *f, unsigned int extraOffset);
-};
+#include "../../../../Include/Common/INI/FieldParse.h"
 
 // ?rva00254545@@YAXAAVMultiIniFieldParse@@@Z @0x00254545 (17B)
 void __declspec(noinline) rva00254545(MultiIniFieldParse &p)
