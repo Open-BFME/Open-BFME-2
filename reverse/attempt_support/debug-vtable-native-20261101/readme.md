@@ -58,3 +58,10 @@ An ordinary AddLogGroup virtual dry-run reaches the shared shim and exceeds the
 25-file safety limit. This is a scope limit, not proof the rewrite byte-matches;
 a larger explicit limit is supported, but does not fix the46-slot contract.
 No aliases, new pins, partial tables or shared-header patches were introduced.
+
+## Subsequent tooling result
+
+The separate debug-stream-virtual-tooling-20261101 handoff records the precise
+operator selector and its regression coverage. All three actual stream dry-runs
+now pass planning with native slot evidence. The investigation-time refusal above
+is preserved as history; Code and function rows remain unchanged.

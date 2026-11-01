@@ -321,7 +321,14 @@ mangled name in comments, linker pragmas and `__identifier` strings (a plain
 string literal spelling it is refused), and adds `virtual` to each in-class
 declaration of the method (or of `~C`) in every body of the class that declares
 it (callers' and includers' views alike; an out-of-line definition is left as
-it is; an overload set, a static or a template member is refused). A unit
+it is; an ordinary overload set, a static or a template member is refused). The
+one supported operator family, in a global non-template class, is non-const
+thiscall `operator<<(bool)`,
+`operator<<(__int64)` and `operator<<(unsigned __int64)`, returning its own
+class by reference. Its exact primitive operand selects one declaration;
+other overloads, const members and out-of-line definitions remain unchanged.
+Typedef operands and other operator signatures are unsupported. All native
+installation, identity, protection and byte checks above still apply. A unit
 whose current object references the old name but whose text declares nothing
 to rewrite (an implicit member, a base's declaration) is refused: reconcile
 that view first. It tombstones each renamed `(name, rva)` with `Renamed to

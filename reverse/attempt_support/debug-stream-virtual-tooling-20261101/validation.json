@@ -1,0 +1,57 @@
+{
+  "base": "56202753e5",
+  "original_rename_blob": "3e1f26fe7960113b25f8769414b774143e88df2e",
+  "model": "gpt-6",
+  "lane": "R",
+  "kind": "tooling prerequisite; no game-source repair",
+  "targeted_tests": {
+    "passed": 131,
+    "skipped": 1,
+    "skip_reason": "empty audit_escapes parameter set"
+  },
+  "broad_tests": {
+    "passed": 963,
+    "failed": 21,
+    "skipped": 1,
+    "exit": 1
+  },
+  "unchanged_module_control": {
+    "passed": 75,
+    "failed": 21,
+    "exit": 1,
+    "identical_failure_set": true
+  },
+  "failed_nodeids": [
+    "FAILED tools/tests/test_rename_commit_checks.py::test_a_new_hook_check_is_found_in_every_spelling[\"$PYTHON3\" tools/zz_new.py --staged]",
+    "FAILED tools/tests/test_rename_commit_checks.py::test_a_new_hook_check_is_found_in_every_spelling[/usr/bin/python3 tools/zz_new.py --staged]",
+    "FAILED tools/tests/test_rename_commit_checks.py::test_a_new_hook_check_is_found_in_every_spelling[bash -c 'python3 tools/zz_new.py --staged']",
+    "FAILED tools/tests/test_rename_commit_checks.py::test_a_new_hook_check_is_found_in_every_spelling[git show :tools/zz_new.py | py -3",
+    "FAILED tools/tests/test_rename_commit_checks.py::test_a_new_hook_check_is_found_in_every_spelling[git show HEAD:tools/zz_new.py | python",
+    "FAILED tools/tests/test_rename_commit_checks.py::test_a_new_hook_check_is_found_in_every_spelling[git show HEAD:tools/zz_new.py | python3",
+    "FAILED tools/tests/test_rename_commit_checks.py::test_a_new_hook_check_is_found_in_every_spelling[git show HEAD:tools/zz_new.py|python3 -u",
+    "FAILED tools/tests/test_rename_commit_checks.py::test_a_new_hook_check_is_found_in_every_spelling[py -3 tools/zz_new.py --staged]",
+    "FAILED tools/tests/test_rename_commit_checks.py::test_a_new_hook_check_is_found_in_every_spelling[py -3.11 tools/zz_new.py --staged]",
+    "FAILED tools/tests/test_rename_commit_checks.py::test_a_new_hook_check_is_found_in_every_spelling[python tools/zz_new.py --staged]",
+    "FAILED tools/tests/test_rename_commit_checks.py::test_a_new_hook_check_is_found_in_every_spelling[python3 -I -B tools/zz_new.py --staged]",
+    "FAILED tools/tests/test_rename_commit_checks.py::test_a_new_hook_check_is_found_in_every_spelling[python3 -m tools.zz_new --staged]",
+    "FAILED tools/tests/test_rename_commit_checks.py::test_a_new_hook_check_is_found_in_every_spelling[python3 -u tools/zz_new.py --staged]",
+    "FAILED tools/tests/test_rename_commit_checks.py::test_a_new_hook_check_is_found_in_every_spelling[python3 ./tools/zz_new.py --staged]",
+    "FAILED tools/tests/test_rename_commit_checks.py::test_a_new_hook_check_is_found_in_every_spelling[python3 tools/zz_new.py --staged]",
+    "FAILED tools/tests/test_rename_commit_checks.py::test_a_new_hook_check_is_found_in_every_spelling[python3.11 tools/zz_new.py --staged]",
+    "FAILED tools/tests/test_rename_commit_checks.py::test_a_new_hook_check_is_found_in_every_spelling[sh .githooks/run-python3 tools/zz_new.py --staged]",
+    "FAILED tools/tests/test_rename_commit_checks.py::test_a_new_hook_check_is_found_in_every_spelling[shadow_cap python3 tools/zz_new.py --staged]",
+    "FAILED tools/tests/test_rename_commit_checks.py::test_every_tool_the_hook_runs_is_mirrored_or_exempt",
+    "FAILED tools/tests/test_rename_commit_checks.py::test_the_hooks_own_stdin_runs_are_read_with_their_arguments",
+    "FAILED tools/tests/test_rename_iniblock.py::test_committed_ini_blocks_reproduce_from_game_dat"
+  ],
+  "sha256": {
+    "tools/rename.py": "cd24858d5b1fd97819bcd38ef4ef30f637294e9872c36449b7d8ac1f6dcb28c8",
+    "tools/tests/test_rename_virtual.py": "90ed8a01344a25a0148656e03ae8ddc2aadb95b8913f979a7480e74fa7dee659",
+    "tools/tests/test_rename_commit_checks.py": "a797f1bf65eeeb8e4ecf064fed35d3f70ba29a664725f47ca56ac5dfa16a7049",
+    "tools/tests/test_rename_iniblock.py": "b226d357a85cf36b0ec827c057bc80b907afabfe64d203803c5d61e9430a78df",
+    "tools/tests/test_gate_exploits.py": "57ecebf061f8ca5a52382d8d253b506760e2ee2ab670e4cb63e3a15093cf787e",
+    ".githooks/pre-commit": "446947d375188973787fef630e434ac082fe2c25a9844566ebe742e67de53394",
+    "reverse/ini_blocks.tsv": "28a67e07e9c631fcec504ea9f3cc71b6c3046a3bf321a641756e787a45068e9d",
+    "tools/ini_blocks.py": "a971855202fe59fe26622b8e903f5082350be3cee8e561b93e482cfafa661130"
+  }
+}

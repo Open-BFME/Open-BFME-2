@@ -8107,6 +8107,11 @@ Remaining / next check (each needs a decision, a row or a shared change; none is
   debug_debug2295 while dtor99 code bytes still fail. No source/pin/header changes
   or clearance. See `reverse/attempt_support/debug-vtable-native-20261101/readme.md`;
   the older37-slot handoffs are retained as superseded history.
+  **Tooling follow-up:** exact bool/int64 operator virtual planning is now covered
+  by131 passing targeted tests (one empty fixture set skipped), and real slots9/4/3
+  pass dry-run planning. The21 broader failures reproduce on the untouched module.
+  No game source/row changed; native prefix/provider/table recovery remains open.
+  See `reverse/attempt_support/debug-stream-virtual-tooling-20261101/readme.md`.
 - `??_7GameWindow@@6B@` (L in `GameWindowDtor.cpp`): the 0x0080BBCC table is shared with
   `BfmeAptScreenBase`. This needs a class-view reconcile.
 - `VectorClass<Vector3>` deleting destructor (S in `vector_class_vector3_ctor.cpp`): see LINK-015.

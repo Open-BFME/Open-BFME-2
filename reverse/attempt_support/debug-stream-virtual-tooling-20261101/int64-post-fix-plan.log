@@ -1,0 +1,15 @@
+rename: function ??6Debug@@QAEAAV0@_J@Z -> ??6Debug@@UAEAAV0@_J@Z at 0x0003B510 (virtual)
+  owner source: Code/Libraries/Source/WWVegas/WWDebug/debug_operator_long.cpp
+  evidence: ??6Debug@@QAEAAV0@_J@Z -> ??6Debug@@UAEAAV0@_J@Z: retail table 0x00BBE810 slot 4, Debug's table (installed at +0x0 by 0x00038440 ??0Debug@@AAE@XZ)
+  functions.csv rows renamed (1), each tombstoned:
+    0x0003B510 ??6Debug@@QAEAAV0@_J@Z -> ??6Debug@@UAEAAV0@_J@Z
+  sources rewritten (1):
+    Code/Libraries/Source/WWVegas/WWDebug/debug_operator_long.cpp (virtual 1)
+  verify (1): ./build.sh Code/Libraries/Source/WWVegas/WWDebug/debug_operator_long.cpp
+  claims: 0x0003B510 file:Code/Libraries/Source/WWVegas/WWDebug/debug_operator_long.cpp
+  ledger files: reverse/deleted_rows.csv, reverse/functions.csv
+  mention (not rewritten): reverse/attempt_support/debug-vtable-native-20261101/native-proof.json
+  mention (not rewritten): reverse/attempt_support/debug-vtable-native-20261101/native-table.log
+  warning: ??6Debug@@QAEAAV0@_J@Z has no name_basis.csv record to carry: its tier is unchanged
+  suggested subject: Respell ??6Debug@@QAEAAV0@_J@Z as virtual ??6Debug@@UAEAAV0@_J@Z (retail vtable slot)
+rename: --dry-run: nothing written

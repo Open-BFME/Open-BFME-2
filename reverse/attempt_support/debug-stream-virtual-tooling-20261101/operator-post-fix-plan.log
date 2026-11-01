@@ -1,0 +1,17 @@
+rename: function ??6Debug@@QAEAAV0@_N@Z -> ??6Debug@@UAEAAV0@_N@Z at 0x00038890 (virtual)
+  owner source: Code/Libraries/Source/WWVegas/WWDebug/debug_operator_bool.cpp
+  evidence: ??6Debug@@QAEAAV0@_N@Z -> ??6Debug@@UAEAAV0@_N@Z: retail table 0x00BBE810 slot 9, Debug's table (installed at +0x0 by 0x00038440 ??0Debug@@AAE@XZ); Native Debug table RVA7BE810 slot9, installed by ctor38440 and dtor38710; 46-entry boundary anchored by next ctor38670->BBE8C8. Diagnostic only: preserve operator group dispatch and check every emitter before applying.
+  functions.csv rows renamed (1), each tombstoned:
+    0x00038890 ??6Debug@@QAEAAV0@_N@Z -> ??6Debug@@UAEAAV0@_N@Z
+  sources rewritten (2):
+    Code/Libraries/Source/WWVegas/WWDebug/debug_operator_bool.cpp (virtual 1, mangled 1)
+    Code/Libraries/Source/WWVegas/WWDebug/debug_operator_long.cpp (virtual 1)
+  verify (2): ./build.sh Code/Libraries/Source/WWVegas/WWDebug/debug_operator_bool.cpp Code/Libraries/Source/WWVegas/WWDebug/debug_operator_long.cpp
+  claims: 0x00038890 file:Code/Libraries/Source/WWVegas/WWDebug/debug_operator_bool.cpp file:Code/Libraries/Source/WWVegas/WWDebug/debug_operator_long.cpp
+  ledger files: reverse/deleted_rows.csv, reverse/functions.csv
+  mention (not rewritten): reverse/attempt_support/debug-vtable-native-20261101/native-proof.json
+  mention (not rewritten): reverse/attempt_support/debug-vtable-native-20261101/native-table.log
+  mention (not rewritten): reverse/attempt_support/debug-vtable-native-20261101/operator-refusal.log
+  warning: ??6Debug@@QAEAAV0@_N@Z has no name_basis.csv record to carry: its tier is unchanged
+  suggested subject: Respell ??6Debug@@QAEAAV0@_N@Z as virtual ??6Debug@@UAEAAV0@_N@Z (retail vtable slot)
+rename: --dry-run: nothing written

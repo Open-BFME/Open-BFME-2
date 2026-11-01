@@ -2822,6 +2822,7 @@ VIRTUAL_ACCESS = frozenset("EFMNUV")
 FOLD_NOTES = re.compile(r"fold-proof=|icf-owner=|dup-of=|\bICF\b", re.I)
 VIRTUAL_MEMBER = re.compile(r"\?([A-Za-z_]\w*)@((?:[A-Za-z_]\w*@)+)@")
 VIRTUAL_DTOR = re.compile(r"\?\?(1|_G|_E)((?:[A-Za-z_]\w*@)+)@")
+VIRTUAL_STREAM = re.compile(r"\?\?(6)((?:[A-Za-z_]\w*@)+)@")
 INSTALLER_CLASS = re.compile(r"\?\?(?:0|1|_G|_E)([A-Za-z_]\w*)@")
 VTABLE_NAME = re.compile(r"\?\?_7([A-Za-z_]\w*)@")
 DECLSPEC = re.compile(r"__declspec\s*\([^()]*\)")
@@ -2830,17 +2831,23 @@ DECLSPEC = re.compile(r"__declspec\s*\([^()]*\)")
 def member_function_header(mangled):
     """(index of the access code, class, enclosing scopes, role) of a member
     function's decorated name; role is `method` (?f@C@@), `dtor` (??1C@@) or
-    `deleting` (??_GC@@, ??_EC@@). Anything else -- a free function, a
-    constructor, an operator, a template, a funclet -- is refused."""
+    `deleting` (??_GC@@, ??_EC@@), or `stream` (??6C@@). Other operators,
+    free functions, constructors, templates and funclets are refused."""
     role = "method"
     match = VIRTUAL_MEMBER.match(mangled)
     if not match:
         match = VIRTUAL_DTOR.match(mangled)
         if not match:
-            raise Refusal(f"{mangled} is not a method, destructor or deleting destructor this mode can "
-                          "respell (constructors, operators, templates and funclets are not)")
-        role = "dtor" if match.group(1) == "1" else "deleting"
+            match = VIRTUAL_STREAM.match(mangled)
+            if not match:
+                raise Refusal(f"{mangled} is not a method, destructor or supported stream operator this mode "
+                              "can respell (constructors, other operators, templates and funclets are not)")
+            role = "stream"
+        else:
+            role = "dtor" if match.group(1) == "1" else "deleting"
     scopes = match.group(2).rstrip("@").split("@")
+    if role == "stream" and len(scopes) != 1:
+        raise Refusal(f"{mangled}: stream virtual respell currently requires a global non-template class")
     at = match.end()
     try:
         end = _parse_header(mangled, at, _Out())
@@ -2851,17 +2858,32 @@ def member_function_header(mangled):
     return at, scopes[0], scopes[1:], role
 
 
+def virtual_stream_operand(mangled, at):
+    """The supported exact operator<<(bool/int64) signature, never just its word.
+
+    These non-const thiscall overloads return their own class by reference.
+    Other parameter/return/cv shapes need their own declaration selector.
+    """
+    match = re.fullmatch(r"AEAAV0@(_N|_J|_K)@Z", mangled[at + 1:])
+    if not match:
+        raise Refusal(f"{mangled}: stream virtual respell supports only non-const thiscall operator<< "
+                      "returning its class by reference and taking bool, __int64 or unsigned __int64")
+    return {"_N": "bool", "_J": "__int64", "_K": "unsigned __int64"}[match.group(1)]
+
+
 def virtual_symbol(mangled):
     """`mangled` with its access code respelled virtual (QAE -> UAE, IAE ->
     MAE, AAE -> EAE); identifier, scope, cv, convention, return type and
     parameters are kept byte for byte."""
-    at, _cls, _scopes, _role = member_function_header(mangled)
+    at, _cls, _scopes, role = member_function_header(mangled)
     code = mangled[at]
     if code in VIRTUAL_ACCESS:
         raise Refusal(f"{mangled} is already spelled virtual")
     if code not in NONVIRTUAL_ACCESS:
         raise Refusal(f"{mangled} is not a non-static member function (access code {code!r}): only a member "
                       "function can be virtual")
+    if role == "stream":
+        virtual_stream_operand(mangled, at)
     return mangled[:at] + NONVIRTUAL_ACCESS[code] + mangled[at + 1:]
 
 
@@ -3056,28 +3078,58 @@ def _statement_start(code, start, at):
         return cut
 
 
-def virtual_declarations(code, cls, word=None):
+def virtual_declarations(code, cls, word=None, *, stream_operand=None):
     """[(offset, already virtual)] of each in-class declaration of member
     function `word` (or of `~cls` when `word` is None) directly in a body of
     class `cls` in stripped `code`. A call, initializer or friend declaration
     is not one; a static or template member, or two declarations in one body
     (an overload set: which one retail made virtual is not read here), is
-    refused."""
-    target = re.compile(r"~\s*%s\s*\(" % re.escape(cls) if word is None
-                        else r"(?<![\w~:.>])%s\s*\(" % re.escape(word))
+    refused. The supported stream overload is selected by its exact primitive
+    operand and class-reference return type; its siblings are untouched."""
+    if stream_operand is not None:
+        if word != "operator<<" or stream_operand not in ("bool", "__int64", "unsigned __int64"):
+            raise Refusal("unsupported virtual stream declaration selector")
+        target = re.compile(r"(?<![\w~:.>])operator\s*<<\s*\(")
+    else:
+        target = re.compile(r"~\s*%s\s*\(" % re.escape(cls) if word is None
+                            else r"(?<![\w~:.>])%s\s*\(" % re.escape(word))
     shown = f"~{cls}" if word is None else word
     out = []
     for start, end in class_bodies(code, cls):
+        if stream_operand is not None and _brace_depth(code, 0, start) != 1:
+            # The supported decoration names a global class. A same-spelled
+            # class in a namespace or another class is a different type.
+            continue
         found = []
         for match in target.finditer(code, start, end):
             if _brace_depth(code, start, match.start()):
                 continue
+            if stream_operand is not None:
+                close = code.find(")", match.end(), end)
+                if close < 0:
+                    raise Refusal(f"class {cls} has an unterminated stream declaration")
+                operand = re.escape(stream_operand).replace(r"\ ", r"\s+")
+                if stream_operand == "__int64":
+                    operand = r"(?:signed\s+)?" + operand
+                params = code[match.end():close].strip()
+                if not re.fullmatch(r"(?:const\s+)?" + operand +
+                                    r"(?:\s+const)?(?:\s+[A-Za-z_]\w*)?", params):
+                    continue
+                # A const member is a different overload from the non-const
+                # member the decoration identifies. Parameter const is above.
+                suffix = re.split(r"[;{]", code[close + 1:end], maxsplit=1)[0]
+                if re.search(r"\b(?:const|volatile)\b|&", suffix):
+                    continue
             begin = _statement_start(code, start, match.start())
             bare = DECLSPEC.sub(" ", code[begin:match.start()])
             if re.search(r"[(){}=,?;]|(?<!:):(?!:)", bare) or re.search(r"\b(?:friend|typedef)\b", bare):
                 continue
             if re.search(r"\b(?:static|template)\b", bare):
                 raise Refusal(f"class {cls} declares {shown} static or as a template")
+            if stream_operand is not None:
+                returned = re.sub(r"\b(?:virtual|inline|__forceinline|__thiscall)\b", " ", bare).strip()
+                if not re.fullmatch(r"(?:::)?" + re.escape(cls) + r"\s*&", returned):
+                    raise Refusal(f"class {cls}'s {shown}({stream_operand}) does not return {cls}&")
             found.append((begin, bool(re.search(r"\bvirtual\b", bare))))
         if len(found) > 1:
             raise Refusal(f"class {cls} declares {shown} {len(found)} times in one body (an overload set): "
@@ -3086,7 +3138,7 @@ def virtual_declarations(code, cls, word=None):
     return out
 
 
-def respell_virtual_text(text, cls, word, pairs):
+def respell_virtual_text(text, cls, word, pairs, *, stream_operand=None):
     """(new text, declarations made virtual, mangled spellings respelled) for
     one file: `virtual` before each in-class declaration of `word` (`~cls`
     when None) in class `cls`, then every whole old mangled name of `pairs`
@@ -3104,7 +3156,8 @@ def respell_virtual_text(text, cls, word, pairs):
                 raise Refusal(f"{old} is spelled inside a string literal: {seg[:80]} (retail-locked text)")
     code = name_metric.strip(text)
     made = 0
-    for begin, already in sorted(virtual_declarations(code, cls, word), reverse=True):
+    for begin, already in sorted(virtual_declarations(code, cls, word, stream_operand=stream_operand),
+                                 reverse=True):
         if not already:
             text = text[:begin] + "virtual " + text[begin:]
             made += 1
@@ -3153,7 +3206,7 @@ def plan_virtual(ctx, rva, *, evidence="", old=None, max_files=25):
     # The group: the row, and for the destructor family every non-virtual
     # ??1 / ??_G / ??_E row of the same class, each on its own evidence.
     scope_text = "@".join([cls] + scopes) + "@@"
-    if role == "method":
+    if role in ("method", "stream"):
         family = [first]
     else:
         spelled = re.compile(r"\?\?(?:1|_G|_E)%s[AIQ]" % re.escape(scope_text))
@@ -3198,8 +3251,9 @@ def plan_virtual(ctx, rva, *, evidence="", old=None, max_files=25):
         # The identifier is kept: a method is judged by its word as `function`
         # judges it; a destructor's class token is not renamed, so only the
         # decorated name itself (an export, vendored, evidence-tier, canonical).
-        reason = is_protected(ctx, "function", name, rva=at,
-                              identifier=scope_of(name).rsplit("::", 1)[-1] if role == "method" else name)
+        identifier = ("operator<<" if role == "stream" else
+                      scope_of(name).rsplit("::", 1)[-1] if role == "method" else name)
+        reason = is_protected(ctx, "function", name, rva=at, identifier=identifier)
         if reason:
             raise Refusal(f"canonical name: {reason}")
         refuse_vendored(ctx, [row["source"]], f"respelling {name}")
@@ -3276,13 +3330,16 @@ def plan_virtual(ctx, rva, *, evidence="", old=None, max_files=25):
 
     # Sources: every file spelling an old name, every file declaring the
     # method in a body of the class, every unit whose object references one.
-    word = scope_of(first["name"]).rsplit("::", 1)[-1] if role == "method" else None
+    word = ("operator<<" if role == "stream" else
+            scope_of(first["name"]).rsplit("::", 1)[-1] if role == "method" else None)
+    stream_operand = virtual_stream_operand(first["name"], _at) if role == "stream" else None
     olds = [name for name, _new in pairs]
     candidates = set()
     for name in olds:
         candidates |= set(ctx.grep_files(name))
     declarers = set(ctx.grep_files(cls, word=True))
-    candidates |= declarers & set(ctx.grep_files(word, word=True)) if word else declarers
+    search_word = "operator" if role == "stream" else word
+    candidates |= declarers & set(ctx.grep_files(search_word, word=True)) if word else declarers
     by_object = object_referencers(ctx, set(olds))
     candidates |= by_object | sources
     headers, rewritten = [], set()
@@ -3291,7 +3348,8 @@ def plan_virtual(ctx, rva, *, evidence="", old=None, max_files=25):
         if data is None:
             raise Refusal(f"{rel} is listed but missing")
         text = data.decode("utf-8", errors="surrogateescape")
-        new_text, made, respelled = respell_virtual_text(text, cls, word, pairs)
+        new_text, made, respelled = respell_virtual_text(text, cls, word, pairs,
+                                                      stream_operand=stream_operand)
         if new_text == text:
             # object_referencers widens to a text match where no current object
             # exists; only a current object naming an old symbol is a consumer

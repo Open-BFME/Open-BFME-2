@@ -136,6 +136,9 @@ def snapshot(root):
     ("??1C@@QAE@XZ", "??1C@@UAE@XZ"),
     ("??_GC@@QAEPAXI@Z", "??_GC@@UAEPAXI@Z"),
     ("?update@C@@QAE?AW4UpdateSleepTime@@XZ", "?update@C@@UAE?AW4UpdateSleepTime@@XZ"),
+    ("??6C@@QAEAAV0@_N@Z", "??6C@@UAEAAV0@_N@Z"),
+    ("??6C@@QAEAAV0@_J@Z", "??6C@@UAEAAV0@_J@Z"),
+    ("??6C@@QAEAAV0@_K@Z", "??6C@@UAEAAV0@_K@Z"),
 ])
 def test_virtual_symbol_changes_only_the_access_code(old, new):
     assert rename.virtual_symbol(old) == new
@@ -148,11 +151,204 @@ def test_virtual_symbol_changes_only_the_access_code(old, new):
     "?f@ns@@YAXH@Z",          # namespaced free function
     "??0C@@QAE@XZ",           # a constructor is never virtual
     "??4C@@QAEAAV0@ABV0@@Z",  # operator
+    "??6C@@QAEHH@Z",         # another return/operand shape
+    "??6C@@QAEAAV0@H@Z",     # unsupported operand
+    "??6C@@QBEAAV0@_N@Z",    # const member
+    "??6C@@QAGAAV0@_N@Z",    # another calling convention
+    "??6C@@QAEAAV0@_N0@Z",   # extra parameter
+    "??6C@@QAEAAV0@AB_N@Z",  # reference rather than value
+    "??6C@ns@@QAEAAV0@_N@Z", # qualified class needs its own scope selector
     "__ehhandler$?f@C@@QAEXH@Z",
 ])
 def test_virtual_symbol_refuses_what_cannot_be_virtual(mangled):
     with pytest.raises(Refusal):
         rename.virtual_symbol(mangled)
+
+
+@pytest.mark.parametrize("operand,declaration", [
+    ("bool", "bool value"), ("bool", "const bool value"), ("bool", "bool const"),
+    ("__int64", "signed __int64 value"),
+    ("unsigned __int64", "unsigned  __int64 value"),
+])
+def test_stream_selector_preserves_other_overloads_and_const_members(operand, declaration):
+    text = f"""class Widget {{ public:
+  Widget &operator<<(int value);
+  Widget &operator<<(const char *text);
+  Widget &operator << ({declaration});
+  Widget &operator<<({declaration}) const;
+  Widget &operator>>({declaration});
+}};
+Widget &Widget::operator<<({declaration}) {{ return *this; }}
+"""
+    changed, made, _ = rename.respell_virtual_text(
+        text, "Widget", "operator<<", [], stream_operand=operand)
+    assert made == 1
+    assert changed == text.replace(f"  Widget &operator << ({declaration});",
+                                   f"  virtual Widget &operator << ({declaration});")
+
+
+@pytest.mark.parametrize("declaration", [
+    "static Widget &operator<<(bool);",
+    "template<class T> Widget &operator<<(bool);",
+    "int operator<<(bool);", "const Widget &operator<<(bool);",
+    "Widget &operator<<(bool); Widget &operator<<(bool);",
+])
+def test_stream_selector_refuses_ambiguous_or_incompatible_declarations(declaration):
+    with pytest.raises(Refusal):
+        rename.respell_virtual_text("class Widget { public: " + declaration + " };",
+                                    "Widget", "operator<<", [], stream_operand="bool")
+
+
+@pytest.mark.parametrize("other", [
+    "Widget &operator<<(bool &);", "Widget &operator<<(bool *);",
+    "Widget &operator<<(bool, int);", "Widget &operator<<(Boolean);",
+    "friend Widget &operator<<(Widget &, bool);",
+    "class Nested { Widget &operator<<(bool); };",
+])
+def test_stream_selector_leaves_other_signatures_and_nested_declarations(other):
+    text = "class Widget { public: " + other + " };"
+    assert rename.respell_virtual_text(text, "Widget", "operator<<", [], stream_operand="bool") == (text, 0, 0)
+
+
+def test_stream_selector_leaves_same_spelled_namespaced_class_untouched():
+    text = "namespace Other { class Widget { public: Widget &operator<<(bool); }; }\n" \
+           "class Widget { public: Widget &operator<<(bool); };\n"
+    expected = text.replace("class Widget { public: Widget &operator<<(bool); };\n",
+                            "class Widget { public: virtual Widget &operator<<(bool); };\n")
+    assert rename.respell_virtual_text(text, "Widget", "operator<<", [], stream_operand="bool") == (expected, 1, 0)
+
+
+def stream_tree(tree, encoded, operand):
+    old = "??6Widget@@QAEAAV0@" + encoded + "@Z"
+    for rel in ("reverse/functions.csv", "reverse/symbols.csv"):
+        p = tree / rel
+        p.write_text(p.read_text().replace(OLD, old))
+    (tree / "Code/Game/Widget.cpp").write_text(f"""// {old}
+class Widget {{ public:
+  Widget();
+  Widget &operator<<(int);
+  Widget &operator<<({operand} value);
+  Widget &operator<<(const char *);
+}};
+Widget::Widget() {{}}
+Widget &Widget::operator<<({operand} value) {{ return *this; }}
+""")
+    (tree / "Code/Game/Gadget.cpp").write_text(f"""// calls {old}
+class Widget {{ public: Widget &operator << ({operand}); Widget &operator<<(int); }};
+void caller(Widget &w) {{ w << 1; }}
+""")
+    return old, old.replace("@@QAE", "@@UAE")
+
+
+@pytest.mark.parametrize("encoded,operand", [("_N", "bool"), ("_J", "__int64"),
+                                           ("_K", "unsigned __int64")])
+def test_stream_virtual_transaction_selects_one_overload(tree, monkeypatch, encoded, operand):
+    old, new = stream_tree(tree, encoded, operand)
+    retail(monkeypatch, {TABLE: ([0x00401000], {CTOR_STORE: 0})})
+    p = plan(tree)
+    assert p.new == new and p.virtual
+    seen = []
+    rename.apply_rename(p, ctx=ctx_of(tree), verify=lambda ctx, sources: seen.append(sources) or True)
+    assert seen == [p.verify]
+    widget = (tree / "Code/Game/Widget.cpp").read_text()
+    assert f"virtual Widget &operator<<({operand} value);" in widget
+    assert "  Widget &operator<<(int);" in widget
+    assert "  Widget &operator<<(const char *);" in widget
+    assert f"Widget &Widget::operator<<({operand} value) {{ return *this; }}" in widget
+    assert f"virtual Widget &operator << ({operand});" in (tree / "Code/Game/Gadget.cpp").read_text()
+    functions = (tree / "reverse/functions.csv").read_text()
+    assert new in functions and old not in functions
+    assert "parent=" + new in functions
+    assert new in (tree / "reverse/symbols.csv").read_text()
+    assert old in (tree / "reverse/deleted_rows.csv").read_text()
+
+
+def test_stream_still_requires_native_class_installation_evidence(tree, monkeypatch):
+    stream_tree(tree, "_N", "bool")
+    retail(monkeypatch, {})
+    before = snapshot(tree)
+    with pytest.raises(Refusal, match="no retail vtable slot"):
+        plan(tree)
+    assert snapshot(tree) == before
+
+
+def test_stream_byte_change_restores_everything(tree, monkeypatch):
+    stream_tree(tree, "_N", "bool")
+    retail(monkeypatch, {TABLE: ([0x00401000], {CTOR_STORE: 0})})
+    before = snapshot(tree)
+    p = plan(tree)
+    with pytest.raises(VerifyFailed):
+        rename.apply_rename(p, ctx=ctx_of(tree), verify=lambda ctx, sources: False)
+    assert snapshot(tree) == before
+
+
+@pytest.mark.parametrize("wrong_class", [False, True])
+def test_stream_rejects_folded_bodies_and_unrelated_installers(tree, monkeypatch, wrong_class):
+    stream_tree(tree, "_N", "bool")
+    store = 0x00408010 if wrong_class else CTOR_STORE
+    retail(monkeypatch, {TABLE: ([0x00401000], {store: 0})})
+    if not wrong_class:
+        p = tree / "reverse/functions.csv"
+        p.write_text(p.read_text().replace("matched,real name", "matched,ICF twin"))
+    before = snapshot(tree)
+    with pytest.raises(Refusal, match="belongs to Other|shared body"):
+        plan(tree)
+    assert snapshot(tree) == before
+
+
+@pytest.mark.parametrize("guard,message", [
+    ("export", "canonical name"), ("new-pin", "already names"),
+    ("tombstone", "tombstoned"), ("frozen", "frozen"),
+])
+def test_stream_keeps_protected_name_and_ledger_guards(tree, monkeypatch, guard, message):
+    old, new = stream_tree(tree, "_N", "bool")
+    retail(monkeypatch, {TABLE: ([0x00401000], {CTOR_STORE: 0})})
+    if guard == "export":
+        p = tree / "reverse/exports.csv"
+        p.write_text(p.read_text() + f"1,0x00401000,0x00401000,.text,code,{old}\n")
+    elif guard == "new-pin":
+        p = tree / "reverse/symbols.csv"
+        p.write_text(p.read_text() + f"{new},0x00409900,existing name\n")
+    elif guard == "tombstone":
+        p = tree / "reverse/deleted_rows.csv"
+        p.write_text(p.read_text() + f"{new},0x00401000,retired\n")
+    else:
+        (tree / "reverse/gate_baseline.txt").write_text(old + "\n")
+    before = snapshot(tree)
+    with pytest.raises(Refusal, match=message):
+        plan(tree)
+    assert snapshot(tree) == before
+
+
+@pytest.mark.parametrize("succeeds", [False, True])
+def test_stream_batch_checks_all_overloads_once_and_restores_on_failure(tree, monkeypatch, succeeds):
+    old, new = stream_tree(tree, "_N", "bool")
+    more = "??6Widget@@QAEAAV0@_J@Z"
+    p = tree / "reverse/functions.csv"
+    p.write_text(p.read_text() + f"{more},,0x00401100,40,Code/Game/Widget.cpp,matched,stream\n")
+    p = tree / "Code/Game/Widget.cpp"
+    p.write_text(p.read_text().replace("  Widget();", "  Widget();\n  Widget &operator<<(__int64);"))
+    retail(monkeypatch, {TABLE: ([0x00401000, 0x00401100], {CTOR_STORE: 0})})
+    (tree / rename.LOCK).touch()
+    before = snapshot(tree)
+    seen = []
+    def verify(ctx, sources):
+        seen.append(sources)
+        assert "virtual Widget &operator<<(bool value);" in p.read_text()
+        assert "virtual Widget &operator<<(__int64);" in p.read_text()
+        return succeeds
+    result = rename.run_batch(ctx_of(tree), [
+        ("function", dict(rva=0x00401000, virtual=True)),
+        ("function", dict(rva=0x00401100, virtual=True)),
+    ], claim=False, verify=verify)
+    assert len(seen) == 1 and not result.refused
+    assert bool(result.failure) != succeeds
+    if succeeds:
+        functions = (tree / "reverse/functions.csv").read_text()
+        assert new in functions and old not in functions
+        assert more.replace("@@QAE", "@@UAE") in functions
+    else:
+        assert snapshot(tree) == before
 
 
 # ------------------------------------------------------------ the evidence gate
