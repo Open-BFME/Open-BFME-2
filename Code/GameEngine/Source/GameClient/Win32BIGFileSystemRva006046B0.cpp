@@ -23,14 +23,7 @@
 // ?init@Win32BIGFileSystem@@UAEX_N@Z @0x00603944 188B: vslot 1 of vtable 0x0087A94C (class of ??0Win32BIGFileSystem@@QAE@XZ). Loads lang big files. Evidence: vtable slot 1; strings "%s*.big" "lang\" "lang\%sAudio.big" "EnglishAudio.big" "*.big" "apt\"; global TheArchiveFileSystem; buffers g_00DD509C g_Rva0107301CEmptyString.
 
 
-class File
-{
-public:
- virtual ~File();
- virtual void slot01();
- virtual void slot02();
- virtual int read(void *buffer, int size);
-};
+#include "../../Include/Common/File.h"
 
 // Native 6046B0 builds this twelve-byte descriptor; helper6045A2 copies
 // its three words into the archive filename map. Names describe this view.

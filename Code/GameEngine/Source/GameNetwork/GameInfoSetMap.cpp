@@ -12,13 +12,7 @@
 #include <cstddef>
 #include "ascii_string.h"
 
-class File
-{
-public:
-	virtual ~File();
-	virtual bool open(const char *filename, int access);
-	virtual void close();
-};
+#include "../../Include/Common/File.h"
 
 class FileSystem
 {

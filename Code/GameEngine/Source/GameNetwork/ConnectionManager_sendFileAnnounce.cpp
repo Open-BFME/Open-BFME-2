@@ -24,18 +24,7 @@ typedef unsigned short UnsignedShort;
 typedef unsigned char UnsignedByte;
 typedef bool Bool;
 
-class File
-{
-public:
-	virtual ~File();
-	virtual void slot04();
-	virtual void close();						// +0x08
-	virtual void slot0C();
-	virtual void slot10(); virtual void slot14(); virtual void slot18();
-	virtual void slot1C(); virtual void slot20(); virtual void slot24();
-	virtual void slot28();
-	virtual Int size();							// +0x2C
-};
+#include "../../Include/Common/File.h"
 
 class FileSystem
 {

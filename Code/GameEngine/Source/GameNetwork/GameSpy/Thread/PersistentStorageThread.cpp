@@ -1131,13 +1131,7 @@ class Rva0060C45E
 public:
 	void clear();
 };
-class File
-{
-public:
-	virtual ~File();
-	virtual bool open(const char *filename, Int access);
-	virtual void close();
-};
+#include "../../../../Include/Common/File.h"
 File *createMemoryReadFile(char *data, Int size);
 
 // Native [556982,556B3C),442B with its catch funclet at 0x556B1E. Reads the

@@ -2928,23 +2928,7 @@ private:
 };
 
 // ZH File: open/close/read/write/seek after the destructor.
-class File
-{
-public:
-	enum seekMode
-	{
-		START,
-		CURRENT,
-		END
-	};
-
-	virtual ~File(void);
-	virtual bool open(const char *filename, int access);                 // +0x04
-	virtual void close(void);                                            // +0x08
-	virtual int read(void *buffer, int bytes);                           // +0x0C
-	virtual int write(const void *buffer, int bytes);                    // +0x10
-	virtual int seek(int bytes, seekMode mode);                          // +0x14
-};
+#include "../../../Include/Common/File.h"
 
 class Radar
 {

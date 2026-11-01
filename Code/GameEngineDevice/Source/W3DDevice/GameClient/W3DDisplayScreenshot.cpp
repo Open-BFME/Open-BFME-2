@@ -28,15 +28,7 @@ extern "C" __declspec(dllimport) int __cdecl sprintf(char *buffer, const char *f
 extern "C" __declspec(dllimport) void *__stdcall LocalAlloc(unsigned int flags, unsigned int bytes);
 extern "C" __declspec(dllimport) void *__stdcall LocalFree(void *memory);
 
-class File
-{
-public:
-	virtual ~File();
-	virtual bool open(const char *filename, int access);
-	virtual void close();
-	virtual int slot03();
-	virtual int write(const void *buffer, int bytes);
-};
+#include "../../../../GameEngine/Include/Common/File.h"
 
 class FileSystem
 {

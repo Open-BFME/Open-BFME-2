@@ -921,23 +921,7 @@ namespace _STL { template <> void __partial_sort<int *,int,Rva00204BB8>(int *,in
 
 namespace _STL { template <> void __introsort_loop<int *,int,int,Rva00204BB8>(int *,int *,int *,int,Rva00204BB8); }
 
-class File
-{
-public:
-	virtual ~File();
-	virtual bool open(const char *, int = 0);
-	virtual void close();
-	virtual int read(void *, int);
-	virtual int write(const void *, int);
-	virtual int seek(int, int);
-	virtual void nextLine(char *, int);
-	virtual bool scanInt(int &);
-	virtual bool scanReal(float &);
-	virtual bool scanString(void *);
-	virtual bool print(const char *, ...);
-	virtual int size();
-	virtual int position();
-};
+#include "../../../Include/Common/File.h"
 
 class FileSystem
 {

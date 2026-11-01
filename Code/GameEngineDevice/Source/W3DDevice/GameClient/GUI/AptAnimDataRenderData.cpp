@@ -31,11 +31,7 @@ extern "C" __declspec(dllimport) int __cdecl sscanf(const char*,const char*,...)
 extern "C" __declspec(dllimport) int __cdecl isdigit(int);
 extern "C" __declspec(dllimport) char *__cdecl strchr(const char*,int);
 }
-class File {public:
- virtual ~File();virtual void s04();virtual void close();virtual void s0C();
- virtual void s10();virtual void s14();virtual void nextLine(char*,int);
- bool eof();
-};
+#include "../../../../../GameEngine/Include/Common/File.h"
 class FileSystem {public:File *openFile(const char*,int,int);};
 extern FileSystem *TheFileSystem;
 static File *openFile(const AsciiString *fname)throw()

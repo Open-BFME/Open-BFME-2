@@ -379,19 +379,7 @@ public:
 	unsigned char *getFileData();
 	unsigned int getFileLength();
 };
-class File
-{
-public:
-	enum { WRITE = 2, CREATE = 8, BINARY = 0x40 };
-	virtual void unknown00();
-	virtual void unknown04();
-	virtual void close();
-	virtual void unknown0C();
-	virtual int write(const void *buffer, int length);
-	virtual void unknown14(); virtual void unknown18(); virtual void unknown1C();
-	virtual void unknown20(); virtual void unknown24(); virtual void unknown28();
-	virtual int size();
-};
+#include "../../Include/Common/File.h"
 class FileSystem
 {
 public:

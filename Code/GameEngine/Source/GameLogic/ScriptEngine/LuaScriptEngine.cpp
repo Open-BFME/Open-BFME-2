@@ -320,23 +320,7 @@ public:
 	int m_bfmeMarkEAN; // +0x28
 	int m_bfmeStackEAN[0x61]; // +0x2C
 };
-class File
-{
-public:
-	virtual void fileVirtual00() = 0;
-	virtual void fileVirtual01() = 0;
-	virtual void close() = 0;
-	virtual Int read(void *buffer, Int bytes) = 0;
-	virtual void fileVirtual03() = 0;
-	virtual void fileVirtual04() = 0;
-	virtual void fileVirtual05() = 0;
-	virtual void fileVirtual06() = 0;
-	virtual void fileVirtual07() = 0;
-	virtual void fileVirtual08() = 0;
-	virtual void fileVirtual09() = 0;
-	virtual Int size() = 0;
-	virtual void fileVirtual12() = 0;
-};
+#include "../../../Include/Common/File.h"
 class FileSystem
 {
 public:

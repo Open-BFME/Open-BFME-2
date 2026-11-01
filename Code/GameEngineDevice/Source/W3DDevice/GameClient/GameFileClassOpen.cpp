@@ -10,15 +10,7 @@
 // W3DFileSystem.cpp compiles against cannot declare. Layout is Zero Hour's:
 // m_theFile +0x04, m_fileExists +0x08, m_filePath +0x09.
 
-class File
-{
-public:
-	enum
-	{
-		READ	= 0x0001,
-		BINARY	= 0x0040
-	};
-};
+#include "../../../../GameEngine/Include/Common/File.h"
 
 class FileSystem
 {

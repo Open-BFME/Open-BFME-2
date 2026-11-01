@@ -95,13 +95,7 @@ public:
 	void clear();
 };
 
-class File
-{
-public:
-	virtual ~File();
-	virtual Bool open(const char *filename, Int access);
-	virtual void close();
-};
+#include "../../Include/Common/File.h"
 
 File *createMemoryReadFile(char *data, Int size);
 

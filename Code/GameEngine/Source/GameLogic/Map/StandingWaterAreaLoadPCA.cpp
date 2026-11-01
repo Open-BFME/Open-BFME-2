@@ -94,21 +94,7 @@ struct StandingWaterPCAProperty
     unsigned pad;
     AsciiString value;
 };
-class File
-{
-    public:
-    virtual ~File();
-    virtual bool open(const char *,int);
-    virtual void close();
-    virtual int read(void*,int)=0;
-    virtual int write(const void*,int)=0;
-    enum seekMode
-    {
-        START,CURRENT,END
-    };
-    virtual int seek(int,seekMode)=0;
-    virtual void nextLine(char*,int)=0;
-};
+#include "../../../Include/Common/File.h"
 class FileSystem
 {
     public:

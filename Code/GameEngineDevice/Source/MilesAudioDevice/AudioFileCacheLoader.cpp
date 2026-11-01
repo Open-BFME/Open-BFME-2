@@ -41,14 +41,7 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
                               const _List_iterator<_IterTp, _RightTraits> &b)
 { return a._M_node != b._M_node; }
 }
-class File {
-public:
- virtual void slot00(); virtual void slot04(); virtual void slot08();
- virtual void slot0C(); virtual void slot10(); virtual void slot14();
- virtual void slot18(); virtual void slot1C(); virtual void slot20();
- virtual void slot24(); virtual void slot28();
- virtual int size(); virtual void slot30(); virtual char *readEntireFile();
-};
+#include "../../../GameEngine/Include/Common/File.h"
 class FileSystem { public: File *openFile(const char *,int,int); };
 extern FileSystem *TheFileSystem;
 class MilesMutexGuard {

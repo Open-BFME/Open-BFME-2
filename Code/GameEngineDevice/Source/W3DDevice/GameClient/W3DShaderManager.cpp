@@ -137,11 +137,7 @@ struct FileInfo
 	long timestampLow;
 };
 
-class File
-{
-public:
-	enum { READ = 0x01, BINARY = 0x40 };
-};
+#include "../../../../GameEngine/Include/Common/File.h"
 
 class FileSystem
 {

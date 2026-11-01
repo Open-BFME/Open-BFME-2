@@ -168,24 +168,7 @@ extern "C" HRESULT __stdcall D3DXCreateEffectFromFileA(IDirect3DDevice8 *device,
 	const char *filename, const D3DXMACRO *defines, void *include, unsigned long flags,
 	void *pool, ID3DXEffect **effect, ID3DXBuffer **errors);
 
-class File
-{
-public:
-	virtual ~File();
-	virtual int open(const char *filename, int access);
-	virtual void close();
-	virtual int read(void *buffer, int bytes);
-	virtual int write(const void *buffer, int bytes);
-	virtual int seek(int bytes, int mode);
-	virtual bool nextLine(char *buf, int bufSize);
-	virtual bool scanInt(int &value);
-	virtual bool scanReal(float &value);
-	virtual bool scanString(AsciiString &value);
-	virtual bool print(const char *format, ...);
-	virtual int size();
-	virtual int position();
-	virtual char *readEntireAndClose();
-};
+#include "../../../../GameEngine/Include/Common/File.h"
 
 class FileSystem
 {

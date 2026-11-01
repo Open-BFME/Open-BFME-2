@@ -73,22 +73,7 @@ enum
 	MAX_SLOTS = 8
 };
 
-class File
-{
-public:
-	enum
-	{
-		WRITE = 0x02,
-		CREATE = 0x08,
-		BINARY = 0x40
-	};
-
-	virtual ~File();
-	virtual Bool open(const char *filename, Int access);
-	virtual void close();
-	virtual Int read(void *buffer, Int bytes);
-	virtual Int write(const void *buffer, Int bytes);
-};
+#include "../../Include/Common/File.h"
 
 class FileSystem
 {

@@ -132,12 +132,7 @@ GHTTPBool motdCallback(int request,GHTTPResult result,char *buffer,__int64 buffe
 // donor flow with BFME2's signed64 byte count, the MOTD callback's cancel
 // handling, and the file written through TheFileSystem into the user-data
 // "Online Files" directory rather than through fopen.
-class File { public:
- virtual ~File();virtual bool open(const char *,int);virtual void close();
- virtual int read(void *,int);virtual int write(const void *,int);
- virtual void seek();virtual void nextLine();virtual void scanInt();virtual void scanReal();
- virtual void scanString();virtual void print();virtual int size();
-};
+#include "../../../Include/Common/File.h"
 class FileSystem { public: File *openFile(const char *filename,int access,int bufferSize); };
 extern FileSystem *TheFileSystem;
 class GlobalData { public: AsciiString rva002360DE(void) const; };

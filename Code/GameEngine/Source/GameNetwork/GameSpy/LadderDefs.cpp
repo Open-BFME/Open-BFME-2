@@ -73,16 +73,7 @@ extern GlobalData *TheWritableGlobalData;
 
 // BFME 2's File interface: one slot (the deleting dtor) precedes open, so
 // close and read are slots 2 and 3; eof stays a plain member (0x006024AC).
-class File
-{
-public:
-	enum { READ = 0x01, TEXT = 0x20 };
-	virtual void *deletingDtor(unsigned int flags);
-	virtual bool open(const char *filename, int access);
-	virtual void close();
-	virtual int read(void *buffer, int bytes);
-	bool eof();
-};
+#include "../../../Include/Common/File.h"
 
 struct BfmeStringNoCaseLess
 {

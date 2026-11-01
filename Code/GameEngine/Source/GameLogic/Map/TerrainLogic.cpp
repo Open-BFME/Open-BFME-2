@@ -985,13 +985,7 @@ private:
 	Rva0027F2D6Target **m_end57C;
 };
 
-class File
-{
-public:
- virtual void unused0(); virtual void unused1();
- virtual void close();
- virtual int read(void *buffer, int count);
-};
+#include "../../../Include/Common/File.h"
 
 class FileSystem { public: File *openFile(const char *, int, int); };
 

@@ -887,14 +887,7 @@ template class _STL::hash_set<Rva001F4325Element,_STL::hash<unsigned> >;
 // Donor BFME1 fx_particle_system_bulk.cpp writeStreamText via FileWriteShim.
 // Callers at 0x001FB7B4 and 0x00564315 in writeINI bodies using str() text.
 // Honest Rva name; /O1 for frameless esi-return idiom.
-class File {
-public:
-    virtual ~File();
-    virtual bool open(const char* n, int a = 0);
-    virtual void close();
-    virtual int read(void* b, int bsz);
-    virtual int write(const void* b, int bsz);
-};
+#include "../../../Include/Common/File.h"
 
 struct Rva001F458BText {
     const char* m_start;

@@ -256,9 +256,7 @@ extern WaterTracksRenderSystem *TheWaterTracksRenderSystem;
 
 class Rva0007E90ECallee {public:char unknown00[0x28];AsciiString file;void rva000FF5E6(int);};
 
-class File {public:enum {READ=0x01,BINARY=0x40};enum seekMode {START,CURRENT,END};
- virtual ~File();virtual void open();virtual void close();virtual int read(void*,int);virtual int write(const void*,int);virtual int seek(int,seekMode);
- virtual void v6();virtual void v7();virtual void v8();virtual void v9();virtual void v10();virtual void v11();virtual void v12();virtual void v13();virtual File *convertToRAMFile();};
+#include "../../../../../GameEngine/Include/Common/File.h"
 
 class FileSystem {public:File *openFile(const char*,int,int);};
 

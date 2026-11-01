@@ -21,14 +21,7 @@ static inline void _Construct(int *__p, const int &__val)
 template <> pair<_Rb_tree<AsciiString, AsciiString, _Identity<AsciiString>, less<AsciiString>, allocator<AsciiString> >::iterator, bool>
 _Rb_tree<AsciiString, AsciiString, _Identity<AsciiString>, less<AsciiString>, allocator<AsciiString> >::insert_unique(const AsciiString &);
 }
-class File {
-public:
- virtual void slot00(); virtual void slot04(); virtual void slot08();
- virtual void slot0C(); virtual void slot10(); virtual void slot14();
- virtual void slot18(); virtual void slot1C(); virtual void slot20();
- virtual void slot24(); virtual void slot28();
- virtual int size(); virtual void slot30(); virtual char *readEntireAndClose();
-};
+#include "../../../GameEngine/Include/Common/File.h"
 class FileSystem { public: File *openFile(const char *,int,int); };
 extern FileSystem *TheFileSystem;
 class MilesMutexGuard {
