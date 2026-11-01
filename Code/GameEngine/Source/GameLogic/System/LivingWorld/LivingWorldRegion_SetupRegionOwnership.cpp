@@ -17,11 +17,7 @@ public:
 	int m_playerID;
 };
 
-class Rva002BA8F1Logic
-{
-public:
-	Rva002E2903Player *find(const AsciiString &name, UnsignedInt *outIndex);
-};
+#include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 class Rva003F2A8C
 {

@@ -513,12 +513,7 @@ class Rva002E2903Player { public: char pad00[0x44]; int field44; };
 class Rva003F02E4 { public: bool rva003F02E4(); bool rva003F0336(const Rva002E071E *); };
 class Rva003F287F;
 struct Rva002B488EResult;
-class Rva002BA8F1Logic
-{
-public:
-    Rva002B488EResult *rva002B488E(int);
-    Rva002E2903Player *find(int, unsigned int *);
-};
+#include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 struct RegionArmyState { char pad00[0x2C]; int field2C; };
 struct RegionArmyView { char pad00[0x54]; int owner54; char pad58[0x20]; RegionArmyState *state78; };
 struct RegionBattleView

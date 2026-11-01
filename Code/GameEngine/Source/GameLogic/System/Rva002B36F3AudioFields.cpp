@@ -68,17 +68,7 @@ class Rva0020EAF6View
 public:
 	Rva0020E89C *rva0020EAF6(int index);
 };
-class Rva002BA8F1Logic
-{
-public:
-	Rva002B3740Item *rva002B2B2D();
-	void rva002B36F3();
-private:
-	char m_pad[0xB0];
-	Rva0020EAF6View *m_B0;
-	int m_B4;
-	int m_B8;
-};
+#include "../../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 void Rva002BA8F1Logic::rva002B36F3()
 {

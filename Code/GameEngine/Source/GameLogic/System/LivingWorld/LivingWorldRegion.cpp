@@ -94,12 +94,7 @@ public:
 	Int rva004E1755();
 };
 
-class Rva002BA8F1Logic
-{
-public:
-	void rva002B8D06(Xfer *,_STL::vector<const ModuleData *> *);
-	Rva002E2903Player *find(Int id, UnsignedInt *outIndex);	// 0x002B51F8
-};
+#include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 class Rva002E071E
 {

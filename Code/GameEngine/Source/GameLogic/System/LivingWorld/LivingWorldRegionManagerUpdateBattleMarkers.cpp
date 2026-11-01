@@ -24,11 +24,7 @@ public:
 	int rva002B254F();
 };
 
-class Rva002BA8F1Logic
-{
-public:
-	int rva002B5256(bool flag);
-};
+#include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 class Rva003F81FDProxy
 {

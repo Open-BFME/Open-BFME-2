@@ -46,7 +46,7 @@ namespace _STL { template <> __declspec(dllimport) __forceinline void * * vector
 namespace _STL { template <> __declspec(dllimport) __forceinline void * * vector<void *,allocator<void *> >::begin() { return this->_M_start; } }
 class LivingWorldLogic;extern LivingWorldLogic *TheLivingWorldLogic;
 class Rva002E2903Player;
-class Rva002BA8F1Logic{public:Rva002E2903Player *find(int,unsigned*);};
+#include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 class Rva002E071E{public:int rva002E0BC0(int);};
 struct Rva003EF5FBNode {int key;_STL::vector<Rva003EF5FBNode*> adjacent;float x,y;int owner18;float m_cost,m_estimate,total24;Rva003EF5FBNode *m_previous;bool m_allowed;
  unsigned char rva003EF5FB(int);

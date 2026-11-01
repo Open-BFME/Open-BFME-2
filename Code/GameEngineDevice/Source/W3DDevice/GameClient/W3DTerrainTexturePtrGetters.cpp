@@ -177,13 +177,7 @@ public:
 extern GlobalData *TheWritableGlobalData;
 extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
 
-class Rva002BA8F1Logic
-{
-public:
-	char m_pad00[0xb4];
-	bool m_b4;
-	bool m_b5;
-};
+#include "../../../../GameEngine/Include/GameLogic/Rva002BA8F1Logic.h"
 
 void setResourceTexture(ID3DXEffect *effect, D3DXHANDLE handle)
 {

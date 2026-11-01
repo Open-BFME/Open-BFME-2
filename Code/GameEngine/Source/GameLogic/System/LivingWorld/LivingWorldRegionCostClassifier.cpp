@@ -18,11 +18,7 @@ class Rva00318C79Owner {
 public:
     Rva00318C32Ret *rva00318C32();
 };
-class Rva002BA8F1Logic {
-public:
-    Rva002E2903Player *find(int, unsigned *);
-    Rva002E2903Player *GetPlayerAtIndex(int);
-};
+#include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 class Rva0020EAF6View {
 public:
     Rva0020E89C *rva0020EAF6(int);

@@ -50,11 +50,7 @@ extern unsigned int g_Va00E04544;
 
 class Rva002E2903Player;
 
-class Rva002BA8F1Logic
-{
-public:
-	Rva002E2903Player *find(int id, unsigned int *outIndex);
-};
+#include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 class Rva002E071E
 {

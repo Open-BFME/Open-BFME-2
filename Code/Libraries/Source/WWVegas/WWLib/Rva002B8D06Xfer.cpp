@@ -72,12 +72,7 @@ struct Rva002B488EResult
 	int m_armyID;
 };
 
-class Rva002BA8F1Logic
-{
-public:
-	Rva002B488EResult *rva002B488E(int id);
-	void rva002B8D06(Xfer *xfer, _STL::vector<const ModuleData *> *vec);
-};
+#include "../../../../GameEngine/Include/GameLogic/Rva002BA8F1Logic.h"
 
 void __cdecl XferLivingWorldArmyID(Xfer *xfer, int *value);
 

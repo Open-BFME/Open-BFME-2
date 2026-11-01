@@ -102,12 +102,7 @@ struct BfmePod20
 };
 
 
-class Rva002BA8F1Logic
-{
-public:
-	Rva002E2903Player *find(int id, unsigned int *index);
-	Rva002B488EResult *rva002B488E(int id);
-};
+#include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 class Rva002E0A9FElem
 {

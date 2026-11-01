@@ -163,12 +163,7 @@ int Rva002B24F0Get(Rva002B24F0Obj *xfer, void *value);
 
 void XferRegionAwardDisputeDisputeType(Xfer *xfer, void *value);
 
-class Rva002BA8F1Logic {
-public:
-	Rva002E2903Player* find(int, unsigned*);
-public:
-	void rva002B8DFC(Xfer *xfer, _STL::vector<const ModuleData *> *vec);
-};
+#include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 // ---- from Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionAwardDisputeXfer.cpp
 

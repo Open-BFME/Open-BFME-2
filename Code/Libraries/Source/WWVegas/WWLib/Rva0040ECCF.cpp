@@ -360,7 +360,7 @@ class LivingWorldPlayer { public: void rva002E14E9(const BfmeFixedStorage128 &bi
 class Rva002E2578 { public: void rva002E2578(const _STL::vector<ScienceType> &sciences); };
 struct Rva0040F19DLivingWorldPlayer { char pad00[0x1c8]; float m_1C8; };
 class Rva002E2903Player;
-class Rva002BA8F1Logic { public: Rva002E2903Player *find(int id, unsigned int *index); };
+#include "../../../../GameEngine/Include/GameLogic/Rva002BA8F1Logic.h"
 
 void ArmySummarySystem::Save(Object *objects)
 {

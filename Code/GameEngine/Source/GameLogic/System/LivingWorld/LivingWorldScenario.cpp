@@ -31,7 +31,7 @@ bool less<int>::operator()(const int &a, const int &b) const
 class Rva002E1001; // Retained opaque parameter spelling for the defeat provider.
 class LivingWorldPlayer { public: int GetNumRegionsOwned(); };
 class Rva002E2903Player { public: char pad[0x34]; int team; };
-class Rva002BA8F1Logic { public: Rva002E2903Player *GetPlayerAtIndex(int index); };
+#include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 class Rva002104B6 { public: void *rva002104B6(void *name); };
 class LivingWorldLogic {
 public:

@@ -69,12 +69,7 @@ public:
 
 class Rva002E2903Player;
 
-class Rva002BA8F1Logic
-{
-public:
-	Rva002E2903Player *find(int id, unsigned int *index);
-	void rva002B8DFC(Xfer *xfer, _STL::vector<const ModuleData *> *vec);
-};
+#include "../../../../GameEngine/Include/GameLogic/Rva002BA8F1Logic.h"
 
 void XferLivingWorldPlayerID(Xfer *xfer, int *value);
 

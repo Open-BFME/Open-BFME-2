@@ -570,7 +570,7 @@ namespace _STL {
 
 struct Rva002B3740Item;
 
-class Rva002BA8F1Logic {public: Rva002B3740Item *rva002B2B2D();};
+#include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 class LivingWorldLogic {public: void *rva002B4948(void*,void*,void*);};
 
