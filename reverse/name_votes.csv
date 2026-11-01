@@ -20295,3 +20295,6 @@ Code/GameEngine/Source/Common/BfmeConv678GoDEB.cpp|local|bfmeGoDEB|s,89195f86ecf
 Code/GameEngine/Source/Common/BfmeConv771.cpp|local|Rva00270234::rva00270234|p,4fde93f58fa49f9ac4823d40,drz-k11,n31h-k11,w-09889333d128,2026-11-01
 Code/GameEngine/Source/Common/BfmeConv791.cpp|member|BfmeThingDWE|m_bfmeH,6e27c21aa052f9dbe13e6aaf,drz-k11,n31h-k11,w-09889333d128,2026-11-01
 Code/GameEngine/Source/Common/BfmeConv791.cpp|function|0x00154820|bfmeGoDWE,a8b5561f6283f24ec7cbaa92,drz-k11,n31h-k11,w-09889333d128,2026-11-01
+Code/GameEngine/Source/Common/AptDisplayStringBase.cpp|function|0x000A8F98|Rva000A8F98,11a4d3eedcd061874e32c20f,drz-k3,n31a2-k3,w-077d7aeb666b,2026-11-01
+Code/GameEngine/Source/Common/AptDisplayStringBase.cpp|function|0x000A94F9|rva000A94F9,7dbcf55c16aa47adde8bd9fd,drz-k3,n31a2-k3,w-077d7aeb666b,2026-11-01
+Code/GameEngine/Source/Common/AptDisplayStringBase.cpp|global||g_rva00785FD0Dirty,1ec76763d22f85ab7138b4df,drz-k3,n31a2-k3,w-077d7aeb666b,2026-11-01
