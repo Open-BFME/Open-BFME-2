@@ -1,5 +1,5 @@
 // ?doDrawModule@W3DModelDraw@@UAEXPBVMatrix3D@@@Z
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /DWIN32 /D_WINDOWS /Ireference/shims/bfme2_ascii /ICode/Libraries/Include/Lib /ICode/GameEngine/Source/Common /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /DWIN32 /D_WINDOWS /Ireference/shims/bfme2_ascii /ICode/Libraries/Include/Lib /ICode/GameEngine/Source/Common /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas /ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // W3DModelDraw::doDrawModule, retail 0x000C7BC4 (1563 B, vtable slot of W3DModelDraw).
 // Zero Hour W3DModelDraw::doDrawModule reshaped onto the BFME 2 layout (class views
 // below); the Zero Hour definition in W3DModelDraw.cpp is removed with this row.
@@ -190,14 +190,7 @@ public:
 };
 extern InGameUI *TheInGameUI;
 
-class RenderObjClass
-{
-public:
-	SLOT(00) SLOT(01) SLOT(02) SLOT(03) SLOT(04) SLOT(05) SLOT(06) SLOT(07)
-	SLOT(08) SLOT(09) SLOT(10) SLOT(11) SLOT(12) SLOT(13) SLOT(14) SLOT(15)
-	SLOT(16) SLOT(17) SLOT(18) SLOT(19) SLOT(20)
-	virtual void Set_Transform(const Matrix3D &m);
-};
+#include "../../../../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"
 bool Rva0010E676_SetEmissive(RenderObjClass *robj, Real r, Real g, Real b);
 
 class W3DScriptedModelDraw

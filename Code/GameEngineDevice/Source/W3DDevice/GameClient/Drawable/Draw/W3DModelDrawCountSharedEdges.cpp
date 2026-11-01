@@ -1,5 +1,5 @@
 // ?rva000B89E9@Rva000B8F5AOuter@@QAEHHPAM@Z
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /DWIN32 /D_WINDOWS /ICode/Libraries/Include/Lib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /DWIN32 /D_WINDOWS /ICode/Libraries/Include/Lib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas /ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 //
 // Two bodies of one retail unit (W3DScriptedModelDraw.cpp in BFME2) kept
 // together because the static edge counter has a private register ABI that
@@ -121,30 +121,12 @@ public:
 	ShareBufferView<Vector3> *m_vertices;
 };
 
-class RenderObjClass
-{
-public:
-	enum { CLASSID_MESH = 0 };
-	virtual void Delete_This();
-	SLOT(01) SLOT(02)
-	virtual int Class_ID() const;
-	SLOT(04) SLOT(05) SLOT(06) SLOT(07)
-	SLOT(08) SLOT(09) SLOT(10) SLOT(11) SLOT(12) SLOT(13) SLOT(14) SLOT(15)
-	SLOT(16) SLOT(17) SLOT(18) SLOT(19)
-	virtual void Validate_Transform() const;
-	virtual void Set_Transform(const Matrix3D &m);
-	void Release_Ref() { if (--m_numRefs == 0) Delete_This(); }
-	const Matrix3D &Get_Transform() const { Validate_Transform(); return m_transform; }
-	int m_numRefs;
-	char m_pad08[0x18 - 0x08];
-	Matrix3D m_transform;
-};
+#include "../../../../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"
 
 class MeshClass : public RenderObjClass
 {
 public:
 	MeshModelClass *Peek_Model() const { return m_model; }
-	char m_pad48[0xC4 - 0x48];
 	MeshModelClass *m_model;
 };
 

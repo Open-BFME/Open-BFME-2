@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 //
 // ?setModelName@W3DDebrisDraw@@UAEXVAsciiString@@HW4ShadowType@@@Z retail
 // 0x000B1EEB..0x000B207F (404 bytes EH RET 0x0C). WB 0x00957710 is
@@ -32,53 +32,10 @@ enum ShadowType
 	SHADOW_NONE = 0
 };
 
-class W3DDebrisDrawPoint
-{
-public:
-	Real X;
-	Real Y;
-	Real Z;
-	W3DDebrisDrawPoint(Real posX, Real posY, Real posZ) { X = posX; Y = posY; Z = posZ; }
-};
 
-class W3DDebrisDrawRow
-{
-public:
-	Real X;
-	Real Y;
-	Real Z;
-	Real W;
-	void Set(Real x, Real y, Real z, Real w) { X = x; Y = y; Z = z; W = w; }
-};
 
-class W3DDebrisDrawTransform
-{
-public:
-	W3DDebrisDrawTransform() {}
-	void Set(const W3DDebrisDrawPoint &position)
-	{
-		Row[0].Set(1.0f, 0.0f, 0.0f, position.X);
-		Row[1].Set(0.0f, 1.0f, 0.0f, position.Y);
-		Row[2].Set(0.0f, 0.0f, 1.0f, position.Z);
-	}
-	W3DDebrisDrawRow Row[3];
-};
 
-class RenderObjClass
-{
-public:
-#define V(n) virtual void slot##n();
-#define V10(n) V(n##0) V(n##1) V(n##2) V(n##3) V(n##4) V(n##5) V(n##6) V(n##7) V(n##8) V(n##9)
-	V(00) V(01) V(02) V(03) V(04) V(05) V(06) V(07) V(08) V(09)
-	V(10) V(11) V(12) V(13) V(14) V(15) V(16) V(17) V(18) V(19) V(20)
-	virtual void Set_Transform(const W3DDebrisDrawTransform &m);					// slot 21
-	V(22) V(23) V(24) V(25) V(26) V(27) V(28) V(29)
-	V10(3) V10(4) V10(5) V10(6) V10(7)
-	V(80) V(81) V(82) V(83) V(84) V(85)
-	virtual void Set_User_Data(void *value, Bool recursive = false);	// slot 86
-#undef V10
-#undef V
-};
+#include "../../../../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"
 
 class RTS3DScene
 {
@@ -223,8 +180,7 @@ void W3DDebrisDraw::setModelName(AsciiString name, Color color, ShadowType t)
 		{
 			W3DDisplay::m_3DScene->Add_Render_Object(m_renderObject);
 			m_renderObject->Set_User_Data((unsigned char *)getDrawable() + 0x248);
-			W3DDebrisDrawTransform transform;
-			transform.Set(W3DDebrisDrawPoint(0, 0, 0));
+			Matrix3D transform(Vector3(0, 0, 0));
 			m_renderObject->Set_Transform(transform);
 		}
 
