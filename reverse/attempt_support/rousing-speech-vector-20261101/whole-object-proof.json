@@ -1,0 +1,34 @@
+{
+  "before_definitions": 9,
+  "after_definitions": 9,
+  "added": [
+    "??0?$_STLP_alloc_proxy@PAVAsciiString@@V1@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@ABV?$allocator@VAsciiString@@@1@PAVAsciiString@@@Z",
+    "??0?$_Vector_base@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@ABV?$allocator@VAsciiString@@@1@@Z",
+    "??0?$allocator@VAsciiString@@@_STL@@QAE@ABV01@@Z",
+    "??0?$allocator@VAsciiString@@@_STL@@QAE@XZ",
+    "??0?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@ABV?$allocator@VAsciiString@@@1@@Z",
+    "??1?$_STLP_alloc_proxy@PAVAsciiString@@V1@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@XZ",
+    "??1?$allocator@VAsciiString@@@_STL@@QAE@XZ"
+  ],
+  "removed": [
+    "??0?$_STLP_alloc_proxy@PAUBfmeE16@@U1@V?$allocator@UBfmeE16@@@_STL@@@_STL@@QAE@ABV?$allocator@UBfmeE16@@@1@PAUBfmeE16@@@Z",
+    "??0?$_Vector_base@UBfmeE16@@V?$allocator@UBfmeE16@@@_STL@@@_STL@@QAE@ABV?$allocator@UBfmeE16@@@1@@Z",
+    "??0?$allocator@UBfmeE16@@@_STL@@QAE@ABV01@@Z",
+    "??0?$allocator@UBfmeE16@@@_STL@@QAE@XZ",
+    "??0?$vector@UBfmeE16@@V?$allocator@UBfmeE16@@@_STL@@@_STL@@QAE@ABV?$allocator@UBfmeE16@@@1@@Z",
+    "??1?$_STLP_alloc_proxy@PAUBfmeE16@@U1@V?$allocator@UBfmeE16@@@_STL@@@_STL@@QAE@XZ",
+    "??1?$allocator@UBfmeE16@@@_STL@@QAE@XZ"
+  ],
+  "changed": [
+    "??0RousingSpeechUpdateModuleData@@QAE@XZ"
+  ],
+  "after_element_type_substitution_all_whole_code_and_relocations_equal": true,
+  "parent_eh": [
+    "EXACT",
+    ""
+  ],
+  "proven_funclets": {
+    "$L5174": "0x78e457",
+    "$L5173": "0x78e44f"
+  }
+}

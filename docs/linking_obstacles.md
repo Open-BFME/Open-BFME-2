@@ -10589,11 +10589,16 @@ UpdateModule, and its direct BehaviorModule include preserves all 66 emitted
 code definitions and relocations, 25 verified rows and a 1,181-byte prediction.
 Both owning acceptance commands pass. Duplicate-destructor debt stays intact.
 
-The constructor's +E4 vector element remains a separate concrete correction:
-the native ModifierName parser entry and current destructor/trigger establish
-AsciiString, while the constructor still names BfmeE16. A private correction
-passes its three existing rows; it has not yet been applied. Evidence:
+The constructor's +E4 vector element is corrected independently: the native
+ModifierName parser entry and current destructor/trigger establish AsciiString.
+All three constructor rows and the 31-row strict caller cohort pass. All nine
+whole external definitions retain their bytes, with symbolic relocations
+unchanged after the element-type substitution. The six-source preview retains
+3,364 linking bytes. The exact parent EH graph also places the 14-byte string
+cleanup at 78E457; its scaffold recovery is a separate step. The 8-byte cleanup
+at 78E44F still requires reconciliation of its base-destructor owner. Evidence:
 `reverse/attempt_support/rousing-speech-tu-prerequisites-20261101/`.
+`reverse/attempt_support/rousing-speech-vector-20261101/` records the correction.
 Clearance: pending.
 
 **Header-adoption prerequisite (2026-10-28, base `fa53c16f5f`):** the default
