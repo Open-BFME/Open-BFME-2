@@ -1,0 +1,6 @@
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Code/GameEngine/Source/GameLogic/Object/Upgrade/GeometryUpgrade.cpp: LINKS  LINKED 1,231 -> 1,231 bytes (census 2026-11-01 14:31 at 86db074988; file's own bytes 1,231)
+Code/GameEngine/Source/GameLogic/Object/Upgrade/GeometryUpgradeDtor.cpp: LINKS  LINKED 63 -> 63 bytes (census 2026-11-01 14:31 at 86db074988; file's own bytes 63)
+Code/GameEngine/Source/GameLogic/Object/Upgrade/GeometryUpgradeModuleDataCtor.cpp: LINKS  LINKED 141 -> 141 bytes (census 2026-11-01 14:31 at 86db074988; file's own bytes 141)
+link_check: 3 of 3 link cleanly; LINKED 1,435 -> 1,435 bytes (3.8s)
