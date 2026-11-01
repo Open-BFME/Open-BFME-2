@@ -97,16 +97,7 @@ typedef unsigned short UnsignedShort;
 
 // Retail ThrowInfo names the 8-byte XferException class and its rowed
 // copy constructor and destructor (see Common/System/XferException.cpp).
-class XferException
-{
-public:
-	XferException(int tag, const char *format, ...);
-	XferException(const XferException &that);
-	~XferException();
-
-	char *text;
-	int tag;
-};
+#include "../../../Include/Common/XferException.h"
 
 void XferObjectID(Xfer *xfer, ObjectID *id);
 void XferWeaponSlotType(Xfer *xfer, int *slot);
