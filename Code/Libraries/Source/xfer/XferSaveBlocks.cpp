@@ -13,15 +13,7 @@
 #include <hash_map>
 class ModuleData;
 namespace _STL { template<> void vector<const ModuleData *>::push_back(const ModuleData *const&); }
-class XferException
-{
-public:
-	XferException(int tag, const char *format, ...);
-	XferException(const XferException &that);
-	~XferException();
-	void *text; // +0x00
-	int tag; // +0x04
-};
+#include "../../../GameEngine/Include/Common/XferException.h"
 class BfmeByteStream
 {
 public:

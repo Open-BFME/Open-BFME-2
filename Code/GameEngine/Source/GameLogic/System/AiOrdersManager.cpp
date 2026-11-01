@@ -213,15 +213,7 @@ struct Rva00355100Pair
 
 Xfer *Rva00355100Xfer(Xfer *, Rva00355100Pair *);
 
-class XferException
-{
-public:
-	XferException(int tag, const char *format, ...);
-	XferException(const XferException &that);
-	~XferException();
-	char *text;
-	int tag;
-};
+#include "../../../Include/Common/XferException.h"
 
 class Rva0054840A;
 
