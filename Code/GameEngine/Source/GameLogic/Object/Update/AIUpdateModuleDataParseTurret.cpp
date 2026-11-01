@@ -13,11 +13,7 @@
 
 class MultiIniFieldParse;
 
-class INI
-{
-public:
-	void initFromINIMultiProc(void *what, void (*proc)(MultiIniFieldParse &p));
-};
+#include "../../../../Include/Common/INI/INI.h"
 
 #include "../../../../Include/Common/INI/FieldParse.h"
 

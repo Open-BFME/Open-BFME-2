@@ -231,13 +231,7 @@ typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const v
 
 #include "../../../../Include/Common/INI/FieldParse.h"
 
-class INI
-{
-public:
-	static void parseAsciiStringVector(INI *ini, void *instance, void *store, const void *userData);
-	static void parseDurationUnsignedInt(INI *ini, void *instance, void *store, const void *userData);
-	static void parseInt(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../../Include/Common/INI/INI.h"
 
 void iniParseObjectFilter(INI *ini, void *instance, void *store, const void *userData);
 

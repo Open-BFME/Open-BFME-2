@@ -29,11 +29,7 @@ typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const v
 
 #include "../../../../../Include/Common/INI/FieldParse.h"
 
-class INI
-{
-public:
-	static void parseDurationReal(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../../../Include/Common/INI/INI.h"
 
 // Retail VA 0x00C51C10 (.rdata): 1 field records and a zero sentinel.
 extern const FieldParse g_00C51C10[] = {

@@ -738,18 +738,7 @@ protected:
 
 BFME_LITERAL_NAME_GETTER(Rva0049795ANamed, "BattlePlanUpdate")
 
-class INI
-{
-public:
-	static void parseAudioEventRTS(INI *ini, void *instance, void *store, const void *userData);
-	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
-	static void parseBool(INI *ini, void *instance, void *store, const void *userData);
-	static void parseDurationUnsignedInt(INI *ini, void *instance, void *store, const void *userData);
-	static void parseIndexList(INI *ini, void *instance, void *store, const void *userData);
-	static void parseReal(INI *ini, void *instance, void *store, const void *userData);
-	static void parseSpecialPowerTemplate(INI *ini, void *instance, void *store, const void *userData);
-	void initFromINIMultiProc(void *what, void (__cdecl *proc)(MultiIniFieldParse &));
-};
+#include "../../../../Include/Common/INI/INI.h"
 
 struct FieldParse
 {

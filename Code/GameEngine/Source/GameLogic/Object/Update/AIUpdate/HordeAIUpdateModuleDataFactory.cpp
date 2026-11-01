@@ -8,10 +8,7 @@
 // The Horde spelling is supported by registration; unaccessed layout is opaque.
 class ModuleData;
 class MultiIniFieldParse;
-class INI {
-public:
-    void initFromINIMultiProc(void *, void (__cdecl *)(MultiIniFieldParse &));
-};
+#include "../../../../../Include/Common/INI/INI.h"
 class TransportAIUpdateModuleData {
 public:
     TransportAIUpdateModuleData();

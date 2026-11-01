@@ -23,11 +23,7 @@ class MultiIniFieldParse;
 
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
-class INI
-{
-public:
-	void initFromINIMultiProc(void *what, void (__cdecl *proc)(MultiIniFieldParse &));
-};
+#include "../../../../Include/Common/INI/INI.h"
 
 class DefaultProductionExitUpdateModuleData
 {

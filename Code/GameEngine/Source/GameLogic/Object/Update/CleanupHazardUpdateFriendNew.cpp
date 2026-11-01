@@ -17,11 +17,7 @@ class INI;
 class MultiIniFieldParse;
 
 
-class INI
-{
-public:
-	void initFromINIMultiProc(void *what, void (__cdecl *proc)(MultiIniFieldParse &));
-};
+#include "../../../../Include/Common/INI/INI.h"
 
 class BeaconClientUpdateModuleData
 {

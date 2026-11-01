@@ -455,13 +455,7 @@ struct FieldParse
 	int offset;
 };
 
-class INI
-{
-public:
-	static void parseFXList(INI *ini, void *instance, void *store, const void *userData);
-	static void parseIndexList(INI *ini, void *instance, void *store, const void *userData);
-	static void parseReal(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../../../Include/Common/INI/INI.h"
 
 extern const char *TheLocomotorSetNames[];
 

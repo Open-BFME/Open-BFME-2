@@ -93,18 +93,7 @@ namespace _STL { template <> LocomotorTemplate const * * allocator<LocomotorTemp
 class LocomotorTemplate;
 namespace _STL { template <> void allocator<LocomotorTemplate const *>::deallocate(LocomotorTemplate const * *,unsigned int) const; }
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-	const char *getNextTokenOrNull(const char *seps);
-	int scanIndexList(const char *token, const char *const *table);
-	INILoadType getLoadType() const { return m_loadType; }
-
-private:
-	char m_pad[8];
-	INILoadType m_loadType;
-};
+#include "../../../../Include/Common/INI/INI.h"
 
 class NameKeyGenerator
 {
