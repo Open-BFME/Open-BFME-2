@@ -10510,7 +10510,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x0083FF98,136,.rdata,vtable,??_7WallHubBehaviorModuleData@@6B@,,literal,??_7WallHubBehaviorModuleData@@6B@;_vtbl_00C3FF98,0,2
 0x00840020,112,.rdata,vtable,??_7GettingBuiltBehaviorInterface@@6B@,,literal,,0,1
 0x00840090,528,.rdata,vtable,??_7GettingBuiltBehaviorModuleData@@6B@,,literal,,0,2
-0x008402A0,296,.rdata,global,?g_00C402A0@@3QBUFieldParse@@B,Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehaviorModuleDataCtor.cpp,owned,,1,1
+0x008402A0,296,.rdata,global,?g_00C402A0@@3QBUFieldParse@@B,Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehavior.cpp,owned,,1,1
 0x008403C8,108,.rdata,vtable,??_7GettingBuiltBehavior@@6BGettingBuiltBehaviorInterface@@@,,literal,??_7GettingBuiltBehavior@@6BGettingBuiltBehaviorInterface@@@;??_7GettingBuiltBehavior@@6BGettingBuiltBehaviorSecondary@@@,0,2
 0x00840434,12,.rdata,vtable,??_7GettingBuiltBehavior@@6BUpdateModule@@@,,literal,,0,2
 0x00840440,188,.rdata,vtable,??_7GettingBuiltBehavior@@6BBehaviorModuleOther@@@,,literal,,0,2
@@ -19849,8 +19849,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A033E0,4,.data,global,?TheWallHubBehaviorPoolKey@?1??getModuleNameKey@WallHubBehavior@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/WallHubBehavior.cpp,owned,,1,2
 0x00A033E4,4,.data,global,?$S1@?1??getModuleNameKey@WallHubBehavior@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/WallHubBehavior.cpp,owned,,1,4
 0x00A033E8,4,.data,global,_s_rva007B0878,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
-0x00A033EC,4,.data,global,?TheGettingBuiltBehaviorPoolKey@?1??getModuleNameKey@GettingBuiltBehavior@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehaviorPoolKey.cpp,owned,,1,2
-0x00A033F0,4,.data,global,?$S1@?1??getModuleNameKey@GettingBuiltBehavior@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehaviorPoolKey.cpp,owned,,1,4
+0x00A033EC,4,.data,global,?TheGettingBuiltBehaviorPoolKey@?1??getModuleNameKey@GettingBuiltBehavior@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehavior.cpp,owned,,1,2
+0x00A033F0,4,.data,global,?$S1@?1??getModuleNameKey@GettingBuiltBehavior@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehavior.cpp,owned,,1,4
 0x00A033F4,4,.data,global,_s_rva007B08A2,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A033F8,4,.data,global,_s_rva007B08B2,Code/GameEngine/Source/Common/Rva007ABC6FFrameRateInits.cpp,owned,,1,1
 0x00A033FC,4,.data,global,?TheFoundationAIUpdatePoolKey@?1??getModuleNameKey@FoundationAIUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/FoundationAIUpdate.cpp,owned,,1,2
