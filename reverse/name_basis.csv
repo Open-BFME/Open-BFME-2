@@ -6407,3 +6407,4 @@ function,?rva006E3810@AptActionQueueC@@QAEXPAVAptValue@@00HH@Z,?enqueueFront@Apt
 local,Rva00171024::rva001711a6::n,Rva00171024::rva001711a6::newSkylineRow,inferred,agree:nl-2605e724ad28-mfde7d5c741e2cb9a39fcc46f,Code/Libraries/Source/WWVegas/WW3D2/texturepacker.cpp,0x001711A6
 local,Rva00171024::rva001711a6::x,Rva00171024::rva001711a6::placementColumn,inferred,agree:nl-6d6e396d361e-mb0d037a9bb883079717d7ae4,Code/Libraries/Source/WWVegas/WW3D2/texturepacker.cpp,0x001711A6
 local,Rva00171024::rva001711a6::y,Rva00171024::rva001711a6::placementRow,inferred,agree:nl-f5be9d78cc67-m8611dde044ea130bad22034b,Code/Libraries/Source/WWVegas/WW3D2/texturepacker.cpp,0x001711A6
+class,Rva00174AADRecord,RenderingTaskRecord,inferred,agree:nl-8e81757b98c0,Code/Libraries/Source/WWVegas/WW3D2/FXShaderRendererAddRenderingTask.cpp,

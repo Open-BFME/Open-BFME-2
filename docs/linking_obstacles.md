@@ -8705,6 +8705,16 @@ rename for a placeholder whose rows are that class's own table entries, or TU-ap
 0x004E0D67/0x004E0E5C into `LivingWorldBuilding.cpp` and reconcile the view.
 Clearance: `LoadPostProcess` name only (preview scope); census not claimed.
 
+**2026-11-01 owner-fold checkpoint (GPT-6, base f878d8a980):** a fresh
+0156fc269e current-object preview retains only the missing real-named
+LivingWorldBuilding destructor in the approved constructor/transfer TU
+(1,124 own bytes; zero linked). The newly supported class --fold path is
+worth testing for Rva004E0D67 once the class is available, preserving the
+Snapshot and RegionTurnObserverView slots described above. The origin-backed
+class:LivingWorldBuilding reservation was refused; all three partial scope
+claims were released immediately. No source edit, fold trial, clearance or
+census gain. [Current checkpoint and claim result](../reverse/attempt_support/render-task-record-name-20261101/readme.md).
+
 ### LINK-025: `StlSweepR3Rva0002CCC3.cpp`'s opaque hashtable record needs the macro table's real type
 Status: Blocked (identity prerequisite). Updated: 2026-10-26; inspected revision: 308a442bae.
 Evidence / affected units: `Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0002CCC3.cpp` (67 B): unresolved

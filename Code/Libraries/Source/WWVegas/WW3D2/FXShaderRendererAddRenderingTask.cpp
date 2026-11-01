@@ -88,7 +88,7 @@ inline __declspec(noinline) Rva00072A94 &Rva00072A94::operator=(const Rva00072A9
 	return *this;
 }
 
-struct Rva00174AADRecord
+struct RenderingTaskRecord
 {
 	Rva00072A94 mesh;
 	int count;
@@ -101,7 +101,7 @@ class Rva00174A8A
 public:
 	void rva00174A8A(int n);
 };
-typedef _STL::vector<Rva00174AADRecord, _STL::allocator<Rva00174AADRecord> > Rva00174AADQueue;
+typedef _STL::vector<RenderingTaskRecord, _STL::allocator<RenderingTaskRecord> > Rva00174AADQueue;
 
 class Rva00DF6F94GapFillerContext
 {
@@ -118,7 +118,7 @@ void Rva00DF6F94GapFillerContext::Add_Rendering_Task(RefCountPtr<MeshClass> mesh
 {
 	if (renderingMethodStack.size() > 6)
 		return;
-	Rva00174AADRecord *record;
+	RenderingTaskRecord *record;
 	Rva00174AADLightEnv *env = mesh->m_lightEnv;
 	if (env->m_flags & 4)
 	{
