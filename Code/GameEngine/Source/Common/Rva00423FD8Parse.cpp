@@ -65,11 +65,7 @@ struct FieldParse
 
 void rva00421749(INI *ini, void *instance, void *store, const void *userData);
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const AsciiString &name);
-};
+#include "../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 class BfmeFixedStorage0004543D

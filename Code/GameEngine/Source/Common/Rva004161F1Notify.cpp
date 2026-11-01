@@ -100,11 +100,7 @@ public:
 	Player *findPlayerWithNameKey(NameKeyType key);
 };
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const AsciiString &s);
-};
+#include "../../Include/Common/NameKeyGenerator.h"
 
 class GameSlot
 {

@@ -48,12 +48,7 @@ enum NameKeyType
 	FORCE_NAMEKEYTYPE_LONG = 0x7fffffff
 };
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const AsciiString &name);
-	const AsciiString &keyToName(NameKeyType key);
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 Xfer &Rva00149101XferNameKey( Xfer &xfer, NameKeyType &key )

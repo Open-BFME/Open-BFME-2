@@ -153,11 +153,7 @@ enum INILoadType
 	INI_LOAD_CREATE_OVERRIDES = 2
 };
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const AsciiString &name);
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

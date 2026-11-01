@@ -31,13 +31,7 @@ class StaticNameKey {
 public: mutable int m_key; const char *m_name;
 };
 static __forceinline NameKeyType teamKey(const StaticNameKey &cache) { return ((Rva00148F5ECache *)&cache)->get(); }
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const AsciiString &nameString);
-	const AsciiString &keyToName(NameKeyType);
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 class Dict {
 public:

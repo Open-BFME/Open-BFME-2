@@ -7,11 +7,7 @@ enum NameKeyType
 	NAMEKEY_INVALID = 0
 };
 class AsciiString;
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const AsciiString &name);
-};
+#include "../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 class Rva004074B6

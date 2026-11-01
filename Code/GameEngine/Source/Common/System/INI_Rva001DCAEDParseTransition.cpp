@@ -26,11 +26,7 @@ enum NameKeyType
 	NAMEKEY_INVALID = 0
 };
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *nameString);
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 // ?Rva00DFDC14Object@@3PAXA: the global at this VA is ?theBfmeDfdc14@@3PAVAudioManager@@A; this name is an alias for it.

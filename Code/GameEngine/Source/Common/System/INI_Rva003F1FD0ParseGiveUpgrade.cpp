@@ -24,11 +24,7 @@ public:
 	int m_requiredZero; // +0x04: entries with a nonzero word here are skipped
 };
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 
 class UpgradeCenter
 {

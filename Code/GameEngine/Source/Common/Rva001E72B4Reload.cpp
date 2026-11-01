@@ -160,7 +160,7 @@ public:
 void parseCanMoveBackwards(INI *,void *,void *,const void *);
 class INIException { public: INIException(int,const char*,...); INIException(const INIException &); ~INIException(); char *message; int code; };
 enum NameKeyType { NAMEKEY_INVALID=0 };
-class NameKeyGenerator { public: NameKeyType nameToKey(const char *); };
+#include "../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 #include "../../Include/Common/Overridable.h"
 class LocomotorTemplate { public: LocomotorTemplate() throw(); void validate(); char storage[0x154]; };

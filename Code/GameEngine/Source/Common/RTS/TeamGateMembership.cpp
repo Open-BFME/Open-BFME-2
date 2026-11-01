@@ -64,13 +64,7 @@ bool less<int>::operator()(const int &a, const int &b) const
 enum NameKeyType {};
 
 class AsciiString;
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const AsciiString &nameString);
-	const AsciiString &keyToName(NameKeyType);
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 class Module;

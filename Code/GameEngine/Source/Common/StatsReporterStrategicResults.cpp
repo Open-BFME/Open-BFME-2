@@ -141,7 +141,7 @@ class SkirmishPreferences:public UserPreferences {
  private: char tail[12];
 };
 enum NameKeyType {NAMEKEY_INVALID=0};
-class NameKeyGenerator {public:NameKeyType nameToKey(const AsciiString&);};
+#include "../../Include/Common/NameKeyGenerator.h"
 class PlayerTemplate {public:const AsciiString&getSide()const{return side;}char gap[24];AsciiString side;};
 class PlayerTemplateStore {public:const PlayerTemplate*findPlayerTemplate(NameKeyType)const;};
 class Rva004EE35D;class Rva004EE3AB;class Rva004EE3F9;class Rva004EE447;class Rva004EE485;class Rva004EE4C3;

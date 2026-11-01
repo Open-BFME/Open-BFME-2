@@ -121,7 +121,8 @@ class AIGroup {public:void add(Object*);void groupMoveToPosition(Rva00372571Para
 class AI {public:AIGroup*createGroup();void destroyGroup(AIGroup*);};extern AI*TheAI;
 class BfmeC986 {public:void bfmeGo986C(int,int,int,int);};
 enum NameKeyType{NAMEKEY_INVALID=0};
-class NameKeyGenerator {public:NameKeyType nameToKey(const AsciiString&);};extern NameKeyGenerator*TheNameKeyGenerator;
+#include "../../../Include/Common/NameKeyGenerator.h"
+extern NameKeyGenerator*TheNameKeyGenerator;
 struct FormationPlacement {int kind;ObjectID id;char pad[0x10];float x,y;};
 class Formation {public:void rva0042245F(float);void optimizeUnits(const Coord3D*);FormationPlacement*start,*finish,*end;};
 class Rva001EB130Holder;

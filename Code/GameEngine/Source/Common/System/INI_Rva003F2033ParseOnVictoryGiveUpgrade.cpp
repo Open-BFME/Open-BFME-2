@@ -26,11 +26,7 @@ public:
 	char m_flag78; // +0x78: entries with a zero byte here are skipped
 };
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 
 class UpgradeCenter
 {

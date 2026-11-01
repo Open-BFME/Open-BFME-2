@@ -14,7 +14,7 @@
 // cmp ebp,eax / jne false / eax=1 / false: eax=0 / pop regs / ret 4.
 #include "ascii_string.h"
 enum NameKeyType { NAMEKEY_INVALID=0, FORCE_NAMEKEYTYPE_LONG=0x7fffffff };
-class NameKeyGenerator { public: const AsciiString &keyToName(NameKeyType); };
+#include "../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 class CreateAHeroData { public: bool GetStat(const AsciiString&, unsigned int*); };
 class Rva0040A7D5 { public: int GetStatNameKey(int) const; };

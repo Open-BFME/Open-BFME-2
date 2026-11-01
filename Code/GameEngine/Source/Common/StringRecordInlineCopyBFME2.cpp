@@ -316,11 +316,7 @@ class INI;
 class Rva0014921EVector;
 void __cdecl rva00149002(int ini, int instance, Rva0014921EVector *store, int userData);
 
-class NameKeyGenerator
-{
-public:
-	const AsciiString &keyToName(NameKeyType key);
-};
+#include "../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 struct BfmePod40;

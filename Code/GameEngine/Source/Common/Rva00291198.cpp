@@ -6,7 +6,7 @@
 // complete record semantics remain unresolved; no donor identity is asserted.
 #include "ascii_string.h"
 enum NameKeyType { NAMEKEY_UNKNOWN=0 };
-class NameKeyGenerator {public:NameKeyType nameToKey(const char*);};
+#include "../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 class Module;
 class Object {friend class Rva00291198Host;protected:Module *findModule(NameKeyType) const;};

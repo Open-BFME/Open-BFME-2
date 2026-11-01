@@ -45,11 +45,7 @@ template <> ScienceMemoTree::~_Rb_tree();
 template <> pair<ScienceMemoTree::iterator, bool> ScienceMemoTree::insert_unique(const ScienceMemoValue &);
 }
 
-class NameKeyGenerator
-{
-public:
-	const AsciiString &keyToName( NameKeyType key );
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
