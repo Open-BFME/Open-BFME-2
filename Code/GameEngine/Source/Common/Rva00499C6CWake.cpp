@@ -21,18 +21,38 @@ class Rva00373EC6
 {
 public:
 	void rva00374815();
-	char m_pad[0x31];
-	unsigned char m_31;
+	char m_pad00[0x31];
+	bool m_31; // +0x31 +0x31
 };
 
-class Object
+#include "Thing/thing.h"
+enum ObjectID;
+enum ObjectStatusTypes;
+class Team;
+class AIUpdateInterface;
+class Rva00373EC6;
+enum DamageType { DAMAGE_SNIPER = 8 };
+enum DeathType { DEATH_NORMAL = 0 };
+class Object : public Thing
 {
 public:
+	void kill(DamageType damageType, DeathType deathType);
+	bool rva0028F518();
+	bool testStatus(ObjectStatusTypes bit) const;
+	void setStatus(ObjectStatusTypes bit, bool set);
 	Rva00373EC6 *rva0028F4BC();
-	void setStatus(ObjectStatusTypes status, bool set);
 	void rva0028EC68(int kind, void *payload, int flag);
-	char m_pad[0x74];
-	ObjectID m_id;
+	AIUpdateInterface *getAI() const { return m_ai; }
+private:
+	unsigned char m_pad60[0x74 - 0x60];
+public:
+	ObjectID m_id74; // +0x74
+private:
+	unsigned char m_pad78[0x258 - 0x78];
+	AIUpdateInterface *m_ai; // +0x258
+	unsigned char m_pad25C[0x304 - 0x25C];
+public:
+	Team *m_team304; // +0x304
 };
 
 class Rva00499C6CAudio
@@ -70,6 +90,8 @@ class BfmeC987
 {
 public:
 	void bfmeGo987C();
+	char m_bfmePad[0x24]; // +0x00
+	int m_bfmeId; // +0x24
 };
 
 struct Rva00499C6CHolder
@@ -106,7 +128,7 @@ void Rva00499C6C::rva00499C6C()
 		obj->rva0028EC68(5, 0, 1);
 		if (holder->m_ref.referent != 0)
 		{
-			BfmeAudioEventPrefix136 evt(holder->m_ref, obj->m_id);
+			BfmeAudioEventPrefix136 evt(holder->m_ref, obj->m_id74);
 			reinterpret_cast<Rva00499C6CAudio *>(TheAudio)->addAudioEvent(&evt);
 		}
 	}

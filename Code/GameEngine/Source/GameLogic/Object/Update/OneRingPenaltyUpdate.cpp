@@ -72,8 +72,7 @@ public:
 #include "OneRingPenaltyModuleDataView.h"
 // ??0OneRingPenaltyUpdateModuleData@@QAE@XZ at retail 0x004999F1 (37 bytes).
 // The module-data half of OneRingPenaltyUpdate: vtable immediate 0x00C50298
-// modelled as an explicit first member (DemoTrapUpdateModuleDataCtor
-// precedent, so no vtable is emitted and no dtor row is owed), an unstored
+// supplied by Snapshot at +0x00, an unstored
 // word at +0x04 retail never touches, then the seven table-backed slots the
 // BFME1 OneRingPenaltyUpdateModuleData donor constructs in this exact order:
 // SpecialObjectName at +0x08, DiscoveredSound at +0x20, RingTimeBeforeSpawning
@@ -82,7 +81,6 @@ public:
 // Retail's own INI table at 0x00C503B0 (landed buildFieldParse row) proves the
 // names and offsets; the BFME1 donor proves the store order. Sole caller is
 // the rowed 0x24E42C factory which news 0x24 and pushes the rowed proc.
-extern "C" const void *const __identifier("??_7OneRingPenaltyUpdateModuleData@@6B@")[];
 
 struct BfmeX987
 {
@@ -115,21 +113,31 @@ enum DamageType { DAMAGE_SNIPER = 8 };
 
 enum DeathType { DEATH_NORMAL = 0 };
 
+enum ObjectID;
+enum ObjectStatusTypes;
+class Team;
+class AIUpdateInterface;
+class Rva00373EC6;
 class Object : public Thing
 {
 public:
-private:
-public:
-private:
-	unsigned char m_pad060[0x74 - 0x60];
-public:
-	unsigned int m_id74;
-private:
-	unsigned char m_pad78[0x304 - 0x78];
-public:
-	Team *m_team304;
-public:
 	void kill(DamageType damageType, DeathType deathType);
+	bool rva0028F518();
+	bool testStatus(ObjectStatusTypes bit) const;
+	void setStatus(ObjectStatusTypes bit, bool set);
+	Rva00373EC6 *rva0028F4BC();
+	void rva0028EC68(int kind, void *payload, int flag);
+	AIUpdateInterface *getAI() const { return m_ai; }
+private:
+	unsigned char m_pad60[0x74 - 0x60];
+public:
+	ObjectID m_id74; // +0x74
+private:
+	unsigned char m_pad78[0x258 - 0x78];
+	AIUpdateInterface *m_ai; // +0x258
+	unsigned char m_pad25C[0x304 - 0x25C];
+public:
+	Team *m_team304; // +0x304
 };
 
 typedef Object BfmeDrop987;
@@ -138,9 +146,8 @@ class BfmeC987
 {
 public:
 	void bfmeGo987C();
-
-	char m_bfmePad[0x24];
-	int m_bfmeId;
+	char m_bfmePad[0x24]; // +0x00
+	int m_bfmeId; // +0x24
 };
 
 class BfmeD987
@@ -237,9 +244,8 @@ private:
 
 // ??0OneRingPenaltyUpdateModuleData@@QAE@XZ
 OneRingPenaltyUpdateModuleData::OneRingPenaltyUpdateModuleData()
-	: m_vtable( reinterpret_cast<const void *>(((unsigned int)__identifier("??_7OneRingPenaltyUpdateModuleData@@6B@"))) )
 {
-	m_discoveredSound = 0;
+	m_discoveredSound.referent = 0;
 	m_timeSpentRoamingAround = 0;
 	m_timeRingPowerSuppressed = 0;
 	m_startingDistanceFromMe = 0.0f;

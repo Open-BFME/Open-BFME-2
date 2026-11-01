@@ -1,4 +1,5 @@
-// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /EHsc /MD /DNDEBUG
+// cl: /GX /DNDEBUG /MD /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include -Ireference/open-bfme-1/game/GameEngine/Source/Common /Ireference/shims/moduledata
+// stlport
 // ?rva00499C6C@OneRingPenaltyUpdate@@AAEXXZ @0x00499C6C 172B: private helper on the
 // primary this; stamps +0x28/+0x30 from TheGameLogic frame, runs the ring +0x31
 // gate with status 0x12 and emotion (5,0,1), plays the module-data +0x20 audio
@@ -19,20 +20,38 @@ class Rva00373EC6
 {
 public:
 	void rva00374815();
-	unsigned char m_pad00[0x31];
-	bool m_31; // +0x31
+	char m_pad00[0x31];
+	bool m_31; // +0x31 +0x31
 };
 
-class Object
+#include "../../../Common/Thing/thing.h"
+enum ObjectID;
+enum ObjectStatusTypes;
+class Team;
+class AIUpdateInterface;
+class Rva00373EC6;
+enum DamageType { DAMAGE_SNIPER = 8 };
+enum DeathType { DEATH_NORMAL = 0 };
+class Object : public Thing
 {
 public:
-	Rva00373EC6 *rva0028F4BC();
+	void kill(DamageType damageType, DeathType deathType);
+	bool rva0028F518();
+	bool testStatus(ObjectStatusTypes bit) const;
 	void setStatus(ObjectStatusTypes bit, bool set);
-	void rva0028EC68(int index, void *source, int delay);
+	Rva00373EC6 *rva0028F4BC();
+	void rva0028EC68(int kind, void *payload, int flag);
+	AIUpdateInterface *getAI() const { return m_ai; }
 private:
-	unsigned char m_pad00[0x74];
+	unsigned char m_pad60[0x74 - 0x60];
 public:
 	ObjectID m_id74; // +0x74
+private:
+	unsigned char m_pad78[0x258 - 0x78];
+	AIUpdateInterface *m_ai; // +0x258
+	unsigned char m_pad25C[0x304 - 0x25C];
+public:
+	Team *m_team304; // +0x304
 };
 
 #include "../../../Common/GameLogicObjectLookupView.h"
@@ -74,13 +93,11 @@ class BfmeC987
 {
 public:
 	void bfmeGo987C();
+	char m_bfmePad[0x24]; // +0x00
+	int m_bfmeId; // +0x24
 };
 
-struct OneRingPenaltyUpdateModuleData
-{
-	unsigned char m_pad00[0x20];
-	OpaqueRefElement4 m_discoveredSound; // +0x20
-};
+#include "OneRingPenaltyModuleDataView.h"
 
 #include "../../../../Include/Common/ObjectModule.h"
 

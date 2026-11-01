@@ -14,42 +14,7 @@
 // OneRingPenaltyUpdateModuleDataDestructorThunk.cpp:82 proves the member
 // order and Snapshot base; retail followed.
 
-#include "Common/Snapshot.h"
-
-#include "ascii_string.h"
-
-class OpaqueRefCounted
-{
-public:
-	void Release_Ref();
-};
-
-struct DiscoveredSoundHolder
-{
-	~DiscoveredSoundHolder()
-	{
-		if (m_ptr)
-			m_ptr->Release_Ref();
-	}
-
-	OpaqueRefCounted *m_ptr;
-};
-
-class OneRingPenaltyUpdateModuleData : public Snapshot
-{
-public:
-	virtual ~OneRingPenaltyUpdateModuleData();
-
-private:
-	int m_unused04; // +0x04
-	AsciiString m_specialObjectName; // +0x08
-	unsigned int m_ringTimeBeforeSpawning; // +0x0C
-	unsigned int m_timeSpentRoamingAround; // +0x10
-	unsigned int m_timeRingPowerSuppressed; // +0x14
-	float m_startingDistanceFromMe; // +0x18
-	unsigned int m_timeFrozenFromPenalty; // +0x1C
-	DiscoveredSoundHolder m_discoveredSound; // +0x20
-};
+#include "OneRingPenaltyModuleDataView.h"
 
 OneRingPenaltyUpdateModuleData::~OneRingPenaltyUpdateModuleData()
 {

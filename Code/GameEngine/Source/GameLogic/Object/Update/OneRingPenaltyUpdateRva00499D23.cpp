@@ -1,4 +1,5 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include -Ireference/open-bfme-1/game/GameEngine/Source/Common /Ireference/shims/moduledata
+// stlport
 // OneRingPenaltyUpdate wandering step. Target identity/layout evidence is
 // documented below; the original private method name remains unknown.
 // ?rva00499D23@OneRingPenaltyUpdate@@AAEXXZ retail 0x00499D23..0x00499E98
@@ -118,14 +119,7 @@ struct TerrainGroundCallTable {GroundHeightMember slots[7];};
 typedef char GroundMemberWidth[sizeof(GroundHeightMember)==4?1:-1];
 extern GameLogic *TheGameLogic;
 
-struct OneRingPenaltyUpdateModuleData
-{
-	unsigned char m_pad00[0x0C];
-	UnsignedInt m_ringTimeBeforeSpawning; // +0x0C
-	UnsignedInt m_timeSpentRoamingAround; // +0x10
-	UnsignedInt m_timeRingPowerSuppressed; // +0x14
-	Real m_startingDistanceFromMe; // +0x18
-};
+#include "OneRingPenaltyModuleDataView.h"
 
 class OneRingPenaltyUpdate
 {
