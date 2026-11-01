@@ -118,3 +118,15 @@ same. All three mixed-source rows pass, frozen checks are clean and the
 unit retains 290 -> 290 predicted linking bytes. The old row is tombstoned.
 The name-getter verdict's 90-row typo is also explicitly retracted with
 re_log.py and replaced by its actual 101/101, 605-byte receipt.
+
+## Action donor and header-queue retirement
+
+004A7E67 now uses the warehouse's native +20 docking interface and
+virtual profile. Its address-derived method name and unused integer ABI
+parameter remain unchanged. The old +68 count is the native +88 boxes
+field; negative18/1C accesses become the owner's object/module-data.
+Canonical Thing replaces the private view, while Object's additional B8
+radius and 258 interface offsets remain target-measured. All 273 bytes
+match, frozen checks pass and the preview remains LINKS 273 -> 273 B.
+`header_adopt_lane.py accept --class Thing` passes and retires exactly
+one queue key for this source. No header owner is modified.

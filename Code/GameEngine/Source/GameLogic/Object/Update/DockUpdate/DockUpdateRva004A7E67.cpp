@@ -8,24 +8,17 @@
 // this-0x18 owner / this-0x1c aux interior-this pattern, TheGameLogic extern.
 #include "../../../../../../Libraries/Include/Lib/Coord3D.h"
 
-class Thing
-{
-public:
-	void setPosition(const Coord3D *pos);
-
-public:
-	char m_pad00[0x38];
-	Coord3D m_pos; // +0x38
-	char m_pad44[0xB8 - 0x38 - 12];
-	float m_radius; // +0xB8
-	char m_padBC[0x258 - 0xB8 - 4];
-	void *m_iface; // +0x258
-};
+#include "SupplyWarehouseDockUpdateNative.h"
+#include "../../../../Common/Thing/thing.h"
 
 class Object : public Thing
 {
 public:
-	float rva00263763(const void *other) const;
+    float rva00263763(const void *other) const;
+    char m_unmodelled60[0xB8 - 0x60];
+    float m_radius; // +B8
+    char m_unmodelledBC[0x258 - 0xBC];
+    void *m_iface; // +258
 };
 
 class GameLogic;
@@ -33,12 +26,6 @@ extern GameLogic *TheGameLogic;
 #include "../../../../Common/GameLogicObjectLookupView.h"
 
 int __cdecl GetGameLogicRandomValue(int lo, int hi, char *file, int line);
-
-class BuildListInfo
-{
-public:
-	int getDesiredGatherers();
-};
 
 struct Rva002716Holder
 {
@@ -79,46 +66,36 @@ public:
 	virtual IfaceB *s95();
 };
 
-class Rva004A7E67
+bool SupplyWarehouseDockUpdate::rva004A7E67(Object *object, int unused)
 {
-public:
-	bool rva004A7E67(Object *t, int unused);
-
-private:
-	char m_pad00[0x68];
-	int m_count; // +0x68
-};
-
-bool Rva004A7E67::rva004A7E67(Object *object, int unused)
-{
-	if (m_count == 0)
+	if (m_boxesStored == 0)
 		return false;
 	float r = object->m_radius;
 	float rr = r + r;
-	float e = object->rva00263763(*(void **)((char *)this - 0x18));
+	float e = object->rva00263763(m_object);
 	if (e > rr * rr) {
 		Coord3D p;
-		p.x = object->m_pos.x;
-		p.y = object->m_pos.y;
-		p.z = object->m_pos.z;
+		p.x = object->m_cachedPos.x;
+		p.y = object->m_cachedPos.y;
+		p.z = object->m_cachedPos.z;
 		p.x += (float)GetGameLogicRandomValue(-4, 4, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\DockUpdate\\SupplyWarehouseDockUpdate.cpp", 0x57);
 		p.y += (float)GetGameLogicRandomValue(-4, 4, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\DockUpdate\\SupplyWarehouseDockUpdate.cpp", 0x58);
 		object->setPosition(&p);
 		return false;
 	}
-	--m_count;
+	--m_boxesStored;
 	IfaceA *ifaceA = (IfaceA *)object->m_iface;
 	IfaceB *ifaceB = ifaceA->s95();
-	if (ifaceB == 0 || !ifaceB->check(m_count)) {
-		++m_count;
+	if (ifaceB == 0 || !ifaceB->check(m_boxesStored)) {
+		++m_boxesStored;
 		return false;
 	}
-	if (m_count != 0 || *(unsigned char *)((char *)*(void **)((char *)this - 0x1c) + 0x14) == 0) {
-		Rva002716Holder *h = (Rva002716Holder *)((BuildListInfo *)*(void **)((char *)this - 0x18))->getDesiredGatherers();
+	if (m_boxesStored != 0 || *(unsigned char *)((char *)m_moduleData + 0x14) == 0) {
+		Rva002716Holder *h = (Rva002716Holder *)m_object->getDrawable();
 		if (h != 0)
-			h->Rva0027164EBroadcast(*(int *)((char *)*(void **)((char *)this - 0x1c) + 0x10), m_count);
+			h->Rva0027164EBroadcast(*(int *)((char *)m_moduleData + 0x10), m_boxesStored);
 		return true;
 	}
-	TheGameLogic->destroyObject(*(Object **)((char *)this - 0x18));
+	TheGameLogic->destroyObject(m_object);
 	return false;
 }
