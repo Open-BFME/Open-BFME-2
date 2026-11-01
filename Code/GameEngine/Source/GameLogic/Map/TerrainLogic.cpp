@@ -74,6 +74,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 }
 #include "../../../../Libraries/Include/Lib/ICoord3D.h"
+#include "../../../../Libraries/Include/Lib/ICoord2D.h"
 #include "../../../../Libraries/Include/Lib/Region2D.h"
 #define TheRva009FF080Manager0027D35F (*(Rva009FF080Manager0027D35F **)&TheTerrainVisual)
 class Rva009FF080Manager0027D378
@@ -142,6 +143,7 @@ public:
 		int amount, bool absolute, int mode);
 };
 #include <math.h>
+#define PARTITIONMANAGER_VIEW_REGION_FACADES
 #include "../../Common/PartitionRangeQueryCallView.h"
 #define BFME_STRINGBASE_PUBLIC_DTOR
 #include "string_base.h"
@@ -1558,6 +1560,8 @@ template<> class Rva00285193Slots<0> {};
 class Object
 {
 public:
+	void friend_notifyOfNewMapBoundary();
+public:
 	const Coord3D *getPosition() const { return &m_pos; }
 public:
 	const GeometryInfo &getGeometryInfo() const { return m_geometryInfo; }
@@ -1857,6 +1861,8 @@ public:
 public:
 	void rva0027D1A4(const Coord3D *pos, float radius, int arg);
 public:
+	void setActiveBoundary(Int newActiveBoundary);
+public:
 	void rva0027F28E(const Coord3D *pos, float radius, int arg);
 public:
 	unsigned char m_pad04[0x24 - 0x04];
@@ -1867,7 +1873,7 @@ public:
 public:
 	unsigned height;
 public:
-	unsigned char m_pad30[0x3C - 0x30];
+	_STL::vector<ICoord2D> m_boundaries; // +0x30 (setActiveBoundary 0x0028069E)
 public:
 	Int m_activeBoundary;
 public:

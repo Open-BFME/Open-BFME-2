@@ -4,6 +4,7 @@ enum CellShroudStatus;
 class Object;
 struct Coord3D;
 struct FindPositionOptions;
+struct Region3D;
 class Rva000421C8;
 class Rva00628770Impl;
 
@@ -29,6 +30,14 @@ class PartitionManager
 public:
 	// Native +0x10 registration facade, already owned at RVA00625320.
 	void rva00625320(void *ptr);
+#ifdef PARTITIONMANAGER_VIEW_REGION_FACADES
+	// Native +0x10 region facade 0x00625300 and shroud region thunk 0x00739740,
+	// both owned in PartitionManagerShroudThunks.cpp (setActiveBoundary 0x0028069E).
+	// Opt-in before the first include: declaring them unconditionally changes
+	// MSVC 7.1's register choice in BezierProjectileBehavior::update.
+	void rva00625300(const Region3D *region);
+	void setRegion(const Region3D *region, float value);
+#endif
 	void revealMapForPlayerPermanently(int playerIndex); // 0x00739790
 	// Relative angle helper, rowed in PartitionManager_Rva002C9C37.cpp.
 	float rva002C9C37(const Object *a, const Object *b, void *c);

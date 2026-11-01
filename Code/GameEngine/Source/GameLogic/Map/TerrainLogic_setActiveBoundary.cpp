@@ -24,6 +24,9 @@ typedef int Int;
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
 
 #include "../../../../Libraries/Include/Lib/Region3D.h"
+#include "../../Common/GameLogicObjectLookupView.h"
+#define PARTITIONMANAGER_VIEW_REGION_FACADES
+#include "../../Common/PartitionRangeQueryCallView.h"
 
 typedef _STL::vector<ICoord2D> BoundaryVector;
 
@@ -68,17 +71,9 @@ public:
 	virtual void newMap(TerrainLogic *terrain);
 };
 
-class PartitionManager
-{
-public:
-	// 0x625300: 8-byte this-adjusting thunk (mov ecx,[ecx+0x10], jmp 0x6276E0),
-	// the first region call in this body and in the 0x246Dxx init path; the
-	// Battle for Middle-earth reference routes the same call through its
-	// partition facade, so the class is PartitionManager while the method
-	// itself keeps its address token.
-	void rva00625300(const Region3D *region);
-	void setRegion(const Region3D *region, Real value);
-};
+// ThePartitionManager and TheShroudManager use the canonical PartitionManager
+// view (PartitionRangeQueryCallView.h): rva00625300 is the +0x10 region
+// facade (0x00625300), setRegion the shroud region thunk (0x00739740).
 
 // Grid allocator behind [GameLogic+0x170]: consumes the active region plus a
 // float (here [0xDFE758]+0xD4; the 0x2440xx/0x246Exx init paths pass +0xD8).
@@ -100,8 +95,6 @@ public:
 	Real m_floatD8; // +0xD8
 };
 
-#include "../../Common/GameLogicObjectLookupView.h"
-
 class Object
 {
 public:
@@ -112,41 +105,17 @@ public:
 // forceCameraConstraintRecalc (the reference build has it at +0x1B4; the
 // retail call here reads +0x1B8). The 110 preceding entries are deliberately
 // unnamed: only this slot is consumed.
-#define BFME_VIEW_SLOT(n) virtual void slot##n() = 0;
-class __declspec(novtable) View
+template <int N> class __declspec(novtable) ViewSlots : public ViewSlots<N - 1>
 {
 public:
-	BFME_VIEW_SLOT(000) BFME_VIEW_SLOT(001) BFME_VIEW_SLOT(002) BFME_VIEW_SLOT(003)
-	BFME_VIEW_SLOT(004) BFME_VIEW_SLOT(005) BFME_VIEW_SLOT(006) BFME_VIEW_SLOT(007)
-	BFME_VIEW_SLOT(008) BFME_VIEW_SLOT(009) BFME_VIEW_SLOT(010) BFME_VIEW_SLOT(011)
-	BFME_VIEW_SLOT(012) BFME_VIEW_SLOT(013) BFME_VIEW_SLOT(014) BFME_VIEW_SLOT(015)
-	BFME_VIEW_SLOT(016) BFME_VIEW_SLOT(017) BFME_VIEW_SLOT(018) BFME_VIEW_SLOT(019)
-	BFME_VIEW_SLOT(020) BFME_VIEW_SLOT(021) BFME_VIEW_SLOT(022) BFME_VIEW_SLOT(023)
-	BFME_VIEW_SLOT(024) BFME_VIEW_SLOT(025) BFME_VIEW_SLOT(026) BFME_VIEW_SLOT(027)
-	BFME_VIEW_SLOT(028) BFME_VIEW_SLOT(029) BFME_VIEW_SLOT(030) BFME_VIEW_SLOT(031)
-	BFME_VIEW_SLOT(032) BFME_VIEW_SLOT(033) BFME_VIEW_SLOT(034) BFME_VIEW_SLOT(035)
-	BFME_VIEW_SLOT(036) BFME_VIEW_SLOT(037) BFME_VIEW_SLOT(038) BFME_VIEW_SLOT(039)
-	BFME_VIEW_SLOT(040) BFME_VIEW_SLOT(041) BFME_VIEW_SLOT(042) BFME_VIEW_SLOT(043)
-	BFME_VIEW_SLOT(044) BFME_VIEW_SLOT(045) BFME_VIEW_SLOT(046) BFME_VIEW_SLOT(047)
-	BFME_VIEW_SLOT(048) BFME_VIEW_SLOT(049) BFME_VIEW_SLOT(050) BFME_VIEW_SLOT(051)
-	BFME_VIEW_SLOT(052) BFME_VIEW_SLOT(053) BFME_VIEW_SLOT(054) BFME_VIEW_SLOT(055)
-	BFME_VIEW_SLOT(056) BFME_VIEW_SLOT(057) BFME_VIEW_SLOT(058) BFME_VIEW_SLOT(059)
-	BFME_VIEW_SLOT(060) BFME_VIEW_SLOT(061) BFME_VIEW_SLOT(062) BFME_VIEW_SLOT(063)
-	BFME_VIEW_SLOT(064) BFME_VIEW_SLOT(065) BFME_VIEW_SLOT(066) BFME_VIEW_SLOT(067)
-	BFME_VIEW_SLOT(068) BFME_VIEW_SLOT(069) BFME_VIEW_SLOT(070) BFME_VIEW_SLOT(071)
-	BFME_VIEW_SLOT(072) BFME_VIEW_SLOT(073) BFME_VIEW_SLOT(074) BFME_VIEW_SLOT(075)
-	BFME_VIEW_SLOT(076) BFME_VIEW_SLOT(077) BFME_VIEW_SLOT(078) BFME_VIEW_SLOT(079)
-	BFME_VIEW_SLOT(080) BFME_VIEW_SLOT(081) BFME_VIEW_SLOT(082) BFME_VIEW_SLOT(083)
-	BFME_VIEW_SLOT(084) BFME_VIEW_SLOT(085) BFME_VIEW_SLOT(086) BFME_VIEW_SLOT(087)
-	BFME_VIEW_SLOT(088) BFME_VIEW_SLOT(089) BFME_VIEW_SLOT(090) BFME_VIEW_SLOT(091)
-	BFME_VIEW_SLOT(092) BFME_VIEW_SLOT(093) BFME_VIEW_SLOT(094) BFME_VIEW_SLOT(095)
-	BFME_VIEW_SLOT(096) BFME_VIEW_SLOT(097) BFME_VIEW_SLOT(098) BFME_VIEW_SLOT(099)
-	BFME_VIEW_SLOT(100) BFME_VIEW_SLOT(101) BFME_VIEW_SLOT(102) BFME_VIEW_SLOT(103)
-	BFME_VIEW_SLOT(104) BFME_VIEW_SLOT(105) BFME_VIEW_SLOT(106) BFME_VIEW_SLOT(107)
-	BFME_VIEW_SLOT(108) BFME_VIEW_SLOT(109)
+	virtual void unused(char (*)[N]) = 0;
+};
+template <> class __declspec(novtable) ViewSlots<0> {};
+class __declspec(novtable) View : public ViewSlots<110>
+{
+public:
 	virtual void forceCameraConstraintRecalc() = 0;
 };
-#undef BFME_VIEW_SLOT
 
 extern Radar *TheRadar;
 extern PartitionManager *ThePartitionManager;
