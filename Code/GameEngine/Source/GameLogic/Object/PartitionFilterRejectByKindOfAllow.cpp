@@ -18,11 +18,7 @@ public:
 	unsigned int m_words[7];
 };
 
-class Thing
-{
-public:
-	Bool isKindOfMulti(const BitFlags<116> &mustBeSet, const BitFlags<116> &mustBeClear) const;
-};
+#include "../../Common/Thing/thing.h"
 
 class Object : public Thing
 {

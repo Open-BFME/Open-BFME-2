@@ -49,11 +49,7 @@ public:
  void set(int bit) { m_bits[bit >> 5] |= 1u << (bit & 31); }
  unsigned int m_bits[7]; // native and existing ThingIsAnyKindOf view
 };
-class Thing
-{
-public:
- bool isAnyKindOf(const BitFlags<69> &) const;
-};
+#include "../../../Common/Thing/thing.h"
 class Object : public Thing
 {
 public:

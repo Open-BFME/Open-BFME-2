@@ -180,7 +180,7 @@ extern GameLogic *TheGameLogic;
 
 template<int N> class BitFlags { public: unsigned int m_bits[7]; };
 
-class Thing { public: bool isAnyKindOf(const BitFlags<69> &) const; };
+#include "../../../Common/Thing/thing.h"
 
 enum DisabledType { DISABLED_PARALYZED=4 };
 

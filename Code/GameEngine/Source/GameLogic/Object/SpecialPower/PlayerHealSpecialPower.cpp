@@ -239,11 +239,7 @@ struct Coord3D;
 
 struct PlayerHealSpecialPowerModuleData;
 
-class Thing
-{
-public:
-	bool isAnyKindOf(const BitFlags<69> &mask) const;
-};
+#include "../../../Common/Thing/thing.h"
 
 struct Tmpl
 {
