@@ -244,8 +244,8 @@ extern int BfmeLogicFramesPerSecond;
 // Frameless derived ctor over the pinned HordeContainModuleData base
 // (0x00475C9A, size 0x274): the base call builds the base, eleven float
 // slots zero through a shared xorps, the derived installs vtable 0x00C465F8
-// explicitly (Defector law; the classes carry no virtuals so the compiler
-// emits no store of its own), then six float slots load from compiler
+// explicitly; the raw store replaces the automatic derived-vptr store.
+// Six float slots load from compiler
 // literals (1.0/0.45/999999.0/0.3/0.4, DIR32-masked like the retail globals)
 // plus a 2-valued int slot. No EH (the lone base call precedes any
 // construction). Identity is the ModuleFactory registration under
@@ -284,6 +284,7 @@ class INI
 public:
 	static void parseDurationUnsignedInt(INI *ini, void *instance, void *store, const void *userData);
 	static void parseReal(INI *ini, void *instance, void *store, const void *userData);
+	void initFromINIMultiProc(void *what, void (__cdecl *proc)(MultiIniFieldParse &));
 };
 
 // Retail VA 0x00C467D8 (.rdata): 20 field records and a zero sentinel.
@@ -323,53 +324,38 @@ class HordeContainModuleData
 {
 public:
 	HordeContainModuleData();
-private:
-	unsigned char m_opaque[0x274];
-public:
+	virtual ~HordeContainModuleData();
 	static void buildFieldParse(MultiIniFieldParse &parse);
+	static ModuleData *friend_newModuleData(INI *ini);
+
+private:
+	unsigned char m_pad[0x274 - 4];
 };
 
 class AODHordeContainModuleData : public HordeContainModuleData
 {
 public:
 	AODHordeContainModuleData();
-private:
-	float m_f274;
-private:
-	float m_f278;
-private:
-	float m_f27C;
-private:
-	float m_f280;
-private:
-	float m_f284;
-private:
-	float m_f288;
-private:
-	float m_f28C;
-private:
-	float m_f290;
-private:
-	float m_f294;
-private:
-	float m_f298;
-private:
-	float m_f29C;
-private:
-	float m_f2A0;
-private:
-	float m_f2A4;
-private:
-	float m_f2A8;
-private:
-	int m_i2AC;
-private:
-	float m_f2B0;
-private:
-	float m_f2B4;
-private:
-	float m_f2B8;
-public:
+	virtual ~AODHordeContainModuleData();
+	static ModuleData *friend_newModuleData(INI *ini);
+	float m_frequencyScale;
+	float m_frequencyRandomness;
+	float m_amplitudeScale;
+	float m_amplitudeRandomness;
+	float m_stillAmplitude;
+	float m_frequencyScaleZ;
+	float m_frequencyRandomnessZ;
+	float m_amplitudeScaleZ;
+	float m_amplitudeRandomnessZ;
+	float m_stillAmplitudeZ;
+	float m_oathFulfilledZFactor;
+	float m_largeUnitHeightFactor;
+	float m_largeUnitMinHeight;
+	float m_largeUnitMaxHeight;
+	unsigned int m_largeUnitTimeout;
+	float m_largeUnitTailOff;
+	float m_scatterSpeedFactor;
+	float m_scatterRandomness;
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
@@ -464,24 +450,24 @@ AODHordeContainModuleData::AODHordeContainModuleData()
 	: HordeContainModuleData()
 {
 	*(unsigned int *)this = ((unsigned int)__identifier("??_7HorseHordeContainModuleData@@6B@"));
-	m_f274 = 0.0f;
-	m_f278 = 0.0f;
-	m_f27C = 0.0f;
-	m_f280 = 0.0f;
-	m_f284 = 0.0f;
-	m_f288 = 0.0f;
-	m_f28C = 0.0f;
-	m_f290 = 0.0f;
-	m_f294 = 0.0f;
-	m_f298 = 0.0f;
-	m_f29C = 1.0f;
-	m_f2A0 = 0.45f;
-	m_f2A4 = 0.0f;
-	m_f2A8 = 999999.0f;
-	m_i2AC = 2;
-	m_f2B0 = 1.0f;
-	m_f2B4 = 0.3f;
-	m_f2B8 = 0.4f;
+	m_frequencyScale = 0.0f;
+	m_frequencyRandomness = 0.0f;
+	m_amplitudeScale = 0.0f;
+	m_amplitudeRandomness = 0.0f;
+	m_stillAmplitude = 0.0f;
+	m_frequencyScaleZ = 0.0f;
+	m_frequencyRandomnessZ = 0.0f;
+	m_amplitudeScaleZ = 0.0f;
+	m_amplitudeRandomnessZ = 0.0f;
+	m_stillAmplitudeZ = 0.0f;
+	m_oathFulfilledZFactor = 1.0f;
+	m_largeUnitHeightFactor = 0.45f;
+	m_largeUnitMinHeight = 0.0f;
+	m_largeUnitMaxHeight = 999999.0f;
+	m_largeUnitTimeout = 2;
+	m_largeUnitTailOff = 1.0f;
+	m_scatterSpeedFactor = 0.3f;
+	m_scatterRandomness = 0.4f;
 }
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContainModuleDataParse.cpp

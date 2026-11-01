@@ -27,12 +27,32 @@ public:
 	void rva0039B28F(bool value);
 };
 
-class Object
+#include "../../../Common/Thing/thing.h"
+struct Rva0028AC4EEntry;
+class AIUpdateInterface;
+enum KindOfType { KINDOF_INVALID = -1, KINDOF_RVA_0 = 0 };
+
+class GeometryInfo
 {
 public:
-	Drawable *getDrawable() const;
-	unsigned char m_pad000[0x264];
-	Rva003BD306Target *m_experienceTracker;
+    float getMaxHeightAbovePosition() const;
+};
+
+class Object : public Thing
+{
+public:
+    Drawable *getDrawable() const;
+    const Rva0028AC4EEntry *rva0028AC4E() const;
+    bool isKindOf(KindOfType kind) const;
+    int rva0028B511() const;
+    char m_pad060[0x74 - 0x60];
+    int m_id; // +0x74
+    char m_pad78[0xA8 - 0x78];
+    GeometryInfo m_geometry;
+    char m_padA9[0x258 - 0xA9];
+    AIUpdateInterface *m_ai; // +0x258
+    char m_pad25C[0x264 - 0x25C];
+    Rva003BD306Target *m_experienceTracker;
 };
 
 class HordeContain

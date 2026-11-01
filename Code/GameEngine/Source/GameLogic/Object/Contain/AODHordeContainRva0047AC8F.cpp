@@ -51,10 +51,7 @@ class Rva00468E98
  public: Rva00468E98Point rotate(Rva00468E98Point);
 };
 
-enum KindOfType
-{
- KINDOF_INVALID = -1
-};
+enum KindOfType { KINDOF_INVALID = -1, KINDOF_RVA_0 = 0 };
 
 enum PathfindLayerEnum
 {
@@ -67,7 +64,12 @@ class Rva0008BB38FloatField
  float get() const;
 };
 
-class Locomotor {public:float getMaxSpeed(Object *) const;};
+class Locomotor
+{
+public:
+	float getMaxSpeed(Object *object) const;
+};
+class Locomotor;
 class AIUpdateInterface
 {
  public:
@@ -82,17 +84,24 @@ class GeometryInfo
  public: float getMaxHeightAbovePosition() const;
 };
 
+class Drawable;
+struct Rva0028AC4EEntry;
+class Rva003BD306Target;
 class Object : public Thing
 {
- public:
- bool isKindOf(KindOfType t) const;
- int rva0028B511() const;
- char m_pad060[0x74 - 0x60];
- int m_id; // +0x74
- char m_pad78[0xA8-0x78];
- GeometryInfo m_geometry;
- char m_padA9[0x258-0xA9];
- AIUpdateInterface *m_ai; // +0x258
+public:
+    Drawable *getDrawable() const;
+    const Rva0028AC4EEntry *rva0028AC4E() const;
+    bool isKindOf(KindOfType kind) const;
+    int rva0028B511() const;
+    char m_pad060[0x74 - 0x60];
+    int m_id; // +0x74
+    char m_pad78[0xA8 - 0x78];
+    GeometryInfo m_geometry;
+    char m_padA9[0x258 - 0xA9];
+    AIUpdateInterface *m_ai; // +0x258
+    char m_pad25C[0x264 - 0x25C];
+    Rva003BD306Target *m_experienceTracker;
 };
 
 template <int N> class AODTerrainSlots : public AODTerrainSlots<N - 1>
@@ -125,27 +134,46 @@ class TerrainLogic : public AODTerrainSlots<7>
 
 extern TerrainLogic *TheTerrainLogic;
 extern GameLogic *TheGameLogic;
-struct AODHordeContainModuleData
+class ModuleData;
+class INI;
+class MultiIniFieldParse;
+class HordeContainModuleData
 {
- char m_pad00[0x274];
- float m_frequencyScale;
- float m_frequencyRandomness;
- float m_amplitudeScale;
- float m_amplitudeRandomness;
- float m_stillAmplitude;
- float m_frequencyScaleZ;
- float m_frequencyRandomnessZ;
- float m_amplitudeScaleZ;
- float m_amplitudeRandomnessZ;
- float m_stillAmplitudeZ;
- float m_oathFulfilledZFactor;
- float m_2A0;
- float m_largeUnitMinHeight;
- float m_largeUnitMaxHeight;
- unsigned int m_largeUnitTimeout;
- float m_largeUnitTailOff;
- float m_scatterSpeedFactor;
- float m_scatterRandomness;
+public:
+	HordeContainModuleData();
+	virtual ~HordeContainModuleData();
+	static void buildFieldParse(MultiIniFieldParse &parse);
+	static ModuleData *friend_newModuleData(INI *ini);
+
+private:
+	unsigned char m_pad[0x274 - 4];
+};
+
+class AODHordeContainModuleData : public HordeContainModuleData
+{
+public:
+	AODHordeContainModuleData();
+	virtual ~AODHordeContainModuleData();
+	static ModuleData *friend_newModuleData(INI *ini);
+	float m_frequencyScale;
+	float m_frequencyRandomness;
+	float m_amplitudeScale;
+	float m_amplitudeRandomness;
+	float m_stillAmplitude;
+	float m_frequencyScaleZ;
+	float m_frequencyRandomnessZ;
+	float m_amplitudeScaleZ;
+	float m_amplitudeRandomnessZ;
+	float m_stillAmplitudeZ;
+	float m_oathFulfilledZFactor;
+	float m_largeUnitHeightFactor;
+	float m_largeUnitMinHeight;
+	float m_largeUnitMaxHeight;
+	unsigned int m_largeUnitTimeout;
+	float m_largeUnitTailOff;
+	float m_scatterSpeedFactor;
+	float m_scatterRandomness;
+	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
 class Rva0046ACF6
@@ -373,7 +401,7 @@ Coord3D *AODHordeContain::rva0047AC8F(Coord3D *out,Object *obj,int word)
  pos.z += bob;
  if (m_trackedLargeUnit)
  {
-  float maxHeight = md->m_2A0 * m_largeUnitHeight;
+  float maxHeight = md->m_largeUnitHeightFactor * m_largeUnitHeight;
   if (maxHeight > md->m_largeUnitMaxHeight)
   maxHeight = md->m_largeUnitMaxHeight;
   if (maxHeight < md->m_largeUnitMinHeight)

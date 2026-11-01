@@ -56,7 +56,7 @@ struct AODDtorElem16
 };
 
 // ??1AODDtorElem16@@QAE@XZ present-unmatched
-AODDtorElem16::~AODDtorElem16()
+inline AODDtorElem16::~AODDtorElem16()
 {
 }
 
@@ -69,7 +69,7 @@ struct AODDtorElem24
 };
 
 // ??1AODDtorElem24@@QAE@XZ present-unmatched
-AODDtorElem24::~AODDtorElem24()
+inline AODDtorElem24::~AODDtorElem24()
 {
 }
 

@@ -13,6 +13,8 @@ class MultiIniFieldParse;
 class INI
 {
 public:
+	static void parseDurationUnsignedInt(INI *ini, void *instance, void *store, const void *userData);
+	static void parseReal(INI *ini, void *instance, void *store, const void *userData);
 	void initFromINIMultiProc(void *what, void (__cdecl *proc)(MultiIniFieldParse &));
 };
 
@@ -58,16 +60,31 @@ ModuleData *HordeContainModuleData::friend_newModuleData(INI *ini)
 	return reinterpret_cast<ModuleData *>(data);
 }
 
-class AODHordeContainModuleData
+class AODHordeContainModuleData : public HordeContainModuleData
 {
 public:
 	AODHordeContainModuleData();
 	virtual ~AODHordeContainModuleData();
-	static void buildFieldParse(MultiIniFieldParse &parse);
 	static ModuleData *friend_newModuleData(INI *ini);
-
-private:
-	unsigned char m_pad[0x2BC - 4];
+	float m_frequencyScale;
+	float m_frequencyRandomness;
+	float m_amplitudeScale;
+	float m_amplitudeRandomness;
+	float m_stillAmplitude;
+	float m_frequencyScaleZ;
+	float m_frequencyRandomnessZ;
+	float m_amplitudeScaleZ;
+	float m_amplitudeRandomnessZ;
+	float m_stillAmplitudeZ;
+	float m_oathFulfilledZFactor;
+	float m_largeUnitHeightFactor;
+	float m_largeUnitMinHeight;
+	float m_largeUnitMaxHeight;
+	unsigned int m_largeUnitTimeout;
+	float m_largeUnitTailOff;
+	float m_scatterSpeedFactor;
+	float m_scatterRandomness;
+	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
 // ?friend_newModuleData@AODHordeContainModuleData@@SAPAVModuleData@@PAVINI@@@Z
