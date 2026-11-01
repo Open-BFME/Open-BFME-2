@@ -14306,16 +14306,16 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00201E81,43,code,,,-,,Code/GameEngine/Source/Common/GameLODMHzParsers.cpp
 0x00201EAC,353,code,Code/GameEngine/Source/Common/GameLOD.cpp,approved,Z,Z=Code/GameEngine/Source/Common/GameLOD.cpp S=Code/GameEngine/Source/Common/GameLOD.cpp N=Code/GameEngine/Source/Common/GameLODManager.cpp,Code/GameEngine/Source/Common/Rva00201DC4LODDefaults.cpp
 0x0020200D,30,code,Code/GameEngine/Source/Common/GameLOD.cpp,approved,U,N=Code/GameEngine/Source/Common/RetailBenchProfileAllocator.cpp,Code/GameEngine/Source/Common/GameLOD.cpp
-0x0020202B,45,code,Code/GameEngine/Source/Common/GameLOD.cpp,approved,Z,Z=Code/GameEngine/Source/Common/GameLOD.cpp S=Code/GameEngine/Source/Common/GameLOD.cpp N=Code/GameEngine/Source/Common/GameLODManager.cpp W=Code/GameEngine/Source/Common/GameLOD.cpp,Code/GameEngine/Source/Common/GameLODManager_newLODPreset.cpp
-0x00202058,492,code,Code/GameEngine/Source/Common/GameLOD.cpp,approved,C,C=0x0020202B..0x00202244,Code/GameEngine/Source/Common/Rva00202058.cpp
-0x00202244,165,code,Code/GameEngine/Source/Common/GameLOD.cpp,approved,C,C=0x0020202B..0x002022E9,Code/GameEngine/Source/Common/GameLODManagerRva00202244.cpp
+0x0020202B,45,code,Code/GameEngine/Source/Common/GameLOD.cpp,approved,Z,Z=Code/GameEngine/Source/Common/GameLOD.cpp S=Code/GameEngine/Source/Common/GameLOD.cpp N=Code/GameEngine/Source/Common/GameLODManager.cpp W=Code/GameEngine/Source/Common/GameLOD.cpp,Code/GameEngine/Source/Common/GameLOD.cpp
+0x00202058,492,code,Code/GameEngine/Source/Common/GameLOD.cpp,approved,C,C=0x0020202B..0x00202244,Code/GameEngine/Source/Common/GameLOD.cpp
+0x00202244,165,code,Code/GameEngine/Source/Common/GameLOD.cpp,approved,C,C=0x0020202B..0x002022E9,Code/GameEngine/Source/Common/GameLOD.cpp
 0x002022E9,707,code,Code/GameEngine/Source/Common/GameLOD.cpp,approved,C,C=0x0020202B..0x002025AC,Code/GameEngine/Source/Common/GameLODApplyPreset.cpp
 0x002025AC,89,code,Code/GameEngine/Source/Common/GameLOD.cpp,approved,Z,Z=Code/GameEngine/Source/Common/GameLOD.cpp N=Code/GameEngine/Source/Common/INI.cpp,Code/GameEngine/Source/Common/GameLOD.cpp
 0x00202605,14,code,Code/GameEngine/Source/Common/GameLOD.cpp,approved,Z,Z=Code/GameEngine/Source/Common/GameLOD.cpp S=Code/GameEngine/Source/Common/GameLOD.cpp N=Code/GameEngine/Source/Common/GameLODManager.cpp,Code/GameEngine/Source/Common/GameLOD.cpp
 0x00202613,32,code,Code/GameEngine/Source/Common/GameLOD.cpp,approved,C,C=0x00202605..0x00202633,Code/GameEngine/Source/Common/GameLOD.cpp
 0x00202633,69,code,Code/GameEngine/Source/Common/GameLOD.cpp,approved,C,C=0x00202605..0x00202678,Code/GameEngine/Source/Common/GameLOD.cpp
-0x00202678,40,code,Code/GameEngine/Source/Common/GameLOD.cpp,approved,S,S=Code/GameEngine/Source/Common/GameLOD.cpp N=Code/GameEngine/Source/Common/GameLODManager.cpp W=Code/GameEngine/Source/Common/GameLOD.cpp,Code/GameEngine/Source/Common/Rva00202678Get.cpp
-0x002026A0,20,code,Code/GameEngine/Source/Common/GameLOD.cpp,approved,S,S=Code/GameEngine/Source/Common/GameLOD.cpp N=Code/GameEngine/Source/Common/GameLODManager.cpp W=Code/GameEngine/Source/Common/GameLOD.cpp,Code/GameEngine/Source/Common/GameLODManager_findAudioLODLevel.cpp
+0x00202678,40,code,Code/GameEngine/Source/Common/GameLOD.cpp,approved,S,S=Code/GameEngine/Source/Common/GameLOD.cpp N=Code/GameEngine/Source/Common/GameLODManager.cpp W=Code/GameEngine/Source/Common/GameLOD.cpp,Code/GameEngine/Source/Common/GameLOD.cpp
+0x002026A0,20,code,Code/GameEngine/Source/Common/GameLOD.cpp,approved,S,S=Code/GameEngine/Source/Common/GameLOD.cpp N=Code/GameEngine/Source/Common/GameLODManager.cpp W=Code/GameEngine/Source/Common/GameLOD.cpp,Code/GameEngine/Source/Common/GameLOD.cpp
 0x002026B4,19,code,Code/GameEngine/Source/Common/GameLOD.cpp,approved,C,C=0x002026A0..0x002026C7,Code/GameEngine/Source/Common/GameLOD.cpp
 0x002026C7,7,code,Code/GameEngine/Source/Common/GameLOD.cpp,approved,C,C=0x002026A0..0x002026CE,Code/GameEngine/Source/Common/GameLOD.cpp
 0x002026CE,6,code,Code/GameEngine/Source/Common/GameLOD.cpp,approved,C,C=0x002026A0..0x002026D4,Code/GameEngine/Source/Common/GapLeavesSeat8.cpp
@@ -14324,7 +14324,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0020276C,36,code,Code/GameEngine/Source/Common/GameLOD.cpp,approved,C,C=0x002026D4..0x00202790,Code/GameEngine/Source/Common/GameLOD.cpp
 0x00202790,33,code,Code/GameEngine/Source/Common/GameLOD.cpp,approved,C,C=0x002026D4..0x002027B1,Code/GameEngine/Source/Common/GameLOD.cpp
 0x002027B1,57,code,Code/GameEngine/Source/Common/GameLOD.cpp,approved,C,C=0x002026D4..0x002027EA,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_asciistring_pair.cpp
-0x002027EA,864,code,Code/GameEngine/Source/Common/GameLOD.cpp,approved,Z,Z=Code/GameEngine/Source/Common/GameLOD.cpp S=Code/GameEngine/Source/Common/GameLOD.cpp N=Code/GameEngine/Source/Common/GameLODManager.cpp,Code/GameEngine/Source/Common/GameLODManagerInit.cpp
+0x002027EA,864,code,Code/GameEngine/Source/Common/GameLOD.cpp,approved,Z,Z=Code/GameEngine/Source/Common/GameLOD.cpp S=Code/GameEngine/Source/Common/GameLOD.cpp N=Code/GameEngine/Source/Common/GameLODManager.cpp,Code/GameEngine/Source/Common/GameLOD.cpp
 0x00202B4A,34,code,Code/GameEngine/Source/Common/GameLOD.cpp,approved,C,C=0x002027EA..0x00202B6C,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_asciistring_pair.cpp
 0x00202B6C,70,code,Code/GameEngine/Source/Common/GameLOD.cpp,approved,C,C=0x002027EA..0x00202BB2,Code/GameEngine/Source/Common/GameLOD.cpp
 0x00202BB2,126,code,Code/GameEngine/Source/Common/GameLOD.cpp,approved,C,C=0x002027EA..0x00202C30,Code/GameEngine/Source/Common/GameLOD.cpp
@@ -14338,7 +14338,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00203023,443,code,Code/GameEngine/Source/Common/GameLOD.cpp,approved,C,C=0x00202F05..0x002031DE,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_asciistring_pair.cpp
 0x002031DE,29,code,Code/GameEngine/Source/Common/GameLOD.cpp,approved,C,C=0x00202F05..0x002031FB,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_asciistring_pair.cpp
 0x002031FB,141,code,Code/GameEngine/Source/Common/GameLOD.cpp,approved,C,C=0x00202F05..0x00203288,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_asciistring_pair.cpp
-0x00203288,572,code,Code/GameEngine/Source/Common/GameLOD.cpp,approved,Z,Z=Code/GameEngine/Source/Common/GameLOD.cpp S=Code/GameEngine/Source/Common/GameLOD.cpp N=Code/GameEngine/Source/Common/GameLODManager.cpp,Code/GameEngine/Source/Common/GameLODManagerFindStaticLODLevel.cpp
+0x00203288,572,code,Code/GameEngine/Source/Common/GameLOD.cpp,approved,Z,Z=Code/GameEngine/Source/Common/GameLOD.cpp S=Code/GameEngine/Source/Common/GameLOD.cpp N=Code/GameEngine/Source/Common/GameLODManager.cpp,Code/GameEngine/Source/Common/GameLOD.cpp
 0x002034C4,24,code,,,-,,Code/GameEngine/Source/Common/System/XferEnumHelpers.cpp
 0x002034DC,13,code,,,-,,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp
 0x002034E9,25,code,,,-,,Code/GameEngine/Source/Common/Rva002034E9Host.cpp
@@ -67354,9 +67354,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0076C5DC,10,code,Code/GameEngine/Source/Common/GameLOD.cpp,approved,P,P=0x002022E9@FuncInfo0x00911DA8,Code/GameEngine/Source/Common/GameLODApplyPreset.cpp
 0x0076C5E6,8,code,Code/GameEngine/Source/Common/GameLOD.cpp,approved,P,P=0x002027B1@FuncInfo0x00911DCC,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_asciistring_pair.cpp
 0x0076C5EE,10,code,Code/GameEngine/Source/Common/GameLOD.cpp,approved,P,P=0x002027B1@FuncInfo0x00911DCC,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_asciistring_pair.cpp
-0x0076C5F8,11,code,Code/GameEngine/Source/Common/GameLOD.cpp,approved,P,P=0x002027EA@FuncInfo0x00911DF8,Code/GameEngine/Source/Common/GameLODManagerInit.cpp
-0x0076C603,8,code,Code/GameEngine/Source/Common/GameLOD.cpp,approved,P,P=0x002027EA@FuncInfo0x00911DF8,Code/GameEngine/Source/Common/GameLODManagerInit.cpp
-0x0076C60B,10,code,Code/GameEngine/Source/Common/GameLOD.cpp,approved,P,P=0x002027EA@FuncInfo0x00911DF8,Code/GameEngine/Source/Common/GameLODManagerInit.cpp
+0x0076C5F8,11,code,Code/GameEngine/Source/Common/GameLOD.cpp,approved,P,P=0x002027EA@FuncInfo0x00911DF8,Code/GameEngine/Source/Common/GameLOD.cpp
+0x0076C603,8,code,Code/GameEngine/Source/Common/GameLOD.cpp,approved,P,P=0x002027EA@FuncInfo0x00911DF8,Code/GameEngine/Source/Common/GameLOD.cpp
+0x0076C60B,10,code,Code/GameEngine/Source/Common/GameLOD.cpp,approved,P,P=0x002027EA@FuncInfo0x00911DF8,Code/GameEngine/Source/Common/GameLOD.cpp
 0x0076C615,8,code,,,-,,Code/GameEngine/Source/Common/GameLOD.cpp
 0x0076C61D,10,code,,,-,,Code/GameEngine/Source/Common/GameLOD.cpp
 0x0076C627,8,code,,,-,,Code/GameEngine/Source/Common/GameLOD.cpp
@@ -67364,10 +67364,10 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0076C639,8,code,Code/GameEngine/Source/Common/GameLOD.cpp,approved,P,P=0x002031FB@FuncInfo0x00911E6C,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_asciistring_pair.cpp
 0x0076C641,8,code,Code/GameEngine/Source/Common/GameLOD.cpp,approved,P,P=0x002031FB@FuncInfo0x00911E6C,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_asciistring_pair.cpp
 0x0076C649,10,code,Code/GameEngine/Source/Common/GameLOD.cpp,approved,P,P=0x002031FB@FuncInfo0x00911E6C,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_asciistring_pair.cpp
-0x0076C653,8,code,Code/GameEngine/Source/Common/GameLOD.cpp,approved,P,P=0x00203288@FuncInfo0x00911EA0,Code/GameEngine/Source/Common/GameLODManagerFindStaticLODLevel.cpp
-0x0076C65B,8,code,Code/GameEngine/Source/Common/GameLOD.cpp,approved,P,P=0x00203288@FuncInfo0x00911EA0,Code/GameEngine/Source/Common/GameLODManagerFindStaticLODLevel.cpp
-0x0076C663,8,code,Code/GameEngine/Source/Common/GameLOD.cpp,approved,P,P=0x00203288@FuncInfo0x00911EA0,Code/GameEngine/Source/Common/GameLODManagerFindStaticLODLevel.cpp
-0x0076C66B,10,code,Code/GameEngine/Source/Common/GameLOD.cpp,approved,P,P=0x00203288@FuncInfo0x00911EA0,Code/GameEngine/Source/Common/GameLODManagerFindStaticLODLevel.cpp
+0x0076C653,8,code,Code/GameEngine/Source/Common/GameLOD.cpp,approved,P,P=0x00203288@FuncInfo0x00911EA0,Code/GameEngine/Source/Common/GameLOD.cpp
+0x0076C65B,8,code,Code/GameEngine/Source/Common/GameLOD.cpp,approved,P,P=0x00203288@FuncInfo0x00911EA0,Code/GameEngine/Source/Common/GameLOD.cpp
+0x0076C663,8,code,Code/GameEngine/Source/Common/GameLOD.cpp,approved,P,P=0x00203288@FuncInfo0x00911EA0,Code/GameEngine/Source/Common/GameLOD.cpp
+0x0076C66B,10,code,Code/GameEngine/Source/Common/GameLOD.cpp,approved,P,P=0x00203288@FuncInfo0x00911EA0,Code/GameEngine/Source/Common/GameLOD.cpp
 0x0076C675,8,code,,,-,,Code/gen_small/uw_gen_011.cpp
 0x0076C67D,10,code,,,-,,Code/GameEngine/Source/Common/BfmeDualVtableReleaseDtor.cpp
 0x0076C687,8,code,,,-,,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva002041E1Getter.cpp

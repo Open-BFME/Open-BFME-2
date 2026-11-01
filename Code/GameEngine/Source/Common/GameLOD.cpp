@@ -22,6 +22,7 @@ extern "C" unsigned int __cdecl strlen(const char *text);
 
 
 
+
 #endif
 #define PROFILE_ERROR_LIMIT	0.94f	//fraction of profiled result needed to get a match.  Allows some room for error/fluctuation.
 //
@@ -70,6 +71,15 @@ template <typename T> struct BfmeStringData
 	{ \
 		return m_value; \
 	}
+#include "PreRTS.h"
+#include <stdio.h>
+#define PROFILE_ERROR_LIMIT 0.94f
+#define testMinimumRequirements Rva000768F5
+#define TheGlobalData ((LODGlobalDataView *)TheWritableGlobalData)
+#include <map>
+#include <windows.h>
+#include <string.h>
+#define PROFILE_ERROR_LIMIT 0.94f
 
 //Hack to get access to a static method on the W3DDevice side. -MW
 extern Bool testMinimumRequirements(ChipsetType *videoChipType, CpuType *cpuType, Int *cpuFreq, unsigned __int64 *numRAM, Real *intBenchIndex, Real *floatBenchIndex, Real *memBenchIndex);
@@ -599,11 +609,153 @@ public:
 
 BFME_DISP_BYTE_GETTER(Rva002026C7ByteField, 0x17AA)
 
+// Retail RVA 0x00202058, 492 bytes.
+// Rva00202058::rva00202058: reads OptionPreferences enum forwarders
+// (0x002E42EE..0x002E432E rowed in OptionPreferences_enumDispatch.cpp)
+// into GameLOD-style defs array (5x0x4C at +0) and option fields
+// +0x17C..+0x1C4. Imul 0x4C needs /G7; push 2/pop ebp and xor/inc ebx
+// are /O1 small-constant idioms.
+
+
+struct LODDef
+{
+	char _0[8];
+	int f8;
+	char _c[0x14];
+	int f20;
+	int f24;
+	int f28;
+	char _2c[0x18];
+	int f44;
+	int f48;
+};
+
+// ?getAudioLODLevelName@GameLODManager@@QAEPBDH@Z @0x00202678 40B. WorldBuilder
+// GameLOD.cpp:995 names it; the caller 0x002E53FA loads TheGameLODManager into
+// ecx (the body never reads it). Indexed string getter: 0<=i<2
+// returns table bfmeTabEYC[i] (0x00DB96B0), -1 returns "Unknown", else g_00BBE8E8.
+// Evidence: caller 0x002E53FA passes int and uses result for StringBase::set,
+// string literal 0x007D0FA4 "Unknown", table at 0x00DB96B0, default at 0x00BBE8E8.
+extern const char *bfmeTabEYC[];
+
+typedef float Real;
+
+class Xfer;
+
+bool Rva000768F5(ChipsetType *videoChipType, CpuType *cpuType, int *cpuFreq,
+	unsigned __int64 *numRAM, float *intBenchIndex, float *floatBenchIndex,
+	float *memBenchIndex);
+
+struct LODGlobalDataView {
+ char gap0[0x1C];
+ bool m_showProps;
+ char gap1D[0x7];
+ bool field24;
+ bool field25;
+ char gap26[0xA];
+ int m_xResolution; // +0x30
+ int m_yResolution; // +0x34
+ char gap38[0x11];
+ bool field49;
+ bool field4A;
+ char gap4B[0x13];
+ bool field5E;
+ char gap5F[0x1];
+ bool m_useShadowVolumes;
+ bool m_useShadowDecals;
+ bool m_useShadowMapping;
+ char gap63[0x21];
+ bool m_showSoftWaterEdge;
+ char gap85[0x8B];
+ int m_maxTankTrackEdges;
+ int m_maxTankTrackOpaqueEdges;
+ int m_maxTankTrackFadeDelay;
+ char gap11C[0x889];
+ bool m_showSelectedUnitMarker;
+ char gap9A6[0x1];
+ bool m_useSimpleMergeDecals;
+ char gap9A8[0x16];
+ bool m_showAllHealthBars;
+ char gap9BF[0x25];
+ bool m_forceBenchmark; // +0x9E4
+ char gap9E5[0xE3];
+ int m_maxParticleCount;
+ char gapACC[0x24];
+ bool m_shellMapOn;
+ bool m_shellMapOffByCommandArgument;
+};
+
+extern GlobalData *TheWritableGlobalData;
+
+// Retail's CPU-name table at RVA 0x9B96B8 (.data): XX/P3/P4/K7 plus null,
+// in retail's index order, that Benchmark.txt writing indexes by CPU type.
+// GameLOD.cpp keeps its own static copy for INI parsing; this TU defines the
+// global the benchmark writer references instead of leaving it external.
+extern const char BfmeCpuNameXX[];
+
+const char BfmeCpuNameXX[] = "XX";
+
+extern const char BfmeCpuNameP3[];
+
+const char BfmeCpuNameP3[] = "P3";
+
+extern const char BfmeCpuNameP4[];
+
+const char BfmeCpuNameP4[] = "P4";
+
+extern const char BfmeCpuNameK7[];
+
+const char BfmeCpuNameK7[] = "K7";
+
+const char *CPUNames[] = {BfmeCpuNameXX, BfmeCpuNameP3, BfmeCpuNameP4, BfmeCpuNameK7, NULL};
+
+class Rva00202058
+{
+public:
+	void rva00202058(OptionPreferences *prefs);
+
+private:
+	LODDef m_defs[5];
+	int m_17c;
+	int m_180;
+	int m_184;
+	bool m_188;
+	unsigned char m_189;
+	bool m_18a;
+	int m_18c;
+	bool m_190;
+	bool m_191;
+	int m_194;
+	bool m_198;
+	int m_19c;
+	int m_1a0;
+	int m_1a4;
+	int m_1a8;
+	bool m_1ac;
+	int m_1b0;
+	int m_1b4;
+	bool m_1b8;
+	bool m_1b9;
+	int m_1bc;
+	int m_1c0;
+	int m_1c4;
+};
+
+bool Rva000768F5(ChipsetType *chipset, CpuType *cpu, int *mhz, unsigned __int64 *ram, float *a, float *b, float *c);
+
+namespace _STL
+{
+template <> AsciiString &map<AsciiString, AsciiString, less<AsciiString>, allocator<pair<const AsciiString, AsciiString> > >::operator[](const AsciiString &key);
+}
+
+// tu-skeleton: 0x00201EAC 353B ??0GameLODManager@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00201DC4LODDefaults.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/GameLOD.cpp
+
 // BF1 9cbfb551fe Common/Rva005BD470ZeroTest.cpp is the clean semantic donor.
 // Full native leaf 001F350B..001F3513 ends at its own RET boundary.
 // Target evidence: receiver0C dword equals two; result in AL.
 // Original owner unresolved; the address-owned type is independent of nearby classes.
-// tu-skeleton: 0x00201EAC 353B ??0GameLODManager@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00201DC4LODDefaults.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/GameLOD.cpp
 
@@ -905,18 +1057,6 @@ Int GameLODManager::getAudioLODIndex(const AsciiString &name)
 	return -1;
 }
 
-// tu-skeleton: 0x0020202B 45B ?newLODPreset@GameLODManager@@QAEPAULODPresetInfo@@W4StaticGameLODLevel@@@Z -- matched in Code/GameEngine/Source/Common/GameLODManager_newLODPreset.cpp (not merged yet)
-
-// tu-skeleton: 0x00202058 492B ?rva00202058@Rva00202058@@QAEXPAVOptionPreferences@@@Z -- matched in Code/GameEngine/Source/Common/Rva00202058.cpp (not merged yet)
-
-// tu-skeleton: 0x00202244 165B ?rva00202244@Rva00DFE144Globals@@QAEXHPAVOptionPreferences@@@Z -- matched in Code/GameEngine/Source/Common/GameLODManagerRva00202244.cpp (not merged yet)
-
-// tu-skeleton: 0x002022E9 707B ?rva002022E9@Rva00DFE144Globals@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/GameLODApplyPreset.cpp (not merged yet)
-
-// tu-skeleton: 0x00202678 40B ?getAudioLODLevelName@GameLODManager@@QAEPBDH@Z -- matched in Code/GameEngine/Source/Common/Rva00202678Get.cpp (not merged yet)
-
-// tu-skeleton: 0x002026A0 20B ?findAudioLODLevel@GameLODManager@@QBEHXZ -- matched in Code/GameEngine/Source/Common/GameLODManager_findAudioLODLevel.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/DispByteFieldGetters.cpp
 
 // Disp32 byte getters: seven-byte __thiscall members with one shape:
@@ -937,11 +1077,262 @@ Int GameLODManager::getAudioLODIndex(const AsciiString &name)
 // reference/open-bfme-1/Code/GameEngine/Source/Common/DispByteFieldGetters.cpp).
 // No // cl: line (defaults match the frameless 7-byte shape).
 
+// ---- from Code/GameEngine/Source/Common/GameLODManager_newLODPreset.cpp
+
+// ?newLODPreset@GameLODManager@@QAEPAULODPresetInfo@@W4StaticGameLODLevel@@@Z
+
+//
+// ?newLODPreset@GameLODManager@@QAEPAULODPresetInfo@@W4StaticGameLODLevel@@@Z, retail 0x0020202B, 45 bytes.
+// GameLODManager::newLODPreset (WorldBuilder GameLOD.cpp:394; ZH signature,
+// called from INI::parseLODPreset 0x00202E23). Fixed-slot pool allocator. The sibling constructor Rva00201EACLODManager
+// (Code/GameEngine/Source/Common/Rva00201DC4LODDefaults.cpp) proves the array
+// composition this addresses: presets[5][32] of 32-byte stride at +0x208
+// (5*32*32 = 0x1000, running 0x208..0x1208) and the pool of five 32-entry
+// counters at +0x17AC. The retail body is
+//   mov eax,[esp+4]; lea edx,[ecx+eax*4+0x17ac]; push esi; mov esi,[edx];
+//   cmp esi,0x20; jge ret0; inc esi; shl eax,5; add eax,esi; shl eax,5;
+//   mov [edx],esi; lea eax,[eax+ecx+0x208]
+// so the returned slot is pool[index*32 + count+1] and the counter is
+// post-incremented: the incremented value is the one stored AND the one added,
+// hence `++m_counts[index]` written inline in the return expression. Hoisting
+// that increment into a local makes MSVC keep a second live copy (the extra
+// `push edi` / `lea edi,[esi+1]`) and swap the lea/push order, which is the
+// whole diff against retail.
+// Neighbours: prev 0x0020200D RetailBenchProfileAllocator, next 0x002025AC.
+// Unlock lane: landing this makes 0x00202E23 ready.
+
+
+LODPresetInfo *GameLODManager::newLODPreset(StaticGameLODLevel index)
+{
+	if (m_numLevelPresets[index] < 32)
+		return &m_lodPresets[index][(++m_numLevelPresets[index]) - 1];
+	return 0;
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva00202058.cpp
+
+void Rva00202058::rva00202058(OptionPreferences *prefs)
+{
+	m_17c = prefs->getModelLOD();
+	m_1b0 = prefs->getAnimationLOD();
+	m_180 = prefs->getEffectsLOD();
+	m_1b9 = (prefs->getEffectsLOD() >= 2);
+	int idx1;
+	int v = prefs->getEffectsLOD();
+	if (v <= 0)
+		idx1 = 0;
+	else
+	{
+		int effectsLod = prefs->getEffectsLOD();
+		if (effectsLod == 1)
+			idx1 = 1;
+		else
+		{
+			int v3 = prefs->getEffectsLOD();
+			if (v3 == 2)
+				idx1 = 2;
+			else
+			{
+				int v4 = prefs->getEffectsLOD();
+				idx1 = 3 + (v4 != 3);
+			}
+		}
+	}
+	LODDef *lODDef = &m_defs[idx1];
+	m_184 = lODDef->f8;
+	m_1c0 = lODDef->f44;
+	m_1c4 = lODDef->f48;
+	int widx;
+	if (prefs->getShadowLOD() < 1 || prefs->getShadowLOD() > 2)
+		widx = 0;
+	else
+		widx = 1;
+	m_189 = (unsigned char)widx;
+	m_188 = (prefs->getShadowLOD() == 2);
+	m_18a = (prefs->getShadowLOD() >= 3);
+	m_18c = prefs->getShadowLOD();
+	m_190 = (prefs->getTerrainLOD() >= 2);
+	m_191 = (prefs->getTerrainLOD() >= 1);
+	m_194 = prefs->getWaterLOD();
+	m_198 = (prefs->getWaterLOD() >= 1);
+	int u = prefs->getTerrainLOD();
+	int idx2;
+	if (u <= 0)
+		idx2 = 1;
+	else
+	{
+		int m_terrainLOD = prefs->getTerrainLOD();
+		idx2 = 2 + (m_terrainLOD > 1);
+	}
+	LODDef *d2 = &m_defs[idx2];
+	m_19c = d2->f20;
+	m_1a0 = d2->f24;
+	m_1a4 = d2->f28;
+	int t = prefs->Rva002E431EForward();
+	int idx3;
+	if (t <= 0)
+		idx3 = 2;
+	else
+	{
+		int t2 = prefs->Rva002E431EForward();
+		idx3 = (t2 <= 1);
+	}
+	m_1a8 = idx3;
+	m_1ac = (prefs->getTerrainLOD() >= 1);
+	m_1b4 = prefs->Rva002E4326Forward();
+	m_1b8 = (prefs->Rva002E4326Forward() >= 2);
+	m_1bc = prefs->Rva002E432EForward();
+}
+
+// ---- from Code/GameEngine/Source/Common/GameLODManagerRva00202244.cpp
+
+void Rva00DFE144Globals::rva00202244(int preset, OptionPreferences *prefs)
+{
+	const Rva00202244Preset &lodInfo = m_presets[preset];
+	prefs->setSetting(0, lodInfo.m_modelLOD);
+	prefs->setSetting(1, lodInfo.m_animationDetail);
+	prefs->setSetting(2, lodInfo.m_effectsLOD);
+	prefs->setSetting(3, lodInfo.m_shadowLOD);
+	prefs->setSetting(4, lodInfo.m_useTerrainNormalMap ? 2 : (lodInfo.m_useDistanceDependantTerrainTextures != 0));
+	prefs->setSetting(5, lodInfo.m_waterLOD);
+	prefs->setSetting(6, lodInfo.m_textureReduction == 2 ? 0 : (lodInfo.m_textureReduction == 1 ? 1 : 2));
+	prefs->setSetting(7, lodInfo.m_shaderLOD);
+	prefs->setSetting(8, lodInfo.m_decalLOD);
+}
+
+// tu-skeleton: 0x002022E9 707B ?rva002022E9@Rva00DFE144Globals@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/GameLODApplyPreset.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva00202678Get.cpp
+
+const char *GameLODManager::getAudioLODLevelName(int i)
+{
+	if (i >= 0 && i < 2)
+		return bfmeTabEYC[i];
+	if (i == -1)
+		return "Unknown";
+	return "?";
+}
+
+// ---- from Code/GameEngine/Source/Common/GameLODManager_findAudioLODLevel.cpp
+
+//
+// ?findAudioLODLevel@GameLODManager@@QBEHXZ @0x002026A0 20B. WorldBuilder
+// GameLOD.cpp:1002 names it GameLODManager::findAudioLODLevel. Compare ints at +0x17d8
+// and +0x17f0 returning 0/1. Evidence: retail mov eax [ecx+0x17d8] plus xor
+// edx edx plus cmp eax [ecx+0x17f0] plus setge dl plus mov eax edx plus ret;
+// same 0x17xx object as 0x00202633 (+0x176c) and 0x00202790 (+0x1770); caller
+// 0x00518F1D in 0x00518D2B.
+
+int GameLODManager::findAudioLODLevel() const
+{
+	return *(int *)((char *)this + 0x17d8) >= *(int *)((char *)this + 0x17f0);
+}
+
 // tu-skeleton: 0x002026CE 6B ?rva002026CE@Rva002026CE@@QAEPAHXZ -- matched in Code/GameEngine/Source/Common/GapLeavesSeat8.cpp (not merged yet)
 
 // tu-skeleton: 0x002027B1 57B ??0?$pair@$$CBVAsciiString@@V1@@_STL@@QAE@ABVAsciiString@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_asciistring_pair.cpp (not merged yet)
 
-// tu-skeleton: 0x002027EA 864B ?init@GameLODManager@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/GameLODManagerInit.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/GameLODManagerInit.cpp
+
+// ?init@GameLODManager@@QAEXH@Z, retail 0x002027EA, 864 bytes.
+//
+// Identity: the existing pin (GameEngine::init's REL32 call). Donor: Zero Hour
+// GameLOD.cpp GameLODManager::init: load GameLOD.ini and GameLODPresets.ini,
+// read the user's and ideal static detail from OptionPreferences, probe the
+// machine (testMinimumRequirements, BFME2 0x000768F5), flag 256 MB of RAM,
+// and when the ideal level is unknown or a benchmark is forced, benchmark the
+// CPU, optionally dump the numbers to Benchmark.txt and map the result to the
+// closest preset CPU. BFME2 differences taken from the target body: the custom
+// detail level (5) applies its option preferences through 0x00202058 right
+// away; an unknown audio LOD also forces the benchmark; the final static level
+// is applied (0x00202739) only when the caller passes -1; an unknown audio LOD
+// is derived from the CPU speed against +0x17F0, saved to the preferences and
+// applied through 0x00202790. Offsets are the BFME2 manager layout.
+
+void GameLODManager::init(Int staticLevel)
+{
+	INI ini;
+	ini.loadFile(AsciiString("Data\\INI\\GameLOD.ini"), INI_LOAD_OVERWRITE, 0);
+	ini.loadFile(AsciiString("Data\\INI\\GameLODPresets.ini"), INI_LOAD_OVERWRITE, 0);
+
+	OptionPreferences optionPref;
+	StaticGameLODLevel userSetDetail = (StaticGameLODLevel)optionPref.getStaticGameDetail();
+	m_idealDetailLevel = (StaticGameLODLevel)optionPref.getIdealStaticGameDetail();
+	if (userSetDetail == STATIC_GAME_LOD_CUSTOM)
+		reinterpret_cast<Rva00202058 *>(this)->rva00202058(&optionPref);
+
+	testMinimumRequirements(0, &m_cpuType, &m_cpuFreq, &m_numRAM, 0, 0, 0);
+
+	// BFME2 keeps the RAM size as unsigned __int64 and divides in double.
+	if ((double)m_numRAM / (double)(256 * 1024 * 1024) >= PROFILE_ERROR_LIMIT)
+		m_memPassed = true;
+
+	Int audioLOD = optionPref.getAudioLOD();
+	if (m_idealDetailLevel == STATIC_GAME_LOD_UNKNOWN || TheGlobalData->m_forceBenchmark || audioLOD == -1)
+	{
+		if (m_cpuType == XX || TheGlobalData->m_forceBenchmark)
+		{
+			testMinimumRequirements(0, 0, 0, 0, &m_intBenchIndex, &m_floatBenchIndex, &m_memBenchIndex);
+
+			if (TheGlobalData->m_forceBenchmark)
+			{
+				FILE *fp = fopen("Benchmark.txt", "w");
+				if (fp)
+				{
+					fprintf(fp, "BenchProfile = %s %d %f %f %f", CPUNames[m_cpuType], m_cpuFreq,
+						m_intBenchIndex, m_floatBenchIndex, m_memBenchIndex);
+					fclose(fp);
+				}
+			}
+
+			m_compositeBenchIndex = m_intBenchIndex + m_floatBenchIndex;
+
+			StaticGameLODLevel currentLevel = STATIC_GAME_LOD_LOW;
+			BenchProfile *prof = m_benchProfiles;
+			m_cpuType = P3;
+			m_cpuFreq = 1000;
+
+			for (Int k = 0; k < m_numBenchProfiles; k++)
+			{
+				if (m_intBenchIndex / prof->m_intBenchIndex >= PROFILE_ERROR_LIMIT &&
+					m_floatBenchIndex / prof->m_floatBenchIndex >= PROFILE_ERROR_LIMIT &&
+					m_memBenchIndex / prof->m_memBenchIndex >= PROFILE_ERROR_LIMIT)
+				{
+					for (Int i = STATIC_GAME_LOD_HIGH; i >= STATIC_GAME_LOD_LOW; i--)
+					{
+						LODPresetInfo *preset = &m_lodPresets[i][0];
+						for (Int j = 0; j < m_numLevelPresets[i]; j++)
+						{
+							if (prof->m_cpuType == preset->m_cpuType &&
+								((Real)prof->m_mhz / (Real)preset->m_mhz >= PROFILE_ERROR_LIMIT))
+							{
+								currentLevel = (StaticGameLODLevel)i;
+								m_cpuType = prof->m_cpuType;
+								m_cpuFreq = prof->m_mhz;
+								break;
+							}
+							preset++;
+						}
+						if (currentLevel >= i)
+							break;
+					}
+				}
+				prof++;
+			}
+		}
+	}
+
+	if (staticLevel == -1)
+		reinterpret_cast<Rva00202739 *>(this)->rva00202739(userSetDetail);
+
+	if (audioLOD == -1)
+	{
+		audioLOD = m_cpuFreq >= m_reallyLowMHz;
+		optionPref.rva002E53FA(audioLOD);
+		optionPref.write();
+	}
+	reinterpret_cast<Rva00202790 *>(this)->rva00202790(audioLOD);
+}
 
 // tu-skeleton: 0x00202B4A 34B ?_M_create_node@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@V1@@_STL@@@2@ABU?$pair@$$CBVAsciiString@@V1@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_asciistring_pair.cpp (not merged yet)
 
@@ -955,7 +1346,93 @@ Int GameLODManager::getAudioLODIndex(const AsciiString &name)
 
 // tu-skeleton: 0x002031FB 141B ??A?$map@VAsciiString@@V1@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@QAEAAVAsciiString@@ABV2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_asciistring_pair.cpp (not merged yet)
 
-// tu-skeleton: 0x00203288 572B ?findStaticLODLevel@GameLODManager@@QAE?AW4StaticGameLODLevel@@XZ -- matched in Code/GameEngine/Source/Common/GameLODManagerFindStaticLODLevel.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/GameLODManagerFindStaticLODLevel.cpp
+
+// platformsdk
+// ?findStaticLODLevel@GameLODManager@@QAE?AW4StaticGameLODLevel@@XZ
+// Retail 0x00203288..0x002034C4 (572 bytes).
+// BFME 2 GameLODManager::findStaticLODLevel (Zero Hour Common/GameLOD.cpp
+// and the Open-BFME-1 donor GameLODManagerFindStaticLODLevel.cpp): on the
+// first call (+0x17C4 unknown) the ideal level starts at 0, the video chip
+// type comes from the rowed testMinimumRequirements (0x000768F5; unknown ->
+// 1) and the presets of levels 4..1 (+0x228 + level*0x400, counts at
+// +0x17AC + level*4) are matched against the CPU type, CPU MHz, video chip and
+// RAM (within 0.94) to pick the ideal level and its resolution (default
+// 800x600); Windows 2000 drops it one notch; the option preferences store the
+// ideal level (rowed 0x002E537B) and, while no static level was chosen
+// (+0x1768), the static level (rowed 0x002E52FC); TheGlobalData's resolution
+// (+0x30/+0x34) and the "Resolution" preference ("%d %d") are set and the
+// preferences are written. Returns the ideal level.
+// Evidence (target): rowed callees above plus OptionPreferences ctor
+// 0x002E434E / dtor 0x002E4272 UserPreferences::write 0x003B1BF3
+// AsciiString::format 0x00038150 map<AsciiString AsciiString>::operator[]
+// 0x002031FB StringBase<char> set / ctor / releaseBuffer and
+// GetVersionExA; BFME 2 deltas against the donor (four preset levels, the
+// two preference setters, GlobalData +0x30) are read from the retail body.
+
+StaticGameLODLevel GameLODManager::findStaticLODLevel()
+{
+	if (m_idealDetailLevel == STATIC_GAME_LOD_UNKNOWN)
+	{
+		m_idealDetailLevel = (StaticGameLODLevel)0;
+		Rva000768F5(&m_videoChipType, 0, 0, 0, 0, 0, 0);
+		if (m_videoChipType == DC_UNKNOWN)
+			m_videoChipType = (ChipsetType)1;
+
+		Int numMBRam = (Int)(m_numRAM >> 20);
+		Int xres = 800;
+		Int yres = 600;
+
+		for (Int i = 4; i >= 1; i--)
+		{
+			LODPresetInfo *preset = &m_lodPresets[i][0];
+			for (Int j = 0; j < m_numLevelPresets[i]; j++)
+			{
+				if (m_cpuType == preset->m_cpuType &&
+					((Real)m_cpuFreq / (Real)preset->m_mhz >= PROFILE_ERROR_LIMIT) &&
+					m_videoChipType >= preset->m_videoType &&
+					((Real)numMBRam / (Real)preset->m_memory >= PROFILE_ERROR_LIMIT))
+				{
+					m_idealDetailLevel = (StaticGameLODLevel)i;
+					xres = preset->m_xResolution;
+					yres = preset->m_yResolution;
+					break;
+				}
+				preset++;
+			}
+			if (m_idealDetailLevel >= i)
+				break;
+		}
+
+		OSVERSIONINFOA osvi;
+		memset(&osvi, 0, sizeof(osvi));
+		osvi.dwOSVersionInfoSize = sizeof(osvi);
+		if (GetVersionExA(&osvi) &&
+			osvi.dwPlatformId == 2 &&
+			osvi.dwMajorVersion == 5 &&
+			osvi.dwMinorVersion == 0 &&
+			m_idealDetailLevel >= 1 &&
+			m_idealDetailLevel <= 4)
+		{
+			m_idealDetailLevel = (StaticGameLODLevel)(m_idealDetailLevel - 1);
+		}
+
+		OptionPreferences optionPref;
+		optionPref.rva002E537B(m_idealDetailLevel);
+		if (m_currentStaticLOD == STATIC_GAME_LOD_UNKNOWN)
+			optionPref.rva002E52FC(m_idealDetailLevel);
+		if (TheWritableGlobalData)
+		{
+			((LODGlobalDataView *)TheWritableGlobalData)->m_xResolution = xres;
+			((LODGlobalDataView *)TheWritableGlobalData)->m_yResolution = yres;
+		}
+		AsciiString resolution;
+		resolution.format("%d %d", xres, yres);
+		optionPref["Resolution"] = resolution;
+		optionPref.write();
+	}
+	return m_idealDetailLevel;
+}
 
 // tu-skeleton: 0x0076C5CC 8B $L719 -- matched in Code/GameEngine/Source/Common/GameLODApplyPreset.cpp (not merged yet)
 
@@ -967,22 +1444,8 @@ Int GameLODManager::getAudioLODIndex(const AsciiString &name)
 
 // tu-skeleton: 0x0076C5EE 10B __ehhandler$??0?$pair@$$CBVAsciiString@@V1@@_STL@@QAE@ABVAsciiString@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_asciistring_pair.cpp (not merged yet)
 
-// tu-skeleton: 0x0076C5F8 11B Unwind@00b6c5f8 -- matched in Code/GameEngine/Source/Common/GameLODManagerInit.cpp (not merged yet)
-
-// tu-skeleton: 0x0076C603 8B Unwind@00b6c603 -- matched in Code/GameEngine/Source/Common/GameLODManagerInit.cpp (not merged yet)
-
-// tu-skeleton: 0x0076C60B 10B __ehhandler$?init@GameLODManager@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/GameLODManagerInit.cpp (not merged yet)
-
 // tu-skeleton: 0x0076C639 8B Unwind@00b6c639 -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_asciistring_pair.cpp (not merged yet)
 
 // tu-skeleton: 0x0076C641 8B Unwind@00b6c641 -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_asciistring_pair.cpp (not merged yet)
 
 // tu-skeleton: 0x0076C649 10B __ehhandler$??A?$map@VAsciiString@@V1@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@QAEAAVAsciiString@@ABV2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_asciistring_pair.cpp (not merged yet)
-
-// tu-skeleton: 0x0076C653 8B Unwind@00b6c653 -- matched in Code/GameEngine/Source/Common/GameLODManagerFindStaticLODLevel.cpp (not merged yet)
-
-// tu-skeleton: 0x0076C65B 8B Unwind@00b6c65b -- matched in Code/GameEngine/Source/Common/GameLODManagerFindStaticLODLevel.cpp (not merged yet)
-
-// tu-skeleton: 0x0076C663 8B Unwind@00b6c663 -- matched in Code/GameEngine/Source/Common/GameLODManagerFindStaticLODLevel.cpp (not merged yet)
-
-// tu-skeleton: 0x0076C66B 10B __ehhandler$?findStaticLODLevel@GameLODManager@@QAE?AW4StaticGameLODLevel@@XZ -- matched in Code/GameEngine/Source/Common/GameLODManagerFindStaticLODLevel.cpp (not merged yet)
