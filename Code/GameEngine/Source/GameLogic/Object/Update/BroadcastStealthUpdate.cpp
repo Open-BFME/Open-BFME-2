@@ -121,6 +121,39 @@ class RGBAColorInt;
 class Snapshot;
 class Thing;
 #include "../../../../Include/Common/BfmeXfer.h"
+#define BFME_DISP8_BYTECHASE_GETTER(NAME, DISP1, DISP2) \
+	class NAME \
+	{ \
+	public: \
+		unsigned char get() const; \
+		char m_lead[DISP1]; \
+		void *m_ptr; \
+	}; \
+	unsigned char NAME::get() const \
+	{ \
+		return *(unsigned char *)((char *)m_ptr + DISP2); \
+	}
+#define BFME_DISP8_BYTECHASE_BEFORE_GETTER(NAME, BACK, INNER) \
+	class Inner##NAME \
+	{ \
+	public: \
+		char m_lead[INNER]; \
+		unsigned char m_value; \
+	}; \
+	class Sub##NAME \
+	{ \
+	public: \
+		Inner##NAME *m_holder; \
+	}; \
+	class NAME \
+	{ \
+	public: \
+		unsigned char get() const; \
+	}; \
+	unsigned char NAME::get() const \
+	{ \
+		return ((const Sub##NAME *)((const char *)this - (BACK)))->m_holder->m_value; \
+	}
 
 // The stealth helper Object::rva0028F4BC returns: +0x04 its data, whose
 // +0x0C holds the flags.
@@ -294,9 +327,26 @@ private:
 	BridgeBehaviorObjectIDList m_28;	// +0x28
 };
 
+// 0x0039ADAF is ExperienceTracker::isTrainable (pinned under that name from
+// VeterancyCrateCollide::isValidToExecute; ZH's isTrainable reads the
+// template's trainable flag): the byte at +0x5E7 of the +0x04 template.
+class ExperienceTracker
+{
+public:
+	bool isTrainable() const;
+	char m_lead[0x4];
+	void *m_template;
+};
+
+BFME_DISP8_BYTECHASE_BEFORE_GETTER(Rva004A3541ByteChase32Field, 0x1C, 0x13C)
+
+BFME_DISP8_BYTECHASE_BEFORE_GETTER(Rva004A354BByteChase32Field, 0x1C, 0x13D)
+
 // tu-skeleton: 0x004A342E 146B ??0BroadcastStealthUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BroadcastStealthUpdateCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004A34C0 6B ?Rva004A34C0Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/BroadcastStealthUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/BroadcastStealthUpdatePoolKey.cpp
 
@@ -307,18 +357,6 @@ NameKeyType BroadcastStealthUpdate::getModuleNameKey() const
 		TheNameKeyGenerator->nameToKey("BroadcastStealthUpdate");
 	return TheBroadcastStealthUpdatePoolKey;
 }
-
-// tu-skeleton: 0x004A350B 39B ?getUpgradeActivationMasks@BroadcastStealthUpdate@@MBEXAAUUpgradeMaskType@@0@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxSlotOverrides.cpp (not merged yet)
-
-// tu-skeleton: 0x004A3532 15B ?performUpgradeFX@BroadcastStealthUpdate@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxSlotOverrides.cpp (not merged yet)
-
-// tu-skeleton: 0x004A3541 10B ?get@Rva004A3541ByteChase32Field@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x004A354B 10B ?get@Rva004A354BByteChase32Field@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x004A3555 88B ??1BroadcastStealthUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BroadcastStealthUpdateDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004A35AD 28B ??_GBroadcastStealthUpdate@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BroadcastStealthUpdateDtor.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/BroadcastStealthUpdate.cpp
 
@@ -395,3 +433,35 @@ void BroadcastStealthUpdate::xfer(Xfer *xfer)
 		}
 	}
 }
+
+// tu-skeleton: 0x004A350B 39B ?getUpgradeActivationMasks@BroadcastStealthUpdate@@MBEXAAUUpgradeMaskType@@0@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxSlotOverrides.cpp (not merged yet)
+
+// tu-skeleton: 0x004A3532 15B ?performUpgradeFX@BroadcastStealthUpdate@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxSlotOverrides.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp
+
+// Disp8 byte-chase getters: seven-byte __thiscall members with one shape:
+//
+//     mov eax,[ecx+<DISP1>] / mov al,[eax+<DISP2>] / ret
+//
+// A pointer is read at a fixed displacement from `this`, then a byte is read
+// at a second displacement from that pointer and returned in `al` (only the
+// low byte is defined; the caller uses `al`). MSVC 7.1 emits the disp8 loads
+// `8B 41 XX` + `8A 40 XX`, plus `ret`, for seven bytes total.
+// Identity is not recovered: every name is derived from its address.
+// No // cl: line (defaults match the frameless seven-byte shape).
+
+// Backward variant: the holder sits at a NEGATIVE displacement from `this`
+// (a sub-object `this` pointing into a larger object). Spelled as an explicit
+// backward cast, which MSVC folds to `mov eax,[ecx-BACK]`; same shape and
+// reading as BFME1's ChainedFieldGetters.
+
+// tu-skeleton: 0x004A3555 88B ??1BroadcastStealthUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BroadcastStealthUpdateDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004A35AD 28B ??_GBroadcastStealthUpdate@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BroadcastStealthUpdateDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078DC63 8B $L416 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BroadcastStealthUpdateDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078DC6B 11B $L417 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BroadcastStealthUpdateDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078DC76 10B __ehhandler$??1BroadcastStealthUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BroadcastStealthUpdateDtor.cpp (not merged yet)
