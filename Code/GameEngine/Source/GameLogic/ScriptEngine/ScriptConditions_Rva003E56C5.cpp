@@ -118,12 +118,7 @@ extern BitFlags<116> KINDOFMASK_NONE;
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-class PartitionManager
-{
-public:
-	Object *getClosestObject(const Coord3D *pos, float maxDist, int dc,
-		Rva000421C8 *filters);	// 0x00625360
-};
+#include "../../Common/PartitionRangeQueryCallView.h"
 extern PartitionManager *ThePartitionManager;
 
 class Object

@@ -187,12 +187,7 @@ bool Rva0026144CFilter::allow(Object *obj)
 	return cmi->isGarrisonable() == m_match;
 }
 
-struct BfmeWideResult
-{
-	Object *next() throw();	// 0x00045623
-	~BfmeWideResult();	// 0x0004AA28
-	void *m_value;
-};
+#include "../../Common/PartitionRangeQueryCallView.h"
 
 class Overridable
 {
@@ -262,14 +257,6 @@ extern AI *TheAI;
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
-class PartitionManager
-{
-public:
-	Object *getClosestObject(const Coord3D *pos, float maxDist, int dc,
-		Rva000421C8 *filters);	// 0x00625360
-	BfmeWideResult iterateObjectsInRange(const Coord3D *pos, float radius, int distCalc,
-		Rva000421C8 *filters, int order);	// 0x00625610
-};
 extern PartitionManager *ThePartitionManager;
 
 #define REALLY_FAR (100000 * 10.0f)

@@ -163,12 +163,7 @@ extern ControlBar *TheControlBar;
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
-class PartitionManager
-{
-public:
-	Object *getClosestObject(const Coord3D *pos, float maxDist, int dc,
-		Rva000421C8 *filters);	// 0x00625360
-};
+#include "../../Common/PartitionRangeQueryCallView.h"
 extern PartitionManager *ThePartitionManager;
 
 #define REALLY_FAR (100000 * 10.0f)

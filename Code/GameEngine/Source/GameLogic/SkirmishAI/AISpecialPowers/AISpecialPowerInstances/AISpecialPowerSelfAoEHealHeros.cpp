@@ -84,19 +84,8 @@ public:
 	Rva005D9A45Body *m_254;	// +0x254
 };
 
-struct BfmeWideResult
-{
-	Object *next() throw();	// 0x00045623
-	~BfmeWideResult();	// 0x0004AA28
-	void *m_value;
-};
+#include "../../../../Common/PartitionRangeQueryCallView.h"
 
-class PartitionManager
-{
-public:
-	BfmeWideResult iterateObjectsInRange(const Coord3D *pos, float radius, int distCalc,
-		Rva000421C8 *filters, int order);	// 0x00625610
-};
 extern PartitionManager *ThePartitionManager;
 
 float GetGameLogicRandomValueReal(float lo, float hi, char *file, int line);
