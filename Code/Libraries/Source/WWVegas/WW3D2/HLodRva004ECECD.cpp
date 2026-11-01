@@ -105,11 +105,7 @@ public:
 };
 extern AI *TheAI;
 
-class AIUpdateInterface
-{
-public:
-    Object *getCurrentVictim() const;
-};
+#include "../../../../GameEngine/Include/GameLogic/Module/AIUpdate.h"
 
 Team *AITactic::rva004ECECD(int id)
 {

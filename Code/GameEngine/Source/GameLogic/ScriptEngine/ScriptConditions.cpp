@@ -1135,11 +1135,7 @@ public:
 	unsigned char m_kindOf[16]; // +0x108 KindOf bits; 0x02 of byte 11 is the inert flag
 };
 #define REALLY_FAR (100000 * 10.0f)
-class AIUpdateInterface
-{
-public:
-    int getCurrentStateID() const;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 // AI_EXIT is enum item 37 in the pristine Zero Hour AIStateMachine.h.
 enum { BFME_AI_EXIT = 37 };
 struct ScriptCounter

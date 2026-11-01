@@ -76,10 +76,7 @@ static bool __fastcall Rva005D8571Check(int dummy, Rva005D839BParam *player)
 
 class Player;
 class Object;
-class AIUpdateInterface {
-public:
-    Object *getCurrentVictim() const;
-};
+#include "../../../../../Include/GameLogic/Module/AIUpdate.h"
 class Object {
 public:
     Player *getControllingPlayer() const;

@@ -169,7 +169,7 @@ struct RecruitKindOfFlags { unsigned int m_words[3]; __forceinline int test(int 
 struct RecruitThingTemplate { char prefix[0x64]; AsciiString name; char pad68[0x113-0x68]; unsigned char kind113;
  const AsciiString &getName() const { return name; }
  const RecruitKindOfFlags &kindOf() const { return *(const RecruitKindOfFlags *)((const char *)this + 0x108); } };
-class AIUpdateInterface { public: Object* getCurrentVictim() const; };
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 enum ObjectStatusTypes { STATUS_90=90 };
 class Object
 {

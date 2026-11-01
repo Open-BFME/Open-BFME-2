@@ -124,17 +124,7 @@ public:
 	int getNumPlayers() const;
 	int getNumOpenOrOccupiedSlots() const;
 };
-class AIUpdateInterface
-{
-public:
-	virtual void onObjectCreated();
-	virtual bool chooseLocomotorSet(int a);
-	virtual bool getTreatAsAircraftForLocoDistToGoal() const;
-protected:
-	void wakeUpNow();
-	virtual void loadPostProcess();
-	virtual void privateIdle(CommandSourceType a);
-};
+#include "../../../../../../GameEngine/Include/GameLogic/Module/AIUpdate.h"
 class Rva0030BBE5
 {
 public:

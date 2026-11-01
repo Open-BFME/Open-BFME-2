@@ -200,11 +200,7 @@ public:
 // Native DFEEF8 is the existing single datum owned by Rva005EEA20Find.cpp.
 extern Rva002A8F24 *TheSkirmishAIManager;
 
-class AIUpdateInterface
-{
-public:
-	Object *getCurrentVictim() const;
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 struct Rva002C600AFlag
 {

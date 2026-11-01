@@ -156,11 +156,7 @@ enum Relationship
 	ALLIES
 };
 
-class AIUpdateInterface
-{
-public:
-	Object *getCurrentVictim() const;	// 0x00268D71
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 // What Object +0x264 points at: 0x005D9F97 reads the int at +0x24.
 struct Rva005D9F97Count

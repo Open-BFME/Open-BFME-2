@@ -587,7 +587,7 @@ class ExperienceTracker { public: char m_pad[0x10]; float m_experience; char m_p
 class ExperienceLevelStore { public: int rva00289BE0(const ExperienceTracker *tracker, int *out); };
 class ExperienceLevelSystem;
 class ThingTemplate { public: char m_pad[0x64]; char *m_nameData; const char *getNameText() const { return m_nameData ? m_nameData + 8 : ""; } char m_pad68[0x5E7 - 0x68]; bool m_showLevel; };
-class AIUpdateInterface { public: int getCurrentStateID() const; };
+#include "../../../../GameEngine/Include/GameLogic/Module/AIUpdate.h"
 namespace _STL { template <int N> struct _Base_bitset { unsigned int _M_w[N]; bool _M_is_any() const; }; }
 typedef _STL::_Base_bitset<4> _STL_Base_bitset4;
 struct BfmeFixedStorage128 { BfmeFixedStorage128(const BfmeFixedStorage128 &that); unsigned int m_bits[32]; };

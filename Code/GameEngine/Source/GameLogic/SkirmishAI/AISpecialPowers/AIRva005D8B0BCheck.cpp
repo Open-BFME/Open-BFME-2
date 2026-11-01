@@ -17,11 +17,7 @@ class Object;
 // unit's out-of-line _Vector_base<Object*> dtor copy is not retail's EH-framed body, and every
 // use here is inlined, so none is emitted.
 namespace _STL {template<> __declspec(dllimport) __forceinline _Vector_base<Object *, allocator<Object *> >::~_Vector_base() {if(_M_start)free(_M_start);}}
-class AIUpdateInterface
-{
-public:
-	Object *getCurrentVictim() const;
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 struct Rva005D8B0BObject
 {
