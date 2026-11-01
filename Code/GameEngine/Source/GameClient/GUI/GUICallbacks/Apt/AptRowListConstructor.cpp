@@ -32,21 +32,7 @@ struct AptRowListGameLogic
 // address) from the movie's level and path and the row's two values; the
 // row's holder sets it through its rowed 0x00575674 and clears it through
 // Rva000AD6F4's.
-class Rva0050F909
-{
-public:
-	Rva0050F909(int level, const AsciiString &path, int value0, int value4);
-
-	unsigned char m_pad[0x5C];
-};
-
 class Object;
-
-class Rva00575674
-{
-public:
-	void rva00575674(Object *row);
-};
 
 class Rva000AD6F4
 {

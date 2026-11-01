@@ -39,13 +39,6 @@ public:
 };
 
 // The icon's help hide check (rowed address-named, 0x005E73B2).
-class Rva005E73B2
-{
-public:
-	void rva005E73B2();
-};
-
-
 class Rva005F830A
 {
 public:
@@ -162,7 +155,6 @@ virtual void slot11();
 virtual int slot12();
  virtual const Rva005E72B4Production *slot13();
 };
-struct Rva005E72B4Entry { char bytes[8]; };
 #include "../../../../Include/Common/Rva0007DF07.h"
 class Rva005E7ED7 : public StrategicInGameUI::BuildQueueDetailsPanel::Impl::Icon, public Rva0007DF07 {
 public:

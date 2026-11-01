@@ -140,7 +140,6 @@ private:
 };
 
 // Owning pointers: +0x588 and +0x9CC reset inline, +0x58C through 0x004E7F7E.
-class Rva004E668E { public: ~Rva004E668E(); };
 class Rva0029B5E3
 {
 public:
@@ -160,7 +159,6 @@ private:
 	void *m_ptr;
 };
 
-class InGameNotificationBoxMovieClip { public: ~InGameNotificationBoxMovieClip(); };
 class Rva0029B620
 {
 public:

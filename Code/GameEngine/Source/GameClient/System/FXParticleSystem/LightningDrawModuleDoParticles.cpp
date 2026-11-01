@@ -119,7 +119,6 @@ class WW3D
 	static bool IsCurrentlyRenderingShadowMap;
 };
 
-class Rva001F4E2D { public: bool rva001F4E2D(); };
 class Rva001F4D2D { public: float rva001F4D2D(); };
 class Rva001F4E1BSlot { public: const RGBColor *get() const; };
 class Rva001F4DF9 { public: float rva001F4DF9(); };
@@ -162,12 +161,6 @@ public:
 	StreakParticleStorage *m_storage; // +0xA4
 };
 extern ParticleSystem *Make001FCBD7(void);
-
-struct StreakBox
-{
-	Vector3 m_center;
-	Vector3 m_extent;
-};
 
 static inline float StreakFabs(float val)
 {

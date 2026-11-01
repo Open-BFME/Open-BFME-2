@@ -95,16 +95,6 @@ struct Rva00351788RangeOwner
 	unsigned char m_pad00[0x250];
 	Rva00351788RangeTest *m_rangeTest;	// +0x250
 };
-class WeaponTemplate
-{
-public:
-	Bool isContactWeapon() const;
-};
-class Rva002C9400ByteField
-{
-public:
-	unsigned char get() const;
-};
 #include "../../../Include/GameLogic/Weapon.h"
 class ThingTemplate
 {

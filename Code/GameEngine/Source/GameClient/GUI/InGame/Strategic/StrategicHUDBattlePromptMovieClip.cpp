@@ -68,8 +68,6 @@ namespace AptUtils { const char *__cdecl SkipLevelN(const char *); }
 namespace AptUtils { int __cdecl LevelIndexFromTarget(const char *); }
 class Object;
 class Rva00575674 {public: void rva00575674(Object *);};
-class Rva005CB260 {public: void rva005CB260();};
-class Rva005CC208 {public: virtual void rva005CC208();};
 class Rva005CB260Properties {public: void rva005CB260(int,unsigned int,unsigned int,const UnicodeString &);};
 class Rva005CC208Select {public: void rva005CC208(int);};
 // Tab page views (pages are Rva005FA0C9/Rva005FA0F7; +0x28 is the page state, 3 = settled).

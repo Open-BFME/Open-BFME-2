@@ -165,25 +165,9 @@ class _bfme_AptGameWindow
  
 }
 ;
-class Rva00222479ByteOneSetter
-
-{
- public:
- void enable();
- 
-}
-;
 // TheLivingWorldLogic (VA 0x00DFEF10); its
 // unrowed 0x002B3740 returns a byte of its current entry, pinned by
 // address.
-class Rva002BA8F1Logic
-
-{
- public:
- bool rva002B3740();
- 
-}
-;
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 class AptScoreScreen

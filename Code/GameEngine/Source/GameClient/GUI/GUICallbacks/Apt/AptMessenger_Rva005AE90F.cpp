@@ -122,22 +122,8 @@ public:
 
 // The rowed 0x00416088 destructor establishes two strings at record+8/+12.
 // The 192-byte caller supplies the two -1 scalar defaults.
-struct Rva00416088 {
-    unsigned int m_00;
-    unsigned int m_04;
-    AsciiString m_08;
-    AsciiString m_0C;
-    Rva00416088() : m_00(-1), m_04(-1) {}
-    ~Rva00416088();
-};
 // Native local occupies 24 bytes: profile / 16-byte string record / tail.
 // Field meanings other than the iterated profile remain unknown.
-struct Rva005AE7C6Info {
-    int profile;
-    Rva00416088 record;
-    int tail;
-    Rva005AE7C6Info() : profile(-1), tail(-1) {}
-};
 // The query is the rowed AptOnlineCustomMatch::FillBuddyInviteGameInfo
 // (0x0059FB4F) and the helper the rowed cdecl Rva0041647ASend (0x0041647A),
 // whose 24-byte Rva004160BEInfo record has this local's layout.

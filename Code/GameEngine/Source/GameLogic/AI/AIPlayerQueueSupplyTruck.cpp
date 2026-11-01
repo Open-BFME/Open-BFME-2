@@ -715,15 +715,8 @@ private:
 	unsigned char m_state[20];
 };
 
-class TeamPoolView {public:virtual ~TeamPoolView();};
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
-class Rva0055B156:public Snapshot
-{
-public:
-	void rva0055B156(int val);
-};
-
 #include "../../../Include/Common/TeamBFME2.h"
 
 #include "WorkOrder.h"

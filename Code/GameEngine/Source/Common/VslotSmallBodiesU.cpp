@@ -30,12 +30,6 @@ protected:
 // registry at VA 0x00DFF000 finds for the module data's name at +0x14, +0x18
 // resp. +0x1C, NULL without module data.
 class ThingTemplate;
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &name);
-};
-
 struct Rva00452EDDData
 {
 	char m_pad00[0x14];
@@ -43,21 +37,6 @@ struct Rva00452EDDData
 	void *m_18; // AsciiString
 	void *m_1C; // AsciiString
 };
-class Rva00452EDDIface
-{
-public:
-	virtual void *rva00452EDD() = 0;
-	virtual void *rva00452EF5() = 0;
-	virtual void *rva00452F0D() = 0;
-};
-class Rva00452EDD : public Rva00452EDDPrimary<0x20>, public Rva00452EDDIface
-{
-public:
-	void *rva00452EDD();
-	void *rva00452EF5();
-	void *rva00452F0D();
-};
-
 // 0x0044F09F (interface at +0x20, beside WeaponFireSpecialAbilityUpdate's
 // slots): whether the module data's +0x38 equals the argument.
 struct Rva0044F09FData
@@ -222,39 +201,6 @@ void Rva004839F9::rva004839F9(Int, Int b, Int c)
 
 // 0x004ADBD7 (interface at +0x88): virtual slot 17 of the complete object
 // while the module data's +0xCC flag is set.
-struct Rva004ADBD7Data
-{
-	char m_pad00[0xCC];
-	bool m_CC;
-};
-class Rva004ADBD7Iface
-{
-public:
-	virtual void rva004ADBD7() = 0;
-};
-class Rva004ADBD7 : public Rva00452EDDPrimary<0x88>, public Rva004ADBD7Iface
-{
-public:
-	virtual void v01();
-	virtual void v02();
-	virtual void v03();
-	virtual void v04();
-	virtual void v05();
-	virtual void v06();
-	virtual void v07();
-	virtual void v08();
-	virtual void v09();
-	virtual void v10();
-	virtual void v11();
-	virtual void v12();
-	virtual void v13();
-	virtual void v14();
-	virtual void v15();
-	virtual void v16();
-	virtual void v17();
-	void rva004ADBD7();
-};
-
 // 0x004DF897 (UpdateModuleInterface at +0x10, slot 0 beside the rowed
 // UpdateModule getDisabledTypesToProcess and wake slots): clears object
 // status 8 through the rowed Object::setStatus and sleeps forever.
@@ -324,8 +270,3 @@ void Rva005E1CF8::rva005E1CF8(Int)
 // UpdateModule::loadPostProcess (the slot after the scalar destructor in
 // many module tables).
 #include "../../Include/GameLogic/Module/UpdateModule.h"
-class Rva00497805 : public UpdateModule
-{
-protected:
-	virtual void loadPostProcess();
-};

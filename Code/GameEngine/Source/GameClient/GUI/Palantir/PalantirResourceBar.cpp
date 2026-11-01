@@ -49,8 +49,6 @@ class AptPlayer {public:void AddCustomRender(const AsciiString &,AptRef<AptCusto
 __forceinline void AddResourceRender(const AsciiString &name,DelegateDesc desc) {
  reinterpret_cast<AptPlayer*>(g_bfmeAptWindowManager)->AddCustomRender(name,&desc);
 }
-class Rva002D3869OwnedPrefix {public:void release();};
-class Rva0055076F {public:void rva0055076F();};
 // The owned image records: their releases are rowed out of line
 // (0x002D3869 checks for null, 0x0055076F does not); the destructor below
 // inlines both.

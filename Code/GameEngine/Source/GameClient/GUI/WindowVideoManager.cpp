@@ -52,11 +52,6 @@ struct NameKeyHashInt
 	unsigned operator()(int x) const { return (unsigned)x; }
 };
 
-struct BucketAlloc
-{
-	static void *allocate(unsigned int n, const void *hint);
-};
-
 namespace _STL
 {
 
@@ -153,15 +148,6 @@ private:
 // 0x004DA342: forward the hidden result and the value to the
 // KeyToBucketMap::insert above on the map held at +0. The owner's identity
 // is not established; its name is address-derived.
-class Rva004DA356Map
-{
-public:
-	NameKeyGenerator::KeyToBucketMap::insert_result insert(
-		const NameKeyGenerator::KeyToBucketMap::value_type &value);
-private:
-	NameKeyGenerator::KeyToBucketMap m_map;
-};
-
 // Keep the inlined STLport __malloc_alloc<0>::deallocate without emitting an
 // optimised out-of-line copy that would shadow retail's /Od body at 0x23A70
 // (STLMallocAlloc0Deallocate.cpp).
