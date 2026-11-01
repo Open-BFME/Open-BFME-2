@@ -3,15 +3,7 @@
 // Evidence: neighbours GadgetButtonImageHelpers 0x002C0505 and linkWindow 0x002C0A89 same flags; GameWindow next +0x1F8 from linkWindow; callers update 0x002C0A74 and winDestroyAll 0x002C1271; callees rowed operator delete 0x0002FD60; virtual slots 49/58/62/65
 // Identity: ZH/BFME1 GameWindowManager::processDestroyList (release captor,
 // focus and modal head, clear mouse region and grab, GWM_DESTROY, delete).
-class GameWindow
-{
-public:
-	virtual void *slot0(int arg);
-private:
-	unsigned char m_pad[0x1F8 - 4];
-public:
-	GameWindow *m_next;
-};
+#include "../../../Include/GameClient/Bfme2GameWindow.h"
 struct ModalWindow
 {
 public:
@@ -75,7 +67,11 @@ void GameWindowManager::processDestroyList()
 		if (m_grabWindow == cur)
 			m_grabWindow = 0;
 		winSendSystemMsg(cur, 2, 0, 0);
-		void *p = cur->slot0(0);
+		// Native scalar-deleting-dtor ABI: slot0(flags=0) returns the
+		// allocation pointer consumed by operator delete (2C095F..2C0967).
+		typedef void *(GameWindow::*ScalarDeletingDtor)(unsigned int);
+		typedef char SingleInheritanceMemberPointer[(sizeof(ScalarDeletingDtor)==sizeof(void *))?1:-1];
+		void *p = (cur->*(*(ScalarDeletingDtor **)cur)[0])(0);
 		::operator delete(p);
 		cur = next;
 	} while (next);
