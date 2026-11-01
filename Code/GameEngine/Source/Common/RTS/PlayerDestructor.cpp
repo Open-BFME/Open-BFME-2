@@ -126,6 +126,23 @@ struct Rva000427195
 	char m_pad[20];
 };
 
+// The +288/+2D0 and +294/+2A8 members are wrappers over these containers:
+// each wrapper's destructor is a retail 5-byte `jmp` to the container's
+// (0x001FD85E, 0x001FD863, 0x001FE065), the address the unwind funclets
+// call. The implicit destructor expands on the normal path into the
+// container destructor call and is emitted for the funclets as that thunk.
+struct Rva001FD85E : Rva001FD42B
+{
+};
+
+struct Rva001FD863 : Rva001FD458
+{
+};
+
+struct Rva001FE065 : Rva000427195
+{
+};
+
 struct Rva000427195BucketHandle
 {
 	~Rva000427195BucketHandle()
@@ -237,12 +254,12 @@ private:
 	Rva002B0F3CEnergy at1bc;
 	Rva004F599E at1cc;
 	char m_pad278[0x288 - 0x278];
-	Rva001FD42B m_288;
+	Rva001FD85E m_288;
 	char m_pad290[0x294 - 0x288 - 8];
-	Rva000427195 m_294;
-	Rva000427195 m_2a8;
+	Rva001FE065 m_294;
+	Rva001FE065 m_2a8;
 	Rva002AE4C5 m_2bc;
-	Rva001FD458 m_2d0;
+	Rva001FD863 m_2d0;
 	char m_pad2d8[0x2EC - 0x2D0 - 8];
 	int m_2ec;
 	FreeBlock m_2f0;
