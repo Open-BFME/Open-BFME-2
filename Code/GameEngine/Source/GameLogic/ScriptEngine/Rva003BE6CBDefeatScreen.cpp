@@ -105,11 +105,7 @@ class ScriptEngine;
 extern ScriptEngine *TheScriptEngine;	// the global at 0x00DFE16C; 0x002036B4 is one of its members
 
 // The global at 0x00DFE344; 0x0021A4E6 is rowed as its member.
-class CreateAHeroManager
-{
-public:
-	void rva0021A4E6();
-};
+#include "../../../Include/GameLogic/CreateAHeroManager.h"
 extern CreateAHeroManager *TheCreateAHeroManager;
 
 class Rva00E02D6C

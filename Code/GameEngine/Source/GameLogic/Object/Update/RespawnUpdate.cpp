@@ -301,12 +301,7 @@ class CreateAHeroHero;
 // The rowed lookup ?rva002197A6@CreateAHeroManager@@QAEPAVCreateAHeroData@@H@Z.
 class CreateAHeroData;
 
-class CreateAHeroManager
-{
-public:
-	CreateAHeroData *rva002197A6(int);
-	const AsciiString &GetButtonImageName(const CreateAHeroHero *);
-};
+#include "../../../../Include/GameLogic/CreateAHeroManager.h"
 
 class ImageCollection
 {

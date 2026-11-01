@@ -22,9 +22,7 @@ template <> inline void vector<unsigned int>::_M_clear() {
 // The vector<unsigned> and conditional game-free specialization follow the
 // independently byte-verified CreateAHeroManagerAvailableHeroes.cpp provider.
 class CreateAHeroData;
-class CreateAHeroManager {public:
- bool GetAvailableHeroesForFaction(std::vector<unsigned int> *,int);
-};
+#include "../../Include/GameLogic/CreateAHeroManager.h"
 extern CreateAHeroManager *TheCreateAHeroManager;
 class Rva003FF0E7DwordSlot {public:void set(int);};
 class GameSlot {public:

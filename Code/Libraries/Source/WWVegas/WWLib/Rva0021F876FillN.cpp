@@ -5,7 +5,7 @@
 // 0x20 via the dummy body below; _Construct is declared only and resolves
 // through the rowed 0x0021FA1A. Called by 0x00220170 in 0x00220105; unblocks
 // 0x00220105. (Rva00564C58FillN.cpp precedent.)
-class CreateAHeroManager { public: class CreateAHeroClass; };
+#include "../../../../GameEngine/Include/GameLogic/CreateAHeroManager.h"
 typedef CreateAHeroManager::CreateAHeroClass CreateAHeroClass;
 
 class CreateAHeroManager::CreateAHeroClass

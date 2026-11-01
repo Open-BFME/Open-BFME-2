@@ -90,9 +90,7 @@ class UpgradeTemplate;
 class UpgradeCenter {public:const UpgradeTemplate *findUpgrade(const AsciiString&)const;};
 extern UpgradeCenter *TheUpgradeCenter;
 class Rva0021E9D8Call {public:int rva0021EA59(void*);};
-class CreateAHeroManager {
-public:bool FindBlingByUpgradeName(const AsciiString&,int*,int*);
-};
+#include "../../../Include/GameLogic/CreateAHeroManager.h"
 const FieldParse CreateAHeroBlingFieldParse[] = {
  {"BlingUpgradeName",INI::parseAsciiString,0,8},
  {"NameTag",INI::parseAsciiString,0,0},

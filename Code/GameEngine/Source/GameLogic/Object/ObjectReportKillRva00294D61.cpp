@@ -120,7 +120,7 @@ public:
 class StatsCollector;
 extern StatsCollector *g_00E032F8;
 class CreateAHeroData;
-class CreateAHeroManager {public: CreateAHeroData *rva002197A6(int);};
+#include "../../../Include/GameLogic/CreateAHeroManager.h"
 extern CreateAHeroManager *TheCreateAHeroManager;
 
 void Rva00294D61::report(Object *victimObj, int arg1)

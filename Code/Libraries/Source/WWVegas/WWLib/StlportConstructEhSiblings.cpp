@@ -9,7 +9,7 @@
 // call besides __EH_prolog is the defined copy ctor of the T named here.
 #include <memory>
 
-class CreateAHeroManager { public: class CreateAHeroClass; };
+#include "../../../../GameEngine/Include/GameLogic/CreateAHeroManager.h"
 typedef CreateAHeroManager::CreateAHeroClass CreateAHeroClass;
 
 class CreateAHeroManager::CreateAHeroClass

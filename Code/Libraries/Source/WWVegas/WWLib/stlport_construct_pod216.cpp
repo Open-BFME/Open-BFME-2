@@ -3,11 +3,7 @@
 // ??$_Construct@VCreateAHeroSubClass@CreateAHeroManager@@V12@@_STL@@YAXPAVCreateAHeroSubClass@CreateAHeroManager@@ABV12@@Z @0x0021EF66 45B: placement copy of the 216B CreateAHeroManager::CreateAHeroSubClass via rowed Rva0021E85A copy ctor 0x0021E85A. Callers in stlport_pod_vector_bodies.cpp (__uninitialized_copy/fill_n/push_back).
 #include <new>
 #include <vector>
-class CreateAHeroManager
-{
-public:
-    class CreateAHeroSubClass { public: int a[54]; };
-};
+#include "../../../../GameEngine/Include/GameLogic/CreateAHeroManager.h"
 class Rva0021E85A
 {
 public:

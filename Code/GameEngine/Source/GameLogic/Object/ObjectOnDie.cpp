@@ -193,11 +193,7 @@ public:
 	void removeObject(Rva002D76C6Owner *obj);
 };
 
-class CreateAHeroManager
-{
-public:
-	void UnbindHeroFromObjectAndUpdate(Object *obj);
-};
+#include "../../../Include/GameLogic/CreateAHeroManager.h"
 
 struct VictoryDeathInfo;
 class VictorySystem;

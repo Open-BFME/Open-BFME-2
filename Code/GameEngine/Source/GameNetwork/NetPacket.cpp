@@ -999,20 +999,7 @@ template <class T> struct GapClassVector
 
 // --- 0x0021A18B (42B): bounds-checked dispatch into the +0x14C table of
 // 32-byte CreateAHero classes (rowed 0x00219D3B), else 0.
-class CreateAHeroManager
-{
-public:
-	class CreateAHeroClass
-	{
-	public:
-		int rva00219D3B(unsigned int value);				// 0x00219D3B
-		char m_data[32];
-	};
-	int rva0021A18B(unsigned int index, unsigned int value);
-private:
-	char m_pad[0x14C];
-	GapClassVector<CreateAHeroClass> m_classes;			// +0x14C
-};
+#include "../../Include/GameLogic/CreateAHeroManager.h"
 
 // --- 0x002C902A (43B): five zero floats, then FLT_MAX at +0x14.
 struct Rva0058C475Arg

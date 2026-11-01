@@ -188,11 +188,7 @@ public:
 };
 extern EmotionSystem *TheEmotionSystem;
 
-class CreateAHeroManager
-{
-public:
-	void BindHeroToObjectAndUpdate(Object *obj);
-};
+#include "../../../Include/GameLogic/CreateAHeroManager.h"
 extern CreateAHeroManager *TheCreateAHeroManager;
 
 struct Obj00526309;

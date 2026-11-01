@@ -70,11 +70,7 @@ public:
 	const Image *m_portrait; // +0x138
 };
 
-class CreateAHeroManager
-{
-public:
-	CreateAHeroData *rva002197A6(int key);
-};
+#include "../../../Include/GameLogic/CreateAHeroManager.h"
 extern CreateAHeroManager *TheCreateAHeroManager;
 
 // Interface slot 21 of the rowed 0x0029439D lookup returns another object.

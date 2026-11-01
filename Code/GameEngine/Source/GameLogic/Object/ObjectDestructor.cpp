@@ -134,7 +134,7 @@ void vector<void *>::clear() { erase(begin(), end()); }
 class AIGroup { public: bool remove(class Object *obj); };
 
 class CreateAHeroData { public: bool WriteNamedHeroAtRva004074CF(); };
-class CreateAHeroManager { public: CreateAHeroData *rva002197A6(int id); };
+#include "../../../Include/GameLogic/CreateAHeroManager.h"
 extern CreateAHeroManager *TheCreateAHeroManager;
 
 struct SearchArg0042638E;

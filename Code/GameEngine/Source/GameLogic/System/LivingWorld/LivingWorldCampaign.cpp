@@ -23,7 +23,7 @@ extern "C" void _ReadWriteBarrier(void);
 // GameSlotHeroInfo reuses the target-owned slot view from GameLogicInit.cpp.
 // Its label is a reconstruction; native class/subclass offsets are independently read here.
 struct GameSlotHeroInfo { char prefix[12]; unsigned heroClass; unsigned heroSubclass; };
-class CreateAHeroManager { public: void *GetFactionMaskType(unsigned,unsigned); };
+#include "../../../../Include/GameLogic/CreateAHeroManager.h"
 extern CreateAHeroManager *TheCreateAHeroManager;
 class PlayerTemplate { public: int rva001FD234() const; AsciiString getName() const; char pad[0x151]; bool playable; char rest[0x1dc-0x152]; };
 class PlayerTemplateStore { public: const PlayerTemplate *getNthPlayerTemplate(int) const; const PlayerTemplate *findPlayerTemplate(NameKeyType) const; char pad[12]; PlayerTemplate *first,*last; };

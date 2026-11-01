@@ -606,11 +606,7 @@ public:
 	virtual void rva004083FF(Int a);
 };
 
-class CreateAHeroManager
-{
-public:
-	CreateAHeroData *rva002197A6(Int objectID);
-};
+#include "../../../../Include/GameLogic/CreateAHeroManager.h"
 extern CreateAHeroManager *TheCreateAHeroManager;
 
 // The status setter 0x003743CF, rowed under an address-derived name.

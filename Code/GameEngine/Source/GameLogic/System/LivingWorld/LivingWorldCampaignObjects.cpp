@@ -177,7 +177,7 @@ void Rva004E324DParse(INI *ini,void *instance,void*,const void*) {
 class ImageCollection { public:const Image *findImageByName(const AsciiString&); };
 extern ImageCollection *TheMappedImageCollection;
 class CreateAHeroHero;
-class CreateAHeroManager { public:const AsciiString &GetButtonImageName(const CreateAHeroHero*); };
+#include "../../../../Include/GameLogic/CreateAHeroManager.h"
 extern CreateAHeroManager *TheCreateAHeroManager;
 struct Rva002B2579Result;
 class Rva002BA8F1Logic { public:Rva002B2579Result *rva002B2579(int); };

@@ -66,7 +66,8 @@ extern AI *TheAI;
 class DelayedExperienceLevelGrantSystem{public:char pad[20];bool value;};
 extern DelayedExperienceLevelGrantSystem*TheDelayedExperienceLevelGrantSystem;
 class LoadDelayedFlagBackup{public:LoadDelayedFlagBackup(){old=TheDelayedExperienceLevelGrantSystem->value;TheDelayedExperienceLevelGrantSystem->value=false;}~LoadDelayedFlagBackup(){TheDelayedExperienceLevelGrantSystem->value=old;}bool old;};
-class CreateAHeroManager{public:void BindHeroToObjectAndUpdate(Object*);};extern CreateAHeroManager*TheCreateAHeroManager;
+#include "../../../Include/GameLogic/CreateAHeroManager.h"
+extern CreateAHeroManager*TheCreateAHeroManager;
 struct Rva00293EFFXPNode {char pad[12];int value;};
 class Rva00293EFFXPField {public:int getField();char pad[0x2C];Rva00293EFFXPNode*node;};
 class Rva003BD306Target{public:void rva0039B548();};

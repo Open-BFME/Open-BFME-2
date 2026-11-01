@@ -64,7 +64,7 @@ class ExperienceLevelStore {public:
 extern class ExperienceLevelSystem *TheExperienceLevelSystem;
 #define TheExperienceLevelStore (*(ExperienceLevelStore * *)&TheExperienceLevelSystem)
 class CreateAHeroHero;
-class CreateAHeroManager {public: const AsciiString &GetButtonImageName(const CreateAHeroHero*);};
+#include "../../../../Include/GameLogic/CreateAHeroManager.h"
 extern CreateAHeroManager *TheCreateAHeroManager;
 class ImageCollection {public: const Image *findImageByName(const AsciiString&);};
 extern ImageCollection *TheMappedImageCollection;

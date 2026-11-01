@@ -52,7 +52,7 @@ private:
 };
 
 
-class CreateAHeroManager { public: const AsciiString &GetClassUpgradeName(unsigned int); };
+#include "../../../Include/GameLogic/CreateAHeroManager.h"
 extern CreateAHeroManager *TheCreateAHeroManager;
 class UpgradeTemplate { public: char opaque00[0x38]; unsigned int bit; };
 class UpgradeCenter { public: const UpgradeTemplate *findUpgrade(const AsciiString &) const; };

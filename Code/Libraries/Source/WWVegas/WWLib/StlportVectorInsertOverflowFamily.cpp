@@ -58,7 +58,7 @@ struct Rva001DF3F1Element { char m_pad[48]; public: Rva001DF3F1Element(const Rva
 // 8-byte element; push_back 0x0020A227.
 struct Rva0020A227Element { char m_pad[8]; public: Rva0020A227Element(const Rva0020A227Element &); ~Rva0020A227Element(); };
 // 32-byte element; push_back 0x002201D5.
-class CreateAHeroManager { public: class CreateAHeroClass; };
+#include "../../../../GameEngine/Include/GameLogic/CreateAHeroManager.h"
 typedef CreateAHeroManager::CreateAHeroClass CreateAHeroClass;
 
 class CreateAHeroManager::CreateAHeroClass { char m_pad[32]; public: CreateAHeroClass(const CreateAHeroClass &); ~CreateAHeroClass(); };

@@ -27,7 +27,7 @@ class Rva002E2903Player;
 class Rva002BA8F1Logic {public:Rva002E2903Player *find(int,unsigned int *);};
 class LivingWorldPlayer {public:void *rva002E06EF();};
 class CreateAHeroHero;
-class CreateAHeroManager {public:const AsciiString &GetButtonImageName(const CreateAHeroHero *);};
+#include "../../../../Include/GameLogic/CreateAHeroManager.h"
 extern CreateAHeroManager *TheCreateAHeroManager;
 struct StrategicButtonImageView { int unknown;AsciiString templateName; };
 namespace StrategicInGameUI {

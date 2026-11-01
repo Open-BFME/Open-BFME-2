@@ -17,11 +17,7 @@ template <> inline void vector<unsigned int>::_M_clear() {
 // call ABIs below are from the complete retail bodies and their providers.
 class CreateAHeroData;
 class Rva0040A3F9 {public:CreateAHeroData *rva0040A32F(int);};
-class CreateAHeroManager {public:
- bool GetAvailableHeroesForFaction(std::vector<unsigned int> *,int);
- Rva0040A3F9 *rva0021F797();
- void rva0021A428(const CreateAHeroData &);
-};
+#include "../../Include/GameLogic/CreateAHeroManager.h"
 extern CreateAHeroManager *TheCreateAHeroManager;
 class Rva003FF0E7DwordSlot {public:void set(int);};
 struct HeroTransferDataStats {char before[0xC];int first,second;};

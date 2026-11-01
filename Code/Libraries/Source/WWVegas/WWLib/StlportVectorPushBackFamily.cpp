@@ -123,7 +123,7 @@ struct Rva001741EBElement { int a[12]; };
 struct Rva001DAAF2Element { int a[2]; };
 struct Rva001DF3F1Element { int a[12]; };
 struct Rva0020A227Element { int a[2]; };
-class CreateAHeroManager { public: class CreateAHeroClass; };
+#include "../../../../GameEngine/Include/GameLogic/CreateAHeroManager.h"
 typedef CreateAHeroManager::CreateAHeroClass CreateAHeroClass;
 
 class CreateAHeroManager::CreateAHeroClass { public: int a[8]; };
