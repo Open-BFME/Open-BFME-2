@@ -7,6 +7,9 @@
 // findPositionAround 0x00285202), while its STLport deallocations call the
 // free thunk directly, which /D_CRTIMP= keeps: math.h is read once, first,
 // with the CRT's own dllimport spelling.
+// math.h's inline floorf stays TU-local: retail's object exposes no _floorf
+// (the grid queries 0x0027DCF2..0x0027E79E inline it).
+extern "C" { static float __cdecl floorf(float); }
 #undef _CRTIMP
 #define _CRTIMP __declspec(dllimport)
 #include <math.h>

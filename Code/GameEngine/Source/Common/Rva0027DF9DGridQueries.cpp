@@ -30,6 +30,8 @@ extern "C" { static float __cdecl floorf(float); }
 #include <math.h>
 
 #include "Region3D.h"
+#include <string.h>
+#include "PartitionRangeQueryCallView.h"
 
 struct GridEntry
 {
@@ -568,7 +570,6 @@ void Rva0027E79E::rva0027E79E(Coord3D *center, float radius, Rva0027D35F *out, b
 // result lets MSVC reuse its24-byte stack slot for the16-byte CreateMask.
 // Reset27D098 stays visible to preserve the record ID in EDX across its call.
 // The mask is initialized before reading the player chain, as WB shows.
-#include <string.h>
 
 class Object;
 class Player;
@@ -621,7 +622,6 @@ extern BitFlags<116> KINDOFMASK_NONE;
 
 
 
-#include "PartitionRangeQueryCallView.h"
 extern PartitionManager *ThePartitionManager;
 
 class Rva0027D098

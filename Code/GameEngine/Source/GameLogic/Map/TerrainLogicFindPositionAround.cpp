@@ -88,7 +88,15 @@ Real GetGameLogicRandomValueReal( Real lo, Real hi, char *file, Int line );
 Bool Rva00284AC6TryPosition( const Coord3D *center, Real dist, Real angle,
 	const FindPositionOptions *options, Coord3D *result );
 
-__forceinline long fast_float2long_round(float f) { long i; __asm { fld [f] } __asm { fistp [i] } return i; }
+__forceinline long fast_float2long_round(float f)
+{
+	long i;
+	__asm {
+		fld [f]
+		fistp [i]
+	}
+	return i;
+}
 
 #define DOCKING_TRACE (g_bfmeDockingTraceActive && *(const Int *)((const char *)TheGameLogic + 0x1b4) > 0 && theLogicRandomLogFile)
 
