@@ -330,53 +330,7 @@ private:
 
 // The by-value getter of the AsciiString at +0x04, folded with other classes'
 // name getters at 0x00564DF2.
-class BuildListInfo
-{
-	friend class SidesList;
-
-public:
-	BuildListInfo();					// 0x0032A0CE
-
-	void setLocation(Coord3D loc) { m_location = loc; }
-	void setAngle(float angle) { m_angle = angle; }
-	void setInitiallyBuilt(bool built) { m_isInitiallyBuilt = built; }
-	void setNumRebuilds(unsigned int rebuilds) { m_numRebuilds = rebuilds; }
-	void setHealth(int health) { m_health = health; }
-	void setWhiner(bool whiner) { m_whiner = whiner; }
-	void setUnsellable(bool unsellable) { m_unsellable = unsellable; }
-	void setRepairable(bool repairable) { m_repairable = repairable; }
-
-	AsciiString rva000AF1DD() const;	// 0x000AF1DD, the folded +0x08 getter
-	AsciiString getScript() const;		// 0x0032A4A0
-	const Coord3D *getLocation() const { return &m_location; }
-	float getAngle() const { return m_angle; }
-	bool isInitiallyBuilt() { return m_isInitiallyBuilt; }
-	int getNumRebuilds() { return m_numRebuilds; }
-	int getHealth() { return m_health; }
-	bool getWhiner() { return m_whiner; }
-	bool getUnsellable() { return m_unsellable; }
-	bool getRepairable() { return m_repairable; }
-	BuildListInfo *getNext() { return m_nextBuildList; }
-
-protected:
-	virtual ~BuildListInfo();			// 0x0032A186
-
-private:
-	AsciiString m_buildingName;			// +0x04
-	AsciiString m_templateName;			// +0x08
-	Coord3D m_location;					// +0x0C
-	float m_rallyPointOffset[2];		// +0x18
-	float m_angle;						// +0x20
-	bool m_isInitiallyBuilt;			// +0x24
-	unsigned int m_numRebuilds;			// +0x28
-	BuildListInfo *m_nextBuildList;		// +0x2C
-	AsciiString m_script;				// +0x30
-	int m_health;						// +0x34
-	bool m_whiner;						// +0x38
-	bool m_unsellable;					// +0x39
-	bool m_repairable;					// +0x3A
-	char m_tail[0x80 - 0x3B];
-};
+#include "../../../Include/GameLogic/Bfme2BuildListInfo.h"
 
 class SidesInfo
 {

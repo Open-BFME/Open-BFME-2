@@ -253,7 +253,7 @@ AI::AI():m_nextGroupID(0),m_nextFormationID(0)
 
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
-class BuildListInfo{public:virtual~BuildListInfo();BuildListInfo*duplicate();};
+#include "../../../Include/GameLogic/Bfme2BuildListInfo.h"
 class Gen0014AE40{public:Gen0014AE40(AsciiString);virtual~Gen0014AE40();AsciiString side;BuildListInfo*build;Gen0014AE40*next;};
 
 class Rva002FE620{public:Rva002FE620();virtual~Rva002FE620();unsigned char body[0x1B8];Rva002FE620*next;};

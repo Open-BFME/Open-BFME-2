@@ -234,7 +234,7 @@ TAiData&TAiData::operator=(const TAiData&other){
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
 class Rva002FE8CCDeleteView{public:virtual void*destroy(int);};
-class BuildListInfo{public:virtual~BuildListInfo();BuildListInfo*duplicate();};
+#include "../../../Include/GameLogic/Bfme2BuildListInfo.h"
 class Gen0014AE40{public:Gen0014AE40(AsciiString);virtual~Gen0014AE40();AsciiString side;BuildListInfo*build;Gen0014AE40*next;};
 // BF1 f989 TAiData_addFactionBuildList guides the registration/ownership.
 // Target2FE8CC..2FE940 RET4 proves headF8 and 16B node fields4/8/C.

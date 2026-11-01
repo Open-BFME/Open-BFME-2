@@ -433,11 +433,7 @@ public:
 
 class TransitionGroup;
 
-class BuildListInfo
-{
-public:
-	void setTemplateName(AsciiString name); // folded AsciiString setter
-};
+#include "../../../Include/GameLogic/Bfme2BuildListInfo.h"
 
 // BFME 2 guards the handler's group pointers with a critical section at
 // +0x38, held for the whole call (EH state 1 while it is held).

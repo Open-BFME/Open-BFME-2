@@ -97,7 +97,7 @@ namespace _STL { template <> __declspec(dllimport) __forceinline bool less<int>:
 
 // Copying an entry is the BuildListInfo copy constructor (0x00329DE6), which
 // retail's _Construct 0x0032A2AF calls under an EH frame.
-class BuildListInfo { public: BuildListInfo(const BuildListInfo &other); BuildListInfo &operator=(const BuildListInfo &); };
+#include "../../../Include/GameLogic/Bfme2BuildListInfo.h"
 struct BfmePod128
 {
 	__forceinline BfmePod128(const BfmePod128 &other)

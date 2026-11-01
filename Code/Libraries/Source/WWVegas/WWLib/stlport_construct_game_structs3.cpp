@@ -14,11 +14,7 @@
 
 #include <memory>
 
-class BuildListInfo
-{
-public:
-	BuildListInfo(const BuildListInfo &other);
-};
+#include "../../../../GameEngine/Include/GameLogic/Bfme2BuildListInfo.h"
 
 struct BfmeOpaqueOwnedRecord1432
 {

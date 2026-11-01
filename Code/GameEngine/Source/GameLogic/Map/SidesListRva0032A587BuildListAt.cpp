@@ -14,15 +14,7 @@
 // Method name and record field names are address-derived or inferred.
 #include <vector>
 
-class BuildListInfo
-{
-public:
-	BuildListInfo &operator=(const BuildListInfo &);
-
-private:
-	void *m_vtable;
-	unsigned char m_body[0x7C];
-};
+#include "../../../Include/GameLogic/Bfme2BuildListInfo.h"
 
 struct SidesListBuildLists
 {

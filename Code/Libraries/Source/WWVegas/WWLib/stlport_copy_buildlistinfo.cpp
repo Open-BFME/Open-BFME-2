@@ -18,39 +18,7 @@
 
 #include "../../../Include/Lib/Coord2D.h"
 
-class BuildListInfo
-{
-public:
-	BuildListInfo &operator=(const BuildListInfo &that);
-
-private:
-	void *m_vtable;
-	AsciiString m_buildingName;
-	AsciiString m_templateName;
-	Coord3D m_location;
-	Coord2D m_rallyPointOffset;
-	float m_angle;
-	bool m_isInitiallyBuilt;
-	unsigned int m_numRebuilds;
-	BuildListInfo *m_nextBuildList;
-	AsciiString m_script;
-	int m_health;
-	bool m_whiner;
-	bool m_unsellable;
-	bool m_repairable;
-	bool m_automaticallyBuild;
-	void *m_renderObj;
-	void *m_shadowObj;
-	bool m_selected;
-	bool m_underConstruction;
-	bool m_isSupplyBuilding;
-	bool m_priorityBuild;
-	int m_objectID;
-	unsigned int m_objectTimestamp;
-	int m_resourceGatherers[10];
-	int m_desiredGatherers;
-	int m_currentGatherers;
-};
+#include "../../../../GameEngine/Include/GameLogic/Bfme2BuildListInfo.h"
 
 // ??$__copy_ptrs@PAVBuildListInfo@@PAV1@@_STL@@YAPAVBuildListInfo@@PAV1@00U__false_type@0@@Z present-unmatched
 // ??$__copy_aux@PAVBuildListInfo@@PAV1@@_STL@@YAPAVBuildListInfo@@PAV1@00U__true_type@0@@Z present-unmatched
