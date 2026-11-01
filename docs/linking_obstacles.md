@@ -6790,6 +6790,14 @@ and forwards3184B8. The class-merge engine limitation is only one prerequisite,
 not a reason to admit the incomplete table. Unchanged controls pass15/15;
 old destructor preview LINKS146 and ctor stays0/U2. No Code/row/pin change or
 clearance. [Native tables, emitted-table comparison and rejected candidate](../reverse/attempt_support/globalweather-owner-native-20261101/readme.md).
+**Reset callback follow-up:** a dedicated one-member view for3186A5 can join
+GlobalWeatherSystem and become virtual with pad10->C; its private73B body is
+exact/unresolved=false and emits no weather vtable. Unchanged control1/1 passes.
+The native primary-slot owner operation is missing from rename.py; generic
+naming approval/collision rules remain correct and untouched. Bank the candidate
+until a narrowly proven mechanical identity operation exists, then apply the
+normal virtual respell and constructor reset-slot repair with full audits.
+[Candidate and admission boundary](../reverse/attempt_support/weather-reset-owner-20261101/readme.md).
 
 **Current-state audit (2026-10-27, seat halilkkaya-lk2, inspected `d16a31e4dc`, index `73061d9452`):**
 
