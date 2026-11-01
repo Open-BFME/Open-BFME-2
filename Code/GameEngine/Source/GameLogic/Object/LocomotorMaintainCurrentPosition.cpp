@@ -6,7 +6,8 @@
 // the appearance dispatch and wings/height-worker semantics; BFME2 removes
 // the Physics argument and changes the appearance enum and model conditions.
 #include "Lib/Coord3D.h"
-class Matrix3D {public: float m[12];};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
+
 class Thing { public: void setTransformMatrix(const Matrix3D *); };
 class Object {
 public:
@@ -38,7 +39,7 @@ bool Locomotor::locoUpdate_maintainCurrentPosition(Object *obj)
 {
  if(!obj) return false;
  Matrix3D *dst=&savedTransform;
- dst->m[0]=obj->transform.m[0]; dst->m[1]=obj->transform.m[1]; dst->m[2]=obj->transform.m[2]; dst->m[3]=obj->transform.m[3]; dst->m[4]=obj->transform.m[4]; dst->m[5]=obj->transform.m[5]; dst->m[6]=obj->transform.m[6]; dst->m[7]=obj->transform.m[7]; dst->m[8]=obj->transform.m[8]; dst->m[9]=obj->transform.m[9]; dst->m[10]=obj->transform.m[10]; dst->m[11]=obj->transform.m[11];
+ dst->Row[0].X=obj->transform.Row[0].X; dst->Row[0].Y=obj->transform.Row[0].Y; dst->Row[0].Z=obj->transform.Row[0].Z; dst->Row[0].W=obj->transform.Row[0].W; dst->Row[1].X=obj->transform.Row[1].X; dst->Row[1].Y=obj->transform.Row[1].Y; dst->Row[1].Z=obj->transform.Row[1].Z; dst->Row[1].W=obj->transform.Row[1].W; dst->Row[2].X=obj->transform.Row[2].X; dst->Row[2].Y=obj->transform.Row[2].Y; dst->Row[2].Z=obj->transform.Row[2].Z; dst->Row[2].W=obj->transform.Row[2].W;
  if(!getFlag(2)) {maintainPos=obj->position;flags|=4;}
  if(!obj->hasCondition(61)) {
   obj->clearCondition(133); obj->clearCondition(134);

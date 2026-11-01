@@ -1,5 +1,11 @@
 ### FXList.cpp unit-link prerequisites (2026-10-31)
 
+
+### Use canonical Matrix3D storage in maintain-position transforms (2026-11-01)
+
+This source adopts canonical Matrix3D storage with native code/relocations preserved. Normal/frozen/EH/strict and owning acceptance pass; linked previews remain scoped predictions, not a census or runtime proof.
+[Evidence](../reverse/attempt_support/maintain-position-matrix3d-20261101-1634.md).
+
 FXList.cpp (7 matched rows, 620B own bytes) does not link. Three prerequisites:
 1. Two unresolved callees are retail overloads with no provider: 
    `?createParticleSystem@ParticleSystemManager@@QAEPAVParticleSystem@@PBVParticleSystemTemplate@@_N@Z`
