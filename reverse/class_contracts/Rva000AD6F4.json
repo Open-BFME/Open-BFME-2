@@ -1,0 +1,77 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva000AD6F4",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 40,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 2
+   }
+  },
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {}
+  },
+  "retail_member_rows": 2,
+  "retail_vtables": {},
+  "view_errors": 5,
+  "view_sizes": {
+   "1": 12,
+   "4": 21,
+   "8": 1,
+   "12": 1
+  },
+  "views": 35,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "P",
+   "name": "m_ptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 22,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 2
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/InGame/AptRadialMenuButtonShellDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/InGame/AptRadialMenuButtonShellDtor.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 4,
+ "size_by": "majority",
+ "vslots": {}
+}
