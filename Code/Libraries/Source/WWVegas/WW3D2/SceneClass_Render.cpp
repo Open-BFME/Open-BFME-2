@@ -7,12 +7,7 @@
 // BFME SceneClass::Render: ZH body with Set_DX8_ZBias out of line (not
 // Set_DX8_Render_State D3DRS_ZBIAS) and Clear split into color/z/stencil.
 
-class Vector3
-{
-public:
-	Vector3(float x, float y, float z) : X(x), Y(y), Z(z) {}
-	float X, Y, Z;
-};
+#include "../WWMath/Vector3Data.h"
 
 class RenderInfoClass;
 class SceneIterator;

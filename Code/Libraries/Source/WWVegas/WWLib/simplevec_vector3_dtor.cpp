@@ -16,13 +16,7 @@
 #include "always.h"
 #include "simplevec.h"
 
-class Vector3
-{
-public:
-	float X;
-	float Y;
-	float Z;
-};
+#include "../WWMath/Vector3Data.h"
 
 // Resize and Uninitialised_Grow are owned by SimpleVecVector3ResizeO1.cpp and
 // SimpleVecVector3O1.cpp: retail builds the array through the EH vector

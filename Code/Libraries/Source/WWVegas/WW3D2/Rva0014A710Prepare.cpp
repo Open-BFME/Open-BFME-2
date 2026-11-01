@@ -4,7 +4,7 @@
 // Light environment C8, RGB314, virtual scalar slot25, and globals are target facts.
 // Reference x87 Convert_Color is from BFME1 f98983a7d3bb405f1a4ba94bb6a2a168062a819d dx8wrapper.h;
 // it changes the rounding-control word, beyond ordinary C++ cast codegen.
-struct Vector3 {float X,Y,Z; Vector3(){} Vector3(const Vector3& v):X(v.X),Y(v.Y),Z(v.Z){} };
+#include "../WWMath/Vector3Data.h"
 class LightEnvironmentClass;
 // dx8wrapper.cpp defines FogEnable/FogColor protected (?FogEnable@DX8Wrapper@@1_NA, ?FogColor@DX8Wrapper@@1KA).
 class DX8Wrapper {friend class Rva0014A710;friend void Pack_Ambient_Color(const Vector3&,float);

@@ -10,7 +10,7 @@
 #include "always.h"
 void __cdecl operator delete[](void *) throw();
 
-class Vector3 { public: Vector3() {} float X, Y, Z; };
+#include "../WWMath/Vector3Data.h"
 #include "../WWMath/Vector4Data.h"
 
 #include "simplevec.h"

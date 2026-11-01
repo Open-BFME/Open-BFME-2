@@ -10,9 +10,7 @@ class RenderInfoClass
 
 #include "../WWMath/Matrix3DData.h"
 
-class Vector3
-{
-};
+#include "../WWMath/Vector3Data.h"
 
 #include "../WWMath/Vector4Data.h"
 

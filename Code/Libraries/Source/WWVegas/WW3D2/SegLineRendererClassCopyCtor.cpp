@@ -40,14 +40,7 @@ public:
 
 #include "../../../../../reference/shims/wwmath/Vector2.h"
 
-class Vector3
-{
-public:
-	Vector3(float x, float y, float z) : X(x), Y(y), Z(z) {}
-	float X;
-	float Y;
-	float Z;
-};
+#include "../WWMath/Vector3Data.h"
 
 class SegLineRendererClass
 {

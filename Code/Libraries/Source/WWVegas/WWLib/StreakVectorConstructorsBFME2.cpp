@@ -9,7 +9,7 @@
 #include "always.h"
 #include <string.h>
 void __cdecl operator delete[](void*) throw();
-class Vector3{public:float X,Y,Z;};
+#include "../WWMath/Vector3Data.h"
 template<class T>class SimpleVecClass {
 public:
  SimpleVecClass(int n=0);

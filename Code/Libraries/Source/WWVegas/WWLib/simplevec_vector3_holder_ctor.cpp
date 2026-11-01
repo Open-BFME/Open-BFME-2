@@ -10,13 +10,7 @@
 void __cdecl operator delete[](void *) throw();
 #include "simplevec.h"
 
-class Vector3
-{
-public:
-	float X;
-	float Y;
-	float Z;
-};
+#include "../WWMath/Vector3Data.h"
 
 template <> SimpleDynVecClass<Vector3>::SimpleDynVecClass(int size);
 // SimpleVecClass<Vector3>'s Resize and Uninitialised_Grow are the explicit instantiations

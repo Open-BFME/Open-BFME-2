@@ -4,13 +4,7 @@
 // unlock lane, caller 0x0009ADB1, callees rva002BEA10 rva002BEF4B Cast rowed,
 // slots 42 and 13, out Vector3 proven by Cast, bool return. Finish stash
 // 0x002bf2b7 score 0.98 missing mov ecx esi reload.
-class Vector3
-{
-public:
-	float X;
-	float Y;
-	float Z;
-};
+#include "../WWMath/Vector3Data.h"
 
 class RenderObjClass;
 

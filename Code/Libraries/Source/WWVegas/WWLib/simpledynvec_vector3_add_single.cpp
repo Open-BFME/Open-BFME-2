@@ -5,13 +5,7 @@
 // Evidence: ecx passes through to ?Add@?$SimpleDynVecClass@VVector3@@@@QAE_NABVVector3@@H@Z (row 0x001002C5);
 // callers at 0x0007FBD3 and 0x00100426/0x00100535 pass SimpleDynVecClass<Vector3>* in ecx and Vector3* on stack.
 
-class Vector3
-{
-public:
-	float X;
-	float Y;
-	float Z;
-};
+#include "../WWMath/Vector3Data.h"
 
 template <class Type>
 class SimpleDynVecClass

@@ -147,16 +147,7 @@ template <> inline RefCountPtr<FXShader::RenderingMethod>::~RefCountPtr(void)
 }
 #pragma optimize("", on)
 
-class Vector3
-{
-public:
-	Vector3(void) {}
-	__declspec(dllimport) __forceinline Vector3(float x, float y, float z) : X(x), Y(y), Z(z) {}
-
-	float X;
-	float Y;
-	float Z;
-};
+#include "../WWMath/Vector3Data.h"
 
 typedef _STL::vector<RefCountPtr<FXShader::RenderingMethod>, _STL::allocator<RefCountPtr<FXShader::RenderingMethod> > > RenderingMethodStackType;
 

@@ -22,12 +22,7 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 
 void __cdecl operator delete[](void *) throw();
 
-class Vector3
-{
-public:
-    float x, y, z;
-    Vector3() {}
-};
+#include "../WWMath/Vector3Data.h"
 
 template<class T>
 class ShareBufferClass : public RefCountClass

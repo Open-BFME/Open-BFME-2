@@ -20,12 +20,7 @@
 #include "bittype.h"
 #include "chunkio.h"
 
-class Vector3
-{
-public:
-	float x, y, z;
-	Vector3() {}
-};
+#include "../WWMath/Vector3Data.h"
 
 template<class T>
 class ShareBufferClass : public RefCountClass

@@ -4,7 +4,7 @@
 // Retail puts points/widths at C4/D4 and clears bounding-volume flag bit 1.
 // Delete_All semantics follow BFME1 simplevec.h at dae380faa5f6;
 // append and folded Shrink calls use the existing BFME2 providers.
-class Vector3 { public: float X, Y, Z; };
+#include "../WWMath/Vector3Data.h"
 
 // BfmePod4 is the existing owner spelling for the type-independent Shrink body.
 // Casting only its storage view avoids undefined duplicate folded providers.

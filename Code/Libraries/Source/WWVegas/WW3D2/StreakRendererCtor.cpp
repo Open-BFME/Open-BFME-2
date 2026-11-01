@@ -14,14 +14,7 @@ public:
 	static ShaderClass _PresetAdditiveSpriteShader;
 };
 
-class Vector3
-{
-public:
-	Vector3(float x, float y, float z) : X(x), Y(y), Z(z) {}
-	float X;
-	float Y;
-	float Z;
-};
+#include "../WWMath/Vector3Data.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/ww3d.h
 class VertexFormatXYZUV1;

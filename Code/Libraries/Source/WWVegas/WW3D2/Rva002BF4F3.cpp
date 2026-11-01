@@ -10,13 +10,7 @@
 
 
 #include "ascii_string.h"
-class Vector3
-{
-public:
-	float X;
-	float Y;
-	float Z;
-};
+#include "../WWMath/Vector3Data.h"
 
 class AABoxClass
 {
