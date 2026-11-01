@@ -1,106 +1,89 @@
 // cl: /DNDEBUG /MD /EHsc
-// ?parseWaypointData@TerrainLogic@@IAE_NAAVDataChunkInput@@PAUDataChunkInfo@@PAX@Z,
-// retail 0x0027FFF3, 60 bytes. Dedicated TU.
-//
-// Battle for Middle-earth 2 keeps the Zero Hour skeleton verbatim:
-// three readInt calls plus addWaypointLink per link; the end-of-chunk
-// assert vanishes in NDEBUG so retail is a frameless loop plus true.
+// ?readInt@DataChunkInput@@QAEHXZ, retail 0x00306E78 (34 bytes): Zero Hour's
+// DataChunkInput::readInt. One four-byte read through the input stream
+// (vslot 0 of the stream at +0x00), then decrementDataLeft(4) (0x00306E40),
+// then the value. Spelled on DataChunk.cpp's views of the stream, the table of
+// contents and DataChunkInput, the TU retail built it in.
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef unsigned char Bool;
+class ChunkInputStream;
+class AsciiString;
+class UnicodeString;
+class Mapping;
+class OutputStream;
+struct InputChunk;
+class Dict;
 
-struct DataChunkInfo;
-
-class DataChunkReader
+class DataChunkTableOfContents
 {
 public:
-	virtual void read(void *buffer, Int size);
+    DataChunkTableOfContents() : m_list(0), m_nextID(1), m_listLength(0), m_headerOpened(false) {}
+    ~DataChunkTableOfContents();
+    void read(ChunkInputStream &s);
+    void write(OutputStream &stream);
+    unsigned int allocateID(const AsciiString &name);
+    unsigned int getID(const AsciiString &name);
+    AsciiString getName(unsigned int id);
+
+    Mapping *m_list;
+    int m_listLength;
+    unsigned int m_nextID;
+    bool m_headerOpened;
+
+private:
+    Mapping *findMapping(const AsciiString &name);
+};
+
+enum NameKeyType
+{
+	NAMEKEY_INVALID = 0
 };
 
 class DataChunkInput
 {
 public:
-	Int readInt();
-	void consume(Int bytes);
-
-private:
-	DataChunkReader *m_reader;
-};
-
-class Waypoint
-{
-public:
-	char m_pad00[4];
-	int m_id;
-	char m_pad08[0x14];
-	Waypoint *m_next;
-	Waypoint *m_links[8];
-	Waypoint *m_linkSource;
-	char m_pad44[8];
-	Int m_numLinks;
-	char m_pad50[0x0C];
-	Bool m_biDirectional;
-
-	// Direct members at retail offsets: id +4 next +0x1C links +0x20
-	// source +0x40 count +0x4C bidirectional +0x5C. getLink/addLink stay
-	// out-of-line via pins; the rest fold to direct reads.
-	UnsignedInt getID(void) const { return (UnsignedInt)m_id; }
-	Waypoint *getNext(void) const { return m_next; }
-	__declspec(dllimport) __forceinline Int getNumLinks(void) const { return m_numLinks; }
-	Waypoint *getLink(Int ndx) const;
-	void addLink(Waypoint *other);
-	Bool getBiDirectional(void) const { return m_biDirectional; }
-};
-
-class __declspec(novtable) TerrainLogic
-{
-public:
-	virtual void slot00() = 0;
-	virtual void slot01() = 0;
-	virtual void slot02() = 0;
-	virtual void slot03() = 0;
-	virtual void slot04() = 0;
-	virtual void slot05() = 0;
-	virtual void slot06() = 0;
-	virtual void slot07() = 0;
-	virtual void slot08() = 0;
-	virtual void slot09() = 0;
-	virtual void slot10() = 0;
-	virtual void slot11() = 0;
-	virtual void slot12() = 0;
-	virtual void slot13() = 0;
-	virtual void slot14() = 0;
-	virtual void slot15() = 0;
-	virtual void slot16() = 0;
-	virtual void slot17() = 0;
-	virtual void slot18() = 0;
-	virtual void slot19() = 0;
-	virtual void slot20() = 0;
-	virtual void slot21() = 0;
-	virtual void slot22() = 0;
-	virtual void slot23() = 0;
-	virtual void slot24() = 0;
-	virtual void slot25() = 0;
-	virtual void slot26() = 0;
-	virtual void slot27() = 0;
-	virtual void slot28() = 0;
-	virtual void slot29() = 0;
-	virtual void slot30() = 0;
-	virtual void slot31() = 0;
-	virtual void slot32() = 0;
-	virtual Waypoint *getFirstWaypoint(void) = 0;
+	DataChunkInput(ChunkInputStream *stream);
+	unsigned short getChunkVersion();
+	unsigned int getChunkDataSizeLeft();
+	bool atEndOfFile();
+	void clearChunkStack();
+	float readReal();
+	unsigned char readByte();
+	void readArrayOfBytes(char *buffer, int length);
+	AsciiString getChunkLabel();
+	AsciiString readAsciiString();
+	UnicodeString readUnicodeString();
+	int readInt();
+	NameKeyType readNameKey();
+	Dict readDict();
 
 protected:
-	bool parseWaypointData(DataChunkInput &file, DataChunkInfo *info, void *userData);
-	void addWaypointLink(Int id1, Int id2);
+	void decrementDataLeft(int size);
+
+private:
+	ChunkInputStream *m_file;
+	DataChunkTableOfContents m_contents;	// +0x04
+	int m_fileposOfFirstChunk;	// +0x14
+	void *m_parserList;			// +0x18
+	InputChunk *m_chunkStack;	// +0x1C
+	void *m_currentObject;		// +0x20
+	void *m_userData;			// +0x24
+};
+
+// Zero Hour's ChunkInputStream: read is vslot 0, eof vslot 3.
+class ChunkInputStream
+{
+public:
+	virtual int read(void *buf, int numBytes) = 0;
+	virtual unsigned int tell(void) = 0;
+	virtual bool absoluteSeek(unsigned int pos) = 0;
+	virtual bool eof(void) = 0;
 };
 
 // ?readInt@DataChunkInput@@QAEHXZ @0x00306E78
-Int DataChunkInput::readInt()
+int DataChunkInput::readInt()
 {
-	Int value;
-	m_reader->read(&value, 4);
-	consume(4);
+	int value;
+	m_file->read(&value, 4);
+	decrementDataLeft(4);
 	return value;
 }
