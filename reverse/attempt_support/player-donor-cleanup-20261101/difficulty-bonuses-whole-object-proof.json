@@ -1,0 +1,11 @@
+{
+  "base": "c58cb2267713227e350cbc9a73372bf3353d60cc",
+  "before_definitions": 315,
+  "after_definitions": 314,
+  "added": [],
+  "removed": [
+    "?friend_applyDifficultyBonusesForObject@Player@@QBEXPAVObject@@_N@Z"
+  ],
+  "changed": [],
+  "all_retained_whole_code_and_relocations_equal": true
+}

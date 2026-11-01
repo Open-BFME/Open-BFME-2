@@ -1973,40 +1973,8 @@ UnsignedInt Player::getOrStartSpecialPowerReadyFrame( const SpecialPowerTemplate
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-// ?friend_applyDifficultyBonusesForObject@Player@@ present-unmatched
-void Player::friend_applyDifficultyBonusesForObject(Object* obj, Bool apply) const
-{
-	if (TheGameLogic->isInSinglePlayerGame())
-	{
-		Real healthFactor = TheGlobalData->m_soloPlayerHealthBonusForDifficulty[getPlayerType()][getPlayerDifficulty()];
-		if (healthFactor != 1.0f)
-		{
-			BodyModuleInterface* body = getRetailBodyModule(obj);
-			if (apply)
-				body->setMaxHealth(body->getMaxHealth() * healthFactor, PRESERVE_RATIO);
-			else 
-				body->setMaxHealth(body->getMaxHealth() / healthFactor, PRESERVE_RATIO);
-		}
-		static const WeaponBonusConditionType wbonus[PLAYERTYPE_COUNT][DIFFICULTY_COUNT] = 
-		{
-			{
-				WEAPONBONUSCONDITION_SOLO_HUMAN_EASY,
-				WEAPONBONUSCONDITION_SOLO_HUMAN_NORMAL,
-				WEAPONBONUSCONDITION_SOLO_HUMAN_HARD
-			},
-			{
-				WEAPONBONUSCONDITION_SOLO_AI_EASY,
-				WEAPONBONUSCONDITION_SOLO_AI_NORMAL,
-				WEAPONBONUSCONDITION_SOLO_AI_HARD
-			}
-		};
-		if (apply)
-			obj->setWeaponBonusCondition(wbonus[getPlayerType()][getPlayerDifficulty()]);
-		else
-			obj->clearWeaponBonusCondition(wbonus[getPlayerType()][getPlayerDifficulty()]);
-	}
 
-}
+
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------

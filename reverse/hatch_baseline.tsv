@@ -12066,7 +12066,6 @@ present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	countReadyShortcu
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	expressSpecialPowerReadyFrame@Player@@QAEXPBVSpecialPowerTemplate@@I@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	findAnyExistingObjectWithThingTemplate@Player@@QAEPAVObject@@PBVThingTemplate@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	findMostReadyShortcutSpecialPowerForThing@Player@@QAEPAVObject@@PBVThingTemplate@@AAI@Z	1
-present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	friend_applyDifficultyBonusesForObject@Player@@	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	friend_setSkillset@Player@@QAEXH@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	getAttackedBy@Player@@QBE_NH@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	getBattlePlansActiveSpecific@Player@@QBEHW4BattlePlanStatus@@@Z	1
