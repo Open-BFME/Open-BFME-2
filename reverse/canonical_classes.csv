@@ -215,3 +215,4 @@ Debug,Code/GameEngine/Source/Common/debug.h,existing header; contract class_cont
 CreateAHeroManager,Code/GameEngine/Include/GameLogic/CreateAHeroManager.h,existing header; contract class_contracts/CreateAHeroManager.json; 64/106 sampled units adopt
 MessageStream,Code/GameEngine/Include/Common/MessageStream.h,existing header; contract class_contracts/MessageStream.json; 49/109 sampled units adopt
 ThingFactory,Code/GameEngine/Include/Common/ThingFactory.h,existing header; contract class_contracts/ThingFactory.json; 149/193 sampled units adopt
+XferException,Code/GameEngine/Include/Common/XferException.h,existing header; contract class_contracts/XferException.json; 50/111 sampled units adopt
