@@ -152,7 +152,8 @@ class NameKeyGenerator {public:NameKeyType nameToKey(const char*);};
 extern NameKeyGenerator *TheNameKeyGenerator;
 class Player {public:char pad[0x5c];int type;};
 class Module;
-class Matrix3D {public:float m[3][4];};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
+
 class LocomotorSet;
 class Rva0035149F;
 void Rva00030830GameFree(void*);
