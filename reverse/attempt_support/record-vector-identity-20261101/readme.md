@@ -47,3 +47,39 @@ identity/header debt solely through each register's owning tool.
 The source retraction is not completion or byte progress. Final publication
 must preserve the body and its verified providers. Current scoped strict
 preparation passes 97/97 rows across the old source and two real providers.
+
+## Readmission and retained boundaries
+
+The normal retraction commit passed the required dependent verification:
+182 potentially affected units, 4,633 function rows, 58 data rows and 633
+EXACT EH graphs. This includes conservative name-based candidates; it does
+not assert that all 182 actually called the withdrawn Money-labelled row.
+
+`add_match.py` readmitted the complete 59-byte neutral method at the same
+source path and normal verification passed. The three-unit current preview
+now predicts LINKS for the source (0 -> 59), retaining the copy provider's
+3,129 and overflow provider's 268 bytes: 3,397 -> 3,456 in this bounded cohort.
+The owning identity retirement command initially passed with zero remaining
+findings, but the outgoing-range guard refused its proposed key removal:
+it treats the withdrawn Money symbol name as lost coverage despite the
+separate retraction and exact same-RVA replacement. The old register key is
+therefore retained, and the false-reject evidence is banked for a separate
+tooling repair. These are scoped predictions, not a new census result,
+additional byte coverage or a completed identity-debt retirement.
+
+The Snapshot acceptance command refuses because the replacement does not
+include the Snapshot header. It now needs no Snapshot type; this repair does
+not add an unused include merely to retire the queue row. The queue entry is
+retained for the register's supported identity-change retirement path. No
+false claim of header adoption is made. The two old Money-copy/overflow pins
+remain pending a separate complete consumer audit.
+
+The second served source, FXParticleSystem.cpp, is unchanged and still predicts
+LINKS for 5,650 bytes. It already includes global canonical Snapshot, but its
+namespaced one-destructor compatibility view still models real unresolved
+base-view debt. Namespace ambiguity in the acceptance check is not evidence
+that this view is canonical, and no discovery-error retirement is claimed.
+
+Publication retains the earlier broader AIBaseBuilder receipt/index boundary
+until the normal outgoing audit establishes its current scope. No new source
+path move, shared-header change, pin or escape hatch is introduced here.

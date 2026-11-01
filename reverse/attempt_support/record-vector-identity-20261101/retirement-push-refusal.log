@@ -1,0 +1,24 @@
+check_csv: OK (functions.csv 99272 rows, symbols.csv 9353 rows, data_rows.csv 2253 rows)
+Pin consistency: OK (5 multi-pinned symbols of 9348; 0 baselined, 0 new, 0 stale)
+Pin baseline: OK (0 entries, 0 removed vs 541949dec16c681652e22748c6c169b489dd78e5, 0 added)
+========================================================================
+PROTECTED VERIFIER/BASELINE PATHS in fc3bdee2e3 Recover native record-vector push-back a
+    reverse/code_identity_baseline.tsv
+  Verifier-Change: Retire the verified Money-copy code-identity key through repair_queue after native record rebinding.
+========================================================================
+Source claims: OK (1 sources, scoped byte-verified)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Functions: OK 1/1 matched
+  ?rva006BF950@BfmeVecBE@@QAEXABUBfmeElemBE@@@Z (Code/GameEngine/Source/Common/MoneyVectorPushBack.cpp)
+String-ref verify: OK (0 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (0 compiler literals verified)
+Import-ref verify: OK (0 named imports verified)
+repair_queue: Code/GameEngine/Source/Common/MoneyVectorPushBack.cpp: removed 1 reverse/code_identity_baseline.tsv key(s) without the tool's verdict: 1 row(s) HEAD held are gone from Code/GameEngine/Source/Common/MoneyVectorPushBack.cpp (lost coverage hides findings): ?push_back@?$vector@VMoney@@V?$allocator@VMoney@@@_STL@@@_STL@@QAEXABVMoney@@@Z
+PRE-PUSH FAILED: retired debt has no passing outgoing verdict (see above)
+pin admission: OK
+reverse/gate_baseline.txt: OK (no line added)
+EH baseline: OK (outgoing shrink-only; 0 new key(s))
+name_dependents: 1 call target(s) and 1 data-row target(s) lost (?push_back@?$vector@VMoney@@V?$allocator@VMoney@@@_STL@@@_STL@@QAEXABVMoney@@@Z); 0 referencing unit(s) of 18675 scanned in 6.7s
+PRE-PUSH FAILED: outgoing debt-register changes (see above)
+error: failed to push some refs to 'https://github.com/Open-BFME/Open-BFME-2.git'
+push: attempt 1: refused after 15.0 s (see above); not retrying
