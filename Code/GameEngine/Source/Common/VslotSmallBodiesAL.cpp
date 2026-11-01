@@ -16,13 +16,7 @@ typedef unsigned int UnsignedInt;
 // argument) on the +0x08 member, then virtual slot 12.
 struct BfmeE8;
 class Matrix3D;
-struct AreaPolygonBase {
-    _STL::vector<BfmeE8, _STL::allocator<BfmeE8> > m_points;
-    char m_pad[0x24 - 12];
-    bool m_dirty;
-    void insertPoint(int index, const BfmeE8& point);
-    void rva0030B232(const Matrix3D &transform);
-};
+#include "../../Include/Common/AreaPolygonBase.h"
 class Rva00330AF6Base
 {
 public:
