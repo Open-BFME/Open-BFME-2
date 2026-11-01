@@ -9,7 +9,6 @@
 // 0x37050 (private AAE row, same pattern as the narrow StringBase pins),
 // reached through the shared header's inline UnicodeString copy constructor.
 
-extern "C" const void *const __identifier("??_7SubtitleEntry@@6B@")[];
 #include "../../../../reference/shims/bfme2_ascii/unicode_string.h"
 // VideoPlayer::init passes the retail callback at 0x0081D7C0 to INI::load.
 // The callback looks up a subtitle manager through TheVideoPlayer's virtual
@@ -32,14 +31,20 @@ template <> __declspec(dllimport) __forceinline void StringBase<char>::set(const
     set(text, text ? strlen(text) : 0);
 }
 
+// vftable 0x008E451C: slot 0 is the deleting dtor 0x006886F0 over the
+// protected virtual dtor 0x006885A0 (vptr store, then the text member's
+// releaseBuffer). The ctor 0x00688550 stores that vptr and copy-constructs
+// the text at +0x04; SubtitleManager::getStartFrame 0x00688680 reads
+// m_startFrame (+0x18) directly.
 class SubtitleEntry
 {
+	friend class SubtitleManager;
 public:
 	SubtitleEntry(const UnicodeString &text, unsigned int color, int style,
 		int alignment, int line, int startFrame, int endFrame);
-
+protected:
+	virtual ~SubtitleEntry();
 private:
-	void *m_vft;
 	UnicodeString m_text;
 	unsigned int m_color;
 	int m_style;
@@ -168,7 +173,6 @@ private:
 // ??0SubtitleEntry@@QAE@ABVUnicodeString@@IHHHHH@Z
 SubtitleEntry::SubtitleEntry(const UnicodeString &text, unsigned int color,
 	int style, int alignment, int line, int startFrame, int endFrame) :
-	m_vft((void *)((unsigned int)__identifier("??_7SubtitleEntry@@6B@"))),
 	m_text(text),
 	m_color(color),
 	m_style(style),
