@@ -40,9 +40,7 @@ public:
 	virtual void f1();
 };
 
-class BehaviorModule : public BehaviorModuleBase, public MiBase1
-{
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class UpdateModuleInterface
 {

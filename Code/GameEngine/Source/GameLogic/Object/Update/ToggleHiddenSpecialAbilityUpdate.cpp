@@ -213,11 +213,7 @@ protected:
 	Object *m_object; // +0x08
 };
 
-class BehaviorModuleInterface
-{
-public:
-	virtual void b00() = 0;
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 // +0x10 table 0x00C552C8: slot 0 is update.
 class UpdateModuleInterface

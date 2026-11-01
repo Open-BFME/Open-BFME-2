@@ -100,11 +100,7 @@ protected:
 	Object *m_object;		// +0x08
 };
 
-class BehaviorModuleInterface
-{
-public:
-	virtual void b00() = 0;
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class BodyModuleInterface
 {

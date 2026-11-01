@@ -54,11 +54,7 @@ extern PlayerList *ThePlayerList;
 #include "../../../../Include/Common/Module.h"
 #include "../../../../Include/Common/ObjectModule.h"
 
-class BehaviorModuleInterface
-{
-public:
-	virtual void behaviorModuleInterfaceAnchor();
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class CreateModuleInterface
 {

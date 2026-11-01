@@ -28,12 +28,7 @@ class BehaviorIface
 public:
 	virtual void behaviorIfaceAnchor();
 };
-class BehaviorModule : public ObjectModule, public BehaviorIface
-{
-public:
-	BehaviorModule(Thing *thing, const ModuleData *moduleData);
-	void xfer(Xfer *xfer);
-};
+#include "../../Include/GameLogic/Module/BehaviorModule.h"
 class BodyModuleInterface
 {
 public:

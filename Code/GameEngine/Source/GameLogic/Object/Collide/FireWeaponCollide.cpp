@@ -127,22 +127,8 @@ enum NameKeyType
 // Slot 0 of both interface vftables is retail's shared `return 0` fold
 // (33 C0 C3 at 0x000D43D0); the views define it inline with that body, so
 // the compiled tables name a definition of their own.
-class BehaviorModuleInterface
-{
-public:
-	virtual void *behaviorSlot() { return 0; }
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
-{
-public:
-	BehaviorModule(Thing *thing, const ModuleData *moduleData);
-
-protected:
-	virtual ~BehaviorModule();				// census COMDAT ??1BehaviorModule@@MAE@XZ
-	virtual void loadPostProcess();				// slot 1
-	virtual const char *GetSnapshotName() const;		// slot 2
-};
 
 class CollideModuleInterface
 {

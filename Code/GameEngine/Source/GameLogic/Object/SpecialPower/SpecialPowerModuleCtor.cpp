@@ -119,20 +119,8 @@ extern InGameUI *TheInGameUI;
 
 #include "../../../../Include/Common/ObjectModule.h"
 
-class BehaviorModuleInterface
-{
-public:
-	virtual unsigned int behaviorAnchor();
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
-{
-public:
-	BehaviorModule(Thing *thing, const ModuleData *moduleData);
-protected:
-	// Use the existing base-cleanup providers' protected spelling.
-	virtual ~BehaviorModule();
-};
 
 class SpecialPowerModuleInterface
 {

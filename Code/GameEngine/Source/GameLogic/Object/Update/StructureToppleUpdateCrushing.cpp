@@ -518,11 +518,7 @@ public:
 
 #include "../../../../Include/Common/ObjectModule.h"
 
-class BehaviorModuleInterface
-{
-public:
-	virtual void behaviorModuleInterfaceSlot();
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class UpdateModuleInterface
 {

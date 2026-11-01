@@ -120,7 +120,7 @@ public:
 	AIUpdateInterface *getAIUpdateInterface();
 };
 
-class BehaviorModuleInterface { public: virtual void behaviorSlot(); };
+#include "../../Include/GameLogic/Module/BehaviorModule.h"
 
 class UpdateModuleInterface { public: virtual void updateSlot(); };
 

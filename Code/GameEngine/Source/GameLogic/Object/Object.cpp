@@ -2271,11 +2271,7 @@ protected:
     virtual const char *GetSnapshotName() const;
 };
 
-class BehaviorModule
-{
-protected:
-	virtual const char *GetSnapshotName() const;
-};
+#include "../../../Include/GameLogic/Module/BehaviorModule.h"
 
 BFME_LITERAL_NAME_GETTER(Rva0028C9D7Named, "ObjectDefectionHelper")
 

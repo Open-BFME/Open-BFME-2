@@ -211,7 +211,7 @@ struct Coord3DBase
 
 #include "../../../../Include/Common/ObjectModule.h"
 
-class BehaviorModuleInterface { public: virtual void behaviorSlot(); };
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 class UpdateModuleInterface { public: virtual void updateSlot(); };
 
 class UpdateModule : public ObjectModule,

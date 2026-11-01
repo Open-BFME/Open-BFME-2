@@ -153,11 +153,7 @@ public:
 	virtual void behaviorModuleOtherAnchor();
 };
 
-class BehaviorModule : public BehaviorModuleBase, public BehaviorModuleOther
-{
-public:
-	Object *getObject() const { return m_object; }
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class UpdateModuleInterface
 {

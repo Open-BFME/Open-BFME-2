@@ -111,11 +111,7 @@ protected:
 	const void *m_moduleData; // +0x04
 	Object *m_object; // +0x08
 };
-class BehaviorModuleInterface
-{
-public:
-	virtual void behaviorModuleInterfaceAnchor();
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 class UpdateModuleInterface
 {
 public:

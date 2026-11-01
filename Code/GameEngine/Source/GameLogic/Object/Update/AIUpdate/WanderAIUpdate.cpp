@@ -130,11 +130,7 @@ class ModuleInterface { public: virtual void moduleInterfaceAnchor(); };
 
 #include "../../../../../Include/Common/ObjectModule.h"
 
-class BehaviorModuleInterface
-{
-public:
-	virtual void behaviorModuleInterfaceAnchor();
-};
+#include "../../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class UpdateModuleInterface
 {

@@ -60,15 +60,8 @@ inline UnsignedInt &maskWord(unsigned char (&mask)[4])
 
 #include "../../../../../Include/Common/ObjectModule.h"
 
-class BehaviorModuleInterface
-{
-public:
-	virtual void getBody();
-};
+#include "../../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
-{
-};
 
 class UpdateModuleInterface
 {

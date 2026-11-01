@@ -34,8 +34,7 @@ class Object {char pad[0x38];public:Coord3D pos;Player *getControllingPlayer()co
 };
 #include "../../../../Include/Common/Module.h"
 #include "../../../../Include/Common/ObjectModule.h"
-class BehaviorModuleInterface {public:virtual void behaviorSlot0();};
-class BehaviorModule:public ObjectModule,public BehaviorModuleInterface {};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 class SpecialPowerModuleInterface {public:
  virtual void doSpecialPower(unsigned)=0;
  virtual void doSpecialPowerAtObject(Object*,unsigned)=0;

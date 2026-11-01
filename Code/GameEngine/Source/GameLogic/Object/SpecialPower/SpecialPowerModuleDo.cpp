@@ -87,15 +87,8 @@ public:
 #include "../../../../Include/Common/ObjectModule.h"
 
 
-class BehaviorModuleInterface
-{
-public:
-	virtual void behaviorSlot0();
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
-{
-};
 
 class SpecialPowerModuleInterface
 {

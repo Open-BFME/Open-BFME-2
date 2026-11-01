@@ -120,17 +120,8 @@ extern InGameUI *TheInGameUI;
 
 #include "../../../../Include/Common/ObjectModule.h"
 
-class BehaviorModuleInterface
-{
-public:
-	virtual unsigned int behaviorAnchor();
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
-{
-public:
-	virtual ~BehaviorModule() {}
-};
 
 class SpecialPowerModuleInterface
 {

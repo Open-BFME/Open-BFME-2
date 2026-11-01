@@ -540,15 +540,8 @@ private:
 };
 class ModuleData;
 #include "../../../../Include/Common/ObjectModule.h"
-class BehaviorModuleInterface
-{
-public:
-	virtual void behaviorModuleInterfaceSlot00();
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 // BehaviorModule's interface vptr is at +0x0C, UpdateModule's at +0x10.
-class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
-{
-};
 enum UpdateSleepTime
 {
 	UPDATE_SLEEP_NONE = 1,

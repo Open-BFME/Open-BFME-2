@@ -88,17 +88,8 @@ public:
 	virtual bool s10();
 };
 
-class BehaviorModuleInterface
-{
-public:
-	virtual void slot0() = 0;
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
-{
-public:
-	virtual ~BehaviorModule();
-};
 
 class UpdateModuleInterface
 {

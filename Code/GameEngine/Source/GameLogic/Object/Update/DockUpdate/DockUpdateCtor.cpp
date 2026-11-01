@@ -149,11 +149,7 @@ class BehaviorModuleOther
 	virtual void unused();
 };
 
-class BehaviorModule : public BehaviorModuleBase, public BehaviorModuleOther
-{
-public:
-	BehaviorModule(Thing *thing, const ModuleData *moduleData);
-};
+#include "../../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 // Native secondary table 0x00851D68: DockUpdate::update, followed by
 // UpdateModule's disabled-mask getter and wake-delay slot.

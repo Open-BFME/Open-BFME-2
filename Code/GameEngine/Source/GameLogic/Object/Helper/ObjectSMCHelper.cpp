@@ -91,11 +91,7 @@ private:
 };
 #include "../../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
-class BehaviorModuleInterface
-{
-public:
-	virtual void getBehaviorModuleInterface() = 0;
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 class UpdateModuleInterface
 {
 public:
@@ -176,11 +172,6 @@ public:
 	void xfer(Xfer *xfer);
 };
 
-class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
-{
-public:
-	virtual ~BehaviorModule() {}
-};
 
 class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 {

@@ -22,15 +22,8 @@ public:
 
 #include "../../../../Include/Common/ObjectModule.h"
 
-class BehaviorModuleInterface
-{
-public:
-	virtual void behaviorAnchor() = 0;
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
-{
-};
 
 class UpdateModuleInterface
 {

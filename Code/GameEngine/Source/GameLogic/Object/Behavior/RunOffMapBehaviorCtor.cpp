@@ -28,13 +28,7 @@ extern "C" const void *const __identifier("??_7Rva00462151@@6B@")[];  // vftable
 class Thing;
 class ModuleData;
 
-class BehaviorModule
-{
-public:
-	BehaviorModule(Thing *thing, const ModuleData *moduleData);
-private:
-	unsigned char m_pad[0x10];
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class RunOffMapBehavior : public BehaviorModule
 {

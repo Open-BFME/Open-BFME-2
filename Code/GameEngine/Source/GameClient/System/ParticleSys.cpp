@@ -1979,11 +1979,7 @@ protected:
     virtual const char *GetSnapshotName() const;
 };
 
-class BehaviorModule
-{
-protected:
-	virtual const char *GetSnapshotName() const;
-};
+#include "../../../Include/GameLogic/Module/BehaviorModule.h"
 
 BFME_DISP_BYTE_SETTER(Rva001F3C13ByteSlot, 0x1A8)
 

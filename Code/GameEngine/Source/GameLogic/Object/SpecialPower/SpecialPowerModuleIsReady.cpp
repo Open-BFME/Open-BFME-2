@@ -16,8 +16,7 @@ static unsigned frame() { return ((SpecialReadyFrameView *)TheGameLogic)->frame;
 class ModuleData { public: virtual ~ModuleData(); };
 class SpecialPowerModuleData : public ModuleData { public: int unknown4; const SpecialPowerTemplate *power; };
 #include "../../../../Include/Common/ObjectModule.h"
-class BehaviorModuleInterface { public: virtual void anchor(); };
-class BehaviorModule : public ObjectModule, public BehaviorModuleInterface { protected: virtual ~BehaviorModule(); };
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 class SpecialPowerModuleInterface {
 public:
  virtual bool isModuleForPower(const SpecialPowerTemplate *) const = 0;

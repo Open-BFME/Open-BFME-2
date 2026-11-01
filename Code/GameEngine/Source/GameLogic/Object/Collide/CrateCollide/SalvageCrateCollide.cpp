@@ -238,14 +238,7 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class BehaviorModule
-{
-public:
-    BehaviorModule(Thing *thing, const ModuleData *moduleData);
-    virtual void behaviorModuleAnchor();
-private:
-    unsigned char m_data[8];
-};
+#include "../../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class InlineCollideModuleInterface
 {

@@ -51,11 +51,7 @@ protected:
     virtual const char *GetSnapshotName() const;
 };
 
-class BehaviorModule
-{
-protected:
-	virtual const char *GetSnapshotName() const;
-};
+#include "../../../Include/GameLogic/Module/BehaviorModule.h"
 
 // ---- from Code/GameEngine/Source/Common/SubsystemNameGetters.cpp
 

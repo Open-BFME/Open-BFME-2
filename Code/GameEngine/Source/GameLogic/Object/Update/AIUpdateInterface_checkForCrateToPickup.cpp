@@ -21,12 +21,7 @@ public:
 	virtual bool wouldLikeToCollideWith(const Object *other);
 };
 
-class BehaviorModuleInterface
-{
-public:
-	virtual void slot00();
-	virtual CollideModuleInterface *getCollide();
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class BehaviorModuleHead
 {
@@ -37,9 +32,6 @@ private:
 	int m_08;
 };
 
-class BehaviorModule : public BehaviorModuleHead, public BehaviorModuleInterface
-{
-};
 
 class Object
 {

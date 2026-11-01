@@ -126,7 +126,7 @@ public:
 
 enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1, UPDATE_SLEEP_FOREVER = 0x3FFFFFFF };
 
-class BehaviorModuleInterface { public: virtual void behaviorSlot(); };
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class UpdateModuleInterface { public: virtual void updateSlot(); };
 

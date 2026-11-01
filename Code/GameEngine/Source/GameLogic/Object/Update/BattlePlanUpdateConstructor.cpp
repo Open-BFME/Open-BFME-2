@@ -49,15 +49,8 @@ enum TransitionStatus
 
 #include "../../../../Include/Common/ObjectModule.h"
 
-class BehaviorModuleInterface
-{
-public:
-	virtual void getBody();
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
-{
-};
 
 // update is pure here as in the rest of the module hierarchy; this unit
 // names no override, like BattlePlanUpdateRva004978A3Dtor.cpp, so the two

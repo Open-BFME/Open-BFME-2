@@ -36,13 +36,7 @@ public:
 	virtual void removeFromContain(Object *obj, Bool exposeStealthUnits) = 0; // slot 41
 };
 
-class BehaviorModule
-{
-public:
-	virtual void b00(); virtual void b01(); virtual void b02(); virtual void b03();
-	virtual void b04(); virtual void b05(); virtual void b06(); virtual void b07();
-	virtual void onDelete() = 0; // slot 8
-};
+#include "../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class Rva00271BCC
 {

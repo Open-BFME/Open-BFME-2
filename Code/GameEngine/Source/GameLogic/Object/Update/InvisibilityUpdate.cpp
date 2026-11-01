@@ -252,11 +252,7 @@ public:
 	Object *m_object;
 };
 
-class BehaviorModule : public BehaviorModuleBase, public BehaviorModuleOther
-{
-public:
-	BehaviorModule(Thing *thing, const ModuleData *moduleData);
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class UpdateModuleInterface
 {
@@ -277,7 +273,6 @@ public:
 	virtual int fetchDelay();
 };
 
-class BehaviorModuleInterface { public: virtual void behaviorSlot(); };
 
 class InvisibilityTrailing { public: virtual void trailingSlot(); };
 

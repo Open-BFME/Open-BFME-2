@@ -120,7 +120,7 @@ public:
 	AsciiString m_weaponToggleCommandSet; // +0x68
 };
 
-class BehaviorModuleInterface { public: virtual void behaviorSlot(); };
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 class UpdateModuleInterface { public: virtual UpdateSleepTime update() = 0; };
 
 class UpdateModule : public ObjectModule,

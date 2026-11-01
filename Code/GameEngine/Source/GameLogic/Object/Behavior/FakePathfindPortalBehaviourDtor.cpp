@@ -162,12 +162,7 @@ public:
 };
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class BehaviorModule
-{
-public:
-	virtual void s00(); virtual void s04(); virtual void s08(); virtual void s0C();
-	virtual NameKeyType getModuleNameKey() const;	// +0x10
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 struct FakePortalObjectView
 {

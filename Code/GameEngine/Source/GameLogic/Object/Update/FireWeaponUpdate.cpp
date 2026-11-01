@@ -288,11 +288,7 @@ enum NameKeyType
 #include "../../AI/WorkOrder.h"
 #include "../../AI/TeamInQueue.h"
 
-class BehaviorModuleInterface
-{
-public:
-	virtual void behaviorModuleInterfaceAnchor();
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class UpdateModuleInterface
 {

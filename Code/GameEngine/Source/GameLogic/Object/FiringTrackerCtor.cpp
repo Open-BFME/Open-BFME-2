@@ -23,11 +23,7 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_FOREVER = 0x3fffffff
 };
 
-class BehaviorModuleInterface
-{
-public:
-	virtual void getBehaviorModuleInterface() = 0;
-};
+#include "../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class UpdateModuleInterface
 {
@@ -39,12 +35,6 @@ public:
 
 #include "../../../Include/Common/ObjectModule.h"
 
-class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
-{
-public:
-	BehaviorModule(Thing *thing, const ModuleData *data);
-	virtual ~BehaviorModule() {}
-};
 
 class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 {

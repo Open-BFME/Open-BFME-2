@@ -56,7 +56,7 @@ public:virtual ~BehaviorModuleBase();
 protected:const ModuleData *m_moduleData;Object *m_object;
 };
 class BehaviorModuleOther {public:virtual void behaviorModuleOtherAnchor();};
-class BehaviorModule : public BehaviorModuleBase, public BehaviorModuleOther {};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 class UpdateModuleInterface {public:virtual UpdateSleepTime update()=0;};
 class UpdateModule : public BehaviorModule, public UpdateModuleInterface {
 protected:unsigned m_nextCallFrameAndPhase;int m_indexInLogic;int m_bfmeReserved;

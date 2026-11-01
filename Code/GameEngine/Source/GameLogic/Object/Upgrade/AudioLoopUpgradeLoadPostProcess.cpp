@@ -31,11 +31,7 @@ public:
 	virtual void unused();
 };
 
-class BehaviorModule : public BehaviorModuleBase, public BehaviorModuleOther
-{
-public:
-	BehaviorModule(Thing *thing, const ModuleData *moduleData);
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class UpdateModuleInterface
 {

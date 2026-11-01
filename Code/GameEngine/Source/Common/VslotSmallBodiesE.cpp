@@ -68,18 +68,8 @@ enum UpdateSleepTime
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "../../Include/Common/ObjectModule.h"
 
-class BehaviorModuleInterface
-{
-public:
-	virtual void getBody();
-};
+#include "../../Include/GameLogic/Module/BehaviorModule.h"
 
-class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
-{
-public:
-    virtual void *vslot10() { return 0; }
-    virtual void *vslot11() { return 0; }
-};
 
 // Native Update interface at +0x10: update, disabled mask, wake frame.
 #pragma function(memcpy)

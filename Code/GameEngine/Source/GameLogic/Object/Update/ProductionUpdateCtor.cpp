@@ -81,11 +81,7 @@ public:
 	virtual void behaviorModuleOtherAnchor();
 };
 
-class BehaviorModule : public BehaviorModuleBase, public BehaviorModuleOther
-{
-public:
-	BehaviorModule(Thing *thing, const ModuleData *moduleData);
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 // ProductionUpdate's UpdateModuleInterface table (0x00C514F4): update and the
 // getDisabledTypesToProcess override, then UpdateModule's 0x0044DF8D.

@@ -25,11 +25,7 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_FOREVER = 0x3fffffff
 };
 #include "../../../../Include/Common/ObjectModule.h"
-class BehaviorModuleInterface
-{
-public:
-	virtual void behaviorSlot();
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 template <int NUMBITS> class BitFlags;
 typedef BitFlags<11> DisabledMaskType;
 class UpdateModuleInterface

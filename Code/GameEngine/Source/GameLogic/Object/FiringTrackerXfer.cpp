@@ -387,11 +387,7 @@ public:
 bool pickAndPlayUnitVoiceResponse(const DrawableList *list, GameMessage::Type messageType,
 	PickAndPlayInfo *info);
 
-class BehaviorModuleInterface
-{
-public:
-	virtual void getBehaviorModuleInterface() = 0;
-};
+#include "../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class UpdateModuleInterface
 {
@@ -401,11 +397,6 @@ public:
 
 #include "../../../Include/Common/ObjectModule.h"
 
-class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
-{
-public:
-	virtual ~BehaviorModule() {}
-};
 
 class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 {

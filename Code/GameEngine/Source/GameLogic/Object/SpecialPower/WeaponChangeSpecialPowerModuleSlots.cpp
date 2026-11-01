@@ -12,13 +12,7 @@
 // forwarders shape over doSpecialPower(commandOptions); the slot order here
 // differs, so the names stay by address. Compiled with the +0x10 subobject
 // this.
-class BehaviorModule
-{
-public:
-	virtual ~BehaviorModule();
-private:
-	unsigned char m_pad04[0x10 - 4];
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class SpecialPowerModuleInterface
 {

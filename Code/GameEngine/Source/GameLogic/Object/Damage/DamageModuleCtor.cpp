@@ -20,14 +20,7 @@ static int s_secondary0C;
 static int s_first10;
 static int s_second10;
 
-class BehaviorModule
-{
-public:
-	BehaviorModule(Thing *thing, const ModuleData *moduleData);
-
-private:
-	unsigned char m_pad[0x14];
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class DamageModule : public BehaviorModule
 {

@@ -53,11 +53,7 @@ protected:
     virtual const char *GetSnapshotName() const;
 };
 
-class BehaviorModule
-{
-protected:
-	virtual const char *GetSnapshotName() const;
-};
+#include "../../Include/GameLogic/Module/BehaviorModule.h"
 
 // tu-skeleton: 0x00625490 8B ??_EOpen2Store880FC0@@WM@AEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/Open2Twins006.cpp (not merged yet)
 

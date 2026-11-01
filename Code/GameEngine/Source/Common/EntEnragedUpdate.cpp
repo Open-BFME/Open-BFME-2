@@ -154,11 +154,7 @@ public:
 	Object *m_object; // +0x08
 };
 
-class BehaviorModuleInterface
-{
-public:
-	virtual BodyModuleInterface *getBody() { return 0; }
-};
+#include "../../Include/GameLogic/Module/BehaviorModule.h"
 
 class UpdateModuleInterface
 {

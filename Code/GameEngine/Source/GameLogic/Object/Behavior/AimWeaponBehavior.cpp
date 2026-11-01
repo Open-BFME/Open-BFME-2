@@ -72,7 +72,7 @@ enum UpdateSleepTime
 
 #include "../../../../Include/Common/ObjectModule.h"
 
-class BehaviorModuleInterface { public: virtual void behaviorSlot(); };
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class UpdateModuleInterface { public: virtual UpdateSleepTime update(); };
 

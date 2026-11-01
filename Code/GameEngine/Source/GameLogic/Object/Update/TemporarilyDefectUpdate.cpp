@@ -211,7 +211,7 @@ struct Rva004CC795ModuleData
 	unsigned int m_08;
 };
 
-class BehaviorModuleInterface { public: virtual void behaviorSlot(); };
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class UpdateModuleInterface { public: virtual UpdateSleepTime update() = 0; };
 

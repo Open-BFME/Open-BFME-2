@@ -43,7 +43,7 @@ void XferObjectID(Xfer *xfer, ObjectID *objectID);
 
 #include "../../../../Include/Common/ObjectModule.h"
 
-class BehaviorModuleInterface { public: virtual void behaviorSlot(); };
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 class UpdateModuleInterface { public: virtual void updateSlot(); };
 
 class UpdateModule : public ObjectModule,

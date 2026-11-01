@@ -116,11 +116,7 @@ BFME_LITERAL_NAME_GETTER(Rva00226309Named, "SaveMapPreview")
 BFME_LITERAL_NAME_GETTER(Rva002296E6Named, "GameSlot")
 BFME_LITERAL_NAME_GETTER(Rva00229902Named, "LobbyGameInfo")
 BFME_LITERAL_NAME_GETTER(Rva0022CEF1Named, "SaveGameInfo")
-class BehaviorModule
-{
-protected:
-	virtual const char *GetSnapshotName() const;
-};
+#include "../../Include/GameLogic/Module/BehaviorModule.h"
 BFME_LITERAL_NAME_GETTER(GateProxyBehavior, "GateProxyBehavior")
 BFME_LITERAL_NAME_GETTER(SpawnedModelConditionCreate, "SpawnedModelConditionCreate")
 BFME_LITERAL_NAME_GETTER(Rva00251C76Named, "SpecialPowerTimerRefreshSpecialPower")

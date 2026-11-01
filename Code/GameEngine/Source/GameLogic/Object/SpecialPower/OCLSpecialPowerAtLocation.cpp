@@ -69,8 +69,7 @@ class ObjectCreationList {public:void create(void*,void*,void*,int);void create(
 struct OCLData { char pad[0x8C]; int location; _STL::vector<AsciiString> upgrades; ObjectFilter filter; };
 #include "../../../../Include/Common/Module.h"
 #include "../../../../Include/Common/ObjectModule.h"
-class BehaviorModuleInterface { public:virtual void behaviorSlot0();};
-class BehaviorModule:public ObjectModule,public BehaviorModuleInterface {};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 class SpecialPowerModuleInterface {public:virtual void doSpecialPower(unsigned)=0; virtual void doSpecialPowerAtObject(Object*,unsigned)=0; virtual void doSpecialPowerAtLocation(const Coord3D*,unsigned)=0;};
 class SpecialPowerModule:public BehaviorModule,public SpecialPowerModuleInterface {public:virtual void doSpecialPower(unsigned);virtual void doSpecialPowerAtObject(Object*,unsigned);virtual void doSpecialPowerAtLocation(const Coord3D*,unsigned);};
 class Rva004C31A8ScienceSelector {public:unsigned select() const;};

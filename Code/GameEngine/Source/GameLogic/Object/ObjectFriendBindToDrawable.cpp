@@ -61,13 +61,7 @@ public:
 };
 extern GameLogic *TheGameLogic;
 
-class BehaviorModule
-{
-public:
-	virtual void s00(); virtual void s04(); virtual void s08(); virtual void s0C();
-	virtual void s10(); virtual void s14();
-	virtual void onDrawableBoundToObject();	// slot 6
-};
+#include "../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class Object
 {

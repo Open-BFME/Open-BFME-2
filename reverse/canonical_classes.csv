@@ -176,3 +176,5 @@ MixFileCreator,Code/Libraries/Source/WWVegas/WWLib/MixFileCreatorFileInfo.h,lega
 GameWindow,Code/GameEngine/Include/GameClient/Bfme2GameWindow.h,native218extent11virtualslots; no base data inferred; unknown spans kept opaque
 WinInstanceData,Code/GameEngine/Include/GameClient/Bfme2WinInstanceData.h,native1A8memberextent and one virtual dtor; out-of-line lifetime owners; unknown fields opaque
 BuildListInfo,Code/GameEngine/Include/GameLogic/Bfme2BuildListInfo.h,Native C0D904 four slots and0x80 stride32A1FE/32A942; fields32A0CE/3299AD; named Snapshot no new defaults
+BehaviorModuleInterface,Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h,existing header; contract class_contracts/BehaviorModuleInterface.json; 129/256 sampled units adopt
+BehaviorModule,Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h,existing header; contract class_contracts/BehaviorModule.json; 85/262 sampled units adopt

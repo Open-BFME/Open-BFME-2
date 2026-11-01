@@ -61,8 +61,7 @@ struct PhysicsTrajectoryConfig {
 };
 enum UpdateSleepTime { UPDATE_SLEEP_NONE=1,UPDATE_SLEEP_FOREVER=0x3fffffff };
 #include "../../../../Include/Common/ObjectModule.h"
-class BehaviorModuleInterface { public: virtual void slot0()=0; };
-class BehaviorModule : public ObjectModule,public BehaviorModuleInterface { public: virtual ~BehaviorModule(); };
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 class UpdateModuleInterface { public: virtual UpdateSleepTime update()=0; };
 class UpdateModule : public BehaviorModule,public UpdateModuleInterface {
 public:

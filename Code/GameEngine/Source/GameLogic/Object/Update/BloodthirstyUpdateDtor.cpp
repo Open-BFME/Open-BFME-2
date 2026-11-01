@@ -27,11 +27,7 @@ public:
 	virtual void behaviorModuleOtherAnchor();
 };
 
-class BehaviorModule : public BehaviorModuleBase, public BehaviorModuleOther
-{
-public:
-	BehaviorModule(Thing *thing, const ModuleData *moduleData);
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
 

@@ -66,7 +66,7 @@ struct XferUnknown11;
 
 class BehaviorModuleOther {public:virtual void secondaryAnchor();};
 
-class BehaviorModule:public ObjectModule,public BehaviorModuleOther {};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class SpecialPowerModuleInterface {public:
 virtual void s00()=0; virtual void s01()=0; virtual void s02()=0; virtual void s03()=0; virtual void s04()=0; virtual void s05()=0;

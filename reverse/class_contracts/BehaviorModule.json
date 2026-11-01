@@ -1,0 +1,359 @@
+{
+ "bases": [
+  "ObjectModule",
+  "BehaviorModuleOther"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "BehaviorModule",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 40,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x253330"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "ObjectModule",
+       "offset": 0,
+       "own_vftable": "0x7eea7c",
+       "rule": "retail-ctor-call"
+      },
+      {
+       "kind": "target",
+       "name": "Rva0024A788",
+       "offset": 12,
+       "own_vftable": "0x7ee9c0",
+       "rule": "retail-inlined-base-vptr"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x253330"
+     ],
+     "value": 16
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x253330"
+     ],
+     "value": {
+      "0x0": "0x7eea7c",
+      "0xc": "0x7ee9c0"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7eea7c"
+     ],
+     "value": {
+      "count": 12,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GRva004607E1@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x25335a"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 1,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?GetSnapshotName@BehaviorModule@@MBEPBDXZ",
+        "slot": 2,
+        "target": "0x24a791"
+       },
+       {
+        "name": "?xfer@BehaviorModule@@QAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x4c9c7d"
+       },
+       {
+        "name": "__purecall",
+        "slot": 4,
+        "target": "0x3b810"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 5,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 6,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 7,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 9,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 10,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 11,
+        "target": "0xd43d0"
+       }
+      ],
+      "table": "0x7eea7c"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 1,
+  "retail_vtables": {
+   "0x7ee9c0": {
+    "offset": 12,
+    "slots": {},
+    "stores": 1
+   },
+   "0x7eea7c": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GRva004607E1@@UAEPAXI@Z",
+     "1": "??1Region2D@@QAE@XZ",
+     "2": "?GetSnapshotName@BehaviorModule@@MBEPBDXZ",
+     "3": "?xfer@BehaviorModule@@QAEXPAVXfer@@@Z",
+     "4": "__purecall",
+     "5": "??1Region2D@@QAE@XZ",
+     "6": "??1Region2D@@QAE@XZ",
+     "7": "??1Region2D@@QAE@XZ",
+     "8": "??1Region2D@@QAE@XZ",
+     "9": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "10": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "11": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 2,
+  "view_sizes": {
+   "1": 2,
+   "12": 12,
+   "16": 23,
+   "20": 1
+  },
+  "views": 38,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_BehaviorModule.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 35,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "P",
+   "name": "m_moduleData",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "ModuleData*",
+   "views": 33,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_object",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 4,
+   "type": "Object*",
+   "views": 25,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 23,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 3
+ },
+ "outliers": [
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehaviorCtor.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "slot12",
+   "candidates": {
+    "behaviorModuleSlot12()": 1
+   },
+   "class": "BehaviorModule",
+   "why": "beyond the retail vftable's 12 slots"
+  },
+  {
+   "attribute": "slot13",
+   "candidates": {
+    "behaviorModuleSlot13()": 1
+   },
+   "class": "BehaviorModule",
+   "why": "beyond the retail vftable's 12 slots"
+  },
+  {
+   "attribute": "slot14",
+   "candidates": {
+    "behaviorModuleSlot14()": 1
+   },
+   "class": "BehaviorModule",
+   "why": "beyond the retail vftable's 12 slots"
+  },
+  {
+   "attribute": "slot15",
+   "candidates": {
+    "behaviorModuleSlot15()": 1
+   },
+   "class": "BehaviorModule",
+   "why": "beyond the retail vftable's 12 slots"
+  },
+  {
+   "attribute": "slot16",
+   "candidates": {
+    "behaviorModuleSlot16()": 1
+   },
+   "class": "BehaviorModule",
+   "why": "beyond the retail vftable's 12 slots"
+  },
+  {
+   "attribute": "slot17",
+   "candidates": {
+    "behaviorModuleSlot17()": 1
+   },
+   "class": "BehaviorModule",
+   "why": "beyond the retail vftable's 12 slots"
+  },
+  {
+   "attribute": "slot18",
+   "candidates": {
+    "behaviorModuleSlot18()": 1
+   },
+   "class": "BehaviorModule",
+   "why": "beyond the retail vftable's 12 slots"
+  }
+ ],
+ "size": 16,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "bytes",
+   "member": "behaviorModuleSlot01()"
+  },
+  "10": {
+   "decided_by": "bytes",
+   "member": "behaviorModuleSlot10()"
+  },
+  "11": {
+   "decided_by": "bytes",
+   "member": "behaviorModuleSlot11()"
+  },
+  "2": {
+   "decided_by": "bytes",
+   "member": "behaviorModuleSlot02()"
+  },
+  "3": {
+   "decided_by": "bytes",
+   "member": "behaviorModuleSlot03()"
+  },
+  "4": {
+   "decided_by": "bytes",
+   "member": "behaviorModuleSlot04()"
+  },
+  "5": {
+   "decided_by": "bytes",
+   "member": "behaviorModuleSlot05()"
+  },
+  "6": {
+   "decided_by": "bytes",
+   "member": "behaviorModuleSlot06()"
+  },
+  "7": {
+   "decided_by": "bytes",
+   "member": "behaviorModuleSlot07()"
+  },
+  "8": {
+   "decided_by": "bytes",
+   "member": "behaviorModuleSlot08()"
+  },
+  "9": {
+   "decided_by": "bytes",
+   "member": "behaviorModuleSlot09()"
+  }
+ }
+}

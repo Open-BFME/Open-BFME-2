@@ -26,7 +26,7 @@ enum NameKeyType { NK_UNKNOWN = 0 };
 
 #include "../../../../Include/Common/ObjectModule.h"
 
-class BehaviorModuleInterface {public:virtual void unknownBehaviorSlot()=0;};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class BodyModuleInterface {
 public:virtual void attemptDamage(DamageInfo*)=0;

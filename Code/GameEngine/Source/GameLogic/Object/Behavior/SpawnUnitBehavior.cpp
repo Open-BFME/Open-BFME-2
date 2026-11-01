@@ -89,7 +89,7 @@ public:
 #include "../../AI/WorkOrder.h"
 #include "../../AI/TeamInQueue.h"
 
-class BehaviorModuleInterface { public: virtual void behaviorSlot(); };
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class UpdateModuleInterface { public: virtual void updateSlot(); };
 

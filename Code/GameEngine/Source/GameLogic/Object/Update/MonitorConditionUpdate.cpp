@@ -134,7 +134,7 @@ public:
 	AsciiString m_weaponToggleCommandSet; // +0x68
 };
 
-class BehaviorModuleInterface { public: virtual void behaviorSlot(); };
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 // The primary table starts with the deleting destructor: retail table
 // RVA 0x0084DAD8 slot 0 is the owned callback 0x00491750. Inheriting an
@@ -155,11 +155,6 @@ class BehaviorModuleOther
 	virtual void unused();
 };
 
-class BehaviorModule : public BehaviorModuleBase, public BehaviorModuleOther
-{
-public:
-	BehaviorModule(Thing *thing, const ModuleData *moduleData);
-};
 
 class UpdateModuleInterface { public: virtual UpdateSleepTime update() = 0; };
 

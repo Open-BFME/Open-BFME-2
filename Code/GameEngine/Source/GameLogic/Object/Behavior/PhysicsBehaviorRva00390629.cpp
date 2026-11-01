@@ -93,9 +93,7 @@ class BehaviorModuleOther
 public:
 	virtual void behaviorModuleOtherAnchor();
 };
-class BehaviorModule : public BehaviorModuleBase, public BehaviorModuleOther
-{
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 class UpdateModuleInterface
 {
 public:

@@ -156,11 +156,7 @@ public:
 #include "../../../../Include/Common/Module.h"
 #include "../../../../Include/Common/ObjectModule.h"
 
-class BehaviorModuleInterface
-{
-public:
-	virtual void behaviorModuleInterfaceAnchor();
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 enum UpdateSleepTime
 {
@@ -226,13 +222,6 @@ extern Debug *theDebug;
 
 Bool bfmeRva000387C0(void);
 
-class BehaviorModule
-{
-public:
-	virtual ~BehaviorModule();
-private:
-	unsigned char m_pad04[0x10 - 4];
-};
 
 class UpdateModuleInterface
 {

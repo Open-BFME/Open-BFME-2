@@ -58,11 +58,7 @@ class ModuleData;
 class DamageInfo;
 class Xfer;
 #include "../../../../Include/Common/ObjectModule.h"
-class BehaviorModuleInterface
-{
-public:
-	virtual void behaviorModuleInterfaceAnchor();
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 class DieModuleInterface
 {
 public:

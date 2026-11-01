@@ -24,11 +24,7 @@ struct DamageInfo;
 // CallHelpOnDamage::onDamage 0x004BB547.
 #include "../../../../Include/Common/ObjectModule.h"
 
-class BehaviorModuleInterface
-{
-public:
-	virtual void behaviorModuleInterfaceAnchor();
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class DamageModuleInterface
 {

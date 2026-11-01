@@ -272,7 +272,7 @@ template<> class SiegePhaseSlots<0> {};
 
 class SiegePhaseContain : public SiegePhaseSlots<70> {public:virtual Rva0036AE51ListView slot70()=0;virtual Rva0036AE51ListView slot71()=0;};
 
-struct BehaviorModuleInterface { virtual void f0C(); };
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 struct UpdateModuleInterface
 {
@@ -409,14 +409,6 @@ public:
 
 class ModuleData;
 
-class BehaviorModule
-{
-public:
-	virtual ~BehaviorModule();
-protected:
-	const ModuleData *m_moduleData; // +0x04 +0x04
-	Object *m_object; // +0x08 +0x08
-};
 
 class SiegeDeploySpecialPower : public WeaponModeSpecialPowerUpdateBase
 {

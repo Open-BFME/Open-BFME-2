@@ -27,15 +27,8 @@
 // ??_7EmotionTrackerUpdate@@6BUpdateModule@@@.
 #include "../../../../Include/Common/ObjectModule.h"
 
-class BehaviorModuleInterface
-{
-public:
-	virtual void getBody();
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
-{
-};
 
 enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
 

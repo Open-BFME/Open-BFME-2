@@ -22,20 +22,8 @@ class ModuleData;
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "../../Include/Common/ObjectModule.h"
 
-class BehaviorModuleInterface
-{
-public:
-	virtual void getBody();
-};
+#include "../../Include/GameLogic/Module/BehaviorModule.h"
 
-class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
-{
-public:
-	BehaviorModule(Thing *thing, const ModuleData *moduleData);
-    virtual void *vslot10() { return 0; }
-    virtual void *vslot11() { return 0; }
-	void xfer(Xfer *xfer);
-};
 
 enum SleepyUpdatePhase;
 

@@ -40,25 +40,8 @@ private:
 	unsigned int m_data[2];
 };
 
-class BehaviorModuleInterface
-{
-public:
-	virtual void b0();
-	virtual void b1();
-	virtual void b2();
-	virtual void b3();
-	virtual void b4();
-	virtual void b5();
-	virtual void b6();
-	virtual void b7();
-	virtual void b8();
-	virtual void b9();
-	virtual UpgradeModuleInterface *getUpgrade();
-};
+#include "../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class BehaviorModule : public BfmeObjectModule, public BehaviorModuleInterface
-{
-};
 
 void Rva004CE245(void *p);
 

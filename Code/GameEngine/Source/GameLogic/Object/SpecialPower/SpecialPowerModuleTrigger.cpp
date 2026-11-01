@@ -309,17 +309,8 @@ class SpecialPowerModuleInterface;
 
 #include "../../../../Include/Common/ObjectModule.h"
 
-class BehaviorModuleInterface
-{
-public:
-	virtual void b00(); virtual void b01(); virtual void b02(); virtual void b03();
-	virtual void b04(); virtual void b05(); virtual void b06(); virtual void b07();
-	virtual SpecialPowerModuleInterface *getSpecialPower();
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
-{
-};
 
 class SpecialPowerModuleInterface
 {

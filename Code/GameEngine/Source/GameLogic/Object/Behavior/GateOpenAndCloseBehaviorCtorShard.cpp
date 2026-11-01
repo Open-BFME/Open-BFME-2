@@ -76,20 +76,8 @@ enum UpdateSleepTime;
 class GateOpenAndCloseBehaviorModuleData;
 struct Rva00498DF3Arg;
 
-class BehaviorModuleInterface
-{
-public:
-	virtual void getBehaviorModuleInterface() = 0;
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
-{
-public:
-	BehaviorModule(Thing *thing, const ModuleData *moduleData);
-
-protected:
-	virtual void loadPostProcess();
-};
 
 class UpdateModuleInterface
 {

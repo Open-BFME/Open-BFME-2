@@ -45,11 +45,7 @@ class BehaviorModuleOther
 	virtual void unused();
 };
 
-class BehaviorModule : public BehaviorModuleBase, public BehaviorModuleOther
-{
-public:
-	BehaviorModule(Thing *thing, const ModuleData *moduleData);
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 // BitFlags<11> is DisabledMaskType (BitFlags11DisabilityCtors.cpp); its
 // copy is a 4-byte memcpy call in retail, as its constructors memset.

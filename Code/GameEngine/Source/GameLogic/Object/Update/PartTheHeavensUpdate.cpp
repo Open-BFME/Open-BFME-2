@@ -64,11 +64,7 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class BehaviorModuleInterface
-{
-public:
-	virtual void behaviorSlot();
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class UpdateModuleInterface
 {

@@ -32,11 +32,7 @@ protected:
 
 class BodyModuleInterface;
 
-class BehaviorModuleInterface
-{
-public:
-	virtual BodyModuleInterface *getBody() = 0;
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 #pragma inline_depth(0)
 // A flattened destructor view, not a replacement declaration of BehaviorModule.

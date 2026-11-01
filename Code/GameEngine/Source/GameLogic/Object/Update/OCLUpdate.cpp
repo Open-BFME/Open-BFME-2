@@ -42,7 +42,7 @@ public:
 	unsigned char m_minimum;
 };
 #include "../../../../Include/Common/ObjectModule.h"
-class BehaviorModuleInterface { public: virtual void behaviorSlot(); };
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 enum UpdateSleepTime
 {
 	UPDATE_SLEEP_NONE = 1,

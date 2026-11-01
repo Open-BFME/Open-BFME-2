@@ -380,18 +380,9 @@ struct Coord3D;
 
 class SupplyCenterDockUpdateModuleData;
 
-class BehaviorModuleInterface
-{
-public:
-	virtual void behaviorModuleInterfaceAnchor();
-};
+#include "../../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 // ObjectModule holds m_moduleData at +0x04 and m_object at +0x08.
-class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
-{
-public:
-	virtual ~BehaviorModule();
-};
 
 enum UpdateSleepTime
 {

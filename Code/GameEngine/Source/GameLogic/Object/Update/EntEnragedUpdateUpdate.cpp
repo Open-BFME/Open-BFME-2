@@ -144,11 +144,7 @@ class BodyModuleInterface;
 
 // The constructor installs the shared 0x007EFF90 table at +0x0C. Its
 // first entry is the null-returning getBody used by this same base view.
-class BehaviorModuleInterface
-{
-public:
-	virtual BodyModuleInterface *getBody() { return 0; }
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class UpdateModuleInterface
 {

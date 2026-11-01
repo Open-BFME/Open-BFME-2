@@ -418,20 +418,10 @@ template <int NUMBITS> class BitFlags;
 
 typedef BitFlags<11> DisabledMaskType;
 
-class BehaviorModuleInterface
-{
-public:
-	virtual void getBody() = 0;
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 // Slots 10 and 11 of each module's primary vftable hold 0x000D43D0
 // (xor eax,eax; ret); their names are not recovered.
-class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
-{
-public:
-	virtual void gap10() = 0;
-	virtual void gap11() = 0;
-};
 
 // Retail's UpdateModule-interface vftable (0x00841DF8 for this class) holds
 // update, then UpdateModule's getDisabledTypesToProcess (0x00253376) and

@@ -138,7 +138,7 @@ public:
 	void removeAttributeModifierFromPool(const AsciiString &name);
 };
 
-class BehaviorModuleInterface { public: virtual void behaviorSlot(); };
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class UpdateModuleInterface { public: virtual UpdateSleepTime update(); };
 

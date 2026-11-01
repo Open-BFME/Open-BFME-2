@@ -44,11 +44,7 @@ class Object;
 		return TEXT; \
 	}
 
-class BehaviorModuleInterface
-{
-public:
-	virtual void anchor();
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class UpdateModuleInterface
 {
@@ -89,11 +85,6 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
-{
-public:
-	virtual ~BehaviorModule() {}
-};
 
 class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 {

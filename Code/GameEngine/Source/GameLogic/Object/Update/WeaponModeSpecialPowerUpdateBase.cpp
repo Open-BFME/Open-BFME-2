@@ -89,7 +89,7 @@ struct VirtPrimary
 	virtual const Overridable *f6() const;
 };
 
-class BehaviorModuleInterface { public: virtual void behaviorSlot(); };
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class UpdateModuleInterface { public: virtual void updateSlot(); };
 

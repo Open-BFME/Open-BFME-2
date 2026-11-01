@@ -57,8 +57,7 @@ public:
 };
 
 #include "../../../../../Include/Common/ObjectModule.h"
-class BehaviorModuleInterface { public: virtual void getBody(); };
-class BehaviorModule : public ObjectModule, public BehaviorModuleInterface { };
+#include "../../../../../Include/GameLogic/Module/BehaviorModule.h"
 class UpdateModuleInterface { public: virtual void update(); };
 class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 {

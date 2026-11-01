@@ -29,11 +29,7 @@ protected:
 	const ModuleData *m_moduleData;	// +0x04
 	Object *m_object;		// +0x08
 };
-class BehaviorModuleInterface
-{
-public:
-	virtual void b00() = 0;
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameLogic/Module/BodyModule.h"
 
 class BodyModule : public ModuleBase, public BehaviorModuleInterface, public BodyModuleInterface

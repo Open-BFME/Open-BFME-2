@@ -26,12 +26,7 @@ class BehaviorModuleOther
 	virtual void unused();
 };
 
-class BehaviorModule : public BehaviorModuleBase, public BehaviorModuleOther
-{
-public:
-	BehaviorModule(Thing *thing, const ModuleData *moduleData);
-	const ModuleData *getModuleData() const { return m_moduleData; }
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class UpdateModuleInterface
 {

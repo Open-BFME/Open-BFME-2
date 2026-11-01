@@ -104,11 +104,7 @@ protected:
 	Object *m_object;		// +0x08
 };
 
-class BehaviorModuleInterface
-{
-public:
-	virtual void b00() = 0;
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 // The +0x10 interface (vftable 0x00C5C4B8 in this class): slot 12 places the
 // power at a location.

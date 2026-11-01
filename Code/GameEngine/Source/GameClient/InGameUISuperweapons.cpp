@@ -244,25 +244,10 @@ public:
 	virtual const SpecialPowerTemplate *getSpecialPowerTemplate() const = 0;	// +0x18
 };
 
-class BehaviorModuleInterface
-{
-public:
-	virtual void bmi00() = 0;
-	virtual void bmi04() = 0;
-	virtual void bmi08() = 0;
-	virtual void bmi0C() = 0;
-	virtual void bmi10() = 0;
-	virtual void bmi14() = 0;
-	virtual void bmi18() = 0;
-	virtual void bmi1C() = 0;
-	virtual SpecialPowerModuleInterface *getSpecialPower() const = 0;	// +0x20
-};
+#include "../../Include/GameLogic/Module/BehaviorModule.h"
 
 #include "../../Include/Common/ObjectModule.h"
 
-class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
-{
-};
 
 enum ObjectStatusTypes { OBJECT_STATUS_UNDER_CONSTRUCTION = 2 };
 
