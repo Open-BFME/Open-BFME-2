@@ -78,12 +78,7 @@ enum DistanceCalculationType
 
 #include "../../../Include/Common/TeamBFME2.h"
 
-class AIGroup
-{
-public:
-	bool getCenter(Coord3D *center);	// 0x0036D035
-	void groupEnter(Object *obj, CommandSourceType source);	// 0x00370198
-};
+#include "../../../Include/GameLogic/AIGroup.h"
 
 class AI
 {

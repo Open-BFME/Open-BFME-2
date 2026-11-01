@@ -19,11 +19,7 @@ public:
 	AIGroup *createGroup();
 };
 #include "../../../Include/Common/TeamBFME2.h"
-class AIGroup
-{
-public:
-	void groupHunt(CommandSourceType src);
-};
+#include "../../../Include/GameLogic/AIGroup.h"
 extern ScriptEngine *TheScriptEngine;
 extern AI *TheAI;
 

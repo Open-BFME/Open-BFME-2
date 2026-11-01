@@ -18,11 +18,7 @@ enum CommandSourceType { CMD_FROM_SCRIPT = 1 };
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
-class AIGroup
-{
-public:
-    void groupEvacuate(CommandSourceType);
-};
+#include "../../../Include/GameLogic/AIGroup.h"
 
 class AI
 {

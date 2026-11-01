@@ -29,11 +29,7 @@ public:
     Object *lookupUnitByValue(AsciiString);
 };
 
-class AIGroup
-{
-public:
-    void groupEnter(Object *, CommandSourceType);
-};
+#include "../../../Include/GameLogic/AIGroup.h"
 
 class AI
 {
