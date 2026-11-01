@@ -16201,6 +16201,17 @@ Update (2026-11-01, behavior-module-other-bind): all ten group-1 units
 to `??_7AttributeModifierPoolUpdate@@6BBehaviorModuleOther@@@` (0x00BEFF90), matching
 the converged data ledger symbol and the actual table emitted by `AttributeModifierPoolUpdate.cpp`.
 All ten units now LINK cleanly (0 -> 967 bytes, `link_check.py`).
+Correction (2026-11-01, seat halilkkaya-lk11): that rebind (`f363137e8e`, `aaea1a560e`)
+undid the repair. No object defines `??_7AttributeModifierPoolUpdate@@6BBehaviorModuleOther@@@`
+(index `86db074988`: no comdat or strong entry; the spelling survives only in the generated
+`reverse/data_ledger.csv` names column), while AttributeModifierPoolUpdate.cpp's current object
+emits `??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@` (canonical chain since
+`69d7ea688b`). With current objects all ten units were unresolved again (0 B). They bind the
+`6BBehaviorModuleInterface` name once more, and their comments now say the ledger spelling
+has no definer. `./build.sh` 17/17 rows and 9 data rows; scoped DIR32 OK (65 rows, 31 symbols,
+definer included); `link_check` 0 -> 967 B for the ten units, AttributeModifierPoolUpdate.cpp
+3,869 B unchanged. Pattern: bind an explicit vftable identifier only to a name the definer's
+current object emits (dump its COFF symbols or query the index), never to a data-ledger name.
 Second commit: the four group-1 units above bind the names PoisonedBehavior.cpp,
 Rva0024A797Grandchildren.cpp, BloodthirstyUpdateDtor.cpp and RainOfFireUpdateDtor.cpp
 emit for the same retail tables (0x00C49800, 0x00C49AAC/AB8/AC8, 0x00C54774/780,
