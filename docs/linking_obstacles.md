@@ -16133,8 +16133,8 @@ with a one-slot anchor) by `GameLogic/Module/BehaviorModule.h`. Four mechanisms:
 | BloodthirstyUpdateCtor, RainOfFireUpdateCtor | 250 | 1 | repaired (second commit): `6BObjectModule`/`6BBehaviorModuleInterface` tables their Dtor units emit |
 | BridgeBehaviorCtor, QueueProductionExitUpdateCtor | 302 | 1 | blocked: files held (StarkillerHDX UpdateModule adoption / QueueProductionExitUpdate.cpp TU merge) |
 | UpdateModuleCtor, RunOffMapBehaviorCtor, DamageModuleCtor, SpecialPowerModuleCtor, BodyModuleCtor, FireWeaponCollide | 1,167 | 2 | blocked on the BehaviorModule.h destructor change (`class:BehaviorModule` held by StarkillerHDX); tested proposal below; re_attempts verdicts on the six ctor rows |
-| AIGateUpdateCtor, DestroyEnvironmentUpdateCtor | 132 | 3 (+2) | AIGate corrected by explicit existing destructor declarations (2026-11-01, Cortys); DestroyEnvironment remains separate. Historical held-scope blocker retained below. |
-| AIGateUpdateDtor, DestroyEnvironmentUpdate, Rva0024A797DeletingDtor | 413 | 3 (victims) | AIGate now predicts LINKS; remaining victims need DestroyEnvironment's implicit copies removed |
+| AIGateUpdateCtor, DestroyEnvironmentUpdateCtor | 132 | 3 (+2) | Both corrected by explicit existing destructor declarations (2026-11-01, Cortys). Historical held-scope blocker retained below. |
+| AIGateUpdateDtor, DestroyEnvironmentUpdate, Rva0024A797DeletingDtor | 413 | 3 (victims) | AIGate and DestroyEnvironment now predict LINKS; the common base unit still needs UpdateModuleCtor's implicit copy removed |
 | ReplenishUnitsBehavior, SiegeDockingBehaviorDtor, SpecialPowerModuleDtor_Unresolved, MonitorConditionUpdate, StructureToppleUpdateCtor, AutoPickUpUpdate | 3,940 | 4 | open; several first copies are in held Dtor files |
 
 **AIGate scoped repair (2026-11-01, Cortys):** the constructor now declares the
@@ -16147,6 +16147,16 @@ unit still has another duplicate; no census or shared-header closure is claimed.
 Evidence: `reverse/attempt_support/aigate-destructor-declarations-20261101/`.
 Earlier file reservations prevented this repair; its constructor scope is now
 available and claimed. No claim is taken over from another worker.
+
+**DestroyEnvironment follow-up (2026-11-01, Cortys):** its constructor now has
+the same two out-of-line destructor declarations. Nine strict rows pass; all
+58 retained complete code definitions/relocations are unchanged and four
+implicit definitions disappear. The current five-source preview adds 277
+linking bytes (70 constructor, 207 destructor unit) and retains AIGate's 62.
+The common base unit still has UpdateModuleCtor's copy. The prior AIGate push
+audit remains inconclusive on the older index and an AICowerState_onEnter.cpp
+receipt; carry that broader scope into the next census. Evidence:
+`reverse/attempt_support/destroy-environment-declarations-20261101/`.
 
 Completed: group 1 rebinding of the AttributeModifierPoolUpdate folded table
 (0x00BEFF90) in ten ctor units. `./build.sh` 17/17 rows over the ten files; scoped

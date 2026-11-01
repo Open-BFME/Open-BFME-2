@@ -1,0 +1,13 @@
+{
+  "before_definitions": 62,
+  "after_definitions": 58,
+  "added": [],
+  "removed": [
+    "??1BehaviorModule@@UAE@XZ",
+    "??1DestroyEnvironmentUpdate@@UAE@XZ",
+    "??1UpdateModule@@UAE@XZ",
+    "??_GBehaviorModule@@UAEPAXI@Z"
+  ],
+  "changed": [],
+  "all_retained_whole_code_and_relocations_equal": true
+}

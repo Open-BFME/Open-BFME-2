@@ -1,0 +1,20 @@
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Code/GameEngine/Source/GameLogic/Object/Update/DestroyEnvironmentUpdateCtor.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-11-01 14:31 at 86db074988; file's own bytes 70)
+  duplicate   ??1DestroyEnvironmentUpdate@@UAE@XZ
+  duplicate   ??1UpdateModule@@UAE@XZ
+  comdat      ??_7BehaviorModule@@6BBehaviorModuleInterface@@@  (first: differs from the first copy in link order (no retail address))
+  comdat      ??_7BehaviorModule@@6BObjectModule@@@  (first: differs from the first copy in link order (no retail address))
+  comdat      ??1UpdateModule@@UAE@XZ  (retail: not retail's body)
+  comdat      ??1DestroyEnvironmentUpdate@@UAE@XZ  (retail: not retail's body)
+Code/GameEngine/Source/GameLogic/Object/Update/DestroyEnvironmentUpdate.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-11-01 14:31 at 86db074988; file's own bytes 207)
+  duplicate   ??1DestroyEnvironmentUpdate@@UAE@XZ
+Code/GameEngine/Source/Common/Rva0024A797DeletingDtor.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-11-01 14:31 at 86db074988; file's own bytes 52)
+  duplicate   ??1UpdateModule@@UAE@XZ
+Code/GameEngine/Source/GameLogic/Object/Update/UpdateModuleCtor.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-11-01 14:31 at 86db074988; file's own bytes 61)
+  duplicate   ??1UpdateModule@@UAE@XZ
+  comdat      ??_7BehaviorModule@@6BBehaviorModuleInterface@@@  (first: differs from the first copy in link order (no retail address))
+  comdat      ??_7BehaviorModule@@6BObjectModule@@@  (first: differs from the first copy in link order (no retail address))
+  comdat      ??1UpdateModule@@UAE@XZ  (retail: not retail's body)
+Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateCtor.cpp: LINKS  LINKED 0 -> 62 bytes (census 2026-11-01 14:31 at 86db074988; file's own bytes 62)
+link_check: 1 of 5 link cleanly; LINKED 0 -> 62 bytes (4.1s)

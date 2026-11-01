@@ -43,6 +43,7 @@ class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 
 public:
 	UpdateModule(Thing *thing, const ModuleData *moduleData);
+	virtual ~UpdateModule();
 	virtual void update();
 };
 
@@ -54,6 +55,7 @@ class DestroyEnvironmentUpdate : public UpdateModule
 {
 public:
 	DestroyEnvironmentUpdate(Thing *thing, const ModuleData *moduleData);
+	virtual ~DestroyEnvironmentUpdate();
 
 private:
 	unsigned int m_nextCallFrame;
