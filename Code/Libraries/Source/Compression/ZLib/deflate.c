@@ -151,7 +151,7 @@ local const config configuration_table[10] = {
 #define EQUAL 0
 /* result of memcmp for equal strings */
 
-struct static_tree_desc_s {int dummy;}; /* for buggy compilers */
+ /* for buggy compilers */
 
 /* ===========================================================================
  * Update a hash value with the given input byte

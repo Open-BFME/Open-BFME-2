@@ -81,17 +81,6 @@ struct Rva0010500FDrawData {
  char unknown184[0x1a4-0x184]; void *videoBuffer;
 };
 class Display; extern Display *TheDisplay;
-class Rva0010500FDisplayView {
-public:
-#define V(n) virtual void slot##n();
-#define V10(n) V(n##0) V(n##1) V(n##2) V(n##3) V(n##4) V(n##5) V(n##6) V(n##7) V(n##8) V(n##9)
- V(00) V(01) V(02) V(03) V(04) V(05) V(06) V(07) V(08) V(09)
- V10(1) V10(2) V10(3) V10(4) V10(5)
- V(60) V(61) V(62) V(63) V(64)
-#undef V10
-#undef V
- virtual void drawVideoBuffer(void *,float,float,float,float,Color);
-};
 #include "../../../../../Libraries/Include/Lib/ICoord2D.h"
 class Rva00104DB0
 {

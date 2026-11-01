@@ -428,12 +428,6 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-class W3DQuadrupedDrawModuleData : public W3DModelDrawModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
 struct ParticleSystemView
 {
 	unsigned char m_pad000[0x130];

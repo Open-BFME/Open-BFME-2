@@ -18,14 +18,6 @@
 #include <windows.h>
 
 class Matrix3D;
-class Vector3
-{
-public:
-	float X;
-	float Y;
-	float Z;
-};
-
 #define ROPAD(n) virtual void roPad##n(void)
 class RenderObjClass
 {

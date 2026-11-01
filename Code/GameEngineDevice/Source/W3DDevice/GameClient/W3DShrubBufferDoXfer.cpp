@@ -21,12 +21,6 @@ extern "C" void _ReadWriteBarrier(void);
 // once in Common/GlobalData.cpp. Only the field this body reads is described on a
 // TU-local view; the real class is never redeclared.
 class GlobalData;
-struct Rva000E91CEGlobalData
-{
-	unsigned char m_pad00[0x1c];
-	bool m_flag1c;
-};
-
 extern GlobalData *TheWritableGlobalData;
 
 struct Rva000E91CEData

@@ -897,8 +897,6 @@ void Rva000A92B0SetMatrix(const AptRenderTransform *input);
 
 unsigned long Rva000A90B0(unsigned long color);
 
-class W3DAptRenderer {public:void *__fastcall BeginTriangleList(int count);};
-
 // Native A9192..A91D3 (65B, RET 0), between A90B0 and A91D3: a 2D affine
 // transform of one point (out = M * p + t with a six-float a/b/c/d/tx/ty
 // matrix, the Apt render-transform shape). Retail passes the matrix in EAX,

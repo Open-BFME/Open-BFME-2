@@ -77,12 +77,6 @@ public:
 	void Release_Ref();
 };
 
-class TextureBaseClass
-{
-public:
-	void Release_Ref();
-};
-
 class AssetReference
 {
 public:

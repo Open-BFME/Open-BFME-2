@@ -34,12 +34,6 @@ public:
 	char m_body[0xC4];
 };
 
-class Rva00155AD0
-{
-public:
-	void rva00155AD0();
-};
-
 class GameWindowManager;
 extern GameWindowManager *TheWindowManager;
 

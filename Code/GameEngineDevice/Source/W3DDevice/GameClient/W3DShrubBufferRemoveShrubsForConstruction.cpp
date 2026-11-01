@@ -27,12 +27,6 @@ static inline void setCoord(Coord3D &c, Real nx, Real ny, Real nz)
 
 #include "../../../Include/W3DDevice/GameClient/W3DShrubBuffer.h"
 
-struct SphereClass
-{
-	Vector3 Center;
-	Real Radius;
-};
-
 enum GeometryType
 {
 	GEOMETRY_SPHERE = 0,

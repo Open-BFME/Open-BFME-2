@@ -44,7 +44,6 @@ public:
 struct NativeFrame {int type,unknown04;const char *font;};
 struct NativeFrameList {char unknown00[12];int count;NativeFrame **items;};
 struct NativeAnimation {int unknown00;char *frameList;};
-struct NativeCharacterDefinition {char unknown00[12];NativeAnimation *animation;};
 struct NativeCharacter {char unknown00[12];NativeAnimation *definition;};
 struct TextDefinition {char unknown00[24];int fontIndex;};
 struct TextInstance {char unknown00[12];TextDefinition *definition;char unknown10[20];int color;char unknown28[20];int align;char unknown40[32];int size;int unknown64;Rva006EB4B0 *format;};

@@ -79,7 +79,6 @@ static __forceinline bool isButton(AptCIH *cih){
 class Rva006EBFF0 {public:void rva006EBE60(AptValue*);void rva006EBFF0(AptValue*);};
 class Rva006E1260 {public:void call(void*);};
 class Rva006E9A40List {public:void add(AptCIH*);};
-class Rva006E0DE0 {public:int rva006E0DE0(AptValue*);};
 template<class T>class AptValueSet {public:unsigned short reserved,count;T *items;bool has(T)const;};
 class Rva006E34D0 {public:
  char unknown00[0x20]; AptValueSet<AptValue*> contexts,cihs;

@@ -450,13 +450,6 @@ public:
 	void doTheLight(VERTEX_FORMAT *vb, Vector3 *light, Vector3 *normal, RefRenderObjListIterator *pLightsIterator, UnsignedByte alpha, Bool skipFirstLight);
 };
 
-class Rva0027C36ASix
-{
-public:
-	Rva0027C36ASix();
-	char m_d[6];
-};
-
 // Zero Hour's BridgeInfo.
 class Rva0027C36A
 {

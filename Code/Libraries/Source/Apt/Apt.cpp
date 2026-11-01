@@ -780,18 +780,6 @@ void Rva006CCD90CallFunction(const char *function,char *result,const char *targe
 // there through the EH vector constructor iterator (constructor 0x00013260,
 // destructor 0x000A9DF3), as the 96-handle table above does. Owner and field
 // names are address-derived.
-class Rva006CDB70Owner
-{
-public:
-	Rva006CDB70Owner();
-private:
-	int m_count;
-	int m_used;
-	Rva004A9DF3Element *m_items;
-	Rva004A9DF3Element m_inline[2];
-};
-
-
 // Native6CDA40..6CDB02: Ghidra-unlisted zombie-vector report over the E17714
 // optional value vector (owned above): count line, then for each entry from
 // the last down its CIH name, the instance resource file and size (+34 ->

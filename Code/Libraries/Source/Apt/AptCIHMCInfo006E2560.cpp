@@ -62,7 +62,6 @@ class AptCIH;
 class EAStringC { public: const char *rva00620090() const; unsigned short *data; };
 struct AptFileRecord { int unknown0; int size; EAStringC name; };
 struct AptFileSlot { AptFileRecord *file; };
-struct AptAnimData { char pad[0x34]; AptFileSlot fileSlot; };
 class AptCharacterInst { public: virtual void slot0(); virtual ~AptCharacterInst(); virtual void slot8(); };
 class AptNativeHash { public: void ClearData(); };
 class BfmeAptValue006DCD20 {

@@ -1815,8 +1815,6 @@ void    AptActionInterpreter::_FunctionAptActionEquals2(AptActionInterpreter * c
 
 class Rva8D0D80String;
 class Rva8D0D80Value;
-class Rva8D0D80Table { public: void add(Rva8D0D80String *,Rva8D0D80Value *); };
-
 // Native static helper uses pB in EBX and pA on the stack. MSVC chooses
 // that internal ABI from real C++; branch-local destination binding retains
 // the native predicate/member-address ordering (objects seat scheduling fix).

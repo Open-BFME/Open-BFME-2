@@ -55,10 +55,6 @@ public:
 	T *m_ptr;
 };
 
-class BFME2ParticleTextureHandle : public RefCountPtr<TextureClass>
-{
-};
-
 class SegmentedLineClass
 {
 public:
