@@ -322,6 +322,34 @@ extern InGameUI *TheInGameUI;
 	{ \
 		return m_value; \
 	}
+//
+// ?xfer@SupplyCenterDockUpdate@@MAEXPAVXfer@@@Z, retail 0x004A0E2C, 27 bytes.
+// Virtual slot 3 (offset 0x0C) of vtable 0x00851BDC (class of rowed ctor
+// ??0SupplyCenterDockUpdate@@QAE@PAVThing@@PBVModuleData@@@Z in
+// SupplyCenterDockUpdateConstructor.cpp). Version1 via rowed 0x53EE then base
+// DockUpdate xfer via rowed 0x58A410 (landed this session). Layout is single
+// inheritance from DockUpdate per ZH donor (no adjustment, mov esi ecx plus
+// mov ecx esi shape). Donor is ZH SupplyCenterDockUpdate::xfer (Version plus
+// base). Recipe is DockUpdateXfer slot-3 pattern minus IsLightCRC.
+
+class Snapshot;
+class AsciiString;
+class UnicodeString;
+class PooledString;
+class Coord3DBase;
+struct ICoord3D;
+struct Region3D;
+struct IRegion3D;
+class Coord2D;
+struct ICoord2D;
+struct Region2D;
+struct IRegion2D;
+class RealRange;
+struct RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+struct XferUnknown11;
+#include "../../../../../Include/Common/BfmeXfer.h"
 
 class DockUpdateModuleData
 {
@@ -409,30 +437,6 @@ public:
 	virtual bool isRallyPointAfterDockType() = 0;
 };
 
-class DockUpdate : public UpdateModule, public DockUpdateInterface
-{
-public:
-	virtual UpdateSleepTime update();
-protected:
-	virtual void xfer(Xfer *xfer);
-};
-
-class SupplyCenterDockUpdate : public DockUpdate
-{
-public:
-	SupplyCenterDockUpdate(Thing *thing, const ModuleData *moduleData);
-	virtual ~SupplyCenterDockUpdate();
-	virtual bool action(Object *, Object *);
-	virtual NameKeyType getModuleNameKey() const;
-	virtual UpdateSleepTime update();
-	SupplyCenterDockUpdateModuleData *getSupplyCenterDockUpdateModuleData() const
-	{
-		return (SupplyCenterDockUpdateModuleData *)m_moduleData;
-	}
-protected:
-	virtual void xfer(Xfer *xfer);
-};
-
 BFME_DISP8_BYTE_GETTER(Rva004A0DF8ByteField, 0x66)
 
 class Rva001DCD05
@@ -490,9 +494,43 @@ private:
 
 class Rva003B0D7C;
 
+class DockUpdate : public UpdateModule, public DockUpdateInterface
+{
+public:
+	virtual UpdateSleepTime update();
+protected:
+	virtual void xfer(Xfer *xfer);
+};
+
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *name);
+};
+
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+class SupplyCenterDockUpdate : public DockUpdate
+{
+public:
+	SupplyCenterDockUpdate(Thing *thing, const ModuleData *moduleData);
+	virtual ~SupplyCenterDockUpdate();
+	virtual bool action(Object *, Object *);
+	virtual NameKeyType getModuleNameKey() const;
+	virtual UpdateSleepTime update();
+	SupplyCenterDockUpdateModuleData *getSupplyCenterDockUpdateModuleData() const
+	{
+		return (SupplyCenterDockUpdateModuleData *)m_moduleData;
+	}
+protected:
+	virtual void xfer(Xfer *xfer);
+};
+
 // tu-skeleton: 0x004A0DAC 27B ?buildFieldParse@SupplyCenterDockUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp (not merged yet)
 
 // tu-skeleton: 0x004A0DC7 49B ??0SupplyCenterDockUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdateConstructor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdate.cpp
 
@@ -608,18 +646,6 @@ bool SupplyCenterDockUpdate::action(Object *docker, Object *drone)
 	return false;
 }
 
-// tu-skeleton: 0x004A0DFC 10B ?setDockOpen@DockUpdate@@UAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/RailedTransportDockUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x004A0E06 6B ?Rva004A0E06Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x004A0E0C 32B ??1Rva004A0E0C@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0058A0F4Derived.cpp (not merged yet)
-
-// tu-skeleton: 0x004A0E2C 27B ?xfer@SupplyCenterDockUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdateXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x004A0E4C 69B ?getModuleNameKey@SupplyCenterDockUpdate@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/SupplyCenterDockUpdatePoolKey.cpp (not merged yet)
-
-// tu-skeleton: 0x004A0E91 28B ??_GRva004A0E0C@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0058A0F4Derived.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdateModuleDataCtor.cpp
 
 SupplyCenterDockUpdateModuleData::SupplyCenterDockUpdateModuleData()
@@ -653,6 +679,28 @@ UpdateSleepTime SupplyCenterDockUpdate::update()
 	return result;
 }
 
-// tu-skeleton: 0x0078DB19 13B $L310 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/SupplyCenterDockUpdatePoolKey.cpp (not merged yet)
+// tu-skeleton: 0x004A0DFC 10B ?setDockOpen@DockUpdate@@UAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/RailedTransportDockUpdate.cpp (not merged yet)
 
-// tu-skeleton: 0x0078DB26 10B __ehhandler$?getModuleNameKey@SupplyCenterDockUpdate@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/SupplyCenterDockUpdatePoolKey.cpp (not merged yet)
+// tu-skeleton: 0x004A0E06 6B ?Rva004A0E06Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x004A0E0C 32B ??1Rva004A0E0C@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0058A0F4Derived.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdateXfer.cpp
+
+void SupplyCenterDockUpdate::xfer(Xfer *xfer)
+{
+	xfer->Version1();
+	DockUpdate::xfer(xfer);
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/SupplyCenterDockUpdatePoolKey.cpp
+
+// ?getModuleNameKey@SupplyCenterDockUpdate@@UBE?AW4NameKeyType@@XZ
+NameKeyType SupplyCenterDockUpdate::getModuleNameKey() const
+{
+	static NameKeyType TheSupplyCenterDockUpdatePoolKey =
+		TheNameKeyGenerator->nameToKey("SupplyCenterDockUpdate");
+	return TheSupplyCenterDockUpdatePoolKey;
+}
+
+// tu-skeleton: 0x004A0E91 28B ??_GRva004A0E0C@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0058A0F4Derived.cpp (not merged yet)

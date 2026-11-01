@@ -20247,8 +20247,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A03B88,4,.data,global,?TheRadarUpdatePoolKey@?1??getModuleNameKey@RadarUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/RadarUpdate.cpp,owned,,1,2
 0x00A03B8C,4,.data,global,?$S1@?1??getModuleNameKey@RadarUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/RadarUpdate.cpp,owned,,1,2
 0x00A03B90,4,.data,global,_s_rva007B19A9,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
-0x00A03B94,4,.data,global,?TheSupplyCenterDockUpdatePoolKey@?1??getModuleNameKey@SupplyCenterDockUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/SupplyCenterDockUpdatePoolKey.cpp,owned,,1,2
-0x00A03B98,4,.data,global,?$S1@?1??getModuleNameKey@SupplyCenterDockUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/SupplyCenterDockUpdatePoolKey.cpp,owned,,1,4
+0x00A03B94,4,.data,global,?TheSupplyCenterDockUpdatePoolKey@?1??getModuleNameKey@SupplyCenterDockUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdate.cpp,owned,,1,2
+0x00A03B98,4,.data,global,?$S1@?1??getModuleNameKey@SupplyCenterDockUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdate.cpp,owned,,1,4
 0x00A03B9C,4,.data,global,?TheRepairDockUpdatePoolKey@?1??getModuleNameKey@RepairDockUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/RepairDockUpdate.cpp,owned,,1,2
 0x00A03BA0,4,.data,global,?$S1@?1??getModuleNameKey@RepairDockUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/RepairDockUpdate.cpp,owned,,1,2
 0x00A03BA4,4,.data,global,?TheMonsterDockUpdatePoolKey@?1??getModuleNameKey@MonsterDockUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/MonsterDockUpdatePoolKey.cpp,owned,,1,2
