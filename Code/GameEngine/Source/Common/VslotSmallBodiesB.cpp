@@ -102,7 +102,6 @@ class Rva00314C93
 public:
 	void rva00314C93(Int, UnicodeString text, Int, Int, Int, Int, Int);
 };
-void Rva00314C93::rva00314C93(Int, UnicodeString, Int, Int, Int, Int, Int) {}
 
 // vtable 0x00C363C8#0: SyncRegion 0x003EF08B (WorldBuilder name, its
 // __FUNCTION__ string "LivingWorldRegionEffectsManager::SyncRegion") on this with the first of three arguments.
