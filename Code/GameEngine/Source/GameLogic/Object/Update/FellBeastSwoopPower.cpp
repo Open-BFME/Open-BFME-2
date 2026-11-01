@@ -20,63 +20,7 @@ typedef void (*INIFieldParseProc)(INI *, void *, void *, const void *);
 
 #include "../../../../Include/Common/INI/FieldParse.h"
 
-class INI
-{
-public:
-	void initFromINIMultiProc(void *what, void (__cdecl *proc)(MultiIniFieldParse &));
-public:
-	static void parseAudioEventRTS(INI *ini, void *instance, void *store, const void *userData);
-public:
-	static void parseAsciiString(INI *, void *, void *, const void *);
-public:
-	static void parseBool(INI *, void *, void *, const void *);
-public:
-	static void parseFXList(INI *, void *, void *, const void *);
-public:
-	static void parseInt(INI *, void *, void *, const void *);
-public:
-	static void parseReal(INI *, void *, void *, const void *);
-public:
-	static void parsePercentToReal(INI *, void *, void *, const void *);
-public:
-	static void parseDurationUnsignedInt(INI *, void *, void *, const void *);
-public:
-	static void parseWeaponTemplate(INI *, void *, void *, const void *);
-public:
-	static void parseCoord3D(INI *, void *, void *, const void *);
-public:
-	static void parseAsciiStringVectorAppend(INI *, void *, void *, const void *);
-public:
-	static void parseSpecialPowerTemplate(INI *, void *, void *, const void *);
-public:
-	static void parseDamageTypeFlags(INI *, void *, void *, const void *);
-public:
-	static void parseUnsignedInt(INI *, void *, void *, const void *);
-public:
-	static void parseObjectCreationList(INI *, void *, void *, const void *);
-public:
-	static void parseAsciiStringVector(INI *, void *, void *, const void *);
-public:
-	static void Rva004B2B64_ParseReplaceObject(INI *, void *, void *, const void *);
-public:
-	static void iniParseAnim(INI *, void *, void *, const void *);
-public:
-	static void parseDurationReal(INI *, void *, void *, const void *);
-public:
-	static void parseUpgradeTemplate(INI *, void *, void *, const void *);
-public:
-	static void iniParseAnimAndDuration(INI *, void *, void *, const void *);
-public:
-	static void dup_002F02F(INI *, void *, void *, const void *);
-public:
-	static void parseBitString32(INI *, void *, void *, const void *);
-public:
-	static void parseIndexList(INI *, void *, void *, const void *);
-public:
-	static void parseParticleSystemTemplate(INI *, void *, void *, const void *);
-public:
-	static void parseScience(INI *, void *, void *, const void *);
-};
+#include "../../../../Include/Common/INI/INI.h"
 
 void Rva000B9468Parse(INI *, void *, void *, const void *);
 

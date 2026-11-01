@@ -17,12 +17,7 @@ class INI;
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
 #include "../../../../Include/Common/INI/FieldParse.h"
 
-class INI
-{
-public:
-	static void parseCoord3D(INI *ini, void *instance, void *store, const void *userData);
-	static void parseWeaponTemplate(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../../Include/Common/INI/INI.h"
 
 // Retail VA 0x00BEF20C (.rdata): 2 field records and a zero sentinel.
 extern const FieldParse g_00BEF20C[] = {

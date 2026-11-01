@@ -34,11 +34,7 @@ public:
 	virtual NameKeyType getModuleNameKey() const;
 };
 
-class INI
-{
-public:
-	const char *getNextTokenOrNull(const char *seps = 0);
-};
+#include "../../../../Include/Common/INI/INI.h"
 
 // The retail table at RVA 0x009CF7E8: 2 string pointers.
 extern const char *g_00DCF7E8[2] = { "TARGETPOS", "OBJECTPOS" };
