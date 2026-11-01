@@ -68,49 +68,9 @@ public:
 	virtual void onSlaverDie(const DamageInfo *damageInfo);
 };
 
-class BehaviorModuleFirstBase
-{
-public:
-	virtual void firstBase00();
-private:
-	char m_firstPad[8];
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class BehaviorModuleSecondBase
-{
-public:
-	virtual void unused00();
-	virtual void unused01();
-	virtual void unused02();
-	virtual void unused03();
-	virtual void unused04();
-	virtual void unused05();
-	virtual void unused06();
-	virtual void unused07();
-	virtual void unused08();
-	virtual void unused09();
-	virtual void unused10();
-	virtual void unused11();
-	virtual void unused12();
-	virtual void unused13();
-	virtual void unused14();
-	virtual void unused15();
-	virtual void unused16();
-	virtual void unused17();
-	virtual void unused18();
-	virtual void unused19();
-	virtual void unused20();
-	virtual void unused21();
-	virtual void unused22();
-	virtual void unused23();
-	virtual void unused24();
-	virtual void unused25();
-	virtual SlavedUpdateInterface *getSlavedUpdateInterface();
-};
 
-class BehaviorModule : public BehaviorModuleFirstBase, public BehaviorModuleSecondBase
-{
-};
 
 class Object
 {
@@ -192,7 +152,7 @@ void SpawnBehavior::onDie(const DamageInfo *damageInfo)
 		{
 			for (BehaviorModule **update = currentSpawn->m_behaviorModules; *update; ++update)
 			{
-				SlavedUpdateInterface *sdu = (*update)->getSlavedUpdateInterface();
+				SlavedUpdateInterface *sdu = static_cast<SlavedUpdateInterface *>((*update)->slot26());
 				if (sdu != NULL)
 				{
 					sdu->onSlaverDie(damageInfo);

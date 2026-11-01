@@ -86,17 +86,8 @@ private:
 
 extern GameLogic *TheGameLogic;
 
-class BehaviorModule
-{
-public:
-	virtual ~BehaviorModule();
-protected:
-	Object *getObject() const { return m_object; }
-	const ModuleData *m_moduleData;           // +0x04
-	Object *m_object;                         // +0x08
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class BehaviorModuleInterface { public: virtual void behaviorModuleInterfaceAnchor(); };
 
 class CollideModuleInterface
 {
@@ -104,7 +95,7 @@ public:
 	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal) = 0;
 };
 
-class HordeMemberCollide : public BehaviorModule, public BehaviorModuleInterface, public CollideModuleInterface
+class HordeMemberCollide : public BehaviorModule, public CollideModuleInterface
 {
 public:
 	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal);
