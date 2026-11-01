@@ -1973,6 +1973,16 @@ rename, not a per-class adoption: 696 ledger rows in files that include
 `Lib/Coord3D.h` carry U-keyed `Coord3D` names and stop building until they
 are renamed with the header.
 
+2026-11-01 follow-up (Cortys): the six remaining Coord3D queue sources were
+tested through the supported adoption dry run; none passed. The current
+matrix private trial also proves that a preceding class forward declaration
+does not retain V-key mangling once the canonical struct definition is seen.
+The weapon wrapper cannot simply replace its custom constructor with a POD or
+existing constructor-companion return object: the resulting 45--63-byte
+temporary/copy paths differ from native's 30-byte direct result construction.
+No source, header, contract or queue row was changed. Complete scoped verdicts
+and prerequisites: `reverse/attempt_support/coord3d-header-prerequisites-20261101/`.
+
 The second queued unit, `W3DViewGetAxisAlignedViewRegion.cpp`, does compose
 with `Region3D.h` (the two units' views dedupe and the file compiles), but the
 canonical header's user-provided default constructor, copy constructor and

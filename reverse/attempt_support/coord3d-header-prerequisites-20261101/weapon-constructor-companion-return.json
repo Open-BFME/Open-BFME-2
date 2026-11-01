@@ -1,0 +1,12 @@
+{
+  "rows": 1,
+  "matched": 0,
+  "errors": [],
+  "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\tu_skeleton\\da0a215b1d1c2591.obj",
+  "misses": [
+    [
+      "?bfmeGetLOSVictimPos@Weapon@@QBE?AUCoord3D@@PBVObject@@0H@Z",
+      "0x002CB65B"
+    ]
+  ]
+}

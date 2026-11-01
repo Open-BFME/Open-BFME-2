@@ -1,0 +1,41 @@
+{
+  "variant": "class-forward-canonical",
+  "rows": 24,
+  "matched": 14,
+  "errors": [],
+  "misses": [
+    [
+      "?GetXVector@Matrix4D@@QBEAAVCoord3D@@AAV2@@Z",
+      "0x00004BBF"
+    ],
+    [
+      "?GetYVector@Matrix4D@@QBEAAVCoord3D@@AAV2@@Z",
+      "0x00004BD6"
+    ],
+    [
+      "?GetZVector@Matrix4D@@QBEAAVCoord3D@@AAV2@@Z",
+      "0x00004BEE"
+    ],
+    [
+      "?RotateCoord@Matrix4D@@QAEAAVCoord3D@@ABV2@AAV2@@Z",
+      "0x00004753"
+    ],
+    [
+      "?TransformCoord@Matrix4D@@QAEAAVCoord3D@@ABV2@AAV2@@Z",
+      "0x000046BD"
+    ],
+    [
+      "??0Matrix4D@@QAE@ABVCoord3D@@@Z",
+      "0x00005BB8"
+    ],
+    [
+      "?GetTranslationVector@Matrix4D@@QBEAAVCoord3D@@AAV2@@Z",
+      "0x0009314A"
+    ],
+    [
+      "?Set@Matrix4D@@QAEAAV1@ABVCoord3D@@@Z",
+      "0x00005BB8"
+    ]
+  ],
+  "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\tu_skeleton\\6090f8671326ecc8.obj"
+}

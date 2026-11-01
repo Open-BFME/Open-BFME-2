@@ -1,0 +1,26 @@
+[
+  {
+    "verdict_prefix": "  FAIL Code/GameEngine/Source/Common/Coord3DCopy.cpp: symbol dependencies: coordinated adoption also requires Code/Libraries/Source/WWVegas/WWLib/StlportVectorRva00601A3A.cpp; reconcile these callers/providers in the same verified batch",
+    "source_path_mentions": 2
+  },
+  {
+    "verdict_prefix": "  FAIL Code/GameEngine/Source/Common/Rva0055A246Ctor.cpp: symbol dependencies: coordinated adoption also requires Code/GameEngine/Source/Common/AIBaseBuilder.cpp, Code/GameEngine/Source/Common/AIBuildable.cpp, Code/GameEngine/Source/Common/",
+    "source_path_mentions": 2294
+  },
+  {
+    "verdict_prefix": "  FAIL Code/GameEngine/Source/GameLogic/Object/Weapon_bfmeGetLOSVictimPos.cpp: Code\\GameEngine\\Source\\GameLogic\\Object\\Weapon_bfmeGetLOSVictimPos.cpp(17) : error C2511: 'Coord3D::Coord3D(WeaponTemplate *,const Object *,const Object *,int)' ",
+    "source_path_mentions": 1
+  },
+  {
+    "verdict_prefix": "  FAIL Code/Libraries/Source/WWVegas/WWMath/coord3d.cpp: symbol dependencies: coordinated adoption also requires Code/GameEngine/Source/Common/AIBaseBuilder.cpp, Code/GameEngine/Source/Common/AIBuildable.cpp, Code/GameEngine/Source/Common/A",
+    "source_path_mentions": 2294
+  },
+  {
+    "verdict_prefix": "  FAIL Code/Libraries/Source/WWVegas/WWMath/coord3d_crossproduct.cpp: Code\\Libraries\\Source\\WWVegas\\WWMath\\coord3d_crossproduct.cpp(12) : error C2039: 'CrossProduct' : is not a member of 'Coord3D'",
+    "source_path_mentions": 1
+  },
+  {
+    "verdict_prefix": "  FAIL Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp: symbol dependencies: coordinated adoption also requires Code/GameEngine/Source/Common/AIBaseBuilder.cpp, Code/GameEngine/Source/Common/AIBuildable.cpp, Code/GameEngine/Source/Common/",
+    "source_path_mentions": 2294
+  }
+]
