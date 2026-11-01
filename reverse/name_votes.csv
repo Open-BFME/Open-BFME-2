@@ -20881,3 +20881,16 @@ Code/GameEngine/Source/Common/GapThunksSeat8.cpp|function|0x002C7515|Rva002C7515
 Code/GameEngine/Source/Common/Gen004502D0ParserRegistrationCtor.cpp|class||Gen004502D0ParserRegistration,5a58710dc91c744ed242b323,claude-haiku-5-5,drz-k9-n33e2-review,w-2a58b1ead41e,2026-11-01
 Code/GameEngine/Source/Common/Gen004502D0ParserRegistrationCtor.cpp|member|Gen004502D0ParserRegistration|m_0c,55d10ee5ee04d93a53fcdc53,claude-haiku-5-5,drz-k9-n33e2-review,w-2a58b1ead41e,2026-11-01
 Code/GameEngine/Source/Common/Gen00528EC0Rva003F2968.cpp|function|0x003F2968|rva003F2968,f4976c0ba956af84ad16f315,claude-haiku-5-5,drz-k9-n33e2-review,w-2a58b1ead41e,2026-11-01
+Code/GameEngine/Source/Common/GlobalFloatGetters.cpp|function|0x000D1A9A|Rva000D1A9AGet,30a9eb02b830d593f7d5e315,claude-haiku-5-5,drz-k3-n33f2-review,w-a3d394d58042,2026-11-01
+Code/GameEngine/Source/Common/INI/INIAllocListParsers.cpp|member|Rva0048E022Member|m_14,c12602ab7c07240c29741088,claude-haiku-5-5,drz-k3-n33f2-review,w-a3d394d58042,2026-11-01
+Code/GameEngine/Source/Common/INI/INIAllocListParsers.cpp|member|Rva0048E022Member|m_18,6f24c80de34a2d7af401a8d8,claude-haiku-5-5,drz-k3-n33f2-review,w-a3d394d58042,2026-11-01
+Code/GameEngine/Source/Common/INI/INIAllocListParsers.cpp|member|Rva0048E022Member|m_20,2332e17a0f17d310b463297c,claude-haiku-5-5,drz-k3-n33f2-review,w-a3d394d58042,2026-11-01
+Code/GameEngine/Source/Common/INI/INIAllocListParsers.cpp|member|Rva0048E022Member|m_24,1975e0d83b4934b25373a083,claude-haiku-5-5,drz-k3-n33f2-review,w-a3d394d58042,2026-11-01
+Code/GameEngine/Source/Common/INI/INIAllocListParsers.cpp|member|Rva0048E022Member|m_2C,49b39d6bd633745e20b35270,claude-haiku-5-5,drz-k3-n33f2-review,w-a3d394d58042,2026-11-01
+Code/GameEngine/Source/Common/INI/INIAllocListParsers.cpp|member|Rva0048E022Member|m_30,9fe75b6fcd361ad51939f5c4,claude-haiku-5-5,drz-k3-n33f2-review,w-a3d394d58042,2026-11-01
+Code/GameEngine/Source/Common/INI/INIAudioTokenParsers.cpp|class||Rva00339235Value,28b4a6b40c1c8c4a57f25480,claude-haiku-5-5,drz-k3-n33f2-review,w-a3d394d58042,2026-11-01
+Code/GameEngine/Source/Common/INI/INIAudioTokenParsers.cpp|function|0x003393DF|Rva003393DFParse,bde02be6556883bb8451e3d6,claude-haiku-5-5,drz-k3-n33f2-review,w-a3d394d58042,2026-11-01
+Code/GameEngine/Source/Common/INI/INIAudioTokenParsers.cpp|function|0x003393F7|Rva003393F7Parse,508f06e71a156ba686d0b0e2,claude-haiku-5-5,drz-k3-n33f2-review,w-a3d394d58042,2026-11-01
+Code/GameEngine/Source/Common/INI/INIInlineTableParsers.cpp|class||Rva0045A22EQuery,a79dd6696271083d2483ac64,claude-haiku-5-5,drz-k3-n33f2-review,w-a3d394d58042,2026-11-01
+Code/GameEngine/Source/Common/INI/INIInlineTableParsers.cpp|function|0x0033A49B|Rva0033A49B_ParseDecal,ef993c845932d707de10c02b,claude-haiku-5-5,drz-k3-n33f2-review,w-a3d394d58042,2026-11-01
+Code/GameEngine/Source/Common/io_open.cpp|member|BfmeTagVIF|m_bfme08,16548cfffafe6c31f105eb96,claude-haiku-5-5,drz-k3-n33f2-review,w-a3d394d58042,2026-11-01
