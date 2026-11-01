@@ -30,6 +30,8 @@ typedef unsigned int UnsignedInt;
 #include "Lib/Coord3D.h"
 
 #include "../../../../Libraries/Include/Lib/Region3D.h"
+#include "../../Common/GameLogicObjectLookupView.h"
+#include "../../Common/PartitionRangeQueryCallView.h"
 
 // LINK: TU-local no-Z containment test (identical inlined bytes); the canonical
 // Region3D::isInRegionNoZ's out-of-line copy loses to the first-in-link-order copy.
@@ -72,7 +74,6 @@ public:
 };
 extern TerrainLogic *TheTerrainLogic;
 
-#include "../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 
 typedef void FILE;
@@ -91,7 +92,6 @@ __forceinline long fast_float2long_round(float f) { long i; __asm { fld [f] } __
 
 #define DOCKING_TRACE (g_bfmeDockingTraceActive && *(const Int *)((const char *)TheGameLogic + 0x1b4) > 0 && theLogicRandomLogFile)
 
-#include "../../Common/PartitionRangeQueryCallView.h"
 Bool PartitionManager::findPositionAround( const Coord3D *center,
 	const FindPositionOptions *options,
 	Coord3D *result )
