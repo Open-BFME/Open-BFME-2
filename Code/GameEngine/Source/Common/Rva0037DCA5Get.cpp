@@ -16,11 +16,6 @@ public:
 	const ThingTemplate *findTemplate(const AsciiString &key);
 };
 extern class ThingFactory *TheThingFactory;
-struct Rva0037DCA5Template
-{
-	char m_pad[0x618];
-	int m_cost;
-};
 class Rva0037DCA5
 {
 	char m_pad0[4];

@@ -67,11 +67,6 @@ private:
 	Rva003FB793Inner *m_p08;
 };
 
-class LivingWorldEyeTower
-{
-    void rva003F936E(Rva003F936EHost *host, float *f);
-};
-
 // BFME1 1399ad37 BfmeConv1318.cpp supplies the snapshot-before-write
 // shape. Native three MOVSS loads precede all stores, so an aliased output
 // cannot overwrite another source component before it is sampled. The first

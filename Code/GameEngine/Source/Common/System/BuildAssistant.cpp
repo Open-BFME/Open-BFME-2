@@ -2571,12 +2571,6 @@ public:
 
 typedef void (*IterateFootprintFunc)(const Coord3D*,void*);
 
-class Rva00525479
-{
-public:
-	int compareRecords(Rva00525119 *a, Rva00525119 *b);
-};
-
 // --- 0x00525489 / 0x005254A7 (30B each): vtables 0x00C6ECB4 / 0x00C67E80
 // over a cleared word and a copied pair.
 struct GapPair
@@ -2589,16 +2583,6 @@ struct GapPair
 // (+0x1110 cleared, +0x87 / +0x88 set, +0x86 cleared) and the rowed
 // 0x004128E8 flag.
 class GlobalData;
-
-struct Rva003B9CDFGlobalData
-{
-	char m_pad[0x86];
-	bool m_liveCampaignMode;
-	bool m_hideLivingWorldRegions;
-	bool m_livingWorldTurbo;
-	char m_pad89[0x1110 - 0x89];
-	bool m_1110;
-};
 
 void Rva004128E8SetFlag();
 
@@ -2638,32 +2622,6 @@ class CommandSet;
 
 // --- 0x003F7209 (78B): vtable 0x00C370D4 over the argument and 9999 / 0
 // defaults.
-struct GapWordBase04
-{
-	int m_04;
-	GapWordBase04(int a) : m_04(a) {}
-};
-
-class Rva003F7209 : public GapWordBase04
-{
-public:
-	Rva003F7209(int a);
-	virtual ~Rva003F7209() {}
-private:
-	float m_08;
-	float m_0C;
-	float m_10;
-	float m_14;
-	float m_18;
-	int m_1C;
-	int m_20;
-	int m_24;
-	int m_28;
-	float m_2C;
-	int m_30;
-	float m_34;
-};
-
 // --- 0x00319A52 (78B): "Small" / "Medium" / "Large" select 1 / 2 / 3
 // (rowed 0x00318BC6).
 class Rva00318BC6Owner
@@ -2689,12 +2647,6 @@ private:
 // the queue (+0x12028 / +0x1202C) is non-empty, else frames since the
 // earliest of the eight active (+0x04) slots' times (+0x12060).
 class GameLogic;
-
-struct Rva004CFC81Logic
-{
-	char m_pad[0x40];
-	unsigned int m_frame;
-};
 
 class Rva004CFC81
 {

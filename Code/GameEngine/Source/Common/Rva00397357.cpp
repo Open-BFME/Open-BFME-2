@@ -32,18 +32,6 @@ static __forceinline Object *findByID(ObjectID id)
 	return TheGameLogic->findObjectByID(id);
 }
 
-class MidHelper003972D3
-{
-public:
-	virtual void s00();
-	virtual void s01();
-	virtual void s02();
-	virtual bool s03();
-	virtual void s04();
-	virtual void s05();
-	virtual class Object *s06();
-};
-
 class Rva003972D3
 {
 public:

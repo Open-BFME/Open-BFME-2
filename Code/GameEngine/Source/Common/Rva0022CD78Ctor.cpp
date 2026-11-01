@@ -11,11 +11,6 @@
 // is the scalar deleting dtor at 0x0022CDBE; retail pushes
 // (0x62ca3b, 0x62cd65, 2, 0x10, this+0xC); helper ret 0x14 (stdcall,
 // 5 args); address-derived.
-class BFME2NativeNetwork
-{
-public:
-};
-
 // 0x001B4E63 is the rowed SubsystemInterface ctor.
 #include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
 

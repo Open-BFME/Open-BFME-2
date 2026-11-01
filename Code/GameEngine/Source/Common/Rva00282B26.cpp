@@ -16,15 +16,6 @@ public:
  void **end;
 };
 class Rva004DFAB3 { public: bool rva004DFAB3(void *key, void *candidate); };
-class Rva00282B26
-{
-public:
- int rva00282B26(void *key);
-private:
- char pad0[0x10]; Rva002829BD **m_begin; Rva002829BD **m_end;
- char pad18[8]; Rva00282B26Callback m_callback;
-};
-
 // Native 4DFE4F..4DFEC8 repeats the matched282B26 nested scan.
 // Target fields and predicate are identical; only the first-match group
 // callback moves to4DFCE6. Its indirect cdecl callback and ret8 establish

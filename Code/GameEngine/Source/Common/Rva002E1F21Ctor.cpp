@@ -23,11 +23,6 @@ _Vector_base<BfmeE16, allocator<BfmeE16> >::~_Vector_base() {
 }
 }
 
-class BFME2NativeNetwork
-{
-public:
-};
-
 // 0x001B4E63 is the rowed SubsystemInterface ctor.
 #include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
 

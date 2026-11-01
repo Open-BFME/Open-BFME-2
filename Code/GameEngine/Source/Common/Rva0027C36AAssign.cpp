@@ -59,11 +59,3 @@ Rva0027C36A &Rva0027C36A::operator=(const Rva0027C36A &other)
 // preceding rowed deleting destructor ends at 00087AB9, and the following
 // independent rowed pair-copy begins at 00087AC9. The original owner and
 // member name are unknown; this view describes only the consumed prefix.
-class Rva00087AB9
-{
-public:
-	Rva0027C36A &rva00087AB9(Rva0027C36A *destination);
-private:
-	unsigned char m_beforeRecord[0x0C];
-	Rva0027C36A m_record;
-};

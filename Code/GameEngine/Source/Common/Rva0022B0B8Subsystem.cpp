@@ -48,11 +48,6 @@ template <> void **vector<void*>::begin();
 template <> void **vector<void*>::end();
 }
 
-class BFME2NativeNetwork
-{
-public:
-};
-
 // Retail base construction and cleanup use the shared fourteen-slot interface.
 typedef bool Bool;
 #include "subsystem_interface.h"

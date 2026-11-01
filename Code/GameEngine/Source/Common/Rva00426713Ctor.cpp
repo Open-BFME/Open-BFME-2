@@ -4,11 +4,6 @@
 extern "C" const void *const __identifier("??_7Rva00426745@@6BSubsystemInterface@@@")[];
 extern "C" const void *const __identifier("??_7Rva00426745@@6BRva00426745SnapshotBase@@@")[];
 
-class BFME2NativeNetwork
-{
-public:
-};
-
 // 0x001B4E63 is the rowed SubsystemInterface ctor.
 #include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
 

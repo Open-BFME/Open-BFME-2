@@ -13,11 +13,6 @@
 // bfme link decl-only BfmeE16
 namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
 
-class BFME2NativeNetwork
-{
-public:
-};
-
 // Rowed SubsystemInterface ctor/dtor; the destructor view has this same
 // twelve-byte base and a single virtual destructor slot.
 #include "../../../Libraries/Source/subsystem/SubsystemInterface.h"

@@ -289,19 +289,6 @@ private:
 extern AI *TheAI;
 
 // The pair OpenContain hands its list reader (see OpenContainRva00464286.cpp).
-struct Rva0046247DPair
-{
-	void *present;
-	struct CopyValue *source;
-};
-
-class Rva0046247D
-{
-public:
-	void *rva0046247D(Rva0046247DPair &result);
-};
-
-
 class TransportContainModuleData
 {
 public:
@@ -408,10 +395,3 @@ void TransportContain::rva0046740C()
 // and -0x18 owner loads. Retail calls slot 60 before checking the three
 // 28-byte rider-kind masks, then sets owner condition 18, 19 or 20. These
 // offsets and the control flow are target facts; the hook's name is unknown.
-class Rva0046731A : public ContainSlots<60>
-{
-public:
-	virtual void slot60();
-	void rva0046731A(Object *rider);
-};
-

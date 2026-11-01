@@ -58,11 +58,6 @@ extern "C" void _ReadWriteBarrier(void);
 struct Rva0041EFE0Element { char bytes[1]; bool operator<(const Rva0041EFE0Element &) const; bool operator==(const Rva0041EFE0Element &) const; };
 namespace _STL { template<> struct hash<Rva0041EFE0Element> { unsigned operator()(const Rva0041EFE0Element &) const; }; }
 
-class BFME2NativeNetwork
-{
-public:
-};
-
 // 0x001B4E63 is the rowed SubsystemInterface ctor.
 #include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
 

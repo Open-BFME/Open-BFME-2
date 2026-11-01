@@ -1,9 +1,4 @@
 // cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
-class Rva004362B0StrideAdd {
-public:
-    static void add(int *value, int index);
-};
-
 // BF1 9cbfb551fe Rva002DF9B0Advance/Rva002DFC10Advance and
 // Rva002E3220Advance/Rva002E3F50Advance are current clean donor leads.
 // Native33174B..331759 and333366..333374 are independently complete

@@ -13,11 +13,6 @@
 #include <stdlib.h>
 #undef _CRTIMP
 
-struct Rva0022C8FBElem
-{
-	void *m_next;
-};
-
 struct Rva0022CC67BucketHandle
 {
 	~Rva0022CC67BucketHandle()

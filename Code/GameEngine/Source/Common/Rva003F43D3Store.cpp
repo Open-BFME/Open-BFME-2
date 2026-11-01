@@ -3,11 +3,6 @@
 class LivingWorldLogic; extern LivingWorldLogic *TheLivingWorldLogic;
 class LivingWorldManager; extern LivingWorldManager *TheLivingWorldManager;
 
-class Rva00DFE1C8Host {
-public:
-	void rva00213171(int a, void *p, int b);
-};
-
 // 0x00213171 is rowed as LivingWorldManager::CreateBeaconObject (623B; WB
 // twin B602E0) - same (int, Coord2D*, int) shape with the 8-byte m_28 as
 // the coord, so this resolves to the rowed body instead of the unrowed

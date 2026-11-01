@@ -38,11 +38,6 @@ private:
 };
 
 // LANGameSlot's copy assignment, rowed under its address name (0x00447B58).
-struct Rva00447B0E
-{
-    struct Rva00447B0E &rva00447B58(const struct Rva00447B0E &o);
-};
-
 enum
 {
     MAX_SLOTS = 8
