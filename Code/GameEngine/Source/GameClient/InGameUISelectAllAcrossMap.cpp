@@ -102,14 +102,7 @@ extern GameClient *TheGameClient;
 
 class GameMessage;
 
-class MessageStream
-{
-public:
-	V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7)
-	V(8) V(9) V(10) V(11) V(12) V(13) V(14) V(15)
-	V(16) V(17)
-	virtual GameMessage *appendMessage(int type) = 0; // slot 18
-};
+#include "../../Include/Common/MessageStream.h"
 
 extern MessageStream *TheMessageStream;
 

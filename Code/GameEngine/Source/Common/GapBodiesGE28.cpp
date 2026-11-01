@@ -233,22 +233,8 @@ int Rva005279C7::rva005279C7() const
 // --- 0x00527D8F (78B) / 0x00527DDD (40B) / 0x00527E05 (78B): button
 // callbacks that, for a local player in state 2 (+0x750), queue message
 // 0x46B / 0x46D / 0x46A and (except 0x46D) a 0x469 message carrying 0, 2.
-class GameMessage
-{
-public:
-	void appendIntegerArgument(int value);					// 0x0030F936
-};
+#include "../../Include/Common/MessageStream.h"
 
-class MessageStream
-{
-public:
-	virtual void slot00(); virtual void slot04(); virtual void slot08(); virtual void slot0C();
-	virtual void slot10(); virtual void slot14(); virtual void slot18(); virtual void slot1C();
-	virtual void slot20(); virtual void slot24(); virtual void slot28(); virtual void slot2C();
-	virtual void slot30(); virtual void slot34(); virtual void slot38(); virtual void slot3C();
-	virtual void slot40(); virtual void slot44();
-	virtual GameMessage *appendMessage(int type);
-};
 
 extern MessageStream *TheMessageStream;
 

@@ -13,21 +13,8 @@
 
 extern GameLogic *TheGameLogic;
 
-class GameMessage
-{
-public:
-	void appendIntegerArgument(int arg);	// rowed 0x0030F936
-};
+#include "../../Include/Common/MessageStream.h"
 
-class MessageStream
-{
-public:
-#define V(n) virtual void v##n();
-	V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9)
-	V(10) V(11) V(12) V(13) V(14) V(15) V(16) V(17)
-#undef V
-	virtual GameMessage *appendMessage(int type);	// slot 18
-};
 extern MessageStream *TheMessageStream;
 
 class ConnectionManager

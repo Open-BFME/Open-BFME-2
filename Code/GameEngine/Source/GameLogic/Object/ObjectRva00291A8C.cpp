@@ -165,14 +165,7 @@ class Rva002D9508 {public:void rva002D9508(const void*);};
 class Object; class Player; class RadarWindowOverrideSource;
 class PlayerList { public: char pad[0x10]; Player *local; };
 extern PlayerList *ThePlayerList;
-class GameMessage { public: enum Type { TYPE_VIEW=0 }; void appendObjectIDArgument(ObjectID); };
-class MessageStream { public:
- virtual void s00(); virtual void s04(); virtual void s08(); virtual void s0c();
- virtual void s10(); virtual void s14(); virtual void s18(); virtual void s1c();
- virtual void s20(); virtual void s24(); virtual void s28(); virtual void s2c();
- virtual void s30(); virtual void s34(); virtual void s38(); virtual void s3c();
- virtual void s40(); virtual void s44(); virtual GameMessage *appendMessage(GameMessage::Type);
-};
+#include "../../../Include/Common/MessageStream.h"
 extern MessageStream *TheMessageStream;
 struct Rva002D76C6Owner;
 class Radar { public: void removeObject(Rva002D76C6Owner *); };

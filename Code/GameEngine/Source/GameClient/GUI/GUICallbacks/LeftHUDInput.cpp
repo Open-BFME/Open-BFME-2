@@ -64,12 +64,7 @@ public:
 	Int m_20;
 };
 
-class GameMessage
-{
-public:
-	enum Type { MSG_DO_MOVETO = 0x42F, MSG_DO_ATTACKMOVETO = 0x430 };
-	void appendLocationArgument(const Coord3D &location);
-};
+#include "../../../../Include/Common/MessageStream.h"
 
 bool pickAndPlayUnitVoiceResponse(const DrawableList *list, GameMessage::Type msgType, PickAndPlayInfo *info);
 
@@ -150,16 +145,6 @@ public:
 	virtual Int evaluateContextCommand(Drawable *draw, const Coord3D *pos, CommandEvaluateType type);   // +0x48
 };
 
-class MessageStream
-{
-public:
-	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
-	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
-	virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
-	virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
-	virtual void v16(); virtual void v17();
-	virtual GameMessage *appendMessage(GameMessage::Type type);           // +0x48
-};
 
 class View
 {

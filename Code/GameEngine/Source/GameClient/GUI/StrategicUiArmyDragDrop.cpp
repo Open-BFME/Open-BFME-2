@@ -34,27 +34,7 @@ template<class Iter>void _M_assign_aux(Iter,Iter,const forward_iterator_tag&);
 struct _Rb_tree_node_base {int color;_Rb_tree_node_base*parent,*left,*right;};
 template<class Dummy>struct _Rb_global {static _Rb_tree_node_base*_M_increment(_Rb_tree_node_base*);};
 }
-class GameMessage {public:void appendIntegerArgument(int);};
-class MessageStream {public:
-virtual void slot00();
-virtual void slot01();
-virtual void slot02();
-virtual void slot03();
-virtual void slot04();
-virtual void slot05();
-virtual void slot06();
-virtual void slot07();
-virtual void slot08();
-virtual void slot09();
-virtual void slot0a();
-virtual void slot0b();
-virtual void slot0c();
-virtual void slot0d();
-virtual void slot0e();
-virtual void slot0f();
-virtual void slot10();
-virtual void slot11();
-virtual GameMessage*appendMessage(int);};
+#include "../../../Include/Common/MessageStream.h"
 extern MessageStream*TheMessageStream;
 struct Rva005FSelectionView {char unknown[16];_STL::_Rb_tree_node_base*root;int count;char comparatorStorage[4];};
 // WorldBuilder StrategicInGameUI::SendSwapArmyMembersMessage, WB VA 0x015FEE20 (callgraph lead, score 2.0).

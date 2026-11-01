@@ -275,36 +275,9 @@ struct LivingWorldLogicObserverView
 	Rva002B7250 m_autoResolveObservers;	// +0x2C
 };
 
-class GameMessage
-{
-public:
-	void appendIntegerArgument(int arg);
-};
+#include "../../../../Include/Common/MessageStream.h"
 
 // MessageStreamSubsystem (0x00A00950); appendMessage is vslot 18.
-class MessageStream
-{
-public:
-	virtual void m00();
-	virtual void m01();
-	virtual void m02();
-	virtual void m03();
-	virtual void m04();
-	virtual void m05();
-	virtual void m06();
-	virtual void m07();
-	virtual void m08();
-	virtual void m09();
-	virtual void m10();
-	virtual void m11();
-	virtual void m12();
-	virtual void m13();
-	virtual void m14();
-	virtual void m15();
-	virtual void m16();
-	virtual void m17();
-	virtual GameMessage *appendMessage(int type);
-};
 extern MessageStream *TheMessageStream;
 
 // The frames between two reinforcement steps (0x00E06780). Zero at load; retail

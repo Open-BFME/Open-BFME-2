@@ -133,24 +133,8 @@ private:
 	Object *m_object;
 };
 
-class GameMessage
-{
-public:
-	enum Type { MSG_CREATE_SELECTED_GROUP = 0x3E9 };
-	void appendBooleanArgument(bool arg);
-	void appendObjectIDArgument(ObjectID arg);
-};
+#include "../../Include/Common/MessageStream.h"
 
-class MessageStream
-{
-public:
-#define V(n) virtual void r##n() = 0;
-	V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7)
-	V(8) V(9) V(10) V(11) V(12) V(13) V(14) V(15)
-	V(16) V(17)
-#undef V
-	virtual GameMessage *appendMessage(GameMessage::Type type) = 0;
-};
 
 extern class MessageStream *TheMessageStream;
 

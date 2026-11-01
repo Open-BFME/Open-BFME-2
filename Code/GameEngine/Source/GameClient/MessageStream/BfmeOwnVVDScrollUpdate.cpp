@@ -41,14 +41,7 @@ inline float sqr(float x)
 
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
 
-class GameMessage
-{
-public:
-	void appendIntegerArgument(int arg);
-	void appendRealArgument(float arg);
-	void appendLocationArgument(const Coord3D &arg);
-	void appendPixelArgument(const ICoord2D &arg);
-};
+#include "../../../Include/Common/MessageStream.h"
 
 class BfmeViewLocation
 {
@@ -138,14 +131,6 @@ public:
 	virtual unsigned int getHeight(); // +0x44
 };
 
-class MessageStream
-{
-public:
-	virtual void v00(); virtual void v04(); virtual void v08(); virtual void v0C(); virtual void v10(); virtual void v14();
-	virtual void v18(); virtual void v1C(); virtual void v20(); virtual void v24(); virtual void v28(); virtual void v2C();
-	virtual void v30(); virtual void v34(); virtual void v38(); virtual void v3C(); virtual void v40(); virtual void v44();
-	virtual GameMessage *appendMessage(int type); // +0x48
-};
 
 class Rva002D3627Host
 {

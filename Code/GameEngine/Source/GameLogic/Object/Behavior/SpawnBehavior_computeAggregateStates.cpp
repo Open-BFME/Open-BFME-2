@@ -56,23 +56,8 @@ typedef float Real;
 
 #include "../../../Common/GameLogicObjectLookupView.h"
 
-class GameMessage
-{
-public:
-	void appendBooleanArgument(Bool arg);
-	void appendObjectIDArgument(ObjectID arg);
-};
+#include "../../../../Include/Common/MessageStream.h"
 
-class MessageStream
-{
-public:
-#define MS_SLOT(n) virtual void messageStreamSlot##n();
-	MS_SLOT(00) MS_SLOT(01) MS_SLOT(02) MS_SLOT(03) MS_SLOT(04) MS_SLOT(05)
-	MS_SLOT(06) MS_SLOT(07) MS_SLOT(08) MS_SLOT(09) MS_SLOT(10) MS_SLOT(11)
-	MS_SLOT(12) MS_SLOT(13) MS_SLOT(14) MS_SLOT(15) MS_SLOT(16) MS_SLOT(17)
-#undef MS_SLOT
-	virtual GameMessage *appendMessage(Int type);
-};
 extern class MessageStream *TheMessageStream;
 
 #include "../../../../Include/GameClient/Drawable.h"

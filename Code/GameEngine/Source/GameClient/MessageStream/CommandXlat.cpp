@@ -43,15 +43,7 @@ class PickAndPlayInfo { public:
 typedef _STL::list<Drawable*> SelectedDrawableList;
 union GameMessageArgumentType { int integer; unsigned drawableID; ICoord2D pixel; IRegion2D pixelRegion; Coord3D location; };
 #include "../../Common/GameLogicObjectLookupView.h"
-class GameMessage { public:
- enum Type { MSG_INVALID=0, MSG_CREATE_SELECTED_GROUP=0x3e9 };
- char pad00[0x10]; Type m_type;
- Type getType() const { return m_type; }
- const GameMessageArgumentType* getArgument(int) const;
- void appendIntegerArgument(int);
- void appendBooleanArgument(bool); void appendObjectIDArgument(ObjectID);
- void appendLocationArgument(const struct Coord3D&);
-};
+#include "../../../Include/Common/MessageStream.h"
 enum GameMessageDisposition { KEEP_MESSAGE, DESTROY_MESSAGE };
 enum CommandEvaluateType { DO_COMMAND, DO_HINT, DO_EVALUATE };
 class AudioEventRTS { public: AudioEventRTS(const AsciiString&,int); ~AudioEventRTS(); void* m_vftable; char opaque04[0x6c]; };
@@ -240,25 +232,6 @@ public:
  bool getInputEnabled() const;
  bool rva0043EC00() const;
  void rva0043CEC0();
-
-};
-class MessageStream {
-public:
-    virtual void slot00(); // vtable +0x0
-    virtual void slot01(); // vtable +0x4
-    virtual void slot02(); // vtable +0x8
-    virtual void slot03(); // vtable +0xC
-    virtual void slot04(); // vtable +0x10
-    virtual void slot05(); // vtable +0x14
-    virtual void slot06(); // vtable +0x18
-    virtual void slot07(); // vtable +0x1C
-    virtual void slot08(); // vtable +0x20
-    virtual void slot09(); // vtable +0x24
-    virtual void slot0A(); // vtable +0x28
-    virtual void slot0B(); // vtable +0x2C
-    virtual void slot0C(); // vtable +0x30
-    virtual void slot0D(); virtual void slot0E(); virtual void slot0F(); virtual void slot10(); virtual void slot11();
-    virtual GameMessage* appendMessage(GameMessage::Type); // vtable +0x48
 
 };
 class GameClient {

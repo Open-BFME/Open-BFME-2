@@ -103,27 +103,7 @@ void Rva005F5537::rva005F5537(){
  }
 }
 
-class GameMessage {public:void appendIntegerArgument(int);};
-class MessageStream {public:
-virtual void slot00();
-virtual void slot01();
-virtual void slot02();
-virtual void slot03();
-virtual void slot04();
-virtual void slot05();
-virtual void slot06();
-virtual void slot07();
-virtual void slot08();
-virtual void slot09();
-virtual void slot0a();
-virtual void slot0b();
-virtual void slot0c();
-virtual void slot0d();
-virtual void slot0e();
-virtual void slot0f();
-virtual void slot10();
-virtual void slot11();
-virtual GameMessage*appendMessage(int);};
+#include "../../../../Include/Common/MessageStream.h"
 extern MessageStream*TheMessageStream;
 // WorldBuilder StrategicInGameUI::SendSwapArmyMembersMessage; rowed at 0x005E5DF5 in StrategicUiArmyDragDrop.cpp.
 namespace StrategicInGameUI {

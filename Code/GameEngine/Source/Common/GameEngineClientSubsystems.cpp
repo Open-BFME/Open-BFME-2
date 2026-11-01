@@ -77,13 +77,7 @@ public:
     ClientSubsystem m_update;
 };
 
-class MessageStream
-{
-public:
-	void propagateMessages(void);
-	MessageStream();
-	char m_pad00[0x20];
-};
+#include "../../Include/Common/MessageStream.h"
 
 class BFMEDesyncCheck
 {

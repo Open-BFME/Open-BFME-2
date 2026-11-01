@@ -89,23 +89,8 @@ public:
 };
 extern LanguageFilter *TheLanguageFilter;
 
-class GameMessage
-{
-public:
-	enum Type { MSG_REMOVE_BEACON = 0x445, MSG_SET_BEACON_TEXT = 0x446 };
-	void appendWideCharArgument(const WideChar &arg);
-};
+#include "../../../../Include/Common/MessageStream.h"
 
-class MessageStream
-{
-public:
-	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
-	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
-	virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
-	virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
-	virtual void v16(); virtual void v17();
-	virtual GameMessage *appendMessage(GameMessage::Type type);           // +0x48
-};
 extern class MessageStream *TheMessageStream;
 
 class GameWindowManager

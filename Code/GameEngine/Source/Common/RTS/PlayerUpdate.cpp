@@ -226,21 +226,7 @@ public:
 	virtual void update();
 };
 
-class GameMessage
-{
-public:
-	enum Type { MSG_ENABLE_RETALIATION_MODE = 0x462 };
-	void appendIntegerArgument(Int arg);
-	void appendBooleanArgument(Bool arg);
-};
-class MessageStream
-{
-public:
-#define V(n) virtual void slot##n();
-	V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9) V(10) V(11) V(12) V(13) V(14) V(15) V(16) V(17)
-#undef V
-	virtual GameMessage *appendMessage(GameMessage::Type);
-};
+#include "../../../Include/Common/MessageStream.h"
 extern MessageStream *TheMessageStream;
 
 class ScoreKeeper

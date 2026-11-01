@@ -92,18 +92,8 @@ private:
 	bool m_selected; // +0x43C +0x43C
 };
 
-class GameMessage
-{
-public:
-	void appendBooleanArgument(bool arg);	// 0x0030F963
-	void appendObjectIDArgument(ObjectID id);	// 0x0030F979
-};
+#include "../../../../Include/Common/MessageStream.h"
 
-class MessageStream : public Rva0047E5D4Slots<18>
-{
-public:
-	virtual GameMessage *appendMessage(int type);	// +0x48
-};
 extern MessageStream *TheMessageStream;
 
 #include "../../../../Include/GameClient/InGameUI.h"

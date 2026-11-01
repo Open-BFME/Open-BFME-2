@@ -27,36 +27,8 @@ class GameWindow;
 enum { GWM_CHAR = 0x15 };
 enum { KEY_ESC = 0x01 };
 
-class GameMessage
-{
-public:
-	enum Type { MSG_DESTROY_SELECTED_GROUP = 0x3EC };
-	void appendBooleanArgument( bool arg );
-};
+#include "../../../../Include/Common/MessageStream.h"
 
-class MessageStream
-{
-public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
-	virtual void slot06();
-	virtual void slot07();
-	virtual void slot08();
-	virtual void slot09();
-	virtual void slot10();
-	virtual void slot11();
-	virtual void slot12();
-	virtual void slot13();
-	virtual void slot14();
-	virtual void slot15();
-	virtual void slot16();
-	virtual void slot17();
-	virtual GameMessage *appendMessage( GameMessage::Type type );	// slot 18
-};
 extern MessageStream *TheMessageStream;
 
 #include "../../../../Include/GameClient/InGameUI.h"

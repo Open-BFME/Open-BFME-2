@@ -221,25 +221,9 @@ public:
 
 extern NetworkInterface *TheNetwork;
 
-class GameMessage
-{
-public:
-	void appendIntegerArgument(int arg);
-	void appendBooleanArgument(bool arg);
-};
+#include "../../../../../Include/Common/MessageStream.h"
 
 // TheMessageStream (0x00A00950); appendMessage is vslot 18.
-class MessageStream
-{
-public:
-#define MSG_SLOT(N) virtual void slot##N();
-	MSG_SLOT(00) MSG_SLOT(01) MSG_SLOT(02) MSG_SLOT(03) MSG_SLOT(04)
-	MSG_SLOT(05) MSG_SLOT(06) MSG_SLOT(07) MSG_SLOT(08) MSG_SLOT(09)
-	MSG_SLOT(10) MSG_SLOT(11) MSG_SLOT(12) MSG_SLOT(13) MSG_SLOT(14)
-	MSG_SLOT(15) MSG_SLOT(16) MSG_SLOT(17)
-#undef MSG_SLOT
-	virtual GameMessage *appendMessage(int type);
-};
 
 extern MessageStream *TheMessageStream;
 

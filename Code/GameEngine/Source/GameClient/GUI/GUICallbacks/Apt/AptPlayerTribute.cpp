@@ -81,14 +81,7 @@ class AptTributeWindowManager {public:
 #undef W
  virtual int winSetFocus(GameWindow*);
 };
-class GameMessage {public:void appendIntegerArgument(int);};
-class MessageStream {public:
-#define M(n) virtual void slot##n();
- M(0) M(1) M(2) M(3) M(4) M(5) M(6) M(7) M(8) M(9)
- M(10) M(11) M(12) M(13) M(14) M(15) M(16) M(17)
-#undef M
- virtual GameMessage *appendMessage(int);
-};
+#include "../../../../../Include/Common/MessageStream.h"
 extern MessageStream *TheMessageStream;
 void Rva0050F5A6::rva0050EB0A(const char *unused){
  reinterpret_cast<AptTributeWindowManager*>(TheWindowManager)->winSetFocus(0);

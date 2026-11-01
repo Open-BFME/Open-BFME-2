@@ -104,21 +104,7 @@ UnicodeString GadgetTextEntryGetText(GameWindow *textEntry);
 void GadgetTextEntrySetText(GameWindow *textEntry, UnicodeString text);
 // Runs a console command line.
 void Rva00060820(const char *command);
-class GameMessage
-{
-public:
-	void appendIntegerArgument(int value);
-};
-class MessageStream
-{
-public:
-#define STREAM_SLOT(N) virtual void slot##N();
-	STREAM_SLOT(00) STREAM_SLOT(01) STREAM_SLOT(02) STREAM_SLOT(03) STREAM_SLOT(04) STREAM_SLOT(05)
-	STREAM_SLOT(06) STREAM_SLOT(07) STREAM_SLOT(08) STREAM_SLOT(09) STREAM_SLOT(10) STREAM_SLOT(11)
-	STREAM_SLOT(12) STREAM_SLOT(13) STREAM_SLOT(14) STREAM_SLOT(15) STREAM_SLOT(16) STREAM_SLOT(17)
-#undef STREAM_SLOT
-	virtual GameMessage *appendMessage(int type);
-};
+#include "../../../../../Include/Common/MessageStream.h"
 extern class MessageStream *TheMessageStream;
 class LanguageFilter
 {

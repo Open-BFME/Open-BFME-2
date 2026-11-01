@@ -259,43 +259,12 @@ private:
 // and postProcessLoad in slot 3 (+0xC) for every subsystem GameClient::init
 // creates, GameClient::reset calls reset in slot 9 (+0x24) and its vftable
 // 0x007ED850 keeps update in slot 10. setName is the out-of-line 0x0006F3CC.
-class SubsystemInterface
-{
-public:
-	SubsystemInterface();
-	virtual ~SubsystemInterface();
-	virtual void init() = 0;
-	virtual bool loadIniFilesFromLegend();
-	virtual void postProcessLoad();
-	virtual bool vslot04(int);
-	virtual bool vslot05();
-	virtual void draw();
-	virtual void vslot07(int);
-	virtual void vslot08();
-	virtual void reset() = 0;                                                 // +0x24
-	virtual void update() = 0;                                                // +0x28
-	virtual bool vslot11(int);
-	virtual void vslot12();
-	virtual void vslot13(int);
-
-	void setName(AsciiString name);
-
-private:
-	unsigned char m_bfmeBasePad[8];
-};
+#include "../../Include/Common/MessageStream.h"
 
 typedef unsigned int TranslatorID;
 enum { TRANSLATOR_ID_INVALID = -1 };
 
 // ZH MessageStream.h GameMessage: only the type GameClient returns.
-class GameMessage
-{
-public:
-	enum Type
-	{
-		MSG_INVALID = 0
-	};
-};
 
 // ZH CommandXlat.h CommandTranslator: the context-command evaluator
 // GameClient slot 18 forwards to (retail 0x00429E11).
@@ -1069,13 +1038,6 @@ public:
 	virtual GameMessageDisposition translateGameMessage(const GameMessage *msg);
 };
 
-class MessageStream
-{
-public:
-	TranslatorID attachTranslator(GameMessageTranslator *translator, unsigned int priority);
-	GameMessageTranslator *findTranslator(TranslatorID id);
-	void removeTranslator(TranslatorID id);
-};
 
 // The object owned at +0x13C: ctor 0x0023A128, dtor 0x00239D7A, and the
 // owning slot's reset 0x0023A053, each landed under its own placeholder.
