@@ -55,14 +55,7 @@ template<> void _STL::list<BfmePod12>::push_back(const BfmePod12 &);
 template<> void _STL::_List_base<int,_STL::allocator<int> >::clear();
 class GameEngineDeletingBase { public: virtual ~GameEngineDeletingBase(); private: char unknown04[8]; };
 enum ObjectStatusTypes { OBJECT_STATUS_58 = 0x58 };
-class Object {
-public:
-    bool testStatus(ObjectStatusTypes) const;
-    unsigned char isEffectivelyDead() const { return m_privateStatus & 1; }
-public:
-    unsigned char unknown000[0x438];
-    unsigned char m_privateStatus; // +0x438
-};
+#include "../Object/object.h"
 class DelayedExperienceLevelGrantSystem : public GameEngineDeletingBase, public Snapshot {
 public:
     virtual void xfer(Xfer *);

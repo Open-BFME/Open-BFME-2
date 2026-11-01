@@ -10,9 +10,7 @@ class Drawable;
 
 #include "../../../GameEngine/Source/Common/Thing/thing.h"
 
-class Object : public Thing
-{
-};
+#include "../../../GameEngine/Source/GameLogic/Object/object.h"
 
 class Rva0055A88BDwordField
 {

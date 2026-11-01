@@ -69,14 +69,7 @@ struct Rva005D75BEMask
 	unsigned int m_bits[7];
 };
 
-class Object
-{
-public:
-	Player *getControllingPlayer() const;	// 0x0028AFA9
-	const Coord3D *getPosition() const { return &m_pos; }
-	char m_pad000[0x38];
-	Coord3D m_pos;		// +0x38
-};
+#include "../../Object/object.h"
 
 #include "../../../Common/PartitionRangeQueryCallView.h"
 

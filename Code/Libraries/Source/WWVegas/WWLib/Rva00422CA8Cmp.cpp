@@ -15,12 +15,7 @@
 
 #include "../../../../GameEngine/Source/Common/GameLogicObjectLookupView.h"
 
-class Object
-{
-public:
-	char m_pad0[4];
-	void *m_template; // +0x04 template pointer
-};
+#include "../../../../GameEngine/Source/GameLogic/Object/object.h"
 
 extern GameLogic *TheGameLogic;
 

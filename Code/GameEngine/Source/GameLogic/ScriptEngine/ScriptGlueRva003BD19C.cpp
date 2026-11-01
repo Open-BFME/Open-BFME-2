@@ -15,13 +15,7 @@
 
 class Parameter;
 class Drawable;
-class Object
-{
-public:
-	Drawable *getDrawable() const;
-	char m_pad[0x74];
-	ObjectID m_id; // +0x74
-};
+#include "../Object/object.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;

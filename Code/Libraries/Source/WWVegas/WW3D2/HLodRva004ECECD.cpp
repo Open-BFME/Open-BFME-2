@@ -51,20 +51,7 @@ class AIUpdateInterface;
 enum KindOfType;
 struct AITacticAssistTemplate;
 struct Coord3D;
-class Object
-{
-public:
-	bool isKindOf(KindOfType) const;
-	Object *rva0028ACA0() const;
-	char m_pad00[0x4];
-	AITacticAssistTemplate *m_template; // +0x04
-	char m_pad08[0x30];
-	Coord3D position; // +0x38
-	char m_pad44[0x214];
-	AIUpdateInterface *m_ai; // +0x258
-	char m_pad25C[0xA8];
-	int m_commandTag; // +0x304
-};
+#include "../../../../GameEngine/Source/GameLogic/Object/object.h"
 
 template<class OBJCLASS>
 class DLINK_ITERATOR

@@ -25,11 +25,7 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_NONE = 0
 };
 
-class Object
-{
-public:
-	void setStatus(ObjectStatusTypes status, bool set);
-};
+#include "../Object/object.h"
 
 #include "../../../Include/Common/TeamBFME2.h"
 #include "../../../Include/GameLogic/ScriptEngine.h"

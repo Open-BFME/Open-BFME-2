@@ -37,11 +37,7 @@ public:
 	Int m_color;	// +0x280
 };
 
-class Object
-{
-public:
-	Player *getControllingPlayer() const;
-};
+#include "../../../../../../GameEngine/Source/GameLogic/Object/object.h"
 
 struct Rva000B8FA1Drawable
 {

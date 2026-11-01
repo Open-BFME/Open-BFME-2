@@ -100,13 +100,7 @@ public:
 	Coord3D toRight;
 };
 
-class Object
-{
-public:
-	const Matrix3D *getTransformMatrix() const { return &m_transform; }
-	char m_pad00[0x08];
-	Matrix3D m_transform;
-};
+#include "../../../../../../GameEngine/Source/GameLogic/Object/object.h"
 
 #include "../../../../../../GameEngine/Include/GameClient/Drawable.h"
 

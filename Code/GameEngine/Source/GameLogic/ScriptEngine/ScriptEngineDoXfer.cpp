@@ -161,13 +161,7 @@ struct BfmeStringRecord00204A30
 	~BfmeStringRecord00204A30();
 };
 
-class Object
-{
-	char m_pad[0x74];
-public:
-	ObjectID m_id;
-	ObjectID getID() const { return m_id; }
-};
+#include "../Object/object.h"
 
 // Retail clears m_namedObjects through the folded eight-byte-pair range erase
 // at 0x00207F0D, rowed as vector<FXBoneInfo>::erase in FXBoneInfoVectorErase.cpp.

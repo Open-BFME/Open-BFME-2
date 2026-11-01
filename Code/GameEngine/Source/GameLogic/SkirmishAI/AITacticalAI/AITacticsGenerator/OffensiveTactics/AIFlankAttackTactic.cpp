@@ -56,11 +56,7 @@ class Xfer;
 
 class Player;
 
-class Object
-{
-public:
-	Player *getControllingPlayer() const;
-};
+#include "../../../../Object/object.h"
 
 class GameSlot
 {

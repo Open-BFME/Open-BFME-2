@@ -21,14 +21,7 @@ public:
 	OBJCLASS *cur() const { return m_cur; }
 };
 
-class Object
-{
-public:
-	AIUpdateInterface *getAIUpdateInterface() const
-	{
-		return *(AIUpdateInterface **)((const char *)this + 0x258);
-	}
-};
+#include "../Object/object.h"
 
 enum CommandSourceType
 {

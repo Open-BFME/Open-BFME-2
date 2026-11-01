@@ -32,9 +32,7 @@ public:
 
 #include "../../Common/Thing/thing.h"
 
-class Object : public Thing
-{
-};
+#include "../Object/object.h"
 
 #include "../../../Include/GameClient/Drawable.h"
 

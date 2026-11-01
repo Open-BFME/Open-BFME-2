@@ -188,11 +188,7 @@ public:
 };
 extern PlayerList *ThePlayerList;
 
-class Object
-{
-public:
-	Player *getControllingPlayer() const;
-};
+#include "../../../../GameEngine/Source/GameLogic/Object/object.h"
 
 class ThingTemplate
 {

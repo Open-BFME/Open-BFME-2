@@ -56,11 +56,7 @@ public:
 
 #include "../../../../../Include/Common/Player.h"
 
-class Object
-{
-public:
-	Player *getControllingPlayer() const;	// 0x0028AFA9
-};
+#include "../../../Object/object.h"
 
 class Waypoint
 {

@@ -32,12 +32,7 @@ public:
 };
 extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
 
-class Object
-{
-public:
-	unsigned char m_pad000[0x438];
-	unsigned char m_privateStatus;	// +0x438
-};
+#include "../../../../../../GameEngine/Source/GameLogic/Object/object.h"
 
 #include "../../../../../../GameEngine/Include/GameClient/Drawable.h"
 
