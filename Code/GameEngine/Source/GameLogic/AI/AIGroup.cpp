@@ -1213,18 +1213,7 @@ public:
 	float rva002627E8() const;
 };
 
-class BodyModuleInterface {
-public:
-	virtual void s00();
-	virtual void s01();
-	virtual void s02();
-	virtual void s03();
-	virtual void s04();
-	virtual void s05();
-	virtual void s06();
-	virtual void s07();
-	virtual int getDamageState();
-};
+#include "../../../Include/GameLogic/Module/BodyModule.h"
 
 class GlobalData {
 public:

@@ -37,17 +37,7 @@ enum
 	DAMAGE_HEALING = 7,
 	DEATH_NONE = 1
 };
-class BodyModuleInterface
-{
-public:
-	virtual void slot00();
-	virtual void attemptHealing(DamageInfo *damageInfo);
-	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
-	virtual Real getMaxHealth() const;
-};
+#include "../../../Include/GameLogic/Module/BodyModule.h"
 #define TheGlobalData TheWritableGlobalData
 #define _STLP_NO_EXCEPTIONS 1
 // LINK: single-node insert binds the verified native STLport owner at RVA

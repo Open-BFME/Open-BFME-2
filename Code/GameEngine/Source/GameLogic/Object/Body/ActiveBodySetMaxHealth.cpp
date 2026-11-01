@@ -21,21 +21,7 @@ enum MaxHealthChangeType
 	FULLY_HEAL,
 };
 
-class BodyModuleInterface
-{
-public:
-	virtual void pad00(); virtual void pad04(); virtual void pad08(); virtual void pad0C();
-	virtual void pad10(); virtual void pad14(); virtual void pad18(); virtual void pad1C();
-	virtual void pad20(); virtual void pad24(); virtual void pad28(); virtual void pad2C();
-	virtual void pad30(); virtual void pad34(); virtual void pad38(); virtual void pad3C();
-	virtual void pad40(); virtual void pad44(); virtual void pad48(); virtual void pad4C();
-	virtual void pad50(); virtual void pad54();
-	virtual void setMaxHealth( Real maxHealth, MaxHealthChangeType healthChangeType );
-	virtual void pad5C();
-	virtual void pad60(); virtual void pad64(); virtual void pad68(); virtual void pad6C();
-	virtual void pad70(); virtual void pad74(); virtual void pad78(); virtual void pad7C();
-	virtual void internalChangeHealth( Real delta, DamageInfo *damageInfo );
-};
+#include "../../../../Include/GameLogic/Module/BodyModule.h"
 
 class ActiveBody : public BodyModuleInterface
 {

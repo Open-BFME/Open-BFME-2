@@ -26,17 +26,7 @@ public:
 	Real m_amount;
 };
 
-class BodyModuleInterface
-{
-public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
-	virtual Real getMaxHealth() const;
-};
+#include "../../../../Include/GameLogic/Module/BodyModule.h"
 
 class BridgeBehaviorInterface
 {

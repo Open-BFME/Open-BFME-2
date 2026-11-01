@@ -243,19 +243,7 @@ private:
 	Real m_minorRadius; // +0x10
 };
 
-class BodyModuleInterface
-{
-public:
-	virtual void slot0();
-	virtual void slot1();
-	virtual void slot2();
-	virtual void slot3();
-	virtual void slot4();
-	virtual void slot5();
-	virtual void slot6();
-	virtual void slot7();
-	virtual BodyDamageType getDamageState() const; // +0x20
-};
+#include "../../../Include/GameLogic/Module/BodyModule.h"
 
 // The 0x7C-byte damage record; its constructor is the rowed 0x00263895.
 class DamageInfo

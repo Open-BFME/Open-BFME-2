@@ -20,11 +20,7 @@ class ModuleData;
 
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class BodyModuleInterface
-{
-public:
-	virtual void bodyAnchor() = 0;
-};
+#include "../../../../Include/GameLogic/Module/BodyModule.h"
 
 class __declspec(novtable) BodyModule : public BehaviorModule, public BodyModuleInterface
 {

@@ -369,11 +369,7 @@ struct DamageInfo
 {
 	DamageInfoInput in;
 };
-class BodyModuleInterface : public AIStateAISlots<15>
-{
-public:
-	virtual const DamageInfo *getLastDamageInfo() const = 0;
-};
+#include "../../../Include/GameLogic/Module/BodyModule.h"
 enum DamageType
 {
 	DAMAGE_BFME_8 = 8

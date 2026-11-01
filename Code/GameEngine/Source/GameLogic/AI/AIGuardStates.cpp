@@ -155,11 +155,7 @@ public:
 template <> class VSlots<0>
 {
 };
-class BodyModuleInterface : public VSlots<15>
-{
-public:
-	virtual const DamageInfo *getLastDamageInfo() const = 0;
-};
+#include "../../../Include/GameLogic/Module/BodyModule.h"
 class ThingTemplate
 {
 public:

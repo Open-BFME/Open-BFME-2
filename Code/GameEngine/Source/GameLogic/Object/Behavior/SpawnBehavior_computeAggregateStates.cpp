@@ -105,20 +105,7 @@ public:
 };
 extern InGameUI *TheInGameUI;
 
-class BodyModuleInterface
-{
-public:
-#define BODY_SLOT(n) virtual void bodyModuleSlot##n();
-	BODY_SLOT(00) BODY_SLOT(01) BODY_SLOT(02) BODY_SLOT(03)
-	virtual Real getHealth() const;
-	BODY_SLOT(05)
-	virtual Real getMaxHealth() const;
-	BODY_SLOT(07) BODY_SLOT(08) BODY_SLOT(09) BODY_SLOT(10) BODY_SLOT(11)
-	BODY_SLOT(12) BODY_SLOT(13) BODY_SLOT(14) BODY_SLOT(15) BODY_SLOT(16)
-	BODY_SLOT(17) BODY_SLOT(18) BODY_SLOT(19) BODY_SLOT(20)
-#undef BODY_SLOT
-	virtual void setInitialHealth(Real initialPercent, Bool unused);
-};
+#include "../../../../Include/GameLogic/Module/BodyModule.h"
 
 class SlavedUpdateInterface
 {

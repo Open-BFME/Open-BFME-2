@@ -24,11 +24,7 @@ class DamageInfo;
 #include "../../Include/Common/BfmeXfer.h"
 #include "../../Include/Common/ObjectModule.h"
 #include "../../Include/GameLogic/Module/BehaviorModule.h"
-class BodyModuleInterface
-{
-public:
-	virtual void bodyAnchor() = 0;
-};
+#include "../../Include/GameLogic/Module/BodyModule.h"
 class BodyModule : public BehaviorModule, public BodyModuleInterface
 {
 public:

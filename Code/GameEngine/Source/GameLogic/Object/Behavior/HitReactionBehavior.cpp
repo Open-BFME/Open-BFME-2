@@ -155,11 +155,7 @@ public:
 };
 
 // Body module: slot 4 (+0x10) returns the current health.
-class BodyModuleInterface : public Rva004592A1Slots<4>
-{
-public:
-	virtual float getHealth() = 0;
-};
+#include "../../../../Include/GameLogic/Module/BodyModule.h"
 
 // Interface returned by 0x0028BD3A: slot 2 takes one argument.
 class Rva0028BD3AInterface : public Rva004592A1Slots<2>

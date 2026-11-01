@@ -165,27 +165,7 @@ public:
 
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
-class BodyModuleInterface
-{
-public:
-	virtual void attemptDamage();
-	virtual void attemptHealing();
-	virtual void estimateDamage();
-	virtual void i03();
-	virtual Real getHealth() const; // +0x10
-	virtual Real getHealthRatio() const; // +0x14
-	virtual Real getMaxHealth() const; // +0x18
-	virtual void i07();
-	virtual void i08();
-	virtual void i09();
-	virtual void i10();
-	virtual void i11();
-	virtual void i12();
-	virtual void i13();
-	virtual void i14();
-	virtual void i15();
-	virtual UnsignedInt getLastDamageTimestamp() const; // +0x40
-};
+#include "../../../../Include/GameLogic/Module/BodyModule.h"
 
 // The 16-byte record the contain interface's slot 44 returns by value; bit
 // 29 of its second word suppresses the per-unit heal FX.

@@ -900,38 +900,7 @@ protected:
 	void *m_vptr0C;
 };
 
-class BodyModuleInterface
-{
-public:
-	virtual void attemptDamage(DamageInfo *damageInfo);	// +0x00
-	virtual void attemptHealing(DamageInfo *damageInfo);	// +0x04
-	virtual Real estimateDamage(DamageInfoInput &damageInfo) const;	// +0x08
-	virtual void i03();
-	virtual Real getHealth() const;				// +0x10
-	virtual Real getHealthRatio() const;			// +0x14
-	virtual Real getMaxHealth() const;			// +0x18
-	virtual void i07();
-	virtual void i08();
-	virtual void setDamageState(BodyDamageType newState);	// +0x24
-	virtual void i10();
-	virtual void onVeterancyLevelChanged(VeterancyLevel oldLevel, VeterancyLevel newLevel);	// +0x2C
-	virtual void setArmorSetFlag(ArmorSetType ast);		// +0x30
-	virtual void clearArmorSetFlag(ArmorSetType ast);	// +0x34
-	virtual ArmorSetFlags rva004BF8F5(); virtual void i15();
-	virtual void i16(); virtual void i17(); virtual ObjectID rva004BF897(); virtual void i19();
-	virtual Bool getBackCrushed() const;
-	virtual void setInitialHealth(Real initialPercent, Bool directional);	// +0x54
-	virtual void setMaxHealth(Real maxHealth, MaxHealthChangeType healthChangeType);	// +0x58
-	virtual void i23();
-	virtual void i24(); virtual void i25(); virtual void i26(); virtual void i27();
-	virtual void i28(); virtual void i29(); virtual void i30(); virtual BfmeBodyDataPair8 rva004BDC56();
-	virtual void internalChangeHealth(Real delta, DamageInfo *damageInfo);	// +0x80
-	virtual void i33(); virtual void i34(); virtual void i35();
-	virtual void rvaSlot36();				// +0x90
-	virtual void i37(); virtual void i38();
-	virtual void rvaSlot39(BodyDamageType state);		// +0x9C
-	virtual void rvaSlot40(Real health, Bool healing);	// +0xA0
-};
+#include "../../../../Include/GameLogic/Module/BodyModule.h"
 
 class ActiveBody : public BodyModule, public BodyModuleInterface
 {

@@ -435,19 +435,7 @@ class LocomotorSet;
 #include "../../../Include/Common/StateMachineClass.h"
 
 
-class BodyModuleInterface
-{
-public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
-	virtual void slot06();
-	virtual void slot07();
-	virtual BodyDamageType getDamageState() const;	// +0x20
-};
+#include "../../../Include/GameLogic/Module/BodyModule.h"
 
 class Object
 {

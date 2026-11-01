@@ -82,11 +82,7 @@ protected:
 	Object *m_object; // +0x08
 };
 
-class BodyModuleInterface
-{
-public:
-	virtual void bodyModuleInterfaceAnchor();
-};
+#include "../../../../Include/GameLogic/Module/BodyModule.h"
 
 class ActiveBody : public BodyModule, public BehaviorModuleInterface, public BodyModuleInterface
 {

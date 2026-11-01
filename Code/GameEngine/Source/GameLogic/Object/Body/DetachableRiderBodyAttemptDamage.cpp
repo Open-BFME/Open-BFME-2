@@ -98,17 +98,7 @@ protected:
 
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class BodyModuleInterface
-{
-public:
-	virtual void attemptDamage(DamageInfo *damageInfo) = 0;
-	virtual void i01() = 0;
-	virtual void i02() = 0;
-	virtual void i03() = 0;
-	virtual Real getHealth() const = 0;
-	virtual void i05() = 0;
-	virtual Real getMaxHealth() const = 0;
-};
+#include "../../../../Include/GameLogic/Module/BodyModule.h"
 
 class BodyModule : public ModuleBase, public BehaviorModuleInterface, public BodyModuleInterface
 {

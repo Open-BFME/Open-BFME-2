@@ -28,10 +28,7 @@ enum NameKeyType { NK_UNKNOWN = 0 };
 
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class BodyModuleInterface {
-public:virtual void attemptDamage(DamageInfo*)=0;
- virtual void attemptHealing(DamageInfo*)=0;
-};
+#include "../../../../Include/GameLogic/Module/BodyModule.h"
 
 class BodyModule : public ObjectModule,public BehaviorModuleInterface,public BodyModuleInterface {
 protected:float damageScalar;

@@ -105,14 +105,7 @@ public:
 
 extern InGameUI *TheInGameUI;
 
-class BodyModuleInterface
-{
-public:
-	virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03();
-	virtual Real getHealth() const; // +0x10
-	virtual void slot05();
-	virtual Real getMaxHealth() const; // +0x18
-};
+#include "../../Include/GameLogic/Module/BodyModule.h"
 
 struct HealthBodyVtable {void *slots[4]; Real (__fastcall *getHealth)(BodyModuleInterface *);void *slot5;Real (__fastcall *getMaxHealth)(BodyModuleInterface *);};
 class Drawable;

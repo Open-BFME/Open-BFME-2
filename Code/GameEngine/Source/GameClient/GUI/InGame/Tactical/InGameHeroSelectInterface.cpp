@@ -203,16 +203,7 @@ class Image;
 bool ComputeObjectRankValues(const Object &obj, Int &rank, Real &progress);
 const Image *getButtonImage(ThingTemplate *thing, Object *obj);
 
-class BodyModuleInterface
-{
-public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
-	virtual Real getHealthRatio() const; // +0x14
-};
+#include "../../../../../Include/GameLogic/Module/BodyModule.h"
 
 AsciiString __cdecl Rva00222834Get(int val);
 

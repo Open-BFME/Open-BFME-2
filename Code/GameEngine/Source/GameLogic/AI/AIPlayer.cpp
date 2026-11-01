@@ -182,16 +182,7 @@ struct DamageInfo
 	DamageInfoOutput out;
 };
 
-class BodyModuleInterface
-{
-public:
-	virtual void b00(); virtual void b01(); virtual void b02(); virtual void b03();
-	virtual void b04(); virtual void b05(); virtual void b06(); virtual void b07();
-	virtual void b08(); virtual void b09(); virtual void b10(); virtual void b11();
-	virtual void b12(); virtual void b13(); virtual void b14();
-	virtual const DamageInfo *getLastDamageInfo() const;		// +0x3C
-	virtual unsigned int getLastDamageTimestamp() const;		// +0x40
-};
+#include "../../../Include/GameLogic/Module/BodyModule.h"
 
 class BfmeObjectVirtualTail { public: unsigned char m_vt[4]; };
 class BfmeObjectVbptrCarrier : public virtual BfmeObjectVirtualTail {

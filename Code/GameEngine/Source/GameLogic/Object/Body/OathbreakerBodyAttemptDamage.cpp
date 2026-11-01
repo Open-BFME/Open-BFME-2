@@ -46,11 +46,7 @@ protected:
 	Object *m_object;		// +0x08
 };
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-class BodyModuleInterface
-{
-public:
-	virtual void attemptDamage(DamageInfo *damageInfo) = 0;
-};
+#include "../../../../Include/GameLogic/Module/BodyModule.h"
 class BodyModule : public ModuleBase, public BehaviorModuleInterface, public BodyModuleInterface
 {
 };

@@ -80,11 +80,7 @@ void Rva00484EF4_Anchor()
 // is the one-slot pure view BodyModuleCtor.cpp uses, so the shared
 // ??_7BodyModule@@6B@ copies agree. The deleting dtor is emitted and rowed in
 // BodyModuleCtor.cpp (slot 0 of its vftable).
-class BodyModuleInterface
-{
-public:
-	virtual void bodyAnchor() = 0;
-};
+#include "../../Include/GameLogic/Module/BodyModule.h"
 
 class BodyModule : public PrimaryP, public BodyModuleInterface
 {

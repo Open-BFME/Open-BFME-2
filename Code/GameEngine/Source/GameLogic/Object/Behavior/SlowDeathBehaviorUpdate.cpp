@@ -242,17 +242,7 @@ private:
 	Bool m_isAiDead; // +0x3BD
 };
 
-class BodyModuleInterface
-{
-public:
-	virtual void bodySlot00();
-	virtual void bodySlot01();
-	virtual void bodySlot02();
-	virtual void bodySlot03();
-	virtual void bodySlot04();
-	virtual void bodySlot05();
-	virtual Real getMaxHealth() const;
-};
+#include "../../../../Include/GameLogic/Module/BodyModule.h"
 
 class DamageInfo
 {

@@ -18,11 +18,7 @@ public:
 };
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BodyModule.h
-class BodyModuleInterface
-{
-public:
-	virtual void bodyModuleInterfaceAnchor();
-};
+#include "../../../../Include/GameLogic/Module/BodyModule.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/ActiveBody.h
 class ActiveBody : public BehaviorModule,

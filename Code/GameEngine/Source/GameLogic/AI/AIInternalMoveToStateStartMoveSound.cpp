@@ -96,11 +96,7 @@ public:
 	Rva002390CB rva00346CC4(); // key 0x24
 };
 
-class BodyModuleInterface : public VSlots<8>
-{
-public:
-	virtual BodyDamageType getDamageState() const = 0;
-};
+#include "../../../Include/GameLogic/Module/BodyModule.h"
 
 class Object;
 struct MoveSoundMemberNode

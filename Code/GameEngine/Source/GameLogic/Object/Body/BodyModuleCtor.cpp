@@ -21,11 +21,7 @@ public:
 
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class BodyModuleInterface
-{
-public:
-	virtual void bodyAnchor() = 0;
-};
+#include "../../../../Include/GameLogic/Module/BodyModule.h"
 
 class BodyModule : public BehaviorModule, public BodyModuleInterface
 {
