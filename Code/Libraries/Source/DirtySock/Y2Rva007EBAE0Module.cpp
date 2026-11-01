@@ -23,8 +23,8 @@ char g_Rva012C391CSeparator = 10;
 // by address and still a dump.
 // A 256-byte case-folding table at 0x0112A210; the lookup below indexes it
 // with a byte read through movzx, so it is unsigned.
-// g_Rva0112A210Lower: matched references place it at VA 0xce1a60 (.rdata); retail bytes.
-extern const unsigned char g_Rva0112A210Lower[256] = {
+// g_Rva0112A210Fold: matched references place it at VA 0xce1a60 (.rdata); retail bytes.
+extern "C" const unsigned char g_Rva0112A210Fold[256] = {
 	0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f,
 	0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1a, 0x1b, 0x1c, 0x1d, 0x1e, 0x1f,
 	0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x29, 0x2a, 0x2b, 0x2c, 0x2d, 0x2e, 0x2f,
@@ -269,8 +269,8 @@ char *Rva007EBCA0( const char *text, const char *tag )
 
 			for( q = p - 1, r = tagEnd;
 					q >= textPtr && r >= tagPtr
-						&& g_Rva0112A210Lower[ *(unsigned char *)q ]
-							== g_Rva0112A210Lower[ *(unsigned char *)r ];
+						&& g_Rva0112A210Fold[ *(unsigned char *)q ]
+							== g_Rva0112A210Fold[ *(unsigned char *)r ];
 					q--, r-- )
 			{
 				if( r == tagPtr )

@@ -1294,7 +1294,7 @@ address_global	Code/Libraries/Source/DirtySock/Y2ProtoMangleHelpers.cpp	g_Rva012
 address_global	Code/Libraries/Source/DirtySock/Y2ProtoMangleHelpers.cpp	g_Rva0130AB60	2
 address_global	Code/Libraries/Source/DirtySock/Y2Rva007EBAE0Module.cpp	g_Rva01129E10HexFirst	5
 address_global	Code/Libraries/Source/DirtySock/Y2Rva007EBAE0Module.cpp	g_Rva01129F10HexSecond	6
-address_global	Code/Libraries/Source/DirtySock/Y2Rva007EBAE0Module.cpp	g_Rva0112A210Lower	3
+address_global	Code/Libraries/Source/DirtySock/Y2Rva007EBAE0Module.cpp	g_Rva0112A210Fold	3
 address_global	Code/Libraries/Source/DirtySock/Y2Rva007EBAE0Module.cpp	g_Rva0112A310Class	2
 address_global	Code/Libraries/Source/DirtySock/Y2Rva007EBAE0Module.cpp	g_Rva0112A410FlagLetters	2
 address_global	Code/Libraries/Source/DirtySock/Y2Rva007EBAE0Module.cpp	g_Rva012C391CSeparator	6
@@ -1344,7 +1344,6 @@ address_global	Code/Libraries/Source/DirtySock/Y4LookupTables.c	g_Rva0112C8D0	6
 address_global	Code/Libraries/Source/DirtySock/Y4TextToValue.c	g_Rva0112A010HexHigh	8
 address_global	Code/Libraries/Source/DirtySock/Y4TextToValue.c	g_Rva0112A110Hex	8
 address_global	Code/Libraries/Source/DirtySock/Y4TextToValue.c	g_Rva0112A210Fold	3
-address_global	Code/Libraries/Source/DirtySock/Y4TextToValue.c	g_Rva0112A210Lower	1
 address_global	Code/Libraries/Source/DirtySock/Y4TextToValue.c	g_Rva0112A310Class	4
 address_global	Code/Libraries/Source/DirtySock/Y4TextToValue.c	g_Rva012C391CSeparator	10
 address_global	Code/Libraries/Source/DirtySock/Y4TextToValue.c	g_Rva012C392CSuffix	3
@@ -3666,7 +3665,6 @@ alternatename	Code/Libraries/Source/DirtySock/Y4DirtySockSocketWrappers.c	?Rva00
 alternatename	Code/Libraries/Source/DirtySock/Y4DirtySockSocketWrappers.c	?Rva007FECB0Unlock@@YAXPAX@Z	1
 alternatename	Code/Libraries/Source/DirtySock/Y4TextToValue.c	?bfmeFormatUPB@@YAXPAXPAD0PBD@Z	1
 alternatename	Code/Libraries/Source/DirtySock/Y4TextToValue.c	?bfmeTwoRF@@YAPAXPAX0@Z	1
-alternatename	Code/Libraries/Source/DirtySock/Y4TextToValue.c	_g_Rva0112A210Fold	1
 alternatename	Code/Libraries/Source/DirtySock/Y5SmallHelpers.c	?bfmeNextIdUNC@@YAHXZ	1
 alternatename	Code/Libraries/Source/DirtySock/commudp.cpp	?Rva007FE780Printf@@YAHPBDZZ	1
 alternatename	Code/Libraries/Source/DirtySock/commudp.cpp	_Rva00817030	1

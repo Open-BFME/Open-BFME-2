@@ -970,3 +970,11 @@ def test_reseed_writes_the_index_and_refuses_unstaged_files(repo):
     repo.write(repo.lay["src"], SOURCE + "void k() { __asm { __emit 0x90 } }\n")   # not staged
     got = repo.tool("--reseed")
     assert got.returncode != 0 and "differ from it" in got.stderr and repo.lay["src"] in got.stderr
+
+
+def test_ledger_ident_c_name():
+    assert hc._ledger_ident("?g_Va0130A588@@3PAV...@@A") == "g_Va0130A588"
+    assert hc._ledger_ident("_g_Rva0112A210Fold") == "g_Rva0112A210Fold"
+    assert hc._ledger_ident("__rg_country") == "__rg_country"
+    assert hc._ledger_ident("plain_name") == "plain_name"
+

@@ -355,6 +355,8 @@ def _ledger_ident(name):
     name = name.strip()
     if name.startswith("?"):
         return name[1:].split("@", 1)[0]
+    if name.startswith("_") and not name.startswith("__"):
+        return name[1:]
     return name
 
 

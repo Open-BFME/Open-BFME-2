@@ -27,7 +27,6 @@ Code/GameEngine/Source/GameNetwork/GameSpy/pinger/pingerMain.c	duplicate-def	_pi
 Code/GameEngine/Source/GameNetwork/GameSpy/pinger/pingerMain.c	wrong-name	_piNextID	0x00A0C0EC
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouse.cpp	wrong-name	_mutex	0x009E4B34
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouse.cpp	wrong-name	_threadMutex	0x009E5DA0
-Code/Libraries/Source/DirtySock/Y2Rva007EBAE0Module.cpp	wrong-name	?g_Rva0112A210Lower@@3QBEB	0x008E1A60
 Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsRecordTexture.cpp	duplicate-def	_record_count	0x009EE8B4
 Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsRecordTexture.cpp	duplicate-def	_texture_change_count	0x009EE888
 Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsRecordTextureEnd.cpp	duplicate-def	_recordTextureMode	0x009EE8F4

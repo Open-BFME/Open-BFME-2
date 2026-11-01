@@ -365,7 +365,6 @@ const char *Rva007EFAB0( const char *text, int *value, int maxLength )
  * indexed by the buffer's bytes UNSIGNED and by the field text's bytes SIGNED,
  * so a high-bit byte in the field reads BEFORE the table start. */
 /* The same .rdata tables Y2Rva007EBAE0Module.cpp defines (VA 0xce1b60, 0xce1a60). */
-#pragma comment(linker, "/alternatename:_g_Rva0112A210Fold=?g_Rva0112A210Lower@@3QBEB")
 extern unsigned char g_Rva0112A310Class[];
 
 /* 0x007EC780 REPLACES ONE NAMED FIELD IN A RECORD, or appends it, and returns
