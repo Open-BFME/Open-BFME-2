@@ -318,24 +318,6 @@ public:
 
 // 0x0044F09F (interface at +0x20, beside WeaponFireSpecialAbilityUpdate's
 // slots): whether the module data's +0x38 equals the argument.
-struct Rva0044F09FData
-{
-	char m_pad00[0x38];
-	Int m_38;
-};
-
-class Rva0044F09FIface
-{
-public:
-	virtual bool rva0044F09F(Int value) = 0;
-};
-
-class Rva0044F09F : public Rva00452EDDPrimary<0x20>, public Rva0044F09FIface
-{
-public:
-	bool rva0044F09F(Int value);
-};
-
 // UpgradeMux slots: the activation and conflicting masks (0x80 bytes each)
 // at the module data's mux data, and the pinned UpgradeMuxData FX call with
 // the object. Interface at +0x20 (0x00452460, beside the rowed
@@ -383,13 +365,6 @@ public:
 	virtual bool requiresAllConflictingUpgrades() const = 0;
 };
 
-class Rva00452460 : public Rva00452EDDPrimary<0x20>, public Rva00452460Iface
-{
-public:
-	void getUpgradeActivationMasks(UpgradeMaskType &activation, UpgradeMaskType &conflicting) const;
-	void performUpgradeFX();
-};
-
 // UpgradeModule (BehaviorModule at +0x00, UpgradeMux at +0x10): slots 11 and
 // 12 of ??_7UpgradeModule@@6BUpgradeMux@@@ (0x00842720), inherited unchanged
 // by the UpgradeMux table of every UpgradeModule subclass that does not
@@ -408,89 +383,10 @@ protected:
 	bool requiresAllConflictingUpgrades() const;
 };
 
-class Rva0045F46A : public Rva00452EDDPrimary<0x30>, public Rva00452460Iface
-{
-public:
-	void getUpgradeActivationMasks(UpgradeMaskType &activation, UpgradeMaskType &conflicting) const;
-	void performUpgradeFX();
-};
-
 // 0x004839F9 (interface at +0x20): virtual slot 14 of the complete object
 // when the third argument is 2, else slot 15 when the second is 2.
-class Rva004839F9Primary
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void v03();
-	virtual void v04();
-	virtual void v05();
-	virtual void v06();
-	virtual void v07();
-	virtual void v08();
-	virtual void v09();
-	virtual void v10();
-	virtual void v11();
-	virtual void v12();
-	virtual void v13();
-	virtual void v14();
-	virtual void v15();
-	virtual void v16();
-	virtual void v17();
-private:
-	char m_pad04[0x1C];
-};
-
-class Rva004839F9Iface
-{
-public:
-	virtual void rva004839F9(Int a, Int b, Int c) = 0;
-};
-
-class Rva004839F9 : public Rva004839F9Primary, public Rva004839F9Iface
-{
-public:
-	void rva004839F9(Int a, Int b, Int c);
-};
-
 // 0x004ADBD7 (interface at +0x88): virtual slot 17 of the complete object
 // while the module data's +0xCC flag is set.
-struct Rva004ADBD7Data
-{
-	char m_pad00[0xCC];
-	bool m_CC;
-};
-
-class Rva004ADBD7Iface
-{
-public:
-	virtual void rva004ADBD7() = 0;
-};
-
-class Rva004ADBD7 : public Rva00452EDDPrimary<0x88>, public Rva004ADBD7Iface
-{
-public:
-	virtual void v01();
-	virtual void v02();
-	virtual void v03();
-	virtual void v04();
-	virtual void v05();
-	virtual void v06();
-	virtual void v07();
-	virtual void v08();
-	virtual void v09();
-	virtual void v10();
-	virtual void v11();
-	virtual void v12();
-	virtual void v13();
-	virtual void v14();
-	virtual void v15();
-	virtual void v16();
-	virtual void v17();
-	void rva004ADBD7();
-};
-
 // 0x004DF897 (UpdateModuleInterface at +0x10, slot 0 beside the rowed
 // UpdateModule getDisabledTypesToProcess and wake slots): clears object
 // status 8 through the rowed Object::setStatus and sleeps forever.
@@ -499,104 +395,17 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_8 = 8
 };
 
-class Rva004DF897Iface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
-
-class Rva004DF897 : public Rva00452EDDPrimary<0x10>, public Rva004DF897Iface
-{
-public:
-	UpdateSleepTime update();
-};
-
 // 0x005E1CF8 (interface at +0x08): the rowed 0x005E1C6F of the +0x10 object
 // with the complete object (the argument is unused).
-class Rva005E1C6F
-{
-public:
-	void rva005E1C6F(void *owner);
-};
-
-class Rva005E1CF8Primary
-{
-public:
-	virtual void primarySlot();
-private:
-	Int m_04;
-};
-
-class Rva005E1CF8Iface
-{
-public:
-	virtual void rva005E1CF8(Int unused) = 0;
-private:
-	Int m_0C;
-};
-
-class Rva005E1CF8 : public Rva005E1CF8Primary, public Rva005E1CF8Iface
-{
-public:
-	void rva005E1CF8(Int unused);
-private:
-	Rva005E1C6F *m_10;
-};
-
-class Rva00497805 : public UpdateModule
-{
-protected:
-	virtual void loadPostProcess();
-};
-
 BFME_DISP8_PTRCHASE_BEFORE_DWORD_GETTER(Rva00452DE8PtrChaseField, 0x1C, 0x38)
 
 // Address-named indexed pointer-chase getter at retail 0x005F6B12.
-class Rva005F6B12
-{
-public:
-	int rva005F6B12(int index) const;
-private:
-	char m_pad00[4];
-	int *m_values;
-};
-
 // Byte bit-7 getters: ptr-chase byte read plus shr to LSB (bool from high bit).
 // Retail 0x005FC73B is mov eax,[ecx+0x18] / mov al,[eax+0x34] / shr al,7 / ret.
-struct Rva005FC73BPtrChaseInner
-{
-	char m_pad[0x34];
-	unsigned char m_byte;
-};
-
-class Rva005FC73BPtrChaseField
-{
-public:
-	bool get() const;
-	char m_lead[0x18];
-	Rva005FC73BPtrChaseInner *m_ptr;
-};
-
 // Virtual-fallback ptr-chase getter: if bit 3 of the chased byte is set,
 // tail-jump to virtual slot 1; else return the chased pointer.
 // Retail 0x005FC745 is mov eax,[ecx+0x18] / test byte [eax+0x34],8 /
 // je ret / mov eax,[ecx] / jmp [eax+4] / ret.
-struct Rva005FC745PtrChaseInner
-{
-	char m_pad[0x34];
-	unsigned char m_flag;
-};
-
-class Rva005FC745PtrChaseField
-{
-	virtual ~Rva005FC745PtrChaseField() {}
-	virtual void *fetch() const = 0;
-	char m_lead[0x18 - 4];
-public:
-	void *get() const;
-	Rva005FC745PtrChaseInner *m_ptr;
-};
-
 // Clean BFME1 9cbfb551 donor structural leads; native instructions independently
 // establish complete RET boundaries and each raw field operation and ABI.
 // Address-owned carriers retain unknown original receiver identity and bounds.
@@ -610,94 +419,14 @@ struct Rva002D2CDCFields { unsigned char byte0; Rva002D2CDCFields *clear(); };
 // Several donor names share each shape, so no donor owner/type is asserted.
 // Each native entry follows INT3 padding and ends its own RET: 1CD70..1CD76
 // and6F6830..6F6836. They read raw words through independently proved offsets.
-class Rva0001CD70Word
-{
-public:
- unsigned int get() const;
- char m_pad00[4];
- unsigned int *m_ptr;
-};
-
 // 0x0001CDA0 is the same shape with the pointer at receiver offset 8 (1CDA0..1CDA5,
 // INT3 padding before, no reference in the image).
-class Rva0001CDA0Word
-{
-public:
- unsigned int get() const;
- char m_pad00[8];
- unsigned int *m_ptr;
-};
-
-class Rva006F6830Word
-{
-public:
- unsigned int get() const;
- unsigned int *m_ptr;
-};
-
 // 0x0055B0B9 (tables of Rva0055B0CC and Rva00573B23): the larger of the
 // Reals at +0x18 and +0x04.
-class Rva0055B0B9
-{
-public:
-	Real rva0055B0B9() const;
-private:
-	Int m_00;
-	Real m_04;
-	char m_pad08[0x10];
-	Real m_18;
-};
-
 // 0x00597372 (beside xfer 0x005974CC): zeroes the three Reals out.
-struct Rva00597372Triple
-{
-	Real x;
-	Real y;
-	Real z;
-};
-
-class Rva00597372
-{
-public:
-	void rva00597372(Rva00597372Triple *out);
-};
-
 // 0x005C793A: 1.0 and the most negative Int out.
-struct Rva005C793APair
-{
-	Real m_00;
-	Int m_04;
-};
-
-class Rva005C793A
-{
-public:
-	void rva005C793A(Rva005C793APair *out);
-};
-
 // 0x005EA1E7: adds the argument's +0x0C Real into entry [+0x30] of the Real
 // array the +0x04 object points at; answers true.
-struct Rva005EA1E7Arg
-{
-	char m_pad00[0x0C];
-	Real m_health;
-	char m_pad10[0x20];
-	Int m_30;
-};
-
-struct Rva005EA1E7Table
-{
-	Real *m_values;
-};
-
-class UnitHealthCollector
-{
-public:
-	virtual bool visit(const void *unit);
-private:
-	Rva005EA1E7Table *m_04;
-};
-
 // 0x00452E00 (interface at +0x20, beside GameClientRandomVariable's
 // getMinimumValue): copies the module data's +0x30 Real out and reports
 // whether it differs from the 54321.0 sentinel.
@@ -730,88 +459,13 @@ public:
 
 // 0x005D9D81: whether the two arguments' +0x38/+0x3C positions are more than
 // 100 apart (squared distance against 10000).
-struct Rva005D9D81Pos
-{
-	char m_pad00[0x38];
-	Real x;
-	Real y;
-};
-
-struct Rva005D9D81Delta
-{
-	Real x;
-	Real y;
-};
-
-class Rva005D9D81
-{
-public:
-	bool rva005D9D81(const Rva005D9D81Pos *firstObject, const Rva005D9D81Pos *secondObject);
-};
-
 // 0x004624C1: zeroes the Real and the three Reals out; answers false.
-class Rva004624C1
-{
-public:
-	bool rva004624C1(Rva00597372Triple *pos, Real *value);
-};
-
 // 0x00509DF8: for a non-NULL second argument, own virtual slot 15 when slot
 // 1 accepts both arguments, then slot 6 with its +0x38 while +0x12C is
 // positive.
-struct Rva00509DF8Arg
-{
-	char m_pad00[0x38];
-	Int m_38;
-};
-
-class Rva00509DF8
-{
-public:
-	virtual void v00();
-	virtual bool v01(Int a, Rva00509DF8Arg *b);
-	virtual void v02();
-	virtual void v03();
-	virtual void v04();
-	virtual void v05();
-	virtual void v06(Int a, Int *b);
-	virtual void v07();
-	virtual void v08();
-	virtual void v09();
-	virtual void v10();
-	virtual void v11();
-	virtual void v12();
-	virtual void v13();
-	virtual void v14();
-	virtual void v15(Int a, Rva00509DF8Arg *b);
-	void rva00509DF8(Int a, Rva00509DF8Arg *m_targetObject);
-private:
-	char m_pad04[0x128];
-	Real m_shockWaveRadius;
-};
-
 // 0x0055F4CE: steps three value/rate/damping triples (at +0x10, +0x1C and
 // +0x2C): the value advances by the rate, the rate decays by the damping.
 // The operand order of the middle sum differs in retail and is kept.
-struct DampedValue
-{
-	Real value;
-	Real rate;
-	Real damping;
-};
-
-class Rva0055F4CE
-{
-public:
-	void update();
-private:
-	char m_pad00[0x10];
-	DampedValue m_size;
-	DampedValue m_angleZ;
-	Int m_28;
-	DampedValue m_angleXY;
-};
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/WallHubBehavior.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/WallHubBehavior.cpp

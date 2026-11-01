@@ -564,23 +564,11 @@ public:
 	void rva000682E1(Int firstValue);					// 0x000682E1
 };
 
-class Gen009794F0 { public: Int handle(); };
-
 				// 0x0019C0A0
-class Rva00149F20Holder { public: Int get() const; };
-
 			// 0x00149F20
-class Rva001E11F8 { public: void rva001E11F8(Int firstValue, Int secondValue); };
-
 	// 0x001E11F8
-class Rva001EB3D1 { public: void rva001EB3D1(); };
-
 			// 0x001EB3D1
-class Rva002CA9CA { public: void rva002CAC6E(Int firstValue, Int secondValue); };
-
 	// 0x002CAC6E
-class Rva004CFC81 { public: unsigned int rva004CFC81() const; };
-
 	// 0x004CFC81
 class BFMEConnectionManager
 {
@@ -597,15 +585,6 @@ public:
 	void setColor(Int firstValue);
 };
 
-class Rva000B31B9NullForwarder
-{
-public:
-	void rva000B31B9(Int firstValue);
-private:
-	char m_lead[0x1D4];
-	Shadow *m_member;
-};
-
 class Rva0006820FNullForwarder
 {
 public:
@@ -615,73 +594,10 @@ private:
 	W3DTreeBuffer *m_member;
 };
 
-class Rva00091E38NullForwarder
-{
-public:
-	void rva00091E38();
-private:
-	char m_lead[0x14];
-	Rva000680B3Host *m_member;
-};
-
 class Rva00068283NullTarget
 {
 public:
 	void rva00068283(Int firstValue);
-};
-
-class Rva00091EDDNullForwarder
-{
-public:
-	void rva00091EDD(Int firstValue);
-private:
-	char m_lead[0x14];
-	Rva00068283NullTarget *m_member;
-};
-
-class Rva00091F2ANullForwarder
-{
-public:
-	Int rva00091F2A(Int firstValue, Int secondValue);
-private:
-	char m_lead[0x14];
-	Rva000664F4 *m_member;
-};
-
-class Rva00091F51NullForwarder
-{
-public:
-	Bool rva00091F51(Int firstValue, Int secondValue);
-private:
-	char m_lead[0x14];
-	Rva000664F4 *m_member;
-};
-
-class Rva00091F62NullForwarder
-{
-public:
-	Bool rva00091F62(Int firstValue, Int secondValue);
-private:
-	char m_lead[0x14];
-	Rva000664F4 *m_member;
-};
-
-class Rva00091F73NullForwarder
-{
-public:
-	Bool rva00091F73(Int firstValue, Bool secondValue);
-private:
-	char m_lead[0x14];
-	Rva000664F4 *m_member;
-};
-
-class Rva00091F84NullForwarder
-{
-public:
-	Bool rva00091F84(Int firstValue);
-private:
-	char m_lead[0x14];
-	Rva000664F4 *m_member;
 };
 
 class Rva00068061NullTarget
@@ -690,74 +606,11 @@ public:
 	void rva00068061(Int firstValue);
 };
 
-class Rva00091FABNullForwarder
-{
-public:
-	void rva00091FAB(Int firstValue);
-private:
-	char m_lead[0x14];
-	Rva00068061NullTarget *m_member;
-};
-
-class Rva0017FEC1NullForwarder
-{
-public:
-	Int rva0017FEC1();
-private:
-	char m_lead[0x14];
-	Gen009794F0 *m_member;
-};
-
-class Rva0018036CNullForwarder
-{
-public:
-	Int rva0018036C();
-private:
-	char m_lead[0x14];
-	Rva00149F20Holder *m_member;
-};
-
 // rowed as ?rva001A3930@AggregateDefClass@@QBEHXZ (AggregateDefRva001A3930.cpp)
 class AggregateDefClass
 {
 public:
 	Int rva001A3930() const;
-};
-
-class Rva00180AA6NullForwarder
-{
-public:
-	Int rva00180AA6();
-private:
-	char m_lead[0x14];
-	AggregateDefClass *m_member;
-};
-
-class Rva001E129BNullForwarder
-{
-public:
-	void rva001E129B(Int firstValue, Int secondValue);
-private:
-	char m_lead[0x148];
-	Rva001E11F8 *m_member;
-};
-
-class Rva001EB722NullForwarder
-{
-public:
-	void rva001EB722();
-private:
-	char m_lead[0xC];
-	Rva001EB3D1 *m_member;
-};
-
-class Rva001F01B9NullForwarder
-{
-public:
-	void rva001F01B9(Int firstValue, Int secondValue);
-private:
-	char m_lead[0x4];
-	Rva002CA9CA *m_member;
 };
 
 // ConnectionManager methods rowed under their real names (ConnectionManager*.cpp,
@@ -794,112 +647,7 @@ private:
 	void *m_pConMgr;
 };
 
-class Rva0025DC17NullForwarder
-{
-public:
-	Int rva0025DC17();
-private:
-	char m_lead[0xC];
-	Rva004CFC81 *m_member;
-};
-
-class Rva0025DC5ENullForwarder
-{
-public:
-	void rva0025DC5E(Int firstValue);
-private:
-	char m_lead[0xC];
-	ConnectionManager *m_member;
-};
-
-class Rva0025DC6DNullForwarder
-{
-public:
-	void rva0025DC6D();
-private:
-	char m_lead[0xC];
-	ConnectionManager *m_member;
-};
-
-class Rva0025DCE2NullForwarder
-{
-public:
-	Int rva0025DCE2();
-private:
-	char m_lead[0xC];
-	ConnectionManager *m_member;
-};
-
-class Rva0025DCF1NullForwarder
-{
-public:
-	Int rva0025DCF1();
-private:
-	char m_lead[0xC];
-	ConnectionManager *m_member;
-};
-
-class Rva0025DD01NullForwarder
-{
-public:
-	Int rva0025DD01();
-private:
-	char m_lead[0xC];
-	ConnectionManager *m_member;
-};
-
-class Rva0025DEBBNullForwarder
-{
-public:
-	Bool rva0025DEBB(Int firstValue);
-private:
-	char m_lead[0xC];
-	BFMEConnectionManager *m_member;
-};
-
-class Rva0025DECCNullForwarder
-{
-public:
-	unsigned char rva0025DECC(Int firstValue);
-private:
-	char m_lead[0xC];
-	BFMEConnectionManager *m_member;
-};
-
-class Rva0025E27FNullForwarder
-{
-public:
-	void rva0025E27F(Int firstValue);
-private:
-	char m_lead[0xC];
-	ConnectionManager *m_member;
-};
-
 // The ICF-folded empty body at 0x000B3FD0 (EmptyFoldTwins.cpp).
-class Rva000B3FD0
-{
-public:
-	void rva000B3FD0();
-};
-
-class Rva0035BD00NullForwarder
-{
-public:
-	void rva0035BD00();
-private:
-	char m_lead[0x64];
-	Rva000B3FD0 *m_member;
-};
-
-class Rva00091F3BNullForwarder
-{
-public:
-	void rva00091F3B(void *p);
-private:
-	char m_lead[0x14];
-	Rva000664F4 *m_member;
-};
-
 struct Rva001408C0Target { int x; };
 
 typedef _STL::set<Rva001408C0Target *, _STL::less<Rva001408C0Target *>, _STL::allocator<Rva001408C0Target *> > PtrSet001408C0;

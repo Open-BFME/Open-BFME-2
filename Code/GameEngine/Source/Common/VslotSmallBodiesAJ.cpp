@@ -174,12 +174,6 @@ public:
 	void rva005CB260();
 };
 
-class W3DModelDraw
-{
-protected:
-	virtual void loadPostProcess();
-};
-
 class Rva00131CEAForwarder
 {
 public:
@@ -288,12 +282,6 @@ class Rva0038404A
 {
 public:
 	void rva00384E8E();
-};
-
-class TeamFactory
-{
-public:
-	void clear();
 };
 
 class CreateModule
@@ -463,13 +451,6 @@ int Rva000A8F58Get();
 int Rva000A8F5EGet();
 
 // 0x00034D00: tail jump to Rva006C1F60::rva00033D50.
-class Rva00034D00 : public Rva006C1F60
-{
-public:
-	bool rva00034D00();
-};
-
-
 // 0x00041A06: tail jump to Rva001EDDBBForwarder::rva001EDDBB.
 class Rva00041A06 : public Rva001EDDBBForwarder
 {
@@ -484,12 +465,6 @@ void Rva00041A06::rva00041A06()
 // 0x00099109: tail jump to Rva00041A06::rva00041A06 (W3DMouse vftable slot
 // 9, the Zero Hour reset position; the existing W3DMouse::reset row sits in
 // slot 1, so this keeps an address-derived name).
-class Rva00099109 : public Rva00041A06
-{
-public:
-	void rva00099109();
-};
-
 // 0x00041E65: tail jump to Win32GameEngine::rva0005E959.
 class Rva00041E65 : public Win32GameEngine
 {
@@ -535,12 +510,6 @@ int Rva00062977::rva00062977()
 }
 
 // 0x00088D05: tail jump to Rva000869CF::rva000869CF.
-class Rva00088D05 : public Rva000869CF
-{
-public:
-	float * rva00088D05();
-};
-
 // 0x000907B7: tail jump to VideoPlayer::Rva00689180.
 class Rva000907B7 : public VideoPlayer
 {
@@ -600,12 +569,6 @@ void Rva000B23DD::rva000B23DD()
 }
 
 // 0x000CA132: tail jump to Rva000B3A2D::rva000B3A2D.
-class Rva000CA132 : public W3DModelDraw
-{
-public:
-	void rva000CA132();
-};
-
 // 0x000EF961: tail jump to Rva00131CEAForwarder::rva00131CEA.
 class Rva000EF961 : public Rva00131CEAForwarder
 {
@@ -706,12 +669,6 @@ void Rva00311092::rva00311092()
 }
 
 // 0x0032E53D: tail jump to SidesList::clear.
-class Rva0032E53D : public SidesList
-{
-public:
-	void rva0032E53D();
-};
-
 // 0x0033FCDC: tail jump to StateMachine::setGoalObject.
 class Rva0033FCDC : public StateMachine
 {
@@ -900,34 +857,9 @@ void Rva0047E33F::rva0047E33F(int a, int b)
 }
 
 // 0x00483CEF: tail jump to Rva00497805::loadPostProcess.
-class Rva00483CEF : public Rva00497805
-{
-public:
-	void rva00483CEF();
-};
-
 // 0x0048F46D: tail jump to Rva002645FF::rva002645FF.
-class Rva0048F46D : public Rva002645FF
-{
-public:
-	bool rva0048F46D();
-};
-
 // 0x00494E21: tail jump to SpecialAbilityUpdate::rva0044FC52.
-class Rva00494E21 : public SpecialAbilityUpdate
-{
-public:
-	bool rva00494E21();
-};
-
-
 // 0x00494E48: tail jump to SpecialAbilityUpdate::startUnpacking.
-class Rva00494E48 : public SpecialAbilityUpdate
-{
-public:
-	void rva00494E48();
-};
-
 // 0x00494E4D: tail jump to SpecialAbilityUpdate::onExit.
 class Rva00494E4D : public SpecialAbilityUpdate
 {
@@ -937,12 +869,6 @@ public:
 
 
 // 0x00494E52: tail jump to SpecialAbilityUpdate::update.
-class Rva00494E52 : public SpecialAbilityUpdate
-{
-public:
-	UpdateSleepTime rva00494E52();
-};
-
 // 0x00498CAC: tail jump to GateOpenAndCloseBehavior::xfer.
 class Rva00498CAC : public GateOpenAndCloseBehavior
 {
@@ -1008,12 +934,6 @@ int Rva00521111::rva00521111(int a, unsigned int b, unsigned int c)
 }
 
 // 0x00524AE2: tail jump to MovieWindowPlayback::clear.
-class Rva00524AE2 : public MovieWindowPlayback
-{
-public:
-	void rva00524AE2();
-};
-
 // 0x0052B48D: tail jump to XferSave::endBlock.
 class Rva0052B48D : public XferSave
 {
@@ -1026,12 +946,6 @@ void Rva0052B48D::rva0052B48D()
 }
 
 // 0x00545CAA: tail jump to AIEnterState::onExit.
-class Rva00545CAA : public AIEnterState
-{
-public:
-	void rva00545CAA(StateExitType a);
-};
-
 // 0x0057BC20: tail jump to SelectionDetailsUIImpl::rva0057BA90 (the Open body).
 class Rva0057BC20 : public StrategicHUD::SelectionDetailsUIImpl
 {
@@ -1272,30 +1186,7 @@ Int Rva005F3EF3::rva005F3F09(Int)
 // Tail-jump slots over unrowed callees, pinned in reverse/symbols.csv under
 // address-derived names (argument counts from each callee's ret).
 
-class Rva002D7DD5
-{
-public:
-	void rva002D7DD5();
-};
-class Rva0004E3A1 : public Rva002D7DD5
-{
-public:
-	void rva0004E3A1();
-};
-
-
 class LargeGroupAudioKeyMap;
-class Rva002862C9
-{
-public:
-	LargeGroupAudioKeyMap *rva002862C9();
-};
-class Rva00286351 : public Rva002862C9
-{
-public:
-	void rva00286351();
-};
-
 // Target boundary at 0x00286356 is 29 bytes: it calls the adjacent pinned
 // accessor at 0x002862C9, copies the returned object through the rowed
 // Rva003ED658 copy constructor at 0x003ED658, and returns that object. The
@@ -1309,43 +1200,6 @@ public:
 private:
 	char m_storage[12];
 };
-
-class Rva00286356 : public Rva002862C9
-{
-public:
-	Rva003ED658 rva00286356();
-};
-
-class Rva00286CC4
-{
-public:
-	void rva00286CC4();
-};
-
-
-class Rva003412DB
-{
-public:
-	void rva003412DB();
-};
-class Rva00341339 : public Rva003412DB
-{
-public:
-	void rva00341339();
-};
-
-
-class Rva00349013
-{
-public:
-	void rva00349013();
-};
-class Rva00349217 : public Rva00349013
-{
-public:
-	void rva00349217();
-};
-
 
 // Native slot3497C2 forwards the StateReturnType result of the recovered
 // 433B internal update. Bind the call to its real provider instead of the
@@ -1364,30 +1218,6 @@ void Rva003497C2::rva003497C2()
 {
 	rva00349611();
 }
-
-class Rva0034D98B
-{
-public:
-	void rva0034D98B();
-};
-class Rva0034DC00 : public Rva0034D98B
-{
-public:
-	void rva0034DC00();
-};
-
-
-class Rva0035066B
-{
-public:
-	void rva0035066B();
-};
-class Rva003508C0 : public Rva0035066B
-{
-public:
-	void rva003508C0();
-};
-
 
 // Native 00404B03..00404B6C: two owned pointers at +12C/+130,
 // an embedded 168-byte float-pair table at +78, and trailing state fields.
@@ -1454,30 +1284,6 @@ void VictorySystem::reset()
 	rva00404B03();
 }
 
-class Rva0047BBA7
-{
-public:
-	void rva0047BBA7();
-};
-class Rva0047E32B : public Rva0047BBA7
-{
-public:
-	void rva0047E32B();
-};
-
-
-class Rva00467F3B
-{
-public:
-	void rva00467F3B();
-};
-class Rva0047E330 : public Rva00467F3B
-{
-public:
-	void rva0047E330();
-};
-
-
 class Rva004BF40F
 {
 public:
@@ -1493,21 +1299,6 @@ void Rva004C202F::rva004C202F()
 	rva004BF40F();
 }
 
-class Rva005C674A
-{
-public:
-	void rva005C674A();
-};
-class Rva0053EC3A
-{
-public:
-	void rva0053EC3A();
-private:
-	char m_pad00[0x0C];
-	Rva005C674A m_0C;
-};
-
-
 class Rva005680D6
 {
 public:
@@ -1520,51 +1311,6 @@ void Rva005680D6::rva005680D6()
 {
 	m_0C->OnLeftClicked();
 }
-
-class Rva005D2F7E
-{
-public:
-	void rva005D2F7E();
-};
-class Rva0057862E
-{
-public:
-	void rva0057862E();
-private:
-	char m_pad00[0x48];
-	Rva005D2F7E *m_48;
-};
-
-
-class Rva005D2F84
-{
-public:
-	void rva005D2F84();
-};
-class Rva00578636
-{
-public:
-	void rva00578636();
-private:
-	char m_pad00[0x48];
-	Rva005D2F84 *m_48;
-};
-
-
-class Rva005D2F8A
-{
-public:
-	void rva005D2F8A();
-};
-class Rva0057863E
-{
-public:
-	void rva0057863E();
-private:
-	char m_pad00[0x48];
-	Rva005D2F8A *m_48;
-};
-
 
 class AptStats
 {
@@ -1603,47 +1349,6 @@ void Rva005B800A::rva005B800A()
 {
 	m_58->rva00517EA2();
 }
-
-class Rva005BA440
-{
-public:
-	void rva005BA440();
-};
-class Rva005BA621 : public Rva005BA440
-{
-public:
-	void rva005BA621();
-};
-
-class Rva005F963A
-{
-public:
-	void rva005F963A(Int a);
-};
-class Rva005F97AC
-{
-public:
-	void rva005F97AC(Int a);
-private:
-	char m_pad00[0x3C];
-	Rva005F963A *m_3C;
-};
-
-
-class Rva005F9687
-{
-public:
-	void rva005F9687(Int a);
-};
-class Rva005F97B4
-{
-public:
-	void rva005F97B4(Int a);
-private:
-	char m_pad00[0x38];
-	Rva005F9687 *m_38;
-};
-
 
 // Retail 0x005680F9 (74 bytes) returns the instance-list storage at VA
 // 0x00E062D8; its one-time guard is VA 0x00E062DC. The named Impl constructor

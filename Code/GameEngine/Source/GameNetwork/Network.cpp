@@ -770,12 +770,6 @@ BFME_DISP8_BYTE_ZERO_SETTER(Rva0025DD16ZeroSetter, 0x38)
 // BF1 9cbfb551fe Common/Rva004021B0PositiveGetter.cpp is the clean semantic donor.
 // Target 53110B..531113 RET0 followsRET4; signed dword0 greaterthan0 returnedAL
 // Original owner/purpose is unproven; retain an independent address-owned type.
-class Rva0053110BFields
-{
-public: bool isPositive() const;
-private: int field00;
-};
-
 BFME_DISP8_CMP_IMM_BOOL_GETTER(Rva0025DD1BCmpBoolField, 0x3C, -1, !=)
 
 BFME_DISP8_CMP_IMM_BOOL_GETTER(Rva0025DC26CmpBoolField, 0x10, 1, ==)
@@ -808,27 +802,6 @@ private:
 
 // Zero-displacement members: the compared dword is the first field, so no
 // lead padding is emitted (a zero-length pad array is not legal C++).
-class Rva004CB73CmpBoolField
-{
-public:
-	bool get() const;
-	int m_value;
-};
-
-class Rva0050D3ECmpBoolField
-{
-public:
-	bool get() const;
-	int m_value;
-};
-
-class Rva002620FECmpBoolField
-{
-public:
-	bool get() const;
-	int m_value;
-};
-
 // 0x004A8125 is ToppleUpdate::isAbleToBeToppled (pinned under that name from
 // Object::topple 0x0028CF37; ZH: m_toppleState == TOPPLE_UPRIGHT, state at +0x38).
 class ToppleUpdate
@@ -837,28 +810,6 @@ public:
 	bool isAbleToBeToppled() const;
 	char m_lead[0x38];
 	int m_toppleState;
-};
-
-struct Rva0036CC89Inner
-{
-	char m_pad[0x1C];
-	unsigned int m_flags;
-};
-
-class Rva0036CC89CmpBoolField
-{
-public:
-	bool get() const;
-	char m_lead[4];
-	Rva0036CC89Inner *m_ptr;
-};
-
-class Rva00368594CmpBoolField
-{
-public:
-	bool get() const;
-	char m_lead[0x558];
-	unsigned char m_byte;
 };
 
 // ?rva00050D86@Rva00050D86@@QAE_NE@Z @0x00050D86 55B mask-covered set-field check.
@@ -876,46 +827,14 @@ public:
 	unsigned char m_4C;
 };
 
-class Rva00050D6C
-{
-public:
-	int rva00050D6C();
-	char m_lead[0x49];
-	unsigned char m_49;
-	unsigned char m_4A;
-	unsigned char m_4B;
-	unsigned char m_4C;
-};
-
 // Native 0x0026FFF7..0x0027000E RET: int at +B8 equals either 1 or 2.
 // Full EAX returns 0/1; field signedness and enum meaning remain unknown.
-class Rva0026FFF7 {
-    char m_pad[0xB8];
-    int m_value;
-public:
-    int get() const;
-};
-
 // BF1 9cbfb551fe Common/Rva00694830Accessors.cpp is the clean semantic guide.
 // Complete native 00050D53..00050D60 RET leaf proves: receiver0 pointer returns null or pointed address plus8.
 // Original owner and complete bounds unresolved; independent address-owned view.
-class Rva00050D53Fields {
-public: char *get();
-private: char *value;
-};
-
 // 0x0023C4F8 (14B): both flag bytes at +0x15 and +0x16 set (the
 // xor/cmp-je/cmp-je/inc shape of HordeUpdate::isTrueHordeMember 0x0049001F).
 // Owner unresolved; address-derived name.
-class Rva0023C4F8BothFlags
-{
-public:
-	bool get() const;
-	char m_lead[0x15];
-	bool m_first;
-	bool m_second;
-};
-
 typedef float Real;
 
 template <int N> class VslotPad : public VslotPad<N - 1>
@@ -931,165 +850,23 @@ public:
 };
 
 // vtable 0x00BC55B0#9: own slot 14 with 1.
-class MilesAudioManager : public VslotPad<8>
-{
-public:
-	virtual void reset();
-	virtual void update();
-	virtual bool vslot11(Int);
-	virtual void vslot12();
-	virtual void vslot13(Int);
-	virtual void rva00061C87(unsigned int value);
-};
-
 // vtable 0x00C10F40#16: own slot 5 with 1.
-class Rva00340744 : public VslotPad<4>
-{
-public:
-	virtual void slot5(Int value);
-	void rva00340744();
-};
-
 // vtable 0x00C16510#6 and 0x00C1661C#6: own slot 2 with 6 and with 8.
-class Rva0035E2DE : public VslotPad<1>
-{
-public:
-	virtual void slot2(Int value);
-	void rva0035E2DE();
-};
-
-class Rva0035EE5E : public VslotPad<1>
-{
-public:
-	virtual void slot2(Int value);
-	void rva0035EE5E();
-};
-
 // vtable 0x00C163D8#6: own slot 2 with the field at +0x14.
-class Rva0035D1E7 : public VslotPad<1>
-{
-public:
-	virtual void slot2(Int value);
-	void rva0035D1E7();
-private:
-	char m_pad04[0x14 - 0x04];
-	Int m_14;
-};
-
 // vtable 0x00C02114#7: own slot 3, its one stack argument unused.
-class Rva002C941C : public VslotPad<2>
-{
-public:
-	virtual void slot3();
-	void rva002C941C(Int unused);
-};
-
 // vtable 0x00BC7F20#4: own slot 10 with the field at +0x48 plus one.
-class Rva00090F72 : public VslotPad<9>
-{
-public:
-	virtual void slot10(Int value);
-	void rva00090F72();
-	Bool rva00090F7D();
-private:
-	char m_pad04[0x3C - 0x04];
-	Int m_3C;
-	char m_pad40[0x48 - 0x40];
-	Int m_48;
-};
-
 // vtable 0x00BC8208#15: is the field at +0xC0 set.
-class Rva00094DA8
-{
-public:
-	Bool rva00094DA8();
-private:
-	char m_pad00[0xC0];
-	void *m_C0;
-};
-
 // vtable 0x00C112C0#9: own slot 8 negated, as an Int.
-class Rva0034B167 : public VslotPad<7>
-{
-public:
-	virtual Bool slot8();
-	Int rva0034B167();
-};
-
 // vtable 0x00C6DAF0#1: the cdecl function at +8 with the stack argument.
-class Rva00380A75
-{
-public:
-	void rva00380A75(Int value);
-private:
-	char m_pad00[0x08];
-	void (__cdecl *m_function08)(Int);
-};
-
 // vtable 0x00BC89C8#23 and 0x00BF6178#24: own slot 21 with the first of
 // two and of six stack arguments.
-class Rva0009B0AB : public VslotPad<20>
-{
-public:
-	virtual void slot21(Int value);
-	void rva0009B0AB(Int value, Int unused);
-};
-
-class Rva0025EEF5 : public VslotPad<20>
-{
-public:
-	virtual void slot21(Int value);
-	void rva0025EEF5(Int value, Int, Int, Int, Int, Int);
-};
-
 // The partition filter base (ctor 0x000421C8, vftable 0x00BC26E0).
 class Object;
 
-class Rva000421C8
-{
-public:
-	virtual ~Rva000421C8();
-	virtual bool allow(Object *obj) = 0;
-	virtual int getPlayerMask();
-	Rva000421C8 *m_next;
-};
-
 // vtable 0x00C1FDE0#2: the field at +8, complemented unless the byte at +0xC.
-class Rva002613AFFilter : public Rva000421C8
-{
-public:
-	virtual Int getPlayerMask();
-private:
-	Int m_08;
-	Bool m_0C;
-};
-
 // vtable 0x00C07190#1: does the stack argument differ from +8.
-class Rva002614DFFilter : public Rva000421C8
-{
-public:
-	virtual Bool allow(Object *value);
-private:
-	Object *m_08;
-};
-
 // vtable 0x00BC7568#85: store the float argument at +0x50.
-class Rva0008BB5C
-{
-public:
-	void rva0008BB5C(Real value);
-private:
-	char m_pad00[0x50];
-	Real m_50;
-};
-
 // vtable 0x00BE4340#3: are the two stack arguments equal.
-class Rva003F7133
-{
-public:
-	Bool rva003F7133(Int lhs, Int rhs);
-};
-
 // vtable 0x00BF6040#32 and #33: set or clear the byte at +0x12134 of the
 // object at +0xC, if any.
 class Rva0025DC38Target
@@ -1112,12 +889,6 @@ private:
 // Independent installed-table and unnamed WB evidence: pointer at receiver-4,
 // raw32-bit words at owner8/C, signed difference divided by88, then unsigned
 // quotient greater than zero. Original owner/container identity is unknown.
-struct Rva004FA66CSpan {unsigned int begin,end;};
-
-struct Rva004FA66COwner {char prefix[8]; Rva004FA66CSpan span;};
-
-class Rva004FA66C {public: int rva004FA66C();};
-
 // tu-skeleton: 0x0025DB6D 65B ??0Network@@QAE@XZ -- matched in Code/GameEngine/Source/Common/NetworkInterfaceConstructor.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameNetwork/Network.cpp

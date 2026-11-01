@@ -13,32 +13,6 @@
 
 typedef int Int;
 typedef unsigned int UnsignedInt;
-class Rva00585B16
-{
-public:
-	Rva00585B16();
-	Rva00585B16(const Rva00585B16 &other);
-	~Rva00585B16();
-private:
-	int m_0;
-	float m_4;
-	float m_8;
-	float m_C;
-	int m_10;
-	int m_14;
-	int m_18;
-	unsigned char m_1C;
-	char m_pad1D[3];
-	int m_20;
-	int m_24;
-	char m_deque[0x28];
-	int m_50;
-};
-class Rva00586FC0
-{
-public:
-	void rva00586FC0(UnsignedInt count, Rva00585B16 value);
-};
 // 0x00041B85 (tables VA 0x00BC24E8/0x00BC8748): the rowed Mouse
 // 0x001EE5EE with both arguments, then the pinned 0x00041A83 with +0x4FA4.
 class Mouse
@@ -53,105 +27,20 @@ class Win32Mouse
 public:
 	virtual void setCursor(Mouse::MouseCursor cursor);
 };
-class Rva00041B85 : public Mouse
-{
-public:
-	void rva00041B85(unsigned char a, unsigned char *b);
-private:
-	char m_pad00[0x4FA4];
-	Int m_4FA4;
-};
 #include "../../../../GameEngine/Source/Common/System/XferVectorTypes.h"
 #include "../../../../GameEngine/Include/Common/BfmeXfer.h"
 class Rva0036CA00Str;
 void Rva0030662AXfer(Xfer *xfer, const Rva0036CA00Str &value);
 	// row 0x0030662A
-class ControlPointBlock
-{
-public:
-	void DoXfer(Xfer *xfer);
-};
-class Rva003FD1C5
-{
-public:
-	virtual ~Rva003FD1C5();
-protected:
-	virtual void rva003FD1C5(Xfer *xfer);
-private:
-	UnsignedInt m_04;
-	bool m_08;
-};
-class Rva003FD1FA : public Rva003FD1C5
-{
-protected:
-	virtual void rva003FD1C5(Xfer *xfer);
-private:
-	Int m_0C;
-};
-class Rva003FD321 : public Rva003FD1C5
-{
-protected:
-	virtual void rva003FD1C5(Xfer *xfer);
-private:
-	ControlPointBlock m_0C;
-	char m_pad0D[0x0B];
-	UnsignedInt m_18;
-};
 // 0x00540BE4 (table VA 0x00C69508): an override of the rowed chunk reader
 // 0x0053F915 that chains to it, then the pinned 0x00540B48 on the +0x24
 // member; answers true.
 class DataChunkInput;
-class Rva0053FB33
-{
-public:
-	virtual bool rva0053F915(DataChunkInput *in, void *user);
-};
-class Rva00540B48
-{
-public:
-	bool rva00540B48(DataChunkInput *in, void *user);
-};
-class Rva00540BE4 : public Rva0053FB33
-{
-public:
-	virtual bool rva0053F915(DataChunkInput *in, void *user);
-private:
-	char m_pad04[0x20];
-	Rva00540B48 m_24;
-};
 // 0x00574356 (tables VA 0x00C6E4B8/0x00C6E4D4): whether the argument
 // equals +0x14.
-class Rva00574356
-{
-public:
-	bool rva00574356(Int a) const;
-private:
-	char m_pad00[0x14];
-	Int m_14;
-};
 // 0x00577302 (two tables): the pinned 0x005753A4 with the argument unless
 // virtual slot 0 of the +0x08 object answers 1 for it.
-class Rva00577302Target
-{
-public:
-	virtual Int v00(Int a);
-};
 class GameMessage;
-class Rva005E6817Mid
-{
-public:
-	Int fwd(GameMessage *msg);
-};
-class Rva00577302
-{
-public:
-	void rva00577302(Int a);
-	__declspec(noinline) void rva005753A4(Int msg);
-private:
-	Int m_00;
-	Rva005E6817Mid *m_04;
-	Rva00577302Target *m_08;
-};
 // 0x00584A7D and 0x00587057: the pinned 0x00584A3D resp. 0x0058702C with
 // the count when the +0x08 vector (0x1C- resp. 0x54-byte entries) holds
 // fewer entries.
@@ -168,10 +57,6 @@ struct Rva00584A7DEntry
 {
 	char m_pad00[0x1C];
 };
-struct Rva00587057Entry
-{
-	char m_pad00[0x54];
-};
 class Rva00584A7D
 {
 public:
@@ -186,37 +71,14 @@ void Rva00584A7D::rva00584A7D(UnsignedInt count)
 	if (m_08.size() < count)
 		m_08.grow(count);
 }
-class Rva00587057
-{
-public:
-	void rva00587057(UnsignedInt count);
-private:
-	Int m_00;
-	Int m_04;
-	Rva00584A7DVector<Rva00587057Entry> m_08;
-};
 // 0x005AFA0E: the pinned cdecl 0x0038190F with both arguments.
 class UnicodeString;
 namespace _STL { template <class T> class allocator; template <class T, class A> class vector; }
 template <class T> class Rva002444BEAllocator;
 // Row 0x0038190F: ChatSystemInGameSendChat.cpp's Rva0038190FSendChat.
 bool Rva0038190FSendChat(const UnicodeString &text, const _STL::vector<int, Rva002444BEAllocator<int> > &selected);
-class Rva005AFA0E
-{
-public:
-	void rva005AFA0E(Int text, Int selected);
-};
 // 0x005AFCEC (eight tables): the pinned 0x005AFCB4(1) when the argument
 // equals +0x04.
-class ChatWindowsInGame { public: bool rva005AFCB4(bool); };
-class Rva005AFCEC
-{
-public:
-	void rva005AFCEC(Int a);
-private:
-	Int m_00;
-	Int m_04;
-};
 // 0x005B023A: sets +0x150 and runs CreateAHeroHero::Update(0) (0x004083FF,
 // CreateAHeroHero.cpp) on itself; the WorldBuilder twin 0x0156DEC0 calls
 // CreateAHeroHero::Update with this.
@@ -225,39 +87,12 @@ class CreateAHeroHero
 public:
 	bool Update(Int flags);
 };
-class AptMyHero
-{
-public:
-	virtual void slot14();
-private:
-	char m_pad04[0x150 - 4];
-	bool m_150;
-};
 // 0x005C392A (one table, two tail jumps): the verified Impl::Update at 0x005C36F3 of the
 // +0x08 object.
-class ParasiticInGameCommandButton
-{
-public:
-	class Impl { public: void Update(); };
-};
-class Rva005C392A
-{
-public:
-	void rva005C392A();
-private:
-	Int m_00;
-	Int m_04;
-	ParasiticInGameCommandButton::Impl *m_08;
-};
 // 0x0051483C (table VA 0x00C65F3C): false after the rowed 0x002233A6(1) on
 // the object at VA 0x00DFE4CC when TheGameLogic and the object at VA
 // 0x00E01E48 exist, TheGameLogic's +0x110 is not 4 and that object's
 // pinned 0x0035C194(true, false) agrees; else true.
-class Rva00222A8BTarget
-{
-public:
-	void rva002233A6(Int a);
-};
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 // Retail 0x0035C194 is the verified Shell::showShellMap provider.
 class Shell
@@ -266,18 +101,8 @@ public:
 	bool showShellMap(bool a, bool b);
 };
 extern class Shell *TheShell;
-struct Rva0051483CLogic
-{
-	char m_pad00[0x110];
-	Int m_110;
-};
 class GameLogic;
 extern GameLogic *TheGameLogic;
-class Rva0051483C
-{
-public:
-	bool rva0051483C();
-};
 // 0x005391A9 (one table, three callers): the pinned 0x005C4C69 on each of
 // the entries virtual slot 15 hands out for the count virtual slot 13
 // gives.
@@ -285,27 +110,6 @@ class Rva005C4B56	// owner of the rowed 0x005C4C69
 {
 public:
 	void rva005C4C69();
-};
-class Rva005391A9
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void v03();
-	virtual void v04();
-	virtual void v05();
-	virtual void v06();
-	virtual void v07();
-	virtual void v08();
-	virtual void v09();
-	virtual void v10();
-	virtual void v11();
-	virtual void v12();
-	virtual Int v13();
-	virtual void v14();
-	virtual Rva005C4B56 *v15(Int i);
-	void rva005391A9();
 };
 #include "../../../../GameEngine/Source/Common/GameLogicObjectLookupView.h"
 
@@ -404,29 +208,6 @@ private:
 	Rva002337F0* m_end;
 };
 
-class Rva00597426Part
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void v03();
-	virtual void v04();
-	virtual void v05();
-	virtual void v06();
-	virtual void v07();
-	virtual void v08();
-	virtual void v09();
-	virtual void v10();
-	virtual void v11();
-	virtual void v12();
-	virtual void v13();
-	virtual void v14();
-	virtual void v15();
-	virtual void v16();
-	virtual Int v17();
-};
-
 class Object
 {
 public:
@@ -458,45 +239,6 @@ private:
 // argument is set, virtual slot 9 (1, 1) of the +0x28 object and the rowed
 // 0x004E06A7 of the complete object; unless the second is, the pinned
 // 0x0052B045 and the rowed 0x005392C2 on the +0x28 object.
-class Rva005392C2
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void v03();
-	virtual void v04();
-	virtual void v05();
-	virtual void v06();
-	virtual void v07();
-	virtual void v08();
-	virtual void v09(bool a, bool b);
-	void rva005392C2();
-	void rva0052B045();
-};
-
-class Rva004E06A7
-{
-public:
-	virtual void primarySlot();
-	void rva004E06A7() const;
-};
-
-class Rva004E06B8Iface
-{
-public:
-	virtual void BeginTurn(Int a, Int b) = 0;
-};
-
-class LivingWorldBuilding : public Rva004E06A7, public Rva004E06B8Iface
-{
-public:
-	void BeginTurn(Int a, Int b);
-private:
-	char m_pad08[0x24];
-	Rva005392C2 *m_2C;
-};
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/HordeMeleeSwarm.cpp
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/HordeMeleeSwarm.cpp

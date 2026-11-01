@@ -48,61 +48,10 @@
 // Drawable deriving from Thing at offset 0 is carried from the Zero Hour
 // donor (GameClient/Drawable.h); the unadjusted jump agrees with it.
 
-class Rva006DE350
-{
-public:
-	virtual ~Rva006DE350();
-};
-
-class __declspec(novtable) BfmeAptValue006DCD20 : public Rva006DE350
-{
-public:
-	virtual ~BfmeAptValue006DCD20();
-};
-
-
-class Rva005746AF
-{
-public:
-	virtual ~Rva005746AF();
-};
-
-class __declspec(novtable) Rva005747DA : public Rva005746AF
-{
-public:
-	virtual ~Rva005747DA();
-};
-
-
 // Native5EA85A tail-jumps to5FC1E4, whose C7A064 constructor/destructor
 // establishes the StrategicHUD dialog base identity.
 namespace StrategicHUD {
-class DynamicAutoResolveMovieClip
-{
-public:
-	virtual ~DynamicAutoResolveMovieClip();
-};
 }
-
-class __declspec(novtable) Rva005EA85A : public StrategicHUD::DynamicAutoResolveMovieClip
-{
-public:
-	virtual ~Rva005EA85A();
-};
-
-
-class Rva005E21EB
-{
-public:
-	virtual ~Rva005E21EB();
-};
-
-class __declspec(novtable) Rva005CC677 : public Rva005E21EB
-{
-public:
-	virtual ~Rva005CC677();
-};
-
 
 class Rva005CB8D4
 {
@@ -122,33 +71,6 @@ inline Rva00574338::~Rva00574338()
 {
 }
 void bfmeAnchorRva00574338(Rva00574338 *p);
-
-
-class Rva005EE05E
-{
-public:
-	virtual ~Rva005EE05E();
-};
-
-class __declspec(novtable) Rva005D13BD : public Rva005EE05E
-{
-public:
-	virtual ~Rva005D13BD();
-};
-
-
-class Rva005E1FBC
-{
-public:
-	virtual ~Rva005E1FBC();
-};
-
-class __declspec(novtable) Rva005CC656 : public Rva005E1FBC
-{
-public:
-	virtual ~Rva005CC656();
-};
-
 
 
 // Further destructors of the same shape, each the pinned complete dtor its
@@ -678,202 +600,22 @@ public:
 };
 
 
-class Rva005C6C7B
-{
-public:
-	void reset();
-};
-
-class Rva005C6CC7Call
-{
-public:
-	void rva005C6CC7();
-};
-
-
-class Rva0025C010
-{
-public:
-	void rva0025C010();
-};
-
-class Rva00596074
-{
-public:
-	void rva00596074();
-};
-
-
-class Rva0035A1D8
-{
-public:
-	void rva0035A1D8();
-};
-
-class Rva00359E13
-{
-public:
-	void rva0035AA3E();
-};
-
-
-class AptMpGameRules
-{
-public:
-	void rva0057E6C1();
-};
-
-class Rva0057EE5C
-{
-public:
-	void rva0057E6D8();
-};
-
-
-class Rva003FAC3F
-{
-public:
-	void rva003FAC3F();
-};
-
-class Rva003FAC83
-{
-public:
-	void rva003FACE4();
-};
-
-
 class Rva0059E2FD;
-
-class Rva004FC9CE
-{
-public:
-	void *rva004FC9CE(const Rva0059E2FD &key);
-};
 
 class Rva0020E89C;
 struct Res004FCA0C;
-
-class Sub0052BAC1
-{
-public:
-	Res004FCA0C *Rva004FCA0C(Rva0020E89C *key);
-};
-
-
-class BfmeHub982
-{
-public:
-	void bfmeBegin982C();
-	void rva001116E2();
-};
-
-
-class LivingWorldLogic
-{
-public:
-	void AwardOwnershipSetsToPlayers();
-};
-
-class Rva0059E647World
-{
-public:
-	void rva002B77AD();
-};
-
-
-class Rva003F012F
-{
-public:
-	void rva003F012F();
-};
-
-class Rva00210D6DElem
-{
-public:
-	void rva003F0DC6();
-};
-
 
 void Rva006CF040Tick(unsigned int delay);
 void Rva006CF1B0(int delay);
 
 
-class AttributeModifierStore
-{
-public:
-	void *GetCategoryContainer(int category);
-	void *rva002149A5(int category);
-};
-
-
 class Rva002E2903Player;
-
-class LivingWorldRegion
-{
-public:
-	int rva003F0189(Rva002E2903Player *player) const;
-
-private:
-	int rva003EFDB3(Rva002E2903Player *player) const;
-};
-
-
-class Rva005F6037ByteChaseField
-{
-public:
-	unsigned char get() const;
-};
-
-class Rva005E687F
-{
-public:
-	unsigned char get() const;
-};
-
 
 // Native5E6884..5E6894 RET0: first calls the independently rowed empty
 // body at B3FD0 with the receiver, then tail-dispatches virtual slot6.
 // Two retail tables store this member (file offsets8744A4 and877260).
 // Existing opaque empty-body pin supplies the no-argument thiscall ABI;
 // the original owner and the empty operation's purpose remain unknown.
-class Rva000B3FD0Nop { public: void noop(); };
-class Rva005E6884
-{
-public:
-    virtual void slot0(); virtual void slot1(); virtual void slot2();
-    virtual void slot3(); virtual void slot4(); virtual void slot5();
-    virtual void slot6();
-    void rva005E6884();
-};
-
-
-class Rva005F327ARun
-{
-public:
-	void run();
-};
-
-class Rva005F604C
-{
-public:
-	void run();
-};
-
-
-class Gen_009EBB60Target
-{
-public:
-	int bfmeForward();
-};
-
-class Rva00620DA0
-{
-public:
-	int forward();
-};
-
-
 void Rva001174D0(int value);
 
 

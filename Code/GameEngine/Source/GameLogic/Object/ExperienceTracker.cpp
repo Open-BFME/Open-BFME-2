@@ -498,146 +498,6 @@ public:
 	virtual void slot131();
 	virtual void slot132();
 };
-class MilesAudioManager : public SizedForwarderSlots
-{
-public:
-	virtual void rva000512BC();
-};
-class Rva00078AC6Forwarder
-{
-public:
-	void rva00078AC6();
-private:
-	char m_lead[0x4];
-	SizedForwarderSlots *m_inner;
-};
-class Rva0008605ALead
-{
-public:
-	virtual void lead0();
-private:
-	char m_lead[0xB0];
-};
-class Rva0008605AForwarder : public Rva0008605ALead, public SizedForwarderSlots
-{
-public:
-	void rva0008605A();
-};
-class Rva0008615BLead
-{
-public:
-	virtual void lead0();
-private:
-	char m_lead[0x24C4];
-};
-class Rva0008615BForwarder : public Rva0008615BLead, public SizedForwarderSlots
-{
-public:
-	void rva0008615B();
-};
-class Rva0008BD2BLead
-{
-public:
-	virtual void lead0();
-private:
-	char m_lead[0x24C4];
-};
-class Rva0008BD2BForwarder : public Rva0008BD2BLead, public SizedForwarderSlots
-{
-public:
-	void rva0008BD2B();
-};
-class Rva00091D32Forwarder
-{
-public:
-	void rva00091D32();
-private:
-	char m_lead[0x14];
-	SizedForwarderSlots *m_inner;
-};
-class Rva000ABD68Forwarder
-{
-public:
-	void rva000ABD68();
-private:
-	char m_lead[0x4];
-	SizedForwarderSlots *m_inner;
-};
-class Rva001EDDBBForwarder
-{
-public:
-	void rva001EDDBB();
-private:
-	char m_lead[0x4FA8];
-	SizedForwarderSlots *m_inner;
-};
-class Rva0024002ELead
-{
-public:
-	virtual void lead0();
-private:
-	char m_lead[0xC];
-};
-class Rva0024002EForwarder : public Rva0024002ELead, public SizedForwarderSlots
-{
-public:
-	void rva0024002E();
-};
-class Rva00240035Lead
-{
-public:
-	virtual void lead0();
-private:
-	char m_lead[0xC];
-};
-class Rva00240035Forwarder : public Rva00240035Lead, public SizedForwarderSlots
-{
-public:
-	void rva00240035();
-};
-class Rva0024003DLead
-{
-public:
-	virtual void lead0();
-private:
-	char m_lead[0xC];
-};
-class Rva0024003DForwarder : public Rva0024003DLead, public SizedForwarderSlots
-{
-public:
-	void rva0024003D();
-};
-class Rva0025C25AForwarder : public SizedForwarderSlots
-{
-public:
-	void rva0025C25A();
-};
-class Rva0029AC98Forwarder : public SizedForwarderSlots
-{
-public:
-	void rva0029AC98();
-};
-class Rva0030ADE8Forwarder : public SizedForwarderSlots
-{
-public:
-	void rva0030ADE8();
-};
-class Rva00328CC5Forwarder
-{
-public:
-	void rva00328CC5();
-private:
-	char m_lead[0x18];
-	SizedForwarderSlots *m_inner;
-};
-class Rva00328CCCForwarder
-{
-public:
-	void rva00328CCC();
-private:
-	char m_lead[0xC];
-	SizedForwarderSlots *m_inner;
-};
 class Rva0039AC9CForwarder
 {
 public:
@@ -673,21 +533,6 @@ private:
 // --- 0x0029A436 (25B): the +0x00 object's +0x20 angle = value - pi/2;
 // 0x0029A452 (23B): its +0x08 point = the given point.
 
-struct Rva0029A436Data
-{
-	char m_pad[8];
-	Coord3D m_08;
-	char m_pad14[0x20 - 0x14];
-	float m_20;
-};
-class Rva0029A436
-{
-public:
-	void setAngle(float angle);
-	void setPosition(const Coord3D *pos);
-private:
-	Rva0029A436Data *m_00;
-};
 // --- 0x0029F72F (51B): whether the selection can do any action but the
 // first (rowed InGameUI::canSelectedObjectsDoAction over types 2..20).
 class InGameUI
@@ -701,15 +546,6 @@ public:
 // --- 0x0059F0F7 (17B): vtable 0x00C7122C over two cleared words;
 // 0x0059F108 (34B): nothing to check is fine, else TheGameSpyInfo's virtual
 // slot 54 decides.
-class Rva0059F0F7
-{
-public:
-	Rva0059F0F7();
-	virtual ~Rva0059F0F7() {}
-private:
-	int m_04;
-	int m_08;
-};
 class GameSpyInfoInterface
 {
 public:
@@ -730,11 +566,6 @@ public:
 	virtual bool s54(void *what);
 };
 extern GameSpyInfoInterface *TheGameSpyInfo;
-class Rva0059F108
-{
-public:
-	bool rva0059F108(void *what);
-};
 // --- 0x002E7F1E (17B) / 0x002E7F2F (15B) / 0x002E7F3E (20B): a 0x800-byte
 // buffer with head and tail indices: construct, clear, not empty.
 class Rva002E7F1E
@@ -778,17 +609,6 @@ public:
 	void rva00575AE1(int a, int b);							// 0x00575AE1
 	void rva00575B7B(int a, int b);							// 0x00575B7B
 };
-class Rva00575DFE
-{
-public:
-	void rva00575DFE();
-private:
-	int m_00;
-	Rva00575A3F *m_holder;
-	int m_08;
-	int m_0C;
-	int m_10;
-};
 // --- 0x00362FC3 (53B): for a positive duration, mark +0x31 and record the
 // GameClient frame (virtual slot 31) at +0x40, the end at +0x44 and 1.0 at
 // +0x3C.
@@ -806,18 +626,6 @@ public:
 	virtual unsigned int getFrame();
 };
 extern GameClient *TheGameClient;
-class Rva00362FC3
-{
-public:
-	void rva00362FC3(unsigned int frames);
-private:
-	char m_pad[0x31];
-	bool m_31;
-	char m_pad32[0x3C - 0x32];
-	float m_3C;
-	unsigned int m_40;
-	unsigned int m_44;
-};
 // --- 0x004CD07C (53B, cdecl): the first module of the object's +0x244 list
 // whose +0x0C interface answers virtual slot 39, answered again.
 class Rva004CD07CInterface
@@ -960,18 +768,6 @@ extern float g_Va00BBB8D8;
 struct ExperienceParentView;
 
 BFME_LITERAL_NAME_GETTER(Rva0039ADFENamed, "ExperienceTrackerObject")
-
-class DozerActionState
-{
-public:
-	virtual const char *GetSnapshotName() const;
-};
-
-class BoneFXDamage
-{
-protected:
-	virtual const char *GetSnapshotName() const;
-};
 
 // tu-skeleton: 0x0039ABFF 13B ?rva0039ABFF@ExperienceTracker@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/RvaSingletonFwdMisc.cpp (not merged yet)
 
