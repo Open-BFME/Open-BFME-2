@@ -21,14 +21,7 @@ typedef int Int;
 
 enum { MAX_COMMANDS_PER_SET = 32 };
 
-class CommandButton
-{
-public:
-	const AsciiString &getName() const { return m_name; }
-private:
-	unsigned char m_pad[0x10];
-	AsciiString m_name;	// +0x10
-};
+#include "../../../Include/GameClient/CommandButton.h"
 
 class CommandSet
 {

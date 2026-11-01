@@ -44,17 +44,7 @@ enum CommandSourceType
 
 #include "../../Include/GameClient/Drawable.h"
 
-class CommandButton
-{
-public:
-	UnsignedInt getOptions() const { return m_options; }
-	const SpecialPowerTemplate *getSpecialPowerTemplate() const { return m_specialPower; }
-private:
-	unsigned char m_pad00[0x1C];
-	UnsignedInt m_options;			// +0x1C
-	unsigned char m_pad20[0x44 - 0x20];
-	const SpecialPowerTemplate *m_specialPower;	// +0x44
-};
+#include "../../Include/GameClient/CommandButton.h"
 
 class ActionManager
 {

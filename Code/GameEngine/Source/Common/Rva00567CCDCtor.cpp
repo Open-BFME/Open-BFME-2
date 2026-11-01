@@ -10,9 +10,7 @@
 #include "ascii_string.h"
 #include "../../Include/Common/Rva0007DF07.h"
 
-class CommandButton
-{
-};
+#include "../../Include/GameClient/CommandButton.h"
 
 const CommandButton *GetSetStanceCommandButton(int stance);
 

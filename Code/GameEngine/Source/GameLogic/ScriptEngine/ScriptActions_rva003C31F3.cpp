@@ -8,12 +8,7 @@ enum NameKeyType { NK_NONE = 0 };
 
 class Object;
 class Module;
-class CommandButton
-{
-public:
-	char m_pad[0x10c];
-	unsigned char m_autoAbility;
-};
+#include "../../../Include/GameClient/CommandButton.h"
 class ControlBar
 {
 public:

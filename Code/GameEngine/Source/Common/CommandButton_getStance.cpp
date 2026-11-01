@@ -2,17 +2,9 @@
 // Array indexer returning m_234[index]. Evidence: unlock lane plus 6 callers
 // plus ecx-first thiscall shape with ret-4 honest address name.
 
-class CommandButton
-{
-public:
-	int getStance(int index);
-
-private:
-	char m_pad[0x234];
-	int *m_arr;
-};
+#include "../../Include/GameClient/CommandButton.h"
 
 int CommandButton::getStance(int index)
 {
-	return m_arr[index];
+	return m_stancesBegin[index];
 }

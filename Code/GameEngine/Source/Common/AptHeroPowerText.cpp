@@ -43,12 +43,7 @@ void __cdecl Rva005B24CDHeroPowerText(void *power, const char *prefix, int index
 // AptMyHero::rva005B0416 and the AptCreateAHero power panel. WorldBuilder's
 // twin 0x0157F330 is unnamed; the name is address-derived.
 class Image;
-class CommandButton
-{
-public:
-	const Image *rva0035B19E() const;
-	const AsciiString &rva0035B26F() const;
-};
+#include "../../Include/GameClient/CommandButton.h"
 class ImageCollection
 {
 public:

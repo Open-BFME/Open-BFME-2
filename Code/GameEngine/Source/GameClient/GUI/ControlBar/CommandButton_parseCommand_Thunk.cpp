@@ -218,11 +218,7 @@ const char *TheCommandNames[] = {
 
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/ControlBar.h
-class CommandButton
-{
-public:
-	static void parseCommand(INI *, void *, void *, const void *);
-};
+#include "../../../../Include/GameClient/CommandButton.h"
 
 // ?parseCommand@CommandButton@@SAXPAVINI@@PAX1PBX@Z
 void CommandButton::parseCommand(INI *ini, void *instance, void *store, const void *userData)

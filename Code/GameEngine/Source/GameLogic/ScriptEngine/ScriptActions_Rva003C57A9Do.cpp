@@ -19,14 +19,7 @@ class Parameter;
 class CommandSet;
 struct Coord3D;
 
-class CommandButton
-{
-public:
-	const AsciiString &getName() const { return m_name; }
-private:
-	char m_pad[0x10];
-	AsciiString m_name;
-};
+#include "../../../Include/GameClient/CommandButton.h"
 
 class CommandSet
 {

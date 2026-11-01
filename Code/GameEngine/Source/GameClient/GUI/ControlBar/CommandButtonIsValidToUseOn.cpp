@@ -60,10 +60,7 @@ public:
     bool canDoSpecialPower(const Object *, const SpecialPowerTemplate *, CommandSourceType, unsigned, bool);
 };
 extern ActionManager *TheActionManager;
-class CommandButton {
-public:
-    bool isReady(const Object *source) const;
-};
+#include "../../../../Include/GameClient/CommandButton.h"
 class Rva0035B2C3 {
 public:
     bool rva0035B2C3(void *source, int target, const Coord3D *location, int commandSource);

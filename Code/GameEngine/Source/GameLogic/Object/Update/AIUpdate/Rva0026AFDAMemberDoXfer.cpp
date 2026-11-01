@@ -102,14 +102,7 @@ private:
 	AsciiString m_triggerName;	// +0x40
 };
 
-class CommandButton
-{
-public:
-	const AsciiString &getName() const { return m_name; }
-private:
-	unsigned char m_pad00[0x10];
-	AsciiString m_name;		// +0x10
-};
+#include "../../../../../Include/GameClient/CommandButton.h"
 
 class Path
 {

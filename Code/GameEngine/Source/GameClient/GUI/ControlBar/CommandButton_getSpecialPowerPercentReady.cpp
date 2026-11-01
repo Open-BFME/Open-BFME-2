@@ -25,14 +25,7 @@ public:
 	SpecialPowerModuleInterface *getSpecialPowerModule(const SpecialPowerTemplate *power) const;
 };
 
-class CommandButton
-{
-public:
-	Real getSpecialPowerPercentReady(const Object *obj) const;
-private:
-	char m_pad00[0x44];
-	const SpecialPowerTemplate *m_specialPower; // +0x44
-};
+#include "../../../../Include/GameClient/CommandButton.h"
 
 Real CommandButton::getSpecialPowerPercentReady(const Object *obj) const
 {

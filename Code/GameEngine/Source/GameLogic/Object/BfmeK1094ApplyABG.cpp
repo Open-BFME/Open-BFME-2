@@ -5,12 +5,7 @@
 struct BfmeWorldRV;
 extern class ControlBar *TheControlBar;
 
-class CommandButton
-{
-public:
-	int m_pad[5];
-	int m_command;
-};
+#include "../../../Include/GameClient/CommandButton.h"
 
 class CommandSet
 {

@@ -68,11 +68,7 @@ class Rva005B3751 {public:void rva005B3947();};
 
 class GameWindow;
 class Image;
-class CommandButton
-{
-public:
-	const Image *rva0035B19E() const;
-};
+#include "../../../../../Include/GameClient/CommandButton.h"
 class ImageCollection
 {
 public:

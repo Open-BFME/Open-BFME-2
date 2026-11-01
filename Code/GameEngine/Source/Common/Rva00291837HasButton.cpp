@@ -14,12 +14,7 @@ public:
 	void *rva0031D5F8(const AsciiString *name);	// 0x0031D5F8
 };
 
-class CommandButton
-{
-public:
-	char m_pad00[0x1C];
-	unsigned int m_options;	// +0x1C
-};
+#include "../../Include/GameClient/CommandButton.h"
 
 class CommandSet
 {

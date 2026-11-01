@@ -304,11 +304,7 @@ public:
 class Rva00E01E28Owner;
 extern HotKeyManager *TheHotKeyManager;
 
-class CommandButton
-{
-public:
-	const AsciiString &rva0035B1E9() const;
-};
+#include "../../../../../Include/GameClient/CommandButton.h"
 
 #include "../../../../../Include/GameClient/ControlBar.h"
 

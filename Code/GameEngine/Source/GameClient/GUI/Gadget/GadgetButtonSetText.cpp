@@ -84,7 +84,7 @@ namespace _STL {
  };
 }
 class ThingTemplate;
-class CommandButton {public:const ThingTemplate *rva0035B570()const;};
+#include "../../../../Include/GameClient/CommandButton.h"
 void *GadgetButtonGetData(GameWindow *);
 class ButtonProductionQuery
 {

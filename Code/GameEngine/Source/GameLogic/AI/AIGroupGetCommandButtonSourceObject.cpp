@@ -16,14 +16,7 @@ enum GUICommandType
 	GUI_COMMAND_NONE = 0
 };
 
-class CommandButton
-{
-public:
-	__declspec(dllimport) __forceinline GUICommandType getCommandType() const { return m_command; }
-private:
-	char m_pad[0x14];
-	GUICommandType m_command; // +0x14
-};
+#include "../../../Include/GameClient/CommandButton.h"
 
 class CommandSet
 {

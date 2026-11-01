@@ -4,11 +4,7 @@
 // retail 0x00525633..0x00525783 (336 bytes).
 #include "ascii_string.h"
 
-class CommandButton
-{
-public:
-	const AsciiString &rva0035B1E9() const;
-};
+#include "../../../../../Include/GameClient/CommandButton.h"
 
 #include "../../../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;

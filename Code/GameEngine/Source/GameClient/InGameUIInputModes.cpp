@@ -49,27 +49,7 @@ class SpecialPowerTemplate;
 enum RadiusCursorType { RADIUSCURSOR_NONE = 0 };
 enum WeaponSlotType { PRIMARY_WEAPON = 0 };
 
-class CommandButton
-{
-public:
-	int getCommandType() const { return m_command; }
-	unsigned int getOptions() const { return m_options; }
-	bool isContextCommand() const;
-	RadiusCursorType getRadiusCursorType() const { return m_radiusCursor; }
-	const SpecialPowerTemplate *getSpecialPowerTemplate() const { return m_specialPower; }
-	WeaponSlotType getWeaponSlot() const { return m_weaponSlot; }
-private:
-	char m_unknown00[0x14];
-	int m_command;									// +0x14
-	char m_unknown18[0x1C - 0x18];
-	unsigned int m_options;							// +0x1C
-	char m_unknown20[0x44 - 0x20];
-	const SpecialPowerTemplate *m_specialPower;		// +0x44
-	char m_unknown48[0x4C - 0x48];
-	RadiusCursorType m_radiusCursor;				// +0x4C
-	char m_unknown50[0x80 - 0x50];
-	WeaponSlotType m_weaponSlot;					// +0x80
-};
+#include "../../Include/GameClient/CommandButton.h"
 
 const unsigned int COMMAND_OPTION_NEED_TARGET = 0x227;
 

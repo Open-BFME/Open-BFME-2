@@ -46,20 +46,7 @@ public:
 };
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class CommandButton
-{
-public:
-	Int getCommandType() const { return m_command; }
-	const void *getSpecialPowerTemplate() const { return m_specialPower; }
-	unsigned int getOptions() const { return m_options; }
-private:
-	unsigned char m_pad00[0x14];
-	Int m_command;			// +0x14
-	unsigned char m_pad18[4];
-	unsigned int m_options;		// +0x1C
-	unsigned char m_pad20[0x24];
-	const void *m_specialPower;	// +0x44
-};
+#include "../../../Include/GameClient/CommandButton.h"
 
 class CommandSet
 {

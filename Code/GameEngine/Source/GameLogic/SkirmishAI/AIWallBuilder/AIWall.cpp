@@ -233,13 +233,7 @@ public:
 	AsciiString m_08;	// +0x08 the name
 };
 
-class CommandButton
-{
-public:
-	const ThingTemplate *rva0035B570() const;	// 0x0035B570
-	char m_pad00[0x24];
-	const UpgradeTemplate *m_24;	// +0x24
-};
+#include "../../../../Include/GameClient/CommandButton.h"
 
 class CommandSet
 {
@@ -608,7 +602,7 @@ void AIWall::buildGate()
 			const CommandButton *button = set->getCommandButton(i);
 			if (!button)
 				continue;
-			const UpgradeTemplate *upgrade = button->m_24;
+			const UpgradeTemplate *upgrade = button->m_upgradeTemplate;
 			if (!upgrade)
 				continue;
 			const ThingTemplate *thingTemplate = button->rva0035B570();

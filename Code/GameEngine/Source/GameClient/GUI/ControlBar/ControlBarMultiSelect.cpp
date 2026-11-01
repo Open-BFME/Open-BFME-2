@@ -42,16 +42,7 @@ class Rva0053ED1A { public: void rva0053EF2E(); };
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/ControlBar.h
 class Object;
-class CommandButton
-{
-public:
-    void rva0035B5C2(Object *, bool);
-    Int getCommandType() const { return *(const Int *)((const char *)this + 0x14); }
-	Int getOptions() const
-	{
-		return *(const Int *)((const char *)this + 0x1C);
-	}
-};
+#include "../../../../Include/GameClient/CommandButton.h"
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/GameWindow.h
 #include "../../../../Include/GameClient/Bfme2GameWindow.h"

@@ -141,7 +141,7 @@ extern GameTextInterface *TheGameText;
 extern InGameUI *TheInGameUI;
 
 
-class CommandButton { public: bool isReady(const Object*) const; };
+#include "../../Include/GameClient/CommandButton.h"
 class ControlBar { public: const CommandButton *findCommandButton(const AsciiString&); };
 extern ControlBar *TheControlBar;
 #include "../../Include/Common/NameKeyGenerator.h"

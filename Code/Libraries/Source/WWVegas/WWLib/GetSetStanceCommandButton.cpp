@@ -5,9 +5,7 @@
 // Caller 0x00567CCD passes [eax+4] stance and stores result at +0x18; plain ret = __cdecl.
 #include "ascii_string.h"
 
-class CommandButton
-{
-};
+#include "../../../../GameEngine/Include/GameClient/CommandButton.h"
 
 class ControlBar
 {

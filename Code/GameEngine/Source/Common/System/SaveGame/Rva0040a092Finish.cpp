@@ -13,9 +13,7 @@
 
 #include "../../../../Include/Common/INI/INI.h"
 
-class CommandButton
-{
-};
+#include "../../../../Include/GameClient/CommandButton.h"
 
 #include "../../../../Include/GameClient/ControlBar.h"
 

@@ -13,7 +13,7 @@ typedef bool Bool;
 
 #include "ascii_string.h"
 #include "../../../../Include/Common/ThingTemplate.h"
-class CommandButton { public: const ThingTemplate *rva0035B570() const; };
+#include "../../../../Include/GameClient/CommandButton.h"
 
 #include "../../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;

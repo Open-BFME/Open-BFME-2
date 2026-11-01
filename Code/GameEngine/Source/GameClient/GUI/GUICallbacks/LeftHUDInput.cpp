@@ -70,19 +70,7 @@ bool pickAndPlayUnitVoiceResponse(const DrawableList *list, GameMessage::Type ms
 
 enum NEED_TARGET_OPTION { NEED_TARGET_POS = 0x20 };
 
-class CommandButton
-{
-public:
-	char m_pad00[0x14];
-	Int m_commandType;              // +0x14
-	char m_pad18[4];
-	UnsignedInt m_options;          // +0x1C
-	char m_pad20[0x50 - 0x20];
-	AsciiString m_cursorName;       // +0x50
-
-	Int getCommandType() const { return m_commandType; }
-	UnsignedInt getOptions() const { return m_options; }
-};
+#include "../../../../Include/GameClient/CommandButton.h"
 
 #include "../../../../Include/GameClient/Bfme2GameWindow.h"
 

@@ -12,33 +12,20 @@
 extern GameLogic *TheGameLogic;
 
 class Rva0035B164 { public: int rva0035B164(int index); };
-class CommandButton
-{
-public:
-	void rva0035B5C2(Object *object, bool value);
-	void rva0035B6FA(ObjectID objectID, bool value);
-
-private:
-	unsigned char m_pad00[0x14];
-	int m_stance;
-	unsigned char m_pad18[4];
-	unsigned int m_flags;
-	unsigned char m_pad20[0xDC];
-	int m_cachedAvailability;
-};
+#include "../../Include/GameClient/CommandButton.h"
 
 void CommandButton::rva0035B6FA(ObjectID objectID, bool value)
 {
-	if (m_flags & 0x00800000)
+	if (m_options & 0x00800000)
 	{
-		if (m_stance != 0x23)
+		if (m_command != 0x23)
 		{
-			if (m_stance == 0x30)
+			if (m_command == 0x30)
 				rva0035B5C2(TheGameLogic->findObjectByID(objectID), value);
 		}
 		else
-			m_cachedAvailability = reinterpret_cast<Rva0035B164 *>(this)->rva0035B164(objectID);
+			fieldFC = reinterpret_cast<Rva0035B164 *>(this)->rva0035B164(objectID);
 	}
-	else if (m_flags & 0x03000000)
+	else if (m_options & 0x03000000)
 		rva0035B5C2(TheGameLogic->findObjectByID(objectID), value);
 }
