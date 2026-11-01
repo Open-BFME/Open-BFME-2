@@ -1,0 +1,34 @@
+{
+  "rva": "0x006BF950",
+  "size": 59,
+  "old_name": "?push_back@?$vector@VMoney@@V?$allocator@VMoney@@@_STL@@@_STL@@QAEXABVMoney@@@Z",
+  "new_name": "?rva006BF950@BfmeVecBE@@QAEXABUBfmeElemBE@@@Z",
+  "raw_whole_body_equal": true,
+  "byte_and_target_binding_exact": true,
+  "old_relocations": [
+    [
+      21,
+      20,
+      "??0Money@@QAE@ABV0@@Z"
+    ],
+    [
+      51,
+      20,
+      "?_M_insert_overflow@?$vector@VMoney@@V?$allocator@VMoney@@@_STL@@@_STL@@IAEXPAVMoney@@ABV3@ABU__false_type@2@I_N@Z"
+    ]
+  ],
+  "new_relocations": [
+    [
+      21,
+      20,
+      "??0BfmeStringRecord00063BE4@@QAE@ABU0@@Z"
+    ],
+    [
+      51,
+      20,
+      "?overflow@BfmeVecBE@@QAEXPAUBfmeElemBE@@ABU2@ABUBfmeFalseBE@@I_N@Z"
+    ]
+  ],
+  "new_copy_owner": "Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp:0x00063BE4/79",
+  "new_overflow_owner": "Code/GameEngine/Source/Common/Rva006BF5E0Overflow.cpp:0x006BF5E0/268"
+}
