@@ -12306,6 +12306,13 @@ compiles but still fails bytes; constructor and include/view prerequisites also
 remain. The seed's existing shadow 42FFC0 constructor-identity finding is
 unchanged. No source-file reduction, linked gain or census clearance is claimed.
 
+The subsequent allocator-lifetime prerequisite removes the boolean donor's
+declaration-only empty allocator destructor. Its 63-byte body stays exact; the
+previous merge failure was the seed's 42FFC0 constructor growing 64 -> 72 bytes.
+The supported dry run now accepts both small donors with the seed and keeps the
+link guard clean. Their absorption remains pending the whole-TU reservation;
+no source-file reduction is credited before application.
+
 ### LINK-126: the camera-track key's assignment at 0x00540053 rowed as a pair copy constructor
 
 **Status: Repair landed / awaiting verification. Updated: 2026-10-27; inspected revision: 472c3b46dc.**

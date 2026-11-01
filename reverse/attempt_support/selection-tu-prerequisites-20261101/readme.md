@@ -45,3 +45,13 @@ The pre-commit shadow identity check reports the existing 42FFC0 hashtable
 constructor binding in the seed. Its caller and relocation names are identical
 in the original/current object proof; this prerequisite does not fix or retire
 that finding. All three changed-source EH graphs pass EXACT in the hook.
+
+Follow-up after `de57528547`: the boolean-map row itself was already exact in
+the failing compositions. Its declaration-only `allocator<void *>::~allocator`
+instead changed the seed's 42FFC0 constructor from 64 to 72 bytes by introducing
+an empty-allocator destruction call. Removing that suppression restores the
+primary trivial destructor. The standalone 63-byte row and all 14 donor code
+definitions/relocations remain identical. The supported dry run now accepts
+the seed, boolean-map donor and callback wrapper together, preserving its link
+guard. Whole-scope reservation remains required before actual application;
+no files have yet been absorbed or credited.
