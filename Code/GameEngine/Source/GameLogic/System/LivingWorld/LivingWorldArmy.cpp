@@ -134,7 +134,7 @@ struct Rva0040DD3ARef {
     ~Rva0040DD3ARef() { if(value) ReleaseTreeHintRef00217D4C(&value->ref); }
 };
 class Rva002E2903Player;
-class Rva002BA8F1Logic { public: Rva002E2903Player *find(int,unsigned int *); };
+#include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 class Rva002E34A9 { public: void rva002E34A9(const Rva0040DD3ARef &,int); };

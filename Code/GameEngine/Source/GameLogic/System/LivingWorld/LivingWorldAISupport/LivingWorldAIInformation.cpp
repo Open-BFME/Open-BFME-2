@@ -75,7 +75,7 @@ public:static _Rb_tree_node_base* _M_increment(_Rb_tree_node_base*);
 class LivingWorldLogic;
 extern LivingWorldLogic* TheLivingWorldLogic;
 class Rva002E2903Player;
-class Rva002BA8F1Logic {public:Rva002E2903Player* find(int,unsigned int*);};
+#include "../../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 class Rva002E071E {public:int rva002E0BC0(int);};
 extern unsigned int g_Va00E04544;
 class Rva0050228B {

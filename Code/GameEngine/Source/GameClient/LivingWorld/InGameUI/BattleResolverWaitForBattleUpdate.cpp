@@ -16,7 +16,8 @@ class Rva0056A989{public:bool rva0056A989();};
 class Rva005CFA87{public:Rva005CFA87(void*,bool);char data[16];};
 class Object;
 class Rva00575674{public:void rva00575674(Object*);};
-class Rva002BA8F1Logic{public:int rva002B5256(bool);};class LivingWorldLogic;extern LivingWorldLogic*TheLivingWorldLogic;
+#include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
+class LivingWorldLogic;extern LivingWorldLogic*TheLivingWorldLogic;
 class Rva0054D2DDTarget{public:void method(int,const UnicodeString&,const UnicodeString&);};
 class AptStrategicMessageBox{static AptStrategicMessageBox*s_instance;friend class Rva005D0643;};
 class GameTextInterface{public:

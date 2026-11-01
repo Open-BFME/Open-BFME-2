@@ -90,7 +90,7 @@ static __declspec(noinline) _STL::auto_ptr<Rva0042C23APointee> CreateTurnPhaseBe
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 class BfmeSelectionState {public:bool isSelectionLocked()const;};
-class Rva002BA8F1Logic {public:int rva002B5256(bool);};
+#include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 class Rva002B2405 {public:int rva002B2405();};
 struct WorldView {char pad[0x98];Rva002B2405 *localPlayer;char pad9C[0xF4-0x9C];int phase;char padF8[0x168-0xF8];bool closing;};
 class Rva0042D6C0PtrChaseField {public:int get()const;};

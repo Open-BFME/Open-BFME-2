@@ -359,12 +359,7 @@ public:
 extern GameEngine *TheGameEngine;
 
 // The living-world logic's rowed 0x002B36F3.
-class Rva002BA8F1Logic
-{
-public:
-	void rva002B36F3();
-	int rva002B5256(bool flag);
-};
+#include "../../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 void InitRandom(unsigned int seed);
 

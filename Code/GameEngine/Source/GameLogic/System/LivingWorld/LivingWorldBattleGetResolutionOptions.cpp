@@ -54,7 +54,7 @@ public:
     virtual void slot12(); virtual void slot13();
     virtual int slot14(LivingWorldBattle *);
 };
-class Rva002BA8F1Logic { public: int rva002B5256(bool); };
+#include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 class LivingWorldLogic {
 public:
     bool WillPlayerBeEliminatedIfHeOrSheLosesThisRegion(int, int);

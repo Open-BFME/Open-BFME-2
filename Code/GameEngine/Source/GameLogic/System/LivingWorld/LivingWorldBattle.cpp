@@ -35,7 +35,7 @@ struct LivingWorldArmy {
 class Rva003190A5 { public: bool query() const; };
 class Rva0040CB2CIndexedField { public: int get(int) const; };
 struct Rva002B488EResult { char pad00[0x54]; int playerID; };
-class Rva002BA8F1Logic { public: Rva002B488EResult*rva002B488E(int); };
+#include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 class LivingWorldLogic; extern LivingWorldLogic* TheLivingWorldLogic;
 class Rva003F468D { public: int rva003F4DAE(int); };
 struct Rva003F4E07Player { char pad00[0x14];int id; };

@@ -45,7 +45,7 @@ class Rva002B4E83 {public:void rva002B4E83(Rva002E0687*);};
 struct ArmyEntry {unsigned a,b;};
 struct ArmyData {char prefix[0x40];ArmyEntry*begin,*end,*capacity;__forceinline int count()const{return (int)(end-begin);}};
 struct Rva002B488EResult {char prefix[0x54];int owner;char gap[0x20];ArmyData*data;};
-class Rva002BA8F1Logic {public:Rva002B488EResult*rva002B488E(int);};
+#include "../../../Include/GameLogic/Rva002BA8F1Logic.h"
 class LivingWorldPlayer {public:char prefix[0x14];int id;char gap[0x1a0];_STL::vector<int> objects;char gap2[0x200];bool lost;__forceinline bool hasLost()const{return lost;}};
 enum Rva002B7DE6ArmyID { Rva002B7DE6InvalidArmyID=-1 };
 class Rva003F2A8C {public:void rva003F2A8C(int);};  // rowed at 0x003F2A8C

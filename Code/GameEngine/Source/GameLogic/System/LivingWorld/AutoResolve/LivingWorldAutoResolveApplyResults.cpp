@@ -35,11 +35,7 @@ class Rva002E34A9 {public:void rva002E34A9(const Rva0040DD3ARef&,int);};
 class Rva002E2903Player;
 struct Rva002B488EResult {char unknown00[0x54];int player54; __forceinline int GetPlayer() const{return player54;}};
 struct Rva002B2579Result;
-class Rva002BA8F1Logic {public:
- Rva002B488EResult *rva002B488E(int);
- Rva002E2903Player *find(int,unsigned int*);
- Rva002B2579Result *rva002B2579(int);
-};
+#include "../../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 class Rva002B25BFOwner {public:bool rva002B25BF(int);};
 class LivingWorldBuilding {public:void updateArmySummaryEntryRepresentation(const Rva004E0790Inner&);};
 class LivingWorldLogic;

@@ -54,11 +54,7 @@ public:
 	char unknown00[0x14];
 	int id;
 };
-class Rva002BA8F1Logic
-{
-public:
-	Rva002E2903Player *find(int, unsigned *);
-};
+#include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 

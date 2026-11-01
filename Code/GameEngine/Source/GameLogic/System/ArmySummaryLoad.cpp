@@ -89,9 +89,7 @@ class Rva00318C32Ret {public:char bytes00[0x28];_STL::vector<AsciiString>delayed
 class Rva00318C79Owner {public:Rva00318C32Ret*rva00318C32();};
 struct Rva002B488EResult {char bytes00[0x54];int ownerID;__forceinline int getOwnerID()const{return ownerID;}};
 class Rva002E2903Player {public:char bytes00[0x14];int playerID;};
-class Rva002BA8F1Logic {
-public:Rva002B488EResult*rva002B488E(int);Rva002E2903Player*find(int,unsigned*);
-};
+#include "../../../Include/GameLogic/Rva002BA8F1Logic.h"
 class LivingWorldLogic;
 extern LivingWorldLogic*TheLivingWorldLogic;
 class PlayerList {public:Player*Rva002A7A6F(int);};

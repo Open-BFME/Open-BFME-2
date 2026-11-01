@@ -66,12 +66,7 @@ public:
 	int m_id; // +0x14
 };
 
-class Rva002BA8F1Logic
-{
-public:
-	Rva002E2903Player *find(int id, unsigned int *index);
-	Rva002E2903Player *GetPlayerAtIndex(int index);
-};
+#include "../../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 class LivingWorldLogic
 {

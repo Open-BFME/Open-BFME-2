@@ -38,7 +38,7 @@ class Rva00E02D6C;extern Rva00E02D6C*TheCampaignManager;
 class ArmorTemplate;class Rva002B6498 {public:ArmorTemplate*rva002B6498(NameKeyType);};
 class Rva002E02F0 {public:void rva002E02F0(int,_STL::vector<ScienceType>*);};
 class Rva002E2903Player {public:char gap[0x40];int score;};
-class Rva002BA8F1Logic {public:Rva002E2903Player*find(int,unsigned*);};
+#include "../../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 class BuildingNuggetView {public:char gap[8];int type;int amount;};
 class LivingWorldBuildingTemplate {public:BuildingNuggetView*findNugget(const AsciiString&)const;};
 struct Rva003F751ANode {char gap[0x18];int value;};

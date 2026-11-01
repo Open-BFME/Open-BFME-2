@@ -69,11 +69,7 @@ int __cdecl Rva002B2435Get(Rva002B2435Obj *obj, void *out);
 void __cdecl XferGameDifficulty(Xfer *xfer, int *difficulty);
 void __cdecl XferOwningLivingWorldArmyVec(Xfer *xfer, ModuleDataVector *armies);
 
-class Rva002BA8F1Logic
-{
-public:
-	void rva002B8D06(Xfer *xfer, ModuleDataVector *modules);
-};
+#include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 class Rva002B9CFC
 {

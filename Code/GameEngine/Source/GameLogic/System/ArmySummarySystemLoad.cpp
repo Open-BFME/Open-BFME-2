@@ -99,11 +99,7 @@ public:
 };
 class Rva004E05E9DwordField { public: int get() const; };
 
-class Rva002BA8F1Logic
-{
-public:
-	Rva002E2903Player *find(int id, unsigned int *index);
-};
+#include "../../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 class LivingWorldPendingBattle;
 class LivingWorldRegionManager

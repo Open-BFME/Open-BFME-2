@@ -64,7 +64,7 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
 }
 struct Rva00598052Owner {char unknown00[0x3AC];int playerId;};
 class Rva002E2903Player;
-class Rva002BA8F1Logic {public: Rva002E2903Player *find(int,unsigned int *);};
+#include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 class Rva003F468D;
 class Rva0020E6B7RegionManager {public: Rva003F468D *rva0020E6B7();};
 class LivingWorldLogic {public: char unknown00[0xB0]; Rva0020E6B7RegionManager *manager;};

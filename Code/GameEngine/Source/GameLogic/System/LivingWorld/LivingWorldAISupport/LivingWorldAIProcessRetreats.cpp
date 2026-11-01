@@ -35,7 +35,7 @@ template<> __declspec(dllimport) __forceinline void vector<const ModuleData*>::_
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 struct Rva002B85ECFilter {char m_pad[0x14];int key;};
-class Rva002BA8F1Logic {public: void rva002B85EC(Rva002B85ECFilter*,_STL::vector<const ModuleData*>*);};
+#include "../../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 struct RetreatEntry {char m_pad[8];int id;char m_rest[12];};
 class Rva00318C32Ret {public:char m_pad[0x1a8];_STL::vector<RetreatEntry> entries;};
 class Rva00318C79Owner {public:Rva00318C32Ret *rva00318C32();};

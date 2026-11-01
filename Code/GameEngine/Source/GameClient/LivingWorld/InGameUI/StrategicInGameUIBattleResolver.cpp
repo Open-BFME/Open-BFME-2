@@ -160,7 +160,7 @@ void StrategicInGameUI::BattleResolver::Impl::StartUpStateHandler::Update()
 // Code only is credited; existing providers reused, no pins/hatches.
 class Rva005D073A{public:Rva005D073A(void*);virtual ~Rva005D073A();char fields[8];};
 class LivingWorldLogic;extern LivingWorldLogic*TheLivingWorldLogic;
-class Rva002BA8F1Logic{public:int rva002B5256(bool);};
+#include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 class GameInfo;extern GameInfo*TheGameInfo;
 struct ResolveGameInfoView{char unknown[0x84];int field84;bool isEmpty()const{return field84==0;}};
 class GameMessage{public:void appendIntegerArgument(int);};

@@ -88,11 +88,7 @@ public:
 
 void Rva005020CCBuildRegionDistances();	// 0x005020CC, 447 B
 
-class Rva002BA8F1Logic
-{
-public:
-	void setLocal(Rva002E2903Player *player);	// 0x002B38F7, 216 B
-};
+#include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 class BfmeSelectionState
 {

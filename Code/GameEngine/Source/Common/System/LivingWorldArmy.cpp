@@ -460,11 +460,7 @@ public:
 	RGBColor m_color19C;	// +0x19C
 };
 
-class Rva002BA8F1Logic
-{
-public:
-	Rva002E2903Player *find(int index, unsigned int *out); // 0x002B51F8
-};
+#include "../../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 class Rva00318EC0Target
 {

@@ -24,7 +24,7 @@ extern LivingWorldLogic *TheLivingWorldLogic;
 #include "../../../../Include/Common/ThingFactory.h"
 #include "../../../../Include/Common/ThingTemplate.h"
 class Rva002E2903Player;
-class Rva002BA8F1Logic {public:Rva002E2903Player *find(int,unsigned int *);};
+#include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 class LivingWorldPlayer {public:void *rva002E06EF();};
 class CreateAHeroHero;
 #include "../../../../Include/GameLogic/CreateAHeroManager.h"

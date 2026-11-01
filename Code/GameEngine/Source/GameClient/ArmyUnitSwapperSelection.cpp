@@ -34,7 +34,7 @@ struct LivingWorldArmy {char prefix[0x20]; int id; char pad24[0x78-0x24]; Rva004
 struct Arg54;
 class Rva002B280C {public: bool rva002B280C(Arg54*);};
 struct Rva002B488EResult;
-class Rva002BA8F1Logic {public: Rva002B488EResult *rva002B488E(int);};
+#include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 class Rva002B6C9F {public: bool rva002B8019(int,int,int);};
 class Rva003F287F; class Rva004E0632;
 class LivingWorldLogic {public: void GetNumUpgradeableTroopsInRegionForPlayer(Rva003F287F*,int,int*,int*); const Rva004E0632 *GetArmoryToUpgradeTroop(ArmySummaryEntry*,LivingWorldArmy*,Rva003F287F*); char prefix[0xf4]; int flagF4;};

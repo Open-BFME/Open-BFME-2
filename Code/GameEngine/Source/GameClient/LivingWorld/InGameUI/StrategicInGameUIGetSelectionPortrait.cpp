@@ -29,11 +29,7 @@ public:
 	Rva005D23BBTemplate *m_template; // +0x40
 };
 
-class Rva002BA8F1Logic
-{
-public:
-	Rva002E2903Player *find(int id, unsigned int *index);
-};
+#include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 

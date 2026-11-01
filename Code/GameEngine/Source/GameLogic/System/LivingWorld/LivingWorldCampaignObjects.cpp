@@ -170,7 +170,7 @@ class CreateAHeroHero;
 #include "../../../../Include/GameLogic/CreateAHeroManager.h"
 extern CreateAHeroManager *TheCreateAHeroManager;
 struct Rva002B2579Result;
-class Rva002BA8F1Logic { public:Rva002B2579Result *rva002B2579(int); };
+#include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 class Rva002E2903Player;
 class Rva004E0705 { public:Rva002E2903Player *rva004E0705(); };
 class LivingWorldPlayer { public:

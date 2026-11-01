@@ -51,11 +51,7 @@ namespace _STL {
 template <> void vector<BfmePod20, allocator<BfmePod20> >::push_back(const BfmePod20 &);
 }
 
-class Rva002BA8F1Logic
-{
-public:
-	Rva002E2903Player *find(int id, unsigned int *index);
-};
+#include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;

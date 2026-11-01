@@ -154,9 +154,7 @@ struct Rva002BA8F1Slot;
 
 class Rva002E2903Player;
 
-class Rva002BA8F1Logic {public:
- Rva002E2903Player *GetPlayerAtIndex(int);
-};
+#include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 class Rva002E067DDwordSlot {public: void set(int);};
 

@@ -163,7 +163,7 @@ class Rva00318E8C {public:Rva00318E8COut *rva00318E8C(Rva00318E8COut*);};
 class Rva002E18C3Lookup {public:AsciiString *find(const AsciiString&);};
 extern Rva002E18C3Lookup *TheLivingWorldPlayerTemplateStore;
 class Rva002E2903Player {public:char pad[0x40];AsciiString *template40;};
-class Rva002BA8F1Logic {public:Rva002E2903Player *GetPlayerAtIndex(int);};
+#include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 struct Rva002B86AAKey; struct Rva002B86AAVal;
 class Rva002B86AA {public:bool rva002B86AA(Rva002B86AAKey*,Rva002B86AAVal*)const;};
 class Rva002104B6 {public:void *rva002104B6(void*);};

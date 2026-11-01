@@ -82,7 +82,7 @@ private:
 
 class ModuleData;
 struct Rva002B85ECFilter;
-class Rva002BA8F1Logic { public: void rva002B85EC(Rva002B85ECFilter *,_STL::vector<const ModuleData *> *); };
+#include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 struct RetreatWorldView { char unknown[0x98]; Rva002B85ECFilter *localPlayer; };

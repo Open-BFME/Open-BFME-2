@@ -40,7 +40,7 @@ struct XferUnknown11;
 struct Rva003F4E07Player {char pad[0x14];int id;};
 class Rva002E2903Player;
 class ModuleData;
-class Rva002BA8F1Logic {public:Rva002E2903Player *find(int,unsigned*);void rva002B8D06(Xfer*,std::vector<const ModuleData*>*);};
+#include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 class LivingWorldLogic;extern LivingWorldLogic*TheLivingWorldLogic;
 struct LivingWorldArmy;
 class ArmySummary {public:ArmySummary();virtual ~ArmySummary();virtual void v1();virtual void v2();virtual void v3(Xfer*);char data[100];};

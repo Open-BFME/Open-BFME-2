@@ -164,11 +164,7 @@ private:
 // first. Identity unproven; address-derived name.
 class Rva002E2903Player;
 
-class Rva002BA8F1Logic
-{
-public:
-	Rva002E2903Player *GetPlayerAtIndex(int);
-};
+#include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 class LivingWorldLogic;
 

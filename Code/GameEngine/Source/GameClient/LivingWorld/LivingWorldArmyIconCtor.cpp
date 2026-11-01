@@ -59,11 +59,7 @@ public:
 };
 class ModuleData;
 class Rva002E2903Player;
-class Rva002BA8F1Logic
-{
-public:
-	Rva002E2903Player *find(Int player, UnsignedInt *out);
-};
+#include "../../../Include/GameLogic/Rva002BA8F1Logic.h"
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 class Rva003FDD29 { public: unsigned char rva003FDD29(); };
