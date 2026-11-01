@@ -39,7 +39,7 @@ public:
 class Rva00171024
 {
 public:
-    void rva001711a6();
+    void UpdateResultTexture();
 };
 
 class Rva00171583
@@ -71,7 +71,7 @@ bool Rva00171583::rva00171583(const unsigned int &key, Vec2 *outSize, Vec2 *outP
         return false;
     }
     if (m_1c)
-        ((Rva00171024 *)this)->rva001711a6();
+        ((Rva00171024 *)this)->UpdateResultTexture();
     outPos->x = (float)(*it).second.left * m_20;
     outPos->y = (float)(*it).second.top * m_24;
     outSize->x = (float)((*it).second.right - (*it).second.left) * m_20;
@@ -89,7 +89,7 @@ bool Rva00171583::rva00171583(const unsigned int &key, Vec2 *outSize, Vec2 *outP
 bool Rva00171583::rva00171540(RefCountPtr<TextureClass> &reference, GlyphRect *out)
 {
     if (m_1c)
-        ((Rva00171024 *)this)->rva001711a6();
+        ((Rva00171024 *)this)->UpdateResultTexture();
     if (m_14 == *(void **)&m_map)
         return false;
     if (m_18 == 0)

@@ -27,7 +27,7 @@ private:
 class Rva00171024
 {
 public:
-    void rva001711a6();
+    void UpdateResultTexture();
     AssetReference rva00171625();
 private:
     char m_pad[0x18];
@@ -39,6 +39,6 @@ private:
 AssetReference Rva00171024::rva00171625()
 {
     if (m_1c)
-        rva001711a6();
+        UpdateResultTexture();
     return m_18;
 }

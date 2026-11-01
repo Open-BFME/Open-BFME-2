@@ -1,0 +1,42 @@
+rename: function ?rva001711a6@Rva00171024@@QAEXXZ -> ?UpdateResultTexture@Rva00171024@@QAEXXZ at 0x001711A6 (canonical:wb)
+  owner source: Code/Libraries/Source/WWVegas/WW3D2/texturepacker.cpp
+  functions.csv rows renamed (2), each tombstoned:
+    0x001711A6 ?rva001711a6@Rva00171024@@QAEXXZ -> ?UpdateResultTexture@Rva00171024@@QAEXXZ
+    0x00767B00 __ehhandler$?rva001711a6@Rva00171024@@QAEXXZ -> __ehhandler$?UpdateResultTexture@Rva00171024@@QAEXXZ
+  functions.csv notes rewritten (6):
+    0x00767AE0 Unwind@00b67ae0
+    0x00767AE8 Unwind@00b67ae8
+    0x00767AF0 Unwind@00b67af0
+    0x00767AF8 Unwind@00b67af8
+    0x00767AD0 $L6298
+    0x00767AD8 $L6299
+  name_basis.csv records carried (3):
+    Rva00171024::rva001711a6::newSkylineRow -> Rva00171024::UpdateResultTexture::newSkylineRow (inferred)
+    Rva00171024::rva001711a6::placementColumn -> Rva00171024::UpdateResultTexture::placementColumn (inferred)
+    Rva00171024::rva001711a6::placementRow -> Rva00171024::UpdateResultTexture::placementRow (inferred)
+  symbols.csv pins renamed in place (3):
+    0x00170A3D ??$make_pair@IVAssetReference@@@_STL@@YA?AU?$pair@IVAssetReference@@@0@ABIABVAssetReference@@@Z -> ??$make_pair@IVAssetReference@@@_STL@@YA?AU?$pair@IVAssetReference@@@0@ABIABVAssetReference@@@Z
+    0x001709BA ??$?0IVAssetReference@@@?$pair@$$CBIVAssetReference@@@_STL@@QAE@ABU?$pair@IVAssetReference@@@1@@Z -> ??$?0IVAssetReference@@@?$pair@$$CBIVAssetReference@@@_STL@@QAE@ABU?$pair@IVAssetReference@@@1@@Z
+    0x00170E3D ?insert_equal@?$_Rb_tree@IU?$pair@$$CBIVAssetReference@@@_STL@@U?$_Select1st@U?$pair@$$CBIVAssetReference@@@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIVAssetReference@@@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBIVAssetReference@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIVAssetReference@@@_STL@@@2@@2@ABU?$pair@$$CBIVAssetReference@@@2@@Z -> ?insert_equal@?$_Rb_tree@IU?$pair@$$CBIVAssetReference@@@_STL@@U?$_Select1st@U?$pair@$$CBIVAssetReference@@@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIVAssetReference@@@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBIVAssetReference@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIVAssetReference@@@_STL@@@2@@2@ABU?$pair@$$CBIVAssetReference@@@2@@Z
+  sources rewritten (4):
+    Code/GameEngine/Source/Common/Bfme/Rva0094D8B0Reset.cpp (code 2)
+    Code/Libraries/Source/WWVegas/WW3D2/texturepacker.cpp (code 2)
+    Code/Libraries/Source/WWVegas/WWLib/Rva00171583.cpp (code 3)
+    Code/Libraries/Source/WWVegas/WWLib/Rva00171625Cluster.cpp (code 2)
+  verify (4): ./build.sh Code/GameEngine/Source/Common/Bfme/Rva0094D8B0Reset.cpp Code/Libraries/Source/WWVegas/WW3D2/texturepacker.cpp Code/Libraries/Source/WWVegas/WWLib/Rva00171583.cpp Code/Libraries/Source/WWVegas/WWLib/Rva00171625Cluster.cpp
+  claims: 0x001711A6 0x00767AD0 0x00767AD8 0x00767AE0 0x00767AE8 0x00767AF0 0x00767AF8 0x00767B00 file:Code/GameEngine/Source/Common/Bfme/Rva0094D8B0Reset.cpp file:Code/Libraries/Source/WWVegas/WW3D2/texturepacker.cpp file:Code/Libraries/Source/WWVegas/WWLib/Rva00171583.cpp file:Code/Libraries/Source/WWVegas/WWLib/Rva00171625Cluster.cpp
+  ledger files: reverse/deleted_rows.csv, reverse/functions.csv, reverse/name_basis.csv, reverse/symbols.csv
+  mention (not rewritten): reverse/attempt_support/texturepacker-update-20261020/readme.md
+  warning: pin ?d_0094d450@@YAXXZ also names 0x001711A6 (not renamed; one address, one name)
+  suggested subject: Rename rva001711a6 to UpdateResultTexture (canonical:wb)
+rename: verifying 4 source(s): ./build.sh Code/GameEngine/Source/Common/Bfme/Rva0094D8B0Reset.cpp Code/Libraries/Source/WWVegas/WW3D2/texturepacker.cpp Code/Libraries/Source/WWVegas/WWLib/Rva00171583.cpp Code/Libraries/Source/WWVegas/WWLib/Rva00171625Cluster.cpp
+Source claims: OK (4 sources, scoped byte-verified)
+STLport folds: 1 complete emitted constructor(s) verified against retail owners and resolved callees
+Functions: OK 17/17 matched across 4 source file(s)
+String-ref verify: OK (0 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (3 compiler literals verified)
+Import-ref verify: OK (0 named imports verified)
+rename: claims kept until the rename is pushed; then run: python3 tools/claims.py release 0x00767AD0 0x00767AD8 0x00767AE0 0x00767AE8 0x00767AF0 0x00767AF8 0x00767B00
+rename: verified OK. Stage: git add Code/GameEngine/Source/Common/Bfme/Rva0094D8B0Reset.cpp Code/Libraries/Source/WWVegas/WW3D2/texturepacker.cpp Code/Libraries/Source/WWVegas/WWLib/Rva00171583.cpp Code/Libraries/Source/WWVegas/WWLib/Rva00171625Cluster.cpp reverse/deleted_rows.csv reverse/functions.csv reverse/name_basis.csv reverse/symbols.csv
+rename: after every pull --rebase, before the push: python3 tools/rename.py check --range origin/master..HEAD
+rename: suggested subject: Rename rva001711a6 to UpdateResultTexture (canonical:wb)

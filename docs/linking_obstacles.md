@@ -17354,3 +17354,16 @@ scheduled census. This is neither a proven regression nor clean whole-consumer
 closure; no new matched or census bytes are claimed. No whole-tree rebuild or
 direct census was run. Both source/name claims were released after landing.
 [Receipts, blocked forwarder names and current linking checkpoint](../reverse/attempt_support/render-task-record-name-20261101/readme.md).
+
+### Texture atlas refresh: canonical method name and preserved callers (2026-11-01, GPT-6)
+
+The existing 892B method001711A6 now uses WB's self-asserted
+UpdateResultTexture name in its unchanged Rva00171024 owner. All three direct
+source callers, the handler row and six cleanup-parent notes are updated by
+normal rename, with tombstones and carried local-name bases. Normal/strict
+17/17 rows, one existing constructor fold and three float literals pass.
+Bounded index0156fc269e prediction retains LINKS1215->1215 across all four
+units. No new body, pin, source-path move or census gain. The placeholder
+receiver identity and pre-existing d_0094d450 pin remain open; broader outgoing
+consumer selection is not proved by this cohort preview.
+[WB review, transaction and scoped receipts](../reverse/attempt_support/texture-update-name-20261101/readme.md).

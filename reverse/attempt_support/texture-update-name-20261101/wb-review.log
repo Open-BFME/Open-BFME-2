@@ -1,0 +1,448 @@
+wb_show: indexing inputs (once per input change) ...
+game.dat rva 0x001711A6 (va 0x5711a6) size 892
+  ledger: Rva00171024::rva001711a6 [PLACEHOLDER]  ?rva001711a6@Rva00171024@@QAEXXZ
+WB va 0xa12eb0 size 1694  TexturePacker::UpdateResultTexture
+  file C:\Projects\bfme2\Code\Libraries\Source\WWVegas\WW3D2\texturepacker.cpp
+  assert lines 112..112
+  match score 6.6 evidence callgraph
+
+WB body (local_x = [ebp-x], arg_n = [ebp+8+4n]):
+  a12eb0  push ebp
+  a12eb1  mov ebp, esp
+  a12eb3  sub esp, 0x1a8
+  a12eb9  push esi
+  a12eba  mov this, ecx
+  a12ec0  call 0x9aa9c0  ; DXWrapper::ValidateOwningThread
+  a12ec5  mov eax, this
+  a12ecb  mov byte ptr [this->+0x1c], 0
+  a12ecf  mov ecx, this
+  a12ed5  add ecx, 0x18
+  a12ed8  call 0x9d3e40  ; sub_9d3e40
+  a12edd  mov ecx, this
+  a12ee3  mov dword ptr [this->+0x24], 0x3f800000
+  a12eea  mov edx, this
+  a12ef0  mov dword ptr [this->+0x20], 0x3f800000
+  a12ef7  lea ecx, [local_10]
+  a12efa  call 0xa13d60  ; sub_a13d60
+  a12eff  lea eax, [local_16c]
+  a12f05  push eax
+  a12f06  mov ecx, this
+  a12f0c  add ecx, 8
+  a12f0f  call 0xa13b20  ; sub_a13b20
+  a12f14  push eax
+  a12f15  lea ecx, [local_118]
+  a12f1b  call 0xa13cf0  ; sub_a13cf0
+  a12f20  jmp L_a12f2d
+L_a12f22:
+  a12f22  lea ecx, [local_118]
+  a12f28  call 0xa13d30  ; sub_a13d30
+L_a12f2d:
+  a12f2d  lea ecx, [local_170]
+  a12f33  push ecx
+  a12f34  mov ecx, this
+  a12f3a  add ecx, 8
+  a12f3d  call 0xa13b40  ; sub_a13b40
+  a12f42  push eax
+  a12f43  lea ecx, [local_118]
+  a12f49  call 0x6cc830  ; sub_6cc830
+  a12f4e  movzx edx, al
+  a12f51  test edx, edx
+  a12f53  je L_a12fe7
+  a12f59  lea ecx, [local_118]
+  a12f5f  call 0xa13d10  ; sub_a13d10
+  a12f64  mov ecx, eax
+  a12f66  call 0x9d3f60  ; -> gd 0x0013275A TextureBaseClass::rva0013275A [PARTIAL]
+  a12f6b  mov esi, eax
+  a12f6d  lea ecx, [local_118]
+  a12f73  call 0xa13d10  ; sub_a13d10
+  a12f78  mov ecx, eax
+  a12f7a  call 0x9d3fc0  ; -> gd 0x00132784 TextureBaseClass::rva00132784 [PARTIAL]
+  a12f7f  imul esi, eax
+  a12f82  mov dword ptr [local_17c], esi
+  a12f88  lea ecx, [local_118]
+  a12f8e  call 0xa13d10  ; sub_a13d10
+  a12f93  push eax
+  a12f94  lea eax, [local_17c]
+  a12f9a  push eax
+  a12f9b  lea ecx, [local_184]
+  a12fa1  push ecx
+  a12fa2  call 0xa14ff0  ; sub_a14ff0
+  a12fa7  add esp, 0xc
+  a12faa  push eax
+  a12fab  lea ecx, [local_178]
+  a12fb1  call 0xa15010  ; sub_a15010
+  a12fb6  lea edx, [local_178]
+  a12fbc  push edx
+  a12fbd  lea eax, [local_188]
+  a12fc3  push eax
+  a12fc4  lea ecx, [local_10]
+  a12fc7  call 0xa13dd0  ; sub_a13dd0
+  a12fcc  lea ecx, [local_178]
+  a12fd2  call 0xa13590  ; sub_a13590
+  a12fd7  lea ecx, [local_184]
+  a12fdd  call 0xa13570  ; sub_a13570
+  a12fe2  jmp L_a12f22
+L_a12fe7:
+  a12fe7  mov dword ptr [local_4], 1
+  a12fee  mov dword ptr [local_110], 0
+  a12ff8  lea ecx, [local_11c]
+  a12ffe  push ecx
+  a12fff  lea ecx, [local_10]
+  a13002  call 0xa13d90  ; sub_a13d90
+  a13007  jmp L_a13014
+L_a13009:
+  a13009  lea ecx, [local_11c]
+  a1300f  call 0xa13e50  ; sub_a13e50
+L_a13014:
+  a13014  lea edx, [local_18c]
+  a1301a  push edx
+  a1301b  lea ecx, [local_10]
+  a1301e  call 0xa13db0  ; sub_a13db0
+  a13023  push eax
+  a13024  lea eax, [local_11c]
+  a1302a  push eax
+  a1302b  call 0xa15040  ; sub_a15040
+  a13030  add esp, 8
+  a13033  movzx ecx, al
+  a13036  test ecx, ecx
+  a13038  je L_a132d2
+  a1303e  lea ecx, [local_11c]
+  a13044  call 0xa13e30  ; sub_a13e30
+  a13049  add eax, 4
+  a1304c  push eax
+  a1304d  lea ecx, [local_128]
+  a13053  call 0x7d1480  ; -> gd 0x000D206A MeshModelClass::Peek_Single_Texture [REAL]
+  a13058  lea ecx, [local_128]
+  a1305e  call 0x9d3f60  ; -> gd 0x0013275A TextureBaseClass::rva0013275A [PARTIAL]
+  a13063  add eax, 0x1f
+  a13066  shr eax, 5
+  a13069  mov dword ptr [local_124], eax
+  a1306f  lea ecx, [local_128]
+  a13075  call 0x9d3fc0  ; -> gd 0x00132784 TextureBaseClass::rva00132784 [PARTIAL]
+  a1307a  add eax, 0x1f
+  a1307d  shr eax, 5
+  a13080  mov dword ptr [local_120], eax
+L_a13086:
+  a13086  mov dword ptr [local_12c], 0
+  a13090  jmp L_a130a1
+L_a13092:
+  a13092  mov edx, dword ptr [local_12c]
+  a13098  add edx, 1
+  a1309b  mov dword ptr [local_12c], edx
+L_a130a1:
+  a130a1  mov eax, dword ptr [local_4]
+  a130a4  sub eax, dword ptr [local_120]
+  a130aa  cmp dword ptr [local_12c], eax
+  a130b0  jg L_a1310f
+  a130b2  mov dword ptr [local_130], 0
+  a130bc  jmp L_a130cd
+L_a130be:
+  a130be  mov ecx, dword ptr [local_130]
+  a130c4  add ecx, 1
+  a130c7  mov dword ptr [local_130], ecx
+L_a130cd:
+  a130cd  mov edx, dword ptr [local_130]
+  a130d3  cmp edx, dword ptr [local_120]
+  a130d9  jge L_a130fd
+  a130db  mov eax, dword ptr [local_12c]
+  a130e1  add eax, dword ptr [local_130]
+  a130e7  mov ecx, dword ptr [ebp + eax*4 - 0x110]
+  a130ee  add ecx, dword ptr [local_124]
+  a130f4  cmp ecx, dword ptr [local_4]
+  a130f7  jle L_a130fb
+  a130f9  jmp L_a130fd
+L_a130fb:
+  a130fb  jmp L_a130be
+L_a130fd:
+  a130fd  mov edx, dword ptr [local_130]
+  a13103  cmp edx, dword ptr [local_120]
+  a13109  jne L_a1310d
+  a1310b  jmp L_a1310f
+L_a1310d:
+  a1310d  jmp L_a13092
+L_a1310f:
+  a1310f  mov eax, dword ptr [local_4]
+  a13112  sub eax, dword ptr [local_120]
+  a13118  cmp dword ptr [local_12c], eax
+  a1311e  jle L_a13191
+  a13120  mov ecx, dword ptr [local_4]
+  a13123  shl ecx, 1
+  a13125  shl ecx, 5
+  a13128  mov edx, this
+  a1312e  cmp ecx, dword ptr [this->+0x0]
+  a13130  jbe L_a1314a
+  a13132  lea ecx, [local_128]
+  a13138  call 0x406654  ; -> gd 0x0015A8E0 MeshMatDescClass::Peek_Material [REAL]
+  a1313d  lea ecx, [local_10]
+  a13140  call 0xa13550  ; sub_a13550
+  a13145  jmp L_a13549
+L_a1314a:
+  a1314a  mov eax, dword ptr [local_4]
+  a1314d  mov dword ptr [local_134], eax
+  a13153  jmp L_a13164
+L_a13155:
+  a13155  mov ecx, dword ptr [local_134]
+  a1315b  add ecx, 1
+  a1315e  mov dword ptr [local_134], ecx
+L_a13164:
+  a13164  mov edx, dword ptr [local_4]
+  a13167  shl edx, 1
+  a13169  cmp dword ptr [local_134], edx
+  a1316f  jge L_a13184
+  a13171  mov eax, dword ptr [local_134]
+  a13177  mov dword ptr [ebp + eax*4 - 0x110], 0
+  a13182  jmp L_a13155
+L_a13184:
+  a13184  mov ecx, dword ptr [local_4]
+  a13187  shl ecx, 1
+  a13189  mov dword ptr [local_4], ecx
+  a1318c  jmp L_a132bd
+L_a13191:
+  a13191  mov dword ptr [local_138], 0
+  a1319b  mov dword ptr [local_140], 0
+  a131a5  jmp L_a131b6
+L_a131a7:
+  a131a7  mov edx, dword ptr [local_140]
+  a131ad  add edx, 1
+  a131b0  mov dword ptr [local_140], edx
+L_a131b6:
+  a131b6  mov eax, dword ptr [local_140]
+  a131bc  cmp eax, dword ptr [local_120]
+  a131c2  jge L_a131fa
+  a131c4  mov ecx, dword ptr [local_12c]
+  a131ca  add ecx, dword ptr [local_140]
+  a131d0  mov edx, dword ptr [ebp + ecx*4 - 0x110]
+  a131d7  cmp edx, dword ptr [local_138]
+  a131dd  jle L_a131f8
+  a131df  mov eax, dword ptr [local_12c]
+  a131e5  add eax, dword ptr [local_140]
+  a131eb  mov ecx, dword ptr [ebp + eax*4 - 0x110]
+  a131f2  mov dword ptr [local_138], ecx
+L_a131f8:
+  a131f8  jmp L_a131a7
+L_a131fa:
+  a131fa  mov dword ptr [local_144], 0
+  a13204  jmp L_a13215
+L_a13206:
+  a13206  mov edx, dword ptr [local_144]
+  a1320c  add edx, 1
+  a1320f  mov dword ptr [local_144], edx
+L_a13215:
+  a13215  mov eax, dword ptr [local_144]
+  a1321b  cmp eax, dword ptr [local_120]
+  a13221  jge L_a13244
+  a13223  mov ecx, dword ptr [local_138]
+  a13229  add ecx, dword ptr [local_124]
+  a1322f  mov edx, dword ptr [local_12c]
+  a13235  add edx, dword ptr [local_144]
+  a1323b  mov dword ptr [ebp + edx*4 - 0x110], ecx
+  a13242  jmp L_a13206
+L_a13244:
+  a13244  lea eax, [local_128]
+  a1324a  push eax
+  a1324b  mov ecx, this
+  a13251  add ecx, 8
+  a13254  call 0xa13b60  ; sub_a13b60
+  a13259  mov dword ptr [local_13c], eax
+  a1325f  mov ecx, dword ptr [local_138]
+  a13265  shl ecx, 5
+  a13268  mov edx, dword ptr [local_13c]
+  a1326e  mov dword ptr [edx], ecx
+  a13270  mov eax, dword ptr [local_12c]
+  a13276  shl eax, 5
+  a13279  mov ecx, dword ptr [local_13c]
+  a1327f  mov dword ptr [ecx + 4], eax
+  a13282  lea ecx, [local_128]
+  a13288  call 0x9d3f60  ; -> gd 0x0013275A TextureBaseClass::rva0013275A [PARTIAL]
+  a1328d  mov edx, dword ptr [local_13c]
+  a13293  add eax, dword ptr [edx]
+  a13295  mov ecx, dword ptr [local_13c]
+  a1329b  mov dword ptr [ecx + 8], eax
+  a1329e  lea ecx, [local_128]
+  a132a4  call 0x9d3fc0  ; -> gd 0x00132784 TextureBaseClass::rva00132784 [PARTIAL]
+  a132a9  mov edx, dword ptr [local_13c]
+  a132af  add eax, dword ptr [edx + 4]
+  a132b2  mov ecx, dword ptr [local_13c]
+  a132b8  mov dword ptr [ecx + 0xc], eax
+  a132bb  jmp L_a132c2
+L_a132bd:
+  a132bd  jmp L_a13086
+L_a132c2:
+  a132c2  lea ecx, [local_128]
+  a132c8  call 0x406654  ; -> gd 0x0015A8E0 MeshMatDescClass::Peek_Material [REAL]
+  a132cd  jmp L_a13009
+L_a132d2:
+  a132d2  push 0
+  a132d4  push 1
+  a132d6  push 0
+  a132d8  mov edx, this
+  a132de  mov eax, dword ptr [this->+0x4]
+  a132e1  push eax
+  a132e2  mov ecx, dword ptr [local_4]
+  a132e5  shl ecx, 5
+  a132e8  push ecx
+  a132e9  mov edx, dword ptr [local_4]
+  a132ec  shl edx, 5
+  a132ef  push edx
+  a132f0  mov ecx, this
+  a132f6  add ecx, 0x18
+  a132f9  call 0x9d3dc0  ; -> gd 0x00131DFC Rva00131DFC::rva00131DFC [PLACEHOLDER]
+  a132fe  mov ecx, this
+  a13304  add ecx, 0x18
+  a13307  call 0x9d3ed0  ; sub_9d3ed0
+  a1330c  movzx eax, al
+  a1330f  test eax, eax
+  a13311  jne L_a13320
+  a13313  lea ecx, [local_10]
+  a13316  call 0xa13550  ; sub_a13550
+  a1331b  jmp L_a13549
+L_a13320:
+  a13320  mov ecx, dword ptr [local_4]
+  a13323  shl ecx, 5
+  a13326  mov dword ptr [local_1a0], ecx
+  a1332c  fild dword ptr [local_1a0]
+  a13332  fdivr dword ptr [0x1d86644]  ; 1.0f
+  a13338  mov edx, this
+  a1333e  fstp dword ptr [this->+0x24]
+  a13341  mov eax, this
+  a13347  mov ecx, this
+  a1334d  mov edx, dword ptr [this->+0x24]
+  a13350  mov dword ptr [this->+0x20], edx
+  a13353  lea eax, [local_114]
+  a13359  push eax
+  a1335a  mov ecx, this
+  a13360  add ecx, 0x18
+  a13363  call 0x9d4240  ; -> gd 0x00132D70 CursorTextureSlot::Get_Surface_Level [REAL]
+  a13368  mov ecx, this
+  a1336e  mov dl, byte ptr [this->+0x1d]
+  a13371  push edx
+  a13372  lea ecx, [local_114]
+  a13378  call 0x9cf900  ; SurfaceClass::Clear
+  a1337d  lea eax, [local_190]
+  a13383  push eax
+  a13384  mov ecx, this
+  a1338a  add ecx, 8
+  a1338d  call 0xa13b20  ; sub_a13b20
+  a13392  push eax
+  a13393  lea ecx, [local_148]
+  a13399  call 0xa13cf0  ; sub_a13cf0
+  a1339e  jmp L_a133ab
+L_a133a0:
+  a133a0  lea ecx, [local_148]
+  a133a6  call 0xa13d30  ; sub_a13d30
+L_a133ab:
+  a133ab  lea ecx, [local_194]
+  a133b1  push ecx
+  a133b2  mov ecx, this
+  a133b8  add ecx, 8
+  a133bb  call 0xa13b40  ; sub_a13b40
+  a133c0  push eax
+  a133c1  lea ecx, [local_148]
+  a133c7  call 0x6cc830  ; sub_6cc830
+  a133cc  movzx edx, al
+  a133cf  test edx, edx
+  a133d1  je L_a1351c
+  a133d7  lea ecx, [local_148]
+  a133dd  call 0xa13d10  ; sub_a13d10
+  a133e2  push eax
+  a133e3  lea ecx, [local_164]
+  a133e9  call 0x7d1480  ; -> gd 0x000D206A MeshModelClass::Peek_Single_Texture [REAL]
+  a133ee  lea ecx, [local_148]
+  a133f4  call 0xa13d10  ; sub_a13d10
+  a133f9  add eax, 4
+  a133fc  mov dword ptr [local_160], eax
+  a13402  mov eax, dword ptr [local_160]
+  a13408  mov ecx, dword ptr [eax]
+  a1340a  mov dword ptr [local_158], ecx
+  a13410  mov edx, dword ptr [local_160]
+  a13416  mov eax, dword ptr [edx + 4]
+  a13419  mov dword ptr [local_154], eax
+  a1341f  mov ecx, dword ptr [local_160]
+  a13425  mov edx, dword ptr [ecx + 8]
+  a13428  mov dword ptr [local_150], edx
+  a1342e  mov eax, dword ptr [local_160]
+  a13434  mov ecx, dword ptr [eax + 0xc]
+  a13437  mov dword ptr [local_14c], ecx
+  a1343d  lea edx, [local_168]
+  a13443  push edx
+  a13444  lea ecx, [local_164]
+  a1344a  call 0x9d4240  ; -> gd 0x00132D70 CursorTextureSlot::Get_Surface_Level [REAL]
+  a1344f  push 0
+  a13451  push 1
+  a13453  push 0
+  a13455  push 0
+  a13457  lea ecx, [local_168]
+  a1345d  call 0x9a6c30  ; sub_9a6c30
+  a13462  push eax
+  a13463  lea eax, [local_158]
+  a13469  push eax
+  a1346a  push 0
+  a1346c  lea ecx, [local_114]
+  a13472  call 0x9a6c30  ; sub_9a6c30
+  a13477  push eax
+  a13478  call 0x16905c6  ; D3DXLoadSurfaceFromSurface
+  a1347d  mov dword ptr [local_15c], eax
+  a13483  cmp dword ptr [local_15c], 0
+  a1348a  jge L_a13501
+  a1348c  DEBUG()  @texturepacker.cpp:112  [calls: sub_9a6a30]
+L_a13501:
+  a13501  lea ecx, [local_168]
+  a13507  call 0x9cf6b0  ; -> gd 0x00176CB0 W3DRadarResetSurface::~W3DRadarResetSurface [REAL]
+  a1350c  lea ecx, [local_164]
+  a13512  call 0x406654  ; -> gd 0x0015A8E0 MeshMatDescClass::Peek_Material [REAL]
+  a13517  jmp L_a133a0
+L_a1351c:
+  a1351c  push -1
+  a1351e  push -1
+  a13520  push 0
+  a13522  mov ecx, this
+  a13528  add ecx, 0x18
+  a1352b  call 0x9d3e80  ; -> gd 0x0013270C TextureBaseClass::Peek_D3D_Base_Texture [REAL]
+  a13530  push eax
+  a13531  call 0x169056c  ; D3DXFilterTexture
+  a13536  lea ecx, [local_114]
+  a1353c  call 0x9cf6b0  ; -> gd 0x00176CB0 W3DRadarResetSurface::~W3DRadarResetSurface [REAL]
+  a13541  lea ecx, [local_10]
+  a13544  call 0xa13550  ; sub_a13550
+L_a13549:
+  a13549  pop esi
+  a1354a  mov esp, ebp
+  a1354c  pop ebp
+  a1354d  ret
+
+callees (34 distinct outside debug macros; WB callee -> game.dat):
+    1x wb 0x9aa9c0 DXWrapper::ValidateOwningThread (133b)  -> gd 0x000662E5 DX8Wrapper::Set_Shader [REAL]
+    1x wb 0x9d3e40 ? (64b)  -> unmatched: inlined in retail?
+    1x wb 0xa13d60 ? (45b)  -> unmatched: inlined in retail?
+    2x wb 0xa13b20 ? (28b)  -> unmatched: inlined in retail?
+    2x wb 0xa13cf0 ? (26b)  -> unmatched: inlined in retail?
+    2x wb 0xa13d30 ? (33b)  -> unmatched: inlined in retail?
+    2x wb 0xa13b40 ? (28b)  -> unmatched: inlined in retail?
+    2x wb 0x6cc830 ? (22b)  -> unmatched: inlined in retail?
+    5x wb 0xa13d10 ? (19b)  -> unmatched: inlined in retail?
+    3x wb 0x9d3f60 ? (96b)  -> gd 0x0013275A TextureBaseClass::rva0013275A [PARTIAL]
+    3x wb 0x9d3fc0 ? (96b)  -> gd 0x00132784 TextureBaseClass::rva00132784 [PARTIAL]
+    1x wb 0xa14ff0 ? (24b)  -> unmatched: inlined in retail?
+    1x wb 0xa15010 ? (44b)  -> unmatched: inlined in retail?
+    1x wb 0xa13dd0 ? (32b)  -> unmatched: inlined in retail?
+    1x wb 0xa13590 ? (22b)  -> unmatched: inlined in retail?
+    1x wb 0xa13570 ? (22b)  -> unmatched: inlined in retail?
+    1x wb 0xa13d90 ? (28b)  -> unmatched: inlined in retail?
+    1x wb 0xa13e50 ? (22b)  -> unmatched: inlined in retail?
+    1x wb 0xa13db0 ? (28b)  -> unmatched: inlined in retail?
+    1x wb 0xa15040 ? (31b)  -> unmatched: inlined in retail?
+    1x wb 0xa13e30 ? (19b)  -> unmatched: inlined in retail?
+    2x wb 0x7d1480 ? (84b)  -> gd 0x000D206A MeshModelClass::Peek_Single_Texture [REAL]
+    3x wb 0x4e6900 ? (29b)  -> gd 0x0015A8E0 MeshMatDescClass::Peek_Material [REAL]
+    3x wb 0xa13550 ? (19b)  -> unmatched: inlined in retail?
+    1x wb 0xa13b60 ? (177b)  -> unmatched
+    1x wb 0x9d3dc0 ? (90b)  -> gd 0x00131DFC Rva00131DFC::rva00131DFC [PLACEHOLDER]
+    1x wb 0x9d3ed0 ? (48b)  -> unmatched: inlined in retail?
+    2x wb 0x9d4240 ? (30b)  -> gd 0x00132D70 CursorTextureSlot::Get_Surface_Level [REAL]
+    1x wb 0x9cf900 SurfaceClass::Clear (557b)  -> gd 0x00116780 W3DRadarResetSurface::clear [REAL]
+    2x wb 0x9a6c30 ? (16b)  -> unmatched: inlined in retail?
+    1x import D3DXLoadSurfaceFromSurface
+    2x wb 0x9cf6b0 ? (40b)  -> gd 0x00176CB0 W3DRadarResetSurface::~W3DRadarResetSurface [REAL]
+    1x wb 0x9d3e80 ? (74b)  -> gd 0x0013270C TextureBaseClass::Peek_D3D_Base_Texture [REAL]
+    1x import D3DXFilterTexture
+  callees only inside debug macros (normally compiled out of retail): sub_712780, sub_6bda60, sub_6bda90, sub_9a6a30

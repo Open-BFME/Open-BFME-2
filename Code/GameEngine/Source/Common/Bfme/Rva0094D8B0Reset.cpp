@@ -9,7 +9,7 @@
 
 // 0x001711A6 is rowed as TexturePacker::UpdateResultTexture under the
 // address-derived receiver Rva00171024; retail calls it with ecx = this.
-class Rva00171024 { public: void rva001711a6(); };
+class Rva00171024 { public: void UpdateResultTexture(); };
 
 class Rva0094D8B0Delegate
 {
@@ -41,7 +41,7 @@ private:
 bool Rva0094D8B0::reset(void)
 {
 	if (m_reset != 0)
-		reinterpret_cast<Rva00171024 *>(this)->rva001711a6();
+		reinterpret_cast<Rva00171024 *>(this)->UpdateResultTexture();
 	Rva0094D8B0Delegate *delegate = m_delegate;
 	if (delegate != 0)
 		return delegate->tail();

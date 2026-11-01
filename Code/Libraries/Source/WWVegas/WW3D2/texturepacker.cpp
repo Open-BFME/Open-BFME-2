@@ -76,7 +76,7 @@ typedef _STL::multimap<unsigned,AssetReference> AreaMap;
 namespace _STL { template <> _Rb_tree<unsigned int, pair<const unsigned int, AssetReference>, _Select1st<pair<const unsigned int, AssetReference> >, less<unsigned int>, allocator<pair<const unsigned int, AssetReference> > >::~_Rb_tree(); }
 class Rva00171024 {
 public:
-    void rva001711a6();
+    void UpdateResultTexture();
     unsigned maxSize;
     unsigned format;
     RectangleMap rectangles;
@@ -89,7 +89,7 @@ public:
 
 // Packs every texture into a square atlas, largest area first, on a skyline of
 // 32-pixel cells, then rebuilds the result texture and copies each texture in.
-void Rva00171024::rva001711a6()
+void Rva00171024::UpdateResultTexture()
 {
     dirty=false;
     reinterpret_cast<Rva001333C6 *>(&result)->f();
