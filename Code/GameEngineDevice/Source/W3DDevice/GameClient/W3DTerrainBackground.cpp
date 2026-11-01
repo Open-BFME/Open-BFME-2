@@ -134,6 +134,7 @@ public:
     { ((Rva007497A0 *)this)->setBit(x, y, value); }
     TerrainTextureClass *getFlatTexture(int x, int y, int width, int pixels);
     RefCountPtr<TextureClass> getFlatTexture(int x, int y, int width, int pixels, int format, int tileKind);
+    RefCountPtr<TextureClass> rva000AEAA6(int x, int y, int width, int second);
     int m_width, m_height, m_borderSize;
 };
 class HeightMapRenderObjClass
@@ -166,6 +167,8 @@ private: BfmeResetResource *pointer;
 // nonpolymorphic terrain tile. Three culling statuses occupy 00..08;
 // bounds start at 0C, origins at 50/54, width at 58 and map at 5C.
 // The rowed lifetime view below independently proves the D4-byte extent.
+class RenderInfoClass;
+namespace FXShader { class RenderingMethod; }
 class Rva00111F0E;
 class Rva00112230CameraGroup;
 class W3DTerrainBackground
@@ -184,6 +187,7 @@ public:
     void doPartialUpdate(const IRegion2D &, WorldHeightMap *, bool);
     void doPartialUpdate(const IRegion2D &, WorldHeightMap *, bool, bool);
     void rva00115791(bool flat, float height);
+    void rva0011580A(RenderInfoClass &, bool, FXShader::RenderingMethod *);
     void rva00115DD2();
     __forceinline bool advanceLeft(ICoord2D &point, int x, int y, int width, int height)
     { return ((Rva001127F2TerrainPrefix *)this)->advanceYThenX(point, x, y, width, height); }

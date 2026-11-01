@@ -61,6 +61,8 @@ public:
 		if (m_referent)
 			m_referent->Release_Ref();
 	}
+	const RefCountPtr<T> &operator=(const RefCountPtr<T> &rhs);
+	T *Peek() const { return m_referent; }
 	T *peek() const { return m_referent; }
 	T *operator->() const { return m_referent; }
 	bool isNull() const { return m_referent == 0; }
