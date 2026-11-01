@@ -16544,6 +16544,15 @@ Both bind the emitted names. `./build.sh` 1/1 and 2/2 rows (+1 data row); scoped
 QueueProductionExitUpdateCtor 0 -> 106 B, TerrainResourceBehaviorCtor 0 -> 135 B (current
 objects), definers QueueProductionExitUpdateDtor 60, SpawnPointProductionExitUpdate 717,
 FakePathfindPortalBehaviourDtor 624 B unchanged LINKS.
+Same sweep, mechanism 4 (parity): FiringTrackerCtor.cpp (149 B) lost `??_7FiringTracker@@6B@`,
+`6BObjectModule@@@` and `6BBehaviorModuleInterface@@@` to FiringTrackerDtor.cpp (first in link order),
+which `c861eabfff` moved onto canonical UpdateModule.h while the ctor kept a private UpdateModule
+(one-slot `updateModuleInterface` interface, no getUpdate). The ctor now includes the canonical
+header as the Dtor reads it (no other view change; `setWakeFrame`/`m_object` come from the header).
+Both copies are equal again; neither carries FiringTracker's native update/xfer overrides yet (the
+Dtor is held by StarkillerHDX), so this restores the census-linked parity, not native table
+correctness. `./build.sh` 1/1; scoped DIR32 OK (5 symbols, with the Dtor); `link_check --refresh`
+FiringTrackerCtor 0 -> 149 B, FiringTrackerDtor 124 B unchanged LINKS.
 Census confirmation: awaiting.
 
 ### W3DTerrainBackground seed reconciliation (2026-11-01, halilkkaya-codex)

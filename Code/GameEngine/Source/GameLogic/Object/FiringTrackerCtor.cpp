@@ -25,31 +25,11 @@ enum UpdateSleepTime
 
 #include "../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class UpdateModuleInterface
-{
-public:
-	virtual void updateModuleInterface() = 0;
-};
-
-#include "../../../Include/Common/Module.h"
+// Canonical UpdateModule, as FiringTrackerDtor.cpp (the first copy of the
+// class's tables in link order) reads it, so both units emit the same tables.
+#include "../../../Include/GameLogic/Module/UpdateModule.h"
 
 #include "../../../Include/Common/ObjectModule.h"
-
-
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *data);
-	virtual ~UpdateModule();
-
-protected:
-	void setWakeFrame(Object *object, UpdateSleepTime frame);
-
-private:
-	unsigned int m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_pad;
-};
 
 // Coord3D: shared header/view; no private copy.
 #include "../../../../Libraries/Include/Lib/Coord3DInline.h"
