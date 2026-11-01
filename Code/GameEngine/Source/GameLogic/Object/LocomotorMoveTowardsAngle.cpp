@@ -18,7 +18,9 @@ class Object;
 class Thing;
 float normalizeAngle(float);
 float Cos(float);float Sin(float);
-class Matrix3D {public:unsigned v00,v04,v08,v0C,v10,v14,v18,v1C,v20,v24,v28,v2C;__forceinline void set(const Matrix3D &m){v00=m.v00;v04=m.v04;v08=m.v08;v0C=m.v0C;v10=m.v10;_ReadWriteBarrier();v14=m.v14;v18=m.v18;v1C=m.v1C;v20=m.v20;v24=m.v24;v28=m.v28;v2C=m.v2C;}};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
+static __forceinline void copyMatrixWords(Matrix3D &dst,const Matrix3D &src) { unsigned *d=(unsigned *)&dst.Row[0].X; const unsigned *s=(const unsigned *)&src.Row[0].X; d[0]=s[0];d[1]=s[1];d[2]=s[2];d[3]=s[3];d[4]=s[4];_ReadWriteBarrier();d[5]=s[5];d[6]=s[6];d[7]=s[7];d[8]=s[8];d[9]=s[9];d[10]=s[10];d[11]=s[11]; }
+
 class Rva001EA0F4Transaction { public:
 virtual void s00();virtual void s04();virtual void s08();virtual void s0C();virtual void s10();virtual void s14();virtual void s18();virtual void s1C();virtual void s20();virtual void s24();virtual void s28();virtual void s2C();virtual void s30();virtual void s34();virtual void s38();virtual void s3C();virtual void s40();
 };
@@ -44,7 +46,7 @@ void Locomotor::locoUpdate_moveTowardsAngle(Object *obj,float goalAngle)
  flags &=~4U;
  if(!obj||!data)return;
  if(rva001E4194(obj))return;
- matrix.set(obj->matrix);
+ copyMatrixWords(matrix,obj->matrix);
  float relative=normalizeAngle(goalAngle-*(volatile float*)&obj->orientation);
  float limit=data->turnLimit;
  float cosine=Cos(relative);
