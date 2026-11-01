@@ -117,3 +117,19 @@ header and verify. Extra adoption remains blocked on a canonical string ABI
 surface that preserves the decl-only consumers' linker profiles. No tools or
 checks were patched, no macros/hatches used to suppress the difference, and
 no nonmatching or refused source attempt remains in Code/.
+
+## Fresh-base replacement handoff
+
+The first header/parser bundle landed as b826c39e813a. The overlapping served
+bundle was rejected when its already-landed canonical-class row conflicted.
+Exact header/parser blobs were compared to original7348f9429e and the landed
+commit is an ancestor of origin/master9dddd8de62. The remaining7commits were
+rebased onto that current master, explicitly dropping the already-landed first
+commit; no master push was made. This replacement carries only remaining
+changes and depends on current master, not on replaying an old class-row add.
+On this fresh base check_csv passes and8sources verify173/173 native rows
+(the ledger gained two previously emitted rows upstream); the entire924section/
+858definition/2weak runtime graph is STILL exactly the original baseline.
+Normal original donor hooks and the final6consumer header gate already passed;
+post-rebase header acceptance for all6consumers is repeated before bundling.
+The rejected overlap is superseded, not additional adoption credit.
