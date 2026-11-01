@@ -1,0 +1,7 @@
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Code/GameEngine/Source/GameLogic/Object/SimpleObjectIterator.cpp: LINKS  LINKED 476 -> 3,979 bytes (census 2026-11-01 09:19 at 0d24c60eef; file's own bytes 3,979)
+  diagnostic  ?buffer_size@?$_Deque_base@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@SAIXZ  (codegen-like: 4 bytes against the majority copy's 6; unreferenced, not a blocker)
+  diagnostic  ?deallocate@?$_STLP_alloc_proxy@IUBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@QAEXPAUBfmeE8@@I@Z  (codegen-like: 20 bytes against the majority copy's 18; unreferenced, not a blocker)
+Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e8_pushback_aux.cpp: LINKS  LINKED 101 -> 101 bytes (census 2026-11-01 09:19 at 0d24c60eef; file's own bytes 101)
+link_check: 2 of 2 link cleanly; LINKED 577 -> 4,080 bytes (3.7s)

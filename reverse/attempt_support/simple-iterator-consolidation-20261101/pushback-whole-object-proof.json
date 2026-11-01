@@ -1,0 +1,47 @@
+{
+  "before_definitions": 1,
+  "after_definitions": 1,
+  "added": [],
+  "removed": [],
+  "changed": [
+    {
+      "name": "?_M_push_back_aux_v@?$deque@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@IAEXABUBfmeE8@@@Z",
+      "raw_identical": true,
+      "old_relocations": [
+        [
+          31,
+          20,
+          "?_M_reserve_map_at_back@?$deque@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@IAEXI@Z"
+        ],
+        [
+          43,
+          20,
+          "?vectorSmallAllocate@_STL@@YAPAXII@Z"
+        ],
+        [
+          61,
+          20,
+          "??$_Construct@UBfmeE8@@U1@@_STL@@YAXPAUBfmeE8@@ABU1@@Z"
+        ]
+      ],
+      "new_relocations": [
+        [
+          31,
+          20,
+          "?_M_reserve_map_at_back@?$deque@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@IAEXI@Z"
+        ],
+        [
+          43,
+          20,
+          "?allocate@?$allocator@D@_STL@@SAPADIPBX@Z"
+        ],
+        [
+          61,
+          20,
+          "??$_Construct@UBfmeE8@@U1@@_STL@@YAXPAUBfmeE8@@ABU1@@Z"
+        ]
+      ]
+    }
+  ],
+  "added_whole_body_twins_of_existing_iterator_provider": {}
+}

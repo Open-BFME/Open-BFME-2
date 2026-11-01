@@ -4156,7 +4156,6 @@ alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_create_filebuf.cpp	??1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_create_filebuf.cpp	??1stdio_ostreambuf@_SgI@@UAE@XZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_deque_copyrecord8_sort.cpp	??RBfmeCopyRecord8KeyAscending@@QBE_NABUBfmeCopyRecord8@@0@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_deque_copyrecord8_sort.cpp	??RBfmeCopyRecord8KeyDescending@@QBE_NABUBfmeCopyRecord8@@0@Z	1
-alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e8_pushback_aux.cpp	?vectorSmallAllocate@_STL@@YAPAXII@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_deque_int.cpp	?bfmeAllocPV@@YAPAXHI@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_deque_int.cpp	?bfmeAllocQB@@YAPAXHI@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_deque_int.cpp	?bfmeAllocQG@@YAPAXHI@Z	1

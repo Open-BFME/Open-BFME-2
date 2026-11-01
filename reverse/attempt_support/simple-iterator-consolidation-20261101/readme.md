@@ -62,3 +62,28 @@ Data identity enforcement, pin consistency, case checks, CSV integrity and
 staged TU ownership pass; protected-register inventories remain empty for the
 affected source. Full-batch consumer clearance remains subject to the normal
 publication audit and its stated census-index boundary.
+
+## Push-back prerequisite
+
+The auxiliary push-back now uses the real deque and iterator declarations
+instead of private STLport templates. It retains external reserve-map and
+construction declarations, uses the existing byte allocator directly, and
+uses the existing local node update on the real iterator view. The complete 101-byte body is unchanged;
+its only relocation-name difference replaces the existing allocator alias
+with that alias's existing target. The original and final objects each define
+exactly one external code body. An intermediate real-member node update emitted
+an unused 23-byte helper and a code-identity shadow finding, despite matching
+the existing `stlport_deque_e8_o1.cpp` copy. Preserving the existing local helper
+removes that extra definition. No previous provider is removed.
+
+Normal and strict verification pass the row. Current preview retains the
+seed/helper cohort's 4,080 bytes. Data identity has no finding. The supported
+dry run accepts the seed and auxiliary donor, all 44 rows, with the link guard
+passing. The owning hatch update removes exactly the superseded allocator
+alias key. No pin, ABI or new row is needed.
+
+The cleanup donor was also tested privately with an explicit, out-of-line
+destructor specialization after the parent's definition. All eight donor rows
+still match, but the composed parent destructor and its EH/cleanup rows do not;
+whole-TU exception inference defeats that declaration-visibility hypothesis.
+The failed trial stays outside Code, and the donor remains unchanged.

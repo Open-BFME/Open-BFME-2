@@ -1,0 +1,24 @@
+{
+  "label": "cleanup-out-of-line-pair",
+  "matched": 47,
+  "rows": 51,
+  "errors": [],
+  "misses": [
+    [
+      "??1SimpleObjectIterator@@UAE@XZ",
+      "0x0054B81A",
+      "54"
+    ],
+    [
+      "__ehhandler$??1SimpleObjectIterator@@UAE@XZ",
+      "0x007981F6",
+      "10"
+    ],
+    [
+      "$L7045",
+      "0x007981EE",
+      "8"
+    ]
+  ],
+  "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\tu_skeleton\\397b649d9999236e.obj"
+}

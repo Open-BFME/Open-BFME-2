@@ -16170,3 +16170,12 @@ Both remain unchanged. Two mixed donors also stay outside this merge. Debt,
 header queues, provider bindings and active path consumers were checked; see
 `reverse/attempt_support/simple-iterator-consolidation-20261101/` for scope,
 verification and the complete outgoing path audit.
+
+Follow-up prerequisite: the auxiliary push-back now compiles against the real
+STLport declarations. Its 101 bytes are unchanged, its allocator alias is
+replaced by the same existing allocator target, and its existing local node
+helper avoids emitting an extra iterator member. Normal/strict checks and the scoped
+4,080-byte prediction pass; the supported dry run accepts the next donor,
+44 rows. One alias hatch retires through the owning counter update. Cleanup
+remains blocked: an out-of-line destructor specialization still changes the
+parent's EH inference when compiled together. Its source is unchanged.
