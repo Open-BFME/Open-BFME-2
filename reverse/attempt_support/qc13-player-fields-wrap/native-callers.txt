@@ -1,0 +1,1233 @@
+Code/GameEngine/Source/Common/RTS/PlayerList_findPlayerWithNameKey.cpp ?findPlayerWithNameKey@PlayerList@@QAEPAVPlayer@@W4NameKeyType@@@Z 0x002A7A41
+002a7a41 mov eax, dword ptr [ecx + 0x14]
+002a7a44 push esi
+002a7a45 xor edx, edx
+002a7a47 test eax, eax
+002a7a49 push edi
+002a7a4a jle 0x2a7a62
+002a7a4c lea esi, [ecx + 0x18]
+002a7a4f mov edi, dword ptr [esi]
+002a7a51 mov edi, dword ptr [edi + 0x50]
+002a7a54 cmp edi, dword ptr [esp + 0xc]
+002a7a58 je 0x2a7a69
+002a7a5a inc edx
+002a7a5b add esi, 4
+002a7a5e cmp edx, eax
+002a7a60 jl 0x2a7a4f
+002a7a62 xor eax, eax
+002a7a64 pop edi
+002a7a65 pop esi
+002a7a66 ret 4
+002a7a69 mov eax, dword ptr [ecx + edx*4 + 0x18]
+002a7a6d jmp 0x2a7a64
+Code/GameEngine/Source/GameLogic/AI/AITNGuardStates.cpp ?onExit@AITNGuardInnerState@@UAEXW4StateExitType@@@Z 0x00545BB7
+00545bb7 push esi
+00545bb8 mov esi, ecx
+00545bba mov ecx, dword ptr [esi + 0x2c]
+00545bbd test ecx, ecx
+00545bbf je 0x545be6
+00545bc1 push dword ptr [esp + 8]
+00545bc5 mov eax, dword ptr [ecx]
+00545bc7 call dword ptr [eax + 0x14]
+00545bca mov ecx, dword ptr [esi + 0x2c]
+00545bcd test ecx, ecx
+00545bcf je 0x545bd9
+00545bd1 mov eax, dword ptr [ecx]
+00545bd3 push 0
+00545bd5 call dword ptr [eax]
+00545bd7 jmp 0x545bdb
+00545bd9 xor eax, eax
+00545bdb push eax
+00545bdc call 0x2fd60
+00545be1 and dword ptr [esi + 0x2c], 0
+00545be5 pop ecx
+00545be6 pop esi
+00545be7 ret 4
+Code/GameEngine/Source/GameLogic/AI/AITNGuardStates.cpp ?onExit@AITNGuardOuterState@@UAEXW4StateExitType@@@Z 0x00545BEA
+00545bea push esi
+00545beb mov esi, ecx
+00545bed mov ecx, dword ptr [esi + 0x28]
+00545bf0 test ecx, ecx
+00545bf2 je 0x545c19
+00545bf4 push dword ptr [esp + 8]
+00545bf8 mov eax, dword ptr [ecx]
+00545bfa call dword ptr [eax + 0x14]
+00545bfd mov ecx, dword ptr [esi + 0x28]
+00545c00 test ecx, ecx
+00545c02 je 0x545c0c
+00545c04 mov eax, dword ptr [ecx]
+00545c06 push 0
+00545c08 call dword ptr [eax]
+00545c0a jmp 0x545c0e
+00545c0c xor eax, eax
+00545c0e push eax
+00545c0f call 0x2fd60
+00545c14 and dword ptr [esi + 0x28], 0
+00545c18 pop ecx
+00545c19 pop esi
+00545c1a ret 4
+Code/GameEngine/Source/GameLogic/AI/AITNGuardStates.cpp ?update@AITNGuardReturnState@@UAE?AW4StateReturnType@@XZ 0x00545C4D
+00545c4d push esi
+00545c4e mov esi, ecx
+00545c50 mov eax, dword ptr [esi + 0x18]
+00545c53 mov ecx, dword ptr [eax + 0x14]
+00545c56 push edi
+00545c57 call 0x28afa9
+00545c5c mov edi, eax
+00545c5e mov eax, dword ptr [esi + 0x18]
+00545c61 mov eax, dword ptr [eax + 0x14]
+00545c64 mov ecx, dword ptr [eax + 0x304]
+00545c6a test ecx, ecx
+00545c6c je 0x545c85
+00545c6e call 0x3a105b
+00545c73 test eax, eax
+00545c75 je 0x545c85
+00545c77 mov eax, dword ptr [eax + 0x74]
+00545c7a mov ecx, dword ptr [esi + 0x18]
+00545c7d push -2
+00545c7f mov dword ptr [ecx + 0x48], eax
+00545c82 pop eax
+00545c83 jmp 0x545ca7
+00545c85 test edi, edi
+00545c87 je 0x545c9c
+00545c89 mov ecx, dword ptr [edi + 0x2e8]
+00545c8f test ecx, ecx
+00545c91 je 0x545c9c
+00545c93 call 0x4f5684
+00545c98 test eax, eax
+00545c9a jne 0x545c77
+00545c9c mov ecx, esi
+00545c9e call 0x35455a
+00545ca3 neg eax
+00545ca5 sbb eax, eax
+00545ca7 pop edi
+00545ca8 pop esi
+00545ca9 ret 
+Code/GameEngine/Source/GameLogic/AI/AITNGuardStates.cpp ?onExit@AITNGuardAttackAggressorState@@UAEXW4StateExitType@@@Z 0x00545CF7
+00545cf7 push esi
+00545cf8 mov esi, ecx
+00545cfa mov ecx, dword ptr [esi + 0x28]
+00545cfd test ecx, ecx
+00545cff mov eax, dword ptr [esi + 0x18]
+00545d02 push edi
+00545d03 mov edi, dword ptr [eax + 0x14]
+00545d06 je 0x545d2d
+00545d08 push dword ptr [esp + 0xc]
+00545d0c mov eax, dword ptr [ecx]
+00545d0e call dword ptr [eax + 0x14]
+00545d11 mov ecx, dword ptr [esi + 0x28]
+00545d14 test ecx, ecx
+00545d16 je 0x545d20
+00545d18 mov eax, dword ptr [ecx]
+00545d1a push 0
+00545d1c call dword ptr [eax]
+00545d1e jmp 0x545d22
+00545d20 xor eax, eax
+00545d22 push eax
+00545d23 call 0x2fd60
+00545d28 and dword ptr [esi + 0x28], 0
+00545d2c pop ecx
+00545d2d mov ecx, dword ptr [edi + 0x304]
+00545d33 test ecx, ecx
+00545d35 pop edi
+00545d36 pop esi
+00545d37 je 0x545d40
+00545d39 push 0
+00545d3b call 0x39d84a
+00545d40 ret 4
+Code/GameEngine/Source/GameLogic/AI/AITNGuardStates.cpp ?update@AITNGuardAttackAggressorState@@UAE?AW4StateReturnType@@XZ 0x0054684E
+0054684e push edi
+0054684f mov edi, ecx
+00546851 mov eax, dword ptr [edi + 0x28]
+00546854 mov eax, dword ptr [eax + 0x18]
+00546857 mov eax, dword ptr [eax + 4]
+0054685a test eax, eax
+0054685c je 0x546863
+0054685e mov eax, dword ptr [eax + 4]
+00546861 jmp 0x546868
+00546863 mov eax, 0xf423f
+00546868 cmp eax, 0x67
+0054686b jne 0x5468a2
+0054686d mov ecx, dword ptr [0xdfe78c]
+00546873 push ebx
+00546874 push esi
+00546875 mov esi, dword ptr [edi + 0x18]
+00546878 push dword ptr [esi + 0x48]
+0054687b call 0x49dc5
+00546880 mov ecx, dword ptr [esi + 0x14]
+00546883 mov ebx, eax
+00546885 call 0x28afa9
+0054688a test eax, eax
+0054688c je 0x5468a0
+0054688e mov eax, dword ptr [eax + 0x2e8]
+00546894 test eax, eax
+00546896 je 0x5468a0
+00546898 push ebx
+00546899 mov ecx, eax
+0054689b call 0x4f5935
+005468a0 pop esi
+005468a1 pop ebx
+005468a2 mov ecx, dword ptr [edi + 0x28]
+005468a5 mov eax, dword ptr [ecx]
+005468a7 pop edi
+005468a8 jmp dword ptr [eax + 0x18]
+Code/GameEngine/Source/GameLogic/AI/AITNGuardStates.cpp ?onEnter@AITNGuardInnerState@@UAE?AW4StateReturnType@@XZ 0x0054632D
+0054632d mov eax, 0xb98069
+00546332 call 0x629188
+00546337 push ecx
+00546338 push ecx
+00546339 push esi
+0054633a mov esi, ecx
+0054633c mov eax, dword ptr [esi + 0x18]
+0054633f push edi
+00546340 mov edi, dword ptr [0xdfe78c]
+00546346 push dword ptr [eax + 0x48]
+00546349 mov ecx, edi
+0054634b call 0x49dc5
+00546350 test eax, eax
+00546352 mov dword ptr [ebp - 0x10], eax
+00546355 jne 0x54635c
+00546357 or eax, 0xffffffff
+0054635a jmp 0x5463bb
+0054635c mov eax, dword ptr [0xdff0f8]
+00546361 mov eax, dword ptr [eax + 0x18]
+00546364 mov edi, dword ptr [edi + 0x40]
+00546367 mov eax, dword ptr [eax + 0x3c]
+0054636a add eax, edi
+0054636c push 0x50
+0054636e mov dword ptr [esi + 0x24], eax
+00546371 call 0x2fda0
+00546376 pop ecx
+00546377 mov ecx, eax
+00546379 mov dword ptr [ebp - 0x14], ecx
+0054637c and dword ptr [ebp - 4], 0
+00546380 test ecx, ecx
+00546382 je 0x546399
+00546384 mov eax, dword ptr [esi + 0x18]
+00546387 lea edx, [esi + 0x20]
+0054638a push edx
+0054638b push 0
+0054638d push 1
+0054638f push 0
+00546391 push eax
+00546392 call 0x34b0dd
+00546397 jmp 0x54639b
+00546399 xor eax, eax
+0054639b push dword ptr [ebp - 0x10]
+0054639e or dword ptr [ebp - 4], 0xffffffff
+005463a2 mov dword ptr [esi + 0x2c], eax
+005463a5 mov eax, dword ptr [eax + 0x18]
+005463a8 mov edx, dword ptr [eax]
+005463aa mov ecx, eax
+005463ac call dword ptr [edx + 0x38]
+005463af mov ecx, dword ptr [esi + 0x2c]
+005463b2 mov eax, dword ptr [ecx]
+005463b4 call dword ptr [eax + 0x10]
+005463b7 neg eax
+005463b9 sbb eax, eax
+005463bb mov ecx, dword ptr [ebp - 0xc]
+005463be pop edi
+005463bf pop esi
+005463c0 mov dword ptr fs:[0], ecx
+005463c7 leave 
+005463c8 ret 
+Code/GameEngine/Source/GameLogic/AI/AITNGuardStates.cpp ?onEnter@AITNGuardOuterState@@UAE?AW4StateReturnType@@XZ 0x005464CE
+005464ce mov eax, 0xb98069
+005464d3 call 0x629188
+005464d8 push ecx
+005464d9 push ecx
+005464da push esi
+005464db mov esi, ecx
+005464dd mov eax, dword ptr [esi + 0x18]
+005464e0 mov ecx, dword ptr [eax + 0x4c]
+005464e3 cmp ecx, 1
+005464e6 jne 0x5464ed
+005464e8 or eax, 0xffffffff
+005464eb jmp 0x54656a
+005464ed push edi
+005464ee mov edi, dword ptr [0xdfe78c]
+005464f4 push dword ptr [eax + 0x48]
+005464f7 mov ecx, edi
+005464f9 call 0x49dc5
+005464fe test eax, eax
+00546500 mov dword ptr [ebp - 0x10], eax
+00546503 jne 0x54650a
+00546505 or eax, 0xffffffff
+00546508 jmp 0x546569
+0054650a mov eax, dword ptr [0xdff0f8]
+0054650f mov eax, dword ptr [eax + 0x18]
+00546512 mov edi, dword ptr [edi + 0x40]
+00546515 mov eax, dword ptr [eax + 0x3c]
+00546518 add eax, edi
+0054651a push 0x50
+0054651c mov dword ptr [esi + 0x24], eax
+0054651f call 0x2fda0
+00546524 pop ecx
+00546525 mov ecx, eax
+00546527 mov dword ptr [ebp - 0x14], ecx
+0054652a and dword ptr [ebp - 4], 0
+0054652e test ecx, ecx
+00546530 je 0x546547
+00546532 mov eax, dword ptr [esi + 0x18]
+00546535 lea edx, [esi + 0x20]
+00546538 push edx
+00546539 push 0
+0054653b push 1
+0054653d push 0
+0054653f push eax
+00546540 call 0x34b0dd
+00546545 jmp 0x546549
+00546547 xor eax, eax
+00546549 push dword ptr [ebp - 0x10]
+0054654c or dword ptr [ebp - 4], 0xffffffff
+00546550 mov dword ptr [esi + 0x28], eax
+00546553 mov eax, dword ptr [eax + 0x18]
+00546556 mov edx, dword ptr [eax]
+00546558 mov ecx, eax
+0054655a call dword ptr [edx + 0x38]
+0054655d mov ecx, dword ptr [esi + 0x28]
+00546560 mov eax, dword ptr [ecx]
+00546562 call dword ptr [eax + 0x10]
+00546565 neg eax
+00546567 sbb eax, eax
+00546569 pop edi
+0054656a mov ecx, dword ptr [ebp - 0xc]
+0054656d pop esi
+0054656e mov dword ptr fs:[0], ecx
+00546575 leave 
+00546576 ret 
+Code/GameEngine/Source/GameLogic/AI/AITNGuardStates.cpp ?update@AITNGuardOuterState@@UAE?AW4StateReturnType@@XZ 0x00546577
+00546577 push ebx
+00546578 push esi
+00546579 mov esi, ecx
+0054657b mov eax, dword ptr [esi + 0x18]
+0054657e push edi
+0054657f mov edi, dword ptr [eax + 0x14]
+00546582 mov eax, dword ptr [esi + 0x28]
+00546585 mov ecx, dword ptr [eax + 0x18]
+00546588 call 0x4d7726
+0054658d mov ebx, eax
+0054658f test ebx, ebx
+00546591 jne 0x5465da
+00546593 mov eax, dword ptr [esi + 0x18]
+00546596 push dword ptr [eax + 0x48]
+00546599 mov ecx, dword ptr [0xdfe78c]
+0054659f call 0x49dc5
+005465a4 test eax, eax
+005465a6 jne 0x5465da
+005465a8 mov ecx, dword ptr [edi + 0x304]
+005465ae mov eax, dword ptr [ecx + 0x30]
+005465b1 cmp byte ptr [eax + 0x216], bl
+005465b7 je 0x5465da
+005465b9 call 0x3a105b
+005465be test eax, eax
+005465c0 cmovne ebx, eax
+005465c3 mov eax, dword ptr [esi + 0x28]
+005465c6 mov ecx, dword ptr [eax + 0x18]
+005465c9 mov eax, dword ptr [ecx]
+005465cb push ebx
+005465cc call dword ptr [eax + 0x38]
+005465cf mov ecx, dword ptr [esi + 0x28]
+005465d2 mov eax, dword ptr [ecx]
+005465d4 pop edi
+005465d5 pop esi
+005465d6 pop ebx
+005465d7 jmp dword ptr [eax + 0x10]
+005465da mov ecx, dword ptr [esi + 0x28]
+005465dd mov eax, dword ptr [ecx]
+005465df pop edi
+005465e0 pop esi
+005465e1 pop ebx
+005465e2 jmp dword ptr [eax + 0x18]
+Code/GameEngine/Source/GameLogic/AI/AITNGuardStates.cpp ?onEnter@AITNGuardAttackAggressorState@@UAE?AW4StateReturnType@@XZ 0x0054675D
+0054675d mov eax, 0xb98069
+00546762 call 0x629188
+00546767 push ecx
+00546768 push ecx
+00546769 push esi
+0054676a mov esi, ecx
+0054676c mov eax, dword ptr [esi + 0x18]
+0054676f push edi
+00546770 mov edi, dword ptr [eax + 0x14]
+00546773 mov ecx, dword ptr [edi + 0x254]
+00546779 test ecx, ecx
+0054677b je 0x54679c
+0054677d mov eax, dword ptr [ecx]
+0054677f call dword ptr [eax + 0x3c]
+00546782 cmp dword ptr [eax + 8], 0
+00546786 je 0x54679c
+00546788 mov ecx, dword ptr [edi + 0x254]
+0054678e mov eax, dword ptr [ecx]
+00546790 call dword ptr [eax + 0x3c]
+00546793 mov eax, dword ptr [eax + 8]
+00546796 mov ecx, dword ptr [esi + 0x18]
+00546799 mov dword ptr [ecx + 0x48], eax
+0054679c mov edi, dword ptr [esi + 0x18]
+0054679f push dword ptr [edi + 0x48]
+005467a2 mov ecx, dword ptr [0xdfe78c]
+005467a8 call 0x49dc5
+005467ad test eax, eax
+005467af mov dword ptr [ebp - 0x10], eax
+005467b2 jne 0x5467bc
+005467b4 or eax, 0xffffffff
+005467b7 jmp 0x546840
+005467bc mov ecx, dword ptr [edi + 0x14]
+005467bf call 0x28afa9
+005467c4 test eax, eax
+005467c6 je 0x5467dc
+005467c8 mov eax, dword ptr [eax + 0x2e8]
+005467ce test eax, eax
+005467d0 je 0x5467dc
+005467d2 push dword ptr [ebp - 0x10]
+005467d5 mov ecx, eax
+005467d7 call 0x4f5935
+005467dc mov eax, dword ptr [0xdfe78c]
+005467e1 mov ecx, dword ptr [eax + 0x40]
+005467e4 mov eax, dword ptr [0xdff0f8]
+005467e9 mov eax, dword ptr [eax + 0x18]
+005467ec mov eax, dword ptr [eax + 0x3c]
+005467ef add eax, ecx
+005467f1 push 0x50
+005467f3 mov dword ptr [esi + 0x24], eax
+005467f6 call 0x2fda0
+005467fb pop ecx
+005467fc mov ecx, eax
+005467fe mov dword ptr [ebp - 0x14], ecx
+00546801 and dword ptr [ebp - 4], 0
+00546805 test ecx, ecx
+00546807 je 0x54681e
+00546809 mov eax, dword ptr [esi + 0x18]
+0054680c lea edx, [esi + 0x20]
+0054680f push edx
+00546810 push 0
+00546812 push 1
+00546814 push 1
+00546816 push eax
+00546817 call 0x34b0dd
+0054681c jmp 0x546820
+0054681e xor eax, eax
+00546820 push dword ptr [ebp - 0x10]
+00546823 or dword ptr [ebp - 4], 0xffffffff
+00546827 mov dword ptr [esi + 0x28], eax
+0054682a mov eax, dword ptr [eax + 0x18]
+0054682d mov edx, dword ptr [eax]
+0054682f mov ecx, eax
+00546831 call dword ptr [edx + 0x38]
+00546834 mov ecx, dword ptr [esi + 0x28]
+00546837 mov eax, dword ptr [ecx]
+00546839 call dword ptr [eax + 0x10]
+0054683c neg eax
+0054683e sbb eax, eax
+00546840 mov ecx, dword ptr [ebp - 0xc]
+00546843 pop edi
+00546844 pop esi
+00546845 mov dword ptr fs:[0], ecx
+0054684c leave 
+0054684d ret 
+Code/GameEngine/Source/GameLogic/AI/AITNGuardStates.cpp ?onEnter@AITNGuardIdleState@@UAE?AW4StateReturnType@@XZ 0x00545CAF
+00545caf mov eax, dword ptr [0xdfe78c]
+00545cb4 push esi
+00545cb5 push edi
+00545cb6 mov edi, dword ptr [eax + 0x40]
+00545cb9 mov eax, dword ptr [0xdff0f8]
+00545cbe mov eax, dword ptr [eax + 0x18]
+00545cc1 push 0x24a
+00545cc6 push 0xc6a0e8
+00545ccb push dword ptr [eax + 0x40]
+00545cce mov esi, ecx
+00545cd0 push 0
+00545cd2 call 0x233ff4
+00545cd7 add eax, edi
+00545cd9 mov dword ptr [esi + 0x20], eax
+00545cdc mov eax, dword ptr [esi + 0x18]
+00545cdf mov eax, dword ptr [eax + 0x14]
+00545ce2 mov ecx, dword ptr [eax + 0x258]
+00545ce8 add esp, 0x10
+00545ceb push 0
+00545ced call 0x262b0f
+00545cf2 pop edi
+00545cf3 xor eax, eax
+00545cf5 pop esi
+00545cf6 ret 
+Code/GameEngine/Source/GameLogic/AI/AITNGuardStates.cpp ?update@AITNGuardInnerState@@UAE?AW4StateReturnType@@XZ 0x005463C9
+005463c9 push ecx
+005463ca push ebx
+005463cb push ebp
+005463cc push esi
+005463cd mov esi, ecx
+005463cf mov ecx, dword ptr [0xdfe78c]
+005463d5 push edi
+005463d6 mov edi, dword ptr [esi + 0x18]
+005463d9 push dword ptr [edi + 0x48]
+005463dc call 0x49dc5
+005463e1 mov ecx, dword ptr [edi + 0x14]
+005463e4 mov dword ptr [esp + 0x10], eax
+005463e8 call 0x28afa9
+005463ed xor ebp, ebp
+005463ef test eax, eax
+005463f1 je 0x5463f9
+005463f3 mov ebp, dword ptr [eax + 0x2e8]
+005463f9 mov eax, dword ptr [esi + 0x18]
+005463fc mov ebx, dword ptr [eax + 0x14]
+005463ff mov ecx, dword ptr [ebx + 0x304]
+00546405 call 0x3a105b
+0054640a mov edi, eax
+0054640c mov eax, dword ptr [esp + 0x10]
+00546410 test eax, eax
+00546412 jne 0x5464a6
+00546418 test edi, edi
+0054641a je 0x546427
+0054641c mov eax, dword ptr [esi + 0x18]
+0054641f mov ecx, dword ptr [edi + 0x74]
+00546422 mov dword ptr [eax + 0x48], ecx
+00546425 jmp 0x54643f
+00546427 test ebp, ebp
+00546429 je 0x54645e
+0054642b mov ecx, ebp
+0054642d call 0x4f5684
+00546432 test eax, eax
+00546434 je 0x54645e
+00546436 mov ecx, dword ptr [esi + 0x18]
+00546439 mov eax, dword ptr [eax + 0x74]
+0054643c mov dword ptr [ecx + 0x48], eax
+0054643f mov eax, dword ptr [0xdff0f8]
+00546444 mov eax, dword ptr [eax + 0x18]
+00546447 mov eax, dword ptr [eax + 0x3c]
+0054644a mov ecx, dword ptr [0xdfe78c]
+00546450 add eax, dword ptr [ecx + 0x40]
+00546453 pop edi
+00546454 mov dword ptr [esi + 0x24], eax
+00546457 pop esi
+00546458 pop ebp
+00546459 xor eax, eax
+0054645b pop ebx
+0054645c pop ecx
+0054645d ret 
+0054645e cmp byte ptr [esi + 0x28], 0
+00546462 je 0x5464bf
+00546464 mov ecx, ebx
+00546466 mov byte ptr [esi + 0x28], 0
+0054646a call 0x545dee
+0054646f mov edi, eax
+00546471 test edi, edi
+00546473 je 0x5464bf
+00546475 mov ecx, dword ptr [esi + 0x2c]
+00546478 mov eax, dword ptr [ecx]
+0054647a push 1
+0054647c call dword ptr [eax + 0x14]
+0054647f mov eax, dword ptr [esi + 0x2c]
+00546482 mov ecx, dword ptr [eax + 0x18]
+00546485 mov eax, dword ptr [ecx]
+00546487 push edi
+00546488 call dword ptr [eax + 0x38]
+0054648b test ebp, ebp
+0054648d je 0x546497
+0054648f push edi
+00546490 mov ecx, ebp
+00546492 call 0x4f5935
+00546497 mov ecx, dword ptr [esi + 0x2c]
+0054649a mov eax, dword ptr [ecx]
+0054649c pop edi
+0054649d pop esi
+0054649e pop ebp
+0054649f pop ebx
+005464a0 add esp, 4
+005464a3 jmp dword ptr [eax + 0x10]
+005464a6 cmp eax, edi
+005464a8 je 0x5464bf
+005464aa test edi, edi
+005464ac je 0x5464bf
+005464ae push eax
+005464af mov ecx, ebp
+005464b1 call 0x4f5935
+005464b6 mov eax, dword ptr [esi + 0x18]
+005464b9 mov ecx, dword ptr [edi + 0x74]
+005464bc mov dword ptr [eax + 0x48], ecx
+005464bf mov ecx, dword ptr [esi + 0x2c]
+005464c2 mov eax, dword ptr [ecx]
+005464c4 pop edi
+005464c5 pop esi
+005464c6 pop ebp
+005464c7 pop ebx
+005464c8 add esp, 4
+005464cb jmp dword ptr [eax + 0x18]
+Code/GameEngine/Source/GameLogic/AI/AITNGuardReturnStateOnEnter.cpp ?onEnter@AITNGuardReturnState@@UAE?AW4StateReturnType@@XZ 0x005465E5
+005465e5 mov eax, dword ptr [0xdfe78c]
+005465ea push ebx
+005465eb push esi
+005465ec push edi
+005465ed mov edi, dword ptr [eax + 0x40]
+005465f0 mov eax, dword ptr [0xdff0f8]
+005465f5 mov eax, dword ptr [eax + 0x18]
+005465f8 push 0x1fc
+005465fd push 0xc6a0e8
+00546602 push dword ptr [eax + 0x44]
+00546605 mov esi, ecx
+00546607 push 0
+00546609 call 0x233ff4
+0054660e add eax, edi
+00546610 mov dword ptr [esi + 0x54], eax
+00546613 mov eax, dword ptr [esi + 0x18]
+00546616 mov ecx, dword ptr [eax + 0x14]
+00546619 add esp, 0x10
+0054661c lea ebx, [ecx + 0x38]
+0054661f call 0x28afa9
+00546624 call 0x545f80
+00546629 mov edi, eax
+0054662b test edi, edi
+0054662d jne 0x546636
+0054662f push -2
+00546631 pop eax
+00546632 pop edi
+00546633 pop esi
+00546634 pop ebx
+00546635 ret 
+00546636 mov ecx, dword ptr [esi + 0x18]
+00546639 mov eax, dword ptr [ecx]
+0054663b push edi
+0054663c call dword ptr [eax + 0x38]
+0054663f mov eax, dword ptr [esi + 0x18]
+00546642 mov eax, dword ptr [eax + 0x14]
+00546645 mov ecx, dword ptr [eax + 0x258]
+0054664b push edi
+0054664c call 0x262b0f
+00546651 pop edi
+00546652 mov ecx, esi
+00546654 pop esi
+00546655 pop ebx
+00546656 jmp 0x34fb77
+Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainRva004787B0.cpp ?rva004787B0@GarrisonContain@@QAEXXZ 0x004787B0
+004787b0 push ebp
+004787b1 mov ebp, esp
+004787b3 sub esp, 0x18
+004787b6 push esi
+004787b7 mov esi, ecx
+004787b9 mov eax, dword ptr [esi + 4]
+004787bc push edi
+004787bd mov edi, dword ptr [eax + 0xa8]
+004787c3 test edi, edi
+004787c5 jle 0x47884c
+004787cb mov ecx, dword ptr [0xdff000]
+004787d1 add eax, 0xa4
+004787d6 push eax
+004787d7 call 0x2d06ca
+004787dc test edi, edi
+004787de mov esi, dword ptr [esi + 8]
+004787e1 mov dword ptr [ebp - 8], eax
+004787e4 jle 0x47884c
+004787e6 mov dword ptr [ebp - 4], edi
+004787e9 push 0x10
+004787eb lea eax, [ebp - 0x18]
+004787ee push 0
+004787f0 push eax
+004787f1 call 0x6291ae
+004787f6 add esp, 0xc
+004787f9 mov ecx, esi
+004787fb call 0x28afa9
+00478800 mov eax, dword ptr [eax + 0x2ec]
+00478806 push 0
+00478808 lea ecx, [ebp - 0x18]
+0047880b push ecx
+0047880c mov ecx, dword ptr [0xdff000]
+00478812 push eax
+00478813 push dword ptr [ebp - 8]
+00478816 call 0x2d0a23
+0047881b mov ecx, dword ptr [esi + 0x250]
+00478821 test ecx, ecx
+00478823 mov edi, eax
+00478825 je 0x478847
+00478827 mov eax, dword ptr [ecx]
+00478829 push 0
+0047882b push 1
+0047882d push edi
+0047882e call dword ptr [eax + 0x98]
+00478834 test al, al
+00478836 je 0x478847
+00478838 mov ecx, dword ptr [esi + 0x250]
+0047883e mov eax, dword ptr [ecx]
+00478840 push edi
+00478841 call dword ptr [eax + 0x9c]
+00478847 dec dword ptr [ebp - 4]
+0047884a jne 0x4787e9
+0047884c pop edi
+0047884d pop esi
+0047884e leave 
+0047884f ret 
+Code/GameEngine/Source/GameLogic/AI/AITNGuardReturnStateOnEnter.cpp ?findBestTunnel@@YAPAVObject@@PAVPlayer@@PBUCoord3D@@@Z 0x00545F80
+00545f80 push ebp
+00545f81 mov ebp, esp
+00545f83 push ecx
+00545f84 push ecx
+00545f85 test eax, eax
+00545f87 jne 0x545f8b
+00545f89 leave 
+00545f8a ret 
+00545f8b mov eax, dword ptr [eax + 0x2e8]
+00545f91 and dword ptr [ebp - 4], 0
+00545f95 xorps xmm0, xmm0
+00545f98 push esi
+00545f99 add eax, 8
+00545f9c push edi
+00545f9d mov edi, dword ptr [eax]
+00545f9f mov esi, dword ptr [edi]
+00545fa1 movss dword ptr [ebp - 8], xmm0
+00545fa6 jmp 0x545ff6
+00545fa8 push dword ptr [esi + 8]
+00545fab mov ecx, dword ptr [0xdfe78c]
+00545fb1 call 0x49dc5
+00545fb6 test eax, eax
+00545fb8 je 0x545ff4
+00545fba cmp dword ptr [ebp - 4], 0
+00545fbe movss xmm0, dword ptr [eax + 0x38]
+00545fc3 subss xmm0, dword ptr [ebx]
+00545fc7 movss xmm1, dword ptr [eax + 0x3c]
+00545fcc subss xmm1, dword ptr [ebx + 4]
+00545fd1 movaps xmm2, xmm0
+00545fd4 mulss xmm1, xmm1
+00545fd8 mulss xmm2, xmm0
+00545fdc addss xmm1, xmm2
+00545fe0 je 0x545fec
+00545fe2 movss xmm0, dword ptr [ebp - 8]
+00545fe7 comiss xmm0, xmm1
+00545fea jbe 0x545ff4
+00545fec movss dword ptr [ebp - 8], xmm1
+00545ff1 mov dword ptr [ebp - 4], eax
+00545ff4 mov esi, dword ptr [esi]
+00545ff6 cmp esi, edi
+00545ff8 jne 0x545fa8
+00545ffa mov eax, dword ptr [ebp - 4]
+00545ffd pop edi
+00545ffe pop esi
+00545fff leave 
+00546000 ret 
+Code/GameEngine/Source/GameLogic/AI/AITNGuardReturnStateOnEnter.cpp ?update@AITNGuardIdleState@@UAE?AW4StateReturnType@@XZ 0x0054665B
+0054665b mov eax, dword ptr [0xdfe78c]
+00546660 push ebp
+00546661 mov ebp, dword ptr [eax + 0x40]
+00546664 push esi
+00546665 mov esi, ecx
+00546667 mov eax, dword ptr [esi + 0x20]
+0054666a cmp ebp, eax
+0054666c jae 0x546672
+0054666e sub eax, ebp
+00546670 jmp 0x5466bd
+00546672 mov eax, dword ptr [0xdff0f8]
+00546677 mov eax, dword ptr [eax + 0x18]
+0054667a mov eax, dword ptr [eax + 0x40]
+0054667d add eax, ebp
+0054667f mov dword ptr [esi + 0x20], eax
+00546682 mov eax, dword ptr [esi + 0x18]
+00546685 mov eax, dword ptr [eax + 0x14]
+00546688 mov ecx, dword ptr [eax + 0x258]
+0054668e push ebx
+0054668f push edi
+00546690 xor ebx, ebx
+00546692 push ebx
+00546693 call 0x262b0f
+00546698 mov ecx, dword ptr [esi + 0x18]
+0054669b mov edi, dword ptr [ecx + 0x14]
+0054669e mov eax, dword ptr [edi + 0x258]
+005466a4 cmp dword ptr [eax + 0x238], ebx
+005466aa je 0x5466c0
+005466ac mov eax, dword ptr [ecx]
+005466ae push 0x138c
+005466b3 call dword ptr [eax + 0x20]
+005466b6 mov eax, dword ptr [esi + 0x20]
+005466b9 sub eax, ebp
+005466bb pop edi
+005466bc pop ebx
+005466bd pop esi
+005466be pop ebp
+005466bf ret 
+005466c0 call 0x5461a2
+005466c5 test al, al
+005466c7 je 0x546732
+005466c9 mov ebx, dword ptr [esi + 0x18]
+005466cc push dword ptr [ebx + 0x48]
+005466cf mov ecx, dword ptr [0xdfe78c]
+005466d5 call 0x49dc5
+005466da test eax, eax
+005466dc je 0x546729
+005466de mov ecx, dword ptr [ebx + 0x14]
+005466e1 cmp dword ptr [ecx + 0x274], 0
+005466e8 je 0x54672d
+005466ea mov ecx, edi
+005466ec lea ebx, [eax + 0x38]
+005466ef call 0x28afa9
+005466f4 call 0x545f80
+005466f9 mov ecx, dword ptr [eax + 0x250]
+005466ff test ecx, ecx
+00546701 je 0x54670c
+00546703 mov eax, dword ptr [ecx]
+00546705 call dword ptr [eax + 0x74]
+00546708 mov edi, eax
+0054670a jmp 0x54670e
+0054670c xor edi, edi
+0054670e test edi, edi
+00546710 je 0x546755
+00546712 mov eax, dword ptr [edi]
+00546714 mov ecx, edi
+00546716 call dword ptr [eax]
+00546718 test al, al
+0054671a jne 0x546729
+0054671c mov ecx, dword ptr [esi + 0x18]
+0054671f push dword ptr [ecx + 0x14]
+00546722 mov eax, dword ptr [edi]
+00546724 mov ecx, edi
+00546726 call dword ptr [eax + 0x14]
+00546729 xor eax, eax
+0054672b jmp 0x5466bb
+0054672d or eax, 0xffffffff
+00546730 jmp 0x5466bb
+00546732 cmp dword ptr [edi + 0x274], ebx
+00546738 jne 0x5466b6
+0054673e mov ecx, edi
+00546740 lea ebx, [edi + 0x38]
+00546743 call 0x28afa9
+00546748 call 0x545f80
+0054674d test eax, eax
+0054674f je 0x5466b6
+00546755 push -2
+00546757 pop eax
+00546758 jmp 0x5466bb
+Code/GameEngine/Source/GameLogic/AI/AITNGuardStates.cpp $L1367 0x0079805F
+0079805f push dword ptr [ebp - 0x14]
+00798062 call 0x2fd60
+00798067 pop ecx
+00798068 ret 
+Code/GameEngine/Source/GameLogic/Object/Made002CC5E1Rva00507A04.cpp ?v4@DamageNugget@@UAEXPAX0@Z 0x00507A04
+00507a04 mov eax, 0xb941c1
+00507a09 call 0x629188
+00507a0e sub esp, 0x68
+00507a11 push esi
+00507a12 mov esi, dword ptr [0xdfe758]
+00507a18 mov dword ptr [ebp - 0x10], ecx
+00507a1b add esi, 0x18
+00507a1e mov ecx, esi
+00507a20 call 0x1e2f
+00507a25 test al, al
+00507a27 jne 0x507ba8
+00507a2d mov ecx, dword ptr [0xdff000]
+00507a33 push ebx
+00507a34 push esi
+00507a35 call 0x2d06ca
+00507a3a mov ebx, eax
+00507a3c test ebx, ebx
+00507a3e je 0x507ba7
+00507a44 mov esi, dword ptr [ebp + 8]
+00507a47 mov ecx, dword ptr [0xdfe78c]
+00507a4d push edi
+00507a4e push dword ptr [esi + 8]
+00507a51 call 0x49dc5
+00507a56 mov edi, eax
+00507a58 test edi, edi
+00507a5a je 0x507ba6
+00507a60 push 0x10
+00507a62 lea eax, [ebp - 0x28]
+00507a65 push 0
+00507a67 push eax
+00507a68 call 0x6291ae
+00507a6d add esp, 0xc
+00507a70 mov ecx, edi
+00507a72 call 0x28afa9
+00507a77 mov eax, dword ptr [eax + 0x2ec]
+00507a7d push 0
+00507a7f lea ecx, [ebp - 0x28]
+00507a82 push ecx
+00507a83 mov ecx, dword ptr [0xdff000]
+00507a89 push eax
+00507a8a push ebx
+00507a8b call 0x2d0a23
+00507a90 push edi
+00507a91 mov ecx, eax
+00507a93 mov dword ptr [ebp + 8], eax
+00507a96 call 0x28afd2
+00507a9b push dword ptr [ebp + 0xc]
+00507a9e mov ecx, dword ptr [ebp + 8]
+00507aa1 call 0x30aa80
+00507aa6 xor ebx, ebx
+00507aa8 inc ebx
+00507aa9 test byte ptr [0xe04554], bl
+00507aaf jne 0x507ad4
+00507ab1 or dword ptr [0xe04554], ebx
+00507ab7 mov ecx, dword ptr [0xdf36a4]
+00507abd and dword ptr [ebp - 4], 0
+00507ac1 push 0xbf5590
+00507ac6 call 0x148e1a
+00507acb or dword ptr [ebp - 4], 0xffffffff
+00507acf mov dword ptr [0xe04550], eax
+00507ad4 push dword ptr [0xe04550]
+00507ada mov ecx, dword ptr [ebp + 8]
+00507add call 0x28b6d6
+00507ae2 test eax, eax
+00507ae4 mov ecx, dword ptr [0xdfe78c]
+00507aea mov dword ptr [ebp - 0x18], eax
+00507aed jne 0x507afc
+00507aef push dword ptr [ebp + 8]
+00507af2 call 0x242c09
+00507af7 jmp 0x507ba6
+00507afc mov eax, dword ptr [esi + 0x1c]
+00507aff sub eax, dword ptr [ecx + 0x40]
+00507b02 mov dword ptr [ebp + 8], eax
+00507b05 mov eax, dword ptr [esi + 4]
+00507b08 mov eax, dword ptr [eax + 0x110]
+00507b0e mov ecx, eax
+00507b10 shr ecx, 1
+00507b12 and cl, bl
+00507b14 shr eax, 2
+00507b17 mov byte ptr [ebp - 0x14], cl
+00507b1a and al, bl
+00507b1c lea ecx, [ebp - 0x74]
+00507b1f mov byte ptr [ebp + 0xc], al
+00507b22 call 0xb6d8b
+00507b27 fild dword ptr [ebp + 8]
+00507b2a mov eax, dword ptr [edi + 0x74]
+00507b2d mov dword ptr [ebp - 0x64], eax
+00507b30 mov eax, dword ptr [ebp + 8]
+00507b33 test eax, eax
+00507b35 mov dword ptr [ebp - 4], ebx
+00507b38 mov dword ptr [ebp - 0x5c], 3
+00507b3f jge 0x507b47
+00507b41 fadd dword ptr [0xbc26ec]
+00507b47 mov eax, dword ptr [ebp - 0x10]
+00507b4a fstp dword ptr [ebp - 0x54]
+00507b4d movss xmm0, dword ptr [eax + 0x128]
+00507b55 add eax, 0x130
+00507b5a movss xmm1, dword ptr [eax]
+00507b5e movss dword ptr [ebp - 0x3c], xmm0
+00507b63 movss xmm0, dword ptr [0xbbb8d8]
+00507b6b comiss xmm1, xmm0
+00507b6e mov dword ptr [ebp - 0x44], ebx
+00507b71 mov dword ptr [ebp - 0x2c], ebx
+00507b74 movss dword ptr [ebp + 8], xmm0
+00507b79 ja 0x507b7e
+00507b7b lea eax, [ebp + 8]
+00507b7e push dword ptr [ebp + 0xc]
+00507b81 fld dword ptr [eax]
+00507b83 lea eax, [ebp - 0x74]
+00507b86 push dword ptr [ebp - 0x14]
+00507b89 push ecx
+00507b8a mov ecx, dword ptr [ebp - 0x18]
+00507b8d fstp dword ptr [esp]
+00507b90 push 0
+00507b92 push eax
+00507b93 push 9
+00507b95 call 0x4a8f0b
+00507b9a or dword ptr [ebp - 4], 0xffffffff
+00507b9e lea ecx, [ebp - 0x74]
+00507ba1 call 0xb6dd2
+00507ba6 pop edi
+00507ba7 pop ebx
+00507ba8 mov ecx, dword ptr [ebp - 0xc]
+00507bab pop esi
+00507bac mov dword ptr fs:[0], ecx
+00507bb3 leave 
+00507bb4 ret 8
+Code/GameEngine/Source/GameLogic/Object/Made002CC5E1Rva00507A04.cpp __ehhandler$?v4@DamageNugget@@UAEXPAX0@Z 0x007941C1
+007941c1 mov eax, 0xd470c8
+007941c6 jmp 0x629182
+Code/GameEngine/Source/GameLogic/AI/AITNGuardStates.cpp __ehhandler$?onEnter@AITNGuardInnerState@@UAE?AW4StateReturnType@@XZ 0x00798069
+00798069 mov eax, 0xd4c29c
+0079806e jmp 0x629182
+Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsRva003E8E23.cpp ?rva003E8E23@ScriptConditions@@IAE_NPAVParameter@@000@Z 0x003E8E23
+003e8e23 mov eax, 0xb8353b
+003e8e28 call 0x629188
+003e8e2d sub esp, 0x34
+003e8e30 mov eax, dword ptr [ebp + 8]
+003e8e33 mov ecx, dword ptr [0xdfe16c]
+003e8e39 push ebx
+003e8e3a push 0
+003e8e3c add eax, 0x10
+003e8e3f push eax
+003e8e40 call 0x357475
+003e8e45 mov ecx, dword ptr [0xdfeee8]
+003e8e4b push eax
+003e8e4c call 0x2a7b91
+003e8e51 mov ebx, eax
+003e8e53 test ebx, ebx
+003e8e55 mov dword ptr [ebp - 0x18], ebx
+003e8e58 jne 0x3e8e61
+003e8e5a xor al, al
+003e8e5c jmp 0x3e8fc3
+003e8e61 mov ecx, dword ptr [0xdfe16c]
+003e8e67 and dword ptr [ebp - 0x14], 0
+003e8e6b push esi
+003e8e6c push edi
+003e8e6d mov edi, dword ptr [ebp + 0xc]
+003e8e70 lea esi, [edi + 0x10]
+003e8e73 push esi
+003e8e74 call 0x357651
+003e8e79 lea ecx, [ebp + 8]
+003e8e7c mov dword ptr [ebp - 0x10], eax
+003e8e7f call 0x3ba7ff
+003e8e84 and dword ptr [ebp - 4], 0
+003e8e88 cmp dword ptr [ebp - 0x10], 0
+003e8e8c je 0x3e8e9b
+003e8e8e push dword ptr [ebp + 8]
+003e8e91 push edi
+003e8e92 call 0x566e6c
+003e8e97 pop ecx
+003e8e98 pop ecx
+003e8e99 jmp 0x3e8eaa
+003e8e9b mov ecx, dword ptr [0xdff000]
+003e8ea1 push esi
+003e8ea2 call 0x2d06ca
+003e8ea7 mov dword ptr [ebp - 0x14], eax
+003e8eaa mov eax, dword ptr [ebx + 0x32c]
+003e8eb0 mov ecx, dword ptr [eax]
+003e8eb2 cmp ecx, eax
+003e8eb4 mov dword ptr [ebp + 0xc], ecx
+003e8eb7 je 0x3e8fa6
+003e8ebd mov edi, dword ptr [ebp + 0x14]
+003e8ec0 mov eax, 0x9c4af5
+003e8ec5 xor ecx, ecx
+003e8ec7 mov dword ptr [ebp - 0x20], eax
+003e8eca mov dword ptr [ebp - 0x1c], ecx
+003e8ecd mov eax, dword ptr [ebp + 0xc]
+003e8ed0 mov eax, dword ptr [eax + 8]
+003e8ed3 mov ebx, dword ptr [eax + 0x334]
+003e8ed9 test ebx, ebx
+003e8edb je 0x3e8f8f
+003e8ee1 lea eax, [ebp - 0x40]
+003e8ee4 push eax
+003e8ee5 mov ecx, ebx
+003e8ee7 call 0x263864
+003e8eec jmp 0x3e8f74
+003e8ef1 cmp dword ptr [ebp - 0x10], 0
+003e8ef5 je 0x3e8f04
+003e8ef7 push dword ptr [esi + 4]
+003e8efa mov ecx, dword ptr [ebp + 8]
+003e8efd call 0x376a84
+003e8f02 jmp 0x3e8f0f
+003e8f04 push dword ptr [ebp - 0x14]
+003e8f07 mov ecx, dword ptr [esi + 4]
+003e8f0a call 0x33bb04
+003e8f0f test al, al
+003e8f11 je 0x3e8f6c
+003e8f13 mov esi, dword ptr [esi + 0x264]
+003e8f19 test esi, esi
+003e8f1b je 0x3e8f6c
+003e8f1d mov ecx, dword ptr [ebp + 0x10]
+003e8f20 mov ecx, dword ptr [ecx + 8]
+003e8f23 sub ecx, 0
+003e8f26 mov eax, dword ptr [esi + 0x24]
+003e8f29 je 0x3e8f62
+003e8f2b dec ecx
+003e8f2c je 0x3e8f5a
+003e8f2e dec ecx
+003e8f2f je 0x3e8f52
+003e8f31 dec ecx
+003e8f32 je 0x3e8f4a
+003e8f34 dec ecx
+003e8f35 je 0x3e8f42
+003e8f37 dec ecx
+003e8f38 jne 0x3e8f6c
+003e8f3a cmp eax, dword ptr [edi + 8]
+003e8f3d setne al
+003e8f40 jmp 0x3e8f68
+003e8f42 cmp eax, dword ptr [edi + 8]
+003e8f45 setg al
+003e8f48 jmp 0x3e8f68
+003e8f4a cmp eax, dword ptr [edi + 8]
+003e8f4d setge al
+003e8f50 jmp 0x3e8f68
+003e8f52 cmp eax, dword ptr [edi + 8]
+003e8f55 sete al
+003e8f58 jmp 0x3e8f68
+003e8f5a cmp eax, dword ptr [edi + 8]
+003e8f5d setle al
+003e8f60 jmp 0x3e8f68
+003e8f62 cmp eax, dword ptr [edi + 8]
+003e8f65 setl al
+003e8f68 cmp al, 1
+003e8f6a je 0x3e8fd2
+003e8f6c lea ecx, [ebp - 0x40]
+003e8f6f call 0x263526
+003e8f74 mov esi, dword ptr [ebp - 0x40]
+003e8f77 test esi, esi
+003e8f79 jne 0x3e8ef1
+003e8f7f mov eax, dword ptr [ebp - 0x1c]
+003e8f82 lea ecx, [eax + ebx]
+003e8f85 call dword ptr [ebp - 0x20]
+003e8f88 mov ebx, eax
+003e8f8a jmp 0x3e8ed9
+003e8f8f mov eax, dword ptr [ebp + 0xc]
+003e8f92 mov eax, dword ptr [eax]
+003e8f94 mov ecx, dword ptr [ebp - 0x18]
+003e8f97 cmp eax, dword ptr [ecx + 0x32c]
+003e8f9d mov dword ptr [ebp + 0xc], eax
+003e8fa0 jne 0x3e8ecd
+003e8fa6 mov ecx, dword ptr [ebp + 8]
+003e8fa9 or dword ptr [ebp - 4], 0xffffffff
+003e8fad xor eax, eax
+003e8faf cmp ecx, eax
+003e8fb1 je 0x3e8fb8
+003e8fb3 mov edx, dword ptr [ecx]
+003e8fb5 push eax
+003e8fb6 call dword ptr [edx]
+003e8fb8 push eax
+003e8fb9 call 0x2fd60
+003e8fbe xor al, al
+003e8fc0 pop ecx
+003e8fc1 pop edi
+003e8fc2 pop esi
+003e8fc3 mov ecx, dword ptr [ebp - 0xc]
+003e8fc6 pop ebx
+003e8fc7 mov dword ptr fs:[0], ecx
+003e8fce leave 
+003e8fcf ret 0x10
+003e8fd2 mov ecx, dword ptr [ebp + 8]
+003e8fd5 or dword ptr [ebp - 4], 0xffffffff
+003e8fd9 xor eax, eax
+003e8fdb cmp ecx, eax
+003e8fdd je 0x3e8fe4
+003e8fdf mov edx, dword ptr [ecx]
+003e8fe1 push eax
+003e8fe2 call dword ptr [edx]
+003e8fe4 push eax
+003e8fe5 call 0x2fd60
+003e8fea mov al, 1
+003e8fec jmp 0x3e8fc0
+Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateSkirmishSpecialPowerIsReady.cpp ?evaluateSkirmishSpecialPowerIsReady@ScriptConditions@@IAE_NPAVParameter@@0@Z 0x003E9062
+003e9062 push ebp
+003e9063 mov ebp, esp
+003e9065 sub esp, 0x34
+003e9068 push ebx
+003e9069 push esi
+003e906a push edi
+003e906b mov edi, dword ptr [ebp + 0xc]
+003e906e mov ecx, dword ptr [edi + 0x20]
+003e9071 cmp ecx, -1
+003e9074 je 0x3e91e9
+003e907a test ecx, ecx
+003e907c mov eax, dword ptr [0xdfe78c]
+003e9081 jle 0x3e908c
+003e9083 cmp ecx, dword ptr [eax + 0x40]
+003e9086 ja 0x3e91e9
+003e908c mov esi, dword ptr [0xdba4e4]
+003e9092 imul esi, esi, 0xa
+003e9095 add esi, dword ptr [eax + 0x40]
+003e9098 push ecx
+003e9099 lea eax, [edi + 0x10]
+003e909c mov dword ptr [ebp - 0xc], esp
+003e909f mov ecx, esp
+003e90a1 push eax
+003e90a2 call 0x365f0
+003e90a7 mov ecx, dword ptr [0xe02d4c]
+003e90ad call 0x29b6eb
+003e90b2 test eax, eax
+003e90b4 mov dword ptr [ebp - 4], eax
+003e90b7 jne 0x3e90c2
+003e90b9 or dword ptr [edi + 0x20], 0xffffffff
+003e90bd jmp 0x3e91e9
+003e90c2 push dword ptr [ebp + 8]
+003e90c5 mov ecx, dword ptr [0xdfe16c]
+003e90cb call 0x357b82
+003e90d0 test eax, eax
+003e90d2 mov dword ptr [ebp - 8], eax
+003e90d5 je 0x3e91e6
+003e90db mov ecx, dword ptr [0xdfeee8]
+003e90e1 lea eax, [ebp - 8]
+003e90e4 push eax
+003e90e5 call 0x2a7bc9
+003e90ea test eax, eax
+003e90ec mov dword ptr [ebp - 0xc], eax
+003e90ef je 0x3e91dc
+003e90f5 mov eax, dword ptr [eax + 0x32c]
+003e90fb mov ecx, dword ptr [eax]
+003e90fd cmp ecx, eax
+003e90ff mov dword ptr [ebp + 8], ecx
+003e9102 je 0x3e91dc
+003e9108 mov eax, 0x9c4af5
+003e910d xor ecx, ecx
+003e910f mov dword ptr [ebp - 0x14], eax
+003e9112 mov dword ptr [ebp - 0x10], ecx
+003e9115 mov eax, dword ptr [ebp + 8]
+003e9118 mov eax, dword ptr [eax + 8]
+003e911b mov ebx, dword ptr [eax + 0x334]
+003e9121 test ebx, ebx
+003e9123 je 0x3e91c5
+003e9129 lea eax, [ebp - 0x34]
+003e912c push eax
+003e912d mov ecx, ebx
+003e912f call 0x263864
+003e9134 mov edi, dword ptr [ebp - 0x34]
+003e9137 test edi, edi
+003e9139 je 0x3e91b2
+003e913b jmp 0x3e9140
+003e913d mov edi, dword ptr [ebp - 0x34]
+003e9140 test edi, edi
+003e9142 je 0x3e91a4
+003e9144 push 2
+003e9146 mov ecx, edi
+003e9148 call 0x4e536
+003e914d test al, al
+003e914f jne 0x3e91a4
+003e9151 lea ecx, [edi + 0x1c8]
+003e9157 call 0x23c58b
+003e915c test al, al
+003e915e jne 0x3e91a4
+003e9160 push dword ptr [ebp - 4]
+003e9163 mov ecx, edi
+003e9165 call 0x28bb9e
+003e916a mov edi, eax
+003e916c test edi, edi
+003e916e je 0x3e91a4
+003e9170 push dword ptr [ebp - 4]
+003e9173 mov ecx, dword ptr [0xe02d4c]
+003e9179 push dword ptr [ebp - 0x34]
+003e917c call 0x3b1244
+003e9181 test al, al
+003e9183 je 0x3e91a4
+003e9185 mov eax, dword ptr [edi]
+003e9187 mov ecx, edi
+003e9189 call dword ptr [eax + 4]
+003e918c test al, al
+003e918e jne 0x3e91f2
+003e9190 mov eax, dword ptr [edi]
+003e9192 mov ecx, edi
+003e9194 call dword ptr [eax + 0x10]
+003e9197 cmp eax, esi
+003e9199 jae 0x3e91a4
+003e919b mov eax, dword ptr [edi]
+003e919d mov ecx, edi
+003e919f call dword ptr [eax + 0x10]
+003e91a2 mov esi, eax
+003e91a4 lea ecx, [ebp - 0x34]
+003e91a7 call 0x263526
+003e91ac cmp dword ptr [ebp - 0x34], 0
+003e91b0 jne 0x3e913d
+003e91b2 mov eax, dword ptr [ebp - 0x10]
+003e91b5 lea ecx, [eax + ebx]
+003e91b8 call dword ptr [ebp - 0x14]
+003e91bb mov edi, dword ptr [ebp + 0xc]
+003e91be mov ebx, eax
+003e91c0 jmp 0x3e9121
+003e91c5 mov eax, dword ptr [ebp + 8]
+003e91c8 mov eax, dword ptr [eax]
+003e91ca mov ecx, dword ptr [ebp - 0xc]
+003e91cd cmp eax, dword ptr [ecx + 0x32c]
+003e91d3 mov dword ptr [ebp + 8], eax
+003e91d6 jne 0x3e9115
+003e91dc cmp dword ptr [ebp - 8], 0
+003e91e0 jne 0x3e90db
+003e91e6 mov dword ptr [edi + 0x20], esi
+003e91e9 xor al, al
+003e91eb pop edi
+003e91ec pop esi
+003e91ed pop ebx
+003e91ee leave 
+003e91ef ret 8
+003e91f2 mov al, 1
+003e91f4 jmp 0x3e91eb
+Code/GameEngine/Source/GameLogic/Object/Made002CC5E1Rva00507A04.cpp Unwind@00b941b9 0x007941B9
+007941b9 lea ecx, [ebp - 0x74]
+007941bc jmp 0xb6dd2
+Code/GameEngine/Source/GameLogic/Object/Made002CC5E1Rva00507A04.cpp $L1590 0x007941AC
+007941ac mov eax, dword ptr [0xe04554]
+007941b1 and al, 0xfe
+007941b3 mov dword ptr [0xe04554], eax
+007941b8 ret 
+getDefaultTeam 0046F7E4
+0046f7e4 mov eax, dword ptr [ecx + 0x160]
+0046f7ea ret 

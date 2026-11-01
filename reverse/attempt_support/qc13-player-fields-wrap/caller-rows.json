@@ -1,0 +1,146 @@
+[
+ {
+  "name": "?findPlayerWithNameKey@PlayerList@@QAEPAVPlayer@@W4NameKeyType@@@Z",
+  "target_rva": "0x002A7A41",
+  "target_size": "46",
+  "source": "Code/GameEngine/Source/Common/RTS/PlayerList_findPlayerWithNameKey.cpp"
+ },
+ {
+  "name": "?onExit@AITNGuardInnerState@@UAEXW4StateExitType@@@Z",
+  "target_rva": "0x00545BB7",
+  "target_size": "51",
+  "source": "Code/GameEngine/Source/GameLogic/AI/AITNGuardStates.cpp"
+ },
+ {
+  "name": "?onExit@AITNGuardOuterState@@UAEXW4StateExitType@@@Z",
+  "target_rva": "0x00545BEA",
+  "target_size": "51",
+  "source": "Code/GameEngine/Source/GameLogic/AI/AITNGuardStates.cpp"
+ },
+ {
+  "name": "?update@AITNGuardReturnState@@UAE?AW4StateReturnType@@XZ",
+  "target_rva": "0x00545C4D",
+  "target_size": "93",
+  "source": "Code/GameEngine/Source/GameLogic/AI/AITNGuardStates.cpp"
+ },
+ {
+  "name": "?onExit@AITNGuardAttackAggressorState@@UAEXW4StateExitType@@@Z",
+  "target_rva": "0x00545CF7",
+  "target_size": "76",
+  "source": "Code/GameEngine/Source/GameLogic/AI/AITNGuardStates.cpp"
+ },
+ {
+  "name": "?update@AITNGuardAttackAggressorState@@UAE?AW4StateReturnType@@XZ",
+  "target_rva": "0x0054684E",
+  "target_size": "93",
+  "source": "Code/GameEngine/Source/GameLogic/AI/AITNGuardStates.cpp"
+ },
+ {
+  "name": "?onEnter@AITNGuardInnerState@@UAE?AW4StateReturnType@@XZ",
+  "target_rva": "0x0054632D",
+  "target_size": "156",
+  "source": "Code/GameEngine/Source/GameLogic/AI/AITNGuardStates.cpp"
+ },
+ {
+  "name": "?onEnter@AITNGuardOuterState@@UAE?AW4StateReturnType@@XZ",
+  "target_rva": "0x005464CE",
+  "target_size": "169",
+  "source": "Code/GameEngine/Source/GameLogic/AI/AITNGuardStates.cpp"
+ },
+ {
+  "name": "?update@AITNGuardOuterState@@UAE?AW4StateReturnType@@XZ",
+  "target_rva": "0x00546577",
+  "target_size": "110",
+  "source": "Code/GameEngine/Source/GameLogic/AI/AITNGuardStates.cpp"
+ },
+ {
+  "name": "?onEnter@AITNGuardAttackAggressorState@@UAE?AW4StateReturnType@@XZ",
+  "target_rva": "0x0054675D",
+  "target_size": "241",
+  "source": "Code/GameEngine/Source/GameLogic/AI/AITNGuardStates.cpp"
+ },
+ {
+  "name": "?onEnter@AITNGuardIdleState@@UAE?AW4StateReturnType@@XZ",
+  "target_rva": "0x00545CAF",
+  "target_size": "72",
+  "source": "Code/GameEngine/Source/GameLogic/AI/AITNGuardStates.cpp"
+ },
+ {
+  "name": "?update@AITNGuardInnerState@@UAE?AW4StateReturnType@@XZ",
+  "target_rva": "0x005463C9",
+  "target_size": "261",
+  "source": "Code/GameEngine/Source/GameLogic/AI/AITNGuardStates.cpp"
+ },
+ {
+  "name": "?onEnter@AITNGuardReturnState@@UAE?AW4StateReturnType@@XZ",
+  "target_rva": "0x005465E5",
+  "target_size": "118",
+  "source": "Code/GameEngine/Source/GameLogic/AI/AITNGuardReturnStateOnEnter.cpp"
+ },
+ {
+  "name": "?rva004787B0@GarrisonContain@@QAEXXZ",
+  "target_rva": "0x004787B0",
+  "target_size": "160",
+  "source": "Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainRva004787B0.cpp"
+ },
+ {
+  "name": "?findBestTunnel@@YAPAVObject@@PAVPlayer@@PBUCoord3D@@@Z",
+  "target_rva": "0x00545F80",
+  "target_size": "129",
+  "source": "Code/GameEngine/Source/GameLogic/AI/AITNGuardReturnStateOnEnter.cpp"
+ },
+ {
+  "name": "?update@AITNGuardIdleState@@UAE?AW4StateReturnType@@XZ",
+  "target_rva": "0x0054665B",
+  "target_size": "258",
+  "source": "Code/GameEngine/Source/GameLogic/AI/AITNGuardReturnStateOnEnter.cpp"
+ },
+ {
+  "name": "$L1367",
+  "target_rva": "0x0079805F",
+  "target_size": "10",
+  "source": "Code/GameEngine/Source/GameLogic/AI/AITNGuardStates.cpp"
+ },
+ {
+  "name": "?v4@DamageNugget@@UAEXPAX0@Z",
+  "target_rva": "0x00507A04",
+  "target_size": "435",
+  "source": "Code/GameEngine/Source/GameLogic/Object/Made002CC5E1Rva00507A04.cpp"
+ },
+ {
+  "name": "__ehhandler$?v4@DamageNugget@@UAEXPAX0@Z",
+  "target_rva": "0x007941C1",
+  "target_size": "10",
+  "source": "Code/GameEngine/Source/GameLogic/Object/Made002CC5E1Rva00507A04.cpp"
+ },
+ {
+  "name": "__ehhandler$?onEnter@AITNGuardInnerState@@UAE?AW4StateReturnType@@XZ",
+  "target_rva": "0x00798069",
+  "target_size": "10",
+  "source": "Code/GameEngine/Source/GameLogic/AI/AITNGuardStates.cpp"
+ },
+ {
+  "name": "?rva003E8E23@ScriptConditions@@IAE_NPAVParameter@@000@Z",
+  "target_rva": "0x003E8E23",
+  "target_size": "459",
+  "source": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsRva003E8E23.cpp"
+ },
+ {
+  "name": "?evaluateSkirmishSpecialPowerIsReady@ScriptConditions@@IAE_NPAVParameter@@0@Z",
+  "target_rva": "0x003E9062",
+  "target_size": "404",
+  "source": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateSkirmishSpecialPowerIsReady.cpp"
+ },
+ {
+  "name": "Unwind@00b941b9",
+  "target_rva": "0x007941B9",
+  "target_size": "8",
+  "source": "Code/GameEngine/Source/GameLogic/Object/Made002CC5E1Rva00507A04.cpp"
+ },
+ {
+  "name": "$L1590",
+  "target_rva": "0x007941AC",
+  "target_size": "13",
+  "source": "Code/GameEngine/Source/GameLogic/Object/Made002CC5E1Rva00507A04.cpp"
+ }
+]
