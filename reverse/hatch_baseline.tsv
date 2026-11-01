@@ -13908,16 +13908,7 @@ present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DStatusCir
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DStatusCircleBoundingSphere.cpp	4W3DStatusCircle@@QAEAAV0@ABV0@@Z	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DStatusCircleBoundingSphere.cpp	Cast_Ray@W3DStatusCircle@@UAE_NAAVRayCollisionTestClass@@@Z	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DStatusCircleBoundingSphere.cpp	Render@W3DStatusCircle@@UAEXAAVRenderInfoClass@@@Z	1
-present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackground.cpp	W3DTerrainBackground::W3DTerrainBackground	1
-present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackground.cpp	W3DTerrainBackground::advanceLeft	1
-present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackground.cpp	W3DTerrainBackground::advanceRight	1
-present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackground.cpp	W3DTerrainBackground::allocateTerrainBuffers	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackground.cpp	W3DTerrainBackground::doPartialUpdate	1
-present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackground.cpp	W3DTerrainBackground::drawVisiblePolys	1
-present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackground.cpp	W3DTerrainBackground::fillVBRecursive	1
-present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackground.cpp	W3DTerrainBackground::freeTerrainBuffers	1
-present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackground.cpp	W3DTerrainBackground::setFlip	1
-present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackground.cpp	W3DTerrainBackground::setFlipRecursive	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainTracks.cpp	0TerrainTracksRenderObjClass@@QAE@XZ	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainTracks.cpp	0TerrainTracksRenderObjClassSystem@@QAE@XZ	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainTracks.cpp	1TerrainTracksRenderObjClassSystem@@UAE@XZ	1
