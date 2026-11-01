@@ -1,5 +1,5 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ireference/shims/moduledata
-// ??1Rva00318637@@UAE@XZ retail 0x00318637 110B
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ireference/shims/moduledata /DBFME_SUBSYSTEM_SLOTS
+// ??1GlobalWeatherSystem@@UAE@XZ retail 0x00318637 110B
 // Called by the rowed scalar deleting dtor 0x0031861B (vtable 0x00C0C734#0).
 // Own vptrs at +0 and +0x0C; the 8-byte record array at +0x30 (x5) runs the
 // vector dtor iterator with the rowed element dtor VA 0x0050F149 (gen-uw pin
@@ -28,10 +28,10 @@ private:
 
 #include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
-class Rva00318637 : public SubsystemInterface, public Snapshot
+class GlobalWeatherSystem : public SubsystemInterface, public Snapshot
 {
 public:
-	virtual ~Rva00318637();
+	virtual ~GlobalWeatherSystem();
 private:
 	char m_unknown10[0x0C]; // Native padding after the four-byte Snapshot base.
 	Rva00360D26Member m_filter1C; // +0x1C
@@ -40,6 +40,6 @@ private:
 	BfmeStringTailRecord156 m_records30[5]; // +0x30
 };
 
-Rva00318637::~Rva00318637()
+GlobalWeatherSystem::~GlobalWeatherSystem()
 {
 }

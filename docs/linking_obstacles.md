@@ -17053,3 +17053,19 @@ would clear UnitRevivalTracker, GlobalWeatherSystem and WeaponStore), an `rename
 that accepts an MI class's adjustor thunk on its secondary table, and the identity of
 0x0046F7E4 and 0x00674870.
 Clearance: none. Census confirmation: not claimed.
+
+### LINK-176: GlobalWeatherSystem destructors folded out of `Rva00318637`; shared-blocker names traced (2026-11-01, seat halilkkaya-lk14)
+
+Status: Partly repaired (preview). Base `bd66989490`; index 2026-11-01 19:53 (`93c5672365`).
+Follows LINK-175's GlobalWeatherSystem row.
+
+- `rename.py class --fold` now accepts a multiple-inheritance class's deleting-destructor
+  adjustor thunk on the class's own secondary table, and reads the installing rows' live DIR32
+  bindings when `data_ledger.csv` lags (`396c918ce6`). Applied: `Rva00318637` folds into
+  `GlobalWeatherSystem` (retail vftable 0x00C0C734; `??_E...@@WM@` thunk 0x00318613 is slot 0
+  of 0x00C0C724, installed at +0xC by dtor 0x00318637 and ctor 0x00318588).
+- The fold alone made `Rva00318637Dtor.cpp` lose `??_7GlobalWeatherSystem@@6BSubsystemInterface@@@`
+  (its canonical `SubsystemInterface.h` view declared only the dtor: a 4-byte table against the
+  ctor unit's 14 slots). `/DBFME_SUBSYSTEM_SLOTS` gives it the header's retail slot list; both
+  units now emit the same 56-byte table. link_check: `Rva00318637Dtor.cpp` LINKS 146 -> 146;
+  `GlobalWeatherSystemCtorDeferred.cpp` keeps one blocker, `??1WeatherData@@QAE@XZ`.

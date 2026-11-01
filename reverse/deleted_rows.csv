@@ -4516,3 +4516,7 @@ uw_00777b65,0x00777B65,"Replaced through add_match by exact compiler-local $L588
 ?rva000658CF@Rva000658C5@@QAEPAVMultiListObjectClass@@XZ,0x000658CF,"Renamed to ?removeHead@Rva000658C5@@QAEPAVMultiListObjectClass@@XZ by tools/rename.py (inferred)"
 ?push_back@?$vector@VMoney@@V?$allocator@VMoney@@@_STL@@@_STL@@QAEXABVMoney@@@Z,0x006BF950,"Retracted false vector<Money> identity in a separate commit as add_match requires. Native59B uses the existing nonpolymorphic36B record copy63BE4 and overflow6BF5E0, not Money. Truthful59B C++ replacement is privately byte-and-binding exact; same source path is restored in the following readmission commit. Evidence reverse/attempt_support/record-vector-identity-20261101/."
 ?rva006E3810@AptActionQueueC@@QAEXPAVAptValue@@00HH@Z,0x006E3810,"Renamed to ?enqueueFront@AptActionQueueC@@QAEXPAVAptValue@@00HH@Z by tools/rename.py (inferred)"
+??_GRva00318637@@UAEPAXI@Z,0x0031861B,"Renamed to ??_GGlobalWeatherSystem@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C0C734)"
+??_ERva00318637@@WM@AEPAXI@Z,0x00318613,"Renamed to ??_EGlobalWeatherSystem@@WM@AEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C0C734)"
+??1Rva00318637@@UAE@XZ,0x00318637,"Renamed to ??1GlobalWeatherSystem@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C0C734)"
+__ehhandler$??1Rva00318637@@UAE@XZ,0x0077A87F,"Renamed to __ehhandler$??1GlobalWeatherSystem@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C0C734)"
