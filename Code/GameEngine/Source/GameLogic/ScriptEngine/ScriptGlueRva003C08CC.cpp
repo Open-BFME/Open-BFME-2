@@ -55,11 +55,7 @@ public:
 };
 extern AI *TheAI;
 
-class AIGroup
-{
-public:
-	void groupIdle(CommandSourceType cmdSource);
-};
+#include "../../../Include/GameLogic/AIGroup.h"
 
 struct Rva003C08CCP2EC
 {

@@ -2008,12 +2008,7 @@ public:
 	virtual void v01();
 };
 
-class AIGroup
-{
-public:
-	void add(Object *obj);
-	Bool remove(Object *obj);
-};
+#include "../../../Include/GameLogic/AIGroup.h"
 
 class XferSave
 {

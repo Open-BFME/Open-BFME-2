@@ -39,11 +39,7 @@ public:
 };
 extern AI *TheAI;
 
-class AIGroup
-{
-public:
-	void groupDoCommandButton(const CommandButton *btn, CommandSourceType src);
-};
+#include "../../../Include/GameLogic/AIGroup.h"
 
 void ScriptActions::Rva003C075BDo(const AsciiString *teamName, const AsciiString *btnName)
 {
