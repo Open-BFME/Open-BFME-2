@@ -292,14 +292,7 @@ public:
 };
 extern GlobalData *TheWritableGlobalData;
 class Player;
-class PlayerList
-{
-public:
-	Player *getLocalPlayer() const { return m_local; }
-private:
-	unsigned char m_pad00[0x10];
-	Player *m_local; // +0x10
-};
+#include "../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 struct Rva003642DFNode;
 struct Rva003642DFResult;

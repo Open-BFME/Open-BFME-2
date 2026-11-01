@@ -421,14 +421,7 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class PlayerList
-{
-public:
-	Player *findPlayerWithNameKey(NameKeyType key);
-
-	unsigned char m_pad000[0x10];
-	Player *m_local; // +0x10
-};
+#include "../../../../../Include/Common/PlayerList.h"
 
 extern PlayerList *ThePlayerList;
 

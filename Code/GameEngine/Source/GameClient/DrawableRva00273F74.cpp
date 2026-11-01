@@ -77,13 +77,7 @@ public:
 #include "../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
-class PlayerList
-{
-	char m_pad000[0x10];
-	Player *m_localPlayer;
-public:
-	Player *getLocalPlayer() const { return m_localPlayer; }
-};
+#include "../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 class InGameUI

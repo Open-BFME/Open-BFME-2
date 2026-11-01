@@ -214,11 +214,7 @@ private:
 	int m_color;							// +0x280
 };
 
-class PlayerList
-{
-public:
-	Player *getNthPlayer( int i );
-};
+#include "../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 // The SuperweaponInfo ctor as rowed (Rva0029B816Ctor.cpp, address-named).

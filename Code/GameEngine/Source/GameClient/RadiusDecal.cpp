@@ -285,8 +285,7 @@ extern ProjectedShadowManager *TheProjectedShadowManager;
 class Player { public: __forceinline int getPlayerIndex() const {return index;}
  char pad00[0x54];int index;char pad58[0x280-0x58];unsigned color; };
 
-class PlayerList { public: __forceinline Player *getLocalPlayer() const {return local;}
- char pad00[0x10];Player *local; };
+#include "../../Include/Common/PlayerList.h"
 
 extern PlayerList *ThePlayerList;
 

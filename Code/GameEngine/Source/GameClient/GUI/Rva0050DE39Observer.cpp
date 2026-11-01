@@ -190,12 +190,7 @@ public:
 	Int countObjects(KindOfMaskType setMask, KindOfMaskType clearMask);
 	ScoreKeeper *getScoreKeeper() { return &m_scoreKeeper; }
 };
-class PlayerList
-{
-public:
-	Player *findPlayerWithNameKey(NameKeyType key);
-	Player *getNthPlayer(Int i);
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 class GameSlot
 {

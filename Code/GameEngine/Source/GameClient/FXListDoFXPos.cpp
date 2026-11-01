@@ -46,14 +46,7 @@ extern FXListStore *TheFXListStore;
 
 #include "../../Include/Common/Player.h"
 
-class PlayerList
-{
-public:
-	Player *getLocalPlayer() const { return m_localPlayer; }
-
-	char m_pad[0x10];
-	Player *m_localPlayer;
-};
+#include "../../Include/Common/PlayerList.h"
 
 extern PlayerList *ThePlayerList;
 

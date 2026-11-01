@@ -33,11 +33,7 @@ public:
  char pad260[0x438-0x260];
  unsigned char flags; // +0x438
 };
-class PlayerList
-{
-public:
-	int getPlayersWithRelationship(int srcPlayerIndex, unsigned int allowedRelationships, bool flag);
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;	// VA 0x00DFEEE8
 class Rva000421C8
 {

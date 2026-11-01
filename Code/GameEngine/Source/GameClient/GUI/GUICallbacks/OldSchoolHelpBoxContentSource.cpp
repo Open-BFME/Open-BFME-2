@@ -152,13 +152,7 @@ public:
 	BfmeMemberRV *bfmePickRV();
 };
 
-class PlayerList
-{
-public:
-	char m_pad00[0x10];
-	Player *m_local;                // +0x10
-	Player *getLocalPlayer() const { return m_local; }
-};
+#include "../../../../Include/Common/PlayerList.h"
 
 extern PlayerList *ThePlayerList;
 

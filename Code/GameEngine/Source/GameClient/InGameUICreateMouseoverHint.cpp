@@ -216,11 +216,7 @@ class Player { public:
  unsigned char pad2[0x280-0x58]; int color;
  unsigned char pad3[0x2ec-0x284]; Team* team;
 };
-class PlayerList { public:
- Player* getLocalPlayer() const { return local; }
- Player* getNthPlayer(int);
- unsigned char pad[0x10]; Player* local;
-};
+#include "../../Include/Common/PlayerList.h"
 extern PlayerList* ThePlayerList;
 
 class Rva002A7DD0 { public: bool rva002A7DD0(); };

@@ -283,11 +283,7 @@ class ParticleSystem { public: bool isSaveable() const; };
 	// 0x002AA223 (rowed under this name)
 #include "../../../../../Include/Common/Player.h"
 
-class PlayerList
-{
-public:
-	Player *findPlayerWithNameKey(NameKeyType key);
-};
+#include "../../../../../Include/Common/PlayerList.h"
 
 extern PlayerList *ThePlayerList;
 

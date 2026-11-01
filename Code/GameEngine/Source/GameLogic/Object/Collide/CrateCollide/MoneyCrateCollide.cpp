@@ -13,11 +13,7 @@ public:
 	char bfmeCall939D();	// 0x0023C6FD
 };
 
-class PlayerList
-{
-public:
-	int rva002A7C0B(bool flag);	// 0x002A7C0B
-};
+#include "../../../../../Include/Common/PlayerList.h"
 
 extern PlayerList *ThePlayerList;
 

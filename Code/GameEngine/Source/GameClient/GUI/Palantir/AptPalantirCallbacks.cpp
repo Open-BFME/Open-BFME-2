@@ -280,13 +280,7 @@ struct AptPalantirGameLogic
 	int m_mode; // +0x110
 };
 
-class PlayerList
-{
-public:
-	// Unrowed 0x002A8306 (535 bytes; ret 4: the next or prior observed
-	// player), pinned by address.
-	void rva002A8306(bool next);
-};
+#include "../../../../Include/Common/PlayerList.h"
 
 extern PlayerList *ThePlayerList;
 

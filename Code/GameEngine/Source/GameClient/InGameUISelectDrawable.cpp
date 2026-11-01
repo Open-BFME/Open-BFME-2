@@ -253,12 +253,7 @@ public:
 	unsigned char m_pad[1];
 };
 
-class PlayerList
-{
-public:
-	unsigned char m_pad000[0x10];
-	Player *m_local; // +0x10
-};
+#include "../../Include/Common/PlayerList.h"
 
 #include "../Common/Thing/thing.h"
 

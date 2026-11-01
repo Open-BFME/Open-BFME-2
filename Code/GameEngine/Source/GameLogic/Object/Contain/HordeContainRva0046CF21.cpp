@@ -59,12 +59,7 @@ public:
 	W3DBridge m_3bc;	// +0x3BC
 };
 
-class PlayerList
-{
-public:
-	char pad00[0x10];
-	Player *m_local;	// +0x10
-};
+#include "../../../../Include/Common/PlayerList.h"
 
 class ExitInterface
 {

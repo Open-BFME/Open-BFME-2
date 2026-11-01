@@ -275,11 +275,7 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class PlayerList
-{
-public:
-	Player *findPlayerWithNameKey(NameKeyType key);
-};
+#include "../../../../../Include/Common/PlayerList.h"
 
 extern PlayerList *ThePlayerList;
 

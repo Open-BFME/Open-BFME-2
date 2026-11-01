@@ -97,15 +97,7 @@ struct SelectionInfo
 	Int newCountCrates;
 };
 
-class PlayerList
-{
-public:
-	Player *getLocalPlayer() const { return m_local; }
-
-private:
-	char m_pad[0x10];
-	Player *m_local;	// +0x10
-};
+#include "../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 class ActionManager

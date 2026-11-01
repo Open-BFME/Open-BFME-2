@@ -95,13 +95,7 @@ public:
 	AsciiString m_playerName;
 };
 enum NameKeyType {INVALID_KEY=0};
-class PlayerList
-{
-public:
-	Player *getPlayerFromMask(int mask);
-	Player* findPlayerWithNameKey(NameKeyType);
-	Player*getNthPlayer(int);
-};
+#include "../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 extern GameLogic *TheGameLogic;

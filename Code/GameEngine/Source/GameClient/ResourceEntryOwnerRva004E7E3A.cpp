@@ -69,13 +69,7 @@ public:
 	char m_pad[0x54];
 	int m_index;
 };
-class PlayerList
-{
-public:
-	int getPlayersWithRelationship(int srcPlayerIndex, unsigned int allowedRelationships, bool flag);
-	char m_pad[0x10];
-	Player *m_local;
-};
+#include "../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 class ResourceEntryOwner

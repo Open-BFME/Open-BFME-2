@@ -11,7 +11,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include <vector>
 #include "../../Common/ScoredKillEvaAnnouncerView.h"
 class Player;
-class PlayerList {public:Player *getNthPlayer(int);};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 struct AnnouncerPlayersView {char pad[0x14];int count;};
 struct AnnouncerPlayerMaskView {char pad[0x54];unsigned bit;};

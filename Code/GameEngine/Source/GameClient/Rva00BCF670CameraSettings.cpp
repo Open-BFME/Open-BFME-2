@@ -111,14 +111,7 @@ extern PartitionManager *TheShroudManager;	// VA 0x00DFE74C
 
 #include "../../Include/Common/Player.h"
 
-class PlayerList
-{
-public:
-	// Matched callers read the local player at +0x10 directly; do not emit
-	// a shared getter from this partial target layout.
-	char m_pad00[0x10];
-	Player *m_local;	// +0x10
-};
+#include "../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;	// VA 0x00DFEEE8
 
 // VA 0x00DBDED4..0x00DBDEF4 (.data): retail bytes 00 00 00 00 then the

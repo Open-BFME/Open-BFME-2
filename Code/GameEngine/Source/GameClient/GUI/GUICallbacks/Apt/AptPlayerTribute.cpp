@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include "ascii_string.h"
 class Player;
-class PlayerList {public: char unknown00[0x10]; Player *localPlayer;};
+#include "../../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 class Player {public: bool isLocalPlayer() const; char unknown00[0x54];int index;};
 class BfmeMemberRV {public: bool bfmeAskRV();};
@@ -92,7 +92,7 @@ class MessageStream {public:
 extern MessageStream *TheMessageStream;
 void Rva0050F5A6::rva0050EB0A(const char *unused){
  reinterpret_cast<AptTributeWindowManager*>(TheWindowManager)->winSetFocus(0);
- Player *local=ThePlayerList->localPlayer;
+ Player *local=ThePlayerList->m_local;
  if(!reinterpret_cast<BfmeMemberRV*>(local)->bfmeAskRV())return;
  for(int i=0;i<count;++i){
   Entry &slot=entries()[i];

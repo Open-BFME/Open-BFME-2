@@ -1539,7 +1539,7 @@ class AptScoreScreen {public: static void PreCollectGameData(Rva0051C0E7*);};
 
 class IDBufferClass {public:void Enable_Two_Sided_Rendering(bool);};
 
-class PlayerList {public:Player *findPlayerWithNameKey(NameKeyType);char pad00[0x10];Player *m_local;};
+#include "../../../../../Include/Common/PlayerList.h"
 
 extern PlayerList *ThePlayerList;
 

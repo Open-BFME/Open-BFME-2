@@ -128,14 +128,7 @@ extern TerrainLogic *TheTerrainLogic;
 extern PartitionManager *TheShroudManager;
 
 #include "../../../../Include/Common/Player.h"
-class PlayerList
-{
-public:
-	Player *getLocalPlayer() const { return m_local; }
-private:
-	unsigned char m_pad[0x10];
-	Player *m_local;				// +0x10
-};
+#include "../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 class WW3D

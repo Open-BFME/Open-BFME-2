@@ -35,7 +35,7 @@ class CastleBehavior:public CastleObjectModule,public CastleBehaviorInterface,pu
 enum NameKeyType{NAMEKEY_INVALID=0};
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator*TheNameKeyGenerator;
-class PlayerList{public:Player*findPlayerWithNameKey(NameKeyType);};
+#include "../../../../Include/Common/PlayerList.h"
 extern PlayerList*ThePlayerList;
 class Pathfinder{public:void AddObjectToPathfindMap(Object*);};
 class AI{public:char prefix[0x10];Pathfinder*pathfinder;};

@@ -24,13 +24,7 @@ enum NameKeyType {INVALID_KEY=0};
 class AsciiString;
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
-class PlayerList
-{
-public:
-	Player *getPlayerFromMask(int mask);
-	Player* findPlayerWithNameKey(NameKeyType);
-	Player*getNthPlayer(int);
-};
+#include "../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;

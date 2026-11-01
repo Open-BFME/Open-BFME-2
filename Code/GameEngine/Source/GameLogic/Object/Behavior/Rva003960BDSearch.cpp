@@ -37,12 +37,7 @@ public:
 
 #include "../../../../Include/Common/Player.h"
 
-class PlayerList
-{
-public:
-	Player *getEachPlayerFromMask(PlayerMaskType &maskToAdjust);
-	PlayerMaskType getPlayersWithRelationship(Int srcPlayerIndex, unsigned int allowedRelationships, bool reverse);
-};
+#include "../../../../Include/Common/PlayerList.h"
 
 extern PlayerList *ThePlayerList;
 Int rva00796023(Object *obj, void *userData);
