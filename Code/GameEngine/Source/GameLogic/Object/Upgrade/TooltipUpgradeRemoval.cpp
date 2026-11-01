@@ -11,9 +11,7 @@
 typedef bool Bool;
 class ModuleData;
 #include "../../../../Include/GameClient/DrawableBFME2.h"
-class Object : public Thing
-{
-};
+#include "../object.h"
 class ControlBar
 {
 public:

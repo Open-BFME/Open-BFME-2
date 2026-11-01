@@ -15,15 +15,7 @@
 
 #include "Common/BfmeAudioEventPrefix136.h"
 
-class Object
-{
-public:
-	ObjectID getID() const { return m_id; }
-
-private:
-	unsigned char m_pad000[0x74];
-	ObjectID m_id; // +0x74
-};
+#include "../object.h"
 
 enum UpdateSleepTime
 {

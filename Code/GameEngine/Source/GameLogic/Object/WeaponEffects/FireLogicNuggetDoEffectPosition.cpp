@@ -25,9 +25,7 @@ typedef bool Bool;
 
 #include "../../../Common/Thing/thing.h"
 
-class Object : public Thing
-{
-};
+#include "../object.h"
 
 
 extern GameLogic *TheGameLogic;

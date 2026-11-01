@@ -66,13 +66,7 @@ public:
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-class Object
-{
-public:
-	const Coord3D *getPosition() const { return &m_pos; }
-	char m_pad000[0x38];
-	Coord3D m_pos;		// +0x38
-};
+#include "../Object/object.h"
 
 // Zero Hour's GameCommon.h spells the id an enum; retail's 0x00049DC5 row takes it.
 

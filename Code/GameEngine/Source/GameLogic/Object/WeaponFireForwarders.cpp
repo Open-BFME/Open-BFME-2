@@ -1,12 +1,7 @@
 // cl: -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/Object
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-class Object
-{
-public:
-	unsigned char m_bfmeHeadYB[0x74];
-	int m_id;
-};
+#include "object.h"
 
 #include "../../../Include/GameLogic/Weapon.h"
 

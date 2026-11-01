@@ -9,14 +9,7 @@
 //   delete follows FireWeaponWhenDamagedBehaviorDtor.
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-class Object
-{
-public:
-	char m_pad00[0x38]; // +0x00..0x38
-	Coord3D m_position; // +0x38
-	char m_pad44[0x30]; // +0x44..0x74
-	int m_id; // +0x74
-};
+#include "object.h"
 
 class WeaponTemplate
 {

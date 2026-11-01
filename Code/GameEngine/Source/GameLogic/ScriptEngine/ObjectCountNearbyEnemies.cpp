@@ -66,13 +66,7 @@ public:
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-class Object
-{
-public:
-	const Coord3D *getPosition() const { return &m_pos; }
-	char m_pad000[0x38];
-	Coord3D m_pos;		// +0x38
-};
+#include "../Object/object.h"
 
 // Native lookup 0x00049DC5 takes the same 32-bit ObjectID enum as its
 // verified provider; only the declaration changes, not the ID representation.

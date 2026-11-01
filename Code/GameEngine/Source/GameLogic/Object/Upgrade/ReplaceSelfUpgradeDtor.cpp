@@ -13,11 +13,7 @@ class Thing;
 class ModuleData;
 
 class Player;
-class Object
-{
-public:
-	Player *getControllingPlayer() const;
-};
+#include "../object.h"
 
 class PlayerList
 {

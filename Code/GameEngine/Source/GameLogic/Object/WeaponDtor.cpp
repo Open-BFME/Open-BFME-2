@@ -14,11 +14,7 @@
 
 #include "../../Common/GameLogicObjectLookupView.h"
 
-class Object
-{
-public:
-	char m_pad[1];
-};
+#include "object.h"
 
 
 extern GameLogic *TheGameLogic;

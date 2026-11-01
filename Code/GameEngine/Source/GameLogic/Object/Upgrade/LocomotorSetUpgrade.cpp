@@ -26,14 +26,7 @@ typedef float Real;
 
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
-class Object
-{
-public:
-	AIUpdateInterface *getAI() const { return m_ai; }
-private:
-	unsigned char m_pad000[0x258];
-	AIUpdateInterface *m_ai; // +0x258
-};
+#include "../object.h"
 
 class ModuleData;
 

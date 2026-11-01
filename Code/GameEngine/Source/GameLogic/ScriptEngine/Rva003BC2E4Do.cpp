@@ -6,9 +6,7 @@
 class Parameter
 {
 };
-class Object
-{
-};
+#include "../Object/object.h"
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 namespace Rva002EFB20

@@ -4,11 +4,7 @@ typedef float Real;
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 enum PathfindLayerEnum { LAYER_INVALID = 0 };
-class Object {
-public:
-    void *m_vtable;
-    void *m_unk4;
-};
+#include "object.h"
 struct FlagBlock { char m_pad[0x10f]; unsigned char m_flags; };
 class WeaponTemplate;
 class AI;

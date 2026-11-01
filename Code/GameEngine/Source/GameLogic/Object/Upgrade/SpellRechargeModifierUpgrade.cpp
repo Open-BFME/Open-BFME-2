@@ -37,11 +37,7 @@ class Rva002AA0B8DwordField { public: int get() const; };
 
 class Rva002AA0CDFloatField { public: void set(float value); };
 
-class Object
-{
-public:
-	Player *getControllingPlayer() const;
-};
+#include "../object.h"
 
 struct SpellRechargeModifierUpgradeModuleData
 {

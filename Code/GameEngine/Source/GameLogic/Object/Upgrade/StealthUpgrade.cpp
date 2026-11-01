@@ -101,11 +101,7 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_CAN_STEALTH = 0x12
 };
 
-class Object
-{
-public:
-	void setStatus(ObjectStatusTypes status, bool set);
-};
+#include "../object.h"
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/StealthUpgradeConstructor.cpp
 

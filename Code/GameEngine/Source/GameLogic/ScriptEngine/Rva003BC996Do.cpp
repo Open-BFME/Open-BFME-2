@@ -12,9 +12,7 @@ class Parameter
 
 #include "../../Common/Thing/thing.h"
 
-class Object : public Thing
-{
-};
+#include "../Object/object.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;

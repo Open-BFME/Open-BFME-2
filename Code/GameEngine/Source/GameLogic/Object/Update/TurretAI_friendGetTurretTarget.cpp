@@ -16,12 +16,7 @@ typedef bool Bool;
 
 #include "../../../Common/GameLogicObjectLookupView.h"
 
-class Object
-{
-public:
-	char m_pad[0x438];
-	unsigned char m_deadFlags;
-};
+#include "../object.h"
 
 
 extern GameLogic *TheGameLogic;

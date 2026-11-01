@@ -78,15 +78,7 @@ template <> class MaxHealthUpgradeBodySlots<0>
 // BodyModuleInterface (Object +0x254): slot 6 getMaxHealth, slot 22 setMaxHealth.
 #include "../../../../Include/GameLogic/Module/BodyModule.h"
 
-class Object
-{
-public:
-	// Preserve the native +0x254 inline read without a legacy external copy.
-	__declspec(dllimport) __forceinline BodyModuleInterface *getBodyModule() const { return m_body; }
-private:
-	unsigned char m_pad000[0x254];
-	BodyModuleInterface *m_body; // +0x254
-};
+#include "../object.h"
 
 class ModuleData;
 

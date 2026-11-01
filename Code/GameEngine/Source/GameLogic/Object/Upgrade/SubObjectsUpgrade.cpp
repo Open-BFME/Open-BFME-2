@@ -71,9 +71,7 @@ struct Rva00B6CF1
 #pragma inline_depth(0)
 #pragma inline_depth()
 
-class Object : public Thing
-{
-};
+#include "../object.h"
 
 class ObjectModuleBase
 {

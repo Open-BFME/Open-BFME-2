@@ -58,26 +58,7 @@ enum CommandSourceType
 
 // Object as the TU's bodies read it: id +0x74, AI +0x258, team +0x304 and
 // the effectively-dead bit at +0x438.
-class Object
-{
-public:
-	const Weapon *getCurrentWeapon(WeaponSlotType *slot) const;
-	bool chooseBestWeaponForTarget(const Object *target, WeaponChoiceCriteria criteria, CommandSourceType cmdSource);
-	// Retail inlines this +0x258 load; suppress the surplus external copy.
-	__declspec(dllimport) __forceinline AIUpdateInterface *getAIUpdateInterface() { return m_ai; }
-	AIUpdateInterface *getAI() const { return m_ai; }
-	int getID() const { return m_id; }
-	bool isEffectivelyDead() const { return (m_deadByte & 1) != 0; }
-	Team *getTeam() const { return m_team; }
-	char m_pad00[0x74];
-	int m_id;							// +0x74
-	char m_pad78[0x258 - 0x78];
-	AIUpdateInterface *m_ai;			// +0x258
-	char m_pad25C[0x304 - 0x25C];
-	Team *m_team;						// +0x304
-	char m_pad308[0x438 - 0x308];
-	unsigned char m_deadByte;			// +0x438
-};
+#include "../object.h"
 
 enum UpdateSleepTime
 {
