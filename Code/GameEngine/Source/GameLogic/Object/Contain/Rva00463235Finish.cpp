@@ -19,11 +19,7 @@ public:
 	unsigned int m_bits[(N + 31) / 32];
 };
 
-class Thing
-{
-public:
-	bool isKindOfMulti(const BitFlags<116> &mustBeSet, const BitFlags<116> &mustBeClear) const;
-};
+#include "../../../Common/Thing/thing.h"
 
 extern BitFlags<116> KINDOFMASK_NONE;
 

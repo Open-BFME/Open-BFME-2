@@ -383,11 +383,7 @@ private:
 	float m_exitOffset[3]; // +0xC8
 };
 
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
-};
+#include "../../../Common/Thing/thing.h"
 
 class Rva00270260
 {

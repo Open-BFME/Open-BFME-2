@@ -93,7 +93,7 @@ class Rva005086CEContain {public:
 template<int N> class BitFlags {public: __declspec(nothrow) BitFlags(const BitFlags&);unsigned words[7];};
 extern BitFlags<116> KINDOFMASK_NONE;
 int Rva00360C1FEqual(const void*,const void*);
-class Thing {public:bool isKindOfMulti(const BitFlags<116>&,const BitFlags<116>&) const;};
+#include "../../Common/Thing/thing.h"
 template<class T> static __forceinline const T& minDamageRatio(const T&lhs,const T&rhs) {return rhs<lhs?rhs:lhs;}
 
 // Construct the verified owner of the native 0x7C damage record. The

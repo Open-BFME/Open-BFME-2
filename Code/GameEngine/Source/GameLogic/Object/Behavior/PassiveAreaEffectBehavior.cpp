@@ -239,7 +239,7 @@ template<int N>class BitFlags {public:unsigned words[7];};
 
 struct Rva0006EE7A {unsigned words[7];Rva0006EE7A(int,int,int);__forceinline operator const BitFlags<69>&()const{return *(const BitFlags<69>*)this;}};
 
-class Thing {public:bool isAnyKindOf(const BitFlags<69>&)const;};
+#include "../../../Common/Thing/thing.h"
 
 extern PartitionManager *ThePartitionManager;
 
