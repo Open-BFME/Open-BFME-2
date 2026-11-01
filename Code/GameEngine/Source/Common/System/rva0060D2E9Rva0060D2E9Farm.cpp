@@ -34,15 +34,7 @@ void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(char *__p, siz
 }
 class ModuleData;
 namespace _STL { template<> void vector<const ModuleData *>::push_back(const ModuleData *const&); }
-class XferException
-{
-public:
-	XferException(int tag, const char *format, ...);
-	XferException(const XferException &that);
-	~XferException();
-	void *text; // +0x00
-	int tag; // +0x04
-};
+#include "../../../Include/Common/XferException.h"
 class BfmeByteStream
 {
 public:
