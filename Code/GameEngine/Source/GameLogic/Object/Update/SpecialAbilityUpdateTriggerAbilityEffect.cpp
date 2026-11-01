@@ -262,12 +262,7 @@ class CaptureRefundInterface {
     virtual void slot30();
     virtual float rvaSlot34() const;
 };
-class AICommandInterface {
-  public:
-    virtual void aiDoCommand(const void *);
-    void rva0026C2D9(Object *, int, CommandSourceType);
-    void rva0044FFD9(Object *, CommandSourceType);
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 class AIUpdateModuleView
 {
 public:
@@ -364,7 +359,6 @@ public:
 	virtual bool rvaSlot168(); // +0x168
 	char prefix[0x1c]; // +0x04
 };
-class AIUpdateInterface : public AIUpdateModuleView, public AICommandInterface {};
 struct Rva00297612Entry;
 class Rva00263895Member {
   public:

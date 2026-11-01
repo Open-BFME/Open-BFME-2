@@ -6,11 +6,7 @@
 // PlayerMaskType is 32-bit (0xfffff).
 class DamageInfo;
 
-class AIUpdateInterface
-{
-public:
-	void markAsDead();
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 class Object;
 

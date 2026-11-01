@@ -25,22 +25,14 @@ enum UpdateSleepTime
 
 extern GameLogic *TheGameLogic;
 
-class AIUpdateInterface : public UpdateModule
-{
-	char m_pad20[0x17C - 0x20];
-	UnsignedInt m_queueForPathFrame;
-	char m_pad180[0x3C2 - 0x180];
-	bool m_isInUpdate;
-public:
-	void setQueueForPathTime(Int frames);
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 void AIUpdateInterface::setQueueForPathTime(Int frames)
 {
 	if (frames >= UPDATE_SLEEP_NONE && getWakeFrame() > (UpdateSleepTime)frames)
 	{
-		if (!m_isInUpdate)
+		if (!m_field3C2)
 			setWakeFrame(m_object, (UpdateSleepTime)frames);
 	}
-	m_queueForPathFrame = frames ? TheGameLogic->getFrame() + frames : 0;
+	m_field17C = frames ? TheGameLogic->getFrame() + frames : 0;
 }

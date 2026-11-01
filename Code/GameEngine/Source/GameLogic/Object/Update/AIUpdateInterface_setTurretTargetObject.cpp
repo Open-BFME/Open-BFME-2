@@ -22,14 +22,7 @@ struct TurretAI
 	void setTurretTargetObject(Object *o, Bool forceAttacking);
 };
 
-class AIUpdateInterface
-{
-	char m_pad[0x20C];
-	TurretAI *m_turretAI[1];
-
-public:
-	void setTurretTargetObject(WhichTurretType tur, Object *o, Bool forceAttacking);
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 // ?setTurretTargetObject@AIUpdateInterface@@QAEXW4WhichTurretType@@PAVObject@@_N@Z
 void AIUpdateInterface::setTurretTargetObject(WhichTurretType tur, Object *object, Bool forceAttacking)

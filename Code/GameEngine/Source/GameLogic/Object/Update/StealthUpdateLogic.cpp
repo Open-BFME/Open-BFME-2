@@ -437,12 +437,7 @@ struct AsciiStringVector
 };
 
 
-class AIUpdateInterface
-{
-public:
-	void rva00262FFF();
-	Object *getCurrentVictim() const;
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 // The range test 0x0028F326, pinned under an address-derived class.
 class Rva0028F326Owner
@@ -828,22 +823,7 @@ class ModuleData;
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
 
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-protected:
-	Object *getObject() const { return m_object; }
-	void setWakeFrame(Object *obj, UpdateSleepTime wakeDelay);
-private:
-	UnsignedInt m_nextCallFrameAndPhase; // +0x14
-	Int m_indexInLogic; // +0x18
-	Int m_reserved1C; // +0x1C
-};
 
 class StealthUpdateModuleData
 {

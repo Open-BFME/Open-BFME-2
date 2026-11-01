@@ -12,13 +12,7 @@ public:
 	RadarObject *friend_getRadarData();
 };
 
-class AIUpdateInterface
-{
-	char m_pad00[8];
-	Object *m_object;
-public:
-	RadarObject *rva002630F5();
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 RadarObject *AIUpdateInterface::rva002630F5()
 {

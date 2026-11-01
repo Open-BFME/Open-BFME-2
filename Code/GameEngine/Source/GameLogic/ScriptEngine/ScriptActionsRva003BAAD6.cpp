@@ -334,11 +334,7 @@ void ScriptActions::doNamedShowSpecialPowerDisplay(Parameter *unit)
 
 // ?Rva003BB274Ai@ScriptActions@@QAEXPAVParameter@@H@Z @0x003BB274 41B leaf caller 0x003CB376 globals 0xDFE16C callees getUnitNamed rva0026DE3B
 // Evidence: push [esp+4] ScriptEngine getUnitNamed test je then [eax+0x258] test je then push [esp+8] AIUpdateInterface::rva0026DE3B ret 8.
-class AIUpdateInterface
-{
-public:
-	void rva0026DE3B(int);
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 void ScriptActions::Rva003BB274Ai(Parameter *unitName, int attitude)
 {
 	Object *o = TheScriptEngine->getUnitNamed(unitName);

@@ -49,12 +49,7 @@ public:
 	AIUpdateInterface *m_ai; // +0x258
 };
 
-class AIUpdateInterface
-{
-public:
-	char m_pad00[0x3C1];
-	unsigned char m_3C1; // +0x3C1
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 class Rva00263077Filter
 {
@@ -82,7 +77,7 @@ Bool Rva00263077Filter::allow(Object *target)
 						AIUpdateInterface *ai = owner->m_ai;
 						if (ai != 0)
 						{
-							if (ai->m_3C1 == 0)
+							if (ai->m_field3C1 == 0)
 							{
 								if (owner->m_249 == 0)
 									return false;

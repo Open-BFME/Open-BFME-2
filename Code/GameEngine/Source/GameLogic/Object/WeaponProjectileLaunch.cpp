@@ -70,12 +70,7 @@ enum ObjectStatusTypes
 
 class Object;
 
-class AIUpdateInterface
-{
-  public:
-    WhichTurretType getWhichTurretForWeaponSlot(WeaponSlotType slot, Real *turretAngle,
-                                                Real *turretPitch) const;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 class Drawable
 {

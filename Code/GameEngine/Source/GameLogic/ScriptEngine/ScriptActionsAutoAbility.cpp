@@ -12,8 +12,7 @@ class Module;
 enum NameKeyType { NAMEKEY_INVALID=0 };
 class Player;
 enum CommandSourceType { CMD_FROM_AI=2 };
-class AICommandInterface { public: void aiIdle(CommandSourceType); };
-class AIUpdateInterface { public: unsigned char m_pad[0x20]; AICommandInterface m_command; };
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 class ThingTemplate {
 public: __forceinline bool isKindOf(int t) const { return (m_kind[t>>3]&(1<<(t&7)))!=0; }
 private: unsigned char m_pad[0x108]; unsigned char m_kind[0x20];

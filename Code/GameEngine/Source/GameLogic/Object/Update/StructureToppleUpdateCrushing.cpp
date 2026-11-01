@@ -227,11 +227,7 @@ public:
 	DamageInfoInput in;
 };
 
-class AIUpdateInterface
-{
-public:
-	void markAsDead();
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 class BodyModuleInterface
 {

@@ -42,17 +42,7 @@ public:
 
 extern GameLogic *TheGameLogic;
 
-class AIUpdateInterface : public BfmeVirtualSlots<129>
-{
-	char m_pad04[4];
-	Object *m_object;
-	char m_pad0C[0x40 - 0x0C];
-	ObjectID m_currentVictimID;
-
-public:
-	virtual void addTargeter(ObjectID id, Bool add);
-	void setCurrentVictim(const Object *victim);
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 // ?setCurrentVictim@AIUpdateInterface@@QAEXPBVObject@@@Z
 void AIUpdateInterface::setCurrentVictim(const Object *victim)

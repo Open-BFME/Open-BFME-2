@@ -167,14 +167,7 @@ enum WhichTurretType
 	MAX_TURRETS
 };
 
-class AIUpdateInterface
-{
-public:
-	WhichTurretType getWhichTurretForCurWeapon() const;
-	bool isTurretInNaturalPosition(WhichTurretType tur) const;
-	void recenterTurret(WhichTurretType tur);
-	void setTurretEnabled(WhichTurretType tur, bool enabled);
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 extern GameLogic *TheGameLogic;
 
@@ -736,11 +729,6 @@ public:
 // 0x00497805: a module's loadPostProcess that only chains to the rowed
 // UpdateModule::loadPostProcess (the slot after the scalar destructor in
 // many module tables).
-class UpdateModule
-{
-protected:
-	virtual void loadPostProcess();
-};
 
 class Rva00497805 : public UpdateModule
 {

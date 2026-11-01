@@ -20,14 +20,7 @@ struct TurretAI
 	void setTurretTargetPosition(const Coord3D *pos);
 };
 
-class AIUpdateInterface
-{
-	char m_pad[0x20C];
-	TurretAI *m_turretAI[1];
-
-public:
-	void setTurretTargetPosition(WhichTurretType tur, const Coord3D *pos);
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 // ?setTurretTargetPosition@AIUpdateInterface@@QAEXW4WhichTurretType@@PBUCoord3D@@@Z
 void AIUpdateInterface::setTurretTargetPosition(WhichTurretType tur, const Coord3D *pos)

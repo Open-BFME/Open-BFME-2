@@ -20,14 +20,7 @@ struct TurretAI
 	void recenterTurret();
 };
 
-class AIUpdateInterface
-{
-	char m_pad[0x20C];
-	TurretAI *m_turretAI[1];
-
-public:
-	void recenterTurret(WhichTurretType tur);
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 // ?recenterTurret@AIUpdateInterface@@QAEXW4WhichTurretType@@@Z
 void AIUpdateInterface::recenterTurret(WhichTurretType tur)

@@ -81,11 +81,7 @@ struct AIView
 	Pathfinder *m_pathfinder;					///< TheAI+0x10
 };
 
-class AIUpdateInterface
-{
-public:
-	Bool isAircraftThatAdjustsDestination() const;	///< retail 0x00262CBE
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 class Thing
 {

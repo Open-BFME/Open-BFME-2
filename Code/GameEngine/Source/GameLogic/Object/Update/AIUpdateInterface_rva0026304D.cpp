@@ -6,18 +6,10 @@
 // flag and +0x1F4 field; this pair uses +0x21C/+0x3BC in same tail range.
 // Callers at 0x369755 0x36FD10 0x3729DE. No callees.
 
-class AIUpdateInterface
-{
-	char m_pad00[0x21C];
-	int m_field21C;
-	char m_pad220[0x3BC - 0x220];
-	unsigned char m_flag3BC;
-public:
-	void rva0026304D(int val);
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 void AIUpdateInterface::rva0026304D(int val)
 {
 	m_field21C = val;
-	m_flag3BC = 0;
+	m_field3BC = 0;
 }

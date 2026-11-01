@@ -20,14 +20,7 @@ struct TurretAI
 	void setTurretEnabled(Bool enabled);
 };
 
-class AIUpdateInterface
-{
-	char m_pad[0x20C];
-	TurretAI *m_turretAI[1];
-
-public:
-	void setTurretEnabled(WhichTurretType tur, Bool enabled);
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 // ?setTurretEnabled@AIUpdateInterface@@QAEXW4WhichTurretType@@_N@Z
 void AIUpdateInterface::setTurretEnabled(WhichTurretType tur, Bool enabled)

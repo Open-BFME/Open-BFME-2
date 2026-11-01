@@ -12,22 +12,13 @@ class Path {
 public:
 	~Path();
 };
-class AIUpdateInterface {
-public:
-	virtual void setLocomotorGoalPositionExplicitSmart(const Coord3D &newPos);
-private:
-	char m_pad00[316];
-	Path *m_140;
-	char m_pad144[184];
-	int m_1FC;
-	Coord3D m_200;
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 void AIUpdateInterface::setLocomotorGoalPositionExplicitSmart(const Coord3D &newPos)
 {
-	if (m_1FC != 4) {
-		delete m_140;
-		m_140 = 0;
+	if (m_field1FC != 4) {
+		delete m_path;
+		m_path = 0;
 	}
-	m_1FC = 4;
-	m_200 = newPos;
+	m_field1FC = 4;
+	m_field200 = newPos;
 }

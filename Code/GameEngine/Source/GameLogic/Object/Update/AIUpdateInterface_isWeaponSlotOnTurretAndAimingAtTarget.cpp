@@ -71,14 +71,7 @@ private:
 	const TurretStateMachine *m_turretStateMachine;
 };
 
-class AIUpdateInterface
-{
-	char m_pad[0x20C];
-	TurretAI *m_turretAI[MAX_TURRETS];
-
-public:
-	Bool isWeaponSlotOnTurretAndAimingAtTarget(WeaponSlotType wslot, const class Object *victim) const;
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 // ?isWeaponSlotOnTurretAndAimingAtTarget@AIUpdateInterface@@QBE_NW4WeaponSlotType@@PBVObject@@@Z
 Bool AIUpdateInterface::isWeaponSlotOnTurretAndAimingAtTarget(WeaponSlotType wslot, const class Object *victim) const

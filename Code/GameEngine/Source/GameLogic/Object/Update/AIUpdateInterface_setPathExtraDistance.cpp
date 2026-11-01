@@ -11,15 +11,7 @@
 
 typedef float Real;
 
-class AIUpdateInterface
-{
-public:
-	void setPathExtraDistance(Real dist);
-
-private:
-	char m_pad[0x168];
-	Real m_pathExtraDistance;
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 void AIUpdateInterface::setPathExtraDistance(Real dist)
 {

@@ -9,32 +9,23 @@
 // Coord3D: shared header/view; no private copy.
 #include "../../../../../Libraries/Include/Lib/Coord3DInline.h"
 
-class AIUpdateInterface
-{
-	char m_pad04[0x1F8];
-	int m_locomotorGoalType;
-	Coord3D m_locomotorGoalData;
-public:
-	virtual void setLocomotorGoalPositionOnPath();
-	virtual void setLocomotorGoalPositionExplicit(const Coord3D &newPos);
-	virtual void setLocomotorGoalOrientation(float angle);
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 void AIUpdateInterface::setLocomotorGoalPositionOnPath()
 {
-	m_locomotorGoalType = 1;
-	m_locomotorGoalData.zero();
+	m_field1FC = 1;
+	m_field200.zero();
 }
 
 void AIUpdateInterface::setLocomotorGoalPositionExplicit(const Coord3D &newPos)
 {
-	m_locomotorGoalType = 2;
-	m_locomotorGoalData = newPos;
+	m_field1FC = 2;
+	m_field200 = newPos;
 }
 
 void AIUpdateInterface::setLocomotorGoalOrientation(float angle)
 {
-	m_locomotorGoalType = 3;
-	m_locomotorGoalData.x = angle;
+	m_field1FC = 3;
+	m_field200.x = angle;
 }
 

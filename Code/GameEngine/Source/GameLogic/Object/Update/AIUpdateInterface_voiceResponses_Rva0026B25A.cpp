@@ -100,19 +100,7 @@ public:
 bool pickAndPlayUnitVoiceResponse(const DrawableList *list, GameMessage::Type messageType,
 	PickAndPlayInfo *info);
 
-class AIUpdateInterface
-{
-protected:
-	virtual void slot00();
-	void playAttackVoiceResponse(Object *victim);
-	void playAttackVoiceResponse(const Coord3D *position);
-	void playVoiceEnterStateAttackMove(const Coord3D *position);
-	void playMoveVoiceResponse(const Coord3D *position);
-
-private:
-	unsigned char m_unmodelled_04[4];
-	Object *m_object;
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 void AIUpdateInterface::playAttackVoiceResponse(Object *victim)
 {

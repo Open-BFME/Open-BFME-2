@@ -57,11 +57,7 @@ public:
 
 
 
-class AICommandInterface
-{
-public:
-	virtual void aiDoCommand(const AICommandParms *parms);
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 class CollideModuleInterface
 {
@@ -69,21 +65,6 @@ public:
 	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal);
 };
 
-class AIUpdateInterface : public UpdateModule, public AICommandInterface, public CollideModuleInterface
-{
-public:
-	AIUpdateInterface(Thing *thing, const ModuleData *moduleData);
-	virtual UpdateSleepTime update();
-	virtual void aiDoCommand(const AICommandParms *parms);
-	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal);
-	virtual Bool isAllowedToRespondToAiCommands(const AICommandParms *parms) const;
-
-protected:
-	virtual ~AIUpdateInterface();
-
-private:
-	unsigned char m_pad28[0x3E4 - 0x28];
-};
 
 class SiegeAIUpdate : public AIUpdateInterface
 {

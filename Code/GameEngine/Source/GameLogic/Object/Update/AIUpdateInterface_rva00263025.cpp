@@ -30,15 +30,7 @@ struct GameLogicFrame
 #define Rva00DFF0F8 (*(Rva00DFF0F8Outer **)&TheAI)
 #define TheGameLogic (*(GameLogicFrame **)&TheGameLogic)
 
-class AIUpdateInterface
-{
-	char m_pad00[0x21C];
-	unsigned int m_field21C;
-	char m_pad220[0x3BC - 0x220];
-	unsigned char m_flag3BC;
-public:
-	void rva00263025();
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 void AIUpdateInterface::rva00263025()
 {
@@ -48,5 +40,5 @@ void AIUpdateInterface::rva00263025()
 	unsigned int val = inner->m_delay + logic->m_frame;
 	if (val > m_field21C)
 		m_field21C = val;
-	m_flag3BC = 1;
+	m_field3BC = 1;
 }

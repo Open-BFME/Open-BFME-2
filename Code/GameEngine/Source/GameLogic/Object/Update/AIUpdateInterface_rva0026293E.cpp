@@ -7,24 +7,13 @@
 // Layout follows the landed wakeUpNow (+0x3C2) and setQueue (+0x17C) TUs.
 // Leaf with no callees.
 
-class AIUpdateInterface
-{
-	char m_pad00[0x134];
-	int m_field134;
-	int m_field138;
-	char m_pad13C[0x3BD - 0x13C];
-	bool m_flag3BD;
-	char m_pad3BE;
-	bool m_flag3BF;
-public:
-	void rva0026293E();
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 void AIUpdateInterface::rva0026293E()
 {
-	if (m_flag3BD == false && m_field134 > 0)
+	if (m_field3BD == false && m_waypointCount > 0)
 	{
-		m_field138 = 0;
-		m_flag3BF = true;
+		m_waypointIndex = 0;
+		m_field3BF = true;
 	}
 }

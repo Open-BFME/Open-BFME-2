@@ -35,20 +35,13 @@ enum CommandSourceType
 
 class Object;
 
-class AICommandInterface
-{
-public:
-	void rva0026C2D9(Object *victim, int count, CommandSourceType cmdSource);
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 class AIUpdateInterfaceHead
 {
 	char m_unrecovered00[0x20];
 };
 
-class AIUpdateInterface : public AIUpdateInterfaceHead, public AICommandInterface
-{
-};
 
 class Rva0028B7AELeaGetter
 {

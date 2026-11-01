@@ -28,11 +28,7 @@ typedef bool Bool;
 
 typedef float Real;
 
-class AIUpdateInterface
-{
-public:
-	void rva00262804(unsigned char upgraded);
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 class Object
 {

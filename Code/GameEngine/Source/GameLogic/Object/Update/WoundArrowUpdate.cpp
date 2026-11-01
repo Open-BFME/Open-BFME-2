@@ -240,12 +240,7 @@ public:
 	bool isKindOf(KindOfType t) const;
 };
 
-class AICommandInterface
-{
-public:
-	void aiMoveToPosition(const Coord3D *pos, CommandSourceType cmdSource);
-	void rva0026C2D9(Object *victim, int count, CommandSourceType cmdSource);
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 class AIUpdateInterfaceHead
 {
@@ -261,9 +256,6 @@ private:
 	unsigned char m_pad04[0x20 - 4];
 };
 
-class AIUpdateInterface : public AIUpdateInterfaceHead, public AICommandInterface
-{
-};
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/WoundArrowUpdate.cpp
 

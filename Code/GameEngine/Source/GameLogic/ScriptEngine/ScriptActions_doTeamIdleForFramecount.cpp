@@ -41,18 +41,8 @@ public:
 	}
 };
 
-class AICommandInterface
-{
-public:
-	void aiExit(Object *obj, CommandSourceType cmdSource);	// 0x0076F39B
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
-class AIUpdateInterface
-{
-public:
-	unsigned char pad[0x20];
-	AICommandInterface command;
-};
 
 class AIGroup
 {

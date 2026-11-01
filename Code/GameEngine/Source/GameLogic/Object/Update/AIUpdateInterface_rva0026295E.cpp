@@ -7,18 +7,10 @@
 // and setQueue 0x0026282A (+0x17C) TUs with m_turretAI at +0x20C bounding the
 // tail. Leaf with no callees.
 
-class AIUpdateInterface
-{
-	char m_pad00[0x134];
-	int m_field134;
-	char m_pad138[0x3BF - 0x138];
-	bool m_flag3BF;
-public:
-	void rva0026295E();
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 void AIUpdateInterface::rva0026295E()
 {
-	m_field134 = 0;
-	m_flag3BF = false;
+	m_waypointCount = 0;
+	m_field3BF = false;
 }

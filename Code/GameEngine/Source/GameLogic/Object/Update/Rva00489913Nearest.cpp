@@ -15,11 +15,7 @@ public:
 	unsigned char m_bits;
 };
 
-class AIUpdateInterface
-{
-public:
-	bool isPathAvailable(const Coord3D *point) const;
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 class Object
 {

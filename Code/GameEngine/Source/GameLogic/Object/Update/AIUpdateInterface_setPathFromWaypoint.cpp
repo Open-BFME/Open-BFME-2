@@ -85,22 +85,7 @@ struct Rva0026569FOffset
 	float x, y;
 };
 
-class AIUpdateInterface
-{
-public:
-	void destroyPath();
-	void setPathFromWaypoint(const Waypoint *way, const Coord2D *offset);
-protected:
-	void wakeUpNow();
-	Object *getObject() const { return m_object; }
-private:
-	unsigned char m_pad00[0x08];
-	Object *m_object;						// +0x08
-	unsigned char m_pad0C[0x140 - 0x0C];
-	Path *m_path;							// +0x140
-	unsigned char m_pad144[0x3B1 - 0x144];
-	bool m_waitingForPath;					// +0x3B1
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 void AIUpdateInterface::setPathFromWaypoint(const Waypoint *way, const Coord2D *offset)
 {
@@ -131,7 +116,7 @@ void AIUpdateInterface::setPathFromWaypoint(const Waypoint *way, const Coord2D *
 		if (count > WAYPOINT_PATH_LIMIT)
 			break;
 	}
-	m_waitingForPath = false;
+	m_field3B1 = false;
 	TheAI->pathfinder()->SetDebugPath((Rva002EDEABArg *)m_path);
 	wakeUpNow();
 }
