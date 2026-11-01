@@ -1,0 +1,1707 @@
+{
+ "bases": [
+  "SubsystemInterface"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "Mouse",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 105,
+  "inherited": {
+   "base_views": 2,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 1
+   },
+   "0x12e8": {
+    "4": 1
+   },
+   "0x12f8": {
+    "4": 1
+   },
+   "0x1304": {
+    "4": 1
+   },
+   "0x130c": {
+    "4": 1
+   },
+   "0x4f0c": {
+    "4": 3
+   },
+   "0x4f10": {
+    "4": 1
+   },
+   "0x4f14": {
+    "4": 1
+   },
+   "0x4f18": {
+    "4": 1
+   },
+   "0x4f24": {
+    "4": 1
+   },
+   "0x4f28": {
+    "4": 2
+   },
+   "0x4f30": {
+    "4": 1
+   },
+   "0x4f34": {
+    "4": 2
+   },
+   "0x4f3c": {
+    "4": 1
+   },
+   "0x4f40": {
+    "4": 2
+   },
+   "0x4f64": {
+    "4": 1
+   },
+   "0x4f70": {
+    "4": 1
+   },
+   "0x4f7c": {
+    "4": 1
+   },
+   "0x4f84": {
+    "4": 1
+   },
+   "0x4f88": {
+    "4": 1
+   },
+   "0x4f8c": {
+    "4": 1
+   },
+   "0x4f90": {
+    "4": 1
+   },
+   "0x4f9c": {
+    "1": 1
+   },
+   "0x4f9d": {
+    "1": 2
+   },
+   "0x4f9e": {
+    "1": 2
+   },
+   "0x4f9f": {
+    "1": 1
+   },
+   "0x4fa0": {
+    "1": 1
+   },
+   "0x4fa1": {
+    "4": 1
+   },
+   "0x4fa4": {
+    "4": 1
+   },
+   "0x4fa8": {
+    "4": 2
+   },
+   "0x4fac": {
+    "1": 1
+   },
+   "0x4fb0": {
+    "1": 1
+   },
+   "0x4fb4": {
+    "1": 1
+   },
+   "0x4fb8": {
+    "1": 1
+   },
+   "0x4fbc": {
+    "1": 1
+   },
+   "0x4fc0": {
+    "1": 1
+   },
+   "0x4fc4": {
+    "1": 1
+   },
+   "0x4fc8": {
+    "1": 1
+   },
+   "0x4ffc": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x1eec97"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "SubsystemInterface",
+       "offset": 0,
+       "own_vftable": "0x7e0358",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x1eec97"
+     ],
+     "value": 20496
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x1eec97"
+     ],
+     "value": {
+      "0x126c": [
+       4
+      ],
+      "0x1270": [
+       4
+      ],
+      "0x1274": [
+       1
+      ],
+      "0x1275": [
+       1
+      ],
+      "0x1278": [
+       4
+      ],
+      "0x127c": [
+       4
+      ],
+      "0x1280": [
+       4
+      ],
+      "0x1284": [
+       4
+      ],
+      "0x1288": [
+       1
+      ],
+      "0x128c": [
+       4
+      ],
+      "0x1290": [
+       4
+      ],
+      "0x1294": [
+       4
+      ],
+      "0x1298": [
+       4
+      ],
+      "0x129c": [
+       4
+      ],
+      "0x12a0": [
+       4
+      ],
+      "0x12a4": [
+       4
+      ],
+      "0x12a8": [
+       4
+      ],
+      "0x12ac": [
+       4
+      ],
+      "0x12b0": [
+       4
+      ],
+      "0x12b4": [
+       4
+      ],
+      "0x12b8": [
+       4
+      ],
+      "0x12bc": [
+       4
+      ],
+      "0x12c0": [
+       4
+      ],
+      "0x12c4": [
+       4
+      ],
+      "0x12c8": [
+       4
+      ],
+      "0x12cc": [
+       4
+      ],
+      "0x12d0": [
+       4
+      ],
+      "0x12d4": [
+       4
+      ],
+      "0x12d8": [
+       4
+      ],
+      "0x12dc": [
+       4
+      ],
+      "0x12e0": [
+       1
+      ],
+      "0x12e1": [
+       1
+      ],
+      "0x12e2": [
+       1
+      ],
+      "0x12e3": [
+       1
+      ],
+      "0x12e4": [
+       4
+      ],
+      "0x12e8": [
+       4
+      ],
+      "0x12ec": [
+       4
+      ],
+      "0x12f0": [
+       4
+      ],
+      "0x12f4": [
+       1
+      ],
+      "0x12f5": [
+       1
+      ],
+      "0x12f6": [
+       1
+      ],
+      "0x12f8": [
+       4
+      ],
+      "0x12fc": [
+       4
+      ],
+      "0x1300": [
+       4
+      ],
+      "0x1304": [
+       4
+      ],
+      "0x1308": [
+       1
+      ],
+      "0x1309": [
+       1
+      ],
+      "0x4f84": [
+       4
+      ],
+      "0x4f88": [
+       4
+      ],
+      "0x4f8c": [
+       4
+      ],
+      "0x4f90": [
+       4
+      ],
+      "0x4f94": [
+       4
+      ],
+      "0x4f98": [
+       4
+      ],
+      "0x4f9c": [
+       1
+      ],
+      "0x4f9d": [
+       1
+      ],
+      "0x4f9e": [
+       1
+      ],
+      "0x4f9f": [
+       1
+      ],
+      "0x4fa0": [
+       1
+      ],
+      "0x4fa1": [
+       1
+      ],
+      "0x4fa4": [
+       4
+      ],
+      "0x4fa8": [
+       4
+      ],
+      "0x4fac": [
+       4
+      ],
+      "0x4fb0": [
+       4
+      ],
+      "0x4fb4": [
+       4
+      ],
+      "0x4fb8": [
+       4
+      ],
+      "0x4fbc": [
+       4
+      ],
+      "0x4fc0": [
+       4
+      ],
+      "0x4fc4": [
+       4
+      ],
+      "0x4fc8": [
+       4
+      ],
+      "0x4fcc": [
+       4
+      ],
+      "0x4fd0": [
+       4
+      ],
+      "0x4fd4": [
+       4
+      ],
+      "0x4fd8": [
+       4
+      ],
+      "0x4fdc": [
+       4
+      ],
+      "0x4fe0": [
+       4
+      ],
+      "0x4fe4": [
+       4
+      ],
+      "0x4fe8": [
+       4
+      ],
+      "0x4fec": [
+       4
+      ],
+      "0x4ff0": [
+       4
+      ],
+      "0x4ff4": [
+       4
+      ],
+      "0x4ff8": [
+       4
+      ],
+      "0x4ffc": [
+       4
+      ],
+      "0x5000": [
+       4
+      ],
+      "0x5004": [
+       4
+      ],
+      "0x5008": [
+       1
+      ],
+      "0x5009": [
+       1
+      ],
+      "0x500c": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x1eec97"
+     ],
+     "value": {
+      "0x126c": [
+       "?set@?$StringBase@D@@QAEXPBD@Z"
+      ],
+      "0x12fc": [
+       "?releaseBuffer@?$StringBase@G@@AAEXXZ"
+      ],
+      "0x1300": [
+       "?releaseBuffer@?$StringBase@G@@AAEXXZ"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x1eec97"
+     ],
+     "value": {
+      "0x0": "0x7e0358"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7e0358"
+     ],
+     "value": {
+      "count": 30,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GMouse@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x1eefb6"
+       },
+       {
+        "name": "?init@Mouse@@UAEXXZ",
+        "slot": 1,
+        "target": "0x1ee4dc"
+       },
+       {
+        "name": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+        "slot": 2,
+        "target": "0x1b5384"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 3,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 4,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 5,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 6,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 7,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva001EDDBB@Rva001EDDBBForwarder@@QAEXXZ",
+        "slot": 9,
+        "target": "0x1eddbb"
+       },
+       {
+        "name": "?update@Mouse@@UAEXXZ",
+        "slot": 10,
+        "target": "0x1ede3a"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 11,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 12,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 13,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?parseIni@Mouse@@QAEXXZ",
+        "slot": 14,
+        "target": "0x1ee483"
+       },
+       {
+        "name": "__purecall",
+        "slot": 15,
+        "target": "0x3b810"
+       },
+       {
+        "name": "?createStreamMessages@Mouse@@UAEXXZ",
+        "slot": 16,
+        "target": "0x1ee630"
+       },
+       {
+        "name": "?setPosition@Mouse@@UAEXHH@Z",
+        "slot": 17,
+        "target": "0x1ede4c"
+       },
+       {
+        "name": "?copy@Rva005A4660@@QBEXPAI0@Z",
+        "slot": 18,
+        "target": "0x1ee035"
+       },
+       {
+        "name": "__purecall",
+        "slot": 19,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 20,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 21,
+        "target": "0x3b810"
+       },
+       {
+        "name": "?setMouseLimits@Mouse@@UAEXXZ",
+        "slot": 22,
+        "target": "0x1ede63"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 23,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?rva001F01E8@Rva001F01E8@@QAEXHHHH@Z",
+        "slot": 24,
+        "target": "0x1f01e8"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 25,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?set@Rva000419CFDwordSlot@@QAEXH@Z",
+        "slot": 26,
+        "target": "0x419cf"
+       },
+       {
+        "name": "?get@Rva000419DCDwordField@@QBEHXZ",
+        "slot": 27,
+        "target": "0x419dc"
+       },
+       {
+        "name": "?rva001EE5EE@Mouse@@QAEXEPAE@Z",
+        "slot": 28,
+        "target": "0x1ee5ee"
+       },
+       {
+        "name": "__purecall",
+        "slot": 29,
+        "target": "0x3b810"
+       }
+      ],
+      "table": "0x7e0358"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 21,
+  "retail_vtables": {
+   "0x7e0358": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GMouse@@UAEPAXI@Z",
+     "1": "?init@Mouse@@UAEXXZ",
+     "2": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+     "3": "??1Region2D@@QAE@XZ",
+     "4": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "5": "?IsCRC@Xfer@@UBE_NXZ",
+     "6": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "7": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "8": "??1Region2D@@QAE@XZ",
+     "9": "?rva001EDDBB@Rva001EDDBBForwarder@@QAEXXZ",
+     "10": "?update@Mouse@@UAEXXZ",
+     "11": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "12": "??1Region2D@@QAE@XZ",
+     "13": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "14": "?parseIni@Mouse@@QAEXXZ",
+     "15": "__purecall",
+     "16": "?createStreamMessages@Mouse@@UAEXXZ",
+     "17": "?setPosition@Mouse@@UAEXHH@Z",
+     "18": "?copy@Rva005A4660@@QBEXPAI0@Z",
+     "19": "__purecall",
+     "20": "__purecall",
+     "21": "__purecall",
+     "22": "?setMouseLimits@Mouse@@UAEXXZ",
+     "23": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "24": "?rva001F01E8@Rva001F01E8@@QAEXHHHH@Z",
+     "25": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "26": "?set@Rva000419CFDwordSlot@@QAEXH@Z",
+     "27": "?get@Rva000419DCDwordField@@QBEHXZ",
+     "28": "?rva001EE5EE@Mouse@@QAEXEPAE@Z",
+     "29": "__purecall"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 14,
+  "view_sizes": {
+   "1": 50,
+   "4": 13,
+   "12": 1,
+   "4344": 1,
+   "4844": 2,
+   "4852": 1,
+   "20236": 1,
+   "20244": 3,
+   "20264": 1,
+   "20276": 3,
+   "20288": 2,
+   "20392": 6,
+   "20476": 1,
+   "20492": 2,
+   "20496": 2,
+   "24604": 2
+  },
+  "views": 91,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_Mouse.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/Mouse.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 25,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseCursorDirection.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp",
+    "Code/GameEngineDevice/Source/Win32Device/GameClient/Win32Mouse.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 4332,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 4340,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 4716,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 4720,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 4724,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 4725,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 4728,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 4732,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 4736,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 4740,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 4744,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 4748,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp",
+    "Code/GameEngine/Source/GameClient/MouseRva001EEA6D.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 4752,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp",
+    "Code/GameEngine/Source/GameClient/MouseRva001EEA6D.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 4756,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp",
+    "Code/GameEngine/Source/GameClient/MouseRva001EEA6D.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 4760,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp",
+    "Code/GameEngine/Source/GameClient/MouseRva001EEA6D.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 4764,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 4768,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 4772,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 4776,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 4780,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 4784,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 4788,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 4792,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 4796,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp",
+    "Code/GameEngine/Source/GameClient/MouseRva001EEA6D.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 4800,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp",
+    "Code/GameEngine/Source/GameClient/MouseRva001EEA6D.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 4804,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp",
+    "Code/GameEngine/Source/GameClient/MouseRva001EEA6D.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 4808,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp",
+    "Code/GameEngine/Source/GameClient/MouseRva001EEA6D.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 4812,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 4816,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 4820,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 4824,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 4828,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 4832,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp",
+    "Code/GameEngine/Source/GameClient/MouseRva001EEA6D.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 4833,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp",
+    "Code/GameEngine/Source/GameClient/MouseRva001EEA6D.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 4834,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp",
+    "Code/GameEngine/Source/GameClient/MouseRva001EEA6D.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 4835,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 4836,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 4840,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp",
+    "Code/GameEngine/Source/GameClient/MessageStream/MetaEvent.cpp",
+    "Code/GameEngine/Source/GameClient/Rva0029FEBBDragPath.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 4844,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 4848,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp",
+    "Code/GameEngine/Source/GameClient/MessageStream/PlaceEventTranslator.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 4852,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 4853,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 4854,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 4856,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 4860,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp",
+    "Code/GameEngine/Source/GameClient/MouseRva001EEA6D.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 4864,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 4868,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 4872,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 4873,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 4876,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20236,
+   "sources": [
+    "Code/GameEngine/Source/Common/BfmeOwnVVD.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUICreateCommandHint.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUICreateMouseoverHint.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIHandleBuildPlacements.cpp",
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp",
+    "Code/GameEngine/Source/GameClient/MessageStream/BfmeOwnVVDTranslateGameMessage.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherDebugStats.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRva00087642CameraRestore.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRva0008DB18.cpp"
+   ],
+   "views": 10
+  },
+  {
+   "offset": 20240,
+   "sources": [
+    "Code/GameEngine/Source/Common/BfmeOwnVVD.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUICreateCommandHint.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUICreateMouseoverHint.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIHandleBuildPlacements.cpp",
+    "Code/GameEngine/Source/GameClient/MessageStream/BfmeOwnVVDTranslateGameMessage.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherDebugStats.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRva00087642CameraRestore.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRva0008DB18.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 20260,
+   "sources": [
+    "Code/GameEngine/Source/Common/BfmeOwnVVD.cpp",
+    "Code/GameEngine/Source/Common/Rva00431955.cpp",
+    "Code/GameEngine/Source/Common/Rva004319D4.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/MessageStream/AptTranslator.cpp",
+    "Code/GameEngine/Source/GameClient/MessageStream/BfmeOwnVVDTranslateGameMessage.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherDebugStats.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 20264,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerCallbacks.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20268,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerCallbacks.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20272,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00431955.cpp",
+    "Code/GameEngine/Source/Common/Rva004319D4.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/MessageStream/AptTranslator.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherDebugStats.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 20284,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/MessageStream/AptTranslator.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherDebugStats.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 20296,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20356,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20360,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20364,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20368,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20372,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20376,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20380,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20381,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20382,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20383,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20384,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20385,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20388,
+   "sources": [
+    "Code/GameEngine/Source/Common/BfmeOwnVVD.cpp",
+    "Code/GameEngine/Source/Common/Rva0042C5C3Dtor.cpp",
+    "Code/GameEngine/Source/Common/Rva0042C7B1.cpp",
+    "Code/GameEngine/Source/Common/Rva0042CB81.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIInputModes.cpp",
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp",
+    "Code/GameEngine/Source/GameClient/MessageStream/BfmeOwnVVDScrollUpdate.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseCursorDirection.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp",
+    "Code/GameEngineDevice/Source/Win32Device/GameClient/Win32Mouse.cpp"
+   ],
+   "views": 10
+  },
+  {
+   "offset": 20392,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20396,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20400,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20404,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20408,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20412,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20416,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20420,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20424,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20428,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp",
+    "Code/GameEngine/Source/GameClient/MouseRva001EEA6D.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 20432,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20436,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20440,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20444,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp",
+    "Code/GameEngine/Source/GameClient/MouseRva001EEA6D.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 20448,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp",
+    "Code/GameEngine/Source/GameClient/MouseRva001EEA6D.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 20452,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp",
+    "Code/GameEngine/Source/GameClient/MouseRva001EEA6D.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 20456,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp",
+    "Code/GameEngine/Source/GameClient/MouseRva001EEA6D.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 20460,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp",
+    "Code/GameEngine/Source/GameClient/MouseRva001EEA6D.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 20464,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp",
+    "Code/GameEngine/Source/GameClient/MouseRva001EEA6D.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 20468,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp",
+    "Code/GameEngine/Source/GameClient/MouseRva001EEA6D.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 20472,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp",
+    "Code/GameEngine/Source/GameClient/MouseRva001EEA6D.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 20476,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20480,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20484,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20488,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20489,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRva00087642CameraRestore.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRva0008DB18.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 20492,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "base-slots",
+   "candidates": {
+    "1": 1,
+    "14": 1
+   },
+   "class": "Mouse"
+  },
+  {
+   "attribute": "slot0",
+   "candidates": {
+    "_M_slot_00()": 1,
+    "__vecDelDtor(uint)": 4,
+    "_v00()": 1,
+    "init()": 1,
+    "m0()": 2,
+    "m00()": 4,
+    "pad0()": 1,
+    "r0()": 1,
+    "s00()": 2,
+    "slot0()": 1,
+    "slot00()": 4,
+    "v00()": 1
+   },
+   "class": "Mouse"
+  },
+  {
+   "attribute": "slot10",
+   "candidates": {
+    "_M_slot_28()": 1,
+    "_v10()": 1,
+    "m10()": 6,
+    "pad10()": 1,
+    "r10()": 1,
+    "s10()": 1,
+    "s28()": 1,
+    "slot10()": 6,
+    "v10()": 1
+   },
+   "class": "Mouse"
+  },
+  {
+   "attribute": "slot11",
+   "candidates": {
+    "_M_slot_2c()": 1,
+    "_v11()": 1,
+    "m11()": 6,
+    "pad11()": 1,
+    "r11()": 1,
+    "s11()": 1,
+    "s2c()": 1,
+    "slot11()": 6,
+    "v11()": 1
+   },
+   "class": "Mouse"
+  },
+  {
+   "attribute": "slot12",
+   "candidates": {
+    "_M_slot_30()": 1,
+    "_v12()": 1,
+    "m12()": 6,
+    "pad12()": 1,
+    "r12()": 1,
+    "s12()": 1,
+    "s30()": 1,
+    "slot12()": 6,
+    "v12()": 1
+   },
+   "class": "Mouse"
+  },
+  {
+   "attribute": "slot13",
+   "candidates": {
+    "_M_slot_34()": 1,
+    "_v13()": 1,
+    "m13()": 6,
+    "pad13()": 1,
+    "r13()": 1,
+    "s13()": 1,
+    "s34()": 1,
+    "slot13()": 6,
+    "v13()": 1
+   },
+   "class": "Mouse"
+  },
+  {
+   "attribute": "slot14",
+   "candidates": {
+    "_M_slot_38()": 1,
+    "_v14()": 1,
+    "m14()": 6,
+    "pad14()": 1,
+    "parseIni()": 1,
+    "r14()": 1,
+    "s14()": 1,
+    "s38()": 1,
+    "slot14()": 6,
+    "v14()": 1
+   },
+   "class": "Mouse"
+  },
+  {
+   "attribute": "slot15",
+   "candidates": {
+    "_M_slot_3c()": 1,
+    "_v15()": 1,
+    "initCursorResources()": 1,
+    "m15()": 6,
+    "pad15()": 1,
+    "r15()": 1,
+    "s15()": 1,
+    "s3c()": 1,
+    "slot15()": 6,
+    "v15()": 1
+   },
+   "class": "Mouse"
+  },
+  {
+   "attribute": "slot16",
+   "candidates": {
+    "_M_slot_40()": 1,
+    "_v16()": 1,
+    "createStreamMessages()": 1,
+    "m16()": 6,
+    "pad16()": 1,
+    "r16()": 1,
+    "s16()": 1,
+    "s40()": 1,
+    "slot16()": 6,
+    "v16()": 1
+   },
+   "class": "Mouse"
+  },
+  {
+   "attribute": "slot17",
+   "candidates": {
+    "_M_slot_44()": 1,
+    "_v17()": 1,
+    "m17()": 6,
+    "pad17()": 1,
+    "r17()": 1,
+    "s17()": 1,
+    "s44()": 1,
+    "slot17()": 6,
+    "v17()": 1,
+    "vf17()": 1
+   },
+   "class": "Mouse"
+  }
+ ],
+ "size": 4,
+ "size_by": "majority",
+ "vslots": {
+  "1": {
+   "decided_by": "majority",
+   "member": "slot01()"
+  },
+  "18": {
+   "decided_by": "majority",
+   "member": "m18()"
+  },
+  "19": {
+   "decided_by": "majority",
+   "member": "m19(int)"
+  },
+  "2": {
+   "decided_by": "majority",
+   "member": "slot02()"
+  },
+  "20": {
+   "decided_by": "majority",
+   "member": "capture()"
+  },
+  "21": {
+   "decided_by": "majority",
+   "member": "releaseCapture()"
+  },
+  "22": {
+   "decided_by": "bytes",
+   "member": "setMouseLimits()"
+  },
+  "3": {
+   "decided_by": "majority",
+   "member": "slot03()"
+  },
+  "4": {
+   "decided_by": "majority",
+   "member": "slot04()"
+  },
+  "5": {
+   "decided_by": "majority",
+   "member": "slot05()"
+  },
+  "6": {
+   "decided_by": "majority",
+   "member": "slot06()"
+  },
+  "7": {
+   "decided_by": "majority",
+   "member": "slot07()"
+  },
+  "8": {
+   "decided_by": "majority",
+   "member": "slot08()"
+  },
+  "9": {
+   "decided_by": "majority",
+   "member": "slot09()"
+  }
+ }
+}

@@ -206,3 +206,4 @@ ControlBar,Code/GameEngine/Include/GameClient/ControlBar.h,existing header; cont
 Rva000421C8,Code/GameEngine/Include/GameLogic/PartitionFilter.h,existing header; contract class_contracts/Rva000421C8.json; 33/193 sampled units adopt
 BfmeStringData,Code/GameEngine/Include/Common/BfmeStringData.h,existing header; contract class_contracts/BfmeStringData.json; 1/1 sampled units adopt
 RefCountClass,Code/Libraries/Source/WWVegas/WWLib/RefCountData.h,existing header; contract class_contracts/RefCountClass.json; 75/130 sampled units adopt
+Mouse,Code/GameEngine/Include/GameClient/Mouse.h,existing header; contract class_contracts/Mouse.json; 51/105 sampled units adopt
