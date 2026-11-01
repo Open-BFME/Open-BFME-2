@@ -31,26 +31,8 @@ enum DeathType { DeathType_Unknown = 0 };
 
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class UpdateModuleInterface
-{
-public:
-	virtual void update();
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~UpdateModule();
-protected:
-	virtual void loadPostProcess();
-	void setWakeFrame(Object *obj, unsigned int frame);
-	Object *getObject(void) const { return m_object; }
-private:
-	unsigned m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_bfmeReserved;
-};
 
 class GettingBuiltBehaviorSecondary
 {
