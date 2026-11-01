@@ -53,6 +53,10 @@ and the native constructor. The private probe never wrote the shared match
 cache. The supporting provider's three-argument neutral wrapper identity is
 unchanged; its body remains the separately verified native range loop.
 
-Wider affected-consumer selection and the next scheduled census remain the
-publication audit's responsibility. No runtime or image-ownership result is
-claimed.
+Publication landed at `df3dabb76b`. Its normal hook also passes the 50-source
+dependent cohort: 1,918/1,918 rows, 51 data rows and 225 EXACT EH graphs.
+The batch audit is INCONCLUSIVE: its index predates outgoing base
+`23c492c596`, and affected consumer `Common/AIBaseBuilder.cpp` lacks a current
+receipt. Full selection/loss verification and the next scheduled census remain
+open; carry the removed helper and consumer scope forward. No runtime or
+image-ownership result is claimed.

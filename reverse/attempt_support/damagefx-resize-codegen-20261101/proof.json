@@ -1,0 +1,39 @@
+[
+  {
+    "name": "?_M_insert@?$hashtable@U?$pair@$$CBHURva003609F7Element@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva003609F7Element@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva003609F7Element@@@_STL@@@2@@_STL@@QAEAAU?$pair@$$CBHURva003609F7Element@@@2@ABU32@@Z",
+    "length": 73,
+    "exact": true
+  },
+  {
+    "resize": "?resize@?$hashtable@U?$pair@$$CBHURva003609F7Element@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva003609F7Element@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva003609F7Element@@@_STL@@@2@@_STL@@QAEXI@Z",
+    "length": 191,
+    "exact184": false,
+    "relocations": [
+      [
+        32,
+        20,
+        "?_M_next_size@?$hashtable@U?$pair@$$CBHURva003609F7Element@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva003609F7Element@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva003609F7Element@@@_STL@@@2@@_STL@@ABEII@Z"
+      ],
+      [
+        58,
+        20,
+        "?get_allocator@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBE?AV?$allocator@PAX@2@XZ"
+      ],
+      [
+        74,
+        20,
+        "??0?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAE@IABQAXABV?$allocator@PAX@1@@Z"
+      ],
+      [
+        166,
+        20,
+        "?swap@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEXAAV12@@Z"
+      ],
+      [
+        180,
+        20,
+        "_free"
+      ]
+    ]
+  }
+]

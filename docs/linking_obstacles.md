@@ -4460,6 +4460,10 @@ passes 77/77. The three-source ordinary preview is all LINKS, 4,435 -> 4,531
 bytes, with no supporting-unit loss. The unrelated allocator-accessor spelling
 and original record/vector names remain unresolved. This clears the stated
 ordinary-preview blocker, pending wider consumer audit and census confirmation.
+Publication `df3dabb76b` passes 1,918 dependent rows, 51 data rows and 225 EXACT
+EH graphs. Its batch audit remains INCONCLUSIVE on the older index and the
+missing current `Common/AIBaseBuilder.cpp` receipt; full consumer selection/loss
+verification and census confirmation remain open.
 
 **Resize record repair (2026-10-27, inspected `2eea4ae57b`, index `bf3dd31211`, retail-truth-4):** BfmeConv1950.cpp now uses the native AsciiString plus vector<AsciiString> ownership and calls the rowed range-erase and fill-insert providers directly. Its four unresolved donor-only names clear; the ordinary preview changes from blocked to LINKS (0 -> 100 authored bytes). All three rows and the parent EH graph remain exact, declaration and shadow data checks pass, and `repair_queue.py retire identity` removes its one destructor-binding key with zero remaining findings. The paired preview preserves LINKS for the record allocation/copy and erase providers; StlSweepW4Rva00215949.cpp remains blocked by its three element lifetime/assignment spellings and nonretail overflow copy. This clears only the resize consumer and its registered identity debt. Reconcile that provider's record identity before claiming dependency closure; census confirmation remains pending. [Scoped evidence](../reverse/attempt_support/resize-record-link-20261027-codex3.md).
 
@@ -4495,6 +4499,17 @@ Evidence / affected units: inspected `896af216804e1f1e34de28bd318285fbbbfcc536` 
 Completed: the two tree units now instantiate only their rowed `_Rb_tree` destructor instead of the whole map. This removes the unrelated `__imp_less<int>` dependency and comparison adapters. Each unit passes all three existing rows, declaration, EH and shadow data checks; parent EH data verifies the renumbered funclet without a ledger edit. StlportMapForwardersSeat8.cpp and both reset providers remain LINKS in the paired preview. The other five units above were inspected and left unchanged; each still builds exact.
 
 2026-10-31 extent follow-up (`e847af92bf62`): strict checks pass 16 rows across the insertion and its three existing provider/caller units, with EH EXACT 1 and 565 existing preview linking bytes retained. The node body graph now matches native, but opaque-name qualification remains wrong/unknown and no identity key is retired. All nonmatching resize profile experiments are reverted. The staged-tree consumer audit is INCONCLUSIVE (older index `12902e9e1b`; AIGameTeam.cpp lacks a current receipt); carry that consumer and cohort into the next scheduled census. No full consumer closure or census gain is claimed.
+
+2026-11-01 private codegen follow-up (`df3dabb76b`, index `0d24c60eef`):
+[the bounded candidate and refuted trials](../reverse/attempt_support/damagefx-resize-codegen-20261101/readme.md)
+reduce resize from 220 to 191 bytes by restoring destructor visibility and
+native lifetime/allocator assumptions; native remains 184. The remaining
+seven-byte loop difference reloads the destination bucket pointer instead of
+reusing its address. The tracked source is unchanged, its insertion remains
+exact at 73 bytes, and the unit remains unlinked. Hash, payload, CPU, exception
+flag, 4.6 and constructor/swap-visibility variants did not clear the gap.
+No helper, identity, pin or coverage change is claimed; further whole-family
+codegen and identity recovery is still required.
 
 Remaining / next check: perform coherent type/allocator and row-name reconciliation with the listed provider homes. Replacing a real member call with an address placeholder, adding an alias/pin, changing the ledger, or casting a container to another instantiation was outside this worker's permitted repair scope. All native direct callees listed above already have matched owners. No new match or pin with independent fold proof was established. Clearance remains pending for all seven units; the bounded emission cleanup does not clear their required COMDATs. Census confirmation is pending.
 
