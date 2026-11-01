@@ -1,0 +1,2505 @@
+{
+ "bases": [
+  "SubsystemInterface"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "GlobalData",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 40,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x134": {
+    "4": 2
+   },
+   "0x35c": {
+    "4": 1
+   },
+   "0x368": {
+    "4": 1
+   },
+   "0x8fc": {
+    "4": 2
+   }
+  },
+  "retail_layout": {
+   "confidence": "full",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x1254": 1
+     }
+    },
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x23631c"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "SubsystemInterface",
+       "offset": 0,
+       "own_vftable": "0x7ed1c4",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x23631c"
+     ],
+     "value": 4692
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x23631c"
+     ],
+     "value": {
+      "0x10": [
+       4
+      ],
+      "0x100": [
+       4
+      ],
+      "0x104": [
+       4
+      ],
+      "0x108": [
+       4
+      ],
+      "0x10c": [
+       4
+      ],
+      "0x110": [
+       4
+      ],
+      "0x1100": [
+       1
+      ],
+      "0x1104": [
+       4
+      ],
+      "0x1108": [
+       4
+      ],
+      "0x110c": [
+       4
+      ],
+      "0x1110": [
+       1
+      ],
+      "0x1111": [
+       1
+      ],
+      "0x114": [
+       4
+      ],
+      "0x115c": [
+       4
+      ],
+      "0x1160": [
+       4
+      ],
+      "0x1164": [
+       4
+      ],
+      "0x118": [
+       4
+      ],
+      "0x11b8": [
+       4
+      ],
+      "0x11bc": [
+       1
+      ],
+      "0x11c": [
+       4
+      ],
+      "0x11c0": [
+       4
+      ],
+      "0x11c4": [
+       4
+      ],
+      "0x11c8": [
+       1
+      ],
+      "0x11c9": [
+       1
+      ],
+      "0x11ca": [
+       1
+      ],
+      "0x11cb": [
+       1
+      ],
+      "0x11cc": [
+       4
+      ],
+      "0x11d0": [
+       4
+      ],
+      "0x11d4": [
+       4
+      ],
+      "0x11d8": [
+       4
+      ],
+      "0x11dc": [
+       4
+      ],
+      "0x11e0": [
+       4
+      ],
+      "0x11e4": [
+       4
+      ],
+      "0x11e8": [
+       4
+      ],
+      "0x11ec": [
+       4
+      ],
+      "0x11f0": [
+       4
+      ],
+      "0x11f4": [
+       4
+      ],
+      "0x11f8": [
+       4
+      ],
+      "0x11fc": [
+       4
+      ],
+      "0x120": [
+       4
+      ],
+      "0x1200": [
+       4
+      ],
+      "0x1204": [
+       4
+      ],
+      "0x1208": [
+       4
+      ],
+      "0x120c": [
+       4
+      ],
+      "0x1210": [
+       4
+      ],
+      "0x1214": [
+       4
+      ],
+      "0x1218": [
+       4
+      ],
+      "0x121c": [
+       4
+      ],
+      "0x1224": [
+       4
+      ],
+      "0x1228": [
+       4
+      ],
+      "0x122c": [
+       4
+      ],
+      "0x1230": [
+       4
+      ],
+      "0x1234": [
+       4
+      ],
+      "0x1238": [
+       4
+      ],
+      "0x123c": [
+       1
+      ],
+      "0x123d": [
+       1
+      ],
+      "0x124": [
+       4
+      ],
+      "0x1240": [
+       4
+      ],
+      "0x1244": [
+       4
+      ],
+      "0x1248": [
+       4
+      ],
+      "0x124c": [
+       4
+      ],
+      "0x1250": [
+       4
+      ],
+      "0x128": [
+       4
+      ],
+      "0x12c": [
+       4
+      ],
+      "0x130": [
+       4
+      ],
+      "0x134": [
+       4
+      ],
+      "0x138": [
+       4
+      ],
+      "0x13c": [
+       1
+      ],
+      "0x13d": [
+       1
+      ],
+      "0x13e": [
+       1
+      ],
+      "0x13f": [
+       1
+      ],
+      "0x14": [
+       4
+      ],
+      "0x140": [
+       4
+      ],
+      "0x144": [
+       4
+      ],
+      "0x148": [
+       4
+      ],
+      "0x14c": [
+       4
+      ],
+      "0x150": [
+       4
+      ],
+      "0x154": [
+       4
+      ],
+      "0x158": [
+       4
+      ],
+      "0x15c": [
+       4
+      ],
+      "0x160": [
+       4
+      ],
+      "0x18": [
+       4
+      ],
+      "0x1c": [
+       1
+      ],
+      "0x1d": [
+       1
+      ],
+      "0x20": [
+       4
+      ],
+      "0x24": [
+       1
+      ],
+      "0x25": [
+       1
+      ],
+      "0x26": [
+       1
+      ],
+      "0x27": [
+       1
+      ],
+      "0x28": [
+       4
+      ],
+      "0x2c": [
+       1
+      ],
+      "0x2d": [
+       1
+      ],
+      "0x30": [
+       4
+      ],
+      "0x34": [
+       4
+      ],
+      "0x38": [
+       4
+      ],
+      "0x3c": [
+       1
+      ],
+      "0x3c8": [
+       4
+      ],
+      "0x3cc": [
+       4
+      ],
+      "0x3d": [
+       1
+      ],
+      "0x3d0": [
+       4
+      ],
+      "0x3d4": [
+       4
+      ],
+      "0x3d8": [
+       4
+      ],
+      "0x3dc": [
+       4
+      ],
+      "0x3e": [
+       1
+      ],
+      "0x3e0": [
+       4
+      ],
+      "0x3e4": [
+       4
+      ],
+      "0x3e8": [
+       4
+      ],
+      "0x3f": [
+       1
+      ],
+      "0x40": [
+       1
+      ],
+      "0x41": [
+       1
+      ],
+      "0x44": [
+       4
+      ],
+      "0x48": [
+       1
+      ],
+      "0x49": [
+       1
+      ],
+      "0x4a": [
+       1
+      ],
+      "0x4b": [
+       1
+      ],
+      "0x4c": [
+       1
+      ],
+      "0x4d": [
+       1
+      ],
+      "0x4e": [
+       1
+      ],
+      "0x50": [
+       4
+      ],
+      "0x54": [
+       1
+      ],
+      "0x58": [
+       4
+      ],
+      "0x5c": [
+       1
+      ],
+      "0x5d": [
+       1
+      ],
+      "0x5e": [
+       1
+      ],
+      "0x5f": [
+       1
+      ],
+      "0x60": [
+       1
+      ],
+      "0x61": [
+       1
+      ],
+      "0x62": [
+       1
+      ],
+      "0x64": [
+       4
+      ],
+      "0x650": [
+       4
+      ],
+      "0x654": [
+       4
+      ],
+      "0x658": [
+       4
+      ],
+      "0x65c": [
+       4
+      ],
+      "0x660": [
+       4
+      ],
+      "0x664": [
+       4
+      ],
+      "0x668": [
+       4
+      ],
+      "0x66c": [
+       4
+      ],
+      "0x670": [
+       4
+      ],
+      "0x68": [
+       1
+      ],
+      "0x6c": [
+       4
+      ],
+      "0x70": [
+       4
+      ],
+      "0x74": [
+       4
+      ],
+      "0x78": [
+       4
+      ],
+      "0x7c": [
+       4
+      ],
+      "0x80": [
+       4
+      ],
+      "0x84": [
+       1
+      ],
+      "0x85": [
+       1
+      ],
+      "0x86": [
+       1
+      ],
+      "0x87": [
+       1
+      ],
+      "0x88": [
+       1
+      ],
+      "0x8c": [
+       4
+      ],
+      "0x8d8": [
+       4
+      ],
+      "0x8dc": [
+       4
+      ],
+      "0x8e0": [
+       4
+      ],
+      "0x8fc": [
+       4
+      ],
+      "0x90": [
+       4
+      ],
+      "0x900": [
+       4
+      ],
+      "0x904": [
+       4
+      ],
+      "0x920": [
+       4
+      ],
+      "0x924": [
+       4
+      ],
+      "0x928": [
+       4
+      ],
+      "0x94": [
+       4
+      ],
+      "0x944": [
+       4
+      ],
+      "0x948": [
+       4
+      ],
+      "0x94c": [
+       4
+      ],
+      "0x950": [
+       4
+      ],
+      "0x974": [
+       4
+      ],
+      "0x978": [
+       4
+      ],
+      "0x97c": [
+       4
+      ],
+      "0x98": [
+       4
+      ],
+      "0x980": [
+       4
+      ],
+      "0x984": [
+       4
+      ],
+      "0x988": [
+       4
+      ],
+      "0x98c": [
+       4
+      ],
+      "0x990": [
+       4
+      ],
+      "0x994": [
+       4
+      ],
+      "0x998": [
+       4
+      ],
+      "0x99c": [
+       1
+      ],
+      "0x99d": [
+       1
+      ],
+      "0x99e": [
+       1
+      ],
+      "0x99f": [
+       1
+      ],
+      "0x9a0": [
+       1
+      ],
+      "0x9a1": [
+       1
+      ],
+      "0x9a2": [
+       1
+      ],
+      "0x9a3": [
+       1
+      ],
+      "0x9a4": [
+       1
+      ],
+      "0x9a5": [
+       1
+      ],
+      "0x9a6": [
+       1
+      ],
+      "0x9a7": [
+       1
+      ],
+      "0x9a8": [
+       4
+      ],
+      "0x9ac": [
+       1
+      ],
+      "0x9ad": [
+       1
+      ],
+      "0x9ae": [
+       1
+      ],
+      "0x9af": [
+       1
+      ],
+      "0x9b0": [
+       1
+      ],
+      "0x9b1": [
+       1
+      ],
+      "0x9b4": [
+       4
+      ],
+      "0x9b8": [
+       4
+      ],
+      "0x9bc": [
+       1
+      ],
+      "0x9bd": [
+       1
+      ],
+      "0x9be": [
+       1
+      ],
+      "0x9bf": [
+       1
+      ],
+      "0x9c": [
+       4
+      ],
+      "0x9c0": [
+       1
+      ],
+      "0x9c1": [
+       1
+      ],
+      "0x9c2": [
+       1
+      ],
+      "0x9c3": [
+       1
+      ],
+      "0x9c4": [
+       1
+      ],
+      "0x9c5": [
+       1
+      ],
+      "0x9c6": [
+       1
+      ],
+      "0x9c7": [
+       1
+      ],
+      "0x9c8": [
+       1
+      ],
+      "0x9cc": [
+       4
+      ],
+      "0x9d0": [
+       1
+      ],
+      "0x9d1": [
+       1
+      ],
+      "0x9d2": [
+       1
+      ],
+      "0x9d4": [
+       4
+      ],
+      "0x9d8": [
+       1
+      ],
+      "0x9dc": [
+       4
+      ],
+      "0x9e0": [
+       4
+      ],
+      "0x9e4": [
+       1
+      ],
+      "0x9e8": [
+       4
+      ],
+      "0x9ec": [
+       4
+      ],
+      "0x9f0": [
+       4
+      ],
+      "0x9f4": [
+       4
+      ],
+      "0x9f8": [
+       4
+      ],
+      "0x9fc": [
+       4
+      ],
+      "0xa0": [
+       4
+      ],
+      "0xa00": [
+       4
+      ],
+      "0xa04": [
+       4
+      ],
+      "0xa08": [
+       4
+      ],
+      "0xa0c": [
+       4
+      ],
+      "0xa10": [
+       4
+      ],
+      "0xa14": [
+       4
+      ],
+      "0xa18": [
+       4
+      ],
+      "0xa1c": [
+       4
+      ],
+      "0xa20": [
+       4
+      ],
+      "0xa24": [
+       4
+      ],
+      "0xa28": [
+       4
+      ],
+      "0xa2c": [
+       4
+      ],
+      "0xa30": [
+       4
+      ],
+      "0xa34": [
+       4
+      ],
+      "0xa38": [
+       4
+      ],
+      "0xa3c": [
+       4
+      ],
+      "0xa4": [
+       4
+      ],
+      "0xa40": [
+       4
+      ],
+      "0xa44": [
+       4
+      ],
+      "0xa48": [
+       4
+      ],
+      "0xa4c": [
+       4
+      ],
+      "0xa50": [
+       1
+      ],
+      "0xa54": [
+       4
+      ],
+      "0xa58": [
+       2
+      ],
+      "0xa5c": [
+       4
+      ],
+      "0xa60": [
+       4
+      ],
+      "0xa64": [
+       4
+      ],
+      "0xa68": [
+       4
+      ],
+      "0xa6c": [
+       4
+      ],
+      "0xa70": [
+       4
+      ],
+      "0xa74": [
+       4
+      ],
+      "0xa78": [
+       4
+      ],
+      "0xa7c": [
+       4
+      ],
+      "0xa8": [
+       4
+      ],
+      "0xa80": [
+       4
+      ],
+      "0xa84": [
+       4
+      ],
+      "0xa88": [
+       4
+      ],
+      "0xa8c": [
+       4
+      ],
+      "0xa90": [
+       4
+      ],
+      "0xa94": [
+       4
+      ],
+      "0xa98": [
+       4
+      ],
+      "0xa9c": [
+       4
+      ],
+      "0xaa0": [
+       4
+      ],
+      "0xaa4": [
+       4
+      ],
+      "0xaa8": [
+       4
+      ],
+      "0xaac": [
+       4
+      ],
+      "0xab0": [
+       4
+      ],
+      "0xab4": [
+       1
+      ],
+      "0xab5": [
+       1
+      ],
+      "0xab8": [
+       4
+      ],
+      "0xabc": [
+       4
+      ],
+      "0xac": [
+       4
+      ],
+      "0xac0": [
+       4
+      ],
+      "0xac4": [
+       1
+      ],
+      "0xac5": [
+       1
+      ],
+      "0xac8": [
+       4
+      ],
+      "0xacc": [
+       4
+      ],
+      "0xad0": [
+       4
+      ],
+      "0xae4": [
+       4
+      ],
+      "0xae8": [
+       4
+      ],
+      "0xaf0": [
+       1
+      ],
+      "0xaf1": [
+       1
+      ],
+      "0xaf2": [
+       1
+      ],
+      "0xaf3": [
+       1
+      ],
+      "0xaf4": [
+       1
+      ],
+      "0xaf5": [
+       1
+      ],
+      "0xaf8": [
+       4
+      ],
+      "0xafc": [
+       4
+      ],
+      "0xb0": [
+       4
+      ],
+      "0xb00": [
+       1
+      ],
+      "0xb01": [
+       1
+      ],
+      "0xb04": [
+       4
+      ],
+      "0xb38": [
+       4
+      ],
+      "0xb3c": [
+       4
+      ],
+      "0xb4": [
+       4
+      ],
+      "0xb40": [
+       4
+      ],
+      "0xb44": [
+       4
+      ],
+      "0xb48": [
+       4
+      ],
+      "0xb4c": [
+       4
+      ],
+      "0xb50": [
+       4
+      ],
+      "0xb54": [
+       4
+      ],
+      "0xb58": [
+       1
+      ],
+      "0xb5c": [
+       4
+      ],
+      "0xb60": [
+       4
+      ],
+      "0xb64": [
+       4
+      ],
+      "0xb68": [
+       1
+      ],
+      "0xb69": [
+       1
+      ],
+      "0xb6a": [
+       1
+      ],
+      "0xb6b": [
+       1
+      ],
+      "0xb6c": [
+       1
+      ],
+      "0xb6d": [
+       1
+      ],
+      "0xb6e": [
+       1
+      ],
+      "0xb6f": [
+       1
+      ],
+      "0xb70": [
+       1
+      ],
+      "0xb71": [
+       1
+      ],
+      "0xb74": [
+       4
+      ],
+      "0xb78": [
+       4
+      ],
+      "0xb7c": [
+       4
+      ],
+      "0xb8": [
+       4
+      ],
+      "0xb80": [
+       4
+      ],
+      "0xb84": [
+       4
+      ],
+      "0xb88": [
+       4
+      ],
+      "0xb8c": [
+       4
+      ],
+      "0xb90": [
+       4
+      ],
+      "0xb94": [
+       4
+      ],
+      "0xb98": [
+       4
+      ],
+      "0xb9c": [
+       4
+      ],
+      "0xba0": [
+       4
+      ],
+      "0xba4": [
+       4
+      ],
+      "0xbb4": [
+       1
+      ],
+      "0xbbc": [
+       1
+      ],
+      "0xbbd": [
+       1
+      ],
+      "0xbc": [
+       4
+      ],
+      "0xbc0": [
+       4
+      ],
+      "0xbc4": [
+       4
+      ],
+      "0xbc8": [
+       4
+      ],
+      "0xbcc": [
+       4
+      ],
+      "0xbd0": [
+       4
+      ],
+      "0xbd4": [
+       1
+      ],
+      "0xbd8": [
+       4
+      ],
+      "0xbe8": [
+       1
+      ],
+      "0xbe9": [
+       1
+      ],
+      "0xbea": [
+       1
+      ],
+      "0xc": [
+       4
+      ],
+      "0xc0": [
+       4
+      ],
+      "0xc04": [
+       1
+      ],
+      "0xc08": [
+       4
+      ],
+      "0xc0c": [
+       4
+      ],
+      "0xc10": [
+       4
+      ],
+      "0xc14": [
+       4
+      ],
+      "0xc18": [
+       4
+      ],
+      "0xc1c": [
+       4
+      ],
+      "0xc20": [
+       4
+      ],
+      "0xc24": [
+       4
+      ],
+      "0xc28": [
+       4
+      ],
+      "0xc2c": [
+       4
+      ],
+      "0xc30": [
+       4
+      ],
+      "0xc34": [
+       4
+      ],
+      "0xc38": [
+       4
+      ],
+      "0xc3c": [
+       4
+      ],
+      "0xc4": [
+       4
+      ],
+      "0xc40": [
+       4
+      ],
+      "0xc44": [
+       4
+      ],
+      "0xc48": [
+       4
+      ],
+      "0xc4c": [
+       4
+      ],
+      "0xc50": [
+       4
+      ],
+      "0xc60": [
+       4
+      ],
+      "0xc64": [
+       1
+      ],
+      "0xc65": [
+       1
+      ],
+      "0xc66": [
+       1
+      ],
+      "0xc67": [
+       1
+      ],
+      "0xc68": [
+       1
+      ],
+      "0xc69": [
+       1
+      ],
+      "0xc6a": [
+       1
+      ],
+      "0xc6b": [
+       1
+      ],
+      "0xc6c": [
+       1
+      ],
+      "0xc6d": [
+       1
+      ],
+      "0xc6e": [
+       1
+      ],
+      "0xc6f": [
+       1
+      ],
+      "0xc70": [
+       4
+      ],
+      "0xc74": [
+       1
+      ],
+      "0xc75": [
+       1
+      ],
+      "0xc78": [
+       4
+      ],
+      "0xc7c": [
+       1
+      ],
+      "0xc7d": [
+       1
+      ],
+      "0xc8": [
+       4
+      ],
+      "0xc80": [
+       4
+      ],
+      "0xc88": [
+       4
+      ],
+      "0xc8c": [
+       1
+      ],
+      "0xc90": [
+       4
+      ],
+      "0xc94": [
+       4
+      ],
+      "0xc98": [
+       1
+      ],
+      "0xc9c": [
+       4
+      ],
+      "0xca0": [
+       4
+      ],
+      "0xca4": [
+       1
+      ],
+      "0xcc": [
+       4
+      ],
+      "0xccc": [
+       1
+      ],
+      "0xcd0": [
+       4
+      ],
+      "0xcd4": [
+       4
+      ],
+      "0xcf8": [
+       1
+      ],
+      "0xcf9": [
+       1
+      ],
+      "0xcfa": [
+       1
+      ],
+      "0xcfb": [
+       1
+      ],
+      "0xcfc": [
+       1
+      ],
+      "0xcfd": [
+       1
+      ],
+      "0xcfe": [
+       1
+      ],
+      "0xcff": [
+       1
+      ],
+      "0xd0": [
+       1
+      ],
+      "0xd00": [
+       1
+      ],
+      "0xd01": [
+       1
+      ],
+      "0xd0c": [
+       4
+      ],
+      "0xd10": [
+       4
+      ],
+      "0xd14": [
+       4
+      ],
+      "0xd18": [
+       4
+      ],
+      "0xd1c": [
+       4
+      ],
+      "0xd20": [
+       4
+      ],
+      "0xd24": [
+       1
+      ],
+      "0xd28": [
+       4
+      ],
+      "0xd2c": [
+       1
+      ],
+      "0xd2d": [
+       1
+      ],
+      "0xd2e": [
+       1
+      ],
+      "0xd2f": [
+       1
+      ],
+      "0xd30": [
+       4
+      ],
+      "0xd34": [
+       1
+      ],
+      "0xd35": [
+       1
+      ],
+      "0xd36": [
+       1
+      ],
+      "0xd38": [
+       4
+      ],
+      "0xd3c": [
+       4
+      ],
+      "0xd4": [
+       4
+      ],
+      "0xd40": [
+       4
+      ],
+      "0xd44": [
+       1
+      ],
+      "0xd45": [
+       1
+      ],
+      "0xd46": [
+       1
+      ],
+      "0xd48": [
+       4
+      ],
+      "0xd4c": [
+       4
+      ],
+      "0xd50": [
+       4
+      ],
+      "0xd54": [
+       4
+      ],
+      "0xd58": [
+       4
+      ],
+      "0xd5c": [
+       4
+      ],
+      "0xd64": [
+       4
+      ],
+      "0xd68": [
+       4
+      ],
+      "0xd6c": [
+       4
+      ],
+      "0xd70": [
+       4
+      ],
+      "0xd74": [
+       4
+      ],
+      "0xd78": [
+       4
+      ],
+      "0xd7c": [
+       4
+      ],
+      "0xd8": [
+       4
+      ],
+      "0xd80": [
+       4
+      ],
+      "0xd84": [
+       4
+      ],
+      "0xd88": [
+       4
+      ],
+      "0xd8c": [
+       4
+      ],
+      "0xd90": [
+       4
+      ],
+      "0xd94": [
+       4
+      ],
+      "0xd98": [
+       4
+      ],
+      "0xd9c": [
+       4
+      ],
+      "0xda0": [
+       4
+      ],
+      "0xda4": [
+       4
+      ],
+      "0xda8": [
+       4
+      ],
+      "0xdac": [
+       4
+      ],
+      "0xdb0": [
+       1
+      ],
+      "0xdb4": [
+       4
+      ],
+      "0xdb8": [
+       4
+      ],
+      "0xdbc": [
+       4
+      ],
+      "0xdc": [
+       4
+      ],
+      "0xdc0": [
+       4
+      ],
+      "0xdc4": [
+       4
+      ],
+      "0xdc8": [
+       4
+      ],
+      "0xdcc": [
+       4
+      ],
+      "0xdd0": [
+       1
+      ],
+      "0xdd1": [
+       1
+      ],
+      "0xdd4": [
+       4
+      ],
+      "0xdd8": [
+       4
+      ],
+      "0xddc": [
+       1
+      ],
+      "0xde0": [
+       4
+      ],
+      "0xde4": [
+       4
+      ],
+      "0xde8": [
+       1
+      ],
+      "0xdec": [
+       4
+      ],
+      "0xdf0": [
+       4
+      ],
+      "0xdf4": [
+       4
+      ],
+      "0xdf8": [
+       4
+      ],
+      "0xdfc": [
+       4
+      ],
+      "0xe0": [
+       4
+      ],
+      "0xe00": [
+       4
+      ],
+      "0xe04": [
+       4
+      ],
+      "0xe08": [
+       4
+      ],
+      "0xe0c": [
+       4
+      ],
+      "0xe10": [
+       4
+      ],
+      "0xe14": [
+       4
+      ],
+      "0xe18": [
+       4
+      ],
+      "0xe1c": [
+       4
+      ],
+      "0xe20": [
+       4
+      ],
+      "0xe24": [
+       4
+      ],
+      "0xe28": [
+       4
+      ],
+      "0xe2c": [
+       4
+      ],
+      "0xe30": [
+       4
+      ],
+      "0xe34": [
+       4
+      ],
+      "0xe38": [
+       4
+      ],
+      "0xe3c": [
+       4
+      ],
+      "0xe4": [
+       4
+      ],
+      "0xe40": [
+       4
+      ],
+      "0xe44": [
+       4
+      ],
+      "0xe48": [
+       4
+      ],
+      "0xe4c": [
+       4
+      ],
+      "0xe50": [
+       4
+      ],
+      "0xe54": [
+       4
+      ],
+      "0xe58": [
+       4
+      ],
+      "0xe5c": [
+       4
+      ],
+      "0xe60": [
+       4
+      ],
+      "0xe64": [
+       4
+      ],
+      "0xe68": [
+       4
+      ],
+      "0xe6c": [
+       4
+      ],
+      "0xe70": [
+       4
+      ],
+      "0xe74": [
+       4
+      ],
+      "0xe78": [
+       4
+      ],
+      "0xe7c": [
+       4
+      ],
+      "0xe8": [
+       4
+      ],
+      "0xe80": [
+       4
+      ],
+      "0xe84": [
+       4
+      ],
+      "0xe88": [
+       4
+      ],
+      "0xe8c": [
+       4
+      ],
+      "0xe90": [
+       4
+      ],
+      "0xe94": [
+       4
+      ],
+      "0xe98": [
+       4
+      ],
+      "0xe9c": [
+       1
+      ],
+      "0xe9d": [
+       1
+      ],
+      "0xea0": [
+       4
+      ],
+      "0xea4": [
+       1
+      ],
+      "0xea5": [
+       1
+      ],
+      "0xea6": [
+       1
+      ],
+      "0xea7": [
+       1
+      ],
+      "0xea8": [
+       4
+      ],
+      "0xeac": [
+       4
+      ],
+      "0xec": [
+       4
+      ],
+      "0xf0": [
+       4
+      ],
+      "0xf4": [
+       4
+      ],
+      "0xf8": [
+       4
+      ],
+      "0xfc": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x23631c"
+     ],
+     "value": {
+      "0x0": [
+       "?setTimeOfDay@GlobalData@@QAE_NW4TimeOfDay@@@Z"
+      ],
+      "0x10": [
+       "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+      ],
+      "0x10f4": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x1114": [
+       "??0Rva00236285@@QAE@XZ"
+      ],
+      "0x1138": [
+       "??0Rva00236285@@QAE@XZ"
+      ],
+      "0x1168": [
+       "??0Rva003623E5Member@@QAE@XZ"
+      ],
+      "0x11c": [
+       "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+      ],
+      "0x128": [
+       "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+      ],
+      "0x14": [
+       "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+      ],
+      "0x18": [
+       "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+      ],
+      "0x8c": [
+       "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+      ],
+      "0x9f0": [
+       "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+      ],
+      "0x9f4": [
+       "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+      ],
+      "0x9fc": [
+       "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+      ],
+      "0xa00": [
+       "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+      ],
+      "0xa08": [
+       "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+      ],
+      "0xa0c": [
+       "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+      ],
+      "0xa14": [
+       "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+      ],
+      "0xa18": [
+       "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+      ],
+      "0xa20": [
+       "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+      ],
+      "0xa24": [
+       "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+      ],
+      "0xa2c": [
+       "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+      ],
+      "0xa30": [
+       "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+      ],
+      "0xa38": [
+       "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+      ],
+      "0xa3c": [
+       "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+      ],
+      "0xabc": [
+       "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+      ],
+      "0xac0": [
+       "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+      ],
+      "0xaec": [
+       "??0?$StringBase@D@@AAE@PBD@Z"
+      ],
+      "0xb08": [
+       "??0Version@@QAE@XZ"
+      ],
+      "0xba4": [
+       "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+      ],
+      "0xba8": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0xbdc": [
+       "?setFromInt@RGBColor@@QAEXH@Z"
+      ],
+      "0xbec": [
+       "?setFromInt@RGBColor@@QAEXH@Z"
+      ],
+      "0xc": [
+       "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+      ],
+      "0xc54": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0xd04": [
+       "??0?$StringBase@D@@AAE@PBD@Z"
+      ],
+      "0xd08": [
+       "??0?$StringBase@D@@AAE@PBD@Z"
+      ],
+      "0xeb0": [
+       "??0Rva003623E5Member@@QAE@XZ"
+      ],
+      "0xeb4": [
+       "??0Rva003623E5Member@@QAE@XZ"
+      ],
+      "0xeb8": [
+       "??0Rva003623E5Member@@QAE@XZ"
+      ],
+      "0xebc": [
+       "??0Rva003623E5Member@@QAE@XZ"
+      ],
+      "0xec0": [
+       "??0Rva003623E5Member@@QAE@XZ"
+      ],
+      "0xec4": [
+       "??0MultiPlayMults@@QAE@XZ"
+      ]
+     }
+    },
+    "sizeof": {
+     "kind": "target",
+     "rule": "retail-operator-new",
+     "sites": [
+      "0x237a8f"
+     ],
+     "value": 4692
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x23631c"
+     ],
+     "value": {
+      "0x0": "0x7ed1c4"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7ed1c4"
+     ],
+     "value": {
+      "count": 14,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GGlobalData@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x237cfd"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 1,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+        "slot": 2,
+        "target": "0x1b5384"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 3,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?vslot04@GlobalData@@UAE_NH@Z",
+        "slot": 4,
+        "target": "0x23624a"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 5,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?vslot06@GlobalData@@UAEHXZ",
+        "slot": 6,
+        "target": "0x2376c6"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 7,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?reset@GlobalData@@UAEXXZ",
+        "slot": 9,
+        "target": "0x235736"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 10,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 11,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 12,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 13,
+        "target": "0x47a69c"
+       }
+      ],
+      "table": "0x7ed1c4"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 7,
+  "retail_vtables": {
+   "0x7ed1c4": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GGlobalData@@UAEPAXI@Z",
+     "1": "??1Region2D@@QAE@XZ",
+     "2": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+     "3": "??1Region2D@@QAE@XZ",
+     "4": "?vslot04@GlobalData@@UAE_NH@Z",
+     "5": "?IsCRC@Xfer@@UBE_NXZ",
+     "6": "?vslot06@GlobalData@@UAEHXZ",
+     "7": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "8": "??1Region2D@@QAE@XZ",
+     "9": "?reset@GlobalData@@UAEXXZ",
+     "10": "??1Region2D@@QAE@XZ",
+     "11": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "12": "??1Region2D@@QAE@XZ",
+     "13": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 2,
+  "view_sizes": {
+   "1": 4,
+   "16": 1,
+   "45": 2,
+   "56": 1,
+   "65": 1,
+   "97": 4,
+   "128": 1,
+   "188": 1,
+   "216": 1,
+   "2372": 1,
+   "2444": 1,
+   "2466": 1,
+   "2520": 2,
+   "2544": 2,
+   "2656": 1,
+   "2712": 1,
+   "2736": 1,
+   "2756": 2,
+   "2792": 1,
+   "3052": 1,
+   "3100": 1,
+   "3383": 1,
+   "3760": 1,
+   "4360": 1,
+   "4368": 2,
+   "4504": 1,
+   "4552": 1
+  },
+  "views": 38,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_GlobalData.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/GlobalData.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "A",
+   "name": "prefix",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 12,
+   "type": "char[12]",
+   "views": 9,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 6
+ },
+ "outliers": [
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/Recorder.cpp",
+    "Code/GameEngine/Source/Common/Rva0041AD08Read.cpp",
+    "Code/GameEngine/Source/Common/System/Rva00377064Update.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSkirmishCallbacks.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/Recorder.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 38,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDraw.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/Common/BfmeOwnVVD.cpp",
+    "Code/GameEngine/Source/Common/CommandLineWindow.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0023C322Resolution.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0023C322Resolution.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 64,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBuffer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 96,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldVisual.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawRva000B61AB.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowManagerAddShadow.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DVolumetricShadowRenderShadows.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 120,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/OldPolygonTrigger.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 124,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/OldPolygonTrigger.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 180,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Body/ActiveBodyConstructor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 184,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Body/ActiveBodyConstructor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 212,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 308,
+   "sources": [
+    "Code/GameEngine/Source/Common/rva00235312Rva00235312Farm.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 312,
+   "sources": [
+    "Code/GameEngine/Source/Common/rva00235312Rva00235312Farm.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 320,
+   "sources": [
+    "Code/GameEngine/Source/Common/rva00235312Rva00235312Farm.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 968,
+   "sources": [
+    "Code/GameEngine/Source/Common/rva00235312Rva00235312Farm.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1616,
+   "sources": [
+    "Code/GameEngine/Source/Common/rva00235312Rva00235312Farm.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2264,
+   "sources": [
+    "Code/GameEngine/Source/Common/rva00235312Rva00235312Farm.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/W3DWaterDrawRiverWater.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 2300,
+   "sources": [
+    "Code/GameEngine/Source/Common/rva00235312Rva00235312Farm.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/W3DWaterDrawRiverWater.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 2336,
+   "sources": [
+    "Code/GameEngine/Source/Common/rva00235312Rva00235312Farm.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/W3DWaterDrawRiverWater.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 2440,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/W3DWaterDrawRiverWater.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2460,
+   "sources": [
+    "Code/GameEngine/Source/Common/CommandLineNoAudio.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2461,
+   "sources": [
+    "Code/GameEngine/Source/Common/CommandLineNoAudio.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2462,
+   "sources": [
+    "Code/GameEngine/Source/Common/CommandLineNoAudio.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2463,
+   "sources": [
+    "Code/GameEngine/Source/Common/CommandLineNoAudio.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2464,
+   "sources": [
+    "Code/GameEngine/Source/Common/CommandLineNoAudio.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2465,
+   "sources": [
+    "Code/GameEngine/Source/Common/CommandLineNoAudio.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2488,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/InGameUICreateMouseoverHint.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2516,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerTemplate.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSkirmishCallbacks.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 2540,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AFB2A.cpp",
+    "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva0055F840Ctor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 2652,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/InGameUICreateMouseoverHint.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2708,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0029A94FClear.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2732,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewInit.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2752,
+   "sources": [
+    "Code/GameEngine/Source/Common/Recorder.cpp",
+    "Code/GameEngine/Source/Common/System/Rva00377064Update.cpp",
+    "Code/GameEngine/Source/GameNetwork/LANAPICallbacks.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 2756,
+   "sources": [
+    "Code/GameEngine/Source/Common/Recorder.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2772,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2788,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2805,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDraw.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2820,
+   "sources": [
+    "Code/GameEngine/Source/Common/Recorder.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2824,
+   "sources": [
+    "Code/GameEngine/Source/Common/Recorder.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 3005,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDraw.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 3036,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudMaterialPass.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 3040,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudMaterialPass.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 3044,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudMaterialPass.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 3050,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudMaterialPass.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 3096,
+   "sources": [
+    "Code/GameEngine/Source/Common/ConnectionManagerPlayerPredicates.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 3156,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDraw.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 3160,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDraw.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 3382,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/LoadScreen_ShellGameInit.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 3744,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDraw.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 3748,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDraw.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 3750,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDraw.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 3751,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDraw.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 3752,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDraw.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 3756,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDraw.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 4352,
+   "sources": [
+    "Code/GameEngine/Source/Common/Recorder.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 4353,
+   "sources": [
+    "Code/GameEngine/Source/Common/Recorder.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 4356,
+   "sources": [
+    "Code/GameEngine/Source/Common/Recorder.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 4364,
+   "sources": [
+    "Code/GameEngine/Source/Common/StatsReporter.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 4460,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 4468,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 4500,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 4548,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateTargetPositions.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 4692,
+ "size_by": "retail-new",
+ "vslots": {}
+}
