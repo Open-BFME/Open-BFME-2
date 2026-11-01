@@ -90,3 +90,27 @@ Message donor: add existing nonvirtual message dispatch declarations to canonica
 Destroy-list donor: plain virtual ~GameWindow then delete-original-pointer differs by one byte: pushEDI instead of native pushEAX at2C0966. Native2C095F..2C0967 explicitly calls vptr[0] with ECX=window/flags0 then passes returned pointer to operator delete2FD60. Use a typed native member-function pointer to that same canonical native slot, no private class or default. This preserves the actual returned-allocation-pointer ABI even if a derived deleting thunk adjusts it. Full native137B and every runtime relocation/provider must remain exact.
 
 VC6 rejects a free-function __thiscall pointer (C4234); use its single-inheritance member-function-pointer representation with sizeof checked at compile time. The address comes only from canonical native slot0, never a new class method/provider.
+
+## Completed served scope
+
+All seven served sources now include the canonical GameWindow header; no
+private GameWindow definition remains in any of them. The two consumers that
+own WinInstanceData construction/destruction also use its canonical header.
+Each donor was committed separately after byte verification, header acceptance,
+frozen checks, and the full seven-unit runtime comparison. Total native rows:
+85/85, including four exact EH-bearing rows across owner, destructor and Apt.
+No rows moved, sources deleted, pin/alias added, or module-root header changed.
+
+Final runtime comparison: 103 nondebug sections, 85 external definitions, and
+three weak bindings are identical to the retained seven baseline objects.
+That compares section bytes, characteristics, COMDAT selection/association,
+resolved relocation graph, public providers, and weak fallback targets; debug
+labels may renumber. It includes both emitted GameWindow eleven-slot tables
+and all native providers, with pure slot7 and deleting-destructor E/G behavior
+unchanged. The Apt donor still assigns the same explicit derived tables.
+
+The destroy-list expression reads the member-pointer lvalue directly from
+native slot0. A temporary union instead compiled an extra target-load, and the
+ordinary C++ destructor/delete form freed the original rather than returned
+pointer. Neither failed trial remains in Code. The final direct expression
+matches all 137 native bytes, all relocations, and emits no extra provider.
