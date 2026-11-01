@@ -1,4 +1,4 @@
-// cl: /I. /Ireference/shims/sweep /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas
+// cl: /I. /Ireference/shims/sweep /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil
 /*
 ** Copyright 2025 Electronic Arts Inc.
 ** SPDX-License-Identifier: GPL-3.0-or-later
@@ -29,41 +29,7 @@ extern "C" { static float __cdecl floorf(float); }
 enum { SNOW_NOISE_X = 64, SNOW_NOISE_Y = 64 };
 #define SNOW_BATCH_SIZE 2048
 
-class RenderObjClass
-{
-public:
-	virtual void slot00(void);
-	virtual void slot04(void);
-	virtual void slot08(void);
-	virtual void slot0C(void);
-	virtual void slot10(void);
-	virtual void slot14(void);
-	virtual void slot18(void);
-	virtual void slot1C(void);
-	virtual void slot20(void);
-	virtual void slot24(void);
-	virtual void slot28(void);
-	virtual void slot2C(void);
-	virtual void slot30(void);
-	virtual void slot34(void);
-	virtual void slot38(void);
-	virtual void slot3C(void);
-	virtual void slot40(void);
-	virtual void slot44(void);
-	virtual void slot48(void);
-	virtual void slot4C(void);
-	virtual void Validate_Transform(void) const;	// slot 0x50
-
-	const Matrix3D &Get_Transform(void) const
-	{
-		Validate_Transform();
-		return Transform;
-	}
-
-private:
-	char m_pad04[0x18 - 4];
-	Matrix3D Transform;	// +0x18
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"
 
 class CameraClass : public RenderObjClass
 {

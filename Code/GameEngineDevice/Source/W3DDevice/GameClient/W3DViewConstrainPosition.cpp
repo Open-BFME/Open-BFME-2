@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /Oy- /ICode/Libraries/Include/Lib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
+// cl: /DNDEBUG /MD /EHsc /Oy- /ICode/Libraries/Include/Lib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // Native860AF..8615B and WB991E30 prove the constrained-position helper.
 // BFME1/GeneralsMD W3DView camera constraints provide the subsystem context;
 // target adds a camera-minus-position horizontal quarter-offset around the
@@ -8,7 +8,7 @@
 // are independently read from target. Original member name remains unknown.
 #include "vector3.h"
 #include "Coord3D.h"
-class RenderObjClass {public:Vector3 Get_Position()const;};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"
 class BfmeConstraintSettings {public:
  virtual void v00();virtual void v01();virtual void v02();virtual void v03();
  virtual void v04();virtual void v05();virtual void v06();virtual void v07();
