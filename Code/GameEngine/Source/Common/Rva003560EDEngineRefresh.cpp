@@ -62,11 +62,7 @@ public:
 	GameFont *getFont(const AsciiString *name, float pointSize, bool bold);
 };
 extern FontLibrary *TheFontLibrary;
-class GameTextInterface : public VirtualSlots<14>
-{
-public:
-	virtual UnicodeString fetch(const AsciiString &label, bool *exists);
-};
+#include "../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 class GlobalData
 {

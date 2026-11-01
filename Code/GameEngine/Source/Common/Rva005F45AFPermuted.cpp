@@ -7,17 +7,7 @@
 #include "unicode_string.h"
 #include <bitset>
 template<> bool _STL::_Base_bitset<24>::_M_is_any() const;
-class GameTextInterface {
-public:
- virtual ~GameTextInterface() {}
- virtual void s00()=0; virtual void s04()=0; virtual void s08()=0;
- virtual void s0c()=0; virtual void s10()=0; virtual void s14()=0;
- virtual void s18()=0; virtual void s1c()=0; virtual void s20()=0;
- virtual void s24()=0; virtual void s28()=0; virtual void s2c()=0;
- virtual void s30()=0;
- virtual UnicodeString fetch(const char*,bool *exists=0)=0;
- virtual UnicodeString fetch(const AsciiString&,bool *exists=0)=0;
-};
+#include "../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 class UpgradeTemplate;
 class UpgradeCenter { public: const UpgradeTemplate *rva0026EEA0(int) const; };

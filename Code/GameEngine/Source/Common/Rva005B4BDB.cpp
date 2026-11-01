@@ -7,26 +7,7 @@ template <> bool StringBase<unsigned short>::isEmpty() const throw();
 #include "../../Include/GameClient/Bfme2GameWindow.h"
 UnicodeString GadgetTextEntryGetText(GameWindow *textEntry);
 typedef bool Bool;
-class GameTextInterface
-{
-public:
-	virtual void slot00() = 0;
-	virtual void slot01() = 0;
-	virtual void slot02() = 0;
-	virtual void slot03() = 0;
-	virtual void slot04() = 0;
-	virtual void slot05() = 0;
-	virtual void slot06() = 0;
-	virtual void slot07() = 0;
-	virtual void slot08() = 0;
-	virtual void slot09() = 0;
-	virtual void slot10() = 0;
-	virtual void slot11() = 0;
-	virtual void slot12() = 0;
-	virtual void slot13() = 0;
-	virtual void slot14() = 0;
-	virtual UnicodeString fetch(const char *label, Bool *exists = 0) = 0;
-};
+#include "../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 void Rva00437E84(int type, const UnicodeString &text, const UnicodeString &title);
 class IMEManager

@@ -26,15 +26,7 @@ public:
 	AsciiString m_name;
 };
 
-class GameTextInterface
-{
-public:
-#define SLOT(n) virtual void slot##n();
-    SLOT(0) SLOT(1) SLOT(2) SLOT(3) SLOT(4) SLOT(5) SLOT(6)
-    SLOT(7) SLOT(8) SLOT(9) SLOT(10) SLOT(11) SLOT(12) SLOT(13)
-#undef SLOT
-    virtual UnicodeString fetch(const AsciiString &, bool *);
-};
+#include "../../Include/GameClient/GameText.h"
 
 extern GameTextInterface *TheGameText;
 

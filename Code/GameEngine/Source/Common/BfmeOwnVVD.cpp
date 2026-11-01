@@ -411,26 +411,7 @@ public:
 
 extern Shell *TheShell;
 
-class GameTextInterface {public:
-virtual void g0();
-virtual void g1();
-virtual void g2();
-virtual void g3();
-virtual void g4();
-virtual void g5();
-virtual void g6();
-virtual void g7();
-virtual void g8();
-virtual void g9();
-virtual void g10();
-virtual void g11();
-virtual void g12();
-virtual void g13();
-virtual void g14();
-virtual void g15();
-virtual void g16();
-virtual UnicodeString *fetchPtr(const char *, bool *);
-};
+#include "../../Include/GameClient/GameText.h"
 
 extern GameTextInterface *TheGameText;
 

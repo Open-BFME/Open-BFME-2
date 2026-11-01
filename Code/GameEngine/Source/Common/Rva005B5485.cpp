@@ -72,10 +72,7 @@ class ModuleData;
 class Rva00423A68 { public: void rva00423A68(const ModuleData *); };
 class BfmeAptWindowManager { public: void bfmeSetText(const AsciiString &, const UnicodeString &, bool); };
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
-class GameTextInterface {
-public:
-    virtual UnicodeString fetchLabel(const AsciiString &, bool *exists = 0);
-};
+#include "../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 class Rva005B566B {
 public:

@@ -3,29 +3,7 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 
-class GameTextInterface
-{
-public:
-	virtual ~GameTextInterface() {}
-	virtual void slot04() = 0;
-	virtual void slot08() = 0;
-	virtual void slot0C() = 0;
-	virtual void slot10() = 0;
-	virtual void slot14() = 0;
-	virtual void slot18() = 0;
-	virtual void slot1C() = 0;
-	virtual void slot20() = 0;
-	virtual void slot24() = 0;
-	virtual void slot28() = 0;
-	virtual void slot2C() = 0;
-	virtual void slot30() = 0;
-	virtual void slot34() = 0;
-	// ZH's two fetch overloads; MSVC 7.1 lays an overload set out in reverse
-	// declaration order, so the AsciiString one lands at 0x38.
-	virtual UnicodeString fetch(const char *label, bool *exists = 0) = 0;
-	virtual UnicodeString fetch(const AsciiString &label, bool *exists = 0) = 0;
-	virtual const UnicodeString *fetchFormat(const AsciiString &label, int a) = 0;
-};
+#include "../../Include/GameClient/GameText.h"
 
 extern GameTextInterface *TheGameText;
 
