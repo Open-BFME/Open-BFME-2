@@ -14,14 +14,7 @@ void __debugbreak();
 
 #pragma intrinsic(strlen)
 
-class EAStringC
-{
-	void *m_pData;
-public:
-	bool IsEmpty() const;
-	unsigned int rva006D3750() const;
-	bool rva006D3510(const char *text) const;
-};
+#include "../../Apt/EAStringC.h"
 
 extern "C" EAStringC bfmeObjDAE[178]; // existing owner at 0x00E18388
 

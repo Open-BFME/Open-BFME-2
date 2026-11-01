@@ -20,15 +20,7 @@
 #pragma intrinsic(memset)
 void __debugbreak();
 #pragma intrinsic(__debugbreak)
-class EAStringC {
- void *m_data;
-public:
- EAStringC(const char *);
- ~EAStringC();
- EAStringC &operator=(const EAStringC &);
- bool rva006CD4A0() const;
- void rva006D3C60();
-};
+#include "../../Apt/EAStringC.h"
 class Rva006DB160 { public: void *allocBlock(int); };
 class Rva006DB270; extern Rva006DB270 *g_pChainBlockAllocator;
 extern "C" EAStringC bfmeObjDAE[178];

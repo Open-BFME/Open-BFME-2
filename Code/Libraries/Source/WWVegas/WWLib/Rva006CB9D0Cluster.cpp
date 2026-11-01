@@ -41,11 +41,7 @@ void *Rva006CB9D0(const char *szValue)
 // strings), creates an empty value through the same 0x006D7090 helper and
 // formats the variadic arguments into its +8 EAStringC through the rowed
 // va_list formatter 0x006D53F0. Address-derived name, as above.
-class EAStringC
-{
-public:
-	void rva006D53F0(const char *szFormat, char *args);
-};
+#include "../../Apt/EAStringC.h"
 
 void *Rva006CBAD0Format(const char *szFormat, ...)
 {

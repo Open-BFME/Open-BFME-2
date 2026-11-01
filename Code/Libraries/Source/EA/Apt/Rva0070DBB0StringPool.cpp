@@ -38,20 +38,7 @@ public:
 };
 extern AptValueVector *g_releaseVectorAtE17710;
 
-class EAStringC {
-  void *m_pData;
-
-public:
-  EAStringC(const char *);
-  ~EAStringC();
-  EAStringC &operator=(const EAStringC &);
-  unsigned short rva006D2F40() const;
-  bool rva006D3490(const char *) const;
-  void rva006D3BA0() const;
-  unsigned int GetInternalRefCount() const;
-  unsigned int rva006D3750() const;
-  void rva006D3470();
-};
+#include "../../Apt/EAStringC.h"
 
 struct StringNode0070D9F0 {
   void *m_vtbl;

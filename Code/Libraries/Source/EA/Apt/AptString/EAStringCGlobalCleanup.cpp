@@ -6,14 +6,7 @@
 // The one-pointer value layout is shared with EAStringCRefCount.cpp.
 #include <stdlib.h>
 
-class EAStringC
-{
-    class StringDataC;
-    StringDataC *m_pData;
-public:
-    ~EAStringC();
-    EAStringC &clear();
-};
+#include "../../../Apt/EAStringC.h"
 
 extern void *g_eaStringAtE177D4Storage;
 extern void *g_eaStringAtE18060Storage;
