@@ -18,24 +18,7 @@ public:
 	int m_waypointID;
 };
 
-class Path
-{
-public:
-	int GetNextPortalID();
-
-private:
-	void *m_unknown00;
-	PathNode *m_path;
-	PathNode *m_pathTail;
-	bool m_isOptimized;
-	bool m_unknown0D;
-	PathNode *m_unknown10;
-	float m_unknown14;
-	float m_unknown18;
-	float m_unknown1C;
-	float m_unknown20;
-	int m_unknown24;
-};
+#include "../../../Include/GameLogic/PathfindPath.h"
 
 int Path::GetNextPortalID()
 {
@@ -43,7 +26,7 @@ int Path::GetNextPortalID()
 	PathNode *node;
 	if (m_path == 0)
 		return max;
-	node = m_unknown10;
+	node = field_10;
 	if (node == 0)
 		return max;
 	while (node != 0 && node->m_waypointID == max)

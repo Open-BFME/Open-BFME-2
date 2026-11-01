@@ -28,26 +28,7 @@ enum PathfindLayerEnum
 	LAYER_GROUND = 1
 };
 
-class Path
-{
-public:
-	Path();
-	~Path();
-	void appendNode(const Coord3D *pos, PathfindLayerEnum layer, int waypointID);
-
-private:
-	void *m_unknown00;
-	PathNode *m_path;
-	PathNode *m_pathTail;
-	Bool m_isOptimized;
-	Bool m_unknown0D;
-	Int m_unknown10;
-	Real m_unknown14;
-	Real m_unknown18;
-	Real m_unknown1C;
-	Real m_unknown20;
-	Int m_unknown24;
-};
+#include "../../../Include/GameLogic/PathfindPath.h"
 
 struct Rva002EDEABSrcNode
 {

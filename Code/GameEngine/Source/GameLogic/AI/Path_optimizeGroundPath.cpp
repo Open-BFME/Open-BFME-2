@@ -52,17 +52,7 @@ private:
 extern AI *TheAI;
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/AIPathfind.h
-class Path
-{
-public:
-	void optimizeGroundPath(Int pathDiameter);
-
-private:
-	void *m_vtable;
-	PathNode *m_path;
-	PathNode *m_pathTail;
-	Bool m_isOptimized;
-};
+#include "../../../Include/GameLogic/PathfindPath.h"
 
 Int isGroundOrBridgeLayer(Int);
 // ?optimizeGroundPath@Path@@QAEXH@Z

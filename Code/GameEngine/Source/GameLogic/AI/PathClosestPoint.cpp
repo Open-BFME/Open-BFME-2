@@ -11,12 +11,12 @@
 class AI;extern AI *TheAI;
 struct PathAIView {char unknown[0x10];Pathfinder *pathfinder;};
 class PathNode {public:PathNode *next,*previous,*nextOptimized;Coord3D position;int layer;bool canOptimize;int waypointID;};
-class Path {public:bool DoAdvanceAlongPath(const Coord3D*,bool);private:void *unknown;PathNode *path,*tail;bool optimized;char pad[3];PathNode *selected;float fraction;};
+#include "../../../Include/GameLogic/PathfindPath.h"
 bool Path::DoAdvanceAlongPath(const Coord3D *position,bool useOptimized) {
- if(!path)return false;
+ if(!m_path)return false;
  PathNode *bestNode=0;
- if(!selected)selected=path;
- PathNode *node=selected;
+ if(!field_10)field_10=m_path;
+ PathNode *node=field_10;
  float bestDistance=10000000000.0f;
  float bestFraction=0.0f;
  PathNode *next=node->nextOptimized;
@@ -36,7 +36,7 @@ bool Path::DoAdvanceAlongPath(const Coord3D *position,bool useOptimized) {
   next=node->nextOptimized;
  }
  if(bestNode) {
-  selected=bestNode;fraction=bestFraction;
+  field_10=bestNode;field_14=bestFraction;
   ((PathAIView*)TheAI)->pathfinder->SetDebugPathPosition(position);
   return true;
  }

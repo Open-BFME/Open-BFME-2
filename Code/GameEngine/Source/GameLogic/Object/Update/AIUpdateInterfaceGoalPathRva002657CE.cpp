@@ -36,17 +36,7 @@ enum PathfindLayerEnum
 
 class Object;
 
-class Path
-{
-public:
-	Path();
-	~Path();
-	void appendNode(const Coord3D *pos, PathfindLayerEnum layer, int extra);	// appendNode
-	void rva00364551(Object *obj, int surfaces, bool blocked, const float *facing);
-	void rva00365E98(Object *obj, const Coord3D *dir, int surfaces, Bool flag);
-private:
-	unsigned char m_pad00[0x28];
-};
+#include "../../../../Include/GameLogic/PathfindPath.h"
 
 #include <new>
 

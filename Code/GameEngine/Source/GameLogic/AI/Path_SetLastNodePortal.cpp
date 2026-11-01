@@ -19,24 +19,7 @@ public:
 	int m_waypointID;
 };
 
-class Path
-{
-public:
-	void SetLastNodePortal(int id);
-
-private:
-	void *m_unknown00;
-	PathNode *m_path;
-	PathNode *m_pathTail;
-	bool m_isOptimized;
-	bool m_unknown0D;
-	PathNode *m_unknown10;
-	float m_unknown14;
-	float m_unknown18;
-	float m_unknown1C;
-	float m_unknown20;
-	int m_unknown24;
-};
+#include "../../../Include/GameLogic/PathfindPath.h"
 
 void Path::SetLastNodePortal(int id)
 {

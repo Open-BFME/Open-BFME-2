@@ -60,13 +60,7 @@ class Pathfinder {public:
 };
 #include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
-class Path {public:
- bool rva00365309(Object *,PathNode *,const Coord3D *,DirectionOptions *,int,float,bool);
- void rva003649B1(const PathNode *);
- void appendNode(const Coord3D *,PathfindLayerEnum,int);
- void rva00364AA2(PathNode *,PathNode *,PathNode *,float);
- int rva003641AE(float,float);
-};
+#include "../../../Include/GameLogic/PathfindPath.h"
 bool Path::rva00365309(Object *obj,PathNode *node,const Coord3D *input,DirectionOptions *options,int surfaces,float maxAngle,bool blocked)
 {
  PathNode *next=node->nextOptimized;

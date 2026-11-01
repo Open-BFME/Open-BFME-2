@@ -28,12 +28,7 @@ enum PathfindLayerEnum
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
-class Path
-{
-public:
-	void appendNode(const Coord3D *pos, PathfindLayerEnum layer, int flags);
-	void appendNode(const Coord3D *pos, PathfindLayerEnum layer) { appendNode(pos, layer, 0x7fffffff); }
-};
+#include "../../../Include/GameLogic/PathfindPath.h"
 class Locomotor
 {
 public:

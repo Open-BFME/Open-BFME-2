@@ -21,14 +21,7 @@ struct PathNode
 	PathNode *m_next;
 };
 
-class Path
-{
-	void *m_unknown00;
-	PathNode *m_head04;
-
-public:
-	~Path();
-};
+#include "../../../Include/GameLogic/PathfindPath.h"
 
 // ?FreePooledNode@@YAXPAX@Z, retail 0x00265488, 22 bytes. Null-checked
 // pool free: drops nulls, otherwise returns the node to the path pool.
@@ -43,7 +36,7 @@ void __cdecl FreePooledNode(void *node)
 // returning each node to the path pool.
 Path::~Path()
 {
-	PathNode *node = m_head04;
+	PathNode *node = m_path;
 	if (node == NULL)
 		return;
 	PathNode *next;

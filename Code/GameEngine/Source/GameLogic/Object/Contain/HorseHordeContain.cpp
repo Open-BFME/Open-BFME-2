@@ -24,7 +24,7 @@ struct Rva003642DFNode;
 
 struct Rva003642DFResult {Rva003642DFNode*m_node;Coord3D m_pos;};
 
-class Path {public:Rva003642DFResult rva00364521(const Rva0008BB38FloatField*);};
+#include "../../../../Include/GameLogic/PathfindPath.h"
 
 // Zero Hour's AICommandInterface takes a CommandSourceType (row 0x0026C26D).
 enum CommandSourceType { CMD_FROM_PLAYER = 0, CMD_FROM_SCRIPT, CMD_FROM_AI, CMD_FROM_DOZER, CMD_DEFAULT_SWITCH_WEAPON };

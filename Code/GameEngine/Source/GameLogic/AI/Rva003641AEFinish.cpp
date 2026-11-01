@@ -27,7 +27,7 @@ __forceinline long fast_float2long_round(float f)
 }
 
 // Retail caller 0x00364FAD and WB F24175 both set ECX to Path this.
-class Path { public: int rva003641AE(float a, float b); };
+#include "../../../Include/GameLogic/PathfindPath.h"
 
 int Path::rva003641AE(float a, float b)
 {

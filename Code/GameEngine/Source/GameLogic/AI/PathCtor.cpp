@@ -19,36 +19,19 @@ struct PathNode
 	PathNode *m_next;
 };
 
-class Path
-{
-public:
-	Path();
-
-private:
-	void *m_unknown00;
-	PathNode *m_path;
-	PathNode *m_pathTail;
-	Bool m_isOptimized;
-	Bool m_unknown0D;
-	Int m_unknown10;
-	Real m_unknown14;
-	Real m_unknown18;
-	Real m_unknown1C;
-	Real m_unknown20;
-	Int m_unknown24;
-};
+#include "../../../Include/GameLogic/PathfindPath.h"
 
 Path::Path()
 {
-	m_unknown24 = -1;
-	m_unknown00 = 0;
+	field_24 = -1;
+	field_00 = 0;
 	m_path = 0;
 	m_pathTail = 0;
 	m_isOptimized = false;
-	m_unknown0D = false;
-	m_unknown10 = 0;
-	m_unknown14 = 0.0f;
-	m_unknown18 = 0.0f;
-	m_unknown1C = 0.0f;
-	m_unknown20 = 0.0f;
+	m_blockedByAlly = false;
+	field_10 = 0;
+	field_14 = 0.0f;
+	field_18 = 0.0f;
+	field_1C = 0.0f;
+	field_20 = 0.0f;
 }

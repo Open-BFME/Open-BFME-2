@@ -259,13 +259,7 @@ struct Rva003642DFResult
 	Rva003642DFNode *m_node; // +0x00
 	Coord3D m_pos; // +0x04
 };
-class Path
-{
-public:
-	Rva003642DFResult rva003642DF(float dist);
-	// Zero Hour's appendNode with a BFME 2 third argument.
-	void appendNode(const Coord3D *pos, PathfindLayerEnum layer, int bfmeArg);
-};
+#include "../../../Include/GameLogic/PathfindPath.h"
 #include "../../../Include/GameLogic/AIPathfind.h"
 struct TAiData
 {

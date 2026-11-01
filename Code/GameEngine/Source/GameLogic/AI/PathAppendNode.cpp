@@ -43,17 +43,7 @@ public:
 
 extern Rva00065964ObjectPool g_pathNodePool;
 
-class Path
-{
-public:
-	void appendNode(const Coord3D *pos, PathfindLayerEnum layer, int waypointID);
-
-private:
-	char m_pad00[4];
-	PathNode *m_path;
-	PathNode *m_pathTail;
-	Bool m_isOptimized;
-};
+#include "../../../Include/GameLogic/PathfindPath.h"
 
 __declspec(noinline) inline void Path::appendNode(const Coord3D *pos, PathfindLayerEnum layer, int waypointID)
 {

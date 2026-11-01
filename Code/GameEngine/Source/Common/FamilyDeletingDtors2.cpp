@@ -16,7 +16,7 @@ class BfmeStringTailRecord156 { public: ~BfmeStringTailRecord156(); };
 void famgenDelete(BfmeStringTailRecord156 *record) { delete record; }
 
 // ??_GPath@@QAEPAXI@Z @0x262895
-class Path { public: ~Path(); };
+#include "../../Include/GameLogic/PathfindPath.h"
 void famgenDelete(Path *path) { delete path; }
 
 // ??_GRva002AF6C5Element@@QAEPAXI@Z @0x2af4d1 (the 0x24-byte record whose dtor is 0x2af1ec)

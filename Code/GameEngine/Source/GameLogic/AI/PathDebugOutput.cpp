@@ -31,12 +31,7 @@ public:
     Coord3DView m_pos; // +0x0C
 };
 
-class Path
-{
-public:
-    void *m_00;
-    PathNode *m_path; // +0x04
-};
+#include "../../../Include/GameLogic/PathfindPath.h"
 
 Debug &operator<<(Debug &debug, const Path &path)
 {

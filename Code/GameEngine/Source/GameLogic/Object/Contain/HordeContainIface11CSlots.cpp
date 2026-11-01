@@ -288,11 +288,7 @@ public:
 // 0x00364521, the rowed Path member: the path point for the +0x1F0 member's
 // distance (returns the 16-byte node+position value of 0x003642DF).
 class Rva0008BB38FloatField;
-class Path
-{
-public:
-	Rva003642DFResult rva00364521(const Rva0008BB38FloatField *field);
-};
+#include "../../../../Include/GameLogic/PathfindPath.h"
 // What 0x003642DF/0x00364521 return by value (16 bytes): a node and a
 // position; 0x001E3511 reads its node's level value (0x7FFFFFFF without one).
 struct Rva003642DFResult

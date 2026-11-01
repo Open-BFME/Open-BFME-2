@@ -1404,12 +1404,7 @@ void Rva00566B81Vector::rva00566BEB()
 }
 
 // --- 0x001E3549 (14B): the rowed Path 0x00363930 test with true.
-class Path
-{
-public:
-	bool DoAdvanceAlongPath(const Coord3D *pos, bool flag);		// 0x00363930
-	bool rva001E3549(const Coord3D *pos);
-};
+#include "../../Include/GameLogic/PathfindPath.h"
 
 bool Path::rva001E3549(const Coord3D *pos)
 {

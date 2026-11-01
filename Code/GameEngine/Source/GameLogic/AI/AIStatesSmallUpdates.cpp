@@ -47,14 +47,7 @@ private:
 	unsigned char m_pad00[0x0C];
 	Coord3D m_pos; // +0x0C
 };
-class Path
-{
-public:
-	PathNode *getLastNode() const { return m_lastNode; }
-private:
-	unsigned char m_pad00[0x08];
-	PathNode *m_lastNode; // +0x08
-};
+#include "../../../Include/GameLogic/PathfindPath.h"
 class Waypoint
 {
 public:

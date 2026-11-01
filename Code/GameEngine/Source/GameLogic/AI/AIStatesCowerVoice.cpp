@@ -126,14 +126,7 @@ private:
 	Coord3D m_pos; // +0x0C
 };
 
-class Path
-{
-public:
-	PathNode *getLastNode() const { return m_pathTail; }
-private:
-	unsigned char m_pad00[0x08];
-	PathNode *m_pathTail; // +0x08
-};
+#include "../../../Include/GameLogic/PathfindPath.h"
 
 class AIUpdateInterface
 {

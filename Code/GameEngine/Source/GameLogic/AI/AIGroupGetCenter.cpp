@@ -100,15 +100,7 @@ private:
 	Coord3D m_pos;		// +0x0C
 };
 
-class Path
-{
-public:
-	PathNode *getFirstNode() { return m_path; }
-
-private:
-	char m_pad0[4];
-	PathNode *m_path;	// +0x04
-};
+#include "../../../Include/GameLogic/PathfindPath.h"
 
 #include "../../../Include/GameLogic/AIPathfind.h"
 

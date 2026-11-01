@@ -33,30 +33,13 @@ class Waypoint;
 
 extern TerrainLogic *TheTerrainLogic;
 
-class Path
-{
-public:
-	Coord3D rva003641F2(void) const;
-
-private:
-	void *m_unknown00;
-	PathNode *m_path;
-	PathNode *m_pathTail;
-	bool m_isOptimized;
-	bool m_unknown0D;
-	PathNode *m_unknown10;
-	float m_unknown14;
-	float m_unknown18;
-	float m_unknown1C;
-	float m_unknown20;
-	int m_unknown24;
-};
+#include "../../../Include/GameLogic/PathfindPath.h"
 
 struct Coord3DPod { float x, y, z; };
 
 Coord3D Path::rva003641F2(void) const
 {
-	PathNode *sel = m_unknown10;
+	PathNode *sel = field_10;
 	Waypoint *waypoint = 0;
 	while (sel != 0) {
 		int wp = sel->m_waypointID;

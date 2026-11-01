@@ -54,11 +54,7 @@ struct Rva003642DFResult
 	Coord3D m_pos; // +0x04
 };
 
-class Path
-{
-public:
-	Rva003642DFResult rva003642DF(float dist);
-};
+#include "../../../Include/GameLogic/PathfindPath.h"
 
 #include "../../../Include/GameLogic/AIPathfind.h"
 

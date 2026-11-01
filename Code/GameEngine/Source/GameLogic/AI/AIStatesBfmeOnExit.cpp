@@ -348,12 +348,7 @@ template <class Base, int From> class AIStateSlotFill<Base, From, From> : public
 {
 };
 
-class Path
-{
-public:
-	// Rowed tail append; BFME 2 adds a trailing int to Zero Hour's appendNode.
-	void appendNode(const Coord3D *pos, PathfindLayerEnum layer, int bfmeLimit);
-};
+#include "../../../Include/GameLogic/PathfindPath.h"
 class TerrainLogic : public AIStateAISlots<6>
 {
 public:

@@ -245,17 +245,7 @@ private:
 	Coord3D m_pos; // +0x0C
 	PathfindLayerEnum m_layer; // +0x18
 };
-class Path
-{
-public:
-	PathNode *getLastNode() const { return m_pathTail; }
-	Rva003642DFResult rva003642DF(float dist);
-	// Zero Hour's appendNode with a BFME 2 third argument.
-	void appendNode(const Coord3D *pos, PathfindLayerEnum layer, int bfmeArg);
-private:
-	unsigned char m_pad00[0x08];
-	PathNode *m_pathTail; // +0x08
-};
+#include "../../../Include/GameLogic/PathfindPath.h"
 #include "../../../Include/GameLogic/AIPathfind.h"
 struct TAiData
 {

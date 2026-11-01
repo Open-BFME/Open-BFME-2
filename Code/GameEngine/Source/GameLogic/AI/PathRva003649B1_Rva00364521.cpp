@@ -54,19 +54,7 @@ public:
 // g_pathNodePool: matched references place it at VA 0xe01e94 (zero-filled; a plain-data view).
 extern Rva00065964ObjectPool g_pathNodePool;
 
-class Path
-{
-public:
-	void rva003649B1(const PathNode *arg);
-	Rva003642DFResult rva003642DF(Real dist);
-	Rva003642DFResult rva00364521(const Rva0008BB38FloatField *arg);
-
-private:
-	char m_pad00[4];
-	PathNode *m_path;
-	PathNode *m_pathTail;
-	Bool m_isOptimized;
-};
+#include "../../../Include/GameLogic/PathfindPath.h"
 
 Rva003642DFResult Path::rva00364521(const Rva0008BB38FloatField *arg)
 {

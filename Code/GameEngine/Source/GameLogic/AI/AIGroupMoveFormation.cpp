@@ -264,15 +264,7 @@ class PathNode
     const Coord3D *getPosition() const { return &position; }
     PathNode *getNext() const { return next; }
 };
-class Path
-{
-  public:
-    ~Path();
-    char pad0[4];
-    PathNode *first, *last;
-    PathNode *getFirstNode() const { return first; }
-    PathNode *getLastNode() const { return last; }
-};
+#include "../../../Include/GameLogic/PathfindPath.h"
 #include "../../../Include/GameLogic/AIPathfind.h"
 struct FormationAIData
 {

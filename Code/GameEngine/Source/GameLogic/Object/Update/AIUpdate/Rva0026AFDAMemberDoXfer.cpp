@@ -104,14 +104,7 @@ private:
 
 #include "../../../../../Include/GameClient/CommandButton.h"
 
-class Path
-{
-public:
-	Path();
-	void DoXfer(Xfer *xfer);	// 0x003661FC (rowed)
-private:
-	unsigned char m_storage[0x28];
-};
+#include "../../../../../Include/GameLogic/PathfindPath.h"
 
 #include "../../../../../Include/GameLogic/TerrainLogic.h"
 
