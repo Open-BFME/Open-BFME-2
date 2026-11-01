@@ -1,0 +1,1185 @@
+{
+ "bases": [
+  "Snapshot",
+  "SubsystemInterface",
+  "Base0C_80FD",
+  "Base0C_80FD"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "TerrainLogic",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 40,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 9
+   },
+   "0x1910": {
+    "4": 2
+   },
+   "0x30": {
+    "4": 2
+   },
+   "0x34": {
+    "4": 1
+   },
+   "0x3c": {
+    "4": 2
+   },
+   "0x40": {
+    "4": 1
+   },
+   "0x50": {
+    "4": 1
+   },
+   "0x578": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x283faa"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "Snapshot",
+       "offset": 0,
+       "own_vftable": "0x7fb2c8",
+       "rule": "retail-inlined-base-vptr"
+      },
+      {
+       "kind": "target",
+       "name": "SubsystemInterface",
+       "offset": 4,
+       "own_vftable": "0x7fb28c",
+       "rule": "retail-ctor-call"
+      },
+      {
+       "kind": "target",
+       "name": "Base0C_80FD",
+       "offset": 16,
+       "own_vftable": "0x7c5848",
+       "rule": "retail-inlined-base-vptr"
+      },
+      {
+       "kind": "target",
+       "name": "Base0C_80FD",
+       "offset": 20,
+       "own_vftable": "0x7c5838",
+       "rule": "retail-inlined-base-vptr"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x283faa"
+     ],
+     "value": 6428
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x283faa"
+     ],
+     "value": {
+      "0x18": [
+       4
+      ],
+      "0x1910": [
+       4
+      ],
+      "0x1914": [
+       1
+      ],
+      "0x1918": [
+       4
+      ],
+      "0x1c": [
+       4
+      ],
+      "0x20": [
+       4
+      ],
+      "0x24": [
+       4
+      ],
+      "0x28": [
+       4
+      ],
+      "0x2c": [
+       4
+      ],
+      "0x3c": [
+       4
+      ],
+      "0x40": [
+       4
+      ],
+      "0x44": [
+       1
+      ],
+      "0x48": [
+       4
+      ],
+      "0x4c": [
+       4
+      ],
+      "0x50": [
+       4
+      ],
+      "0x54": [
+       4
+      ],
+      "0x568": [
+       4
+      ],
+      "0x58": [
+       4
+      ],
+      "0x584": [
+       4
+      ],
+      "0x5c": [
+       4
+      ],
+      "0x60": [
+       1
+      ],
+      "0x68": [
+       4
+      ],
+      "0x6c": [
+       4
+      ],
+      "0x70": [
+       4
+      ],
+      "0x74": [
+       4
+      ],
+      "0x78": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x283faa"
+     ],
+     "value": {
+      "0x30": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x56c": [
+       "??0?$map@EHU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEH@_STL@@@2@@_STL@@QAE@XZ"
+      ],
+      "0x578": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x64": [
+       "??0?$_List_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x283faa"
+     ],
+     "value": {
+      "0x0": "0x7fb2c8",
+      "0x10": "0x7c5848",
+      "0x14": "0x7c5838",
+      "0x4": "0x7fb28c"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7fb2c8"
+     ],
+     "value": {
+      "count": 51,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GTerrainLogic@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x285177"
+       },
+       {
+        "name": "?loadPostProcess@TerrainLogic@@MAEXXZ",
+        "slot": 1,
+        "target": "0x2820a0"
+       },
+       {
+        "name": "?GetSnapshotName@TerrainLogic@@MBEPBDXZ",
+        "slot": 2,
+        "target": "0x28417c"
+       },
+       {
+        "name": "?xfer@TerrainLogic@@MAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x283845"
+       },
+       {
+        "name": "?loadMap@TerrainLogic@@UAE_NABVAsciiString@@PAVChunkInputStream@@_N2@Z",
+        "slot": 4,
+        "target": "0x282bbb"
+       },
+       {
+        "name": "?newMap@TerrainLogic@@UAEX_N@Z",
+        "slot": 5,
+        "target": "0x284290"
+       },
+       {
+        "name": "?getGroundHeight@TerrainLogic@@UBEMMMPAUCoord3D@@@Z",
+        "slot": 6,
+        "target": "0x27ce9a"
+       },
+       {
+        "name": "?getLayerHeight@TerrainLogic@@UBEMMMW4PathfindLayerEnum@@PAUCoord3D@@_N@Z",
+        "slot": 7,
+        "target": "0x27cebc"
+       },
+       {
+        "name": "__purecall",
+        "slot": 8,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 9,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 10,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 11,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 12,
+        "target": "0x3b810"
+       },
+       {
+        "name": "?Rva0027D5E0@W3DTerrainLogic@@UAEXPAMPBM@Z",
+        "slot": 13,
+        "target": "0x27d5e0"
+       },
+       {
+        "name": "?Rva0027D6DF@W3DTerrainLogic@@UAEXPAMPBM@Z",
+        "slot": 14,
+        "target": "0x27d6df"
+       },
+       {
+        "name": "__purecall",
+        "slot": 15,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 16,
+        "target": "0x3b810"
+       },
+       {
+        "name": "?getBridgeModelNameBroken@TerrainRoadType@@QAE?AVAsciiString@@XZ",
+        "slot": 17,
+        "target": "0x62e72"
+       },
+       {
+        "name": "?Rva002811DD@W3DTerrainLogic@@UAE?AW4PathfindLayerEnum@@MABUCoord3D@@_NAAVMatrix3D@@@Z",
+        "slot": 18,
+        "target": "0x2811dd"
+       },
+       {
+        "name": "?Rva0027D77D@W3DTerrainLogic@@UAE_NMMPAM0PA_N@Z",
+        "slot": 19,
+        "target": "0x27d77d"
+       },
+       {
+        "name": "?rva0050B5F1@Rva0050B5F1@@QAE_NHH@Z",
+        "slot": 20,
+        "target": "0x50b5f1"
+       },
+       {
+        "name": "?rva0050B5F1@Rva0050B5F1@@QAE_NHH@Z",
+        "slot": 21,
+        "target": "0x50b5f1"
+       },
+       {
+        "name": "?rva0050B5F1@Rva0050B5F1@@QAE_NHH@Z",
+        "slot": 22,
+        "target": "0x50b5f1"
+       },
+       {
+        "name": "?rva0050B5F1@Rva0050B5F1@@QAE_NHH@Z",
+        "slot": 23,
+        "target": "0x50b5f1"
+       },
+       {
+        "name": "?rva0050B5F1@Rva0050B5F1@@QAE_NHH@Z",
+        "slot": 24,
+        "target": "0x50b5f1"
+       },
+       {
+        "name": "?Rva0027D815@W3DTerrainLogic@@UAEMMM@Z",
+        "slot": 25,
+        "target": "0x27d815"
+       },
+       {
+        "name": "?rva00062ACA@W3DTerrainLogic@@UAEPAURva0028170EArea@@MMM@Z",
+        "slot": 26,
+        "target": "0x62aca"
+       },
+       {
+        "name": "?rva00062ACA@W3DTerrainLogic@@UAEPAURva0028170EArea@@MMM@Z",
+        "slot": 27,
+        "target": "0x62aca"
+       },
+       {
+        "name": "?rva00062AEC@W3DTerrainLogic@@UAEPAXABV?$StringBase@D@@@Z",
+        "slot": 28,
+        "target": "0x62aec"
+       },
+       {
+        "name": "?rva00062AEC@W3DTerrainLogic@@UAEPAXABV?$StringBase@D@@@Z",
+        "slot": 29,
+        "target": "0x62aec"
+       },
+       {
+        "name": "?getWaterHeight@W3DTerrainLogic@@UAEMPAX@Z",
+        "slot": 30,
+        "target": "0x27d85b"
+       },
+       {
+        "name": "?setWaterHeight@TerrainLogic@@UAEXPBVWaterHandle@@MM_N@Z",
+        "slot": 31,
+        "target": "0x282e20"
+       },
+       {
+        "name": "?changeWaterHeightOverTime@W3DTerrainLogic@@UAEXPAXMMM@Z",
+        "slot": 32,
+        "target": "0x27d88e"
+       },
+       {
+        "name": "?Rva00062AC4Get@@YAHXZ",
+        "slot": 33,
+        "target": "0x62ac4"
+       },
+       {
+        "name": "?getWaypointByName@TerrainLogic@@UAEPAVWaypoint@@ABVAsciiString@@@Z",
+        "slot": 34,
+        "target": "0x281d4c"
+       },
+       {
+        "name": "?getWaypointByID@TerrainLogic@@UAEPAVWaypoint@@I@Z",
+        "slot": 35,
+        "target": "0x28333f"
+       },
+       {
+        "name": "?getClosestWaypointOnPath@TerrainLogic@@UAEPAVWaypoint@@PBUCoord3D@@ABVAsciiString@@@Z",
+        "slot": 36,
+        "target": "0x2812bf"
+       },
+       {
+        "name": "?getWaypointByPath@TerrainLogic@@UAEPAVWaypoint@@ABVAsciiString@@@Z",
+        "slot": 37,
+        "target": "0x2813ea"
+       },
+       {
+        "name": "?isPurposeOfPath@TerrainLogic@@UAE_NPAVWaypoint@@ABVAsciiString@@@Z",
+        "slot": 38,
+        "target": "0x281d92"
+       },
+       {
+        "name": "?getTriggerAreaByName@TerrainLogic@@UAEPAVPolygonTrigger@@ABVAsciiString@@@Z",
+        "slot": 39,
+        "target": "0x281e47"
+       },
+       {
+        "name": "?dlink_next_TeamInstanceList@Team@@QBEPAV1@XZ",
+        "slot": 40,
+        "target": "0x5c4af5"
+       },
+       {
+        "name": "?findBridgeAt@TerrainLogic@@UBEPAVBridge@@PBUCoord3D@@@Z",
+        "slot": 41,
+        "target": "0x27f30a"
+       },
+       {
+        "name": "?findBridgeLayerAt@TerrainLogic@@UBEPAVBridge@@PBUCoord3D@@W4PathfindLayerEnum@@_N@Z",
+        "slot": 42,
+        "target": "0x27f337"
+       },
+       {
+        "name": "?objectInteractsWithBridgeLayer@TerrainLogic@@UBE_NPAVObject@@H_N@Z",
+        "slot": 43,
+        "target": "0x2804b2"
+       },
+       {
+        "name": "?objectInteractsWithBridgeEnd@TerrainLogic@@UBE_NPAVObject@@H@Z",
+        "slot": 44,
+        "target": "0x2805c1"
+       },
+       {
+        "name": "?pickBridge@TerrainLogic@@UAE_NABVVector3@@0PAV2@@Z",
+        "slot": 45,
+        "target": "0x281eca"
+       },
+       {
+        "name": "?addBridgeToLogic@TerrainLogic@@UAEXPAVRva0027C36A@@PAVDict@@ABVAsciiString@@@Z",
+        "slot": 46,
+        "target": "0x280294"
+       },
+       {
+        "name": "?addLandmarkBridgeToLogic@TerrainLogic@@UAEXPAVObject@@@Z",
+        "slot": 47,
+        "target": "0x28125c"
+       },
+       {
+        "name": "?deleteBridge@TerrainLogic@@UAEXPAVBridge@@@Z",
+        "slot": 48,
+        "target": "0x281f7f"
+       },
+       {
+        "name": "?updateBridgeDamageStates@TerrainLogic@@UAEXXZ",
+        "slot": 49,
+        "target": "0x281ea5"
+       },
+       {
+        "name": "__purecall",
+        "slot": 50,
+        "target": "0x3b810"
+       }
+      ],
+      "table": "0x7fb2c8"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 28,
+  "retail_vtables": {
+   "0x7c5838": {
+    "offset": 20,
+    "slots": {},
+    "stores": 1
+   },
+   "0x7c5848": {
+    "offset": 16,
+    "slots": {},
+    "stores": 1
+   },
+   "0x7fb28c": {
+    "offset": 4,
+    "slots": {},
+    "stores": 1
+   },
+   "0x7fb2c8": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GTerrainLogic@@UAEPAXI@Z",
+     "1": "?loadPostProcess@TerrainLogic@@MAEXXZ",
+     "2": "?GetSnapshotName@TerrainLogic@@MBEPBDXZ",
+     "3": "?xfer@TerrainLogic@@MAEXPAVXfer@@@Z",
+     "4": "?loadMap@TerrainLogic@@UAE_NABVAsciiString@@PAVChunkInputStream@@_N2@Z",
+     "5": "?newMap@TerrainLogic@@UAEX_N@Z",
+     "6": "?getGroundHeight@TerrainLogic@@UBEMMMPAUCoord3D@@@Z",
+     "7": "?getLayerHeight@TerrainLogic@@UBEMMMW4PathfindLayerEnum@@PAUCoord3D@@_N@Z",
+     "8": "__purecall",
+     "9": "__purecall",
+     "10": "__purecall",
+     "11": "__purecall",
+     "12": "__purecall",
+     "13": "?Rva0027D5E0@W3DTerrainLogic@@UAEXPAMPBM@Z",
+     "14": "?Rva0027D6DF@W3DTerrainLogic@@UAEXPAMPBM@Z",
+     "15": "__purecall",
+     "16": "__purecall",
+     "17": "?getBridgeModelNameBroken@TerrainRoadType@@QAE?AVAsciiString@@XZ",
+     "18": "?Rva002811DD@W3DTerrainLogic@@UAE?AW4PathfindLayerEnum@@MABUCoord3D@@_NAAVMatrix3D@@@Z",
+     "19": "?Rva0027D77D@W3DTerrainLogic@@UAE_NMMPAM0PA_N@Z",
+     "20": "?rva0050B5F1@Rva0050B5F1@@QAE_NHH@Z",
+     "21": "?rva0050B5F1@Rva0050B5F1@@QAE_NHH@Z",
+     "22": "?rva0050B5F1@Rva0050B5F1@@QAE_NHH@Z",
+     "23": "?rva0050B5F1@Rva0050B5F1@@QAE_NHH@Z",
+     "24": "?rva0050B5F1@Rva0050B5F1@@QAE_NHH@Z",
+     "25": "?Rva0027D815@W3DTerrainLogic@@UAEMMM@Z",
+     "26": "?rva00062ACA@W3DTerrainLogic@@UAEPAURva0028170EArea@@MMM@Z",
+     "27": "?rva00062ACA@W3DTerrainLogic@@UAEPAURva0028170EArea@@MMM@Z",
+     "28": "?rva00062AEC@W3DTerrainLogic@@UAEPAXABV?$StringBase@D@@@Z",
+     "29": "?rva00062AEC@W3DTerrainLogic@@UAEPAXABV?$StringBase@D@@@Z",
+     "30": "?getWaterHeight@W3DTerrainLogic@@UAEMPAX@Z",
+     "31": "?setWaterHeight@TerrainLogic@@UAEXPBVWaterHandle@@MM_N@Z",
+     "32": "?changeWaterHeightOverTime@W3DTerrainLogic@@UAEXPAXMMM@Z",
+     "33": "?Rva00062AC4Get@@YAHXZ",
+     "34": "?getWaypointByName@TerrainLogic@@UAEPAVWaypoint@@ABVAsciiString@@@Z",
+     "35": "?getWaypointByID@TerrainLogic@@UAEPAVWaypoint@@I@Z",
+     "36": "?getClosestWaypointOnPath@TerrainLogic@@UAEPAVWaypoint@@PBUCoord3D@@ABVAsciiString@@@Z",
+     "37": "?getWaypointByPath@TerrainLogic@@UAEPAVWaypoint@@ABVAsciiString@@@Z",
+     "38": "?isPurposeOfPath@TerrainLogic@@UAE_NPAVWaypoint@@ABVAsciiString@@@Z",
+     "39": "?getTriggerAreaByName@TerrainLogic@@UAEPAVPolygonTrigger@@ABVAsciiString@@@Z",
+     "40": "?dlink_next_TeamInstanceList@Team@@QBEPAV1@XZ",
+     "41": "?findBridgeAt@TerrainLogic@@UBEPAVBridge@@PBUCoord3D@@@Z",
+     "42": "?findBridgeLayerAt@TerrainLogic@@UBEPAVBridge@@PBUCoord3D@@W4PathfindLayerEnum@@_N@Z",
+     "43": "?objectInteractsWithBridgeLayer@TerrainLogic@@UBE_NPAVObject@@H_N@Z",
+     "44": "?objectInteractsWithBridgeEnd@TerrainLogic@@UBE_NPAVObject@@H@Z",
+     "45": "?pickBridge@TerrainLogic@@UAE_NABVVector3@@0PAV2@@Z",
+     "46": "?addBridgeToLogic@TerrainLogic@@UAEXPAVRva0027C36A@@PAVDict@@ABVAsciiString@@@Z",
+     "47": "?addLandmarkBridgeToLogic@TerrainLogic@@UAEXPAVObject@@@Z",
+     "48": "?deleteBridge@TerrainLogic@@UAEXPAVBridge@@@Z",
+     "49": "?updateBridgeDamageStates@TerrainLogic@@UAEXXZ",
+     "50": "__purecall"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 4,
+  "view_sizes": {
+   "1": 1,
+   "4": 33,
+   "72": 1,
+   "6428": 1
+  },
+  "views": 36,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_TerrainLogic.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/TerrainLogic.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {
+    "4": 9
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 31,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 4
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 64,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicCtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 68,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicCtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 72,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 76,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 80,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 84,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 88,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 92,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 96,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 100,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 104,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1384,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1388,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1392,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1396,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1400,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1404,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1408,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1412,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1416,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 6416,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 6420,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 6424,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicCtor.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "slot0",
+   "candidates": {
+    "__vecDelDtor(uint)": 2,
+    "a0()": 1,
+    "bfmeSlot0()": 1,
+    "d00()": 1,
+    "s0()": 3,
+    "s00()": 6,
+    "slot0()": 3,
+    "slot00()": 6,
+    "t00()": 2,
+    "v0()": 2,
+    "v00()": 3,
+    "vslot00()": 1
+   },
+   "class": "TerrainLogic"
+  },
+  {
+   "attribute": "slot1",
+   "candidates": {
+    "a1()": 1,
+    "bfmeSlot1()": 1,
+    "d01()": 1,
+    "s01()": 6,
+    "s1()": 3,
+    "slot01()": 6,
+    "slot04()": 1,
+    "slot1()": 3,
+    "t01()": 2,
+    "v01()": 3,
+    "v1()": 2,
+    "vslot01()": 1
+   },
+   "class": "TerrainLogic"
+  },
+  {
+   "attribute": "slot2",
+   "candidates": {
+    "a2()": 1,
+    "bfmeSlot2()": 1,
+    "d02()": 1,
+    "s02()": 6,
+    "s2()": 3,
+    "slot02()": 6,
+    "slot08()": 1,
+    "slot2()": 3,
+    "t02()": 2,
+    "v02()": 3,
+    "v2()": 2,
+    "vslot02()": 1
+   },
+   "class": "TerrainLogic"
+  },
+  {
+   "attribute": "slot3",
+   "candidates": {
+    "a3()": 1,
+    "bfmeSlot3()": 1,
+    "d03()": 1,
+    "s03()": 6,
+    "s3()": 3,
+    "slot03()": 6,
+    "slot0C()": 1,
+    "slot3()": 3,
+    "t03()": 2,
+    "v03()": 3,
+    "v3()": 2,
+    "vslot03()": 1
+   },
+   "class": "TerrainLogic"
+  },
+  {
+   "attribute": "slot4",
+   "candidates": {
+    "b0()": 1,
+    "bfmeSlot4()": 1,
+    "d04()": 1,
+    "loadMap(AsciiString*,ChunkInputStream*,bool,bool)": 1,
+    "s04()": 6,
+    "s4()": 3,
+    "slot04()": 6,
+    "slot10()": 1,
+    "slot4()": 3,
+    "t04()": 2,
+    "v04()": 3,
+    "v4()": 2,
+    "vslot04()": 1
+   },
+   "class": "TerrainLogic"
+  },
+  {
+   "attribute": "slot5",
+   "candidates": {
+    "b1()": 1,
+    "bfmeSlot5()": 1,
+    "d05()": 1,
+    "s05()": 6,
+    "s5()": 3,
+    "slot05()": 6,
+    "slot14()": 1,
+    "slot5()": 3,
+    "t05()": 2,
+    "v05()": 3,
+    "v5()": 2,
+    "vslot05()": 1
+   },
+   "class": "TerrainLogic"
+  },
+  {
+   "attribute": "slot34",
+   "candidates": {
+    "d34()": 1,
+    "getWaypointByName(AsciiString*)": 2,
+    "s34()": 1,
+    "s34(Parameter*)": 1,
+    "s34(void*)": 2,
+    "slot34()": 1,
+    "v34()": 2,
+    "vslot34()": 1
+   },
+   "class": "TerrainLogic"
+  },
+  {
+   "attribute": "slot40",
+   "candidates": {
+    "getFirstBridge()": 1,
+    "v40()": 1,
+    "vslot40()": 1
+   },
+   "class": "TerrainLogic"
+  },
+  {
+   "attribute": "slot42",
+   "candidates": {
+    "findBridgeLayerAt(Coord3D*,enum,bool)": 1,
+    "vslot42()": 1
+   },
+   "class": "TerrainLogic"
+  },
+  {
+   "attribute": "slot43",
+   "candidates": {
+    "objectInteractsWithBridgeLayer(Object*,int,bool)": 1,
+    "vslot43(Object*,int,bool)": 1
+   },
+   "class": "TerrainLogic"
+  }
+ ],
+ "size": 4,
+ "size_by": "majority",
+ "vslots": {
+  "10": {
+   "decided_by": "majority",
+   "member": "s10()"
+  },
+  "11": {
+   "decided_by": "majority",
+   "member": "s11()"
+  },
+  "12": {
+   "decided_by": "majority",
+   "member": "s12()"
+  },
+  "13": {
+   "decided_by": "majority",
+   "member": "s13()"
+  },
+  "14": {
+   "decided_by": "majority",
+   "member": "s14()"
+  },
+  "15": {
+   "decided_by": "majority",
+   "member": "s15()"
+  },
+  "16": {
+   "decided_by": "majority",
+   "member": "s16()"
+  },
+  "17": {
+   "decided_by": "majority",
+   "member": "s17()"
+  },
+  "18": {
+   "decided_by": "majority",
+   "member": "s18()"
+  },
+  "19": {
+   "decided_by": "majority",
+   "member": "s19()"
+  },
+  "20": {
+   "decided_by": "majority",
+   "member": "s20()"
+  },
+  "21": {
+   "decided_by": "majority",
+   "member": "s21()"
+  },
+  "22": {
+   "decided_by": "majority",
+   "member": "s22()"
+  },
+  "23": {
+   "decided_by": "majority",
+   "member": "s23()"
+  },
+  "24": {
+   "decided_by": "majority",
+   "member": "s24()"
+  },
+  "25": {
+   "decided_by": "majority",
+   "member": "s25()"
+  },
+  "26": {
+   "decided_by": "majority",
+   "member": "s26()"
+  },
+  "27": {
+   "decided_by": "majority",
+   "member": "s27()"
+  },
+  "28": {
+   "decided_by": "majority",
+   "member": "s28()"
+  },
+  "29": {
+   "decided_by": "majority",
+   "member": "s29()"
+  },
+  "30": {
+   "decided_by": "majority",
+   "member": "s30()"
+  },
+  "31": {
+   "decided_by": "majority",
+   "member": "s31()"
+  },
+  "32": {
+   "decided_by": "majority",
+   "member": "s32()"
+  },
+  "33": {
+   "decided_by": "majority",
+   "member": "s33()"
+  },
+  "35": {
+   "decided_by": "majority",
+   "member": "v35()"
+  },
+  "36": {
+   "decided_by": "majority",
+   "member": "v36()"
+  },
+  "37": {
+   "decided_by": "majority",
+   "member": "v37()"
+  },
+  "38": {
+   "decided_by": "majority",
+   "member": "v38()"
+  },
+  "39": {
+   "decided_by": "majority",
+   "member": "getTriggerAreaByName(AsciiString*)"
+  },
+  "41": {
+   "decided_by": "majority",
+   "member": "findBridgeAt(Coord3D*)"
+  },
+  "44": {
+   "decided_by": "bytes",
+   "member": "objectInteractsWithBridgeEnd(Object*,int)"
+  },
+  "45": {
+   "decided_by": "bytes",
+   "member": "pickBridge(Vector3*,Vector3*,Vector3*)"
+  },
+  "46": {
+   "decided_by": "bytes",
+   "member": "slot46()"
+  },
+  "47": {
+   "decided_by": "bytes",
+   "member": "slot47()"
+  },
+  "48": {
+   "decided_by": "bytes",
+   "member": "deleteBridge(Bridge*)"
+  },
+  "49": {
+   "decided_by": "bytes",
+   "member": "updateBridgeDamageStates()"
+  },
+  "6": {
+   "decided_by": "majority",
+   "member": "getGroundHeight(float,float,Coord3D*)"
+  },
+  "7": {
+   "decided_by": "majority",
+   "member": "s07()"
+  },
+  "8": {
+   "decided_by": "majority",
+   "member": "s08()"
+  },
+  "9": {
+   "decided_by": "majority",
+   "member": "s09()"
+  }
+ }
+}

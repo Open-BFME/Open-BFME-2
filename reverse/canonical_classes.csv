@@ -200,3 +200,4 @@ AI,Code/GameEngine/Include/GameLogic/AI.h,existing header; contract class_contra
 PlayerList,Code/GameEngine/Include/Common/PlayerList.h,existing header; contract class_contracts/PlayerList.json; 144/314 sampled units adopt
 InGameUI,Code/GameEngine/Include/GameClient/InGameUI.h,existing header; contract class_contracts/InGameUI.json; 59/231 sampled units adopt
 GeometryInfo,Code/GameEngine/Include/Common/Geometry.h,existing header; contract class_contracts/GeometryInfo.json; 30/127 sampled units adopt
+TerrainLogic,Code/GameEngine/Include/GameLogic/TerrainLogic.h,existing header; contract class_contracts/TerrainLogic.json; 130/287 sampled units adopt
