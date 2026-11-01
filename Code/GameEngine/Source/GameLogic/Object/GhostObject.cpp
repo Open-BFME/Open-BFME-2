@@ -146,16 +146,7 @@ void XferObjectID(Xfer *xfer, ObjectID *objectID);
 
 // Retail ThrowInfo names the 8-byte XferException class and its rowed
 // copy constructor and destructor (see Common/System/XferException.cpp).
-class XferException
-{
-public:
-	XferException(int tag, const char *format, ...);
-	XferException(const XferException &that);
-	~XferException();
-
-	char *text;
-	int tag;
-};
+#include "../../../Include/Common/XferException.h"
 
 class Object
 {

@@ -144,12 +144,7 @@ public:
 	unsigned char m_current;
 	unsigned char m_minimum;
 };
-class XferException {public:
- XferException(int,const char*,...);
- XferException(const XferException&);
- ~XferException();
- char *text; int tag;
-};
+#include "../../../Include/Common/XferException.h"
 struct BlockView003628D3 {
  virtual void v00(); virtual void v04(); virtual void v08(); virtual void v0c(); virtual void v10();
  virtual void begin(const char*); virtual void end(); virtual void skip(const char*);

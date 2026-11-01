@@ -55,16 +55,7 @@ public:
 
 extern GameLogic *TheGameLogic;
 
-class XferException
-{
-public:
-	XferException(int tag, const char *format, ...);
-	XferException(const XferException &that);
-	~XferException(void);
-
-	char *text;
-	int tagValue;
-};
+#include "../../../Include/Common/XferException.h"
 
 #include "../../../Include/Common/TeamBFME2.h"
 

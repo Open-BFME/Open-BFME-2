@@ -55,14 +55,7 @@ public:
     virtual void StringEntry(AsciiString *) = 0;
 };
 #pragma comment(linker, "/alternatename:?Version1@Rva001E70C2XferView@@QAEXXZ=?Version1@Xfer@@QAEXXZ")
-class XferException {
-public:
-    XferException(int, const char *, ...);
-    XferException(const XferException &);
-    ~XferException();
-    char *text;
-    int tag;
-};
+#include "../../Include/Common/XferException.h"
 void LocomotorSet::xferSelfAndCurLocoPtr(Xfer *xfer, Locomotor **loco)
 {
     Rva001E70C2XferView *target = reinterpret_cast<Rva001E70C2XferView *>(xfer);

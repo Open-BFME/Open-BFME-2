@@ -21,16 +21,7 @@ struct RGBAColorInt;
 class Snapshot;
 struct XferUnknown11;
 
-class XferException
-{
-public:
-	XferException(int tag, const char *format, ...);
-	XferException(const XferException &that);
-	~XferException();
-
-	void *text;
-	int tag;
-};
+#include "../../../Include/Common/XferException.h"
 
 
 #include "../../../Include/Common/BfmeXfer.h"

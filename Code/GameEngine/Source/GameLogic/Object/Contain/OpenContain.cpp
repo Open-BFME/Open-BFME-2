@@ -353,14 +353,7 @@ template bool std::operator!=(const ContainedItemsList::const_reverse_iterator &
 // the ZH/BFME1 loadPostProcess body supplies purpose and source provenance.
 // The enclosing walk is computed once before the restored-rider loop.
 // Slot 24's trailing zero arguments retain their unknown target meanings.
-class XferException {
-public:
-    XferException(int, const char *, ...);
-    XferException(const XferException &);
-    ~XferException();
-    char *text;
-    int tag;
-};
+#include "../../../../Include/Common/XferException.h"
 
 template <int N> class Rva00463C6ESlots : public Rva00463C6ESlots<N - 1> {
 public: virtual void gap(char (*)[N]);

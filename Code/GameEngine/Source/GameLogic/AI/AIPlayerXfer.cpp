@@ -42,16 +42,7 @@ enum ObjectID
 void XferObjectID(Xfer *xfer, ObjectID *value);
 void XferGameDifficulty(Xfer *xfer, int *value);
 
-class XferException
-{
-public:
-	XferException(int tag, const char *format, ...);
-	XferException(const XferException &that);
-	~XferException(void);
-
-	char *text;
-	int tagValue;
-};
+#include "../../../Include/Common/XferException.h"
 
 class TeamInQueue;
 

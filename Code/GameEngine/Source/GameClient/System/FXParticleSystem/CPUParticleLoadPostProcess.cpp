@@ -57,15 +57,7 @@ class ParticleSystemManager
 
 extern ParticleSystemManager *TheParticleSystemManager;
 
-class XferException
-{
-public:
-	XferException(int, const char *, ...);
-	XferException(const XferException &);
-	~XferException();
-	char *text; // +0x00
-	int tag; // +0x04
-};
+#include "../../../../Include/Common/XferException.h"
 
 namespace FXParticleSystem
 {

@@ -27,15 +27,7 @@ public:
 private:
     char m_bytes[0x90];
 };
-class XferException
-{
-public:
-    XferException(int tag, const char *format, ...);
-    XferException(const XferException &);
-    ~XferException();
-    char *text;
-    int tag;
-};
+#include "../../Include/Common/XferException.h"
 #include "System/XferVectorTypes.h"
 #include "../../Include/Common/BfmeXfer.h"
 class Rva002D9FD9Arg;

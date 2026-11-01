@@ -241,15 +241,7 @@ void XferObjectID( Xfer *xfer, ObjectID *value );
 
 Xfer *Rva0036ABAFXfer( Xfer *xfer, _STL::list<int> *values );
 
-class XferException
-{
-public:
-    XferException(int, const char *, ...);
-    XferException(const XferException &);
-    ~XferException();
-    char *text;
-    int tag;
-};
+#include "../../../Include/Common/XferException.h"
 
 // The existing matched Drawable provider sets Drawable's hidden byte at +0x43D
 // and refreshes it; the Object manager cascade is Object::rva0028BAC0

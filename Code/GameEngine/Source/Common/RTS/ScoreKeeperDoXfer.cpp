@@ -57,15 +57,7 @@ class RGBAColorReal;
 class RGBAColorInt;
 struct XferUnknown11;
 #include "../../../Include/Common/BfmeXfer.h"
-class XferException
-{
-public:
-    XferException(int, const char *, ...);
-    XferException(const XferException &);
-    ~XferException();
-    char *text;
-    int tag;
-};
+#include "../../../Include/Common/XferException.h"
 void xferThingTemplateCountMap(Xfer *,ObjectCountMap*);
 Xfer *Rva0039C4F7XferSnapshotVector(Xfer *,Rva0039C1C3*);
 class ScoreKeeper

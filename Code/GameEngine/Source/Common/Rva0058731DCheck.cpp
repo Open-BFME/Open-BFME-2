@@ -7,16 +7,7 @@
 // Code/Libraries/Source/xfer/xfer_load.cpp; rowed _bfmeFormatText 0x0060C36E
 // plus pinned _CxxThrowException 0x00629094 plus XferException's throw information.
 // Neighbours 0x00587311 0x00587375.
-class XferException
-{
-public:
-	XferException(int tag, const char *format, ...);
-	XferException(const XferException &that);
-	~XferException();
-
-	void *text;
-	int tag;
-};
+#include "../../Include/Common/XferException.h"
 
 
 class Rva0058731DHost

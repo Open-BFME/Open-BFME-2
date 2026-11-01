@@ -240,15 +240,7 @@ public:
     unsigned char current;
     unsigned char pad[2];
 };
-class XferException
-{
-public:
-    XferException(int tag, const char *format, ...);
-    XferException(const XferException &other);
-    ~XferException();
-    char *text;
-    int tag;
-};
+#include "../../../../../Include/Common/XferException.h"
 static __forceinline const char *TransferHordeVersion(Xfer *xfer, Xfer::Version &version)
 {
     version.version = 1;

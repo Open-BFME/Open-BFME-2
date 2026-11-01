@@ -63,16 +63,7 @@ struct ICoord2D;
 
 #include "../../../Include/Common/XferVersion.h"
 
-class XferException
-{
-public:
-	XferException(int tag, const char *format, ...);
-	XferException(const XferException &that);
-	~XferException(void);
-
-	char *text;
-	int tagValue;
-};
+#include "../../../Include/Common/XferException.h"
 
 enum ObjectID
 {

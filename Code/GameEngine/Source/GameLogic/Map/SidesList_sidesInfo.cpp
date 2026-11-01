@@ -304,16 +304,7 @@ public:
 	unsigned char m_currentVersion;
 };
 
-class XferException
-{
-public:
-	XferException(int tag, const char *format, ...);	// 0x0060C36E
-	XferException(const XferException &that);
-	~XferException();
-
-	void *text;
-	int tag;
-};
+#include "../../../Include/Common/XferException.h"
 
 enum { XFER_INVALID_DATA = 5 };
 

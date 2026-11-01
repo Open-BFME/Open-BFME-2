@@ -67,16 +67,7 @@ class Snapshot;
 
 #include "../../../Include/Common/XferVersion.h"
 
-class XferException
-{
-public:
-	XferException(int tag, const char *format, ...);
-	XferException(const XferException &that);
-	~XferException(void);
-
-	char *text;
-	int tagValue;
-};
+#include "../../../Include/Common/XferException.h"
 
 // Rowed per-set helpers under address names.
 class Rva0028F528

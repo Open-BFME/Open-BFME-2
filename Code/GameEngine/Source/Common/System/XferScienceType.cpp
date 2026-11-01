@@ -23,16 +23,7 @@ public:
  ScienceType getScienceFromInternalName(const AsciiString &name) const;
 };
 extern ScienceStore *TheScienceStore;
-class XferException
-{
-public:
-	XferException(int tag, const char *format, ...);
-	XferException(const XferException &that);
-	~XferException();
-
-	char *text;
-	int tag;
-};
+#include "../../../Include/Common/XferException.h"
 
 Xfer *Rva00306232XferScience(Xfer *xfer, ScienceType *science)
 {

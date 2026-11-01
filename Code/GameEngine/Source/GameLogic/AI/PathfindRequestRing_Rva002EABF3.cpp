@@ -32,16 +32,7 @@ class XferUnknown11;
 // declaration order, which puts the unsigned int transfer at slot 0x78.
 #include "../../../Include/Common/BfmeXfer.h"
 
-class XferException
-{
-public:
-	XferException(int tag, const char *format, ...);	// 0x0060C36E
-	XferException(const XferException &that);
-	~XferException();
-
-	char *text;
-	int tag;
-};
+#include "../../../Include/Common/XferException.h"
 
 void XferObjectID(Xfer *xfer, ObjectID *objectID);	// 0x003060B2
 

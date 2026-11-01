@@ -42,7 +42,7 @@ class ThingFactory { public: const ThingTemplate *findTemplate(const AsciiString
 // ThingFactory.cpp owns the singleton; ThingFactory is this unit's lookup view.
 class ThingFactory;
 extern ThingFactory *TheThingFactory;
-class XferException { public: XferException(int,const char *,...); XferException(const XferException &); ~XferException(); char *text; int tag; };
+#include "../../../Include/Common/XferException.h"
 // ?xferThingTemplateCountMap@@YAXPAVXfer@@PAV?$map@UTemplateCountKey@@HU?$less@UTemplateCountKey@@@_STL@@V?$allocator@U?$pair@$$CBUTemplateCountKey@@H@_STL@@@3@@_STL@@@Z
 void xferThingTemplateCountMap(Xfer *xfer, ObjectCountMap *map)
 {

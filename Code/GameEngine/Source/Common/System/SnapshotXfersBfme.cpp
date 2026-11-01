@@ -257,14 +257,7 @@ public:
 	};
 };
 
-class XferException
-{
-public:
-	enum
-	{
-		XFER_EXCEPTION_BFME_2 = 2
-	};
-};
+#include "../../../Include/Common/XferException.h"
 
 // Retail ctor 0x000D1AF3 builds the slot array through rowed vector_constructor_iterator
 // (0x1423) with the 3-byte folded empty ctor VA 0x87A6A9 (stride 0x10). The slot has no

@@ -54,15 +54,7 @@ struct XferVersion
 
 #include "../System/XferVectorTypes.h"
 #include "../../../Include/Common/BfmeXfer.h"
-class XferException
-{
-public:
-    XferException(int, const char *, ...);
-    XferException(const XferException &);
-    ~XferException();
-    char *text;
-    int tag;
-};
+#include "../../../Include/Common/XferException.h"
 
 Xfer *Rva0039C4F7XferSnapshotVector(Xfer *xfer, Rva0039C1C3 *vector)
 {

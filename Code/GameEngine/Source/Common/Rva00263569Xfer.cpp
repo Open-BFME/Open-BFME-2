@@ -11,16 +11,7 @@ class Xfer;
 
 void __cdecl XferGuardTargetType(Xfer *xfer, int *value);
 
-class XferException
-{
-public:
-	XferException(int tag, const char *format, ...);
-	XferException(const XferException &that);
-	~XferException();
-
-	char *text;
-	int tag;
-};
+#include "../../Include/Common/XferException.h"
 
 
 

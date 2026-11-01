@@ -62,13 +62,7 @@ private:
 };
 class ImageCollection {public: const Image *findImageByName(const AsciiString &); void addImage(Image *);};
 extern ImageCollection *TheMappedImageCollection;
-class XferException {
-public:
- XferException(int,const char *,...);
- XferException(const XferException &);
- ~XferException();
-private: char *text;int tag;
-};
+#include "../../Include/Common/XferException.h"
 // Native3007F1/300854 use the existing game array allocation operators.
 #include <new>
 class Rva003006C4 { public: bool rva003006C4(const AsciiString &); };

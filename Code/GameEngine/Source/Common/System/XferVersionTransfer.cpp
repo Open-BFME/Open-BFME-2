@@ -8,16 +8,7 @@
 // holds as _bfmeFormatText at 0x0060C36E: a cdecl varargs member that stores
 // the tag and a heap copy of the formatted text.
 
-class XferException
-{
-public:
-	XferException(int tag, const char *format, ...);
-	XferException(const XferException &that);
-	~XferException(void);
-
-	char *text;
-	int tagValue;
-};
+#include "../../../Include/Common/XferException.h"
 
 #include "XferVectorTypes.h"
 #include "../../../Include/Common/BfmeXfer.h"
