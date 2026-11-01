@@ -517,13 +517,7 @@ class INI;
 
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
 
-struct FieldParse
-{
-	const char *token;
-	INIFieldParseProc parse;
-	const void *userData;
-	int offset;
-};
+#include "../../../../Include/Common/INI/FieldParse.h"
 
 class INI
 {
@@ -534,11 +528,6 @@ public:
 // Retail VA 0x00C42B10 (.rdata): defined with its records in the sibling unit.
 extern const FieldParse g_00C42B10[];
 
-class MultiIniFieldParse
-{
-public:
-	void add(const FieldParse *parseTable, unsigned int extraOffset);
-};
 
 int __cdecl Rva004CE29DGet();
 

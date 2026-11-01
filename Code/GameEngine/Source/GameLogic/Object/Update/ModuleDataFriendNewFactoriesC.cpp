@@ -38,7 +38,7 @@ class ModuleData;
 class INI;
 class MultiIniFieldParse;
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
-struct FieldParse { const char *token; FieldParseProc parse; const void *userData; int offset; };
+#include "../../../../Include/Common/INI/FieldParse.h"
 
 class INI
 {
@@ -46,11 +46,6 @@ public:
 	void initFromINIMultiProc(void *what, void (__cdecl *proc)(MultiIniFieldParse &));
 };
 
-class MultiIniFieldParse
-{
-public:
-	void add(const FieldParse *parse, unsigned int extraOffset);
-};
 
 int Rva004CE52EGet(void);
 

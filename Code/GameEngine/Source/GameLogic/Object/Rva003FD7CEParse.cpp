@@ -9,7 +9,7 @@
 // initFromINI 0x0002DE78. Prev 0x003FD789 is the Rva003FD789 dtor.
 class INI;
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
-struct FieldParse { const char *token; FieldParseProc parse; const void *userData; int offset; };
+#include "../../../Include/Common/INI/FieldParse.h"
 template <typename T> class StringBase;
 class Rva0021294A;
 class Rva003FD789;

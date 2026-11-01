@@ -7,15 +7,8 @@
 // (pins 0x507552/0x5088C8, each returning a .data table address) and one
 // naming a .data FieldParse table directly (0xC64C08, DIR32-patched).
 
-struct FieldParse
-{
-};
+#include "../../../../Include/Common/INI/FieldParse.h"
 
-class MultiIniFieldParse
-{
-public:
-	void add(const FieldParse *entry, unsigned int index);
-};
 
 struct Rva00507552
 {

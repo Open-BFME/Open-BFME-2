@@ -18,13 +18,7 @@ public:
 	static void parseReal(INI *ini, void *instance, void *store, const void *userData);
 };
 
-struct FieldParse
-{
-	const char *token;
-	void (__cdecl *parse)(INI *ini, void *instance, void *store, const void *userData);
-	const void *userData;
-	int offset;
-};
+#include "../../../../Include/Common/INI/FieldParse.h"
 
 // Retail VA 0x00C4B748 (.rdata, file offset 0x0084B348): the dozer's three module
 // data fields - RepairHealthPercentPerSecond through the rowed
@@ -45,11 +39,6 @@ extern const struct FieldParse g_00C4B748[] =
 class MultiIniFieldParse;
 struct FieldParse;
 
-class MultiIniFieldParse
-{
-public:
-	void add(const FieldParse *parseTable, unsigned int extraOffset);
-};
 
 class __declspec(novtable) TransportAIUpdateModuleData
 {

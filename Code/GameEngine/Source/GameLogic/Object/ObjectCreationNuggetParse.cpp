@@ -13,13 +13,7 @@ typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const v
 
 // Zero Hour's INI field-parse record: the token, its parser, the parser's
 // user data and the field offset within the nugget.
-struct FieldParse
-{
-	const char *token;
-	INIFieldParseProc parse;
-	const void *userData;
-	int offset;
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 
 struct LookupListRec;
 extern const LookupListRec TheWeaponSlotTypeNamesLookupList[];

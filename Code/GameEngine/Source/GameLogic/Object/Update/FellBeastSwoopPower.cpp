@@ -18,13 +18,7 @@ class MultiIniFieldParse;
 
 typedef void (*INIFieldParseProc)(INI *, void *, void *, const void *);
 
-struct FieldParse
-{
-	const char *token;
-	INIFieldParseProc parse;
-	const void *userData;
-	int offset;
-};
+#include "../../../../Include/Common/INI/FieldParse.h"
 
 class INI
 {
@@ -102,11 +96,6 @@ void rva004B5293(INI *, void *, void *, const void *);
 
 void Rva0049B51EParse(INI *, void *, void *, const void *);
 
-class MultiIniFieldParse
-{
-public:
-	void add(const FieldParse *parse, unsigned int extraOffset);
-};
 
 // Registration SpecialAbilityUpdate (0x00259DD9) pushes this data factory with
 // the rowed SpecialAbilityUpdate::friend_newModuleInstance 0x0024A847. Its

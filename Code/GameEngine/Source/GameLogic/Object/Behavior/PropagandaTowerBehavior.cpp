@@ -262,13 +262,7 @@ enum NameKeyType
 class MultiIniFieldParse;
 class INI;
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
-struct FieldParse
-{
-	const char *token;
-	INIFieldParseProc parse;
-	const void *userData;
-	int offset;
-};
+#include "../../../../Include/Common/INI/FieldParse.h"
 class INI
 {
 public:
@@ -288,11 +282,6 @@ extern const FieldParse g_00C49368[] = {
 	{ "UpgradeRequired", &INI::parseAsciiString, 0, 0x18 },
 	{ "UpgradedPulseFX", &INI::parseFXList, 0, 0x20 },
 	{ 0, 0, 0, 0 }
-};
-class MultiIniFieldParse
-{
-public:
-	void add(const FieldParse *parseTable, unsigned int extraOffset);
 };
 class __declspec(novtable) PropagandaTowerBehaviorModuleData : public Snapshot
 {

@@ -34,22 +34,11 @@ class INI;
 class Xfer;
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
 
-struct FieldParse
-{
-	const char *m_name;
-	INIFieldParseProc m_parser;
-	const void *m_userData;
-	int m_offset;
-};
+#include "../../../../Include/Common/INI/FieldParse.h"
 
 // Rowed parse proc (retail 0x004CDF2B).
 void parseTriggerSpecialPower(INI *ini, void *instance, void *store, const void *userData);
 
-class MultiIniFieldParse
-{
-public:
-	void add(const FieldParse *parseTable, unsigned int extraOffset);
-};
 
 class SpecialAbilityUpdateModuleData
 {

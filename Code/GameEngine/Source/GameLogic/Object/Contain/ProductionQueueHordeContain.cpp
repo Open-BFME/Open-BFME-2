@@ -116,22 +116,11 @@ class INI;
 
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
 
-struct FieldParse
-{
-	const char *m_name;
-	INIFieldParseProc m_parser;
-	const void *m_userData;
-	int m_offset;
-};
+#include "../../../../Include/Common/INI/FieldParse.h"
 
 // Rowed parse proc (retail 0x004816F4).
 
 
-class MultiIniFieldParse
-{
-public:
-	void add(const FieldParse *parseTable, unsigned int extraOffset);
-};
 
 class HordeGarrisonContainModuleData
 {

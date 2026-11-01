@@ -11,7 +11,7 @@
 #include "ascii_string.h"
 
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
-struct FieldParse { const char *token; FieldParseProc parse; const void *userData; int offset; };
+#include "../../../Include/Common/INI/FieldParse.h"
 extern "C" {
 void __identifier("?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z")();
 void __identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z")();
@@ -96,16 +96,6 @@ extern const FieldParse g_00BE2070[62] = {
 	{ 0, 0, 0, 0 }
 };
 
-class MultiIniFieldParse
-{
-	const void *m_fieldParse[16];
-	unsigned m_extraOffset[16];
-	int m_count;
-
-public:
-	MultiIniFieldParse();
-	void add(const FieldParse *fields, unsigned extraOffset);
-};
 
 class INI
 {

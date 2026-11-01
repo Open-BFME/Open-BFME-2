@@ -343,13 +343,7 @@ class INI;
 
 typedef void (*INIFieldParseProc)(INI *, void *, void *, const void *);
 
-struct FieldParse
-{
-	const char *token;
-	INIFieldParseProc parse;
-	const void *userData;
-	int offset;
-};
+#include "../../../../Include/Common/INI/FieldParse.h"
 
 class INI
 {
@@ -400,11 +394,6 @@ void rva004B5293(INI *, void *, void *, const void *);
 
 void Rva0049B51EParse(INI *, void *, void *, const void *);
 
-class MultiIniFieldParse
-{
-public:
-	void add(const FieldParse *parse, unsigned int extraOffset);
-};
 
 class SpecialAbilityUpdateModuleData
 {

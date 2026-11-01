@@ -6,13 +6,7 @@
 // m_fieldParse and m_optionNames are descriptive source member names.
 class INI;
 typedef void (*INIFieldParseProc)(INI *, void *, void *, const void *);
-struct FieldParse
-{
-    const char *token;
-    INIFieldParseProc parse;
-    const void *userData;
-    unsigned int offset;
-};
+#include "../../../../Include/Common/INI/FieldParse.h"
 class INI
 {
 public:
@@ -34,11 +28,6 @@ public:
 void Rva001DEE74Parse(INI *, void *, void *, const void *);
 void iniParseObjectFilter(INI *, void *, void *, const void *);
 
-class MultiIniFieldParse
-{
-public:
-    void add(const FieldParse *parse, unsigned int extraOffset);
-};
 
 class PhysicsBehaviorModuleData
 {

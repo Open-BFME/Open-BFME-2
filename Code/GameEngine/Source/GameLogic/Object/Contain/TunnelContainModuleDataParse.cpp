@@ -20,13 +20,7 @@ public:
 
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
 
-struct FieldParse
-{
-	const char *token;
-	INIFieldParseProc parse;
-	const void *userData;
-	int offset;
-};
+#include "../../../../Include/Common/INI/FieldParse.h"
 
 // The own table at 0x00BEEAF8 (data row): one field, TimeForFullHeal through
 // the rowed INI::parseDurationReal 0x00738B0A into +0xD4, then the null
@@ -37,11 +31,6 @@ extern const FieldParse TunnelContainModuleDataFieldParse[2] =
 	{ 0, 0, 0, 0 }
 };
 
-class MultiIniFieldParse
-{
-public:
-	void add(const FieldParse *parseTable, unsigned int extraOffset);
-};
 
 class HordeGarrisonContainModuleData
 {

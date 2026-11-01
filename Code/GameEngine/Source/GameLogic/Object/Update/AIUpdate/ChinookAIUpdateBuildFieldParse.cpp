@@ -16,15 +16,8 @@
 
 // cl: /DNDEBUG /MD /EHsc
 
-struct FieldParse
-{
-};
+#include "../../../../../Include/Common/INI/FieldParse.h"
 
-class MultiIniFieldParse
-{
-public:
-	void add(const FieldParse *entry, unsigned int index);
-};
 
 class ActiveBodyModuleData
 {

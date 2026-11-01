@@ -20,13 +20,7 @@
 class MultiIniFieldParse;
 class INI;
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
-struct FieldParse
-{
-	const char *token;
-	INIFieldParseProc parse;
-	const void *userData;
-	int offset;
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 
 class INI
 {
@@ -44,11 +38,6 @@ extern const FieldParse g_00BF0620[] = {
 };
 extern const int g_emptyFieldParseTable[4];
 
-class MultiIniFieldParse
-{
-public:
-	void add(const FieldParse *parseTable, unsigned int extraOffset);
-};
 
 class Rva003623E5Member
 {

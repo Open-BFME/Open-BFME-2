@@ -132,13 +132,7 @@ class INI;
 
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
 
-struct FieldParse
-{
-	const char *token;
-	INIFieldParseProc parse;
-	const void *userData;
-	int offset;
-};
+#include "../../../../Include/Common/INI/FieldParse.h"
 
 class INI
 {
@@ -157,11 +151,6 @@ extern const FieldParse g_00C4D8A8[] = {
 	{ 0, 0, 0, 0 }
 };
 
-class MultiIniFieldParse
-{
-public:
-	void add(const FieldParse *parseTable, unsigned int extraOffset);
-};
 
  
  
