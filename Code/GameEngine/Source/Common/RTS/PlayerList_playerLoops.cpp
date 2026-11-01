@@ -33,15 +33,7 @@ typedef int Int;
 
 class PlayerTemplate;
 
-class Player
-{
-public:
-	void init(const PlayerTemplate *pt);	///< pinned 0x002AF729 (ZH name)
-	void update();							///< pinned 0x002AE770 (ZH name, inferred)
-	void rva002A99FA();
-	void newMap();
-	void updateTeamStates();				///< 0x002AB429
-};
+#include "../../../Include/Common/Player.h"
 
 class PlayerList
 {
