@@ -21,13 +21,7 @@ void parseLoadAIScripts(INI *ini, void *instance, void *store, const void *userD
 void parseForcePlayerTeam(INI *ini, void *instance, void *store, const void *userData);
 void parseAllowedFactions(INI *ini, void *instance, void *store, const void *userData);
 
-struct FieldParse
-{
-	const char *token;
-	void (__cdecl *parse)(INI *ini, void *instance, void *store, const void *userData);
-	const void *userData;
-	int offset;
-};
+#include "../../Include/Common/INI/FieldParse.h"
 
 // Retail VA 0x00C68D78 (.rdata, file offset 0x00868778): the five side flags of a
 // starting position, every record with a null user-data column and offset 0 - the

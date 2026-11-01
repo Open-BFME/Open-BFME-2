@@ -10,7 +10,7 @@
 // landed callees initFromINI 0x0002DE78, new 0x0002FDA0, Rva003F1FB6 ctor
 // 0x003F1FB6, holder 0x003F255C, INIException 0x0002F681; table VA 0x00C36EE0.
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
-struct FieldParse { const char *token; FieldParseProc parse; const void *userData; int offset; };
+#include "../../../Include/Common/INI/FieldParse.h"
 
 class INI
 {
@@ -41,12 +41,6 @@ struct Rva003F2576Outer
 	Rva003F255C m_holder;
 };
 
-struct INIException
-{
-	char *mFailureMessage;
-	int mErrorCode;
-	INIException(int argCount, const char *format, ...);
-};
 
 extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
 struct Rva003F2576ThrowInfoAnchor { int a; int b; int c; int d; };

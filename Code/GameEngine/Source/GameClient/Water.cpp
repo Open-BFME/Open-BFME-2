@@ -32,13 +32,7 @@ public:
 	static void parseInt( INI *ini, void *instance, void *store, const void *userData );
 };
 
-struct FieldParse
-{
-	const char *token;
-	void (__cdecl *parse)( INI *ini, void *instance, void *store, const void *userData );
-	const void *userData;
-	Int offset;
-};
+#include "../../Include/Common/INI/FieldParse.h"
 
 class WaterSetting
 {

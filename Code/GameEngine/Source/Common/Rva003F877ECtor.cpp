@@ -53,7 +53,7 @@ struct BfmeE16;
 namespace _STL { template <> void allocator<BfmeE16>::deallocate(BfmeE16 *, size_t) const; }
 class INI;
 typedef void (*FieldParseProc)(INI *, void *, void *, const void *);
-struct FieldParse { const char *token; FieldParseProc parse; const void *userData; int offset; };
+#include "../../Include/Common/INI/FieldParse.h"
 class INI {
 public:
  AsciiString getNextQuotedAsciiString();
@@ -63,14 +63,6 @@ public:
 class ModuleData;
 struct Rva003F9048 {
  void rva003F9048(const ModuleData *);
-};
-class INIException {
-public:
- char *message; int error;
- INIException(int,const char *,...);
- ~INIException();
- INIException(const INIException &);
- INIException &operator=(const INIException &);
 };
 // LogicTurn's field table (retail .rdata VA 0xC37514, read from the image):
 // "Phase" -> the rowed phase parser 0x003F90E4, no user data, offset 0, then

@@ -5,7 +5,7 @@
 // retail push-imm plus push-ecx plus mov-ecx-[esp+0xc] plus call plus ret-4;
 // caller 0x00413586.
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
-struct FieldParse { const char *token; FieldParseProc parse; const void *userData; int offset; };
+#include "../../Include/Common/INI/FieldParse.h"
 class INI
 {
 public:

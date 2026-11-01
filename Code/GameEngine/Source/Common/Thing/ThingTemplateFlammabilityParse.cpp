@@ -40,13 +40,7 @@
 
 typedef void (__cdecl *ParseProc)(class INI *, void *, void *, const void *);
 
-struct FieldParse
-{
-	const char *token;
-	ParseProc parse;
-	const void *userData;
-	int offset;
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 
 class INI
 {

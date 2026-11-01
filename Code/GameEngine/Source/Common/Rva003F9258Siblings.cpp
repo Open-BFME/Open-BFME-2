@@ -10,7 +10,7 @@
 // SpawnGenericArmy/OwnershipSet), and the ctor and holder call displacements
 // are read from the retail bodies.
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
-struct FieldParse { const char *token; FieldParseProc parse; const void *userData; int offset; };
+#include "../../Include/Common/INI/FieldParse.h"
 
 class INI
 {
@@ -20,12 +20,6 @@ public:
 
 class ModuleData;
 
-struct INIException
-{
-	char *mFailureMessage;
-	int mErrorCode;
-	INIException(int argCount, const char *format, ...);
-};
 
 extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
 struct Rva003F9258ThrowInfoAnchor { int a; int b; int c; int d; };

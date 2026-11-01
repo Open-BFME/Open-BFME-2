@@ -269,7 +269,7 @@ public:
 
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
 
-struct FieldParse { const char *token; FieldParseProc parse; const void *userData; int offset; };
+#include "../../../Include/Common/INI/FieldParse.h"
 
 class MetaMap;
 
@@ -317,12 +317,6 @@ const FieldParse DebugCommandMapEntry::m_fieldParseTable[8] = {
 	{ 0, 0, 0, 0 }
 };
 
-struct INIException
-{
-	INIException(int argCount, const char *format, ...);
-	char *mFailureMessage;
-	int mErrorCode;
-};
 
 extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
 

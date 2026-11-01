@@ -189,14 +189,7 @@ class INI;
 
 typedef void (*INIFieldParseProc)(INI *, void *, void *, const void *);
 
-struct FieldParse
-{
-public:
-	const char *token; // +0x00
-	INIFieldParseProc parse; // +0x04
-	const void *userData; // +0x08
-	int offset; // +0x0C
-};
+#include "../../../../Include/Common/INI/FieldParse.h"
 
 //
 // ?Rva003201A9Parse@@YAXPAVINI@@PAX@Z, retail 0x003201A9, 92 bytes. ControlBar

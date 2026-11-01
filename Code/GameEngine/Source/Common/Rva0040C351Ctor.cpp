@@ -52,7 +52,7 @@ private:
 	unsigned char m_default;
 };
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
-struct FieldParse { const char *token; FieldParseProc parse; const void *userData; int offset; };
+#include "../../Include/Common/INI/FieldParse.h"
 extern "C" {
 void __identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z")();
 }
@@ -70,14 +70,6 @@ extern const FieldParse carryoverUnitFieldParse[3] = {
 	{ "ThingTemplate", (FieldParseProc)&__identifier("?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x4 },
 	{ "Quantity", (FieldParseProc)&__identifier("?parseInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x90 },
 	{ 0, 0, 0, 0 }
-};
-class MultiIniFieldParse
-{
-public:
-	MultiIniFieldParse();
-	void add(const FieldParse *table, unsigned int x);
-private:
-	char m_pad[0x84];
 };
 class INI
 {

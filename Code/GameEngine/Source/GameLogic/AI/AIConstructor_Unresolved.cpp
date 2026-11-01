@@ -340,13 +340,7 @@ extern const FieldParse s_aiDataFieldParseTable[];
 // Zero Hour's INI field-parse record: the token, its parser, the parser's
 // user data and the field offset within TAiData.
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
-struct FieldParse
-{
-	const char *token;
-	INIFieldParseProc parse;
-	const void *userData;
-	int offset;
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 // The skirmish build-list parser the SkirmishBuildList token runs (rowed 0x002FE9FC).
 class Rva0014C090 { public: static void parseDefinition(INI *ini, void *instance, void *store, const void *userData); };
 

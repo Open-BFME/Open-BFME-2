@@ -35,13 +35,7 @@ struct Rva0033EB77Vec
 	void *m_end;
 };
 
-struct FieldParse
-{
-	const char *name;
-	void (__cdecl *parse)(INI *, void *, void *, const void *);
-	const void *userData;
-	int offset;
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 
 void __cdecl parsePrerequisiteUnit(INI *ini, void *instance, void *store, const void *userData);
 void __cdecl parsePrerequisiteScience(INI *ini, void *instance, void *store, const void *userData);

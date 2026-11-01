@@ -8,15 +8,8 @@
 // the third with /O1 reloading no-esi shape. Evidence: callers 0x0050890B
 // in 0x005088F0 parseDamageNugget path plus 0x0050BE08 plus unblocks
 // 0x005088F0 and 0x0050BDED.
-struct FieldParse
-{
-};
+#include "../../Include/Common/INI/FieldParse.h"
 
-class MultiIniFieldParse
-{
-public:
-	void add(const FieldParse *entry, unsigned int index);
-};
 
 int __cdecl Rva00507552Get();
 

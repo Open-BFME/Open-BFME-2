@@ -8,13 +8,7 @@
 // at VA 0x00C78A58 and 0x00C78A20. The owner class stays address-derived.
 class INI;
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
-struct FieldParse
-{
-	const char *token;
-	INIFieldParseProc parse;
-	const void *userData;
-	int offset;
-};
+#include "../../Include/Common/INI/FieldParse.h"
 
 class INI
 {

@@ -56,26 +56,11 @@ public:
 
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
 
-struct FieldParse
-{
-	const char *token;
-	INIFieldParseProc parse;
-	const void *userData;
-	int offset;
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 
 // BFME 2 parses the bridge sound tokens through the audio-token parser rowed
 // in INIAudioTokenParsers.cpp, not ZH's INI::parseAsciiString.
 
-class INIException
-{
-public:
-	char *mFailureMessage;
-	int m_argCount;
-	INIException(int argCount, const char *errorMessage, ...);
-	INIException(const INIException &that);
-	~INIException();
-};
 
 // BFME 2 keeps the bridge sound slots as 4-byte reference records assigned
 // through the rowed operator= 0x00239099 (the audio-token parser fills them).

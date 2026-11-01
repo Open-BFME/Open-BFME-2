@@ -4,13 +4,7 @@
 // Caller at 0x004142D7 in 0x0041428F passes INI in esi and object in ecx; same 18B shape as rowed 0x00415C56.
 // Owner unproven so honest-address class Rva00414081.
 class INI;
-struct FieldParse
-{
-	const char *token;
-	void (__cdecl *parse)(INI *ini, void *instance, void *store, const void *userData);
-	const void *userData;
-	int offset;
-};
+#include "../../Include/Common/INI/FieldParse.h"
 
 // The two parsers retail's bonus-map record reaches, both already-rowed bodies:
 // the Sides -> side-flag parser (0x002E2612) and the bonus parser (0x00414009)

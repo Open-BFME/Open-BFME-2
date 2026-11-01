@@ -45,12 +45,7 @@ Rva003F8728::Rva003F8728(int a, int phase) : Base003F86F9(a, phase), m_0C(), m_1
 #include "ascii_string.h"
 class INI;
 typedef void (*FieldParseProc)(INI *, void *, void *, const void *);
-struct FieldParse {
- const char *token;
- FieldParseProc parse;
- const void *userData;
- int offset;
-};
+#include "../../Include/Common/INI/FieldParse.h"
 class INI {
 public:
  AsciiString getNextQuotedAsciiString();
@@ -61,14 +56,6 @@ class ModuleData;
 struct Rva003F9004 {
  char pad[4]; int field04;
  void rva003F9004(const ModuleData *);
-};
-class INIException {
-public:
- char *message; int error;
- INIException(int,const char *,...);
- ~INIException();
- INIException(const INIException &);
- INIException &operator=(const INIException &);
 };
 // Descriptive data roles; original table names remain unproven.
 extern const char *const g_logicTurnPhaseNames[8] = {

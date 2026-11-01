@@ -6,12 +6,7 @@
 #include <stdlib.h>
 class INI;
 typedef void (*INIFieldParseProc)(INI *,void *,void *,const void *);
-struct FieldParse {
- const char *token;
- INIFieldParseProc parser;
- const void *userData;
- int offset;
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 class INI {
 public:
  const char *getNextToken(const char *);
@@ -19,14 +14,6 @@ public:
  static void parseColorInt(INI *,void *,void *,const void *);
  static void parseAsciiString(INI *,void *,void *,const void *);
  static void parseUnsignedInt(INI *,void *,void *,const void *);
-};
-class INIException {
-public:
- INIException(int,const char *,...);
- INIException(const INIException &);
- ~INIException();
- char *message;
- int errorCode;
 };
 static inline const void *materialMask(unsigned mask) { return reinterpret_cast<const void *>(mask); }
 void Rva00285FA9Parse(INI *ini,void *,void *store,const void *) {

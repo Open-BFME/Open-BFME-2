@@ -10,23 +10,8 @@
 // parse table, not a direct call; the address name stays.
 #include "ascii_string.h"
 
-class INIException
-{
-public:
-	INIException(int argCount, const char *format, ...);
-	char *mFailureMessage;
-	int m_argumentCount;
-	INIException(const INIException &that);
-	~INIException();
-};
+#include "../../Include/Common/INI/FieldParse.h"
 
-struct FieldParse
-{
-	const char *token;
-	void (__cdecl *parse)(class INI *ini, void *instance, void *store, const void *userData);
-	const void *userData;
-	int offset;
-};
 
 // The six field parsers retail's three LivingWorld icon tables reach. Each is an
 // already-rowed body (0x00339900, 0x001DEE74, 0x0056B668, 0x0056BDFC,
@@ -38,15 +23,6 @@ void Rva0056B668Parse(INI *ini, void *instance, void *store, const void *userDat
 void Rva0056BDFCParse(INI *ini, void *instance, void *store, const void *userData);
 void Rva0056BF1FParse(INI *ini, void *instance, void *store, const void *userData);
 
-class MultiIniFieldParse
-{
-public:
-	MultiIniFieldParse();
-	void add(const FieldParse *fields, unsigned extraOffset);
-
-private:
-	char m_pad[0x84];
-};
 
 class INI
 {

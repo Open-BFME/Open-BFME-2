@@ -544,13 +544,7 @@ class INI;
 typedef void (*INIFieldParseProc)(INI *, void *, void *, const void *);
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/INI.h
-struct FieldParse
-{
-	const char *token;
-	INIFieldParseProc parse;
-	const void *userData;
-	int offset;
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/ObjectCreationList.h
 class ObjectCreationNugget

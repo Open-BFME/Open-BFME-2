@@ -144,7 +144,7 @@ void UpgradeCenter::linkUpgrade(UpgradeTemplate *upgrade)
 // Keep the matched lookup visible: it preserves EDX across the lookup,
 // reproducing the parser's cached-centre register without a duplicate TU.
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
-struct FieldParse { const char *token; FieldParseProc parse; const void *userData; int offset; };
+#include "../../../Include/Common/INI/FieldParse.h"
 
 enum INILoadType
 {

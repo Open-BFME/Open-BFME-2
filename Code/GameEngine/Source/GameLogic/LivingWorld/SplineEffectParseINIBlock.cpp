@@ -24,20 +24,9 @@ typedef unsigned int UInt;
 
 #include <new>
 
-class INIException
-{
-public:
-	INIException( Int code, const char *msg, ... );
-	INIException( const INIException &other );
-	~INIException();
-
-private:
-	char *m_msg;
-	Int m_code;
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
-struct FieldParse { const char *token; FieldParseProc parse; const void *userData; int offset; };
 
 class INI
 {

@@ -26,13 +26,7 @@ public:
 	static void parseCoord2D(INI *ini, void *instance, void *store, const void *userData);
 	static void parseCoord3D(INI *ini, void *instance, void *store, const void *userData);
 };
-struct FieldParse
-{
-	const char *token;
-	INIFieldParseProc parse;
-	const void *userData;
-	int offset;
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 
 // Retail's audio-event token parser, rowed and matched at RVA 0x00339900.
 

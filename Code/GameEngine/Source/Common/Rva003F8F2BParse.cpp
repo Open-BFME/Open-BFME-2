@@ -16,7 +16,7 @@
 // Callee placeholders already admitted by address: ??0Rva003F8ED6@@QAE@H@Z
 // (0x003F8EA2), ?rva003F7C0C@Rva003F7C0C@@QAEXPAX@Z (0x003F7C0C).
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
-struct FieldParse { const char *token; FieldParseProc parse; const void *userData; int offset; };
+#include "../../Include/Common/INI/FieldParse.h"
 
 class INI
 {
@@ -56,12 +56,6 @@ struct Rva003F7C0C
 	void rva003F7C0C(void *p);
 };
 
-struct INIException
-{
-	char *mFailureMessage;
-	int mErrorCode;
-	INIException(int argCount, const char *format, ...);
-};
 
 extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
 struct Rva003F2576ThrowInfoAnchor { int a; int b; int c; int d; };

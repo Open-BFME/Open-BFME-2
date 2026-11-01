@@ -6,7 +6,7 @@
 // C++ type spelling is unknown, so retain the established address name.
 
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
-struct FieldParse { const char *token; FieldParseProc parse; const void *userData; int offset; };
+#include "../../Include/Common/INI/FieldParse.h"
 
 class INI
 {
@@ -14,12 +14,6 @@ public:
 	void initFromINI(void *what, const FieldParse *parseTable);
 };
 
-struct INIException
-{
-	char *mFailureMessage;
-	int mErrorCode;
-	INIException(int argCount, const char *format, ...);
-};
 
 struct _s__ThrowInfo;
 

@@ -181,26 +181,10 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class INIException
-{
-public:
-	char *mFailureMessage;
-	int m_argCount;
-	INIException(int argCount, const char *format, ...);
-	INIException(const INIException &that);
-	~INIException();
-	INIException &operator=(const INIException &that);
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 
 typedef void (*INIFieldParseProc)(INI *, void *, void *, const void *);
 
-struct FieldParse
-{
-	const char *token;
-	INIFieldParseProc parseFunc;
-	const void *userData;
-	int offset;
-};
 
 extern const char *const TheStanceNames[];
 
