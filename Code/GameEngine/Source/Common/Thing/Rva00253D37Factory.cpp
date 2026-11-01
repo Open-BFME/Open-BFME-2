@@ -29,13 +29,7 @@ typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const v
 #include "../../../Include/Common/INI/FieldParse.h"
 
 
-class INI
-{
-public:
-	void initFromINIMultiProc(void *instance, void (*proc)(MultiIniFieldParse &));
-	static void parseReal(INI *ini, void *instance, void *store, const void *userData);
-	static void parseDurationUnsignedInt(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 // Tokens, callbacks and offsets read from the retail table; the global name
 // is descriptive, its original spelling unknown.

@@ -99,11 +99,7 @@ public:
 
 extern UpgradeCenter *TheUpgradeCenter;
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 class ProductionPrerequisite
 {

@@ -11,11 +11,7 @@ __forceinline const char *GetStr0026F28B(const AsciiString &asciiString)
 	return t ? t + 8 : "";
 }
 
-class INI
-{
-public:
-	const char *rva0002E03D(const char *seps, bool *substituted);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 #include "../../../Include/Common/INI/FieldParse.h"
 

@@ -20,11 +20,7 @@ public:
 
 extern ScienceStore *TheScienceStore;
 
-class INI
-{
-public:
-	static ScienceType scanScience(const char *token);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 // ?scanScience@INI@@SA?AW4ScienceType@@PBD@Z
 ScienceType INI::scanScience(const char *token)

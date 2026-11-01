@@ -40,12 +40,7 @@
 // Body-search loop, float scale, and bound are BFME2 target facts.
 // No shared-header edits; TU-scoped views only.
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-	float scanReal(const char *token);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 struct _s__ThrowInfo;
 extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);

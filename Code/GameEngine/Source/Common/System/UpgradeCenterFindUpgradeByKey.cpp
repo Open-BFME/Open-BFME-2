@@ -182,17 +182,7 @@ private:
 	char m_pad[0x9C - 4];
 };
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-	void initFromINI(void *what, const FieldParse *parseTable);
-	__declspec(dllimport) __forceinline INILoadType getLoadType() const { return m_loadType; }
-
-private:
-	char m_pad00[0x08];
-	INILoadType m_loadType; // +0x08
-};
+#include "../../../Include/Common/INI/INI.h"
 
 extern UpgradeCenter *TheUpgradeCenter;
 struct LookupListRec { const char *name; int value; };

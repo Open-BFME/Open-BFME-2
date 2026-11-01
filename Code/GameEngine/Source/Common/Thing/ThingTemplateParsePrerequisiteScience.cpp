@@ -60,12 +60,7 @@ private:
 
 }
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-	static ScienceType scanScience(const char *token);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 class ProductionPrerequisite
 {

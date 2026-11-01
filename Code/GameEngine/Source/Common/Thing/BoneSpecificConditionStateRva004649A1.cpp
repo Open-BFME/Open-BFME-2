@@ -11,12 +11,7 @@
 // target access, not a recovered class layout.
 #include <string.h>
 
-class INI
-{
-public:
-	const char *getNextToken(const char *separators);
-	unsigned int scanUnsignedInt(const char *token);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 class Rva000B937E
 {

@@ -17,15 +17,7 @@
 // family as the push-mem effects elsewhere; the whole ThingTemplate cluster
 // builds /O1.
 
-class INI
-{
-public:
-	void initFromINI(void *store, const struct FieldParse *table);
-
-	int m_unk0;
-	int m_unk1;
-	int m_loadType;
-};
+#include "../../../Include/Common/INI/INI.h"
 
 struct Rva0033EB77Vec
 {

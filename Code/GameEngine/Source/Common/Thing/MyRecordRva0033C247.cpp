@@ -3,13 +3,7 @@
 
 struct FieldParse;
 
-class INI
-{
-public:
-	void initFromINI(void *record, const FieldParse *fields);
-	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
-	static void parseDamageFX(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 class Rva0033AFBB
 {
 public:

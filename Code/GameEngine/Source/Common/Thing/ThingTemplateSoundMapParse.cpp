@@ -18,7 +18,7 @@
 #include "ascii_string.h"
 #include <set>
 struct FieldParse;
-class INI { public: const char *getNextToken(const char * = 0); void initFromINI(void *, const FieldParse *); };
+#include "../../../Include/Common/INI/INI.h"
 struct FieldParse { const char *token; void (*parse)(INI *, void *, void *, const void *); const void *userData; int offset; };
 class OpaqueRefCounted { public: void Release_Ref(); };
 class Rva002390CB {

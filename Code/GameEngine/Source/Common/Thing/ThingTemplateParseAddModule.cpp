@@ -8,7 +8,7 @@
 // INI::initFromINI preserve the target parser and exception ABI.
 #include "Common/INIException.h"
 struct FieldParse { unsigned int words[4]; };
-class INI { public: void initFromINI(void *,const FieldParse *); };
+#include "../../../Include/Common/INI/INI.h"
 class ThingTemplate {
 protected:
  static void parseAddModule(INI *,void *,void *,const void *);

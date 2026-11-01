@@ -37,11 +37,7 @@ struct FieldParse
 void Rva002E2612Parse(INI *, void *, void *, const void *);
 void Rva004138C7Parse(INI *, void *, void *, const void *);
 
-class INI
-{
-public:
-	void initFromINI(void *what, const FieldParse *parseTable);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 // Native table: two named fields and a complete null terminator. The
 // callbacks and their existing rowed consumers establish the vector at +0
