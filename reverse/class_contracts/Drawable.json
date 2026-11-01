@@ -1,0 +1,1936 @@
+{
+ "bases": [
+  "Thing",
+  "Snapshot"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "Drawable",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 40,
+  "inherited": {
+   "base_views": 1,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x100": {
+    "4": 4
+   },
+   "0x104": {
+    "4": 3
+   },
+   "0x108": {
+    "4": 2
+   },
+   "0x110": {
+    "4": 1
+   },
+   "0x114": {
+    "4": 2
+   },
+   "0x118": {
+    "1": 1
+   },
+   "0x120": {
+    "4": 1
+   },
+   "0x124": {
+    "4": 1
+   },
+   "0x128": {
+    "4": 5
+   },
+   "0x12c": {
+    "4": 3
+   },
+   "0x130": {
+    "4": 3
+   },
+   "0x134": {
+    "4": 1
+   },
+   "0x13c": {
+    "4": 3
+   },
+   "0x140": {
+    "4": 1
+   },
+   "0x144": {
+    "4": 1
+   },
+   "0x14c": {
+    "4": 44
+   },
+   "0x150": {
+    "4": 2
+   },
+   "0x154": {
+    "4": 4
+   },
+   "0x158": {
+    "4": 4
+   },
+   "0x15c": {
+    "4": 4
+   },
+   "0x164": {
+    "4": 2
+   },
+   "0x170": {
+    "4": 1
+   },
+   "0x174": {
+    "4": 1
+   },
+   "0x178": {
+    "4": 1
+   },
+   "0x17c": {
+    "4": 1
+   },
+   "0x180": {
+    "4": 1
+   },
+   "0x184": {
+    "4": 1
+   },
+   "0x188": {
+    "4": 1
+   },
+   "0x18c": {
+    "4": 1
+   },
+   "0x190": {
+    "4": 1
+   },
+   "0x194": {
+    "4": 1
+   },
+   "0x198": {
+    "4": 1
+   },
+   "0x19c": {
+    "4": 1
+   },
+   "0x1a0": {
+    "4": 2
+   },
+   "0x1a4": {
+    "4": 2
+   },
+   "0x1a8": {
+    "4": 2
+   },
+   "0x1ac": {
+    "4": 2
+   },
+   "0x1b0": {
+    "4": 2
+   },
+   "0x1b4": {
+    "4": 2
+   },
+   "0x1b8": {
+    "4": 2
+   },
+   "0x1bc": {
+    "4": 2
+   },
+   "0x1c0": {
+    "4": 2
+   },
+   "0x1c4": {
+    "4": 2
+   },
+   "0x1c8": {
+    "4": 2
+   },
+   "0x1cc": {
+    "4": 2
+   },
+   "0x258": {
+    "4": 6
+   },
+   "0x268": {
+    "4": 1
+   },
+   "0x2a4": {
+    "4": 7
+   },
+   "0x2f0": {
+    "4": 6
+   },
+   "0x348": {
+    "4": 1
+   },
+   "0x34c": {
+    "4": 2
+   },
+   "0x354": {
+    "4": 2
+   },
+   "0x358": {
+    "4": 1
+   },
+   "0x37c": {
+    "4": 3
+   },
+   "0x38": {
+    "4": 1
+   },
+   "0x390": {
+    "4": 2
+   },
+   "0x3a4": {
+    "4": 1
+   },
+   "0x3a8": {
+    "1": 1
+   },
+   "0x3a9": {
+    "1": 1,
+    "4": 1
+   },
+   "0x3aa": {
+    "1": 2
+   },
+   "0x3ab": {
+    "1": 1
+   },
+   "0x4": {
+    "4": 3
+   },
+   "0x43c": {
+    "1": 3,
+    "4": 2
+   },
+   "0x43d": {
+    "4": 1
+   },
+   "0x43e": {
+    "1": 1
+   },
+   "0x43f": {
+    "1": 1
+   },
+   "0x440": {
+    "1": 1
+   },
+   "0x441": {
+    "1": 1
+   },
+   "0x442": {
+    "1": 1
+   },
+   "0x443": {
+    "1": 7
+   },
+   "0x447": {
+    "1": 1,
+    "4": 1
+   },
+   "0x448": {
+    "1": 2
+   },
+   "0x449": {
+    "4": 1
+   },
+   "0x44a": {
+    "4": 2
+   },
+   "0x44b": {
+    "1": 1
+   },
+   "0x44c": {
+    "4": 1
+   },
+   "0x454": {
+    "4": 2
+   },
+   "0x460": {
+    "4": 5
+   },
+   "0x464": {
+    "4": 1
+   },
+   "0x468": {
+    "4": 2
+   },
+   "0x46c": {
+    "4": 2
+   },
+   "0x68": {
+    "4": 1
+   },
+   "0x8": {
+    "4": 1
+   },
+   "0x88": {
+    "4": 1
+   },
+   "0x8c": {
+    "4": 2
+   },
+   "0xa8": {
+    "4": 2
+   },
+   "0xac": {
+    "4": 1
+   },
+   "0xb4": {
+    "4": 2
+   },
+   "0xb8": {
+    "4": 1
+   },
+   "0xbc": {
+    "4": 1
+   },
+   "0xc0": {
+    "4": 1
+   },
+   "0xd0": {
+    "4": 1
+   },
+   "0xd4": {
+    "4": 1
+   },
+   "0xfc": {
+    "4": 24
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x470": 1
+     }
+    },
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x2797bd"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "Thing",
+       "offset": 0,
+       "own_vftable": "0x7fb0b4",
+       "rule": "retail-ctor-call"
+      },
+      {
+       "kind": "target",
+       "name": "Snapshot",
+       "offset": 96,
+       "own_vftable": "0x7fb0a4",
+       "rule": "retail-inlined-base-vptr"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x2797bd"
+     ],
+     "value": 1120
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x2797bd"
+     ],
+     "value": {
+      "0x100": [
+       4
+      ],
+      "0x104": [
+       4
+      ],
+      "0x108": [
+       4
+      ],
+      "0x10c": [
+       4
+      ],
+      "0x110": [
+       4
+      ],
+      "0x114": [
+       4
+      ],
+      "0x118": [
+       4
+      ],
+      "0x11c": [
+       4
+      ],
+      "0x120": [
+       4
+      ],
+      "0x124": [
+       4
+      ],
+      "0x128": [
+       4
+      ],
+      "0x12c": [
+       4
+      ],
+      "0x130": [
+       4
+      ],
+      "0x134": [
+       4
+      ],
+      "0x138": [
+       4
+      ],
+      "0x13c": [
+       4
+      ],
+      "0x140": [
+       4
+      ],
+      "0x144": [
+       4
+      ],
+      "0x148": [
+       4
+      ],
+      "0x14c": [
+       4
+      ],
+      "0x150": [
+       4
+      ],
+      "0x154": [
+       4
+      ],
+      "0x164": [
+       4
+      ],
+      "0x168": [
+       4
+      ],
+      "0x16c": [
+       4
+      ],
+      "0x170": [
+       4
+      ],
+      "0x174": [
+       4
+      ],
+      "0x178": [
+       4
+      ],
+      "0x17c": [
+       4
+      ],
+      "0x180": [
+       4
+      ],
+      "0x184": [
+       4
+      ],
+      "0x188": [
+       4
+      ],
+      "0x18c": [
+       4
+      ],
+      "0x190": [
+       4
+      ],
+      "0x194": [
+       4
+      ],
+      "0x198": [
+       4
+      ],
+      "0x19c": [
+       4
+      ],
+      "0x1a0": [
+       4
+      ],
+      "0x1a4": [
+       4
+      ],
+      "0x1a8": [
+       4
+      ],
+      "0x1ac": [
+       4
+      ],
+      "0x1b0": [
+       4
+      ],
+      "0x1b4": [
+       4
+      ],
+      "0x1b8": [
+       4
+      ],
+      "0x1bc": [
+       4
+      ],
+      "0x1c0": [
+       4
+      ],
+      "0x1c4": [
+       4
+      ],
+      "0x1c8": [
+       4
+      ],
+      "0x1cc": [
+       4
+      ],
+      "0x200": [
+       4
+      ],
+      "0x204": [
+       4
+      ],
+      "0x208": [
+       4
+      ],
+      "0x20c": [
+       4
+      ],
+      "0x210": [
+       4
+      ],
+      "0x214": [
+       4
+      ],
+      "0x218": [
+       4
+      ],
+      "0x21c": [
+       4
+      ],
+      "0x220": [
+       4
+      ],
+      "0x224": [
+       4
+      ],
+      "0x228": [
+       4
+      ],
+      "0x22c": [
+       4
+      ],
+      "0x230": [
+       4
+      ],
+      "0x234": [
+       4
+      ],
+      "0x238": [
+       4
+      ],
+      "0x23c": [
+       4
+      ],
+      "0x240": [
+       4
+      ],
+      "0x244": [
+       4
+      ],
+      "0x248": [
+       4
+      ],
+      "0x24c": [
+       4
+      ],
+      "0x250": [
+       4
+      ],
+      "0x254": [
+       4
+      ],
+      "0x33c": [
+       4
+      ],
+      "0x340": [
+       4
+      ],
+      "0x344": [
+       4
+      ],
+      "0x348": [
+       4
+      ],
+      "0x34c": [
+       4
+      ],
+      "0x350": [
+       4
+      ],
+      "0x354": [
+       4
+      ],
+      "0x358": [
+       4
+      ],
+      "0x35c": [
+       4
+      ],
+      "0x360": [
+       4
+      ],
+      "0x364": [
+       4
+      ],
+      "0x368": [
+       4
+      ],
+      "0x378": [
+       4
+      ],
+      "0x37c": [
+       4
+      ],
+      "0x380": [
+       4
+      ],
+      "0x384": [
+       4
+      ],
+      "0x388": [
+       4
+      ],
+      "0x3a4": [
+       4
+      ],
+      "0x3a8": [
+       1
+      ],
+      "0x3a9": [
+       1
+      ],
+      "0x3aa": [
+       1
+      ],
+      "0x3ab": [
+       1
+      ],
+      "0x43c": [
+       1
+      ],
+      "0x43d": [
+       1
+      ],
+      "0x43e": [
+       1
+      ],
+      "0x43f": [
+       1
+      ],
+      "0x440": [
+       1
+      ],
+      "0x442": [
+       1
+      ],
+      "0x443": [
+       1
+      ],
+      "0x444": [
+       1
+      ],
+      "0x445": [
+       1
+      ],
+      "0x446": [
+       1
+      ],
+      "0x447": [
+       1
+      ],
+      "0x448": [
+       1
+      ],
+      "0x449": [
+       1
+      ],
+      "0x44a": [
+       1
+      ],
+      "0x44b": [
+       1
+      ],
+      "0x44c": [
+       4
+      ],
+      "0x450": [
+       4
+      ],
+      "0x454": [
+       4
+      ],
+      "0x458": [
+       4
+      ],
+      "0x45c": [
+       4
+      ],
+      "0x64": [
+       4
+      ],
+      "0x68": [
+       4
+      ],
+      "0x78": [
+       4
+      ],
+      "0x7c": [
+       4
+      ],
+      "0x80": [
+       4
+      ],
+      "0x84": [
+       4
+      ],
+      "0x88": [
+       4
+      ],
+      "0x8c": [
+       4
+      ],
+      "0x90": [
+       4
+      ],
+      "0x94": [
+       4
+      ],
+      "0x98": [
+       4
+      ],
+      "0x9c": [
+       4
+      ],
+      "0xa0": [
+       4
+      ],
+      "0xa4": [
+       4
+      ],
+      "0xa8": [
+       4
+      ],
+      "0xc8": [
+       4
+      ],
+      "0xd0": [
+       4
+      ],
+      "0xd4": [
+       4
+      ],
+      "0xd8": [
+       4
+      ],
+      "0xdc": [
+       4
+      ],
+      "0xe0": [
+       4
+      ],
+      "0xe4": [
+       1
+      ],
+      "0xe8": [
+       4
+      ],
+      "0xec": [
+       4
+      ],
+      "0xf0": [
+       4
+      ],
+      "0xf8": [
+       4
+      ],
+      "0xfc": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x2797bd"
+     ],
+     "value": {
+      "0x0": [
+       "?rva002783F6@Rva002783F6Host@@QAEXH@Z"
+      ],
+      "0x158": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x258": [
+       "??0Rva0042526Member@@QAE@XZ"
+      ],
+      "0x2a4": [
+       "??0Rva0042526Member@@QAE@XZ"
+      ],
+      "0x2f0": [
+       "??0Rva0042526Member@@QAE@XZ"
+      ],
+      "0x348": [
+       "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+      ],
+      "0x34c": [
+       "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+      ],
+      "0x36c": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x3ac": [
+       "??0Rva002701F4@@QAE@XZ"
+      ],
+      "0x6c": [
+       "?setFromInt@RGBColor@@QAEXH@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x2797bd"
+     ],
+     "value": {
+      "0x0": "0x7fb0b4",
+      "0x60": "0x7fb0a4"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7fb0b4"
+     ],
+     "value": {
+      "count": 15,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "?calculateHeightAboveTerrain@Thing@@MBEMXZ",
+        "slot": 0,
+        "target": "0x30a4ac"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 1,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 2,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "??0RealRange@@QAE@XZ",
+        "slot": 3,
+        "target": "0x47a6a9"
+       },
+       {
+        "name": "??0RealRange@@QAE@XZ",
+        "slot": 4,
+        "target": "0x47a6a9"
+       },
+       {
+        "name": "?reactToTransformChange@Drawable@@MAEXPBVMatrix3D@@PBUCoord3D@@M@Z",
+        "slot": 5,
+        "target": "0x2742e5"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 6,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??_GRva002793F0@@UAEPAXI@Z",
+        "slot": 7,
+        "target": "0x279ffc"
+       },
+       {
+        "name": "?rva0027299A@Drawable@@UAEXH@Z",
+        "slot": 8,
+        "target": "0x27299a"
+       },
+       {
+        "name": "?setDeathDecalPosition@Drawable@@UAEXH@Z",
+        "slot": 9,
+        "target": "0x2729b5"
+       },
+       {
+        "name": "?rva002729CB@Drawable@@UAEXM@Z",
+        "slot": 10,
+        "target": "0x2729cb"
+       },
+       {
+        "name": "?rva002729E9@Drawable@@UAEXH@Z",
+        "slot": 11,
+        "target": "0x2729e9"
+       },
+       {
+        "name": "?createDeathDecal@Drawable@@UAEXHMH@Z",
+        "slot": 12,
+        "target": "0x272971"
+       },
+       {
+        "name": "?rva00271095@Drawable@@UAEXXZ",
+        "slot": 13,
+        "target": "0x271095"
+       },
+       {
+        "name": "?rva00271C38@Drawable@@UAEXH@Z",
+        "slot": 14,
+        "target": "0x271c38"
+       }
+      ],
+      "table": "0x7fb0b4"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 160,
+  "retail_vtables": {
+   "0x7fb0a4": {
+    "offset": 96,
+    "slots": {},
+    "stores": 1
+   },
+   "0x7fb0b4": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "?calculateHeightAboveTerrain@Thing@@MBEMXZ",
+     "1": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "2": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "3": "??0RealRange@@QAE@XZ",
+     "4": "??0RealRange@@QAE@XZ",
+     "5": "?reactToTransformChange@Drawable@@MAEXPBVMatrix3D@@PBUCoord3D@@M@Z",
+     "6": "??1Region2D@@QAE@XZ",
+     "7": "??_GRva002793F0@@UAEPAXI@Z",
+     "8": "?rva0027299A@Drawable@@UAEXH@Z",
+     "9": "?setDeathDecalPosition@Drawable@@UAEXH@Z",
+     "10": "?rva002729CB@Drawable@@UAEXM@Z",
+     "11": "?rva002729E9@Drawable@@UAEXH@Z",
+     "12": "?createDeathDecal@Drawable@@UAEXHMH@Z",
+     "13": "?rva00271095@Drawable@@UAEXXZ",
+     "14": "?rva00271C38@Drawable@@UAEXH@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 15,
+   "8": 1,
+   "180": 1,
+   "256": 10,
+   "264": 1,
+   "601": 1,
+   "676": 1,
+   "860": 1,
+   "872": 1,
+   "932": 1,
+   "1085": 2,
+   "1088": 2,
+   "1092": 2,
+   "1136": 1
+  },
+  "views": 40,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_Drawable.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/Drawable.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "P",
+   "name": "m_vtable",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 10,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 170
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableFlashAsSelected.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/PalantirCommandInterfacePortrait.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIHandleBuildPlacements.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdateLogic.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualAddFactionBibDrawable.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/PalantirCommandInterfacePortrait.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/InGameUIHandleBuildPlacements.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdateLogic.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/InGameUIHandleBuildPlacements.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdateLogic.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 64,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/InGameUIHandleBuildPlacements.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdateLogic.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 68,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdateLogic.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 96,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 100,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp",
+    "Code/GameEngine/Source/GameClient/DrawableFlashAsSelected.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 104,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 108,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 112,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 116,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 120,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 124,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 128,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 132,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 136,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 140,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 144,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 156,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneRenderOneObject.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 160,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneRenderOneObject.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 164,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneRenderOneObject.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 168,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 172,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 176,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIHandleBuildPlacements.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdateLogic.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 180,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 184,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 188,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 192,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 196,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 200,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 204,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 208,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 212,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 216,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 220,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 224,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 228,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneRenderOneObject.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 232,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 236,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 240,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneRenderOneObject.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 244,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 248,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 252,
+   "sources": [
+    "Code/GameEngine/Source/Common/CommandTranslator_createEvacuateMessage.cpp",
+    "Code/GameEngine/Source/Common/Rva00306910DrawableTemplateXfer.cpp",
+    "Code/GameEngine/Source/GameClient/DrawableCalcPhysicsXform.cpp",
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp",
+    "Code/GameEngine/Source/GameClient/DrawableFlashAsSelected.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp",
+    "Code/GameEngine/Source/GameClient/FormationTranslatorRva00431C9D.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarMultiSelect.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/PalantirCommandInterfacePortrait.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/Rva0042FB8F.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUI_selectMatchingAcrossRegion.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUI_selectMatchingCallback.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdateClientUpdate.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DProjectileStreamDraw.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneRenderOneObject.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView_update.cpp"
+   ],
+   "views": 16
+  },
+  {
+   "offset": 256,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 260,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/InGameUI_selectMatchingAcrossRegion.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView_update.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 268,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 272,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 276,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 280,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 284,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 288,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 292,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 296,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 300,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 304,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 308,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 312,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneRenderOneObject.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 316,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 320,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 324,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 328,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 332,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 336,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 344,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 348,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 356,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneRenderOneObject.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 360,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 364,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 368,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 416,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 464,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 512,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 584,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 600,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/UpgradeMuxData_getUpgradeActivationMasks.cpp",
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/ModelConditionSoundSelectorClientBehavior.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 676,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 752,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 828,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 840,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 844,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 848,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 852,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 856,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneRenderOneObject.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 860,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 864,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 868,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawAttachableSubModels.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 872,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 876,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 880,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 884,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 888,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 892,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 896,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 900,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 904,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 908,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableRva002766AE.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 932,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 936,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 937,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 938,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1084,
+   "sources": [
+    "Code/GameEngine/Source/Common/InGameUIDeselectDrawable.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUI_selectMatchingAcrossRegion.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUI_selectMatchingCallback.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/Rva00265173Fade.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdateLogic.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 1085,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1086,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1087,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1088,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdateLogic.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1089,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1090,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1091,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1092,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1093,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1094,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1095,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1096,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1097,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1098,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1099,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1104,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1108,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1120,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "inherited@0x0",
+   "candidates": {
+    "252:A": 1,
+    "4:P": 1,
+    "4:VPTR": 1,
+    "908:A": 1
+   },
+   "class": "Drawable"
+  }
+ ],
+ "size": 256,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
