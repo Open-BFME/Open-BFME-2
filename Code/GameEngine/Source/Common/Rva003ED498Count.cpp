@@ -144,15 +144,7 @@ void BitRange::rva003ED411(const BitRange &other)
 	}
 }
 
-class XferException
-{
-public:
-	XferException(int tag, const char *format, ...);
-	XferException(const XferException &that);
-	~XferException();
-	char *text;
-	int tag;
-};
+#include "../../Include/Common/XferException.h"
 
 struct Rva003ED5A5Version
 {

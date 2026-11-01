@@ -50,16 +50,7 @@ struct XferVersion
 #include "System/XferVectorTypes.h"
 #include "../../Include/Common/BfmeXfer.h"
 
-class XferException
-{
-public:
-	XferException(int tag, const char *format, ...);
-	XferException(const XferException &that);
-	~XferException();
-
-	char *text;
-	int tag;
-};
+#include "../../Include/Common/XferException.h"
 
 Xfer *Rva00414C92(Xfer *xfer, Rva00414EA1Vector *trackers)
 {
