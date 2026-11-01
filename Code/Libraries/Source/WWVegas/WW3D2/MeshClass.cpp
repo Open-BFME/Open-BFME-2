@@ -130,12 +130,6 @@ extern int G00DEDA78;
 
 // 0x00DEDA24 is DX8Wrapper's protected FogColor (defined in dx8wrapper.cpp);
 // this view grants MeshClass access to it.
-class DX8Wrapper
-{
-	friend class MeshClass;
-protected:
-	static unsigned long FogColor;
-};
 
 class Rva00149BB0Inner
 {

@@ -91,11 +91,6 @@ void Rva005CDDF0::method()
 	((Drawable *)&m_0C)->rva000B3FD0();
 }
 
-class Rva005E5554Member
-{
-public:
-	void second();
-};
 
 class Rva005E549E
 {

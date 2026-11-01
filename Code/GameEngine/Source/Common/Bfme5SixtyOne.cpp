@@ -9,11 +9,6 @@ public:
 	int m_bfmeSpare;					// +0x04
 };
 
-class Gen_0072EA60
-{
-public:
-	void bfmeSet(int first, int second, int third, int fourth, int unused);
-};
 
 class BfmeSlotEH
 {

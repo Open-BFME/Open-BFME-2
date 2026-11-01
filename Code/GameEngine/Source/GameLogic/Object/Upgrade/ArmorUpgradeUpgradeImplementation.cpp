@@ -117,11 +117,6 @@ public:
 class ModuleData;
 class Rva00406F9C;
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-class UpgradeModuleInterface
-{
-public:
-	virtual void upgradeModuleInterfaceAnchor();
-};
 template <int N> class ArmorUpgradeMuxSlots : public ArmorUpgradeMuxSlots<N - 1>
 {
 public:

@@ -196,18 +196,6 @@ StateReturnType AIMoveForBoarding::update()
 	return status;
 }
 
-class AIFollowPathState : public AIInternalMoveToState
-{
-public:
-	virtual StateReturnType onEnter();
-	virtual void onExit(StateExitType status);
-};
 
-class AIFollowPathAndEvacuateState : public AIFollowPathState
-{
-public:
-	virtual StateReturnType onEnter();
-	virtual void onExit(StateExitType status);
-};
 
 

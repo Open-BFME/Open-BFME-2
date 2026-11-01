@@ -93,30 +93,13 @@ U4Made005EA530 *U4Maker005EA530::make( void )
 struct FieldParse;
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/INI.h
-class INI
-{
-public:
-	void initFromINI( void *what, const FieldParse *parse );
-};
 
-class U4Thing0060CD80
-{
-public:
-	U4Thing0060CD80();
-	char m_body[ 0x74 ];
-};
 
 // retail 0x012F706C: the map-info singleton, which is EA's `LivingWorldManager
 // *TheLivingWorldManager`, defined once in
 // game/GameEngine/Source/GameLogic/LivingWorld/LivingWorldManager.cpp.  The
 // only member this TU needs is the EyeTower block parked at +0x28C, reached
 // through the local view BfmeGameCW.
-class BfmeGameCW
-{
-public:
-	char m_pad[ 0x28C ];
-	U4Thing0060CD80 *m_thing;
-};
 
 class LivingWorldManager;
 extern LivingWorldManager *TheLivingWorldManager;

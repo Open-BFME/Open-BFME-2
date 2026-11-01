@@ -27,11 +27,6 @@ public:
 	float rva001E3F08(Rva001E3F08Arg *p);
 };
 
-struct Rva001E3F08Holder
-{
-	char m_pad00[0x1F0];
-	Rva001E3F08 *m_holder1F0;
-};
 
 struct AIUpdateLike
 {

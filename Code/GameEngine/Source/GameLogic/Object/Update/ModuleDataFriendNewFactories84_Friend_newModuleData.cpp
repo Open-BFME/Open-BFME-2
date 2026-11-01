@@ -56,15 +56,4 @@ ModuleData *ScavengerSpecialPowerModuleData::friend_newModuleData(INI *ini)
 // 0x002531B0 / 0x0025327A: both news 0xC8 with the one folded ctor
 // ??0EvacuateGarrisonSpecialPowerModuleData (rowed 0x4CDFD9); parse procs
 // 0x8CDBE1 and 0x8CDFEB.
-class EvacuateGarrisonSpecialPowerModuleData
-{
-public:
-	EvacuateGarrisonSpecialPowerModuleData();
-	virtual ~EvacuateGarrisonSpecialPowerModuleData();
-	static ModuleData *friend_newModuleData(INI *ini);
-	static void buildFieldParse(MultiIniFieldParse &parse);
-
-private:
-	unsigned char m_pad[0xC8 - 4];
-};
 

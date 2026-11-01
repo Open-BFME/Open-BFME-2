@@ -9,26 +9,9 @@
 // retail's call sites (reverse/symbols.csv). Only the placed bodies are
 // carried; the donor's other definitions are omitted.
 
-struct BfmeThing174
-{
-	unsigned char pad[0x50c];
-	int m_val50C;
-	int toInt(int dummy);
-};
 
 
-struct BfmeArg171
-{
-	unsigned char pad[0x10];
-	float f10;
-};
 
-struct BfmeThing171
-{
-	unsigned char pad[0x500];
-	int m_preAttackDelay;
-	int scaleToInt(BfmeArg171 *arg);
-};
 
 
 // Native 0x00261353 calls the established Object shroud query at 0x0028D2A2.
@@ -60,72 +43,19 @@ bool Rva00261353Filter::allow(Object *obj)
 	return obj->getShroudStatusForPlayer(m_val8) == CELLSHROUD_FOGGED;
 }
 
-class BfmeSub9BB
-{
-public:
-	void doAction();
-};
-
-struct BfmeSub4_9BB
-{
-	unsigned char pad[0xc4];
-	char m_flagC4;
-};
-
-struct BfmeThing9BB
-{
-	unsigned char pad[4];
-	BfmeSub4_9BB *m_sub4;
-	unsigned char pad2[0x34];
-	char m_flag3C;
-	char m_flag3D;
-	void checkAndRun();
-};
 
 
-class BfmeObjEB2
-{
-public:
-	void trigger(int a, int b);
-};
 
-class BfmeMgrEB2
-{
-public:
-	BfmeObjEB2* find(int id);
-};
+
+
 
 class GameLogic;
 extern GameLogic *TheGameLogic;
 
-struct BfmeSubEB2
-{
-	unsigned char m_pad[0x7c];
-	int m_id;
-};
-
-struct BfmeThingEB2
-{
-	unsigned char m_pad[0x8];
-	BfmeSubEB2 *m_sub;
-	void doTrigger();
-};
 
 
-class BfmeSubHelperCAB
-{
-public:
-	int checkState(void *a, void *b, void *c);
-};
 
-struct BfmeThingCAB
-{
-	unsigned char m_pad[0x8];
-	BfmeSubHelperCAB *m_helper;
-	void *m_argC;
-	void *m_attackType;
-	bool isMatch(void *param);
-};
+
 
 
 struct BfmeItemE63

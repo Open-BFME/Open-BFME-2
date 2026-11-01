@@ -10,7 +10,6 @@ class Rva0030812E { public: void *getTextureName(int i); };
 class Rva002C9400ByteField { public: unsigned char get() const; };
 class Rva002C9407ByteField { public: unsigned char get() const; };
 class Rva005E3266 { public: void rva005E3266(); };
-class Rva0013EDC0DwordField { public: int get() const; };
 
 // 0x0007E0C6: [ecx+0x40] -> Rva0030812E::getTextureName(int)
 class Rva0007E0C6Owner

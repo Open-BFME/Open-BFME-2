@@ -58,44 +58,12 @@ public:
 	MaxHealthUpgrade( Thing *thing, const ModuleData *moduleData );
 };
 
-class UpgradeModuleDataSub
-{
-public:
-	UpgradeModuleDataSub();
-
-private:
-	char opaque[0x68];
-};
 
 // Retail builds the module data as a sub-object at +8, zeroes +0x70/+0x74, then
 // runs the outer vtable's own constructor over `this` -- which is why the same
 // layout is spelled twice, once as the novtable class the body defines and once
 // as the vtable-carrying class it re-runs.
-class __declspec(novtable) MaxHealthUpgradeModuleData
-{
-public:
-	MaxHealthUpgradeModuleData();
-	virtual void dummy();
 
-private:
-	int m_pad;
-	char m_sub_space[0x68];
-	unsigned int m_70;
-	unsigned int m_74;
-};
-
-class MaxHealthUpgradeModuleDataVtbl
-{
-public:
-	MaxHealthUpgradeModuleDataVtbl() {}
-	virtual void dummy();
-
-private:
-	int m_pad;
-	char m_sub_space[0x68];
-	unsigned int m_70;
-	unsigned int m_74;
-};
 
 // ??0MaxHealthUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z
 MaxHealthUpgrade::MaxHealthUpgrade(

@@ -10,17 +10,7 @@
 // recovered.
 //
 
-class Rva001EF83A
-{
-public:
-	void rva001EF83A(int a, int b, char *p);
-};
 
-class Rva001EFC42
-{
-public:
-	void rva001EFC42(int a, int b, int c);
-};
 
 
 class Rva0018C73C
@@ -107,24 +97,9 @@ void Rva0056A362::rva0056A362(int first, int last)
 	((Rva00569F0C *)this)->rva00569F0C(first, last, (char *)&last + 3);
 }
 
-class Rva005F4F74
-{
-public:
-	void rva005F4F74(int a, int b, char *p);
-};
-
-class Rva005F50A3
-{
-public:
-	void rva005F50A3(int a, int b, int c);
-};
 
 
-class Rva005F50D3
-{
-public:
-	void rva005F50D3(int a, int b);
-};
+
 
 // 0x002B2955 (15B): the same ebp frame around a tail jump: the seven stack
 // arguments go unchanged to the rowed
