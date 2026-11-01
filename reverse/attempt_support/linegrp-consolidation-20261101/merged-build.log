@@ -1,0 +1,10 @@
+Source claims: OK (2 sources, scoped byte-verified)
+Compile: 1 of 2 TU(s) (deps-cache: 1 current)
+Funclet pins: 3 row(s) verified past a renumbered $L label
+    Unwind@00b693bd (Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp): $L22193 was renumbered; verified parent EH data places $L22362 at 0x007693BD
+    Unwind@00b693c5 (Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp): $L22195 was renumbered; verified parent EH data places $L22364 at 0x007693C5
+    $L22159 (Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp): $L22159 was renumbered; verified parent EH data places $L22361 at 0x007693B0
+Functions: OK 27/27 matched across 2 source file(s)
+String-ref verify: OK (0 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (12 compiler literals verified)
+Import-ref verify: OK (0 named imports verified)

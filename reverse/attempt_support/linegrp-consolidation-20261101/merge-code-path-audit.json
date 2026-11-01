@@ -1,0 +1,135 @@
+{
+  "baseline": "3ef79abf2c231773ffd0fc146c676398c3ace9cc",
+  "prepared_head": "9339e307b5d04f7cf59d5794985db33a67c227b2",
+  "moves": {
+    "Code/Libraries/Source/WWVegas/WW3D2/LineGroupClassRender.cpp": "Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp"
+  },
+  "old_complete_definitions": 75,
+  "new_complete_definitions": 75,
+  "added": [],
+  "removed": [],
+  "changed": [],
+  "map_change": "Only the eight source-column repoints made by tu_skeleton; no map regenerated.",
+  "remaining_path_mentions_file": "path-consumers.txt",
+  "active_tool_hook_workflow_mentions": [],
+  "register_mentions": [],
+  "retained_merged_rows": [
+    {
+      "name": "?Get_Tail_Diffuse@LineGroupClass@@QAE?AVVector4@@XZ",
+      "rva": "0x001B3670",
+      "size": "30"
+    },
+    {
+      "name": "?Set_Tail_Diffuse@LineGroupClass@@QAEXABVVector4@@@Z",
+      "rva": "0x001B3650",
+      "size": "30"
+    },
+    {
+      "name": "?Get_Line_Color@LineGroupClass@@QAE?AVVector3@@XZ",
+      "rva": "0x001B3630",
+      "size": "24"
+    },
+    {
+      "name": "?Set_Line_Color@LineGroupClass@@QAEXABVVector3@@@Z",
+      "rva": "0x001B3610",
+      "size": "24"
+    },
+    {
+      "name": "?Set_Shader@LineGroupClass@@QAEXABVShaderClass@@@Z",
+      "rva": "0x001B3700",
+      "size": "12"
+    },
+    {
+      "name": "?Set_Line_Mode@LineGroupClass@@QAEXW4LineModeType@1@@Z",
+      "rva": "0x001B3710",
+      "size": "10"
+    },
+    {
+      "name": "?Set_Line_Size@LineGroupClass@@QAEXM@Z",
+      "rva": "0x001B35F0",
+      "size": "14"
+    },
+    {
+      "name": "?Set_Line_Alpha@LineGroupClass@@QAEXM@Z",
+      "rva": "0x001B3690",
+      "size": "14"
+    },
+    {
+      "name": "?Get_Line_Size@LineGroupClass@@QAEMXZ",
+      "rva": "0x001B3600",
+      "size": "4"
+    },
+    {
+      "name": "?Get_Line_Alpha@LineGroupClass@@QAEMXZ",
+      "rva": "0x001B36A0",
+      "size": "4"
+    },
+    {
+      "name": "?Get_Line_UCoord@LineGroupClass@@QAEMXZ",
+      "rva": "0x001B36B0",
+      "size": "4"
+    },
+    {
+      "name": "?Set_Arrays@LineGroupClass@@QAEXPAV?$ShareBufferClass@VVector3@@@@0PAV?$ShareBufferClass@VVector4@@@@1PAV?$ShareBufferClass@I@@PAV?$ShareBufferClass@M@@3H@Z",
+      "rva": "0x001B3790",
+      "size": "268"
+    },
+    {
+      "name": "?Set_Flag@LineGroupClass@@QAEXW4FlagsType@1@_N@Z",
+      "rva": "0x001B36C0",
+      "size": "34"
+    },
+    {
+      "name": "?Get_Polygon_Count@LineGroupClass@@QAEHXZ",
+      "rva": "0x001B3720",
+      "size": "34"
+    },
+    {
+      "name": "?Get_Element@?$ShareBufferClass@VVector3@@@@QAEAAVVector3@@H@Z",
+      "rva": "0x001B3750",
+      "size": "16"
+    },
+    {
+      "name": "?Render@LineGroupClass@@QAEXAAVRenderInfoClass@@@Z",
+      "rva": "0x001B38A0",
+      "size": "4371"
+    },
+    {
+      "name": "?Set_Line_UCoord@LineGroupClass@@QAEXM@Z",
+      "rva": "0x00179010",
+      "size": "14"
+    },
+    {
+      "name": "__ehhandler$?Render@LineGroupClass@@QAEXAAVRenderInfoClass@@@Z",
+      "rva": "0x007693CD",
+      "size": "10"
+    },
+    {
+      "name": "??0LineGroupClass@@QAE@XZ",
+      "rva": "0x001B3490",
+      "size": "114"
+    },
+    {
+      "name": "?Get_Flag@LineGroupClass@@QAEHW4FlagsType@1@@Z",
+      "rva": "0x001B36F0",
+      "size": "15"
+    },
+    {
+      "name": "Unwind@00b693bd",
+      "rva": "0x007693BD",
+      "size": "8"
+    },
+    {
+      "name": "Unwind@00b693c5",
+      "rva": "0x007693C5",
+      "size": "8"
+    },
+    {
+      "name": "$L22159",
+      "rva": "0x007693B0",
+      "size": "13"
+    }
+  ],
+  "debt_and_queues": "No source keys for absorbed Render in gate/data/identity/header/ms-header registers. DX queue refreshed through its owner and removed dead donor record. Surviving destructor keys remain.",
+  "historical_mentions": "Preserve prior census, tombstones, recorded attempts and original/reference path strings. Generated from-donor comments record composition history; they are not includes."
+}

@@ -18551,7 +18551,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009FD8C4,16,.data,global,?tmp_diffuse@?4??Render_Line@ParticleBufferClass@@IAEXAAVRenderInfoClass@@@Z@4V?$SimpleDynVecClass@VVector4@@@@A,Code/Libraries/Source/WWVegas/WW3D2/particle_buffer_render_line.cpp,owned,,1,28
 0x009FD8D4,16,.data,global,?tmp_points@?4??Render_Line@ParticleBufferClass@@IAEXAAVRenderInfoClass@@@Z@4V?$SimpleDynVecClass@VVector3@@@@A,Code/Libraries/Source/WWVegas/WW3D2/particle_buffer_render_line.cpp,owned,,1,30
 0x009FD8E4,4,.data,global,?$S4@?4??Render_Line@ParticleBufferClass@@IAEXAAVRenderInfoClass@@@Z@4IA,Code/Libraries/Source/WWVegas/WW3D2/particle_buffer_render_line.cpp,owned,,1,12
-0x009FD934,8,.data,global,?$S4@?BC@??Render@LineGroupClass@@QAEXAAVRenderInfoClass@@@Z@4IA,Code/Libraries/Source/WWVegas/WW3D2/LineGroupClassRender.cpp,owned,,1,5
+0x009FD934,8,.data,global,?$S4@?BC@??Render@LineGroupClass@@QAEXAAVRenderInfoClass@@@Z@4IA,Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp,owned,,1,5
 0x009FD93C,4,.data,global,?TheSubsystemLegend@@3PAVSubsystemLegend@@A,Code/Libraries/Source/subsystem/SubsystemInterface.cpp,owned,,1,2
 0x009FD940,272,.data,global,?TheSubsystemList@@3PAVSubsystemInterfaceList@@A,Code/Libraries/Source/subsystem/SubsystemInterface.cpp,owned,,1,106
 0x009FDA50,4,.data,global,?g_vp6FrameCounter@@3HA,Code/Libraries/Source/VP6/DecodeFrameToYUV.cpp,owned,,1,3

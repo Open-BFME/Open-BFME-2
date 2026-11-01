@@ -1,0 +1,6 @@
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp: LINKS  LINKED 520 -> 5,036 bytes (census 2026-11-01 14:31 at 86db074988; file's own bytes 5,036)
+  diagnostic  ??0ShaderClass@@QAE@ABV0@@Z  (register allocation differs from the majority copy, same instructions and offsets; unreferenced, not a blocker)
+Code/Libraries/Source/WWVegas/WW3D2/LineGroupClassDestructor.cpp: LINKS  LINKED 253 -> 253 bytes (census 2026-11-01 14:31 at 86db074988; file's own bytes 253)
+link_check: 2 of 2 link cleanly; LINKED 773 -> 5,289 bytes (4.3s)
