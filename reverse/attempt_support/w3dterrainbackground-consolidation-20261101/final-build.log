@@ -1,0 +1,15 @@
+link_check: preparing 13 explicit safe provider(s), no extra sources
+Compile: 0 of 13 TU(s) (deps-cache: 13 current)
+Source claims: OK (13 sources, scoped byte-verified)
+Compile: 0 of 13 TU(s) (deps-cache: 13 current)
+Funclet pins: 16 row(s) verified past a renumbered $L label
+    $L1278 (Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoTesselatedUpdate.cpp): $L1278 was renumbered; verified parent EH data places $L3424 at 0x00764AAB
+    $L1279 (Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoTesselatedUpdate.cpp): $L1279 was renumbered; verified parent EH data places $L3425 at 0x00764AB6
+    $L1281 (Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoTesselatedUpdate.cpp): $L1281 was renumbered; verified parent EH data places $L3427 at 0x00764AC8
+    Unwind@00b64ac0 (Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoTesselatedUpdate.cpp): $L1288 was renumbered; verified parent EH data places $L3426 at 0x00764AC0
+    Unwind@00b64ad2 (Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoTesselatedUpdate.cpp): $L1290 was renumbered; verified parent EH data places $L3428 at 0x00764AD2
+Functions: OK 48/48 matched across 13 source file(s)
+String-ref verify: OK (0 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (67 compiler literals verified)
+Import-ref verify: OK (0 named imports verified)
+link_check: 13 explicit providers byte-verified with strict reusable receipts; census/index/status unchanged, LINK closure not yet checked

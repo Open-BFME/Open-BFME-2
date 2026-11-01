@@ -1,0 +1,7 @@
+tu: Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackground.cpp
+approved: 61
+mixed: {'Code/GameEngine/Source/Common/Rva00729300BitPlanes.cpp': 1, 'Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoPartialUpdate.cpp': 1}
+refused: {}
+accepted: []
+rejected: {}
+blocked: held by another worker: 0x00042F8C

@@ -49,3 +49,39 @@ name. All 411 affected current units were previewed together: 372 LINKS,
 518,497 -> 520,236 predicted bytes, no per-unit loss. Existing blockers remain;
 this prediction is not a census measurement. Eighteen seed rows stay exact
 and the frozen-file check is clean. The three inline helper rows remain here.
+
+## Final handoff
+
+All 17 eligible donors are accepted together, 56 composed rows exact, with
+no rejected donor and the merge link guard passing. The two mixed files
+remain outside that set. `merge-ready.json` records the supported dry run.
+Real application still writes nothing: shared folded RVA 00042F8C is held by
+StarkillerHDX@fleet for GameLOD.cpp. Do not bypass that claim. Once released,
+rerun the supported merge; its current inputs may require plan regeneration.
+
+The complete 18-source cohort is 18/18 LINKS and retains 13,514 -> 13,514
+predicted linking bytes. All 48 rows in the 13 changed sources have strict
+current preparation and byte verification after rebasing onto 8c6bd6ae65.
+No merge was applied, so source files removed is zero. Nine hatch keys and
+one RenderObjClass header-queue entry were retired through their owning tools.
+The three homeless seed helpers and its one legacy emitter remain.
+
+The native texture view now names the rowed release directly; its unknown
+slots are pure placeholders and no texture/buffer vtable is emitted. Both
+buffer locks use the witnessed 12-byte extent. Tessellation keeps all ten
+rows and its exact EH graph. Native blend allocation is explicitly POD to
+avoid introducing an element-constructor walk under the shared Vector3.
+Argument-view ctor/dtor instructions and relocation names equal the original
+probe objects (argument-view-proof.json); the existing unreferenced constructor
+shadow finding remains, with no register retirement claimed.
+
+Whole-batch consumer clearance remains INCONCLUSIVE. The published index is
+0d24c60eef, older than outgoing base 8c6bd6ae65, and the audit cannot prove a
+current affected 0CreateAHeroManager21FE49.cpp receipt. Carry this provider/
+consumer scope into the next census; the bounded cohort predictions above do
+not claim full-image clearance. No nightly, link cycle, smoke run or push ran.
+
+`commits.tsv` lists all 22 implementation/debt commits with their immediate
+bases and subjects. The final handoff commit follows that list. The only
+remaining own scope claim is class:W3DTerrainBackground; merge refusal released
+its file/RVA acquisition. The lead owns publication and eventual claim release.

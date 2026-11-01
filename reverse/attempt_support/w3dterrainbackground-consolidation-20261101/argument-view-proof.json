@@ -1,0 +1,50 @@
+{
+  "original_probe": {
+    "??0TextureArgumentView@@QAE@ABV?$RefCountPtr@VTextureClass@@@@@Z": {
+      "size": 18,
+      "bytes": "56ff7424088bf1e8000000008bc65ec20400",
+      "relocations": [
+        [
+          8,
+          20,
+          "??0?$RefCountPtr@VTextureClass@@@@QAE@ABV0@@Z"
+        ]
+      ]
+    },
+    "??1TextureArgumentView@@QAE@XZ": {
+      "size": 12,
+      "bytes": "8b0985c97405e900000000c3",
+      "relocations": [
+        [
+          7,
+          20,
+          "?Release_Ref@TextureClass@@QAEXXZ"
+        ]
+      ]
+    }
+  },
+  "current": {
+    "??0TextureArgumentView@@QAE@ABV?$RefCountPtr@VTextureClass@@@@@Z": {
+      "size": 18,
+      "bytes": "56ff7424088bf1e8000000008bc65ec20400",
+      "relocations": [
+        [
+          8,
+          20,
+          "??0?$RefCountPtr@VTextureClass@@@@QAE@ABV0@@Z"
+        ]
+      ]
+    },
+    "??1TextureArgumentView@@QAE@XZ": {
+      "size": 12,
+      "bytes": "8b0985c97405e900000000c3",
+      "relocations": [
+        [
+          7,
+          20,
+          "?Release_Ref@TextureClass@@QAEXXZ"
+        ]
+      ]
+    }
+  }
+}
