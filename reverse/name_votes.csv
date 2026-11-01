@@ -20851,3 +20851,5 @@ Code/GameEngine/Source/Common/PathfindCell_CalcCostSoFar.cpp|local|PathfindCell:
 Code/GameEngine/Source/Common/PathfindCell_CalcCostSoFar.cpp|local|PathfindCell::CalcCostSoFar|e,d6514edd4fd5ca2dddde380f,drz-k11,n33h-k11,w-eba6c619cb9e,2026-11-01
 Code/GameEngine/Source/Common/PathfindCell_CalcCostSoFar.cpp|local|PathfindCell::CalcCostSoFar|dx2,232683c06ae2e89a67bf5ef8,drz-k11,n33h-k11,w-eba6c619cb9e,2026-11-01
 Code/GameEngine/Source/Common/PathfindCell_CalcCostSoFar.cpp|local|PathfindCell::CalcCostSoFar|dy2,558db829068ecac68ccb8294,drz-k11,n33h-k11,w-eba6c619cb9e,2026-11-01
+Code/GameEngine/Source/Common/GapBodiesGE04.cpp|function|0x0025C7F9|rva0025C7F9,d46b133e2fed41aa151af65f,claude-haiku-5-5,drz-k9-n33b2-review,w-2a58b1ead41e,2026-11-01
+Code/GameEngine/Source/Common/GapBodiesGE12.cpp|function|0x00524F6A|rva00524F6A,3ff434cf55824c42dcca7c2d,claude-haiku-5-5,drz-k9-n33b2-review,w-2a58b1ead41e,2026-11-01
