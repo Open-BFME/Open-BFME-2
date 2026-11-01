@@ -44,7 +44,15 @@ Real g_Va00DE2020;	// retail RVA 0x009E2020 (.bss), defined here
 struct CameraStringHandle {void*data;void set(const AsciiString&s){reinterpret_cast<StringBase<char>*>(this)->set(*reinterpret_cast<const StringBase<char>*>(&s));} };
 // Native constructor10274F zeroes this E0 record; wrapper copies preserve
 // donor field interpretations separately from the raw target layout facts.
-class Rva000899E5 { public: ~Rva000899E5(); };
+class Rva000899E5
+{
+public:
+	~Rva000899E5();
+	char m_pad00[0xAC];
+private:
+	AsciiString m_ac; // +0xAC
+	AsciiString m_b0; // +0xB0
+};
 
 class Rva0010274F
 {

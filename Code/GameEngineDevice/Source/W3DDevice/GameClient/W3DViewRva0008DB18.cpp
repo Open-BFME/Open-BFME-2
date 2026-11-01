@@ -41,8 +41,12 @@ extern Display *TheDisplay;
 class Mouse
 {
 public:
-	char m_pad[0x4F0C];
-	ICoord2D m_pos;			// +0x4F0C
+	void rva001EDE9C();
+	void _bfme_setEngineVisibility(bool visible);
+	char m_pad00[0x4F0C];
+	ICoord2D m_pos; // +0x4F0C +0x4F0C
+	char m_pad4F14[0xF5];
+	Bool m_5009; // +0x5009
 };
 extern Mouse *TheMouse;
 

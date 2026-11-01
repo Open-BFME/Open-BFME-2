@@ -22,17 +22,17 @@ public:
 class Rva00085FA8
 {
 public:
-	char m_pad0[0xC];
-	float m_C;
-	float m_10;
-	char m_pad14[0xF0];
-	class CameraClass *m_104;
-	char m_pad108[0x22EC];
-	float m_23F4;
-	float m_23F8;
-	char m_pad23FC[0xC];
-	float m_2408;
 	void calcDeltaScroll(float *out);
+	char m_pad00[0xC];
+	float m_C; // +0x0C
+	float m_10; // +0x10
+	char m_pad14[0xF0];
+	class CameraClass *m_104; // +0x104
+	char m_pad108[0x22EC];
+	float m_23F4; // +0x23F4
+	float m_23F8; // +0x23F8
+	char m_pad23FC[0xC];
+	float m_2408; // +0x2408
 };
 
 void Rva00085FA8::calcDeltaScroll(float *out)

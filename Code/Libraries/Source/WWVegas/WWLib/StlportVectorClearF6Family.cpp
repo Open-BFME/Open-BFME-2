@@ -11,21 +11,13 @@ struct Rva00577EF1Element { char m_pad[4]; };
 struct Rva005C84D3Element { char m_pad[4]; };
 struct TreeHintRef00217D4C { char m_pad[4]; };
 
+#include <vector>
+
 namespace _STL {
-template <class _Tp> class allocator { };
 template <class _ForwardIterator> void _Destroy(_ForwardIterator __first, _ForwardIterator __last);
 template <> void _Destroy<Rva0008B4AFElement *>(Rva0008B4AFElement *__first, Rva0008B4AFElement *__last);
 template <> void _Destroy<TreeHintRef00217D4C *>(TreeHintRef00217D4C *__first, TreeHintRef00217D4C *__last);
 template <> void _Destroy<Rva005C84D3Element *>(Rva005C84D3Element *__first, Rva005C84D3Element *__last);
-template <class _Tp, class _Alloc = allocator<_Tp> > class vector
-{
-protected:
-	void _M_clear();
-protected:
-	_Tp *_M_start;
-	_Tp *_M_finish;
-	_Tp *_M_end_of_storage;
-};
 }
 
 #include <stdlib.h>
@@ -74,3 +66,6 @@ void Rva0008B4CD::rva0008B4CD()
 #pragma comment(linker, "/alternatename:??$_Destroy@PAURva0008B4AFElement@@@_STL@@YAXPAURva0008B4AFElement@@0@Z=?Rva0008AFDCDestroy@@YAXPAX0@Z")
 //   0x005C847B reads ??$__destroy_aux@PAURva005C847BRecord@@@_STL@@YAXPAURva005C847BRecord@@0ABU__false_type@0@@Z
 #pragma comment(linker, "/alternatename:??$_Destroy@PAURva005C84D3Element@@@_STL@@YAXPAURva005C84D3Element@@0@Z=??$__destroy_aux@PAURva005C847BRecord@@@_STL@@YAXPAURva005C847BRecord@@0ABU__false_type@0@@Z")
+
+template void _STL::vector<Rva0008B4AFElement>::_M_clear();
+template void _STL::vector<Rva005C84D3Element>::_M_clear();

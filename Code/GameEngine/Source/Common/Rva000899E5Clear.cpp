@@ -9,11 +9,10 @@ class Rva000899E5
 {
 public:
 	~Rva000899E5();
-
+	char m_pad00[0xAC];
 private:
-	unsigned char m_pad[0xAC];
-	AsciiString m_ac;
-	AsciiString m_b0;
+	AsciiString m_ac; // +0xAC
+	AsciiString m_b0; // +0xB0
 };
 
 Rva000899E5::~Rva000899E5()

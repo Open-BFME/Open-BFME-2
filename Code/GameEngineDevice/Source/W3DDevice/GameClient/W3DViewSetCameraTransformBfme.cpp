@@ -75,14 +75,33 @@ namespace _STL {template<> void vector<Rva0008B689Element>::push_back(const Rva0
 class Rva0008B470:private _STL::_Vector_base<int,_STL::allocator<int> > {typedef _STL::_Vector_base<int,_STL::allocator<int> > Base;public:__forceinline Rva0008B470(const _STL::allocator<int>&a=_STL::allocator<int>()):Base(a){}~Rva0008B470();void push_back(const Rva0008B689Element&p){reinterpret_cast<std::vector<Rva0008B689Element>*>(this)->push_back(p);}};
 Rva0008B689Element Rva000897C8(CameraClass*);
 class Rva0007D9B5Host{public:void rva0007D9B5(int);};
-class Rva0007BB79Owner{public:Rva0008B689Element rva0007BB79();};
-class Rva0007FD57Owner{public:Rva0008B689Element rva0007FD57(CameraClass*);};
+class Rva0007BB79Owner
+{
+public:
+	Rva0008B689Element rva0007BB79();
+};
+class Rva0007FD57Owner
+{
+public:
+	Rva0008B689Element rva0007FD57(CameraClass*);
+};
 class Rva0007DA23ResourceManager;extern Rva0007DA23ResourceManager *Rva00DE1FF8Manager;
 extern void *W3DGCData00DE2000;
 class RenderObjClass;template<class T>class RefMultiListIterator;
-class Rva0006ED29 {public:void rva0006ED29(void*);};
+class Rva0006ED29
+{
+public:
+	void rva0006ED29(void*);
+};
 class RTS3DScene{public:RefMultiListIterator<RenderObjClass>*createLightsIterator();void destroyLightsIterator(RefMultiListIterator<RenderObjClass>*);};
-class W3DDisplay{public:static RTS3DScene*m_3DScene;};
+class RTS2DScene;
+class W3DDisplay
+{
+public:
+	static RTS3DScene *m_3DScene;
+	static RTS2DScene *m_2DScene;
+	void rva0004D664(float x0, float y0, float x1, float y1, float width, int color);
+};
 class BaseHeightMapRenderObjClass{public:
 virtual void v000();
 virtual void v001();

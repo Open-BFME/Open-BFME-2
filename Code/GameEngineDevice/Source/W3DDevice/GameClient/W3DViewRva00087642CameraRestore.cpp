@@ -26,6 +26,7 @@
 // stores to this; the named temporaries below reproduce that order with
 // extern declarations.
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
+#include "../../../../Libraries/Include/Lib/ICoord2D.h"
 #include <math.h>
 
 typedef float Real;
@@ -61,10 +62,10 @@ class Mouse
 public:
 	void rva001EDE9C();
 	void _bfme_setEngineVisibility(bool visible);
-private:
-	char m_pad0000[0x5009];
-public:
-	Bool m_5009;
+	char m_pad00[0x4F0C];
+	ICoord2D m_pos; // +0x4F0C +0x4F0C
+	char m_pad4F14[0xF5];
+	Bool m_5009; // +0x5009
 };
 
 extern Mouse *TheMouse;
@@ -75,10 +76,10 @@ class Rva0008CE2ESettings
 {
 public:
 	virtual void v0();
-	virtual Real v1();
-	virtual Real v2();
-	virtual Real v3();
-	virtual void v4();
+	virtual float v1();
+	virtual float v2();
+	virtual float v3();
+	virtual float scrollScale();
 	virtual void v5();
 	virtual void v6();
 	virtual void v7();

@@ -43,7 +43,8 @@ class RTS2DScene {
 public:
 	void doRender(CameraClass *camera); // 0x0006EE27 (Rva0006ED36Call.cpp)
 };
-class W3DDisplay {
+class W3DDisplay
+{
 public:
 	static RTS3DScene *m_3DScene;
 	static RTS2DScene *m_2DScene;
@@ -134,20 +135,38 @@ public:
 	const Coord3D *getDebugPathPosition() { return (const Coord3D *)((Rva003EFDD7LeaField *)this)->get(); }
 	Bridge *getFirstBridge() { return m_firstBridge; }
 };
-class AI { public: char m_pad[0x10]; Pathfinder *m_pathfinder; Pathfinder *pathfinder() { return m_pathfinder; } };
+class AIData007446A0;
+class AI
+{
+public:
+	Pathfinder *pathfinder() { return m_pathfinder; }
+	char m_pad00[0x10];
+	Pathfinder *m_pathfinder; // +0x10
+	char m_pad14[0x4];
+	AIData007446A0 * field0014; // +0x18 +0x14
+};
 extern AI *TheAI;
 
-class Object {
+class Object
+{
 public:
 	bool GetGoalPosition(Coord3D *pos) const;
 	bool GetPathfinderPos(Coord3D *pos) const;
+	char m_pad00[0x38];
+	Coord3D m_position; // +0x38
 };
-class Drawable {
+class Drawable
+{
 public:
-	char m_pad[0xFC];
-	Object *m_object;
+	const Coord3D *getPosition() const;
+	Drawable *getNextDrawable() const { return m_nextDrawable; }
 	__declspec(dllimport) __forceinline Object *getObject() { return m_object; }
 	void rva0023998E(int layer);
+	char m_pad00[0xFC];
+	Object *m_object; // +0xFC
+	char m_pad100[0x4];
+private:
+	Drawable *m_nextDrawable; // +0x104 +0x104
 };
 void drawablePostDraw(Drawable *draw, void *userData);
 
@@ -198,7 +217,21 @@ public:
 };
 extern GameClient *TheGameClient;
 
-class Rva00085FA8 { public: void calcDeltaScroll(float *out); };
+class Rva00085FA8
+{
+public:
+	void calcDeltaScroll(float *out);
+	char m_pad00[0xC];
+	float m_C; // +0x0C
+	float m_10; // +0x10
+	char m_pad14[0xF0];
+	class CameraClass *m_104; // +0x104
+	char m_pad108[0x22EC];
+	float m_23F4; // +0x23F4
+	float m_23F8; // +0x23F8
+	char m_pad23FC[0xC];
+	float m_2408; // +0x2408
+};
 
 class View {
 public:

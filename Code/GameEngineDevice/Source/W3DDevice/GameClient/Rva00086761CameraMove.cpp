@@ -276,7 +276,11 @@ BFME_PITCH_RESERVED(132) BFME_PITCH_RESERVED(133)
 virtual float pitchStart(float)=0; virtual float pitchEnd(float)=0;
 };
 #undef BFME_PITCH_RESERVED
-class Rva00086D73 { public: void rva00086D73(); };
+class Rva00086D73
+{
+public:
+	void rva00086D73();
+};
 void Rva00086761CameraMove::rva00088F38(float finalPitch,int milliseconds,float easeIn,float easeOut) {
  BfmeCameraSpeedFields*view=(BfmeCameraSpeedFields*)this;
  int&duration=milliseconds;

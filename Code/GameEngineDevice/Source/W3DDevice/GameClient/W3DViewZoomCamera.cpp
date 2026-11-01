@@ -15,8 +15,16 @@ typedef float Real;
 extern Int TheW3DFrameLengthInMsec;
 
 class ParabolicEase { public: void rva0030E51F(Real easeIn, Real easeOut, Real total); };
-class Rva00086E24 { public: void rva00086E24(); };
-class Rva00086EBD { public: void rva00086EBD(); };
+class Rva00086E24
+{
+public:
+	void rva00086E24();
+};
+class Rva00086EBD
+{
+public:
+	void rva00086EBD();
+};
 
 // The pitch-camera state at +0x258 has the zoom state's shape.
 struct PitchCameraInfo

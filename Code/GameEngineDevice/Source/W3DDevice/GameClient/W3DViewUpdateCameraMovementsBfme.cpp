@@ -32,9 +32,21 @@ extern Int TheW3DFrameLengthInMsec;
 #include "Coord3D.h"
 #include "Coord2D.h"
 #include "../../../../GameEngine/Include/GameClient/Rva0008990CArrayOwner.h"
-class Rva00086D73 {public:void rva00086D73();};
-class Rva00086E24 {public:void rva00086E24();};
-class Rva00086EBD {public:void rva00086EBD();};
+class Rva00086D73
+{
+public:
+	void rva00086D73();
+};
+class Rva00086E24
+{
+public:
+	void rva00086E24();
+};
+class Rva00086EBD
+{
+public:
+	void rva00086EBD();
+};
 class Rva00086C4A {public:void rva00086C4A();};
 class GameClient {public:
 virtual void slot000();

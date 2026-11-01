@@ -13,7 +13,20 @@ class PathVirtual {public: virtual void s0();virtual void s1();virtual void init
 class TerrainView {public:virtual void s0();virtual void s1();virtual void s2();virtual void s3();virtual void s4();virtual void s5();virtual float ground(float,float,void*);};
 class TerrainLogic;
 extern TerrainLogic *TheTerrainLogic;
-class Rva0030E7D0 {public:float rva0030E67C(float,float);};
+class Rva0030E7D0
+{
+public:
+	float rva0030E67C(float,float);
+	float *data; // +0x00
+	float *finish; // +0x04
+	float *end; // +0x08
+	int width; // +0x0C
+	int height; // +0x10
+	float scale; // +0x14
+	int state; // +0x18
+	bool ready; // +0x1C
+	char m_pad1D[0x3];
+};
 class W3DView {public:
 virtual void s0();
 virtual void s1();

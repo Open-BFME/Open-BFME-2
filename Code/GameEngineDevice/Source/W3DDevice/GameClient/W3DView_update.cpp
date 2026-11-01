@@ -27,24 +27,72 @@ struct CameraCoordinates:Coord3D{CameraCoordinates(){}CameraCoordinates(const Co
 class RenderObjClass;
 template<class T> class RefMultiListIterator;
 class RTS3DScene { public: RefMultiListIterator<RenderObjClass>* createLightsIterator(); void destroyLightsIterator(RefMultiListIterator<RenderObjClass>*); };
-class W3DDisplay { public: static RTS3DScene *m_3DScene; };
+class RTS2DScene;
+class W3DDisplay
+{
+public:
+	static RTS3DScene *m_3DScene;
+	static RTS2DScene *m_2DScene;
+	void rva0004D664(float x0, float y0, float x1, float y1, float width, int color);
+};
 class CameraClass { public: virtual void Delete_This(); int refs; void Add_Ref(){++refs;} void Release_Ref(){if(--refs==0)Delete_This();} protected: void Update_Frustum() const; public: void *Get_Frustum() const { Update_Frustum(); return (char*)this+0x100; } };
 struct Rva0008B689Element{CameraClass*pointer;Rva0008B689Element():pointer(0){}Rva0008B689Element(const Rva0008B689Element&p):pointer(p.pointer){if(pointer)pointer->Add_Ref();}~Rva0008B689Element(){if(pointer)pointer->Release_Ref();}bool isNull()const{return !pointer;}};
 namespace _STL{template<>void vector<Rva0008B689Element>::push_back(const Rva0008B689Element&);}
 class Rva0008B470:private _STL::_Vector_base<int,_STL::allocator<int> > {typedef _STL::_Vector_base<int,_STL::allocator<int> > Base;public:__forceinline Rva0008B470(const _STL::allocator<int>&a=_STL::allocator<int>()):Base(a){}~Rva0008B470();void push_back(const Rva0008B689Element&p){reinterpret_cast<std::vector<Rva0008B689Element>*>(this)->push_back(p);}};
 Rva0008B689Element Rva000897C8(CameraClass*);
-class Rva0007BB79Owner{public:Rva0008B689Element rva0007BB79();};
+class Rva0007BB79Owner
+{
+public:
+	Rva0008B689Element rva0007BB79();
+};
 class Rva0007D9B5Host{public:void rva0007D9B5(int);};
-class Rva0006ED29{public:void rva0006ED29(void*);};
+class Rva0006ED29
+{
+public:
+	void rva0006ED29(void*);
+};
 class Rva0007DA23ResourceManager;
 extern Rva0007DA23ResourceManager *Rva00DE1FF8Manager;
-class Drawable { public: const Coord3D *getPosition() const; };
-class Object { char gap[0x38]; public: Coord3D m_position; };
+class Object;
+class Drawable
+{
+public:
+	const Coord3D *getPosition() const;
+	Drawable *getNextDrawable() const { return m_nextDrawable; }
+	__declspec(dllimport) __forceinline Object *getObject() { return m_object; }
+	void rva0023998E(int layer);
+	char m_pad00[0xFC];
+	Object *m_object; // +0xFC
+	char m_pad100[0x4];
+private:
+	Drawable *m_nextDrawable; // +0x104 +0x104
+};
+class Object
+{
+public:
+	bool GetGoalPosition(Coord3D *pos) const;
+	bool GetPathfinderPos(Coord3D *pos) const;
+	char m_pad00[0x38];
+	Coord3D m_position; // +0x38
+};
 class ScriptEngine;
 class Rva00203B08 {public:bool rva0020424FF();};
 class Rva00203ACEByteField {public:unsigned char get()const;};
 extern ScriptEngine *TheScriptEngine;
-class Rva0030E7D0 {public:float rva0030E67C(float,float);float*data,*finish,*end;int width,height;float scale;int state;bool ready;};
+class Rva0030E7D0
+{
+public:
+	float rva0030E67C(float,float);
+	float *data; // +0x00
+	float *finish; // +0x04
+	float *end; // +0x08
+	int width; // +0x0C
+	int height; // +0x10
+	float scale; // +0x14
+	int state; // +0x18
+	bool ready; // +0x1C
+	char m_pad1D[0x3];
+};
 class PolygonTrigger { public: bool rva002E3A39(const Coord3D&); };
 class CameraShakeSystemClass;class Rva00065E21{public:bool rva00065E21();};
 extern CameraShakeSystemClass CameraShakerSystem;
@@ -335,10 +383,15 @@ class AIData007446A0 { public:
  float field00bc; // +0xbc
  float field00c0; // +0xc0
 };
-class AI { public:
-
- char gap0000[24];
- AIData007446A0 * field0014; // +0x14
+class Pathfinder;
+class AI
+{
+public:
+	Pathfinder *pathfinder() { return m_pathfinder; }
+	char m_pad00[0x10];
+	Pathfinder *m_pathfinder; // +0x10
+	char m_pad14[0x4];
+	AIData007446A0 * field0014; // +0x18 +0x14
 };
 extern AI *TheAI;
 class View { public: virtual void targetPrimaryExtra();

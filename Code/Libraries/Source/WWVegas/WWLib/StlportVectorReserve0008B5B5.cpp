@@ -26,10 +26,31 @@ public:
 // The element copy-construct is retail's guarded copy through the 0x00089822
 // copy constructor (0x0008A173, rowed as Rva0008A173Copy); this unit is the
 // first in link order to emit _Construct for the element, so spell it so.
+struct Rva0073DAB0Blk
+{
+	int a;
+	int b;
+	int c;
+	char d;
+};
+
+class Rva0073DAB0
+{
+	Rva0073DAB0Blk m;
+
+public:
+	Rva0073DAB0 &set(const Rva0073DAB0Blk *p);
+};
+
 class Rva00089822
 {
 public:
-	Rva00089822(const Rva00089822 &that) throw();
+	Rva00089822(const Rva00089822 &other) throw();
+
+private:
+	int m_00;
+	int m_04;
+	Rva0073DAB0 m_rva;
 };
 // Retail __uninitialized_copy calls this 18-byte wrapper out of line.
 // Keeping its definition non-inline also preserves the 38-byte copy loop.

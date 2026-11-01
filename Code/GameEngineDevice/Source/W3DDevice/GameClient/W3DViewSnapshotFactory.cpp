@@ -15,9 +15,46 @@ class PathVirtual {public: virtual void s0();virtual void s1();virtual void init
 class TerrainView {public:virtual void s0();virtual void s1();virtual void s2();virtual void s3();virtual void s4();virtual void s5();virtual float ground(float,float,void*);};
 class TerrainLogic;
 extern TerrainLogic *TheTerrainLogic;
-class Rva0030E7D0 {public:float rva0030E67C(float,float);};
-struct ThreeInts{int x,y,z;};
-class Rva0008A234 {public:Rva0008A234(const StringBase<char>&,const ThreeInts*,float,float,float,float,float,float);private:unsigned char storage[0x30];};
+class Rva0030E7D0
+{
+public:
+	float rva0030E67C(float,float);
+	float *data; // +0x00
+	float *finish; // +0x04
+	float *end; // +0x08
+	int width; // +0x0C
+	int height; // +0x10
+	float scale; // +0x14
+	int state; // +0x18
+	bool ready; // +0x1C
+	char m_pad1D[0x3];
+};
+struct ThreeInts
+{
+	int v00;
+	int v04;
+	int v08;
+};
+class Rva0008A234
+{
+public:
+	Rva0008A234(const StringBase<char> &str, const ThreeInts *info,
+		float f10, float f14, float f18, float f1c, float f20, float f24);
+
+private:
+	int m_00;
+	AsciiString m_04;
+	int m_08;
+	int m_0C;
+	int m_10;
+	float m_14;
+	float m_18;
+	float m_1C;
+	float m_20;
+	float m_24;
+	float m_28;
+	unsigned char m_2C;
+};
 class W3DView {public:
 virtual void s0();
 virtual void s1();

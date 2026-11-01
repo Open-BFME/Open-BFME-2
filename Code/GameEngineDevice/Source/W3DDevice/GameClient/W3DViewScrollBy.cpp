@@ -22,7 +22,18 @@ struct BfmeScrollCoordinates : public Coord3D {
  BfmeScrollCoordinates& operator+=(const Coord3D&d){x+=d.x;y+=d.y;z+=d.z;return *this;}
 };
 class CameraClass{public:void Device_To_World_Space(const Vector2&,Vector3*);};
-class Rva0008CE2ESettings {public:virtual void v0();virtual void v1();virtual void v2();virtual void v3();virtual float scrollScale();};
+class Rva0008CE2ESettings
+{
+public:
+	virtual void v0();
+	virtual float v1();
+	virtual float v2();
+	virtual float v3();
+	virtual float scrollScale();
+	virtual void v5();
+	virtual void v6();
+	virtual void v7();
+};
 class BaseHeightMapRenderObjClass {public:
  virtual void v000();
  virtual void v001();

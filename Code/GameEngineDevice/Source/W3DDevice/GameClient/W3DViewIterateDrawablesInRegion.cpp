@@ -53,14 +53,19 @@ enum PickType
 	PICK_TYPE_FORCE_32 = 0x7fffffff
 };
 
+class Object;
 class Drawable
 {
 public:
 	const Coord3D *getPosition() const;
 	Drawable *getNextDrawable() const { return m_nextDrawable; }
+	__declspec(dllimport) __forceinline Object *getObject() { return m_object; }
+	void rva0023998E(int layer);
+	char m_pad00[0xFC];
+	Object *m_object; // +0xFC
+	char m_pad100[0x4];
 private:
-	unsigned char m_pad00[0x104];
-	Drawable *m_nextDrawable;				// +0x104
+	Drawable *m_nextDrawable; // +0x104 +0x104
 };
 
 class GameClientView

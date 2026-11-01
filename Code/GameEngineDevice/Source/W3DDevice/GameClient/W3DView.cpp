@@ -797,7 +797,7 @@ public:
 class Rva00089822
 {
 public:
-	Rva00089822(const Rva00089822 &other);
+	Rva00089822(const Rva00089822 &other) throw();
 
 private:
 	int m_00;
@@ -817,6 +817,7 @@ static inline bool operator!=(const _Rb_tree_iterator<_RbVal, _RbLeft> &a,
 { return a._M_node != b._M_node; }
 }
 
+struct DrawableInfo;
 class Rva0008A2A3Item
 {
 public:
@@ -907,7 +908,7 @@ public:
 	virtual void v084() = 0;
 	virtual void v085() = 0;
 	virtual void v086() = 0;
-	virtual void v087() = 0;
+	virtual DrawableInfo *Get_User_Data() = 0;
 	virtual void v088() = 0;
 	virtual void v089() = 0;
 	virtual void v090() = 0;
@@ -1363,13 +1364,21 @@ struct Rva0008B689Element {
  __forceinline ~Rva0008B689Element(){CameraClass*camera=pointer;if(camera)camera->Release_Ref();}
 };
 
-class Rva0007BB79Owner {public:CameraClass *camera;Rva0008B689Element rva0007BB79();};
+class Rva0007BB79Owner
+{
+public:
+	Rva0008B689Element rva0007BB79();
+};
 
 // Native7FD57..7FD89 RET8, camera raw argument refreshes owner before
 // copying the counted camera handle at FC. WB744500 agrees on both operations.
 class Rva0007F0FBOwner{public:void rva0007F0FB(CameraClass*,bool);};
 
-class Rva0007FD57Owner{char gap[0xfc];Rva0008B689Element camera;public:Rva0008B689Element rva0007FD57(CameraClass*);};
+class Rva0007FD57Owner
+{
+public:
+	Rva0008B689Element rva0007FD57(CameraClass*);
+};
 
 BFME_DISP_FLOAT_GETTER(Rva000879EDFloatField, 0x24F8)
 
@@ -3264,7 +3273,7 @@ void Rva00087AC9::rva00087AC9(Rva00087AC9Pair *o1, Rva00087AC9Pair *o2)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00089822CopyCtor.cpp
 
-Rva00089822::Rva00089822(const Rva00089822 &other)
+Rva00089822::Rva00089822(const Rva00089822 &other) throw()
 {
 	m_00 = other.m_00;
 	m_04 = other.m_04;
