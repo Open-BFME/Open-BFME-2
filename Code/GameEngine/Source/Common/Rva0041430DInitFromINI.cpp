@@ -4,14 +4,7 @@
 
 struct FieldParse;
 
-class INI
-{
-public:
-	void initFromINI(void *object, const FieldParse *fields);
-	static void parseBool(INI *ini, void *instance, void *store, const void *userData);
-	static void parseUnsignedInt(INI *ini, void *instance, void *store, const void *userData);
-	static void parseDurationUnsignedInt(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../Include/Common/INI/INI.h"
 
 struct FieldParse
 {

@@ -12,11 +12,7 @@ struct FieldParse
  int offset;
 };
 void Rva00413C02Parse(INI *, void *, void *, const char *);
-class INI
-{
-public:
-	void initFromINI(void *what, const FieldParse *table);
-};
+#include "../../Include/Common/INI/INI.h"
 // A single null-name default parser terminates this table. The
 // callback's fourth argument is the unmatched INI key (see its rowed body).
 extern const FieldParse g_00C39D54 = { 0, Rva00413C02Parse, 0, 0 };

@@ -15,11 +15,7 @@
 // Original name unknown; WorldBuilder twin 0xC65F60 is unnamed.
 #include "ascii_string.h"
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-};
+#include "../../Include/Common/INI/INI.h"
 
 // The store's lookup (Rva003EF328Lookup.cpp): finds the key in the bucket
 // table at +0x0C and returns the entry payload or null.

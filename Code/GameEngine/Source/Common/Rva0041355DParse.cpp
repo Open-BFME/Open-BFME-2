@@ -13,11 +13,7 @@ bool less<int>::operator()(const int &a, const int &b) const
 { return a < b; }
 }
 struct FieldParse;
-class INI
-{
-public:
-  void initFromINI(void *what, const FieldParse *table);
-};
+#include "../../Include/Common/INI/INI.h"
 struct BfmePod16
 {
   int m_id;

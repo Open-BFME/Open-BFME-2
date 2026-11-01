@@ -8,13 +8,7 @@ class INI;
 typedef void (*INIFieldParseProc)(INI *, void *, void *, const void *);
 #include "../../Include/Common/INI/FieldParse.h"
 
-class INI
-{
-public:
-	void initFromINI(void *what, const FieldParse *table);
-	static void parseInt(INI *ini, void *instance, void *store, const void *userData);
-	static void parseRGBColor(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../Include/Common/INI/INI.h"
 
 // Retail VA 0x00C16738 (.rdata): three field records and a zero sentinel.
 // The sentinel ends at VA 0x00C16778, where the independently referenced

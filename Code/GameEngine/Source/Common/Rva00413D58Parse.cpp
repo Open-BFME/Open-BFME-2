@@ -7,11 +7,7 @@
 // strings Attacker Defender; prev/next Common Rva parse TUs.
 #include <string.h>
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-};
+#include "../../Include/Common/INI/INI.h"
 
 class Rva00413D46
 {

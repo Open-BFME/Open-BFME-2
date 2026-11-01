@@ -15,15 +15,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 struct FieldParse;
 
-class INI
-{
-public:
-	static void parseAudioEventRTS(INI *ini, void *instance, void *store, const void *userData);
-	const char *getNextToken(const char *seps);
-	void initFromINI(void *what, const FieldParse *parseTable);
-	static void parseInt(INI *ini, void *instance, void *store, const void *userData);	// rowed 0x002EF56
-	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);	// rowed 0x002F11E
-};
+#include "../../Include/Common/INI/INI.h"
 
 struct FieldParse
 {

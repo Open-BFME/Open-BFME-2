@@ -11,13 +11,7 @@ class INI;
 typedef void (*INIFieldParseProc)(INI *, void *, void *, const void *);
 #include "../../Include/Common/INI/FieldParse.h"
 
-class INI
-{
-public:
-	void initFromINI(void *what, const FieldParse *table);
-	static void parseInt(INI *ini, void *instance, void *store, const void *userData);
-	static void parseMappedImage(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../Include/Common/INI/INI.h"
 
 // Retail VA 0x00C167B8 (.rdata): four field records and a zero sentinel.
 extern const FieldParse g_00C167B8[] = {

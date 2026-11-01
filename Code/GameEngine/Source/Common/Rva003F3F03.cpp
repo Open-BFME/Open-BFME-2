@@ -11,22 +11,7 @@ class INI;
 typedef void (*FieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
 #include "../../Include/Common/INI/FieldParse.h"
 
-class INI
-{
-public:
-	static void parseAudioEventRTS(INI *ini, void *instance, void *store, const void *userData);
-	void initFromINI(void *what, const FieldParse *parseTable);
-	static void Rva002F592_ParseArmyPlacementPos(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva003F156F_ParseRegionBonus(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva003F1FD0_ParseGiveUpgrade(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva003F2033_ParseOnVictoryGiveUpgrade(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva003F341E_ParseConnections(INI *ini, void *instance, void *store, const void *userData);
-	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
-	static void parseAsciiStringVectorAppend(INI *ini, void *instance, void *store, const void *userData);
-	static void parseBool(INI *ini, void *instance, void *store, const void *userData);
-	static void parseCoord2D(INI *ini, void *instance, void *store, const void *userData);
-	static void parseInt(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../Include/Common/INI/INI.h"
 
 // The callbacks of the table below, all rowed; two have other signatures and
 // are cast to the field-parse type.

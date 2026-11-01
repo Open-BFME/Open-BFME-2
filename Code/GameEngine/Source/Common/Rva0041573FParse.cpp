@@ -45,11 +45,7 @@ private:
 };
 
 class Rva0041573F;
-class INI
-{
-public:
-	void initFromINIMulti(void *what, const MultiIniFieldParse &parse);
-};
+#include "../../Include/Common/INI/INI.h"
 
 int __cdecl Rva0033A495Get();
 void Rva0033DC9CParse(INI *ini, void *instance, void *store, const void *userData);	// rowed 0x0033DC9C

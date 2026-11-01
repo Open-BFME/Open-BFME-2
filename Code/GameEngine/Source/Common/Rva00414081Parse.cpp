@@ -23,11 +23,7 @@ extern const struct FieldParse g_00C39EB8[] =
 	{ "Bonus", &Rva00414009Parse, 0, 0xC },
 	{ 0, 0, 0, 0 }
 };
-class INI
-{
-public:
-	void initFromINI(void *what, const struct FieldParse *table);
-};
+#include "../../Include/Common/INI/INI.h"
 class Rva00414081
 {
 public:

@@ -25,7 +25,7 @@ template <> void allocator<AsciiString>::deallocate(AsciiString*, size_t) const;
 }
 class Rva0040394A {public:Rva0040394A();int m_id;float m_val;_STL::vector<AsciiString>m_strs;};
 class Rva004045B4 {public:void rva004045B4(int,float,const _STL::vector<AsciiString>*);};
-class INI {public:const char*getNextToken(const char*);const char*rva0002DFE2(const char*,bool*);float scanReal(const char*);float dup_002EE10(const char*);static void parseAsciiStringVectorAppend(INI*,void*,void*,const void*);};
+#include "../../Include/Common/INI/INI.h"
 class Rva0022B46BSubsystem {public:int rva004030EF(const char*);};
 class AttributeModifierStore;
 extern AttributeModifierStore*TheAttributeModifierStore;

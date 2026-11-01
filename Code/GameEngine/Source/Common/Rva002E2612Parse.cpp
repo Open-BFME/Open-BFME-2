@@ -6,12 +6,7 @@
 #include <vector>
 #include "ascii_string.h"
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-	const char *getNextTokenOrNull(const char *seps);
-};
+#include "../../Include/Common/INI/INI.h"
 
 class ModuleData;
 
