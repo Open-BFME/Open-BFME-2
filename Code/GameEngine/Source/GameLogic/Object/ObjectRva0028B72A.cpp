@@ -6,16 +6,6 @@
 // null-terminated scan with plain ret proves 0 args void.
 #include "../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class BfmeObjectModule
-{
-public:
-	virtual void slot0();
-
-private:
-	unsigned int m_data[2];
-};
-
-
 class Object
 {
 	char m_pad[0x244];

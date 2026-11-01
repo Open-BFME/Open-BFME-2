@@ -31,15 +31,6 @@ public:
 	virtual void s6();
 };
 
-class BfmeObjectModule
-{
-public:
-	virtual void slot0();
-
-private:
-	unsigned int m_data[2];
-};
-
 #include "../../../Include/GameLogic/Module/BehaviorModule.h"
 
 

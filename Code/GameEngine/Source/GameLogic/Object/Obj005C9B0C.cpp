@@ -20,12 +20,6 @@ private:
 	unsigned int m_index;
 };
 
-class Rva005CB260
-{
-public:
-	void rva005CB260();
-};
-
 class Rva005C98C0
 {
 public:

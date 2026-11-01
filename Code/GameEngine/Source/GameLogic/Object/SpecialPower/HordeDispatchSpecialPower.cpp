@@ -64,8 +64,6 @@ class RGBAColorInt;
 struct XferUnknown11;
 #include "../../../../Include/Common/BfmeXfer.h"
 
-class BehaviorModuleOther {public:virtual void secondaryAnchor();};
-
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class SpecialPowerModuleInterface {public:

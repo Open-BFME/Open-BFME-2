@@ -110,14 +110,6 @@ public:
 
 #include "../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class ObjectModuleView
-{
-public:
-	virtual void s0();
-	char m_pad04[0x0C - 0x04];
-};
-
-
 class ScoreKeeper
 {
 public:

@@ -137,13 +137,6 @@ class ModuleData;
 // one-vptr BehaviorModule plus the UpdateModuleInterface vptr, then the two
 // counters and the BFME-only reserved dword. Declarations only; the rowed
 // 0x00253390 / 0x00253330 bodies stay the callees.
-class BehaviorModuleBase
-{
-	virtual void unused();
-	int a;
-	int b;
-};
-
 class BehaviorModuleOther
 {
 	virtual void unused();

@@ -62,16 +62,6 @@ public:
 
 #include "../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class BfmeObjectModule
-{
-public:
-	virtual void slot0() = 0;
-
-private:
-	unsigned int m_data[2];
-};
-
-
 #include "../../../Include/Common/Module.h"
 
 // Partial lookup-result view; the native upgrade caller reads ObjectID at +0x14.

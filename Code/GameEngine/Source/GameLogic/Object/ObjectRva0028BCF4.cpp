@@ -9,16 +9,6 @@
 // ?rva0028C197 precedent; true interface name unproven.
 #include "../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class BfmeObjectModule
-{
-public:
-	virtual void slot0();
-
-private:
-	unsigned int m_data[2];
-};
-
-
 class Object
 {
 	char m_pad[0x244];

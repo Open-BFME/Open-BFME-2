@@ -11,16 +11,6 @@
 // mangling for 4 waiting files.
 #include "../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class BfmeObjectModule
-{
-public:
-	virtual void slot0();
-
-private:
-	unsigned int m_data[2];
-};
-
-
 class Rva0028BC58Res
 {
 public:

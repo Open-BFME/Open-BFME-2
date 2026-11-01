@@ -23,16 +23,6 @@ public:
 
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class BehaviorModuleHead
-{
-public:
-	virtual ~BehaviorModuleHead();
-private:
-	int m_04;
-	int m_08;
-};
-
-
 class Object
 {
 public:

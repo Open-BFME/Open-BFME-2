@@ -46,16 +46,6 @@ class SpecialPowerModuleInterface;
 
 #include "../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class BfmeObjectModule
-{
-public:
-	virtual void slot0() = 0;
-
-private:
-	unsigned int m_data[2];
-};
-
-
 class SpecialPowerModuleInterface
 {
 public:
