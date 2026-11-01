@@ -13017,13 +13017,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWood
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp	1TaintSpecialPower@@MAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp	1WeaponChangeSpecialPowerModule@@MAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/GrabPassengerSpecialPower.cpp	1GrabPassengerSpecialPower@@MAE@XZ	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/OCLSpecialPower.cpp	1OCLSpecialPower@@MAE@XZ	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/OCLSpecialPower.cpp	crc@OCLSpecialPower@@MAEXPAVXfer@@@Z	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/OCLSpecialPower.cpp	doSpecialPowerAtLocation@OCLSpecialPower@@UAEXPBUCoord3D@@MI@Z	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/OCLSpecialPower.cpp	doSpecialPowerAtObject@OCLSpecialPower@@UAEXPAVObject@@I@Z	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/OCLSpecialPower.cpp	getReferenceThingTemplate@OCLSpecialPower@@UBEPBVThingTemplate@@XZ	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/OCLSpecialPower.cpp	loadPostProcess@OCLSpecialPower@@MAEXXZ	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/OCLSpecialPower.cpp	xfer@OCLSpecialPower@@MAEXPAVXfer@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/PlayerUpgradeSpecialPower.cpp	1PlayerUpgradeSpecialPower@@MAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/RepairSpecialPower.cpp	1RepairSpecialPower@@MAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModule.cpp	SpecialPowerModule::getPercentReady	1
