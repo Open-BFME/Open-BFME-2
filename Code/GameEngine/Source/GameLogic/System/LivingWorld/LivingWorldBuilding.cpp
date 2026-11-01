@@ -311,4 +311,10 @@ LivingWorldBuilding::LivingWorldBuilding(LivingWorldRegion *region,const Coord2D
  ((Rva005A0B4CList*)((char*)TheLivingWorldLogic+0x1C))->append((Rva002BA8F1Listener*)(RegionTurnObserverView*)this);
 }
 
+// LivingWorldBuilding::LoadPostProcess: retail table 0x00C61618 (stored by the
+// constructor above) slot 1 is the shared one-byte RET at 0x000B3FD0.
+void LivingWorldBuilding::LoadPostProcess()
+{
+}
+
 // tu-skeleton: 0x00791983 11B uw_00791983 -- matched in Code/gen_small/uw_gen_010.cpp (not merged yet)

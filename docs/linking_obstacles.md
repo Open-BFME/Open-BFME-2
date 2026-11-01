@@ -8335,6 +8335,23 @@ already provides selectable named slots, and the constructor uses the existing
 No source or rename trial was repeated. Class/observer reconciliation remains
 the prerequisite; no clearance or census gain is claimed.
 
+Update (2026-11-01, base `b8bcae39502`+pull, ordinary preview against census
+2026-10-31 22:25 at `4a490aa2e4`): `LivingWorldBuilding.cpp` now defines the
+empty `LivingWorldBuilding::LoadPostProcess` override and its folded row
+`?LoadPostProcess@LivingWorldBuilding@@UAEXXZ` at 0x000B3FD0 (1 B, `add_match`
+verified, fold-proof `region.cpp`). The preview drops that name; the unit still
+reports one unresolved, `??1LivingWorldBuilding@@UAE@XZ` (0 linked bytes).
+Remaining prerequisite unchanged: the destructor 0x004E0D67 (and `??_G`
+0x004E0E5C in `OpaqueScalarDeletingDtorsB11.cpp`) sit in no approved TU
+(`tu_map.csv` rows blank), so they cannot be moved into this unit, and
+`rename.py class Rva004E0D67 -> LivingWorldBuilding` refuses both `canonical:wb`
+(no `wb_name_leads.csv` row at 0x004E0D67) and any basis on collision
+(`LivingWorldBuilding already appears`, `rename.py` collision check). This is
+the same maintainer decision as LINK-063: admit a placeholder-into-existing-class
+rename for a placeholder whose rows are that class's own table entries, or TU-approve
+0x004E0D67/0x004E0E5C into `LivingWorldBuilding.cpp` and reconcile the view.
+Clearance: `LoadPostProcess` name only (preview scope); census not claimed.
+
 ### LINK-025: `StlSweepR3Rva0002CCC3.cpp`'s opaque hashtable record needs the macro table's real type
 Status: Blocked (identity prerequisite). Updated: 2026-10-26; inspected revision: 308a442bae.
 Evidence / affected units: `Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0002CCC3.cpp` (67 B): unresolved
