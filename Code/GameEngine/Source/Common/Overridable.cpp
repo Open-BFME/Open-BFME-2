@@ -2,18 +2,11 @@
 // Overridable restores its table at VA 0x00BDDC48 before clearing its chain.
 // The next override at +4 is destroyed through slot 0 and globally deallocated.
 
-class Overridable
-{
-public:
-	virtual ~Overridable();
-
-private:
-	Overridable *m_next;	// +4
-};
+#include "../../Include/Common/Overridable.h"
 
 Overridable::~Overridable()
 {
-	if (m_next)
-		::delete m_next;
-	m_next = 0;
+	if (m_nextOverride)
+		::delete m_nextOverride;
+	m_nextOverride = 0;
 }
