@@ -60,15 +60,9 @@ struct Rva00299CE4Template
 	}
 };
 
-// Thing (destructor 0x0030A120, 0x60 bytes): primary vftable, template at +4.
-class Thing
-{
-protected:
-	virtual ~Thing();	// protected as in Zero Hour's MEMORY_POOL_GLUE_ABC(Thing)
-public:
-	const Rva00299CE4Template *m_template;			// +0x04
-	unsigned char m_unmodelled008[0x58];
-};
+// Thing (destructor 0x0030A120, 0x60 bytes): the canonical header, so Object's
+// primary table has the same slots as ObjectConstructor.cpp's copy.
+#include "../../Common/Thing/thing.h"
 
 // Base subobjects Object installs vftables for.
 struct Rva00BFC27CVirtualBase
@@ -190,7 +184,7 @@ public:
 	bool testStatus(ObjectStatusTypes bit) const;
 	void setTeam(Team *team);
 	void rva0028BAC0();
-	const Rva00299CE4Template *getTemplate() const { return m_template; }
+	const Rva00299CE4Template *getTemplate() const { return (const Rva00299CE4Template *)m_template; }
 	__forceinline bool isKindOf(Rva00299CE4Kind kind) const { return getTemplate()->isKindOf(kind); }
 
 protected:
