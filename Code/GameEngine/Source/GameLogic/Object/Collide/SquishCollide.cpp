@@ -43,13 +43,7 @@ class Rva00263895Member
 }
 ;
 
-class Weapon 
-{
- public: bool rva002C969D(const void*,int);
- bool rva002CE6C5(const Object*,int,const Object*,int*);
- 
-}
-;
+#include "../../../../Include/GameLogic/Weapon.h"
 
 enum ObjectStatusTypes 
 {

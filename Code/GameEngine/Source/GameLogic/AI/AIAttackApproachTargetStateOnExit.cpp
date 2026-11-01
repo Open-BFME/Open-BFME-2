@@ -152,13 +152,7 @@ public:
 	unsigned char get() const;
 };
 
-class Weapon
-{
-public:
-	char isWithinAttackRange(Object *source, void *pos, float extra, int flag) const;
-	char m_pad00[4];
-	Rva002C9400ByteField *m_field4; // +0x04
-};
+#include "../../../Include/GameLogic/Weapon.h"
 
 #include "../../Common/GameLogicObjectLookupView.h"
 
@@ -390,7 +384,7 @@ StateReturnType AIAttackApproachTargetState00C12678::updateInternal()
 		m_stopIfInRange = true;
 	Object *source = m_machine->m_owner;
 	const Weapon *weapon = source->getCurrentWeapon(0);
-	if (weapon != 0 && ((Rva002C9400ByteField *)weapon->m_field4)->get() != 0)
+	if (weapon != 0 && ((Rva002C9400ByteField *)weapon->m_template)->get() != 0)
 		m_stopIfInRange = false;
 	if (((GameLogicFieldView *)TheGameLogic)->m_1B4 > 0)
 	{

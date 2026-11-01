@@ -593,18 +593,14 @@ public:
 	ExperienceTracker *m_experienceTracker;
 };
 
-struct WeaponTemplateView
+class WeaponTemplate
 {
+public:
 	char m_pad[0xD0];
 	Rva002C99FB m_D0;
 	Rva002C99FB m_D8;
 };
-class Weapon
-{
-public:
-	void *m_vtbl;
-	const WeaponTemplateView *m_template;
-};
+#include "../../../Include/GameLogic/Weapon.h"
 
 class Pathfinder
 {
@@ -1105,7 +1101,7 @@ static void doPickAndPlayForAttackCommand(GameMessage::Type type, PickAndPlayInf
 	{
 		const Weapon *weapon = obj->getCurrentWeapon(0);
 		if (weapon) {
-const WeaponTemplateView *weaponTemplate=weapon->m_template;
+const WeaponTemplate *weaponTemplate=weapon->m_template;
 if (weaponTemplate) {
 			if (isSiege)
 				((Rva004D977D *)record)->rva004D977D(weaponTemplate->m_D8, asStruct(Rva002390CB()));

@@ -99,11 +99,7 @@ private:
 	Coord3D m_position; // +0x38
 };
 
-class Weapon
-{
-public:
-	Bool isWithinAttackRange(const Object *source, const Object *target, Real extra, Int flag) const;
-};
+#include "../../../Include/GameLogic/Weapon.h"
 
 class Object : public Thing
 {
@@ -252,7 +248,7 @@ StateReturnType AIAttackMeleeApproachState::onEnter()
 			if (source->m_ai->m_3cc)
 			{
 				Weapon *weapon = source->getCurrentWeapon();
-				if (!weapon || !weapon->isWithinAttackRange(source, victim, 0.0f, 1))
+				if (!weapon || !weapon->isWithinAttackRange((const Object *)source, victim, 0.0f, 1))
 				{
 					getMachine()->setGoalObject(0);
 					return STATE_FAILURE;
@@ -284,7 +280,7 @@ StateReturnType AIAttackMeleeApproachState::onEnter()
 		return STATE_FAILURE;
 	if (Rva0034311ECheck(victim))
 		return STATE_FAILURE;
-	if (weapon->isWithinAttackRange(source, victim, 0.0f, 1))
+	if (weapon->isWithinAttackRange((const Object *)source, victim, 0.0f, 1))
 		return STATE_SUCCESS;
 
 	m_50 = *victim->getPosition();

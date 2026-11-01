@@ -68,7 +68,7 @@ class WeaponTemplate { public:
  char pad0c[0x76]; bool field82;
  char pad83[0xC5]; float m_continueAttackRange;
 };
-class Weapon { public: char pad00[4]; WeaponTemplate *m_template; char pad08[0x2C]; unsigned m_field34; };
+#include "../../../Include/GameLogic/Weapon.h"
 class Object {
 public:
  const Weapon *getCurrentWeapon(WeaponSlotType*) const;
@@ -173,7 +173,7 @@ StateReturnType AIAttackState::onEnter() {
   victimPos=machine->goal;
  }
  source->setStatus((ObjectStatusTypes)22,true);
- weapon->m_field34=0x7FFFFFFF;
+ weapon->m_maxShotCount=0x7FFFFFFF;
  if(weapon->m_template->m_continueAttackRange>0) source->setStatus((ObjectStatusTypes)27,true);
  if(reinterpret_cast<const Rva0028B7B5CmpBoolField*>(source)->get() && source->getCurrentWeapon(0))
   lockedWeapon=source->getCurrentWeapon(0)->m_template->name;

@@ -297,19 +297,8 @@ public:
 	UnsignedInt m_bits[(N + 31) / 32];
 };
 
-class WeaponTemplateView { public: char m_pad000[0xec]; Int m_clipSize; };
-class Weapon {
-public:
-	Bool rva002C96D8();
-	WeaponStatus computeStatus(bool *unused) const;
-	Real getPercentReadyToFire() const;
-	char m_pad000[4];
-	const WeaponTemplateView *m_template;
-	char m_pad008[0xc - 8];
-	Int m_slot;
-	char m_pad010[0x18 - 0x10];
-	UnsignedInt m_lastFireFrame;
-};
+class WeaponTemplate { public: char m_pad000[0xec]; Int m_clipSize; };
+#include "../../../../Include/GameLogic/Weapon.h"
 class WeaponSet { public: Weapon *getWeaponInWeaponSlot(WeaponSlotType slot) const; };
 
 class ExperienceTracker { public: Int getVeterancyLevel() const { return m_level; } char m_pad000[0x24]; Int m_level; };
@@ -934,7 +923,7 @@ CommandAvailability ControlBar::getCommandAvailability(const CommandButton *comm
 			now = TheGameLogic->getFrame();
 			if (weapon && weapon->m_template->m_clipSize == 0 && !weapon->rva002C96D8())
 				return COMMAND_AVAILABLE;
-			if ((weapon == 0 || weapon->computeStatus(0) != READY_TO_FIRE || weapon->m_lastFireFrame == now || weapon->m_lastFireFrame == now - 1) && weapon != 0)
+			if ((weapon == 0 || weapon->computeStatus(0) != READY_TO_FIRE || weapon->m_whenWeCanFireAgain == now || weapon->m_whenWeCanFireAgain == now - 1) && weapon != 0)
 			{
 				if (weapon->computeStatus(0) == 3 || weapon->rva002C96D8())
 					*percent = weapon->getPercentReadyToFire();
@@ -1136,7 +1125,7 @@ CommandAvailability ControlBar::getCommandAvailability(const CommandButton *comm
 					if (draw && draw->m_object && draw->m_object->isLocallyControlled() && draw->m_object->getCurrentWeapon(0))
 					{
 						Object *object = draw->m_object;
-						Int slot = object->getCurrentWeapon(0)->m_slot;
+						Int slot = object->getCurrentWeapon(0)->m_wslot;
 						if (slot != command->m_weaponSlot)
 							return COMMAND_AVAILABLE;
 					}

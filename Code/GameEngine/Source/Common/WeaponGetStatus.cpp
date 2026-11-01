@@ -64,34 +64,9 @@ struct GameLogicFrame
 
 #define TheGameLogic (*(GameLogicFrame **)&TheGameLogic)
 
-class Weapon
-{
-public:
-    WeaponStatus getStatus() const;
-    WeaponStatus computeStatus(bool *cacheable) const;
-    __declspec(noinline) void cacheStatus(WeaponStatus status) const;
-    unsigned int getRemainingAmmo(bool countReloadingAsEmpty) const;
-    bool isAmmoReady() const;
-    void loadAmmoNow(const Object *sourceObj);
-    void reloadAmmo(const Object *sourceObj);
-    void rva002CE226(const Object *sourceObj, const SavedWeaponState *saved);
-    void setClipPercentFull(float rate, bool flag);
-protected:
-    void rebuildScatterTargets();
-private:
-    char m_pad00[4];
-    WeaponTemplate *m_template;
-    char m_pad08[8];
-    mutable WeaponStatus m_status;
-    int m_pad14;
-    unsigned int m_frame18;
-    unsigned int m_frame1C;
-    unsigned int m_frame20;
-    int m_pad24;
-    int m_28;
-};
+#include "../../Include/GameLogic/Weapon.h"
 
-void Weapon::cacheStatus(WeaponStatus status) const
+__declspec(noinline) void Weapon::cacheStatus(WeaponStatus status) const
 {
     if (m_status != status)
         m_status = status;
@@ -120,9 +95,9 @@ void Weapon::setClipPercentFull(float rate, bool flag)
 	float f = (float)floor((double)m_clipSize * rate);
 	int want = rva002CE280_float2long(f);
 	if (want > getRemainingAmmo(false) || (flag && want < getRemainingAmmo(false))) {
-		m_pad14 = want;
+		m_ammoInClip = want;
 		cacheStatus((WeaponStatus)(getRemainingAmmo(false) != 0));
-		m_frame18 = m_28 = TheGameLogic->m_frame;
+		m_whenWeCanFireAgain = m_projectileStreamID = TheGameLogic->m_frame;
 		rebuildScatterTargets();
 	}
 }
@@ -139,7 +114,7 @@ WeaponStatus Weapon::getStatus() const
 WeaponStatus Weapon::computeStatus(bool *cacheable) const
 {
     unsigned int frame = TheGameLogic->m_frame;
-    if (frame < m_frame1C)
+    if (frame < m_whenPreAttackFinished)
     {
         if (cacheable)
             *cacheable = false;
@@ -147,7 +122,7 @@ WeaponStatus Weapon::computeStatus(bool *cacheable) const
     }
     else
     {
-        if (frame < m_frame20)
+        if (frame < m_whenLastReloadStarted)
         {
             if (cacheable)
                 *cacheable = false;
@@ -155,13 +130,13 @@ WeaponStatus Weapon::computeStatus(bool *cacheable) const
         }
         if (m_template->m_flag78 >= 0)
         {
-            if (frame < m_frame18 && !m_template->m_ammo.isValid())
+            if (frame < m_whenWeCanFireAgain && !m_template->m_ammo.isValid())
                 goto return_cached_status;
             if (getRemainingAmmo(false) > 0)
                 return READY_TO_FIRE;
-            if (frame >= m_frame18)
+            if (frame >= m_whenWeCanFireAgain)
             {
-                WeaponTemplate *weaponTemplate = m_template;
+                const WeaponTemplate *weaponTemplate = m_template;
                 if (weaponTemplate->m_ammo.isValid())
                 {
                     if (isAmmoReady())
@@ -170,7 +145,7 @@ WeaponStatus Weapon::computeStatus(bool *cacheable) const
             }
             return OUT_OF_AMMO;
         }
-        if (frame < m_frame18 && !m_template->m_ammo.isValid())
+        if (frame < m_whenWeCanFireAgain && !m_template->m_ammo.isValid())
         return_cached_status:
             return m_status;
         return (WeaponStatus)(getRemainingAmmo(false) <= 0);
@@ -185,10 +160,10 @@ void Weapon::rva002CE226(const Object *sourceObj, const SavedWeaponState *saved)
         {
             if (saved->m_key == m_template->m_key0C)
             {
-                m_pad14 = saved->m_14;
+                m_ammoInClip = saved->m_14;
                 cacheStatus(saved->m_status);
-                m_28 = saved->m_28;
-                m_frame18 = saved->m_18;
+                m_projectileStreamID = saved->m_28;
+                m_whenWeCanFireAgain = saved->m_18;
                 return;
             }
         }

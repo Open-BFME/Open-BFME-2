@@ -206,16 +206,7 @@ public:
 	bool m_shareTimers;
 };
 
-class Weapon
-{
-public:
-	WeaponStatus computeStatus(bool *valid) const;
-	void cacheStatus(WeaponStatus status) const;
-	char m_pad00[4];
-	const WeaponTemplate *m_template;
-	char m_pad08[0x18 - 8];
-	unsigned int m_18;
-};
+#include "../../../Include/GameLogic/Weapon.h"
 
 // WeaponSetFlags is BitFlags<117> in BFME 2 (0x10 bytes, zeroed with memset).
 template <int Bits>
@@ -381,7 +372,7 @@ bool AIGroup::setWeaponLockForGroup(WeaponSlotType weaponSlot, WeaponLockType lo
 			if (weapon && weapon->m_template->m_shareTimers) {
 				if (weapon->computeStatus(0)) {
 					Weapon *current = const_cast<Weapon *>(object->getCurrentWeapon(0));
-					current->m_18 = weapon->m_18;
+					current->m_whenWeCanFireAgain = weapon->m_whenWeCanFireAgain;
 					current->cacheStatus((WeaponStatus)1);
 				}
 			}

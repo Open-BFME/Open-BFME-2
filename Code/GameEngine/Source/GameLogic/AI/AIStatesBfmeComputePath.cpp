@@ -147,32 +147,16 @@ private:
 };
 extern GameLogic *TheGameLogic;
 
-struct WeaponTemplateView
+class WeaponTemplate
 {
+public:
 	unsigned char m_pad00[0x78];
 	int m_bfmeDelay78; // +0x78
 	int m_bfmeDuration7C; // +0x7C
 };
 
 class Object;
-class Weapon
-{
-public:
-	WeaponStatus getStatus() const;
-	const WeaponTemplateView *m_template04() const { return m_template; }
-	unsigned int m_bfmeFrame2C() const { return m_frame; }
-	WeaponSlotType getWeaponSlot() const { return m_wslot; }
-	// Rowed at 0x002CB35C (WeaponRva002CB2D1Range.cpp).
-	bool isWithinAttackRange(Object *source, const Coord3D *pos, Object *victim,
-		const Coord3D *victimPos, float bonus, bool checkMinimum);
-private:
-	unsigned char m_pad00[0x04];
-	const WeaponTemplateView *m_template; // +0x04
-	unsigned char m_pad08[0x0C - 0x08];
-	WeaponSlotType m_wslot; // +0x0C
-	unsigned char m_pad10[0x2C - 0x10];
-	unsigned int m_frame; // +0x2C
-};
+#include "../../../Include/GameLogic/Weapon.h"
 
 class StancesBehavior
 {
@@ -620,9 +604,9 @@ StateReturnType AIWaitUntilFinishedFiringState::onEnter()
 			return STATE_CONTINUE;
 		return STATE_SUCCESS;
 	}
-	if (weapon->m_template04()->m_bfmeDelay78 >= 0)
+	if (weapon->getTemplate()->m_bfmeDelay78 >= 0)
 		obj->setWeaponLock(weapon->getWeaponSlot(), LOCKED_TEMPORARILY);
-	int duration = weapon->m_template04()->m_bfmeDuration7C;
+	int duration = weapon->getTemplate()->m_bfmeDuration7C;
 	if (duration > 0)
 		obj->setDisabledUntil(DISABLED_BFME_8, TheGameLogic->getFrame() + duration);
 	return STATE_CONTINUE;
@@ -633,15 +617,15 @@ StateReturnType AIWaitUntilFinishedFiringState::update()
 	const Weapon *weapon = getMachineOwner()->getCurrentWeapon();
 	if (!weapon)
 		return STATE_FAILURE;
-	int delay = weapon->m_template04()->m_bfmeDelay78;
+	int delay = weapon->getTemplate()->m_bfmeDelay78;
 	if (delay >= 0)
 	{
-		if (weapon->m_bfmeFrame2C() + delay > TheGameLogic->getFrame())
+		if (weapon->m_unknown2C + delay > TheGameLogic->getFrame())
 			return STATE_CONTINUE;
 	}
 	if (weapon->getStatus() == WEAPON_STATUS_BFME_5)
 		return STATE_CONTINUE;
-	if (weapon->m_template04()->m_bfmeDelay78 < 0)
+	if (weapon->getTemplate()->m_bfmeDelay78 < 0)
 		return STATE_SUCCESS;
 	return STATE_FAILURE;
 }

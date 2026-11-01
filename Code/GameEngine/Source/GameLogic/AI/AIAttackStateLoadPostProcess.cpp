@@ -12,18 +12,14 @@
 class Team;
 enum WeaponSlotType { WEAPON_SLOT_TYPE_UNSPECIFIED = 0 };
 
-struct AttackWeaponTemplateNameView
+class WeaponTemplate
 {
+public:
     char m_unrecovered00[8];
     AsciiString m_name;
 };
 
-class Weapon
-{
-public:
-    char m_unrecovered00[4];
-    AttackWeaponTemplateNameView *m_template;
-};
+#include "../../../Include/GameLogic/Weapon.h"
 
 class Object
 {

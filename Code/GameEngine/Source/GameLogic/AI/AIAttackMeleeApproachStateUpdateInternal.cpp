@@ -67,11 +67,7 @@ extern unsigned char g_00E03745;
 extern "C" void *theLogicRandomLogFile;
 extern "C" void __cdecl fprintf(void *stream, const char *format, ...);
 
-class Weapon
-{
-public:
-	Bool isWithinAttackRange(const Object *source, const Object *target, Real extra, int flag) const;
-};
+#include "../../../Include/GameLogic/Weapon.h"
 
 class AIUpdateInterface;
 
@@ -207,7 +203,7 @@ StateReturnType Rva00349611::rva00349611()
 			return STATE_CONTINUE;
 		}
 		const Weapon *weapon = source->getCurrentWeapon(0);
-		if (weapon && weapon->isWithinAttackRange(source, victim, 0.0f, 1))
+		if (weapon && weapon->isWithinAttackRange((const Object *)source, victim, 0.0f, 1))
 		{
 			Bool inRange = TheAI->m_pathfinder->rva002ED313(source);
 			if (ai->m_140 == 0)

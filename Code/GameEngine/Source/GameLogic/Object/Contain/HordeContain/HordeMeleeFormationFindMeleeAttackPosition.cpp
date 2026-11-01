@@ -43,12 +43,7 @@ enum WeaponSlotType
 	PRIMARY_WEAPON = 0
 };
 
-class Weapon
-{
-public:
-	Bool isWithinAttackRange(Object *source, const Coord3D *pos, Object *victim, const Coord3D *victimPos, Real extra, Bool flag);
-	bool isWithinAttackRange(const Object *source, const Object *victim, float extra, int flag) const;
-};
+#include "../../../../../Include/GameLogic/Weapon.h"
 
 enum ObjectStatusTypes { FORMATION_STATUS_1C=0x1c, FORMATION_STATUS_44=0x44 };
 enum CommandSourceType { FORMATION_COMMAND=2 };
@@ -510,7 +505,7 @@ void HordeMeleeFormation::updateMeleeAttack(Object *victim)
    int overlap=pathfinder->GetOverlapGoalUnits(unit,&unit->m_position,ids);
    if(overlap==0 || overlap==2) inRange=true;
   }
-  if(inRange && unit->getCurrentWeapon(0) && unit->getCurrentWeapon(0)->isWithinAttackRange(unit,victim,0.0f,1) && unit->m_ai) {
+  if(inRange && unit->getCurrentWeapon(0) && unit->getCurrentWeapon(0)->isWithinAttackRange((const Object *)unit,victim,0.0f,1) && unit->m_ai) {
    ((AICommandInterface *)((char *)unit->m_ai+0x20))->rva0026C2D9(victim,0x7fffffff,FORMATION_COMMAND);
    unit->rva0028ACEE((int)&unit->m_position,unit->rva0028B511());
    continue;

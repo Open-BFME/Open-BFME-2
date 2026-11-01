@@ -100,12 +100,7 @@ private:
 	void *m_path; // +0x140
 };
 
-class Weapon
-{
-public:
-	WeaponStatus getStatus() const;
-	Bool isWithinAttackRange(const Object *source, const Object *target, Real extra, Int flag) const;
-};
+#include "../../../Include/GameLogic/Weapon.h"
 
 class Thing
 {
@@ -318,7 +313,7 @@ StateReturnType AIAttackFireDuringApproachState::updateInternal()
 	if (victim->rva002943B2(source->getControllingPlayer()))
 		return STATE_FAILURE;
 	ai->setCurrentVictim(victim);
-	if (ai->getPath() == 0 && weapon->isWithinAttackRange(source, victim, 0.0f, 1))
+	if (ai->getPath() == 0 && weapon->isWithinAttackRange((const Object *)source, victim, 0.0f, 1))
 		return STATE_SUCCESS;
 
 	critterDesyncLog("CritterDesync: ComputePath17");

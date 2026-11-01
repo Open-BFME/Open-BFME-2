@@ -72,12 +72,7 @@ public:
 	Bool isAttackViewBlockedByObstacle(const Object *a, const Coord3D &b, const Object *c, const Coord3D &d);
 };
 
-class Weapon
-{
-public:
-	Bool isWithinAttackRange(const Object *source, const Object *target, Real extra, int flag) const;
-	Bool isWithinAttackRange(Object *source, const Coord3D *sourcePos, Object *target, const Coord3D *targetPos, Real extra, Bool flag);	// 0x002CB35C
-};
+#include "../../../Include/GameLogic/Weapon.h"
 
 class Object
 {
@@ -228,7 +223,7 @@ StateReturnType AIAttackPursueTargetState::updateInternal()
 			Pathfinder *pf = TheAI->m_pathfinder;
 			viewBlocked = pf->isAttackViewBlockedByObstacle(source, source->m_position, victim, victim->m_position);
 		}
-		if (!viewBlocked && victim->m_physics && weapon->isWithinAttackRange(source, victim, 0.0f, 1))
+		if (!viewBlocked && victim->m_physics && weapon->isWithinAttackRange((const Object *)source, victim, 0.0f, 1))
 		{
 			ai->setTurretTargetObject(tur, victim, m_isForceAttacking);
 			m_isInitialApproach = false;

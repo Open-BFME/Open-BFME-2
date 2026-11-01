@@ -183,11 +183,7 @@ enum WeaponStatus
 {
 	WEAPON_STATUS_BFME_4 = 4
 };
-class Weapon
-{
-public:
-	WeaponStatus computeStatus(Bool *noAmmo = NULL) const;
-};
+#include "../../../Include/GameLogic/Weapon.h"
 class Object
 {
 public:
@@ -753,7 +749,7 @@ StateReturnType AIGuardInnerState::update( void )
 	if (goal && goal->getTemplate()->isKindOfBfme108Bit7() && TheGameLogic->getFrame() >= m_bfmeDeadline)
 	{
 		const Weapon *weapon = getMachine()->getOwner()->getCurrentWeapon();
-		if (weapon && weapon->computeStatus() != WEAPON_STATUS_BFME_4)
+		if (weapon && weapon->computeStatus(0) != WEAPON_STATUS_BFME_4)
 		{
 			m_bfmeDeadline = TheGameLogic->getFrame() + LOGICFRAMES_PER_SECOND;
 			if (getGuardMachine()->lookForInnerTarget())
