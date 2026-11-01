@@ -12,11 +12,7 @@
 // param, +0x420 lea, 5 callers, TheEmptyString at 0x009E0878, TheSkirmishAIManager no name yet.
 #include "ascii_string.h"
 
-class Player
-{
-public:
-	bool isSkirmishAIPlayer();
-};
+#include "../../../../GameEngine/Include/Common/Player.h"
 
 class Object
 {

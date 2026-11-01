@@ -90,11 +90,7 @@ public:
 	void rva003B0D7C(int amount, Rva0039B7AD *arg2, bool flag);
 };
 
-class Player
-{
-public:
-	char m_pad00[0x3C0];
-};
+#include "../../../../Include/Common/Player.h"
 
 class RespawnUpdate : public UpdateModule
 {

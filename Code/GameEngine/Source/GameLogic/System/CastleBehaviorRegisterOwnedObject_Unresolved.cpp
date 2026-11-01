@@ -471,13 +471,7 @@ extern PartitionManager* ThePartitionManager;
 // lets MSVC preserve EDX across the native call, as retail does. Its own bytes
 // remain exact; this move adds no recovered bytes.
 class W3DBridge { char pad[0x110]; bool enabled; public: void setEnabled(bool); bool isEnabled() const { return enabled; } };
-class Player
-{
-public:
-	Relationship getRelationship(const Team *) const;
-	int getPlayerIndex() const { return *(const int *)((const char *)this + 0x54); }
-	W3DBridge* getBuildControl() { return (W3DBridge*)((char*)this+0x3bc); }
-};
+#include "../../../Include/Common/Player.h"
 class TerrainLogic { public: void rva00283262(const Coord3D*,float); };
 extern TerrainLogic* TheTerrainLogic;
 #include "../../../Include/GameLogic/ScriptEngine.h"

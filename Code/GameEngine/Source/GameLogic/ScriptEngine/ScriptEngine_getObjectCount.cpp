@@ -17,9 +17,7 @@ bool less<unsigned int>::operator()(const unsigned int &left, const unsigned int
 class AsciiString;
 unsigned long Rva003ECA13Get(const AsciiString &s);
 
-class Player
-{
-};
+#include "../../../Include/Common/Player.h"
 
 class PlayerList
 {

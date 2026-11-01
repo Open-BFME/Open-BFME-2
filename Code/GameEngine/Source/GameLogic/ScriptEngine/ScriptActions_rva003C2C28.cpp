@@ -22,9 +22,7 @@ public:
 	int get() const;
 };
 
-class Player
-{
-};
+#include "../../../Include/Common/Player.h"
 
 class PlayerList
 {

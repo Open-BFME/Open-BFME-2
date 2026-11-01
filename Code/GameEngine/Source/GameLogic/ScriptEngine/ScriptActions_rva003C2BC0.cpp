@@ -22,9 +22,7 @@ struct PlayerInner003C2BC0
 	int m_money;
 };
 
-class Player
-{
-};
+#include "../../../Include/Common/Player.h"
 
 class PlayerList
 {

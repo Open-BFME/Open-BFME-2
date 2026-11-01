@@ -63,9 +63,7 @@ public:
 	Player *getControllingPlayer() const;
 };
 
-class Player
-{
-};
+#include "../../../../GameEngine/Include/Common/Player.h"
 
 // 0x00362437 is rowed as Rva2225E0Filter::accepts(Object *, Player *); the old
 // ?bfmeHas1026@BfmeTab1026@@QAEDHH@Z pin names the same body.

@@ -81,11 +81,7 @@ public:
 	void assistAttack(const Object *requestingObject, Object *victimObject);
 };
 
-class Player
-{
-public:
-	int iterateObjects(ObjectIterateFunc func, void *userData) const;
-};
+#include "../../../Include/Common/Player.h"
 
 struct WeaponTemplateRange
 {
