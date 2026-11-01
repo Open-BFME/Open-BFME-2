@@ -16688,7 +16688,7 @@ donors defined:
 |---|---:|---|---|
 | Common/RTS/PlayerList.cpp | 292 | `?removeTeamRelationship@Player@@QAE_NPBVTeam@@@Z` | repaired (below) |
 | Common/RTS/RelationMapXfer.cpp | 654 | `??A?$hash_map@IW4Relationship@@...` (`hash_map<unsigned,Relationship>::operator[]`) | blocked: file held by StarkillerHDX |
-| Object/SpecialPower/SpecialPowerModule.cpp | 36 | `?getOrStartSpecialPowerReadyFrame@Player@@...`, `?resetOrStartSpecialPowerReadyFrame@Player@@...` | open |
+| Object/SpecialPower/SpecialPowerModule.cpp | 36 | `?getOrStartSpecialPowerReadyFrame@Player@@...`, `?resetOrStartSpecialPowerReadyFrame@Player@@...` | repaired (below) |
 
 PlayerList.cpp: the only caller was its own unrowed Zero Hour `PlayerList::teamAboutToBeDeleted`
 (present-unmatched). Retail's body is the 30 B row 0x002A7AFE (`PlayerList::rva002A7AFE`,
@@ -16703,4 +16703,15 @@ RelationMapXfer.cpp declares `template <> Relationship &hash_map<unsigned int, R
 that provider's only emitter (index: one COMDAT, two touching objects). Next check (needs the file):
 drop that declaration-only specialization so the unit emits its own subscript, then recheck the
 helpers it instantiates against their declared-only suppressions.
+
+SpecialPowerModule.cpp: three unrowed Zero Hour bodies (getPercentReady, startPowerRecharge,
+getReadyFrame) called the two removed donor timers. Dropping them is not an option: the linked
+CashHackSpecialPower (435 B), DefectorSpecialPower (66 B) and OCLSpecialPower (1,403 B) bind their
+vtable slots to these names (index `touches`). Retail's timers are rowed under the receiver-prefix
+view `Rva002AC6B1PlayerTimers` (getOrStart 0x002AC7A0, resetOrStart 0x002AC6E1; Zero Hour Player.cpp
+semantic donor, WorldBuilder 0xC1DDD0 by callgraph), so the three bodies now call those rows through
+that view. `./build.sh` 4/4 rows; `find_declared_unmatched` clean; `link_check --refresh`
+SpecialPowerModule.cpp 0 -> 36 B, Rva002AC6B1PlayerTimers 309 B and the three slot consumers
+(1,904 B) unchanged LINKS. A real-name rename of the two rows into Player remains identity work
+(placeholder-into-existing-class, LINK-063's maintainer decision).
 Census confirmation: awaiting.

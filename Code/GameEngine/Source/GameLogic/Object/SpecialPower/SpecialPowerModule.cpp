@@ -59,6 +59,18 @@
 #include "GameClient/InGameUI.h"
 #include "GameClient/ControlBar.h"
 
+// Player's shared special-power timers are rowed under the receiver-prefix
+// view Rva002AC6B1PlayerTimers (Rva002AC6B1PlayerTimers.cpp): getOrStart
+// 0x002AC7A0 and resetOrStart 0x002AC6E1, Zero Hour's
+// Player::getOrStartSpecialPowerReadyFrame/resetOrStartSpecialPowerReadyFrame.
+// The Zero Hour bodies below call them there; the Player donor copies are gone.
+class Rva002AC6B1PlayerTimers
+{
+public:
+	unsigned getOrStart(const SpecialPowerTemplate *specialPowerTemplate);
+	void resetOrStart(const SpecialPowerTemplate *specialPowerTemplate);
+};
+
 
 #ifdef _INTERNAL
 // for occasional debugging...
@@ -227,7 +239,7 @@ Real SpecialPowerModule::getPercentReady() const
 		{
 			if ( modData->m_specialPowerTemplate->isSharedNSync())
 			{
-				readyFrame = player->getOrStartSpecialPowerReadyFrame( getSpecialPowerTemplate() );
+				readyFrame = ((Rva002AC6B1PlayerTimers *)player)->getOrStart( getSpecialPowerTemplate() );
 			}
 		}
 	}
@@ -288,7 +300,7 @@ void SpecialPowerModule::startPowerRecharge()
 	// but there are no restrictions on the use of SharedNSync on specialPowerTemplates at large
 	if ( modData->m_specialPowerTemplate->isSharedNSync() )
 	{
-		player->resetOrStartSpecialPowerReadyFrame( modData->m_specialPowerTemplate );
+		((Rva002AC6B1PlayerTimers *)player)->resetOrStart( modData->m_specialPowerTemplate );
 	}
 	else
 	{
@@ -455,7 +467,7 @@ UnsignedInt SpecialPowerModule::getReadyFrame( void ) const
 		{
 			Player *player = getObject()->getControllingPlayer();
 			if ( player )
-				return player->getOrStartSpecialPowerReadyFrame( getSpecialPowerTemplate() );
+				return ((Rva002AC6B1PlayerTimers *)player)->getOrStart( getSpecialPowerTemplate() );
 		}
 	}
 
