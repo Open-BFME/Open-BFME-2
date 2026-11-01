@@ -14,11 +14,7 @@ enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 // ?onDie@KeepObjectDie@@UAEXPBVDamageInfo@@@Z @ 0x00486CF6 (125B).
 // Evidence: slot 0 of 0x00C4AEEC, the DieModuleInterface vftable the KeepObjectDie

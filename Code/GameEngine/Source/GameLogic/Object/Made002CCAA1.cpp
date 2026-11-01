@@ -4,7 +4,7 @@
 enum NameKeyType {};
 class Made002CCAA1;
 class Object {friend class Made002CCAA1;protected:Module *findModule(NameKeyType) const;};
-class NameKeyGenerator {public:NameKeyType nameToKey(const char*);};
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 class OpenGateCallView {public:
 virtual void s00()=0;virtual void s04()=0;virtual void s08()=0;virtual void s0C()=0;virtual void s10()=0;virtual void s14()=0;

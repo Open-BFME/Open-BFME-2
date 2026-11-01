@@ -23,12 +23,7 @@ enum NameKeyType
 };
 
 class INI;
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
- static void parseStringAsNameKeyType(INI*,void*,void*,const void*);
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 class INI;

@@ -14,12 +14,7 @@ typedef bool Bool;
 
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-	const AsciiString &keyToName(NameKeyType key);
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

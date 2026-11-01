@@ -48,12 +48,7 @@ enum NameKeyType
 {
 	NAMEKEY_INVALID = 0
 };
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const AsciiString &nameString);
-	const AsciiString &keyToName(NameKeyType key);
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 extern GameLogic *TheGameLogic;
 struct Rva0039AF9B_P04

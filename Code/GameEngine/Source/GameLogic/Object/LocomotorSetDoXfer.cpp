@@ -85,11 +85,7 @@ public:
 };
 extern LocomotorStore *TheLocomotorStore;
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const AsciiString &);
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 

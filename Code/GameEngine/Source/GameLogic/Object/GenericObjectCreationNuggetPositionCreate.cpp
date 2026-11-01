@@ -19,7 +19,7 @@ enum NameKeyType { NAMEKEY_INVALID = 0 };
 enum AICommandType { AICMD_MOVE_TO_POSITION = 0 };
 enum CommandSourceType { CMD_FROM_PLAYER = 0 };
 class Module;
-class NameKeyGenerator { public: NameKeyType nameToKey(const char *); };
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 struct AICommandParms {
  AICommandParms(AICommandType, CommandSourceType);

@@ -63,11 +63,7 @@ enum AICommandType
 	AICMD_31 = 0x31
 };
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 #include "../../../Include/Common/Module.h"

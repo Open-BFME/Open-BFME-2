@@ -40,11 +40,7 @@ enum NameKeyType
 	NAMEKEY_INVALID = 0,
 	NAMEKEY_MAX = 1 << 23
 };
-class NameKeyGenerator
-{
-public:
-	const AsciiString &keyToName(NameKeyType key);
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 class CreateAHeroManager

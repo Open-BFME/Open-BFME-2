@@ -59,12 +59,7 @@ extern ThingFactory *TheThingFactory;
 
 extern GameLogic *TheGameLogic;
 
-class NameKeyGenerator 
-
-{
- public: NameKeyType nameToKey(const char *);
- 
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

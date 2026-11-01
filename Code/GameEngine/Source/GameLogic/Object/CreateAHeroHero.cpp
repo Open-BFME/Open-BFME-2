@@ -382,7 +382,7 @@ public:
 class ExperienceLevelSystem;
 class Rva004074B6 { public: void rva004074B6(const AsciiString &); };
 enum NameKeyType { NAMEKEY_INVALID = 0 };
-class NameKeyGenerator { public: NameKeyType nameToKey(const AsciiString &); const AsciiString &keyToName(NameKeyType key); };
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 class Rva0028951F { public: const Overridable *rva0028951F(int); };
 extern ExperienceLevelSystem *TheExperienceLevelSystem;

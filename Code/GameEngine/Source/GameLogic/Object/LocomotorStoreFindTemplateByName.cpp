@@ -22,11 +22,7 @@ enum NameKeyType
 	NAMEKEY_INVALID = 0
 };
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const AsciiString &str);
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 
 class LocomotorStore
 {
