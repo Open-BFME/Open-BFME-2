@@ -24744,7 +24744,7 @@ _io_flush,,0x0074AE00,194,Code/Libraries/Source/Lua/liolib.c,matched,BFME1 byte-
 ?rva0039DA2A@Team@@QBEPAUCoord3D@@PAU2@@Z,,0x0039DA2A,202,Code/GameEngine/Source/Common/RTS/Team.cpp,matched,Team centroid via rowed iterate and advance with volatile X order; reconciled explicit result-buffer ABI includes EAX output address proven WB EF5250 and native79DADE
 ?Rva00202BB2Parse@@YAXPAVINI@@@Z,,0x00202BB2,126,Code/GameEngine/Source/Common/GameLOD.cpp,matched,chain lane caller of rva00202B6C LOD preset INI parse
 ??1Rva00469D86@@QAE@XZ,,0x00469D86,72,Code/GameEngine/Source/Common/Rva00469D86Dtor.cpp,matched,dtor OpaqueRef plus two StringBase via EHsc
-??0Rva00391F4E@@QAE@HHH@Z,,0x00391F4E,66,Code/GameEngine/Source/Common/Rva00391F4EBitSet.cpp,matched,two-bit ctor via memset plus bit sets
+??0Rva00391F4E@@QAE@HHH@Z,,0x00391F4E,66,Code/GameEngine/Source/Common/System/BuildAssistant.cpp,matched,two-bit ctor via memset plus bit sets
 ?dup_00858150@@YAXPAURva00858150Owner@@PAX@Z,,0x00699710,32,Code/GameEngine/Source/GameNetwork/GameSpy/Rva00858150SetRecord.cpp,matched,BFME1 byte-identical donor; b1 0x00858150; callee is the matched piSendStateChanged 0x006A7610
 ??_GRva00469D86@@QAEPAXI@Z,,0x0046AA4D,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva00469D86.cpp,matched,deleting dtor via rowed dtor plus delete
 ??1Rva0060237D@@UAE@XZ,,0x0060237D,68,Code/GameEngine/Source/Common/System/Rva0060237DDtor.cpp,matched,File-derived dtor with array delete and StringBase member via File row
