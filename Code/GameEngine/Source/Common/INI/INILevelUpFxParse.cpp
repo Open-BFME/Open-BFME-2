@@ -26,15 +26,7 @@ private:
 	const char *m_separators;		// +0x420
 };
 
-class INIException
-{
-public:
-	char *mFailureMessage;
-	int m_argCount;
-	INIException(int argCount, const char *format, ...);
-	INIException(const INIException &other);
-	~INIException();
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 
 struct Rva002898ACElement
 {

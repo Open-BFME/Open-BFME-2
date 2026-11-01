@@ -31,15 +31,7 @@ public:
 	static void Rva0033B938_ParseTranslatedLabel(INI *ini, void *instance, void *store, const void *userData);
 };
 
-class INIException
-{
-public:
-	char *mFailureMessage;
-	int m_argCount;
-	INIException(int argCount, const char *format, ...);
-	INIException(const INIException &other);
-	~INIException();
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 
 struct Rva0033B938Label
 {

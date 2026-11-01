@@ -17,15 +17,7 @@ public:
 	float scanReal(const char *token);
 };
 
-class INIException
-{
-public:
-	char *mFailureMessage;
-	int m_argCount;
-	INIException(int argCount, const char *format, ...);
-	INIException(const INIException &other);
-	~INIException();
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 
 template <int NUMBITS>
 class BitFlags

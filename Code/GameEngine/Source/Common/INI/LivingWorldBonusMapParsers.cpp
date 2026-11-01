@@ -13,7 +13,7 @@
 // Preserve retail's resource diagnostic typo "MinResounceBonus" verbatim.
 #include <map>
 class INI;
-class INIException { public: char *message; int count; INIException(int,const char *,...); INIException(const INIException &); ~INIException(); };
+#include "../../../Include/Common/INI/FieldParse.h"
 class LivingWorldAutoResolveSciencePurchasePointBonus {
 public:
  LivingWorldAutoResolveSciencePurchasePointBonus():minimum(-1),firstMultiplier(1.0f),secondMultiplier(1.0f) {}

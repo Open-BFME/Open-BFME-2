@@ -23,13 +23,7 @@ public:
 
 extern Rva002E18C3Lookup *TheLivingWorldPlayerTemplateStore;
 
-class INIException
-{
-public:
-	INIException(int argCount, const char *format, ...);
-	char *mFailureMessage;
-	int mErrorCode;
-};
+#include "../../Include/Common/INI/FieldParse.h"
 
 struct _s__ThrowInfo;
 

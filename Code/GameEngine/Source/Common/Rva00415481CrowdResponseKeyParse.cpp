@@ -32,12 +32,7 @@ public:
 class Rva0022A809Subsystem;
 extern Rva0022A809Subsystem *TheCrowdResponseStore;
 
-struct INIException
-{
-	char *mFailureMessage;
-	int mErrorCode;
-	INIException(int argCount, const char *format, ...);
-};
+#include "../../Include/Common/INI/FieldParse.h"
 
 struct _s__ThrowInfo;
 extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);

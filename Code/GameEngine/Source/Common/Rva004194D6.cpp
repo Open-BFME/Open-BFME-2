@@ -105,15 +105,7 @@ float Rva004194D6::rva00419561(int key, float numerator, float denominator, int 
 // "Level <int> Bonus <real>" pair per call. A repeated level is an INI error.
 #include "../../Include/Common/INI/INI.h"
 
-class INIException
-{
-public:
-	char *mFailureMessage;
-	int m_argCount;
-	INIException(int argCount, const char *format, ...);
-	INIException(const INIException &other);
-	~INIException();
-};
+#include "../../Include/Common/INI/FieldParse.h"
 
 typedef _STL::pair<const int, int> IntIntValue;
 typedef _STL::_Rb_tree<int, IntIntValue, _STL::_Select1st<IntIntValue>, _STL::less<int>,

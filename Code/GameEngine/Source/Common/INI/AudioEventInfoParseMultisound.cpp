@@ -11,15 +11,7 @@
 #include <windows.h>
 #include "ascii_string.h"
 #include <vector>
-class INIException
-{
-public:
-	char *mFailureMessage;
-	int m_argCount;
-	INIException(int argCount, const char *format, ...);
-	INIException(const INIException &that);
-	~INIException();
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 
 struct FieldParse;
 

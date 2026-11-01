@@ -21,12 +21,7 @@ public:
 
 void * TheLivingWorldAutoResolveReinforcementScheduleStore;	// retail RVA 0x00A03064 (.data, 8 bytes), defined here: nothing else owns it
 
-struct INIException
-{
-	char *mFailureMessage;
-	int mErrorCode;
-	INIException(int argCount, const char *format, ...);
-};
+#include "../../Include/Common/INI/FieldParse.h"
 
 extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
 struct Rva00413D58ThrowInfoAnchor { int a; int b; int c; int d; };

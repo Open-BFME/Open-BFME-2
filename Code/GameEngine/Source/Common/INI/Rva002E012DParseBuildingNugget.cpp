@@ -25,16 +25,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 class INI;
 class ModuleData;
 
-class INIException
-{
-public:
-	INIException(int argCount, const char *format, ...);	// 0x0002F681
-	INIException(const INIException &that);
-	~INIException();
-private:
-	char *m_failureMessage;
-	int m_argCount;
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 
 class Rva0052B685Pointee
 {

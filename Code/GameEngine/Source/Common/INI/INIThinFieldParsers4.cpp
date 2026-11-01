@@ -32,15 +32,7 @@ public:
 
 #include "../../../../Libraries/Include/Lib/RGBColor.h"
 
-class INIException
-{
-public:
-	char *mFailureMessage;
-	int m_argCount;
-	INIException(int argCount, const char *format, ...);
-	INIException(const INIException &other);
-	~INIException();
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 
 extern const LookupListRec shakeTypeNames[];
 extern const LookupListRec scorchTypeNames[];

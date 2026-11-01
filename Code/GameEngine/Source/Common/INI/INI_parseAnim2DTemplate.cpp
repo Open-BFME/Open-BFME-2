@@ -24,17 +24,7 @@ typedef int Int;
 struct FieldParse;
 
 // BFME adds an integer after the message pointer; its meaning is unresolved.
-class INIException
-{
-public:
-	INIException(Int, const char *, ...);
-	INIException(const INIException &);
-	~INIException();
-
-private:
-	char *m_message;
-	Int m_unreconstructed04;
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 
 class Anim2DTemplate;
 

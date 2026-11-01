@@ -102,12 +102,7 @@ private:
 // by GameEngineInit; defined here, nothing else defines it.
 Rva0022A809Subsystem *TheCrowdResponseStore = 0;
 
-struct INIException
-{
-	char *mFailureMessage;
-	int mErrorCode;
-	INIException(int argCount, const char *format, ...);
-};
+#include "../../Include/Common/INI/FieldParse.h"
 
 // Retail throws the constructed local itself (no copy into a throw temporary),
 // which a throw expression does not reproduce.

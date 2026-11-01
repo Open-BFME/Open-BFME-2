@@ -686,7 +686,7 @@ public:
 	virtual UnicodeString fetch(const AsciiString &label, Bool *exists);	// slot 14 (+0x38)
 };
 
-struct INIException { char *mFailureMessage; };
+#include "../../Include/Common/INI/FieldParse.h"
 enum ErrorCode { ERROR_INVALID_D3D = 0xDEAD0007 };
 
 // GameEngine: the one declaration shared with the destructor units (same vtable).

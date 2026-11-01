@@ -40,15 +40,7 @@ namespace _STL
 template <> void vector<BfmeE8, allocator<BfmeE8> >::push_back(const BfmeE8 &value);
 }
 
-class INIException
-{
-public:
-	INIException(int argCount, const char *format, ...);
-	char *mFailureMessage;
-	int mErrorCode;
-	INIException(const INIException &that);
-	~INIException();
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 
 #include <string.h>
 

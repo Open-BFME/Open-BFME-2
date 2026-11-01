@@ -11,12 +11,7 @@ public:
 	AsciiString getNextAsciiString();
 };
 
-struct INIException
-{
-	char *mFailureMessage;
-	int mErrorCode;
-	INIException(int argCount, const char *format, ...);
-};
+#include "../../Include/Common/INI/FieldParse.h"
 
 extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
 struct Rva0023899FThrowInfoAnchor { int a; int b; int c; int d; };

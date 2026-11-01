@@ -6,15 +6,7 @@
 // caller 0x00339407 FieldParse proc; pin ?Rva0033939F@@YAXPBDPAX@Z.
 void Rva00339235(const char *token, void *store);
 
-class INIException
-{
-public:
-	char *mFailureMessage;
-	int m_argCount;
-	INIException(int argCount, const char *format, ...);
-	INIException(const INIException &other);
-	~INIException();
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 
 void Rva0033939F(const char *token, void *store)
 {

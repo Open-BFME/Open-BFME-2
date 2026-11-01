@@ -10,15 +10,7 @@
 #include "ascii_string.h"
 
 struct FieldParse;
-class INIException
-{
-public:
-    INIException(int argCount, const char *format, ...);
-    INIException(const INIException &that);
-    ~INIException();
-    char *mFailureMessage;
-    int m_argumentCount;
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 class INI
 {
 public:
