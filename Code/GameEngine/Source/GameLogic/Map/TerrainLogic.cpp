@@ -176,7 +176,6 @@ class Drawable;
 #include "wwmath.h"
 #include "vector3.h"
 #include "plane.h"
-#pragma comment(linker, "/alternatename:?rva00284DD2@TerrainLogic@@QAEXPBUCoord3D@@MPBXPAPAVObject@@_N3@Z=?iterateTreesNearAPoint@TerrainLogic@@QAEXPBUCoord3D@@MPAVGeometryInfo@@PAVBfmeT1035@@_NH@Z")
 
 void XferWaypointID(Xfer *xfer, Int *id);
 
@@ -1971,8 +1970,8 @@ protected:
 public:
 	void rva00285193(Object *argument);
 public:
-	void rva00284DD2(const Coord3D *position, float orientation, const void *geometry,
-        Object **object, bool optionA, bool optionB);
+	void iterateTreesNearAPoint(const Coord3D *position, float angle, GeometryInfo *geometry,
+		BfmeT1035 *action, bool skipFlag18, int mode);
 protected:
 	void addWaypointLink(Int id1, Int id2);
 };
@@ -3884,13 +3883,15 @@ void TerrainLogic::rva00285193(Object *argument)
         float orientation = reinterpret_cast<Rva00285193ObjectView *>(argument)->orientation;
         Object *object = argument;
         Rva00285193ObjectView *view = reinterpret_cast<Rva00285193ObjectView *>(object);
-        rva00284DD2(&view->position, orientation, &view->geometry, &object, true, false);
+        iterateTreesNearAPoint(&view->position, orientation, (GeometryInfo *)&view->geometry,
+            (BfmeT1035 *)&object, true, 0);
     }
 }
 
-// The retail call in this body reads 0x00284DD2, an address the ledger already
-// carries as ?iterateTreesNearAPoint@TerrainLogic@@QAEXPBUCoord3D@@MPAVGeometryInfo@@PAVBfmeT1035@@_NH@Z. Bind the donor spelling to that rowed owner so one
-// address keeps one definition and the unit links.
+// The retail call in this body reads 0x00284DD2, the rowed
+// ?iterateTreesNearAPoint@TerrainLogic@@QAEXPBUCoord3D@@MPAVGeometryInfo@@PAVBfmeT1035@@_NH@Z;
+// it is called by that name, the object's geometry and the object slot going
+// through that signature's GeometryInfo and BfmeT1035 views.
 
 
 
