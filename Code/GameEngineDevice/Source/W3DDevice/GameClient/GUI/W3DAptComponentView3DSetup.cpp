@@ -25,28 +25,20 @@ public:
 	float Z;
 };
 
-class Vector4
-{
-public:
-	__forceinline void Set( float x, float y, float z, float w ) { X = x; Y = y; Z = z; W = w; }
-	__forceinline float & operator []( int i ) { return (&X)[i]; }
-	float X;
-	float Y;
-	float Z;
-	float W;
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
+static __forceinline void copyVector4(Vector4 &row,const Vector4 &other){row.X=other.X;row.Y=other.Y;row.Z=other.Z;row.W=other.W;}
 
 class Matrix3D
 {
 public:
-	__forceinline explicit Matrix3D( bool init ) { if (init) Make_Identity(); }
+	__declspec(dllimport) __forceinline explicit Matrix3D( bool init ) { if (init) Make_Identity(); }
 	__forceinline void Make_Identity( void )
 	{
 		Row[0].Set(1.0f,0.0f,0.0f,0.0f);
 		Row[1].Set(0.0f,1.0f,0.0f,0.0f);
 		Row[2].Set(0.0f,0.0f,1.0f,0.0f);
 	}
-	__forceinline void Rotate_Y( float theta )
+	__declspec(dllimport) __forceinline void Rotate_Y( float theta )
 	{
 		float tmp1,tmp2;
 		float s,c;
@@ -54,19 +46,19 @@ public:
 		s = sinf(theta);
 		c = cosf(theta);
 
-		tmp1 = Row[0][0]; tmp2 = Row[0][2];
-		Row[0][0] = (float)(c*tmp1 - s*tmp2);
-		Row[0][2] = (float)(s*tmp1 + c*tmp2);
+		tmp1 = Row[0].X; tmp2 = Row[0].Z;
+		Row[0].X = (float)(c*tmp1 - s*tmp2);
+		Row[0].Z = (float)(s*tmp1 + c*tmp2);
 
-		tmp1 = Row[1][0]; tmp2 = Row[1][2];
-		Row[1][0] = (float)(c*tmp1 - s*tmp2);
-		Row[1][2] = (float)(s*tmp1 + c*tmp2);
+		tmp1 = Row[1].X; tmp2 = Row[1].Z;
+		Row[1].X = (float)(c*tmp1 - s*tmp2);
+		Row[1].Z = (float)(s*tmp1 + c*tmp2);
 
-		tmp1 = Row[2][0]; tmp2 = Row[2][2];
-		Row[2][0] = (float)(c*tmp1 - s*tmp2);
-		Row[2][2] = (float)(s*tmp1 + c*tmp2);
+		tmp1 = Row[2].X; tmp2 = Row[2].Z;
+		Row[2].X = (float)(c*tmp1 - s*tmp2);
+		Row[2].Z = (float)(s*tmp1 + c*tmp2);
 	}
-	__forceinline void Rotate_Z( float theta )
+	__declspec(dllimport) __forceinline void Rotate_Z( float theta )
 	{
 		float tmp1,tmp2;
 		float c,s;
@@ -74,17 +66,17 @@ public:
 		c = cosf(theta);
 		s = sinf(theta);
 
-		tmp1 = Row[0][0]; tmp2 = Row[0][1];
-		Row[0][0] = (float)( c*tmp1 + s*tmp2);
-		Row[0][1] = (float)(-s*tmp1 + c*tmp2);
+		tmp1 = Row[0].X; tmp2 = Row[0].Y;
+		Row[0].X = (float)( c*tmp1 + s*tmp2);
+		Row[0].Y = (float)(-s*tmp1 + c*tmp2);
 
-		tmp1 = Row[1][0]; tmp2 = Row[1][1];
-		Row[1][0] = (float)( c*tmp1 + s*tmp2);
-		Row[1][1] = (float)(-s*tmp1 + c*tmp2);
+		tmp1 = Row[1].X; tmp2 = Row[1].Y;
+		Row[1].X = (float)( c*tmp1 + s*tmp2);
+		Row[1].Y = (float)(-s*tmp1 + c*tmp2);
 
-		tmp1 = Row[2][0]; tmp2 = Row[2][1];
-		Row[2][0] = (float)( c*tmp1 + s*tmp2);
-		Row[2][1] = (float)(-s*tmp1 + c*tmp2);
+		tmp1 = Row[2].X; tmp2 = Row[2].Y;
+		Row[2].X = (float)( c*tmp1 + s*tmp2);
+		Row[2].Y = (float)(-s*tmp1 + c*tmp2);
 	}
 	Vector4 Row[3];
 };
