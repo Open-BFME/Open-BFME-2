@@ -139,7 +139,20 @@ def main(argv=None):
     parser.add_argument("--class", dest="name")
     parser.add_argument("--blockers", action="store_true")
     parser.add_argument("--shims", metavar="NAME")
+    parser.add_argument("--unused", action="store_true", help="queue conservative unused private-class cleanup")
+    parser.add_argument("--apply", action="store_true", help="with --unused: claim and verify a batch; never commit")
+    parser.add_argument("--under", default="Code", help="with --unused: source subtree")
+    parser.add_argument("--files", nargs="+", help="with --unused: explicit matched source files")
+    parser.add_argument("--scan-limit", type=int, default=350, help="with --unused: ranked sources to inspect (0: all)")
+    parser.add_argument("--json", help="with --unused: save the discovery/application report")
     args = parser.parse_args(argv)
+    if args.unused:
+        if args.name or args.blockers or args.shims or args.top < 1 or args.scan_limit < 0:
+            parser.error("--unused requires a positive --top and nonnegative --scan-limit; omit other query modes")
+        import class_cleanup
+        return class_cleanup.run(args)
+    if args.apply or args.files or args.json:
+        parser.error("--apply, --files and --json require --unused")
     if args.shims:
         users = collections.Counter()
         flag = re.compile(r"/I\s*reference/shims/([\w.-]+)")

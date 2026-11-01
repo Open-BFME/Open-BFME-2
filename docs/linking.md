@@ -85,6 +85,26 @@ others changed. A census or a follower of master (`--update-index`) publishes wi
 
 ## Reconcile classes, not just bodies
 
+For unused private declarations left behind by file splitting, use
+`python3 tools/class_views.py --unused --under Code/GameEngine/Source/Common --top 20`.
+This ranks textual class heads without a full class-layout survey, then runs the
+existing conservative `tu_skeleton.prune_unused_classes` check. By default it
+inspects 350 ranked matched authored sources; `--scan-limit N` changes that
+scope (`0` inspects all), and `--files SOURCE...` selects explicit sources.
+Positive and negative results are content-keyed by source, current reachable
+macro tokens and parser/pruner version. Header/macro changes invalidate the
+relevant result; cached proposals never approve an edit.
+
+Add `--apply` to claim and verify a bounded batch (at most 25 files), skipping
+held or already-modified sources. The command checks declared-unmatched bodies,
+byte-verifies originals and results through the normal scoped builder, and
+compares all non-debug object contents, relocation targets, external definitions,
+COMDAT policies and weak bindings. A bijective renumbering of named sections is
+permitted; changed contents or bindings are refused. Failed units are restored
+and rebuilt; passing units remain for normal review, commit and push. The command
+never commits or pushes. Release its file claims after publishing. `--json PATH`
+saves candidates, refusals, cache counts and timings for subsequent runs.
+
 Private per-unit views of one class cause most COMDAT and unresolved blockers.
 `python3 tools/class_views.py` ranks classes by private views (`--blockers`: by
 what the census holds against them; `--class X` and `--shims X` list the views and
