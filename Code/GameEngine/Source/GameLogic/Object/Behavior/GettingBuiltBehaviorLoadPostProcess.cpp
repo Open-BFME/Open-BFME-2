@@ -93,14 +93,15 @@ class Pathfinder
 {
 public:
 	void RemoveObjectFromPathfindMap(Object *object);
+	void AddObjectToPathfindMap(Object *);
 };
 
 class AI
 {
 public:
 	Pathfinder *pathfinder();
-	unsigned char m_pad[0x10];
-	Pathfinder *m_pathfinder; // +0x10: retail loadPostProcess loads [TheAI+0x10] directly
+	char m_pad00[0x10];
+	Pathfinder *m_pathfinder; // +0x10 +0x10: retail loadPostProcess loads [TheAI+0x10] directly
 };
 
 extern AI *TheAI;

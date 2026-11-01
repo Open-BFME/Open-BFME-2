@@ -41,7 +41,7 @@ static inline unsigned int rva004534F5TestB(const ThingTemplate *thingTemplate)
 class ThingFactory
 {
 public:
-	const ThingTemplate *findTemplate(const AsciiString &name);
+	const ThingTemplate *findTemplate(const AsciiString &key);
 };
 class ThingFactory;
 static inline const ThingTemplate *rva004534F5Find(ThingFactory *thingFactory, const AsciiString &name)

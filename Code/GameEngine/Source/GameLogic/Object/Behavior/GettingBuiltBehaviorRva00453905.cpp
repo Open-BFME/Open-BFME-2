@@ -15,7 +15,12 @@ template<> class GettingBuiltCallbackSlots<0> {};
 enum ObjectStatusTypes { STATUS_NONE = 0 };
 enum DamageType { DAMAGE_WORKER = 8 };
 enum DeathType { DEATH_WORKER = 0x16 };
-class Drawable { public: void rva0027366A(); };
+class Drawable
+{
+public:
+	void rva0027366A();
+	void rva000B3FD0();
+};
 class Thing { public: Drawable *getDrawable() const; };
 class SpawnBehaviorInterface : public GettingBuiltCallbackSlots<10> {
 public: virtual void constructionFinished() = 0;
@@ -23,15 +28,24 @@ public: virtual void constructionFinished() = 0;
 class GettingBuiltProductionView : public GettingBuiltCallbackSlots<24> {
 public: virtual void constructionFinished(bool) = 0;
 };
-struct GettingBuiltTemplateView { unsigned char pad[0x119]; unsigned char kindByte; };
+struct GettingBuiltTemplateView
+{
+public:
+	char m_pad00[0x119];
+	unsigned char kindByte; // +0x119
+	char m_pad11A[0x1];
+	unsigned char kindFlags; // +0x11B
+};
 struct GettingBuiltCallbackConditions {
     unsigned int words[19];
     __forceinline unsigned test(int i) const { return words[i>>5] & (1u<<(i&31)); }
     __forceinline void clear(int i) { words[i>>5] &= ~(1u<<(i&31)); }
 };
-class Rva001E4912 {
-public: Rva001E4912 *rva001E4912(int, unsigned int, unsigned int);
-    unsigned int words[19];
+class Rva001E4912
+{
+public:
+	Rva001E4912 *rva001E4912(int a1, unsigned int a2, unsigned int a3); // 0x001E4912
+	unsigned int m_words[19];
 };
 class Rva001E42F2 { public: void rva001E42F2(const int *); };
 class Object : public Thing {

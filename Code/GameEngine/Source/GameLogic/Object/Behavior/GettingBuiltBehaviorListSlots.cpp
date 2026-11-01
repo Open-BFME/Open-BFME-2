@@ -76,7 +76,7 @@ class Object;
 class ScoreKeeper
 {
 public:
-	void addObjectBuilt(Object *obj, int count);
+	void addObjectBuilt(class Object *obj, int a2); // 0x0039CBCE
 };
 
 class Rva0023DAA5List
@@ -91,12 +91,13 @@ private:
 	unsigned char m_pad[4];
 };
 
+class Rva0039B795;
 class Rva003B0D7C
 {
 public:
-	void rva003B0D7C(int amount, Rva0039B7AD *score, bool flag);	// rowed int signature
-private:
-	unsigned char m_pad[4];
+	unsigned int withdraw(unsigned int amount, Rva0039B795 *arg2, bool flag);
+	void rva003B0D7C(int amount, Rva0039B7AD *arg2, bool flag);
+	char m_pad00[0x4];
 };
 
 class Player

@@ -47,10 +47,10 @@ private:
 class Rva00360D26Member
 {
 public:
-	Rva00360D26Member();
 	~Rva00360D26Member();
+	Rva00360D26Member();
 private:
-	long m_val;
+	long m_val; // +0x00
 };
 
 class GettingBuiltBehaviorModuleData : public ModuleData

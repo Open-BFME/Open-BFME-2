@@ -8,16 +8,23 @@
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
 class Object;
-class Drawable { public: void rva000B3FD0(); };
+class Drawable
+{
+public:
+	void rva0027366A();
+	void rva000B3FD0();
+};
 // WBCA4BE0 is an empty instance method invoked on the builder drawable;
 // retail uses the complete shared RET at B3FD0. Original spelling unknown.
 class Thing { public: Drawable *getDrawable() const; void setPosition(const Coord3D *); };
 enum ObjectStatusTypes { STATUS_NONE = 0 };
 enum CommandSourceType { SOURCE_NONE = 0 };
-class AICommandInterface {
+class AICommandInterface
+{
 public:
- void aiResumeConstruction(Object *, CommandSourceType);
- void rva0036F19B(Object *, CommandSourceType);
+	void aiResumeConstruction(Object *, CommandSourceType);
+	void rva0036F19B(Object *, CommandSourceType);
+	void aiIdle(CommandSourceType);
 };
 struct AIUpdateView { unsigned char pad[0x20]; AICommandInterface commands; };
 struct PlayerPart { unsigned char pad[0x1bc]; bool alternate; };

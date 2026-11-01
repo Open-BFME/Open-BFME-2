@@ -76,19 +76,20 @@ public:
 	{
 		return m_words[bit >> 5] & (1U << (bit & 0x1f));
 	}
+	void set(int bit) { m_words[bit >> 5] |= (1U << (bit & 0x1f)); }
 	void clear(int bit)
 	{
 		m_words[bit >> 5] &= ~(1U << (bit & 0x1f));
 	}
 private:
-	unsigned int m_words[19];
+	unsigned int m_words[19]; // +0x00
 };
 
 // Model condition set builders used for the 0x43 -> 0x44/0x45 swap.
 class Rva001E4912
 {
 public:
-	Rva001E4912 *rva001E4912(Int a1, UnsignedInt a2, UnsignedInt a3);	// 0x001E4912
+	Rva001E4912 *rva001E4912(int a1, unsigned int a2, unsigned int a3); // 0x001E4912
 	unsigned int m_words[19];
 };
 
@@ -103,7 +104,7 @@ public:
 class ScoreKeeper
 {
 public:
-	void addObjectBuilt(class Object *obj, Int a2);	// 0x0039CBCE
+	void addObjectBuilt(class Object *obj, int a2); // 0x0039CBCE
 };
 
 class Object
@@ -154,7 +155,7 @@ public:
 class BuildAssistant
 {
 public:
-	bool moveObjectsForConstruction(const ThingTemplate *what, const struct Coord3D *pos, Real angle, Player *player);	// 0x00394FA7
+	bool moveObjectsForConstruction(const ThingTemplate *what, const struct Coord3D *pos, float angle, Player *player); // 0x00394FA7
 };
 extern BuildAssistant *TheBuildAssistant;
 
