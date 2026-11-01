@@ -1,0 +1,576 @@
+{
+ "bases": [
+  "SubsystemInterface"
+ ],
+ "bases_by": "retail-ctor-call via the shared AptPlayer receiver",
+ "class": "BfmeAptWindowManager",
+ "evidence": {
+  "automated_placeholder_layout": {},
+  "bases_overruled": null,
+  "census": 119,
+  "derived_allocation": {
+   "kind": "target",
+   "rule": "retail-operator-new",
+   "sites": [
+    "0x41e8e"
+   ],
+   "value": 812
+  },
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x224e10"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "SubsystemInterface",
+       "offset": 0,
+       "own_vftable": "0x7e6e80",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x224e10"
+     ],
+     "value": 810
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x224e10"
+     ],
+     "value": {
+      "0x30c": [
+       4
+      ],
+      "0x310": [
+       1
+      ],
+      "0x311": [
+       1
+      ],
+      "0x312": [
+       1
+      ],
+      "0x314": [
+       4
+      ],
+      "0x318": [
+       4
+      ],
+      "0x31c": [
+       4
+      ],
+      "0x320": [
+       4
+      ],
+      "0x324": [
+       4
+      ],
+      "0x328": [
+       1
+      ],
+      "0x329": [
+       1
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x224e10"
+     ],
+     "value": {
+      "0x20": [
+       "??0?$hash_map@HURva00224C76Element@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHURva00224C76Element@@@_STL@@@3@@_STL@@QAE@XZ"
+      ],
+      "0x2fc": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x34": [
+       "??0?$hash_map@HURva00224C76Element@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHURva00224C76Element@@@_STL@@@3@@_STL@@QAE@XZ"
+      ],
+      "0x48": [
+       "??0?$hash_map@HURva00224C76Element@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHURva00224C76Element@@@_STL@@@3@@_STL@@QAE@XZ"
+      ],
+      "0x5c": [
+       "??0?$hash_map@HURva00224C76Element@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHURva00224C76Element@@@_STL@@@3@@_STL@@QAE@XZ"
+      ],
+      "0x70": [
+       "??0?$hash_map@HURva00224C76Element@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHURva00224C76Element@@@_STL@@@3@@_STL@@QAE@XZ"
+      ],
+      "0x84": [
+       "??0?$set@VAsciiString@@U?$less@VAsciiString@@@_STL@@V?$allocator@VAsciiString@@@3@@_STL@@QAE@XZ"
+      ],
+      "0x90": [
+       "??0?$hash_map@HURva00224C76Element@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHURva00224C76Element@@@_STL@@@3@@_STL@@QAE@XZ"
+      ],
+      "0xa4": [
+       "??0?$hash_map@HURva00224C76Element@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHURva00224C76Element@@@_STL@@@3@@_STL@@QAE@XZ"
+      ],
+      "0xb8": [
+       "??0?$hash_map@HURva00224C76Element@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHURva00224C76Element@@@_STL@@@3@@_STL@@QAE@XZ"
+      ],
+      "0xc": [
+       "??0?$hash_map@HURva00224C76Element@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHURva00224C76Element@@@_STL@@@3@@_STL@@QAE@XZ"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x224e10"
+     ],
+     "value": {
+      "0x0": "0x7e6e80"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7e6e80"
+     ],
+     "value": {
+      "count": 21,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GRva00224A90@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x224f50"
+       },
+       {
+        "name": "?rva00224296@Rva00062918Host@@QAEXXZ",
+        "slot": 1,
+        "target": "0x224296"
+       },
+       {
+        "name": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+        "slot": 2,
+        "target": "0x1b5384"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 3,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 4,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 5,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 6,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 7,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva00222471@Rva00222471@@QAEXXZ",
+        "slot": 9,
+        "target": "0x222471"
+       },
+       {
+        "name": "?rva002251E5@Rva00222A8BTarget@@QAEXXZ",
+        "slot": 10,
+        "target": "0x2251e5"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 11,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "?rva0022244D@Rva0022244D@@QAEXXZ",
+        "slot": 12,
+        "target": "0x22244d"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 13,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?rva0022274A@Rva00062908Host@@QAEXXZ",
+        "slot": 14,
+        "target": "0x22274a"
+       },
+       {
+        "name": "__purecall",
+        "slot": 15,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 16,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 17,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 18,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 19,
+        "target": "0x3b810"
+       },
+       {
+        "name": "?AddLevel@AptPlayer@@UAEHVAsciiString@@0_NH@Z",
+        "slot": 20,
+        "target": "0x224710"
+       }
+      ],
+      "table": "0x7e6e80"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 3,
+  "retail_receiver_owner": "AptPlayer",
+  "retail_vtables": {},
+  "view_errors": 5,
+  "view_sizes": {
+   "1": 101,
+   "4": 6,
+   "73": 1,
+   "787": 1,
+   "792": 1,
+   "796": 4
+  },
+  "views": 114,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "opaque target range",
+   "kind": "A",
+   "name": "m_pad00C",
+   "name_by": "neutral",
+   "offset": 12,
+   "size": 768,
+   "type": "char[768]",
+   "views": 0
+  },
+  {
+   "decided_by": "retail-ctor-writes",
+   "kind": "i4",
+   "name": "field30C",
+   "name_by": "neutral",
+   "offset": 780,
+   "size": 4,
+   "type": "uint",
+   "views": 0
+  },
+  {
+   "decided_by": "retail-ctor-writes",
+   "kind": "i1",
+   "name": "field310",
+   "name_by": "neutral",
+   "offset": 784,
+   "size": 1,
+   "type": "bool",
+   "views": 0
+  },
+  {
+   "decided_by": "retail-ctor-writes",
+   "kind": "i1",
+   "name": "field311",
+   "name_by": "neutral",
+   "offset": 785,
+   "size": 1,
+   "type": "bool",
+   "views": 0
+  },
+  {
+   "decided_by": "retail-ctor-writes",
+   "kind": "i1",
+   "name": "field312",
+   "name_by": "neutral",
+   "offset": 786,
+   "size": 1,
+   "type": "bool",
+   "views": 0
+  },
+  {
+   "decided_by": "retail-ctor-writes",
+   "kind": "P",
+   "name": "field314",
+   "name_by": "neutral",
+   "offset": 788,
+   "size": 4,
+   "type": "void*",
+   "views": 0
+  },
+  {
+   "decided_by": "retail-ctor-writes",
+   "kind": "i4",
+   "name": "field318",
+   "name_by": "neutral",
+   "offset": 792,
+   "size": 4,
+   "type": "int",
+   "views": 0
+  },
+  {
+   "decided_by": "retail-ctor-writes",
+   "kind": "i4",
+   "name": "field31C",
+   "name_by": "neutral",
+   "offset": 796,
+   "size": 4,
+   "type": "int",
+   "views": 0
+  },
+  {
+   "decided_by": "retail-ctor-writes",
+   "kind": "i4",
+   "name": "field320",
+   "name_by": "neutral",
+   "offset": 800,
+   "size": 4,
+   "type": "int",
+   "views": 0
+  },
+  {
+   "decided_by": "retail-ctor-writes",
+   "kind": "i4",
+   "name": "field324",
+   "name_by": "neutral",
+   "offset": 804,
+   "size": 4,
+   "type": "int",
+   "views": 0
+  },
+  {
+   "decided_by": "retail-ctor-writes",
+   "kind": "i1",
+   "name": "field328",
+   "name_by": "neutral",
+   "offset": 808,
+   "size": 1,
+   "type": "bool",
+   "views": 0
+  },
+  {
+   "decided_by": "retail-ctor-writes",
+   "kind": "i1",
+   "name": "field329",
+   "name_by": "neutral",
+   "offset": 809,
+   "size": 1,
+   "type": "bool",
+   "views": 0
+  }
+ ],
+ "hand_decided": {
+  "basis": "AptPlayer ctor 0x00224E10 installs its receiver at VA 0x00DFE4CC (0x00224F35); caller 0x0057C910 loads the same global before calling BfmeAptWindowManager::bfmeSetText at 0x0057C920. Both setters use the +0x48 table constructed at 0x00224E53..0x00224E5A. The existing placeholder describes that receiver; its methods are not renamed.",
+  "by": "gpt-6.1-sol",
+  "limits": "AptPlayer and Rva00222A8BTarget member spellings remain distinct ledger identities. Declaring their out-of-line methods under BfmeAptWindowManager would change the call symbols. The placeholder lifetime declarations likewise do not establish new row aliases. No parent header changes or symbol renames are made.",
+  "resolved_automated_queue": [
+   {
+    "attribute": "slot0",
+    "candidates": {
+     "a0()": 1,
+     "slot0()": 2,
+     "slot00()": 2,
+     "v00()": 1,
+     "vf00()": 1
+    },
+    "class": "BfmeAptWindowManager"
+   },
+   {
+    "attribute": "slot12",
+    "candidates": {
+     "slot12()": 2,
+     "slot30()": 2,
+     "vf12()": 1
+    },
+    "class": "BfmeAptWindowManager"
+   },
+   {
+    "attribute": "slot16",
+    "candidates": {
+     "getInverseScale()": 1,
+     "getScale()": 1,
+     "slot16()": 1
+    },
+    "class": "BfmeAptWindowManager"
+   }
+  ],
+  "size": "Factory 0x00041E75 pushes 0x32C before operator new and calls derived ctor at 0x00041E8E. Base ctor byte +0x329 at 0x00224F27 proves a four-byte-aligned base extent of at least 0x32C, bounded above by that whole allocation.",
+  "slot0": "The inherited virtual deleting destructor is target 0x00224F50 in VA 0x00BE6E80; its complete dtor is 0x00224A90. The header declares the placeholder destructor out of line.",
+  "slot12": "Inherited vslot12() at byte offset 0x30, overridden by 0x0022244D; derived override 0x00062928. Private slot30/slot12/vf12 spellings do not add slots.",
+  "slot15": "Pure in the base table, derived target 0x00062972 returns VA 0x00DB4CF0 through 0x000A8F58. Caller 0x005D4654 reads the returned two floats at 0x005D4657/0x005D465C. The neutral name is vslot15.",
+  "slot16": "Pure in the base table, derived target 0x00062977 returns VA 0x00DB4CF8 through 0x000A8F5E. Callers 0x002225E4..0x002225F9 and 0x002D4AA5..0x002D4ABC consume two floats. vslot16 remains neutral; private getScale/getInverseScale names are inconsistent.",
+  "storage": "Only exposed scalar widths and the focus pointer are typed. Unexposed container and level storage stays opaque; it is not a recovered application member layout.",
+  "tables": "Ctor 0x00224E30 and complete dtor 0x00224AA1 both store VA 0x00BE6E80. VA 0x00BD77A0 belongs to SubsystemInterface (ctor 0x001B4E63/dtor 0x001B4E74); VA 0x00BC57E0 belongs to the derived Rva00628FD pair at 0x000628EB/0x000628FD. They are hierarchy stages, not conflicting layouts."
+ },
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 72,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/BfmeAptWindowManagerSetText.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 786,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessageBoxMovieClip.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 788,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/_bfme_AptGameWindow.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 792,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva005D40A6Dtor.cpp",
+    "Code/GameEngine/Source/Common/Rva005EDE64Dtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDBattlePromptArmyPanelMovieClip.cpp",
+    "Code/GameEngine/Source/GameClient/MessageStream/AptTranslator.cpp"
+   ],
+   "views": 4
+  }
+ ],
+ "queue": [],
+ "size": 812,
+ "size_by": "retail-operator-new plus aligned base extent",
+ "vslots": {
+  "0": {
+   "decided_by": "retail-vftable and target-call ABI",
+   "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "retail-vtable",
+   "member": "init()"
+  },
+  "10": {
+   "decided_by": "retail-vtable",
+   "member": "update()"
+  },
+  "11": {
+   "decided_by": "retail-vtable",
+   "member": "vslot11(int)"
+  },
+  "12": {
+   "decided_by": "retail-vtable",
+   "member": "vslot12()"
+  },
+  "13": {
+   "decided_by": "retail-vtable",
+   "member": "vslot13(int)"
+  },
+  "14": {
+   "decided_by": "retail-vftable and target-call ABI",
+   "member": "vslot14()"
+  },
+  "15": {
+   "decided_by": "retail-vftable and target-call ABI",
+   "member": "vslot15()"
+  },
+  "16": {
+   "decided_by": "retail-vftable and target-call ABI",
+   "member": "vslot16()"
+  },
+  "17": {
+   "decided_by": "retail-vftable and target-call ABI",
+   "member": "vslot17(float*,float*,float*,float*)"
+  },
+  "18": {
+   "decided_by": "retail-vftable and target-call ABI",
+   "member": "vslot18(int)"
+  },
+  "19": {
+   "decided_by": "retail-vftable and target-call ABI",
+   "member": "vslot19(bool)"
+  },
+  "2": {
+   "decided_by": "retail-vtable",
+   "member": "loadIniFilesFromLegend()"
+  },
+  "20": {
+   "decided_by": "retail-vftable and target-call ABI",
+   "member": "AddLevel(AsciiString,AsciiString,bool,int)"
+  },
+  "3": {
+   "decided_by": "retail-vtable",
+   "member": "postProcessLoad()"
+  },
+  "4": {
+   "decided_by": "retail-vtable",
+   "member": "vslot04(int)"
+  },
+  "5": {
+   "decided_by": "retail-vtable",
+   "member": "vslot05()"
+  },
+  "6": {
+   "decided_by": "retail-vtable",
+   "member": "vslot06()"
+  },
+  "7": {
+   "decided_by": "retail-vtable",
+   "member": "vslot07(int)"
+  },
+  "8": {
+   "decided_by": "retail-vtable",
+   "member": "vslot08()"
+  },
+  "9": {
+   "decided_by": "retail-vtable",
+   "member": "reset()"
+  }
+ }
+}
