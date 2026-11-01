@@ -33,3 +33,15 @@ No row, pin, baseline or source path changes. No linked-byte or file-count gain
 is claimed by this prerequisite commit. The supported merge and its path,
 provider and consumer audit follow separately. The large translation donor is
 held by another seat and is not edited.
+
+The subsequent supported dry run accepts the seed and callback-wrapper donor,
+with its link guard intact. Actual application reserves every input of the TU,
+including the translation donor; that existing reservation currently prevents
+applying the merge. The boolean-map donor now compiles in the composition but
+still fails bytes. Other donors retain constructor/view/include prerequisites.
+No claim check is bypassed and no file-count reduction is credited.
+
+The pre-commit shadow identity check reports the existing 42FFC0 hashtable
+constructor binding in the seed. Its caller and relocation names are identical
+in the original/current object proof; this prerequisite does not fix or retire
+that finding. All three changed-source EH graphs pass EXACT in the hook.

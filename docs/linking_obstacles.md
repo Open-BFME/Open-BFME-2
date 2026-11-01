@@ -12276,6 +12276,19 @@ trials are restored. Native class/lifetime and coherent profile recovery remain
 prerequisites. The earlier pragma suggestion is not used; no hatch, row, source
 move or census gain is introduced.
 
+**SelectionXlat declaration prerequisites (2026-11-01, `085274ce70`):**
+[The scoped ABI and alias repair](../reverse/attempt_support/selection-tu-prerequisites-20261101/readme.md)
+aligns the wrapper's private header spelling with its existing public native
+provider and removes a collision between integer-map and boolean-hash-map
+aliases. All 17 cohort rows verify, 72 changed-source code definitions and their
+relocations remain identical, and four previews retain all 634 authored bytes.
+The supported dry run now accepts the callback wrapper into the seed. Applying
+the merge requires the whole TU input scope, whose large translation donor is
+reserved by another worker; no claim check is bypassed. The boolean-map donor
+compiles but still fails bytes; constructor and include/view prerequisites also
+remain. The seed's existing shadow 42FFC0 constructor-identity finding is
+unchanged. No source-file reduction, linked gain or census clearance is claimed.
+
 ### LINK-126: the camera-track key's assignment at 0x00540053 rowed as a pair copy constructor
 
 **Status: Repair landed / awaiting verification. Updated: 2026-10-27; inspected revision: 472c3b46dc.**
