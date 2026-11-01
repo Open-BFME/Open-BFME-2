@@ -1,4 +1,4 @@
-// cl: /GX-
+// cl: /DNDEBUG /DWIN32 /MD /D_STLP_USE_STATIC_LIB /EHsc
 // stlport
 // STLport sort<StringLookUp*, Rva002E5678Cmp> family, 0x002E5B66-0x002E68EB:
 // the GameText label table sort (StringLookUp is the 8-byte {label, info}

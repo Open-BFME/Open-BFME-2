@@ -1,6 +1,9 @@
-// cl: /O1 /Oi /DNDEBUG /DWIN32 /MD /D_STLP_USE_STATIC_LIB /EHsc
+// cl: /DNDEBUG /DWIN32 /MD /D_STLP_USE_STATIC_LIB /EHsc
 // ?rva002E6451@Rva002E6451@@QAEPAXPBD@Z @0x002E6451 74B: StringLookUp equal_range lookup via 0x002E6329 forwarder over count at +0 and base at +8 returns info+4 or 0
 #include <memory.h>
+// The zero-filled functor byte is an inline stosb: memset as an intrinsic,
+// as GameText.cpp's region default (/O1, no /Oi) would otherwise call it.
+#pragma intrinsic(memset)
 
 void *__cdecl rva002E6329(void *, void *, void *, void *, void *) throw();
 
