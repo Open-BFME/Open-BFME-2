@@ -334,11 +334,7 @@ public:
 	void AddExternHandler(const AsciiString &name, Int arg, AptRef<AptExternHandler> handler);	// 0x0022445D
 	void AddCustomRender(const AsciiString &name, AptRef<AptCustomRender> render);		// 0x0022464C
 };
-class BfmeAptWindowManager
-{
-public:
-	void bfmeSetText(const AsciiString &key, const UnicodeString &text, bool flag);	// 0x00225301
-};
+#include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 #define TheAptPlayer ((AptPlayer *)g_bfmeAptWindowManager)
 // 0x00411458 (pinned; see MpGameSetupSlots.cpp) stores the screen

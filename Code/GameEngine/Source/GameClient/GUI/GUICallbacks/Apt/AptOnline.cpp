@@ -236,11 +236,7 @@ struct Rva00516FA0
 	void rva00516FA0();
 };
 
-class BfmeAptWindowManager
-{
-public:
-	void bfmeSetText(const AsciiString &, const UnicodeString &, bool);
-};
+#include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 

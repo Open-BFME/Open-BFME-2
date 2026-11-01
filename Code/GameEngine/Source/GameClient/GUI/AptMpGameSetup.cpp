@@ -664,11 +664,7 @@ struct TargetRef00217D4C;
 
 // The Apt window manager (0x00DFE4CC) whose
 // bfmeSetText (0x00225301) AptMapPreviewSetMapTitle.cpp pins.
-class BfmeAptWindowManager
-{
-public:
-	void bfmeSetText(const AsciiString &key, const UnicodeString &text, bool flag);
-};
+#include "../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 
 // The rowed clears 0x0057F34D (the +0x190 member, "AptMpClans") and
 // 0x0057FECE (the +0x244 member, "AptMpChat"), each under its own address

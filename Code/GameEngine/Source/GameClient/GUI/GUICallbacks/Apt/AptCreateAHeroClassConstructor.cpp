@@ -66,11 +66,7 @@ public:
 };
 void _bfme_setAptScreenRef(const AsciiString &, AptRef<AptScreenInitGadgets>);
 
-class BfmeAptWindowManager
-{
-public:
-	void rva00225375(const AsciiString &, const AsciiString &, bool);
-};
+#include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 struct Rva005B3676Owner

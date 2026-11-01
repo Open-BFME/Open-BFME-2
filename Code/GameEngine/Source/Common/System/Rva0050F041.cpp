@@ -19,11 +19,7 @@ struct Rva0050F041Inner
 	char m_name[1];
 };
 
-class BfmeAptWindowManager
-{
-public:
-	void bfmeSetText(const AsciiString &, const UnicodeString &, bool);
-};
+#include "../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 

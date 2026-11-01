@@ -18,11 +18,7 @@ class BfmeAptWindowManager;
 
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
-class BfmeAptWindowManager
-{
-public:
-	void bfmeSetText(const AsciiString &name, const UnicodeString &text, bool placeholder);
-};
+#include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 
 // RvaSingletonFwdMisc.cpp's view of the window manager.
 class Rva00224BC9Owner

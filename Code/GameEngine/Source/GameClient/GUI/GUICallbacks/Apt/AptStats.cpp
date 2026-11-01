@@ -136,7 +136,7 @@ class AptExternHandler;
 class AptExternHandlerAdder {public:void AddExternHandler(const AsciiString&,int,AptRef<AptExternHandler>);};
 class Image;
 class Rva00524306 {public:void rva00524767(const AsciiString&,const AsciiString&);void rva00524725(const AsciiString&,const Image*);};
-class BfmeAptWindowManager {public:void bfmeSetText(const AsciiString&,const UnicodeString&,bool);};
+#include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 extern BfmeAptWindowManager*g_bfmeAptWindowManager;
 extern class PlayerTemplateStore*ThePlayerTemplateStore;
 extern const char*g_rva0033A3F4Table[7];

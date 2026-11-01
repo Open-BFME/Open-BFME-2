@@ -484,11 +484,7 @@ private:
 
 // The Apt player (0x00DFE4CC): the rowed background switch 0x002233A6
 // and text setter 0x00225301.
-class BfmeAptWindowManager
-{
-public:
-	void bfmeSetText(const AsciiString &key, const UnicodeString &text, bool usePlaceholder);
-};
+#include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 
 // Existing target-owned background dispatchers; their address names preserve
 // the unresolved original class/method identity carried by the donor aliases.

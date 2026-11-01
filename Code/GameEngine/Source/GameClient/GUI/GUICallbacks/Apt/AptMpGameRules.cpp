@@ -127,11 +127,7 @@ class AptScreenInitGadgets;
 void _bfme_setAptScreenRef(const AsciiString &name, AptRef<AptScreenInitGadgets> ref);
 
 // The Apt player (0x00DFE4CC) and its rowed text setter.
-class BfmeAptWindowManager
-{
-public:
-	void bfmeSetText(const AsciiString &key, const UnicodeString &text, bool usePlaceholder);
-};
+#include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 

@@ -170,11 +170,7 @@ private:
 	UnicodeString m_filename; // +0x10
 };
 
-class BfmeAptWindowManager
-{
-public:
-	void bfmeSetText(const AsciiString &label, const UnicodeString &text, bool flag);
-};
+#include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 

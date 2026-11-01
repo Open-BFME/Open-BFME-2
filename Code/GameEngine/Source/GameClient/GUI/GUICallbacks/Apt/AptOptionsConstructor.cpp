@@ -57,11 +57,7 @@ namespace _STL { template <> _Bvector_base<allocator<bool> >::_Bvector_base(cons
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
-class BfmeAptWindowManager
-{
-public:
-	void bfmeSetText(const AsciiString &name, const UnicodeString &text, bool placeholder);
-};
+#include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 
 class __multiple_inheritance FunctorTarget;
 typedef void (FunctorTarget::*FunctorMethod)(void);

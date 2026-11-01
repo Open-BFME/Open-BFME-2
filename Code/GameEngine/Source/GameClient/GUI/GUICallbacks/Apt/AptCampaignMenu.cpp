@@ -15,11 +15,7 @@ class BfmeAptWindowManager;
 
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
-class BfmeAptWindowManager
-{
-public:
-	void bfmeSetText(const AsciiString &name, const UnicodeString &text, bool placeholder);
-};
+#include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 
 class Rva00222A8BTarget
 {

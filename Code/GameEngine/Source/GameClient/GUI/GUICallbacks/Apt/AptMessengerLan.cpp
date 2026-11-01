@@ -10,7 +10,7 @@ template<int N> class LanSlots:public LanSlots<N-1> {public:virtual void gap(cha
 template<> class LanSlots<0> {};
 class LANAPI:public LanSlots<56> {public:virtual GameInfo *slotE0()=0;};
 extern LANAPI *TheLAN;
-class BfmeAptWindowManager {public:void bfmeSetText(const AsciiString &,const UnicodeString &,bool);};
+#include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 #include "../../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;

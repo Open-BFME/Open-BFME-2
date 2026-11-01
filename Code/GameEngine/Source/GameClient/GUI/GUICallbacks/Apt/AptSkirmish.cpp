@@ -151,11 +151,7 @@ class AptScreenInitGadgets;
 
 void _bfme_setAptScreenRef(const AsciiString &name, AptRef<AptScreenInitGadgets> ref);
 
-class BfmeAptWindowManager
-{
-public:
-	void bfmeSetText(const AsciiString &name, const UnicodeString &text, bool placeholder);
-};
+#include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 

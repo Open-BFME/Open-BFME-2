@@ -805,11 +805,7 @@ public:
 
 #include "../../../../../Include/GameClient/GameText.h"
 
-class BfmeAptWindowManager
-{
-public:
-	void bfmeSetText(const AsciiString &name, const UnicodeString &text, bool flag);
-};
+#include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 
 struct WideStringView
 {

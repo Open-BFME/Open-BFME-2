@@ -93,11 +93,7 @@ private:
 	char m_278;
 };
 // The Apt window manager (VA 0x00DFE4CC).
-class BfmeAptWindowManager
-{
-public:
-	void bfmeSetText(const AsciiString &name, const UnicodeString &text, bool placeholder);
-};
+#include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 class GameWindow;
 UnicodeString GadgetTextEntryGetText(GameWindow *textEntry);

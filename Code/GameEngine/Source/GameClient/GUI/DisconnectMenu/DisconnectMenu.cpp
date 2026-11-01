@@ -26,11 +26,7 @@ private:
 };
 
 // The Apt window manager (VA 0x00DFE4CC) and its background switch.
-class BfmeAptWindowManager
-{
-public:
-	void bfmeSetText(const AsciiString &key, const UnicodeString &text, bool usePlaceholder);
-};
+#include "../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 

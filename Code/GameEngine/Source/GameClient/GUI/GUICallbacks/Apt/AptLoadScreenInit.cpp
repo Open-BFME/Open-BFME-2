@@ -28,12 +28,7 @@ public:
 
 extern ImageCollection *TheMappedImageCollection;
 
-class BfmeAptWindowManager
-{
-public:
-	void bfmeSetText(const AsciiString &, const UnicodeString &, bool);
-	void rva00225375(const AsciiString &key, const AsciiString &text, bool flag);
-};
+#include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 

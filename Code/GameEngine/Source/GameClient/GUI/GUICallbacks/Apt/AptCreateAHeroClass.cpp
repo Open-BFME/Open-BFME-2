@@ -17,7 +17,7 @@ class Rva00222A8BTarget { public:
 };
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
-class BfmeAptWindowManager { public: void bfmeSetText(const AsciiString &, const UnicodeString &, bool); };
+#include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 class GameTextInterface {
 public:
 #define V(n) virtual void slot##n();

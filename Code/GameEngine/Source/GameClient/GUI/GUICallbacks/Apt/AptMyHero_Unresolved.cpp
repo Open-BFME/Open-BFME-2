@@ -15,7 +15,7 @@
 class Image;
 class ImageCollection {public: const Image *findImageByName(const AsciiString &);};
 extern ImageCollection *TheMappedImageCollection;
-class BfmeAptWindowManager {public: void bfmeSetText(const AsciiString &,const UnicodeString &,bool);};
+#include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 #include "../../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;

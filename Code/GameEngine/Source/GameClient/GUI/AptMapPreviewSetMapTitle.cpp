@@ -18,12 +18,7 @@ public:
     UnicodeString bfme_getDisplayName(bool includePlayerCount);
 };
 
-class BfmeAptWindowManager
-{
-public:
-    void bfmeSetText(const AsciiString &, const UnicodeString &, bool);
-    void rva00225375(const AsciiString &, const AsciiString &, bool);
-};
+#include "../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 

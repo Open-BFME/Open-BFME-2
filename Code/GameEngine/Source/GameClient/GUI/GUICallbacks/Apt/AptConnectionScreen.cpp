@@ -267,11 +267,7 @@ extern GameSpyInfoInterface *TheGameSpyInfo;
 #include "../../../../../Include/GameNetwork/GameInfo.h"
 
 
-class BfmeAptWindowManager
-{
-public:
-	void bfmeSetText(const AsciiString &key, const UnicodeString &value, bool b);
-};
+#include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 
 class Rva00222A8BTarget;
 

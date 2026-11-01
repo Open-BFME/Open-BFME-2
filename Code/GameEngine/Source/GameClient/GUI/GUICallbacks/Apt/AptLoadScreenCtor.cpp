@@ -116,12 +116,7 @@ public:
 	void AddExternHandler(const AsciiString &name, Int arg, AptRef<AptExternHandler> handler);	// 0x0022445D
 };
 
-class BfmeAptWindowManager
-{
-public:
-	void bfmeSetText(const AsciiString &, const UnicodeString &, bool);
-	void rva00225375(const AsciiString &key, const AsciiString &text, bool flag);
-};
+#include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 #define TheAptPlayer ((AptPlayer *)g_bfmeAptWindowManager)
 

@@ -227,12 +227,7 @@ public:
 extern GameSpyInfoInterface *TheGameSpyInfo;
 struct Rva00382D39Input;
 class GameSpyInfo { public: void rva00382D39(Rva00382D39Input *value, AsciiString oldNick); };
-class BfmeAptWindowManager
-{
-public:
-    void bfmeSetText(const AsciiString &name, const UnicodeString &text, bool flag);
-    void rva00225375(const AsciiString &name, const AsciiString &text, bool flag);
-};
+#include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 class GameTextInterface
 {

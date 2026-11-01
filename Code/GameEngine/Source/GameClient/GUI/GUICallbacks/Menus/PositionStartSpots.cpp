@@ -80,11 +80,7 @@ public:
 };
 extern TechAndSupplyImages TheSupplyAndTechImageLocations;
 
-class BfmeAptWindowManager
-{
-public:
-	void bfmeSetText(const AsciiString &, const UnicodeString &, bool);
-};
+#include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 void GadgetListBoxReset(GameWindow *listbox);

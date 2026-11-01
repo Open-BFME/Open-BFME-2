@@ -46,11 +46,7 @@ extern class Rva0040AAD5 *TheAwardSystemManager;
 
 extern GameTextInterface *TheGameText;
 
-class BfmeAptWindowManager
-{
-public:
-	void bfmeSetText(const AsciiString &name, const UnicodeString &text, bool flag);
-};
+#include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 

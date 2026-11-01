@@ -35,7 +35,7 @@ private:
 // Target resets12 ticker rows and calls the separately rowed PS request.
 typedef char HomeZoneSize[sizeof(TIME_ZONE_INFORMATION)==172 ? 1:-1];
 class Rva005B9378 { public: void rva005B9378(int,const UnicodeString &); };
-class BfmeAptWindowManager { public: void bfmeSetText(const AsciiString &,const UnicodeString &,bool); };
+#include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 void rva005BD64D();
 // getCharAt(0) is inlined in native; canonical header declares it out of
