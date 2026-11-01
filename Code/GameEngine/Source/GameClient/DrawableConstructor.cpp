@@ -145,12 +145,7 @@ public:
 };
 extern GameLODManager *TheGameLODManager;
 
-class GlobalData
-{
-public:
-	unsigned char m_pad[0x24];
-	bool m_useDrawModuleLOD;				// +0x24
-};
+#include "../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
 extern GameLogic *TheGameLogic;
@@ -460,7 +455,7 @@ Drawable::Drawable(const ThingTemplate *thingTemplate, DrawableStatus statusBits
 	for (modIdx = 0; modIdx < drawMI.getCount(); ++modIdx)
 	{
 		const ModuleData *newModData = drawMI.getNthData(modIdx);
-		if (TheWritableGlobalData->m_useDrawModuleLOD && newModData->getMinimumRequiredGameLOD() > lodLevel)
+		if (TheWritableGlobalData->field0024 && newModData->getMinimumRequiredGameLOD() > lodLevel)
 			continue;
 		*module = TheModuleFactory->newModule(this, drawMI.getNthName(modIdx), newModData, MODULETYPE_DRAW);
 		addIface(static_cast<DrawableModule *>(*module)->rva28());

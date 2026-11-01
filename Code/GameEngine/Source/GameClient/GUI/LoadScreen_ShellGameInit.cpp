@@ -73,12 +73,7 @@ public:
 class GameLODManager;
 extern GameLODManager *TheGameLODManager;
 
-class GlobalData
-{
-public:
-	unsigned char m_pad[0xD36];
-	bool m_breakTheMovie;
-};
+#include "../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
 void GadgetProgressBarSetProgress(GameWindow *g, int progress);
@@ -128,7 +123,7 @@ void Rva00355DC5::init(GameInfo *game)
 	if (m_win && firstLoad && TheGameLODManager && ((Rva002026C7ByteField *)TheGameLODManager)->get()) {
 		m_win->winSetEnabledImage(0, TheMappedImageCollection->findImageByName(AsciiString("TitleScreen")));
 		TheTransitionHandler->reverse(AsciiString("FadeWholeScreen"));
-		TheWritableGlobalData->m_breakTheMovie = false;
+		TheWritableGlobalData->field0D36 = false;
 		win = TheWindowManager->winGetWindowFromId(m_win, TheNameKeyGenerator->nameToKey(AsciiString("ShellGameLoadScreen.wnd:StaticTextLegal")));
 		if (win)
 			win->winHide(false);

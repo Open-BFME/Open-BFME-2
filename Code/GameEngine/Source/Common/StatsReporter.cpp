@@ -332,7 +332,7 @@ class Rva0021937D {public:void rva002193D9(Rva0021937DTarget*);void rva00219407(
 // desync byte at +0x71 and the game-result word at +0x2A4 (native 5C062E).
 struct StatsGameLogicView {char gap0[0x71];bool desync;bool getDesync()const{return desync;}char gap72[0x232];int result;};
 
-class GlobalData {public:char gap0[0x110c];float minDuration;};
+#include "../../Include/Common/GlobalData.h"
 
 enum NameKeyType {INVALID_NAME_KEY=-1};
 
@@ -420,7 +420,7 @@ void StatsReporter::ProcessOnlineGameResults(Player*player){
  bool report=false;if(reinterpret_cast<VictoryConditionsInterface*>(TheVictoryConditions)->isLocalAlliedDefeat()||reinterpret_cast<VictoryConditionsInterface*>(TheVictoryConditions)->isLocalAlliedVictory())report=true;
  if(reinterpret_cast<VictoryConditionsInterface*>(TheVictoryConditions)->gameEnded())report=true;if(reinterpret_cast<StatsGameLogicView*>(TheGameLogic)->desync||noData||disconnected)report=true;
  if(reinterpret_cast<VictoryConditionsInterface*>(TheVictoryConditions)->quit(local))report=true;if(mode==2)report=true;if(!report)return;
- if(TheGameSpyGame->getMode()!=1){float bound=TheWritableGlobalData?TheWritableGlobalData->minDuration*BfmeLogicFramesPerSecond:25.0f;if(reinterpret_cast<VictoryConditionsInterface*>(TheVictoryConditions)->elapsed()<bound+BfmeLogicFramesPerSecond)return;}
+ if(TheGameSpyGame->getMode()!=1){float bound=TheWritableGlobalData?TheWritableGlobalData->m_secondsBeforeBaseCheckActive*BfmeLogicFramesPerSecond:25.0f;if(reinterpret_cast<VictoryConditionsInterface*>(TheVictoryConditions)->elapsed()<bound+BfmeLogicFramesPerSecond)return;}
  bool canReportPackets=TheGameSpyGame->getFF4();bool reportPacket=false;
  if(canReportPackets){if(reinterpret_cast<StatsGameLogicView*>(TheGameLogic)->getDesync())goto report_packet;else if(reinterpret_cast<VictoryConditionsInterface*>(TheVictoryConditions)->isLocalAlliedVictory()&&!noData){
  for(int i=0;i<8;++i){AsciiString name;name=TheGameInfo->getSlot(i)->name;if(!name.isEmpty()){Player*p=ThePlayerList->findPlayerWithNameKey(TheNameKeyGenerator->nameToKey(name));if(p){GameSlot*slot=reinterpret_cast<GameInfo*>(TheGameSpyGame)->getSlot(i);if(reinterpret_cast<VictoryConditionsInterface*>(TheVictoryConditions)->hasWon(p)&&!slot->disconnected()){if(TheGameSpyGame->localSlot()==i)reportPacket=true;break;}}}}

@@ -839,7 +839,7 @@ private:
 // template, or -1 without a combo box.
 struct PlayerComboMapPosition { unsigned char flags[3]; char pad; int value; unsigned char names[12]; };
 class MapMetaData { public: unsigned char pad0[0x20]; int numPlayers; unsigned char pad24[0x54-0x24]; PlayerComboMapPosition positions[8]; };
-class GlobalData { public: unsigned char pad[0x9d4]; int modeFlags; };
+#include "../../../Include/Common/GlobalData.h"
 extern GlobalData* TheWritableGlobalData;
 // Native DC8D48 is a writable DWORD tint initialized FFFFFFFF, shared
 // by nine lobby entry sites. This is a descriptive name, not a claimed
@@ -901,8 +901,8 @@ void AptMpGameSetup::PopulatePlayerCombo(int slot)
         GadgetComboBoxSetItemData(*combo,index,(void*)1);
         if(previous==1) selected=index;
         if(allowAI) {
-            if((index ? TheWritableGlobalData->modeFlags : TheWritableGlobalData->modeFlags)&1) allowAI=false;
-            if(TheWritableGlobalData->modeFlags&2) {
+            if((index ? TheWritableGlobalData->field09D4 : TheWritableGlobalData->field09D4)&1) allowAI=false;
+            if(TheWritableGlobalData->field09D4&2) {
                 allowAI=false;
                 index=GadgetComboBoxAddEntry(*combo,TheGameText->fetch("GUI:EasyAI"),AptLobbyRandomColorTint);
                 GadgetComboBoxSetItemData(*combo,index,(void*)2);
