@@ -43,19 +43,7 @@ struct WindowMessageBoxData
 };
 class WindowLayoutInfo;
 
-class GameWindow
-{
-public:
-	Int winSetPosition(Int x, Int y);
-	Int winGetPosition(Int *x, Int *y);
-	Int winGetSize(Int *w, Int *h);
-	Int winSetSize(Int w, Int h);
-	Int winHide(Bool hide);
-	Int winBringToTop(void);
-	void winSetUserData(void *data);
-	GameWindow *winGetChild(void);
-	GameWindow *winGetNext(void);
-};
+#include "../../../Include/GameClient/Bfme2GameWindow.h"
 
 #include "../../../Include/Common/NameKeyGenerator.h"
 

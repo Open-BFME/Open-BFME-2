@@ -9,11 +9,7 @@ typedef UnsignedInt WindowMsgData;
 enum WindowMsgHandledType { MSG_IGNORED, MSG_HANDLED };
 enum { WIN_ERR_OK = 0, WIN_STATUS_NO_FOCUS = 0x400, GWM_INPUT_FOCUS = 23 };
 #include <windows.h>
-class GameWindow {
-public:
-    UnsignedInt winGetStatus();
-    GameWindow *winGetParent();
-};
+#include "../../../Include/GameClient/Bfme2GameWindow.h"
 class GameWindowManager {
 public:
 #define V(n) virtual void pad##n() = 0;

@@ -61,7 +61,7 @@ class Rva00222A8BTarget;
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 struct QueuedAptModeView { char unknown[0x318]; int mode; };
-class GameWindow { public:void winDrawBorder(); };
+#include "../../../../../Include/GameClient/Bfme2GameWindow.h"
 class Rva005F698E { public:void rva005F698E(); };
 void StrategicHUD::BuildQueueDetailsMovieClip::Impl::QueuedIconSlot::rva005F6AE8(void*) {
  int mode=((QueuedAptModeView*)g_bfmeAptWindowManager)->mode;

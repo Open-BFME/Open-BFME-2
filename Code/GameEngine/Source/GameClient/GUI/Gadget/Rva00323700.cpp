@@ -10,11 +10,7 @@
 // at combo user data +8 is shared with GadgetImageComboBox.cpp. Field
 // meanings are not established; names are address-derived.
 
-class GameWindow
-{
-public:
-	void *winGetUserData();
-};
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 
 struct Rva00323700ComboData
 {

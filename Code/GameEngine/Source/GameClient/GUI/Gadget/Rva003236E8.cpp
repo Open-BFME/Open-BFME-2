@@ -5,11 +5,7 @@
 // Calls rowed winGetUserData then rowed GadgetListBoxGetNumEntries.
 // Evidence: callees rowed 0x005C4ACD winGetUserData plus 0x0032475A GadgetListBoxGetNumEntries; prev/next same flags.
 
-class GameWindow
-{
-public:
-	void *winGetUserData();
-};
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 
 int GadgetListBoxGetNumEntries(GameWindow *window);
 

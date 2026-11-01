@@ -7,14 +7,7 @@
 // Trimmed TU: only this body is defined here; the donor's four unplaced
 // siblings stay out so the unmatched gate has nothing to refuse.
 
-class GameWindow
-{
-public:
-	void *winGetUserData(void);
-	void winSetUserData(void *data);
-	unsigned int winSetStatus(unsigned int status);
-	int winGetSize(int *width, int *height);
-};
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 
 // BFME1's GadgetListBoxSetColumnWidths donor sets percentage widths then
 // asks its listbox worker to convert them to pixels. Retail 0x003252EA

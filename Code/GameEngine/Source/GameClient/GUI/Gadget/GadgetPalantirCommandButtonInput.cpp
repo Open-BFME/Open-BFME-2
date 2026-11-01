@@ -7,10 +7,7 @@
 // Gui_PalantirCommandButtonClick and Gui_PalantirCommandButtonDisabledClick; msg 5 and 0xD with
 // status bit 8 and button data bit 0x80 at +0x1F; flags copy next GadgetPushButtonSystem.
 enum WindowMsgHandledType { MSG_IGNORED, MSG_HANDLED };
-class GameWindow {
-public:
-    unsigned int winGetStatus();
-};
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 void *GadgetButtonGetData(GameWindow *window);
 void PlaySound(const char *name);
 WindowMsgHandledType GadgetPushButtonInput(GameWindow *window, unsigned int msg, unsigned int mData1, unsigned int mData2);

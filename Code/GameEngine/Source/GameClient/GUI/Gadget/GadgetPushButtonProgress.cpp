@@ -6,7 +6,7 @@
 // Production interface slots54/58 enumerate entries and AI E8/40 queries progress.
 // The palette words belong to outer Rva003284B9 arguments; progress callees take
 // no color. Existing rowed providers and canonical globals are preserved.
-class GameWindow {public:void *winGetUserData();};
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 #include "../../../../Include/Common/ThingTemplate.h"
 class ProductionEntry {public:int unknown00; int kind; const ThingTemplate *thing; void *upgrade; bool getProductionObject()const;};
 class Rva0049CBDA {public:int rva0049CBDA();};

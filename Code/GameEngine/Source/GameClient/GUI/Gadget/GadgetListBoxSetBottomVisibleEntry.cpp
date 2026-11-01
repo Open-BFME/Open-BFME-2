@@ -13,11 +13,7 @@ typedef short Short;
 #include "unicode_string.h"
 
 
-class GameWindow
-{
-public:
-	void *winGetUserData();
-};
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 
 struct ListEntryRow
 {

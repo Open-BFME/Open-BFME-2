@@ -33,11 +33,7 @@ struct UnicodeStringBufferView
 };
 
 
-class GameWindow
-{
-public:
-	void *winGetUserData();
-};
+#include "../../../Include/GameClient/Bfme2GameWindow.h"
 
 struct ListboxData
 {

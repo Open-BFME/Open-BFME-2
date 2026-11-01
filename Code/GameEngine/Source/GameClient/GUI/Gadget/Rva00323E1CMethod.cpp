@@ -4,11 +4,7 @@
 // Evidence: callees rowed 0x005C4ACD 0x002D97D6 0x002D9A43 plus TheAudio ?TheAudio@@3PAVAudioManager@@A; callers 0x003250DC 0x00325770; precedent GameWindowCursorSearch.cpp.
 #include "Common/BfmeAudioEventPrefix136.h"
 
-class GameWindow
-{
-public:
-	void *winGetUserData();
-};
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 
 class AudioManager;
 extern AudioManager *TheAudio;

@@ -20,18 +20,7 @@ class Image;
 class NameKeyGenerator;
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 
-class GameWindow
-{
-public:
-	int winHide(bool hide);
-	int winBringToTop(void);
-	int winSetEnabledColor(int index, int color);
-	void winSetEnabledTextColors(int color, int borderColor);
-	int winGetEnabledTextBorderColor(void);
-	int winSetEnabledImage(int index, const Image *image);
-	char m_pad00[0x1F4];
-	int m_1f4; // +0x1F4 +0x1F4: cleared by init; meaning unknown
-};
+#include "../../../Include/GameClient/Bfme2GameWindow.h"
 
 class GameWindowManager
 {

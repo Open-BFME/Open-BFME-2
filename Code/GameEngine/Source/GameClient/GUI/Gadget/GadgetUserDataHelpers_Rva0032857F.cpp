@@ -21,12 +21,7 @@
 
 #include <windows.h>
 
-class GameWindow
-{
-public:
-	void *winGetUserData();
-	void winSetUserData(void *data);
-};
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 
 struct _PushButtonData;
 extern _PushButtonData *getNewPushButtonData(void);

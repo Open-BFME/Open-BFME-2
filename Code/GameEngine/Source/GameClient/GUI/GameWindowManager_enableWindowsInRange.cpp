@@ -8,23 +8,7 @@
 typedef int Int;
 typedef bool Bool;
 
-class GameWindow
-{
-public:
-	Int winHide(Bool hide);
-	Int winEnable(Bool enable);
-	Int winGetWindowId();
-	GameWindow *winGetParent();
-
-private:
-	unsigned char m_pad00[0x1F8];
-
-public:
-	GameWindow *m_next;
-	GameWindow *m_prev;
-	GameWindow *m_parent;
-	GameWindow *m_child;
-};
+#include "../../../Include/GameClient/Bfme2GameWindow.h"
 
 #include "../../../Include/GameClient/GameWindowManager.h"
 

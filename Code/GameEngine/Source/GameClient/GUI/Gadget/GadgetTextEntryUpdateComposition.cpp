@@ -21,12 +21,7 @@ typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef unsigned short UnsignedShort;
 
-class GameWindow
-{
-public:
-	Int winGetSize(Int *width, Int *height);
-	void *winGetUserData();
-};
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 
 class DisplayString
 {

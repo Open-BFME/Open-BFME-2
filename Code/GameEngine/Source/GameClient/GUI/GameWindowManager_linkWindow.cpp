@@ -7,16 +7,7 @@
 // Identity: ZH/BFME1 GameWindowManager.cpp linkWindow (insert behind the last
 // modal window, else push front), unlinkWindow and unlinkChildWindow bodies;
 // the modal entry is ZH's ModalWindow {vtable, window, next}.
-class GameWindow
-{
-public:
-	unsigned char m_pad[0x1F8];
-	GameWindow *m_next;
-	GameWindow *m_prev;
-	GameWindow *m_parent;
-	GameWindow *m_child;
-	GameWindow *winGetParent();
-};
+#include "../../../Include/GameClient/Bfme2GameWindow.h"
 struct ModalWindow
 {
 public:

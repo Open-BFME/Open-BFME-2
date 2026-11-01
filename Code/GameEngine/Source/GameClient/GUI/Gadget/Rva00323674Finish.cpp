@@ -2,11 +2,7 @@
 // ?rva00323674@Rva00323674@@QBEHXZ @0x00323674 (44B) __thiscall getter:
 // null-check this+0, read user-data +8 as GameWindow*, call rowed
 // GadgetListBoxGetSelected (0x00324773) with a stack -1, return it.
-class GameWindow
-{
-public:
-	void *winGetUserData();
-};
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 void GadgetListBoxGetSelected(GameWindow *win, int *sel);
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)

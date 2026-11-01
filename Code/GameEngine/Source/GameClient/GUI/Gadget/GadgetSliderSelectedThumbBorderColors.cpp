@@ -10,11 +10,7 @@
 
 typedef int Int;
 
-class GameWindow
-{
-public:
-	GameWindow *winGetChild(void);
-};
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 
 // ?GadgetSliderGetDisabledSelectedThumbBorderColor@@YAHPAVGameWindow@@@Z, retail 0x00323DB4 (26B).
 Int GadgetSliderGetDisabledSelectedThumbBorderColor(GameWindow *slider)

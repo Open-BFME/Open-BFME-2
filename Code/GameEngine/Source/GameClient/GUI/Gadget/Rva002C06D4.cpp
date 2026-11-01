@@ -6,11 +6,7 @@ class Rva003140C8DwordField
 public:
 	int get() const;
 };
-class GameWindow
-{
-public:
-	int winSetHiliteBorderColor(int a, int b);
-};
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 void __cdecl Rva002C06D4Set(Rva003140C8DwordField *holder, int color)
 {
 	int v = holder->get();

@@ -12,11 +12,7 @@ typedef int Int;
 typedef short Short;
 typedef bool Bool;
 
-class GameWindow
-{
-public:
-	void *winGetUserData();
-};
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 
 struct ListEntryRowBFME
 {

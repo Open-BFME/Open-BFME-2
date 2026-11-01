@@ -7,11 +7,7 @@
 // address-derived opaque name stands; the pin coexists with this row. The TU
 // defines only this body.
 
-class GameWindow
-{
-public:
-	void *winGetUserData();
-};
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 
 struct _ListboxData;
 typedef struct _ListboxData ListboxData;
