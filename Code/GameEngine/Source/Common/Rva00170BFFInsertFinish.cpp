@@ -41,14 +41,6 @@
 #include <stdlib.h>
 #undef _CRTIMP
 
-class Rva00151DAB
-{
-public:
-	~Rva00151DAB();
-	unsigned int _key;
-	unsigned int _pad;
-};
-
 class Rva00170999;
 
 namespace _STL

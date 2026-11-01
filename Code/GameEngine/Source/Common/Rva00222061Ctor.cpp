@@ -12,11 +12,6 @@ namespace _STL { template <> _Rb_tree<int, pair<int const, void *>, _Select1st<p
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
-class BFME2NativeNetwork
-{
-public:
-};
-
 #include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
 class __declspec(novtable) BFME2NativeNetworkBase

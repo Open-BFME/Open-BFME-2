@@ -13,11 +13,6 @@
 // bfme link decl-only BfmeE16
 namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
 
-class BFME2NativeNetwork
-{
-public:
-};
-
 // Calls the rowed subsystem constructor; the paired destructor proves
 // the same twelve-byte base at +0 before the vector storage at +0x0C.
 typedef bool Bool;

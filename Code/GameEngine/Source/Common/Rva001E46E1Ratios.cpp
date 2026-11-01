@@ -23,7 +23,6 @@
 #include <math.h>
 #include "Lib/Coord3D.h"
 #include "matrix3d.h"
-class Rva001E43CF {public: void rva001E43CF(void*);};
 class Object;
 class GameLogic;
 extern GameLogic *TheGameLogic;

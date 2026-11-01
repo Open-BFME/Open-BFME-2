@@ -26,12 +26,6 @@ struct Rva00170EFEIter
 	Rva00170EFEIter(const Rva00170EFEIter &other) : node(other.node) {}
 };
 
-struct Rva00170DB7Out
-{
-	Rva00170EFENode *node;
-	bool inserted;
-};
-
 class Rva00170BFF
 {
 	Rva00170EFENode *m_00Head;

@@ -186,12 +186,6 @@ public:
 
 ParticleSystem *Make001FCBD7();
 
-class BfmeParticleSystemHandle
-{
-public:
-	~BfmeParticleSystemHandle() throw();
-};
-
 class RvaSmartPtr12
 {
 	public: void rva0004CBC0() throw(); // 0x0004CBC0, the unlink the inline dtor null test calls

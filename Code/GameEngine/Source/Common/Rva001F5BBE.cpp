@@ -6,14 +6,6 @@
 // system +0xB4 against arg +0x74, destroy via rowed 0x1F462C, release via
 // rowed handle dtor 0x4CBC0. Caller at 0x48FF56. Honest Rva names.
 
-struct BfmeParticleSystemHandle
-{
-	~BfmeParticleSystemHandle();
-	void *m_system;
-	void *m_prev;
-	void *m_next;
-};
-
 class RvaSmartPtr12
 {
 	public: void rva0004CBC0(); // 0x0004CBC0, the unlink the inline dtor null test calls

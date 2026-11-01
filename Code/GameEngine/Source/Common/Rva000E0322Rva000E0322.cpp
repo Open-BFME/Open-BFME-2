@@ -6,12 +6,6 @@
 // Equality on two-int pairs via two dword compares returning int 0/1.
 // Callers 0x000E01DD (tests al) 0x000E02D1. Honest free-function name.
 // __stdcall for ret 8 (callee pops 8, no add esp in callers).
-struct Rva000E007DPair
-{
-	int m00;
-	int m04;
-};
-
 // The exact pair comparator is owned by Rva000E007DEqual.cpp.
 
 // Native E0322..E03DD: STLport4.5.3 resize from BF1 ba7dd _hashtable.c.

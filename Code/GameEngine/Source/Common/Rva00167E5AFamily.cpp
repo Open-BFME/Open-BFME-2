@@ -10,11 +10,6 @@ class Rva000D6A3F
 public:
 	void rva000D6A3F(int n);
 };
-class Rva00167E5A
-{
-public:
-	int rva00167E5A(int n);
-};
 class Rva00167ED8
 {
 public:

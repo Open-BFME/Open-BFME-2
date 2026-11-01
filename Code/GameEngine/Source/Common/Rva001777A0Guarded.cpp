@@ -263,10 +263,6 @@ static __declspec(noinline) long forceRva00958E30(Rva00958E30 *self, _bstr_t arg
 
 extern void __stdcall _com_issue_error(long error);
 // Address-owned consumed raw32 word0 prefix; original class and constructor identity unknown.
-class Rva00176C50Word {
- unsigned long value0;
-public: Rva00176C50Word *initialize(unsigned long argument);
-};
 // Complete1777A0..177825/133 forwards two C-string arguments through the
 // existing two-BSTR invoke177130, after checking actual g_bfmeObjECF DF7040.
 // BF1 f989 WebBrowserComWrappers provides semantics; target calls independently

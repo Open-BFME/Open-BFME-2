@@ -57,12 +57,6 @@ public:
 	float m_slot[12][4];
 };
 
-struct Entry
-{
-	float v;
-	int key;
-};
-
 void MilesAudioManager::GlobalVolumeData::volumeAdjustingSoundStopping(Holder *holder, int key)
 {
 	_STL::vector<BfmePod8> &outer = holder->m_inner->m_vec;

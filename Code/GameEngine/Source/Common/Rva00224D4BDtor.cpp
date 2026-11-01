@@ -6,12 +6,6 @@
 // and [ebp-4] 0 and or -1; caller deleting dtor 0x00224D2F. Novtable
 // suppresses the vptr store retail omits; base padded to 0xC like the
 // Rva004192D1 precedent.
-class AsciiStringMember
-{
-public:
-	~AsciiStringMember();
-};
-
 class Rva002236B9
 {
 public:

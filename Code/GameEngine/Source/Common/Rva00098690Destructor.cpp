@@ -8,12 +8,6 @@
 // releases the two handles (an inline test-and-destroy of the folded
 // smart-pointer wrapper RvaSmartPtr12, whose out-of-line copy is the
 // unwinding target 0x002115C5) and runs the base. Class name address-derived.
-class BfmeParticleSystemHandle
-{
-public:
-	~BfmeParticleSystemHandle() throw();
-};
-
 class RvaSmartPtr12
 {
 	public: void rva0004CBC0() throw(); // 0x0004CBC0, the unlink the inline dtor null test calls

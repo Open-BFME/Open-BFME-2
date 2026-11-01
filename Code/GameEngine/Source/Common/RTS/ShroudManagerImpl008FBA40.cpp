@@ -73,14 +73,6 @@ __forceinline ShroudManagerImpl008FBA40ElementLayout *shroudElementAt(
 
 class BfmePartVRA;
 
-class BfmeShroudVRA
-{
-public:
-	char bfmeUpdateVRA(int x, int y, int radius);
-	BfmePartVRA *m_bfme00;
-	int m_bfme04;
-};
-
 bool processShroudRevealCircle008F9A70(Int cellX, Int cellY, Int cellRadius,
 	ShroudManagerImpl *manager, Int playerMask);
 bool processShroudRevealCircle008F9B10(Int cellX, Int cellY, Int cellRadius,
