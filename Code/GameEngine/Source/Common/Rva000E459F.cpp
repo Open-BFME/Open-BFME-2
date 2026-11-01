@@ -1,11 +1,10 @@
 // cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva000E459F@Rva000E459F@@QAE_NXZ retail 0x000E459F 315B
 // Evidence: chain from 0x00272C9E Drawable::rva00272C9E plus pin getTransformMatrix; callers 0x000E5B57; matrix at +0x50 floats +0x84 +0x88 flag +0x98 Drawable +0x2C
-class Matrix3D
-{
-public:
-	float m[3][4];
-};
+#include "../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
+static __forceinline float &matrixComponent(Matrix3D &m,int row,int col) { return (&m.Row[row].X)[col]; }
+static __forceinline const float &matrixComponent(const Matrix3D &m,int row,int col) { return (&m.Row[row].X)[col]; }
+
 
 class Drawable
 {
@@ -63,7 +62,7 @@ bool Rva000E459F::rva000E459F()
 		const Matrix3D *matrix3D = m_2C->getTransformMatrix();
 		for (int i = 0; i < 3; ++i) {
 			for (int j = 0; j < 4; ++j) {
-				if (m_50.m[i][j] != matrix3D->m[i][j])
+				if (matrixComponent(m_50,i,j) != matrixComponent(*matrix3D,i,j))
 					goto copy_mat;
 			}
 		}

@@ -1,34 +1,40 @@
 # Linking target checklist
 
 
-### Use canonical Matrix3D storage in tornado bone queries (2026-11-01)
+### Six-source Matrix3D batch (2026-11-01)
+
+7 existing rows and 15 retained external code/relocation instances preserved; six owning Matrix3D keys retired. Native new-variants check passes. Bounded prediction remains distinct from census/runtime proof; outgoing audit exit 2, complete current selection unproven.
+[Batch evidence](../reverse/attempt_support/six-storage-adoptions-batch-20261101-1634.md).
+
+### Use canonical Matrix3D storage in maintain-position transforms (2026-11-01)
 
 This source adopts canonical Matrix3D storage with native code/relocations preserved. Normal/frozen/EH/strict and owning acceptance pass; linked previews remain scoped predictions, not a census or runtime proof.
-[Evidence](../reverse/attempt_support/tornado-bone-query-matrix3d-20261101-1634.md).
-
-
-### Use canonical Matrix3D storage in drawable instance transforms (2026-11-01)
-
-This source adopts canonical Matrix3D storage with native code/relocations preserved. Normal/frozen/EH/strict and owning acceptance pass; linked previews remain scoped predictions, not a census or runtime proof.
-[Evidence](../reverse/attempt_support/drawable-instance-matrix3d-20261101-1634.md).
-
-
-### Use canonical Matrix3D storage in locomotor orientation (2026-11-01)
-
-This source adopts canonical Matrix3D storage with native code/relocations preserved. Normal/frozen/EH/strict and owning acceptance pass; linked previews remain scoped predictions, not a census or runtime proof.
-[Evidence](../reverse/attempt_support/locomotor-orientation-matrix3d-20261101-1634.md).
-
+[Evidence](../reverse/attempt_support/maintain-position-matrix3d-20261101-1634.md).
 
 ### Use canonical Matrix3D storage in movement angle transforms (2026-11-01)
 
 This source adopts canonical Matrix3D storage with native code/relocations preserved. Normal/frozen/EH/strict and owning acceptance pass; linked previews remain scoped predictions, not a census or runtime proof.
 [Evidence](../reverse/attempt_support/move-towards-angle-matrix3d-20261101-1634.md).
 
-
-### Use canonical Matrix3D storage in maintain-position transforms (2026-11-01)
+### Use canonical Matrix3D storage in locomotor orientation (2026-11-01)
 
 This source adopts canonical Matrix3D storage with native code/relocations preserved. Normal/frozen/EH/strict and owning acceptance pass; linked previews remain scoped predictions, not a census or runtime proof.
-[Evidence](../reverse/attempt_support/maintain-position-matrix3d-20261101-1634.md).
+[Evidence](../reverse/attempt_support/locomotor-orientation-matrix3d-20261101-1634.md).
+
+### Use canonical Matrix3D storage in drawable instance transforms (2026-11-01)
+
+This source adopts canonical Matrix3D storage with native code/relocations preserved. Normal/frozen/EH/strict and owning acceptance pass; linked previews remain scoped predictions, not a census or runtime proof.
+[Evidence](../reverse/attempt_support/drawable-instance-matrix3d-20261101-1634.md).
+
+### Use canonical Matrix3D storage in tornado bone queries (2026-11-01)
+
+This source adopts canonical Matrix3D storage with native code/relocations preserved. Normal/frozen/EH/strict and owning acceptance pass; linked previews remain scoped predictions, not a census or runtime proof.
+[Evidence](../reverse/attempt_support/tornado-bone-query-matrix3d-20261101-1634.md).
+
+### Use canonical Matrix3D storage in drawable transform cache (2026-11-01)
+
+This source adopts canonical Matrix3D storage with native code/relocations preserved. Normal/frozen/EH/strict and owning acceptance pass; linked previews remain scoped predictions, not a census or runtime proof.
+[Evidence](../reverse/attempt_support/drawable-transform-cache-matrix3d-20261101-1634.md).
 
 
 ### Six-source Vector4 batch (2026-11-01)
