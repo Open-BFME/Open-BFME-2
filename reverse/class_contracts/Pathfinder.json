@@ -1,0 +1,1081 @@
+{
+ "bases": [
+  "Snapshot"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "Pathfinder",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 267,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x10": {
+    "4": 11
+   },
+   "0x14": {
+    "4": 9
+   },
+   "0x18": {
+    "4": 9
+   },
+   "0x1c": {
+    "4": 10
+   },
+   "0x20": {
+    "4": 10
+   },
+   "0x24": {
+    "4": 2
+   },
+   "0x28": {
+    "4": 1
+   },
+   "0x2c": {
+    "4": 1
+   },
+   "0x30": {
+    "4": 1
+   },
+   "0x34": {
+    "4": 3
+   },
+   "0x38": {
+    "1": 3
+   },
+   "0x3c": {
+    "4": 6
+   },
+   "0x40": {
+    "4": 4
+   },
+   "0x44": {
+    "4": 3
+   },
+   "0x460": {
+    "4": 9
+   },
+   "0x48": {
+    "4": 3
+   },
+   "0x4c": {
+    "4": 2
+   },
+   "0x50": {
+    "4": 1
+   },
+   "0x54": {
+    "4": 1
+   },
+   "0x58": {
+    "4": 2
+   },
+   "0x5c": {
+    "4": 4
+   },
+   "0x60": {
+    "4": 2
+   },
+   "0x8": {
+    "1": 7
+   },
+   "0xc": {
+    "4": 2
+   },
+   "0xe0": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x2f6e22"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "Snapshot",
+       "offset": 4,
+       "own_vftable": "0x8053f8",
+       "rule": "retail-inlined-base-vptr"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x2f6e22"
+     ],
+     "value": 119280
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x2f6e22"
+     ],
+     "value": {
+      "0x10": [
+       4
+      ],
+      "0x1c1d8": [
+       4
+      ],
+      "0x1c1dc": [
+       4
+      ],
+      "0x1c9e0": [
+       4
+      ],
+      "0x1c9e4": [
+       4
+      ],
+      "0x1d1e8": [
+       4
+      ],
+      "0x1d1ec": [
+       4
+      ],
+      "0x34": [
+       4
+      ],
+      "0x58": [
+       4
+      ],
+      "0x5c": [
+       4
+      ],
+      "0xc": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x2f6e22"
+     ],
+     "value": {
+      "0x0": [
+       "??_L@YGXPAXIHP6EX0@Z1@Z"
+      ],
+      "0x1c1c0": [
+       "??0?$set@VAsciiString@@U?$less@VAsciiString@@@_STL@@V?$allocator@VAsciiString@@@3@@_STL@@QAE@XZ"
+      ],
+      "0x1c1cc": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x1d1f0": [
+       "??0ObjectCreationList@@QAE@XZ"
+      ],
+      "0x460": [
+       "??0PathfindZoneManager@@QAE@XZ"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x2f6e22"
+     ],
+     "value": {
+      "0x0": "0x805408",
+      "0x4": "0x8053f8"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x805408"
+     ],
+     "value": {
+      "count": 7,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "?FindPath@Pathfinder@@QAEPAVPath@@PAVObject@@ABVLocomotorSet@@PBUCoord3D@@2PA_N@Z",
+        "slot": 0,
+        "target": "0x2fd344"
+       },
+       {
+        "name": "?FindClosestPath@Pathfinder@@QAEPAVPath@@PAVObject@@ABVLocomotorSet@@PBUCoord3D@@PAU5@_NM4@Z",
+        "slot": 1,
+        "target": "0x2fa3f1"
+       },
+       {
+        "name": "?FindAttackPath@Pathfinder@@QAEPAVPath@@PAVObject@@ABVLocomotorSet@@PBUCoord3D@@02PAVRva002C9B80Owner@@_NPA_N@Z",
+        "slot": 2,
+        "target": "0x2fad13"
+       },
+       {
+        "name": "?FindAttackPathSideways@Pathfinder@@QAEPAVPath@@PAVObject@@ABVLocomotorSet@@PBUCoord3D@@02PAVRva002C9B80Owner@@@Z",
+        "slot": 3,
+        "target": "0x2fc9b1"
+       },
+       {
+        "name": "?PatchPath@Pathfinder@@QAEPAVPath@@PAVObject@@ABVLocomotorSet@@PAV2@_N@Z",
+        "slot": 4,
+        "target": "0x2fb558"
+       },
+       {
+        "name": "?FindSafePath@Pathfinder@@QAEPAVPath@@PAVObject@@ABVLocomotorSet@@PBUCoord3D@@22M@Z",
+        "slot": 5,
+        "target": "0x2fb997"
+       },
+       {
+        "name": "?FindCollisionFreeQuickPath@Pathfinder@@UAEPAVPath@@PAVObject@@PBUCoord3D@@PAVPathNode@@@Z",
+        "slot": 6,
+        "target": "0x2f64dd"
+       }
+      ],
+      "table": "0x805408"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 185,
+  "retail_vtables": {
+   "0x8053f8": {
+    "offset": 4,
+    "slots": {},
+    "stores": 1
+   },
+   "0x805408": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "?FindPath@Pathfinder@@QAEPAVPath@@PAVObject@@ABVLocomotorSet@@PBUCoord3D@@2PA_N@Z",
+     "1": "?FindClosestPath@Pathfinder@@QAEPAVPath@@PAVObject@@ABVLocomotorSet@@PBUCoord3D@@PAU5@_NM4@Z",
+     "2": "?FindAttackPath@Pathfinder@@QAEPAVPath@@PAVObject@@ABVLocomotorSet@@PBUCoord3D@@02PAVRva002C9B80Owner@@_NPA_N@Z",
+     "3": "?FindAttackPathSideways@Pathfinder@@QAEPAVPath@@PAVObject@@ABVLocomotorSet@@PBUCoord3D@@02PAVRva002C9B80Owner@@@Z",
+     "4": "?PatchPath@Pathfinder@@QAEPAVPath@@PAVObject@@ABVLocomotorSet@@PAV2@_N@Z",
+     "5": "?FindSafePath@Pathfinder@@QAEPAVPath@@PAVObject@@ABVLocomotorSet@@PBUCoord3D@@22M@Z",
+     "6": "?FindCollisionFreeQuickPath@Pathfinder@@UAEPAVPath@@PAVObject@@PBUCoord3D@@PAVPathNode@@@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 3,
+  "view_sizes": {
+   "1": 222,
+   "8": 1,
+   "9": 1,
+   "20": 1,
+   "36": 1,
+   "76": 3,
+   "88": 1,
+   "92": 1,
+   "96": 2,
+   "160": 1,
+   "1120": 4,
+   "1121": 3,
+   "1124": 5,
+   "114360": 1,
+   "114368": 1,
+   "114556": 1,
+   "115148": 1,
+   "115160": 2,
+   "115168": 1,
+   "119276": 1,
+   "119280": 3,
+   "119284": 1,
+   "119288": 3,
+   "119296": 3
+  },
+  "views": 264,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_Pathfinder.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/AIPathfind.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 14,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 4
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AI_xfer.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderDestructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderXfer.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderProcessPathfindQueue.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderSameCellRva002EE49B.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderNewMap.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderPosGoalManager.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderReset.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderRva002F83F5Neighbors.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderSidewaysAttack.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/rva002F14F9Rva002F14F9Farm.cpp"
+   ],
+   "views": 12
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderClassifyWall.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderNewMap.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderReset.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/rva0052E4C9Rva0052E4C9Farm.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderClassifyMapRva0052F2EC.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderClassifyObjectFootprint.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderClassifyWall.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderProcessPathfindQueue.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderBridgeUpdateRva0052ED74.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderNewMap.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderReset.cpp"
+   ],
+   "views": 11
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/Common/rva0052E4C9Rva0052E4C9Farm.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderClassifyMapRva0052F2EC.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderClassifyObjectFootprint.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderClassifyWall.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderProcessPathfindQueue.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderBridgeUpdateRva0052ED74.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderNewMap.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderReset.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderRva002F83F5Neighbors.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp"
+   ],
+   "views": 12
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/Common/rva0052E4C9Rva0052E4C9Farm.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderClassifyMapRva0052F2EC.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderClassifyObjectFootprint.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderClassifyWall.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderProcessPathfindQueue.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderBridgeUpdateRva0052ED74.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderNewMap.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderReset.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderRva002F83F5Neighbors.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp"
+   ],
+   "views": 12
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/Common/rva0052E4C9Rva0052E4C9Farm.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderBuildGroundPath.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderClassifyMapRva0052F2EC.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderClassifyObjectFootprint.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderClassifyWall.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderProcessPathfindQueue.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderBridgeUpdateRva0052ED74.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderNewMap.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderReset.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderRva002F83F5Neighbors.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp"
+   ],
+   "views": 13
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/Common/rva0052E4C9Rva0052E4C9Farm.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderBuildGroundPath.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderClassifyMapRva0052F2EC.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderClassifyObjectFootprint.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderClassifyWall.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderProcessPathfindQueue.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderBridgeUpdateRva0052ED74.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderNewMap.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderReset.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderRva002F83F5Neighbors.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp"
+   ],
+   "views": 13
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva002F5925InfoRva002F5925.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderProcessPathfindQueue.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderCheckChangeLayers.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderReset.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderRva002F83F5Neighbors.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderSidewaysAttack.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/rva002F14F9Rva002F14F9Farm.cpp"
+   ],
+   "views": 10
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva002F5925InfoRva002F5925.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderProcessPathfindQueue.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderCheckChangeLayers.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderReset.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderRva002F83F5Neighbors.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderSidewaysAttack.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/rva002F14F9Rva002F14F9Farm.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva002F5925InfoRva002F5925.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderProcessPathfindQueue.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderCheckChangeLayers.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderReset.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderRva002F83F5Neighbors.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderSidewaysAttack.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/rva002F14F9Rva002F14F9Farm.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva002F5925InfoRva002F5925.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderProcessPathfindQueue.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderCheckChangeLayers.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderReset.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderRva002F83F5Neighbors.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderSidewaysAttack.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/rva002F14F9Rva002F14F9Farm.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderRva002F36E5.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderReset.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderRva002F83F5Neighbors.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderSidewaysAttack.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/rva002F14F9Rva002F14F9Farm.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva002F5925InfoRva002F5925.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderReset.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderRva002F83F5Neighbors.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderSidewaysAttack.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/rva002F14F9Rva002F14F9Farm.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderProcessPathfindQueue.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderRva002F36E5.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderReset.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 64,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIPathfind_setDebugPathPosition_Pathfinder_QAEXPBUCoord3D_Z.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderProcessPathfindQueue.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderRva002F36E5.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderReset.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 68,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIPathfind_setDebugPathPosition_Pathfinder_QAEXPBUCoord3D_Z.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderProcessPathfindQueue.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderRva002F36E5.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderReset.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 72,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIPathfind_setDebugPathPosition_Pathfinder_QAEXPBUCoord3D_Z.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineSetGoalWaypoint.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderSameCellRva002EE49B.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderReset.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderRva002F83F5Neighbors.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderSidewaysAttack.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 76,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Pathfinder_SetDebugPathPosition.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderReset.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 80,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Pathfinder_SetDebugPathPosition.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderReset.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 84,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Pathfinder_SetDebugPathPosition.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderReset.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 88,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/Pathfinder_SetDebugPath.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderReset.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 92,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderClassifyWall.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderRva002E9442.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Pathfinder_IsPointOnRamp.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderCheckChangeLayers.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderReset.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderRva002F83F5Neighbors.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderSidewaysAttack.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/rva002F14F9Rva002F14F9Farm.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewDraw.cpp"
+   ],
+   "views": 12
+  },
+  {
+   "offset": 96,
+   "sources": [
+    "Code/GameEngine/Source/Common/Pathfinder_SetBridgeStateRepaired.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderBuildGroundPath.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderClassifyWall.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderDestructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderProcessPathfindQueue.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderCheckChangeLayers.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderNewMap.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderRva002F83F5Neighbors.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderSidewaysAttack.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderUpdateLayer.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/rva002F14F9Rva002F14F9Farm.cpp"
+   ],
+   "views": 15
+  },
+  {
+   "offset": 152,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderRva002E9442.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 224,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderSelectBridgeLayer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1116,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1120,
+   "sources": [
+    "Code/GameEngine/Source/Common/Pathfinder_SetBridgeStateRepaired.cpp",
+    "Code/GameEngine/Source/Common/Rva002F5925InfoRva002F5925.cpp",
+    "Code/GameEngine/Source/Common/rva0052E4C9Rva0052E4C9Farm.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderClassifyMapCell.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderClassifyObjectFootprint.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderClassifyPolygonCell.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderClassifyWall.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderDestructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderProcessPathfindQueue.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderQuickStructure.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderRva002E99F9.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderBridgeUpdateRva0052ED74.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderCheckChangeLayers.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderNewMap.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderRva002F83F5Neighbors.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderSidewaysAttack.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/rva002F14F9Rva002F14F9Farm.cpp"
+   ],
+   "views": 19
+  },
+  {
+   "offset": 114296,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderClassifyPolygonCell.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 114321,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderClassifyWall.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 114352,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 114353,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 114356,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderClassifyObjectFootprint.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderClassifyWall.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderProcessPathfindQueue.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderReset.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 114357,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderClassifyObjectFootprint.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderProcessPathfindQueue.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderReset.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 114358,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderCheckChangeLayers.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderReset.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderRva002F83F5Neighbors.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderSidewaysAttack.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/rva002F14F9Rva002F14F9Farm.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 114360,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderClassifyWall.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderRva002E9442.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderReset.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 114364,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderClassifyWall.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderRva002E9442.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderCheckChangeLayers.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderReset.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderRva002F83F5Neighbors.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderSidewaysAttack.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/rva002F14F9Rva002F14F9Farm.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 114620,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderClassifyWall.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderDestructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 114876,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderReset.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 115128,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 115132,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 115136,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderClassifyWall.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderDestructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 115140,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderClassifyWall.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 115144,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderClassifyWall.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 115148,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderDestructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderCheckChangeLayers.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderRva002F83F5Neighbors.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderSidewaysAttack.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/rva002F14F9Rva002F14F9Farm.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 115152,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderCheckChangeLayers.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderRva002F83F5Neighbors.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderSidewaysAttack.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/rva002F14F9Rva002F14F9Farm.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 115156,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderCheckChangeLayers.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderRva002F83F5Neighbors.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderSidewaysAttack.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/rva002F14F9Rva002F14F9Farm.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 115160,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderSidewaysAttack.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 115164,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderSidewaysAttack.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 115168,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderProcessPathfindQueue.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderQueueForPath.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 117212,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 117216,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderProcessPathfindQueue.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderQueueForPath.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderReset.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 117220,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderProcessPathfindQueue.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderQueueForPath.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderReset.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 117224,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderProcessPathfindQueue.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderQueueForPath.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 119268,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 119272,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderProcessPathfindQueue.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderQueueForPath.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderReset.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 119276,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderProcessPathfindQueue.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderQueueForPath.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderReset.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 119280,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderDestructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderRva002F36E5.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/rva002F14F9Rva002F14F9Farm.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 119284,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderRva002F36E5.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/rva002F14F9Rva002F14F9Farm.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 119288,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderConstructor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 119292,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderConstructor.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "slot7",
+   "candidates": {
+    "QuickPathReserved7()": 1
+   },
+   "class": "Pathfinder",
+   "why": "beyond the retail vftable's 7 slots"
+  },
+  {
+   "attribute": "slot8",
+   "candidates": {
+    "QuickPathReserved8()": 1
+   },
+   "class": "Pathfinder",
+   "why": "beyond the retail vftable's 7 slots"
+  },
+  {
+   "attribute": "slot9",
+   "candidates": {
+    "QuickPathReserved9()": 1
+   },
+   "class": "Pathfinder",
+   "why": "beyond the retail vftable's 7 slots"
+  },
+  {
+   "attribute": "slot10",
+   "candidates": {
+    "FindCollisionFreeQuickPath(Object*,Coord3D*,PathNode*)": 1
+   },
+   "class": "Pathfinder",
+   "why": "beyond the retail vftable's 7 slots"
+  }
+ ],
+ "size": 1124,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "bytes",
+   "member": "QuickPathReserved1()"
+  },
+  "2": {
+   "decided_by": "bytes",
+   "member": "QuickPathReserved2()"
+  },
+  "3": {
+   "decided_by": "bytes",
+   "member": "QuickPathReserved3()"
+  },
+  "4": {
+   "decided_by": "bytes",
+   "member": "QuickPathReserved4()"
+  },
+  "5": {
+   "decided_by": "bytes",
+   "member": "QuickPathReserved5()"
+  },
+  "6": {
+   "decided_by": "bytes",
+   "member": "QuickPathReserved6()"
+  }
+ }
+}
