@@ -32,11 +32,7 @@ enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 #include "../../../Common/GameLogicObjectLookupView.h"
 // ?xfer@ToggleHiddenSpecialAbilityUpdate@@MAEXPAVXfer@@@Z @0x004AE25C 42B slot 3.

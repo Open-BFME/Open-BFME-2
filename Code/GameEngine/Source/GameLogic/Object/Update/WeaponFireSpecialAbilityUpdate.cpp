@@ -235,11 +235,7 @@ private:
 	Weapon *m_weapon; // +0x88
 };
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

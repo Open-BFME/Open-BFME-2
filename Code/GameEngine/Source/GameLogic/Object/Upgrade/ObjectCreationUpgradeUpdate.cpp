@@ -37,11 +37,7 @@ class UpgradeTemplate;
 class Object;
 class ModuleData;
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 
 class ThingFactory
 {

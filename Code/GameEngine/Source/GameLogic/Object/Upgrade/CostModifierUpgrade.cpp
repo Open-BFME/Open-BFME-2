@@ -235,11 +235,7 @@ private:
 	_STL::vector<AsciiString> m_applyToTheseUpgrades; // +0x130, ApplyToTheseUpgrades
 };
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

@@ -27,11 +27,7 @@ class BfmeObjF9;
 class GeometryUpgradeModuleData;
 
 // ?getModuleNameKey@GeometryUpgrade@@UBE?AW4NameKeyType@@XZ
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
