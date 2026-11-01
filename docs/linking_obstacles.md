@@ -9902,6 +9902,8 @@ Remaining / next check: scheduled census/consumer confirmation and proper TU/nam
 Clearance: bounded three-source preview only; prospective27B linked gain, matched coverage preserved across the published pair.
 Census confirmation: not claimed.
 
+Caller cleanup follow-up (2026-11-01): the unused static max override and its three optimization pragmas are removed. The sole emitted code body/relocations and all external symbol bindings remain identical; normal, frozen and strict checks pass, retaining3/3LINKS and124B. Three additional hatch keys retire, no additional linking gain. Prior identity publication10b53e754c audit is INCONCLUSIVE on missing current0CreateAHeroManager21FE49 receipt; broader consumers remain for the next scheduled census. Evidence beside the LINK-057 identity packet: caller-hatch-proof.json and caller-hatch-preview.txt.
+
 ### LINK-058: narrow istream find_if sweep row calls a record-construction worker
 
 Status: Repair landed / awaiting census. Updated: 2026-10-31; inspected index: `d913de13fd`.

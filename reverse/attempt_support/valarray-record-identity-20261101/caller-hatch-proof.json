@@ -1,0 +1,9 @@
+{
+  "exact": true,
+  "named_code_definitions": 1,
+  "all_code_bodies_and_relocations_unchanged": true,
+  "all_definitions_references_weak_aliases_includes_unchanged": true,
+  "removed_code_names": [],
+  "pragma_count_before": 3,
+  "pragma_count_after": 0
+}
