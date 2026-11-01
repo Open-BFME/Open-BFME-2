@@ -11,39 +11,7 @@ extern void *DebugReAllocMemory(void *, unsigned);
 extern void DebugFreeMemory(void *);
 
 // upstream layout: reference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug/debug_debug.h
-class Debug
-{
-public:
-    // One pending frame-delayed command (8 bytes; array grows 0x10 at a time).
-    struct FrameCommand
-    {
-        int frame;
-        const char *command;
-    };
-
-    // Runs and frees every pending command whose frame has arrived. Debug
-    // vtable (RVA 0x7BE810) slot 0x90; the name is inferred from behavior
-    // (pops due entries off the sorted list, re-runs them through
-    // ExecCommand, frees the strings).
-    virtual void ExecuteFrameCommands(int frame);
-
-private:
-    // Retail Debug layout window used here (cf. debug_debug.cpp views).
-    char m_pad[0x9E04];                 // after the vptr
-    FrameCommand *frameCommands;        // 0x9E08, sorted by frame
-    unsigned numFrameCommands;          // 0x9E0C
-    unsigned frameCommandsAlloc;        // 0x9E10, capacity in entries
-
-    // Sorted-insert of (frame, command); grows via DebugReAllocMemory.
-    // Returns the new entry count. Identity inferred from behavior
-    // (sole caller is ExecCommand's "<frame>:" prefix path, which discards
-    // the result; retail materializes ++numFrameCommands in eax, not the
-    // array base, so the count -- not the base -- is the true return).
-    unsigned ScheduleFrameCommand(int frame, const char *command);
-
-    // Resolves via the existing ExecCommand pin (private non-virtual bool).
-    bool ExecCommand(const char *, const char *);
-};
+#include "../../../GameEngine/Source/Common/debug.h"
 
 // ?ScheduleFrameCommand@Debug@@AAEIHPBD@Z
 unsigned Debug::ScheduleFrameCommand(int frame, const char *command)

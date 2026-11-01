@@ -8,20 +8,13 @@
 // Debug model is reduced to its vtable pointer and the flag; the name is
 // address-derived since the member's identity is not recovered.
 
-class Debug
-{
-public:
-	virtual void _M_slot_00();
-
-	char m_bfme0004[0x9F53];
-	bool m_bfme9F57;
-};
+#include "../../../GameEngine/Source/Common/debug.h"
 
 extern Debug *theDebug;
 
 bool bfmeRva000387C0()
 {
-	return theDebug->m_bfme9F57;
+	return theDebug->logErrorsToFile;
 }
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's

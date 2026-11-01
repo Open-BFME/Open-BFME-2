@@ -15,26 +15,7 @@ public:
     virtual bool HasInput(void)=0;
 };
 
-class Debug
-{
-    struct IOFactoryListEntry
-    {
-        IOFactoryListEntry *next;
-        const char *ioID;
-        const char *descr;
-        DebugIOInterface *(*factory)(void);
-        DebugIOInterface *io;
-        char *input;
-        unsigned inputUsed;
-        unsigned inputAlloc;
-    };
-
-    unsigned char m_pad[0x0C - 4];	// after the vptr
-    IOFactoryListEntry *firstIOFactory;
-
-public:
-    virtual int GetInput(char *, int, bool *);	// slot 38
-};
+#include "../../../../GameEngine/Source/Common/debug.h"
 
 // ?GetInput@Debug@@UAEHPADHPA_N@Z
 int Debug::GetInput(char *buf, int maxchar, bool *hasInput)

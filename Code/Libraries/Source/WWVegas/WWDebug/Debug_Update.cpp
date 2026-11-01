@@ -15,28 +15,7 @@ public:
 
 extern "C" void *realloc(void *, unsigned);
 
-class Debug
-{
-    struct IOFactoryListEntry
-    {
-        IOFactoryListEntry *next;
-        const char *ioID;
-        const char *descr;
-        DebugIOInterface *(*factory)(void);
-        DebugIOInterface *io;
-        char *input;
-        unsigned inputUsed;
-        unsigned inputAlloc;
-    };
-
-    char m_prefix[0x0C - 4];	// after the vptr
-    IOFactoryListEntry *firstIOFactory;
-
-    bool ExecCommand(const char *, const char *);
-
-public:
-    virtual void Update(void);	// slot 37
-};
+#include "../../../../GameEngine/Source/Common/debug.h"
 
 // ?Update@Debug@@UAEXXZ
 void Debug::Update(void)

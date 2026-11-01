@@ -8,11 +8,7 @@
 
 #include <string.h>
 
-class Debug
-{
-public:
-    static bool SimpleMatch(const char *str, const char *pattern);
-};
+#include "../../../../GameEngine/Source/Common/debug.h"
 
 struct Rva0088A7E0FrameHashEntry
 {

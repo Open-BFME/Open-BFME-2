@@ -13,14 +13,7 @@
 
 #include <string.h>
 
-class Debug
-{
-public:
-	virtual bool Command(const char *cmd);
-
-private:
-	bool ExecCommand(const char *cmdstart, const char *cmdend);
-};
+#include "../../../../GameEngine/Source/Common/debug.h"
 
 // ?Command@Debug@@UAE_NPBD@Z
 bool Debug::Command(const char *cmd)

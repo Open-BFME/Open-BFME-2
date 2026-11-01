@@ -226,26 +226,7 @@ struct BfmeNarrowRecord00079C23
 #define V32(p) V16(p##a) V16(p##b)
 #define V64(p) V32(p##a) V32(p##b)
 
-class Debug
-{
-public:
-	class Format
-	{
-	public:
-		Format(const char *format, ...);
-	private:
-		char m_text[512];
-	};
-	V8(p0) V4(p1) V2(p2)
-	virtual Debug &operator<<(const char *text);                      // +0x38
-	V4(p3)
-	virtual void CrashDone(int mode);                                  // +0x4C
-	V4(p4)
-	virtual void SkipNext();                                           // +0x60
-	V2(p5)
-	virtual Debug &CrashBegin(const char *file, int line, int group);  // +0x6C
-	static bool SkipNext(bool set);
-};
+#include "../../../../GameEngine/Source/Common/debug.h"
 extern Debug *theDebug;
 bool bfmeRva000387C0();
 template <typename T> Debug &operator<<(Debug &, const StringBase<T> &);
