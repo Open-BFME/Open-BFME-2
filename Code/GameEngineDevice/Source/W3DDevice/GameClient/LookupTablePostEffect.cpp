@@ -185,9 +185,30 @@ struct IDirect3DTexture8;
 
 void Rva00075A23Draw(int width, int height);
 
-// tu-skeleton: 0x00111B84 22B ??0LookupTablePostEffect@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/LookupTablePostEffectCtor.cpp (not merged yet)
+// ??1LookupTablePostEffect@@UAE@XZ @ 0x00111B9A 79B: dtor installs vtable 0x00BCFAC8,
+// calls row 0x00116496 then Field08 inline release at +0x08 via dec and virtual slot0
+// then base dtor at 0x0011647B. Prev ctor proves class and vtable. Next slot3 proves +0x08.
+class Rva00116496
+{
+public:
+    void rva00116496();
+};
 
-// tu-skeleton: 0x00111B9A 79B ??1LookupTablePostEffect@@UAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/LookupTablePostEffectDtor.cpp (not merged yet)
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/LookupTablePostEffectCtor.cpp
+
+// ??0LookupTablePostEffect@@QAE@XZ
+LookupTablePostEffect::LookupTablePostEffect()
+{
+}
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/LookupTablePostEffectDtor.cpp
+
+LookupTablePostEffect::~LookupTablePostEffect()
+{
+    ((Rva00116496 *)this)->rva00116496();
+}
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/LookupTablePostEffect.cpp
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/LookupTablePostEffectSlot3.cpp
 
@@ -263,11 +284,3 @@ void LookupTablePostEffect::doApply()
 	((BfmeSetShaderFn)deviceSlot(107))(DX8Wrapper::_Get_D3D_Device8(), 0);
 	number_of_DX8_calls++;
 }
-
-// tu-skeleton: 0x00111D9A 28B ??_GLookupTablePostEffect@@UAEPAXI@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/LookupTablePostEffectDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x007649D6 8B Unwind@00b649d6 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/LookupTablePostEffectDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x007649DE 11B $L366 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/LookupTablePostEffectDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x007649E9 10B __ehhandler$??1LookupTablePostEffect@@UAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/LookupTablePostEffectDtor.cpp (not merged yet)
