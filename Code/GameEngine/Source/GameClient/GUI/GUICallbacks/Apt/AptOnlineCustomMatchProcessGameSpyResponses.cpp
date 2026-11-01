@@ -271,12 +271,6 @@ public:
 // temporary compared through it needs no unwind state (retail registers none
 // for the clan id); the spelling resolves to the rowed
 // StringBase<char>::compare(const char *) at 0x000069B1 (as INIAsciiIndexParse.cpp).
-class Rva004DBFF1Name : public AsciiString
-{
-public:
-	int compareText(const char *text) const throw();
-};
-
 // Rowed getter of the slot's clan id.
 class Rva003821B9AsciiField
 {

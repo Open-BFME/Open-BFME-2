@@ -154,13 +154,6 @@ namespace _STL
 
 struct Rva00511E48;
 
-class Rva0051211C : public _STL::vector<Rva00511E48>
-{
-public:
-	__forceinline Rva0051211C(unsigned int n) : _STL::vector<Rva00511E48>(n) {}
-	~Rva0051211C();
-};
-
 class AptCommandMap;
 class AptExternHandler;
 class AptCustomRender;

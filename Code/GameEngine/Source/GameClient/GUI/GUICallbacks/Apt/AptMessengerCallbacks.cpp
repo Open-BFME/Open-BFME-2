@@ -573,12 +573,6 @@ struct MessengerButton
 	bool enabled;
 };
 
-class Rva002D34FE
-{
-public:
-	bool rva00401E2F();
-};
-
 class BfmeAptWindowManager
 {
 public:

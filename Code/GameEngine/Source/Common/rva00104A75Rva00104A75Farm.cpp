@@ -255,12 +255,6 @@ public:
 };
 extern Display *TheDisplay;
 
-class Rva002D3850
-{
-public:
-	float *GetRadarViewBoxCorner(int index);
-};
-
 inline float sqr(float operand) { return operand * operand; }
 
 // Its inline members compile as PathfinderSidewaysAttack.cpp's (built /Ow)

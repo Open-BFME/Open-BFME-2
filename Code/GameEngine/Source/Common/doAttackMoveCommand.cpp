@@ -105,13 +105,6 @@ public:
 
 extern InGameUI *TheInGameUI;
 
-struct Coord3DBase
-{
-	float x;
-	float y;
-	float z;
-};
-
 class PickAndPlayInfo
 {
 public:

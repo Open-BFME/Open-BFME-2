@@ -55,8 +55,6 @@ class Rva0043EA9C {public:
 };
 class Image;
 typedef _STL::map<unsigned, void *, _STL::less<unsigned>, _STL::allocator<_STL::pair<const unsigned, void *> > > RespawnPtrMap;
-class BFME2RespawnRuleTree {public:
-	void *sentinel;};
 typedef _STL::map<unsigned, Image *, _STL::less<unsigned>, _STL::allocator<_STL::pair<const unsigned, Image *> > > ImageNameMap;
 namespace _STL {
 typedef _Rb_tree<unsigned, pair<const unsigned, Image *>, _Select1st<pair<const unsigned, Image *> >,

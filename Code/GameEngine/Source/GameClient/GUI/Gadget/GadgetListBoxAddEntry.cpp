@@ -28,16 +28,6 @@ typedef unsigned int UnsignedInt;
 
 class GameFont;
 
-class FXParticleSystem
-{
-public:
-	template <int N> class CategoryModuleClass
-	{
-	public:
-		const char *getName() const;
-	};
-};
-
 class Rva00313D6CDwordField
 {
 public:

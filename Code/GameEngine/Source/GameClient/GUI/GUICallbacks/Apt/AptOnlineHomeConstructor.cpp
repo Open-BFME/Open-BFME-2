@@ -87,14 +87,6 @@ private:
 	_STL::vector<AsciiString> m_names;
 };
 
-class AptOverButtonHandlerAdder
-{
-public:
-	void AddOverButtonHandler(const AsciiString &name, AptRef<AptOverButtonHandler> handler);
-private:
-	_STL::vector<AsciiString> m_names;
-};
-
 class AptScreenInitGadgets;
 void _bfme_setAptScreenRef(const AsciiString &name, AptRef<AptScreenInitGadgets> ref);
 

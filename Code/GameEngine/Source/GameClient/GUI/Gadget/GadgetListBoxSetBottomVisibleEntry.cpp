@@ -44,17 +44,6 @@ struct ListboxData
 	Short displayPos;
 };
 
-struct AddMessageStruct
-{
-	Int row;
-	Int column;
-	const void *data;
-	Int type;
-	Bool overwrite;
-	Int width;
-	Int height;
-};
-
 class GameWindowManager
 {
 public:

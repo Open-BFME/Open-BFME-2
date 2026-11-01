@@ -14,11 +14,6 @@ typedef int Int;
 typedef bool Bool;
 typedef float Real;
 
-struct Coord3DBase
-{
-	float x, y, z;
-};
-
 #include "../../../../../../Libraries/Include/Lib/Coord3D.h"
 
 #include "../../../../../../Libraries/Include/Lib/Region3D.h"

@@ -103,11 +103,6 @@ struct AptTimeLinePlayer
 };
 
 // AptSaveLoad_OpenScreen.cpp's 0x00434160 and Rva00433D3CClear.cpp's 0x00433D3C.
-class AptSaveLoad
-{
-public:
-	static void OpenScreen(int a, int b, bool c);
-};
 void Rva00433D3CClear();
 
 // TheAudio: vslot 35 stops the given audio kinds, vslot 25 plays an

@@ -31,7 +31,7 @@ Rva005EF5CA operator+(const AsciiStringPlusStringText&,const AsciiString&);
 #include "unicode_string.h"
 struct TargetRef00217D4C;void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
 class ObjectCreationList {public:ObjectCreationList();char data[12];};
-class Rva0052413E {public:~Rva0052413E();};class Rva005242D7 {public:~Rva005242D7();};class Rva00524349 {public:~Rva00524349();};
+class Rva005242D7 {public:~Rva005242D7();};class Rva00524349 {public:~Rva00524349();};
 class AptCommandMapAdder {public:__declspec(dllimport) __forceinline AptCommandMapAdder(){}void AddCommandMap(const AsciiString&,AptRef<AptCommandMap>);ObjectCreationList state;~AptCommandMapAdder();};
 class Rva00524415 {public:Rva00524415();char data[24];};class Rva00524436{public:~Rva00524436();};
 class AptOverButtonHandler;

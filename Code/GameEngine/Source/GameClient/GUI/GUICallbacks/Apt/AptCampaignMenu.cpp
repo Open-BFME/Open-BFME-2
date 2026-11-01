@@ -276,12 +276,6 @@ private:
 	char m_278;
 };
 
-class BfmeAptFunctorMarker
-{
-public:
-	virtual void marker() = 0;
-};
-
 class AptCampaignMenu : public _bfme_AptGameWindow
 {
 public:

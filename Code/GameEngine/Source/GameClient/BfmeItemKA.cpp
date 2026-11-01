@@ -649,13 +649,6 @@ extern Rva0040AAD5 *TheAwardSystemManager;
 
 struct _s__ThrowInfo;
 
-struct INIException
-{
-	char *mFailureMessage;
-	int m_argCount;
-	INIException(int argCount, const char *format, ...);
-};
-
 extern "C" void __stdcall _CxxThrowException(void *exceptionObject, const _s__ThrowInfo *throwInfo);
 
 extern "C" const _s__ThrowInfo __identifier("_TI1?AVINIException@@");
