@@ -107,7 +107,7 @@ ParticleSystem *Make001FCBD7();
 // ?BfmeParticleSystemHandle::operator-> present-unmatched
 inline ParticleSystem*BfmeParticleSystemHandle::operator->()const {return system?system:Make001FCBD7();}
 enum ParticleSystemID {INVALID_PARTICLE_SYSTEM_ID=0};
-class ParticleSystemManager {private:BfmeParticleSystemHandle findParticleSystemByID(ParticleSystemID);friend class W3DScriptedModelDraw;};
+#include "../../../../../../GameEngine/Include/GameClient/ParticleSys.h"
 extern ParticleSystemManager *TheParticleSystemManager;
 struct EventNugget {void *vt;int type;char pad[0x15c-8];unsigned particle;};
 struct EventCollection {char pad[4];_STL::list<Rva000BC0DBElement> list;};

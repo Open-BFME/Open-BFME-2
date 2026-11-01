@@ -72,12 +72,7 @@ namespace FXParticleSystem { class ParticleSystemTemplate { public: AsciiString 
 
 class ParticleSystemTemplate;
 
-class ParticleSystemManager
-{
-public:
-    ParticleSystemTemplate *findTemplate(const AsciiString &) const;
-    BfmeParticleSystemHandle createParticleSystem(const ParticleSystemTemplate *, bool);
-};
+#include "../../../../GameEngine/Include/GameClient/ParticleSys.h"
 
 extern ParticleSystemManager *TheParticleSystemManager;
 

@@ -474,13 +474,7 @@ public:
 	virtual void *getRenderObject(void);	// slot 49 (+0xC4)
 };
 
-class ParticleSystemManager
-{
-public:
-	ParticleSystemTemplate *findTemplate(const AsciiString &name) const throw();
-	BfmeParticleSystemHandle createParticleSystem(
-		const ParticleSystemTemplate *sysTemplate, Bool createSlaves) throw();
-};
+#include "../../../../../../GameEngine/Include/GameClient/ParticleSys.h"
 
 extern ParticleSystemManager *TheParticleSystemManager;
 

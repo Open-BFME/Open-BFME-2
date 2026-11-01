@@ -42,7 +42,7 @@ class BfmeParticleSystemHandle { public:
     }
 };
 class ParticleSystemTemplate;
-class ParticleSystemManager { public: ParticleSystemTemplate *findTemplate(const AsciiString&)const; BfmeParticleSystemHandle createParticleSystem(const ParticleSystemTemplate*,bool); };
+#include "../../../../../../GameEngine/Include/GameClient/ParticleSys.h"
 extern ParticleSystemManager*TheParticleSystemManager;
 struct TruckDataEmitterView { char pad[0x188]; AsciiString dust,dirt,power; };
 class W3DTankTruckDraw {

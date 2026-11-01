@@ -26,11 +26,7 @@ public:
 };
 enum ParticleSystemID { INVALID_PARTICLE_SYSTEM_ID=0 };
 class W3DModelDraw;
-class ParticleSystemManager
-{
- friend class W3DModelDraw;
- BfmeParticleSystemHandle findParticleSystemByID(ParticleSystemID);
-};
+#include "../../../../../../GameEngine/Include/GameClient/ParticleSys.h"
 extern ParticleSystemManager *TheParticleSystemManager;
 struct Rva000B6EDEParticleNode
 {

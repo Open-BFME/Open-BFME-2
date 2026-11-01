@@ -171,14 +171,7 @@ public:
 
 class ParticleSystemTemplate;
 class W3DModelDraw;
-class ParticleSystemManager
-{
-	BfmeParticleSystemHandle findParticleSystemByID(ParticleSystemID);
-	friend class W3DModelDraw;
-public:
-	BfmeParticleSystemHandle createParticleSystem(
-		const ParticleSystemTemplate *sysTemplate, Bool createSlaves) throw();
-};
+#include "../../../../../../GameEngine/Include/GameClient/ParticleSys.h"
 extern ParticleSystemManager *TheParticleSystemManager;
 
 #include "../../../../../../GameEngine/Include/GameLogic/TerrainLogic.h"
