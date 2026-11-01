@@ -85,12 +85,6 @@ int __cdecl Rva00524EF4AptCall(Rva00222A8BTarget *t, void *a1, const char *a2, c
 // and 0x0059F296).
 void Rva0059F20BSet(int slot, const UnicodeString &text);
 void Rva0059F296Set(int slot, const UnicodeString &text);
-class AptSaveLoad
-{
-public:
-	static void OpenScreen(int a, int b, bool c);
-};
-
 // The game slot the owner menus edit. Target facts: Team writes +0x1C;
 // the host's name (slot 0) is the UnicodeString at +0x30 that
 // AsciiString::translate 0x00038220 reads. encodeHero is the rowed
@@ -185,11 +179,6 @@ public:
 	void setMapCRC(unsigned int crc);	// rowed 0x00400E9F
 	void setMapSize(unsigned int size);  // rowed 0x00400F5A
 };
-
-class Rva0022C4DF { public: UnicodeString rva0022C4DF() const; };
-class Rva003821E2 { public: void assign(UnicodeString); };
-class Rva0059F322AsciiField { public: AsciiString get() const; };
-class Rva0059F2EB { public: void rva0059F2EB(AsciiString); };
 
 class GameSpyGameSlot : public GameSlot
 {
@@ -430,28 +419,10 @@ public:
 	void rva0059ECAD(int password); // rowed 0x0059ECAD, the join request
 };
 
-class Rva0059F340AsciiField
-{
-public:
-	AsciiString get() const;
-};
-
-class Rva0059EF62
-{
-public:
-	void rva0059EF62(unsigned int a, unsigned int b, const AsciiString &password, const AsciiString &text, unsigned int c);
-};
-
 UnicodeString GadgetTextEntryGetText(GameWindow *window); // rowed 0x00320AAB
 
 // The +0x70 panel's rowed 0x0043DBCA test and the screen's state-2 action
 // 0x005A5B38 (address-named views).
-class Rva0043DFE0
-{
-public:
-	bool rva0043DBCA();
-};
-
 class Rva005A5B38Box
 {
 public:
@@ -474,12 +445,6 @@ public:
 };
 
 void _bfme_closeAptScreen(const AsciiString &name);
-
-class Rva0052493F
-{
-public:
-	void rva0052493F();
-};
 
 // The screen's full object, as the placeholder row 0x0059F950 names it.
 class Rva0059F950
@@ -556,13 +521,6 @@ public:
 
 // The NAT the custom match creates in state 12 (0x974 bytes, rowed ctor
 // 0x005A721C); it is stored into TheNAT.
-class Rva005A734B
-{
-public:
-	Rva005A734B();
-	unsigned char m_data[0x974];
-};
-
 // TheNAT 0x00A063F8, read through the Rva005A6D47 view.
 extern NAT *TheNAT;
 
@@ -882,9 +840,6 @@ void GadgetTextEntrySetText(GameWindow *, UnicodeString);
 extern int g_Va00E063F0;
 void __cdecl Rva00381C2DClear(unsigned int value);
 void GSMessageBoxOk(UnicodeString title, UnicodeString message, void (*okFunc)());
-class Rva005170CD { public: void rva005170CD(); };
-class Rva0059FC9F { public: int rva0059FC9F(); };
-
 // Retail 0x005A61C6, 956 bytes: slot 3 of vftable 0x00871414, the screen's
 // per-frame step over its +0x488 state (WorldBuilder twin 0x014E76B0, a
 // later revision with extra calls, unnamed; strings "OnStartLobby",

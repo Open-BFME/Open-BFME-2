@@ -211,26 +211,8 @@ class MixFileInfoBuffer;
 extern Int TheMixFileInfoPool;
 void Rva0052DBCDInit();
 MixFileInfoBuffer *Rva002E8B7AInit(MixFileInfoBuffer **,Int,In002E6BA1 *);
-class Rva002E6AF3
-{
-public:
-	int get() const;
-};
-class Rva002E6B06
-{
-public:
-	int rva002E6B06();
-};
 class Rva002E6C79;
 struct Rva002E8BCFSrc;
-class Rva002E8BCF
-{
- public: Rva002E8BCF(const Rva002E8BCFSrc *,Bool,Int,Bool);
- Int surfaces;
- Bool field4,field5;
- Int maxLayer;
- Bool fieldC;
-};
 class Rva002E6DC4
 {
 public:
@@ -356,28 +338,6 @@ static __forceinline Int realToIntFloor(float f)
  }
  return i;
 }
-class Rva002F3738
-{
- public:
- void rva002F3738(void **entry);
-};
-struct _Rva002E7B02Cell
-{
- Int x;
- Int y;
- Int z;
-};
-class Rva002E7B02
-{
- public:
- Rva002E7B02(Int a, Int b, const _Rva002E7B02Cell &cell);
- private:
- Int m_00;
- Int m_04;
- Int m_08;
- Int m_0C;
- Int m_10;
-};
 struct Rva002E7B29Info;
 template<int N> class PathfinderNativeSlots : public PathfinderNativeSlots<N-1>
 {
@@ -385,26 +345,6 @@ template<int N> class PathfinderNativeSlots : public PathfinderNativeSlots<N-1>
 };
 template<> class PathfinderNativeSlots<0>
 {
-};
-class TerrainLogicCheckDestination : public PathfinderNativeSlots<50>
-{
- public: virtual bool slotC8(const Coord3D *);
-};
-class PathfinderContain28 : public PathfinderNativeSlots<28>
-{
- public: virtual int slot70();
-};
-class PathfinderContain31 : public PathfinderNativeSlots<31>
-{
- public: virtual void *slot7C();
-};
-class PathfinderContain69 : public PathfinderNativeSlots<69>
-{
- public: virtual unsigned int slot114(int);
-};
-class TerrainLogicWaterQuery : public PathfinderNativeSlots<19>
-{
- public: virtual bool slot4C(float,float,float *,void *,void *);
 };
 class TerrainLogic
 {
@@ -708,26 +648,7 @@ struct Rva002ED236Pos
  }
 };
 int Rva002E6E8AGet(int layer);
-class Rva002E7482
-{
- public: float rva002E7482(int layer);
-};
 #include "ascii_string.h"
-struct GeometryShape
-{
- int type;
- float height,major,minor;
- float offsetX,offsetY,offsetZ;
- AsciiString name;
- bool enabled,opaque21;
- __forceinline GeometryShape() : type(0),height(1),major(1),minor(1),offsetX(0),offsetY(0),offsetZ(0),enabled(true),opaque21(true)
- {
- }
-};
-class GeometryInfo
-{
- public: void rva006BD9C0(GeometryShape &) const;
-};
 class Rva002E9D09
 {
 public:
@@ -758,16 +679,6 @@ private:
 	unsigned char m_15[3]; // +0x15
 	int m_18; // +0x18
 };
-class Rva0006E009DwordField
-{
-public:
-	int get()const;
-};
-class Rva0052DB4D
-{
-public:
-	Bool rva0052DB4D(Int);
-};
 void rva002E79A8(int,unsigned char,int,int,int);
 // Native 0x002F01B6 addresses this 12-byte floating scratch first. Later
 // 0x002F0369 stores integer position at scratch+4 and diameter at scratch+12.
@@ -786,22 +697,6 @@ struct PathfinderLogFile;
 extern "C" int __cdecl fprintf(PathfinderLogFile *,const char *,...);
 extern unsigned char g_00E03745;
 extern "C" void *theLogicRandomLogFile;
-class Rva002F6F90Context
-{
- public: Bool rva002F6F90(unsigned int,Int);
-};
-class Rva002F70E5Context
-{
- public: Bool rva002F70E5(unsigned int,Int);
-};
-class Rva002E7440
-{
- public: Bool rva002E7440(Int,Int);
-};
-class Rva002E7414
-{
- public: Int rva002E7414(Int,Int);
-};
 class Rva002F336AOwner
 {
 public:
@@ -936,12 +831,6 @@ class Pathfinder
 // +0x1C1CC
  char pad1c1d8[0x1d1f0-0x1c1d8];
  PathfinderOpenQueue m_openCells;
-};
-class Rva002E99F9Sub460
-{
-public:
-	unsigned short rva0053241F(void *locomotor, unsigned short zone);
-	unsigned short rva00531FD4(void *locomotor, unsigned short zone);
 };
 // The 0x002E8045 walk calls this ABI view. The callback at 0x002E7261
 // writes its result key at +8 and cell coordinates at +0xC/+0x10.

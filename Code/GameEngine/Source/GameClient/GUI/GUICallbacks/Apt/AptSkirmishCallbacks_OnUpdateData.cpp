@@ -88,12 +88,6 @@ extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 // MpGameSetupSlots.cpp's 0x0043DB23 runs an Apt function on a movie.
 int Rva0043DB23(Rva00222A8BTarget *target, void *owner, const char *name);
 
-class Rva00222479ByteOneSetter
-{
-public:
-	void enable();
-};
-
 class GameInfo;
 class SkirmishGameInfo; extern SkirmishGameInfo *TheSkirmishGameInfo;
 
@@ -217,10 +211,6 @@ public:
 };
 // Target memberwise assignment at 0x005232D0 copies the 0x20-byte preference
 // record shape; its owning type remains address-derived in the ledger.
-struct Rva005232D0
-{
-	Rva005232D0 &operator=(const Rva005232D0 &other);
-};
 class GameSlot;
 class GameInfo
 {
@@ -232,12 +222,6 @@ public:
 class SkirmishGameInfo; extern SkirmishGameInfo *TheSkirmishGameInfo;
 extern int g_Va00E0333C;
 void __cdecl operator delete(void *p);
-class Panel00E0333C
-{
-public:
-	virtual void p0();
-	virtual void p1slot4();
-};
 void Rva00521643Enable();
 
 
@@ -382,26 +366,17 @@ class GlobalData {public:char pad[12];AsciiString map;};extern GlobalData *TheWr
 class Display {public:char pad[0x114];bool flag;};extern Display *TheDisplay;
 class Shell {public:void rva0035BF4C(bool);};extern Shell *TheShell;
 class AptFocusTarget;class AptPlayer {public:void PopFocus(AptFocusTarget *);};
-struct StartGameInfoView {char pad[0x50];unsigned seed;int u54;int scenario;};
 class MapMetaData {public:char pad[0x24];bool official;};
 class MapCache {public:const MapMetaData *findMap(AsciiString);};extern MapCache *TheMapCache;
 void InitGameLogicRandom(unsigned);
 class GameMessageArgument {public:char pad[8];int value;char tail[12];int type;};
 class GameMessage { GameMessageArgument *allocArg(); public:void appendIntegerArgument(int);
  void wb00EC9680(int);};
-class StartGameSetupView {public:
- virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10();
- virtual void start(int);
-};
 class VideoPlayerInterface {public:
  virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15(); virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19(); virtual void v20(); virtual void v21(); virtual void v22(); virtual void v23(); virtual void v24(); virtual void v25(); virtual void v26(); virtual void v27();
  virtual void stopAll();
 };
 extern VideoPlayerInterface *TheVideoPlayer;
-class Rva002D3627Host {public:
- virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9();
- virtual void enable(bool);
-};
 class LivingWorld; extern LivingWorld *TheLivingWorld;
 class MessageStream {public:
  virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15(); virtual void v16(); virtual void v17();
@@ -411,20 +386,12 @@ extern MessageStream *TheMessageStream;
 
 
 
-class Rva0004582DSarAvgField {public:int get() const;};
 class LivingWorldCampaignManager {public:void *GetCampaign(int);};extern class Rva00E02D6C *TheCampaignManager;
 #define g_00E02D6C (*(LivingWorldCampaignManager * *)&TheCampaignManager)
 // ^ g_00E02D6C is only an alias of the owned global TheCampaignManager (ledger names column).
-class Rva003B8B2A {public:int rva003B8B2A();};
-class Rva0052BAB2 {public:int rva0052BAB2() const;};
 enum Rva004FD8B8RegionID { Rva004FD8B8RegionID_Representation = 0 };
-class LivingWorldScenario {public:class Scenario {public:void getDefaultStartSpots(const AsciiString &,_STL::vector<Rva004FD8B8RegionID> &);};};
-struct ScenarioCampaignView {char pad[0x1c];LivingWorldScenario::Scenario *scenario;};
-struct ScenarioSlotView {char pad[0x10];int start,original;void setStart(int n){start=n;original=n;}};
 // Native 0x005223D7..0x005224E3, WB 0x014680C0
 // MpOwnerSelectStrategicScenario. The receiver is the owner's secondary
 // interface at full-screen +0x27C: its mode +0x88 is screen +0x304.
 // Keep this interface view address-derived until the screen's multiple
 // inheritance is reconciled; do not put +0x88 in the primary screen view.
-class Rva005223D7Owner {public:bool rva005223D7(int);char pad[0x88];int mode;int getMode() const {return mode;}};
-

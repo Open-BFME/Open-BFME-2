@@ -82,12 +82,6 @@ struct AsciiStringRefWithChar : AsciiStringRef
 };
 
 // "string + text"
-class Rva002DCD9A
-{
-public:
-	int copyToBuffer(unsigned short *dst);
-};
-
 struct AsciiStringPlusText : AsciiStringRef
 {
 	int length() const;
@@ -187,15 +181,6 @@ struct Rva005F9852 : Rva005D3311
 
 // ??H@YA?AURva002226E5TextPlusString@@PBDABVAsciiString@@@Z, retail 0x002226E5, 52 bytes.
 // Char-text plus string node mirroring string-plus-text at 0xB49C5: pair from the left literal plus the right string ref. Builds "_nrm" plus extension in makeNrmTextureName 0x317D89 plus 24 other callers. No donor; honest address struct; shape mirrors the rowed sibling with swapped operands.
-struct Rva002226E5TextPlusString
-{
-	int length() const;
-	int write(char *dst);
-	operator AsciiString();
-	Rva000B3F84Pair m_left;
-	AsciiStringRef m_right;
-};
-
 const char *GetRegistryGameRegPath();
 
 struct HKEY__;
@@ -247,15 +232,6 @@ struct Rva0020F58E
 // Narrow materializer for the double-pair title segment rowed at 0x00109D3A:
 // sizes via both pair lengths then fills through that write; callers at
 // 0x0010BCC8 0x0057A11F 0x0057A190; chain from 0x00109D3A.
-struct WinMainTitlePair : Rva000B3F84Pair
-{
-	int write(char *dst);
-	int firstLength() const { return m_len; }
-	int length() const { return firstLength() + m_secondPair.m_len; }
-	operator AsciiString();
-	Rva000B3F84Pair m_secondPair;
-};
-
 // ?write@Rva00238C34@@QAEHPAD@Z @0x00238C34 37B narrow concat node: base Rva0020F58E write 0x0020F58E then Rva pair write 0x000B44F0 at +0x10; caller materializer 0x00238C59.
 struct Rva00238C34 : Rva0020F58E
 {
@@ -271,37 +247,9 @@ struct Rva00238C34 : Rva0020F58E
 // additional lengths at +0x18 and +0x10 respectively. The caller returns
 // through StringBase<char>'s copy constructor and direct releaseBuffer.
 // Address-derived receiver names retain the unknown template identity.
-class Rva000B65FD {
-public:
-	int rva000B65FD();
-};
-
-struct Rva000BD268 {
-	int write(char *dst);
-};
-
-class Rva000BDC6D {
-	char m_prefix[0x18];
-	int m_extra18;
-public:
-	AsciiString rva000BDC6D();
-};
-
-class Rva0059B1A2 {
-public:
-	int copyToBuffer(char *dst);
-};
-
 // operator AsciiString(): the matched caller 0x0059B5A3 copy-initialises its
 // string from this node and only a conversion function reproduces retail's
 // kept temporary (its address re-derived for the copy constructor).
-class Rva0059B2EC {
-	char m_prefix[0x10];
-	int m_extra10;
-public:
-	operator AsciiString();
-};
-
 // Native 005F9877..005F9904 RET0. Existing deleting wrapper005F9B32
 // and guarded-delete005FA146 identify a complete nonvirtual destructor.
 // Cleanup offsets establish the storage views below; original owner and
@@ -329,36 +277,6 @@ struct Gen_uwm_005f97d4Storage {
  BfmeContainerRecord005FDEC7 *begin, *end, *limit;
  // ?Gen_uwm_005f97d4Storage::~Gen_uwm_005f97d4Storage absent-from-retail
  __forceinline ~Gen_uwm_005f97d4Storage() { if (begin) free(begin); }
-};
-
-class Gen_uwm_005f97d4 : private Gen_uwm_005f97d4Storage {
-public: ~Gen_uwm_005f97d4();
-};
-
-class Rva0052413E { public: ~Rva0052413E(); private: char bytes[12]; };
-
-class Rva000AD6F4 {
-public:
- void clear();
- ~Rva000AD6F4();
-private: void *pointer;
-};
-
-class Rva005F9877 {
-public: ~Rva005F9877();
-private:
- char unknown00[8];
- AsciiString string08;
- Rva0052413E bindings0C;
- char unknown18[4];
- UnicodeString string1C;
- Gen_uwm_005f97d4 records20;
- Rva000AD6F4 owner2C;
- Gen_uwm_005f97d4 records30;
- Rva000AD6F4 owner3C;
- _STL::vector<Rva005F9813Record> records40;
- char unknown4C[4];
- _STL::vector<Rva005F9813Record> records50;
 };
 
 // ---- from Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp

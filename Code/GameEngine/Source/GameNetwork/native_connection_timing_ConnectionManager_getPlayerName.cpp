@@ -118,73 +118,11 @@ protected:
 };
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork/NetCommandMsg.h
-class NetFrameCommandMsg : public NetCommandMsg
-{
-public:
-	NetFrameCommandMsg() : NetCommandMsg()
-	{
-		m_frame = 0;
-		m_playerFrame = 0;
-		m_commandCount = -1;
-		m_commandType = NETCOMMANDTYPE_FRAMEINFO;
-	}
-
-	void setFrame(unsigned int frame) { m_frame = frame; }
-	unsigned int getFrame() { return m_frame; }
-	unsigned int getPlayerFrame() { return m_playerFrame; }
-	void setPlayerFrame(unsigned int frame) { m_playerFrame = frame; }
-	int getCommandCount() { return m_commandCount; }
-	void setCommandCount(int count) { m_commandCount = count; }
-
-private:
-	unsigned int m_frame;
-	unsigned int m_playerFrame;
-	int m_commandCount;
-};
-
-class NetAckBothCommandMsg : public NetCommandMsg
-{
-public:
-	UnsignedShort getCommandID();
-	unsigned char getOriginalPlayerID();
-	unsigned int getOriginalExecutionFrame() { return m_originalExecutionFrame; }
-private:
-	UnsignedShort m_commandID;
-	unsigned char m_originalPlayerID;
-	unsigned int m_originalExecutionFrame;
-};
-
-class NetAckStage2CommandMsg : public NetCommandMsg
-{
-public:
-	NetAckStage2CommandMsg(NetCommandMsg *msg);
-	UnsignedShort getCommandID();
-	unsigned char getOriginalPlayerID();
-	unsigned int getOriginalExecutionFrame() { return m_originalExecutionFrame; }
-private:
-	UnsignedShort m_commandID;
-	unsigned char m_originalPlayerID;
-	unsigned int m_originalExecutionFrame;
-};
-
 class GameMessage;
 class GameMessageArgument;
 
 // The constructor at RVA 0x00674A40 copies a GameMessage's type and arguments.
 // Its 0x30-byte allocation and field stores agree with the upstream layout.
-class NetGameCommandMsg : public NetCommandMsg
-{
-public:
-	NetGameCommandMsg(GameMessage *msg);
-
-private:
-	int m_numArgs;
-	int m_argSize;
-	int m_type;
-	GameMessageArgument *m_argList;
-	GameMessageArgument *m_argTail;
-};
-
 Bool DoesCommandRequireACommandID(NetCommandType type);
 Bool CommandRequiresDirectSend(NetCommandMsg *msg);
 Bool IsCommandSynchronized(NetCommandType type);
@@ -221,21 +159,6 @@ private:
 
 // BFME-only type 22 broadcasts router succession order. The role-derived
 // name follows producer 0x00666000 and disconnectPlayer consumer 0x00666300.
-class BFMENetRouterFallbackCommandMsg : public NetCommandMsg
-{
-public:
-	BFMENetRouterFallbackCommandMsg() { m_commandType = NETCOMMANDTYPE_ROUTERFALLBACK; }
-	void setPlayerOrder(const int *players);
-private:
-	int m_players[8];
-};
-
-class NetKeepAliveCommandMsg : public NetCommandMsg
-{
-public:
-	NetKeepAliveCommandMsg();
-};
-
 class NetPlayerLeaveCommandMsg : public NetCommandMsg
 {
 public:
@@ -280,25 +203,6 @@ public:
 };
 // Packet fields remain four-packed: address is at +0x1E4 and sizeof is 0x200.
 #pragma pack(push, 4)
-class NetPacket
-{
-public:
-	NetPacket(TransportMessage *msg);
-	virtual ~NetPacket();
-	NetCommandList *getCommandList();
-	NetPacketAddress getAddress() { return m_address; }
-private:
-	unsigned char m_packet[0x1DC];
-	int m_packetLength;
-	NetPacketAddress m_address;
-	int m_numCommands;
-	NetCommandRef *m_lastCommand;
-	unsigned int m_lastFrame;
-	unsigned short m_lastCommandID;
-	unsigned char m_lastPlayerID;
-	unsigned char m_lastCommandType;
-	unsigned char m_lastRelay;
-};
 #pragma pack(pop)
 class NetCommandWrapperList
 {
@@ -322,26 +226,6 @@ private:
 };
 extern Network *TheNetwork;
 Bool CommandRequiresAck(NetCommandMsg *msg);
-
-class BFMENetInformPlayerLeaveFrameCommandMsg : public NetCommandMsg
-{
-public:
-	unsigned int getLeaveFrame();
-	int getLeavingPlayerID();
-};
-
-class BFMENetRequestFrameDataCommandMsg : public NetCommandMsg
-{
-public:
-	BFMENetRequestFrameDataCommandMsg();
-	void setFirstFrame(unsigned int firstFrame);
-	void setLastFrame(unsigned int lastFrame);
-	unsigned int getFirstFrame();
-	unsigned int getLastFrame();
-private:
-	unsigned int m_firstFrame;
-	unsigned int m_lastFrame;
-};
 
 class BFMENetRequestPlayerLeaveCommandMsg : public NetCommandMsg
 {
@@ -449,16 +333,6 @@ class BFMENetRequestGameSpyStatsAuthKeyCommandMsg : public NetCommandMsg
 {
 public:
 	AsciiString getText1C();
-};
-class BFMENetGameSpyStatsAuthKeyCommandMsg : public NetCommandMsg
-{
-public:
-	BFMENetGameSpyStatsAuthKeyCommandMsg();
-	void setText1C(AsciiString text);
-	void setText20(AsciiString text);
-private:
-	AsciiString m_text1C;
-	AsciiString m_text20;
 };
 // BFME adds two C-string accessors after the reference interface's eleven slots.
 // Their names describe use here; no claim of recovered retail source names.
@@ -605,12 +479,6 @@ private:
 	unsigned short m_fileID;
 	int m_progress;
 };
-class NetWrapperCommandMsg : public NetCommandMsg
-{
-public:
-	unsigned short getWrappedCommandID();
-};
-
 class ConnectionManager
 {
 public:
@@ -753,19 +621,6 @@ protected:
 	// Protected there, so IAE.
 	void processDisconnectFrame(NetCommandMsg *msg, ConnectionManager *conMgr);
 	void processDisconnectPlayer(NetCommandMsg *msg, ConnectionManager *conMgr);
-};
-
-class BFMEDisconnectManager
-{
-public:
-	void update(void *conMgr);
-};
-
-struct BFMEPlayerRouterScore
-{
-	float score;
-	int player;
-	BFMEPlayerRouterScore *next;
 };
 
 // Returns an owning string copy from the local name or a peer connection.

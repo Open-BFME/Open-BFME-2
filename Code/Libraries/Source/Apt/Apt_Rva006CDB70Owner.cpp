@@ -35,7 +35,6 @@ public:
  AptCIH *c_cih(bool);
 };
 class AptCIH : public AptValue {};
-class AptString : public AptValue {public:static AptString *Create();};
 class BfmeAptValue006DCD20;
 class AptBasePtrStack {public:int count,capacity;BfmeAptValue006DCD20 **elements;void Push(BfmeAptValue006DCD20 *);BfmeAptValue006DCD20 *At(int);void rva006FE920();};
 struct AptInitParmsT;
@@ -179,7 +178,6 @@ static int Rva006CD7A0Tick(unsigned elapsed) {
 // Rva00891FA0Diagnostics.cpp; the header view and name are address-derived.
 extern int g_rva00891FA0Ready,g_rva00891FA0Value;
 extern "C" void (__cdecl *Rva00891FA0SendRecord)(const void *,unsigned);
-struct SavedEventHeader {int value;unsigned short kind,size;};
 void Rva006CC740SendSavedEvent(const void *data,unsigned nSize);
 
 // Native6CD990..6CDA31: three Ghidra-unlisted level accessors after the tick
@@ -188,8 +186,6 @@ void Rva006CC740SendSavedEvent(const void *data,unsigned nSize);
 // its +4C resource (else -1), the +0C movie's +08 word (else 0), and bit 25
 // of +1C when the level is a defined movie clip (type 0x12, not undefined;
 // else -1). Field meanings and original names are unresolved: address names.
-struct LevelMovieView {char pad[8];int value08;};
-struct LevelInstView {char pad[0xc];LevelMovieView *movie;char pad10[8];int value18;unsigned flags1C;};
 int Rva006CD990LevelValue(int level);
 
 int Rva006CD9C0LevelMovieValue(int level);
@@ -367,8 +363,6 @@ public:Rva008947A0Owner();POOL_ALLOC
 };
 // Opaque B4-byte root allocation; only size/alignment and constructor ABI
 // are modeled here. Its native constructor returns this with RET4.
-class Rva006E6060Root {union{unsigned alignment;char bytes[0xb4];};public:Rva006E6060Root(const Rva00222343*);POOL_ALLOC};
-class AptMath {public:static void ClipStackInit(unsigned);};
 extern void *g_aptLoadAnimationSlot; // Native00E17748; callback ABI unmodeled.
 extern void *g_aptFreeConstantTableSlot; // Native00E17750; callback ABI unmodeled.
 extern void *g_aptFreeAnimationSlot; // Native00E1774C; callback ABI unmodeled.
@@ -424,44 +418,13 @@ void Rva006CC600(const char *path,char *suffix)
 // both normal allocation and exceptional release use the existingF4 owner.
 // Native allocation-failure cleanup frees directly through the F4 pool.
 // Keep its complete22B implementation consistent with Rva006F6A50Cluster.
-class Rva006CBDE0 {
-public:
- void *vptr;unsigned flags;EAStringC name;
- int fields0c[15];AptValue *value;void *displayList;
- Rva006CBDE0 *prev,*next;unsigned level,extra;
- Rva006CBDE0(int,void*,AptValue*);
- static void *operator new(unsigned n){return g_pChainBlockAllocatorF4->allocBlock(n);}
- static void operator delete(void *p,unsigned n){g_pChainBlockAllocatorF4->freeBlock(p,(int)n);}
-};
-class BfmeQuery1279 {public:Rva006CBDE0 *root;void rva006F6FB0(int,AptCIH*);};
 AptCIH *_AptGetAnimationAtLevel(int key);
 
 
 // Native 6CDF60..6CE07C: allocator shutdown with no arguments; WB174D4C0
 // Apt.cpp lines 666..691. Both pool allocations are 28B. WB's two deleting
 // helpers receive flags 1; inline delete views retain the native operand copy.
-class DOGMA_PoolManager {public:unsigned GetTotalBytesUsed();};
-class Rva006DAFA0Walk {public:void rva006DAFA0();};
 void rva006CBC50(void *,unsigned);
-class Rva006CD6C0SizedDeleting {
-public:
- __declspec(noinline) ~Rva006CD6C0SizedDeleting();
- static void operator delete(void *storage,unsigned size) {g_bfmeAptFreeSizeAtE17730(storage,size);}
- unsigned m_fields[7];
-};
-struct ShutdownPoolStats {char pad[0x14];int allocated,freeCount;};
-class ShutdownChainPoolDelete {
- char bytes[28];
-public:
- ~ShutdownChainPoolDelete(){((Rva006DAFA0Walk *)this)->rva006DAFA0();}
- static void operator delete(void *p,unsigned n){rva006CBC50(p,n);}
-};
-class ShutdownValuePoolDelete {
- char bytes[28];
-public:
- ~ShutdownValuePoolDelete(){((Rva006CD6C0SizedDeleting *)this)->Rva006CD6C0SizedDeleting::~Rva006CD6C0SizedDeleting();}
- static void operator delete(void *p,unsigned n){g_bfmeAptFreeSizeAtE17730(p,n);}
-};
 void Rva006CDF60();
 
 
@@ -472,7 +435,6 @@ void Rva006CD0B0ResetPoolCount();
 
 // Native6CD350..6CD38A: asserts pMCInfo (Apt.cpp 0x7C0) and applies it to the
 // E176D0 pool's +30 child list through the rowed rva006F7AF0. Address name.
-class Rva006F7AC0List {public:bool rva006F7AC0();void rva006F7AF0(int);};
 void Rva006CD350ApplyChild(void *pMCInfo);
 
 
@@ -490,9 +452,7 @@ void Rva006CD3A0Clear(Rva006CD3A0Record *r);
 // extension object view and this function's name are address-derived.
 class Rva006CD120ExtObject {public:virtual void s0();virtual void s1();virtual void s2();virtual void s3();virtual void s4();virtual void s5();virtual void s6();virtual void s7();virtual void s8();virtual void s9();virtual void s10();virtual void s11();virtual void s12();virtual void s13();virtual void s14();virtual const char *name();virtual void registered();};
 class BfmeN1034;
-class Rva0070A5C0 {public:BfmeN1034 *rva0070A5C0(int);};
 class Rva8D0D80String;class Rva8D0D80Value;
-class Rva8D0D80Result {public:void rva006FBB90(Rva8D0D80String *,Rva8D0D80Value *);};
 extern AptValue *g_shutdownAtE18360;
 void Rva006CD120AddGlobalExtension(Rva006CD120ExtObject *pExtObject);
 
@@ -502,7 +462,6 @@ void Rva006CD120AddGlobalExtension(Rva006CD120ExtObject *pExtObject);
 // succeeds; otherwise the path is resolved like AptGetInternalVariable above
 // (rowed getVariable from level 0) and a CIH result is stored through the
 // same setter, else it fails. Address-derived name.
-class Rva006E3700DwordSlot {public:void set(int);};
 bool Rva006CCF30SetFocusPath(const char *path);
 
 
@@ -550,9 +509,6 @@ Rva006CDB70Owner::Rva006CDB70Owner() : m_count(0), m_used(0), m_items(m_inline)
 // global into a local inside the loop is what retail's per-iteration load of
 // E17714 at the same spot compiles as; a direct ternary read left an extra
 // branch (+2B).
-struct ZombieResource {int pad;unsigned size;EAStringC file;};
-struct ZombieInst {char pad[0x34];ZombieResource *resource;};
-struct ZombieCIH {char pad[8];EAStringC name;char pad0C[0x50];unsigned refs;};
 void Rva006CDA40ReportZombies();
 
 void Rva006CD080ClearDisplayList();

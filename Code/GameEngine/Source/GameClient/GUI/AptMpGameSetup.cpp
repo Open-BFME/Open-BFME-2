@@ -154,12 +154,6 @@ public:
 };
 
 // The slot's +0x5C setter (rowed as a Disp8 dword setter).
-class Rva003FF0E7DwordSlot
-{
-public:
-	void set(int value);
-};
-
 class GameInfo
 {
 public:
@@ -203,18 +197,6 @@ struct TreeHintOpaque0043671B
 	unsigned char m_rules[0x28]; // +0xDBC
 	unsigned char m_padde4[0xDE8 - 0xDE4];
 	int m_de8; // +0xDE8
-};
-
-class Rva00401FAF
-{
-public:
-	void rva00401FAF(const TreeHintOpaque0043671B *saved);
-};
-
-class Rva00381D02
-{
-public:
-	void rva00381D02(void *digest);
 };
 
 // Unrowed 0x004361B3 (41 bytes; prints the digest through MD5Print and
@@ -317,12 +299,6 @@ extern ImageCollection *TheMappedImageCollection;
 
 // Native image-store calls use the same manager pointer and target 0x2239E2.
 // The verified provider takes a string name and an image pointer.
-class Rva002239B2
-{
-public:
-	void rva002239E2(const AsciiString &key, const Image *image);
-};
-
 class Rva00222A8BTarget
 {
 public:
@@ -537,12 +513,6 @@ public:
 };
 
 // A panel member rowed under its own address-named class (0x0043DBE0).
-class Rva0043DBE0
-{
-public:
-	void rva0043DBE0();
-};
-
 // Rva00446A71Get.cpp's byte setter for g_Va00A0335C.
 void Rva00446A67Set(unsigned char value);
 
@@ -651,18 +621,6 @@ public:
 	int rva003236C4(int index);
 };
 
-class Rva003236E8
-{
-public:
-	int rva003236E8();
-};
-
-class BfmeThing925D
-{
-public:
-	void bfmeGo925D(void *value);
-};
-
 // The +0x60 member is the map preview (AptMapPreviewSetMapDescription.cpp's
 // class; its rowed 0x0057C597 enables the preview windows).
 class AptMapPreview
@@ -755,12 +713,6 @@ public:
 // stores the game at +0x08 of holder 1, the Rva0043DA65 layout.
 struct TargetRef00217D4C;
 
-class Rva0043F103
-{
-public:
-	TargetRef00217D4C *rva0043F103(int index);
-};
-
 // The Apt window manager (0x00DFE4CC) whose
 // bfmeSetText (0x00225301) AptMapPreviewSetMapTitle.cpp pins.
 class BfmeAptWindowManager
@@ -772,33 +724,9 @@ public:
 // The rowed clears 0x0057F34D (the +0x190 member, "AptMpClans") and
 // 0x0057FECE (the +0x244 member, "AptMpChat"), each under its own address
 // class.
-class Rva0057F34D
-{
-public:
-	void rva0057F34D();
-};
-
-class Rva0057FECE
-{
-public:
-	void rva0057FECE();
-};
-
 // The panel's own clear at +0x00 (rowed 0x0052493F, six Rva00524021
 // clears).
-class Rva0052493F
-{
-public:
-	void rva0052493F();
-};
-
 // The Apt window manager's erase by name (rowed 0x00223A94).
-class Rva00223A94
-{
-public:
-	int rva00223A94(const AsciiString *key);
-};
-
 // The Apt callback functors (Rva0057BC63FunctorHolder.cpp): a binding of an
 // object and an eight-byte multiple-inheritance member pointer, and the
 // refcounted holder rowed 0x0057BC63 builds from it.
@@ -1053,13 +981,6 @@ public:
 
 // The +0x190 member's own class (vftable 0x00C3D95C after
 // ??_GRva0043DAE0; base Rva0057F2DE).
-class Rva0043DAE0
-{
-public:
-	virtual ~Rva0043DAE0();
-	virtual void rva00440AA0();
-};
-
 GameWindow *GadgetComboBoxGetListBox(GameWindow *comboBox);
 
 // ?rva0043F20C@Rva0043F20C@@QAEXUTreeHintRef00217D4C@@@Z @0x0043F20C 56B.

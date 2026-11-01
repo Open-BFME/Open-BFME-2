@@ -750,52 +750,6 @@ private:
 
 // --- 0x00466457 / 0x0049A6C7 (16B each): from a +0x0C interface, the
 // object's +0xFC / +0x3E4 base (null-checked conversion).
-class Rva00466457Base0
-{
-public:
-	virtual void b0();
-	int m_04;
-	int m_08;
-};
-
-class Rva00466457Base3
-{
-public:
-	virtual void b3();
-};
-
-class Rva00466457Iface
-{
-public:
-	virtual Rva00466457Base3 *getCaveInterface();
-	char m_pad04[0xFC - 0x0C - 4];
-};
-
-class Rva00466457 : public Rva00466457Base0, public Rva00466457Iface, public Rva00466457Base3
-{
-public:
-	virtual Rva00466457Base3 *getCaveInterface();
-};
-
-class Rva0049A6C7Base3
-{
-public:
-	virtual void b3();
-};
-
-class Rva0049A6C7Iface
-{
-public:
-	virtual Rva0049A6C7Base3 *rva0049A6C7();
-	char m_pad04[0x3E4 - 0x0C - 4];
-};
-
-class Rva0049A6C7 : public Rva00466457Base0, public Rva0049A6C7Iface, public Rva0049A6C7Base3
-{
-public:
-	virtual Rva0049A6C7Base3 *rva0049A6C7();
-};
-
 // --- 0x00479CD9 (29B): from a +0x10 interface, copy the object's slot-88
 // position into the first argument; always true.
 class Rva00479CD9Base0
@@ -846,52 +800,7 @@ public:
 
 // --- 0x00481837 (11B): from a +0x20 interface, the object's slot 13; the
 // argument is unused.
-class Rva00481837Base0
-{
-public:
-	virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3();
-	virtual void s4(); virtual void s5(); virtual void s6(); virtual void s7();
-	virtual void s8(); virtual void s9(); virtual void s10(); virtual void s11();
-	virtual void s12(); virtual void s13();
-	char m_pad04[0x20 - 4];
-};
-
-class Rva00481837Iface
-{
-public:
-	virtual void rva00481837(int unused);
-};
-
-class Rva00481837 : public Rva00481837Base0, public Rva00481837Iface
-{
-public:
-	virtual void rva00481837(int unused);
-};
-
 // --- 0x00494AC6 (19B): hand the float to slot 15 of the +0x18 base.
-class Rva00494AC6Base0
-{
-public:
-	virtual void b0();
-	char m_pad04[0x18 - 4];
-};
-
-class Rva00494AC6Base18
-{
-public:
-	virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3();
-	virtual void s4(); virtual void s5(); virtual void s6(); virtual void s7();
-	virtual void s8(); virtual void s9(); virtual void s10(); virtual void s11();
-	virtual void s12(); virtual void s13(); virtual void s14();
-	virtual void s15(float v);
-};
-
-class Rva00494AC6 : public Rva00494AC6Base0, public Rva00494AC6Base18
-{
-public:
-	virtual void rva00494AC6(float v);
-};
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContain.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContain.cpp

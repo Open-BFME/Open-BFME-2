@@ -13,60 +13,6 @@
 // Correct the existing thunk owner ABI; its seven target bytes stay unchanged.
 class GameMessage;
 
-class Rva005E6817Outer
-{
-public:
-	virtual int slot0(GameMessage *message);
-};
-
-class Rva005E681EOuter
-{
-public:
-	virtual void slot0();
-	virtual void slot1();
-	virtual void slot2();
-	virtual void slot3();
-	virtual void slot4();
-	virtual void slot5();
-	virtual void slot6();
-};
-
-class Rva005E6826Outer
-{
-public:
-	virtual void slot0();
-	virtual void slot1();
-	virtual void slot2();
-	virtual void slot3();
-	virtual void slot4();
-	virtual void slot5();
-};
-
-class Rva005E682EOuter
-{
-public:
-	virtual void slot0();
-	virtual void slot1();
-	virtual void slot2();
-	virtual void slot3();
-	virtual void slot4();
-};
-
-class Rva005E6836Outer
-{
-public:
-	virtual void slot0();
-	virtual void slot1();
-	virtual void slot2();
-};
-
-class Rva005E683EOuter
-{
-public:
-	virtual void slot0();
-	virtual void slot1(int a, int b);
-};
-
 class Rva005E3AA2Outer
 {
 public:
@@ -74,66 +20,6 @@ public:
 	virtual void slot1();
 	virtual void slot2();
 	virtual void slot3();
-};
-
-class Rva005E6817Mid
-{
-public:
-	int fwd(GameMessage *message);
-
-private:
-	unsigned m_00;
-	Rva005E6817Outer *m_outer;
-};
-
-class Rva005E681EMid
-{
-public:
-	void fwd();
-
-private:
-	unsigned m_00;
-	Rva005E681EOuter *m_outer;
-};
-
-class Rva005E6826Mid
-{
-public:
-	void fwd();
-
-private:
-	unsigned m_00;
-	Rva005E6826Outer *m_outer;
-};
-
-class Rva005E682EMid
-{
-public:
-	void fwd();
-
-private:
-	unsigned m_00;
-	Rva005E682EOuter *m_outer;
-};
-
-class Rva005E6836Mid
-{
-public:
-	void fwd();
-
-private:
-	unsigned m_00;
-	Rva005E6836Outer *m_outer;
-};
-
-class Rva005E683EMid
-{
-public:
-	void fwd(int a, int b);
-
-private:
-	unsigned m_00;
-	Rva005E683EOuter *m_outer;
 };
 
 class Rva005E3AA2Mid

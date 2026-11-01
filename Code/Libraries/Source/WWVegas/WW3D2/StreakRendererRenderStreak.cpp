@@ -49,57 +49,6 @@ enum {
  	DX8_FVF_XYZNUV2DMAP	= (D3DFVF_XYZ|D3DFVF_NORMAL|D3DFVF_TEX3 | D3DFVF_TEXCOORDSIZE1(0) | D3DFVF_TEXCOORDSIZE4(1) | D3DFVF_TEXCOORDSIZE2(2) ),
 	DX8_FVF_XYZNDCUBEMAP	= D3DFVF_XYZ|D3DFVF_NORMAL|D3DFVF_DIFFUSE
 };
-struct VertexFormatXYZ
-{
-	float x;
-	float y;
-	float z;
-};
-struct VertexFormatXYZNUV1
-{
-	float x;
-	float y;
-	float z;
-	float nx;
-	float ny;
-	float nz;
-	float u1;
-	float v1;
-};
-struct VertexFormatXYZNUV2
-{
-	float x;
-	float y;
-	float z;
-	float nx;
-	float ny;
-	float nz;
-	float u1;
-	float v1;
-	float u2;
-	float v2;
-};
-struct VertexFormatXYZN
-{
-	float x;
-	float y;
-	float z;
-	float nx;
-	float ny;
-	float nz;
-};
-struct VertexFormatXYZNDUV1
-{
-	float x;
-	float y;
-	float z;
-	float nx;
-	float ny;
-	float nz;
-	unsigned diffuse;
-	float u1;
-	float v1;
-};
 struct VertexFormatXYZNDUV2
 {
 	float x;
@@ -114,26 +63,6 @@ struct VertexFormatXYZNDUV2
 	float u2;
 	float v2;
 };
-struct VertexFormatXYZDUV1
-{
-	float x;
-	float y;
-	float z;
-	unsigned diffuse;
-	float u1;
-	float v1;
-};
-struct VertexFormatXYZDUV2
-{
-	float x;
-	float y;
-	float z;
-	unsigned diffuse;
-	float u1;
-	float v1;
-	float u2;
-	float v2;
-};
 struct VertexFormatXYZUV1
 {
 	float x;
@@ -141,62 +70,6 @@ struct VertexFormatXYZUV1
 	float z;
 	float u1;
 	float v1;
-};
-struct VertexFormatXYZUV2
-{
-	float x;
-	float y;
-	float z;
-	float u1;
-	float v1;
-	float u2;
-	float v2;
-};
-struct VertexFormatXYZNDUV1TG3
-{
-	float x;
-	float y;
-	float z;
-	float nx;
-	float ny;
-	float nz;
-	unsigned diffuse;
-	float u1;
-	float v1;
-	float Sx;
-	float Sy;
-	float Sz;
-	float Tx;
-	float Ty;
-	float Tz;
-	float SxTx;
-	float SxTy;
-	float SxTz;
-};
-struct VertexFormatXYZNUV2DMAP
-{
-	float x;
-	float y;
-	float z;
-	float nx;
-	float ny;
-	float nz;
-	float T1x;
-	float T1y;
-	float T1z;
-	float T1w;
-	float T2x;
-	float T2y;
-};
-struct VertexFormatXYZNDCUBEMAP
-{
-	float x;
-	float y;
-	float z;
-	float nx;
-	float ny;
-	float nz;
-	unsigned diffuse;
 };
 class FVFInfoClass : public W3DMPO
 {
@@ -355,19 +228,6 @@ public:
 protected:
 	IDirect3DVertexBuffer8*		VertexBuffer;
 	void Create_Vertex_Buffer(UsageType usage);
-};
-class SortingVertexBufferClass : public VertexBufferClass
-{
-	friend DX8Wrapper;
-	friend SortingRendererClass;
-	friend VertexBufferClass::WriteLock;
-	friend VertexBufferClass::AppendLockClass;
-	friend DynamicVBAccessClass::WriteLock;
-	VertexFormatXYZNDUV2* VertexBuffer;
-protected:
-	~SortingVertexBufferClass() throw();
-public:
-	SortingVertexBufferClass(unsigned short VertexCount);
 };
 #endif
 #ifndef DX8INDEXBUFFER_H
@@ -586,12 +446,6 @@ public:
 	}
 };
 #endif
-class DX8_CleanupHook
-{
-public:
-	virtual void ReleaseResources(void)=0;
-	virtual void ReAcquireResources(void)=0;
-};
 struct RenderStateStruct
 {
 	ShaderClass shader;
