@@ -262,12 +262,6 @@ private:
 
 // Locomotor min speed (0x001E3F08), rowed under this name.
 struct Rva001E3F08Arg;
-class Rva001E3F08
-{
-public:
-	Real rva001E3F08(Rva001E3F08Arg *obj);
-};
-
 struct Rva0028AC4EEntry;
 
 // AI current-locomotor speed (0x002627E8), rowed under this name.
@@ -833,22 +827,7 @@ private:
 };
 
 // An enclosing container's contain module (Object +0x250), slot 77.
-class ContainFirePointView : public VirtualSlots<77>
-{
-public:
-	virtual Bool attemptBestFirePointPosition(Object *source, Weapon *weapon, const Coord3D *targetPos);
-};
-
 // The AI's locomotor-goal slots (132 and 135), as AIFaceStateUpdate.cpp views them.
-class AITurnView : public VirtualSlots<132>
-{
-public:
-	virtual void setLocomotorGoalPositionExplicit(const Coord3D &newPos);
-	virtual void slot133();
-	virtual void slot134();
-	virtual void setLocomotorGoalOrientation(Real angle);
-};
-
 // The AI's goal path (+0x30): position by index (0x00346FA5).
 class Rva00346FA5
 {
@@ -1966,12 +1945,6 @@ Real Sin(Real angle);
 #define PI_F 3.14159265359f
 
 // The locomotor's aim-at-position hook (0x001E702E, rowed under this name).
-class Rva001E702E
-{
-public:
-	void rva001E702E(Thing *obj, Int targetPos, Int flag);
-};
-
 enum AbleToAttackType
 {
 	ATTACK_NEW_TARGET = 0
@@ -2282,12 +2255,6 @@ public:
 Bool rva003460DB(Object *obj);
 
 // The pathfinder's nearby-object ID query (0x002F2865), rowed under this name.
-class Rva002F2865Host
-{
-public:
-	Int rva002F2865(char *obj, int ids);
-};
-
 // The chain append PartitionFilter::And (0x00625790).
 class PartitionFilter
 {
@@ -2296,51 +2263,11 @@ public:
 };
 
 // vftable 0x00BFBC90, allow 0x00260EB1: +0x08 the object, +0x0C flags, +0x10 a flag.
-class Rva00260EB1Filter : public Rva000421C8
-{
-public:
-	Rva00260EB1Filter(const Object *obj, Int flags, Bool fromOther)
-		: m_obj(obj), m_flags(flags), m_fromOther(fromOther) {}
-	virtual Bool allow(Object *obj);
-	const Object *m_obj;
-	Int m_flags;
-	Bool m_fromOther;
-};
-
 // The out-of-line constructor 0x002611F2.
-class PartitionFilterRejectBuildings : public Rva000421C8
-{
-public:
-	PartitionFilterRejectBuildings(Object *obj);
-	virtual Bool allow(Object *obj);
-	Object *m_obj;
-	Bool m_flag;
-};
-
 // The 224-bit KindOf mask, the one-bit mask builder 0x00045411 and the KindOf
 // filter (ctor 0x0004584D, vftable 0x00BC2908).
-class BfmeFixedStorage0004543D
-{
-public:
-	BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &other) throw();
-private:
-	unsigned char m_bytes[28];
-};
-struct Rva00045411BitSet : public BfmeFixedStorage0004543D
-{
-	Rva00045411BitSet(int unused, int bit) throw();
-};
 template <int NUMBITS> class BitFlags;
 extern BitFlags<116> KINDOFMASK_NONE;
-class Rva0004584D : public Rva000421C8
-{
-public:
-	Rva0004584D(const BfmeFixedStorage0004543D &a, const BfmeFixedStorage0004543D &b) throw();
-	virtual Bool allow(Object *obj);
-	BfmeFixedStorage0004543D m_08;
-	BfmeFixedStorage0004543D m_24;
-};
-
 // Select-any: other units compile copies of onEnter; the anchor keeps this unit's rowed bodies emitted.
 // ?bfmeAnchorAIAttackApproachTargetStateOnEnter absent-from-retail
 StateReturnType bfmeAnchorAIAttackApproachTargetStateOnEnter(AIAttackApproachTargetState *aIAttackApproachTargetState) { return aIAttackApproachTargetState->AIAttackApproachTargetState::onEnter(); }

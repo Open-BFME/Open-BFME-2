@@ -221,15 +221,6 @@ private:
 	Rva000AD6F4 m_2a4;
 };
 
-class AI
-{
-public:
-	virtual void init();
-private:
-	char m_lead[0x1C - 4];
-	int m_counter;
-};
-
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 
@@ -242,17 +233,6 @@ private:
 // proves dword zero stores at +0x0c then +0x24 and the complete leaf
 // 0x000C9286..0x000C928F between prior RET at C9285 and the next function.
 // Original receiver, field purposes and signedness remain unknown.
-class Rva000C9286PairClearer
-{
-public:
-    void clear();
-private:
-    char m_lead[0x0c];
-    unsigned m_at0c;
-    char m_middle[0x24 - 0x0c - 4];
-    unsigned m_at24;
-};
-
 // Receiver-return zero-field leaves from clean BFME1 9cbfb551 donor leads:
 // WorldHeightMap.cpp and W3DBridgeBufferCtorThunk.cpp supply the source pattern.
 // Retail independently fixes complete RET boundaries, raw32 fields14/0C and
@@ -271,15 +251,6 @@ struct Rva002175C7Fields { char pad[0xC]; unsigned int wordC; Rva002175C7Fields 
 // take-and-clear expression. Its pointer type and WeaponTemplate identity
 // are donor facts only. This consumed-prefix view preserves the raw 32 bits;
 // original receiver, field type and pointer/ownership meanings remain unknown.
-class Rva002C8E52WordField
-{
-public:
-    unsigned int take();
-private:
-    char m_unknown0[4];
-    unsigned int m_word4;
-};
-
 // Complete native 2E6C8D..2E6C94 follows the preceding member's final RET
 // and precedes a distinct word setter. It loads the receiver's pointer at
 // +0 and clears the pointee's raw word at +8; no original owner is proven.
@@ -287,18 +258,6 @@ private:
 // GameLogic/Pathfinder/PathfindPrependCells.cpp supplies
 // PathfindCell::clearParentCellForPrepend's expression as a source lead.
 // Its class, parent-cell name and pointer meaning remain donor facts only.
-struct Rva002E6C8DWordNode {
-    char unknown0[8];
-    unsigned int word8;
-};
-
-class Rva002E6C8DWordChase {
-public:
-    void clear();
-private:
-    Rva002E6C8DWordNode *node;
-};
-
 // Whole native 405A1C..405A25 is bracketed by the predecessor's RET at
 // 405A1B and the next constructor's entry at 405A25. It loads the receiver's
 // pointer at +0, clears that pointee's raw DWORD, and returns the raw word +4.
@@ -323,14 +282,6 @@ private:
 // are donor facts only; target owner, field meanings and complete class
 // bounds remain unknown. This ordinary method models only the physical
 // receiver/return and two raw32 accesses, with no original lifetime claim.
-class Rva004DE52CWordPair {
-public:
-    Rva004DE52CWordPair *clear();
-private:
-    unsigned int word0;
-    unsigned int word4;
-};
-
 // Whole clean BF1 f98983a7d3bb405f1a4ba94bb6a2a168062a819d WWLib/
 // msgloop.cpp supplies AcceleratorTracker's ordered two-zero expression.
 // Other donor names emit the same bytes; no tracker identity or constructor
@@ -338,32 +289,12 @@ private:
 // wrapper and ends before a distinct global-guarded entry. It clears raw32
 // receiver words+0 then+4 and returns RET0 without calls or relocations.
 // Original receiver, field meanings and complete layout remain unknown.
-class Rva00306761WordPair
-{
-public:
-    void clear();
-private:
-    unsigned int word0;
-    unsigned int word4;
-};
-
 // Complete native 3B3F6D..3B3F78 follows RET 3B3F6C and precedes a new entry.
 // It clears only raw words +8 and +10, retaining the receiver in EAX; no
 // literal-address or direct-call references establish its original lifetime.
 // Clean BF1 f989 S1ZeroingConstructors.cpp compiled O1/SSE/G6 supplies two
 // indistinguishable zeroing guides. The original owner, field meanings,
 // constructor role and unaccessed prefix/gap remain unknown.
-class Rva003B3F6DZeroView
-{
-public:
-    Rva003B3F6DZeroView *clear();
-private:
-    unsigned char unknown0[8];
-    unsigned int word8;
-    unsigned char unknownC[4];
-    unsigned int word10;
-};
-
 // Complete native 4B9C46..4B9C4D follows RET4 at 4B9C43 and precedes 4B9C4D.
 // This distinct entry clears only raw word +8 and returns the receiver.
 // Actual pushes 4BA5A7/4BA5C4/4BA5E2 pass it to owned EH vector constructor
@@ -373,15 +304,6 @@ private:
 // indistinguishable constructor guides. Their record names and string fields
 // are donor facts only; original target element and complete layout are unknown.
 // This ordinary operation exposes the consumed prefix without a lifetime claim.
-class Rva004B9C46ZeroView
-{
-public:
-    Rva004B9C46ZeroView *clear();
-private:
-    unsigned char unknown0[8];
-    unsigned int word8;
-};
-
 // tu-skeleton: 0x004059BE 17B ?get@OldSchoolHelpBoxContentSource@@UAEHXZ -- matched in Code/GameEngine/Source/Common/R2GuardedFieldGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x004059CF 30B ?bfmeEquals@OldSchoolHelpBoxContentSource@@UBEHPBVBfmeThingGX@@@Z -- matched in Code/GameEngine/Source/Common/S3TwoFieldComparators.cpp (not merged yet)

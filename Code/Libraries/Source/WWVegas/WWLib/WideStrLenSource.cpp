@@ -77,67 +77,14 @@ void LoadRegistryValues();
 // Unreferenced leaves from the /O2 regions (twins.tsv leads): the full
 // dword store and the load-then-test byte read are /O2 forms.
 // 0x000657B3 (9B): constructor zeroing the word at +0.
-class Rva000657B3
-{
-public:
-	Rva000657B3();
-private:
-	int m_00;
-};
-
 // 0x0001D1D0 (11B): whether the byte at +0x0E is set.
-class Rva0001D1D0
-{
-public:
-	bool rva0001D1D0() const;
-private:
-	char m_pad[0x0E];
-	unsigned char m_0E;
-};
-
 // 0x00030E10 (8B): the word at +0x18 of a record passed by pointer (the
 // shape of STLport's _FILE_I_begin over a stdio FILE).
-struct Rva00030E10Record
-{
-	char m_pad[0x18];
-	int m_18;
-};
-
 // Unreferenced virtual-slot forwarders: each calls one slot of its own
 // object with no arguments, a tail jump through the vtable (mov eax,[ecx];
 // jmp [eax+4*slot]). Owners are address-derived views of the slots used.
 // 0x00013280: slot 6.
-class Rva00013280Slots
-{
-public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
-	virtual void slot06();
-	void rva00013280();
-};
-
 // 0x00013290: slot 10.
-class Rva00013290Slots
-{
-public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
-	virtual void slot06();
-	virtual void slot07();
-	virtual void slot08();
-	virtual void slot09();
-	virtual void slot10();
-	void rva00013290();
-};
-
 // 0x00013380, 0x00013390, 0x000133A0: slots 4, 5 and 7, three CC-padded
 // forwarders in the STLport fstream run. Lead only: slots 4/5/7 of the
 // codecvt vftables (0x007BBB08, 0x007BBB2C) are do_encoding,
@@ -145,88 +92,10 @@ public:
 // always_noconv() and max_length(); the char and wchar_t instantiations are
 // byte-identical and nothing references these copies, so the owner stays an
 // address-derived view.
-class Rva00013380Slots
-{
-public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
-	virtual void slot06();
-	virtual void slot07();
-	void rva00013380();
-	void rva00013390();
-	void rva000133A0();
-};
-
 // 0x000184E0: slot 8.
-class Rva000184E0Slots
-{
-public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
-	virtual void slot06();
-	virtual void slot07();
-	virtual void slot08();
-	void rva000184E0();
-};
-
 // 0x000184F0: slot 12.
-class Rva000184F0Slots
-{
-public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
-	virtual void slot06();
-	virtual void slot07();
-	virtual void slot08();
-	virtual void slot09();
-	virtual void slot10();
-	virtual void slot11();
-	virtual void slot12();
-	void rva000184F0();
-};
-
 // 0x0001C8B0: slot 11.
-class Rva0001C8B0Slots
-{
-public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
-	virtual void slot06();
-	virtual void slot07();
-	virtual void slot08();
-	virtual void slot09();
-	virtual void slot10();
-	virtual void slot11();
-	void rva0001C8B0();
-};
-
 // 0x0001D170: slot 3.
-class Rva0001D170Slots
-{
-public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	void rva0001D170();
-};
-
 // 0x00035790: slot 0.
 class Rva00035790Slots
 {

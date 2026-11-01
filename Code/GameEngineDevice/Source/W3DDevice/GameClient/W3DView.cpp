@@ -71,28 +71,11 @@ extern GameLogic *TheGameLogic;
 class PlayerList;
 extern PlayerList *ThePlayerList;
 class Rva002A7DDEArg;
-class Rva002A7DDE { public: bool rva002A7DDE(Rva002A7DDEArg *); };
-class Rva00005C357FPtrChaseField { public: int get() const; };
-class Rva00005C39A3PtrChaseField { public: int get() const; };
-class Rva0057C22FByteChaseField { public: unsigned char get() const; };
-class Rva005C39AA { public: void rva005C39AA(); };
-class Rva005C3EE0 { public: void show(); };
 class Rva005C3F02;
 class Rva005677B9 { public: struct Payload { int v[2]; }; };
 void Rva00567B6DAdd(Rva005C3F02 *,const Rva005677B9::Payload *);
-class CommandButton {
-public:
- int getStance(int);
- char pad[0x234];
- _STL::vector<int> stances;
-};
 // Prefix-only factory view: unused vslots specify layout, not signatures.
 // Provider declarations above preserve their existing ABI, not class extents.
-class StanceMenuFactory {
-public:
- virtual void slot00(); virtual void slot04(); virtual void slot08(); virtual void slot0C();
- virtual Rva005C3F02 *getMenu();
-};
 class StancesBehavior;
 // Neutral observer-base identity: retail restores table VA 0x00C6CE84.
 // Two slots, and no destructor slot: RET4 at RVA 0x0047A69C and RET12 at
@@ -100,51 +83,15 @@ class StancesBehavior;
 // callback 0x00568143 and the changed-stance callback 0x00567B10. WorldBuilder
 // supplies the behavior reference and signed old/new stance arguments; their
 // original enum spelling remains unresolved, so this view uses integer ABI.
-class Rva0086CE84Observer {
-public:
- virtual void onDestroyingStancesBehavior(StancesBehavior&) {}
- virtual void onStancesBehaviorStanceChanged(StancesBehavior&, int, int) {}
- __forceinline ~Rva0086CE84Observer() {}
-};
 class CreateAHeroData;
-class Rva002B7250 { public: void rva002B7250(CreateAHeroData*); };
-struct StanceBehaviorPrefix { char pad[0x20]; Rva002B7250 observers; };
 struct TargetRef00217D4C;
-struct Rva002BED91 { TargetRef00217D4C *p; void clear(); };
-struct Rva003591F4Arg {
- Rva003591F4Arg(const Rva003591F4Arg &other):m_id(other.m_id),m_flag(other.m_flag){}
- int m_id; bool m_flag;
-};
 // The existing release provider touches only the 12-byte prefix (ref +8).
 // Retail's hotkey vector advances 16 bytes and tests its active flag at +12.
 // Keep that extra flag in a distinct record instead of widening the prefix.
-struct Rva004F691E { Rva003591F4Arg action; Rva002BED91 ref; ~Rva004F691E(); };
-struct StanceHotKeyRecord : Rva004F691E { bool active; };
-struct Rva005681CE : _STL::vector<StanceHotKeyRecord> { ~Rva005681CE(); };
-class Rva005C3E79 { public: void rva005C3E79(); };
-class Rva00E01E28Owner { public: void rva003591F4(Rva003591F4Arg); };
 class HotKeyManager;
 extern HotKeyManager *TheHotKeyManager;
 class HotKeyManager { public: unsigned int removeMessageAction(int); };
 int GetAssociatedMessageType(int);
-class InGameToggleStanceCommandButton {
-public:
- class Impl : public Rva0086CE84Observer {
- public:
-  void OnLeftClicked();
-  ~Impl();
-  virtual void onDestroyingStancesBehavior(StancesBehavior&);
-  virtual void onStancesBehaviorStanceChanged(StancesBehavior&, int, int);
- private:
-  _STL::list<int>::iterator listPosition;
-  Rva00005C357FPtrChaseField *owner08;
-  StanceMenuFactory *factory0C;
-  void *window10;
-  CommandButton *button14;
-  StanceBehaviorPrefix *behavior18;
-  Rva005681CE hotKeys;
- };
-};
 //
 // Vtable-slot bodies with no ledger owner and no Ghidra entry, batch AJ:
 // each is a single tail jump to a rowed or pinned function on the same
@@ -186,11 +133,6 @@ class Rva005CB260
 {
 public:
 	void rva005CB260();
-};
-class W3DModelDraw
-{
-protected:
-	virtual void loadPostProcess();
 };
 class Rva00131CEAForwarder
 {
@@ -284,11 +226,6 @@ class Rva0038404A
 {
 public:
 	void rva00384E8E();
-};
-class TeamFactory
-{
-public:
-	void clear();
 };
 class CreateModule
 {
@@ -437,64 +374,6 @@ public:
 
 // BFME adds View and Display virtuals that the shared Zero Hour headers omit;
 // these scoped views preserve the witnessed slots and +0x104 camera offset.
-class BfmeW3DViewViewportVtable
-{
-public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
-	virtual void slot06();
-	virtual void slot07();
-	virtual void slot08();
-	virtual void slot09();
-	virtual void slot10();
-	virtual void slot11();
-	virtual void slot12();
-	virtual void slot13();
-	virtual void setWidth(Int width);
-	virtual Int getWidth();
-	virtual void setHeight(Int height);
-	virtual Int getHeight();
-};
-
-class BfmeDisplayViewportVtable
-{
-public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
-	virtual void slot06();
-	virtual void slot07();
-	virtual void slot08();
-	virtual void slot09();
-	virtual void slot10();
-	virtual void slot11();
-	virtual void slot12();
-	virtual void slot13();
-	virtual void slot14();
-	virtual void slot15();
-	virtual UnsignedInt getWidth();
-	virtual UnsignedInt getHeight();
-};
-
-struct BfmeW3DViewViewportFields
-{
-	void *m_vtable;
-	unsigned char m_padding04[0x14];
-	Int m_width;
-	Int m_height;
-	Int m_originX;
-	Int m_originY;
-	unsigned char m_padding28[0x104 - 0x28];
-	CameraClass *m_3DCamera;
-};
-
 // BFME inserted view state that the shared Zero Hour header does not expose;
 // keeping its witnessed offsets here prevents that ABI from leaking to other TUs.
 struct BfmeCameraCoord2D
@@ -708,23 +587,6 @@ struct BfmeGlobalDataShakeFields
 // and corroborates both embedded spline paths and their control sequence.
 // BFME2's spline classes are absent from the ZH headers. These views retain
 // the retail offsets and unnamed virtual slots without assigning new names.
-struct Bfme89E2APathNode
-{
-	unsigned char m_unknown[0xB4];
-	unsigned int m_control;
-};
-
-class Rva00312C95
-{
-public:
-	virtual void slot0() = 0;
-	virtual void setWaypoint(Waypoint *) = 0;
-	virtual void initialize(int enabled, int duration, float easeIn, float easeOut, int extra, int flag) = 0;
-	void rva00312118();
-	unsigned char m_unknown04[0x2C - 4];
-	std::vector<Bfme89E2APathNode> m_nodes;
-};
-
 template <int N> class Bfme89E2AViewSlots : public Bfme89E2AViewSlots<N - 1>
 {
 public:
@@ -732,12 +594,6 @@ public:
 };
 
 template <> class Bfme89E2AViewSlots<0> {};
-
-class Bfme89E2AViewVtable : public Bfme89E2AViewSlots<28>
-{
-public:
-	virtual void setControl(unsigned int value) = 0;
-};
 
 // ??_GRva00087A93@@QAEPAXI@Z @ 0x00087A93 (38B): null-guarded 4-byte
 // owning-reference deleting dtor; decrements pointee refcount at +4 and calls
@@ -1012,24 +868,10 @@ BFME_DISP_BYTE_SETTER(Rva00087A29ByteSlot, 0x2504)
 // or constructor identity is established; retain the target address and
 // describe its proven initializer ABI. Destination is the repository's
 // nearest-neighbour home, immediately after its 0x0047A2A9 setter.
-class Rva0047A2B6Floats
-{
-public:
-    Rva0047A2B6Floats *initialize();
-private:
-    float first[3];
-    float second[3];
-};
-
 // Clean BF1 9cbfb551fe Common/Rva007AE610Array.cpp semantic donor, normal O1/SSE/G7.
 // Native 0010855F..0010856E has its own complete RET boundary and establishes
 // receiver68 indexed dword store, RET8. Original owner and full array bound remain
 // unresolved; this separate address-owned view models only observed accesses.
-class Rva0010855FArray {
-public: void setValue(unsigned int index, unsigned int value);
-private: unsigned char unknown[0x68]; unsigned int values[1];
-};
-
 //
 // Vtable-slot forwarders with no ledger owner and no Ghidra size, generated
 // by tools/slot_forwarders.py (family vjmp). Each body was sized from its
@@ -1187,15 +1029,6 @@ public:
 	virtual void slot132();
 };
 
-class Rva00078AC6Forwarder
-{
-public:
-	void rva00078AC6();
-private:
-	char m_lead[0x4];
-	SizedForwarderSlots *m_inner;
-};
-
 class Rva0008605ALead
 {
 public:
@@ -1224,38 +1057,6 @@ public:
 	void rva0008615B();
 };
 
-class Rva0008BD2BLead
-{
-public:
-	virtual void lead0();
-private:
-	char m_lead[0x24C4];
-};
-
-class Rva0008BD2BForwarder : public Rva0008BD2BLead, public SizedForwarderSlots
-{
-public:
-	void rva0008BD2B();
-};
-
-class Rva00091D32Forwarder
-{
-public:
-	void rva00091D32();
-private:
-	char m_lead[0x14];
-	SizedForwarderSlots *m_inner;
-};
-
-class Rva000ABD68Forwarder
-{
-public:
-	void rva000ABD68();
-private:
-	char m_lead[0x4];
-	SizedForwarderSlots *m_inner;
-};
-
 class Rva001EDDBBForwarder
 {
 public:
@@ -1265,91 +1066,10 @@ private:
 	SizedForwarderSlots *m_inner;
 };
 
-class Rva0024002ELead
-{
-public:
-	virtual void lead0();
-private:
-	char m_lead[0xC];
-};
-
-class Rva0024002EForwarder : public Rva0024002ELead, public SizedForwarderSlots
-{
-public:
-	void rva0024002E();
-};
-
-class Rva00240035Lead
-{
-public:
-	virtual void lead0();
-private:
-	char m_lead[0xC];
-};
-
-class Rva00240035Forwarder : public Rva00240035Lead, public SizedForwarderSlots
-{
-public:
-	void rva00240035();
-};
-
-class Rva0024003DLead
-{
-public:
-	virtual void lead0();
-private:
-	char m_lead[0xC];
-};
-
-class Rva0024003DForwarder : public Rva0024003DLead, public SizedForwarderSlots
-{
-public:
-	void rva0024003D();
-};
-
-class Rva0025C25AForwarder : public SizedForwarderSlots
-{
-public:
-	void rva0025C25A();
-};
-
-class Rva0029AC98Forwarder : public SizedForwarderSlots
-{
-public:
-	void rva0029AC98();
-};
-
 class Rva0030ADE8Forwarder : public SizedForwarderSlots
 {
 public:
 	void rva0030ADE8();
-};
-
-class Rva00328CC5Forwarder
-{
-public:
-	void rva00328CC5();
-private:
-	char m_lead[0x18];
-	SizedForwarderSlots *m_inner;
-};
-
-class Rva00328CCCForwarder
-{
-public:
-	void rva00328CCC();
-private:
-	char m_lead[0xC];
-	SizedForwarderSlots *m_inner;
-};
-
-class Rva0039AC9CForwarder
-{
-public:
-	void rva0039AC9C();
-private:
-	char m_lead[0x2C];
-	SizedForwarderSlots *m_inner;
 };
 
 class HAnimClass:public RefCountClass {};
@@ -1364,61 +1084,11 @@ struct Rva0008B689Element {
  __forceinline ~Rva0008B689Element(){CameraClass*camera=pointer;if(camera)camera->Release_Ref();}
 };
 
-class Rva0007BB79Owner
-{
-public:
-	Rva0008B689Element rva0007BB79();
-};
-
 // Native7FD57..7FD89 RET8, camera raw argument refreshes owner before
 // copying the counted camera handle at FC. WB744500 agrees on both operations.
-class Rva0007F0FBOwner{public:void rva0007F0FB(CameraClass*,bool);};
-
-class Rva0007FD57Owner
-{
-public:
-	Rva0008B689Element rva0007FD57(CameraClass*);
-};
-
 BFME_DISP_FLOAT_GETTER(Rva000879EDFloatField, 0x24F8)
 
 BFME_DISP_FLOAT_GETTER(Rva000879F4FloatField, 0x24FC)
-
-class Rva00094AEERandomField
-{
-public:
-	float get() const;
-private:
-	char m_pad00[0x74];
-	GameClientRandomVariable m_value;
-};
-
-class Rva00094AFDRandomField
-{
-public:
-	float get() const;
-private:
-	char m_pad00[0x84];
-	GameClientRandomVariable m_value;
-};
-
-class Rva00098540RandomField
-{
-public:
-	int get() const;
-private:
-	char m_pad00[0x30];
-	GameClientRandomVariable m_value;
-};
-
-class Rva0009854DRandomField
-{
-public:
-	float get() const;
-private:
-	char m_pad00[0x3C];
-	GameClientRandomVariable m_value;
-};
 
 class Rva00420B2AZeroSetter
 {
@@ -1444,12 +1114,6 @@ public:
 	void * rva006E04A0() const;
 };
 
-class AptValueWithHash
-{
-public:
-	virtual void RegisterReferences() const;
-};
-
 namespace Debug_Statistics
 {
 int Get_Draw_Calls();
@@ -1460,12 +1124,6 @@ int Rva000A8F58Get();
 int Rva000A8F5EGet();
 
 // 0x00034D00: tail jump to Rva006C1F60::rva00033D50.
-class Rva00034D00 : public Rva006C1F60
-{
-public:
-	bool rva00034D00();
-};
-
 // 0x00041A06: tail jump to Rva001EDDBBForwarder::rva001EDDBB.
 class Rva00041A06 : public Rva001EDDBBForwarder
 {
@@ -1476,40 +1134,10 @@ public:
 // 0x00099109: tail jump to Rva00041A06::rva00041A06 (W3DMouse vftable slot
 // 9, the Zero Hour reset position; the existing W3DMouse::reset row sits in
 // slot 1, so this keeps an address-derived name).
-class Rva00099109 : public Rva00041A06
-{
-public:
-	void rva00099109();
-};
-
 // 0x00041E65: tail jump to Win32GameEngine::rva0005E959.
-class Rva00041E65 : public Win32GameEngine
-{
-public:
-	void * rva00041E65();
-};
-
 // 0x00043F94: tail jump to Debug_Statistics::Get_Draw_Calls.
-class Rva00043F94
-{
-public:
-	int rva00043F94();
-};
-
 // 0x00062972: tail jump to Rva000A8F58Get.
-class Rva00062972
-{
-public:
-	int rva00062972();
-};
-
 // 0x00062977: tail jump to Rva000A8F5EGet.
-class Rva00062977
-{
-public:
-	int rva00062977();
-};
-
 // 0x00088D05: tail jump to Rva000869CF::rva000869CF.
 class Rva00088D05 : public Rva000869CF
 {
@@ -1518,271 +1146,43 @@ public:
 };
 
 // 0x000907B7: tail jump to VideoPlayer::Rva00689180.
-class Rva000907B7 : public VideoPlayer
-{
-public:
-	void rva000907B7();
-};
-
 // 0x00098560: tail jump to Rva0030ADE8Forwarder::rva0030ADE8.
-class Rva00098560 : public Rva0030ADE8Forwarder
-{
-public:
-	void rva00098560();
-};
-
 // 0x000B23D8: tail jump to Rva005CB260::rva005CB260.
-class Rva000B23D8 : public Rva005CB260
-{
-public:
-	void rva000B23D8();
-};
-
 // 0x000B23DD: tail jump to the slot +0x18 vcall thunk ??_9@$BBI@AE (0x005CB274):
 // a call through a constant pointer to the seventh virtual, which cl routes
 // through the vcall thunk instead of loading the vtable inline.
-class Rva000B23DDTarget
-{
-public:
-	virtual void v0();
-	virtual void v1();
-	virtual void v2();
-	virtual void v3();
-	virtual void v4();
-	virtual void v5();
-	virtual void v6();
-};
-
-class Rva000B23DD : public Rva000B23DDTarget
-{
-public:
-	void rva000B23DD();
-};
-
 // 0x000CA132: tail jump to Rva000B3A2D::rva000B3A2D.
-class Rva000CA132 : public W3DModelDraw
-{
-public:
-	void rva000CA132();
-};
-
 // 0x000EF961: tail jump to Rva00131CEAForwarder::rva00131CEA.
-class Rva000EF961 : public Rva00131CEAForwarder
-{
-public:
-	void rva000EF961(int a);
-};
-
 // 0x001040E7: tail jump to Rva002D35C7Forwarder::rva002D35C7.
-class Rva001040E7 : public Rva002D35C7Forwarder
-{
-public:
-	void rva001040E7();
-};
-
 // 0x001040EC: tail jump to Rva002D6AE2Forwarder::rva002D6AE2.
-class Rva001040EC : public Rva002D6AE2Forwarder
-{
-public:
-	void rva001040EC();
-};
-
 // 0x00109643: tail jump to W3DProjectedShadow::rva00108951.
-class Rva00109643 : public W3DProjectedShadow
-{
-public:
-	void rva00109643();
-};
-
 // 0x0022C4CF: tail jump to GameInfo::getNumPlayers.
-class Rva0022C4CF : public GameInfo
-{
-public:
-	int rva0022C4CF() const;
-};
-
 // 0x0022C4D4: tail jump to GameInfo::getNumOpenOrOccupiedSlots.
-class Rva0022C4D4 : public GameInfo
-{
-public:
-	int rva0022C4D4() const;
-};
-
 // 0x002628B1: tail jump to AIUpdateInterface::wakeUpNow.
-class Rva002628B1 : public AIUpdateInterface
-{
-public:
-	void rva002628B1();
-};
-
 // 0x0030BCBA: tail jump to Rva0030BBE5::rva0030BBE5.
-class Rva0030BCBA : public Rva0030BBE5
-{
-public:
-	void rva0030BCBA(int a);
-};
-
 // 0x00311092: tail jump to CommandList::destroyAllMessages.
-class Rva00311092 : public CommandList
-{
-public:
-	void rva00311092();
-};
-
 // 0x0032E53D: tail jump to SidesList::clear.
-class Rva0032E53D : public SidesList
-{
-public:
-	void rva0032E53D();
-};
-
 // 0x0033FCDC: tail jump to StateMachine::setGoalObject.
-class Rva0033FCDC : public StateMachine
-{
-public:
-	void rva0033FCDC(Object *a);
-};
-
 // 0x00341D1C: tail jump to AIExitState::onEnter.
-class Rva00341D1C : public AIExitState
-{
-public:
-	StateReturnType rva00341D1C();
-};
-
 // 0x00341D21: tail jump to AIExitState::update.
-class Rva00341D21 : public AIExitState
-{
-public:
-	StateReturnType rva00341D21();
-};
-
 // 0x00349D8D: tail jump to BfmeThing932E::bfmeTail932E.
-class Rva00349D8D : public BfmeThing932E
-{
-public:
-	void rva00349D8D();
-};
-
 // 0x00368095: tail jump to AIPickUpCrateState::update.
-class Rva00368095 : public AIPickUpCrateState
-{
-public:
-	StateReturnType rva00368095();
-};
-
 // 0x003681ED: tail jump to AIUpdateInterface::onObjectCreated.
-class Rva003681ED : public AIUpdateInterface
-{
-public:
-	void rva003681ED();
-};
-
 // 0x003682E2: tail jump to AIUpdateInterface::chooseLocomotorSet.
-class Rva003682E2 : public AIUpdateInterface
-{
-public:
-	bool rva003682E2(int a);
-};
-
 // 0x003682E7: tail jump to Rva00262CB6DwordClearer::clear.
-class Rva003682E7 : public Rva00262CB6DwordClearer
-{
-public:
-	void rva003682E7();
-};
-
 // 0x003682EC: tail jump to AIUpdateInterface::getTreatAsAircraftForLocoDistToGoal.
-class Rva003682EC : public AIUpdateInterface
-{
-public:
-	bool rva003682EC() const;
-};
-
 // 0x003697F4: tail jump to GiantBirdNormalFlightState::onExit.
-class Rva003697F4 : public GiantBirdNormalFlightState
-{
-public:
-	void rva003697F4(StateExitType a);
-};
-
 // 0x00374FD0: tail jump to StealthUpdate::rva003748BD.
-class Rva00374FD0 : public StealthUpdate
-{
-public:
-	void rva00374FD0();
-};
-
 // 0x00385BDC: tail jump to Rva0038404A::rva00384E8E.
-class Rva00385BDC : public Rva0038404A
-{
-public:
-	void rva00385BDC();
-};
-
 // 0x003A44DA: tail jump to CreateModule::xfer.
-class Rva003A44DA : public CreateModule
-{
-public:
-	void rva003A44DA(Xfer *a);
-};
-
 // 0x004333FE: tail jump to Rva000B56F0Object::selectStorage.
-class Rva004333FE : public Rva000B56F0Object
-{
-public:
-	void * rva004333FE();
-};
-
 // 0x004444A9: tail jump to Rva003145B1::Rva003145B1Dispatch.
-class Rva004444A9 : public Rva003145B1
-{
-public:
-	int rva004444A9(int a, int b, int c);
-};
-
 // 0x004766BE: tail jump to HordeContain::slot42.
-class Rva004766BE : public HordeContain
-{
-public:
-	void rva004766BE(const Object *a);
-};
-
 // 0x0047E33F: tail jump to TransportContain::onCapture.
-class Rva0047E33F : public TransportContain
-{
-public:
-	virtual void rva0047E33F(int a, int b);
-};
-
 // 0x00483CEF: tail jump to Rva00497805::loadPostProcess.
-class Rva00483CEF : public Rva00497805
-{
-public:
-	void rva00483CEF();
-};
-
 // 0x0048F46D: tail jump to Rva002645FF::rva002645FF.
-class Rva0048F46D : public Rva002645FF
-{
-public:
-	bool rva0048F46D();
-};
-
 // 0x00494E21: tail jump to SpecialAbilityUpdate::rva0044FC52.
-class Rva00494E21 : public SpecialAbilityUpdate
-{
-public:
-	bool rva00494E21();
-};
-
 // 0x00494E48: tail jump to SpecialAbilityUpdate::startUnpacking.
-class Rva00494E48 : public SpecialAbilityUpdate
-{
-public:
-	void rva00494E48();
-};
-
 // 0x00494E4D: tail jump to SpecialAbilityUpdate::onExit.
 class Rva00494E4D : public SpecialAbilityUpdate
 {
@@ -1791,19 +1191,7 @@ public:
 };
 
 // 0x00494E52: tail jump to SpecialAbilityUpdate::update.
-class Rva00494E52 : public SpecialAbilityUpdate
-{
-public:
-	UpdateSleepTime rva00494E52();
-};
-
 // 0x00498CAC: tail jump to GateOpenAndCloseBehavior::xfer.
-class Rva00498CAC : public GateOpenAndCloseBehavior
-{
-public:
-	void rva00498CAC(Xfer *a);
-};
-
 // 0x004A976F: tail jump to AIUpdateInterface::privateIdle; slot 81 of the
 // WorkerAIUpdate vtable 0x00C540AC its rowed ctor 0x004AA3AB installs.
 class WorkerAIUpdate : public AIUpdateInterface
@@ -1815,234 +1203,34 @@ public:
 };
 
 // 0x004C38D0: tail jump to Rva00493009::xfer.
-class Rva004C38D0 : public Rva00493009
-{
-public:
-	void rva004C38D0(Xfer *a);
-};
-
 // 0x0050B928: tail jump to Rva00507823::rva00507877.
-class Rva0050B928 : public Rva00507823
-{
-public:
-	void rva0050B928();
-};
-
 // 0x00521111: tail jump to _bfme_AptGameWindow::rva0051274F.
-class Rva00521111 : public _bfme_AptGameWindow
-{
-public:
-	int rva00521111(int a, unsigned int b, unsigned int c);
-};
-
 // 0x00524AE2: tail jump to MovieWindowPlayback::clear.
-class Rva00524AE2 : public MovieWindowPlayback
-{
-public:
-	void rva00524AE2();
-};
-
 // 0x0052B48D: tail jump to XferSave::endBlock.
-class Rva0052B48D : public XferSave
-{
-public:
-	void rva0052B48D();
-};
-
 // 0x00545CAA: tail jump to AIEnterState::onExit.
-class Rva00545CAA : public AIEnterState
-{
-public:
-	void rva00545CAA(StateExitType a);
-};
-
 // 0x0057BC20: tail jump to SelectionDetailsUIImpl::rva0057BA90 (the Open body).
-class Rva0057BC20 : public StrategicHUD::SelectionDetailsUIImpl
-{
-public:
-	void rva0057BC20();
-};
-
 // 0x005CE344: tail jump to Rva005E717ENamed::name.
-class Rva005CE344 : public Rva005E717ENamed
-{
-public:
-	const char * rva005CE344() const;
-};
-
 // 0x005CEB76: tail jump to Rva005CC5DFNamed::name.
-class Rva005CEB76 : public Rva005CC5DFNamed
-{
-public:
-	const char * rva005CEB76() const;
-};
-
 // 0x005FABBC: tail jump to Rva005E39E0Named::name.
-class Rva005FABBC : public Rva005E39E0Named
-{
-public:
-	const char * rva005FABBC() const;
-};
-
 // 0x005DAC33: tail jump to AIBuildable::addNeed.
-class AIBuildableUnit : public AIBuildable
-{
-public:
-	void addNeed(int a);
-};
-
 // 0x005E358F: tail jump to Overridable::markAsOverride.
-class Rva005E358F : public Overridable
-{
-public:
-	void rva005E358F();
-};
-
 // 0x005E3594: tail jump to Rva00420B2AZeroSetter::disable.
-class Rva005E3594 : public Rva00420B2AZeroSetter
-{
-public:
-	void rva005E3594();
-};
-
 // 0x005F4B52: tail jump to Rva005FD8C1::rva005FD8C1.
-class Rva005F4B52 : public Rva005FD8C1
-{
-public:
-	void rva005F4B52();
-};
-
 // 0x006CBD00: tail jump to AptCIH::rva006dbd80.
-class Rva006CBD00 : public AptCIH
-{
-public:
-	void rva006CBD00();
-};
-
 // 0x006E0500: tail jump to BfmeAptValue006DCD20::rva006E04A0.
-class Rva006E0500 : public BfmeAptValue006DCD20
-{
-public:
-	void * rva006E0500() const;
-};
-
 // 0x0070DFD0: tail jump to Rva006D6360::rva006DCC00.
-class AptObject : public AptValueWithHash
-{
-public:
-	virtual void RegisterReferences() const;
-};
-
 // 0x00444680 (22 tables): answers 1 for any two arguments.
-class Rva00444680
-{
-public:
-	Int rva00444680(Int a, Int b);
-};
-
 // 0x005B8012 (three tables): answers 1 for any four arguments.
-class Rva005B8012
-{
-public:
-	Int rva005B8012(Int a, Int b, Int c, Int d);
-};
-
 // 0x004BF8DF (eleven tables): 0 while +0xC6 is set, else +0x48.
-class Rva004BF8DF
-{
-public:
-	Int rva004BF8DF() const;
-private:
-	char m_pad00[0x48];
-	Int m_48;
-	char m_pad4C[0x7A];
-	bool m_C6;
-};
-
 // 0x005277CF: whether +0x0C is 3.
-class Rva005277CF
-{
-public:
-	bool rva005277CF() const;
-private:
-	char m_pad00[0x0C];
-	Int m_0C;
-};
-
 // 0x00528F03 and 0x005C3998: the leading word of the +0x14 (resp. +0x10)
 // object.
-class Rva00528F03
-{
-public:
-	Int rva00528F03() const;
-private:
-	char m_pad00[0x14];
-	Int *m_14;
-};
-
-class Rva005C3998
-{
-public:
-	Int rva005C3998() const;
-private:
-	char m_pad00[0x10];
-	Int *m_10;
-};
-
 // 0x005F3EF3, 0x005F3EFE and 0x005F3F09: virtual slot 5, 7 resp. 6 of the
 // +0x04 object (the argument is unused).
-class Rva005F3EF3Target
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void v03();
-	virtual void v04();
-	virtual Int v05();
-	virtual Int v06();
-	virtual Int v07();
-};
-
-class Rva005F3EF3
-{
-public:
-	Int rva005F3EF3(Int unused);
-	Int rva005F3EFE(Int unused);
-	Int rva005F3F09(Int unused);
-private:
-	Int m_00;
-	Rva005F3EF3Target *m_04;
-};
-
 // Tail-jump slots over unrowed callees, pinned in reverse/symbols.csv under
 // address-derived names (argument counts from each callee's ret).
 
-class Rva002D7DD5
-{
-public:
-	void rva002D7DD5();
-};
-
-class Rva0004E3A1 : public Rva002D7DD5
-{
-public:
-	void rva0004E3A1();
-};
-
 class LargeGroupAudioKeyMap;
-
-class Rva002862C9
-{
-public:
-	LargeGroupAudioKeyMap *rva002862C9();
-};
-
-class Rva00286351 : public Rva002862C9
-{
-public:
-	void rva00286351();
-};
 
 // Target boundary at 0x00286356 is 29 bytes: it calls the adjacent pinned
 // accessor at 0x002862C9, copies the returned object through the rowed
@@ -2058,81 +1246,9 @@ private:
 	char m_storage[12];
 };
 
-class Rva00286356 : public Rva002862C9
-{
-public:
-	Rva003ED658 rva00286356();
-};
-
-class Rva00286CC4
-{
-public:
-	void rva00286CC4();
-};
-
-class Rva003412DB
-{
-public:
-	void rva003412DB();
-};
-
-class Rva00341339 : public Rva003412DB
-{
-public:
-	void rva00341339();
-};
-
-class Rva00349013
-{
-public:
-	void rva00349013();
-};
-
-class Rva00349217 : public Rva00349013
-{
-public:
-	void rva00349217();
-};
-
 // Native slot3497C2 forwards the StateReturnType result of the recovered
 // 433B internal update. Bind the call to its real provider instead of the
 // older unprovided void-return pin; this wrapper keeps its neutral spelling.
-class Rva00349611
-{
-public:
- StateReturnType rva00349611();
-};
-
-class Rva003497C2 : public Rva00349611
-{
-public:
-	void rva003497C2();
-};
-
-class Rva0034D98B
-{
-public:
-	void rva0034D98B();
-};
-
-class Rva0034DC00 : public Rva0034D98B
-{
-public:
-	void rva0034DC00();
-};
-
-class Rva0035066B
-{
-public:
-	void rva0035066B();
-};
-
-class Rva003508C0 : public Rva0035066B
-{
-public:
-	void rva003508C0();
-};
-
 // Native 00404B03..00404B6C: two owned pointers at +12C/+130,
 // an embedded 168-byte float-pair table at +78, and trailing state fields.
 // The rowed +404B6C forwarder proves the receiver ABI: VictorySystem::reset
@@ -2177,183 +1293,6 @@ private:
     int field13C;
 };
 
-class Rva0047BBA7
-{
-public:
-	void rva0047BBA7();
-};
-
-class Rva0047E32B : public Rva0047BBA7
-{
-public:
-	void rva0047E32B();
-};
-
-class Rva00467F3B
-{
-public:
-	void rva00467F3B();
-};
-
-class Rva0047E330 : public Rva00467F3B
-{
-public:
-	void rva0047E330();
-};
-
-class Rva004BF40F
-{
-public:
-	void rva004BF40F();
-};
-
-class Rva004C202F : public Rva004BF40F
-{
-public:
-	void rva004C202F();
-};
-
-class Rva005C674A
-{
-public:
-	void rva005C674A();
-};
-
-class Rva0053EC3A
-{
-public:
-	void rva0053EC3A();
-private:
-	char m_pad00[0x0C];
-	Rva005C674A m_0C;
-};
-
-class Rva005680D6
-{
-public:
-	void rva005680D6();
-private:
-	char m_pad00[0x0C];
-	InGameToggleStanceCommandButton::Impl *m_0C;
-};
-
-class Rva005D2F7E
-{
-public:
-	void rva005D2F7E();
-};
-
-class Rva0057862E
-{
-public:
-	void rva0057862E();
-private:
-	char m_pad00[0x48];
-	Rva005D2F7E *m_48;
-};
-
-class Rva005D2F84
-{
-public:
-	void rva005D2F84();
-};
-
-class Rva00578636
-{
-public:
-	void rva00578636();
-private:
-	char m_pad00[0x48];
-	Rva005D2F84 *m_48;
-};
-
-class Rva005D2F8A
-{
-public:
-	void rva005D2F8A();
-};
-
-class Rva0057863E
-{
-public:
-	void rva0057863E();
-private:
-	char m_pad00[0x48];
-	Rva005D2F8A *m_48;
-};
-
-class AptStats
-{
-public:
-	void rva005DD22B();
-};
-
-class Rva005B7FFA
-{
-public:
-	void rva005B7FFA();
-private:
-	char m_pad00[0x60];
-	AptStats m_60;
-};
-
-class Rva00517EA2
-{
-public:
-	void rva00517EA2();
-};
-
-class Rva005B800A
-{
-public:
-	void rva005B800A();
-private:
-	char m_pad00[0x58];
-	Rva00517EA2 *m_58;
-};
-
-class Rva005BA440
-{
-public:
-	void rva005BA440();
-};
-
-class Rva005BA621 : public Rva005BA440
-{
-public:
-	void rva005BA621();
-};
-
-class Rva005F963A
-{
-public:
-	void rva005F963A(Int a);
-};
-
-class Rva005F97AC
-{
-public:
-	void rva005F97AC(Int a);
-private:
-	char m_pad00[0x3C];
-	Rva005F963A *m_3C;
-};
-
-class Rva005F9687
-{
-public:
-	void rva005F9687(Int a);
-};
-
-class Rva005F97B4
-{
-public:
-	void rva005F97B4(Int a);
-private:
-	char m_pad00[0x38];
-	Rva005F9687 *m_38;
-};
-
 // Retail 0x005680F9 (74 bytes) returns the instance-list storage at VA
 // 0x00E062D8; its one-time guard is VA 0x00E062DC. The named Impl constructor
 // inserts its instance and the named destructor erases its saved iterator.
@@ -2367,12 +1306,6 @@ namespace _STL {
  template<> _List_base<int, allocator<int> >::_List_base(const allocator<int>&);
  template<> _List_base<int, allocator<int> >::~_List_base();
 }
-
-class Rva00200667 : public _STL::list<int> {
-public:
- __forceinline Rva00200667() : _STL::list<int>(_STL::allocator<int>()) {}
- ~Rva00200667();
-};
 
 BFME_DISP32_FLOAT_GETTER(Rva000879E6FloatField, 0x24F4)
 
@@ -2390,393 +1323,6 @@ BFME_DISP8_DIV_MOV_DWORD_GETTER(Rva00087A36DivMovField, 0x04, 0x00, 0xB8)
 // (MSVC 7.1 uses disp8 whenever the offset fits, so every offset is at
 // least 0x80).
 // No // cl: line (defaults match the frameless 8-byte shape).
-class Rva00042F57ByteOneSetter
-{
-public:
-	void enable();
-
-	char m_lead[0x145];
-	unsigned char m_enabled;
-};
-
-class Rva00042F5FByteOneSetter
-{
-public:
-	void enable();
-
-	char m_lead[0x146];
-	unsigned char m_enabled;
-};
-
-class Rva000203AD5ByteOneSetter
-{
-public:
-	void enable();
-
-	char m_lead[0x1A4D4];
-	unsigned char m_enabled;
-};
-
-class Rva000203ADDByteZeroSetter
-{
-public:
-	void disable();
-
-	char m_lead[0x1A4D4];
-	unsigned char m_enabled;
-};
-
-class Rva0033F971ByteOneSetter
-{
-public:
-	void enable();
-
-	char m_lead[0x3C6];
-	unsigned char m_enabled;
-};
-
-class Rva0033F979ByteZeroSetter
-{
-public:
-	void disable();
-
-	char m_lead[0x3C6];
-	unsigned char m_enabled;
-};
-
-class Rva0041FDDEByteZeroSetter
-{
-public:
-	void disable();
-
-	char m_lead[0x140];
-	unsigned char m_enabled;
-};
-
-class Rva0041FDE6ByteOneSetter
-{
-public:
-	void enable();
-
-	char m_lead[0x140];
-	unsigned char m_enabled;
-};
-
-class Rva0004CB16ByteOneSetter
-{
-public:
-	void enable();
-
-	char m_lead[0xA8];
-	unsigned char m_enabled;
-};
-
-class Rva00066517ByteOneSetter
-{
-public:
-	void enable();
-
-	char m_lead[0xD7B5];
-	unsigned char m_enabled;
-};
-
-class Rva0007DEAFByteOneSetter
-{
-public:
-	void enable();
-
-	char m_lead[0xA0];
-	unsigned char m_enabled;
-};
-
-class Rva0008BC93ByteOneSetter
-{
-public:
-	void enable();
-
-	char m_lead[0x23D0];
-	unsigned char m_enabled;
-};
-
-class Rva000B2B33ByteOneSetter
-{
-public:
-	void enable();
-
-	char m_lead[0x131C];
-	unsigned char m_enabled;
-};
-
-class Rva000B380CByteOneSetter
-{
-public:
-	void enable();
-
-	char m_lead[0x94];
-	unsigned char m_enabled;
-};
-
-class Rva000E0F16ByteOneSetter
-{
-public:
-	void enable();
-
-	char m_lead[0x4FB6D];
-	unsigned char m_enabled;
-};
-
-class Rva000E9C15ByteOneSetter
-{
-public:
-	void enable();
-
-	char m_lead[0x4FB5C];
-	unsigned char m_enabled;
-};
-
-class Rva000EDB3FByteOneSetter
-{
-public:
-	void enable();
-
-	char m_lead[0x44544];
-	unsigned char m_enabled;
-};
-
-class Rva001EADF7ByteOneSetter
-{
-public:
-	void enable();
-
-	char m_lead[0xC1];
-	unsigned char m_enabled;
-};
-
-class Rva001F3852ByteOneSetter
-{
-public:
-	void enable();
-
-	char m_lead[0x1A3];
-	unsigned char m_enabled;
-};
-
-class Rva00203BE1ByteOneSetter
-{
-public:
-	void enable();
-
-	char m_lead[0x1A4D7];
-	unsigned char m_enabled;
-};
-
-class Rva00222479ByteOneSetter
-{
-public:
-	void enable();
-
-	char m_lead[0x310];
-	unsigned char m_enabled;
-};
-
-class Rva00238D7BByteOneSetter
-{
-public:
-	void enable();
-
-	char m_lead[0x114];
-	unsigned char m_enabled;
-};
-
-class Rva0023CF83ByteOneSetter
-{
-public:
-	void enable();
-
-	char m_lead[0x150];
-	unsigned char m_enabled;
-};
-
-class Rva0025C0F7ByteOneSetter
-{
-public:
-	void enable();
-
-	char m_lead[0x10C];
-	unsigned char m_enabled;
-};
-
-class Rva002A87F1ByteOneSetter
-{
-public:
-	void enable();
-
-	char m_lead[0x168];
-	unsigned char m_enabled;
-};
-
-class Rva00406D5FByteOneSetter
-{
-public:
-	void enable();
-
-	char m_lead[0x1D8];
-	unsigned char m_enabled;
-};
-
-class Rva00433CF2ByteOneSetter
-{
-public:
-	void enable();
-
-	char m_lead[0x27D];
-	unsigned char m_enabled;
-};
-
-class Rva0043DB56ByteOneSetter
-{
-public:
-	void enable();
-
-	char m_lead[0x2BE];
-	unsigned char m_enabled;
-};
-
-class Rva0043DB5EByteOneSetter
-{
-public:
-	void enable();
-
-	char m_lead[0x2BB];
-	unsigned char m_enabled;
-};
-
-class Rva0043DB66ByteOneSetter
-{
-public:
-	void enable();
-
-	char m_lead[0x2B8];
-	unsigned char m_enabled;
-};
-
-class Rva0047709EByteOneSetter
-{
-public:
-	void enable();
-
-	char m_lead[0x104];
-	unsigned char m_enabled;
-};
-
-class Rva004BF8EDByteOneSetter
-{
-public:
-	void enable();
-
-	char m_lead[0xC6];
-	unsigned char m_enabled;
-};
-
-class Rva00513821ByteOneSetter
-{
-public:
-	void enable();
-
-	char m_lead[0x184];
-	unsigned char m_enabled;
-};
-
-class Rva00513829ByteOneSetter
-{
-public:
-	void enable();
-
-	char m_lead[0x42F];
-	unsigned char m_enabled;
-};
-
-class Rva0051AF03ByteOneSetter
-{
-public:
-	void enable();
-
-	char m_lead[0x3C5];
-	unsigned char m_enabled;
-};
-
-class Rva00085154ByteZeroSetter
-{
-public:
-	void disable();
-
-	char m_lead[0x5009];
-	unsigned char m_enabled;
-};
-
-class Rva0023C488ByteZeroSetter
-{
-public:
-	void disable();
-
-	char m_lead[0x115];
-	unsigned char m_enabled;
-};
-
-class Rva0029AB03ByteZeroSetter
-{
-public:
-	void disable();
-
-	char m_lead[0x554];
-	unsigned char m_enabled;
-};
-
-class Rva0036859FByteZeroSetter
-{
-public:
-	void disable();
-
-	char m_lead[0x558];
-	unsigned char m_enabled;
-};
-
-class Rva00513819ByteZeroSetter
-{
-public:
-	void disable();
-
-	char m_lead[0x184];
-	unsigned char m_enabled;
-};
-
-class Rva005B0232ByteZeroSetter
-{
-public:
-	void disable();
-
-	char m_lead[0x141];
-	unsigned char m_enabled;
-};
-
-class Rva001F384AByteZeroSetter
-{
-public:
-	void disable();
-
-	char m_lead[0x1A3];
-	unsigned char m_enabled;
-};
-
-class Rva0038896BByteOneSetter
-{
-public:
-	void enable();
-
-	char m_lead[0x48C];
-	unsigned char m_enabled;
-};
-
 class Rva000875CEByteZeroSetter
 {
 public:
@@ -2786,118 +1332,17 @@ public:
 	unsigned char m_enabled;
 };
 
-class Rva00210D0DByteZeroSetter
-{
-public:
-	void disable();
-
-	char m_lead[0x2C0];
-	unsigned char m_enabled;
-};
-
-class Rva00332B49ByteZeroSetter
-{
-public:
-	void disable();
-
-	char m_lead[0x3C5];
-	unsigned char m_enabled;
-};
-
-class Rva004690C8ByteZeroSetter
-{
-public:
-	void disable();
-
-	char m_lead[0x1A8];
-	unsigned char m_enabled;
-};
-
-class Rva000E43DFByteOneSetter
-{
-public:
-	void enable();
-
-	char m_lead[0x9D];
-	unsigned char m_enabled;
-};
-
-class Rva00210CB6ByteOneSetter
-{
-public:
-	void enable();
-
-	char m_lead[0x88];
-	unsigned char m_enabled;
-};
-
 // Native 39B78D is ScoreKeeper::LoadPostProcess, owned by ScoreKeeperDtor.cpp.
-
-class Rva0046F822ByteOneSetter
-{
-public:
-	void enable();
-
-	char m_lead[0x188];
-	unsigned char m_enabled;
-};
-
-class Rva0052E112ByteOneSetter
-{
-public:
-	void enable();
-
-	char m_lead[0x1BA31];
-	unsigned char m_enabled;
-};
-
-class Rva0053997DByteOneSetter
-{
-public:
-	void enable();
-
-	char m_lead[0x43B];
-	unsigned char m_enabled;
-};
-
-class Rva005B022AByteOneSetter
-{
-public:
-	void enable();
-
-	char m_lead[0x141];
-	unsigned char m_enabled;
-};
 
 // BF1 9cb Rva000C3EF0ByteGetter.cpp is a structural lead only. Complete
 // native 2A87EA..2A87F1 follows a terminal JMP and reads raw byte+4B0 into
 // AL. Original owner and complete class bounds remain unknown.
-struct Rva002A87EAFields
-{
-    char unknown00[0x4B0];
-    unsigned char value;
-    unsigned char get() const;
-};
-
-class MilesAudioManager : public SizedForwarderSlots
-{
-public:
-	virtual void rva000512BC();
-public:
-	char m_lead[0x6AB - sizeof(void *)];
-};
-
 BFME_DISP_BYTE_GETTER(Rva000879FBByteField, 0x2500)
 
 // BF1 9cbfb551fe Common/Rva005BD470ZeroTest.cpp is the clean semantic donor.
 // Full native leaf 001F350B..001F3513 ends at its own RET boundary.
 // Target evidence: receiver0C dword equals two; result in AL.
 // Original owner unresolved; the address-owned type is independent of nearby classes.
-class Rva001F350BFields {
-public: unsigned char isTwo() const;
-private: char unknown[0x0C]; unsigned int value;
-};
-
 // Fix over the banked 0.94 attempt: the four 12-byte {int, float, int}
 // records at +0x6C are copied through the record's own member-wise operator=
 // (defined inline), not field by field in the loop; that is what makes cl copy

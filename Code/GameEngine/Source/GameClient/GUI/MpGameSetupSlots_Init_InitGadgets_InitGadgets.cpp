@@ -138,19 +138,7 @@ public:
 };
 
 // The slot's +0x1A8 name getter (rowed as an AsciiString RVO getter).
-class Rva003821B9AsciiField
-{
-public:
-	AsciiString get() const;
-};
-
 // The slot's +0x5C setter (rowed as a Disp8 dword setter).
-class Rva003FF0E7DwordSlot
-{
-public:
-	void set(int value);
-};
-
 class GameInfo
 {
 public:
@@ -194,18 +182,6 @@ struct TreeHintOpaque0043671B
 	unsigned char m_rules[0x28]; // +0xDBC
 	unsigned char m_padde4[0xDE8 - 0xDE4];
 	int m_de8; // +0xDE8
-};
-
-class Rva00401FAF
-{
-public:
-	void rva00401FAF(const TreeHintOpaque0043671B *saved);
-};
-
-class Rva00381D02
-{
-public:
-	void rva00381D02(void *digest);
 };
 
 // Unrowed 0x004361B3 (41 bytes; prints the digest through MD5Print and
@@ -291,12 +267,6 @@ extern ImageCollection *TheMappedImageCollection;
 
 // Native image-store calls use the same manager pointer and target 0x2239E2.
 // The verified provider takes a string name and an image pointer.
-class Rva002239B2
-{
-public:
-	void rva002239E2(const AsciiString &key, const Image *image);
-};
-
 class Rva00222A8BTarget
 {
 public:
@@ -525,12 +495,6 @@ struct MpGameSetupRules
 };
 
 // The game's rules setter (rowed under its address name).
-class Rva00381CED
-{
-public:
-	void rva00381CED(void *rules);
-};
-
 class GameTextInterface
 {
 public:
@@ -667,12 +631,6 @@ public:
 
 // The +0x60 member's next selectable slot from a start (rowed 0x0057CA78
 // under its address class).
-class Rva0057CA78
-{
-public:
-	int GetNextSelectablePlayer(int start);
-};
-
 // The panel's team, handicap and start position handlers, rowed under
 // their own address classes (Rva0043DFE0.cpp, Rva0043E0C5.cpp).
 class Rva0043DFE0
@@ -732,12 +690,6 @@ public:
 // The owner's lazily created holders (Rva0043F103Holder.cpp); 0x0043FA68
 // stores the game at +0x08 of holder 1, the Rva0043DA65 layout.
 struct TargetRef00217D4C;
-
-class Rva0043F103
-{
-public:
-	TargetRef00217D4C *rva0043F103(int index);
-};
 
 // The Apt window manager (0x00DFE4CC) whose
 // bfmeSetText (0x00225301) AptMapPreviewSetMapTitle.cpp pins.
@@ -1078,28 +1030,8 @@ void AptMpGameSetup::rva00441685(bool flag)
 
 // The +0xD0 member's own class (vftable 0x00C3D954 after
 // ??_GRva0043DABD; base Rva0057EE5C).
-class Rva0043DABD
-{
-public:
-	virtual ~Rva0043DABD();
-	virtual void rva0043FE01(int kind, bool reset);
-};
-
-
-
-
 // The +0x190 member's own class (vftable 0x00C3D95C after
 // ??_GRva0043DAE0; base Rva0057F2DE).
-class Rva0043DAE0
-{
-public:
-	virtual ~Rva0043DAE0();
-	virtual void rva00440AA0();
-};
-
-
-
-
 // Retail 0x00443EA8, 358 bytes. Name unknown. The panel's update: unless a
 // refresh is under way or there is no current game, services each dirty
 // byte (+0x2B9..+0x2C1; most only once the local slot, game vslot 13, is

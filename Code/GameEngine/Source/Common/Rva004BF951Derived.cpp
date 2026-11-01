@@ -39,32 +39,6 @@ public:
 };
 
 
-class Rva004C089E_B2
-{
-public:
-	virtual void f2();
-};
-
-class Rva004C089E : public Rva004BF951, public MiBase1, public Rva004C089E_B2
-{
-public:
-	virtual ~Rva004C089E();
-};
-
-
-class Rva004C0988_B2
-{
-public:
-	virtual void f2();
-};
-
-class Rva004C0988 : public Rva004BF951, public MiBase1, public Rva004C0988_B2
-{
-public:
-	virtual ~Rva004C0988();
-};
-
-
 class Rva004C0A4C_B2
 {
 public:
@@ -80,19 +54,6 @@ public:
 Rva004C0A4C::~Rva004C0A4C()
 {
 }
-
-class Rva004C131B_B2
-{
-public:
-	virtual void f2();
-};
-
-class Rva004C131B : public Rva004BF951, public MiBase1, public Rva004C131B_B2
-{
-public:
-	virtual ~Rva004C131B();
-};
-
 
 class Rva004C1EF7_B2
 {
@@ -117,28 +78,6 @@ class Rva004C2016 : public Rva004BF951, public MiBase1, public Rva004C2016_B2
 {
 public:
 	virtual ~Rva004C2016();
-};
-
-
-class Rva004C1BAB_B2
-{
-public:
-	virtual void f2();
-
-private:
-	char m_pad04[0xEC];
-};
-
-class Rva004C1BAB_B3
-{
-public:
-	virtual void f3();
-};
-
-class Rva004C1BAB : public Rva004BF951, public MiBase1, public Rva004C1BAB_B2, public Rva004C1BAB_B3
-{
-public:
-	virtual ~Rva004C1BAB();
 };
 
 

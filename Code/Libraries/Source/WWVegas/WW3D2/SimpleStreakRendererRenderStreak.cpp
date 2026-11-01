@@ -305,23 +305,6 @@ DX8_FVF_XYZNDUV1TG3	= (D3DFVF_XYZ|D3DFVF_NORMAL|D3DFVF_DIFFUSE|D3DFVF_TEX4|D3DFV
 DX8_FVF_XYZNUV2DMAP	= (D3DFVF_XYZ|D3DFVF_NORMAL|D3DFVF_TEX3 | D3DFVF_TEXCOORDSIZE1(0) | D3DFVF_TEXCOORDSIZE4(1) | D3DFVF_TEXCOORDSIZE2(2) ),
 DX8_FVF_XYZNDCUBEMAP	= D3DFVF_XYZ|D3DFVF_NORMAL|D3DFVF_DIFFUSE
 };
-struct VertexFormatXYZ
-{
-float x;
-float y;
-float z;
-};
-struct VertexFormatXYZNUV1
-{
-float x;
-float y;
-float z;
-float nx;
-float ny;
-float nz;
-float u1;
-float v1;
-};
 struct VertexFormatXYZNUV2
 {
 float x;
@@ -335,27 +318,6 @@ float v1;
 float u2;
 float v2;
 };
-struct VertexFormatXYZN
-{
-float x;
-float y;
-float z;
-float nx;
-float ny;
-float nz;
-};
-struct VertexFormatXYZNDUV1
-{
-float x;
-float y;
-float z;
-float nx;
-float ny;
-float nz;
-unsigned diffuse;
-float u1;
-float v1;
-};
 struct VertexFormatXYZNDUV2
 {
 float x;
@@ -364,26 +326,6 @@ float z;
 float nx;
 float ny;
 float nz;
-unsigned diffuse;
-float u1;
-float v1;
-float u2;
-float v2;
-};
-struct VertexFormatXYZDUV1
-{
-float x;
-float y;
-float z;
-unsigned diffuse;
-float u1;
-float v1;
-};
-struct VertexFormatXYZDUV2
-{
-float x;
-float y;
-float z;
 unsigned diffuse;
 float u1;
 float v1;
@@ -613,19 +555,6 @@ protected:
 IDirect3DVertexBuffer8*		VertexBuffer;
 void Create_Vertex_Buffer(UsageType usage);
 };
-class SortingVertexBufferClass : public VertexBufferClass
-{
-friend DX8Wrapper;
-friend SortingRendererClass;
-friend VertexBufferClass::WriteLock;
-friend VertexBufferClass::AppendLockClass;
-friend DynamicVBAccessClass::WriteLock;
-VertexFormatXYZNDUV2* VertexBuffer;
-protected:
-~SortingVertexBufferClass() throw();
-public:
-SortingVertexBufferClass(unsigned short VertexCount);
-};
 #endif
 #ifndef DX8INDEXBUFFER_H
 #define DX8INDEXBUFFER_H
@@ -843,12 +772,6 @@ m_debugLinesToShow = -1;
 }
 };
 #endif
-class DX8_CleanupHook
-{
-public:
-virtual void ReleaseResources(void)=0;
-virtual void ReAcquireResources(void)=0;
-};
 struct RenderStateStruct
 {
 ShaderClass shader;
@@ -1233,7 +1156,6 @@ extern Rva007B7024Object *g_Va00DEE870;
 extern Rva007B7024Object *g_Va00DEE86C;
 class ShroudFilter {public: int unknown[3],u,v; void Set_U_Addr_Mode(int m){u=m;} void Set_V_Addr_Mode(int m){v=m;}};
 class ShroudTexture {public:ShroudFilter *getFilter();};
-struct Rva0007671F {Rva0007671F(); char data[64];};
 struct SimpleTextureRefPtr : BFME2TextureRef {SimpleTextureRefPtr(){Ptr=0;} ~SimpleTextureRefPtr(){if(Ptr)Ptr->Release_Ref();}};
 struct SimpleTextureTemp : SimpleTextureRefPtr {SimpleTextureTemp(){}};
 struct SimpleTextureHolder { TextureClass *Ptr; bool Is_Valid() const { return Ptr != 0; } };
@@ -1659,11 +1581,6 @@ namespace _STL {
 template <> vector<Rva0007BB16Record>::~vector();
 }
 struct Rva00082EB8Rec;
-class Rva00082EB8 : public _STL::vector<Rva0007BB16Record>
-{
-public:
-void rva00082EB8(const Rva00082EB8Rec &);
-};
 class FXShaderSetup
 {
 public:

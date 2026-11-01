@@ -100,20 +100,6 @@ private: int field00;
 
 BFME_DISP8_BYTE_GETTER(Rva0053111DByteField, 0x35)
 
-class Rva001DCD05
-{
-public:
-	void *rva001DCD05();
-private:
-	char m_pad[8];
-	char m_08;
-	char m_pad2[0x14 - 0x09];
-	char m_14;
-	char m_pad3[0x20 - 0x15];
-	unsigned char m_20;
-	bool m_21;
-};
-
 // Clean BFME1 9cbfb551 donor structural leads; native instructions independently
 // establish complete RET boundaries and each raw field operation and ABI.
 // Address-owned carriers retain unknown original receiver identity and bounds.
@@ -130,14 +116,6 @@ struct Rva0056AB88Fields { char pad[0xC]; unsigned int wordC; bool matches(unsig
 
 // Disp8 byte setter: mov al,[esp+4] / mov [ecx+<DISP>],al / ret 4 (10 bytes).
 // Address-derived class; the stored byte's meaning is unproven.
-class Rva0065D7C0ByteSetter
-{
-public:
-	void set(unsigned char value);
-	char m_lead[0x1D];
-	unsigned char m_value;
-};
-
 // ?rva002259F3@Rva002259F3@@QBEHXZ, retail 0x002259F3 (25B): three flag bytes at
 // +0x44 (must be set), +0xA8 and +0x9D (must be clear).
 class Rva002259F3
@@ -892,36 +870,6 @@ private:
 
 // cdecl destroy helpers: ecx = the argument, then a tail jump to the rowed
 // destructor (or reset member) of the pointee.
-class Rva004E1A04
-{
-public:
-	~Rva004E1A04();
-};
-
-class Rva004E366E
-{
-public:
-	void rva004E366E();
-};
-
-class Rva005344C0
-{
-public:
-	~Rva005344C0();
-};
-
-class Rva00568C4E
-{
-public:
-	~Rva00568C4E();
-};
-
-class BfmePoolRef10
-{
-public:
-	~BfmePoolRef10();
-};
-
 // Bare tail jumps to a rowed member of the object at +0.
 class Rva0038201D { public: void rva003828B6(); };
 
@@ -1232,10 +1180,6 @@ private:
 // three and calls (the shape of STLport's __uninitialized_fill_n dispatch).
 float *Rva005EA1B1Fill(float *dest, int count, const int &value);
 
-struct Rva005EA5CETag
-{
-};
-
 // ?rva005C6D48@Rva005C6D48@@QAEIABURva0027EA49@@@Z @0x005C6D48 5B and
 // ?rva005CABBB@Rva005CABBB@@QAEIABVAsciiString@@@Z @0x005CABBB 5B: erase a key
 // from the set tree at +0 through its rowed _Rb_tree::erase(const key &).
@@ -1354,15 +1298,6 @@ private:
 // provider at 0047A6A9. Native565402 and WB12CAB90 independently establish
 // that provider's borrow role; the original owner of this unused outline
 // remains unknown. Keep it separate from the neighboring assignment view.
-class Rva00564B0A
-{
-public:
-    Rva005045DBTree &rva00564B0A();
-private:
-    char m_unknown00[0x0c];
-    Rva005045DBTree m_0c;
-};
-
 // ---- from Code/GameEngine/Source/Common/BooleanBitmapSet.cpp
 
 // ---- from Code/GameEngine/Source/Common/BooleanBitmapSet.cpp

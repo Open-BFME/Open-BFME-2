@@ -60,10 +60,6 @@ template <> struct less<AsciiString>
 };
 }
 
-class Rva0038404A { public: void rva00384E8E(void); };
-class Rva00383AFF { public: void rva00383AFF(void); };
-class Rva00383A28 { public: void rva00383A28(void); };
-class Rva00072FE6 { public: void rva00072FE6(void); };
 class PSPlayerAllStats {
 public:
     PSPlayerAllStats(int id);
@@ -100,8 +96,6 @@ public:
 	GameSpyGroupRoom();		// 0x0038226B
 	GameSpyGroupRoom &operator=(const GameSpyGroupRoom &other);	// 0x00381E56
 };
-class BuddyInfo {};
-
 struct BfmeOpaqueOwnedRecord492
 {
 	union {
@@ -141,8 +135,6 @@ public:
 };
 
 // GameInfo assignment (0x00382E73), rowed under its address name.
-class Rva00382E73 { public: Rva00382E73 &operator=(const Rva00382E73 &other); };
-
 struct TreeHintOpaque0043671B;
 extern "C" void MD5Print(unsigned char digest[16], char output[33]);
 TreeHintOpaque0043671B *Rva004360B3(AsciiString key);
@@ -189,27 +181,6 @@ namespace _STL { template <> void _Rb_tree<AsciiString,pair<AsciiString const ,P
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL { template <> _Rb_tree_base<pair<int const, AsciiString>, allocator<pair<int const, AsciiString> > >::_Rb_tree_base(allocator<pair<int const, AsciiString> > const &); }
 typedef _STL::map<AsciiString, AsciiString> PreferenceMap;
-
-class UserPreferences : public PreferenceMap
-{
-public:
-	UserPreferences();
-	virtual ~UserPreferences();
-	virtual Bool load(const AsciiString &fname);
-	virtual Bool load(const UnicodeString &fname);
-	virtual Bool write(void);
-	void rva003B2322(const AsciiString &val, Int num, Bool flag);
-protected:
-	UnicodeString m_filename;
-};
-
-class IgnorePreferences : public UserPreferences
-{
-public:
-	IgnorePreferences();
-	virtual ~IgnorePreferences();
-	SavedIgnoreMap getIgnores(void);
-};
 
 extern Int GetAdditionalDisconnectsFromUserFile(Int playerID);
 
@@ -466,12 +437,6 @@ public:
 	static GameResultsInterface *createNewGameResultsInterface(void);
 };
 class Rva0055011A;
-class Rva005503B1
-{
-public:
-	static Rva0055011A *rva005503B1(void);
-};
-
 // GlobalData's user-data path getter and FileSystem::createDirectory, both
 // rowed by address.
 class GlobalData
@@ -482,12 +447,6 @@ public:
 extern GlobalData *TheWritableGlobalData;
 class FileSystem;
 extern FileSystem *TheFileSystem;
-class Rva003006C4
-{
-public:
-	bool rva003006C4(const AsciiString &path);
-};
-
 // Rva0054F508 is CustomMatchPreferences; its getters are rowed by name.
 class CustomMatchPreferences
 {

@@ -1089,27 +1089,6 @@ private:
 
 // Zero-displacement members: the compared dword is the first field, so no
 // lead padding is emitted (a zero-length pad array is not legal C++).
-class Rva004CB73CmpBoolField
-{
-public:
-	bool get() const;
-	int m_value;
-};
-
-class Rva0050D3ECmpBoolField
-{
-public:
-	bool get() const;
-	int m_value;
-};
-
-class Rva002620FECmpBoolField
-{
-public:
-	bool get() const;
-	int m_value;
-};
-
 // 0x004A8125 is ToppleUpdate::isAbleToBeToppled (pinned under that name from
 // Object::topple 0x0028CF37; ZH: m_toppleState == TOPPLE_UPRIGHT, state at +0x38).
 class ToppleUpdate
@@ -1136,14 +1115,6 @@ public:
 	Rva0036CC89Inner *m_ptr;
 };
 
-class Rva00368594CmpBoolField
-{
-public:
-	bool get() const;
-	char m_lead[0x558];
-	unsigned char m_byte;
-};
-
 // ?rva00050D86@Rva00050D86@@QAE_NE@Z @0x00050D86 55B mask-covered set-field check.
 // Four disp8 bytes at +0x49..0x4C; every nonzero field requires its mask bit
 // (1/2/4/8); returns true when a set field lacks its bit, false when covered.
@@ -1159,46 +1130,14 @@ public:
 	unsigned char m_4C;
 };
 
-class Rva00050D6C
-{
-public:
-	int rva00050D6C();
-	char m_lead[0x49];
-	unsigned char m_49;
-	unsigned char m_4A;
-	unsigned char m_4B;
-	unsigned char m_4C;
-};
-
 // Native 0x0026FFF7..0x0027000E RET: int at +B8 equals either 1 or 2.
 // Full EAX returns 0/1; field signedness and enum meaning remain unknown.
-class Rva0026FFF7 {
-    char m_pad[0xB8];
-    int m_value;
-public:
-    int get() const;
-};
-
 // BF1 9cbfb551fe Common/Rva00694830Accessors.cpp is the clean semantic guide.
 // Complete native 00050D53..00050D60 RET leaf proves: receiver0 pointer returns null or pointed address plus8.
 // Original owner and complete bounds unresolved; independent address-owned view.
-class Rva00050D53Fields {
-public: char *get();
-private: char *value;
-};
-
 // 0x0023C4F8 (14B): both flag bytes at +0x15 and +0x16 set (the
 // xor/cmp-je/cmp-je/inc shape of HordeUpdate::isTrueHordeMember 0x0049001F).
 // Owner unresolved; address-derived name.
-class Rva0023C4F8BothFlags
-{
-public:
-	bool get() const;
-	char m_lead[0x15];
-	bool m_first;
-	bool m_second;
-};
-
 class ExperienceLevelList;
 
 class ExperienceLevelIterator
@@ -1419,25 +1358,10 @@ public:
 	void setEmoticon(const StringBase<char> &name, int val);
 };
 
-struct ObjectListNode
-{
-	ObjectListNode *m_next;
-	ObjectListNode *m_prev;
-	Object *m_data;
-};
-
 class StancesBehavior
 {
 public:
 	bool changeStance(int v);
-};
-
-class ObjectIterator
-{
-public:
-	virtual ~ObjectIterator();
-	virtual Object *first() = 0;
-	virtual Object *next() = 0;
 };
 
 class Rva0036FAF8
