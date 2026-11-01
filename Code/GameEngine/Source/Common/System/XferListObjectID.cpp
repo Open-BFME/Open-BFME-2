@@ -53,16 +53,7 @@ enum ObjectID
 	INVALID_ID = 0
 };
 
-class XferException
-{
-public:
-	XferException(int tag, const char *format, ...);
-	XferException(const XferException &that);
-	~XferException();
-
-	char *text;
-	int tag;
-};
+#include "../../../Include/Common/XferException.h"
 
 
 void XferObjectID(Xfer *xfer, ObjectID *objectID);

@@ -59,15 +59,7 @@ namespace _STL { template <> void XferKeyOffsetTable::resize(unsigned int); }
 // resumes reverse/attempt_support/0x0060ce41-w4-20261020.md; helper identity
 // corrections are documented in xfer-save-60ce41-identity-20261020.md.
 
-class XferException
-{
-public:
-	XferException(int tag, const char *format, ...);
-	XferException(const XferException &that);
-	~XferException();
-	void *text; // +0x00
-	int tag; // +0x04
-};
+#include "../../../Include/Common/XferException.h"
 
 class BfmeByteStream
 {

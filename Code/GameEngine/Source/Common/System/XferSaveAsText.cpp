@@ -88,15 +88,7 @@ public:
 	virtual Int seek(Int bytes, Int mode);
 };
 
-class XferException
-{
-public:
-	XferException(int tag, const char *format, ...);
-	XferException(const XferException &that);
-	~XferException();
-	char *text;
-	int tagValue;
-};
+#include "../../../Include/Common/XferException.h"
 
 // Clean C++ conversion of the word formatter at retail RVA 0x009D93A0.
 extern "C" void __cdecl bfmeAppend(void *stream, const char *format, ...);
