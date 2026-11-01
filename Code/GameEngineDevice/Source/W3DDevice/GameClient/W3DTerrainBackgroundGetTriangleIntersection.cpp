@@ -50,16 +50,21 @@ private:
 	unsigned char m_storage[0x34]; // +0x00
 };
 
+// Native primary ctor 6F1A6/55B proves this 44-byte view, Ray at 0C
+// and three flags at 40/41/42; both terrain callers use the same prefix.
+class RenderObjClass;
 class RayCollisionTestClass
 {
 public:
-	RayCollisionTestClass(const LineSegClass &ray, CastResultStruct *res,
-		int collisionType, bool checkTranslucent, bool checkHidden);
+	RayCollisionTestClass(const LineSegClass & ray,CastResultStruct * res,int collision_type,bool check_translucent, bool check_hidden);
 
-	CastResultStruct *Result;
-
-private:
-	unsigned char m_storage[0x40];
+	CastResultStruct *			Result;
+	int								CollisionType;
+	RenderObjClass *				CollidedRenderObj;
+	LineSegClass 		Ray;
+	bool CheckTranslucent;
+	bool CheckHidden;
+	bool _bfme_flag42; // Retail primary constructor initializes this extra flag to false.
 };
 
 class WorldHeightMap
