@@ -1,0 +1,16 @@
+link_check: preparing 1 explicit safe provider(s), no extra sources
+Source claims: OK (1 sources, scoped byte-verified)
+Data rows: OK (1 row(s) byte-verified)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Funclet pins: 17 row(s) verified past a renumbered $L label
+    $L1256 (Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp): $L1256 was renumbered; verified parent EH data places $L12290 at 0x007971CE
+    $L2973 (Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp): $L2973 was renumbered; verified parent EH data places $L12399 at 0x007861AE
+    uw_007971d9 (Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp): $L1257 was renumbered; verified parent EH data places $L12291 at 0x007971D9
+    uw_0079720c (Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp): $L6339 was renumbered; verified parent EH data places $L13056 at 0x0079720C
+    Unwind@00b97107 (Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp): $L1171 was renumbered; verified parent EH data places $L12116 at 0x00797107
+STLport folds: 2 complete emitted constructor(s) verified against retail owners and resolved callees
+Functions: OK 77/77 matched across 1 source file(s)
+String-ref verify: OK (6 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (2 compiler literals verified)
+Import-ref verify: OK (0 named imports verified)
+link_check: 1 explicit providers byte-verified with strict reusable receipts; census/index/status unchanged, LINK closure not yet checked

@@ -1,0 +1,99 @@
+{
+  "before_external_code_definitions": 10,
+  "after_external_code_definitions": 16,
+  "retained_unchanged": 3,
+  "changed": [
+    {
+      "name": "??0Rva0052CD81@@QAE@ABV0@@Z",
+      "same_raw_bytes": true,
+      "old_relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$??0Rva0052CD81@@QAE@ABV0@@Z"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          28,
+          20,
+          "?get_allocator@?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QBE?AV?$allocator@VAsciiString@@@2@XZ"
+        ],
+        [
+          48,
+          20,
+          "??0?$_Vector_base@VSaveMapPreview@@V?$allocator@VSaveMapPreview@@@_STL@@@_STL@@QAE@IABV?$allocator@VSaveMapPreview@@@1@@Z"
+        ],
+        [
+          68,
+          20,
+          "??$__uninitialized_copy@PAVSaveMapPreview@@PAV1@@_STL@@YAPAVSaveMapPreview@@PAV1@00ABU__false_type@0@@Z"
+        ],
+        [
+          88,
+          6,
+          "__except_list"
+        ]
+      ],
+      "new_relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$??0Rva0052CD81@@QAE@ABV0@@Z"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          28,
+          20,
+          "?get_allocator@?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QBE?AV?$allocator@VAsciiString@@@2@XZ"
+        ],
+        [
+          48,
+          20,
+          "??0?$_Vector_base@VRva004E194E@@V?$allocator@VRva004E194E@@@_STL@@@_STL@@QAE@IABV?$allocator@VRva004E194E@@@1@@Z"
+        ],
+        [
+          68,
+          20,
+          "??$__uninitialized_copy@PAVRva004E194E@@PAV1@@_STL@@YAPAVRva004E194E@@PAV1@00ABU__false_type@0@@Z"
+        ],
+        [
+          88,
+          6,
+          "__except_list"
+        ]
+      ]
+    }
+  ],
+  "removed": [
+    "??$__stl_alloc_rebind@VSaveMapPreview@@V1@@_STL@@YAAAV?$allocator@VSaveMapPreview@@@0@AAV10@PBVSaveMapPreview@@@Z",
+    "??$__uninitialized_copy@PAVSaveMapPreview@@PAV1@@_STL@@YAPAVSaveMapPreview@@PAV1@00ABU__false_type@0@@Z",
+    "??1?$_STLP_alloc_proxy@PAVSaveMapPreview@@V1@V?$allocator@VSaveMapPreview@@@_STL@@@_STL@@QAE@XZ",
+    "??1?$_Vector_base@VSaveMapPreview@@V?$allocator@VSaveMapPreview@@@_STL@@@_STL@@QAE@XZ",
+    "??1?$allocator@VSaveMapPreview@@@_STL@@QAE@XZ",
+    "?deallocate@?$_STLP_alloc_proxy@PAVSaveMapPreview@@V1@V?$allocator@VSaveMapPreview@@@_STL@@@_STL@@QAEXPAVSaveMapPreview@@I@Z"
+  ],
+  "added": [
+    "??$__stl_alloc_rebind@VRva004E194E@@V1@@_STL@@YAAAV?$allocator@VRva004E194E@@@0@AAV10@PBVRva004E194E@@@Z",
+    "??$__uninitialized_copy@PAVRva004E194E@@PAV1@@_STL@@YAPAVRva004E194E@@PAV1@00ABU__false_type@0@@Z",
+    "??0?$_STLP_alloc_proxy@PAVRva004E194E@@V1@V?$allocator@VRva004E194E@@@_STL@@@_STL@@QAE@ABV?$allocator@VRva004E194E@@@1@PAVRva004E194E@@@Z",
+    "??0?$_Vector_base@VRva004E194E@@V?$allocator@VRva004E194E@@@_STL@@@_STL@@QAE@IABV?$allocator@VRva004E194E@@@1@@Z",
+    "??0?$allocator@VRva004E194E@@@_STL@@QAE@ABV01@@Z",
+    "??1?$_STLP_alloc_proxy@PAVRva004E194E@@V1@V?$allocator@VRva004E194E@@@_STL@@@_STL@@QAE@XZ",
+    "??1?$_Vector_base@VRva004E194E@@V?$allocator@VRva004E194E@@@_STL@@@_STL@@QAE@XZ",
+    "??1?$allocator@VRva004E194E@@@_STL@@QAE@XZ",
+    "?allocate@?$_STLP_alloc_proxy@PAVRva004E194E@@V1@V?$allocator@VRva004E194E@@@_STL@@@_STL@@QAEPAVRva004E194E@@I@Z",
+    "?allocate@?$allocator@VRva004E194E@@@_STL@@QBEPAVRva004E194E@@IPBX@Z",
+    "?deallocate@?$_STLP_alloc_proxy@PAVRva004E194E@@V1@V?$allocator@VRva004E194E@@@_STL@@@_STL@@QAEXPAVRva004E194E@@I@Z",
+    "?deallocate@?$allocator@VRva004E194E@@@_STL@@QBEXPAVRva004E194E@@I@Z"
+  ],
+  "parent_resolved_96_bytes_exact": true,
+  "method": "Original source privately compiled under its original options; current object only from the normal build. No private object written to build/match."
+}
