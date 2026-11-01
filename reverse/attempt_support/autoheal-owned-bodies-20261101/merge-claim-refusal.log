@@ -1,0 +1,8 @@
+tu: Code/GameEngine/Source/GameLogic/Object/Behavior/AutoHealBehavior.cpp
+approved: 30
+mixed: {'Code/GameEngine/Source/Common/ModuleNameGetters.cpp': 49, 'Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp': 39, 'Code/GameEngine/Source/Common/VslotSmallBodiesAM.cpp': 23, 'Code/GameEngine/Source/Common/VslotSmallBodiesU.cpp': 9}
+refused: {}
+accepted: []
+rejected: {}
+adopt_first: {'Code/GameEngine/Source/GameLogic/Object/Behavior/AutoHealBehaviorPlayerScan.cpp': ['BehaviorModule', 'BehaviorModuleInterface', 'Thing', 'UpdateModule', 'UpdateModuleInterface'], 'Code/GameEngine/Source/GameLogic/Object/Update/AutoHealBehaviorCtor.cpp': ['UpdateModule']}
+blocked: held by another worker: file:Code/GameEngine/Source/GameLogic/Object/Behavior/AutoHealBehaviorPlayerScan.cpp

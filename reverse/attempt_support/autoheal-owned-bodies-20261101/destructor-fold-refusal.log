@@ -1,0 +1,1 @@
+rename: refused: retail vftable 0x00C3FCDC, which Rva0045232D's rows install as their own, is named ??_7Rva0045232D@@6BRva0024A797_Root@@@ in data_rows.csv / data_ledger.csv, not ??_7AutoHealBehavior@@6B@: nothing ties AutoHealBehavior to it

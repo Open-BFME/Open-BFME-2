@@ -41,3 +41,22 @@ agree on its sole current getter; the extra cached copy is absent. Repeating
 the definition audit finds no duplicate. The original/current AutoHeal getter
 itself always had identical bytes, relocation hash and exclusive classification.
 No common-source or register edit was needed. Both audit snapshots are retained.
+
+## Follow-on consolidation
+
+The fresh supported merge dry run now accepts the seed plus
+Rva004523F5Ctor.cpp (one 12-byte constructor), which would remove one source
+file. Applying refuses before editing because AutoHealBehaviorPlayerScan.cpp,
+also in the required whole-TU claim scope, is held by another worker. No
+reservation bypass, manual merge or path move is made. Retry the supported
+merge when the full scope is available; the winning dry-run text is retained.
+
+Other donors still need module-header/layout reconciliation, and the pool-key
+donor needs its missing declaration. The proposed Rva0045232D -> AutoHealBehavior
+class fold is also refused: the existing primary vtable C3FCDC is still named
+only for Rva0045232D in the data ledgers. No new vtable identity is admitted.
+
+The source repair's published batch audit is INCONCLUSIVE: index 86db074988
+predates base 76ce80cf6d, and affected consumer AIBuildable.cpp has no current
+strict receipt. Carry that wider scope into the next scheduled census; the
+scoped link prediction is not full consumer clearance.

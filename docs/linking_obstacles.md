@@ -4706,6 +4706,11 @@ Whole-unit clearance and census confirmation remain pending.
   repair remain separate. An initial shadow duplicate-getter warning clears
   after strict preparation of the common provider; its fresh private control
   confirms the current one-getter object and no common-source edit is needed.
+  The supported merge now accepts the 12-byte Rva004523F5 constructor donor,
+  but application cannot claim the required PlayerScan file, held by another
+  worker; no move is applied. Other donors still need header/layout work.
+  The published batch audit remains inconclusive on the older index and a
+  missing AIBuildable.cpp strict receipt; carry that scope into the next census.
   Evidence:
   `reverse/attempt_support/autoheal-owned-bodies-20261101/`.
 
