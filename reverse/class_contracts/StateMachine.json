@@ -1,0 +1,723 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "StateMachine",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 219,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x18": {
+    "4": 1
+   },
+   "0x1c": {
+    "4": 4
+   },
+   "0x20": {
+    "4": 2
+   },
+   "0x24": {
+    "4": 1
+   },
+   "0x30": {
+    "4": 2
+   },
+   "0x34": {
+    "4": 1
+   },
+   "0x38": {
+    "1": 3
+   },
+   "0x4": {
+    "4": 10
+   },
+   "0x8": {
+    "4": 4
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x4d79e1"
+     ],
+     "value": 59
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x4d79e1"
+     ],
+     "value": {
+      "0x14": [
+       4
+      ],
+      "0x1c": [
+       4
+      ],
+      "0x20": [
+       4
+      ],
+      "0x24": [
+       4
+      ],
+      "0x28": [
+       4
+      ],
+      "0x2c": [
+       4
+      ],
+      "0x30": [
+       4
+      ],
+      "0x34": [
+       4
+      ],
+      "0x38": [
+       1
+      ],
+      "0x39": [
+       1
+      ],
+      "0x3a": [
+       1
+      ],
+      "0x4": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x4d79e1"
+     ],
+     "value": {
+      "0x8": [
+       "??0?$map@EHU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEH@_STL@@@2@@_STL@@QAE@XZ"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x4d79e1"
+     ],
+     "value": {
+      "0x0": "0x860740"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x860740"
+     ],
+     "value": {
+      "count": 16,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GStateMachine@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x4d7a59"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 1,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?GetSnapshotName@StateMachine@@MBEPBDXZ",
+        "slot": 2,
+        "target": "0x341456"
+       },
+       {
+        "name": "?xfer@StateMachine@@MAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x4d7744"
+       },
+       {
+        "name": "?updateStateMachine@StateMachine@@UAE?AW4StateReturnType@@XZ",
+        "slot": 4,
+        "target": "0x4d7321"
+       },
+       {
+        "name": "?clear@StateMachine@@UAEXXZ",
+        "slot": 5,
+        "target": "0x4d72c5"
+       },
+       {
+        "name": "?resetToDefaultState@StateMachine@@UAE?AW4StateReturnType@@XZ",
+        "slot": 6,
+        "target": "0x4d7a75"
+       },
+       {
+        "name": "?initDefaultState@StateMachine@@UAE?AW4StateReturnType@@XZ",
+        "slot": 7,
+        "target": "0x4d770f"
+       },
+       {
+        "name": "?setState@StateMachine@@UAE?AW4StateReturnType@@H@Z",
+        "slot": 8,
+        "target": "0x4d7acd"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 9,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 10,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?isInAttackState@StateMachine@@UBE_NXZ",
+        "slot": 11,
+        "target": "0x2621b8"
+       },
+       {
+        "name": "?isInBusyState@StateMachine@@UBE_NXZ",
+        "slot": 12,
+        "target": "0x4d7309"
+       },
+       {
+        "name": "?rva004D7395@StateMachine@@UAEXXZ",
+        "slot": 13,
+        "target": "0x4d7395"
+       },
+       {
+        "name": "?setGoalObject@StateMachine@@UAEXPBVObject@@@Z",
+        "slot": 14,
+        "target": "0x4d750f"
+       },
+       {
+        "name": "?halt@StateMachine@@UAEXXZ",
+        "slot": 15,
+        "target": "0x4d73a4"
+       }
+      ],
+      "table": "0x860740"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 18,
+  "retail_vtables": {
+   "0x860740": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GStateMachine@@UAEPAXI@Z",
+     "1": "??1Region2D@@QAE@XZ",
+     "2": "?GetSnapshotName@StateMachine@@MBEPBDXZ",
+     "3": "?xfer@StateMachine@@MAEXPAVXfer@@@Z",
+     "4": "?updateStateMachine@StateMachine@@UAE?AW4StateReturnType@@XZ",
+     "5": "?clear@StateMachine@@UAEXXZ",
+     "6": "?resetToDefaultState@StateMachine@@UAE?AW4StateReturnType@@XZ",
+     "7": "?initDefaultState@StateMachine@@UAE?AW4StateReturnType@@XZ",
+     "8": "?setState@StateMachine@@UAE?AW4StateReturnType@@H@Z",
+     "9": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "10": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "11": "?isInAttackState@StateMachine@@UBE_NXZ",
+     "12": "?isInBusyState@StateMachine@@UBE_NXZ",
+     "13": "?rva004D7395@StateMachine@@UAEXXZ",
+     "14": "?setGoalObject@StateMachine@@UAEXPBVObject@@@Z",
+     "15": "?halt@StateMachine@@UAEXXZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 14,
+  "view_sizes": {
+   "1": 16,
+   "4": 37,
+   "8": 8,
+   "12": 1,
+   "24": 70,
+   "32": 2,
+   "40": 1,
+   "48": 27,
+   "52": 1,
+   "60": 35,
+   "76": 1,
+   "80": 3,
+   "84": 2,
+   "88": 1
+  },
+  "views": 205,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_StateMachine.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/StateMachine.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 107,
+   "witness": null
+  },
+  {
+   "decided_by": "retail-access",
+   "kind": "P",
+   "name": "m_currentState",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {
+    "4": 10
+   },
+   "size": 4,
+   "type": "State*",
+   "views": 40,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:_STL::map<int,State *,_STL::less<int>,_STL::allocator<_STL::pair<int const ,State *> > >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 0,
+     "size": 4,
+     "type": "_STL::_Rb_tree_node<_STL::pair<unsigned int const ,State *> >*"
+    },
+    {
+     "kind": "i4",
+     "name": "_M_node_count",
+     "offset": 4,
+     "size": 4,
+     "type": "uint"
+    },
+    {
+     "kind": "S:_STL::less<int>",
+     "name": "_M_key_compare",
+     "offset": 8,
+     "size": 1,
+     "type": "_STL::less<int>"
+    }
+   ],
+   "name": "m_stateMap",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::map<int,State *,_STL::less<int>,_STL::allocator<_STL::pair<int const ,State *> > >",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_owner",
+   "name_by": "majority",
+   "offset": 20,
+   "retail_widths": {},
+   "size": 4,
+   "type": "Object*",
+   "views": 112,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 152
+ },
+ "outliers": [
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/Common/StateMachineXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/StateMachineDefineState.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/Common/StateMachine.cpp",
+    "Code/GameEngine/Source/Common/StateMachineDtor.cpp",
+    "Code/GameEngine/Source/Common/StateMachineXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIGuardStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/StateMachineDefineState.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/Common/StateMachine.cpp",
+    "Code/GameEngine/Source/Common/StateMachineXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachComputePath.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_OnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_Unresolved.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIHuntStateUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesMoreExits.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/StateMachineDefineState.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp"
+   ],
+   "views": 11
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/Common/AIHarvestPrepareSiteState.cpp",
+    "Code/GameEngine/Source/Common/Rva003426ABSlot4.cpp",
+    "Code/GameEngine/Source/Common/StateMachine.cpp",
+    "Code/GameEngine/Source/Common/StateMachineXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackAimAtTargetStateOnExit.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackAimAtTargetStateOnExit_Update.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackAimAtTargetStateUpdateInternal.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachComputePath.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_OnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_Unresolved.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIFaceStateUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIGuardRetaliateStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIHarvest.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIHordeCowerStateSlots.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIInternalMoveToStateUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIMoveAndEvacuateStateEnterExit.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIMoveToStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerQueueSupplyTruck.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild_DoUpgradesAndSkills.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild_QueueUnits.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStates.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesBfmeComputePath.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesBfmeMoveOnEnters.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesBfmeOnExit.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit_ComputeGoal.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit_ComputeGoal_ComputeGoal.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit_ComputeGoal_ComputeGoal_Update.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesMoreExits.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/Rva00343FB0.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectDoXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIGiantBirdSwoopStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdNormalFlightStates.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceLocomotorDistanceToGoal.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderMoveAlliesCallback.cpp"
+   ],
+   "views": 41
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/Common/AIHarvestPrepareSiteState.cpp",
+    "Code/GameEngine/Source/Common/StateMachine.cpp",
+    "Code/GameEngine/Source/Common/StateMachineXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackAimAtTargetStateOnExit.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackAimAtTargetStateOnExit_Update.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackAimAtTargetStateUpdateInternal.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachComputePath.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_OnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_Unresolved.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIFaceStateUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIGuardRetaliateStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIHarvest.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIHordeCowerStateSlots.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIInternalMoveToStateUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIMoveAndEvacuateStateEnterExit.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIMoveToStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerQueueSupplyTruck.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild_DoUpgradesAndSkills.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild_QueueUnits.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStates.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesBfmeComputePath.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesBfmeMoveOnEnters.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesBfmeOnExit.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit_ComputeGoal.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit_ComputeGoal_ComputeGoal.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit_ComputeGoal_ComputeGoal_Update.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesMoreExits.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/Rva00343FB0.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectDoXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIGiantBirdSwoopStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdNormalFlightStates.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceLocomotorDistanceToGoal.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderMoveAlliesCallback.cpp"
+   ],
+   "views": 40
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/Common/AIHarvestPrepareSiteState.cpp",
+    "Code/GameEngine/Source/Common/StateMachine.cpp",
+    "Code/GameEngine/Source/Common/StateMachineXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackAimAtTargetStateOnExit.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackAimAtTargetStateOnExit_Update.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackAimAtTargetStateUpdateInternal.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachComputePath.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_OnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_Unresolved.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIFaceStateUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIGuardRetaliateStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIHarvest.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIHordeCowerStateSlots.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIInternalMoveToStateUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIMoveAndEvacuateStateEnterExit.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIMoveToStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerQueueSupplyTruck.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild_DoUpgradesAndSkills.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild_QueueUnits.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStates.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesBfmeComputePath.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesBfmeMoveOnEnters.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesBfmeOnExit.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit_ComputeGoal.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit_ComputeGoal_ComputeGoal.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit_ComputeGoal_ComputeGoal_Update.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesMoreExits.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/Rva00343FB0.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectDoXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIGiantBirdSwoopStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdNormalFlightStates.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceLocomotorDistanceToGoal.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderMoveAlliesCallback.cpp"
+   ],
+   "views": 40
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/Common/StateMachine.cpp",
+    "Code/GameEngine/Source/Common/StateMachineXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIInternalMoveToStateUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngine/Source/Common/StateMachine.cpp",
+    "Code/GameEngine/Source/Common/StateMachineXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachComputePath.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_OnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_Unresolved.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIDock.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIHordeCowerStateSlots.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIHuntStateUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIIdleStateUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIMoveAndEvacuateStateEnterExit.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesMoreExits.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AITunnelNetworkGuardStateUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/StateMachineDefineState.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/StateMachine_setGoalObject.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_friend_setGoalObject.cpp"
+   ],
+   "views": 18
+  },
+  {
+   "offset": 57,
+   "sources": [
+    "Code/GameEngine/Source/Common/StateMachine.cpp",
+    "Code/GameEngine/Source/Common/StateMachineXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/StateMachineDefineState.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 58,
+   "sources": [
+    "Code/GameEngine/Source/Common/StateMachine.cpp",
+    "Code/GameEngine/Source/Common/StateMachineXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesBfmeOnExit.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 64,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 68,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 72,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesSmallUpdates.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 76,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_OnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_Unresolved.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 80,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_SetEmotionState.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_predicates.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 84,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "slot7",
+   "candidates": {
+    "_rsvd07()": 1,
+    "gap07()": 1,
+    "initDefaultState()": 19,
+    "isInAttackState()": 1,
+    "m7()": 1,
+    "s07()": 1,
+    "s1C()": 2,
+    "s7()": 6,
+    "slot07()": 19,
+    "slot1C()": 2,
+    "slot7()": 1,
+    "v07()": 1,
+    "v7()": 1,
+    "vslot1c()": 1
+   },
+   "class": "StateMachine"
+  }
+ ],
+ "size": 24,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "majority",
+   "member": "slot01()"
+  },
+  "10": {
+   "decided_by": "majority",
+   "member": "slot10()"
+  },
+  "11": {
+   "decided_by": "majority",
+   "member": "slot11()"
+  },
+  "12": {
+   "decided_by": "majority",
+   "member": "slot12()"
+  },
+  "13": {
+   "decided_by": "majority",
+   "member": "slot13()"
+  },
+  "14": {
+   "decided_by": "majority",
+   "member": "setGoalObject(Object*)"
+  },
+  "15": {
+   "decided_by": "bytes",
+   "member": "halt()"
+  },
+  "2": {
+   "decided_by": "majority",
+   "member": "slot02()"
+  },
+  "3": {
+   "decided_by": "majority",
+   "member": "slot03()"
+  },
+  "4": {
+   "decided_by": "majority",
+   "member": "updateStateMachine()"
+  },
+  "5": {
+   "decided_by": "majority",
+   "member": "slot05()"
+  },
+  "6": {
+   "decided_by": "majority",
+   "member": "slot06()"
+  },
+  "8": {
+   "decided_by": "majority",
+   "member": "setState(uint)"
+  },
+  "9": {
+   "decided_by": "majority",
+   "member": "slot09()"
+  }
+ }
+}

@@ -192,3 +192,4 @@ INIException,Code/GameEngine/Include/Common/INI/FieldParse.h,existing header; co
 NameKeyGenerator,Code/GameEngine/Include/Common/NameKeyGenerator.h,existing header; contract class_contracts/NameKeyGenerator.json; 587/671 sampled units adopt
 GameMessage,Code/GameEngine/Include/Common/MessageStream.h,existing header; contract class_contracts/GameMessage.json; 130/176 sampled units adopt
 GameInfo,Code/GameEngine/Include/GameNetwork/GameInfo.h,existing header; contract class_contracts/GameInfo.json; 48/160 sampled units adopt
+StateMachine,Code/GameEngine/Include/Common/StateMachineClass.h,existing header; contract class_contracts/StateMachine.json; 37/219 sampled units adopt
