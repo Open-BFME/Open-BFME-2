@@ -1,4 +1,7 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_gamelod /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/bfme2_ascii_common /Ireference/open-bfme-1/reference/shims/ini /Ireference/open-bfme-1/reference/shims/gamelod /Ireference/open-bfme-1/reference/shims/ini_noinline /Ireference/open-bfme-1/reference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/shims/bfmealloc
+// stlport
+#include "PreRTS.h"
+#include "Common/UserPreferences.h"
 //
 // ?rva00202244@Rva00DFE144Globals@@QAEXHPAVOptionPreferences@@@Z, retail
 // 0x00202244..0x002022E9 (165 bytes, RET 8): a method of the object at
@@ -9,11 +12,6 @@
 // the +0x15 flag; the +0x18 word; the +0x2C mode mapped 2 -> 0, 1 -> 1,
 // anything else -> 2; and the +0x38 and +0x40 words.
 
-class OptionPreferences
-{
-public:
-	void setSetting(int index, int value);
-};
 
 struct Rva00202244Preset
 {
@@ -39,6 +37,7 @@ class Rva00DFE144Globals
 {
 public:
 	void rva00202244(int preset, OptionPreferences *prefs);
+	void rva002022E9(int level);
 private:
 	Rva00202244Preset m_presets[1];
 };

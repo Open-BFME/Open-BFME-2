@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
+// cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_gamelod /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/bfme2_ascii_common /Ireference/open-bfme-1/reference/shims/ini /Ireference/open-bfme-1/reference/shims/gamelod /Ireference/open-bfme-1/reference/shims/ini_noinline /Ireference/open-bfme-1/reference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/shims/bfmealloc
 // platformsdk
 // stlport
 // ?findStaticLODLevel@GameLODManager@@QAE?AW4StaticGameLODLevel@@XZ
@@ -21,6 +21,9 @@
 // 0x002031FB StringBase<char> set / ctor / releaseBuffer and
 // GetVersionExA; BFME 2 deltas against the donor (four preset levels, the
 // two preference setters, GlobalData +0x30) are read from the retail body.
+#include "PreRTS.h"
+#include "Common/GameLOD.h"
+#include "Common/UserPreferences.h"
 #include <map>
 #include <windows.h>
 #include <string.h>
@@ -29,13 +32,6 @@
 typedef int Int;
 typedef float Real;
 
-enum StaticGameLODLevel
-{
-	STATIC_GAME_LOD_UNKNOWN = -1
-};
-
-enum ChipsetType { DC_UNKNOWN = 0 };
-enum CpuType { XX = 0 };
 bool Rva000768F5(ChipsetType *chipset, CpuType *cpu, int *mhz, unsigned __int64 *ram, float *a, float *b, float *c);
 
 namespace _STL
@@ -43,64 +39,45 @@ namespace _STL
 template <> AsciiString &map<AsciiString, AsciiString, less<AsciiString>, allocator<pair<const AsciiString, AsciiString> > >::operator[](const AsciiString &key);
 }
 
-class UserPreferences : public _STL::map<AsciiString, AsciiString>
-{
-public:
-	virtual ~UserPreferences();
-	virtual bool write();
-private:
-	AsciiString m_filename;
-};
-
-class OptionPreferences : public UserPreferences
-{
-public:
-	OptionPreferences();
-	virtual ~OptionPreferences();
-	void rva002E537B(Int level);
-	void rva002E52FC(Int level);
-};
-
-class GlobalData
-{
-public:
-	unsigned char m_pad00[0x30];
-	Int m_xResolution; // +0x30
-	Int m_yResolution; // +0x34
+struct LODGlobalDataView {
+ char gap0[0x1C];
+ bool m_showProps;
+ char gap1D[0x7];
+ bool field24;
+ bool field25;
+ char gap26[0xA];
+ int m_xResolution; // +0x30
+ int m_yResolution; // +0x34
+ char gap38[0x11];
+ bool field49;
+ bool field4A;
+ char gap4B[0x13];
+ bool field5E;
+ char gap5F[0x1];
+ bool m_useShadowVolumes;
+ bool m_useShadowDecals;
+ bool m_useShadowMapping;
+ char gap63[0x21];
+ bool m_showSoftWaterEdge;
+ char gap85[0x8B];
+ int m_maxTankTrackEdges;
+ int m_maxTankTrackOpaqueEdges;
+ int m_maxTankTrackFadeDelay;
+ char gap11C[0x889];
+ bool m_showSelectedUnitMarker;
+ char gap9A6[0x1];
+ bool m_useSimpleMergeDecals;
+ char gap9A8[0x16];
+ bool m_showAllHealthBars;
+ char gap9BF[0x25];
+ bool m_forceBenchmark; // +0x9E4
+ char gap9E5[0xE3];
+ int m_maxParticleCount;
+ char gapACC[0x24];
+ bool m_shellMapOn;
+ bool m_shellMapOffByCommandArgument;
 };
 extern GlobalData *TheWritableGlobalData;
-
-struct LODPresetInfo
-{
-	Int m_cpuType;
-	Int m_mhz;
-	Real m_cpuPerfIndex;
-	Int m_videoType;   // +0x0C
-	Int m_memory;      // +0x10
-	Int m_pad14;
-	Int m_xResolution; // +0x18
-	Int m_yResolution; // +0x1C
-};
-
-class GameLODManager
-{
-public:
-	StaticGameLODLevel findStaticLODLevel();
-
-private:
-	unsigned char m_pad000[0x228];
-	LODPresetInfo m_lodPresets[5][32];        // +0x228
-	unsigned char m_pad1628[0x1768 - 0x1628];
-	Int m_currentStaticLOD;                   // +0x1768
-	unsigned char m_pad176c[0x17AC - 0x176C];
-	Int m_numLevelPresets[5];                 // +0x17AC
-	unsigned char m_pad17c0[0x17C4 - 0x17C0];
-	StaticGameLODLevel m_idealDetailLevel;    // +0x17C4
-	ChipsetType m_videoChipType;              // +0x17C8
-	CpuType m_cpuType;                        // +0x17CC
-	unsigned __int64 m_numRAM;                // +0x17D0
-	Int m_cpuFreq;                            // +0x17D8
-};
 
 #define PROFILE_ERROR_LIMIT 0.94f
 
@@ -157,8 +134,8 @@ StaticGameLODLevel GameLODManager::findStaticLODLevel()
 			optionPref.rva002E52FC(m_idealDetailLevel);
 		if (TheWritableGlobalData)
 		{
-			TheWritableGlobalData->m_xResolution = xres;
-			TheWritableGlobalData->m_yResolution = yres;
+			((LODGlobalDataView *)TheWritableGlobalData)->m_xResolution = xres;
+			((LODGlobalDataView *)TheWritableGlobalData)->m_yResolution = yres;
 		}
 		AsciiString resolution;
 		resolution.format("%d %d", xres, yres);

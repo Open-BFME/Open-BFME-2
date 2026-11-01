@@ -1,0 +1,171 @@
+// Copied from reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/UserPreferences.h.
+/*
+**	Command & Conquer Generals Zero Hour(tm)
+**	Copyright 2025 Electronic Arts Inc.
+**
+**	This program is free software: you can redistribute it and/or modify
+**	it under the terms of the GNU General Public License as published by
+**	the Free Software Foundation, either version 3 of the License, or
+**	(at your option) any later version.
+**
+**	This program is distributed in the hope that it will be useful,
+**	but WITHOUT ANY WARRANTY; without even the implied warranty of
+**	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+**	GNU General Public License for more details.
+**
+**	You should have received a copy of the GNU General Public License
+**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+////////////////////////////////////////////////////////////////////////////////
+//																																						//
+//  (c) 2001-2003 Electronic Arts Inc.																				//
+//																																						//
+////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////////////
+// FILE: UserPreferences.h
+// Author: Matthew D. Campbell, April 2002
+// Description: Saving/Loading of user preferences
+///////////////////////////////////////////////////////////////////////////////////////
+
+#pragma once
+
+#ifndef __USERPREFERENCES_H__
+#define __USERPREFERENCES_H__
+
+//-----------------------------------------------------------------------------
+// USER INCLUDES //////////////////////////////////////////////////////////////
+//-----------------------------------------------------------------------------
+#include "Common/STLTypedefs.h"
+
+class Money;
+
+//-----------------------------------------------------------------------------
+// PUBLIC TYPES ///////////////////////////////////////////////////////////////
+//-----------------------------------------------------------------------------
+
+typedef std::map<AsciiString, AsciiString> PreferenceMap;
+
+//-----------------------------------------------------------------------------
+// UserPreferences base class 
+//-----------------------------------------------------------------------------
+class UserPreferences : public PreferenceMap
+{
+public:
+	UserPreferences();
+	virtual ~UserPreferences();
+
+	virtual Bool load(AsciiString fname);
+	virtual Bool write(void);
+	
+	Bool getBool(AsciiString key, Bool defaultValue) const;
+	Real getReal(AsciiString key, Real defaultValue) const;
+	Int getInt(AsciiString key, Int defaultValue) const;
+	AsciiString getAsciiString(AsciiString key, AsciiString defaultValue) const;
+
+	void setBool(AsciiString key, Bool val);
+	void setReal(AsciiString key, Real val);
+	void setInt(AsciiString key, Int val);
+	void setAsciiString(AsciiString key, AsciiString val);
+
+protected:
+	AsciiString m_filename;
+};
+
+//-----------------------------------------------------------------------------
+// OptionsPreferences options menu class 
+//-----------------------------------------------------------------------------
+class OptionPreferences : public UserPreferences
+{
+public:
+	OptionPreferences(  );
+	// BFME 2: the callers at 0x00202058 and 0x00202244 use these option forwarders.
+	Int getModelLOD();
+	Int getAnimationLOD();
+	Int getEffectsLOD();
+	Int getShadowLOD();
+	Int getTerrainLOD();
+	Int getWaterLOD();
+	Int Rva002E431EForward();
+	Int Rva002E4326Forward();
+	Int Rva002E432EForward();
+	void setSetting(int index, int value);
+	// BFME 2: row 0x002022E9 queries the health-bar preference.
+	Bool getAllHealthBars();
+	// BFME 2: rows 0x002027EA and 0x00203288 use the audio query and detail setters.
+	Int getAudioLOD();
+	void rva002E53FA(Int audioLOD);
+	void rva002E537B(Int level);
+	void rva002E52FC(Int level);
+	virtual ~OptionPreferences();
+	UnsignedInt getLANIPAddress(void);				// convenience function
+	UnsignedInt getOnlineIPAddress(void);			// convenience function
+	void setLANIPAddress(AsciiString IP);			// convenience function
+	void setOnlineIPAddress(AsciiString IP);	// convenience function
+	void setLANIPAddress(UnsignedInt IP);			// convenience function
+	void setOnlineIPAddress(UnsignedInt IP);	// convenience function
+	Bool getAlternateMouseModeEnabled(void);	// convenience function
+	Bool getRetaliationModeEnabled();					// convenience function
+	Bool getDoubleClickAttackMoveEnabled(void);	// convenience function
+	Real getScrollFactor(void);								// convenience function
+	Bool getSendDelay(void);									// convenience function
+	Int getFirewallBehavior(void);						// convenience function
+	Short getFirewallPortAllocationDelta(void);	// convenience function
+	UnsignedShort getFirewallPortOverride(void); // convenience function
+	Bool getFirewallNeedToRefresh(void);			// convenience function
+	Bool usesSystemMapDir(void);							// convenience function
+	AsciiString getPreferred3DProvider(void);	// convenience function
+	AsciiString getSpeakerType(void);					// convenience function
+	Real getSoundVolume(void);								// convenience function
+	Real get3DSoundVolume(void);							// convenience function
+	Real getSpeechVolume(void);								// convenience function
+	Real getMusicVolume(void);								// convenience function
+	Bool saveCameraInReplays(void);
+	Bool useCameraInReplays(void);
+	Int	 getStaticGameDetail(void);	// detail level selected by the user.
+	Int	 getIdealStaticGameDetail(void);	// detail level detected for user.
+ 	Real getGammaValue(void);
+	Int	 getTextureReduction(void);
+	void getResolution(Int *xres, Int *yres);
+	Bool get3DShadowsEnabled(void);
+	Bool get2DShadowsEnabled(void);
+	Bool getCloudShadowsEnabled(void);
+	Bool getLightmapEnabled(void);
+	Bool getSmoothWaterEnabled(void);
+	Bool getTreesEnabled(void);
+	Bool getExtraAnimationsDisabled(void);
+	Bool getUseHeatEffects(void);
+	Bool getDynamicLODEnabled(void);
+	Bool getFPSLimitEnabled(void);
+	Bool getNoDynamicLODEnabled(void);
+	Bool getBuildingOcclusionEnabled(void);
+	Int getParticleCap(void);
+
+	Int	 getCampaignDifficulty(void);
+	void setCampaignDifficulty( Int diff );
+};
+
+//-----------------------------------------------------------------------------
+// LANPreferences class 
+//-----------------------------------------------------------------------------
+class LANPreferences : public UserPreferences
+{
+public:
+	LANPreferences();
+	virtual ~LANPreferences();
+	UnicodeString getUserName(void);		// convenience function
+	Int getPreferredFaction(void);			// convenience function
+	Int getPreferredColor(void);				// convenience function
+	AsciiString getPreferredMap(void);	// convenience function
+	Bool usesSystemMapDir(void);		// convenience function
+	Int getNumRemoteIPs(void);					// convenience function
+	UnicodeString getRemoteIPEntry(Int i);	// convenience function
+
+  Bool getSuperweaponRestricted(void) const;
+  Money getStartingCash(void) const;
+  void setSuperweaponRestricted( Bool superweaponRestricted);
+  void setStartingCash( const Money & startingCash );
+};
+
+#endif // __USERPREFERENCES_H__

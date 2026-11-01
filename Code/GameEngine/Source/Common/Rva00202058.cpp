@@ -1,4 +1,7 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_gamelod /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/bfme2_ascii_common /Ireference/open-bfme-1/reference/shims/ini /Ireference/open-bfme-1/reference/shims/gamelod /Ireference/open-bfme-1/reference/shims/ini_noinline /Ireference/open-bfme-1/reference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/shims/bfmealloc
+// stlport
+#include "PreRTS.h"
+#include "Common/UserPreferences.h"
 // Retail RVA 0x00202058, 492 bytes.
 // Rva00202058::rva00202058: reads OptionPreferences enum forwarders
 // (0x002E42EE..0x002E432E rowed in OptionPreferences_enumDispatch.cpp)
@@ -6,19 +9,6 @@
 // +0x17C..+0x1C4. Imul 0x4C needs /G7; push 2/pop ebp and xor/inc ebx
 // are /O1 small-constant idioms.
 
-class OptionPreferences
-{
-public:
-	int getModelLOD();
-	int getAnimationLOD();
-	int getEffectsLOD();
-	int getShadowLOD();
-	int getTerrainLOD();
-	int getWaterLOD();
-	int Rva002E431EForward();
-	int Rva002E4326Forward();
-	int Rva002E432EForward();
-};
 
 struct LODDef
 {

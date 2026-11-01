@@ -1,5 +1,8 @@
 // ?newLODPreset@GameLODManager@@QAEPAULODPresetInfo@@W4StaticGameLODLevel@@@Z
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_gamelod /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/bfme2_ascii_common /Ireference/open-bfme-1/reference/shims/ini /Ireference/open-bfme-1/reference/shims/gamelod /Ireference/open-bfme-1/reference/shims/ini_noinline /Ireference/open-bfme-1/reference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/shims/bfmealloc
+// stlport
+#include "PreRTS.h"
+#include "Common/GameLOD.h"
 //
 // ?newLODPreset@GameLODManager@@QAEPAULODPresetInfo@@W4StaticGameLODLevel@@@Z, retail 0x0020202B, 45 bytes.
 // GameLODManager::newLODPreset (WorldBuilder GameLOD.cpp:394; ZH signature,
@@ -19,25 +22,11 @@
 // whole diff against retail.
 // Neighbours: prev 0x0020200D RetailBenchProfileAllocator, next 0x002025AC.
 // Unlock lane: landing this makes 0x00202E23 ready.
-enum StaticGameLODLevel { STATIC_GAME_LOD_UNKNOWN = -1 };
-struct LODPresetInfo
-{
-	char data[32];
-};
 
-class GameLODManager
-{
-public:
-	char m_pad0[0x208];
-	LODPresetInfo m_lodPresets[160];
-	char m_pad1[0x1A4];
-	int m_numLevelPresets[5];
-	LODPresetInfo *newLODPreset(StaticGameLODLevel index);
-};
 
 LODPresetInfo *GameLODManager::newLODPreset(StaticGameLODLevel index)
 {
 	if (m_numLevelPresets[index] < 32)
-		return &m_lodPresets[index * 32 + (++m_numLevelPresets[index])];
+		return &m_lodPresets[index][(++m_numLevelPresets[index]) - 1];
 	return 0;
 }

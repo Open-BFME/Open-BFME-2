@@ -1,4 +1,5 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
+// cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_gamelod /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/bfme2_ascii_common /Ireference/open-bfme-1/reference/shims/ini /Ireference/open-bfme-1/reference/shims/gamelod /Ireference/open-bfme-1/reference/shims/ini_noinline /Ireference/open-bfme-1/reference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/shims/bfmealloc
+// stlport
 // ?init@GameLODManager@@QAEXH@Z, retail 0x002027EA, 864 bytes.
 //
 // Identity: the existing pin (GameEngine::init's REL32 call). Donor: Zero Hour
@@ -14,6 +15,9 @@
 // is derived from the CPU speed against +0x17F0, saved to the preferences and
 // applied through 0x00202790. Offsets are the BFME2 manager layout.
 
+#include "PreRTS.h"
+#include "Common/GameLOD.h"
+#include "Common/UserPreferences.h"
 #include <stdio.h>
 #include "ascii_string.h"
 
@@ -21,77 +25,55 @@ typedef bool Bool;
 typedef int Int;
 typedef float Real;
 
-enum ChipsetType
-{
-	DC_UNKNOWN = 0
-};
-
-enum CpuType
-{
-	XX = 0,
-	P3 = 1
-};
-
-enum StaticGameLODLevel
-{
-	STATIC_GAME_LOD_UNKNOWN = -1,
-	STATIC_GAME_LOD_LOW = 1,
-	STATIC_GAME_LOD_HIGH = 3,
-	STATIC_GAME_LOD_CUSTOM = 5
-};
-
-enum INILoadType
-{
-	INI_LOAD_OVERWRITE = 1
-};
-
 #define PROFILE_ERROR_LIMIT 0.94f
 
 class Xfer;
-
-class INI
-{
-public:
-	INI();
-	~INI();
-	unsigned char loadFile(AsciiString filename, INILoadType loadType, Xfer *xfer);
-private:
-	char m_data[0x87C];
-};
 
 bool Rva000768F5(ChipsetType *videoChipType, CpuType *cpuType, int *cpuFreq,
 	unsigned __int64 *numRAM, float *intBenchIndex, float *floatBenchIndex,
 	float *memBenchIndex);
 #define testMinimumRequirements Rva000768F5
 
-class UserPreferences
-{
-public:
-	virtual ~UserPreferences();
-	virtual Bool write(void);
-private:
-	char m_body[0x10];
-};
-
-class OptionPreferences : public UserPreferences
-{
-public:
-	OptionPreferences();
-	virtual ~OptionPreferences();
-	Int getStaticGameDetail();
-	Int getIdealStaticGameDetail();
-	Int getAudioLOD();
-	void rva002E53FA(Int audioLOD);
-};
-
-class GlobalData
-{
-public:
-	char m_pad[0x9E4];
-	Bool m_forceBenchmark;
+struct LODGlobalDataView {
+ char gap0[0x1C];
+ bool m_showProps;
+ char gap1D[0x7];
+ bool field24;
+ bool field25;
+ char gap26[0xA];
+ int m_xResolution; // +0x30
+ int m_yResolution; // +0x34
+ char gap38[0x11];
+ bool field49;
+ bool field4A;
+ char gap4B[0x13];
+ bool field5E;
+ char gap5F[0x1];
+ bool m_useShadowVolumes;
+ bool m_useShadowDecals;
+ bool m_useShadowMapping;
+ char gap63[0x21];
+ bool m_showSoftWaterEdge;
+ char gap85[0x8B];
+ int m_maxTankTrackEdges;
+ int m_maxTankTrackOpaqueEdges;
+ int m_maxTankTrackFadeDelay;
+ char gap11C[0x889];
+ bool m_showSelectedUnitMarker;
+ char gap9A6[0x1];
+ bool m_useSimpleMergeDecals;
+ char gap9A8[0x16];
+ bool m_showAllHealthBars;
+ char gap9BF[0x25];
+ bool m_forceBenchmark; // +0x9E4
+ char gap9E5[0xE3];
+ int m_maxParticleCount;
+ char gapACC[0x24];
+ bool m_shellMapOn;
+ bool m_shellMapOffByCommandArgument;
 };
 extern GlobalData *TheWritableGlobalData;
-#define TheGlobalData TheWritableGlobalData
+#define TheGlobalData ((LODGlobalDataView *)TheWritableGlobalData)
 
 // Retail's CPU-name table at RVA 0x9B96B8 (.data): XX/P3/P4/K7 plus null,
 // in retail's index order, that Benchmark.txt writing indexes by CPU type.
@@ -107,22 +89,6 @@ extern const char BfmeCpuNameK7[];
 const char BfmeCpuNameK7[] = "K7";
 const char *CPUNames[] = {BfmeCpuNameXX, BfmeCpuNameP3, BfmeCpuNameP4, BfmeCpuNameK7, NULL};
 
-struct LODPresetInfo
-{
-	CpuType m_cpuType;
-	Int m_mhz;
-	char m_pad08[0x20 - 0x08];
-};
-
-struct BenchProfile
-{
-	CpuType m_cpuType;
-	Int m_mhz;
-	Real m_intBenchIndex;
-	Real m_floatBenchIndex;
-	Real m_memBenchIndex;
-};
-
 class Rva00202058
 {
 public:
@@ -132,40 +98,17 @@ public:
 class Rva00202739
 {
 public:
-	Bool rva00202739(Int level);
+	bool rva00202739(int level);
+	char m_pad00[0x1768];
+	int m_1768; // +0x1768
 };
 
 class Rva00202790
 {
 public:
-	void rva00202790(Int audioLOD);
-};
-
-class GameLODManager
-{
-public:
-	void init(Int staticLevel);
-
-private:
-	char m_pad0000[0x228];
-	LODPresetInfo m_lodPresets[5][32];
-	BenchProfile m_benchProfiles[16];
-	char m_pad1768[0x17AA - 0x1768];
-	Bool m_memPassed;
-	char m_pad17AB;
-	Int m_numLevelPresets[5];
-	Int m_numBenchProfiles;
-	StaticGameLODLevel m_idealDetailLevel;
-	char m_pad17C8[4];
-	CpuType m_cpuType;
-	unsigned __int64 m_numRAM;
-	Int m_cpuFreq;
-	Real m_intBenchIndex;
-	Real m_floatBenchIndex;
-	Real m_memBenchIndex;
-	Real m_compositeBenchIndex;
-	char m_pad17EC[4];
-	Int m_audioLODMHz;
+	void rva00202790(int v);
+	char m_pad00[0x1770];
+	int m_1770; // +0x1770
 };
 
 void GameLODManager::init(Int staticLevel)
@@ -246,7 +189,7 @@ void GameLODManager::init(Int staticLevel)
 
 	if (audioLOD == -1)
 	{
-		audioLOD = m_cpuFreq >= m_audioLODMHz;
+		audioLOD = m_cpuFreq >= m_reallyLowMHz;
 		optionPref.rva002E53FA(audioLOD);
 		optionPref.write();
 	}
