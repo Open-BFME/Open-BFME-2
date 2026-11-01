@@ -48,13 +48,7 @@ typedef int Int;
 
 typedef float Real;
 
-template <typename T> struct BfmeStringData
-{
-	int refCount;
-	unsigned short length;
-	unsigned short capacity;
-	T text[1];
-};
+#include "../../../../../Include/Common/BfmeStringData.h"
 
 namespace _STL
 {

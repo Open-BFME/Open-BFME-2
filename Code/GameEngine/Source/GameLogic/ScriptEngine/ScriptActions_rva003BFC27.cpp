@@ -13,13 +13,7 @@
 // 0x0081FEF4 Team priority decreased; precedent ScriptEngineAppendDebugMessage
 // StringBase layout with str plus format plus release.
 typedef bool Bool;
-template <typename T> struct BfmeStringData
-{
-	int refCount;
-	unsigned short length;
-	unsigned short capacity;
-	T text[1];
-};
+#include "../../../Include/Common/BfmeStringData.h"
 #include "ascii_string.h"
 class TeamPrototype
 {

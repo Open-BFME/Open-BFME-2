@@ -16,13 +16,7 @@ unsigned char g_00E03745;
 extern "C" void *theLogicRandomLogFile;
 extern "C" void __cdecl fprintf(void *sink, const char *format, ...);
 
-template <typename T> struct BfmeStringData
-{
-	int refCount;
-	unsigned short length;
-	unsigned short capacity;
-	T text[1];
-};
+#include "../../../../../Include/Common/BfmeStringData.h"
 
 template <typename T> class StringBase
 {

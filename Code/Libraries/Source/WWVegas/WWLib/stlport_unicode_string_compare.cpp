@@ -12,12 +12,7 @@
 #include <set>
 #include <utility>
 
-template <typename T> struct BfmeStringData {
-    int refCount;
-    unsigned short length;
-    unsigned short capacity;
-    T text[1];
-};
+#include "../../../../GameEngine/Include/Common/BfmeStringData.h"
 #include "unicode_string.h"
 namespace rts {
     template <class T> struct less_than_nocase {

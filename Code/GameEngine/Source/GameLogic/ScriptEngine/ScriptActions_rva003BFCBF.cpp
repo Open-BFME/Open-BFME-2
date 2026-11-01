@@ -8,13 +8,7 @@
 // Evidence: TheScriptEngine 0x009FE16C; caller 0x003CB9C3; string at
 // 0x0081FF24 Team priority decreased; precedent Rva003BFB8CDo 155B increase.
 typedef bool Bool;
-template <typename T> struct BfmeStringData
-{
-	int refCount;
-	unsigned short length;
-	unsigned short capacity;
-	T text[1];
-};
+#include "../../../Include/Common/BfmeStringData.h"
 #include "ascii_string.h"
 class TeamPrototype
 {

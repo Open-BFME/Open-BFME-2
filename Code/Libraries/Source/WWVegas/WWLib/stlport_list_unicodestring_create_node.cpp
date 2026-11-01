@@ -19,13 +19,7 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 }
 
 
-template <typename T> struct BfmeStringData
-{
-	int refCount;
-	unsigned short length;
-	unsigned short capacity;
-	T text[1];
-};
+#include "../../../../GameEngine/Include/Common/BfmeStringData.h"
 
 #include "unicode_string.h"
 // bfme link decl-only begin

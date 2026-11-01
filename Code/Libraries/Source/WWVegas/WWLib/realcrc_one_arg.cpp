@@ -86,13 +86,7 @@ unsigned long CRC_Stringi(char *string)
 // one-arg shape) and use the result as an unsigned map key; byte shape matches
 // the rowed NameKeyGenerator AsciiString wrappers at 0x002D91AF and 0x0009FA65
 // modulo the callee and the cdecl ret shape.
-template <typename T> struct BfmeStringData
-{
-  int refCount;
-  unsigned short length;
-  unsigned short capacity;
-  T text[1];
-};
+#include "../../../../GameEngine/Include/Common/BfmeStringData.h"
 
 #include "ascii_string.h"
 

@@ -24,13 +24,7 @@ typedef int (__stdcall *FARPROC)();
 extern "C" __declspec(dllimport) FARPROC __stdcall GetProcAddress(
 	HMODULE module, const char *procName);
 
-template <typename T> struct BfmeStringData
-{
-	int refCount;
-	unsigned short length;
-	unsigned short capacity;
-	T text[1];
-};
+#include "../../../Include/Common/BfmeStringData.h"
 
 #include "ascii_string.h"
 

@@ -30,13 +30,7 @@ typedef float Real;
 
 #define INT_TO_REAL(x) ((Real) (x))
 
-template <typename T> struct BfmeStringData
-{
-	int refCount;
-	unsigned short length;
-	unsigned short capacity;
-	T text[1];
-};
+#include "../../../GameEngine/Include/Common/BfmeStringData.h"
 
 #include "ascii_string.h"
 

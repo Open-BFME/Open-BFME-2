@@ -10,13 +10,7 @@
 // AsciiString::str() inlines m_data ? m_data+8 : "" (empty at 0x00BBAC1C).
 #include <vector>
 
-template <typename T> struct BfmeStringData
-{
-	int refCount;
-	unsigned short length;
-	unsigned short capacity;
-	T text[1];
-};
+#include "../../../Include/Common/BfmeStringData.h"
 
 #include "ascii_string.h"
 #include <stdlib.h>
