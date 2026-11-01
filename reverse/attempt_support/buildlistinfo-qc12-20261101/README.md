@@ -36,3 +36,5 @@ path. Bfme2BuildListInfo.h splits the target class into that official include
 folder without globally shadowing existing external SidesList declarations.
 
 BuildListInfoCtor.cpp: private view removed in its own normal verified commit; all owned native rows and full runtime/virtual-provider graph retained, with only the already disclosed getter duplicate aliases.
+
+BuildListInfoAssign.cpp: private view removed in its own normal verified commit; all owned native rows and full runtime/virtual-provider graph retained, with only the already disclosed getter duplicate aliases.

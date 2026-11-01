@@ -19,39 +19,7 @@
 
 #include "../../../../Libraries/Include/Lib/Coord2D.h"
 
-class BuildListInfo
-{
-public:
-	BuildListInfo &operator=(const BuildListInfo &that);
-
-private:
-	void *m_vtable; // +0x00
-	AsciiString m_buildingName; // +0x04
-	AsciiString m_templateName; // +0x08
-	Coord3D m_location; // +0x0C
-	Coord2D m_rallyPointOffset; // +0x18
-	float m_angle; // +0x20
-	bool m_isInitiallyBuilt; // +0x24
-	unsigned int m_numRebuilds; // +0x28
-	BuildListInfo *m_nextBuildList; // +0x2C
-	AsciiString m_script; // +0x30
-	int m_health; // +0x34
-	bool m_whiner; // +0x38
-	bool m_unsellable; // +0x39
-	bool m_repairable; // +0x3A
-	bool m_automaticallyBuild; // +0x3B
-	void *m_renderObj; // +0x3C
-	void *m_shadowObj; // +0x40
-	bool m_selected; // +0x44
-	bool m_underConstruction; // +0x45
-	bool m_isSupplyBuilding; // +0x46
-	bool m_priorityBuild; // +0x47
-	int m_objectID; // +0x48
-	unsigned int m_objectTimestamp; // +0x4C
-	int m_resourceGatherers[10]; // +0x50
-	int m_desiredGatherers; // +0x78
-	int m_currentGatherers; // +0x7C
-};
+#include "../../../Include/GameLogic/Bfme2BuildListInfo.h"
 
 BuildListInfo &BuildListInfo::operator=(const BuildListInfo &that)
 {
