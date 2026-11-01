@@ -9,32 +9,14 @@ WindowMsgHandledType GadgetPushButtonInput(GameWindow *, unsigned int, unsigned 
 typedef WindowMsgHandledType (__cdecl *GameWinInputFunc)(GameWindow *, unsigned int, unsigned int, unsigned int);
 
 class WinInstanceData;
-class GameWindow
-{
-protected:
-    virtual ~GameWindow();
-public:
-    virtual WindowMsgHandledType input(unsigned int, unsigned int, unsigned int);
-    virtual WindowMsgHandledType bfmeGoEHCb(unsigned int, unsigned int, unsigned int);
-    virtual int draw(void *);
-    virtual int tooltip(WinInstanceData *, unsigned int);
-    virtual int rva0009FD78();
-    virtual bool vslot6() const;
-    virtual void *fetchCreateInstance() = 0;
-    virtual bool vslot8() const;
-    virtual bool vslot9() const;
-    virtual void vslot10() = 0;
-private:
-    unsigned char m_unmodelled04[0x1E0 - 4];
-    GameWinInputFunc m_input;
-};
-
+#include "../../Include/GameClient/Bfme2WinInstanceData.h"
+#include "../../Include/GameClient/Bfme2GameWindow.h"
 bool GameWindow::vslot6() const
 {
-    return m_input == LeftHUDInput;
+    return m_inputFunc == LeftHUDInput;
 }
 
 bool GameWindow::vslot8() const
 {
-    return m_input == GadgetPushButtonInput;
+    return m_inputFunc == GadgetPushButtonInput;
 }

@@ -173,3 +173,5 @@ _STL::allocator,vendor/stlport/stl/_alloc.h,"pinned STLport allocator primary; r
 BodyModuleInterface,Code/GameEngine/Include/GameLogic/Module/BodyModule.h,43 pure native slots at C5AB68; structural signatures from native providers and matched callers; no BodyModule root profile
 DieModuleInterface,Code/GameEngine/Include/GameLogic/Module/DieModuleInterface.h,one pure target slot at C1C780; identical declaration extracted from DieModule header without changing root profiles
 MixFileCreator,Code/Libraries/Source/WWVegas/WWLib/MixFileCreatorFileInfo.h,legacy nested record scope only; target16byte font record with AsciiString; no outer archive instance ABI claimed
+GameWindow,Code/GameEngine/Include/GameClient/Bfme2GameWindow.h,native218extent11virtualslots; no base data inferred; unknown spans kept opaque
+WinInstanceData,Code/GameEngine/Include/GameClient/Bfme2WinInstanceData.h,native1A8memberextent and one virtual dtor; out-of-line lifetime owners; unknown fields opaque
