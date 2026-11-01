@@ -20,13 +20,7 @@ bool less<int>::operator()(const int &a, const int &b) const
 { return a < b; }
 }
 
-class INI
-{
-public:
-	const char *getNextSubToken(const char *name);
-	float scanReal(const char *text);
-	int scanInt(const char *text);
-};
+#include "../../../../GameEngine/Include/Common/INI/INI.h"
 
 #include "../../../../GameEngine/Include/Common/INI/FieldParse.h"
 

@@ -259,11 +259,7 @@ namespace _STL { template <> _Rb_tree_base<pair<int const, BfmePod24>, allocator
 // 0x00417C23 single-token worker.
 // The join-append is the shared Rva0049B6AE::append member (rowed, body
 // ignores ecx); the string temporaries are the canonical AsciiString.
-class INI
-{
-public:
-	const char *rva0002DFE2(const char *seps, bool *substituted);
-};
+#include "../../../../GameEngine/Include/Common/INI/INI.h"
 
 class Rva0049B6AE
 {
