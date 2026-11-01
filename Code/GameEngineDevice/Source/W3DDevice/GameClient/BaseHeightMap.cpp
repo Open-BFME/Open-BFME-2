@@ -355,8 +355,11 @@ private:
 // neighbours; caller at 0x00045048.
 // Evidence: callees rowed; count/dirty layout from Common neighbours.
 struct Coord3D;
+
 class GeometryInfo;
+
 class AsciiString;
+
 class W3DPropBuffer
 {
 public:
@@ -532,7 +535,6 @@ BFME_DISP32_DWORD_CLEAR(Rva000685DADwordClearer, 0x37AC)
 class Drawable;
 
 class Transport;
-
 
 struct BuffInfoView;
 
@@ -916,6 +918,25 @@ private:
 
 template void _STL::vector<bool>::clear();
 
+class Rva00068295
+{
+public:
+	void rva00068295();
+private:
+	unsigned char m_pad[0x3850];
+	W3DTreeBuffer *m_3850;
+	W3DShrubBuffer *m_3854;
+};
+
+class Rva000683FF
+{
+public:
+	void rva000683FF(Vector3 corners[4], ObjectID id, bool highlight);
+private:
+	unsigned char m_pad[0x385C];
+	W3DBibBuffer *m_bib;
+};
+
 // tu-skeleton: 0x0006669F 361B ?adjustTerrainLOD@BaseHeightMapRenderObjClass@@UAEXH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapAdjustTerrainLOD.cpp (not merged yet)
 
 // tu-skeleton: 0x00066808 292B ?ReleaseResources@BaseHeightMapRenderObjClass@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReleaseResources.cpp (not merged yet)
@@ -965,6 +986,8 @@ template void _STL::vector<bool>::clear();
 // tu-skeleton: 0x00068061 18B ?rva00068061@Rva00068061NullTarget@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp (not merged yet)
 
 // tu-skeleton: 0x00068073 64B ?rva00068073@Rva00068073Host@@QAEXHMH@Z -- matched in Code/GameEngine/Source/Common/Rva00068073Bodies.cpp (not merged yet)
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp
 
@@ -1335,6 +1358,27 @@ Bool Rva0006820FNullForwarder::rva0006820F(Int firstValue)
 	return false;
 }
 
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva0006C995Insert.cpp
+
+// ?rva0006C995@Rva0006C995@@QAEPAV1@PAURva001408C0Target@@@Z, retail 0x0006C995, 58 bytes.
+// Unlock wrapper: null-check, convert via rowed bfmeGoEMEb 0x0061F600, set insert via rowed 0x00080691, flag at +0x10 on success, return this.
+// Evidence: callers 0x0006D9B5 0x00081DB3 0x00081DEC 0x000C1B9A 0x000C1BB6 0x00104C11 0x0012CF2C show __thiscall 1 arg ret 4; set type from callee 0x00080691.
+
+Rva0006C995 *Rva0006C995::rva0006C995(Rva001408C0Target *p)
+{
+	if (p) {
+		p = (Rva001408C0Target *)bfmeGoEMEb(p);
+		if (m_set.insert(p).second)
+			m_flag = 1;
+	}
+	return this;
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_vector_bool_clear.cpp
+
+// STLport 4.5.3 bit-vector clear used by retail 0x0006D52A.
+// Out-of-line clear delegating to the rowed erase RANGE overload.
+
 // tu-skeleton: 0x000680D6 67B ?rva000680D6@Rva00068073Host@@QAEXPBUCoord3D@@ABVGeometryInfo@@M@Z -- matched in Code/GameEngine/Source/Common/Rva00068073Bodies.cpp (not merged yet)
 
 // tu-skeleton: 0x00068119 34B ?rva00068119@Rva00068119@@QAEXPBUCoord3D@@PBVGeometryInfo@@M@Z -- matched in Code/GameEngine/Source/Common/Rva00068119Bodies.cpp (not merged yet)
@@ -1355,7 +1399,15 @@ Bool Rva0006820FNullForwarder::rva0006820F(Int firstValue)
 
 // tu-skeleton: 0x00068283 18B ?rva00068283@Rva00068283NullTarget@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp (not merged yet)
 
-// tu-skeleton: 0x00068295 35B ?rva00068295@Rva00068295@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva00068295.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva00068295.cpp
+
+void Rva00068295::rva00068295()
+{
+	if (m_3850)
+		m_3850->rva000EA24D();
+	if (m_3854)
+		m_3854->rva000E7016();
+}
 
 // tu-skeleton: 0x000682E1 25B ?rva000682E1@Rva000664F4@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE29.cpp (not merged yet)
 
@@ -1373,7 +1425,12 @@ Bool Rva0006820FNullForwarder::rva0006820F(Int firstValue)
 
 // tu-skeleton: 0x000683AC 48B ?rva000683AC@BaseHeightMapRenderObjClass@@QAE_NHUCoord3D@@MM@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapAddProp.cpp (not merged yet)
 
-// tu-skeleton: 0x000683FF 11B ?rva000683FF@Rva000683FF@@QAEXQAVVector3@@W4ObjectID@@_N@Z -- matched in Code/GameEngine/Source/Common/Rva000683FF.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva000683FF.cpp
+
+void Rva000683FF::rva000683FF(Vector3 corners[4], ObjectID id, bool highlight)
+{
+	return m_bib->addBib(corners, id, highlight);
+}
 
 // tu-skeleton: 0x00068441 41B ?rva00068441@Rva00068441@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/Rva00068119Bodies.cpp (not merged yet)
 
@@ -1447,22 +1504,6 @@ Bool Rva0006820FNullForwarder::rva0006820F(Int firstValue)
 
 // tu-skeleton: 0x0006C950 69B ??6AssetList00208F90@@QAEAAU0@ABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/Rva00208F90AssetWalk_Rva0006C950.cpp (not merged yet)
 
-// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva0006C995Insert.cpp
-
-// ?rva0006C995@Rva0006C995@@QAEPAV1@PAURva001408C0Target@@@Z, retail 0x0006C995, 58 bytes.
-// Unlock wrapper: null-check, convert via rowed bfmeGoEMEb 0x0061F600, set insert via rowed 0x00080691, flag at +0x10 on success, return this.
-// Evidence: callers 0x0006D9B5 0x00081DB3 0x00081DEC 0x000C1B9A 0x000C1BB6 0x00104C11 0x0012CF2C show __thiscall 1 arg ret 4; set type from callee 0x00080691.
-
-Rva0006C995 *Rva0006C995::rva0006C995(Rva001408C0Target *p)
-{
-	if (p) {
-		p = (Rva001408C0Target *)bfmeGoEMEb(p);
-		if (m_set.insert(p).second)
-			m_flag = 1;
-	}
-	return this;
-}
-
 // tu-skeleton: 0x0006C9CF 1160B ??0BaseHeightMapRenderObjClass@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp (not merged yet)
 
 // tu-skeleton: 0x0006D0D7 735B ??1BaseHeightMapRenderObjClass@@UAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0006D0D7Dtor.cpp (not merged yet)
@@ -1470,11 +1511,6 @@ Rva0006C995 *Rva0006C995::rva0006C995(Rva001408C0Target *p)
 // tu-skeleton: 0x0006D3B6 186B ?rva0006D3B6@Rva0006D3B6@@QAEXVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/Rva0006ACBDMethod.cpp (not merged yet)
 
 // tu-skeleton: 0x0006D470 186B ?rva0006D470@Rva0006D470@@QAEXVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/Rva0006ACBDMethod.cpp (not merged yet)
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_vector_bool_clear.cpp
-
-// STLport 4.5.3 bit-vector clear used by retail 0x0006D52A.
-// Out-of-line clear delegating to the rowed erase RANGE overload.
 
 // tu-skeleton: 0x0006D556 33B ?insert@?$vector@_NV?$allocator@_N@_STL@@@_STL@@QAEXU?$_Bit_iter@U_Bit_reference@_STL@@PAU12@@2@I_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdateCtor.cpp (not merged yet)
 

@@ -3823,7 +3823,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0006820F,20,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp,approved,C,C=0x0006813B..0x00068223,Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp
 0x00068223,96,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp,approved,S,S=Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapRenderObjClass.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapAddTree.cpp
 0x00068283,18,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp,approved,C,C=0x00068223..0x00068295,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp
-0x00068295,35,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp,approved,C,C=0x00068223..0x000682B8,Code/GameEngine/Source/Common/Rva00068295.cpp
+0x00068295,35,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp,approved,C,C=0x00068223..0x000682B8,Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp
 0x000682B8,41,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp,approved,C,C=0x00068223..0x000682E1,Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp
 0x000682E1,25,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp,approved,C,C=0x00068223..0x000682FA,Code/GameEngine/Source/Common/GapBodiesGE29.cpp
 0x000682FA,16,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp,approved,C,C=0x00068223..0x0006830A,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp
@@ -3834,7 +3834,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00068395,23,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp,approved,S,S=Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp N=Code/GameEngine/Source/Common/BaseHeightMapRenderObjClass.cpp,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp
 0x000683AC,48,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp,approved,S,S=Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapRenderObjClass.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapAddProp.cpp
 0x000683DC,35,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp,approved,C,C=0x000683AC..0x000683FF,Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp
-0x000683FF,11,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp,approved,C,C=0x000683AC..0x0006840A,Code/GameEngine/Source/Common/Rva000683FF.cpp
+0x000683FF,11,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp,approved,C,C=0x000683AC..0x0006840A,Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp
 0x0006840A,11,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp,approved,C,C=0x000683AC..0x00068415,Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp
 0x00068415,11,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp,approved,C,C=0x000683AC..0x00068420,Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp
 0x00068420,11,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp,approved,C,C=0x000683AC..0x0006842B,Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp
