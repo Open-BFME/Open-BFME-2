@@ -629,11 +629,7 @@ public:
 
 extern TerrainLogic *TheTerrainLogic;
 
-class Pathfinder
-{
-public:
-	void AddObjectToPathfindMap(Object *object);
-};
+#include "../../../../../Include/GameLogic/AIPathfind.h"
 
 class AI
 {

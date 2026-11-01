@@ -159,28 +159,8 @@ class Path { public:
 };
 #include "../../../../Include/GameLogic/Weapon.h"
 // updateLastNode, rowed under its address name.
-class PathfindServicesInterface
-{
-public:
-	virtual Path *findPath(Object *obj, const LocomotorSet &locomotorSet, const Coord3D *from, const Coord3D *to, Bool *retry) = 0;
-	virtual Path *findClosestPath(Object *obj, const LocomotorSet &locomotorSet, const Coord3D *from, Coord3D *to,
-		Bool blocked, Real pathCostMultiplier, Bool moveAllies) = 0;
-	virtual Path *findAttackPath(Object*,const LocomotorSet&,const Coord3D*,const Object*,const Coord3D*,const Weapon*,Bool,Bool*)=0;
-	virtual Path *findAttackPath2(Object*,const LocomotorSet&,const Coord3D*,const Object*,const Coord3D*,const Weapon*)=0;
-	virtual Path *patchPath(const Object *obj, const LocomotorSet &locomotorSet, Path *originalPath, Bool blocked) = 0;
-};
+#include "../../../../Include/GameLogic/AIPathfind.h"
 
-class Pathfinder
-{
-public:
-	Int IsLinePassable(void *a8, void *ac, PathfindLayerEnum a10, const Coord3D *a14, const Coord3D *a18, void *a1c, Int a20, Int a24);
-	Bool IsValidMovementPositionForObject(const Coord3D *pos, Int layer, Int surfaces, const Object *obj);
-	Bool MoveAllies(Object *obj, Path *path, Bool flag);
- Bool isAttackViewBlockedByObstacle(const Object*,const Coord3D&,const Object*,const Coord3D&);
- Bool AdjustDestination(Object*,const LocomotorSet&,Coord3D*,const Coord3D*);
- void rva003E3BFB(ObjectID);
- void SetDebugPath(struct Rva002EDEABArg*);
-};
 
 struct AIData
 {

@@ -72,12 +72,7 @@ public:
 	ObjectID m_id;
 };
 
-class Pathfinder
-{
-public:
-	bool IsPointOnWall(int pos, bool flag);
-	void AdjustMeleeOffset(Object *self, Object *target, Coord3D *offset);
-};
+#include "../../../../Include/GameLogic/AIPathfind.h"
 
 class AIHead
 {

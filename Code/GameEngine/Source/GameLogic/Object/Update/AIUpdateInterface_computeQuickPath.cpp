@@ -57,12 +57,7 @@ private:
 
 struct Rva002EDEABArg;
 
-class Pathfinder
-{
-public:
-	Path *GetAircraftPath(const Object *obj, const Coord3D *destination);
-	void SetDebugPath(Rva002EDEABArg *path);
-};
+#include "../../../../Include/GameLogic/AIPathfind.h"
 
 #include "../../../../Include/GameLogic/AI.h"
 extern AI *TheAI;

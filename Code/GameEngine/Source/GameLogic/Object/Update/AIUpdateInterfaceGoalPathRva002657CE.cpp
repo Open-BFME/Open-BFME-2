@@ -63,11 +63,7 @@ extern TerrainLogic *TheTerrainLogic;
 
 struct Rva002EDEABArg;
 
-class Pathfinder
-{
-public:
-	void SetDebugPath(Rva002EDEABArg *path);
-};
+#include "../../../../Include/GameLogic/AIPathfind.h"
 
 #include "../../../../Include/GameLogic/AI.h"
 extern AI *TheAI;

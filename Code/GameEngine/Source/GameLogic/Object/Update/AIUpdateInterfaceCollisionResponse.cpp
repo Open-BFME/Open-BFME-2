@@ -26,7 +26,7 @@ class Object:public Thing {public:
 };
 static __forceinline void clearCondition(Object*obj,int n){if(obj->conditions.test(n)){obj->conditions.clear(n);obj->rva0028AE6D();}}
 bool Rva002629EACheck(const Thing*,const Thing*);int Rva00264237Check(const Coord3D*,const Coord3D*);
-class Pathfinder{public:bool adjustToPossibleDestination(Object*,const LocomotorSet&,Coord3D*);bool QueueForCollisionResponsePath(ObjectID);};
+#include "../../../../Include/GameLogic/AIPathfind.h"
 class AI{public:char pad[0x10];Pathfinder*pathfinder;};extern AI*TheAI;
 extern GameLogic*TheGameLogic;
 class TerrainLogic{public:

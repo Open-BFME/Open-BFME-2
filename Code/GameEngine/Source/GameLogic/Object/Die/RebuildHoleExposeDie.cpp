@@ -228,12 +228,7 @@ private:
 
 extern ScriptEngine *TheScriptEngine;
 
-class Pathfinder
-{
-public:
-	void RemoveObjectFromPathfindMap(Object *obj);
-	void AddObjectToPathfindMap(Object *obj);
-};
+#include "../../../../Include/GameLogic/AIPathfind.h"
 
 class AI
 {

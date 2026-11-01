@@ -50,11 +50,7 @@ struct FadeObjectPrefix
 	char unknown48[0x304 - 0x48];
 	Team *team;
 };
-class Pathfinder
-{
-public:
-	void AddObjectToPathfindMap(Object *obj);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 class AI;
 extern AI *TheAI;
 struct FadeAIView

@@ -443,14 +443,7 @@ public:
 
 extern TerrainLogic *TheTerrainLogic;
 
-class Pathfinder
-{
-public:
-	Bool IsValidMovementPositionForObject(const Coord3D *pos, Int layer, Int arg3, const Object *obj);
-	Bool IsValidHordeMemberRegularMovement(Object *obj, const Coord3D *oldPos, const Coord3D *newPos, const Coord3D *goal);
-	void AdjustLayer(Object *obj);
-	Path *GetHordeUnitPath(Object *obj, const Coord3D *goal);
-};
+#include "../../../../../Include/GameLogic/AIPathfind.h"
 
 #include "../../../../../Include/GameLogic/AI.h"
 

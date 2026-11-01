@@ -68,11 +68,7 @@ class Pathfinder;
 #include "../../../../../Include/GameLogic/AI.h"
 extern class AI *TheAI;
 
-class Pathfinder
-{
-public:
-	bool QuickDoesPathExist(Object *obj, const Coord3D *from, const Coord3D *to, int extra);
-};
+#include "../../../../../Include/GameLogic/AIPathfind.h"
 
 #include "../../../../../Include/GameLogic/Module/AIUpdate.h"
 

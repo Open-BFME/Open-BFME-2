@@ -16,12 +16,7 @@ public:
 	int m_flags;
 };
 
-class Pathfinder
-{
-public:
-	PathfindCell *getCell(PathfindLayerEnum layer, int x, int y);
-	void ChooseBestLocomotorForPosition(PathfindLayerEnum layer, class Rva001E48E8 *obj, const Coord3D *pos);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 class Rva001E48E8
 {

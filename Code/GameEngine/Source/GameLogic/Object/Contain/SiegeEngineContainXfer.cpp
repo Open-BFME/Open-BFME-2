@@ -216,7 +216,7 @@ class ModelConditionFlags {public:
  private:unsigned int m_words[19];};
 class Rva2225E0Filter {public:bool accepts(Object*,Player*);};
 struct SiegeExitData {char pad[0x18c];Rva2225E0Filter filter;char pad18d[3];int count;};
-class Pathfinder {public:void AddObjectToPathfindMap(Object*);bool adjustToPossibleDestination(Object*,const LocomotorSet&,Coord3D*);float GetWallHeight(PathfindLayerEnum,const Coord3D*,Coord3D*);};
+#include "../../../../Include/GameLogic/AIPathfind.h"
 class AI {public:char pad[0x10];Pathfinder *pathfinder;};
 extern AI *TheAI;
 extern int BfmeLogicFramesPerSecond;

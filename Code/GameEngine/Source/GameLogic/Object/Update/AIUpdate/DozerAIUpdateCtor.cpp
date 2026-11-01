@@ -2137,12 +2137,7 @@ class GeometryInfo;
 
 extern TerrainLogic *TheTerrainLogic;
 
-class Pathfinder
-{
-public:
-	void AddObjectToPathfindMap(Object *object);
-	void RemoveObjectFromPathfindMap(Object *object);
-};
+#include "../../../../../Include/GameLogic/AIPathfind.h"
 
 #include "../../../../../Include/GameLogic/AI.h"
 

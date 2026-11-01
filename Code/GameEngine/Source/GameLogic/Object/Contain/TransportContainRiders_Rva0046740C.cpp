@@ -247,12 +247,7 @@ template <> class RiderSlots<0>
 #include "../../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 
-class Pathfinder
-{
-public:
-	Bool IsValidMovementTerrain(PathfindLayerEnum layer, const Locomotor *locomotor, const Coord3D *pos);
-	Bool getClosestPointOnLand(const Coord3D *pos, Object *obj, Coord3D *result);
-};
+#include "../../../../Include/GameLogic/AIPathfind.h"
 
 #include "../../../../Include/GameLogic/AI.h"
 extern AI *TheAI;

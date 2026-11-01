@@ -55,7 +55,7 @@ enum WhichTurretType
 
 class Object;
 class Weapon;
-class Pathfinder {public:bool QuickDoesPathExistToStructure(Object *,const Coord3D *,Object *,int);};
+#include "../../../Include/GameLogic/AIPathfind.h"
 class AI {public:char pad[0x10];Pathfinder *pathfinder;};
 extern AI *TheAI;
 class Module;

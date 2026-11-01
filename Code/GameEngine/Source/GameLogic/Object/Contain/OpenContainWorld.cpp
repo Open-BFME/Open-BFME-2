@@ -33,11 +33,7 @@ public:
     void rva0028DCC4();
     void rva0028BAC0();
 };
-class Pathfinder {
-public:
-    void AddObjectToPathfindMap(Object *);
-    void RemoveObjectFromPathfindMap(Object *);
-};
+#include "../../../../Include/GameLogic/AIPathfind.h"
 class AI { public: char unknown00[0x10]; Pathfinder *pathfinder10; };
 extern AI *TheAI;
 template <int N> class Rva00462E3ASlots : public Rva00462E3ASlots<N - 1> {

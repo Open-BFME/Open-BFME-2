@@ -324,15 +324,7 @@ extern TerrainLogic *TheTerrainLogic;
 
 extern GameLogic *TheGameLogic;
 
-class Pathfinder
-{
-public:
-	Bool QuickDoesPathExist(Object *obj, const Coord3D *from, const Coord3D *to, Int arg4);
-	Int GetGroundLayer(const Coord3D *pos);
-	void UpdateLayer(Object *obj, PathfindLayerEnum layer);
-	Path *GetHordeUnitPath(Object *obj, const Coord3D *goal);
-	Bool IsValidHordeMemberRegularMovement(Object *obj, const Coord3D *oldPos, const Coord3D *newPos, const Coord3D *goal);
-};
+#include "../../../../Include/GameLogic/AIPathfind.h"
 
 class AIGroup
 {

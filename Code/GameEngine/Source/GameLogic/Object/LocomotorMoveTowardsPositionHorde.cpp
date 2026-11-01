@@ -742,11 +742,7 @@ class TerrainLogic
  PathfindLayerEnum getLayerForDestination(Object *obj, const Coord3D *pos);
 };
 extern TerrainLogic *TheTerrainLogic;
-class Pathfinder
-{
-public:
-	void *getObstacleID(int layer, int pos); // 0x001E4461: the wall object's ID at a position
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 class AIGroup
 
 {

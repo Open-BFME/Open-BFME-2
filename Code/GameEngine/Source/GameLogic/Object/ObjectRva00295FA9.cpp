@@ -117,11 +117,7 @@ public:
 	Int rva002632C7() const;
 };
 
-class Pathfinder
-{
-public:
-	Bool rva002ED313(Object *object);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 struct Rva00295F05ContainView
 {

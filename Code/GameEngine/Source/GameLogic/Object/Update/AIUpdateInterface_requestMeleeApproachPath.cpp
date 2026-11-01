@@ -62,12 +62,7 @@ extern GameLogic *TheGameLogic;
 
 class LocomotorSet;
 
-class Pathfinder
-{
-public:
-	bool queueForPath(ObjectID id);
-	Bool adjustToMeleeDestination(Object *obj, const LocomotorSet &locomotorSet, Coord3D *dest);
-};
+#include "../../../../Include/GameLogic/AIPathfind.h"
 
 class AIData
 {

@@ -37,11 +37,7 @@ public:
 	void addObject(Object *obj);
 };
 
-class Pathfinder
-{
-public:
-	void AddObjectToPathfindMap(Object *object);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 class AI
 {

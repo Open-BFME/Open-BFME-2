@@ -59,7 +59,7 @@ virtual void*slot39(const AsciiString&);
 };
 extern TerrainLogic*TheTerrainLogic;
 class WeaponSet{public:void updateWeaponSet(const Object*);};
-class Pathfinder{public:void AdjustLayer(Object*);void AddObjectToPathfindMap(Object*);};
+#include "../../../Include/GameLogic/AIPathfind.h"
 class Rva0022AEE4Subsystem{public:char pad[16];Pathfinder*pathfinder;};
 class AI;
 extern AI *TheAI;

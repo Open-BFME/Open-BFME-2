@@ -1068,11 +1068,7 @@ public:
 // class above is that same class under an address-derived name. This call
 // goes through a TU-local Pathfinder view so it resolves to the rowed body
 // instead of the unrowed spelling (sole U on this unit).
-class Pathfinder
-{
-public:
-	bool IsWaterCell(int a, int b);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 class Rva0028ECDBHost
 {

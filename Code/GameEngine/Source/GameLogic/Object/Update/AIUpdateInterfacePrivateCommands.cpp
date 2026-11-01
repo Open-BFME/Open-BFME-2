@@ -775,27 +775,7 @@ public:
 // 0x002EE7EE that command 0x52 asks about the owner is unnamed.
 class Path;
 
-class Pathfinder
-{
-public:
-	Bool getClosestPointOnLand(const Coord3D *pos, Object *obj, Coord3D *result);
-	// Zero Hour's getMoveAwayFromPath (0x002F9DBA) and moveAllies
-	// (0x002F3C09, WorldBuilder Pathfinder::MoveAllies: BFME2 hands it a third,
-	// Bool argument and it returns Bool, unused here): the calls
-	// privateMoveAwayFromUnit makes at Zero Hour's points. Names donor-carried.
-	Path *GetMoveAwayFromPath(Object *obj, Object *otherObj, Path *pathToAvoid, Object *otherObj2, Path *pathToAvoid2);
-	Bool MoveAllies(Object *obj, Path *path, Bool flag);
-	// The two pathfinder calls AIUpdate slot 139 (0x0026412B) makes: one
-	// taking the owner, then one taking the owner and a destination and
-	// returning the new path. Unnamed.
-	void AdjustLayer(Object *obj);
-	Path *GetHordeUnitPath(Object *obj, const Coord3D *destination);
-	// Asked by AIUpdate slot 141 (0x00263404) whether a point down the path
-	// will do for the owner; unnamed.
-	Bool rva002ECC0D(Object *obj, const Coord3D *pos);	// Whether the object can approach the position with the weapon (rowed
-	// 0x002FA2DC); slot 152 asks it about a mood target.
-	Bool CanApproachToTarget(Object *obj, const Coord3D *pos, class Rva002C9B80Owner *weapon, Bool flag);
-};
+#include "../../../../Include/GameLogic/AIPathfind.h"
 
 // The node AIUpdate slot 141 gets back from the path; only its +0x08 word is
 // read (tested non-zero). Unnamed.

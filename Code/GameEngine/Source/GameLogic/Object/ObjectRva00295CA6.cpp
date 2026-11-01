@@ -58,11 +58,7 @@ public:
 	Int rva002F2865(char *object, Int ids);
 };
 
-class Pathfinder
-{
-public:
-	Bool rva002EC479(Object *obj, const Coord3D *pos, Object *other);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 #include "../../../Include/GameLogic/AI.h"
 

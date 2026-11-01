@@ -27,12 +27,7 @@ public:
 
 class Object;
 
-class Pathfinder
-{
-public:
-	void RemoveObjectFromPathfindMap(Object *object);
-	void AddObjectToPathfindMap(Object *object);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 struct Rva00287C21Other
 {

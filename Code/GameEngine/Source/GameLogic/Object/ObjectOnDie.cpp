@@ -203,11 +203,7 @@ public:
 	void rva004050CE(Object *obj, const VictoryDeathInfo *info);
 };
 
-class Pathfinder
-{
-public:
-	void RemoveObjectFromPathfindMap(Object *obj);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 class AI
 {

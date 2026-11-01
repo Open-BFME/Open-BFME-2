@@ -125,11 +125,7 @@ struct In002E6BA1
 	int m_04;
 };
 
-class Pathfinder
-{
-public:
-	PathfindCell *getCell(PathfindLayerEnum layer, int x, int y);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 #include "../../../Include/GameLogic/AI.h"
 

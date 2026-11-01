@@ -5,17 +5,9 @@
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-class Pathfinder
-{
-public:
-	void SetDebugPathPosition(const Coord3D *pos);
-
-private:
-	char m_pad00[0x4C];
-	Coord3D m_at4C;
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 void Pathfinder::SetDebugPathPosition(const Coord3D *pos)
 {
-	m_at4C = *pos;
+	m_field4C = *pos;
 }
