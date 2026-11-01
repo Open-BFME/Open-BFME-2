@@ -701,3 +701,11 @@ Code/GameEngine/Source/Common/Rva002B2757.cpp|local|Rva002B2757::rva002B2757|r,5
 Code/Libraries/Source/WWVegas/WW3D2/texturepacker.cpp|local|Rva00171024::rva001711a6|y,d3f2f4c30f05dcbb55ff1e90,gpt-6,locals-texture-20261101,w-c1b03bfb0a31,2026-11-01,8611dde044ea130bad22034b
 Code/Libraries/Source/WWVegas/WW3D2/texturepacker.cpp|local|Rva00171024::rva001711a6|n,81d8ad46b7fee5cd7e49cee0,gpt-6,locals-texture-20261101,w-c1b03bfb0a31,2026-11-01,fde7d5c741e2cb9a39fcc46f
 Code/Libraries/Source/WWVegas/WW3D2/texturepacker.cpp|local|Rva00171024::rva001711a6|x,221aeb83d423bb03c9b95099,gpt-6,locals-texture-20261101,w-c1b03bfb0a31,2026-11-01,b0d037a9bb883079717d7ae4
+Code/GameEngine/Source/Common/RandomValueMultFactorInit.cpp|param|Rva007ADBFFPow|x,c2f20f2218e87e3d1074f82c,claude-haiku-5-5,drz-k2-n34b,w-4cad33e49465,2026-11-01,cca6786d15a83973645008b0
+Code/GameEngine/Source/Common/RandomValueMultFactorInit.cpp|param|Rva007ADBFFPow|y,9aa60e7718d9c93ffedd06b2,claude-haiku-5-5,drz-k2-n34b,w-4cad33e49465,2026-11-01,19e86c61d7a94236dfbfd275
+Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp|param|Rva002AC026Member|a,525a1ab68453b29c33b02697,claude-haiku-5-5,drz-k2-n34b,w-4cad33e49465,2026-11-01,5899dec4e6f04686286ee615
+Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp|param|Rva0029FB3BMember|a,54e7a41db2c025e3d6ae527c,claude-haiku-5-5,drz-k2-n34b,w-4cad33e49465,2026-11-01,f2d802401077b82d45667937
+Code/GameEngine/Source/Common/RTS/Rva002A8F56.cpp|local|Rva002A8F24::UnRegister|r,fdc25baeb42f7d8b9c5d3912,claude-haiku-5-5,drz-k2-n34b,w-4cad33e49465,2026-11-01,89c5cb78c79e1cc061cf7e97
+Code/GameEngine/Source/Common/RTS/Rva002A8F56.cpp|local|Rva002A8F24::UnRegister|p2,d49b21090c1e478727379d43,claude-haiku-5-5,drz-k2-n34b,w-4cad33e49465,2026-11-01,2b9fe010310e5fba1abcd115
+Code/GameEngine/Source/Common/RTS/Rva002A8F56.cpp|local|Rva002A8F24::UnRegister|v,55d6cee3fe4e41af84800e5d,claude-haiku-5-5,drz-k2-n34b,w-4cad33e49465,2026-11-01,c121f5ab9aa2ed51b33008f0
+Code/GameEngine/Source/Common/RTS/Rva002AD19EArmor.cpp|param|Rva002AD19E::rva002AD19E|arg,e7f5dfb38bb4acd8a8f6e1ac,claude-haiku-5-5,drz-k2-n34b,w-4cad33e49465,2026-11-01,91370904b3ccb780b201fc0b
