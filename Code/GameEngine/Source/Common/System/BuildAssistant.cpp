@@ -2476,6 +2476,44 @@ public:
 	{ \
 	}
 #pragma comment(linker, "/alternatename:??0Rva00394173Member@@QAE@ABV0@@Z=??0?$list@PAURva00332106PointerTarget@@V?$allocator@PAURva00332106PointerTarget@@@_STL@@@_STL@@QAE@ABV01@@Z")
+#include "Common/Snapshot.h"
+// _List_iterator comparisons otherwise instantiate the base-class
+// operator!= COMDAT (one byte shape per TU flags); exact-match free
+// overloads take those calls instead so this TU emits no external copy.
+namespace _STL {
+template <class _IterTp, class _LeftTraits, class _RightTraits>
+static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
+                              const _List_iterator<_IterTp, _RightTraits> &b)
+{ return a._M_node != b._M_node; }
+}
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+#include "../../../Include/Common/BfmeXfer.h"
+#include <new>
+extern class GlobalData *TheWritableGlobalData;
+class Rva00391FC4;
+struct Rva003920F7Src
+{
+public:
+	int a; // +0x00
+	int b; // +0x04
+	int c; // +0x08
+};
 
 // Partial lookup-result storage; the native caller reads ObjectID at +0x18.
 class Rva00395708ModuleView : public Module
@@ -2752,9 +2790,124 @@ private:
 	Rva00394173Member m_value; // +0x754
 };
 
-// tu-skeleton: 0x00391693 17B ??0ObjectSellInfo@@QAE@XZ -- matched in Code/GameEngine/Source/Common/System/BuildAssistantXferSellList.cpp (not merged yet)
+class Xfer::Version
+{
+public:
+	Version(unsigned char current, unsigned char minimum)
+		: m_current(current), m_minimum(minimum) {}
+
+	unsigned char m_current;
+	unsigned char m_minimum;
+};
+
+void XferObjectID(Xfer *xfer, ObjectID *value);
+
+// Retail insert (0x005925E2) calls the node creator at 0x000B6447 out of line.
+namespace _STL {
+template <> __declspec(noinline) _List_node<ObjectSellInfo *> *
+list<ObjectSellInfo *>::_M_create_node(ObjectSellInfo *const &value)
+{
+    _Node *node = this->_M_node.allocate(1);
+    _STLP_TRY {
+        _Construct(&node->_M_data, value);
+    }
+    _STLP_UNWIND(this->_M_node.deallocate(node, 1));
+    return node;
+}
+}
+
+class ThingTemplate;
+
+class Rva0039205C;
+
+struct Coord3D;
+
+enum LegalBuildCode;
+
+enum CanMakeType;
+
+struct BfmeWorldRV;
+
+extern class ControlBar *TheControlBar;
+
+class UpgradeTemplate;
+
+class Rva00391FC4
+{
+public:
+	Rva00391FC4() { ((Rva004D9A3C *)this)->Rva004D9A3C::Rva004D9A3C(); }
+private:
+	float m_float00, m_float04, m_float08;
+	float m_0C;
+	unsigned char m_byte10;
+	char m_pad11[3];
+	AsciiString m_string14;
+	int m_18;
+};
+
+class Rva00392092Target
+{
+public:
+	void rva00392092();
+private:
+	int m_count00; // +0x00
+	char m_pad04[0x4];
+	Rva00391FC4 *m_array08; // +0x08
+};
+
+extern class ThingFactory *TheThingFactory;
+
+// ---- from Code/GameEngine/Source/Common/System/BuildAssistantXferSellList.cpp
+
+// ?xferTheSellList@BuildAssistant@@QAEXPAVXfer@@@Z, retail 0x003924FE
+// (204 bytes).
+// Identity (target): WorldBuilder's debug BuildAssistant.cpp:497
+// BuildAssistant::xferTheSellList (align lead) and Zero Hour's body agree
+// with retail: count the sell list, move the count as an Int, then on load
+// clear the list and append a new ObjectSellInfo per entry (id through
+// XferObjectID, sell frame as an unsigned int), on save move each entry.
+// Layout (target): the sell list at BuildAssistant+0x0C; a 0x0C-byte
+// ObjectSellInfo (vtable, id +0x04, frame +0x08) from plain operator new.
+// The list's clear and push_back are the folded four-byte STLport bodies
+// (0x0023DAA5, 0x0005548F).
+
+void BuildAssistant::xferTheSellList(Xfer *xfer)
+{
+	ObjectSellInfo *sellInfo;
+
+	int count = 0;
+	ObjectSellListIterator it;
+	for (it = m_sellList.begin(); it != m_sellList.end(); ++it)
+		count++;
+	*xfer == count;
+
+	if (xfer->IsLoading())
+	{
+		m_sellList.clear();
+		int i;
+		for (i = 0; i < count; i++)
+		{
+			sellInfo = new ObjectSellInfo;
+			XferObjectID(xfer, &sellInfo->m_id);
+			*xfer == sellInfo->m_sellFrame;
+			m_sellList.push_back(sellInfo);
+		}
+	}
+	else
+	{
+		for (it = m_sellList.begin(); it != m_sellList.end(); ++it)
+		{
+			sellInfo = (*it);
+			XferObjectID(xfer, &sellInfo->m_id);
+			*xfer == sellInfo->m_sellFrame;
+			count--;
+		}
+	}
+}
 
 // tu-skeleton: 0x003916A4 7B ??1ObjectSellInfo@@UAE@XZ -- matched in Code/GameEngine/Source/Common/System/BuildAssistantXfer.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/System/BuildAssistant.cpp
 
 // ---- from Code/GameEngine/Source/Common/System/BuildAssistant.cpp
 
@@ -3408,7 +3561,6 @@ Rva00394173Member Rva00394173Field::get() const
 //   0x005559FC reads ??0Rva003844D7@@QAE@ABV0@@Z
 //   0x00555616 reads ??0Rva0038454E@@QAE@ABV0@@Z
 
-// tu-skeleton: 0x00391994 69B ?rva00391994@Rva00391994@@QAE_NXZ -- matched in Code/GameEngine/Source/Common/Rva00391994Check.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva00391F4EBitSet.cpp
 
@@ -3432,23 +3584,176 @@ Rva00391F4E::Rva00391F4E(int /*unused*/, int b1, int b2)
 	m_bits[(unsigned)b2 >> 5] |= 1u << (b2 & 31);
 }
 
-// tu-skeleton: 0x00392011 75B ??_ERva004D9A3C@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva004D9A3CVectorDeletingDtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva00391994Check.cpp
+
+// ?rva00391994@Rva00391994@@QAE_NXZ @ 0x00391994 (69B) unlock: command-button 0x16 scan over 32 slots via rowed Object name plus rowed Rva0031D5F8 lookup plus pinned getCommandButton. Evidence: global g_bfmeWorldRV null check then name then lookup then 0x20 loop with +0x14 compare to 0x16; caller 0x00394231.
+
+bool Rva00391994::rva00391994(void)
+{
+	if ((*(BfmeWorldRV **)&TheControlBar)) {
+		const AsciiString *name = ((const Object *)this)->rva00290E67();
+		const CommandSet *cmdSet = (const CommandSet *)((Rva0031D5F8 *)(*(BfmeWorldRV **)&TheControlBar))->rva0031D5F8(name);
+		if (cmdSet) {
+			for (int i = 0; i < 0x20; ++i) {
+				const CommandButton *btn = cmdSet->getCommandButton(i);
+				if (btn && btn->getCommandType() == 0x16)
+					return true;
+			}
+		}
+	}
+	return false;
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva004D9A3CVectorDeletingDtor.cpp
+
+//
+// ??_ERva004D9A3C@@QAEPAXI@Z 75B @0x00392011: vector deleting dtor for
+// Rva004D9A3C (28-byte element with StringBase<char> at +0x14, dtor rowed
+// at 0x004D9A3C via StringBaseTailDtors). Shape routes array branch through
+// vector delete operator and scalar branch through scalar delete, both via
+// rowed mem_ops. Evidence: push 0x1C plus dtor 0x004D9A3C plus ??_M at
+// 0x00629110, flag bit2 vector plus bit0 delete, ret 4, caller 0x00392068
+// in 0x0039205C which becomes ready on landing. Recipe follows landed
+// Rva0073B700VectorDeletingDtor (empty dtor plus absent DeleteArray plus
+// declared vector-delete); here ??1 is already rowed so declared only.
+
+// Retail's array branch frees through the vector delete operator; MSVC only
+// routes the call through ??_V when a vector-delete is declared in the TU
+// (probe-proven in Rva0073B700VectorDeletingDtor: without this declaration
+// cl emits ??3 in both branches). The declaration emits no code.
+
+// ?Rva004D9A3CDeleteArray@@YAXPAVRva004D9A3C@@@Z absent-from-retail
+void Rva004D9A3CDeleteArray(Rva004D9A3C *array)
+{
+	delete[] array;
+}
 
 // tu-skeleton: 0x0039205C 26B ??1Rva0039205C@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0039205CDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00392076 28B ?push_front@?$list@HV?$allocator@H@_STL@@@_STL@@QAEXABH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_o1.cpp (not merged yet)
 
-// tu-skeleton: 0x00392092 101B ?rva00392092@Rva00392092Target@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva00392092Init.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva00392092Init.cpp
 
-// tu-skeleton: 0x003920F7 50B ?rva003920F7@Rva003920F7@@QAEXIPBURva003920F7Src@@@Z -- matched in Code/GameEngine/Source/Common/Rva003920F7Array.cpp (not merged yet)
+// ?rva00392092@Rva00392092Target@@QAEXXZ 101B @0x00392092: array init allocating Rva00391FC4 array sized GlobalData count stride 0x1C via new[]. Layout count at +0 array at +8 from dtor row at 0x0039205C. Evidence: dtor call at 0x003920A2 plus GlobalData+0xA94 plus UU at 0x0002FDE0 plus LL at 0x00629512 plus LINK BONUS 5 files.
+// The iterator's constructor callback is the rowed 0x00391FC4, not the
+// unrelated forty-byte record constructor at 0x000AF215. Its owned provider
+// establishes four floats, a byte at +0x10, AsciiString at +0x14 and int +0x18.
+// The implicit string cleanup reproduces the shared +0x14 tail destructor;
+// sharing cleanup code does not establish a shared constructor identity.
 
-// tu-skeleton: 0x00392129 54B ?rva00392129@Rva0039205C@@QAEXIM@Z -- matched in Code/GameEngine/Source/Common/Rva0039205CFloat.cpp (not merged yet)
+// Without these MSVC routes new T[n] to scalar ??2 (0x0002FDA0); retail uses array ??_U (0x0002FDE0).
 
-// tu-skeleton: 0x0039215F 55B ?rva0039215F@Rva0039205C@@QAEXIABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/Rva0039205CString.cpp (not merged yet)
+void Rva00392092Target::rva00392092()
+{
+	((Rva0039205C *)this)->~Rva0039205C();
+	unsigned int count = TheWritableGlobalData->m_maxLineBuildObjects;
+	m_array08 = new Rva00391FC4[count];
+}
 
-// tu-skeleton: 0x00392196 50B ?rva00392196@Rva0039205C@@QAEXIH@Z -- matched in Code/GameEngine/Source/Common/Rva0039205CArray.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva003920F7Array.cpp
 
-// tu-skeleton: 0x003921C8 50B ?rva003921C8@Rva0039205C@@QAEXIE@Z -- matched in Code/GameEngine/Source/Common/Rva0039205CArray.cpp (not merged yet)
+void Rva003920F7::rva003920F7(unsigned int index, const Rva003920F7Src *src)
+{
+	Rva0039205C *info = static_cast<Rva0039205C *>(this);
+	if (info->array == 0)
+		((Rva00392092Target *)this)->rva00392092();
+	if (index >= TheWritableGlobalData->m_maxLineBuildObjects)
+		return;
+	*(Rva003920F7Src *)(info->array + index) = *src;
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva0039205CFloat.cpp
+
+// ?rva00392129@Rva0039205C@@QAEXIM@Z 54B @0x00392129: float setter stride 0x1C at +0x0C. Layout count at +0 plus array at +8 from Rva0039205CArray rows. Evidence: init pin at 0x00392092 plus GlobalData count plus callers at 0x00393477 0x00393CDB 0x00393F51.
+
+void Rva0039205C::rva00392129(unsigned int index, float value)
+{
+	if (array == 0)
+		((Rva00392092Target *)this)->rva00392092();
+	if (index >= TheWritableGlobalData->m_maxLineBuildObjects)
+		return;
+	array[index].m_0C = value;
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva0039205CString.cpp
+
+// ?rva0039215F@Rva0039205C@@QAEXIABVAsciiString@@@Z 55B @0x0039215F: AsciiString setter stride 0x1C at +0x14 via StringBase set. Layout from Rva0039205CArray rows plus string at +0x14. Evidence: init pin at 0x00392092 plus GlobalData count plus callers at 0x00393486 0x00393CE7.
+
+void Rva0039205C::rva0039215F(unsigned int index, const AsciiString &value)
+{
+	if (array == 0)
+		((Rva00392092Target *)this)->rva00392092();
+	if (index >= TheWritableGlobalData->m_maxLineBuildObjects)
+		return;
+	((StringBase<char> *)&array[index].m_name)->set(*(const StringBase<char> *)&value);
+}
+
+void *Rva0039205C::rva00392CC5(unsigned int index)
+{
+	if (array == 0)
+		((Rva00392092Target *)this)->rva00392092();
+	if (index < (unsigned int)m_count)
+		return (void *)TheThingFactory->findTemplate(array[index].m_name);
+	return 0;
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva0039205CArray.cpp
+
+// ?rva00392CF9@Rva0039205C@@QAEPAVRva004D9A3C@@I@Z 36B @0x00392CF9: bounds-checked element getter stride 0x1C. Layout count at +0 plus array at +8 from dtor row at 0x0039205C plus ctor at 0x003921FA. Evidence: init pin at 0x00392092 plus callers at 0x002A2866 0x002A29E9 0x00392EBF.
+
+Rva004D9A3C *Rva0039205C::rva00392CF9(unsigned int index)
+{
+	if (array == 0)
+		((Rva00392092Target *)this)->rva00392092();
+	if (index < (unsigned int)m_count)
+		return array + index;
+	return 0;
+}
+
+unsigned char Rva0039205C::rva00392D49(unsigned int index)
+{
+	if (array == 0)
+		((Rva00392092Target *)this)->rva00392092();
+	if (index < (unsigned int)m_count)
+		return array[index].m_byte10;
+	return 0;
+}
+
+float Rva0039205C::rva00392D1D(unsigned int index)
+{
+	if (array == 0)
+		((Rva00392092Target *)this)->rva00392092();
+	if (index < (unsigned int)m_count)
+		return array[index].m_0C;
+	return 0.0f;
+}
+
+void Rva0039205C::rva00392196(unsigned int index, int value)
+{
+	if (array == 0)
+		((Rva00392092Target *)this)->rva00392092();
+	if (index >= TheWritableGlobalData->m_maxLineBuildObjects)
+		return;
+	array[index].m_18 = value;
+}
+
+void Rva0039205C::rva003921C8(unsigned int index, unsigned char value)
+{
+	if (array == 0)
+		((Rva00392092Target *)this)->rva00392092();
+	if (index >= TheWritableGlobalData->m_maxLineBuildObjects)
+		return;
+	array[index].m_byte10 = value;
+}
+
+int Rva0039205C::rva00392D71(int index)
+{
+	if (array == 0)
+		((Rva00392092Target *)this)->rva00392092();
+	if (index < (int)TheWritableGlobalData->m_maxLineBuildObjects)
+		return array[index].m_18;
+	return -1;
+}
 
 // tu-skeleton: 0x003921FA 100B ??0BuildAssistant@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0039225ECtor.cpp (not merged yet)
 
@@ -3456,27 +3761,22 @@ Rva00391F4E::Rva00391F4E(int /*unused*/, int b1, int b2)
 
 // tu-skeleton: 0x003922B7 8B ?rva003922B7@Rva003922B7Forwarder@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotMemberForwarders.cpp (not merged yet)
 
-// tu-skeleton: 0x003924FE 204B ?xferTheSellList@BuildAssistant@@QAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/System/BuildAssistantXferSellList.cpp (not merged yet)
-
 // tu-skeleton: 0x00392802 725B ?getPortTransform@BuildAssistant@@QAE_NPBUCoord3D@@PBVThingTemplate@@MPAMPAU2@@Z -- matched in Code/GameEngine/Source/Common/System/BuildAssistantGetPortTransform.cpp (not merged yet)
 
-// tu-skeleton: 0x00392CAC 25B ?rva00392CAC@Rva0039205C@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva0039205CInit.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva0039205CInit.cpp
 
-// tu-skeleton: 0x00392CC5 52B ?rva00392CC5@Rva0039205C@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0039205CString.cpp (not merged yet)
-
-// tu-skeleton: 0x00392CF9 36B ?rva00392CF9@Rva0039205C@@QAEPAVRva004D9A3C@@I@Z -- matched in Code/GameEngine/Source/Common/Rva0039205CArray.cpp (not merged yet)
-
-// tu-skeleton: 0x00392D1D 44B ?rva00392D1D@Rva0039205C@@QAEMI@Z -- matched in Code/GameEngine/Source/Common/Rva0039205CArray.cpp (not merged yet)
-
-// tu-skeleton: 0x00392D49 40B ?rva00392D49@Rva0039205C@@QAEEI@Z -- matched in Code/GameEngine/Source/Common/Rva0039205CArray.cpp (not merged yet)
-
-// tu-skeleton: 0x00392D71 51B ?rva00392D71@Rva0039205C@@QAEHH@Z -- matched in Code/GameEngine/Source/Common/Rva0039205CArray.cpp (not merged yet)
+void Rva0039205C::rva00392CAC()
+{
+	m_count = 0;
+	status = -1;
+	flagC = 0;
+	flagD = 0;
+	m_cost = 0;
+	objectID = INVALID_OBJECT_ID;
+	((Rva00392092Target *)this)->rva00392092();
+}
 
 // tu-skeleton: 0x0039380F 2217B ?rva0039380F@BuildAssistant@@UAE_NPAVRva0039205C@@PAVObject@@PBUCoord3D@@2I@Z -- matched in Code/GameEngine/Source/Common/System/BuildAssistantWallLocations.cpp (not merged yet)
-
-// tu-skeleton: 0x00780B3D 10B uw_00780b3d -- matched in Code/GameEngine/Source/Common/Rva00392092Init.cpp (not merged yet)
-
-// tu-skeleton: 0x00780B47 10B __ehhandler$?rva00392092@Rva00392092Target@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva00392092Init.cpp (not merged yet)
 
 // tu-skeleton: 0x00780B51 8B uw_00780b51 -- matched in Code/gen_small/uw_gen_011.cpp (not merged yet)
 
