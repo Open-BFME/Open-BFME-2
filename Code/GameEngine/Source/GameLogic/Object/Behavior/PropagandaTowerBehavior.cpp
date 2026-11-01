@@ -297,11 +297,7 @@ public:
 	const FXList *m_upgradedPulseFX;
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 class Xfer;
 enum UpdateSleepTime

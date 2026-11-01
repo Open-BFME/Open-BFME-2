@@ -377,11 +377,7 @@ BFME_DISP8_FLOAT_GETTER(Rva004987FAFloatField, 0x34)
 // This consumed prefix and result representation claim only those accesses;
 // original class, result name, field purposes and full object size are unknown.
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

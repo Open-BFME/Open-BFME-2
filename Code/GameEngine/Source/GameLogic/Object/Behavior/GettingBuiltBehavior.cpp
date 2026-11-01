@@ -411,11 +411,7 @@ list<Rva00453B06Obj *>::_M_create_node(Rva00453B06Obj *const &value)
 
 template void _STL::list<Rva00453B06Obj *>::push_back(Rva00453B06Obj *const &);
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

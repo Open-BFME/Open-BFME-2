@@ -146,12 +146,7 @@ public:
 	unsigned char m_minimum;
 };
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-	const AsciiString &keyToName(NameKeyType key);
-};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

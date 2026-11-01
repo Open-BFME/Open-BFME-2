@@ -16,11 +16,7 @@ enum NameKeyType
 	NAMEKEY_INVALID = 0
 };
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 // Rva00BF5CCC was the retail address (RVA 0x007F5CCC) of the "CastleMemberBehavior" text; the literal is the source.

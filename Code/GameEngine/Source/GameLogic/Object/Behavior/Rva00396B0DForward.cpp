@@ -31,12 +31,7 @@ static inline bool operator!=(const _Rb_tree_iterator<T, L>& a,
 { return a._M_node != b._M_node; }
 }
 enum NameKeyType { NAMEKEY_INVALID=0 };
-class NameKeyGenerator
-{
-public:
-    NameKeyType nameToKey(const AsciiString &);
-    NameKeyType nameToKey(const char *);
-};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 class Player
 {

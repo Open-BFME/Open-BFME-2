@@ -140,11 +140,7 @@ private:
 	bool m_needToMaintainFlailingHeight; // +0x1C0
 };
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
