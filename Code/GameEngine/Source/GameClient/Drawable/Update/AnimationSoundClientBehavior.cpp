@@ -457,12 +457,6 @@ public:
 };
 }
 
-class AnimationSoundTreeHeaderHandle
-{
-public:
-	void *m_header;
-};
-
 // tu-skeleton: 0x004C9DC9 80B ??1AnimationSoundClientBehavior@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehaviorDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004C9E19 6B ?name@AnimationSoundClientBehavior@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)

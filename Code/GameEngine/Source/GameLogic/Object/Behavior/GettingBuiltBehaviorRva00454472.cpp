@@ -18,14 +18,6 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_NONE = 0
 };
 
-class BehaviorModuleBase
-{
-public:
-	virtual void behaviorModuleBaseAnchor();
-	const ModuleData *m_moduleData;
-	Object *m_object;
-};
-
 class BehaviorModuleOther
 {
 public:

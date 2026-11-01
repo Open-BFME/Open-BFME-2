@@ -168,14 +168,6 @@ enum NameKeyType
 // with loadPostProcess (0x0058B03E), GetSnapshotName (0x002533CD), xfer
 // (0x0044DF9F) and __purecall; the +0x10 one (0x00C497F4) starts with update
 // (0x00483133), the +0x20 one (0x00C497E8) with onDamage and onHealing.
-class BehaviorModuleBase
-{
-public:
-	virtual ~BehaviorModuleBase();
-	const ModuleData *m_moduleData;
-	Object *m_object;
-};
-
 class BehaviorModuleOther
 {
 public:

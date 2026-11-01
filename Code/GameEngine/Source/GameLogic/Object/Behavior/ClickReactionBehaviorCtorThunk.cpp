@@ -9,17 +9,6 @@ enum UpdateSleepTime
     UPDATE_SLEEP_NONE = 1
 };
 
-class PB_DeepBase
-{
-public:
-    PB_DeepBase(Thing *, const ModuleData *);
-    virtual ~PB_DeepBase();
-
-protected:
-    void *m_f04;
-    Object *m_object;
-};
-
 class PB_Iface1
 {
 public:

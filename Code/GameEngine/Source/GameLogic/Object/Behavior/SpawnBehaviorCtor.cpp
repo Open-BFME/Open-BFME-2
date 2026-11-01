@@ -37,14 +37,6 @@ public:
 
 extern class ThingFactory *TheThingFactory;
 
-class BehaviorModuleBase
-{
-public:
-	virtual void unused() = 0;
-	const ModuleData *m_moduleData;
-	Object *m_object;
-};
-
 class BehaviorModuleOther
 {
 public:

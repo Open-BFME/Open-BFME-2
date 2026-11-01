@@ -37,14 +37,6 @@ class Thing;
 class ModuleData;
 class Object;
 
-class BehaviorModuleBase
-{
-public:
-	virtual void unused() = 0;
-	int a;
-	int b;
-};
-
 class BehaviorModuleOther
 {
 public:

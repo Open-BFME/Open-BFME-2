@@ -18,12 +18,6 @@ class ModuleData;
 
 #include "../../../../Include/Common/ObjectModule.h"
 
-class BehaviorIface
-{
-public:
-	virtual void behaviorIfaceAnchor() = 0;
-};
-
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class BodyModuleInterface

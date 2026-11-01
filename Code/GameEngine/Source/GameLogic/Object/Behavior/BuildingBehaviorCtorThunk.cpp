@@ -7,17 +7,6 @@ class ModuleData;
 class Object;
 enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
 
-class BB_DeepBase
-{
-public:
-    BB_DeepBase(Thing *, const ModuleData *);
-    virtual ~BB_DeepBase();
-
-protected:
-    const ModuleData *m_moduleData;
-    Object *m_object;
-};
-
 class BB_Iface1 { public: virtual void slot(); };
 class BB_Iface2 { public: virtual void slot(); };
 

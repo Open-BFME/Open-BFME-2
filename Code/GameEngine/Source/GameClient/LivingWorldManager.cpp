@@ -28,14 +28,6 @@ public:
 // Retail 0x00213DFD (20B, RET8): the hash container member over this table
 // (at +0): the hidden result pointer and the key go straight to the
 // insert-with-grow above, its only callee. Owner unresolved, address-named.
-class Rva00213DFD
-{
-public:
-	InsertRet00212A5A insert(const void *key);
-private:
-	Rva000427195 m_table;
-};
-
 // LivingWorld icon factories, native 0x00214060 / 0x002140DB / 0x00214156.
 // Adjacent 0x14-byte tables are observed at +0x26C, +0x280 and +0x294.
 // Their registered INI parsers and existing constructors prove each record size.

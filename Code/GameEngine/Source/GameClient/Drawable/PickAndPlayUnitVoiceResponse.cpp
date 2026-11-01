@@ -716,7 +716,6 @@ private:
 	int m_18;
 };
 
-class Rva0041541B { public: const Rva002390CB &rva0041541B(const AsciiString &); };
 class Rva004D97B0
 {
 public:
