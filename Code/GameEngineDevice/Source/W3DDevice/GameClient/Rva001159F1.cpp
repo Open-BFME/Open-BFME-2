@@ -47,7 +47,7 @@ private:
 	Int m_width;
 	WorldHeightMap *m_map;
 	unsigned char m_pad60[0x88 - 0x60];
-	Int m_step;
+	Int m_baseDivisor;
 	Int m_savedStep;
 	unsigned char m_pad90[0x94 - 0x90];
 	Int m_coarseStep;
@@ -174,8 +174,8 @@ void W3DTerrainBackground::calcBlendHeight(Real param, Int mode, Real *maxDelta)
 		}
 
 		if (m_mode == 2) {
-			m_savedStep = m_step;
-			m_step = m_coarseStep;
+			m_savedStep = m_baseDivisor;
+			m_baseDivisor = m_coarseStep;
 		}
 		m_map->refreshBitPlane();
 		setFlipRecursive(0, 0, m_width);
@@ -183,8 +183,8 @@ void W3DTerrainBackground::calcBlendHeight(Real param, Int mode, Real *maxDelta)
 		Int ndxCount = 0;
 		UnsignedShort *ndx = new UnsignedShort[count];
 		memset(ndx, 0, count * sizeof(UnsignedShort));
-		for (y = yOrigin; y <= yLimit; y += m_step) {
-			for (gridX = xOrigin; gridX <= xLimit; gridX += m_step) {
+		for (y = yOrigin; y <= yLimit; y += m_baseDivisor) {
+			for (gridX = xOrigin; gridX <= xLimit; gridX += m_baseDivisor) {
 				if (m_map->isInMesh(gridX, y)) {
 					ndx[(y - yOrigin) * (m_width + 1) + (gridX - xOrigin)] = ndxCount++;
 				}
@@ -195,7 +195,7 @@ void W3DTerrainBackground::calcBlendHeight(Real param, Int mode, Real *maxDelta)
 		delete[] ndx;
 
 		if (mode == 2)
-			m_step = m_savedStep;
+			m_baseDivisor = m_savedStep;
 		if (mode == 1)
 			((Rva001159F1 *)this)->rva001159F1((void *)m_coarseStep);
 	}
@@ -204,8 +204,8 @@ void W3DTerrainBackground::calcBlendHeight(Real param, Int mode, Real *maxDelta)
 	setFlipRecursive(0, 0, m_width);
 
 	Real largest = 0.0f;
-	for (Int j = yOrigin; j <= yLimit; j += m_step) {
-		for (Int i = xOrigin; i <= xLimit; i += m_step) {
+	for (Int j = yOrigin; j <= yLimit; j += m_baseDivisor) {
+		for (Int i = xOrigin; i <= xLimit; i += m_baseDivisor) {
 			if (m_map->isInMesh(i, j)) {
 				Int idx = (j - yOrigin) * (m_width + 1) + (i - xOrigin);
 				m_heights[idx].Z = (1.0f - m_blend) * m_heights[idx].X + m_heights[idx].Y * m_blend;
