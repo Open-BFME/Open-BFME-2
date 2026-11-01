@@ -691,14 +691,7 @@ public:
 ~DrawableList()throw();
 };
 class PickAndPlayInfo;
-class GameMessage
-{
-public:
-enum Type
-{
-MSG_BFME2_0x7DA=0x7DA
-};
-};
+#include "../../../Include/Common/MessageStream.h"
 bool pickAndPlayUnitVoiceResponse(const DrawableList*list,GameMessage::Type messageType,
 PickAndPlayInfo*info);
 struct ProductionCountData

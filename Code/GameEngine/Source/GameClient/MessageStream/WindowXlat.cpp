@@ -38,36 +38,7 @@ union GameMessageArgumentType
 };
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/MessageStream.h
-class GameMessage
-{
-public:
-	enum Type
-	{
-		MSG_RAW_MOUSE_POSITION					= 3,
-		MSG_RAW_MOUSE_LEFT_BUTTON_DOWN			= 4,
-		MSG_RAW_MOUSE_LEFT_DOUBLE_CLICK			= 5,
-		MSG_RAW_MOUSE_LEFT_BUTTON_UP			= 6,
-		MSG_RAW_MOUSE_LEFT_DRAG					= 8,
-		MSG_RAW_MOUSE_MIDDLE_BUTTON_DOWN		= 10,
-		MSG_RAW_MOUSE_MIDDLE_DOUBLE_CLICK		= 11,
-		MSG_RAW_MOUSE_MIDDLE_BUTTON_UP			= 12,
-		MSG_RAW_MOUSE_MIDDLE_DRAG				= 13,
-		MSG_RAW_MOUSE_RIGHT_BUTTON_DOWN			= 14,
-		MSG_RAW_MOUSE_RIGHT_DOUBLE_CLICK		= 15,
-		MSG_RAW_MOUSE_RIGHT_BUTTON_UP			= 16,
-		MSG_RAW_MOUSE_RIGHT_DRAG				= 18,
-		MSG_RAW_MOUSE_WHEEL						= 19,
-		MSG_RAW_KEY_DOWN						= 21,
-		MSG_RAW_KEY_UP							= 22
-	};
-
-	Type getType( void ) const { return m_type; }
-	const GameMessageArgumentType *getArgument( Int argIndex ) const;
-
-private:
-	unsigned char m_unreconstructed_00[0x10];
-	Type m_type;											///< +0x10
-};
+#include "../../../Include/Common/MessageStream.h"
 
 enum GameWindowMessage
 {

@@ -845,11 +845,7 @@ public:
 	Rva0035B456Owner *m_commandButton;
 };
 
-class GameMessage
-{
-public:
-	enum Type { MSG_INVALID = 0 };
-};
+#include "../../../Include/Common/MessageStream.h"
 
 class ActionManager
 {

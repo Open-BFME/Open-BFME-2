@@ -114,14 +114,7 @@ class DrawableList : public _STL::list<Drawable *>
 {
 };
 class PickAndPlayInfo;
-class GameMessage
-{
-public:
-	enum Type
-	{
-		MSG_BFME2_0x7DE = 0x7DE
-	};
-};
+#include "../../../../Include/Common/MessageStream.h"
 bool pickAndPlayUnitVoiceResponse(const DrawableList *list, GameMessage::Type messageType,
 	PickAndPlayInfo *info);
 

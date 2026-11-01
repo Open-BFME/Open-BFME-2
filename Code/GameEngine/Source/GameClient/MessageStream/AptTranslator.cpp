@@ -16,14 +16,7 @@
 // (WB movzx al) though its row is spelled int, hence the byte casts.
 #include <algorithm>
 
-class GameMessage
-{
-public:
-	int getType() const { return m_type; }
-private:
-	char m_pad00[0x10];
-	int m_type; // +0x10
-};
+#include "../../../Include/Common/MessageStream.h"
 
 struct MouseIO
 {

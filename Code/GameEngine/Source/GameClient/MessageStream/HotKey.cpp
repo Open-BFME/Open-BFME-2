@@ -101,19 +101,7 @@ union GameMessageArgumentType
 	Int integer;
 };
 
-class GameMessage
-{
-public:
-	enum Type
-	{
-		MSG_RAW_KEY_UP = 22
-	};
-	Type getType() const { return m_type; }
-	const GameMessageArgumentType *getArgument(Int argIndex) const;
-private:
-	char m_pad00[0x10];
-	Type m_type;		// +0x10
-};
+#include "../../../Include/Common/MessageStream.h"
 
 // Zero Hour's KeyDefs.h key states.
 enum

@@ -4,11 +4,7 @@
 // looks up its first word using LivingWorldLogic's +B0 manager, and stores
 // the resulting pointer. The manager's precise lookup identity is open.
 union GameMessageArgumentType { int integer; };
-class GameMessage
-{
-public:
- const GameMessageArgumentType *getArgument(int index) const;
-};
+#include "../../../Include/Common/MessageStream.h"
 struct Rva002B2DADMessageView { char pad[0x18]; unsigned char count; };
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;

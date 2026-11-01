@@ -92,14 +92,7 @@ public:
 
 class PickAndPlayInfo;
 
-class GameMessage
-{
-public:
-	enum Type
-	{
-		MSG_BFME2_0x7EA = 0x7EA
-	};
-};
+#include "../../../Include/Common/MessageStream.h"
 
 bool pickAndPlayUnitVoiceResponse(const DrawableList *list, GameMessage::Type messageType,
 	PickAndPlayInfo *info);

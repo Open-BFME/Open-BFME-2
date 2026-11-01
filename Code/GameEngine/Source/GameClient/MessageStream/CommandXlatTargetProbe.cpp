@@ -12,7 +12,7 @@
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
 #include "../../../../Libraries/Include/Lib/IRegion2D.h"
 union GameMessageArgumentType {int integer;IRegion2D pixelRegion;};
-class GameMessage {public:const GameMessageArgumentType*getArgument(int)const;};
+#include "../../../Include/Common/MessageStream.h"
 enum ObjectStatusTypes;
 class Object {public:bool testStatus(ObjectStatusTypes)const;};
 class Drawable {public:char gap0[0xfc];Object*object;};

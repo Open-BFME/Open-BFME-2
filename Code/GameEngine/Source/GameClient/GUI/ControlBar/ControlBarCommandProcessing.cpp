@@ -54,12 +54,7 @@ enum CBCommandStatus { CBC_COMMAND_NOT_USED=0, CBC_COMMAND_USED=1 };
 class Matrix3D { public: float Get_Z_Rotation() const; float m[12]; };
 class Object; class Player; class ThingTemplate; class Drawable; class CommandButton;
 class GameWindow; class Module; class Rva0043D3A8;
-class GameMessage { public:
- enum Type { INVALID=0 };
- void appendIntegerArgument(int); void appendRealArgument(float);
- void appendBooleanArgument(bool); void appendObjectIDArgument(ObjectID);
- void appendLocationArgument(const Coord3D&);
-};
+#include "../../../../Include/Common/MessageStream.h"
 class DrawableList : public std::list<Drawable*> {};
 class PickAndPlayInfo { public:
  PickAndPlayInfo(); bool value; Drawable *source,*target; int *weaponSlot;

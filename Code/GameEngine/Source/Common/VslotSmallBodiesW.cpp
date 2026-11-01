@@ -255,12 +255,7 @@ Int Rva00405A45::rva004059F6()
 // 0x00428D66: 0 for the argument's +0x10 ids 1000-1999, 29-34, 1701, 2009
 // and 2029; else 1.
 enum GameMessageDisposition { KEEP_MESSAGE, DESTROY_MESSAGE };
-class GameMessage
-{
-public:
-	char m_pad00[0x10];
-	Int m_10;
-};
+#include "../../Include/Common/MessageStream.h"
 class GameClientMessageDispatcher
 {
 public:
@@ -268,7 +263,7 @@ public:
 };
 GameMessageDisposition GameClientMessageDispatcher::translateGameMessage(const GameMessage *msg)
 {
-	Int id = msg->m_10;
+	Int id = msg->m_type;
 	if ((id >= 1000 && id <= 1999) || id == 30 || id == 29 || id == 2009 || id == 2029
 		|| id == 1701 || id == 31 || id == 32 || id == 34 || id == 33)
 		return KEEP_MESSAGE;

@@ -31,16 +31,7 @@ union GameMessageArgumentType
 	IRegion2D pixelRegion;
 };
 
-class GameMessage
-{
-public:
-	const GameMessageArgumentType *getArgument(int index) const;
-	int getType() const { return m_type; }
-
-private:
-	char m_pad00[0x10];
-	int m_type; // +0x10
-};
+#include "../../Include/Common/MessageStream.h"
 
 // The handlers' pixel parameter: a copy of the message's pixel argument.
 struct Rva005CBC95Pixel

@@ -736,15 +736,7 @@ enum GameMessageArgumentDataType
 	ARGUMENTDATATYPE_UNKNOWN
 };
 
-class GameMessage
-{
-public:
-	unsigned char getArgumentCount() const { return m_argCount; }
-	GameMessageArgumentDataType getArgumentDataType(int argIndex);
-private:
-	char m_pad[0x18];
-	unsigned char m_argCount;
-};
+#include "../../Include/Common/MessageStream.h"
 
 class Rva0054D54A
 {

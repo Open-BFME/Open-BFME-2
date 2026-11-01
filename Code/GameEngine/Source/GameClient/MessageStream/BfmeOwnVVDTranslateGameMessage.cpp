@@ -34,14 +34,7 @@ union GameMessageArgumentType
 	ICoord2D pixel;
 };
 
-class GameMessage
-{
-public:
-	const GameMessageArgumentType *getArgument(int) const;
-	int getType() const { return m_type; }
-	char m_pad00[0x10];
-	int m_type; // +0x10
-};
+#include "../../../Include/Common/MessageStream.h"
 
 class ViewLocation
 {
