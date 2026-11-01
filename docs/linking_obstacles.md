@@ -15820,6 +15820,26 @@ declaring the rowed `protected: virtual ~AudioLoopUpgrade();` (`??1AudioLoopUpgr
 merge; not tried). ThreatFinderUpdateDtor (canonical UpdateModule) and ThreatFinderUpdate.cpp
 (private views, first in link order, held) differ in primary slots 1-4 and 12 and the
 update-interface slots 1-2: both views need the class's native overrides.
+Repair (2026-11-01, lk10, after `1f5e399716`): Rva0024A797Grandchildren.cpp's 1,280 B
+loss was not the Grandchildren view's fault. StructureToppleUpdate.cpp (a Zero Hour port
+whose only rows are two STLport helpers, link place 3720) still defined the Zero Hour
+`StructureToppleUpdate::~StructureToppleUpdate() { }` under a `present-unmatched` marker.
+That body is not retail's (retail's `??1StructureToppleUpdate@@UAE@XZ` 0x004A54A8 is rowed
+in Grandchildren), and nothing touches its `??1`/`??_G...MAE` names, but defining it made
+the unit emit the 34-slot Zero Hour `??_7StructureToppleUpdate@@6B...` tables ahead of every
+other copy. Dropping the body (and its marker) removes all four tables from that object;
+Grandchildren's retail-shaped copies (slot 9 = UpdateModule::getUpdate) become first.
+`./build.sh` 2/2; scoped DIR32 OK (44 rows, with Grandchildren); `link_check` over all ten
+units touching `StructureToppleUpdate@@` names: Grandchildren 0 -> 1,280 B (current objects),
+the other eight linked units unchanged (25,246 B total), StructureToppleUpdateCtor still loses
+its BehaviorModule-shaped copies (file locked by StarkillerHDX's class:BehaviorModule claim;
+it needs canonical UpdateModule like Grandchildren). The other six "native overrides" units
+and ThreatFinderUpdateDtor, AudioLoopUpgradeCtorModuleFactory, MonitorConditionUpdate,
+and SiegeDockingBehavior(Dtor) were all locked by
+StarkillerHDX claims (tu seat w2, header_adopt_lane, class:BehaviorModule) at 14:40.
+Pattern: when a seed or Zero Hour port keeps an unrowed constructor or destructor body of a
+module class, its tables can sit first in link order and beat retail-shaped copies; drop the
+body when the row lives elsewhere.
 Remaining / next check: the open rows above. Pattern: after a base-header adoption,
 grep `__identifier("??_7<Class>@@6B<old base>@@@")` in sibling units, and check whether
 any adopting unit defines a constructor (it then emits the base's inline destructor and

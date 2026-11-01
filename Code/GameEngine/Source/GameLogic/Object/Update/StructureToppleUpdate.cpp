@@ -102,10 +102,9 @@ const Int MAX_IDX = 32;
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-// ?StructureToppleUpdate::~StructureToppleUpdate present-unmatched
-StructureToppleUpdate::~StructureToppleUpdate( void )
-{
-}
+// The Zero Hour destructor body is not retail's: ~StructureToppleUpdate is rowed at
+// 0x004A54A8 in Rva0024A797Grandchildren.cpp. Defining it here emitted this header's
+// Zero Hour vftables first in link order, so the retail-shaped copies lost (LINK-168).
 
 //-------------------------------------------------------------------------------------------------
 static void parseOCL( INI* ini, void *instance, void * /*store*/, const void* /*userData*/ )
