@@ -1,0 +1,351 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "BfmeAptValue006DCD20",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 123,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x20": {
+    "4": 4
+   },
+   "0x24": {
+    "4": 3
+   },
+   "0x28": {
+    "4": 5
+   },
+   "0x4": {
+    "4": 49
+   },
+   "0x4c": {
+    "4": 3
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x6dccc0",
+      "0x6dcd20"
+     ],
+     "value": 8
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x6dccc0",
+      "0x6dcd20"
+     ],
+     "value": {
+      "0x4": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x6dccc0",
+      "0x6dcd20"
+     ],
+     "value": {
+      "0x0": [
+       "?setTypeAt006DBBC0@BfmeAptValue006DCD20@@AAEXH@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x6dccc0",
+      "0x6dcd20"
+     ],
+     "value": {
+      "0x0": "0x8eaed0"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x8eaed0"
+     ],
+     "value": {
+      "count": 15,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "?AddRef@AptValue@@UAEXXZ",
+        "slot": 0,
+        "target": "0x6dcac0"
+       },
+       {
+        "name": "?Release@AptValue@@UAEXXZ",
+        "slot": 1,
+        "target": "0x6dcb20"
+       },
+       {
+        "name": "?ForceDelete@AptValue@@UAEXXZ",
+        "slot": 2,
+        "target": "0x6cbcd0"
+       },
+       {
+        "name": "?Rva0065CE90@MemoryPool@@YAPAVGeneralAllocator@Allocator@EA@@I@Z",
+        "slot": 3,
+        "target": "0x65ce90"
+       },
+       {
+        "name": "?Rva0073B660False@@YA_NPAXH@Z",
+        "slot": 4,
+        "target": "0x73b660"
+       },
+       {
+        "name": "?Rva0065CE90@MemoryPool@@YAPAVGeneralAllocator@Allocator@EA@@I@Z",
+        "slot": 5,
+        "target": "0x65ce90"
+       },
+       {
+        "name": "?m009EC960@Q1Receiver0134FAAC@@QAEXPAX@Z",
+        "slot": 6,
+        "target": "0x180fd0"
+       },
+       {
+        "name": "?Read@DebugIOOds@@UAEHPADH@Z",
+        "slot": 7,
+        "target": "0x3fd80"
+       },
+       {
+        "name": "?Enum@IdList@ProfileFuncLevel@@QBE_NIAAVId@2@PAI@Z",
+        "slot": 8,
+        "target": "0x6c8770"
+       },
+       {
+        "name": "?rva006CBCF0@Rva006CBCF0@@QAEXXZ",
+        "slot": 9,
+        "target": "0x6cbcf0"
+       },
+       {
+        "name": "?debugIgnoreLeaks@?$StringBase@D@@QAEXXZ",
+        "slot": 10,
+        "target": "0x69e440"
+       },
+       {
+        "name": "?rva006CBD00@Rva006CBD00@@QAEXXZ",
+        "slot": 11,
+        "target": "0x6cbd00"
+       },
+       {
+        "name": "__purecall",
+        "slot": 12,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 13,
+        "target": "0x3b810"
+       },
+       {
+        "name": "??_GRva006DE350@@UAEPAXI@Z",
+        "slot": 14,
+        "target": "0x6de820"
+       }
+      ],
+      "table": "0x8eaed0"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 79,
+  "retail_vtables": {
+   "0x8eaed0": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "?AddRef@AptValue@@UAEXXZ",
+     "1": "?Release@AptValue@@UAEXXZ",
+     "2": "?ForceDelete@AptValue@@UAEXXZ",
+     "3": "?Rva0065CE90@MemoryPool@@YAPAVGeneralAllocator@Allocator@EA@@I@Z",
+     "4": "?Rva0073B660False@@YA_NPAXH@Z",
+     "5": "?Rva0065CE90@MemoryPool@@YAPAVGeneralAllocator@Allocator@EA@@I@Z",
+     "6": "?m009EC960@Q1Receiver0134FAAC@@QAEXPAX@Z",
+     "7": "?Read@DebugIOOds@@UAEHPADH@Z",
+     "8": "?Enum@IdList@ProfileFuncLevel@@QBE_NIAAVId@2@PAI@Z",
+     "9": "?rva006CBCF0@Rva006CBCF0@@QAEXXZ",
+     "10": "?debugIgnoreLeaks@?$StringBase@D@@QAEXXZ",
+     "11": "?rva006CBD00@Rva006CBD00@@QAEXXZ",
+     "12": "__purecall",
+     "13": "__purecall",
+     "14": "??_GRva006DE350@@UAEPAXI@Z"
+    },
+    "stores": 2
+   }
+  },
+  "view_errors": 12,
+  "view_sizes": {
+   "1": 52,
+   "4": 14,
+   "8": 31,
+   "36": 6,
+   "44": 4,
+   "80": 4
+  },
+  "views": 111,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 54,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 45
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptArray_DestroyGCPointers.cpp",
+    "Code/GameEngine/Source/Common/LadderPreferencesDtor.cpp",
+    "Code/GameEngine/Source/Common/Rva006D94A0AptCluster.cpp",
+    "Code/GameEngine/Source/Common/Rva006ECFC0Siblings.cpp",
+    "Code/GameEngine/Source/Common/Rva006F1360Dtor.cpp",
+    "Code/GameEngine/Source/Common/Rva006FB960Cluster.cpp",
+    "Code/Libraries/Source/Apt/AptArray.cpp",
+    "Code/Libraries/Source/Apt/AptCharacter.cpp",
+    "Code/Libraries/Source/Apt/AptCharacterObjectMemberLookup.cpp",
+    "Code/Libraries/Source/Apt/AptObject/Rva006F1360XmlLookup.cpp",
+    "Code/Libraries/Source/Apt/AptString.cpp",
+    "Code/Libraries/Source/Apt/AptTextFormat.cpp",
+    "Code/Libraries/Source/Apt/AptValue.cpp",
+    "Code/Libraries/Source/Apt/AptValue/AptBoolean.cpp",
+    "Code/Libraries/Source/Apt/AptValue/AptFloatCreateBFME2.cpp",
+    "Code/Libraries/Source/Apt/AptValue/AptInteger.cpp",
+    "Code/Libraries/Source/Apt/AptValue/AptScalarValueConstructors.cpp",
+    "Code/Libraries/Source/Apt/AptValue/AptValueArrayAt.cpp",
+    "Code/Libraries/Source/Apt/AptValue/AptValueConstructBuiltInObjects.cpp",
+    "Code/Libraries/Source/Apt/AptValue/AptValueConstructorBFME2.cpp",
+    "Code/Libraries/Source/Apt/AptValue/AptValueGCRootBFME2.cpp",
+    "Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp",
+    "Code/Libraries/Source/Apt/AptValue/AptValuePredicate006DBFA0.cpp",
+    "Code/Libraries/Source/Apt/AptValue/AptValueSetTypeBFME2.cpp",
+    "Code/Libraries/Source/Apt/AptValue/AptValueSwitchPredicateBFME2.cpp",
+    "Code/Libraries/Source/Apt/AptValue/AptValueToIntegerBFME2.cpp",
+    "Code/Libraries/Source/Apt/AptValue/AptValueToNumberBFME2.cpp",
+    "Code/Libraries/Source/Apt/AptValue/AptValueTypePredicatesBFME2.cpp",
+    "Code/Libraries/Source/Apt/AptValue/AptValueUndefinedBFME2.cpp",
+    "Code/Libraries/Source/Apt/AptValue/AptValueXmlPredicatesBFME2.cpp",
+    "Code/Libraries/Source/Apt/AptValue/Rva006D6300TypedValueCtors.cpp",
+    "Code/Libraries/Source/Apt/AptValue/Rva006DCE50Finish.cpp",
+    "Code/Libraries/Source/Apt/Rva006D6360Ctor.cpp",
+    "Code/Libraries/Source/Apt/Rva006D6D20Ctor.cpp",
+    "Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp",
+    "Code/Libraries/Source/Apt/Rva006F6E00Cluster.cpp",
+    "Code/Libraries/Source/Apt/Rva006FC1D0Ctor.cpp"
+   ],
+   "views": 41
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptArray_DestroyGCPointers.cpp",
+    "Code/GameEngine/Source/Common/Rva006D94A0AptCluster.cpp",
+    "Code/GameEngine/Source/Common/Rva006F1F50Cluster.cpp",
+    "Code/GameEngine/Source/Common/Rva006F1F90Cluster.cpp",
+    "Code/GameEngine/Source/Common/Rva00711380Cluster.cpp",
+    "Code/Libraries/Source/Apt/AptArray.cpp",
+    "Code/Libraries/Source/Apt/AptObject/Rva006F1570XmlNodeString.cpp",
+    "Code/Libraries/Source/Apt/AptValue/AptValueArrayAt.cpp",
+    "Code/Libraries/Source/Apt/AptValue/Rva006DCE50Finish.cpp",
+    "Code/Libraries/Source/Apt/AptValue/Rva006F1530Finish.cpp"
+   ],
+   "views": 10
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptArray_DestroyGCPointers.cpp",
+    "Code/GameEngine/Source/Common/Rva006D94A0AptCluster.cpp",
+    "Code/Libraries/Source/Apt/AptArray.cpp",
+    "Code/Libraries/Source/Apt/AptValue/AptValueArrayAt.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptArray_DestroyGCPointers.cpp",
+    "Code/GameEngine/Source/Common/Rva006D94A0AptCluster.cpp",
+    "Code/Libraries/Source/Apt/AptArray.cpp",
+    "Code/Libraries/Source/Apt/AptValue/AptValueArrayAt.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 76,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptCIH.cpp",
+    "Code/Libraries/Source/Apt/AptValue/AptValueTypePredicatesBFME2.cpp",
+    "Code/Libraries/Source/Apt/Rva006E0D40Cluster.cpp",
+    "Code/Libraries/Source/Apt/Rva006E1C40Draw.cpp"
+   ],
+   "views": 4
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "slot1",
+   "candidates": {
+    "Release()": 3,
+    "__vecDelDtor(uint)": 1,
+    "release()": 3,
+    "slot1()": 2,
+    "v1()": 3,
+    "vtableSlot1()": 1
+   },
+   "class": "BfmeAptValue006DCD20"
+  }
+ ],
+ "size": 8,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "vtableSlot0()"
+  },
+  "2": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  },
+  "3": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
