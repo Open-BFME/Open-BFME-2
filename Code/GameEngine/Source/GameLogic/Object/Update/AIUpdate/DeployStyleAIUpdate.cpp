@@ -442,15 +442,7 @@ class Rva002390CB { public: int id; Rva0036CA00Str ref; };
 
 #include "../../../../../Include/GameClient/Drawable.h"
 
-class AudioManager {
-public:
-#define SLOT(n) virtual void slot##n();
- SLOT(0) SLOT(1) SLOT(2) SLOT(3) SLOT(4) SLOT(5) SLOT(6) SLOT(7) SLOT(8) SLOT(9)
- SLOT(10) SLOT(11) SLOT(12) SLOT(13) SLOT(14) SLOT(15) SLOT(16) SLOT(17) SLOT(18) SLOT(19)
- SLOT(20) SLOT(21) SLOT(22) SLOT(23) SLOT(24)
-#undef SLOT
- virtual unsigned int addAudioEvent(const BfmeAudioEventPrefix136 *);
-};
+#include "../../../../../Include/Common/GameAudio.h"
 
 extern AudioManager *TheAudio;
 

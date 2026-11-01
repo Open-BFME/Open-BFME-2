@@ -329,7 +329,7 @@ template<int N>class Slots:public Slots<N-1>{public:virtual void slot(char(*)[N]
 
 template<>class Slots<0>{};
 
-class AudioManager:public Slots<25>{public:virtual int addAudioEvent(const BfmeAudioEventPrefix136*);};
+#include "../../../../Include/Common/GameAudio.h"
 
 extern AudioManager *TheAudio;
 

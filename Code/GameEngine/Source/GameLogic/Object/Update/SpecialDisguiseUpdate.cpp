@@ -220,11 +220,7 @@ public:
 template <> class DisguiseAudioSlots<0>
 {
 };
-class AudioManager : public DisguiseAudioSlots<25>
-{
-public:
-	virtual int addAudioEvent(const BfmeAudioEventPrefix136 *event); // slot 25
-};
+#include "../../../../Include/Common/GameAudio.h"
 extern AudioManager *TheAudio;
 typedef unsigned char UnsignedByte;
 class Snapshot;

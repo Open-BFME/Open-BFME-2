@@ -48,15 +48,7 @@ public:
 };
 
 #define SLOT(N) virtual void slot##N();
-class AudioManager
-{
-public:
-	SLOT(00) SLOT(01) SLOT(02) SLOT(03) SLOT(04) SLOT(05) SLOT(06) SLOT(07)
-	SLOT(08) SLOT(09) SLOT(10) SLOT(11) SLOT(12) SLOT(13) SLOT(14) SLOT(15)
-	SLOT(16) SLOT(17) SLOT(18) SLOT(19) SLOT(20) SLOT(21) SLOT(22) SLOT(23)
-	SLOT(24)
-	virtual void addAudioEvent(const BfmeAudioEventPrefix136 *event); // slot 25
-};
+#include "../../../Include/Common/GameAudio.h"
 
 class Rva002929F9Module
 {

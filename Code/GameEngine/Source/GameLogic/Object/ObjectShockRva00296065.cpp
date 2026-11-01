@@ -52,11 +52,7 @@ public:
 };
 template<> class ShockSlots<0> {};
 
-class AudioManager : public ShockSlots<25>
-{
-public:
-	virtual void addAudioEvent(BfmeAudioEventPrefix136 *) = 0;
-};
+#include "../../../Include/Common/GameAudio.h"
 extern AudioManager *TheAudio;
 
 class Rva003909FAObj { public: void consume(void *, int, int); };
