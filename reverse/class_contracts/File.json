@@ -1,0 +1,409 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "File",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 98,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 2
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x6024fd"
+     ],
+     "value": 20
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x6024fd"
+     ],
+     "value": {
+      "0x10": [
+       4
+      ],
+      "0x4": [
+       4
+      ],
+      "0x8": [
+       4
+      ],
+      "0xc": [
+       1
+      ],
+      "0xd": [
+       1
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x6024fd"
+     ],
+     "value": {
+      "0x4": [
+       "?set@?$StringBase@D@@QAEXPBD@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x6024fd"
+     ],
+     "value": {
+      "0x0": "0x87a808"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x87a808"
+     ],
+     "value": {
+      "count": 17,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GFile@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x602619"
+       },
+       {
+        "name": "?open@File@@UAE_NPBDH@Z",
+        "slot": 1,
+        "target": "0x602543"
+       },
+       {
+        "name": "?close@File@@UAEXXZ",
+        "slot": 2,
+        "target": "0x60259a"
+       },
+       {
+        "name": "__purecall",
+        "slot": 3,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 4,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 5,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 6,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 7,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 8,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 9,
+        "target": "0x3b810"
+       },
+       {
+        "name": "?print@File@@UAA_NPBDZZ",
+        "slot": 10,
+        "target": "0x602451"
+       },
+       {
+        "name": "?size@File@@UAEHXZ",
+        "slot": 11,
+        "target": "0x602412"
+       },
+       {
+        "name": "?position@File@@UAEHXZ",
+        "slot": 12,
+        "target": "0x602447"
+       },
+       {
+        "name": "__purecall",
+        "slot": 13,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 14,
+        "target": "0x3b810"
+       },
+       {
+        "name": "?lock@File@@UAEXXZ",
+        "slot": 15,
+        "target": "0x6024ca"
+       },
+       {
+        "name": "?unlock@File@@UAEXXZ",
+        "slot": 16,
+        "target": "0x6024ee"
+       }
+      ],
+      "table": "0x87a808"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 1,
+  "retail_vtables": {
+   "0x87a808": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "??_GFile@@UAEPAXI@Z",
+     "1": "?open@File@@UAE_NPBDH@Z",
+     "2": "?close@File@@UAEXXZ",
+     "3": "__purecall",
+     "4": "__purecall",
+     "5": "__purecall",
+     "6": "__purecall",
+     "7": "__purecall",
+     "8": "__purecall",
+     "9": "__purecall",
+     "10": "?print@File@@UAA_NPBDZZ",
+     "11": "?size@File@@UAEHXZ",
+     "12": "?position@File@@UAEHXZ",
+     "13": "__purecall",
+     "14": "__purecall",
+     "15": "?lock@File@@UAEXXZ",
+     "16": "?unlock@File@@UAEXXZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 3,
+  "view_sizes": {
+   "1": 2,
+   "4": 78,
+   "8": 2,
+   "14": 1,
+   "16": 3,
+   "20": 9
+  },
+  "views": 95,
+  "witness_offsets": [],
+  "zh": {
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/file.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 0,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 92,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 99
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/File.cpp",
+    "Code/GameEngine/Source/Common/System/File_createMemoryReadFile.cpp",
+    "Code/GameEngine/Source/Common/System/LocalFile.cpp",
+    "Code/GameEngine/Source/Common/System/LocalFile_Unresolved.cpp",
+    "Code/GameEngine/Source/Common/System/MemoryReadFile.cpp",
+    "Code/GameEngine/Source/Common/System/RAMFile.cpp",
+    "Code/GameEngine/Source/Common/System/Rva0060237DDtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/FileSystemOpenFile.cpp",
+    "Code/GameEngine/Source/GameClient/GameText.cpp",
+    "Code/GameEngine/Source/GameClient/LanguageFilterInit.cpp",
+    "Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp",
+    "Code/GameEngineDevice/Source/Win32Device/Common/Win32LocalFileSystem.cpp",
+    "Code/Libraries/Source/file/TextFile.cpp"
+   ],
+   "views": 13
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/File.cpp",
+    "Code/GameEngine/Source/Common/System/File_createMemoryReadFile.cpp",
+    "Code/GameEngine/Source/Common/System/LocalFile.cpp",
+    "Code/GameEngine/Source/Common/System/LocalFile_Unresolved.cpp",
+    "Code/GameEngine/Source/Common/System/MemoryReadFile.cpp",
+    "Code/GameEngine/Source/Common/System/RAMFile.cpp",
+    "Code/GameEngine/Source/Common/System/Rva0060237DDtor.cpp",
+    "Code/GameEngine/Source/GameClient/GameText.cpp",
+    "Code/GameEngine/Source/GameClient/LanguageFilterInit.cpp",
+    "Code/GameEngineDevice/Source/Win32Device/Common/Win32LocalFileSystem.cpp"
+   ],
+   "views": 10
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/File.cpp",
+    "Code/GameEngine/Source/Common/System/File_createMemoryReadFile.cpp",
+    "Code/GameEngine/Source/Common/System/LocalFile.cpp",
+    "Code/GameEngine/Source/Common/System/LocalFile_Unresolved.cpp",
+    "Code/GameEngine/Source/Common/System/MemoryReadFile.cpp",
+    "Code/GameEngine/Source/Common/System/RAMFile.cpp",
+    "Code/GameEngine/Source/Common/System/Rva0060237DDtor.cpp",
+    "Code/GameEngine/Source/GameClient/GameText.cpp",
+    "Code/GameEngine/Source/GameClient/LanguageFilterInit.cpp",
+    "Code/GameEngineDevice/Source/Win32Device/Common/Win32LocalFileSystem.cpp"
+   ],
+   "views": 10
+  },
+  {
+   "offset": 13,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/File.cpp",
+    "Code/GameEngine/Source/Common/System/File_createMemoryReadFile.cpp",
+    "Code/GameEngine/Source/Common/System/LocalFile.cpp",
+    "Code/GameEngine/Source/Common/System/LocalFile_Unresolved.cpp",
+    "Code/GameEngine/Source/Common/System/MemoryReadFile.cpp",
+    "Code/GameEngine/Source/Common/System/RAMFile.cpp",
+    "Code/GameEngine/Source/Common/System/Rva0060237DDtor.cpp",
+    "Code/GameEngine/Source/GameClient/GameText.cpp",
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp",
+    "Code/GameEngine/Source/GameClient/LanguageFilterInit.cpp",
+    "Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp",
+    "Code/GameEngineDevice/Source/Win32Device/Common/Win32LocalFileSystem.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/TextureAssetImplPreLoad.cpp"
+   ],
+   "views": 13
+  },
+  {
+   "offset": 14,
+   "sources": [
+    "Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp",
+    "Code/GameEngineDevice/Source/Win32Device/Common/Win32LocalFileSystem.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/File.cpp",
+    "Code/GameEngine/Source/Common/System/File_createMemoryReadFile.cpp",
+    "Code/GameEngine/Source/Common/System/LocalFile.cpp",
+    "Code/GameEngine/Source/Common/System/LocalFile_Unresolved.cpp",
+    "Code/GameEngine/Source/Common/System/MemoryReadFile.cpp",
+    "Code/GameEngine/Source/Common/System/RAMFile.cpp",
+    "Code/GameEngine/Source/Common/System/Rva0060237DDtor.cpp",
+    "Code/GameEngineDevice/Source/Win32Device/Common/Win32LocalFileSystem.cpp"
+   ],
+   "views": 8
+  }
+ ],
+ "queue": [],
+ "size": 16,
+ "size_by": "zh",
+ "vslots": {
+  "0": {
+   "decided_by": "zh",
+   "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "majority",
+   "member": "open(char*,int)"
+  },
+  "10": {
+   "decided_by": "majority",
+   "member": "print(char*,p0)"
+  },
+  "11": {
+   "decided_by": "majority",
+   "member": "size()"
+  },
+  "12": {
+   "decided_by": "majority",
+   "member": "position()"
+  },
+  "13": {
+   "decided_by": "majority",
+   "member": "readEntireAndClose()"
+  },
+  "14": {
+   "decided_by": "majority",
+   "member": "convertToRAMFile()"
+  },
+  "15": {
+   "decided_by": "bytes",
+   "member": "lock()"
+  },
+  "16": {
+   "decided_by": "bytes",
+   "member": "unlock()"
+  },
+  "2": {
+   "decided_by": "majority",
+   "member": "close()"
+  },
+  "3": {
+   "decided_by": "majority",
+   "member": "read(void*,int)"
+  },
+  "4": {
+   "decided_by": "majority",
+   "member": "write(void*,int)"
+  },
+  "5": {
+   "decided_by": "majority",
+   "member": "seek(int,int)"
+  },
+  "6": {
+   "decided_by": "majority",
+   "member": "nextLine(char*,int)"
+  },
+  "7": {
+   "decided_by": "majority",
+   "member": "scanInt(int*)"
+  },
+  "8": {
+   "decided_by": "majority",
+   "member": "scanReal(float*)"
+  },
+  "9": {
+   "decided_by": "majority",
+   "member": "scanString(AsciiString*)"
+  }
+ }
+}

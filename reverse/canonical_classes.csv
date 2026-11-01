@@ -234,3 +234,4 @@ CommandButton,Code/GameEngine/Include/GameClient/CommandButton.h,existing header
 View,Code/GameEngine/Include/GameClient/View.h,existing header; contract class_contracts/View.json; 47/92 sampled units adopt
 AptValue,Code/Libraries/Source/Apt/AptValue.h,existing header; contract class_contracts/AptValue.json; 41/84 sampled units adopt
 ContainModuleInterface,Code/GameEngine/Include/GameLogic/Module/ContainModule.h,existing header; contract class_contracts/ContainModuleInterface.json; 35/91 sampled units adopt
+File,Code/GameEngine/Include/Common/File.h,existing header; contract class_contracts/File.json; 71/98 sampled units adopt
