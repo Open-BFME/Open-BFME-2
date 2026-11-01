@@ -23,7 +23,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include <aabox.h>
 #include <refcount.h>
 #include <dx8fvf.h>
-
 // Pointer/lock views from the rowed terrain updates. Native lock constructors
 // 1394A0 and 138790 establish the two words and a trailing device-guard word.
 // Buffer allocation sizes and vtable contents are not asserted here.
@@ -63,15 +62,8 @@ public:
         unsigned char m_tail08[4];
     };
 };
-class DX8IndexBufferClass : public IndexBufferClass
-{
-public:
-    enum UsageType { USAGE_DEFAULT = 0 };
-    DX8IndexBufferClass(unsigned count, UsageType usage);
-};
 #include <shader.h>
 #include <texturefilter.h>
-
 // Texture access/call prefix: Get_Filter (35FF72/4B) proves Filter at
 // +5C. Release_Ref (61ED10/36B) proves ref bits at +4 and slot-8 disposal.
 // Unknown preceding slots are pure placeholders; no table or allocation size
@@ -97,9 +89,114 @@ private:
 };
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
 #include "../../../../Libraries/Include/Lib/IRegion2D.h"
+#define MAP_XY_FACTOR 10.0f
+#define MAP_HEIGHT_SCALE (10.0f / 256.0f)
+#ifdef _INTERNAL
+// for occasional debugging...
+//#pragma optimize("", off)
+//#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
+
+
+
+
+
+#endif
+#define SC_DETAIL ( SHADE_CNST(ShaderClass::PASS_LEQUAL, ShaderClass::DEPTH_WRITE_ENABLE, ShaderClass::COLOR_WRITE_ENABLE, ShaderClass::SRCBLEND_ONE, \
+	ShaderClass::DSTBLEND_ZERO, ShaderClass::FOG_DISABLE, ShaderClass::GRADIENT_MODULATE, ShaderClass::SECONDARY_GRADIENT_DISABLE, ShaderClass::TEXTURING_ENABLE, \
+	ShaderClass::ALPHATEST_DISABLE, ShaderClass::CULL_MODE_DISABLE, \
+	ShaderClass::DETAILCOLOR_DISABLE, ShaderClass::DETAILALPHA_DISABLE) )
+#define bfmeDrawTriangles __identifier("?Draw_Triangles@DX8Wrapper@@SAXIIII@Z")
+typedef float Real;
+#define MAP_XY_FACTOR 10.0f
+#define MAP_HEIGHT_SCALE (10.0f / 256.0f)
+extern void BFME_DX8_Thread_Lock(void);
+extern bool BFME_DX8_Thread_Assert(void);
+class BFMEDX8DeviceLock
+{
+public:
+	BFMEDX8DeviceLock() { BFME_DX8_Thread_Lock(); }
+	~BFMEDX8DeviceLock() { BFME_DX8_Thread_Assert(); }
+};
+void bfmeReleaseQueuedDeviceInterfaces();
+class BfmeDynamicNativeVB : public VertexBufferClass
+{
+public:
+	BfmeDynamicNativeVB(unsigned int fvf, unsigned short count, unsigned int a, unsigned int b);
+
+private:
+	unsigned char m_storage[0x20 - 0x08];
+};
+class DX8IndexBufferClass : public IndexBufferClass
+{
+public:
+	enum UsageType { USAGE_DEFAULT = 0 };
+	DX8IndexBufferClass(unsigned int index_count, UsageType usage);
+
+private:
+	unsigned char m_storage[0x18 - 0x08];
+};
+class TerrainTextureClass;
+class ShroudFilter
+{
+public:
+	int m_pad00[3];
+	int m_uAddressMode;
+	int m_vAddressMode;
+};
+class ShroudTexture
+{
+public:
+	ShroudFilter *getFilter(void);
+};
+class GameClient;
+extern GameClient *TheGameClient;
+class GlobalData
+{
+public:
+	char m_pad00[0x49];
+	bool m_secondTerrainTexture; // +0x49
+	bool m_allowTexture2X; // +0x4A
+	char m_pad4B[0xE55];
+	int m_stretchTerrain; // +0xEA0
+};
+extern GlobalData *TheWritableGlobalData;
+#define TheGlobalData TheWritableGlobalData
+#include <math.h>
+#include "../../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"
+#define BFME_PAD_VIRTUAL(n) virtual void pad##n() = 0;
+#define BFME_PAD_VIRTUAL8(n) BFME_PAD_VIRTUAL(n##0) BFME_PAD_VIRTUAL(n##1) \
+	BFME_PAD_VIRTUAL(n##2) BFME_PAD_VIRTUAL(n##3) BFME_PAD_VIRTUAL(n##4) \
+	BFME_PAD_VIRTUAL(n##5) BFME_PAD_VIRTUAL(n##6) BFME_PAD_VIRTUAL(n##7)
+#define TheGlobalData TheWritableGlobalData
+#define TheGlobalData TheWritableGlobalData
+#define MAP_XY_FACTOR 10.0f
+#define MAP_HEIGHT_SCALE (10.0f / 256.0f)
+// Native 00113C07..00113DE0 (473B) and 00113DE0..001149EB (3083B).
+// Recursive terrain tile index filler. BFME1/ZH fillVBRecursive is the
+// semantic guide; BFME2 auxiliary-height handling, boundary, layouts,
+// call targets and quarter flags are established from retail.
+// Keeping the C07 provider visible permits the native tail-recursive loop.
+// A conditional compiler barrier preserves the prevLeft.x/origin load order
+// while sharing the resulting coordinate with the height lookup.
+
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
+#define MAP_XY_FACTOR 10.0f
+#define MAP_HEIGHT_SCALE (10.0f / 256.0f)
+#include <stddef.h>
+// Preserve the rowed array allocator bindings without the CRT placement
+// operator bodies that conflict with the seed's WWLib declarations.
+void *__cdecl operator new[](size_t size);
+void __cdecl operator delete[](void *pointer);
+#define MAP_HEIGHT_SCALE (10.0f / 256.0f)
+#include "unicode_string.h"
+#define MIN(a, b) ((a) < (b) ? (a) : (b))
+#pragma intrinsic(_ReadWriteBarrier)
 
 typedef int Int;
+
 typedef bool Bool;
+
 typedef unsigned short UnsignedShort;
 
 // Borrowed prefix for the retained legacy emission body. The native rows
@@ -110,6 +207,7 @@ public:
     void rva000AD9AB(int x, int y, bool value);
     void rva000AD9FE();
 };
+
 // Native grid and scan prefixes already used by the rowed terrain donors.
 class BoundedShortGrid
 {
@@ -122,7 +220,9 @@ private:
 	int m_capacity;
 	short *m_data;
 };
+
 typedef unsigned char Byte;
+
 struct Rva00729300Bytes
 {
  Byte *m_begin;
@@ -136,6 +236,7 @@ struct Rva00729300Bytes
   return m_begin[index];
  }
 };
+
 class Rva00729300BitPlane
 {
  public:
@@ -149,6 +250,7 @@ class Rva00729300BitPlane
  Byte m_opaque38[0x0c];
  Rva00729300Bytes m_bits;
 };
+
 class Rva001127F2TerrainPrefix
 {
 public:
@@ -161,30 +263,38 @@ private:
 	int m_unmodelled58; // +0x58
 	Rva00729300BitPlane *m_map; // +0x5C
 };
+
 class Rva0006653B
 {
 public:
     void rva0006AA45(int x, int y, Vector3 *normal);
 };
+
 class Rva0006AB49BitPlane
 {
 public:
     bool test(int x, int y) const;
 };
+
 class Rva000ABD19
 {
 public:
     bool rva000ABD19(int x, int y);
     bool rva000AF841(int x, int y);
 };
+
 class Rva007497A0
 {
 public:
     void setBit(int x, int y, bool value);
 };
+
 template <class T> class RefCountPtr;
+
 class WorldHeightMap;
+
 class TerrainTextureClass : public TextureClass {};
+
 class WorldHeightMap : public RefCountClass
 {
 public:
@@ -214,16 +324,17 @@ public:
     RefCountPtr<TextureClass> rva000AEAA6(int x, int y, int width, int second);
     int m_width, m_height, m_borderSize;
 };
+
 class BaseHeightMapRenderObjClass
 {
 public:
     unsigned int getStaticDiffuse(int x, int y);
     int getStaticDiffuse(int x, int y, bool skipFirstLight);
 };
+
 extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
+
 class RayCollisionTestClass;
-#define MAP_XY_FACTOR 10.0f
-#define MAP_HEIGHT_SCALE (10.0f / 256.0f)
 
 struct BfmeResetResource {
 public: void Release_Ref();
@@ -246,9 +357,13 @@ private: BfmeResetResource *pointer;
 // bounds start at 0C, origins at 50/54, width at 58 and map at 5C.
 // The rowed lifetime view below independently proves the D4-byte extent.
 class RenderInfoClass;
+
 namespace FXShader { class RenderingMethod; }
+
 class Rva00111F0E;
+
 class Rva00112230CameraGroup;
+
 class W3DTerrainBackground
 {
 public:
@@ -328,20 +443,6 @@ public:
     Vector3 *m_heights; // D0
 };
 
-#ifdef _INTERNAL
-// for occasional debugging...
-//#pragma optimize("", off)
-//#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
-
-
-
-
-#endif
-#define SC_DETAIL ( SHADE_CNST(ShaderClass::PASS_LEQUAL, ShaderClass::DEPTH_WRITE_ENABLE, ShaderClass::COLOR_WRITE_ENABLE, ShaderClass::SRCBLEND_ONE, \
-	ShaderClass::DSTBLEND_ZERO, ShaderClass::FOG_DISABLE, ShaderClass::GRADIENT_MODULATE, ShaderClass::SECONDARY_GRADIENT_DISABLE, ShaderClass::TEXTURING_ENABLE, \
-	ShaderClass::ALPHATEST_DISABLE, ShaderClass::CULL_MODE_DISABLE, \
-	ShaderClass::DETAILCOLOR_DISABLE, ShaderClass::DETAILALPHA_DISABLE) )
-#define bfmeDrawTriangles __identifier("?Draw_Triangles@DX8Wrapper@@SAXIIII@Z")
 // ?FillFourSlots@Rva0011216CSlotQuartet@@QAEXXZ, retail 0x0011216C, 43 bytes.
 // Four-slot level filler: marks the quartet ready, then fills each slot's
 // per-level surfaces in the retail order (+0x38, +0x34, +0x40, +0x3C, the
@@ -353,6 +454,7 @@ class W3DRadarResetSurface
 {
 	void *m_surface;
 };
+
 class CursorTextureSlot
 {
 public:
@@ -360,6 +462,7 @@ public:
 	void FillLevelSurfaces(void);
 	void *Ptr; // +0x00
 };
+
 struct Rva00112153Elem
 {
 	char m_00;
@@ -454,12 +557,6 @@ private:
 	int m_c0;
 };
 
-// FUN_00512197 at 0x00112197, 50 bytes. Its tail jump targets the rowed
-// Rva0011216CSlotQuartet::rva00112153; adjacent slot-quartet methods support
-// this class relationship, while the reset fields remain unnamed.
-
-typedef int Int;
-
 struct Rva0011216CSlotQuartet
 {
 	char m_pad00[0x34];
@@ -518,9 +615,371 @@ private:
 	bool m_62;
 };
 
-// tu-skeleton: 0x00111FCF 124B ?rva00111FCF@W3DTerrainBackground@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundMarkTileGrid.cpp (not merged yet)
+class CameraClass
+{
+public:
+	virtual void Delete_This();
+	BFME_PAD_VIRTUAL8(0) BFME_PAD_VIRTUAL8(1) BFME_PAD_VIRTUAL8(2)
+	BFME_PAD_VIRTUAL8(3) BFME_PAD_VIRTUAL8(4) BFME_PAD_VIRTUAL8(5)
+	BFME_PAD_VIRTUAL8(6) BFME_PAD_VIRTUAL8(7) BFME_PAD_VIRTUAL8(8)
+	BFME_PAD_VIRTUAL8(9) BFME_PAD_VIRTUAL8(a) BFME_PAD_VIRTUAL8(b)
+	BFME_PAD_VIRTUAL8(c) BFME_PAD_VIRTUAL8(d) BFME_PAD_VIRTUAL8(e)
+	BFME_PAD_VIRTUAL8(f)
+	BFME_PAD_VIRTUAL(g0)
+	virtual bool Cull_Box(const AABoxClass &box);
 
-// tu-skeleton: 0x0011204B 264B ?isEdgeAligned@W3DTerrainBackground@@QAE_NHHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundIsEdgeAligned.cpp (not merged yet)
+	void Add_Ref() { m_numRefs++; }
+	void Release_Ref()
+	{
+		if (--m_numRefs == 0)
+			Delete_This();
+	}
+
+private:
+	int m_numRefs;
+};
+
+template <class T> class RefCountPtr
+{
+public:
+	RefCountPtr() : m_referent(0) {}
+	RefCountPtr(const RefCountPtr<T> &rhs) : m_referent(rhs.m_referent)
+	{
+		if (m_referent)
+			m_referent->Add_Ref();
+	}
+	~RefCountPtr()
+	{
+		if (m_referent)
+			m_referent->Release_Ref();
+	}
+	const RefCountPtr<T> &operator=(const RefCountPtr<T> &rhs);
+	T *Peek() const { return m_referent; }
+	T *peek() const { return m_referent; }
+	T *operator->() const { return m_referent; }
+	bool isNull() const { return m_referent == 0; }
+
+private:
+	T *m_referent;
+};
+
+class Rva00112230CameraGroup
+{
+public:
+	unsigned int size() const { return m_end - m_begin; }
+	bool empty() const { return m_begin == m_end; }
+	const RefCountPtr<CameraClass> &operator[](unsigned int i) const { return m_begin[i]; }
+	RefCountPtr<CameraClass> rva00112230() const;
+
+private:
+	RefCountPtr<CameraClass> *m_begin;
+	RefCountPtr<CameraClass> *m_end;
+};
+
+class WW3D
+{
+public:
+	static int Get_Texture_Reduction(void);
+};
+
+class Display
+{
+public:
+	BFME_PAD_VIRTUAL8(0) BFME_PAD_VIRTUAL8(1)
+	virtual unsigned int getWidth();
+};
+
+extern Display *TheDisplay;
+
+class W3DRadarResetSurface;
+
+// 0x00112898 is rowed as W3DTerrainBackground::setFlipRecursive and
+// 0x00113DE0 as its rva00113DE0 index builder; the fields are the ones
+// calcBlendHeight (0x00115A5B) reads.
+// Native blend records are three unconstructed floats. This POD storage
+// view preserves the allocation behavior when the shared Vector3 has a ctor.
+struct Rva001159F1Sample { float X, Y, Z; };
+
+class Rva001159F1
+{
+	char m_pad00[0x50];
+	int m_x;
+	int m_y;
+	int m_span;
+	Rva000AD9AB *m_bitPlane;
+	unsigned char m_flags;
+	bool m_mode;
+	char m_pad62[0x26];
+	void *m_current;
+	void *m_previous;
+
+public:
+	void rva001159F1(void *value);
+};
+
+// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath/tri.h
+class TriClass
+{
+public:
+	const Vector3 *N;
+	const Vector3 *V[3];
+	void Compute_Normal(void);
+};
+
+struct CastResultStruct;
+
+// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/coltest.h
+// Native primary ctor 6F1A6/55B proves this 44-byte view, Ray at 0C
+// and three flags at 40/41/42; both terrain callers use the same prefix.
+class RenderObjClass;
+
+class RayCollisionTestClass
+{
+public:
+	RayCollisionTestClass(const LineSegClass & ray,CastResultStruct * res,int collision_type,bool check_translucent, bool check_hidden);
+
+	CastResultStruct *			Result;
+	int								CollisionType;
+	RenderObjClass *				CollidedRenderObj;
+	LineSegClass 		Ray;
+	bool CheckTranslucent;
+	bool CheckHidden;
+	bool _bfme_flag42; // Retail primary constructor initializes this extra flag to false.
+};
+
+// ?rva00113110@Rva00113110Holder@@QAEXPAX@Z
+//
+// Target facts from retail RVA 0x00113151: the 73-byte interval ends at
+// 0x0011319A. It returns immediately when this+0x5C is null. Otherwise it
+// optionally retains the incoming object, releases the prior object's +4
+// count through vtable slot 0 when that count reaches zero, and stores the
+// incoming pointer at this+0x5C. If byte this+0x60 is set, it calls
+// 0x00112AD1 with two zero values, this+0x58, and the second float argument.
+// The adjacent 0x00113110 REL32 supports a shared address-derived holder view;
+// class and method identities remain unproven. Resource layout follows the
+// target's vptr slot-0 and +4 count accesses. The callback pin records only
+// its call target and stack shape; its body remains unrecovered.
+
+extern "C" void _ReadWriteBarrier(void);
+
+class Rva00113151Resource
+{
+public:
+	virtual void rva00113151Release() = 0;
+
+private:
+	int m_referenceCount;
+	friend class Rva00113110Holder;
+};
+
+class Rva00112AD1
+{
+public:
+	bool rva00112AD1(int arg0, int arg1, int arg2, float arg3);
+};
+
+class Rva00113110Holder
+{
+public:
+	void rva00113151(void *incoming, float value);
+	void rva00113110(void *incoming);
+	char m_pad00[0x58];
+private:
+	int m_callbackContext; // +0x58
+	Rva00113151Resource *m_resource; // +0x5C
+	unsigned char m_refresh; // +0x60
+	char m_pad61[0x3];
+};
+
+struct TerrainBackgroundVertex
+{
+	float x;
+	float y;
+	float z;
+	unsigned char m_rest[0x14];
+};
+
+// The texture handle's copy constructor is the out-of-line 0x000424BB.
+template <> RefCountPtr<TextureClass>::RefCountPtr(const RefCountPtr<TextureClass> &rhs);
+
+// Constructor-only argument view: same owning4-byte texture word and same
+// cleanup as RefCountPtr<TextureClass>. This direct base construction puts
+// the native lvalue copies in their argument slots. The four-slot interface
+// view below changes only those two compile-time argument construction types;
+// native slots1/2 keep the same ownership ABI. It is not a new target type
+// identity. The temporary texture getters still use the existing handle type.
+struct TextureArgumentView : public RefCountPtr<TextureClass> {
+ __forceinline TextureArgumentView(const RefCountPtr<TextureClass>&other):RefCountPtr<TextureClass>(other){}
+};
+
+class Rva000E19A3Interface
+{
+public:
+	virtual void setRenderingMode(int mode) = 0;
+	virtual void setBaseTexture(RefCountPtr<TextureClass> texture) = 0;
+	virtual void setNormalTexture(RefCountPtr<TextureClass> texture) = 0;
+	virtual void clearTextures() = 0;
+};
+
+class Rva000E19A3TextureArgumentView {
+public:
+ virtual void setRenderingMode(int)=0;
+ virtual void setBaseTexture(TextureArgumentView)=0;
+ virtual void setNormalTexture(TextureArgumentView)=0;
+ virtual void clearTextures()=0;
+};
+
+extern Rva000E19A3Interface *g_00DEBC60;
+
+class IndexBufferClass;
+
+class VertexBufferClass;
+
+class DX8Wrapper
+{
+public:
+	static void Set_Index_Buffer(const IndexBufferClass *ib, unsigned short index_base_offset);
+	static void Set_Vertex_Buffer(const VertexBufferClass *vb, unsigned stream);
+	static void Draw_Triangles(unsigned start_index, unsigned polygon_count, unsigned min_vertex_index, unsigned vertex_count);
+};
+
+namespace FXShader {
+class RenderingMethod
+{
+public:
+	virtual void slot0() = 0;
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
+	virtual void rvaSlot4(int pass);
+};
+}
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundMarkTileGrid.cpp
+
+void W3DTerrainBackground::rva00111FCF()
+{
+	Int xMax = m_map->getXExtent() - 1;
+	Int yMax = m_map->getYExtent() - 1;
+	Int xOrg = m_xOrigin;
+	Int yOrg = m_yOrigin;
+	for (Int i = 0; i <= m_width; i++) {
+		for (Int j = 0; j <= m_width; j++) {
+			Int x = xOrg + i;
+			x = MIN(x, xMax);
+			Int y = yOrg + j;
+			y = MIN(y, yMax);
+			((Rva000AD9AB *)m_map)->rva000AD9AB(x, y, false);
+		}
+	}
+}
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundIsEdgeAligned.cpp
+
+// ?isEdgeAligned@W3DTerrainBackground@@QAE_NHHH@Z
+Bool W3DTerrainBackground::isEdgeAligned(int x, int y, int requested)
+{
+	int yValue = y;
+	WorldHeightMap *map = m_map;
+	int limitY = map->getYExtent() - 1;
+	if (yValue != 0)
+		goto afterMapRightEdge;
+	{
+		int limitX = map->getXExtent() - 1;
+		if (m_xOrigin + x == limitX)
+			goto resultTrue;
+	}
+
+afterMapRightEdge:
+	if (x != 0)
+		goto afterMapBottomEdge;
+	if (m_yOrigin + yValue == limitY)
+		goto resultTrue;
+	if (yValue == 0)
+		goto resultTrue;
+
+afterMapBottomEdge:
+	{
+		int width = m_width;
+		if (x == width)
+		{
+			if (yValue == width)
+				goto resultTrue;
+		}
+		if (x == 0)
+		{
+			if (yValue == width)
+				goto resultTrue;
+		}
+		if (x == width)
+		{
+			if (yValue == 0)
+				goto resultTrue;
+		}
+	}
+
+	int divisor;
+	if (x == 0) {
+		int feature = m_x0Divisor;
+		if (!feature)
+			divisor = m_baseDivisor;
+		else if (m_mode)
+			divisor = m_x0Alternate;
+		else
+			divisor = feature;
+		if (requested >= divisor)
+			return true;
+		if (yValue % divisor == 0)
+			goto resultTrue;
+		return false;
+	}
+	if (yValue == 0) {
+		int feature = m_y0Divisor;
+		if (!feature)
+			divisor = m_baseDivisor;
+		else if (m_mode)
+			divisor = m_y0Alternate;
+		else
+			divisor = feature;
+		if (requested >= divisor)
+			return true;
+		if (x % divisor == 0)
+			goto resultTrue;
+		return false;
+	}
+	if (x == m_width) {
+		int feature = m_xWidthDivisor;
+		if (!feature)
+			divisor = m_baseDivisor;
+		else if (m_mode)
+			divisor = m_xWidthAlternate;
+		else
+			divisor = feature;
+		if (requested >= divisor)
+			return true;
+		if (yValue % divisor == 0)
+			goto resultTrue;
+		return false;
+	}
+	if (yValue == m_width) {
+		int feature = m_yWidthDivisor;
+		if (!feature)
+			divisor = m_baseDivisor;
+		else if (m_mode)
+			divisor = m_yWidthAlternate;
+		else
+			divisor = feature;
+		if (requested >= divisor)
+			return true;
+		if (x % divisor == 0)
+			goto resultTrue;
+		return false;
+	}
+resultTrue:
+	return true;
+}
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackground.cpp
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackground.cpp
 
@@ -800,22 +1259,6 @@ void Rva00112259::rva00112259()
 	m_62 = true;
 }
 
-// tu-skeleton: 0x00112230 41B ?rva00112230@Rva00112230CameraGroup@@QBE?AV?$RefCountPtr@VCameraClass@@@@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundUpdateCenter.cpp (not merged yet)
-
-// tu-skeleton: 0x0011234C 626B ?updateCenter@W3DTerrainBackground@@QAEXABVRva00112230CameraGroup@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundUpdateCenter.cpp (not merged yet)
-
-// tu-skeleton: 0x001125BE 319B ?updateTexture@W3DTerrainBackground@@QAE_NXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundUpdateTexture.cpp (not merged yet)
-
-// tu-skeleton: 0x001126FD 79B ?test@Rva00729300BitPlane@@QBE_NHH@Z -- matched in Code/GameEngine/Source/Common/Rva00729300BitPlanes.cpp (not merged yet)
-
-// tu-skeleton: 0x0011274C 166B ?advanceYThenX@Rva001127F2TerrainPrefix@@QAE_NAAUICoord2D@@HHHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundTriangleFan.cpp (not merged yet)
-
-// tu-skeleton: 0x001127F2 166B ?advanceScan@Rva001127F2TerrainPrefix@@QAE_NAAUICoord2D@@HHHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundTriangleFan.cpp (not merged yet)
-
-// tu-skeleton: 0x00112898 569B ?setFlipRecursive@W3DTerrainBackground@@QAEXHHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundSetFlipRecursive.cpp (not merged yet)
-
-// tu-skeleton: 0x00112AD1 749B ?setFlipRecursive@W3DTerrainBackground@@QAEXHHHM@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundSetFlipRecursiveTolerance.cpp (not merged yet)
-
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00112291TerrainCtor.cpp
 
 Rva00112291TerrainOwner::Rva00112291TerrainOwner() : m_24(0),m_28(0),m_2C(0),m_30(0),
@@ -860,65 +1303,1249 @@ m_AC = 0;
 m_C0 = 0;
 }
 
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundUpdateCenter.cpp
+
+// Native [00112230,00112259),41B, RET4 and [0011234C,001125BE),626B, RET4.
+// BFME 2 W3DTerrainBackground::updateCenter (WorldBuilder: same file, with
+// "Too many cameras used for culling, increase MAX_CULLING_CAMERAS" and the
+// camera.IsBound assert); the ZH updateCenter is the semantic guide.
+// Target facts: up to three culling cameras each set a status (+0x00..+0x08,
+// Cull_Box slot +0x208 against the bounds at +0x0C: culled 2, visible 1,
+// unused 0); the global getter 0x00117C00 (WW3D::Get_Texture_Reduction) forces 1x; the first camera comes
+// from the 41-byte group helper 0x00112230; the 2x distance is
+// sqr(170s + 25 + 260s) with s = TheDisplay slot +0x40 / 1024 clamped to
+// [0.5, 2.5]; the nearest corner distance goes to +0x64; TheGlobalData
+// +0x4A enables 2x, +0xEA0 forces it. Group and helper names are
+// address-derived views.
+
+RefCountPtr<CameraClass> Rva00112230CameraGroup::rva00112230() const
+{
+	if (empty())
+		return RefCountPtr<CameraClass>();
+	return m_begin[0];
+}
+
+void W3DTerrainBackground::updateCenter(const Rva00112230CameraGroup &cameraGroup)
+{
+	if (cameraGroup.size() > MAX_CULLING_CAMERAS)
+		return;
+
+	int i;
+	for (i = 0; i < cameraGroup.size(); i++) {
+		m_cullStatus[i] = cameraGroup[i]->Cull_Box(m_bounds) ? 2 : 1;
+	}
+	for (; i < MAX_CULLING_CAMERAS; i++) {
+		m_cullStatus[i] = 0;
+	}
+
+	if (isCulled()) {
+		clearTextures();
+		m_texMultiplier = 1;
+		return;
+	}
+	if (WW3D::Get_Texture_Reduction() > 0) {
+		m_texMultiplier = 1;
+		return;
+	}
+
+	float minDistSqr = -1.0f;
+	RefCountPtr<CameraClass> camera = cameraGroup.rva00112230();
+	if (camera.isNull())
+		return;
+
+	Vector3 cameraPos = ((RenderObjClass *)camera.peek())->Get_Position();
+	for (int x = -1; x < 2; x++) {
+		for (int y = -1; y < 2; y++) {
+			for (int z = -1; z < 2; z++) {
+				Vector3 corner = m_bounds.Center;
+				corner.X += m_bounds.Extent.X * x;
+				corner.Y += m_bounds.Extent.Y * y;
+				corner.Z += m_bounds.Extent.Z * z;
+				float distSqr = (cameraPos - corner).Length2();
+				if (distSqr < minDistSqr || minDistSqr < 0.0f)
+					minDistSqr = distSqr;
+			}
+		}
+	}
+
+	float mipDistance = 260.0f;
+	float mipSlop = 170.0f;
+	if (TheDisplay) {
+		float scale = TheDisplay->getWidth() / 1024.0f;
+		if (scale < 0.5f)
+			scale = 0.5f;
+		else if (scale > 2.5f)
+			scale = 2.5f;
+		mipDistance = scale * 260.0f;
+		mipSlop = scale * 170.0f;
+	}
+	float mip2xDistance = mipDistance + (mipSlop + 25.0f);
+	float mip2xDistanceSqr = mip2xDistance * mip2xDistance;
+
+	m_cameraDistance = (float)sqrt((double)minDistSqr);
+	m_texMultiplier = 1;
+	if (TheGlobalData->m_allowTexture2X
+		&& (minDistSqr < mip2xDistanceSqr || TheGlobalData->m_stretchTerrain)) {
+		m_texMultiplier = 2;
+	} else {
+		clearTextures();
+	}
+}
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundUpdateTexture.cpp
+
+bool W3DTerrainBackground::updateTexture(void)
+{
+	if (isCulled()) {
+		clearTextures();
+		return false;
+	}
+
+	if (m_texMultiplier == 2 || TheGlobalData->m_stretchTerrain) {
+		if (((const RefCountPtr<TextureClass> *)&m_terrainTexture)->isNull()) {
+			*(RefCountPtr<TextureClass> *)&m_terrainTexture = m_map->getFlatTexture(m_xOrigin, m_yOrigin, m_width, 0x20, 0x19, 0);
+			((ShroudTexture *)&m_terrainTexture)->getFilter()->m_uAddressMode = 1;
+			((ShroudTexture *)&m_terrainTexture)->getFilter()->m_vAddressMode = 1;
+			if (m_fillSurfaces)
+				((CursorTextureSlot *)&m_terrainTexture)->FillLevelSurfaces();
+
+			if (TheGlobalData->m_secondTerrainTexture && ((const RefCountPtr<TextureClass> *)&m_terrainTexture4X)->isNull()) {
+				*(RefCountPtr<TextureClass> *)&m_terrainTexture4X = m_map->getFlatTexture(m_xOrigin, m_yOrigin, m_width, 0x20, 0x19, 1);
+				((ShroudTexture *)&m_terrainTexture4X)->getFilter()->m_uAddressMode = 1;
+				((ShroudTexture *)&m_terrainTexture4X)->getFilter()->m_vAddressMode = 1;
+				if (m_fillSurfaces)
+					((CursorTextureSlot *)&m_terrainTexture4X)->FillLevelSurfaces();
+			}
+			return true;
+		}
+	} else {
+		clearTextures();
+	}
+	return false;
+}
+
+// tu-skeleton: 0x001126FD 79B ?test@Rva00729300BitPlane@@QBE_NHH@Z -- matched in Code/GameEngine/Source/Common/Rva00729300BitPlanes.cpp (not merged yet)
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundTriangleFan.cpp
+
+__declspec(noinline) inline bool Rva00729300BitPlane::test( int x, int y ) const
+{
+ register const Rva00729300BitPlane *self = this;
+ if( x < 0 || y < 0 || y >= self->m_height || x >= self->m_width )
+ {
+  return false;
+ }
+ const int index = self->m_stride * y + (x >> 3);
+ if( (unsigned)index >= self->m_bits.size() )
+ {
+  return false;
+ }
+ int mask = 1;
+ mask <<= x & 7;
+ Byte value = self->m_bits[index];
+ bool result = (value & mask) != 0;
+ return result;
+}
+
+// The full BFME1 ba7ddda7 donor with the same +10 origin/map shift also
+// places this entire 166B body at 1127F2..112898. Independent native RET20,
+// two scan loops, ordered coordinate updates and calls to 1126FD establish
+// the behavior. Its earlier bank differed in loop bounds; the donor source
+// now reproduces every byte. Original owner and directional labels remain
+// unproven; keep this separate observed prefix from the other receiver.
+__declspec(noinline) inline bool Rva001127F2TerrainPrefix::advanceScan( ICoord2D &right, int xOffset,
+int yOffset, int width, int height )
+{
+ Rva00729300BitPlane *map = m_map;
+ int mapWidth = map->m_width;
+ int mapHeight = map->m_height;
+ int yOrigin = m_yOrigin;
+ int limitX = mapWidth - m_xOrigin;
+ int limitY = mapHeight - yOrigin;
+ limitX--;
+ limitY--;
+ while( right.x < width + xOffset && right.x < limitX )
+ {
+  right.x++;
+  if( m_map->test( right.x + m_xOrigin, right.y + m_yOrigin ) )
+  return true;
+ }
+ while( right.y < yOffset + height - 1 && right.y < limitY - 1 )
+ {
+  right.y++;
+  if( m_map->test( right.x + m_xOrigin, right.y + m_yOrigin ) )
+  return true;
+ }
+ return false;
+}
+
+// Native 11274C..1127F2 is the Y-first counterpart: both loops and RET20
+// independently reproduce all 166 bytes with this compatible observed prefix.
+// Shared offsets do not establish a shared original class or allocation size.
+__declspec(noinline) inline bool Rva001127F2TerrainPrefix::advanceYThenX(ICoord2D &point,
+int xOffset,int yOffset,int width,int height) 
+{
+ Rva00729300BitPlane *map = m_map;
+ int mapWidth = map->m_width;
+ int mapHeight = map->m_height;
+ int yOrigin = m_yOrigin;
+ int limitX = mapWidth - m_xOrigin;
+ int limitY = mapHeight - yOrigin;
+ limitX--;
+ limitY--;
+ while (point.y < height + yOffset && point.y < limitY) 
+ {
+  point.y++;
+  if (m_map->test(point.x + m_xOrigin, point.y + m_yOrigin))
+  return true;
+ }
+ while (point.x < xOffset + width - 1 && point.x < limitX - 1) 
+ {
+  point.x++;
+  if (m_map->test(point.x + m_xOrigin, point.y + m_yOrigin))
+  return true;
+ }
+ return false;
+}
+
+// ?rva00113399@W3DTerrainBackground@@QAEXPAGPAXHHHH0AAH@Z
+inline __declspec(noinline) short BoundedShortGrid::load(int a, int b)
+{
+	int idx = m_stride * b + a;
+	if (idx < 0)
+		return 0;
+	if (idx >= m_capacity)
+		return 0;
+	if (m_data)
+		return m_data[idx];
+	return 0;
+}
+
+void W3DTerrainBackground::rva00113399(UnsignedShort *ib, void *heights, Int xOffset, Int yOffset,
+Int width, Int height, UnsignedShort *ndx, Int &curIndex)
+{
+ Int minX = m_xOrigin + xOffset;
+ Int minY = m_yOrigin + yOffset;
+ Int limitX = m_map->getXExtent() - 1;
+ Int limitY = m_map->getYExtent() - 1;
+ Int maxX = xOffset + width;
+ if (maxX + m_xOrigin > limitX)
+ maxX = limitX - m_xOrigin;
+ Int maxY = yOffset + height;
+ if (maxY + m_yOrigin > limitY)
+ maxY = limitY - m_yOrigin;
+ Bool topRightInMesh = m_map->isInMesh(m_xOrigin + maxX, m_yOrigin + maxY);
+ Int topRightNdx = ndx[maxX + maxY * (m_width + 1)];
+ ICoord2D left;
+ left.x = xOffset;
+ left.y = yOffset;
+ ICoord2D right;
+ right.x = xOffset;
+ right.y = yOffset;
+ advanceLeft(left, xOffset, yOffset, width, height);
+ advanceRight(right, xOffset, yOffset, width, height);
+ UnsignedShort prevNdxLeft;
+ UnsignedShort prevNdxRight;
+ if (m_map->isInMesh(minX, minY)) 
+ {
+  if (ib)
+  ib[curIndex] = ndx[xOffset + yOffset * (m_width + 1)];
+  curIndex++;
+  prevNdxRight = ndx[right.x + right.y * (m_width + 1)];
+  if (ib)
+  ib[curIndex] = prevNdxRight;
+  curIndex++;
+  prevNdxLeft = ndx[left.x + left.y * (m_width + 1)];
+  if (ib)
+  ib[curIndex] = prevNdxLeft;
+  curIndex++;
+  if (heights) 
+  {
+   Vector3 v0;
+   Vector3 v1;
+   Vector3 v2;
+   v0.X = minX * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+   v0.Y = minY * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+   v0.Z = m_map->getHeight(minX, minY) * MAP_HEIGHT_SCALE;
+   v1.X = (m_xOrigin + right.x) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+   v1.Y = (m_yOrigin + right.y) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+   v1.Z = m_map->getHeight(m_xOrigin + right.x, m_yOrigin + right.y) * MAP_HEIGHT_SCALE;
+   v2.X = (m_xOrigin + left.x) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+   v2.Y = (m_yOrigin + left.y) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+   v2.Z = m_map->getHeight(m_xOrigin + left.x, m_yOrigin + left.y) * MAP_HEIGHT_SCALE;
+   getTriangleIntersection((Vector3 *)heights, xOffset, yOffset, width, height, v0, v1, v2);
+  }
+ }
+ else 
+ {
+  prevNdxRight = ndx[right.x + right.y * (m_width + 1)];
+  prevNdxLeft = ndx[left.x + left.y * (m_width + 1)];
+  curIndex++;
+  curIndex++;
+  curIndex++;
+ }
+ Bool didLeft = true;
+ Bool didRight = true;
+ while (didLeft || didRight) 
+ {
+  ICoord2D prevLeft = left;
+  didLeft = advanceLeft(left, xOffset, yOffset, width, height);
+  if (didLeft) 
+  {
+   if (ib)
+   ib[curIndex] = prevNdxLeft;
+   curIndex++;
+   if (ib)
+   ib[curIndex] = prevNdxRight;
+   curIndex++;
+   prevNdxLeft = ndx[left.x + left.y * (m_width + 1)];
+   if (ib)
+   ib[curIndex] = prevNdxLeft;
+   curIndex++;
+   if (heights) 
+   {
+    Vector3 v0;
+    Vector3 v1;
+    Vector3 v2;
+    v0.X = (m_xOrigin + prevLeft.x) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+    v0.Y = (m_yOrigin + prevLeft.y) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+    v0.Z = m_map->getHeight(m_xOrigin + prevLeft.x, m_yOrigin + prevLeft.y) * MAP_HEIGHT_SCALE;
+    v1.X = (m_xOrigin + right.x) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+    v1.Y = (m_yOrigin + right.y) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+    v1.Z = m_map->getHeight(m_xOrigin + right.x, m_yOrigin + right.y) * MAP_HEIGHT_SCALE;
+    v2.X = (m_xOrigin + left.x) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+    v2.Y = (m_yOrigin + left.y) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+    v2.Z = m_map->getHeight(m_xOrigin + left.x, m_yOrigin + left.y) * MAP_HEIGHT_SCALE;
+    getTriangleIntersection((Vector3 *)heights, xOffset, yOffset, width, height, v0, v1, v2);
+   }
+  }
+  ICoord2D prevRight = right;
+  didRight = advanceRight(right, xOffset, yOffset, width, height);
+  if (didRight) 
+  {
+   if (ib)
+   ib[curIndex] = prevNdxLeft;
+   curIndex++;
+   if (ib)
+   ib[curIndex] = prevNdxRight;
+   curIndex++;
+   prevNdxRight = ndx[right.x + right.y * (m_width + 1)];
+   if (ib)
+   ib[curIndex] = prevNdxRight;
+   curIndex++;
+   if (heights) 
+   {
+    Vector3 v0;
+    Vector3 v1;
+    Vector3 v2;
+    v0.X = (m_xOrigin + left.x) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+    v0.Y = (m_yOrigin + left.y) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+    v0.Z = m_map->getHeight(m_xOrigin + left.x, m_yOrigin + left.y) * MAP_HEIGHT_SCALE;
+    v1.X = (m_xOrigin + prevRight.x) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+    v1.Y = (m_yOrigin + prevRight.y) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+    v1.Z = m_map->getHeight(m_xOrigin + prevRight.x, m_yOrigin + prevRight.y) * MAP_HEIGHT_SCALE;
+    v2.X = (m_xOrigin + right.x) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+    v2.Y = (m_yOrigin + right.y) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+    v2.Z = m_map->getHeight(m_xOrigin + right.x, m_yOrigin + right.y) * MAP_HEIGHT_SCALE;
+    getTriangleIntersection((Vector3 *)heights, xOffset, yOffset, width, height, v0, v1, v2);
+   }
+  }
+ }
+ if (topRightInMesh) 
+ {
+  if (ib)
+  ib[curIndex] = prevNdxLeft;
+  curIndex++;
+  if (ib)
+  ib[curIndex] = prevNdxRight;
+  curIndex++;
+  if (ib)
+  ib[curIndex] = topRightNdx;
+  curIndex++;
+  if (heights) 
+  {
+   Vector3 v0;
+   Vector3 v1;
+   Vector3 v2;
+   v0.X = (m_xOrigin + left.x) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+   v0.Y = (m_yOrigin + left.y) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+   v0.Z = m_map->getHeight(m_xOrigin + left.x, m_yOrigin + left.y) * MAP_HEIGHT_SCALE;
+   v1.X = (m_xOrigin + right.x) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+   v1.Y = (m_xOrigin + right.y) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+   v1.Z = m_map->getHeight(m_xOrigin + right.x, m_yOrigin + right.y) * MAP_HEIGHT_SCALE;
+   v2.X = (minX + width) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+   v2.Y = (minY + width) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+   v2.Z = m_map->getHeight(minX + width, minY + width) * MAP_HEIGHT_SCALE;
+   getTriangleIntersection((Vector3 *)heights, xOffset, yOffset, width, height, v0, v1, v2);
+  }
+ }
+}
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundSetFlipRecursive.cpp
+
+void W3DTerrainBackground::setFlipRecursive(int xOffset,int yOffset,int width) 
+{
+ int limitX=m_map->getXExtent()-1,limitY=m_map->getYExtent()-1;
+ bool match=true;
+ int minX=m_xOrigin+xOffset,minY=(*(volatile int *)&m_yOrigin)+yOffset;
+ int cornerHeight=m_map->getHeight(minX,minY);
+ bool flag=m_map->getFlag(minX,minY);
+ for(int i=0;i<=width && match;i+=m_baseDivisor) 
+ {
+  for(int j=0;j<=width;j+=m_baseDivisor) 
+  {
+   int k=minX+i;
+   k=k<limitX?k:limitX;
+   int l=minY+j;
+   l=l<limitY?l:limitY;
+   if(cornerHeight!=m_map->getHeight(k,l)||m_map->hasDetail(k,l)||(i<width&&j<width&&m_map->getFlag(k,l)!=flag)) 
+   {
+    match=false;
+    break;
+    
+   }
+   
+  }
+  
+ }
+ if(width==m_baseDivisor)match=true;
+ if(match) 
+ {
+  int maxX=minX+width;
+  maxX=maxX<limitX?maxX:limitX;
+  int maxY=minY+width;
+  maxY=maxY<limitY?maxY:limitY;
+  int x0=minX;
+  int y1=maxY-(*(volatile int *)&m_yOrigin);
+  *(volatile int*)&x0-=(m_map ? m_xOrigin : m_xOrigin);
+  bool c0=isEdgeAligned(x0,y1,width);
+  int x1=maxX-m_xOrigin;
+  bool c1=isEdgeAligned(x1,y1,width);
+  int y0=minY;
+  *(volatile int*)&y0-=(*(volatile int *)&m_yOrigin);
+  bool c2=isEdgeAligned(x1,y0,width);
+  bool c3=isEdgeAligned(x0,y0,width);
+  if(c3)((Rva000AD9AB *)m_map)->rva000AD9AB(minX,minY,true);
+  if(c2)((Rva000AD9AB *)m_map)->rva000AD9AB(maxX,minY,true);
+  if(c1)((Rva000AD9AB *)m_map)->rva000AD9AB(maxX,maxY,true);
+  if(c0)((Rva000AD9AB *)m_map)->rva000AD9AB(minX,maxY,true);
+  return;
+  
+ }
+ int halfWidth=width/2;
+ setFlipRecursive(xOffset,yOffset,halfWidth);
+ setFlipRecursive(xOffset,yOffset+halfWidth,halfWidth);
+ setFlipRecursive(xOffset+halfWidth,yOffset,halfWidth);
+ setFlipRecursive(xOffset+halfWidth,yOffset+halfWidth,halfWidth);
+ 
+}
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundSetFlipRecursiveTolerance.cpp
+
+void W3DTerrainBackground::setFlipRecursive(int xOffset,int yOffset,int width,float tolerance) {
+ int limitX=m_map->getXExtent()-1,limitY=m_map->getYExtent()-1;
+ bool match=true;
+ int minX=m_xOrigin+xOffset,minY=m_yOrigin+yOffset;
+ int maxX=m_xOrigin+xOffset+width;maxX=maxX<limitX?maxX:limitX;
+ int maxY=m_yOrigin+yOffset+width;maxY=maxY<limitY?maxY:limitY;
+ WorldHeightMap *map=m_map;
+ int h00=map->getHeight(minX,minY),h10=map->getHeight(maxX,minY),h11=map->getHeight(maxX,maxY),h01=map->getHeight(minX,maxY);
+ bool flag=map->getFlag(minX,minY);
+ for(int i=0;i<=width && match;++i) {
+  for(int j=0;j<=width;++j) {
+   int k=minX+i;k=k<limitX?k:limitX;
+   int l=minY+j;l=l<limitY?l:limitY;
+   if(map->hasDetail(k,l)||(i<width&&j<width&&map->getFlag(k,l)!=flag)) {match=false;break;}
+   float x=(float)i/(float)width,y=(float)j/(float)width,height;
+   if(y>1.0f-x)height=((float)(h10-h11)*(1.0f-y)+(float)(h01-h11)*(1.0f-x)+(float)h11)*0.0390625f;
+   else height=((float)(h01-h00)*y+(float)(h10-h00)*x+(float)h00)*0.0390625f;
+   float delta=height-(float)map->getHeight(k,l)*0.0390625f;
+   if(delta<0.0f)delta=-delta;
+   if(delta>tolerance){match=false;break;}
+  }
+ }
+ if(width==1)match=true;
+ if(match) {
+  int right=minX+width;right=right<limitX?right:limitX;
+  int bottom=minY+width;bottom=bottom<limitY?bottom:limitY;
+  ((Rva000AD9AB *)m_map)->rva000AD9AB(minX,minY,true);
+  ((Rva000AD9AB *)m_map)->rva000AD9AB(right,minY,true);
+  ((Rva000AD9AB *)m_map)->rva000AD9AB(right,bottom,true);
+  ((Rva000AD9AB *)m_map)->rva000AD9AB(minX,bottom,true);
+  return;
+ }
+ int halfWidth=width/2;
+ setFlipRecursive(xOffset,yOffset,halfWidth,tolerance);
+ setFlipRecursive(xOffset,yOffset+halfWidth,halfWidth,tolerance);
+ setFlipRecursive(xOffset+halfWidth,yOffset,halfWidth,tolerance);
+ setFlipRecursive(xOffset+halfWidth,yOffset+halfWidth,halfWidth,tolerance);
+}
+
 // tu-skeleton: 0x00112ED3 237B ?countUnsetCorners@W3DTerrainBackground@@QAEHHHHPA_N000@Z -- matched in Code/GameEngine/Source/Common/Rva00729300BitPlanes.cpp (not merged yet)
 
 // tu-skeleton: 0x00112FC0 273B ?checkUnsetEdges@W3DTerrainBackground@@QAEXHHHPA_N000@Z -- matched in Code/GameEngine/Source/Common/Rva00729300BitPlanes.cpp (not merged yet)
 
-// tu-skeleton: 0x001130D1 63B ?castTriangle@W3DTerrainBackground@@QAE_NAAVRayCollisionTestClass@@ABVVector3@@11@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundCastTriangle.cpp (not merged yet)
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundCastTriangle.cpp
 
-// tu-skeleton: 0x00113110 65B ?rva00113110@Rva00113110Holder@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/Rva00113110BarrierSweep.cpp (not merged yet)
+// ?castTriangle@W3DTerrainBackground@@QAE_NAAVRayCollisionTestClass@@ABVVector3@@11@Z
+bool W3DTerrainBackground::castTriangle(RayCollisionTestClass &raytest,
+	const Vector3 &p0, const Vector3 &p1, const Vector3 &p2)
+{
+	Vector3 normal;
+	TriClass tri;
+	tri.V[0] = &p0;
+	tri.V[1] = &p1;
+	tri.V[2] = &p2;
+	tri.N = &normal;
+	tri.Compute_Normal();
+	return CollisionMath::Collide(raytest.Ray, tri, raytest.Result);
+}
 
-// tu-skeleton: 0x00113151 73B ?rva00113151@Rva00113110Holder@@QAEXPAXM@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00113151Replace.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva00113110BarrierSweep.cpp
 
-// tu-skeleton: 0x0011319A 511B ?getTriangleIntersection@W3DTerrainBackground@@QAEXPAVVector3@@HHHHABV2@11@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundGetTriangleIntersection.cpp (not merged yet)
+void Rva00113110Holder::rva00113110(void *incoming)
+{
+	_ReadWriteBarrier();
+	if (m_resource == 0) {
+		return;
+	}
+	if (incoming != 0) {
+		++*(int *)((char *)incoming + 4);
+		Rva00113151Resource *old = m_resource;
+		if (old != 0 && --old->m_referenceCount == 0) {
+			old->rva00113151Release();
+		}
+		m_resource = (Rva00113151Resource *)incoming;
+	}
+	if (m_refresh != 0) {
+		((W3DTerrainBackground *)this)->setFlipRecursive(0,0,m_callbackContext);
+	}
+}
 
-// tu-skeleton: 0x00113399 2158B ?rva00113399@W3DTerrainBackground@@QAEXPAGPAXHHHH0AAH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundTriangleFan.cpp (not merged yet)
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00113151Replace.cpp
 
-// tu-skeleton: 0x00113C07 473B ?rva00113C07@W3DTerrainBackground@@QAEXPAGPAXHHHPA_N2220AAH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundRva00113C07.cpp (not merged yet)
+void Rva00113110Holder::rva00113151(void *incoming, float value)
+{
+	if (m_resource == 0) {
+		return;
+	}
+	if (incoming != 0) {
+		++*(int *)((char *)incoming + 4);
+		Rva00113151Resource *old = m_resource;
+		if (old != 0 && --old->m_referenceCount == 0) {
+			old->rva00113151Release();
+		}
+		m_resource = (Rva00113151Resource *)incoming;
+	}
+	if (m_refresh != 0) {
+		((W3DTerrainBackground *)this)->setFlipRecursive(0, 0, m_callbackContext, value);
+	}
+}
 
-// tu-skeleton: 0x00113DE0 3083B ?rva00113DE0@W3DTerrainBackground@@QAEXPAGPAVVector3@@HHH0AAH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundRva00113C07.cpp (not merged yet)
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundGetTriangleIntersection.cpp
 
-// tu-skeleton: 0x001149EB 1625B ?doTesselatedUpdate@W3DTerrainBackground@@QAEXABUIRegion2D@@PAVWorldHeightMap@@_N@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoTesselatedUpdate.cpp (not merged yet)
+inline float Min(float a, float b) { return a < b ? a : b; }
+
+inline float Max(float a, float b) { return a > b ? a : b; }
+
+// ?getTriangleIntersection@W3DTerrainBackground@@QAEXPAVVector3@@HHHHABV2@11@Z
+void W3DTerrainBackground::getTriangleIntersection(Vector3 *heights, int startX, int startY, int width, int height,
+	const Vector3 &first, const Vector3 &second, const Vector3 &third)
+{
+	int maxX = m_map->m_width - 1;
+	int maxY = m_map->m_height - 1;
+	float minZ = Min(third.Z, Min(first.Z, second.Z));
+	float maxZ = Max(third.Z, Max(first.Z, second.Z));
+
+	Vector3 start;
+	Vector3 end;
+	for (int i = 0; i <= width; i++) {
+		int j = 0;
+		if (j <= height) {
+			start.Z = maxZ + 1.0f;
+			int column = startX + i;
+			end.Z = minZ - 1.0f;
+			do {
+			int cellX = column;
+			if (cellX >= maxX)
+				cellX = maxX;
+			int cellY = startY + j;
+			if (cellY >= maxY)
+				cellY = maxY;
+			int idx = (m_width + 1) * cellY + cellX;
+
+			CastResultStruct result;
+			float border = m_map->m_borderSize * 10.0f;
+			float xPos = (m_xOrigin + cellX) * 10.0f - border;
+			float yPos = (m_yOrigin + cellY) * 10.0f - border;
+			start.X = xPos;
+			start.Y = yPos;
+			end.X = xPos;
+			end.Y = yPos;
+			LineSegClass ray(start, end);
+			result.ComputeContactPoint = true;
+			RayCollisionTestClass raytest(ray, &result, 2, false, false);
+			if (castTriangle(raytest, first, second, third)) {
+				float intersectionHeight = raytest.Result->ContactPoint.Z;
+				if (m_mode == 2)
+					heights[idx].Y = intersectionHeight;
+				else if (m_mode == 1)
+					heights[idx].X = intersectionHeight;
+			}
+			} while (++j <= height);
+		}
+	}
+}
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundRva00113C07.cpp
+
+void W3DTerrainBackground::rva00113C07(unsigned short *ib, void *aux, int xOffset, int yOffset, int width,
+	bool *done0, bool *done1, bool *done2, bool *done3,
+	unsigned short *ndx, int &curIndex)
+{
+	*done3 = false;
+	*done2 = false;
+	*done1 = false;
+	*done0 = false;
+
+	bool top, right, bottom, left;
+	checkUnsetEdges(xOffset, yOffset, width, &top, &right, &bottom, &left);
+	int half = width / 2;
+
+	if (right) {
+		if (top) {
+			rva00113399(ib, aux, xOffset, yOffset, half, width, ndx, curIndex);
+			rva00113399(ib, aux, xOffset, yOffset + half, width, half, ndx, curIndex);
+			*done3 = true;
+		} else if (bottom) {
+			rva00113399(ib, aux, xOffset, yOffset + half, width, half, ndx, curIndex);
+			rva00113399(ib, aux, xOffset + half, yOffset, half, width, ndx, curIndex);
+			*done2 = true;
+		} else {
+			rva00113399(ib, aux, xOffset, yOffset + half, width, half, ndx, curIndex);
+			*done3 = true;
+			*done2 = true;
+		}
+	} else if (left) {
+		if (top) {
+			rva00113399(ib, aux, xOffset, yOffset, half, width, ndx, curIndex);
+			rva00113399(ib, aux, xOffset, yOffset, width, half, ndx, curIndex);
+			*done1 = true;
+		} else {
+			rva00113399(ib, aux, xOffset, yOffset, width, half, ndx, curIndex);
+			if (bottom) {
+				rva00113399(ib, aux, xOffset + half, yOffset, half, width, ndx, curIndex);
+			} else {
+				*done1 = true;
+			}
+			*done0 = true;
+		}
+	} else if (top) {
+		*done3 = true;
+		*done1 = true;
+		rva00113399(ib, aux, xOffset, yOffset, half, width, ndx, curIndex);
+		return;
+	} else if (bottom) {
+		*done2 = true;
+		*done0 = true;
+		rva00113399(ib, aux, xOffset + half, yOffset, half, width, ndx, curIndex);
+		return;
+	} else {
+		*done3 = true;
+		*done2 = true;
+		*done1 = true;
+		*done0 = true;
+	}
+}
+
+void W3DTerrainBackground::rva00113DE0(UnsignedShort *ib, Vector3 *heights, Int xOffset, Int yOffset,
+	Int width, UnsignedShort *ndx, Int &curIndex)
+{
+	Int limitX = m_map->getXExtent() - 1;
+	Int limitY = m_map->getYExtent() - 1;
+	Bool match = true;
+	Int minX = m_xOrigin + xOffset;
+	Int minY = m_yOrigin + yOffset;
+	Int maxX = xOffset + width;
+	if (maxX + m_xOrigin > limitX)
+		maxX = limitX - m_xOrigin;
+	Int maxY = yOffset + width;
+	if (maxY + m_yOrigin > limitY)
+		maxY = limitY - m_yOrigin;
+	Int bottomLeftNdx = ndx[(m_width + 1) * yOffset + xOffset];
+	Int topRightNdx = ndx[(m_width + 1) * maxY + maxX];
+	if (width > 1) {
+		match = !((const Rva00729300BitPlane *)m_map)->test(xOffset + m_xOrigin + width / 2, yOffset + m_yOrigin + width / 2);
+	}
+	if (match) {
+		if (m_xOrigin + xOffset >= limitX || minY >= limitY)
+			return;
+	}
+	if (width == m_baseDivisor) {
+		match = true;
+		if (!m_map->isCellPresent(minX, minY))
+			return;
+		Bool flip = m_map->getFlipState(minX, minY);
+		m_map->setFlipState(minX, minY, flip);
+		if (!flip) {
+			Int bottomRightNdx = ndx[(m_width + 1) * yOffset + maxX];
+			Int topLeftNdx = ndx[(m_width + 1) * maxY + xOffset];
+			if (ib)
+				ib[curIndex] = bottomLeftNdx;
+			curIndex++;
+			if (ib)
+				ib[curIndex] = topRightNdx;
+			curIndex++;
+			if (ib)
+				ib[curIndex] = topLeftNdx;
+			curIndex++;
+			if (ib)
+				ib[curIndex] = bottomLeftNdx;
+			curIndex++;
+			if (ib)
+				ib[curIndex] = bottomRightNdx;
+			curIndex++;
+			if (ib)
+				ib[curIndex] = topRightNdx;
+			curIndex++;
+			if (heights) {
+				Vector3 v1, v2, v3;
+				v1.X = minX * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+				v1.Y = minY * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+				v1.Z = m_map->getHeight(minX, minY) * MAP_HEIGHT_SCALE;
+				v2.X = (minX + width) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+				v2.Y = (minY + width) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+				v2.Z = m_map->getHeight(minX + width, minY + width) * MAP_HEIGHT_SCALE;
+				v3.X = minX * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+				v3.Y = (minY + width) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+				v3.Z = m_map->getHeight(minX, minY + width) * MAP_HEIGHT_SCALE;
+				getTriangleIntersection(heights, xOffset, yOffset, width, width, v1, v2, v3);
+				v2.X = (minX + width) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+				v2.Y = minY * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+				v2.Z = m_map->getHeight(minX + width, minY) * MAP_HEIGHT_SCALE;
+				v3.X = (minX + width) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+				v3.Y = (minY + width) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+				v3.Z = m_map->getHeight(minX + width, minY + width) * MAP_HEIGHT_SCALE;
+				getTriangleIntersection(heights, xOffset, yOffset, width, width, v1, v2, v3);
+			}
+			return;
+		}
+	}
+	if (match) {
+		if (!m_map->isCellPresent(minX, minY))
+			return;
+		ICoord2D left;
+		left.x = xOffset;
+		left.y = yOffset;
+		ICoord2D right;
+		right.x = xOffset;
+		right.y = yOffset;
+		advanceLeft(left, xOffset, yOffset, width);
+		advanceRight(right, xOffset, yOffset, width);
+
+		if (ib)
+			ib[curIndex] = bottomLeftNdx;
+		curIndex++;
+		UnsignedShort prevNdxRight = ndx[(m_width + 1) * right.y + right.x];
+		if (ib)
+			ib[curIndex] = prevNdxRight;
+		curIndex++;
+		UnsignedShort prevNdxLeft = ndx[(m_width + 1) * left.y + left.x];
+		if (ib)
+			ib[curIndex] = prevNdxLeft;
+		curIndex++;
+		if (heights) {
+			Vector3 v1, v2, v3;
+			v1.X = minX * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+			v1.Y = minY * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+			v1.Z = m_map->getHeight(minX, minY) * MAP_HEIGHT_SCALE;
+			v2.X = (m_xOrigin + right.x) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+			v2.Y = (m_yOrigin + right.y) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+			v2.Z = m_map->getHeight(m_xOrigin + right.x, m_yOrigin + right.y) * MAP_HEIGHT_SCALE;
+			v3.X = (m_xOrigin + left.x) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+			v3.Y = (m_yOrigin + left.y) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+			v3.Z = m_map->getHeight(m_xOrigin + left.x, m_yOrigin + left.y) * MAP_HEIGHT_SCALE;
+			getTriangleIntersection(heights, xOffset, yOffset, width, width, v1, v2, v3);
+		}
+		Bool didLeft = true;
+		Bool didRight = true;
+		while (didLeft || didRight) {
+			ICoord2D prevLeft = left;
+			didLeft = advanceLeft(left, xOffset, yOffset, width);
+			if (didLeft) {
+				if (ib)
+					ib[curIndex] = prevNdxLeft;
+				curIndex++;
+				if (ib)
+					ib[curIndex] = prevNdxRight;
+				curIndex++;
+				prevNdxLeft = ndx[(m_width + 1) * left.y + left.x];
+				if (ib)
+					ib[curIndex] = prevNdxLeft;
+				curIndex++;
+				if (heights) {
+					Vector3 v1, v2, v3;
+					int px = prevLeft.x;
+					(prevLeft.x ? _ReadWriteBarrier() : _ReadWriteBarrier());
+					int origin = m_xOrigin;
+					v1.X = (origin + px) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+					v1.Y = (m_yOrigin + prevLeft.y) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+					v1.Z = m_map->getHeight(origin + px, m_yOrigin + prevLeft.y) * MAP_HEIGHT_SCALE;
+					v2.X = (m_xOrigin + right.x) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+					v2.Y = (m_yOrigin + right.y) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+					v2.Z = m_map->getHeight(m_xOrigin + right.x, m_yOrigin + right.y) * MAP_HEIGHT_SCALE;
+					v3.X = (m_xOrigin + left.x) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+					v3.Y = (m_yOrigin + left.y) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+					v3.Z = m_map->getHeight(m_xOrigin + left.x, m_yOrigin + left.y) * MAP_HEIGHT_SCALE;
+					getTriangleIntersection(heights, xOffset, yOffset, width, width, v1, v2, v3);
+				}
+			}
+			ICoord2D prevRight = right;
+			didRight = advanceRight(right, xOffset, yOffset, width);
+			if (didRight) {
+				if (ib)
+					ib[curIndex] = prevNdxLeft;
+				curIndex++;
+				if (ib)
+					ib[curIndex] = prevNdxRight;
+				curIndex++;
+				prevNdxRight = ndx[(m_width + 1) * right.y + right.x];
+				if (ib)
+					ib[curIndex] = prevNdxRight;
+				curIndex++;
+				if (heights) {
+					Vector3 v1, v2, v3;
+					v1.X = (m_xOrigin + left.x) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+					v1.Y = (m_yOrigin + left.y) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+					v1.Z = m_map->getHeight(m_xOrigin + left.x, m_yOrigin + left.y) * MAP_HEIGHT_SCALE;
+					v2.X = (m_xOrigin + prevRight.x) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+					v2.Y = (m_yOrigin + prevRight.y) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+					v2.Z = m_map->getHeight(m_xOrigin + prevRight.x, m_yOrigin + prevRight.y) * MAP_HEIGHT_SCALE;
+					v3.X = (m_xOrigin + right.x) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+					v3.Y = (m_yOrigin + right.y) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+					v3.Z = m_map->getHeight(m_xOrigin + right.x, m_yOrigin + right.y) * MAP_HEIGHT_SCALE;
+					getTriangleIntersection(heights, xOffset, yOffset, width, width, v1, v2, v3);
+				}
+			}
+		}
+		if (ib)
+			ib[curIndex] = prevNdxLeft;
+		curIndex++;
+		if (ib)
+			ib[curIndex] = prevNdxRight;
+		curIndex++;
+		if (ib)
+			ib[curIndex] = topRightNdx;
+		curIndex++;
+		if (heights) {
+			Vector3 v1, v2, v3;
+			v1.X = (m_xOrigin + left.x) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+			v1.Y = (m_yOrigin + left.y) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+			v1.Z = m_map->getHeight(m_xOrigin + left.x, m_yOrigin + left.y) * MAP_HEIGHT_SCALE;
+			v2.X = (m_xOrigin + right.x) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+			v2.Y = (m_yOrigin + right.y) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+			v2.Z = m_map->getHeight(m_xOrigin + right.x, m_yOrigin + right.y) * MAP_HEIGHT_SCALE;
+			v3.X = (minX + width) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+			v3.Y = (minY + width) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
+			v3.Z = m_map->getHeight(minX + width, minY + width) * MAP_HEIGHT_SCALE;
+			getTriangleIntersection(heights, xOffset, yOffset, width, width, v1, v2, v3);
+		}
+		return;
+	}
+	Int halfWidth = width / 2;
+	bool done0, done1, done2, done3;
+	rva00113C07(ib, heights, xOffset, yOffset, width, &done0, &done1, &done2, &done3, ndx, curIndex);
+	if (done2)
+		rva00113DE0(ib, heights, xOffset, yOffset, halfWidth, ndx, curIndex);
+	if (done0)
+		rva00113DE0(ib, heights, xOffset, yOffset + halfWidth, halfWidth, ndx, curIndex);
+	if (done3)
+		rva00113DE0(ib, heights, xOffset + halfWidth, yOffset, halfWidth, ndx, curIndex);
+	if (done1)
+		rva00113DE0(ib, heights, xOffset + halfWidth, yOffset + halfWidth, halfWidth, ndx, curIndex);
+}
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoTesselatedUpdate.cpp
+
+// Native [001149EB,00115044),1625B, RET12. W3DTerrainBackground::
+// doTesselatedUpdate (WorldBuilder name). BFME 2 rewrite of the ZH tile
+// update: swap in the height map, bail when uninitialized (+0x60) or when
+// the partial range misses the clamped tile; number the in-mesh cells of the
+// map bit plane, (re)allocate the dynamic vertex buffer (+0x24, size +0x28,
+// FVF 0x152 XYZ|NORMAL|DIFFUSE|TEX1, 0x24-byte vertices) and fill one vertex
+// per in-mesh cell (height * MAP_HEIGHT_SCALE, normal 0x0006AA45, diffuse
+// from TheTerrainRenderObject 0x0006B4CC, tile UVs); let the recursive
+// filler 0x00113DE0 count and then write the indices (+0x2C, size +0x30,
+// count +0x4C); rebuild the bounds (+0x0C) from a MinMaxAABox; rebuild the
+// 1x textures +0x34/+0x3C (DXT1 when TheGameClient exists) through the map
+// builder 0x000AE989. All under the DX8 thread lock. Offsets are target
+// evidence; rowed helper receivers keep their ledger names.
+
+void W3DTerrainBackground::doTesselatedUpdate(const IRegion2D &partialRange, WorldHeightMap *htMap, Bool doTextures)
+{
+	if (m_map == 0)
+		return;
+	if (htMap) {
+		htMap->Add_Ref();
+		if (m_map)
+			m_map->Release_Ref();
+		m_map = htMap;
+	}
+	if (!m_initialized)
+		return;
+
+	Int minX = m_xOrigin;
+	Int minY = m_yOrigin;
+	Int maxX = m_xOrigin + m_width;
+	Int maxY = m_yOrigin + m_width;
+	m_needUpdate = false;
+	Int limitX = m_map->getXExtent() - 1;
+	Int limitY = m_map->getYExtent() - 1;
+	if (maxX > limitX)
+		maxX = limitX;
+	if (maxY > limitY)
+		maxY = limitY;
+	if (partialRange.lo.x > maxX || partialRange.lo.y > maxY
+		|| partialRange.hi.x < minX || partialRange.hi.y < minY)
+		return;
+
+	Int count = (m_width + 1) * (m_width + 1);
+	UnsignedShort *ndx = new UnsignedShort[count];
+	memset(ndx, 0, count * sizeof(UnsignedShort));
+
+	Int requiredVertex = 0;
+	Int i, j;
+	for (j = minY; j <= maxY; j++) {
+		for (i = minX; i <= maxX; i++) {
+			if (m_map->isInMesh(i, j))
+				requiredVertex++;
+		}
+	}
+
+	BFMEDX8DeviceLock lock;
+	if (m_vertexTerrainSize < requiredVertex || m_vertexTerrain == 0) {
+		m_vertexTerrainSize = requiredVertex;
+		if (m_vertexTerrain) {
+			m_vertexTerrain->Release_Ref();
+			m_vertexTerrain = 0;
+		}
+		m_vertexTerrain = new BfmeDynamicNativeVB(0x152, (unsigned short)(m_vertexTerrainSize + 4), 0, 0);
+	}
+
+	m_curNumTerrainVertices = 0;
+	VertexBufferClass::WriteLockClass lockVtxBuffer(m_vertexTerrain, 0);
+	VertexFormatXYZNDUV1 *curVb = (VertexFormatXYZNDUV1 *)lockVtxBuffer.Get_Vertex_Array();
+	for (j = minY; j <= maxY; j++) {
+		for (i = minX; i <= maxX; i++) {
+			if (m_map->isInMesh(i, j)) {
+				Int diffuse = TheTerrainRenderObject->getStaticDiffuse(i, j, true);
+				Vector3 pos;
+				Int k = i < limitX ? i : limitX;
+				Int l = j < limitY ? j : limitY;
+				WorldHeightMap *map = m_map;
+				pos.Z = ((Real)map->getHeight(k, l) * MAP_HEIGHT_SCALE);
+				pos.X = i * MAP_XY_FACTOR - map->getBorderSize() * MAP_XY_FACTOR;
+				pos.Y = j * MAP_XY_FACTOR - map->getBorderSize() * MAP_XY_FACTOR;
+				Vector3 normal;
+				map->getTerrainNormal(i, j, &normal);
+				curVb->x = pos.X;
+				curVb->y = pos.Y;
+				curVb->z = pos.Z;
+				curVb->nx = normal.X;
+				curVb->ny = normal.Y;
+				curVb->nz = normal.Z;
+				curVb->diffuse = diffuse;
+				curVb->u1 = (Real)(i - minX) / (Real)(m_width);
+				curVb->v1 = 1.0f - (Real)(j - minY) / (Real)(m_width);
+				curVb++;
+				ndx[i - minX + (m_width + 1) * (j - minY)] = m_curNumTerrainVertices;
+				m_curNumTerrainVertices++;
+			}
+		}
+	}
+
+	Int curIndex = 0;
+	rva00113DE0(0, 0, 0, 0, m_width, ndx, curIndex);
+	if (m_indexTerrainSize < curIndex || m_indexTerrain == 0) {
+		m_indexTerrainSize = curIndex;
+		if (m_indexTerrain) {
+			m_indexTerrain->Release_Ref();
+			m_indexTerrain = 0;
+		}
+		m_indexTerrain = new DX8IndexBufferClass(m_indexTerrainSize + 4, DX8IndexBufferClass::USAGE_DEFAULT);
+	}
+	m_curNumTerrainIndices = 0;
+	IndexBufferClass::WriteLockClass lockIdxBuffer(m_indexTerrain, 0);
+	rva00113DE0(lockIdxBuffer.Get_Index_Array(), 0, 0, 0, m_width, ndx, m_curNumTerrainIndices);
+	delete[] ndx;
+
+	MinMaxAABoxClass bounds;
+	bounds.Init_Empty();
+	for (j = minY; j <= maxY; j += 1) {
+		i = minX;
+		if (i <= maxX) {
+			WorldHeightMap *map = m_map;
+			do {
+				Vector3 pos;
+				Int k = i < limitX ? i : limitX;
+				Int l = j < limitY ? j : limitY;
+				pos.Z = ((Real)map->getHeight(k, l) * MAP_HEIGHT_SCALE);
+				pos.X = i * MAP_XY_FACTOR - map->getBorderSize() * MAP_XY_FACTOR;
+				pos.Y = j * MAP_XY_FACTOR - map->getBorderSize() * MAP_XY_FACTOR;
+				bounds.Add_Point(pos);
+			} while (++i <= maxX);
+		}
+	}
+	m_bounds.Init(bounds);
+
+	if ((*(RefCountPtr<TextureClass> *)&m_terrainTexture2X).isNull() || doTextures) {
+		((BfmeResetTextureRef *)&(*(RefCountPtr<TextureClass> *)&m_terrainTexture))->clear();
+		if (TheGameClient)
+			(*(RefCountPtr<TextureClass> *)&m_terrainTexture2X) = m_map->getFlatTexture(m_xOrigin, m_yOrigin, m_width, 0x10, 0x31545844, 0);
+		else
+			(*(RefCountPtr<TextureClass> *)&m_terrainTexture2X) = m_map->getFlatTexture(m_xOrigin, m_yOrigin, m_width, 0x10, 0x19, 0);
+		((ShroudTexture *)&(*(RefCountPtr<TextureClass> *)&m_terrainTexture2X))->getFilter()->m_uAddressMode = 1;
+		((ShroudTexture *)&(*(RefCountPtr<TextureClass> *)&m_terrainTexture2X))->getFilter()->m_vAddressMode = 1;
+	}
+	if (TheGlobalData->m_secondTerrainTexture) {
+		if ((*(RefCountPtr<TextureClass> *)&m_texture3C).isNull() || doTextures) {
+			((BfmeResetTextureRef *)&(*(RefCountPtr<TextureClass> *)&m_terrainTexture4X))->clear();
+			(*(RefCountPtr<TextureClass> *)&m_texture3C) = m_map->getFlatTexture(m_xOrigin, m_yOrigin, m_width, 0x10, 0x19, 1);
+			((ShroudTexture *)&(*(RefCountPtr<TextureClass> *)&m_texture3C))->getFilter()->m_uAddressMode = 1;
+			((ShroudTexture *)&(*(RefCountPtr<TextureClass> *)&m_texture3C))->getFilter()->m_vAddressMode = 1;
+		}
+	}
+	if (!TheGameClient)
+		bfmeReleaseQueuedDeviceInterfaces();
+}
 
 // tu-skeleton: 0x00115044 1869B ?doPartialUpdate@W3DTerrainBackground@@QAEXABUIRegion2D@@PAVWorldHeightMap@@_N2@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoPartialUpdate.cpp (not merged yet)
 
-// tu-skeleton: 0x00115791 121B ?rva00115791@W3DTerrainBackground@@QAEX_NM@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundRva00115791.cpp (not merged yet)
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundRva00115791.cpp
 
-// tu-skeleton: 0x0011580A 487B ?rva0011580A@W3DTerrainBackground@@QAEXAAVRenderInfoClass@@_NPAVRenderingMethod@FXShader@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDrawVisiblePolys.cpp (not merged yet)
+void W3DTerrainBackground::rva00115791(bool flat, float height)
+{
+	if (flat) {
+		if (m_curNumTerrainVertices > 0) {
+			VertexBufferClass::WriteLockClass lock(m_vertexTerrain, 0);
+			TerrainBackgroundVertex *vertices =
+				(TerrainBackgroundVertex *)lock.Get_Vertex_Array();
+			for (int i = 0; i < m_curNumTerrainVertices; i++) {
+				vertices->z = height;
+				vertices++;
+			}
+		}
+	} else {
+		IRegion2D range;
+		range.lo.x = 0;
+		range.lo.y = 0;
+		range.hi.x = m_xOrigin + m_width;
+		range.hi.y = m_yOrigin + m_width;
+		doTesselatedUpdate(range, m_map, false);
+	}
+}
 
-// tu-skeleton: 0x001159F1 106B ?rva001159F1@Rva001159F1@@QAEXPAX@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva001159F1.cpp (not merged yet)
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDrawVisiblePolys.cpp
 
-// tu-skeleton: 0x00115A5B 844B ?calcBlendHeight@W3DTerrainBackground@@QAEXMHPAM@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva001159F1.cpp (not merged yet)
+// Native [0011580A,001159F1),487B, RET12. BFME 2 W3DTerrainBackground::
+// rva0011580A: WorldBuilder places it in W3DTerrainBackground.cpp and
+// the ZH drawVisiblePolys (set the terrain buffers, draw the tile) is the
+// semantic guide. BFME 2 adds a pending rebuild (+0x62) through 0x00112898 and
+// 0x00115044, textures through the terrain shader interface g_00DEBC60 (see
+// W3DRoadBufferDrawRoads.cpp), and a second buffer pair (+0x68 VB, +0x70 IB,
+// +0x78 vertices, +0x7C indices) drawn when the map helper 0x000AEAA6 has a
+// texture. The first two arguments are unused by the body; the third is the
+// rendering method driven through its slot +0x10. Every offset is a target
+// fact; 0x00112898 is setFlipRecursive and 0x00115044 doPartialUpdate.
 
-// tu-skeleton: 0x00115DD2 22B ?rva00115DD2@W3DTerrainBackground@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundRva00115DD2.cpp (not merged yet)
+void W3DTerrainBackground::rva0011580A(RenderInfoClass &rinfo, bool disableTextures, FXShader::RenderingMethod *method)
+{
+	if (m_curNumTerrainIndices == 0 && !m_needUpdate)
+		return;
 
-// tu-skeleton: 0x00764A7F 8B $L768 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundUpdateCenter.cpp (not merged yet)
+	if (m_needUpdate) {
+		IRegion2D range;
+		m_needUpdate = false;
+		range.lo.x = 0;
+		range.lo.y = 0;
+		range.hi.x = m_xOrigin + m_width;
+		range.hi.y = m_yOrigin + m_width;
+		setFlipRecursive(0, 0, m_width);
+		doPartialUpdate(range, 0, false, m_updateMode);
+	}
 
-// tu-skeleton: 0x00764A87 10B __ehhandler$?updateCenter@W3DTerrainBackground@@QAEXABVRva00112230CameraGroup@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundUpdateCenter.cpp (not merged yet)
+	if (m_curNumTerrainIndices == 0)
+		return;
 
-// tu-skeleton: 0x00764A91 8B Unwind@00b64a91 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundUpdateTexture.cpp (not merged yet)
+	if (method) {
+		const RefCountPtr<TextureClass> &base = (*(RefCountPtr<TextureClass> *)&m_terrainTexture).Peek() ? (*(RefCountPtr<TextureClass> *)&m_terrainTexture) : (*(RefCountPtr<TextureClass> *)&m_terrainTexture2X);
+		((Rva000E19A3TextureArgumentView*)g_00DEBC60)->setBaseTexture(base);
+		const RefCountPtr<TextureClass> &normal = (*(RefCountPtr<TextureClass> *)&m_terrainTexture4X).Peek() ? (*(RefCountPtr<TextureClass> *)&m_terrainTexture4X) : (*(RefCountPtr<TextureClass> *)&m_texture3C);
+		((Rva000E19A3TextureArgumentView*)g_00DEBC60)->setNormalTexture(normal);
+		method->rvaSlot4(2);
+	}
+	DX8Wrapper::Set_Index_Buffer(m_indexTerrain, 0);
+	DX8Wrapper::Set_Vertex_Buffer(m_vertexTerrain, 0);
+	DX8Wrapper::Draw_Triangles(0, m_curNumTerrainIndices / 3, 0, m_curNumTerrainVertices);
 
-// tu-skeleton: 0x00764A99 8B Unwind@00b64a99 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundUpdateTexture.cpp (not merged yet)
+	bool drawExtra = m_extraVertexCount != 0
+		&& m_map->rva000AEAA6(m_xOrigin, m_yOrigin, m_width, false).Peek() != 0;
+	if (drawExtra) {
+		DX8Wrapper::Set_Index_Buffer(m_extraIndices, 0);
+		DX8Wrapper::Set_Vertex_Buffer(m_extraVertices, 0);
+		if (method) {
+			g_00DEBC60->setBaseTexture(m_map->rva000AEAA6(m_xOrigin, m_yOrigin, m_width, false));
+			g_00DEBC60->setNormalTexture(m_map->rva000AEAA6(m_xOrigin, m_yOrigin, m_width, true));
+			method->rvaSlot4(2);
+			g_00DEBC60->setRenderingMode(1);
+			method->rvaSlot4(3);
+		}
+		DX8Wrapper::Draw_Triangles(0, m_extraIndexCount / 3, 0, m_extraVertexCount);
+		if (method) {
+			g_00DEBC60->setRenderingMode(0);
+			method->rvaSlot4(3);
+		}
+	}
+	g_00DEBC60->clearTextures();
+}
 
-// tu-skeleton: 0x00764AA1 10B __ehhandler$?updateTexture@W3DTerrainBackground@@QAE_NXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundUpdateTexture.cpp (not merged yet)
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva001159F1.cpp
 
-// tu-skeleton: 0x00764AAB 11B $L1278 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoTesselatedUpdate.cpp (not merged yet)
+// Native1159F1-115A5A takes one pointer. Retail saves the old member at
+// +0x88 into +0x8C then stores the argument. The subsequent calls and the
+// rectangle {0, 0, +0x50 + +0x58, +0x54 + +0x58} are direct target evidence.
+// Receiver identity is unknown; fields are an address-derived ABI view.
 
-// tu-skeleton: 0x00764AB6 10B $L1279 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoTesselatedUpdate.cpp (not merged yet)
+void Rva001159F1::rva001159F1(void *value)
+{
+	m_previous = m_current;
+	m_current = value;
+	m_bitPlane->rva000AD9FE();
+	reinterpret_cast<W3DTerrainBackground *>(this)->setFlipRecursive(
+		0, 0, m_span);
+	reinterpret_cast<Rva00111F0E *>(this)->rva00111F0E();
 
-// tu-skeleton: 0x00764AC0 8B Unwind@00b64ac0 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoTesselatedUpdate.cpp (not merged yet)
+	IRegion2D rectangle;
+	rectangle.lo.x = 0;
+	rectangle.lo.y = 0;
+	rectangle.hi.x = m_x + m_span;
+	rectangle.hi.y = m_y + m_span;
+	reinterpret_cast<W3DTerrainBackground *>(this)->doPartialUpdate(
+		rectangle, 0, false, m_mode);
+}
 
-// tu-skeleton: 0x00764AC8 10B $L1281 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoTesselatedUpdate.cpp (not merged yet)
+// ---------------------------------------------------------------------------
+// W3DTerrainBackground::calcBlendHeight, retail 0x00115A5B (844 B); the WB
+// debug twin 0x7CC9D0 names it (W3DTerrainBackground.cpp, assert line 2426).
+// Statement shapes follow that twin: the clamped grid coordinates and the
+// vertex index are separate locals, the largest delta is a ternary update and
+// the edge test reads dx/dy locals. Map/bit-plane/heights helpers are the
+// rowed address-named bodies (BoundedShortGrid 0x00062A58, bit plane test
+// 0x001126FD, refresh 0x000AD9FE, slot reset 0x00112153).
 
-// tu-skeleton: 0x00764AD2 8B Unwind@00b64ad2 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoTesselatedUpdate.cpp (not merged yet)
+void W3DTerrainBackground::calcBlendHeight(Real param, Int mode, Real *maxDelta)
+{
+	Int xOrigin = m_xOrigin;
+	Int yOrigin = m_yOrigin;
+	Int xLimit = m_xOrigin + m_width;
+	Int yLimit = m_yOrigin + m_width;
+	Int mapXMax = m_map->getXExtent() - 1;
+	Int mapYMax = m_map->getYExtent() - 1;
+	if (xLimit > mapXMax)
+		xLimit = mapXMax;
+	if (yLimit > mapYMax)
+		yLimit = mapYMax;
 
-// tu-skeleton: 0x00764ADA 8B Unwind@00b64ada -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoTesselatedUpdate.cpp (not merged yet)
+	Int gridX, y;
+	if (param == 0.0f) {
+		((Rva0011216CSlotQuartet *)this)->rva00112153();
+		Int count = (m_width + 1) * (m_width + 1);
+		m_heights = (Vector3 *)new Rva001159F1Sample[count];
+		for (y = yOrigin; y <= yLimit; y++) {
+			for (gridX = xOrigin; gridX <= xLimit; gridX++) {
+				Int cx = gridX < mapXMax ? gridX : mapXMax;
+				Int cy = y < mapYMax ? y : mapYMax;
+				Int idx = (gridX - xOrigin) + (m_width + 1) * (y - yOrigin);
+				m_heights[idx].X = (UnsignedShort)((BoundedShortGrid *)m_map)->load(cx, cy) * MAP_HEIGHT_SCALE;
+				m_heights[idx].Z = m_heights[idx].X;
+				m_heights[idx].Y = m_heights[idx].Z;
+			}
+		}
 
-// tu-skeleton: 0x00764AE2 8B Unwind@00b64ae2 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoTesselatedUpdate.cpp (not merged yet)
+		if (m_mode == 2) {
+			m_savedStep = m_baseDivisor;
+			m_baseDivisor = m_coarseStep;
+		}
+		m_map->refreshBitPlane();
+		setFlipRecursive(0, 0, m_width);
 
-// tu-skeleton: 0x00764AEA 8B Unwind@00b64aea -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoTesselatedUpdate.cpp (not merged yet)
+		Int ndxCount = 0;
+		UnsignedShort *ndx = new UnsignedShort[count];
+		memset(ndx, 0, count * sizeof(UnsignedShort));
+		for (y = yOrigin; y <= yLimit; y += m_baseDivisor) {
+			for (gridX = xOrigin; gridX <= xLimit; gridX += m_baseDivisor) {
+				if (m_map->isInMesh(gridX, y)) {
+					ndx[(y - yOrigin) * (m_width + 1) + (gridX - xOrigin)] = ndxCount++;
+				}
+			}
+		}
+		Int curIndex = 0;
+		rva00113DE0(0, m_heights, 0, 0, m_width, ndx, curIndex);
+		delete[] ndx;
 
-// tu-skeleton: 0x00764AF2 10B __ehhandler$?doTesselatedUpdate@W3DTerrainBackground@@QAEXABUIRegion2D@@PAVWorldHeightMap@@_N@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoTesselatedUpdate.cpp (not merged yet)
+		if (mode == 2)
+			m_baseDivisor = m_savedStep;
+		if (mode == 1)
+			((Rva001159F1 *)this)->rva001159F1((void *)m_coarseStep);
+	}
+
+	m_map->refreshBitPlane();
+	setFlipRecursive(0, 0, m_width);
+
+	Real largest = 0.0f;
+	for (Int j = yOrigin; j <= yLimit; j += m_baseDivisor) {
+		for (Int i = xOrigin; i <= xLimit; i += m_baseDivisor) {
+			if (m_map->isInMesh(i, j)) {
+				Int idx = (j - yOrigin) * (m_width + 1) + (i - xOrigin);
+				m_heights[idx].Z = (1.0f - m_blend) * m_heights[idx].X + m_heights[idx].Y * m_blend;
+				Real delta = fabs(m_heights[idx].Y - m_heights[idx].X);
+				largest = largest > delta ? largest : delta;
+				Int dx = i - xOrigin;
+				Int dy = j - yOrigin;
+				if (dx == 0 || dy == 0 || dx == m_width || dy == m_width) {
+					if (mode == 1)
+						m_heights[idx].Z = m_heights[idx].Y;
+					else if (mode == 2)
+						m_heights[idx].Z = m_heights[idx].X;
+				}
+			}
+		}
+	}
+	if (param == 0.0f)
+		*maxDelta = largest;
+}
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundRva00115DD2.cpp
+
+// ?rva00115DD2@W3DTerrainBackground@@QAEXXZ, retail 0x00115DD2 (22B), the
+// pinned callee FlatHeightMap's tile loop calls (0x000E1233) right after
+// W3DTerrainBackground::updateTexture (0x001125BE). WorldBuilder's twin
+// (7B8140 -> 7CC640, assert W3DTerrainBackground::updateGeoMorphing)
+// returns before its geomorph loop, so in retail only the /O1 EH frame the
+// dead locals need survives (EH_prolog, fs:0 restore, leave, ret; FuncInfo
+// 0x00D3D63C). Target fact: the frame and its single null-action state.
+// Structural inference, not recovered source: the dead local below is a
+// stand-in with the frame-keeping shape learned at 0x00382767 (inline
+// constructor, out-of-line release, one throwing point: one EH state, as
+// retail's FuncInfo has); the original
+// dead body (a vertex-buffer lock loop) is not reconstructed.
+
+void W3DTerrainBackground::rva00115DD2()
+{
+	return;
+	UnicodeString s;
+	s += s;
+}
 
 // tu-skeleton: 0x00764AFC 11B Unwind@00b64afc -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoPartialUpdate.cpp (not merged yet)
 
@@ -931,5 +2558,3 @@ m_C0 = 0;
 // tu-skeleton: 0x00764B23 8B Unwind@00b64b23 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoPartialUpdate.cpp (not merged yet)
 
 // tu-skeleton: 0x00764B2B 10B __ehhandler$?doPartialUpdate@W3DTerrainBackground@@QAEXABUIRegion2D@@PAVWorldHeightMap@@_N2@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoPartialUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x00764B35 10B __ehhandler$?rva00115DD2@W3DTerrainBackground@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundRva00115DD2.cpp (not merged yet)
