@@ -86,3 +86,34 @@ Additional verified consumer Code/GameEngine/Source/Common/__linear_insert.cpp: 
 Additional verified consumer Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObject.cpp: 9/9 native rows; headeraccept/frozenPASS. Full8unit runtime graph still identical to original baseline (924sections/858external definitions/2weak bindings); no added/lost runtime provider or changed relocation. Normal hooks required for this single-donor commit.
 
 Additional verified consumer Code/Libraries/Source/WWVegas/WWLib/stlport_vector_fileinfo_allocate_copy.cpp: 5/5 native rows; headeraccept/frozenPASS. Full8unit runtime graph still identical to original baseline (924sections/858external definitions/2weak bindings); no added/lost runtime provider or changed relocation. Normal hooks required for this single-donor commit.
+
+## Final scope and verification
+
+BOTH queue-verified donors and FOUR additionally claimed views now adopt the
+canonical record header: parser8rows, GameFont28, assignment/copy owner12,
+linear-insert1, W3DGhostObject9 and vector allocate/copy5:63 native rows in
+6unique adopted units. Each donor has its own normal verified commit. The
+other2views remain legacy adoption debt, not a new private copy or progress.
+All8units (including the two untouched ones) still verify171/171; complete
+runtime graph924sections/858external definitions/2weak bindings is EXACTLY
+baseline, including linker directives. Normal successful adoption logs retained.
+
+The header now includes AsciiString's ONE registered canonical path directly,
+so its API does not rely on caller include search flags. This changes no
+runtime graph for the six current consumers. The incomplete construct-helper
+trial first diagnosed C1083, then byte-matched10/10 after fixing that include.
+However its .drectve grew seven canonical-shim alternatename copies. They are
+existing global mappings (none new globally), but its UNIT linker profile
+changed. The strict runtime comparison was retained, not weakened to ignore
+them; the source trial was restored. GapJmpThunksSeat8 has only LIBC/OLDNAMES
+baseline directives and is left untouched for the same alias-free-interface
+prerequisite. No new alias or per-unit directive profile is landed here.
+Both unused file claims were released on this PC. All other extra file claims
+remain until the six adopted sources and shared header are confirmed landed.
+
+class_views now reports exactly these2remaining private views. The requested
+class item is done because both q.py show verified_files donors use the shared
+header and verify. Extra adoption remains blocked on a canonical string ABI
+surface that preserves the decl-only consumers' linker profiles. No tools or
+checks were patched, no macros/hatches used to suppress the difference, and
+no nonmatching or refused source attempt remains in Code/.

@@ -3,7 +3,7 @@
 // Target2174DF/217624: three32-bit words then an AsciiString at+C; stride16.
 // Font parser218E96 uses these words as size/style data. Donor WWLib's
 // StringClass archive record is NOT imported. No outer-instance ABI is asserted.
-#include "ascii_string.h"
+#include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 class MixFileCreator
 {
 public:
