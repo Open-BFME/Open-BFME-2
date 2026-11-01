@@ -414,17 +414,7 @@ const PlayerMaskType PLAYERMASK_ALL = 0xfffff;
 
 extern GameLogic *TheGameLogic;
 
-class TerrainLogic
-{
-public:
-	virtual void slot00();
-	virtual void slot04();
-	virtual void slot08();
-	virtual void slot0c();
-	virtual void slot10();
-	virtual void slot14();
-	virtual Real getGroundHeight(Real x, Real y, Coord3D *normal = 0) const;
-};
+#include "../../../../Include/GameLogic/TerrainLogic.h"
 
 extern TerrainLogic *TheTerrainLogic;
 

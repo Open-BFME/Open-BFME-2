@@ -181,16 +181,7 @@ public:
 };
 extern ParticleSystemManager *TheParticleSystemManager;
 
-class TerrainLogic
-{
-public:
-	virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03();
-	virtual void s04(); virtual void s05(); virtual void s06(); virtual void s07();
-	virtual void s08(); virtual void s09(); virtual void s10(); virtual void s11();
-	virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15();
-	virtual void s16(); virtual void s17(); virtual void s18();
-	virtual bool isUnderwater(float x, float y, float *waterZ, float *terrainZ, void *extra);	// +0x4C
-};
+#include "../../../../../../GameEngine/Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 
 #define RENDEROBJ_SLOT(n) virtual void slot##n();

@@ -54,12 +54,7 @@ public:
 	const ThingTemplate *findTemplate(const AsciiString &name);
 };
 extern ThingFactory *TheThingFactory;
-class TerrainLogic
-{
-public:
-	virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3(); virtual void s4(); virtual void s5();
-	virtual Real getGroundHeight(Real x, Real y, Coord3D *normal);	// slot 6
-};
+#include "../../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 #include "../../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;

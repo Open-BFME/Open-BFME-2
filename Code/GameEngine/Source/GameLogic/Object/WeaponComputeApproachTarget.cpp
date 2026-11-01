@@ -140,19 +140,7 @@ private:
 	const WeaponTemplate *m_template;			///< +0x04
 };
 
-class TerrainLogic
-{
-public:
-	virtual void unreconstructed_slot00();
-	virtual void unreconstructed_slot04();
-	virtual void unreconstructed_slot08();
-	virtual void unreconstructed_slot0c();
-	virtual void unreconstructed_slot10();
-	virtual void unreconstructed_slot14();
-	virtual void unreconstructed_slot18();
-	virtual void unreconstructed_slot1c();
-	virtual void getExtent(Region3D *extent) const;	///< vtable +0x20
-};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 
 //-------------------------------------------------------------------------------------------------

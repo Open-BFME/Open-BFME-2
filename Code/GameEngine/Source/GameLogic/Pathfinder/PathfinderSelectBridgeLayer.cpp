@@ -123,7 +123,7 @@ __declspec(noinline) inline void __cdecl Rva002EBCD6Split(void *p, int *outHalf,
 	*outHalf = h;
 	*outRest = v - h;
 }
-class TerrainLogic {public:PathfindLayerEnum getLayerForDestination(Object *,const Coord3D *);};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 bool Pathfinder::rva002ED313(Object *obj)
 {

@@ -500,10 +500,7 @@ class BfmeThingCME {
   public:
     int rva0027F108(void *, float, int, int);
 };
-class TerrainLogic {
-  public:
-    Object *rva00283D70(const Coord3D *);
-};
+#include "../../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 extern PartitionManager *ThePartitionManager;
 struct CreateMask {

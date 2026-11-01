@@ -52,11 +52,7 @@ private:
 	ObjectID m_id; // +0x74
 };
 
-class TerrainLogic
-{
-public:
-	void rva00282CFB(const Coord3D *pos, Real radius, ObjectID id);
-};
+#include "../../../../Include/GameLogic/TerrainLogic.h"
 
 extern TerrainLogic *TheTerrainLogic;
 

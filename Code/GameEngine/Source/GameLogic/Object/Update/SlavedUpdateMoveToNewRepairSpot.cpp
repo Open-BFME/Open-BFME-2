@@ -39,17 +39,7 @@ class AIUpdateInterface;
 
 extern GameLogic *TheGameLogic;
 
-class TerrainLogic
-{
-public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
-	virtual Real getGroundHeight(Real x, Real y, Int unused);
-};
+#include "../../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 
 float GetGameLogicRandomValueReal(float lo, float hi, char *file, int line);

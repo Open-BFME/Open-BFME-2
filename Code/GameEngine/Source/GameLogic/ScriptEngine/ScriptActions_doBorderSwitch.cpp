@@ -55,11 +55,7 @@ public:
 
 extern PartitionManager *TheShroudManager;
 
-class TerrainLogic
-{
-public:
-	void setActiveBoundary(Int newActiveBoundary);
-};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 
 extern TerrainLogic *TheTerrainLogic;
 

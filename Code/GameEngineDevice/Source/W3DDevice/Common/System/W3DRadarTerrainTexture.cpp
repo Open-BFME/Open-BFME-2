@@ -53,50 +53,8 @@ struct Bridge { char pad[0x30];float z0;char p34[8];float z1;char p40[8];float z
 class RadarBodyView {public:
 virtual void p0();virtual void p1();virtual void p2();virtual void p3();virtual void p4();virtual void p5();virtual void p6();virtual void p7();virtual int getDamageState();};
 struct RadarObjectView {char pad[0x254];RadarBodyView *body;};
-class TerrainLogic {public:
-virtual void p0();
-virtual void p1();
-virtual void p2();
-virtual void p3();
-virtual void p4();
-virtual void p5();
-virtual float getGroundHeight(float,float,void*);
-virtual void p7();
-virtual void p8();
-virtual void p9();
-virtual void p10();
-virtual void p11();
-virtual void p12();
-virtual void p13();
-virtual void p14();
-virtual void p15();
-virtual void p16();
-virtual void p17();
-virtual void p18();
-virtual bool isUnderwater(float,float,float*,float* = 0,void* = 0);
-virtual void p20();
-virtual void p21();
-virtual void p22();
-virtual void p23();
-virtual void p24();
-virtual void p25();
-virtual void p26();
-virtual void p27();
-virtual void p28();
-virtual void p29();
-virtual void p30();
-virtual void p31();
-virtual void p32();
-virtual void p33();
-virtual void p34();
-virtual void p35();
-virtual void p36();
-virtual void p37();
-virtual void p38();
-virtual void p39();
-virtual void p40();
-virtual Bridge *findBridgeAt(const Coord3D*);
-};extern TerrainLogic *TheTerrainLogic;
+#include "../../../../../GameEngine/Include/GameLogic/TerrainLogic.h"
+extern TerrainLogic *TheTerrainLogic;
 extern GameLogic *TheGameLogic;
 class G00DFF080Obj {public: virtual void p0();virtual void p1();virtual void p2();virtual void p3();virtual void p4();virtual void p5();virtual void getTerrainColorAt(float,float,RGBColor*);};extern G00DFF080Obj *TheTerrainVisual;
 class W3DRadar : public Radar { protected: void buildTerrainTexture(TerrainLogic*);protected: void rva0004E3F1();void interpolateColorForHeight(RGBColor*,float,float,float,float);private:

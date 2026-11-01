@@ -109,15 +109,7 @@ private:
 };
 #include "../../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
-class TerrainLogic
-{
-public:
-	virtual void t00(); virtual void t01(); virtual void t02();
-	virtual void t03(); virtual void t04(); virtual void t05();
-	virtual Real getGroundHeight(Real x, Real y, Coord3D *normal = 0) const;
-	virtual Real getLayerHeight(Real x, Real y, PathfindLayerEnum layer, Coord3D *normal = 0, Bool clip = true) const;
-	PathfindLayerEnum getHighestLayerForDestination(const Coord3D *pos, Bool onlyHealthyBridges = false);
-};
+#include "../../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 struct Rva001F5BBEArg;
 class Rva001F58D4

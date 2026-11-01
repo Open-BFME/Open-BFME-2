@@ -783,10 +783,7 @@ protected:
 	Module *findModule(NameKeyType key) const;
 };
 
-class TerrainLogic {
-public:
-    PathfindLayerEnum getLayerForDestination(Object *, const Coord3D *);
-};
+#include "../../../../Include/GameLogic/TerrainLogic.h"
 
 extern TerrainLogic *TheTerrainLogic;
 

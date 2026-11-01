@@ -22,17 +22,7 @@ public:
 	float getMaxHeightAbovePosition() const;
 };
 
-class TerrainLogic
-{
-public:
-	virtual void t0();
-	virtual void t1();
-	virtual void t2();
-	virtual void t3();
-	virtual void t4();
-	virtual void t5();
-	virtual float getGroundHeight(float x, float y, Coord3D *normal);
-};
+#include "../../../../../../GameEngine/Include/GameLogic/TerrainLogic.h"
 
 extern TerrainLogic *TheTerrainLogic;
 

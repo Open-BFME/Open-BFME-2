@@ -108,11 +108,7 @@ public:
 #include "../../../Common/PartitionRangeQueryCallView.h"
 extern PartitionManager *ThePartitionManager;
 
-class TerrainLogic
-{
-public:
-	Object *rva00283D70(const Coord3D *pos);	// 0x00283D70
-};
+#include "../../../../Include/GameLogic/TerrainLogic.h"
 
 // 0x0027F108, rowed as BfmeThingCME::rva0027F108 (BfmeConv624.cpp).
 class BfmeThingCME

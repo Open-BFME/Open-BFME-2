@@ -355,19 +355,7 @@ class PathfinderContain28 : public PathfinderNativeSlots<28> { public: virtual i
 class PathfinderContain31 : public PathfinderNativeSlots<31> { public: virtual void *slot7C(); };
 class PathfinderContain69 : public PathfinderNativeSlots<69> { public: virtual unsigned int slot114(int); };
 class TerrainLogicWaterQuery : public PathfinderNativeSlots<19> { public: virtual bool slot4C(float,float,float *,void *,void *); };
-class TerrainLogic
-{
-public:
-	virtual void slot00();
-	virtual void slot04();
-	virtual void slot08();
-	virtual void slot0C();
-	virtual void slot10();
-	virtual void slot14();
-	virtual float getGroundHeight(float x, float y, Coord3D *normal);
-	virtual float getLayerHeight(float,float,PathfindLayerEnum,Coord3D *,Bool);
-	PathfindLayerEnum getLayerForDestination(Object *obj, const Coord3D *pos);
-};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 
 // The per-object radius/centre split (rowed 0x002EBCA7).

@@ -25,7 +25,7 @@ private:
 	void *m_48; // +0x48
 };
 class PathfindCell { public: char pad0[0xc]; unsigned int m_info; };
-class TerrainLogic { public: PathfindLayerEnum getLayerForDestination(Object *,const Coord3D *); };
+#include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 ICoord2D *Rva002EBC14Cell(ICoord2D *,void *,const Coord3D *);
 int Rva002E6E8AGet(int);

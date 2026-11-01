@@ -346,19 +346,7 @@ template<int N> class PathfinderNativeSlots : public PathfinderNativeSlots<N-1>
 template<> class PathfinderNativeSlots<0>
 {
 };
-class TerrainLogic
-{
- public:
- virtual void slot00();
- virtual void slot04();
- virtual void slot08();
- virtual void slot0C();
- virtual void slot10();
- virtual void slot14();
- virtual float getGroundHeight(float x, float y, Coord3D *normal);
- virtual float getLayerHeight(float,float,PathfindLayerEnum,Coord3D *,Bool);
- PathfindLayerEnum getLayerForDestination(Object *obj, const Coord3D *pos);
-};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 // The per-object radius/centre split (rowed 0x002EBCA7).
 void Rva002EBCA7Split(void *obj, Int *radius, unsigned char *center);

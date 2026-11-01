@@ -245,18 +245,7 @@ struct TBridgeAttackInfo
 {
     Coord3D point1, point2;
 };
-class TerrainLogic
-{
-  public:
-    virtual void s000();
-    virtual void s004();
-    virtual void s008();
-    virtual void s00C();
-    virtual void s010();
-    virtual void s014();
-    virtual float getGroundHeight(float x, float y, Coord3D *normal) const; // +0x18
-    void getBridgeAttackPoints(const Object *, TBridgeAttackInfo *);
-};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 class Pathfinder
 {

@@ -63,19 +63,7 @@ public:
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/TerrainLogic.h
 // Only the getLayerHeight slot (+0x1C) is used; the others stay pure so this
 // file manufactures no vtable.
-class TerrainLogic
-{
-public:
-	virtual void unused00() = 0;
-	virtual void unused04() = 0;
-	virtual void unused08() = 0;
-	virtual void unused0c() = 0;
-	virtual void unused10() = 0;
-	virtual void unused14() = 0;
-	virtual void unused18() = 0;
-	virtual Real getLayerHeight(Real x, Real y, PathfindLayerEnum layer,
-		Coord3D *normal = 0, Bool clip = true) const = 0;
-};
+#include "../../../../GameEngine/Include/GameLogic/TerrainLogic.h"
 
 extern AI *TheAI;
 extern TerrainLogic *TheTerrainLogic;

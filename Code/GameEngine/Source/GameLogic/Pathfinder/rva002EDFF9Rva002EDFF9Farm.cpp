@@ -45,11 +45,7 @@ char m_pad78[0x274 - 0x78];
 KindHolder *m_kind274; // +0x274
 };
 
-class TerrainLogic
-{
-public:
-PathfindLayerEnum getLayerForDestination(Object *obj, const Coord3D *pos);
-};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 
 extern TerrainLogic *TheTerrainLogic;
 

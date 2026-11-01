@@ -146,11 +146,7 @@ private:
 // completion teleports through the dock bone, resets bits81..84 and unhides.
 class MonsterDockUpdateModuleData { public: char m_pad00[0x14]; unsigned int m_actionFrames; };
 
-class TerrainLogic { public:
- virtual void s0();virtual void s1();virtual void s2();virtual void s3();
- virtual void s4();virtual void s5();virtual void s6();
- virtual float getLayerHeight(float,float,PathfindLayerEnum,Coord3D*,bool) const;
-};
+#include "../../../../Include/GameLogic/TerrainLogic.h"
 
 extern TerrainLogic *TheTerrainLogic;
 

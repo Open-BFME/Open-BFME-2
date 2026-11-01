@@ -161,17 +161,7 @@ enum DisabledType
 
 extern GameLogic *TheGameLogic;
 
-class TerrainLogic
-{
-public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
-	virtual Real getGroundHeight(Real x, Real y, Coord3D *normal = 0);
-};
+#include "../../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 
 int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
