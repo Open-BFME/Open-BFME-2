@@ -20016,3 +20016,4 @@ Code/GameEngineDevice/Source/W3DDevice/GameClient/Gen_006e9160_Init.cpp|member|G
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Gen_006e9160_Init.cpp|member|Gen_006e9160_Triple|m_8,e10d01d3e42cee51c04213e3,drz-k3,n30c2-k3,w-077d7aeb666b,2026-11-01
 Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptDisplayStringAllocation_ctor_Rva004D5A4D.cpp|class||Rva00788290Allocation,296c42f8b26a4c4c92ad278c,drz-k3,n30c2-k3,w-077d7aeb666b,2026-11-01
 Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DGameWindowManagerGadgets.cpp|function|0x0008FFE0|rva0008FFE0,da9540e39bb44bc74d77ade5,drz-k3,n30c2-k3,w-077d7aeb666b,2026-11-01
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009CD9BSunRaysSetup.cpp|function|0x0009CD9B|rva0009CD9B,50914b94fe144bdf47d122cb,drz-k9,n30d2-k9,w-4d4d8f8584bc,2026-11-01
