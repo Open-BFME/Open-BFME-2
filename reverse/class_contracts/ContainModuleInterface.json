@@ -1,0 +1,401 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "ContainModuleInterface",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 40,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {},
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "4": 40
+  },
+  "views": 40,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_ContainModuleInterface.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/ContainModule.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 34,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 2
+ },
+ "outliers": [],
+ "queue": [],
+ "size": 4,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "slot00()"
+  },
+  "1": {
+   "decided_by": "majority",
+   "member": "slot01()"
+  },
+  "10": {
+   "decided_by": "majority",
+   "member": "slot10()"
+  },
+  "11": {
+   "decided_by": "majority",
+   "member": "slot11()"
+  },
+  "12": {
+   "decided_by": "majority",
+   "member": "slot12()"
+  },
+  "13": {
+   "decided_by": "majority",
+   "member": "slot13()"
+  },
+  "14": {
+   "decided_by": "majority",
+   "member": "slot14()"
+  },
+  "15": {
+   "decided_by": "majority",
+   "member": "slot15()"
+  },
+  "16": {
+   "decided_by": "majority",
+   "member": "slot16()"
+  },
+  "17": {
+   "decided_by": "majority",
+   "member": "slot17()"
+  },
+  "18": {
+   "decided_by": "majority",
+   "member": "slot18()"
+  },
+  "19": {
+   "decided_by": "majority",
+   "member": "slot19()"
+  },
+  "2": {
+   "decided_by": "majority",
+   "member": "slot02()"
+  },
+  "20": {
+   "decided_by": "majority",
+   "member": "slot20()"
+  },
+  "21": {
+   "decided_by": "majority",
+   "member": "slot21()"
+  },
+  "22": {
+   "decided_by": "majority",
+   "member": "slot22()"
+  },
+  "23": {
+   "decided_by": "majority",
+   "member": "slot23()"
+  },
+  "24": {
+   "decided_by": "majority",
+   "member": "slot24()"
+  },
+  "25": {
+   "decided_by": "majority",
+   "member": "slot25()"
+  },
+  "26": {
+   "decided_by": "majority",
+   "member": "slot26()"
+  },
+  "27": {
+   "decided_by": "majority",
+   "member": "slot27()"
+  },
+  "28": {
+   "decided_by": "majority",
+   "member": "slot28()"
+  },
+  "29": {
+   "decided_by": "majority",
+   "member": "slot29()"
+  },
+  "3": {
+   "decided_by": "majority",
+   "member": "slot03()"
+  },
+  "30": {
+   "decided_by": "majority",
+   "member": "slot30()"
+  },
+  "31": {
+   "decided_by": "majority",
+   "member": "slot31()"
+  },
+  "32": {
+   "decided_by": "majority",
+   "member": "slot32()"
+  },
+  "33": {
+   "decided_by": "majority",
+   "member": "slot33()"
+  },
+  "34": {
+   "decided_by": "majority",
+   "member": "slot34()"
+  },
+  "35": {
+   "decided_by": "majority",
+   "member": "slot35()"
+  },
+  "36": {
+   "decided_by": "majority",
+   "member": "slot36()"
+  },
+  "37": {
+   "decided_by": "majority",
+   "member": "slot37()"
+  },
+  "38": {
+   "decided_by": "majority",
+   "member": "slot38()"
+  },
+  "39": {
+   "decided_by": "majority",
+   "member": "slot39()"
+  },
+  "4": {
+   "decided_by": "majority",
+   "member": "slot04()"
+  },
+  "40": {
+   "decided_by": "majority",
+   "member": "slot40()"
+  },
+  "41": {
+   "decided_by": "majority",
+   "member": "slot41()"
+  },
+  "42": {
+   "decided_by": "majority",
+   "member": "slot42()"
+  },
+  "43": {
+   "decided_by": "majority",
+   "member": "slot43()"
+  },
+  "44": {
+   "decided_by": "majority",
+   "member": "slot44()"
+  },
+  "45": {
+   "decided_by": "majority",
+   "member": "slot45()"
+  },
+  "46": {
+   "decided_by": "majority",
+   "member": "slot46()"
+  },
+  "47": {
+   "decided_by": "majority",
+   "member": "slot47()"
+  },
+  "48": {
+   "decided_by": "majority",
+   "member": "slot48()"
+  },
+  "49": {
+   "decided_by": "majority",
+   "member": "slot49()"
+  },
+  "5": {
+   "decided_by": "majority",
+   "member": "slot05()"
+  },
+  "50": {
+   "decided_by": "majority",
+   "member": "slot50()"
+  },
+  "51": {
+   "decided_by": "majority",
+   "member": "slot51()"
+  },
+  "52": {
+   "decided_by": "majority",
+   "member": "slot52()"
+  },
+  "53": {
+   "decided_by": "majority",
+   "member": "slot53()"
+  },
+  "54": {
+   "decided_by": "majority",
+   "member": "slot54()"
+  },
+  "55": {
+   "decided_by": "majority",
+   "member": "slot55()"
+  },
+  "56": {
+   "decided_by": "majority",
+   "member": "slot56()"
+  },
+  "57": {
+   "decided_by": "majority",
+   "member": "slot57()"
+  },
+  "58": {
+   "decided_by": "majority",
+   "member": "slot58()"
+  },
+  "59": {
+   "decided_by": "majority",
+   "member": "slot59()"
+  },
+  "6": {
+   "decided_by": "majority",
+   "member": "slot06()"
+  },
+  "60": {
+   "decided_by": "majority",
+   "member": "slot60()"
+  },
+  "61": {
+   "decided_by": "majority",
+   "member": "slot61()"
+  },
+  "62": {
+   "decided_by": "majority",
+   "member": "slot62()"
+  },
+  "63": {
+   "decided_by": "majority",
+   "member": "slot63()"
+  },
+  "64": {
+   "decided_by": "majority",
+   "member": "slot64()"
+  },
+  "65": {
+   "decided_by": "majority",
+   "member": "slot65()"
+  },
+  "66": {
+   "decided_by": "majority",
+   "member": "slot66()"
+  },
+  "67": {
+   "decided_by": "majority",
+   "member": "slot67()"
+  },
+  "68": {
+   "decided_by": "majority",
+   "member": "slot68()"
+  },
+  "69": {
+   "decided_by": "majority",
+   "member": "slot69()"
+  },
+  "7": {
+   "decided_by": "majority",
+   "member": "slot07()"
+  },
+  "70": {
+   "decided_by": "majority",
+   "member": "slot70()"
+  },
+  "71": {
+   "decided_by": "majority",
+   "member": "slot71()"
+  },
+  "72": {
+   "decided_by": "majority",
+   "member": "slot72()"
+  },
+  "73": {
+   "decided_by": "majority",
+   "member": "slot73()"
+  },
+  "74": {
+   "decided_by": "majority",
+   "member": "slot74()"
+  },
+  "75": {
+   "decided_by": "majority",
+   "member": "slot75()"
+  },
+  "76": {
+   "decided_by": "majority",
+   "member": "slot76()"
+  },
+  "77": {
+   "decided_by": "majority",
+   "member": "slot77()"
+  },
+  "78": {
+   "decided_by": "majority",
+   "member": "slot78()"
+  },
+  "79": {
+   "decided_by": "majority",
+   "member": "slot79()"
+  },
+  "8": {
+   "decided_by": "majority",
+   "member": "slot08()"
+  },
+  "80": {
+   "decided_by": "bytes",
+   "member": "slot80()"
+  },
+  "81": {
+   "decided_by": "majority",
+   "member": "getPlayerWhoEntered()"
+  },
+  "82": {
+   "decided_by": "bytes",
+   "member": "slot82()"
+  },
+  "83": {
+   "decided_by": "bytes",
+   "member": "slot83()"
+  },
+  "84": {
+   "decided_by": "bytes",
+   "member": "slot84()"
+  },
+  "85": {
+   "decided_by": "bytes",
+   "member": "slot85()"
+  },
+  "86": {
+   "decided_by": "bytes",
+   "member": "getEnterPosition()"
+  },
+  "9": {
+   "decided_by": "majority",
+   "member": "slot09()"
+  }
+ }
+}
