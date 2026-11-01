@@ -130,11 +130,7 @@ bool (W3DHordeModelDrawHandle::*g_HordePartOfSameGroupBody)(const W3DHordeModelD
 // Existing attachment source lead retained; no attachment body is claimed here.
 enum NameKeyType { NAMEKEY_INVALID = 0, NK_UNKNOWN = 0 };
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

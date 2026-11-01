@@ -73,11 +73,7 @@ public:
 	BfmeMemberRV *m_local10;
 };
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const AsciiString &s);
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 
 class GameSlot
 {

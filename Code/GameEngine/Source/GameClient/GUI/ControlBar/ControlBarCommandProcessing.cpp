@@ -66,7 +66,7 @@ class PickAndPlayInfo { public:
  void *other; Coord3D pos; const CommandButton *commandButton;
 };
 bool __cdecl pickAndPlayUnitVoiceResponse(const DrawableList*,GameMessage::Type,PickAndPlayInfo*);
-class NameKeyGenerator { public: NameKeyType nameToKey(const char*); };
+#include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 class Keyboard { public: bool isShift(); }; extern Keyboard *TheKeyboard;
 extern GameLogic *TheGameLogic;

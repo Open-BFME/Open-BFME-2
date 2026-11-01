@@ -537,7 +537,7 @@ void Rva00224CDC::rva002238E6(AsciiString name)
 #include "GameWindowManagerRecordView.h"
 #include <list>
 enum NameKeyType {NAMEKEY_INVALID=0};
-class NameKeyGenerator {public: NameKeyType nameToKey(const AsciiString &);};
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 class Rva00DFF024Registry {public: void *lookup56(int,int);};
 class FunctionLexicon {

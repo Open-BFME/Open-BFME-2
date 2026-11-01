@@ -34,11 +34,7 @@ public:
 	int m_shroudedEvent; // +0x5A8
 };
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 enum EvaEventID

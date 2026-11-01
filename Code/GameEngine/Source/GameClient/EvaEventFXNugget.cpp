@@ -30,11 +30,7 @@ class ClientUpdateModule
 #include "../../../Libraries/Include/Lib/Coord2D.h"
 #include "../../../Libraries/Include/Lib/RGBColor.h"
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

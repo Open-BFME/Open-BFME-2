@@ -110,7 +110,8 @@ typedef _STL::_Rb_tree<AsciiString,WindowPathPair,_STL::_Select1st<WindowPathPai
 extern unsigned int AptComponentWindowDataTableStorage[5];extern unsigned g_Va00E03020;
 class AptShutdownReceiverView;extern AptShutdownReceiverView*AptShutdownReceiverInstance;
 enum NameKeyType;
-class NameKeyGenerator {public:NameKeyType nameToKey(const char*);};extern NameKeyGenerator*TheNameKeyGenerator;
+#include "../../../Include/Common/NameKeyGenerator.h"
+extern NameKeyGenerator*TheNameKeyGenerator;
 void*__stdcall createBinkGameWindow(void*);void*__stdcall createAptScreenInGameChat(void*);
 Rva004102C8Arg*Rva004115A9Create(const Coord2D*origin,const Coord2D*size,const char*path,const char*params,const AsciiString*name){
  int level=AptUtils::LevelIndexFromTarget(path);

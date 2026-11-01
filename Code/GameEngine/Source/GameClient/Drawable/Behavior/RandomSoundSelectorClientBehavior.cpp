@@ -216,11 +216,7 @@ public:
 	virtual void slot1C(); virtual void slot1D(); virtual void slot1E(); virtual int slot1F();
 };
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

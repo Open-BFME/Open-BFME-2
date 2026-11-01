@@ -60,7 +60,8 @@ struct FieldParse {const char*name;void(*parse)(INI*,void*,void*,const void*);co
 class INI {public:const char*getNextToken(const char*);void initFromINI(void*,const FieldParse*);static void parseBool(INI*,void*,void*,const void*);char opaque00[8];int loadType;};
 enum NameKeyType{NAMEKEY_INVALID=0,NAMEKEY_MAX=1<<23,FORCE_NAMEKEYTYPE_LONG=0x7fffffff};
 namespace rts {template<class T>struct hash {size_t operator()(const T&x)const{return (size_t)x;}};}
-class NameKeyGenerator{public:NameKeyType nameToKey(const char*);};extern NameKeyGenerator*TheNameKeyGenerator;
+#include "../../Include/Common/NameKeyGenerator.h"
+extern NameKeyGenerator*TheNameKeyGenerator;
 class FXList {public:static void parseCullingInfo(INI*,void*,void*,const void*);};
 class Rva001E2747:public FXList {public:Rva001E2747(const AsciiString&);virtual ~Rva001E2747();char opaque04[0x20];bool override24;};
 class SoundFXNugget{public:static void parse(INI*,void*,void*,const void*);};
