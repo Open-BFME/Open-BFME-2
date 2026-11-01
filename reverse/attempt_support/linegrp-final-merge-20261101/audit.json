@@ -1,0 +1,23 @@
+{
+  "base": "987ee56fdcfc3456f9376165585d5f18a498648d",
+  "prepared_head": "08082c3596200105406275080b1aa1bb9454067f",
+  "moves": {
+    "Code/Libraries/Source/WWVegas/WW3D2/LineGroupClassDestructor.cpp": "Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp"
+  },
+  "old_first_source_definitions": 75,
+  "new_definitions": 75,
+  "distinct_old_variants": [
+    {
+      "symbol": "??_H@YGXPAXIHP6EPAX0@Z@Z",
+      "source": "destructor-before",
+      "first_sha256": "bdac4502c2d582422a740fe80a75f77ff1e3ae581d66648d9b84093ca5fc71d6",
+      "other_sha256": "020df369b760640548bbcf9316008af700d4d7b064148b929b47c1c543a0e90d"
+    }
+  ],
+  "added": [],
+  "removed": [],
+  "changed_from_seed_first_copy": [],
+  "active_tool_hook_workflow_mentions": [],
+  "remaining_active_register_mentions": [],
+  "checks": "Only four map source columns repointed; no map regeneration. Header/MS queues refreshed by tu_skeleton. DX destination rescanned. No absorbed data/identity/gate keys; required flag override transferred. Historical attempt/census/from-donor references retained. LinkGuard judges both exact cohort placements and selected copies at the actual merged rank."
+}

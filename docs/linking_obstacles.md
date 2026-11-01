@@ -5518,7 +5518,7 @@ Whole-unit clearance and census confirmation remain pending.
   unchanged callback provider passes156/156. Both tables now have44 bytes.
   The before-preview already links the six callers for13351 authored bytes;
   no new census gain is claimed. The normal shared-header gate now passes
-  537/537 functions across66 units and all27 data rows; the direct gate
+  537/537 functions across66 units and all 27 data rows; the direct gate
   passes75/75 and six EXACT EH graphs. No old font-symbol consumers remain
   in the22302-unit name-dependents scan. The index lacks consumer metadata,
   so whole-batch selection/loss closure remains unverified; carry this
@@ -16822,17 +16822,32 @@ Evidence: reverse/attempt_support/linegrp-owning-layout-20261101/.
 
 ## LineGroup stale link-order fence (2026-11-01)
 
-The final27-row composition is exact, but its first supported attempt refused
+The final 27-row composition is exact, but its first supported attempt refused
 an earlier-order condition even though both sources have census objects. The
-seed's earlier verified Render absorption moved its current rank3825 ahead of
-the old destructor slot3826. No live outsider lies between, and all surviving
+seed's earlier verified Render absorption moved its current rank 3825 ahead of
+the old destructor slot 3826. No live outsider lies between, and all surviving
 census outsiders retain their side. Recorded false reject and independent
 review led to a separate verifier repair: require exact cohort mappings and
 unchanged outside ordering, then use the actual merged rank for copy exemptions.
-157 consolidation tests and61 exploit tests pass (one existing skip), including
+157 consolidation tests and 61 exploit tests pass (one existing skip), including
 the stale-holder different-body rejection. No game source or census changed in
 that repair; final absorption still runs through the ordinary merge lane.
 Evidence: reverse/attempt_support/linegrp-link-order-fence-20261101/.
+
+## LineGroup destructor merged (2026-11-01)
+
+Cleared in the final LineGroup scope: the supported merge now absorbs the
+destructor's four rows into linegrp.cpp, removing one source file. All 27 rows,
+12 float references and both EH graphs pass strict checks. The 75 retained
+complete definitions preserve the seed-first bytes and symbolic relocations;
+the distinct old incidental destructor iterator is explicitly recorded. The
+ordinary link guard accepts the current placement, and the scoped preview links
+5,289 bytes. This is retained/repointed coverage, not a new global census gain.
+Path consumers, header/MS queues, DX queue, protected keys and map repoints were
+audited. AICowerState_onEnter now has a current strict receipt; the full outgoing
+audit and next scheduled census still decide wider clearance. The two unrowed
+donor providers and the mixed meshmatdesc row remain separate prerequisites.
+Evidence: reverse/attempt_support/linegrp-final-merge-20261101/.
 
 ### LINK-170: Player donor-closure removal (`da3e48530e`) unresolved three Player consumers (2026-11-01, seat halilkkaya-lk12)
 

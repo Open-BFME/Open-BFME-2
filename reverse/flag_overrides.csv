@@ -550,7 +550,6 @@ Code/Libraries/Source/VP6/TmpBuffers.cpp,-O2 -G6,2,2,region default loses rows
 Code/Libraries/Source/WWVegas/WW3D2/BFME2MotionChannelCtor.cpp,-O1,1,1,region default loses rows
 Code/Libraries/Source/WWVegas/WW3D2/FXShaderStandardSemantics.cpp,-O1,1,1,region default loses rows
 Code/Libraries/Source/WWVegas/WW3D2/HTreePrototypeOwnerAssign.cpp,-O1,1,1,region default loses rows
-Code/Libraries/Source/WWVegas/WW3D2/LineGroupClassDestructor.cpp,-O2 -arch:SSE -G7,4,2,region default loses rows
 Code/Libraries/Source/WWVegas/WW3D2/LineGroupClassRva004334AF.cpp,-G7,1,1,region default loses rows
 Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescFXShaderConversion.cpp,-O1 -G7 -arch:SSE,1,1,region default loses rows
 Code/Libraries/Source/WWVegas/WW3D2/RayCollisionCopyCtor.cpp,-arch:SSE -G7,1,1,region default loses rows
@@ -568,7 +567,7 @@ Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,-arch:SSE -G7,55,33,region defaul
 Code/Libraries/Source/WWVegas/WW3D2/coltest.cpp,,2,2,region default loses rows
 Code/Libraries/Source/WWVegas/WW3D2/distlod.cpp,,10,2,region default loses rows
 Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp,-arch:SSE -G7,1,1,region default loses rows
-Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp,-O2 -arch:SSE -G7,20,11,region default loses rows
+Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp,-O2 -arch:SSE -G7,24,13,region default loses rows
 Code/Libraries/Source/WWVegas/WW3D2/matpass.cpp,,3,1,region default loses rows
 Code/Libraries/Source/WWVegas/WW3D2/meshmdl.cpp,-G7,2,2,region default loses rows
 Code/Libraries/Source/WWVegas/WW3D2/pot.cpp,-G7,2,2,region default loses rows

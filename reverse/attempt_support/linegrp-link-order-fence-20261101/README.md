@@ -2,11 +2,11 @@
 
 The recorded false reject is the final LineGroup merge against index dae306bc9d.
 Both current sources have exact census mappings. The old seed slot is 3827,
-the destructor slot 3826; the seed now starts at rank3825 because verified
-22ce257c44 already absorbed Render. Old Render slot3825 is genuinely gone.
+the destructor slot 3826; the seed now starts at rank 3825 because verified
+22ce257c44 already absorbed Render. Old Render slot 3825 is genuinely gone.
 There is no live outside object in the current gap and every surviving census
-outsider remains on the same side. The candidate matches all27 native rows,
-retains all75 complete first-source code definitions/relocations, and has no
+outsider remains on the same side. The candidate matches all 27 native rows,
+retains all 75 complete first-source code definitions/relocations, and has no
 other link findings. Distinct standalone iterator copies are recorded, not
 hidden behind a claim that both copies are identical.
 
@@ -18,7 +18,7 @@ copy exemptions: the stale holder's different body cannot be grandfathered.
 All unresolved, provider, selected-body, relocation and keep-rule checks still
 run. No index, census, baseline or game source is changed by this verifier fix.
 
-Validation:157 consolidation tests;61 exploit tests pass,1 existing skip.
+Validation: 157 consolidation tests ; 61 exploit tests pass, 1 existing skip.
 Tests include the real stale-known-cohort shape, genuine earlier new donors,
 live/unindexed crossings, changed sides, wrong object mappings, gone/live
 intermediaries and the stale-holder different-body counterexample. The older

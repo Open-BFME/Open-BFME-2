@@ -12,27 +12,39 @@
 
 const unsigned dynamic_fvf_type=D3DFVF_XYZ|D3DFVF_NORMAL|D3DFVF_TEX2|D3DFVF_DIFFUSE;
 
+
 class DX8Wrapper;
+
 
 class SortingRendererClass;
 
+
 class Vector2;
+
 
 class Vector3;
 
+
 class Vector4;
+
 
 class StringClass;
 
+
 class DX8VertexBufferClass;
+
 
 class FVFInfoClass;
 
+
 struct IDirect3DVertexBuffer8;
+
 
 class VertexBufferClass;
 
+
 struct VertexFormatXYZNDUV2;
+
 
 class VertexBufferLockClass
 {
@@ -43,6 +55,7 @@ protected:
 public:
 	void* Get_Vertex_Array() { return Vertices; }
 };
+
 
 class VertexBufferClass : public W3DMPO, public RefCountClass
 {
@@ -80,6 +93,7 @@ protected:
 	unsigned char					m_BFMEPadding[3];
 };
 
+
 class DynamicVBAccessClass
 {
 	friend DX8Wrapper;
@@ -114,6 +128,7 @@ public:
 	};
 	friend WriteLock;
 };
+
 
 class DX8VertexBufferClass : public VertexBufferClass
 {
@@ -153,13 +168,18 @@ protected:
 #include "sphere.h"
 class DX8Wrapper;
 
+
 class SortingRendererClass;
+
 
 struct IDirect3DIndexBuffer8;
 
+
 class DX8IndexBufferClass;
 
+
 class SortingIndexBufferClass;
+
 
 class IndexBufferClass : public W3DMPO, public RefCountClass
 {
@@ -201,6 +221,7 @@ protected:
 	unsigned						type;
 };
 
+
 class DynamicIBAccessClass : public W3DMPO
 {
 	W3DMPO_GLUE(DynamicIBAccessClass)
@@ -233,6 +254,7 @@ public:
 	friend WriteLockClass;
 };
 
+
 class DX8IndexBufferClass : public IndexBufferClass
 {
 	friend IndexBufferClass::WriteLockClass;
@@ -256,6 +278,7 @@ private:
 	IDirect3DIndexBuffer8*	index_buffer;		 
 };
 
+
 class SortingIndexBufferClass : public IndexBufferClass
 {
 	friend DX8Wrapper;
@@ -269,6 +292,7 @@ public:
 protected:
 	unsigned short* index_buffer;
 };
+
 
 extern int IndexBufferExceptionFunc(void);
 #endif
@@ -300,11 +324,15 @@ extern int IndexBufferExceptionFunc(void);
 #define	VALUE_NAME_RENDER_DEVICE_TEXTURE_DEPTH		"RenderDeviceTextureDepth"
 const unsigned MAX_TEXTURE_STAGES=16;
 
+
 const unsigned MAX_VERTEX_STREAMS=2;
+
 
 const unsigned MAX_VERTEX_SHADER_CONSTANTS=96;
 
+
 const unsigned MAX_PIXEL_SHADER_CONSTANTS=8;
+
 
 const unsigned MAX_SHADOW_MAPS=1;
 #define prevVer
@@ -318,29 +346,42 @@ enum {
 	BUFFER_TYPE_INVALID
 };
 
+
 class VertexMaterialClass;
+
 
 class CameraClass;
 
+
 class LightEnvironmentClass;
+
 
 class RenderDeviceDescClass;
 
+
 class VertexBufferClass;
+
 
 class DynamicVBAccessClass;
 
+
 class IndexBufferClass;
+
 
 class DynamicIBAccessClass;
 
+
 class TextureClass;
+
 
 class ZTextureClass;
 
+
 class LightClass;
 
+
 class SurfaceClass;
+
 
 class DX8Caps;
 #define DX8_RECORD_MATRIX_CHANGE()				matrix_changes++
@@ -354,11 +395,15 @@ class DX8Caps;
 #define DX8_RECORD_DRAW_CALLS()					draw_calls++
 extern unsigned number_of_DX8_calls;
 
+
 extern bool _DX8SingleThreaded;
+
 
 void DX8_Assert();
 
+
 void Log_DX8_ErrorCode(unsigned res);
+
 
 WWINLINE void DX8_ErrorCode(unsigned res)
 {
@@ -399,6 +444,7 @@ public:
 	virtual void ReAcquireResources(void)=0;
 };
 
+
 struct RenderStateStruct
 {
 	ShaderClass shader;
@@ -420,6 +466,7 @@ struct RenderStateStruct
 	~RenderStateStruct();
 	RenderStateStruct& operator= (const RenderStateStruct& src);
 };
+
 
 class DX8Wrapper
 {
@@ -764,6 +811,7 @@ protected:
 	friend class DX8VertexBufferClass;
 };
 
+
 WWINLINE void DX8Wrapper::Set_Vertex_Shader_Constant(int reg, const void* data, int count)
 {
 	int memsize=sizeof(Vector4)*count;
@@ -771,6 +819,7 @@ WWINLINE void DX8Wrapper::Set_Vertex_Shader_Constant(int reg, const void* data, 
 	memcpy(&Vertex_Shader_Constants[reg],data,memsize);
 	DX8CALL(SetVertexShaderConstant(reg,data,count));
 }
+
 
 WWINLINE void DX8Wrapper::Set_Pixel_Shader_Constant(int reg, const void* data, int count)
 {
@@ -780,6 +829,7 @@ WWINLINE void DX8Wrapper::Set_Pixel_Shader_Constant(int reg, const void* data, i
 	DX8CALL(SetPixelShaderConstant(reg,data,count));
 }
 
+
 WWINLINE void DX8Wrapper::Set_Index_Buffer_Index_Offset(unsigned offset)
 {
 	if (render_state.index_base_offset==offset) return;
@@ -787,11 +837,13 @@ WWINLINE void DX8Wrapper::Set_Index_Buffer_Index_Offset(unsigned offset)
 	render_state_changed|=INDEX_BUFFER_CHANGED;
 }
 
+
 WWINLINE void DX8Wrapper::Set_Ambient(const Vector3& color)
 {
 	Ambient_Color=color;
 	Set_DX8_Render_State(D3DRS_AMBIENT, DX8Wrapper::Convert_Color(color,0.0f));
 }
+
 
 WWINLINE void DX8Wrapper::Set_DX8_Material(const D3DMATERIAL8* mat)
 {
@@ -800,6 +852,7 @@ WWINLINE void DX8Wrapper::Set_DX8_Material(const D3DMATERIAL8* mat)
 	SNAPSHOT_SAY(("DX8 - SetMaterial\n"));
 	DX8CALL(SetMaterial(mat));
 }
+
 
 WWINLINE void DX8Wrapper::Set_DX8_Light(int index, D3DLIGHT8* light)
 {
@@ -818,6 +871,7 @@ WWINLINE void DX8Wrapper::Set_DX8_Light(int index, D3DLIGHT8* light)
 	}
 }
 
+
 WWINLINE void DX8Wrapper::Set_DX8_Render_State(D3DRENDERSTATETYPE state, unsigned value)
 {
 	if (RenderStates[state]==value) return;
@@ -834,6 +888,7 @@ WWINLINE void DX8Wrapper::Set_DX8_Render_State(D3DRENDERSTATETYPE state, unsigne
 	DX8CALL(SetRenderState( state, value ));
 	DX8_RECORD_RENDER_STATE_CHANGE();
 }
+
 
 WWINLINE void DX8Wrapper::Set_DX8_Texture_Stage_State(unsigned stage, D3DTEXTURESTAGESTATETYPE state, unsigned value)
 {
@@ -857,6 +912,7 @@ WWINLINE void DX8Wrapper::Set_DX8_Texture_Stage_State(unsigned stage, D3DTEXTURE
 	DX8_RECORD_TEXTURE_STAGE_STATE_CHANGE();
 }
 
+
 WWINLINE void DX8Wrapper::Set_DX8_Texture(unsigned int stage, IDirect3DBaseTexture8* texture)
 {
 	typedef HRESULT (__stdcall *BFMESetTexture)(IDirect3DDevice8 *, DWORD, IDirect3DBaseTexture8 *);
@@ -877,6 +933,7 @@ WWINLINE void DX8Wrapper::Set_DX8_Texture(unsigned int stage, IDirect3DBaseTextu
 	number_of_DX8_calls++;
 	DX8_RECORD_TEXTURE_CHANGE();
 }
+
 
 WWINLINE Vector4 DX8Wrapper::Convert_Color(unsigned color)
 {
@@ -900,6 +957,7 @@ WWINLINE unsigned int DX8Wrapper::Convert_Color(const Vector3& color, const floa
 	WWASSERT(alpha>=0.0f);
 	return D3DCOLOR_COLORVALUE(color.X,color.Y,color.Z,alpha);
 }
+
 
 WWINLINE unsigned int DX8Wrapper::Convert_Color(const Vector4& color)
 {
@@ -969,10 +1027,12 @@ not_changed:
 	return col;
 }
 
+
 WWINLINE unsigned int DX8Wrapper::Convert_Color(const Vector4& color)
 {
 	return Convert_Color(reinterpret_cast<const Vector3&>(color),color[3]);
 }
+
 
 WWINLINE unsigned int DX8Wrapper::Convert_Color_Clamp(const Vector4& color)
 {
@@ -986,12 +1046,14 @@ WWINLINE void DX8Wrapper::Get_Render_State(RenderStateStruct& state)
 	state=render_state;
 }
 
+
 __declspec(dllimport) __forceinline void DX8Wrapper::Set_Material(const VertexMaterialClass* material)
 {
 	REF_PTR_SET(render_state.material,const_cast<VertexMaterialClass*>(material));
 	render_state_changed|=MATERIAL_CHANGED;
 	SNAPSHOT_SAY(("DX8Wrapper::Set_Material(%s)\n",material ? material->Get_Name() : "NULL"));
 }
+
 
 __declspec(dllimport) __forceinline void DX8Wrapper::Set_Shader(const ShaderClass& shader)
 {
@@ -1005,6 +1067,7 @@ __declspec(dllimport) __forceinline void DX8Wrapper::Set_Shader(const ShaderClas
 #endif
 	SNAPSHOT_SAY(("DX8Wrapper::Set_Shader(%s)\n",shader.Get_Description(str)));
 }
+
 
 WWINLINE void DX8Wrapper::Set_Transform(D3DTRANSFORMSTATETYPE transform,const Matrix4x4& matrix4x4)
 {
@@ -1035,6 +1098,7 @@ WWINLINE void DX8Wrapper::Set_Transform(D3DTRANSFORMSTATETYPE transform,const Ma
 	}
 }
 
+
 WWINLINE void DX8Wrapper::Set_Transform(D3DTRANSFORMSTATETYPE transform,const Matrix3D& matrix3D)
 {
 	Matrix4x4 m2(matrix3D);
@@ -1057,6 +1121,7 @@ WWINLINE void DX8Wrapper::Set_Transform(D3DTRANSFORMSTATETYPE transform,const Ma
 	}
 }
 
+
 WWINLINE void DX8Wrapper::Set_World_Identity()
 {
 	if (render_state_changed&(unsigned)WORLD_IDENTITY) return;
@@ -1064,12 +1129,14 @@ WWINLINE void DX8Wrapper::Set_World_Identity()
 	render_state_changed|=(unsigned)WORLD_CHANGED|(unsigned)WORLD_IDENTITY;
 }
 
+
 WWINLINE void DX8Wrapper::Set_View_Identity()
 {
 	if (render_state_changed&(unsigned)VIEW_IDENTITY) return;
 	render_state.view.Make_Identity();
 	render_state_changed|=(unsigned)VIEW_CHANGED|(unsigned)VIEW_IDENTITY;
 }
+
 
 WWINLINE void DX8Wrapper::Get_Transform(D3DTRANSFORMSTATETYPE transform, Matrix4x4& matrix4x4)
 {
@@ -1090,6 +1157,7 @@ WWINLINE void DX8Wrapper::Get_Transform(D3DTRANSFORMSTATETYPE transform, Matrix4
 		break;
 	}
 }
+
 
 WWINLINE void DX8Wrapper::Set_Render_State(const RenderStateStruct& state)
 {
@@ -1118,6 +1186,7 @@ WWINLINE void DX8Wrapper::Set_Render_State(const RenderStateStruct& state)
 	}
 }
 
+
 WWINLINE void DX8Wrapper::Release_Render_State()
 {
 	int i;
@@ -1140,6 +1209,7 @@ WWINLINE void DX8Wrapper::Release_Render_State()
 	}
 }
 
+
 WWINLINE unsigned flimby( char* name, unsigned crib )
 {
   unsigned lnt prevVer = 0x00000000;  
@@ -1153,6 +1223,7 @@ WWINLINE unsigned flimby( char* name, unsigned crib )
   }
   return (lnt) prevVer;
 }
+
 
 WWINLINE RenderStateStruct& RenderStateStruct::operator= (const RenderStateStruct& src)
 {
@@ -1203,7 +1274,9 @@ WWINLINE RenderStateStruct& RenderStateStruct::operator= (const RenderStateStruc
 #include "always.h"
 class SortingNodeStruct;
 
+
 class SphereClass;
+
 
 class SortingRendererClass
 {
@@ -1251,6 +1324,8 @@ void BFME2Set_Texture(unsigned stage, const BFME2TextureRef &texture);
 struct TargetCenter3 { float x,y,z; TargetCenter3(float a,float b,float c):x(a),y(b),z(c) {} };
 
 class BfmeSortingDispatchAt0012FE00 { public: static void Insert(const TargetCenter3 &, unsigned, unsigned, unsigned, unsigned); };
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/LineGroupClassRender.cpp
 
@@ -1361,11 +1436,11 @@ LineGroupClass::LineGroupClass(void) :
 {
 }
 
-// LineGroupClass::~LineGroupClass: defined in LineGroupClassDestructor.cpp (its row's unit).
+// LineGroupClass::~LineGroupClass is defined in this translation unit.
 
 // LineGroupClass::Set_Arrays: defined in linegrp.cpp (its row's unit).
 
-// LineGroupClass::Set_Line_Size: defined in linegrp_float_setters.cpp (its row's unit).
+// LineGroupClass::Set_Line_Size is defined in this translation unit.
 
 inline int LineGroupClass::Get_Flag(FlagsType flag){return (Flags >> flag)&1;}
 
@@ -1621,8 +1696,6 @@ void	LineGroupClass::Render(RenderInfoClass &rinfo)
 	DX8Wrapper::Set_Transform(D3DTS_VIEW, view);
 }
 
-// tu-skeleton: 0x001B3510 213B ??1LineGroupClass@@UAE@XZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/LineGroupClassDestructor.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp
 
 // Ported verbatim from the Generals Zero Hour reference
@@ -1709,13 +1782,13 @@ void LineGroupClass::Set_Line_UCoord(float ucoord)
 // and the LineUCoord determines the U coordinate of the texture to use
 // the V coordinate is always 0 at the flat end of the tetrahedron
 // and 1 at the apex
-// LineGroupClass::LineGroupClass: defined in LineGroupClassDefaultCtor.cpp (its row's unit).
+// LineGroupClass::LineGroupClass is defined in this translation unit.
 
-// LineGroupClass::~LineGroupClass: defined in LineGroupClassDestructor.cpp (its row's unit).
+// LineGroupClass::~LineGroupClass is defined in this translation unit.
 
 // LineGroupClass::Set_Arrays: defined later in this unit.
 
-// LineGroupClass::Set_Line_Size: defined in linegrp_float_setters.cpp (its row's unit).
+// LineGroupClass::Set_Line_Size is defined in this translation unit.
 
 float LineGroupClass::Get_Line_Size(void)
 {
@@ -1742,14 +1815,14 @@ Vector4 LineGroupClass::Get_Tail_Diffuse(void)
 	return DefaultTailDiffuse;
 }
 
-// LineGroupClass::Set_Line_Alpha: defined in linegrp_float_setters.cpp (its row's unit).
+// LineGroupClass::Set_Line_Alpha is defined in this translation unit.
 
 float LineGroupClass::Get_Line_Alpha(void)
 {
 	return DefaultLineAlpha;
 }
 
-// LineGroupClass::Set_Line_UCoord: defined in linegrp_float_setters.cpp (its row's unit).
+// LineGroupClass::Set_Line_UCoord is defined in this translation unit.
 
 float LineGroupClass::Get_Line_UCoord(void)
 {
@@ -1796,7 +1869,7 @@ void LineGroupClass::Set_Line_Mode(LineModeType linemode)
 	LineMode = linemode;
 }
 
-// LineGroupClass::Render: defined in LineGroupClassRender.cpp (its row's unit).
+// LineGroupClass::Render is defined in this translation unit.
 
 int LineGroupClass::Get_Polygon_Count(void)
 {
@@ -1858,8 +1931,18 @@ void LineGroupClass::Set_Arrays(
 	}
 }
 
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/LineGroupClassDestructor.cpp
+
+// ??1LineGroupClass@@UAE@XZ
+LineGroupClass::~LineGroupClass()
+{
+	REF_PTR_RELEASE(StartLineLoc);
+	REF_PTR_RELEASE(EndLineLoc);
+	REF_PTR_RELEASE(LineDiffuse);
+	REF_PTR_RELEASE(TailDiffuse);
+	REF_PTR_RELEASE(ALT);
+	REF_PTR_RELEASE(LineSize);
+	REF_PTR_RELEASE(LineUCoord);
+}
+
 // tu-skeleton: 0x001B3760 13B ?Get_Element@?$ShareBufferClass@VShaderClass@@@@QAEAAVShaderClass@@H@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/meshmatdesc.cpp (not merged yet)
-
-// tu-skeleton: 0x00769390 11B uw_00769390 -- matched in Code/Libraries/Source/WWVegas/WW3D2/LineGroupClassDestructor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076939B 10B __ehhandler$??1LineGroupClass@@UAE@XZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/LineGroupClassDestructor.cpp (not merged yet)
