@@ -20771,7 +20771,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A044E4,4,.data,global,?$S1@?9??findBestSupplyWarehouse@ResourceGatheringManager@@QAEPAVObject@@PAV3@@Z@4IA,Code/GameEngine/Source/Common/RTS/ResourceGatheringManager_findBestSupplyWarehouse.cpp,owned,,1,2
 0x00A044E8,4,.data,global,?key_centerUpdate@?9??findBestSupplyCenter@ResourceGatheringManager@@QAEPAVObject@@PAV3@@Z@4W4NameKeyType@@B,Code/GameEngine/Source/Common/RTS/ResourceGatheringManager_findBestSupplyWarehouse.cpp,owned,,1,2
 0x00A044EC,4,.data,global,?$S2@?9??findBestSupplyCenter@ResourceGatheringManager@@QAEPAVObject@@PAV3@@Z@4IA,Code/GameEngine/Source/Common/RTS/ResourceGatheringManager_findBestSupplyWarehouse.cpp,owned,,1,2
-0x00A044F0,16,.data,global,?g_00E044F0@@3VRva002B7250@@A,Code/GameEngine/Source/Common/Rva004EE5D2Erase.cpp,provisional,?g_00E044F0@@3VRva002B7250@@A;?g_Va00E044F0@@3IA,1,6
+0x00A044F0,16,.data,global,?g_00E044F0@@3VRva002B7250@@A,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,provisional,?g_00E044F0@@3VRva002B7250@@A;?g_Va00E044F0@@3IA,1,6
 0x00A04500,4,.data,global,?g_Va00E04500@@3IA,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,owned,,1,1
 0x00A04504,4,.data,global,_s_rva007B341C,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A04508,40,.data,global,?g_Va00E04508@@3IA,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,owned,,1,9

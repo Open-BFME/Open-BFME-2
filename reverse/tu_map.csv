@@ -42121,10 +42121,10 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x004EE501,63,code,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,approved,C,C=0x004EE33B..0x004EE540 provisional,Code/GameEngine/Source/Common/RvaVectorDtorFamily.cpp
 0x004EE540,30,code,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,approved,C,C=0x004EE33B..0x004EE55E provisional,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp
 0x004EE55E,116,code,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,approved,C,C=0x004EE33B..0x004EE5D2 provisional,Code/Libraries/Source/WWVegas/WWLib/StlVectorReserveProviderRepairs.cpp
-0x004EE5D2,195,code,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,approved,N,N=Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp provisional,Code/GameEngine/Source/Common/Rva004EE5D2Erase.cpp
+0x004EE5D2,195,code,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,approved,N,N=Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp provisional,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp
 0x004EE695,59,code,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,approved,N,N=Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp provisional,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp
 0x004EE6D0,186,code,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,approved,C,C=0x004EE695..0x004EE78A provisional,Code/GameEngine/Source/Common/Rva004EE6D0Insert.cpp
-0x004EE78A,20,code,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,approved,N,N=Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp provisional,Code/GameEngine/Source/Common/Rva004EE5D2Erase.cpp
+0x004EE78A,20,code,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,approved,N,N=Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp provisional,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp
 0x004EE79E,79,code,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,approved,N,N=Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp provisional,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp
 0x004EE7ED,203,code,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,approved,N,N=Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp provisional,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp
 0x004EE8B8,152,code,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,approved,C,W=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldScoreKeeper.cpp C=0x004EE7ED..0x004EE950 provisional,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp

@@ -242,7 +242,6 @@ void __cdecl Rva0052C37ADestroyRange(Rva0052BFB5Elem *first, Rva0052BFB5Elem *la
 #define BFME_SNAPSHOT_NAME_SLOT
 extern "C" __declspec(dllimport) long __cdecl time(long *);
 #define LW_OBSERVERS(offset) ((Rva005A0B4CList *)((char *)TheLivingWorldLogic + (offset)))
-
 // Native online reporter5C062E constructs the rowed seven-word224-bit
 // mask before these calls. Reconcile the argument view with its constructor;
 // the legacy filter helper ABI is retained through layout-preserving casts.
@@ -259,21 +258,13 @@ public:
 private:
 	unsigned m_words[7];
 };
-
 struct Rva00045411BitSet { unsigned m_words[7]; };
-
 class Xfer0051FFF5;
-
 void Rva004EE9E9(Xfer0051FFF5 *xfer, void *data);
-
 void Rva0040E269(Xfer0051FFF5 *xfer, void *data);
-
 Xfer *Rva0060C253Xfer(Xfer *xfer, Rva004EED02BoolList *list);
-
 void xferThingTemplateCountMap(Xfer *xfer, Rva004EED02CountMap *map);
-
 void XferLivingWorldPlayerID(Xfer *xfer, Int *id);
-
 class Rva004EE540
 {
 public:
@@ -283,19 +274,16 @@ private:
 	Rva0052BFB5Elem *m_start;
 	Rva0052BFB5Elem *m_finish;
 };
-
 struct Rva004EE35DObj
 {
 	char m_pad[0x108];
 	BitFlags<116> m_flags;
 };
-
 struct Rva004EE35DNode : _STL::_Rb_tree_node_base
 {
 	Rva004EE35DObj *m_10;
 	int m_14;
 };
-
 class Rva004EE35D
 {
 public:
@@ -304,19 +292,16 @@ private:
 	char m_pad[0xB4];
 	_STL::_Rb_tree_node_base *m_B4;
 };
-
 struct Rva004EE3ABObj
 {
 	char m_pad[0x108];
 	BitFlags<116> m_flags;
 };
-
 struct Rva004EE3ABNode : _STL::_Rb_tree_node_base
 {
 	Rva004EE3ABObj *m_10;
 	int m_14;
 };
-
 class Rva004EE3AB
 {
 public:
@@ -325,19 +310,16 @@ private:
 	char m_pad[0xC0];
 	_STL::_Rb_tree_node_base *m_C0;
 };
-
 struct Rva004EE3F9Obj
 {
 	char m_pad[0x108];
 	BitFlags<116> m_flags;
 };
-
 struct Rva004EE3F9Node : _STL::_Rb_tree_node_base
 {
 	Rva004EE3F9Obj *m_10;
 	int m_14;
 };
-
 class Rva004EE3F9
 {
 public:
@@ -346,19 +328,16 @@ private:
 	char m_pad[0xCC];
 	_STL::_Rb_tree_node_base *m_CC;
 };
-
 class Rva00261C89
 {
 public:
 	bool rva00261C89();
 };
-
 struct Rva004EE485Node : _STL::_Rb_tree_node_base
 {
 	Rva00261C89 *m_10;
 	int m_14;
 };
-
 class Rva004EE485
 {
 public:
@@ -371,7 +350,6 @@ private:
 	char m_pad2[0xC0 - 0xA8 - 8];
 	_STL::_Rb_tree_node_base *m_C0;
 };
-
 class Rva004EE447
 {
 public:
@@ -380,7 +358,6 @@ private:
 	char m_pad[0xB4];
 	_STL::_Rb_tree_node_base *m_B4;
 };
-
 class Rva004EE4C3
 {
 public:
@@ -389,7 +366,6 @@ private:
 	char m_pad[0xCC];
 	_STL::_Rb_tree_node_base *m_CC2;
 };
-
 // ObjectCountMap is a 12-byte tree header. The stride is explicit in the
 // indexed map accessor at 0x0039C3AC and the shape agrees with the matched
 // ScoreKeeper map counter at 0x0039BEC3.
@@ -399,7 +375,6 @@ struct ObjectCountMap
 	int m_pad04;
 	int m_pad08;
 };
-
 class Rva002E2903Player
 {
 public:
@@ -409,17 +384,14 @@ private:
 	unsigned char m_pad000[0x2C8];
 	LivingWorldScoreKeeper m_scoreKeeper; // +0x2C8
 };
-
 namespace _STL {
 template<class T> struct less;
 template<class A, class B> struct pair;
 template<class T> class allocator;
 template<class K, class V, class C, class A> class map;
 }
-
 typedef _STL::map<const ThingTemplate *, int, _STL::less<const ThingTemplate *>,
  _STL::allocator<_STL::pair<const ThingTemplate *const, int> > > ScoreCountMap;
-
 class ScoreKeeper
 {
 public:
@@ -427,16 +399,36 @@ public:
 private:
 	unsigned char m_bytes[4];
 };
-
 class Rva0039B709
 {
 public:
 	unsigned int rva0039B718();
 };
-
 extern void __cdecl rva004EE8B8(ObjectCountMap *destination, ObjectCountMap *source);
-
 #include "../../Include/Common/Player.h"
+//
+// ?rva004EE5D2@LivingWorldScoreKeeper@@QAEXXZ @0x004EE5D2 195B
+// Removes 8 embedded entries via rowed ?rva002B7250@Rva002B7250@@QAEXPAVCreateAHeroData@@@Z:
+// 4 from Rva002BA8F1Logic members, 3 from globals, 1 from member pointer.
+// Evidence: packet disassembly order and offsets, callers 0x004EE695/0x004EE78A.
+// +0x04..+0x20 are LivingWorldScoreKeeper's eight observer bases after
+// Snapshot (hence the this-null checks) and +0xF8 its once-only flag.
+
+class LivingWorldLogic;
+class CreateAHeroData
+{
+public:
+	int m_x;
+};
+class Rva002B7250
+{
+public:
+	void rva002B7250(CreateAHeroData *v);
+};
+class Rva002BA8F1Logic;
+Rva002B7250 g_00E04424;
+extern Rva002B7250 g_registryAtE02E88;
+Rva002B7250 g_00E044F0;
 
 struct ScoreMergeTemplateView {char pad00[8];bool overridden;char pad09[0x64-9];AsciiString name;};
 
@@ -455,6 +447,8 @@ class ThingFactory {public:const ThingTemplate *findTemplate(const AsciiString &
 // tu-skeleton: 0x004EE043 20B ?rva004EE043@LivingWorldScoreKeeper@@QAEHXZ -- matched in Code/GameEngine/Source/Common/Rva004EE037Div.cpp (not merged yet)
 
 // tu-skeleton: 0x004EE057 27B ?GetBuildingsOfTypeBuilt@LivingWorldScoreKeeper@@QAEHH@Z -- matched in Code/GameEngine/Source/Common/Rva004EE037Div.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp
 
 // ---- from Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp
 
@@ -769,38 +763,6 @@ void rva004EE8B8(ObjectCountMap *destination,ObjectCountMap *source)
  }
 }
 
-// tu-skeleton: 0x004EE13E 23B ??0PerTurnStats@LivingWorldScoreKeeper@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva004EEE38CollectTurnStats.cpp (not merged yet)
-
-// tu-skeleton: 0x004EE155 6B ?GetSnapshotName@PerTurnStats@LivingWorldScoreKeeper@@UBEPBDXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x004EE15B 78B ?xfer@PerTurnStats@LivingWorldScoreKeeper@@UAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/Rva004EE15BFwd.cpp (not merged yet)
-
-// tu-skeleton: 0x004EE1A9 39B ??0PerTurnStats@LivingWorldScoreKeeper@@QAE@ABV01@@Z -- matched in Code/GameEngine/Source/Common/V3PolyCopyCtors.cpp (not merged yet)
-
-// tu-skeleton: 0x004EE1D0 18B ??$_Construct@VPerTurnStats@LivingWorldScoreKeeper@@V12@@_STL@@YAXPAVPerTurnStats@LivingWorldScoreKeeper@@ABV12@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportConstructCopySiblings.cpp (not merged yet)
-
-// tu-skeleton: 0x004EE1E2 41B ??$__uninitialized_copy@PAUPrereqUnitRec@ProductionPrerequisite@@PAU12@@_STL@@YAPAUPrereqUnitRec@ProductionPrerequisite@@PAU12@00ABU__false_type@0@@Z -- matched in Code/GameEngine/Source/Common/RTS/ProductionPrerequisite.cpp (not merged yet)
-
-// tu-skeleton: 0x004EE20B 40B ??$__uninitialized_fill_n@PAUPrereqUnitRec@ProductionPrerequisite@@IU12@@_STL@@YAPAUPrereqUnitRec@ProductionPrerequisite@@PAU12@IABU12@ABU__false_type@0@@Z -- matched in Code/GameEngine/Source/Common/RTS/ProductionPrerequisite.cpp (not merged yet)
-
-// tu-skeleton: 0x004EE233 45B ??$_M_allocate_and_copy@PAUPrereqUnitRec@ProductionPrerequisite@@@?$vector@UPrereqUnitRec@ProductionPrerequisite@@V?$allocator@UPrereqUnitRec@ProductionPrerequisite@@@_STL@@@_STL@@IAEPAUPrereqUnitRec@ProductionPrerequisite@@IPAU23@0@Z -- matched in Code/GameEngine/Source/Common/Thing/Rva004EE233AllocateCopy.cpp (not merged yet)
-
-// tu-skeleton: 0x004EE33B 34B ?rva004EE33B@LivingWorldScoreKeeper@@QAEHXZ -- matched in Code/GameEngine/Source/Common/Rva004EE037Div.cpp (not merged yet)
-
-// tu-skeleton: 0x004EE501 63B ??1Rva004EE501@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaVectorDtorFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x004EE55E 116B ?reserve@Rva004EE55EVector@@QAEXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlVectorReserveProviderRepairs.cpp (not merged yet)
-
-// tu-skeleton: 0x004EE5D2 195B ?rva004EE5D2@LivingWorldScoreKeeper@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva004EE5D2Erase.cpp (not merged yet)
-
-// tu-skeleton: 0x004EE6D0 186B ?rva004EE6D0@Rva004EE6D0@@QAEXPAUElem003AF8C0@@ABU2@ABU__false_type@_STL@@I_N@Z -- matched in Code/GameEngine/Source/Common/Rva004EE6D0Insert.cpp (not merged yet)
-
-// tu-skeleton: 0x004EE78A 20B ?rva004EE78A@LivingWorldScoreKeeper@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva004EE5D2Erase.cpp (not merged yet)
-
-// tu-skeleton: 0x004EE9B1 56B ?push_back@Rva004EE6D0@@QAEXABUElem003AF8C0@@@Z -- matched in Code/GameEngine/Source/Common/Rva004EE6D0Insert.cpp (not merged yet)
-
-// tu-skeleton: 0x004EE9E9 245B ?Rva004EE9E9XferVector@@YAPAVXfer@@PAV1@PAVRva004EE6D0@@@Z -- matched in Code/GameEngine/Source/Common/Rva004EE9E9XferVector.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldScoreKeeper_Unresolved.cpp
 
 // Split from LivingWorldScoreKeeper.cpp: these definitions reference a callee with no matched body yet,
@@ -845,6 +807,56 @@ LivingWorldScoreKeeper::LivingWorldScoreKeeper(int playerIndex, LivingWorldPlaye
 }
 
 LivingWorldScoreKeeper::~LivingWorldScoreKeeper(){rva004EE78A();}
+
+// tu-skeleton: 0x004EE13E 23B ??0PerTurnStats@LivingWorldScoreKeeper@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva004EEE38CollectTurnStats.cpp (not merged yet)
+
+// tu-skeleton: 0x004EE155 6B ?GetSnapshotName@PerTurnStats@LivingWorldScoreKeeper@@UBEPBDXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x004EE15B 78B ?xfer@PerTurnStats@LivingWorldScoreKeeper@@UAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/Rva004EE15BFwd.cpp (not merged yet)
+
+// tu-skeleton: 0x004EE1A9 39B ??0PerTurnStats@LivingWorldScoreKeeper@@QAE@ABV01@@Z -- matched in Code/GameEngine/Source/Common/V3PolyCopyCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x004EE1D0 18B ??$_Construct@VPerTurnStats@LivingWorldScoreKeeper@@V12@@_STL@@YAXPAVPerTurnStats@LivingWorldScoreKeeper@@ABV12@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportConstructCopySiblings.cpp (not merged yet)
+
+// tu-skeleton: 0x004EE1E2 41B ??$__uninitialized_copy@PAUPrereqUnitRec@ProductionPrerequisite@@PAU12@@_STL@@YAPAUPrereqUnitRec@ProductionPrerequisite@@PAU12@00ABU__false_type@0@@Z -- matched in Code/GameEngine/Source/Common/RTS/ProductionPrerequisite.cpp (not merged yet)
+
+// tu-skeleton: 0x004EE20B 40B ??$__uninitialized_fill_n@PAUPrereqUnitRec@ProductionPrerequisite@@IU12@@_STL@@YAPAUPrereqUnitRec@ProductionPrerequisite@@PAU12@IABU12@ABU__false_type@0@@Z -- matched in Code/GameEngine/Source/Common/RTS/ProductionPrerequisite.cpp (not merged yet)
+
+// tu-skeleton: 0x004EE233 45B ??$_M_allocate_and_copy@PAUPrereqUnitRec@ProductionPrerequisite@@@?$vector@UPrereqUnitRec@ProductionPrerequisite@@V?$allocator@UPrereqUnitRec@ProductionPrerequisite@@@_STL@@@_STL@@IAEPAUPrereqUnitRec@ProductionPrerequisite@@IPAU23@0@Z -- matched in Code/GameEngine/Source/Common/Thing/Rva004EE233AllocateCopy.cpp (not merged yet)
+
+// tu-skeleton: 0x004EE33B 34B ?rva004EE33B@LivingWorldScoreKeeper@@QAEHXZ -- matched in Code/GameEngine/Source/Common/Rva004EE037Div.cpp (not merged yet)
+
+// tu-skeleton: 0x004EE501 63B ??1Rva004EE501@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaVectorDtorFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x004EE55E 116B ?reserve@Rva004EE55EVector@@QAEXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlVectorReserveProviderRepairs.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva004EE5D2Erase.cpp
+
+void LivingWorldScoreKeeper::rva004EE5D2()
+{
+	((Rva002B7250 *)((char *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic) + 0x1c))->rva002B7250((CreateAHeroData *)static_cast<LivingWorldPhaseObserver *>(this));
+	((Rva002B7250 *)((char *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic) + 0x2c))->rva002B7250((CreateAHeroData *)static_cast<LivingWorldAutoResolveEventObserver *>(this));
+	((Rva002B7250 *)((char *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic) + 0x3c))->rva002B7250((CreateAHeroData *)static_cast<LivingWorldRTSEventObserver *>(this));
+	((Rva002B7250 *)((char *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic) + 0x4c))->rva002B7250((CreateAHeroData *)static_cast<LivingWorldLogicObserver *>(this));
+	g_00E04424.rva002B7250((CreateAHeroData *)static_cast<LivingWorldBuildingObserver *>(this));
+	g_registryAtE02E88.rva002B7250((CreateAHeroData *)static_cast<LivingWorldRegionObserver *>(this));
+	g_00E044F0.rva002B7250((CreateAHeroData *)static_cast<LivingWorldBuildingNuggetSpawnArmyObserver *>(this));
+	((Rva002B7250 *)m_player)->rva002B7250((CreateAHeroData *)static_cast<LivingWorldPlayerObserver *>(this));
+}
+
+void LivingWorldScoreKeeper::rva004EE78A()
+{
+	if (m_F8 != 0)
+		return;
+	m_F8 = 1;
+	return rva004EE5D2();
+}
+
+// tu-skeleton: 0x004EE6D0 186B ?rva004EE6D0@Rva004EE6D0@@QAEXPAUElem003AF8C0@@ABU2@ABU__false_type@_STL@@I_N@Z -- matched in Code/GameEngine/Source/Common/Rva004EE6D0Insert.cpp (not merged yet)
+
+// tu-skeleton: 0x004EE9B1 56B ?push_back@Rva004EE6D0@@QAEXABUElem003AF8C0@@@Z -- matched in Code/GameEngine/Source/Common/Rva004EE6D0Insert.cpp (not merged yet)
+
+// tu-skeleton: 0x004EE9E9 245B ?Rva004EE9E9XferVector@@YAPAVXfer@@PAV1@PAVRva004EE6D0@@@Z -- matched in Code/GameEngine/Source/Common/Rva004EE9E9XferVector.cpp (not merged yet)
 
 // tu-skeleton: 0x004EEE38 513B ?collectEndOfTurnStats@LivingWorldScoreKeeper@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva004EEE38CollectTurnStats.cpp (not merged yet)
 

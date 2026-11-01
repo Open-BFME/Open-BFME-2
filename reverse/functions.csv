@@ -29866,7 +29866,7 @@ _Rva006FD040,,0x006FD040,26,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,m
 ??_GRva003EE746ColorProvider@@UAEPAXI@Z,,0x0057C66C,28,Code/GameEngine/Source/Common/Rva003EE746ColorProvider.cpp,matched,Compiler-emitted scalar deleting destructor for colour provider C363C0; calls its folded destructor57C51E then flag-guarded operator delete; target vtable witness3EEAFB.
 ?rva0057C57B@AptMapPreview@@QAEHH@Z,,0x0057C57B,28,Code/GameEngine/Source/GameClient/GUI/AptMapPreviewSetMapDescription.cpp,matched,AptMapPreview 8-window index search via m_windows plus 0x30
 ?rva005F3272@Rva005F2A32@@QAEXABVUnicodeString@@@Z,,0x005F3272,8,Code/GameEngine/Source/Common/Rva005F2FEFApt.cpp,matched,forwarder via plus4 to rowed rva005F2FEF same caller family
-?rva004EE5D2@LivingWorldScoreKeeper@@QAEXXZ,,0x004EE5D2,195,Code/GameEngine/Source/Common/Rva004EE5D2Erase.cpp,matched,removes 8 embedded entries via rowed erase
+?rva004EE5D2@LivingWorldScoreKeeper@@QAEXXZ,,0x004EE5D2,195,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,matched,removes 8 embedded entries via rowed erase
 ?rva005C462B@Rva005C462B@@QAEPAVRva005C45B6@@I@Z,,0x005C462B,60,Code/GameEngine/Source/Common/Rva005C462BCreate.cpp,matched,chain new plus ctor with EH unwind
 ?rva005F3F14@Rva005F3F14@@QAEXXZ,,0x005F3F14,38,Code/GameEngine/Source/Common/Rva005F3F14Method.cpp,matched,unlock lane same shape as Rva005796B3Method with pinned no-arg int and rowed slot1 plus caller 0x005F3F6B
 ?rva00542806@Rva00542806@@QAEPAV1@PADHH@Z,,0x00542806,116,Code/GameEngine/Source/Common/BfmeLexEAN.cpp,matched,retail bytes unlock lane strncmp IAT header 0x0086954C memset 0x6291AE
@@ -29880,7 +29880,7 @@ _Rva006FD040,,0x006FD040,26,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,m
 ?Rva0007240CGet@@YAHH_N@Z,,0x0007240C,49,Code/GameEngine/Source/Common/Rva0007240C.cpp,matched,leaf free mapper 1-5 to 0x14-0x18 via switch with ret var
 ?rva005F3F6B@Rva005F3F6B@@QAEXXZ,,0x005F3F6B,8,Code/GameEngine/Source/Common/Rva005F3F14Method.cpp,matched,chain forwarder plus8 to rowed rva005F3F14 same TU
 ?rva005423F0@Rva005423F0@@QAEPADPAD@Z,,0x005423F0,53,Code/GameEngine/Source/Common/Rva005423F0Skip.cpp,matched,retail bytes unlock lane isspace IAT newline sibling Skip
-?rva004EE78A@LivingWorldScoreKeeper@@QAEXXZ,,0x004EE78A,20,Code/GameEngine/Source/Common/Rva004EE5D2Erase.cpp,matched,same class LivingWorldScoreKeeper offset 0xF8 guarded tail erase
+?rva004EE78A@LivingWorldScoreKeeper@@QAEXXZ,,0x004EE78A,20,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,matched,same class LivingWorldScoreKeeper offset 0xF8 guarded tail erase
 ??0Rva005C436E@@QAE@II@Z,,0x005C4403,32,Code/GameEngine/Source/Common/Rva005C4403Ctor.cpp,matched,chain ctor via rowed base plus vtable 0x008745A8 plus byte plus0xC
 ?rva000729CC@Rva000729CC@@QAEX_N@Z,,0x000729CC,14,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp,matched,adjacent to 0x000729DA honest address setter for bytes at +0x35 +0x36
 ?rva000724C7@Rva000724AE@@QAE_NXZ,,0x000724C7,16,Code/GameEngine/Source/Common/Rva000724C7Check.cpp,matched,between 0x000724AE and 0x000724D7 same class non-null check +0x08 +0x0c
