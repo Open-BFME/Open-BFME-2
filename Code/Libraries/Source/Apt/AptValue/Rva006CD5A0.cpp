@@ -4,12 +4,7 @@
 // AptValueNameEntry-style 8B copy: EAStringC at +0 via rowed operator=
 // 0x006D3030 plus int at +4, first/last/dest pointers, returns dest end.
 // Callers 0x006CE8FE/0x006D011A prove three-pointer __cdecl shape.
-class EAStringC
-{
-public:
-	EAStringC &operator=(const EAStringC &other);
-	void *m_pData;
-};
+#include "../EAStringC.h"
 
 class Rva006CD5A0Elem
 {

@@ -26,13 +26,7 @@ void __debugbreak();
 
 #define APT_CHECK(e, s, l) do { if (!(e)) { g_bfmeAptAssertAtE17734(s, "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h", l); if (g_bfmeAptBreakOnAssertAtDDC01C) __debugbreak(); } } while (0)
 
-class EAStringC
-{
-	void *data;
-public:
-	EAStringC(const char *);
-	~EAStringC();
-};
+#include "EAStringC.h"
 
 class AptValue
 {

@@ -8,7 +8,7 @@
 // The default string ctor is the established real16B empty-root/refcount
 // body, ICF-folded with rowed clear6D2F90 using the actual singleton owner.
 class AptNativeHash;
-class EAStringC {public:class StringDataC {public:unsigned short m_uRefCount,m_uSize,m_uMaxSize,m_uHash;};private:StringDataC *data;public:EAStringC();EAStringC(const EAStringC &);~EAStringC();bool rva006D3560(const EAStringC *)const;EAStringC &Rva006D4F00Append(const EAStringC &);EAStringC &Rva006D50A0Append(const char *);bool rva006D5DA0(const char *);};
+#include "../EAStringC.h"
 extern EAStringC::StringDataC g_eaEmptyStringData;
 __declspec(noinline) inline EAStringC::EAStringC(){data=&g_eaEmptyStringData;++data->m_uRefCount;}
 

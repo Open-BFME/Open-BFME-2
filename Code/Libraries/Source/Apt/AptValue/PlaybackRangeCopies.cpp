@@ -5,7 +5,7 @@
 // facts; original entry/container identities are unresolved. Native extent
 // 6CDD90..6CDDF8 includes the complete return; old97B boundary cut inside
 // the last iterator-field store. Byte104 is RET, followed by8 INT3 bytes.
-class EAStringC {public:EAStringC &operator=(const EAStringC &);void *data;};
+#include "../EAStringC.h"
 struct Rva006CDD50Item {EAStringC name;int value;};
 // Same release range-check expression as target Apt.cpp PlaybackIterator;
 // WB1750B80 is empty even in debug. Keeping it preserves loop shape.

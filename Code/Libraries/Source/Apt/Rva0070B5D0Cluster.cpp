@@ -6,12 +6,7 @@
 // the last entry's comparison skipped. The table and its end global are already
 // recovered in Rva0070D9F0Shutdown.cpp; this body is address-derived.
 
-class EAStringC
-{
-public:
-	void *m_pData;
-	bool IsEmpty() const;
-};
+#include "EAStringC.h"
 
 struct Rva008B4260StringRef
 {

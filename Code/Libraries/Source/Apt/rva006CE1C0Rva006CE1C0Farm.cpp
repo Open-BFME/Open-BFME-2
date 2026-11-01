@@ -5,7 +5,7 @@
 // reverse vector iteration, CIH flags5C, name8, animation4C, file-ref34,
 // warning texts, reference drop, virtual teardown order and final dirty flag.
 // Address-derived worker retains the existing caller spelling/pin.
-class EAStringC {void *data;public:const char *rva00620090() const;};
+#include "EAStringC.h"
 class BfmeAptValue006DCD20 {public:BfmeAptValue006DCD20 *rva006DCF60(bool);void setGCRootCount(unsigned);};
 class AptValue;
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *,const char *,int);

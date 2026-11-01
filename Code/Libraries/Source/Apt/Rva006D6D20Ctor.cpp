@@ -10,14 +10,7 @@ public:
 };
 extern Rva006DB270 *g_pChainBlockAllocator;
 Rva006DB270 *g_pChainBlockAllocator;
-class EAStringC
-{
-public:
-    EAStringC();
-    EAStringC(const char *text);
-    EAStringC &clear();
-    ~EAStringC();
-};
+#include "EAStringC.h"
 class BfmeAptValue006DCD20
 {
     unsigned int m_flags;

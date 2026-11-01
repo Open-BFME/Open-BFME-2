@@ -19,23 +19,7 @@
 // body needs exception handling enabled even though the near file's line does
 // not spell it; ./build.sh proved which flag set reproduces the frame.
 
-class EAStringC
-{
-public:
-	class StringDataC
-	{
-	public:
-		unsigned short m_uRefCount;
-		unsigned short m_uSize;
-		unsigned short m_uMaxSize;
-		unsigned short m_uHash;
-	};
-
-	StringDataC *m_pData;
-
-	EAStringC(const char *text);
-	~EAStringC();
-};
+#include "../EAStringC.h"
 
 // Rva006D1090 is the address-derived list worker (pin for 0x006D0D70); only
 // the one member this body calls is declared. The global at VA 0xe176cc is

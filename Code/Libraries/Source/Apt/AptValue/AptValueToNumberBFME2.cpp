@@ -8,12 +8,7 @@
 // The string resolver returns an opaque object with EAStringC at +8, proved
 // by this body's LEA and the matched toInteger path. No full string-class
 // layout or original numeric-converter member name is claimed.
-class EAStringC
-{
-    unsigned int m_data;
-public:
-    const char *rva00620090() const;
-};
+#include "../EAStringC.h"
 class BfmeAptValue006DCD20
 {
     virtual void vtableSlot0();

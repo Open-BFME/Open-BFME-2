@@ -13,20 +13,7 @@ struct BfmeStringDataVKG
 };
 
 class BfmeBufVKG;
-class EAStringC
-{
-public:
-	enum CBPushZero
-	{
-		CB_NO_PUSH_ZERO,
-		CB_PUSH_ZERO
-	};
-
-private:
-	void ChangeBuffer(unsigned int reserve, unsigned int offset,
-		unsigned int size, CBPushZero pushZero, unsigned int internalSize);
-	friend class BfmeBufVKG;
-};
+#include "../../../Apt/EAStringC.h"
 
 class BfmeStrVKJ
 {

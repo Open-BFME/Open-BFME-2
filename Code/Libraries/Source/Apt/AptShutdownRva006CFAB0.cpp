@@ -77,7 +77,7 @@ class AptValueVector {public:void ReleaseValues();void rva006E6D50();};
 class AptValueVectorDelete {public:~AptValueVectorDelete(){((AptValueVector *)this)->rva006E6D50();}POOL_DELETE char pad[0x10];};
 extern AptValueVector *g_releaseVectorAtE17710;
 extern AptValueVector *g_aptOptionalValueVector;
-class EAStringC {void *data;public:void rva006D3470();};
+#include "EAStringC.h"
 extern void *g_eaStringAtE177D4Storage;
 void Rva006D37F0Clear();
 struct AptActionInterpreter {void rva006FEB50();};

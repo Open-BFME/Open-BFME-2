@@ -12,13 +12,7 @@
 #define _CRTIMP
 #include <stdlib.h>
 
-class EAStringC
-{
-public:
-    unsigned int rva006D3750() const;
-    int GetAt(int index) const;
-    const char *rva00620090() const;
-};
+#include "../EAStringC.h"
 
 class Rva006D89D0ByteField
 {

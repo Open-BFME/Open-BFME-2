@@ -12,7 +12,7 @@
 // Six native-function caches retain the real Rva008B2BD0ReleaseGlobals owner.
 // Original source has a null-send check, absent in native: native sends directly
 // after its assertion; all source behavior follows the witnessed retail body.
-class EAStringC {void *data;public:__declspec(nothrow) EAStringC &clear();__declspec(dllimport) __forceinline EAStringC(){clear();}~EAStringC();const char *rva00620090()const;bool IsEqualTo(const EAStringC *)const;unsigned int rva006D3750()const;bool rva006D3510(const char *)const;};
+#include "../EAStringC.h"
 // The retail clear16B is a plain singleton store/increment: it cannot throw.
 // The default ctor is dllimport __forceinline so no divergent EAStringC
 // default-ctor COMDAT is emitted; the locals are plain EAStringC, so their

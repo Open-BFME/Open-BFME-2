@@ -134,13 +134,7 @@ public:
 	unsigned int m_flags;
 };
 
-class EAStringC
-{
-public:
-	EAStringC();
-	EAStringC &clear();
-	~EAStringC();
-};
+#include "../EAStringC.h"
 
 class Rva006CBDE0 : public BfmeAptValue006DCD20
 {

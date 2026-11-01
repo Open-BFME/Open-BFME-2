@@ -5,11 +5,7 @@
 // 0x007A8838 constructs base type 1 plus clear plus +0xC=0; deleting dtor 0x006D7320 frees 0x10; size 0x10.
 class Rva006DB270 {public:void freeBlock(void*,int);};
 extern Rva006DB270 *g_pChainBlockAllocator;
-class EAStringC
-{
-public:
-    ~EAStringC();
-};
+#include "EAStringC.h"
 struct Rva006DE350
 {
     virtual ~Rva006DE350();

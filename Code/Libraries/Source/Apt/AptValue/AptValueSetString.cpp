@@ -7,26 +7,7 @@
 // Identity note: only +8 is proven (EAStringC target of the assignment
 // call); the low 8 bytes are opaque padding. Placed with AptValue
 // because all 12 retail callers sit in AptValue construction flows.
-class EAStringC
-{
-public:
-	class StringDataC
-	{
-	public:
-		unsigned short m_uRefCount;
-		unsigned short m_uSize;
-		unsigned short m_uMaxSize;
-		unsigned short m_uHash;
-	};
-
-	StringDataC *m_pData;
-
-public:
-	EAStringC(const char *text);
-	EAStringC(const EAStringC &other);
-	EAStringC &operator=(const EAStringC &other);
-	~EAStringC();
-};
+#include "../EAStringC.h"
 
 class AptValue
 {

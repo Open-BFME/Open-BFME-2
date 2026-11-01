@@ -18,7 +18,7 @@ public:
 	int get() const;
 };
 
-class EAStringC {void*data;public:EAStringC(const char*);~EAStringC();EAStringC&operator=(const EAStringC&);bool IsEmpty()const;bool IsEqualTo(const EAStringC*)const;};
+#include "EAStringC.h"
 struct AptCharacter;struct AptCharacterInst;
 class AptRenderingContext;
 class AptCIH

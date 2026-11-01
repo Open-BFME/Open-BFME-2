@@ -15,7 +15,7 @@
 // retain their actual names and declarations. No second real name is pinned.
 // Only the observed virtual operation slots are claimed, not their original
 // interface owner. Unsupported reference cases fall through to native null.
-class EAStringC {void *data;public:EAStringC();~EAStringC();const char *rva00620090()const;unsigned int rva006D3750()const;};
+#include "EAStringC.h"
 
 class AptValue {public:void toString(EAStringC &)const;void SetString(const char *);bool getIsDefined()const;};
 

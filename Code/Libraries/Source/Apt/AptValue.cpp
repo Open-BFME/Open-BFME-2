@@ -128,17 +128,7 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 
 void __debugbreak();
 
-class EAStringC
-{
-public:
-	unsigned int rva006D3750() const;
-	const char *rva00620090() const;
-	EAStringC();
-	~EAStringC();
-	bool rva006D3490(const char *text) const;
-private:
-	void *mpData; // +0x00
-};
+#include "EAStringC.h"
 
 class Rva006D2A60
 {

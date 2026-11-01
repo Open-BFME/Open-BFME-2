@@ -62,18 +62,7 @@ public:
   Rva006D6470Owner(int type, int size);
   virtual ~Rva006D6470Owner();
 };
-class EAStringC {
-  void *data;
-
-public:
-  EAStringC();
-  ~EAStringC();
-  EAStringC &operator=(const EAStringC &);
-  bool IsEmpty() const;
-  const char *rva00620090() const;
-  unsigned int rva006D3750() const;
-  bool rva006D3510(const char *) const;
-};
+#include "EAStringC.h"
 class Rva006EB4B0 {
 public:
   EAStringC font;

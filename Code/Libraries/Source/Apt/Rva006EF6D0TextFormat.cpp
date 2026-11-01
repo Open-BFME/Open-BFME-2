@@ -17,7 +17,7 @@ static __forceinline void aptAssert(const char *test,const char *file,int line){
  g_bfmeAptAssertAtE17734(test,file,line);
  if(g_bfmeAptBreakOnAssertAtDDC01C){__debugbreak();}
 }
-class EAStringC {void *data;public:EAStringC(const char*);~EAStringC();EAStringC &operator=(const EAStringC&);};
+#include "EAStringC.h"
 class Rva006DB160 {public:void *allocBlock(int);};
 class Rva006DB270 {public:void freeBlock(void *,int);};
 class Rva006DB270;extern Rva006DB270 *g_pChainBlockAllocator;

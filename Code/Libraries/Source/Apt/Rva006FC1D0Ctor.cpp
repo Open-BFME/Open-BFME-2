@@ -54,15 +54,7 @@ Rva006FC1D0::Rva006FC1D0() : Rva006D6360(0x23, 8)
     m_bits &= 0xFFFFFCFF;
     m_20 = 0;
 }
-class EAStringC
-{
-public:
-    struct StringDataC;
-    StringDataC *m_pData;
-public:
-    EAStringC(const char *text);
-    ~EAStringC();
-};
+#include "EAStringC.h"
 struct Rva006FC240BitsHack
 {
     unsigned int v;

@@ -5,7 +5,7 @@
 // facts; original entry/container identities are unresolved. Native extent
 // 6CDD90..6CDDF8 includes the complete return; old97B boundary cut inside
 // the last iterator-field store. Byte104 is RET, followed by8 INT3 bytes.
-class EAStringC {public:EAStringC(const EAStringC &);EAStringC() throw(); bool IsEqualTo(const EAStringC *) const;EAStringC &clear() throw();~EAStringC();EAStringC &operator=(const EAStringC &);void *data;};
+#include "../EAStringC.h"
 // Default construction uses the existing16B provider, ICF-folded with clear.
 // A TU-local clear forwarder would be the first competing constructor copy.
 struct Rva006CDD50Item {EAStringC name;int value;};

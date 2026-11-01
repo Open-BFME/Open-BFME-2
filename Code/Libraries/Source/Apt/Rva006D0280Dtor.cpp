@@ -7,7 +7,7 @@
 // native6E5940..6E5F08 RET4 with8B receiver displacement; complete bank has
 // matching ABI and providers but unlanded register/switch scheduling residue.
 // Original AptFile class identity is not claimed.
-class EAStringC{void*data;public:~EAStringC();const char*rva00620090()const;};
+#include "EAStringC.h"
 class Rva006E5940{public:void rva006E5940(int);};
 class Rva006D01D0Tracker{public:void remove(void*);};
 class Rva00893030Manager;extern Rva00893030Manager*g_rva00893030Manager;

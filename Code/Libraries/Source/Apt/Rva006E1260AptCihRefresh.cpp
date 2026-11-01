@@ -23,13 +23,7 @@ extern char g_00DDC2E0;
 void __debugbreak();
 #pragma intrinsic(__debugbreak)
 
-class EAStringC
-{
-public:
-	bool IsEmpty() const;
-	const char *rva00620090() const;
-	void *data;
-};
+#include "EAStringC.h"
 
 class AptCIH;
 class AptValue

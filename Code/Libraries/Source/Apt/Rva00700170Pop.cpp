@@ -10,12 +10,7 @@ class AptValue; extern AptValue *gpUndefinedValue;
 void __debugbreak();
 #pragma intrinsic(__debugbreak)
 class AsciiString;
-class EAStringC
-{
-public:
-	bool rva006D3560(const EAStringC *other) const;
-	EAStringC &operator=(const EAStringC &other);
-};
+#include "EAStringC.h"
 EAStringC *Rva0070B4F0GetString(int which);
 class AptString
 {

@@ -18,38 +18,7 @@ struct AptActionInterpreter;
 
 extern AptActionInterpreter g_aptDateInterpreter;
 
-class EAStringC {
-public:
- class StringDataC {
- public:
-  unsigned short m_uRefCount;
-  unsigned short m_uSize;
-  unsigned short m_uMaxSize;
-  unsigned short m_uHash;
- };
- EAStringC(unsigned int);
- EAStringC(const char *);
- EAStringC(const EAStringC &);
- EAStringC();
- ~EAStringC();
- EAStringC &clear();
- EAStringC &rva006D61E0(int);
- EAStringC &Rva006D4F00Append(const EAStringC &);
- EAStringC &operator=(const EAStringC &);
- const char *rva00620090() const;
- int rva006d6070(const char *,int);
- unsigned int rva006D3750() const;
- int rva006D5EC0();
- bool rva006D3510(const char *) const;
- bool IsEmpty() const;
- int Find(const char *,int);
- EAStringC &Append(const char *const,unsigned int);
- EAStringC rva006d5f30(int,int) const;
- EAStringC &rva006D5FE0(void *,int);
- EAStringC &rva006D6100();
- EAStringC &rva006D6170();
-private:StringDataC *data;
-};
+#include "EAStringC.h"
 
 extern EAStringC::StringDataC g_eaEmptyStringData;
 

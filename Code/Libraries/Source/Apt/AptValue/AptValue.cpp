@@ -3,19 +3,7 @@
 #include <string.h>
 #pragma intrinsic(strcmp)
 
-class EAStringC
-{
-	void *mpData;
-public:
-	EAStringC();
-	EAStringC(const EAStringC &other);
-	~EAStringC();
-	int GetAt(int index) const;
-	const char *rva00620090() const;
-	EAStringC &Rva006D4F00Append(const EAStringC &other);
-	EAStringC &Rva006D50A0Append(const char *text);
-	bool rva006D5DA0(const char *suffix);
-};
+#include "../EAStringC.h"
 
 class AptValue;
 

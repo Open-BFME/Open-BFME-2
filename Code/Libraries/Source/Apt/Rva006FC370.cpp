@@ -9,17 +9,7 @@
 // source identity is claimed. The grammar and exceptional type path below
 // follow the retail branch structure, including its edge cases.
 
-class EAStringC
-{
-    unsigned int m_data;
-
-public:
-    EAStringC();
-    ~EAStringC();
-    unsigned int rva006D3750() const;
-    int GetAt(int index) const;
-    const char *rva00620090() const;
-};
+#include "EAStringC.h"
 
 class AptValue
 {

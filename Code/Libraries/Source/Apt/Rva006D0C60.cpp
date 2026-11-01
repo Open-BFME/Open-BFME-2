@@ -6,7 +6,7 @@
 // semantic guide. Original method/container/record names remain unknown.
 // A named counted pointer for decrement, followed by a fresh pointer for
 // deletion, plus getTable accessor restores the native register schedule.
-class EAStringC {void *data;public:EAStringC(const char*);~EAStringC();};
+#include "EAStringC.h"
 struct Rva006D0660Record {const char *text;char pad[12];};
 struct Rva006D0660Table {char pad[0x28];int count28;Rva006D0660Record *records2c;};
 class Rva006D0280 {public:int m_useCount;int unknown4;EAStringC name8;int typeC;int unknown10;Rva006D0660Table *table14;int unknown18;~Rva006D0280();};

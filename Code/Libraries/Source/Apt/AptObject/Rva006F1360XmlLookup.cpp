@@ -23,28 +23,7 @@ public:                                                                        \
   static void operator delete(void *p, unsigned n) {                           \
     g_pChainBlockAllocatorF4->freeBlock(p, n);                                 \
   }
-class EAStringC {
-public:
-  class StringDataC {
-  public:
-    unsigned short m_uRefCount;
-    unsigned short m_uSize;
-    unsigned short m_uMaxSize;
-    unsigned short m_uHash;
-  };
-
-private:
-  StringDataC *data;
-
-public:
-  EAStringC(const char *);
-  EAStringC();
-  EAStringC &clear();
-  bool rva006D3510(const char *) const;
-  ~EAStringC();
-  const char *rva00620090() const;
-  unsigned rva006D3750() const;
-};
+#include "../EAStringC.h"
 extern EAStringC::StringDataC g_eaEmptyStringData;
 // Native callers invoke this 16-byte constructor at 0x006D2F90, folded with
 // clear; it roots the string at the empty singleton (RVA 0x009DC020 / VA

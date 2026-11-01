@@ -6,14 +6,7 @@
 // The complete 354-byte extent includes the five-entry dispatch table and
 // 42-byte type map. String storage at +8 and every accessor call are native
 // facts; the partial views below do not claim a complete class layout.
-class EAStringC {
-    unsigned int data;
-public:
-    bool IsEmpty() const;
-    int GetAt(int) const;
-    unsigned int rva006D3750() const;
-    const char *rva00620090() const;
-};
+#include "../EAStringC.h"
 class AptString {
     unsigned char prefix[8];
 public:

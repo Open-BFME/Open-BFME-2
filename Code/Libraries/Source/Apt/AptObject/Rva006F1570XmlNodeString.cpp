@@ -43,10 +43,7 @@ class AptString : public AptValue {
 public:
   static AptString *Create();
 };
-class EAStringC {
-public:
-  const char *rva00620090() const;
-};
+#include "../EAStringC.h"
 EAStringC *Rva0070B4F0GetString(int);
 extern AptValue *gpUndefinedValue;
 AptValue *rva006F1570(BfmeAptValue006DCD20 *value) {

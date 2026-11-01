@@ -28,11 +28,7 @@ public:
 	BfmeAptValue006DCD20 *checkedString();
 };
 
-class EAStringC
-{
-public:
-	const char *rva00620090() const;
-};
+#include "../EAStringC.h"
 
 class AptXmlImpl
 {

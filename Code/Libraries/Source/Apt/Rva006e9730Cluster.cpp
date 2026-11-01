@@ -9,13 +9,7 @@
 // Identity of the class and method names is not proven; they are
 // address-derived on the target addresses.
 
-class EAStringC
-{
-    void *data;
-public:
-    ~EAStringC();
-    const char *rva00620090() const;
-};
+#include "EAStringC.h"
 
 class AptNativeHash;
 class AptValue

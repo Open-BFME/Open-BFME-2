@@ -2,7 +2,7 @@
 // cl: /MD /EHsc
 // Source3994818f06ecc989 supplies semantics; PC confirms hash+8 proto+10 and
 // implemented-count low8bits at+1C. Original MAP supplies const method signature.
-class EAStringC { void *mpData; public: EAStringC(const char *); ~EAStringC(); };
+#include "../EAStringC.h"
 class AptArray { public: AptValue *GetAt(int) const; };
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *,const char *,int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;

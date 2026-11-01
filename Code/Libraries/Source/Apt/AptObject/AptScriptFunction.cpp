@@ -128,14 +128,7 @@ extern Rva006D2A60 *g_pChainBlockAllocatorF4;
 // pairs at mpFunction+0C: a register parameter is stored through the static
 // register block (709F70); otherwise the name is defined on the current frame
 // stack's hash, publishing a frame first when there is none (6FBED0).
-class EAStringC
-{
-public:
-    EAStringC(const char *);
-    ~EAStringC();
-private:
-    void *data;
-};
+#include "../EAStringC.h"
 
 struct AptDefineFunction2Param { int nRegister; const char *szName; };
 
