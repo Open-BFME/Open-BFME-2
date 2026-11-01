@@ -1,0 +1,11 @@
+{
+  "base": "e4b4d5de832fb77a22cdc601d13399912e8aa5b6",
+  "before_definitions": 314,
+  "after_definitions": 313,
+  "added": [],
+  "removed": [
+    "?getPlayerDifficulty@Player@@QBE?AW4GameDifficulty@@XZ"
+  ],
+  "changed": [],
+  "all_retained_whole_code_and_relocations_equal": true
+}

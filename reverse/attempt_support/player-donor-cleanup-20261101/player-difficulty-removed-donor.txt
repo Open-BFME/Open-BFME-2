@@ -1,0 +1,10 @@
+GameDifficulty Player::getPlayerDifficulty(void) const
+{
+	// BFME's Player and ScriptEngine tails differ from the recovered Zero Hour declarations.
+	AIPlayer *ai = *reinterpret_cast<AIPlayer *const *>(reinterpret_cast<const char *>(this) + 0x220);
+	if (ai)
+	{
+		return ai->getAIDifficulty();
+	}
+	return *reinterpret_cast<const GameDifficulty *>(reinterpret_cast<const char *>(TheScriptEngine) + 0x17620);
+}

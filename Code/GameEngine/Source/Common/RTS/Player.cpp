@@ -937,17 +937,8 @@ Int Player::countReadyShortcutSpecialPowersOfType( SpecialPowerType spType )
 //-------------------------------------------------------------------------------------------------
 /** Difficulty level for this player */
 //-------------------------------------------------------------------------------------------------
-// ?Player::getPlayerDifficulty present-unmatched
-GameDifficulty Player::getPlayerDifficulty(void) const
-{
-	// BFME's Player and ScriptEngine tails differ from the recovered Zero Hour declarations.
-	AIPlayer *ai = *reinterpret_cast<AIPlayer *const *>(reinterpret_cast<const char *>(this) + 0x220);
-	if (ai)
-	{
-		return ai->getAIDifficulty();
-	}
-	return *reinterpret_cast<const GameDifficulty *>(reinterpret_cast<const char *>(TheScriptEngine) + 0x17620);
-}
+
+
 
 //-------------------------------------------------------------------------------------------------
 /** Do any bridges need repair, and if so repair them. */

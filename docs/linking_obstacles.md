@@ -51,6 +51,8 @@ This source adopts canonical Matrix3D storage with native code/relocations prese
 
 ### Player unrowed donor-body cleanup (2026-11-01, Cortys)
 
+Unverified isolated `getPlayerDifficulty` is removed with its placeholder hatch; all 313 retained definitions/relocations and all native rows stay exact. See its per-method proof in the packet.
+
 Unverified isolated `friend_applyDifficultyBonusesForObject` is removed with its placeholder hatch; all 314 retained definitions/relocations and all native rows stay exact. See its per-method proof in the packet.
 
 Unverified isolated `canBuildMoreOfType` is removed with its placeholder hatch; all 315 retained definitions/relocations and all native rows stay exact. See its per-method proof in the packet.
