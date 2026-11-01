@@ -62,11 +62,7 @@ public:
 	Object *newObject(const ThingTemplate *tmplate, Team *team, const CreateMask *mask, ObjectID flag);	// 0x002D0A23 pin
 };
 
-class PartitionManager
-{
-public:
-	static bool findPositionAround(const Coord3D *center, const FindPositionOptions *options, Coord3D *result);	// 0x00285202 pin
-};
+#include "../../../../Common/PartitionRangeQueryCallView.h"
 
 // Retail's value at RVA 0x0085A910 (.rdata, four bytes): the bytes there are
 // f3 4f c3 c7, i.e. the float -99999.9f. The rowed crate-collide body passes it

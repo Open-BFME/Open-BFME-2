@@ -115,11 +115,7 @@ public:
 };
 extern TerrainLogic *TheTerrainLogic;
 
-class PartitionManager
-{
-public:
-	CellShroudStatus getShroudStatusForPlayer(int playerIndex, const Coord3D *pos) const;
-};
+#include "../Common/PartitionRangeQueryCallView.h"
 extern PartitionManager *TheShroudManager;	// VA 0x00DFE74C
 
 #include "../../Include/Common/Player.h"

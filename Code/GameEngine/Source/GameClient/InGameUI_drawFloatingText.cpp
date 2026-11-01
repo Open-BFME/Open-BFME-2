@@ -136,11 +136,7 @@ enum CellShroudStatus
 	CELLSHROUD_CLEAR = 0
 };
 
-class PartitionManager
-{
-public:
-	CellShroudStatus getShroudStatusForPlayer(int playerIndex, const Coord3D *pos) const;
-};
+#include "../Common/PartitionRangeQueryCallView.h"
 
 extern PartitionManager *TheShroudManager;
 

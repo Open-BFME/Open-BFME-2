@@ -46,19 +46,8 @@ public:
 	Player *m_player;
 };
 
-struct BfmeWideResult
-{
-	Object *next(); // pin 0x00045623; row ?bfmeGoEOF spells void*
-	~BfmeWideResult(); // 0x0004AA28
-	void *m_value;
-};
+#include "PartitionRangeQueryCallView.h"
 
-class PartitionManager
-{
-public:
-	BfmeWideResult iterateObjectsInRange(const Coord3D *pos, float radius, int a,
-		Rva000421C8 *filter, int b); // pin 0x00625610; row spells radius as int
-};
 extern PartitionManager *ThePartitionManager;
 
 class ExperienceTracker

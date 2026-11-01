@@ -89,19 +89,8 @@ struct Rva0057402FMask
 	unsigned int m_bits[7];
 };
 
-struct BfmeWideResult
-{
-	Object *next() throw();	// 0x00045623
-	~BfmeWideResult();	// 0x0004AA28
-	void *m_value;
-};
+#include "PartitionRangeQueryCallView.h"
 
-class PartitionManager
-{
-public:
-	BfmeWideResult iterateObjectsInRange(const Coord3D *pos, float radius, int distCalc,
-		Rva000421C8 *filters, int order);	// 0x00625610
-};
 extern PartitionManager *ThePartitionManager;
 
 // LINK: the base check 0x00573CFB is rowed as AIBuildableStructure::canMake (AIBuildableStructure.cpp, UAEHPAVPlayer).

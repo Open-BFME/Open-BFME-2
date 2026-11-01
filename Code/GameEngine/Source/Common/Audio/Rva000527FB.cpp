@@ -14,11 +14,7 @@ enum CellShroudStatus
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-class PartitionManager
-{
-public:
-	CellShroudStatus getShroudStatusForPlayer(int playerIndex, const Coord3D *pos) const;
-};
+#include "../PartitionRangeQueryCallView.h"
 
 class PlayerList;
 extern PlayerList *ThePlayerList;

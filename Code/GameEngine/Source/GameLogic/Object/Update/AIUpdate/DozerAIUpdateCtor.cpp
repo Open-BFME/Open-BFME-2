@@ -978,11 +978,7 @@ struct FindPositionOptions
 	const Object *relationshipObject;
 };
 
-class PartitionManager
-{
-public:
-	static Bool findPositionAround(const Coord3D *center, const FindPositionOptions *options, Coord3D *result);
-};
+#include "../../../../Common/PartitionRangeQueryCallView.h"
 
 enum BridgeTowerType
 {

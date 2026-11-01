@@ -105,11 +105,7 @@ public:
 	virtual bool allow(Object *objOther);
 };
 
-class PartitionManager
-{
-public:
-	Object *getClosestObject(const Coord3D *pos, Real maxDist, Int dc, Rva000421C8 *filters);
-};
+#include "../../../Common/PartitionRangeQueryCallView.h"
 extern PartitionManager *ThePartitionManager;
 
 class TerrainLogic

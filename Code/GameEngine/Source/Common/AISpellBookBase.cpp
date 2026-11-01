@@ -27,11 +27,7 @@ enum CellShroudStatus
 	SHROUDED = 2
 };
 
-class PartitionManager
-{
-public:
-	CellShroudStatus getShroudStatusForPlayer(int playerIndex, const Coord3D *pos) const;
-};
+#include "PartitionRangeQueryCallView.h"
 
 extern PartitionManager *TheShroudManager;
 

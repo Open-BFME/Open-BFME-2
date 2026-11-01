@@ -318,12 +318,7 @@ public:
 	void rva004AE8FA();	// 0x004AE8FA
 };
 
-class PartitionManager
-{
-public:
-	Object *getClosestObject(const Coord3D *pos, float maxDist, int dc,
-		Rva000421C8 *filters);	// 0x00625360
-};
+#include "../../../Common/PartitionRangeQueryCallView.h"
 
 extern PartitionManager *ThePartitionManager;
 

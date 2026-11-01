@@ -81,12 +81,7 @@ class RGBAColorInt;
 struct XferUnknown11;
 #include "../../../../Include/Common/BfmeXfer.h"
 
-class PartitionManager
-{
-public:
-	Object *getClosestObject(const Coord3D *pos, float maxDist, int dc,
-		Rva000421C8 *filters);	// 0x00625360
-};
+#include "../../../Common/PartitionRangeQueryCallView.h"
 
 extern PartitionManager *ThePartitionManager;
 

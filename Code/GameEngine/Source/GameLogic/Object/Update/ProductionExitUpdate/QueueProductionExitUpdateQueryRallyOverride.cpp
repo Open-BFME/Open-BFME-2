@@ -123,11 +123,7 @@ public:
 	bool m_match;
 };
 
-class PartitionManager
-{
-public:
-	Object *getClosestObject(const Coord3D *pos, float maxDist, int dc, Rva000421C8 *filter);
-};
+#include "../../../../Common/PartitionRangeQueryCallView.h"
 extern PartitionManager *ThePartitionManager;
 
 

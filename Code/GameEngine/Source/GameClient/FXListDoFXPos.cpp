@@ -26,11 +26,7 @@ enum CellShroudStatus
 	CELLSHROUD_SHROUDED
 };
 
-class PartitionManager
-{
-public:
-	CellShroudStatus getShroudStatusForPlayer(Int playerIndex, const Coord3D *pos) const;
-};
+#include "../Common/PartitionRangeQueryCallView.h"
 
 extern PartitionManager *TheShroudManager;
 // TheShroudManager: matched references place it at VA 0xdfe74c (zero-filled .bss).

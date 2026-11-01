@@ -938,14 +938,7 @@ struct FindPositionOptions
 	const Object *relationshipObject;
 };
 
-class PartitionManager
-{
-public:
-	Object *getClosestObject(const Coord3D *pos, float maxDist, Int dc, Rva000421C8 *filters);	///< pinned 0x00625360
-	// 0x00285202 is called with no this and cleans no stack (cdecl, three
-	// arguments): BFME2's findPositionAround is static. Name from Zero Hour.
-	static Bool findPositionAround(const Coord3D *center, const FindPositionOptions *options, Coord3D *result);
-};
+#include "../../../Common/PartitionRangeQueryCallView.h"
 
 extern PartitionManager *ThePartitionManager;
 

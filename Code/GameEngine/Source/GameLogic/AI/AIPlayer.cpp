@@ -500,14 +500,7 @@ struct FindPositionOptions
 	const Object *relationshipObject;
 };
 
-class PartitionManager
-{
-public:
-	Object *getClosestObject(const Coord3D *pos, float maxDist, int dc,
-		Rva000421C8 *filters);	// 0x00625360
-	static Bool findPositionAround(const Coord3D *center,
-		const FindPositionOptions *options, Coord3D *result);	// 0x00285202
-};
+#include "../../Common/PartitionRangeQueryCallView.h"
 extern PartitionManager *ThePartitionManager;
 
 class AISideInfo
