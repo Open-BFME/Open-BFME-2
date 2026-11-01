@@ -17,18 +17,7 @@
 typedef int Int;
 typedef float Real;
 
-class INI
-{
-public:
-	AsciiString getFilename() const;
-	Int getLineNum() const;
-	const char *getNextToken(const char *separators);
-	Real scanReal(const char *token);
-
-private:
-	char m_pad000[0x418];
-	const char *m_defaultSeparators;
-};
+#include "../../Include/Common/INI/INI.h"
 
 class VideoPlayerInterface
 {

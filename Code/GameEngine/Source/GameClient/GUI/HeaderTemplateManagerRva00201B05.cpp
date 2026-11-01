@@ -34,15 +34,7 @@ enum INILoadType
 	INI_LOAD_OVERWRITE = 1
 };
 
-class INI
-{
-public:
-	INI();
-	~INI();
-	unsigned char loadFile(AsciiString filename, INILoadType type, Xfer *xfer);	// 0x0002DC75 returns 1
-private:
-	char m_pad[0x87C];
-};
+#include "../../../Include/Common/INI/INI.h"
 
 typedef char INISizeCheck[(sizeof(INI) == 0x87C) ? 1 : -1];
 

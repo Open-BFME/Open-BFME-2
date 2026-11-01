@@ -238,12 +238,7 @@ extern Display *TheDisplay;
 
 struct FieldParse;
 
-class INI
-{
-public:
-	void initFromINI( void *what, const FieldParse *parseTable );
-	static void parseInGameUIDefinition( INI *ini );
-};
+#include "../../Include/Common/INI/INI.h"
 typedef void (*INIBlockParse)( INI *ini );
 
 // inihelp.cpp: loads every INI file the legend lists under the name.

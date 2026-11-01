@@ -20,14 +20,7 @@
 
 #include "ascii_string.h"
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps = 0);
-	const char *getNextSubToken(const char *expected);
-	float scanReal(const char *token);
-	int scanIndexList(const char *token, const char *const *names);
-};
+#include "../../Include/Common/INI/INI.h"
 
 #include "../../Include/Common/INI/FieldParse.h"
 

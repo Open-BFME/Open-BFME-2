@@ -124,13 +124,7 @@ struct FieldParse
 	const void *data;
 	unsigned int offset;
 };
-class INI
-{
-public:
-	void initFromINI(void *what, const struct FieldParse *table);
-	static void parseIndexList(INI *, void *, void *, const void *);
-	static void parseReal(INI *, void *, void *, const void *);
-};
+#include "../../../../Include/Common/INI/INI.h"
 namespace FXParticleSystem {
 // Export names the five-entry native enum table at C1B6C4; the null terminator
 // and next datum bound its complete 20 bytes.

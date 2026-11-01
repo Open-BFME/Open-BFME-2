@@ -29,23 +29,7 @@ public:
 	~INIException();
 };
 
-class INI
-{
-public:
-	static void parseWeatherDefinition(INI *ini);
-	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
-	static void parseBool(INI *ini, void *instance, void *store, const void *userData);
-	static void parseCoord2D(INI *ini, void *instance, void *store, const void *userData);
-	static void parseGameClientRandomVariable(INI *ini, void *instance, void *store, const void *userData);
-	static void parseInt(INI *ini, void *instance, void *store, const void *userData);
-	static void parseRGBColor(INI *ini, void *instance, void *store, const void *userData);
-	static void parseReal(INI *ini, void *instance, void *store, const void *userData);
-	void initFromINI(void *what, const FieldParse *parseTable);
-
-private:
-	unsigned char m_pad00[8];
-	int m_loadType;						// +0x08, INI_LOAD_CREATE_OVERRIDES == 2
-};
+#include "../../Include/Common/INI/INI.h"
 
 class Overridable
 {

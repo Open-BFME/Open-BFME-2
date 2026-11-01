@@ -197,11 +197,7 @@ class Shadow;
 
 extern const FieldParse s_radiusDecalFieldTable[];
 
-class INI
-{
-public:
-	void initFromINI(void *what, const FieldParse *parseTable);
-};
+#include "../../Include/Common/INI/INI.h"
 
 typedef int Int;
 

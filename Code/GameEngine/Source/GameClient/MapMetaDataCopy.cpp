@@ -76,11 +76,7 @@ template void _STL::list<Coord3D, _STL::allocator<Coord3D> >::push_front(const C
 // parse a local Coord3D via rowed INI::parseCoord3D 0x0002F507 then push_front
 // it into the instance list at +0xA8/+0xAC. Same /O1 /Oy- shape as the rowed
 // SideFlags callbacks; honest Rva names, no donor class claimed.
-class INI
-{
-public:
-	static void parseCoord3D(INI *, void *, void *, const void *);
-};
+#include "../../Include/Common/INI/INI.h"
 struct Rva00534BAFHolder
 {
 	char m_pad[0xA8];

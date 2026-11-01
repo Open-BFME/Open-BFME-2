@@ -22,14 +22,7 @@ struct FontDesc
 	bool bold;
 };
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps = 0);
-	AsciiString getNextQuotedAsciiString();
-	Int scanInt(const char *token);
-	bool scanBool(const char *token);
-};
+#include "../../Include/Common/INI/INI.h"
 
 class GlobalLanguage
 {

@@ -21,15 +21,7 @@ static inline void _Construct(int *__p, const int &__val)
 
 #include "ascii_string.h"
 
-class INI
-{
-public:
-	AsciiString getNextAsciiString();
-	const char *getNextTokenOrNull(const char *seps);
-	const char *getNextToken(const char *seps);
-	bool scanBool(const char *token);
-	int scanIndexList(const char *token, const char *const *table);
-};
+#include "../../Include/Common/INI/INI.h"
 
 class Rva001DFEAABase
 {

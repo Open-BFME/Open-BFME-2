@@ -51,17 +51,7 @@ struct FieldParse
     int offset;
 };
 
-class INI
-{
-public:
-    void initFromINI(void *instance, const FieldParse *table);
-    static void parseIndexList(INI *ini, void *instance, void *store, const void *userData);
-    static void parseBool(INI *ini, void *instance, void *store, const void *userData);
-    static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
-    static void parseCoord3D(INI *ini, void *instance, void *store, const void *userData);
-    static void parseUnsignedInt(INI *ini, void *instance, void *store, const void *userData);
-    static void parseGameClientRandomVariable(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../Include/Common/INI/INI.h"
 
 namespace FXParticleSystem
 {

@@ -90,14 +90,7 @@ private:
 typedef const char *ConstCharPtr;
 typedef const ConstCharPtr *ConstCharPtrArray;
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-	float dup_002EE10(const char *token);
-	int scanIndexList(const char *token, ConstCharPtrArray nameList);
-	void initFromINI(void *what, const FieldParse *parseTable);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 extern ConstCharPtr g_00DC85C4[];
 extern "C" {

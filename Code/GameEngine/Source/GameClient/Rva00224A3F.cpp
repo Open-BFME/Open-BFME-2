@@ -47,11 +47,7 @@ BlockParse theAptButtonTooltipMapBlockParse = {
 };
 int g_00DFE6D8;	// retail RVA 0x009FE6D8 (.bss), defined here
 
-class INI
-{
-public:
-	void initFromINI(void *what, const FieldParse *parseTable);
-};
+#include "../../Include/Common/INI/INI.h"
 
 class Rva00224A3F
 {

@@ -260,12 +260,7 @@ public:
 // ZH donor MetaEvent.cpp MetaMap::parseMetaMap body; throw shape follows the
 // INI_parseUnsignedShort family (fill helper plus throwinfo anchor).
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-	void initFromINI(void *instance, const struct FieldParse *table);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
 
