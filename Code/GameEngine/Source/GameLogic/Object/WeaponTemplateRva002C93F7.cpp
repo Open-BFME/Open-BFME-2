@@ -19,15 +19,8 @@
 // entry proves semantics. No // cl: line: build defaults (-O2 -GR- -EHsc-)
 // match the frameless shape, same as Disp32DwordFieldGetters.
 class WeaponBonus;
-class WeaponTemplate
-{
-public:
-	int rva002C93F7(const WeaponBonus &bonus) const;
-private:
-	char m_pad[0x144];
-	int m_value144;
-};
+#include "../../../Include/GameLogic/WeaponTemplate.h"
 int WeaponTemplate::rva002C93F7(const WeaponBonus & /*bonus*/) const
 {
-	return m_value144;
+	return m_field144;
 }

@@ -11,9 +11,7 @@
 
 #include "object.h"
 
-class WeaponTemplate
-{
-};
+#include "../../../Include/GameLogic/WeaponTemplate.h"
 
 enum WeaponSlotType
 {

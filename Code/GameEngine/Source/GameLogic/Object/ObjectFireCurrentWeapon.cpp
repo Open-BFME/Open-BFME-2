@@ -64,18 +64,7 @@ enum ObjectPrivateStatusBits
 
 class Object;
 
-class WeaponTemplate
-{
-public:
-	bool getLocksSlotWhenFiring() const { return m_flag16F; }
-	int getValue78() const { return m_value78; }
-
-private:
-	unsigned char m_pad000[0x78];
-	int m_value78; // +0x78
-	unsigned char m_pad07C[0x16F - 0x7C];
-	bool m_flag16F; // +0x16F
-};
+#include "../../../Include/GameLogic/WeaponTemplate.h"
 
 #include "../../../Include/GameLogic/Weapon.h"
 

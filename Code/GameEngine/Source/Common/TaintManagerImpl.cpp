@@ -264,7 +264,7 @@ private:
 // 0x00262377: [ecx+4] -> the rowed false-returning const predicate folded at
 // 0x0047A699 (ledger spellings include WeaponTemplate::isContactWeapon and
 // the Xfer mode predicates; which one the original called is not proven).
-class WeaponTemplate { public: bool isContactWeapon() const; };
+#include "../../Include/GameLogic/WeaponTemplate.h"
 
 // 0x002B2964: [ecx+0xB0] -> Rva0020E3D6::rva0020E3D6(void *), passing the
 // one stack argument through to the callee's ret 4.

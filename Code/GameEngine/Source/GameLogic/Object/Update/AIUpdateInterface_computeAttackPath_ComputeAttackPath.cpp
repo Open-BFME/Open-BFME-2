@@ -165,7 +165,7 @@ class Path { public:
  void prependNode(const Coord3D*,PathfindLayerEnum,int);
  unsigned int pad; PathNode *head,*tail; Bool optimized, m_blockedByAlly; char rest[0x28-14];
 };
-class WeaponTemplate { public: Bool isContactWeapon()const; };
+#include "../../../../Include/GameLogic/WeaponTemplate.h"
 #include "../../../../Include/GameLogic/Weapon.h"
 // updateLastNode, rowed under its address name.
 class Rva003638BA

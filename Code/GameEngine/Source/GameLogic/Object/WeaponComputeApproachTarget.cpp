@@ -60,11 +60,7 @@ Real Sin(Real);									///< retail 0x0002FBB0
 
 class Object;
 
-class WeaponTemplate
-{
-public:
-	Real getMinimumAttackRange() const;			///< retail 0x002C92FA
-};
+#include "../../../Include/GameLogic/WeaponTemplate.h"
 
 #include "../../../Include/GameLogic/AIPathfind.h"
 

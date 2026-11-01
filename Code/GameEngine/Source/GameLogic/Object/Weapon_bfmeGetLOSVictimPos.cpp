@@ -12,11 +12,7 @@ struct Coord3D
 };
 
 struct TargetCoord;
-class WeaponTemplate
-{
-public:
-	TargetCoord adjustTargetPositionOnVictim(Object *, Object *, bool);
-};
+#include "../../../Include/GameLogic/WeaponTemplate.h"
 
 Coord3D::Coord3D(WeaponTemplate *weaponTemplate, const Object *source,
 	const Object *victim, int weaponSlot)

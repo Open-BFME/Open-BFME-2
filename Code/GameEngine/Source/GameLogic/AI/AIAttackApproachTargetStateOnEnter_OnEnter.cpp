@@ -491,21 +491,7 @@ class Rva002C9407ByteField
 public:
 	unsigned char get() const;
 };
-class WeaponTemplate
-{
-public:
-	Bool isContactWeapon() const;
-	unsigned char m_pad00[0x2C];
-	Real m_aimDelta; // +0x2C
-	Real m_aimOffset; // +0x30
-	unsigned char m_pad34[0x148 - 0x34];
-	Real m_continueAttackRange; // +0x148
-	unsigned char m_pad14C[0x161 - 0x14C];
-	Bool m_finishAttackOnceStarted; // +0x161 (keeps attacking a dead victim)
-	unsigned char m_pad162[0x16B - 0x162];
-	Bool m_16b; // +0x16B
-	Bool is16b() const { return m_16b; }
-};
+#include "../../../Include/GameLogic/WeaponTemplate.h"
 
 #include "../../../Include/GameLogic/Weapon.h"
 

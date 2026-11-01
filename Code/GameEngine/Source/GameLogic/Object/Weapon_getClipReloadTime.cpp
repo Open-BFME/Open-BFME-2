@@ -8,11 +8,7 @@ class WeaponBonus
 public:
 	float m_fields[6];
 };
-class WeaponTemplate
-{
-public:
-	int getClipReloadTime(const WeaponBonus &bonus) const;
-};
+#include "../../../Include/GameLogic/WeaponTemplate.h"
 #include "../../../Include/GameLogic/Weapon.h"
 int Weapon::getClipReloadTime(const Object *source) const
 {

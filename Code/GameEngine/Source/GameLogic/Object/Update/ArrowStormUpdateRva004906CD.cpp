@@ -25,11 +25,7 @@ public:
 	Coord3D m_pos38;
 };
 
-class WeaponTemplate
-{
-public:
-	Real getMinimumAttackRange() const;
-};
+#include "../../../../Include/GameLogic/WeaponTemplate.h"
 
 class WeaponBonus
 {

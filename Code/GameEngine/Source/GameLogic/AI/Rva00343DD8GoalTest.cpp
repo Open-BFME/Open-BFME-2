@@ -68,11 +68,7 @@ public:
 	unsigned char get() const;
 };
 
-class WeaponTemplate
-{
-public:
-	bool isContactWeapon() const;
-};
+#include "../../../Include/GameLogic/WeaponTemplate.h"
 
 class Weapon
 {

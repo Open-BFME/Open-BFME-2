@@ -1331,9 +1331,7 @@ extern "C" void _ReadWriteBarrier( void );
 
 extern double g_bfmeSubB3;
 
-class WeaponTemplate
-{
-};
+#include "../../../Include/GameLogic/WeaponTemplate.h"
 
 class WeaponStore
 {

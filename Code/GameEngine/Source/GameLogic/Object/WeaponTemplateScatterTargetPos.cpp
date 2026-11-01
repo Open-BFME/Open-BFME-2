@@ -102,17 +102,7 @@ private:
 };
 
 struct TargetCoord { float x,y,z; TargetCoord() {} TargetCoord(float a,float b,float c):x(a),y(b),z(c){} TargetCoord(const Coord3D &p):x(p.x),y(p.y),z(p.z){} };
-class WeaponTemplate
-{
-public:
-	TargetCoord adjustTargetPositionOnVictim(Object *, Object *, bool);
-	Coord3D bfmeCalcScatterTargetPos(const Object *source, const Object *victim, Coord3D pos);
-private:
-	char m_pad000[0x34];
-	Real m_scatterRadius; // +0x34
-	char m_pad038[0x14C - 0x38];
-	Real m_infantryInaccuracyDist; // +0x14C
-};
+#include "../../../Include/GameLogic/WeaponTemplate.h"
 
 //-------------------------------------------------------------------------------------------------
 Coord3D WeaponTemplate::bfmeCalcScatterTargetPos(const Object *source, const Object *victim, Coord3D pos)

@@ -30,17 +30,7 @@ public:
 	Real getField(Field field) const { return m_field[field]; }
 	Real m_field[6];
 };
-class WeaponTemplate
-{
-public:
-	Int getClipReloadTime(const WeaponBonus &bonus) const;
-private:
-	char m_pad00[0xE8];
-	Int m_minClipReloadTime;
-	Int m_maxClipReloadTime;
-	Int m_minDelayBetweenShots;
-	Int m_maxDelayBetweenShots;
-};
+#include "../../../Include/GameLogic/WeaponTemplate.h"
 Int GetGameLogicRandomValue(Int lo, Int hi, char *file, Int line);
 // Upstream basetype.h x87 conversion. Cast/floor, roundf, and SSE intrinsic
 // trials differed; the target uses this fld/fistp sequence after floor.

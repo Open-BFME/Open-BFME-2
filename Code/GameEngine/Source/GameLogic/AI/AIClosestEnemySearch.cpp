@@ -249,7 +249,7 @@ enum WeaponSlotType { PRIMARY = 0 };
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 class Rva002CA9CA { public: float getProjectileNuggetRadiusIfAlliesAffected(const void *); };
 class Rva002C9400ByteField { public: unsigned char get() const; };
-class WeaponTemplate { public: bool isContactWeapon() const; };
+#include "../../../Include/GameLogic/WeaponTemplate.h"
 class Weapon { public: char pad0[4]; Rva002CA9CA *info; };
 class BodyModuleInterface : public QuerySlots<6> { public: virtual float getHealth() const = 0; };
 class GatePrimary : public QuerySlots<6> { public: virtual bool isOpen() const = 0; };

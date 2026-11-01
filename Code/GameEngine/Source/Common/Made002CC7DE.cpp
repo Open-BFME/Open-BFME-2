@@ -309,9 +309,7 @@ struct ProjectileLookupBuckets {
 
 struct ProjectileLookupMap { unsigned char hashEqual[4]; ProjectileLookupBuckets buckets; };
 
-class WeaponTemplate
-{
-};
+#include "../../Include/GameLogic/WeaponTemplate.h"
 
 class WeaponStore
 {

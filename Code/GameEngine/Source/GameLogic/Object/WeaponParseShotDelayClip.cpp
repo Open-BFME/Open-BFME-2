@@ -43,12 +43,7 @@ extern float g_parseDurationMsecScale;
 
 typedef int (__cdecl *StrCmpFn)(const char *, const char *);
 
-class WeaponTemplate
-{
-public:
-	static void parseShotDelay(INI *ini, void *instance, void *store, const void *userData);
-	static void parseClipReloadTime(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/GameLogic/WeaponTemplate.h"
 
 // ?parseShotDelay@WeaponTemplate@@SAXPAVINI@@PAX1PBX@Z @0x002C9055 225B
 void WeaponTemplate::parseShotDelay(INI *ini, void *instance, void * /*store*/, const void * /*userData*/)

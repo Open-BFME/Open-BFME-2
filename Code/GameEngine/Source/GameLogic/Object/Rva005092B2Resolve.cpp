@@ -7,9 +7,7 @@
 #include "ascii_string.h"
 
 
-class WeaponTemplate
-{
-};
+#include "../../../Include/GameLogic/WeaponTemplate.h"
 
 class WeaponStore
 {

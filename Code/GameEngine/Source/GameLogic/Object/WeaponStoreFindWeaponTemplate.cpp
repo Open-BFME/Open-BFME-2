@@ -24,9 +24,7 @@ enum NameKeyType
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class WeaponTemplate
-{
-};
+#include "../../../Include/GameLogic/WeaponTemplate.h"
 
 class WeaponStore
 {

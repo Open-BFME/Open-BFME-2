@@ -59,7 +59,7 @@ void Rva005CC7DCOwner::rva005CC7DC() { m_target->rva005E3266(); }
 // 0x00262377: [ecx+4] -> the rowed false-returning const predicate folded at
 // 0x0047A699 (ledger spellings include WeaponTemplate::isContactWeapon and
 // the Xfer mode predicates; which one the original called is not proven).
-class WeaponTemplate { public: bool isContactWeapon() const; };
+#include "../../Include/GameLogic/WeaponTemplate.h"
 class Rva00262377Owner
 {
 public:

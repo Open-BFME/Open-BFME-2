@@ -21,14 +21,7 @@
 // Retail reads the range at +0x18 and subtracts 2.5f (VA 0xBCFB10);
 // the quarter-cell interpretation follows the donor.
 typedef float Real;
-class WeaponTemplate
-{
-public:
-    Real getMinimumAttackRange() const;
-private:
-    char m_pad00[0x18];
-    Real m_minimumAttackRange;
-};
+#include "../../../Include/GameLogic/WeaponTemplate.h"
 #define PATHFIND_CELL_SIZE_F 10.0f
 Real WeaponTemplate::getMinimumAttackRange() const
 {

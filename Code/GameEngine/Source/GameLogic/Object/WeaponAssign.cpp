@@ -14,19 +14,7 @@
 #define PI 3.14159265359f
 #define NO_MAX_SHOTS_LIMIT 0x7fffffff
 
-class WeaponTemplate
-{
-public:
-	__declspec(dllimport) __forceinline float getMinTargetPitch() const { return m_minTargetPitch; }
-	__declspec(dllimport) __forceinline float getMaxTargetPitch() const { return m_maxTargetPitch; }
-	__declspec(dllimport) __forceinline int getShotsPerBarrel() const { return m_shotsPerBarrel; }
-private:
-	char m_pad00[0x88];
-	float m_minTargetPitch; // +0x88
-	float m_maxTargetPitch; // +0x8C
-	char m_pad90[0x108 - 0x90];
-	int m_shotsPerBarrel; // +0x108
-};
+#include "../../../Include/GameLogic/WeaponTemplate.h"
 
 class Weapon
 {

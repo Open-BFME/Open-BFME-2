@@ -76,11 +76,7 @@ struct TargetCoord
 	TargetCoord(const Coord3D &position) : x(position.x), y(position.y), z(position.z) {}
 };
 
-class WeaponTemplate
-{
-public:
-	TargetCoord adjustTargetPositionOnVictim(Object *source, Object *victim, Bool flag);
-};
+#include "../../../Include/GameLogic/WeaponTemplate.h"
 
 TargetCoord WeaponTemplate::adjustTargetPositionOnVictim(Object *source, Object *victim, Bool flag)
 {

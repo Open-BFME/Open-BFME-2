@@ -43,15 +43,7 @@ class Object;
 
 extern GameLogic *TheGameLogic;
 
-class WeaponTemplate
-{
-public:
-	bool getLocksSlotWhenFiring() const { return m_flag16F; }
-
-private:
-	unsigned char m_pad000[0x16F];
-	bool m_flag16F; // +0x16F
-};
+#include "../../../Include/GameLogic/WeaponTemplate.h"
 
 #include "../../../Include/GameLogic/Weapon.h"
 
