@@ -547,16 +547,7 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_NONE = 1,
 	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
 };
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-private:
-	unsigned char m_pad14[0x20 - 0x14];
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 enum RepairStates
 {
 	REPAIRSTATE_NONE = 0,

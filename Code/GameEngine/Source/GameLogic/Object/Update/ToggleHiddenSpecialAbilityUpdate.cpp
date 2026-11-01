@@ -216,11 +216,7 @@ protected:
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 // +0x10 table 0x00C552C8: slot 0 is update.
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class UpdateModuleView : public ModuleView, public BehaviorModuleInterface, public UpdateModuleInterface
 {

@@ -153,7 +153,7 @@ struct AbilityObjectNode {AbilityObjectNode *next,*previous;ObjectID id;};
 class SpecialAbilityUpdate;
 class AbilityPrimary {public:virtual void v00();const SpecialAbilityUpdateModuleData *m_data;Object *m_object;};
 class AbilityOther {public:virtual void v00();};
-class UpdateModuleInterface {public:virtual UpdateSleepTime update()=0;};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 class AbilityInterfacePad {public:char pad04[0xC];};
 class SpecialAbilityUpdate:public AbilityPrimary,public AbilityOther,public UpdateModuleInterface,public AbilityInterfacePad {
 public:
