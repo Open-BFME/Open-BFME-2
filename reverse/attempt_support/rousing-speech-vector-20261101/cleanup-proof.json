@@ -1,0 +1,28 @@
+{
+  "parent": "??0RousingSpeechUpdateModuleData@@QAE@XZ",
+  "parent_rva": "0x4AD0EE",
+  "parent_eh": "EXACT",
+  "graph_placements": {
+    "$L5174": "0x78e457",
+    "$L5173": "0x78e44f"
+  },
+  "symbol": "$L5174",
+  "size": 14,
+  "next_label": [
+    22,
+    "__ehhandler$??0RousingSpeechUpdateModuleData@@QAE@XZ"
+  ],
+  "raw": "8b4dec81c1e4000000e900000000",
+  "relocations": [
+    [
+      10,
+      20,
+      "??1?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@XZ"
+    ]
+  ],
+  "resolved": "8b4dec81c1e4000000e90be889ff",
+  "retail": "8b4dec81c1e4000000e90be889ff",
+  "unresolved": [],
+  "masked": false,
+  "concrete": 14
+}

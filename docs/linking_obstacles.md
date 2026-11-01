@@ -10594,8 +10594,10 @@ ModifierName parser entry and current destructor/trigger establish AsciiString.
 All three constructor rows and the 31-row strict caller cohort pass. All nine
 whole external definitions retain their bytes, with symbolic relocations
 unchanged after the element-type substitution. The six-source preview retains
-3,364 linking bytes. The exact parent EH graph also places the 14-byte string
-cleanup at 78E457; its scaffold recovery is a separate step. The 8-byte cleanup
+3,364 linking bytes. The exact parent EH graph also proves the 14-byte string
+cleanup at 78E457. Its trial is four-row strict-exact, but approved placement
+requires the parent to join this TU first; the repoint is reverted before
+publication and the generated row stays intact. The 8-byte cleanup
 at 78E44F still requires reconciliation of its base-destructor owner. Evidence:
 `reverse/attempt_support/rousing-speech-tu-prerequisites-20261101/`.
 `reverse/attempt_support/rousing-speech-vector-20261101/` records the correction.
