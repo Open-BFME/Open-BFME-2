@@ -42,7 +42,7 @@ struct Rva00045411BitSet
 	unsigned int m_bits[7];
 };
 
-template <unsigned int NUMBITS> class BitFlags;
+template <int NUMBITS> class BitFlags;
 extern BitFlags<116> KINDOFMASK_NONE;
 
 class Rva0004584D : public Rva000421C8

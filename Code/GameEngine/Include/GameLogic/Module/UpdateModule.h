@@ -24,8 +24,8 @@
 // at 0x0024A797 have out-of-line owners.
 // Donor facts: Zero Hour UpdateModule.h names update, getUpdate, getUpdatePhase,
 // m_nextCallFrameAndPhase, m_indexInLogic, the wake/sleep helpers and the
-// SleepyUpdatePhase and UpdateSleepTime enum types. Common/BitFlags.h uses an
-// unsigned size_t template parameter; BFME2's getter row selects value 11.
+// SleepyUpdatePhase and UpdateSleepTime enum types. BFME2's getter row selects
+// BitFlags value 11; its parameter type is spelled as BodyModule.h spells it.
 
 #pragma once
 
@@ -38,7 +38,7 @@
 #endif
 #include "BehaviorModule.h"
 
-template <unsigned int NUM_BITS> class BitFlags;
+template <int N> class BitFlags;
 typedef BitFlags<11> DisabledMaskType;
 
 enum UpdateSleepTime;

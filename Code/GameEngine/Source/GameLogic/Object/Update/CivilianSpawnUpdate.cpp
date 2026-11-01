@@ -199,7 +199,7 @@ enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1, UPDATE_SLEEP_FOREVER = 0x3FFFFFFF 
 
 enum SleepyUpdatePhase;
 
-template <unsigned int N> class BitFlags;
+template <int N> class BitFlags;
 
 class CivilianSpawnUpdateModuleData;
 
