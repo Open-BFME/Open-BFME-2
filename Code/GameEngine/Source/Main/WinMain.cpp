@@ -983,12 +983,7 @@ Version *TheVersion;
 
 
 // TheGlobalData byte at +0xC74 selects the engine-first teardown below.
-class GlobalData
-{
-public:
-	unsigned char m_pad[0xC74];
-	bool m_bfmeTeardownEngineFirst;
-};
+#include "../../Include/Common/GlobalData.h"
 
 extern class GlobalData *TheWritableGlobalData;
 
@@ -1179,7 +1174,7 @@ extern "C" int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		delete TheVersion;
 		TheVersion = 0;
 
-		if (TheWritableGlobalData->m_bfmeTeardownEngineFirst)
+		if (TheWritableGlobalData->field0C74)
 		{
 			if (TheGameEngine)
 			{

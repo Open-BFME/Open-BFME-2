@@ -158,12 +158,7 @@ public:
 	void rva00069CE6(const Rva000E3A8D &cameras, Int arg);
 };
 
-class GlobalData
-{
-public:
-	unsigned char m_pad0[0xEA0];
-	Int m_ea0;	// +0xEA0
-};
+#include "../../../../GameEngine/Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
 extern unsigned char g_00DFE7A8;
@@ -206,7 +201,7 @@ void Rva000E3B41::rva000E3CE1(const Rva000E3A8D &cameras, Int arg)
 	}
 	else
 	{
-	if (cameras.size() != m_cameraPositions.size() || TheWritableGlobalData->m_ea0 != 0)
+	if (cameras.size() != m_cameraPositions.size() || TheWritableGlobalData->field0EA0 != 0)
 	{
 		m_camerasMoved = true;
 	}

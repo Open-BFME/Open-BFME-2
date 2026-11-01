@@ -30,12 +30,7 @@ class CameraClass;
 class RTS3DScene;
 struct IDirect3DSurface8;
 
-class GlobalData
-{
-public:
-	char m_pad00[0x62];
-	bool m_useShadowMap;	// +0x62
-};
+#include "../../../../../GameEngine/Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
 struct Db12
@@ -283,7 +278,7 @@ private:
 
 void W3DShadowMapManager::UpdateShadowMap(RTS3DScene *scene)
 {
-	if (!TheWritableGlobalData->m_useShadowMap)
+	if (!TheWritableGlobalData->m_useShadowMapping)
 		return;
 
 	if (m_needsReset || (m_renderTarget.Ptr != 0 &&
@@ -339,7 +334,7 @@ bool WW3D::IsCurrentlyRenderingShadowMap = false;
 // locator; no synthetic parent or independently callable cleanup is introduced.
 bool Rva0007DA23ResourceManager::ReAcquireResources()
 {
-    if (!TheWritableGlobalData->m_useShadowMap)
+    if (!TheWritableGlobalData->m_useShadowMapping)
         return true;
     if (!target.Referent)
     {

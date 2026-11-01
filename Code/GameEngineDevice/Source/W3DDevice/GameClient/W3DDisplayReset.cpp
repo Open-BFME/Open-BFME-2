@@ -40,16 +40,7 @@ protected:
 	static IDirect3DDevice8 *D3DDevice;
 };
 
-class GlobalData
-{
-public:
-	unsigned char m_pad000[0x62];
-	Bool m_flag62;			// +0x62
-	unsigned char m_pad063[0x98 - 0x63];
-	Real m_value98;			// +0x98
-	unsigned char m_pad09C[0xBBD - 0x9C];
-	Bool m_flagBBD;			// +0xBBD
-};
+#include "../../../../GameEngine/Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
 extern int g_bfmeDisplayAnimationSyncClock;
@@ -108,7 +99,7 @@ private:
 void W3DDisplay::reset()
 {
 	((Display *)this)->reset();
-	TheWritableGlobalData->m_flagBBD = false;
+	TheWritableGlobalData->field0BBD = false;
 
 	SceneIterator *sceneIter = m_3DScene->Create_Iterator();
 	sceneIter->First();
@@ -125,7 +116,7 @@ void W3DDisplay::reset()
 
 	m_isClippedEnabled = false;
 	if (TheWritableGlobalData)
-		TheWritableGlobalData->m_value98 = 0.0f;
+		TheWritableGlobalData->field0098 = 0.0f;
 	g_bfmeDisplayAnimationSyncClock = 0;
 	g_Va00DB3BDC = -1;
 
@@ -134,5 +125,5 @@ void W3DDisplay::reset()
 	if (hr)
 		Log_DX8_ErrorCode(hr);
 	Rva0012641FClear();
-	SimpleStreakRendererClass::Init(TheWritableGlobalData->m_flag62);
+	SimpleStreakRendererClass::Init(TheWritableGlobalData->m_useShadowMapping);
 }
