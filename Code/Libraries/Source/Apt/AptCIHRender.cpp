@@ -31,15 +31,7 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 #define APT_CIH_H "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h"
 #define APT_CIH_CPP "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptCIH.cpp"
 
-class EAStringC
-{
-    void *mpData;
-public:
-    EAStringC();
-    ~EAStringC();
-    EAStringC &operator=(const EAStringC &);
-    const char *rva00620090() const; // 0x00620090
-};
+#include "EAStringC.h"
 EAStringC *Rva0070B4F0GetString(int id);
 
 class AptString;

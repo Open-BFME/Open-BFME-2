@@ -51,7 +51,7 @@ public: static void operator delete(void *p,unsigned int n){g_pChainBlockAllocat
  AptStringObject(AptString *);virtual ~AptStringObject();virtual AptValue *objectMemberLookup(AptValue *const,const EAStringC *const) const;AptString *mpStringObject;
 };
 AptStringObject::AptStringObject(AptString *aptString) : AptObject((AptVirtualFunctionTable_Indices)42) {((AptValue *)aptString)->AddRef();mpStringObject=aptString;}
-class EAStringC {void *data;public:EAStringC(const char *);EAStringC(const EAStringC &);~EAStringC();EAStringC();const char *rva00620090() const;unsigned int rva006D3750() const;int rva006D36C0(const EAStringC *) const;bool rva006D3490(const char *) const;bool rva006D3510(const char *) const;};
+#include "../EAStringC.h"
 class AptError : public AptObject {
 public: static void operator delete(void *p,unsigned int n){g_pChainBlockAllocatorF4->freeBlock(p,n);}
  AptError(EAStringC);virtual AptValue *objectMemberLookup(AptValue *const,const EAStringC *const) const;virtual bool objectMemberSet(AptValue *const,const EAStringC *const,AptValue *const);EAStringC msMessage,msName;

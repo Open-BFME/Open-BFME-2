@@ -21,18 +21,7 @@ static __forceinline void aptAssert(const char *test,const char *file,int line){
 }
 #define CHARACTER_FILE "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptCharacter.cpp"
 #define CIH_FILE "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h"
-class EAStringC {
- void *data;
-public:
- EAStringC(); ~EAStringC(); EAStringC &clear();
- EAStringC &operator=(const EAStringC&);
- bool IsEmpty()const; const char *rva00620090()const;
- unsigned int rva006D3750()const;
- bool IsEqualTo(const EAStringC*)const;
- bool rva006D30D0(const EAStringC*)const;
- bool rva006D3510(const char*)const;
- EAStringC &MakeLower();
-};
+#include "EAStringC.h"
 class AptCIH;
 class Rva006DBB30SarDwordField {public:int get() const;};
 class AptValue {

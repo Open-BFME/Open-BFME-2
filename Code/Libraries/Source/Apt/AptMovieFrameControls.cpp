@@ -43,7 +43,7 @@ class AptCIH { public: char pad[0x4c]; AptCharacterInst *inst; const AptCIH *rva
 struct AptControlPlaceObject2 {int flags,depth,character; float matrix[6]; int cxform[2]; float ratio; const char *name;int clip;void *actions;};
 struct AptControl {int type; union {struct {int sprite,stream;} init; AptControlPlaceObject2 place; int value;};};
 struct AptFrame {int count; AptControl **controls;};
-class EAStringC {void *data; public:bool IsEqualTo(const EAStringC *) const;EAStringC();EAStringC(const char *);~EAStringC();EAStringC &operator=(const EAStringC &);};
+#include "EAStringC.h"
 class AptDisplayListState {public:void findInst(int,const EAStringC *,AptCIH **,AptCIH **);};
 class AptDisplayList {public:AptDisplayListState *state; AptCIH *placeObject(AptControlPlaceObject2 *,AptCIH *); void removeObject(int *);
  AptCIH *placeObjectNCXForm(AptCIH *,int,AptCharacter *,EAStringC *,AptCIH *,int,int,const unsigned int *,const float *,void *,float);

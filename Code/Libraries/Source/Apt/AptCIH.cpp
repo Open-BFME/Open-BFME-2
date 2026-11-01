@@ -116,19 +116,7 @@ BfmeNestedBE *bfmeUnlinkNestedBE(BfmeNestedBE *node);
 
  // 0x006F7090
 
-class EAStringC
-{
-public:
-    ~EAStringC();
-    bool IsEmpty() const;
-    const char *rva00620090() const;
-    EAStringC();
-    EAStringC &operator=(const EAStringC &);
-    EAStringC(const char *);
-
-private:
-    void *m_data;
-};
+#include "EAStringC.h"
 
 class Rva006DE350
 {

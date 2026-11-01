@@ -10,19 +10,7 @@ extern Rva006DB270 *g_pChainBlockAllocator;
 // Retail passes seven interpreter arguments; _AptGetAnimationAtLevel(0)
 // is a separate one-argument cdecl call. Both helpers have existing owners.
 // The string wrapper owns one data pointer and is destroyed on scope exit.
-class EAStringC {
- void *data;
-public:
- EAStringC();
- EAStringC(const EAStringC &other);
- const char *rva00620090() const;
- bool rva006CD4A0() const;
- bool rva006D30D0(const EAStringC *other) const;
- void rva006D3C60();
- EAStringC(const char *);
- ~EAStringC();
- EAStringC &operator=(const EAStringC &);
-};
+#include "EAStringC.h"
 class AptCIH;
 class AptValue {
 public:

@@ -83,11 +83,7 @@ public:
 	Rva007113B0Container *m_20;	// +0x20
 };
 
-class EAStringC
-{
-public:
-	const char *rva00620090() const;
-};
+#include "../../../Libraries/Source/Apt/EAStringC.h"
 
 // ?Rva007113B0@@YG_NPAVBfmeAptValue006DCD20@@PBVEAStringC@@0@Z @ 0x007113B0 (91B)
 bool __stdcall Rva007113B0(BfmeAptValue006DCD20 *target, const EAStringC *key, BfmeAptValue006DCD20 *value)

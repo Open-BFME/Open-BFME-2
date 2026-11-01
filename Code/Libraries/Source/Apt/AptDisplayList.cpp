@@ -30,12 +30,7 @@ public:
 	bool isCIH(bool bUndefinedOK) const;
 };
 
-class EAStringC
-{
-public:
-	bool IsEqualTo(const EAStringC *other) const;
-	bool IsEmpty() const;
-};
+#include "EAStringC.h"
 
 struct BfmeQueryNode1279
 {

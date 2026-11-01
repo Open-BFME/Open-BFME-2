@@ -282,26 +282,7 @@ Rva008A4AC0Object* Rva008A4AC0Second;
  
  
  
-class EAStringC {
-private:
-	void *data;
-public:
-	const char *rva00620090()const;
-public:
-	unsigned int rva006D3750()const;
-public:
-	bool rva006D3510(const char *)const;
-public:
-	EAStringC();
-public:
-	EAStringC &clear();
-public:
-	bool rva006D3490(const char *text) const;
-public:
-	EAStringC &Assign(const EAStringC &other);
-public:
-	~EAStringC();
-};
+#include "EAStringC.h"
 
 void __cdecl Rva006CC110Log(int level, const char *fmt, ...);
 

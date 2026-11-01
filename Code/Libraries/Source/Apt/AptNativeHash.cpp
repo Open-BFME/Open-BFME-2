@@ -27,20 +27,7 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 
 void __debugbreak();
 
-class EAStringC {
-public:
-    void rva006D3C20();
-    unsigned short rva006D2F40() const;
-    bool rva006D3560(const EAStringC *) const;
-    bool rva006D36F0(const EAStringC *) const;
-    void rva006D3CA0(const EAStringC *);
-    EAStringC &operator=(const EAStringC &);
-    unsigned int rva006D3750() const;
-    unsigned short rva006D3D10() const;
-    bool IsEmpty() const;
-    void rva006D3470();
-    const char *rva00620090() const;
-};
+#include "EAStringC.h"
 
 class AsciiString {
     void *m_data;

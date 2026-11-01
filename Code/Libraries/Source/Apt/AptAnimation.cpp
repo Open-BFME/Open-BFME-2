@@ -214,7 +214,7 @@ typedef int (__cdecl *AptLoadSoundFn)(void *,int,const char *);
 int Rva006CFDF0DecRef(int *);
 void bfmeDropVGO(void *);
 class Rva00894D80Accessor {public:static unsigned increment(unsigned *);};
-class EAStringC {void *data;public:EAStringC(const char *);~EAStringC();};
+#include "EAStringC.h"
 class Rva006D07E0Key {
 public:
  void *m_object;

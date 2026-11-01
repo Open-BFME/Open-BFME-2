@@ -12,7 +12,7 @@
 // Call6D1520 remains an opaque address-derived cdecl counted-value provider.
 extern "C" void _ReadWriteBarrier();
 
-class EAStringC {void *data;public:const char*rva00620090()const;};
+#include "../../../Libraries/Source/Apt/EAStringC.h"
 
 class Rva006E3E20Object {public:void rva006E3E20(void*,void*);};
 

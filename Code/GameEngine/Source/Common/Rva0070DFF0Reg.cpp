@@ -3,11 +3,7 @@
 // Evidence: EH frame with EAStringC "__INTERFACEs__" local; Table::add pin 0x0070B410
 // via this+8; byte flag at this+0x1C from second arg; ret 8 (Value* + uchar);
 // caller at 0x0070731F; Table size 0x14 puts flag at +0x1C.
-class EAStringC {
-public:
-    EAStringC(const char *s);
-    ~EAStringC();
-};
+#include "../../../Libraries/Source/Apt/EAStringC.h"
 class Rva8D0D80String;
 class Rva8D0D80Value;
 

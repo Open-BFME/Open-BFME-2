@@ -80,17 +80,7 @@ class AptInteger { public: static AptValue *Create(int); };
 
 class AptString { public: static AptString *Create(); };
 
-class EAStringC {
-    void *data;
-public:
-    EAStringC();
-    EAStringC(const char *);
-    ~EAStringC();
-    EAStringC &operator=(const EAStringC &);
-    EAStringC &clear();
-    EAStringC &Rva006D50A0Append(const char *);
-    const char *rva00620090() const;
-};
+#include "EAStringC.h"
 
 class BfmeAptValue006DCD20 {
 public:

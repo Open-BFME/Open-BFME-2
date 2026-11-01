@@ -47,11 +47,7 @@ int AptCharacterAnimationInst::getSwfVersion()
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char*, const char*, int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
 void __cdecl Rva006CC110Log(int,const char*,...);
-class EAStringC {
-    void* data;
-public:
-    const char* rva00620090() const;
-};
+#include "EAStringC.h"
 struct Rva006E32E0Entry { const char* name; int slot; };
 struct Rva006E32E0Table {
     char pad00[0x14];

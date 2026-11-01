@@ -91,7 +91,7 @@ AptValue *AptKey::sMethod_isToggled(AptValue *,int)
  return AptBoolean::Create(false);
 }
 
-class EAStringC {void *data;public:EAStringC(const char *);~EAStringC();EAStringC &operator=(const EAStringC &);const char *rva00620090()const;unsigned int rva006D3750()const;};
+#include "../EAStringC.h"
 struct BfmeW1229 {const char *name;int value;};
 const BfmeW1229 *bfmeFind1229(const char *,unsigned int);
 class AptInteger {public:static AptValue *Create(int);};

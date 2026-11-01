@@ -129,30 +129,7 @@ struct FrameSprite {
 // +0x30/+0x34/+0x38/+0x20/+0x40/+0x44/+0x48/+0x70/+0x68 and +0x74 bit ops via
 // g_00E1771C. Evidence: same vtable and offsets as dtor TU; callees rowed
 // clear 0x006D2F90; caller 0x006F87A0; neighbours share /O2 Apt pool flags.
-class EAStringC
-{
-public:
-	class StringDataC { public: unsigned short m_uRefCount; unsigned short m_uSize; unsigned short m_uMaxSize; unsigned short m_uHash; };
-	EAStringC();
-	EAStringC(const char *);
-	EAStringC(const EAStringC &);
-	static void FreeData(StringDataC *);
-	EAStringC &clear();
-	EAStringC &operator=(const EAStringC&);
-	~EAStringC();
-	int GetAt(int) const;
-	bool IsEmpty() const;
-	unsigned int rva006D3750() const;
-	bool IsEqualTo(const EAStringC*) const;
-	bool rva006D30D0(const EAStringC*) const;
-	bool rva006D3510(const char*) const;
-	EAStringC &MakeLower();
-	EAStringC &Rva006D4F00Append(const EAStringC &other);
-	const char *rva00620090() const;
-	int rva006D54B0(int,int);
-private:
-	StringDataC *data; // +0x00
-};
+#include "EAStringC.h"
 
 // Native callers invoke the 16-byte default constructor at 0x006D2F90, folded with
 // clear; it roots the string at the empty singleton (RVA 0x009DC020 / VA

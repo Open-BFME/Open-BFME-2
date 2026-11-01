@@ -10,12 +10,7 @@
 class BfmeNode1279;
 struct BfmeKey1279;
 
-class EAStringC
-{
-public:
-	EAStringC(const char *s);
-	~EAStringC();
-};
+#include "../../../Libraries/Source/Apt/EAStringC.h"
 
 class BfmeAptValue006DCD20
 {

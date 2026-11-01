@@ -227,16 +227,7 @@ class AptValue;
 
 extern "C" int __cdecl atoi(const char *);
 
-class EAStringC
-{
-	void *m_pData;
-
-public:
-	EAStringC();
-	EAStringC &clear();
-	const char *rva00620090() const;
-	~EAStringC();
-};
+#include "EAStringC.h"
 
 class BfmeAptValue006DCD20
 {

@@ -114,12 +114,7 @@ class AptValue; extern AptValue *gpUndefinedValue;
 class EAStringC;
 
 // EAStringC global used as the scratch key buffer at VA 0x00E18060.
-class EAStringC
-{
-public:
-	void rva006D3470();
-	const char *rva00620090() const;
-};
+#include "../../../Libraries/Source/Apt/EAStringC.h"
 extern void *g_eaStringAtE18060Storage;
 
 // The qsort comparators at VA 0x00AD9D70 / 0x00AD9E40 / 0x00AD9F70; only their

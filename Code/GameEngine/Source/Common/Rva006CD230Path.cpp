@@ -8,11 +8,7 @@ extern "C" char *__cdecl strcpy(char *dest, const char *src);
 extern "C" unsigned int __cdecl strlen(const char *text);
 #pragma intrinsic(strcpy, strlen)
 
-class EAStringC
-{
-public:
-	const char *rva00620090() const;
-};
+#include "../../../Libraries/Source/Apt/EAStringC.h"
 
 struct Rva006CD230Node
 {

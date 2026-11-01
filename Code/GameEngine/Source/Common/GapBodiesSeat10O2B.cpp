@@ -46,12 +46,7 @@ int Rva00698A30(const Rva00698A30Record *record)
 
 // ?rva006D6350@Rva006D6350@@QAEAAVEAStringC@@ABV2@@Z @0x006D6350 8B: assign
 // the +0x08 EAStringC through the rowed EAStringC::operator= 0x006D3030.
-class EAStringC
-{
-	void *m_data;
-public:
-	EAStringC &operator=(const EAStringC &other);
-};
+#include "../../../Libraries/Source/Apt/EAStringC.h"
 class Rva006D6350
 {
 public:

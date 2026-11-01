@@ -12,11 +12,7 @@ public:
 	bool isUndefined() const;
 };
 
-class EAStringC
-{
-public:
-	bool IsEmpty() const;
-};
+#include "../../../Libraries/Source/Apt/EAStringC.h"
 
 struct BfmeKey1279
 {

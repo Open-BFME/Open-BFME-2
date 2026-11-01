@@ -59,7 +59,7 @@ struct AptTailBlock
 class EAStringC;
 class AptValue {public:AptValue *findChild(const EAStringC *,AptValue *);};
 class AptCIH;
-class EAStringC { public: const char *rva00620090() const; unsigned short *data; };
+#include "EAStringC.h"
 struct AptFileRecord { int unknown0; int size; EAStringC name; };
 struct AptFileSlot { AptFileRecord *file; };
 class AptCharacterInst { public: virtual void slot0(); virtual ~AptCharacterInst(); virtual void slot8(); };

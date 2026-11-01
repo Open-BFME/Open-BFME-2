@@ -64,15 +64,7 @@ public:
   }
 
 };
-class EAStringC {
-  void *data;
-
-public:
-  EAStringC() { clear(); }
-  EAStringC &clear();
-  ~EAStringC();
-  EAStringC &operator=(const EAStringC &);
-};
+#include "../../../Libraries/Source/Apt/EAStringC.h"
 class Rva006EB4B0 {
 public:
   EAStringC font;

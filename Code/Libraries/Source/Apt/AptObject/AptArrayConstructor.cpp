@@ -90,7 +90,7 @@ inline void AptArray::set(int nIndex,AptValue *value) {
  mnLength=newLength>mnLength?newLength:mnLength;
 }
 
-class EAStringC { void *mpData; public: void rva006D3470(); EAStringC(const char *); EAStringC &Rva006D4F00Append(const EAStringC &); EAStringC &Rva006D50A0Append(const char *); EAStringC(); ~EAStringC(); EAStringC &operator=(const EAStringC &); unsigned int rva006D3750() const; const char *rva00620090() const; bool rva006D3510(const char *) const; };
+#include "../EAStringC.h"
 class AptInteger { public: static AptValue *Create(int); int GetInt() const; };
 struct R4Word { const char *name; int nIndex; };
 const R4Word *Rva008B8AD0(const char *,unsigned int);

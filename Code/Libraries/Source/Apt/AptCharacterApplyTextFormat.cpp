@@ -10,7 +10,7 @@ public:
 };
 class Rva006DB270;extern Rva006DB270 *g_pChainBlockAllocator;
 void Rva006D8680Free(void *,int);
-class EAStringC {void *data;public:bool IsEmpty()const;EAStringC &operator=(const EAStringC&);};
+#include "EAStringC.h"
 class Rva006EB4B0 {
 public:
  EAStringC font;union {float size;unsigned sizeBits;};int color,align;unsigned flags;int indent,left,right;

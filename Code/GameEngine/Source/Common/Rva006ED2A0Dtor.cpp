@@ -6,13 +6,7 @@
 // +0x1c/+0x18, base member +0x10 via 0x0070A840 plus 0x14 free. Evidence:
 // chain lane via freeBlock 0x006DB270; caller 0x006EFB90; sibling base
 // Rva006F8460Dtor shares base vtable/member pattern; same /O1 Apt pool family.
-class EAStringC
-{
-public:
-    ~EAStringC();
-private:
-    void *m_pData;
-};
+#include "../../../Libraries/Source/Apt/EAStringC.h"
 class Rva0070A840
 {
 public:

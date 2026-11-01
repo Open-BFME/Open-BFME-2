@@ -43,32 +43,7 @@ public:
     void *rva006E1170() const;
 };
 
-class EAStringC
-{
-public:
-    class StringDataC
-    {
-    public:
-        unsigned short m_uRefCount;
-        unsigned short m_uSize;
-        unsigned short m_uMaxSize;
-        unsigned short m_uHash;
-    };
-private:
-    StringDataC *data;
-public:
-    EAStringC();
-    EAStringC(const char *);
-    EAStringC(const EAStringC &);
-    EAStringC &clear();
-    EAStringC &operator=(const EAStringC&);
-    ~EAStringC();
-    EAStringC &Rva006D4F00Append(const EAStringC &other);
-    const char *rva00620090() const;
-    int GetAt(int) const;
-    unsigned int rva006D3750() const;
-    int rva006D54B0(int,int);
-};
+#include "EAStringC.h"
 extern EAStringC::StringDataC g_eaEmptyStringData;
 // Native callers invoke this 16-byte constructor at 0x006D2F90, folded with
 // clear; it roots the string at the empty singleton (RVA 0x009DC020 / VA

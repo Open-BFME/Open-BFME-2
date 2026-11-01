@@ -3,13 +3,7 @@ class Rva006DB270 { public: void freeBlock(void *, int); };
 extern Rva006DB270 *g_pChainBlockAllocator;
 // The independent EAStringC providers prove the 4-byte string ABI used
 // by the 6D0660 comparison: C-string ctor6D4C80 equal6D3090 dtor6D3010.
-class EAStringC {
-public:
- EAStringC(const char *);
- ~EAStringC();
- bool IsEqualTo(const EAStringC *) const;
- void *data;
-};
+#include "EAStringC.h"
 struct Rva006D0280 {
  ~Rva006D0280();
  int m_useCount;

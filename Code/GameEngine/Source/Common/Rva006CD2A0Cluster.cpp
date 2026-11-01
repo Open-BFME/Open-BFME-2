@@ -72,11 +72,7 @@ public:
 	AptCIH *c_cih(bool undefinedOK);
 	void rva006DE870(char *buffer) const;
 };
-class EAStringC
-{
-public:
-	bool IsEmpty() const;
-};
+#include "../../../Libraries/Source/Apt/EAStringC.h"
 struct Rva006CD2C0Pool
 {
 	char pad[0x68];

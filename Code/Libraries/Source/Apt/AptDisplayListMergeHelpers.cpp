@@ -3,7 +3,7 @@
 // AptMovieFrameControls.cpp/6F9410 bank supplies old PlaceObject2 semantics.
 // Native node0/control flags4/name34, info0..1A, depth17/created14 atCIH58.
 // The original helper spelling is unproven; callback/provider names are owned.
-class EAStringC {void *data;public:EAStringC();EAStringC(const char*);~EAStringC();EAStringC&operator=(const EAStringC&);bool IsEmpty()const;};
+#include "EAStringC.h"
 class AptCIH;
 class AptValue {public:virtual void AddRef();virtual void Release();bool isUndefined()const;};
 class Rva006DBB30SarDwordField {public:int get()const;};

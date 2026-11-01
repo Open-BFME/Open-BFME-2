@@ -23,7 +23,7 @@ class Rva006DB270 {public:void freeBlock(void *,int);};
 
 extern Rva006DB270 *g_pChainBlockAllocator;
 
-class EAStringC {void *data;public:EAStringC(const char *);~EAStringC();};
+#include "EAStringC.h"
 
 class AptValue;
 

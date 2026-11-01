@@ -7,7 +7,7 @@
 // never constructed; the original full Date layout is not needed or claimed.
 // The37 cache fields reuse the owned plain-data view from AptDate.cpp.
 class AptValue {public:virtual void AddRef();virtual void Release();};
-class EAStringC {void *data;public:const char *rva00620090()const;unsigned int rva006D3750()const;bool rva006D3510(const char *)const;};
+#include "EAStringC.h"
 class BfmeAptValue006DCD20 {public:void setGCRootCount(unsigned int);};
 class Rva006D2A60 {public:void *allocBlock(int);void freeBlock(void *,int);};
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;

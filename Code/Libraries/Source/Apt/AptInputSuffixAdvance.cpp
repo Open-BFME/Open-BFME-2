@@ -7,7 +7,7 @@
 // Static parser remains in the callers' TU for MSVC's register convention.
 extern "C" int __cdecl isdigit(int);
 extern "C" int __cdecl atoi(const char*);
-class EAStringC {void *data;public:bool IsEmpty()const;const char *rva00620090()const;unsigned int rva006D3750()const;};
+#include "EAStringC.h"
 class AsciiString;
 class BfmeAptValue006DCD20 {public:bool isCIH(bool)const;BfmeAptValue006DCD20 *rva006DCF60(bool);bool isUndefined()const;};
 class Rva006DBB30SarDwordField {public:int get()const;};

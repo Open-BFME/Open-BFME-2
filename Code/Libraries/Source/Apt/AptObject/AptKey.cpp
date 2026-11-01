@@ -62,7 +62,7 @@ public:
  static AptValue *sMethod_removeListener(AptValue *,int);
 };
 
-class EAStringC {void *data;public:EAStringC(const char *);~EAStringC();EAStringC &operator=(const EAStringC &);const char *rva00620090()const;unsigned int rva006D3750()const;};
+#include "../EAStringC.h"
 
 struct BfmeW1229 {const char *name;int value;};
 
